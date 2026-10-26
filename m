@@ -1,100 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792975053;
-	b=JopmkhG+8VJBrLxnBtwTamJSuG22YnpCI227ijxzzb9KF4dEJZKuohb7UwoFedm+/ql+
-	 cqQjS9QJiEXIryCOVYcM8PqFyO9a1FUXGhgLY9ukAI/mbac/IF3HG0Fzh5WhT5ZJ+w53Z
-	 BoJXvP0mmrmU+CHoqoTNSoTDc9zLj+ohRs5K17MIPy+5HMudSckw6T7m2NXAtHjuyMbaF
-	 4oWmfKiS1eCN56A/UhYgzyyEOApvYlkN2q1pelF8yXMzQ8UTYD5/LTj54tG/wKN0Kh1zV
-	 ltg6a/pGJ4oCy6fqw2D729iIFFuFx5rAWUuR/NQqRDTZnXWB187275jvi/nK82si1PQ==
+	t=1792975075;
+	b=b/3IVKLoMUcy2G3QLOue+d0gIsDUCtI3rPzaXDte7Zoi/YPtIc3Dd+iO1IvrfAgwnVQN
+	 8uFreIHMe78yRBhm3b++TSTnbF4pjh5451BmPFEj2hhKt0foeijpj8gEm9wQ8hLBD4ETj
+	 liC2jyJLWjO5TMrCWcjtfTmxOj1Uiju27izniiSxPab3VmK2SdGyOBdpqeu39Tscn94of
+	 zapNKlJwHVkb5J9ebRNY41Am7/UHYf1aaLyb0bd5TyVzEgjn0uBwMY+xKovOHth4Wpz2K
+	 eZhsC9SFkVPzQXIvXHnOvsadOi+v09PulAZLzkch9ZeE7cVr1vGcNGycyrxLDuXrDtQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792975053;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Sender:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=/r2wCtdnrDJsEXzwIAQNFz7BfQauVg6nVHFaCnIJdp0=;
-	b=EW9vurYv2ZgVxbYDUIqzqbvvuKmWkRTnHAA61fDF3OyWFloYxQjuKMAP4l3z++XSaT4m
-	 gCW/QV0mnEpJ9zSrAXKQSPxb7F0nqOw7OdrMZOBWr1qChQYg/BPeIKoOrpDhIwDug2Jcx
-	 opqq5GrUUhUi/wu97DzwHiOuRiavujlSDXnxRPM/yhXKieukcTkj0Xs6GOESVvtK9BFLB
-	 4lSGyEArZuI9owFPdoFSMCxdlyRcKD5D++9rJsxJqjaMpjnJwO5fL5q7TUPLPoH+AyP3M
-	 11rLdHptJ7EgviEwS7sJLMuPMcfJG95VnRdx6glcselsGvyrh+pgEyot3fRIhC3Kz2A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792975075;
+	h=Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:Date:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=3OpWhHDiC0q0IeZapx7WAsAnnypbwyXltg3+JfcCVTY=;
+	b=qyEak75youwFw1vCx4YKhU1AICtfR8wIKV/S/uMGNv+wRkm144xwAIARv19BsVQmROOI
+	 tmutKqQqdUsqxTEhtJpZp2PU4JIgzsLIlgVMOzzcIs9cgEwskgLfII1cEUEj1rVYs0Cpa
+	 nXZn1xpjczTm0k1rSjlQ2K0OzHyIn+mcZ4MjpGoAqZoxeH0QpgwDKDWv9JFF88rfw5Wj/
+	 srnNi8gAs7LXCLpS17iG1Z7fHdIFEF3U24UramC1wpruXzm1Eq6oGReB1w5xlH/t8D/6h
+	 x0LLUJQuiR7HbQm3zhn7RyBlQflUEcVg3llMzeIq8KPc1uWG+aZZrBxLfc6Hgeu6B8g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=kQ4KO2JE;
-	arc=none smtp.remote-ip=209.85.216.47
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mniVaYXS;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C0C3606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 00:37:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C0C3606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 365BF606A31A;
+	Mon, 26 Oct 2026 00:37:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=kQ4KO2JE
-Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3ac6794fe45so1895139a91.0
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 17:37:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792975053; x=1793579853; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=/r2wCtdnrDJsEXzwIAQNFz7BfQauVg6nVHFaCnIJdp0=;
-        b=kQ4KO2JEql3oihR/SCtBt1vJKCgrVRl25/fb2gLlEZFJPuafW+8/uX0PuylfUgsOeQ
-         ZBiFgxQamRcLUW/InXMrst3KtjE4PFLNoUmTzwWab9UKnsDnwpjniuqfFR7LRGOSs54E
-         NDBHGmnbJtXdkmD81sndY+WXvXwNHCUvdPBon1Iz5VJlwYL7PLSbJxnoLzmSJY72zX9u
-         VDw+njuTy+YQhTtd3HZqwgQvEO0eQ6c4VExJt78JybsY6X3judkiVcwhlQCUBSLwGfSe
-         jSauTJB8gN2PthrXekPk0v2YN0Trk3OUmhj9F0TzJyV4FcQl9D6vwG21LroJpTEuVOIT
-         +0XQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792975053; x=1793579853;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/r2wCtdnrDJsEXzwIAQNFz7BfQauVg6nVHFaCnIJdp0=;
-        b=2Nh6+bRptxc3noZMmah0mcAC6hlqMFiB1GYGVm2NOb7poEGwKNXbivosnCHIXDOjDS
-         m3GLi3Mm0/f9/gxSxmRtifqMW9xIGRGEMLjZ23UDMIgteIaPuk0Iz+IIE9mrcDLCH6Hf
-         miXCPwzhq3tWpgOwm9gKnlMb+kl1fiBL494RZA7gFBxZFoHC8TyAlESoCzMC3MyiWu6U
-         /evJdh2IFQ7R31VqmvVnt9kRK0MjigUoNwtrClEyhrM89UsV/ZuXY0Wh2k3hkK3HfUqn
-         7nYhPMfZY4b5lvDxUbsqcduna5SXBVc9SpSdT1nxV0N6e7HiInNVuxWeF69+umv07eLB
-         dL6A==
-X-Forwarded-Encrypted: i=1; AKwUvBzmCQ+mclw6/n2zTWDxY1HLSDzc0+Gc+tNDYPP8Mw8N5oPaPO76AP6/TO6gp+ipewfTkkob1piW9L5H2x0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKCNzQ7XULUxgWipt/CX+DmWTF5tdRFjF0z8VuTqv5uEkA9F+NM
-	zxdULrL43DNnJQloU738o6Bz3/mauucMpDgoCAO7ZHoucmw0qknnoU/W
-X-Gm-Gg: AYBFou3d32kjDTQtHq5qbxhoyfQDBrpfnUvF9OB05jJussi6m/oGy+nW9Jaga/kXTEJ
-	/vU0bOUuDkaqff2qv07hIL0exLV3Dg4X6ERkoP+oN808X33nPco6ATkRbgWy3rBLk7DmHsyljjJ
-	SC1+rSPRvv0CT10JNQi/Q3YiAg3Pk/WY5LCZyqZrvmu1FwJZ3+qvAW+ErTNf77SVySik2rMkoXx
-	WQRNXVD7IZgNAn58yARkY2u+QeYdPKpkVPcbTtY8irbwUurQ1unnNT1q7MuEJQsc5rQMTw7dZy+
-	0o7OkPa5qDzQBhDcYFk7QTGyKVAECqO4HTLOHNhhWPhds295EdBzFuFSHa4cBV3oucIEXBtK665
-	rnf3lzQLHw6Xq+7iGiQoUxIYZ+rDhUwUEGV85qZgHeI/eXkUhAF5zuptE0vCC8SeHwjqAFFiDub
-	bc2BUoRlevZ7bTtm14hVZKOxNdikjfrv7VV7l2CDXZgLYYk2zeNhFtyYBMw5OAItl5JpuRMIR7j
-	5XgC1lOhh/1hUiCDYljPP0FOX6XWBOM6JGnoJoRYFUxCiYx/NNGKv/+rEz4nMqygeIixQ==
-X-Received: by 2002:a17:90b:17c9:b0:3ac:a139:1b14 with SMTP id 98e67ed59e1d1-3adeafc4fddmr4768147a91.57.1792975052754;
-        Sun, 25 Oct 2026 17:37:32 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae29c7e756sm600001a91.16.2026.10.25.17.37.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 17:37:32 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Sun, 25 Oct 2026 17:37:31 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Lars Petter Mostad <lars.petter.mostad@appear.net>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-hwmon@vger.kernel.org, linux-doc@vger.kernel.org
-Subject: Re: [PATCH v4 3/4] hwmon: (pmbus_core) Support relative encoding of
- vout related commands
-Message-ID: <30747603-76ac-4032-b3ce-4e24f1a5f55e@roeck-us.net>
-References: <20261020-hwmon-pmbus-fs1412-v4-0-27ece4e43d04@nexthop.ai>
- <20261020-hwmon-pmbus-fs1412-v4-3-27ece4e43d04@nexthop.ai>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mniVaYXS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41A1E1F01825;
+	Mon, 26 Oct 2026 00:37:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792975074;
+	bh=3OpWhHDiC0q0IeZapx7WAsAnnypbwyXltg3+JfcCVTY=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=mniVaYXSw+J4T6DIlCx0v+dCBHkQHE+jD8iQly4/+6u8gr05I/QdIA65+slb44n6O
+	 9WZ6CpkQOI+m5tX82JuJiWn+M4LhreXySfmykgGN3xgIsZow5JZWw7IhpiAcxioTpP
+	 3Ux/uuztLXPUrcz96IghTPYv86/O8MXXtuEUL1zHyaouaqGMWbicGydS9NzhsGyLb5
+	 I5TAkyc2pN4kVXYWXkPIXm0LuxtiUL1TNzHNuq5gEuxL2sdAAK9CDSmLfPUsoUZVrI
+	 4fwdVjMQ6earOBEL2T0vD6DYyPoB5E+INh71qMUz9DCu4TOtzt7iWHAQe0z/8HsNxP
+	 XtGh0M3kfE4Zg==
+Message-ID: <dc5e58c172ad4b4bab4b8e0a385c608245618a65.camel@kernel.org>
+Subject: Re: [PATCH] net/rds: hold IB device reference through deferred
+ cleanup
+From: Allison Henderson <achender@kernel.org>
+To: Eduard Zateev <hackerowskiy@gmail.com>
+Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+ pabeni@redhat.com,  horms@kernel.org, netdev@vger.kernel.org,
+ linux-rdma@vger.kernel.org,  rds-devel@oss.oracle.com,
+ linux-kernel@vger.kernel.org, 
+ syzbot+221e213bf17f17e0d6cd@syzkaller.appspotmail.com
+Date: Sun, 25 Oct 2026 17:37:53 -0700
+In-Reply-To: <20261023100206.126692-1-hackerowskiy@gmail.com>
+References: <20261023100206.126692-1-hackerowskiy@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.3-0ubuntu1.1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,30 +65,122 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261020-hwmon-pmbus-fs1412-v4-3-27ece4e43d04@nexthop.ai>
 
-On Tue, Oct 20, 2026 at 08:02:07PM -0700, Abdurrahman Hussain wrote:
-> From: Lars Petter Mostad <lars.petter.mostad@appear.net>
-> 
-> PMBus 1.3 allows for relative encoding of voltages in certain output
-> voltage related commands. These commands are encoded relative to
-> VOUT_COMMAND. Support this when encoding/decoding commands.
-> 
-> Signed-off-by: Lars Petter Mostad <lars.petter.mostad@appear.net>
-> [abdurrahman: rebased; check VOUT_MODE for 0xff before testing the
->  relative bit; use signed division and clamp the user value before
->  scaling; reject a VOUT_COMMAND that decodes to 0 or less, or above
->  INT_MAX mV, at probe and from the regulator, and scale the relative
->  limits by it without overflowing s64; update the cached VOUT_COMMAND
->  only after a successful write; decode the regulator margins with the
->  register they were read from, and in relative mode bound the output
->  voltage only by MFR_VOUT_MIN/MAX, since VOUT_MARGIN_LOW/HIGH move with
->  VOUT_COMMAND]
-> Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+On Fri, 2026-10-23 at 12:02 +0200, Eduard Zateev wrote:
+> RDS device teardown queues rds_ib_dev_free() on rds_wq. Hold a
+> reference to the underlying IB device until deferred cleanup releases
+> its resources. This prevents device removal from freeing it while the
+> work is running.
 
-Applied.
+Hi Eduard,
 
-Thanks,
-Guenter
+Thanks for the patch.  Some comments below:
+
+>=20
+> Reported-by: syzbot+221e213bf17f17e0d6cd@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=3D221e213bf17f17e0d6cd
+The report referenced here doesnt actually point to RDS, it's a warning in =
+rxe_pool_cleanup.
+Do you have a trace or a syz test result showing that the leftover rxe obje=
+ct is the RDS PD
+or MR and that this patch resolves the warning? Otherwise, I think the clos=
+es tag should be
+removed.
+
+> Signed-off-by: Eduard Zateev <hackerowskiy@gmail.com>
+> ---
+>  net/rds/ib.c | 8 +++++++-
+>  1 file changed, 7 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/net/rds/ib.c b/net/rds/ib.c
+> index 786f39169bc..597872e4fe9 100644
+> --- a/net/rds/ib.c
+> +++ b/net/rds/ib.c
+> @@ -115,6 +115,7 @@ static void rds_ib_dev_free(struct work_struct *work)
+> =20
+>  	kfree(rds_ibdev->vector_load);
+> =20
+> +	ib_device_put(rds_ibdev->dev);
+>  	kfree(rds_ibdev);
+>  }
+> =20
+> @@ -142,6 +143,12 @@ static int rds_ib_add_one(struct ib_device *device)
+>  				 ibdev_to_node(device));
+>  	if (!rds_ibdev)
+>  		return -ENOMEM;
+> +	/* Keep the device registered until the deferred cleanup completes. */
+> +	if (!ib_device_try_get(device)) {
+
+
+The commit message doesn't quite describe what this does. Holding the refer=
+ence doesn't stop
+the device from being freed while the work runs. It makes ib_unregister_dev=
+ice() block in
+disable_device() until the refcount reaches zero, which now only happens wh=
+en rds_ib_dev_free()
+calls ib_device_put(). For connections that wait is short, since rdma_cm te=
+ars them down during
+the same removal, but connections are not the only things that hold the rds=
+_ib_device.
+
+A registered MR keeps the reference it takes in rds_ib_get_mr() until rds_i=
+b_free_mr() drops
+it. That only happens once everything using the MR has let go. Including th=
+e socket (when it
+frees the MR or closes), and every queued message that uses it (when the pe=
+er acks it or the
+socket closes).=C2=A0 Those messages also survive connection drops (rds_sen=
+d_path_reset() requeues
+them), and with the=C2=A0 device gone the connection can't come back up ove=
+r it to get them acked.=C2=A0
+
+So with this patch,=C2=A0whoever is unregistering the device (rdma link del=
+ete, driver unload, PCI
+hot-unplug) blocks=C2=A0in disable_device() until the process that owns the=
+ socket lets go, which
+it may never do. It=C2=A0 also turns any leaked rds_ib_device reference int=
+o a permanent unregister
+hang. I have a fix=C2=A0for one such leak, a connection left attached at mo=
+dule unload, in the
+connection-lifetime=C2=A0series I've been iterating on, but it hasn't lande=
+d yet.
+
+Unfortunately this is not a simple fix, even after kref lands.=C2=A0To wait=
+ for the free safely,
+remove_one first needs a way to make the device's MRs be released, so that =
+the wait is
+guaranteed to finish.  The uek tree approach is a socket accounting feature=
+:
+
+https://github.com/oracle/linux-uek/commit/ba92066dbf13e573a292252ea07e686b=
+5104f091
+https://github.com/oracle/linux-uek/commit/dc4c8c665368bca276db02ba7071d2d3=
+fd653a10
+https://github.com/oracle/linux-uek/commit/fcd394a1095625a39c44aa709bd976c6=
+b9b98373
+
+You're certainly welcome to look at it, but it is a bigger rework of the re=
+moval path than
+this patch, and I'd rather not take a partial fix that turns the warning in=
+to a hang.
+
+Thank you for looking at this though!
+
+Allison
+
+> +		kfree(rds_ibdev);
+> +		return -ENODEV;
+> +	}
+> +	rds_ibdev->dev =3D device;
+> =20
+>  	spin_lock_init(&rds_ibdev->spinlock);
+>  	refcount_set(&rds_ibdev->refcount, 1);
+> @@ -180,7 +187,6 @@ static int rds_ib_add_one(struct ib_device *device)
+>  		goto put_dev;
+>  	}
+> =20
+> -	rds_ibdev->dev =3D device;
+>  	rds_ibdev->pd =3D ib_alloc_pd(device, 0);
+>  	if (IS_ERR(rds_ibdev->pd)) {
+>  		ret =3D PTR_ERR(rds_ibdev->pd);
+
