@@ -1,102 +1,123 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.54
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793058730;
-	b=OlVkDjAjmiLMVX9OcBHIEIaKdQ+h2WGXZEQWZBs/79t9lWDtTgBiJ8S5gmso1s4Kvhfc
-	 3u6v2tewq1E0F5QW7rGBP9zN+krfSdtsqEqqgGxkTA7MBX2TOEwzWlBBVg4aSFfhw+H0+
-	 2cekOb3ppnW3YQkp7quDvzEwpFDbehxLSk+C0llXHWv5yMmLJNYFS51ksqJtiBwlVExQk
-	 S+qcyVk2S4o2LlM9xRn53sZ1ZCO+DE6iHjCS7nZmCHKTKUNIWf/gfUeBO/P6PHnn8eOtC
-	 CmJhaqP03zWZpejhXvEbFTxjEnHQkOlQvBlvw6vpsMnJqc5g00Tej4xnkzf6LDN//WQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793058730;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=wkDgiw/AqsIfVPHoMoSGYbq8gYoliaNoZ6zCaoCS6us=;
-	b=j4Ria877XHKZfSBbrYiMxnK6buIqCmry/rRJCdqZODkYlKzTxiaGKltnyJsXZAjsB9HE
-	 jNN5Jf7H+pfW51YAGhvvwVVmq0zWg4j+KRxe4yz1rrTmwgmlZn269FrWjdNwJ+WejpodT
-	 Xyox1tu3qVpEs5pXA+thZCGwKCRF/8atEYPAVrN83s7t1qFf54v+sobmYq2lLy28QL2NH
-	 TqFQlQYC5DIz8HwijcK93PKCrrAY/fmCYaqsp9571fma7H3HV2LfQHWGDQIpYECRn+vcI
-	 bWv513tNNhrZahJ54/NmVsuEYuBlYESk3k9oqa7D/nH7OqHihqbBXVTi+4DlTmsJPJA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=IrwijN25;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.54
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793058815;
+	b=AIMl4cJr6gcF7kt17rKGXtCi2kDdZDiLyP8Y/iLUAOJoJvOgXscQ8x4Umz2sKij9HbWg
+	 /KDCkEU2SHhRX1yh1/x1SThrlrS9eHWPG6zqax/EEUySG5mhzm6zqiUiIdHlZ2nJjmQeq
+	 eC5EwsnCiIpv9fTP4/t7UR4VQg/2OYRjAmTlruClg7xkWw3l9EXnO/5YI0AxK72FwiCyx
+	 qRPodOAh7XSksWpp4O5RrxthOreRoRm2EVLLPJyFFaOzdGDAP44z6MyoZR/GQM3lo5xUL
+	 8rdW3VyAs6oDObbMQtL4niRrsJhPbnHxGH0RRkGOwMjwfB4OLf7DwlqVJwQwLwDOJtw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793058815;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Mailer:X-Mutt-Fcc;
+	bh=aHUF1M+fidDDJ3+WmYV9zM0U4gJMDdswMRaltUWboIo=;
+	b=nBmyAiYWZrFjWTqMJ/3At3tIn0eTR3swACbBpAs2+ebXG49PJKlS2DqoBw+kGvtJEAgQ
+	 67SInm7si2aQUvDfPp+BsNavHHQfghAA5kWru9LZGQrTKADHDLmvHdBcVjI3Gbvft6Ayr
+	 QQkY4m4TtRgpQJ+js1ZAONiKDfnre5MD6a602mYXa/rdeEwgb+8hWdCM6+y+pxWnTGAa4
+	 xoRsgA4bkRPmo/z0zFIyT6x8QtVDUafJPRIwqKoBPMNxmx8PH+h6IiUJHEca2aJMSYbq/
+	 lEW/mB4fJf+E9l6v/ySBk2IGmTCqpaSleUo7L45At+itzBO6pUOqtX1vTTbDkp8gcPw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Ce+9A87Z;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=N3u2ucHc;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1C26606A31F
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 23:52:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1C26606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BB52606A322
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 23:53:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3BB52606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=IrwijN25
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c34bff61551so525173566b.2
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 16:52:09 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793058728; cv=none;
-        d=google.com; s=arc-20260327;
-        b=WeRC4khsX8RGPQIuk1JMwp5u0Wu/3X52F1iun2fNMHsLyqW5qfA20DYahuQvNPEbqC
-         g5bbSX2vqMz33EIke/YzrE5ktHFpy3F9xR8amA4BZIBqzskLVFOj+StbZk3GKeN0ppCk
-         lB+EZgqM72jfg7wIhYx2JsZSwmGR+kFTNR1QUKvcVw87UUDk0buglzOgxYJ8FoX3iZxB
-         btuGJERWplrribdUkf+PDSC7U+BPTxsbO3hr3bZ7c2abjOAMUtfQFo8RKEKa2ZpaWYiK
-         bNi/FDhPl4goULC5drY+Gjv1+61RwrQc0XSV4G5ABZ9orjwuX6duLqJfZJb5Drj+Ou04
-         U7SQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=wkDgiw/AqsIfVPHoMoSGYbq8gYoliaNoZ6zCaoCS6us=;
-        fh=lvbkLSy3mxOxx56TgJmKaDaG+LWq67ykC6ALC2Z6OV0=;
-        b=MiKKfv3503DQbRbU9G6pR6WO0mZgDnBwhA/BQxW3UHQssB1101y9n/NMg9WDw+2JXF
-         s1F2motcvn3Rjvhji6fMOv41FFXoXGIk6JDaCLso6y5GYefeOEz/hwSO6JG1MQmP66gk
-         +VDWBAeURcKUhS4aK60J779rDZBCwT5HlsXDtuibo1YVOTpw0nKc7CFH8mC/y4jlnxU2
-         h9vP/THiRc/gKsp1jHqtKW4sPD3ttDp5oii52+zg2cjR8NKg0OxaHnaELocNtVf6RCYs
-         +vaODIm/v5es1u8vPoP0rk3fs9OTOEKhbU/0tOFUdxh7iEJsbUqPHX9h6g0EC6NsySsC
-         T2Vg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Ce+9A87Z;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=N3u2ucHc
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793058814;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=aHUF1M+fidDDJ3+WmYV9zM0U4gJMDdswMRaltUWboIo=;
+	b=Ce+9A87ZQec/LAkZ5NPrEhW1s2uSS8PMaK/pIH8wsF8HaRcQY1gfx0gZnc6hGWbZTfWZz+
+	+1sHDVajYpaM430o3I2qnEtF90Meji/Nl39t/KQW1o9Gxc+U1M4X7B5CnwbRy5DYFQNfeD
+	SJIYuPttO3ncalWJaFy+C5wNU3QtZCY=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-537-Ge9YScP4PzOvudI7PWJPsA-1; Mon, 26 Oct 2026 19:53:32 -0400
+X-MC-Unique: Ge9YScP4PzOvudI7PWJPsA-1
+X-Mimecast-MFC-AGG-ID: Ge9YScP4PzOvudI7PWJPsA_1793058812
+Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4a2065a2ef9so34159835e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 16:53:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1793058728; x=1793663528; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=redhat.com; s=google; t=1793058812; x=1793663612; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=wkDgiw/AqsIfVPHoMoSGYbq8gYoliaNoZ6zCaoCS6us=;
-        b=IrwijN25Y5XuhkNoEvpxTGUzu2F8Fw7yumOC6bQX+sv9sI5cIkUQ+8qDyW8Rn0leIE
-         KD/M3UgHYaJH9qxw5QEzap4cvaO8QRp4WvUy/b8d8qlbP4zjT/NLwA46mVK4rk5TE67Z
-         hbcIs7JRXy3S3BU1Zp46QexhDFTfTqhgb9F5yDiJoNepIvxVOAnGlUkvuMj53pVOulEq
-         nY7AospiQUxyoh3b4b1zlSlhp0Xm7S9U0DWHUHqyywQpS6V9BxBGr6qPvm7+SL/x95K4
-         vKS38fvl7h/D+VqUiNNcMPjyNlpB+LfGZlaoNjHo8oTsgp0eeolgiheQhrTjRg97kEV2
-         ylBg==
+        bh=aHUF1M+fidDDJ3+WmYV9zM0U4gJMDdswMRaltUWboIo=;
+        b=N3u2ucHc0Te0LX55NFyt+YHyWPfRKVrzyAsfq4ZsPI9xn2Lg0q5oYDTFf53XXxaf+h
+         f8455UkCunKenH0o77asYgzCWRfO7zfmZXpZM4h5oghfDT/Ff4NZSNE7376MBeuFHY1d
+         W2nqMOhVpq6QhWEOLnMXcfNqdMpckG6Xpc9+2XuwE/tfGmKdoOjcGTxZ7ZkW/t7iVnLd
+         rew/KcQUue16bAvyPcgxmx3KCwoJMF4+2DUwfaFy7NZ8PSmlZfTQcWghEF5XQAJAoLLX
+         AW0dVxHrDrDuToGJlNpbSbUKZK4TRXUH/eJxgt8YmhQpwgVZDPW/pUZt7trj0pHwr1DP
+         8+Gw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793058728; x=1793663528;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1793058812; x=1793663612;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=wkDgiw/AqsIfVPHoMoSGYbq8gYoliaNoZ6zCaoCS6us=;
-        b=YDKtmxTStGW8vlaJqoDPs/sQKEEmzZLV5gzVzca4Gj7iTMWJ46tCM6yzPjAtGaNHjL
-         rxpUwIBMx6JqF2wy6kbaUo628Or8YTrB34OEzdsYzmmWGjrXPRThYWvvE6qrk7FUhzY5
-         SvtnvFa8rr42v/PY98GkCw/WIenauYZKxipGRU1j0avN7etWpGTeibztAn7fdnF97R4D
-         0ReFfoFE3nz3jQfN/GyYO3sLIiXGYRZASCxBnp4M5f9AyI7iWAiykOZ4wNKFT7MDHomB
-         kFQL3UlKGZRxOAU/GaH1MmPJRW48NhCsQyArqslr0xk/9Pk1mfhGNa863DRrQLqgB7uY
-         2kwQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzToXekLxIg7UX2OrJVNuzcDYkQk2UO6belpH7Kt1AsiLVaGG8wT+xtw+wqxWc73LONS9mLvrLS+1efygs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJSxPfDLEJ6G9uFfHLQgMdoCarAsyWAYLnP8WrXtNU5EfBdU9mr
-	4yjQS1nDzhghwatTI3UC81yeg7QMMRSQlr/EkURNnKyK9m0sDGZCkKgYshBndM7gEWZFEUh99xL
-	prQeifSJkjpWjP3Z+AjMz6F2VFEbL/LnYlpF4U5Ye
-X-Gm-Gg: AYBFou23tG1IancWDQdjqR//jCAwbSI7Awlf0Y92MYY3Rn/91Og6xzcDkwdDej7rZaC
-	SwwmvhurpFO6dpGqwzgEeaCy0l4/pqB5RlVpiaGmAIGX/kTIW7sCaKrhr+OJPxy0oqlZu/I0dqW
-	753BGHWCvEhs2GOdonej2lLcV+7QlRVM3bxaTdn/MAWwiVnpLaANmPSQEqgrPibHPgJPILKUwhf
-	zBgoWeljS9F2niX5Elyn/f/h9r8Bur3AdnT7Ll/9zGBUj5oqLxqj+Em3wyqlPv03HMLFo/e7N5H
-	6L4/RBSrB1vnTpDSYTr6qFvUAPNU5gHleZs15MZS8vbOjYQXKA4vvoCGT1PBZmIpDhWwotSG5zG
-	cASgnKObXJ1oCQDP1xnHRfbUSqNinTryHja4RsLqYrhikonf8jOUYtN2aeFJKkJZ1faAGTV0L3T
-	DGEVEgSCBrEdSUQSXRK/Fm3je1Ls71yt+6qG4djA3JE5maR2BukvzY3R65bz/SazWkP32SDIQNm
-	BzVqhSRkQ==
-X-Received: by 2002:a17:907:80c:b0:c46:6a50:40c2 with SMTP id
- a640c23a62f3a-c46bdee2675mr943075666b.39.1793058727681; Mon, 26 Oct 2026
- 16:52:07 -0700 (PDT)
+        bh=aHUF1M+fidDDJ3+WmYV9zM0U4gJMDdswMRaltUWboIo=;
+        b=BumFWxt2M6E0ammSuuVzPlijW1RQte/mv47jsCTkc5o17sgvAqnDb8xBMNv90h3D4c
+         wqhxf4agn+SqX7io1PeuzKyEPLuMTbvO0zQmTo2VKpFk79iXxyoNJZMwhCmvAJznpXsZ
+         rrzVQV+auWebmhWf3tsWZ/3F8XJjWUQ89eirbljgAd5FP6i9fUJGw6PVeTJybSaQCPNM
+         DAa8Gnh43ZSJOqLUb2yTDcV9Z6ontIJG8y0qw4xhFYYGM0Aoj2GnSrUH+RN5u+cNZTTg
+         yZr4105AeWv2T6+QNDYJ6+PbJnRA0qqRpRZcqKc5XIg/qsMB03JEBgDTWwK4GXSPm/jp
+         CwBQ==
+X-Gm-Message-State: AFq9FYLB9DErPyL9kk8z1aC43VRtDD0u36y+faR2nTRckEd1+U0IUEsE
+	TiLLx64i+gGqnroGgVSIKw7SHfj3B6xKXNbof6FWEdEugTp8M3m0NvOycBFhWVZIYWDzXIMtEoN
+	IpNwaAW4y9PijUEdZQ6u/q4Ba4zdFAMjJYQq5kENOh6Mm30nPE++I6pY8ltnXYQN4tP3UXik59+
+	xRNWObYY6COu1OjUBxgU6VgoUQ5gy9fzuK2gpCzS4Fxtw=
+X-Gm-Gg: AYBFou3G0HCXiRIM1zViSEXDarSFeZrz121iVDofjK5Md+qHAwdSxFJLbdho8ShYXo0
+	ibx+S9bM3MGU4/Vc2FjbpaVrPmc+3XZHpe8Lv1X4xpn5nEg+8cNGsBkEmXWxMZSEDVlUaKSDVy7
+	a49TAjwofzK8qYd5Cxw3NJm6S5tdPlZEh3QS2TgsGidtJOZfd/5NcsWjb84eQuIc5cwWOvth40h
+	I4grg5KDd+1sdM8WpXM5GK4+2nbC9tH/diUmA686aqCDXRXN+BBWmAHbQextLKxMkhL0a6fNeAH
+	E4Rww0HjwN9VMyG8rCB8H2sqe2QJA812mIV2Y7/nxWj4AQdNmCNGaw9kcUt9Ab6RK34=
+X-Received: by 2002:a05:600c:3114:b0:4a3:5a55:f454 with SMTP id 5b1f17b1804b1-4a35acc772dmr152484485e9.19.1793058811565;
+        Mon, 26 Oct 2026 16:53:31 -0700 (PDT)
+X-Received: by 2002:a05:600c:3114:b0:4a3:5a55:f454 with SMTP id 5b1f17b1804b1-4a35acc772dmr152484055e9.19.1793058811049;
+        Mon, 26 Oct 2026 16:53:31 -0700 (PDT)
+Received: from redhat.com ([2a0d:6fc0:1536:fc00:b838:383:1c7:6e81])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a58a0e2sm280919645e9.13.2026.10.26.16.53.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 16:53:29 -0700 (PDT)
+Date: Mon, 26 Oct 2026 19:53:27 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: linux-kernel@vger.kernel.org
+Cc: Jason Wang <jasowang@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	Eugenio =?utf-8?B?UMOpcmV6?= <eperezma@redhat.com>,
+	virtualization@lists.linux.dev, Ruben Hakobyan <hruben@meta.com>,
+	Alexander Duyck <alexander.h.duyck@linux.intel.com>,
+	David Hildenbrand <david@kernel.org>,
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	rust-for-linux@vger.kernel.org
+Subject: [PATCH v2 2/2] virtio_balloon: submit reported pages as individual
+ buffers
+Message-ID: <02257263433b001cd0a55a52486857df81dd4246.1793057483.git.mst@redhat.com>
+References: <32e21059adb6cb1fd08c3f4426a313c77cf450ec.1793057483.git.mst@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,92 +127,139 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261026215226.3713941-1-jthoughton@google.com>
- <20261026215226.3713941-11-jthoughton@google.com> <3b0a8fc4-d140-4a90-b810-cbc1283fc083@app.fastmail.com>
-In-Reply-To: <3b0a8fc4-d140-4a90-b810-cbc1283fc083@app.fastmail.com>
-From: James Houghton <jthoughton@google.com>
-Date: Mon, 26 Oct 2026 16:51:31 -0700
-X-Gm-Features: AclHuK-Nhf6TYTDNWSq0v6hReecRKBdo5ExoV8oZWGVCIO9BK-126Jv082Kq0QQ
-Message-ID: <CADrL8HUZ3t8RdMEeBPfqsy1_1rN0Ty9B2c4iP6OzNS12te6vOg@mail.gmail.com>
-Subject: Re: [RFC PATCH 10/10] uaccess: Move the NULL mm warning out of line
-To: Arnd Bergmann <arnd@arndb.de>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Thomas Gleixner <tglx@kernel.org>, Peter Zijlstra <peterz@infradead.org>, Kees Cook <kees@kernel.org>, 
-	"David Hildenbrand (Red Hat)" <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Jim Mattson <jmattson@google.com>, Jens Axboe <axboe@kernel.dk>, 
-	Pavel Begunkov <asml.silence@gmail.com>, 
-	"James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>, 
-	"Martin K. Petersen" <mkp@kernel.org>, David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>, 
-	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
-	John Fastabend <john.fastabend@gmail.com>, Josh Poimboeuf <jpoimboe@kernel.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Ingo Molnar <mingo@redhat.com>, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, linux-mm@kvack.org, 
-	linux-fsdevel@vger.kernel.org, kvm@vger.kernel.org, io-uring@vger.kernel.org, 
-	linux-scsi@vger.kernel.org, linux-btrfs@vger.kernel.org, bpf@vger.kernel.org, 
-	linux-trace-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <32e21059adb6cb1fd08c3f4426a313c77cf450ec.1793057483.git.mst@redhat.com>
+X-Mailer: git-send-email 2.51.2.2891.g4157995a80.dirty
+X-Mutt-Fcc: =sent
 
-On Mon, Oct 26, 2026 at 4:03=E2=80=AFPM Arnd Bergmann <arnd@arndb.de> wrote=
-:
->
-> On Mon, Oct 26, 2026, at 22:52, James Houghton wrote:
-> > uaccess_without_mm() is inlined into every user copy, including every
-> > copy_{to,from}_user() call site on architectures that define
-> > INLINE_COPY_USER, such as arm64. Each inlined WARN_ON_ONCE() adds its
-> > own __bug_table entry.
-> >
-> > Keep the NULL current->mm check inline, but move the warning into a
-> > single out-of-line, __cold function, uaccess_warn_without_mm().
-> >
-> > The trade-off is that only the first offending access in the system
-> > warns, rather than the first one from each call site. The stack trace
-> > still identifies the caller, and the access is refused either way.
-> >
-> > Compared to the base of this series, with defconfig + KVM:
-> >
-> >                      inline WARN_ON_ONCE()    out-of-line warning
-> >   x86_64 total       +5,884 B (+0.014%)       +9,714 B (+0.023%)
-> >   arm64  total      +40,948 B (+0.10%)       +24,609 B (+0.06%)
-> >
-> > On arm64, this removes the ~16 KB of __bug_table growth, while text
-> > size is unchanged, as a call is the same size as the inline brk. On
-> > x86_64, the call is larger than the inline ud2 and causes more .cold
-> > splitting, so this is a slight regression.
-> >
-> > Signed-off-by: James Houghton <jthoughton@google.com>
-> > ---
-> > NOTE: This patch is included for reference only, to show the cost of th=
-e
-> >       inline warning.
->
-> I would suspect that the growth is larger on architectures that
-> don't implement __WARN_FLAGS() but rely on the generic WARN_ON().
->
-> This would mainly affect 32-bit arm and mips machines, some of which
-> are very memory limited, most of the 64-bit architectures have it.
+The virtio_balloon driver reports a scatter-gather list of free pages
+to the VMM so it may discard unused pages.
 
-Thanks, Arnd! I ran some build tests on 32-bit arm and mips:
+For an arm64 kernel with 64 KiB pages, the default reporting and
+allocation orders allow entries ranging from 2 MiB to 512 MiB. If the
+report contains a sufficient number of large entries, we will end up
+with a descriptor chain that represents over 4 GiB of memory. This
+violates virtio spec, which says:
+	Drivers MUST NOT add a descriptor chain longer than $2^{32}$ bytes in total;
 
-arm (multi_v7_defconfig):
- - base: 31,913,726 B
- - patches 1-9: +64,816 B (+0.20%)
- - patches 1-10: +23,193 B (+0.07%)
+Specifically, submitting $2^{32}$ or more breaks Rust-VMM.
 
-mips (malta_defconfig):
- - base: 11,830,177 B
- - patches 1-9: +61,168 B (+0.52%)
- - patches 1-10: +25,881 B (+0.22%)
+Submit each reported page as a separate virtqueue buffer instead of one
+buffer with an sg list of all pages.  This also avoids indirect
+descriptor allocation (kmalloc in the reporting path).
 
-I think it makes sense to include patch 10 with these results; cutting
->50% of the size increase for arm and mips seems worth the trade-off
-of only WARNing on the violating callstack. Let me know what you
-think.
+To avoid multiple buffers causing interrupt storms, keep callbacks
+disabled while we wait for an event.
 
-Is the increase even with patch 10 too much for mips or arm? I can add
-a Kconfig in that case.
+TODO: as an alternative, keep using virtqueue_enable_cb_delayed
+but add buffers after there's space in the ring.
+
+Note: if the virtqueue is broken, wait_event on
+virtqueue_get_buf hangs.  This is a pre-existing issue:
+the old single-buffer code had the same hang.
+
+Reported-by: Ruben Hakobyan <hruben@meta.com>
+Cc: Ruben Hakobyan <hruben@meta.com>
+Fixes: b0c504f15471 ("virtio-balloon: add support for providing free page reports to host")
+Cc: Alexander Duyck <alexander.h.duyck@linux.intel.com>
+Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+---
+
+Notes (changelog):
+    changes since v1:
+        keep callbacks disabled while draining: get_buf re-arms the used
+        event for the next buffer, reintroducing an interrupt per page.
+        Disable the reporting vq callbacks at probe, and only arm the
+        delayed callback to wait.
+
+ drivers/virtio/virtio_balloon.c | 59 +++++++++++++++++++++++++--------
+ 1 file changed, 45 insertions(+), 14 deletions(-)
+
+diff --git a/drivers/virtio/virtio_balloon.c b/drivers/virtio/virtio_balloon.c
+index f6c2dff33f8a..b88b463488e0 100644
+--- a/drivers/virtio/virtio_balloon.c
++++ b/drivers/virtio/virtio_balloon.c
+@@ -202,25 +202,53 @@ static int virtballoon_free_page_report(struct page_reporting_dev_info *pr_dev_i
+ 	struct virtio_balloon *vb =
+ 		container_of(pr_dev_info, struct virtio_balloon, pr_dev_info);
+ 	struct virtqueue *vq = vb->reporting_vq;
+-	unsigned int unused, err;
++	unsigned int i, err = 0;
+ 
+ 	/* We should always be able to add these buffers to an empty queue. */
+-	err = virtqueue_add_inbuf(vq, sg, nents, vb, GFP_NOWAIT);
++	for (i = 0; i < nents; i++) {
++		struct scatterlist one;
+ 
+-	/*
+-	 * In the extremely unlikely case that something has occurred and we
+-	 * are able to trigger an error we will simply display a warning
+-	 * and exit without actually processing the pages.
+-	 */
+-	if (WARN_ON_ONCE(err))
+-		return err;
++		sg_init_table(&one, 1);
++		sg_set_page(&one, sg_page(&sg[i]), sg[i].length,
++			    sg[i].offset);
++		err = virtqueue_add_inbuf(vq, &one, 1, &sg[i], GFP_NOWAIT);
+ 
+-	virtqueue_kick(vq);
++		/*
++		 * In the extremely unlikely case that something has occurred
++		 * and we are able to trigger an error we will simply display
++		 * a warning and exit without actually processing the pages.
++		 */
++		if (WARN_ON_ONCE(err)) {
++			nents = i;
++			break;
++		}
++	}
+ 
+-	/* When host has read buffer, this completes via balloon_ack */
+-	wait_event(vb->acked, virtqueue_get_buf(vq, &unused));
++	if (nents) {
++		unsigned int unused;
+ 
+-	return 0;
++		virtqueue_kick(vq);
++
++		/* When host has read buffer, this completes via balloon_ack. */
++		i = 0;
++		wait_event(vb->acked, ({
++			for (;;) {
++				virtqueue_disable_cb(vq);
++				while (virtqueue_get_buf(vq, &unused))
++					i++;
++
++				/* Stop waiting if device used all that we added. */
++				if (i >= nents)
++					break;
++
++				if (virtqueue_enable_cb_delayed_max(vq))
++					break;
++			}
++			i >= nents;
++		}));
++	}
++
++	return err;
+ }
+ 
+ static void set_page_pfns(struct virtio_balloon *vb,
+@@ -635,8 +663,11 @@ static int init_vqs(struct virtio_balloon *vb)
+ 	if (virtio_has_feature(vb->vdev, VIRTIO_BALLOON_F_FREE_PAGE_HINT))
+ 		vb->free_page_vq = vqs[VIRTIO_BALLOON_VQ_FREE_PAGE];
+ 
+-	if (virtio_has_feature(vb->vdev, VIRTIO_BALLOON_F_REPORTING))
++	if (virtio_has_feature(vb->vdev, VIRTIO_BALLOON_F_REPORTING)) {
+ 		vb->reporting_vq = vqs[VIRTIO_BALLOON_VQ_REPORTING];
++		/* We re-enable callbacks after add, when we want them. */
++		virtqueue_disable_cb(vb->reporting_vq);
++	}
+ 
+ 	return 0;
+ }
+-- 
+MST
+
