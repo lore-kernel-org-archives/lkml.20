@@ -1,49 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=88.99.38.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793032982;
-	b=cgTvCDrwqRn0c0Qz0X544AU30ONLl+5dzdLRZnAIZMwpLpitUYjBiEqe2D3zCGxnB3LJ
-	 mrg1QKqWYqjiQ2zeCEzH+IRo8maG/FoFXiyEACeAZFRHk9QDSqRTZd0m4BlOO7uEQxN5q
-	 mlGEMPvAm818shsp3GeqSnZCvmMpzwdA66eeDiA3KzaaKXHqEmpOl1UDH5O1pTm3XUJOX
-	 Yg98/zZCLmRLRVlaSKijq6eDnF0OjwwnK+3cG4RZlV6gJbDeXbKYx5Uodooju5j2axPoG
-	 j/lIdtjEAJkOCsFpg1G31xL88w55SvpZEfRxvvCVD1ZMeAhJhvz98a+jcaTisx5HDEw==
+	t=1793033077;
+	b=RGuuM4tzO/tJUnc2yq1m6AefGrtRrOyDe3CB3S+imXLUb7CRMEvRuBdX740dgyti8rBz
+	 ywnvO2VMBn/Br1iDkHr3Q8HUJkFiMAdX7IMx2AZgEBGcDKn+SiiOwQdAPGknSW8qr7IpN
+	 QbnvzU3Pj2XI0tzrSKqeykx5XD1Gy0ntHfBksywnXrUpW4hG4lKp71MH/mXkcSgaYhQeC
+	 SADkY8gHlDljaWBt9PICCgXEF3hsbEZtphrMYvoSjrAx6iwl9gXMJaIW/ROEGoEeKAWJY
+	 iAqi9nqKlIddpqKZK00QXhXKTluwdLggj7pR/SYE2VA0hlM71tfH9+cF+xM6zWkFuEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793032982;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=rl/sdudR8wX1+GEVh2fbN+8+vnr5jBWbAdmUCT1slSI=;
-	b=y540RNOkNPoJIS1Lczot1luO1+nJ4JSjeG4TEF6L0F63xUTPFeh4CQHVGrBr1C0txjRW
-	 eu6xUrRu5ROZQvhWwazWI0lrXr2h6Jysw9imb/KgRq82ZqjfheVC9NZK5J7jLtXc8+F1Q
-	 XkT5dtnPhu2ntz8L1L9HKEqqkyrx5ASnMHcDOXJnGLed87v+yfgFi4LRNpcFJ9J1kJIbo
-	 n7P7a4aC5ZQ7G8UAoUfJbqipknu1gLFwkeOpFJ2FHnNfiMBLMINrUjS4zfqTWlnxyL8FD
-	 Komn3SDsZNuL8SqUGUDDOUn3gYPZQ1iqVQ1MbZHEON5Sn8hppcJIBtqiERSebObrdAg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793033077;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Received-SPF:
+	 Received:X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:
+	 X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type:X-PPP-Message-ID:X-PPP-Vhost:X-Virus-Scanned:
+	 X-Virus-Status;
+	bh=AFQJdAiGgN3fW1Ct+HsLIsRUW5WmUGGeAmWhxML3ipc=;
+	b=A8nFZBzH2iM31/Jb4pKkfR9fqBHsGHJ27taG7L9cGMcI7h6of7zrEqkoV/bAlWhjqlpr
+	 RXdW0Q6aDAmHY8v7kZbbPixal9pKDd/hh5o++eK9d6gSlJjRCpSl40gvK2EsG1+4y+3ey
+	 fW9tM/r0vrN3Cru2qCN+C7SBXEd0dN37L8G9pUwuywt76ks41o43Ukd7ZKxHpCnJrVXyV
+	 O8o+a6EJ89tGPrhDHGdac7WksjNqerWmlpSVthX7BaOcvLccHPr1AVW2Hf0hudV3JFUKq
+	 lPCUIZALMR/ilCt+fSLvX/+d6aF0jf/2GJlMdK8cIcldGyJjQPfwpjNboAP7Y+CeREw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Zr2s8SKr;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 186EF606A31D;
-	Mon, 26 Oct 2026 16:43:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 186EF606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=none header.from=antheas.dev;
+	spf=pass smtp.mailfrom=antheas.dev;
+	dkim=pass header.d=antheas.dev header.i=@antheas.dev header.a=rsa-sha256 header.s=default header.b=T+B8WLiS;
+	arc=none smtp.remote-ip=88.99.38.195
+Received: from relay12.grserver.gr (relay12.grserver.gr [88.99.38.195])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B057F606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 16:44:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B057F606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=antheas.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Zr2s8SKr
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7295B1655;
-	Mon, 26 Oct 2026 09:42:51 -0700 (PDT)
-Received: from [10.57.60.72] (unknown [10.57.60.72])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 86E553F7B4;
-	Mon, 26 Oct 2026 09:42:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793032974; bh=7rUQZLP+SlM7AbMLViF+r61zYKGh+vmGw1BuFhIyhSg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Zr2s8SKrmcvfq6RKvLPEXc/cBwYmoEbGNi0zUkO4kq9deWneGSqXYqSqpPzXzcjU/
-	 sWWP825ixEHEutVa39SjxwhGoWk6tT6A0FmdXnnTwxdvpiCOmVbWpd7InSXf/lA6+C
-	 37u2CmBH7DJr8wMcBe/V91TS/kWm57pehuEfkP0I=
-Message-ID: <474d4ed0-b011-49dd-853e-697448382a0e@arm.com>
-Date: Mon, 26 Oct 2026 17:42:50 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=antheas.dev header.i=@antheas.dev header.a=rsa-sha256 header.s=default header.b=T+B8WLiS
+Received: from relay12 (localhost [127.0.0.1])
+	by relay12.grserver.gr (Proxmox) with ESMTP id 90333BC52E
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 18:44:28 +0200 (EET)
+Received: from linux3247.grserver.gr (linux3247.grserver.gr [213.158.90.240])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by relay12.grserver.gr (Proxmox) with ESMTPS id 1127FBC613
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 18:44:28 +0200 (EET)
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+	by linux3247.grserver.gr (Postfix) with ESMTPSA id DF9931FEB7B
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 18:44:26 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=antheas.dev;
+	s=default; t=1793033067;
+	bh=AFQJdAiGgN3fW1Ct+HsLIsRUW5WmUGGeAmWhxML3ipc=;
+	h=Received:From:Subject:To;
+	b=T+B8WLiSP/NoyCRfN3R3Hd1SVRHUJM0krrUX10Q8GHrWCjBX0b3H1kCc6ppAMH8h6
+	 foeGjozo6bQd3LrYDq4kLLd5n+TPT+MnaOHVtDedxhhSRrMKwOMRkmHalPLcCg8tPp
+	 EGMSbvLZqSvdUm9oEyKROx8Gk7HZlcQzxhx/mmHnGdtAaeJlSF+tdSibajiBcxmSAB
+	 jCVpY045nGiZZqpA2hC/VjNa5QI1od7jWOjK7z9O/RKU9xLG8wBhSqcHPba6NN2dwT
+	 5N4hWFHjERt208jYKzhxh1RiM4vM76LS7gN5ZrFO9gdFswnXRk1tfmfjkjCDR6DH5d
+	 B3ZGubpW78O4w==
+Authentication-Results: linux3247.grserver.gr;
+        spf=pass (sender IP is 209.85.214.174) smtp.mailfrom=lkml@antheas.dev smtp.helo=mail-pl1-f174.google.com
+Received-SPF: pass (linux3247.grserver.gr: connection is authenticated)
+Received: by mail-pl1-f174.google.com with SMTP id
+ d9443c01a7336-2ea7987517aso18255935ad.0
+        for <linux-kernel@vger.kernel.org>;
+ Mon, 26 Oct 2026 09:44:26 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzAXfovq+EKfxp0x4fdfn/C40FbJKs5vfBzAVyzyymvySAPsgj+ztq4ZuaXPacLCWpzN21mutACzLu14eU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKXk9ZiQekyaFVHEFuSXTmBGZIVwjh4Hixfv4O7/2IbT8MJs6oF
+	F1/4v9kxWq+Ln9p6LuE321YIiBvdxWVHRu0MThX0B4EN77S4fAD/2skV27/cbZ2ALZWOmMVc8R0
+	sCtuiSBNCOLH+9Bpe4La620HcBynuqgo=
+X-Received: by 2002:a17:903:3250:b0:2dd:b795:9cb6 with SMTP id
+ d9443c01a7336-2ea9c63d703mr60076695ad.21.1793033065583; Mon, 26 Oct 2026
+ 09:44:25 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,84 +82,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/3] pinctrl: sunxi: number the IRQ banks from the
- first one that has IRQs
-To: Pablo Mazzini <pmazzini@gmail.com>, Linus Walleij <linusw@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-sunxi@lists.linux.dev
-References: <20261025142412.112216-1-pmazzini@gmail.com>
-Content-Language: en-GB
-From: Andre Przywara <andre.przywara@arm.com>
-In-Reply-To: <20261025142412.112216-1-pmazzini@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20250511204427.327558-1-lkml@antheas.dev>
+ <20260803221614.59324-1-derekjohn.clark@gmail.com>
+ <20260803221614.59324-2-derekjohn.clark@gmail.com>
+ <f8b2c85a-2800-c9a3-4e56-7af4c53823e5@linux.intel.com>
+ <58a9c644-98c2-47ee-b083-0d5b19fa5053@roeck-us.net>
+ <CAGwozwGdwhE6Sm6oa2uxx_sHfFNQ6fHYnAhYHkEPQcp_Yb=Z6w@mail.gmail.com>
+ <CAGwozwFUTagam+dr0SXyziAMz1MJKcYMYUgrogFcmvEaE1X0UQ@mail.gmail.com>
+ <CAFqHKTmQ2R-UAP9rAZzoxe=p-T1_JKPU1NaQ2ijrVg0RXZEHUA@mail.gmail.com>
+ <CAGwozwGUAEb4Q9pfd_+aXMw2P3qY376F+usPHdUFO5Q6mV_ATQ@mail.gmail.com>
+ <baf91d42-13dd-41eb-88d7-d6311ee0d9f9@amd.com>
+In-Reply-To: <baf91d42-13dd-41eb-88d7-d6311ee0d9f9@amd.com>
+From: Antheas Kapenekakis <lkml@antheas.dev>
+Date: Mon, 26 Oct 2026 17:44:13 +0100
+X-Gmail-Original-Message-ID: 
+ <CAGwozwF00=zMvJKrjMG7mO18zRqSVF_Pz4DDf+og0giC5oSRcA@mail.gmail.com>
+X-Gm-Features: AclHuK9dGUF3PYf3eMe7nI2U44d9425QaJilwQrMRy5o1E9SAE9mLWiMo4Hv_n8
+Message-ID: 
+ <CAGwozwF00=zMvJKrjMG7mO18zRqSVF_Pz4DDf+og0giC5oSRcA@mail.gmail.com>
+Subject: Re: [PATCH 1/6] platform/x86: msi-wmi-platform: Move guard out of
+ switch in platform_write()
+To: Mario Limonciello <mario.limonciello@amd.com>
+Cc: Derek John Clark <derekjohn.clark@gmail.com>,
+ Guenter Roeck <linux@roeck-us.net>,
+	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	W_Armin@gmx.de, corbet@lwn.net, jdelvare@suse.com, kuurtb@gmail.com,
+	linux-doc@vger.kernel.org, linux-hwmon@vger.kernel.org,
+	LKML <linux-kernel@vger.kernel.org>, platform-driver-x86@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+X-PPP-Message-ID: 
+ <179303306727.3339636.6109393179504495035@linux3247.grserver.gr>
+X-PPP-Vhost: antheas.dev
+X-Virus-Scanned: clamav-milter 1.4.6 at linux3247.grserver.gr
+X-Virus-Status: Clean
 
-Hi Pablo,
+<snip>
+> > SimpleDeckyTDP uses a combination of RyzenAdj for AMD and RAPL for
+> > Intel. When set to 7W, users report 25W power consumption when using
+> > the kernel driver and 15W when using simpledeckytdp on A8. 15W is the
+> > correct value for a 7W envelope on an X840u APU.
+> >
+> > STAPM should not be required to use or deviate from STT. Both of them
+> > should have equivalent behavior and match ryzenadj as the underlying
+> > DPTC hooks are the same, ryzenadj just accesses the mailbox directly.
+> > Using STAPM is a workaround for buggy vendor firmware that does not
+> > control boost values correctly (SPPT/FPPT) and is what the first
+> > generation Lenovo Legion Go did as well before they fixed it.
+> >
+> > STAPM as a workaround works because it uses timers to control boost
+> > values, so they decay after 2-3 minutes to the steady state TDP set by
+> > the firmware. STT boosts for as long as the device thermal envelope
+> > allows. STAPM is deprecated by AMD, only STT should be used going
+> > forward. +CC Mario
+>
+> It's up to the OEM to decide whether they have programmed their firmware
+> to to use STT or STAPM.  They should not be used at the same time.
 
-just some heads up about process:
-- Please do not repost that quickly! The kernel doc says to wait at 
-least a day, but that's only the lower limit, in case the series is 
-almost ready and there were only minor comments from real(!) reviewers.
-I would wait for a couple of days, after you got some proper reviews.
-The reason is that reviews (by humans) take time, and it's not like 
-people are bored waiting for some patches to look at. So they might be 
-interrupted by something or need to do some checks and research. It's 
-pretty bad if their effort is ambushed by a new revision, which now 
-means they need to start over.
-- Please do not repost just because Sashiko said something. Wait for a 
-proper review. It's probably a good idea to acknowledge the comment, but 
-don't just re-post then.
-- Try to avoid posting inside the merge window. Depending on the 
-subsystem and maintainer, your posts might just be ignored, because they 
-might be busy fixing up conflicts. But more importantly: you are missing 
-the correct base: you should always base your patches on an -rc1, unless 
-being told otherwise explicitly. And since -rc1 won't be out till 
-Sunday, this is not a good timing.
+On BIOS configuration, not on runtime! The patches here based on RE
+configure STAPM on custom mode on demand. I did not even know this was
+possible.
 
-I will comment on the patch set separately.
+The purpose is to make the "custom slider" behave. Lenovo did the same
+thing on the original Legion Go because they were not setting boost
+values, and STAPM decays to the correct value eventually. Should we
+bake this in the driver?
 
-Cheers,
-Andre
+> If their BIOS/EC is using one and reverse engineered software is using
+> the other, you will expect problems.
 
+Correctly implemented ACPI should 1-1 match both modes, so we do not
+care what the manufacturer did. Caring means their boost values are
+not being properly set.
 
-On 10/25/26 15:24, Pablo Mazzini wrote:
-> The DT pinctrl helper numbers the IRQ banks from PA, even when PA has
-> none. The A523 got a DT interrupt for its unimplemented PA bank to work
-> around that, the A733 would need the same, and on both PK is written
-> past the end of irq_array.
-> 
-> Number the IRQ banks like the static drivers do, with irq_bank_map for
-> the A523 and A733, and drop the PA interrupt from the binding and the
-> A523 DT. The B288 (IRQ banks on PB, PD, PF and PG) then needs no
-> made-up interrupt.
-> 
-> v3:
-> - apply irq_bank_map to the A733 register layout too (Sashiko)
-> 
-> v2:
-> - give the A523 and A733 an irq_bank_map, and drop the PA interrupt
->    from the binding and the A523 DT
-> 
-> Pablo Mazzini (3):
->    pinctrl: sunxi: dt: number the IRQ banks from the first one that has
->      IRQs
->    dt-bindings: pinctrl: sun55i-a523: one interrupt per implemented bank
->    arm64: dts: allwinner: a523: drop the PA GPIO interrupt
-> 
->   .../bindings/pinctrl/allwinner,sun55i-a523-pinctrl.yaml   | 8 ++++----
->   arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi            | 3 +--
->   drivers/pinctrl/sunxi/pinctrl-sun55i-a523.c               | 2 +-
->   drivers/pinctrl/sunxi/pinctrl-sun60i-a733.c               | 5 ++++-
->   drivers/pinctrl/sunxi/pinctrl-sunxi-dt.c                  | 8 +++-----
->   drivers/pinctrl/sunxi/pinctrl-sunxi.h                     | 7 ++++---
->   6 files changed, 17 insertions(+), 16 deletions(-)
-> 
-> 
-> base-commit: 4f0dbdbdb3ad122e8bbfb1d722fd584bac7124db
+Antheas
+
+> >
+> > This points to a BIOS firmware issue. You should consider getting in
+> > touch with your MSI contact for feedback and to plan a fix. I do not
+> > have an MSI contact. And yes, I am not happy my users have to rely on
+> > third party unvetted plugins for basic power controls.
+> >
 
