@@ -1,65 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793015832;
-	b=GifEFz1wL6TIrxrkDDdmJnlzvdRiNWfeaeXQQOhGufJuxuI/WxGFVYTuqNJffh+OTNl5
-	 2mENLEepUwliQBuQ1kSyX6IzlAh6c+315PZWq7IAPPcDPl4FcJuCErzIYmG/UPum00E7z
-	 UCsUmVEbWXXPG2FaI/fPW031hSXFBgXdeSxuW7T4TbWUOmggdUJmQO4f5qXs5PnNPQl8C
-	 AkEYGG3tXUG9+g2ZEq2hvaWlE+rU74JIAxCAfAvpcY+i4G7wkX8mpEZAaqn6gDGMxOTsK
-	 5i9szwVo5NDFBYaPAAszOSyJjFnwbUG3JNZB+9pt6oQOvT+43VpCGgzmRLGNeaIGu9g==
+	t=1793015852;
+	b=HEvVSWJ+UgYdjDnnu7Up0zeptFWR/IVVc4AJ3TKmEU6Ri9P11FmyHb4Jy5ILIKvOZAIy
+	 m+hYQI2C1+a0RSB9J9EIM0wlbze5poEahEK/UYSydqQiCOjKIno2r3/DA9BuHYyW0jtct
+	 t4pdtUBbrTwIXCJXy+ATtUO6ia8zy5EBWF0eaWhVro2wBUhNoSwwFa9ZkmqCEZF57PGVh
+	 Aa2KBjTI2mwDVMiwJXPM+59IODX0K2jt9/wYkfjjyHlmb1uDeF9WGUeBlUMGFDp/6GYia
+	 +N600jo39a2vjD9JO6fAG6m18olTpgsoXb2UgohDiIv6iJtW+YvD5LBdQbQHURQcYDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793015832;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=d1toWpq2JslyLlyG3aYJlW9m6pwk9hmbElNCBQSd9jY=;
-	b=rQK41wgObpxHJlwajyqOrBd8UWfonTJ2gfbJvvhO4E/slaVRSrI+aXgdjUVxE8qobM3s
-	 g4nKVOdTdCSOQBBdHjth4Um+CUlwQuauYmsZ4/RyTrJVv1h17ioF5ntrApmFxccZnUZzP
-	 XfPnI9ewrUgvfvoou34i04HIi8k3h7Ojxfu2g0Nue2joZMFTM87NiN4HNWvNKL3IgsYgJ
-	 HClOu+J7M7hCq7ApKlhPphzAtnjfZmoBArcFEWHo3AIjTwiGiztBmu0BkiINP7gcCJjHh
-	 UJ4T7fwUSEaJ/6daOcy8LrXGkokVMjKOp6u6LvdoNgmh6Wq5gQgZ7uVBx0jSjhqQ7KQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793015852;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=aihAmrv00F2OMtOf34SnRsUmAwcEw3x/QZSSSBxus40=;
+	b=cxOgLBLFLnndlX0F0ZDPZ81q5ogKY6lpoyS3ZS6j1M+GJQbWG/ymthop5rE1uxJj9QeA
+	 Bg0j8zxfa1rw+D6L6+Yk0zQ3qnx72Zq7SjveKndkXk2f3gRiDo+G7UPqYQQ9ArB98TUqc
+	 wn4jWvY0igP2S4ykgu1wBu06QHk0W8fyYTJkoPBW2xyyaaDl/z/M06Pr/gMIE7YkmEakL
+	 GPV7FAY2Mcuoi/UQId358Ryr4DqAV0p/mTBnokSTHkdEqpmVlJUsKVmeaQS0USFSxX12R
+	 AayCAjYpo4wUU35NPwv8oGI4jWx/mXmMLnoYWiFbidcbxnkJjuLQvQCJ0nGQE+MvpLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=FXvZhC4Q;
-	arc=none smtp.remote-ip=90.155.92.199
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4EB1606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:57:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4EB1606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=DhsCI8wE;
+	arc=none smtp.remote-ip=111.22.67.135
+Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3BD1E606A31B
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:57:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3BD1E606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=FXvZhC4Q
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=d1toWpq2JslyLlyG3aYJlW9m6pwk9hmbElNCBQSd9jY=; b=FXvZhC4Qo5iKOcqfAfZmoBk6UK
-	OyhF6ves/ljJtdqtiFHl422N7zOxHOfD3hJrjHEToG0ydDNHgMynaZmiIeKha7hPVsyrNPntlaGcW
-	mwB5XQ8QmHYiCvffuiS6MDmL32IO4YDAbo6CH5RXLQwQHmd9/pEfaeffRY0GDZDZOh6uJfD2oseFp
-	R+jA47zvgn/b5GCJof3GO+BKgbsNOSuDCX+zAc4O6jjpKZe/x2cm0XX1VMM+2oNysRf8MLclox2JP
-	YFmNDlgqg3gqUTOYp+RKGH4a0e+UuemDSXg+nE2In8Puqh5w0IQB88Ia69tCyhYzG3Xkczt8FbAA4
-	oC9Py09Q==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xLJK8-0000000Dmff-07ld;
-	Mon, 26 Oct 2026 11:57:08 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 0E4A13014C0; Mon, 26 Oct 2026 12:57:07 +0100 (CET)
-Date: Mon, 26 Oct 2026 12:57:07 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: Daehyeon Ko <4ncienth@gmail.com>
-Cc: Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] sched/autogroup: Fix task_group UAF during thread
- creation
-Message-ID: <20261026115707.GF2668200@noisy.programming.kicks-ass.net>
-References: <20261023013631.881730-1-4ncienth@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=DhsCI8wE
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=DhsCI8wE0saZqwqndtXmUDe24P6H3W16WI6ScFgThKvGhSxD1fzVVV2uEuLKT8juO98rGHafEjeYt
+	 pB+WgIIrQFdrqySrfrZTgxvc+a1ZiFyyipMRVYV1poypdMMujCZ2VCEvD1Q93ZIunIiR9aUzm7xmUV
+	 TkxtWJG3rV0LX2iU=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app07-12007 (RichMail) with SMTP id 2ee76adf4027d7d-4fb43;
+	Mon, 26 Oct 2026 19:57:27 +0800 (CST)
+X-RM-TRANSID:2ee76adf4027d7d-4fb43
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from FHA-W6400298 (unknown[10.55.1.71])
+	by rmsmtp-syy-appsvr06-12006 (RichMail) with SMTP id 2ee66adf40251f9-b1442;
+	Mon, 26 Oct 2026 19:57:27 +0800 (CST)
+X-RM-TRANSID:2ee66adf40251f9-b1442
+From: Tang Bin <tangbin@cmss.chinamobile.com>
+To: rostedt@goodmis.org,
+	mhiramat@kernel.org,
+	mathieu.desnoyers@efficios.com
+Cc: linux-kernel@vger.kernel.org,
+	tangbin@cmss.chinamobile.com
+Subject: [PATCH] tracing: fix kstrdup leak on repeated trigger keywords
+Date: Mon, 26 Oct 2026 19:57:24 +0800
+Message-ID: <20261026115725.2939-1-tangbin@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.52.0.windows.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,134 +69,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261023013631.881730-1-4ncienth@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 23, 2026 at 10:36:31AM +0900, Daehyeon Ko wrote:
-> sched_cgroup_fork() assigns a CLONE_THREAD child in the root CPU cgroup to
-> p->signal->autogroup->tg before the child is visible on the thread list.
-> Autogroup ownership is per signal_struct: CLONE_THREAD reuses the existing
-> signal_struct and does not acquire an autogroup reference for the child.
-> 
-> ksys_setsid() releases tasklist_lock before calling
-> sched_autogroup_create_attach(), so tasklist_lock does not serialize the
-> autogroup move against this unpublished part of copy_process():
-> 
->   clone(CLONE_THREAD) caller      sibling setsid() caller
->   -------------------------       -----------------------
->   sched_cgroup_fork()
->                                   sched_autogroup_create_attach()
->                                     autogroup_move_group()
->                                       lock(siglock)
->                                       signal->autogroup = new
->                                       for_each_thread()
->                                       unlock(siglock)
->                                       autogroup_kref_put(old)
->   lock(siglock)
->   list_add_tail_rcu(thread_node)
->   unlock(siglock)
->   wake_up_new_task()
-> 
-> The iteration cannot see the unpublished child. The final put can therefore
-> drop the signal's last reference to the old autogroup. Two RCU callbacks
-> then free its per-CPU cfs_rq and task_group while p->sched_task_group,
-> p->se.cfs_rq, and p->se.parent still point into them.
-> 
-> At the last failure-free point in copy_process(), revalidate the child's
-> scheduler group while holding the shared siglock and keep the lock held
-> through thread-list publication. An autogroup move then either completes
-> before revalidation, or blocks until publication and includes the child.
-> 
-> If the group changed, update p->sched_task_group under p->pi_lock, clear
-> p->se.cfs_rq so set_task_rq_fair() cannot inspect the freed old runqueue,
-> and call set_task_rq() to rebuild the fair and RT group links. The TASK_NEW
-> child has no attached load to migrate.
-> 
-> An unprivileged clone()/setsid() reproducer running as uid/gid 65534 with
-> all capability sets empty triggered a KASAN task_group slab use-after-free
-> in wake_up_new_task() on an unmodified Linux v7.3 kernel. The allocation
-> came from sched_create_group(), and the free ran from
-> sched_free_group_rcu().
-> The fix completed 1,024 iterations of both the original race sweep and a
-> delayed-setsid stress schedule without a KASAN, lockdep, oops, or panic
-> report.
-> 
-> An AI coding assistant helped identify and validate the race, construct
-> the reproducer, and draft and test this fix.
-> 
-> Fixes: b1e8206582f9 ("sched: Fix yet more sched_fork() races")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
+parse_assignment() overwrites
+attrs->keys_str/vals_str/sort_key_str/name/clock with a fresh kstrdup()
+without freeing a previously assigned value. A hist trigger string with
+repeated keywords (e.g. 'keys=pid:keys=comm') leaks the earlier allocation
+each time. kfree() the old pointer before reassigning (attrs is kzalloc'd
+so the first call sees NULL).
 
-> diff --git a/kernel/fork.c b/kernel/fork.c
-> index 10f2d05d816a5f..6df4ff21d1b780 100644
-> --- a/kernel/fork.c
-> +++ b/kernel/fork.c
-> @@ -2500,6 +2500,15 @@ __latent_entropy struct task_struct *copy_process(
->  
->  	/* No more failure paths after this point. */
->  
-> +	/*
-> +	 * A concurrent autogroup move can replace signal->autogroup after
-> +	 * sched_cgroup_fork() but before this task is on the thread list.
-> +	 * Recheck while holding siglock so the move either precedes this check or
-> +	 * observes the new thread after publication below.
-> +	 */
-> +	if (clone_flags & CLONE_THREAD)
-> +		sched_autogroup_fork_finalize(p, args);
-> +
->  	/*
->  	 * Copy seccomp details explicitly here, in case they were changed
->  	 * before holding sighand lock.
-> diff --git a/kernel/sched/autogroup.c b/kernel/sched/autogroup.c
-> index e380cf9372bbd2..50ad43e7648fc5 100644
-> --- a/kernel/sched/autogroup.c
-> +++ b/kernel/sched/autogroup.c
-> @@ -215,6 +215,36 @@ void sched_autogroup_fork(struct signal_struct *sig)
->  	sig->autogroup = autogroup_task_get(current);
->  }
->  
-> +/**
-> + * sched_autogroup_fork_finalize - recheck a new thread's scheduler group
-> + * @p: new task
-> + * @kargs: clone arguments holding the pinned cgroup set
-> + *
-> + * The caller must hold the shared sighand lock and keep it held through
-> + * thread-list publication.  The task is still TASK_NEW and has no attached
-> + * scheduler load.
-> + */
-> +void sched_autogroup_fork_finalize(struct task_struct *p,
-> +				   struct kernel_clone_args *kargs)
-> +{
-> +	struct task_group *tg;
-> +	unsigned long flags;
-> +
-> +	lockdep_assert_held(&p->sighand->siglock);
-> +
-> +	raw_spin_lock_irqsave(&p->pi_lock, flags);
-> +	tg = container_of(kargs->cset->subsys[cpu_cgrp_id],
-> +			  struct task_group, css);
-> +	tg = autogroup_task_group(p, tg);
-> +	if (tg != p->sched_task_group) {
-> +		p->sched_task_group = tg;
-> +		/* Do not let set_task_rq_fair() inspect the possibly freed cfs_rq. */
-> +		p->se.cfs_rq = NULL;
+Fixes: b527b638fd63 ("tracing: Simplify assignment parsing for hist triggers")
+Signed-off-by: Tang Bin <tangbin@cmss.chinamobile.com>
+---
+ kernel/trace/trace_events_hist.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-I'm not sure this works; afaict this will result in a NULL deref
-instead. 
-
-> +		set_task_rq(p, task_cpu(p));
-> +	}
-> +	raw_spin_unlock_irqrestore(&p->pi_lock, flags);
-> +}
-> +
->  void sched_autogroup_exit(struct signal_struct *sig)
->  {
->  	autogroup_kref_put(sig->autogroup);
+diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
+index 8af97fd4e..4ce857072 100644
+--- a/kernel/trace/trace_events_hist.c
++++ b/kernel/trace/trace_events_hist.c
+@@ -1481,6 +1481,7 @@ static int parse_assignment(struct trace_array *tr,
+ 
+ 	if ((len = str_has_prefix(str, "key=")) ||
+ 	    (len = str_has_prefix(str, "keys="))) {
++		kfree(attrs->keys_str);
+ 		attrs->keys_str = kstrdup(str + len, GFP_KERNEL);
+ 		if (!attrs->keys_str) {
+ 			ret = -ENOMEM;
+@@ -1489,18 +1490,21 @@ static int parse_assignment(struct trace_array *tr,
+ 	} else if ((len = str_has_prefix(str, "val=")) ||
+ 		   (len = str_has_prefix(str, "vals=")) ||
+ 		   (len = str_has_prefix(str, "values="))) {
++		kfree(attrs->vals_str);
+ 		attrs->vals_str = kstrdup(str + len, GFP_KERNEL);
+ 		if (!attrs->vals_str) {
+ 			ret = -ENOMEM;
+ 			goto out;
+ 		}
+ 	} else if ((len = str_has_prefix(str, "sort="))) {
++		kfree(attrs->sort_key_str);
+ 		attrs->sort_key_str = kstrdup(str + len, GFP_KERNEL);
+ 		if (!attrs->sort_key_str) {
+ 			ret = -ENOMEM;
+ 			goto out;
+ 		}
+ 	} else if (str_has_prefix(str, "name=")) {
++		kfree(attrs->name);
+ 		attrs->name = kstrdup(str, GFP_KERNEL);
+ 		if (!attrs->name) {
+ 			ret = -ENOMEM;
+@@ -1510,6 +1514,7 @@ static int parse_assignment(struct trace_array *tr,
+ 		str += len;
+ 
+ 		str = strstrip(str);
++		kfree(attrs->clock);
+ 		attrs->clock = kstrdup(str, GFP_KERNEL);
+ 		if (!attrs->clock) {
+ 			ret = -ENOMEM;
+-- 
+2.52.0.windows.1
 
 
-Can't we make ksys_setsid() more complicated instead? Have it create the
-autogroup in advance, move under the tasklist_lock and destroy on
-failure or something?
 
