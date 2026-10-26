@@ -1,53 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793046824;
-	b=WcZ6W6LYjo0mSYelyXQFGHMmKyUGdI4wNv8wD07rODaT7TxHSom5zNWOfkFSNnZRuRW0
-	 mTaNiMvYdCFuSUGC2vVNfs3tzRvlI2AqdHAk5AyvXYsPpQDRJLb8wL/tSMdftTgiqw28h
-	 ZwMhlEuuvtnOrtJ6clzb83RqTaj5KzHa2qTBqbX3yZPRD1FBcOwVMQRxqw+hp6gZq98SA
-	 6jUnOeX4KGaMnqN1jgygsaaBmteykQm5t3hMUZFK49aS1TZfUCu6+OkPdZG1YWn7YXrVS
-	 ORoi82N+JuwI7BxFjxtoGNPNTFMas2ELIT/ofTMv4W7HQMIDLsztLaiAIxHEtZo7sZw==
+	t=1793046840;
+	b=S/LwZpjuLyMLvou5lWAs5I3Aca67Z+3tezNW2RRzhZXsblMzScWo9Dt8XtSmb4Jb3P38
+	 COyy+FlEs52kS1/dTj0jt8en2sKwMJ8xQ6mo+iKWGiRHOfdqGFD5Q7faglmedbPX9OfvA
+	 N6dNLDObp/tCZAbxhV4BALP1aX2WSGmf6+AEQXB6S94awh7QGb6LXjG5GW1Dw+RTfns0I
+	 7OZHnR0ApP5F5D2jKHdXPPkCxH+UiTxcA6BBvR7Ap4ULnfNXiLIgnXg0nvo+7UQVyk4Fl
+	 NPzriXnklnPs4gzFhWu/7hveCEvexrlFvPwGge//8CaLsSAXFayYMAPGHTykqe4Oq6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793046824;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
-	 MIME-Version:X-Received:Date:X-Google-Appengine-App-Id:
-	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
-	 Content-Type;
-	bh=3uByF+XBf20d4oPmX+C+Bemtcg+uCCfvs+3UVHavAY0=;
-	b=fOeqJgkwHfsDz28g3uud+gSHdZV0SFtsTD0SjnHz0tj3cuSVO1lWTwSIUlJuOzM4z3pN
-	 I5clsRAd1SZHK7OB5gUSSrQSny0I2tHkNO3WUl4yXAtW44bVr18mOwPy9TCBHKPcIw7Rs
-	 ECajICSkToHAGhhwHbneq1udPiJKfD+BGriqo8RNmDaUAcxXC3HeHWrLXyJXc/zVepa/A
-	 BORjVHnhaGF7xgMPXsbjn2AiNWeXOfDJte6Cbgd6+Cl9+MsXN3XXNeYKLHyj2JcGB1M+u
-	 riwI5+Fj5xa4J4GouJNarMhQGhaP+I9S1uGKs96lEasjW2AJazSe1qG6urkNMvZWDhQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793046840;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=SyrOD4nxK3+1VMgtAgfF49M56P+HbkcbMWd7Pxr1oWA=;
+	b=mlOKvsLpXoPKiKMBco8L04AoLHvIV2MwHlxmd8poT2DV0qIZpRJT4CAPdLSiifl5aH+5
+	 LP2t96c5X59VHjuy9fkhwX0QMdtxshPkltZllI9vvR3qc/U9O0smRkSiirqD1+GWOTvOC
+	 MCXWwUpz4VLjzWk8/UAy6WPahxRqBHu9K0yZebEBdMVeISgASmXrzTqEJ/nWEhE4s3obN
+	 lVooWko/BDUVGUbZ6MFcgdNC5pekEX8ZRYJds8lFHbQdMJ2PlQxGcfU47V6wILJtqtqdE
+	 NIL92zC2+/UkmQMEDMOWvxBeWNJkc6Di24sTzM2g9KC4ETYA/z4UCKtJhubojK0E3RA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.199
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=acm.org;
+	spf=pass smtp.mailfrom=acm.org;
+	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=redyjGAN;
+	arc=none smtp.remote-ip=199.89.1.14
+Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 955E3606A321
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 20:33:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 955E3606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4f9b643ae53so3056631b6e.3
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:33:44 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793046824; x=1793651624;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3uByF+XBf20d4oPmX+C+Bemtcg+uCCfvs+3UVHavAY0=;
-        b=iHlnIRqiexZNkzpBZgr6Si3yfWcTHgsnxWWh+iqaNOI93Qxm38v9nk3/T7I+scUR3a
-         rH5MonMLI0bYitgou6zZJJO7VsZ5xRV4+uYQuZ1QGboK18yVzUzqc5KyLLbViCfUnOXD
-         DXkeCSuZVqQBQn/t/qmkgysbmb0RjxUCBuUesyx4+vvCrkWANvIPBjlJ80WadR250FZU
-         soWbQyqy/U60bgHvxhRR324r0smS8w1G79sOLVzig5XN75CMKUIqp/6YMnB8xrWsr6ye
-         ighQyXKnakUaIwldNjf8P9OjQu1RLfr5AsvA8GHS1W0Z2HVTjc4z+2vI5MjaZeSFpMa1
-         rhVg==
-X-Gm-Message-State: AFq9FYLt0MOf52kJan6TVRLjwdCMUrTJr9yjyQ7AIiOJaiq9uV8n6+b7
-	gcIprFMYrfYLryGX5PScue7UU0c3pejW/4YmWEQIuqEk9tdwdt7CSDyhyAaYaIs3rPOAPWApW3d
-	zK6A6T3jkVx99IXXMx/4x7IgABTODqqchgWRrfaNrHdWrWFEmchQeBIixsGs=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 711DC60A261A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 20:34:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 711DC60A261A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=redyjGAN
+Received: from localhost (localhost [127.0.0.1])
+	by 011.lax.mailroute.net (Postfix) with ESMTP id 4jD51z6Tzdz1XM30g;
+	Mon, 26 Oct 2026 20:33:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
+	content-transfer-encoding:content-type:content-type:in-reply-to
+	:from:from:content-language:references:subject:subject
+	:user-agent:mime-version:date:date:message-id:received:received;
+	 s=mr01; t=1793046836; x=1795638837; bh=SyrOD4nxK3+1VMgtAgfF49M5
+	6P+HbkcbMWd7Pxr1oWA=; b=redyjGANn7/hLRfLhs7aJOh09mMJ913xMSk7MTEI
+	vI3Yk+s+p0yVkDCpMQBkATobFCWeKjI8MDdl0Oya5kGyVhdhQsB9tiSqma0WpJB7
+	sHOYpy//JNNKr8/wHwR1F4f1zN75z9KZ4j/OBxG9BUTnaaaG7d+V/Aie0C8HOot2
+	3t7Ug0ZcZlVN+N2eGMbrCfj4VEbPEPREZZQ9Ma9SCJ+ZtFr1eaLmOMcrzskC9qVx
+	AF//O5TWyviTss8PWYHm/E5RHvzMsokAro2J90COLpQhWZ70awNRGOz2yh8ivxOS
+	6X98WWQKVFaNO3retvSGawqTYBryI8QkJ9wRl339k6TEpw==
+X-Virus-Scanned: by MailRoute
+Received: from 011.lax.mailroute.net ([127.0.0.1])
+ by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
+ id HsMcfnYmj2MV; Mon, 26 Oct 2026 20:33:56 +0000 (UTC)
+Received: from [100.80.231.125] (unknown [104.135.182.41])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bvanassche@acm.org)
+	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4jD51v6xNKz1XM4Tl;
+	Mon, 26 Oct 2026 20:33:55 +0000 (UTC)
+Message-ID: <54994cfa-ced0-4eb0-bc7a-43b860c6ec19@acm.org>
+Date: Mon, 26 Oct 2026 13:33:55 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,62 +70,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:48db:b0:55c:844:98b3 with SMTP id
- 5614622812f47-55c08449eecmr3673448b6e.50.1793046823825; Mon, 26 Oct 2026
- 13:33:43 -0700 (PDT)
-Date: Mon, 26 Oct 2026 13:33:43 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6adfb927.3a3d6196.2ecadf.0022.GAE@google.com>
-Subject: [syzbot] Monthly net report (Oct 2026)
-From: syzbot <syzbot+list402b67683d6a416b29ea@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] powerpc/iommu: Fix an RCU read lock leak in
+ mm_iommu_is_devmem()
+To: Markus Elfring <Markus.Elfring@web.de>, linuxppc-dev@lists.ozlabs.org,
+ Madhavan Srinivasan <maddy@linux.ibm.com>
+Cc: LKML <linux-kernel@vger.kernel.org>, Christophe Leroy
+ <chleroy@kernel.org>, Michael Ellerman <mpe@ellerman.id.au>,
+ Nicholas Piggin <npiggin@gmail.com>, Ritesh Harjani <ritesh.list@gmail.com>,
+ Shrikanth Hegde <sshegde@linux.ibm.com>
+References: <56f0c45723ee53149a21ceb599010e957457afd8.1793044370.git.bvanassche@acm.org>
+ <ed315ff8-36fa-40ef-90f9-01ad197a9f94@web.de>
+Content-Language: en-US
+From: Bart Van Assche <bvanassche@acm.org>
+In-Reply-To: <ed315ff8-36fa-40ef-90f9-01ad197a9f94@web.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
 
-Hello net maintainers/developers,
+On 10/26/26 1:27 PM, Markus Elfring wrote:
+> Under which circumstances would you become interested to apply a statem=
+ent
+> like =E2=80=9Cguard(rcu)();=E2=80=9D?
 
-This is a 31-day syzbot report for the net subsystem.
-All related reports/information can be found at:
-https://syzkaller.appspot.com/upstream/s/net
+I will leave it to the PowerPC maintainers to share their preference.
 
-During the period, 7 new issues were detected and 6 were fixed.
-In total, 58 issues are still open and 1801 have already been fixed.
-There are also 34 low-priority issues.
-
-Some of the still happening issues:
-
-Ref  Crashes Repro Title
-<1>  1034    No    INFO: task hung in netdev_run_todo (4)
-                   https://syzkaller.appspot.com/bug?extid=894cca71fa925aabfdb2
-<2>  917     Yes   INFO: task hung in tun_chr_close (5)
-                   https://syzkaller.appspot.com/bug?extid=b0ae8f1abf7d891e0426
-<3>  644     Yes   WARNING in inet_sock_destruct (6)
-                   https://syzkaller.appspot.com/bug?extid=5b3b7e51dda1be027b7a
-<4>  554     Yes   INFO: task hung in nsim_destroy (4)
-                   https://syzkaller.appspot.com/bug?extid=8141dcbd23a8f857798a
-<5>  520     No    possible deadlock in __ipv6_dev_mc_inc
-                   https://syzkaller.appspot.com/bug?extid=afbcf622635e98bf40d2
-<6>  203     Yes   BUG: Bad page state in skb_pp_cow_data
-                   https://syzkaller.appspot.com/bug?extid=ff145014d6b0ce64a173
-<7>  45      Yes   UBSAN: array-index-out-of-bounds in llc_conn_state_process (2)
-                   https://syzkaller.appspot.com/bug?extid=628f93722c08dc5aabe0
-<8>  40      Yes   WARNING: suspicious RCU usage in phy_detach
-                   https://syzkaller.appspot.com/bug?extid=694b49f41098a5df4fd7
-<9>  29      Yes   WARNING in dev_shutdown (7)
-                   https://syzkaller.appspot.com/bug?extid=c9ecf60a8adb7629821e
-<10> 25      Yes   INFO: task hung in inet6_rtm_deladdr (3)
-                   https://syzkaller.appspot.com/bug?extid=55141a0ffa0d17f01c71
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-To disable reminders for individual bugs, reply with the following command:
-#syz set <Ref> no-reminders
-
-To change bug's subsystems, reply with:
-#syz set <Ref> subsystems: new-subsystem
-
-You may send multiple commands in a single email message.
+Bart.
