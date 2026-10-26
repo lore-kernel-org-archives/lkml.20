@@ -1,134 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.148
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.33
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793052493;
-	b=pm+m09KpWgY7at0kLIC9xhqH2GP2XPYeSzz5eQvos1nSxTpZBTSbxHgTADWWuiJqCuZK
-	 vQqc2Kb1d87jLQpdI1gO9vNulGScSvBn2LWTbUWthbKWudeU4pgPNukr57hlh4/87KmEq
-	 zqnHYzmbTBUuXqe4lt8sHCcc+lrsQp+tZc60u7MPwJZnrTf86o4KbQPdWMsvtU6luCTJx
-	 2pFTDU9SWEDbEN+olL9IbXrmZhipxYY1JHCSm4dUNOEsjRfkB8zCoEBVWELO4jkhSag/0
-	 rSofW709TqyBjMKLSJOPsK6cQf8s2vswVkhXUyc0w4x/3U7+S61FgYLh+9lINUkhwAw==
+	t=1793052550;
+	b=kkAW8kKF207b1q0sD/FWQJGjwNL9EnKvTTPm2p8LCKsxPqg230wgUgtIA24IffzZKqCK
+	 qAqwWw/ti7GlyKnFlpTHFP6QynWH3xN03xrIo+ilZLkekOdDe+VbPAW0zJxrDyHEo2gLu
+	 BUXOznBhpqUhUnNVEOVmad33Uch8UJxXwUi6sOgtUC1fC62gYiFsA93Yn+7qn5sf0dpcf
+	 LtZ/ZH+VV0GLXjiiLs8dHnHB7zoQK5xqodIUSKGWwlNSQruOy5TzttbgVzV7YpjRC9pge
+	 25jretIonhKwY7V37HHAf3VIDnBWBrZg6MaIijz6L8GTcnJWbtukcBmzNkNhsW61QwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793052493;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=yw8gJOW94fTkjKACtcjzfr/YsSITaXsnUbgsLWBosFE=;
-	b=E4DxoITlid3d2KFDTI2XOMsRtdv9h6vNmW/Z827AWkiHO8ET/H3xO8yaIzSrrLm5dUyj
-	 3ScWnoV0UmGhEabCK1AbZdlAazNg9f2VbASNh9f2J7z/CdaRZQjKuhSsMaGtKCTDAxccv
-	 I1fjJZ38+Kr2JWny1nSZL/UAphx9O1HL62pllBDKeil/LKet/xd3H6qIe5LR+a+2Y1b1H
-	 3M55RHg55FiEPv+VM4MBwfXzgKITjM8SATqq60Bmob/NTWFiNKYDrPvLTs/KWF2nGPWxF
-	 CTTlJJAp5tcqnf8eQvdrqpKwRTxziXVjYMDU5zQMxwOGpZF8gGyEQ2W8kyDBM0vGRPw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793052550;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
+	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
+	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
+	 X-Local-Domain:X-CMAE-Envelope;
+	bh=FNwW0nyhMLg4KJlCauTn+tJuiWsniccUKxCVBBhuIX4=;
+	b=IC5ntxtso2mGeLrKyKBsDMeVy/P6L2P2vtLLAeHcrFx5LEztwMRzWcPPc9cnTiutjJSn
+	 qckEwWNADOtfEEFu1Nv6i7DNckS/22VTZ9UDvPVYTVxq/UcJozOvLapakfbTAuZKiHZmY
+	 QRKt2nIIkTP5xvtKhzDrsMjxYPcZG7QgG67B2tppvd33HOVPzD+NZsMfFnKfzEGYbiUFx
+	 JYJs2B94SYpJ0NG5RFnd7E9CYy1byGbjCDJx4CvxIrcqQwh1y0QKW1yetlcCnE+Opbo1p
+	 EB5zFAv/u3uHCEXlAMMwgCNqpS+qW8I0g2oSK5keu9HT4R3XQprA9RJRRL2I+Ivz/Dw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=themaw.net;
-	spf=pass smtp.mailfrom=themaw.net;
-	dkim=pass header.d=themaw.net header.i=@themaw.net header.a=rsa-sha256 header.s=fm1 header.b=UrEV8CO1;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=avGk9PqI;
-	arc=none smtp.remote-ip=202.12.124.148
-Received: from fout-b5-smtp.messagingengine.com (fout-b5-smtp.messagingengine.com [202.12.124.148])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=KLA9HlDc;
+	arc=none smtp.remote-ip=35.89.44.33
+Received: from omta34.uswest2.a.cloudfilter.net (omta34.uswest2.a.cloudfilter.net [35.89.44.33])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C4CA606A31F
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 22:08:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C4CA606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=themaw.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=themaw.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E4FF606A31D
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 22:09:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E4FF606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=themaw.net header.i=@themaw.net header.a=rsa-sha256 header.s=fm1 header.b=UrEV8CO1;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=avGk9PqI
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfout.stl.internal (Postfix) with ESMTP id D8FD71D003D2
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 18:08:12 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-04.internal (MEProxy); Mon, 26 Oct 2026 18:08:12 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=themaw.net; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1793052490;
-	 x=1793138890; bh=yw8gJOW94fTkjKACtcjzfr/YsSITaXsnUbgsLWBosFE=; b=
-	UrEV8CO1TUZnK8PJPLQEQ+mBDacfr1ualCI79fofyFxHp/qlH67Qk1zDha6ZDsUD
-	FAJJYbbVRZH706lqEQ1NMx+s1EL71CQ+qJsAggeKG0vqBj/xL0+g9/cQe3EmmVdf
-	OBP9oeiZdtOdhVjy/9V65hXNxM/X0M6KX3SXFOfk0nMcUaC4TuW9Lzuv2ZezXmX2
-	Xm4f4UvRS5LSth3SslZmRV6M1ryJPxSBz8w0BPf9Iigy7LFomt5f2d4ANnD3HKLz
-	lcSjcD+UjlJRdGQsr5RE78TsLBdHTwyWipS6UmHptFiSmVIO1/Q2QG9HEyR7jwi2
-	EYnYOOJt/YEUKLEp9QlmYA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793052490; x=
-	1793138890; bh=yw8gJOW94fTkjKACtcjzfr/YsSITaXsnUbgsLWBosFE=; b=a
-	vGk9PqIr6hEzkBG77k8GkpXeSQRT+MVDN4DUxSMcA1igxPIR/+ga1iuhPR87rrch
-	o39J5JLbaroJv+WocVTRVwIurwoXClx0UWuccJ+RgdT0YRqkRq3PW3yzZKClbwX5
-	3PZHhRjN82XGlHlJbp/bOyza6RhwVbJRIEDqU5PO7X908wlAZXc7i09ujPK/uSwP
-	maqeWiARyT+wYltmETV8RrnGseapHSWp99e0Cf5kBm0Whh7W7jcTP1gtIbhSpiyR
-	0u/vnbhHjLT8RNpOZZfIxnpiwmL5vNgnvKvxOb8zxwiBvIQ76xAQd8Rnn2fR98xe
-	yIS/MWt0ERu5CwEw/HwWw==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=sign d=themaw.net a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793052490; d=themaw.net;
-	mf=PHJhdmVuQHRoZW1hdy5uZXQ+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:KSKMsbi2MZ8Y+Z49XLvA6ON4jKY6xMFNJFHqaH9+2gfHpC7
-	G57DhOPlAGfC+OTSyoe/SHBkeMVAv7qoK1pDIWKWOiU/DmhNuA8GVYdVz3i+sntQ
-	2tzaYajy+03a6ca50zxa9Aoe1bIoIouWvp4RnmBM2eom0KLKN7gIw4ge3fXnO7In
-	rdeFW3Q/LdAfYW5XDcrbmVIti9kTvIBy+BTEU91CFMPBIt9wtIeVXpdLOyD0Qkv0
-	M1j9dSzWqwmxV0fawoLVIRyTIA5FFWgpnTThq4ohJr0wC8T87/EbvkB6UvXo5T20
-	ldMlwqcZuV2qoA3/U1zGFKYTMAT9jTmkwkmOtuw==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=13;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to,
-	user-agent;
-Message-Instance: m=1; h=sha256:tdg6ua8/hQS/iYkk+8+1oIbT4XjyplM8CQ3hPjDL8gU=:yw8gJOW94fTkjKACtcjzfr/YsSITaXsnUbgsLWBosFE=;
-X-ME-Sender: <xms:SM_falmJYKjuMXVHDQt2QQt2e9GRe6P_ZlHx9B0jy3DtnwU-Mhwilw>
-    <xme:SM_fanzOb00shgf6BVLGTvm3wWAEqDvLNbmTrEUBM6t2vXp1Jn27RhxW-QSd6_ZcG
-    FynuGh_Zd1AH-3TXIyVt0MGvELm2hQ0AdlawiG__NQvzM1M>
-X-ME-Received: <xmr:SM_fagulXQAxGdh47J-3Sc9EZB76wUhrIZV1bSoHJVRcNT9CV3-XLvoY5_ae3ExFkPIKFqbwCSLPkds1UqaKAorpiepGRidZUelVzfY9gax3aZgg4D9bQFfcjNM>
-X-ME-Proxy-Cause: dmFkZTF5HCOsxN9EPzsQKkgStD/Ff4WaJ8kNbHpSExIutymQMzNLPQM/4D7eFPnNuRZhMM
-    yiFZU29YFLK097HXfiVZtxDexZrGtWPk8oIS0KHK9LJ+COj6lx72D3NGicQiveM66XsuuI
-    T5hdMIkNOs99rmLKIhonQkKb4GS6BpcgwfRht1cF14LSexGc7Vuh+dOSrMRFPPDR2vDdp+
-    I2Kj5kQbVl3rdYwlSzYKD6Ljbc/jI3yCouc8I227ttT1dc69wA3DVKDYh6Dxx4CnJAsGMx
-    dRdBm2OsEUCbGYBG+rLKXIe7ZjFMsj4ic7Jo/KwKEtc8FlEvgmpa4M2QKds/GCXUxeH3mV
-    hlatiPuA1PlYXizqCztg6HNVhQRmacIaSHc8Qwq2Br5SvRSQdKCk92iWVbYNmY5u7sdCPv
-    eI9FmIM1vtGGAJVQBqh7+2hzdk6ENCtM8BtYfw4MCq8+yiVA4HOqdWvKKVC2aMSUyYSNNs
-    GjuuWW6QfDWQPLpxyjyyRbSKdpIIyL3Tg4q94xEIkUtYDseeq5zvDy0TxIe/8uq6trsyvq
-    12FxalXYe67wUyQOKOMK+vxsxR9oRudyupWfujyodN+jFjBk8gVG3TaBeGM0J1IM+Kt/YQ
-    9kpaZYdH824878CQeB9Hov1Tbl+TNTcopCEAWeu9r3TVYfVORKt387XTeRNw
-X-ME-Proxy: <xmx:SM_fastfAR-nbfD779bC72wWAQSNDoTOifg7ia6nkQp1Uu6Wl9JC8w>
-    <xmx:SM_faukfKeNv0QfbzQ1Mdz-dRnCEs-2QfPbeNcc7818FyLAicMNf6g>
-    <xmx:SM_faqvDy6DYaKkRzWH01Rnp9FtgDFJd7PuUy91kFsJxUMfQVADTGw>
-    <xmx:SM_falM6fmdy7zX8HjhUCgmquQTDw-Dbj4SPd2ytgaZzwcTjJj6Log>
-    <xmx:Ss_fas8XLcMNaCaKXBRNJwdR2hfN8SrYNk_YE7dtRdyQgT0KrlyGPJI4>
-Feedback-ID: i31e841b0:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 26 Oct 2026 18:08:03 -0400 (EDT)
-Message-ID: <dc65c28e408d6b64d4b13b7ad30e5fe70ddaa441.camel@themaw.net>
-Subject: Re: [PATCH 0/2] kernfs, autofs: fix pipe lock cycles through sysfs
- stores
-From: Ian Kent <raven@themaw.net>
-To: Krystian Kaniewski <krystianmkaniewski@gmail.com>, Greg Kroah-Hartman
-	 <gregkh@linuxfoundation.org>
-Cc: Tejun Heo <tj@kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>, 
- Danilo Krummrich	 <dakr@kernel.org>, Alexander Viro
- <viro@zeniv.linux.org.uk>, Christian Brauner	 <brauner@kernel.org>, Jan
- Kara <jack@suse.cz>, Ingo Molnar <mingo@redhat.com>,  Peter Zijlstra
- <peterz@infradead.org>, Andrew Morton <akpm@linux-foundation.org>, Jens
- Axboe <axboe@kernel.dk>, 	driver-core@lists.linux.dev,
- autofs@vger.kernel.org, 	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, 
-	syzbot+002fb7b2d0bc53bf7e75@syzkaller.appspotmail.com
-Date: Tue, 27 Oct 2026 06:07:59 +0800
-In-Reply-To: <cover.1792577179.git.krystianmkaniewski@gmail.com>
-References: <6aa23178.f81106d8.2ab401.0006.GAE@google.com>
-	 <cover.1792577179.git.krystianmkaniewski@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44app2) 
+	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=KLA9HlDc
+Received: from eig-obgw-5005b.ext.cloudfilter.net ([10.0.29.189])
+	by cmsmtp with ESMTPS
+	id LKuExlaNlaC0ULSsQxZzS1; Mon, 26 Oct 2026 22:09:10 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id LSsNxfiWNJ2XTLSsPxLcwY; Mon, 26 Oct 2026 22:09:09 +0000
+X-Authority-Analysis: v=2.4 cv=Lfg86ifi c=1 sm=1 tr=0 ts=6adfcf85
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=M0FbrtG7MMAA:10 a=iXiyidbvAAAA:8
+ a=pGLkceISAAAA:8 a=jdP34snFAAAA:8 a=TlQaE0Xuup0GS2m4uVgA:9 a=CjuIK1q_8ugA:10
+ a=RVmHIydaz68A:10 a=pkPhiurjdwHc21woUKjd:22 a=jlphF6vWLdwq7oh3TaWq:22
+ a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
+	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
+	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=FNwW0nyhMLg4KJlCauTn+tJuiWsniccUKxCVBBhuIX4=; b=KLA9HlDcosqcMx3+P89aMhhnBM
+	FY30E8r272wXeEO4yuTNNFr4pl3WYbFChCqoSde1BCNETiWN4TC+15KTc8OfyiNZPzA4CJaIRPe09
+	RlaVknXrF/qO9ZCkvussBA0IJSFhL0D7fXp+bZQutwKeWBe+9tr1zp3EkJBoKnXBPWzXCByXrfUBD
+	i0zWl2dxHayiuEDMreuRigWjqh/0eUyFls1Pvo1BohOfxiQhgQAUzYACd3bJaLon1lgUkG63sDoxl
+	VXmuIw/TxmXHfVju5G5gFZpWgf5VEFmiAau/u4CjSaaD6eJySjoC3nZDL2apsqs2ih+1pgzJqy9MQ
+	hLeS9YVA==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:53900 helo=server.roeck-us.net)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xLSsL-00000003sgJ-3QWo;
+	Tue, 27 Oct 2026 03:39:05 +0530
+Date: Mon, 26 Oct 2026 15:09:04 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Florian Fainelli <f.fainelli@gmail.com>
+Cc: linux-mips@vger.kernel.org, Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Jakub Kicinski <kuba@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
+	Ethan Nelson-Moore <enelsonmoore@gmail.com>,
+	Eric Biggers <ebiggers@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Mingyu Wang <25181214217@stu.xidian.edu.cn>,
+	Robert Marko <robert.marko@sartura.hr>,
+	"open list:WATCHDOG DEVICE DRIVERS" <linux-watchdog@vger.kernel.org>,
+	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
+	open list <linux-kernel@vger.kernel.org>, manuel.lauss@gmail.com
+Subject: Re: [PATCH 5/5] watchdog: Remove the MTX-1 watchdog driver
+Message-ID: <ab0512df-8f98-4a8c-b27d-bdace0e7f6d0@roeck-us.net>
+References: <20261016221617.2223004-1-f.fainelli@gmail.com>
+ <20261016221617.2223004-6-f.fainelli@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -138,71 +98,330 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261016221617.2223004-6-f.fainelli@gmail.com>
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xLSsL-00000003sgJ-3QWo
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:53900
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 45
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfGt0J3lu0OVLLHvbKpErm1sbFgqqwXMjspx4M0Wqlc10DJq3yfXuoFeJwpRiRCavT2cCHazF0uLbpzuIwbKjj3eLbLcrw7bOSw8eCKog09bxNtdiYIdq
+ JhRwizTNafmxKKjJtte2puWtHNKLHU3zUSOWJPHBgwXZtSQgADrpVwkGvH8hKaPobseV8R63C7hyFPJ535b20FbQbEtBeC/QKdM5j2NOtVf/g9sVuhH69QkR
 
-On Wed, 2026-10-21 at 14:51 +0200, Krystian Kaniewski wrote:
-> syzbot reports a lockdep cycle &pipe->mutex --> &of->mutex -->
-> &sbi->pipe_mutex. splice holds a pipe mutex while it calls the write
-> or
-> read handler of a kernfs file, kernfs takes of->mutex there, and a
-> write
-> to /sys/power/resume looks up a path that can make autofs write a
-> request
-> into its daemon pipe and wait for the daemon.
->=20
-> Patch 1 stops holding of->mutex around the ->store() callback of
-> regular
-> sysfs attributes, which do not get the open file and already run
-> concurrently for separate opens.
->=20
-> Patch 2 handles the case that patch 1 leaves. A store called from
-> splice
-> still runs with the pipe locked. autofs no longer sends or waits for
-> a
-> request in that context and returns -EAGAIN instead. A new mount is
-> refused before it is marked pending, so no other lookup sends the
-> request
-> in its place. This also removes a deadlock in which the spliced pipe
-> is
-> the autofs daemon pipe itself.
->=20
-> Patch 2 changes behavior for one narrow case. A lookup from a splice
-> callback that needs an automount fails with -EAGAIN instead of
-> waiting.
->=20
-> The series was tested in QEMU with lockdep using the original C and
-> syz
-> reproducers and focused splice and autofs cases. The target reports
-> were
-> not reproduced with the series applied, and the paired functional
-> cases
-> matched the unpatched baseline.
-I can't seem to find a reproducer that reproduces the bug or maybe
-I don't know what to expect from running the syzbot reproducer I
-did locate.
+On Fri, Oct 16, 2026 at 03:16:17PM -0700, Florian Fainelli wrote:
+> MTX-1 now uses the generic GPIO watchdog driver with board properties
+> describing its GPIO and heartbeat constraints. Remove the unused custom
+> driver and its Kconfig and Makefile entries.
+> 
+> The watchdog core now supplies the character device, keepalive scheduling,
+> timeout handling and close semantics previously implemented by this driver.
+> 
+> Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
 
-Can anyone help please.
+Applied.
 
-Ian
->=20
-> Krystian Kaniewski (2):
-> =C2=A0 kernfs: do not hold of->mutex across sysfs ->store()
-> =C2=A0 autofs: do not wait for the daemon while splice holds a pipe
->=20
-> =C2=A0fs/autofs/expire.c=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 6 +++++
-> =C2=A0fs/autofs/root.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 28 +++++++++=
-++++++++++++--
-> =C2=A0fs/kernfs/file.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 52 +++++++++=
-++++++++++++++++++-------------
-> --
-> =C2=A0fs/splice.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 | 13 ++++++++++-
-> =C2=A0fs/sysfs/file.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 18 ++++=
-++++++++++-
-> =C2=A0include/linux/kernfs.h | 11 +++++++++
-> =C2=A0include/linux/sched.h=C2=A0 |=C2=A0 2 ++
-> =C2=A0kernel/fork.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- |=C2=A0 1 +
-> =C2=A08 files changed, 109 insertions(+), 22 deletions(-)
->=20
->=20
-> base-commit: 93f51579e7df248780214094418f205253383cc5
+Thanks,
+Guenter
+
+> ---
+>  drivers/watchdog/Kconfig     |   7 -
+>  drivers/watchdog/Makefile    |   1 -
+>  drivers/watchdog/mtx-1_wdt.c | 245 -----------------------------------
+>  3 files changed, 253 deletions(-)
+>  delete mode 100644 drivers/watchdog/mtx-1_wdt.c
+> 
+> diff --git a/drivers/watchdog/Kconfig b/drivers/watchdog/Kconfig
+> index f50709c635e5..c884f86be4e3 100644
+> --- a/drivers/watchdog/Kconfig
+> +++ b/drivers/watchdog/Kconfig
+> @@ -1865,13 +1865,6 @@ config JZ4740_WDT
+>  	help
+>  	  Hardware driver for the built-in watchdog timer on Ingenic jz4740 SoCs.
+>  
+> -config WDT_MTX1
+> -	tristate "MTX-1 Hardware Watchdog"
+> -	depends on MIPS_MTX1 || (MIPS && COMPILE_TEST)
+> -	help
+> -	  Hardware driver for the MTX-1 boards. This is a watchdog timer that
+> -	  will reboot the machine after a 100 seconds timer expired.
+> -
+>  config SIBYTE_WDOG
+>  	tristate "Sibyte SoC hardware watchdog"
+>  	depends on CPU_SB1
+> diff --git a/drivers/watchdog/Makefile b/drivers/watchdog/Makefile
+> index 9ac406677aba..19cb25f51624 100644
+> --- a/drivers/watchdog/Makefile
+> +++ b/drivers/watchdog/Makefile
+> @@ -172,7 +172,6 @@ obj-$(CONFIG_BCM47XX_WDT) += bcm47xx_wdt.o
+>  obj-$(CONFIG_RC32434_WDT) += rc32434_wdt.o
+>  obj-$(CONFIG_INDYDOG) += indydog.o
+>  obj-$(CONFIG_JZ4740_WDT) += jz4740_wdt.o
+> -obj-$(CONFIG_WDT_MTX1) += mtx-1_wdt.o
+>  obj-$(CONFIG_SIBYTE_WDOG) += sb_wdog.o
+>  obj-$(CONFIG_TXX9_WDT) += txx9wdt.o
+>  obj-$(CONFIG_OCTEON_WDT) += octeon-wdt.o
+> diff --git a/drivers/watchdog/mtx-1_wdt.c b/drivers/watchdog/mtx-1_wdt.c
+> deleted file mode 100644
+> index f75426cfa425..000000000000
+> --- a/drivers/watchdog/mtx-1_wdt.c
+> +++ /dev/null
+> @@ -1,245 +0,0 @@
+> -// SPDX-License-Identifier: GPL-2.0+
+> -/*
+> - *      Driver for the MTX-1 Watchdog.
+> - *
+> - *      (C) Copyright 2005 4G Systems <info@4g-systems.biz>,
+> - *							All Rights Reserved.
+> - *                              http://www.4g-systems.biz
+> - *
+> - *	(C) Copyright 2007 OpenWrt.org, Florian Fainelli <florian@openwrt.org>
+> - *      (c) Copyright 2005    4G Systems <info@4g-systems.biz>
+> - *
+> - *      Release 0.01.
+> - *      Author: Michael Stickel  michael.stickel@4g-systems.biz
+> - *
+> - *      Release 0.02.
+> - *	Author: Florian Fainelli florian@openwrt.org
+> - *		use the Linux watchdog/timer APIs
+> - *
+> - *      The Watchdog is configured to reset the MTX-1
+> - *      if it is not triggered for 100 seconds.
+> - *      It should not be triggered more often than 1.6 seconds.
+> - *
+> - *      A timer triggers the watchdog every 5 seconds, until
+> - *      it is opened for the first time. After the first open
+> - *      it MUST be triggered every 2..95 seconds.
+> - */
+> -
+> -#include <linux/module.h>
+> -#include <linux/moduleparam.h>
+> -#include <linux/types.h>
+> -#include <linux/errno.h>
+> -#include <linux/miscdevice.h>
+> -#include <linux/fs.h>
+> -#include <linux/ioport.h>
+> -#include <linux/timer.h>
+> -#include <linux/completion.h>
+> -#include <linux/jiffies.h>
+> -#include <linux/watchdog.h>
+> -#include <linux/platform_device.h>
+> -#include <linux/io.h>
+> -#include <linux/uaccess.h>
+> -#include <linux/gpio/consumer.h>
+> -
+> -#define MTX1_WDT_INTERVAL	(5 * HZ)
+> -
+> -static int ticks = 100 * HZ;
+> -
+> -static struct {
+> -	struct completion stop;
+> -	spinlock_t lock;
+> -	int running;
+> -	struct timer_list timer;
+> -	int queue;
+> -	int default_ticks;
+> -	unsigned long inuse;
+> -	struct gpio_desc *gpiod;
+> -	unsigned int gstate;
+> -} mtx1_wdt_device;
+> -
+> -static void mtx1_wdt_trigger(struct timer_list *unused)
+> -{
+> -	spin_lock(&mtx1_wdt_device.lock);
+> -	if (mtx1_wdt_device.running)
+> -		ticks--;
+> -
+> -	/* toggle wdt gpio */
+> -	mtx1_wdt_device.gstate = !mtx1_wdt_device.gstate;
+> -	gpiod_set_value(mtx1_wdt_device.gpiod, mtx1_wdt_device.gstate);
+> -
+> -	if (mtx1_wdt_device.queue && ticks)
+> -		mod_timer(&mtx1_wdt_device.timer, jiffies + MTX1_WDT_INTERVAL);
+> -	else
+> -		complete(&mtx1_wdt_device.stop);
+> -	spin_unlock(&mtx1_wdt_device.lock);
+> -}
+> -
+> -static void mtx1_wdt_reset(void)
+> -{
+> -	ticks = mtx1_wdt_device.default_ticks;
+> -}
+> -
+> -
+> -static void mtx1_wdt_start(void)
+> -{
+> -	unsigned long flags;
+> -
+> -	spin_lock_irqsave(&mtx1_wdt_device.lock, flags);
+> -	if (!mtx1_wdt_device.queue) {
+> -		mtx1_wdt_device.queue = 1;
+> -		mtx1_wdt_device.gstate = 1;
+> -		gpiod_set_value(mtx1_wdt_device.gpiod, 1);
+> -		mod_timer(&mtx1_wdt_device.timer, jiffies + MTX1_WDT_INTERVAL);
+> -	}
+> -	mtx1_wdt_device.running++;
+> -	spin_unlock_irqrestore(&mtx1_wdt_device.lock, flags);
+> -}
+> -
+> -static int mtx1_wdt_stop(void)
+> -{
+> -	unsigned long flags;
+> -
+> -	spin_lock_irqsave(&mtx1_wdt_device.lock, flags);
+> -	if (mtx1_wdt_device.queue) {
+> -		mtx1_wdt_device.queue = 0;
+> -		mtx1_wdt_device.gstate = 0;
+> -		gpiod_set_value(mtx1_wdt_device.gpiod, 0);
+> -	}
+> -	ticks = mtx1_wdt_device.default_ticks;
+> -	spin_unlock_irqrestore(&mtx1_wdt_device.lock, flags);
+> -	return 0;
+> -}
+> -
+> -/* Filesystem functions */
+> -
+> -static int mtx1_wdt_open(struct inode *inode, struct file *file)
+> -{
+> -	if (test_and_set_bit(0, &mtx1_wdt_device.inuse))
+> -		return -EBUSY;
+> -	return stream_open(inode, file);
+> -}
+> -
+> -
+> -static int mtx1_wdt_release(struct inode *inode, struct file *file)
+> -{
+> -	clear_bit(0, &mtx1_wdt_device.inuse);
+> -	return 0;
+> -}
+> -
+> -static long mtx1_wdt_ioctl(struct file *file, unsigned int cmd,
+> -							unsigned long arg)
+> -{
+> -	void __user *argp = (void __user *)arg;
+> -	int __user *p = (int __user *)argp;
+> -	unsigned int value;
+> -	static const struct watchdog_info ident = {
+> -		.options = WDIOF_CARDRESET,
+> -		.identity = "MTX-1 WDT",
+> -	};
+> -
+> -	switch (cmd) {
+> -	case WDIOC_GETSUPPORT:
+> -		if (copy_to_user(argp, &ident, sizeof(ident)))
+> -			return -EFAULT;
+> -		break;
+> -	case WDIOC_GETSTATUS:
+> -	case WDIOC_GETBOOTSTATUS:
+> -		put_user(0, p);
+> -		break;
+> -	case WDIOC_SETOPTIONS:
+> -		if (get_user(value, p))
+> -			return -EFAULT;
+> -		if (value & WDIOS_ENABLECARD)
+> -			mtx1_wdt_start();
+> -		else if (value & WDIOS_DISABLECARD)
+> -			mtx1_wdt_stop();
+> -		else
+> -			return -EINVAL;
+> -		return 0;
+> -	case WDIOC_KEEPALIVE:
+> -		mtx1_wdt_reset();
+> -		break;
+> -	default:
+> -		return -ENOTTY;
+> -	}
+> -	return 0;
+> -}
+> -
+> -
+> -static ssize_t mtx1_wdt_write(struct file *file, const char *buf,
+> -						size_t count, loff_t *ppos)
+> -{
+> -	if (!count)
+> -		return -EIO;
+> -	mtx1_wdt_reset();
+> -	return count;
+> -}
+> -
+> -static const struct file_operations mtx1_wdt_fops = {
+> -	.owner		= THIS_MODULE,
+> -	.unlocked_ioctl	= mtx1_wdt_ioctl,
+> -	.compat_ioctl	= compat_ptr_ioctl,
+> -	.open		= mtx1_wdt_open,
+> -	.write		= mtx1_wdt_write,
+> -	.release	= mtx1_wdt_release,
+> -};
+> -
+> -
+> -static struct miscdevice mtx1_wdt_misc = {
+> -	.minor	= WATCHDOG_MINOR,
+> -	.name	= "watchdog",
+> -	.fops	= &mtx1_wdt_fops,
+> -};
+> -
+> -
+> -static int mtx1_wdt_probe(struct platform_device *pdev)
+> -{
+> -	int ret;
+> -
+> -	mtx1_wdt_device.gpiod = devm_gpiod_get(&pdev->dev,
+> -					       NULL, GPIOD_OUT_HIGH);
+> -	if (IS_ERR(mtx1_wdt_device.gpiod)) {
+> -		dev_err(&pdev->dev, "failed to request gpio");
+> -		return PTR_ERR(mtx1_wdt_device.gpiod);
+> -	}
+> -
+> -	spin_lock_init(&mtx1_wdt_device.lock);
+> -	init_completion(&mtx1_wdt_device.stop);
+> -	mtx1_wdt_device.queue = 0;
+> -	clear_bit(0, &mtx1_wdt_device.inuse);
+> -	timer_setup(&mtx1_wdt_device.timer, mtx1_wdt_trigger, 0);
+> -	mtx1_wdt_device.default_ticks = ticks;
+> -
+> -	ret = misc_register(&mtx1_wdt_misc);
+> -	if (ret < 0) {
+> -		dev_err(&pdev->dev, "failed to register\n");
+> -		return ret;
+> -	}
+> -	mtx1_wdt_start();
+> -	dev_info(&pdev->dev, "MTX-1 Watchdog driver\n");
+> -	return 0;
+> -}
+> -
+> -static void mtx1_wdt_remove(struct platform_device *pdev)
+> -{
+> -	/* FIXME: do we need to lock this test ? */
+> -	if (mtx1_wdt_device.queue) {
+> -		mtx1_wdt_device.queue = 0;
+> -		wait_for_completion(&mtx1_wdt_device.stop);
+> -	}
+> -
+> -	misc_deregister(&mtx1_wdt_misc);
+> -}
+> -
+> -static struct platform_driver mtx1_wdt_driver = {
+> -	.probe = mtx1_wdt_probe,
+> -	.remove = mtx1_wdt_remove,
+> -	.driver.name = "mtx1-wdt",
+> -};
+> -
+> -module_platform_driver(mtx1_wdt_driver);
+> -
+> -MODULE_AUTHOR("Michael Stickel, Florian Fainelli");
+> -MODULE_DESCRIPTION("Driver for the MTX-1 watchdog");
+> -MODULE_LICENSE("GPL");
+> -MODULE_ALIAS("platform:mtx1-wdt");
