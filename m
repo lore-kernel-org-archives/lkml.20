@@ -1,80 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.154.123
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793011835;
-	b=vBkVo8jGjKxR/mmfCoxwNcTFd31MYi6DYBpK8k0yaUwLFTkxRalTaQ5kJCkQlvzwFW8a
-	 vq0CUMJCMEKuyRJeAeXZ3fPgNo50sd5oBXmEfGIyUGn8ACVrMqpEFSW3ejx/DwVKt171r
-	 hRbJ1xzLyBB5SJGC6tlXdstZdXF438rKayWg0/v0cyKK3BSqLXWzMsIu3ezGr4LQi5QvG
-	 f71Gema+GxRFdLrLJj46ELhixSOvDfZ0AYc78t1t2EAaVyrLjwS+CHz/uMwYUUFj1qrnB
-	 vo0tpxtZIwg3TudHt9Ft3w83QpVlYk/I41SWZHhsq98D9EANwlZCCQiIIytR4Nql99g==
+	t=1793011853;
+	b=v4FIhVpRZt3dQiyffTfcQxTTXv51EMoN8sVLAPEiMT91IQ2SSfFL/TJ0CNFwAJ0M2VCC
+	 39U0/K46conbSYeVjDfHZVgRzaXtgA+qrwF/w4uBBCRYzXsyjNtLgy2s2PuZ35qNxjnOD
+	 +2qEBgP3r6VJby/zjxbJQCBQBi9ptZuBXeEI5d/6Ux1Qh0lhfeFsVl3XvQd1Dq2sPytHz
+	 j4tUDvzYTiFzxO3MFHz5Dk/Z1OAuP2NHtYTAPYWZ8/pU5oaOlOYxPDH7jZ2agCOyz1dTm
+	 CBQbUCb7Ux1cTcjx8Y6lMLOvdCEoTlHX1N/lQfMdjIz0dq//CauEg3Y8kiPYkNCfB/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793011835;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:Date:From:To:CC:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=kZegd21eJPs0d40BjKUHqcr89Pv+qXwSyRe0ZqGvMzE=;
-	b=Be7jk7CtDqkSXeoQHBNfwFjMzOe0I4DVpsmXh4Ilj47WARD3p275AtA3HVKGU3WVwC+D
-	 /nZrDD53i/bcOQ8GJlF6krvIOS08F4KP3ZJEwdXwkv6WZo/vXdD+ABUpjkUXSeGRhcIPz
-	 PAr2Ja656OWmRFF24VGEGV08qKw6ELUJE4omppTPKCciGRnGfkDKPK0l0BzzxQEYteNrf
-	 nT5yS3U0ynTGO8LhoAv/Adam0k0qhOQzIFPCxI9bmsIwTN/Kbr76vLLYj4c//ezYdnIyB
-	 Mfrg54lq21z1rJPRGlJQf4LmUX4GAQOiQMihn7fzzaiVXPHg7FcJOhCPi2wtcRpQM0A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793011853;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=dyIOxsTmkVspFMyxvRPipvvAUXx4yxejy3ONSysLtPo=;
+	b=z+LkGo0b7m7KDQPO53i0CmUEWOixCDixiH16ngBgIO4YoRe4JCC7zu9UTbNAabLglQKU
+	 GzQ8SLvTBvc9aDjDP0uHJiRXKRc8vMB9Mdvrcx++/d5MoYvGhbrS5/awkjpmfRreaKFjO
+	 1NZewHewcZNXk/ht2XA16bct3yOWYAOZvrQIUNQsaOT7HU6jRvm+I1bzzE+k7IwtD1bZg
+	 ZHdXHtwy2jXWguK1/VltX4Kh3afqvSLZS1sJ7yNO4hW62IZFVmDctJNh3wEM2B/z+30T+
+	 qls6YnhpCsQlVE8uCeUUCGmN9Ld3ADYTy6QSI/62peW1Yv2YcYJGCQg/njxXtE2fwGQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=microchip.com;
-	spf=pass smtp.mailfrom=microchip.com;
-	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b="IYlnXd/M";
-	arc=none smtp.remote-ip=68.232.154.123
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=RRfS7Q8O;
+	arc=none smtp.remote-ip=74.125.82.54
+Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DA53606A31A;
-	Mon, 26 Oct 2026 10:50:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DA53606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F9AA606A32A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:50:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F9AA606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=IYlnXd/M
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1793011834; x=1824547834;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=tFcPXXCNlvoJwnjmf4sXIj7Lp3FDYBM8464Z4wq1uaw=;
-  b=IYlnXd/MKe00Yfy4Ben/BdL3J/PObJm6U8aHucfFmi3oLRk6ZSojIExe
-   J4iifWZYVpVtM+AxkA05wMpabQPwCmoeMMA2USwbx01NU+ptc4unq+cmZ
-   +FllXI4y0dG/8w6FucfV99O/Z0oUgzNZxjmuNOTCD/nxCEhVBpBBnlQts
-   BsO13pNlBwKt2zBIPoWnVdE7GW7pND9QS+v26IbEDwhp/YeHQ0qj0vs1n
-   uyGpopXRWWAYfXPZAw2JEaGLjGjy6V50YswjjOD4fAluqL8/QJYxmvZk+
-   FzdOqTTQbLeUTdOQqJBixxH8rt/Z44DvREY3jGMgIQfjEQFvTzOoYGnwh
-   w==;
-X-CSE-ConnectionGUID: BtB5I6RLRlmmxGgsFCekRg==
-X-CSE-MsgGUID: wTdfZMXbRCC2GFL6SmY5vg==
-X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
-   d="scan'208";a="64589480"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa4.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 03:50:33 -0700
-Received: from chn-vm-ex03.mchp-main.com (10.10.87.152) by
- chn-vm-ex2.mchp-main.com (10.10.87.31) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.49; Mon, 26 Oct 2026 03:50:33 -0700
-Received: from DEN-DL-M70577.microsemi.net (10.10.85.11) by
- chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Mon, 26 Oct 2026 03:50:30 -0700
-Date: Mon, 26 Oct 2026 11:50:30 +0100
-From: Daniel Machon <daniel.machon@microchip.com>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>
-CC: Andrew Lunn <andrew+netdev@lunn.ch>, Jakub Kicinski <kuba@kernel.org>,
-	<davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Paolo Abeni
-	<pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Russell King
-	<linux@armlinux.org.uk>, Kuniyuki Iwashima <kuniyu@google.com>, Stanislav
- Fomichev <sdf.kernel@gmail.com>, <thomas.petazzoni@bootlin.com>, Alexis
- =?utf-8?Q?Lothor=C3=A9?= <alexis.lothore@bootlin.com>,
-	<netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH net v3] net: Use a dedicated flag to track disabled napi
- instances
-Message-ID: <20261026105030.j3a4aims7tgqm23t@DEN-DL-M70577.microsemi.net>
-References: <20261022075757.1164283-1-maxime.chevallier@bootlin.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=RRfS7Q8O
+Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-1a2761c69fbso353728c88.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 03:50:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793011852; x=1793616652; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dyIOxsTmkVspFMyxvRPipvvAUXx4yxejy3ONSysLtPo=;
+        b=RRfS7Q8OPPYtJbHt0dGwO+5W8hsvH0JAbXLtkhOccVHZw3MtoFz2og4+VrGzVWn6ph
+         65lOhe37KnOeYyQDPPPfZ6FN8bp/mBZFG/dWnP2vofcWlND77h8OqqIOboUfmRBX1387
+         TazPaVrjjwk+Hj6UO8gW/BWmBkPTKiY9oS62XGltasL0axnLairab6B/K0PSJrUsO4Ke
+         p1FbkkkAy19bTs2TzE6U+NEDs3delOQ6TBG/RMvDyvVN8HsRwyANDHvLgpTOnYLcWTwg
+         J+p4NuVfQsRBDta1pmjWxF5r7ldHHAMOHVcOgZzlAUQ7KFMtW5U0Nc76r6vYWeOxB+NM
+         NDYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793011852; x=1793616652;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dyIOxsTmkVspFMyxvRPipvvAUXx4yxejy3ONSysLtPo=;
+        b=yBNw9H3RsBfFkhIiZjvabeImAI4TCN4faQThXk5xK1tIUsPomVWW5nPjl9+ljQdymA
+         DXSiJhB+0QTVyoy7oHUPlhwlooL11THbO6Mx3AnSvY1GQkrS1aIWe/M7pNDXAePBIQvP
+         28WcL+0zCfXEjXX7keLj9+x4w4IMBJ8uU4QxdpLMYSbUoNzezA7GQUmkuvFci+9k9pic
+         99mGIP4NPVW21uhh7eDgRAzvUBz5SPEADOUeR8tr7FVMoxh69EeKJsD9A0Yk65GoQuX7
+         3IwXbYTC+kmg3uI01/pr3tp6rgjxs9HhBcXgvlh27NaIIIw7N3dRnlJMwsmEaZsfxQIX
+         N9Og==
+X-Forwarded-Encrypted: i=1; AKwUvBzFeMYbKKugM/I869JqrR7mt3P33KyQjPO5PeBHHy5/ltqgsR5DfPEdd96ewno0X6ht/UZWYIbogxNVaGI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIGpaFI3oZnwst+bNBr/x+rJzyi2hA2O3LJWXL4AoSMJwfq3PlD
+	ZSDTbrr2f3yK2tpjDjUJwVjifsSaVIAn+lT6eIFj3jZTa7yKNWTeaaBj
+X-Gm-Gg: AYBFou0sFEN4D1+G0R1T5f40Emt+JYyrWoOf9hS9UimX4XjbQ2jtFyKzCQIW1C4uC8q
+	z3wbliOOAnlTWwBkyunj4bDuZqlTzXr3bwH2zxbtbA4wDB86VZfipRMlsYRBhKz105ZxcjRn7zK
+	bJHLVI8X2tEOvEfprtQOCf5CYgnE7pI8Z/ThdCtXO/iM9sVPzs4+lbOcPooCd1ujhyQ++/iyIJ1
+	QecXURMalgTuPPfOLICWhHnttAgB4dtiRfEx8/BRu+JjaGuCr1MqGr5rLPBadho29541WzfzwH+
+	i+/6WN1hgoRC/7ZyR7tPUB1ZWtVCq9aTBUWu7JmeLrtYsiVRPsRNSI75UvG+RtPC2hQZ7oF3Qvu
+	JCI05tW4BRI40NbrHqkFsNgvztLMNe59NSWN8bjHVUuDkKiv/zlfj0XCtIBisHAyaM1WJYrX98z
+	R5Cd5ZSwn3kVoN1QzKAt2wONN/8+MJDp4vFut0a4+l2VaKXuzfwmU/JDeBAMxeS0rOZuOZKb9go
+	setwFajIqwb7THuU2mbAbk2MgqHu2tMJC7L+QSLio9g/b4/oTsK3Ld2UoHo+nfF/NcukqowHKa8
+	e+/XosmWOr840opKN/w=
+X-Received: by 2002:a05:7022:f502:b0:15a:9834:73f2 with SMTP id a92af1059eb24-1a243f18c54mr1365627c88.38.1793011851969;
+        Mon, 26 Oct 2026 03:50:51 -0700 (PDT)
+Received: from youngkk-vm.localdomain (67.216.200.102.16clouds.com. [67.216.200.102])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a020df20sm27897863c88.6.2026.10.26.03.50.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 03:50:51 -0700 (PDT)
+From: Cheng Yongkang <teel4res@gmail.com>
+To: Jaegeuk Kim <jaegeuk@kernel.org>,
+	Chao Yu <chao@kernel.org>
+Cc: linux-f2fs-devel@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 0/3] f2fs: fix dentry recovery and MAIN_AREA validation
+Date: Mon, 26 Oct 2026 03:50:38 -0700
+Message-Id: <20261026105042.1148554-1-teel4res@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,47 +95,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20261022075757.1164283-1-maxime.chevallier@bootlin.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Maxime,
+v3:
+- Add the missing Fixes trailers to 1/3 and 3/3; 2/3 already carried its
+  Fixes tag in v2.
+- Add Cc: stable@vger.kernel.org to each fix.  No code change from v2.
 
-> Trying to disable the napi threaded state while the napi instance is
-> disabled will hang forever in napi_stop_kthread(), as it waits for
-> NAPIF_STATE_SCHED_THREADED to clear.
-> 
-> This won't happen until the next ____napi_schedule() call, which won't
-> happen as it's disabled.
-> 
-> This happens in 2 instances :
-> 
->  - Drivers that create but don't use napi instances (stmmac's rxtx napi
->    for AF_XDP for example), here it's a driver bug
-> 
->  - Drivers that create their napi instances in .probe(). Here, setting
->    threaded off while the interface is down will hang :
-> 
->    ip link set eth0 down
->    echo 1 > /sys/class/net/eth0/threaded
->    echo 0 > /sys/class/net/eth0/threaded
->    -> hang
-> 
-> Checking on netif_running() isn't enough, as napi instances may be
-> transiently disabled when changing the MTU for example, let's use a
-> dedicated flag to track if the instance is disabled.
-> 
-> This allows immediately disabling the kthread when the instance is
-> disabled.
-> 
-> This was tested on mvpp2 (probe-time napi_add) and stmmac.
+v2:
+- Rebase patch 1/3 onto current f2fs dev.  recover_dentry() now takes a
+  struct f2fs_cached_block and sets dir from fsync_entry->inode; the
+  S_ISDIR() check is unchanged.
+- Patches 2/3 and 3/3 are unchanged.
 
-I could reproduce the hang on lan966x by toggling /sys/class/net/<if>/threaded
-while changing the MTU, which disables and re-enables the NAPI around an FDMA
-reload. Without this patch it deadlocks within a few iterations. With it
-applied, the same test ran clean.
+This series fixes three independent issues found while validating crafted
+f2fs images:
 
-> Fixes: 689883de94dd ("net: stop napi kthreads when THREADED napi is disabled")
-> Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+1. reject a non-directory i_pino during dentry recovery;
+2. reject MAIN_AREA boundary underflow in the alignment fix;
+3. refresh the superblock CRC after that alignment fix.
 
-Tested-by: Daniel Machon <daniel.machon@microchip.com>
+Each patch is a single logical change and compiles on its own.  All three
+were validated in QEMU on the KASAN kernel: baseline trigger, patched
+no-trigger or clean rejection, and a normal filesystem mount/write/fsck
+regression.  The baseline source and build were restored and
+hash-verified after each run.  The series applies cleanly to f2fs dev
+(fd106ada4dee).
+
+Cheng Yongkang (3):
+  f2fs: reject non-directory parent inode during dentry recovery
+  f2fs: reject MAIN_AREA boundary underflow
+  f2fs: refresh superblock CRC after MAIN_AREA alignment fix
+
+ fs/f2fs/recovery.c |  7 +++++++
+ fs/f2fs/super.c    | 13 +++++++++++++
+ 2 files changed, 20 insertions(+)
+
+--
+2.34.1
