@@ -1,93 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.200.35
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793011585;
-	b=qBnZMc76a1qkqB8EeAU64rIVmgKO6JgUkat8zkEtS/ikufZMo3ajmLByi9AwwRDn+2E3
-	 tYTSyHHhutfpmCttRS3yRDmWN0P8SQFk/ciAO+LsxpfLwkegRZwyHbcDJldWQ3qOV1NXQ
-	 BhxSXqb6lIqoIHPIVwZWQsRGPPk4U7Lp30H69h3a8BGhmHq8VEwlvUJu+V9YfstPJALnP
-	 wLbTszw4xkD9V3s2kMKm94Us3f466pez7NAPCQRAzD9QcAjVXfIYkKcLNIoeI3yz4g58r
-	 IFFGkxBX4bBhDvSd63EPEVuxIpBdAGrSR07sLWiWykUAb1xj4OqTtCH0LHVmCi1Q9xA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793011585;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=J5UtFe3iQ3jVOlSuFiyJIq6ocLzdpm+IgQ5PhdGzYZk=;
-	b=XpWe6x63B++IaxKJZpqwDvs7YtKU118h26K6oI8x+C3xz/iVlgm/w3q/Ph9yFIQ1EUz+
-	 1Gy/8IYyd8dfxjz+Wb7HqG0eCWN/kLF7ZCi0iY9H59roHi+2XJp4Ngtn+FkSeOwDFHmdy
-	 6EFSLL1niEX7VVLP/7ynJI2LH5urFXGUFaPqQUOwPZdh5PYyiEL3iuhTwcO5evuZrWRyp
-	 CQWpxTfoD3Ew4WtdxIlm57upgEk/XssM/WWNweIpqDwADHy/ldOPMz6UgOGs+WzHURD3T
-	 vhc+CYSuiAwCPEYZnavJlUZMH84OEk+wYCpw7vmS6E1fn+VKD0DsPC7U1EjAIKNpC6Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=jCMrZAE9;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.200.35
-Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012035.outbound.protection.outlook.com [40.107.200.35])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793011592;
+	b=kKxUgwORGgqJWYf2/FCOs02ClWN9abPHNeiJaryZa3TL+0gACk0W+5DqOYEwv9PJCDt3
+	 sDanqXo4Sp3cSH+XfDb+9XinC0y8sfoe0vkjkHko0ZlgbGfXl1MXm0sEST2i8gPvmS/8p
+	 W/SIMzD0wuyABvij+5loKsmEu19ILw+wCT7Ud2ynzUqORvY47VRijpLal4JmUPwpm2fWV
+	 OKavBB6swYT2MBd/5EpLiEsHeGiNMQWdrCur38Y4uPIM10uMym3hExO76aeY2cBbWGxbv
+	 olCD8ejFshmENxbMqBGdnxDooyEVEROwt8zl7bhd5LK/0crFXvExSOr6CTO+l4jrpRQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793011592;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=8T6J8yDzBrrY8+0J5W7yruUUBqoBGCuuq5Evn3v44KM=;
+	b=y3n33ZCP0+qvV0hi4BK9oIXgyaAKsqfITvoSfbhZBX82NfECEV/OqAwa7j16Uv8jSEzF
+	 MGN5c4A1V//TBgWBM5h5A1J3qPv4o+3G5++lSbZKESsrn7p43kNZRO3zXWswisIi/TIoV
+	 o4jWlWI1pGCwCYupDZ+SlgwS+1RFTHbWdMe2FO5OfCDfqQY8CoCaVml2rdgBJGQ2VbCp2
+	 EDxUKpittLeL9QDEUoRTxwDaeJn5k36pUclZM9obApaR/KEtY+ay15Giw+iy35j4rJHB5
+	 Krx2BNQ9HscVaBe2+kIN3ABsmf5laMxcBp9r8hXz2lyLb4qojBtdyfLmaqj4jTttEmQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="YL5aGo/3";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63996606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:46:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63996606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64471606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:46:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=jCMrZAE9
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WrRKLo9rxwaYQMzGgEfxyqXKalRgSr38QONs3MpDlEkdTXFz4KeIVpGvE8aRCdLyY+O4MOhNYvPZcQqPN01m3RpVlb0FCCTQhjRU170g3udAzJk4ofq1Ncs+NHFpg5XRZiJansOPgs98n9FbuIOkRvtmttmYKJ/g46NsCtTIea5uFnPd3JTQFKFdwhY8h+hmMHFkHPSMlg1TMIPEJbag/X0smYOPJmJ8IzPteUhKo006qQgz9mULuYRLKnAaqVycyXsmTnPQdvFtiTI3rPrkOwqpiDLb9xJKU0SGtbrZgF6r2b4scQyBJUvEpcBse0QEow52ChTEwe59eommdw/W/w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=J5UtFe3iQ3jVOlSuFiyJIq6ocLzdpm+IgQ5PhdGzYZk=;
- b=l8y3+RsR7CUYPcdkCi1WHGiwGdWXzCseRg4fREKFwrxJZ+ZUvU9fl/ZL4ApoyBAhAf4fmfox4xt5dECCZbZLXxd0R3gOhbc4NS9pL14EfDOX/a6MxQQPCDpx6hpAHFa2VXGziAEhXknVeBVrTY1Q+NvDLP71ztODq8B5frbE+59ExyrBAi9vs3TvGPRlERooNnOmyo8qG+ZVNtuBuKs8PXVBay1+w/fc8vsDWbGNlgFSLtI1DTGeL38U+3YjYuL+dlOMbmvkkicuZWftzPhlKMvIHklYTnwuZUHc97OIlUnBsRd39ceQDPnbnqgntaK0Z0jkM9fvxyBfYF0+RpIo+A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=J5UtFe3iQ3jVOlSuFiyJIq6ocLzdpm+IgQ5PhdGzYZk=;
- b=jCMrZAE9oyXiLD+EjXiXa1zLI9QYCU4ZZHABQAsnmeLMGwC0pN7EkP/fAZS86xMLx2AP0lbtzXs17gz12yYCdV37fUXBo8S8zHVTMlF2Iza9z37EDsMgenJXR4g1+CWpxpLZf8wLsiryS5PDFlN2U1wIB1GgPuocWa/tJTZcuU4=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DS4PR12MB9635.namprd12.prod.outlook.com (2603:10b6:8:281::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.21; Mon, 26 Oct
- 2026 10:46:23 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
- 10:46:22 +0000
-Message-ID: <1a76be29-7c68-47c9-9c76-443a409db151@amd.com>
-Date: Mon, 26 Oct 2026 11:46:18 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dma-buf/dma-fence: Document why signaled-bit is set early
-To: Philipp Stanner <phasta@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Danilo Krummrich <dakr@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20261023100047.2589846-3-phasta@kernel.org>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20261023100047.2589846-3-phasta@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FRYP281CA0006.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10::16)
- To PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YL5aGo/3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C3601F01829;
+	Mon, 26 Oct 2026 10:46:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793011592;
+	bh=8T6J8yDzBrrY8+0J5W7yruUUBqoBGCuuq5Evn3v44KM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=YL5aGo/39dTI+cih6/OaLzbIL/1z1YCq23fgbGwaBHXiNPAke7lmvEa2zzM0fRTW7
+	 CEsO9bqaM4xGgxqQ+OS3QGoKRe23WPhnaQxWzRctSixGPIZTsxJOAdfQ0dG42FXiI0
+	 DjS8A3NLtM+42EWp4oPnMuCv71SfXhd15BCPYCOCN8D/3+5ODYvu4eRKtrBfQpZEA7
+	 OklV5XMgvqzIA/xLjVoqp/gfUJukcSbdXfA77Jf2a9y9NY8WxZdSvkGU+K58CGWOrm
+	 mZwOoJp+YT0zruYqkaEfPBkaMFl9o7lL1k06EkjzZcXJjbp8e2B1GLVtqXQhtMBjk5
+	 mFsyxAx1/kFjQ==
+From: Sudeep Holla <sudeep.holla@kernel.org>
+To: mark.rutland@arm.com,
+	lpieralisi@kernel.org,
+	tglx@kernel.org,
+	Julian Braha <julianbraha@gmail.com>
+Cc: Sudeep Holla <sudeep.holla@kernel.org>,
+	radu@rendec.net,
+	vsethi@nvidia.com,
+	maz@kernel.org,
+	sdonthineni@nvidia.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 0/2] irqchip: gic-v3: fix unmet dependency on ARM_PSCI_FW
+Date: Mon, 26 Oct 2026 10:46:26 +0000
+Message-ID: <179301154574.1773497.7405050699126931502.b4-ty@b4>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261020222817.1231643-1-julianbraha@gmail.com>
+References: <20261020222817.1231643-1-julianbraha@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,118 +67,23 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS4PR12MB9635:EE_
-X-MS-Office365-Filtering-Correlation-Id: d8fda0dc-e038-43d1-3c8c-08df334e6046
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|366016|1800799024|11063799006|56012099006|261021121427099003|261022075727099003|261009223027099003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	yni1WaQhhLV2uSW+HUfYx6oaikm/pDferSLbgzFv6QtUgdJVdnEigVtpmIb4xHhGyTjLqyiIfbhaNffIYYJpeCi083VYmqM7wVMFnDXX3AWjT0pl4ZQyszU4l1FrN4uGG2A1iAjy2kkb9PuLC8+aICqNqK24nz3Sm4O9apcZtSb49CffKAyTt/SLF8DVN4rWY8DUY5EA2jQv7chTQzJA//BVU0qztphwvFiOnOIpkL+VC0BgcAqK6Hf9EcqPxvip+R6VDBraSaQQAIPzv897Jopbsb7uCLkBYNK8ZHgaMR0VJnQOGTgcQcsnEm4OAzvxGZHK+y9xDbxXJguIvyNgK3RbnzTgZWlknI0ckbcXtvBaaAP9lD+o6ccVb/oEx4zPq4FDvLrSJ/929nTZUqjH4X9sOb/2m3SICo5kihZw8Jmt7LGb0sIBrx4LCaWx4t5x23rqIWW9A1lFJcbnp0t9e2UjIZcD1hXYuWTgHEs6vbR/lyXVFbw+LMZdVvBUsaWHiv3BxrYw4R5cHfSY0ft9NwaAFkbNm5ChTlHrUWBmIt1nXal1kgogiVXLzlg4nf96jOrypeSqKHWhtkAAg5Cq91QxXzTjyz3xRpcOnmU3yI2fm6u/Nip0JSGxLBWGXVreUvGeLc8fo6Uo5+LfYaRWaJ1BOYr7XIjDaNR9glfBHfU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(11063799006)(56012099006)(261021121427099003)(261022075727099003)(261009223027099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?VWwyczgyZk9UdVByQk5xekJKWDNYVk9KbEJsWWxQRjFBbnRzbkxKNXIxR3A4?=
- =?utf-8?B?USsvQ3dNOEdzQSthZ1hEd3gzWnRBYkNTUGRiZkg1d2ZpNWFJc0liNXE0U2J4?=
- =?utf-8?B?Q0JiVWRneTdWSnhPYzZibUxzNUlKNG9JZXJVZGRkZUVGejlIdTJrQlFYeks4?=
- =?utf-8?B?bkUvUDBsK0lCRDRpWnVZNGVjbGNWNk04QmN2VlcrdE5iamIrTCtFZzBLMHJy?=
- =?utf-8?B?ZzQrekg3Z3RlcnRkQU1GWFRpZDNWUWcycjBJL0FyQ21veGNaWFVKeW1VaDBZ?=
- =?utf-8?B?MUNyZkZGYzVpa2NVcWpXSzEzM3lkck9qU1FNbStEZ0VJWmN3QXdYTUxWU1Nq?=
- =?utf-8?B?UlRWeVNveXM2bStUQ3dKTGQ1Vk5vOTdyajdrS05zekxpdHVKL1hxSmRWcUd3?=
- =?utf-8?B?WFVXQmRpRjhnQkthaXdSODd0Ym44ZjQzM3VBdXZERFRrZFN3dDh1MnBzQVdq?=
- =?utf-8?B?bFk3bmdEakhEUXdIWHZ3VFF2NUxEWWt6dW1QK2xtL1FzSFhmQnRUd0FtYm9Y?=
- =?utf-8?B?OWJRZWVidkJFUWxKWENaM1ZKekhlWEkwUUVzek5IbmxtQ2s1dzdYbGtMcW9m?=
- =?utf-8?B?czRrQTZDSEJIRnVRK3NFK3JrSUJqYUtlZ3pnR1NTdUp2WGJ1N1g1a0NkeGhR?=
- =?utf-8?B?bFRtRVZURDhBL0JYYWwyMkpzbDVxckh5TzRQMEVSdEwxVlAyY2FlZXE5UWNu?=
- =?utf-8?B?UklvVnpHN0pXVGw3bVNHbGNxd0RPTHR2U3F2T0RaM0RIY3ZJSkZsL1BrSjIx?=
- =?utf-8?B?Z0hDaTVpS1h6bytBYTdoeERkd1pqNTd4MnE2dDIxVHlTZ3JnaUtpZFlvUkhI?=
- =?utf-8?B?VUZOM0lHRWJyT3M0amUyamZCcUUzQlViYzVwZkVLSnJja2lOL0J4Qk83V2RE?=
- =?utf-8?B?dUtBSmhRUEppclp0cGozaHV4RFVKb25QKzRlZkxFaFJBZjc0aFB2MURMMVht?=
- =?utf-8?B?ejRrbThJS2ZmanpkQ1dJNFZsOXMzb3NZelNTV016YVBYVkNTandGRVZ1TlVq?=
- =?utf-8?B?WlUyRXFITEJyOENZMDlsdjJzRkFRcU9ONEhPaXVQRVdScnkyc200WVFuTGg2?=
- =?utf-8?B?QWxxcHdmeXhVUVc4bjRhUE9wdHJjTzBiT2Ixaks4QUFKRVN3VVRjMTVleFdI?=
- =?utf-8?B?Qy82dW91OE1DQUFHczl0M3B4ekd2b1lPRGdiR0ZlSHp3SVRUaWR4dzE2dUdw?=
- =?utf-8?B?SlpGdThrSDd2NGNyWkF3aUhLdGVkdWdzNWlEd3JEdm9QbGt6dk5xSHAreHYy?=
- =?utf-8?B?cEE0RTdqTlNvNVlPc3lxb2JZeDJ0aVplZGNWTVNPcXN1SE90U2R4RlpwdlJE?=
- =?utf-8?B?MEpmL3lpbTVIUGVwTk5jODBpL0VlVTZzNWpYNFBDVmtVRHNyS01yTk82K1Rr?=
- =?utf-8?B?enNKZEVoV1dwdVB4SFZJcjRaN2dPeko1QXY0dnRJKzVJa1ZkWTU5VUxmWlpM?=
- =?utf-8?B?L2JFWnhKZTdqWlcrU3g2L20zR0JoZ2NDNjRqczVtWGs0YnNjbmtmWWNSWmNk?=
- =?utf-8?B?VVliMTA4ZERsM2ZncXVwaS9wUE9IZW5lNEZpQzF4YWZKT0phNUJtSS9UejdV?=
- =?utf-8?B?Zm55VTFndTlrTnlWbFJZTFpKTTFFWitJZW5wRE5GOFpWcmFjYTIzS0czemdU?=
- =?utf-8?B?L1diYzZYTEtWcXM3RGVpa2NKVFRrK205dklha1hoYUEzbThCNVZEQVJ6Ykt4?=
- =?utf-8?B?aUhYVzRUQ2VyeVlkVzU4OWhRMlU2ZkJMZjVJRVZaQjY3Sm96bDdCVmt3cXlC?=
- =?utf-8?B?MkFzSlNYb3pVakw0a2dkUUNTSmFmcVFmbHFXWm4rZmIyaUwvb2xod3hzMWdZ?=
- =?utf-8?B?VGpTTWxqczcwU0dRSmN0Nm9KODZlbkNYU2FmSFFtZDQxYWcrWmRFNGV5UHRU?=
- =?utf-8?B?eWJlUmN1bFdXYmNUdTlXN0VFbXVDSHdrbUUrdW14N0pJcGtBcXZDVmVBL0xD?=
- =?utf-8?B?TVpxcW5zMkFhL0dXRWdUOU1SODNQaGlvK1pySUU0U01xQThVV0NENkNPQXEz?=
- =?utf-8?B?K3dMaG9KV1l4UEl4eWRWVVZtbzRkeHhleXV6MGplT2hCczZCQkkyeFliaEJs?=
- =?utf-8?B?VmF5Rld5eUVqVUpweDNtUHFKVllxL1J6UHY1ZmFGb1Y2aWJZVEN1R08vSHhO?=
- =?utf-8?B?bVZaNGo5eWVjOG16YXhyd2RwOFp5eEpVaGpFQ1Y4MW5iOE4reGUwL090Mmtj?=
- =?utf-8?B?NFY1Z0dDL2lWcXRoTW5yUUorbDdJSmxFUHZxdHA2cks3R2h1czhSWk9UdkNm?=
- =?utf-8?B?L0VrS1FINjVZVWRhZHFUeFJiM3daTTBIRVBHTllWTWJVL2huTk54aVcvQWZk?=
- =?utf-8?Q?dd3yUzm5NKfCG1NL07?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d8fda0dc-e038-43d1-3c8c-08df334e6046
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 10:46:22.6780
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: q++CI7Qh+wD8k2rluoCsmCHN2tYRnekbJ7LYPVnZ79ZNQwrMpXJy0kvRajBwOCrU
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB9635
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On 10/23/26 12:00, Philipp Stanner wrote:
-> There have been repeated discussions about why the signaled-bit is set
-> before a fence is actually done signaling. Repeatedly, people try to
-> change that.
+On Tue, 20 Oct 2026 23:28:15 +0100, Julian Braha wrote:
+> ARM_GIC_V3 currently selects HAVE_ARM_SMCCC_DISCOVERY without ensuring its
+> dependency, ARM_PSCI_FW, is met.
 > 
-> As long as the bit can be read locklessly, for example by
-> dma_fence_is_signaled(), the bit cannot be set at any other place.
-> 
-> Document that to reduce further noise about the topic.
-> 
-> Signed-off-by: Philipp Stanner <phasta@kernel.org>
+> Patch 1 of this series adds stubs for arm32 so that patch 2 can make the
+> select conditional on arm64.
 
-Reviewed-by: Christian König <christian.koenig@amd.com>
+Applied to sudeep.holla/linux (for-next/smccc/fixes), thanks!
 
-> ---
-> I thought that if people repeatedly try to make a change, and it
-> repeatedly gets rejected, then we can all save ourselves time and work
-> by quickly documenting it :-)
-> 
-> This way, we also remember in 5 years *why* something was or wasn't
-> done.
-> 
-> Philipp
-> ---
->  drivers/dma-buf/dma-fence.c | 10 ++++++++++
->  1 file changed, 10 insertions(+)
-> 
-> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
-> index bd58688b81a7..a71e18a9e346 100644
-> --- a/drivers/dma-buf/dma-fence.c
-> +++ b/drivers/dma-buf/dma-fence.c
-> @@ -359,6 +359,16 @@ void dma_fence_signal_timestamp_locked(struct dma_fence *fence,
->  
->  	dma_fence_assert_held(fence);
->  
-> +	/*
-> +	 * It would be better to set the bit after the callbacks ran so that the
-> +	 * fast-path-check in dma_fence_is_signaled() cannot return true while
-> +	 * they are running.
-> +	 *
-> +	 * That is, however, impossible because many parties now check for the
-> +	 * signaled-state of a fence in their callbacks (or in the work_items
-> +	 * kicked by them). So we have to keep setting it here as long as the
-> +	 * signaled-bit is read locklessly by anyone.
-> +	 */
->  	if (unlikely(test_and_set_bit(DMA_FENCE_FLAG_SIGNALED_BIT,
->  				      &fence->flags)))
->  		return;
-> 
-> base-commit: cf5d8e390e2ac2cfa24a50645efdbb9f0eebe65f
+[1/2] firmware: smccc: provide stubs when discovery is disabled
+      https://git.kernel.org/sudeep.holla/c/6cc03818814a
+[2/2] irqchip: gic-v3: only select HAVE_ARM_SMCCC_DISCOVERY on arm64
+      https://git.kernel.org/sudeep.holla/c/40b097fdfd00
+-- 
+Regards,
+Sudeep
 
