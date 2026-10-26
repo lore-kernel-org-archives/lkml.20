@@ -1,66 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793028292;
-	b=km4/uVcwHbo6RuuDycLCJQpK/c24PbrTyeB5qls6kooSYv9/5srax6h36i2fHVWJlNWe
-	 I3HH9BzQiToZIl70txqEAIHCduy5RsAHcynij26R2abu2ZdbSz1rchHBCXnmmqXKGJcB7
-	 +keuVooaPaFecfCEWZblhkop7u0w+PP6E1Ed+HywTWH6hsUP5mJQdvk2K92Yfn839CDSt
-	 UeUiciZbtdx0LlApQyfdRbqkxTYMeEIo9z5dTq0GE8TrR9rMUug+Q/ctn5wy9GBF+8IeH
-	 bkF1z8VeQT/IpaPo7bgxS3VHHi6AgebPPRBX2a91yyFCZt7Yy79r0FrsE1qmhmEmBAQ==
+	t=1793028302;
+	b=0ufXxT6vssl2MR2g1uOf5zpEAYh1U8mJmSMXhlEIqJSnNk3C9M9sYKQI7HQAjzieH0VI
+	 /Gc4qk+fCjf50rd13cRJv8BiStaJlISbMcSnxnHK6PWmjT/3bsa6zGuVHHpYaZR2oojhs
+	 kNR1YOGP1JYMn/vmshgf2nRMDKdSRCDL8zOnH2vICsFSZQ5W1VInuczNqlgr8jrE3mDBm
+	 SLJPr67jEPq18RMnDUOSp7wAjfakUW/l8opK/nyNSbwy010apXltDAqaRI3M50IOIyQkx
+	 BhZRtITYJeK0fUdvPGaT8+aodZWrz4oD+k5r4YiOBi/cl/XMR4a1yQ/1ZhSu0+oYNRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793028292;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=CFP3sAy+nyBx/JCNvXQvD82uO55dVEcyEylOAJhkFUQ=;
-	b=z0YPbyOaxhY44KHf2t0aG32407ROnqVdOghKgaRPCcqnpsXYzEYnjMPvkeaX13rjW9Z4
-	 vf+tXiH+4ICVLXmk77ZWP5IrXigllYw7VxjwT/Wc09+k2gWLd5OFDz6+tygHktpsx7dR4
-	 eGNRuuAW3iPSImieIDsPHfJP0pqjvySPiKxIQF/dc7nx+Wg7MHp0Uq0gT3LBoY1Y74F1+
-	 N4/ZMlKAwKBeUdD8vjq5LaDiR2+XmLv+es1r/moM+NJODrXvzPqVrdBijCtqa2RuBNZCx
-	 JzGNwyWBthGklLOVlXPJyUp/no0axTSlJr8lG4Znh0Kv7U4sUY7TFqM7w+b99JOSB/g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793028302;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=8/eKZYT2XBSHJPb67RYoqY4k1/nqAIq6v5M2nmhwAcE=;
+	b=a5zqPfndWqVc9L+11YlcTZ+4ecYbr6XjK/ML1o3BtQAok6+sG5XdxwBFud3Qmxp8/56Y
+	 VD4cZen/qpgghuaYWVDdrLNahHEo3Ys90k6z0dWLwehEhzdLtVP496fO3SOXa35UqKFLP
+	 gRPqCh8iBLGQZcFjRCkwUtAqYa3dxN0J1GXWlPh4OdswSHwZYEQuMKTLgzxAS3oSY+15j
+	 +o0Diwk+95eIEYmByMG+MjM7F0AIgOCWWhSOa7B4Sm4Eil0gIh2XLPQX13AfaNfLD/Nf7
+	 Gn5T2zRIMmoabBN+xh6U9pMKw60A/1WF3gln65tw4MYO5z44m5HYbELf3eFvovFxEmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=acm.org;
-	spf=pass smtp.mailfrom=acm.org;
-	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b="m9gptB/6";
-	arc=none smtp.remote-ip=199.89.1.14
-Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=NRzyVEYP;
+	arc=none smtp.remote-ip=209.85.218.48
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D323606A31A;
-	Mon, 26 Oct 2026 15:24:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D323606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EC00606A320
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 15:24:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2EC00606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=m9gptB/6
-Received: from localhost (localhost [127.0.0.1])
-	by 011.lax.mailroute.net (Postfix) with ESMTP id 4jCy9961P3z1XM30g;
-	Mon, 26 Oct 2026 15:24:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1793028281; x=1795620282; bh=CFP3sAy+nyBx/JCNvXQvD82u
-	O55dVEcyEylOAJhkFUQ=; b=m9gptB/6ZJoufpbC75B5v0XGKWgjTVCwAMKvR5it
-	dD+d5WQeQKGLwWGSZZfHWiwJTYMtopeB5nRTc6t7Y31fTOBnHsa8YeHh0+BC5hxb
-	ZN8YmyETGjUaKI0j2F6jXGJk0YK6yOLnfNaEwfVi2foMcn5lw23n0B/c39n/hXm0
-	KaaKhMLoLwow8GRKnuZZBtkLWSL5alEcBJGZxaa1BISeYnboSbxHcW4oiFBBIwwF
-	9YEC0/MmFiy+UbEsMcw2oGyEoarGc1sdF/tG3Kp6+CPB1hJVnpZMWlW9xxMjSA6+
-	wX2UT738kz2HUfaohGI4wmRrxi9OjGbhMLyTOa9/zLN0Ww==
-X-Virus-Scanned: by MailRoute
-Received: from 011.lax.mailroute.net ([127.0.0.1])
- by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id rBkXgnKsa6kC; Mon, 26 Oct 2026 15:24:41 +0000 (UTC)
-Received: from [100.80.231.125] (unknown [104.135.182.41])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4jCy9533PSz1XM4Tl;
-	Mon, 26 Oct 2026 15:24:41 +0000 (UTC)
-Message-ID: <79480408-8403-4a93-a2dc-c5f01864a20c@acm.org>
-Date: Mon, 26 Oct 2026 08:24:40 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=NRzyVEYP
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c423b145922so419590266b.3
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 08:24:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1793028295; x=1793633095; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8/eKZYT2XBSHJPb67RYoqY4k1/nqAIq6v5M2nmhwAcE=;
+        b=NRzyVEYPtSo0/zlZWWXstcRd58byuqjYNBOOe9xipLu3ODsIsmj4a5CwgYvbgHQ1Uz
+         8HVRbBtBUNQs+TFHENrCPRIXnR+zdeGog15QXOwyY45+27iAh3wSJJnZZwNZSIkpgWK2
+         tmSSrI0CqXfZR326vGfxQaqD/2vjNfVIaZHp71yW9JVO1WfLb5KtJxGCerEXczCDWCyt
+         1I3P7GH/mDQarAkyPUg2Ewr0Ugiq42A0DNK0OInhJvOJG413JVmvIYrblCKadXHfK7W/
+         yfGDYAsf5k4JKL6V/l0Xy7NOE/BS/uMxh59sNYgm4f/LRdkZ3O6Lx/TOx7/7hnpEF2Mq
+         maJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793028295; x=1793633095;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8/eKZYT2XBSHJPb67RYoqY4k1/nqAIq6v5M2nmhwAcE=;
+        b=S3z4O931YT7M40ELj3ZtIMQo9A9+j0Pl7RqxcAdqGBaLXMcarST92zcQSWgoXGXTkn
+         fSr6l0nIkX3r4/ZCxzr9QSYExZKJaqZPVowdvTUfQ6h7k4UcYe1DaTCNI15M8AbMOpQi
+         jc6vxxDOY3nreLg5hEW9QT+PcZPPeuTb6Cq+DeaK3jUaA/t0yb9Zv0R7HmYQ+AuGoiJs
+         FpcDcQjdrPWZTcuWHZhrFSI57ddig6IaX/WO096HUfFihAwwzLXTRtzTwmt+2aw7bxrM
+         Z+ahNLJVjkmGPY+tBzcXSraveuql7z6kc/eiZ4UBUEHiyoKzK9evC5Zy2RgT+u/cafPY
+         OiLA==
+X-Forwarded-Encrypted: i=1; AKwUvBx5sBvl+i/Z1OT9CriCyVEOVeM9L/erQr1JMt6YnMlZ02yUP9qNk5mpTxLKdUpbrDQTH8iYex0F+7tXizQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJR8e0f4ziaOGUt3xiSiiUYBwrs9ee+iHp1nz28jXM8cxViqIlE
+	WakxhR9qPyVQ30BSahc/XGZOu56o8Sm4LV72cEIL5Taga8Gbu4xNZPI0E+8Ykc/zDaU=
+X-Gm-Gg: AYBFou1jAqaWDtNg39e4mhHsCURwPsJiIZidAvy2cHi6aCWvxN5zNRj+exWYIecYWqC
+	iIoPaUJQakK3FbPdvVfDtJ4JjS0e7ye98ce53G+PvPUxl29o5tNpRDogyNCnjGd4QqjPS2O23WO
+	fWJ5bin1+0qZLzXLdc6frbd8JVE2512SWaqEvi1lHW37vN6sFmNSziljl5eOmCIFREV0KFaIpUx
+	G1kXgZ2LqfMvVd53ZYXlQMHG3Y9uvt61VF2x5JbSYYapfhbbsvuKlCk9mFcVWtl75QJSzfFLVZ+
+	iDnbbikiCwlyuJ+go9D39ze/90bUiurUrEnWtJ1gxOVGJDYs9m/mMJU0TTWsTCoD5KxQyNl76x1
+	wuoFIVqGjsyqmNyZ7c7R++VvYoUPD2aFUgrPpQb/yvgOr2Bx0ToqgBwfVnXazesvXz3z2j9LoLS
+	CWUsL/YlhrdDeKOZBCkRd+C9IG7C3PQl+N5v/yvlDPm479jO4o1FwcBPZCOX4SDCd+CeaxYjqb1
+	rnE3r4m/htLdn4v6tQJx8j7OmL3mm2mz/4W1lLh+2Uz/lmOsU+XNSVUVZbc9fMmMZ4INtfj/7NC
+	sONto4kSiR+c
+X-Received: by 2002:a17:907:6092:b0:c31:7495:e57 with SMTP id a640c23a62f3a-c46bde9a0eamr770063266b.44.1793028295532;
+        Mon, 26 Oct 2026 08:24:55 -0700 (PDT)
+Received: from [192.168.0.167] ([64.43.151.16])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd34f465sm329841166b.8.2026.10.26.08.24.54
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 26 Oct 2026 08:24:55 -0700 (PDT)
+Message-ID: <c9d017f7-f072-4533-8b2c-a87ed67a8712@linaro.org>
+Date: Mon, 26 Oct 2026 15:24:54 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,91 +91,86 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 0/3] scsi: target: iscsi: fix stalled and doubly
- completed aborted WRITEs
-To: Laurence Oberman <loberman@redhat.com>, mkp@kernel.org
-Cc: linux-scsi@vger.kernel.org, target-devel@vger.kernel.org,
- mlombard@redhat.com, michael.christie@oracle.com,
+Subject: Re: [PATCH v3 2/6] media: qcom: camss: clamp VFE clock rates to the
+ highest level
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>,
+ linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  linux-kernel@vger.kernel.org
-References: <20261026150710.1063511-1-loberman@redhat.com>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <20261026150710.1063511-1-loberman@redhat.com>
+References: <20261026133726.3249235-1-atanas.filipov@oss.qualcomm.com>
+ <20261026133726.3249235-3-atanas.filipov@oss.qualcomm.com>
+ <CAFEp6-3WQyjjFDjUMeVD7QDAK0VNhfD98XFw2YYJ8FZi54yypw@mail.gmail.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <CAFEp6-3WQyjjFDjUMeVD7QDAK0VNhfD98XFw2YYJ8FZi54yypw@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/26/26 8:07 AM, Laurence Oberman wrote:
- > On moving the one-shot guard into target core:
- >
- > This will be explored later on but is not in scope for this series; it
- > changes the path every fabric completes through and I have no way to test
- > easily in iSER, FC or SRP right now.
+On 26/10/2026 15:03, Loic Poulain wrote:
+> On Mon, Oct 26, 2026 at 2:37 PM Atanas Filipov
+> <atanas.filipov@oss.qualcomm.com> wrote:
+>>
+>> The VFE fails to power on when the pixel rate exceeds the highest rate
+>> listed for any of its clocks. The rate tables of the VFE clocks are
+>> independent and need not have the same number of levels, so a clock
+>> with a lower top rate than the VFE core clock, such as the SC7280
+>> camnoc_axi clock, makes the VFE reject pixel rates the core clock
+>> still supports.
+>>
+>> Clamp each clock to its highest listed rate instead, and warn that the
+>> pixel rate exceeds it when the clock lists more than one rate. Take the
+>> clamp into account when another line powers on an already running VFE,
+>> so that a clock running at its highest rate does not reject the
+>> request.
+> 
+> Again, we retrieve the pixel clock to derive the required VFE **core**
+> clock rate. If the VFE cannot sustain that rate, failing here seems
+> like the correct and sane behavior.
+> 
+> What I don't agree with is applying the same logic to other clock
+> domains, such as AXI/CAMNOC clocks. Their frequency is not directly
+> tied to the pixel clock, but rather to the aggregated bandwidth
+> requirements of all active clients and data paths. As such, deriving
+> their rate from the pixel clock requirement feels inaccurate and, in
+> my opinion, is an abuse of the existing logic.
 
-I don't think that argument holds. Fabric drivers that complete an
-aborted command exactly once never trigger a one-shot guard in
-target_cmd_interrupted(), so their behavior wouldn't change. The guard
-can be a new transport_state bit that is tested and set under
-t_state_lock, and the CMD_T_ABORTED test can be moved under that lock
-too. Today target_cmd_interrupted() reads transport_state without
-holding any lock. That would:
-- make the iSCSI-private completion_claimed member and both new helpers
-   unnecessary;
-- close the race that patch 3 only narrows (CMD_T_ABORTED being set
-   between the iSCSI test and target_cmd_interrupted());
-- also cover the sites this series doesn't touch, e.g. the deferred
-   ICF_OOO_CMDSN path where iscsit_execute_ooo_cmdsns() ends up calling
-   target_execute_cmd() for an aborted command without taking the claim.
+camnoc_axi and camnoc_rt_axi are matched by vfe_match_clock_names() 
+today and have been for a long time so excluding them would be a 
+behaviour change.
 
-Please consider doing this instead of adding iSCSI-specific
-bookkeeping. If the iSCSI-only approach is kept for stable, please
-explain in the cover letter why the core approach isn't suitable.
+Perhaps warranted but that would be a different patch for different reasons.
 
-Patch 1/3:
+Upstream:
+return (!strcmp(clock->name, vfe_name) ||
+		!strcmp(clock->name, vfe_lite_name) ||
+		!strcmp(clock->name, "vfe_lite") ||
+		!strcmp(clock->name, "camnoc_axi") ||
+		!strcmp(clock->name, "camnoc_rt_axi"));
 
- > Fixes: aaa00cc93c1d ("scsi: target/core: Fix TAS handling for aborted 
-commands")
+Also - RDI path computes
+pixel_clock * bpp / 64, which is a bandwidth estimate, not a pixel rate.
 
-transport_check_aborted_status() only sent the TASK ABORTED status. It
-didn't drop the reference that the abort path now waits on. Nothing
-waited in target_put_cmd_and_wait() until commit 2c9fa49e100f
-("scsi: target/core: Make ABORT and LUN RESET handling synchronous").
-I think that's the commit this patch fixes, or at least it should be
-mentioned too. Both commits went into v5.0, so stable coverage doesn't
-change.
+> So I think the implementation should either handle or delegate to
+> separate functions depending on the clock type:
+> - Set the VFE core clock based on the pixel clock requirements
+> (typically vfe_clk_rate >= pixel_rate).
+> - For all other clocks (like camnoc_axi), and until we have proper
+> aggregation or voting support, a simpler and safer approach would be
+> to select the highest available frequency.
 
- > +bool iscsit_claim_completion_locked(struct iscsit_cmd *cmd)
- > +{
- > +	lockdep_assert_held(&cmd->se_cmd.t_state_lock);
+That's a bigger change - this patch only changes the top of the table. 
+Setting to the max clock by default would burn power for no reason IMO.
 
-Please also add __must_hold(&cmd->se_cmd.t_state_lock) to the
-declaration so that Clang's context analysis can check this at compile
-time.
+On the core clock though I think you're right; if the sensor exceeds 
+what vfeX can do then failing is the correct thing to do.
 
- > +/* Complete an aborted command at most once.  Must not hold 
-t_state_lock. */
- > +void iscsit_complete_aborted_cmd(struct iscsit_cmd *cmd)
+@Atanas could you keep -EINVAL for the VFE core clock and clamp only for 
+the rest.
 
-Please change that comment into a __must_not_hold() annotation.
+cheers.
 
- > +	spin_lock_irqsave(&se_cmd->t_state_lock, flags);
-
-All callers run in process context with interrupts enabled, and
-iscsit_release_commands_from_conn() uses spin_lock_irq() on the same
-lock. spin_lock_irq() is enough here.
-
- > +	bool			completion_claimed;
-
-Please add __guarded_by(&se_cmd.t_state_lock) instead of just stating
-in a comment which lock protects this member.
-
-Patch 2/3: looks fine to me, assuming the series stays as it is.
-
-Patch 3/3: as explained above, this patch narrows the race but doesn't
-close it, and the ooo_cmdsn branch right above the new code still
-defers to a path that doesn't take the claim. I'd rather see this
-solved in target_cmd_interrupted() than merge a partial fix that will
-be replaced later anyway.
-
-Thanks,
-
-Bart.
+---
+bod
