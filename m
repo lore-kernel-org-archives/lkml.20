@@ -1,98 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.125.188.122
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793042039;
-	b=imw+FnzlAscQiTQcB4iZbK5DNv4S6XeqklV+d71wqQavdIXAc0qymdeEu1RRL5fffOOM
-	 4kMaQWSf7BU6c5w2hmxdx5uoOxDUcZaMY42KtntSjmcyodc2To+M6Q1zWC41uco9CwBau
-	 HKDO7eOiuzkWzbemqBEV74/TGZcGNsaPIwVlF1F354xI+mGUrAudkYUyDyz6WLS/BcUX7
-	 RhPrFnJp7qZh+Xl/15nQu3oR0WlEucynSsACzVdfI4kSzCFL4PeKcNbV5NImtKXEPVs6g
-	 WOsQcb13k2qYHm8bCwjDnbCbNp1mCaSFE6UmEhjbRGfiSw7rOxxFIJSsJxS2SZF+yqQ==
+	t=1793042079;
+	b=URjtzjArJW4d96HO4rqADpnnJkYlEXAeyVAPVY0xnThSjeJCWLR9kCuTtybrZaT2oNKw
+	 2JZT1XKFR1xQATZvOhKvQ4y0ylQGtAolWsifQnC73PsMQ+PliSXqyF9BA2Ca4Ath8g+rE
+	 fBIBAChC4H4o69PvUoC4pj0EIGlKjdK8m56z36N0hJn639B51Uegzj4I7gqyLk9uD+lMh
+	 l1D/+b4oGUEt8AYBL9k2PqlcMhxeqCQS7gGpexzm8R00J93MsE0KZ5A+Iy1O39dF/w5M4
+	 +hxKp+G/Jlx+IFVNVUDNEH77LiWZe+Id974p23YVbVKR7P2KTnMplmr3eNHmTxi4rxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793042039;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:
-	 X-Google-DKIM-Signature:X-Forwarded-Encrypted:X-Gm-Message-State:
-	 X-Gm-Gg:X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 Organization:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=Vgy5tlJ4zIrrzxhPIS7IOokidEWZWzw4PbEzeqfHlqw=;
-	b=2AxgJg9HbOrvQVC/AZQT0w2U3/yD/ejyhpSffUCS5tNwCUOEf3U8JzZ+Xtkoa7KaHV4q
-	 zz/da/vEhc8i8O1UfIb9zPpITa5+yhmT1sKg4V/jkgzmeEX40Tw+xiMwaH9jk51PMBh7n
-	 BXDOOdNacLl1cVkx1DY+Y5Dgg0ebiVLQyzprYQZZFqMxC703xtCnUmneW3KuPXQcrv3wC
-	 O7j1KyY0A/MGXajyI+22NcmyuHUF/vrUtlBPnqhZJkPjyHYKTCotUA1fo0nTbJ5T0puD6
-	 2s/G/73mZqARWzYEN+nujPwEfJTNwUBod18OtshWL5lLa+S0V/5/oclJw4CXwLcO3qg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793042079;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Sender:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=xYd1AfKqcl+9tRJkqB8FFaIjzuEdllawIMWqWesHJnA=;
+	b=fwecidAtcH+BM16ZDNgZjUO8KI27p3kFgmrnA31dBXObdb9PTJ/f7Ttx82L7B9HDEif5
+	 ajnn70mWxIRybRVlZ5/NQemr7OH83KtD74/cpjnq78kg4W6eVvsuTGSZCr5U6krYOfdKO
+	 RF8rouWSKdklu2bIKl3Jt3x4nKkCyp6zuItjRySmk7Ys/EJ8hdTOaPTCzBRGodv2E/F2x
+	 rbRfvU2YANeVNsc5VGsDTsqwEqTYahso0f7PE1OucpGLuxXlW3fsdMHjQarj94IrkrIQp
+	 ZFNh1fzLYFmM6Pv1rFP04I5EdCFOSXIvrivlSIjYOjfj9XguLTZF5LRzvCmdpNpbNZw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=canonical.com;
-	spf=pass smtp.mailfrom=canonical.com;
-	dkim=pass header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=Pn6akygv;
-	arc=none smtp.remote-ip=185.125.188.122
-Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=roeck-us.net;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=k8IAvO4R;
+	arc=none smtp.remote-ip=74.125.82.171
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0236B606A31D
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 19:13:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0236B606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A051F606A31D
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 19:14:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A051F606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key, unprotected) header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=Pn6akygv
-Received: from mail-yw1-f200.google.com (mail-yw1-f200.google.com [209.85.128.200])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 634893F57C
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 19:13:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20251003; t=1793042030;
-	bh=Vgy5tlJ4zIrrzxhPIS7IOokidEWZWzw4PbEzeqfHlqw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type;
-	b=Pn6akygvva0iR8t/ZwQgSf23v849fAyWJlEPupwSjKLMr41/qikCoLLcShD0eLBn1
-	 udrlVdtBnwrtWFBRKbaCztwyTDvoAeGGK6skQgtfsgBUUl1M7RHFSshgz4MmOFBvPf
-	 k7/pUZSaQ8mxyNikFgxpo01NRY0bxVQBfyJUZyM+7+gIsxAbT51R6j4a76MOHTPXKz
-	 UzDvzo/hvdDcsuf90vTonhM0mFv7riUuf9qeYotTWBFJQd2p+xab8yuTsj9582OjAy
-	 bUC8DvWgUyx3Gnce2qRn2Pjl7/BgpYlFjxJX4+p5iiZPtvBPbsorvHhwb3I75oyOs2
-	 WWQgtJs8QmDw10QCZu+jak+pKqu1dv5ema3ePRJLkEDwYdL0Un7A3JQeXMNVU00I4j
-	 OuH1RR4P88ZqDhdk+xKEjhDusTvCy3AVbgKNteQhqU3wfP3BfibQ8ulF1vLu8pQpyq
-	 LhNSjHFrUUHLiqBAdy+YnTYcfr/BhppcUhaElJp+LIRLDULfcWz+AKZj4RWe5fAGyt
-	 C9IO0GYRjxqGEPP0l6OJ33YUVS3h1Qg+JmTaPc2qHYifpBiezNkkN6agWXo+kGusnw
-	 PaxUwPY8+F0GGy2hfXDfxSkuEqbCFYub+1RYTJjqahJRO+qdAmbfF8wvnQ7K0oLoaM
-	 Mc9+UuEOmJeGDLlBBbkL+AoM=
-Received: by mail-yw1-f200.google.com with SMTP id 00721157ae682-8b0cd41e7aaso54303027b3.3
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:13:50 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793042029; x=1793646829;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:from:content-language:references:cc:to:subject:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=k8IAvO4R
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-3514b90bb89so7783007eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:14:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793042077; x=1793646877; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=Vgy5tlJ4zIrrzxhPIS7IOokidEWZWzw4PbEzeqfHlqw=;
-        b=SnqZs48nOmBkVrp5G5IQkkS9dI2BF0pe6O5fTcawRdJ8kKq2YBcTJ7QZYBuXienzoJ
-         Bubw5eQ5ia7tFaTANOtu8GhBY9KU749OrWXvhpChQkVQu4/lwVVOc1onMu4aIW+MUGCx
-         hMZaYhGf2LX38NAYrhIvQaFanQCxzS2UDwqm88T13O8wCCTYHGU32DHfq0qKG0o0UwY+
-         3QDPHnv2xFOtE4XI9y1CPZeb/T+gL+lXGZ02QY2GBwdXWfxpYZ5nwrg+dWTNuszYoRpS
-         cY5lnC5oY4NO5HBe4m3aEecDTAl8n3vpw7FKYHS9hol0AQGiokDotzvmlwrj6gw18N7o
-         /pFA==
-X-Forwarded-Encrypted: i=1; AKwUvBx+gc/FbWjklLFG9+MApPwssQUCOKJbdtawSPBy/mG5ZgyDQR38Dr/miuZ2jajn4i8XHjY9zYne5H4n6yY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK31D/UiNEVwuLgNuv0Fy+j/AM2h0tvLMgX/ibNjqwNUq6p2paq
-	G6VSuX1mVLem6wgK2Frv0yXz7MPZuuCg4BwxH9CzaPIz3+jLbduiDwWMLDc1G015WOikvqA8R0D
-	T6YVQ5uA+QaZyuf3ho82Yk6nUhkFzTl01FeGXHFmww8O/lHwPPYqvm2ZB4Sgqa57IKzSQML+Vd4
-	94FhYa2g==
-X-Gm-Gg: AYBFou08h/zVbEQGFhY6oom/a+IStjBqac/HRXZbBaTLjTBT1zE9kRMvEA6vA7KDwd4
-	M+NPa2Ux2MEvX+lrEIqCHSlJjSTzQ1h4E1GfFv6/j8m0T4+ArVUyt0z5Ls7vS14Z33MT8CNfbbC
-	MfqqTS55um6AbSYC7CeZNEFQxf+8ul7hUA7L/YnQu/aAcA8SdKk+A4OSp+pd1pgBB84AeXrWJmT
-	5cIfUP9/KDU6UHRB5MyNQ4RL1DX+JJoeeCxue03Gvwm7asiSonhOkmt+YSy+Xe+PylXx9TgcS9V
-	LHVazY9GM3QFlsa2NalhVlEXnGrgv1E5+juFPLGUVnZ8/KYW53Cce66PVng/8fljGnApZrVuAIo
-	eTIgYrdobzjJjUBf6djgOQQfGDRPeXt/Z+x8biJ4kTl7jZdpWKMNLuvsj
-X-Received: by 2002:a05:690e:438e:b0:679:9afd:c0dd with SMTP id 956f58d0204a3-67a4552069bmr3589009d50.111.1793042029266;
-        Mon, 26 Oct 2026 12:13:49 -0700 (PDT)
-X-Received: by 2002:a05:690e:438e:b0:679:9afd:c0dd with SMTP id 956f58d0204a3-67a4552069bmr3588993d50.111.1793042028912;
-        Mon, 26 Oct 2026 12:13:48 -0700 (PDT)
-Received: from [172.21.9.52] (host-209-35-187-178.broadbandcancun.mx. [209.35.187.178])
-        by smtp.googlemail.com with ESMTPSA id 956f58d0204a3-67a45ff8d6dsm3976103d50.1.2026.10.26.12.13.47
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 26 Oct 2026 12:13:48 -0700 (PDT)
-Message-ID: <ffcda856-cffb-4aba-9a7f-fece5ac6419a@canonical.com>
-Date: Mon, 26 Oct 2026 12:13:46 -0700
+        bh=xYd1AfKqcl+9tRJkqB8FFaIjzuEdllawIMWqWesHJnA=;
+        b=k8IAvO4RvXOI4qstAapQi7ZztKLiZvS5iYhzCyqZlUyegpcJPXdEfn3HNC+IByLvLo
+         2QcUsv/9AeemW48Rkcen+gEew6+zLRnsIbBaegLEy9Rxwah1P/GDv79WiHPZVHk5uwyx
+         qtGVsofaF0s+TydBCzoU1UNRIWJ2lpzvJTRjr01tOZvUyylQGRuTcNxRJkLQlitgj942
+         sPBxSxAlG1A4LssCZ+83sn+WhxGBbVc+Rg8+XA5OLbvAkOn9gaYCSMyVAvW1gV5R4/Nq
+         UD0VZzxhPTODb3Fsle4SoH0Q0z+H6H7hpnNjWJiBSQNZkYEedPYZHlCz0P3Mi2ndcGB9
+         K5ng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793042077; x=1793646877;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xYd1AfKqcl+9tRJkqB8FFaIjzuEdllawIMWqWesHJnA=;
+        b=0tm9Q+BCMH3hkpV9R5H9lsVX1+IHFTThOfQIJSyAAb64XMOwTZrq+tJ7jbQiIGWErq
+         aVCGLPF6WSBdpBEpTqha3WvbuVpcShWQS+46lIBYpJVAEE2VD6ZNiuUMKNRkUXJq/Zdo
+         6PtOlgCDhe1pQMLGTj+Vb0sYQanyLhUVK/tRS8eNx2NxSXK7BGU1MYgRQu2so+BMKH8i
+         cm4No8sfMrbhrHoxVALcqww3+4BgJBbF1PpJA3qLpJogXCfxegWD3WR5NsOe8lWta0qs
+         d8oIXMVhRGyptWcPYrMmSH7VJXOc14h9+YoJOQDs4a+YifadKLzUQlcEODVe/njxuFnD
+         ZnzQ==
+X-Forwarded-Encrypted: i=1; AKwUvByJQtBLLD7Eyu9G6yQmnCT9Xfc1Z52XNCl/uIXibsZMP5YUPNrwfcrzN0SECCN6MNlBWHkuZ/gPN8WVcdg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL/gGqOovJll4kkdpj7lCELGdEjRBf82Q4eCAI44z/VopQUxAyF
+	Qw+7J/dbYz8Wz0fZgtmOpkZbngpleL/R4Rbftud6+TBQ9JFbURxNcdF6
+X-Gm-Gg: AYBFou3X/53jKt+D4sVBeyUblJNqJGBpmrC2lkKdD9v0M+wsgR/DVUv5ts7wvMSycZN
+	cPHlOFs81K4fBLka1AKYab38BbuudEpYbgy6bGog6LP+A/Z+03/hhkXB45lLo6iMUWd13cNqyUO
+	JyQbXTxso43mKTn92t05XAi1EhveHuVgCaLpXntXThlXE/MH6fuKU8olIljG0OcY+dmiUZ0HX5s
+	8+5VTlQvtGCq8eB5ZeVq937ZKwY9MuxA8kO2+l2aIBAavs6yhHs9pUIYO1E1Q3eoR7Q2iyv2EFQ
+	eiW9p65jc755Z+lAnd7l/WpO3v3MJB/3AwpUcwCUcUmpqgGm8rToIqsi46Fd6eczxLI8q54qpCK
+	4jmFIOjhAtt7BWkgDr+Cs8aSDwGKKLL5NPZpoOw2YXjcqfwDVigADt3cZSRWPR68DTNS5SaCMhK
+	5S9q2CoQ0nE0kkCQNk6QN4thoYoUdvD8NSCTsPfrxWCQXLurI2/IQ4QLUUJxnv/r8O/wE5UwxOC
+	e7QSPddNdjNmLwaRGr17iA2e/aYAFoHadsgrPcKc7nKpiorXEVM57iXrtvhZozG/tpPYA==
+X-Received: by 2002:a05:7300:471a:b0:369:e8b0:af85 with SMTP id 5a478bee46e88-369e8b0b5acmr12248693eec.36.1793042077191;
+        Mon, 26 Oct 2026 12:14:37 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8afd64fsm31480019eec.0.2026.10.26.12.14.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 12:14:36 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Mon, 26 Oct 2026 12:14:36 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Hamza Mahfooz <someguy@effective-light.com>
+Cc: linux-hwmon@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
+	Randy Dunlap <rdunlap@infradead.org>, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] hwmon: (nct6683) Add fan control support for MSI
+ boards with NCT6687D-R
+Message-ID: <c302d22e-6ef4-409c-8f9c-28922afbad59@roeck-us.net>
+References: <20261004153250.516730-1-someguy@effective-light.com>
+ <20261004153250.516730-3-someguy@effective-light.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,154 +99,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] apparmor: fix NULL peer label deref for connected
- SOCK_DGRAM sockets
-To: Nik Tsytsarkin <nikt@meta.com>,
- Georgia Garcia <georgia.garcia@canonical.com>,
- Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
- "Serge E. Hallyn" <serge@hallyn.com>, apparmor@lists.ubuntu.com,
- linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Sam Dlinn <sledge@meta.com>
-References: <CAN8mxQpCCO3QNXb0pimRsNqfLs1qS0epZmB59q2sd8QCLhgOpA@mail.gmail.com>
-Content-Language: en-US
-From: John Johansen <john.johansen@canonical.com>
-Autocrypt: addr=john.johansen@canonical.com; keydata=
- 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 lT9Q
-Organization: Canonical
-In-Reply-To: <CAN8mxQpCCO3QNXb0pimRsNqfLs1qS0epZmB59q2sd8QCLhgOpA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261004153250.516730-3-someguy@effective-light.com>
 
-On 10/20/26 10:30, Nik Tsytsarkin wrote:
-> apparmor_sk_alloc_security() initializes ctx->peer and
-> ctx->peer_lastupdate to NULL, and unix_connect_peers() is the only
-> place they are set.  It is called from the unix_stream_connect and
-> socket_socketpair hooks, but not for SOCK_DGRAM sockets paired with
-> connect(2): the dgram connect path only goes through the unix_may_send
-> hook, which does not touch the socket's apparmor context.  So after
-> connect(2) on an AF_UNIX SOCK_DGRAM socket, unix_peer(sk) is set while
-> ctx->peer stays NULL.
+On Sun, Oct 04, 2026 at 11:32:50AM -0400, Hamza Mahfooz wrote:
+> The fan control registers of the NCT6687D-R used on recent MSI boards
+> (customer ID 0x20d) differ from the ones used on Mitac boards, and
+> changes must be made in a configuration phase of its fan engine.
 > 
-> When a confined task later triggers file revalidation on such a
-> socket (its first write(2) on the fd suffices, with or without a
-> profile change in between), aa_unix_file_perm() runs the post-check
-> cache update with peer_sk != NULL and a NULL cached peer label, and
-> both update paths dereference the NULL label:
+> Add fan control support for these boards, based on a reverse engineered
+> register map:
 > 
->    - update_peer_ctx() calls aa_label_merge(old, label, ...) with
->      old == NULL, which reads old->size;
->    - update_sk_ctx() calls aa_label_is_subset(plabel, old) with
->      old == NULL, which reads old->size via
->      __aa_label_next_not_in_set().
+> - Manual mode is selected with bit (channel % 8) of register 0xa00
+>   (channels 0-7) or 0x80f (channels 8-15). In manual mode, the duty
+>   cycle is set with register (0xa28 + channel) (channels 0-7) or
+>   (0x260 + channel - 10) (channels 10-15). Otherwise, the fan curve
+>   configured by the BIOS is used.
+> - A configuration phase is requested by setting bit 7 of register
+>   0xa01, and is entered once register 0xcf8 reports that the fan
+>   registers are unlocked. It is completed by setting bit 6 of register
+>   0xa01, after which the EC checks the new configuration, locks the
+>   registers again and reports whether the configuration was accepted.
 > 
-> The AA_BUG() NULL assertions in those helpers compile out without
-> CONFIG_SECURITY_APPARMOR_DEBUG_ASSERTS, so production builds oops
-> under spin_lock(&unix_sk(sk)->lock).  An unprivileged confined task
-> can trigger this whenever its profile mediates unix sockets (complain
-> mode included).  Because the oops happens under the unix sock
-> spinlock, the dying task then deadlocks against itself in
-> unix_release_sock() on exit, leaving an unkillable spinning task and
-> an RCU stall on that CPU (and a full crash with panic_on_oops=1).
+> Fan control is supported for the CPU (channel 0), pump (channel 1) and
+> system fan (channels 10-15) headers. Add pwmN_enable attributes for
+> them, with 1 selecting manual and 2 automatic mode, and make pwmN
+> writable in manual mode. The behaviour of the driver does not change
+> unless pwmN or pwmN_enable is written.
 > 
->    BUG: kernel NULL pointer dereference, address: 000000000000004c
->    RIP: 0010:aa_label_merge+0x63/0x730
->    Call Trace:
->     aa_unix_file_perm+0x477/0x800
->     aa_file_perm+0x434/0x550
->     common_file_perm+0x58/0x150
->     security_file_permission+0x22/0x50
->     vfs_write+0x76/0x410
->     ksys_write+0xb3/0xd0
-> 
-> Treat a NULL cached peer label as "not initialized yet" in both
-> update helpers: have update_peer_ctx() adopt the checked label
-> instead of merging with the missing old one, and have update_sk_ctx()
-> initialize ctx->peer/ctx->peer_lastupdate when no peer label was
-> recorded.  This lazily completes, at first revalidation, the peer
-> cross-referencing that unix_connect_peers() performs for stream and
-> socketpair sockets.
-> 
-> Fixes: c05e705812d1 ("apparmor: add fine grained af_unix mediation")
-> Assisted-by: LLM
-> Signed-off-by: Nik Tsytsarkin (nikt@fb.com)
+> Signed-off-by: Hamza Mahfooz <someguy@effective-light.com>
 
-Hi Nik, thankyou for the patch. This issue has already been addressed
-in the apparmor tree by
+Applied.
 
-f61da65fd09e3 apparmor: fix NULL ctx->peer derefs in unix socket ctx updates
-
-> ---
->   security/apparmor/af_unix.c | 8 ++++++--
->   1 file changed, 6 insertions(+), 2 deletions(-)
-> 
-> diff --git a/security/apparmor/af_unix.c b/security/apparmor/af_unix.c
-> index b908e744818c..e802538b0e54 100644
-> --- a/security/apparmor/af_unix.c
-> +++ b/security/apparmor/af_unix.c
-> @@ -682,7 +682,7 @@ static void update_sk_ctx(struct sock *sk, struct
-> aa_label *label,
->    if (old == plabel) {
->    rcu_assign_pointer(ctx->peer_lastupdate,
->      aa_get_label(plabel));
-> - } else if (aa_label_is_subset(plabel, old)) {
-> + } else if (!old || aa_label_is_subset(plabel, old)) {
->    rcu_assign_pointer(ctx->peer_lastupdate,
->      aa_get_label(plabel));
->    rcu_assign_pointer(ctx->peer, aa_get_label(plabel));
-> @@ -700,7 +700,11 @@ static void update_peer_ctx(struct sock *sk,
-> struct aa_sk_ctx *ctx,
->    spin_lock(&unix_sk(sk)->lock);
->    old = rcu_dereference_protected(ctx->peer,
->    lockdep_is_held(&unix_sk(sk)->lock));
-> - l = aa_label_merge(old, label, GFP_ATOMIC);
-> + if (old)
-> + l = aa_label_merge(old, label, GFP_ATOMIC);
-> + else
-> + /* connected dgram socket, peer ctx was never initialized */
-> + l = aa_get_label(label);
->    if (l) {
->    if (l != old) {
->    rcu_assign_pointer(ctx->peer, l);
-> --
-
+Thanks,
+Guenter
