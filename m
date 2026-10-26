@@ -1,92 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.43.80
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792990664;
-	b=lGd1pYZxDKkyenV+ji0yL5gvRYHHsC4D+xtr7gzEz/kvxl3K5UNcs2qkW4aZkVyyYNAm
-	 5g/r0xHRS+FTvTbuJruMS4F52H72erucvNccurvuQD20PZegVERVvGZwHBRupkc5xohH8
-	 +HsX8aAIV62NtPso4Z7Gou+t0ZlUYLRu/zPZikK8FtLhkQwfRWiwTNrDCRTzbwy8icZno
-	 hGaHdBEJGZbULfyfLbps87ynme0UjUqx4pGi+T6kOul4XCjedWBwO74dGqmcFYZ7JgS/5
-	 M/BPhhURodv9jMnByfjxVgDraQmlOx5pEZFCvsNV5GP9Myor/fhBoEmsXQuQxc2N+nQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792990664;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:Content-Transfer-Encoding:Content-Type:
-	 X-ClientProxiedBy:X-Microsoft-Original-Message-ID:MIME-Version:
-	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=5LQ5sf1pWzZUr/GHEru0oSZ8PONAKL82zGTW3RV7vnQ=;
-	b=wMTCsTtQpstEHGclrhlxRsWwF2x8QA94fYWgdS4rmZ5ekFsvMwPItBu4WSn58wqzUJZq
-	 ONnL982LIPYlRHPqGDsPd5VuldqEkUSVwuQVIGnBsYuW/7um35DN5eeoUR/vd+0NyAU0L
-	 KBQcHwwNmaiu+6heRwdFczKqigGgVnQmdWl2JGIZBvnStK5fpObjP20Qx/SxE+IszkTSX
-	 e8WeZpmPktQQSRYOnA1IVu10QNQAuGQvPymX6POt+Iuq2Oy3Js4J8tOVKJ/gAgyczKane
-	 9Jj1Z+CTFIdqJNSE5W1U+AIny8D4W2b5VeeYSwEvR/O1mkuhR3Ky3upRl0KXM1m2nYA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=outlook.com;
-	spf=pass smtp.mailfrom=outlook.com;
-	dkim=pass header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b="H5/E2adX";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.43.80
-Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazolkn19013080.outbound.protection.outlook.com [52.103.43.80])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.132.180.163
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792990668;
+	b=rZdwxi3zEXKOuII+cYb+MKtEBl5lc23TftDdvoABaKbHwQADpNNjJG/D/Eg+ErqNqu1Z
+	 drcWZ/oNmK0te6zWVoCZdQtwCgM8h3UyXOJCh8DOEBx9kZoCEzkj8clOpjX4Q5f5Hr9+s
+	 tPuw3kPMMsG6k9Magp4uMxb4Wx7z10vNl03OlGzd740HUAIDF3f08ye/p+dYKciKBjlDW
+	 SZFggG4xKpxcrDT6TFdMrC5MhTE50KNvVyyeMsf2OUrHrTbuAEmIVhfVEG5QZ096GOoS/
+	 +PcV9kkxo2csksbjP16/s9rrQOPJFgL2zplLSECk38ZCDMsyd1qNEkLxOY0hw5oTETA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792990668;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-ID:X-B4-Tracking:X-Change-ID:To:CC:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Originating-IP:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID;
+	bh=8fu43DNA2RG8i02HeOjlRKtPZ4P9JA9dEbuGqv9jRII=;
+	b=rQ9wioWZAHeh5NgHTguv55Lk6nWpy7KlxpRq2dBMLF4ZMEH9erc57rQakXnvRPYZDQP7
+	 0Tp0fc+3momkdlM6hDut9ELW68avHcucYsOiqSzoowJafvaR3ygBhD4cq5gRcCQOS9N3D
+	 6zE29h4T8XH0gx05HavahEfL0rWRbue1izqxNIo86nZRn69/j7N0xwvO6l3KHnsOKU4Ic
+	 fR3wpSPLvQpYEImc63v/UD0o5RlPP8VBdKwpxHmtHu+hkyHDkBP0DhWPqJafeK7wr1xfO
+	 Xpd/FMKtrAtAMGr24f1dAVWUS/rtY7jcNxWMzoWdthrlqrS03Df5HEVV4VOhDMU1Ttw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=imgtec.com;
+	spf=pass smtp.mailfrom=imgtec.com;
+	dkim=pass header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=M8OnpaH1;
+	arc=none smtp.remote-ip=185.132.180.163
+Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com [185.132.180.163])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19A45606A31A;
-	Mon, 26 Oct 2026 04:57:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19A45606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB63A606A31B
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 04:57:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB63A606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=H5/E2adX
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Nd1+PvpuG6Ie/vPY43RjxS8v72i0NO4fIerh1edA04XBorTc5eME4chBhRFeJQYbWb2GoCzMlN0fE66zLO7D89oezDL7Cey4+sg73AWTqPvs2JAZ96mllW9Lv791fEMId19ddBXqucJUQpdrdVysncTAdUoJsvWlbhaRcHyLozMBadim5UE5Ef65vw9CnBcGUSZ7XZxKy2l0h1nPBH9QiSflijMkBlc5as1KPuc17m2GjFbq24vBaE+vAEJPSnUktpxNRO/x+YDr344JE7fXRMHPndPOFhNEKn6zfumgwuN3QSIDShSbWeL+wS6Xqsm+kPOT7mMr7uO/02fDvzyaKw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5LQ5sf1pWzZUr/GHEru0oSZ8PONAKL82zGTW3RV7vnQ=;
- b=p5VRX3zg7pmR4u+r/QuBOxzO7lbhOwOrWcT+mHJs+7NiehEIUZrOkapOAGaZD1PNuiAp5QxbMdreMS+XATCde7Yee04431F5KJpwRodG5t5CAKcEGaPBxtwtJ/oAZtbmtVIIwkt8OCZCnWSGBJBmnJJzXTWo0aUHtzUKFKAIgHnj8gRl9z9N7J2avYPxLqEguvoLKuyMWzdx4ccTyoJciNusVrpnQzY3ebtFv96LnvqnA7DSTU+PSzBtiYwc3WjEjZzn9da16ZRNq5l/QBoL+2rzRgAk+LYs1m4fiWTTRhHQaOXcfJ3CnJYm1SAL1ngUnH9X94Qz16zUp4Bs2wDgqA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5LQ5sf1pWzZUr/GHEru0oSZ8PONAKL82zGTW3RV7vnQ=;
- b=H5/E2adXMT/E8N9JZw1tJX4eeG7Nk+DDbERJe6dbARcpBVg3Wa1bBxnQJqx6MT9cj8thCJtXZVn/6iiU9ZQ5LUfZCd5OW4BHeIQlWCICJhJ2G5fNxE/hA5HvDpLaUsjRQWXZrWHzfc+evTCWx/Y+kWAc9vE22bl9nZbZ/xILttVe197oogLrhFAxMCtChL5V0CP3ZnSZnW622Nl2/W/35dsLlIZ14uxgugJrSHfd1nZOaK5IUptRWtJXn6889t0pYiSvQfkNbS6jHo95kHjGy5gaBgti/gIIsqiBIdKany63oemnBDDr+kir3vokWEsQiB2nCeATO2kiHuKAntidOw==
-Received: from SEYPR02MB6964.apcprd02.prod.outlook.com (2603:1096:101:1a4::8)
- by SEYPR02MB7297.apcprd02.prod.outlook.com (2603:1096:101:1d3::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
- 2026 04:57:40 +0000
-Received: from SEYPR02MB6964.apcprd02.prod.outlook.com
- ([fe80::9ff:515f:96ea:1199]) by SEYPR02MB6964.apcprd02.prod.outlook.com
- ([fe80::9ff:515f:96ea:1199%6]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
- 04:57:40 +0000
-From: Wang Zhaolong <wangzhaolong3@outlook.com>
-To: Namjae Jeon <linkinjeon@kernel.org>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Tom Talpey <tom@talpey.com>,
-	ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
-	linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 0/2] ksmbd: fix named-pipe reply loss and operation races
-Date: Mon, 26 Oct 2026 12:57:18 +0800
-Message-ID:
- <SEYPR02MB6964387A0BA1542BDA560115E6612@SEYPR02MB6964.apcprd02.prod.outlook.com>
-X-Mailer: git-send-email 2.56.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: TYWP286CA0013.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:178::9) To SEYPR02MB6964.apcprd02.prod.outlook.com
- (2603:1096:101:1a4::8)
-X-Microsoft-Original-Message-ID:
- <20261026045720.1324887-1-wangzhaolong3@outlook.com>
+	dkim=pass (2048-bit key, unprotected) header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=M8OnpaH1
+Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
+	by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69Q4doPJ2391863;
+	Mon, 26 Oct 2026 04:57:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=dk201812; bh=8fu43DNA2RG8i02HeOjlRKt
+	PZ4P9JA9dEbuGqv9jRII=; b=M8OnpaH1CVvGe3uJ1GKfHxyth4YeVMrEVYkGL+R
+	ruMlFQk1qg4EIpo5TXS6DJarWpdM4kKltUVm+n3X/BG0O06Bub4MVVCSMoh+31of
+	BTyhOPyakotbI0qrygIaBhgASWiDEKV6TL6GyySwbZf3sn4Y1G2WbKdLDZRRzDKh
+	QdPPkOiLiRiYe99Bktv+PYb8l+r8gNyC+kVhyEAk9e4/S71dpeORnPTm3cEb411E
+	ify8f2VuOkg28HfVfizIu2HBC9rFIumhf+1hul0OyRjq1rKiUdHcP0kPV/gGs9Kk
+	KWOP0R9siStKvO1ePr9ATKp/phqO9ttb/Ly9vNpHsVvhvZw==
+Received: from hhmail01.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
+	by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4hgmrthcby-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 26 Oct 2026 04:57:17 +0000 (GMT)
+Received: from [127.0.1.1] (172.25.128.225) by HHMAIL01.hh.imgtec.org
+ (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 26 Oct
+ 2026 04:57:13 +0000
+From: Brajesh Gupta <brajesh.gupta@imgtec.com>
+Date: Mon, 26 Oct 2026 10:26:45 +0530
+Subject: [PATCH] drm/imagination: Support for querying Firmware information
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,117 +68,218 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SEYPR02MB6964:EE_|SEYPR02MB7297:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1ded32a2-cf05-4ed1-eeb1-08df331da917
-X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|15080799012|5072599009|8060799015|22091999003|19110799012|24121999003|23021999003|24021099003|8022599003|41001999006|25010399006|260925184616899003|3412199025|440099028|3071699003|26121999007;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?9wam54RoKOUy0LpWFybmDwRScDXFAQzSMpXEIPpTDMT7a2WYl6GTl3CR4juh?=
- =?us-ascii?Q?+zMDQlSXZ81EHLElvvCtNE78Kt/kgCTKFJnZlaA3p75ao5xdcTp0kxBCJueF?=
- =?us-ascii?Q?RmKbVvuU1Np1/9bPKeXfswxnlpPFTSZ24E/KjhyBXo+eZsNSiE7QG6RJ7KoT?=
- =?us-ascii?Q?Izc6M6KHfU5YuNBDLQd70jCM694jJcxM/JoX5uciHWu9/vdLLpbCSmv+bAqk?=
- =?us-ascii?Q?nmOgh2FEHWH7e6WX4Bx9+qUxMCJATI8+3NMXLRCl+X6KsL4z0AO6qdtE1ezI?=
- =?us-ascii?Q?t4rTX/XDonzmvbs8oUyMItG7yNlm8TfhILBwuqgk6/r9JpBojK5017vqSnTF?=
- =?us-ascii?Q?FO31ZjSLHPx0vtKXRPmtE1urAKDEVCY2wn/12A/sMl2FzRbMWsqcySmQR4Om?=
- =?us-ascii?Q?4fd8emn2mH1JDvzv6HrFARtLEWqTUKdOCJUUKH5BiJyIAx6h2jb4tAQ1cD+v?=
- =?us-ascii?Q?t7aXMRqSdcK2FqsYvbEaQkzLXJUC1WJ7DKsaRPyFTji084aGpUVZQHQm2dKg?=
- =?us-ascii?Q?6vC1Fp1/LxNQFkKAYhBe3veGt+EOVXDebt0iM2T/mMkhEu+L2n+3wPmSQxLw?=
- =?us-ascii?Q?293hJXMSDIQW99U538ZQ8SwuzyxMV4yaCgPgZ1/PktvgxTs+ckwD9Y5vnNfx?=
- =?us-ascii?Q?yWKzcRDpRouPQKsRA0yl/DVVuPhmN7dp9J4Kts1dm8dUBaUCGHYmge0aVlLG?=
- =?us-ascii?Q?HVz19/0Ps73DLIUhzJRSzI8sU57GWaOFzcDo5etjFo5KlfG4WRDBZZYnwhDc?=
- =?us-ascii?Q?CyORWtN0GY1fX1VHbKx668QpSEopPqCEx7NGMkwGXq8EHeUPPXPVQ6haAsPY?=
- =?us-ascii?Q?hoJu8TFNCUmozSDw1wOEs3/u4Rq0nBAjG6z77TqQTWRujT0NXmhU/dM8hKvx?=
- =?us-ascii?Q?cY8kbeBRSj3hyTHIsq63Yu5SiBSXR6VBAVYbH6+3Qo6wRI8FmbLfoud1q/Sg?=
- =?us-ascii?Q?oTC0gL4W2xKCUd+oiSeEAgKRi4gmQwtDqM75gTPPlZ0nBwPvrszD/w9Ij7D/?=
- =?us-ascii?Q?wfp7lw6FfwrgQpaGMXTEvQWO7TzmsSmt+EHvLBR5Oh405sNYrnWPWmNTPz6/?=
- =?us-ascii?Q?oSl5LGgd?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?ErtoM+XNV6BNBfnQuGD+0Oq3TLhgDs0m51t/iqGmFz24/DgfPf0Fs0MQmYFf?=
- =?us-ascii?Q?Vi9oJX15yBzmAlmsQQG1fD13PSHImMY0Yq9mfmQ5mEtDUo+1TNBOxJGxwmPi?=
- =?us-ascii?Q?sLcdZZNl6mDLVnto+J3PnTOTvy46VUYd0TK06Dp4g0C/SX3BYhUfV8w8yUGH?=
- =?us-ascii?Q?JG4x7XbaaVRbAxhBbUQR0YObguPzHQJwpiFnhYTQNAzOL+5HX24get5dTXr8?=
- =?us-ascii?Q?jfNAVUYw6nbwXWQHPiWBRijPzZLDwHfHUBm/ylu1NrJQLOQniUCqGGJLzzQf?=
- =?us-ascii?Q?t0YAYA1aIas2gVDhhsXOyZpfsC64CTjdMVCfBtroTvCw7ayYFPdrZf8ke0xh?=
- =?us-ascii?Q?e1EPw/rjIjPFgLHgvwXuLkx0VTzSDkjRsOZpRgdcAgmtB1HtsZ+k2z3XvSMK?=
- =?us-ascii?Q?gWigXarddpqwx///D2ZVKC34fegseF/k8/4oPt+obOA4/zuZdbbnmpe1fD8F?=
- =?us-ascii?Q?U+gEBo3uxthIwIeT4Y0oEHOmqkbSoy5fkeAhKugoDlB2lwesko6uwVGLVlJ3?=
- =?us-ascii?Q?fAxd5aHGYB0h/gsJSl9aA9sFdgDm5s7TZ9N7PAQHr35EyrSgphEYrA7pQ6ZA?=
- =?us-ascii?Q?g0yHDWTMIBdVJakd8zqf0Z59rkam4oJnvCKTENtx0WZVbHy6yJtrzebZFBTy?=
- =?us-ascii?Q?9ZIef3kzUqUYbcYQLmHCaDAlNDT1b/0x1j4Y44c0NFi1YIb6YMEyVjUz3PID?=
- =?us-ascii?Q?seyClc9nJDzOAXLvwSjpn3C5NXtyUXgQObO4EzernCiYgydZW180Yg2NJi1N?=
- =?us-ascii?Q?F3bt6W3oxpM9vSD5ecXm8WcFtpn6q0kQfbwFAzeNgQN895ZoNqDXaglqDPqt?=
- =?us-ascii?Q?zMTCS+BWc554sI28yu8AsWztyKLPqoqTzZf+SDk38E8Z1JWsbfiFrnB4cwq2?=
- =?us-ascii?Q?4TTaJWA4NZU67a1hHpTnqhyFZ64KFti7YUD1qxDdezezF29rhtU7i4SBEM/+?=
- =?us-ascii?Q?j6PBF229DvkPzLmkIjFKX229URx3wNmtVoDjTgxucgpD/qTTX3EverQ1J9q1?=
- =?us-ascii?Q?wAIKmb1i5tGuaxz4bIJQj+/VlbTkvZwxZwCSeca7IejE/vodNh+ZSA9gv9wf?=
- =?us-ascii?Q?rsRJ2WNHY26TnErM/1XZpOFXNkOsCBh6NTwftd7awIIgpMG12QbjJvF8jrdG?=
- =?us-ascii?Q?tJ7WhlinO5slN3fXN45mhBta92E9eYau6KK7BB1pIfyjJunG3NqrkPr1QzZ6?=
- =?us-ascii?Q?0B/tu3eZpf8OcMuSaZ8mUkxhtGbv9bXbLY2v2BVCWsrN9AaAv5GXquqYDAO0?=
- =?us-ascii?Q?wsDSuFuayqgdWO8ebGZzpLKXQWzhE8m1hd1D5PSuAERexVSlgEGIx+xltuxn?=
- =?us-ascii?Q?e/vT2+pWdUhP+sq06lFPq2ytnMInlQhrSgz36DzTa2FOJN1D6qLbgrJ4Awk4?=
- =?us-ascii?Q?31E37B6Wa5AnXEUFgyEUV2w6IXv+XNQP801rhFomQX4Pe0ssGT4TFST1h7Wz?=
- =?us-ascii?Q?evGg42KGe8U=3D?=
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1ded32a2-cf05-4ed1-eeb1-08df331da917
-X-MS-Exchange-CrossTenant-AuthSource: SEYPR02MB6964.apcprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 04:57:40.3590
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEYPR02MB7297
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20261026-fwversion-v1-1-3ed17c65bf4c@imgtec.com>
+X-B4-Tracking: v=1; b=H4sIAIzd3moC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDINZNKy9LLQKp0rU0TbQwSrQ0TLNMM1cCqi8oSk3LrACbFR1bWwsAPLu
+ UBVsAAAA=
+X-Change-ID: 20261026-fwversion-95a82a91f9f7
+To: Alessio Belle <alessio.belle@imgtec.com>,
+        Luigi Santivetti
+	<luigi.santivetti@imgtec.com>,
+        Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+        <linux-kernel@vger.kernel.org>,
+        Brajesh Gupta <brajesh.gupta@imgtec.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5329;
+ i=brajesh.gupta@imgtec.com; h=from:subject:message-id;
+ bh=EjB5brLJIxO02+FtPvrMC3ZFJgz/BdZGAbQJm8HvvcU=;
+ b=owEBbQKS/ZANAwAKAdAmd1l+AvFwAcsmYgBq3t2pFF/WiCq+BNjL7WLIr1sDEP5lTvvcSdpzb
+ VlMlLrDUpSJAjMEAAEKAB0WIQSQIkZAwD1cxcAsz3LQJndZfgLxcAUCat7dqQAKCRDQJndZfgLx
+ cGbID/4vESQAXz+n6321XS5RrP1l/wyM3jaYXl6P9s5dAR0PyrVT3/NXxH1QprSsHGYXSGg0ND5
+ WS5l3DQnnK4/AUtnZY2ZX/8raLnXl1cXpEOBgVWQ9ttOty48GNrvN0pWlXS67cSJpT5CqFcxnKC
+ 0tsLaR4+7VeLJHxV2+JVkTMSFU7g0s0Ox5cjgYQq3rqfNWlM9neEAJWDaMrWnH4dErrLroBSsTn
+ wliAkJCstHggMaXu1YGeJ3ayLx3ugK4a8HC2kLS8DBh6wkMijZeUkVHAxNyYMrK25A00P38A5ay
+ PA3Bkx4ZQ8A9ObPd5c/esS0iTrFkKQDVnuJO/GC2HuLB1T2vjs/0neOCYma3NLXYbIRFoCQxygd
+ bI/xYnFl3WS3IlrRLnJ2cqjKj6/NaQC80Jj340BAKNFSN/kxxu+5HWdui0HhvEl+2lzliSOVeuu
+ TYKAN+gzfkK7UO1mHFq0+nMohZVAuftoVF097waSguQOHOYYQLAzKNt33u+yEfQ5mKxJ+RfBzaY
+ bE7fXmvgrdn6HgOvDf8k9l4TXFky9KEWEYk3sU2rtB2tHJV6Z2H6O/vooo1kcDMf1Yqf0TXMvpV
+ mBEbDtzUzvBTeE30duNUT8jDIIO9MotqagwKgi8dDJCaZKTtv+5bmZohNOVNHSnNPfPSOfDCzYs
+ 8ATh3MatKZgZpCw==
+X-Developer-Key: i=brajesh.gupta@imgtec.com; a=openpgp;
+ fpr=05BAA300FD5C580EFD3F8D2F073292BAD0D39671
+X-Proofpoint-ORIG-GUID: 89KgDbSGtrz5uKctqCA9P-5rbOMmZdni
+X-Authority-Analysis: v=2.4 cv=NZdzRGD4 c=1 sm=1 tr=0 ts=6adeddad cx=c_pps
+ a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
+ a=HYrZrZQ_E1YA:10 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
+ a=r_1tXGB3AAAA:8 a=VQtmmEAXoFRDbT8Ph0MA:9 a=QEXdDO2ut3YA:10
+ a=t8nPyN_e6usw4ciXM-Pk:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDAxOSBTYWx0ZWRfX/aS4Cd3NB7td
+ DckXBhmTwujrhMJWmrgK0f0ro8+eP068348KTxpfJeo+UMrSGL2KknUIksQuhevOi3JvcfGBZL6
+ TESFOlce/RUVzsBHOCkjCANua1iYvi8=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDAxOSBTYWx0ZWRfX0QNRPzaFD+JX
+ qIwKl1Oogp8EOyoiRLXLmgqApB/bqUnhFCkCOIp1Dx6WWdRMLiqfABM5abGo8NS0SSQ2DsiIUND
+ oUk/WcU7X3GQ/XpE0ybxJSaNROqiQMUCYEb5UnmgNnoBfd4qmN6bHmX4GC05Idii8tvtLYxw+5n
+ GB7ZGi1zQeN0axXXNGi1Ij7Z4VZRoAL13Vgi7ct9eoqLhNLJBQoScZLb7fBs/pxE33CWbljgWdS
+ fEZ7NEe13pqmLQagaDz8WUhYFj4+MsQhq37V5dbXizCOJEq/RnVPHhIj5GStqkm+PVIXJP85HHw
+ v+uFE0gkCo2N+4QsSnc1uxhO3d9lPHRnyBVSENu680W0B5R+TqV5GRLjDH8EwpE45tib3NW0ntb
+ Kzi9EZrmEa/agHG4t7YGp/xwwJwJsZ62dpMFaz1PFaJ2Av7tpC2thnfFX6LJnn9bgfgeRpul7Zk
+ YyLMLaRKXkxsUWgEYsA==
+X-Proofpoint-GUID: 89KgDbSGtrz5uKctqCA9P-5rbOMmZdni
 
-This series fixes two related problems in the ksmbd SMB2 named-pipe
-implementation.
+Add a new subtype DRM_PVR_DEV_QUERY_FW_INFO_GET under
+DRM_IOCTL_PVR_DEV_QUERY to query Firmware information. This allows the
+userspace to detect any bug fixes and features present in the Firmware
+and take appropriate action.
+Currently it supports querying major and minor version of the Firmware.
 
-Patch 1 serializes operations per pipe and keeps the pipe state and handle
-alive until all users finish. It avoids holding the session RPC lock across
-IPC waits, rechecks cancellation and teardown after taking the pipe lock,
-and releases the handle only after the last user. This is also the lifetime
-model needed by the following patch.
+Signed-off-by: Brajesh Gupta <brajesh.gupta@imgtec.com>
+---
+ drivers/gpu/drm/imagination/pvr_drv.c |  5 +++++
+ drivers/gpu/drm/imagination/pvr_drv.h |  4 +++-
+ drivers/gpu/drm/imagination/pvr_fw.c  | 25 +++++++++++++++++++++++++
+ drivers/gpu/drm/imagination/pvr_fw.h  |  3 +++
+ include/uapi/drm/pvr_drm.h            | 18 ++++++++++++++++++
+ 5 files changed, 54 insertions(+), 1 deletion(-)
 
-Patch 2 keeps unread RPC reply bytes on the pipe. A short TRANSCEIVE may
-return STATUS_BUFFER_OVERFLOW and a prefix, but the remaining bytes stay
-available to a later READ. The reply is freed only when drained, or when
-the pipe is closed, logged off or disconnected. Failed response
-preparation or input requests do not discard output the client has not
-received.
+diff --git a/drivers/gpu/drm/imagination/pvr_drv.c b/drivers/gpu/drm/imagination/pvr_drv.c
+index 5c965ef0274f..2d522a8e46ad 100644
+--- a/drivers/gpu/drm/imagination/pvr_drv.c
++++ b/drivers/gpu/drm/imagination/pvr_drv.c
+@@ -6,6 +6,7 @@
+ #include "pvr_device.h"
+ #include "pvr_drv.h"
+ #include "pvr_free_list.h"
++#include "pvr_fw.h"
+ #include "pvr_gem.h"
+ #include "pvr_hwrt.h"
+ #include "pvr_job.h"
+@@ -658,6 +659,10 @@ pvr_ioctl_dev_query(struct drm_device *drm_dev, void *raw_args,
+ 	case DRM_PVR_DEV_QUERY_STATIC_DATA_AREAS_GET:
+ 		ret = pvr_static_data_areas_get(pvr_dev, args);
+ 		break;
++
++	case DRM_PVR_DEV_QUERY_FW_INFO_GET:
++		ret = pvr_fw_info_get(pvr_dev, args);
++		break;
+ 	}
+ 
+ 	drm_dev_exit(idx);
+diff --git a/drivers/gpu/drm/imagination/pvr_drv.h b/drivers/gpu/drm/imagination/pvr_drv.h
+index 7fa147312dd1..fd01feeeda1d 100644
+--- a/drivers/gpu/drm/imagination/pvr_drv.h
++++ b/drivers/gpu/drm/imagination/pvr_drv.h
+@@ -13,9 +13,10 @@
+ /*
+  * Driver interface version:
+  *  - 1.0: Initial interface
++ *  - 1.1: Add DRM_PVR_DEV_QUERY_FW_INFO_GET query
+  */
+ #define PVR_DRIVER_MAJOR 1
+-#define PVR_DRIVER_MINOR 0
++#define PVR_DRIVER_MINOR 1
+ #define PVR_DRIVER_PATCHLEVEL 0
+ 
+ int pvr_get_uobj(u64 usr_ptr, u32 usr_size, u32 min_size, u32 obj_size, void *out);
+@@ -68,6 +69,7 @@ int pvr_set_uobj_array(const struct drm_pvr_obj_array *out, u32 min_stride, u32
+ 	PVR_UOBJ_DECL(struct drm_pvr_dev_query_heap_info, heaps) \
+ 	PVR_UOBJ_DECL(struct drm_pvr_static_data_area, offset) \
+ 	PVR_UOBJ_DECL(struct drm_pvr_dev_query_static_data_areas, static_data_areas) \
++	PVR_UOBJ_DECL(struct drm_pvr_dev_query_fw_info, minor_version) \
+ 	)
+ 
+ /**
+diff --git a/drivers/gpu/drm/imagination/pvr_fw.c b/drivers/gpu/drm/imagination/pvr_fw.c
+index c6c77b152342..1f21e6adaff2 100644
+--- a/drivers/gpu/drm/imagination/pvr_fw.c
++++ b/drivers/gpu/drm/imagination/pvr_fw.c
+@@ -4,6 +4,7 @@
+ #include "pvr_ccb.h"
+ #include "pvr_device.h"
+ #include "pvr_device_info.h"
++#include "pvr_drv.h"
+ #include "pvr_fw.h"
+ #include "pvr_fw_info.h"
+ #include "pvr_fw_startstop.h"
+@@ -1496,3 +1497,27 @@ pvr_fw_hard_reset(struct pvr_device *pvr_dev)
+ 
+ 	return 0;
+ }
++
++int
++pvr_fw_info_get(const struct pvr_device *pvr_dev,
++		struct drm_pvr_ioctl_dev_query_args *args)
++{
++	struct drm_pvr_dev_query_fw_info fw_info = {0};
++	int err;
++
++	if (!args->pointer) {
++		args->size = sizeof(struct drm_pvr_dev_query_fw_info);
++		return 0;
++	}
++
++	fw_info.major_version = pvr_dev->fw_version.major;
++	fw_info.minor_version = pvr_dev->fw_version.minor;
++
++	err = PVR_UOBJ_SET(args->pointer, args->size, fw_info);
++	if (err < 0)
++		return err;
++
++	if (args->size > sizeof(fw_info))
++		args->size = sizeof(fw_info);
++	return 0;
++}
+diff --git a/drivers/gpu/drm/imagination/pvr_fw.h b/drivers/gpu/drm/imagination/pvr_fw.h
+index 4b25291135b6..7e18f3e7d4be 100644
+--- a/drivers/gpu/drm/imagination/pvr_fw.h
++++ b/drivers/gpu/drm/imagination/pvr_fw.h
+@@ -496,4 +496,7 @@ int
+ pvr_fw_process_elf_command_stream(struct pvr_device *pvr_dev, const u8 *fw, u8 *fw_code_ptr,
+ 				  u8 *fw_data_ptr, u8 *fw_core_code_ptr, u8 *fw_core_data_ptr);
+ 
++int
++pvr_fw_info_get(const struct pvr_device *pvr_dev, struct drm_pvr_ioctl_dev_query_args *args);
++
+ #endif /* PVR_FW_H */
+diff --git a/include/uapi/drm/pvr_drm.h b/include/uapi/drm/pvr_drm.h
+index ccf6c2112468..94281af974c7 100644
+--- a/include/uapi/drm/pvr_drm.h
++++ b/include/uapi/drm/pvr_drm.h
+@@ -434,6 +434,18 @@ struct drm_pvr_dev_query_static_data_areas {
+ 	struct drm_pvr_obj_array static_data_areas;
+ };
+ 
++/**
++ * struct drm_pvr_dev_query_fw_info - Container used to fetch information
++ * about the GPU Firmware like its version.
++ */
++struct drm_pvr_dev_query_fw_info {
++	/** @major_version: Major version of the Firmware. */
++	__u16 major_version;
++
++	/** @minor_version: Minor version of the Firmware. */
++	__u16 minor_version;
++};
++
+ /**
+  * enum drm_pvr_dev_query - For use with &drm_pvr_ioctl_dev_query_args.type to
+  * indicate the type of the receiving container.
+@@ -476,6 +488,12 @@ enum drm_pvr_dev_query {
+ 	 * a pointer to &struct drm_pvr_dev_query_static_data_areas.
+ 	 */
+ 	DRM_PVR_DEV_QUERY_STATIC_DATA_AREAS_GET,
++
++	/**
++	 * @DRM_PVR_DEV_QUERY_FW_INFO_GET: The dev query args contain
++	 * a pointer to &struct drm_pvr_dev_query_fw_info.
++	 */
++	DRM_PVR_DEV_QUERY_FW_INFO_GET,
+ };
+ 
+ /**
 
-Bugzilla references:
-  222196: short PIPE_TRANSCEIVE output loses unread RPC reply bytes
-  222197: same-pipe RPC replies can reach the wrong request
+---
+base-commit: a8fe4e162ba8212b7e51fdb024b37800f36b496c
+change-id: 20261026-fwversion-95a82a91f9f7
 
-Changes in v2:
-- Rebased from f47d223627f8 to 21a7f44fd076.
-- Fixed the W=1 kernel-doc warnings in patch 2 by moving
-  smb2_pipe_response_done() above the smb2_read_pipe() kernel-doc comment.
-  This is a comment-placement change; there is no runtime behavior change.
-- Added the corresponding Bugzilla links to the commits, and added
-  Reported-by/Closes for the kernel test robot W=1 report.
-- No other functional changes from v1.
+Best regards,
+--  
+Brajesh Gupta <brajesh.gupta@imgtec.com>
 
-The series was tested on 21a7f44fd076 with a 2632-byte NetrShareEnum reply:
-the base loses 2120 bytes with a 512-byte output cap, while the fixed
-series returns 512 + 2120 = 2632 bytes. The same-pipe overlap test used
-SIGSTOP on ksmbd.mountd and verified each SMB MessageID against its own
-RPC call ID.
-No test-only kernel delay patch is included or required.
-
-Wang Zhaolong (2):
-  ksmbd: avoid races between named-pipe operations
-  ksmbd: fix named-pipe reply loss with small output buffers
-
- fs/smb/server/mgmt/user_session.c | 127 +++++++++-----
- fs/smb/server/mgmt/user_session.h |  18 ++
- fs/smb/server/smb2pdu.c           | 283 ++++++++++++++++++++----------
- fs/smb/server/transport_ipc.c     |  45 +++--
- fs/smb/server/transport_ipc.h     |  14 +-
- 5 files changed, 323 insertions(+), 164 deletions(-)
-
-
-base-commit: 21a7f44fd0765fcc5194130b28767786eba1d1e7
