@@ -1,63 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793051851;
-	b=3FuuDXalnqz1mTlHY4OM/n+KHvjZfHEI7K1JLfvlKubJm8uvfhPG1oR59XoNqMHGxhny
-	 wFY9BeeKhGKkthFRp5S+/LvoKTe4+S4ZCrGPw9k39nHAIyG1szjGFjz8gPzSe3xDKPPn6
-	 w6uz7yjyeYvo7LZCUPNQ7q4eT5XZDqgtOKJXQrBHKJL31neA1PrdibX1GYyd+fXLC8/Fm
-	 ne8KJOl7aMysjUMuNH54yc5tTN6yAEP9HcUynsamF0OZlglVjZAedgPM2TLFrCInb/9xJ
-	 0hB6hkJ6BzTdd2pPSmtPipfiwXeyaz1aE3QZ6ZbAk0ZDtj6ZBAVjP4ZqCigx1HW0Rjw==
+	b=jVBLJiIsjnp69wf0G1xYaMCox0dy1XiiYFXYCNsbpZJk+Q/ifJAM2fE9j8WnC+ul+0oV
+	 JaC+BaqTx7gT7Dop5HXhZ/YUteb7tJkzv7ZOrDXuu+/8YeuLn9byRMlp6e72iEyCeY1Yt
+	 REJ15Z5FDJvwrUVzHihZhajogjWktdWZDLc7au3B/7l0A/BxgV5F4T/Aa/QOvMOqpvccS
+	 RWGRYnN5laoN5QgXRyFkAzs/ISZuva3377/vaUjQRlofzdFmz+ybuqtn+7QD4bAtc8WsG
+	 B91kDOJudLyj0azdOWvmhYbsfdJnrgpjGPh0caeb4Fr7XpDOgFkK1O6gJd7Gm0GS8qw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793051851;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=Qhp/nkpQ1Q3HJSdVCGfGyekUyvb9X60zla/5aSM/RFs=;
-	b=rsRYOksJlOlUbyi2YILrhWgZhsCJ2lQug9/WArqqtMiVsnYhyn3aMuXUwjqxMNAUj/QT
-	 b/W3hNb8DhhMo7lT1JwpLltmZu7rK9+Z5s/X/gu9yhku0eSpfqxn03IfSRdGFY/pkTGq8
-	 GAoiGRpjeeNl+PGiX8YcJHd8GN7CQm713nz013ESpsvPh1cGShKFN0L0Mm1jT8QMS87bd
-	 7u2+5v6oyTBTufK98gneGAflMbAMth+B2c0OazX6NHtqJzJzTAaNKVGRWT5mxf/mUYIdn
-	 yOobK9GqjTtUUHGZ7SkDr2yAlOJiueJdKnNdaQC40BTgrBWF/VdhTrj+ofLu4j/zUfQ==
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=UlQCSZlz3mraiMHesZOZluDRmw2/hRxcIdnKIMuj4sk=;
+	b=Y+YoVmiUTFPqs1zqV3kIxmdomw40H2v/sP97FkE/vxkE7Csa2xpBxUv75lU3AtVZKUkC
+	 8qDCQUVu3JA7VuM5pd0P20gDblSqug/5ycqvuWSMI1m1kPweIY74d6wTTTjQAe+1OHnDT
+	 UQ8ICK6SFPfDHS2wUMk3oovdGxiw1y+l9uvfWw/SgTXI4op7L41PZgIoXxXuefUtVtODu
+	 bq6rWcUHnZefH1WvzVQpXfSjHVlyiujGFuc6/pO3ajUSEwYjw+vyeJ2EBp9etY1Nd8UYf
+	 NoeYCwTidv9lU/gjB2CNCpp0Gra5wA+da9mE8ZU+rljdmLDg1oACAv/nZI+NNsdfuSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hzxGvY8e;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jOtHJWx8;
 	arc=none smtp.remote-ip=192.198.163.14
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1D4B606A31B
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 21:57:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1D4B606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8063606A31E
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 21:57:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8063606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hzxGvY8e
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jOtHJWx8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793051848; x=1824587848;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=2qwtJaiiI84xJ/KSWgXPR7UL6dofZdZ3+rk8+2JOi00=;
-  b=hzxGvY8eZBQaAIl8xlwA6iUHUpuoK5qVGwclasBUCPwF9bVzLvo4JZ8Q
-   REVlyniNyzQPFJrdMr7Cpcf3p7CTmK9pjsiemgxb9UG8/jYcjEnqJCvy1
-   /VDRHpoUb5wsGgGQjat5BgN1zus1dp3BKhb4OtuM7EcImCq1mSpGYka6x
-   LJI685kxAaagjOmxq/r4iHxqAHKmAp3SujGKVSvn/YDL+u5gNL3YAjE5G
-   Ep9GnnKigSG484P/zX5wE5m+SLVURt5dPgR/++PRFdFEnxvjDqcqHyzxr
-   snyhTCpRIHqpv6imJKz7KySA/ReNEVawBryGDlWSIJ+MdJs5q+W4Vi3zM
+  t=1793051849; x=1824587849;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=7Ew9CPQb/prJjMrGBjHYwl1mAHCM/QP+a/IXGDctMyo=;
+  b=jOtHJWx8MTzXqBCf6f5IwaOgSeUfYcAe2JP0zegrzg/OLJD6KSwop6Db
+   KfYzA4kzThaowc2sOXWPfmNmi0l3bL14bEY7vAUgPTJyqgkqXX7mpAiqn
+   Qx4AN96DUmY9pbd/SZ+8bYqH7PKTlxj1No/P5u4vNJV38SXSkLKMHROOM
+   3M5VBfKuWah7atrVsUm7T5cYxKh9iDZUQjZyNzcmbyAr4VEYWmY01Qh5s
+   QNUYGvAKVW34CXQGGVjZwvs/dAHESXwSNSinbmKG2aykt51llA5f6PVVp
+   /x3ZGWOXTybGDCvC2NbaW+y7NwAAP5PwYJEeVvqO9bmTU3152ycWWirlg
    Q==;
-X-CSE-ConnectionGUID: ftLHK01YQqOmxyLbYNPIrg==
-X-CSE-MsgGUID: XelbHqslRjWwmv+Uzx/Tmg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1766366"
+X-CSE-ConnectionGUID: QSVzcJfSTymgfBhSSy+law==
+X-CSE-MsgGUID: 5ZHcN3YXStSEUCF3FK7VVw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1766374"
 X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
-   d="scan'208";a="1766366"
+   d="scan'208";a="1766374"
 Received: from orviesa008.jf.intel.com ([10.64.159.148])
   by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 14:57:27 -0700
-X-CSE-ConnectionGUID: jSyw9k44RwWcxdBF7UH5KA==
-X-CSE-MsgGUID: Fl9ujGVDQoCDaIFTh0intw==
+X-CSE-ConnectionGUID: 8fJShNk5QC2feLZ7b9nF3A==
+X-CSE-MsgGUID: O0Usa0doRbCcT5XKi9OSqw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
-   d="scan'208";a="4240248"
+   d="scan'208";a="4240251"
 Received: from khuang2-desk.gar.corp.intel.com (HELO agluck-desk3.home.arpa) ([10.124.221.204])
   by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 14:57:26 -0700
 From: Tony Luck <tony.luck@intel.com>
@@ -74,10 +75,12 @@ Cc: x86@kernel.org,
 	linux-kernel@vger.kernel.org,
 	patches@lists.linux.dev,
 	Tony Luck <tony.luck@intel.com>
-Subject: [RFC PATCH 0/8] arm,x86,fs/resctrl: Support asymmetric L2 cache allocation
-Date: Mon, 26 Oct 2026 14:57:10 -0700
-Message-ID: <20261026215718.16810-1-tony.luck@intel.com>
+Subject: [RFC PATCH 1/8] fs/resctrl: Change UI of "max" file (merge back into earlier patches)
+Date: Mon, 26 Oct 2026 14:57:11 -0700
+Message-ID: <20261026215718.16810-2-tony.luck@intel.com>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261026215718.16810-1-tony.luck@intel.com>
+References: <20261026215718.16810-1-tony.luck@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,62 +92,77 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-RFC patch series built on top of Reinette's multiple control series[1]
+Make the UI of the "max" file show values per-domain so no changes
+in UI are needed when support for asymmetric controls (L2 on hybrid
+CPUs) is added later.
 
-The goal is to support L2 cache allocation on hybrid Intel CPUs such as
-Panther Lake[2] where the P-core and E-core CPUs have different number
-of supported bits for L2 cache bit mask controls. N.B. it is assumned
-that the only point of asymmetry is the cache bit mask length. Other
-parameters must be the same (but code doesn't check).
+Signed-off-by: Tony Luck <tony.luck@intel.com>
+---
+ Documentation/filesystems/resctrl.rst |  5 ++++-
+ fs/resctrl/rdtgroup.c                 | 27 ++++++++++++++++++++-------
+ 2 files changed, 24 insertions(+), 8 deletions(-)
 
-Overall approach is to add the per-L2 cache bitmask length to the domain
-and use that everywhere instead of using a single value from the control.
-
-Patch 1 changes the format of the per-control "max" file and should be
-merged back into Reinette's multi-control series so this file can have
-a consistent format from first upstream introduction.
-
-Patches 2-5 are enumeration and preperation.
-
-Patch 6 introduces, initializes, and uses the per-domain cache bit mask
-length field (arm/MPAM change needs careful scrutiny).
-
-Patch 7 enables asymmetric L2 for x86 CPUs that enumerate it. N.B. it
-renammes the resource from "L2" to "L2A" to avoid user interface issues
-with tools that expect L2 cache allocation to be symmetric.
-
-Patch 8 suppresses creation of the "cbm_mask" file for asymmetric caches.
-
-[1] git://git.kernel.org/pub/scm/linux/kernel/git/reinette/linux.git resctrl/controls_rfc_v2.4
-[2] Typical desktop/laptop CPUs do not enumerate RDT L2 cache allocation. 
-    This feature is found on SKUs intended for industrial applications.
-
-Tony Luck (8):
-  fs/resctrl: Change UI of "max" file (merge back into earlier patches)
-  x86/resctrl: Add L2CAT quirk for Intel Panther Lake
-  x86/cpuid: Add and use defines for Intel RDT enumeration leaves
-  x86/resctrl: Add X86_FEATURE bits for asymmetric L2
-  x86/resctrl: Refactor rdt_get_cache_alloc_cfg()
-  arm,x86,fs/resctrl: Prepare for asymmetric caches
-  x86/resctrl: Check for and enable asymmetric L2 cache allocation
-  fs/resctrl: Suppress creation of cbm_mask info file on asymmetric
-    systems
-
- Documentation/filesystems/resctrl.rst  |  9 +++-
- include/linux/resctrl.h                | 12 ++++-
- arch/x86/include/asm/cpufeatures.h     |  3 ++
- arch/x86/include/asm/cpuid/types.h     |  4 ++
- fs/resctrl/internal.h                  |  2 +
- arch/x86/kernel/cpu/cpuid-deps.c       |  2 +
- arch/x86/kernel/cpu/resctrl/core.c     | 64 +++++++++++++++++++++-----
- arch/x86/kernel/cpu/resctrl/rdtgroup.c |  2 +-
- arch/x86/kernel/cpu/scattered.c        |  3 ++
- drivers/resctrl/mpam_resctrl.c         | 19 +++++---
- fs/resctrl/ctrlmondata.c               |  9 ++--
- fs/resctrl/pseudo_lock.c               |  2 +-
- fs/resctrl/rdtgroup.c                  | 61 +++++++++++++++---------
- 13 files changed, 145 insertions(+), 47 deletions(-)
-
+diff --git a/Documentation/filesystems/resctrl.rst b/Documentation/filesystems/resctrl.rst
+index 434e6f42db4a..de162280a0fe 100644
+--- a/Documentation/filesystems/resctrl.rst
++++ b/Documentation/filesystems/resctrl.rst
+@@ -397,12 +397,15 @@ with individual files:
+ 		the schemata file.
+ 
+ "max":
++	Maximum values per domain in the same format as the schemata file.
++	Format of values depends on the type of the control:
++
+ 	When "type" == "scalar":
+ 		The maximum value that can be written to the control when writing
+ 		the schemata file.
+ 
+ 	When "type" == "bitmap":
+-		The supported bitmap (in hexadecimal with 0x prefix) with
++		The supported bitmap (in hexadecimal without 0x prefix) with
+ 		all bits set.
+ 
+ "tolerance":
+diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
+index 416b73c57016..7119ad0029c1 100644
+--- a/fs/resctrl/rdtgroup.c
++++ b/fs/resctrl/rdtgroup.c
+@@ -2465,15 +2465,28 @@ static int resctrl_ctrl_max_show(struct kernfs_open_file *of,
+ 				 struct seq_file *seq, void *v)
+ {
+ 	struct resctrl_ctrl *ctrl = rdt_kn_parent_priv(of->kn);
++	struct rdt_ctrl_domain *d;
++	bool sep = false;
+ 
+-	switch (ctrl->type) {
+-	case RESCTRL_CTRL_SCALAR:
+-		seq_printf(seq, "%u\n", ctrl->scalar.max);
+-		break;
+-	case RESCTRL_CTRL_BITMAP:
+-		seq_printf(seq, "0x%lx\n", BIT_MASK(ctrl->bitmap.cbm_len) - 1);
+-		break;
++	if (!info_kn_lock(of->kn))
++		return -ENOENT;
++
++	list_for_each_entry_rcu(d, &ctrl->domains, hdr.list, lockdep_is_cpus_held()) {
++		if (sep)
++			seq_putc(seq, ';');
++		switch (ctrl->type) {
++		case RESCTRL_CTRL_SCALAR:
++			seq_printf(seq, "%d=%u", d->hdr.id, ctrl->scalar.max);
++			break;
++		case RESCTRL_CTRL_BITMAP:
++			seq_printf(seq, "%d=%lx", d->hdr.id, BIT_MASK(ctrl->bitmap.cbm_len) - 1);
++			break;
++		}
++		sep = true;
+ 	}
++	seq_putc(seq, '\n');
++
++	info_kn_unlock(of->kn);
+ 
+ 	return 0;
+ }
 -- 
 2.56.0
 
