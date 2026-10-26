@@ -1,33 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793020976;
-	b=x/9SDvfpLKat/b9sUab2YZx/COulBS23pm6p4kjDeQuvMPp8qaKAIc3ZIlOJJInRI2sw
-	 muSZXkTk4rz9Hnk2ROi7fdJXcjWc8k2SSvpJCRJq3cp82nM1BSXyQgcCoGWdopluGyEWT
-	 6G01FWG7sfVU0vNMK9+XXRUSstCmbYsXlhlWTTJDn5ICYOmESFNuO5L1qBGZRtItgkwVv
-	 PRkpIRLia3k9+KZcVNPJxhdAAU57U18Y0WCOQ1jVHD1Yt9LLZN3m+VMXrTB0pNNN9hswt
-	 MXPbDE9YEMV/kBLZRKDyUVHxm8QVC7nMNc8WHJsVJQfgIzmn3OWvBTMWYr8CDNIk58w==
+	t=1793021004;
+	b=H2K8kSVRcB8xKc86zV+N+9QWEyksxr4zdUWBtfyM4tjAOXTUWZZE36LfmmBnN3eZLjkW
+	 IH3rYy7evL3GMRVmwzF8EXKs3x5Qmxoh6Kji4Lit2V0eYRo6z7XOkuxwLmAZZsXxu3nNa
+	 V73XZR84vayh3PFgINQTR1xziMaHraoOzrZbqi0omCU8RHRypaFts0hihgh7QG3iC9GkF
+	 rJF6o+JHmQNmY0nNYYzg5dA47gONF6n1Nzp+quLNEhPgWDHEMxooONeYtULhYQgwkVPtY
+	 c4IDNLOI49rV7hGE1W8BL9StNl82Ha3VKcPnyDaRNv+huyjW1hOioHcPyrI76SXwdwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793020976;
-	h=Received:Message-ID:Date:MIME-Version:User-Agent:From:Subject:To:Cc:
-	 Content-Language:Content-Type:Content-Transfer-Encoding;
-	bh=A+qMSmiSScrn8K+iUdXsWxmMuEkGMH678UZfJDGojOk=;
-	b=pK2NBXZTs0iBrwzMkd7jqVad7bKiAEifAcoLq0JNmdQ+xuIvdxTmVwCloUIq3smc2cGM
-	 KQJN/PHCVmFKFlKRCCHx8a7gXuzWKVJsJVSU/fFNCBfzobRcRl0vRLGlWeh9l7tkWSr6H
-	 7vfXO6KBB0dK8iRBoV7nnuEC++YltfPJEXd4PNXKeLgh//5W9SU/fTbxT8XelpSAZfIaI
-	 cMvclNADsj3f+bACUlejCqtgMCP4h+EbeAEkl+hW4d1YDIEFX2w2XD9LCALiESz/T8BN7
-	 9dR+1DYl27Hzwjy84cHL2aJJ02pCdFTO+H3B7gS6E8KWhMmTPrzYv36EmYpSniwvEtA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793021004;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
+	bh=54BFzYUW6swCFljasaktNgeI4y2LeWT1KlgHkjBqlXM=;
+	b=nj0ZTkumZwBuaaWtdchwZQDp2bME62sjCwSF4CmUW1empwVFneUzz/JNSuCKhFoR0854
+	 6I006KTxO0Pdce4DtYqCbxuGJz6tGJ/tHbgKwqnP4i5XJX7q2neOFC63tckV/K6taOpsy
+	 PA2B18uKWJ6h9uigQXtfmBhVTVviv2xEHIyCS5vLuQC7cq/dLscrRgEGE2qjBMF9JB2In
+	 q2Qt1+JStTEeeDLHEx7dLJQ2tr8ylErIVyERC7TIX8rWlH8sIwM5JwAuucnMJbQDrCD97
+	 rcjjwChqkDDcJbPxxZWXdEds+jG1Pta6cRPTvjWUsKY3EiCdHnY6wqiz+OQvBx3yoPA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=xUTHZBxn;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=rFNA1ckD;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=xUTHZBxn;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=rFNA1ckD;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61CF0606A31A;
-	Mon, 26 Oct 2026 13:22:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDDBE1F01825;
-	Mon, 26 Oct 2026 13:22:54 +0000 (UTC)
-Message-ID: <0a0661a9-2fc5-45d6-9b89-8f77019789a3@linux-m68k.org>
-Date: Mon, 26 Oct 2026 23:22:52 +1000
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F840606A31A;
+	Mon, 26 Oct 2026 13:23:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F840606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=xUTHZBxn;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=rFNA1ckD;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=xUTHZBxn;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=rFNA1ckD
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id A0B091F7A2;
+	Mon, 26 Oct 2026 13:23:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793021001; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=54BFzYUW6swCFljasaktNgeI4y2LeWT1KlgHkjBqlXM=;
+	b=xUTHZBxn6Fo2g52rorYT5AJWKzV66Id23PhftBav30xkl7j6RiYh69IPrW90yW1RBaBcRA
+	g4zduRyUpGY0uxhtNlpauSE01zaC7UwyXK6WhqS7dxLU2kTlG9/JEemDkwNUHGkwp2kjB2
+	AHURIxwMFenZE6FTzRb5SogE2S0+BoU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793021001;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=54BFzYUW6swCFljasaktNgeI4y2LeWT1KlgHkjBqlXM=;
+	b=rFNA1ckDmi0Lx++fuoLze4EEJUg5M/hJz+fhBtonx3VevMQAHz3F93vSWv0YI5az+v6NB2
+	tDvWHLjF2Kk9sxBA==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793021001; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=54BFzYUW6swCFljasaktNgeI4y2LeWT1KlgHkjBqlXM=;
+	b=xUTHZBxn6Fo2g52rorYT5AJWKzV66Id23PhftBav30xkl7j6RiYh69IPrW90yW1RBaBcRA
+	g4zduRyUpGY0uxhtNlpauSE01zaC7UwyXK6WhqS7dxLU2kTlG9/JEemDkwNUHGkwp2kjB2
+	AHURIxwMFenZE6FTzRb5SogE2S0+BoU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793021001;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=54BFzYUW6swCFljasaktNgeI4y2LeWT1KlgHkjBqlXM=;
+	b=rFNA1ckDmi0Lx++fuoLze4EEJUg5M/hJz+fhBtonx3VevMQAHz3F93vSWv0YI5az+v6NB2
+	tDvWHLjF2Kk9sxBA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 917C613408;
+	Mon, 26 Oct 2026 13:23:20 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id e6j3DkhU32pqcAAAD6G6ig
+	(envelope-from <pfalcato@suse.de>); Mon, 26 Oct 2026 13:23:20 +0000
+Date: Mon, 26 Oct 2026 13:23:18 +0000
+From: Pedro Falcato <pfalcato@suse.de>
+To: Hengyu Liang <hengyul@cs.unc.edu>
+Cc: akpm@linux-foundation.org, linux-mm@kvack.org, liam@infradead.org, 
+	ljs@kernel.org, vbabka@kernel.org, jannh@google.com, usama.anjum@arm.com, 
+	avagin@gmail.com, mirq-linux@rere.qmqm.pl, arnd@arndb.de, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] fs/proc/task_mmu: return -ENOTTY for unknown pagemap
+ ioctls
+Message-ID: <at9Rqspz6uUpu7H9@pedro-suse.tail5790ac.ts.net>
+References: <20261023181300.3366487-1-hengyul@cs.unc.edu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -37,91 +110,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Greg Ungerer <gerg@linux-m68k.org>
-Subject: [git pull] m68knommu changes for v7.4
-To: torvalds@linux-foundation.org
-Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Linux/m68k <linux-m68k@vger.kernel.org>,
- Geert Uytterhoeven <geert@linux-m68k.org>, gerg@kernel.org
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261023181300.3366487-1-hengyul@cs.unc.edu>
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-13.30 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[14];
+	ARC_NA(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[linux-foundation.org,kvack.org,infradead.org,kernel.org,google.com,arm.com,gmail.com,rere.qmqm.pl,arndb.de,vger.kernel.org];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email]
+X-Spam-Score: -13.30
 
-Hi Linus,
+On Fri, Oct 23, 2026 at 02:13:00PM -0400, Hengyu Liang wrote:
+> Commit 52526ca7fdb9 ("fs/proc/task_mmu: implement IOCTL to get and
+> optionally clear info about PTEs") made do_pagemap_cmd() the ioctl
+> handler of /proc/<pid>/pagemap.
+> 
+> However, do_pagemap_cmd() returns -EINVAL for every command other than
+> PAGEMAP_SCAN. Before that commit, pagemap had no ioctl handler, and
+> the VFS returned -ENOTTY for these commands. As of now, they fail with
+> EINVAL, so tcgetattr() and isatty() on pagemap report EINVAL instead
+> of ENOTTY.
+> 
+> The issue can be reproduced with a simple C program:
+> 
+>     #include <fcntl.h>
+>     #include <stdio.h>
+>     #include <termios.h>
+> 
+>     int main(void)
+>     {
+>             struct termios t;
+>             int fd = open("/proc/self/pagemap", O_RDONLY);
+> 
+>             if (tcgetattr(fd, &t) < 0)
+>                     perror("tcgetattr");
+>             return 0;
+>     }
+> 
+> Before that commit, the result is:
+> 
+>     tcgetattr: Inappropriate ioctl for device
+> 
+> After that commit, the result is:
+> 
+>     tcgetattr: Invalid argument
+> 
+> This patch will return -ENOIOCTLCMD for unknown commands, as
+> procfs_procmap_ioctl() in the same file does, so that the VFS turns it
+> into -ENOTTY.
+> 
+> Fixes: 52526ca7fdb9 ("fs/proc/task_mmu: implement IOCTL to get and optionally clear info about PTEs")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
 
-Please pull the m68knommu git tree changes for v7.4.
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
 
-A mix of platform driver setup, fixes, cleanup and config update.
+I would generally be scared of applying this change, but since this is a
+niche API, and there are no other ioctls for it, this should be fine.
 
-Platform code added for the ColdFire 54418 RNG hardware block. Also
-PWM address definitions for the 54418. A fix for seccomp filter
-processing during system call entry and a fix for compiling the
-Cleopatra board target. A config update for the stmark board,
-and lastly a couple of typo fixes.
-
-Regards
-Greg
-
-
-
-
-The following changes since commit 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907:
-
-  Linux 7.3-rc7 (2026-10-11 20:04:55 -0700)
-
-are available in the Git repository at:
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/gerg/m68knommu.git tags/m68knommu-for-v7.4
-
-for you to fetch changes up to cffad6e71539bc00d5a76c0c1057dc067d42715c:
-
-  m68k: coldfire: Add RNG support for MCF54418 (2026-10-12 13:47:41 +1000)
-
-----------------------------------------------------------------
-m68knommu: updates and fixes for v7.4
-
-. plaform RNG driver for ColdFire 54418
-. PWM address defines for ColdFire 54418
-. fix secomp filtering
-. fix compile breakage for Cleopatra board
-. update stmark defconfig
-. remove unused header
-. fix typos
-
-----------------------------------------------------------------
-Angelo Dureghello (2):
-      m68k: defconfig: update stmark2 defconfig
-      m68k: mcf5441x: add PWM defines
-
-Christopher Lusk (1):
-      m68k: Fix seccomp filtering on ColdFire and 68000
-
-Ethan Nelson-Moore (1):
-      m68k: remove unused <asm/quicc_simple.h> header
-
-Greg Ungerer (1):
-      m68knommu: fix compile breakage for 5407 cleopatra board
-
-Hemanth Selam (2):
-      m68k: coldfire: fix typos in reset.c comment
-      m68k: fix typo "eanble" in comment
-
-Jean-Michel Hautbois (1):
-      m68k: coldfire: Add RNG support for MCF54418
-
- arch/m68k/68000/entry.S              |  3 +-
- arch/m68k/coldfire/device.c          | 28 +++++++++++++++++++
- arch/m68k/coldfire/entry.S           |  3 +-
- arch/m68k/coldfire/m5407.c           |  5 ++++
- arch/m68k/coldfire/m5441x.c          |  2 +-
- arch/m68k/coldfire/reset.c           |  2 +-
- arch/m68k/configs/stmark2_defconfig  |  2 ++
- arch/m68k/include/asm/m53xxacr.h     |  2 +-
- arch/m68k/include/asm/m5441xsim.h    | 16 +++++++++++
- arch/m68k/include/asm/quicc_simple.h | 53 ------------------------------------
- drivers/char/hw_random/Kconfig       |  3 +-
- drivers/char/hw_random/imx-rngc.c    |  7 +++++
- 12 files changed, 67 insertions(+), 59 deletions(-)
- delete mode 100644 arch/m68k/include/asm/quicc_simple.h
-
+-- 
+Pedro
