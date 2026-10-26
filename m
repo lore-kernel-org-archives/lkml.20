@@ -1,68 +1,44 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.224.81.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792974812;
-	b=kmlyEBklo8b9lRKqp6iFFqvTYP7FSdu7mikNzCUly5wCNFmpjq0v9J4lUG7aPJ9k1yhs
-	 0o+TjBrjUCXyb7chbPUr7xRe1XlkcnEtHF7Rcm7+iQiVDewm9dYLvmZagaDi64kiRQ2es
-	 oEasEvEn2cRVtedgPPDbcy+P/lvQ8FDGeJv7sASLwjDtcBXxgbRYGvE2r/wTshTPpsEez
-	 K4/T1+mbWlNl9h7D8HVHYzBGg5zajKCB2XnbV/IE1k78tFvglH7VXuVSl5DYZpbE+5S2a
-	 Ik5ODqm9L7B3GHU7hwee/GlRVEwKTH9voG9Jr5/C+ON7CeY4HtNV5VL1f2kCU7IDxcw==
+	t=1792974834;
+	b=gPoIqpd2WwoSWImxQe36fJFezzL7BKWIaIoG8nGl08epu3NHUGkbp7KSL/sVqsmmAOw4
+	 6EFvusShtZclkGQQXe1F/aRrgCbO/G+KY5FHbHGNncdE3Nz5zYXK3Ln1cfO34sFBw+DIF
+	 amPZ2CxqZ+DHWTPRkE0amFSn35C0AJi8WTxnhuQICC44gcbzAmxcmQLOudNoG0aght124
+	 suTRN9EYDLECR+Ut8iW3sFlitg7SDCg55TdwwsTV86Wg9SMSytALsxda0200IKa0annrY
+	 5bQJvtqG1UCbFldg/+D3Uzgr8euHjg7DXIZFZQ3LtZevt4hivhvxNWJJS9y/s8RTmwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792974812;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=KGg0YaTfqauJu0vVxfgSJ3rCnmQ5A64hk6E/ER/6bh8=;
-	b=rsP2HwPHNcGcs2gprs8vd3E4OaXXiyP/ABjgFu07V9Yv/zIm8Uf3ARua8/ycEzM7ngSS
-	 oGw7DF2Y1EPoKFLH8FjC/cQkjVlbAkYgna6MT+6Xf6o0aKqYj086RO7RXMKfzHaAfIRiM
-	 ZASar/AIjetW/ao1lgn3KADaTfzmt5rRt5+BIkhSpbYXb17tSyp4jSZlf/mJtOcJ/7KrE
-	 tCg6ycH+G2M00mCdY1ac1gejdeGcmkmGTATDJlL3TT00LVYXDnyfFPT7XYERdvhjcfagf
-	 ecoVg1KPwFpfnWWWdg2/pak5dxUpqDExplQa/ba364yQINkOKjQBKwDbVYnwTiurGkg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792974834;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:Cc:
+	 Subject:To:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:X-HM-Spam-Status:
+	 DKIM-Signature;
+	bh=+9VnkTVZa5ILKHrRCMZEXP+36VdKYsWK9GWspe2p5rE=;
+	b=JF3Z9t4SWfT7LYCqU1giqFLVE++UBzko5p9dej9qyANJmbNPqmRlAjBEyiJ/g+qrEQ9y
+	 2BnSUDRdtom04v2gHTfHepJHs6NR2alf2ApiEw89GmjYBoSlWV1sF5BvNA9HCxPuX+uun
+	 rHsJS79SNIzv3xziYW0Zh2gfQ2iQyhSyS37j2064IcWHBDxr0fwyXQ0vAM3KL4qPXMhzx
+	 2CH/T1GRzam/vd8h2YKNJpqq9mVGuvDIHRzPqE2LruAeWWY15Jg8rs4fmF9py8fdoLccB
+	 vmFU9SGTT4+u58KFqSdQC1ObxUDBsYzlYbwQfTcygO9uY95f8dpzbE9h06iRVloJ2dA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=K6Sjmp4h;
-	arc=none smtp.remote-ip=198.175.65.15
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=rock-chips.com;
+	spf=pass smtp.mailfrom=rock-chips.com;
+	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=HhLY1O7u;
+	arc=none smtp.remote-ip=156.224.81.108
+Received: from mail-m81108.xmail.ntesmail.com (mail-m81108.xmail.ntesmail.com [156.224.81.108])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A73B606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 00:33:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A73B606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BF3D606A31A;
+	Mon, 26 Oct 2026 00:33:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0BF3D606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=K6Sjmp4h
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792974811; x=1824510811;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=jDW3zNKTgRakGdHRX+x3xt4uVuBKJZYGYCw+1NVm+wQ=;
-  b=K6Sjmp4h5Npj1noKxllwhNQ+hhqyBfPxuf5/nmO6QIxFXFsNaBLaEh77
-   MD5FYUSiDyO27m4ifWcevxBkZSw3SQNx0MrciB4JIPNgL/m3056+wSmun
-   b4eh3lz5Wd+/mt4K9uz4AxR0ZKDYET8J8Uz+UjbVpSW3M6/8HZE3bCFKM
-   nm6cNqSEMQMO5/DabkwMj4kqQk11O2U8N8YU26pKS1meco/tNc8L05IUk
-   sdvDLPB6Y0sYpfrlcz1yaECrV4k5J4uGZb96WVhblGw4tOk6X3UwBHHXv
-   qQLtmnKtVBXDXa2CcAuH+WA5OliuvVqjELEOTrjpHkTa93ApXhyRqViHr
-   g==;
-X-CSE-ConnectionGUID: RYAPZchpRneYj49AaLL8Ow==
-X-CSE-MsgGUID: qfuwC09TRGi8Cj3oZz1oVQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1639359"
-X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
-   d="scan'208";a="1639359"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 17:33:30 -0700
-X-CSE-ConnectionGUID: UX4LKqlHRv2LF5v2Lge95Q==
-X-CSE-MsgGUID: EjUahS49R9W1XQmTwFuTVA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
-   d="scan'208";a="4080344"
-Received: from unknown (HELO [10.238.0.97]) ([10.238.0.97])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 17:33:24 -0700
-Message-ID: <023f3254-c368-4ef6-89b2-8bbacb42d89d@intel.com>
-Date: Mon, 26 Oct 2026 08:33:22 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=HhLY1O7u
+Received: from [172.16.12.48] (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 52470fe96;
+	Mon, 26 Oct 2026 08:33:41 +0800 (GMT+08:00)
+Message-ID: <4b7bd146-93fd-41f8-ad3c-88333adc73b4@rock-chips.com>
+Date: Mon, 26 Oct 2026 08:33:41 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,153 +49,113 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 02/15] x86/tdx: Add TDCM hypercall wrapper for TDX
- Connect
-To: Zhenzhong Duan <zhenzhong.duan@intel.com>, x86@kernel.org,
- linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org
-Cc: dave.hansen@linux.intel.com, tglx@kernel.org, mingo@redhat.com,
- bp@alien8.de, hpa@zytor.com, dave.hansen@intel.com, kas@kernel.org,
- rick.p.edgecombe@intel.com, jgg@nvidia.com, nicolinc@nvidia.com,
- aik@amd.com, aneesh.kumar@kernel.org, seanjc@google.com,
- pbonzini@redhat.com, yilun.xu@linux.intel.com, chao.gao@intel.com,
- vishal.l.verma@intel.com, kevin.tian@intel.com, chao.p.peng@intel.com
-References: <20260924041032.1096569-1-zhenzhong.duan@intel.com>
- <20260924041032.1096569-3-zhenzhong.duan@intel.com>
-Content-Language: en-US
-From: Xiaoyao Li <xiaoyao.li@intel.com>
-In-Reply-To: <20260924041032.1096569-3-zhenzhong.duan@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Cc: shawn.lin@rock-chips.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org, heiko@sntech.de
+Subject: Re: [PATCH] arm64: dts: rockchip: Enable Wi-Fi on the NanoPi M5
+To: Leonard Lausen <leonard@lausen.nl>
+References: <20261025205339.14539-2-leonard@lausen.nl>
+From: Shawn Lin <shawn.lin@rock-chips.com>
+In-Reply-To: <20261025205339.14539-2-leonard@lausen.nl>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa175a0986703a4kunm2868e8063c52c7
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCTBhDVkwdSU4eGRhJQh9IHVYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+	9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=HhLY1O7uNKLtSMhQOf0XfdncyG4p3WeNQVKSDyPYpEqyPUruh0VpprvnPhn0gk4CXO3hcA3hJNw5rU38d0ohVwU3ZL0PS7eatueMYSoMngTL/INn+AyrJ7myT37A/c/CTUM8wcWx54/IIgwornfCtkF8mFvoqDfT1OCbAJS65DM=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=+9VnkTVZa5ILKHrRCMZEXP+36VdKYsWK9GWspe2p5rE=;
+	h=date:mime-version:subject:message-id:from;
 
-On 9/24/2026 12:10 PM, Zhenzhong Duan wrote:
-> TDX Connect is a TDX feature that enables secure device assignment,
-> allowing a TDX guest to directly interact with TEE-IO capable devices.
+
+
+在 2026/10/26 星期一 4:52, Leonard Lausen 写道:
+> The NanoPi M5 has an M.2 E-key slot for SDIO Wi-Fi modules such as the
+> RTL8822CS-based AC200. The SDIO controller is disabled and the module's
+> power sequence is not described, preventing the card from enumerating.
 > 
-> The TEE-IO Device Control and Management (TDCM) hypercall
-> (TDG.VP.VMCALL<TDCM>, defined in TDX GHCI v2.0 specification) is the
-> primary interface through which a TDX guest issues device management
-> commands to the host. The host processes these commands and returns
-> responses via a shared memory buffer.
-
-Could we add some clarification of why this guest-host hypercall is necessary?
-i.e., explain that some device management operations can only be performed by
-the host VMM.
-
-> Abstract the underlying leaf call and pass the shared buffer physical
-> address as a decrypted mapping. Add a runtime page alignment check
-> for the buffer to enforce correct usage.
-
-This doesn't match the implementation. The code only WARNs instead of enforcing
-correct usage.
-
-> Place the implementation in a separate tdx_connect.c file to keep TDX
-> Connect specific code isolated from core tdx.c.
+> Enable the controller in four-bit SDR104 mode and connect its 3.3 V card
+> and 1.8 V I/O supplies. Describe the active-low reset on GPIO1_C2, the
+> 200 ms power-on delay used by the vendor device tree, and the external
+> 32.768 kHz clock from the HYM8563 RTC. Keep the card powered during
+> suspend as required by the rtw88 SDIO driver.
 > 
-> CONFIG_TDX_CONNECT_GUEST referenced in the header guard will be
-> introduced in a later patch in this series.
-
-I'm not sure why the CONFIG cannot be introduced in this patch...
-
-> Signed-off-by: Zhenzhong Duan <zhenzhong.duan@intel.com>
+> Signed-off-by: Leonard Lausen <leonard@lausen.nl>
 > ---
->  arch/x86/coco/tdx/Makefile        |  2 ++
->  arch/x86/coco/tdx/tdx_connect.c   | 32 +++++++++++++++++++++++++++++++
->  arch/x86/include/asm/shared/tdx.h |  1 +
->  arch/x86/include/asm/tdx.h        |  4 ++++
->  4 files changed, 39 insertions(+)
->  create mode 100644 arch/x86/coco/tdx/tdx_connect.c
+>   .../boot/dts/rockchip/rk3576-nanopi-m5.dts    | 34 +++++++++++++++++++
+>   1 file changed, 34 insertions(+)
 > 
-> diff --git a/arch/x86/coco/tdx/Makefile b/arch/x86/coco/tdx/Makefile
-> index b3c47d3700e2..2ab2dbbdd3d2 100644
-> --- a/arch/x86/coco/tdx/Makefile
-> +++ b/arch/x86/coco/tdx/Makefile
-> @@ -1,3 +1,5 @@
->  # SPDX-License-Identifier: GPL-2.0
->  
->  obj-y += debug.o tdcall.o tdx.o tdx-shared.o
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3576-nanopi-m5.dts b/arch/arm64/boot/dts/rockchip/rk3576-nanopi-m5.dts
+> index 3a305408fa16c..bfa18de1ae1af 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk3576-nanopi-m5.dts
+> +++ b/arch/arm64/boot/dts/rockchip/rk3576-nanopi-m5.dts
+> @@ -23,6 +23,7 @@ aliases {
+>   		ethernet0 = &gmac0;
+>   		ethernet1 = &gmac1;
+>   		mmc0 = &sdmmc;
+> +		mmc1 = &sdio;
+>   	};
+>   
+>   	chosen {
+> @@ -212,6 +213,16 @@ vcc_3v3_s0: regulator-vcc-3v3-s0 {
+>   		vin-supply = <&vcc_3v3_s3>;
+>   	};
+>   
+> +	sdio_pwrseq: sdio-pwrseq {
+> +		compatible = "mmc-pwrseq-simple";
+> +		clocks = <&hym8563>;
+> +		clock-names = "ext_clock";
+> +		pinctrl-0 = <&wifi_reg_on_h>;
+> +		pinctrl-names = "default";
+> +		post-power-on-delay-ms = <200>;
+> +		reset-gpios = <&gpio1 RK_PC2 GPIO_ACTIVE_LOW>;
+> +	};
 > +
-> +obj-$(CONFIG_TDX_CONNECT_GUEST) += tdx_connect.o
-> diff --git a/arch/x86/coco/tdx/tdx_connect.c b/arch/x86/coco/tdx/tdx_connect.c
-> new file mode 100644
-> index 000000000000..0c6ca650771a
-> --- /dev/null
-> +++ b/arch/x86/coco/tdx/tdx_connect.c
-> @@ -0,0 +1,32 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/* Copyright (C) 2026 Intel Corporation */
+>   	sound {
+>   		compatible = "simple-audio-card";
+>   		pinctrl-names = "default";
+> @@ -855,6 +866,12 @@ pcie0_perstn: pcie0-perstn {
+>   		};
+>   	};
+>   
+> +	sdio-pwrseq {
+> +		wifi_reg_on_h: wifi-reg-on-h {
+> +			rockchip,pins = <1 RK_PC2 RK_FUNC_GPIO &pcfg_pull_none>;
+> +		};
+> +	};
 > +
-> +#undef pr_fmt
-> +#define pr_fmt(fmt)     "tdx_connect: " fmt
+>   	sdmmc {
+>   		sdmmc0_pwren_h: sdmmc0-pwren-h {
+>   			rockchip,pins = <0 RK_PB6 RK_FUNC_GPIO &pcfg_pull_up>;
+> @@ -890,6 +907,23 @@ &saradc {
+>   	status = "okay";
+>   };
+>   
+> +&sdio {
+> +	bus-width = <4>;
+> +	cap-sd-highspeed;
+> +	cap-sdio-irq;
+> +	disable-wp;
 
-I think this is file is only intended to hold guest stuff. Thus maybe call out
-"guest" as
+disable-wp is for sd cards, please drop it.
 
-  #define pr_fmt(fmt)     "tdx_connect guest: " fmt
-
-though arch/x86/coco/tdx/tdx.c doesn't print "guest":
-
-  #define pr_fmt(fmt)     "tdx: " fmt
-
-So this is just my preference, feel free to ignore it.
-
+> +	keep-power-in-suspend;
+> +	mmc-pwrseq = <&sdio_pwrseq>;
+> +	no-mmc;
+> +	no-sd;
+> +	non-removable;
+> +	sd-uhs-sdr104;
+> +	vmmc-supply = <&vcc_3v3_s3>;
+> +	vqmmc-supply = <&vcc_1v8_s3>;
 > +
-> +#include <linux/io.h>
-> +#include <asm/tdx.h>
-> +#include <linux/mm.h>
+> +	status = "okay";
+> +};
 > +
-> +/*
-> + * tdx_hcall_tdcm - Send a TDCM command to the host via TDG.VP.VMCALL<TDCM>.
-> + *
-> + * @devid:  Device identifier of the target TEE-IO device.
-> + * @buf:    Shared, directly mapped buffer containing the TDCM command on
-> + *          input and the host response on output.
-> + * @size:   Size of @buf in bytes.
-> + * @vector: Event notification interrupt vector, or 0 for synchronous operation.
-> + *
-
-"0 for synchronous operation" isn't correct.
-
-vector 0 means "no vector. TD polls the status for completion". If the command
-doesn't finish when TDG.VP.VMCALL<TDCM> returns. It's not a synchronous operation.
-
-> + * The buffer physical address is passed to the host with decrypted/shared
-> + * mark.
-> + *
-> + * Returns 0 on success or a TDX VMCALL status code on failure. See
-> + * TDG.VP.VMCALL<TDCM> in the TDX GHCI v2.0 specification for status codes.
-> + */
-> +u64 tdx_hcall_tdcm(u16 devid, void *buf, size_t size, u8 vector)
-> +{
-> +	WARN_ON_ONCE(!PAGE_ALIGNED(buf) || !PAGE_ALIGNED(size));
-> +
-> +	return _tdx_hypercall(TDVMCALL_TDCM, devid, cc_mkdec(virt_to_phys(buf)), size, vector);
-> +}
-> +EXPORT_SYMBOL_FOR_MODULES(tdx_hcall_tdcm, "tdx-guest");
-> diff --git a/arch/x86/include/asm/shared/tdx.h b/arch/x86/include/asm/shared/tdx.h
-> index f20e91d7ac35..f46a3171a512 100644
-> --- a/arch/x86/include/asm/shared/tdx.h
-> +++ b/arch/x86/include/asm/shared/tdx.h
-> @@ -74,6 +74,7 @@
->  #define TDVMCALL_GET_QUOTE		0x10002
->  #define TDVMCALL_REPORT_FATAL_ERROR	0x10003
->  #define TDVMCALL_SETUP_EVENT_NOTIFY_INTERRUPT 0x10004ULL
-> +#define TDVMCALL_TDCM			0x10007
->  
->  /*
->   * TDG.VP.VMCALL Status Codes (returned in R10)
-> diff --git a/arch/x86/include/asm/tdx.h b/arch/x86/include/asm/tdx.h
-> index 884bb8067521..df4496ef8a6a 100644
-> --- a/arch/x86/include/asm/tdx.h
-> +++ b/arch/x86/include/asm/tdx.h
-> @@ -85,6 +85,10 @@ int tdx_mcall_extend_rtmr(u8 index, u8 *data);
->  
->  u64 tdx_hcall_get_quote(u8 *buf, size_t size);
->  
-> +#ifdef CONFIG_TDX_CONNECT_GUEST
-> +u64 tdx_hcall_tdcm(u16 devid, void *buf, size_t size, u8 vector);
-> +#endif
-> +
->  void __init tdx_dump_attributes(u64 td_attr);
->  void __init tdx_dump_td_ctls(u64 td_ctls);
->  
+>   &sdmmc {
+>   	bus-width = <4>;
+>   	cap-sd-highspeed;
 
