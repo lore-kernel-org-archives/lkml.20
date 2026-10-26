@@ -1,45 +1,134 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793053846;
-	b=G+3sSeobXOBBW8+8ZhgtA1zGCxDGoQl2jCYZY/Jltb8U9hDfN2CvwycxZJuwvn0z4qqG
-	 uiuil6Drz0zt4I1Jl8WCplzBYd3bJBFLc8kbINr7DB9i/9vu4EyCkPH/lBAV/2zHTy+VF
-	 YwvcuRCW3uQr2CAeXzY6kXg+dtVoNedDywS3bB6mdyHUUs5+cVEFkB1KaPd1srSwhTbhs
-	 bQjI4/jP4Y+gFgPtnnNnyaSdPhwPjXz1W4fFyLMKEuMMwQHX+lA/yFqb02VoyE77B6FWR
-	 l2PA8yPqShFTx2CH0Il37sbNERaGThzxqFn4wiufAiWDoXvhmug+hJK/Xyato1CokPw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793053846;
-	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
-	 In-Reply-To:References:Subject:From:To:Cc:Date;
-	bh=hDtNVLezgn7PdnL8lxuAMKA3HktkOtqQ7BOccgZ24og=;
-	b=pxXrQR3Dl6Wt8VQcBnML9YgMyx4QEGRrSE0GGnYf33pn8l4uaxu71Hr2q0AP30vja+De
-	 2B6xnQ5GK/4dH4KCfPNyCm3tfMEeYCTR570U4S47DWfM0Sw2dsp4USy/cwPnQHGjtiui6
-	 SAUtAY0nzNjRgyulb536i3ghJWCJqylBgksWQXyR+LpNBiaQxLt/tT9ZDB4TF5OdYN3t3
-	 kHCKLH9g0qUtpjZHFM3FIjtwFssCboawddl+Hk6banDKKvp0xmnu2CTScff6WiVVTBhcG
-	 lRCHBOy75nnq8bn35wo1RsoD5Cg3Q0LnN0hh66FP6naPBq4PMJeRMf5LloCAoUFZ8kw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=fail reason="signature verification failed" header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WFbyZTea;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=198.175.65.19
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793053873;
+	b=YVGo/6OOJFzYlBRymO7QnYyKIvUxQ07owITopMxbGQMQp1xsbtzjASY9/MaAu55MRm18
+	 SyyFliSwjCqfqxYDJ/tOgHlS/9QZmWgxPQa+0npdw1OdIwslPuhEcOx9h5QQSuHPoWbTA
+	 VuFWJqjSTRVrtb7tgZQK+J5erK11Qbn5DlMt1jE/eMxNx8JeW0JripO86EDCm0zHU0yHo
+	 TzE5BpSXBQ0wCSkhOAQDZZUYed8PYCvbfExoQ2uYjR012In0+NTPJBaAWzWI6eK8569IP
+	 WNlxn9my9VqKJkffRjGxd/BrKV9Gqqs8tmNrNPU0ZdLKc5IbRAQgs2tQORUlmaoPgTA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793053873;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:Message-ID:Date:User-Agent:Subject:To:CC:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=uIevU4djrN6OSwujT41pa/ovMrSxYiD02uZE3uS2t/c=;
+	b=yQi+bHG6I8RBzVeoAAP6bxDePkAWImQWNLQNNqQnUd+gR2lSRZM14HpEJY4lDjet0Yxd
+	 1hLGjtACEisFDrG8KZsZcFAK9i4kK0s/axNO+OFqpBeHeMM/qY9oq7aVjhDGv4QaP/KVS
+	 hMshP+fhKQ84gFg3fh5s5BKWAp6jlodiPuJZ80N68dU6KkhvUqy0jXNBZB6EIAGGExvuX
+	 1la6r/noND6pj5/XMghpeyRGayRMz9a3Psa3RU7oUVhpjVgWEYVqbTUHjlTcx5qevZuAG
+	 RPsAQnn3kXUNEViQ/cX5XkIzQQgq6hhQKX0rMKsF10LXKtUeSkDP6j7OwMJdlNh9kRg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hg2kL7Kg;
+	arc=fail smtp.remote-ip=198.175.65.19
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B554606A331;
-	Mon, 26 Oct 2026 22:30:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40265606A31D
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 22:31:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40265606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WFbyZTea
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2237D1F01829;
-	Mon, 26 Oct 2026 22:30:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793053845;
-	bh=hDtNVLezgn7PdnL8lxuAMKA3HktkOtqQ7BOccgZ24og=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=WFbyZTeaLbCY7ikuEs02jXbJsHCKJuFY/nfKSONWHoJU/2S/39wsTuAQ8g+/Md79e
-	 DB4TvvDXjasmcGt144E8xgtFsxUljyQhx2sGVcmNSUlwQK8UT6v1M2yr3CugiNXCkX
-	 m6MweNqwjERuBLkScl1t31HP2jc07sHYYSpdSJ68gbrdL/+ctrs3iVv9aC7CSLkAjN
-	 6sfOzrtVhHenVSn7PIuB9pFdtoetDWKLPpn/MlWVg4bOXaxKC0xsmnyNj/ErH2Bc6b
-	 sj8C/3hyI7le0llJhynkd5e0XA9841gGOYgDuz95tXwTXvafMEg0Jn8hmj5vP/quKy
-	 U4OyEGKm4+pCg==
-Content-Type: multipart/mixed; boundary="===============9203731180031934646=="
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hg2kL7Kg
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793053873; x=1824589873;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=K8QktjqpPHYJEn/X/OCaVBlw3edLuJF1Y8l3Ha/krBo=;
+  b=hg2kL7KgSUyBxNaiaKTupKxAPOJTLu2gUq3lQeTu9QZF2Ra4ddapJx37
+   RR9wvGXYeInqPr00qF/ooHczGuwAO4XMmKI870O1qd98ID+eqI2WAo9Bl
+   d3rblqb6Mf18312owUcF9ZEKZI1kA0bqOnRWNOVVHxjDy1HbVZb7rQ405
+   1xnkVhTvyTtWGnzsVeQN92w/iWEOn6XWMOGTMkptaGbkCGd7DeEOSC6D5
+   WncjLbGTdPsSiPzuj2ZfSLn/wZW9nqUOjc+67WRjOBNB4CQLvbWz+lLq3
+   I57z/TRQhNg/XF++E+bJrqH/1ChpdWV9UmURl2JtT87ZEIvq90aTbjXK7
+   Q==;
+X-CSE-ConnectionGUID: tzEOVY2oQsmsvzGOerExHQ==
+X-CSE-MsgGUID: vjwj5ceqSba3uBypfNv4Qw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1770455"
+X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
+   d="scan'208";a="1770455"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 15:31:12 -0700
+X-CSE-ConnectionGUID: YFKSzIF0QL+7xxun7NcJjA==
+X-CSE-MsgGUID: XteeGOf3RVeKfvu9iGBLRg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
+   d="scan'208";a="4365917"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+  by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 15:31:11 -0700
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Mon, 26 Oct 2026 15:31:10 -0700
+Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Mon, 26 Oct 2026 15:31:10 -0700
+Received: from BN8PR05CU002.outbound.protection.outlook.com (52.101.57.22) by
+ edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Mon, 26 Oct 2026 15:31:10 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=UO0+6YWsQRSb2czAXBAZOP8k8hWyKN4VNZlBqqWKVxu0xeGbkzGnBjwTqa143FlMyWH7sH59xKA7DA5cF9beXAlelZEB7QxF1Vw80bFmvdz8/Q/Z5pePmLaFd50shFgW9hl8MyE5buQESbSk+2Usb7e0mZ0q4bECZpnvVLvDLpSPvvHhaRpHwYcZHxPPFXD3PDkWXbfK56iZew4lZ9SqvpK1NuSEayamw14FN3T+0i7vT2Zy/LlkD2d3deV7G+BI8P2HQSFadqBXVlBz/tyGoD5KD+GzETqIU7+xF63O8ZJ5f1NCYbEkv8HzU1Vw7M+eI9yAirV0EDS6lWiZRDZ+/A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uIevU4djrN6OSwujT41pa/ovMrSxYiD02uZE3uS2t/c=;
+ b=b2n9wIkKE4W9BX2EfKQVRz1rN5JoQnndMo7Rv2TwveBr6XBh50aGT8LJ/4YRQwOgPrlbGDj6PviZIlse4WkL9EYKQ8lr+CZtG9BYZxlzzgqtFwUSv2szV9voD02V3PguTC2VN5hWHfEzLzFSGWCoXYvpxIzQUyxG8+I2GsH7QaXdjnnOmLzRc6NnARK/gq9WT+6ykJ6vjhUxaIEVsIaOo3dg7UpWlXSSQp6uo5eu8jS3pS3Oo27NN+nFo2JDv3Vkt7pleVmIOeHVPw1DZdL1B8T8nGS/1Fb8XNWc3yjr65FaH7ro11h11UUrUbUEMWHknWehy4bHLI7qQEC0pQ1YZw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from SJ2PR11MB8370.namprd11.prod.outlook.com (2603:10b6:a03:540::20)
+ by PH7PR11MB5943.namprd11.prod.outlook.com (2603:10b6:510:13f::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
+ 2026 22:31:00 +0000
+Received: from SJ2PR11MB8370.namprd11.prod.outlook.com
+ ([fe80::b6cf:ce77:3cdf:7cc]) by SJ2PR11MB8370.namprd11.prod.outlook.com
+ ([fe80::b6cf:ce77:3cdf:7cc%6]) with mapi id 15.21.0546.016; Mon, 26 Oct 2026
+ 22:30:59 +0000
+Message-ID: <106caf0a-8644-4801-9591-80be38b39418@intel.com>
+Date: Mon, 26 Oct 2026 15:30:57 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 0/8] arm,x86,fs/resctrl: Support asymmetric L2 cache
+ allocation
+To: Tony Luck <tony.luck@intel.com>, Fenghua Yu <fenghuay@nvidia.com>, "Maciej
+ Wieczor-Retman" <maciej.wieczor-retman@intel.com>, Peter Newman
+	<peternewman@google.com>, James Morse <james.morse@arm.com>, Babu Moger
+	<babu.moger@amd.com>, Drew Fustini <dfustini@baylibre.com>, Dave Martin
+	<Dave.Martin@arm.com>, Chen Yu <yu.c.chen@intel.com>
+CC: <x86@kernel.org>, <linux-kernel@vger.kernel.org>,
+	<patches@lists.linux.dev>
+References: <20261026215718.16810-1-tony.luck@intel.com>
+Content-Language: en-US
+From: Reinette Chatre <reinette.chatre@intel.com>
+In-Reply-To: <20261026215718.16810-1-tony.luck@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MW4PR04CA0240.namprd04.prod.outlook.com
+ (2603:10b6:303:87::35) To SJ2PR11MB8370.namprd11.prod.outlook.com
+ (2603:10b6:a03:540::20)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,87 +138,104 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-Id: <10ab2f3b005f0df2c0a88e93e6917826d928bb1f82c6a645f942c099e48f8b6e@mail.kernel.org>
-In-Reply-To: <20261026215226.3713941-4-jthoughton@google.com>
-References: <20261026215226.3713941-4-jthoughton@google.com>
-Subject: Re: [RFC PATCH 03/10] bpf: Fail sleepable user copy helpers when current->mm is NULL
-From: bot+bpf-ci@kernel.org
-To: jthoughton@google.com,akpm@linux-foundation.org,viro@zeniv.linux.org.uk
-Cc: tglx@kernel.org,peterz@infradead.org,kees@kernel.org,arnd@arndb.de,david@kernel.org,ljs@kernel.org,liam@infradead.org,vbabka@kernel.org,rppt@kernel.org,surenb@google.com,mhocko@suse.com,seanjc@google.com,pbonzini@redhat.com,jmattson@google.com,axboe@kernel.dk,asml.silence@gmail.com,James.Bottomley@HansenPartnership.com,mkp@kernel.org,dsterba@suse.com,mason@kernel.org,ast@kernel.org,daniel@iogearbox.net,john.fastabend@gmail.com,jpoimboe@kernel.org,rostedt@goodmis.org,mhiramat@kernel.org,mathieu.desnoyers@efficios.com,mingo@redhat.com,acme@kernel.org,namhyung@kernel.org,linux-mm@kvack.org,linux-fsdevel@vger.kernel.org,kvm@vger.kernel.org,io-uring@vger.kernel.org,linux-scsi@vger.kernel.org,linux-btrfs@vger.kernel.org,bpf@vger.kernel.org,linux-trace-kernel@vger.kernel.org,linux-perf-users@vger.kernel.org,linux-kernel@vger.kernel.org,jthoughton@google.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.
- org,ihor.solodrai@linux.dev
-Date: Mon, 26 Oct 2026 22:30:45 +0000 (UTC)
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ2PR11MB8370:EE_|PH7PR11MB5943:EE_
+X-MS-Office365-Filtering-Correlation-Id: 773afc86-6617-4b0e-12c7-08df33b0cf27
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|261009223027099003|261021121427099003|261022075727099003|261022105027099003|10067099003|56012099006|261026140227099003|3023799007|6133799003|18002099003|22082099003|261026121527099003|11063799006;
+X-Microsoft-Antispam-Message-Info: yMSgHWyyCjiWAyIyQN2PqUIxrU9ydvaLNVx54h5C4gTzkl20rNoANF6C4TqvbGjFoIuZ/Y63m+589XBQ9nwxsbEExpB0lDTROhzMvOnnl79rxVKlYYEomyqxDzV++rkg+qb8oVL4uUhdxM4qIl9F6DnqZzHm+1E9hczrCUUhITZDau+P8mMpttljk9P7ULZ897BrsgEhk9wCzrnFfaotUkXT/hXSr+dSt3osyP8gsLKEi+mzcJH8HqpuhwroMdY1tS8acE3li4mW5SO0nZHnIY7ZtD3v5bjwLjTgR4axLoYclW7br/aHSG1Wop1wDuMuujj7greiYb2MJKVamlAnNhw091yNEoXOANetTy/ydpwdyU8MxmHdyx+lH2N0IZFlvNQ3zr+JP0LYQXxEsGHlwy3iXY6GgELeIb9x/UJtm4sY1+PXBflLof3Sg/kzDAQWdppC+EPj3iGWtGYrhznGO3CFeasfWouUeV2xBADrYkSXtyZrFWAFF3mL0jP88umMjQAUJfIC88UNJIWXhvfJY9IcBSVsrRrewKrgtEnNmOKL90B0NSzw8AXLqhhMDmmK+P9pazGjof3U5kAlw+xHWDzdlAoE6Hq+xjIhI/O4z0EglxYAkTykqZItG4YuWygL
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR11MB8370.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(261009223027099003)(261021121427099003)(261022075727099003)(261022105027099003)(10067099003)(56012099006)(261026140227099003)(3023799007)(6133799003)(18002099003)(22082099003)(261026121527099003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cU9nMUtuaGdTVFB2YllXWWFRVENZbkNleDNrOVBUR2tad0hxYzVadUZwWjV2?=
+ =?utf-8?B?OFJvUCtYYzBtdmRKVDAyOHZaaXZURG1CTUV0UUVzeURLaGNlOEVjc3RCUnQv?=
+ =?utf-8?B?SVpDNzQyZUpVWi92NUpYbUZnQXh1SVFRTmhMbnhxZXNITEFCZnhNQ3dCMmg0?=
+ =?utf-8?B?a0t2YlJ2S1g4VjNCbzRjUHJhNGlkQ3NyeGtuaHdQU0owSHp1RnRrbU1PYnV6?=
+ =?utf-8?B?Vzh4SkovMWgyd3NWMzFDeEhmQW4wemMwMWNoWjRBcVREMzlxM3B0RjNZQUdK?=
+ =?utf-8?B?eUVjNlhrdjlLZ3FtK3M4czgyRWxiaUFlTHNVRWdEdVhVajY3QitwN1lORU1W?=
+ =?utf-8?B?K3BIK2FYU3FxNEd4N3hORTJTSGNiVnN0c2Zpdlc4ckdjOVcvYjFOVkszM24x?=
+ =?utf-8?B?MVdWcnN2NzczWktySmtoV1M5OW5WYjlSNGNJbGphYXpGei9IK0xQY1lENlhJ?=
+ =?utf-8?B?UXRiWmF1ZVlyR2JzR0ErbUIwaEJOT0hzeDVYbjFIQnVhMURLYXUxUzMvNjd0?=
+ =?utf-8?B?STY3VlRyamVrUkN3STI1ZEtTRXBXZllrU3RkcVluTDNkRkNOQ0c3eWRwRXg4?=
+ =?utf-8?B?SksrWmVuMXJuZmdEZUFRcDJpd0E3Q2hzVUJrSFR2d2d0QXAzVzNScUQweHlQ?=
+ =?utf-8?B?UlJ5NVgyZzMzUWxEVVBNVXgydU1CVDJQTmY0M09hZkZ2S0hHN24wTUR5YzdY?=
+ =?utf-8?B?djdQMFp5S05GSlk3YVRQbEpkVysveVBqYmJUaDd6WGc3VFZYRW1tUTRiQkRG?=
+ =?utf-8?B?QXJIL24zVStEZ3h6OE9RWEUwOTlwMUF6QkVxeWpabXBDaGo0eEZPNzB3ZWlp?=
+ =?utf-8?B?T2gxYVA5YkkzTGVUM2RhcUgwdUlkSnVPM2hEWG9BMVlOWDlKM2JoTHFWZ1ZI?=
+ =?utf-8?B?TjFsc2RDZVl0NzQwOFkxcXMxVTdybFdQS2ZTSnVaZjlHZHoyOWNQR1pDWktR?=
+ =?utf-8?B?amhOMFpOb3h4eXZWcGJqUWZPY0VlTkhKdzA2VEE3Z090R29sYlVTazAzN3Fw?=
+ =?utf-8?B?YlpibkZ0aVQyZUdtdW5KYTViVzZ1Ky9JMG5sVkhCYkxPbXFGZnMwT2J5dlVj?=
+ =?utf-8?B?ald2WFRQNkVoSVVPQytUNkR3d1pRNkhMcUoxVEdSVmZUaEdvRncyZkg5TUgr?=
+ =?utf-8?B?RVlQS05rYVc0SGh1SFV4OVgxbTZRdGErQjI3cGlabm5wZXB6T3p1aG1NcG9o?=
+ =?utf-8?B?UzNGNWd2R2poT0hYUEJxKy9Md3NlaXQ0aVVIQVJjSkJObFhlZkhMNENXWk54?=
+ =?utf-8?B?c3ZpVlFFU2dPUkVpY0ZvS2lhbTEvZ0lreHM0M1VNaXQ0bnBFTXJ2eGozb29Q?=
+ =?utf-8?B?SnZvY09XMWxibkF6ZU5UZjBqaklJcnhtMDNVU0trcHZjbzlZQ1RTc0VxQjli?=
+ =?utf-8?B?YSs2RTdrd0lJTFJVcmR0R0pWaW5ncUJJSnB1ak12NFByZjI4OWhSdElxbnFU?=
+ =?utf-8?B?OXNQR3FUNjhNWUJiNVJrYmVub2V0SjJpVzVQYk1yTnhhSFJFUGxTQ3ZZZ0hy?=
+ =?utf-8?B?dGs4dVJjRHlYY0FjN05sV2N3alBJWE1mM3lFWjNma2VXSW15SEU2SHB5OHJE?=
+ =?utf-8?B?cHpuZDh2YlduUW9JSXFVY2FsdG1heE9QQ1pLMk5URlZOOGlsZVFibTllYzV1?=
+ =?utf-8?B?NlpFcEdLWXJNNGJHVnhsdVZVenR1M1JXVzZMajZIbnlLVkQ0YU1nanUyTk4w?=
+ =?utf-8?B?bU54N2dGb2c4M3FFZXpvRWF2SHpwalBuNUZiMGU3QzRyM2YwSVA4a0tZYUR3?=
+ =?utf-8?B?d2h6MmlkUmo4SnBpdFU5dWVlYXVwNnNmOExWMHJYakdJZkw3UWdkb1dFdGdB?=
+ =?utf-8?B?YjN6b2RCUzloRU85VERSOGE2akxJcC9JRWM0SDdnSVZ4Tzlkb3BVQ0Y4NVlO?=
+ =?utf-8?B?bW1rRVJLRVJvZ25kYjg2WE1UMGxjdlJ0YVZkbUlLVitOVzhxTnk4WjlPdVFh?=
+ =?utf-8?B?RDBOM3FoclBUSTl4TjlHNzNvRHRVRnVmVDNyUnVGZHUwODJjRjh4bjRDOU5z?=
+ =?utf-8?B?aTRqSmNKd3JaZXF6bGp0OUFQWnBPc240TEdCMU9yUS84c2pjTDhpendGMWxy?=
+ =?utf-8?B?aHNBUlZUVWd3UWZVaktKaS9QL1Q2MmhITzBwUy9uUW1pb2ZwaVVCaXpYL3J0?=
+ =?utf-8?B?SlQwV2k1WlIySHQvSVpueUhFVVpZM1VzYWpvcTJCNkU4VCtoRHpRV3lJL1Fa?=
+ =?utf-8?B?R0x4R2diaWxjdkRUcFhRczJuT1prRlQvNnYvR3Q3WTBubFNNYm5pOUZJN2NF?=
+ =?utf-8?B?cEZsWjJnaDNxeC9heE1MTDZORi9CTjkxNGFTWlo0M3JWNWpJRHJzRTRSYi9S?=
+ =?utf-8?B?d2dTL1Y0UHVEZ1hHT1dSSjlSNTFoL3d3am0zVmJlbkkraGNqUE1LNU1tN3E1?=
+ =?utf-8?Q?4LQwTO+Q611B2kQo=3D?=
+X-Exchange-RoutingPolicyChecked: hSdqHQKiUVJ7JCmeCOJkZ8hRyCeNBdrHlbpEyYoqQHqYjtXGM411/+v3wUFaszTZfqA0ZAHQa1bZHaBe85vA8Hph/YyEALesKAHWwPrrpLLAo5+fRPoJbL5QjGzmM2y2HbdbWgUzPEFWc9f4PACR7dVRS1miaGBce+l55oPzD152p6Gy9OaVOG/fKh887ETDg6qy2uTk5gsDAPCEWhnqnEqBLzWezmdcJpvm7Qh/a3QezFF7dCVW5vXocG0uNl0t0wYN/bPGQbgXlG0c3NnNkvwObSWdT00lQT7xHEGJ75O9ChGuUtt04tL+Ru+CtcpUj8dtJ2cgHHG9rMdzSity4A==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 773afc86-6617-4b0e-12c7-08df33b0cf27
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR11MB8370.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 22:30:59.4707
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ZVA2bk1Jcjxw5QZrifKx6oPwTii1Huc9lCMRpVRqDQEvBS/3o3sq26Fnsl5tgCnQHWM3OrkCbgBHMYlWBKrbkyzQ23P8JcJ+vq9o+yWUgLM=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB5943
+X-OriginatorOrg: intel.com
 
---===============9203731180031934646==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Hi Tony,
 
-> bpf: Fail sleepable user copy helpers when current->mm is NULL
+On 10/26/26 2:57 PM, Tony Luck wrote:
+> RFC patch series built on top of Reinette's multiple control series[1]
+> 
+> The goal is to support L2 cache allocation on hybrid Intel CPUs such as
+> Panther Lake[2] where the P-core and E-core CPUs have different number
+> of supported bits for L2 cache bit mask controls. N.B. it is assumned
+> that the only point of asymmetry is the cache bit mask length. Other
+> parameters must be the same (but code doesn't check).
+> 
+> Overall approach is to add the per-L2 cache bitmask length to the domain
+> and use that everywhere instead of using a single value from the control.
+> 
+> Patch 1 changes the format of the per-control "max" file and should be
+> merged back into Reinette's multi-control series so this file can have
+> a consistent format from first upstream introduction.
+> 
+> Patches 2-5 are enumeration and preperation.
+> 
+> Patch 6 introduces, initializes, and uses the per-domain cache bit mask
+> length field (arm/MPAM change needs careful scrutiny).
+> 
+> Patch 7 enables asymmetric L2 for x86 CPUs that enumerate it. N.B. it
+> renammes the resource from "L2" to "L2A" to avoid user interface issues
+> with tools that expect L2 cache allocation to be symmetric.
 
-TL;DR: Commit message only: the security_file_release() example of a sleepable
-program running from a kworker looks inaccurate, since such a program appears
-not to be attachable there. The fix itself looks justified.
+I did a quick scan and it seems to ignore the the distinction between a resource
+and control as highlighted the previous time you brought up this work. Specifically,
+please see:
 
-> bpf: Fail sleepable user copy helpers when current->mm is NULL
->
-> Sleepable BPF programs can run on behalf of a kernel thread, or of a
-> task that has already gone through exit_mm(). For example, bpf_wq
-> callbacks always run from a kworker, bpf_task_work callbacks queued
-> late enough run from exit_task_work(), and lsm.s or fentry.s programs
-> may be attached to functions called during exit_files(),
-> exit_task_work() or from kernel threads (e.g. security_file_release()
-> from a kworker running delayed_fput()).
-> In such contexts, bpf_copy_from_user(), bpf_copy_from_user_str() and
-> bpf_copy_from_user{,_str}_dynptr() (when reading from the current task)
-> call copy_from_user() or strncpy_from_user() without an mm. That access
-> does not reliably fail: the user half of the address space belongs to
-> whatever mm happens to be lazily loaded, if any, so the program may read
-> another task's memory.
-> As there is no user memory to read from in this case, fail with -EFAULT
-> without attempting the access.
-> Fixes: 07be4c4a3e7a ("bpf: Add bpf_copy_from_user() helper.")
-> Fixes: 65ab5ac4df01 ("bpf: Add bpf_copy_from_user_str kfunc")
-> Fixes: a498ee7576de ("bpf: Implement dynptr copy kfuncs")
-> Signed-off-by: James Houghton <jthoughton@google.com>
+	https://lore.kernel.org/lkml/eaeb4259-46d6-4656-8354-669ad32654b5@intel.com/
 
-The commit message gives security_file_release() as an example of a place
-where an lsm.s or fentry.s program can run from a kworker:
+Also, why does patch #1 drop the 0x prefix from new control interface when displaying hex
+values to user space? This is a significant change for which patch #1 does not provide
+a motivation.
 
-> (e.g. security_file_release() from a kworker running delayed_fput())
+Reinette
 
-Is this example accurate for the tree being patched?
-
-bpf_lsm_file_release is not in the sleepable_lsm_hooks set in
-kernel/bpf/bpf_lsm.c, so btf_id_allow_sleepable() rejects a sleepable
-BPF_PROG_TYPE_LSM program there.  bpf_lsm_file_free_security, the other hook
-reached from __fput() through file_free(), is in untrusted_lsm_hooks rather
-than the sleepable set.
-
-For a BPF_PROG_TYPE_TRACING program, check_attach_sleepable() requires
-within_error_injection_list(addr) (or a syscall prefix when
-CONFIG_FUNCTION_ERROR_INJECTION is off), or an fmodret set with
-KF_SLEEPABLE.  Neither security_file_release() nor bpf_lsm_file_release()
-has ALLOW_ERROR_INJECTION, and the only fmodret sets are in
-net/bpf/test_run.c, net/mptcp/bpf.c and bpf_testmod.
-
-That suggests a program attached to security_file_release() is never
-sleepable and cannot call bpf_copy_from_user() or the KF_SLEEPABLE copy
-kfuncs.
-
-The fix itself still looks justified, since bpf_wq callbacks run from a
-kworker and is_async_cb_sleepable() is true for them.  Only the example
-appears to be off.
-
-Would an example that is actually reachable keep the changelog accurate?
-For instance, bpf_lsm_task_alloc() when kthreadd forks a kernel thread
-(current is kthreadd), or bpf_lsm_kernel_read_file() and bpf_lsm_file_open()
-when a kworker loads firmware with kernel_read_file().  All three hooks are
-in sleepable_lsm_hooks.
-
-
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/40410166379
---===============9203731180031934646==--
