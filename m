@@ -1,78 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793032782;
-	b=2wBy3BQOtUyZPMGMNqASrSYi6smBKsdOdfnYLknM2mTu5gP9O1DD+lZ0cKKEMNA1FdtP
-	 EJKVdes5Iay0MHOmsWrJSsH36fHTneDZzXURi0nOWhzzDohj4TQRSjGDPWIDA4+9MtMhh
-	 MLPW+BPb8a8IojJPfYHnvdK+Jr3lEmdHhvOsKXzVQJLYcneW23ulm7d71BqnXnxX4yUpU
-	 wNJG6B4hkOBFVmRs1MnKNVyWMdUfuLXZ6rZ2cKgfwGp3VJAA8sozpKKmJNrwU7dk9bRLY
-	 G8K/+SiEgBMCF9uofa73secS1AmX36XcUjzauhYfAROp6X3Mazs0lULsBAWsKaZqHmA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793032782;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=6ZkBhAScJHbNlBExg6+IMlrv8YwSI7QvWiQndN90w5I=;
-	b=e80wuZQkd09WhC54SgpPAAS3mQMCyCg3myqpN16EiYMor1+b+V9g8d6Yqz2Z0xQEI+8q
-	 wdBLH64AMQsZHBv1E8AJAB0OoL7l9Gfg6MBER54rQE2KMR6nQSekdK8ThmhJJ+NiZ2jev
-	 tQ5S30tPLSXSasIr+Vf/NMCKM7sgvXF9wWOHvan0eoxX87GKkubkLZdHsTGuCiFpD3mXJ
-	 Tq+Ab+ZsVO1hiVZTW39i6lz+Rmixprz6aXgav1nUrXewgMr6LcdOTjFI0ZoirWmnZvFkA
-	 6wEpIbYT37PO2Zyrxp8wOIivp0CIm5g8fWyKd9UDXWJQcOgISxJa9ov/0kHQYiDicGg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cxzlt0JI;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=143.54.11.23
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793032802;
+	b=vxw/LBNzE5CQVted8XC53oQU7VjkRLHkoecHZOfK8G453DTSou1PVrRNpMIiKnm6KYsm
+	 sv0ufdCdDrOI/6wFY/KNfAgv4vu+TTLXLhl4d93b2PBD/6uBebr4CEgj8x0x3FjbSqLBB
+	 /voHZ5BalgqkVVGCvvfpiYZCDbaNc+/FfCkQLKryJ27nc785Xk1GPaCjz6IIQpeD9csK5
+	 +M1v5ET32Hhe5w9T0GcTHoHjTGSvaFmlQPWehTSXD1cAfmuRut5e/xnwHVi31IwZfxHrS
+	 iK+hwajqUyKNs/ncx7ppW0uker4362jdYN+qPJdAVoz1uiUDuQIXDU/E5hTxU9/8e6A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793032802;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=zJTuxmueA1I8RP0C4FCElC+ZduPoStcXVxpKPRKHNIE=;
+	b=KdK+DlYKe+C+y2kNVyw1HA6Pu8x+VcQQrTTUhkZDR8rkpTPjzINk5h4+uVt8WkhnnXnp
+	 lieHqmr99edVkKskgX3NZB6epe6zKyWCKGLJBQKeaJH81EOXHi6vVWV+cVOee6MveGb0+
+	 zIKFpc6UiQ4wB2m/9onaZO8S5rJ6yb7vuyQoWh5zsGfkILX0kf/2oKj7tVSsj5gdDL/Da
+	 yAswxUZaC3dNcEJGZZGs5Gl0/h/DY7OOftGdjlHkwqsmCHzAI3vLe3ETXvx6pMoSvtXAK
+	 fFEXDfh2QKAYxhoNOcHy++tR4GJEUQFRSNZjAeWaVvV1wgNRRn5b+QX5mwKppSR04Mw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=inf.ufrgs.br;
+	spf=pass smtp.mailfrom=inf.ufrgs.br;
+	dkim=pass header.d=inf.ufrgs.br header.i=@inf.ufrgs.br header.a=rsa-sha256 header.s=dkim2026 header.b=oxjjma+x;
+	arc=none smtp.remote-ip=143.54.11.23
+Received: from smtp.inf.ufrgs.br (smtp.inf.ufrgs.br [143.54.11.23])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4201E606A322;
-	Mon, 26 Oct 2026 16:39:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0E84606A31F;
+	Mon, 26 Oct 2026 16:40:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0E84606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inf.ufrgs.br
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inf.ufrgs.br
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cxzlt0JI
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793032781;
-	b=dqipp+MosryA5GOznRJI1BXQNQDXm3PdfJIJlLRH291fAVzkaWcyn9612dm4ylqBYrrg
-	 KVP6MHeowQnTqnZju6t8qtvg1YqWwm2i7WPh8m/Gkk0LfKQFCE2jorLQP8Z97Yrjoo/Vf
-	 b/VmsK/G8xZObeGzgxitkLeRzS8kXMD24h/8UICm8RG7UwOy7dOS/Xq75JhCT9SzZ6cJu
-	 2zpe3NEVljT/0atyOYvSzu51pIBDfRlZ/GVjQOlgNWRargeefVAeWlvuelkEZqOr7tHGX
-	 3AGC40/2dZxwSrJ214255ekbv7Yn5XhsGN3aoDb28VWVuTNR77ohMvKKGipPc5jq/0A==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793032781;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=6ZkBhAScJHbNlBExg6+IMlrv8YwSI7QvWiQndN90w5I=;
-	b=FSckQjNwBna3eqzNxDLraLOtqnyNVTyk/mJwc3h0pjeFpSY0Am+45BQh4amSO5CU8Pjv
-	 LpyQt0HzRPpdOjCKsMDEi2rLf/l7dwGzRII+N+qJ1K+LEcSiq6gu7ta9jtV3my/RtFW7M
-	 WTSIPonUvn5q7uNJ3Nmru50JdVxFehBHJO/wv4eLuvXEfVAMKsJahLL5Sax76XTuPcTD6
-	 +pSQLp3QTAzb5FIu8pXqtlZLdu7/BJB0ByG67PlZ1jyDxO71gXbDKtBmJg/A2QCdNhgNN
-	 3GLjAfr1dd43WZng6CknphGJerEjaex+fzK4cbuN4NSnq1mQtsDaKJ5YhPuuAoPDFQg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id CAF751F01829;
-	Mon, 26 Oct 2026 16:39:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793032781;
-	bh=6ZkBhAScJHbNlBExg6+IMlrv8YwSI7QvWiQndN90w5I=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=cxzlt0JIO9dZs4UP5JXwAC2jccJB3dsxTRSQBIG8gokIG3CSInoIILuqL6Owhuis6
-	 v7S7iEUO+kv5OUanv6NMBxlua3w0LsB5RkkkkHLJ36FDWEwF6OgNB01A4MNS8mNhhp
-	 DUNAkUbQVvHLrx+9B3DnE4Mr0JLNALsG3e3nsNFK3AkOzI1C8AfCSpY+ZTNxB0+rTs
-	 HmgFAfZOALLeoiYOHR+7ViE1HSYSTZkno+Ja4i/cVa3Xfufh04533+hz1MGLJM+TT9
-	 rvYChWr18sNuooJu3LHn7qQLWXi6F37CN9CcYgoCiVGUWY9fvu7lohFDiGCe7B/U6Q
-	 zNuUUsdLCvShA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 40B1F44DB5;
-	Mon, 26 Oct 2026 16:39:40 +0000 (UTC)
-From: Ishu Brar via B4 Relay <devnull+patches.brar.si@kernel.org>
-Date: Mon, 26 Oct 2026 22:09:32 +0530
-Subject: [PATCH v2 1/2] dt-bindings: display: panel: Add Samsung AMS644VK04
+	dkim=pass (2048-bit key, unprotected) header.d=inf.ufrgs.br header.i=@inf.ufrgs.br header.a=rsa-sha256 header.s=dkim2026 header.b=oxjjma+x
+Received: from LAPTOP-R01LEAQM.localdomain (unknown [189.6.233.4])
+	by smtp.inf.ufrgs.br (Postfix) with ESMTPSA id 5840D1210EE;
+	Mon, 26 Oct 2026 13:39:45 -0300 (-03)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=inf.ufrgs.br;
+	s=dkim2026; t=1793032785;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zJTuxmueA1I8RP0C4FCElC+ZduPoStcXVxpKPRKHNIE=;
+	b=oxjjma+xYJ7JoI8Fp17TKmq/u0I9+Jj+rtVJh3pbn1ZQ8jlr0RtKnWuOoK0XS/paygMFIZ
+	Q2nd+vtcQBLcD4gmEHTdj/bg7O2/2MKL/SVV97fmGWtuKu0aqYNn6+HYnJmOF0PFM76WAS
+	c8dZkRNbFAQKqqirh1MkX1VgVkOipcLqImneWJwDcYns6UENLLrccgc0SZQEO8Eq0T5LGI
+	hQjv6T02R1WuKy3PEmtk44R/YzljmGZ8YRjGHIGJncGgIerhelUsOVV8NlVq0cKIKYWmI0
+	aYFP6NtjIDP9MX20aJamNtXlSk9PQw3kZeTk8ffYcvwzxo0pZp5CHWXCo8kVWg==
+From: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+To: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+Cc: linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+Subject: [PATCH v2 1/2] fat: batch synchronous mirror writes
+Date: Mon, 26 Oct 2026 13:39:40 -0300
+Message-ID: <20261026163941.495833-2-matheus.aalmeida@inf.ufrgs.br>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261026163941.495833-1-matheus.aalmeida@inf.ufrgs.br>
+References: <20261026163941.495833-1-matheus.aalmeida@inf.ufrgs.br>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,148 +67,171 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261026-panel-ams644vk04-v2-1-e88cafb3e577@brar.si>
-References: <20261026-panel-ams644vk04-v2-0-e88cafb3e577@brar.si>
-In-Reply-To: <20261026-panel-ams644vk04-v2-0-e88cafb3e577@brar.si>
-To: Ishu Brar <patches@brar.si>, Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793032778; l=3110;
- i=patches@brar.si; h=from:subject:message-id;
- bh=bfWhdhE0MSOyY1CD4dr6wKMiNS0UDbr+4+1vQmvpmkw=;
- b=IcYMly2iqkavOeF+yvnHNLM9kuo1bIZVyMfMCs9+EBmsOxJMS3y9nJMxOYjZJm0PJ7JbO/iKF
- 2T7FKRSqD9XDUfPsbkg8jQDq9Z6G/SPN60WxgaIDdIrvSrfgQoWdZht
-X-Developer-Key: i=patches@brar.si; a=ed25519;
- pk=Ds+E23E3ntzjPzuBDyVRkOouclcNI5k75R+N42yJtCk=
-X-Endpoint-Received: by B4 Relay for patches@brar.si/default with
- auth_id=1189
-X-Original-From: Ishu Brar <patches@brar.si>
-Reply-To: patches@brar.si
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Ishu Brar <patches@brar.si>
+fat_mirror_bhs() currently synchronizes buffer-by-buffer on synchronous
+mounts, serializing I/O and degrading performance.
 
-Document the Samsung AMS644VK04, a 6.44 inch 1080x2400 MIPI DSI command
-mode AMOLED panel with DSC that supports 60 Hz and 90 Hz. It is used in
-the OnePlus Nord (SM7250). The panel is powered by three supplies and
-has a reset GPIO.
+Make fat_mirror_bhs() batch dirty buffer heads and use fat_sync_bhs()
+to sync several at once. Add a fat_brelse_array() helper that releases
+buffer heads in an array.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: Ishu Brar <patches@brar.si>
+Benchmarking was done under QEMU/KVM with a virtio-blk device using
+cache=directsync. Each result is the arithmetic mean of 10 samples.
+
+start = now_ns();
+for (unsigned i = 0; i < count; i++) {
+	fallocate(fds[i], FALLOC_FL_KEEP_SIZE, 0, bytes);
+}
+elapsed = now_ns() - start;
+
+Sync-mounted FAT32 using count=16 files:
+File size    Cluster size    Before    After    Improvement
+256MiB       512B            49.81s    12.26s   4.06x
+1MiB         512B            0.198s    0.057s   3.50x
+256MiB       4096B           7.060s    1.640s   4.31x
+1MiB         4096B           0.073s    0.028s   2.60x
+
+Asynchronous mounts were also benchmarked with no noticeable performance
+change.
+
+Signed-off-by: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
 ---
- .../bindings/display/panel/samsung,ams644vk04.yaml | 76 ++++++++++++++++++++++
- MAINTAINERS                                        |  5 ++
- 2 files changed, 81 insertions(+)
+ fs/fat/fat.h    |  1 +
+ fs/fat/fatent.c | 80 +++++++++++++++++++++++++++++++++++--------------
+ fs/fat/misc.c   |  6 ++++
+ 3 files changed, 64 insertions(+), 23 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/display/panel/samsung,ams644vk04.yaml b/Documentation/devicetree/bindings/display/panel/samsung,ams644vk04.yaml
-new file mode 100644
-index 000000000000..fcc720daff11
---- /dev/null
-+++ b/Documentation/devicetree/bindings/display/panel/samsung,ams644vk04.yaml
-@@ -0,0 +1,76 @@
-+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/panel/samsung,ams644vk04.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Samsung AMS644VK04 1080x2400 MIPI-DSI Panel
-+
-+maintainers:
-+  - Ishu Brar <patches@brar.si>
-+
-+description:
-+  The Samsung AMS644VK04 is a 6.44 inch 1080x2400 MIPI-DSI command mode AMOLED
-+  panel with DSC, supporting 60 Hz and 90 Hz refresh rates. It is used in the
-+  OnePlus Nord.
-+
-+allOf:
-+  - $ref: panel-common.yaml#
-+
-+properties:
-+  compatible:
-+    const: samsung,ams644vk04
-+
-+  reg:
-+    maxItems: 1
-+
-+  vddio-supply:
-+    description: I/O voltage rail (1.8 V)
-+
-+  vdd-supply:
-+    description: Panel logic voltage rail (3.0 V)
-+
-+  vout-supply:
-+    description: Panel supply rail (1.28 V)
-+
-+  reset-gpios: true
-+  port: true
-+
-+required:
-+  - compatible
-+  - reg
-+  - vddio-supply
-+  - vdd-supply
-+  - vout-supply
-+  - reset-gpios
-+  - port
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+
-+    dsi {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        panel@0 {
-+            compatible = "samsung,ams644vk04";
-+            reg = <0>;
-+
-+            reset-gpios = <&pm8150l_gpios 3 GPIO_ACTIVE_LOW>;
-+
-+            vdd-supply = <&vreg_l18a_3p0>;
-+            vddio-supply = <&vreg_l13a_1p8>;
-+            vout-supply = <&vreg_l7a_1p28>;
-+
-+            port {
-+                endpoint {
-+                    remote-endpoint = <&mdss_dsi0_out>;
-+                };
-+            };
-+        };
-+    };
-+
-+...
-diff --git a/MAINTAINERS b/MAINTAINERS
-index a08087fb6e67..19ec9f8b522f 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -8462,6 +8462,11 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/display/panel/raydium,rm69220.yaml
- F:	drivers/gpu/drm/panel/panel-raydium-rm69220.c
+diff --git a/fs/fat/fat.h b/fs/fat/fat.h
+index 1d051d0628b6..204c7b87108f 100644
+--- a/fs/fat/fat.h
++++ b/fs/fat/fat.h
+@@ -479,6 +479,7 @@ void fat_truncate_time(struct inode *inode, struct timespec64 *now,
+ int fat_update_time(struct inode *inode, enum fs_update_time type,
+ 		unsigned int flags);
+ extern int fat_sync_bhs(struct buffer_head **bhs, int nr_bhs);
++void fat_brelse_array(struct buffer_head *bhs[], int n);
  
-+DRM DRIVER FOR SAMSUNG AMS644VK04 PANEL
-+M:	Ishu Brar <patches@brar.si>
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/display/panel/samsung,ams644vk04.yaml
+ int fat_cache_init(void);
+ void fat_cache_destroy(void);
+diff --git a/fs/fat/fatent.c b/fs/fat/fatent.c
+index 8897a5dd522d..d42b5324531a 100644
+--- a/fs/fat/fatent.c
++++ b/fs/fat/fatent.c
+@@ -376,42 +376,76 @@ int fat_ent_read(struct inode *inode, struct fat_entry *fatent, int entry)
+ 	return ops->ent_get(fatent);
+ }
+ 
+-/* FIXME: We can write the blocks as more big chunk. */
+-static int fat_mirror_bhs(struct super_block *sb, struct buffer_head **bhs,
+-			  int nr_bhs)
++static int fat_mirror_one(struct super_block *sb, struct buffer_head **bhs,
++			  int nr_bhs, int target)
+ {
+ 	struct msdos_sb_info *sbi = MSDOS_SB(sb);
++	sector_t backup_fat = sbi->fat_length * target;
++	/*
++	 * Use the value of MAX_BUF_PER_PAGE for 4K pages. This reduces stack
++	 * usage on large-page architectures as callers may already have a
++	 * MAX_BUF_PER_PAGE-sized array in their stack.
++	 */
++	struct buffer_head *dirty[8];
+ 	struct buffer_head *c_bh;
+-	int err, n, copy;
++	int err, n, nr_dirty;
+ 
++	nr_dirty = 0;
+ 	err = 0;
+-	for (copy = 1; copy < sbi->fats; copy++) {
+-		sector_t backup_fat = sbi->fat_length * copy;
+-
+-		for (n = 0; n < nr_bhs; n++) {
+-			c_bh = sb_getblk(sb, backup_fat + bhs[n]->b_blocknr);
+-			if (!c_bh) {
+-				err = -ENOMEM;
+-				goto error;
++	for (n = 0; n < nr_bhs; n++) {
++		c_bh = sb_getblk(sb, backup_fat + bhs[n]->b_blocknr);
++		if (!c_bh) {
++			err = -ENOMEM;
++			goto error;
++		}
++		/* Avoid race with userspace read via bdev */
++		lock_buffer(c_bh);
++		memcpy(c_bh->b_data, bhs[n]->b_data, sb->s_blocksize);
++		set_buffer_uptodate(c_bh);
++		unlock_buffer(c_bh);
++		mmb_mark_buffer_dirty(c_bh,
++			&MSDOS_I(sbi->fat_inode)->i_metadata_bhs);
++		if (sb->s_flags & SB_SYNCHRONOUS) {
++			dirty[nr_dirty] = c_bh;
++			++nr_dirty;
++			if (nr_dirty == ARRAY_SIZE(dirty)) {
++				err = fat_sync_bhs(dirty, nr_dirty);
++				fat_brelse_array(dirty, nr_dirty);
++				nr_dirty = 0;
++				if (err)
++					goto error;
+ 			}
+-			/* Avoid race with userspace read via bdev */
+-			lock_buffer(c_bh);
+-			memcpy(c_bh->b_data, bhs[n]->b_data, sb->s_blocksize);
+-			set_buffer_uptodate(c_bh);
+-			unlock_buffer(c_bh);
+-			mmb_mark_buffer_dirty(c_bh,
+-				&MSDOS_I(sbi->fat_inode)->i_metadata_bhs);
+-			if (sb->s_flags & SB_SYNCHRONOUS)
+-				err = sync_dirty_buffer(c_bh);
++		} else {
+ 			brelse(c_bh);
+-			if (err)
+-				goto error;
+ 		}
+ 	}
 +
- DRM DRIVER FOR SAMSUNG DB7430 PANELS
- M:	Linus Walleij <linusw@kernel.org>
- S:	Maintained
-
+ error:
++	if (nr_dirty) {
++		int err2 = fat_sync_bhs(dirty, nr_dirty);
++		if (!err)
++			err = err2;
++		fat_brelse_array(dirty, nr_dirty);
++	}
++
+ 	return err;
+ }
+ 
++static int fat_mirror_bhs(struct super_block *sb, struct buffer_head **bhs,
++			  int nr_bhs)
++{
++	struct msdos_sb_info *sbi = MSDOS_SB(sb);
++	int copy;
++
++	for (copy = 1; copy < sbi->fats; copy++) {
++		int err = fat_mirror_one(sb, bhs, nr_bhs, copy);
++		if (err)
++			return err;
++	}
++
++	return 0;
++}
++
+ int fat_ent_write(struct inode *inode, struct fat_entry *fatent,
+ 		  int new, int wait)
+ {
+diff --git a/fs/fat/misc.c b/fs/fat/misc.c
+index 0d04228f916e..b6a9e2e122cd 100644
+--- a/fs/fat/misc.c
++++ b/fs/fat/misc.c
+@@ -365,3 +365,9 @@ int fat_sync_bhs(struct buffer_head **bhs, int nr_bhs)
+ 	}
+ 	return err;
+ }
++
++void fat_brelse_array(struct buffer_head *bhs[], int n)
++{
++	while (--n >= 0)
++		brelse(bhs[n]);
++}
 -- 
-2.56.0
-
+2.43.0
 
