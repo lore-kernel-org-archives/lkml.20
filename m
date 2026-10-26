@@ -1,95 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793021149;
-	b=TMZffBECzi6ZIv8wKlZ5WW/QuSgH07Gc+q8uBAWgK2Frel0uyICkLkas3gVbpOVJq0PP
-	 tnDpBj6UMR9uYV/MDfyymlxKaeo+gZRSK+9dPkc5Ll9zHnJlLRxY+gJa5VCvxdR/ICOB0
-	 oaB0gsKm6bziQK0F+Nhu0+uNCHfR8PwfSXdRxpg8ZqtuDVzcZ8W7rWw2Po2J9jjEeGV+C
-	 SssXhnEjeEsJwZY62tbyRfWOlPnYv9/ok1j3acPjfRS1b4Z1qRbq6D3pgO8E/3iMJw5jl
-	 lD4Y/rqzU/Wzx5aBsKtW6T6LW4JLv14ktU/ZM8T26e76WqL/ORCnEyeCKO4yDVodEMg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793021149;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=JTZ/P1YmJ6IZNJ6lk8Cg6Zigprwxb6S7rjKWG93e8pw=;
-	b=1NfO7M31l9+XDo6f6oWFLyMS0J/Bf8xqDqoPNobJdaPa2zA81IhAuGPa+bcItALYQ0WR
-	 ssV0lXL8hunGAKPvn0DiOWcl7RyLkRutDeGhV63rX08JFJLJlJQUeholfP2EbXkni4rfN
-	 koCe/VHQ8/TPxfGlCvb48LnUoecCA0d5GqgitNzzFtj6xVlK998j63ooIyo1FA/zAqXyT
-	 ZA6uSIQmauxVYeP6jt/bd0dCNzd9wt6ZvTxCfhptU7tf9UaGE5ox8s7YjP1Hju3SV5dOJ
-	 WKpYh63I8mIzP9MziqklhD7zzOvMjGQyyFjTL1A78ymgoCl1EowO9hpQeC12tWOYC/w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=TeC2FOPt;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.23
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793021184;
+	b=0BPRGY/iAPN0ov/kMZmdzAljkO9nplr9wF4xuLMhMQZTjUjAozOp7z7X48VD5nUs408B
+	 HRtwDmsz4OgvkWucZEt/h8RHZHzfm5/xq+FNk1P9Q63SrDbsVWVDPmAJgco2JMGAEhc0H
+	 4eryvRkyy+dH5MuP/WwXOsnkuenyuqH6cgVelkjJG7eJa3NlA90IXobcpMbmhg8V8dxCR
+	 /AdHgog5mj0sVy/uHY71+gtvg5Yu0jQo0z2mIYw/1r3YC7b7KMuNAd4YPZMWfR5Pa/RXb
+	 6fR8og+llCa+8XkVMviI9a376rPmhTkO7AapYBpc/rRcKZxWWSF8XwCe2kRBcJAe6JQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793021184;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 From:To:CC:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type:X-Originating-IP:X-ClientProxiedBy:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=J9m+00u04xahbA9yxQ6ajmHpQa/zXAaT/37BtYbFIGQ=;
+	b=ehxGOmosjovVN/xiLghnRK5mA1nVXOI/0u21irBS3bYhQsZ1ggSksSIVQBVNFp5y3ueQ
+	 wTT2nDGkgk7e0/yb/jm2QemMFwVmFHfHWZbBWlFS1e9GHdQ5NnJ6LoMlfAf7VMWAmwxCw
+	 /783PR1zBxTGIiy01l489j7bynfmsMgnIa3Qnt8zPUtmST8Puu5VT45i1mxMw5OGksvrB
+	 lPgw0YHbbYBN9CQ1c0C9PW32uv9j8O2rPTO3qi6/qgtXjvDQAEPRK1s46/Wcb6qMT/WUU
+	 UWRvp9A5+SDJt57Ixf8ZWYKXy1a61WVGBN02ccCnI5u0gi3OzHUKZ7aLM9cm9toC08Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=axis.com;
+	spf=pass smtp.mailfrom=axis.com;
+	dkim=pass header.d=axis.com header.i=@axis.com header.a=rsa-sha256 header.s=selector1 header.b=g5At5g+I;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.23
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013023.outbound.protection.outlook.com [52.101.72.23])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AB9D606A33F
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:25:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1AB9D606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17F1A606A31A;
+	Mon, 26 Oct 2026 13:26:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17F1A606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=TeC2FOPt
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a207b02a2cso19237935e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 06:25:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1793021147; x=1793625947; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=JTZ/P1YmJ6IZNJ6lk8Cg6Zigprwxb6S7rjKWG93e8pw=;
-        b=TeC2FOPteMhC84ln1XNPf2/uDi0Y1HNEWRFnSOT7TjP9dCtOt9flZwVcpmIH7osh2S
-         f4kq+T7b62JMHP9bVv58rt7+W8RN6vJjr4iPpVcodn4j+Xk1X5eBtPopddvTzpYIsxMK
-         3FNdwQjuoyg7XvmkqvAeADWLNLzjC0zbNgoNVN0+cfAwltOyftmC81rBukPkIweUTb4+
-         G58Jwu1rTaOAWIIl5paP0+PKvr6+i4oCqNSjkpI2Q+g1OyB8CE1k4Lfg2zM+K7BeIy/2
-         RRWUX450SDMx7t3w1AddmhUBy0E/491GGDHDYHDoW5vOcuWcMDODhYjAqqZKC0e5unWk
-         G7HA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793021147; x=1793625947;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JTZ/P1YmJ6IZNJ6lk8Cg6Zigprwxb6S7rjKWG93e8pw=;
-        b=bJn1xmO0/zgnXgWNT6u54SUkVY2caih2qz8Sd8bwj4f0RaNpdm4SOiJaxSVfRorpCY
-         W5V06gCDnlvkpWAtZj7COomAzb/V9Dy6AkivY2Ma1Etup5gKJL7XlDIpgfI00uwIsZPk
-         l20uozn3lsHiOcNhLcGWkd+7cozwtBqnAsQQh/g19hhasv5BqHEbMD7R8G6m8R9hsNsQ
-         bLlUul0hrIR6gfOkVSsRQqahY4/dIxPdS0L5OyywAEFA/Pa3QNk71cU/jBojbuvMJ14U
-         P2m4JGcoG5/xuSc1YX8NiY8ExmVi98hOLIzkKAr5ahDgeOBUB6WkqI2IUWgx1abkt4Ge
-         86DQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw+cSabeS8hx9mgHJ5Fpg7M5rD3WrfvMVrlB1JhVtLAlxxmVZG9ASQYyBKaS1t16RXnUGm0P9b9AJLSRaM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ3N2QQm25U/dzwAZHgCbOIqLjvzm73bCXt/IwuDhqB9YSLNcuK
-	La/khl2bpiYDUZ+2aDBe+62SejPGJmNl6LO2Sy+G4vjg9y/1KoKAvGPEeK5jN381Vt8=
-X-Gm-Gg: AYBFou2mjeZmJYk4cV34+hWusiHEQZVyHwHhNswMg7SS83WNmp2hDx50j8HzeZHbaeD
-	/pyF98oSVs7C3vwG8w9exgfqufgpDzWUdF5ME8qNwiEDCMV1CTbsphqSwT2TrLFtI9qF3F/UAnR
-	pMlE1RZcRUjdKzgEfoZqK0SnyrMwUcOqwiZ8Rf9LsWbiCQ834CiOum0SWJT7ILxe33l6s6LAVSm
-	lfuGRXbi3w6cncyfuruLd3FPVaRfd2pa2JW4P7M40ZxNgGMCNVi4N++nO5XFAxsYkOJsw149KM9
-	TNbdBlVbqAfRmaTdEr3Z0jDQ48fRxtgAv9TWjyHCnB1TbWyOFvjJTsW2DO7mWUcMc0zx0cenBya
-	bRhmyAEXxYSU9NImt/9fkibTB7it6S8SJEdtmNeiTB6rQzIBvyjCpMr/Kqxvj1D/LHYafC2oikW
-	nOJ7tEyEELr3xQ34XCom+3Os2pdpDtfaheyke1rIkTP7ChYqzYKeEjxXfUNfpfy8d2qpgDbnmSW
-	/Fan0h4IJNidPDZAqggcAiCVo+ELOzYF04IY3k0WQTrFVX6aqC+pmc0KtKne2wzt1u6hA==
-X-Received: by 2002:a05:600c:a306:b0:4a4:fc8c:cfd9 with SMTP id 5b1f17b1804b1-4a4fc8cd1edmr72049405e9.25.1793021147467;
-        Mon, 26 Oct 2026 06:25:47 -0700 (PDT)
-Received: from localhost (109-81-20-177.rct.o2.cz. [109.81.20.177])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a30e11bsm232464125e9.1.2026.10.26.06.25.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 06:25:47 -0700 (PDT)
-Date: Mon, 26 Oct 2026 14:25:44 +0100
-From: Michal Hocko <mhocko@suse.com>
-To: "T.J. Mercier" <tjmercier@google.com>
-Cc: hannes@cmpxchg.org, roman.gushchin@linux.dev, shakeel.butt@linux.dev,
-	muchun.song@linux.dev, zhengqi.arch@bytedance.com,
-	akpm@linux-foundation.org, cgroups@vger.kernel.org,
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] mm: memcontrol: fix NULL pointer deref in
- high_work_func() on dying memcg
-Message-ID: <at9U2HvyUP-iYOCt@tiehlicka>
-References: <20261023222313.3979455-1-tjmercier@google.com>
+	dkim=pass (1024-bit key, unprotected) header.d=axis.com header.i=@axis.com header.a=rsa-sha256 header.s=selector1 header.b=g5At5g+I
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=OFNbjm2wM4bniNf64/sMLtifhQf8k0JLV5wmoc3+7XaVYEbloabOQeJM5KFPaqKa7w214Rdq+pFL8c79G1A3Exr5MbxY8KCfSj6t+DaBxIY9+sksXE1/TS9ElfnVZPL5VUgh2XhNDQe+qKRuDOSTlhIJlofbnasu58gwesTKyWix1K0zhW53XNochbrscFLuemjdEBHtDu6+hhPGb3jioIQ0lYfNc8UEThQZ2cI87IAoHQGkkKXy8URJRmRKrMI513D7njbPFM15tRkDE9xS/DCSmu5SamZvEjXwo1QfsTRWVXbBUxUfCI1kAr5Xh5MFyjW+K+nK8yke7lMdOemqtw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=J9m+00u04xahbA9yxQ6ajmHpQa/zXAaT/37BtYbFIGQ=;
+ b=bCplHahASaYDSUrACTgs08zqJcBIWzLgE4el5u/a5btxitB4en+UrhX6mhRhNhkq+vYPxSgRQhWqjxNHwM1iJsrgo/NgYWuDJUXGlJqzFPR9Hn+J9NCpbM9X0g0y/XiogLrmhIX486R6g8IDqY9v2aGXsYyZfVUBf2Bfqgp8HZt6/JDWeJIw5VZjXSY6t/ldxi+PW3ShrmsEp6zUJ83u97zEap2+71nPKwm9xvILxHbsSMbDiZnwysyA0y6WwdN4GcdWLOGae5sDzv3vShtHX5vxL/Q0i/i3FT7MIjGShVSi1SsDDs3pna+xhFlw7TNlT+F7HjOS0+jlIXgTCAm+rQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 195.60.68.100) smtp.rcpttodomain=kernel.org smtp.mailfrom=axis.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=axis.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axis.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=J9m+00u04xahbA9yxQ6ajmHpQa/zXAaT/37BtYbFIGQ=;
+ b=g5At5g+IKvLkjX16cG02efjyMQwXCz0fUAFHonrLcbUe53qmJQB88Ld3Yx2DxdT0yZeaZoZvWwC94kl8mcr8Kia4RmuPUmo7FLNKF1iwE6RJuzMOTUysG56reXXChF8GdThbboc62caYWIXYhbiHrMFQHBd60ZRQy8Gis0ihmdM=
+Received: from DU2P250CA0003.EURP250.PROD.OUTLOOK.COM (2603:10a6:10:231::8) by
+ PA6PR02MB10522.eurprd02.prod.outlook.com (2603:10a6:102:3cd::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
+ 2026 13:26:16 +0000
+Received: from DU2PEPF00028CFF.eurprd03.prod.outlook.com
+ (2603:10a6:10:231:cafe::91) by DU2P250CA0003.outlook.office365.com
+ (2603:10a6:10:231::8) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.22 via Frontend Transport; Mon,
+ 26 Oct 2026 13:26:16 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 195.60.68.100) smtp.mailfrom=axis.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=axis.com;
+Received-SPF: Pass (protection.outlook.com: domain of axis.com designates
+ 195.60.68.100 as permitted sender) receiver=protection.outlook.com;
+ client-ip=195.60.68.100; helo=mail.axis.com; pr=C
+Received: from mail.axis.com (195.60.68.100) by
+ DU2PEPF00028CFF.mail.protection.outlook.com (10.167.242.183) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.546.15 via Frontend Transport; Mon, 26 Oct 2026 13:26:16 +0000
+Received: from pc67007-2609 (10.4.0.13) by se-mail11w.axis.com (10.20.40.11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.39; Mon, 26 Oct
+ 2026 14:26:15 +0100
+From: Waqar Hameed <waqar.hameed@axis.com>
+To: Randy Dunlap <rdunlap@infradead.org>
+CC: Sebastian Reichel <sre@kernel.org>, <kernel@axis.com>,
+	<linux-pm@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Mauro Carvalho
+ Chehab" <mchehab+huawei@kernel.org>
+Subject: Re: [PATCH 1/7] docs: ABI: power: rt9471: Fix invalid inline emphasis
+In-Reply-To: <004fbff3-7fbc-440c-9c44-44585795521c@infradead.org>
+References: <cover.1792965060.git.waqar.hameed@axis.com>
+	<ba11515d8e0dc45ad90f162302bcd1b20db9bd92.1792965060.git.waqar.hameed@axis.com>
+	<004fbff3-7fbc-440c-9c44-44585795521c@infradead.org>
+Date: Mon, 26 Oct 2026 14:26:08 +0100
+Message-ID: <pndse1svbin.a.out@axis.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,47 +108,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261023222313.3979455-1-tjmercier@google.com>
+Content-Type: text/plain
+X-ClientProxiedBy: se-mail11w.axis.com (10.20.40.11) To se-mail11w.axis.com
+ (10.20.40.11)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PEPF00028CFF:EE_|PA6PR02MB10522:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7555ef50-b983-4d54-3dea-08df3364b692
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|36860700016|82310400026|1800799024|18002099003|22082099003|3023799007|56012099006|11063799006|4143699003|261021121427099003|10067099003|261009223027099003|261022075727099003|261022105027099003|261021123027099003;
+X-Microsoft-Antispam-Message-Info:
+	8xFdgjcPMHf6Hz68ss6m2wd5OCdeUODhxm8MnWSXFQWoZippV+F/wJihKo+s40IhqH7mEDHTtyoE+WtqhB8mG+iP/7tA96nqurNmBs7hiW66mPma03OeHuR3ChpGHTKTGaJGArW19vLLEv3dMVYsHNadVo2bRMnvxdR2SQLPLfKDrq88CJe/h/Cr4V0XcfEyFxF2mZgdK0JJbtyPx6I6AeqM+W56HVDBx0lLN2kAlBREr2KphtpmH6Pu9DwW/Jxp0HS0EgpuQZ/iaTNSPpYOKvwEOhiBD7DF6Cfzh3qqaZStf/RKyZZ2cMHUj0sLINkoTUCX4is8AJSb08szcp30EJPjawD/mgXOSHH6OHISJDOQwKxjKKglnWGvFyx2fJC9OIx0EFlO1cSNQu3x3v23/0C7mACXq6gGuKP1maByV5ZRLv/MahaQquuyU6I78CJLmZQkgUV0hQh4sTQ5n91xvX6XQI8tBsGVD4qiYZOWWiygCyUIzLl3+zleMUWnkTtiszTF0fmD4V/MDalQgroTQfnlzfleGEXZMG/7EgOs5Ylj4G1V5DbYM1AGVdy6sbfxVeFjfXpx7QsLyJy1e7aJFaNIDj8ekBWkzTGohpNv/CYIP5u9mciQ/vpQsQJy/EZ14rRo+hZzY64EkRYVNekr0w==
+X-Forefront-Antispam-Report:
+	CIP:195.60.68.100;CTRY:SE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.axis.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(36860700016)(82310400026)(1800799024)(18002099003)(22082099003)(3023799007)(56012099006)(11063799006)(4143699003)(261021121427099003)(10067099003)(261009223027099003)(261022075727099003)(261022105027099003)(261021123027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	y/zKWrrvXMPv54fisGR27FMbLUxcnzQ+x+HI76mLZEGB21sT5hUw66KsXG3u5enA1X39OcuIcuQeIv4st8z2WRAV08yUntrZQ3ILpFZyNfVor02fHH0urMBOK5LsIY7g4lRqHTD2hNLkkD8fDcGhkgvfw/JpoqTI+VrStcrWniXhMy9U1/ZgWFx6dSEpiUtgPnurL3OYXswOXXbX/IB9UYa2oHIgTM5DMwj9eJaupXjPzFprNUB77kwOcGyV3oPB6tbybvpp1otjat3o08D2JDr7TxznJGjUugZqmQRBb6S7EWYDVplccgMNrRQmzWjkcf4rzWQAbcN2yA8WV5FuI72VHDrLzmHBp/MaNxvcYHVsmwnmLmqvIyeXnedHN5qP3pkySs8hlxqnkmERn8XdsZSFlBvaW4YvTbFOcjMWoZ1yeyBe5XZ+SAAkW2XVGqo7
+X-OriginatorOrg: axis.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 13:26:16.2151
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7555ef50-b983-4d54-3dea-08df3364b692
+X-MS-Exchange-CrossTenant-Id: 78703d3c-b907-432f-b066-88f7af9ca3af
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=78703d3c-b907-432f-b066-88f7af9ca3af;Ip=[195.60.68.100];Helo=[mail.axis.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DU2PEPF00028CFF.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA6PR02MB10522
 
-On Fri 23-10-26 15:23:13, T.J. Mercier wrote:
-[...]
-> ---
->  mm/memcontrol.c | 5 +++++
->  1 file changed, 5 insertions(+)
-> 
-> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-> index a05d9a8baa1b..84f4a8fd4d16 100644
-> --- a/mm/memcontrol.c
-> +++ b/mm/memcontrol.c
-> @@ -2457,7 +2457,10 @@ static void high_work_func(struct work_struct *work)
->  	struct mem_cgroup *memcg;
->  
->  	memcg = container_of(work, struct mem_cgroup, high_work);
-> +	if (!css_tryget_online(&memcg->css))
-> +		return;
->  	reclaim_high(memcg, MEMCG_CHARGE_BATCH, GFP_KERNEL);
-> +	css_put(&memcg->css);
->  }
+On Sun, Oct 25, 2026 at 19:39 -0700 Randy Dunlap <rdunlap@infradead.org> wrote:
 
-OK.
-  
->  static void high_irq_work_func(struct irq_work *work)
-> @@ -4463,6 +4466,8 @@ static void mem_cgroup_css_offline(struct cgroup_subsys_state *css)
->  
->  	page_counter_set_min(&memcg->memory, 0);
->  	page_counter_set_low(&memcg->memory, 0);
-> +	page_counter_set_high(&memcg->memory, PAGE_COUNTER_MAX);
-> +	page_counter_set_high(&memcg->swap, PAGE_COUNTER_MAX);
->  
->  	zswap_memcg_offline_cleanup(memcg);
+> On 10/25/26 3:05 PM, Waqar Hameed wrote:
+>> `docutils` warns:
+>>
+>>   Documentation/ABI/testing/sysfs-class-power-rt9471:1: (WARNING/2) Inline emphasis start-string without end-string.
+>>   Documentation/ABI/testing/sysfs-class-power-rt9471:20: (WARNING/2) Inline
+>> emphasis start-string without end-string.
+>>
+>> Fix this by escaping the `*`.
+>
+> I'm still seeing this issue after the patch is applied (same for patch 4/7).
+> Maybe we are fighting a docutils your-version vs. my-version problem
+> or just a moving target.
 
-Should we simply disable_work_sync when the memcg is going to be
-released instead (mem_cgroup_css_released)? That should both prevent
-the run reclaim_high during the memcg shut down and and also avoid
-plaing with limits to work around.
+Hm, that's weird. What output do you actually get? The '*' is escaped
+now, so it shouldn't complain...
 
--- 
-Michal Hocko
-SUSE Labs
+>
+> $ docutils --version
+> docutils-3.13 (Docutils 0.23, Python 3.13.16, on linux)
+
+I have
+
+  docutils (Docutils 0.20.1, Python 3.12.3, on linux)
+
+>
+>> Reported-by: kernel test robot <lkp@intel.com>
+>> Closes: https://lore.kernel.org/oe-kbuild-all/202609110722.GAZVme6v-lkp@intel.com/
+>> Signed-off-by: Waqar Hameed <waqar.hameed@axis.com>
+>> ---
+>>  Documentation/ABI/testing/sysfs-class-power-rt9471 | 4 ++--
+>>  1 file changed, 2 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/Documentation/ABI/testing/sysfs-class-power-rt9471 b/Documentation/ABI/testing/sysfs-class-power-rt9471
+>> index 0a390ee5ac21c..04a771cd23512 100644
+>> --- a/Documentation/ABI/testing/sysfs-class-power-rt9471
+>> +++ b/Documentation/ABI/testing/sysfs-class-power-rt9471
+>> @@ -1,4 +1,4 @@
+>> -What:                /sys/class/power_supply/rt9471-*/sysoff_enable
+>> +What:                /sys/class/power_supply/rt9471-\*/sysoff_enable
+>>  Date:                Feb 2023
+>>  KernelVersion:       6.3
+>>  Contact:     ChiYuan Huang <cy_huang@richtek.com>
+>> @@ -16,7 +16,7 @@ Description:
+>>               - 1: enabled
+>>               - 0: disabled
+>>
+>> -What:                /sys/class/power_supply/rt9471-*/port_detect_enable
+>> +What:                /sys/class/power_supply/rt9471-\*/port_detect_enable
+>>  Date:                Feb 2023
+>>  KernelVersion:       6.3
+>>  Contact:     ChiYuan Huang <cy_huang@richtek.com>
