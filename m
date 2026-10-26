@@ -1,111 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793005266;
-	b=Fgo4/vu58I9WVEUePZceIIgcJ+oe0cFUH3dH9Gf3ORlFqm7vIpRJrB05DUFOhPyMX25G
-	 NMWLinNCWuIpyBr+yd/iH64IriEZIJnuS2GOoyH5NXfgAu3Tf8Esn9ilHLtPkjbrKXvVB
-	 OVItuIPeM5Wlrcdg1AdLsZOTJjRdpuADJqecjc+OWUPJQsKjkU8UwpbyeNbavRogyzZo3
-	 68/OgyuvQej3+xbm3aajWB3keb8qSsXSpovBCcr+Z1QCrR9V/pUtnmiNf6PNqCOznz0oq
-	 uXfJSHFd4o/Q9aKZUKu5DJN9jxpMllVPlLsfDBU9lvO5X9p47cHNXw4SUaq8IdTHDkA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793005266;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.208.48
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793005367;
+	b=x7EhnfRNSAy03/DhxwSBswEumGIKC9mPW5dEcHDrshlePbCjUUlw/MIUd6GgNKSCVy80
+	 9lX3RI+DyIVExx7+UJvHbU6M1sVo+lxILD69tFyR1bnTbWWBcHBr/oRsXh+gP4YDVTDzR
+	 pYYa1/2MYvMu7rf1txueXcz/NAZ2OX/QU/ijMp335AWY7U6o7nJH4QvTjFJCN/CBFwrYA
+	 1E++Rsz3ysr+Hf2cKDHFziu/G5SEcE2USGbEKYyTwTBF2Yt8evLb1OlUVe/OmYQZw1Cka
+	 1N8bdRk6MP7xBNs8jZHB6jZEBrX24fs531bGAmowbIMFoRcCiBccNzshCGFocxebh2Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793005367;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:From:To:Cc:Subject:In-Reply-To:References:Date:
-	 Message-ID:MIME-Version:Content-Type;
-	bh=BIokrW6dBSe7+DSoMXOn3ohQYcJwX5c+NY7lmM9Zk94=;
-	b=NBWrQA/wc06pLxzkMiu+aCJEzBpsUgv/EmDRca3/4bB2j269N9leMd+MOPUwVmpZJBj8
-	 ndJYl7TR3LSUR/QpRWcQzaaDekwrS3YuqT/5NtxecxOxAB7DiBiyuSA79F30/nBWnc6gp
-	 jE/ijtTBECBDuG6mjDYChk7Z4Fkf7gCEUMOFjahYF7P4zmuY6dSMAYT+1VSPTd0/aAMAa
-	 mkzk4DfZ8qErka51HUMHMm1dgduxVjU0fmynVAcxHfN3VFatnd46B/+qsO+uNN1As6MxE
-	 zmi/dcgz4MnHllVoiqpFsubcKgVUIp8D/ZWLGfFCvRafap+TVjy+jpDsLufN4d8APXw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=ZevZ2URH;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=ogcP2P5a;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=g4ANt8QiPje/vd+XmOCfwQ8O8188yDlc5I5mBp2AsQY=;
+	b=0v8xrD/C5TurMqxLbPgcv9ETH8gfgIk1nFRCGDCaJo2QK+i2TbrRKn0krg2KwwwXkwkz
+	 PmjBbBHS2J1n3yI/NMyznQ91FGgZxvoGWv24pqe8bdsrpK+4sU0G5PnzUXW++G8QBckGk
+	 HY6WXSbVGnpdUK39G8DFDE+EYow4q9mqPOZ58xKAYETyZD4f+9GneXrbIcHfeYPdtAE/C
+	 FIfVsqwbxYqR2ZQ6usnG3JgXqGvyHqqvbraBkK0lo2XfsJ4t4E8gQt+0eOiWddGoPAfJq
+	 bBZ17aPzPnXLZJI4OvKSkXTNQz2a0V+wc1qGL5H890bXLRnpE3zzukM8d9tKBfTrqtg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qLZsAbGj;
+	arc=fail smtp.remote-ip=209.85.208.48
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68474606A31B
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:01:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68474606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91B58606A31E
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:02:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91B58606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=ZevZ2URH;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=ogcP2P5a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793005265;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=BIokrW6dBSe7+DSoMXOn3ohQYcJwX5c+NY7lmM9Zk94=;
-	b=ZevZ2URHWzeRLKdH6xX2QsIUL7Fbn7EdFVVlNnZAWVFR3CXc93WpIubDijrsMSZPFhLQaB
-	MNnOw3UWyyWLcqs2Yd7RukPyNZPuLVU61uNa8jBKH/svyLjKB11LI688rnkeoqMvu9B9/4
-	gLRfF24rzgi85FCVlxwemqAlY0DoLEE=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-428-6yR2cZG3Mn6ggJB5bn6K4w-1; Mon, 26 Oct 2026 05:01:03 -0400
-X-MC-Unique: 6yR2cZG3Mn6ggJB5bn6K4w-1
-X-Mimecast-MFC-AGG-ID: 6yR2cZG3Mn6ggJB5bn6K4w_1793005262
-Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-48af4046a3bso2874010f8f.2
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:01:03 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qLZsAbGj
+Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6b408f2d936so3922254a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:02:46 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793005365; cv=none;
+        d=google.com; s=arc-20260327;
+        b=QYVaWKdOuYikc8mjLuN58JFPRlZyD+Qddf7/vOtw9QLShXqKjUUEDaJGaXqoTdo+Zy
+         MmpnNXXP+aFX8r0Fng11igbLMqazxbVUFPge32OWpd8OpC1/pTdzKMRn/sAKoFZrf/og
+         OJAqVL4rTOzdpRErx97GDKcPUNaQ3jfHULnX7pbZcrW2ZiKzVUt7k9pWpLTFptKJ78xA
+         WSnvN0eVzbiDy8wYGJhWQe+6An1YcKGkCEgQ7i8lWrc0J4XZRPQ7mmYFeQl5aeOZDigU
+         49Ta3Cyhqm+H+Z0iR9QqquSGj1T5fVDX0y633/kfotW2WKDziXKJJcdgsjwaDpqTzKoW
+         8ELQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=g4ANt8QiPje/vd+XmOCfwQ8O8188yDlc5I5mBp2AsQY=;
+        fh=Uy1sWpKVGdO96KYSxUpdUXxmi5S/6iJnOfpdPKte+CE=;
+        b=Yk2nHsCrsW2GIOfIRdpAdUA80zljSnyeYI/Nz8mMZwjil77iDBFzukjn880luMBmCE
+         ZyiDMsZXEVAIzpYW6gl0vQkgS+qQZcR8mtLIfHTkZbwvPL1Q/F1yxm2r9YduYGkNHb70
+         93tyagB7VWO7vAW8a6/KdqH1i8CGJjE/CHtcG2FlkrAgKibYDBdx1BoOrfa/SmkOwKta
+         r84XlG1JHVyWgCkL6eT5d5M6ndDqcxc43LQ3sV5mNLiqFGZWJQnHG+Ch0Lr9+VVbleyq
+         aFTP7NW7Yj8KSthKXPPKg8hwg9y5IIPqUV+p+Ufd/KG7j1NBdg52IrK0DVSGfucTZ9Gt
+         zCVQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793005262; x=1793610062; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BIokrW6dBSe7+DSoMXOn3ohQYcJwX5c+NY7lmM9Zk94=;
-        b=ogcP2P5aqyPujJBU2hJgK3UilGfbNv+9mRXw9pUmDl1VN2LZ7ty0IXMevGRWCXCPVh
-         mjvnV1BBdSG0bXq2u2HxbKxOdRKs/B4EAcOuLwPGCptAJCLbW9fKAziyLeyum7nquE2o
-         yziEmiORpgvrGn+EZVzXFtHoARlvpKpY+YzZGJq0Sw1oYwQbMsrnzPj2qwK3dUNbh+t4
-         R5naHS6ryLgxYa6r9dS39p8OXRkkpkXGIL0aXiBNr+kPK3sfVqHh1J+o0W1J9khio/TL
-         vF9kNPbY5Fcr0eLry2VpGA6ohI+SmxHqnKvcSaDF/AwGS8tBQBvQoYgLPTHUR3+0CaRy
-         cAmg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793005262; x=1793610062;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1793005365; x=1793610165; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=BIokrW6dBSe7+DSoMXOn3ohQYcJwX5c+NY7lmM9Zk94=;
-        b=n4LM0KMOSeM0wDRW6xj4G/kCb+CqlQUQx7VguUdrnH8O3Wh+nVqql3Wx1MUGafWOFy
-         JYrhXrZyCirTx+p4o4H5TKiqioxtdg7+PdIrd+6DpWilO3cKW7ABmBQUPUml/gFORPw8
-         7mbl4bBB6P2ki+z4hjG5LMdlQkdo7bke1rCh8do70Fe6ezAuY/zy1C3LMxO1NJx8jtOO
-         8PDeI60gt7N54PMgLOSzjoyyPw8iFIJe25i2Cy7pegSGyZxRZTrm4/PK+Fd30UsfDHtc
-         3sS5r+VLUF62/Ipgafd977GX5eRlIsahU0Wkqmx+ZiP8k/eZ+IENA2N+M9b7vLFSc3Rz
-         G2RA==
-X-Forwarded-Encrypted: i=1; AKwUvBwPWRDS7piyMcswbqdTcT+6lSeYJ106fGGB4QLyXByA2mpCeOp2sNRl5+/LNq3DF9M3QxjS9vXS7E3UgR4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKdsoU3L1M4Zq4JWCnRfEQOh9QdA/UmZR4NUuKB8yLAdXZGeAS8
-	sokJEaG/+Q0JObDOexnDRQdXNj6peTCqb/BGYdmoobYMGP3xNS1JjIrZ3umJY94PA0f/KKY275A
-	dzTQcffwz0bu/M02oV1OCPcCKC7lU9zuwGWK1ROYkbBQHLlKNhBkvrq5/psxsxkPS1su9cPP6Tw
-	==
-X-Gm-Gg: AYBFou0EqJpHTy2RI5Rmo5nQo7tUjgP72c98wfx3etlSsI8G/HJWf93Kigq4P/XnvjQ
-	pEKBOE6lnrHICFUVKWXdhzi5UsXQe60Q0tItvcD1PXOfUGBhd63GynvcRPDZ01TbpctErdirIRU
-	VvPoy+m/9oq1ha36NzL7GfqEDRNA38bOZYTysFP0AkhdU7uLFaq8qw7o48HE4Avt8qNYjDe7sz8
-	giJl9bpPAwaQR79znkgMC+kUiRFgX82XoLYBjBu5rqlobmatFgxJaj3S8oBucRl0N/fSdZtXLC1
-	9oILUo0FzexdAjUScwe7xWIAs2X0FVdm/vx9BEeiNEcsQ2lotc16cjsRa/UWDWFUeQLq2N5ZUIs
-	/eD5bY58Fln8rHHIUI/3tRgsBkDA=
-X-Received: by 2002:a05:6000:4011:b0:48e:37e:470f with SMTP id ffacd0b85a97d-48e3ebb84bcmr13704585f8f.51.1793005262091;
-        Mon, 26 Oct 2026 02:01:02 -0700 (PDT)
-X-Received: by 2002:a05:6000:4011:b0:48e:37e:470f with SMTP id ffacd0b85a97d-48e3ebb84bcmr13704486f8f.51.1793005261390;
-        Mon, 26 Oct 2026 02:01:01 -0700 (PDT)
-Received: from vkuznets-thinkpadx1carbongen12.rmtcz.csb (g3.ign.cz. [91.219.240.17])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebd4bc5sm14925277f8f.34.2026.10.26.02.01.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 02:01:00 -0700 (PDT)
-From: Vitaly Kuznetsov <vkuznets@redhat.com>
-To: Amirmohammad Eftekhar <amirmohammad.eftekhar@cispa.de>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, seanjc@google.com,
- pbonzini@redhat.com
-Subject: Re: [PATCH] KVM: VMX: Add array_index_nospec() to evmcs_field_offset()
-In-Reply-To: <20261017093016.32348-3-amirmohammad.eftekhar@cispa.de>
-References: <20261017093016.32348-3-amirmohammad.eftekhar@cispa.de>
-Date: Mon, 26 Oct 2026 10:00:59 +0100
-Message-ID: <kuph5i8x2d0.fsf@vkuznets-thinkpadx1carbongen12.rmtcz.csb>
+        bh=g4ANt8QiPje/vd+XmOCfwQ8O8188yDlc5I5mBp2AsQY=;
+        b=qLZsAbGjyhOdJYoX4EsSnYS4ZxHYKYOA5sWs+jPhLE8FVmdXf2M5MlK6AoPKeVw0EC
+         IFKRqq3vpCOpcybm9W8p1utbSK78D+GC7CKCDRA7EzPslPZda9G4Hx+aUNowG5n9m5HH
+         Q7zI0oz7lBoS+j8xPojdDeBhv5h4sNXUM2hnlQVTcSFrGFS9L4vZscL1pUk5xM4TGx+Q
+         IshB5L7JTrlqlJsEkQ3vmOcc3EmCW2eFVJwkM9CUTM7ldURZC0zw8XuiLgqPiRLSt9P2
+         GxnWMgavOQuFtwmggQY/pXnr3BrFQ+IyKQZf1tTCSMvUOPrN/ZKbUxJ70XDEAIaa+era
+         wW8w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793005365; x=1793610165;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=g4ANt8QiPje/vd+XmOCfwQ8O8188yDlc5I5mBp2AsQY=;
+        b=qxIIxbSFPB7e267t/o5WCfKnllo4IUUt46TOjKz0Wy+2o9EZSVRp4M5b+tH+b73fI3
+         +p9PcEBT6LiLID0oN0hbXb8RDoZ0D/Gb4ARXuZeUhNND4h7jOrcRGlerqBVcwZyxa3TD
+         Rou38ewH6b38JcJzbCIWmkADRFEKzOp/+f/EPgGx4DBOBe6MFc2JnBQ7HSGkD35wJ5Ht
+         IaaIrX+LitpMvx6T3GdrHAd2rVs1q4eNMCkl+0NfFu2nRfWZCN45IlHDaVLv7tmgjsUb
+         b1niam/v5Vd8OQeCABFUZWH17C639e6EpGBnAWdR3TsEtBEcA1iJUNP4emaCZFnt/NXW
+         iF6w==
+X-Forwarded-Encrypted: i=1; AKwUvBxoeHa1FQfMSnV09+hRJR6rh7il+w9q038nTv17o2IvStmVR6z7sLDuCCEmjywmSU9kbaOJNR0HPPVWIEg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJBwqq6fPw3ndNd2fGpTOsGX/6DPrkaRWDolPubmbmgc/lkp7QM
+	llT1WybFTaSMMPaZCRl9IofFrq+4FF6WM6dhVbrrtV7ZallFVnoTTOOnUf7NoD5rsPkL1vPAb9B
+	NwAnwxt2bLKix4N2uKXjmFrdeUPd4aA0=
+X-Gm-Gg: AYBFou0YbuVR8OezLqdEf+U8O3WWr5MtoEufBE4czboc5VWrNF/R9nylUyR//uspGuB
+	ZrfTJ1oO3oSedgVyAB1OMXiyYwiNQC/PbvGRziiHbY1DzvUFxlm0Y60NQ1i8ScFfAUZKVsWhpSr
+	EzxFZWn//ZGA71C2Ad8CEzPfu+JSUzWgzncZxUSlRkTCciN3diz984tiWr1O9F2AEh1gJ3+YUP3
+	vEksiWHQ3bbE+f88SWhrl7Q0iXoLbbf1HoDw8gBcH0JcKOyNsf3jyp5fdIYEZG2KGyWQ7164IYl
+	ia3RYFUr49e4HbjeCmEzpEXiE6hQPjZ/a5rBGtlkzNRQC5hZxUuC4/O8hE7CnvDilJUCg99ZXC8
+	SWXC6QpMIRmToywqIqcDtbLD0Ryq33I7zbKuRMjDdhHKzGyvl6YN8qg4QLju42U7jorAb2g==
+X-Received: by 2002:a05:6402:4410:b0:6b4:203:a182 with SMTP id
+ 4fb4d7f45d1cf-6b442a89b98mr8306001a12.3.1793005363531; Mon, 26 Oct 2026
+ 02:02:43 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,73 +104,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+References: <20261026015738.46230-1-dennylin0707@gmail.com>
+In-Reply-To: <20261026015738.46230-1-dennylin0707@gmail.com>
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Mon, 26 Oct 2026 11:02:31 +0200
+X-Gm-Features: AclHuK8o2w3ue0fEsBYRmit5mrje2LPX_3oSwwLStLIHIXFr91Z3Gm5NRG4zIpo
+Message-ID: <CAOQ4uxhxwOw4LNi6NV1FZzSePHZ4_SEg5QikvoH-L7GcKrkoPw@mail.gmail.com>
+Subject: Re: [PATCH] fs: skip copy_file_range write limits when there is no data
+To: Hungyu Lin <dennylin0707@gmail.com>
+Cc: brauner@kernel.org, viro@zeniv.linux.org.uk, jack@suse.cz, 
+	djwong@kernel.org, dchinner@redhat.com, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Amirmohammad Eftekhar <amirmohammad.eftekhar@cispa.de> writes:
-
-> evmcs_field_offset() bounds-checks the guest-supplied field index against
-> nr_evmcs_1_fields and then indexes vmcs_field_to_evmcs_1[] without an
-> array_index_nospec() clamp, unlike its vmcs12 counterpart
-> get_vmcs12_field_offset().  An enlightened VMREAD/VMWRITE from the guest
-> can therefore speculatively read out of bounds of vmcs_field_to_evmcs_1[]
-> past the bound check (Spectre v1).
-
-I think your concern is valid but the changelog requires massaging.
-
-"enlightened VMREAD/VMWRITE" is basically the guest doing just memory
-read/write and we can't do much about it. These reads/writes don't trap
-to KVM. What the guest can actually do, is try executing 'normal'
-VMREAD/VMWRITE instructions.
-
-Note, Hyper-V TLFS states that
-
-"Any VMREAD or VMWRITE instructions while an enlightened VMCS is active
-is unsupported and can result in unexpected behavior."
-
-and our initial implementation was completely forbidding
-both. Unfortunately, it turned out that Windows itself does not comply
-and does occasional VMREADs, see 6cbbaab60ff3 ("KVM: nVMX: Allow VMREAD
-when Enlightened VMCS is in use"). I think you need to add corresponding
-Fixes: tag.
-
-My understanding is that VMWRITEs are still completely forbidden while
-eVMCS is active. So I think you need to say something like
-
-"""
-Regular VMREAD instruction is allowed when eVMCS is active since
-6cbbaab60ff3 ("KVM: nVMX: Allow VMREAD when Enlightened VMCS is in use")
-but unlike get_vmcs12_field_offset() evmcs_field_offset() does not clamp
-the index and thus the guest may be able to speculatively access
-hypervisor's memory.
-"""
-Note, 'offset' is short and thus the exposure is somewhat limited.
-
-Other pathes using evmcs_field_offset() should not be under the direct
-guest control but array_index_nospec() should not hurt.
-
+On Mon, Oct 26, 2026 at 3:58=E2=80=AFAM Hungyu Lin <dennylin0707@gmail.com>=
+ wrote:
 >
-> Clamp the index with array_index_nospec(), mirroring
-> get_vmcs12_field_offset().
+> generic_copy_file_checks() reduces count to zero for a source offset at
+> or beyond EOF, but still checks the destination write limits. If pos_out
+> is at RLIMIT_FSIZE, this sends SIGXFSZ and returns -EFBIG even though
+> there is no data to write.
 >
-> Signed-off-by: Amirmohammad Eftekhar <amirmohammad.eftekhar@cispa.de>
+> For example, GNU cat copying a 1024-byte regular file to another regular
+> file with RLIMIT_FSIZE=3D1024 copies all bytes and is then killed by its
+> next copy_file_range() call at EOF. A zero-length request can fail in
+> the same way.
+>
+> Check write limits only when count is nonzero, as the ordinary write
+> checks already do. Keep the other copy validation in place.
+>
+> Fixes: 96e6e8f4a68d ("vfs: add missing checks to copy_file_range")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+
+Thanks for the fix!
+
+Reviewed-by: Amir Goldstein <amir73il@gmail.com>
+
 > ---
->  arch/x86/kvm/vmx/hyperv_evmcs.h | 2 ++
->  1 file changed, 2 insertions(+)
+>  fs/read_write.c | 8 +++++---
+>  1 file changed, 5 insertions(+), 3 deletions(-)
 >
-> diff --git a/arch/x86/kvm/vmx/hyperv_evmcs.h b/arch/x86/kvm/vmx/hyperv_evmcs.h
-> index bc08fe405..052b62b8e 100644
-> --- a/arch/x86/kvm/vmx/hyperv_evmcs.h
-> +++ b/arch/x86/kvm/vmx/hyperv_evmcs.h
-> @@ -136,6 +136,8 @@ static __always_inline int evmcs_field_offset(unsigned long field,
->  	if (unlikely(index >= nr_evmcs_1_fields))
->  		return -ENOENT;
->  
-> +	index = array_index_nospec(index, nr_evmcs_1_fields);
-> +
->  	evmcs_field = &vmcs_field_to_evmcs_1[index];
->  
->  	/*
-
--- 
-Vitaly
-
+> diff --git a/fs/read_write.c b/fs/read_write.c
+> index 4da846a2bf17..c05ad2c42e75 100644
+> --- a/fs/read_write.c
+> +++ b/fs/read_write.c
+> @@ -1531,9 +1531,11 @@ static int generic_copy_file_checks(struct file *f=
+ile_in, loff_t pos_in,
+>         else
+>                 count =3D min(count, size_in - (uint64_t)pos_in);
+>
+> -       ret =3D generic_write_check_limits(file_out, pos_out, &count);
+> -       if (ret)
+> -               return ret;
+> +       if (count) {
+> +               ret =3D generic_write_check_limits(file_out, pos_out, &co=
+unt);
+> +               if (ret)
+> +                       return ret;
+> +       }
+>
+>         /* Don't allow overlapped copying within the same file. */
+>         if (inode_in =3D=3D inode_out &&
+> --
+> 2.43.0
+>
