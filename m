@@ -1,87 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793024112;
-	b=cUxB34gElBKHPabe2t7D+sHWg9rt4AB1B21PlnIEBXR3qjXxjCacwHkI+OChA2DlVR1r
-	 lWaZPUSM2lsq+T+Whz5EnG5Qu4Zm7ezhaJpH//f44D6cK0Tapsyt1S3ZDCDaB0NuuYP6n
-	 Z4VCGtyhAUf6o94QrPSXhU+n4/zL3x7lYsUdbw10Xk9IBFg2AXwDY+M8ye4OaNzUkfM7R
-	 7Jf7fqNccFGiW1CovJmC96LBD12t2x4jYLFQe+XZ0kvDe1TZ7ietErQM37FZlxYmmoKZt
-	 OKvDf2NC96GWfMcFIFLLJvxbFMqog6oO4B/ra2x5g0JT4unTOWyBDOvIm42tgAxHOog==
+	t=1793024116;
+	b=OvMrUAXU+ShzoTDPD9UQdAoCb+7bStJIeJpFGV/m8TJ0RkuOqG7wYT0Rh3LflspZqxM2
+	 I0AKGMi06RcV4/ngph6yAl9Bt0fZmXaEOR15FjqIDEz1wwGffqz//DD8VHydRIk/UZaFY
+	 KWLhYKKx1WCF/yRjHHoeK76eE1HLTNq5uEpni2jENP2ld8iP7QKiIyzDtMPv5PpuiGLfw
+	 15wauop1XUDU/beg9EbrCw8vo8U5WDBfmLUG4jbSD5pr9DAiHT2uRveF+yk+LvhyPEDlf
+	 IuzT0DZcDCSbtdYtvkje/t6YovJ9gvojTcqgNkc5g0awtgGZCQ9/gEwNn5AojZAmw+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793024112;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
-	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
-	bh=Ez5ntbIh+EW8bTl4TijkvlK9dqmEXQTUkScs6BriJM4=;
-	b=m04DcZn8FXvapDoMgLrhTmAn5uO3UlvEtGXuec4h7EsJXzUTSFatq4ZbAXMOYkg67OPf
-	 TCKo2I74e7ATCrYXHOdpY0KcCA7iPTEigO4o5orURlgmsgr+vEHYdniBLwxJE8V8fh5NY
-	 kuCLmeZ4l5Ot4UoowZ3JB/87bGljQm5ygeZci6tYIO38dsHaBK2XXDgxSKjRsgryqooqw
-	 nhtnmxzrmqa+vLLNWwAWgSiUt318XIs81IzJwI6aQ5v94Gz6JqzIherUP8DWAFOBg6LmU
-	 Y1OLw+E4u2gRD+VPP/3sAx+6kE+d0UMDZZ4AlvtE4LoTFJbPD2ufCHsC6IqipDEPr6A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793024116;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Spam-Status:X-Spam-Checker-Version;
+	bh=Q3kzFWZouH6HMVsFJg/CjIT+Um5UEG0KcT8hAco3398=;
+	b=1VTyK4TFpUvXPtOSPKcPJXfiBNnYGTq7JLXafYURSnjWvlLQIfAQFpwh/KWzZ3vPUpBb
+	 nBJdQ+NMWnchU7eH7+Ql1jjxR9U9s+5bfMxXymEZVNNJhDonoxjTbOKOOWCoffJASZvY1
+	 qGj0kohsxU34gGU79DqI0jF7Th0V3rRRAAjiOM+A0hOpg5pi3f7wpUnDnBkGFfJp4EQr3
+	 30/kDsYd/FQ3fecGxFZU5QMXftSxapePIvpDFmiEQYZFxTEFtDimTj0P1scbZsFkCZWCS
+	 iFiSohQkmVcsD0wYPlyaX64omxXnygxzWaR7M2JihlPhlmcdqhCCFdeRJOzkCBmWdmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FPBarEr6;
-	arc=none smtp.remote-ip=198.175.65.15
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2649F606A31B;
-	Mon, 26 Oct 2026 14:15:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2649F606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	dmarc=pass header.from=linux.microsoft.com;
+	spf=pass smtp.mailfrom=linux.microsoft.com;
+	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=U0hfKLRm;
+	arc=none smtp.remote-ip=13.77.154.182
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9255D606A31A;
+	Mon, 26 Oct 2026 14:15:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9255D606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FPBarEr6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793024111; x=1824560111;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=qc4beh/LwtB0vw+iP15WQW0Wl9ZVp8GN+Zby6+YptcI=;
-  b=FPBarEr6Z48ed5eQdIWBr/1Wvl8Ey0YsYgfrP0sPfig9UjR030rPkQE9
-   jazNXwTAeCLp7QmMvwAK1W2yGYh0eQxf9rwi+rt9BHgxryRoNOC1hbpK2
-   y3YXqxwN6bf8aGfNjukUHyq4pKkcfYArw+BJLACmCiYwQ8Te+90ZGFy+T
-   BG/jVnL6remkBvg2obgvhTKaLECwRvsTvDu8PK9B2uX3jioVrkoP38BeJ
-   n3t4YdfBSxa2RZMCXIz1DVSDd5nSno1qzcpqDDanbNoiw0jSdL/PkB9Bz
-   pjJNRfQ5vSs0Mc/OLp7IYsKQd/jAItXmsq8sbm/NTtExxrcFNgyN51QpZ
-   w==;
-X-CSE-ConnectionGUID: W2iS01voS2mzfvOUU4Ev0w==
-X-CSE-MsgGUID: cm+LquatQ5eLCuiSPNzB0w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1697599"
-X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
-   d="scan'208";a="1697599"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 07:15:11 -0700
-X-CSE-ConnectionGUID: d9jyxAXVQmSMZnS5qFL0gg==
-X-CSE-MsgGUID: SRRySvS4RSK0qwR27b/pHQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
-   d="scan'208";a="4285214"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.109])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 07:15:04 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Mon, 26 Oct 2026 16:15:00 +0200 (EET)
-To: Denis Benato <denis.benato@linux.dev>
-cc: LKML <linux-kernel@vger.kernel.org>, platform-driver-x86@vger.kernel.org, 
-    linux-input@vger.kernel.org, kernel@lists.opengamingcollective.org, 
-    Benjamin Tissoires <bentiss@kernel.org>, Jiri Kosina <jikos@kernel.org>, 
-    "Luke D . Jones" <luke@ljones.dev>, 
-    Mateusz Schwartz <matthew.schwartz@linux.dev>, 
-    Denis Benato <benato.denis96@gmail.com>, 
-    Jonathan LoBue <jlobue10@gmail.com>, 
-    Khamunetri Clark <khamunetriclark@gmail.com>, 
-    "Derek J. Clark" <derekjohn.clark@gmail.com>, 
-    Joshua Leivenzon <hacker1024@users.sourceforge.net>, 
-    Nathan Chancellor <nathan@kernel.org>, 
-    =?ISO-8859-15?Q?Rebecca_Mara_M=FCller?= <rebecca.mara@posteo.de>, 
-    Ivan Levchenko <me@livan.pro>, Corentin Chary <corentin.chary@gmail.com>, 
-    Hans de Goede <hansg@kernel.org>
-Subject: Re: [PATCH v11 17/18] HID: asus: report the XG Mobile GPU vendor to
- asus-wmi
-In-Reply-To: <20261025235232.129945-18-denis.benato@linux.dev>
-Message-ID: <8353d073-2abd-96d6-e861-b170f5b95f45@linux.intel.com>
-References: <20261025235232.129945-1-denis.benato@linux.dev> <20261025235232.129945-18-denis.benato@linux.dev>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=U0hfKLRm
+Received: from weh-cvm-dev-vm.y50bckvjo0hefgfnzfztsfttff.phxx.internal.cloudapp.net (unknown [20.169.55.37])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 61AB820B7166;
+	Mon, 26 Oct 2026 07:15:04 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 61AB820B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1793024104;
+	bh=Q3kzFWZouH6HMVsFJg/CjIT+Um5UEG0KcT8hAco3398=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=U0hfKLRm7+yE4JS5WARbg847sQ0ofpJm1rJehjzIG3fFdfz6IYUc8gPaXBFTEArKe
+	 p8vZo0JLV2F9SYdEMP5cfpYpjtCVEVjzjUjXbDMEmN/U7jSfiiIDdufnG4cYn2vqBM
+	 xytvVkwVzMTpB71tdwgTbrAJbaX+elnydhwdJiFU=
+From: Wei Hu <weh@linux.microsoft.com>
+To: linux-hyperv@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	weh@microsoft.com,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>,
+	Dexuan Cui <decui@microsoft.com>
+Subject: [PATCH v8 0/9] mshv: add SEV-SNP support for MSHV root partitions
+Date: Mon, 26 Oct 2026 14:14:47 +0000
+Message-ID: <20261026141512.2987985-1-weh@linux.microsoft.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260922041043.171543-1-weh@linux.microsoft.com>
+References: <20260922041043.171543-1-weh@linux.microsoft.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,92 +63,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
 
-On Sun, 25 Oct 2026, Denis Benato wrote:
+This series adds support for creating and managing AMD SEV-SNP
+confidential virtual machines through the Microsoft Hypervisor root
+partition driver.
 
-> The version query answers with the 4-part PCI ID of the GPU installed
-> in the station. Parse it, report its vendor part to asus-wmi as soon
-> as the station is identified and clear it when the station goes away,
-> so that enabling the eGPU through egpu_enable composes the right
-> activation value for NVIDIA, AMD and Intel stations alike.
-> 
-> Signed-off-by: Denis Benato <denis.benato@linux.dev>
-> ---
->  drivers/hid/hid-asus.c | 18 ++++++++++++++++--
->  1 file changed, 16 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/hid/hid-asus.c b/drivers/hid/hid-asus.c
-> index e444cad85b32..244d103fbd4c 100644
-> --- a/drivers/hid/hid-asus.c
-> +++ b/drivers/hid/hid-asus.c
-> @@ -186,6 +186,7 @@ struct asus_xgm_info {
->  	char part_number[ASUS_XGM_INFO_LEN];
->  	char firmware_version[ASUS_XGM_INFO_LEN];
->  	char generation[ASUS_XGM_INFO_LEN];
-> +	u8 gpu_id[4];
->  };
->  
->  struct asus_touchpad_info {
-> @@ -6313,6 +6314,12 @@ static int asus_xgm_get_version(struct hid_device *hdev,
->  	asus_xgm_tlv_str(info->firmware_version, sizeof(info->firmware_version),
->  			 buf, len, "VER");
->  
-> +	/* the 4-part PCI ID of the GPU installed in the station: buf[3..10] */
-> +	if (len < 11)
-> +		return -ENODATA;
-> +
-> +	memcpy(info->gpu_id, buf + 3, sizeof(info->gpu_id));
+The series adds fixed-size MSHV UAPI definitions, the required Microsoft
+Hypervisor ABI definitions and hypercall helpers, partition ioctls,
+capability discovery, processor-feature handling, ordered encrypted-memory
+teardown, and nested-root SynIC handling.
 
-Is this 3 also related to tag length (the literals comment I had to the 
-other patch)?
+Two prerequisite fixes lead the series. The first makes memory-region
+unmap ownership explicit and retains mappings, pinned pages, the partition,
+and the module whenever checked hypervisor unmap cannot prove cleanup. The
+second publishes and withdraws per-CPU SynIC pointers so interrupt readers
+cannot observe mappings after initialization failure or CPU teardown.
 
---
- i.
+Per Wei Liu's recommendation, v8 is based on linux-next next-20261022:
 
-> +
->  	return 0;
->  }
->  
-> @@ -6685,6 +6692,8 @@ static int asus_xgm_init(struct hid_device *hdev, struct asus_drvdata *drvdata)
->  		hid_info(hdev, "XG Mobile: firmware %s, generation %s\n",
->  			 info->firmware_version, info->generation);
->  
-> +	asus_wmi_egpu_set_vendor(info->gpu_id[0]);
-> +
->  	/*
->  	 * The attribute group is not devm-managed: a creation failure is
->  	 * fatal and unwound through asus_xgm_init_err, while on the unbind
-> @@ -6732,6 +6741,7 @@ static int asus_xgm_init(struct hid_device *hdev, struct asus_drvdata *drvdata)
->  
->  	return 0;
->  asus_xgm_init_err:
-> +	asus_wmi_egpu_set_vendor(0);
->  	sysfs_remove_group(&hdev->dev.kobj, &asus_xgm_attr_group);
->  	drvdata->xgm_info = NULL;
->  	drvdata->xgm_led = NULL;
-> @@ -6951,8 +6961,10 @@ static int asus_probe(struct hid_device *hdev, const struct hid_device_id *id)
->  	if (drvdata->listener.brightness_set)
->  		asus_hid_unregister_listener(&drvdata->listener);
->  
-> -	if (drvdata->xgm_info)
-> +	if (drvdata->xgm_info) {
-> +		asus_wmi_egpu_set_vendor(0);
->  		sysfs_remove_group(&hdev->dev.kobj, &asus_xgm_attr_group);
-> +	}
->  
->  	if (drvdata->xgm_led)
->  		devm_led_classdev_unregister(&hdev->dev, &drvdata->xgm_led->cdev);
-> @@ -6972,8 +6984,10 @@ static void asus_remove(struct hid_device *hdev)
->  	if (drvdata->listener.brightness_set)
->  		asus_hid_unregister_listener(&drvdata->listener);
->  
-> -	if (drvdata->xgm_info)
-> +	if (drvdata->xgm_info) {
-> +		asus_wmi_egpu_set_vendor(0);
->  		sysfs_remove_group(&hdev->dev.kobj, &asus_xgm_attr_group);
-> +	}
->  
->  	if (drvdata->xgm_led)
->  		devm_led_classdev_unregister(&hdev->dev, &drvdata->xgm_led->cdev);
-> 
+  bd1ecbb61afefc6a8b876ccbc31e9228b44e9eab
+
+This includes both the MM/HMM changes and hyperv-next. The complete series
+also applies without conflicts to the separately checked hyperv-next tip:
+
+  347f8745462dad74022284e34ddd9d1c16b7473f
+
+Changes since v7:
+
+  - Rebase onto linux-next, resolving the patch-1 conflict with
+    39899823ad38 ("mshv: use hmm_range_fault_unlocked_timeout() for region
+    faults").
+  - In patch 1, retain the unlocked HMM helper and let it manage mmap_lock.
+    Preserve the region fault-admission gate, mm lifetime reference,
+    notifier-sequence recheck, and checked-unmap teardown ordering.
+  - Preserve hyperv-next's updated hypervisor memory-deposit logic.
+  - Reflow ordinary code and comments toward 80 columns without splitting
+    diagnostic strings. Keep conventional alignment where long type or
+    argument names make an 80-column layout impractical.
+  - Apart from patch 1's HMM adaptation, source changes relative to v7
+    are formatting-only. There are no UAPI layout, ioctl-number, or
+    request-limit changes. The UAPI header is no longer byte-identical.
+
+Formatting-only verification:
+
+  - Every intermediate patch preserves the previous v8 snapshot's C
+    tokens, complete literals, comment words and preprocessor directives.
+  - Strict checkpatch at 80 columns: no errors or CHECKs; seven remaining
+    long-identifier warnings.
+  - x86-64 and ARM64 W=1 affected-object builds.
+  - All nine existing MSHV host-access KUnit tests.
+  - Exported UAPI layout assertions for x86-64, x86-32, and ARM64, plus
+    x86 and ARM64 Rust bindgen checks.
+  - Exact mailbox replay on the stated linux-next base.
+  - Plain git am application and affected x86 object builds on the stated
+    hyperv-next tip.
+
+The previous v8 source, b4b111a45c54, passed the full x86-64 kernel/modules
+build and the nested-host CVM tests: normal 16-CPU host boot, the dedicated
+Cloud Hypervisor integration test, and a four-vCPU/1-GiB SNP guest reaching
+login with successful teardown. Those are prior, source-equivalent runtime
+results, not a new deployment or hardware run of this formatted revision.
+
+The development host needs local runtime prerequisites: EFI HvLoader root
+partition boot enablement, its adaptation to linux-next's UTF-16 formatter,
+the nested-VMBus interrupt-vector workaround, and preservation of the nested
+SIGNAL_EVENT control bit. These and the KUnit follow-up remain excluded from
+the nine-patch submission.
+
+Link: https://lore.kernel.org/linux-hyperv/20260922041043.171543-1-weh@linux.microsoft.com/
+
+Wei Hu (3):
+  mshv: retain memory regions until unmap succeeds
+  mshv: clear SynIC mappings before freeing them
+  mshv: set up own SynIC registers on a nested root partition
+
+Wei Liu (6):
+  mshv: add SEV-SNP UAPI definitions
+  mshv: add SEV-SNP PSP request hypercall
+  mshv: add SEV-SNP isolated page hypercalls
+  mshv: wire SEV-SNP partition ioctls
+  mshv: detect and report SEV-SNP support at init
+  mshv: use safe partition CPU feature defaults
+
+ drivers/hv/mshv_regions.c      |  482 ++++++++++++---
+ drivers/hv/mshv_root.h         |  129 +++-
+ drivers/hv/mshv_root_hv_call.c |  379 ++++++++++--
+ drivers/hv/mshv_root_main.c    | 1334 +++++++++++++++++++++++++++++++++++++---
+ drivers/hv/mshv_synic.c        |  174 +++---
+ include/hyperv/hvgdk_mini.h    |   31 +
+ include/hyperv/hvhdk.h         |  124 +++-
+ include/hyperv/hvhdk_mini.h    |   53 ++
+ include/uapi/linux/mshv.h      |  122 +++-
+ 9 files changed, 2563 insertions(+), 265 deletions(-)
+
+base-commit: bd1ecbb61afefc6a8b876ccbc31e9228b44e9eab
+-- 
+2.43.0
