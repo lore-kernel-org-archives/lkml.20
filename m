@@ -1,61 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793035858;
-	b=m/+8H3+sR803/sibQ11hjoNv+bZfx/5zgKke6he88W0VNGwUyJRFfKcbx80ScWWAqBYY
-	 0yqnWBdesqSOUJgTQ06Mb0L5JhDuQWpEzKH2oUCk5GY8e9SMDBcpQqDLl8SQyMBllv3gT
-	 uoq44n6mKr6QLVVu1PkHfmrXQWk8WgQmAhj0obXvifhBMnw5ivkB/PjKC6J/2ZsJF9XuO
-	 idIAad4045bGepIwOHMVkSPqcFUB+Hig7yUSLqBwmVJn0ND6YofxPZuX+pHu4v52GfZks
-	 sc/yMMvZkZk/G9NLJosNwp5lm7lgXblaKC2J1V1x0ziIjmC6VzXA27gg4DeZFgjyx9g==
+	t=1793035895;
+	b=JA7KziOMqKNMWwRwhJbvcUiSuNnpidpgfVEMRFjNegjc/afmfSEAKvDX6Zf+KogjPfPd
+	 NEXFS58jWX4ZTBW1Fjh07duDUlkjggWz4r8UuG04MNDAVaUFkee4WngISC5TT/3K/xHTT
+	 RpofNSEbpZRXsJR5DNeKlpfW61B+bNt9XA95TEsvlygWfTDQ0cmsClfpte89GrzvESy1d
+	 JN6u8wIzSBvkpObYk27Oxm9j3dOmEqAEWz724Bc9mhN3sQXTHyW/fw2VXV48VZQskyRf9
+	 vjZHqep9e4XhE47HV6W5clUf4EM4dafEJFyxvQjh1MnZt1REQ9pn12T/f3ML4J8fRoA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793035858;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
-	b=jCo6rQTncltfN7loN+6cKDXKC9HHnYRUjvXVEiMemcX/vp7E484xbec8Rkwga5QrrMOl
-	 xlIZEscbrPAcHk1RuV4jhoBlYoUY9Yvk3lgiye4bqAGrX88xx+A08XibZoZEztMZWcNDN
-	 hH0S/El6NJsmgGYrcXQCCnVqL5OQ0QTr7WgaEJKdlZxD4IrQZQqhB1GfrgroRMe1am/5P
-	 os6Kwgwa0uHyeG7ez1njlqztHc5K9tI+Sg3HJwJjh5f9QEO3L8F2tkm5eyQoGU+OYuvIu
-	 YgAak217kHNP4qDm1dE1Xlqlz/zk32cp8LKdcnRfLJFNvNnWO47Ke2QWF6ZW51j65MQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793035895;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=mjT/jJuFM6XBK5jXoyA5s/eNOp2DUiiIPlqtvzyid0Q=;
+	b=RLiURNujKWWu5f6O+BLwzKCEUeq3HJVsjcQMjHIG4oBIRFmHlkGd/yRtdfU7Fjvd/PuW
+	 zggPXYv1ntlY2YRie0NqwKJ1mQHJxIQCBvR+mHyVvURNkU9CkNasN5HlaS5POgU9/Fd9i
+	 eSzaaiE4K4g6kOYKt7OKP9L5rNCl+JEWA4rGesHlhC0ysKaeHF3R651ILxueIYQe7hAgo
+	 vl/FD+3Wrw0gx3Vk5Fc0/YBnKB+qU2IVQrNPUbAeo0AujmF1oh5xHKCS4wr1txx8io8vd
+	 R9zlxYu2+gF1XS69WS6w2Zg59ea2gTt+1WIyRACNYCXnhbOEEQ356RhmYYnB7PMfkjA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ClYcui4b;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GL8Z2bVj;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B502F606A31A;
-	Mon, 26 Oct 2026 17:30:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2763606A31A;
+	Mon, 26 Oct 2026 17:31:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ClYcui4b
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B345F1F01825;
-	Mon, 26 Oct 2026 17:30:56 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GL8Z2bVj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 778061F01825;
+	Mon, 26 Oct 2026 17:31:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793035857;
-	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ClYcui4bskJC8a3hScgN3hQxNtHOelCqugg8MbzsW35FBFtA/YKnTuwSwnWDAQn7c
-	 ODsvvy9Zep1VpG8DuO47bPcHr6ifvY9WFEg3GKL4/vLvmhNucpx3HyrYdGNMf9VtnI
-	 aT50u2S1O1ASXL5FLioOVmf+Q0BBjERLuTrs+fNtGpcqir+T7N9nbDYOYhXUIs7qUI
-	 RRnM8V7sq6TyWeiwG/EziPHl8PkzYyO1b9FJec7EdfMZ3ixsrkMaaiWTT2GkA5FsyI
-	 cg95xB9WEH8KW1G7YH0Q7fospszrEFizH9J23I8tO/EF+XjqeUFonVwE38dwnvGvDY
-	 bz2dqa3HYJo3Q==
-From: netdev-bot+sinfo@kernel.org
-To: Florian Fainelli <florian.fainelli@broadcom.com>
-Cc: netdev@vger.kernel.org, Jonas Gorski <jonas.gorski@gmail.com>,
- Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Vivien Didelot <vivien.didelot@gmail.com>, linux-kernel@vger.kernel.org
-Subject: 
- Re: [PATCH] net: dsa: b53: Enable IGMP and MLD control packet CPU copies
-Date: Mon, 26 Oct 2026 17:30:56 +0000
-Message-ID: <179303585627.3327.17394761075603736161@kernel.org>
-In-Reply-To: <20261026172453.3152951-1-florian.fainelli@broadcom.com>
-References: <20261026172453.3152951-1-florian.fainelli@broadcom.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	s=k20260515; t=1793035894;
+	bh=mjT/jJuFM6XBK5jXoyA5s/eNOp2DUiiIPlqtvzyid0Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=GL8Z2bVjh1iQjwgmKrgs50oO9s/5XVCtHvyU0etT5FZlYyrrdGOZ1Ms+v9BInuK2a
+	 N+yISQv/k95xO8+gyX8HkagUvYUwNKWFtOZfYTTqv2aarHNF3JRhG+aIIKN6SNbc8U
+	 G4KnxxoYktMtSpcrLGtTYAatssL+utymuiMUVMvMlS/MSCmDTbHyXsD97pmIy80y9k
+	 B3IUjO7egnN9ohbnePwNQvqcdStVVM1HGuVWPQLDnXnWhRFDTYyk4mWRNxRX/GDaVE
+	 OtmXq/lOhBkKxy9YnyqQuViw99n9XbTQzRf4f9kvYcajAQNWqXi+z8FB0n1Zx63zBB
+	 2HRlp86THJUqQ==
+Date: Mon, 26 Oct 2026 17:31:29 +0000
+From: Lee Jones <lee@kernel.org>
+To: David Laight <david.laight.linux@gmail.com>
+Cc: Pavel Machek <pavel@kernel.org>, Dmitry Antipov <dmantipov@yandex.ru>,
+	Jacek Anaszewski <j.anaszewski@samsung.com>,
+	Bryan Wu <cooloney@gmail.com>,
+	Kyungmin Park <kyungmin.park@samsung.com>,
+	linux-leds@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 14/21] leds: flash: Avoid divide-by-zero in
+ led_clamp_align()
+Message-ID: <20261026173129.GF2195460@google.com>
+References: <20261021123406.3163547-1-lee@kernel.org>
+ <20261021123406.3163547-15-lee@kernel.org>
+ <20261022220006.6e066670@pumpkin>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,21 +63,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261022220006.6e066670@pumpkin>
 
-Hi!
+On Thu, 22 Oct 2026, David Laight wrote:
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+> On Wed, 21 Oct 2026 12:32:23 +0000
+> Lee Jones <lee@kernel.org> wrote:
+> 
+> > If a flash LED driver leaves a setting's step size as zero, writing to
+> > the corresponding sysfs attribute invokes led_clamp_align() and triggers
+> > an integer division by zero when aligning the offset to s->step.
+> > 
+> > Clamp s->val to [s->min, s->max] and return early when s->step is zero.
+> > 
+> > Fixes: 7aea8389a77a ("leds: Add LED Flash class extension to the LED subsystem")
+> > Closes: https://sashiko.dev/#/bug/linux-9d06d7fe-310b-4aee-8b16-0fb49550c287
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Lee Jones <lee@kernel.org>
+> > ---
+> >  drivers/leds/led-class-flash.c | 5 +++++
+> >  1 file changed, 5 insertions(+)
+> > 
+> > diff --git a/drivers/leds/led-class-flash.c b/drivers/leds/led-class-flash.c
+> > index 181dfd49c6ad..16b3b6b9365b 100644
+> > --- a/drivers/leds/led-class-flash.c
+> > +++ b/drivers/leds/led-class-flash.c
+> > @@ -375,6 +375,11 @@ static void led_clamp_align(struct led_flash_setting *s)
+> >  {
+> >  	u32 v, offset;
+> >  
+> > +	if (!s->step) {
+> > +		s->val = clamp(s->val, s->min, s->max);
+> > +		return;
+> > +	}
+> 
+> Why not just:
+> 	u32 step = s->step ?: 1;
+> and then use step instead of s->step.
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+I can see where you're coming from, but I don't think this is better.
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
+With `step = 1`, the reader has to mentally trace `1 / 2 == 0` and `1 *
+(offset / 1) == offset` to see that it reduces to a plain clamp and the
+CPU still executes a redundant integer division.
 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+IMHO, simple, easy-to-read, maintainable code wins out over clever code.
+
+> > +
+> >  	v = s->val + s->step / 2;
+> >  	v = clamp(v, s->min, s->max);
+> >  	offset = v - s->min;
+> 
+
+-- 
+Lee Jones
