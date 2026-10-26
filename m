@@ -1,116 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793013561;
-	b=h5KkDFJMqD46WzL/OMhS9KhWYBbRAC+PrR2wZm2zRyzu9sFFqeqjFhmJbo7uYNI2Voms
-	 1hPs/KpdR/Z6zZTchB9lP2eLgUQSNXNBDNasZ57rm3tkcc2A1Tw+iSKAty8ugU3C7AAcT
-	 V3A6W6FgFpK9Db6TtwObXJ0MuDVlsR9KtZ0a+Fj0qmu7ujLwDzUU+JHZSJBZsfafiK7Up
-	 zWRXWggsHkhO9SuCaRBMAQPAhtowBonMWLu63P0IuSCGJnjxudHZEqKeyM0YYIsoPfJUl
-	 XNVHPwzJXEF5zTR97neXPAdrtvm4c1a78+SjeiD6hAewmN/Gd3alLzMT+kwwes5miPQ==
+	t=1793013567;
+	b=KHYn/9UDsMqUjXiMTBCZ6af0uildl1bN2g1uBPmbdngHO/TPfJs4ZXQydGMFoSjc/JNs
+	 WpESwk3JGsBzjuOXj7IQzSaJin+Re3uXv4TqqWxqxSTHsPmNHeRIxxukAawm9HjKSBZ3/
+	 ehaBOGWqRObg9AijpfD5+84knCPhQ8ZeadO5F6WbHA4kgekfPO57c8H3FhrjDVqs+a3JB
+	 aPAmHEtJnR2DGKwwJhFT8C523P+AtLZpyAXXvI73ORZ96VA4ZK8TUZhzbDpCOo8iILxgC
+	 0Vw8eR6rTmkfpRubAzHClc1ztsPDVDrRbiJ4yxkswV9HNLeXqRs9djacYE5V67+/VoQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793013561;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=HUBCCmBt2r3pJ9gqCwCptcdEOvWrEL9wpNqjqAAArdI=;
-	b=fnEG5MHfquPPGsA+3qiegHQdNQwds1W7hujodiuXnJ2doLw5FgV2bh8DcTI+IqYt+e1T
-	 RRmAGFeOde1aMjwSPvHnMC7a3cLD8cq6ryImbGhFtTq8df83CEIWGpOKxtr0YRfDM1gvF
-	 vwmtOYLnXBHrxYXozFKv5Q2frnE/a6UqAbWQ5EbJbtrHvjVjRn1RaVo3lqlHeZ/D+QExf
-	 YnX79k9iauF4Q79VBKvCdPAvH2xgIPoVFfeGxocQnVQso244/dbCT5e5V3XgYqg0QByDT
-	 SFFdL1bxaKB9LSDEetObcM94xuVBp0U9W9pkq7mk1j5h3I9g85MhjvnxuiUndd2QhOQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793013567;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=ym2rUG4N9q5Vuz2Zf+g/cQPodhMY2XS2XpRVAbz6x2o=;
+	b=p4AkynAD6PnRQBleGmwMRGi4k9QhLxdI46VmDAc2OsJeJ6D1FONfABtYhqXWff/yy6Zl
+	 hE8Dn1mVKs1vxIUZalpok1mLcHHTQ4gkAv4Az5gLgw0ic8GdmoBgJ6uIoRWdMndsrZCF8
+	 46iscbA8MJDgd6gkItJXIg2ASENd1mfpbk7xU50hkYxNNDpmfbU94DCJdIpEkyD5u/1wK
+	 PzIryl8I5x2GN0wH54G5WUZFH6CzwXb3/fHbTiv8HilbTO/m9P6NSB5oBfNoMOCECKJA2
+	 ULBeqP/7sIrzAYEDw1Qz+/3kpxBLap/VgLvEJMGe+q2WCYQqVLCkSnn72CE/s1NcZTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=exDP8lOG;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=edJhxMFa;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Naie0bLo;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B26E606A32C
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:19:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B26E606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99781606A31F
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:19:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=exDP8lOG;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=edJhxMFa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793013560;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=HUBCCmBt2r3pJ9gqCwCptcdEOvWrEL9wpNqjqAAArdI=;
-	b=exDP8lOGGdvbGxuWcwRBohza8Q5dXzqiTDDeIF4FooZW+etCa8aqRsVG+tamQEgfzSPPAc
-	8pAQR2r6VwkiTPpeWP3yMu/b+cqpI2AGPqICjaX0n8Pukd+xE+2KqmTcRRlIFxI2HWSzj7
-	qdarzLfP6N6PAN59s5kZs+VuLHERfNk=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-595-N8Q046OxOdyN1rc3jIkXLw-1; Mon, 26 Oct 2026 07:19:19 -0400
-X-MC-Unique: N8Q046OxOdyN1rc3jIkXLw-1
-X-Mimecast-MFC-AGG-ID: N8Q046OxOdyN1rc3jIkXLw_1793013558
-Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-48e0af48c18so2585336f8f.2
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 04:19:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793013558; x=1793618358; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HUBCCmBt2r3pJ9gqCwCptcdEOvWrEL9wpNqjqAAArdI=;
-        b=edJhxMFa2df1qMg4OG5AjcrSprOPCmo3n+yHEG+41QeLu7FHZ2+/SpTfVpttmTHcaO
-         Ql3mMV2REfFTRVTQdudtzslARWrXYNk7LOgEc6Di0qj49GNY8W+7kldqP1CKacCMGx79
-         v2LORWjgX/JMS+2KvfNRClAzsYLKaAgU/t4CWHW9UIQHyyIvW9n2vOJlgO+XRrD+gPCw
-         fr90RBjRnTa0xsnD8m7zX6+6GsiGBFCRZB5BG8NCXBnT9evusgLlWlF5i9ItQfLac+2S
-         ZbNeBaiPq4A4Q5Hsc1HFhVpEjPpNBhM5hrE3YP95ewoykkSWdcEoBBYltM++/5aXzO12
-         s3zA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793013558; x=1793618358;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=HUBCCmBt2r3pJ9gqCwCptcdEOvWrEL9wpNqjqAAArdI=;
-        b=PJdQ7xnrrCAeJ7C7wKqLhdk2RxVy52dwIVWUlHPkQkDdQEXGS0wWTPdROFhLU+kz8V
-         OncnaAOdi+tydVGm00qYzhJ0XXmNUJt8jZmQwA6x+Kt5abH3aO41Wix5Z6R83XVA0Epu
-         XM4nzXS9oIM9V395EASLYtn2FBMl264Zv7AMeBQZRA4qPHPUX35G9x1B5wi9ckS871M4
-         kaD+GSgnPCB93GP2dY2g9dDcMsIbZTwxyD0k8TTGNHUQXTjqfCzYoJoMyf2qSaE1mLyI
-         6htx0Ch1BoIxgjxy7nc1ml/wsMY3000ivmRKKoFNsxqatu1qc3I9qJTwQdU+haT2PPHj
-         iFbw==
-X-Forwarded-Encrypted: i=1; AKwUvBwERMmzTuvoSfnm65a/QCReWZHC67KOFUv9dsbBXvw05OYmsUJQ5hTDhUil57yFHHzeaok/inyUjO6gKrU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKmrY21ODiaQhEPhz7NHA0giRMxBTPL9vIfTJyY16O9ZkLLtBgM
-	kxTsSbrt53W6OY7ZyZAvngn6oWcWnZCjT+G9du+6rYK2s9XkDo8z37kaj2FQnrE58TI60qchjBA
-	b+wfY/P2d/EYfEUfay0WvX3BI88e4MzxGL6AdxjZvG4J+8gSZcTwtuqyajB5icWXqm9HmUFqhFg
-	==
-X-Gm-Gg: AYBFou3t63FLKaQEW2zRxWA3PJGZvbeVmZG1dpK/Z+QSATRuqcRxJidXLy/p379mkbn
-	gFxDi6cQFg0rS5Bb0VEwmn5mqw7izDmr3QI/RUS+pIE0NtcV3YqDVwdgUM3rGpPE7Wqgcv4NAHd
-	5DHQ+D1Ok89q9NB037jrSpeUnreDbNFeDI3T7LIiBAnSey7EJf4UqpwfCm4tYOUXzf2cMnrMwTF
-	Nsd6LM/wg3anCAGYyMTfJgM6FZOWHquElv+RVV+MO46/gPm+mgJllThh/bxAzUhxj782YXs8kVL
-	VOa2dDNwaItucj/a17c/O8e6dY9sj3QDgbIrmRp9iDCNO8bWEzGiMrIqk6JJ1GCpeAd520d1a08
-	7nQK+9mWGFCLqneE8Q46Tz1CK8C9v2DetkzYPFHircV7KgOJ98SIL8A==
-X-Received: by 2002:a5d:5d86:0:b0:48d:f996:1814 with SMTP id ffacd0b85a97d-48e3eb9c7fdmr10996887f8f.57.1793013557016;
-        Mon, 26 Oct 2026 04:19:17 -0700 (PDT)
-X-Received: by 2002:a5d:5d86:0:b0:48d:f996:1814 with SMTP id ffacd0b85a97d-48e3eb9c7fdmr10996782f8f.57.1793013556171;
-        Mon, 26 Oct 2026 04:19:16 -0700 (PDT)
-Received: from debian (2a01cb0580324c0086a938fffe1eee25.ipv6.abo.wanadoo.fr. [2a01:cb05:8032:4c00:86a9:38ff:fe1e:ee25])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebd47basm17193489f8f.32.2026.10.26.04.19.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 04:19:15 -0700 (PDT)
-Date: Mon, 26 Oct 2026 12:19:13 +0100
-From: Guillaume Nault <gnault@redhat.com>
-To: Guikun Yang <yangguikun19@qq.com>
-Cc: James Chapman <jchapman@katalix.com>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [BUG] l2tp: OOB read in l2tp_recv_common() for L2TPv2 sessions
- with 8-byte peer cookie
-Message-ID: <at83MWsp98Mei-Si@debian>
-References: <tencent_389453EACB37DA0886D3896959D4A4CF5006@qq.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Naie0bLo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6723F1F01453;
+	Mon, 26 Oct 2026 11:19:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793013567;
+	bh=ym2rUG4N9q5Vuz2Zf+g/cQPodhMY2XS2XpRVAbz6x2o=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Naie0bLom6KB1rvZiawwhNtlk55RBj7K9WkrJ62mpDzmd9p3ZjTeOhiy9/BYmyqqo
+	 SnNRmD9w2Kz+0bSLQRlg8Tui85D5ZH0652mrSWRzXhTB5K+jIu9ma16QMmKAtXShM8
+	 DPHVOy6h8rmnPLxA+itKXfRJjJHDY/UsAnutAKmXMCh/pi+/jNoUCmRv2nSkUKchq5
+	 iXCcTfsHnUyFmxEe5kxR3+PmC4oYX1reUzFTklfn/oI4jh476Y8y6Z0tz31GJGBHpW
+	 nDNDalO8lQY5sWzN7TmhP8cMk8olsxCglZgxn5aDh4gDUCv7xAUOoqxZ9Y1YxDVIeV
+	 uaJorTDd45ugg==
+Message-ID: <c021e641-f415-48bc-badd-d340d70dd850@kernel.org>
+Date: Mon, 26 Oct 2026 11:59:46 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -120,111 +51,146 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <tencent_389453EACB37DA0886D3896959D4A4CF5006@qq.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/migrate: move NR_FILE_THPS on cross-node migration
+To: Ridong Chen <ridong.chen@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
+ Gregory Price <gourry@gourry.net>, Ying Huang
+ <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Ridong Chen <chenridong@xiaomi.com>
+References: <20261025110209.4105994-1-ridong.chen@linux.dev>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261025110209.4105994-1-ridong.chen@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 26, 2026 at 01:35:25AM +0800, Guikun Yang wrote:
-> Hi Guillaume,
+On 10/25/26 12:02, Ridong Chen wrote:
+> From: Ridong Chen <chenridong@xiaomi.com>
+> 
+> When a page cache folio is migrated to another node,
+> __folio_migrate_mapping() moves the per-node and per-memcg counters
+> that are keyed off the folio's node: NR_FILE_PAGES, NR_SHMEM,
+> NR_SHMEM_THPS, NR_SWAPCACHE and NR_FILE_DIRTY.  NR_FILE_THPS is not
+> moved, although __filemap_add_folio() charges it to the source node and
+> filemap_unaccount_folio() takes it off whatever node the folio lives on
+> when it is removed.
+> 
+> Commit 0b52c420350e ("mm: fix shmem THP counters on migration") added
+> the NR_SHMEM_THPS case but not its file-backed counterpart.  Now that
+> ext4, xfs, btrfs and erofs can all have PMD-sized page cache folios,
+> migrating them via NUMA balancing, mbind(), migratepages, demotion or
+> memory offlining leaks FileHugePages on the source node and underflows
+> it on the destination, in both /sys/devices/system/node/nodeN/meminfo
+> and memory.numa_stat.  The global value is unaffected, which is why this
+> went unnoticed.
+> 
+> Reproducer, on a 2-node QEMU guest with THP set to "always":
+> 
+>   1. read a 256M ext4 file through a MADV_HUGEPAGE mapping while bound
+>      to node 0, so its page cache is 128 PMD-sized folios on node 0;
+>   2. move the mapping to node 1 with mbind(MPOL_MF_MOVE);
+>   3. unmap the file and drop its page cache.
+> 
+> nr_file_hugepages in /sys/devices/system/node/nodeN/vmstat after each
+> step (in units of PMD-sized folios):
+> 
+>                     without this patch     with this patch
+>                      node0     node1       node0     node1
+>   1. cached           128         0         128         0
+>   2. migrated         128         0           0       128
+>   3. dropped          128         0 (*)       0         0
+> 
+>   (*) the counter has underflowed to -128; negative values read as 0.
+> 
+> Without the patch the 128 folios stay accounted to node 0 forever, and
+> every further round adds another 128.  The same happens to the per-memcg
+> per-node counter: after step 3, memory.stat of the cgroup shows
+> "file_thp 0", while memory.numa_stat still shows
+> "file_thp N0=268435456 N1=0".  With the patch both are 0.
+> 
+> Move NR_FILE_THPS together with NR_FILE_PAGES, using the same condition
+> filemap_unaccount_folio() uses to take it off, so that THPs in the swap
+> cache are left alone.
+> 
+> Fixes: d68eccad3706 ("mm/filemap: Allow large folios to be added to the page cache")
+> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+> ---
+> Note: prepared with help from an LLM-based assistant (Kiro, claude-opus-5.5).
+> 
+>  mm/migrate.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/mm/migrate.c b/mm/migrate.c
+> index 7bdcdb57652f..d55f576a2579 100644
+> --- a/mm/migrate.c
+> +++ b/mm/migrate.c
+> @@ -700,6 +700,10 @@ static int __folio_migrate_mapping(struct address_space *mapping,
+>  				mod_lruvec_state(old_lruvec, NR_SHMEM_THPS, -nr);
+>  				mod_lruvec_state(new_lruvec, NR_SHMEM_THPS, nr);
+>  			}
+> +		} else if (!folio_test_swapbacked(folio) &&
+> +			   folio_test_pmd_mappable(folio)) {
+> +			mod_lruvec_state(old_lruvec, NR_FILE_THPS, -nr);
+> +			mod_lruvec_state(new_lruvec, NR_FILE_THPS, nr);
+>  		}
 
-Hi Guikun,
+Looking at filemap_unaccount_folio(), I was (once again) surprise about the
+different handling.
 
-> l2tp_recv_common() (net/l2tp/l2tp_core.c) reads L2TPv2 optional header
-> fields beyond the linear area guaranteed by the caller, for sessions
-> configured with an 8-byte peer cookie.
+Key is that we might be migration aonymous folios in the swapcache.
 
-Cookies are an L2TPv3 feature (RFC 3931). They don't exist in L2TPv2
-(RFC 2661) and l2tp_nl_cmd_session_create() ignores L2TP_ATTR_PEER_COOKIE
-when creating L2TPv2 sessions. Have you found a way to get a non-null
-->peer_cookie_len on an L2TPv2 session?
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
-> The UDP entry path only guarantees the first L2TP_HDR_SIZE_MAX (14)
-> bytes:
-> 
-> 	if (!pskb_may_pull(skb, L2TP_HDR_SIZE_MAX))
-> 		goto pass;
-> 
-> 	l2tp_recv_common(session, skb, ptr, optr, hdrflags, length);
-> 
-> Inside l2tp_recv_common(), for a L2TPv2 session with peer_cookie_len =
-> 8, the cookie check consumes bytes [6, 14):
-> 
-> 	if (session->peer_cookie_len > 0) {
-> 		if (memcmp(ptr, &session->peer_cookie[0],
-> 			   session->peer_cookie_len)) { ... discard }
-> 		ptr += session->peer_cookie_len;    /* ptr = optr + 14 */
-> 	}
-> 
-> Then the sequence-number branch for L2TPv2 reads at ptr:
-> 
-> 	if (hdrflags & L2TP_HDRFLAG_S) {
-> 		L2TP_SKB_CB(skb)->ns = ntohs(*(__be16 *)ptr);   /* [14, 16) OOB */
-> 		ptr += 2;
-> 		ptr += 2;
-> 	}
-> 
-> With a minimal 14-byte L2TPv2 packet (6-byte fixed header + 8-byte
-> cookie, no payload, L2TP_HDRFLAG_S set), skb->len is exactly 14 after
-> __skb_pull(udphdr), so the read at [14, 16) is past the end of the
-> linear area — a 2-byte slab-out-of-bounds read (KASAN catchable).  The
-> subsequent `ptr += 2 + offset` handling for L2TP_HDRFLAG_O can read
-> even further out ([18, 20) with the same setup).
-> 
-> Trigger conditions:
->   - an L2TPv2 session with peer_cookie_len == 8 (admin-configured),
->   - a UDP packet whose L2TP payload is exactly 14 bytes, with
->     L2TP_HDRFLAG_S set and the correct cookie.
-> 
-> The peer address is not verified on the UDP path (l2tp_v2_session_get()
-> matches only on tunnel_id/session_id), so any host that knows the
-> cookie — i.e. a peer of the tunnel, or anyone when no cookie is
-> configured (in which case the OOB read does not trigger, since the
-> pointer stays at 6 and the seq read lands at [6, 10)) — can send such a
-> packet.
-> 
-> This is the L2TPv2 counterpart of the L2TPv3 optional-fields OOB fixed
-> in 2019 by commit 4522a70db7aa ("l2tp: fix reading optional fields of
-> L2TPv3"), which added l2tp_v3_ensure_opt_in_linear().  The commit
-> message of that fix explicitly noted that fixing L2TPv2 as well would
-> require refactoring l2tp_recv_common() and was deferred:
-> 
-> 	To fix both L2TPv3 and L2TPv2, we'd better refactor
-> 	l2tp_recv_common. It's complicated to do so.
-> 
-> L2TPv2 has remained unprotected since.  The in-function
-> pskb_may_pull(skb, offset) at the end of l2tp_recv_common() runs only
-> after all the header reads have already happened, so it cannot help.
-> 
-> A minimal fix for the v2 path could ensure the header is fully linear
-> before parsing — e.g. in l2tp_udp_encap_recv(), after determining
-> version == L2TP_HDR_VER_2 and before calling l2tp_recv_common():
-> 
-> 	if (session->tunnel->version == L2TP_HDR_VER_2 &&
-> 	    !pskb_may_pull(skb, 6 + session->peer_cookie_len +
-> 			      (hdrflags & L2TP_HDRFLAG_S ? 4 : 0)))
-> 		goto invalid;
-> 
-> (or a full refactor pulling the cookie/seq handling into a
-> l2tp_v2_ensure_opt_in_linear() helper mirroring the v3 one).
 
-I personally think that a full refactor should first stop mixing L2TPv2
-and L2TPv3 in the same code paths. Although these protocols share
-similar concepts, they actually don't have much in common from a
-technical point of view (different headers, features, transports, etc.).
+-- 
+Cheers,
 
-Starting packet processing with a pskb_may_pull() over actual header
-length would make sense but, for L2TPv2, that lenght should be computed
-based on L2TPv2 header flags (the Length, Sequence and Offset bits) plus
-the Offset Size field if the O bit is set. The ->peer_cookie_len field
-should never be considered for L2TPv2.
-
-> Checked against 7.3.0-rc7 and linux-next (2026-10-24): neither carries a
-> fix; l2tp_v3_ensure_opt_in_linear() is still v3-only.  I found no
-> report of this specific OOB on lore/marc.
-> 
-> Best,
-> Guikun Yang
-> 
-> 
-
+David
