@@ -1,60 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793008700;
-	b=hQCKDP/AfjONnaQvN0jdDioMeQPDLDMJ/vWMQ62002wm9WEXxBlzU9VKyaPyNsKXxA6O
-	 Di3vxkAKsyBr0a3YYAc2Bjo4VROkC3zmkLnm7m6xVAK2gafudavU/YqneDH4KyraeMWNc
-	 y3fmw/pLisP3ww0CMbx+DyS/llL9ulG3i5c2inDJfUJEOu3b+OY3mM3tvA6dSMZ63J+FW
-	 85ZdwCfFF+LCbqFFGetlRho5ANVVRO1rg/cpV1M5U9noCq0HSNzq2GAaRbRLC0Zm8vkye
-	 zMMNTp0+OJSHMZSlgNDBs4uJeOrd2/0GDgarx6/qM3kEuv8Gfvcx86tR3jmudhA4zWQ==
+	t=1793008769;
+	b=swMkD6aNjhM/IZO2oCRPnl0lOAFmp79Zky+5Pu7wRINWM1QTAD9hOK3kZkg7S/lsqtPH
+	 CeW5Ytv+B4CFKQ5riLEz8kUDlJEackfp2F7TbzCgjKHtt+Tlz/wWyaCBZ20gQLu4apat4
+	 lMV5fEkAjlNq7Zm7Uvtc4LCGiRtcpPfQ4xqEBT7AFJFJo3/rfPvh4hwvNe9P1Rv5uxR96
+	 pUhH9kaeFtQX5sUWDb4OA+G2C8IKhQhZy9W8gHNgf/PWlt04fCgYcMQicbsC16Nob5QCm
+	 0olHnVGrygvBuMaQaVtJGyIOTOvJbHXhoiWc2k2jFyAC31XWIKRo9bGMCfZr5iIjVkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793008700;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=HED2kevfhrwGI8UExCHr+WpHjCuw2FSIBaGbLvE11iQ=;
-	b=G4P/hfwtlidw1FjOyK2Ao+eMehB/YxqEXvuIOUJnuUUnrRejooJM6dx9GZQr70VkMEpL
-	 YlewWHI33mmVOp1e416KTpgnZfKGN3wst3Lx1xEvtxL55mbVaSAJg7iAKckeN+UNMrT2s
-	 555wvfrVeInls0CPPOcg7endOBYeXWUND4yGJ7mypHbOOwei9s/7FsYUFnDCTIY/rWj5+
-	 leO9ThKiRYnwK+po3/0BjAXpUkJlg2ZO/Q5+Om6NpxQNnXCT3McbXDwkFIbA4Uf2xqVl1
-	 yDksSmB0CNQBFyFLP/Pvm8MqdnjQtpLZmDXP5sb6b4huTdey6dSz+vQ3LEKp9W40Ohw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793008769;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=P5O3bIMA8niIU8uNgsYdMxQzL+EPdl0GXXhQhteX0V8=;
+	b=4WgRfsuGR3ZNbbFuX+PUKy8AiFRw65GfcnLWztwQxNJ3aaGZ8K4ijJLaOKZDbJRHeJ3i
+	 5XFEtXJqh+nUWXushwyBL2ec14YkxeXNVbYzQ/qxx0RD7igh//6SbYdkuwXSAPbzXmclw
+	 pJgKl1OUrutqnSDpMOjtqjX08O9EZH/CpdohYrIqmy6Dk6eNW+fWyt1KAWk9lvHNvesVE
+	 dITONb2VaGvwQaNEuWlcFKS0UMdZ3ktrAI83O31VIONm/tsmw8qD2YDZZTWM2A6MJeYhI
+	 dV7XU8X3b3DBKqsiOBQoIMi9rdNVhAykEcWFhsCNZZQIj/m/o98BKZdKp/BZ0P1wxyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NshH7fEY;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aZnKrMYX;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D01A160A2606;
-	Mon, 26 Oct 2026 09:58:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B24C606A31A;
+	Mon, 26 Oct 2026 09:59:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NshH7fEY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 251151F01181;
-	Mon, 26 Oct 2026 09:58:18 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aZnKrMYX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D73E81F01825;
+	Mon, 26 Oct 2026 09:59:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793008699;
-	bh=HED2kevfhrwGI8UExCHr+WpHjCuw2FSIBaGbLvE11iQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=NshH7fEYMysbqpjK0M5dWEIb5ohUsmMISWWZQ2wcifVxFJq9icmsimIRk4GrTrxmH
-	 aetSm5BzdHJlc3kgOEUrrgfCRkWzO3xEiOXFaMcfvQ6ndgkyOfNLom9iXDkqPzPSvM
-	 usAIOxjjTySSzxCiZmvnCDgJHR1o7/7t860t7S/AtwzCVc1ywXq07iVlxrofEruyMN
-	 7nf0BAtlUGaG1BuK39QRTgukxX3qhJylrrpck2MswXDpcv7ou0O81SoR/XmuWH/yzp
-	 6uyIpS3/cEpZD19svrigYARFeSmVZja7oLid+42ppvD5YxGESUzFpkIQvWam/vtihA
-	 0fYMi9BwL/vNQ==
-Date: Mon, 26 Oct 2026 10:58:16 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Selvarasu Ganesan <selvarasu.g@samsung.com>
-Cc: gregkh@linuxfoundation.org, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, peter.griffin@linaro.org, alim.akhtar@samsung.com, 
-	Thinh.Nguyen@synopsys.com, linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	jh0801.jung@samsung.com, h10.kim@samsung.com, dh10.jung@samsung.com, akash.m5@samsung.com, 
-	hongpooh.kim@samsung.com, eomji.oh@samsung.com, shijie.cai@samsung.com, 
-	muhammed.ali@samsung.com, thiagu.r@samsung.com
-Subject: Re: [PATCH v3 2/2] usb: dwc3: Add Exynos8855 to the generic platform
- driver
-Message-ID: <20261026-obedient-aardvark-of-pleasure-67e5bd@quoll>
-References: <20261023131501.3157463-1-selvarasu.g@samsung.com>
- <CGME20261023131548epcas5p2aeea6d1ff5351907df204e7b3fbe6030@epcas5p2.samsung.com>
- <20261023131501.3157463-3-selvarasu.g@samsung.com>
+	s=k20260515; t=1793008769;
+	bh=P5O3bIMA8niIU8uNgsYdMxQzL+EPdl0GXXhQhteX0V8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=aZnKrMYX06AvKDByfFq/KMHbyZ77EWds7MaRkbDoqwUrvInW5oxj9OwFj4vG1FC/+
+	 6NaGBli+tJlJ+ratR4by8qGeOMvagakRvg3lVY2lA4NjWRMzA3lj3I1LdYurWmJkN4
+	 8Z7vET79kX3yb3S2xi0Yt83GH77OTmKOuEMcFu3039xFAfj4H4BvPZxfOdDkS63kK+
+	 0fpuWR3sg0Xa6i2zDLIh4c7L2OoprnxEH42lfqDW9MYeCzMTbesNNQmrOTfLdHqBem
+	 syZviD2PPHb6ukQ48ANmjfZBvxY9Sc2lO0t8lfNHvglBnFKhmxhKW0Aq3zDcsBXVRV
+	 ba9mb2KU+Kulw==
+Message-ID: <sashiko-outbox-184858@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/3] clocksource/drivers/nxp-stm: Increase min_delta to
+ 20us for PREEMPT_RT
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Enric Balletbo i Serra" <eballetb@redhat.com>
+Cc: linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org
+In-Reply-To: <20261026-nxp-stm-fixes-v1-3-20a64a4ea454@redhat.com>
+References: <20261026-nxp-stm-fixes-v1-0-20a64a4ea454@redhat.com>
+ <20261026-nxp-stm-fixes-v1-3-20a64a4ea454@redhat.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 26 Oct 2026 09:59:28 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,25 +60,107 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261023131501.3157463-3-selvarasu.g@samsung.com>
 
-On Fri, Oct 23, 2026 at 06:45:01PM +0530, Selvarasu Ganesan wrote:
-> Add the "samsung,exynos8855-dwc3" compatible string to dwc3-generic-plat
-> so the Exynos8855 DWC3 controller can probe through the generic DWC3
-> platform glue. While at it, alphabetically reorder the existing entries.
-> 
-> Co-developed-by: Muhammed Ali <muhammed.ali@samsung.com>
-> Signed-off-by: Muhammed Ali <muhammed.ali@samsung.com>
-> Signed-off-by: Selvarasu Ganesan <selvarasu.g@samsung.com>
-> ---
->  drivers/usb/dwc3/dwc3-generic-plat.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] clocksource/drivers/nxp-stm: overshoot check runs before enablin=
+g comparator
+--
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+commit 1dea5edcdc7544abe47a47e00f3d79d5b290fb1a
+Author: Enric Balletbo i Serra <eballetb@redhat.com>
 
-Best regards,
-Krzysztof
+clocksource/drivers/nxp-stm: Increase min_delta to 20us for PREEMPT_RT
 
+This commit increases the clockevent min_delta from 2us to 20us in
+nxp_stm_clockevent_starting_cpu() to avoid counter overshoot under bus
+contention on PREEMPT_RT kernels.
+
+>     clocksource/drivers/nxp-stm: Increase min_delta to 20us for PREEMPT_RT
+>    =20
+>     Under bus contention on PREEMPT_RT kernels, the 2us min_delta is too
+>     small and the counter can advance past the programmed comparator value
+>     before the overshoot check runs. While the -ETIME fallback handles th=
+is
+>     case, repeated retries add latency. Increase min_delta to 20us to red=
+uce
+>     collision probability.
+>    =20
+>     Cc: stable@vger.kernel.org
+>     Signed-off-by: Enric Balletbo i Serra <eballetb@redhat.com>
+
+> diff --git a/drivers/clocksource/timer-nxp-stm.c b/drivers/clocksource/ti=
+mer-nxp-stm.c
+> index ed7662a4e2bc4..a0761d7f8b013 100644
+> --- a/drivers/clocksource/timer-nxp-stm.c
+> +++ b/drivers/clocksource/timer-nxp-stm.c
+> @@ -335,14 +335,14 @@ static int nxp_stm_clockevent_starting_cpu(unsigned=
+ int cpu)
+>  	/*
+>  	 * The timings measurement show reading the counter register
+>  	 * and writing to the comparator register takes as a maximum
+> -	 * value 1100 ns at 133MHz rate frequency. The timer must be
+> -	 * set above this value and to be secure we set the minimum
+> -	 * value equal to 2000ns, so 2us.
+> +	 * value 1100 ns at 133MHz rate frequency. However, under bus
+> +	 * contention on PREEMPT_RT, 2us is too small and causes missed
+> +	 * matches resulting in 32s wraparounds. Increase to 20us.
+>  	 *
+> -	 * minimum ticks =3D (rate / MICRO) * 2
+> +	 * minimum ticks =3D (rate / MICRO) * 20
+>  	 */
+>  	clockevents_config_and_register(&stm_timer->ced, stm_timer->rate,
+> -					(stm_timer->rate / MICRO) * 2, 0x7FFFFFFFU);
+> +					(stm_timer->rate / MICRO) * 20, 0x7FFFFFFFU);
+
+[Severity: Medium]
+The commit message states that the -ETIME fallback handles counter
+overshoot and that increasing min_delta to 20us only reduces retry
+latency, whereas the comment added in nxp_stm_clockevent_starting_cpu()
+states that 2us causes missed matches resulting in 32s wraparounds.
+
+Looking at nxp_stm_clockevent_set_next_event() in
+drivers/clocksource/timer-nxp-stm.c:
+
+static int nxp_stm_clockevent_set_next_event(unsigned long delta, struct cl=
+ock_event_device *ced)
+{
+	struct stm_timer *stm_timer =3D ced_to_stm(ced);
+	u32 val, now;
+
+	nxp_stm_clockevent_disable(stm_timer);
+
+	stm_timer->delta =3D delta;
+
+	val =3D nxp_stm_clockevent_read_counter(stm_timer) + delta;
+
+	writel(val, STM_CMP0(stm_timer->base));
+	...
+	now =3D nxp_stm_clockevent_read_counter(stm_timer);
+	if ((int)(val - now) <=3D 0)
+		return -ETIME;
+
+	nxp_stm_clockevent_enable(stm_timer);
+
+	return 0;
+}
+
+nxp_stm_clockevent_disable() clears STM_CCR_CEN in STM_CCR0, so no
+hardware comparator match can occur until nxp_stm_clockevent_enable()
+writes STM_CCR_CEN back to STM_CCR0.
+
+Because now is read and checked against val before calling
+nxp_stm_clockevent_enable(), if now is sampled just before val, can the
+counter reach and pass val while the STM_CCR0 enable write is still in
+flight under bus contention, missing the hardware match while
+nxp_stm_clockevent_set_next_event() returns 0 and causing the 32.2s
+wraparound?
+
+Should nxp_stm_clockevent_set_next_event() enable the comparator channel
+before reading now for the overshoot check (and disable it again if
+returning -ETIME) so that the -ETIME check covers the channel-enable
+write latency as well?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261026-nxp-stm-fi=
+xes-v1-0-20a64a4ea454@redhat.com?part=3D3
