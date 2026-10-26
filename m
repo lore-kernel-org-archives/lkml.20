@@ -1,46 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793018650;
-	b=ghwJzPAUOz4j7V9enJKh1i6RT1V2OohMGnpzrbW8X3EM9E1t+aIQezs8cUBtZxPuJEmw
-	 UAe4dwgBrmDgniMZyj+Yw9zC9Q+Se7oCe63KL+sYGIpzC9sliZTqyYYl6eLzUroWkyvzq
-	 ze6X712wwMrkRbiEuBNXjgamlfxHqi5LkkaKy+/7xWw9aqu6fUOMy8d1ICmybZzXl6jVk
-	 WXZx+fzZ/Wb4Yvd5QAnFXqIgjaII/v75hRtBMXwDZ9BUi7F9zB8HYLOAPqO4+hDh8OgQi
-	 WeTUHexERn917awvFNqmzW8rONehsPDA78i/W+QYYJcBhhm3u/X2yGnhZHsKH8UJ8+Q==
+	t=1793018652;
+	b=h9apQfvNYe0Ho3AUuLpfwsEBtn82mW6oezoh9/rOcIFHRIwOHsHZKzv+wPShx1zeH1Yj
+	 BpTwhBItLV129ZUph8f01SurUEfyooUPM6zBE78bR8QTgv+AeIqcyEisf9A4X9qpakjjn
+	 mZbUxMtMjnm0zv4L8MZPLKnHlVTJ5zqkvkguPuNA8nXETFQBChE2bwqiu6u2l2Asdo+7C
+	 O4PI9qYxrPwuQ/YCX5XM2IRhIOOcsKiaZadfu9mKr58AfpH6Fjlxk4iLhxSI7dQ5AnYn7
+	 WdqqiqDaFPECPbYDmpj29GOIGp4nWRwkAD0hB+9X7gIxheBWKEvcYc4bc8bnGoqOzIw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793018650;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793018652;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=OGdTeLhlX7anGpK/sof07r54SgkGVVV7bBbxgAgT74k=;
-	b=K0hXjT8onmW7UV9gdeZL7sY1XnRMBxePcu+JNnc0nnbEpDO0Y+T5XpRNH/vAmiFFYduI
-	 wu8uEK+I/WqY0xJuvrKwXOOhRpe5jElY/U2kXe4A6N5WiZi19POT5JsgvnQbJP+ix3yIe
-	 J14/fkaceOXXiHStmIwjF0WRvQsjq3HV6KbR4geUUXImHa0w2euMOsschY3RleCQWGWRD
-	 Vi/3VqLSADqDj7uQ5eLxnIOuseOtaCb8Un4tW6l9TRpDqfqNV1AdoVsCzXT0cA6h7SoXB
-	 +CMIuLqc0uf+kCjJ8rpSW2tiALrLbmoN8qfGKMWGUNc2KzdUR/UEVPesLCd+sShCg2Q==
+	bh=9THOll05jd1Z8uOdYQGQyK9LOXHpEwQd2xuYAvHMsOI=;
+	b=r+FReDPFB0ft04iPLKoQETnVC8w0f2/YagdxoPDLIDjSgXSd9Tcz/T6S7RWEq8avL8je
+	 Rw2ZcFrnOeq6d++4FQjNGWOgvMfd8+U2fRVZ8inlVcKOpO+rUwdpVt7NKVz4ulHJt/xQM
+	 chHNZaHOJAPyo9zope1lpfCGbhB+zwq9KXXtpm9xCaijGQjwq3LgL4j+ELpvP7wwKo/9L
+	 sQLLTFMzWTkTT4A4YAFX4FOiJTQ0546+rlsvGydowEDFkk+NuXHn0BN0lxBvWU1omnEbM
+	 vuRwHnLnmlnvwh+aoEo74HLJmFCh9tQUsu10z1Ny82LaaZUyvPgt+5GILx6oN6B+PbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eJLHhNI8;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RyK7Md73;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B53E606A333;
-	Mon, 26 Oct 2026 12:44:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C513F606A33C;
+	Mon, 26 Oct 2026 12:44:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eJLHhNI8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 922F21F031E6;
-	Mon, 26 Oct 2026 12:44:08 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RyK7Md73
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5321D1F031E0;
+	Mon, 26 Oct 2026 12:44:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793018649;
-	bh=OGdTeLhlX7anGpK/sof07r54SgkGVVV7bBbxgAgT74k=;
+	s=k20260515; t=1793018651;
+	bh=9THOll05jd1Z8uOdYQGQyK9LOXHpEwQd2xuYAvHMsOI=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=eJLHhNI8eBbniE2m92MRjgZZO8297eDqWVBNTYc18O9W03O09SK8Mzj5snTCj86iM
-	 6wT5eB2c27l5T8iLK0dfcERA7fJOxUXeEfu4xUQBZ7yeJ9PLBSIAeyct94eCyrlEb4
-	 K46VOFdBoS8BeANQTzVpEpaXdIJWn29cm+gutrhe+NH6rZSnwiZAdxDlL/AGgYTiAc
-	 cPqaweZkhxKhCEiNMxnT7e79dmiCA29y3upyQh89/RazdYMtz5PUV2xeIHWlAlpV4x
-	 5uY35F/QbAKMJ5OkN5W+zuHxcRVsAW2Ei/ZcyaFgd0oX1qmIhSlaXLF/9oN0oMMplz
-	 sDYT9KKTSqR0A==
-Subject: Re: [PATCH net-next v18 1/4] hinic3: Add ethtool statistic ops part1
+	b=RyK7Md73laUpqkg60e08r+8qzbSlUZyIzM4NfumjiMMzvjs0sGnRoa9Xh7s+CIhCg
+	 g+KTuN4lxjdKYT0ciCFcfUg/5hBDr9wnsvsHkPpHU4aDUvWZzp47qTj3BRKmKilMzl
+	 cqOJT9A+5sQPoqXXwwRXL7Dx2Yv67UE0GXv01ejOZytAM85q9YUrxLg/xkQay9yF3K
+	 2d37UgVFhAC7xXDgwtXPcKzyTAanOQZPhnSIO16mrC6nl743OEOP3Teyl5Swmb2iON
+	 4a9ON8mLwLAIj24WHWoa+jK3mqprAXuho0RCvdA/XDF2iFCZMnTlJBfxscJBwC/uta
+	 KFDFY/oIScUVA==
+Subject:
+ Re: [PATCH net-next v18 3/4] hinic3: Add Add per queue netdev-genl stats
 From: netdev-bot+sashiko@kernel.org
 To: gongfan1@huawei.com
 Cc: wudi234@huawei.com, tengpeisen@huawei.com, netdev@vger.kernel.org,
@@ -51,12 +52,12 @@ Cc: wudi234@huawei.com, tengpeisen@huawei.com, netdev@vger.kernel.org,
  larysa.zaremba@intel.com, vadim.fedorenko@linux.dev,
  linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
  zhoushuai28@huawei.com, wulike1@huawei.com
-Date: Mon, 26 Oct 2026 12:44:08 +0000
-Message-ID: <179301864810.3134.2939761618327593882@kernel.org>
+Date: Mon, 26 Oct 2026 12:44:09 +0000
+Message-ID: <179301864989.3134.6585576685337889005@kernel.org>
 In-Reply-To:
- <1b35942d45717da8896349eedc71ffc924a0e8f9.1792671176.git.gongfan1@huawei.com>
+ <b241adb884df2f371ff5399e3be86199eed35250.1792671176.git.gongfan1@huawei.com>
 References:
- <1b35942d45717da8896349eedc71ffc924a0e8f9.1792671176.git.gongfan1@huawei.com>
+ <b241adb884df2f371ff5399e3be86199eed35250.1792671176.git.gongfan1@huawei.com>
 X-sashiko-severity: High
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -70,10 +71,10 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 4 potential
+Thank you for your contribution! Sashiko AI review found 7 potential
 issue(s) to consider.
 
-Critical: 0 · High: 1 · Medium: 3 · Low: 0
+Critical: 0 · High: 1 · Medium: 5 · Low: 1
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -81,172 +82,305 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [High] hinic3_send_one_skb()
-  (drivers/net/ethernet/huawei/hinic3/hinic3_tx.c) reads skb->len for…
-- [Medium] The commit is described as a feature (ethtool -S support).
-- [Medium] The new TX byte (and packet) accounting in
-  hinic3_send_one_skb() adds only skb->len and 1 per skb.
-- [Medium] The new RX accounting in hinic3_rx_poll() adds the CQE pkt_len
-  to rx_bytes and counts nr_pkts once per completion.
+- [High] hinic3_get_queue_stats_rx() and hinic3_get_queue_stats_tx()
+  index &nic_dev->rxqs[i] and &nic_dev->txqs[i] with the core-supplied…
+- [Medium] hinic3_get_base_stats() calls memset(stats_rx, 0, ...) and
+  memset(stats_tx, 0, ...) on the whole netdev_queue_stats_rx/tx structs.
+- [Medium] hinic3_get_queue_stats_tx() reports txq_stats->busy as the
+  qstat `stop` counter (stats_tx->stop = txq_stats->busy).
+- [Medium] hinic3_get_base_stats() sums the inactive-queue history over
+  [nic_dev->q_params.num_qps, nic_dev->max_qps).
+- [Medium] hinic3_get_queue_stats_rx() reports stats_rx->alloc_fail =
+  rxq_stats->alloc_fail per queue.
+- [Medium] The per-queue qstats packets/bytes exported by
+  hinic3_get_queue_stats_tx() and hinic3_get_queue_stats_rx() count skbs…
+- [Low] The commit message has no body, and the subject has a typo:
+  "hinic3: Add Add per queue netdev-genl stats".
 
 --
 
-hinic3: Add ethtool statistic ops part1
+hinic3: Add Add per queue netdev-genl stats
 
-This commit adds per-queue TX/RX software counters plus firmware-backed
-vport and physical port statistics to hinic3. It implements the
-.get_strings, .get_sset_count and .get_ethtool_stats callbacks for
-ethtool -S, and adds packet/byte accounting to the RX and TX hot paths.
+This commit adds netdev_stat_ops to the hinic3 driver. It implements
+get_queue_stats_rx, get_queue_stats_tx and get_base_stats, so per-queue
+and device-level counters are exported through the netdev-genl qstats
+interface.
+
+> hinic3: Add Add per queue netdev-genl stats
+
+[Severity: Low]
+This isn't a bug, but "Add" appears twice in the subject line.
+
+The commit message also has no body. This patch adds new uAPI-visible
+qstats output. Could the message describe how the driver counters map onto
+the standard attributes (busy to tx-stop, csum_errors to rx-csum-bad,
+alloc_fail to rx-alloc-fail)?
+
+It could also say that get_base_stats treats queues in
+[q_params.num_qps, max_qps) as the inactive range and zero-fills every
+qstat field.
 
 > diff --git a/drivers/net/ethernet/huawei/hinic3/hinic3_netdev_ops.c b/drivers/net/ethernet/huawei/hinic3/hinic3_netdev_ops.c
-> index da73811641a9d..c71bb3dff39c3 100644
+> index c71bb3dff39c3..10364c4dc11f9 100644
 > --- a/drivers/net/ethernet/huawei/hinic3/hinic3_netdev_ops.c
 > +++ b/drivers/net/ethernet/huawei/hinic3/hinic3_netdev_ops.c
-> @@ -802,14 +802,14 @@ static void hinic3_get_stats64(struct net_device *netdev,
->  		txq_stats = &txq->txq_stats;
->  		do {
->  			start = u64_stats_fetch_begin(&txq_stats->syncp);
-> -			bytes += txq_stats->bytes;
-> -			packets += txq_stats->packets;
-> -			dropped += txq_stats->dropped;
-> +			bytes = txq_stats->bytes;
-> +			packets = txq_stats->packets;
-> +			dropped = txq_stats->dropped;
->  		} while (u64_stats_fetch_retry(&txq_stats->syncp, start));
-> +		stats->tx_packets += packets;
-> +		stats->tx_bytes   += bytes;
-> +		stats->tx_dropped += dropped;
->  	}
-> -	stats->tx_packets = packets;
-> -	stats->tx_bytes   = bytes;
-> -	stats->tx_dropped = dropped;
 
-[Severity: Medium]
-The commit message says this patch adds ethtool -S support. This hunk
-also changes hinic3_get_stats64() so it no longer accumulates with +=
-inside the u64_stats_fetch_begin()/u64_stats_fetch_retry() loop. Before,
-every retry added the values again.
+[ ... ]
 
-The new increments in hinic3_rx_poll() and hinic3_send_one_skb() also
-look like the first writes to rxq_stats/txq_stats packets and bytes,
-apart from hinic3_rxq_clean_stats() and hinic3_txq_clean_stats().
+> @@ -866,7 +867,80 @@ static const struct net_device_ops hinic3_netdev_ops = {
+>  	.ndo_start_xmit       = hinic3_xmit_frame,
+>  };
+>  
+> +static void hinic3_get_queue_stats_rx(struct net_device *netdev, int i,
+> +				      struct netdev_queue_stats_rx *stats_rx)
+> +{
+> +	struct hinic3_nic_dev *nic_dev = netdev_priv(netdev);
+> +	struct hinic3_rxq_stats *rxq_stats;
+> +	struct hinic3_rxq *rxq;
+> +	unsigned int start;
+> +
+> +	rxq = &nic_dev->rxqs[i];
 
-At the baseline, did hinic3_get_stats64() then always report 0 for RX/TX
-packets, bytes and dropped in ip -s link and /proc/net/dev?
+[Severity: High]
+Can i go past the end of nic_dev->rxqs[] here?
 
-If so, hinic3_net_dim() was only passing zeros to DIM:
+hinic3_alloc_rxqs() allocates nic_dev->rxqs with max_qps entries. The core,
+however, calls this callback for every i below
+netdev->real_num_rx_queues.
 
-hinic3_irq.c:hinic3_net_dim() {
+At probe, real_num_*_queues comes from hinic3_func_max_qnum():
+
+hinic3_main.c:hinic3_nic_probe() {
     ...
-	dim_update_sample(irq_cfg->total_events, rxq->rxq_stats.packets,
-			  rxq->rxq_stats.bytes, &sample);
+    max_qps = hinic3_func_max_qnum(hwdev);
+    netdev = alloc_etherdev_mq(sizeof(*nic_dev), max_qps);
     ...
 }
 
-That would mean adaptive RX coalescing never saw any traffic.
+After that, hinic3_sw_init()->hinic3_try_to_enable_rss() can shrink
+max_qps to 1 when alloc_rss_resource() or hinic3_set_hw_rss_parameters()
+fails:
 
-The commit message doesn't mention any of this. Could these fixes go to
-net as separate patches, with Fixes: tags for the commits that added
-.ndo_get_stats64 and DIM, so stable kernels get them?
+hinic3_rss.c:hinic3_try_to_enable_rss() {
+    ...
+    err = alloc_rss_resource(netdev);
+    if (err) {
+        nic_dev->max_qps = 1;
+        goto err_reset_q_params;
+    }
+    ...
+}
 
-[ ... ]
+Only hinic3_vport_up() lowers real_num_*_queues, and only on a successful
+open. A device-scope dump before the first successful open (or after opens
+that fail before hinic3_vport_up()) still does this:
 
-> diff --git a/drivers/net/ethernet/huawei/hinic3/hinic3_rx.c b/drivers/net/ethernet/huawei/hinic3/hinic3_rx.c
-> index 309ab59013797..ae4ccff4a09a9 100644
-> --- a/drivers/net/ethernet/huawei/hinic3/hinic3_rx.c
-> +++ b/drivers/net/ethernet/huawei/hinic3/hinic3_rx.c
+netdev_nl_stats_by_netdev()
+    netdev_stat_queue_sum(netdev, 0, netdev->real_num_rx_queues, &rx_sum,
+                          0, netdev->real_num_tx_queues, &tx_sum);
 
-[ ... ]
+There is no netdev->up check on this path, so i runs from 1 to
+func_max_qnum - 1 against a one-entry array.
 
-> @@ -575,6 +602,7 @@ int hinic3_rx_poll(struct hinic3_rxq *rxq, int budget)
->  			break;
->  
->  		nr_pkts++;
-> +		rx_bytes += pkt_len;
->  		num_lro = RQ_CQE_STATUS_GET(status, NUM_LRO);
->  		if (num_lro)
->  			num_wqe += hinic3_get_sge_num(rxq, pkt_len);
+Would this read past the end of the rxqs and txqs slab objects and return
+those values to user space? NETDEV_CMD_QSTATS_GET does not require
+GENL_ADMIN_PERM, so any local user can issue it.
+
+The same applies to nic_dev->txqs[i] in hinic3_get_queue_stats_tx().
+Before this patch hinic3 had no stat_ops, and hinic3_get_stats64() bounds
+its loops by max_qps.
+
+> +	rxq_stats = &rxq->rxq_stats;
+> +	do {
+> +		start = u64_stats_fetch_begin(&rxq_stats->syncp);
+> +		stats_rx->bytes = rxq_stats->bytes;
+> +		stats_rx->packets = rxq_stats->packets;
 
 [Severity: Medium]
-When hardware LRO is on (ethtool -K <dev> lro on), one CQE stands for
-num_lro coalesced wire packets. recv_one_pkt() already passes num_lro to
-hinic3_lro_set_gso_params(), which sets gso_segs = num_lro.
+netdev.yaml defines rx-packets as "Number of wire packets successfully
+received and passed to the stack." Do these counters still match that when
+hardware LRO is active?
 
-Are rx_packets and rx_bytes undercounted for LRO aggregates? nr_pkts goes
-up by one per completion. pkt_len holds only one copy of the headers, so
-the headers of the other num_lro - 1 packets are not counted.
+hinic3_rx_poll() counts one packet per CQE:
 
-hinic3_get_stats64() reports these values as rx_packets/rx_bytes as they
-are. Later in the series they are also reported as qstats
-rx-packets/rx-bytes, which netdev.yaml defines as wire packets.
+hinic3_rx.c:hinic3_rx_poll() {
+    ...
+        nr_pkts++;
+        rx_bytes += pkt_len;
+        num_lro = RQ_CQE_STATUS_GET(status, NUM_LRO);
+    ...
+}
 
-num_lro is already read here for the replenish threshold. Could it be
-used for the counters too?
+NUM_LRO gives the number of wire packets that were merged, and the skb gets
+gso_segs = num_lro.
 
-[ ... ]
+The tx side in hinic3_get_queue_stats_tx() looks similar. It counts once
+per skb, right after the doorbell rather than at DMA completion:
 
-> diff --git a/drivers/net/ethernet/huawei/hinic3/hinic3_tx.c b/drivers/net/ethernet/huawei/hinic3/hinic3_tx.c
-> index f92568f0f00b7..b0a0ffb1052b3 100644
-> --- a/drivers/net/ethernet/huawei/hinic3/hinic3_tx.c
-> +++ b/drivers/net/ethernet/huawei/hinic3/hinic3_tx.c
+hinic3_tx.c:hinic3_send_one_skb() {
+    ...
+    txq->txq_stats.bytes += skb->len;
+    txq->txq_stats.packets += 1;
+    ...
+}
 
-[ ... ]
+TSO/TSO6 is enabled by default when HINIC3_NIC_F_TSO is reported. One skb
+then usually covers gso_segs wire frames, and the replicated headers are
+missing from the byte count.
 
-> @@ -599,11 +617,19 @@ static netdev_tx_t hinic3_send_one_skb(struct sk_buff *skb,
->  	hinic3_write_db(txq->sq, 0, DB_CFLAG_DP_SQ,
->  			hinic3_get_sq_local_pi(txq->sq));
->  
-> +	u64_stats_update_begin(&txq->txq_stats.syncp);
-> +	txq->txq_stats.bytes += skb->len;
-> +	txq->txq_stats.packets += 1;
-> +	u64_stats_update_end(&txq->txq_stats.syncp);
+Would rx-packets/rx-bytes and tx-packets/tx-bytes undercount wire traffic
+whenever TSO or LRO is active? The existing ndo_get_stats64 use did not
+have this wire-packet requirement.
+
+> +		stats_rx->csum_bad = rxq_stats->csum_errors;
+> +		stats_rx->alloc_fail = rxq_stats->alloc_fail;
+> +	} while (u64_stats_fetch_retry(&rxq_stats->syncp, start));
+> +}
 > +
->  	return NETDEV_TX_OK;
-
-[Severity: High]
-Can the skb already be freed when skb->len is read here?
-
-At this point tx_info->skb is published and hinic3_write_db() has given
-the WQE to the device. TX completion runs from NAPI on whichever CPU
-handles the queue interrupt. It takes no lock that the xmit path also
-takes:
-
-hinic3_poll()
-  hinic3_tx_poll()
-    hinic3_tx_unmap_skb(netdev, tx_info->skb, tx_info->dma_info);
-    napi_consume_skb(tx_info->skb, budget);
-
-Suppose the device completes the packet and another CPU runs
-hinic3_tx_poll() before this CPU reaches the stats update. That can
-happen if this CPU takes a hardirq, if the vCPU is preempted, or under
-PREEMPT_RT. The read of skb->len is then a use-after-free, and a garbage
-value is added to tx_bytes.
-
-Before this patch the skb was not touched after the doorbell, because
-netif_subqueue_sent() reads skb->len earlier. The code is unchanged at
-the end of the series ("hinic3: Add ethtool pause param ops").
-
-Would saving skb->len in a local before the doorbell, next to
-netif_subqueue_sent(), and using that local for the stats fix this?
+> +static void hinic3_get_queue_stats_tx(struct net_device *netdev, int i,
+> +				      struct netdev_queue_stats_tx *stats_tx)
+> +{
+> +	struct hinic3_nic_dev *nic_dev = netdev_priv(netdev);
+> +	struct hinic3_txq_stats *txq_stats;
+> +	struct hinic3_txq *txq;
+> +	unsigned int start;
+> +
+> +	txq = &nic_dev->txqs[i];
+> +	txq_stats = &txq->txq_stats;
+> +	do {
+> +		start = u64_stats_fetch_begin(&txq_stats->syncp);
+> +		stats_tx->bytes = txq_stats->bytes;
+> +		stats_tx->packets = txq_stats->packets;
+> +		stats_tx->stop = txq_stats->busy;
 
 [Severity: Medium]
-How are TSO skbs counted here? hinic3_tso() passes gso_size to the
-hardware via hinic3_set_tso_info(), so one GSO skb goes out as several
-Ethernet frames. skb->len includes the L2/L3/L4 headers only once.
+Is busy the right counter to report as tx-stop?
 
-So tx_packets goes up by one per GSO skb rather than once per wire frame.
-tx_bytes also misses the headers that are copied into each extra segment.
+In hinic3_send_one_skb(), busy is only incremented in the NETDEV_TX_BUSY
+fallback, when hinic3_wq_free_wqebbs() < wqebb_cnt:
 
-hinic3_get_stats64() reports these as rtnl_link_stats64
-tx_packets/tx_bytes. The UAPI says tx_bytes should count the length of
-Ethernet frames excluding the FCS.
+hinic3_tx.c:hinic3_send_one_skb() {
+    ...
+        netif_subqueue_try_stop(netdev, txq->sq->q_id, ...);
+        u64_stats_update_begin(&txq->txq_stats.syncp);
+        txq->txq_stats.busy++;
+        u64_stats_update_end(&txq->txq_stats.syncp);
+        return NETDEV_TX_BUSY;
+    ...
+}
 
-Later in the series, "hinic3: Add Add per queue netdev-genl stats" also
-reports these counters as qstats tx-packets/tx-bytes, which are defined
-as wire packets.
+The normal stop happens on the success path, and no counter is updated
+there:
 
-Should this take gso_segs and the copied header length into account, for
-example skb->len + (gso_segs - 1) * hdr_len?
+    netif_subqueue_maybe_stop(netdev, txq->sq->q_id,
+                              hinic3_wq_free_wqebbs(&txq->sq->wq),
+                              txq->tx_stop_thrs,
+                              txq->tx_start_thrs);
+
+The fallback also increments busy even when netif_subqueue_try_stop() has
+re-woken the queue.
+
+netdev.yaml defines tx-stop as "Number of times driver paused accepting new
+tx packets from the stack to this queue, because the queue was full."
+Would tx-stop miss most real queue stops here, and count some events that
+were not stops? tx-wake is not reported either.
+
+> +	} while (u64_stats_fetch_retry(&txq_stats->syncp, start));
+> +}
+> +
+> +static void hinic3_get_base_stats(struct net_device *netdev,
+> +				  struct netdev_queue_stats_rx *stats_rx,
+> +				  struct netdev_queue_stats_tx *stats_tx)
+> +{
+> +	struct hinic3_nic_dev *nic_dev = netdev_priv(netdev);
+> +	int i;
+> +
+> +	memset(stats_rx, 0, sizeof(*stats_rx));
+> +	memset(stats_tx, 0, sizeof(*stats_tx));
+
+[Severity: Medium]
+Does zeroing the whole structs here report counters that hinic3 never
+collects?
+
+netdev_nl_stats_by_netdev() pre-fills the sums with the NOT_SET sentinel.
+It relies on get_base_stats to touch only the fields the driver supports:
+
+    memset(&rx_sum, 0xff, sizeof(rx_sum));
+    memset(&tx_sum, 0xff, sizeof(tx_sum));
+
+    netdev->stat_ops->get_base_stats(netdev, &rx_sum, &tx_sum);
+
+The kdoc for struct netdev_stat_ops in include/net/netdev_queues.h says:
+
+ * Only statistics which are set in @get_base_stats will be reported
+ * at the device level, ...
+ * This is because @get_base_stats has a second function of designating which
+ * statistics are in fact correct for the entire device ...
+
+With this memset, fields such as rx-hw-drops, rx-csum-complete,
+rx-hw-gro-*, tx-hw-drops, tx-needs-csum, tx-hw-gso-* and tx-wake become
+valid zeros. Per-queue NOT_SET values are skipped when summing, so every
+device-scope dump reports these fields as a constant 0.
+
+Could this function set only the fields hinic3 actually collects (bytes,
+packets, csum_bad, alloc_fail, stop), as other drivers do?
+
+> +
+> +	for (i = nic_dev->q_params.num_qps; i < nic_dev->max_qps; i++) {
+
+[Severity: Medium]
+Can this range overlap the live-queue range that the core sums?
+
+The core sums [0, netdev->real_num_*x_queues) itself, and
+netdev_stat_queue_sum() documents the base range as
+[real_num_*x_queues, num_*x_queues). The lower bound here is
+q_params.num_qps instead, and it can drift away from real_num_*_queues.
+
+hinic3_open()->hinic3_setup_num_qps()->hinic3_config_num_qps() can lower
+num_qps when there are not enough IRQs:
+
+    if (alloc_num_irq < q_params->num_qps) {
+        q_params->num_qps = alloc_num_irq;
+
+real_num_*_queues is only synced later, in hinic3_vport_up():
+
+    err = netif_set_real_num_queues(netdev, nic_dev->q_params.num_qps,
+                                    nic_dev->q_params.num_qps);
+
+Suppose one of these fails in between: hinic3_alloc_channel_resources(),
+hinic3_open_channel(), hinic3_set_vport_enable() or
+hinic3_maybe_set_port_state(). No error path restores num_qps, so it stays
+at the lower value M while real_num_*_queues keeps the old value N.
+
+Would queues [M, N) then be counted twice in every device-level query,
+once here and once in the core sum? Those queues still hold counters from
+earlier opens, since stats are only reset at probe. That would inflate
+bytes, packets, csum_bad and stop.
+
+> +		struct netdev_queue_stats_rx rx = {0};
+> +
+> +		hinic3_get_queue_stats_rx(netdev, i, &rx);
+> +		stats_rx->bytes += rx.bytes;
+> +		stats_rx->packets += rx.packets;
+> +		stats_rx->csum_bad += rx.csum_bad;
+> +	}
+
+[Severity: Medium]
+Is rx.alloc_fail meant to be dropped here?
+
+hinic3_get_queue_stats_rx() reports alloc_fail per queue, and the memset
+above marks stats_rx->alloc_fail as a valid device total. This loop,
+however, only adds up bytes, packets and csum_bad.
+
+When num_qps is lowered (for example by hinic3_config_num_qps() on an IRQ
+shortage), allocation failures recorded on the now-inactive queues would
+drop out of the device-level rx-alloc-fail. Bytes, packets and csum_bad
+keep their history, because rxq_stats is only cleared at probe by
+hinic3_rxq_stats_init().
+
+Should this loop also do stats_rx->alloc_fail += rx.alloc_fail?
+
+[ ... ]
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/cover.1792671176.git.gongfan1%40huawei.com
