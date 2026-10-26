@@ -1,131 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.142
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793034934;
-	b=eQe8Y/n/IvYU9jtDqQbexO655Cxmg8oN/UV2H04nLqYyWU+rd2eH0fi5Z5TR61vdA29n
-	 R151xqjYcBbb84GbwLl6/5EB2pUMk00iczTkXXhU0qM7YOPs3cUfUQxRXX6YRkGGKqov9
-	 gbT6gUPUKl5/tUdAx+l7icFbQ3od1TxU6rZypSMpjHytn7AJ177ssiEvepoUL4rK705Dt
-	 Ow29kzRzmrz8UTM1s9aMEkMV0LDvRx8HEsnlHZJxIROPbwgBca2xyW91NkOqywAYaHxeO
-	 sIjTudJPunnhxMJM0nYQiWbIoUIZmP0UF8MmEypr/3sf9CcgypeZMQul0R/sRbkl0cg==
+	t=1793034973;
+	b=GE/dawyY7tmaAWC5FMICwOn+7pD32Ao6293FQ1px52ga+W9XZ2Vt84Je2Ygl3FnUJOib
+	 rSrTu6XFsVOzsTfhcXcHz7k+97JNvC6sdXG3s1GL9UY9crV0hrS04KckSnIPqTMxCpPaz
+	 j4nvoYR0t7G42eCZWlvuxLFM0SvzRU6Ai1pNELi8OyaOOpGFQes7FXx5JyGg8J4jjvrjF
+	 pm6G8z8XwsMaR+n/4G6WIxziUUhXraMAnHFIy2iN0Fp5vhn19Msa0lhI4j+j7LwT3rOTl
+	 usMIeD3RJVCp+kDhfxs7CB9OZQzCXoYsVHNEErCK19nLhM2sjZCYUD3+fCIAgcBpBrw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793034934;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=WgWZTIZ7qHEcd9eqvBpm5VFp1o1TmVO9nxe8IAIt6xQ=;
-	b=bOorVX3YL+2/zFdS0sFu1rVFRoVmybAS/JcfqHRTGKxCxkDstu6WpIJw8Q/u7jVRVcfK
-	 Aj5aqzYXDEjdGlJCzoEIxu2PcKeZCifc+q8TaiKi23EUjCunomyjbuM/eH6ICtjHWNXK6
-	 zyacX2D3stZGQVNHJr0hkxJSFtov4tf21eAc1i/ekJpHT+BwmXfQY878z4Mwuc/m/VSBT
-	 Poxoj4e3zW1/9YaSVtxeAdo3MkEqxSn1Nzw9E2vlFyAQQpsHDohE5yb+bSJL+n6HyyJXt
-	 GMG8lXI6hHg2dGsYynUHv/VC0CmKj99EQ5kAF5app6Ja4/Lj+oixyMSPSJbNd0zexiQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793034973;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:
+	 X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type;
+	bh=y/T7eHMAoSP0rr4UWWXbf1cJ8XwTfHjYASx0lqrxNZw=;
+	b=ac57pUqKFcWaQaC7de+1HZyS/+pT/u54K9RFiU8TlKrld+l5pHp508ROz8joX3rCtU6U
+	 82NY5qmkUbAjewr9t4tQIOls1fAr5bDZSEXlPL9s7GvqkjrHIrGQsrxutrmjyNtJj75NF
+	 uSumK4IclaoAWQ4Kn0lxGc4DLRzGqLbuhPxMegl96xAKHq1IINUaJl642KUPR2uJP1F1U
+	 zJ+u4Qcsc9YlJXT7CihCV6FoHPxuA8L9qEHEivNUD9MQQY+LG3nWvgI1lTZmRPsV8tH5w
+	 xJqWkk1384+lfuBAvAlIq8cHqSyFqcLTyURtj30+gmNWAzP5yuf2UZwJF91T4YKNmaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=shutemov.name;
-	spf=pass smtp.mailfrom=shutemov.name;
-	dkim=pass header.d=shutemov.name header.i=@shutemov.name header.a=rsa-sha256 header.s=fm1 header.b="fZ/mmV5g";
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=T2a+0L1C;
-	arc=none smtp.remote-ip=103.168.172.142
-Received: from flow-a7-smtp.messagingengine.com (flow-a7-smtp.messagingengine.com [103.168.172.142])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=linux-foundation.org;
+	spf=pass smtp.mailfrom=linuxfoundation.org;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=PmEc2ngs;
+	arc=none smtp.remote-ip=209.85.208.54
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B2CE606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 17:15:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B2CE606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93DD3606A31F
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 17:16:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93DD3606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=shutemov.name header.i=@shutemov.name header.a=rsa-sha256 header.s=fm1 header.b=fZ/mmV5g;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=T2a+0L1C
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailflow.phl.internal (Postfix) with ESMTP id A89D713801F7
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:15:33 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-03.internal (MEProxy); Mon, 26 Oct 2026 13:15:33 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm1; t=1793034932; x=
-	1793042132; bh=WgWZTIZ7qHEcd9eqvBpm5VFp1o1TmVO9nxe8IAIt6xQ=; b=f
-	Z/mmV5g9zLaRu5j3caYih8wYVeK7pKR2YtVumaOb7e9AEDxtWwuyOeOFmO+eXRSm
-	1PSO/VFOy/+mWa9abx3T/2yAELqvdnmAeSJu4fzYNvWJTRR2Jy9srIM+XYmCKdSN
-	34dn8nODhQxO4aGw97WCjkzr51iOwn3ruBlaWbfWsb19OudhJxbB5YDBf5pTNnXU
-	+85Hyy13345QP8VDIx7HQEcye1Kq3tAknpXR1YgWlU1X/KWCkckpXky9L9/pqTyz
-	ooN8GW80M1NG7tct3Au1Qb4j8E/mEuaXsdTCAaG59G/O7w4TwqAvgb5t+bXBUdLR
-	V/bb8NEqSPXsjaQ2/6n/A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1793034932; x=1793042132; bh=WgWZTIZ7qHEcd9eqvBpm5VFp1o1TmVO9nxe
-	8IAIt6xQ=; b=T2a+0L1CD1iecshjOU3hWu8d37blUekwLbjtDS5gZpKwM9pjLG9
-	Vh5wjo2Yl1LE3RquV44L5MZlVhg7ag1UV0M73oLMBcwkzOTV1CLOD7lFHm741eds
-	5JoDvLpHNfPTRMvfMpOtrtztR3jMnXJWgPZWUrmoeGxD7hBnGsMLrcEjsVQIAF53
-	vto83Oo4BV8/3XsguCeiXq5ueq1ezjOFmuP1zROLHt6nCS1xsspUVr+0RPfxa0u5
-	02AlJc5y2VQEx4RkptibYJOCx6zM4phKtMB08UgWHrGyWEGZ68xWXDPNiMuiIId1
-	UNfzNs6wjmOLNqXYP2to8UYt7mU5mcEMQYw==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=sign d=shutemov.name a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793034932; d=shutemov.name;
-	mf=PGtpcmlsbEBzaHV0ZW1vdi5uYW1lPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:I6JKWF3eavdUvEOXuwHSlZQte0fSn8bhhbxdKqSJHYUHjiQ
-	WHu6WT2a5KYErBqLD0VazUzhG11Ye6mhpdSmeQbWmCKN5BH7KVyzrR55I3bj00QZ
-	VmhKzjMzVOScn6AUbPN5OMqEGduyrwcE30w94DG5p4AEypKb7ml/lpaCtpez0cuz
-	jKCbWrJvCNv875fwwEYpl3LfFjsyp25NYVPwlhktA1vOmaieXd/v84LYEjGjTdXK
-	TjpsGi/wlzNqRCjlUTwUJaBxxs1QAFq8Ed0PpWj9i5d4yO+XU/EMAgSoLZ8Jn/2F
-	IPREdUyrazEw0+4sV2xboIMTWz8jqxywNm9E2Gg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-disposition,content-type,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:CwTqFkX92AiYgrdq5UPorGiNimGP5HguOsZVh3B4CWU=:5B4/pBpvFw4Mf5/ZSFPGmD+cCMlqrVZFb5WHDs2mwGE=;
-X-ME-Sender: <xms:s4rfag58y-RJ_XDZpFZWVrazj564_G53BdUi_PptTtpdDPSLEW2lSg>
-    <xme:s4rfahChi4WKT9gRwf_v0J-xS1spZmaNKWGYOzR4IT59tRyctsE9lE_ag6xsXsNph
-    RRuAOVYRa9nEt1iJnji-zjC83WAUgaHOjEbBHy7FzNNtSBNgTZwa9HH>
-X-ME-Received: <xmr:s4rfakcGZqQLYXC2H57zOUOZqsixT43wyiUlZ7bmVPj2z9IMwBSTgVoP09M>
-X-ME-Proxy-Cause: dmFkZTFB6PNGhMhAXmj0ZOtRvHKd56A9JXD4WvNPHaZaK2XiU5P65xov6wStY5RJjkvPKO
-    XSPqLzkGO4Zo4ODwiKKxS0X6P41grxvQjvP6oiDZiTh+fpDH0yL2MunT0+fjiS+FaAqY1/
-    PaJgc/5aspdPW1Mj45Bp7VVVdrPLEgSlrB+JkwItGH4qYwuHSgEwJtjBUZKOymAYKJScIB
-    KoMf/Q5MRD1DE9DmWfw9Wo0qm6Ock8Jg/0ZvcH/PY8Ox+HjLKJTKKASZNlPl8RIBfaFzN+
-    hv3kzzwRvjniNu6oVve34NyDlpJcCbxEX6LePZcQhFmYCUOx0RpGtkzk9m5jAP/xJV1jqB
-    qmfqQgYHKFDf/konLHPaAJTbFRfxuWNuwXsBKupI59MnPZtXUnXHlo+/ycyFM1EouEFEOx
-    7zcJr24zTYLLO1S6FjnCnGL33sOzapaodQgyvAUHSR+M/pjoi3r1wj6VJRM+aigFAfINZQ
-    VhhPPtbohfWHOpzxaDLQmMyoBtRLSztcPzs4dLBl1kNw79rRydZoPrFc01SCGpo8oEKDNH
-    wHV4Oldi896kOORnjwO8XhqyPwv4StCU+V/qewoqv2I6NmJul/pFVodwr6eWAdHuancEy4
-    TgqJLAjDjyDuZTnngn7454DY/QRz+2UE3Wx2GivQVzMxTOcFQZPY0oQk91Xw
-X-ME-Proxy: <xmx:s4rfakuJjJ6-h0mknCrr9JvZdH7hQUDw35nzt6NEtELk3WpJKPuJqA>
-    <xmx:s4rfasNMDaq6ohN-_TuZ-en2CdiRi5XkgSxs0kvFu5pl5w_Yv2ruAw>
-    <xmx:s4rfapHLmcRWRAKMDXbGPP_ApfgdpsicwQ4b7apUy01Q4IuctmCrIw>
-    <xmx:s4rfal9DZ0S-IpAzW3tGo-tkqwsJYFiR6l7ih97I4dUG4PAROuBgTQ>
-    <xmx:tIrfas6H2672-_gf-0iJEJOe_gcSKJw9pgPdfdJgSt2h7xlz9Ix8uzMA>
-Feedback-ID: ie3994620:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 26 Oct 2026 13:15:30 -0400 (EDT)
-Date: Mon, 26 Oct 2026 17:15:29 +0000
-From: Kiryl Shutsemau <kirill@shutemov.name>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Gregory Price <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
-	Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Vladimir Davydov <vdavydov.dev@gmail.com>, 
-	Michal Hocko <mhocko@suse.com>, Hugh Dickins <hughd@google.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Lukas Czerner <lczerner@redhat.com>, 
-	Carlos Maiolino <cmaiolino@redhat.com>, Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
-	Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>, Muchun Song <muchun.song@linux.dev>, 
-	Oscar Salvador <osalvador@suse.de>, David Stevens <stevensd@chromium.org>, 
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>, William Kucharski <william.kucharski@oracle.com>, 
-	Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, Nhat Pham <nphamcs@gmail.com>, 
-	Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi <nao.horiguchi@gmail.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 10/16] mm/shmem: discard whole new large folios on
- fallocate rollback
-Message-ID: <at-Kn5yabin1E1Jw@thinkstation>
-References: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
- <20261026-fixes_shmem-v1-10-703206d5fa0c@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=PmEc2ngs
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6b1dae0febeso4628140a12.2
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:16:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linux-foundation.org; s=google; t=1793034971; x=1793639771; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=y/T7eHMAoSP0rr4UWWXbf1cJ8XwTfHjYASx0lqrxNZw=;
+        b=PmEc2ngszebaJ38uI3WUI3e6GQkJd//2O9ToxUx+oJQLhqAjG9+/InHoMLEnkpNPa/
+         LzqJVqvjlBP8jLrE4XgKox+e8/2tVmMDjPM+yp4ZRzDwoDSVciiVzC1MsQn5T0kb6Qq5
+         Hi8W8KneX1cyB4aNSwwRcqf8tF3oNbAP8OWnA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793034971; x=1793639771;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=y/T7eHMAoSP0rr4UWWXbf1cJ8XwTfHjYASx0lqrxNZw=;
+        b=uht3HIG6WKs1Qe5Rp7d4ChLpBJpk2D3UsyOp2fIsyNn+MzyQuBTZ7mIC4RNldedsos
+         FtKDxtAyuZlI+khvmLnqqpzVJtdTWv8SmQPMT9/NrRV0Wv6mbSVIyuxpkli8NxzVMx9e
+         L6I2hcu13NBRrAZxYUeUV4NB4HnkTywcPXXzGnH19GeGycvkM2fMOI+ghYsYt7TqlvqP
+         UqgaGw7gFkwSFSNayZ60cn1NqqF7WLfBvUH4hd3c7o6P5NSj04qbB7w0gRdzWXQl0fta
+         Jq0sEPODfUxqGL5tClXFYChmh6yXd8J2OwugoViG6I1llYuyq+JqJ/aCpq5nOdQgzrui
+         uEkg==
+X-Gm-Message-State: AFq9FYJtvmHLjhfFZk0hvc/mfvOCbdKCDCGAc6NQ8qXTzILJqlkac2mR
+	BMPSmFpHI2aJU23RhSACOT9p7i+aTGfrjtkXIWaoPSHdAvKa8EDTgF+uYYvUG/AWgdMaUM09ySi
+	qbcoGrxk=
+X-Gm-Gg: AYBFou0Kg2fgT7GhumiFFOlgBkVXDOLIRUU7pd2bZ3yK07nPSKuJRcDD8okqz3hetOR
+	4jngq6SAue2Qr8LfyTsVTpZDKjBZUG89SI21k97rc2PCm72bBGKQAIEiwF59oc9dnfWmJSnyUwy
+	ntrXm4/2YkQk/LgGaSvPeXOCwHFPAOYyvGpSuUOr8YQnPWfoffX/tyTqDxrBWn17rBDuOCscEr7
+	a0y6QGcSU0jsqYKp+Vinrd+4pkeWjH15gAxsAtKw9athrHc0isLndb5ZJpc2UONNZXfU2744rA0
+	RAx6/lGdqPXZX1CeGDWKr+GsokzivCbN3edlwmKlN7Vhv1JB4gPkBWLg7DtDCdfkK0cTNPbObDb
+	q0OE2X2P6WO4T1f7K0178LUKurgWKvowhfFdFVa/4G+vwyLUj2zSNePQqjoL3aGMH7GHYvqK81j
+	XkkJBV/2mMBcxWAy7hhmtnRN/puaktYbVkv2jqU1g8ritX85VWTaCUBdIdUYZdC+VEYuwgaaN/j
+	lAv8shwUpCc5DK6QiZXxlNSDac8kJJB6mA0kBoXZFj6rtoYhKMKAQbMEBsESvWHlYLycxwcDMeh
+	WyjhJt5AQ5SAaTAiBf4xdxWc+NZ7jg==
+X-Received: by 2002:a17:907:3f86:b0:c46:7645:874 with SMTP id a640c23a62f3a-c46bded79a3mr864357266b.48.1793034970834;
+        Mon, 26 Oct 2026 10:16:10 -0700 (PDT)
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com. [209.85.218.48])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd34fa1asm341116266b.6.2026.10.26.10.16.09
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 26 Oct 2026 10:16:09 -0700 (PDT)
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c46822eefb6so419270366b.2
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:16:09 -0700 (PDT)
+X-Received: by 2002:a17:907:96a1:b0:c46:75e7:25af with SMTP id
+ a640c23a62f3a-c46bdd6feb2mr883057666b.11.1793034969326; Mon, 26 Oct 2026
+ 10:16:09 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -135,29 +91,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261026-fixes_shmem-v1-10-703206d5fa0c@kernel.org>
+References: <at5i65e5wjMz2TCA@zenone.zhora.eu>
+In-Reply-To: <at5i65e5wjMz2TCA@zenone.zhora.eu>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Mon, 26 Oct 2026 07:15:52 -1000
+X-Gmail-Original-Message-ID: <CAHk-=wiMOMfksBhvDa+huuNCAu_EfpxzLiSawNxdady0r=zFEg@mail.gmail.com>
+X-Gm-Features: AclHuK9Y_0fn4SgEGbZUWloU7JZaAjwIq8dkffK0lllMB-Mf8oR2BLWFRRI-aLg
+Message-ID: <CAHk-=wiMOMfksBhvDa+huuNCAu_EfpxzLiSawNxdady0r=zFEg@mail.gmail.com>
+Subject: Re: [GIT PULL] i2c for v7.4, part 2
+To: Andi Shyti <andi.shyti@kernel.org>
+Cc: lkml <linux-kernel@vger.kernel.org>, linux-i2c <linux-i2c@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, Oct 26, 2026 at 10:40:43AM +0100, David Hildenbrand (Arm) wrote:
-> When undoing a failed fallocate(), shmem_undo_range() must discard each
-> newly allocated folio. Its second scan instead passes large
-> folios to truncate_inode_partial_folio(), which does not necessarily
-> discard the entire large folio, but instead tries splitting it to
-> discard only the requested range.
-> 
-> For example, with huge=always, a failed allocation starting at offset
-> 4 KiB can leave page 0 allocated in an otherwise empty file.
-> 
-> Discard the whole folio when unfalloc is set. Note that we enter this
-> path only for folios that are not uptodate, and can consequently be
-> dropped without losing any data.
-> 
-> Fixes: 55ac8bbe358b ("mm/shmem: fix race in shmem_undo_range w/THP")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+On Sun, 25 Oct 2026 at 10:20, Andi Shyti <andi.shyti@kernel.org> wrote:
+>
+> I'll now start queuing patches for a possible third week of the
+> merge window. Otherwise, they will go into v7.5.
 
-Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+NO!
 
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+I've taken this.
+
+But the whole "merge window is for new development" needs to stop. I
+will *NOT* be taking any more patches from you that aren't fixes.
+
+The merge window is for merging stuff that is ready BEFORE THE MERGE
+WINDOW STARTED.
+
+It's absolutely not for "let's add more to the pile". Never has been,
+and never will be.
+
+The merge window is two weeks NOT as a way to give maintainers two
+weeks (and no, it won't be three weeks this time, I've been keeping
+up) to create new stuff. It's so that the stuff that *was* ready
+before the merge window can be merged in a sane and controlled manner.
+
+So no. No more of this "I'll have a second - or third - pile of
+stuff". If it wasn't ready before, then it wasn't ready, and it goes
+into the *next* merge window.
+
+                  Linus
