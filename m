@@ -1,76 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793036236;
-	b=I3huObFyCyKHz/7hZVanCwr3zYdWqZG62iXu7oAnZ2Qh0rIzYzTm4FFrtSfK4hgzJT/7
-	 k6o2k30iEl6GNjU/hBEasXqMRJlpgHARQzJRaHDnM7AzCrmqoMLfSBcMq2IojnKdlC0ZL
-	 73IszABYfHjowsp6goqIq5hff5jAZYniZZezvgjx6M1VzCPkl3qaW90UJv93KTImboeRK
-	 u7oXyQfXXYw9/1n/y9LAqmSvp9fiCi+Xflo35mNt4SN86cjT4cL0G2LhDxuY0Lxz01iRt
-	 utFr58oxKriXBwJhARN4R5QC221vxXdiUuQGy220SLMLgcWW9UOFX6BjGS2ymR4SUSQ==
+	t=1793036358;
+	b=ZlstVpcJsy9I4NbZpT4iyrR4kXvK9SLQ0rSUliw48E1q55S9a9+av7VSQivPiiWPtwaA
+	 XFiwHT+tV9yFnI9yxpulSbI2Pg9740dtjSH0BamAgg+gGnwC+r386okk2lQr4RHAqnFHi
+	 mzLDxGefZWwFcgrjpukwv+vhxw2MR2vs94nTBVzMqV6N5laHus7eimInMYoibZau8oMjv
+	 oHk7mdwpaKDs2hRfH4zfcMhe/znyt1GWKhZPE1RfEKMeD8tjjt4prdB3IhYUqkEzuop3W
+	 8IpGNrjVvCYAbMJhsQzxU4UMHPwP6sfa7EVpOhRY6nvcpujGsjYBxOvYW863RCVtDCQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793036236;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793036358;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=u3uDBAF1Ovkb0RC2KTlASMQ4Rd8WYJb+WLyWCC0Ty9k=;
-	b=k/CGG6Q28Rmi/TSOhDmLxwrAqVDV4bKcEM8wlkEH6u63H/kjwa5NQ2MHj2/DoDjGIAPp
-	 aLq6Hi5ym9EWjDI08Za0dwkodQ/CHoHMyyFnV6qAzcR4vulEYlJVrPPT81QQr4/RlWu5z
-	 vlIa+D5d6iePgnxM4bN226BeCd2luV5UilegbqjYYLHkwekMF8jFt6rBc4abDvtvku3Du
-	 JWyKOJwAA/oFZwsSymgkzxXa7AxLpBhlmhT8bDCFd9sB4Rzru+Tmku5vIpqdd3w0bwBRR
-	 nVdsZRTq4uQUe+NERTYfkswVKuQ6ziU1Sa9kPeVKthHkZUQChBlja1WvBx99BonyzbQ==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=PnSIBEinvI0aWOXfbfSxdS14sk+hrl90vzujOjLWDnE=;
+	b=SM/9hXhNF5iyWjCIV/LjO9K8WRynwAcXnkAfovcM21KZ297/dEVw41xAOwcU/EXf7yAr
+	 X+9nVB0K5RnGo/tH3XLmOV/SsqmY5Ai8O3usFxK1kJ3QAbGjwrfd4yGfsjQWd2NMBd9yz
+	 9ZlBVUQge4d1n41GzfBjLyOVT6RH6At54HoZaPvDWBbamxnCc/sJLY2+qFvs16GRcCHcl
+	 Tu1+qkUvsh91aDkkSiH5x1G82pzTnB1oNk6ASvdz17AW+PvLcGMsHwzMylt/1Vk9ly5eA
+	 EgRM8zvFuymHSbBd67p+DFhMaVif8WuxMuDBOwBVuVkT5BY6CqHzFL0B64JgUUKRljA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=P02yuksC;
-	arc=none smtp.remote-ip=209.85.214.200
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KWNTyjiS;
+	arc=none smtp.remote-ip=209.85.208.178
+Received: from mail-lj1-f178.google.com (mail-lj1-f178.google.com [209.85.208.178])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8218F606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 17:37:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8218F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB8F3606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 17:39:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB8F3606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=P02yuksC
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2ea785a4decso1430435ad.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:37:16 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KWNTyjiS
+Received: by mail-lj1-f178.google.com with SMTP id 38308e7fff4ca-3a49a022221so23362511fa.3
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:39:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1793036236; x=1793641036; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=u3uDBAF1Ovkb0RC2KTlASMQ4Rd8WYJb+WLyWCC0Ty9k=;
-        b=P02yuksC3DvUK68oipBNIgX+rOQVFqmFViaa3wC8WfAKmnslU0xkePJYWNtE1kRXus
-         8hTv94aeZCNTC+Vip/VcqniQmXZnNk9B59MH18/lL3pnSZyTVwKUjORBEP+LBUSB4Cy/
-         doTdKpFYXjgoaKLdukQwUy/MVat7OQ2lgZ8lz/Za3CiKR6IsDK9OtGYquwvtlP2pgUVO
-         0uHQ3pZ96NpE5c6L8Z32hjznLu8lZzLeIMU1uacsGDFLNQNQFYopyPd1uZpjjrfyyuOl
-         gEOU/Qt+SKhEyNpTBsP7eM9890DaZaX9TDHCAi2jOMQIPS22T1KxNBN1p8YJi/rbp+Mq
-         RH3A==
+        d=gmail.com; s=20251104; t=1793036356; x=1793641156; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PnSIBEinvI0aWOXfbfSxdS14sk+hrl90vzujOjLWDnE=;
+        b=KWNTyjiSseh8CRmBtZ2wrSmoout5WMIyNVt4NfUzr7M4iL6TvFU4puGMODBpTeXLjc
+         KdwxAfOs3VOMlLGb/XiRW30VSo82DUb5vdDcZ4xFHAFAXFrHjJ6tlPjYs0CjuTOIv3ux
+         HrDTjiVgs8bWoKoUT5px1oVEBL9dBP0uBhSomaaF94k0MkMe7ygEGLb4XyVFkQe5xCS4
+         y9DMI4KAZolgfSwuZuX8Zvy2yEd/cizD6XPGDxOxOLGy0Z/C9+J7rF/UN9RPEX4bX9SJ
+         B8BVl/hfCRyhHL8j7PR00Y1MFK3Gas/14IeU5PjShFWvSJmWi9BwPrLWZ6lZssF9IR/h
+         N9wA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793036236; x=1793641036;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=u3uDBAF1Ovkb0RC2KTlASMQ4Rd8WYJb+WLyWCC0Ty9k=;
-        b=psOPWGxYhdTSSuVxdH5F9vjDbcXya4w7429PXji6R3BGg1tf5MnxR604ROVKe4IuVg
-         MgEfZ4MoismXjw23bB9hP3uz5V/DwKGJ3iC13W42lw8krNINcmE4cDHTV50NXJi3nFfm
-         a1jXm0Pz6Wt1pGEv0wyg+4XsFWyrw4Y1ihLNKnb+ON8AR7Hio3OdvlXeIXrkAqIlfsRj
-         0spWOMy6Kc+ad8ytUYkngTAZiUOKnKOZyhEFfjZ6Q98gD011pxW7bCvTBNJaez19FY1q
-         qVDwr6+q7qoOEXIWqL3FaujFVstamE+gG87Zlj5lW4PQ3OqUv+xjWZYouc1xpveH5AJ7
-         8UbA==
-X-Forwarded-Encrypted: i=1; AKwUvBy2uQpWZHXujX4KljHQ4v/h/neNQjmr19EHX/ntqscbL7+vikUxJEMRpju4WiM2ioqRjCem4SIW4fpHy4c=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL02IP0LfY0uDlUQFM9u54wW1XdrkTbCRKyw5bdKOBrDqV/LsoN
-	aPKy2rFEi95wSw4R0Q0y3s7nCktzKXAWVIVlglvOO1N/6lH71ZaUNeIowNGfoSxqLXF5hz8tBb+
-	CrpvEiA==
-X-Received: from plkq2.prod.google.com ([2002:a17:902:edc2:b0:2dd:bff7:1e38])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:1109:b0:2e9:b831:29ea
- with SMTP id d9443c01a7336-2eae40c9849mr1522565ad.40.1793036235657; Mon, 26
- Oct 2026 10:37:15 -0700 (PDT)
-Date: Mon, 26 Oct 2026 10:37:14 -0700
-In-Reply-To: <CAO9r8zNbieeCQKLjfC4vhaeS_mgFJc3Ex9xKKmKQHL_43j9axw@mail.gmail.com>
+        d=1e100.net; s=20260707; t=1793036356; x=1793641156;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PnSIBEinvI0aWOXfbfSxdS14sk+hrl90vzujOjLWDnE=;
+        b=ZYDfyru1+5Kufd6R4b3YE/Gsd7ss3kTbwNr6G4VcRKS2sPknp0YhatNX7a0tEENI36
+         w9otgiRcN31J7Bevjm7CsZQxzh8V+6xsKnVHc5ZDYin4RUti6c2v9JX0j7sFq408Oj+a
+         jPNMP0rTxSEt0kKDAh9JHWjcWqSA4uKM9z8qSr0u6PG/g30UsFtCRXeK43pYk8FgXoYE
+         KZoAPxCsoKxCnIJcz4nPQkvInwQhH84nsu0Dg29cJg1uqf8xSOrFvu2rHqNpymHj7ZJZ
+         88rJBjtS71cTBu8b6kmVKvMBPlYTqH4eRkarHA6i75XHnqRY7kCrE5x2XpUB1o+bVF6h
+         jANg==
+X-Forwarded-Encrypted: i=1; AKwUvBx+G4MJRJjBRqEYbuqtxO70RySEg4NnGKl1sEO5coAOg+hJkFnNiNW+eY//igxay7S98DkkhNv6w8CKQC4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLkjePsduQ+egC8YWBw/z9KqGiM//9ZOETVCAga/0EeTzl3pEgY
+	dA2iMxqeJu1ItwQqy9jo4XftcX4bVmfUDLyv1WE1JCgrAkErnCS+i5+R
+X-Gm-Gg: AYBFou1Ql1sHs1bujsU2VJeW2qxVKWDpuNi79wjVeL4hi0B2TqWsCNLGfPx3JihDZvx
+	GOLCShc7YXP0A/nG6Toko+tDfkdxvOapi701uLWShQef4/kI9ROkkw6X6M5CHA4AGH9iH5UZL62
+	pdWF8714XwawM6n8qCBNU02T+WgbSxpxOcxhEjsNMUwz25NqVAC2L/YnOqp/GhMOwmcscNJN0sQ
+	wOEY+vftzJPeWSNCEkPzV4trfV6GsJfVg+p6tEHLGNHH4LqkMWew4nup89TG3wQYmyFuE3oiDRl
+	JDgYEqTQFOpuZBGIz8fVPu4jpHPQPcVKF8kuFLF+VFW3TJyLfB73LdgO5qgz7Fe3qmH5kXXye9n
+	wmejyPuEfIvnmDETg/vlkbEDGEzBzvJAD3fE0POcfHrrDE5u9NEH+IbDI67DtkuE6OghG1rg4WH
+	NiFVX3M2aUzJC4ZBTOB1N2G7I5BQ0cWEcFWn/N1WWvfwQyBH9T5U3kNGbaGb3gbgiMHKTjEkjmd
+	rsJj2ylulruRV2tT/RVNqBYhUErtke6oUj4vgFrepo2Tk50W1dg7JmNjuxxlkky3RAVYW6Qd9xM
+	s3CfNZh1m85OIqEiyD44jna5XGYvDEx+fhtSKoAI6bguoC9ytYLhLcsz/3f3abQ0
+X-Received: by 2002:a05:6512:b8c:b0:5be:4386:806d with SMTP id 2adb3069b0e04-5bfb71eeac7mr2553829e87.53.1793036355836;
+        Mon, 26 Oct 2026 10:39:15 -0700 (PDT)
+Received: from yantra.. (nekmmqua92iezg7lpcf-1.v6.elisa-laajakaista.fi. [2001:99a:d7d:c300:9332:cc42:ba9d:ca8f])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfb7a950b9sm1685199e87.63.2026.10.26.10.39.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 10:39:15 -0700 (PDT)
+From: Rupesh Majhi <zoone.rupert@gmail.com>
+To: andriy.shevchenko@intel.com
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Andy Shevchenko <andy@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Eddie James <eajames@linux.ibm.com>,
+	Joel Stanley <joel@jms.id.au>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] iio: pressure: dps310: wait for a new sample after a ratio change
+Date: Mon, 26 Oct 2026 19:39:10 +0200
+Message-ID: <20261026173910.23788-1-zoone.rupert@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <at8X810dwa98w9iL@ashevche-desk.local>
+References: <20261019153328.80739-1-zoone.rupert@gmail.com> <atZqSXI14WojGso5@ashevche-desk.local> <20261026024605.3286702f@jic23-hlaptop> <at8X810dwa98w9iL@ashevche-desk.local>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,70 +103,13 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261022223052.646891-1-seanjc@google.com> <20261022223052.646891-4-seanjc@google.com>
- <CAO9r8zNbieeCQKLjfC4vhaeS_mgFJc3Ex9xKKmKQHL_43j9axw@mail.gmail.com>
-Message-ID: <at-Pyu-tvtPEXOxT@google.com>
-Subject: Re: [PATCH 3/4] KVM: x86: Recompute EFER.LMA instead of inheriting
- the current value on EFER writes
-From: Sean Christopherson <seanjc@google.com>
-To: Yosry Ahmed <yosry@kernel.org>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 23, 2026, Yosry Ahmed wrote:
-> On Thu, Oct 22, 2026 at 3:31=E2=80=AFPM Sean Christopherson <seanjc@googl=
-e.com> wrote:
-> >
-> > Recompute EFER.LMA on bare writes to EFER (via WRMSR or KVM_SET_MSRS)
-> > instead of carrying forward the current EFER.LMA.  While it _should_ be
-> > impossible for EFER.LMA to end up in an inconsistent state on such a wr=
-ite,
-> > KVM has had a rash of exactly those bugs, mostly because SVM is quite l=
-ax
-> > when it comes to consistenty checks, which in turn bleeds into KVM's ne=
-sted
-> > SVM implementation.  Retaining the existing EFER is also rather confusi=
-ng,
-> > as understanding why keeping EFER.LMA is correct requires a lot of a pr=
-iori
-> > knowledge of both x86-64 and KVM.
-> >
-> > Keep the core concept of the existing logic as a sanity check: WARN and
-> > reject the write if the computed EFER.LMA would be toggled, because as
-> > described above, that _should_ be impossible.
-> >
-> > Signed-off-by: Sean Christopherson <seanjc@google.com>
-> > ---
-> >  arch/x86/kvm/msrs.c | 14 ++++++++++++--
-> >  1 file changed, 12 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/arch/x86/kvm/msrs.c b/arch/x86/kvm/msrs.c
-> > index c3cb1575fe66..41f3ec6eb286 100644
-> > --- a/arch/x86/kvm/msrs.c
-> > +++ b/arch/x86/kvm/msrs.c
-> > @@ -638,8 +638,18 @@ static int set_efer(struct kvm_vcpu *vcpu, u64 efe=
-r)
-> >             (vcpu->arch.efer & EFER_SVME) && !(efer & EFER_SVME))
-> >                 return 1;
-> >
-> > -       efer &=3D ~EFER_LMA;
-> > -       efer |=3D vcpu->arch.efer & EFER_LMA;
-> > +       if ((efer & EFER_LME) && is_paging(vcpu) && is_pae(vcpu))
-> > +               efer |=3D EFER_LMA;
-> > +       else
-> > +               efer &=3D ~EFER_LMA;
->=20
-> Does this mean we can effectively revert this patch:
-> https://lore.kernel.org/kvm/20260902232028.2767071-3-seanjc@google.com/?
+On Mon, Oct 26, 2026 at 11:05:55AM +0200, Andy Shevchenko wrote:
+> If Rupesh is going to add the patch to clean up that (before or after this patch)
+> I wouldn't be triggered.
 
-No, because that flow goes straight through svm_set_efer(), i.e. doesn't hi=
-t this
-path:
-
-+	/* SVM ignores EFER.LMA if EFER.LME=3D0 (instead of failing VMRUN). */
-+	if (!(svm->nested.save.efer & EFER_LME))
-+		svm->nested.save.efer &=3D ~EFER_LMA;
-+
- 	svm_set_efer(vcpu, svm->nested.save.efer);
+It's ready. It turns the 30000 into 30 * USEC_PER_MSEC and does the same
+for the other sleeps in the driver. It is in a small cleanup series that
+I'll send once the dps310 patches already in flight have landed.
