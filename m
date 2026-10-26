@@ -1,109 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.33
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793041650;
-	b=5RnmFVIJXe0lhs8niC/8Oep1rEhi7LGfyCWR+FVlW5s02/FHeEZKLnHyVrWOy4aDVK9P
-	 4Q7vw/oLlhWE1j1iPpO9ym/3oui8pgJJJ9WQcxBQCDy05YnV9jOkFrfYZxHsPJid/tmqP
-	 Ob1YgBfiksEMP2utomCFglj3d8OZWrbHlcHs6mU4SZMtvVEAT7Kaa5HiltPnbwt0htmKR
-	 EuheQlIzfReV3gmI1zjgWQyrJcLZCtiakB0IHbIxUckUk05WQVVZW5/hOdLGMKfw22S1Q
-	 89UMluLsa8JLcU8FrbOC6euU4UxuqSXc02Wj2XHFNOqlw1RtHKlqemF6aEzXdbpuG7w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793041650;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:X-Mailer:Message-ID:In-Reply-To:References:Content-Type:
-	 X-MS-Reactions:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=XIdEvAhvD72pVilhcWiVsqONnHhA17ggokD6xusTGsw=;
-	b=H+g2vdWw+Ck/OAsg3/C9GdN43E2srokR2ATuRrHYYHBCLlg8jXLMJ+elZnWECtDx43zU
-	 OAH2sFVgPk4rDR6PF8sfeUjKM2qVRoEw/deEB53Vfnj5SKr/JLjkA08uLdl53DXVlHWuA
-	 yoU586p59Mn0SZHyMHTjxnS27eTT7ogRZMEUs7BbcyLWy6spFK5bDfiJ2G4YC43lBCO0l
-	 ikbYFA4vola9Z4Kcvo7420dqR4E0rfBNwBLupq1MIXY3qQ7iDl6bvorhWxR9qSWamIHLe
-	 sWhuIIy/4k2OM8LEnNqH4so8SFM1UT9TWzU/Ppw4IHK643RM8CsWpwG9sr6jBr2yWVQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b="nEX5J9/P";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.33
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013033.outbound.protection.outlook.com [40.93.196.33])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793041681;
+	b=XVpRN/h+nXXY3jlyAmsEOdPz1fynXH/ORdR75Hweo7LveDBKZ1MjwJSeG0UE2Fdue2pW
+	 cr6sUDT7bZlyR2ck2b59tfnmNJ5XrucAZvlsIHOtn4G2Um6MsX/NizB0E74sbC8wJB86L
+	 AiOuLJsn5t6sYKzqU2ztY6KdHxK5TP7JkqpKP+2C+vxeOgAbI06EJ+eUuq7EVwvUE6xa7
+	 s4XVh+lLl5gebcbVDb5+q9ItctsWKZCQSWWUPhceJtP/Jlm2ICaep/zT6jZ1IrWPOTd89
+	 wDgLzPTNCli9deTqELAV55+2Lz27xpMOGc7Ka6/B0z2OqtorsnYCN/RGaZXTpLyGaRw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793041681;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=urfO6D4hqsaWObIrpF6xBqN7wc2zXiiEIXZMlS0+D0s=;
+	b=ybE9c2ZfLwxYDHIJ49VoBgik2fKO0ZZkfMlEJ3ouhcZsku+QJFbUK2y8uzVhpXtu8pN8
+	 WsM63Xwvl8TSN4ns6RJc075MBAsmuritZbX42d+cWOkSjXidqcNfOmjaqfGr4ki9VmR+P
+	 0PChaKa7mwUBzlvN8hvJTkInSj2Q7S1H64UTR9ivI2uNFDl/xMPQaRCO3Gz49lRgCGYiO
+	 /IL10MC0iM2JZKKTlxFhoxpDhcGP6y4F95NAa+t9sg276X6B/84O0ZS2BwN/jFGLjlh9X
+	 ZwI9G5d1n/4NBRwpxyHHsdGW9PnU5pwyRCZ6ItlJKN2l7b1Ua02dOIRBvKiL1LMzdQw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UY2ho6jA;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C14A606A31A;
-	Mon, 26 Oct 2026 19:07:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C14A606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA2E2606A31E
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 19:07:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=nEX5J9/P
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FDYNy2DiG0Fy8D44FZqw4BhIjEjTfV95rXkFzjpA8JQVZ6ODFPdf+ik59MvyISiLhJjERo+ljGIBnWE/2BBuoszmnXSeCFg+KKfZoHeHLYn3v20St7ZefUEIs2lfehoS4mlfO+EduonVxjr9c1EpRwN8AXQz0KrcFuwJnW+LVztDBv56DxPHvHwi0ovoG0i4mXVfaXcSUJdU5gE8H+Ztsd9SUqRafZtWBU8qaBAv1d5NOVINL+l8r34vRtLvluRZ7GeP1Q+QShPNXe148N3gVe+VuftixUYovCnJVKaEn1rtB7XqJidJ/LJsQlVF4QMQXYmUt06xDlPbqua9YUlmnw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XIdEvAhvD72pVilhcWiVsqONnHhA17ggokD6xusTGsw=;
- b=yviIAFs1PmQklQ0Z/d4MpXzdMnsReMrtQN5NzwGdGrXEzW+l+vqUVOGCx7JcQxGxZ5RBeqdZIb73l6Ei6ErqxsVTGOwLnpEAiFy69J50CCJTHqogp3GEIcR7LhKlUcEjeii8GvX9RIsWcPuiqI7liLlCPknaWrDeUEgPuTWXRU19KLEtn1uUu/PbYOs43xfEmAGpSaDKFAMN9a6w30K1H2VAH01a2O4cVhFHB8KESNDQWQdQqGgtLDRkzMldzpeXGyscQu32JlastvKZAcuc4lu8+QCswY4lPs1XL0aXg/CEbQfpftKQMC38BXuQwDUc6AZzzPbI6EyA4gBi0SfXrQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XIdEvAhvD72pVilhcWiVsqONnHhA17ggokD6xusTGsw=;
- b=nEX5J9/PQBH7iU4UpAYqfBn5s6Nbsvt0xPzhhGHMjql3X1H/OouzSuMAmbcNjhA2S5E/7ivnt86jQVBCgzvowlmMAgwNU+stj/oyPeDWhJK2IYM74qZwf5o1z5Eg1L1aR+c8jNPj2QeKLfuYzij7obWR7jyC9bm45gYwZRo9FmokaV1zfh80C0FZeaUauXfcgcuj2mTd5xIM7I8ZnqlSWKiThXZFCR4t/rrFwuKuUbMgcJo7lN1SbmcewOt5GB5tfueFL6CHOYPeum0cuYHVJ8NDP6egDRdFmS+OSTtr9zbfDjx6eZxQThg731JXOy3UDNTbcG6D+7Q/D2izsD89Kg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by SAAPR12MB676730.namprd12.prod.outlook.com (2603:10b6:802:301::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
- 2026 19:07:25 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
- 19:07:25 +0000
-From: Zi Yan <ziy@nvidia.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>,
- Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>,
- Johannes Weiner <hannes@cmpxchg.org>,
- Vladimir Davydov <vdavydov.dev@gmail.com>, Michal Hocko <mhocko@suse.com>,
- Hugh Dickins <hughd@google.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- Lukas Czerner <lczerner@redhat.com>, Carlos Maiolino <cmaiolino@redhat.com>,
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- David Stevens <stevensd@chromium.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- William Kucharski <william.kucharski@oracle.com>,
- Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
- Nhat Pham <nphamcs@gmail.com>, Miaohe Lin <linmiaohe@huawei.com>,
- Naoya Horiguchi <nao.horiguchi@gmail.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Chris Mason <mason@kernel.org>,
- stable@vger.kernel.org
-Subject: Re: [PATCH 04/16] mm/shmem: honour F_SEAL_EXEC when an ACL is set
-Date: Mon, 26 Oct 2026 15:07:22 -0400
-X-Mailer: MailMate (3.0r7032)
-Message-ID: <695BF4CC-9285-45C3-93CC-9DB8F7DAC962@nvidia.com>
-In-Reply-To: <20261026-fixes_shmem-v1-4-703206d5fa0c@kernel.org>
-References: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
- <20261026-fixes_shmem-v1-4-703206d5fa0c@kernel.org>
-Content-Type: text/plain
-X-MS-Reactions: disallow
-X-ClientProxiedBy: BN9PR03CA0396.namprd03.prod.outlook.com
- (2603:10b6:408:111::11) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UY2ho6jA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C31A1F031E4
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 19:07:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793041679;
+	bh=urfO6D4hqsaWObIrpF6xBqN7wc2zXiiEIXZMlS0+D0s=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=UY2ho6jArPqIFaWq+Nzej3FIZZMDU+HH3zUAv5RWoTZJFF26qENwlX/PuSzeave9B
+	 up8sNePlt/i79wnID0Z/QzG6yOp22f8t2E8ojlYTLzLcdvr7CpUlNjlIVBpKtqKliR
+	 f6xADGHY9N43BI2fSnDjZC6UuGKYf+ZBeTykk9+zwmk1kaVMvCuVi6fI2WbKuD2y3m
+	 PZ01ROgqxUWWOgz3acwz09J7CWAKdmIs9IhIMlDBIxHYoOVIDgL9OqyUhOKbMtWXAt
+	 1O6MY7L4QAYAI4Z1EBBQA52A7u5aLR3P/7ZVDxz08JM6067J766dpceYp7Zfopvhun
+	 h0Z3AENqJiBLw==
+Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5be47aa555cso3843315e87.3
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:07:59 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwg92ncDDsJi2jIN8w/nUbutMwSYbzLtu6P/TgnOKRxebdAyIq6WMOgdHEcU/ZZPTCQhrvmPXJlz0qMMP8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI46H2v00M2am4H2F732SJQPsHqviu4oUlFegRs3PV8VQJZOszM
+	5r/iWPdHv/8YMHcA0Hfbx/iaVzty9EmxHHr3HkucwDiuYSKonAztpruYUU7F/hYY8Qv4ue33eO1
+	2ati0t55b/v2Mo3v+9Y6Iwu21R7RusUU=
+X-Received: by 2002:a05:6512:3d91:b0:5bf:c4d2:b074 with SMTP id
+ 2adb3069b0e04-5bfc4d2b178mr465139e87.55.1793041677961; Mon, 26 Oct 2026
+ 12:07:57 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,90 +59,102 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|SAAPR12MB676730:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4ca30312-9ba5-4430-7045-08df33945f0d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|7416014|23010399003|376014|6133799003|10067099003|22082099003|18002099003|56012099006|4143699003|11063799006|261021123027099003|261009223027099003|261021121427099003;
-X-Microsoft-Antispam-Message-Info:
-	jFQEInD64OpSx/3ZaZRya2q9IABCPqvWJk3v+g1OwnYr3U0oSZnJWKzOMIUKmOr97/PDX4b/teT9eeGfzVOwaa/51Rbg0LOkwFjU+7OvcRgRhjem+YHlP+Oi4iZ3sj2byyXLj4EpHQmiHqyAZXVf9ASy6NgahQfo3wKrgFW5gkPBUmR1rY3vT7/VD2EJnxqt0J/FmZOJEEzpZ/7e0lHpffVUbDtIf6/eL/JfXfm/xwBLawhnYSH6wx+HPLaV8JHJzDuQVvatcYbTdDASBilVDzyo3rG73OJseufG+nRRZ/OzJJnZnueQCJxGm721y67B1Zmk3IxZsH2mHx+yYEUyUg3w+vTQHQP2nrkohPZUquRvul9pbQ66dgPYDwcQckISQBUQWMwlVGVQelp9Ni8A14Cpb4wOyjJ53/vh1gjq1H76XxuEHQRBSe8j3435j9z8BAZyEqKqxczbJnaS4QeVlWQBw4C0VidZYoAXkhN4rKTnH4Ex86j8Yq3iK74KCxoRqK9aLImHOumZslIDFe6Z/IWtW7MEB3VKobBj2IDZEz8PNHuCagly+Wnf4Vubjwf2qEVbI7yATQFDtGJIu9FBah6iO5N3CSnUriaBPwetOnta7rdgfG/j9FQdhLRpAbdNMVCEXxvskdKZx4zBkJmqxQRDQuz5Qyj1AuXMJwOd3Rk=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(23010399003)(376014)(6133799003)(10067099003)(22082099003)(18002099003)(56012099006)(4143699003)(11063799006)(261021123027099003)(261009223027099003)(261021121427099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?zcxPKuH0x295fzAFi9aqG80I4XPESCx68j8gyOBu/LB5PMWr3layVcwUYKNU?=
- =?us-ascii?Q?bsKd7c7BVMkkOwqdseRWH2LIVeOki+V/9yEKechr38w4gIPPhFr2h+J/ylUu?=
- =?us-ascii?Q?geAOqVq2b3iRnCqeOj7aBaVyBM7kZGusaGyj0ClaZMSAvFnSrxKIZ72fWwKi?=
- =?us-ascii?Q?XILa918ly5rzTItI00y6H+1fYY5z+Dry3kry5iNI6hww3lU+RY6xMhiABpax?=
- =?us-ascii?Q?8fncGLvbAkWfLt6dohNbwhRUNXtT6O542TUswrYZYKFyVkMyxZCYQTEhhQYx?=
- =?us-ascii?Q?71a+6t2mIZKRT8SNUj2jyqNcnbTMtwUa1Z+IROHiU2GgWCoyS5FVSjxH+WWM?=
- =?us-ascii?Q?o44ydeWO8yowCjbkgIPkqy72ZXiR5NwBqUwF8pzprr0vaCT4/7zWR1yY9Ynw?=
- =?us-ascii?Q?RaxyH8cA8p3xoRBfwoZc27lc8WY6fg2cnMc2k2ltKJ0CtHKSKhWWmucHNKL4?=
- =?us-ascii?Q?BBxG4NxkNKC4xq3XX1qq3AEgtx7dpBC1Z9si7Ri/FufHdt+7Pb06xT+Fq8ho?=
- =?us-ascii?Q?N0O+4G2t8Y0JahJ1VB4AKckocl3fhN89/9k7EXHOetHFKbT09HEfBwixWvF8?=
- =?us-ascii?Q?hN7Tcf/30s6V0CjEqKQ6pB1+P8S2Zl48Y1GV228VRFjecl3zshhGEDMALA4C?=
- =?us-ascii?Q?hK+46jjS6LkW5clhPNOcSCOiI1CSMhJDMbJGBWzEhGnnE7Jb7jumai8XTBI3?=
- =?us-ascii?Q?4KHujRYkZ9uXK0JII7QcD4XraeGyZf9/KW60teU3sW/K14Ti9aIdrYXmzwea?=
- =?us-ascii?Q?n3dZC9I5NQh1sp1gDI/A1Sa+pNLuFqMuol63jBa3dqyhIJeRC9wS08OBmwmd?=
- =?us-ascii?Q?MZHirzx0BZJUNEhB4zC50z7UW/Ok0EFfV1kd8x5BSNQvq3osLPF8eH9lpm1a?=
- =?us-ascii?Q?Yg94Os9JfSyo3K/k0JmiW+SO3+M7mKezBEZ1bfSmEQBVd44JGaX62XHT9aw3?=
- =?us-ascii?Q?zojiGuCjVnHTA/sqgstXCtmAZpkG5meDhHD0jTx8CajNeJqfYRnsnh7kUOnK?=
- =?us-ascii?Q?9ciCxgkY9ooMF9QLpauoh6uXrdovXb6XL/74OFfBv7pQS1q061zqz2hSwC1X?=
- =?us-ascii?Q?ygsl0x1ja1aGz+VZFMf+fVndc10M6jTkrpC/vFgo858syVImBMafFG5vIT/b?=
- =?us-ascii?Q?s1RGP8IM+ZaD/pGjP4SOU3e4vSZrdMxEmBQIP5gHTJwvsYpm1puXfEyl24SA?=
- =?us-ascii?Q?6TWstelud+ObQu7rdw8X81HHHC6YRCCBQilioIeRjWmyK6ckvLN/Vsa8geUb?=
- =?us-ascii?Q?P9qFEP4wpTrUWyHFLx0QfQFLs5c9IA2qkF2KVNYjgr7J/kb1mqalY2XVU2bF?=
- =?us-ascii?Q?EpsWroIMi/hBhVPWcGr7aAJQqPlxC2uxEvGjOVueuRP354df9MZaH2Gohnqq?=
- =?us-ascii?Q?G9XOKatcaRNgFlMSHEMyFpt3JDx5qyXO/bcu7oVE1LtAkYcd4MQL7tyJ3jXk?=
- =?us-ascii?Q?Rw/YHxLa8a+junagwgyUXF0vsSlmZvugU354KEtE3ZGmMNPx4HtXhxaNiIIQ?=
- =?us-ascii?Q?X/Sf72q+mwx+wbgWrG4vkaNfxAlU/9HnIK6R1sIzuTx3Z9ZRKWJ3ISrfTsxK?=
- =?us-ascii?Q?SxjCIMIFecgPVTFQqGHorwKdRPqB3/dVBEl6IpEURH0bu7E9+IuTUG1hSwuk?=
- =?us-ascii?Q?e4S43Qi3BClmFRt8SEKIXCzPpB3OIP+UgjsCrjgmPUXsS+xS/hGQvBmXFG/U?=
- =?us-ascii?Q?cF9i64n7BzD2BfeDsnVnZ1Mgwos473xs2QjYoAU29Xz/jKMp?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4ca30312-9ba5-4430-7045-08df33945f0d
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 19:07:25.4415
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: OIHSxhPUWskJyeFA7Qn/ES/LrUOus4DalOi8gY9yW3GeKNgEoaWZYYiUGYOwGSJ1
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SAAPR12MB676730
+References: <20261014200127.1363472-1-sashal@kernel.org> <20261014200127.1363472-4-sashal@kernel.org>
+In-Reply-To: <20261014200127.1363472-4-sashal@kernel.org>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Mon, 26 Oct 2026 20:07:44 +0100
+X-Gmail-Original-Message-ID: <CAJZ5v0hN1xj6wnf53QAD_OZxJHyy3DNAXeMWBnVrTZ4xcBBG5A@mail.gmail.com>
+X-Gm-Features: AclHuK8f4uksRxlVflTjoQx-AJmosU8fA-9vAMQQLIJZ0eA6F1YTlLjjzwLCkvw
+Message-ID: <CAJZ5v0hN1xj6wnf53QAD_OZxJHyy3DNAXeMWBnVrTZ4xcBBG5A@mail.gmail.com>
+Subject: Re: [PATCH 3/5] selftests/thermal: allow cross builds of the Intel tests
+To: Sasha Levin <sashal@kernel.org>
+Cc: Shuah Khan <shuah@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>, 
+	Daniel Lezcano <daniel.lezcano@kernel.org>, linux-pm@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 26 Oct 2026, at 5:40, David Hildenbrand (Arm) wrote:
-
-> From: Chris Mason <mason@kernel.org>
+On Wed, Oct 14, 2026 at 10:01=E2=80=AFPM Sasha Levin <sashal@kernel.org> wr=
+ote:
 >
-> The owner of a memfd sealed with F_SEAL_EXEC can still change its
-> execute bits by setting a POSIX access ACL. With CONFIG_TMPFS_POSIX_ACL,
-> this lets an unprivileged owner make a non-executable memfd executable,
-> bypassing vm.memfd_noexec=2.
+> The power_floor and workload_hint Makefiles build nothing when
+> CROSS_COMPILE is set, even for an x86 target, and they include lib.mk
+> only on x86. Other architectures therefore have no install or
+> emit_tests rules for these suites, and their installation fails with a
+> missing target.
 >
-> simple_set_acl() updates i_mode directly, bypassing the seal check in
-> shmem_setattr(). Add shmem_set_acl() to check the resulting mode. Share
-> the F_SEAL_EXEC check with shmem_setattr() using memfd_check_seals_mode()
-> in include/linux/memfd.h.
+> Select the x86 tests from the target ARCH when it is given and from the
+> host's SUBARCH otherwise, and include lib.mk unconditionally so that the
+> suites install and emit an empty runlist on other architectures. Use a
+> private ARCH_PROCESSED instead of the ARCH override added by
+> commit 5a1292137e89 ("selftests: fix ARCH normalization to handle
+> command-line argument"): the override changed the value lib.mk uses to
+> pick the clang target, whereas leaving ARCH unset lets lib.mk use the
+> compiler's native triple. A command-line ARCH such as x86_64 is still
+> normalized for the selection, while an ARCH spelling that lib.mk does
+> not know, such as i686 with LLVM=3D1, is rejected as in other selftests.
 >
-> Fix generated by an LLM and sent by Chris Mason in private.
->
-> Fixes: 6fd7353829ca ("mm/memfd: add F_SEAL_EXEC")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Chris Mason <mason@kernel.org>
-> [ david: use common helper; simplify description ]
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> Fixes: 27801542b2b8 ("selftests/thermel/intel: Add test to read workload =
+hint")
+> Fixes: d4d27e5a1a88 ("selftests/thermel/intel: Add test to read power flo=
+or status")
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
 > ---
->  include/linux/memfd.h |  9 +++++++++
->  mm/shmem.c            | 35 ++++++++++++++++++++++++++++++-----
->  2 files changed, 39 insertions(+), 5 deletions(-)
+>  .../selftests/thermal/intel/power_floor/Makefile     | 12 +++++-------
+>  .../selftests/thermal/intel/workload_hint/Makefile   | 12 +++++-------
+>  2 files changed, 10 insertions(+), 14 deletions(-)
 >
+> diff --git a/tools/testing/selftests/thermal/intel/power_floor/Makefile b=
+/tools/testing/selftests/thermal/intel/power_floor/Makefile
+> index 07463c2160e09..16d26eab55652 100644
+> --- a/tools/testing/selftests/thermal/intel/power_floor/Makefile
+> +++ b/tools/testing/selftests/thermal/intel/power_floor/Makefile
+> @@ -1,12 +1,10 @@
+>  # SPDX-License-Identifier: GPL-2.0
+> -ifndef CROSS_COMPILE
+> -ARCH ?=3D $(shell uname -m 2>/dev/null || echo not)
+> -override ARCH :=3D $(shell echo $(ARCH) | sed -e s/i.86/x86/ -e s/x86_64=
+/x86/)
+> +top_srcdir =3D ../../../../../..
+> +include $(top_srcdir)/scripts/subarch.include
+> +ARCH_PROCESSED :=3D $(shell echo $(or $(ARCH),$(SUBARCH)) | sed -e s/i.8=
+6/x86/ -e s/x86_64/x86/)
+>
+> -ifeq ($(ARCH),x86)
+> +ifeq ($(ARCH_PROCESSED),x86)
+>  TEST_GEN_PROGS :=3D power_floor_test
+> +endif
+>
+>  include ../../../lib.mk
+> -
+> -endif
+> -endif
+> diff --git a/tools/testing/selftests/thermal/intel/workload_hint/Makefile=
+ b/tools/testing/selftests/thermal/intel/workload_hint/Makefile
+> index 49e3bc2b20f9d..e53d6ecd9f8de 100644
+> --- a/tools/testing/selftests/thermal/intel/workload_hint/Makefile
+> +++ b/tools/testing/selftests/thermal/intel/workload_hint/Makefile
+> @@ -1,12 +1,10 @@
+>  # SPDX-License-Identifier: GPL-2.0
+> -ifndef CROSS_COMPILE
+> -ARCH ?=3D $(shell uname -m 2>/dev/null || echo not)
+> -override ARCH :=3D $(shell echo $(ARCH) | sed -e s/i.86/x86/ -e s/x86_64=
+/x86/)
+> +top_srcdir =3D ../../../../../..
+> +include $(top_srcdir)/scripts/subarch.include
+> +ARCH_PROCESSED :=3D $(shell echo $(or $(ARCH),$(SUBARCH)) | sed -e s/i.8=
+6/x86/ -e s/x86_64/x86/)
+>
+> -ifeq ($(ARCH),x86)
+> +ifeq ($(ARCH_PROCESSED),x86)
+>  TEST_GEN_PROGS :=3D workload_hint_test
+> +endif
+>
+>  include ../../../lib.mk
+> -
+> -endif
+> -endif
+> --
 
-The changes make sense to me.
-
-Acked-by: Zi Yan <ziy@nvidia.com>
-
-Best Regards,
-Yan, Zi
+Applied as 7.4-rc material, thanks!
