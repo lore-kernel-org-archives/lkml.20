@@ -1,63 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793018521;
-	b=X2nr8llT+pTsn3IwtZ1Zm1Zmz9o23t8RJ/8C09ydFo1cCfy4Gx5lzn9xPr0LLO2QuS1w
-	 DKPpjQ6FuumxfNMcDbIzdHa56MbQUbO5r6G/mjfGjqA/8k6ZpXua45rtyIGVvzU3XDK1A
-	 MDHHIbjwqsaYiLMdyqjqqNe4Iv8oxS0JAFOvR7CVijvtDJviKkHAv7K8wMIJcpo0GK4LS
-	 Dgb5l/KE8hYeLo9jmfPOFUzKVrrsbhep7CZLynmieTOsJVliqfjFIlItkA+J3BfwBgOTI
-	 GaAWrSGp+Lg8qZ2nBu/B2Js2nBF5TDD4k64fZlLcsyVULm86TzWpKYguQ5pf7BQBv3A==
+	t=1793018567;
+	b=Ec6+kI7DiwAudtVoSjs0HynyVvRphJd1ATM85d4A56QzjZBxONeDS+EMKQqX38D4fgi2
+	 Tvme6nBdRiZ50vO+rDqmju/ZVwb12QJHZlJ6VHrDDVkw+hMCQAjZ83wmw3ekrdmVYutud
+	 IYQuta/KZmZjpJFT7PraRo+QEqH4nIswP8rZ8v7Y9ykGH1cnqyQaHe8HsD5aOW/b4ndI+
+	 FcYXII4XPFiyKQEJ8CNc00TIHKNfhockHhLensh0g/yiklIcKICVC0IZdyBGsTxudryGy
+	 aft2d4xpsuuX42VCfaf3Lx/ND67xf0/M79GGMmcceSYdzDeFICgHmDqcECEqxt4fZ0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793018521;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Ee86deft2EMqHNTG/W7vHwCtD/2Z0I69U91PpChuFCg=;
-	b=WefeNDmaVEydSA3MIl9HEFdCMtg8IRCz3RTJRU0r9aLwqyBuG0yZgGFN3cZbJGyLDfgx
-	 /AvnRcPkYRDlZA8ullQY1yx7ZagIwMKsxTCCG/rqey8q2sLcn2kwqSZVeUp8FGVhc8Sd7
-	 pbhCjjyFQeDf/LHD2be/nGs8UYOkZQdnD+6KMzvw2WzC9acql5tdLfFSaabQU/SYQUkXW
-	 pXjDvY8ByDkCwan1zD4gIsbkaMASzf7ckMTphgKAQnJgirPEVibdRSaQVJI/dGAWHUFrk
-	 Z9WCNjFHfZgxjM5ilFl6OrcliVzctIvVWtMvvsjnEMJ02zTSjsSYsPn8iYCXm+LhspA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793018567;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-Reinject:X-QCInternal:
+	 X-QCInternal:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=+cZsL0JJ3g8rg7ayGGk79B/6QLDJ6d25Vu98DH2prdw=;
+	b=pN6Me1qEWK8VwZ2KUsMyHexqZ1Ox93JR/44BehkK5jB/42fB1UeqZjS2sjFh5clOLrPZ
+	 l5cu39ZefByQL/qSHXOuf2TqZhbswT2qVWm8e19q+kQHHBGnNPhNgvMDgpvbs4VqhUAOI
+	 PdosS9MHTmWiZjzhJL8eTrhyvr/L3k5q0k6Y1Su+WEb5bK9e50j2J2VRLWXGMzgSNRi4P
+	 5L5rHq3gs6ORHetoH6M+t/BHAnMLTnkhQZNdRTO4Qx64W5Pivfh6Lb5DwYWgP5LrCrh8N
+	 BgOLpLSncFirSV/4ogHuf5v/OyUGNJHAasZk3jPLxwX3K1YwyDU5qcO0SCuutOzUGxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=czYhut9M;
-	arc=none smtp.remote-ip=115.124.30.131
-Received: from out30-131.freemail.mail.aliyun.com (out30-131.freemail.mail.aliyun.com [115.124.30.131])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Qc86V6Kq;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84D65606A31A;
-	Mon, 26 Oct 2026 12:41:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84D65606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15D7C606A31A;
+	Mon, 26 Oct 2026 12:42:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15D7C606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=czYhut9M
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1793018514; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=Ee86deft2EMqHNTG/W7vHwCtD/2Z0I69U91PpChuFCg=;
-	b=czYhut9Mn3uCKRErVmS2N3KjU2pExzeIVFhMsrHWYlWRSIUU0q7ZABdRGpm6P8Kv4/rUikkktMD/4W2iTQ3H6Pn2XdmDB4O2Ab1ldhZ4qxkC2xdRkTMfs8QoBGECe0t1BtQXKDQj+spAVwm7FhZnGDMWzmpgwwk6BbxnEzksSKc=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R121e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=xiangzao@linux.alibaba.com;NM=1;PH=DS;RN=9;SR=0;TI=SMTPD_---0XDYkNph_1793018498;
-Received: from banye.tbsite.net(mailfrom:xiangzao@linux.alibaba.com fp:SMTPD_---0XDYkNph_1793018498 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Mon, 26 Oct 2026 20:41:54 +0800
-From: Yuanhe Shu <xiangzao@linux.alibaba.com>
-To: mkp@kernel.org
-Cc: linux-scsi@vger.kernel.org,
-	target-devel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	john.garry@linux.dev,
-	ddiss@suse.de,
-	hexlabsecurity@proton.me,
-	xiangzao@linux.alibaba.com
-Subject: [PATCH v2] scsi: target: Verify the iSCSI ISID is NUL-terminated
-Date: Mon, 26 Oct 2026 20:41:38 +0800
-Message-ID: <20261026124138.2708365-1-xiangzao@linux.alibaba.com>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <20261026044632.1738901-1-xiangzao@linux.alibaba.com>
-References: <20261026044632.1738901-1-xiangzao@linux.alibaba.com>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Qc86V6Kq
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69QAt9w63049859;
+	Mon, 26 Oct 2026 12:42:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=+cZsL0JJ3g8rg7ayGGk79B/6QLDJ6d25Vu9
+	8DH2prdw=; b=Qc86V6KqHib419FtjdcJWqRm0kp4SdimpPmOrY7XGIoD4PjrOZe
+	3LVl3VfU3zzM6ZPqUylznrOrJStScVvdmcNAyA0LdekiCoLAR9XFtqPvGIzyoiDj
+	b0mYeoAJaTCT8vOWkLh3Y97x3bHRg0QRFL9ft/V1P4YyYFol7CfDhLu7TeLExskc
+	Jcg9wbl3efFKOe7btloIzH2Uu5UIAkk5l9ZRv1grPMRAQFQ+nXJ7EuHDpRFHwNSw
+	Ll0UNM3lhgOFC9ELFi1JCGDfbMihB9/I5AvjTuRabeeTlMbnAkk4qP2gcVoxv6Qy
+	OLp/l6kdji3LzkUkF92/GP2PNzOaJIjbk7A==
+Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hhvdda5hr-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 26 Oct 2026 12:42:43 +0000 (GMT)
+Received: from pps.filterd (apblrppmta01.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 69QCfulM1792680;
+	Mon, 26 Oct 2026 12:41:56 GMT
+Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-ks5-hyd.qualcomm.com [10.147.255.18])
+	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 69QCft2b1792670
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 26 Oct 2026 12:41:56 +0000 (GMT)
+Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 4763723)
+	id 09B4165D; Mon, 26 Oct 2026 18:11:53 +0530 (+0530)
+From: Karthik S <karthik.s@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Karthik S <karthik.s@oss.qualcomm.com>,
+        Kumar Anurag <kumar.singh@oss.qualcomm.com>
+Subject: [PATCH v2] arm64: dts: qcom: lemans: Enable audio over DISPLAY-PORT dp0
+Date: Mon, 26 Oct 2026 18:11:51 +0530
+Message-Id: <20261026124151.1086275-1-karthik.s@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,100 +85,78 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-ORIG-GUID: CdeI0PaI6t3hS2ufBtzoufWpj2bNgijv
+X-Proofpoint-GUID: CdeI0PaI6t3hS2ufBtzoufWpj2bNgijv
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA1MCBTYWx0ZWRfX0W5V8xJCoA+x
+ CrgwT1YJKOvskxDVVUY5L9jl0Ef4ceeMHk4fbm1U/0SxxUIkOKydXaXoK53vNj2eQEhq4bU4x8R
+ d9mUSRb9o9RYXiPzJpIEnPnb2jxudQr52BvoqPxxUI63TdLM7pDn10u6MeWUOr83l7HjfM4ci+A
+ I5X/fOpl70W27pSOf3fWU+ohrVxE5BxKrlZlwgYwXyt2LK/EIdErS/Uh/aXdu3Y6y7oNK9Tp3sk
+ 5Z9nkdtfKccw+lD6bzZK7XUwCArqgnoQEG2xjR4394nW+CDwWEr36KvhIXMym7eQjudMNYZt5SL
+ E4SIwtF2EEJKJ07PAlPLL/SEo49s7zBaEx4Gs1jUR6WKju2OrcqertXvT0UICkD2gU8PDfwm8JL
+ 06YU7DLLcanoH0nTu9nPCh9qcm+jgDAMFFIkcldnLoznfKgf1/GV+F2vLSW7wtLN8wb6qH560QQ
+ NIb8SBLq2h103RL+zmA==
+X-Authority-Analysis: v=2.4 cv=N8+8hG9B c=1 sm=1 tr=0 ts=6adf4ac4 cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=rJkE3RaqiGZ5pbrm-msn:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
+ a=x9UGd40Bw-Ey9o_AYzcA:9
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA1MCBTYWx0ZWRfXwSoEMLLWQGbK
+ wyFhrlZ4/4m7BHUgncGgnvn8FqG1LtejMuOpJnGtDRkweewITcgJM4Kr+lVKdFt1Nt7SZXYWd8d
+ jsD2E57z/lRLG4AQ4dYS1n2yHTZwPK4=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-26_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1011 phishscore=0 priorityscore=1501 adultscore=0 bulkscore=0
+ malwarescore=0 suspectscore=0 lowpriorityscore=0 spamscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610260050
 
-iscsi_parse_pr_out_transport_id() returns the ISID of a FORMAT CODE 01b
-TransportID as a pointer into the PERSISTENT RESERVE OUT parameter list,
-lowercased in place and never NUL-terminated.  spc4r37 Table 508
-requires the field to be null-terminated, but a non-conforming
-initiator can omit the NUL; when the ISID ends at the end of the
-received buffer, the pointer is not a C string.
+Add dailink for DISPLAY-PORT to enable audio functionality on edp0.
 
-The registration code still consumes it as one: strcmp() in
-__core_scsi3_locate_pr_reg() and in the REGISTER AND MOVE path, and
-snprintf("%s") in __core_scsi3_do_alloc_registration(), which also
-reads its first 8 bytes unconditionally with get_unaligned_be64() -
-a NUL check does not bound that read.
-
-When the parameter list spans more than one page, transport_kmap_data_sg()
-maps it with vmap(), and the over-read walks off the end of the mapping
-into the vmalloc guard page and oopses.  Reproduced with a PR OUT
-REGISTER + SPEC_I_PT parameter list of exactly 8192 bytes whose final
-TransportID carries a 12-byte ISID without a terminating NUL:
-
-  BUG: unable to handle page fault for address: ffffc9000138c000
-  RIP: 0010:strcmp+0xc/0x30
-  Call Trace:
-   __core_scsi3_locate_pr_reg+0xd3/0x120 [target_core_mod]
-   core_scsi3_decode_spec_i_port+0x8fc/0x13a0 [target_core_mod]
-   core_scsi3_emulate_pro_register+0x73c/0x900 [target_core_mod]
-   ...
-   iscsi_target_rx_thread+0xef/0x1d0 [iscsi_target_mod]
-
-With a single-page parameter list the buffer is a kmap() direct mapping,
-so the over-read continues into the physically adjacent page instead of
-faulting.  snprintf("%s") then copies whatever follows the ISID in
-memory into pr_reg_isid, and PR IN READ FULL STATUS reports the
-registration back to any initiator, turning the over-read into an
-info leak of kernel heap contents.  Reproduced with a 4096-byte
-parameter list whose last TransportID ends at the end of the buffer
-with a 4-byte ISID and no NUL, interleaved with I/O to populate
-adjacent pages: the READ FULL STATUS response returned the ISID as
-"0xleak" followed by raw bytes that were not part of the parameter
-list.  The snprintf() into pr_reg_isid[PR_REG_ISID_LEN] caps the echoed
-ISID at 15 characters, so at most 11 bytes past the buffer are leaked
-per command, but the PR OUT command is not rate limited.
-
-Any initiator that can send PR OUT to an iSCSI-exported LUN can trigger
-either variant, including a guest via vhost-scsi.
-
-Require 8 bytes to remain after the ",i,0x" separator, and a NUL
-inside the rest of the descriptor, before the ISID pointer is
-returned.  REGISTER AND MOVE fails with TCM_INVALID_PARAMETER_LIST;
-on SPEC_I_PT no target port claims the malformed TransportID, and the
-command fails the same way.
-
-Fixes: d04a179085c2 ("scsi: target: Bound PR-OUT TransportID parsing to the received buffer")
-Reported-by: kitta <kitta@linux.alibaba.com>
-Reported-by: sashiko AI review <sashiko-bot@kernel.org>
-Link: https://lore.kernel.org/r/sashiko-outbox-184760@kernel.org/
-Cc: stable@vger.kernel.org
-Cc: Bryam Vargas <hexlabsecurity@proton.me>
-Cc: John Garry <john.garry@linux.dev>
-Assisted-by: LLM
-Signed-off-by: Yuanhe Shu <xiangzao@linux.alibaba.com>
 ---
-
 Changes since v1:
+    - codec node sorted before cpu node (alphabetical order).
+    - dp0-dai-link placed before hs0-mi2s-playback-dai-link (alphabetical
+      order).
 
-- Bound the 8-byte get_unaligned_be64() read in
-  __core_scsi3_do_alloc_registration() as well (sashiko review).
-- Corrected the SPEC_I_PT outcome: the command fails, the scan does
-  not skip the entry.
+Link: https://lore.kernel.org/all/20260413043713.1659-1-kumar.singh@oss.qualcomm.com/ [v1]
+Signed-off-by: Kumar Anurag <kumar.singh@oss.qualcomm.com>
+Signed-off-by: Karthik S <karthik.s@oss.qualcomm.com>
+---
+ arch/arm64/boot/dts/qcom/lemans-evk.dts | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
- drivers/target/target_core_fabric_lib.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
-
-diff --git a/drivers/target/target_core_fabric_lib.c b/drivers/target/target_core_fabric_lib.c
-index 2853b95b2c59..ad024009df56 100644
---- a/drivers/target/target_core_fabric_lib.c
-+++ b/drivers/target/target_core_fabric_lib.c
-@@ -371,6 +371,16 @@ static bool iscsi_parse_pr_out_transport_id(
- 			pr_err("Missing ISID in iSCSI Initiator port TransportID\n");
- 			return false;
- 		}
-+		/*
-+		 * The registration code reads the ISID as a C string,
-+		 * and its first 8 bytes with get_unaligned_be64(), so
-+		 * require 8 bytes after the separator and a NUL inside
-+		 * the rest of the descriptor.
-+		 */
-+		if (buf + tid_len - p < 8 || !memchr(p, '\0', buf + tid_len - p)) {
-+			pr_err("Incomplete or unterminated ISID in iSCSI Initiator port TransportID\n");
-+			return false;
-+		}
- 		*port_nexus_ptr = p;
- 		/*
- 		 * Go ahead and do the lower case conversion of the received
+diff --git a/arch/arm64/boot/dts/qcom/lemans-evk.dts b/arch/arm64/boot/dts/qcom/lemans-evk.dts
+index 23cf20f9a178..83bd2ffa2a1d 100644
+--- a/arch/arm64/boot/dts/qcom/lemans-evk.dts
++++ b/arch/arm64/boot/dts/qcom/lemans-evk.dts
+@@ -183,6 +183,22 @@ sound {
+ 		pinctrl-0 = <&hs0_mi2s_active>, <&hs2_mi2s_active>;
+ 		pinctrl-names = "default";
+ 
++		dp0-dai-link {
++			link-name = "DisplayPort0 Playback";
++
++			codec {
++				sound-dai = <&mdss0_dp0>;
++			};
++
++			cpu {
++				sound-dai = <&q6apmbedai DISPLAY_PORT_RX_0>;
++			};
++
++			platform {
++				sound-dai = <&q6apm>;
++			};
++		};
++
+ 		hs0-mi2s-playback-dai-link {
+ 			link-name = "HS0 MI2S Playback";
+ 
 -- 
-2.43.7
+2.34.1
 
