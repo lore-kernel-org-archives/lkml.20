@@ -1,54 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793023593;
-	b=c2hSoE4a0XYMSo0zDR/VFNJVZaoQiXfey1O/P+umi2Gi5vtHSveKzTju+p8EvOcvltf6
-	 UVD7/DD/Iz8xX3c4QfBPWnnYdh2Uh1GBt/zOcqHUyErIDWm6JVXwrBNSyWoxrDbVZ9PPY
-	 RVF8LkLS3W0TBigaardoUi8bI2wtDl9sxhzdst7IrWI26GbwzvHV73m5j8paMc/ufH7me
-	 QFxpf3+ctcD5I4vpDoNLfnVBqTyKKMicb4m4LxMMcQ/NGzesBKxKUzmT19uhulOpVm6LU
-	 xL9fwF3RXjl/CNrh5QkkdQY34C99R2s01t4bTrSEII1J+Gp2o69kmlMWFLW0HpDBaQw==
+	t=1793023663;
+	b=GQoFXPGsQ+MxGmvE1I0F18RntsRaH9Pw79+iaFjY552o5IIIs5ZDgiJ0X7SPXl9vkGEx
+	 ZQUIdEeGuNU27IhsxxaEyMVFGvsfJKZlQSmh5cpxWxG/IR0W3d5y2k8otrqCR3AbMLr6C
+	 oozV2nB+GskqSPBy2m75sA6yO3MZd5R7Eg62aWAhx6w+WoMYosiFjESbhtyPxoXdZ4kDm
+	 Sr56LN/n//prbdwlR6fo8YTWicjUC7FsSjfLQF+sfYoA+IbY7wTyHF9i7BoSK43gDcZYB
+	 v8uXudojX4PrUjgX/XmFGS/hyD3gNh+qmbDT9dRMMH5j31pdu/YBsucPsEjvsvPA++g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793023593;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=HmrH/TGWyb0rSuPIo9zqb3R5Gwa7ppDeLL7nHFi+ICE=;
-	b=LoX3mNMOkXmpBw11ZWuoaDyOni5QzN/NmzgzUAeqmYzsTPQfa0Jt+Shl8+QmjRRCqNrA
-	 aWcdffyu3/UknQbdc89B9r8J4f4MfT6Whix24EdNyeNGVj02Ho7cabNoj4+680h2k6SGt
-	 eYRRGfY1LwEzLWiXXi7y/775MHJQmUgJdiENYkT2A2uK+1EdX2IY+puxocUjTj0RLFNnw
-	 zmQ6cl5GGvLNARhkXXbMoMF+hhDGMvJ4E4ZadgUIVtwNXLoRbBbQ/CCqwTby1RmN85edR
-	 1E1UfqYgU+6ufctEon9XXNimN/S0TJg5KUm9OOK8KQg6WOeTDJ1tQ162fJ4GZQEePmg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793023663;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=XakBI9gtX78sZAtOezqM1zuZ81mvr8zjp5zgGUEv5HU=;
+	b=5giUP2yBenVwni0JZjelkbOvI0Pq4J0pg6gi9jr9tktyuAcGyRmerJC9Yb5LPJ2Davn2
+	 HUWY0/yabm9Y23YtRFXxANfp2neugRm4R3RAtffPPZVfgIv7LZRP7SJRXvg+O9JwpZ1tC
+	 ZftejZM+zXZ12oF4Kc/QI2qurtg5iYgL0Ykqe6SLBxsZVszTS4HlLhRF0Gz4DpcaxIf1W
+	 876DUWbnE8gdHnSTY7tlp2Xfuu0TmM3Mt9QniwOvfub9lg0kIhCYfDvkf27ej57zNXMAE
+	 9dgz+8dZzBuQptKLlOk3PVSVu2iFfVEjuWej8lpon/+9zbBZ8RKKpOTtbpr4uQnvmZw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4DFD3606A31D;
-	Mon, 26 Oct 2026 14:06:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4DFD3606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=HmrH/TGWyb
-	0rSuPIo9zqb3R5Gwa7ppDeLL7nHFi+ICE=; b=aFidpKlotDxiog9KDJ1un9przG
-	1e0TStCYVEFGUzcU9G3EqAfArsOZaGbIBXi3kuxczun1V6sGNLqI1k+HyXsJEIJK
-	69tKStdQ98t0BwQjdfM14CSjsz3chvlUb0Ur5naqDGBe2jpyTx8EvCP7VX7jeDbD
-	pIirDfYYNcoJ/3UiI=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.126])
-	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkA2fQJaXt9q6ezpAA--.6916S2;
-	Mon, 26 Oct 2026 22:06:18 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>,
-	YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-Subject: [PATCH v2] media: dvb-core: prevent frontend thread resurrection after unregister
-Date: Mon, 26 Oct 2026 22:06:18 +0800
-Message-Id: <20261026140618.20173-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WxCaJxpS;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD484606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:07:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WxCaJxpS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 444351F01828;
+	Mon, 26 Oct 2026 14:07:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793023662;
+	bh=XakBI9gtX78sZAtOezqM1zuZ81mvr8zjp5zgGUEv5HU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=WxCaJxpS4RT5Rt6eFzT7+wZgOe/GRPAmjH3AqsGfiakObwHg1VY1JJNi0pIrPnik7
+	 LWYUmo8hc6UufQZ6WHKxTq9xYwbctTZ+0V8AZm/Z02qLsvfpJt7QpBAZgJOCKzRq8b
+	 sO7fSzYxI/xVJdBACOmvAHKmydVSAMW8sUJZZm+pSIFUmUMVDQnzgfjRaYB7HOKPfB
+	 8K/X3fm9h1Ezl7Pbgv0hIS5Bah6UFMYHfpQFCQK7NfXthDC1gzOTcq7h57iFe/sWML
+	 xIx3xXObFoyp8zxwmf0IcVx7xyYYpYRotsMlMTcylm+ek7EU4LeQjkZ4lLZHCkyk9l
+	 9Az6ytO70tYAw==
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfauth.phl.internal (Postfix) with ESMTP id 4787AF4006B;
+	Mon, 26 Oct 2026 10:07:41 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-04.internal (MEProxy); Mon, 26 Oct 2026 10:07:41 -0400
+X-ME-Sender: <xms:rV7falXFc8rgY0kZiZWLQpp1duK7t-4d9jeFRjqXvwSfhMHN10ofSA>
+    <xme:rV7fasECXzzTPU7FmoGw7wHH_lOJhNS2cuSzui5LWFp97epFbQfWb0yhOIIzvShvW
+    J2W6gz3ZRtykHe8PTuZj89CZkbws1-vFkPZfgQROlgNwVXF-uwY1A>
+X-ME-Received: <xmr:rV7favacw5EJcxahdH_aor83_I4OEGEoUXOjpNBI5g89xHlgNZWIDn8bDq-hDy_XMmb09fOiJ0NxRXTDf1HPXYUcXD4Uapm6>
+X-ME-Proxy-Cause: dmFkZTGHPTZoVgbYo32XJYjko3kEymooXPsi2xL+ta6zn/3CUgwvCNza6QO5ml4d3WEJSX
+    B81f6OQ8BX84Th8MBukku5MrddiFNHjISGbII1oow9cL+KR1qJtAn3Rfwc6udslhg5fBBp
+    NAkuxktdRq/ThSyoW/6sYm66Cx/DQ3w7QOCjEdJxbQd42O8vjWlPjxpr3/wSVNEQejPqjv
+    aKoaOW4wQlRbkOCDqqLh7kwEaiRAbG45JUeMUE3BPjDvbzO33lTRXHrwK3qQ7jmjepaNUU
+    Tg+7i3Ffl+6pV5qh9j3V7RIBtcc25Tt+4S+gMFFdS81OnFT7XartKSIMtVN4JSyO6qSObr
+    T7UrxbOlATSwsvTh0zS0YBns1MjUgFDrqQpjSBCY3phjoAbdeiKt5RDc58KbUkNLJigsSB
+    UavNU12IDc/Vl0iH5helDCcurXjtOc5wNNv/gfdFf0MceCdCqkyvz+gRgYBag/4r7xHLiJ
+    PJclNhsn5D1ldF8pMVmWGN2xcD4teWGa7DqqVXl7gOpClUjLo8iBX3W+18hJrPB2LqZwTI
+    qqNKh4T/NYOyVIsZzeG1C+GtoSzCyag57mSEBGmaRHIQq5+OpLkKKLz90eMd6aBAxmR++6
+    5qqp5iTOyk90EdfAprSHPCRTO619iQxYKKz1RB2W2iPvLV4bqJaZC3KrU5mg
+X-ME-Proxy: <xmx:rV7farEkwePmR4sfQRVoe5Hm-SU5qBwawyb2C790iv0A5eWl3zj9sw>
+    <xmx:rV7fal2ITUuwZfrcHWTVWXb6FsV6O_9_XTUUpORo0oB2y_6W9Aag1A>
+    <xmx:rV7favyQCLK6X5mq_0aCQY5GHIagP8RdKxmzxQLtm-UwUAQkSpfn1Q>
+    <xmx:rV7fauhwr3eY2MdtPVEq4FUUJfYmy68tIIWhUT3azTJhfSbtPkd6nQ>
+    <xmx:rV7fakPKgwsOlzoHYmI3hM607W9wsrCo-oIKB5fXC-woliI2ku0BskAO>
+Feedback-ID: i8dbe485b:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 26 Oct 2026 10:07:40 -0400 (EDT)
+Date: Mon, 26 Oct 2026 07:07:39 -0700
+From: Boqun Feng <boqun@kernel.org>
+To: Vlad Poenaru <vlad.wing@gmail.com>
+Cc: Bart Van Assche <bvanassche@acm.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>,
+	Waiman Long <longman@redhat.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Davide Caratti <dcaratti@redhat.com>,
+	Breno Leitao <leitao@debian.org>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH] lockdep: Keep dynamic key hash nodes in
+ lockdep-owned storage
+Message-ID: <at9eq_3YUIL1ACEK@tardis.local>
+References: <ef57e0ab-f0b4-46d6-a2f8-f6c97fec8d8e@acm.org>
+ <20261023121946.2260882-1-vlad.wing@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,173 +94,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BLQMCkA2fQJaXt9q6ezpAA--.6916S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxKrW3AF4kJr1xJF1UWF4Uurg_yoWxWF17pF
-	WkJry5KFWqkw1xXr4vy3Zrur90vw1xGayUG347Gay3Cr1fGFWSgrW8ta4DX3W3ArZ3Jr4q
-	qw17WFW8ua9rJaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9G14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVWxJr
-	0_GcWlnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xv
-	F2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r1j6r
-	4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I
-	648v4I1lc7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6ry5MxAIw28IcxkI7VAKI48JMx
-	C20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAF
-	wI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20x
-	vE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v2
-	0xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxV
-	W8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUbpVbDUUUUU==
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUSD2reG1PLYAAAsO
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261023121946.2260882-1-vlad.wing@gmail.com>
 
-A use-after-free read in dvb_frontend_thread() was observed when a DVB USB
-device was disconnected concurrently with userspace opening and closing the
-frontend device node:
+On Fri, Oct 23, 2026 at 05:19:46AM -0700, Vlad Poenaru wrote:
+> On 10/21/26 8:01 PM, Bart Van Assche wrote:
+> > This patch introduces a new hard upper limit on the number of dynamic
+> > lockdep keys. That's unfortunate but I assume it's not possible to
+> > eliminate this hard upper bound if the key storage is owned by
+> > lockdep?
+> 
+> It isn't inherent; it comes from preallocating the nodes the way lockdep
+> does for its other tables. Two ways to lift it:
+> 
+> 1. Fall back to the embedded node when the pool is full. Keys
+>    registered after that are linked through their own hash_entry, as
+>    today, and only those wait for a grace period when they are
+>    unregistered. The key stays at 16 bytes and there is a second lookup
+>    path, but running out becomes a slowdown instead of lockdep turning
+>    itself off.
+> 
 
-  BUG: KASAN: slab-use-after-free in dvb_frontend_thread+0x1380/0x1620
-  Read of size 8 at addr ffff888008dd4320
-  Comm: kdvb-ad-0-fe-0 Not tainted 7.1.2-dirty #81
-  dvb_frontend_should_wakeup drivers/media/dvb-core/dvb_frontend.c:641
-  dvb_frontend_thread drivers/media/dvb-core/dvb_frontend.c:682
+This gives me feeling that we did something for nothing, because in a
+system where there are a plenty of dynamic keys, we back to the current
+status after we introduce another hashlist.
 
-  Allocated by the frontend attach path:
-   cinergyt2_fe_attach+0x... (drivers/media/usb/dvb-usb/cinergyT2-fe.c:271)
+> 2. Grow the pool in chunks allocated outside the graph lock in
+>    lockdep_register_key(). That removes the bound without a fallback,
+>    but it is the allocation Boqun preferred to avoid.
+> 
+> For what it's worth, keys whose locks are ever taken already count
+> against MAX_LOCKDEP_KEYS (8K classes), and the default pool is 16K, so
+> what the cap adds is a limit on keys that never get a class.
+> 
 
-  Freed by the final frontend release:
-   dvb_frontend_put+0x... (drivers/media/dvb-core/dvb_frontend.c)
-   dvb_frontend_release+0x... (drivers/media/dvb-core/dvb_frontend.c:2934)
+Yeah, I think if everyone call lockdep_init_map_type() right after
+lockdep_register_key(), MAX_LOCKDEP_KEYS will be reached to the limit
+before MAX_LOCKDEP_DYNAMIC_KEYS. So technically it's not a new
+limitation. Honestly you can just make MAX_LOCKDEP_DYNAMIC_KEYS = 2 *
+MAX_LOCKDEP_KEYS (i.e. without introducing a Kconfig), "2 *" is needed
+because a key can be in-between lockdep_register_key() and
+lockdep_init_map_type() and pending_free can be delayed, so "2 *"
+provides a buffer for when active key numbers > class numbers.
 
-On disconnect, dvb_unregister_frontend() stops the frontend kthread through
-dvb_frontend_stop() and unregisters the dvb device, but it never marked the
-frontend itself as removed: fe->exit was left at DVB_FE_NORMAL_EXIT, or at
-DVB_FE_NO_EXIT when no thread was running.  dvb_frontend_open() does not
-hold frontend_mutex, and dvb_frontend_start() did not check the removal
-state at all, so an open racing with dvb_unregister_frontend() passed the
-DVB_FE_DEVICE_REMOVED check in dvb_frontend_open(), unconditionally reset
-fe->exit to DVB_FE_NO_EXIT and spawned a new kthread on a frontend that
-was being removed.
+It might be worth checking whether a lockdep_register_key() is always
+followed by a some sort of lockdep_init_map_type() in the kernel code
+base.
 
-dvb_unregister_frontend() and dvb_frontend_detach() then dropped both
-registration references.  The resurrected kthread never holds a reference
-on the frontend object itself, so once the last file descriptor was
-closed, dvb_frontend_release() dropped the final reference and freed the
-frontend state while the kthread was still running, resulting in the
-use-after-free reported above.
+Regards,
+Boqun
 
-Close that window by unregistering the device node before the thread is
-stopped.  dvb_device_open() invokes the frontend open handler while
-holding minor_rwsem for reading, and dvb_remove_device() takes the same
-lock for writing, so once dvb_remove_device() has returned no open can
-reach dvb_frontend_start() any more and the kthread cannot be restarted
-after dvb_frontend_stop() has killed it.  Mark the frontend removed after
-the thread has terminated, so that the marker is written only once the
-thread is gone.
 
-Make the removal state sticky in the frontend as well:
-
-- do not overwrite DVB_FE_DEVICE_REMOVED when the thread notices the exit
-  condition;
-- do not derive DVB_FE_DEVICE_REMOVED from kthread_should_stop() when the
-  thread returns.  Restarting an idle frontend stops the thread through
-  kthread_stop() as well, and treating that as a removal left the device
-  unusable;
-- keep the DVB_FE_DEVICE_REMOVED check in dvb_frontend_start() and the
-  reset in dvb_register_frontend() as a second line of defence, which
-  also covers drivers that mark the frontend removed themselves.
-
-em28xx already sets DVB_FE_DEVICE_REMOVED manually before unregistering
-its frontends; the core now provides this protection for every dvb-core
-user.
-
-Fixes: 1f862a68df24 ("[media] dvb_frontend: move kref to struct dvb_frontend")
-Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
----
-Changes since v1:
- - remove the device node before the frontend thread is stopped and
-   set DVB_FE_DEVICE_REMOVED only after dvb_frontend_stop() has
-   returned.  Unregistering the device node takes minor_rwsem for
-   writing, so no open can restart the kthread once it has returned,
-   and the marker is written when the thread is already gone.
- - do not derive DVB_FE_DEVICE_REMOVED from kthread_should_stop()
-   when the thread returns: restarting an idle frontend stops the
-   thread the same way, which would leave the device unusable.
- - do not overwrite DVB_FE_DEVICE_REMOVED with DVB_FE_NORMAL_EXIT in
-   the thread exit path.
-
- drivers/media/dvb-core/dvb_frontend.c | 25 ++++++++++++++++++++-----
- 1 file changed, 20 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/media/dvb-core/dvb_frontend.c b/drivers/media/dvb-core/dvb_frontend.c
-index d082b6c57c76..74c8042d84fc 100644
---- a/drivers/media/dvb-core/dvb_frontend.c
-+++ b/drivers/media/dvb-core/dvb_frontend.c
-@@ -688,7 +688,8 @@ static int dvb_frontend_thread(void *data)
- 			/* got signal or quitting */
- 			if (!down_interruptible(&fepriv->sem))
- 				semheld = true;
--			fe->exit = DVB_FE_NORMAL_EXIT;
-+			if (fe->exit != DVB_FE_DEVICE_REMOVED)
-+				fe->exit = DVB_FE_NORMAL_EXIT;
- 			break;
- 		}
- 
-@@ -794,9 +795,7 @@ static int dvb_frontend_thread(void *data)
- 	}
- 
- 	fepriv->thread = NULL;
--	if (kthread_should_stop())
--		fe->exit = DVB_FE_DEVICE_REMOVED;
--	else
-+	if (fe->exit != DVB_FE_DEVICE_REMOVED)
- 		fe->exit = DVB_FE_NO_EXIT;
- 	mb();
- 
-@@ -873,6 +872,11 @@ static int dvb_frontend_start(struct dvb_frontend *fe)
- 	if (down_interruptible(&fepriv->sem))
- 		return -EINTR;
- 
-+	if (fe->exit == DVB_FE_DEVICE_REMOVED) {
-+		up(&fepriv->sem);
-+		return -ENODEV;
-+	}
-+
- 	fepriv->state = FESTATE_IDLE;
- 	fe->exit = DVB_FE_NO_EXIT;
- 	fepriv->thread = NULL;
-@@ -3042,6 +3046,7 @@ int dvb_register_frontend(struct dvb_adapter *dvb,
- 	init_waitqueue_head(&fepriv->events.wait_queue);
- 	mutex_init(&fepriv->events.mtx);
- 	fe->dvb = dvb;
-+	fe->exit = DVB_FE_NO_EXIT;
- 	fepriv->inversion = INVERSION_OFF;
- 
- 	dev_info(fe->dvb->device,
-@@ -3076,8 +3081,18 @@ int dvb_unregister_frontend(struct dvb_frontend *fe)
- 	dev_dbg(fe->dvb->device, "%s:\n", __func__);
- 
- 	mutex_lock(&frontend_mutex);
--	dvb_frontend_stop(fe);
-+	/*
-+	 * Remove the device node before stopping the thread.  New opens
-+	 * cannot enter dvb_frontend_open() once dvb_remove_device() has
-+	 * returned, because dvb_device_open() calls the frontend open
-+	 * handler while holding minor_rwsem for reading and
-+	 * dvb_remove_device() takes it for writing.  This guarantees that
-+	 * dvb_frontend_start() cannot restart the kthread after it has
-+	 * been stopped here.
-+	 */
- 	dvb_remove_device(fepriv->dvbdev);
-+	dvb_frontend_stop(fe);
-+	fe->exit = DVB_FE_DEVICE_REMOVED;
- 
- 	/* fe is invalid now */
- 	mutex_unlock(&frontend_mutex);
--- 
-2.34.1
-
+> Boqun, would you prefer (1), so that the cap can never turn lockdep off?
+> 
+> Thanks,
+> Vlad
