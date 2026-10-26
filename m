@@ -1,110 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.37
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793006477;
-	b=xva4HV8kaIDnQMs1de5PrGTb9hGqZZUVUcOdgJS+P9YPwhWnRYEA7PynOKvUYHbQquew
-	 EUbE4OMpbwUQkQO7gcmYgdh2WW69BkGu80li1jpMXm1JdCIrBGbs06BWr4oLPueAP6tU4
-	 WJ1BYRGmVLIZa1jypzu5/a06AtQ1MjHJBeZ/p0v5Vlmuvn43cMQoiRQlzQrnau9iKlG/v
-	 GxRqU5z69PUw2orpnp32vZl+wUQE+Qx9llnfcJtz5yi3/+5N8U5V9BsIYYj7I+wpE2Y9S
-	 eGP81wDsgv+VmMD1Gs8gAL17+lHnlOnnOj5MRtKME7wreJh91tTl0Zcob66VfCGY03g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793006477;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=ULmxYLOiy2fmk3jwy72P4K/5hjpKCs9HpSMXMwaQYp4=;
-	b=to90qM/zqGyrDfXyZJYi/kO7ZRD3CMamUfVq6vXb8tVpfYQfEMeGaxsqp9YPl5b6Krin
-	 5FAZInPHKTbWF2XhuGwfrtPelgiTochTaAo29sMCiNGbBNLuIfNomr/BMZ4wE6SpcV+Zo
-	 xpDfETQbEFwtS9HfJrGIAHe3p6VODco3KR/AdL7lapT8fCbOWcN2cPtrD6G/tVGUu58mx
-	 Ek0dBnjLrvjOG2i8XZ34OccsuL/5vuu9kyUFTC/woTCpSR0xUAnN4ltgnrse9Kgv0ril5
-	 AjjWFTs7WBy24lVCBXbkqtUEIKOeCkmnolhPJVbScwFPNusoQxeAjecru8+eYCYrXnQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=XyrWckL3;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.37
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013037.outbound.protection.outlook.com [40.93.201.37])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793006472;
+	b=v1SXvEnchLauVxITPstB9FqbKX+Z5aHdKMmm5oRMO7gf2i2k9Zxfi8zzkt+g5YaLDxE7
+	 CtnLRE15xbIHTBcui+zv0VxF4+VCBat7djSVNaxJ10LrWz5NGDoRKZ4aRPBTKjzNc3VyI
+	 1M5eqItMRyaA3i/crCKthhbbn5/X5x0so3+B3e9EEHlN/NYiq94SwCwH0HXM9akin4eJD
+	 1HvfAPbcGjzWd1N0H4XvmS7DuQyIbsKGa1L1KP7Uw/VGDhDwL9m++r4MCWAaQ2SOsiWnk
+	 lLby2mJ2f9SKUGGlaZ2LcNUkDydt1/rra84MdsB91O8u8bHUDjAqW/ifXaZbfTcUwPg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793006472;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=JYl7nG9VCZ7POIwjt2f7CoGn454MZk1gl17DIn6O5n8=;
+	b=3r2TwCQwR5VZLAPI12zvlzIQdjjOEWpUAmDytrybfIASch8WNyAvVwJ2Z7FicCg1Rt0E
+	 Vfk111ATKs3kiMp4AkhvglHnWQr5OQpSGvxQHRwXgdbYBF8Ny3Y7oBvnjhzfoIultAPsB
+	 wRtKG0M/xXlMBivXeP1XnuEppFsuDBJMPRaT0vm/oPdxT6fJOWONBlQoT+nhWoTAIvkLu
+	 4gA9r1pyjFfGGjgMmD/NdV2LqCL2Ie9A/erKl9pWo7nEpdYM1W60uyhuXLUmuB2TJF37J
+	 4ElJQpVf3/ZulCWCm9MIhaDpUX456ju8ubNZj96apDdmavvt7rNm72SVG3DjgLlD2Jg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=h6Y0oEWA;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=X6PnV0xR;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF364606A327;
-	Mon, 26 Oct 2026 09:21:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF364606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC22A606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:21:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC22A606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=XyrWckL3
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=C94zzvTjD05Gr8WxuX64Ne2FXmxl78gBgxeHcFQ8BsxK05c3Z9p7NTjTV3xZ3LvRE1qapOZeJJ7/WQjNFLCYylOvDqme6IpicXRKFb3jUzWVId9hvPx1pFINrnLa3FQgqgeYemoKEk/WbnzlyCwYjErsHam3nuqMDR8aHPndrKoTkvWsP+pChVANeA1Zp6yxD80N8xkOxcajFy4iuHlw3odXsx16pMcn7HPFr+gJLm3GE/AUOZlRh3b7FIXK5BQTEqNeFFuBxfiMyX9pxpxmUjDxqmj/PYLrir4cT4IIjhhwp7+0seZO0OeJrjo9esaiBgELDYFbf8t2qf88WLNPiw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ULmxYLOiy2fmk3jwy72P4K/5hjpKCs9HpSMXMwaQYp4=;
- b=xZoq8zycjFj4+7SYxNEXE7ZEcHFY0TnTfs2+XqOgwdCrNpoG5VMMkKbuQzvuHL2ZzEmOdstZN6adpK6e5eXg0bUzhIzNzBwJYJ/3/IIbYgqE9LoFTJBKDVrY8NC45AgLBn0+TD89LcBVdcCXZBF2G0CIimyKAEkyo5/XiNOVMBu3XDgXHHfkg7bRqq8/1+/4Lwh7TX0sML9m7dvG2JX6/HL3ISQA5/WGn1od8RcsF89EzLLhb1bkK3fu0VwvEUQeECs8rwVosjQyKSf4/4KTwFRfmht4aex9i8Z8j1qNtr1JzmQLcLvCAB4poVV/NWPYK6w4/qdBs2+2I3uvWOphfQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ULmxYLOiy2fmk3jwy72P4K/5hjpKCs9HpSMXMwaQYp4=;
- b=XyrWckL38IXDL3wTCFCgbgnsfA+5+pjNpAfOLMEVfwIKjuTsLE9hODPb4blpYgfKNlXj5mD2Bd+TpkgoSI2nZYG5pt1pom4nZtD14bUUqi8sqtUKbv+x08imTD7GgrxdOJRWljmZvSEwWCgOybzLlz4gh30Q9DixDsJr2pHCNm+XwpxsR/SeZ3AZ3rPxF4+MzCiebzfdepVXC/+n3K+uvXn28t9fn/45mCZrZz5JW+Az013O432PlCv9NbVb8hrhIINWJHza23FPl2j/g4MKXlrbvEC74xQ8rFJa2ZKaMMkhFz9gqzkRW9Hj/6O+7vNzKWPiTMwa3f4ljyoLMkb41w==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
- by MN6PR12MB8591.namprd12.prod.outlook.com (2603:10b6:208:471::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
- 2026 09:21:11 +0000
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017%5]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
- 09:21:10 +0000
-From: Mikko Perttunen <mperttunen@nvidia.com>
-Date: Mon, 26 Oct 2026 18:19:34 +0900
-Subject: [PATCH v3 09/10] iommu/tegra-smmu: Defer display client
- translation to driver handover
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261026-b4-arm32-iommu-dma-cookie-v3-9-3901d74b1ff2@nvidia.com>
-References: <20261026-b4-arm32-iommu-dma-cookie-v3-0-3901d74b1ff2@nvidia.com>
-In-Reply-To: <20261026-b4-arm32-iommu-dma-cookie-v3-0-3901d74b1ff2@nvidia.com>
-To: Robin Murphy <robin.murphy@arm.com>, 
- Marek Szyprowski <m.szyprowski@samsung.com>, 
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
- Russell King <linux@armlinux.org.uk>, Heiko Stuebner <heiko@sntech.de>, 
- Thierry Reding <thierry.reding@kernel.org>, 
- Mikko Perttunen <mperttunen@nvidia.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Jonathan Hunter <jonathanh@nvidia.com>, 
- Krishna Reddy <vdumpa@nvidia.com>, Krzysztof Kozlowski <krzk@kernel.org>, 
- Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Peter Griffin <peter.griffin@linaro.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>, Chen-Yu Tsai <wens@kernel.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, Yong Wu <yong.wu@mediatek.com>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, iommu@lists.linux.dev, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org
-X-Mailer: b4 0.16-dev
-X-ClientProxiedBy: TYCP286CA0334.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:38e::12) To SJ2PR12MB9161.namprd12.prod.outlook.com
- (2603:10b6:a03:566::20)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=h6Y0oEWA;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=X6PnV0xR
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69Q4b85A1908167
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:21:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	JYl7nG9VCZ7POIwjt2f7CoGn454MZk1gl17DIn6O5n8=; b=h6Y0oEWA0ENairNF
+	O1YRQJwuTXnKRSqGAu4ITnPg5XNsSEgeBHRCuP8GxMUL0vikQ8kCgR0ntF6Imybj
+	oNrLvXThJt6y1gbvrB3uqu5Q1rvYyorZkSL0bFIQs1kXR6IGJOKv7D+bGYUFYgZ3
+	Jeq2hgPafQaLfS/Wz4kvEMqNNwgO8xBSCe9jWhidUdueJDzTzZ3HULwfBYaNjHf4
+	PkYL6iTf4G7rvwzs4Jr8b8/MjEKO1x3eVJhz34fiWxMA2fHdKhYVfnlhw6EjkJPf
+	Lz5pPO4pjIryofSl6wX3ZqsGDtaZzkMeuxMTwcJkD+6U6cax9BgtQitN1GdK+7IM
+	WeJ0Qw==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hgm0gnr66-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:21:10 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93df7a9466bso28047285a.2
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:21:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793006470; x=1793611270; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JYl7nG9VCZ7POIwjt2f7CoGn454MZk1gl17DIn6O5n8=;
+        b=X6PnV0xR9woVRNgSiO6dCHb2ehUj3leZFWLD70JovJu1iAB2YlriMiTpl0Pj61242g
+         eaoXkC+YLdS57AZn5CXtBuxrxl8ccNpQXDabTe2yhqBA2kKqMqRr9cDbgoeuNjfkqgM5
+         pCdfr1l+ulLTK6YM8jar0DExhwR5CqiqJJZVaiiUZN1pCspm3/Lk8UCVqK/inhvAAK85
+         Z5S7gZBhzO4YMmcSDdFjGgVjHZEREgtkEdSisE1Ng5iaHx0KFlVw+T6Xjuiz0Csgo4HJ
+         ECTIPaEX7g70nBTYD72LidsiEW1+lEG3XmIW70QZiz6m+SfniOU9iOspH2rKifI4Cijv
+         ccyw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793006470; x=1793611270;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JYl7nG9VCZ7POIwjt2f7CoGn454MZk1gl17DIn6O5n8=;
+        b=W8GaBY5T6ZVvGP6TCz9aJ8bnIQ5rhrLTrAYHjMmuQNtejS2fGHwNgEM0klOJ96knqS
+         PbqXCIH1tS7aSJLFL5vdjsbHznGMxZDcnoDIi6NfrfuhkL5kgJtpNq9o/1wXnoFmrLPG
+         b1pbmS7bAf4VmSc5E8qGB9Cxz7sYs3iWvEZEHx62JlOcxJxguBJx8oW3MVz4eXdZ7//u
+         xL6fbRnI+xrB8to3nwD/B6nr9o4p7QK7w81DnpjkZJdsF34rUp6bLdAwm1g5FqN0GJnX
+         mth8NFOr4JAXFeEh3o1dkHfbz/KHHjos8fF1eJITY0JMxNsLoTC9+NSZ2jc0T5yngnYv
+         Kfcg==
+X-Forwarded-Encrypted: i=1; AKwUvBxYruk+RjMBPCaiRjoBVXHEH7jzli5ff+cFaX5eiGZ2W/eA22vepUDk82rXzdoHSrYN31bEXO/uP5pM05I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ/b+uYjujEE4H6BBB/7CHap4tCtirV8DMYkbEkf20lCms3lHqg
+	o3A5V9PybSPDnYweDCPS5O4oQ/PbdLuTfprf/XlFFUIoLzMrHbXv4I8aVo+vfxm+VmT2qxraNI4
+	Ry28WTtlu9QoSdFP5gZzfapHjO2vWGppPcFASNOoyQyKMDRgBcSDGXY8oIZ8oEn1pNiU=
+X-Gm-Gg: AYBFou3gVAHKUeHvfAv3LxVWgllEgu6u0hi9M/i1SFNvO8Fe+jzPbebSUcBECcNAmnP
+	s3zMVqw++aQ2GMR+ABs5ZdhYtNq3wr/Z1ojn6dssiHeDTGmzBN1jhTJYS0+QL2/ZdDqntKZRVlA
+	BewgYNUjLiHrCmNUYHDxEsN8pSlf8TYMNeXEkZiGOqSFK03zzIFgJFX1tom0cnUlhs0X2RBtoB/
+	QFJ3iSrgD+Zyr+a8prkZnHhZIaPqdqZaZe3ItKd92GFQw/Me/LB1uhHsU9Y7UIzfalJqQgqvHtF
+	r9XaZO6ksT57Ju9R1vUBzXbrOtZfEDpX7V1c4eIGaI0SK/vAo8mCcygwpFWz3MDM5ISDqNsojCK
+	bLlygWxHmqN5apKFzHgdZUQ==
+X-Received: by 2002:a05:620a:8703:10b0:93a:14c:329c with SMTP id af79cd13be357-940ef7c179dmr952636685a.1.1793006470019;
+        Mon, 26 Oct 2026 02:21:10 -0700 (PDT)
+X-Received: by 2002:a05:620a:8703:10b0:93a:14c:329c with SMTP id af79cd13be357-940ef7c179dmr952634785a.1.1793006469588;
+        Mon, 26 Oct 2026 02:21:09 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd34fbe6sm294029966b.10.2026.10.26.02.21.06
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 26 Oct 2026 02:21:08 -0700 (PDT)
+Message-ID: <f932be26-d911-4c77-b958-353001929692@oss.qualcomm.com>
+Date: Mon, 26 Oct 2026 10:21:06 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,302 +115,110 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|MN6PR12MB8591:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1ac4cb8c-4dd1-424b-7815-08df3342794a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|10070799003|7416014|376014|1800799024|23010399003|366016|18002099003|22082099003|6133799003|921020|56012099006|11063799006|261022075727099003|261021121427099003|261021123027099003|10067099003|261009223027099003|261022105027099003;
-X-Microsoft-Antispam-Message-Info:
-	YfgpaTotALWe2+ZCCrz0xiMYQm6qrfKqI2aCRSkd/lCOINSV2t3uLoOTApePsO798kiITN8NtZIDNcA6rRqsxYT4VDDxSr1Jq92d1gzmPtgy8fFpKUOtQZbX4r5Xb2ToPRepk4EdCw1Cn0cZYGcybgTCKqJDni3R7uZJH6bnFiR1lR9AosLZZ3j5G1MKsxo01WYhFCShzUHdS0NR59pxEkhYnyayqKb4IL+8S7sYDrWytWWIveN2RItUXXYw/YGaB7ufzYEK0ZSFJ5lml4PljsctsvHcBZVCfV+kLDkdxJMwWtCxsCsVoStZpeYYCAQLUZnDmiEPc7q4A1dGjSvIW6OQUso7Ol8iPykbgy0KZynfa418g63dQvuEcvYnHHRPK5aQvUMQtBN9NKSXVKAx7ted6pXzZQ8tzcFmE0XemJdZcANq9ZQ5jMxWuHAnnoVfT9CkZH5ZYDwT87Y80YDek5MxMKwDm831loWXrKoy8iWzz+j37TyjTno1r5mBHUPWjOgef/31u0RsBz2unCA5aEs/QI6Q3iP/s0yVHzjxJtWjEZvCCTqdmz0g8zUbQyKXQUJq0rR1hVjpaqr7uJpqu52hjd1FoAmHkgXqcBXvu6n2AobQyKShYc2UuqwJ1ubdHQk5ut1I6vtf5zC4aO8OpRSwheD2pudBHdNwFBFHQjS8WEkYyyhIE3sn/xHloFjZDogNYEyC5MhL5UmZBPv+Iw==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB9161.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(7416014)(376014)(1800799024)(23010399003)(366016)(18002099003)(22082099003)(6133799003)(921020)(56012099006)(11063799006)(261022075727099003)(261021121427099003)(261021123027099003)(10067099003)(261009223027099003)(261022105027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?OXM1VzgzUlhhcWhEUlRIY3ZEZkJhSnNSN2ptVVAwdE1SMmVrQ2hIZUNYeXFE?=
- =?utf-8?B?dWxaVGVvbTVxM0FoRExyWFJjVEI1VEtaenlla1ZzUHRtcGVib2ZhdVV5eVZh?=
- =?utf-8?B?UW5pN1lMVmk3Z0lkQnVkV0tsajB2M0c3NkNhTkZmRlgrbVlOamdpWmpFWkd1?=
- =?utf-8?B?WmlkdWxnWGp0ODE1RnQvL0NDODVLNW1BSHY2dGRPNUNGVVdtMjZHUm1KdlVH?=
- =?utf-8?B?b1FHOFd6bVlVRHZVOXBQc1kvTE9xYlZrMDZnYWN4Z2xBeXZHVlBvY0hac0Vu?=
- =?utf-8?B?MFlsMTZjWVJ0d3kzNXRnbmFqTjN1dzk5QytIWWlZYTJ2ZGw1WjhKd2g5aUp1?=
- =?utf-8?B?cmQvbUVuU2lZbyt1VlkyeHJISXNrZXpVdTY1SzdLUndNU3Ird1lra09kZzNN?=
- =?utf-8?B?ZlBNNk4vMlA5S05pTmMvSUF4U200RlE3R1ZBd3RGS3VPWmNYTFRvMytDUndX?=
- =?utf-8?B?QWRTWDJ0MiszVHpOOGwwMHJ5MmtoeTJ0bXFNSzhXSmtHdEV2SDNCOE1Rb1pi?=
- =?utf-8?B?bC9sYk9HUmEzMmhJbktQeEx2M1U5VGl1U2pzV3ljRlhIQ0VQY0tHengxY0Ny?=
- =?utf-8?B?ZkVIZmpwdXlGMHJobHFyWXJ2dXZWUUJmZk9Edk13RXZmMlczRzFvd3dlMDc4?=
- =?utf-8?B?dWhuMzBkVEwzd0l3NkFBc28yUngwQzExcVovZjQvODArK3p5SUFRYnNiN1h0?=
- =?utf-8?B?NlFyWWFTYkFNaUlId0h3UDBQaG4raURzd2cwK3FCSXRJcGh0enRxMVRIV1By?=
- =?utf-8?B?Y0VRbnFQSHFmb1BOYnR6ak04SHZoM0U0L0NManNxenQ4NGJOMTF3M0p5TEt5?=
- =?utf-8?B?WkxqbzNXS1EwK1JmMURtVXFWcVhaMHdSS3lPcXFHRVdySFBvV1hxaUloVDBX?=
- =?utf-8?B?dmxzQ25JcVVGVkhQZGNVTzRhODJ4UWtra3Erd1pJN0E2M2FXTkdiVUR6V21x?=
- =?utf-8?B?eG9kRUszZGIxcWdnR0djSG5zTGVzeXRxOGFkaUFENGZsNXlSTkdHY3JhNG0r?=
- =?utf-8?B?MmNublMvK2I1SFhMRWJ1ejlPUk9xTUdiVzBOZktEODJ0c2RzQUQ4NjRxSXFy?=
- =?utf-8?B?RDBoUTJBZ2FtV3ZrQzV4RzN5a2VqdW5UWHhaYTFpdkZGcHJFVWUxbHpJeGUv?=
- =?utf-8?B?ckJjYkk3bmFvVUtXTVZWZWFHeUc4UzlydlBsK3ZyUmpvU0w5TkRZekxFR1VM?=
- =?utf-8?B?bk9DU2Q3bkVGQTVOa0VrMmMzS0hZOE04THg1RE04L0wva2tpemF6WXVsZVlI?=
- =?utf-8?B?UUFKY1RORXJaMmczTGp5dGVZWkUzcFk1Q1JZcXFUaEF4d1YzR0NFeUhxT2pv?=
- =?utf-8?B?VGczV0pmZ3dBaUxMNkRxWTVqL1VBQ2JtMnVQZlNTVXdHQ3BJaEswZjRKK09t?=
- =?utf-8?B?M0k1L2xoQ3FoTWtPQWJ4V0ExWFJlcUw1elJPOE8rN0xyUVpzS3ZNN3d4N214?=
- =?utf-8?B?amxyT3pPRXZVODQrc08yWWt2TmlmNzArNXJzbDZ5TFBWQXQ4OVZCNEZmR3lX?=
- =?utf-8?B?TFZRbXFNU0pTVUlxaTltaHc3c0txZVMvUFhCLzAwTEMvcGMzZitVUlUwNzU0?=
- =?utf-8?B?bDhsUHg1Mzd1ZTlNOCsrU3VobW9WYlArejdqYUVyaUU4eHA2S1VhdThobTMw?=
- =?utf-8?B?SHUrTkRlZ1NNbFg0eWJRSGpWN0VaUG5LdXV3blJrTXJZbHhlT1J3cmo1N3ZF?=
- =?utf-8?B?a09QNlpEczBUNUlTZFNpb1YrSjRRNkZmT0ZsWjhEWTQ3UGFSR3QyZTdhMk0w?=
- =?utf-8?B?emFKQlNlYXJxMzk5SnlWUUJuQnJ0VmZ1YkRmUEI1T2RGZ0VsckhOY1EzYVJk?=
- =?utf-8?B?WGx5c21ULzYrbEhXMmdNMG5IK2JWdGVpYldZR2p0ZVpNV3I2M1poSXp0U2dV?=
- =?utf-8?B?TXViT1lQdFhPeUowQmIvY1hOUUhmQXNZWUxqS09yaGpKNWlyM0tWa1dTTW84?=
- =?utf-8?B?SlFNcFB6QzVVQmNQSTJidGtkY2UvaDlIOTlFWmM4WEtUclZncGJhMWpWRWdG?=
- =?utf-8?B?Y0N0STBub2VMK1RqZHpoTXJRRVFiMXZQMGV4ZG84N3ExQXY2Wjl5Ni9tbVpu?=
- =?utf-8?B?eGdTbTZQZVJPTWF6U2FpbHRhTXFSSWNDQnBoc2VLVCtYaVFLVnZ1eEExblgr?=
- =?utf-8?B?REZiM3J2dlpudG9oZE5LeWVHOVJnak0zbWtYSW9hODRIODZ5WXpOMXV6dUZL?=
- =?utf-8?B?UzU1OXZmZktYcG1ZbHNEaDNRUEhCSW9HZzlYRW8xRWlyTUI5RFZoSURoRTJP?=
- =?utf-8?B?SWVzNUNLbys4OFFqZ1Z0clAwemRWcUIzbThLU01GZHU5blFMcjdhYUx4cExE?=
- =?utf-8?B?ckVHZ2w3SWZvVWlENTU3dHc0bGpCVE5IRFYwZjJYYjBpMnVoRTFUWW1ZNTdn?=
- =?utf-8?Q?bgoBm/TULBJ6bBdBzIi4yzTwa5Bk/vFYXJCdD3S6/71/m?=
-X-MS-Exchange-AntiSpam-MessageData-1: +dlCTDC3cYnMZQ==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1ac4cb8c-4dd1-424b-7815-08df3342794a
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 09:21:10.7167
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xG8eFruaEd0Dp5pvEzD4JEoZ2RrdJoWtwusPF4jzH47+sTIT6Btktd2vaIBPXVm+tpCcxN+ovx7M30Rx5Yu/Cg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR12MB8591
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 01/14] drm/msm: fail the snapshot init when its worker
+ cannot be created
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov
+ <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20261024-msm-kms-destroy-fixes-v3-0-66a30120a5ea@oss.qualcomm.com>
+ <20261024-msm-kms-destroy-fixes-v3-1-66a30120a5ea@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261024-msm-kms-destroy-fixes-v3-1-66a30120a5ea@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: yb6IyZ_c6Ykq9f3yf2_8HPpUpr-5dhxw
+X-Authority-Analysis: v=2.4 cv=UfTE26SN c=1 sm=1 tr=0 ts=6adf1b86 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=EUspDBNiAAAA:8 a=O4p-ns5tyOGKaCv9pfgA:9 a=QEXdDO2ut3YA:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-GUID: yb6IyZ_c6Ykq9f3yf2_8HPpUpr-5dhxw
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDAzNyBTYWx0ZWRfX7flIRFJ3WoRN
+ BJc9CEyC67ff0xqDPAVIuRVX6sCQ0MCTwFZ8Ztw3dFVg8iaKrrcFh4JIztpY0ykxHFzPOMrZKz+
+ iGLOAZ5ZPZ3ZCieSRKW1ftF580iHfzgyLCuYAOym1oKplQOShvT1rcU/311GbUB8xmg56B31Wmj
+ PxhotRG0qWVQAxwq8PDyRROFetdj6wMTPbJLyRt/IxoyfqLAkSd7SQZ1yyrfKViiiapL7Nv7gXE
+ e8n7KK1sJN8WlXi0jpAoELKZA1mRpiF2cgKKKwUj20EOs6VMSJwWoNc0/kqdmq2I7AfI+PYcOvU
+ 3z7G/cxZdce3qFlorCXqspv1bRYoYv25XKJJg+F39jKoeVUqYeLj71HNELMPtedDhhkZljeUugP
+ MyPaISQzqUB/DnF1Sp1xl0St7sYTKVEXaQdxfG8ugYq00fUjzBxZWiNnKhtIYmZIh1VTLGCitVS
+ 5l6HzmxU7E/QjVFYL6w==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDAzNyBTYWx0ZWRfX7XgVCUnZ2JBc
+ DplkmxZDrXHzTdcgOPicLqM2r6Wnp1brkAVJPrwCGyemrE27ZYfKAg72MM0Lm/soVRrPPv55kOu
+ 5jXUV2ulfNHOvy7Q+eojfEBgTZVuLCY=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-26_01,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 lowpriorityscore=0 malwarescore=0 spamscore=0 bulkscore=0
+ suspectscore=0 impostorscore=0 phishscore=0 adultscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610260037
 
-Bootloaders may leave display controllers scanning out a boot splash
-while the kernel boots. Enabling translation for them without special
-care during that time would cause translation faults.
+On 10/24/26 1:19 AM, Dmitry Baryshkov wrote:
+> msm_disp_snapshot_init() only logs a failure of kthread_run_worker() and
+> returns success, leaving the error pointer in kms->dump_worker.  Both of
+> its users then dereference it: msm_disp_snapshot_state() queues the dump
+> work on it on the first display error, and msm_disp_snapshot_destroy()
+> only checks the pointer for NULL before passing it to
+> kthread_destroy_worker().
+> 
+> Clear the pointer and return the error instead, so that the KMS init
+> fails rather than leaving a snapshot facility which crashes when used.
+> 
+> Fixes: 98659487b845 ("drm/msm: add support to take dpu snapshot")
+> Assisted-by: LLM
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
+>  drivers/gpu/drm/msm/disp/msm_disp_snapshot.c | 12 +++++++++++-
+>  1 file changed, 11 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/msm_disp_snapshot.c b/drivers/gpu/drm/msm/disp/msm_disp_snapshot.c
+> index d99771684728..d1b10656e41a 100644
+> --- a/drivers/gpu/drm/msm/disp/msm_disp_snapshot.c
+> +++ b/drivers/gpu/drm/msm/disp/msm_disp_snapshot.c
+> @@ -98,6 +98,7 @@ int msm_disp_snapshot_init(struct drm_device *drm_dev)
+>  {
+>  	struct msm_drm_private *priv;
+>  	struct msm_kms *kms;
+> +	int ret;
+>  
+>  	if (!drm_dev) {
+>  		DRM_ERROR("invalid params\n");
+> @@ -110,12 +111,21 @@ int msm_disp_snapshot_init(struct drm_device *drm_dev)
+>  	mutex_init(&kms->dump_mutex);
+>  
+>  	kms->dump_worker = kthread_run_worker(0, "%s", "disp_snapshot");
+> -	if (IS_ERR(kms->dump_worker))
+> +	if (IS_ERR(kms->dump_worker)) {
+> +		ret = PTR_ERR(kms->dump_worker);
+>  		DRM_ERROR("failed to create disp state task\n");
+> +		goto err_destroy_mutex;
+> +	}
+>  
+>  	kthread_init_work(&kms->dump_work, _msm_disp_snapshot_work);
+>  
+>  	return 0;
+> +
+> +err_destroy_mutex:
+> +	kms->dump_worker = NULL;
+> +	mutex_destroy(&kms->dump_mutex);
 
-Because of this, tegra_smmu_def_domain_type has kept every device on an
-identity domain at boot, and TegraDRM has parallel custom IOMMU domain
-management code paths for these clients.
+LLM:
 
-Mark the dc and dcb swgroups on Tegra30, Tegra114, Tegra124 and Tegra210
-with a new defer_enable flag. tegra_smmu_enable() sets those swgroups up
-as usual, ASID and per-client enables and all, but leaves
-SMMU_ASID_ENABLE clear, so the clients stay in bypass. tegra_dc_probe()
-then calls tegra_smmu_enable_translation() once it has asserted the
-display controller's reset (and set up its final IOMMU domain), at which
-point the hardware is guaranteed not to be fetching and translation can
-be turned on.
+The error path calls mutex_destroy(&kms->dump_mutex), but
+msm_disp_snapshot_destroy() runs later on the same failure path and
+destroys the mutex again. That's harmless in practice (mutex_destroy()
+on an unlocked mutex is benign, and the debug checks don't fire), but
+it's a redundant double destroy. A simpler version would drop the mutex
+handling from the error path and let the destroy function own it
 
-If the display driver never probes, the clients simply stay in bypass,
-which is what they do today.
-
-Signed-off-by: Mikko Perttunen <mperttunen@nvidia.com>
----
- drivers/gpu/drm/tegra/dc.c      |  8 +++++++
- drivers/iommu/tegra-smmu.c      | 51 ++++++++++++++++++++++++++++++++++++++++-
- drivers/memory/tegra/tegra114.c |  6 +++--
- drivers/memory/tegra/tegra124.c |  6 +++--
- drivers/memory/tegra/tegra210.c |  6 +++--
- drivers/memory/tegra/tegra30.c  |  6 +++--
- include/soc/tegra/mc.h          | 13 +++++++++++
- 7 files changed, 87 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/gpu/drm/tegra/dc.c b/drivers/gpu/drm/tegra/dc.c
-index fefc3761a4bc..caf898e3db00 100644
---- a/drivers/gpu/drm/tegra/dc.c
-+++ b/drivers/gpu/drm/tegra/dc.c
-@@ -19,6 +19,7 @@
- #include <linux/reset.h>
- 
- #include <soc/tegra/common.h>
-+#include <soc/tegra/mc.h>
- #include <soc/tegra/pmc.h>
- 
- #include <drm/drm_atomic.h>
-@@ -2757,6 +2758,13 @@ static int tegra_dc_init(struct host1x_client *client)
- 		return err;
- 	}
- 
-+	/*
-+	 * Enable translation now that the final domain is attached.
-+	 * The hardware was reset at probe and has not been programmed
-+	 * since.
-+	 */
-+	tegra_smmu_enable_translation(client->dev);
-+
- 	if (dc->soc->wgrps)
- 		primary = tegra_dc_add_shared_planes(drm, dc);
- 	else
-diff --git a/drivers/iommu/tegra-smmu.c b/drivers/iommu/tegra-smmu.c
-index 67e7a7b925f0..6779528a9e7c 100644
---- a/drivers/iommu/tegra-smmu.c
-+++ b/drivers/iommu/tegra-smmu.c
-@@ -368,7 +368,13 @@ static void tegra_smmu_enable(struct tegra_smmu *smmu, unsigned int swgroup,
- 		value = smmu_readl(smmu, group->reg);
- 		value &= ~SMMU_ASID_MASK;
- 		value |= SMMU_ASID_VALUE(asid);
--		value |= SMMU_ASID_ENABLE;
-+		/*
-+		 * A deferred client is set up completely, but with translation
-+		 * gated off, so it stays in bypass until its driver calls
-+		 * tegra_smmu_enable_translation().
-+		 */
-+		if (!group->defer_enable)
-+			value |= SMMU_ASID_ENABLE;
- 		smmu_writel(smmu, value, group->reg);
- 	} else {
- 		pr_warn("%s group from swgroup %u not found\n", __func__,
-@@ -1190,3 +1196,46 @@ void tegra_smmu_remove(struct tegra_smmu *smmu)
- 	if (IS_ENABLED(CONFIG_DEBUG_FS))
- 		tegra_smmu_debugfs_exit(smmu);
- }
-+
-+/**
-+ * tegra_smmu_enable_translation - Release a client's swgroups to translation
-+ * @dev: memory client device, already quiesced by its driver
-+ *
-+ * Enables translation for swgroups which were left in bypass at attach time
-+ * because the client could still have been running from a pre-kernel
-+ * configuration. Must be called after @dev has been attached to the domain it
-+ * will use. Safe to call for any device, including ones behind other IOMMUs;
-+ * clients which were not deferred are unaffected.
-+ */
-+void tegra_smmu_enable_translation(struct device *dev)
-+{
-+	struct iommu_fwspec *fwspec = dev_iommu_fwspec_get(dev);
-+	struct iommu_domain *domain;
-+	struct tegra_smmu *smmu;
-+	unsigned int i;
-+
-+	domain = iommu_get_domain_for_dev(dev);
-+	if (!fwspec || !domain || domain->owner != &tegra_smmu_ops ||
-+	    !(domain->type & __IOMMU_DOMAIN_PAGING))
-+		return;
-+
-+	smmu = dev_iommu_priv_get(dev);
-+
-+	mutex_lock(&smmu->lock);
-+
-+	for (i = 0; i < fwspec->num_ids; i++) {
-+		const struct tegra_smmu_swgroup *group;
-+		u32 value;
-+
-+		group = tegra_smmu_find_swgroup(smmu, fwspec->ids[i]);
-+		if (!group || !group->defer_enable)
-+			continue;
-+
-+		value = smmu_readl(smmu, group->reg);
-+		value |= SMMU_ASID_ENABLE;
-+		smmu_writel(smmu, value, group->reg);
-+	}
-+
-+	mutex_unlock(&smmu->lock);
-+}
-+EXPORT_SYMBOL_GPL(tegra_smmu_enable_translation);
-diff --git a/drivers/memory/tegra/tegra114.c b/drivers/memory/tegra/tegra114.c
-index 2cb153091228..2883c4f91144 100644
---- a/drivers/memory/tegra/tegra114.c
-+++ b/drivers/memory/tegra/tegra114.c
-@@ -1028,8 +1028,10 @@ static const struct tegra_mc_client tegra114_mc_clients[] = {
- };
- 
- static const struct tegra_smmu_swgroup tegra114_swgroups[] = {
--	{ .name = "dc",        .swgroup = TEGRA_SWGROUP_DC,        .reg = 0x240 },
--	{ .name = "dcb",       .swgroup = TEGRA_SWGROUP_DCB,       .reg = 0x244 },
-+	{ .name = "dc",        .swgroup = TEGRA_SWGROUP_DC,        .reg = 0x240,
-+	  .defer_enable = true },
-+	{ .name = "dcb",       .swgroup = TEGRA_SWGROUP_DCB,       .reg = 0x244,
-+	  .defer_enable = true },
- 	{ .name = "epp",       .swgroup = TEGRA_SWGROUP_EPP,       .reg = 0x248 },
- 	{ .name = "g2",        .swgroup = TEGRA_SWGROUP_G2,        .reg = 0x24c },
- 	{ .name = "avpc",      .swgroup = TEGRA_SWGROUP_AVPC,      .reg = 0x23c },
-diff --git a/drivers/memory/tegra/tegra124.c b/drivers/memory/tegra/tegra124.c
-index df87c5038625..a38fbf2baf6c 100644
---- a/drivers/memory/tegra/tegra124.c
-+++ b/drivers/memory/tegra/tegra124.c
-@@ -1070,8 +1070,10 @@ static const struct tegra_mc_client tegra124_mc_clients[] = {
- };
- 
- static const struct tegra_smmu_swgroup tegra124_swgroups[] = {
--	{ .name = "dc",        .swgroup = TEGRA_SWGROUP_DC,        .reg = 0x240 },
--	{ .name = "dcb",       .swgroup = TEGRA_SWGROUP_DCB,       .reg = 0x244 },
-+	{ .name = "dc",        .swgroup = TEGRA_SWGROUP_DC,        .reg = 0x240,
-+	  .defer_enable = true },
-+	{ .name = "dcb",       .swgroup = TEGRA_SWGROUP_DCB,       .reg = 0x244,
-+	  .defer_enable = true },
- 	{ .name = "afi",       .swgroup = TEGRA_SWGROUP_AFI,       .reg = 0x238 },
- 	{ .name = "avpc",      .swgroup = TEGRA_SWGROUP_AVPC,      .reg = 0x23c },
- 	{ .name = "hda",       .swgroup = TEGRA_SWGROUP_HDA,       .reg = 0x254 },
-diff --git a/drivers/memory/tegra/tegra210.c b/drivers/memory/tegra/tegra210.c
-index f58f3ef6f681..92e809cd7c26 100644
---- a/drivers/memory/tegra/tegra210.c
-+++ b/drivers/memory/tegra/tegra210.c
-@@ -1166,8 +1166,10 @@ static const struct tegra_mc_client tegra210_mc_clients[] = {
- static const struct tegra_smmu_swgroup tegra210_swgroups[] = {
- 	{ .name = "afi",       .swgroup = TEGRA_SWGROUP_AFI,       .reg = 0x238 },
- 	{ .name = "avpc",      .swgroup = TEGRA_SWGROUP_AVPC,      .reg = 0x23c },
--	{ .name = "dc",        .swgroup = TEGRA_SWGROUP_DC,        .reg = 0x240 },
--	{ .name = "dcb",       .swgroup = TEGRA_SWGROUP_DCB,       .reg = 0x244 },
-+	{ .name = "dc",        .swgroup = TEGRA_SWGROUP_DC,        .reg = 0x240,
-+	  .defer_enable = true },
-+	{ .name = "dcb",       .swgroup = TEGRA_SWGROUP_DCB,       .reg = 0x244,
-+	  .defer_enable = true },
- 	{ .name = "hc",        .swgroup = TEGRA_SWGROUP_HC,        .reg = 0x250 },
- 	{ .name = "hda",       .swgroup = TEGRA_SWGROUP_HDA,       .reg = 0x254 },
- 	{ .name = "isp2",      .swgroup = TEGRA_SWGROUP_ISP2,      .reg = 0x258 },
-diff --git a/drivers/memory/tegra/tegra30.c b/drivers/memory/tegra/tegra30.c
-index 8389e3af0121..0ee4715413ba 100644
---- a/drivers/memory/tegra/tegra30.c
-+++ b/drivers/memory/tegra/tegra30.c
-@@ -1139,8 +1139,10 @@ static const struct tegra_mc_client tegra30_mc_clients[] = {
- };
- 
- static const struct tegra_smmu_swgroup tegra30_swgroups[] = {
--	{ .name = "dc",   .swgroup = TEGRA_SWGROUP_DC,   .reg = 0x240 },
--	{ .name = "dcb",  .swgroup = TEGRA_SWGROUP_DCB,  .reg = 0x244 },
-+	{ .name = "dc",   .swgroup = TEGRA_SWGROUP_DC,   .reg = 0x240,
-+	  .defer_enable = true },
-+	{ .name = "dcb",  .swgroup = TEGRA_SWGROUP_DCB,  .reg = 0x244,
-+	  .defer_enable = true },
- 	{ .name = "epp",  .swgroup = TEGRA_SWGROUP_EPP,  .reg = 0x248 },
- 	{ .name = "g2",   .swgroup = TEGRA_SWGROUP_G2,   .reg = 0x24c },
- 	{ .name = "mpe",  .swgroup = TEGRA_SWGROUP_MPE,  .reg = 0x264 },
-diff --git a/include/soc/tegra/mc.h b/include/soc/tegra/mc.h
-index 25d465d70493..ea67972fd585 100644
---- a/include/soc/tegra/mc.h
-+++ b/include/soc/tegra/mc.h
-@@ -70,6 +70,14 @@ struct tegra_smmu_swgroup {
- 	const char *name;
- 	unsigned int swgroup;
- 	unsigned int reg;
-+
-+	/*
-+	 * Set for clients which may already be running when the kernel takes
-+	 * over, e.g. display controllers scanning out a boot splash. They are
-+	 * left in bypass until their driver calls
-+	 * tegra_smmu_enable_translation().
-+	 */
-+	bool defer_enable;
- };
- 
- struct tegra_smmu_group_soc {
-@@ -103,6 +111,7 @@ struct tegra_smmu *tegra_smmu_probe(struct device *dev,
- 				    const struct tegra_smmu_soc *soc,
- 				    struct tegra_mc *mc);
- void tegra_smmu_remove(struct tegra_smmu *smmu);
-+void tegra_smmu_enable_translation(struct device *dev);
- #else
- static inline struct tegra_smmu *
- tegra_smmu_probe(struct device *dev, const struct tegra_smmu_soc *soc,
-@@ -114,6 +123,10 @@ tegra_smmu_probe(struct device *dev, const struct tegra_smmu_soc *soc,
- static inline void tegra_smmu_remove(struct tegra_smmu *smmu)
- {
- }
-+
-+static inline void tegra_smmu_enable_translation(struct device *dev)
-+{
-+}
- #endif
- 
- struct tegra_mc_reset {
-
--- 
-2.55.0
-
+Konrad
