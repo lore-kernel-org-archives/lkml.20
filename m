@@ -1,55 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793008832;
-	b=0bkCp2nidvN6nzVDHR2bGdaymcxwT8aURXu3ZiGdfHQfqLEpR4Ub28MKMHeNqBF7NTuD
-	 ky/8yGqwZeQX7R7gypRJKymCR/ZPTP5zlXB8cfJ5VNFKYwpYq5BJ4kOVW/Fkv2clJPsB8
-	 DFNeTD8QLd7UFNQ1hDmnmIPD8bF7nmjFCYMLV0Vz1niQr5j4VoULd37UVnmqv5p9tEqOf
-	 jHWDEHe/hMohumHk4vZNJ4RJbW0SNob9aaEnDS4koZhp1WMbdMVJKZomSsV7UN0z57sCq
-	 5Rlocp66QhW7FsqIxum8Cub8+Iw91IZydJzhi2yMtl9/prdTsTVSLytfGIzG51vAB8A==
+	t=1793008837;
+	b=LVtKeoM76OAbMH1F3SsD7W2D+8OXKl5cywRr5KB8JVFFer6YsAQv1MYbN+I2l7RTw6zl
+	 qAKuup68/PCMmx1ZwIrYIbeG3D9Dp/NdK58KsU7O9zR1Jv6cUNLUC8UVpsWz2KBbxTgN2
+	 IkWeArtz0Kjw5fwkLWfrTn+7BYdUdnA8w4QN52bnRO4Deg03jbrOlIC+0KxqnRcocfSFC
+	 XYd++DWmkCavfN1+ViT1h02DK3FL51noDtH4rGKaOdc57RjxQr8hqc9lvIvbebSg4th9I
+	 EDcAVFKxHi/fVuGcm12IhSx4EMI8gFRojBco7JCeOfU/Ol2WTORqbiXt3HVE4YG3D9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793008832;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=EW/KiEjTAKTNb6Fyq8su27LID0Q+hpX4ZUreLIT/B5c=;
-	b=qcB4Bp/U0pT/BSpKDVrpDQPtIRq9YAyHQFnTMPpxJwS25uwAI6dmmiDe7BXoPzWVEI7G
-	 pOOVQNSJi1fKFSnzbCnVOqaeTr3yCePB+fACnTjZtPiQMZp8Icv+S3s/X4tSyFq1ALcFk
-	 GfnPu90kKbivp2t6FH2lZ8aV3WtZlRPLwHphq6pFuPYR2k2joVjXgBA3MpyzpjlvI17LU
-	 rwREIHvqKWdJtEpptrXb8vfiqjLqYA+4EHJh7Mv8EdWDAANwHJjfnOiZ2Q2ysJYPzv5W8
-	 cHRVu0UFMgF37ghTEWqtJLsQJeZW7f4RCmDO5ZhqnvwVpzc2sNltF0+tx+r7ZiJeO8A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793008837;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=jShkiWdLlDgPXb5QV1zTppDSdv7OslzLO75z7LLDk5Y=;
+	b=iKtP52JceUbGDhdXbL89xKzmq0MJ1GZ8bEIp8pzUGRx7p04OQDNCXFriJBcX/PNJL541
+	 9Y7rsJQO8kRzM/5kehgLbspIdIOFz220gqzRbpSi57intoKuGNEbJ9porxBtazjVyVuqR
+	 cjgr8Ic7F94WoFpzIby0nt/bJuH4Kh+2pSBVZPBy0rtylJyBt6yWhZtRubkAhfQntSjMs
+	 MmtgBiXismQORWYtBAm4UUGFuppF0z1DpWWkodSgec8J28NN6YGG9uE2TVle/jjpPgqV/
+	 qXsWp5Lmare1ZhM3/rxOqm4gLjrp4CIYh87dnLx0JqNUFph4oRxDj4nzHdpPIFFcf+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VNvc6pV1;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h7s+2xSM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1400D606A32D
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:00:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9C02606CF89
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:00:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VNvc6pV1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5F331F01208
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:00:31 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h7s+2xSM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DBCA1F01201;
+	Mon, 26 Oct 2026 10:00:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793008831;
-	bh=EW/KiEjTAKTNb6Fyq8su27LID0Q+hpX4ZUreLIT/B5c=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=VNvc6pV1KwkLNz7BjGhjnq+VYIsTGl4JnniVjAcCFhD0sBFAU44WnZGfNflXA6arO
-	 fA0V2jFC/etbtX17o8n8yyb1SfkBk+VxtfhHayxTEqrqyyT18yBF2AXbqb/3zxoQuk
-	 T3/f0yLq4hwKiuLlifdqeIcPaWpfjJaLH9zXK4BYJ5JWiRmSH1nln1KAyQiMHaO0kq
-	 Zw/8LVI0SLM32ZUnxxqsLirVo4EavlyxboUJuUe9P6uXcuov65C1A84OHwj96spcGA
-	 9MckRz/fanohDlX3/zJffG6KEo0ugRrVHv54eKIAaiB4+RpO3yfnYqTozcuRzydGrg
-	 J1z+3PUBNjiYg==
-Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-53397554beaso34441141cf.3
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 03:00:31 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzacQI8x/kC3K5u2rUxPz6YkrX/5+iXHFUERIhvq9BjR/w86quxPvYVYb6TAgdOi8FEGnXXDa/4X5lDQg8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKUYfE+ywLp9N48zAa+xzoPAcAtm9i+M9QWzPKOSn9WJaJKNy5h
-	18ZGImUD6h+yhPz47UDVPtvBnBB0XD07ZFxO4h+kL3JYN5DDHpLk0geCJqsPhsXsx6UeEepHgcK
-	TRd0sYVGz9ksceyPuEta98lCYY4rTLu8=
-X-Received: by 2002:a05:622a:4814:b0:536:6f16:d923 with SMTP id
- d75a77b69052e-5383b529e0amr95920481cf.40.1793008830988; Mon, 26 Oct 2026
- 03:00:30 -0700 (PDT)
+	s=k20260515; t=1793008836;
+	bh=jShkiWdLlDgPXb5QV1zTppDSdv7OslzLO75z7LLDk5Y=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=h7s+2xSMry6qNTwi670I8Q9YEnaCNBKYZ1F/zhDMcnmQdWEbBZcqbufvJNZKkESx8
+	 iaorYtQYdiKFXKURE68yn4sCh5n+Z+ZtOUcT7KA8CTYcMrNqFFs/8ogUExIX5y61Mu
+	 rzDT8gYjxbH0WbElBxHJmYiOQxLH1LDtXjQ5wUXLvyzpfvzONUHASqog/CWIW9JTIG
+	 E5lS52Xl0PyhGhNnTrOaFwDb1GKLVR+vKzjUXAv+ONQzIU4aRT+eoA9xfxtBWndYPn
+	 9YRhYhL+9AqfHFx4RJWemfgOtWFj/zay+zB4XLbVtjUwS8YiosIXq6ZVbvqm4hka6L
+	 2CDxoIKueZF0A==
+Message-ID: <c3dd24e7-68e4-47f9-a9d2-067c5534a4c4@kernel.org>
+Date: Mon, 26 Oct 2026 11:00:29 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,50 +51,247 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261021235606.89545-1-sidchintamaneni@gmail.com> <20261021235606.89545-2-sidchintamaneni@gmail.com>
-In-Reply-To: <20261021235606.89545-2-sidchintamaneni@gmail.com>
-From: Barry Song <baohua@kernel.org>
-Date: Mon, 26 Oct 2026 18:00:18 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4y7AzEHUjj-g_FaQdodYidC26-7MSG8HPkgfRgi67TCkA@mail.gmail.com>
-X-Gm-Features: AclHuK_OwUoSS1vRNFgm5ezmxR4vQc2J_QfUTbATBQkBDlrYE43IstKZ-dkjm9I
-Message-ID: <CAGsJ_4y7AzEHUjj-g_FaQdodYidC26-7MSG8HPkgfRgi67TCkA@mail.gmail.com>
-Subject: Re: [PATCH v1 2/2] mm: multi-gen LRU: remove get_lruvec()
-To: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
-Cc: akpm@linux-foundation.org, hannes@cmpxchg.org, david@kernel.org, 
-	mhocko@kernel.org, qi.zheng@linux.dev, shakeel.butt@linux.dev, ljs@kernel.org, 
-	kasong@tencent.com, axelrasmussen@google.com, yuanchu@google.com, 
-	weixugc@google.com, baoquan.he@linux.dev, baolin.wang@linux.alibaba.com, 
-	yuzhao@google.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	apais@microsoft.com, rlmenge@gmail.com, 
-	Hardik Garg <hargar@linux.microsoft.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] mm: memory: fix truncation removing mapped folios
+To: Baolin Wang <baolin.wang@linux.alibaba.com>, akpm@linux-foundation.org
+Cc: ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, rppt@kernel.org,
+ surenb@google.com, mhocko@suse.com, qi.zheng@linux.dev, jack@suse.cz,
+ pfalcato@suse.de, ayushr@modal.com, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+References: <4cc521a118564b4145edf0324066ab532fb41181.1792979870.git.baolin.wang@linux.alibaba.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <4cc521a118564b4145edf0324066ab532fb41181.1792979870.git.baolin.wang@linux.alibaba.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Oct 22, 2026 at 7:56=E2=80=AFAM Siddharth Chintamaneni
-<sidchintamaneni@gmail.com> wrote:
->
-> get_lruvec() was originally introduced in commit ec1c86b25f4b ("mm:
-> multi-gen LRU: groundwork") to guard against NULL NODE_DATA(nid) on
-> uninitialized NUMA nodes (`return pgdat ? &pgdat->__lruvec : NULL;`).
-> After commit 09f49dca570a ("mm: handle uninitialized numa nodes
-> gracefully") and commit 931b6a8b36a2 ("mm: multi-gen LRU: remove NULL
-> checks on NODE_DATA()"), that NULL check was removed, leaving
-> get_lruvec() as a thin wrapper around mem_cgroup_lruvec().
->
-> Remove get_lruvec() and call mem_cgroup_lruvec() directly at all call
-> sites.
->
-> Cc: Barry Song <baohua@kernel.org>
-
-I guess the correct tag should be "Suggested-by" here?
-
-> Signed-off-by: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
-> Signed-off-by: Hardik Garg <hargar@linux.microsoft.com>
+On 10/26/26 03:05, Baolin Wang wrote:
+> Ayush reported an issue that shmem/tmpfs folios are still mapped when
+> truncating them on production:
+> "
+> BUG: Bad page cache in process ...  pfn:...
+> page dumped because: still mapped when deleted
+> "
+> 
+> I reproduced the issue with Ayush's reproducer [1] with the latest mm-unstable
+> branch, and I got the following crash info. From the dump message, we can
+> see that truncate_inode_folio() is really trying to remove mapped folios,
+> which is incorrect.
+> 
+> "
+> [  189.171977] page: refcount:3 mapcount:1 mapping:00000000fe168ee1
+> index:0x3880 pfn:0x191647
+> [  189.171995] memcg:ffff0000cc073d40
+> [  189.171997] aops:shmem_aops ino:3c01 dentry name(?):"memfd:runsc-memory"
+> [  189.172006] flags: 0x17fffef0002022d(locked|referenced|uptodate|lru|
+> workingset|swapbacked|node=0|zone=2|lastcpupid=0x3ffff)
+> .......
+> [  189.172017] page dumped because: VM_BUG_ON_FOLIO(folio_mapped(folio))
+> [  189.172026] ------------[ cut here ]------------
+> [  189.172027] kernel BUG at mm/filemap.c:155!
+> [  189.172057] Internal error: Oops - BUG: 00000000f2000800 [#1]  SMP
+> .......
+> [  189.177721] CPU: 3 UID: 0 PID: 5521 Comm: repro Kdump: loaded Tainted:
+> 7.3.0-rc4+ #277 PREEMPT(lazy)
+> .......
+> [  189.183986] Call trace:
+> [  189.184124]  filemap_unaccount_folio+0xf0/0x1e8 (P)
+> [  189.184391]  __filemap_remove_folio+0x34/0x160
+> [  189.184633]  filemap_remove_folio+0x4c/0xb0
+> [  189.184859]  truncate_inode_folio+0x34/0x58
+> [  189.185087]  shmem_undo_range+0x220/0x658
+> [  189.185308]  shmem_fallocate+0x2f0/0x470
+> [  189.185527]  vfs_fallocate+0x128/0x328
+> ......
+> [  189.187078]  el0t_64_sync+0x184/0x188
+> "
+> 
+> After analysis, I believe the race exists between truncation and MADV_DONTNEED,
+> and shmem's ->map_pages() merely makes the issue easier to reproduce. Since
+> MADV_DONTNEED synchronously releases the pagetable page before calling
+> tlb_flush_rmaps(), this could cause another thread's truncation to skip
+> zap_pte_range() (due to pmd is none) but still observe the folio's mapcount
+> as non-zero. A possible race scenario is as follows:
+> 
+> CPU 0                           CPU 1
+> shmem_fallocate                 madvise_dontneed_single_vma
+>   unmap_mapping_range            .......
+>   ......
+>   (filemap_map_pages() remap folios)
+> 				  zap_pte_range
+>   truncate_inode_folio		    zap_empty_pte_table(pmd clear)
+>     unmap_mapping_folio
+>     ......
+>       zap_pmd_range (saw pmd none, skip)
+> 
+>   filemap_remove_folio
+>     BUG_ON(folio_mapped)
+>                                     tlb_flush_rmaps(remove rmaps)
+> 
+> To fix this issue, we should move the pmd clear operation (via zap_empty_pte_table())
+> to after tlb_flush_rmaps() and use sync_with_folio_pmd_zap() to sync with
+> concurrent zapping, so that when we find a pmd_none() while unmapping a folio
+> without holding the PTL, the folio's mappings are guaranteed to have been
+> removed via tlb_flush_rmaps().
+> 
+> [1] https://lore.kernel.org/all/20260925065013.3682431-1-ayushr@modal.com/
+> Reported-by: Ayush Ranjan <ayushr@modal.com>
+> Closes: https://lore.kernel.org/all/20260924061708.1645968-1-ayushr@modal.com/
+> Fixes: 6375e95f381e ("mm: pgtable: reclaim empty PTE page in madvise(MADV_DONTNEED)")
+> Acked-by: Qi Zheng <qi.zheng@linux.dev>
+> Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> Signed-off-by: Baolin Wang <baolin.wang@linux.alibaba.com>
 > ---
+> Changes from v3:
+>  - Collect review tags from Qi, Pedro and Lorenzo. Thanks.
+>  - Update the related comments per Lorenzo.
+> Changes from v2:
+>  - Use use sync_with_folio_pmd_zap() to sync with concurrent zapping (Per David).
+> Changes from v1:
+>  - Add an smp_rmb() to pair with the smp_wmb() (Per Lorenzo and Pedro).
+> ---
+>  mm/internal.h | 10 ++++++----
+>  mm/memory.c   | 28 +++++++++++++++-------------
+>  2 files changed, 21 insertions(+), 17 deletions(-)
+> 
+> diff --git a/mm/internal.h b/mm/internal.h
+> index b1b0f29d2216..ffb8eaec90e3 100644
+> --- a/mm/internal.h
+> +++ b/mm/internal.h
+> @@ -584,14 +584,16 @@ void free_pgtables(struct mmu_gather *tlb, struct unmap_desc *desc);
+>  void pmd_install(struct mm_struct *mm, pmd_t *pmd, pgtable_t *pte);
+>  
+>  /**
+> - * sync_with_folio_pmd_zap - sync with concurrent zapping of a folio PMD
+> + * sync_with_folio_pmd_zap - sync with concurrent zapping of folios
+>   * @mm: The mm_struct.
+>   * @pmdp: Pointer to the pmd that was found to be pmd_none().
+>   *
+>   * When we find a pmd_none() while unmapping a folio without holding the PTL,
+> - * zap_huge_pmd() may have cleared the PMD but not yet modified the folio to
+> - * indicate that it's unmapped. Skipping the PMD without synchronization could
+> - * make folio unmapping code assume that unmapping failed.
+> + * zap_huge_pmd() may have cleared the PMD but not yet updated the folio
+> + * mapcount, and zap_empty_pte_table() clears the PMD only after the rmaps
+> + * for the table have been removed, but nothing orders the pmd_none() read
+> + * against later mapcount reads. Skipping the PMD without synchronization
+> + * could make folio unmapping code assume that unmapping failed.
+>   *
+>   * Wait for concurrent zapping to complete by grabbing the PTL.
+>   */
+> diff --git a/mm/memory.c b/mm/memory.c
+> index e911e63ba1ed..6a93b7fa48b2 100644
+> --- a/mm/memory.c
+> +++ b/mm/memory.c
+> @@ -2036,6 +2036,15 @@ static unsigned long zap_pte_range(struct mmu_gather *tlb,
+>  		}
+>  	} while (pte += nr, addr += PAGE_SIZE * nr, addr != end);
+>  
+> +	add_mm_rss_vec(mm, rss);
+> +	lazy_mmu_mode_disable();
+> +
+> +	/* Do the actual TLB flush before dropping ptl */
+> +	if (force_flush) {
+> +		tlb_flush_mmu_tlbonly(tlb);
+> +		tlb_flush_rmaps(tlb, vma);
+> +	}
+> +
+>  	/*
+>  	 * Fast path: try to hold the pmd lock and unmap the PTE page.
+>  	 *
+> @@ -2043,18 +2052,12 @@ static unsigned long zap_pte_range(struct mmu_gather *tlb,
+>  	 * to hold the pmd lock failed, then we need to recheck all pte entries
+>  	 * to ensure they are still none, thereby preventing the pte entries
+>  	 * from being repopulated by another thread.
+> +	 *
+> +	 * Clear the PMD after the rmaps for the table have been removed, in case
+> +	 * an incorrect mapcount is observed after unmapping the folio.
+>  	 */
+>  	if (can_reclaim_pt && direct_reclaim && addr == end)
+>  		direct_reclaim = zap_empty_pte_table(mm, pmd, ptl, &pmdval);
+> -
+> -	add_mm_rss_vec(mm, rss);
+> -	lazy_mmu_mode_disable();
+> -
+> -	/* Do the actual TLB flush before dropping ptl */
+> -	if (force_flush) {
+> -		tlb_flush_mmu_tlbonly(tlb);
+> -		tlb_flush_rmaps(tlb, vma);
+> -	}
+>  	pte_unmap_unlock(start_pte, ptl);
+>  
+>  	/*
+> @@ -2102,12 +2105,11 @@ static inline unsigned long zap_pmd_range(struct mmu_gather *tlb,
+>  				continue;
+>  			}
+>  			/* fall through */
+> -		} else if (details && details->single_folio &&
+> -			   folio_test_pmd_mappable(details->single_folio) &&
+> -			   next - addr == HPAGE_PMD_SIZE && pmd_none(*pmd)) {
+> -			sync_with_folio_pmd_zap(tlb->mm, pmd);
+>  		}
+> +
+>  		if (pmd_none(*pmd)) {
+> +			if (details && details->single_folio)
+> +				sync_with_folio_pmd_zap(tlb->mm, pmd);
+>  			addr = next;
+>  			continue;
+>  		
+Sorry if I sound annoyed, but why don't you keep the
 
-Your patchset organization is a bit unusual. Patch 2/2 is
-sent as a reply to patch 1/2. I think adding a cover letter
-would help you organize the series properly?
+} else if (pmd_none(*pmd)) {
 
-Thanks
-Barry
+above as I suggested?
+
+Because we fancy unnecessary PMD table lock cycles?
+
+
+-- 
+Cheers,
+
+David
