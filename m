@@ -1,71 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.205.69.214
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793039168;
-	b=N+itAZ700IbAaaiWVjJe4dzvizrhL1aQcAEHBR6vXbBqohU9hUCju1jYPstrPVneH7Ar
-	 MiUOr0bHKyheWYIDLx87j/kclOJ1FumhUy2yPZGnIRdjYXt6Sgxv+7G4SuxG+u+bxRJNy
-	 z1a+4sgf+ZwViO4RCapCvUBVeG84HoHrlo3dlIRaAK6Z2w0168JdYB7gIHlLxILsxTALS
-	 5kphjTTIS8Ojrjfg+LxVBnV+Nuo+tOjLUz9c9xk1AYq0HjPlMB0iq44vFauztJN57X+Zm
-	 qz/WbBxA7iPL6lTMlqyH94MG7E22fPMdTubnBmWPmhW03OIHxnghIhvNNd3KQok3Gzg==
+	t=1793039182;
+	b=pLjQSivjC7GSEVdxylkZ6TBByWvENF6vwk855kd89C1agvq/ZhlFT5DmGKCFjgxdgsRS
+	 fD/HlOlhtuSeQqgXTUOpLIModfAesB4L5ofPSEBvinH1zHZh6G+EcrJndhSkPx7Y4Edgh
+	 1Dk/XGAIr3NITusCMdt3l18p72NLjz79mrSeLHaLbl5HUqRgy41b3kkTzLlA/6ddu70OG
+	 NM/6/lyH8vN6NVLfWR8K1Rrau3qIRcB9qi/FG3pxb3pC2BvgJ2NPNh6pmLN/HZm6ZeKde
+	 MR/I6m1wDf3IH/fFniiRh2/hqD42TDmxpcVEQn155+7IfwnIYejIEVSpwxT0S7T3fTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793039168;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Message-ID:
-	 In-Reply-To:References:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Feedback-ID;
-	bh=UeV/13Sh60z8s5fD4l3Y3G/Ey/zhI+5SuTw4o6o9VcY=;
-	b=HhMWN8uAMI21CINPWvAHfAeqcSC4OB5m9adfWOyHXu9jsO/BnDA4gS8Si1TBSoECqNis
-	 62w0kutyq+vTFZgUEkU1qk+NCyR4Q5YHCn6LK5H2J4Ozr6t4bKkwijjjNGq57REw/L2It
-	 h7iDSTGo+RMAJeQIJySbHH5fkplF2N/1e+xoy+isX99oFQYuYT2PtxKQ86lAUj7bpRWyM
-	 2Dr8Vg36aucSFs8kIMVOwFlFCMktdDf2IgavnLby5ZwwDGlzw/kgCOht3hNMITZ/aj2VI
-	 BTjE6PiT4YomlAX3SCezPpnZEwV5K0Dh5ADplEUI4aDYbab/w92fUr46CgPoADBcPyQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793039182;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=0FLF73cEf8/8Xru0kju449oktMHuGEexwCe5j4yh0Bs=;
+	b=QvKdxBTw+rqyzoU/CQW4eJwYhygTVMiqMfXmF1l2HyOSRYizkg6dNsvO0Z2pCROXgPCo
+	 TaSpKYAMfRqadqG/OGgIGmK9NEEblmxW4BSyo5lN8PkqRGvH+BPy1yI9qYohgCyu0QByT
+	 Pyr8MOHaDQ54sUzL6Yy6PY4G78/1QDpWqZ1yZC/VKd8vBxxVlOrpjcunbHGBtG5gkEBvN
+	 8lCYgbsNHSFRd3zI1lftzxf06BtB+OZK2rEj6c+Mrud30gzXsFLuGSrI3a19BMyzThpfy
+	 NWXa0L5YxNlOGOcU3jLs/X4ADkit/qpmHv7Gc6pTg+ETYR1XnhOFWEuRDxTAepQkGCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=se-rg.io;
-	spf=pass smtp.mailfrom=se-rg.io;
-	dkim=pass header.d=se-rg.io header.i=@se-rg.io header.a=rsa-sha256 header.s=s1 header.b=OsdPZ8s+;
-	arc=none smtp.remote-ip=185.205.69.214
-Received: from mail.w14.tutanota.de (mail.w14.tutanota.de [185.205.69.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=eBIe5Wv8;
+	arc=none smtp.remote-ip=209.85.221.44
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFBE3606A322
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 18:26:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EFBE3606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=se-rg.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=se-rg.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41747606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 18:26:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41747606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=se-rg.io header.i=@se-rg.io header.a=rsa-sha256 header.s=s1 header.b=OsdPZ8s+
-Received: from tutadb.w10.tutanota.de (w10.api.tuta.com [IPv6:fd:ac::d:10])
-	by mail.w14.tutanota.de (Postfix) with ESMTP id 415C019CD5CF1
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 19:26:06 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1793039165;
-	s=s1; d=se-rg.io;
-	h=From:From:To:To:Subject:Subject:Content-Description:Content-ID:Content-Type:Content-Type:Content-Transfer-Encoding:Content-Transfer-Encoding:Cc:Cc:Date:Date:In-Reply-To:In-Reply-To:MIME-Version:MIME-Version:Message-ID:Message-ID:Reply-To:References:References:Sender;
-	bh=UeV/13Sh60z8s5fD4l3Y3G/Ey/zhI+5SuTw4o6o9VcY=;
-	b=OsdPZ8s+nbtmcRD9MiFRWupfky+uXK/ErRii0O0bjlZGj1sAxDQbvIsRNGt1KhT8
-	WPWm/NCjwM+/1Rg5WXVgJOvXrfqGUhdxqw+ID9fVc4riN4r1ian1PxAUejkFy/R9TqF
-	xF4+9+zbAw5ZIQNqrdWlEj99cCksslhG6xgnIr6YgZYqJgiXE6EsBE3rSZl/V8MPiAj
-	tlp0jdPJ0qV69oyRcXDKnJf7nxx/GDtwL+OyWaao3E82GnTPkEhUvNTQnhZmPbcmOnB
-	yEoImZrazmAtcdGjLQeQRmr5kmn2JEIAdxHtu3EySR4jkLKgqNXCGxqCxyLMvq0et3S
-	FC47stHTwQ==
-Date: Mon, 26 Oct 2026 19:26:05 +0100 (CET)
-From: =?UTF-8?Q?S=C3=A9rgio_Ferreira?= <ferreira@se-rg.io>
-To: Ettore Chimenti <ettore.chimenti@linaro.org>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Linux Arm Msm <linux-arm-msm@vger.kernel.org>,
-	Devicetree <devicetree@vger.kernel.org>,
-	Linux Kernel <linux-kernel@vger.kernel.org>,
-	Georg Gottleuber <ggo@tuxedocomputers.com>,
-	Ettore Chimenti <ek5.chimenti@gmail.com>,
-	Jens Glathe <jens.glathe@oldschoolsolutions.biz>,
-	Srinivas Kandagatla <srini@kernel.org>
-Message-ID: <P4tSXlD--F-9@se-rg.io>
-In-Reply-To: <DMEXOUF2X7O6.3W5B9URS8YOEF@linaro.org>
-References: <20261025-medion-sprchrgd-14-backlight-v2-1-bf2979485ec2@se-rg.io> <DMEXOUF2X7O6.3W5B9URS8YOEF@linaro.org>
-Subject: Re: [PATCH v2] arm64: dts: qcom: x1e80100-medion-sprchrgd-14-s1:
- Add PWM backlight
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=eBIe5Wv8
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48dfaa3fa12so153720f8f.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:26:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793039179; x=1793643979; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0FLF73cEf8/8Xru0kju449oktMHuGEexwCe5j4yh0Bs=;
+        b=eBIe5Wv8Hfc++gVv2BMFtDPfGc/EDixc28n1u1h1AnUh8ozSwUpIKJo4HufwkvGJuq
+         8Typ5y5yGHCHUxl1vACgzJiLUP9A1OU20qxFsyeNHd5L+Mq4rg4xhdlIHtPEoq8mt2oQ
+         8DoGkyQKiCiEyhoWbmtkuVIRd6kQYTppY5rVtHjPwmpCwLoAny17IQ9lupq4Cyp4UW8Y
+         /6Lx3v2/B5nRePc0hL5f+pb0K5QsvuZCisHZJsKpw7rEM2ps+euxDjeTNv5zXFhdjzPI
+         uuTClIDnNFe1dWQyCTsBQj2vze1O6xy/I3BCdzuzrE7aOuYkJBkATCLv301Ts/n/FRr0
+         b5sg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793039179; x=1793643979;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0FLF73cEf8/8Xru0kju449oktMHuGEexwCe5j4yh0Bs=;
+        b=UCo+HoPb52sgU57vR8XFWyp9Wp9Qr+kq1Qz1W5cyuNgzhbiXDJ6UCxmSfoerKNxqeo
+         uVQBV4kqM/GXvI1bpDitm2Y95rn4RoAGj5vIZ3H2cvUti82E5jBGYMUkEQH2vo18eV+R
+         qVJFJiaJm1K14V7jGZysLzZQHcovL4o30/7fBtWjndt1xDA3STTT2+HUUD/C10668I4i
+         3bP0nmW0vN1RGe0t19c8CtyO1ZMOPjZ1eNWlqIWHrbQZ+faC5JbwQsPjYKxTpoqN6CTo
+         DIn9vheNf5kajujxtBIWueN0UlQ5gXxgwPZHvEaWPC1mlWMe+YyzOYGkT+oXWUwfyCl2
+         hW7A==
+X-Forwarded-Encrypted: i=1; AKwUvBzKVktrO4YF7L+b2524G1PC2r9o/KQ7kyAmFp/5CA9/1ISqDUbUPBanWkdW9+bN4P5xULQCwwZcfVi0Le0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLjO4DL5zLbP1UwgsjzbStZ4glCzANBiwGb2Ch9GFhYLcp4Pyby
+	p1oWEfvorpkVLBLaWUBG/yabwCWYOlzgxTBOlt5A0xJIuZx1pHxInE2v
+X-Gm-Gg: AYBFou3di1PVEvUWY/Kyi9DuEKCGXedy8iuLXlxZG3GeFLb7apL1q4k8ollHircGiir
+	9vzjXb1Ji+/QuNQP9WRr1ImPCu0MMnn1bbJzfqY2el1fsIB5Vx8FmEgGGMaIk9JrX7BxDjmOmDO
+	hxLe071iZzk73c78ankHpEaKBj1KMpCcxvycTMwzkNVKHU1d5dOF2uvys1zCJ2hJPIVfkJCJamL
+	mOKz2dyHi7prmVddWbekHERxaE7VLHahl5tKHG+Ly2xxb1LA5IxVXdcFPSzMytsPLWoIk8d43Jf
+	9II7INEgFe90Cnj9SHflm7+JYYBYCEM+TjnZ43T8aujakdLRFO0sdHZr3lrxqm8vEKeUfaEZWJf
+	SRd8zIk6egZWZGJ/rIJVuy3vXHf+xB4Mys6XFD1ZqYMFdlVqgUIVXjG1l/OSZXwRr2XCbtfvx8y
+	eCjejaRh91tFMRMJGiY8w8F5iZrWJjAb7rL9n1ba2o63ZnZePwthT17PWsPLsfTsBIazbR78GsJ
+	uTiOzvLHeghKHK9ziq9gc5amRQYrw64GHqF3KYNmFQNKORRA0YZ5PDAr+IlL9x7qfALnxrv7Xru
+	QJUyvc0NxU/LvnldeOYNIcj0r8M=
+X-Received: by 2002:a05:6000:e4f:b0:48e:39b0:ed84 with SMTP id ffacd0b85a97d-48e55a45541mr800284f8f.19.1793039179518;
+        Mon, 26 Oct 2026 11:26:19 -0700 (PDT)
+Received: from andreayoga.wind3.hub ([31.189.109.255])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e4806e208sm12830907f8f.40.2026.10.26.11.26.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 11:26:18 -0700 (PDT)
+From: Andrea Parri <parri.andrea@gmail.com>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: Andrea Parri <parri.andrea@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org
+Subject: [PATCH v1] ftrace: Fix lost recursion records in ftrace_record_recursion()
+Date: Mon, 26 Oct 2026 19:25:52 +0100
+Message-ID: <20261026182553.221141-1-parri.andrea@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,204 +97,114 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-Feedback-ID: 01dd4eab77738e167533efd0c87004e8ce63075c63aedba89d38f476a24ad9d3e63954156b6713ccd6066b668add86597103d79f81b23ab0d34049cd78faed2fc7:TurnOnPrivacy!:tutamail
+Content-Transfer-Encoding: 8bit
 
-Hi Ettore,
+cached_function is set to the current ip before the cmpxchg() that
+claims a slot in recursed_functions[]. When that cmpxchg() loses a
+race for the same slot, the code bumps index and retries via "goto
+again", but the retry immediately matches its own cached_function
+write and returns without ever reaching the bumped-index cmpxchg().
 
-Oct 26, 2026, 18:08 by ettore.chimenti@linaro.org:
+Concretely, for two writers racing on the same index:
 
-> Hi S=C3=A9rgio,
->
-> On Sun Oct 25, 2026 at 8:51 AM CET, S=C3=A9rgio Ferreira via B4 Relay wro=
-te:
->
->> From: S=C3=A9rgio Ferreira <>> ferreira@se-rg.io>> >
->>
->> The eDP panel (CSOT MNE007ZA3-2, IPS LCD) cannot have its brightness
->> set over eDP AUX. With no backlight phandle on the panel, panel-edp
->> falls back to the DP AUX backlight, which registers dp_aux_backlight
->> with a maximum brightness of 0, so brightness control has no effect.
->>
->> Brightness is driven by PWM instead. UEFI leaves PM8550 LPG channel 3
->> running and the PWM output configured on PM8550 GPIO 8, and drives
->> PMC8380_3 GPIO 4 high as the backlight enable:
->>
->> pm8550 gpio8 : out low func1 vin-0 no pull push-pull medium
->> pmc8380_3 gpio4 : out  high normal  vin-1 pull-down push-pull medium
->>
->> The panel configuration in the Windows ACPI tables confirmed this.
->> (PMIC-controlled PWM, PMIC 1, bank 3, 9-bit, 2 kHz).
->>
->> Describe this with a pwm-backlight node: enable pm8550_pwm, add pinctrl
->> states for the enable GPIO and for gpio8 func1, and attach the
->> backlight to the panel.
->>
->> Tested on a Medion SPRCHRGD 14 S1 (X1E78100): brightness control over
->> the full range, brightness keys, suspend/resume and restore after
->> reboot.
->>
->> Assisted-by: LLM
->> Signed-off-by: S=C3=A9rgio Ferreira <>> ferreira@se-rg.io>> >
->> ---
->>
->
-> I tested this on a Medion SPRCHRGD 14 S1, but the controls are inverted.
-> When increasing the backlight lightness it actually decreases it, and
-> vice versa.
->
-> ```
-> % cat /sys/class/backlight/backlight/max_brightness
-> 4095
->
-> % echo 1 | sudo tee /sys/class/backlight/backlight/brightness
-> 1 # BRIGHT
->
-> % echo 2000 | sudo tee /sys/class/backlight/backlight/brightness
-> 2000 # LESS BRIGHT
->
-> % echo 4095 | sudo tee /sys/class/backlight/backlight/brightness
-> 4095 # OFF
->
-> % echo 0 | sudo tee /sys/class/backlight/backlight/brightness
-> 0 # OFF
-> ```
->
-> Moreover, I see that from `/sys/kernel/debug/pwm` the period
-> request differs from the actual:
->
-> ```
-> pwm-3   (backlight           ): requested
-> requested configuration:  enabled, 498418/500000 ns, normal polarity
-> # with brightness set at 4090:
-> actual configuration:     enabled, 425834/425834 ns, normal polarity
-> # with brightness set at 2:
-> 0/425834 ns, normal polarity
-> ```
->
-> This probably causes the top 250 values to be all at the same
-> brightness. Not a big deal probably.
->
-> Do you have the same behavior? Can you send the EDID of your panel?
->
-> Thanks,
-> Ettore
->
-thanks for testing.
+  CPU 0 (ip = A)                    CPU 1 (ip = B)
+  --------------                    --------------
+                                     cmpxchg(&recursed_functions[index].ip,
+                                             0, B);      // succeeds
+  cached_function = A;
+  cmpxchg(&recursed_functions[index].ip,
+          0, A);
+    // fails, old == B
+  index++;
+  goto again;
+  if (A == cached_function)         // true: matches A's own store
+          return;                   // A is dropped, not retried
 
-No, i can not reproduce the value inversion. A brightness of 1 equals very =
-dark while 4095 is maximum brightness. 0 is turning the screen off as expec=
-ted.
+Once dropped this way, cached_function stays set to A, so every later
+recursion of A also hits the fast path and returns before reaching the
+retry, until some unrelated ip overwrites the cache.
 
-Here is my edid:
+Set cached_function only after the cmpxchg() has claimed the slot. The
+retry path then leaves the cache untouched and no longer matches its
+own store. When the cmpxchg() finds ip already present, the writer
+that installed it sets the cache.
 
-```
-edid-decode /sys/class/drm/card1-eDP-1/edid
-edid-decode (hex):
+The bug was found with the help of an LLM.
 
-00 ff ff ff ff ff ff 00 0e 77 31 14 00 00 00 00
-00 21 01 04 b5 1e 13 78 03 2f 55 a6 54 4c 9b 24
-0d 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
-01 01 01 01 01 01 17 88 40 a0 b0 08 6e 70 30 20
-36 00 2d bc 10 00 00 18 00 00 00 fd 00 1e 78 e6
-e6 46 01 0a 20 20 20 20 20 20 00 00 00 fe 00 43
-53 4f 54 20 54 33 0a 20 20 20 20 20 00 00 00 fc
-00 4d 4e 45 30 30 37 5a 41 33 2d 32 0a 20 01 fc
+Fixes: 773c16705058e ("ftrace: Add recording of functions that caused recursion")
+Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
+---
+Changes since RFC:
+- Drop the cached_function update in the old == ip branch, as suggested
+  by Steve, and adjust the changelog and the cached_function comment.
+- Drop the stale "(use i for the next index)" remark.
+- Drop the Assisted-by tag, which Documentation/process no longer
+  documents since commit 1e035297ffdad ("docs: remove Assisted-by
+  references"), and note in the changelog that an LLM found the bug.
+- Rebase onto 6b4b543fa1875.
 
-70 20 79 00 00 22 00 28 bf a1 0a 85 3f 0b 9f 00
-2f 00 1f 00 07 07 6d 00 02 00 05 00 b3 40 04 05
-3f 0b 9f 00 2f 00 1f 00 07 07 6d 00 02 00 05 00
-81 00 07 e6 06 01 01 60 60 28 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 62 90
+RFC: https://lore.kernel.org/r/20260917090217.6738-1-parri.andrea@gmail.com
 
-----------------
+Tested on x86_64 in a virtme-ng guest (4 CPUs) with a reproducer that
+releases two kthreads to record distinct ips concurrently and checks that
+both show up in recursed_functions: the base commit fails within a few
+iterations, this patch passes 500 of 500.
 
-Block 0, Base EDID:
-=C2=A0 EDID Structure Version & Revision: 1.4
-=C2=A0 Vendor & Product Identification:
-=C2=A0=C2=A0=C2=A0 Manufacturer: CSW
-=C2=A0=C2=A0=C2=A0 Model: 5169
-=C2=A0=C2=A0=C2=A0 Made in: 2023
-=C2=A0 Basic Display Parameters & Features:
-=C2=A0=C2=A0=C2=A0 Digital display
-=C2=A0=C2=A0=C2=A0 Bits per primary color channel: 10
-=C2=A0=C2=A0=C2=A0 DisplayPort interface
-=C2=A0=C2=A0=C2=A0 Maximum image size: 30 cm x 19 cm
-=C2=A0=C2=A0=C2=A0 Gamma: 2.20
-=C2=A0=C2=A0=C2=A0 Supported color formats: RGB 4:4:4
-=C2=A0=C2=A0=C2=A0 First detailed timing includes the native pixel format a=
-nd preferred refresh rate
-=C2=A0=C2=A0=C2=A0 Display supports continuous frequencies
-=C2=A0 Color Characteristics:
-=C2=A0=C2=A0=C2=A0 Red=C2=A0 : 0.6484, 0.3300
-=C2=A0=C2=A0=C2=A0 Green: 0.2998, 0.6083
-=C2=A0=C2=A0=C2=A0 Blue : 0.1416, 0.0517
-=C2=A0=C2=A0=C2=A0 White: 0.3134, 0.3291
-=C2=A0 Established Timings I & II: none
-=C2=A0 Standard Timings: none
-=C2=A0 Detailed Timing Descriptors:
-=C2=A0=C2=A0=C2=A0 DTD 1:=C2=A0 2880x1800=C2=A0=C2=A0 60.001033 Hz=C2=A0 16=
-:10=C2=A0=C2=A0 114.602 kHz=C2=A0=C2=A0=C2=A0 348.390000 MHz (301 mm x 188 =
-mm)
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 Hfront=C2=A0=C2=A0 48 Hsync=C2=A0 32 Hback=C2=A0=C2=
-=A0 80 Hpol N
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 Vfront=C2=A0=C2=A0=C2=A0 3 Vsync=C2=A0=C2=A0 6 Vback=
-=C2=A0 101 Vpol N
-=C2=A0=C2=A0=C2=A0 Display Range Limits:
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Monitor ranges (Range Limits Only): 30-120 H=
-z V, 230-230 kHz H, max dotclock 700 MHz
-=C2=A0=C2=A0=C2=A0 Alphanumeric Data String: 'CSOT T3'
-=C2=A0=C2=A0=C2=A0 Display Product Name: 'MNE007ZA3-2'
-=C2=A0 Extension blocks: 1
-Checksum: 0xfc
+The smp_mb__after_atomic() usage discussed on the RFC is left for a
+separate patch.
 
-----------------
+ kernel/trace/trace_recursion_record.c | 17 +++++++++--------
+ 1 file changed, 9 insertions(+), 8 deletions(-)
 
-Block 1, DisplayID Extension Block:
-=C2=A0 Version: 2.0
-=C2=A0 Extension Count: 0
-=C2=A0 Display Product Primary Use Case: Same primary use case as the base =
-section
-=C2=A0 Video Timing Modes Type 7 - Detailed Timings Data Block:
-=C2=A0=C2=A0=C2=A0 DTD:=C2=A0 2880x1800=C2=A0 120.000000 Hz=C2=A0 16:10=C2=
-=A0=C2=A0 229.200 kHz=C2=A0=C2=A0=C2=A0 696.768000 MHz (aspect 16:10, no 3D=
- stereo, preferred)
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 Hfront=C2=A0=C2=A0 48 Hsync=C2=A0 32 Hback=C2=A0=C2=A0 80 Hpol N
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 Vfront=C2=A0=C2=A0=C2=A0 3 Vsync=C2=A0=C2=A0 6 Vback=C2=A0 101 Vp=
-ol N
-=C2=A0=C2=A0=C2=A0 DTD:=C2=A0 2880x1800=C2=A0=C2=A0 48.000138 Hz=C2=A0 16:1=
-0=C2=A0=C2=A0=C2=A0 91.680 kHz=C2=A0=C2=A0=C2=A0 278.708000 MHz (aspect 16:=
-10, no 3D stereo)
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 Hfront=C2=A0=C2=A0 48 Hsync=C2=A0 32 Hback=C2=A0=C2=A0 80 Hpol N
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 Vfront=C2=A0=C2=A0=C2=A0 3 Vsync=C2=A0=C2=A0 6 Vback=C2=A0 101 Vp=
-ol N
-=C2=A0 CTA-861 DisplayID Data Block:
-=C2=A0 HDR Static Metadata Data Block:
-=C2=A0=C2=A0=C2=A0 Electro optical transfer functions:
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Traditional gamma - SDR luminance range
-=C2=A0=C2=A0=C2=A0 Supported static metadata descriptors:
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Static metadata type 1
-=C2=A0=C2=A0=C2=A0 Desired content max luminance: 96 (400.000 cd/m^2)
-=C2=A0=C2=A0=C2=A0 Desired content max frame-average luminance: 96 (400.000=
- cd/m^2)
-=C2=A0=C2=A0=C2=A0 Desired content min luminance: 40 (0.098 cd/m^2)
-=C2=A0 Checksum: 0x62
-Checksum: 0x90
-```
+diff --git a/kernel/trace/trace_recursion_record.c b/kernel/trace/trace_recursion_record.c
+index bac4bc844ccd8..4f63bec052fca 100644
+--- a/kernel/trace/trace_recursion_record.c
++++ b/kernel/trace/trace_recursion_record.c
+@@ -17,8 +17,8 @@ static struct recursed_functions recursed_functions[CONFIG_FTRACE_RECORD_RECURSI
+ static atomic_t nr_records;
+ 
+ /*
+- * Cache the last found function. Yes, updates to this is racey, but
+- * so is memory cache ;-)
++ * Cache the last function found in or added to recursed_functions[].
++ * Updates to this are racy, but this is only a best-effort cache.
+  */
+ static unsigned long cached_function;
+ 
+@@ -67,24 +67,25 @@ void ftrace_record_recursion(unsigned long ip, unsigned long parent_ip)
+ 		}
+ 	}
+ 
+-	cached_function = ip;
+-
+ 	/*
+ 	 * We only want to add a function if it hasn't been added before.
+-	 * Add to the current location before incrementing the count.
+-	 * If it fails to add, then increment the index (save in i)
+-	 * and try again.
++	 * Claim the current slot before incrementing the count. If the slot
++	 * is occupied by another function, advance to the next slot and retry.
++	 *
++	 * Do not update cached_function until ip is known to be present;
++	 * otherwise the retry would match its own cache update.
+ 	 */
+ 	old = cmpxchg(&recursed_functions[index].ip, 0, ip);
+ 	if (old != 0) {
+ 		/* Did something else already added this for us? */
+ 		if (old == ip)
+ 			return;
+-		/* Try the next location (use i for the next index) */
++		/* Try the next location */
+ 		index++;
+ 		goto again;
+ 	}
+ 
++	cached_function = ip;
+ 	recursed_functions[index].parent_ip = parent_ip;
+ 
+ 	/*
 
-I can confirm the PWM period value mapping is a bit off for the top-end val=
-ues, though I haven't noticed that in day-to-day use.
-
-Best,
-S=C3=A9rgio
+base-commit: 6b4b543fa18757297ac756a6fe6e64f506b7844a
+-- 
+2.53.0
 
