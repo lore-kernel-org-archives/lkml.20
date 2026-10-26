@@ -1,49 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.99
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793001003;
-	b=ioV/mJrsx7MY4EQrRQhilKT3XFg+jliSw5v8oGmjS1V4wEUQY7VFCvOmTScIvZtPocvy
-	 o0oIt+IFyRTZ32kkcs0+VcdnjpS29i8lQr7QGOSa/r3gkrsSPbQEXjs5s/fVnxKrCn83I
-	 rtWQRaoPLQ+/MmeFoxpa/ezoIP3ZzXX9qUxu6inCnJkLv6s4xxf9oMfIrRTAiTvRZAkWB
-	 hOs9sC9KlPnlYbonhdXHHXo679PwZWNFIAa1FvEQQiYrSjoVg+QgHMLVzVPScOHlSC4Wt
-	 ebIFkcSk9DCn/E7gNgyxvxpD55ZgteV3+3nvr7SKwWFtc6xxJLeOFkx4b05rricB8vA==
+	t=1793001026;
+	b=MJHAoRlqyQnrY7MjU5fYkm2q67Rax1Jyt2NN54JnqDJLk4+mLtFtXo4fbVjb37PGGDfn
+	 XTs1u01NTh92n4NkHzpdGs5XmvWsuuvcdjddt3ixd+SItEwoSvP90/uBQldfeINUBlLz8
+	 jJ4t20smNrrnGubldSIN4g7gygU/t1/uIAjaxhb6PN+QNCe1WkFo83KHnnhl0xPBDexZk
+	 pUFassQEcSyThlrkkzhC9yLLS3wyUJzNUSnjAo5vTxb/HFLl+Zlv978ldqaVCaJq3T6aO
+	 SxBtYK4ZRCq0kAMBQSGGnon7/aD1vPHH+LqCxEKXavQcIuJ54URaG2l+ZOz5AbJ08Ow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793001003;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=cC8d3l53v5l/BIJ4xOgSZEiDzx24DTRPibd1xKzhImY=;
-	b=Oey+jAxsAhMYula/sIScv8/DKocgmGPswbfg+wEBeFBMjwSI4CixIIxHZPFBckkOHhIc
-	 zu5GL9ri7rfjUNm2TvgaWg8w8x0Z/ExEQ1CaqHJnAl2OpqP7paTFXEKbQ1r5YAnQEsjDa
-	 3P7bL3F5+0l1Bv9IPHm/dfX7Q6xbn5MO+KLspv9NPPH84/C0Hxb50EhuHmZbDh1EU0CgM
-	 AQErz5lktgVYyOh7SfAsrYuSjwxebCPYEoQ/E59UYakcgzVENCthCD1EhAC/XP+buCZ01
-	 4H+xVEan9aHiEmNqeZG7K+pCjwFwBCIXaSKBTR5sTRVHZkwefR9k4eQxZfgx9+Pj3/g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793001026;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=/8Nfa8ZvhcxBCeEQYtMEiwr7Pt2NnxZjTkwqiUDch6k=;
+	b=TDcQANE8my0eotFPmmdHfYkC2yhL44KaWCMqHCUQsH86i7Lo2rqwByFaQGepwvZex+eL
+	 aHxfVXDT07tTI2VjCW4BLOBI8wTJ/R/053xfXDA3vEOHHYZPAhth9fIDbFchK0bmXwFQz
+	 izhukKAZEoHcf+3J6nF02G9ehy877D/gR/LQ1jG1avulY4RiYqgZEJHpruOerLWR3TmbU
+	 rswU6/guP9Zf/X4PzQBD6KBOF79n/AWogNw7CtBbw9ievpuGDqsmPjFpbqfaHHxsIasLR
+	 F09V+t48PN63WYCzHKnmnWvn1diIgKfa+m9qrsS8yKh46pfbQlF+9nMKuhrMDmdUbuQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=hBmLkvSM;
-	arc=none smtp.remote-ip=115.124.30.99
-Received: from out30-99.freemail.mail.aliyun.com (out30-99.freemail.mail.aliyun.com [115.124.30.99])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YFSoeg3C;
+	arc=none smtp.remote-ip=192.198.163.15
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AECC3606A326;
-	Mon, 26 Oct 2026 07:50:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AECC3606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0C35606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 07:50:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0C35606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=hBmLkvSM
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1793000992; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=cC8d3l53v5l/BIJ4xOgSZEiDzx24DTRPibd1xKzhImY=;
-	b=hBmLkvSMNRUZGloJv1yxQN4VHeLdayAyFsqTg3g2u8p9MINl3Tb69zVt+zo/dkbSCEQdPb0aU9GYq7Xt0K7E5UH/awCgz7KywGHeuHe6cJbVvzzvCwulIrDzliIiR8/AiNUaKFZ9WDrfXGVeizRoxBcb2laIgOHLGTS05HnFKPc=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R141e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=10;SR=0;TI=SMTPD_---0XDU8Vi6_1793000991;
-Received: from 30.221.130.82(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XDU8Vi6_1793000991 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Mon, 26 Oct 2026 15:49:51 +0800
-Message-ID: <9f777a27-8e65-48e8-b5fb-9e7decdaaee2@linux.alibaba.com>
-Date: Mon, 26 Oct 2026 15:49:51 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YFSoeg3C
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793001026; x=1824537026;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=Ypr1y4OAt1ajVjc3EN9jMN03ZJtAjXWvwbJYIgIM4CM=;
+  b=YFSoeg3CKXXltUmftiw4T0brg1JmiaWoqu2vE/J0HRy3zfhv73dRVwnH
+   dEXhZNWCO7Z9UPp///lArGXi26NnSVZV+oP8LCFNeuOZ1y3TkT/rGjoQk
+   p8ZL2hFk7JOxjD9V3wULLcDFgBWr2E2wsUEA3L1V7L2njh7kSOHvx8T8Z
+   RPJAmF9jgV4F2iHWHjBC8BUJoiFqcAmbKr/JYZ8Uvm/r+5ET4tpmOAuqd
+   f3hk2HLAX1hEYs8Id4jevcxRtqT+5VYfb8H1wa9jwQHsFoBfwLZaCqKVX
+   3FSOdWJMVkXVZOXLyJG4VCWf5A9uE2U3wFGjLPejhx8xOPjBL+p6cSRYn
+   w==;
+X-CSE-ConnectionGUID: NwnTRZK4QdyGO6KZaahwXw==
+X-CSE-MsgGUID: +rXrfBgSQJ6ofFCzBHNM8g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1670405"
+X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
+   d="scan'208";a="1670405"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 00:50:25 -0700
+X-CSE-ConnectionGUID: zavmyGjdSfaR3xUCQhfbMQ==
+X-CSE-MsgGUID: aeLsWiS0RsCnda2uclnjmg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
+   d="scan'208";a="4175053"
+Received: from unknown (HELO [10.238.0.97]) ([10.238.0.97])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 00:49:33 -0700
+Message-ID: <de19ab97-c86b-442b-be23-c921c0831542@intel.com>
+Date: Mon, 26 Oct 2026 15:49:30 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,236 +73,60 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] ocfs2: wait for filecheck kobject release after a
- failed add
-To: Cen Zhang <zzzccc427@gmail.com>, Andrew Morton <akpm@linux-foundation.org>
-Cc: mark@fasheh.com, jlbec@evilplan.org, heming.zhao@suse.com,
- ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, baijiaju1990@gmail.com, jjzuming@gmail.com
-References: <pm-ocfs2-objects-candidate-0087-v6-78f3c3d6d70887d6e0cc@gmail.com>
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-In-Reply-To: <pm-ocfs2-objects-candidate-0087-v6-78f3c3d6d70887d6e0cc@gmail.com>
+Subject: Re: [RFC PATCH 15/15] virt: tdx-guest: Accept default DMAR entry
+ during PCI driver attach
+To: Zhenzhong Duan <zhenzhong.duan@intel.com>, x86@kernel.org,
+ linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org
+Cc: dave.hansen@linux.intel.com, tglx@kernel.org, mingo@redhat.com,
+ bp@alien8.de, hpa@zytor.com, dave.hansen@intel.com, kas@kernel.org,
+ rick.p.edgecombe@intel.com, jgg@nvidia.com, nicolinc@nvidia.com,
+ aik@amd.com, aneesh.kumar@kernel.org, seanjc@google.com,
+ pbonzini@redhat.com, yilun.xu@linux.intel.com, chao.gao@intel.com,
+ vishal.l.verma@intel.com, kevin.tian@intel.com, chao.p.peng@intel.com
+References: <20260924041032.1096569-1-zhenzhong.duan@intel.com>
+ <20260924041032.1096569-16-zhenzhong.duan@intel.com>
+Content-Language: en-US
+From: Xiaoyao Li <xiaoyao.li@intel.com>
+In-Reply-To: <20260924041032.1096569-16-zhenzhong.duan@intel.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-
-
-On 10/25/26 12:18 AM, Cen Zhang wrote:
-> The filecheck kobject and its release completion are embedded in
-> ocfs2_super, so the osb must outlive the kobject. On a failed
-> kobject_init_and_add(), creation clears fs_fcheck and calls
-> kobject_put(), but returns without waiting for the release callback.
+On 9/24/2026 12:10 PM, Zhenzhong Duan wrote:
+> Before a TDI can perform DMA to guest private memory, its secure DMA
+> mapping must be accepted. This happens during driver load stage after
+> MMIO acceptance and TDI activation.
 > 
-> With CONFIG_DEBUG_KOBJECT_RELEASE, the last put queues delayed cleanup.
-> Mount failure can then free the containing osb before the embedded
-> release timer expires:
+> The enable_dma callback issues TDG.DMAR.ACCEPT to set secure PASID
+> table entry to present state and target non-partitioned TD.
 > 
->   Mount failure                     Delayed cleanup
->   -------------                     ---------------
->   ocfs2_filecheck_create_sysfs()
->     kobject_init_and_add() fails
->     fs_fcheck = NULL
->     kobject_put()
->       queue delayed release
->   return to mount error cleanup
->   ocfs2_dismount_volume()
->     remove_sysfs() skips the wait
->     kfree(osb)
->                                     expire embedded release timer
->                                       access freed osb
+> The secure PASID table entry is cleared in unlock stage implicitly
+> so disable_dma is a no-op currently.
 > 
-> The normal removal path waits for fs_kobj_unregister, but it returns
-> early when fs_fcheck is NULL. The failed-add path therefore leaves the
-> delayed work and its completion in freed storage.
-> 
-> Wait for the existing release completion after the failed-add
-> kobject_put(), before returning to mount error cleanup. This keeps the
-> enclosing osb alive until the kobject has finished releasing, matching
-> the normal teardown path.
-> 
-> KASAN report as below:
-> 
->     BUG: KASAN: slab-use-after-free in __run_timers+0xa6d/0xa90
->     Write of size 8 at addr ffff8881178a5658 by task swapper/0/0
->     
->     CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted 7.3.0-rc4-next-20260921-pmb-ocfs2-functional-v1+ #1 PREEMPT(lazy) 
->     Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
->     Call Trace:
->      <IRQ>
->      dump_stack_lvl+0x93/0xd0
->      print_report+0xce/0x630
->      ? __run_timers+0xa6d/0xa90
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? __virt_addr_valid+0x20e/0x420
->      ? __run_timers+0xa6d/0xa90
->      kasan_report+0xe0/0x110
->      ? __run_timers+0xa6d/0xa90
->      __run_timers+0xa6d/0xa90
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? __pfx___run_timers+0x10/0x10
->      ? __lock_acquire+0x5a3/0x2140
->      ? __pfx_do_raw_spin_lock+0x10/0x10
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      timer_expire_remote+0xfa/0x160
->      ? __pfx_timer_expire_remote+0x10/0x10
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? trace_hardirqs_on+0x18/0x160
->      tmigr_handle_remote_up+0x4ba/0x9d0
->      ? __pfx_tmigr_handle_remote_up+0x10/0x10
->      ? tmigr_handle_remote+0x21a/0x340
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? lock_release+0xc8/0x290
->      ? __pfx_tmigr_handle_remote_up+0x10/0x10
->      __walk_groups_from+0x5a/0x160
->      tmigr_handle_remote+0x24f/0x340
->      ? __pfx_tmigr_handle_remote+0x10/0x10
->      ? lock_acquire+0x190/0x300
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? lock_release+0xc8/0x290
->      run_timer_softirq+0x222/0x270
->      ? __pfx_run_timer_softirq+0x10/0x10
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? lockdep_hardirqs_on_prepare+0xb8/0x1a0
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      handle_softirqs+0x1fa/0x8d0
->      ? __pfx_handle_softirqs+0x10/0x10
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? _raw_spin_unlock+0x23/0x40
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? __hrtimer_rearm_deferred+0x1fb/0x5d0
->      __irq_exit_rcu+0x113/0x1e0
->      irq_exit_rcu+0xe/0x20
->      sysvec_apic_timer_interrupt+0x6c/0x80
->      </IRQ>
->      <TASK>
->      asm_sysvec_apic_timer_interrupt+0x1a/0x20
->     RIP: 0010:pv_native_safe_halt+0xf/0x20
->     Code: fa 18 01 e9 ee 37 ff fa 0f 1f 00 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 f3 0f 1e fa eb 07 0f 00 2d 23 c7 14 00 fb f4 <e9> c7 37 ff fa 66 2e 0f 1f 84 00 00 00 00 00 66 90 90 90 90 90 90
->     RSP: 0018:ffffffff87c07cf8 EFLAGS: 00000206
->     RAX: 0000000000045d0f RBX: ffffffff87c2d4c0 RCX: ffffffff86111e95
->     RDX: 0000000000000000 RSI: 0000000000000000 RDI: ffffffff815b508e
->     RBP: fffffbfff0f85a98 R08: 0000000000000001 R09: ffffed10310c68ba
->     R10: ffff8881886345d3 R11: 0000000000000000 R12: 0000000000000001
->     R13: 0000000000000000 R14: 1ffffffff0f80fa4 R15: dffffc0000000000
->      ? ct_kernel_exit.constprop.0+0xc5/0xf0
->      ? do_idle+0x3ae/0x650
->      default_idle+0x9/0x10
->      default_idle_call+0x6c/0xb0
->      do_idle+0x3ae/0x650
->      ? __pfx___schedule+0x10/0x10
->      ? __pfx_do_idle+0x10/0x10
->      ? rest_init+0x1cd/0x330
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      cpu_startup_entry+0x54/0x60
->      rest_init+0x1e1/0x330
->      ? __pfx_acpi_read_bit_register+0x10/0x10
->      ? __pfx_rest_init+0x10/0x10
->      ? acpi_os_write_port+0x23/0xb0
->      ? __pfx_kernel_init+0x10/0x10
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? acpi_ut_status_exit+0xd6/0x180
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? acpi_ut_status_exit+0xd6/0x180
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? acpi_enable_subsystem+0x2b0/0x4e0
->      ? __pfx_x86_late_time_init+0x10/0x10
->      start_kernel+0x417/0x4b0
->      x86_64_start_reservations+0x18/0x30
->      x86_64_start_kernel+0x111/0x120
->      common_startup_64+0x13e/0x158
->      </TASK>
->     
->     Allocated by task 494:
->      kasan_save_stack+0x33/0x60
->      kasan_save_track+0x14/0x30
->      __kasan_kmalloc+0xaa/0xb0
->      __kmalloc_cache_noprof+0x28d/0x610
->      ocfs2_initialize_super.isra.0+0xab/0x3070
->      ocfs2_fill_super+0x801/0x3920
->      get_tree_bdev_flags+0x35d/0x5f0
->      vfs_get_tree+0x93/0x320
->      fc_mount+0x1d/0x200
->      path_mount+0x592/0x1e00
->      __x64_sys_mount+0x24b/0x2d0
->      do_syscall_64+0x114/0x620
->      entry_SYSCALL_64_after_hwframe+0x77/0x7f
->     
->     Freed by task 494:
->      kasan_save_stack+0x33/0x60
->      kasan_save_track+0x14/0x30
->      kasan_save_free_info+0x3b/0x60
->      __kasan_slab_free+0x5f/0x80
->      kfree+0x308/0x580
->      ocfs2_dismount_volume+0x43c/0x9b0
->      ocfs2_fill_super+0x258f/0x3920
->      get_tree_bdev_flags+0x35d/0x5f0
->      vfs_get_tree+0x93/0x320
->      fc_mount+0x1d/0x200
->      path_mount+0x592/0x1e00
->      __x64_sys_mount+0x24b/0x2d0
->      do_syscall_64+0x114/0x620
->      entry_SYSCALL_64_after_hwframe+0x77/0x7f
->     
->     The buggy address belongs to the object at ffff8881178a4000
->      which belongs to the cache kmalloc-8k of size 8192
->     The buggy address is located 5720 bytes inside of
->      freed 8192-byte region [ffff8881178a4000, ffff8881178a6000)
->     
->     The buggy address belongs to the physical page:
->     page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x1178a0
->     head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
->     flags: 0x200000000000040(head|node=0|zone=2)
->     page_type: f5(slab)
->     raw: 0200000000000040 ffff888100043880 dead000000000122 0000000000000000
->     raw: 0000000000000000 0000000000020002 00000000f5000000 0000000000000000
->     head: 0200000000000040 ffff888100043880 dead000000000122 0000000000000000
->     head: 0000000000000000 0000000000020002 00000000f5000000 0000000000000000
->     head: 0200000000000003 fffffffffffffe01 00000000ffffffff 00000000ffffffff
->     head: 0000000000000000 0000000000000000 00000000ffffffff 0000000000000000
->     page dumped because: kasan: bad access detected
->     
->     Memory state around the buggy address:
->      ffff8881178a5500: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
->      ffff8881178a5580: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
->     >ffff8881178a5600: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
->                                                         ^
->      ffff8881178a5680: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
->      ffff8881178a5700: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
->     ==================================================================
-> 
-> Fixes: b9fba67b3806 ("ocfs2: fix error path kobject memory leak")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-
-Looks fine.
-Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-
-> 
-> 
+> Signed-off-by: Zhenzhong Duan <zhenzhong.duan@intel.com>
 > ---
-> Changes in v2:
-> - Name ocfs2_super explicitly in the lifetime comment and describe kobject
->   release without assuming CONFIG_DEBUG_KOBJECT_RELEASE.
+>  drivers/virt/coco/tdx-guest/connect.c | 16 ++++++++++++++++
+>  1 file changed, 16 insertions(+)
 > 
-> Link to v1: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0087-v5-4888399e71ae6d93613f@gmail.com
-> 
->  fs/ocfs2/filecheck.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/fs/ocfs2/filecheck.c b/fs/ocfs2/filecheck.c
-> index 75334e4bd082..e3b79bc749f5 100644
-> --- a/fs/ocfs2/filecheck.c
-> +++ b/fs/ocfs2/filecheck.c
-> @@ -189,6 +189,8 @@ int ocfs2_filecheck_create_sysfs(struct ocfs2_super *osb)
->  		/* Mount failure still calls ocfs2_filecheck_remove_sysfs(). */
->  		entry->fs_fcheck = NULL;
->  		kobject_put(&entry->fs_kobj);
-> +		/* Keep ocfs2_super alive until the kobject is released. */
-> +		wait_for_completion(&entry->fs_kobj_unregister);
->  		kfree(fcheck);
->  		return ret;
->  	}
+> diff --git a/drivers/virt/coco/tdx-guest/connect.c b/drivers/virt/coco/tdx-guest/connect.c
+> index a9d41fd38b64..b328caac0a49 100644
+> --- a/drivers/virt/coco/tdx-guest/connect.c
+> +++ b/drivers/virt/coco/tdx-guest/connect.c
+> @@ -427,10 +427,26 @@ static int tdx_devsec_run(struct pci_dev *pdev)
+>  	return 0;
+>  }
+>  
+> +static int tdx_devsec_enable_dma(struct pci_dev *pdev)
+> +{
+> +	int ret = tdx_mcall_dmar_accept(pci_dev_id(pdev), 0);
 
+after going through the series, I have a basic question on guest function_id.
+
+Per TDX connect API spec, TDG.DMAR.ACCEPT, TDG.DMAR.RELEASE,
+TDG.TDI.MMIO.ACCEPT, TDG.TDI.RD and TDG.TDI.START all require guest function_id
+as input parameter. However, the guest function_id is specified by the host VMM
+on TDH.TDI.CREATE.
+
+So how can the guest ensure pci_dev_id(pdev) is the value that will be specified
+by the host VMM?
+
+This is a strong contract, while this series doesn't mention it at all.
