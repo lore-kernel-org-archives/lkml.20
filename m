@@ -1,51 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793028118;
-	b=hQSaCYIISB3SUMihZOj+35Z0Nt3V64K0HlL8+1J6Mn8TuWnvnNMtNc4fTBPV7lARBkX5
-	 VVm4k5jxxmGGHNCTNamiRMO+YgxXs1aQs+S+PU7+BwWNLGho2YrbITkLPevYuXpmWxfCT
-	 F7+kFmESHfoQJmtSXr167SPdkxbBqlmouItfOITfg+xYOh3h+n6EivfJcXM9x6TtloNCg
-	 AovxYIW/F2SSy4ZdZsw5dB03U/PIz7horm6/BBBB88zYipuLoVDG1QT56+umReXIM5Zsa
-	 eQIxflMNsf0D0t1z6rnHkk5ZGlkpUH6nygROd5O60GQCNuCXCRY4wk56WfLbXVj1KJg==
+	t=1793028141;
+	b=U13mdXzB85tRBk7vq/CL6+scedj2hx2Uuo+Hd4Hy0j/cq0jIPwvUxZ7xdcvXazUrxVlB
+	 hEOVGLEaW0x7/WyjdyxlFJ1ExkoltLuvpdHKhBOxVLJsO2w0hlr6zMPzPh6cMUCItM5oK
+	 mdsvo0gSEteU5/+Bo2zxO3dYk+E54rxQG1PaRHW06UMGbX2KGxvIG4JbcYtHGbNhXpp04
+	 LCcG0j2Yr7TQvmJTs7kD0OVWPuhsCwy/1HZz0hpnrdvyapfFvevBFxxMNxWB/BNP4UnZN
+	 m2tKj69IkJ6cQHdk+Kqw/dufOjTWa34E8HCb9+cqELhgXPAImnEhRv+IGLS+2YIvpGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793028118;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition;
-	bh=GufoAbBLk6Ghtl7Jz0h33C6x4w2eCg5HBPMB/M3XR4E=;
-	b=byiCwEVNuJEvUcayTgYmobAum8ETBXEVF/EBXyjyy8j+KybYJ3/ZXPHKc3cWhcfGx3qM
-	 FYCa/1QXhBOfoq8VxfAJHX29Y79QiONNv2bLxQgqK/VUowWAUG6XIHEjjwYukYuRxOl90
-	 E5qYLaP7QZSgqyq1OqSORLH5kXo0L0262EDcNoqwf8rEyL9y1xfwyOx1Sd3yjJwNY39W/
-	 Z58s/kxBVnf6cIw52AMQCFP+5f/PGnF6f8OgJ44oa8VtQiygUAAFZcf2n03vPhdV+eDL1
-	 zODy1VEb/++walY5g72FCFDwNLNnpaAOtwwDK0jL35SAquH4Ozm8z9qEO2cFIWVEUew==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793028141;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=Frm43ufNh8qqB/Bw6xfF1sMT8C8/aL6tF6RXXphvCaI=;
+	b=EX+kfX6u6eGIjpmqFiBfVyVnhVgUH2iQZZR/33UIx4iyQZdEc97UDNWJVYgeca9cXiU2
+	 b5b17Ut+lpps/mgbWXtQtDShCj1ck5ySxaunPN74Ip5msJgPNc1ip27YU/3aBnGgDQ1aD
+	 SIp4pL7mTgEoRavWip0bCrV7GwjNgkUadbhlPwYz9I2Z/PUcD11eo2PtIjh/01ArEUvWV
+	 Aenopl6glfX8/aXJtbyYK67GFBDKOUOC1JMIqD9NC032n1Hxf7cmHQoS9AZhH3Q+3XejB
+	 1TPJqWTka+dfg0F/eILIKY/+mZJAiUZhoMO6sEB1hvBYJJ6gSvqD8XJf07Pyzl/l+VA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DJyiyWpk;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.199
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06D5C606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 15:21:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DJyiyWpk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C23551F01825;
-	Mon, 26 Oct 2026 15:21:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793028117;
-	bh=GufoAbBLk6Ghtl7Jz0h33C6x4w2eCg5HBPMB/M3XR4E=;
-	h=Date:From:To:Cc:Subject;
-	b=DJyiyWpkn2j9monPW6tOtScnxmT9B5i999ufH7CUChPKep8WZ0BKUYwXoI9fVOjwM
-	 wBdMHIzZWDGsjiNuIj7Lqt8v49TC8nZZz6D9T5IenVtR+tQojLo1uI/LXN2fVb/1qD
-	 KccV6bROMQ+cHJ2N7A+XbHn+dtHmOro31RfT8D+awqtPueaEgckmqSEyqxIAP7u+eV
-	 PX90kRbea2ODLoglWnROd0S/Am7/yETTwEEJAOWf0u/q8XaFRpO9YfoQbmW2K/P2Cp
-	 xZ6drkOMfLfzEPzTT/YNkn+mrkcOCq9KicXyYfSEq/sbpuGSbQZx7VyUs+j698GtW+
-	 4uIfwjn3RH4jQ==
-Date: Mon, 26 Oct 2026 15:21:54 +0000
-From: Lee Jones <lee@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Daniel Thompson <danielt@kernel.org>
-Subject: [GIT PULL] Backlight for v7.4
-Message-ID: <20261026152154.GE2195460@google.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04248606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 15:22:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04248606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4d2f0f77124so3997838b6e.3
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 08:22:20 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793028140; x=1793632940;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Frm43ufNh8qqB/Bw6xfF1sMT8C8/aL6tF6RXXphvCaI=;
+        b=Q05ECcemKD8iUl8br0LFAFG+SMJf1HIeex4brq9uAFW7BmqAWrhXasJKAfgHGnoovi
+         xv2LOkTg9HMYALMdW1+HOXMECN9mPj3lGZn9fZVxezjXm2oL3gxfgCRWkdbPglLS1cL7
+         ZAraN1k3ryfWEHACHdZb5A18gXJAFW2Wd6SFU4oDSOSx1uj1y1LrF30EYiMHEcm5yBHY
+         5E7zAMyl+PNcp3z709ppwP9QBmdTVw5+MHp9bp+L5gBGEyBtrksV4DkeGx1Fd1jxDrUh
+         2s3QAPHbVXzqJyGbNFef6HGK244kbcLqjqEObjp7U6rgXDY9tPdxlyAccrWwyjyEpBp9
+         smlQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzP9bPW1ULrTUlX+D5MLALxVxZ3vc6ZIR+Y3g1E+7yw6PsbUYqbCPCwYvnXCRAZqAjxiIkv/NpTx8L2jwE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKD6gg8gV48bVK5CsPT1Vk7g7q9oDDIwHWuqf1EOOlcIUphEKu9
+	gpc26MDPd5LvrAw2sEx+JnYVdZDN/THv21lUU8OdNDOCKa3qjNFfMgc1fWpfnELHvdq0Tt03d86
+	u8HEhj12VL4z5UNIdr8HCcqgVtA33g82oaC8WEKpMRb8fPYXE5kTRgfBgDdc=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,57 +58,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+X-Received: by 2002:a05:6808:4fce:b0:4f5:20:d847 with SMTP id
+ 5614622812f47-55c0030cabamr5683856b6e.36.1793028139697; Mon, 26 Oct 2026
+ 08:22:19 -0700 (PDT)
+Date: Mon, 26 Oct 2026 08:22:19 -0700
+In-Reply-To: <00000000000034ae0f05e9f94c79@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6adf702b.3a3d6196.2ecadf.000d.GAE@google.com>
+Subject: Re: [syzbot] KASAN: use-after-free Read in jfs_lazycommit
+From: syzbot <syzbot+885a4f3281b8d99c48d8@syzkaller.appspotmail.com>
+To: dave.kleikamp@oracle.com, jfs-discussion@lists.sourceforge.net, 
+	kapoorarnav43@gmail.com, linux-kernel@vger.kernel.org, qianqiang.liu@163.com, 
+	shaggy@kernel.org, syzkaller-bugs@googlegroups.com, tristmd@gmail.com
+Content-Type: text/plain; charset="UTF-8"
 
-Good afternoon Linus,
+This bug is marked as fixed by commit:
+From 7e1a0b91e9efa8bec40fc5397ba6c4e683d72df0 Mon Sep 17 00:00:00 2001
 
-The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
+But I can't find it in the tested trees[1] for more than 90 days.
+Is it a correct commit? Please update it by replying:
 
-  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
+#syz fix: exact-commit-title
 
-are available in the Git repository at:
+Until then the bug is still considered open and new crashes with
+the same signature are ignored.
 
-  git://git.kernel.org/pub/scm/linux/kernel/git/lee/backlight.git backlight-next-7.4
+Kernel: Linux
+Dashboard link: https://syzkaller.appspot.com/bug?extid=885a4f3281b8d99c48d8
 
-for you to fetch changes up to eacfbe6f9716d00536edc229a58895405e73c2e4:
+---
+[1] I expect the commit to be present in:
 
-  backlight: qcom-wled: Read back the programmed brightness at probe (2026-10-14 13:30:50 +0100)
+1. for-kernelci branch of
+git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git
 
-----------------------------------------------------------------
-Backlight for v7.4
+2. master branch of
+git://git.kernel.org/pub/scm/linux/kernel/git/bpf/bpf-next.git
 
-- Improvements & Fixes
-  - Qualcomm WLED: Fix a NULL pointer dereference in `wled_remove()` by setting platform
-    driver data in `wled_probe()`
-  - Qualcomm WLED: Fix the WLED3 brightness register stride to prevent consecutive string
-    writes from overlapping
-  - Qualcomm WLED: Read back the hardware-programmed brightness at probe, expose it via
-    `get_brightness()`, and prevent unbalanced OVP IRQ enabling
-  - TI LM3630A: Cancel delayed work synchronously after freeing the IRQ and before
-    destroying the workqueue in `lm3630a_remove()`
+3. master branch of
+git://git.kernel.org/pub/scm/linux/kernel/git/bpf/bpf.git
 
-- Cleanups & Refactoring
-  - Ilitek ILI9320 / Kinetic KTD253: Fix spelling typos in comments
+4. main branch of
+git://git.kernel.org/pub/scm/linux/kernel/git/davem/net-next.git
 
-----------------------------------------------------------------
-David Heidelberg (4):
-      backlight: qcom-wled: Fix NULL pointer dereference in wled_remove()
-      backlight: qcom-wled: Fix WLED3 brightness register stride
-      backlight: qcom-wled: Fix unbalanced OVP IRQ enable at probe
-      backlight: qcom-wled: Read back the programmed brightness at probe
-
-Hemanth Selam (1):
-      backlight: ili9320/ktd253: Fix typos in comments
-
-Myeonghun Pak (1):
-      backlight: lm3630a: Cancel delayed work before destroying workqueue
-
- drivers/video/backlight/ili9320.c          |  2 +-
- drivers/video/backlight/ktd253-backlight.c |  2 +-
- drivers/video/backlight/lm3630a_bl.c       |  1 +
- drivers/video/backlight/qcom-wled.c        | 99 ++++++++++++++++++++++++------
- 4 files changed, 84 insertions(+), 20 deletions(-)
-
--- 
-Lee Jones
+The full list of 11 trees can be found at
+https://syzkaller.appspot.com/upstream/repos
