@@ -1,87 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=92.121.34.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793008047;
-	b=aGJIvgBtl61pIce+qnvbq5FjQK+KE7l8hYoMuvFrYzC11VyEMghK6yNjey+SD/w8Mtsq
-	 aOeYA8/i+XbKczLueddDcOnmjAxarfy9xEQBawysEJWeVYtHUo4nmIXrOw15ErTbxd/Xj
-	 0M1xLJZGWgt/jnw8ySGVrQc7YtGh5CwlDIx0bGve1Ssyx/DYnIr5UmLcIao35Ty0UeV85
-	 f3/DA9jGIrBx+vuAyKxUIoBlYT6cAXEjgBkT74UZuCzgKJ0DjQjlE2tvGWG3KOuD0jYQt
-	 fw6wHXYRrV8/yGYCi1x1hVOtlQ+O+iYN5mRtSrrmX5FxFshLfLJaxp8Z9JPnfJGP2vQ==
+	t=1793008049;
+	b=jOfvSa9Wlf4ErQHe+DznPgci/4kntEUD5FnN0mYNVNt/qDNzvSCQs4QMFR7bgjhfmjhR
+	 KeYZ+RVcqDzL84Qtfi8Reiw7Ta8uiuNDrnXPIR9evZ+NSruJZqyjC8C8a3zEMzLZqMIDg
+	 oZsDT4fgSQY8FK6E+Z+OVqj5bT6qhDt1srC01YiBZ9Dk+kn75txYlbyXJoZLhGMY2C2kE
+	 ayxKh/QbhOshI4juwvI2K362RtkSfLy2UL6ioF2VtgNOzKquzG1MNMqQUJfCduVPMoGWT
+	 EHSKcjb0+tHPFNAOUocQxMjD9I7a7Exs/eNmqjcGFOF4deR+V7WkbAYERxG2l9j90yA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793008047;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=hzbelKKDEnxgjYmpghnUkffEydiu9Idn1aqDCjEpGss=;
-	b=jtjVsp9r1CdFh3cLpQ+LSLf+JIgB2ATo6swhmvshaW141W+p6lf0nThv4UFsWZIMD7tx
-	 mZbSAauo5qghmwGHvVPfdn10vqeCg+iPO1KirB8PIV0WqtD5SZiuWIlAnj6XU+VIrivS5
-	 LiHxZpo4p8xKmmkE2dHMLJp+yeJg2SjYQXiUd6vpJHuY1EHIiO6/9xsRa/+zWnZ2eFDO5
-	 CKZMVBUbqblnvL/WrlaMAlN4ByDGh/lcOzLJOJJFUvmgY7fv6cABikeFCT2vFmAVjIrKp
-	 +8sO7iKxe+XdHM42kRK7xmJFqLoDICde669R1rJcWYOnHnxpMBcM0vMN1osJnQ3rVOg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793008049;
+	h=DMARC-Filter:Received:Received:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-Virus-Scanned;
+	bh=noJMziJjnsO4goZkWtPhdnAaZOZV5rE6hJVNsup0CJ8=;
+	b=VQvlWnsGbzYs8xr2Xau70ocDThAr6CzGPi8JO8iTBkjpoOindpDNq+srKJNRDKprsSvV
+	 sF6whAIzFXorRpRgSz9jGsbS6FpX4hXTOCmqqzSGYsDCNSdg++71vlcOBwFNEwXyRniZr
+	 cF4zZIX25VG4AxeMpXgvhZL6/1KG4euQqgZk0EtoQSXRuQxutlbZTPATllzTAWfxNHQU6
+	 HKfy06OQZzoMFwlyPW3mvjiYx8dWuHFlb46AycMD2E81guqNlL2p0XK9O/rziOpyFA9VZ
+	 vxxyEbc9ndopSxf82s9ZphEdE2EPg5l4lPyIW7ZV+c8zM5sk0X86o+puzTmZrxeqh2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=M992lOYS;
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=nxp.com;
+	spf=pass smtp.mailfrom=nxp.com;
+	arc=none smtp.remote-ip=92.121.34.13
+Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C8B2606A31D
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:47:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C8B2606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=M992lOYS
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso28223755e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:47:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793008045; x=1793612845; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hzbelKKDEnxgjYmpghnUkffEydiu9Idn1aqDCjEpGss=;
-        b=M992lOYSaABSOVMKdr2ZnYdUWuP6nHzizODH7Ue7QDD1DtjeUwM1r+OfJX8hMDnvPI
-         vHAhCvo1kkduLiqPajhyaFKGrQ/6onGWw1ZY7PI8Nn7YWq2lf4qY/QN3ih3l9fS88ANf
-         bINCev0L4VqNNRSny/Sw46vO6TXRaXufHzU9iYG5ggC9xmQj56mO8h32pjwqiLtojCDG
-         V+MfRt7yI9Dk1RsKdlXf+5toDiuoGmoNrCzffXvCVYqyKZiqDrRbrUQt5wIb715jBR/Z
-         6GihGXNfDvxRd0Yf2rTzTJR6LZSrBeiMViiepFVglMEnEyt2fPqwRVwawEgL9sNN9jhf
-         m8bQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793008045; x=1793612845;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hzbelKKDEnxgjYmpghnUkffEydiu9Idn1aqDCjEpGss=;
-        b=DeyqwB31gfAEyhiqauSExr7fF6nrlWc6yfD12OHstitlmnsp/tqYUmhP1/U9uLsIRI
-         SKgzl8aOrHt+yrikDwiEmSrFrLEg0uoDNJtlCWBSEAfg4M/vnw/5RzQ+RsTRV2Z/ytcu
-         f0al5D5ABYNe8HIvk6SyYxvxP6T9d7sHsuH+l+6VRuO5xHd6ZPWySVxDHX5COyhy6z9A
-         UxwlWrgR7xxO3XTwQUTZEfp/H68drGGTzJjg6xYeQpOwQTdyH2aFcRiAz3MmKo8pLQ6q
-         YQvpKV/ysYMJjy07iKCkHrR/PbWmLfQWAIvI9AKElvpXzuds7Pv8QnYxwdUhLgICd+RC
-         C4kA==
-X-Forwarded-Encrypted: i=1; AKwUvBwkPJwk6MWc/ryaTT6RrSGxRGKcpH2ugO0MiO6kHJ9zHsCAM3eA4xJLzQJZHAv1/uk2QhNsqGVtyLLXFmU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKZxkGOPhFcI42VWg/F4QRfiInDXDhYrvbA3s/JS7oNlJvnDytC
-	RTJQ/hVxN1Fp14b7OrbDH1NHtseYSgtiiRnnOQRDXVldgN5/EWBxSmsNLkNDC+3Tqsc=
-X-Gm-Gg: AYBFou3KeDgkSmsYCoQJcqpxzFiJRMl9XYvxp47BBr1JJG1oRDFbi2ms+ruvQRUgpqX
-	U73efMcoIUkM9hapI0WHzF0FCQaHP/wIdkdrD4R+wC/GkFrHKeFq4UgnSZs7NE+etJPCI2Mdu7P
-	Q7U3WW/FAwISKTqxe9coVLls3uN/bDeL6wqhh11zpJY0RHqDFvh9O7CrkRbjjirVoTT1PBXOHcS
-	JPKZQeT8jdzlxiwhyrOO6fN9hc97S9wjpsUkMjHztS0zxTcXVv15dYEWgy4f08/oLCDgDqZ/waD
-	/h6APTlEI7U1dvADxMXMHQ5D9nvil3qoNSN7jO/dMgq+BF+EF8CxNnuFOdjqybGEfxkwu9HGtqj
-	JlYJ54ZhVGKAj2Y+gdKYKl+PWVblihF9I6gnpS1A/AOkQTZg/7n5mOuMM7hOrfVvkjJOBPCgrpP
-	liny98DhiWhHOrL2zUTfuo0eiFHyPv3B2hzYNH8TZYNDJk7YoM2RaDMKIF1NG7TikxIzY9ljiW4
-	ZhjC/74pbmuUXFCF27p8EeonFIoDV+69YIk1H+kXhIksn1pr0TxiQY3095B
-X-Received: by 2002:a05:600c:3114:b0:4a3:5a55:f454 with SMTP id 5b1f17b1804b1-4a35acc772dmr113068865e9.19.1793008045005;
-        Mon, 26 Oct 2026 02:47:25 -0700 (PDT)
-Received: from [192.168.1.3] ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3eb40733sm12061897f8f.0.2026.10.26.02.47.23
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 26 Oct 2026 02:47:24 -0700 (PDT)
-Message-ID: <f5060f7e-71cb-4e9b-a757-51943070b083@linaro.org>
-Date: Mon, 26 Oct 2026 09:47:23 +0000
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 649F9606A32C;
+	Mon, 26 Oct 2026 09:47:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 649F9606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+Received: from inva020.nxp.com (localhost [127.0.0.1])
+	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 72C051A0057;
+	Mon, 26 Oct 2026 10:47:21 +0100 (CET)
+Received: from aprdc01srsp001v.ap-rdc01.nxp.com (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
+	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 3B5681A0059;
+	Mon, 26 Oct 2026 10:47:21 +0100 (CET)
+Received: from lsv03900.swis.in-blr01.nxp.com (lsv03900.swis.in-blr01.nxp.com [10.12.177.15])
+	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 2CFB4180006C;
+	Mon, 26 Oct 2026 17:47:18 +0800 (+08)
+From: Lakshay Piplani <lakshay.piplani@nxp.com>
+To: alexandre.belloni@bootlin.com,
+	linux-rtc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	wim@linux-watchdog.org,
+	linux-watchdog@vger.kernel.org,
+	linux@roeck-us.net
+Cc: vikash.bansal@nxp.com,
+	priyanka.jain@nxp.com,
+	Lakshay Piplani <lakshay.piplani@nxp.com>
+Subject: [PATCH v8 1/5] dt-bindings: rtc: nxp,pcf85363: add timestamp mode config
+Date: Mon, 26 Oct 2026 15:17:08 +0530
+Message-Id: <20261026094712.205214-1-lakshay.piplani@nxp.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,109 +65,142 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 5/7] perf: arm_pmuv3: Add pmuv3_event_implemented()
-To: Amir Ayupov <aaupov@fb.com>
-Cc: Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jonathan Corbet <corbet@lwn.net>,
- Mathieu Poirier <mathieu.poirier@linaro.org>,
- Randy Dunlap <rdunlap@infradead.org>, Shuah Khan
- <skhan@linuxfoundation.org>, Daniel Pereira <danielmaraboo@gmail.com>,
- coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
- linux-perf-users@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Leo Yan <leo.yan@arm.com>,
- Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach <mike.leach@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>
-References: <cover.1792907332.git.aaupov@fb.com>
- <cover.1792989860.git.aaupov@fb.com>
- <23ffe461b8d7b04f78118154dfc9ea1d2a14978a.1792989860.git.aaupov@fb.com>
-Content-Language: en-US
-From: James Clark <james.clark@linaro.org>
-In-Reply-To: <23ffe461b8d7b04f78118154dfc9ea1d2a14978a.1792989860.git.aaupov@fb.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Virus-Scanned: ClamAV using ClamSMTP
 
+NXP PCF85263/PCF85363 provides three timestamp registers (TSR1-TSR3)
+which latch the current time when a selected event occurs. Add a
+vendor specific property, nxp,timestamp-mode, to select the event
+source for each register.
 
+Also introduce a new header 'pcf85363-tsr.h' to expose
+macros for timestamp mode fields, improving readability
+of device tree file.
 
-On 26/10/2026 05:48, Amir Ayupov wrote:
-> Drivers outside the PMU driver may need to know whether the local CPU's
-> PMU implements a common event before relying on it, for example a trace
-> unit driver checking that the PMU counts its external outputs as
-> TRCEXTOUTn.
-> 
-> Add pmuv3_event_implemented() to the arm64 asm/arm_pmuv3.h, next to
-> read_pmceid0() and read_pmceid1(). It reads PMCEID0/1 on the calling CPU:
-> events 0x0000-0x003f are reported in bits [31:0], and the common events
-> from ARMV8_PMUV3_EXT_COMMON_EVENT_BASE in bits [63:32] from PMUv3p1. Move
-> ARMV8_PMUV3_EXT_COMMON_EVENT_BASE next to the event numbers in
-> linux/perf/arm_pmuv3.h so it is available without CONFIG_ARM_PMU.
-> 
-> Suggested-by: James Clark <james.clark@linaro.org>
-> Assisted-by: Devmate:Opus-5.5
-> Signed-off-by: Amir Ayupov <aaupov@fb.com>
-> ---
->   arch/arm64/include/asm/arm_pmuv3.h | 19 +++++++++++++++++++
->   include/linux/perf/arm_pmu.h       |  1 -
->   include/linux/perf/arm_pmuv3.h     |  3 +++
->   3 files changed, 22 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/arm64/include/asm/arm_pmuv3.h b/arch/arm64/include/asm/arm_pmuv3.h
-> index 8a777dec8d88a..acd62c4f16743 100644
-> --- a/arch/arm64/include/asm/arm_pmuv3.h
-> +++ b/arch/arm64/include/asm/arm_pmuv3.h
-> @@ -173,6 +173,25 @@ static inline bool pmuv3_implemented(int pmuver)
->   		 pmuver == ID_AA64DFR0_EL1_PMUVer_NI);
->   }
->   
-> +/*
-> + * Whether this CPU's PMU implements a common event, as reported by
-> + * PMCEID{0,1}: events 0x0000-0x003f in bits [31:0], and from PMUv3p1 events
-> + * 0x4000-0x403f in bits [63:32], which read as zero before PMUv3p1.
-> + * Must run on the CPU whose PMU is queried.
-> + */
-> +static inline bool pmuv3_event_implemented(u16 event)
-> +{
-> +	bool ext = event >= ARMV8_PMUV3_EXT_COMMON_EVENT_BASE;
-> +	u16 id = ext ? event - ARMV8_PMUV3_EXT_COMMON_EVENT_BASE : event;
-> +	u64 pmceid;
-> +
-> +	if (id >= 64 || !pmuv3_implemented(read_pmuver()))
-> +		return false;
-> +
-> +	pmceid = id < 32 ? read_pmceid0() : read_pmceid1();
-> +	return pmceid & BIT_ULL(id % 32 + (ext ? 32 : 0));
-> +}
-> +
->   static inline bool is_pmuv3p4(int pmuver)
->   {
->   	return pmuver >= ID_AA64DFR0_EL1_PMUVer_V3P4;
-> diff --git a/include/linux/perf/arm_pmu.h b/include/linux/perf/arm_pmu.h
-> index 02d2c7f45b527..792283d29d7b5 100644
-> --- a/include/linux/perf/arm_pmu.h
-> +++ b/include/linux/perf/arm_pmu.h
-> @@ -124,7 +124,6 @@ struct arm_pmu {
->   	u64		reg_brbidr;
->   #define ARMV8_PMUV3_MAX_COMMON_EVENTS		0x40
->   	DECLARE_BITMAP(pmceid_bitmap, ARMV8_PMUV3_MAX_COMMON_EVENTS);
-> -#define ARMV8_PMUV3_EXT_COMMON_EVENT_BASE	0x4000
->   	DECLARE_BITMAP(pmceid_ext_bitmap, ARMV8_PMUV3_MAX_COMMON_EVENTS);
->   
->   	/* Only to be used by ACPI probing code */
-> diff --git a/include/linux/perf/arm_pmuv3.h b/include/linux/perf/arm_pmuv3.h
-> index d698efba28a27..c21f185a283d6 100644
-> --- a/include/linux/perf/arm_pmuv3.h
-> +++ b/include/linux/perf/arm_pmuv3.h
-> @@ -78,6 +78,9 @@
->   #define ARMV8_PMUV3_PERFCTR_STALL_SLOT_FRONTEND			0x003E
->   #define ARMV8_PMUV3_PERFCTR_STALL_SLOT				0x003F
->   
-> +/* Base of the common events reported in PMCEID{0,1}[63:32] from PMUv3p1 */
-> +#define ARMV8_PMUV3_EXT_COMMON_EVENT_BASE			0x4000
-> +
->   /* Statistical profiling extension microarchitectural events */
->   #define ARMV8_SPE_PERFCTR_SAMPLE_POP				0x4000
->   #define ARMV8_SPE_PERFCTR_SAMPLE_FEED				0x4001
+Signed-off-by: Lakshay Piplani <lakshay.piplani@nxp.com>
+Reviewed-by: Rob Herring <robh@kernel.org>
+---
 
-Reviewed-by: James Clark <james.clark@linaro.org>
+V7 -> V8:
+- No change.
+
+V6 -> V7:
+- No change.
+
+V5 -> V6:
+- No change
+
+V4 -> V5:
+- No change
+
+V3 -> V4:
+- Added Reviewed-by tag in commit message (previously only in changelog) 
+
+V2 -> V3:
+- No changes in v3
+- Added Reviewed-by: Rob Herring <robh@kernel.org>
+
+V1 -> V2:
+- Addressed review comments from Rob Herring:
+  * use $ref: /schemas/types.yaml#/definitions/uint32-array
+  * tuple form with exactly 3 items (TSR1/TSR2/TSR3), per items decimal enums
+  * define 'nxp,timestamp-mode' clearly
+  * drop watchdog related vendor properties
+  * remove watchdog related vendor properties from i2c example
+
+ .../devicetree/bindings/rtc/nxp,pcf85363.yaml | 23 ++++++++++++++-
+ include/dt-bindings/rtc/pcf85363-tsr.h        | 28 +++++++++++++++++++
+ 2 files changed, 50 insertions(+), 1 deletion(-)
+ create mode 100644 include/dt-bindings/rtc/pcf85363-tsr.h
+
+diff --git a/Documentation/devicetree/bindings/rtc/nxp,pcf85363.yaml b/Documentation/devicetree/bindings/rtc/nxp,pcf85363.yaml
+index 52aa3e2091e9..cf9c155162d6 100644
+--- a/Documentation/devicetree/bindings/rtc/nxp,pcf85363.yaml
++++ b/Documentation/devicetree/bindings/rtc/nxp,pcf85363.yaml
+@@ -4,7 +4,7 @@
+ $id: http://devicetree.org/schemas/rtc/nxp,pcf85363.yaml#
+ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ 
+-title: Philips PCF85263/PCF85363 Real Time Clock
++title: NXP PCF85263/PCF85363 Real Time Clock
+ 
+ maintainers:
+   - Alexandre Belloni <alexandre.belloni@bootlin.com>
+@@ -39,6 +39,24 @@ properties:
+   start-year: true
+   wakeup-source: true
+ 
++  nxp,timestamp-mode:
++    $ref: /schemas/types.yaml#/definitions/uint32-array
++    items:
++      - enum: [0, 1, 2] # TSR1: NONE, FE, LE
++        description: TSR1 mode
++      - enum: [0, 1, 2, 3, 4, 5] # TSR2: NONE, FB, LB, LV, FE, LE
++        description: TSR2 mode
++      - enum: [0, 1, 2, 3] # TSR3: NONE, FB, LB, LV
++        description: TSR3 mode
++    description: |
++      Defines timestamp modes for TSR1, TSR2, and TSR3.
++      Use macros from <dt-bindings/rtc/pcf85363-tsr.h>.
++
++      Each value corresponds to a mode constant:
++        - TSR1: NONE, FE, LE
++        - TSR2: NONE, FB, LB, LV, FE, LE
++        - TSR3: NONE, FB, LB, LV
++
+ required:
+   - compatible
+   - reg
+@@ -47,6 +65,7 @@ additionalProperties: false
+ 
+ examples:
+   - |
++    #include <dt-bindings/rtc/pcf85363-tsr.h>
+     i2c {
+         #address-cells = <1>;
+         #size-cells = <0>;
+@@ -56,5 +75,7 @@ examples:
+             reg = <0x51>;
+             #clock-cells = <0>;
+             quartz-load-femtofarads = <12500>;
++            wakeup-source;
++            nxp,timestamp-mode = <PCF85363_TSR1_FE PCF85363_TSR2_LB PCF85363_TSR3_LV>;
+         };
+     };
+diff --git a/include/dt-bindings/rtc/pcf85363-tsr.h b/include/dt-bindings/rtc/pcf85363-tsr.h
+new file mode 100644
+index 000000000000..1fb5b9b3601e
+--- /dev/null
++++ b/include/dt-bindings/rtc/pcf85363-tsr.h
+@@ -0,0 +1,28 @@
++/* SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause */
++/*
++ * Copyright 2025 NXP
++ */
++
++#ifndef _DT_BINDINGS_RTC_PCF85363_TSR_H
++#define _DT_BINDINGS_RTC_PCF85363_TSR_H
++
++/* TSR1 modes */
++#define PCF85363_TSR1_NONE 0x00
++#define PCF85363_TSR1_FE 0x01
++#define PCF85363_TSR1_LE 0x02
++
++/* TSR2 modes */
++#define PCF85363_TSR2_NONE 0x00
++#define PCF85363_TSR2_FB 0x01
++#define PCF85363_TSR2_LB 0x02
++#define PCF85363_TSR2_LV 0x03
++#define PCF85363_TSR2_FE 0x04
++#define PCF85363_TSR2_LE 0x05
++
++/* TSR3 modes */
++#define PCF85363_TSR3_NONE 0x00
++#define PCF85363_TSR3_FB 0x01
++#define PCF85363_TSR3_LB 0x02
++#define PCF85363_TSR3_LV 0x03
++
++#endif /* _DT_BINDINGS_RTC_PCF85363_TSR_H */
+-- 
+2.25.1
 
