@@ -1,64 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.111
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792980497;
-	b=wdnrxN8pPFJ1xXdJuBQ6dwIKCHYPbJB/JMp3rZe7pNzananwXmP1iIk2ZqsCruZqI5LB
-	 EPbziDgiO1vrQ07mYGQ/90aKwYsDw6rpnk0SEdPuvZtmvKjt15HKPMCW3EdJQh/giSnH7
-	 gmACQiWU5Qwh3bwzuavOPwt9yqbwXTh/OMAx7rw6q/+a2Mw/TdJopmXvT+g6Ydt4n+HZZ
-	 /rY1+4enTj+GZHL3KOb4ZBf6IhOQ2jBme4OnQAjDor0Hqt8I1ei5Gd/Vu2WISIyRxbIHt
-	 69kRdP6pYxow0bU3Nw21N/8tXo7zCt6VU+MivvLgIknRWUhkKctjfsiO5sA6xC1ScZQ==
+	t=1792980633;
+	b=VWaA5tMI+Q6OcawK8CwrNAR7qTiP9jWmmFRRHrwJzzKLr3VgJzOhM8qhXTCtYKGlgnvv
+	 JcvM0IeoJ9TauTjTQ2TJW5Kk0htTpBh8Fn6wMM6HGPZWntgdmj1371CuWrCILAqUOwTWq
+	 UBeG3IHEU27K4N6hetwNymLkREnLCiUOEJUoPe0QqZBJ1JNr5HNDgbrhwxzFhWMSjMLMb
+	 XdgcA9fij341bRlNPKw+mdtszy0Z+16avweqQUyxjVQLHSUxBisA9Fu02UC4CTkhH+ATE
+	 urz4r0ZXEQhLMLDuCVzS9as8zHoL9l8cEEV7iNCGLrq6buunU/ocyRoNsWY85Ps5hvg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792980497;
-	h=Received:DKIM-Signature:Received:Subject:From:In-Reply-To:References:
-	 X-PR-Tracked-List-Id:X-PR-Tracked-Message-Id:X-PR-Tracked-Remote:
-	 X-PR-Tracked-Commit-Id:X-PR-Merge-Tree:X-PR-Merge-Refname:
-	 X-PR-Merge-Commit-Id:Message-Id:Date:To:Cc;
-	bh=JZdgU67qob6kn/VjqI3UCA4WD0zpmq/v6zWQjdyTZS8=;
-	b=UnmLpq+7sH05hfszEqn6tddiW10bhH3+6cuD2jKgzdMRRZlLp3sgfv20j3jwPWV0NQv8
-	 7boc7TG7CF68SDrAH6hBV157KhZzrQRnfYc92zID96E+eBd+7rWX9JOwvgLWzdlZgUfYD
-	 1XylRNnqmAoR34V/PKN8sNLbrzsN2ntAUQJ59SbwAQZhX8xO30XQqz99UxOtYMnj25DT/
-	 Lqn1lTbe5Y+yrLcE2twiB617GCJ6ofN4Zg54h3E2RPXGdqrM1u89FNV8vGZBvnhy36/b9
-	 L7dSOV1GMUl3CZlEfpGPwtyKtfvVlisPO3CoYlDKKxgFDSLOFFNuxVtB/A1mJc6iMJQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792980633;
+	h=DMARC-Filter:DKIM-Signature:Cc:Subject:Mime-Version:In-Reply-To:
+	 References:X-Lms-Return-Path:Message-Id:To:Content-Type:
+	 Content-Transfer-Encoding:Date:From;
+	bh=fnUns6xcVSzCqzpV9TGsqBbjbhVeYf0cM+x/ILg6sHg=;
+	b=Wu2ka10b3rlRlVrJhCnvz4PR4chnXK0XQSUwbw4q4+DBrWaJTWOajOk7EQAkdhT5f3Fm
+	 T81rIR++BpiUFCOCNtquW1IVp/2ur2frjVNBeoZ5Oi0JUnII3wcSUmqGzsnWxJ4nlKrHT
+	 lNB6wi3/4LM472FQHIQKDkJqNyxTrCh3dq5qEJkybcWiTcXtzc8wN7V7En+ZtHj1kGDyp
+	 bKFRooLz8mKQeRQI83S8ugfGgGmhzNTzgoQea/xhtVAK76JA0+AwwqIlA22W8+E2gq88B
+	 0dPHgWAwJCSAYPKhkvKS+ijFGrD893rixVIW9rnscd757rIV7UJ3DCh62iqHPWgILbA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KTFiKYXq;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	arc=none smtp.remote-ip=209.127.230.111
+Received: from va-1-111.ptr.blmpb.com (va-1-111.ptr.blmpb.com [209.127.230.111])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3519F606A31B;
-	Mon, 26 Oct 2026 02:08:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KTFiKYXq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 112E61F01825;
-	Mon, 26 Oct 2026 02:08:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792980497;
-	bh=JZdgU67qob6kn/VjqI3UCA4WD0zpmq/v6zWQjdyTZS8=;
-	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=KTFiKYXqKIrBlmkE46MRf6Hy5BAoKP3XYHX9gfX+tkicOOKTXXM3MO90UpuEWMGV2
-	 nmjnuUxrWst+e7nFj5/JZETeOT353N4/0DkBf7Ff1ISQeFeg6QAAAZb0jmd7zoX43u
-	 N4wbjW1SZQW2L+YGI7DvBzhHM8HweRHwSUqwUnSQ4tSMmYVSH6OTbf6n5MuhQEfYUp
-	 Z2C2ln7nYz5HNByW1z2IapufsZ07niboZr2OK7PRoHByg9bgnUZBKGJr8lRNJrl/eT
-	 tnBgrFLKv77ES6WH0CnftNDJAgOAwUDKwXzc76l9VRnrMzjQj14P+YsSfTu54OTj51
-	 +ErJmScni2KRw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 0753539EA760;
-	Mon, 26 Oct 2026 02:08:17 +0000 (UTC)
-Subject: Re: [GIT PULL] NFSD changes for v7.4
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <20261022191536.3094786-1-cel@kernel.org>
-References: <20261022191536.3094786-1-cel@kernel.org>
-X-PR-Tracked-List-Id: <linux-nfs.vger.kernel.org>
-X-PR-Tracked-Message-Id: <20261022191536.3094786-1-cel@kernel.org>
-X-PR-Tracked-Remote: https://git.kernel.org/pub/scm/linux/kernel/git/cel/linux.git tags/nfsd-7.4
-X-PR-Tracked-Commit-Id: eafb6de800781f0a1be5cdd98d150620041d8b27
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 47439bb1635e8dd9245e876c2046b66a9b6f9400
-Message-Id: <179298049550.2358720.3288328915599756924.pr-tracker-bot@kernel.org>
-Date: Mon, 26 Oct 2026 02:08:15 +0000
-To: Chuck Lever <cel@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, Jeff Layton <jlayton@kernel.org>, linux-nfs@vger.kernel.org, linux-kernel@vger.kernel.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CB1C606A31B
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:10:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CB1C606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1792980618; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=fnUns6xcVSzCqzpV9TGsqBbjbhVeYf0cM+x/ILg6sHg=;
+ b=UoiTXtfdZ4H/G4T1FmFfV3lADpmS8aygEimu4SePcrHyp+GqMGBFqzAtAOMTdJSFZamCvT
+ 0l7/eGjpnsrIEA6rk6MqovDADRCuRdj7OhvgygLfTdo/+zNFDQrbIuDDTyGafaFXB2lTyo
+ xoj3MaKdhPt4kl7Yi6nn8bikchvxaDEmj1n6vjeW22FlilnwJUnR3mb+tTU3laVTDPtRJ+
+ NbvAHDRRS6o9EtljI7llKYGU5Rk4Y/IygOI+awO2b7YCOFCvwNprBDPhVcIW7/OOmlMf0A
+ upj++6cbwWRYx4G3fDKG65RhomV7vvV6/GlfWybxXCFo2gzZcrxI2He8S3VpIQ==
+Cc: <x86@kernel.org>, "Thomas Gleixner" <tglx@kernel.org>, 
+	"Ingo Molnar" <mingo@redhat.com>, "Borislav Petkov" <bp@alien8.de>, 
+	"Dave Hansen" <dave.hansen@linux.intel.com>, 
+	"H . Peter Anvin" <hpa@zytor.com>, <linux-kernel@vger.kernel.org>, 
+	<stable@vger.kernel.org>, "Guixiong Wei" <weiguixiong@bytedance.com>
+Subject: Re: [PATCH v2 1/2] x86/fpu: Fix memory leak with dynamic fpstate and exec()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,16 +54,74 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+Mime-Version: 1.0
+In-Reply-To: <bb50436d-8af6-4420-b626-97f262f6759d@intel.com>
+References: <cover.1791428412.git.weiguixiong@bytedance.com> <b9277cad5e1098d3e60d5c0f025c58061df10af0.1791428412.git.weiguixiong@bytedance.com> <d28dc497-a74b-4c52-bb6c-8b9010f9ee2d@intel.com> <89727492-b1d1-4f14-955a-0673ebaee753@intel.com> <451788d5e97cba38274e663d2b7952c593e959be.299fa9aa.210c.4b1f.9ab7.7acb67f42a19@bytedance.com>
+	<bb50436d-8af6-4420-b626-97f262f6759d@intel.com>
+X-Lms-Return-Path: <lba+16adeb688+6aaf44+vger.kernel.org+weiguixiong@bytedance.com>
+Message-Id: <451788d5e97cba38274e663d2b7952c593e959be.a7410b9a.6322.4d63.ba47.f773788cbe75@bytedance.com>
+To: "Chang S. Bae" <chang.seok.bae@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 26 Oct 2026 10:10:13 +0800
+From: "Guixiong Wei" <weiguixiong@bytedance.com>
 
-The pull request you sent on Thu, 22 Oct 2026 15:15:30 -0400:
 
-> https://git.kernel.org/pub/scm/linux/kernel/git/cel/linux.git tags/nfsd-7.4
+> From: "Chang S. Bae"<chang.seok.bae@intel.com>
+> Date:=C2=A0 Wed, Oct 21, 2026, 02:21
+> Subject:=C2=A0 Re: [PATCH v2 1/2] x86/fpu: Fix memory leak with dynamic f=
+pstate and exec()
+> To: "Guixiong Wei"<weiguixiong@bytedance.com>
+> Cc: <x86@kernel.org>, "Thomas Gleixner"<tglx@kernel.org>, "Ingo Molnar"<m=
+ingo@redhat.com>, "Borislav Petkov"<bp@alien8.de>, "Dave Hansen"<dave.hanse=
+n@linux.intel.com>, "H . Peter Anvin"<hpa@zytor.com>, <linux-kernel@vger.ke=
+rnel.org>, <stable@vger.kernel.org>
+> On 10/19/2026 6:49 PM, Guixiong Wei wrote:
+> >=C2=A0
+> > =C2=A0=C2=A0=C2=A0=C2=A0 void fpstate_free(struct fpu *fpu)
+> > =C2=A0=C2=A0=C2=A0=C2=A0 {
+> > =C2=A0=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=C2=A0 __fpstate_free(fpu=
+->fpstate);
+> > =C2=A0=C2=A0=C2=A0=C2=A0 }
+>=C2=A0
+> Hmm, just curious why the original check has to be removed. I thought=C2=
+=A0
+> this sanity check from the struct fpu context was reasonable, no?
+>=C2=A0
+> =C2=A0 =C2=A0void fpstate_free(struct fpu *fpu)
+> =C2=A0 =C2=A0{
+> =C2=A0 =C2=A0 =C2=A0 =C2=A0if (fpu->fpstate && fpu->fpstate !=3D &fpu->__=
+fpstate)
+> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 __fpstate_free(fpu->fpstate);
+> =C2=A0 =C2=A0}
+>=C2=A0
+> Thanks,
+> Chang
+>=C2=A0
+Right, will restore it in v3.
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/47439bb1635e8dd9245e876c2046b66a9b6f9400
+With that check back, __fpstate_free() ends up with fpstate_realloc()
+as its only real caller, so I'd prefer to drop the helper and keep
+both free sites inline =E2=80=94 same shape as before v2:
 
-Thank you!
+=C2=A0=C2=A0=C2=A0 void fpstate_free(struct fpu *fpu)
+=C2=A0=C2=A0=C2=A0 {
+=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=C2=A0 if (fpu->fpstate && fpu->fps=
+tate !=3D &fpu->__fpstate)
+=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=C2=A0 =
+vfree(fpu->fpstate);
+=C2=A0=C2=A0=C2=A0 }
 
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+=C2=A0=C2=A0=C2=A0 /* fpstate_realloc(), unchanged: */
+=C2=A0=C2=A0=C2=A0 if (curfps && curfps->is_valloc)
+=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=C2=A0 vfree(curfps);
+
+The fix then collapses to two changes in core.c: free the dynamic
+fpstate at the start of fpstate_reset(), and clear dst_fpu->fpstate
+to NULL in fpu_clone() before the reset. xstate.c, api.h and
+process.c stay untouched.
+
+OK with you?
+
+Thanks,
+Guixiong
