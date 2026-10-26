@@ -1,107 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793014484;
-	b=C+cOfUzz4ZBUEQVMMsx5j7c6NwtJK3rQgDx26PySxbCi6GUCtVHwpIMVOmE+Q8S0QQr3
-	 3mmpm77VM40k4p2lPXVl9bGWkhalZM5P3TqxoJI0AbsLPxUZCfGn6YzGU/58xtZH0mKjo
-	 uWAL1Nx4AyelhHCDiqIgN658h1BKRf4Gv5XUM1NY4E54Ht7+mIoPRLlaDcYfDbvgdzHuJ
-	 r+vZpsFf1DS3CJA4ywxiLpO9SS0B+hAqqrc2IrDgCDCTZ8q1lXs9waACNFSpgZ7585vjb
-	 rZoCx4uf07GHBGo/R6KQDqEqdyND4hBfC0QqLcmGxDYzJjIlS8AzUqehpTLzAMGnLUg==
+	t=1793014496;
+	b=GUMT4sbM9O1+BEkL6XDl+YiDpbTbpg7VusB52NPJdVB3rvUN1x8pFa2didvRODqvynCM
+	 rMUiEedrrODu86vy31Fb+SpKhWLV8mfOmWPTPwjlGVBK+R5cYIYQhNcBgkEp0DM01Z20H
+	 xP0zHZzJz87QPiVnTF/JsuuwVXQt9r+/cX0n4ojCVczwOKirrtEf0rf7XtfZpNZ6+Ns7u
+	 aXc+7YeLYR5YQZwQKzl5PtoC6b/6ywfWwx2XlBgUPe2sQ63wpgDFxMygS87/GwK4kmT4J
+	 MOczeiOqtPdknyoovLjhteM689DF/ewjZUb98GZmX9fdMk5He3vev5tPV+OXln2mRKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793014484;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
-	bh=7Zp+M2l9qEe8wFeHsJF1HClM39hdMYJZfLcSJHn+m0g=;
-	b=A7qcEO7iO5LocyXtICDwIwRI6VaKQy4Fj48NR9c9M3Xg0eKprMAVJqnDSyCFf+2iJqRe
-	 PBBxxs1aYjj1QKLRH4MzdxYKpxseLFTx9O26neynchhaBsClLQDbZPsiuSS4DEsMDSxAl
-	 sQBld7zFnvT9VZwfiIX9JnyQRekLVV/rCgcGMvXcOlS+h4nMHUJ121PY/M0NSBO9+rHTo
-	 UZGfbu/g+nqJJKYvP0MrB8gUIb2YFdi3jVwLKEPNaPMSIV1GvhPZYYEYS1p892NleBOOd
-	 gTsk7AUj8VdPdnMcgK8JC2/iQ0o32gxl1DLtEGDEd1cqbJZgQqMHLu6azEkdBfGiXKA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793014496;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
+	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=81iWWYvNHOsYhJI1AtdMbueFZTVrGpiCZivI5SfyHKI=;
+	b=n3dcB12kiJOoxO2MHnpOI49+MaZa0EoQ+QTqFZWAjZ92FL8lGnS2U/n8VZ4geB3mtW27
+	 nVqrdeM5ZFtpa4CVC/lmM5c5a9r5qIcLNSUCumd4cpeiv4769TBN+7v7lch50AW4mVl2T
+	 GXHKC4QpobNVa3Z6SdX57tz6fpnppdRWbSTHLVqgxQvLPO4bbCsCa6E8pKq3E4h7wdDOA
+	 Q67sWhpzd7X7VLiRo9tsm7y9g3gGWuSsPxzZJokUnNobE22XoexoAS4nAYJF40CnH0ao5
+	 y4PNfJwfKEMDT6AKA3M+PTIdMh49pcmJEZoEUL89T/zZ+jZRABuZhOiIeXlCT2Lcgkg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=B0nEkdJG;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=1qPUsceX;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=B0nEkdJG;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=1qPUsceX;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=QmppccKC;
+	arc=none smtp.remote-ip=192.198.163.15
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C0CD606A31B
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:34:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C0CD606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0043606A31B;
+	Mon, 26 Oct 2026 11:34:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0043606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=B0nEkdJG;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=1qPUsceX;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=B0nEkdJG;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=1qPUsceX
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id B208721EC7;
-	Mon, 26 Oct 2026 11:34:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793014481;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7Zp+M2l9qEe8wFeHsJF1HClM39hdMYJZfLcSJHn+m0g=;
-	b=B0nEkdJGGdGpbA4vcmvri4kbY+Ri1As4ein9GR7hTrTD3LLgl/+MGFrW4djtNfIgUMdx4Z
-	JL6J7KkDXGjpxgawn8zFASy+Zd0eXUiRUhdmyBlLkYFV3p7boj4P4DfuhOuJoQE+hJw8JG
-	ScbPA6IoNkg7ANnhqLtkNfivqOa7sX0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793014481;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7Zp+M2l9qEe8wFeHsJF1HClM39hdMYJZfLcSJHn+m0g=;
-	b=1qPUsceXMwt24BcYYeuT1gg9AqVIAdLcuDYKOqkU45f3Edqc17hXtVShnuQ7/3BIPBQ7ZU
-	3FhSoaGacddO7pAw==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793014481;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7Zp+M2l9qEe8wFeHsJF1HClM39hdMYJZfLcSJHn+m0g=;
-	b=B0nEkdJGGdGpbA4vcmvri4kbY+Ri1As4ein9GR7hTrTD3LLgl/+MGFrW4djtNfIgUMdx4Z
-	JL6J7KkDXGjpxgawn8zFASy+Zd0eXUiRUhdmyBlLkYFV3p7boj4P4DfuhOuJoQE+hJw8JG
-	ScbPA6IoNkg7ANnhqLtkNfivqOa7sX0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793014481;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7Zp+M2l9qEe8wFeHsJF1HClM39hdMYJZfLcSJHn+m0g=;
-	b=1qPUsceXMwt24BcYYeuT1gg9AqVIAdLcuDYKOqkU45f3Edqc17hXtVShnuQ7/3BIPBQ7ZU
-	3FhSoaGacddO7pAw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D8BA413408;
-	Mon, 26 Oct 2026 11:34:40 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id vfQOK9A632qbfAAAD6G6ig
-	(envelope-from <pvorel@suse.cz>); Mon, 26 Oct 2026 11:34:40 +0000
-Date: Mon, 26 Oct 2026 12:34:24 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: Andrea Cervesato <andrea.cervesato@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org,
-	ltp@lists.linux.it
-Subject: Re: [LTP] [PATCH v2] MAINTAINERS: Update Andrea Cervesato's email
- for LTP
-Message-ID: <20261026113424.GA544805@pevik>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-References: <20261026-acer_maintainers-v2-1-4cf0f350fdf1@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=QmppccKC
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793014495; x=1824550495;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=RGYZQXfA58aETXSfq31w7qTqCLtv7XhPuDLLw9HvvkQ=;
+  b=QmppccKCx66rgaBPSJ6lY2szB7ClPTf29Qo+TCTUiPNt1MkqD1qWOFRL
+   MLmeQnyu8wnWeWsM0EWzuXo65z6xvYVemvDJRlvxTYZwyhoIKcOc0A39H
+   Oo8RAF0+kiBzLD4sGrmgUDEsky6pKYI8JC4eaqvHcFNjo8XNb4CWzkQr3
+   bN/SHfVZpi4hifGEx+fG++Ne5v9Ap9UUT8lrN8it7cYiUH7LyAj7oxhbn
+   WA5MVdz3OjRHSNWiCwaoJYWm7fMbgLuRS6QxbFrgeECLf2FxT/jCglzz9
+   8vm8gegdd62twIKQFcYW7kLLIW/XWCx1ALqYPiCKaOo/B0g9otcXp46G6
+   Q==;
+X-CSE-ConnectionGUID: /Ze4pcvTQpuyzYCiZ4o8GA==
+X-CSE-MsgGUID: 6xJsCgaGRe6w46lVmoDKQQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1688419"
+X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
+   d="scan'208";a="1688419"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 04:34:54 -0700
+X-CSE-ConnectionGUID: QigCHB+eRra3KI8W7BsTdg==
+X-CSE-MsgGUID: Z0gGYDW2RBqwLlpjblv/eA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
+   d="scan'208";a="4145333"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.73])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 04:34:52 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 9D55D121CBF;
+	Mon, 26 Oct 2026 13:34:53 +0200 (EET)
+Date: Mon, 26 Oct 2026 13:34:53 +0200
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Antoine Pichot <antoine.pichot@gmail.com>
+Cc: linux-media@vger.kernel.org, mchehab@kernel.org, djrscally@gmail.com,
+	dan.scally@ideasonboard.com, hansg@kernel.org,
+	andriy.shevchenko@linux.intel.com, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/7] media: i2c: ov7251: Add control event support
+Message-ID: <at863XdUDea7JDA8@kekkonen.localdomain>
+References: <20261026111032.88355-1-antoine.pichot@gmail.com>
+ <20261026111032.88355-4-antoine.pichot@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,39 +86,29 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261026-acer_maintainers-v2-1-4cf0f350fdf1@linux.dev>
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-12.50 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	HAS_REPLYTO(0.30)[pvorel@suse.cz];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCPT_COUNT_THREE(0.00)[4];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[linux.dev:url,imap1.dmz-prg2.suse.org:helo];
-	REPLYTO_EQ_FROM(0.00)[]
-X-Spam-Score: -12.50
+In-Reply-To: <20261026111032.88355-4-antoine.pichot@gmail.com>
 
-Hi Andrea,
+Hi Antoine,
 
-> I'm not working for SUSE anymore and I will use linux.dev email to
-> develop and maintain Linux Test Project. Also update .mailmap.
+On Mon, Oct 26, 2026 at 08:10:28PM +0900, Antoine Pichot wrote:
+> The driver exposes writable controls on its subdev node but does not
+> support control events, so VIDIOC_SUBSCRIBE_EVENT fails and
+> v4l2-compliance reports:
+> 
+>   fail: v4l2-test-controls.cpp(1128): subscribe event for control
+>   'User Controls' failed
+>   test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: FAIL
+> 
+> Set V4L2_SUBDEV_FL_HAS_EVENTS and use the standard control event
+> helpers, as other sensor drivers do.
+> 
+> Signed-off-by: Antoine Pichot <antoine.pichot@gmail.com>
 
-Acked-by: Petr Vorel <pvorel@suse.cz>
+Instead of adding explicit support for events, could you instead make the
+driver to use sub-device state? See commit
+e8a5b1df000e1a23c04dadbe99621441e0889f88 for an example.
 
+-- 
 Kind regards,
-Petr
+
+Sakari Ailus
