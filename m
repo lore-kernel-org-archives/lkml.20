@@ -1,66 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=130.117.225.111
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793017512;
-	b=X3JqZxqW9babhdcdGVYZ2G1U1R2NPpUIHz/dorcJTKbeeSIN6CwNerAtEg9YSlndPu6z
-	 v5gl5QyClpbTEfjj9rPjogqSpvUpsSmmleW4GQVKCPpDtcP8iKSs2lCnnz+4IXuOgLdJd
-	 T3h/z0nQZOWCJCuzmSmWkzj+0VKJlWkswhi2jTO1pDlUNar5HGUrmpkuiRyYvFbLyxd/C
-	 d7Tik8lcbiOPxUsWqLDWkRLL7lZYJlupQZMSjl64tljtovN+QIxZRFjUVgEID7SOk3OEN
-	 9ou3H1ZmtLfLTt+k4CD8HWmhYDqCBod7IqRJoZI2dzKn2o3oCx+exAqd6Le7Dp/h85Q==
+	t=1793017532;
+	b=p+9XU26gk1pKH0XMfbXqOsa5qcDo+adncS6Qr6XlWXI1TYFZ83HA33Jw8khPPjGjBhjO
+	 wvKJDctvZpa5uSHLqYjCoGi26rfpm3saiwsGec4NezSSp7+jGBliQsB8uKRGI8Tp5aoko
+	 o1aLge7WvX/BIHshB2C9LfChSdT2TQawZtP8LkcU6qhwM9y0xSIvnkAtEnaKsv9xKShJp
+	 qAFPpm+C9pAol5dWzH8b03xq+PjOCQAMuaXoloxSvJ482zuON/p2/rFxdDVU3KyoyBRbO
+	 NQ1FsZDLiCxAgQynfnw9xSiFTcjrZbqhuNobA4IzC/axQDjj1XX9wfdvRjb65cXEYUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793017512;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=wa7YoBBd7JzA0bL8omeqz71lvo/LcqYa/z0727D7QW8=;
-	b=oWJqA29buCazwjK8ejAen0XLxAWwJWVvLCve3JbQ/uwEpwM/b3E07G9TlFqTiJBoli8p
-	 zyf55zw2UrAzwUvAe8zVr1oeqyXSe/8sr43QxSse96T2lcQPkW4v0b0ENIZdyW5BrPBHi
-	 Z2RC6nFSFqFyAE9Kh/Tzpja6/CWIavl2GhUPR5v+/e7VGYckxL9jO5HfwjdWh/MIk7QsR
-	 eKtSGVCDsH2KYjbIQMwJW3+kIX3GkS8QfTGqXBz/8uMt6xyfKhvD5Uw1iQ2Y36IlB0Ruv
-	 h+oEOgOx/7SVNZgejjQaH+xpy9fu4k8p/UtsfMIVyLZPMIrJWe1Kg/7Bg1tEzu9LFWw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793017532;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=Uy/PqV0xn8AdfJOF2rmqxMZ7uFIic9NZvt40QP1514k=;
+	b=K42Zn369gXbFoMceyVPOxTDUpch0/J7oug6q72oi4ZQ+B1LHCluSSo5BpeKLz9rK1k6b
+	 rhv8HpJilQm2Y5osCwh4Kamk9A4GwRsMFvP0GNMNs8ndlpiXGx1FxzxudcdNN3GMlTbQs
+	 V6xMtVjEfzIR/uW0KykHCQdCsA+tRMP2JcybQRfIOgSTX8haArC04GRCu66clbeaB0mWF
+	 W58lDREs1NdgoT4MDDz2MIFrWL82VaC+siamxtAtaEjR2XrsFjUzGsJvtlPsNjcJs4ZKH
+	 9eAt8C3prMDRM73HippTCzc/QyPyUrfzU4YMi0B56+OHbxQBi4VTk954KdF2CLF9YCA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=virtuozzo.com;
-	spf=pass smtp.mailfrom=virtuozzo.com;
-	dkim=pass header.d=virtuozzo.com header.i=@virtuozzo.com header.a=rsa-sha256 header.s=relay header.b=dFgsTXxN;
-	arc=none smtp.remote-ip=130.117.225.111
-Received: from relay.virtuozzo.com (relay.virtuozzo.com [130.117.225.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=WPjPMV2G;
+	arc=none smtp.remote-ip=209.85.217.42
+Received: from mail-vs1-f42.google.com (mail-vs1-f42.google.com [209.85.217.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57E92606A31A;
-	Mon, 26 Oct 2026 12:25:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57E92606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=virtuozzo.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F120C606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:25:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F120C606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=virtuozzo.com header.i=@virtuozzo.com header.a=rsa-sha256 header.s=relay header.b=dFgsTXxN
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=virtuozzo.com; s=relay; h=MIME-Version:Message-ID:Date:Subject:From:
-	Content-Type; bh=wa7YoBBd7JzA0bL8omeqz71lvo/LcqYa/z0727D7QW8=; b=dFgsTXxNYG6J
-	+E/f4BNFuOF4LeltcVBbHCXvwL5i5z0X8eaahCjNi1RAa3baflqXGcwI6i2pwtR9GiptwNiQfWpDQ
-	sNQeINdmD4ridjIgy8+f7str2qk8IR6XDi3vADJt9qnBRNy4LhdWdQYE9I+QkGl4n9bm/RsWZuau7
-	LotIr+TxSILlMAliuLFK/vnmt1MV0qwnTJeAzyMQwkEDP9EW2OZq0FW8prbwBnpWMpO/YDpjR1Goj
-	FE7HaoSGLUDoJjzmWNa3GtcC16U93qDAdmAtoa9bD0aydsV1fM63vOZ1n401ZMUCB6uNY9ai5gpiY
-	bdhrlMWawdOqsUkRWReeCg==;
-Received: from ch-vpn.virtuozzo.com ([130.117.225.6] helo=LekKit-T14)
-	by relay.virtuozzo.com with esmtp (Exim 4.96)
-	(envelope-from <eva.kurchatova@virtuozzo.com>)
-	id 1xLJhK-0029cR-0C;
-	Mon, 26 Oct 2026 13:24:48 +0100
-From: Eva Kurchatova <eva.kurchatova@virtuozzo.com>
-To: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Shuah Khan <shuah@kernel.org>
-Cc: linux-kernel@vger.kernel.org,
-	Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
-	Eva Kurchatova <eva.kurchatova@virtuozzo.com>,
-	netdev@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH] selftests: net: veth: check UDP GRO forwarding on forwarded traffic
-Date: Mon, 26 Oct 2026 14:24:35 +0200
-Message-ID: <20261026122440.603302-1-eva.kurchatova@virtuozzo.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=WPjPMV2G
+Received: by mail-vs1-f42.google.com with SMTP id ada2fe7eead31-7ce6cb4c6faso66688137.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 05:25:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793017531; x=1793622331; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Uy/PqV0xn8AdfJOF2rmqxMZ7uFIic9NZvt40QP1514k=;
+        b=WPjPMV2GzhWEE5rB6rxz833ehsMAXDta3sOoZVRktCEdyknFwVsUHRtDGVizYRxiUF
+         A5aK+EQBPpgFkVgArRFSWn0A95GZvt2FzhgPqRdIUp2Ox1s9tJ6wVnGUjO0+IR3STb2G
+         oWcriSEJAIOUIoGa6UWmJJ5waV1c8RQ/ha7agfcknGH2LM2FJoa0fmpQaY8nNAVRystk
+         rECssJkyILd7Ze4hFYVNaD/uWDd0YbGMulbZN3CyIH+BWXWfaQcSpG2HtD6Huw7A14dP
+         u3Tp8g7XGn6Nhr3GiaXIhcrwkJttjeVmjSJxCITht07b4nxh9VScxAO/mbTQmLpJKGx+
+         z0UA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793017531; x=1793622331;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Uy/PqV0xn8AdfJOF2rmqxMZ7uFIic9NZvt40QP1514k=;
+        b=2FwzaVuU4ROyLP1EF7QN1fnsgc9lSPNX3StTNOrVhHgZ1UqyGvUO48cDKqXNNjAKwn
+         NFVxhcqyBO1Wm395mIecifSfmv42i/7pDgLhsPiZaKufBNzSg1nmLs5ixMufHJ89s+qN
+         oH28gIoUxnqvgdNxxNbgNQKKjUVHmeMtlvSp2F3lzePLmPM3fGGoR/qf9b3AykdwMgW9
+         dige0sq5RvjFAUzC71fjhsJ8pTKuEUgOc+6B0jpM/dCirTszqib/SaT2rvLWZGu6Rwq4
+         4EgypQIsGJhqfKV2zDsV6y2BYj1WjLGiBs9Ca2tV2PGwl6//pDbNSxvn1NFHXIMVCghg
+         PLlQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwVXCY5Ny/NqzMSvVI/knIztfko3pEBevWUhdc/rRSwgARf8R295DVnvIjMSlAloDbYCin8iwrmCUtrB5I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKXvVYrQ1eP31VYK/YIPeQEtu5FGurdXP8WOZTTYUbv3ygqE2+3
+	dUl3y+5FJ8vHBexWItRSPLJPIVnOfPqYTltLDKQ7MzHCfCvlxYzCNxA2
+X-Gm-Gg: AYBFou3k4APxlp2ZdfAYWaEjtHVsSnnHT5Lklqyzz0/O5YDqiIpRgh5mLVhIo7AUm8W
+	uGoJ1S7maXw/3OY28qbhaXVVyS9BPoubkBfIEb2vOumLv6mytx2BzHNSAbpSSI/Irnq45QdDkjS
+	vSM/OAY2iSXSDV2rRvRtxeZ2QkEL7h0wCwiULJs4OaFxIhCFYo/cWhQhTSOKq2BrQ1bvbTrJKkv
+	7EEylDx5vS607d81mVUDRs9GVXaU1fahZhYNrqZjTHwLEN9yukb5imqtdQa1OP8jiVbeOH9uhMQ
+	GJPh5wBDk44mf4KwIGdG7onac3Hbc1oxz4N6xJlz+BA8HVcOwdKzVVZWWEFpeG6PoKVkGJRP2Ed
+	SOZ1tELpo8co2Wax7bi0Q0Pet1iUHUOSnvH6SfPXvwc9umzPZ98K0YkyVfOpHrT+/wFy+WzaphL
+	wDHDYegMcBqIatiVUz183ODKxt1iz0IfZqL1VL9uc+RmS9MGWBAcDFcQ+lFqA3qulz0NduvkG6m
+	FifWO6FopubwJmTvJrXfpZh5onY3iICGiVEVA99NsUUmekEL4RE9gW8lVxObA==
+X-Received: by 2002:a05:6102:604e:b0:7cc:1b19:9258 with SMTP id ada2fe7eead31-7ce5ca1e48fmr1995133137.3.1793017530653;
+        Mon, 26 Oct 2026 05:25:30 -0700 (PDT)
+Received: from leonardoc-nb ([67.159.246.222])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9910e7b7069sm8121766241.3.2026.10.26.05.25.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 05:25:30 -0700 (PDT)
+Date: Mon, 26 Oct 2026 09:25:20 -0300
+From: Leonardo Costa <leoreis.costa@gmail.com>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	Leonardo Costa <leonardo.costa@toradex.com>
+Subject: Re: [PATCH v2 3/3] ARM: dts: imx6q-apalis: Add VGA overlay
+Message-ID: <wancrsxcem5uep5oy5pnw5prewefqah7drmhiu5wrq3ctykltl@akwvtqbebblb>
+References: <20261019-v2-apalis-imx6-enable-vga-v2-0-ef6a3a780472@toradex.com>
+ <20261019-v2-apalis-imx6-enable-vga-v2-3-ef6a3a780472@toradex.com>
+ <atZxhWaUWthEHkti@SMW015318>
+ <lozimedmt3h7v6odvp4svvmatvk7726a4ztn3j7ft44oto7p5p@dmrudrmzyz3s>
+ <ateQWqoTtXSBSBvm@SMW015318>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,99 +109,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ateQWqoTtXSBSBvm@SMW015318>
 
-The rx-udp-gro-forwarding checks fail with "got 10 packets, expected 1"
-on a host where something has a UDP tunnel socket, a vxlan say, and
-pass on a host where nothing does. Since commit 36707061d6ba ("udp:
-allow forwarding of plain (non-fraglisted) UDP GRO packets") the
-feature aggregates only datagrams GRO finds no socket for, and GRO
-looks the socket up only once a tunnel socket exists on the host; the
-checks send to a socket in the receiving namespace, so they pass only
-while nothing looks it up.
+Hi Frank,
 
-Let the destination forward the datagrams to a receiver in a namespace
-behind it: no local socket is found there, tunnel or not, and the
-checks count what the destination receives as before.
+On Tue, Oct 20, 2026 at 11:01:30AM -0500, Frank Li wrote:
+> On Tue, Oct 20, 2026 at 07:33:10AM -0300, Leonardo Costa wrote:
+> > On Mon, Oct 19, 2026 at 02:37:41PM -0500, Frank Li wrote:
+> > > On Mon, Oct 19, 2026 at 07:17:16AM -0300, Leonardo Costa wrote:
+> > > > From: Leonardo Costa <leonardo.costa@toradex.com>
+> > > >
+> > > > Add a device tree overlay for the VGA output available on the Apalis
+> > > > Evaluation Board, which is driven from a parallel RGB interface passing
+> > > > through a non-programmable video DAC to a VGA connector, without VESA
+> > > > DDC I2C signals.
+> > > >
+> > > > The non-programmable video DAC consists of a simple resistor ladder that
+> > > > converts the digital 16-bit RGB signal to VGA. The VGA output is gated by
+> > > > an active-low data-enable signal.
+> > > >
+> > > > The overlay is also combined with the various Apalis Evaluation Board
+> > > > device trees to provide ready-to-use DTBs.
+> > > >
+> > > > Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
+> > > > ---
+> > > >  arch/arm/boot/dts/nxp/imx/Makefile                 | 21 ++++++
+> > > >  .../boot/dts/nxp/imx/imx6q-apalis-eval-vga.dtso    | 80 ++++++++++++++++++++++
+> > >
+> > > what's difference with
+> > >
+> > > https://lore.kernel.org/imx/20261019-colibri-imx6-overlays-v1-5-e4d028727382@toradex.com/T/#u
+> > >
+> > > Is it possible share one dtso also?
+> > >
+> > > Frank
+> >
+> > Hi Frank,
+> >
+> > The Apalis iMX6 one needs to set up the connection between the IPU the
+> > LCD interface (endpoints ipu2_di0_disp0 and vga_display_in), and the
+> > Colibri iMX6 one uses a DVI connector instead of a VGA one. Most of all,
+> > the bridge on the Colibri iMX6 doesn't have any control signals, while
+> > this one on the Apalis iMX6 has an active-low data-enable signal
+> 
+> This make sense to use difference dtso to cover it. Is it use name
+> imx6q-ipu-di0-vga.dtso, because this dtso have not boards specific part,
+> which can reuse for other similar hardware? Or we can rename it when reuse
+> happen.
 
-Fixes: 1c3cadbe0242 ("self-tests: add veth tests")
-Suggested-by: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-Link: https://lore.kernel.org/netdev/CAF=yD-LZSec9g_0bBgrcQvq2OO1BrxMSRHH=uU7eamCmWcTO_A@mail.gmail.com/
-Signed-off-by: Eva Kurchatova <eva.kurchatova@virtuozzo.com>
----
- tools/testing/selftests/net/veth.sh | 26 ++++++++++++++++++++++----
- 1 file changed, 22 insertions(+), 4 deletions(-)
+I think the overlay should be kept as imx6q-apalis-eval-vga.dtso. As it
+currently is, it's easy to identify the hardware it may be used with. If
+another board is added which uses the same interface in this same way,
+we can evaluate if it's adequate to change names for reusability.
 
-diff --git a/tools/testing/selftests/net/veth.sh b/tools/testing/selftests/net/veth.sh
-index 8b867e0675a7..be7c6b9213a9 100755
---- a/tools/testing/selftests/net/veth.sh
-+++ b/tools/testing/selftests/net/veth.sh
-@@ -9,12 +9,17 @@ readonly DST=1
- readonly DST_NAT=100
- readonly NS_SRC=$BASE$SRC
- readonly NS_DST=$BASE$DST
-+# The receiver of the GRO checks, behind the destination
-+readonly RCV=3
-+readonly NS_RCV=$BASE$RCV
- # shellcheck disable=SC2155 # prefer RO variable over return value from cmd
- readonly YNL="$(dirname "$(readlink -f "$0")")/../../../net/ynl/pyynl/cli.py"
- 
- # "baremetal" network used for raw UDP traffic
- readonly BM_NET_V4=192.168.1.
- readonly BM_NET_V6=2001:db8::
-+# Network between the destination and the receiver
-+readonly RCV_NET_V4=192.168.2.
- 
- readonly CPUS=`nproc`
- ret=0
-@@ -26,7 +31,7 @@ cleanup() {
- 	[ -n "${jobs}" ] && kill -1 ${jobs} 2>/dev/null
- 	rm -f $STATS
- 
--	for ns in $NS_SRC $NS_DST; do
-+	for ns in $NS_SRC $NS_DST $NS_RCV; do
- 		ip netns del $ns 2>/dev/null
- 	done
- }
-@@ -48,6 +53,17 @@ create_ns() {
- 		ip -n $BASE$ns addr add dev veth$ns $BM_NET_V4$ns/24
- 		ip -n $BASE$ns addr add dev veth$ns $BM_NET_V6$ns/64 nodad
- 	done
-+
-+	# Forwarded, the datagrams find no local socket, whatever tunnel the host has
-+	ip netns add $NS_RCV
-+	ip -n $NS_RCV link set dev lo up
-+	ip link add name fwd$DST type veth peer name fwd$RCV
-+	ip link set dev fwd$DST netns $NS_DST up
-+	ip link set dev fwd$RCV netns $NS_RCV up
-+	ip -n $NS_DST addr add dev fwd$DST $RCV_NET_V4$DST/24
-+	ip -n $NS_RCV addr add dev fwd$RCV $RCV_NET_V4$RCV/24
-+	ip netns exec $NS_DST sysctl -wq net.ipv4.ip_forward=1
-+	ip -n $NS_RCV route add default via $RCV_NET_V4$DST
- }
- 
- __chk_flag() {
-@@ -134,15 +150,17 @@ chk_gro() {
- 	local msg="$1"
- 	local expected=$2
- 
--	ip netns exec $BASE$SRC ping -qc 1 $BM_NET_V4$DST >/dev/null
-+	# Taking veth$SRC down drops the route, so set it for every check
-+	ip -n $NS_SRC route replace ${RCV_NET_V4}0/24 via $BM_NET_V4$DST
-+	ip netns exec $BASE$SRC ping -qc 1 $RCV_NET_V4$RCV >/dev/null
- 	NSTAT_HISTORY=$STATS ip netns exec $NS_DST nstat -n
- 
- 	printf "%-60s" "$msg"
--	ip netns exec $BASE$DST ./udpgso_bench_rx -C 1000 -R 10 &
-+	ip netns exec $NS_RCV ./udpgso_bench_rx -C 1000 -R 10 &
- 	local spid=$!
- 	sleep 0.1
- 
--	ip netns exec $NS_SRC ./udpgso_bench_tx -4 -s 13000 -S 1300 -M 1 -D $BM_NET_V4$DST
-+	ip netns exec $NS_SRC ./udpgso_bench_tx -4 -s 13000 -S 1300 -M 1 -D $RCV_NET_V4$RCV
- 	local retc=$?
- 	wait $spid
- 	local rets=$?
--- 
-2.56.0
-
+Best regards,
+Leonardo
