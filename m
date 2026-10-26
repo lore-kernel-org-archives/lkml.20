@@ -1,122 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.97
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793039372;
-	b=HApdBeaRvcms71lZwAUL51sjk5uhhe5jeiqFtIs0JP5u+ePHzYG1Pr9Oy5uWh9xraAn5
-	 +IpPqYvfneSfUp+RdqKByBhjUzyAcyDUJpYRfBvce/wlkJmlYrlKny9JXQ5e65JwG+ciY
-	 Xv0YzXMOhh62wDncZoZA44CoLdxlyoz9ahUl/gyp4GVYD54X1NaWRXwT/SDwXpRVX6q/F
-	 zqKwG+EXwf+PXaccaUeDlhgE+XB04HJSsXsZP2/THScdwP763yrL9FH3umC99xGn0Nf/O
-	 Yr/oVZipIUEpx+1z5//gwlidnPwHkD6k28poSEnFJn2uwXRjwhrdpVbJP9BOogANsuw==
+	t=1793039357;
+	b=0LtaoS6TQr147r3JmtkwrJGo/7kQ4bFO8ERrwtt9vA7+mNUac82BS87tt3/4kcNU3bRa
+	 jvVJ7kKy9P2YgV3PWinx9LZTPn7ByMwfggJvzhTJqfP+C734+xoRisKQnN0p1c63ugt/P
+	 1sqKHDXRwcrOCO9wiZCjQ5ISVHDvY7UzGkaB8spTzaD45bohBV5GRoQM6YGO686derhXe
+	 30btx01Y2Td7AAxsBRQWoQNx0QMW3WrMjVHtYBAE3/FLNHrmMmZJCfglvFSm2WNbDOum7
+	 F9q7s9LQWBqzhfwU4Szw9SpWmj1V2kZyT/pSNJIXmj+cmswHSuAWVO+FIr3NyKuS1Rg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793039372;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
-	 X-Gm-Gg:X-Received:Received:X-Relaying-Domain:X-CFilter-Loop:Received:
-	 DKIM-Signature:X-Received:X-Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-DetectorID-Processed;
-	bh=mvtMFeEgqCOciHeQyrJ9AYtTF4EED76l0h+Ctv+GHTw=;
-	b=UUUjgnSb5kpcjbPc2EIphG8zLLCqhCriLVrYsVfw3+OOtZdTfdvzIpaqmasWzDksZB7E
-	 Pi684Yg4oXZ8Uy7XLIvTk5wwOSW0PHbl6oteCbu3Tjw2UjTunvystVy+fJLlk6HlePXL+
-	 xD7mXHbXZKH/3vegMn3ZFZzwtSewOawSvByox73jV8g8587YOAgDj5IjwQFdfEtA8Mtuq
-	 PqyLsWYo5PO4DMbhyFxtr/wH7ml+XdMXHpH3Eb02EAzSMEpDbLcJzR+dZrV7FNwjqqOfp
-	 yeMFUZulEW3y/QQROZ7AxfhG22pHJnyz6FamShuYZ1+gPN2nyWoueXHbCPtIHI95JbA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793039357;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=2MLrqt+GUM0f3y9eyD203JdQ2SEZO2AUc5pd8y9hPHg=;
+	b=1wo2v0R8RqjRpbOs2c6TxgmU6lH2L0Ot6LeFc4uTWhHIi/vZzsMVwv01vWj9O4dmrAbr
+	 qZTHMmbtvSX70TlY/d8c4i2xAcMP6bfknDdM2fls+Miif/yL2P3Z1+UllKPR2jIsn4DZC
+	 BspiCy13QOsCWrU1qbgoeBr7y5+oj2Hq9EwqFMaO3LGGRA2zpOC/j3ZXQlArMx/iR+Iv8
+	 eg4t+oo40zXoXz7mlf2jjHj8hp1waOiJzAgAtYmv2eua/yq7pJDFe9eyBrj3TJ3nsMCUP
+	 atvCNLNScmbi9b6PGiriYDzocM//qihRjzlM4AlycphmhMPfyLgR1W/iNP8wDJQeJ+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=LIOJVQOW;
-	arc=none smtp.remote-ip=209.85.216.97
-Received: from mail-pj1-f97.google.com (mail-pj1-f97.google.com [209.85.216.97])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AQ3ZbWmy;
+	arc=none smtp.remote-ip=198.175.65.9
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61BDD606A324
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 18:29:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61BDD606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A541606A335;
+	Mon, 26 Oct 2026 18:29:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A541606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=LIOJVQOW
-Received: by mail-pj1-f97.google.com with SMTP id 98e67ed59e1d1-3ab41538192so2462832a91.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:29:32 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793039372; x=1793644172;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mvtMFeEgqCOciHeQyrJ9AYtTF4EED76l0h+Ctv+GHTw=;
-        b=BTpriBXlodFcersFr/Dad+q+mCTe7+bypfGbJjpPhMDi2wT8L5Pon/MY/WgogzBM6o
-         gkfI4rmGqdVYRJOw3FvBSooAn1aMbk54qqBmK2+oo2ltioFTK/H7P7mR9l2E7JRwsBoS
-         8N2LPC093LhewBbdjYr3QCbT1rIk2X+x8v8l+oljmn36A1KjKJJV2OzBfL6HSEOgc8sl
-         p140Kf4JAofrWnik1NekD15S2BXlJrxaTczwrJSretnvZGrZzJjbE8ZBiAVHZtXNxfiC
-         BA/1606o3d10uF5vRZKSnXyszFqEw0ZZ0vxdCAs5S6bMDmo7OCLzZ3o5etMSGkxUtDgc
-         xrWA==
-X-Gm-Message-State: AFq9FYKwtayFWPA7h/Awgf1AzGZFpdrkqk7ieDpLZuNaysulR6FTKPWF
-	tlhXOnyirNdV6cckPet9HzQwGXcviNBijO9eEVfWKHAeRsNfK7KZLYOjD4RMzEGaL+/mMCGS+Z7
-	o+ALxBOKDqZysgcUx5ZOLrbWhtmsvRzj+C0F7jGmHKB88Bw1E1DXPp9hT9ewrSIS4vsb1M1d5zk
-	88ppmg9tpCPDW/DVJ7Igylph20nvsXjbidwnD7PDvBeYrcb+VW/bHLeBJZOPz/DVKak4GCEaEcD
-	W/ywJlUSoBeH8LFBh+8//h2
-X-Gm-Gg: AYBFou3ftUCzC0jJhF5iZQEluySNJcAmL0x99WIJtlJ5diYSq1KfLF4xe/fUam/lkRo
-	hWwEZyBh7gwC4KL4O6rOjHlnW6ZkWfe4E80L13JF/nyc2o0gzSYtfkFSZ51DQJvURu6UVQ0rx/8
-	Tw3qABJSdq5l5RW6GLH8z+vvNuvLkpe5txOq0gNHveB3I6A8j4v6Sl2DTP91TIAPxa1pAWHjZeQ
-	Chr3mEKFMoPJgqM9+UQzoxg93WVeqnYjjk/I7pLVsL8+Uf4h/9tEpeCnZqtx+J8i0J/wGGxuNJc
-	GJGYQHoGs9jybR9B13vseMRPpG4WUbgYCOd50/+o+T8bmtgE1JOeQ7YF2e+LfYVtpooviWBUdGe
-	XvQvROiL0PZ0WEH2Yx9FtspePS3ZNVXLyg2SPEYvIpxPG4FCkerCo2b8yJizmFZt7vEokhQiNHE
-	5ywhARKH37N2gFauoVByKxJ05Vv1vOB5AwYzaqt6oJ
-X-Received: by 2002:a17:90b:3c41:b0:3ac:a521:95c with SMTP id 98e67ed59e1d1-3adeb123844mr6687999a91.58.1793039371694;
-        Mon, 26 Oct 2026 11:29:31 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-23.dlp.protect.broadcom.com. [144.49.247.23])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3adeba6ac8fsm3433944a91.2.2026.10.26.11.29.31
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 26 Oct 2026 11:29:31 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-35c3c370b17so5741740eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:29:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1793039370; x=1793644170; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mvtMFeEgqCOciHeQyrJ9AYtTF4EED76l0h+Ctv+GHTw=;
-        b=LIOJVQOWEm+yBjrPuVXalbtBdskNsAKvaNT5yoKyNwbTpn+54ucSCM8hMN+E727FAZ
-         eNjzVHvY8XO/SyJfAcM6yqUY3P12srdSQG0Y3tGf345Hth/6mHpJAdP0Lhg4/kNPxru5
-         xNbzYX35LbfCHfPBkSQlkUjPrby9yXmyK2WRM=
-X-Received: by 2002:a05:7301:1525:b0:369:a113:756f with SMTP id 5a478bee46e88-369e850d487mr10690528eec.34.1793039369757;
-        Mon, 26 Oct 2026 11:29:29 -0700 (PDT)
-X-Received: by 2002:a05:7301:1525:b0:369:a113:756f with SMTP id 5a478bee46e88-369e850d487mr10690462eec.34.1793039368795;
-        Mon, 26 Oct 2026 11:29:28 -0700 (PDT)
-Received: from fainelli-desktop.igp.broadcom.net ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a01fa4c58sm24657259eec.21.2026.10.26.11.29.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 11:29:28 -0700 (PDT)
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-To: linux-kernel@vger.kernel.org
-Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
-	Damien Le Moal <dlemoal@kernel.org>,
-	Niklas Cassel <cassel@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Ray Jui <rjui@broadcom.com>,
-	Scott Branden <sbranden@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Kishon Vijay Abraham I <kishon@kernel.org>,
-	Tejun Heo <tj@kernel.org>,
-	Yendapally Reddy Dhananjaya Reddy <yendapally.reddy@broadcom.com>,
-	linux-ide@vger.kernel.org (open list:LIBATA SUBSYSTEM (Serial and Parallel ATA drivers)),
-	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
-	linux-arm-kernel@lists.infradead.org (moderated list:BROADCOM IPROC ARM ARCHITECTURE),
-	linux-phy@lists.infradead.org (open list:GENERIC PHY FRAMEWORK)
-Subject: [PATCH v2 3/6] ata: ahci_brcm: Initialize the NSP interface clock and reset
-Date: Mon, 26 Oct 2026 11:28:53 -0700
-Message-ID: <20261026182856.3168686-4-florian.fainelli@broadcom.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261026182856.3168686-1-florian.fainelli@broadcom.com>
-References: <20261026182856.3168686-1-florian.fainelli@broadcom.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AQ3ZbWmy
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793039357; x=1824575357;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=ye9oJ2wiNKDXIqB9hLG+TzGMLKOS2iiflvQtoXVdaYE=;
+  b=AQ3ZbWmyJsw9G8ZUqNmsjthvVBjN0ESOzISTNkhUZOiC6dIq6bnwY/Ar
+   +TZp6IiI9MYqsJwKoYx1N5ub7eEq6IfKuUrTBP74kErOvwfS7JSPgiBO0
+   fiVe6NS4udswH54qi7N1tkgvO9qQ18X2pXOST8mK2vmQIegxX8RkqKoPo
+   v1ns+Ris4hfVJU7085CG2G7FfNtR3rivH8823y+nE6IRc2LuUW2ymdFOC
+   fj1vDIfwF4lFfC4QpDH1ez7yyGCwfg/mhS0PHAqkrvuy65sSqnr7oBPiW
+   CT6a0cC2wPDbSxW+Fnasqj+sxm+RjM2BZyOzVlnrsvzMEOZLbzNYa/GN9
+   g==;
+X-CSE-ConnectionGUID: cW0nfFZwTsaRZsJEDe8PNA==
+X-CSE-MsgGUID: J54yjalZQZSPG1WdYeAeRg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1601021"
+X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
+   d="scan'208";a="1601021"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 11:29:17 -0700
+X-CSE-ConnectionGUID: 3EDd2l2KSLqz4MXZpeyD8w==
+X-CSE-MsgGUID: FI9LJTPvRWCRkhBrF22zcQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
+   d="scan'208";a="4720103"
+Received: from ubuntu.igk.intel.com ([10.102.114.174])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 11:29:14 -0700
+From: Szymon Durawa <szymon.durawa@linux.intel.com>
+To: nirmal.patel@linux.intel.com,
+	bhelgaas@google.com,
+	robh@kernel.org,
+	mani@kernel.org,
+	kwilczynski@kernel.org,
+	lpieralisi@kernel.org,
+	asutosh.pathak@linux.intel.com,
+	szymon.durawa@linux.intel.com
+Cc: linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v9 5/7] PCI: vmd: Replace hardcoded values with enum and defines
+Date: Mon, 26 Oct 2026 20:54:58 +0000
+Message-ID: <20261026205502.3502574-6-szymon.durawa@linux.intel.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261026205502.3502574-1-szymon.durawa@linux.intel.com>
+References: <20261026205502.3502574-1-szymon.durawa@linux.intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -127,107 +88,161 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-The NSP probe path assumes firmware has enabled the SATA IDM interface
-clock and released the core reset. The downstream iProc config_AHCI()
-sequence explicitly performs both operations before accessing AHCI.
-Without that setup, a cold boot can access an inactive controller.
+Add enum vmd_resource type to replace hardcoded values. Add defines for
+vmd bus start number based on VMD restriction value. No functional
+changes.
 
-Map the optional NSP IDM register region and enable the interface clock
-before releasing reset, retaining the downstream settling intervals.
-Perform the sequence at probe and resume before reconfiguring SATA.
-
-Keep the resource optional so older device trees continue to rely on
-firmware initialization.
-
-Fixes: 3ee2e6dcaa35 ("ata: ahci_brcm: Add support for Broadcom NSP SoC")
-Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
+Suggested-by: Nirmal Patel <nirmal.patel@linux.intel.com>
+Reviewed-by: Asutosh Pathak <asutosh.pathak@linux.intel.com>
+Signed-off-by: Szymon Durawa <szymon.durawa@linux.intel.com>
 ---
- drivers/ata/ahci_brcm.c | 34 ++++++++++++++++++++++++++++++++++
- 1 file changed, 34 insertions(+)
+ drivers/pci/controller/vmd.c | 52 +++++++++++++++++++++++-------------
+ 1 file changed, 34 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/ata/ahci_brcm.c b/drivers/ata/ahci_brcm.c
-index 29be74fedcf0..2ed60806b671 100644
---- a/drivers/ata/ahci_brcm.c
-+++ b/drivers/ata/ahci_brcm.c
-@@ -6,7 +6,9 @@
-  */
+diff --git a/drivers/pci/controller/vmd.c b/drivers/pci/controller/vmd.c
+index 8b59b369f126..f85dd2d7c4af 100644
+--- a/drivers/pci/controller/vmd.c
++++ b/drivers/pci/controller/vmd.c
+@@ -26,6 +26,11 @@
+ #define VMD_MEMBAR1	2
+ #define VMD_MEMBAR2	4
  
- #include <linux/ahci_platform.h>
-+#include <linux/bcma/bcma_regs.h>
- #include <linux/compiler.h>
-+#include <linux/delay.h>
- #include <linux/device.h>
- #include <linux/init.h>
- #include <linux/interrupt.h>
-@@ -83,6 +85,7 @@ enum brcm_ahci_quirks {
- struct brcm_ahci_priv {
- 	struct device *dev;
- 	void __iomem *top_ctrl;
-+	void __iomem *idm;
- 	u32 port_mask;
- 	u32 quirks;
- 	enum brcm_ahci_version version;
-@@ -230,6 +233,25 @@ static u32 brcm_ahci_get_portmask(struct ahci_host_priv *hpriv,
- 	return impl;
++/* VMD restriction value determines secondary start bus number */
++#define VMD_RESTRICT_0_BUS_START 0x0
++#define VMD_RESTRICT_1_BUS_START 0x80
++#define VMD_RESTRICT_2_BUS_START 0xE0
++
+ #define PCI_REG_VMCAP		0x40
+ #define BUS_RESTRICT_CAP(vmcap)	(vmcap & 0x1)
+ #define PCI_REG_VMCONFIG	0x44
+@@ -43,6 +48,13 @@
+ #define BASE_ID_REG_28C1		0x2840
+ #define MEMBAR2_OFFSET_28C1		0x30d0
+ 
++enum vmd_resource {
++	VMD_RES_CFGBAR = 0, /* VMD Bus0 Config BAR */
++	VMD_RES_MBAR_1, /* VMD Bus0 Resource MemBAR 1 */
++	VMD_RES_MBAR_2, /* VMD Bus0 Resource MemBAR 2 */
++	VMD_RES_COUNT
++};
++
+ enum vmd_features {
+ 	/*
+ 	 * Device may contain registers which hint the physical location of the
+@@ -150,7 +162,7 @@ struct vmd_dev {
+ 	struct vmd_irq_list	*irqs;
+ 
+ 	struct pci_sysdata	sysdata;
+-	struct resource		resources[3];
++	struct resource		resources[VMD_RES_COUNT];
+ 	struct irq_domain	*irq_domain;
+ 	struct pci_bus		*bus;
+ 	u8			busn_start;
+@@ -554,7 +566,7 @@ static resource_size_t vmd_cfgbar_ecam_space(struct vmd_dev *vmd)
+ 	unsigned int ecam_start;
+ 
+ 	cfgbar_buses = resource_size(&vmd->dev->resource[VMD_CFGBAR]) >> 20;
+-	ecam_start = vmd_bus_to_ecam(vmd, vmd->resources[0].start);
++	ecam_start = vmd_bus_to_ecam(vmd, vmd->resources[VMD_RES_CFGBAR].start);
+ 	if (ecam_start >= cfgbar_buses)
+ 		return 0;
+ 
+@@ -562,14 +574,15 @@ static resource_size_t vmd_cfgbar_ecam_space(struct vmd_dev *vmd)
+ }
+ static void vmd_domain_reset(struct vmd_dev *vmd)
+ {
+-	u16 bus, max_buses = resource_size(&vmd->resources[0]);
++	u16 bus, max_buses = resource_size(&vmd->resources[VMD_RES_CFGBAR]);
+ 	u8 dev, functions, fn, hdr_type;
+ 	unsigned int ecam_bus;
+ 	char __iomem *base;
+ 
+ 	max_buses = min_t(u16, max_buses, vmd_cfgbar_ecam_space(vmd));
+ 	for (bus = 0; bus < max_buses; bus++) {
+-		ecam_bus = vmd_bus_to_ecam(vmd, vmd->resources[0].start + bus);
++		ecam_bus = vmd_bus_to_ecam(vmd, vmd->resources[VMD_RES_CFGBAR].start +
++					   bus);
+ 		for (dev = 0; dev < 32; dev++) {
+ 			base = vmd->cfgbar + PCIE_ECAM_OFFSET(ecam_bus,
+ 						PCI_DEVFN(dev, 0), 0);
+@@ -613,8 +626,8 @@ static void vmd_domain_reset(struct vmd_dev *vmd)
+ 
+ static void vmd_attach_resources(struct vmd_dev *vmd)
+ {
+-	vmd->dev->resource[VMD_MEMBAR1].child = &vmd->resources[1];
+-	vmd->dev->resource[VMD_MEMBAR2].child = &vmd->resources[2];
++	vmd->dev->resource[VMD_MEMBAR1].child = &vmd->resources[VMD_RES_MBAR_1];
++	vmd->dev->resource[VMD_MEMBAR2].child = &vmd->resources[VMD_RES_MBAR_2];
  }
  
-+static void brcm_sata_init_idm(struct brcm_ahci_priv *priv)
-+{
-+	u32 data;
-+
-+	if (!priv->idm)
-+		return;
-+
-+	/* Enable the interface clock before taking the SATA core out of reset. */
-+	data = readl(priv->idm + BCMA_IOCTL);
-+	writel(data | BCMA_IOCTL_CLK, priv->idm + BCMA_IOCTL);
-+	readl(priv->idm + BCMA_IOCTL);
-+	usleep_range(1000, 2000);
-+
-+	data = readl(priv->idm + BCMA_RESET_CTL);
-+	writel(data & ~BCMA_RESET_CTL_RESET, priv->idm + BCMA_RESET_CTL);
-+	readl(priv->idm + BCMA_RESET_CTL);
-+	usleep_range(1000, 2000);
-+}
-+
- static void brcm_sata_init(struct brcm_ahci_priv *priv)
+ static void vmd_detach_resources(struct vmd_dev *vmd)
+@@ -690,14 +703,14 @@ static int vmd_get_bus_number_start(struct vmd_dev *vmd)
+ 
+ 		switch (BUS_RESTRICT_CFG(reg)) {
+ 		case 0:
+-			vmd->busn_start = 0;
++			vmd->busn_start = VMD_RESTRICT_0_BUS_START;
+ 			break;
+ 		case 1:
+-			vmd->busn_start = 128;
++			vmd->busn_start = VMD_RESTRICT_1_BUS_START;
+ 			break;
+ 		case 3:
+ 		case 2:
+-			vmd->busn_start = 224;
++			vmd->busn_start = VMD_RESTRICT_2_BUS_START;
+ 			break;
+ 		default:
+ 			pci_err(dev, "Unknown Bus Offset Setting (%d)\n",
+@@ -910,10 +923,10 @@ static void vmd_configure_cfgbar(struct vmd_dev *vmd)
+ 	struct resource *res = &vmd->dev->resource[VMD_CFGBAR];
+ 	resource_size_t busn_end;
+ 
+-	/* Do not let resource[0] end go out of bound.*/
++	/* Do not let resource[VMD_RES_CFGBAR] end go out of bound.*/
+ 	busn_end = vmd->busn_start + (resource_size(res) >> 20) - 1;
+ 	busn_end = min_t(resource_size_t, busn_end, 0xff);
+-	vmd->resources[0] = (struct resource) {
++	vmd->resources[VMD_RES_CFGBAR] = (struct resource) {
+ 		.name  = "VMD CFGBAR",
+ 		.start = vmd->busn_start,
+ 		.end   = busn_end,
+@@ -970,14 +983,15 @@ static int vmd_configure_membar1_membar2(struct vmd_dev *vmd,
  {
- 	void __iomem *ctrl = priv->top_ctrl + SATA_TOP_CTRL_BUS_CTRL;
-@@ -369,6 +391,8 @@ static int __maybe_unused brcm_ahci_resume(struct device *dev)
- 	struct brcm_ahci_priv *priv = hpriv->plat_data;
- 	int ret = 0;
+ 	int ret;
  
-+	brcm_sata_init_idm(priv);
-+
- 	ret = reset_control_deassert(priv->rcdev_ahci);
- 	if (ret)
- 		return ret;
-@@ -453,6 +477,14 @@ static int brcm_ahci_probe(struct platform_device *pdev)
- 	priv->version = (unsigned long)of_id->data;
- 	priv->dev = dev;
- 
-+	/* Older NSP device trees rely on firmware to initialize the IDM. */
-+	if (priv->version == BRCM_SATA_NSP &&
-+	    platform_get_resource_byname(pdev, IORESOURCE_MEM, "idm")) {
-+		priv->idm = devm_platform_ioremap_resource_byname(pdev, "idm");
-+		if (IS_ERR(priv->idm))
-+			return PTR_ERR(priv->idm);
-+	}
-+
- 	priv->top_ctrl = devm_platform_ioremap_resource_byname(pdev, "top-ctrl");
- 	if (IS_ERR(priv->top_ctrl))
- 		return PTR_ERR(priv->top_ctrl);
-@@ -493,6 +525,8 @@ static int brcm_ahci_probe(struct platform_device *pdev)
+-	ret = vmd_configure_membar(vmd, 1, VMD_MEMBAR1, 0, 0);
++	ret = vmd_configure_membar(vmd, VMD_RES_MBAR_1, VMD_MEMBAR1, 0, 0);
  	if (ret)
  		return ret;
  
-+	brcm_sata_init_idm(priv);
-+
- 	ret = ahci_platform_enable_clks(hpriv);
- 	if (ret)
- 		goto out_reset;
+-	ret = vmd_configure_membar(vmd, 2, VMD_MEMBAR2, mbar2_ofs, 0);
++	ret = vmd_configure_membar(vmd, VMD_RES_MBAR_2, VMD_MEMBAR2, mbar2_ofs, 0);
+ 	if (ret) {
+-		devm_kfree(&vmd->dev->dev, (void *)vmd->resources[1].name);
+-		memset(&vmd->resources[1], 0, sizeof(vmd->resources[1]));
++		devm_kfree(&vmd->dev->dev, (void *)vmd->resources[VMD_RES_MBAR_1].name);
++		memset(&vmd->resources[VMD_RES_MBAR_1], 0,
++		       sizeof(vmd->resources[VMD_RES_MBAR_1]));
+ 		return ret;
+ 	}
+ 
+@@ -989,9 +1003,11 @@ static int vmd_create_bus(struct vmd_dev *vmd, struct pci_sysdata *sd,
+ {
+ 	LIST_HEAD(resources);
+ 
+-	pci_add_resource(&resources, &vmd->resources[0]);
+-	pci_add_resource_offset(&resources, &vmd->resources[1], offset[0]);
+-	pci_add_resource_offset(&resources, &vmd->resources[2], offset[1]);
++	pci_add_resource(&resources, &vmd->resources[VMD_RES_CFGBAR]);
++	pci_add_resource_offset(&resources, &vmd->resources[VMD_RES_MBAR_1],
++				offset[0]);
++	pci_add_resource_offset(&resources, &vmd->resources[VMD_RES_MBAR_2],
++				offset[1]);
+ 
+ 	vmd->bus = pci_create_root_bus(&vmd->dev->dev, vmd->busn_start,
+ 				       &vmd_ops, sd, &resources);
 -- 
-2.53.0
+2.43.0
 
