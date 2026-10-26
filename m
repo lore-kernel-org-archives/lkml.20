@@ -1,47 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.253
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.204
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793006899;
-	b=GcqFJsyJp2sV30os4yW0Nz1HvDFtIVhUOGMpA+kNJONQVfu082N6OVnxKlP3Bsevn8PV
-	 G3y9PfO92BoaZjOeiIf8VrP2y6qp1JJB+X6MyHLsPO706zpJclmsJxT46NwIPON/0CBU/
-	 gOKvq+KploZdpGCKP88JIrp7tYU3Br1+NPrnIxLa7B2fVpB/LeGssldOrdUsWYouhB5Nu
-	 T3r9RSVen6RIUR1BDW1BJbBPpPayYFpNfnOlKD/syOpP+KMH0pfyYkc6AyGm7RTF0U/rQ
-	 c+9AFMd+ledxfHGze4zDVkD3juqlu7N95ox3d92rRGekKnqUFbdaRQPauKKtKzT6BiA==
+	t=1793006897;
+	b=n6EMg0KSMuoQIRBwv/LT87/zjdU32w4g0mszc1MGoeL4Msw1EVIdNSaQSPXOXHwPMnuc
+	 ZxulmhV5cwn8RySrJgmcUXmLcPrtUdpsV7F8X2lg1/a8weqq1mHCcZ9LO4l2VvhDCmsw2
+	 tjBws5GY6OwONOBeT+mBhM+GiUhrqpnJvNpP98CyH6SKq156zdgoJETyRUzw1vTOIoeed
+	 KpZ7WqbgqVq5i/vkI70SlOhvdR6wrD+MNeSpz0bJJOY3xC3RTVm4zQ1enwXn+cuHzo3cp
+	 IsTNygfuFqhtaf7bC9glv/qPNFmFRLpXDOggXE3nwrK7CFOYVYBQsCvXqkXUjYE7ZSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793006899;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793006897;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=x2kCiKkeOScUv4vRg+ADH3IUUv29+dTbC2OT5+HKXDc=;
-	b=HAu3BGtFQHg+O+IlH/CorYjwUG+1vHfVNmX2zq3oVr1DZ8bsaFgi9sOH+ruNHwdbmwIr
-	 Ol/wHP2vwHATVfy9dKKClOixbcgx2hSg/wgrvqEhS+NWWTRvIEKM9pMqXU9mvrvbJBUVB
-	 G6+cjrA3qTwaFfGxmFl71rrTitdCX4nPP4dvnBifGHcBJCE37LFwFYLrVwdHr8XZt0JaQ
-	 Z6R/B5OGcW6ITIssNZYriPPmnKv45rjJ2+UjvjO/rCz9vkH2AiIIbPcbyotISpAAtBtof
-	 JGLT+YqH8kKBrLYGrFBo2rkGI768qj9ulGYIys/MwiOpVRRoIOu+yDSdaKiDw5NI4qg==
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=+AI0DYauqQPIFoBNmaP0YwjPn6fiYc/EIMHLhz9D4Mk=;
+	b=cR7lejtYnWKViZCSNi+r0fsZ+cKtYSaTlQXaVho6lfcMhsWWMEqt8Qn6MnG2DuhHRLuu
+	 5myKJ8VkYc/EkUV0qxMoZjSw2uGiEK/RhVo0lD4Mx9QQjBRYoPt0hAvKA3KU88onTm+Ck
+	 HFgQQAuC1NxY/XsyGuvs0MMd7IXj7hHa1MHH8nKP7Rhux1FZrWv/GKaJB694ZqZsus7Id
+	 fMnBPOIVzLPrEiAgqTKfsglpMO08uy+Wvj7qBLDHrVwXMA/Xs82CvYSgk95yhwDJXGYch
+	 oOUHFIGl1SHNilOrBQ3TiX0NTxzRg+xCXbm2zFiJCuj6SToJh9U1/cAhuhLy2INrJyQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	arc=none smtp.remote-ip=91.218.175.253
-Received: from mta0.migadu.com (out-253.mta0.migadu.com [91.218.175.253])
+	arc=none smtp.remote-ip=95.215.58.204
+Received: from mta1.migadu.com (out-204.mta1.migadu.com [95.215.58.204])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE9D7606A31F
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:28:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE9D7606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3871606A321
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:28:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3871606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=8LYCyZMI/ydZ4XMUTIjdTOfkLiQ3ZW2NdQjMgtJy9r0=;
+DKIM-Signature: a=rsa-sha256; bh=WutytbD2CvrnwsDDfY3uXMPciA1D/8obpWjMW5XUgIs=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793006887; v=1; x=1793611687;
- b=jHgz+9HGTK4xRN3DP7+8+Rb/pGUvSwYzPf7AvOFunZwinQwGQWams5T09sZU34UMrOIH7CiM
- W4+hO0O8/0MsyHOCpUQLai1ocniUUAQctYGrmxkwZIAbsytL+V0BWCvnB8sqvpjgVkmj4h0dKqm
- mNlwVKyYrbNcQvN9ubAmc0lA=
+ t=1793006894; v=1; x=1793611694;
+ b=QRj/tWCEnwMqqoeAcINf0LDm7v4NPB2elKgVX80jeaJBFzurbKQnFQi4W2vsas2UMOcL2Ruu
+ h7WgCh6ezv66G8xF4svhqcjxu25krlNWQyIMnk/NKNzMHs4466WoMfaRAnTWJWjTy9OVDa4gXx5
+ evuyPn/tBAnl9z71so+bEzwI=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 312a495375034eab;
-	Mon, 26 Oct 2026 09:28:07 +0000
-X-Mizu-Trace-ID: 312a495375034eab
+Received: by smtp.migadu.com with ESMTPS id c5e8a671613dede4;
+	Mon, 26 Oct 2026 09:28:11 +0000
+X-Mizu-Trace-ID: c5e8a671613dede4
 X-Migadu-Flow: FLOW_OUT
 From: Fuad Tabba <fuad.tabba@linux.dev>
 To: Oliver Upton <oupton@kernel.org>,
@@ -60,10 +61,12 @@ Cc: Joey Gouly <joey.gouly@arm.com>,
 	Yuchao Zhang <ndaugoing@gmail.com>,
 	Fuad Tabba <tabba@google.com>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 0/2] KVM: arm64: vgic: LPI fixes for redistributors with LPIs disabled
-Date: Mon, 26 Oct 2026 09:28:00 +0000
-Message-ID: <20261026092802.2636798-1-fuad.tabba@linux.dev>
+Subject: [PATCH 1/2] KVM: arm64: vgic: Don't forward LPIs to a redistributor with LPIs disabled
+Date: Mon, 26 Oct 2026 09:28:01 +0000
+Message-ID: <20261026092802.2636798-2-fuad.tabba@linux.dev>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261026092802.2636798-1-fuad.tabba@linux.dev>
+References: <20261026092802.2636798-1-fuad.tabba@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,49 +78,109 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi folks,
+Clearing GICR_CTLR.EnableLPIs retires the LPIs on the target vCPU's
+ap_list, then invalidates the ITS translation caches. However, an MSI
+that hits the translation cache can still queue an LPI to that vCPU
+after the retire, and so can an INVALL that enables an LPI already
+pending. vgic_target_oracle() only checks that the distributor is
+enabled, so the LPI goes on the ap_list and the vCPU takes it with
+EnableLPIs clear.
 
-Two fixes on top of Marc's cross-CPU vcpu pausing series [1], for LPIs
-whose redistributor has LPIs disabled. Without them, the guest can take
-such an LPI with EnableLPIs clear, or lose one mapped before it enables
-them.
+Make the oracle also return NULL for an LPI whose redistributor has LPIs
+disabled. vgic_queue_irq_unlock() rechecks it under the ap_list lock,
+which the retire takes after clearing EnableLPIs, so either the retire
+finds the LPI or the queueing reads EnableLPIs clear. The disable path
+pauses the vCPU after clearing EnableLPIs, and with this change the
+prune on that vCPU's exit would take its pending LPIs off the ap_list
+before the retire walks it. Pause the vCPU before clearing EnableLPIs,
+so that the retire still clears their pending state.
 
-The first is the vgic_target_oracle() change Oliver suggested on v2 of
-that series [2]. It stops an LPI from being queued to a redistributor
-with EnableLPIs clear once the disable path has retired the vCPU's AP
-list. With that check, the path has to pause the vCPU before clearing
-EnableLPIs, so that the retire still finds its LPIs.
-
-With the second, an LPI mapped while its redistributor has LPIs
-disabled keeps its pending bit when they're enabled. The second relies
-on the first to keep such an LPI off the AP list until the enable.
-
-Reproducers for the INVALL case in the first and the map in the second
-fail in every run without the patch and pass with it.
-
-Based on kvm-arm64/cross-vcpu-sync as merged in kvmarm/fixes, which the
-first builds on (e99ff76f4a02b; also applies to kvmarm/fixes
-309e1d2215255).
-
-Cheers,
-/fuad
-
-[1] https://lore.kernel.org/all/20261015100539.1011760-1-maz@kernel.org/
-[2] https://lore.kernel.org/all/asf87i2RDh-WksL-@kernel.org/
-
-Fuad Tabba (2):
-  KVM: arm64: vgic: Don't forward LPIs to a redistributor with LPIs
-    disabled
-  KVM: arm64: vgic-v3: Don't drop a pending LPI mapped with LPIs
-    disabled
-
+Fixes: 0e4e82f154e38 ("KVM: arm64: vgic-its: Enable ITS emulation as a virtual MSI controller")
+Suggested-by: Oliver Upton <oupton@kernel.org>
+Link: https://lore.kernel.org/r/asf87i2RDh-WksL-@kernel.org
+Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+---
  arch/arm64/kvm/vgic/vgic-mmio-v3.c | 31 ++++++++++++++++--------------
- arch/arm64/kvm/vgic/vgic-v3.c      |  3 ++-
  arch/arm64/kvm/vgic/vgic.c         | 12 ++++++++----
- 3 files changed, 27 insertions(+), 19 deletions(-)
+ 2 files changed, 25 insertions(+), 18 deletions(-)
 
-
-base-commit: e99ff76f4a02be8542e2c3ecc8843d7339a0200d
+diff --git a/arch/arm64/kvm/vgic/vgic-mmio-v3.c b/arch/arm64/kvm/vgic/vgic-mmio-v3.c
+index f5bd29fbe3a90..9117cd85aa593 100644
+--- a/arch/arm64/kvm/vgic/vgic-mmio-v3.c
++++ b/arch/arm64/kvm/vgic/vgic-mmio-v3.c
+@@ -293,6 +293,18 @@ static void vgic_mmio_write_v3r_ctlr(struct kvm_vcpu *vcpu,
+ 		return;
+ 
+ 	if (!(val & GICR_CTLR_ENABLE_LPIS)) {
++		/*
++		 * Yes, disabling LPIs is painful, since it can be done from
++		 * a *remote* vcpu! So let's not take any chance, and make
++		 * sure that the target vCPU has written their LRs back to the
++		 * irq structures, and release any reference they would have.
++		 * Pause it before its LPIs read as disabled, so that the exit's
++		 * prune leaves them for vgic_flush_pending_lpis() to retire.
++		 *
++		 * If it hurts, don't do it.
++		 */
++		kvm_pause_vcpu(vcpu);
++
+ 		/*
+ 		 * Don't disable if RWP is set, as there already an
+ 		 * ongoing disable. Funky guest...
+@@ -300,21 +312,12 @@ static void vgic_mmio_write_v3r_ctlr(struct kvm_vcpu *vcpu,
+ 		ctlr = atomic_cmpxchg_acquire(&vgic_cpu->ctlr,
+ 					      GICR_CTLR_ENABLE_LPIS,
+ 					      GICR_CTLR_RWP);
+-		if (ctlr != GICR_CTLR_ENABLE_LPIS)
+-			return;
++		if (ctlr == GICR_CTLR_ENABLE_LPIS) {
++			vgic_flush_pending_lpis(vcpu);
++			vgic_its_invalidate_all_caches(vcpu->kvm);
++			atomic_set_release(&vgic_cpu->ctlr, 0);
++		}
+ 
+-		/*
+-		 * Yes, disabling LPIs is painful, since it can be done from
+-		 * a *remote* vcpu! So let's not take any chance, and make
+-		 * sure that the target vCPU has written their LRs back to the
+-		 * irq structures, and release any reference they would have.
+-		 *
+-		 * If it hurts, don't do it.
+-		 */
+-		kvm_pause_vcpu(vcpu);
+-		vgic_flush_pending_lpis(vcpu);
+-		vgic_its_invalidate_all_caches(vcpu->kvm);
+-		atomic_set_release(&vgic_cpu->ctlr, 0);
+ 		kvm_resume_vcpu(vcpu);
+ 	} else {
+ 		ctlr = atomic_cmpxchg_acquire(&vgic_cpu->ctlr, 0,
+diff --git a/arch/arm64/kvm/vgic/vgic.c b/arch/arm64/kvm/vgic/vgic.c
+index 7061b4ab206c9..e1a6a5aa61a8e 100644
+--- a/arch/arm64/kvm/vgic/vgic.c
++++ b/arch/arm64/kvm/vgic/vgic.c
+@@ -273,14 +273,18 @@ struct kvm_vcpu *vgic_target_oracle(struct vgic_irq *irq)
+ 	 * If the IRQ is not active but enabled and pending, we should direct
+ 	 * it to its configured target VCPU.
+ 	 * If the distributor is disabled, pending interrupts shouldn't be
+-	 * forwarded.
++	 * forwarded, nor should LPIs whose redistributor has them disabled.
+ 	 */
+ 	if (irq->enabled && irq_is_pending(irq)) {
+-		if (unlikely(irq->target_vcpu &&
+-			     !irq->target_vcpu->kvm->arch.vgic.enabled))
++		struct kvm_vcpu *vcpu = irq->target_vcpu;
++
++		if (unlikely(vcpu && !vcpu->kvm->arch.vgic.enabled))
+ 			return NULL;
+ 
+-		return irq->target_vcpu;
++		if (unlikely(vcpu && irq_is_lpi(vcpu->kvm, irq->intid) && !vgic_lpis_enabled(vcpu)))
++			return NULL;
++
++		return vcpu;
+ 	}
+ 
+ 	/* If neither active nor pending and enabled, then this IRQ should not
 -- 
 2.47.3
 
