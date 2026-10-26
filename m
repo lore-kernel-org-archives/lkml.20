@@ -1,69 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793001991;
-	b=znJSJyyfHthmG+rorC5D6M+OefI9zUZz/JtKc+EYO6u4TMkoGD4ZpqJJrzMdj8RjGXD5
-	 7Tfq8E3y11rTWsek0AmWmi1ONy/fY4rUvWYNXFJ9jf/FF07h1d3YlGi+QGtB5CbKbtgEl
-	 PuzLHbdh6ewx3fdEDqyX4ZTCXJ+JYnIBEwyah2hhy1W4lW8ArDRPnPy0j3PrhABLoeAfL
-	 8aI26e5y8dLf671CtKaL1QyCaQJNTejZ4W5KJu99Nvofi0n/5x9kkVd2ye/AlBaSed7aW
-	 4zdQsf6b0zwvonx1OQJqlkJE1bLv0xRd0I2HrPxVcAuD8IJUOU/nNdSgbkZI+0PO6ig==
+	t=1793002011;
+	b=IsidHjz4wCnMZOkPA+YY6Ja4UYmb+juBXjAcgwG+rZZwOWiFDtNmw02UbOwF3mlTGjtj
+	 amz/4Qe+dDy0iYXAPERM7xStOEFLPVpIZdx+lcest0CHnx2798h6xQIl1PxrekL+0H60A
+	 LkVRRi/Ev20MI4ZuMPSD/8GSEWpLkRRZj18pZvECGxrFUfTqB+niNnULXLqv0lJOXnuMx
+	 ILw2BHc3ixDbJA2rpCl3muX8qx0LROsf2mk6POqSnr+gg9N6lbOiOmCqL9gBF1GcHSQdg
+	 1sO/1AeGp0McTH28eV0j0wRQ/ZPdTppmOSDv+GcbNB+/8PouStMpP9yPpiGImIMPr2A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793001991;
-	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:
-	 X-Zmail-LocalSMTP:X-Zmail-RealSender:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 X-ZMAIL-USEORIGINALEMLTOOUTBOUND:Content-Transfer-Encoding:X-MAIL:
-	 X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:
-	 X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=DUbfcD+mF5appbi7QLgptqZT1xJk72MGi2kCZUq9Hmc=;
-	b=1OeGMmC9N6aJjsLLw8K6yFcHoNEiKnjwLLTXA/uxriOvUQUvaOcCI4TCJtLpPIv9JgaY
-	 fNltk0TeRXkmARmF7ETTQLy6k/keVQZ8EPp4ZRxi1zXPE3YoAP9qyU45JAgNmwvJHElxb
-	 1EYSWbSvrqMIgS2TVBnF4cGjqwOcJds723W1vvu+UtHsDfLG3q3ZtEFvHuZHlq3oP1WBF
-	 RFaSvEi5Q2pxR0DtMhJ8JqrtCFtYEsi5cFjZQz/ru+iaqp8+mb/o/oG0H8IT2jEPKdbBl
-	 3E29kIfciWFuTHNs7hwr6FzUOwVGn0SW1eNaj/yEudieX8jhURcxGtYmIBmdD68oCMA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793002011;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=hY8d38S2AX3StTojPFPIfsr17JkSB8FN5RhbMr0nMXg=;
+	b=0prXXMu7l3N/7TKScvo3WtDgzQq3FCHJes5Leo4hOunPZZNR78QMWInz5UoR0we31fPc
+	 5sGMvu/3LKyZhqPCW/NOfRvZhwzQ0qqMvEaenNyUoi995o8IO9ee++Bh83dcB9FlV4B2s
+	 h9RkTDjA+++k3xtOuwvsxkLTMTscDchQ6avCJKLqWdIsO/V/4YX9v4ZLKngobJD7w9ift
+	 t8SI69fQpvHPDpzb6Au2OjMnsSW3dI9RMgNYeNimXBn1uSlkqhilPfMqnB8GO1hFKTi8x
+	 31s4U2OJwqLpnp+KXqDkTi5XZHby/hGqFTdahr9rIDbqJMYXyXj5EvX+ZORJF2GJeZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=sanechips.com.cn;
-	spf=pass smtp.mailfrom=sanechips.com.cn;
-	arc=none smtp.remote-ip=160.30.148.34
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KgPjpUuG;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3C7A606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 08:06:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3C7A606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sanechips.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sanechips.com.cn
-Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jCmRL3fzxz4yjSf;
-	Mon, 26 Oct 2026 16:06:22 +0800 (CST)
-Received: from szxl2zmapp06.zte.com.cn ([10.1.32.108])
-	by mse-fl1.zte.com.cn with SMTP id 69Q865A0064039;
-	Mon, 26 Oct 2026 16:06:05 +0800 (+08)
-	(envelope-from gong.shuai@sanechips.com.cn)
-Received: from ubuntu-35-gs (unknown [10.230.214.35])
-	by smtp (Zmail) with SMTP;
-	Mon, 26 Oct 2026 16:06:07 +0800
-X-Zmail-TransId: 3e816adf09e6027-1935f
-X-Zmail-LocalSMTP: 1
-X-Zmail-RealSender: gong.shuai@sanechips.com.cn
-From: Gong Shuai <gong.shuai@sanechips.com.cn>
-To: fangyu.yu@linux.alibaba.com
-Cc: alex@ghiti.fr, andrew.jones@oss.qualcomm.com, aou@eecs.berkeley.edu,
-        gsh517025@gmail.com, guoren@kernel.org, iommu@lists.linux.dev,
-        jgg@nvidia.com, jgg@ziepe.ca, joro@8bytes.org, jroedel@suse.de,
-        kvm-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
-        linux-riscv@lists.infradead.org, palmer@dabbelt.com, pjw@kernel.org,
-        robin.murphy@arm.com, tomasz.jeznach@linux.dev, will@kernel.org,
-        zong.li@sifive.com, Gong Shuai <gong.shuai@sanechips.com.cn>
-Subject: Re: [RFC PATCH v2 3/4] iommu/riscv: Add guest IMSIC GPA mapping helpers
-Date: Mon, 26 Oct 2026 16:06:04 +0800
-Message-ID: <20261026080604.184574-1-gong.shuai@sanechips.com.cn>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261016030138.91675-1-fangyu.yu@linux.alibaba.com>
-References: <20261016030138.91675-1-fangyu.yu@linux.alibaba.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57708606A31B;
+	Mon, 26 Oct 2026 08:06:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KgPjpUuG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCD041F01825;
+	Mon, 26 Oct 2026 08:06:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793002010;
+	bh=hY8d38S2AX3StTojPFPIfsr17JkSB8FN5RhbMr0nMXg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=KgPjpUuGP5WcfA5dvzMIMK+iAvjyvLC8LGdUONBJ2AblkFIrAZq+uCZlveJo2McSM
+	 w5dgSfLKxhG/8MR4P/ufx86/0kTTd1Wn0xvCwRrNc7yzqzl4KbSh1TeAHvn4plv6Hz
+	 2qWyKHBTBaLVYocwuofuW6GsKf6qETI2WZeGyVlPx4IwffQHWEy0ELWUTMqUhvXh3j
+	 jeyfEzCR4rX5LXQEXeA5xelZR/ibuZXue+hKR+UA3neBD+qqk/RJiAUuJaojiMkQkl
+	 frbxLFrBTroRMZRPAfIqB9sXUL6e/vgF6BNE/3RHjntSQVupJFF+DWjYhN8qfH+j+D
+	 btWJ/R4RhYmLg==
+Message-ID: <33b5ee36-e293-4356-9906-54e99ba3557e@kernel.org>
+Date: Mon, 26 Oct 2026 09:06:43 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,79 +51,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ZMAIL-USEORIGINALEMLTOOUTBOUND: 1
-Content-Transfer-Encoding: 8bit
-X-MAIL:mse-fl1.zte.com.cn 69Q865A0064039
-X-TLS: YES
-X-ENVELOPE-SENDER: gong.shuai@sanechips.com.cn
-X-SOURCE-IP: 10.5.228.132 unknown Mon, 26 Oct 2026 16:06:22 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6ADF09FE.001/4jCmRL3fzxz4yjSf
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] dt-bindings: i2c: ingenic,i2c: Add the X1600
+To: Olivier Louvignes <olivier@mgcrea.io>, Andi Shyti <andi.shyti@kernel.org>
+Cc: Paul Cercueil <paul@crapouillou.net>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, "H . Nikolaus Schaller" <hns@goldelico.com>,
+ linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261024212520.91401-1-olivier@mgcrea.io>
+ <20261024212520.91401-3-olivier@mgcrea.io>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261024212520.91401-3-olivier@mgcrea.io>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Fangyu,
+On 24/10/2026 23:25, Olivier Louvignes wrote:
+> The X1600's I2C controller has the X1000's registers, so it falls back
+> to ingenic,x1000-i2c.
+> 
+> Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
 
-> >Andrew has moved well past a v3
-> >
-> >I shouldn't be seeing code in iommu or irq drivers directly mapping into
-> >domains. That doesn't work, Andrew's latest series don't do this.
-> >
-> >It still needs to use the SW_MSI mechanism and related.
-> >
->
-> Andrew has posted two patch series in the community: one is the
-> MSI remap v6 series[1], and another is the IRQ bypass v3 series[2].
-> I think you are referring to the MSI remap v6 series. My patch was
-> based on the IRQ bypass v3 series, and I added this patch on top
-> of it.
->
-> [1] https://lore.kernel.org/linux-iommu/179209292714.4133959.5997128071302263244.b4-review@b4/T/#t
-> [2] https://lore.kernel.org/linux-riscv/20260928143113.49838-1-andrew.jones@oss.qualcomm.com/
->
-> >Nothing in the commit messages clearly explained what this is actually for
-> >without having to go dig up the riscv manuals again. Please explain how the
-> >interrupt translation works and what actual user visible problem this is
-> >trying to solve is.
-> >
->
-> The interrupt translation is based on Andrew's irq bypass patch
-> description.
->
-> RISC-V IOMMU defines an optional MSI page table feature, which can
-> be used to implement irq bypass by translating the vIMSIC GPA to
-> the pIMSIC HPA.
->
-> My patch complements that design. If the RISC-V IOMMU hardware does
-> not implement the MSI page table, then the second-stage page table
-> can be used instead to map vIMSIC GPA to pIMSIC HPA.
+Why changing order of patches? Previous was correct one.
 
-Using the regular stage-2 page table to translate MSI target
-addresses seems reasonable to me as a fallback for hardware without
-MSI_FLAT.
 
-I would like to share my personal understanding of Jason's review.
-Please correct me if I missed his point.
+Please organize the patch documenting the compatible (DT bindings)
+before the patch using that compatible.
+See also:
+https://elixir.bootlin.com/linux/v6.14-rc6/source/Documentation/devicetree/bindings/submitting-patches.rst#L46
 
-His concern seems to be about who owns and maintains these mappings.
-When the RISC-V IOMMU driver calls iommu_map directly on a paging
-domain managed by iommufd, the mappings are not visible to the domain
-owner. This makes it difficult to handle mapping lifetime and
-hardware page table replacement correctly.
+With this fixed:
 
-The current SW_MSI support does not appear to cover this use case
-directly. It allocates IOVAs for host MSI pages and records the
-resulting mappings. Guest forwarding instead requires mappings at
-fixed guest GPAs, with their target HPAs changing when vCPUs migrate.
-Supporting this through SW_MSI would therefore seem to require a
-nontrivial extension.
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
-Shuai
-
->
-> Thanks,
-> Fangyu
->
-> >--
-> >Jason
->
+Krzysztof
