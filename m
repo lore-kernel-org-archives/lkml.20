@@ -1,83 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793046446;
-	b=dkDdsL+1Q8dA9jZqJgCNbR9LDrCCY3I7XNhpRz48fMSyAmUKqT8CK/ClYXjLtIsEJxVw
-	 X1gAP0Yye0In6Mu/MKl8wugG0Ykf0Gsei+ZJnVQbLhlbEBLvWxWMSnte2kYtVpbydV0iZ
-	 +4L3U6IcRN69qYvO09ksl45Qoe7uA5sHfWGT/uJ2M5cZq7HZtByqTCZLFB0XO/Neeic7I
-	 jJWJQh+xCTsmviLeyuO6ax814OAGGEJ6BcZ/EZEqKmmvrzWgGs0EwDTntfwRFKyIQhCaa
-	 t55ciMuNtW4R1v2l8ZJ9tYs+Nv5Saw1T07iAstbg7tWZ0pOdezKuMxeK6W1e/wXFHBQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793046446;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=LFCglxF3YnOUeWs+Z5oFeCuqJ1fUCZ2MGnIwDKgVXec=;
-	b=SdvbJKsuYWFx5h7/wgv+aVy4RsSX15WavLhN3KlOcb7uUDpSRZGUVnejrHETPPd9SCSn
-	 DtUC08OfS5pSfP6isr49J+TTx6b5AW9e5bU5ZrLepq4cg//znRb724dXeVr8pNxo7hNaH
-	 ekDSTa+uERxpnxxBurg+kdUVl8t5TFooLyQpq0xDNvRT73y2mgWgh8fcrRLjjfHVZjGFy
-	 FtX6ZttmPTXMectfzIGi3/uacw7Y2T9BJWuYJibhd/F8wabFBP3xBTratI83dAqCLKSXw
-	 LkGgyNHwU4ZSfa1MrR8eSt9g08ntuvZGKJZBfHP6FTx9Ius10Bxsdeh0TroEpyWY/Ww==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=c3W3E1id;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.50
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793046524;
+	b=ux5cnaWHdbLPYuWSlqg6XwKOcuRVT3pHlEEapQFofHOm1Hkb93aBpCQPAWwtEfzaVUm7
+	 N2Lwf4+t//Bk+i6s0+qzMxXKln08/YtUtjDSJHGxbNaj6YXoNm34oaXXkx2yPe5UFM3nK
+	 QtvFAAnqJ5RpfheSYtN6s0aJnLPcrzTB/hnqN/7ea4wP5o9Pv7PHm/Ged7+Lu5iHE1NBk
+	 jBblhd2WESDVAP0JvqNyCQXyGA/TyTLSEaQptNTAB7o5bkDnPpNMTXcp0Z72jhF16xzXH
+	 IaeAT2V/OzQe2B3ezdX5Rm9vbcvwkPdOAe5s7SNFvKzyUAR9i7UUM27ETIVS7fPvcyw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793046524;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=aZiIWIK4zs06/5JG/qnDMkk8BlPUJ9MuP9r4RH/bdYw=;
+	b=EbZ9iNQ24CGXpErF4QY71yrJn/X9EQYZQJWP2EOmFJZRazHB/1YafYo8jS8Hx7lNIGt+
+	 vtOLNZQrNTJkHd5gZF7PqDaStertgjwaOJ1N28wWIb/g0X+9h+YDDCsu+dfByiAgAzTuL
+	 efpnE0dn/92B5hbyCHq6B+m5t+uL0sa5XYTl+bVYSHEDNKH4UnUVvhqEA6Z/1wV5iDpSw
+	 gf25Ssz2lC9qt4Qvaa36kcQe+QFHPVmlGd9Q1lOj4O4Wdj9WDbZwu1+y3LKi1N6SY/Cpb
+	 vZ/Nhyd7mP31qtCa6gxBDAlOZ2idhHyyjIWh3kdz/UATmbDPbxHSkY0Nat/xvxbCERQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Lya3k4jE;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.50
+Received: from mail-yx1-f50.google.com (mail-yx1-f50.google.com [74.125.224.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 250F9606A31A;
-	Mon, 26 Oct 2026 20:27:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BAC0606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 20:28:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BAC0606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=c3W3E1id
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 116BE1F01825;
-	Mon, 26 Oct 2026 20:27:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793046445;
-	bh=LFCglxF3YnOUeWs+Z5oFeCuqJ1fUCZ2MGnIwDKgVXec=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=c3W3E1id0F+qhx0MI/3yl4YHWFa0JK35WvxQQ4ViH7gpyd/iDSJkcOvJlLjIrAM6z
-	 91sd+foBp+g36SI388PdvEdp3FoHb4Kp9FkVnpI0qG7GERFpMftCCh8aar+vr2z84g
-	 l2PMs8cC/HVVfnTiKkoKwH5h89JA3k4nGZQ6eVgk=
-Date: Mon, 26 Oct 2026 21:27:25 +0100
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Leon Romanovsky <leon@kernel.org>
-Cc: Alex Williamson <alex@shazbot.org>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
-	Armin Wolf <W_Armin@gmx.de>, David Lechner <dlechner@baylibre.com>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Luis Chamberlain <mcgrof@kernel.org>,
-	Petr Pavlu <petr.pavlu@suse.com>,
-	Daniel Gomez <da.gomez@kernel.org>,
-	Sami Tolvanen <samitolvanen@google.com>,
-	Aaron Tomlin <atomlin@atomlin.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Bradley Morgan <brads@mainlining.org>,
-	Aleksandr Nogikh <nogikh@google.com>, linux-modules@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-usb@vger.kernel.org, driver-core@lists.linux.dev,
-	linux-trace-kernel@vger.kernel.org, Johan Hovold <johan@kernel.org>,
-	Richard Weinberger <richard@nod.at>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jason Gunthorpe <jgg@ziepe.ca>, Bjorn Helgaas <helgaas@kernel.org>,
-	linux-pci@vger.kernel.org
-Subject: Re: [PATCH v4 0/3] driver core: add TAINT_FORCED_BIND for when
- userspace manually messes with devices and drivers
-Message-ID: <2026102654-enlighten-perkiness-193c@gregkh>
-References: <20260914-bind_taint-v4-0-eadf8a090903@linuxfoundation.org>
- <DLIL9H50MALI.3JROXYEEUM3KU@kernel.org>
- <arIvG0nx4LXG9nlW@monoceros>
- <defb3953-7516-437e-b70b-d57de55b91bf@baylibre.com>
- <9bd3a34b-5e98-4038-80d6-da2c3b1948dd@gmx.de>
- <2026092321-province-yearly-44aa@gregkh>
- <arOfHEsGGglNse7T@monoceros>
- <2026092348-victory-erased-0e5a@gregkh>
- <20261023181326.0dc2f7ed@shazbot.org>
- <20261026122243.GA28851@unreal>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Lya3k4jE
+Received: by mail-yx1-f50.google.com with SMTP id 956f58d0204a3-679aeeddc6bso3865692d50.2
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:28:44 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793046523; cv=none;
+        d=google.com; s=arc-20260327;
+        b=gyiXbJrs7pZpgJj/zxpP7ZtCnumO1EOrmenjrVk0x11L4pX3Ub3/alhxhGyqw8TJSO
+         qpZepX+W8qRrui7n3vN8Q+obZu31M5mbkvY1H5JAcI/I1YBXlq4r70SpPI6Ls6hT9zJJ
+         huN6zvR6kywxZrPpV74BC534BBInTVchVh4fygcRmgSasyQEPLgds19uj675FoWMGIsS
+         LGC0HB0QIQLWQ8Ilp4sA+ojc0ncQdiwbpSvMy1VTmPW8CDvmcAepBrwLFE5BtMTc8Skk
+         GQSuARwuFzajPwxMqXUw8N9FN+B3K0A/imCP2F4yiMmzwfF5mAlt7fCL4RXBx0iOKxwk
+         DqSg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=aZiIWIK4zs06/5JG/qnDMkk8BlPUJ9MuP9r4RH/bdYw=;
+        fh=7Z8r5CBlvWT0tYJpJ15fb+tcqMNyYDavSSQ3Mo8yOkg=;
+        b=YYLc4DhrWeqU7xb21M6QLJK9pcs0o3vhFCR11vBjQp6qvVskGDrPahlVDg2vLzbKv7
+         9ghr/1ZPkc8icDBej1ZnvZQHX+mA4PqswaoG4jWN5QSSqimjo4YIfE6/LOfH65s/z9oz
+         jpSN7NnPtNHhb9S/wngvcUCO83VHEFO2vUmrl2DP6jUTOo1Q4H19CQV1u/mEgzMWiYBs
+         8zEbAXhdE3+e0/WXjF+lVdQK7PPepP8G9WUS8eHh0MZ5VY7vEh6xGWmvgSc7Fbc9HASh
+         XeESKkVBl2UqW+fw725IRDVRLu0GaA73T1LOw82maIJ7R4WjlVjIHGG2eh+Nr/GgRaSd
+         AMrQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793046523; x=1793651323; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=aZiIWIK4zs06/5JG/qnDMkk8BlPUJ9MuP9r4RH/bdYw=;
+        b=Lya3k4jEbl/FTf4+vTpBofsYgGte7HqtPiMo/wSQAdNqZ7b++jGY2JvM4xPVztVjmc
+         L/hwVMfa7dVzxtl4nhEleO18d1RfWWMSJK5tg18K9w+shmV/fL0K7M/xvIHPw7GRzoCB
+         97KkQxhHtKH06EMUPjwIkmRItrgaUo8Tt8S7RIA2jDAigb+m9O/6qG5t+e+mgEtDu503
+         MNbjbZncD62E2Daui80IKNlCEXRAUEC/NIge4yWnxBTZKPDYuc+MI9CYlMW+UloF+lvc
+         nR9kesdD/l9mOVw0cIhumt7/rCWgVK+Ykg3kQep78Fiu5jfRPWXlD50n2ZJQ8vmECdJ8
+         xjAw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793046523; x=1793651323;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=aZiIWIK4zs06/5JG/qnDMkk8BlPUJ9MuP9r4RH/bdYw=;
+        b=MZ/VrrQpWw+VRprZJkwqfBwtFBK5uFwHV9tm7Ws9I0tRno1V1loEbun5yoO7PoYvIj
+         3ybNek6onXbtQxRQ7WoFWKg9X9ZM79AyjqaA1lg7Af2ix3rOTrz+BVL2bcBsVXLI+Ayf
+         x1ZTVRtJFts1/CMBconWjUCYyybvFgWFL4uMvGUOeZbKiCu4ueqw4a6CZFARztc6YMqU
+         99qCJajDqIl8Oj5hxA/gIzVTzHOhxYWlC43awSoHNPcnALOUONKML/IHpmyc274S8TrG
+         MZbxtIw5S4hEeeSEI8keN2sOuMVY3oDRo0ACp+7SIAwczAn7Ud8xm8BdH6jzgUt7F/OP
+         EIXQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzanZuHka/U9Q2ZFENvS8wfGQQN99PzVHa/yuO07+fmO3c13H96ybbxzz7eDrjvVoY+yCefl7Clo8W5AMk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIT+mK86QQGVkAp2SMxzjciF/lw6oFoRu0gOOVHF6I1JJ/WOnOE
+	+55yD3geoMH49anQsAstuocXtMKVLt41P38qGqos7Mc1rkZQ4D46g97NcFKaq7zi7EfjgXJixZw
+	IHHuNyyyA3nQU0skW6CiT0yqfX38nBTI=
+X-Gm-Gg: AYBFou391skXG1L4B1Vn8DMpDuw47t+qPCuDNnDXNftGY3nceiHJ/TjtfCN3rlZ+/qu
+	yEcAqOP/T7u63kpiihgZI8cp4vRxv0WMeHpJ4qqB/y32N+WopGfWrPJmHucLgEIusLoWG1WcOH8
+	5SbWggejSz/hkTac2IlVa2mFJhf1cklzOv33inz8mOX+qbNexqFPFd827X+H8CSZCkkKmjwoMFw
+	sPw1jRky/VSnVQGCKux/lX4Vvo5HsQS7QOW3yZoSv6Ygw27Y/3bJTtNrhPeHBsvUlDeWh3vqAg9
+	R5b0GozIZp6MyICVqba1DeFzTV6a3GMzHK1UpuvuGg24KPXq6k8W0+LRTWMsSTICtXr9zLvT96j
+	FcfI80UJQdAK34c538BAGh8pdDBHcs/d01Sr24mQXFSeFh1tAQcZoXR7DBP797iI6hTYKROr3z1
+	YWkdCpWgJNlwFJk2NWm4ANMVSUNxJNHrJigTJbMhI/h3PQ1zqWYkaj6Lhp/UDWJlmAqnrsC+my0
+	m6bmYVR
+X-Received: by 2002:a05:690c:e197:20b0:8b0:d9ff:4f4d with SMTP id
+ 00721157ae682-8b1669e46f1mr35142877b3.10.1793046523300; Mon, 26 Oct 2026
+ 13:28:43 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,80 +106,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261026122243.GA28851@unreal>
+References: <20261021235606.89545-1-sidchintamaneni@gmail.com>
+ <20261021235606.89545-2-sidchintamaneni@gmail.com> <CAGsJ_4y7AzEHUjj-g_FaQdodYidC26-7MSG8HPkgfRgi67TCkA@mail.gmail.com>
+In-Reply-To: <CAGsJ_4y7AzEHUjj-g_FaQdodYidC26-7MSG8HPkgfRgi67TCkA@mail.gmail.com>
+From: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
+Date: Mon, 26 Oct 2026 13:28:31 -0700
+X-Gm-Features: AclHuK8l-MC_C_lflMDZtzuDKg2UiJN1OPTp7TsTz1M9Ty--VeZlBUsKVihib-I
+Message-ID: <CAE5sdEgE+=cnF5dSDi5rY0Sr6YqQtYnEc3+QWVDdk7vC+AWrag@mail.gmail.com>
+Subject: Re: [PATCH v1 2/2] mm: multi-gen LRU: remove get_lruvec()
+To: Barry Song <baohua@kernel.org>
+Cc: akpm@linux-foundation.org, hannes@cmpxchg.org, david@kernel.org, 
+	mhocko@kernel.org, qi.zheng@linux.dev, shakeel.butt@linux.dev, ljs@kernel.org, 
+	kasong@tencent.com, axelrasmussen@google.com, yuanchu@google.com, 
+	weixugc@google.com, baoquan.he@linux.dev, baolin.wang@linux.alibaba.com, 
+	yuzhao@google.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	apais@microsoft.com, rlmenge@gmail.com, 
+	Hardik Garg <hargar@linux.microsoft.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Oct 26, 2026 at 02:22:43PM +0200, Leon Romanovsky wrote:
-> On Fri, Oct 23, 2026 at 06:13:26PM -0600, Alex Williamson wrote:
-> > On Wed, 23 Sep 2026 12:29:56 +0200
-> > Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
-> > 
-> > > On Wed, Sep 23, 2026 at 11:54:50AM +0200, Uwe Kleine-König wrote:
-> > > > > No, drivers should NOT have to do that in their .probe() function,
-> > > > > that's what we moved away from decades ago!  The match function should
-> > > > > handle all of that for you, otherwise it's contant duplication
-> > > > > everywhere that is unneeded.  
-> > > > 
-> > > > Well then you have to accept that root can provoke a null pointer
-> > > > exception (e.g. by forcing the pwm-tegra driver on a device) because at
-> > > > least with today's platform bus match function such a match is ok.  
-> > > 
-> > > Agreed, yes, root can cause a crash and can do tons of horrible things
-> > > much worse than this, that's not the issue.
-> > > 
-> > > That's why this taint is there, to make it obvious that this is not a
-> > > "real" bug at all.
-> > > 
-> > > > > Please, learn from our history, don't make the same mistakes.
-> > > > > 
-> > > > > Now I might be convinced that driver_override is the way to go here, but
-> > > > > it still feels really odd as again, bind/unbind was created as a driver
-> > > > > debugging option only, it should NOT be a normal operation that any user
-> > > > > should rely on.  The driver should "just work" properly instead, without
-> > > > > requiring manual bind work, as that's not a good model at all.  
-> > > > 
-> > > > I agree in principle, but (in my case wifi) drivers are buggy sometimes
-> > > > (due to missing documentation and/or engineering effort) and being able
-> > > > to rebind the driver instead of rebooting to get a working device again
-> > > > is very useful.  
-> > > 
-> > > Fine, use it!  Just don't expect that to be "normal".
-> > > 
-> > > > So yes, theoretically bind/unbind isn't needed, but theory and practise
-> > > > differ in practise.  
-> > > 
-> > > Agreed, but again, don't rely on this as a "real" solution fo ranything.
-> > 
-> > Sorry, late to the party, but this isn't a few user scripts that rely
-> > on this behavior.  Effectively every use case of vfio relies on this
-> > behavior.  We rely on unbinding the default driver from the device
-> > before using driver_override and drivers_probe.  That means every
-> > hypervisor with device assignment and every userspace driver use case
-> > now experiences a tainted kernel. That seems like a significant
-> > regression.
-> 
-> Sorry, I was on vacation and missed this change earlier. This change will
-> affect SR-IOV deployments around the world, which *rely* on being able to
-> bind a driver manually *after* virtual functions are created but before
-> they are used.
+On Mon, 26 Oct 2026 at 03:00, Barry Song <baohua@kernel.org> wrote:
+>
+> On Thu, Oct 22, 2026 at 7:56=E2=80=AFAM Siddharth Chintamaneni
+> <sidchintamaneni@gmail.com> wrote:
+> >
+> > get_lruvec() was originally introduced in commit ec1c86b25f4b ("mm:
+> > multi-gen LRU: groundwork") to guard against NULL NODE_DATA(nid) on
+> > uninitialized NUMA nodes (`return pgdat ? &pgdat->__lruvec : NULL;`).
+> > After commit 09f49dca570a ("mm: handle uninitialized numa nodes
+> > gracefully") and commit 931b6a8b36a2 ("mm: multi-gen LRU: remove NULL
+> > checks on NODE_DATA()"), that NULL check was removed, leaving
+> > get_lruvec() as a thin wrapper around mem_cgroup_lruvec().
+> >
+> > Remove get_lruvec() and call mem_cgroup_lruvec() directly at all call
+> > sites.
+> >
+> > Cc: Barry Song <baohua@kernel.org>
+>
+> I guess the correct tag should be "Suggested-by" here?
+>
+> > Signed-off-by: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
+> > Signed-off-by: Hardik Garg <hargar@linux.microsoft.com>
+> > ---
+>
+> Your patchset organization is a bit unusual. Patch 2/2 is
+> sent as a reply to patch 1/2. I think adding a cover letter
+> would help you organize the series properly?
+>
 
-Why can't a real driver bind to those virtual functions?  Like is
-happening in the rust apis?
+re-sent it with your suggestions, Thanks!
 
-> This is needed for two reasons: to save hardware and software resources
-> when creating a large number of VFs, and to allow the PCI config space to
-> be configured *before* the driver starts using it.
-
-How is hardware and software resources an issue here at all?  And you
-can write to PCI config space from userspace today, no driver needed
-anywhere at all, that's always been allowed.
-
-> There is no in-kernel alternative.
-
-Then just don't have a in-kernel driver for the device and all is good?
-
-thanks,
-
-greg k-h
+> Thanks
+> Barry
