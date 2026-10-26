@@ -1,80 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793051127;
-	b=eszJwku2pp21HFbRac/2uAcEVJibZGrdhFnRNisPsZmp0UJ0reHp7rAmkMBN64Eq681h
-	 JPGI3tY/mnlBLyT80HxrW8hLPL0nKynT5WW7OTd4IOXRo+a7gUc/1HsUYKloPufbhPXR1
-	 xDkaxir54K84wdetOOpuPYG8VS/HM3Yi7VcjkEYJ5ImOs57hS4XiCkyvcppCpxNfgmnaA
-	 Hyk+c9NRM2XQT+P1oLCQhgbF8MvP8ke65Skj4bdElo5hd9gNCA/F5SNhet3WTZrxLf+G2
-	 wKX416cH52Qk7KDnIm02jXrsuK2qppCfCh22QO0SQ3KPINeM3v6gkkjyWMBRx/jXGvA==
+	t=1793051131;
+	b=R+liuXCQBF9pmEhASpIGv1fDgDmCSvG3WGQvO+RwRiUUOoJowISQomJTq30BoSB1mefQ
+	 jXj6YUCKBKkOvD1JwvQADdfwWF0btzA4qOoNsHRQVNHIpsk0abMpqBa5DqvaBOQQX/a5G
+	 c43AL1d1AM1smzwr77WZdArg9rbi+zuh2S9FzMyrjZJw/jW4oJJuU97I6hiX4E5DCVqFs
+	 +tc5EP7j4fXs7dGJT1RJNOcD+k+dvyg8SYfcuvDwJS61hQVMxMhksolCyCdbVEMaSQw35
+	 6azn0EOuEeZ8+3+O7OyAbhz+SgRvvO9Ptjp4PgHG7VrU6OD4xgbrcXs0C2IEkjJJrew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793051127;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793051131;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=vYe8GiP6hKBNXwq/bmbj0sq6IXWr6LLeCLyGCfiUVAo=;
-	b=nRhDn+8COZFfgGJGjRlEM9/sHJ+VtCYlHGAYleU9t+CDwh4lShmgg9pfmaB/bqdNhbpS
-	 rQNx7aM/Wc02Ue58ttktaIV/sECtmBCH0NVv327wPvqLF4khu6Jyzq7aqZRdTCdBPT5Y3
-	 lq4Pn3/owCgSFh5O8MxdJBGJ8pWyNdyIHq48vwG0Dy2N/dmzHBQ66vBVHvC/u9LTogPSp
-	 zh4XJPbVROBCkQ8KaGqv7flvndc4fIVhiwMhLx0fa4tvxd64JjrNruE0Zr4gLyZHJ6cx9
-	 jaWdwvtqIiwag2CYAoLKyq9DbLJfp/e7VKfcVozjZhulnku//NibW6XUUKWW4bAtxBw==
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=RxRxbLBQ5S84nbJ2Z24j8qYmciKanlUFlKBok3xXqSM=;
+	b=RSyMKP/qq78kJom8ldQPefa8YBkv/swFkMr/OTiHxNUs9zuz4E/pxYKSyohiTHAoXx4W
+	 YraTAe81gRZ4pYw6lhYJ5fWi7zrpMN2T9LSDCDgBuL3vU9b02bF391AgA29i/25UX9UL5
+	 /JkaRhNWkE1LkSOkhExHsk4CkZDD4OHOpouZ4GCcL0FDyH85OChEgql2Cd32nNZKFqcod
+	 rjBjPLn73v8DRcS7RsvL0v53HxVUs3CZfCstWsUK/W0UMmktRnW3gcVL8p3Zp5nWLF9O9
+	 3P7ignUyvUQ1pMv2SCbFFIIs2bAcojxTTMCRXiiK2skx7MBz8qeSuk28+1s6CHtYU4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=chromium.org;
 	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=WcLnrBjF;
-	arc=none smtp.remote-ip=74.125.82.45
-Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=M3BEGRGA;
+	arc=none smtp.remote-ip=74.125.82.174
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E8A7606A31D
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 21:45:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E8A7606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9435160A261C
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 21:45:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9435160A261C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=WcLnrBjF
-Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-185fd3a4ca3so2945135c88.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:45:27 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=M3BEGRGA
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-35cd4e8bdbdso5692556eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:45:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793051126; x=1793655926; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vYe8GiP6hKBNXwq/bmbj0sq6IXWr6LLeCLyGCfiUVAo=;
-        b=WcLnrBjFahP4hj117P1H8KOoO7McgOsldZ7VnLKpBz14+p8egeKZglizlEryKv+lFi
-         8ETonFbWRyuNR223HvqZyNsz87YT+Jfc5DLfseqwwn+QOI6EHCOsS5VXdhpO/oBlWf12
-         tndMKrs8kvUKVhYnBi+E1amNaUwFFI1lUQ/R8=
+        d=chromium.org; s=google; t=1793051130; x=1793655930; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=RxRxbLBQ5S84nbJ2Z24j8qYmciKanlUFlKBok3xXqSM=;
+        b=M3BEGRGAH/Vn2SxAJ2DzND9XWJaEthgW/2MXtbTOVBhxXeA9DgmqzFakwsDvTIr4Nm
+         7cB3fF0bUrpubPo+WWG22t5+1qoyUQRWDdijeDyKfjB/xcFfTQSWEy42gLuAnCIwTIE0
+         PBlq477/agmjQqRSYYXMAKswTErSit3gwmpSc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793051126; x=1793655926;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vYe8GiP6hKBNXwq/bmbj0sq6IXWr6LLeCLyGCfiUVAo=;
-        b=WAAc8M/a/sYNITq8220M3qe3YtIdAvD0AWfl8621fflygltdIrkP2csTr1AhEQhTJn
-         gZtJ0hf7UB9WfAdI58D+UZKg9Y/aVEx0ghRyBJgPTa40C7FHPHrylUCaBH2GUYBg/c8n
-         UYoLiPWnZAB34eGQh1Iv+YxVm3c5LSZLCALY0GMEqOW2ZgdohoZo/RvZPPnJaqu7Fqfw
-         woYQw8Jtlz4uL6A96WP/ktsTqm+Y81fCW77Ri8P29teR01Re4YqsbsT9UsNF+A2AZ6NS
-         qNLhpMBNsYnr4RF1hbhPWO0Zx4uV3Sb7snD3Pjhxffgj3QeUCQLFooveU+oWe6sQ7ZEk
-         Fdxg==
-X-Forwarded-Encrypted: i=1; AKwUvByWdbyNlbkTNzcxrq3KHzEOhRUDMP9VXBOIZRzPIG3T4ywJQdWIlyOv5rmqOtHQ21d4mZRhSoCvK2u70E8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKyMzgvm9YIbPogZYPbHMS4sPKtnGcTOHuxHhkD/YNxiePLINS7
-	I5yr5CWPzhBS/HPxoWMaCNOWaI8vtjYUkyse2kKkGbuvNv2ORtjEr/6UNqNnxjCBfw==
-X-Gm-Gg: AYBFou1+spEm6OUrHWc+l4zNr8BOQbpF5pviGkwwYlFRA6VIWy4X9WZHuF2np2QFUTH
-	YNlkA+GZ4z2cTDIAfMxdZzjfJxxY/YQ9dxTHmHywCNEcBIrcKj3dOHY/uLoNqoe9cWtcBgxhjzx
-	iXgBdW/MRe7RfEBjXoF0PcCHYtvbOi+Vkfp7/+Bz+zChC6ALYMTfJ6qxhwBPz1INqnpzKy/opcT
-	BJeJAGe2DlIqrrbvfwr+zkJLnMeOb4f/KGHaRRaJ1wqNtcxP2x4qRBBo1xlgoR63EpZiemhS8B5
-	4ZAnb6vyiFI5VrMGuUFO610OkaCxPpaR3l+Kl/YcGz3xxxuxa61Cu8F7lq/V8+eNaF9hHFfjQ0u
-	Xr9oTvK6l9zOC4VxJtYW4rb4NRWB3x4C7UqO/SHiEOF188KLVUU+VGMAgGIP7xfUj9A/Iol+t77
-	G7rrlxlclGKBNzFV/XB2KLKQ3fXiGaQdmAZ9ZWWhznCVAIUpIq/62VRvvKaJ7SPTS6war0rntjU
-	nzvwEo40RL1rwHEUzgJS3nxDMRT3mXGxaLiqH0aXx1L27HhcsYrsb0hhaEm8M8GrIrAlAcLSOQN
-	zrUwgd+jGqVbYAVkWwqZ
-X-Received: by 2002:a05:701b:290b:b0:192:74cf:1db2 with SMTP id a92af1059eb24-1993505e004mr10316882c88.11.1793051126391;
-        Mon, 26 Oct 2026 14:45:26 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1793051130; x=1793655930;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RxRxbLBQ5S84nbJ2Z24j8qYmciKanlUFlKBok3xXqSM=;
+        b=t5mwwKTY/4TOwitGXGmUzCTW6P55S8fNNxoAIX968bzOmPnqlVBiEqYYjrm4hcMFAH
+         g1kHvn/qAEmSwMNXb7x0szpKcigkAqnJpiifON0BsqMw9AQ97tSAazO9kmQN7nD12N6o
+         itu4GgrX00GVDydftWayDycc2Mm6EcTjRXFslhEdxDpYqlT9kLsGlkWSUygRKcp/3alr
+         0x/nVPaZL/4MRjEdghyKAxobghrT30Ic+w3LYHfjum10XKXqUj4w0icBSUqr8ouVNMcn
+         pJFfP73/1HnEYKnbqoY9yftRy/hNNueWQkIknZFxerJVsQJzv7y7mLnQbZp/B83tkXZT
+         NIPg==
+X-Forwarded-Encrypted: i=1; AKwUvBw/WrlCsuDKr6CJgAMXFVCmWNUG9rekRCLOUxK91+NALWh8F6HIN1HeifmImq+0dMHa60pkzIudPk0AEVo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLxVxITXvjBPAOJdapLCRjEJvvviipn/pY0MrrXTiPQLBjhO5Lo
+	kI+ltfERZ060Vo4d/1g+gV7Od/iq1iq2UcxdtV0KMrYubvTjFe7ub3EgA6Vp6+UPGA==
+X-Gm-Gg: AYBFou14LqX3rFMTr4cV+k0TlWuD38Je8F1TrdABn73T7uNYWS9zrJyIsL0j0WnA9VH
+	lMVyeK2EgxCTc+5oaVKOGize7shpWHdgOFDM1RRGZsi52M/zExhtB5beDjtrf66Xp3RLlOhxmOi
+	W9H7GfWrtKNHmQnzaVYZfRAySSiv8zZ7Il0GKMcoq2c+Y3F9T7QmthgUGJD2Nti9nLDZXanAEUS
+	b0Ud3EpLveFhJBQ/tF8TbKk9MqyZjtablVZ6t48H+r69C5/0j7FVjAwCEa7zhUr7Q9++3poXdBy
+	P4nfaKeoY0b+kQV8e8CTNOZk8FL3m6Fn5sc12M2JdQ5ktutc+YmPSQ57jb2IssMBTLdVa76ZQq0
+	ZD7SsFvMgZIxr08kHUz7XDaQcBt4U56PXM8WX7v2XlNXMhNg/gKEfeZe4OwnjP1UlXBb5Pj7K9M
+	T20eoi6bVn9Tw1gcGqy/kNOaNxL+c/1PVnh0Zb6AKEeeShkqzZAjnZk/xoQd8JdBsCeZeOcUMmP
+	okw9peCHUyqrpYwZAa412DlIL6xt5htobRtQdqMFqW1lNXIXXjsxJDw/rAYlpu935WoLoW6Sw7I
+	1IIp6N3yNypK4itMbDk=
+X-Received: by 2002:a05:7022:eb57:10b0:165:55e2:2d69 with SMTP id a92af1059eb24-199377d8c73mr12569336c88.46.1793051129456;
+        Mon, 26 Oct 2026 14:45:29 -0700 (PDT)
 Received: from localhost ([2a00:79e0:2e7c:8:79c5:9cd3:db14:7468])
-        by smtp.gmail.com with UTF8SMTPSA id 5a478bee46e88-36a002a486csm13039391eec.22.2026.10.26.14.45.24
+        by smtp.gmail.com with UTF8SMTPSA id a92af1059eb24-198a0f81ea9sm32064575c88.11.2026.10.26.14.45.27
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 26 Oct 2026 14:45:25 -0700 (PDT)
+        Mon, 26 Oct 2026 14:45:28 -0700 (PDT)
 From: Brian Norris <briannorris@chromium.org>
 To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -99,9 +100,9 @@ Cc: Peter Griffin <peter.griffin@linaro.org>,
 	linux-clk@vger.kernel.org,
 	=?UTF-8?q?Jakub=20G=C5=82owacki?= <jglow@google.com>,
 	Brian Norris <briannorris@chromium.org>
-Subject: [PATCH 8/9] arm64: dts: google: Add Laguna CPM node
-Date: Mon, 26 Oct 2026 14:43:46 -0700
-Message-ID: <20261026144346.8.I4778aeffbdc796147efa8114431efcb201063b59@changeid>
+Subject: [PATCH 9/9] MAINTAINERS: Add entries for CPM drivers used on Tensor SoCs
+Date: Mon, 26 Oct 2026 14:43:47 -0700
+Message-ID: <20261026144346.9.Ibb4a0adecf127291198c372da631ff62b483a795@changeid>
 X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
 In-Reply-To: <20261026214359.3122870-1-briannorris@chromium.org>
 References: <20261026214359.3122870-1-briannorris@chromium.org>
@@ -114,75 +115,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The Central Power Manager (CPM) is a co-processor on the Google Tensor
-SoCs, as used on Pixel phones. CPM supports power-management and a
-number of other features.
-
-The Application Processor communicates with CPM over a pair of mailbox
-channels. CPM provides clock, power-domain, reset, and interrupt
-services, so we include the appropriate cell-definitions for those.
-
-Because this also adds clock, reset, and power-domain support, we add
-them to the UART node at the same time.
+The Google Tensor SoC known as Laguna introduces a variety of new
+drivers, with Google-designed IP. Add entries to the GOOGLE TENSOR SoC
+SUPPORT entry to cover the new drivers that interface with the Central
+Power Manager (CPM).
 
 Signed-off-by: Brian Norris <briannorris@chromium.org>
 ---
 
- arch/arm64/boot/dts/google/lga.dtsi | 20 ++++++++++++++++++++
- 1 file changed, 20 insertions(+)
+ MAINTAINERS | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/google/lga.dtsi b/arch/arm64/boot/dts/google/lga.dtsi
-index 6ceb9ea6a100..83b2361c5f00 100644
---- a/arch/arm64/boot/dts/google/lga.dtsi
-+++ b/arch/arm64/boot/dts/google/lga.dtsi
-@@ -7,8 +7,13 @@
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 20bd4e03bb54..c997d23e377d 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -11424,18 +11424,28 @@ C:	irc://irc.oftc.net/pixel6-kernel-dev
+ F:	Documentation/devicetree/bindings/clock/google,gs101-clock.yaml
+ F:	Documentation/devicetree/bindings/mailbox/google,lga-mailbox-array.yaml
+ F:	Documentation/devicetree/bindings/phy/google,lga-usb-phy.yaml
+-F:	Documentation/devicetree/bindings/soc/google/google,gs101-pmu-intr-gen.yaml
++F:	Documentation/devicetree/bindings/soc/google/
+ F:	Documentation/devicetree/bindings/usb/google,lga-dwc3.yaml
+ F:	arch/arm64/boot/dts/exynos/google/
+ F:	arch/arm64/boot/dts/google/
++F:	drivers/clk/google/
+ F:	drivers/clk/samsung/clk-gs101.c
++F:	drivers/irqchip/irq-google-*
+ F:	drivers/mailbox/goog-mba*
+ F:	drivers/phy/phy-google-usb.c
++F:	drivers/pmdomain/google/
++F:	drivers/reset/google/
++F:	drivers/soc/google/
+ F:	drivers/soc/samsung/gs101-pmu.c
+ F:	drivers/phy/samsung/phy-gs101-ufs.c
+ F:	drivers/usb/dwc3/dwc3-google.c
+-F:	include/dt-bindings/clock/google,gs101*
++F:	include/dt-bindings/clock/google,*
++F:	include/dt-bindings/interrupt-controller/irq-cpm-google.h
++F:	include/dt-bindings/power/google,*
++F:	include/dt-bindings/reset/google,*
++F:	include/dt-bindings/soc/google,*
+ F:	include/linux/mailbox/goog-mba-message.h
++F:	include/soc/google/
+ K:	[gG]oogle.?[tT]ensor
  
- /dts-v1/;
- 
-+#include <dt-bindings/clock/google,lga-cpm.h>
- #include <dt-bindings/interrupt-controller/arm-gic.h>
-+#include <dt-bindings/interrupt-controller/irq-cpm-google.h>
- #include <dt-bindings/interrupt-controller/irq.h>
-+#include <dt-bindings/power/google,lga-cpm.h>
-+#include <dt-bindings/reset/google,lga-cpm-reset.h>
-+#include <dt-bindings/soc/google,lga-lpcm.h>
- 
- / {
- 	#address-cells = <2>;
-@@ -356,6 +361,16 @@ abl@be000000 {
- 		};
- 	};
- 
-+	cpm: cpm {
-+		compatible = "google,lga-cpm";
-+		#clock-cells = <2>;
-+		#power-domain-cells = <1>;
-+		#reset-cells = <2>;
-+		interrupt-controller;
-+		#interrupt-cells = <1>;
-+		mboxes = <&cpm_ap_ns_req_mba>, <&cpm_ap_ns_resp_mba>;
-+	};
-+
- 	soc: soc@0 {
- 		compatible = "simple-bus";
- 		ranges = <0x0 0x0 0x0 0x0 0x10 0x0>;
-@@ -423,9 +438,14 @@ lsion_cli16_uart: serial@db62000 {
- 			reg = <0x0 0x0db62000 0x0 0x100>;
- 
- 			clock-frequency = <200000000>;
-+			clocks = <&cpm LGA_LPCM_LSIO_N LSION_CLI16_UART_CLK>,
-+				 <&cpm LGA_LPCM_LSIO_N LSION_CLI16_CFG_CLK>;
-+			clock-names = "baudclk", "apb_pclk";
- 			interrupts = <GIC_SPI 688 IRQ_TYPE_LEVEL_HIGH 0>;
-+			power-domains = <&cpm LGA_PD_LSIO_N_CLI_GPIO>;
- 			reg-io-width = <4>;
- 			reg-shift = <2>;
-+			resets = <&cpm LGA_LPCM_LSIO_N LSION_CLI16_UART_IC_CFG_RST>;
- 
- 			status = "disabled";
- 		};
+ GPD FAN DRIVER
 -- 
 2.56.0.307.g5fe7bd680c-goog
 
