@@ -1,84 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793021823;
-	b=1QotBN7UHXLMtDfQWuZ5/OrWXoFM9ti6HbhiFKw80e5NI8b0s/SimaG+ErwCsuLjk8Ek
-	 CF38/ojO+sReJ5lTs2qT3W6GAFd0+RuwPQOR0GAbYF0NxPvdHy5sw5sPgi16GX3tAoVlb
-	 amUqYbppLBFmiMvMpyoT0ARtjCBBj48L/nYSHCiIEB00oF72bQ7ljY8I8Xq8uZUj/eka/
-	 mcbKDxa+tBArV8o6UqHSyL2Dh6eElahRtjj+E9l4BYQ8jiShv6eh4HCHHNid4CcLOrpVH
-	 6qDEsSAYRVWOJw1d2F+4vwEK8TNeSC96Yo3sgp6YpGmwl2vJl/dfXnSLb7d/elL5j1w==
+	t=1793021831;
+	b=p5mLGgMQGxUSeWxx/0uYeVYKwZBErc/FuFLLBGb8gBVy3vQ33ZF/KXyQfldm7rMtH9Iu
+	 oGyI9nAk5/tKEQOcz/8R8r9V6X9AWASxbiBEAHjC82qiY9Vuk5vv9aCkY2wkil60cXI/L
+	 j87fQo+hwIvSGW5ueUREab1YVOoO2I3CncfLv5338u04b/fqWlk0OK8pXaJinPSqhDXfy
+	 o33iqqNFH+5XkvGWft0y00xb4GHimM9XrS6G8FjsGWK9uAhDuQUKMklIJhFdV1TIHf3Jl
+	 4uQ9DMCfIN/XvfB/8mdjhGVrRcLW5BXXtZsMhxVUqRS09FglIqqYckB7x1lC1XfxO2A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793021823;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793021831;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=u8dEoOvFyttOe/BrdbS9Lckh8vPBq/eJHO5XvvUziD0=;
-	b=ywJzoNo9g9xuYduwQXKxVhvygYZjFEeedJmfnKdA1CJXzHd+vf7JbNHip1emkRgmKlc7
-	 UTKSdBYYqB8ORvTF7zp+ywW5Z3htQfm4pKIIko8w3H/o1z+oOKWbRQUeXjPMT/rA8ujaI
-	 wqfM4NoanXaU7Ls+pg5CoQglqLvhE8pNIBbAiTmKJ34J7MN0GDhNtmn4LNVRzc8B9yBtU
-	 B9+4JG+fv8TKDYeRy0lnI3hsqbnLBiQI6CXqFBLI1nCP18TSNMK5xoQTUSxqBjWhcbQJ4
-	 uMiVGJ8bwg7yU32syM4vsZODzTjQ74hTL6yx8p/khymJXw0y2Obq3Qr7pL2aZCkekqw==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=ZdUmcXW287dmf4L0BFmvenYKDV6PnAEsVGMgRfFR9zw=;
+	b=pRxTKilKJT5RKqOGiJcKsVclxJuYdxDFcx8dBz8CkikM8XyqP6RFegoHUJ7Fq/AoAQDg
+	 8oWrQjHfN5HhOm5MuS2em2hTTWA71lkueJAiiIJCx+S85/NQGIs1ZKkBmqSCYfXy1ZGhK
+	 ybpW+CFHwf65Q/G78gtz9KVw5INk+7aUQd2veV9V10MH5fEyhzDHpkL/f0QyNVV1KQeVI
+	 HAA/IG4lv5Ec5HoEIrdCbwixECKlwXXpVNTwntK9cqLrK2Y9OYjRWkwjDSgma9zMs1WVL
+	 R0jAtpWFE4HjadOGztb0Bg1hii64egkXj2iVAZnaT8pnnqkGmloMrYJ3dcBvisHX3eA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=snu.ac.kr;
-	spf=pass smtp.mailfrom=snu.ac.kr;
-	dkim=pass header.d=snu.ac.kr header.i=@snu.ac.kr header.a=rsa-sha256 header.s=google header.b=r1D23Vnb;
-	arc=none smtp.remote-ip=74.125.82.52
-Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=TiMHdkNN;
+	arc=none smtp.remote-ip=209.85.214.179
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C17E3606A31B
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:37:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C17E3606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=snu.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=snu.ac.kr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A474C60A260D
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:37:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A474C60A260D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=snu.ac.kr header.i=@snu.ac.kr header.a=rsa-sha256 header.s=google header.b=r1D23Vnb
-Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-19305bcb72cso2068721c88.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 06:37:00 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=TiMHdkNN
+Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2e5fb79ce82so19076525ad.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 06:37:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=snu.ac.kr; s=google; t=1793021820; x=1793626620; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=u8dEoOvFyttOe/BrdbS9Lckh8vPBq/eJHO5XvvUziD0=;
-        b=r1D23VnbbDdUGzSg9SzRtXtenXM4+aoiMq/RQ8WNr8Erl4gTu4vpizT/KD0/4ssWoE
-         b8Rxheen0/j5U7l9cDhnKB89i5xz+pTwAeo5EUUFauyW9yNUpjtTDUlItXx/z+st4TRh
-         XXsF5A1YA6ljV/pkPIwIj8qpDO7MtAOnFAb4o=
+        d=gmail.com; s=20251104; t=1793021830; x=1793626630; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZdUmcXW287dmf4L0BFmvenYKDV6PnAEsVGMgRfFR9zw=;
+        b=TiMHdkNNZIGSX/bwyc4VVwUBunhP5LZvabSztj2oNV4+N7rFZM8aMIdIEdLalEyKyD
+         oRl2R+en8ClINQ8QQ9PjBxD5UcSOI69qaB/vUGwvBTDNbxJSmw7eqLT/tbdPzbFkQM60
+         1R48PTOUQ/v/ZCigkGwI7bCfDikCIDUEA6KaTp3VC0ueFwFSpTzyFJcNgo2pJ15feyze
+         wyTfPzTP9OVUG33h1RefgfPDvE9rFA7Njllvv1Vh3eOSDGuUbPr9HDtVBLDgfsArbh+U
+         q5ReJlsHP/zFw5IfQS5nTQAXA1SD9rEG1+ebi/eQEIruKZ4xtgM07z6y2b4eV4SEK+eh
+         kf4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793021820; x=1793626620;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=u8dEoOvFyttOe/BrdbS9Lckh8vPBq/eJHO5XvvUziD0=;
-        b=NHeBNS6EVckNaza/jFfTdA+air7+PIPr576HbVDHy+jdPbNJToTqNnjW47cxffq7Q6
-         Szyr8tXMb6SUnDLVYbcEvCWjAT74OGfBDJdFj7IcFjMDrUkbFEIs2yBGFESwIoAzVO9l
-         nphNWITAvKMMQI3GmVubRgzXz02D4+AflXxx4beYe3t9hl1oZMayo2mY6YX1ZZyg6T5k
-         eQK3+V21vv7WGo9ovKzQ+7vcf4wbmwD3qDVOE/No1Q2tbwhIiwIVFAEoqAgvrM2dlSCc
-         t4aVjS7vnBU8alSS/cNwokgSi+AdDX0knbQSUwqPva7filDBH+Yj62DpEuLa2HsyK62t
-         OauA==
-X-Forwarded-Encrypted: i=1; AKwUvBwAYNKqhEGKRKLRQhlRe+blLVF/A2Jgcf9z+WnBmFfKmpMHCH/6I+Io9KQRy1nJuYIZzh76CCwCtDSYY7c=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKWwxBIk2RA1QiC3me5noYP7aCs7Syb+PDYjfTg1BCwFZccAIl3
-	j6EpKinFsAIvNOFyUlUzoEDBoSa4tw64Uuo/QGudbtVw2akpHl3v6ykGGszqL0ua4RA=
-X-Gm-Gg: AYBFou1sHz3ehicmCC0xqEDYIfndBCnDe/NcFib7op/IOU2Z9oFLSvOfknYuL2STRFm
-	9z10mB/pi+LDk7g5OnHSVyD+FvwvdEZGexojRPSEvmVUB+ZlHc+LkTivwl8VyCmQ0R6eXqb6pH5
-	aidoBvgRtvEgQF81x+GsVNTQrc7xxjmb+jcSny47bwEYW2gY9IMriZ3cgY9fLIqSTr4q3Xe2dY1
-	24YdZB7WHEnWt/pqQAdd+srRF45we2iIbRuUcGpUNZd30OcOce8zq1RAobC5ysNO6qSpd584djt
-	WB+QjvA8c6sxxnZYYaZAEHXPAtzaJojwio7azXZzm15o8/3OJqGylv7zVyUUSPk17gwQ4YhcGpm
-	wgSN1N69qN5GbqlJA5bvEWPHIgzt1kcK2zHxbfOYpT22bRlFYE1iAinN+dzoE113Dha3H5iBff3
-	9/6jGOVwf14U/EcEZm+5yQ8PC7+H59ddOUO5c4mYUiV5LBP6lBmByuKVt3oBm15on7++dGYH6YR
-	FkQX6wmVnn4lyfFm3YgA88UBewqbKEivvl6U8JE2Ja2q0w5/w==
-X-Received: by 2002:a05:7022:150c:b0:191:ac4:55a7 with SMTP id a92af1059eb24-19934a96e58mr10119771c88.23.1793021819831;
-        Mon, 26 Oct 2026 06:36:59 -0700 (PDT)
-Received: from [172.19.0.2] ([49.142.45.25])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1989ff2ee5asm22432520c88.8.2026.10.26.06.36.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 06:36:59 -0700 (PDT)
-From: Seongjun Hong <hsj0512@snu.ac.kr>
-Date: Mon, 26 Oct 2026 13:36:43 +0000
-Subject: [PATCH 1/2] iommu/io-pgtable-arm: align next walk address to large
- page size
+        d=1e100.net; s=20260707; t=1793021830; x=1793626630;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZdUmcXW287dmf4L0BFmvenYKDV6PnAEsVGMgRfFR9zw=;
+        b=VnQnNVvKDN4+8/3E3W4JSmtx7cq/Oy3AsagkjAMOQFdadHVmRvGXH1ZpFqtGT7MgPx
+         6GflPSO/ReTTyDUlfxyoWrjMhvZcbDTqw6QkyECJu4rerPReL6RBtQDJBAcsSpOyTSqT
+         gRtShMwyw3eZFJNhU4infGrfCeaKq7SLvzb7MvcFlsP1J3HYHpBjDZxUSjdT+Fzm8Rt5
+         gumw4vQMfG6Y4kzgoQnbtY1cPWVyQjH5+l2oQckAwM2wYNSxZYgEpNtc6X1Rkz7GvKsi
+         rS0yXVLH07C+8SWpDEn7RRdEq5HFo5tKdqqXMHRWWuFT//CtBlcdL4qQeh7ddsTdXG+t
+         shaQ==
+X-Forwarded-Encrypted: i=1; AKwUvByll1NBbbgSpIfOK0DJYIlY1e1yi7m1w5QxX9r8xJpZtXvREXIcbT2h2/fpmNC+uHIRoQ4vnxZDCcBzs0Y=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL8EgcxYTdDjIB2LU65gCkzBpz3lXl55GHUyfV2BFw8LlopqfyZ
+	O2jA9N6nz16AHEiRJ5IZr6BtE+J/eIorKKD7jDKLk9v27rDK4lnG1q8K
+X-Gm-Gg: AYBFou17Ghu2EpfC6jJazeom3lD8JLA4Sq9aGQ2Sf31FaZe6ooCgpF+o2wYxGZEh0uy
+	NZ2Y7MXVwOutCbNcT7uN36HcpDJN/yKAiFM6KN8QqbwFzxiBF4ZdYJrEVjHubtod5/bUaJ3wvHa
+	xpg5LDHMKvv9Th/v8/OjrMvM1W009JQK71Qwr/SNnbpF57R0lwBw/dgdmnup3rBG0n6BahylD83
+	bI/ockC0kjawkWhKBnMqPBdjUwutz0EjReA066NHJPmDbH5MDuakxtEca/Q24ITmxV/J1dqNssa
+	gYpP8D1WlQ/XkX1Cu8in7q+2MB3qEOQJwZ4qIIfMVxT58bhlr3tnAy/grXl4fkO8Hxh2JG1SKrY
+	NxVWHG7FfZCB58oJytqXkOOBrqbUblzDZL9NBSpI1TqrB87LrqUhWULimFdT6dDjKcwXbsU6tS/
+	58s77HMVoIpmwTr22wXW/Y9yIk7H3u2FYATVHXOIFkGJOup7b/uQ6dThz4ER1tFBnI94tyR/SPS
+	oLtLmeVXmbkObovRPBYWWpezRNV7mvEgmAFp7jB+6VfCEntvFhvLvwHbS6vUWtVF3Mw+xXAbgLh
+	wStvSP18bvZmBHyd10hA88hextIDKNtKvDQ81UwOyl4X9e516TH/W06NjRL9
+X-Received: by 2002:a17:902:f78c:b0:2e9:6b5b:3db6 with SMTP id d9443c01a7336-2ea9c80e221mr60199245ad.30.1793021829901;
+        Mon, 26 Oct 2026 06:37:09 -0700 (PDT)
+Received: from yafangs-Air ([240e:46d:2600:484d:51ee:4f49:b5a8:aabd])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea9b1a5cf0sm17447055ad.52.2026.10.26.06.37.07
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 26 Oct 2026 06:37:09 -0700 (PDT)
+From: Yafang Shao <laoar.shao@gmail.com>
+To: jpoimboe@kernel.org,
+	mbenes@suse.cz,
+	pmladek@suse.com,
+	joe.lawrence@redhat.com,
+	song@kernel.org
+Cc: live-patching@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yafang Shao <laoar.shao@gmail.com>
+Subject: [PATCH v13 0/9] livepatch: Add support for scoped atomic replace
+Date: Mon, 26 Oct 2026 21:36:42 +0800
+Message-ID: <20261026133651.40061-1-laoar.shao@gmail.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,60 +99,266 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261026-iommu-arm-fix-missing-dirty-pages-v1-1-115b6b1cc0f5@snu.ac.kr>
-References: <20261026-iommu-arm-fix-missing-dirty-pages-v1-0-115b6b1cc0f5@snu.ac.kr>
-In-Reply-To: <20261026-iommu-arm-fix-missing-dirty-pages-v1-0-115b6b1cc0f5@snu.ac.kr>
-To: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
- Shameer Kolothum <skolothumtho@nvidia.com>, 
- Ryan Roberts <ryan.roberts@arm.com>, Kevin Tian <kevin.tian@intel.com>
-Cc: linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev, 
- linux-kernel@vger.kernel.org, Seongjun Hong <hsj0512@snu.ac.kr>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.13.0
+Content-Transfer-Encoding: 8bit
 
-Align down walk_data->addr before the increment by page size to prevent
-the missing dirty pages on IOMMU_HWPT_GET_DIRTY_BITMAP ioctl.
+Atomic replacement is currently all-or-nothing: a livepatch with
+"replace" set either atomically replaces all previously installed
+livepatches, or - with "replace" disabled - it replaces none. There
+is no way to atomically replace only a selected set of livepatches
+while keeping the rest running untouched.
 
-As Commit e21952d72b47 ("iommufd/iova_bitmap: Ensure that iova_bitmap_set()
-handles the full IOVA") mentioned, the requested iova range can begin in
-the middle of the large page (e.g., 2MB page block). So incrementing walk
-address by large page size (e.g., 2M) could bypass next dirty'd small pages.
+We previously proposed a BPF+livepatch method to enable rapid
+experimentation with new kernel features without interrupting production
+workloads:
 
-Fixes: 4fe88fd8b4ae ("iommu/io-pgtable-arm: Add read_and_clear_dirty() support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Seongjun Hong <hsj0512@snu.ac.kr>
----
- drivers/iommu/io-pgtable-arm.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+  https://lore.kernel.org/live-patching/20260402092607.96430-1-laoar.shao@gmail.com/
 
-diff --git a/drivers/iommu/io-pgtable-arm.c b/drivers/iommu/io-pgtable-arm.c
-index 476c0e25631a..01c3f9cd5d9c 100644
---- a/drivers/iommu/io-pgtable-arm.c
-+++ b/drivers/iommu/io-pgtable-arm.c
-@@ -821,7 +821,7 @@ static int io_pgtable_visit(struct arm_lpae_io_pgtable *data,
- 		return ret;
- 
- 	if (iopte_leaf(pte, lvl, iop->fmt)) {
--		walk_data->addr += size;
-+		walk_data->addr = ALIGN_DOWN(walk_data->addr, size) + size;
- 		return 0;
- 	}
- 
-@@ -868,7 +868,9 @@ static int visit_dirty(struct io_pgtable_walk_data *walk_data, int lvl,
- 		return 0;
- 
- 	if (iopte_writeable_dirty(*ptep)) {
--		iommu_dirty_bitmap_record(dirty, walk_data->addr, size);
-+		u64 iova = ALIGN_DOWN(walk_data->addr, size);
-+
-+		iommu_dirty_bitmap_record(dirty, iova, size);
- 		if (!(walk_data->flags & IOMMU_DIRTY_NO_CLEAR))
- 			iopte_set_writeable_clean(ptep);
- 	}
+In the resulting discussion, Song and Petr suggested that it should be
+possible to selectively replace or skip individual livepatches.
+
+This patchset introduces a more flexible model using two new fields in
+struct klp_patch:
+
+- provides: an unsigned int id identifying the replacement scope of
+  the livepatch. Livepatches that share the same provides id replace
+  each other, so at most one livepatch of each provides id can be
+  enabled at a time. By default (provides=0), every livepatch that
+  does not declare an explicit provides id belongs to the same scope:
+  loading a new provides=0 livepatch atomically replaces the
+  previously enabled one.
+
+- obsoletes: an optional array of unsigned int ids specifying
+  additional provides ids to be replaced. This allows a new patch
+  to explicitly obsolete patches from different scopes.
+
+A new livepatch atomically replaces any existing livepatch that
+satisfies either of the following conditions:
+
+  1. it has the same provides id as the new patch,
+  2. its provides id is listed in the new patch's obsoletes list.
+
+A new livepatch that does not replace an existing one can coexist
+with it. In this case, the two livepatches must not modify the same
+function, or use the state with the same id. Any attempt to load an
+incompatible livepatch will be rejected by the kernel.
+
+Previously, setting 'replace' to 0 was the only way to keep
+certain livepatches persistent on the system, forcing developers to
+disable atomic replacement entirely. With the introduction of provides
+and obsoletes, developers now have a selective option to keep specific
+livepatches persistent while maintaining atomic replacement capabilities
+elsewhere.
+
+IMPORTANT:
+- this design deprecates the traditional non-atomic-replace model.
+- the behavior of replacing all non-atomic-replace livepatches with a
+  single atomic-replace livepatch is also deprecated.
+
+The new "provides" and "obsoletes" attributes are exposed through
+sysfs and the kselftests cover the replacement and coexistence
+semantics described above.
+
+At present, KLP state, shadow variables, and callbacks are not
+integrated with the new provides/obsoletes mechanism in this patchset.
+Support for these features is deferred until Petr's klp-state-transfer
+infrastructure is completed and merged:
+
+  https://github.com/pmladek/linux/tree/klp-state-transfer-v1-iter12
+
+It is based on livepatching tree's for-next branch.
+
+Future work
+===========
+
+For backward compatibility with the old non-atomic-replace model, we
+might consider adding a new "noreplace" flag. A livepatch with this
+flag set would not replace any other livepatch, but it could still
+be replaced by an atomic-replace livepatch. This would preserve the
+behavior of the original non-atomic-replace model.
+
+We can revisit this once a real use case for the non-atomic-replace
+model emerges.
+
+Changes
+=======
+
+v12->v13:
+- clarify the replacement conditions (Petr)
+- update the system state compatibility rules in system-state.rst
+  to match the new conflict rules
+- fix temporary selftests broken in #2 (Petr)
+- remove the "patch.replace = true;" in #8 (Petr)
+- add the new file ABI/removed/sysfs-kernel-livepatch to MAINTAINERS
+- The UAF in livepatch_mod_init() is fixed by a standalone patch:
+  https://lore.kernel.org/live-patching/20261016122314.81476-1-laoar.shao@gmail.com/
+
+v12: https://lore.kernel.org/live-patching/20261016053708.47089-1-laoar.shao@gmail.com/
+
+v11->v12:
+Comments from Petr after the LPC discussion:
+- document the rollback pitfalls in #5
+- warn about installing more livepatches in parallel in #5
+
+v11: https://lore.kernel.org/live-patching/20261008095830.26308-1-laoar.shao@gmail.com/
+
+v10->v11:
+- check $HAS_PROVIDES_ATTR positively in #2 (Petr)
+- document the conflict semantics in #5 (Petr)
+- per the LPC discussion, drop the symmetric obsoletes semantics
+
+v10: https://lore.kernel.org/live-patching/20260930030323.14396-1-laoar.shao@gmail.com/
+
+v9->v10:
+Various comments from Miroslav:
+- rename skip() to skip_exit() and skip_test() to skip() in #2
+- define CONFIG_KLP_HAS_PROVIDES in #2
+- add a comment about the CONFIG_IKCONFIG_PROC fallback in #2
+- adjust the order around `CONFIG_KLP_HAS_PROVIDES`
+- update the comment above klp_add_nops() and
+  klp_unpatch_replaced_patches()
+- add verification step for `provides 0 coexists with provides 1` in #7
+
+v9: https://lore.kernel.org/all/20260913024228.72317-1-laoar.shao@gmail.com/
+
+v8->v9:
+- extract the replace-related test scenarios into functions in patch #2
+  (Song)
+- make the state module parameters read-only to avoid a potential
+  state leak if tampered with after load (sashiko-bot)
+- verify that /proc/meminfo is no longer patched after the atomic
+  replacement (sashiko-bot)
+- unload the coexisting state livepatches in LIFO order so that the
+  console_loglevel is properly restored (sashiko-bot)
+
+v8: https://lore.kernel.org/all/20260909024324.16002-1-laoar.shao@gmail.com/
+
+v7->v8:
+- fix the commit log and documentation regarding `--obsoletes`
+  (sashiko-bot)
+- remove the `--obsoletes` validation requirement from klp-build (Josh)
+- explicitly log the skip info for the deprecated `replace` attribute on
+  the new kernel
+- implement symmetric obsoletes (Petr)
+- rename test module files for clarity (Petr)
+- add CONFIG_KLP_HAS_PROVIDES (Petr)
+- avoid duplicate test module source files (Petr)
+- documentation and commit log improvement (Petr)
+- add more selftests for provides/obsoletes (Petr)
+- other code cleanups (Petr, Josh)
+
+v7: https://lore.kernel.org/all/20260825114641.80452-1-laoar.shao@gmail.com/
+
+v6->v7:
+- rebase it to livepatching's for-next branch
+- rename klp_patch_replaceable() to klp_patch_replaces() (Song)
+- remove "[]" around --obsoletes (Song)
+
+v6: https://lore.kernel.org/live-patching/20260607131659.29281-1-laoar.shao@gmail.com/
+
+v5->v6:
+- Check `--provides` argument in `klp-build (sashiko)
+- Fix the 'replace' feature detection for OOT kernel builds (sashiko)
+- Fix race condition in sysfs polling (sashiko)
+
+v5: https://lore.kernel.org/live-patching/20260809091954.22930-1-laoar.shao@gmail.com
+
+v4(RFC)->v5:
+- Add selftests and Remove the RFC
+- Fmprove klp_has_function_conflict() (Song)
+- Fix a pre-exisiting bug
+- Fix bugs reported by sashiko
+
+v4 (RFC): https://lore.kernel.org/live-patching/20260804065010.44922-1-laoar.shao@gmail.com/
+
+v3->v4(RFC):
+- Allow a livepatch to replace livepatches with different provides IDs.
+  Replace the single `replace_set` field with two separate fields,
+  `provides` and `obsoletes`, for more flexible replacement semantics.
+  (Petr, Joe)
+
+v3: https://lore.kernel.org/live-patching/20260607131659.29281-1-laoar.shao@gmail.com/
+
+v2->v3:
+- Address the feedback from Sachiko AI
+ - Fix the pre-existing NULL pointer dereference issue
+ - Move klp_find_func into core.h
+ - Don't deprecate stack_order completely
+
+v2: https://lore.kernel.org/live-patching/20260529034542.68766-1-laoar.shao@gmail.com/
+
+v1->v2:
+- Incorporate feedback from Petr:
+  - Initialize replace_set to 0 by default
+  - Improve documentation
+  - Enforce that livepatches in different replace_sets cannot use the same
+    state->id.
+  - Enforce that livepatches in different replace_sets cannot modify the
+  - Ensure consistent capitalization and naming usage of KLP_REPLACE_SET.
+- Incorporate feedback from Sachiko AI:
+  - Skip the klp_transition patch during klp_force_transition().
+
+v1 (RFC): https://lore.kernel.org/live-patching/20260513143321.26185-1-laoar.shao@gmail.com/
+
+Yafang Shao (9):
+  selftests/livepatch: Clarify test module file names
+  selftests/livepatch: Adapt atomic replace tests to provides/obsoletes
+  livepatch: Make klp_find_func() non static
+  livepatch: Call klp_init_patch_early() earlier
+  livepatch: Implement provides and obsoletes for scoped atomic replace
+  livepatch: Deprecate stack_order
+  selftests/livepatch: Add provides/obsoletes test scenarios
+  selftests/livepatch: Add state test for provides/obsoletes
+  selftests/livepatch: Add function test for provides/obsoletes
+
+ Documentation/ABI/removed/sysfs-kernel-livepatch   |  16 +
+ Documentation/ABI/testing/sysfs-kernel-livepatch   |  26 +-
+ Documentation/livepatch/cumulative-patches.rst     | 127 +++-
+ Documentation/livepatch/livepatch.rst              |  29 +-
+ Documentation/livepatch/system-state.rst           |  22 +-
+ MAINTAINERS                                        |   1 +
+ include/linux/livepatch.h                          |   8 +-
+ kernel/livepatch/Kconfig                           |  15 +
+ kernel/livepatch/core.c                            | 126 ++--
+ kernel/livepatch/core.h                            |   2 +
+ kernel/livepatch/state.c                           |  70 ++-
+ kernel/livepatch/transition.c                      |  15 +-
+ scripts/livepatch/init.c                           |  18 +-
+ scripts/livepatch/klp-build                        |  23 +-
+ tools/testing/selftests/livepatch/Makefile         |   3 +-
+ tools/testing/selftests/livepatch/functions.sh     |  42 +-
+ .../testing/selftests/livepatch/test-callbacks.sh  |  43 +-
+ tools/testing/selftests/livepatch/test-ftrace.sh   |   2 +-
+ tools/testing/selftests/livepatch/test-kprobe.sh   |  15 +-
+ .../testing/selftests/livepatch/test-livepatch.sh  | 108 ++--
+ .../selftests/livepatch/test-provides-obsoletes.sh | 656 +++++++++++++++++++++
+ tools/testing/selftests/livepatch/test-syscall.sh  |   2 +-
+ tools/testing/selftests/livepatch/test-sysfs.sh    |   9 +-
+ .../selftests/livepatch/test_modules/Makefile      |   9 +-
+ .../test_modules/test_klp_atomic_replace.c         |  57 --
+ .../test_modules/test_klp_callbacks_demo2.c        |  12 +
+ .../livepatch/test_modules/test_klp_cmdline_kp.c   |  38 ++
+ .../livepatch/test_modules/test_klp_cmdline_lp.c   |  60 ++
+ .../livepatch/test_modules/test_klp_kprobe.c       |  38 --
+ .../livepatch/test_modules/test_klp_livepatch.c    |  51 --
+ .../livepatch/test_modules/test_klp_meminfo_lp.c   |  79 +++
+ .../livepatch/test_modules/test_klp_meminfo_lp2.c  |   2 +
+ .../livepatch/test_modules/test_klp_state.c        |  38 +-
+ .../livepatch/test_modules/test_klp_state2.c       |  46 +-
+ .../livepatch/test_modules/test_klp_syscall.c      | 131 ----
+ .../test_modules/test_klp_syscall_getpid.c         | 131 ++++
+ 36 files changed, 1548 insertions(+), 522 deletions(-)
+ create mode 100644 Documentation/ABI/removed/sysfs-kernel-livepatch
+ create mode 100755 tools/testing/selftests/livepatch/test-provides-obsoletes.sh
+ delete mode 100644 tools/testing/selftests/livepatch/test_modules/test_klp_atomic_replace.c
+ create mode 100644 tools/testing/selftests/livepatch/test_modules/test_klp_cmdline_kp.c
+ create mode 100644 tools/testing/selftests/livepatch/test_modules/test_klp_cmdline_lp.c
+ delete mode 100644 tools/testing/selftests/livepatch/test_modules/test_klp_kprobe.c
+ delete mode 100644 tools/testing/selftests/livepatch/test_modules/test_klp_livepatch.c
+ create mode 100644 tools/testing/selftests/livepatch/test_modules/test_klp_meminfo_lp.c
+ create mode 100644 tools/testing/selftests/livepatch/test_modules/test_klp_meminfo_lp2.c
+ delete mode 100644 tools/testing/selftests/livepatch/test_modules/test_klp_syscall.c
+ create mode 100644 tools/testing/selftests/livepatch/test_modules/test_klp_syscall_getpid.c
 
 -- 
-2.43.0
+1.8.3.1
 
