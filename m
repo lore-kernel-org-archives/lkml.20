@@ -1,54 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793021610;
-	b=rtBBBlSoYkOaBYSMQmSdgNREMx5TkicOBGSf7r2nrJ9v6tbDb1WYHC52Pcuo4OvZczee
-	 txZrezPpId5R4PezGMVs7LjsX4aPFv9HDBn4zFZwXQfn5dPeMPHJKnnqo50LqF2doL5ZW
-	 JMBgnJXJ8SaR9dVhmIYupEzGP71xCLClkZhLc46IWIl84YSDA7CSYDwoyNYVXcXtGNb+Q
-	 /kDg4uco9pJf+JNSV269L4MHZomJQQq1mSOk9G3MA9A6kZtHkEC/U6QoTeMz2lSsXq2bb
-	 Kgk3iSKpOht/dmrCpHiJSmfeirCbAqn0foX3+GseE99ommGgxEj6ZvQnpSN8PItkr5A==
+	t=1793021697;
+	b=zYRZrkO4izuil3zRg5nryU4mO/I9NzC4NU+xiczDIP7j1z64Peowq25MlVtgzSzhCV08
+	 2r1YiRsoAoTgBekEBeoDjU/TYjN0VVuSZfjqoUOBjmzJPeeAyzhO731QFxCMDFCCSOpJt
+	 euKcmNEkqcT1BQ8K6F0Z5JvXHjSQmrnsjcZtdFxQlSVbBHwp1qxbNoDXyCkopHdbWjNUU
+	 +7lCrz3ycr/YJuXG++GzbxQh3YHQyGb9/h+eaztFRUutm8CeioJy6B0cdHhDO/c628cAQ
+	 DL1pqfq6lp8iKxS6epS21xS8drY8oRIXPK7dstApfGunnX4J3I/1JnUKfCGpmiX4ykA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793021610;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=3QJjgBNhhMcU2h8ryMvyVAOJo+FmKjFcCzZY6PKW7M8=;
-	b=FKz3SZcLF6d6fgxtF7czBHL/UUc2pm8GsTLTOC5Qg60XsUmuaxXg+6121d8wpQjyLS3a
-	 m7AvWfHxHNUwKfH9MrjE495YbQ41aE8iY8pAx23gX3mlK2nDMzTL/hQEZOXqEJwpJ+YRO
-	 uawo40HMfmjwpgnpVlXVXgNhC8JegmjF1rbs6HfrJl3UImjUgUDt7WcQZgSWfYLJITBPp
-	 QsTLXaQ2RJvThhENeH+Hci1ej4dwzWpEfcIQEUaTd5I3iiZEApvqS4fyfdmTZ3NVlrzir
-	 SgammXmqXzKmsSpD6L3ZUCNzaUOcjinU4pb3WbfjXf0S5vZasCs3IwEOL8KYJxG4TRg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793021697;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Ph6mKQKaPm1MUpvQa59GZ4TL6tR4lI7/GVACd9ay4HE=;
+	b=3e7KKcCKUIOgB7z+a25ylY7UWPNfpLBmM5OffeDR/IoTq3zA9ERJKitbS4yua2MBtzRi
+	 R3SgwqPb0PFvjx4m3Pun958LxoI0CszPBv61/23bbulE6bFz6QbwU2qIRl78WlSdW8d3Z
+	 1g3MCLSnSlGChblD5jN2+U+U4tPcQcBp1TxGr1/bTMknnJuGXwr59NsLGII+dxnXk+dmV
+	 Rx8CGdvFj6PYoSLBwlZt+vJze4pIZl4rInFZJtjVs7uiYVg8sBolOcQtozS3gbQpg+GEN
+	 Lg20EZNto6BBzC+OY2JwUT1PukLpaf0gnOSaiDfX1wG97+6h95W1VVpBTRR+3qWgNdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d8gwXBfE;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rJyscda+;
+	arc=none smtp.remote-ip=74.125.82.50
+Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E099B606A31A;
-	Mon, 26 Oct 2026 13:33:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF232606A31D
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:34:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF232606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d8gwXBfE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A1CE1F01825;
-	Mon, 26 Oct 2026 13:33:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793021609;
-	bh=3QJjgBNhhMcU2h8ryMvyVAOJo+FmKjFcCzZY6PKW7M8=;
-	h=From:To:Cc:Subject:Date;
-	b=d8gwXBfEJjO1rmMFiYe3Ur+g7oPaJCfSXRVjqlORKGG4scOzcIY9NsU46uIErcxZP
-	 nIXuqF7X/B78sTjJdf0FDC3r4xDSAp7rFeQsbBtQzCeToh74fGL2UHzvv/4uk3v5Fz
-	 Ub0Pbei+dlTqQ0wNVDPmggdAPCto0QzjDesvuS5+rNk5mmgyMVTd8PbqAjBVOpe881
-	 JCHNQvKyRtsz0/IMKprpdc9rVIJeU7Z8y/a2f0meIXaT6pDjYP9FK3ZtrXOwMKLHWm
-	 k+LPldK9/bEqSHejvXSogwMO2m3PsAbAYtNNuRLYr0OUGJeB0hJSxKEd7aWIoFGSmt
-	 A4Vxra7J4HCuQ==
-From: SJ Park <sj@kernel.org>
-To: stable@vger.kernel.org
-Cc: SJ Park <sj@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [PATCH 7.3.y] mm/damon/core: error damos_commit_quota_goal() for zero target_value
-Date: Mon, 26 Oct 2026 06:33:16 -0700
-Message-ID: <20261026133320.68445-1-sj@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rJyscda+
+Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-14394530ec6so3626208c88.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 06:34:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793021696; x=1793626496; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Ph6mKQKaPm1MUpvQa59GZ4TL6tR4lI7/GVACd9ay4HE=;
+        b=rJyscda+z9obu97kIzHawsUy4OQ37Kt5wQIp6GV3hsUEq4mF5Y//dSjpDzxAO2LNF5
+         OQEXv8wGes7zrliRrBbOw2aR5QKPVC6mZIlix03Di10jCCg1ICusv28ERBE3KhbI1WJC
+         poiCLe1JjdbB1N0hko/hvh+92FLosIt6ZHWTmPTygwBY/ipiNr3sKg/bDkOoNMeioisG
+         0E6OBcVC6aHQaglif/MuD7BzkncW5W4s+pogvFGaWNzLxnjO39D+Q6laCpodKjE8u6/Y
+         g3GM/5JPYeO2uApGxuOEsqWnL2h7LqJO9V38x57aKpAxWqhSBkF0nPgloZlrD83jrzld
+         LNPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793021696; x=1793626496;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Ph6mKQKaPm1MUpvQa59GZ4TL6tR4lI7/GVACd9ay4HE=;
+        b=uplnsTtQphYM+JRjLXUsEvJs6copzvCl2v52e6LpIBK/vfr7eJQi/LVgI8F2gd9TKS
+         zWByIDV+i3OqlB838x8alPWUjDsGlap7DbbjUNDFnt7moesJOjAsyM4xVq/FBNJTHUNC
+         hxAzpAxxLyn6SE2oF7mUJfwdlL6zDJILh6gfKdiBBDZwyYtBN6sw00fp0qYOsy63mZTE
+         05izJmhI3kRQOFhNS1GWnGsKf3N54E4ihL+9HYvgRz9F2Gi4oGMmcvcRQr6/vQbK+9zc
+         ruzEmQDXpVPvPUpjKtiPpRWP+XxW8NAkbPZUmKYBkcXh2caJLJNir3MwN5ZPhVQ3Xezg
+         Nr2Q==
+X-Forwarded-Encrypted: i=1; AKwUvByGayjp28YGCO3zYJ3mAoOcKwPXwePNvs1SCsxg8CkqSuTj87VeMA91vcSJbZEhH4jflshUG+mI8N84c4Y=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIzulGsq5Yey9XGEz4dovugqPgypvRsCCyW97kZZkFAbB0aN/hR
+	EbYqwVsn0HdhrwBQVWfq77cApQtpOo6hNt1ycqEGVD87/3mAanfpCIbKkdLYBUsNLSM=
+X-Gm-Gg: AYBFou24NGn+qTqrNPjVROxeudYzhhXrS/3UJ+anbKz5rYpIIWvxC7Tj0oCS6M4vgQ9
+	bOyNxPSfw9eQH8nMH4g2GoIXJveCg/0JON+k3M5qUCDgBo/XBz5dr1t9Cd4toHV+nDsJ07m4nw1
+	gE2nD3agHl4TZM93/YkWie/wfhUx/v1CGLKZZRF2J1h+9Q3fqh1+ZzcJijVsGD1xUfhmD0ge0yY
+	bzcIdTdiHeaopjK2IH1/i3szOtO9whi2QBtmPP0GIxEH/ihuLYvMcygi9EZVL0/Dn692VrrLzs9
+	OpLxYMNsTultVYVQMK2pO6ieXkG8RZIvZXs0cWND3QOYcbGlKTwAQcjJFTwTy2R7FzVGEahbyUo
+	RrnQYSbIgwTiEDdyTHspYGwasK4GUrfriq+5Fvn+l61CDT5jxg1/HL7l37M5ZJbRkKJGqX4vWQ7
+	98d2tltv5CUZfG/uuwnH00M0sDqSrD16YSNSSsSmGHLnLRRzw1yCKRhNzEIiwnq9m3+wRN+W+TM
+	XwLpa1eKOt98wJl4fUW5WVAus2PBpWw+JuDD4Y7c4E/hAOL1vLdzNQzNOVZm4LIVp4=
+X-Received: by 2002:a05:701b:2301:b0:138:30b1:4c00 with SMTP id a92af1059eb24-199290fe43bmr8991827c88.3.1793021695702;
+        Mon, 26 Oct 2026 06:34:55 -0700 (PDT)
+Received: from localhost.localdomain ([154.17.21.5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8ee71f5sm33014470eec.28.2026.10.26.06.34.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 06:34:55 -0700 (PDT)
+From: ZeroNinEX <zwq939681378@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] usb: core: quirks: Skip device qualifier for BEITONG BTP-PG01A
+Date: Mon, 26 Oct 2026 21:34:48 +0800
+Message-ID: <20261026133448.10185-1-zwq939681378@gmail.com>
 X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -61,126 +95,67 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Patch series "mm/damon: move zero damos quota target_value handling to the
-core layer".
+The BEITONG BTP-PG01A wireless controller dongle initially enumerates as
+4131:800c. Device qualifier requests fail with -EPIPE, followed by
+failures to read the configuration descriptor. After port recovery,
+the dongle can enumerate as 045e:028e with only two interfaces, leaving
+the vendor configuration software unusable in a Windows guest.
 
-Having zero DAMOS quota target value can cause division by zero.  DAMON
-API callers are checking the target value parameters to avoid that.  It is
-easy to make mistakes in some of the multiple API callers.  Move that to
-the core layer.
+Add USB_QUIRK_DEVICE_QUALIFIER for 4131:800c to skip device qualifier
+requests. The dongle then enumerates as 20bc:5162 with five interfaces,
+including three HID interfaces, and the vendor software works through
+USB passthrough to a Windows VM.
 
-Patch 1 adds the corner case handling into the core layer DAMON parameters
-validation logic.  Patches 2 and 3 remove no more needed DAMON API callers
-side handling of the corner case in DAMON_LRU_SORT and DMON_SAMPLIE_MTIER,
-respectively.
+Tested both usbcore.quirks=4131:800c:i and the built-in entry on an xHCI
+host. The patched kernel was tested without a dynamic usbcore.quirks
+entry. The configuration-request size quirk alone did not resolve the
+enumeration failure.
 
-This patch (of 3):
-
-If a DAMOS scheme has a damos_quota_goal of zero target_value,
-damos_quota_goal() could trigger division-by-zero error.  Hence each DAMON
-API callers should do the zero target_value validation.  It is easy to
-make mistakes.  Actually such bugs in DAMON_LRU_SORT and
-DAMON_SAMPLE_MTIER were found and fixed [1].
-
-It is better to handle the corner case only once in the core layer,
-instead of multiple places in all DAMON API callers.  One straightforward
-option is using an alternative denominator for the corner case in the
-damos_quota_goal().  However, the zero target_value is meaningless.  In
-this case, the quota goal is always evaluated as achieved or
-over-achieved.  The quota will only keep being reduced.
-
-Simply avoid using zero target_value by adding a check in the core layer
-DAMOS quota goal parameters validation/commit path,
-damos_commit_quota_goal().  Update it to return an error in the case.
-Also update its caller to propagate the error.
-
-Notes for stable kernel porting.  The upstream commit doesn't have
-Fixes: and therefore not ported to stable kernels.  It turned out it
-fixes commit 8b549a4fd3c5 ("mm/damon/sysfs-schemes: commit damos quota
-goals user input to DAMOS") which was merged into v6.8.  The user impact
-is a race condition that can result in divide-by-zero.  Hence backport.
-Reproducing the issue requires sysfs write permission, certain DAMON ABI
-usages that are supposed to be uncommon, and a rare race timing, though.
-The issue was discovered [2] by Sashiko as a part [3] of its bug report.
-
-[2] https://sashiko.dev/#/bug/linux-7f814c9a-986f-4103-a55a-ef9537dcf62b
-[3] https://lore.kernel.org/20261021005234.94107-1-sj@kernel.org
-
-Link: https://lore.kernel.org/20260903010722.94244-1-sj@kernel.org
-Link: https://lore.kernel.org/20260903010722.94244-2-sj@kernel.org
-Link: https://lore.kernel.org/20260803134034.15217-1-sj@kernel.org [1]
-Signed-off-by: SJ Park <sj@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-(cherry picked from commit 610c4438fb66e06d9e693c0ad3b2c1be54c0d61f)
-Signed-off-by: SJ Park <sj@kernel.org>
+Signed-off-by: ZeroNinEX <zwq939681378@gmail.com>
 ---
-Changes from RFC
-- RFC: https://lore.kernel.org/20261025171526.157414-1-sj@kernel.org
-- Drop RFC tag.
+Tested the built-in entry with kernel 7.3.0-pg01a+ on an xHCI host through
+the original hub chain, with no dynamic usbcore.quirks entry. The dongle
+enumerated as 20bc:5162 with a 146-byte configuration and five interfaces,
+including three HID interfaces. The submitter also confirmed successful
+USB passthrough to a Windows VM and use of the vendor software. Secure
+Boot remained enabled using the host's existing enrolled MOK.
 
- mm/damon/core.c | 22 ++++++++++++++++------
- 1 file changed, 16 insertions(+), 6 deletions(-)
+The changed source file compiled without warnings with W=1 using both
+x86_64_defconfig and the host's USB module configuration. The full
+host-configured kernel and Debian packages also built successfully with
+debug information disabled.
 
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index ab3c4d7549644..74d22a596fc13 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -1136,15 +1136,18 @@ static void damos_commit_quota_goal_union(
- 	}
- }
- 
--static void damos_commit_quota_goal(
-+static int damos_commit_quota_goal(
- 		struct damos_quota_goal *dst, struct damos_quota_goal *src)
- {
-+	if (!src->target_value)
-+		return  -EINVAL;
- 	dst->metric = src->metric;
- 	dst->target_value = src->target_value;
- 	if (dst->metric == DAMOS_QUOTA_USER_INPUT)
- 		dst->current_value = src->current_value;
- 	/* keep last_psi_total as is, since it will be updated in next cycle */
- 	damos_commit_quota_goal_union(dst, src);
-+	return 0;
- }
- 
- /**
-@@ -1162,14 +1165,17 @@ static void damos_commit_quota_goal(
- int damos_commit_quota_goals(struct damos_quota *dst, struct damos_quota *src)
- {
- 	struct damos_quota_goal *dst_goal, *next, *src_goal, *new_goal;
--	int i = 0, j = 0;
-+	int i = 0, j = 0, err;
- 
- 	damos_for_each_quota_goal_safe(dst_goal, next, dst) {
- 		src_goal = damos_nth_quota_goal(i++, src);
--		if (src_goal)
--			damos_commit_quota_goal(dst_goal, src_goal);
--		else
-+		if (src_goal) {
-+			err = damos_commit_quota_goal(dst_goal, src_goal);
-+			if (err)
-+				return err;
-+		} else {
- 			damos_destroy_quota_goal(dst_goal);
-+		}
- 	}
- 	damos_for_each_quota_goal_safe(src_goal, next, src) {
- 		if (j++ < i)
-@@ -1178,7 +1184,11 @@ int damos_commit_quota_goals(struct damos_quota *dst, struct damos_quota *src)
- 				src_goal->metric, src_goal->target_value);
- 		if (!new_goal)
- 			return -ENOMEM;
--		damos_commit_quota_goal(new_goal, src_goal);
-+		err = damos_commit_quota_goal(new_goal, src_goal);
-+		if (err) {
-+			damos_free_quota_goal(new_goal);
-+			return err;
-+		}
- 		damos_add_quota_goal(dst, new_goal);
- 	}
- 	return 0;
+The available usbmon capture covers the unsuccessful configuration-request
+size quirk experiment. No capture of the successful path or cold-replug
+trial count is available.
 
-base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+AI assistance: OpenAI GPT helped analyze the original enumeration problem.
+Codex used the supplied handoff and USB traces to check the upstream code,
+prepare the device-table entry, and draft this commit message and workflow.
+The submitter performed the hardware experiments and confirmed the VM and
+vendor-software tests. Codex collected the running kernel, boot parameters
+and cached USB descriptors locally after the static-patch test.
+
+ drivers/usb/core/quirks.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/usb/core/quirks.c b/drivers/usb/core/quirks.c
+index a4bcbe9c9..c01c5cfe1 100644
+--- a/drivers/usb/core/quirks.c
++++ b/drivers/usb/core/quirks.c
+@@ -615,6 +615,10 @@ static const struct usb_device_id usb_quirk_list[] = {
+ 	/* GameSir G7 SE */
+ 	{ USB_DEVICE(0x3537, 0x10a0), .driver_info = USB_QUIRK_WINDOWS_CONFIG_REQ_SIZE },
+ 
++	/* BEITONG BTP-PG01A wireless controller dongle */
++	{ USB_DEVICE(0x4131, 0x800c), .driver_info =
++			USB_QUIRK_DEVICE_QUALIFIER },
++
+ 	/* DELL USB GEN2 */
+ 	{ USB_DEVICE(0x413c, 0xb062), .driver_info = USB_QUIRK_NO_LPM | USB_QUIRK_RESET_RESUME },
+ 
+
+base-commit: 21a7f44fd0765fcc5194130b28767786eba1d1e7
 -- 
 2.47.3
+
