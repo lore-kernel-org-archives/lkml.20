@@ -1,65 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793018653;
-	b=anfcSBPWMLLw62gqQ6XOXNNXpcPpMJGNZQpBoj0RSX0dkIssE2Ochh9ApvPX80jFegXV
-	 SZMZ8tnJmdJbGBXdAEfKHQ6URnuaE2oEm8jT72c+8He2xAkLrKx3QMQyL+pNBEIDCfxCa
-	 VzNYhwy72B56XxUiS1IwNKXAaX2hn/Khd9tXb7HhCuOeYxvhL4dzzuBjCmrXggsyZoUY+
-	 EbVEMHUdT8fyzACl9myXgMZwSD2/V5GcI65/qbkp14tF7OPh9SicsGnEE/gl3iNe1Nj4T
-	 Ho8G5LXYc3bN9bkAsyn1wVA0cApaTplbnqmVOVLklAH+R2MdWFfJct/9o9c9yHG6jyg==
+	t=1793018669;
+	b=yr3zwOMzlhbI03z3rG0wTftsNgkFVrAiCIqdsHmPoh7LCcTfsciHsK2ilk1APJNhwDqp
+	 qsojNvdi20GY1T1fhKVq40N/smqknhup6vgm+jg6YR0zh/dVrH6RF23HIRtuZnjPOWkf+
+	 yuVJrXZyfDMascS4eEHf6KROoIdlbNLowMIEvUwM5DZtCTs2cnw8WIafdobJ0TWmyeyGe
+	 T7Uk2l6ad1QT+Hy6vx5WepCOsAHpFfJYrVRiFp/lz/e08vX5SjAAeAm4GzeNARYQWL/bl
+	 3CKr1x+cNeVt7t7C+vbuGwR0ld5y30HNVXpY1IeeWXKL3LTcFKiIqKbT6u4qRujfQrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793018653;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=/+0f6L1ejx5QM3sVEKtfmLyTDHGqquYakcMtFvsjOh0=;
-	b=qPxumr4RtORa0lQ1c8pNpoyScGIBqYJDHH5QkbgJvZfdtkdVuo4YLxVW2lN3qZ+Yzi6N
-	 ALFiogn6JoWqd6aDdEWfuvr1NayOMkUm+hoAwEZb8YxSB5M58fUo4mXVhKuctJXnSRNo8
-	 Nx4A1gB97ghh+x1I+JaPsqubeVcXTEpmxLIP/UwoF1uAsrVi9sORqdolEQB47wd/nSNVF
-	 g6mvyAeJaxPedPtTTW5Eh8alAcD2EOJRNckg66s2twkCPTRMqkFvdr1kEmhTZJd/6sOWu
-	 igIuvADrnmrHb1KKeBIcaK9Tpo3miliDlhCYzJs2RZ5jMA9rfNBCl/NbCcPQ2DszaUQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793018669;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
+	 References:Content-Type:Content-Transfer-Encoding:User-Agent:
+	 MIME-Version;
+	bh=+Wq76IOoqC9Xs53xPZFbGa8lUXZBI88ZO79pfXsG86A=;
+	b=g7u7S1S0ueL7XkaMlk7DHCjXLkBp0RIaJN1FYnYDOlI8qTgyg7IYFeCxgI0qvwaEOVLa
+	 vUS2b2qTK3slDWHRzqNPq9958+HE08eAaM7yL1RcyADODmHSUrHc5i2f5q7JGuuieXuQu
+	 HSoynr1joQvhoy0AKO1YoROA3DayXSTcelmqa3pQxGm1zkL867CTx+gtO0inYwcdSFs6T
+	 O8ne/DXaxIatqayImDfNB75SmKMoYCvo+pkBAgNCWmUpfgYorz2fBDvrtxivvT2hT1qdn
+	 6Y471kFZBZWuFRxj7jj6hmABsh8XNQdkIC7zuGKNuObHpInqh4dZA30kFDGc75lqwcg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ZSxL/+bS";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=NILu7kjf;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=JqSj1Kw7;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30F98606A32D;
-	Mon, 26 Oct 2026 12:44:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15961606A31E
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:44:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15961606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZSxL/+bS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A52E1F031E3;
-	Mon, 26 Oct 2026 12:44:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793018653;
-	bh=/+0f6L1ejx5QM3sVEKtfmLyTDHGqquYakcMtFvsjOh0=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=ZSxL/+bSqXFR88Eu5/VviCYbVV3CsXjFDVfj+IkuzC3g91E2lqCWalqqBYjPSt0b2
-	 +uRqJr3u1Qe9LnZ9xh/fCusg71w0rv4/SaA7Z+C3wkRzKkYCKRG5fev48vSWsJ1Nih
-	 2N+WreDmnNUV1+GRRnLIg48wjV9ozJXebrOVQPJJyjr+2Q7LC2sPhNWD9dyyY9F1l3
-	 mI61z4pH0wcuuJGJsmxOXPCwiYs6KeJK/aDTnoM9k6NzusdwsALlunglnNli1vvucO
-	 +OuTNG8uPr+Ux5xaBnLdwIA43Q2wIGXWFoB//0P3e2aLLlgKwtg1d+lr2q3zrAqKeh
-	 Ozd7iwDsDldDg==
-Subject: Re: [PATCH net-next v18 4/4] hinic3: Add ethtool pause param ops
-From: netdev-bot+sashiko@kernel.org
-To: gongfan1@huawei.com
-Cc: wudi234@huawei.com, tengpeisen@huawei.com, netdev@vger.kernel.org,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, andrew+netdev@lunn.ch, ioana.ciornei@nxp.com,
- maxime.chevallier@bootlin.com, mohsin.bashr@gmail.com,
- dimitri.daskalakis1@gmail.com, hramamurthy@google.com,
- larysa.zaremba@intel.com, vadim.fedorenko@linux.dev,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- zhoushuai28@huawei.com, wulike1@huawei.com
-Date: Mon, 26 Oct 2026 12:44:11 +0000
-Message-ID: <179301865162.3134.6839419847418122778@kernel.org>
-In-Reply-To:
- <1e5e99cc3ff7a93094dddf96321ba465ba0ce343.1792671176.git.gongfan1@huawei.com>
-References:
- <1e5e99cc3ff7a93094dddf96321ba465ba0ce343.1792671176.git.gongfan1@huawei.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=NILu7kjf;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=JqSj1Kw7
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793018668;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+Wq76IOoqC9Xs53xPZFbGa8lUXZBI88ZO79pfXsG86A=;
+	b=NILu7kjfL3DtN8jfwCEWfd65DzzHvECYIWOFer2qqC27qlWEbTAVgq9Pq7jWrzYi/WcECk
+	EED6Rs6JBu/sSLG+Yj/mT5Mb71Sfen9gtrdDGHRZfyChQ0UyiLgnSZCnR8j1KnfNzNwQIZ
+	JHMGSqUTbe/SXdG+KBUPfRbwnEDFpwY=
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-558-X7spw3h1PeWUHBJfytMhrQ-1; Mon, 26 Oct 2026 08:44:26 -0400
+X-MC-Unique: X7spw3h1PeWUHBJfytMhrQ-1
+X-Mimecast-MFC-AGG-ID: X7spw3h1PeWUHBJfytMhrQ_1793018666
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-537548d4bc0so78670641cf.2
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 05:44:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1793018666; x=1793623466; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=+Wq76IOoqC9Xs53xPZFbGa8lUXZBI88ZO79pfXsG86A=;
+        b=JqSj1Kw7P+a4kQQ3sVuHoaKXaciUwav2HfMVrw9DryU1sm/MM9uQ7gZce1tZEbwmON
+         cuBFEeJ4Wor6J2hWEVxZ5+a/lMQ0WqjhalBONLnLzDKaE3LLyWS8CiOPpu7Zrh0cAzNC
+         CITjrznqmgMLv03evOgYekovttGwYwd8LUb5dbsaI95ZlQVGXSuOuodSlbGW5wkzP0Lm
+         3yuu18LGe06xEn5fHMMfhHQ1pDKXRla0cdsqs7h/SEutvMY8mLcyZr+Nobwo3AW8ipUb
+         tX/9a5tnscbtfdR4nwaVHrWJlsoWTt03NWn8vmAjv0ALrqsUm8zrfi3gcCWZmH17yb3X
+         hQGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793018666; x=1793623466;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+Wq76IOoqC9Xs53xPZFbGa8lUXZBI88ZO79pfXsG86A=;
+        b=IrQX4LSTgSUjX8+3wnFz573djk5eG5eM9oJkgIorq8VWKUSwOnYd7VRsWlJIOzQjJn
+         XwaIKon1ypb8/9tE9tyF+857ZMNinPBcpp9jbHVO1A/b2DfHhMK7594HQ3gov9z09ghA
+         01miAQAnE+vc04r3+y2O5m2BJo5NvM9qB/AcCvLZmVP4kOUNyN3UYKvX0Rgdq0JXsUA+
+         uFMB/HQksdKTLdxNWh2iNWlMCEPqPqgrVvrX+8MBMvjjLdUo24h5zCCQ8ZN4QkgauwmZ
+         MfUfc9DJYBM3n8CTgf+q0ILja7szTFZR0PT36bBEYynTL5WfO3n/Yot31749opUrsSOc
+         A1lg==
+X-Forwarded-Encrypted: i=1; AKwUvBx2mAmfyTUgJSL02jE1xJ2/+mJ1+ofJS4gY9g2buH6MPSKgc5C1kCQwGOnBi8g+ROlsGy+NQAgrbf8jspo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI12Ic/qtptBNtsWEyBiW/OxCEsdTbceOU3JfZLclRmOHloKkI+
+	TRzQQLf6VttzGdfU7siXyHdhM+5Kerz7QtS9/Du3VounDzZ6+CN1EudhfE9rdEA7j+r71lih+Qx
+	wMS3vW9ORfD9BEQkxfbxwN2ZxEHFV0/yR1Ivs8kYcQcufm5E9s0ynlw2NO9Ti88ElbQ==
+X-Gm-Gg: AYBFou1qGE4RXlD5aG2+8p04n6zNdWu2AA4f9XqWt2IHyJsKvRTmS7GQtZRmXvJvhXB
+	euV3ym3sjovHyFCgD2jZevxkQrrzy97GJfK25V4JrHQBq1orSCwYP4s6zuKSZIuC7byovn+XIhy
+	QG/PMKDtABuFjrQ7VwYM3dB0fAfhELzEIy4ZogjWJ5S/9EpiLzZsU1BVkLsk/akt5QjAPBzvWui
+	Ubts2k7DTDdyoLfI8HTQ8IPDcw6BqrRBtdO6DWujitjSXyRPrMiSQ1eoz68Crxbh1UUx36WHCkw
+	1Qqb29CkjjceC8RaKq+0qXlirNCeNdFrZuHbil2Xl1ftl7bVCsID7jY3WOT5tzFzKF8aeuieNnU
+	8U7i+DwP+fm8pCnXeYPaOqHtc/QUAz0hU4nUFw0USYJ5p0zxnXKEB2fRYR5DaKYHEHv0OO961eh
+	Li8DvIfQbqfjGGNRzAHZT73w==
+X-Received: by 2002:a05:622a:578e:b0:537:d4b4:3617 with SMTP id d75a77b69052e-5383b36f9c1mr95685791cf.6.1793018666212;
+        Mon, 26 Oct 2026 05:44:26 -0700 (PDT)
+X-Received: by 2002:a05:622a:578e:b0:537:d4b4:3617 with SMTP id d75a77b69052e-5383b36f9c1mr95685281cf.6.1793018665567;
+        Mon, 26 Oct 2026 05:44:25 -0700 (PDT)
+Received: from loberman-thinkpadp16gen3.rmtusma.csb ([2600:6c65:2440:d8c:aa2b:ddff:fe88:da74])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-538394f82cfsm53606071cf.13.2026.10.26.05.44.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 05:44:24 -0700 (PDT)
+Message-ID: <bcf0cd314f3c4f061a02c802f0ea9ec4b6e25cff.camel@redhat.com>
+Subject: Re: [PATCH v2 0/2] scsi: target: iscsi: fix stalled aborted WRITE
+ commands
+From: Laurence Oberman <loberman@redhat.com>
+To: Bart Van Assche <bvanassche@acm.org>, mkp@kernel.org
+Cc: linux-scsi@vger.kernel.org, target-devel@vger.kernel.org, 
+	mlombard@redhat.com, michael.christie@oracle.com,
+ linux-kernel@vger.kernel.org
+Date: Mon, 26 Oct 2026 08:44:23 -0400
+In-Reply-To: <8a702a89-ad21-425e-9850-d9771fcf7c31@acm.org>
+References: <20261016175351.126373-1-loberman@redhat.com>
+	 <60cf407142a0663a811a2ccd64cf387cb71808ab.camel@redhat.com>
+	 <8a702a89-ad21-425e-9850-d9771fcf7c31@acm.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,199 +126,60 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issue(s) to consider.
+On Sun, 2026-10-25 at 09:40 -0700, Bart Van Assche wrote:
+> On 10/25/26 7:43 AM, Laurence Oberman wrote:
+> > Gentle ping:
+> Please take a look at the attached review report. The report has been
+> generated by an LLM. As known LLMs may make mistakes.
+>=20
+> Bart.
 
-Critical: 0 · High: 0 · Medium: 2 · Low: 2
+Hello Bart,
+Thank you very much for using your LLM review this. I am following up
+with a v3.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+The report was right about the one thing: the claim in v2 did not cover
+every site that completes an aborted WRITE_PENDING command, and my
+answer to the Sashiko review wrongly assumed=20
+iscsit_check_dataout_hdr() checked it. The upcoming v3 adds patch 3 for
+that site and patch 4 for the DATAOUT_SEND_TO_TRANSPORT path, and the
+cover letter corrects the Sashiko answer. The comment reword and the
+patch 2 commit-message cleanup are in there too.
 
-- [Medium] hinic3_get_pauseparam() always sets `pause->autoneg =
-  AUTONEG_DISABLE` (hinic3_ethtool.c:883) and ignores…
-- [Medium] hinic3: hinic3_get_pauseparam() lacks VF check and exposes
-  pause ops on VFs
-- [Low] hinic3_set_pauseparam() (hinic3_ethtool.c:902-903) turns the
-  __u32 uAPI flags into firmware bytes with `nic_pause.rx_pause =…
-- [Low] When hinic3_get_pause_info() fails (mailbox timeout, -EPERM when
-  !chip_present_flag in hinic3_send_mbox_to_mgmt(), or firmware status…
+Two things in the report are not correct, in case the same tool is used
+again:
 
---
+d5869dae5080 is not confined to 7.3/scsi-staging:
 
-hinic3: Add ethtool pause param ops
+  $ git tag --contains d5869dae5080
+  mkp-scsi-fixes
+  mkp-scsi-staging
+  v7.3
+  v7.3-rc2
+  ... v7.3-rc7
 
-This commit adds .get_pauseparam and .set_pauseparam ethtool callbacks to
-the hinic3 driver. A new hinic3_set_pause_info() helper sends the
-L2NIC_CMD_CFG_PAUSE_INFO SET command to firmware through
-hinic3_cfg_hw_pause().
+It went in via mkp-scsi-fixes during the 7.3 cycle, it is in released
+v7.3, it carries CVE-2026-97951, and it is in 5.10.y, 5.15.y, 6.1.y,
+6.6.y, 6.12.y, 6.18.y and 7.2.y. That does not change the conclusion
+that the gap belongs in this series, but it is why patch 3 has Cc:
+stable, and why it may be better taken standalone for those branches,
+none of which carry patch 1's helper.
 
-> diff --git a/drivers/net/ethernet/huawei/hinic3/hinic3_ethtool.c b/drivers/net/ethernet/huawei/hinic3/hinic3_ethtool.c
-> index e1f23e2477fa0..3005441056f92 100644
-> --- a/drivers/net/ethernet/huawei/hinic3/hinic3_ethtool.c
-> +++ b/drivers/net/ethernet/huawei/hinic3/hinic3_ethtool.c
-> @@ -869,6 +869,45 @@ static void hinic3_get_pause_stats(struct net_device *netdev,
->  	kfree(ps);
->  }
->  
-> +static void hinic3_get_pauseparam(struct net_device *netdev,
-> +				  struct ethtool_pauseparam *pause)
-> +{
-> +	struct hinic3_nic_dev *nic_dev = netdev_priv(netdev);
-> +	struct hinic3_nic_pause_config nic_pause = {};
-> +	int err;
-> +
-> +	err = hinic3_get_pause_info(nic_dev, &nic_pause);
-> +	if (err) {
-> +		netdev_err_once(netdev, "Failed to get pauseparam\n");
-> +	} else {
+It seems aaa00cc93c1d is yours from git history.
 
-[Severity: Medium]
-Is hinic3_get_pauseparam() missing a VF check? The other pause paths
-in this driver treat physical port pause as PF-only:
-hinic3_get_link_settings() skips hinic3_get_link_pause_settings() on
-VFs, hinic3_get_pause_stats() returns early for HINIC3_IS_VF(), and the
-new hinic3_set_pauseparam() returns -EOPNOTSUPP for VFs. The getter has
-no such check. On a VF netdev, "ethtool -a" therefore sends
-L2NIC_CMD_CFG_PAUSE_INFO to the management CPU through
-hinic3_get_pause_info() and hinic3_cfg_hw_pause(). When that command
-fails, as it presumably does for a VF, the driver logs the dev_err()
-from hinic3_cfg_hw_pause() plus the netdev_err_once() here.
+  $ git show --no-patch --format=3D'%an <%ae> %ad' aaa00cc93c1d
+  Bart Van Assche <bvanassche@acm.org> Tue Nov 27 15:52:02 2018 -0800
 
-hinic3_set_ethtool_ops() installs the same hinic3_ethtool_ops table
-on both PF and VF netdevs, so the core treats VFs as supporting pause.
-Because get_pauseparam returns void, neither ethtool_get_pauseparam()
-nor pause_prepare_data() can report -EOPNOTSUPP. The user sees a
-zeroed or bogus pause state instead of an unsupported error.
+It is the right Fixes: for patch 1, though, and patch 1 now carries it.
+git log -L on that hunk shows your commit replaced a
+transport_check_aborted_status() call -- which sent the delayed
+TASK_ABORTED status -- with a bare CMD_T_ABORTED test and a return.
+That works where the core can finish the command itself, but a WRITE
+still in TRANSPORT_WRITE_PENDING has never reached the backend, so the
+core's abort path is itself waiting in target_put_cmd_and_wait() for
+the fabric. The other three commits touching that hunk since 2011 are
+cosmetic.
 
-The set side is affected as well. ethnl_set_pause() calls
-get_pauseparam first and only calls set_pauseparam if a value
-changed. Take a VF where the query fails and leaves pause zeroed.
-"ethtool -A ethX rx off" sees mod == false and returns 0 without ever
-reaching the HINIC3_IS_VF() check in hinic3_set_pauseparam(). The VF
-then reports success for a request it can't support.
+Thank you
+Laurence
 
-Would a separate ethtool_ops table for VFs, without .get_pauseparam
-and .set_pauseparam, be the cleaner fix? That lets the core return
--EOPNOTSUPP for both ethtool -a and ethtool -A on VFs. Failing that,
-should the getter at least bail out on HINIC3_IS_VF() before sending
-anything to firmware?
-
-[Severity: Low]
-
-If hinic3_get_pause_info() fails here (mailbox timeout, -EPERM when
-chip_present_flag is clear, or a non-zero firmware status), pause is left
-zeroed. What happens when this runs as the read step of ethnl_set_pause()?
-
-net/ethtool/pause.c:ethnl_set_pause() {
-    ...
-	dev->ethtool_ops->get_pauseparam(dev, &params);
-
-	ethnl_update_bool32(&params.autoneg, tb[ETHTOOL_A_PAUSE_AUTONEG], &mod);
-	ethnl_update_bool32(&params.rx_pause, tb[ETHTOOL_A_PAUSE_RX], &mod);
-	ethnl_update_bool32(&params.tx_pause, tb[ETHTOOL_A_PAUSE_TX], &mod);
-	if (!mod)
-		return 0;
-    ...
-}
-
-Take a partial request like "ethtool -A ethX rx on". rx goes from 0 to 1,
-and hinic3_set_pauseparam() then sends both directions to firmware. That
-includes tx_pause = 0, which came from the failed query and not from the
-user. Can this turn off TX pause that was previously on?
-
-Now take a request that matches the zero fallback, such as "rx off" while
-RX pause is actually on. mod stays false, and ethnl_set_pause() returns
-success without calling the setter. Is the requested change silently
-dropped in that case?
-
-Because netdev_err_once() is used, later failures also leave nothing in
-the log.
-
-get_pauseparam returns void, so the driver can't report the error. The
-older hinic driver caches the last configured pause state in nic_cfg. Would
-something similar work here?
-
-> +		pause->autoneg = AUTONEG_DISABLE;
-
-[Severity: Medium]
-
-Should this report the firmware's pause autoneg state instead of
-hardcoding AUTONEG_DISABLE? hinic3_cfg_hw_pause() already copies it from
-the firmware response:
-
-	if (opcode == MGMT_MSG_CMD_OP_GET) {
-		nic_pause->auto_neg = pause_info.auto_neg;
-		...
-	}
-
-Here nic_pause.auto_neg is dropped. As a result, ethtool -a shows
-"Autonegotiate: off" even on ports where hinic3_get_link_settings()
-reports autoneg as on:
-
-	link_settings->autoneg = port_info.autoneg_state == PORT_CFG_AN_ON ?
-				 AUTONEG_ENABLE : AUTONEG_DISABLE;
-
-On the set side, hinic3_set_pauseparam() rejects any autoneg request and
-never checks the port's AN state. The zero-initialized nic_pause.auto_neg
-stays 0, and hinic3_cfg_hw_pause() copies it into the SET command:
-
-	if (opcode == MGMT_MSG_CMD_OP_SET) {
-		pause_info.auto_neg = nic_pause->auto_neg;
-		...
-
-On a port with PORT_CFG_AN_ON, does every "ethtool -A" then write
-auto_neg = 0 to firmware and overwrite its pause autoneg state? It's not
-clear how the firmware reacts to that on an AN link. It might keep forced
-pause settings that disagree with the advertisement, or reject the set
-with -EFAULT.
-
-The older hinic driver handles this differently. hinic_get_pauseparam()
-reports pause_info.auto_neg from firmware. hinic_set_pauseparam() requires
-pause->autoneg to match port_cap.autoneg_state and then passes it through
-to firmware.
-
-> +		pause->rx_pause = nic_pause.rx_pause;
-> +		pause->tx_pause = nic_pause.tx_pause;
-> +	}
-> +}
-> +
-> +static int hinic3_set_pauseparam(struct net_device *netdev,
-> +				 struct ethtool_pauseparam *pause)
-> +{
-> +	struct hinic3_nic_dev *nic_dev = netdev_priv(netdev);
-> +	struct hinic3_nic_pause_config nic_pause = {};
-> +	int err;
-> +
-> +	if (HINIC3_IS_VF(nic_dev->hwdev))
-> +		return -EOPNOTSUPP;
-> +
-> +	if (pause->autoneg)
-> +		return -EOPNOTSUPP;
-> +
-> +	nic_pause.rx_pause = (u8)pause->rx_pause;
-> +	nic_pause.tx_pause = (u8)pause->tx_pause;
-
-[Severity: Low]
-
-Can these u8 casts turn a non-zero request into 0?
-
-The netlink path normalizes these values with ethnl_update_bool32(). The
-legacy ETHTOOL_SPAUSEPARAM ioctl path does not: ethtool_set_pauseparam()
-copies struct ethtool_pauseparam from userspace and calls
-->set_pauseparam() with the raw values.
-
-With rx_pause = 0x100, nic_pause.rx_pause becomes 0. Pause is disabled
-while the call returns success. Values 2 to 255 go to firmware unchanged.
-
-Would !!pause->rx_pause and !!pause->tx_pause be safer here?
-
-> +
-> +	err = hinic3_set_pause_info(nic_dev, &nic_pause);
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/cover.1792671176.git.gongfan1%40huawei.com
