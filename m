@@ -1,55 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793045536;
-	b=WNMQKcGppelYNUOvwLQJpZ+FWrSri17IlzbYl76ujLSr++eVy7DzPhWZ5+9b7g3CqRVF
-	 yKf2epbeCvh7v1WF2yoQVnzqYeEXOwgMHNS31qJmuPH0tJl3CHXURLWmacfDWiKhvGkwI
-	 y+NIJZzDtFQqSoVHVOgonuWtx6Z51mZw3HphW+nqugpTy46Lxs1r5z2F3koZt8mBc+tb9
-	 +x6b13vIhLgOE/NxXNtfpE/PLQwJUAOTU4qjB1azQDtE0eOT0lQHAbsA+hh6izXBMKc82
-	 o1rJHIckrgaWIX5Z36afEbaHnyBsJ1sgeNeMtiPZqwD41kqZ8+EtXjfRuH85UU5JAGg==
+	t=1793045586;
+	b=InzSV7iU5NlXZmTjc5VqWbLEqiLGR27zFglxoIO5T3JseLL799660OQWy3y/Rmu+kdme
+	 ZJUOBstSeWgHscV6D3cnXq8CjV3NPu4bZ6BJXbrLnuhiW06UChgK4hty8/nw6NE46/1sZ
+	 pOu4+HGVNm7I0lv9r+O9y4JWSL1zuRX0iLr3IQbM8qONui8q953wbC3Wjdt03ZociztsI
+	 OAppNbAXn9q/xp4+xV6v5bMm71+S8uKjuybrAgxahDHGyL5tiEPVlRowio/UoiQfLDj8u
+	 CEGViO4GX9nhEsPAv6SknTxFj5kVd/5aIqmZaa9kzWA8vta1b6JVX/cjtc6I5qB9jJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793045536;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=WY8zdkd7rZ5cmhFyEZEoT+5FWqoeefwdy0riPJROyps=;
-	b=maYR3bGvMprYK5Oe4XwRyuq5hqtX0YKVGD9DXKgslGuuVirzgD27GMcFS43R8H3VblSw
-	 inNWmd5MUQ0OrpjsuIWo0t6774OFGuZf6qfV4f20ipS6xW5p3F3NzDlySIN3jTTpJ3lRu
-	 P3hA2zN4N726XN+FsK17GDOMKEdL/lJXtezhh3s8djfebzXb4Om/tlf7YmtqyvCiVm/08
-	 hasUnA/vxRPFXqaEPK5P3MFE7buAzizN30MQkw6uStF/IwIRgM88bbMieT/NtU9+pvnNh
-	 EbChqypTnadNEmHsddfQWB6Dh/AgFJA2xCcse239vNpR2i1VCEFOPAJNUTMqMe/7s7g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793045586;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=OhPw/t0thuE42MTIauI/9M1hfWP2vTijxdRJ7K4XEvs=;
+	b=KCfYZS3HjDY2Cen7JHL3yx/IrrCsY3c3wROOoW84rian0o6CQeyyNhr/mXbk/bce6g3j
+	 D2XcbZ5YpnRmYZnFn1/5+RiXXDMN/6sO2xVwziJSt4w0R0pHDMivDDM6XQKaVf2+YsOiM
+	 wMBlSC/eG73sgrQFF1erVBtgVd/0mRjI4a7tnF/ZIbRxdLijSnbMHcx8sBUs+2Y6Q+ylT
+	 tt5e4NXXmnS1j7+shUhjxgEFjTWrnYQ0ouhoz6pA/6xL282AuPGcHsleOcy/fAbcWiF4Z
+	 GDyt5oZudNagvn12ojUJBJpoxP98UtxIKcvq4r5O3jetVdenqQE6MWI/nbCInxNM8eg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Cc/n71xi";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=iZSsD+ok;
+	arc=none smtp.remote-ip=74.125.82.43
+Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C86B4606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 20:12:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1810606A31B
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 20:13:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1810606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cc/n71xi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55C0B1F01825
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 20:12:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793045535;
-	bh=WY8zdkd7rZ5cmhFyEZEoT+5FWqoeefwdy0riPJROyps=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Cc/n71xiAX6mMSvHcjXHQI7LVOk1Jcy/mOH5WQxw2aXn6FT2gsn79YTQnoKgY/ahJ
-	 5EhdoPJRaXrOfkvRTPsiSxHLo6LWK4HcF3ZttA1gZqZM0h+gZGmF98bTerrZFGHaly
-	 uHpNsngx148BP6U0wSLmuIlc+AMUzb6bZ/GgZv9DrgcfiqspEHa053BxPwwmcisBBT
-	 y6yg58iGihWnW5siJkHTbH6XczSSRLQBfGi85h9KasMaK9O83hrj3e5lnZEAbBbWUt
-	 zJlERr/+Yoj5H0Y4TzWbaCaY7Lb2F6vfqN0Drz811ZKLDRmICyh7Fvx8RtDmnS/UDa
-	 SDPkjRz6ug0Ww==
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c414e5d282eso396275966b.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:12:15 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBx0LYRTYZiUaZrcezPm84aVA9CgNPhS/JjvfrhK0zSfBB47MCpC3WMYHra5KbggVUX/kFHCVQRgshZ07LI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK3MoUx/AzkxT26nSpmfhWJ1LE6nwC/kLrBS4cKc/lubt+bmygh
-	Z5pmip5gJd32JngX0k4rE54SU26uN2Xb/hOwsmHCVPjbtpnIxPTx+4yFm+XA18yK6dWb+vwBsx1
-	k70QAfgGwdxwaWvh8iV1m4Lb8VcqSAg==
-X-Received: by 2002:a17:906:c14f:b0:c2e:8eb7:53e8 with SMTP id
- a640c23a62f3a-c46bde6b23cmr858650066b.30.1793045534038; Mon, 26 Oct 2026
- 13:12:14 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=iZSsD+ok
+Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-188406bb948so2745465c88.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:13:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793045585; x=1793650385; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OhPw/t0thuE42MTIauI/9M1hfWP2vTijxdRJ7K4XEvs=;
+        b=iZSsD+okZX18+3aGlEEq+hrifywxlF+ayNIFWPYkXfUfeicP+QMQxYoPQpVYlPmeHW
+         CaJAqC7rEasA4dwARNd/OP1qMMIVfQQ0HzB8B5MNi1ifdXtm5z6nJ442aIMV7Wf9qUDR
+         phvu17dVAUBGvOgrvNwUzIeN1+oldfWwzDBZYJM3nBeUP2bWYC/3GECn2bgEwciGGM6x
+         cWr7rn/QDiI7Y5BUmN6MslQyPMLidK9lJFM1uu+mkaK0impzNwhrP5OTN6y2Lt70vDAe
+         nsgDg3qpU4TNoYx8M3cRjcXZFYSDjfO9eyxccJZG03nlpnncC1KrqXvXLD1nqIIcqn88
+         zfUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793045585; x=1793650385;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OhPw/t0thuE42MTIauI/9M1hfWP2vTijxdRJ7K4XEvs=;
+        b=Ih3Bi+VrHX6jFwZaHflV8uYHDVeyBg6pFgKfCPj28xsCEkcNpDD1NA1BB422kcTabc
+         sYCMwHA7B/Q5I4nXZxZxfu1hm+2Rhsd+5t2y3HgEgpCw1GlUmF2c7LQwtEfMYNfA85PP
+         wwLzPnq1sqS3D/6gTmhewyfEr4lDQDUN/Z9vrJjO2MzwLM75LQeju2fgGhiA6rOu6mQ1
+         Tt5vZxx1peaXWj8PukKA+o8BiVjwhNzQds5r7SA5wEmE585yU5xSuKNzB8KNePNWXlfg
+         giAXJi6vDk5OLWcHHIFV/XzMa55qxb78bEGh9FNwTs7UdUerG19UVMKEWebf1HyGQF6F
+         4AEg==
+X-Forwarded-Encrypted: i=1; AKwUvBxet9ewboV5qV4oCZMMns1jrCX7Qb0kX5drCNobqO+nEthOIZaYSvTfA/Su9JTjGj/64XrxXFmLoKwCPII=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJlDI5Gy6s1j58Uc/ybJ58GEWuSykR63iQnotLbMMmoxFSLP3Nt
+	8DylwlDibxO7yDciU6Uu9czJOoWtY/6dP5xI54S+4M3xAnScEpd5npFq
+X-Gm-Gg: AYBFou0b+m53lyYQriKcsM7nGlVVD1Lyhcts6BHROVL6+FkiP1RnuNChiDhX6xgdyZJ
+	duanRQaJR+MxAdcSBdlnnOQqFMx9mBojdCXqAxsOI1C4ZJVbqmh9BMAvP77g8D+3ApsJ3lx7kAe
+	1TOwc0OXCqkvyajaebysepLBxaNQBTb4xJVGqdClBT9htz9iffSWEFRGuunsLVtyXlBeSoEvqfk
+	z4WQuA5Cgqa9HDZT/ybYJqtm9Tw1Ef6ohDJAyIp8LsudnGQxDz6r5MViEXyecJgCh9zVOh/XQbX
+	89WEKwL4KLRr5m051Wy6H/do1N5ci5SvFwMZtLxjOgjjD3Vhe2Wg4ZG27uQ6h6MLN5C360LNp0m
+	FQo1cZzVtjngdCj6Klw7qprzJGNDAWoHbJTntw5bSyLmDJgJOod/oBjM+J0RLjTP7A9SU/lUKXY
+	C/S4YQArE8va5BHDuyqOdaYIRvX/rE0bixz1IaL/zDT9AN9acN2RGT7xdUYt4m42q8UMOpErbFW
+	SvS+VOwgkEvP7Bvlu7C/xiam0uwj/MgJKGri4tU0iKlKT5T9Q1qgo2lU4UFyhM=
+X-Received: by 2002:a05:7022:7f14:b0:16e:c820:b20d with SMTP id a92af1059eb24-19929009cfamr10703365c88.5.1793045584456;
+        Mon, 26 Oct 2026 13:13:04 -0700 (PDT)
+Received: from valdaarhun.localdomain ([2401:4900:1c44:61b8:f26f:bd5b:b550:7a07])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a020df20sm31730486c88.6.2026.10.26.13.12.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 13:13:04 -0700 (PDT)
+From: Sahil Siddiq <sahilcdq0@gmail.com>
+To: jonas@southpole.se,
+	stefan.kristiansson@saunalahti.fi,
+	shorne@gmail.com,
+	naveen@kernel.org,
+	davem@davemloft.net,
+	mhiramat@kernel.org
+Cc: pjw@kernel.org,
+	wangruikang@iscas.ac.cn,
+	namcao@linutronix.de,
+	kees@kernel.org,
+	linux-openrisc@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Sahil Siddiq <sahilcdq0@gmail.com>
+Subject: [PATCH v3 0/4] openrisc: Add support for KProbes and Kretprobes
+Date: Tue, 27 Oct 2026 01:42:36 +0530
+Message-ID: <20261026201240.107462-1-sahilcdq0@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260930202744.50489-1-sahilcdq0@gmail.com>
+References: <20260930202744.50489-1-sahilcdq0@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,123 +107,143 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261020212235.1143086-1-ebiggers@kernel.org> <363b228a-7e96-481a-b70f-195ba55d025e@kernel.org>
- <20261021063927.GA31908@sol> <d5d0801e-371c-4836-8b4a-26bff33df46f@kernel.org>
- <20261021064940.GC31908@sol> <aea2328d-4ea8-45bc-922e-9c1fed94083f@kernel.org>
-In-Reply-To: <aea2328d-4ea8-45bc-922e-9c1fed94083f@kernel.org>
-From: Rob Herring <robh@kernel.org>
-Date: Mon, 26 Oct 2026 15:12:01 -0500
-X-Gmail-Original-Message-ID: <CAL_JsqLA2F0oB=7LsoxZe-=AboOJu7FotpMACNsuV==jGWB8nw@mail.gmail.com>
-X-Gm-Features: AclHuK8ctbLSJubqCXzYfxrKgeiEezgD3UGSo0bp_Ip9hFZUOPrInPCSAfIjGnM
-Message-ID: <CAL_JsqLA2F0oB=7LsoxZe-=AboOJu7FotpMACNsuV==jGWB8nw@mail.gmail.com>
-Subject: Re: [PATCH] docs: submitting-patches: Require base tree information
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Eric Biggers <ebiggers@kernel.org>, linux-doc@vger.kernel.org, 
-	workflows@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	linux-kernel@vger.kernel.org, 
-	Konstantin Ryabitsev <konstantin@linuxfoundation.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 21, 2026 at 6:55=E2=80=AFAM Krzysztof Kozlowski <krzk@kernel.or=
-g> wrote:
->
-> On 21/10/2026 08:49, Eric Biggers wrote:
-> > On Wed, Oct 21, 2026 at 08:41:47AM +0200, Krzysztof Kozlowski wrote:
-> >> On 21/10/2026 08:39, Eric Biggers wrote:
-> >>> On Wed, Oct 21, 2026 at 08:26:28AM +0200, Krzysztof Kozlowski wrote:
-> >>>> On 20/10/2026 23:22, Eric Biggers wrote:
-> >>>>> -Make sure that base commit is in an official maintainer/mainline t=
-ree
-> >>>>> -and not in some internal, accessible only to you tree - otherwise =
-it
-> >>>>> -would be worthless.
-> >>>>> +    If ``git format-patch`` with ``--base=3Dauto`` (or
-> >>>>> +    ``format.useAutoBase=3Dtrue``) can't detect a base commit, e.g=
-. due to
-> >>>>> +    the current branch having no upstream tracking branch, it exit=
-s with
-> >>>>> +    an error. In such cases, pass an explicit base commit to ``--b=
-ase``
-> >>>>> +    instead. This is also needed if git detects the wrong base com=
-mit,
-> >>>>> +    such as when the upstream branch has local, unpublished commit=
-s.
-> >>>>> +
-> >>>>> +The base commit must be in a well-known public tree, such as the
-> >>>>> +subsystem development branch the patch is targeting. See
-> >>>>> +:ref:`obtain_a_current_source_tree`. Mainline or the latest linux-=
-next
-> >>>>> +can also be acceptable bases, depending on the subsystem.
-> >>>>
-> >>>> I disagree, that's pointlessly too hard requirement.
-> >>>>
-> >>>> For many of my contributions base is obvious and not needed to be
-> >>>> explicitly defined. For all the patches I accept, answer is the same=
- -
-> >>>> base is either obvious or if not and patch does not apply, then the =
-base
-> >>>> does not matter.
-> >>>>
-> >>>> Requiring it is just bureaucracy without actual benefit.
-> >>>>
-> >>>> The only benefit would be if maintainer COULD change its base to app=
-ly
-> >>>> some patch with odd base... but this cannot happen. Maintainer base =
-is
-> >>>> fixed - it's the HEAD of his development branch for given category o=
-f
-> >>>> commits (e.g. DTS branch for SoC maintainers).
-> >>>
-> >>> There are many use cases for applying patches besides the final patch
-> >>> acceptance, such as review (by anyone, not just a maintainer), testin=
-g,
-> >>> CI systems, etc.
-> >>>
-> >>> HEAD of a branch is of course not fixed, and changes every time a pat=
-ch
-> >>> gets applied.  That's especially relevant when wanting to check out a=
-n
-> >>> old patch for any reason.  Trying to guess a base commit based on the
-> >>> date and patch subject is a waste of time.
-> >>
-> >> All these tools should just work on top of linux-next. Requiring peopl=
-e
-> >> to add base like "next-20261021" or "tip-of-obvious-maintainer-tree" i=
-s
-> >> pointless. I understand that base is helping, but helping and requirin=
-g
-> >> an obvious information just do not go together.
-> >>
-> >> So again: base has ZERO meaning to the maintainer process. It has
-> >> meaning to tools, so fix the tools to work on known and obvious trees.
-> >
-> > So what is your proposed algorithm to apply an arbitrary patch when
->
-> Already provided that, so to recap:
->
-> > there's no base-commit?  Including any historical patch (from
-> > months/years ago), patches with dependencies, etc.
->
-> Dependency is something else, but for every other patch:
-> 1. For testing/CI: you apply on top of next
-> 2. Every other case the maintainer knows where to apply it, because it
-> is his HEAD of next-branch.
->
-> I am repeating myself, but I really had no single problem of lack of
-> knowledge where to apply a patch as a maintainer or reviewer of some
-> subsystem, thus maybe I do not understand the actual problem you are
-> experiencing.
+Hi,
 
-Look at our DT PW. There are numerous patches that don't apply and
-then we silently don't test them at all. Here's one example[1] (3
-actually as the whole series doesn't apply). The more base-commit
-tags, the better. If b4 can't apply it, then I do try just linux-next,
-but is that today's, yesterday's or 2 weeks ago? That still doesn't
-work sometimes.
+This is v3 of the patch series to add KProbe and Kretprobe support for
+OpenRISC. KProbes was introduced in v1 [1] while Kretprobes was introduced
+in v2 [2].
 
-Rob
+In order to build the kernel with Kprobes and Kretprobes enabled, the
+following config options are required:
+1. CONFIG_HAVE_KPROBES=y
+2. CONFIG_KPROBES=y
+3. CONFIG_RETHOOK=y
+4. CONFIG_KRETPROBES=y
 
-[1] https://patchwork.kernel.org/project/devicetree/patch/8b2c7719c301a4458=
-91fc6c5309456327ec8a94c.1793026273.git.geert+renesas@glider.be/
+I tested the generic functionality of Kprobes and Kretprobes using the
+tests located at "lib/tests" [3], samples located at "samples/kprobes" [4],
+as well as a few test modules that I have published here [5]. The following
+options are required to build the samples and tests:
+1. CONFIG_SAMPLES=y
+2. CONFIG_SAMPLE_KPROBES=m
+3. CONFIG_SAMPLE_KRETPROBES=m
+4. CONFIG_KPROBES_SANITY_TEST=m
+
+I have also added unit tests at "arch/openrisc/kernel/tests" to verify
+that Kprobes work properly when inserted at branch instructions, and
+that delay slots are handled correctly. The tests are based on the Kprobe
+testsuite added for RISC-V. The following options need to be enabled to
+build the tests:
+1. CONFIG_KUNIT=y
+2. CONFIG_RUNTIME_KERNEL_TESTING_MENU=y
+3. CONFIG_OR_KPROBES_KUNIT=m
+
+Below are the results of the tests and sample modules when run in my
+environment.
+
+- kretprobe_example:
+
+/home # insmod kretprobe_example.ko 
+Planted return probe at kernel_clone: (ptrval)
+/home # ls >/dev/null
+kernel_clone returned 35 and took 1302450 ns to execute
+/home # rmmod kretprobe_example.ko 
+kernel_clone returned 36 and took 1121200 ns to execute
+kretprobe at (ptrval) unregistered
+Missed probing 0 instances of kernel_clone
+
+- test_kprobes:
+
+/home # insmod test_kprobes.ko 
+KTAP version 1
+1..1
+    KTAP version 1
+    # Subtest: kprobes_test
+    # module: test_kprobes
+    1..5
+    ok 1 test_kprobe
+    ok 2 test_kprobes
+    ok 3 test_kprobe_missed
+    ok 4 test_kretprobe
+    ok 5 test_kretprobes
+# kprobes_test: pass:5 fail:0 skip:0 total:5
+# Totals: pass:5 fail:0 skip:0 total:5
+ok 1 kprobes_test
+
+- openrisc_test_kprobes:
+
+/home # insmod openrisc_test_kprobes.ko 
+KTAP version 1
+1..1
+    KTAP version 1
+    # Subtest: kprobes_openrisc
+    # module: openrisc_test_kprobes
+    1..1
+    ok 1 test_kprobe_openrisc
+ok 1 kprobes_openrisc
+
+v3 adds a few fixes to the patch series based on Sachiko's review comments [6]. I
+have listed out the differences introduced in each iteration in the following emails.
+
+Thanks,
+Sahil
+
+[1] https://lkml.org/lkml/2026/4/8/21
+[2] https://lkml.org/lkml/2026/10/1/28
+[3] https://github.com/torvalds/linux/tree/master/lib/tests
+[4] https://github.com/torvalds/linux/tree/master/samples/kprobes
+[5] https://github.com/valdaarhun/or-dev
+[6] https://sashiko.dev/#/patchset/20260930203129.51048-1-sahilcdq0%40gmail.com
+
+Sahil Siddiq (4):
+  openrisc: Add utilities and clean up simulation of instructions
+  openrisc: Add KProbes
+  openrisc: Add unit tests for KProbes on branch instructions
+  openrisc: Add Kretprobes
+
+ arch/openrisc/Kconfig                         |   3 +
+ arch/openrisc/Kconfig.debug                   |  30 +-
+ arch/openrisc/configs/or1ksim_defconfig       |   2 +
+ arch/openrisc/configs/virt_defconfig          |   2 +
+ arch/openrisc/include/asm/asm.h               |  22 +
+ arch/openrisc/include/asm/break.h             |  19 +
+ arch/openrisc/include/asm/cpuinfo.h           |   3 +
+ arch/openrisc/include/asm/insn-def.h          |  64 ++-
+ arch/openrisc/include/asm/kprobes.h           |  77 ++++
+ arch/openrisc/include/asm/spr_defs.h          |   1 +
+ arch/openrisc/kernel/Makefile                 |   5 +-
+ arch/openrisc/kernel/entry.S                  |  16 +
+ arch/openrisc/kernel/insn.c                   |  88 ++++
+ arch/openrisc/kernel/kprobes.c                | 426 ++++++++++++++++++
+ arch/openrisc/kernel/rethook.c                |  32 ++
+ arch/openrisc/kernel/rethook.h                |   8 +
+ arch/openrisc/kernel/rethook_trampoline.S     | 111 +++++
+ arch/openrisc/kernel/setup.c                  |   4 +
+ arch/openrisc/kernel/tests/Makefile           |   3 +
+ arch/openrisc/kernel/tests/test_kprobes.c     |  59 +++
+ arch/openrisc/kernel/tests/test_kprobes.h     |  24 +
+ arch/openrisc/kernel/tests/test_kprobes_asm.S | 157 +++++++
+ arch/openrisc/kernel/traps.c                  |  82 ++--
+ arch/openrisc/lib/memcpy.c                    |   2 +
+ arch/openrisc/lib/memset.S                    |   4 +
+ arch/openrisc/mm/fault.c                      |   5 +
+ samples/kprobes/kprobe_example.c              |   8 +
+ 27 files changed, 1206 insertions(+), 51 deletions(-)
+ create mode 100644 arch/openrisc/include/asm/asm.h
+ create mode 100644 arch/openrisc/include/asm/break.h
+ create mode 100644 arch/openrisc/include/asm/kprobes.h
+ create mode 100644 arch/openrisc/kernel/insn.c
+ create mode 100644 arch/openrisc/kernel/kprobes.c
+ create mode 100644 arch/openrisc/kernel/rethook.c
+ create mode 100644 arch/openrisc/kernel/rethook.h
+ create mode 100644 arch/openrisc/kernel/rethook_trampoline.S
+ create mode 100644 arch/openrisc/kernel/tests/Makefile
+ create mode 100644 arch/openrisc/kernel/tests/test_kprobes.c
+ create mode 100644 arch/openrisc/kernel/tests/test_kprobes.h
+ create mode 100644 arch/openrisc/kernel/tests/test_kprobes_asm.S
+
+-- 
+2.55.0
+
