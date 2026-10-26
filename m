@@ -1,54 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.58
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793027912;
-	b=HmPq4KsFcXMl9z/id5E10h9Ko21u9pFgubmuJdcziLBctNjjN2eQMvBD4n5/TBZvQZZk
-	 kl44nQfSqgYjCA/q2MwZJjzL51RPER7JNbUqxVMtLi24y8hSKyNlHz+fHHrz7NtLrvHeg
-	 92Ool+WF5VbhVKtHymdlbSYSReFxcKx4QBz+c/XCaitmg1ygBt4uH+t/4XV7DQTscyIdC
-	 VMryqu8rWzd/Cz31MJq1eaES4XO0Pi1nK2986QSkIdiuLlbFEvnrfP7rJy+8F3fTulFhW
-	 pKXY04eDWPa8STpRPO0+/gVes2ZvuCxYJNi9ByQo2jiZ/z9xFdsQgE6BMa0dUNwMFmQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793027912;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=dbjgGd5jyFwi2LB7RiLsRLky9ZNqcQ5Y8I4y05BC+mM=;
-	b=Y9GNw+rcWVp7xdsSbsSpB7B/MyAsD1ODiDpAdarSEz0+wsbUdQqya7hC2/IhnfSW4w+a
-	 rE/USyKDAhP51pJJn7zRtyTBH/kK/alumZAjpEdQF7Y2SCxpME9EmKSSGPOTLBDGP280n
-	 CYTqcqgbSYCGS8aijvhuem+Ljm6qJ3t+r3BZxzRre6yKUAFhf82ANHkc/9Ym2VBInKpVH
-	 k14ZmGpAymFyn9PyuS6RhnXbhxizOx17MUKQ9UI7ajAqTgDCv2tiiIR3KR4uA6rUvGNJF
-	 SRc1Osd4wYDVc2XDk9au+Mr9Ltjq8yH9KmFl3IPwPcwoK+4IgqiVQWj819l3aJJ1tDA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=CoGZBwQF;
-	arc=none smtp.remote-ip=91.218.175.58
-Received: from mta0.migadu.com (out-58.mta0.migadu.com [91.218.175.58])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.73.12
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793027906;
+	b=HND+TtBF3d9gh411zk9Vs+txGRXof6tcqo3agtwHy6GcAUHWucZSAYFM+V7/DuWGUzfC
+	 dHUlf+FIlsz9OleJNJO437f4vUQF/ebvqTObh7JdaQx0ZY3LiuO2ndWpkPXMvk7vNLhmk
+	 pAwVKAvFa4UM+qGztT1fL1WHeFfpby4wqQVP3CsTeA1fMN/nZZEc3P23C4QFxGyoRqpH8
+	 FMHbcfHvdCeN4hLBkN5iOHD5JLJWC5TbDUWItkZrvMil1zVFDFqj2/nMsW/Fcr7xXvWaK
+	 xO6rm9KYIgCMItV3+r8vxZ7ZTrYtJ+eIxoGAKo7xmejQKr1taTuVPwclzSHwJrtcWyA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793027906;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:Content-Transfer-Encoding:Content-Type:
+	 X-ClientProxiedBy:X-Microsoft-Original-Message-ID:MIME-Version:
+	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=VZtah0zu2iPUv2aKxwyhjfeqtcL2Tg9nyuB4RQZF9EE=;
+	b=vD17/r9eWTTqmztqcnkORaAw4XhyZbi7AcdUVNgwBbCPqHC6gja+9rUplmO3m1gnF8Vt
+	 NqVhEu0MR7j0QMiOnC+67HhGfgvmefdOMjnPuejYw3IcCV5jTs0+O+mlTRfPy7DywbMDk
+	 eJXwJKLoj1ous04r3G7uiRNBEmNiB64ElSLn9Gku94X7JyGxSkQyFNi59yD+fuN7n4o5Z
+	 +A1Y7lzKDUG3FwxHk5wmvsCx17QJP4ra3Rwc3MQKj2Vvs63sMH7CgIpOvGSxo7IE1qkqD
+	 mDRzgZpFMSRJ1jUlI7/WfuF956LLqX5CLqBs/7UBSPYbInvx6oxoWRIvpJ0gBhwnWtg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=outlook.com;
+	spf=pass smtp.mailfrom=outlook.com;
+	dkim=pass header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=bRJV7mDb;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.73.12
+Received: from MEUPR01CU001.outbound.protection.outlook.com (mail-australiasoutheastazolkn19010012.outbound.protection.outlook.com [52.103.73.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8A4A606A321
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 15:18:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8A4A606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32330606A31B;
+	Mon, 26 Oct 2026 15:18:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32330606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=CoGZBwQF
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=QzQ8eUYlWxznuofzwVjz4DcrB+p+nCNY4+cACo4yskI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793027907; v=1; x=1793632707;
- b=CoGZBwQFOKbcoC0o70OXftyAQNiao4IDpUqHGrR0KLRh/MNnbecrsJdVWwlzzE886XfSDe84
- 4NUFgIYtXJSf/2wDzjOHvuJpcjYJhMUw4OpliWypq/gMHcNSUNukSAf1QGnFslRwfMtjjK8IWbX
- thnmVuUyaIHcIP/Hijq8GEjs=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 2204e93b3b20cb80;
-	Mon, 26 Oct 2026 15:18:27 +0000
-X-Mizu-Trace-ID: 2204e93b3b20cb80
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <a33247c5-4881-401e-aa1c-0de05820c8d5@linux.dev>
-Date: Mon, 26 Oct 2026 23:18:06 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=bRJV7mDb
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wMmsjwv0+IuMn8dINEPyUrIbNhYI7vifS4l2c8TtbOCSJQDln7F/fuxLy+28jzamD9UHem8aDxSCatIxujlRvz1Wnu9No9H26wGPOCzWlHBKvTK3pumeIrwfof8aEk4EqIbpVOGgnViksboTQ5bn6UntyzEFkP+p5i3HA1jf+hoauo/TyrwEAv3fd8qLf5xEow9xEOKCMvD40DDmIRRi+N8fXnyNB7VkJBFr1HNCCc8KMWFl6NfEgjZ8MZNKtQ8ovhREstyi2wFZnEaSi1CcTkHq4PQmBA+7JhEEgPF26+ZD8Yfnig093OtP7CG7al1YxcAgd6v+Tn2V1FuZd8p57g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=VZtah0zu2iPUv2aKxwyhjfeqtcL2Tg9nyuB4RQZF9EE=;
+ b=dHbLxMWtPGATCErJLKSLyopaV0/YcOp2A98esD8SxmmpbTEjT9ZcbgYCWNIkMISUoYzxrLRu4+TX2bRLzDwPO4RbigOMs2Y551qdFOZEaY/8UwnKtAZdOdQsmhZCSvdWRH75mFp3g9LKzG6w5LUgiNudOPdEFRhkVtcyKwmscIWCXTRtzZlBCXBQ829fizoK4uAsAtguDHdy0ACqvOjBuY6Py+gXbKClUiqg25AzrAZTwLsNS5oyOzH3dsuKD2yhhDEQDpIbywfohMHZIYjTnTodsXfbHGV2KyMXlrqkD+48lV0K+UWrvcNW3wj8ucrJQlDYSin7FFW7lmRYq1DmOQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=VZtah0zu2iPUv2aKxwyhjfeqtcL2Tg9nyuB4RQZF9EE=;
+ b=bRJV7mDbgd8bFJIAQwTshITlCYefFZxu1b5Dpm+HOpWM9wfGF0mCMPBeZ6Of2dZtgc0cgTXRUw75+Q7ZzFg8747D4USwd3pDiq9Ar5x66vYQoB58VpQQu3/ty03zFV6nCz1rQQdHaRM8ks+h8Fse5x4sM4eYt+XPqgJIaEd1RFZ5e/75wyf6QHySXHy+pFeaZ6VdgzU8wgAZndGUGeo+MBwdpnoNl6zIpatCoSs/f6cAdkGaDoGFYF0ApAJp0rnaeuAKgGIIKjAzH4PB+/boUOXj4ctqonr909DQfATM1nUtFghX9xGda1ARoASvMNlTuErGC1PF6+4k9zBDd7e2PA==
+Received: from SY8PR01MB9299.ausprd01.prod.outlook.com (2603:10c6:10:22e::6)
+ by ME3PR01MB5816.ausprd01.prod.outlook.com (2603:10c6:220:e4::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
+ 2026 15:18:19 +0000
+Received: from SY8PR01MB9299.ausprd01.prod.outlook.com
+ ([fe80::eef8:27e8:2765:92d3]) by SY8PR01MB9299.ausprd01.prod.outlook.com
+ ([fe80::eef8:27e8:2765:92d3%4]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
+ 15:18:19 +0000
+From: Du Yijie <nathandu@outlook.com>
+To: Roderick Colenbrander <roderick.colenbrander@sony.com>,
+	linux-input@vger.kernel.org,
+	Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>
+Cc: Du Yijie <nathandu@outlook.com>,
+	=?UTF-8?q?Barnab=C3=A1s=20P=C5=91cze?= <pobrn@protonmail.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] HID: playstation: ignore DualSense Bluetooth microphone reports
+Date: Mon, 26 Oct 2026 23:16:40 +0800
+Message-ID:
+ <SY8PR01MB9299F0BA16B832F89BC6A4EDD1612@SY8PR01MB9299.ausprd01.prod.outlook.com>
+X-Mailer: git-send-email 2.56.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SE2P216CA0059.KORP216.PROD.OUTLOOK.COM
+ (2603:1096:101:115::10) To SY8PR01MB9299.ausprd01.prod.outlook.com
+ (2603:10c6:10:22e::6)
+X-Microsoft-Original-Message-ID: <20261026151640.6744-2-nathandu@outlook.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,170 +96,191 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/ksm: fix userfaultfd protection during merge and
- unmerge
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: akpm@linux-foundation.org, david@kernel.org, xu.xin@linux.dev,
- chengming.zhou@linux.dev, liam@infradead.org, vbabka@kernel.org,
- rppt@kernel.org, surenb@google.com, mhocko@suse.com, jglisse@redhat.com,
- aarcange@redhat.com, peterx@redhat.com, kas@kernel.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, bobbypowers@gmail.com, bgeffon@google.com,
- dplotnikov@virtuozzo.com, dgilbert@redhat.com, hughd@google.com,
- hannes@cmpxchg.org, kirill@shutemov.name, cracauer@cons.org,
- mcfadden8@llnl.gov, gokhale2@llnl.gov, mgorman@suse.de,
- mike.kravetz@oracle.com, rppt@linux.vnet.ibm.com, xemul@openvz.org,
- riel@redhat.com, shli@fb.com, jthoughton@google.com, corbet@lwn.net,
- pbonzini@redhat.com, seanjc@google.com, sj@kernel.org, ziy@nvidia.com,
- stable@vger.kernel.org, samarth.colleges@gmail.com, med08elkadiri@gmail.com
-References: <20261026130054.91461-1-lance.yang@linux.dev>
- <at9d4XJUIM8SgBDs@gremlin>
-Content-Language: en-US
-From: Lance Yang <lance.yang@linux.dev>
-In-Reply-To: <at9d4XJUIM8SgBDs@gremlin>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SY8PR01MB9299:EE_|ME3PR01MB5816:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6d6a0393-7029-4a04-35c8-08df33745de4
+X-Microsoft-Antispam:
+	BCL:0;ARA:14566002|22141099003|41001999006|12121999013|25010399006|260925184616899003|4140399003|19110799012|8060799015|37011999003|5072599009|23021999003|24021099003|15080799012|39105399006|5062599005|40105399003|10035399007|3412199025|440099028|26104999009|1710799026;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?JpUa7VorOZrX0GiLPCuDvUkAgWMVs5NCdMNCBCzdylqha3t29PYe89sgJQHz?=
+ =?us-ascii?Q?yx3YWVPmLLddEOz95wZ2dmbzKnP1QBG/hQkrOOh1nuZz5wYzQS+gDMyoWwZO?=
+ =?us-ascii?Q?/Xxm4g58UR9ZP+yoIeJH8dW7e7a8miuVMr+Gr8s/pyJXFFXWn0dwMFDYIo7G?=
+ =?us-ascii?Q?FKyQi5cSpVwu8untfo1CEshf947h80jaeRwbEhm2cv0QEYiiySZ8cliz6Zoo?=
+ =?us-ascii?Q?w+9CjWG/vCD6dMDp5Tsfyd1jyvkU8GcNqnHjxvXHrZFFlUBnPcwU7hF4L8Eg?=
+ =?us-ascii?Q?2BqtPm2RjDsf5QFleBKIP4JGsFpyt/mIN4zBLkUp50BzeANi13UWGWgmDiQR?=
+ =?us-ascii?Q?SMW5cSj/WkOXoyyQdEECl2+D+SUVo1dJM4/ORDGVVX5mhaU0WQM6tSELnvEE?=
+ =?us-ascii?Q?xz6oA426MqexY8Jfttr74sE1HMj3cw4h0iDKYd7BJ8xEl4FqC1hRNswd61jm?=
+ =?us-ascii?Q?c2uBfZ/kepMkm0oMA575bAbKHiSXGSRyyhE54fsVuAVxN08OG+NNc27KRDXm?=
+ =?us-ascii?Q?AMM2QPKEUQ4hXN3fuhNdfQyNP3yRqkOZ+a9YxaJHqto3VrkP4tQ0hjqogBdD?=
+ =?us-ascii?Q?7NwqSLbcPDmoSnjeWBCnBKeBjbJVQHKWMIHlF7Wsixr9CIOvEcaIJnJ+SO1/?=
+ =?us-ascii?Q?w5Of+EVGacxYxyBXlWCCwQVU67OYW1xyFuwt6fowlgIeCWWeF0ymOaII+YoG?=
+ =?us-ascii?Q?HbdIpH2NEqoLxPXRSFAJVCtTivph5OA8chi/9bdXiHQSsyPAQ/KJs3CP8RQz?=
+ =?us-ascii?Q?RTzE+H+jr1OKSJHFPbj20ynC7PykJ9uMhSegBBE5GjLZ/RZsR6IcSUfRLGvz?=
+ =?us-ascii?Q?lKKJUXjeeLyS+0PGP0qSf/FXURhobE0SdgF+2DnzGHVRqMe0pZufQqZIxAQU?=
+ =?us-ascii?Q?PhFAMJhPFeGbRyD0kBH86ZnRNw75uJ9/F9wUF/fOPC30wPIsDxurInPKiyl7?=
+ =?us-ascii?Q?fO12fNPo3D3EH5k5oKoj8nt3GgWo6WmiWgCpNo48Q52owc3uLZLkdbM/a/J1?=
+ =?us-ascii?Q?CHVv5vltkXj0il8iByCUJ3XodW97Kx95Fe3uLPv/4vTyc3NPUWHQD7ZAw1LB?=
+ =?us-ascii?Q?FU358ptIL25T+mrcItuqD9a7GxXI/pCB6eArLj3vo/s+jicI+SQ=3D?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?sOG/0bAXvS8Enqe02oK9BBS6cQPUPdnAHdPu9NUwqTfSKjElAztHsf4dD5aB?=
+ =?us-ascii?Q?zHw3BOkGKTRDTiGJx/CEyO0EVMr6uRZo+nbsuw+Lq5e1Iju45WZT1eNqJXjg?=
+ =?us-ascii?Q?qG0rv+CJoKdpaKAmozPeAu6t7a7ZOwF7sOXPodWvutdPVCLYAsnKYtVATdVY?=
+ =?us-ascii?Q?kEYBYmcCgQWrEzpbZAsgDWzBYLnO5/Lgdm6PS8tQqYoahycckhA2bZB+sVdO?=
+ =?us-ascii?Q?yrlzkXZrPere1ieLJOuaPrMWLr2jTM5QPelejLPf0/sGLji4jmbSD+yf/N3I?=
+ =?us-ascii?Q?CkQZXZGclLlW1CuadR46kb52ulk7Tr3r35n6ZBRrwy7BuIdLbTg9gO+6/IKR?=
+ =?us-ascii?Q?5HlZUg+qxfXzjI476nO9FWUgnR7YnlbmBOMQtxc0YoPqjNVC7/HdDWrfS2I0?=
+ =?us-ascii?Q?bq5X8LrR4yqaCYeUKMUdOSYM56RutUd5EN2gWK1aZDgjz9EZRLwUV+HKkwsx?=
+ =?us-ascii?Q?BUHde7zQmpsbb7Bh8xrzTuT7gwV1eGQko1ObbBxxTcxHN2blYuxl17IbbH6G?=
+ =?us-ascii?Q?O7BciturXNAqxCABhg0MpiTRX45glWsMvZWIRegK3ffNVibNzz9fj22kl4ap?=
+ =?us-ascii?Q?tlET7l6w8oGVSOkh/azHawnYkjxYnOUo3hvRO9rr8GxII/heHnavD7KCpm2C?=
+ =?us-ascii?Q?C6IYv1YD8E5KyVxoBgqAxy4EosLY3TeZMi8++sk/TftDJ3GrzuQtzOxoQcw+?=
+ =?us-ascii?Q?gd8JmVlH2ukpZAcajLF3puIin0LB8zmG2XwhfOjm5uzT8anlH8kM9jk/kNre?=
+ =?us-ascii?Q?W56tz4pEWagHmjEMAJUWkKO3CSS6Y3jzfWXfJeTOPFpdEKu7oJS/YIrItmab?=
+ =?us-ascii?Q?wboq+g0tGat3c6TeLxFvU9+xgfu2cNiHNf2J+Gy9+In09atrObUNXIGZE/yn?=
+ =?us-ascii?Q?WqCBocW6rpJx+qX8hdqzt2ug/pxKJCqx1u/2R7WjR9j7MV+T6RE6kTSA+g6O?=
+ =?us-ascii?Q?8FXZ2G4cOVt71xq/PoJIfk5sBOSci0TLJWE9jk8wezAhtErF273GKfdteW/1?=
+ =?us-ascii?Q?+hBawNZLFSvVpW9ccfxOy3ETRVjmFhM2Hpa04MpucyMQnrsUiXag2UNxAmdC?=
+ =?us-ascii?Q?sO53S9Tw0ZRV862BptCU7vsHova4ALwYH/qg5Xh4krnet9DxU3s/YYBF94VF?=
+ =?us-ascii?Q?NroJioZx6NZzPKQldwbNDeyNK0ZRl8FwEdGbgqbRJcXb3meMw1w5M7JIfwKY?=
+ =?us-ascii?Q?fY1Vm5Cl5pABkuFSUwEio63o4sQ0y3ML066vlhfrsW8G9kCr8bV1Z7t77hF7?=
+ =?us-ascii?Q?vabLMmNM8ECBQV7PzsOF425QUV/Ohif3oPcSByGG0ajMTAGZSoT/qxG2qIpy?=
+ =?us-ascii?Q?6isXlqOrSX3+on6EuUK711oYIN1vpE9NqQWIiONIJBh37dEysdmqAi3LDzgy?=
+ =?us-ascii?Q?UR5IV6Cms8TKWidx/xPo5RkOOEi71UPT3BlliZZHN8Q/VZebR1/EDDjzujLW?=
+ =?us-ascii?Q?mHjXKpAgy61UJR70TZnF9rcWf5dBY02u?=
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6d6a0393-7029-4a04-35c8-08df33745de4
+X-MS-Exchange-CrossTenant-AuthSource: SY8PR01MB9299.ausprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 15:18:19.6727
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ME3PR01MB5816
 
+If userspace enables microphone reports from a DualSense connected
+via Bluetooth, by sending a specific output report through hidraw,
+hid-playstation will misinterpret the microphone data as regular
+input reports, resulting in spurious events.
 
+Check the byte after report ID, which contains information necessary
+to distinguish the typical HID input report from other stuff like mic
+data, before parsing. If the byte indicates anything other than the
+typical HID input report, do not parse it. If the report looks like
+mic data, silently ignore it, otherwise report an error.
 
-On 2026/10/26 22:27, Lorenzo Stoakes (ARM) wrote:
-> On Mon, Oct 26, 2026 at 09:00:54PM +0800, Lance Yang wrote:
->> KSM loses userfaultfd protection when replace_page() builds a new PTE
->> from vma->vm_page_prot. Dropping its uffd bit lets a subsequent write go
->> through ordinary COW instead of userfaultfd write protection handling. For
->> RWP, a merged page also becomes readable without faulting.
-> 
-> I feel we probably shouldn't have allowed an extension to UFFD while it's still
-> fundamentally a broken feature :))
-> 
-> Which is evidenced by the SLEW of AI bug reports, and human-reported bug
-> reports, and endless history of bug reports and it infecting the rest of mm,
-> etc. etc. /rant
+Link: https://bugzilla.redhat.com/attachment.cgi?id=2161437
+Closes: https://bugzilla.redhat.com/show_bug.cgi?id=2554570
+Fixes: 799b2b533a29 ("HID: playstation: add DualSense Bluetooth support.")
+Tested-by: Du Yijie <nathandu@outlook.com>
+Signed-off-by: Du Yijie <nathandu@outlook.com>
+---
+ drivers/hid/hid-playstation.c | 51 ++++++++++++++++++++++++++++++-----
+ 1 file changed, 44 insertions(+), 7 deletions(-)
 
-Heh, UFFD isn't winning you over today :D
+diff --git a/drivers/hid/hid-playstation.c b/drivers/hid/hid-playstation.c
+index f9dc9378cf77..8bad1a9dae54 100644
+--- a/drivers/hid/hid-playstation.c
++++ b/drivers/hid/hid-playstation.c
+@@ -94,6 +94,13 @@ struct ps_led_info {
+ #define DS_FEATURE_REPORT_FIRMWARE_INFO		0x20
+ #define DS_FEATURE_REPORT_FIRMWARE_INFO_SIZE	64
+ 
++/* Metadata of Bluetooth input report. */
++#define DS_INPUT_SEQ_TAG	GENMASK(3, 0)
++#define DS_INPUT_SEQ_NO		GENMASK(7, 4)
++
++#define DS_INPUT_SEQ_TAG_INPUT_REPORT	1
++#define DS_INPUT_SEQ_TAG_MIC_REPORT	2
++
+ /* Button masks for DualSense input report. */
+ #define DS_BUTTONS0_HAT_SWITCH	GENMASK(3, 0)
+ #define DS_BUTTONS0_SQUARE	BIT(4)
+@@ -242,7 +249,7 @@ struct dualsense_touch_point {
+ static_assert(sizeof(struct dualsense_touch_point) == 4);
+ 
+ /* Main DualSense input report excluding any BT/USB specific headers. */
+-struct dualsense_input_report {
++struct dualsense_input_report_common {
+ 	u8 x, y;
+ 	u8 rx, ry;
+ 	u8 z, rz;
+@@ -264,7 +271,22 @@ struct dualsense_input_report {
+ 	u8 reserved4[8];
+ } __packed;
+ /* Common input report size shared equals the size of the USB report minus 1 byte for ReportID. */
+-static_assert(sizeof(struct dualsense_input_report) == DS_INPUT_REPORT_USB_SIZE - 1);
++static_assert(sizeof(struct dualsense_input_report_common) == DS_INPUT_REPORT_USB_SIZE - 1);
++
++struct dualsense_input_report_usb {
++	u8 report_id; /* 0x01 */
++	struct dualsense_input_report_common common;
++} __packed;
++static_assert(sizeof(struct dualsense_input_report_usb) == DS_INPUT_REPORT_USB_SIZE);
++
++struct dualsense_input_report_bt {
++	u8 report_id; /* 0x31 */
++	u8 seq_tag;
++	struct dualsense_input_report_common common;
++	u8 reserved[9];
++	__le32 crc32;
++} __packed;
++static_assert(sizeof(struct dualsense_input_report_bt) == DS_INPUT_REPORT_BT_SIZE);
+ 
+ /* Common data between DualSense BT/USB main output report. */
+ struct dualsense_output_report_common {
+@@ -1438,7 +1460,9 @@ static int dualsense_parse_report(struct ps_device *ps_dev, struct hid_report *r
+ {
+ 	struct hid_device *hdev = ps_dev->hdev;
+ 	struct dualsense *ds = container_of(ps_dev, struct dualsense, base);
+-	struct dualsense_input_report *ds_report;
++	struct dualsense_input_report_common *ds_report;
++	struct dualsense_input_report_bt *ds_report_bt;
++	struct dualsense_input_report_usb *ds_report_usb;
+ 	u8 battery_data, battery_capacity, charging_status, value;
+ 	int battery_status;
+ 	u32 sensor_timestamp;
+@@ -1452,18 +1476,31 @@ static int dualsense_parse_report(struct ps_device *ps_dev, struct hid_report *r
+ 	 */
+ 	if (hdev->bus == BUS_USB && report->id == DS_INPUT_REPORT_USB &&
+ 	    size == DS_INPUT_REPORT_USB_SIZE) {
+-		ds_report = (struct dualsense_input_report *)&data[1];
++		ds_report_usb = (struct dualsense_input_report_usb *)data;
++		ds_report = &ds_report_usb->common;
+ 	} else if (hdev->bus == BUS_BLUETOOTH && report->id == DS_INPUT_REPORT_BT &&
+ 		   size == DS_INPUT_REPORT_BT_SIZE) {
+-		/* Last 4 bytes of input report contain crc32 */
+-		u32 report_crc = get_unaligned_le32(&data[size - 4]);
++		ds_report_bt = (struct dualsense_input_report_bt *)data;
++		u32 report_crc = le32_to_cpu(ds_report_bt->crc32);
+ 
+ 		if (!ps_check_crc32(PS_INPUT_CRC32_SEED, data, size - 4, report_crc)) {
+ 			hid_err(hdev, "DualSense input CRC's check failed\n");
+ 			return -EILSEQ;
+ 		}
+ 
+-		ds_report = (struct dualsense_input_report *)&data[2];
++		unsigned int seq_tag = FIELD_GET(DS_INPUT_SEQ_TAG, ds_report_bt->seq_tag);
++
++		if (seq_tag == DS_INPUT_SEQ_TAG_MIC_REPORT) {
++			/* Microphone reports are silently ignored. */
++			return 0;
++		}
++
++		if (seq_tag != DS_INPUT_SEQ_TAG_INPUT_REPORT) {
++			hid_err(hdev, "Unknown seq_tag=%d\n", seq_tag);
++			return -1;
++		}
++
++		ds_report = &ds_report_bt->common;
+ 	} else {
+ 		hid_err(hdev, "Unhandled reportID=%d\n", report->id);
+ 		return -1;
 
->>
->> Keeping the uffd bit and restoring PAGE_NONE fixes merging, but we also
->> have to handle unmerging. An existing KSM page can be protected with RWP
->> before MADV_UNMERGEABLE, so unmerging already needs fixing independently
->> of preserving RWP during merging.
->>
->> Unsharing replaces a shared page with a private one and should leave
->> userfaultfd protection in place, as do_wp_page() already does for write
->> protection. Currently, an unshare fault reaches do_uffd_rwp() before it
->> can proceed to do_wp_page().
->>
->> - With synchronous RWP, handle_userfault() returns VM_FAULT_SIGBUS.
->>    break_ksm() then reports success with a KSM page still merged.
->>
->> - With asynchronous RWP, protection is cleared before unsharing.
->>
->> Preserve the uffd bit when merging, and restore PAGE_NONE for RWP. Let
->> FAULT_FLAG_UNSHARE skip RWP fault handling and keep PAGE_NONE on each
->> private copy as well. Unsharing can then complete with RWP still armed
->> for a subsequent access.
->>
->> Fixes: 63b2d4174c4a ("userfaultfd: wp: add the writeprotect API to userfaultfd ioctl")
->> Fixes: 2d427bb01639 ("mm/userfaultfd: add RWP fault delivery and expose UFFDIO_REGISTER_MODE_RWP")
->> Link: https://lore.kernel.org/all/20261019010934.697895-1-samarth.colleges@gmail.com/
->> Link: https://lore.kernel.org/all/20261020055518.36087-1-lance.yang@linux.dev/
->> Cc: stable@vger.kernel.org
->> Co-developed-by: Samarth Narang <samarth.colleges@gmail.com>
->> Signed-off-by: Samarth Narang <samarth.colleges@gmail.com>
->> Signed-off-by: Lance Yang <lance.yang@linux.dev>
-> 
-> Looks sensible to me so:
-> 
-> Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-
-Really appreciated!
-
->> ---
->>   mm/ksm.c    |  8 +++++++-
->>   mm/memory.c | 14 ++++++++++----
->>   2 files changed, 17 insertions(+), 5 deletions(-)
->>
->> diff --git a/mm/ksm.c b/mm/ksm.c
->> index 910a1307ac9f..d6f736a1aa2f 100644
->> --- a/mm/ksm.c
->> +++ b/mm/ksm.c
->> @@ -34,6 +34,7 @@
->>   #include <linux/memory.h>
->>   #include <linux/mmu_notifier.h>
->>   #include <linux/swap.h>
->> +#include <linux/userfaultfd_k.h>
->>   #include <linux/ksm.h>
->>   #include <linux/hashtable.h>
->>   #include <linux/freezer.h>
->> @@ -1463,9 +1464,14 @@ static int replace_page(struct vm_area_struct *vma, struct page *page,
->>   		dec_mm_counter(mm, MM_ANONPAGES);
->>   	}
->>
->> -	/* Preserve soft-dirty when replacing the page. */
->> +	/* Preserve soft-dirty and uffd protection when replacing the page. */
->>   	if (pte_soft_dirty(orig_pte))
->>   		newpte = pte_mksoft_dirty(newpte);
->> +	if (pte_uffd(orig_pte)) {
->> +		newpte = pte_mkuffd(newpte);
->> +		if (userfaultfd_rwp(vma))
->> +			newpte = pte_modify(newpte, PAGE_NONE);
-> 
-> OK, so by definition, RWP pages are protnone, and this resets it correctly.
-
-Right, we need PAGE_NONE back as well as the uffd bit :)
-
->> +	}
->>
->>   	flush_cache_page(vma, addr, pte_pfn(ptep_get(ptep)));
->>   	/*
->> diff --git a/mm/memory.c b/mm/memory.c
->> index 6a93b7fa48b2..99439a7afa63 100644
->> --- a/mm/memory.c
->> +++ b/mm/memory.c
->> @@ -4122,8 +4122,11 @@ static vm_fault_t wp_page_copy(struct vm_fault *vmf)
->>   		if (unlikely(unshare)) {
->>   			if (pte_soft_dirty(vmf->orig_pte))
->>   				entry = pte_mksoft_dirty(entry);
->> -			if (pte_uffd(vmf->orig_pte))
->> +			if (pte_uffd(vmf->orig_pte)) {
->>   				entry = pte_mkuffd(entry);
->> +				if (userfaultfd_rwp(vma))
->> +					entry = pte_modify(entry, PAGE_NONE);
->> +			}
-> 
-> Could this be abstracted? You're doing the same pattern here, which also exists
-> in copy_present_page() and presumably many other places.
-> 
-> But maybe that's one for a follow up?
-
-Yeah, a helper would be nice here. I'd keep this fix small and do that
-as a follow-up :D
-
-Cheers, Lance
-
->>   		} else {
->>   			entry = maybe_mkwrite(pte_mkdirty(entry), vma);
->>   		}
->> @@ -6659,9 +6662,12 @@ static vm_fault_t handle_pte_fault(struct vm_fault *vmf)
->>   		 * VM_UFFD_RWP VMA, a protnone PTE without the uffd bit is
->>   		 * NUMA hinting and must still fall through to do_numa_page().
->>   		 */
->> -		if (userfaultfd_pte_rwp(vmf->vma, vmf->orig_pte))
->> -			return do_uffd_rwp(vmf);
->> -		return do_numa_page(vmf);
->> +		if (userfaultfd_pte_rwp(vmf->vma, vmf->orig_pte)) {
->> +			if (!(vmf->flags & FAULT_FLAG_UNSHARE))
->> +				return do_uffd_rwp(vmf);
->> +		} else {
->> +			return do_numa_page(vmf);
->> +		}
->>   	}
->>
->>   	spin_lock(vmf->ptl);
->> --
->> 2.49.0
->>
-> 
-> --
-> Cheers, Lorenzo
+base-commit: 2c2fe95ab19b09bef7391e3e5cdf8146d09792b6
+-- 
+2.56.0
 
