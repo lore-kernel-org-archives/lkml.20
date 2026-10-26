@@ -1,51 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.111
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792980633;
-	b=VWaA5tMI+Q6OcawK8CwrNAR7qTiP9jWmmFRRHrwJzzKLr3VgJzOhM8qhXTCtYKGlgnvv
-	 JcvM0IeoJ9TauTjTQ2TJW5Kk0htTpBh8Fn6wMM6HGPZWntgdmj1371CuWrCILAqUOwTWq
-	 UBeG3IHEU27K4N6hetwNymLkREnLCiUOEJUoPe0QqZBJ1JNr5HNDgbrhwxzFhWMSjMLMb
-	 XdgcA9fij341bRlNPKw+mdtszy0Z+16avweqQUyxjVQLHSUxBisA9Fu02UC4CTkhH+ATE
-	 urz4r0ZXEQhLMLDuCVzS9as8zHoL9l8cEEV7iNCGLrq6buunU/ocyRoNsWY85Ps5hvg==
+	t=1792980737;
+	b=YsHqdk6i7pkOTaAUiEB5exDlQ1y87x50ya5tBh8Jk462eKih30xdaaoJq/zz+Ij4aPnS
+	 U2s8BUxZKNX0t0o3pSd00Zm555n+6/UD4bByT7z1PzXwe0SE+N/qpIB4A9e5Mp0Pp4kUC
+	 pUiGOqPzZtpRwZVIC5Rq6fp2MsEh4Hrie7oOfWAjWBnysmpZ051XRCbjeKxYpfym0Nmhx
+	 ziJzxyp5g9kuTT7npear9gYFmwd/GOY/qcmzPdDptquujy45zrt26v9uAmhf0FjDloNyW
+	 iFkHGeNa5FLiCd4ZhLpBFXZdaEJaaC6sw1w6jc9neb3g7oq4LMQMNDHvZxscn4AEu5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792980633;
-	h=DMARC-Filter:DKIM-Signature:Cc:Subject:Mime-Version:In-Reply-To:
-	 References:X-Lms-Return-Path:Message-Id:To:Content-Type:
-	 Content-Transfer-Encoding:Date:From;
-	bh=fnUns6xcVSzCqzpV9TGsqBbjbhVeYf0cM+x/ILg6sHg=;
-	b=Wu2ka10b3rlRlVrJhCnvz4PR4chnXK0XQSUwbw4q4+DBrWaJTWOajOk7EQAkdhT5f3Fm
-	 T81rIR++BpiUFCOCNtquW1IVp/2ur2frjVNBeoZ5Oi0JUnII3wcSUmqGzsnWxJ4nlKrHT
-	 lNB6wi3/4LM472FQHIQKDkJqNyxTrCh3dq5qEJkybcWiTcXtzc8wN7V7En+ZtHj1kGDyp
-	 bKFRooLz8mKQeRQI83S8ugfGgGmhzNTzgoQea/xhtVAK76JA0+AwwqIlA22W8+E2gq88B
-	 0dPHgWAwJCSAYPKhkvKS+ijFGrD893rixVIW9rnscd757rIV7UJ3DCh62iqHPWgILbA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792980737;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=GPu9YN25dDm57paUC3yXoaI+yd25NXWYw23eCkA96p8=;
+	b=fwL5EmrBu7LQxBbge4mu6b3MnXnZszsltNBDjjxsCyIjH0apx6K0NAyDtkt0rW40UXNi
+	 NTyxuJ1TOlyxUyuu9a3vgUm4j7QvCVEU9cVvPCJzh/i4/uyXQHNDLqv53lJs8j6pI7Q97
+	 qc+AmaBHXS89vC9b4eUQtDLvFCyIs5daSfYGYaLzM2KB/y6dYAIM0dKF021L+vtHa7uC7
+	 15ozrbSsrw/Vm8JTTdFNxnIWEDuNafjQRX5IFPX0z+3zvgCTOFnlr0gVuEyIA4DAhBQGm
+	 +jDaMgVA2zgAsjtWd7EtgDDwQqHBfoypLX1KCkwobh4MbDAqJTzfkrOAK8MmAyAfaVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bytedance.com;
-	spf=pass smtp.mailfrom=bytedance.com;
-	arc=none smtp.remote-ip=209.127.230.111
-Received: from va-1-111.ptr.blmpb.com (va-1-111.ptr.blmpb.com [209.127.230.111])
+	dmarc=none header.from=linux-foundation.org;
+	spf=pass smtp.mailfrom=linuxfoundation.org;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=H6t4AtAr;
+	arc=none smtp.remote-ip=209.85.208.48
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CB1C606A31B
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:10:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CB1C606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1792980618; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=fnUns6xcVSzCqzpV9TGsqBbjbhVeYf0cM+x/ILg6sHg=;
- b=UoiTXtfdZ4H/G4T1FmFfV3lADpmS8aygEimu4SePcrHyp+GqMGBFqzAtAOMTdJSFZamCvT
- 0l7/eGjpnsrIEA6rk6MqovDADRCuRdj7OhvgygLfTdo/+zNFDQrbIuDDTyGafaFXB2lTyo
- xoj3MaKdhPt4kl7Yi6nn8bikchvxaDEmj1n6vjeW22FlilnwJUnR3mb+tTU3laVTDPtRJ+
- NbvAHDRRS6o9EtljI7llKYGU5Rk4Y/IygOI+awO2b7YCOFCvwNprBDPhVcIW7/OOmlMf0A
- upj++6cbwWRYx4G3fDKG65RhomV7vvV6/GlfWybxXCFo2gzZcrxI2He8S3VpIQ==
-Cc: <x86@kernel.org>, "Thomas Gleixner" <tglx@kernel.org>, 
-	"Ingo Molnar" <mingo@redhat.com>, "Borislav Petkov" <bp@alien8.de>, 
-	"Dave Hansen" <dave.hansen@linux.intel.com>, 
-	"H . Peter Anvin" <hpa@zytor.com>, <linux-kernel@vger.kernel.org>, 
-	<stable@vger.kernel.org>, "Guixiong Wei" <weiguixiong@bytedance.com>
-Subject: Re: [PATCH v2 1/2] x86/fpu: Fix memory leak with dynamic fpstate and exec()
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EA99606A320
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:12:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1EA99606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=H6t4AtAr
+Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6b1a86c0316so3956674a12.0
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 19:12:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linux-foundation.org; s=google; t=1792980734; x=1793585534; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GPu9YN25dDm57paUC3yXoaI+yd25NXWYw23eCkA96p8=;
+        b=H6t4AtArQAj3QgYaCfrM3lyItzggtnfyus2Lijv+bbrQrM5UR/A99W/WKYkK76N16q
+         J112kHpq/pkZhYcYyHM2ypu2OxNZ9qTRP8mRQVEYwYk0n3KFOKv9RFDWogak2ICoSgy1
+         HYUvM3ch8wN8V8L9x5DvOM0myzqwMXz+RkCCo=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792980734; x=1793585534;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=GPu9YN25dDm57paUC3yXoaI+yd25NXWYw23eCkA96p8=;
+        b=oY12T58GtGSC2a9XhEx0fRYY5krlb9MqCpojqr/bQXeHLSGxa3axeQCAd7q3ASfNIo
+         k32zrqLRbb23QZpya8xsOpAwMLctrV1Ye54XtG1bpVHhJGCEN3Q3ZCEQD5KM85b45lEw
+         nx+8PFeKN7vik5maTDCKK9p59Y/yXNdnKqeat0rOI7Agp0+nOTk6FPb+u1+0UHo7Ma9S
+         8anm7TlhownlQX5C/kJcNFjYg4P0TJPzZ3KOWs5c5b5atmun8Zzj/yf4zHsIHFaerC9y
+         ZrwoKOHpwWST3lupe1diQBz9DS9F8BXCm8+R0a2BDIY9eEvWP3710fa99JKiv2vFHdyS
+         0ehg==
+X-Forwarded-Encrypted: i=1; AKwUvBxrL3zc1PtToKFtm/iXJupr+MCjN/rW0wzOJCDz0XH5pprxbvfV5IXH078/UofEcHit1ifoxZgc2BZWy9g=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLPA3soOOP5hTFNqMK7dxqANv+OuclNyd9OEcSOMhgEIrkFr+/u
+	QCVfQoNtSY8JJFQf5IpGCr52JRqwICN4byrLDcrBJtwPNdRzJSwmF+2hK+nXw8p1Uj4TIs7ywix
+	pSimeA78=
+X-Gm-Gg: AYBFou35qnfx9ueKO0CUxN/1+b+5N0KzQ3c6ZOwEMXzN4iwS4R2fb0xIMR3kcsBX1+b
+	VJZrtPkKzcfcXqaM978tgHNyELjTXJcTdsKBDVGjbVvFFbgETJB9Qr9Cpqk4XWrJ1tvUevldYwe
+	BC2uanRWI3AQlU/fNjBQ19ndaeWsCvFYX9WPd7/XJv6gnAi/o1VgF9R5pxGHcX9w2Y7fhpFMTHK
+	wf143uPZ4hjzpgOOOV9BMezdA3WRrGqQg3yP72I5hjIoioR7X6+N9JxX7biJf15DMh8T0GQECo1
+	IsTwqT1cMVx9iPg4uJ+XXZVQGZvQO0hHT86+Fx58lzrQbyEtknmQsSjrEs74CI5s2XCxOW4IHEB
+	EG2AGfiv4+mNX0fGZRBbBA5AX89PrMQg7L956Uf7it0EGmU69xWEdrerP/dBXzctG/BL9kQT3hN
+	aWzU2WJS5z3N7LMPvCEqGK6ecKshz4BDExEw+4vE6QVVkXCemo2TXtWFk5fwJo9RGade4PpKkKa
+	nUsDH3DIRVFJ1fk/FOKP2Mr7NY9zHW6FpE5MYN+eyoe9kZq6zVmFuBZk3QlZrnc9TGqAx6MnpCA
+	WS9AsmeiEZUoiRQuMDwImYCah3TFJw==
+X-Received: by 2002:a05:6402:c188:b0:6b4:203:a183 with SMTP id 4fb4d7f45d1cf-6b44324fd54mr4399813a12.36.1792980734469;
+        Sun, 25 Oct 2026 19:12:14 -0700 (PDT)
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com. [209.85.218.48])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b445970ba3sm3123812a12.14.2026.10.25.19.12.13
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 25 Oct 2026 19:12:13 -0700 (PDT)
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c46d41f6af3so89980766b.1
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 19:12:13 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByl24s1vJCnlGabK50RlqUn9IzexWZxUaMrPznrKvR7lJN/tJPbuEfmY7+Y6elVw2xFRajQaGBxTJsPguM=@vger.kernel.org
+X-Received: by 2002:a17:907:3ccc:b0:c29:f5d8:9c75 with SMTP id
+ a640c23a62f3a-c46bde7eabemr658242866b.36.1792980733776; Sun, 25 Oct 2026
+ 19:12:13 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,74 +92,32 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-In-Reply-To: <bb50436d-8af6-4420-b626-97f262f6759d@intel.com>
-References: <cover.1791428412.git.weiguixiong@bytedance.com> <b9277cad5e1098d3e60d5c0f025c58061df10af0.1791428412.git.weiguixiong@bytedance.com> <d28dc497-a74b-4c52-bb6c-8b9010f9ee2d@intel.com> <89727492-b1d1-4f14-955a-0673ebaee753@intel.com> <451788d5e97cba38274e663d2b7952c593e959be.299fa9aa.210c.4b1f.9ab7.7acb67f42a19@bytedance.com>
-	<bb50436d-8af6-4420-b626-97f262f6759d@intel.com>
-X-Lms-Return-Path: <lba+16adeb688+6aaf44+vger.kernel.org+weiguixiong@bytedance.com>
-Message-Id: <451788d5e97cba38274e663d2b7952c593e959be.a7410b9a.6322.4d63.ba47.f773788cbe75@bytedance.com>
-To: "Chang S. Bae" <chang.seok.bae@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 26 Oct 2026 10:10:13 +0800
-From: "Guixiong Wei" <weiguixiong@bytedance.com>
+MIME-Version: 1.0
+References: <atoWDJDx6sFovvjp@mit.edu> <at1viAwYP3bFOkj_@mit.edu>
+In-Reply-To: <at1viAwYP3bFOkj_@mit.edu>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Sun, 25 Oct 2026 16:11:57 -1000
+X-Gmail-Original-Message-ID: <CAHk-=wgsdLwcKr1jguH4QfPtS3sm5Ss6HKfk5RAMULHz+O6Jrw@mail.gmail.com>
+X-Gm-Features: AclHuK9VwiBTuLWnqHPC6xVDVLPjjIrsXpo0uxJp1zsuHKmEBofnjvervhtz3pc
+Message-ID: <CAHk-=wgsdLwcKr1jguH4QfPtS3sm5Ss6HKfk5RAMULHz+O6Jrw@mail.gmail.com>
+Subject: Re: [GIT PULL] ext4 updates for 7.4-rc1
+To: Theodore Tso <tytso@mit.edu>
+Cc: Ext4 Developers List <linux-ext4@vger.kernel.org>, 
+	Linux Kernel Developers List <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
+On Sat, 24 Oct 2026 at 16:56, Theodore Tso <tytso@mit.edu> wrote:
+>
+> Ping?
 
-> From: "Chang S. Bae"<chang.seok.bae@intel.com>
-> Date:=C2=A0 Wed, Oct 21, 2026, 02:21
-> Subject:=C2=A0 Re: [PATCH v2 1/2] x86/fpu: Fix memory leak with dynamic f=
-pstate and exec()
-> To: "Guixiong Wei"<weiguixiong@bytedance.com>
-> Cc: <x86@kernel.org>, "Thomas Gleixner"<tglx@kernel.org>, "Ingo Molnar"<m=
-ingo@redhat.com>, "Borislav Petkov"<bp@alien8.de>, "Dave Hansen"<dave.hanse=
-n@linux.intel.com>, "H . Peter Anvin"<hpa@zytor.com>, <linux-kernel@vger.ke=
-rnel.org>, <stable@vger.kernel.org>
-> On 10/19/2026 6:49 PM, Guixiong Wei wrote:
-> >=C2=A0
-> > =C2=A0=C2=A0=C2=A0=C2=A0 void fpstate_free(struct fpu *fpu)
-> > =C2=A0=C2=A0=C2=A0=C2=A0 {
-> > =C2=A0=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=C2=A0 __fpstate_free(fpu=
-->fpstate);
-> > =C2=A0=C2=A0=C2=A0=C2=A0 }
->=C2=A0
-> Hmm, just curious why the original check has to be removed. I thought=C2=
-=A0
-> this sanity check from the struct fpu context was reasonable, no?
->=C2=A0
-> =C2=A0 =C2=A0void fpstate_free(struct fpu *fpu)
-> =C2=A0 =C2=A0{
-> =C2=A0 =C2=A0 =C2=A0 =C2=A0if (fpu->fpstate && fpu->fpstate !=3D &fpu->__=
-fpstate)
-> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 __fpstate_free(fpu->fpstate);
-> =C2=A0 =C2=A0}
->=C2=A0
-> Thanks,
-> Chang
->=C2=A0
-Right, will restore it in v3.
+Pulled.
 
-With that check back, __fpstate_free() ends up with fpstate_realloc()
-as its only real caller, so I'd prefer to drop the helper and keep
-both free sites inline =E2=80=94 same shape as before v2:
+Note that I was pulling filesystem code early in the merge window, but
+this hadn't come in then. And then it was architectures and drivers
+and other things for several days.
 
-=C2=A0=C2=A0=C2=A0 void fpstate_free(struct fpu *fpu)
-=C2=A0=C2=A0=C2=A0 {
-=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=C2=A0 if (fpu->fpstate && fpu->fps=
-tate !=3D &fpu->__fpstate)
-=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=C2=A0 =
-vfree(fpu->fpstate);
-=C2=A0=C2=A0=C2=A0 }
+Now I'm back to filesystems.
 
-=C2=A0=C2=A0=C2=A0 /* fpstate_realloc(), unchanged: */
-=C2=A0=C2=A0=C2=A0 if (curfps && curfps->is_valloc)
-=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=C2=A0 vfree(curfps);
+It's been only slightly slower than usual due to a couple of days of diving...
 
-The fix then collapses to two changes in core.c: free the dynamic
-fpstate at the start of fpstate_reset(), and clear dst_fpu->fpstate
-to NULL in fpu_clone() before the reset. xstate.c, api.h and
-process.c stay untouched.
-
-OK with you?
-
-Thanks,
-Guixiong
+                Linus
