@@ -1,96 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.228.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793013478;
-	b=x+f/XacJDtfsj3bOKJgZCKYF4n7iLGhmoFNlpgwT4KhCP4O1Z7HcpkmmMvVEUAYtxfbu
-	 B36w4B0d49/eb4liblSG3yXRKBtRR3mrsgEuojuw/QQutq8vmTEDb6E9fgyKv1dzPQI5r
-	 2ZXVn9wooHzO+120UemjyDTUlHY0ErQ1WHtuUaNTsV5lZmELFYinhz799QXX95Sjf9Q66
-	 Dcsb9U/wmAUa0CeeGFuVNUqg0+0ATfz41VXrMVeyMLyx5DHFXlOSNeDyCLCIScCPGcXLL
-	 TBQ0kbpqZpEcAjjgdAfzsAmyzcG+cnjUmMM1+WnY70R3FFgoXzl9X7Cfbx7YKGirQ1Q==
+	t=1793013520;
+	b=nvYwsRcvyNrW0uFOVhugHL1Rt58PpUtdCgu41F4R6/Hesk5lkUcec0iprByhsyYLmDr6
+	 2+rKlaCDUtumt8hpV30yYWY3TbHPn5/qJ2u1FKWcl1ztOVi4QlB8oNgdusnxTmXbz5GdU
+	 Q9jbw7kzE+WH7pYWguq7efLYGZqDZ38zNOQPdJUK8X80tbHz3MPWKfKW9TRzZb5MjqG7h
+	 WIEALwdXgAah5RgxzMRnTe9qLC+OYGxypca8zd1yNR4zmhh8HmN/NSl+5BjGRRZifCHe0
+	 4KwhdVPZl4t+caoXYZSxmZGuoCL403JN2Kscxr0ihEjOAmuGG654u8DQBI+m++lgL8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793013478;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Date:Message-ID:In-Reply-To:References;
-	bh=NRIkuKUZUAgjI71v50t8xrAuxWFu9ma5GeG76B0scz8=;
-	b=WwCH9JTNK/ygEeVZFQNEhnrkvrVop2xSYlvla/LBc20YnCtCVGPslN6JetVuimDXbdd1
-	 xN1P8dSjEUenBfFTOizp/90dC0zh70Egip4z/pLMFW76fntu9fDekRTs2l6TWmo9MCiW2
-	 kkqFJkByWS2UKWIkqm9pm3a9iVVePNyC5cUoKeGfSQg+TlEIavZH4l1vBAfIofEzZurqC
-	 j8lK8tP3y9fw6nDejeQ1+TWIz1sD8wH2CedJMvalYt9enQuBI206g5t5KEuldYK9N0orL
-	 cU7lLa3CIy4kNM7jTF/HIELPx1kVvtrh1RkNn6D2SaDeY3jsxrk0KWQVgIXchPEMpzw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793013520;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:MIME-Version:Content-Transfer-Encoding:X-Scanned-By;
+	bh=b+DCJkrwcuXKWzPX0QxpX1ccVGXrsTMiQkeEh3cGqxQ=;
+	b=U/AH/XJJ4R06RbFj9eqe5i4DnmIf8zrr/0bZyIz57Uqunt40dIhsMITZr8cHBgGtt1+m
+	 6vuWm6V1045TFmvBpF/vOI7FyaeVk5HNz5STj/MpH7qnbxq+U7kl4JBUHHu+3jI40WzGH
+	 UIN/KqnviVGmqNNEOKODtod3kxmOP7ZBZNJv35VpkufQDZcKEz3udhwFTuKuLcizKbTqm
+	 Ol1zW+drYSrjeI9evrbCDH3AcpIH0r0+7SljvYJf8updpijISNjp4rsR6jJ4JY/eTXfYz
+	 CXB0bYK7CjqZvJub1ALSQAvnWbaoqSKiaGgBVX7Rez/P28xbddpGMzEktlIsQ+leSow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=LXB3Xngy;
-	arc=none smtp.remote-ip=74.125.228.2
-Received: from mail-pz2-f2.google.com (mail-pz2-f2.google.com [74.125.228.2])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=DO7Iw8tn;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0020606A337
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:17:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0020606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F19E606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:18:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F19E606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=LXB3Xngy
-Received: by mail-pz2-f2.google.com with SMTP id 41be03b00d2f7-ccc451ef3a7so371741a12.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 04:17:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793013477; x=1793618277; darn=vger.kernel.org;
-        h=references:in-reply-to:message-id:date:content-transfer-encoding
-         :content-type:mime-version:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=NRIkuKUZUAgjI71v50t8xrAuxWFu9ma5GeG76B0scz8=;
-        b=LXB3XngyrN0kmxx3Y1iT64RUtaddWXLeKcQrMXaBFct1KQ4MMCaalvTiU+Zz4ai4nv
-         kthrr1nNHO95LblZPV3whXJt2IDdi9L6DAuQfP79FNpzEVw30o6xgLB+J5YcfPYdnVHO
-         eFX+eIQ8qgxOmmX4E9vJIEODDTOuuHUi4dVR4p3eoTiNrATc77phrzzMplpWrU3kOY/h
-         Cp5C/c5lb1/FIGbucSYyg+hZalcfeC1v90Ldn1Bf9Ts3D/Y+aJUDjIZfZXABesKPxRxI
-         7u5luoM8G8OPUFZZblF4Rwf9fcHs+lsvXA2vt0m9pHO5MOKJFcsBGJizWMcbQbmfZRhq
-         8bJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793013477; x=1793618277;
-        h=references:in-reply-to:message-id:date:content-transfer-encoding
-         :content-type:mime-version:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NRIkuKUZUAgjI71v50t8xrAuxWFu9ma5GeG76B0scz8=;
-        b=tSVR2G99DJHLB/4Vwo7DVJ5VC9r9uUkIKmA80Wm6eQOqaBTOX0xyjJrgD36WbF3Ovd
-         cMvSiYztV9zALLuxxgdjW7eeT1WgxESIieF3XETqCn/AAnbUm3bGGlhVe0EngXdkGDMQ
-         maVOXN/hmqy23xWXGBP5M2W1zhoGYfKsbFRaAOjJlZex1lO96JX03CzPDycEud9p0ScG
-         hdRDX/E+W5umxcjB8OGY6PI4uTvY+6Aw7YASKS7IGdwBr/4MRnUTw85PZdnQ1nn7z3QW
-         j/LcCFgifobl+lYEB4jO8Te3obLQisFs2n/V0ngQYs0N3DDrLDJoiJcWzz6QHLiCpCO3
-         227Q==
-X-Forwarded-Encrypted: i=1; AKwUvBx1hSCylCp2FruHFGcwZGTA052Bsux38kWi/KcOa4x5criZjPVYD0k4Cw/OI4wciNBtHnMDsKQVfMDbP3k=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKv4F0RutLqsuJZcRVG9h+ix8e2wRaV0JnT9J6J3W53Jq/HutZG
-	KlZxTEky5UOx9MF8lB3BQiqbK3IG/yStRiGUJrSkxyZh9Uv8hnHqhkme
-X-Gm-Gg: AYBFou1fpDju8EAleQucmqqI2mmW5hodVFBLRSTOT1NZOSJpOITQGZwOCsSrSPWIcW1
-	Cp3ydTSwEFud02bjbWFTgHF4twQZSEnXZA5PYkl6cf9EYuuwxvcdBcXvmJ4WjpLFhvSaGJqx/2G
-	olL1Lj01oAiXD+tb0YPvHgqY9Mnv6pBL0inZsTrEfccQnS038myOEnBldDDzwCQIgNsESvKiE28
-	EkllcfA5lN3pvt9B77Kp5Kc2aMQhEuyHYyj4yGMpyd1TG0sqSojwSfhMYdksqkWeeGzwjikD7zb
-	pEh9pELfQMRl9T+AIaT8dUPqpD/N70K4/vhEPCePhkC2kZpRsci6RcLsiGVDxctPuiC8+BG2yzg
-	oeITejqAEbcEedQMuwjS4YpigUCBLgDXYa12zcPRPTX4S2xS3yJa9t4Zkt5yuq1oRXgpBKOx0hi
-	jfN/o4uJud9UuXjE//YfHtSvkjhsdpbmNXF4YZp1oGhwDCh4xoGpNG0QTFIUYpldDtu5WB1rPbk
-	QMqdiTFREJUdptLArBihYNJQL/GWcc2pO+0hoFRlpWUtzSOIb8onqr7wyrw32iLqY/qYt+fIkR6
-	hKNgueSZoJ8SKxI6k2DQrPYPljf0WWTyfTb0LJd0tGRZCVRoySWIxP5tLWFqUlKEPqFsaStBPps
-	=
-X-Received: by 2002:a05:6a00:4005:b0:8a0:2914:5d27 with SMTP id d2e1a72fcca58-8a369168952mr5053901b3a.44.1793013477084;
-        Mon, 26 Oct 2026 04:17:57 -0700 (PDT)
-Received: from localhost (n106-71-19-159.sun21.vic.optusnet.com.au. [106.71.19.159])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a36acadefesm1240756b3a.19.2026.10.26.04.17.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 04:17:56 -0700 (PDT)
-From: Aveline Noir <jm5905938@gmail.com>
-To: SJ Park <sj@kernel.org>
-Cc: Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>,
- Manuel Ebner <manuelebnerli@mailbox.org>,
- damon@lists.linux.dev,
- linux-mm@kvack.org,
- linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH 2/8] Docs/admin-guide/mm/damon/stat: fix pronoun agreement
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=DO7Iw8tn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793013518;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=b+DCJkrwcuXKWzPX0QxpX1ccVGXrsTMiQkeEh3cGqxQ=;
+	b=DO7Iw8tniTDOK1MNQcLeom29Kxe+AukWEXmjehtOjIatmiRHAUGn35GRfjS19cBR5RPM6g
+	VHZEgC6UIqzu6unymBpx3kFYxYTKXiKAHKjg5WTrn6npuaW4aDoHivAJdXWxTULUMtJII+
+	tg8c2o7nkBhvb0JyoNtMXW42s7YAiGQ=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-12-w4DS_Q8MPOSm-ovV3-ggYQ-1; Mon,
+ 26 Oct 2026 07:18:35 -0400
+X-MC-Unique: w4DS_Q8MPOSm-ovV3-ggYQ-1
+X-Mimecast-MFC-AGG-ID: w4DS_Q8MPOSm-ovV3-ggYQ_1793013512
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 7DF8318001D1;
+	Mon, 26 Oct 2026 11:18:30 +0000 (UTC)
+Received: from jmarchan-thinkpadx1carbongen9.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 3665D1956087;
+	Mon, 26 Oct 2026 11:18:23 +0000 (UTC)
+From: Jerome Marchand <jmarchan@redhat.com>
+To: Richard Henderson <richard.henderson@linaro.org>,
+	Matt Turner <mattst88@gmail.com>,
+	Magnus Lindholm <linmag7@gmail.com>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	WANG Xuerui <kernel@xen0n.name>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Christophe Leroy <chleroy@kernel.org>,
+	Ritesh Harjani <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>
+Cc: linux-alpha@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	loongarch@lists.linux.dev,
+	linux-mips@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-arch@vger.kernel.org,
+	Jerome Marchand <jmarchan@redhat.com>
+Subject: [PATCH 0/7] Remove the unused non-atomic local_t and local_64t functions
+Date: Mon, 26 Oct 2026 12:18:15 +0100
+Message-ID: <20261026111822.458404-1-jmarchan@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,37 +94,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Date: Mon, 26 Oct 2026 22:14:34 +1100
-Message-ID: <179301327249.2.17530814278215474568.damon-docs-grammar-2@gmail.com>
-In-Reply-To: <179301327249.2.4690198998605536207.damon-docs-grammar-0@gmail.com>
-References: <179301327249.2.4690198998605536207.damon-docs-grammar-0@gmail.com>
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-"converts it" refers to the access events, so I think it should be
-"them".  Rewrap the paragraph while at it.
+While working on a fix for a tracing soft lockup , it came to my
+attention that __local_dec() was broken on ppc64 and other arches (it
+actually increment the value). My first instinct was to fix it but the
+fact that this function was utterly broken for so long, decades for
+some arches makes me thing that those functions have not been used for
+a long time, if ever.
 
-Signed-off-by: Aveline Noir <jm5905938@gmail.com>
----
- Documentation/admin-guide/mm/damon/stat.rst | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+At any rate, they're not used now, so it's probably better to remove
+them.
 
-diff --git a/Documentation/admin-guide/mm/damon/stat.rst b/Documentation/admin-guide/mm/damon/stat.rst
-index 4a9db755a526..a93609649a5f 100644
---- a/Documentation/admin-guide/mm/damon/stat.rst
-+++ b/Documentation/admin-guide/mm/damon/stat.rst
-@@ -68,10 +68,10 @@ estimated_memory_bandwidth
- Estimated memory bandwidth consumption (bytes per second) of the system.
- 
- DAMON_STAT reads observed access events on the current DAMON results snapshot
--and converts it to memory bandwidth consumption estimation in bytes per second.
--The resulting metric is exposed to user via this read-only parameter.  Because
--DAMON uses sampling, this is only an estimation of the access intensity rather
--than accurate memory bandwidth.
-+and converts them to memory bandwidth consumption estimation in bytes per
-+second.  The resulting metric is exposed to user via this read-only parameter.
-+Because DAMON uses sampling, this is only an estimation of the access intensity
-+rather than accurate memory bandwidth.
- 
- memory_idle_ms_percentiles
- --------------------------
+The local64_t don't have broken arch specific versions, but aren't
+used either, so remove them too.
+
+Jerome Marchand (7):
+  alpha: Remove the unused non-atomic local_t functions
+  loongarch: Remove the unused non-atomic local_t functions
+  mips: Remove the unused non-atomic local_t functions
+  powerpc: Remove the unused non-atomic local_t functions
+  x86: Remove the unused non-atomic local_t functions
+  asm-generic: Remove the unused non-atomic local_t functions
+  asm-generic: Remove the unused non-atomic local64_t functions
+
+ arch/alpha/include/asm/local.h     |  6 ------
+ arch/loongarch/include/asm/local.h | 10 ----------
+ arch/mips/include/asm/local.h      | 10 ----------
+ arch/powerpc/include/asm/local.h   | 10 ----------
+ arch/x86/include/asm/local.h       |  9 ---------
+ include/asm-generic/local.h        |  7 -------
+ include/asm-generic/local64.h      | 14 --------------
+ 7 files changed, 66 deletions(-)
+
+-- 
+2.56.0
+
