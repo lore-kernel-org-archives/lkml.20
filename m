@@ -1,80 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793031454;
-	b=UYXLkFdUAS8X21/KS3FxDul2+9fzMhNhzetWAOLI5VQ3mJz+IimHOgkM6l6PHaLGGk3a
-	 WxAScXnyatK3aVMfyR5KByfKCtkjtPz3iMxp+hq2HLrpTI3b5b6ESXg4xZIZjhBFRNbT+
-	 evCc8KvOKBzci047gW9zo+yWjAtYkxBBgHc0rHyh67JZw8kTcBvxBrU3bOfyeweimdRHC
-	 qSj0n7Dbl75HhZSBW1mREcQ0jk3iHuNn7cEB4gm8W1KoZQMv7v19iYG/1TPm8NTABwcyD
-	 lVRQ1XNJ5hI9dzmIAhKRL+unjKoAAnNaoKXntfsn9TsmXqj0gGaPD2Rn56ml2a51igw==
+	t=1793031537;
+	b=JlJ4Ho9JI4xvlJxs/n4O8oJBN0oGw/sIPc7mkWfM+T3/AzoQoX1FxQN+jeB3lI2aN0xD
+	 WG+A31UDS7U/vhkW3sKi6CKq94XUzccQcwvXFZH8nRaO1w8Ka69GPbR2rs9I+5eihZQVP
+	 j6qdt0HPXdiabl/v/xc9uG4rEE2qv9s7A9quLXYrwILeYbfNQH83vpW1f8hzgAodXwT15
+	 rC19F4GrHCzlcy3S6UA2xv8D+bF86cl0MnIjLB8cNma3Je0X3AvGjjcHSeu8JuSPff5hA
+	 wv5/EFKRZ6H49Ws+/GyIwPB2nihlawtQJl5+Iu8gPRMMxT953BAjDBWs8cLIC4Gm7UQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793031454;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
-	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
-	bh=tXKmM/Jkb0HPQfP8POIAbaB5M2u+MdmFudf8avH3sAo=;
-	b=1q0oHbDQlsgT+MZq957Sf2VUh35t32E53bW06vuzYFoR8YldI65J9CIN1rk2rZp+cd5d
-	 9e6oWaGlREIoPVy0FBYJIbdX+iV3WNXknQvmUt/xfMaYbVG2EehfI5G4F1IpoUGrdxhbM
-	 5sfVxvqn+ioaQe/7bDp+M3rmXI9bpNYJZES8caTEknXsxXuVJ+70qzwtXXR97daN4vz5E
-	 OoaHZSrozTg9oXHo84Lrqpl0pSTfNHPqi/XUw1Vw1UchQNWHPECR+NvT9lLRa4P6y7oQs
-	 P+ZOiahDYYEvAKat7lpTzWI+rlBK3DlITGM/dfKxo9CxlC8lpfBl5fHR3LJQiDfy6EA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793031537;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=kWKytCBvoLHHoEknZWb/nEOwpJei4el1w1yVW8YR0pk=;
+	b=jqmqvF+9EveCBQJ4UVtEDWL0XyHUEm1U/R6bWuvr323pRuCQtDKZV8+AIr7jG9qJLzbD
+	 vpUj8QCUTInQlOWEm6zBBLOQb/QkysD+Qen7ZDDdcNdMz3bbsdL5GnZZ+3I02Mkzr20pb
+	 flRJoGLk8MJ9iFVlf9UMhWctkYRdpvK0onb1ZxdLrsDP8923Xw6tKgES1XOhYIaKCR0wt
+	 iquqyYN/RBV4aCjsCWBMuWgdGY+Xiltycq8hdGcREOdiatEsdOerjk4Jv+UmjPkVZQVd9
+	 wCmunDya4BF381hOnY1KEX9ueyrDg81frIiOXopgCqeh6AcntJyclqcdl9EKK06zCOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="emSNP/Vm";
-	arc=none smtp.remote-ip=198.175.65.19
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=NYwZ4+Ll;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=RZ97anAZ;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B875606A31A;
-	Mon, 26 Oct 2026 16:17:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B875606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A318606A31F
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 16:18:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A318606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=emSNP/Vm
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793031454; x=1824567454;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=iVmEysx5vD5cbM5B02hobVDd5tR8fMGl/GugHVgwmIk=;
-  b=emSNP/VmrypulJTBM1/KIuAhkpPvMIIZs1vKBuLnkY+nAD3KjyqGOOPJ
-   wCjfQKRg4RfdKM1EF/6TpZwMDZtSuFNc6wItAKyfeFCcpXUWY0/sCRofa
-   F3P/tx11AG7l3ZXYW+7s4Uc8eEfeV6ByN00JTjgKD+kc0auU3TBdJFwMI
-   ezGdcrUktEvzAl1yBMIQ11QT8aGV7exNg04Gh598RpnmDf1cpUAF9WeeP
-   cOD8E7AbGic/ZnV4hgEzVwI3On2iTtZJKp4VzAl8i6wmlSd22NM1eA3Nk
-   SkEpICw6JkPORF1RiPxi7v6hUnF1s8bapWHplsb1T3Ous2swB6Xdcw2Wa
-   w==;
-X-CSE-ConnectionGUID: KZ1OnILGQnuWqXv3+0zl1g==
-X-CSE-MsgGUID: 9MrbL8x8Swmo3O9rd/AYZg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1735195"
-X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
-   d="scan'208";a="1735195"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 09:17:33 -0700
-X-CSE-ConnectionGUID: A/fS4Ec3RT+ohboIZtg1FA==
-X-CSE-MsgGUID: xkIqymftSHG7C/v01GIcMw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
-   d="scan'208";a="6156155"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.109])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 09:17:29 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Mon, 26 Oct 2026 18:17:26 +0200 (EET)
-To: Shuwen Bao <baoshuwen2013@outlook.com>
-cc: Hans de Goede <hansg@kernel.org>, platform-driver-x86@vger.kernel.org, 
-    LKML <linux-kernel@vger.kernel.org>, 
-    Krishna Chomal <krishna.chomal108@gmail.com>, 
-    Emre Cecanpunar <emreleno@gmail.com>, 
-    Suryansh Singh <technosfan14@gmail.com>, 
-    Radhey Kalra <radheykalra901@gmail.com>, 
-    =?UTF-8?Q?K=C3=BCr=C5=9Fat_Abayl=C4=B1?= <hello@kursatabayli.dev>
-Subject: Re: [PATCH v3] platform/x86: hp-wmi: add support for OMEN 16-am2xxx
- boards
-In-Reply-To: <SI2PR04MB5895909A0EDE359BDA4F78A3A2632@SI2PR04MB5895.apcprd04.prod.outlook.com>
-Message-ID: <f7612110-b309-2c81-690f-0f43e0520ab8@linux.intel.com>
-References: <SI2PR04MB589508E55CCCD8E26E53E4DBA2942@SI2PR04MB5895.apcprd04.prod.outlook.com> <179207451329.13793.4180821086242621563.b4-ty@b4> <SI2PR04MB5895909A0EDE359BDA4F78A3A2632@SI2PR04MB5895.apcprd04.prod.outlook.com>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=NYwZ4+Ll;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=RZ97anAZ
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69QEwE1F3075124
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 16:18:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	kWKytCBvoLHHoEknZWb/nEOwpJei4el1w1yVW8YR0pk=; b=NYwZ4+Ll9upBJ0J5
+	pOM7/5Fc1Rjn+xPMIllxZ+we8haaMYQLij4MLwfxLXy59GyJk/6rxjVIUIt1LypA
+	Ez6fljfpBdYzgM8uRyFW1vcBETiqCbbeWNPW/k0wU0/jem0djZbaafGxwVqMJBdq
+	3nYLes5a0A2VU/lh+Tab9B57pheNhqz3d6CNU9AIk6Y60FYzO6EB6Z6VogtcSQYR
+	rc+seS4IOtBs+hj5//xlOfm8vIWHyPOCkWuTYvhBQ0+y3hfczAvzuDS2i0PFnl2u
+	+h2Vd1eb6+gptEy+M/lXfduRX13tbuhLWFh5q8Jy+mQ25QKMxvjdhuOodWMw1BjK
+	Fk4YmA==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hhsjdbafh-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 16:18:56 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-92e82060977so10783285a.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:18:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793031535; x=1793636335; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=kWKytCBvoLHHoEknZWb/nEOwpJei4el1w1yVW8YR0pk=;
+        b=RZ97anAZdNAOD4vMnVr7OlPqIRlyuP6kazwRVo83xQV+vRq0Dpg8QX3THj+DmbBiR5
+         bbwE02ZBBQJeGZ450WSDoANTER4e5Wa0tTbuZxPoxAobEGujByVvXPXLNChCcV2MIT7k
+         h3FYZwU7hDybNKu9nQadj2/7k7eoYHKRS+EVtYqO+7VJLZs+zaE5prUwremcK1ytTxUJ
+         LvTF8WX8TciuZtdgmqxnl8ndV8mwDqC9uDPWEagnDzbowssbSOg4DQ8Bb/q3nVd2g+KI
+         PIE87WSZWlgyF6djV/PMjngrGaLXHPRIBJ9f/CW9iHSeRNHE0OBEwbVfLzxWB4hK9nSU
+         NuhQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793031535; x=1793636335;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kWKytCBvoLHHoEknZWb/nEOwpJei4el1w1yVW8YR0pk=;
+        b=STSRxbIzpt7zRNje9TKH0Sfoy9Tui37N19sh+uTf+2+HALbAIr3ztQwgOt1TyFMdW0
+         R0jeieNBKYUEEDnHR4ocg/X6S66RxbuhayNaqX4X0it+jYxOfZubH3Z5eI+hgZaW9oiU
+         aSy7Om3+pR/2fKvkT706VdLw/Yogx5Vr701Z+iPYp6g1hwrcxZ+fNK4k4mYWJ/jBntOK
+         M+/U8Y3/epXha3FDps0oSVoUyuiyU2ryEQlNcdWd7/0Zb+hlFXN+WdO2r6la90I37fHD
+         o1HegNcxb7CUt5D5kG+no6SdHZyZBFBGP4hB3qhumrZq9flJvmpgAoHsdy0Rh70QHV+r
+         yqow==
+X-Forwarded-Encrypted: i=1; AKwUvByZ70DsAwVqd902zORX/KKDfGn54yogyhejJQ//wrds9RNxtmJtazG3soYXoZdbQ7vXCOKwpwtA2kkfID0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK0h4AzpN4xVym4oAl3BWa53BLGureTdYoeb0GFo7oRLzqArhAN
+	t6yQKVnPwwPLJdIGt+V4rLv3noVEIbTSY6jCFHkNPNA28+ijgPrfSDUJWgK2EbGNrrYzyhFI+NQ
+	otEb4o9LS2oDOxTVjftp6vvaw25lvalfUrxRyVoGnJvA5jh2RZVt2VQOYzfCafP9XC/U=
+X-Gm-Gg: AYBFou2iY7Ky49DWIvrFMuT/zb2viIySoQ2B5U7CydLiyfWCtV3K6qwQt8DKRmw7qho
+	ISIOoH+zMDSz7JAWT4C44qDyiNgZK1vwaeD247wIPMgKz5P+KHuT+AXTw793hPwG5mkmGTau5Su
+	y0OLicAksvVeGFStnAiMW72TYsN4q/uYQEW2VF1OCxnaxYSX7qvX2O+xQVm3mdkOeA/wwaLTChr
+	4qZKfjlhLl/PdfNZGUfCg3U5JBdr7dzajeh6mZrdXEkHgxsAzLvDOk9r0H+nHUkfhNN0ahpnBEN
+	F5YKpAmMrqXA8SFvq2Zhb6+Q+F9UrWb857sWBmkf0v58ExXKUqtwcaMCgBtGfuGH6Cw5TCbXSoO
+	Tpo496CyvvA==
+X-Received: by 2002:a05:620a:711b:b0:93f:2e81:2217 with SMTP id af79cd13be357-943f4c06832mr23186285a.36.1793031534942;
+        Mon, 26 Oct 2026 09:18:54 -0700 (PDT)
+X-Received: by 2002:a05:620a:711b:b0:93f:2e81:2217 with SMTP id af79cd13be357-943f4c06832mr23179085a.36.1793031534265;
+        Mon, 26 Oct 2026 09:18:54 -0700 (PDT)
+Received: from [127.0.1.1] ([188.27.161.187])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a0bae01sm250822065e9.7.2026.10.26.09.18.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 09:18:53 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,101 +112,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323328-1773986297-1793031446=:1162"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v11 0/2] arm64: dts: qcom: kodiak: EL2 overlay for
+ qcm6490-idp / qcs6490-rb3gen2
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260803121042.3313824-1-mukesh.ojha@oss.qualcomm.com>
+References: <20260803121042.3313824-1-mukesh.ojha@oss.qualcomm.com>
+Date: Mon, 26 Oct 2026 18:18:39 +0200
+Message-Id: <179303151905.152909.10565381490663805980.b4-review@b4>
+X-Mailer: b4 0.15.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=619;
+ i=abel.vesa@oss.qualcomm.com; h=from:subject:message-id;
+ bh=ENLVtfgMPoAI/GjkuO+vHA/zRez0A6kOQ3KyAIkQzzs=;
+ b=owEBbQKS/ZANAwAKARtfRMkAlRVWAcsmYgBq331rbEbtbZsJsQBWzsA6rWbRBPobaF82jk4dl
+ 9ZgNjWSPrKJAjMEAAEKAB0WIQRO8+4RTnqPKsqn0bgbX0TJAJUVVgUCat99awAKCRAbX0TJAJUV
+ Vi56EADJJkPJRuCpVdBwNP1MLlZgQjbG2/EZT62ZGEWfM03YCyg54A6a41QVCr3mnMvxgjdrhn6
+ bPXk6XXAu1WLFgsYli9bs4UhP+s9hR/Z4Fp9kncgEWGcEsyXmxO64jm+7Ie+gsNW0tOukO3B5d0
+ Kjhy9cjyEafbsapFb3j4NxJ4Uq9R78WId6Ytr7wvng8TJu25noCgiF9aIkzW6NTqAhLjg6Q3eaG
+ G5S/kiExe3koxYoUQw/H4HLjJEvOtG8pUoEVrl7ot5wb3zBQ2FCbJl7k+BolyZpD2r7munLwC8h
+ l6FIVUS1za3SuP48VxZJOUwg3VoztqJgcm8QpZmWfLbmg9yU4oa2pgaJp5x+WmvmT7MlpAKyCzl
+ djAbsfeIgzIL7SdFZmfC9nfxIr27jVj6WNGb1Kq7fkyZ/KXH8hD39IiivXgCsd8mRgebdQvRd3Z
+ DEQ81NA/Sj/4aHLEAxXvpg5frfOJwwXf+ljABkVeLYhVhKwmmjybgApjsnm2mYjlaHaCkodlGOk
+ jnuIhIo9yrw5Y5/NyUnuTSmLfoAIiKV/bqoFgfPx8tTNwCKRAGlX+Eer3O6Zh7bcNr6+2lGGDQc
+ n9EdTA82Ub6J2kqRyVaK3aMjFxmIe1Wfv9IddgVgmZi9KOxI3mJZa/QLDPFV3MOelGLaKamFR2g
+ bu5FdeyrHFonvNg==
+X-Developer-Key: i=abel.vesa@oss.qualcomm.com; a=openpgp;
+ fpr=6AFF162D57F4223A8770EF5AF7BF214136F41FAE
+X-Proofpoint-ORIG-GUID: VQqjMBtMWt4Bvxck02uDReUqXaWhOEOL
+X-Proofpoint-GUID: VQqjMBtMWt4Bvxck02uDReUqXaWhOEOL
+X-Authority-Analysis: v=2.4 cv=a4elZkSF c=1 sm=1 tr=0 ts=6adf7d70 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=Qvngrl3H0rQgGg+94q4QgA==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=nS062M93AAGP_pvMJEEA:9 a=QEXdDO2ut3YA:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA2NCBTYWx0ZWRfXybEfJ7q7EOhw
+ 5M90IUX/QYI6JVzeD38TRnfta5FjMQLpjNXEVljhOr5vD1n/15noyyC06yCxXtYG74UptikWwWY
+ yKhqtEo7e5WKgHM4OwlA+cbAtebmAUw=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA2NCBTYWx0ZWRfX/RVl4Y4gcyXO
+ d8h6KKLHYen8O+p43nkMoZC24a79HBgoTKQH19lplDKQe2ZxKo1wZF4GEI88yHy2JM/8JV2bELS
+ r/UgG7yqDUueJBNIOk9y06s5FtEp6XIjSTehXf5xm4roELpvJmkutj7Emgw4Kmec/HS/IuCNcSy
+ CQ0X4FFzrRN0DTxY0Su4QIuZej2OCgwVy5pA7WXXaGcnrxvbPxt0vuLHb9YvfS+DdPsmZrK/bWI
+ pigk1IRNiKtcxyCqy7GNdvJVHCB3wUHY5LN80g9NirA9zgFAG/Gj7FYoCd7iNiI6Vv5j1KzEjI6
+ nYGUPcFzjaYdmTr7hQtDCU6G6y0/Nx8gTTFbgJUi7klYqDiJsJHijNty0eJMbJghpYZo048ph+d
+ DDzgY/f88yhzaF+L1HjNIrEUIN/8JnbJGEhoOwlQnPvlNlKdTndCyUOnqQrfXhGZLaC9Gs6groX
+ F+EwEwGaLqTb52dQz+Q==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-26_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 malwarescore=0 adultscore=0 lowpriorityscore=0 bulkscore=0
+ priorityscore=1501 impostorscore=0 spamscore=0 clxscore=1015 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610260064
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+On Mon, 03 Aug 2026 17:40:40 +0530, Mukesh Ojha <mukesh.ojha@oss.qualcomm.com> wrote:
+> arm64: dts: qcom: kodiak: EL2 overlay for qcm6490-idp / qcs6490-rb3gen2
+> 
+> All existing Kodiak board variants run the Gunyah hypervisor, which
+> means Linux can only boot at EL1 on those devices. It is possible to
+> boot Linux at EL2 on the qcm6490-idp and qcs6490-rb3gen2 variants;
+> this series adds the DT overlay that describes the IOMMU streams and
+> other kernel-owned resources needed in that mode.
+> 
+> [...]
 
---8323328-1773986297-1793031446=:1162
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: QUOTED-PRINTABLE
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
 
-On Sat, 24 Oct 2026, Shuwen Bao wrote:
-
-> =E5=9C=A8 2026=E5=B9=B410=E6=9C=8815=E6=97=A5=E6=98=9F=E6=9C=9F=E5=9B=9B =
-=E4=B8=AD=E5=9B=BD=E6=A0=87=E5=87=86=E6=97=B6=E9=97=B4 22:28:33=EF=BC=8CIlp=
-o J=C3=A4rvinen =E5=86=99=E9=81=93=EF=BC=9A
-> > On Wed, 07 Oct 2026 11:08:36 +0800, Shuwen Bao wrote:
-> > > The HP HyperX OMEN 16-am2xxx (DMI board 8F1C, 26C1 platform cycle,
-> > > Arrow Lake-HXR) is listed in the OMEN Command Center device
-> > > capability table with DisplayName "HyperX OMEN 16" and the
-> > > "PerformanceControl" feature, but is missing from the kernel's
-> > > hp_wmi_feature_boards[] list.
-> > >=20
-> > > Add 8F1C to the hp_wmi_feature_boards[] list, using
-> > > omen_v1_legacy_board_params as driver_data.
-> > >=20
-> > > [...]
-> >=20
-> > Thank you for your contribution, it has been applied to my local
-> > review-ilpo-next branch. Note it will show up in the public
-> > platform-drivers-x86/review-ilpo-next branch only once I've pushed my
-> > local branch there, which might take a while.
-> >=20
-> > FYI [if applicable to your patch], as per Linus' policy change, also
-> > fixes are mostly routed through for-next unless the fix is for a
-> > commit introduced in the most recent cycle or is clearly a regression
-> > fix.
-> >=20
-> > The list of commits applied:
-> > [1/1] platform/x86: hp-wmi: add support for OMEN 16-am2xxx boards
-> >       commit: 2cd10a35f3f09c49698956d32c6374fbdc03245d
-> >=20
-> > --
-> >  i.
->=20
-> Hi Krishna, Ilpo,
->=20
-> Thank you for applying the patch. However, after further extended testing=
-,=20
-> I noticed a regression on this hardware.=20
->=20
-> Specifically, the board automatically reverts from performance mode back=
-=20
-> to balanced mode after a period of time (it seems like the time is not=20
-> constant), which resembles the behavior of a timed thermal board.=20
->=20
-> This doesn't seem to be a thermal threshold or PL1/PL2 limitation,=20
-> because manually switching the profile back to balanced and then to=20
-> performance will re-enable performance mode successfully.
->=20
-> I am still investigating the root cause and am currently unsure how to=20
-> properly fix this yet. I'm currently testing adding 8F1C to=20
-> omen_timed_thermal_profile_boards as a fix.
->
-> I haven't looked deeply into hp-wmi.c before, so if adding it to that=20
-> array is not the correct or intended way to handle this, please let me=20
-> know.
-
-Hi,
-
-It certainly sounds like a similar problem. I'm not sure if the code=20
-related to omen_timed_thermal_profile_boards is hooked though with this=20
-board because it requires is_omen_thermal_profile() returning true.
-
-Some other drivers do profile keepalive by writing the same profile=20
-periodically if nothing has changed the profile for a while, that would=20
-seem easier/more generic solution than finding timer offset the current=20
-solution uses.
-
-If you need to change something it would be nice to generalize this=20
-so that the keepalive is not bound to a particular submodel category.=20
-The driver is slowly moving towards that for all models so that we'd=20
-have only one central dmi matching table where the struct would hold all=20
-necessary info/quirk details.
-
-> @Ilpo, since commit 2cd10a35f3f0 ("platform/x86: hp-wmi: add support for=
-=20
-> OMEN 16-am2xxx boards") is already in review-ilpo-next, would you prefer=
-=20
-> to revert it for now until I figure out a proper solution, or should we=
-=20
-> keep it as-is while I investigate?
-
-I think I'll keep the change as it still works to an extent so it seems=20
-better than nothing.
-
---=20
- i.
-
---8323328-1773986297-1793031446=:1162--
+-- 
+Abel Vesa <abel.vesa@oss.qualcomm.com>
