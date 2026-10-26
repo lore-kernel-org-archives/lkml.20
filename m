@@ -1,98 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793000825;
-	b=zki+spCk8byqhfOCAW01zogxXfwJr75lNFoNogSyRgK368XJAeNmuMiLbaLd2FzHmwX3
-	 0XDlTO37VvYcIK6St8bXQc6AXExahOqJtDpSbqPjl6yv3vM5Z/t05bAqrQPAsILjG8fjT
-	 JF+J7IT8YkBkyFKskGP3P04079txyO9fZua5NksYupZRV8+Xwj4BbITEFDnTnEqNWfHJI
-	 PlLtQmUtvLP63NTqVVcF0OgLYKfu4wElhGa7F98LGbg1f4shgotrUTuSF4qcHaOZoY1Oj
-	 Z6BzIWx7FFUPo6Kc3KZXSk/TcacdeWuZvYeggnskx7oOS/szQidepB2K1xAfq0MLAdA==
+	t=1793000858;
+	b=yzz5pzhwjY/4cyfI7KPfjggQ7kjX2Q+gG2Exm/LgHUlwEOkPEUKHiJjGfe4gQLgNhyY0
+	 b5WmyKkz5MaAfaybc9cKdyJwmX9C83+A13/DPTbof443ETth/B5Ai5m4dH/r8Pv0NYsH6
+	 iJFh5EPC/rPSPZk0cbkBzHaIbVj83xHjR0u4sfETY2UM6LHsojpzlUHORwfGWF/ndUNXo
+	 C8xYH4pDmMTORjQmV64RfsZoiW7l/04bYkP3BHtGkU1bahoX9LLnuAm6mNXkHISuBQ3Q+
+	 AR2rgCcLdNeC338uulpHe6xRr1HAFux6m1G0A27vxyFY/KqP8Z4t8Dh0BlwMeo42jbg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793000825;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793000858;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=y/fMNupjmUFDA4Fs7jz5eM8c/pdIIe9SGMOk6RgTsFc=;
-	b=iLqQRiO1XSIv248SXTdpfIeSt1tLcfw9KJ+hCfWnTn8eytUFeEiMHpk5y1evTpxUIocv
-	 6mF2gix0gMDkPi2AlkZhIAoYzPtu27f6j0M2xbabEKNgL0yTHTQmfsPqhi79xUfBvy3g+
-	 Jk2ZnSDKFupBFUq8/qTS2CPHN43/drhzM0tKzE9FgIZso3f4ikRZyE1rRnJ1AVQqEMfjd
-	 OPdnLlDn7UpkMnDtg+1XgcpMrLJgLDc6n94Jlcu21jEc8zNPFK7apZlmjvoVAgBDWRx/z
-	 tC5XUojVQ0JsawDISN/+Y5xwTSTxlaznD6iWxcvdf3T3c1xGo3TYZcoklQLW8ae2v2A==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=1UuOcKX5/sC1jqJ5XhioCcbGcHx7M3qqzB+X648UiWE=;
+	b=pa0FkR3BDzzPQbpL3fk6bn3+EiQzFfwn1jKKYeqzC3hz8lHg4w67WJvyA5N3HZ23WvP7
+	 TSKi6t3poXM2jpfzZ4Iwca+SFuCTBdSeFo4wygKnbnC4Ev00n0psOeS4jacz7gtHRHfv8
+	 FBIuYV+VTjklq6XYAw0Qs5F61YYNeaJOF6UKhXQ2LwdND+/MDBUprh0yPeABfXG0cg2qC
+	 itGpvjA5v2H0eTfJgVqYhATvQJeGJzdFwInA/42plrcYhB1ud4IkmZxUQj/cW6jBeBYcw
+	 X3QEY5sU4n7sLEo5D5aDOO4EZv5T47cllOxcvqjqsn2O/KytVGCeI1fFCKRNVdgo2/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amarulasolutions.com;
-	spf=pass smtp.mailfrom=amarulasolutions.com;
-	dkim=pass header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=ChnSGDu5;
-	arc=none smtp.remote-ip=209.85.221.53
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=FtS1+Gm0;
+	arc=none smtp.remote-ip=209.85.208.181
+Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com [209.85.208.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70321606A324
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 07:47:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70321606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B8D3606A31B
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 07:47:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B8D3606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=ChnSGDu5
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48dfb76b304so162721f8f.2
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 00:47:05 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=FtS1+Gm0
+Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-3ab3b29a210so25140691fa.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 00:47:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=amarulasolutions.com; s=google; t=1793000824; x=1793605624; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1793000856; x=1793605656; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=y/fMNupjmUFDA4Fs7jz5eM8c/pdIIe9SGMOk6RgTsFc=;
-        b=ChnSGDu5hUuDpuWIH9opEBsyTk71WKjPlowVCbcYkco7zRAYFTYFWR355PNsm3a4sa
-         2Hn+3ixvsq89ZYW9QBpqodArWQ9uw9Zh/QpIcMpDbsY/25Y8ndmRr8VW803t2vSoTx0w
-         uKcrxv14SSBF5FhIgdvDejvWrtBod57QV2bFY=
+        bh=1UuOcKX5/sC1jqJ5XhioCcbGcHx7M3qqzB+X648UiWE=;
+        b=FtS1+Gm0kC1H4kbEW1IubNEaMyaB3+vSvPRkxQcfQIvIYVzTmS2hI8PTfpI1pjgell
+         6qVt2mmVG1i9XoT44Z3lG5Ag1riz4Z1dmRhdbBEg5HAEbo+2D6dhZ2vqw0g2MtGl+u89
+         4F2DPmWtulDk6aoJHlO0Zz9iXd1hMOZzqXcifjFPcrbQbNl9o+7fWnmoUVNOrV+Dz1OV
+         SbnY4sDScnKYHj+ZkmSeHRkSHwF98TmFASHF4pB3Ee9emDWTaKm5IE13hvOisqzCZ7GN
+         gymjKvSA36puJtisAImmXGrIMEoUl+cAL6EpV6rPxw5BDKxufjEjTlIg4y6oFYt/5/HZ
+         jWmA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793000824; x=1793605624;
+        d=1e100.net; s=20260707; t=1793000856; x=1793605656;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=y/fMNupjmUFDA4Fs7jz5eM8c/pdIIe9SGMOk6RgTsFc=;
-        b=MFbkzGnTGTZVFJ6l1aAg1/ppabjwcuMJ6hG+NMTebauLh2iK60QqtR6g13ro2mSttN
-         WsZ6ziJ7BupqfKeZK+iXfuMN6cHc/vw+4eO3imNgE7/o40Soqr3PQxG/L2wo/HkXXazs
-         XzXmHXiIi1IuKGAjFTE6Aosa5YI1l9jZx4I6EcPdW1GqK0iIMubfPLTQV0xyphtoghi9
-         IUars9UrTlh6jkaoZXC39FMLO4ooB1qfQ8kmlGHXQxHrMLGEhMLmPeBvc1rZMfl/bF28
-         rkIvVLn5Ajm3YMrbTSf2Lk1a6BcQPrkN/fHvDO9i7gSnQ7AfuMZ16Iu0mV1+TWBiFYP4
-         vLZQ==
-X-Gm-Message-State: AFq9FYLJnzO+vN/Ue/M5t8AIRSLx5kJ7+HhwFyCTamSjFThzw/+BL0l+
-	B++Qsgcc9WU+tqI7cB+bpMdRMgLclOiY0xYALmH1yA7rCC/44V3dbcD81LEAXmC7ukvGlgQLK3N
-	jFX6W
-X-Gm-Gg: AYBFou37aSCN0EmNfypjDGSdqWyjLbw5R+6axypNPafrgh9RKb9g3JOTtyygyrgimZK
-	+ynRR+htxIECi2/E90I6mOZQeUtWad9qMfb3ilwyavk8E+aMLyhjB6KncbApj2s8O1Mv1ld8D4B
-	jnF9qypm6vWjl7bub03Twi5sUCCgC7JG6BWAV+D7Rhwg5lD7NZcuMbLzqHk6WFVfztBUXpd4O/7
-	vYnwoLunulfKzWZWgIRf28hDa4ED2fpYFC5QXYgooyfvlROEfVIeR7TKZu1N/D5RmusTBXVTq28
-	c4c+antram73Indzrqx0H0LANzjrMboxvxqumZBN0AJumnKz10NVVSdpAFSrkLUlBxlvM2iwHLe
-	NseBIL8Q+C1ly9icT57z7rGqTHsp6cW5qOpJa8/piC//GY2zT9PGH0eyEbxPjlazLjUrGavpiNV
-	uxGyHDmktB/kd5LmOPmeCQtdhIvZNO4n8h6qN75JOBLA99vFSqYgKelxQlZ48wqnQtwMwtYeF2v
-	Y5CTBIu2bE866PdEEgGRSKeDBas3ELKwdUUuyRasyj+ecXF4olh0cyRjV91DHvVmqz2iFdN2KFw
-	dUmdjHWWNCKHx9bNVghBoo3+5iZtUzaGpbPBnSXjqNle0KdJXRIRk2EjzThEy/o2GE34dw5qwIj
-	Rfu5EQH5+BfsjXhm7M5Y3otWF/uxrzlfR/c8JSuv4Wydz5AfG51wtTg==
-X-Received: by 2002:a05:6000:1185:b0:487:106f:ee31 with SMTP id ffacd0b85a97d-48e3eb8bd5cmr7348794f8f.27.1793000823908;
-        Mon, 26 Oct 2026 00:47:03 -0700 (PDT)
-Received: from dario-ThinkPad-P14s-Gen-5.homenet.telecomitalia.it (host-79-14-29-58.business.telecomitalia.it. [79.14.29.58])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e412cc164sm13731353f8f.7.2026.10.26.00.47.02
+        bh=1UuOcKX5/sC1jqJ5XhioCcbGcHx7M3qqzB+X648UiWE=;
+        b=0qFNbGjvn99TRmDzOEst+FHC5RCPgfuTFbsxthYdZxOsS+V7+yajUAG4/Q35DTxDIB
+         sz2QMehOLiSHj2rk6SbbQhBQE+TR38F6SWHXCVxaOy5lQEavGBIG3ta0pRI1F7z2cCed
+         4IRPDG0ITnl3mwoVkT1uGiFUDz7SUmyt3R800KtknCjPLrSoIMAO/lcPV8ZILOSfKsYY
+         fsOkcU731zeN3c4AmEv2rlN+gDp7RozKV3ZtxuBfAriXjikd2muDanpl1QKrBT7gY1hk
+         xQ2VZLuSD240G4HHLUhaTe0jOwwsY/0MYJ/NVXR8lKnXXeSe8XkXPLyQ0QCUHCVDZf9P
+         xYow==
+X-Forwarded-Encrypted: i=1; AKwUvBxLrtUwLddYHsfpI9vHdbPeLln+lCLnTFtwiNSwSD9/ZNbhR9LBXyP4YCu0Jt3KekUNg8Qa+qv1n/lu2ok=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK8qd1ek47e4aPH/ng/V0En1GOMSf+Y+l3cT8oyPyeUC0iTDduB
+	5c5Gk0HorbU2vVV3x8DsMDstird5/OgzY4COHwkdsnccYMHwqYhEUpge
+X-Gm-Gg: AYBFou18hZ3jIRAPeudwlanWK8/CJUkmRFYAyVR57GiZQPNSwe+lYFJ4zySqDIzSUu6
+	2KEC4uA9wWOYn5opEfJavJPtmhyq1IzPsh3RjyTy0FB2zjCgbdWsdwYs1LY8PjjUyzJvOPq0l2k
+	GRizI8jdphKC2/Vic6ZGqJ4klOvUZnGaXqA0rpn/kKW9loA0Sr0N5Y28VO85cemiuFUz6KZS/li
+	SuBNR59Zo4izB38QNHQRFNgcRRsNP/g1nM6vbE+Ieo0xrjSJpT38zpm8U7qMW2r8ixaAVfe2bRP
+	YhoxPDXe0lnGdrF3Hpw07mkc1if+Ua3YBa2rfOJPSJ9lvz4lzDe0F/kK7ISt0qPKkBVVu+HwGqD
+	6Ieb4pMWXaAIwtkGs3iq7MN2FL+DOMenWnsAiAF1hEM37iGc7aygpvHF54Yi+uGiN1RHxu2qZ6o
+	gyJR6Wx6Hi/dEKK1Bgk3i04A3SnR3/J/VfXnCgeO8aeYylVPJHCYrHwIKAPht8gELRsHNqK4TGe
+	9726VsfNm5ez33ceBpTDz4iMuKKoOBG79W0rxQ1rwMp9oSv1J9vZjIoYVbY2DNftjfpqB+dkD/S
+	2FYdX0ZU/jMe2FyzbKZ8clMgULVLFjoGhjeGmIk=
+X-Received: by 2002:a05:651c:19a5:b0:3ab:3d02:d03e with SMTP id 38308e7fff4ca-3ac6ff34e59mr13548541fa.3.1793000856228;
+        Mon, 26 Oct 2026 00:47:36 -0700 (PDT)
+Received: from sc-mac-012.corp.sbercloud.ru ([188.191.29.26])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ac70a463f5sm15727121fa.36.2026.10.26.00.47.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 00:47:03 -0700 (PDT)
-From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-To: linux-kernel@vger.kernel.org
-Cc: linux-amarula@amarulasolutions.com,
-	michael@amarulasolutions.com,
-	Dario Binacchi <dario.binacchi@amarulasolutions.com>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Tero Kristo <kristo@kernel.org>,
-	linux-clk@vger.kernel.org,
-	linux-omap@vger.kernel.org
-Subject: [PATCH v2 3/3] clk: ti: dpll: apply the spread spectrum configuration right away
-Date: Mon, 26 Oct 2026 08:46:29 +0100
-Message-ID: <20261026074654.3997494-4-dario.binacchi@amarulasolutions.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261026074654.3997494-1-dario.binacchi@amarulasolutions.com>
-References: <20261026074654.3997494-1-dario.binacchi@amarulasolutions.com>
+        Mon, 26 Oct 2026 00:47:35 -0700 (PDT)
+From: Dmitry Kandybka <d.kandybka@gmail.com>
+To: Nathan Chancellor <nathan@kernel.org>
+Cc: linux-kbuild@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v3] kbuild: Makefile.lib: fix offsets generation with debug info
+Date: Mon, 26 Oct 2026 10:47:33 +0300
+Message-ID: <20261026074733.11777-1-d.kandybka@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260928105330.25427-1-d.kandybka@gmail.com>
+References: <20260928105330.25427-1-d.kandybka@gmail.com> <20261015210149.78470-1-d.kandybka@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,98 +100,71 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The spread spectrum clocking (SSC) registers are only programmed by
-set_rate(), which the clock core skips when the requested rate is
-already the current one, e.g. when the bootloader has set it up.
-As a result, the SSC configuration is not applied, as it was with the
-vendor specific properties.
+When debug information is enabled (e.g. -ggdb3), the assembler
+output file (e.g. kernel/sched/rq-offsets.s) contains additional
+directives such as .ascii with offset info and debug metadata.
 
-Apply it from set_spread_spectrum() instead, reprogramming the DPLL
-at its current rate.
+For example:
 
-Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+   .ascii "->RQ_nr_pinned $3048 offsetof(struct rq, nr_pinned)"  #
+   ...
+   .ascii "->func); __data = (it_func_ptr)->data; ((void(*)(void *, pro"
 
+The current sed-offsets macro uses [^ ]* to match constant names,
+which is too permissive and can match unexpected characters when
+debug directives are present. Additionally, the fallback command
+'s:->::; p;' strips '->' from any unmatched line and prints it,
+which causes debug metadata to leak into the generated header
+file (include/generated/rq-offsets.h), breaking the build.
+
+Replace [^ ]* with [[:alnum:]_]* to match only valid C identifiers,
+and remove the fallback 's:->::' command so that only successfully
+transformed lines are emitted into the generated header.
+
+v2:
+- Add BLANK() macro for better readability of generated headers
+(suggested by Nathan Chancellor).
+v3:
+- Check for ->BLANK() at the beginning of a line
+(suggested by Nathan Chancellor).
+
+Fixes: 7dd47b95b0f5 ("kbuild: consolidate redundant sed script ASM offset generation")
+Signed-off-by: Dmitry Kandybka <d.kandybka@gmail.com>
 ---
+ include/linux/kbuild.h | 2 +-
+ scripts/Makefile.lib   | 6 +++---
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
-Changes in v2:
-- Check the DPLL lock state instead of its parent, as the reference
-  and bypass clocks can be the same clock
-
- drivers/clk/ti/dpll3xxx.c | 46 ++++++++++++++++++++++++++++++++++-----
- 1 file changed, 40 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/clk/ti/dpll3xxx.c b/drivers/clk/ti/dpll3xxx.c
-index 634fe0a1f9fd..16da86fbb25d 100644
---- a/drivers/clk/ti/dpll3xxx.c
-+++ b/drivers/clk/ti/dpll3xxx.c
-@@ -690,17 +690,22 @@ int omap3_noncore_dpll_set_rate(struct clk_hw *hw, unsigned long rate,
-  * @hw: pointer to the clock to set the spread spectrum configuration for
-  * @ss_conf: spread spectrum configuration
-  *
-- * Stores the spread spectrum clocking (SSC) configuration of the DPLL. The
-- * configuration is programmed along with the DPLL multiplier and divider
-- * at the next rate change. The hardware supports center-spread and
-- * down-spread only. Returns 0 on success, or a negative error value on
-- * failure.
-+ * Stores the spread spectrum clocking (SSC) configuration of the DPLL and,
-+ * if the DPLL is locked, reprograms it at its current rate to apply it.
-+ * Otherwise the configuration is applied at the next rate change. The
-+ * hardware supports center-spread and down-spread only. Returns 0 on
-+ * success, negative error value otherwise.
-  */
- int omap3_noncore_dpll_set_spread_spectrum(struct clk_hw *hw,
- 					   const struct clk_spread_spectrum *ss_conf)
- {
- 	struct clk_hw_omap *clk = to_clk_hw_omap(hw);
- 	struct dpll_data *dd = clk->dpll_data;
-+	struct clk_spread_spectrum old_conf;
-+	struct clk_rate_request req;
-+	unsigned long rate;
-+	int ret;
-+	u32 ctrl;
+diff --git a/include/linux/kbuild.h b/include/linux/kbuild.h
+index e7be517aaaf6..118568971fdf 100644
+--- a/include/linux/kbuild.h
++++ b/include/linux/kbuild.h
+@@ -5,7 +5,7 @@
+ #define DEFINE(sym, val) \
+ 	asm volatile("\n.ascii \"->" #sym " %0 " #val "\"" : : "i" (val))
  
- 	if (!dd || !dd->ssc_enable_mask)
- 		return -EOPNOTSUPP;
-@@ -718,9 +723,38 @@ int omap3_noncore_dpll_set_spread_spectrum(struct clk_hw *hw,
- 		return -EINVAL;
- 	}
+-#define BLANK() asm volatile("\n.ascii \"->\"" : : )
++#define BLANK() do { asm volatile ("\n.ascii \"->BLANK()\"" : : ); } while (0)
  
-+	if (!memcmp(ss_conf, &dd->ssc_conf, sizeof(*ss_conf)))
-+		return 0;
-+
-+	old_conf = dd->ssc_conf;
- 	dd->ssc_conf = *ss_conf;
+ #define OFFSET(sym, str, mem) \
+ 	DEFINE(sym, offsetof(struct str, mem))
+diff --git a/scripts/Makefile.lib b/scripts/Makefile.lib
+index 0a4fdd8bd975..90422215046f 100644
+--- a/scripts/Makefile.lib
++++ b/scripts/Makefile.lib
+@@ -493,9 +493,9 @@ quiet_cmd_zstd22_with_size = ZSTD22  $@
+ # the .ascii directive whereas GCC keeps the <space> as-is.
+ define sed-offsets
+ 	's:^[[:space:]]*\.ascii[[:space:]]*"\(.*\)".*:\1:; \
+-	/^->/{s:->#\(.*\):/* \1 */:; \
+-	s:^->\([^ ]*\) [\$$#]*\([^ ]*\) \(.*\):#define \1 \2 /* \3 */:; \
+-	s:->::; p;}'
++	/^->/{s:->#\(.*\):/* \1 */:p; \
++	s:^->\([[:alnum:]_]*\) [\$$#]*\([^ ]*\) \(.*\):#define \1 \2 /* \3 */:p; \
++	s:^->BLANK()::p;}'
+ endef
  
--	return 0;
-+	/* Disabling SSC does not need to reprogram the DPLL */
-+	if (ss_conf->method == CLK_SPREAD_NO) {
-+		omap3_noncore_dpll_ssc_program(clk);
-+		return 0;
-+	}
-+
-+	/* Not locked: SSC is programmed along with the next rate change */
-+	ctrl = ti_clk_ll_ops->clk_readl(&dd->control_reg);
-+	if (((ctrl & dd->enable_mask) >> __ffs(dd->enable_mask)) != DPLL_LOCKED)
-+		return 0;
-+
-+	rate = clk_hw_get_rate(hw);
-+	clk_hw_init_rate_request(hw, &req, rate);
-+	ret = omap2_dpll_determine_rate(hw, &req);
-+	if (!ret && req.rate != rate)
-+		ret = -EINVAL;
-+	if (!ret)
-+		ret = omap3_noncore_dpll_set_rate(hw, rate,
-+						  clk_hw_get_rate(dd->clk_ref));
-+	if (ret) {
-+		pr_warn("clock: %s: rate %lu can't be kept with SSC enabled\n",
-+			clk_hw_get_name(hw), rate);
-+		dd->ssc_conf = old_conf;
-+	}
-+
-+	return ret;
- }
- 
- /**
+ # Use filechk to avoid rebuilds when a header changes, but the resulting file
 -- 
-2.43.0
+2.54.0
 
