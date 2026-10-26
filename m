@@ -1,98 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793039126;
-	b=wwtc3WqyU/1xC6Hejb6NG/aimJUoHJufnieyY8I9FlOQjuflvXjWLAhR4zwSFqmr5t9i
-	 g2lxVUVbH5Efheq98EYC5jUNbjQGLtRhx+1OT87FNfvwCfU3KYfRz9XjYXsXHc6u76weR
-	 JwrrV1a8VfZ++x3yWfn001qkHJUOtt5wx4f3gUmef10ErjnRX9nfk20cfGUI3wdAldMgK
-	 ea0XZCGbekhu6qBLo6c8d8vuWHTgo+foTxLuIGeg2lOT1fb/+t939pmxY6dTg/d04GE8R
-	 +ZC90VQw39uFLplfkiyqE4JT2cAMv4IED1dmtirNFc0LGeHWewcemOBAzogh3SHmGNA==
+	t=1793039123;
+	b=ZBHEbOA9j8X9oRkskZ8SrpdtHnYHV9eBnWNSDdCe7t9Ahtvx5fdGHFUapRF6TBOWHD+k
+	 ZUmi+QaEhrHyn+C7mDfm3HM0QTF/Wf3yy5lG7ty/l7tct7heLqGlyUBkwC3OoVAUOqxYG
+	 KzAZj/Es6gb2IzYh8KhMApWX5dcJecmX65odjC9zASnVgsbFMc7+IiNbDyKK3my2bjFLK
+	 LaRgIL6AIA4wmzmm8y1aZ60JzmfGeqte+7zWhCMyuTUKuJ/GZ2+Kq96IoH1DYjd91dp0O
+	 9ohp9/SHrwEP1oEmNVsQ6zOausX1oeFEAKR1FXYYpPedjSjsNPwB2EKtS16z68++v+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793039126;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793039123;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=as4dLySM74JHCwhJBoWvbRErIcyVkS/DDlAos+E9LjI=;
-	b=DbT3XdYhnMOaJuUuQwXn2FPrvrnrpx9qhDaI3CUJE4eOlv3xWJFRRpQLajxlcvgMhInm
-	 Ib87mDnnUHkffv3VetGTs77JsC1Pbg2bptyZjPKFCEce5t0WfLgIl30dfLfnAS+kiTPeX
-	 gVsr8fzucj41+Ap+pEq5enubmBknm2KYOECW8Jzl148HNIpjrm0aZ7MulLahXkxFratOg
-	 rCBeXx7tAi9Lj61yRatszGA5IbNjxPrVIZiCP49+EJ226gKAQm1jVkW1vm2OuDPhEN3Vy
-	 OBuyGXHsscxQioQO6/e17NM3luyZrbdnqR8mf2SxKB8y1cXyr0fGY+zMR02N+rNXkiw==
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=vdBCJ/vLKHby2bGb6OC+NMtqwV//jUE1DYJZoK8t+Oo=;
+	b=F+S8Mi2/xcFJAv8KImYsY3vKiHPxEc5j1H23AYedQ9xCBrlo25i+FGq0ghpvNgn8BiOt
+	 Sz80OHmFE8An48XXA1QBqpK7YDFfz1RXoLrE4yCnHPVzBDo/aQ6uB0P+eo42DugyTahCk
+	 N7UuxLQfNzVQQ84AlgH3GUARkMrht78GpmkPeNpk1wY4oOZsVFOZM3ukqldIfTXRpmP0q
+	 87Q45IuUHYGubzz+JoploX9OXIJSEz8h9incwMIH5qUvjWwG08Y1fZ4GN1456rOlxEP9a
+	 yNjBkQAH5rrHY+AuaRc5zRm1zyB75FVuNSz+FRJZk9F+TbZrBP+KE0bHRD9eiKphvoQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=nk91qd8p;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=uqdoJbIH;
+	arc=none smtp.remote-ip=209.85.128.43
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F29E606A32A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 18:25:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F29E606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAFCC606A31F
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 18:25:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CAFCC606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=nk91qd8p
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a78ec32fadso1114485e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:25:26 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=uqdoJbIH
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a5b2be99a8so12903105e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:25:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793039125; x=1793643925; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=as4dLySM74JHCwhJBoWvbRErIcyVkS/DDlAos+E9LjI=;
-        b=nk91qd8pvq8xezj42jZxVpU9jl2j+zvLTxTLxQaFC5yOZ3jXkqg0FxUHD5bGNKy4ng
-         bXso+D+pCubRwg66hAUHUPLmXz072+KDsyJVA81SMQ6MrLOAwfVVjnhJzFLTk+rhPLBC
-         fs+lvQGpyDFxCpVGZudqvbszxGKMBUofGnliCV6SwHp0/a42GoWXwjNNn+8Y7SooXhF2
-         lrEiApXOQH3lQAPVHyq87TSfRRdPs4tXVuPUF6m4Jly+x9BtO0LwRiGZmri2hpoH5Sth
-         E/WPRLAD067fNpM4yu33TQtBoTsoo9qZMip5ARq802PkC8FuQmS+3VOXM7DJOCKElzYy
-         GxUQ==
+        d=linaro.org; s=google; t=1793039121; x=1793643921; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vdBCJ/vLKHby2bGb6OC+NMtqwV//jUE1DYJZoK8t+Oo=;
+        b=uqdoJbIHCOeV5+pkDrrnEwqLxDTdGNxZovGcn3wqyFIL+kZ+hWgj9/E+mqmojnktyR
+         UyNRGHcfzgnUjgag5bnd/m6E5nHT6UeEMXL14vUly8GFPgjLbsuzHvT1uRIypfmZicH9
+         jzaTV5tIY2OEZQ/Fe5r5hcr9eqquKzUAi4u18Tq9AqEigV/7UAiGCb84SfQJrnYI/Oxp
+         KB/ATw/+vKEhgdzPzcLvhcRQu0X5vcAgooHOqGmOHjx1yzRI35sqbH8YLPhmazmlYvqK
+         nAjdoiLkUXbrZEbihG4AeRzk4fnK5SE0jJkGuyFcO22+lQn9V5nVlLtu5FKwZJMxRoYA
+         ooNg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793039125; x=1793643925;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=as4dLySM74JHCwhJBoWvbRErIcyVkS/DDlAos+E9LjI=;
-        b=KFXQ12QQcSitVKjrVbCGjTB4cp1h/csMqchFuaoXCTHNflv7HYJ9pcHyQSDHuq5tDz
-         JEF2WQVGVVc2OQwIBZ4P6/WT8OjTr1C7/R4VCnKo8AKDks0ykrpC/AfNC/QG71P2f0ii
-         cS6+Kaak5r0hxF0ynmyYIrVbxTphJ7levc9zDodh2dBpUd6hdKAYmx0vgK1ywq4YEw0f
-         RhQAdIsGY4bRFpPyqC4s5omqCrdnYhW/acJNmecsGO6Q9Y8RvS64p55Yiu2gB4apDTjv
-         jy9mKLxpLiAuSCeRHiNfph1FAH6SJtkSOcmTHdMl2IAB14aD/f880zwl+ElkhHU7+DPy
-         MGNQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxFt57YmpIHwgm+GMBh4v4hCwyLjCluzZkmjmFEXWnYYZh2/6VwTnD44Yn/epRuU3/mtNf3P7xmYep989Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLVrF4jKU4/jVF9qITofooy9hXZiXt3nk5t2NcVOuOT27JFPuqf
-	KM884OIGXWuPDZ3erxcgcbqpqZ80f5RyZn0owvqKu2+YuPm96FCflFtk
-X-Gm-Gg: AYBFou2dTidV5q2J8HshLmxIVE6UQb/5aC+OQf+GXzcdYYQDybQxmCOMN9/ZWThvUPd
-	UOzpfoMYpy4A2u+sa2/CFk0FjzuwnKVprFwyW2MqGpMqT4BA9scBj3nahCl8RzaIGpHMDmM6E9W
-	X27P4ar7ZD1CdC3gW0V6ypglmIGz+IGUa+xcJ0jXXgL/V2+rTkg0tiZpqunhYo55oxaYCTZcULM
-	RDqL2+8bFGDuI4BjeiHdpZVoK6QPS93ADpQhp7jjslu3/9eQqXRSr89x3FHZFVBgy/O68I21+lB
-	l0cj+JQXpl6o+/wHRpMNcd7LShXRU1BSK/rMtGh2zKU6o8iRNG/kwC6oaQQaLgz1DPbZsExvS8N
-	uIkxqZpAgZcV1PcdDHppCbmd9YJFGctF2aispjsMAm98Rf1v59uZ4A6xmO6N+35+/ObonQ1E4ba
-	4flrGsuktm+pb/0A0DhFNvGBmMsPsHlI6oM7Z5kIMeEGMbQx7nCSL0ycuOBVqM08vhnr9r/H1DQ
-	GE0Iftlq3Ly9JujNfE2c098Eh3EpsZG6iLCaAcJXR0JbEodmt6r/aBopQYSOQ==
-X-Received: by 2002:a05:600c:a114:b0:4a0:1f9e:5f78 with SMTP id 5b1f17b1804b1-4a35aae5c22mr101769385e9.0.1793039124430;
-        Mon, 26 Oct 2026 11:25:24 -0700 (PDT)
-Received: from Termis-ROG-FLOW-Z13 ([2a09:bac5:521a:254b::3b7:76])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a30e22csm211673245e9.2.2026.10.26.11.25.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 11:25:24 -0700 (PDT)
-From: Seifelden Abdelmonem <saif.elden.hatim@gmail.com>
-To: Bin Du <bin.du@amd.com>,
-	Nirujogi Pratap <pratap.nirujogi@amd.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Sultan Alsawaf <sultan@kerneltoast.com>,
-	Svetoslav Stoilov <Svetoslav.Stoilov@amd.com>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Seifelden Abdelmonem <saif.elden.hatim@gmail.com>
-Subject: [PATCH 2/2] media: amd: isp4: return capture buffers with V4L2_FIELD_NONE
-Date: Mon, 26 Oct 2026 21:24:42 +0300
-Message-ID: <20261026182442.229869-3-saif.elden.hatim@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261026182442.229869-1-saif.elden.hatim@gmail.com>
-References: <20261026182442.229869-1-saif.elden.hatim@gmail.com>
+        d=1e100.net; s=20260707; t=1793039121; x=1793643921;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vdBCJ/vLKHby2bGb6OC+NMtqwV//jUE1DYJZoK8t+Oo=;
+        b=o1ZbgmYHExABti4dAy8j9TG2By8PJMpf2VcJZvNyYZHNdqg/0CZOK72+cpTAs/CkTL
+         2jtVY1F0P3956uRP834zyFY8NT7V/9cBmLl3ExDfRertOCrf/30pFCzNJ2NuUcmNJ7Gp
+         q+eZunvqrm4Yl0oQc6KOlfHxIxHB8iTDkYFlEajY3evbim3+zJU7A9UEJLtxN651a+la
+         CAA7kVyP8CpP5dsgimc67x7xdzfkcAgAnRznkkeD3oZmrijd8uTisAjT7LsJzEgYATtI
+         8GHeKoNuHBmWf7a8KZGQNClcLlcxG/3Q5dodpf0CWd0ZBgwENzsIHMLNh8r2M6FjK2Oj
+         lMvQ==
+X-Forwarded-Encrypted: i=1; AKwUvByX4JJK6ZlcIev77bA3PnMUi2UrMelTwCi57A+7ynweL+A/eVs/Y5MEvAqNI1DrV8IpFY8Ot5O244KN4eY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLFF81DNRYhtpKf8TqPTrmBA5/mA8ogXRFuUgUXs52Ok3Pq2IvR
+	RE6G13AKuDcNbzYsZnax1HWDpmHNpy/jzuZVL+OJtCi5Wx/703ZTNhrX7r4Kwgvbdyk=
+X-Gm-Gg: AYBFou3xpkqKkAbsdi3xaUbP80nJkG2h6U6jmy0FKwlSElOtLchCNctAyK0lLG5beyn
+	1iObNE7wkuWd47gEqcm34UM2V7pKIIqTLgtrMv8Kg25vYMZo3G0OUknKVwnVR/nX9TDwnlcWxki
+	RCkO1gdRrI4P03RmbpW+T8BlcuMZdIlUz9/kz6SNtMDU85BBbPUV1l83K496Pd2QW7zbeen8ZDl
+	QlxjStYaZb7bCHL7sUQ67wfXrgo/+NwceznbXDNfOzZvdwojBbCenB7YTUrMeJXovk2EAsvcBRN
+	t/xCmxAPg3bJEEJ04HN9/AVMwyNNKMvyN1n0Hm/OcAhp3dhRG6DyDa7iebDArrJ3ki5FfFXLxbu
+	kSVHtpa3VeFCsReKk9yQtT78Y/6Y1DslHzS8sKrRAgclbR4bTaB5Rav4LbkK73XsC31UW5byBJy
+	gpakPrzX3RsAL5NRgEKcoBrqthp3u/peTL6NKsbzrPd2mRKYJClia/NV+hpof7icwZfWwSqf/2r
+	R0xYxSRpzSyWjqslqUcHQ1a4CYyk1fIUn2dDvF4+N1aiaQrr61n2nhcf8c9
+X-Received: by 2002:a05:600c:8184:b0:4a1:ac66:6059 with SMTP id 5b1f17b1804b1-4a35aca6b82mr129661965e9.26.1793039120991;
+        Mon, 26 Oct 2026 11:25:20 -0700 (PDT)
+Received: from [192.168.1.3] ([37.18.141.193])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a0a9cafsm223451635e9.5.2026.10.26.11.25.19
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 26 Oct 2026 11:25:20 -0700 (PDT)
+Message-ID: <440f4ac1-28a3-42a1-a030-7a47b04c0d14@linaro.org>
+Date: Mon, 26 Oct 2026 18:25:19 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,44 +91,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] perf parse-events: Include errno.h before kernel headers
+To: Florian Fainelli <florian.fainelli@broadcom.com>,
+ linux-kernel@vger.kernel.org
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+ Adrian Hunter <adrian.hunter@intel.com>,
+ Thomas Richter <tmricht@linux.ibm.com>,
+ Faisal Bukhari <faisalbukhari523@gmail.com>,
+ Qinxin Xia <xiaqinxin@huawei.com>, Thomas Falcon <thomas.falcon@intel.com>,
+ "open list:PERFORMANCE EVENTS SUBSYSTEM" <linux-perf-users@vger.kernel.org>
+References: <20261026174814.3158229-1-florian.fainelli@broadcom.com>
+Content-Language: en-US
+From: James Clark <james.clark@linaro.org>
+In-Reply-To: <20261026174814.3158229-1-florian.fainelli@broadcom.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-isp4vid_handle_frame_done() marks every completed buffer as
-V4L2_FIELD_ANY. V4L2_FIELD_ANY is only valid as a request from the
-application; a dequeued buffer must report the field order of the
-image it contains. v4l2-compliance therefore fails the first MMAP
-streaming test:
 
-  fail: v4l2-test-buffers.cpp(419): g_field() == V4L2_FIELD_ANY
-  fail: v4l2-test-buffers.cpp(1280): buf.check(q, last_seq)
-  fail: v4l2-test-buffers.cpp(1735): captureBufs(...)
-  test MMAP (no poll, REQBUFS): FAIL
 
-The ISP only produces progressive frames, and the format ioctls already
-report V4L2_FIELD_NONE (isp4vid_fmt_default). Use V4L2_FIELD_NONE for
-the returned buffers as well. With this change that test passes.
+On 26/10/2026 17:48, Florian Fainelli wrote:
+> Building perf against uClibc fails in config_term_common():
+> 
+>    util/parse-events.c:954:30: error: 'ERANGE' undeclared
+> 
+> The kernel headers included before errno.h pull in asm/errno.h. uClibc's
+> bits/errno.h undefines EDOM, EILSEQ and ERANGE before including
+> linux/errno.h, but the kernel header include guards prevent these macros
+> from being defined again.
+> 
+> Include errno.h before the kernel headers so ERANGE remains defined.
+> 
+> Fixes: 6b9c0261b3fb ("perf record: Add ratio-to-prev term")
+> Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
+> ---
+>   tools/perf/util/parse-events.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/tools/perf/util/parse-events.c b/tools/perf/util/parse-events.c
+> index cc7ad331a49f..efb46ba9ba22 100644
+> --- a/tools/perf/util/parse-events.c
+> +++ b/tools/perf/util/parse-events.c
+> @@ -1,10 +1,10 @@
+>   // SPDX-License-Identifier: GPL-2.0
+> +#include <errno.h>
+>   #include <linux/hw_breakpoint.h>
+>   #include <linux/err.h>
+>   #include <linux/list_sort.h>
+>   #include <linux/zalloc.h>
+>   #include <dirent.h>
+> -#include <errno.h>
+>   #include <sys/ioctl.h>
+>   #include <sys/param.h>
+>   #include "cpumap.h"
 
-Fixes: 2ccf48af2270 ("media: platform: amd: isp4 video node and buffers handling added")
-Signed-off-by: Seifelden Abdelmonem <saif.elden.hatim@gmail.com>
----
-Testing and AI use: see the cover letter.
+This seems like a bug in uClibc, if it undefs something but then 
+includes a header to re-define it that it expects hasn't already been 
+included. But I suppose even if you fixed it we'd still need some kind 
+of workaround for older versions.
 
- drivers/media/platform/amd/isp4/isp4_video.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+There's another workaround that is slightly less fragile and doesn't 
+have to be applied every time linux/err.h is included in this order. If 
+you change the asm/errno.h include in tools/include/linux/err.h to 
+errno.h then the libc one will always be processed first. It probably 
+makes sense for the userspace copy of the header to use a libc errno anyway.
 
-diff --git a/drivers/media/platform/amd/isp4/isp4_video.c b/drivers/media/platform/amd/isp4/isp4_video.c
-index 58ea8d6ac..b8af3c766 100644
---- a/drivers/media/platform/amd/isp4/isp4_video.c
-+++ b/drivers/media/platform/amd/isp4/isp4_video.c
-@@ -72,7 +72,7 @@ void isp4vid_handle_frame_done(struct isp4vid_dev *isp_vdev,
- 	/* Fill the buffer */
- 	isp4vid_buf->vb2.vb2_buf.timestamp = ktime_get_ns();
- 	isp4vid_buf->vb2.sequence = isp_vdev->sequence++;
--	isp4vid_buf->vb2.field = V4L2_FIELD_ANY;
-+	isp4vid_buf->vb2.field = V4L2_FIELD_NONE;
- 
- 	vb2_set_plane_payload(&isp4vid_buf->vb2.vb2_buf,
- 			      0, isp_vdev->format.sizeimage);
--- 
-2.56.0
+But maybe it's just as hacky as this fix.
 
+Either way:
+
+Reviewed-by: James Clark <james.clark@linaro.org>
