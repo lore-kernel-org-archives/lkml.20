@@ -1,58 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.238.236.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.171.160.6
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793000360;
-	b=AO76bmPDfTB/jj01ob+m6pWphk5dfn+nTMF1kgiEQjisAeVVFvLD2frXfSuOO5+/Kzyo
-	 dqyg0sEmb4XqbN7BEPbDZzcw9lz7Odv6741nKo+cbJNic+AeV9e3iGKfcR5wGzzAcf5i8
-	 e92o3CDI52osT7VzF98gBPVLeJ5QAsT0rD0aofUPTT971ONAg4LMcVVRQVz09WSEYlWsl
-	 Ucf6yrjciv9QOc4lGcMy8e8x6VZ558VsbNwUr2RLDkTjDULF7vMrgF8KiyojBmrTMIPfm
-	 MiOqyqPBZDdHkecW4ABtlJB/uX5wQlHPRxY4ef7ROHI2qTDgUcKM+zkuLf69IaqHnJw==
+	t=1793000384;
+	b=4rcl6hRNZXi+cL5NbRxL4dZF+VFDMglNJXV3ts80hwxun104YIgI7Pjr8TWY2gWlDj5L
+	 /ySJDtxNBWxa9wCSJId0PrgoW75PuTsFQPEIgAGSL6DXUDLAzXGH4k4wGDza9DJpZ2LUM
+	 CTsQe4wQciuTb2CqSstIMc+SqoJjKAqL3rfHVgvjEfcctKjSkUFNJTPorcYwLZhYot/O7
+	 zcauTyGPSoP9R6RFt8xj2tSyhlzTWD40iFxJjEYuHULhzdxJyaQoNgFKMPMnio8wAlFX0
+	 Mft+jmbYJ6rd/no5SdmcAGbiPFnJpcyRB7sbsjPLCmRj1zZOeDrGHNcuIoa/Oq+ZYFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793000360;
-	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Djpa2kY/daWP4dKtfkZD0foLnhimThR+yxeYYViY4vo=;
-	b=fA6I3RH6qPPwL6h71o1c4xJJdhcu6Qx4O2MymsUw01v1ghg1a0Xtsa9EB0IEP1TlkXus
-	 KUjC5+Pk/lTf/lJdj5TeBYGMmLlw2NSs8xpcoeH5Mnjaif3hPTWv3CdNDjEJdHe6CJyTl
-	 D3SjWleYXnXzhSMNt6W+n+aJ85Jb0eVv+TwU0jflyWatDlWxgvsBMCYmCgYONnLCYyo/U
-	 2j9VtTjVFUjCkDstdCyEjhH03uj68d/V49UG6cuSNuzT8COm/kDBfmZUAwOqMgjL3eYnY
-	 zv62uYOG2wpuDTslb3r/cTZIp872u00AhpfOI61JEP4AO2Oq8DchUQ9/nn3Fit0eY4A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793000384;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
+	 Received:From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 User-Agent:MIME-Version:Content-Type;
+	bh=y7rMtNEmj8RP/Ie2Tkpn7XyZKLs6qIaLRaODfWpvLLE=;
+	b=FWT9AqNU/OpDpQP3eaEG31UE/Gg2bg7DGp/v893Iutit9MsPd3yI0t2wfIlmditaSLXn
+	 fvN5b6ENUSYTkla11Au0N1VA5MwyCJctakGePT98oOhQjJ4rCxo31BCLCinCRz6dS4fxQ
+	 4dAMFaINizuxiVPCmsf4OQg7+6GNychzs2VSqf0QwcELWVSzLhLlq0Wd5dpi3u1co0KFJ
+	 xnca0dC8MZU9mGoOOyEn5kwB6q+qQu5pMTnP35v1ist09hn3CypuTBI0AmqejMbVRP3cJ
+	 ktkE7HphZ2+Rgtb5593CUSwMZbmHj4zopBot428qPkfo2aOo5dGJllR1goJh8DNUURw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kemnade.info;
-	spf=pass smtp.mailfrom=kemnade.info;
-	dkim=pass header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=Oj0Gu7Xt;
-	arc=none smtp.remote-ip=178.238.236.174
-Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=mail.parknet.co.jp;
+	spf=pass smtp.mailfrom=parknet.co.jp;
+	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=rsa-sha256 header.s=20250114 header.b=XAV8to4M;
+	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=ed25519-sha256 header.s=20250114-ed25519 header.b=e5qLOOEs;
+	arc=none smtp.remote-ip=210.171.160.6
+Received: from mail.parknet.co.jp (mail.parknet.co.jp [210.171.160.6])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE3C0606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 07:39:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE3C0606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21354606A31A;
+	Mon, 26 Oct 2026 07:39:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21354606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.parknet.co.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=parknet.co.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=Oj0Gu7Xt
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
-	Reply-To:Content-ID:Content-Description;
-	bh=Djpa2kY/daWP4dKtfkZD0foLnhimThR+yxeYYViY4vo=; t=1793000358; x=1794209958; 
-	b=Oj0Gu7XtWkwsOOm6bfaMKOfY7ARQxogmLDEhzxS9nh+TgKh1gMxvuscRQBGzJDdfVhxz3khcCic
-	QKfFXTeLIzep5oMn2nNd6sJMSsCbelP90THDea2FkfMrKyEhxEVTbaq2Bd+N1UcUu5OC863k0S4pf
-	PMGMf1hzaKzvXc0K8/Zp+MZHM1P6m/hwTUhIeKSzzi8sxoj3g3JaExZnCMYp35ECzv1qF3NZ/IgFd
-	C3X24nJYwi/f7ZNT4I/yZE7QZIa8kc3dd/YnDYsmbttl0mcdZCkcUty/QIfr7vtZP15rmnl0lf14o
-	JaRREbcrhuC4abxcKb8ylTWWZFumZqTWySEg==;
-Date: Mon, 26 Oct 2026 08:39:10 +0100
-From: Andreas Kemnade <andreas@kemnade.info>
-To: Pablo Mazzini <pmazzini@gmail.com>
-Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Alistair Francis <alistair@alistair23.me>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/7] regulator: sy7636a: fix the chip name
-Message-ID: <20261026083910.66c7dcce@kemnade.info>
-In-Reply-To: <20261026003918.155321-3-pmazzini@gmail.com>
-References: <20261026003918.155321-1-pmazzini@gmail.com>
-	<20261026003918.155321-3-pmazzini@gmail.com>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=parknet.co.jp header.i=@parknet.co.jp header.a=rsa-sha256 header.s=20250114 header.b=XAV8to4M;
+	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=ed25519-sha256 header.s=20250114-ed25519 header.b=e5qLOOEs
+Received: from ibmpc.myhome.or.jp (server.parknet.ne.jp [210.171.168.39])
+	by mail.parknet.co.jp (Postfix) with ESMTPSA id 291AD209655C;
+	Mon, 26 Oct 2026 16:39:41 +0900 (JST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=parknet.co.jp;
+	s=20250114; t=1793000381;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=y7rMtNEmj8RP/Ie2Tkpn7XyZKLs6qIaLRaODfWpvLLE=;
+	b=XAV8to4MlASI92ZZ4Y++BsVyass7q/oR8mlDsKzN3w7BRtv/cif5PnITtsj27Z1x8DM8CF
+	4BNT7/cylcjj6oRZ6bEeEwwe+qsTvQJNaliDBsxc/HtmSCupRwa5sddBQAw7aeRthJZS9O
+	Kux69XAieW7WMecZXsvrRyXZyI2g9W0XIKYC+RIC2Qed9uDElsgMoUVE/zTMGUdDLu3L2O
+	KzbfiIb9OyRrt5sBPhaYw09tfNk+G0AjDMiVvxXqYQ1/1BMyEn0FuZO7YIKNM688PZAsHr
+	/O+9REUBEBytCH/h6mOZk0Q1W2YZDGYdjs7v+HRByLuhO0VWU8vVAyiQQSi86w==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=parknet.co.jp;
+	s=20250114-ed25519; t=1793000381;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=y7rMtNEmj8RP/Ie2Tkpn7XyZKLs6qIaLRaODfWpvLLE=;
+	b=e5qLOOEssTVR2M/bd35xKtnR4KShxcL02+wlX2OUAxJJwmKq67NESQmXUrAHMY6taOpBS2
+	T6Hfyt65/x0ZCzBw==
+Received: from devron.myhome.or.jp (devron.myhome.or.jp [192.168.0.3])
+	by ibmpc.myhome.or.jp (Postfix) with ESMTPS id AFD4DE000CD;
+	Mon, 26 Oct 2026 16:39:40 +0900 (JST)
+Received: by devron.myhome.or.jp (Postfix, from userid 1000)
+	id 9BA38220019C; Mon, 26 Oct 2026 16:39:40 +0900 (JST)
+From: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+To: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+Cc: linux-fsdevel@vger.kernel.org,  linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] fat: batch synchronous mirror writes
+In-Reply-To: <87ecdchpzr.fsf@mail.parknet.co.jp>
+References: <20261025191006.407209-1-matheus.aalmeida@inf.ufrgs.br>
+	<20261025191006.407209-2-matheus.aalmeida@inf.ufrgs.br>
+	<87ecdchpzr.fsf@mail.parknet.co.jp>
+Date: Mon, 26 Oct 2026 16:39:40 +0900
+Message-ID: <87a4o0hpvn.fsf@mail.parknet.co.jp>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,46 +81,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 
-On Mon, 26 Oct 2026 00:39:13 +0000
-Pablo Mazzini <pmazzini@gmail.com> wrote:
+OGAWA Hirofumi <hirofumi@mail.parknet.co.jp> writes:
 
-> The driver header and the Kconfig help call the chip SY3686A.
-> 
-> Signed-off-by: Pablo Mazzini <pmazzini@gmail.com>
+> Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br> writes:
+>
+>> diff --git a/fs/fat/misc.c b/fs/fat/misc.c
+>> index e79762cf1975..f8f89b947baf 100644
+>> --- a/fs/fat/misc.c
+>> +++ b/fs/fat/misc.c
+>> @@ -365,3 +365,9 @@ int fat_sync_bhs(struct buffer_head **bhs, int nr_bhs)
+>>  	}
+>>  	return err;
+>>  }
+>> +
+>> +void fat_brelse_array(struct buffer_head *bhs[], int n)
+>> +{
+>> +	while (--n >= 0)
+>> +		brelse(bhs[n]);
+>> +}
+>
+> I'd like this is noop if n == 0, possibly easier to use and safer in future.
 
-Reviewed-by: Andreas Kemnade <andreas@kemnade.info>
-
-> ---
->  drivers/regulator/Kconfig             | 2 +-
->  drivers/regulator/sy7636a-regulator.c | 2 +-
->  2 files changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/regulator/Kconfig b/drivers/regulator/Kconfig
-> index be6b72daa76f..88ba2770e378 100644
-> --- a/drivers/regulator/Kconfig
-> +++ b/drivers/regulator/Kconfig
-> @@ -1623,7 +1623,7 @@ config REGULATOR_SY7636A
->  	tristate "Silergy SY7636A voltage regulator"
->  	depends on MFD_SY7636A
->  	help
-> -	  This driver supports Silergy SY3686A voltage regulator.
-> +	  This driver supports Silergy SY7636A voltage regulator.
->  
->  config REGULATOR_SY8106A
->  	tristate "Silergy SY8106A regulator"
-> diff --git a/drivers/regulator/sy7636a-regulator.c b/drivers/regulator/sy7636a-regulator.c
-> index c44c445ea139..015227cb113e 100644
-> --- a/drivers/regulator/sy7636a-regulator.c
-> +++ b/drivers/regulator/sy7636a-regulator.c
-> @@ -1,6 +1,6 @@
->  // SPDX-License-Identifier: GPL-2.0+
->  //
-> -// Functions to access SY3686A power management chip voltages
-> +// Functions to access SY7636A power management chip voltages
->  //
->  // Copyright (C) 2019 reMarkable AS - http://www.remarkable.com/
->  //
-
+Ouch, it works as is.
+-- 
+OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
