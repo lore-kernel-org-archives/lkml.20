@@ -1,58 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.119
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793006200;
-	b=Qi6lxt5Cx7+HZ9YHVhALecK2fM40z4S8fVYOkewBY861wWQv9EG44G3iAiUOn+92DBWd
-	 MGNro5SHne0ms3vOiAxDzt1oFrEHHF8mt1+DmckKC9OImzY+UENqANLW+fFyYZox9d5vq
-	 qfv3xlWLOqwSWTPvR7PvW6QsAuekfFh3M4rT3QAnl57ade0RQcOGkrD0bbAxZjYmWkMF2
-	 VTM7oGeB59BuSN03w1iv82kVk92iwysHETXQvn6gIRwen4W46d4zufV3hXL3rASyWxj2G
-	 MkKfbdiR7TPRb1vLXDT5ZzT0V8Tt7Yr6w3eWenUXivzkwyJXkd4hALfAXZnE5J2aACg==
+	t=1793006190;
+	b=nV2lAfg4Ic7LlMcY7UUfMTCBoOP0186tHa3XXNHu0l6IBCqnlhM9GWZEmrUq/nUpVRiq
+	 4LKcN84nu9sU0MLnDbi91QkwTKjSs8dJxSKHyjixzC25SJlYGqmWZvdUbZ2GLRwSv+/4S
+	 7jUV9E50ezUphGvgenokrc5qNNDcRW4dYEaO80Bpvwv1XmZ48hOGDo7rKkQzBpW3a9dQz
+	 LPLfAPJ9rgHLGFWc31gQT/phHAdSOh1U+Z2voijntDUH+YbHhZIl8tzmoz3gcskYd8DlZ
+	 4TVyrN4K4G2FIhHQM+C1EUgs2xNkDxQop+CRYkyUf2UZ/TBFhtayTEW4kObZedwmjdg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793006200;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=Js53XS4TQWceQIMjvkvTDx30HJJIpdd/cVtWeNSHEQ8=;
-	b=mfwD8QOR2c/M7xw/PKolPsqMVpZ3U7Qfhvp4iHBLmexMan9KMcophNIP5wWkavFljKmP
-	 qYMriXAfqYU4uRMeA0f4ST6CFumrGvn0U0XYsc52LI+B9daW9k5NyspQe1/3DxrckGOVn
-	 B7+3N1dcWjRsVpanBpRFgPiQyu/A8qarSDUNH4mUeeHYh4Hyf5FF0boT+vYyFbj4Zfwa4
-	 j9gDGtaozMla6MP014xf/hMg+THqJxj7LSiuLq/7InTsTh90BRj9jp3gH4owD7TKxAb66
-	 sdANH9DiF4jZ9v1lw3jsUo2CnGzq4X+ZleuqR//+Gm8BO0toM8R8hh3cP3eC4wQ9+Bg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793006190;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=wouIUEMfT4N12nqmNUUiAXbLnyN9+PofrbIF3cPgc74=;
+	b=bpX9Ix2tC26fs9EUh6uN+xpMNEIT5fXWVTC4516goP6ubyePlRJDe2H/ZNXBphihFtFR
+	 SlMN4OpSHoPfyNWaaD3BFrC9QtE4PpjZEucipPhB/X316cXcPHfKaeh5dSOshhJU+gFQV
+	 VSDTY0sgtPrsKaH6O4Y7+rbCyd5XR5d2BGaV+tKmyavm/Bx1aHneIceXwXTV5Wlz6XqH7
+	 qLOHY2F79eRORGqScregGfdOmS1/Dqchh1pNr4zJfu+RXp6evCuibQdkNmGtVdeCrtBIB
+	 Irs/x/lc4chKcYoZuztW3trNvBB2yPBDG7n6NgMoiOmMemeZfQlwQVb+hYfGCePeKqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=apAOQ+dS;
-	arc=none smtp.remote-ip=220.197.31.5
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+	dmarc=pass header.from=1g4.org;
+	spf=pass smtp.mailfrom=1g4.org;
+	dkim=pass header.d=1g4.org header.i=@1g4.org header.a=rsa-sha256 header.s=protonmail header.b=beLj96EI;
+	arc=none smtp.remote-ip=109.224.244.119
+Received: from mail-244119.protonmail.ch (mail-244119.protonmail.ch [109.224.244.119])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97F18606A31F
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:16:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97F18606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63D67606A325;
+	Mon, 26 Oct 2026 09:16:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63D67606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=1g4.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=1g4.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=apAOQ+dS
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Js
-	53XS4TQWceQIMjvkvTDx30HJJIpdd/cVtWeNSHEQ8=; b=apAOQ+dS8e+ftMNNg4
-	2IJK0a10MaGt2CaV8WsffJNKPLgfiI3OkQJ05SCXnkNZ4i1+G+5pDYDpjLu0TcjV
-	GwtZCZyll32yZXvJn11eJh6QzXMr575Wufxxs3nWI7BbM+2K85hKCKnXO+v8ikba
-	IpLOSP6qIqC97VwtysgkhbmEQ=
-Received: from czl-pc (unknown [])
-	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wD3329BGt9qS_6HCg--.57689S2;
-	Mon, 26 Oct 2026 17:15:46 +0800 (CST)
-From: Chi Zhiling <chizhiling@163.com>
-To: linux-kernel@vger.kernel.org,
-	exfat@lists.linux.dev
-Cc: Namjae Jeon <linkinjeon@kernel.org>,
-	Sungjong Seo <sj1557.seo@samsung.com>,
-	Yuezhang Mo <yuezhang.mo@sony.com>,
-	Chi Zhiling <chizhiling@kylinos.cn>
-Subject: [PATCH] exfat: drain dirty pages after forced shutdown
-Date: Mon, 26 Oct 2026 17:15:42 +0800
-Message-ID: <20261026091542.1031813-1-chizhiling@163.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=1g4.org header.i=@1g4.org header.a=rsa-sha256 header.s=protonmail header.b=beLj96EI
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=1g4.org;
+	s=protonmail; t=1793006187; x=1793265387;
+	bh=wouIUEMfT4N12nqmNUUiAXbLnyN9+PofrbIF3cPgc74=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=beLj96EIW19JDsM2etulD9M/cG0l4KatJN5vP/dsT8gmPCa+1i4tQHY+PZCB/UKk/
+	 eJEQRYwqvjSpggu98rec1Lo4FBBj5VhyVYw0HAsJh+NEKOiwKva1T6lQhWAvfwT+Vo
+	 eSMIzEnZIIeMbUdwvBajMmfB4mJVVUkrOTa0HTIzLXRKVhmoaI7IFgfKqQZIDQpx1z
+	 CZX6A51yX16pcX/2BZQSv7aADMCD1fEcT4GZyMDjjUuMSeAE6qPatLgM+rWIFDlMFg
+	 q5mPWGkL52rwixPQQL+5C+Rc7EArIEd2PaqvZPZQNsd3yHziv56iFaN8wSX/LYsH62
+	 gAka4m+ml9K7A==
+Date: Mon, 26 Oct 2026 09:16:19 +0000
+To: anthony.l.nguyen@intel.com, przemyslaw.kitszel@intel.com
+From: Paul Moses <p@1g4.org>
+Cc: intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, aleksandr.loktionov@intel.com, chwee.lin.choong@intel.com, faizal.abdul.rahim@linux.intel.com, horms@kernel.org, vinicius.gomes@intel.com, sasha.neftin@intel.com, matthew.vick@intel.com, aduyck@mirantis.com
+Subject: [PATCH net 3/3] igb: prepare TSO and checksum offloads before TX timestamps
+Message-ID: <20261026091549.605810-3-p@1g4.org>
+In-Reply-To: <20261026091549.605810-1-p@1g4.org>
+References: <20261026091549.605810-1-p@1g4.org>
+Feedback-ID: 8253658:user:proton
+X-Pm-Message-ID: 6fa17044f218a9b5dc8a444b577e6cd4e46ef864
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,89 +64,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3329BGt9qS_6HCg--.57689S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxCr47AF17Xw4UAF15try8Grg_yoW5Gr45p3
-	90kanrGr40q3W7Wrs7WF1DZa4jk3WxKFWftFyrua98Zr9Iy342kFWUKFy2vF45KwnxCryj
-	qF4Ygw4UGwnrWr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jnzVbUUUUU=
-X-CM-SenderInfo: hfkl6xxlol0wi6rwjhhfrp/xtbC3AIpxmrfGkK9uQAA3Y
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-From: Chi Zhiling <chizhiling@kylinos.cn>
+igb_xmit_frame_ring() takes an extra skb reference for TX timestamping
+before transmit preparation. For GSO packets, igb_tso() calls
+skb_cow_head(), which can reach pskb_expand_head() with a shared skb
+when the header is cloned. Commit c7d8bc3dd511 ("net: skbuff: don't BUG()
+on bad arguments to pskb_expand_head()") replaced the BUG_ON() with
+-EINVAL, causing TSO preparation to fail and the packet to be dropped.
 
-A forced shutdown sets EXFAT_FLAGS_SHUTDOWN, after which
-exfat_writepages() returns -EIO.  Pages dirtied before the shutdown can
-then never be written back, so a writer throttled in
-balance_dirty_pages() while extending valid_size sleeps forever.
+For non-GSO packets with CHECKSUM_PARTIAL, igb_tx_csum() falls back to
+skb_checksum_help() for unsupported checksum offsets. This can also
+reach pskb_expand_head() through skb_ensure_writable(). igb_tx_csum()
+ignores the error, allowing transmission to continue without completing
+the checksum.
 
-Stuck stack:
+Move TSO and checksum preparation before taking the timestamp reference.
+Add the timestamp bit to first->tx_flags without overwriting the offload
+flags.
 
-  balance_dirty_pages+0x4f0/0xb40
-  exfat_prepare_valid_range+0x43/0x140
-  exfat_file_write_iter+0x413/0x520
-  iter_file_splice_write+0x32d/0x5a0
-  direct_splice_actor+0x51/0x270
-  splice_direct_to_actor+0xf5/0x270
-  do_splice_direct+0x76/0xc0
-  vfs_copy_file_range+0x244/0x710
-  __do_sys_copy_file_range+0xe6/0x240
-  do_syscall_64+0x106/0x5f0
-  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-Allow writeback of pages dirtied before the shutdown to drain.  New
-writes are still rejected in exfat_write_iomap_begin() and
-exfat_prepare_valid_range().
-
-Fixes: f761fcdd289d0 ("exfat: Implement sops->shutdown and ioctl")
-Signed-off-by: Chi Zhiling <chizhiling@kylinos.cn>
+Fixes: 1f6e8178d685 ("igb: Prevent dropped Tx timestamps via work items and=
+ interrupts.")
+Fixes: 6e033700887b ("igb: Add support for generic Tx checksums")
+Signed-off-by: Paul Moses <p@1g4.org>
 ---
- fs/exfat/file.c  | 3 +++
- fs/exfat/inode.c | 3 ---
- fs/exfat/iomap.c | 3 +++
- 3 files changed, 6 insertions(+), 3 deletions(-)
+ drivers/net/ethernet/intel/igb/igb_main.c | 31 ++++++++++++-----------
+ 1 file changed, 16 insertions(+), 15 deletions(-)
 
-diff --git a/fs/exfat/file.c b/fs/exfat/file.c
-index 1386149916bb..8b9fadba363f 100644
---- a/fs/exfat/file.c
-+++ b/fs/exfat/file.c
-@@ -735,6 +735,9 @@ static int exfat_prepare_valid_range(struct inode *inode, loff_t start,
- 		index = pos >> PAGE_SHIFT;
- 		next = min(((loff_t)index + 1) << PAGE_SHIFT, end);
- 
-+		if (exfat_forced_shutdown(inode->i_sb))
-+			return -EIO;
+diff --git a/drivers/net/ethernet/intel/igb/igb_main.c b/drivers/net/ethern=
+et/intel/igb/igb_main.c
+index d4a897a8c82c..04c0053dbaae 100644
+--- a/drivers/net/ethernet/intel/igb/igb_main.c
++++ b/drivers/net/ethernet/intel/igb/igb_main.c
+@@ -6559,6 +6559,21 @@ netdev_tx_t igb_xmit_frame_ring(struct sk_buff *skb,
+ =09first->bytecount =3D skb->len;
+ =09first->gso_segs =3D 1;
+=20
++=09if (skb_vlan_tag_present(skb)) {
++=09=09tx_flags |=3D IGB_TX_FLAGS_VLAN;
++=09=09tx_flags |=3D (skb_vlan_tag_get(skb) << IGB_TX_FLAGS_VLAN_SHIFT);
++=09}
 +
- 		balance_dirty_pages_ratelimited(mapping);
- 
- 		folio = read_mapping_folio(mapping, index, NULL);
-diff --git a/fs/exfat/inode.c b/fs/exfat/inode.c
-index 5129df1e79b4..4bea9e9deb94 100644
---- a/fs/exfat/inode.c
-+++ b/fs/exfat/inode.c
-@@ -283,9 +283,6 @@ static int exfat_writepages(struct address_space *mapping,
- 		.ops		= &exfat_writeback_ops,
- 	};
- 
--	if (unlikely(exfat_forced_shutdown(mapping->host->i_sb)))
--		return -EIO;
++=09/* record initial flags and protocol */
++=09first->tx_flags =3D tx_flags;
++=09first->protocol =3D protocol;
++
++=09tso =3D igb_tso(tx_ring, first, &hdr_len);
++=09if (tso < 0)
++=09=09goto out_drop;
++=09else if (!tso)
++=09=09igb_tx_csum(tx_ring, first);
++
+ =09if (unlikely(skb_shinfo(skb)->tx_flags & SKBTX_HW_TSTAMP)) {
+ =09=09struct igb_adapter *adapter =3D netdev_priv(tx_ring->netdev);
+=20
+@@ -6567,6 +6582,7 @@ netdev_tx_t igb_xmit_frame_ring(struct sk_buff *skb,
+ =09=09=09=09=09   &adapter->state)) {
+ =09=09=09skb_shinfo(skb)->tx_flags |=3D SKBTX_IN_PROGRESS;
+ =09=09=09tx_flags |=3D IGB_TX_FLAGS_TSTAMP;
++=09=09=09first->tx_flags |=3D IGB_TX_FLAGS_TSTAMP;
+=20
+ =09=09=09adapter->ptp_tx_skb =3D skb_get(skb);
+ =09=09=09adapter->ptp_tx_start =3D jiffies;
+@@ -6577,21 +6593,6 @@ netdev_tx_t igb_xmit_frame_ring(struct sk_buff *skb,
+ =09=09}
+ =09}
+=20
+-=09if (skb_vlan_tag_present(skb)) {
+-=09=09tx_flags |=3D IGB_TX_FLAGS_VLAN;
+-=09=09tx_flags |=3D (skb_vlan_tag_get(skb) << IGB_TX_FLAGS_VLAN_SHIFT);
+-=09}
 -
- 	return iomap_writepages(&wpc);
- }
- 
-diff --git a/fs/exfat/iomap.c b/fs/exfat/iomap.c
-index e50ecbfbfbe0..6383739f5700 100644
---- a/fs/exfat/iomap.c
-+++ b/fs/exfat/iomap.c
-@@ -165,6 +165,9 @@ static int exfat_write_iomap_begin(struct inode *inode, loff_t offset, loff_t le
- 	loff_t end;
- 	int err;
- 
-+	if (exfat_forced_shutdown(inode->i_sb))
-+		return -EIO;
-+
- 	err = __exfat_iomap_begin(inode, offset, length, flags, iomap, true);
- 	if (err || flags & (IOMAP_DIRECT | IOMAP_FAULT) ||
- 	    iomap->flags & IOMAP_F_NEW)
--- 
-2.53.0
+-=09/* record initial flags and protocol */
+-=09first->tx_flags =3D tx_flags;
+-=09first->protocol =3D protocol;
+-
+-=09tso =3D igb_tso(tx_ring, first, &hdr_len);
+-=09if (tso < 0)
+-=09=09goto out_drop;
+-=09else if (!tso)
+-=09=09igb_tx_csum(tx_ring, first);
+-
+ =09if (igb_tx_map(tx_ring, first, hdr_len))
+ =09=09goto cleanup_tx_tstamp;
+=20
 
