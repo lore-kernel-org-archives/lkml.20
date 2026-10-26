@@ -1,126 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793012735;
-	b=m+9aafjJBKHge4kjK6UddB7ZGy77yLYC/tFmqkhqRGIN0SUWsVkFEXdKyXwIXb54ejSF
-	 lqD8mAOe0Vw15RXZNfK4B92krtGNc/1u+zKajdkylleyc/crE8Dn5BYsVYnLxlaNND5Fb
-	 8i9j0fKtQZ7snbWvHyeIlh82OALyzCaZrUgKg5RpPeM02HIgQ0gSUiN9E/BQPH4Q+TMwE
-	 PParrMeaPTNAGP0s8XzWsZOywpOAJ7/zEB7OXeYNGkwuFYJWehn7xr4cEad9NtIiDCDP0
-	 0fbkHuOV5mqmTFLVYw19k4xnViGzE4Et2etp57IgnIqCbPZz8uPXoCJlzVVHoyaA1wQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793012735;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
-	 References:Autocrypt:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=HsbaEe/nvTP0iwLeS1x890pi6M+BY0AFsfXGST+SUjA=;
-	b=AT2M588f3eTXbBFT+7XYLBS0htIzgXLOnY7/sbSu6QUkcvM/3EgZ992fDVBRZ68Eh39I
-	 cvm947TCOIO0YP4e85zXuFotwLlVe4aj7ngaGgv72ChUhqTXMpwhket9PFsiCcCvDfjN7
-	 jB9igwVOO81g5c702xoKpE9pJddbJ93c9zSO62G787yVJkGQ3vJl6kCQyI5d3Y9DmXZjq
-	 gN+Vkp7i5DHjScU5cozJBajdoltPxR81BjIe8aPYyenrnLbFGuWstk2OEVpn0oOG/DpLW
-	 PpJVOv4zqubWl2JGVQChqeOl8vAMg2P9Yiaj/cauJLVPSbm+IojlfKlZ/Enrq9LsqAg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=g+WcQ6zE;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=Oc0kfJrI;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.15
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793012738;
+	b=l/2wvLpXW0EteAweGB1YeSkEUxIgdRooye+LT2Els0a/Z3nQZIDJ2JCkYgSxjebDG2l1
+	 ZgioDN+vJAKXXp+DJdYrhcpuw+AOgx88twYJGf+vseM5Vsju7y5UP6uE7baNqdAg1ZzKH
+	 swc8qK5O2RQ9b7N/PwY61oipyKHrqv4StAmVPIVLDwUURCgJiW8IePR7fRL6m7jnNAUsl
+	 Tr/ek+v5XQRvJiIRuWQtWycfYWhYgZ0yjvYR2DhRBhNUsjA6KhvV72V8Vj4yFra0iLw74
+	 TE2tEVchP3SABdG3bSGgxus2sWlNLgze7Cly4ObmQwGiGFDrZ3cKUJZM7Av6esgXH0w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793012738;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=uiPGx4zCDvD/3YFOkRVsdRDA/Q26VWDAi/Oc4lZvodA=;
+	b=AkS7vIMfGvPUfQIvY6hdsYv55ko47eJaujkIJtaLIh5tQH4HhgYeK5uM8GnEKmuXZnwW
+	 9s0i3T8OS9Is6BGuNsmW8dm7vVPfRAO5eDnPiYx5ZBpya2OIEt3wWFVbrzy7BMzAmO9OH
+	 MwV/dZgLoGdOW/R0ahivoAU4REiQUnoDU5g8Vn6uLfwAgS2mRhSdb3IG29gv5VnFui1tl
+	 5x6INAKsgzQUdxDHhtSwzfdEMwFYPA5WtFqJx0NrCQ9HlCHjk3DBNZIo7LSaFCmAct5P4
+	 ueC3+F2NSAcjQ5SiCCIzVOQrZ5WGURYmv6E07RNUHvTBCaI2glN1p8oV3kt+33/tqbQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=YfOTqm8Z;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.15
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013015.outbound.protection.outlook.com [40.93.201.15])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8182606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:05:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8182606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 649B5606A326;
+	Mon, 26 Oct 2026 11:05:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 649B5606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=g+WcQ6zE;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=Oc0kfJrI
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793012732;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=HsbaEe/nvTP0iwLeS1x890pi6M+BY0AFsfXGST+SUjA=;
-	b=g+WcQ6zEDsX+PrCj+ROujokDBdne8a6CToe5W7rKrjatJJGgZJmKuu9c5kRlHhUz+EITjS
-	Pe+qo8YT5EgzLhsDoPGBVz/H9CynQV8PMpg6sDwfE0qR8Ld+eTS0KFc48/ohFR50HFQFJJ
-	4kgHShdzQVPVoM7ByHgbSdY5/LAG+FY=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-302-5sWgCDuHMmaBc52ZTzFVmQ-1; Mon, 26 Oct 2026 07:05:31 -0400
-X-MC-Unique: 5sWgCDuHMmaBc52ZTzFVmQ-1
-X-Mimecast-MFC-AGG-ID: 5sWgCDuHMmaBc52ZTzFVmQ_1793012730
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4a1fdde384cso18430115e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 04:05:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793012730; x=1793617530; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HsbaEe/nvTP0iwLeS1x890pi6M+BY0AFsfXGST+SUjA=;
-        b=Oc0kfJrIuZ58gl93mfo+tdNAtDypvLilCdeijQl8a71GjLyweW+xmJWIPalnlxfz2b
-         oT7C4s3GstFGym+O8QSEMJuGd8TjCqsswPoDkMTJ4t2AmpM8cMuoIyN+v8C+3Qczs+FK
-         iit5xMdHHcS2+LvHMuHJb/c1FqiraB209J4Z/ZEMEwbijmA7dR+llfmccZW05svFNK7h
-         lxA6/aCL1oStptoLhAgQ8dplosQStH9IZR3TmcoNbhYQHvLY382pIY3lusK2gwE+xvp9
-         odiO+Q7AJgtuY+6LPWn9W4Mb43JZbAv70MzkWAIAE1HX0UT+08pLZFvrOwp8pMRHOjkB
-         929g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793012730; x=1793617530;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=HsbaEe/nvTP0iwLeS1x890pi6M+BY0AFsfXGST+SUjA=;
-        b=O6tgZF2USJxyM3v4h5oJoh03f5SNWruqKX1uuACG4TLNcUc+g/jCwsBCTHZUt7H+EC
-         opW1oYk8J2AAg7x16m6thT18xCih7oB641nJxdnSmo2BQ6HAeXCoYardEOm3nJhmDHJP
-         qQYvgPb2PtIYgj+tyK8zNygSarXOFEq9yyd9/1W75Z4CnDj4OYoms5gog/Rkul2W0SBU
-         QR6Ki1DguWBZfNjT8QaM3uWZZbCYxo3CWVGJ7pCKr19XZfItwlQqavu5lLqxeHP24v6k
-         yu2RvhBAgaduQRaauM12bH5ergH6A3BiZzCKkRWc9jIGxWahUk4g0rqsru9pfAOaauM8
-         iOdw==
-X-Forwarded-Encrypted: i=1; AKwUvBzAwtuoWEIZk/rZe4tPOrmRu2rjvMknaweXvUuH5BEl/+SpDfsUaoo2VE6ajqMFPkaxO1gQJOfwukeOZUw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLnSVEe+1/dA08SwvLl+JJccKzIZnEpfJGgLbtJzia2ezgJHdIj
-	QaRVEqUiE6eUs4IWNoWMsNvoaUdCSEcv8NdsBBwXTt8VvLxStZwn7aAXowHYi+D4mWjZ/R4CMjl
-	3wTaAo6rdgBiFEJ4jGom4NDTBL4q1hDJ/DTh21tvW5mdjnd1h9xcV92vuB7NDX7+pkueYkqsMww
-	==
-X-Gm-Gg: AYBFou2IUN/kccVRnRTPM3pM5c1w+PpP45gguwXJnIvmcQ+p1nVb2FXFWc/Xf//UxcH
-	NohK9Z50qbFMjUvuOjjmxqgG3jZDZYTo8thYW16vEqV4GF+gA1ARRYbDZEE4Nn9Z7mZwr1CE8D7
-	NVriqbRD1wXOIe3k/XbzctJEbCKTABO8I3Q9+79Cx+iecodtBDsBw4yPU9Gcw/l6SDEa1lkKNSg
-	EVil1wRrCm657+TCZ6z6nwShSsBUdUq3rW7YgZR95z3NfGmYXdICUkxmI69Ox9nWVw9VfxBwHvH
-	yguPqIoHSCAuyJwYURSPZz9hTqibxx/j0Y6HMly5+mZA9n4EvBXt+3O/plDB64YvrNVv9foJ+er
-	FJZKwt2Zn3FBk8t39SyUpLnQsaY0t
-X-Received: by 2002:a05:600c:c091:b0:4a2:150f:1605 with SMTP id 5b1f17b1804b1-4a5015ef800mr66474465e9.24.1793012729983;
-        Mon, 26 Oct 2026 04:05:29 -0700 (PDT)
-X-Received: by 2002:a05:600c:c091:b0:4a2:150f:1605 with SMTP id 5b1f17b1804b1-4a5015ef800mr66473955e9.24.1793012729366;
-        Mon, 26 Oct 2026 04:05:29 -0700 (PDT)
-Received: from gmonaco-thinkpadt14gen3.rmtit.csb ([195.174.133.173])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a2e8f25sm188625925e9.14.2026.10.26.04.05.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 04:05:28 -0700 (PDT)
-Message-ID: <462351c6a891d1a2d57d2589124caf939225f9b2.camel@redhat.com>
-Subject: Re: [PATCH v7 00/14] rv: Add task latency over budget RV monitor
-From: Gabriele Monaco <gmonaco@redhat.com>
-To: wen.yang@linux.dev
-Cc: Nam Cao <namcao@linutronix.de>, linux-trace-kernel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Date: Mon, 26 Oct 2026 12:05:27 +0100
-In-Reply-To: <cover.1791745088.git.wen.yang@linux.dev>
-References: <cover.1791745088.git.wen.yang@linux.dev>
-Autocrypt: addr=gmonaco@redhat.com; prefer-encrypt=mutual;
- keydata=mDMEZuK5YxYJKwYBBAHaRw8BAQdAmJ3dM9Sz6/Hodu33Qrf8QH2bNeNbOikqYtxWFLVm0
- 1a0JEdhYnJpZWxlIE1vbmFjbyA8Z21vbmFjb0BrZXJuZWwub3JnPoiZBBMWCgBBFiEEysoR+AuB3R
- Zwp6j270psSVh4TfIFAmjKX2MCGwMFCQWjmoAFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgk
- Q70psSVh4TfIQuAD+JulczTN6l7oJjyroySU55Fbjdvo52xiYYlMjPG7dCTsBAMFI7dSL5zg98I+8
- cXY1J7kyNsY6/dcipqBM4RMaxXsOtCRHYWJyaWVsZSBNb25hY28gPGdtb25hY29AcmVkaGF0LmNvb
- T6InAQTFgoARAIbAwUJBaOagAULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgBYhBMrKEfgLgd0WcK
- eo9u9KbElYeE3yBQJoymCyAhkBAAoJEO9KbElYeE3yjX4BAJ/ETNnlHn8OjZPT77xGmal9kbT1bC1
- 7DfrYVISWV2Y1AP9HdAMhWNAvtCtN2S1beYjNybuK6IzWYcFfeOV+OBWRDQ==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=YfOTqm8Z
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rSdFfJm+6whxa9hkalbH21Rk5DUWPOUaQovu3gd9XYZbno+aeVhnCHVKrEAifr2G6dSMjomDT0x1HXPzSWHdCeGlCZkYzkhgZtEp6zfj6dk3jT5IKAGkgrva0WcmYIhS02E69f2b8czuYfWcH3+xeu+c/u/aCy8cbFOZhCynR8B0E2KshWIiSjLnlkZw1rl4L3r+WlCjxHQFHKaNqojR9Bs7tFZS2YrCFSI7mSypFg4RYmSYnTDgOBjZALF40kF2c3Occ90QFzXrr1V0JOgguWXmcY8GUhYx6DR1Z2HcObQ0fvnJ01KiqVXj2+vU+vYPheXgUiANQtmO++TSKo0OEA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uiPGx4zCDvD/3YFOkRVsdRDA/Q26VWDAi/Oc4lZvodA=;
+ b=u5gKahIpLkMCXsexMxQyK3lrSEkSEj5lU5OYLSUKTl8sdRd7ezKTfsf9FfuA8enPgJiDIFCCiFNDi0eVmihFtwnCOCr9v8y+HEebth8i6J8UOEG+ccUanJiQof/ZG0LULJBxox1iNjSgZA0TVyDGg6Zlt+JGEL7PIxP1kPTfzfu2iHb5K62LJL2yE7X3L41tqAj+I7lKluV3p+zDT7nYQjmVldNinwQK1N+zC8kh5tsepizXzu8h7Nq4nCtWCk0pcfWfZ8hES69hOf1xw26KnRIt7kA4y/Fei95E0cRMjD3UYYFMyTROPQsijaUTiCpWFuhY/t4HaDybsS9oFOsvtA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uiPGx4zCDvD/3YFOkRVsdRDA/Q26VWDAi/Oc4lZvodA=;
+ b=YfOTqm8ZR7u1yZFC5eWXfJKA5aoeyJuKL5ppH4FIAM9SyfU3Gsodk7n9AE+6hA2TgQhn1D3beXY1USi3OhExz/bynlLyWTp/HopjbrxA6E01RgGDowqAxn1FDrugtBknefK/BSVkXqtB0rw+RyG39WiCt0ztb0R/ynC2YmF7MiI=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB4283.namprd12.prod.outlook.com (2603:10b6:5:211::21)
+ by SN7PR12MB7226.namprd12.prod.outlook.com (2603:10b6:806:2a9::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
+ 2026 11:05:34 +0000
+Received: from DM6PR12MB4283.namprd12.prod.outlook.com
+ ([fe80::9eab:812b:ad20:6087]) by DM6PR12MB4283.namprd12.prod.outlook.com
+ ([fe80::9eab:812b:ad20:6087%6]) with mapi id 15.21.0546.016; Mon, 26 Oct 2026
+ 11:05:34 +0000
+Message-ID: <387f0510-d3ed-4e12-9e70-8b6242a8e565@amd.com>
+Date: Mon, 26 Oct 2026 11:05:30 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v3 1/3] sfc: ptp: drop the stale frequency reset in
+ efx_ptp_start()
+To: netdev-bot+sashiko@kernel.org
+Cc: ecree.xilinx@gmail.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ richardcochran@gmail.com, netdev@vger.kernel.org, linux-net-drivers@amd.com,
+ linux-kernel@vger.kernel.org, alucerop@amd.com,
+ pieter.jansen-van-vuuren@amd.com
+References: <20261021091534.3164258-2-alex.austin@amd.com>
+ <179292676968.3134.7576333163086767429@kernel.org>
+Content-Language: en-GB
+From: "Austin, Alex (DCCG)" <alex.austin@amd.com>
+In-Reply-To: <179292676968.3134.7576333163086767429@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LO3P123CA0030.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:388::13) To DM6PR12MB4283.namprd12.prod.outlook.com
+ (2603:10b6:5:211::21)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -130,300 +101,112 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4283:EE_|SN7PR12MB7226:EE_
+X-MS-Office365-Filtering-Correlation-Id: 81a16b0d-e461-435c-45e3-08df33510ec6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|1800799024|23010399003|366016|10067099003|22082099003|18002099003|11063799006|56012099006|4143699003|261009223027099003|261022105027099003|261022075727099003;
+X-Microsoft-Antispam-Message-Info:
+	IqkG7K6iDHuPgKIqd8uiQlm9NuMWZSog5GX8rFObBNizZr7V9q0OHUjX3QpFyNMTsnYoOUPAOd/U51vyf/iOD57/pp24Z/K1ETCoc7nEuWsEo4CHDXQki1Px6W6kN/vjhUV7+vfEcxjWkncWWbDogGjuHH8SiYKJVN0qA3Pb6zgdqYM4OTCeE4wQNhstw+6kABvFcEdypi/LHlc5aTQycbUYo17MHp8BJ30ZG4ufdSxGNK1kUdIBen8vRH07QNpg2iOfCOu11tcxLcce7OPGSSKYs8IvPL73GvNoThMFpF+QRoP4hG7KB/Z2fyq4RiDWPi/iZrtJIVhyfHXpsacZUpFYdTFXIvyi4lMy/R3EcWXEFnI5PGCBX3EAOyndhJ/NXTX1dumqwducQMkrop0+agHzfnD9hehtdzU58795bowAjK+7onOuEUFd11PUzA7DdlnTh5x026c+UxKz3ormBMk+LvKaJGCe0pngjfyiXeDrTr5ylnTheBh3cpZV3IS5IK4pu/u+7epN0aaLHByZyhPvGcN/hB/s8kjkUcihw/cEtGwvjvB0ZNZmBUrAKBm9LZ7OylGIceTg893a4h7rmmzy+90VidrSZipG7ah8np4msSM7D5dlU9/JbZSXUjzmKh439FRkRWS7cSo9vIgnsRsMRtyU5QJShsAjN27G7iM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4283.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(366016)(10067099003)(22082099003)(18002099003)(11063799006)(56012099006)(4143699003)(261009223027099003)(261022105027099003)(261022075727099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?MkY4U1MrNDNxRXRsakhDaEJZdCt4L2VOdDJPa2FJaklwY1A1akcxMlF1N1ZG?=
+ =?utf-8?B?YVdLcjZRd3U4MGF3ZVVZQlUwbnFtSExuaEFVQUlCU3JWTTlITi8wVHY1TmpY?=
+ =?utf-8?B?NTBJaWFsRUdoaFFZeDZQSTFUbFB2ZXhmVWtJNXBwTVkwUEV2ano0YWtHSEY3?=
+ =?utf-8?B?cE1Cdmh2Z0JYU0EvOG55VFNYSEhrUFFPdzQ3S1VMYkxoeTUzMjdydE1kNzM0?=
+ =?utf-8?B?cDFiQ1U5a1N3YS8vQllzVmEza2lPeE9iSVBmelNvQUJSZGJ2cXhUY1FXTDBm?=
+ =?utf-8?B?c1hxWUttQy9kc1dpYUNMVWs3dmExeEM5bENqTXN4OTBWTWdCTGZCSW5mQ2tL?=
+ =?utf-8?B?c2NIcFZGRlE3UFpnMllWQWNKeXcrWllGVXI4V2NybEsrTHJkSnZ3N2Z0bTdI?=
+ =?utf-8?B?UmtCcmMyVzBPVkUyMEpvOHc2UVhKZEFFaUd2YVVmWFY3TUh5QnpvS3Yrc0E1?=
+ =?utf-8?B?RThqWDNnMlJuRW1KYzRpbmh0UzY0bTBOcndIcUlOZWlMOGYvaUQ2cHA0ZkJn?=
+ =?utf-8?B?MnZxYm5MZDZzSUFpWjVmYUpBT1Z1d2dmSEc1TDlVRW94K2xPM1B3TCtUenpC?=
+ =?utf-8?B?R0ZyUXI5T1Y2OU9BMWJTcUROOEE2ZHE2T1Zuc2R5SDkrbWZsZXB5N2kxMnhl?=
+ =?utf-8?B?SklxUG5HVmxlUHhoMEpTdkt0ZmVHcnhRWlVveGFUT2hnSWpuT3MzVWowM1Jw?=
+ =?utf-8?B?SHFWbm00OCtMWFBsa3pZMEZ2bWxQTzRla0dNRVdzQ0lFQzVyT2ljYWVpWDlM?=
+ =?utf-8?B?NVVHdUhwbDhNT040WG9EMmdCWnlwZXpWZTdlTXlKQTlQZlRqZ1UrMEVkdlg2?=
+ =?utf-8?B?RWpqbXpzVjE5c0FSVVZTVC9ZSkhyZTVkV29OYm5pZDJJRW9ucFJCbkVMQWJD?=
+ =?utf-8?B?dkNMZ3NSdnZ6YVVnd2Fna2ZkOFQwVlRLK3JKMGhLWjM2NE41OUo4azA5THdw?=
+ =?utf-8?B?T0laMnk2ZXpTUW41RzgxcjdJT2NpQTZGMG52Qm1PQmZsNm83Rys2N0JJUGFF?=
+ =?utf-8?B?WFdveG02STRmMkxOVkwrQ0l2MjlaM3F3Z1F4Q05BRDB2a0R0dTZjWm01dmRt?=
+ =?utf-8?B?ek9KRUNTM1dIeVlKT1NVV2Y1cnNVaVJRRnNidjM5aG1vaFR4OWozSE1iYitB?=
+ =?utf-8?B?R2YwWnJ6Q2xFMnU3MGQ3Y1BxVDUwS0s2TTlsZk5STUJxMGxUSTh3SXZpUW5i?=
+ =?utf-8?B?eUNKRFhVZXByZVpObFN4Ykt5WCtmUTJRaHp1enB4MDR5Qjd1d0pCdldSTFBK?=
+ =?utf-8?B?NlcwNzhsTDVabXdGTDllb2FPeWtMNG1LV2ZlaTdKZit2cWlaS1hZcGhzZG5z?=
+ =?utf-8?B?MVN1dDlzSWJuajM1ekw5dFhoZm5CQjJSVktZSk5MdUFtTU9taUVXK1k4NSt4?=
+ =?utf-8?B?b3E4eDVqbVJrSGExVWQvMmQ1bmVSUTMydWozMHZzcTk1UkhCa2xWSEtUUmhi?=
+ =?utf-8?B?TmtUVDRmazcwd1lsa2JCZ2VWWitxVXBBdlhBaWVJajJDdnBLNERMRzk4L3JY?=
+ =?utf-8?B?UVJNejFEZ3JoMjVZb1RCTlRicy8zdlU0YzhwR3pBelgwdHJCb0lhMVJxVVVW?=
+ =?utf-8?B?bUVOUEwwNkE4MXovYzZZTllhaktNbWUrUmpLcjVCdnU0SVowR095amFiaU9M?=
+ =?utf-8?B?QmowVnpkRjBKamNHcHRnM3JQSXJidUZBNHNxMG5ZcEluNWlobW9vRnJ1bUs5?=
+ =?utf-8?B?enR2bHdIeC84ZVFEWFV4aDJJbkZ1c3BLNmpUWlg1WEJ3cUEyVFRRbzAxdEdH?=
+ =?utf-8?B?N2YvOVBub0NoRm95U2thazloOFBkOUJXaVZ0RE53YkdEQ0wzZUxNUzQ5RmlM?=
+ =?utf-8?B?bXRrMUk4Wm14czBKbEYvY25tajlNNnBhWjZFc1N4RVNpcWp5OTMySGhoNmJ3?=
+ =?utf-8?B?RW0xTG9rL2FHdk9rQUlHd2hyN2dBbFZjRktGSitoNFdidnczaXE3dGR1dlVI?=
+ =?utf-8?B?dS9YaGRYa3o4aXcrUXJoS2daMHl6cS9yaTg5ZkVTYlFtUU1xZElsYUpNcm9C?=
+ =?utf-8?B?c2YvbEl2L3ZGRzFFdWp5NWs1SmNEQlVHMC91Q2FnclIreEdHOTE5WHY3MHdh?=
+ =?utf-8?B?VU50NmEvbzhXVzdjK1E2cVhRKzdBQzNudzhUbTVIUUNRSTYvQVR5T24wd1Np?=
+ =?utf-8?B?amdyNGdIb0QyV09vUC9FNTcvbXNHR05HZk0zTGVkMm9VMEMzZlNPVXZMTktU?=
+ =?utf-8?B?bkFFMVQ3V1hQUzJoR3Fhc3BEZTdFekE1L2ozVTdFR0MwN014dEh5UG9aT2Fp?=
+ =?utf-8?B?UHRoSHRSV0ZMRU80OFJOcTJQWG9PQ2JoNFdic3p5ZUlUL2lpNFZMM1lyRTBO?=
+ =?utf-8?Q?lkestsKhOZs8nb14jC?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 81a16b0d-e461-435c-45e3-08df33510ec6
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4283.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 11:05:34.4440
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: kBITfaIfdXjvW4cng1OLbxKWNA7yhBM4UwVItqCvI7KaaGDcXIMn+I9KArW6ZcxMqPaAcmjXTQmzSqo4pUbG3A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7226
 
-On Mon, 2026-10-12 at 03:39 +0800, wen.yang@linux.dev wrote:
-> From: Wen Yang <wen.yang@linux.dev>
->=20
-> New in this revision:
-> =C2=A0 - Patches 1 and 2: the HA environment lifecycle and timer fixes, i=
-n
-> =C2=A0=C2=A0=C2=A0 that order (see above).=C2=A0 Patch 3 adds KUnit cover=
-age for both.
->=20
-> =C2=A0 - Patch 4 (was 1): the HA timer teardown fix, found while auditing
-> =C2=A0=C2=A0=C2=A0 tlob's own teardown.=C2=A0 The gap is in the framework=
-; a monitor cannot
-> =C2=A0=C2=A0=C2=A0 close it.=C2=A0 Patch 5 adds KUnit coverage, and Patch=
- 8 splits the
-> =C2=A0=C2=A0=C2=A0 per-object teardown hook out of the tlob patch.
->=20
-> =C2=A0 - Dropped detail_env_tlob and the per-state accounting.=C2=A0 Whic=
-h phase
-> =C2=A0=C2=A0=C2=A0 consumed the budget is now derived from event_tlob in =
-user space;
-> =C2=A0=C2=A0=C2=A0 monitor_tlob.rst documents the recipe.=C2=A0 This remo=
-ves the per-record
-> =C2=A0=C2=A0=C2=A0 lock and the accumulator from the hot path, and tlob n=
-o longer
-> =C2=A0=C2=A0=C2=A0 deviates from "run a model and spot violations" (Gabri=
-ele, v2).
 
-Very well.
-You may find [1] of interest as it has some overlap with that accounting, a=
-iming
-to introduce stats into the DA infrastructure. It probably isn't a direct m=
-atch
-and only targets per-cpu for now.
+On 25/10/2026 11:12, netdev-bot+sashiko@kernel.org wrote:
+> [Some people who received this message don't often get email from netdev-bot+sashiko@kernel.org. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+>
+> Caution: This message originated from an External Source. Use proper caution when opening attachments, clicking links, or responding.
+>
+>
+> Thank you for your contribution! Sashiko AI review found 2 potential
+> issue(s) to consider.
+>
+> Critical: 0 · High: 0 · Medium: 2 · Low: 0 (1)
+>
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
+>
+> - [Medium] The fix leaves the forked Siena driver unfixed.
+> - [Medium] The commit message understates the bug it fixes and has an
+>   invalid Fixes: tag.
+>
+> Pre-existing issues:
+> - [Low] This problem wasn't introduced by this patch, but the kernel-doc
+>   for struct efx_ptp_data describes `@current_adjfreq: Current ppb…
+>
+> --
+>
 
-By the way there has been a running discussion about keeping the C files fo=
-r the
-monitors as close as possible to the DOT representation, with a long-term g=
-oal
-to extend the DOT to represent everything and have logic represented there =
-too
-(at least simple trace filters).
+[...]
 
-Now I haven't been following this religiously either and some things are si=
-mply
-too hard to be represented there. But I'd like you to keep it in mind when
-writing your model, since yours deviates considerably.
+>
+>> Fixes: ffe9554c17bf ("sfc: Add support for IEEE-1588 PTP")
+> Is this hash right? ffe9554c17bf does not resolve to any commit. The commit
+> with this subject appears to be 7c236c43b838, which the other patches in
+> this series also use:
+>
+> Fixes: 7c236c43b838 ("sfc: Add support for IEEE-1588 PTP")
 
-For example I'm still not convinced by the fact that you maintain a paralle=
-l
-state (OPEN/CLOSE/RETIRED). You do a lot of error reporting in tlob_start_t=
-ask()
-that is mainly discarded (return value ignored). What prevents you from all=
-owing
-the start event in running and just not allocate if you have already a targ=
-et?
 
-I'd really prefer to have the complexity moved to the model. I'm probably
-missing some background here, but I see an open/closed window as something
-mostly matching the monitor's state, while the retired state as the result =
-of a
-race with cleanup.
-Where are you seeing such races? When the monitor is stopped while a window=
- is
-still open? da_extra_cleanup() is supposed to run after everything else set=
-tled
-down, if you have evidence this isn't the case, let's discuss about that fi=
-rst.
+This is wrong. Will correct and respin.
 
-If you could drop these states, you'd also no longer need tlob_reset_notify=
-()
-and many other things will get simplified and closer to what rgven gives yo=
-u.
+pw-bot: cr
 
-And it's also good to keep everything rvgen gives you as is
-(ha_verify_invariants() and friends). Otherwise you'd never tell your model
-deviated from the code.
-
-These are general guidelines, the C files cannot yet be a 1-to-1 product of=
- the
-model, but shouldn't be a completely different story either.
-
->=20
-> =C2=A0 - The model gives stopped a self-loop for every scheduler event, a=
-nd the
-> =C2=A0=C2=A0=C2=A0 sched handlers call da_handle_event() unconditionally.=
-=C2=A0 The
-> =C2=A0=C2=A0=C2=A0 source-side gate that skipped events while stopped is =
-gone; the logic
-> =C2=A0=C2=A0=C2=A0 lives in the model (Gabriele, v6).
->=20
-> =C2=A0 - tlob_sym.c (a 235-line ELF parser) is replaced by a sym_offset()
-> =C2=A0=C2=A0=C2=A0 shell helper built on readelf (Gabriele, v3).
-
-Great! Let's keep the code to maintain to a minimum.
-
->=20
-> =C2=A0 - tlob_preempt_work, identical to tlob_busy_work, is dropped and t=
-he
-> =C2=A0=C2=A0=C2=A0 busy-wait body is shared (Gabriele, v3).
->=20
-> =C2=A0 - The KUnit and DOT commit messages were rewritten as requested
-> =C2=A0=C2=A0=C2=A0 (Gabriele, v6).
->=20
-> =C2=A0 - Dropped three patches that no longer stand on their own: "rv: Fi=
-x
-> =C2=A0=C2=A0=C2=A0 ha_invariant_passed_ns silent bypass of invariant chec=
-k" (Patch 1
-> =C2=A0=C2=A0=C2=A0 makes it unnecessary), "rv: Check the decoded fields i=
-n the tlob
-> =C2=A0=C2=A0=C2=A0 parser tests" and "selftests/verification: Fix up the =
-tlob selftests"
-> =C2=A0=C2=A0=C2=A0 (folded into the patches they fix, so each patch is co=
-mplete on its
-> =C2=A0=C2=A0=C2=A0 own).
->=20
-
-Thanks,
-Gabriele
-
-[1] -
-https://lore.kernel.org/lkml/20261020095512.863754-1-tobias.schaffner@sieme=
-ns.com
-
-> Also folded into the patches they belong to, from earlier review rounds:
-> the DA_MON_POOL_SIZE dual-macro simplification and DA_ALLOC_MANUAL
-> (Gabriele), the invariant-check rewrite (sashiko-bot), and the tlob
-> teardown/error-path fixes: security_locked_down(LOCKDOWN_TRACEFS) in
-> tlob_monitor_open(), the single tlob_record_state word with
-> TLOB_RETIRED as the only licence to free, tlob_add_uprobe()'s rollback
-> running the full nosync/quiesce/sync/reap sequence, and
-> tlob_remove_all_uprobes() holding tlob_uprobe_mutex across the sync and
-> the reap.
->=20
-> Testing
-> =3D=3D=3D=3D=3D=3D=3D
-> Environment: x86_64, CONFIG_PREEMPT_RT=3Dy, kernel built with virtme-ng
-> (vng --build), selftests built on the host and run inside the VM via
-> `ftracetest --rv ../verification` (the verificationtest-ktap entry
-> point, with logs redirected to /tmp):
-> - KUnit: rv_mon suite (CONFIG_RV_MONITORS_KUNIT_TEST), rv_test_tlob case
-> =C2=A0 covering the uprobe-line parser
-> - 11 ftrace-style selftests: uprobe_bind, uprobe_violation,
-> =C2=A0 uprobe_no_event, uprobe_multi, uprobe_multi_instance,
-> =C2=A0 uprobe_detail_{running,sleeping,waiting}, uprobe_restart,
-> =C2=A0 uprobe_overlap_register, uprobe_restart_violation
-> Both suites pass.=C2=A0 The pre-existing rv_* tests in the same directory
-> and the rest of the rv_mon KUnit suite (nomiss, sco, sssw, sts, opid,
-> pagefault, sleep) keep passing as well.
->=20
-> v6: https://lore.kernel.org/all/cover.1787243842.git.wen.yang@linux.dev/
-> v4: https://lore.kernel.org/all/cover.1783524627.git.wen.yang@linux.dev/
-> v3: https://lore.kernel.org/all/cover.1780847473.git.wen.yang@linux.dev/
-> v2: https://lore.kernel.org/all/cover.1778522945.git.wen.yang@linux.dev/
-> v1: https://lore.kernel.org/all/cover.1776020428.git.wen.yang@linux.dev/
->=20
-> Gabriele Monaco (1):
-> =C2=A0 rv: Force environment reset action on HA monitor start
->=20
-> Wen Yang (13):
-> =C2=A0 rv: Fix ha_monitor timer and invariant underflow
-> =C2=A0 rv: Add a KUnit test for the HA timer underflow
-> =C2=A0 rv: Disarm HA timers on the storage free path
-> =C2=A0 rv: Add a KUnit test for the storage free path
-> =C2=A0 rv: Make da_monitor_reset_hook and EVENT_NONE_LBL overridable
-> =C2=A0 rv: Introduce DA_MON_ALLOCATION_STRATEGY
-> =C2=A0 rv: Add per-object teardown hook da_extra_cleanup
-> =C2=A0 rv: Add generic uprobe infrastructure for RV monitors
-> =C2=A0 rv: Add tlob model DOT file
-> =C2=A0 rv: Add tlob hybrid automaton monitor
-> =C2=A0 rv: Add KUnit tests for the tlob monitor
-> =C2=A0 selftests/verification: Add tlob selftests
-> =C2=A0 selftests/ftrace: Walk up parent dirs to find test.d/functions
->=20
-> =C2=A0Documentation/trace/rv/index.rst=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0=C2=A0 1 +
-> =C2=A0Documentation/trace/rv/monitor_tlob.rst=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 |=C2=A0 154 +++
-> =C2=A0include/rv/da_monitor.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 |=C2=A0 154 ++-
-> =C2=A0include/rv/ha_monitor.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 61 +-
-> =C2=A0include/rv/rv_uprobe.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 35 +
-> =C2=A0kernel/trace/rv/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 |=C2=A0=C2=A0=C2=A0 5 +
-> =C2=A0kernel/trace/rv/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 |=C2=A0=C2=A0=C2=A0 2 +
-> =C2=A0kernel/trace/rv/monitors/nomiss/nomiss.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 |=C2=A0=C2=A0=C2=A0 2 +-
-> =C2=A0kernel/trace/rv/monitors/opid/opid.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0=C2=A0 1 +
-> =C2=A0kernel/trace/rv/monitors/tlob/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 12 +
-> =C2=A0kernel/trace/rv/monitors/tlob/tlob.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 | 1049 +++++++++++++++++
-> =C2=A0kernel/trace/rv/monitors/tlob/tlob.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 142 +++
-> =C2=A0kernel/trace/rv/monitors/tlob/tlob_kunit.c=C2=A0=C2=A0=C2=A0 |=C2=
-=A0 151 +++
-> =C2=A0kernel/trace/rv/monitors/tlob/tlob_kunit.h=C2=A0=C2=A0=C2=A0 |=C2=
-=A0=C2=A0 18 +
-> =C2=A0kernel/trace/rv/monitors/tlob/tlob_trace.h=C2=A0=C2=A0=C2=A0 |=C2=
-=A0=C2=A0 20 +
-> =C2=A0kernel/trace/rv/rv_monitors_test.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 162 +++
-> =C2=A0kernel/trace/rv/rv_trace.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- |=C2=A0=C2=A0=C2=A0 1 +
-> =C2=A0kernel/trace/rv/rv_uprobe.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=
-=A0=C2=A0 56 +
-> =C2=A0tools/testing/selftests/ftrace/ftracetest=C2=A0=C2=A0=C2=A0=C2=A0 |=
-=C2=A0=C2=A0 19 +-
-> =C2=A0.../testing/selftests/verification/.gitignore |=C2=A0=C2=A0=C2=A0 1=
- +
-> =C2=A0tools/testing/selftests/verification/Makefile |=C2=A0=C2=A0=C2=A0 4=
- +
-> =C2=A0tools/testing/selftests/verification/config=C2=A0=C2=A0 |=C2=A0=C2=
-=A0=C2=A0 3 +
-> =C2=A0.../selftests/verification/test.d/functions=C2=A0=C2=A0 |=C2=A0=C2=
-=A0=C2=A0 9 +
-> =C2=A0.../test.d/tlob/run_tlob_tests.sh=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 32 +
-> =C2=A0.../verification/test.d/tlob/uprobe_bind.tc=C2=A0=C2=A0 |=C2=A0=C2=
-=A0 47 +
-> =C2=A0.../test.d/tlob/uprobe_breakdown.tc=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 136 +++
-> =C2=A0.../test.d/tlob/uprobe_disable_live.tc=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 79 ++
-> =C2=A0.../verification/test.d/tlob/uprobe_multi.tc=C2=A0 |=C2=A0=C2=A0 58=
- +
-> =C2=A0.../test.d/tlob/uprobe_multi_instance.tc=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 |=C2=A0=C2=A0 65 +
-> =C2=A0.../test.d/tlob/uprobe_no_event.tc=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 17 +
-> =C2=A0.../test.d/tlob/uprobe_overlap_register.tc=C2=A0=C2=A0=C2=A0 |=C2=
-=A0=C2=A0 66 ++
-> =C2=A0.../test.d/tlob/uprobe_restart.tc=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 66 ++
-> =C2=A0.../test.d/tlob/uprobe_restart_violation.tc=C2=A0=C2=A0 |=C2=A0=C2=
-=A0 48 +
-> =C2=A0.../test.d/tlob/uprobe_unbind_live.tc=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 65 +
-> =C2=A0.../test.d/tlob/uprobe_violation.tc=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 53 +
-> =C2=A0.../selftests/verification/tlob_target.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 |=C2=A0 127 ++
-> =C2=A0tools/verification/models/tlob.dot=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 27 +
-> =C2=A0tools/verification/rvgen/rvgen/dot2c.py=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 |=C2=A0=C2=A0=C2=A0 2 +
-> =C2=A038 files changed, 2930 insertions(+), 20 deletions(-)
-> =C2=A0create mode 100644 Documentation/trace/rv/monitor_tlob.rst
-> =C2=A0create mode 100644 include/rv/rv_uprobe.h
-> =C2=A0create mode 100644 kernel/trace/rv/monitors/tlob/Kconfig
-> =C2=A0create mode 100644 kernel/trace/rv/monitors/tlob/tlob.c
-> =C2=A0create mode 100644 kernel/trace/rv/monitors/tlob/tlob.h
-> =C2=A0create mode 100644 kernel/trace/rv/monitors/tlob/tlob_kunit.c
-> =C2=A0create mode 100644 kernel/trace/rv/monitors/tlob/tlob_kunit.h
-> =C2=A0create mode 100644 kernel/trace/rv/monitors/tlob/tlob_trace.h
-> =C2=A0create mode 100644 kernel/trace/rv/rv_uprobe.c
-> =C2=A0create mode 100755
-> tools/testing/selftests/verification/test.d/tlob/run_tlob_tests.sh
-> =C2=A0create mode 100644
-> tools/testing/selftests/verification/test.d/tlob/uprobe_bind.tc
-> =C2=A0create mode 100644
-> tools/testing/selftests/verification/test.d/tlob/uprobe_breakdown.tc
-> =C2=A0create mode 100644
-> tools/testing/selftests/verification/test.d/tlob/uprobe_disable_live.tc
-> =C2=A0create mode 100644
-> tools/testing/selftests/verification/test.d/tlob/uprobe_multi.tc
-> =C2=A0create mode 100644
-> tools/testing/selftests/verification/test.d/tlob/uprobe_multi_instance.tc
-> =C2=A0create mode 100644
-> tools/testing/selftests/verification/test.d/tlob/uprobe_no_event.tc
-> =C2=A0create mode 100644
-> tools/testing/selftests/verification/test.d/tlob/uprobe_overlap_register.=
-tc
-> =C2=A0create mode 100644
-> tools/testing/selftests/verification/test.d/tlob/uprobe_restart.tc
-> =C2=A0create mode 100644
-> tools/testing/selftests/verification/test.d/tlob/uprobe_restart_violation=
-.tc
-> =C2=A0create mode 100644
-> tools/testing/selftests/verification/test.d/tlob/uprobe_unbind_live.tc
-> =C2=A0create mode 100644
-> tools/testing/selftests/verification/test.d/tlob/uprobe_violation.tc
-> =C2=A0create mode 100644 tools/testing/selftests/verification/tlob_target=
-.c
-> =C2=A0create mode 100644 tools/verification/models/tlob.dot
 
