@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793025890;
-	b=4I2+eStG1FqX9M6FUsqGTUW+rJi8kEgFMy9Cm2D5VXGi5T1BQ90Y6HGShYzIiyiluo1B
-	 2e8n9rpDSZHvV/VqYxqxPg2qAx/20GH2MhqvS3X+N2z8yEnnZccEZhQzDLmRq9xUM6kxo
-	 fiScVypemDavyxDNnLc6qZf2XtLuY4NR4QhI7jXVZjHSzDW4CI/zY3/6nfb1/Rdyk9O14
-	 1d6DFzHJETH997At7teahlFUiy0VLyOInD+xRGy4YOAvZXu//xgmLS+lVkHvXV8BM0WUU
-	 NLEpM0LFWP1oQ4DK9x52z8cSMPhXc8OFzIdW6/xGE09XYvbSgZudbtiohOpqcTatbaw==
+	t=1793025885;
+	b=VMrUggvxbbmPmQqVeRNiMR585181nglUp8wVzb7LV6jfW8jnPDr8AbvxUFZxhulNh+1Q
+	 XTQvs4faVpkiwO9J92SjjBonIh+jjHtcz5Js/lVQPP/f6ezD06mdRAGaHT3zpDtFITgqM
+	 0fugZyf0xtTQ9bewQUjqEu2wP29edyaZy+NGZh0Bq65hnFX/6W4o2CZbLPSx9c+Xbqgcf
+	 PcgXH5COP/gFjVe6BeXigtIFxmp5aMJ8klJkdkJ96vq9ts3/xoO2xSlLwNQz+68ZidSgE
+	 rEP/UewUxC/alRcNQh+N56iwASRhhv1c9lrclCS+Y8lhDmRzuZ6EJeYLLX+H2CdsACA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793025890;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793025885;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
-	bh=kxE4A0VSnxahND1X2MPTQwXDknQ6I/xJGaQ331/gno0=;
-	b=czgxul3DRrRO7zSMSt4NQDiE9Bixkntgs6YpZ5lHStrR5cncWJBMNa0av3eAQDfzdX5g
-	 fcdtNtMJtjhTrL1heko2dm/YxQMBf4yzFil0GzYqztb6AfmJp2prI5/rxKTWoeiF64Xxp
-	 cgPddJlD/OXmaP4TKdIaOHgnC0YDU3q7Hi4DkyqvHRGHue4MZYm728qOk6XXMfmeiN1bj
-	 QpgtAwmfvLL0vaa+UKaMMbUPzWm22Hdbp2qkRZ/aOuM5EZrEXREZrEPR7koy6zOH2sEK1
-	 jrXroEwLaZt2CgEV1aTT11aVR6Yv2uQyUVv35STKu34s3/4IYGWAxawCyeTVLmTRWTg==
+	bh=GSEN1e/y0bwGfJJMQ9Hg+c2qcQyTslgLVny4UlJpg1o=;
+	b=FE5yvtW01h1ElDPf7T55v+j5J5pe1+wcB7EbsOpjl1fD14vfHxQAci8AUKkc+6fi8TL8
+	 ZW5/smDPe3fn47M3P6b/E2xXI4i4OSoVU3X5k2d3IO6nGkX3SOQX6G6ucFTYcm5mi0Oo3
+	 WT2ko32KrUQDWsk3r2lu9IZCpnSKixzC3v/aPqALnMVWOqqp5jRhFC8RKSMeoXO1sMB1S
+	 V0qqrto/6p4nnLFc0ztrL84ckeZ00XrNCzkg6o3+tTD/jM20rcpw4kslRuu+31i72Ml6E
+	 g300TOppEcmaHfblbhRF+ONWPdeAgdx/FKEfEopuWW2fJIxPMgSQJPMiXhG1cVPJdXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=arm.com;
 	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Lvj66Pft;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=tc2dGiQf;
 	arc=none smtp.remote-ip=217.140.110.172
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1620D606A328
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:44:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1620D606A328
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A374B606A325
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:44:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A374B606A325
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Lvj66Pft
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=tc2dGiQf
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 52B4C2944;
-	Mon, 26 Oct 2026 07:44:45 -0700 (PDT)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B2BDC2720;
+	Mon, 26 Oct 2026 07:44:40 -0700 (PDT)
 Received: from LeoBrasDK.cambridge.arm.com (LeoBrasDK.cambridge.arm.com [10.2.212.21])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 799A23F7B4;
-	Mon, 26 Oct 2026 07:44:46 -0700 (PDT)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DD66B3F7B4;
+	Mon, 26 Oct 2026 07:44:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793025888; bh=OkxornoEoZZzTD9JkMHL7VjKUUICLPzAPrCszeD7jDM=;
+	t=1793025883; bh=lqK7uGIZ/jkYXTWUZmtWT+d67C2f5jU7aALBqK7r/3M=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=Lvj66Pft/b5dAog1VNhauP81Y+dBkss0Lvw+CzO+pCycppBi5sy4gTTaBlqAGbn8u
-	 3oInMG+TTxS4/aDUJXK+N/RnL8/3ov8j/t2yr5FX+MzGXIcqj56kBmsQPWH5BRfraV
-	 QdwjMZGTefzsx9bywG/PhA++h1lgFKnKfcpTRPmU=
+	b=tc2dGiQfjBvRRqB83xDgLfT7zZBGGXCOJ/y/RYJCTy0uzkUQD6qVBVtFxLC4QFy0P
+	 QMrVMRfz9N6Tu4NyMPmo9maOMAYfFWxIMFkCTSiuBjeLbF1mhFwY1juF6ZmQIItpJq
+	 tEwHexZYWuH2RcdnrBz20PdT3yRc/HTIUBk41W2U=
 From: Leonardo Bras <leo.bras@arm.com>
 To: Oliver Upton <oupton@kernel.org>,
 	Marc Zyngier <maz@kernel.org>,
@@ -59,9 +59,9 @@ To: Oliver Upton <oupton@kernel.org>,
 Cc: linux-arm-kernel@lists.infradead.org,
 	kvmarm@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH v2 3/3] KVM: arm64: Add KVM_REQ_RELOAD_STAGE2
-Date: Mon, 26 Oct 2026 14:44:09 +0000
-Message-ID: <20261026144413.441566-4-leo.bras@arm.com>
+Subject: [RFC PATCH v2 1/3] KVM: arm64: pgtables: Set DBM attribute on writable Stage-2 PTEs
+Date: Mon, 26 Oct 2026 14:44:07 +0000
+Message-ID: <20261026144413.441566-2-leo.bras@arm.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261026144413.441566-1-leo.bras@arm.com>
 References: <20261026144413.441566-1-leo.bras@arm.com>
@@ -74,68 +74,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1971; i=leo.bras@arm.com; h=from:subject; bh=OkxornoEoZZzTD9JkMHL7VjKUUICLPzAPrCszeD7jDM=; b=owGbwMvMwCX2pizjszvTwvWMp9WSGLLup1swN6SWyZ98NceO75vTdPtfvz9p/dwxSSRZdtGCH 2ZfJE8Hd5SyMIhxMciKKbLIPpq/iuf7lIwjV34sgJnDygQyhIGLUwAmIqzOyNBscHTbxGOu4U5b BbJWWE9PfGV07GlN4NvFtb2H7aV8WVIZGY4JyLM7Xr3/RH3p/7cpE/Rz7wvq3Vvn/lptt8C3Hay bXrAAAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3059; i=leo.bras@arm.com; h=from:subject; bh=lqK7uGIZ/jkYXTWUZmtWT+d67C2f5jU7aALBqK7r/3M=; b=owGbwMvMwCX2pizjszvTwvWMp9WSGLLup5u3z2By3Ri9qyTVOL/ze8XX5j+3r3DXf9jx7tzrd S86Vge/7ihlYRDjYpAVU2SRfTR/Fc/3KRlHrvxYADOHlQlkCAMXpwBMxLaWkeHF7OOelhsb3O52 xp20aLMsf1ic4ltp/X76thmVUZ+qODYyMtzMubvoaMYU0d3TzL5kXngj45Lzab/2Ln22Rc5PuM5 ObmUFAA==
 X-Developer-Key: i=leo.bras@arm.com; a=openpgp; fpr=36E6C95AE0F111CC5B6F4D2E688C33F8A0C5B0C5
 Content-Transfer-Encoding: 8bit
 
-Add a vcpu request to exit guest, reload Stage2, and then come back to
-guest.
+As a preparation to the introduction of HAFDBS-based features, set the DBM
+bit (along with S2AP[1]) to all writable PTEs. Also unset DBM and S2AP[1]
+when a PTE is made read-only again.
 
-This will be used on future patches that enable HDBSS, as they may need to
-change VTCR bits for enabling/disabling the feature when the vcpus are
-still running.
+DBM bit works as following:
+- If HAFDBS is disabled, DBM bit is ignored.
+- If HAFDBS is enabled, and DBM bit is set, a write to non-writable page
+  can promote it's PTE to writable (S2AP[1]=1) without taking a fault.
 
-On non-VHE systems, just skip this request as Stage2 is being reloaded
-on every guest entry.
+Since it's being set on writable and unset on read-only, it should cause no
+functional change.
 
 Signed-off-by: Leonardo Bras <leo.bras@arm.com>
 ---
- arch/arm64/include/asm/kvm_host.h |  2 ++
- arch/arm64/kvm/arm.c              | 10 ++++++++++
- 2 files changed, 12 insertions(+)
+ arch/arm64/include/asm/kvm_pgtable.h | 3 +++
+ arch/arm64/kvm/hyp/pgtable.c         | 5 +++--
+ 2 files changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
-index cd9b9d2462f9..86a4d6e50934 100644
---- a/arch/arm64/include/asm/kvm_host.h
-+++ b/arch/arm64/include/asm/kvm_host.h
-@@ -53,10 +53,12 @@
- #define KVM_REQ_RESYNC_PMU_EL0		KVM_ARCH_REQ(7)
- #define KVM_REQ_NESTED_S2_UNMAP		KVM_ARCH_REQ(8)
- #define KVM_REQ_GUEST_HYP_IRQ_PENDING	KVM_ARCH_REQ(9)
- #define KVM_REQ_MAP_L1_VNCR_EL2		KVM_ARCH_REQ(10)
- #define KVM_REQ_VGIC_PROCESS_UPDATE	KVM_ARCH_REQ(11)
-+#define KVM_REQ_RELOAD_STAGE2 \
-+	KVM_ARCH_REQ_FLAGS(12, KVM_REQUEST_WAIT | KVM_REQUEST_NO_WAKEUP)
+diff --git a/arch/arm64/include/asm/kvm_pgtable.h b/arch/arm64/include/asm/kvm_pgtable.h
+index 41a8687938eb..37baa86d6fd8 100644
+--- a/arch/arm64/include/asm/kvm_pgtable.h
++++ b/arch/arm64/include/asm/kvm_pgtable.h
+@@ -91,14 +91,17 @@ typedef u64 kvm_pte_t;
+ #define KVM_PTE_LEAF_ATTR_HI_S1_UXN	BIT(54)
+ #define KVM_PTE_LEAF_ATTR_HI_S1_PXN	BIT(53)
  
- #define KVM_DIRTY_LOG_MANUAL_CAPS   (KVM_DIRTY_LOG_MANUAL_PROTECT_ENABLE | \
- 				     KVM_DIRTY_LOG_INITIALLY_SET)
+ #define KVM_PTE_LEAF_ATTR_HI_S2_XN	GENMASK(54, 53)
  
- #define KVM_HAVE_MMU_RWLOCK
-diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-index 0576c2022ef5..d311637e0b13 100644
---- a/arch/arm64/kvm/arm.c
-+++ b/arch/arm64/kvm/arm.c
-@@ -1173,10 +1173,20 @@ static int check_vcpu_requests(struct kvm_vcpu *vcpu)
- 			return kvm_vcpu_suspend(vcpu);
- 
- 		if (kvm_dirty_ring_check_request(vcpu))
- 			return 0;
- 
-+		/* Non-vhe systems already reload Stage2 on guest entry */
-+		if (kvm_check_request(KVM_REQ_RELOAD_STAGE2, vcpu) &&
-+		    has_vhe()) {
-+			unsigned long flags;
++#define KVM_PTE_LEAF_ATTR_HI_S2_DBM	BIT(51)
 +
-+			local_irq_save(flags);
-+			__load_stage2(vcpu->arch.hw_mmu);
-+			local_irq_restore(flags);
-+		}
-+
- 		check_nested_vcpu_requests(vcpu);
- 	}
+ #define KVM_PTE_LEAF_ATTR_HI_S1_GP	BIT(50)
  
- 	return 1;
+ #define KVM_PTE_LEAF_ATTR_S2_PERMS	(KVM_PTE_LEAF_ATTR_LO_S2_S2AP_R | \
+ 					 KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W | \
++					 KVM_PTE_LEAF_ATTR_HI_S2_DBM | \
+ 					 KVM_PTE_LEAF_ATTR_HI_S2_XN)
+ 
+ /* pKVM invalid pte encodings */
+ #define KVM_INVALID_PTE_TYPE_MASK	GENMASK(63, 60)
+ #define KVM_INVALID_PTE_ANNOT_MASK	~(KVM_PTE_VALID | \
+diff --git a/arch/arm64/kvm/hyp/pgtable.c b/arch/arm64/kvm/hyp/pgtable.c
+index b74dd5ce1efd..8c2320c6a7f1 100644
+--- a/arch/arm64/kvm/hyp/pgtable.c
++++ b/arch/arm64/kvm/hyp/pgtable.c
+@@ -730,11 +730,11 @@ static int stage2_set_prot_attr(struct kvm_pgtable *pgt, enum kvm_pgtable_prot p
+ 
+ 	if (prot & KVM_PGTABLE_PROT_R)
+ 		attr |= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_R;
+ 
+ 	if (prot & KVM_PGTABLE_PROT_W)
+-		attr |= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
++		attr |= KVM_PTE_LEAF_ATTR_HI_S2_DBM | KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
+ 
+ 	if (!kvm_lpa2_is_enabled())
+ 		attr |= FIELD_PREP(KVM_PTE_LEAF_ATTR_LO_S2_SH, sh);
+ 
+ 	attr |= KVM_PTE_LEAF_ATTR_LO_S2_AF;
+@@ -1286,10 +1286,11 @@ static int stage2_update_leaf_attrs(struct kvm_pgtable *pgt, u64 addr,
  }
+ 
+ int kvm_pgtable_stage2_wrprotect(struct kvm_pgtable *pgt, u64 addr, u64 size)
+ {
+ 	return stage2_update_leaf_attrs(pgt, addr, size, 0,
++					KVM_PTE_LEAF_ATTR_HI_S2_DBM |
+ 					KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W,
+ 					NULL, NULL,
+ 					KVM_PGTABLE_WALK_IGNORE_EAGAIN);
+ }
+ 
+@@ -1366,11 +1367,11 @@ int kvm_pgtable_stage2_relax_perms(struct kvm_pgtable *pgt, u64 addr,
+ 
+ 	if (prot & KVM_PGTABLE_PROT_R)
+ 		set |= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_R;
+ 
+ 	if (prot & KVM_PGTABLE_PROT_W)
+-		set |= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
++		set |= KVM_PTE_LEAF_ATTR_HI_S2_DBM | KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
+ 
+ 	if (prot & KVM_PGTABLE_PROT_X) {
+ 		ret = stage2_set_xn_attr(prot, &xn);
+ 		if (ret)
+ 			return ret;
 -- 
 2.56.0
 
