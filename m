@@ -1,99 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792973269;
-	b=MMKcTsJQaipjuDDLND/2qe869zZ5s7QkbyjbHyr3Kcq1Z1tMv+V0QbqJjaZWR4i4sWY2
-	 nyg/s2vn/Y5EONt78sFdPYx4p5Km51f2t6AQrl88B6zRdjE4daBlCJb3wrGkq1CVt8PNT
-	 hyTm21tkLZQNBPcJ8QxLmYw/mHP/MPP269A7KQnYWR2xGSg+wLKDaWU0yn9q96ViUxZi6
-	 3UAAzjwGyXGHGQhk3YVs2LnVB7iMTi0FBfx8aX0zEwxFpupZJE48WH+yNs1caMT/SLMb3
-	 okQfgYxafdLes+gMGKCtCSqz0F74s81Znb7nt5od5pCUyadOK8tOtYwMMLJGEVQEa4Q==
+	t=1792973359;
+	b=SgsXKBJmphy4KfFdGTFgdW4W0avBo7jPB39v7vJ4XZPsyuzQL5QqE4AjkLAA6B8eEZUt
+	 31SzMNSY8G1n+io3ZyHEC7OiX0GQYVkaZvWnkATTIW6CQShdOOltj9Jycw7RsFKZu6aZ7
+	 BlINFRSzxnFxVeSoqonwmrh4FEv5585B32qYMC+EQM4KY3aEuPhuZ3Sx2iDXkgPV473UL
+	 DvzadRpOW5cX8IKBBAi5JgvCbWBe2xAMvONxhQ+UwWe4uQK0UVHuacV+XKgKU3xa1I4Gi
+	 m6qffb3w6DjxCub6Kmh+suUg6UaMv+rPYVKLVgaJS43yehB4ZIdGd32u2czNDx+cwSQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792973269;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792973359;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=VdkT2RHYcWV7GvnLz4TIAWoUXNhRorpoV7gVhnHjlPM=;
-	b=B/EcVxK2X1Pqcd+e/yv2F/WP19R371MTVdESldm/OrgHMwsIKI/vmzu3jH0qXtc38rM5
-	 94IgyIjxvQH+Q9nLS6z8kJbIoWv0iMvM5RbKJ4FndINKYzgTtnc/7uo59ztgdzV8ZBKe6
-	 mqf51UTkJUhbIk6OjeppLpK9glQciPBJdaQCsVASjhu8SCjGp61CyA1lfZMor1y5akCuT
-	 t9aOpOah5znc+gOUEaoz3ICoOWSmm91J7CoEjS7bkyT/qZ0zUANETXNbBnpu9BgKGoCiN
-	 OLS/JLjlRGIw003k2giPNHCJWZdoI7YM6VsZKvr9sE78wjSKPaJXyWvvzKQdbYoe5vA==
+	bh=QMeNs2DEy/MEHGHund85xZ1Yt4veb1UtyYvJc7x2dNo=;
+	b=Myp8sliR//v4y8k7PIwSjLKPDlcoRASpzu/P9ktqRoeWQDJC4gJMDBLEYsuvWnVJqOBl
+	 IhrSHJ4/SIEMvQpTrrOfl3IvBGMfhUwfBYe1ISVXIp0uk1T2/lWUwO53h/prp1+6dTjH+
+	 4/UDXfvBEG57vRBnsQ949wO8Ljnk8VK/TQfTonwVEAIq6UHR28oan/v5sWxcYZ1cM/Vxb
+	 ik6uOznvOpb0pKBmX57Lsj/IgyWQfPP563ouQ5pSICVjLUyrfehUEvVph6QCf4RKtxgeL
+	 DfrlXONUAfs1htWQQiK3ui2Gqpbm84tPi6qlWnB+uJjgZ5dK4RHX8Aq/r7svn7L7TGw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=isslab.korea.ac.kr;
-	spf=none smtp.mailfrom=isslab.korea.ac.kr;
-	dkim=pass header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=lj3sD4Am;
-	arc=none smtp.remote-ip=209.85.216.49
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e55oCv9U;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB6C0606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 00:07:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB6C0606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44862606A31A;
+	Mon, 26 Oct 2026 00:09:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=lj3sD4Am
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3adac5b29ebso1463225a91.2
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 17:07:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792973267; x=1793578067; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VdkT2RHYcWV7GvnLz4TIAWoUXNhRorpoV7gVhnHjlPM=;
-        b=lj3sD4Am/aiIHN7NCAcRfN8n2iip+RovV4pk3Sly44YZsCSGUEBj0DgCgvVeVkFXdQ
-         9TlJQ9zIP1xpPhhThjHi7/fEoyCZRadpXMA1mFN0dhmRKlBS+4Yt6sMuPKdAuYTKmidm
-         wgYwnYUCIvkmHVBO2/TiZnuiRiDbFG4dm4oWEGSBwkyrgtcU7j0RrzOCZblUVFiuZDap
-         KcKh1TNZmjBRoqMHVb+CyrBPd08FR3LSOSHmDKWpeihRtLAhNA+D9/GvJ5NZFCt47jbV
-         p2c18tE05jCBwMtNuFxU8O+gxvcJdUzcIBhe5NRpVL1PFgtC7pzBztio7v/bKGy0ffTm
-         KMJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792973267; x=1793578067;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VdkT2RHYcWV7GvnLz4TIAWoUXNhRorpoV7gVhnHjlPM=;
-        b=UrEMbHeVdl2Vx/sof1kfwg7WzXkpTlcVe7qQLO6sbky8bcT/fo5hXFSd4C8nn3eJoT
-         4GoQRDuSgdm906rDmy3Oq79WpZ53YS5QXQNrzT33KEaVnSYE2YWF9yMts85fXP0ZMNkl
-         p46R9FMrec/fizoDXQtSZvCNuWxi7+PiP4c4SeQc/lwQSxLQCmKt+vJdqxfOY51p+ez7
-         WG5ry3oyUpO2M107uhntz4Vr1+me89SkkGv21Sk+W33GJotoziYn+OmKs2yowDU/Nq7K
-         PwnVVcDV25loDfcy4tc42qnWEDHI/zqU7RUfvpPupxMG1+NQJpld6PIbwLAj2ya9xXY7
-         dmTQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzhFrFCGzbZQ1CK1M+TtF3hljaE1gBkCk7LCwm7e6Am1NFTyTYkYwzt+QPoqf/ac9ucKXRacxdEEmVe//U=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIkZZZUCy8NHiFWivFAdb4JwGcce63envP+pe3n6ztVUUmku1+t
-	D0YS8Efr87r/jSDQZ46I98tm1sB4Jx7iGgXnP4xEGtzzkPdsL3sZny7duycDBxhO6PjbGLducqf
-	rEY/8
-X-Gm-Gg: AYBFou3EDqYzT0M3RsF6Q8hCEGF8GKVyF4RZ5DHMTOjQbbJ4sqm2NQCAuD48mypD8ln
-	d7ncf9R2o5HRAKz5/++1K+aMeblghkIcVYFokElgNT0lreztTzb2EtTELelLvBVim3RIo0Q01kH
-	hyDTPna7NMQIhZfEKDZR1pbNHxF4bzdtyU6OxFB5tDj1UyCb8/hK5vgIAJxwCobHs2uQfUsZCnW
-	dJBXrB9oRgY5uFyjWGLJcvTXFZAyS8GGnnwtwnzv6yUp3Rp/AaaKnByizy8mM6GQCYn6VGe2BUq
-	QLPNOAbz0fda8nF8CCJKFh73ujPB68ycNyaX3KZBWn7T8Et1AbZqI23DqHSv0vPpN0sz6rh71Tg
-	XtJbMFsJnHCCozy14a70DWIn+chnXBmXL02FebsZVML8yp1n5cVkow0d0JXp1opwgVCUR7RWPgr
-	23LTxxnylap7L79Kf+BOqNc4Xg0xR+gORJeJF6nI58+gbpT+S9LDfnhU/E3METtX7BgJYzfmEHG
-	IVXnBbbx796WWwbuS2fUTbQ4CDE6R+C8q4CZrQOtwGfs/pMCU2sF6aC86wagcvku7ngOk88VEyQ
-	qHanZBYUIVaLqNql2WtQyZ4vA3hJEuIDedwymfLAUZO9DQPTYgwMVWecbi3aFd0FsYEFWg==
-X-Received: by 2002:a17:90a:e7ca:b0:3a8:59d3:5317 with SMTP id 98e67ed59e1d1-3adeaf98405mr4816886a91.32.1792973266605;
-        Sun, 25 Oct 2026 17:07:46 -0700 (PDT)
-Received: from yhlee-960QFG.. ([125.131.91.97])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adeb819729sm5942331a91.0.2026.10.25.17.07.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 17:07:46 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: Sagi Grimberg <sagi@grimberg.me>,
-	Max Gurtovoy <mgurtovoy@nvidia.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Leon Romanovsky <leon@kernel.org>
-Cc: "Martin K . Petersen" <martin.petersen@oracle.com>,
-	Mike Christie <michael.christie@oracle.com>,
-	linux-rdma@vger.kernel.org,
-	target-devel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
-	stable@vger.kernel.org
-Subject: [PATCH] IB/isert: set ISER_CONN_DOWN only after the connection has been released
-Date: Mon, 26 Oct 2026 09:07:33 +0900
-Message-ID: <20261026000733.4178856-1-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e55oCv9U
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E61871F01825;
+	Mon, 26 Oct 2026 00:09:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792973358;
+	bh=QMeNs2DEy/MEHGHund85xZ1Yt4veb1UtyYvJc7x2dNo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=e55oCv9UC4XXxE7QpYtamcSCdTrgRR384vDO6/z+HZ6I739gZbI0X2J/PlE5+TIS3
+	 pCKAOD2U6xYDkwfAmD672wi0l4m9QLUtEm+P2hB23fdJqawdpLxjRDN7KONUVzQo31
+	 9G6EoGYbBTl38Xo2RJDvU4fXB5tjUqkEIg4UAH2ez7VPfYlA9ANBMZnUnNf+syCr7n
+	 j4eNPmYqKxCS4v8a/S0mO2P/OJIhOHgrcSBP4MWEPiBk1aI2si8mTTcmxIuOLr9PN+
+	 cPJUAVMcUSun0teRNyZ5jGSdDrVumZ8Cx6s6gwGGwR6d+4dM06yT+HsOuRrXZ7cscn
+	 YZ53P09omZuHQ==
+Date: Mon, 26 Oct 2026 00:09:10 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org>
+Cc: radu.sabau@analog.com, Lars-Peter Clausen <lars@metafoo.de>, Michael
+ Hennerich <Michael.Hennerich@analog.com>, Nuno Sa <nuno.sa@analog.com>,
+ David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
+ Alexandru Ardelean <alexandru.ardelean@analog.com>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux@analog.com
+Subject: Re: [PATCH v4 6/8] iio: imu: adis16607: Add FIFO-based
+ buffered/triggered capture
+Message-ID: <20261026000910.328f6cd8@jic23-hlaptop>
+In-Reply-To: <20261023-adis16607-v4-6-a4d541ebfd13@analog.com>
+References: <20261023-adis16607-v4-0-a4d541ebfd13@analog.com>
+	<20261023-adis16607-v4-6-a4d541ebfd13@analog.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,179 +66,142 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Removing an RDMA device (rdma link delete, module unload, hot-unplug -
-a local administrative action) while an iSER connection is in
-ISER_CONN_UP, i.e. the CM handshake has completed but iscsi has not
-yet accepted it through isert_accept_np(), lets the
-RDMA_CM_EVENT_DEVICE_REMOVAL handler free the isert_conn while
-isert_connect_release() is still tearing it down.  A remote initiator
-alone cannot trigger this; it can only supply the ISER_CONN_UP
-connections that the local device removal then races against.
+On Fri, 23 Oct 2026 12:30:23 +0300
+Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org> wrote:
 
-isert_cma_handler() waits for the connection to reach ISER_CONN_DOWN and
-then frees it:
+> From: Radu Sabau <radu.sabau@analog.com>
+> 
+> Add buffered capture via the device's hardware FIFO - the only
+> capture mode this driver supports. Popping the FIFO uses a dedicated
+> command and payload format (FIFO_DATA_CMD, 52 bytes, no checksum),
+> handled directly rather than through adislib's generic burst-read
+> helpers, which assume one fixed-shape read per trigger rather than a
+> variable-count drain loop.
+> 
+> The watermark-met condition is signaled via DEV_NOK on the device's
+> one interrupt pin, which stays asserted (level-triggered) until
+> DIAG_STAT is read and cleared - matching adislib's has_fifo contract.
+> DEV_NOK fires on any DIAG_STAT flag, not just FIFO_THRESH_MET, so the
+> trigger handler checks that specific bit before popping anything.
+> DR_GPIO_MASK stays enabled unconditionally: DR pulses drive the FIFO
+> controller's internal sample enqueue, independent of pin routing.
+> 
+> Watermark is configurable via the standard hwfifo_set_watermark
+> callback and the usual hwfifo_* sysfs attributes.
+> 
+> Signed-off-by: Radu Sabau <radu.sabau@analog.com>
+> ---
+>  drivers/iio/imu/adis16607.c | 349 +++++++++++++++++++++++++++++++++++++++++++-
+>  1 file changed, 346 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/iio/imu/adis16607.c b/drivers/iio/imu/adis16607.c
+> index 2dda306d7b54..b1f3667d8ce3 100644
+> --- a/drivers/iio/imu/adis16607.c
+> +++ b/drivers/iio/imu/adis16607.c
 
-	wait_event_interruptible(isert_conn->rem_wait,
-				 isert_conn->state == ISER_CONN_DOWN);
-	kfree(isert_conn);
+>  /* Self-test registers and masks */
+>  #define ADIS16607_REG_SELF_TEST_DATA(x)	((x) + 0x23)
+>  #define ADIS16607_SNSR_SELF_TEST_MASK	BIT(6)
+> @@ -86,6 +110,11 @@ struct adis16607 {
+>  	const struct adis16607_chip_info *info;
+>  	unsigned long clk_freq_mhz;
+>  	u64 sample_period_ns;
+> +	u16 fifo_watermark;
+> +	/* Scratch buffer used for FIFO pop operations, see adis16607_fifo_pop() */
+> +	u8 fifo_buf[ADIS16607_BURST_CMD_SIZE + ADIS16607_FIFO_DATA_LEN] __aligned(IIO_DMA_MINALIGN);
+> +	/* IIO buffer for reordered data - sized for max channels */
 
-but isert_release_work() published ISER_CONN_DOWN before dropping the
-last reference, so the condition becomes true at the start of the
-teardown instead of at its end.  The wake-up at the end of
-isert_connect_release() is in the right place; the condition was not.
-The handler could return and free isert_conn while
-isert_connect_release() was still dereferencing it.
+That rather implies you never DMA into it.  If so just move it before
+the fifo_buf and no need to mark it IIO_DMA_MINALIGN.
+I'd also prefer that 64 was sized by maths, not a comment saying
+it is big enough. That may include use of IIO_DECLARE_BUFFER_WITH_TS()
+to ensure the timestamp spacing is there.
 
-That ordering requirement is not incidental.  Sagi Grimberg spelled it
-out when this handling was introduced (2014-10-28,
-<544FC5B2.70104@dev.mellanox.co.il>): "cma_remove_one sequence ...
-requires the cmd is owner to finish cleanup before the end of the
-callback because in the end of it, it will allow the device to remove."
 
-Publish ISER_CONN_DOWN from isert_connect_release() instead, immediately
-before the wake-up, so the condition and the signal refer to the same
-point.  It has exactly one store and one load in the tree, so nothing
-else is affected.  The store no longer takes isert_conn->mutex: the last
-reference has been dropped, the only legitimate accessor left is the
-rem_wait waiter, and wake_up_interruptible() provides the ordering.
-isert_conn->state is already accessed without that mutex in
-isert_accept_np() and in the wait condition itself.
+> +	u8 data[64] __aligned(IIO_DMA_MINALIGN);
+>  };
 
-One visible side effect: the connection now stays in
-ISER_CONN_TERMINATING until isert_connect_release() runs, so a second CM
-event in that window takes the ISER_CONN_TERMINATING case instead of
-default:, and the "conn %p terminating in state %d" warning is no longer
-logged.
+> +/*
+> + * Process a single FIFO sample and push to IIO buffer.
+> + * FIFO data format differs from regular burst - no DIAG_STAT, data starts immediately.
+> + *
+> + * FIFO data layout (52 bytes):
+> + *   Offset 0-3:   ACCEL_X (32-bit)
+> + *   Offset 4-7:   ACCEL_Y (32-bit)
+> + *   Offset 8-11:  ACCEL_Z (32-bit)
+> + *   Offset 12-15: GYRO_X (32-bit)
+> + *   Offset 16-19: GYRO_Y (32-bit)
+> + *   Offset 20-23: GYRO_Z (32-bit)
+> + *   Offset 24-27: DELTVEL_X (32-bit)
+> + *   Offset 28-31: DELTVEL_Y (32-bit)
+> + *   Offset 32-35: DELTVEL_Z (32-bit)
+> + *   Offset 36-39: DELTANG_X (32-bit)
+> + *   Offset 40-43: DELTANG_Y (32-bit)
+> + *   Offset 44-47: DELTANG_Z (32-bit)
+> + *   Offset 48-49: TEMP (16-bit)
+> + *   Offset 50-51: DATA_CNTR (16-bit)
+> + */
+> +static void adis16607_fifo_push_sample(struct iio_dev *indio_dev,
+> +				       u8 *fifo_data, s64 timestamp)
+> +{
+> +	struct adis16607 *st = iio_priv(indio_dev);
+> +	u16 msw, lsw;
+> +	s32 val24;
+> +	int bit, offset = 0;
+> +
+> +	memset(st->data, 0, sizeof(st->data));
+> +
+> +	for_each_set_bit(bit, indio_dev->active_scan_mask, indio_dev->masklength) {
+iio_for_each_active_channel()
 
-Reproduced with soft-RoCE (rdma_rxe) under KASAN, preempt=full, an
-initiator opening 32 CM-only connections (no login PDU) concurrently, so
-that they queue up in ISER_CONN_UP, followed by "rdma link delete".  The
-window is sub-microsecond, so the rate is low.  The splat below
-reproduces on an unmodified kernel and does not with this patch applied
-(36 of 60 runs unpatched, 0 of 60 patched).
+As sashiko notes, masklength is private.
 
-  BUG: KASAN: slab-use-after-free in isert_connect_release+0x5cb/0x620
-  Read of size 4 at addr ffff88810ca1d158 by task kworker/u16:1/43
+There are a load of places we need to update to stop accessing these
+directly but please don't add another one.
 
-  CPU: 0 UID: 0 PID: 43 Comm: kworker/u16:1 Not tainted 7.3.0-CTL2-13247-g330517c63aa9 #1 PREEMPT(full)
-  Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-  Workqueue: isert_release_wq isert_release_work
-  Call Trace:
-   <TASK>
-   dump_stack_lvl+0x53/0x70
-   print_report+0xd0/0x630
-   ? __pfx__raw_spin_lock_irqsave+0x10/0x10
-   ? kfree+0x121/0x390
-   ? isert_connect_release+0x5cb/0x620
-   kasan_report+0xce/0x100
-   ? isert_connect_release+0x5cb/0x620
-   isert_connect_release+0x5cb/0x620
-   process_one_work+0x697/0x1060
-   ? __pfx___schedule+0x10/0x10
-   ? __pfx_process_one_work+0x10/0x10
-   ? _raw_spin_lock_irq+0x81/0xe0
-   ? __pfx_isert_release_work+0x10/0x10
-   ? assign_work+0x11d/0x370
-   worker_thread+0x45b/0xd10
-   ? __pfx_worker_thread+0x10/0x10
-   kthread+0x2c8/0x3b0
-   ? recalc_sigpending+0x15c/0x1e0
-   ? __pfx_kthread+0x10/0x10
-   ret_from_fork+0x36e/0x5a0
-   ? __pfx_ret_from_fork+0x10/0x10
-   ? __switch_to+0x572/0xdc0
-   ? __pfx_kthread+0x10/0x10
-   ret_from_fork_asm+0x1a/0x30
-   </TASK>
+It's on my list to throw some LLM tokens ago once I get out from
+under review backlog.
 
-  Allocated by task 24:
-   kasan_save_stack+0x33/0x60
-   kasan_save_track+0x14/0x30
-   __kasan_kmalloc+0x8f/0xa0
-   __kmalloc_cache_noprof+0x148/0x360
-   isert_cma_handler+0x1e3/0x2840
-   cma_cm_event_handler+0x3e/0x240
-   cma_ib_req_handler+0x17d9/0x4480
-   cm_process_work+0x41/0x330
-   cm_work_handler+0x5727/0xc160
-   process_one_work+0x697/0x1060
-   worker_thread+0x45b/0xd10
-   kthread+0x2c8/0x3b0
-   ret_from_fork+0x36e/0x5a0
-   ret_from_fork_asm+0x1a/0x30
+https://sashiko.dev/#/patchset/20261023-adis16607-v4-0-a4d541ebfd13%40analog.com
+Check everything else reported.
 
-  Freed by task 218:
-   kasan_save_stack+0x33/0x60
-   kasan_save_track+0x14/0x30
-   kasan_save_free_info+0x3b/0x60
-   __kasan_slab_free+0x43/0x70
-   kfree+0x121/0x390
-   isert_cma_handler+0x10ff/0x2840
-   cma_cm_event_handler+0x3e/0x240
-   cma_process_remove+0xff/0x5a0
-   cma_remove_one+0xcc/0x250
-   remove_client_context+0xa4/0xf0
-   disable_device+0x128/0x240
-   __ib_unregister_device+0x226/0x3f0
-   ib_unregister_device_and_put+0x50/0x70
-   nldev_dellink+0x28e/0x3d0
-   rdma_nl_rcv_msg+0x29c/0x4e0
-   rdma_nl_rcv_skb.constprop.0.isra.0+0x21d/0x370
-   netlink_unicast+0x68f/0x940
-   netlink_sendmsg+0x810/0xf20
-   __sys_sendto+0x337/0x390
-   __x64_sys_sendto+0xdb/0x1b0
-   do_syscall_64+0xdd/0x4a0
-   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+FWIW there are also some nasty race conditions around active_scan_mask
+being available when the buffer is being torn down. You might
+want to close those off by claiming buffered mode to prevent
+such a transition.
 
-Not fixed here: a connection still in ISER_CONN_INIT when the device is
-removed is never cleaned up - isert_disconnected_handler() only warns -
-so nothing makes the wait condition true and the removal blocks.  That
-pre-existing case is why the wait is left interruptible rather than
-converted to wait_event().
+> +		u8 burst_off;
+> +
+> +		/* Skip the soft timestamp channel - it has no burst offset */
+> +		if (bit >= ARRAY_SIZE(adis16607_burst_offsets))
+> +			continue;
+> +
+> +		burst_off = adis16607_burst_offsets[bit];
+> +
+> +		if (bit == ADIS16607_SCAN_TEMP) {
+> +			/* TEMP is 16-bit */
+> +			put_unaligned_be16(get_unaligned_be16(&fifo_data[burst_off]),
+> +					   &st->data[offset]);
+> +			offset += 2;
+> +		} else {
+> +			/* All other channels are 24-bit stored as 32-bit */
+> +			msw = get_unaligned_be16(&fifo_data[burst_off]);
+> +			lsw = get_unaligned_be16(&fifo_data[burst_off + 2]);
+> +			val24 = sign_extend32(((u32)msw << 8) | (lsw >> 8), 23);
+> +			put_unaligned_be32(val24, &st->data[offset]);
+> +			offset += 4;
+> +		}
+> +	}
+> +
+> +	iio_push_to_buffers_with_timestamp(indio_dev, st->data, timestamp);
+Use iio_push_to_buffers_with_ts() as for once in an ADIS driver we actually
+have the size of data.  Note that fixing the whole adis library is something
+that needs doing though I took a look at it on Friday and decided to leave
+it for now!
 
-Fixes: 63b268d232b8 ("IB/isert: Properly release resources on DEVICE_REMOVAL")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
----
- drivers/infiniband/ulp/isert/ib_isert.c | 16 ++++++++++------
- 1 file changed, 10 insertions(+), 6 deletions(-)
+Jonathan
 
-diff --git a/drivers/infiniband/ulp/isert/ib_isert.c b/drivers/infiniband/ulp/isert/ib_isert.c
-index efa8d7b7844c9..cd0ca3cf131cb 100644
---- a/drivers/infiniband/ulp/isert/ib_isert.c
-+++ b/drivers/infiniband/ulp/isert/ib_isert.c
-@@ -506,10 +506,18 @@ isert_connect_release(struct isert_conn *isert_conn)
- 
- 	isert_device_put(device);
- 
--	if (isert_conn->dev_removed)
-+	if (isert_conn->dev_removed) {
-+		/*
-+		 * Publish ISER_CONN_DOWN only now.  The
-+		 * RDMA_CM_EVENT_DEVICE_REMOVAL handler waits for it and then
-+		 * frees isert_conn, so it must not become visible before the
-+		 * teardown above has finished using the connection.
-+		 */
-+		isert_conn->state = ISER_CONN_DOWN;
- 		wake_up_interruptible(&isert_conn->rem_wait);
--	else
-+	} else {
- 		kfree(isert_conn);
-+	}
- }
- 
- static void
-@@ -2537,10 +2545,6 @@ static void isert_release_work(struct work_struct *work)
- 
- 	isert_info("Starting release conn %p\n", isert_conn);
- 
--	mutex_lock(&isert_conn->mutex);
--	isert_conn->state = ISER_CONN_DOWN;
--	mutex_unlock(&isert_conn->mutex);
--
- 	isert_info("Destroying conn %p\n", isert_conn);
- 	isert_put_conn(isert_conn);
- }
+> +}
