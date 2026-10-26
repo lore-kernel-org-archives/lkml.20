@@ -1,88 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793033998;
-	b=pUYoHEpEcRxIw5vmpy2EW9M180L+uRLnPqdJZ/1N8vtfJEKhe6oFyPDOtYzFv29gF7H2
-	 iwXTIB+uvcGbNmz7i2FbQh90y3qwyDdQioA24euR1eE9tJ4RdQuHEbrWinohRrC3s5VYz
-	 wRju8XJrI6Wi7iYQ0rn0U/9ifYFbXF6uIaysVpgH2iCFhAEpHQrps9+vyqtayE3AmLNtV
-	 FJfz4J1tLe5W1Oyp5VjKV02y0/YHycifE+Ot18s9Is6PU9IcOLdy8tSou4ll+5XQlRq/Q
-	 bptSuLowEbEnQj76PqW7tHwNmVwBmKLR4bSwa0FH8Kj8YX1RBBqP6F8PkDwo4OOGXfA==
+	t=1793034068;
+	b=qhbUkNcHZNhCul/AperMATGUhEQYoJHhMz4gx39ViY/wwHiM7tAz/HDqLkYgVAkYbtMl
+	 ki8s/u/bqlQO3xS2BVygOjLAVgoZxnDhCeUp5MI4v3K57kAkuokHp43xtcavicoAJlfOG
+	 NGPcF5dDT6uLGdLURZYiTG47j3M0YQEHTO69jV7egbrB+8iwzvVZEhxYD5+XXZzx39moG
+	 PS22KQqE1PscHmmnTiIanaV65dwsGSfIdiZ8c6biJuRQvZBOI99kG5+peKo1OenGuOrRt
+	 EWaocLeKXuD+ARnVvjeL0l7gNHhoOJ0dHCMSqCCiBAybFzy5NO0bPHy7zOFByfhCHyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793033998;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793034068;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=tz9jpCHJuuihYoFsJHjUWPfDZzHDI+xFwdCkQ387VRI=;
-	b=f7eL3uQZLMkLpFN1SRhXxSJcdzF8HPxXxKmnPj5zPHJU8n8wbL4fL0kfGpjozuRs4uFv
-	 Jj+Y/Yj0hOJEQBf8/YE8/6a/nPTkYEEqnbeh5CS+WjPM+KKcA4EtqLc20W/PXUtcAGmS6
-	 peHZsgKWENw/PeUklARDNFVYAhgrEGwlmH+Aff2fD2xuORPiiXZt80Fsx+knmlYHz32Lz
-	 ukQpAM9VwF3YuIcisACQKXUIpZhBDi5U7T/gAIDlexORn4QEr0TawG6yJIwSyz8SCpIXx
-	 Fkr6tsr10s1lUaJ3m361HiO/yrRqSW1ybAAYvJRUe3eH8iZ3vwDozQrsqyFqy9gsfOg==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:User-Agent;
+	bh=5Ydy4SrZ5ujWtkPCvnsBn7qPeS/tADlr85tTPO/ygQE=;
+	b=PZbnOo5dxogt69KP4QeRnR1wcif9fwDItgf8lCvAaclgfMPkOsyEivMk/hiTeRqAgCkP
+	 nXTybPzAtwSvP4iP4fKGV7xkxv/AbbiAhfKMyO2zDgCNLEDliNJRdrXc6HEdff4Ffbyvs
+	 5npMiraA/dmGvXA6d/MF3i6knBmmfIN1V9qs8Z6PJa1ElzevlMub9QX0/GSN7HfNSm0OE
+	 nxvKpdWCy5ESOukx144HgABVj7LMlyo6q+ZNJ+TTxaFUa+zAWnFmlKloafgofiUdffxHn
+	 I+lCzIkBgZG4GsQst6cL1fzfmR4TuXdU3VbShfltmJzZkT1IiJ04DVtqHcDhypaOjkQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qafq3Lke;
-	arc=none smtp.remote-ip=209.85.216.42
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	dmarc=pass header.from=chrisdown.name;
+	spf=pass smtp.mailfrom=chrisdown.name;
+	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=A2DuRq+o;
+	arc=none smtp.remote-ip=209.85.210.170
+Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A65D3606A31E
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 16:59:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A65D3606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7AB4606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 17:01:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7AB4606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qafq3Lke
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3ac451e128cso2361374a91.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:59:57 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=A2DuRq+o
+Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-8a06ca6e8f4so2271945b3a.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:01:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793033997; x=1793638797; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tz9jpCHJuuihYoFsJHjUWPfDZzHDI+xFwdCkQ387VRI=;
-        b=qafq3LkeHnyOINw5rQ2/rqLBP154JO0BfwUIFdzu5xROQ2AcHWKQufHGzhn4ZmdL7N
-         RjdIy1SFQtZbkION6WPUWq/U53tz0aRowVFSicvPvybpJxXi7jZTQqZwUdEsATmiVEF3
-         +E0fjpT559dz2DS4dyFzzEf4WoYiX83WyVeRG62vb7pp19f4tIUUVoXGHmGhP7iRW49u
-         YDfWxkhY5CDdcHlz6ErF8yWMJMI/61yBr3n/+Y7AhabO87SsSBvduKenAVUr4WJmzylk
-         XwF3Zpd0TJeK7yA/AO3ac/6vIY02SPkiBqhZJlOLub6HvmAzIiY0Ydx9TiKh89Ee1oL6
-         KZIQ==
+        d=chrisdown.name; s=google; t=1793034067; x=1793638867; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=5Ydy4SrZ5ujWtkPCvnsBn7qPeS/tADlr85tTPO/ygQE=;
+        b=A2DuRq+ouNiZhDxs72yVkhAlv9jb4uTMtBCF77mn1/O2pHImsYX4ijhR4NBvk7wDGe
+         pl2/1qRW7A22RsVvUOvuJeQoS3I7jcDSvu25r12mNwk3TDyXZl028AePohHMGizBOQ5N
+         r5X0S6hIH0CTyV1mMtaMsNJssX+2a+PxVLb8E=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793033997; x=1793638797;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tz9jpCHJuuihYoFsJHjUWPfDZzHDI+xFwdCkQ387VRI=;
-        b=CQB9kbjGCArpBHX7j4PNKXh8QEVKCTtfqlIXyd29tUeXo7X0Af5j98ONYNmag4LB26
-         uRtC+u3ZPw5MqlCegSOYC7Mx92HQR0FVdy/phCcp9eYmFtIejbHgAGXRgXqPriItkwJt
-         JTiN7ZbUHULR380V/BO5vP7e2e+qssUQ2qNWFXXAu8WYFwlaBk2r510HQ21Dvz1zGywN
-         FGtAW585yOOdTS3/lGAlTqYG5kR3FHetXwl4hCzhputCzkJ//D3bAte+U7lqAC0nxZqK
-         /EVKngHAh+izwgT6iow4UfeuVYsf4S6oy6a8GEacV7cIsqZWlup8w9/nMAh3RAXUs1zT
-         zAeQ==
-X-Forwarded-Encrypted: i=1; AKwUvByUM8JN6tjrr9GbheF3gfHr4kcufAJmmuHFbEu9A09gF2dQ+hmwoz58nJ5aN3MZ1zHwCV1JtOLPtC8wTvI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJRh3zqky0PU6t2abXIuO2BAgOpQLA9sg9Lu179AHHibRW/lOrU
-	nZB3DSw37Q4okN/hymF6E1YYRhZP311nyAXTOgF39O0r7Th08MtHQKlB
-X-Gm-Gg: AYBFou2I/lY5zjYY0z/m+q6Upj33wTmqlk3uEJ4soVYkltTlxG6wBoN0Z11UQ34+QNH
-	SzfBGByABIS47+qhIP1wr/Oh/UbVTRfP8u+aTgFozwR/VYHFT3cPt9imRMZy7vewV4XKYEex9UK
-	AlpHh+yiIPFV3QGeBERgVfG9G2w8VzF62Hu7ogl66NLJRwE8gdM+6qRlgLBiSmB8K6FTiZMzV84
-	AmNcr1ysyk1292e/VNffJiOZWEOrCNBKhl42jdJKYfolpHTOktN6QxO/K2wEsfs2bRHdEatSNlO
-	jSqbK4KRN3lnUs/SzPVFw4NQhOkW/1FQrzXE++RHEsB2wohqRb4jj5BWaB7Aqes1kgMhwepjUAw
-	ra3eQzBa1vNWR03ZD+S5MbFDSecSpaox5eqbwFDm1Nd+4AOR0EY6hfXOl4xwpIHHRC8j//b+USV
-	W/tpxHY7CPN6WzWVVPupzKeL7uUW+Z8mZPyQGfLXCJ6r0LJJXI1Mabr8xoR6vycLlW8CTk+01Ol
-	RbUAGg/H7TaHyv3El0lNyqY7OQWkrgSHRdo2cBzn9RnI+mgJiVg5sLD4N1F75RihO7s8TzMFMWF
-	PZChFK0=
-X-Received: by 2002:a17:90b:3ec2:b0:3a8:1a1a:7895 with SMTP id 98e67ed59e1d1-3adeae6d30bmr5210154a91.18.1793033996922;
-        Mon, 26 Oct 2026 09:59:56 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae4066aec8sm173335a91.15.2026.10.26.09.59.55
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 26 Oct 2026 09:59:56 -0700 (PDT)
-Message-ID: <17e72e8e-42ba-4d81-9249-e02ecb1ef695@gmail.com>
-Date: Mon, 26 Oct 2026 09:59:54 -0700
+        d=1e100.net; s=20260707; t=1793034067; x=1793638867;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5Ydy4SrZ5ujWtkPCvnsBn7qPeS/tADlr85tTPO/ygQE=;
+        b=wDJZDkajHhhqB6pfFBdixRzrHG2CmySUA082bY8CvawCcRj5U4y1SjE5PS3LV2uK8y
+         IUaMn7vPyNKcnZyVxuOIqiZ0E0Okhz1u7Big/D+MYOC/Fv5j/2o3pv5ZSLpDKOkx5pM+
+         m9TpgvThgFoS9bWe+4CtOWMmwkPBIPLeJ/BCCI3vPyez17zqnEwZ3OK04f4zGqPgzgOt
+         u9QRJXDj7nX9X250riOspOwn8ictEecdskmq8LNYOW35HMjXyrhJ4+co07JL8v0CKgI1
+         6z0b5V6/UYjIZ4nK4JiNZ/j0PWcAGZgf4jk618gVCDYHdbDH31GL1BjT8SUz32Gc9Vca
+         kSUQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwkGODQSu+oh8IuTyvALNy8/NNLLizIjQ/qmkdbDAupP8FF3bbp+WvC+qgsXWhk+aPyIN2tXlvXb4F36aw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL3lyTtZWCAGiXwlOiErgwfGZgWPVFjytcgXkKrzzplnWDXqmCA
+	6it3T9SH3mVDi8oPS7NVlqFU+jaf0MEZiLBuEdk61hYXHWSpEqQgln0oqMXfejXZ66g=
+X-Gm-Gg: AYBFou2Qq1++3wRp9R/1WoiJwxwVhP78D9d/+jCO9yvrj7y0myLEzwFPTYs3GBH118j
+	2Cb3G/Yd4j1/Ahuqrex3MhiYakaZz+5QQceIVDqekusM2xW+CTOxrzxmrJ3sX/jDAwKir9ZBWkb
+	Ryxdp3/d6aqXS3A7D1iAJfzM+bgtQSnAErdGR68Mr6iwPBdrkZ3cQ8oSdpsN6EMQsb3II+zVqWy
+	rMgBvFtvwPMxtFAHNSJBoTMd8GcMHEKdo9djO0BRk1Ltks2TihjoZGSqbhlPtxEQv5yB9/chWYp
+	p6MCW37JEnlwTBU/S1KnOaq4lU/mgwfLZ5wPDWbtih7kcvVZvJYn3HaK4Q4Bf0urm89B7iLkJLj
+	4FOTVfaa+toegbpVDGRmAQWiEpAlaWgJ97hqIKMPE50DWDsW8KsjJkDOu0UQBGUsR1In/4bBP26
+	1m7cVNASm4DYIOa/Z36ARTiAVR0lpIYNFNUxxcA4U9KJkTgfwX9kb+LG9gaUTJVq8GbsYWE6HhZ
+	eIebzSm15kRA9m34Vt4OeDDfHRbXNIYUYoZ9NTlsE1JndYqDtgi/IAXo8eSNHx/P3UBLzJ0Nqwk
+	Yuv6VKGBaJRK6WbYyYh+9K9gv9FROyMnG+2ZWOghtjg98pcbUrcBxQfP95tFMXueQq40200fmtg
+	shzUmgExji6Awhm4a8QErdPc=
+X-Received: by 2002:a05:6a00:a21b:b0:89e:259c:cd77 with SMTP id d2e1a72fcca58-8a368d87aedmr6495038b3a.57.1793034065729;
+        Mon, 26 Oct 2026 10:01:05 -0700 (PDT)
+Received: from localhost ([116.86.153.182])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a36c4e8616sm1699563b3a.56.2026.10.26.10.01.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 10:01:05 -0700 (PDT)
+Date: Tue, 27 Oct 2026 01:01:01 +0800
+From: Chris Down <chris@chrisdown.name>
+To: Petr Mladek <pmladek@suse.com>
+Cc: John Ogness <john.ogness@linutronix.de>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] MAINTAINERS: Add new "printk" mailing list for PRINTK,
+ PRINTK INDEXING, and VSPRINTF
+Message-ID: <at-HTeibj08ZG4YL@chrisdown.name>
+References: <20261026160128.12581-1-pmladek@suse.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,45 +100,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.2 000/231] 7.2.13-rc3 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20261025125805.309934791@linuxfoundation.org>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <f.fainelli@gmail.com>
-In-Reply-To: <20261025125805.309934791@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <20261026160128.12581-1-pmladek@suse.com>
+User-Agent: Mutt/2.3.3 (9073d26d) (2026-06-12)
 
-On 10/25/26 05:58, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.2.13 release.
-> There are 231 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Tue, 27 Oct 2026 12:57:40 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.13-rc3.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+Petr Mladek writes:
+>Reference the new "printk@lists.linux.dev" mailing list for PRINTK,
+>PRINTK INDEXING, and VSPRINTF subsystems.
+>
+>Signed-off-by: Petr Mladek <pmladek@suse.com>
 
-On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
-BMIPS_GENERIC:
+Huzzah!
 
-Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
--- 
-Florian
+Acked-by: Chris Down <chris@chrisdown.name>
+
+>---
+> MAINTAINERS | 3 +++
+> 1 file changed, 3 insertions(+)
+>
+>diff --git a/MAINTAINERS b/MAINTAINERS
+>index 1e3f9f2751fe..bf0a12274e68 100644
+>--- a/MAINTAINERS
+>+++ b/MAINTAINERS
+>@@ -22211,6 +22211,7 @@ M:	Petr Mladek <pmladek@suse.com>
+> M:	John Ogness <john.ogness@linutronix.de>
+> R:	Steven Rostedt <rostedt@goodmis.org>
+> R:	Sergey Senozhatsky <senozhatsky@chromium.org>
+>+L:	printk@lists.linux.dev
+> S:	Maintained
+> T:	git git://git.kernel.org/pub/scm/linux/kernel/git/printk/linux.git
+> F:	Documentation/core-api/printk-basics.rst
+>@@ -22219,6 +22220,7 @@ F:	kernel/printk/
+>
+> PRINTK INDEXING
+> R:	Chris Down <chris@chrisdown.name>
+>+L:	printk@lists.linux.dev
+> S:	Maintained
+> F:	Documentation/core-api/printk-index.rst
+> F:	kernel/printk/index.c
+>@@ -29851,6 +29853,7 @@ M:	Steven Rostedt <rostedt@goodmis.org>
+> R:	Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> R:	Rasmus Villemoes <linux@rasmusvillemoes.dk>
+> R:	Sergey Senozhatsky <senozhatsky@chromium.org>
+>+L:	printk@lists.linux.dev
+> S:	Maintained
+> T:	git git://git.kernel.org/pub/scm/linux/kernel/git/printk/linux.git
+> F:	Documentation/core-api/printk-formats.rst
+>-- 
+>2.56.0
+>
