@@ -1,104 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.23
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793021184;
-	b=0BPRGY/iAPN0ov/kMZmdzAljkO9nplr9wF4xuLMhMQZTjUjAozOp7z7X48VD5nUs408B
-	 HRtwDmsz4OgvkWucZEt/h8RHZHzfm5/xq+FNk1P9Q63SrDbsVWVDPmAJgco2JMGAEhc0H
-	 4eryvRkyy+dH5MuP/WwXOsnkuenyuqH6cgVelkjJG7eJa3NlA90IXobcpMbmhg8V8dxCR
-	 /AdHgog5mj0sVy/uHY71+gtvg5Yu0jQo0z2mIYw/1r3YC7b7KMuNAd4YPZMWfR5Pa/RXb
-	 6fR8og+llCa+8XkVMviI9a376rPmhTkO7AapYBpc/rRcKZxWWSF8XwCe2kRBcJAe6JQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793021184;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 From:To:CC:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type:X-Originating-IP:X-ClientProxiedBy:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=J9m+00u04xahbA9yxQ6ajmHpQa/zXAaT/37BtYbFIGQ=;
-	b=ehxGOmosjovVN/xiLghnRK5mA1nVXOI/0u21irBS3bYhQsZ1ggSksSIVQBVNFp5y3ueQ
-	 wTT2nDGkgk7e0/yb/jm2QemMFwVmFHfHWZbBWlFS1e9GHdQ5NnJ6LoMlfAf7VMWAmwxCw
-	 /783PR1zBxTGIiy01l489j7bynfmsMgnIa3Qnt8zPUtmST8Puu5VT45i1mxMw5OGksvrB
-	 lPgw0YHbbYBN9CQ1c0C9PW32uv9j8O2rPTO3qi6/qgtXjvDQAEPRK1s46/Wcb6qMT/WUU
-	 UWRvp9A5+SDJt57Ixf8ZWYKXy1a61WVGBN02ccCnI5u0gi3OzHUKZ7aLM9cm9toC08Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=axis.com;
-	spf=pass smtp.mailfrom=axis.com;
-	dkim=pass header.d=axis.com header.i=@axis.com header.a=rsa-sha256 header.s=selector1 header.b=g5At5g+I;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.23
-Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013023.outbound.protection.outlook.com [52.101.72.23])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793021245;
+	b=fzwVbXdxYHzvJDHHIvQTQEkUhlaSBwfSiyhMcLEWZ9C6eGyAt7dtV0oXNox86ZD67l6i
+	 W+ldkADYEayzjUaVguPep3FDs6RnCSD3TpMb/Zzd5PetAzjbGpCcrEW2HAy0uRbZDvmDg
+	 Dqo0dmopVBdtggsRPLTv2C3EcmF0jVZuMRtN+QLF7/Ndjt+XOBgRMkWXSo7cc54h3xPeG
+	 uT/Ts40SdeRQ/0JdUMnYEs38J3Xv76A76CfDualgGvfkQgN+V90Nj4Oh3/qfmDcGgJIrL
+	 6iY+AdINl8HIEVWx/FY/Hv/Sb5bSzlkbCC47m9AP47f+lanOO75Plwi9O9oVZZuVh/g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793021245;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=Xfyn5b+NEh3dD49I55GVm90g3gZkn4bLLzZob5RD6T4=;
+	b=Uyc7BCBjZAVB9iuEL753N+k06t5yKNXv60cCoPltcz1fFeZyXys3siOy4ExsuoAvMTOc
+	 ub+MBv9nfmkRxK/8AKMDy1Jhxz+3OD5k0FDKFySfFDWC4YS8k3rRQXwVEdSqX+Pe0UJz/
+	 29KS3jPoO9uQYagm68o0l/sB0tc9WmjuoB4Qr20L0PsKdwccdIDenjGWDvajtzVbVnn9Z
+	 /ZIP/ZSygVNgKVxashaboGHQAdohck/H7jgJQ/NcLmhn8qrlGVnvlaqUeMhWgmLfUThik
+	 0u2lmcLUdUXqVroE4NST69Bw4BzG0zaXFszjjIW4ii7nAAtJECOHqpNvSNdDZ0NliGw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AL2r741h;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17F1A606A31A;
-	Mon, 26 Oct 2026 13:26:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17F1A606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axis.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33E03606A31A;
+	Mon, 26 Oct 2026 13:27:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=axis.com header.i=@axis.com header.a=rsa-sha256 header.s=selector1 header.b=g5At5g+I
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OFNbjm2wM4bniNf64/sMLtifhQf8k0JLV5wmoc3+7XaVYEbloabOQeJM5KFPaqKa7w214Rdq+pFL8c79G1A3Exr5MbxY8KCfSj6t+DaBxIY9+sksXE1/TS9ElfnVZPL5VUgh2XhNDQe+qKRuDOSTlhIJlofbnasu58gwesTKyWix1K0zhW53XNochbrscFLuemjdEBHtDu6+hhPGb3jioIQ0lYfNc8UEThQZ2cI87IAoHQGkkKXy8URJRmRKrMI513D7njbPFM15tRkDE9xS/DCSmu5SamZvEjXwo1QfsTRWVXbBUxUfCI1kAr5Xh5MFyjW+K+nK8yke7lMdOemqtw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=J9m+00u04xahbA9yxQ6ajmHpQa/zXAaT/37BtYbFIGQ=;
- b=bCplHahASaYDSUrACTgs08zqJcBIWzLgE4el5u/a5btxitB4en+UrhX6mhRhNhkq+vYPxSgRQhWqjxNHwM1iJsrgo/NgYWuDJUXGlJqzFPR9Hn+J9NCpbM9X0g0y/XiogLrmhIX486R6g8IDqY9v2aGXsYyZfVUBf2Bfqgp8HZt6/JDWeJIw5VZjXSY6t/ldxi+PW3ShrmsEp6zUJ83u97zEap2+71nPKwm9xvILxHbsSMbDiZnwysyA0y6WwdN4GcdWLOGae5sDzv3vShtHX5vxL/Q0i/i3FT7MIjGShVSi1SsDDs3pna+xhFlw7TNlT+F7HjOS0+jlIXgTCAm+rQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 195.60.68.100) smtp.rcpttodomain=kernel.org smtp.mailfrom=axis.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=axis.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axis.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=J9m+00u04xahbA9yxQ6ajmHpQa/zXAaT/37BtYbFIGQ=;
- b=g5At5g+IKvLkjX16cG02efjyMQwXCz0fUAFHonrLcbUe53qmJQB88Ld3Yx2DxdT0yZeaZoZvWwC94kl8mcr8Kia4RmuPUmo7FLNKF1iwE6RJuzMOTUysG56reXXChF8GdThbboc62caYWIXYhbiHrMFQHBd60ZRQy8Gis0ihmdM=
-Received: from DU2P250CA0003.EURP250.PROD.OUTLOOK.COM (2603:10a6:10:231::8) by
- PA6PR02MB10522.eurprd02.prod.outlook.com (2603:10a6:102:3cd::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
- 2026 13:26:16 +0000
-Received: from DU2PEPF00028CFF.eurprd03.prod.outlook.com
- (2603:10a6:10:231:cafe::91) by DU2P250CA0003.outlook.office365.com
- (2603:10a6:10:231::8) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.22 via Frontend Transport; Mon,
- 26 Oct 2026 13:26:16 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 195.60.68.100) smtp.mailfrom=axis.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=axis.com;
-Received-SPF: Pass (protection.outlook.com: domain of axis.com designates
- 195.60.68.100 as permitted sender) receiver=protection.outlook.com;
- client-ip=195.60.68.100; helo=mail.axis.com; pr=C
-Received: from mail.axis.com (195.60.68.100) by
- DU2PEPF00028CFF.mail.protection.outlook.com (10.167.242.183) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.546.15 via Frontend Transport; Mon, 26 Oct 2026 13:26:16 +0000
-Received: from pc67007-2609 (10.4.0.13) by se-mail11w.axis.com (10.20.40.11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.39; Mon, 26 Oct
- 2026 14:26:15 +0100
-From: Waqar Hameed <waqar.hameed@axis.com>
-To: Randy Dunlap <rdunlap@infradead.org>
-CC: Sebastian Reichel <sre@kernel.org>, <kernel@axis.com>,
-	<linux-pm@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Mauro Carvalho
- Chehab" <mchehab+huawei@kernel.org>
-Subject: Re: [PATCH 1/7] docs: ABI: power: rt9471: Fix invalid inline emphasis
-In-Reply-To: <004fbff3-7fbc-440c-9c44-44585795521c@infradead.org>
-References: <cover.1792965060.git.waqar.hameed@axis.com>
-	<ba11515d8e0dc45ad90f162302bcd1b20db9bd92.1792965060.git.waqar.hameed@axis.com>
-	<004fbff3-7fbc-440c-9c44-44585795521c@infradead.org>
-Date: Mon, 26 Oct 2026 14:26:08 +0100
-Message-ID: <pndse1svbin.a.out@axis.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AL2r741h
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DC091F01825;
+	Mon, 26 Oct 2026 13:27:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793021244;
+	bh=Xfyn5b+NEh3dD49I55GVm90g3gZkn4bLLzZob5RD6T4=;
+	h=From:To:Cc:Subject:Date;
+	b=AL2r741h+vlrktyZPiCF3F7unPRutLHEGgqFDyCFyfQmffwkwqgW5gMnPwWUDjVQq
+	 xFOHgEJEKpSz2nwYvxvauB4jwLPHmT0u4aaKbJeIeU5O1IXojMVMmOGhrgJbkpyRAF
+	 DqFsIf/WqUvmLlmI4oXcb8J4Rv9layLLA2/dSAIPlNGP4DJ6WJwESx9kK0QIT1ILJZ
+	 +VgHXe1ggkyjm6u4XHZi58E2LHalAesgyfPlk/w4ZWTrYV8PemuKkJw/LeQQ6aW+A4
+	 6eoekZPra4CNZsPZXexzUNUf7a9seiJo370rPpjgdDGejiusyIBUW3t+iQIfF3SAzl
+	 GL5Nz2gpoKZhQ==
+From: Imre Kaloz <kaloz@kernel.org>
+To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	linux-mips@vger.kernel.org
+Cc: Ethan Nelson-Moore <enelsonmoore@gmail.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] MIPS: mm: Add an R10000 family cache error handler
+Date: Mon, 26 Oct 2026 14:26:12 +0100
+Message-ID: <20261026132613.9875-1-kaloz@kernel.org>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,86 +57,351 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
-X-ClientProxiedBy: se-mail11w.axis.com (10.20.40.11) To se-mail11w.axis.com
- (10.20.40.11)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PEPF00028CFF:EE_|PA6PR02MB10522:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7555ef50-b983-4d54-3dea-08df3364b692
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|36860700016|82310400026|1800799024|18002099003|22082099003|3023799007|56012099006|11063799006|4143699003|261021121427099003|10067099003|261009223027099003|261022075727099003|261022105027099003|261021123027099003;
-X-Microsoft-Antispam-Message-Info:
-	8xFdgjcPMHf6Hz68ss6m2wd5OCdeUODhxm8MnWSXFQWoZippV+F/wJihKo+s40IhqH7mEDHTtyoE+WtqhB8mG+iP/7tA96nqurNmBs7hiW66mPma03OeHuR3ChpGHTKTGaJGArW19vLLEv3dMVYsHNadVo2bRMnvxdR2SQLPLfKDrq88CJe/h/Cr4V0XcfEyFxF2mZgdK0JJbtyPx6I6AeqM+W56HVDBx0lLN2kAlBREr2KphtpmH6Pu9DwW/Jxp0HS0EgpuQZ/iaTNSPpYOKvwEOhiBD7DF6Cfzh3qqaZStf/RKyZZ2cMHUj0sLINkoTUCX4is8AJSb08szcp30EJPjawD/mgXOSHH6OHISJDOQwKxjKKglnWGvFyx2fJC9OIx0EFlO1cSNQu3x3v23/0C7mACXq6gGuKP1maByV5ZRLv/MahaQquuyU6I78CJLmZQkgUV0hQh4sTQ5n91xvX6XQI8tBsGVD4qiYZOWWiygCyUIzLl3+zleMUWnkTtiszTF0fmD4V/MDalQgroTQfnlzfleGEXZMG/7EgOs5Ylj4G1V5DbYM1AGVdy6sbfxVeFjfXpx7QsLyJy1e7aJFaNIDj8ekBWkzTGohpNv/CYIP5u9mciQ/vpQsQJy/EZ14rRo+hZzY64EkRYVNekr0w==
-X-Forefront-Antispam-Report:
-	CIP:195.60.68.100;CTRY:SE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.axis.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(36860700016)(82310400026)(1800799024)(18002099003)(22082099003)(3023799007)(56012099006)(11063799006)(4143699003)(261021121427099003)(10067099003)(261009223027099003)(261022075727099003)(261022105027099003)(261021123027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	y/zKWrrvXMPv54fisGR27FMbLUxcnzQ+x+HI76mLZEGB21sT5hUw66KsXG3u5enA1X39OcuIcuQeIv4st8z2WRAV08yUntrZQ3ILpFZyNfVor02fHH0urMBOK5LsIY7g4lRqHTD2hNLkkD8fDcGhkgvfw/JpoqTI+VrStcrWniXhMy9U1/ZgWFx6dSEpiUtgPnurL3OYXswOXXbX/IB9UYa2oHIgTM5DMwj9eJaupXjPzFprNUB77kwOcGyV3oPB6tbybvpp1otjat3o08D2JDr7TxznJGjUugZqmQRBb6S7EWYDVplccgMNrRQmzWjkcf4rzWQAbcN2yA8WV5FuI72VHDrLzmHBp/MaNxvcYHVsmwnmLmqvIyeXnedHN5qP3pkySs8hlxqnkmERn8XdsZSFlBvaW4YvTbFOcjMWoZ1yeyBe5XZ+SAAkW2XVGqo7
-X-OriginatorOrg: axis.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 13:26:16.2151
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7555ef50-b983-4d54-3dea-08df3364b692
-X-MS-Exchange-CrossTenant-Id: 78703d3c-b907-432f-b066-88f7af9ca3af
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=78703d3c-b907-432f-b066-88f7af9ca3af;Ip=[195.60.68.100];Helo=[mail.axis.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DU2PEPF00028CFF.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA6PR02MB10522
+Content-Transfer-Encoding: 8bit
 
-On Sun, Oct 25, 2026 at 19:39 -0700 Randy Dunlap <rdunlap@infradead.org> wrote:
+cache_parity_error() does not decode the R10000 family's CacheErr
+layout, and panics with ERL set on every error.
 
-> On 10/25/26 3:05 PM, Waqar Hameed wrote:
->> `docutils` warns:
->>
->>   Documentation/ABI/testing/sysfs-class-power-rt9471:1: (WARNING/2) Inline emphasis start-string without end-string.
->>   Documentation/ABI/testing/sysfs-class-power-rt9471:20: (WARNING/2) Inline
->> emphasis start-string without end-string.
->>
->> Fix this by escaping the `*`.
->
-> I'm still seeing this issue after the patch is applied (same for patch 4/7).
-> Maybe we are fighting a docutils your-version vs. my-version problem
-> or just a moving target.
+Recover I-cache errors by rewriting both ways of the set, as
+invalidating leaves the bad word in the data array, and panic on
+others with ERL clear. The handler is built with CONFIG_CPU_R10000.
 
-Hm, that's weird. What output do you actually get? The '*' is escaped
-now, so it shouldn't complain...
+Signed-off-by: Imre Kaloz <kaloz@kernel.org>
+---
+ arch/mips/include/asm/traps.h |   2 +
+ arch/mips/mm/Makefile         |   1 +
+ arch/mips/mm/c-r4k.c          |   9 +++
+ arch/mips/mm/cerr-r10k.c      | 141 ++++++++++++++++++++++++++++++++++
+ arch/mips/mm/cex-r10k.S       | 125 ++++++++++++++++++++++++++++++
+ 5 files changed, 278 insertions(+)
+ create mode 100644 arch/mips/mm/cerr-r10k.c
+ create mode 100644 arch/mips/mm/cex-r10k.S
 
->
-> $ docutils --version
-> docutils-3.13 (Docutils 0.23, Python 3.13.16, on linux)
+diff --git a/arch/mips/include/asm/traps.h b/arch/mips/include/asm/traps.h
+index 2a8a258730c9..7a21ca64684a 100644
+--- a/arch/mips/include/asm/traps.h
++++ b/arch/mips/include/asm/traps.h
+@@ -62,6 +62,8 @@ asmlinkage void do_page_fault(struct pt_regs *regs,
+ 	unsigned long write, unsigned long address);
+ 
+ asmlinkage void cache_parity_error(void);
++asmlinkage void do_cache_error_r10k(struct pt_regs *regs, int resumable);
++extern char except_vec2_r10k[];
+ asmlinkage void ejtag_exception_handler(struct pt_regs *regs);
+ asmlinkage void __noreturn nmi_exception_handler(struct pt_regs *regs);
+ 
+diff --git a/arch/mips/mm/Makefile b/arch/mips/mm/Makefile
+index 304692391519..329fa1886f01 100644
+--- a/arch/mips/mm/Makefile
++++ b/arch/mips/mm/Makefile
+@@ -36,6 +36,7 @@ obj-$(CONFIG_CPU_R3K_TLB)	+= tlb-r3k.o
+ obj-$(CONFIG_CPU_R4K_CACHE_TLB) += c-r4k.o cex-gen.o tlb-r4k.o
+ obj-$(CONFIG_CPU_R3000)		+= c-r3k.o
+ obj-$(CONFIG_CPU_SB1)		+= c-r4k.o cerr-sb1.o cex-sb1.o tlb-r4k.o
++obj-$(CONFIG_CPU_R10000)	+= cerr-r10k.o cex-r10k.o
+ obj-$(CONFIG_CPU_CAVIUM_OCTEON) += c-octeon.o cex-oct.o tlb-r4k.o
+ 
+ obj-$(CONFIG_IP22_CPU_SCACHE)	+= sc-ip22.o
+diff --git a/arch/mips/mm/c-r4k.c b/arch/mips/mm/c-r4k.c
+index d8aadd3dc057..76ff27dd2075 100644
+--- a/arch/mips/mm/c-r4k.c
++++ b/arch/mips/mm/c-r4k.c
+@@ -1690,6 +1690,15 @@ static void r4k_cache_error_setup(void)
+ 		set_uncached_handler(0x100, &except_vec2_sb1, 0x80);
+ 		break;
+ 
++#ifdef CONFIG_CPU_R10000
++	case CPU_R10000:
++	case CPU_R12000:
++	case CPU_R14000:
++	case CPU_R16000:
++		set_uncached_handler(0x100, except_vec2_r10k, 0x80);
++		break;
++#endif
++
+ 	default:
+ 		set_uncached_handler(0x100, &except_vec2_generic, 0x80);
+ 		break;
+diff --git a/arch/mips/mm/cerr-r10k.c b/arch/mips/mm/cerr-r10k.c
+new file mode 100644
+index 000000000000..1da88c9e1b90
+--- /dev/null
++++ b/arch/mips/mm/cerr-r10k.c
+@@ -0,0 +1,141 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Cache error handling for the R10000, R12000, R14000 and R16000.
++ *
++ * Copyright (C) 2026 Imre Kaloz <kaloz@kernel.org>
++ */
++#include <linux/bitfield.h>
++#include <linux/bits.h>
++#include <linux/hardirq.h>
++#include <linux/jiffies.h>
++#include <linux/kernel.h>
++#include <linux/panic.h>
++#include <linux/percpu.h>
++#include <linux/printk.h>
++#include <linux/ratelimit.h>
++#include <linux/sched/debug.h>
++#include <linux/smp.h>
++
++#include <asm/mipsregs.h>
++#include <asm/ptrace.h>
++#include <asm/traps.h>
++
++#define CE_UNIT		GENMASK(31, 30)
++#define CE_UNIT_I	0
++#define CE_UNIT_D	1
++#define CE_UNIT_S	2
++#define CE_UNIT_SYS	3
++#define CE_EW		BIT(29)		/* second error before one was taken */
++#define CE_EE		BIT(28)		/* D-cache, system interface */
++#define CE_D		GENMASK(27, 26)	/* data array, way 1 and way 0 */
++#define CE_TA		GENMASK(25, 24)	/* tag address array */
++#define CE_TS		GENMASK(23, 22)	/* tag state array */
++#define CE_TM		GENMASK(21, 20)	/* D-cache tag mod array */
++#define CE_SA		BIT(25)		/* system address bus */
++#define CE_SC		BIT(24)		/* system command bus */
++#define CE_SR		BIT(23)		/* system response bus */
++#define CE_IIDX		GENMASK(13, 6)
++#define CE_DIDX		GENMASK(13, 3)
++#define CE_SIDX		GENMASK(22, 6)
++
++/* A line that keeps failing would otherwise be refetched forever. */
++#define CE_STORM	10
++
++struct cerr_r10k {
++	unsigned long count;
++	unsigned long window;
++	unsigned int recent;
++	bool active;
++};
++
++static DEFINE_PER_CPU(struct cerr_r10k, cerr_r10k);
++static DEFINE_RATELIMIT_STATE(cerr_r10k_rs, 5 * HZ, 10);
++
++static void cerr_r10k_decode(char *buf, size_t len, u32 cerr)
++{
++	const char *ew = cerr & CE_EW ? ", EW" : "";
++	const char *ee = cerr & CE_EE ? ", EE" : "";
++
++	switch (FIELD_GET(CE_UNIT, cerr)) {
++	case CE_UNIT_I:
++		scnprintf(buf, len,
++			  "I-cache error %08x: data %lu tag %lu state %lu, index %#lx%s",
++			  cerr, FIELD_GET(CE_D, cerr), FIELD_GET(CE_TA, cerr),
++			  FIELD_GET(CE_TS, cerr), cerr & CE_IIDX, ew);
++		break;
++	case CE_UNIT_D:
++		scnprintf(buf, len,
++			  "D-cache error %08x: data %lu tag %lu state %lu mod %lu, index %#lx%s%s",
++			  cerr, FIELD_GET(CE_D, cerr), FIELD_GET(CE_TA, cerr),
++			  FIELD_GET(CE_TS, cerr), FIELD_GET(CE_TM, cerr),
++			  cerr & CE_DIDX, ee, ew);
++		break;
++	case CE_UNIT_S:
++		scnprintf(buf, len,
++			  "S-cache error %08x: data %lu tag %lu, index %#lx%s",
++			  cerr, FIELD_GET(CE_D, cerr), FIELD_GET(CE_TA, cerr),
++			  cerr & CE_SIDX, ew);
++		break;
++	default:
++		scnprintf(buf, len,
++			  "system interface error %08x: data %lu%s%s%s, index %#lx%s%s",
++			  cerr, FIELD_GET(CE_D, cerr),
++			  cerr & CE_SA ? ", address" : "",
++			  cerr & CE_SC ? ", command" : "",
++			  cerr & CE_SR ? ", response" : "",
++			  cerr & CE_SIDX, ee, ew);
++		break;
++	}
++}
++
++/*
++ * Only I-cache errors are recovered, by the set rewrite in the entry code;
++ * every other cache error is fatal.
++ */
++asmlinkage void do_cache_error_r10k(struct pt_regs *regs, int resumable)
++{
++	struct cerr_r10k *ce = this_cpu_ptr(&cerr_r10k);
++	unsigned long errorepc = read_c0_errorepc();
++	u32 cerr = read_c0_cacheerr();
++	const char *why = "Unrecoverable cache error";
++	char desc[112];
++
++	if (!resumable) {
++		why = "Cache error in an exception handler";
++		goto fatal;
++	}
++	if (FIELD_GET(CE_UNIT, cerr) != CE_UNIT_I || (cerr & CE_EW))
++		goto fatal;
++	if (ce->active) {
++		why = "Nested cache error";
++		goto fatal;
++	}
++	if (time_after(jiffies, ce->window + HZ)) {
++		ce->window = jiffies;
++		ce->recent = 0;
++	}
++	if (++ce->recent > CE_STORM) {
++		why = "Cache error storm";
++		goto fatal;
++	}
++
++	ce->active = true;
++	nmi_enter();
++	ce->count++;
++	if (__ratelimit(&cerr_r10k_rs)) {
++		cerr_r10k_decode(desc, sizeof(desc), cerr);
++		pr_warn("CPU%u: %s, ErrorEPC %pS: recovered, %lu so far\n",
++			smp_processor_id(), desc, (void *)errorepc, ce->count);
++	}
++	nmi_exit();
++	ce->active = false;
++	return;
++
++fatal:
++	set_c0_status(ST0_DE);
++	cerr_r10k_decode(desc, sizeof(desc), cerr);
++	pr_emerg("CPU%u: %s, ErrorEPC %pS\n", smp_processor_id(), desc,
++		 (void *)errorepc);
++	show_regs(regs);
++	panic("%s", why);
++}
+diff --git a/arch/mips/mm/cex-r10k.S b/arch/mips/mm/cex-r10k.S
+new file mode 100644
+index 000000000000..4e5df40ef1a2
+--- /dev/null
++++ b/arch/mips/mm/cex-r10k.S
+@@ -0,0 +1,125 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * Cache error entry for the R10000, R12000, R14000 and R16000.
++ *
++ * Copyright (C) 2026 Imre Kaloz <kaloz@kernel.org>
++ */
++#include <asm/addrspace.h>
++#include <asm/asm.h>
++#include <asm/cacheops.h>
++#include <asm/regdef.h>
++#include <asm/mipsregs.h>
++#include <asm/stackframe.h>
++
++/*
++ * Copied to the cache error vector and fetched uncached. Only k0 and k1
++ * may be used here. An XKPHYS kernel may lie outside the 256MB region a j
++ * from the vector reaches.
++ */
++	LEAF(except_vec2_r10k)
++	.set	push
++	.set	noreorder
++	.set	noat
++#if defined(CONFIG_64BIT) && VMLINUX_LOAD_ADDRESS >= XKPHYS && \
++    VMLINUX_LOAD_ADDRESS < XKSEG
++	PTR_LA	k0, cache_error_r10k
++	PTR_LI	k1, TO_PHYS_MASK
++	and	k0, k0, k1
++	PTR_LI	k1, UNCAC_BASE
++	or	k0, k0, k1
++	jr	k0
++	 nop
++#else
++	j	cache_error_r10k
++	 nop
++#endif
++	.set	pop
++	END(except_vec2_r10k)
++
++/*
++ * Entered uncached with ERL set. An I-cache error is cleared by rewriting
++ * both ways of the set with zeroed tags and data of good parity. With EXL
++ * clear the error becomes an ordinary exception at ErrorEPC, handled on
++ * the kernel stack; with EXL set the interrupted handler's k0 and k1 are
++ * lost and it is never resumed. ERL is cleared so the handler can take
++ * exceptions.
++ */
++NESTED(cache_error_r10k, PT_SIZE, sp)
++	.set	push
++	.set	noreorder
++	.set	noat
++	mfc0	k0, CP0_CACHEERR
++	srl	k1, k0, 30		/* I-cache */
++	bnez	k1, 1f
++	 andi	k0, k0, 0x3fc0		/* VA[13:6] */
++	PTR_LI	k1, CKSEG0
++	or	k0, k0, k1
++	mtc0	zero, CP0_TAGLO
++	mtc0	zero, CP0_TAGHI
++	mtc0	zero, CP0_ECC
++	cache	Index_Store_Tag_I, 0(k0)	/* VA[0] selects the way */
++	cache	Index_Store_Tag_I, 1(k0)
++3:	cache	Index_Store_Data_I, 0(k0)	/* VA[5:2] the word */
++	cache	Index_Store_Data_I, 1(k0)
++	PTR_ADDIU k0, 4
++	andi	k1, k0, 0x3c
++	bnez	k1, 3b
++	 nop
++
++1:	mfc0	k0, CP0_STATUS
++	andi	k0, k0, ST0_EXL
++	bnez	k0, 2f
++	 nop
++	MFC0	k0, CP0_ERROREPC
++	MTC0	k0, CP0_EPC
++	mfc0	k0, CP0_STATUS
++	li	k1, ~ST0_ERL
++	and	k0, k0, k1
++	ori	k0, k0, ST0_EXL
++	mtc0	k0, CP0_STATUS
++	PTR_LA	k0, cache_error_r10k_resume
++	jr	k0
++	 nop
++
++	/* Nothing may post another cache error while this one is fatal. */
++2:	mfc0	k0, CP0_STATUS
++	li	k1, ~ST0_ERL
++	and	k0, k0, k1
++	li	k1, ST0_DE
++	or	k0, k0, k1
++	mtc0	k0, CP0_STATUS
++	PTR_LA	k0, cache_error_r10k_fatal
++	jr	k0
++	 nop
++	.set	pop
++	END(cache_error_r10k)
++
++NESTED(cache_error_r10k_resume, PT_SIZE, sp)
++	.cfi_signal_frame
++	.set	push
++	.set	noat
++	SAVE_ALL
++	CLI
++	move	a0, sp
++	li	a1, 1
++	jal	do_cache_error_r10k
++	RESTORE_TEMP
++	RESTORE_STATIC
++	RESTORE_AT
++	RESTORE_SOME
++	RESTORE_SP_AND_RET
++	.set	pop
++	END(cache_error_r10k_resume)
++
++NESTED(cache_error_r10k_fatal, PT_SIZE, sp)
++	.cfi_signal_frame
++	.set	push
++	.set	noat
++	SAVE_ALL
++	CLI
++	move	a0, sp
++	li	a1, 0
++	jal	do_cache_error_r10k
++	/* do_cache_error_r10k does not return when a1 is 0 */
++	.set	pop
++	END(cache_error_r10k_fatal)
 
-I have
+base-commit: b2f6eb84b8bfd213c3df69f9ced41a501ac4de9b
+-- 
+2.47.3
 
-  docutils (Docutils 0.20.1, Python 3.12.3, on linux)
-
->
->> Reported-by: kernel test robot <lkp@intel.com>
->> Closes: https://lore.kernel.org/oe-kbuild-all/202609110722.GAZVme6v-lkp@intel.com/
->> Signed-off-by: Waqar Hameed <waqar.hameed@axis.com>
->> ---
->>  Documentation/ABI/testing/sysfs-class-power-rt9471 | 4 ++--
->>  1 file changed, 2 insertions(+), 2 deletions(-)
->>
->> diff --git a/Documentation/ABI/testing/sysfs-class-power-rt9471 b/Documentation/ABI/testing/sysfs-class-power-rt9471
->> index 0a390ee5ac21c..04a771cd23512 100644
->> --- a/Documentation/ABI/testing/sysfs-class-power-rt9471
->> +++ b/Documentation/ABI/testing/sysfs-class-power-rt9471
->> @@ -1,4 +1,4 @@
->> -What:                /sys/class/power_supply/rt9471-*/sysoff_enable
->> +What:                /sys/class/power_supply/rt9471-\*/sysoff_enable
->>  Date:                Feb 2023
->>  KernelVersion:       6.3
->>  Contact:     ChiYuan Huang <cy_huang@richtek.com>
->> @@ -16,7 +16,7 @@ Description:
->>               - 1: enabled
->>               - 0: disabled
->>
->> -What:                /sys/class/power_supply/rt9471-*/port_detect_enable
->> +What:                /sys/class/power_supply/rt9471-\*/port_detect_enable
->>  Date:                Feb 2023
->>  KernelVersion:       6.3
->>  Contact:     ChiYuan Huang <cy_huang@richtek.com>
