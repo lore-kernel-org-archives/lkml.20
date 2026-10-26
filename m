@@ -1,58 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793053574;
-	b=I0byaffaqsEhHL+m+06xDK7NiQXVmktZhsrYrhq+KIxoRQQ1wHSK/y1/C8GJWjNpElHV
-	 Rwib4rl72tuFc8CndLB1+fvNfifm1PDk41extyP0yqNQMHA6+j236y9cqvAFoIbMofgFX
-	 eeF6664HJRmJpAGy1lto2BGBJhvSJKU0vfaGAycQrEkYZeMBBy8UUsANZIEB1cks+qAZQ
-	 faFmFwUepW2h2wqqC2gZ+oMZXu3HLeds6KGwN1/AyTRuGlm0KoDu0as1bB3y4K6s04Ly4
-	 6RTtCmAdubbzejyFfdI9YP9K8UcF3ldZty7idjCkTn04o2F7ZaDk/rdOqd2QgOEO/IA==
+	b=qUqhgLLAe39cSTSVI3HxlthoUZ4k8VMxuLb2sbVu0y7EyD6Y4mVUMrqn4EK3V79GK8Gd
+	 wg4HiSte95a5qw6eGwBz3R53TsgDycN1ZvDhBMP33mijy8uXDnZbWmN9Gk1U0+apGYXKL
+	 slvyyed+SECTaP//AcFYcP0Exnrh+Do0/h298nfQewMGlUGFFJGM4Nw0gnoKQ8RNiufRT
+	 RTowlNWaqjnzPSJ5XtjWoKrKQTUH8yiXMc8GQ8oeqQ0cMFLK5Ge/WIvliFZ7bCtICDvhU
+	 X6HTJFf1ZOnuAX+MApVNsi9qj9U3HOtFJqSFG8e8uHfdXnR9ecXllUdYEbv9nfk2TeA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793053574;
 	h=Received:DKIM-Signature:Received:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=pWS3JwVxq8BPKl5typ3BsrdaWXW9EhNPjKYs7EHpLwg=;
-	b=q0RxSss6oQvYUUtvSlCAXl9Y3Ib4d/yZJCC+/6uTh8uptkPkb27/XEqsG4GIGVXwT3w8
-	 0A28xHi9YgdSSdqzpiM+7158CpCibby7GOwBzHoyuoBUZerTytAzPHHSlK5QEMJ/3chXw
-	 y2p37A5ZwDRFOU8YOfqEi2g2tbLiuasIf5sI8FfglE77R/EmpsCx26KhU4U1wKGDJ58jK
-	 1mQGIEAzgJGjkn0mpLGeglNzmcwc2UbINXtWKnirrvzQD/Pp3BUrICT1i6Ujg0Ia7Rf6B
-	 KZg6heIIgy1aNF52VPMcMtGUNU4PCHTgWGGyWFLxjbHkGx9OkiBr9ny8ZpXT9KuWA+A==
+	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=+pKWqsZtpVaedfq+57u2C6voph2c6P1wUpIm/ILOreQ=;
+	b=rv7jfX4J7CXE9GZA3IoVV5q6s1br3NBOUEFUvwLL/USqgFkht7o+WDKfbAYnQXhzeLQt
+	 8zeFLECY+S+eUXXUK4rCjedtI3BLYaaue3fasAlurGjJif9AaFgO6F0IrYi5HqMW15PgK
+	 jr6uWovVsuLMEUgdse6lFyXkOhl2zrYTm6WeCriQ9MRH2Mua2kKMD+rAkJVZ9yCMLEXlU
+	 MrhuqtDdRMRRNIQ4Lo0ulyXDM3S8Ajd/NgT05l2WEiFt4EKLzq/MPHmR+Kbyio5XooY26
+	 Xmm7Rdcgrd8AIhKy0Sps4CWOkU3WwEg295IKqB3qYMcRgCu+pyNBGWI5kZ8Ngpdlmwg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dQcr0woO;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CvPvRG0J;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A48D606A328;
-	Mon, 26 Oct 2026 22:26:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2DD3606A31B;
+	Mon, 26 Oct 2026 22:26:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dQcr0woO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15B7E1F01828;
-	Mon, 26 Oct 2026 22:26:14 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CvPvRG0J
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21C011F01825;
+	Mon, 26 Oct 2026 22:26:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793053574;
-	bh=pWS3JwVxq8BPKl5typ3BsrdaWXW9EhNPjKYs7EHpLwg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dQcr0woOdR3JEt37zD4ucJaBAokKOrgpaOFrZfn1T2E+Zng0mor0xLLVH1bR8Ie3y
-	 qeQxtf6u6V+gYeGKKNztY0mwqeKOTUcqZzhj7HnECTeYc4hzjYmXMtmyGBPeaBObeC
-	 Zbo7ixYm2bRyj4q/TlyupmkDX/SC+b6lNinDaEulN+6s5/6TPjl+Sk4STn8ILnh2xX
-	 u4pxVvxJEku7+3MJ/WFcJ9w01VTHsEsix5/MGn7dtXccL6jMbLT3UQFmjwIWDgFMxe
-	 geJgSnfmaqhCqhO02uzcK08iFFA5PVV1RwJRrCa7dPQDoon5IzsUNLbQ9WxBo0leGg
-	 JKXTfN60nXrcA==
+	s=k20260515; t=1793053573;
+	bh=+pKWqsZtpVaedfq+57u2C6voph2c6P1wUpIm/ILOreQ=;
+	h=From:To:Cc:Subject:Date;
+	b=CvPvRG0JrZvk18vrkdQR+yFevbRsGwq81SuXnA4iDvz6tdaNb6PxmMiCdBAa3K5wR
+	 yfIen6/j4qm70eRlQ7ouQX4wJWgq7IcBZWUQp+yLCQxLeYxGuhzhqb2SGEWK7YepkB
+	 yc00qYGioe/MsV1JR/K3WkQ6ifEbkOTDPNXwjv0W5z+JvYwfGi4dYefxh6Ng/goNc3
+	 f/dMNEKRRLxRUfnQoDl4qv57jCLsis8589tzfWcX0Npd9CaHHr4B3XWN9zMcVWQYuw
+	 otOtX+jP4OwvZBI3JislYGOIj9M1GZIZEVsFlSUbFV7UzhSTXXDrMYKTp4m8VAoqRa
+	 s/Gyc9hLfFrww==
 Received: by pali.im (Postfix)
-	id 3815ACA4; Mon, 26 Oct 2026 23:26:10 +0100 (CET)
+	id 98F1D6D9; Mon, 26 Oct 2026 23:26:09 +0100 (CET)
 From: =?UTF-8?q?Pali=20Roh=C3=A1r?= <pali@kernel.org>
 To: Paulo Alcantara <pc@manguebit.org>,
 	Namjae Jeon <linkinjeon@kernel.org>
 Cc: linux-cifs@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v7.3 4/9] cifs: Validate presence of EA $LXMOD for WSL reparse points
-Date: Mon, 26 Oct 2026 23:25:55 +0100
-Message-Id: <20261026222600.17323-5-pali@kernel.org>
+Subject: [PATCH v7.3 0/9] Various changes
+Date: Mon, 26 Oct 2026 23:25:51 +0100
+Message-Id: <20261026222600.17323-1-pali@kernel.org>
 X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20261026222600.17323-1-pali@kernel.org>
-References: <20261026222600.17323-1-pali@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,54 +62,39 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-S_DT part of xattr $LXMOD is mandatory for all WSL reparse points except the
-WSL symlink and Win32 socket. Microsoft WSL subsystem does not recognize
-them without xattr $LXMOD too, and treat such inodes as regular files.
+Rebased changes on top of the v7.3.
+No functional change, just fixed 3 oneliners from Sashiko.
+Link to previous: https://lore.kernel.org/linux-cifs/20260825230622.24617-1-pali@kernel.org/
 
-Fixes: ef201e8759d2 ("cifs: Validate EAs for WSL reparse points")
-Fixes: 78e26bec4d6d ("smb: client: parse uid, gid, mode and dev from WSL reparse points")
-Signed-off-by: Pali Rohár <pali@kernel.org>
----
- fs/smb/client/reparse.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+Pali Rohár (9):
+  cifs: Remove code for querying FILE_INFO_STANDARD via
+    CIFSSMBQPathInfo()
+  cifs: Remove cifs_backup_query_path_info() and replace it by
+    cifs_query_path_info()
+  cifs: Fix validation of EAs for WSL reparse points
+  cifs: Validate presence of EA $LXMOD for WSL reparse points
+  cifs: Check if server supports EAs before trying to set it for WSL
+  cifs: Extend ->set_EA() callback to allow operate on reparse point
+  cifs: Create native Window socket file compatible also with WSL
+    subsystem
+  cifs: Add support for parsing WSL symlinks in version 1 format
+  cifs: Add support for creating WSL symlinks in version 1 format
 
-diff --git a/fs/smb/client/reparse.c b/fs/smb/client/reparse.c
-index e547510ca3c5..577cdf49c047 100644
---- a/fs/smb/client/reparse.c
-+++ b/fs/smb/client/reparse.c
-@@ -1153,6 +1153,7 @@ static bool wsl_to_fattr(struct cifs_open_info_data *data,
- 	kgid_t gid = cifs_sb->ctx->linux_gid;
- 	struct smb2_file_full_ea_info *ea;
- 	bool ignore_missing_eas = false;
-+	bool have_xattr_mode = false;
- 	bool have_xattr_dev = false;
- 	dev_t rdev = 0;
- 	umode_t mode;
-@@ -1216,6 +1217,7 @@ static bool wsl_to_fattr(struct cifs_open_info_data *data,
- 			if (S_DT(mode) != S_DT(get_unaligned_le32(v)))
- 				return false;
- 			mode = get_unaligned_le32(v);
-+			have_xattr_mode = true;
- 		} else if (!strncmp(name, SMB2_WSL_XATTR_DEV, nlen)) {
- 			rdev = reparse_mkdev(v);
- 			have_xattr_dev = true;
-@@ -1226,6 +1228,16 @@ static bool wsl_to_fattr(struct cifs_open_info_data *data,
- 	if (!have_xattr_dev && (tag == IO_REPARSE_TAG_LX_CHR || tag == IO_REPARSE_TAG_LX_BLK))
- 		return ignore_missing_eas;
- 
-+	/*
-+	 * S_DT part of xattr MODE is mandatory for all WSL reparse points except the WSL symlink.
-+	 * Microsoft WSL does not recognize them without xattr MODE too (except the WSL symlink).
-+	 * IO_REPARSE_TAG_AF_UNIX is here an exception because this reparse point is used by both
-+	 * WSL subsystem and native NT/WinAPI subsystems. And NT/WinAPI creates AF UNIX socket
-+	 * without the xattr MODE and recognize it also without the xattr MODE.
-+	 */
-+	if (!have_xattr_mode && (tag != IO_REPARSE_TAG_AF_UNIX && tag != IO_REPARSE_TAG_LX_SYMLINK))
-+		return ignore_missing_eas;
-+
- 	fattr->cf_uid = uid;
- 	fattr->cf_gid = gid;
- 	fattr->cf_mode = mode;
+ fs/smb/client/cifsglob.h   |  10 +-
+ fs/smb/client/cifsproto.h  |   1 +
+ fs/smb/client/cifssmb.c    |  43 ++++---
+ fs/smb/client/fs_context.c |  11 +-
+ fs/smb/client/fs_context.h |   3 +-
+ fs/smb/client/inode.c      |  98 +-------------
+ fs/smb/client/link.c       |   3 +-
+ fs/smb/client/reparse.c    | 257 ++++++++++++++++++++++++++++++++-----
+ fs/smb/client/smb1ops.c    |  11 +-
+ fs/smb/client/smb1proto.h  |   4 +-
+ fs/smb/client/smb2ops.c    |   6 +-
+ fs/smb/client/xattr.c      |   3 +-
+ fs/smb/common/fscc.h       |   5 +-
+ 13 files changed, 287 insertions(+), 168 deletions(-)
+
 -- 
 2.20.1
 
