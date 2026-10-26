@@ -1,150 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.12.17
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793003376;
-	b=3XY79N/MM8nDSigh27WySf26l6IsEQ1xyRQrdOSj8wK4qNHC+hAhT/ClIxi1E+mh3Bnp
-	 /KIQvIjPBduaHZ7cG5u7pY+qeu6DDifzkK3AXBII1xETMywbJ4rSOkuQPrFZcJJAi+1K0
-	 7rNNthGqzPmnKs5fR0/t1nUB368UKHxiXuC/SS+ohxJzwSAshjRNryYVBnyhAzKGO07pW
-	 nmDMcnDv5DFmgi/GwnzxlbXOLIAvEcboa2uhXJkwkySO7L5h5mey26GAfHTIclCEmQHhJ
-	 ZhJP9KEglCuFi/yI9E/KxSXzcWbbTYkOXLZywZRbSGrGWONj8OLHG1oAGxq/nQ/NZlQ==
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793003366;
+	b=a9FDj3iXdyGeVx4r5CDBUjgH00WmWmvM+rqWoxiUXGjMyYoqXx0PnsT8vbK+X+si4KY2
+	 qnSZJdGovMXuhI0HN86erDyf/SNba4tdOmZEo2CnPO5H64Gi7v4spUYuzIIrBSmsYlByI
+	 B/4BWpGkps/OIZCflG501sKeBIRieg+DNDS14dcyDMw5EmL5Hb+5am5PQR0fr8bWdmV14
+	 wF4b+P8U5orhSL1O2UI50Pv2C68MHfbxCWRC5llepY7Bg83RcXlwpJ0gRIMaEs/8qiNJi
+	 PLdRKdy4klOxe/Co6m6/UeTsL8kObppiWepEyGMyVrp0h0qZ2nzK6f3QxWhM7dXM8OA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793003376;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:Accept-Language:
-	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:
-	 X-MS-Exchange-CrossTenant-rms-persistedconsumerorg:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=t1wtmQKjyuDnp8WkFtNlMavUix1jkkQ4AU29n+LI8KI=;
-	b=OEg/xUMjQmCbkRsS8Yqb20U0XxujTQpngDosnTTuxGjslAKMBzC5SH4FX0yB5r6hkW+y
-	 ltzuO8rpWjrSVjw3KeH+89lyQK+EL9wUjjwGSeadsDqUo26lkxiU2g8QRWIdqzFRz6a/t
-	 bpO2HpB/uZ5R3V7BhSOSa/tlHMJg6Ya8WnHypvUQHsc8jDgury61EVAqaSxPfiJ0IOPng
-	 aHBP2gNI6ZA01a6jdqdOjv3Uyjh5GjQkAhMoXOnRhsiOsm4N57GMC+kN80OPyxxqR0vfV
-	 QCqCRX29XMDsVZKZdEwHBdYdIqms46/gY9tNI3XehU7vvq4BlQ5iLXp1ipBYSSTtJKQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793003366;
+	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=1C7uw7HpFUzJjexgNjuIc9QL3Um2RC1V4ElZvVWlQuU=;
+	b=p5L7fl9srF3CfjJAicORo2sKGOK+Yn/mRtNoaFloarybAvhgGHrC6BWTn8eHRDdRX/q4
+	 XjPpfFjiwrsrN7wRkMHemhIAnL012ZGu4PnsVB99ZKg38EPklI5bu3HF06tPwijd5wQnT
+	 CmMG3ABm/NWYCIs62aQhjpFN7EdCmEwb4hXePXzJ9Qz0Txru8JAui0UTUO0Z2H/m+NosM
+	 bHwsijw50inNe3R6Pyun7vtossiihVqdQYWIfCxrEFyIVbe0n1DnNOTQbsZ5gdiy1HR30
+	 +odS73NXkKP5+Ru91F1EGSVS1uTuW/5sfz3AzhAUldNccMQkcsbY1M7KimIPO73Ja5Q==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=outlook.com;
-	spf=pass smtp.mailfrom=outlook.com;
-	dkim=pass header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=DYOXiJme;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.12.17
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azolkn19010017.outbound.protection.outlook.com [52.103.12.17])
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=gZrPvyEI;
+	arc=fail smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74EFE606A31D;
-	Mon, 26 Oct 2026 08:29:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74EFE606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60F15606A31B;
+	Mon, 26 Oct 2026 08:29:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60F15606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=DYOXiJme
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CZyJvd61iQk3BgVc8INAd3wsF1ciTW71jUBQ/4MVEt4D4mOgwiw0hBFOyKrtp+mw6P5ym2cpKmM8O1iMZ9GNjARiMQhHPvQgtdIyoAkm2g1ve+3wbPoiNqwawwhl9Lt2SexNA6Ujp6aFqUnIw4KyZUMeDjZvfALoRXpcZCsi5yzeL2W0YtQ2fe1SNyZmvEunxybBlc9gvXJPVDhu5OOHBHWUIt6i0wqed86kquTfYgyT19SLatQXP8MgjUSqkz6aYwCfnWAi+UX+s4Q72dsITymHhUJ7LKRLkZQ/dmTxJ93puWxXZeY/WBn4/FKxjwFPef1rb9EoDuNBEvP+PPz9/g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
- bh=t1wtmQKjyuDnp8WkFtNlMavUix1jkkQ4AU29n+LI8KI=;
- b=U3bBvkM5ligpQmdaoQvFQm4jPIXGdPl3aFp39YQrxpLn40T+1QY5uwaxVfUcELrgCT7CcAxEH40ZJu1n3XEzvR6N3zREyw/dZB7LUrDNj+MY6pSnXDk8v48Ep81YNG6p7qaV+X0iHbUXz2GGgQ7V2F4Gt0sRD6RNTmdsgWYD3TkM8JbIRw2kdgxypaYMhevzdQ0+Ttmpa0F2ETRfuTbzVmbBGh3gmcZtmaB1rDQp7BSA+UxLxG478XX/u0FwUwGSYpf6iHs6osdJqZxslKqIFW4NImDDaFWGlqEOiqL8H9L9/GXPCoTXIHXCY5YAzsY7TJImfISQlcJ+nW3VDDnDXQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=t1wtmQKjyuDnp8WkFtNlMavUix1jkkQ4AU29n+LI8KI=;
- b=DYOXiJmeB2x248WxDIJoM6V6biossZpUzubl/jC+F6s28wQFVQciueSPdYgarLUbK9I7n4mQAOLaHi9XnhkkaQthosuuTXuQNVKPvzMwe8mV5/t+oOlNmHR0Th9FHUlnjnCYbx0HESao83SLxd8mtx2fokMGkUduG2M3Avjnp/TtMPLVdOLohaUpOty/BbTkJNV4VKrTcR5XIJkekAbAHzjvg7VYsYSm2RmiMu/FMjz1l2aaLu8lew6tdQcrSs6PAUttKNKgYXaPmcyEbM+klPhJ6Mfe2EUg4Hs+TlYl3S1EEnlvsNZqwEEMTEZUID9hM1sQyUcSskK14+7yv4BG6w==
-Received: from SA3PR05MB10385.namprd05.prod.outlook.com
- (2603:10b6:806:39d::17) by DSWPR05MB998753.namprd05.prod.outlook.com
- (2603:10b6:8:354::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
- 2026 08:29:33 +0000
-Received: from SA3PR05MB10385.namprd05.prod.outlook.com
- ([fe80::e22f:a0f5:fcb0:9b0d]) by SA3PR05MB10385.namprd05.prod.outlook.com
- ([fe80::e22f:a0f5:fcb0:9b0d%6]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
- 08:29:33 +0000
-From: Yingjie Wang <x-professor@outlook.com>
-To: "Martin K . Petersen" <mkp@kernel.org>, "James E . J . Bottomley"
-	<James.Bottomley@HansenPartnership.com>
-CC: "linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>, Bart Van Assche
-	<bvanassche@acm.org>, Yang Xiuwei <yangxiuwei@kylinos.cn>, Jens Axboe
-	<axboe@kernel.dk>, "io-uring@vger.kernel.org" <io-uring@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: [PATCH v2 0/6] scsi: release completed passthrough requests before
- user copyback
-Thread-Topic: [PATCH v2 0/6] scsi: release completed passthrough requests
- before user copyback
-Thread-Index: AQHdZSQgvl6/Ea3SW0C4L7JKFZIPew==
-Date: Mon, 26 Oct 2026 08:29:33 +0000
-Message-ID: <cover.1793003363.git.x-professor@outlook.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SA3PR05MB10385:EE_|DSWPR05MB998753:EE_
-x-ms-office365-filtering-correlation-id: 44675f21-fa68-4a27-14ab-08df333b432e
-x-microsoft-antispam:
- BCL:0;ARA:14566002|15080799012|4140399003|24021099003|5062599005|39105399006|41001999006|22121099003|22091999003|24121999003|31061999003|38102599003|8062599012|19110799012|8060799015|25010399006|102099032|19061999003|440099028|3412199025|4302099013|1602099012|12091999003|26121999007|10035399007|40105399003;
-x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?1KWd+7FBh8XWEeuTUpTPhwfEKcF/xQLJbE4LCOXmQCWXhuwTk47+vf8Ay/?=
- =?iso-8859-1?Q?ctC1hSUXisRMi2KwtIwP6fYU9ESHc/M5gkio2+YxNToIJFuBgRsb9dCPKW?=
- =?iso-8859-1?Q?pN95qDEsVIyPFCT0OtedBugfgOyROdm/+8EHNwotaZ5AWeyDWXBCQed7HD?=
- =?iso-8859-1?Q?duVLbasBqA25WS8fBz9/GCX+bwjQEuFr+61Sbs4WqvdylMRRDkV5m3d6pI?=
- =?iso-8859-1?Q?m3tEDyDDXta0pgkh1gza9b9vbaDXlukxy7Rip+MOFvrdjX7wB9rdqy/fi/?=
- =?iso-8859-1?Q?QGTeM+irzUmcfL53JUWs0lUMNS8M4hpJ/3Mgm5KEu/evLHuymzcdPiO/Up?=
- =?iso-8859-1?Q?ufza9A1QcooFbM+Y2/2pNcgjHLGoZieuxKo6puc5Wwypnm50npv04d9Qwc?=
- =?iso-8859-1?Q?CgNzSYBgEOpOuv06Cub0lFH0cqE7+DzWda6BVuprejDuTPS08UUf8AcF59?=
- =?iso-8859-1?Q?8k//+oIkesJg5WL2gD+yGNTabysFwVjZUwTEuo5Pub15PnBEi+aZAxcPXx?=
- =?iso-8859-1?Q?uyYcUetwEKLfHE28r8o/qQE3q/SYjI0nzpXweneK7yaOgDbGqDWG7oZkAT?=
- =?iso-8859-1?Q?oxBknmZ/LkcR35rETMZ4ItPYwFatdcJISPNgkqdXYCuhs3Svwwyb6MNlLa?=
- =?iso-8859-1?Q?duZjPr2CqF56sBf4UmjfnL/Pn9VRtFIEWaqwZSLaaBYAw6kQU6KEmCUM2a?=
- =?iso-8859-1?Q?REtNI5ENi3VzCHlq4HVjUegJ2fPSlcSA8vANJAYoB4kG+I9kdG8w15lUou?=
- =?iso-8859-1?Q?Tymfz7IlFVQ6e+kEVhiWXhPiuYq0ExogU/GJ2u1K/OWJab36ytlpFYwy+u?=
- =?iso-8859-1?Q?q8RKSusrn+/wUDOpyEh5OSdwqLxxMcq1YvzbtkSvamXixB4NNxghHdxKKM?=
- =?iso-8859-1?Q?BEQlPmBlVzMWJ+SUqpjQNMFoGGp4b2O88HRNbsmdJHtejtANwDLRV5Stf5?=
- =?iso-8859-1?Q?cvw6rcFdxVmbzsQNZGcBqBtREupYWfVkchvDZ8L0CUeFreIUm3ujFHdu2v?=
- =?iso-8859-1?Q?MSp3Kz9dhsTLdfVO/7KoXyPIyXIjy3Wvb5qIB+A/3xWnpxBMvC9hO4iiJ+?=
- =?iso-8859-1?Q?1PqdzzFddNUmMpU/kxmI6jBhJ1zhVpDTPjXh+Sj8h1qmDR4+w0qZS8Becn?=
- =?iso-8859-1?Q?+SwRPKX2mKH6XHFvB/F4mtPLEJyhkXFx31JEFCk8f+XbX0kMMQNwBIFDor?=
- =?iso-8859-1?Q?6fcqWduNp/BYqxoDUvdoP03zNF1nXVs5xncNAJzXO84xTVEgDtv5IbgiB2?=
- =?iso-8859-1?Q?CHg9vR+lPz437UdpHBOSm8L0Oag4zm0lV1Pka/vroDn3oF4Gr7s/OUG9yB?=
- =?iso-8859-1?Q?CElC?=
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?ttRsz3Mzuj+C7QC8XsFAIid09x8vo3Yl9lhONA07XMeYohz7MeclN6+yrv?=
- =?iso-8859-1?Q?f2VwbUCxHhAeUj49giRGaIPFxxI5UAGEu29p4RcIV0ugTMly2ZN07XNYNq?=
- =?iso-8859-1?Q?x+4QlicIuhcDVw58OMxXcniVCGJqIivqnpLCkXI/bJvlGsAteE8Q3/ynXC?=
- =?iso-8859-1?Q?T+ZFXO7sdril2jwMCQdzqMbgnsMfB7/Ma9loQt/+ux2BwZ4J6V/f0knK2K?=
- =?iso-8859-1?Q?BzZuWiLdokGIXQG/IFYme54537YmMKF/PMEb2/Ge/5I7TE5vSxrI/g4Y6k?=
- =?iso-8859-1?Q?T96UAgVvmcRG755vUhYAKbRQ7BWvI5Xq91BIvn/0TU7kZY1RDbSxv2yQH8?=
- =?iso-8859-1?Q?b8bpNM23hLdyLtOF8KgPOu5B6A6szi+AecTN+mAuQN6ym72ockczY9nYUP?=
- =?iso-8859-1?Q?4Z+RqX4kTJK8x5MIIT7gxXxaShhubaH9KHStu9Io0Nq7QPuYt7cxCfa8Z2?=
- =?iso-8859-1?Q?Yt0p3xEafp8jIomTBN35F4u8ViReEuht3MCDPdbYpfwo5ITdSd/cHjcZoz?=
- =?iso-8859-1?Q?rJuaM6RcDN+ugp7txt7VFGt2QJ4m2uvKJEpjtA81/jNQhWNcEPthIBYs1I?=
- =?iso-8859-1?Q?rpONvUCKMwy8SyPvj7226i0NL8plvjYQqotaY6QcXAbd0Wm+g8tnHguCkO?=
- =?iso-8859-1?Q?UVWURbFZPbpyZeZhKpPthLSzlIbcc7yZDrilVc0eUCvdeSkVYNTNwtFY7x?=
- =?iso-8859-1?Q?jfRiOGia70MX0cO3TzJS1ltZ/mLXQKfOGqjUON6hL+R2tTazUECo79OyDQ?=
- =?iso-8859-1?Q?pz+eMNhIRwSewYGPDw/mqYqzHgoKWaV2I1FKsEK50Jb/RfYVK/yamh21vv?=
- =?iso-8859-1?Q?ZyuHsGqtCFOwkI5sLfO8aQtL2wLvOKbEo6MzGuaQQzUCzOp9Iuoa8WzxUL?=
- =?iso-8859-1?Q?SnzafHJMnn8JCw26Gw7umfPRLT5totolW1t7u+glRnBKiZP9hP89CEBxsZ?=
- =?iso-8859-1?Q?QYzatB1IKSw35WINDpJ2TOyJFZzqutKx7g6ARYt9hRcvPo1jgqSMicbx8D?=
- =?iso-8859-1?Q?1azoG5y/xv7GBYF2j94HyKOVDPlrL+6lhm6ZYzK8f3aw8wAG4ahUuhDlfa?=
- =?iso-8859-1?Q?Cvq833SPDFI+Fw5RqfP8xbsc0bhe0lC9nClCBek3sGA+n7lR9sZusYJ2uv?=
- =?iso-8859-1?Q?adPkvyulH2uE1OnnB/sXnl97A6vdM/tGU+4aZH1cP55IoTQSKWOUh20u/c?=
- =?iso-8859-1?Q?yNdhSf51CBd/6eDrits4FSVN9/PvZ+8Gnhb+pylLvNL4YOYZ1uIG9DeG1N?=
- =?iso-8859-1?Q?Ul3/fVr3wcxHQsus86Tj298RSp1r9GTpQhUxaxuFDOtOPjUJIlBHZcHGDA?=
- =?iso-8859-1?Q?c9X5zrjFkPzVom8SuT+jw5EReF0IA0FCbdpeCxBwUEBDhJ5Mq7uIh3noBf?=
- =?iso-8859-1?Q?TEMrjotj2Zn3955ctBIMAMYIpqd3VAedST1tE8MGiUPIz4h35WKgvZJ4wE?=
- =?iso-8859-1?Q?WJ882ZaJJnfrBmfP?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=gZrPvyEI
+Received: from ratatoskr.trumtrar.info (unknown [IPv6:2a00:1f:f805:2b01:a03:2f4:308a:7b52])
+	(Authenticated sender: str@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 49050201955;
+	Mon, 26 Oct 2026 09:29:23 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793003363;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=1C7uw7HpFUzJjexgNjuIc9QL3Um2RC1V4ElZvVWlQuU=;
+	b=gZrPvyEI8zjKjqvV1o7FDyYrng3Z/X7YWIC5JTnLW8MulydNWXcqwBOPARSoMOK1A1Az6m
+	Xhvb6tSyRbciN2rQzBhGBt1UrBvuiVh2MT4yDhgtWAV6oTLLKMH6rgTDocI9tTSF4ioKqh
+	LHMh4hB+lbggcE4Uh6IF4Q+oGl/Xrc9UHkQxMKm8LsoCNSnRBWYHBabAAMlZcLSiX29m9z
+	lXU+6i3KLnhs6kS0qPyQiM7kOot+7LnYtQnIHIlDImFSydBzJar0TBdLHqyFyABRRzDWct
+	ZRok7ambrASl1ntvZuEFnwVN8Rsnx2TWVQ1FWwmHDEryXMH+NWq5Msu/DZfkIw==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793003363; a=rsa-sha256;
+	cv=none;
+	b=VOdXJTj20rhCpxAC9XWJ8Qqn2Pm498Au1i19gNRzybgW4xKKfbOWN5qLatcwkk6b77kFMD
+	2f0UYRQo8E0ptPdRBE5JR7SsXU3DypGJX/Gb0deFgDBXb+/b5IDJxMuQW9zA26Qes7sI6b
+	b7csMJBCtJAhi69lW655AQlpDaC3D+KbHjcaEmEA7fW9jXa8HtUP2sBRywaC1fn8h4Lrvc
+	PTdlTvMrWbAIPf7JqLFpiwsLijMo/VSGDp4wME6emP8Nw4x46uA2eCy7/sH/myS/ypletz
+	Xd0J76KdvYqIcIkjgkSQXunzPpngUqbUX/8BjVabt99c+NjTiNDxm/JEY2lNTg==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=str@pengutronix.de smtp.mailfrom=s.trumtrar@pengutronix.de
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793003363;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=1C7uw7HpFUzJjexgNjuIc9QL3Um2RC1V4ElZvVWlQuU=;
+	b=R6D9LKsNzBFMiFc4IpbDcIzJaVsWJdyvnh/WkQXvojkIOir5EUq///bxt+ht4FBamiSqBu
+	Mi5hX3AQvMsYGbv/eWl7H9Iihs3jnFKnhPpQQ+RT6m274zoW3htxdpbkJZl8lOvALcKYOi
+	SaqHTABmuahw58g0/4VW0aI/1GqIgAmpUEnx9nGWsr0ail0A3KkOwDbBEAaCb0QPlw+DFx
+	rVKXU2FbK2EPw1dpISx6ETHqxhSwzz0sK5HZFPJszawjtq8+Vf5CyWuDUn3J1GEM5pQyPJ
+	zz9q4PuJLqEf2WPMiccYz/ACipzgLs/2EJiwaw+4poA4ZGiQbOHgwFsLzcuJnA==
+From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+Date: Mon, 26 Oct 2026 09:29:02 +0100
+Subject: [PATCH RFC v4 2/6] virtio-net: support receive timestamp
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -154,92 +83,419 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SA3PR05MB10385.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: 44675f21-fa68-4a27-14ab-08df333b432e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Oct 2026 08:29:33.1947
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSWPR05MB998753
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261026-v6-7-topic-virtio-net-ptp-v4-2-008af03cd43b@pengutronix.de>
+References: <20261026-v6-7-topic-virtio-net-ptp-v4-0-008af03cd43b@pengutronix.de>
+In-Reply-To: <20261026-v6-7-topic-virtio-net-ptp-v4-0-008af03cd43b@pengutronix.de>
+To: "Michael S. Tsirkin" <mst@redhat.com>, 
+ Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
+ "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Richard Cochran <richardcochran@gmail.com>, 
+ Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ =?utf-8?q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>, 
+ Jason Wang <jasowangio@gmail.com>, Alexei Starovoitov <ast@kernel.org>, 
+ Daniel Borkmann <daniel@iogearbox.net>, 
+ Jesper Dangaard Brouer <hawk@kernel.org>, 
+ John Fastabend <john.fastabend@gmail.com>, 
+ Stanislav Fomichev <sdf@fomichev.me>, Eric Dumazet <edumazet@kernel.org>
+Cc: Steffen Trumtrar <s.trumtrar@pengutronix.de>, 
+ virtualization@lists.linux.dev, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org, kvm@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=14258;
+ i=s.trumtrar@pengutronix.de; h=from:subject:message-id;
+ bh=c3uZbyehDFOtaT+FLG5cDw8Iq9XGIITywBOpj0kYC38=;
+ b=owGbwMvMwCUmtVehiCsuTInxtFoSQ9Z9/sTNEpZ92+XEXL8kzyh4Inn7p4NbVMKL447up6sPf
+ 8laUsDaUcrCIMbFICumyKKysIJP1OODZ+Q0ES6YOaxMIEMYuDgFYCKzTBgZOsMt105RX5IXs8Lg
+ Q3Ulh/2z/pq0Ekshjl8uW/XPyz2yZvjJuGSB4aOwZfMZFWXt1D4J7VkxZeFTuU08u/ieX3Q5Pe0
+ MIwA=
+X-Developer-Key: i=s.trumtrar@pengutronix.de; a=openpgp;
+ fpr=24A1780E1548F0495996140A1ABD20720A5E5622
 
-This rerolls the request-lifetime changes from the original six-patch=0A=
-series. The independent data-copyback error fixes have already been=0A=
-posted separately and received Yang Xiuwei's Reviewed-by for the series:=0A=
-=0A=
-  https://lore.kernel.org/r/cover.1792772194.git.x-professor@outlook.com=0A=
-=0A=
-This series is based on those two patches applied to mainline=0A=
-390febb5805d ("Merge tag 'for-7.4-part2-tag' of git://git.kernel.org/pub/sc=
-m/linux/kernel/git/kdave/linux").=0A=
-The base and prerequisite patch IDs are recorded below.=0A=
-=0A=
-Changes since the original series:=0A=
-=0A=
-- Release completed synchronous requests before sense/data copyback,=0A=
-  with the request-backed output fields saved first. The original BIO=0A=
-  chain remains owned by the user mapping until it is unmapped.=0A=
-- Include SCSI_IOCTL_SEND_COMMAND as a separate fix for the legacy=0A=
-  sibling identified during review.=0A=
-- Rework BSG io_uring so end-I/O saves completion state and returns=0A=
-  RQ_END_IO_FREE. Task work does not use rq or scmd. Optional sense=0A=
-  storage is allocated and charged to memcg before acquiring the request;=
-=0A=
-  nonblocking allocation failure returns -EAGAIN for retry.=0A=
-- Keep the pre-existing sense-length reporting error in a separate=0A=
-  patch, and bound the new snapshot by its allocated capacity.=0A=
-- Trace the synchronous lifetime dependency back through the file=0A=
-  moves to the scsi-mq request pool, rather than a 2005 merge commit.=0A=
-=0A=
-The old 1/6, 2/6, 3/6 and 5/6 correspond to the new 1/6, 3/6, 4/6 and=0A=
-6/6. The new 2/6 and 5/6 address the legacy ioctl and sense-length=0A=
-reporting respectively. Transport BSG remains outside this series: its=0A=
-separate queue needs its own resource-dependency analysis.=0A=
-=0A=
-Validation used matching x86-64 KASAN/lockdep configurations with QEMU=0A=
-and virtual SCSI disk/CD-ROM devices. Before this series, 20/20 traced=0A=
-DEFER_TASKRUN completions retained their request before task work ran;=0A=
-afterward, the request was released in that window. The tests also=0A=
-cover synchronous ioctls, sense/data copy errors, fixed buffers, io-wq,=0A=
-pending-ring close, and fault-injected allocation failures. CDDA testing=0A=
-exercised the virtual device's error path, not successful audio extraction=
-=0A=
-from real media. Each intermediate commit was built independently; i386=0A=
-and modular SCSI with IO_URING disabled were also object-built.=0A=
-=0A=
-The earlier one-tag fault results are historical evidence, not newly=0A=
-rerun deadlock tests of this revision. The dependency when completed=0A=
-requests retain all tags available to nested I/O is a source-level=0A=
-argument; it is not a claim of a new multi-tag exhaustion experiment.=0A=
-=0A=
-=0A=
-v1: https://lore.kernel.org/r/cover.1792237341.git.x-professor@outlook.com=
-=0A=
-Review follow-up: https://lore.kernel.org/r/20261022.scsi-copyback-review.3=
-1b8d6a70f4c@outlook.com=0A=
-CDDA reply: https://lore.kernel.org/r/20261022.scsi-cdda-lifetime.8f31a2c97=
-b42@outlook.com=0A=
-=0A=
-Yingjie Wang (6):=0A=
-  scsi: core: release SG_IO request before user copyback=0A=
-  scsi: core: release legacy ioctl request before user copyback=0A=
-  scsi: sr: release CDDA request before user copyback=0A=
-  scsi: bsg: release synchronous request before user copyback=0A=
-  scsi: bsg: clear io_uring sense length on copy failure=0A=
-  scsi: bsg: release io_uring requests in end-I/O=0A=
-=0A=
- drivers/scsi/scsi_bsg.c   | 102 ++++++++++++++++++++++++--------------=0A=
- drivers/scsi/scsi_ioctl.c |  34 +++++++++----=0A=
- drivers/scsi/sr.c         |   3 ++=0A=
- 3 files changed, 92 insertions(+), 47 deletions(-)=0A=
-=0A=
-=0A=
-base-commit: 390febb5805d3bb830402679f277f1d5f309e6bc=0A=
-prerequisite-patch-id: 8dbaa81edcd4c0acbe43169d7d1c7012f6bec995=0A=
-prerequisite-patch-id: 321b182025cad20ba75cc00122e50daba8d1a52f=0A=
--- =0A=
-2.43.0=0A=
-=0A=
+Add optional hardware rx timestamp offload for virtio-net.
+
+Introduce the virtio feature VIRTIO_NET_F_RX_TSTAMP. If negotiated, the
+virtio-net header grows by room for a 64 bit TAI timestamp (header
+size 40 bytes), stored in struct virtio_net_common_hdr. The layout is
+cumulative: the field is at the same offset whether or not the
+features before it were negotiated. The fixed layout needs
+VIRTIO_F_VERSION_1, so the feature is cleared without it.
+
+Implement ndo_hwtstamp_get/set so the timestamping can be enabled
+and disabled at runtime with SIOCSHWTSTAMP. The driver cannot filter
+what the device timestamps, so any rx filter other than NONE becomes
+ALL. The timestamp is read before the packet is handed to the XDP
+program or the stack, and attached to the skb with skb_hwtstamps().
+It is a raw TAI value; there is no PHC.
+
+The header size is negotiated per device and also applies to
+transmitted packets. On transmit, zero the header behind the fields
+the driver fills in, so the device sees a zero tstamp and no stale
+skb->cb or headroom bytes.
+
+On receive in big packet mode, the header is placed in front of the
+data in the first page. Grow padded_vnet_hdr to 48 bytes so the
+40 byte header still fits there.
+
+Tested in a guest with a patched QEMU:
+  guest: ./timestamping eth0 \
+          SOF_TIMESTAMPING_RAW_HARDWARE \
+          SOF_TIMESTAMPING_RX_HARDWARE
+  host:  nc -4 -u 192.168.1.1 319
+
+Based on work by Willem de Bruijn.
+
+Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+Assisted-by: Claude:claude-opus-5-5
+---
+ drivers/net/virtio_net.c        | 136 +++++++++++++++++++++++++++++++++++-----
+ include/linux/virtio_net.h      |  10 +++
+ include/uapi/linux/virtio_net.h |   1 +
+ 3 files changed, 131 insertions(+), 16 deletions(-)
+
+diff --git a/drivers/net/virtio_net.c b/drivers/net/virtio_net.c
+index 17d3e32eed9d6..23af10c613b48 100644
+--- a/drivers/net/virtio_net.c
++++ b/drivers/net/virtio_net.c
+@@ -20,6 +20,7 @@
+ #include <linux/filter.h>
+ #include <linux/kernel.h>
+ #include <linux/dim.h>
++#include <linux/unaligned.h>
+ #include <net/route.h>
+ #include <net/xdp.h>
+ #include <net/net_failover.h>
+@@ -416,6 +417,12 @@ struct virtnet_info {
+ 	u32 rss_hash_types_supported;
+ 	u32 rss_hash_types_saved;
+ 
++	/* Device passes time stamps to the driver */
++	bool has_rx_tstamp;
++	bool hwts_rx_en;
++
++	struct kernel_hwtstamp_config tstamp_config;
++
+ 	/* Has control virtqueue */
+ 	bool has_cvq;
+ 
+@@ -483,14 +490,15 @@ static_assert(offsetof(struct virtnet_info, rss_trailer.hash_key_data) ==
+ 	      offsetof(struct virtnet_info, rss_hash_key_data));
+ 
+ struct padded_vnet_hdr {
+-	struct virtio_net_hdr_v1_hash hdr;
++	struct virtio_net_common_hdr hdr;
+ 	/*
+ 	 * hdr is in a separate sg buffer, and data sg buffer shares same page
+ 	 * with this header sg. This padding makes next sg 16 byte aligned
+ 	 * after the header.
+ 	 */
+-	char padding[12];
++	char padding[8];
+ };
++static_assert(sizeof(struct padded_vnet_hdr) % 16 == 0);
+ 
+ static struct virtio_net_common_hdr xsk_hdr;
+ 
+@@ -501,7 +509,7 @@ static int virtnet_xdp_handler(struct bpf_prog *xdp_prog, struct xdp_buff *xdp,
+ 			       unsigned int *xdp_xmit,
+ 			       struct virtnet_rq_stats *stats);
+ static void virtnet_receive_done(struct virtnet_info *vi, struct receive_queue *rq,
+-				 struct sk_buff *skb, u8 flags);
++				 struct sk_buff *skb, u8 flags, ktime_t tstamp);
+ static struct sk_buff *virtnet_skb_append_frag(struct receive_queue *rq,
+ 					       struct sk_buff *head_skb,
+ 					       struct sk_buff *curr_skb,
+@@ -1274,14 +1282,25 @@ static struct sk_buff *virtnet_receive_xsk_merge(struct net_device *dev, struct
+ 	return NULL;
+ }
+ 
++static inline ktime_t virtnet_record_rx_tstamp(const struct virtnet_info *vi,
++					       const struct virtio_net_common_hdr *hdr)
++{
++	if (!READ_ONCE(vi->hwts_rx_en))
++		return 0;
++
++	return ns_to_ktime(get_unaligned_le64(hdr->tstamp));
++}
++
+ static void virtnet_receive_xsk_buf(struct virtnet_info *vi, struct receive_queue *rq,
+ 				    void *buf, u32 len,
+ 				    unsigned int *xdp_xmit,
+ 				    struct virtnet_rq_stats *stats)
+ {
+ 	struct net_device *dev = vi->dev;
++	struct virtio_net_common_hdr *hdr;
+ 	struct sk_buff *skb = NULL;
+ 	struct xdp_buff *xdp;
++	ktime_t tstamp;
+ 	u8 flags;
+ 
+ 	len -= vi->hdr_len;
+@@ -1299,7 +1318,9 @@ static void virtnet_receive_xsk_buf(struct virtnet_info *vi, struct receive_queu
+ 		return;
+ 	}
+ 
+-	flags = ((struct virtio_net_common_hdr *)(xdp->data - vi->hdr_len))->hdr.flags;
++	hdr = (struct virtio_net_common_hdr *)(xdp->data - vi->hdr_len);
++	flags = hdr->hdr.flags;
++	tstamp = virtnet_record_rx_tstamp(vi, hdr);
+ 
+ 	if (!vi->mergeable_rx_bufs)
+ 		skb = virtnet_receive_xsk_small(dev, vi, rq, xdp, xdp_xmit, stats);
+@@ -1307,7 +1328,7 @@ static void virtnet_receive_xsk_buf(struct virtnet_info *vi, struct receive_queu
+ 		skb = virtnet_receive_xsk_merge(dev, vi, rq, xdp, xdp_xmit, stats);
+ 
+ 	if (skb)
+-		virtnet_receive_done(vi, rq, skb, flags);
++		virtnet_receive_done(vi, rq, skb, flags, tstamp);
+ }
+ 
+ static int virtnet_add_recvbuf_xsk(struct virtnet_info *vi, struct receive_queue *rq,
+@@ -2489,7 +2510,7 @@ static void virtio_skb_set_hash(const struct virtio_net_hdr_v1_hash *hdr_hash,
+ }
+ 
+ static void virtnet_receive_done(struct virtnet_info *vi, struct receive_queue *rq,
+-				 struct sk_buff *skb, u8 flags)
++				 struct sk_buff *skb, u8 flags, ktime_t tstamp)
+ {
+ 	struct virtio_net_common_hdr *hdr;
+ 	struct net_device *dev = vi->dev;
+@@ -2498,6 +2519,9 @@ static void virtnet_receive_done(struct virtnet_info *vi, struct receive_queue *
+ 	if (dev->features & NETIF_F_RXHASH && vi->has_rss_hash_report)
+ 		virtio_skb_set_hash(&hdr->hash_v1_hdr, skb);
+ 
++	if (tstamp)
++		skb_hwtstamps(skb)->hwtstamp = tstamp;
++
+ 	hdr->hdr.flags = flags;
+ 	if (virtio_net_handle_csum_offload(skb, &hdr->hdr, vi->rx_tnl_csum)) {
+ 		net_warn_ratelimited("%s: bad csum: flags: %x, gso_type: %x rx_tnl_csum %d\n",
+@@ -2536,8 +2560,10 @@ static void receive_buf(struct virtnet_info *vi, struct receive_queue *rq,
+ 			unsigned int *xdp_xmit,
+ 			struct virtnet_rq_stats *stats)
+ {
++	struct virtio_net_common_hdr *hdr;
+ 	struct net_device *dev = vi->dev;
+ 	struct sk_buff *skb;
++	ktime_t tstamp;
+ 	u8 flags;
+ 
+ 	if (unlikely(len < vi->hdr_len + ETH_HLEN)) {
+@@ -2567,23 +2593,27 @@ static void receive_buf(struct virtnet_info *vi, struct receive_queue *rq,
+ 	 */
+ 
+ 	if (vi->mergeable_rx_bufs) {
+-		flags = ((struct virtio_net_common_hdr *)buf)->hdr.flags;
++		hdr = buf;
++		flags = hdr->hdr.flags;
++		tstamp = virtnet_record_rx_tstamp(vi, hdr);
+ 		skb = receive_mergeable(dev, vi, rq, buf, ctx, len, xdp_xmit,
+ 					stats);
+ 	} else if (vi->big_packets) {
+-		void *p = page_address((struct page *)buf);
+-
+-		flags = ((struct virtio_net_common_hdr *)p)->hdr.flags;
++		hdr = page_address((struct page *)buf);
++		flags = hdr->hdr.flags;
++		tstamp = virtnet_record_rx_tstamp(vi, hdr);
+ 		skb = receive_big(dev, vi, rq, buf, len, stats);
+ 	} else {
+-		flags = ((struct virtio_net_common_hdr *)buf)->hdr.flags;
++		hdr = buf;
++		flags = hdr->hdr.flags;
++		tstamp = virtnet_record_rx_tstamp(vi, hdr);
+ 		skb = receive_small(dev, vi, rq, buf, ctx, len, xdp_xmit, stats);
+ 	}
+ 
+ 	if (unlikely(!skb))
+ 		return;
+ 
+-	virtnet_receive_done(vi, rq, skb, flags);
++	virtnet_receive_done(vi, rq, skb, flags, tstamp);
+ }
+ 
+ static int virtnet_rq_submit(struct receive_queue *rq, char *buf,
+@@ -3303,6 +3333,10 @@ static int xmit_skb(struct send_queue *sq, struct sk_buff *skb, bool orphan)
+ 					false, feature_hdrlen))
+ 		return -EPROTO;
+ 
++	/* Don't leak skb->cb or headroom; the device expects tstamp to be 0 */
++	if (hdr_len > sizeof(*hdr))
++		memset((u8 *)hdr + sizeof(*hdr), 0, hdr_len - sizeof(*hdr));
++
+ 	if (vi->mergeable_rx_bufs)
+ 		hdr->hash_hdr.hdr.num_buffers = 0;
+ 
+@@ -5520,6 +5554,27 @@ static int virtnet_get_per_queue_coalesce(struct net_device *dev,
+ 	return 0;
+ }
+ 
++static int virtnet_get_ts_info(struct net_device *dev,
++			       struct kernel_ethtool_ts_info *info)
++{
++	struct virtnet_info *vi = netdev_priv(dev);
++
++	/* setup default software timestamp */
++	ethtool_op_get_ts_info(dev, info);
++
++	if (vi->has_rx_tstamp) {
++		info->so_timestamping |=
++			SOF_TIMESTAMPING_RX_HARDWARE |
++			SOF_TIMESTAMPING_RAW_HARDWARE;
++
++		info->tx_types = BIT(HWTSTAMP_TX_OFF);
++		info->rx_filters = BIT(HWTSTAMP_FILTER_NONE) |
++				   BIT(HWTSTAMP_FILTER_ALL);
++	}
++
++	return 0;
++}
++
+ static void virtnet_init_settings(struct net_device *dev)
+ {
+ 	struct virtnet_info *vi = netdev_priv(dev);
+@@ -5615,7 +5670,7 @@ static const struct ethtool_ops virtnet_ethtool_ops = {
+ 	.get_ethtool_stats = virtnet_get_ethtool_stats,
+ 	.set_channels = virtnet_set_channels,
+ 	.get_channels = virtnet_get_channels,
+-	.get_ts_info = ethtool_op_get_ts_info,
++	.get_ts_info = virtnet_get_ts_info,
+ 	.get_link_ksettings = virtnet_get_link_ksettings,
+ 	.set_link_ksettings = virtnet_set_link_ksettings,
+ 	.set_coalesce = virtnet_set_coalesce,
+@@ -6214,6 +6269,43 @@ static void virtnet_tx_timeout(struct net_device *dev, unsigned int txqueue)
+ 		   jiffies_to_usecs(jiffies - READ_ONCE(txq->trans_start)));
+ }
+ 
++static int virtnet_hwtstamp_get(struct net_device *dev,
++				struct kernel_hwtstamp_config *config)
++{
++	struct virtnet_info *vi = netdev_priv(dev);
++
++	if (!vi->has_rx_tstamp)
++		return -EOPNOTSUPP;
++
++	*config = vi->tstamp_config;
++
++	return 0;
++}
++
++static int virtnet_hwtstamp_set(struct net_device *dev,
++				struct kernel_hwtstamp_config *config,
++				struct netlink_ext_ack *extack)
++{
++	struct virtnet_info *vi = netdev_priv(dev);
++
++	if (!vi->has_rx_tstamp)
++		return -EOPNOTSUPP;
++
++	if (config->tx_type != HWTSTAMP_TX_OFF) {
++		NL_SET_ERR_MSG_MOD(extack, "TX timestamping is not supported");
++		return -ERANGE;
++	}
++
++	/* The driver cannot filter, any filter becomes ALL */
++	if (config->rx_filter != HWTSTAMP_FILTER_NONE)
++		config->rx_filter = HWTSTAMP_FILTER_ALL;
++
++	WRITE_ONCE(vi->hwts_rx_en, config->rx_filter == HWTSTAMP_FILTER_ALL);
++	vi->tstamp_config = *config;
++
++	return 0;
++}
++
+ static int virtnet_init_irq_moder(struct virtnet_info *vi)
+ {
+ 	u8 profile_flags = 0, coal_flags = 0;
+@@ -6274,6 +6366,8 @@ static const struct net_device_ops virtnet_netdev = {
+ 	.ndo_get_phys_port_name	= virtnet_get_phys_port_name,
+ 	.ndo_set_features	= virtnet_set_features,
+ 	.ndo_tx_timeout		= virtnet_tx_timeout,
++	.ndo_hwtstamp_set	= virtnet_hwtstamp_set,
++	.ndo_hwtstamp_get	= virtnet_hwtstamp_get,
+ };
+ 
+ static void virtnet_config_changed_work(struct work_struct *work)
+@@ -6685,6 +6779,10 @@ static int virtnet_validate(struct virtio_device *vdev)
+ 		__virtio_clear_bit(vdev, VIRTIO_NET_F_STANDBY);
+ 	}
+ 
++	/* The fixed header layout with tstamp at offset 32 needs VERSION_1 */
++	if (!virtio_has_feature(vdev, VIRTIO_F_VERSION_1))
++		__virtio_clear_bit(vdev, VIRTIO_NET_F_RX_TSTAMP);
++
+ 	return 0;
+ }
+ 
+@@ -6880,6 +6978,9 @@ static int virtnet_probe(struct virtio_device *vdev)
+ 	if (virtio_has_feature(vdev, VIRTIO_NET_F_HASH_REPORT))
+ 		vi->has_rss_hash_report = true;
+ 
++	if (virtio_has_feature(vdev, VIRTIO_NET_F_RX_TSTAMP))
++		vi->has_rx_tstamp = true;
++
+ 	if (virtio_has_feature(vdev, VIRTIO_NET_F_RSS)) {
+ 		vi->has_rss = true;
+ 
+@@ -6913,8 +7014,10 @@ static int virtnet_probe(struct virtio_device *vdev)
+ 		dev->xdp_metadata_ops = &virtnet_xdp_metadata_ops;
+ 	}
+ 
+-	if (virtio_has_feature(vdev, VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO) ||
+-	    virtio_has_feature(vdev, VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO))
++	if (vi->has_rx_tstamp)
++		vi->hdr_len = offsetofend(struct virtio_net_common_hdr, tstamp);
++	else if (virtio_has_feature(vdev, VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO) ||
++		 virtio_has_feature(vdev, VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO))
+ 		vi->hdr_len = sizeof(struct virtio_net_hdr_v1_hash_tunnel);
+ 	else if (vi->has_rss_hash_report)
+ 		vi->hdr_len = sizeof(struct virtio_net_hdr_v1_hash);
+@@ -7250,7 +7353,8 @@ static struct virtio_device_id id_table[] = {
+ 	VIRTIO_NET_F_SPEED_DUPLEX, VIRTIO_NET_F_STANDBY, \
+ 	VIRTIO_NET_F_RSS, VIRTIO_NET_F_HASH_REPORT, VIRTIO_NET_F_NOTF_COAL, \
+ 	VIRTIO_NET_F_VQ_NOTF_COAL, \
+-	VIRTIO_NET_F_GUEST_HDRLEN, VIRTIO_NET_F_DEVICE_STATS
++	VIRTIO_NET_F_GUEST_HDRLEN, VIRTIO_NET_F_DEVICE_STATS, \
++	VIRTIO_NET_F_RX_TSTAMP
+ 
+ static unsigned int features[] = {
+ 	VIRTNET_FEATURES,
+diff --git a/include/linux/virtio_net.h b/include/linux/virtio_net.h
+index a6de308b8f25e..2abd8a614a23f 100644
+--- a/include/linux/virtio_net.h
++++ b/include/linux/virtio_net.h
+@@ -17,6 +17,16 @@ struct virtio_net_common_hdr {
+ 		struct virtio_net_hdr_v1_hash hash_v1_hdr;
+ 		struct virtio_net_hdr_v1_hash_tunnel tnl_hdr;
+ 	};
++	/*
++	 * The wire layout is fixed and cumulative: a field sits at the same
++	 * offset whether or not the features before it were negotiated; unused
++	 * bytes are padding. tstamp is thus always at offset 32 and only
++	 * present (header size 40) if VIRTIO_NET_F_RX_TSTAMP was negotiated.
++	 * The negotiated header size tells how much of this struct is
++	 * on the wire. Only ever append new fields at the end.
++	 */
++	__u8 reserved[8];	/* outer_nh_offset, ipsec_resource_hdr (not implemented) */
++	__le16 tstamp[4];	/* le64 TAI receive time in ns, 0 if none */
+ };
+ 
+ static inline bool virtio_net_hdr_match_proto(__be16 protocol, __u8 gso_type)
+diff --git a/include/uapi/linux/virtio_net.h b/include/uapi/linux/virtio_net.h
+index 1db45b01532b5..15e8e408d50fb 100644
+--- a/include/uapi/linux/virtio_net.h
++++ b/include/uapi/linux/virtio_net.h
+@@ -56,6 +56,7 @@
+ #define VIRTIO_NET_F_MQ	22	/* Device supports Receive Flow
+ 					 * Steering */
+ #define VIRTIO_NET_F_CTRL_MAC_ADDR 23	/* Set MAC address */
++#define VIRTIO_NET_F_RX_TSTAMP	  49	/* Device sends TAI receive time */
+ #define VIRTIO_NET_F_DEVICE_STATS 50	/* Device can provide device-level statistics. */
+ #define VIRTIO_NET_F_VQ_NOTF_COAL 52	/* Device supports virtqueue notification coalescing */
+ #define VIRTIO_NET_F_NOTF_COAL	53	/* Device supports notifications coalescing */
+
+-- 
+2.52.0
+
