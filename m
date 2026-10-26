@@ -1,88 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793057508;
-	b=N2q+AN5D6G2vEOqEUYsuVEzt255yh+KEAUaxOGsXAfjg6ns2aTShy4Qnk60aMoWIaE+F
-	 cKHX4GARBOYq8jQ0FtSBzWtt7P9CcF1fXjfadEtDUAIerXRvwISGaZPNimZg1k3krGkK6
-	 TlapFylBCDB0MCp0a9QzJt79hV9xCX1TGtJsrqEQ7LJESiRulv7E+bdLyPG0E/ofmPftQ
-	 teJa/F0zShAVvwxkR4YzA8VT/xnhi+P4ANcPyzrvC5fT8OxmGNLHTWASrPNzlG/ucSUHG
-	 PpirE+DgWckUmNT+ZmXoMDJPgUPgGQgqz8464BweqUt9J//Fe31mLthC++ZiqxmFakQ==
+	t=1793057505;
+	b=J9U5pTCoZD7miQQYUaNx5XxOHlNpeMFIGq9EhNaNrnQlUrWLFVAmVaOogcm9Lv4kSpKn
+	 8bwtx0SBheQ3gJc6VfyeuNKq9Skbuse3Iz97mh1pE9YwqhBJ4cDOIS1LX05HQ7wBgHe0E
+	 QYX3aJ4955QVuLpIPuKTG0HHvqVav/Y2Uf+kdkzzZVJKmtUS23qadTyT6UlsS2XSvLfFv
+	 tOz9NOtGzf99vIy2r8QJJRkn6zXR2tWHwU8FLLnZ1CuzQK+9P2c0EaxHJaJbtS73ej3VE
+	 2k3vZW69XUYXkESkv5ZThhxqmZu4Pq8COkpw8MTXhH4WRj5i8vsLGT6gkEQNs06jxMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793057508;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:MIME-Version:Content-Type:Content-Disposition;
-	bh=1kNsOBjiPepCZlQXn6dnkeUyVbnTvzLZsjEF/ZOxFpA=;
-	b=a8btda849Zgl7Jr2ojHjVjP7oUhNah+gqmtTVFXlGZW/6/vKBQYN2ooy11IDJdzWplu4
-	 ZlK3kd36fMPIYgcrUfK8PuCZEcmQYqcB1PpVJQzyZYhFjX6or/9UZ+W+3Pvm/pw84yq+n
-	 SE1ItNgHvGszUijSyBMsmwWmeDNgp62S8HdHR/ou32PQ+0/HBOAZO4OrCe3jI8ewJ0Q4d
-	 Cfk6+gsdDroZS0KcDxbwSR0A+Z3t/IEtSngosvWBC/96dy99acmxKuH+wt7ioUQ3xes2G
-	 KZJbVIME2HPnFPTLmBgHs3npH4fk2DXqxdCWipjl/pnN5fXqSwaAv+9Qfhww/L8oZAw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793057505;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=JOZA/d3RnlEXnMB1S+vtRBXnoN845YtQMJ+bQJINkeg=;
+	b=sOWdGnuQeORTVJhsGJ113sfp2yH+IJMW22PzaFSrnGIb58pmh8OI35flgFI5LMVPeSid
+	 E9oDz3WtvEoNCHPCnCClfeZ8K7m/Sub7D+UmTih9z6XKJHHq6gXoO2e87+meZJX3GhwOr
+	 fMbwHjPXsKNZFSUizDMQKPYrr3rRRgT2oQsRatwgWlvuoD8NY9hL5ajfv0qlsS8pllrWe
+	 eIAxlkk+p/otf/UomCBJuJ5fu/1RIalBsk/qtGpTHks1kQp18LPZcaDjqz9zrzCVFIT+p
+	 rW8bJ0czHvGcHB5bARHlnGH507c4bAfehgbBvBazlpI9Ls6JN5IZ8WsOdhVQLuEWttA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=multikernel.io;
-	spf=pass smtp.mailfrom=multikernel.io;
-	dkim=pass header.d=multikernel-io.20251104.gappssmtp.com header.i=@multikernel-io.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=rvmlXMcP;
-	arc=none smtp.remote-ip=209.85.216.41
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ox2i2FSH;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B4AD606A31E
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 23:31:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B4AD606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=multikernel.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=multikernel.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C3AB606A31D;
+	Mon, 26 Oct 2026 23:31:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=multikernel-io.20251104.gappssmtp.com header.i=@multikernel-io.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=rvmlXMcP
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3ad2b3b1c02so1762125a91.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 16:31:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=multikernel-io.20251104.gappssmtp.com; s=20251104; t=1793057507; x=1793662307; darn=vger.kernel.org;
-        h=content-disposition:content-type:mime-version:message-id:subject:cc
-         :to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1kNsOBjiPepCZlQXn6dnkeUyVbnTvzLZsjEF/ZOxFpA=;
-        b=rvmlXMcP2IY+cbSgLxGGqlP6Ugw4/wNPiD+nwUdilbb93tD2SOSof4ValBnSM5QRss
-         Yd1RGoiqDAgpZECRmEa9oHz+1SwJ923EDedcNJRlKbjSAj6sQmWZZ2tp+puDQprU6IDk
-         9g/B2DwUbdyCrGtaXtWQjWAwHGZA2XWl7m0L+55GVNXaXQSLDk8jn7+pF3oOXwFXm2pf
-         otfVWsRb0xmbtYKJ29J/9zhoW3pMEM5QOTfJeaF2cWASGq0tzzsvAKj/YdgWkZlxFl3I
-         vfHHFDFQT6WLG0UZ753E+R4l1GY37zuce2WtqVNyzoqAKw4cxkE4IsZJY3F2Y+tvWmWi
-         sSpg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793057507; x=1793662307;
-        h=content-disposition:content-type:mime-version:message-id:subject:cc
-         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1kNsOBjiPepCZlQXn6dnkeUyVbnTvzLZsjEF/ZOxFpA=;
-        b=fSLO58ZJcZIymITql54Ell9NLeeyztgdsEn1H7i8sxciidyuwtipKaJk3vHPYJJDmi
-         BzEvRyJ9zjA+FI4uH/7cZvJg7O0D43Qmtes4vsgWkdLZquw4P6acm3tfDxQe+1HFcAQ3
-         YrrJgRtzoC7sAI2Xm2oVqV+lu+qp51p9anmkQAXPa8akZRDT2Nl4MRInMLax1Vln+Tf1
-         y6gR31osPj9GLTW4nfsjKqb52vmOZKcYJGYiJSFSrtJ1HiC77AyDtvdn6DY9JpaJ2pF5
-         zTJXcbusZfE7Ee36DHs48n0fSZ9NrYB2Qm28b9ourImoC71y0/I1rdHDR2vJAN4GYIei
-         R6Sg==
-X-Gm-Message-State: AFq9FYLA+RQjqcVojlP9iWSSswmleekTa/LA2YmIjiBXat+bt4gALNz9
-	E42yDzU1/HLEEZvhVFrIf/Q+hNlEBnWGDUZ9fU1No/DuasnkuwdV3/QxojNp/uEAgu7McZD0GAW
-	W4QV8/c8=
-X-Gm-Gg: AYBFou0gKc8IGMCN8K8IEm/6022+Dj3dDzGEhCwUEoote1QIzN5+mgt/83gVwwPZW+V
-	rghAdguH99hgieV9ftOKvKdb0Wk78SoNAsPY0TQCNKahVnKaX5dJLQUaRx0culm3jwiVIl+plYe
-	/bBuv954wAhkFjh60nSsGvRm/HyNWa8ahEj+fRMIvXzIPNfSC67E76igQGF7OAtkIXa2P+abWIo
-	MvwlrFcc2q09jsnWUSDGK5MOMrSBdBBlv89OnQojEQ8pfEhxjg8wNeHDU4hR1+L0FMtmRePRIEK
-	7hJhnacXeXTRCZSnH0IBGuBldvYfInSPx/Hr6wOIENt+rq2Urj97ec/kJYy9iwWwapQIvrd8W6W
-	djTzmTdcar9YkTjegkDNwz93GqOpPCBrg0SCVCPnpXTdQ6sZUs3d5Qo4uyHGg/CmXpA8ohIfUXp
-	pwSOaq/2Wa6YYX1Pkqi45mDSc9ao7y5pIkBY7j/AP/fVOVjsXNFgjXHjwM/0nX5qV47xhxf3bq6
-	AFQICKfV4ZDCpaCls9QTXuWZjEtksTBB07Tuj3IcP9WV4uJ4xdiqM9eAxFVJyHiL2Y5U0i+cJ7r
-	fg+/3Hf3n5cY
-X-Received: by 2002:a17:90a:d2c6:b0:3a0:abc3:afb5 with SMTP id 98e67ed59e1d1-3adeabde84emr7276945a91.34.1793057506638;
-        Mon, 26 Oct 2026 16:31:46 -0700 (PDT)
-Received: from localhost ([2601:647:4084:777d:f4e4:ea6:4ca0:ca08])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae40455eb5sm1154323a91.12.2026.10.26.16.31.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 16:31:46 -0700 (PDT)
-Date: Mon, 26 Oct 2026 16:31:45 -0700
-From: Cong Wang <cwang@multikernel.io>
-To: linux-kernel@vger.kernel.org
-Cc: multikernel@lists.linux.dev
-Subject: [ANNOUNCE] mklinux v7.0-mk4 and kerf 0.4.0
-Message-ID: <at_i4aR2Jd6GcHhZ@pop-os.localdomain>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ox2i2FSH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A76E1F01825;
+	Mon, 26 Oct 2026 23:31:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793057504;
+	bh=JOZA/d3RnlEXnMB1S+vtRBXnoN845YtQMJ+bQJINkeg=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=Ox2i2FSHOypqrcZwgXnwxa5pmucASOgMRL5vDYqMTASHl2rf75YW3wQoVrkuPIuIi
+	 qWBaawkuI8mbHfObP4rg08odrulxxwWOwc2kIfSbm6V7kYxzS7kix5XDxbFQgiI57R
+	 vd/KGBmW9fqjr2ojLTHGLQyXB6fpiqHp4DCbdpXJvJtGtlMg8tu48HAXtQUxYfibsT
+	 JsLarU2SHDjaAj8xnSGSrXvbdAGQU1FoX1lIooc+b6p0m+NHqmvpSisMO7dcd3rVVw
+	 AUARD/nIWCCPO2WzwdlkLwUwJeQDZtBN2zbbbs27Pi0cCpSRpugWYDmuEeJDHrz0qE
+	 2Nr+Rh3Vvxf7Q==
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Date: Tue, 27 Oct 2026 00:18:04 +0100
+Subject: [PATCH 44/46] mm/cma: don't release CMA pages still in use
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,82 +52,118 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261027-fixes_core-v1-44-6f74bec9a5bb@kernel.org>
+References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
+In-Reply-To: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>, 
+ Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+ Baoquan He <baoquan.he@linux.dev>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
+ Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, 
+ Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>, 
+ Pasha Tatashin <pasha.tatashin@soleen.com>, 
+ Pratyush Yadav <pratyush@kernel.org>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+ Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>, 
+ Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
+ Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
+ Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>, 
+ Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>, 
+ Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
+ Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
+ linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, 
+ stable@vger.kernel.org, "David Hildenbrand (Arm)" <david@kernel.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2157; i=david@kernel.org;
+ h=from:subject:message-id; bh=nx05kHs+vYnlpcYo2GO368aldzvpDGoDSteIsZANA+4=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLLu359h9zUpMrRK7P9OThHTp6//rRVNZj6uMbl9Wn3v9
+ c5EY4H9HaUsDGIcDLJiiixBwfcNXr5cV1vtxscMM4eVCWQIAxenAEzk7RKG/1EXTeqmP/GzifCZ
+ ePbvbCfeC7W/VWUvTCi5K3vki/Mam/cM/ytneLn+m+4vm8X6VsRtVrGe72WWIDPnlSqnFA5NmLY
+ kmAMA
+X-Developer-Key: i=david@kernel.org; a=openpgp;
+ fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-Hi all,
+From: Rik van Riel <riel@surriel.com>
 
-mklinux v7.0-mk4 is out. mklinux is the tree carrying the multikernel
-work: several Linux kernels running side by side on one machine, each
-owning its own CPUs, memory and devices, with no hypervisor underneath.
-A host kernel spawns the others through kexec_file_load() and they talk
-over shared-memory message rings and IPIs.
+When a driver calls dma_free_contiguous() before quiescing DMA, the
+page might still have a reference from the device.
+put_page_testzero() there returns false, WARN fires, but the code proceeds
+to free_contig_frozen_range() putting a live page onto buddy and clearing
+the bitmap. A subsequent allocation can hand the same PFN to a new
+owner while the original holder still references it.
 
-This release is 41 patches on top of v7.0-mk3.
+A concurrent put_page() that drops the last reference between the
+testzero loop and free_contig_frozen_range() can double-queue the page
+via page->lru, corrupting buddy lists.
 
-Git:
+Avoid the corruption by not freeing a CMA region if any of the
+pages inside are still in use.
 
-  https://github.com/multikernel/linux.git  tag v7.0-mk4
+Make it explicit in the warning that the driver allowed a leak.
 
-Release page, with x86_64 .deb and .rpm packages built from the tag:
+While at it, use page_ref_freeze() to make the semantics clearer and
+switch to pr_warn_ratelimited().
 
-  https://github.com/multikernel/linux/releases/tag/v7.0-mk4
+Fixes: 9bda131c6093 ("mm: cma: add cma_alloc_frozen{_compound}()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Rik van Riel <riel@surriel.com>
+Link: https://patch.msgid.link/20260811132045.5f114772@fangorn
+[ david: use page_ref_freeze() + pr_warn_ratelimited() ]
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+---
+ mm/cma.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-Use it together with kerf 0.4.0, the user-space tool that creates and
-manages instances, released alongside it:
+diff --git a/mm/cma.c b/mm/cma.c
+index a10ea37a261da..871f95c9ae9f0 100644
+--- a/mm/cma.c
++++ b/mm/cma.c
+@@ -1020,7 +1020,7 @@ bool cma_release(struct cma *cma, const struct page *pages,
+ 		 unsigned long count)
+ {
+ 	struct cma_memrange *cmr;
+-	unsigned long ret = 0;
++	unsigned long leaked = 0;
+ 	unsigned long i, pfn;
+ 
+ 	cmr = find_cma_memrange(cma, pages, count);
+@@ -1029,9 +1029,13 @@ bool cma_release(struct cma *cma, const struct page *pages,
+ 
+ 	pfn = page_to_pfn(pages);
+ 	for (i = 0; i < count; i++, pfn++)
+-		ret += !put_page_testzero(pfn_to_page(pfn));
++		leaked += !page_ref_freeze(pfn_to_page(pfn), 1);
+ 
+-	WARN(ret, "%lu pages are still in use!\n", ret);
++	if (leaked) {
++		pr_warn_ratelimited("%lu pages are still in use, not freeing CMA region!\n",
++				   leaked);
++		return true;
++	}
+ 
+ 	__cma_release_frozen(cma, cmr, pages, count);
+ 
 
-  https://github.com/multikernel/kerf/releases/tag/v0.4.0
+-- 
+2.43.0
 
-PCI config space: a spawn no longer generates config cycles itself. The
-kernel that lent its functions answers for their config space over the
-message ring, the way xen-pciback answers pcifront, and filters writes
-so an instance can neither move a BAR nor enable SR-IOV. The ring gains
-synchronous requests that wait for their answer with interrupts off, so
-the accessors work under the PCI core's lock. Each bus holding a device
-of an instance is described as a root bus of its own, so the spawn never
-enumerates the host's bridges. A running spawn can take a function it
-did not boot with, a lone function of a slot (00:1f.2 without 00:1f.0)
-is found, functions without MSI-X are lent, and a function taken back
-from an instance is reset, or has bus mastering cleared, before it is
-handed out again.
-
-Takeover: a backup is told about every PCI bus of its host. Once the
-fence confirms the host parked, config space switches to each bus's ECAM
-window, filtered to the spawn's own functions, and a spawn can adopt a
-function of its fenced host. A CPU that panicked with the NMI watchdog
-running is now parked by a force halt instead of perf claiming the NMI.
-
-Memory: pool memory is hot-removed from the host's direct map, so a
-stray host write can no longer reach a spawn, and instance memory is no
-longer claimed as host System RAM. Memory hotplug can remove and add
-back parts of memory blocks in subsections, so pool chunks and instance
-memory moves need only be multiples of 4M on x86 rather than whole
-blocks; the granule is published in the device tree. A partly removed 1G
-direct mapping is split first. Each instance region is exactly one chunk
-of its instance pool, fixing a genalloc BUG and leaked memory on resize,
-and a memory-add claims the range the kernel actually adds.
-
-kexec: multikernel images load only through kexec_file_load(), are
-published only once loaded, and fix error-path leaks, double frees and a
-stale -EBUSY. The manifest page and IPI ring live in the instance. ELF
-vmlinux spawn kernels can carry an appended signature, so KEXEC_SIG and
-lockdown work. Starting an instance moved out of kexec into the instance
-code.
-
-x86: spawns get no host RSDP, keep ACPI off against acpi=force, reserve
-no RAM buffers past their E820 regions, and never use IPI shorthands,
-which had broadcast host IPIs into spawns and the other way round.
-
-Fixes: the host doorbell is rung on the host's real boot CPU rather than
-physical CPU 0, released mk_transport vsock sockets are unhashed (exec
-failed after 512 runs), the spawn console starts with standard terminal
-modes, and a device-add binds only where the bus would.
-
-The binary packages are a convenience for trying the tree. They use an
-Ubuntu-based config with CONFIG_MULTIKERNEL=y, modules are signed with a
-per-build key, and the kernel is not Secure Boot signed.
-
-Feedback, testing reports and review are very welcome.
-
-Thanks,
-Cong
