@@ -1,91 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.232
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793019633;
-	b=gj1/gXbLr1/p6ITKnP1yVhwj/tBg1qHsH3XtQIfp22+9hoouCevf6fjeEpjRss3aDwZO
-	 zyRST4UeNmC5+spF+LHBLVlsak5KoKdBN3E6QItSmHMCutC1ezfEQWbDlELYF9FZr/Vj/
-	 2nKhG8mPQJqYExydZ3gIV9LadRbN4tZ+0t+pSfatSwMVP/5CaseUtAxzYpib1z0Q2tkCd
-	 TDNCOtTevR0UTEdSYbUYneyD/PbJe9Zp5sHNpxarI+mp4ey+Q7DFMERidpTlJ0jP0JKLi
-	 d1zLEgf5dg64IiPWJF1I5WaUJf4UAoueMibCXFW86Sf7j0/rOuzxtKnlgKsfqegfBWA==
+	t=1793019670;
+	b=lpMyDYU2X6yGnwt9RSOjJR72hpWyMewpSzXve+jtts1lbCMMlgJ6uv0tl7DefBVqkRe+
+	 5RnJd7qB4PG3Skly0IDWH6D6w499+Y2uSnEsSWgUAONWgikRB5iibFXJ+Yfb8eARMFfLS
+	 dOMc+KDerABMCdRc60lKef0iAwZrMxmOsY4ZHsCTTZGAyOdJRypLWGYopeDPu+dgvMPIQ
+	 2E0IAUAAVsqBcydBJUXKLZvseqyUjDzNQHQimoxapAGdgfxKxAaeHIV1rC+uBnvbbQbSN
+	 SM07eHw8sxkppxEnVppX9NkMo5tnfnLfRPVyryn+q9EJJbgpMz14Fiqp5msauGzf8sA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793019633;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=zLJZODPs6/AcsmUGJ3EUfqL0KbiNMrRgoMa/gA0Zygw=;
-	b=afPQu4tIyX/rK68SacrqkHNPQM8xFVVpZdsow7H0Y5Q8jS8mjkT0Xc5oda9Gn/4KwmS9
-	 karoT5KH50NjUBS3XwIvubz4mk4GQiFXnlmByk8ois6H/NXDa2oLEf0QZZFfKWwta2j2m
-	 owM+DSTE320suYH8E+8ng/tlKe1SpHg5mRE/ryJiamWE+TpwcZf7lo9bkF0ji5ii+K0mh
-	 TC0MT9UyiNc6ae1ab2vmkeZNZPYzbGR3N8VMU/jngj2akQzLOBUbiDH7burXogvn1VaN9
-	 4OmOFch6vx6mcLXRL9KoVsZiGN190nAGONXYZShwmsjOd/4073JT1JNeC/PXHg51wWg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793019670;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=mXgMFETLS+maZru+AaxXX7HtH++GszgJXY1ChWAfpak=;
+	b=gee7TDceZGYpu2pRw3QjfdJWdIh/00rqTr4mxtIXG+PMiW9kRUiVexBor6GbdYXwfc3z
+	 T+l751YRlFQLcdcrhsCmkqqf30aoYMdwXstDdzfEdMV4Z+Cowh2XCbfZcQ9zIAw497TSp
+	 xFZwTOcVyhohvGtbkTwUvZN5mUEH7c3Tw2WM1XVd1gCB0YurZ5GYRFATcfroQsWh5NyD3
+	 0NYwXXgix0ud93uWB27k0PJAcL9Aq/TOgAVZHDmEdQtYOa0/FIAJ1EaZuMFdOlM0QbEqc
+	 UiEIULOauN8ECWz5tBMQJRwgPBbCgaGQpenr9nezh690xBLMLhzdMiMjzC+pftC3DNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CQsKwI5u;
-	arc=none smtp.remote-ip=209.85.210.169
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=eOS7lClG;
+	arc=none smtp.remote-ip=91.218.175.232
+Received: from mta0.migadu.com (out-232.mta0.migadu.com [91.218.175.232])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BA59606A31F
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:00:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2BA59606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40051606A324
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:01:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40051606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CQsKwI5u
-Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-8a070b3f44aso992337b3a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 06:00:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793019632; x=1793624432; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zLJZODPs6/AcsmUGJ3EUfqL0KbiNMrRgoMa/gA0Zygw=;
-        b=CQsKwI5unyG6LQn8Bn0Lb2XvJ7AgK+8wncRyRzg7YQa9m0F3N8c1xDljP7UhI0yrQp
-         pvZ4ge3B1LAXH9CnjS0ASTRHSSGlrLRJPEaxyqZ0Wn6jF+tSCX02jki+YpF3z3HP5rTp
-         mjKrzhDG/XCfWd2ZoMSnx3GtJzR1x8OeAO47jDP4lGFC2z9P91wBrau7WGaznru39K42
-         spRDykj7BJ50NqJvuxg9EGNOcaOKhbkJ7Ja5Usy9t2NmHTD0wFSpMHk/s2gS+B5QG+Hv
-         ptF5njh3bpCQ2N981tIjfL4GTcjfdNAouSfsfrHkzI9eiu92097fq1UDFgQtZfDCxbAK
-         FIiw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793019632; x=1793624432;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zLJZODPs6/AcsmUGJ3EUfqL0KbiNMrRgoMa/gA0Zygw=;
-        b=HjNd0fa4aXVFwbaUZkky2/26mhP4LG9X0kl61XdCkxl8PA7YN+C2SN+lL59k0uibsL
-         D/uXerUAAUAxuQA6jiT6kZBJcp/EvxAJh47ne8UPI6o7iTYVxbYqvfRGpOBZnkkiibGS
-         ivwYOZOkdix28rdq3hJpoh2waBNKpAFSA9Dn7ZAne2CxCTowUJH2otFAq+WB8s4O8kfr
-         WPVAVPM4gTe2w1+sSXDPL9daK5pHGsl3CBxhgvRd7Nqmqhj05qiuT7/cWznG4hwhffNT
-         3RPViC6Nkw+LlMjwdsgbmhRbHowslpnUDijBi77mS7DieQMiFE2NHJGiDNQpIgPEM3VC
-         md4Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxNXOMuS5l44BBb4ZsvOObBMornucDs7h3UFGhvWf6O8uH2vMk/yFxspGz1JgTqKUpZ3EQJFpXAHudpD2c=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJoMTIQnRCCk0k8yJskSWs8LNpv8vrUh/ngSNjryzvoO5xSc/9L
-	XylopoRMGON1ZvXCmq03rap6g//BRpOphZE3aO4JBz6sIaS6c0GdguGn0EJAsgBky6U=
-X-Gm-Gg: AYBFou1p/KphXUylBY7KGodnt7mBAo3BM1WLd9NOtgzljbHBUKuJUjRkW5gacwL9Gvg
-	UwGcikD/fiG4NEdsSAs/R3zbErk6EdvawA3ru+HH5Dx5e/WX5u2rae0zHq9s3k+q3Mvr5Xy2CvS
-	SecbRLOZ3TdXD4igP6llRp1q+alLrfx8sgK9k2hG9IeiliblLTw70yYjHiKFSsaPOLQKbW2/vo3
-	vpID01Ku1uvPcvUwtW6cKGy4xTVN1bBRzk693Adl4zmypyOw1lwfQS1egOjtpdmO2Gyni+k7kuS
-	VRTDLDAbG67qAsxXSq4IO/FZNioRb1yvrVa5JlDehceO2/vNnoNkthfsjKYaUE5U+jCf/nj/LeL
-	PxdK4fojp6qelGV8nfJXus9cTLFQUvxrLgDeHy4djJsFL665ClMeSi1ttYmWRLhu2M4/lMkCXj8
-	4CcIXsMBVgm2YIK3VrnkBFRpwQ5+SUL0SzjOo7yUGB+NCOGFg/O/vSq0rG+D2+CwklYd9poulpH
-	mxbWeQLFZetcE9/QM26wmy0c/VHExbWHDxZTq+OlzOJoEi+AAdfYlzqpjNlwNrbZUVjN0KSPqkZ
-	Hkvgi2Kt3Vkp4pLhUAJaJi4Tnle04VYYYmtCa9SmvVkL/Kf8FLOjdXjZrZaKn/M4BG/4Ygc4f5y
-	+zGwA5tRutolPU3AwKVAUsRWfHZjaTAJyerZjRvm2ke0HDzXXYQ==
-X-Received: by 2002:a05:6a00:4216:b0:89c:967a:a74a with SMTP id d2e1a72fcca58-8a367f0e8d0mr5283113b3a.22.1793019632272;
-        Mon, 26 Oct 2026 06:00:32 -0700 (PDT)
-Received: from EAIT-H54D9Q2FJQ.eait.uq.edu.au ([130.102.10.17])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a368d85e5csm1382887b3a.3.2026.10.26.06.00.23
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 26 Oct 2026 06:00:31 -0700 (PDT)
-From: Yu Zhang <yuz08559@gmail.com>
-To: Srinivas Kandagatla <srini@kernel.org>
-Cc: Bartosz Golaszewski <brgl@kernel.org>,
-	linux-kernel@vger.kernel.org
-Subject: [BUG] nvmem: use-after-free of nvmem->layout in nvmem_layout_module_put() on provider teardown
-Date: Mon, 26 Oct 2026 22:58:56 +1000
-Message-ID: <20261026125856.73564-1-yuz08559@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=eOS7lClG
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=B6SFPPfTE9xynzH7YlPHvBs9zmRqMXuyeuvm0EVIU4Y=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793019666; v=1; x=1793624466;
+ b=eOS7lClGi/NgQp0DtV9ezX0Fjrcv+6UoB7uzRiTJeRH14SUuo4u4a9RC5pVgPSjcbTtW8SC6
+ yUNkIsOLnD7KBu6erCpsdvH9d1JLKpJTHFkt+SHnavlqYfecG2mlwCMZj659jXq4LPBi6bYD1UF
+ b3aveIxdgeuLmwvWytaWVTW0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id f415b154d1059a70;
+	Mon, 26 Oct 2026 13:01:06 +0000
+X-Mizu-Trace-ID: f415b154d1059a70
+X-Migadu-Flow: FLOW_OUT
+From: Lance Yang <lance.yang@linux.dev>
+To: akpm@linux-foundation.org
+Cc: david@kernel.org,
+	xu.xin@linux.dev,
+	chengming.zhou@linux.dev,
+	ljs@kernel.org,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	rppt@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	jglisse@redhat.com,
+	aarcange@redhat.com,
+	peterx@redhat.com,
+	kas@kernel.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	bobbypowers@gmail.com,
+	bgeffon@google.com,
+	dplotnikov@virtuozzo.com,
+	dgilbert@redhat.com,
+	hughd@google.com,
+	hannes@cmpxchg.org,
+	kirill@shutemov.name,
+	cracauer@cons.org,
+	mcfadden8@llnl.gov,
+	gokhale2@llnl.gov,
+	mgorman@suse.de,
+	mike.kravetz@oracle.com,
+	rppt@linux.vnet.ibm.com,
+	xemul@openvz.org,
+	riel@redhat.com,
+	shli@fb.com,
+	jthoughton@google.com,
+	corbet@lwn.net,
+	pbonzini@redhat.com,
+	seanjc@google.com,
+	sj@kernel.org,
+	ziy@nvidia.com,
+	stable@vger.kernel.org,
+	samarth.colleges@gmail.com,
+	med08elkadiri@gmail.com,
+	Lance Yang <lance.yang@linux.dev>
+Subject: [PATCH] mm/ksm: fix userfaultfd protection during merge and unmerge
+Date: Mon, 26 Oct 2026 21:00:54 +0800
+Message-ID: <20261026130054.91461-1-lance.yang@linux.dev>
+X-Mailer: git-send-email 2.49.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,75 +104,105 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi,
+KSM loses userfaultfd protection when replace_page() builds a new PTE
+from vma->vm_page_prot. Dropping its uffd bit lets a subsequent write go
+through ordinary COW instead of userfaultfd write protection handling. For
+RWP, a merged page also becomes readable without faulting.
 
-On nvmem provider teardown while a consumer still holds a cell handle,
-nvmem_cell_put() dereferences a freed nvmem->layout - a use-after-free.
-This looks like a regression from 87341c4dd5de ("nvmem: remove
-duplicated reference counting").
+Keeping the uffd bit and restoring PAGE_NONE fixes merging, but we also
+have to handle unmerging. An existing KSM page can be protected with RWP
+before MADV_UNMERGEABLE, so unmerging already needs fixing independently
+of preserving RWP during merging.
 
-Mechanism (drivers/nvmem/core.c + layouts.c, torvalds/master):
+Unsharing replaces a shared page with a private one and should leave
+userfaultfd protection in place, as do_wp_page() already does for write
+protection. Currently, an unshare fault reaches do_uffd_rwp() before it
+can proceed to do_wp_page().
 
-nvmem_unregister() frees the layout sub-device immediately:
+- With synchronous RWP, handle_userfault() returns VM_FAULT_SIGBUS.
+  break_ksm() then reports success with a KSM page still merged.
 
-    nvmem_unregister()                              core.c:1075
-      ...
-      nvmem_destroy_layout(nvmem);                  core.c:1088
-        device_unregister(&nvmem->layout->dev);     layouts.c:205
-      device_unregister(&nvmem->dev);               core.c:1091
+- With asynchronous RWP, protection is cleared before unsharing.
 
-nvmem_destroy_layout() does not clear nvmem->layout. The layout device's
-only reference is its own and its parent is nvmem->dev (layouts.c:110),
-so device_unregister() drops it to zero and nvmem_layout_release_device()
-kfree()s the layout (layouts.c:84). nvmem->layout now dangles.
+Preserve the uffd bit when merging, and restore PAGE_NONE for RWP. Let
+FAULT_FLAG_UNSHARE skip RWP fault handling and keep PAGE_NONE on each
+private copy as well. Unsharing can then complete with RWP still armed
+for a subsequent access.
 
-A consumer that still holds an nvmem_cell keeps nvmem->dev alive (the
-cell took a device reference via nvmem_device_match()), so the nvmem
-struct and its cell entries survive this. When the consumer later
-releases the cell:
+Fixes: 63b2d4174c4a ("userfaultfd: wp: add the writeprotect API to userfaultfd ioctl")
+Fixes: 2d427bb01639 ("mm/userfaultfd: add RWP fault delivery and expose UFFDIO_REGISTER_MODE_RWP")
+Link: https://lore.kernel.org/all/20261019010934.697895-1-samarth.colleges@gmail.com/
+Link: https://lore.kernel.org/all/20261020055518.36087-1-lance.yang@linux.dev/
+Cc: stable@vger.kernel.org
+Co-developed-by: Samarth Narang <samarth.colleges@gmail.com>
+Signed-off-by: Samarth Narang <samarth.colleges@gmail.com>
+Signed-off-by: Lance Yang <lance.yang@linux.dev>
+---
+ mm/ksm.c    |  8 +++++++-
+ mm/memory.c | 14 ++++++++++----
+ 2 files changed, 17 insertions(+), 5 deletions(-)
 
-    nvmem_cell_put()                                core.c:1591
-      nvmem_layout_module_put(nvmem);               core.c:1599
-        if (nvmem->layout && nvmem->layout->dev.driver)   <-- UAF read
-            module_put(nvmem->layout->dev.driver->owner);
+diff --git a/mm/ksm.c b/mm/ksm.c
+index 910a1307ac9f..d6f736a1aa2f 100644
+--- a/mm/ksm.c
++++ b/mm/ksm.c
+@@ -34,6 +34,7 @@
+ #include <linux/memory.h>
+ #include <linux/mmu_notifier.h>
+ #include <linux/swap.h>
++#include <linux/userfaultfd_k.h>
+ #include <linux/ksm.h>
+ #include <linux/hashtable.h>
+ #include <linux/freezer.h>
+@@ -1463,9 +1464,14 @@ static int replace_page(struct vm_area_struct *vma, struct page *page,
+ 		dec_mm_counter(mm, MM_ANONPAGES);
+ 	}
+ 
+-	/* Preserve soft-dirty when replacing the page. */
++	/* Preserve soft-dirty and uffd protection when replacing the page. */
+ 	if (pte_soft_dirty(orig_pte))
+ 		newpte = pte_mksoft_dirty(newpte);
++	if (pte_uffd(orig_pte)) {
++		newpte = pte_mkuffd(newpte);
++		if (userfaultfd_rwp(vma))
++			newpte = pte_modify(newpte, PAGE_NONE);
++	}
+ 
+ 	flush_cache_page(vma, addr, pte_pfn(ptep_get(ptep)));
+ 	/*
+diff --git a/mm/memory.c b/mm/memory.c
+index 6a93b7fa48b2..99439a7afa63 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -4122,8 +4122,11 @@ static vm_fault_t wp_page_copy(struct vm_fault *vmf)
+ 		if (unlikely(unshare)) {
+ 			if (pte_soft_dirty(vmf->orig_pte))
+ 				entry = pte_mksoft_dirty(entry);
+-			if (pte_uffd(vmf->orig_pte))
++			if (pte_uffd(vmf->orig_pte)) {
+ 				entry = pte_mkuffd(entry);
++				if (userfaultfd_rwp(vma))
++					entry = pte_modify(entry, PAGE_NONE);
++			}
+ 		} else {
+ 			entry = maybe_mkwrite(pte_mkdirty(entry), vma);
+ 		}
+@@ -6659,9 +6662,12 @@ static vm_fault_t handle_pte_fault(struct vm_fault *vmf)
+ 		 * VM_UFFD_RWP VMA, a protnone PTE without the uffd bit is
+ 		 * NUMA hinting and must still fall through to do_numa_page().
+ 		 */
+-		if (userfaultfd_pte_rwp(vmf->vma, vmf->orig_pte))
+-			return do_uffd_rwp(vmf);
+-		return do_numa_page(vmf);
++		if (userfaultfd_pte_rwp(vmf->vma, vmf->orig_pte)) {
++			if (!(vmf->flags & FAULT_FLAG_UNSHARE))
++				return do_uffd_rwp(vmf);
++		} else {
++			return do_numa_page(vmf);
++		}
+ 	}
+ 
+ 	spin_lock(vmf->ptl);
+-- 
+2.49.0
 
-nvmem->layout is non-NULL but freed, so nvmem->layout->dev.driver is read
-from freed memory, followed by module_put() on a garbage owner.
-
-Regression:
-Before 87341c4dd5de, nvmem_destroy_layout() ran from the device-release
-callback, i.e. only after the last reference (including consumers' cell
-references) was dropped. That commit removed the kref and moved
-nvmem_destroy_layout() into nvmem_unregister(), where it now runs
-immediately regardless of outstanding cells. The companion SRCU change
-gave nvmem->ops and the cell entries deferred/guarded teardown, but
-nvmem->layout was left dereferenceable after free.
-
-Reproduction (deterministic; needs a DT nvmem provider with a layout,
-e.g. "fixed-layout", and a consumer holding a cell across provider
-removal. From code inspection; no KASAN splat captured yet):
-  1. provider binds and instantiates the layout device;
-  2. consumer does devm_nvmem_cell_get() and keeps the cell;
-  3. echo <provider> > .../unbind  -> nvmem_unregister() frees the
-     layout; nvmem->layout dangles;
-  4. echo <consumer> > .../unbind  -> devm release -> nvmem_cell_put()
-     -> nvmem_layout_module_put() reads the freed nvmem->layout.
-
-Note on fixing it:
-The obvious "move nvmem_destroy_layout() into nvmem_release()" does not
-work: the layout device's parent is nvmem->dev, so it holds a reference
-on nvmem->dev, and nvmem_release() (the nvmem->dev release callback)
-cannot run until the layout device is gone. A correct fix probably needs
-the layout module reference decoupled from the layout device's lifetime
-(e.g. caching the owner, or keeping the layout alive until all cells are
-put). As this area was just reworked, I'm reporting rather than guessing
-at the fix.
-
-This is distinct from the recently discussed nvmem_cell_put() /
-__nvmem_device_put() ordering (5b6b6fc49189 and the follow-up that was
-rejected as a duplicate): those address the consumer's own put dropping
-the last device reference, whereas here the layout is freed by the
-provider's nvmem_unregister() while a consumer still holds a cell.
-
-Thanks,
-Yu Zhang
