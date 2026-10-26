@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792993040;
-	b=ZdRHJkVdzBw4zELBACyrC8ln0nRu1RGsrbpSZmG03FPXZHTH4O0HHUkKjfYQcL90QzvC
-	 Ps1izUJUJ/tvl9Mll2ul+qVbbmrtqidM1GRYQLZ26wEnlrbqfgrM/SuQ9Bc01UEkwAc0S
-	 +mryZj8YLyQZl9++0m2jryEHpOSuG5lOGtwo9n1qswHFWLnh4PlzLYB98GqYTPZotFR9M
-	 /JE2tUIuA+4kk1M20aEDS1kudjAyCf4mOameSAk+3SQOZX8NcLzGkWhEE/jpYCydX+C8M
-	 qVJefZErGzSOaQYcnR91wJuO9ftG0nmH/DTSrfF7bIloLW3aUWxl6UVwf9Ly24Na55w==
+	t=1792993031;
+	b=5njj38bEH8pJbN0yRl0PskGVrjgs+wstDQynCLf47HdFHZZdV2VDOUhDBcI9EzEmSfY9
+	 e9FZhU5B8n7dWT7Qi9HtfvDLVxsyvp0QhX22bTnB3Pn0LW+71yRiNx30KEKBZZ8XNtngd
+	 ADvQdHlZmTZDeqi1OqnCKcqL2Zvq5ljYLxYezwxSwNi5KOZfMrAntjhon5hROYHZC+q9c
+	 qLnjo3H755IPvDv27iUPGilYPS4k5pTZp9cUWDUhAkL0grrdg83TG23nmoJ0SPmgy2lDt
+	 YaF9n0UYWomzSipqfjcFb8NbkDShcWq3G/X7mzbfBipx1TKFopH4encVkVWJ0tuTaMA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792993040;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792993031;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=Gy7X7XNpMba5CxbQKAL/QvLWGhoX/Bhu8nmuU/qIUPo=;
-	b=jAwTCbmfiPJjCEzQmqvkgUxEs+gW0t3OwSJW5gUwTZL+JGOlloYDO4LwYvMgr6wY4gd+
-	 vIEnSujHxXNPyCqIw9Va7Jlc5nKxHT+JeLTCtqINuVrq0ETLTJQ4Zuldh1624Yo2iBO5z
-	 wjinvGUh7eeNTvcPqg0fuBVQ7D9KUDsF7SUdmkcYofhLuB3Trj6lYcRRV/5uFnhncay69
-	 uoNbmsPjtWg9Roq+jhIQjn2G6Z/xJptl6o74Q7cX6o0ybxoT3VKixWQvFUliauaSvZRyQ
-	 lr06p1h9IpmIpHIlpkAeHEAVSqQEvIZq1IPFPzU+DSC5nfxPYVOvq7PDqMgcVw8nrLQ==
+	bh=PlHRGv3hpXOigTkBWMZantlDdrKpKbsHvwgadjEfoCA=;
+	b=FcihrauXgq6z1J2L86qgm//ibr6SkIGxjeoM/qmL7jBc6vHntDH8PuXBljs8DV3Ejps5
+	 TYf1I8zOzBtp4YYFTVq2WLmafBuWA1/msmHctKqQmparbshzMIBsQJxCpcY2HAAWS/1V/
+	 M7QdjhUwvV2KW14zr6AK5LInrg38kLlNVgFKLWcYFfgpoLvF13JIzcjR27ukOeeQtjh3E
+	 U0f/agk/i+6GEM3rwtXEg3Gm1wDyx98h6rAzT5VRudG+AMb87hYWwRxRwY38gKG7JltyI
+	 rDroK3TBPCpHJmC5t3H969GLPf9y8hEQBf78Jb2VlvOjDSnU/XqBFsQ3ie8WR3u7qSQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="QIFBDf8/";
-	arc=none smtp.remote-ip=209.85.210.174
-Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="LSI/U2Hn";
+	arc=none smtp.remote-ip=209.85.210.171
+Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45854606A324
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 05:37:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45854606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C183606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 05:37:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C183606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=QIFBDf8/
-Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-8a0880a46e7so1037948b3a.1
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 22:37:19 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=LSI/U2Hn
+Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-8a064fac8cbso1484322b3a.1
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 22:37:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792993039; x=1793597839; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792993030; x=1793597830; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Gy7X7XNpMba5CxbQKAL/QvLWGhoX/Bhu8nmuU/qIUPo=;
-        b=QIFBDf8/2J10BdSL/fZ6awZkMe74RJY5xzQq7GXfSPq/30OSXyPrD1pul6s+bKz6Wi
-         pJ/YF2qaZjAP/SpkA+81snMJi9pZimXuFC93TdpS/lqFOo8mNhSYyHS/e3kcufJxrF0e
-         0lWBt2gVrsLifTZUpyQKHBGtygpvqt9e5+TMOtb6gvOY+JeTwEDHspWC+MmSPD4f3arE
-         VJasEQSwlmUucHZTARqEXLOprjfUcqOyhHbAmTexhqtTZLAzQr9Nj7ml7Lzq/1gt4j+D
-         7SaM0u3IMk6QW1z0wedQgDCC7SrMPElDXlqWHOju3foCkDMnfE8kgT1Ts/P8A1cGhMcv
-         IZ8Q==
+        bh=PlHRGv3hpXOigTkBWMZantlDdrKpKbsHvwgadjEfoCA=;
+        b=LSI/U2HnYyVqA+iQi2AooE6n23J5O6tQOFsC8ml/zCnKvI+k195rEnghaC+hT/eAzS
+         aC4lrtcm3Wk1hAUFnJwYWDqiXosCUXYuWxXOW2PCGoblMENojWagbHgoCM+D1aqQg7iC
+         wMePXsmLsVEYwuutSbYSCPj9wfvEq2aR6YZO/lzUyGFRmvvWOI3y6gm4Q8umiS1OeKPs
+         mLNbhkKxYLXwG4Bqp/cIuJ2jloPBWmzUeGa5vloo9Lghyt1Rq+Q1NmFKkJyGFlwET7d2
+         Zsdoq1pVk8q3Pf8IPaMTzKK9YIPXkYY50RGfXfCSgs50pLLyQKpjAby29fX8BYb/5Zcw
+         HHoA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792993039; x=1793597839;
+        d=1e100.net; s=20260707; t=1792993030; x=1793597830;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Gy7X7XNpMba5CxbQKAL/QvLWGhoX/Bhu8nmuU/qIUPo=;
-        b=hxs17F3/laEhD+Rbo/ueq/502dQ9tnzBaHRDH33np5CzUTBqAjvi9c86eXMZRuDSop
-         Q8Ky9rt+BqJt4bGY/7HwjzJEPLmFVOdSTuer1HQwzs19AnBhipXQ8w918wtutWkz6HlT
-         8sYw2o+cgZqHFx/mN1A03sNmgcCOrK0Be+OCUc8oihDQBeOoursjku1TTeUnl3lhn/t3
-         ZxyJljyZoIHvj89NFFRqz5dv3H42YZqbOjj0S66xCpwD3HLwXeUe5dFda6MOeE43MAC4
-         fdKvIiRZ4pvdG4EAmsF9ALVwOzwlRr3850YgJ+wFMxCoXdnXjiriT3CErEESzsh4dgd3
-         dnAA==
-X-Forwarded-Encrypted: i=1; AKwUvBw0E5TMxEOjIiLjwSyLzNimW/Zkg5ET1p46xqqFfuEn+g0pPMK3QJ38fl4AQUTgt9miJviBlP+UCQIn9jg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJj884U3NPMx4rH5eGZk4EcJRUPPkyBVmRhkHEd+enwlXdP6nHX
-	3d/1g769FxeA0G9iroE+D/Je9TLs+SFEbJvBtErm9AxKTguTiKsUJozu
-X-Gm-Gg: AYBFou2DQ3u4ebn/odPSxYJJQAHgm7/n5qdzd9ZYBDV2qPz1ySTT5nRtwMjv+c1zBxB
-	39ANyQJs3AXerZQE63wCcy7Ue3GsCpLsoTfbRNrFbXlywQJ+7talINTvpcIJjPFgHDmUP4KiwRx
-	FbziPx9lnAgjP+5DaRQPS4KB07IPq3atxCcJXAz9uMk/gaZWl4ungu3YenG4GSrZiRCQylXT4jz
-	TTyaUeI1io1ozbeSJ+mbJinu4o0Gcl7/1W6jEMMFbylnNvPa6+8E0fkZZqqlm3FRzf0s6t3YcXp
-	8Vds4uAAlj/RC/yzFRXJBQ5Tv0TcKrQx+ocOexZ/FzWXgG3zwtxgVz6I0JQ1ItyalxKiwukIXDG
-	dOWNKcbGxz4+13nTpK0cVPu5ukgt5UxLuKO5M3ZbBwTUWenGdBu0CGlHCsyRXgFwgTOXMoliD4r
-	K0E3Q32X4ph6z0XsluKopgLsZbdzLUh/fkjOgv2yRWRMqXDoAFlRH3pTSRY/BdtJ+rWqGAkoKW6
-	gv+Rvvsf8Y/H6IpjUytWtlJ7V1XNAO2UmanEcETtA++GkSN3/Ja5CXd+fs2Q6piClhaIrbgFHqP
-	n9BV
-X-Received: by 2002:aa7:8895:0:b0:8a0:5dde:f531 with SMTP id d2e1a72fcca58-8a36782a929mr3035366b3a.50.1792993038508;
-        Sun, 25 Oct 2026 22:37:18 -0700 (PDT)
+        bh=PlHRGv3hpXOigTkBWMZantlDdrKpKbsHvwgadjEfoCA=;
+        b=L6c/AQulaNgLxUeOTLvD8sTCImuC8TH2jNnGnaV2okqj7kGz6infiqFvtxxNh6MfTN
+         PyGIDJxMEQ8p8QgoVDfF+EMRotUhkgmZ0fJhwhjE2OFjAFg37P2ifNPzM7Jv56MvEmzQ
+         HkbTjJ1zQp4qzyrKZMskIVOKtb0SFQR8fBiVx8uQ0JN4Qc6vfPU222lgw9lmnzP2AUAW
+         00iSxdbvcfJrYThpQTgnZOBLbiQf1znvXD+5+jxeGjdv/0N1tkYW8AoA5duQgcdcpX9/
+         dt+rMhwYA2d5pPkNILo0hxR75Wfs3jVuOeBCx9biQy6vBFYczkDM5aPF7K/03w4D87iE
+         zLag==
+X-Forwarded-Encrypted: i=1; AKwUvBzOf7IXmbLS71S0tqjybT1/iiKialaX9cslpzmXxuYAWyiHqMTb7zfuTbwtfYmM1VV2oscpRl8bDCMWY1w=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIUwH0+5o/GbnRXZgTAFQCqhXGQh3ePHl3TdZEJILz1feDbuiqz
+	bwpsSEy9Oy2DoysrGNpKRnzBBVAzMeTp37pSYHnRju/JmdBhwp/6Ozy7
+X-Gm-Gg: AYBFou1W3qFRjYsFsVNjBArHll/RJiR/6kCz8Oq5iHJhGNyfg/aztHTwdhJeb7TAUhD
+	OnVwQJ+iJ+d7zTE9FJz7E6nCw9gTdV4fmczM1PocI59D0SirTGOPodvopq1OFZoDJ/P+UxRbJjp
+	uDqo9zMcFTvoEC3kk2XquA+descJfYZD9kzP3zSFDzUaFpbay0TQBSEQ1gVQFOJLQk37s8/ydV7
+	pP0NLWcjj6v88E8/F6dR3V8aAWQlLduZak+C/AvLRoAMVir2Skyq/2BY3JGuJTiSXY8/u9biEjE
+	b9DW1Ghdx9JyhUzEnD/zz8ZnOPKZDIOkQ8Kes7j9QnVN8/2D7VTDXPUe59ZwonNlHdN3NKXAx3l
+	2xVirUNa8hnt9arehV5pSGUtsJ0qoLhqdS4OdSDiGXluqCOb071q8VQVaJI646bYuzQFTkNRXuO
+	SOchsd2Gzw7j+PEFALhbAiX4HxRS5HMT3tUjOSx/h1pI0GOVSIast/yyshs6218hJdPWdJnb9zR
+	b6rCufVuZkpGepskDbVGvf5DS/c59fz1Lo7wUfitsqmXdblWEgZpl+z48FgrNl4CysVaDtIz7Fj
+	7ZbS+8sk9CREgFnpgTMjzkpmow==
+X-Received: by 2002:a05:6a00:4c8c:b0:8a0:3ef7:42da with SMTP id d2e1a72fcca58-8a364e5ceafmr4607160b3a.4.1792993029730;
+        Sun, 25 Oct 2026 22:37:09 -0700 (PDT)
 Received: from acemagic-m1.tail4fb79.ts.net ([2401:7400:c804:b668:673b:a930:e065:eca])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a368d867a0sm927851b3a.2.2026.10.25.22.37.15
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a368d867a0sm927851b3a.2.2026.10.25.22.37.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 22:37:18 -0700 (PDT)
+        Sun, 25 Oct 2026 22:37:09 -0700 (PDT)
 From: Ragul Balaji <ragulbaby@gmail.com>
 To: linux-wireless@vger.kernel.org
 Cc: Arend van Spriel <arend.vanspriel@broadcom.com>,
@@ -87,9 +87,9 @@ Cc: Arend van Spriel <arend.vanspriel@broadcom.com>,
 	Ho Jie Feng <hjf3108@gmail.com>,
 	brcm80211-dev-list.pdl@broadcom.com,
 	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH wireless-next 08/17] wifi: brcm80211: move the rate helpers of brcmsmac to brcmutil
-Date: Mon, 26 Oct 2026 13:36:14 +0800
-Message-ID: <20261026053633.361454-9-ragulbaby@gmail.com>
+Subject: [RFC PATCH wireless-next 06/17] wifi: brcmsmac: pass the band to the PLCP and frame timing helpers
+Date: Mon, 26 Oct 2026 13:36:12 +0800
+Message-ID: <20261026053633.361454-7-ragulbaby@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261026053633.361454-1-ragulbaby@gmail.com>
 References: <20261026053633.361454-1-ragulbaby@gmail.com>
@@ -104,675 +104,715 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Move rate.c to brcmutil in preparation for the new driver.
+The functions computing the PLCP headers, frame and response times,
+RTS/CTS durations, L-SIG lengths and PHY control words take the driver
+state, but only use the band type, PHY type and basic rate table of the
+current band from it.  Pass those instead and give the functions the
+brcmu_ prefix, so that they can move to brcmutil for other drivers of
+the d11 core.
 
-PHYTYPE_IS() depends on the PHY configuration of brcmsmac, so
-brcmu_rateset_default() compares the PHY types directly, which is the
-same for the N and LCN PHYs that brcmsmac attaches. brcmu_ofdm_rates
-is only used in rate.c and becomes static.
+Their error messages lose the device name, and BRCMS_ISLCNPHY() and
+BRCMS_ISSSLPNPHY() become plain PHY type tests, which they are for the
+PHY types brcmsmac supports.
 
 Signed-off-by: Ragul Balaji <ragulbaby@gmail.com>
 Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
 ---
- .../broadcom/brcm80211/brcmsmac/Makefile      |   1 -
- .../broadcom/brcm80211/brcmsmac/ampdu.c       |   2 +-
- .../broadcom/brcm80211/brcmsmac/main.c        |   2 +-
- .../broadcom/brcm80211/brcmsmac/pub.h         |  25 +---
- .../broadcom/brcm80211/brcmsmac/stf.c         |   2 +-
- .../broadcom/brcm80211/brcmutil/Makefile      |   2 +-
- .../brcm80211/{brcmsmac => brcmutil}/rate.c   | 141 +++++++++++-------
- .../{brcmsmac/rate.h => include/brcmu_rate.h} |  38 +++--
- 8 files changed, 117 insertions(+), 96 deletions(-)
- rename drivers/net/wireless/broadcom/brcm80211/{brcmsmac => brcmutil}/rate.c (85%)
- rename drivers/net/wireless/broadcom/brcm80211/{brcmsmac/rate.h => include/brcmu_rate.h} (89%)
+ .../broadcom/brcm80211/brcmsmac/ampdu.c       |  31 ++-
+ .../broadcom/brcm80211/brcmsmac/main.c        | 249 +++++++++---------
+ .../broadcom/brcm80211/brcmsmac/main.h        |  10 +-
+ 3 files changed, 150 insertions(+), 140 deletions(-)
 
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmsmac/Makefile b/drivers/net/wireless/broadcom/brcm80211/brcmsmac/Makefile
-index ffdd17eab..9cd7ef1bc 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmsmac/Makefile
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmsmac/Makefile
-@@ -29,7 +29,6 @@ brcmsmac-y := \
- 	main.o \
- 	phy_shim.o \
- 	pmu.o \
--	rate.o \
- 	stf.o \
- 	aiutils.o \
- 	phy/phy_cmn.o \
 diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmsmac/ampdu.c b/drivers/net/wireless/broadcom/brcm80211/brcmsmac/ampdu.c
-index 19ffa72e2..d707c6e01 100644
+index b42e43c88..19ffa72e2 100644
 --- a/drivers/net/wireless/broadcom/brcm80211/brcmsmac/ampdu.c
 +++ b/drivers/net/wireless/broadcom/brcm80211/brcmsmac/ampdu.c
-@@ -15,7 +15,7 @@
-  */
- #include <net/mac80211.h>
+@@ -720,14 +720,13 @@ void brcms_c_ampdu_finalize(struct brcms_ampdu_session *session)
  
--#include "rate.h"
-+#include <brcmu_rate.h>
- #include "scb.h"
- #include "phy/phy_hal.h"
- #include "antsel.h"
+ 	/* reset the mixed mode header durations */
+ 	if (txh->MModeLen) {
+-		u16 mmodelen = brcms_c_calc_lsig_len(wlc, rspec,
+-						     session->ampdu_len);
++		u16 mmodelen = brcmu_calc_lsig_len(rspec, session->ampdu_len);
+ 		txh->MModeLen = cpu_to_le16(mmodelen);
+ 		preamble_type = BRCMS_MM_PREAMBLE;
+ 	}
+ 	if (txh->MModeFbrLen) {
+-		u16 mmfbrlen = brcms_c_calc_lsig_len(wlc, rspec_fallback,
+-						     session->ampdu_len);
++		u16 mmfbrlen = brcmu_calc_lsig_len(rspec_fallback,
++						   session->ampdu_len);
+ 		txh->MModeFbrLen = cpu_to_le16(mmfbrlen);
+ 		fbr_preamble_type = BRCMS_MM_PREAMBLE;
+ 	}
+@@ -753,17 +752,21 @@ void brcms_c_ampdu_finalize(struct brcms_ampdu_session *session)
+ 		     TXC_PREAMBLE_RTS_FB_SHORT)
+ 			rts_fbr_preamble_type = BRCMS_SHORT_PREAMBLE;
+ 
+-		durid = brcms_c_compute_rtscts_dur(wlc, use_cts, rts_rspec,
+-						   rspec, rts_preamble_type,
+-						   preamble_type,
+-						   session->ampdu_len, true);
++		durid = brcmu_compute_rtscts_dur(wlc->band->bandtype,
++						 wlc->band->basic_rate,
++						 use_cts, rts_rspec,
++						 rspec, rts_preamble_type,
++						 preamble_type,
++						 session->ampdu_len, true);
+ 		rts->duration = cpu_to_le16(durid);
+-		durid = brcms_c_compute_rtscts_dur(wlc, use_cts,
+-						   rts_rspec_fallback,
+-						   rspec_fallback,
+-						   rts_fbr_preamble_type,
+-						   fbr_preamble_type,
+-						   session->ampdu_len, true);
++		durid = brcmu_compute_rtscts_dur(wlc->band->bandtype,
++						 wlc->band->basic_rate,
++						 use_cts,
++						 rts_rspec_fallback,
++						 rspec_fallback,
++						 rts_fbr_preamble_type,
++						 fbr_preamble_type,
++						 session->ampdu_len, true);
+ 		txh->RTSDurFallback = cpu_to_le16(durid);
+ 		/* set TxFesTimeNormal */
+ 		txh->TxFesTimeNormal = rts->duration;
 diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmsmac/main.c b/drivers/net/wireless/broadcom/brcm80211/brcmsmac/main.c
-index f7d9480cc..d923bc224 100644
+index c9a5877c1..1725f0634 100644
 --- a/drivers/net/wireless/broadcom/brcm80211/brcmsmac/main.c
 +++ b/drivers/net/wireless/broadcom/brcm80211/brcmsmac/main.c
-@@ -24,7 +24,7 @@
- #include <brcm_hw_ids.h>
- #include <aiutils.h>
- #include <chipcommon.h>
--#include "rate.h"
-+#include <brcmu_rate.h>
- #include "scb.h"
- #include "phy/phy_hal.h"
- #include "channel.h"
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmsmac/pub.h b/drivers/net/wireless/broadcom/brcm80211/brcmsmac/pub.h
-index c366a7571..ed6c6888d 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmsmac/pub.h
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmsmac/pub.h
-@@ -19,16 +19,10 @@
- 
- #include <linux/bcma/bcma.h>
- #include <brcmu_wifi.h>
-+#include <brcmu_rate.h>
- #include "types.h"
- #include "defs.h"
- 
--#define	BRCMS_NUMRATES	16	/* max # of rates in a rateset */
--
--/* bw */
--#define BRCMS_10_MHZ	10	/* 10Mhz nphy channel bandwidth */
--#define BRCMS_20_MHZ	20	/* 20Mhz nphy channel bandwidth */
--#define BRCMS_40_MHZ	40	/* 40Mhz nphy channel bandwidth */
--
- #define	BRCMS_RSSI_MINVAL	-200	/* Low value, e.g. for forcing roam */
- #define	BRCMS_RSSI_NO_SIGNAL	-91	/* NDIS RSSI link quality cutoffs */
- #define	BRCMS_RSSI_VERY_LOW	-80	/* Very low quality cutoffs */
-@@ -42,10 +36,6 @@
-  */
- #define BRCMS_TXPWR_MAX		(127)	/* ~32 dBm = 1,500 mW */
- 
--/* rate related definitions */
--#define	BRCMS_RATE_FLAG	0x80	/* Flag to indicate it is a basic rate */
--#define	BRCMS_RATE_MASK	0x7f	/* Rate value mask w/o basic rate flag */
--
- /* legacy rx Antenna diversity for SISO rates */
- #define	ANT_RX_DIV_FORCE_0	0	/* Use antenna 0 */
- #define	ANT_RX_DIV_FORCE_1	1	/* Use antenna 1 */
-@@ -89,8 +79,6 @@
- 
- #define RXBUFSZ		PKTBUFSZ
- 
--#define MAX_STREAMS_SUPPORTED	4	/* max number of streams supported */
--
- struct brcm_rateset {
- 	/* # rates in this set */
- 	u32 count;
-@@ -98,14 +86,6 @@ struct brcm_rateset {
- 	u8 rates[WL_NUMRATES];
- };
- 
--struct brcms_c_rateset {
--	uint count;		/* number of rates in rates[] */
--	 /* rates in 500kbps units w/hi bit set if basic */
--	u8 rates[BRCMS_NUMRATES];
--	u8 htphy_membership;	/* HT PHY Membership */
--	u8 mcs[MCSSET_LEN];	/* supported mcs index bit map */
--};
--
- /* All the HT-specific default advertised capabilities (including AMPDU)
-  * should be grouped here at one place
-  */
-@@ -242,9 +222,6 @@ enum wlc_par_id {
- #define GMODE_LRS		5
- #define GMODE_MAX		6
- 
--/* MCS values greater than this enable multiple streams */
--#define HIGHEST_SINGLE_STREAM_MCS	7
--
- #define	MAXBANDS		2	/* Maximum #of bands */
- 
- /* max number of antenna configurations */
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmsmac/stf.c b/drivers/net/wireless/broadcom/brcm80211/brcmsmac/stf.c
-index 6e92dc4c9..67571db2b 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmsmac/stf.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmsmac/stf.c
-@@ -18,7 +18,7 @@
- 
- #include "types.h"
- #include <d11.h>
--#include "rate.h"
-+#include <brcmu_rate.h>
- #include "phy/phy_hal.h"
- #include "channel.h"
- #include "main.h"
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmutil/Makefile b/drivers/net/wireless/broadcom/brcm80211/brcmutil/Makefile
-index f9b40cab7..5d8b7c26a 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmutil/Makefile
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmutil/Makefile
-@@ -7,4 +7,4 @@
- ccflags-y := -I $(src)/../include
- 
- obj-$(CONFIG_BRCMUTIL)	+= brcmutil.o
--brcmutil-objs	= utils.o d11.o
-+brcmutil-objs	= utils.o d11.o rate.o
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmsmac/rate.c b/drivers/net/wireless/broadcom/brcm80211/brcmutil/rate.c
-similarity index 85%
-rename from drivers/net/wireless/broadcom/brcm80211/brcmsmac/rate.c
-rename to drivers/net/wireless/broadcom/brcm80211/brcmutil/rate.c
-index 1c0259139..4d74145c7 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmsmac/rate.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmutil/rate.c
-@@ -16,17 +16,18 @@
- 
- #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
- 
--#include <brcmu_wifi.h>
--#include <brcmu_utils.h>
-+#include <linux/math.h>
-+#include <linux/module.h>
- 
--#include <d11.h>
--#include "pub.h"
--#include "rate.h"
-+#include <brcmu_rate.h>
-+#include <brcmu_utils.h>
- 
- #define DOT11_ACK_LEN			10
- #define DOT11_BA_LEN			4
- #define DOT11_BA_BITMAP_LEN		128
- 
-+static void brcmu_rateset_mcs_clear(struct brcms_c_rateset *rateset);
-+
- /*
-  * Rate info per rate: It tells whether a rate is ofdm or not and its phy_rate
-  * value
-@@ -45,108 +46,110 @@ const u8 brcmu_rate_info[BRCM_MAXRATE + 1] = {
- /*  90 */ 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x88, 0x00, 0x00, 0x00,
- /* 100 */ 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x8c
- };
-+EXPORT_SYMBOL(brcmu_rate_info);
- 
- /* rates are in units of Kbps */
- const struct brcms_mcs_info brcmu_mcs_table[MCS_TABLE_SIZE] = {
- 	/* MCS  0: SS 1, MOD: BPSK,  CR 1/2 */
--	{6500, 13500, CEIL(6500 * 10, 9), CEIL(13500 * 10, 9), 0x00,
-+	{6500, 13500, DIV_ROUND_UP(6500 * 10, 9), DIV_ROUND_UP(13500 * 10, 9), 0x00,
- 	 BRCM_RATE_6M},
- 	/* MCS  1: SS 1, MOD: QPSK,  CR 1/2 */
--	{13000, 27000, CEIL(13000 * 10, 9), CEIL(27000 * 10, 9), 0x08,
-+	{13000, 27000, DIV_ROUND_UP(13000 * 10, 9), DIV_ROUND_UP(27000 * 10, 9), 0x08,
- 	 BRCM_RATE_12M},
- 	/* MCS  2: SS 1, MOD: QPSK,  CR 3/4 */
--	{19500, 40500, CEIL(19500 * 10, 9), CEIL(40500 * 10, 9), 0x0A,
-+	{19500, 40500, DIV_ROUND_UP(19500 * 10, 9), DIV_ROUND_UP(40500 * 10, 9), 0x0A,
- 	 BRCM_RATE_18M},
- 	/* MCS  3: SS 1, MOD: 16QAM, CR 1/2 */
--	{26000, 54000, CEIL(26000 * 10, 9), CEIL(54000 * 10, 9), 0x10,
-+	{26000, 54000, DIV_ROUND_UP(26000 * 10, 9), DIV_ROUND_UP(54000 * 10, 9), 0x10,
- 	 BRCM_RATE_24M},
- 	/* MCS  4: SS 1, MOD: 16QAM, CR 3/4 */
--	{39000, 81000, CEIL(39000 * 10, 9), CEIL(81000 * 10, 9), 0x12,
-+	{39000, 81000, DIV_ROUND_UP(39000 * 10, 9), DIV_ROUND_UP(81000 * 10, 9), 0x12,
- 	 BRCM_RATE_36M},
- 	/* MCS  5: SS 1, MOD: 64QAM, CR 2/3 */
--	{52000, 108000, CEIL(52000 * 10, 9), CEIL(108000 * 10, 9), 0x19,
-+	{52000, 108000, DIV_ROUND_UP(52000 * 10, 9), DIV_ROUND_UP(108000 * 10, 9), 0x19,
- 	 BRCM_RATE_48M},
- 	/* MCS  6: SS 1, MOD: 64QAM, CR 3/4 */
--	{58500, 121500, CEIL(58500 * 10, 9), CEIL(121500 * 10, 9), 0x1A,
-+	{58500, 121500, DIV_ROUND_UP(58500 * 10, 9), DIV_ROUND_UP(121500 * 10, 9), 0x1A,
- 	 BRCM_RATE_54M},
- 	/* MCS  7: SS 1, MOD: 64QAM, CR 5/6 */
--	{65000, 135000, CEIL(65000 * 10, 9), CEIL(135000 * 10, 9), 0x1C,
-+	{65000, 135000, DIV_ROUND_UP(65000 * 10, 9), DIV_ROUND_UP(135000 * 10, 9), 0x1C,
- 	 BRCM_RATE_54M},
- 	/* MCS  8: SS 2, MOD: BPSK,  CR 1/2 */
--	{13000, 27000, CEIL(13000 * 10, 9), CEIL(27000 * 10, 9), 0x40,
-+	{13000, 27000, DIV_ROUND_UP(13000 * 10, 9), DIV_ROUND_UP(27000 * 10, 9), 0x40,
- 	 BRCM_RATE_6M},
- 	/* MCS  9: SS 2, MOD: QPSK,  CR 1/2 */
--	{26000, 54000, CEIL(26000 * 10, 9), CEIL(54000 * 10, 9), 0x48,
-+	{26000, 54000, DIV_ROUND_UP(26000 * 10, 9), DIV_ROUND_UP(54000 * 10, 9), 0x48,
- 	 BRCM_RATE_12M},
- 	/* MCS 10: SS 2, MOD: QPSK,  CR 3/4 */
--	{39000, 81000, CEIL(39000 * 10, 9), CEIL(81000 * 10, 9), 0x4A,
-+	{39000, 81000, DIV_ROUND_UP(39000 * 10, 9), DIV_ROUND_UP(81000 * 10, 9), 0x4A,
- 	 BRCM_RATE_18M},
- 	/* MCS 11: SS 2, MOD: 16QAM, CR 1/2 */
--	{52000, 108000, CEIL(52000 * 10, 9), CEIL(108000 * 10, 9), 0x50,
-+	{52000, 108000, DIV_ROUND_UP(52000 * 10, 9), DIV_ROUND_UP(108000 * 10, 9), 0x50,
- 	 BRCM_RATE_24M},
- 	/* MCS 12: SS 2, MOD: 16QAM, CR 3/4 */
--	{78000, 162000, CEIL(78000 * 10, 9), CEIL(162000 * 10, 9), 0x52,
-+	{78000, 162000, DIV_ROUND_UP(78000 * 10, 9), DIV_ROUND_UP(162000 * 10, 9), 0x52,
- 	 BRCM_RATE_36M},
- 	/* MCS 13: SS 2, MOD: 64QAM, CR 2/3 */
--	{104000, 216000, CEIL(104000 * 10, 9), CEIL(216000 * 10, 9), 0x59,
-+	{104000, 216000, DIV_ROUND_UP(104000 * 10, 9), DIV_ROUND_UP(216000 * 10, 9), 0x59,
- 	 BRCM_RATE_48M},
- 	/* MCS 14: SS 2, MOD: 64QAM, CR 3/4 */
--	{117000, 243000, CEIL(117000 * 10, 9), CEIL(243000 * 10, 9), 0x5A,
-+	{117000, 243000, DIV_ROUND_UP(117000 * 10, 9), DIV_ROUND_UP(243000 * 10, 9), 0x5A,
- 	 BRCM_RATE_54M},
- 	/* MCS 15: SS 2, MOD: 64QAM, CR 5/6 */
--	{130000, 270000, CEIL(130000 * 10, 9), CEIL(270000 * 10, 9), 0x5C,
-+	{130000, 270000, DIV_ROUND_UP(130000 * 10, 9), DIV_ROUND_UP(270000 * 10, 9), 0x5C,
- 	 BRCM_RATE_54M},
- 	/* MCS 16: SS 3, MOD: BPSK,  CR 1/2 */
--	{19500, 40500, CEIL(19500 * 10, 9), CEIL(40500 * 10, 9), 0x80,
-+	{19500, 40500, DIV_ROUND_UP(19500 * 10, 9), DIV_ROUND_UP(40500 * 10, 9), 0x80,
- 	 BRCM_RATE_6M},
- 	/* MCS 17: SS 3, MOD: QPSK,  CR 1/2 */
--	{39000, 81000, CEIL(39000 * 10, 9), CEIL(81000 * 10, 9), 0x88,
-+	{39000, 81000, DIV_ROUND_UP(39000 * 10, 9), DIV_ROUND_UP(81000 * 10, 9), 0x88,
- 	 BRCM_RATE_12M},
- 	/* MCS 18: SS 3, MOD: QPSK,  CR 3/4 */
--	{58500, 121500, CEIL(58500 * 10, 9), CEIL(121500 * 10, 9), 0x8A,
-+	{58500, 121500, DIV_ROUND_UP(58500 * 10, 9), DIV_ROUND_UP(121500 * 10, 9), 0x8A,
- 	 BRCM_RATE_18M},
- 	/* MCS 19: SS 3, MOD: 16QAM, CR 1/2 */
--	{78000, 162000, CEIL(78000 * 10, 9), CEIL(162000 * 10, 9), 0x90,
-+	{78000, 162000, DIV_ROUND_UP(78000 * 10, 9), DIV_ROUND_UP(162000 * 10, 9), 0x90,
- 	 BRCM_RATE_24M},
- 	/* MCS 20: SS 3, MOD: 16QAM, CR 3/4 */
--	{117000, 243000, CEIL(117000 * 10, 9), CEIL(243000 * 10, 9), 0x92,
-+	{117000, 243000, DIV_ROUND_UP(117000 * 10, 9), DIV_ROUND_UP(243000 * 10, 9), 0x92,
- 	 BRCM_RATE_36M},
- 	/* MCS 21: SS 3, MOD: 64QAM, CR 2/3 */
--	{156000, 324000, CEIL(156000 * 10, 9), CEIL(324000 * 10, 9), 0x99,
-+	{156000, 324000, DIV_ROUND_UP(156000 * 10, 9), DIV_ROUND_UP(324000 * 10, 9), 0x99,
- 	 BRCM_RATE_48M},
- 	/* MCS 22: SS 3, MOD: 64QAM, CR 3/4 */
--	{175500, 364500, CEIL(175500 * 10, 9), CEIL(364500 * 10, 9), 0x9A,
-+	{175500, 364500, DIV_ROUND_UP(175500 * 10, 9), DIV_ROUND_UP(364500 * 10, 9), 0x9A,
- 	 BRCM_RATE_54M},
- 	/* MCS 23: SS 3, MOD: 64QAM, CR 5/6 */
--	{195000, 405000, CEIL(195000 * 10, 9), CEIL(405000 * 10, 9), 0x9B,
-+	{195000, 405000, DIV_ROUND_UP(195000 * 10, 9), DIV_ROUND_UP(405000 * 10, 9), 0x9B,
- 	 BRCM_RATE_54M},
- 	/* MCS 24: SS 4, MOD: BPSK,  CR 1/2 */
--	{26000, 54000, CEIL(26000 * 10, 9), CEIL(54000 * 10, 9), 0xC0,
-+	{26000, 54000, DIV_ROUND_UP(26000 * 10, 9), DIV_ROUND_UP(54000 * 10, 9), 0xC0,
- 	 BRCM_RATE_6M},
- 	/* MCS 25: SS 4, MOD: QPSK,  CR 1/2 */
--	{52000, 108000, CEIL(52000 * 10, 9), CEIL(108000 * 10, 9), 0xC8,
-+	{52000, 108000, DIV_ROUND_UP(52000 * 10, 9), DIV_ROUND_UP(108000 * 10, 9), 0xC8,
- 	 BRCM_RATE_12M},
- 	/* MCS 26: SS 4, MOD: QPSK,  CR 3/4 */
--	{78000, 162000, CEIL(78000 * 10, 9), CEIL(162000 * 10, 9), 0xCA,
-+	{78000, 162000, DIV_ROUND_UP(78000 * 10, 9), DIV_ROUND_UP(162000 * 10, 9), 0xCA,
- 	 BRCM_RATE_18M},
- 	/* MCS 27: SS 4, MOD: 16QAM, CR 1/2 */
--	{104000, 216000, CEIL(104000 * 10, 9), CEIL(216000 * 10, 9), 0xD0,
-+	{104000, 216000, DIV_ROUND_UP(104000 * 10, 9), DIV_ROUND_UP(216000 * 10, 9), 0xD0,
- 	 BRCM_RATE_24M},
- 	/* MCS 28: SS 4, MOD: 16QAM, CR 3/4 */
--	{156000, 324000, CEIL(156000 * 10, 9), CEIL(324000 * 10, 9), 0xD2,
-+	{156000, 324000, DIV_ROUND_UP(156000 * 10, 9), DIV_ROUND_UP(324000 * 10, 9), 0xD2,
- 	 BRCM_RATE_36M},
- 	/* MCS 29: SS 4, MOD: 64QAM, CR 2/3 */
--	{208000, 432000, CEIL(208000 * 10, 9), CEIL(432000 * 10, 9), 0xD9,
-+	{208000, 432000, DIV_ROUND_UP(208000 * 10, 9), DIV_ROUND_UP(432000 * 10, 9), 0xD9,
- 	 BRCM_RATE_48M},
- 	/* MCS 30: SS 4, MOD: 64QAM, CR 3/4 */
--	{234000, 486000, CEIL(234000 * 10, 9), CEIL(486000 * 10, 9), 0xDA,
-+	{234000, 486000, DIV_ROUND_UP(234000 * 10, 9), DIV_ROUND_UP(486000 * 10, 9), 0xDA,
- 	 BRCM_RATE_54M},
- 	/* MCS 31: SS 4, MOD: 64QAM, CR 5/6 */
--	{260000, 540000, CEIL(260000 * 10, 9), CEIL(540000 * 10, 9), 0xDB,
-+	{260000, 540000, DIV_ROUND_UP(260000 * 10, 9), DIV_ROUND_UP(540000 * 10, 9), 0xDB,
- 	 BRCM_RATE_54M},
- 	/* MCS 32: SS 1, MOD: BPSK,  CR 1/2 */
--	{0, 6000, 0, CEIL(6000 * 10, 9), 0x00, BRCM_RATE_6M},
-+	{0, 6000, 0, DIV_ROUND_UP(6000 * 10, 9), 0x00, BRCM_RATE_6M},
- };
-+EXPORT_SYMBOL(brcmu_mcs_table);
- 
- /*
-  * phycfg for legacy OFDM frames: code rate, modulation scheme, spatial streams
-@@ -203,6 +206,7 @@ const struct brcms_c_rateset brcmu_cck_ofdm_mimo_rates = {
- 	{ 0xff, 0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
- 	  0x00, 0x00, 0x00, 0x00, 0x00}
- };
-+EXPORT_SYMBOL(brcmu_cck_ofdm_mimo_rates);
- 
- const struct brcms_c_rateset brcmu_ofdm_mimo_rates = {
- 	8,
-@@ -212,6 +216,7 @@ const struct brcms_c_rateset brcmu_ofdm_mimo_rates = {
- 	{ 0xff, 0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
- 	  0x00, 0x00, 0x00, 0x00, 0x00}
- };
-+EXPORT_SYMBOL(brcmu_ofdm_mimo_rates);
- 
- /* Default ratesets that include MCS32 for 40BW channels */
- static const struct brcms_c_rateset cck_ofdm_40bw_mimo_rates = {
-@@ -244,6 +249,7 @@ const struct brcms_c_rateset brcmu_cck_ofdm_rates = {
- 	{ 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
- 	  0x00, 0x00, 0x00, 0x00, 0x00}
- };
-+EXPORT_SYMBOL(brcmu_cck_ofdm_rates);
- 
- const struct brcms_c_rateset brcmu_gphy_legacy_rates = {
- 	4,
-@@ -253,8 +259,9 @@ const struct brcms_c_rateset brcmu_gphy_legacy_rates = {
- 	{ 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
- 	  0x00, 0x00, 0x00, 0x00, 0x00}
- };
-+EXPORT_SYMBOL(brcmu_gphy_legacy_rates);
- 
--const struct brcms_c_rateset brcmu_ofdm_rates = {
-+static const struct brcms_c_rateset brcmu_ofdm_rates = {
- 	8,
- 	/*  6b,   9,    12b,  18,   24b,  36,   48,   54 Mbps */
- 	{ 0x8c, 0x12, 0x98, 0x24, 0xb0, 0x48, 0x60, 0x6c},
-@@ -271,6 +278,7 @@ const struct brcms_c_rateset brcmu_cck_rates = {
- 	{ 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
- 	  0x00, 0x00, 0x00, 0x00, 0x00}
- };
-+EXPORT_SYMBOL(brcmu_cck_rates);
- 
- static const u8 ofdm_rate_lookup[] = {
- 
-@@ -318,6 +326,7 @@ void brcmu_rateset_mcs_upd(struct brcms_c_rateset *rs, u8 txstreams)
- 	for (i = txstreams; i < MAX_STREAMS_SUPPORTED; i++)
- 		rs->mcs[i] = 0;
+@@ -349,12 +349,12 @@ static u8 brcms_fifo_to_ac(u8 fifo)
  }
-+EXPORT_SYMBOL(brcmu_rateset_mcs_upd);
- 
- /*
-  * filter based on hardware rateset, and sort filtered rateset with basic
-@@ -363,6 +372,7 @@ brcmu_rate_hwrs_filter_sort_validate(struct brcms_c_rateset *rs,
- 	else
- 		return false;
- }
-+EXPORT_SYMBOL(brcmu_rate_hwrs_filter_sort_validate);
- 
- /* calculate the rate of a rx'd frame and return it as a ratespec */
- u32 brcmu_compute_rspec(struct d11rxhdr *rxh, u8 *plcp)
-@@ -412,6 +422,7 @@ u32 brcmu_compute_rspec(struct d11rxhdr *rxh, u8 *plcp)
- 
- 	return rspec;
- }
-+EXPORT_SYMBOL(brcmu_compute_rspec);
- 
- /* copy rateset src to dst as-is (no masking or sorting) */
- void brcmu_rateset_copy(const struct brcms_c_rateset *src,
-@@ -419,6 +430,7 @@ void brcmu_rateset_copy(const struct brcms_c_rateset *src,
- {
- 	memcpy(dst, src, sizeof(struct brcms_c_rateset));
- }
-+EXPORT_SYMBOL(brcmu_rateset_copy);
- 
- /*
-  * Copy and selectively filter one rateset to another.
-@@ -458,6 +470,7 @@ brcmu_rateset_filter(struct brcms_c_rateset *src, struct brcms_c_rateset *dst,
- 	else
- 		brcmu_rateset_mcs_clear(dst);
- }
-+EXPORT_SYMBOL(brcmu_rateset_filter);
- 
- /* select rateset for a given phy_type and bandtype and filter it, sort it
-  * and fill rs_tgt with result
-@@ -470,10 +483,10 @@ brcmu_rateset_default(struct brcms_c_rateset *rs_tgt,
- {
- 	const struct brcms_c_rateset *rs_dflt;
- 	struct brcms_c_rateset rs_sel;
--	if ((PHYTYPE_IS(phy_type, PHY_TYPE_HT)) ||
--	    (PHYTYPE_IS(phy_type, PHY_TYPE_N)) ||
--	    (PHYTYPE_IS(phy_type, PHY_TYPE_LCN)) ||
--	    (PHYTYPE_IS(phy_type, PHY_TYPE_SSN))) {
-+	if ((phy_type == PHY_TYPE_HT) ||
-+	    (phy_type == PHY_TYPE_N) ||
-+	    (phy_type == PHY_TYPE_LCN) ||
-+	    (phy_type == PHY_TYPE_SSN)) {
- 		if (bandtype == BRCM_BAND_5G)
- 			rs_dflt = (bw == BRCMS_20_MHZ ?
- 				   &brcmu_ofdm_mimo_rates : &ofdm_40bw_mimo_rates);
-@@ -481,12 +494,12 @@ brcmu_rateset_default(struct brcms_c_rateset *rs_tgt,
- 			rs_dflt = (bw == BRCMS_20_MHZ ?
- 				   &brcmu_cck_ofdm_mimo_rates :
- 				   &cck_ofdm_40bw_mimo_rates);
--	} else if (PHYTYPE_IS(phy_type, PHY_TYPE_LP)) {
-+	} else if (phy_type == PHY_TYPE_LP) {
- 		rs_dflt = (bandtype == BRCM_BAND_5G) ?
- 			  &brcmu_ofdm_rates : &brcmu_cck_ofdm_rates;
--	} else if (PHYTYPE_IS(phy_type, PHY_TYPE_A)) {
-+	} else if (phy_type == PHY_TYPE_A) {
- 		rs_dflt = &brcmu_ofdm_rates;
--	} else if (PHYTYPE_IS(phy_type, PHY_TYPE_G)) {
-+	} else if (phy_type == PHY_TYPE_G) {
- 		rs_dflt = &brcmu_cck_ofdm_rates;
- 	} else {
- 		/* should not happen, error condition */
-@@ -505,6 +518,7 @@ brcmu_rateset_default(struct brcms_c_rateset *rs_tgt,
- 	brcmu_rate_hwrs_filter_sort_validate(rs_tgt, rs_hw, false,
- 					     mcsallow ? txstreams : 1);
- }
-+EXPORT_SYMBOL(brcmu_rateset_default);
- 
- static s16 brcmu_rate_legacy_phyctl(uint rate)
- {
-@@ -516,7 +530,7 @@ static s16 brcmu_rate_legacy_phyctl(uint rate)
- 	return -1;
- }
- 
--void brcmu_rateset_mcs_clear(struct brcms_c_rateset *rateset)
-+static void brcmu_rateset_mcs_clear(struct brcms_c_rateset *rateset)
- {
- 	uint i;
- 	for (i = 0; i < MCSSET_LEN; i++)
-@@ -528,6 +542,7 @@ void brcmu_rateset_mcs_build(struct brcms_c_rateset *rateset, u8 txstreams)
- 	memcpy(&rateset->mcs[0], &brcmu_cck_ofdm_mimo_rates.mcs[0], MCSSET_LEN);
- 	brcmu_rateset_mcs_upd(rateset, txstreams);
- }
-+EXPORT_SYMBOL(brcmu_rateset_mcs_build);
- 
- /* Based on bandwidth passed, allow/disallow MCS 32 in the rateset */
- void brcmu_rateset_bw_mcs_filter(struct brcms_c_rateset *rateset, u8 bw)
-@@ -537,6 +552,7 @@ void brcmu_rateset_bw_mcs_filter(struct brcms_c_rateset *rateset, u8 bw)
- 	else
- 		clrbit(rateset->mcs, 32);
- }
-+EXPORT_SYMBOL(brcmu_rateset_bw_mcs_filter);
  
  /* Find basic rate for a given rate */
- u8 brcmu_basic_rate(const u8 *basic_rate, u32 rspec)
-@@ -546,6 +562,7 @@ u8 brcmu_basic_rate(const u8 *basic_rate, u32 rspec)
+-static u8 brcms_basic_rate(struct brcms_c_info *wlc, u32 rspec)
++static u8 brcmu_basic_rate(const u8 *basic_rate, u32 rspec)
+ {
+ 	if (is_mcs_rate(rspec))
+-		return wlc->band->basic_rate[brcmu_mcs_table[rspec & RSPEC_RATE_MASK]
++		return basic_rate[brcmu_mcs_table[rspec & RSPEC_RATE_MASK]
  		       .leg_ofdm];
- 	return basic_rate[rspec & RSPEC_RATE_MASK];
+-	return wlc->band->basic_rate[rspec & RSPEC_RATE_MASK];
++	return basic_rate[rspec & RSPEC_RATE_MASK];
  }
-+EXPORT_SYMBOL(brcmu_basic_rate);
+ 
+ static u16 frametype(u32 rspec, u8 mimoframe)
+@@ -365,10 +365,9 @@ static u16 frametype(u32 rspec, u8 mimoframe)
+ }
+ 
+ /* currently the best mechanism for determining SIFS is the band in use */
+-static u16 get_sifs(struct brcms_band *band)
++static u16 brcmu_get_sifs(int bandtype)
+ {
+-	return band->bandtype == BRCM_BAND_5G ? APHY_SIFS_TIME :
+-				 BPHY_SIFS_TIME;
++	return bandtype == BRCM_BAND_5G ? APHY_SIFS_TIME : BPHY_SIFS_TIME;
+ }
  
  /*
+@@ -576,15 +575,14 @@ static void brcms_b_update_slot_timing(struct brcms_hardware *wlc_hw,
   * calculate frame duration of a given rate and length, return
-@@ -575,14 +592,14 @@ uint brcmu_calc_frame_time(int bandtype, u32 ratespec,
- 
- 		if (rspec_stc(ratespec) == 0)
- 			nsyms =
--			    CEIL((APHY_SERVICE_NBITS + 8 * mac_len +
--				  APHY_TAIL_NBITS) * 1000, kNdps);
-+			    DIV_ROUND_UP((APHY_SERVICE_NBITS + 8 * mac_len +
-+					  APHY_TAIL_NBITS) * 1000, kNdps);
- 		else
- 			/* STBC needs to have even number of symbols */
- 			nsyms =
- 			    2 *
--			    CEIL((APHY_SERVICE_NBITS + 8 * mac_len +
--				  APHY_TAIL_NBITS) * 1000, 2 * kNdps);
-+			    DIV_ROUND_UP((APHY_SERVICE_NBITS + 8 * mac_len +
-+					  APHY_TAIL_NBITS) * 1000, 2 * kNdps);
- 
- 		dur += APHY_SYMBOL_TIME * nsyms;
- 		if (bandtype == BRCM_BAND_2G)
-@@ -594,8 +611,8 @@ uint brcmu_calc_frame_time(int bandtype, u32 ratespec,
- 		Ndps = rate * 2;
- 		/* NSyms = CEILING((SERVICE + 8*NBytes + TAIL) / Ndbps) */
- 		nsyms =
--		    CEIL((APHY_SERVICE_NBITS + 8 * mac_len + APHY_TAIL_NBITS),
--			 Ndps);
-+		    DIV_ROUND_UP((APHY_SERVICE_NBITS + 8 * mac_len +
-+				  APHY_TAIL_NBITS), Ndps);
- 		dur += APHY_SYMBOL_TIME * nsyms;
- 		if (bandtype == BRCM_BAND_2G)
- 			dur += DOT11_OFDM_SIGNAL_EXTENSION;
-@@ -614,6 +631,7 @@ uint brcmu_calc_frame_time(int bandtype, u32 ratespec,
- 	}
- 	return dur;
- }
-+EXPORT_SYMBOL(brcmu_calc_frame_time);
- 
- /* derive basic_rate[] table 'br' from 'rateset' */
- void brcmu_rate_lookup_init(u8 *br,
-@@ -708,6 +726,7 @@ void brcmu_rate_lookup_init(u8 *br,
- 		br[rate] = mandatory;
- 	}
- }
-+EXPORT_SYMBOL(brcmu_rate_lookup_init);
- 
- uint
- brcmu_calc_ack_time(int bandtype, const u8 *basic_rate, u32 rspec,
-@@ -727,6 +746,7 @@ brcmu_calc_ack_time(int bandtype, const u8 *basic_rate, u32 rspec,
- 				  (DOT11_ACK_LEN + FCS_LEN));
- 	return dur;
- }
-+EXPORT_SYMBOL(brcmu_calc_ack_time);
- 
- uint
- brcmu_calc_cts_time(int bandtype, const u8 *basic_rate, u32 rspec,
-@@ -734,6 +754,7 @@ brcmu_calc_cts_time(int bandtype, const u8 *basic_rate, u32 rspec,
+  * time in usec unit
+  */
+-static uint brcms_c_calc_frame_time(struct brcms_c_info *wlc, u32 ratespec,
+-				    u8 preamble_type, uint mac_len)
++static uint brcmu_calc_frame_time(int bandtype, u32 ratespec,
++				  u8 preamble_type, uint mac_len)
  {
- 	return brcmu_calc_ack_time(bandtype, basic_rate, rspec, preamble_type);
+ 	uint nsyms, dur = 0, Ndps, kNdps;
+ 	uint rate = rspec2rate(ratespec);
+ 
+ 	if (rate == 0) {
+-		brcms_err(wlc->hw->d11core, "wl%d: WAR: using rate of 1 mbps\n",
+-			  wlc->pub->unit);
++		pr_err("WAR: using rate of 1 mbps\n");
+ 		rate = BRCM_RATE_1M;
+ 	}
+ 
+@@ -611,7 +609,7 @@ static uint brcms_c_calc_frame_time(struct brcms_c_info *wlc, u32 ratespec,
+ 				  APHY_TAIL_NBITS) * 1000, 2 * kNdps);
+ 
+ 		dur += APHY_SYMBOL_TIME * nsyms;
+-		if (wlc->band->bandtype == BRCM_BAND_2G)
++		if (bandtype == BRCM_BAND_2G)
+ 			dur += DOT11_OFDM_SIGNAL_EXTENSION;
+ 	} else if (is_ofdm_rate(rate)) {
+ 		dur = APHY_PREAMBLE_TIME;
+@@ -623,7 +621,7 @@ static uint brcms_c_calc_frame_time(struct brcms_c_info *wlc, u32 ratespec,
+ 		    CEIL((APHY_SERVICE_NBITS + 8 * mac_len + APHY_TAIL_NBITS),
+ 			 Ndps);
+ 		dur += APHY_SYMBOL_TIME * nsyms;
+-		if (wlc->band->bandtype == BRCM_BAND_2G)
++		if (bandtype == BRCM_BAND_2G)
+ 			dur += DOT11_OFDM_SIGNAL_EXTENSION;
+ 	} else {
+ 		/*
+@@ -3368,15 +3366,15 @@ brcms_default_rateset(struct brcms_c_info *wlc, struct brcms_c_rateset *rs)
+ 			      wlc->stf->txstreams);
  }
-+EXPORT_SYMBOL(brcmu_calc_cts_time);
+ 
+-/* derive wlc->band->basic_rate[] table from 'rateset' */
+-static void brcms_c_rate_lookup_init(struct brcms_c_info *wlc,
+-			      struct brcms_c_rateset *rateset)
++/* derive basic_rate[] table 'br' from 'rateset' */
++static void brcmu_rate_lookup_init(u8 *br,
++				   const struct brcms_c_rateset *hw_rateset,
++				   struct brcms_c_rateset *rateset)
+ {
+ 	u8 rate;
+ 	u8 mandatory;
+ 	u8 cck_basic = 0;
+ 	u8 ofdm_basic = 0;
+-	u8 *br = wlc->band->basic_rate;
+ 	uint i;
+ 
+ 	/* incoming rates are in 500kbps units as in 802.11 Supported Rates */
+@@ -3394,9 +3392,8 @@ static void brcms_c_rate_lookup_init(struct brcms_c_info *wlc,
+ 		rate = (rateset->rates[i] & BRCMS_RATE_MASK);
+ 
+ 		if (rate > BRCM_MAXRATE) {
+-			brcms_err(wlc->hw->d11core, "brcms_c_rate_lookup_init: "
+-				  "invalid rate 0x%X in rate set\n",
+-				  rateset->rates[i]);
++			pr_err("%s: invalid rate 0x%X in rate set\n", __func__,
++			       rateset->rates[i]);
+ 			continue;
+ 		}
+ 
+@@ -3417,8 +3414,8 @@ static void brcms_c_rate_lookup_init(struct brcms_c_info *wlc,
+ 	 * to high, filling in holes in the lookup table
+ 	 */
+ 
+-	for (i = 0; i < wlc->band->hw_rateset.count; i++) {
+-		rate = wlc->band->hw_rateset.rates[i];
++	for (i = 0; i < hw_rateset->count; i++) {
++		rate = hw_rateset->rates[i];
+ 
+ 		if (br[rate] != 0) {
+ 			/* This rate is a basic rate.
+@@ -3501,7 +3498,9 @@ static void brcms_c_bandinit_ordered(struct brcms_c_info *wlc,
+ 				     (bool)(wlc->pub->_n_enab & SUPPORT_11N));
+ 
+ 		/* init basic rate lookup */
+-		brcms_c_rate_lookup_init(wlc, &default_rateset);
++		brcmu_rate_lookup_init(wlc->band->basic_rate,
++				       &wlc->band->hw_rateset,
++				       &default_rateset);
+ 	}
+ 
+ 	/* sync up phy/radio chanspec */
+@@ -3633,10 +3632,10 @@ static void brcms_c_set_ratetable(struct brcms_c_info *wlc)
+ 	for (i = 0; i < rs.count; i++) {
+ 		rate = rs.rates[i] & BRCMS_RATE_MASK;
+ 
+-		/* for a given rate brcms_basic_rate returns the rate at
++		/* for a given rate brcmu_basic_rate returns the rate at
+ 		 * which a response ACK/CTS should be sent.
+ 		 */
+-		basic_rate = brcms_basic_rate(wlc, rate);
++		basic_rate = brcmu_basic_rate(wlc->band->basic_rate, rate);
+ 		if (basic_rate == 0)
+ 			/* This should only happen if we are using a
+ 			 * restricted rateset.
+@@ -5640,8 +5639,8 @@ bcmc_fid_generate(struct brcms_c_info *wlc, struct brcms_bss_cfg *bsscfg,
+ }
  
  static uint
- brcmu_calc_ba_time(int bandtype, const u8 *basic_rate, u32 rspec,
-@@ -856,6 +877,7 @@ brcmu_compute_plcp(u32 rspec, uint length, u8 *plcp)
- 	else
- 		brcmu_compute_cck_plcp(rspec, length, plcp);
- }
-+EXPORT_SYMBOL(brcmu_compute_plcp);
+-brcms_c_calc_ack_time(struct brcms_c_info *wlc, u32 rspec,
+-		      u8 preamble_type)
++brcmu_calc_ack_time(int bandtype, const u8 *basic_rate, u32 rspec,
++		    u8 preamble_type)
+ {
+ 	uint dur = 0;
  
- /* brcmu_compute_rtscts_dur()
-  *
-@@ -902,6 +924,7 @@ brcmu_compute_rtscts_dur(int bandtype, const u8 *basic_rate, bool cts_only,
- 					     frame_preamble_type);
+@@ -5650,35 +5649,35 @@ brcms_c_calc_ack_time(struct brcms_c_info *wlc, u32 rspec,
+ 	 * is less than or equal to the rate of the immediately previous
+ 	 * frame in the FES
+ 	 */
+-	rspec = brcms_basic_rate(wlc, rspec);
++	rspec = brcmu_basic_rate(basic_rate, rspec);
+ 	/* ACK frame len == 14 == 2(fc) + 2(dur) + 6(ra) + 4(fcs) */
+ 	dur =
+-	    brcms_c_calc_frame_time(wlc, rspec, preamble_type,
+-				(DOT11_ACK_LEN + FCS_LEN));
++	    brcmu_calc_frame_time(bandtype, rspec, preamble_type,
++				  (DOT11_ACK_LEN + FCS_LEN));
  	return dur;
  }
-+EXPORT_SYMBOL(brcmu_compute_rtscts_dur);
  
- u16 brcmu_phytxctl1_calc(u16 phytype, u32 rspec)
+ static uint
+-brcms_c_calc_cts_time(struct brcms_c_info *wlc, u32 rspec,
+-		      u8 preamble_type)
++brcmu_calc_cts_time(int bandtype, const u8 *basic_rate, u32 rspec,
++		    u8 preamble_type)
  {
-@@ -951,6 +974,7 @@ u16 brcmu_phytxctl1_calc(u16 phytype, u32 rspec)
+-	return brcms_c_calc_ack_time(wlc, rspec, preamble_type);
++	return brcmu_calc_ack_time(bandtype, basic_rate, rspec, preamble_type);
+ }
+ 
+ static uint
+-brcms_c_calc_ba_time(struct brcms_c_info *wlc, u32 rspec,
+-		     u8 preamble_type)
++brcmu_calc_ba_time(int bandtype, const u8 *basic_rate, u32 rspec,
++		   u8 preamble_type)
+ {
+ 	/*
+ 	 * Spec 9.6: ack rate is the highest rate in BSSBasicRateSet that
+ 	 * is less than or equal to the rate of the immediately previous
+ 	 * frame in the FES
+ 	 */
+-	rspec = brcms_basic_rate(wlc, rspec);
++	rspec = brcmu_basic_rate(basic_rate, rspec);
+ 	/* BA len == 32 == 16(ctl hdr) + 4(ba len) + 8(bitmap) + 4(fcs) */
+-	return brcms_c_calc_frame_time(wlc, rspec, preamble_type,
+-				   (DOT11_BA_LEN + DOT11_BA_BITMAP_LEN +
+-				    FCS_LEN));
++	return brcmu_calc_frame_time(bandtype, rspec, preamble_type,
++				     (DOT11_BA_LEN + DOT11_BA_BITMAP_LEN +
++				      FCS_LEN));
+ }
+ 
+ /* brcms_c_compute_frame_dur()
+@@ -5697,10 +5696,12 @@ brcms_c_compute_frame_dur(struct brcms_c_info *wlc, u32 rate,
+ {
+ 	u16 dur, sifs;
+ 
+-	sifs = get_sifs(wlc->band);
++	sifs = brcmu_get_sifs(wlc->band->bandtype);
+ 
+ 	dur = sifs;
+-	dur += (u16) brcms_c_calc_ack_time(wlc, rate, preamble_type);
++	dur += (u16)brcmu_calc_ack_time(wlc->band->bandtype,
++					wlc->band->basic_rate, rate,
++					preamble_type);
+ 
+ 	if (next_frag_len) {
+ 		/* Double the current DUR to get 2 SIFS + 2 ACKs */
+@@ -5708,13 +5709,13 @@ brcms_c_compute_frame_dur(struct brcms_c_info *wlc, u32 rate,
+ 		/* add another SIFS and the frag time */
+ 		dur += sifs;
+ 		dur +=
+-		    (u16) brcms_c_calc_frame_time(wlc, rate, preamble_type,
+-						 next_frag_len);
++		    (u16)brcmu_calc_frame_time(wlc->band->bandtype, rate,
++					       preamble_type, next_frag_len);
  	}
- 	return phyctl1;
+ 	return dur;
  }
-+EXPORT_SYMBOL(brcmu_phytxctl1_calc);
  
- /* calculate frame duration for Mixed-mode L-SIG spoofing, return
-  * number of bytes goes in the length field
-@@ -977,18 +1001,18 @@ brcmu_calc_lsig_len(u32 ratespec, uint mac_len)
- 
- 		if (rspec_stc(ratespec) == 0)
- 			nsyms =
--			    CEIL((APHY_SERVICE_NBITS + 8 * mac_len +
--				  APHY_TAIL_NBITS) * 1000, kNdps);
-+			    DIV_ROUND_UP((APHY_SERVICE_NBITS + 8 * mac_len +
-+					  APHY_TAIL_NBITS) * 1000, kNdps);
- 		else
- 			/* STBC needs to have even number of symbols */
- 			nsyms =
- 			    2 *
--			    CEIL((APHY_SERVICE_NBITS + 8 * mac_len +
--				  APHY_TAIL_NBITS) * 1000, 2 * kNdps);
-+			    DIV_ROUND_UP((APHY_SERVICE_NBITS + 8 * mac_len +
-+					  APHY_TAIL_NBITS) * 1000, 2 * kNdps);
- 
- 		/* short-GI symbols (3.6 us) in 4 us units, rounded up */
- 		if (rspec_issgi(ratespec))
--			nsyms = CEIL(nsyms * 9, 10);
-+			nsyms = DIV_ROUND_UP(nsyms * 9, 10);
- 		/* (+3) account for HT-SIG(2) and HT-STF(1) */
- 		nsyms += (tot_streams + 3);
- 		/*
-@@ -1000,3 +1024,4 @@ brcmu_calc_lsig_len(u32 ratespec, uint mac_len)
- 
- 	return (u16) len;
- }
-+EXPORT_SYMBOL(brcmu_calc_lsig_len);
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmsmac/rate.h b/drivers/net/wireless/broadcom/brcm80211/include/brcmu_rate.h
-similarity index 89%
-rename from drivers/net/wireless/broadcom/brcm80211/brcmsmac/rate.h
-rename to drivers/net/wireless/broadcom/brcm80211/include/brcmu_rate.h
-index 401fed693..8f61f85c5 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmsmac/rate.h
-+++ b/drivers/net/wireless/broadcom/brcm80211/include/brcmu_rate.h
-@@ -14,13 +14,36 @@
-  * CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+-/* The opposite of brcms_c_calc_frame_time */
++/* The opposite of brcmu_calc_frame_time */
+ static uint
+ brcms_c_calc_frame_len(struct brcms_c_info *wlc, u32 ratespec,
+ 		   u8 preamble_type, uint dur)
+@@ -5910,8 +5911,7 @@ mac80211_wlc_set_nrate(struct brcms_c_info *wlc, struct brcms_band *cur_band,
+  * Broken out for PRQ.
   */
  
--#ifndef _BRCM_RATE_H_
--#define _BRCM_RATE_H_
-+#ifndef _BRCMU_RATE_H_
-+#define _BRCMU_RATE_H_
+-static void brcms_c_cck_plcp_set(struct brcms_c_info *wlc, int rate_500,
+-			     uint length, u8 *plcp)
++static void brcmu_cck_plcp_set(int rate_500, uint length, u8 *plcp)
+ {
+ 	u16 usec = 0;
+ 	u8 le = 0;
+@@ -5938,9 +5938,7 @@ static void brcms_c_cck_plcp_set(struct brcms_c_info *wlc, int rate_500,
+ 		break;
  
--#include "types.h"
-+#include <linux/types.h>
-+#include <brcmu_wifi.h>
- #include <d11.h>
--#include "pub.h"
--#include "phy_hal.h"
-+
-+#define	BRCMS_NUMRATES	16	/* max # of rates in a rateset */
-+
-+/* bw */
-+#define BRCMS_10_MHZ	10	/* 10Mhz nphy channel bandwidth */
-+#define BRCMS_20_MHZ	20	/* 20Mhz nphy channel bandwidth */
-+#define BRCMS_40_MHZ	40	/* 40Mhz nphy channel bandwidth */
-+
-+/* rate related definitions */
-+#define	BRCMS_RATE_FLAG	0x80	/* Flag to indicate it is a basic rate */
-+#define	BRCMS_RATE_MASK	0x7f	/* Rate value mask w/o basic rate flag */
-+
-+#define MAX_STREAMS_SUPPORTED	4	/* max number of streams supported */
-+
-+struct brcms_c_rateset {
-+	uint count;		/* number of rates in rates[] */
-+	 /* rates in 500kbps units w/hi bit set if basic */
-+	u8 rates[BRCMS_NUMRATES];
-+	u8 htphy_membership;	/* HT PHY Membership */
-+	u8 mcs[MCSSET_LEN];	/* supported mcs index bit map */
-+};
-+
-+/* MCS values greater than this enable multiple streams */
-+#define HIGHEST_SINGLE_STREAM_MCS	7
+ 	default:
+-		brcms_err(wlc->hw->d11core,
+-			  "brcms_c_cck_plcp_set: unsupported rate %d\n",
+-			  rate_500);
++		pr_err("%s: unsupported rate %d\n", __func__, rate_500);
+ 		rate_500 = BRCM_RATE_1M;
+ 		usec = length << 3;
+ 		break;
+@@ -5958,7 +5956,7 @@ static void brcms_c_cck_plcp_set(struct brcms_c_info *wlc, int rate_500,
+ }
  
- /* value for short/long and mixmode/greenfield preamble */
- #define BRCMS_LONG_PREAMBLE	(0)
-@@ -50,10 +73,8 @@ extern const u8 brcmu_rate_info[];
- extern const struct brcms_c_rateset brcmu_cck_ofdm_mimo_rates;
- extern const struct brcms_c_rateset brcmu_ofdm_mimo_rates;
- extern const struct brcms_c_rateset brcmu_cck_ofdm_rates;
--extern const struct brcms_c_rateset brcmu_ofdm_rates;
- extern const struct brcms_c_rateset brcmu_cck_rates;
- extern const struct brcms_c_rateset brcmu_gphy_legacy_rates;
--extern const struct brcms_c_rateset rate_limit_1_2;
+ /* Rate: 802.11 rate code, length: PSDU length in octets */
+-static void brcms_c_compute_mimo_plcp(u32 rspec, uint length, u8 *plcp)
++static void brcmu_compute_mimo_plcp(u32 rspec, uint length, u8 *plcp)
+ {
+ 	u8 mcs = (u8) (rspec & RSPEC_RATE_MASK);
+ 	plcp[0] = mcs;
+@@ -5973,7 +5971,7 @@ static void brcms_c_compute_mimo_plcp(u32 rspec, uint length, u8 *plcp)
  
- struct brcms_mcs_info {
- 	/* phy rate in kbps [20Mhz] */
-@@ -254,7 +275,6 @@ void brcmu_rateset_default(struct brcms_c_rateset *rs_tgt,
- 			   bool mcsallow, u8 bw, u8 txstreams);
+ /* Rate: 802.11 rate code, length: PSDU length in octets */
+ static void
+-brcms_c_compute_ofdm_plcp(u32 rspec, u32 length, u8 *plcp)
++brcmu_compute_ofdm_plcp(u32 rspec, u32 length, u8 *plcp)
+ {
+ 	u8 rate_signal;
+ 	u32 tmp = 0;
+@@ -5994,27 +5992,25 @@ brcms_c_compute_ofdm_plcp(u32 rspec, u32 length, u8 *plcp)
+ }
  
- void brcmu_rateset_mcs_upd(struct brcms_c_rateset *rs, u8 txstreams);
--void brcmu_rateset_mcs_clear(struct brcms_c_rateset *rateset);
- void brcmu_rateset_mcs_build(struct brcms_c_rateset *rateset, u8 txstreams);
- void brcmu_rateset_bw_mcs_filter(struct brcms_c_rateset *rateset, u8 bw);
+ /* Rate: 802.11 rate code, length: PSDU length in octets */
+-static void brcms_c_compute_cck_plcp(struct brcms_c_info *wlc, u32 rspec,
+-				 uint length, u8 *plcp)
++static void brcmu_compute_cck_plcp(u32 rspec, uint length, u8 *plcp)
+ {
+ 	int rate = rspec2rate(rspec);
  
-@@ -282,4 +302,4 @@ u16 brcmu_compute_rtscts_dur(int bandtype, const u8 *basic_rate, bool cts_only,
- u16 brcmu_phytxctl1_calc(u16 phytype, u32 rspec);
- u16 brcmu_calc_lsig_len(u32 ratespec, uint mac_len);
+-	brcms_c_cck_plcp_set(wlc, rate, length, plcp);
++	brcmu_cck_plcp_set(rate, length, plcp);
+ }
  
--#endif				/* _BRCM_RATE_H_ */
-+#endif				/* _BRCMU_RATE_H_ */
+ static void
+-brcms_c_compute_plcp(struct brcms_c_info *wlc, u32 rspec,
+-		     uint length, u8 *plcp)
++brcmu_compute_plcp(u32 rspec, uint length, u8 *plcp)
+ {
+ 	if (is_mcs_rate(rspec))
+-		brcms_c_compute_mimo_plcp(rspec, length, plcp);
++		brcmu_compute_mimo_plcp(rspec, length, plcp);
+ 	else if (is_ofdm_rate(rspec))
+-		brcms_c_compute_ofdm_plcp(rspec, length, plcp);
++		brcmu_compute_ofdm_plcp(rspec, length, plcp);
+ 	else
+-		brcms_c_compute_cck_plcp(wlc, rspec, length, plcp);
++		brcmu_compute_cck_plcp(rspec, length, plcp);
+ }
+ 
+-/* brcms_c_compute_rtscts_dur()
++/* brcmu_compute_rtscts_dur()
+  *
+  * Calculate the 802.11 MAC header DUR field for an RTS or CTS frame
+  * DUR for normal RTS/CTS w/ frame = 3 SIFS + 1 CTS + next frame time + 1 ACK
+@@ -6026,53 +6022,53 @@ brcms_c_compute_plcp(struct brcms_c_info *wlc, u32 rspec,
+  * frame_len		next MPDU frame length in bytes
+  */
+ u16
+-brcms_c_compute_rtscts_dur(struct brcms_c_info *wlc, bool cts_only,
+-			   u32 rts_rate,
+-			   u32 frame_rate, u8 rts_preamble_type,
+-			   u8 frame_preamble_type, uint frame_len, bool ba)
++brcmu_compute_rtscts_dur(int bandtype, const u8 *basic_rate, bool cts_only,
++			 u32 rts_rate,
++			 u32 frame_rate, u8 rts_preamble_type,
++			 u8 frame_preamble_type, uint frame_len, bool ba)
+ {
+ 	u16 dur, sifs;
+ 
+-	sifs = get_sifs(wlc->band);
++	sifs = brcmu_get_sifs(bandtype);
+ 
+ 	if (!cts_only) {
+ 		/* RTS/CTS */
+ 		dur = 3 * sifs;
+ 		dur +=
+-		    (u16) brcms_c_calc_cts_time(wlc, rts_rate,
+-					       rts_preamble_type);
++		    (u16)brcmu_calc_cts_time(bandtype, basic_rate, rts_rate,
++					     rts_preamble_type);
+ 	} else {
+ 		/* CTS-TO-SELF */
+ 		dur = 2 * sifs;
+ 	}
+ 
+ 	dur +=
+-	    (u16) brcms_c_calc_frame_time(wlc, frame_rate, frame_preamble_type,
+-					 frame_len);
++	    (u16)brcmu_calc_frame_time(bandtype, frame_rate,
++				       frame_preamble_type, frame_len);
+ 	if (ba)
+ 		dur +=
+-		    (u16) brcms_c_calc_ba_time(wlc, frame_rate,
+-					      BRCMS_SHORT_PREAMBLE);
++		    (u16)brcmu_calc_ba_time(bandtype, basic_rate, frame_rate,
++					    BRCMS_SHORT_PREAMBLE);
+ 	else
+ 		dur +=
+-		    (u16) brcms_c_calc_ack_time(wlc, frame_rate,
+-					       frame_preamble_type);
++		    (u16)brcmu_calc_ack_time(bandtype, basic_rate, frame_rate,
++					     frame_preamble_type);
+ 	return dur;
+ }
+ 
+-static u16 brcms_c_phytxctl1_calc(struct brcms_c_info *wlc, u32 rspec)
++static u16 brcmu_phytxctl1_calc(u16 phytype, u32 rspec)
+ {
+ 	u16 phyctl1 = 0;
+ 	u16 bw;
+ 
+-	if (BRCMS_ISLCNPHY(wlc->band)) {
++	if (phytype == PHY_TYPE_LCN) {
+ 		bw = PHY_TXC1_BW_20MHZ;
+ 	} else {
+ 		bw = rspec_get_bw(rspec);
+ 		/* 10Mhz is not supported yet */
+ 		if (bw < PHY_TXC1_BW_20MHZ) {
+-			brcms_err(wlc->hw->d11core, "phytxctl1_calc: bw %d is "
+-				  "not supported yet, set to 20L\n", bw);
++			pr_err("%s: bw %d is not supported yet, set to 20L\n",
++			       __func__, bw);
+ 			bw = PHY_TXC1_BW_20MHZ;
+ 		}
+ 	}
+@@ -6084,8 +6080,8 @@ static u16 brcms_c_phytxctl1_calc(struct brcms_c_info *wlc, u32 rspec)
+ 		phyctl1 = rspec_phytxbyte2(rspec);
+ 		/* set the upper byte of phyctl1 */
+ 		phyctl1 |= (brcmu_mcs_table[mcs].tx_phy_ctl3 << 8);
+-	} else if (is_cck_rate(rspec) && !BRCMS_ISLCNPHY(wlc->band)
+-		   && !BRCMS_ISSSLPNPHY(wlc->band)) {
++	} else if (is_cck_rate(rspec) && phytype != PHY_TYPE_LCN &&
++		   phytype != PHY_TYPE_SSN) {
+ 		/*
+ 		 * In CCK mode LPPHY overloads OFDM Modulation bits with CCK
+ 		 * Data Rate. Eventually MIMOPHY would also be converted to
+@@ -6098,8 +6094,7 @@ static u16 brcms_c_phytxctl1_calc(struct brcms_c_info *wlc, u32 rspec)
+ 		/* get the phyctl byte from rate phycfg table */
+ 		phycfg = brcmu_rate_legacy_phyctl(rspec2rate(rspec));
+ 		if (phycfg == -1) {
+-			brcms_err(wlc->hw->d11core, "phytxctl1_calc: wrong "
+-				  "legacy OFDM/CCK rate\n");
++			pr_err("%s: wrong legacy OFDM/CCK rate\n", __func__);
+ 			phycfg = 0;
+ 		}
+ 		/* set the upper byte of phyctl1 */
+@@ -6395,8 +6390,8 @@ brcms_c_d11hdrs_mac80211(struct brcms_c_info *wlc, struct ieee80211_hw *hw,
+ 
+ 	/* (3) PLCP: determine PLCP header and MAC duration,
+ 	 * fill struct d11txh */
+-	brcms_c_compute_plcp(wlc, rspec[0], phylen, plcp);
+-	brcms_c_compute_plcp(wlc, rspec[1], phylen, plcp_fallback);
++	brcmu_compute_plcp(rspec[0], phylen, plcp);
++	brcmu_compute_plcp(rspec[1], phylen, plcp_fallback);
+ 	memcpy(&txh->FragPLCPFallback,
+ 	       plcp_fallback, sizeof(txh->FragPLCPFallback));
+ 
+@@ -6421,9 +6416,9 @@ brcms_c_d11hdrs_mac80211(struct brcms_c_info *wlc, struct ieee80211_hw *hw,
+ 	} else if (use_rifs) {
+ 		/* NAV protect to end of next max packet size */
+ 		durid =
+-		    (u16) brcms_c_calc_frame_time(wlc, rspec[0],
+-						 preamble_type[0],
+-						 DOT11_MAX_FRAG_LEN);
++		    (u16)brcmu_calc_frame_time(wlc->band->bandtype, rspec[0],
++					       preamble_type[0],
++					       DOT11_MAX_FRAG_LEN);
+ 		durid += RIFS_11N_TIME;
+ 		h->duration_id = cpu_to_le16(durid);
+ 	}
+@@ -6537,26 +6532,30 @@ brcms_c_d11hdrs_mac80211(struct brcms_c_info *wlc, struct ieee80211_hw *hw,
+ 		else
+ 			rts_phylen = DOT11_RTS_LEN + FCS_LEN;
+ 
+-		brcms_c_compute_plcp(wlc, rts_rspec[0], rts_phylen, rts_plcp);
++		brcmu_compute_plcp(rts_rspec[0], rts_phylen, rts_plcp);
+ 
+ 		/* fallback rate version of RTS PLCP header */
+-		brcms_c_compute_plcp(wlc, rts_rspec[1], rts_phylen,
+-				 rts_plcp_fallback);
++		brcmu_compute_plcp(rts_rspec[1], rts_phylen, rts_plcp_fallback);
+ 		memcpy(&txh->RTSPLCPFallback, rts_plcp_fallback,
+ 		       sizeof(txh->RTSPLCPFallback));
+ 
+ 		/* RTS frame fields... */
+ 		rts = (struct ieee80211_rts *)&txh->rts_frame;
+ 
+-		durid = brcms_c_compute_rtscts_dur(wlc, use_cts, rts_rspec[0],
+-					       rspec[0], rts_preamble_type[0],
+-					       preamble_type[0], phylen, false);
++		durid = brcmu_compute_rtscts_dur(wlc->band->bandtype,
++						 wlc->band->basic_rate,
++						 use_cts, rts_rspec[0],
++						 rspec[0], rts_preamble_type[0],
++						 preamble_type[0], phylen,
++						 false);
+ 		rts->duration = cpu_to_le16(durid);
+ 		/* fallback rate version of RTS DUR field */
+-		durid = brcms_c_compute_rtscts_dur(wlc, use_cts,
+-					       rts_rspec[1], rspec[1],
+-					       rts_preamble_type[1],
+-					       preamble_type[1], phylen, false);
++		durid = brcmu_compute_rtscts_dur(wlc->band->bandtype,
++						 wlc->band->basic_rate,
++						 use_cts, rts_rspec[1],
++						 rspec[1], rts_preamble_type[1],
++						 preamble_type[1], phylen,
++						 false);
+ 		txh->RTSDurFallback = cpu_to_le16(durid);
+ 
+ 		if (use_cts) {
+@@ -6631,15 +6630,17 @@ brcms_c_d11hdrs_mac80211(struct brcms_c_info *wlc, struct ieee80211_hw *hw,
+ 	if (BRCMS_PHY_11N_CAP(wlc->band)) {
+ 		u16 phyctl1 = 0;
+ 
+-		phyctl1 = brcms_c_phytxctl1_calc(wlc, rspec[0]);
++		phyctl1 = brcmu_phytxctl1_calc(wlc->band->phytype, rspec[0]);
+ 		txh->PhyTxControlWord_1 = cpu_to_le16(phyctl1);
+-		phyctl1 = brcms_c_phytxctl1_calc(wlc, rspec[1]);
++		phyctl1 = brcmu_phytxctl1_calc(wlc->band->phytype, rspec[1]);
+ 		txh->PhyTxControlWord_1_Fbr = cpu_to_le16(phyctl1);
+ 
+ 		if (use_rts || use_cts) {
+-			phyctl1 = brcms_c_phytxctl1_calc(wlc, rts_rspec[0]);
++			phyctl1 = brcmu_phytxctl1_calc(wlc->band->phytype,
++						       rts_rspec[0]);
+ 			txh->PhyTxControlWord_1_Rts = cpu_to_le16(phyctl1);
+-			phyctl1 = brcms_c_phytxctl1_calc(wlc, rts_rspec[1]);
++			phyctl1 = brcmu_phytxctl1_calc(wlc->band->phytype,
++						       rts_rspec[1]);
+ 			txh->PhyTxControlWord_1_FbrRts = cpu_to_le16(phyctl1);
+ 		}
+ 
+@@ -6651,14 +6652,14 @@ brcms_c_d11hdrs_mac80211(struct brcms_c_info *wlc, struct ieee80211_hw *hw,
+ 		if (is_mcs_rate(rspec[0]) &&
+ 		    (preamble_type[0] == BRCMS_MM_PREAMBLE)) {
+ 			u16 mmodelen =
+-			    brcms_c_calc_lsig_len(wlc, rspec[0], phylen);
++			    brcmu_calc_lsig_len(rspec[0], phylen);
+ 			txh->MModeLen = cpu_to_le16(mmodelen);
+ 		}
+ 
+ 		if (is_mcs_rate(rspec[1]) &&
+ 		    (preamble_type[1] == BRCMS_MM_PREAMBLE)) {
+ 			u16 mmodefbrlen =
+-			    brcms_c_calc_lsig_len(wlc, rspec[1], phylen);
++			    brcmu_calc_lsig_len(rspec[1], phylen);
+ 			txh->MModeFbrLen = cpu_to_le16(mmodefbrlen);
+ 		}
+ 	}
+@@ -6670,17 +6671,21 @@ brcms_c_d11hdrs_mac80211(struct brcms_c_info *wlc, struct ieee80211_hw *hw,
+ 		/* WME: Update TXOP threshold */
+ 		if (!(tx_info->flags & IEEE80211_TX_CTL_AMPDU) && frag == 0) {
+ 			frag_dur =
+-			    brcms_c_calc_frame_time(wlc, rspec[0],
+-					preamble_type[0], phylen);
++			    brcmu_calc_frame_time(wlc->band->bandtype, rspec[0],
++						  preamble_type[0], phylen);
+ 
+ 			if (rts) {
+ 				/* 1 RTS or CTS-to-self frame */
+ 				dur =
+-				    brcms_c_calc_cts_time(wlc, rts_rspec[0],
+-						      rts_preamble_type[0]);
++				    brcmu_calc_cts_time(wlc->band->bandtype,
++							wlc->band->basic_rate,
++							rts_rspec[0],
++							rts_preamble_type[0]);
+ 				dur_fallback =
+-				    brcms_c_calc_cts_time(wlc, rts_rspec[1],
+-						      rts_preamble_type[1]);
++				    brcmu_calc_cts_time(wlc->band->bandtype,
++							wlc->band->basic_rate,
++							rts_rspec[1],
++							rts_preamble_type[1]);
+ 				/* (SIFS + CTS) + SIFS + frame + SIFS + ACK */
+ 				dur += le16_to_cpu(rts->duration);
+ 				dur_fallback +=
+@@ -6696,9 +6701,10 @@ brcms_c_d11hdrs_mac80211(struct brcms_c_info *wlc, struct ieee80211_hw *hw,
+ 							  preamble_type[0], 0);
+ 
+ 				dur_fallback =
+-				    brcms_c_calc_frame_time(wlc, rspec[1],
+-							preamble_type[1],
+-							phylen);
++				    brcmu_calc_frame_time(wlc->band->bandtype,
++							  rspec[1],
++							  preamble_type[1],
++							  phylen);
+ 				dur_fallback +=
+ 				    brcms_c_compute_frame_dur(wlc, rspec[1],
+ 							  preamble_type[1], 0);
+@@ -6862,19 +6868,20 @@ brcms_c_rspec_to_rts_rspec(struct brcms_c_info *wlc, u32 rspec,
+ 		rts_rspec = rspec;
+ 	else if (wlc->band->gmode && wlc->protection->_g && !is_cck_rate(rspec))
+ 		/* Use 11Mbps as the g protection RTS target rate and fallback.
+-		 * Use the brcms_basic_rate() lookup to find the best basic rate
++		 * Use the brcmu_basic_rate() lookup to find the best basic rate
+ 		 * under the target in case 11 Mbps is not Basic.
+ 		 * 6 and 9 Mbps are not usually selected by rate selection, but
+ 		 * even if the OFDM rate we are protecting is 6 or 9 Mbps, 11
+ 		 * is more robust.
+ 		 */
+-		rts_rspec = brcms_basic_rate(wlc, BRCM_RATE_11M);
++		rts_rspec = brcmu_basic_rate(wlc->band->basic_rate,
++					     BRCM_RATE_11M);
+ 	else
+ 		/* calculate RTS rate and fallback rate based on the frame rate
+ 		 * RTS must be sent at a basic rate since it is a
+ 		 * control frame, sec 9.6 of 802.11 spec
+ 		 */
+-		rts_rspec = brcms_basic_rate(wlc, rspec);
++		rts_rspec = brcmu_basic_rate(wlc->band->basic_rate, rspec);
+ 
+ 	if (BRCMS_PHY_11N_CAP(wlc->band)) {
+ 		/* set rts txbw to correct side band */
+@@ -7105,8 +7112,7 @@ brcms_c_recvctl(struct brcms_c_info *wlc, struct d11rxhdr *rxh,
+  *   len = 3(nsyms + nstream + 3) - 3
+  */
+ u16
+-brcms_c_calc_lsig_len(struct brcms_c_info *wlc, u32 ratespec,
+-		      uint mac_len)
++brcmu_calc_lsig_len(u32 ratespec, uint mac_len)
+ {
+ 	uint nsyms, len = 0, kNdps;
+ 
+@@ -7159,7 +7165,7 @@ brcms_c_mod_prb_rsp_rate_table(struct brcms_c_info *wlc, uint frame_len)
+ 	u16 dur, sifs;
+ 	uint i;
+ 
+-	sifs = get_sifs(wlc->band);
++	sifs = brcmu_get_sifs(wlc->band->bandtype);
+ 
+ 	rs_dflt = brcms_c_rateset_get_hwrs(wlc);
+ 
+@@ -7176,14 +7182,15 @@ brcms_c_mod_prb_rsp_rate_table(struct brcms_c_info *wlc, uint frame_len)
+ 		entry_ptr = brcms_b_rate_shm_offset(wlc->hw, rate);
+ 
+ 		/* Calculate the Probe Response PLCP for the given rate */
+-		brcms_c_compute_plcp(wlc, rate, frame_len, plcp);
++		brcmu_compute_plcp(rate, frame_len, plcp);
+ 
+ 		/*
+ 		 * Calculate the duration of the Probe Response
+ 		 * frame plus SIFS for the MAC
+ 		 */
+-		dur = (u16) brcms_c_calc_frame_time(wlc, rate,
+-						BRCMS_LONG_PREAMBLE, frame_len);
++		dur = (u16)brcmu_calc_frame_time(wlc->band->bandtype, rate,
++						 BRCMS_LONG_PREAMBLE,
++						 frame_len);
+ 		dur += sifs;
+ 
+ 		/* Update the SHM Rate Table entry Probe Response values */
+@@ -7215,8 +7222,8 @@ static void brcms_c_beacon_write(struct brcms_c_info *wlc,
+ 	len = min_t(size_t, beacon->len, BCN_TMPL_LEN);
+ 	wlc->bcn_rspec = ieee80211_get_tx_rate(ieee_hw, tx_info)->hw_value;
+ 
+-	brcms_c_compute_plcp(wlc, wlc->bcn_rspec,
+-			     len + FCS_LEN - D11_PHY_HDR_LEN, beacon->data);
++	brcmu_compute_plcp(wlc->bcn_rspec,
++			   len + FCS_LEN - D11_PHY_HDR_LEN, beacon->data);
+ 
+ 	/* "Regular" and 16 MBSS but not for 4 MBSS */
+ 	/* Update the phytxctl for the beacon based on the rspec */
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmsmac/main.h b/drivers/net/wireless/broadcom/brcm80211/brcmsmac/main.h
+index d81de701a..347d9a4a8 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmsmac/main.h
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmsmac/main.h
+@@ -614,13 +614,13 @@ int brcms_b_xmtfifo_sz_get(struct brcms_hardware *wlc_hw, uint fifo,
+ 
+ int brcms_c_set_gmode(struct brcms_c_info *wlc, u8 gmode, bool config);
+ void brcms_c_mac_promisc(struct brcms_c_info *wlc, uint filter_flags);
+-u16 brcms_c_calc_lsig_len(struct brcms_c_info *wlc, u32 ratespec, uint mac_len);
++u16 brcmu_calc_lsig_len(u32 ratespec, uint mac_len);
+ u32 brcms_c_rspec_to_rts_rspec(struct brcms_c_info *wlc, u32 rspec,
+ 			       bool use_rspec, u16 mimo_ctlchbw);
+-u16 brcms_c_compute_rtscts_dur(struct brcms_c_info *wlc, bool cts_only,
+-			       u32 rts_rate, u32 frame_rate,
+-			       u8 rts_preamble_type, u8 frame_preamble_type,
+-			       uint frame_len, bool ba);
++u16 brcmu_compute_rtscts_dur(int bandtype, const u8 *basic_rate, bool cts_only,
++			     u32 rts_rate, u32 frame_rate,
++			     u8 rts_preamble_type, u8 frame_preamble_type,
++			     uint frame_len, bool ba);
+ void brcms_c_inval_dma_pkts(struct brcms_hardware *hw,
+ 			    struct ieee80211_sta *sta, void (*dma_callback_fn));
+ void brcms_c_update_probe_resp(struct brcms_c_info *wlc, bool suspend);
 -- 
 2.53.0
 
