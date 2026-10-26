@@ -1,105 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793020586;
-	b=ZZ0eLv1fiR/6J0KTpmHMmT6L8XEyEnWrmdv4ahfdNlqqg7sMoXZmIBZ1KvK9P/tjjSzJ
-	 Ixt+N/BceJifx3Inj46MVJ8LTfAIupQ4sY98/gSWgU1Pf5FGfE6h6tYVobuX0+uY5Mq6T
-	 WB2yaSR/kDi1RFcFdDnrkfpQItWThd4mMOGkKddNWEIKlzuAzx8Q91ZQQA9d3nCzCSuha
-	 0czElQ6hB+XMQIPB8TbUpz67VdZgcOeFiYq0gZ6h5xw9sGlojVNdY2b2wf/tR79TGmtC8
-	 Mt1xQ1macWE8FB4C2aMP70iJsGBC4QzXZJm0rfzGXIpTBL5K6JVPysIq+6x800Yuvpw==
+	t=1793020645;
+	b=fpbI85BCTN2ahpp8SERBO5U4e1EdqBmj70avO/hIIpvKH1bkwU0MMxJhjhkKDe0FZmjr
+	 fLaKtPxSLnpxYrNrXrY2fe7mmcTyQWHrQDwiNPMWhGfizVM1AVb2whRl4zSxT7yGSRgWR
+	 KA4j5LbXDmPWXrpX0ZqGjGLMrWQ9mA/jvft1GtZ/880j59ckeyI6iVtWFn45XVCeLxGPN
+	 uWWxy2oo4frb5Ji+xf44xWb8siaF/KVN80TGIgIL5DKxJrfbeu0cBi2oC0oJGPz4UnNrf
+	 cXm0H9STDhd26IZH5wA8vy605pAYPkR8bAbIHapoY18dX09QZnNSOkDXHL/miZYtg6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793020586;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
-	bh=uPBVY13550N14hL+IGk35wKKeTHr4lxO3h9f95jd7JQ=;
-	b=a4slnb196ZNZMiRH/vcJN5y9g3a1l5SN1ACafTuilCIVdM8KZ/y4K7I18ZTroZeS+EE+
-	 KY7peAFaciLMG4NjsvEJFkhtTj19+hUtzaMjWIGcpuFwqOp+ZqyOyuUZTJ7F3ROZ1jr/k
-	 wFTniAAt+TauSxytRWmRmQdnJ+9HF5kEw0zbSfnk8g0K3qLJ+9fVBT0yR3oLSQfDqXtAN
-	 8XigNfqv+xYVnomPTTeYqEGaHlJc5B3sDPg0/yLotroZs0KqpZvXVDDLiMiN8BzQU+YsO
-	 m2NGXEi1pap4217774JKcWkT5TeDLc5h1PT6kTTsrFqJj3hGqlU5ltWg+gAlat3alug==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793020645;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=dp3CEUIWG4ZlM/vo6FzdszxeLdRIwkhm0EFu7Z420cM=;
+	b=e0hBJ8tLUxjFGO7MFxuwuPZfkBVxvC2qEmkC0nUkN1byAbfUwGZHPXOc0xRgs//rykGr
+	 C9bMo44+BlQCWshRiV5i0vmiSJkBQYLoK8hxLGHG3ejO0yM97yW/RvtcCT7rEfyOvFgiA
+	 oX/ss2Kd9hbHj/PzDF0d+FuoPaY7uRspRloabjgXNprDF4kaqa5Q3v/k+ZOxybipn3o8d
+	 +2BMnvmKoV0u3jgKiirR0Jw2gjxT3CBlVliwjw/wCQspB20hhgQAfVUnPEzFNpCXMtk5h
+	 c4HhZdZ/ddzADHmzRrxIV+Xy/EF/xfX5J6KB1wFt5SZViVB6BKKDNgWTtOTfFgclk4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=KMTpm5F1;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=BuF6fJSo;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=KMTpm5F1;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=BuF6fJSo;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=U937B17l;
+	arc=none smtp.remote-ip=209.85.221.53
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E9C3606A31A;
-	Mon, 26 Oct 2026 13:16:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E9C3606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9F78606A31B
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:17:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9F78606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=KMTpm5F1;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=BuF6fJSo;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=KMTpm5F1;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=BuF6fJSo
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 4F7B11F80B;
-	Mon, 26 Oct 2026 13:16:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793020584; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=uPBVY13550N14hL+IGk35wKKeTHr4lxO3h9f95jd7JQ=;
-	b=KMTpm5F1MJ9oPBIgv02dnTf1lEdUrWZkVIgdBh2sfnVkCgiJ/l0X2CfypgCEjP0w+YKqAr
-	EEe4cf1mZABSq7+BJIjdPJ4dKGs63Q2JviYnrGQIOo393iVGDNB0Ywbh+A9xRm8vmo0ey2
-	GncvAFg57tryIokdExbnVQed4UXW55M=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793020584;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=uPBVY13550N14hL+IGk35wKKeTHr4lxO3h9f95jd7JQ=;
-	b=BuF6fJSoCOyPGLUVfudXR18pY+Qs2WKmkxzbSHXjKcyqE1dxuxO7FiD3CLq+p6EmMu28c8
-	3e6t4X48ppg0HPCQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793020584; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=uPBVY13550N14hL+IGk35wKKeTHr4lxO3h9f95jd7JQ=;
-	b=KMTpm5F1MJ9oPBIgv02dnTf1lEdUrWZkVIgdBh2sfnVkCgiJ/l0X2CfypgCEjP0w+YKqAr
-	EEe4cf1mZABSq7+BJIjdPJ4dKGs63Q2JviYnrGQIOo393iVGDNB0Ywbh+A9xRm8vmo0ey2
-	GncvAFg57tryIokdExbnVQed4UXW55M=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793020584;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=uPBVY13550N14hL+IGk35wKKeTHr4lxO3h9f95jd7JQ=;
-	b=BuF6fJSoCOyPGLUVfudXR18pY+Qs2WKmkxzbSHXjKcyqE1dxuxO7FiD3CLq+p6EmMu28c8
-	3e6t4X48ppg0HPCQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 272FB13408;
-	Mon, 26 Oct 2026 13:16:24 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id YpPYAKhS32pkaQAAD6G6ig
-	(envelope-from <jack@suse.cz>); Mon, 26 Oct 2026 13:16:24 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id AADADA1419; Mon, 26 Oct 2026 14:16:19 +0100 (CET)
-Date: Mon, 26 Oct 2026 14:16:19 +0100
-From: Jan Kara <jack@suse.cz>
-To: Pedro Falcato <pfalcato@suse.de>
-Cc: Jan Kara <jack@suse.com>, linux-ext4@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ext2: take invalidate_lock in ext2_write_failed()
-Message-ID: <akdbsbqjyqpju5a42sh64yovrl47p7ty3yp5nm36pmfgrduaxj@tlx6yc5atpiy>
-References: <20261024222726.889520-1-pfalcato@suse.de>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=U937B17l
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48e0d885929so1943173f8f.3
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 06:17:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793020643; x=1793625443; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dp3CEUIWG4ZlM/vo6FzdszxeLdRIwkhm0EFu7Z420cM=;
+        b=U937B17l2G0UPyJWQ74V63C09xXgltUEQfce5Rva5x7lDzrKGKGQB/uGp37018gJCv
+         fHvO5uO1VrzVNdWquKhthcvIlLa2GZ2huThF8EMjJr4RPttRAo73sqlZyt3/pIGLdZBZ
+         MQicrTeX/y2g37Pr8GswMAox6xYcfnsAhGJqwj3nyK/eZY/Q+styhQTc3+rsgAkeHJf3
+         EKZmnVGhjfwEkvSPyQQv9LIo6+RXNvjittyPp5gPEsCdaIwTzPTq9OXOjWMzIHZ3Lm8z
+         aLdRTxpcSsHkQiwb2eJWcPQ2eT1aDh/mgtywP3oHHU6y+HOLg4Fs65GJyPzUHDkl+yqv
+         nVXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793020643; x=1793625443;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dp3CEUIWG4ZlM/vo6FzdszxeLdRIwkhm0EFu7Z420cM=;
+        b=CJQsACBg5wcMHfWj7a/OtbGo4wLsPyU6RrTD9P4t/3ymkfmzgaMfZHmpZw6mM9XwPJ
+         kO5HwjwOF+Tz5+9d0eyjfqCjToYPh3/72VKQ/Bj5stCD0IPDR/58twh3LEEYO6whlqff
+         kevFDo+DJVTJ0+e8IDEHpMvvn9FBg1VktIMfiIgkvn/OX/fOf+9iaxFXh08pI7KZVKCn
+         Kaa6BeyPDX3MrPQ9LakVlZnlBIVjUdxLfhcMDgqdZkITkrDtLBk9KV2ULmZVkwJmJqUq
+         wg/5zfPydwLXxSwX2eAE7dQnZP4qTS51AFDtRGa5z9QxeI5tjlriskr3ahC5DyOFgamg
+         SFpg==
+X-Forwarded-Encrypted: i=1; AKwUvBxM990l/hyZpPQwYxj6DFTJgHiqOb9S0xepNslAR2CqbD8ONSif/X5J8mbgMwaQQRCQP732TBGYtSLDO9I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLr2vvpcEeBX39LSY4XJ0f08I8mKdlFOwAJkGqYrXc9TxnMkaOz
+	NCCyqlmqX4RYGpgUXnUtPqS5U1lz9L5Qh88gBClLHMZVJIjltLpz58zuzyidc474XSQ=
+X-Gm-Gg: AYBFou2Art0NXr3byjTNeaeLY+88YmhVDFpzUXIgWQ4xLjVp6On3XQicwcauHUJMp8a
+	Mvj+3xxQ3St0GIcpR4tR4e582CM6itAsZN69Zp/NvzQdR06vhlB10ufdP+o65b/PK4q7AjPL72l
+	Q3XFn+i942Bh8gtTepKqTem2adjvpqLhmZe0xC03tpG6M0+dvFl+NcFMfDx7Ueq46qxjb8/Ix1e
+	3i8yr7M1SCqIFDV1HLa0BPryNCxDp1hVemoEqr+l4pBWoGhbPLm4L0SpoWTTvBtHCmlYb4jfJAE
+	e2ehKNBTKRNoe5KXne/dJVH5N0UQ/n2S/xjpEYuaL+3C2Xpg/xxvCQul5DuavulJy22d+kNlnWO
+	TaKiBmGZk1fFAVUwN472w1WRcVFIhxMa2lG/l0wAeHMRd0jCBCW+X2WjlDq3lme3UGdPNSdo2M6
+	tCc7oewXnXYAAU3innzdGb8V38RSqyPN2HuXcIUvvYJwytiRkoFmCEFvBeYlrr6NOESNPzogE2T
+	JbK58zxrXQ+TX6O22HiLvEO+WPWVTPSQSwdHfNUNNUcwWRVGQa4ZBn7/HWIHw2aHh6hves2gU/9
+	lDSGmFCJSqJmCAuSg39ulSvNB814SGhfJBGnYawdqw==
+X-Received: by 2002:a05:6000:40dc:b0:48e:1b11:7ee5 with SMTP id ffacd0b85a97d-48e3eb9a1d5mr12249321f8f.11.1793020642797;
+        Mon, 26 Oct 2026 06:17:22 -0700 (PDT)
+Received: from matebook.galaxus.box (adsl-84-226-215-1.adslplus.ch. [84.226.215.1])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3eb8f37csm13485709f8f.8.2026.10.26.06.17.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 06:17:21 -0700 (PDT)
+From: Cian Ruane <cian.ruane1@gmail.com>
+To: Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Cian Ruane <cian.ruane1@gmail.com>
+Subject: [PATCH v2] platform/x86: huawei-wmi: Add keyboard backlight support
+Date: Mon, 26 Oct 2026 14:17:20 +0100
+Message-ID: <20261026131720.9885-1-cian.ruane1@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,109 +96,199 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261024222726.889520-1-pfalcato@suse.de>
-X-Spamd-Result: default: False [-12.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCPT_COUNT_THREE(0.00)[4];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email,suse.de:email]
-X-Spam-Score: -12.80
-X-Spam-Level: 
-X-Spam-Flag: NO
+Content-Transfer-Encoding: 8bit
 
-On Sat 24-10-26 23:27:26, Pedro Falcato wrote:
-> Currently, ext2_write_failed() takes care of removing extra data
-> (folios & blocks) from the page cache by first truncating the page cache,
-> then truncating the actual inode's blocks.
-> 
-> Understanding that this is correct - namely, that a concurrent page cache
-> lookup can't create stale pages and stale block mappings between
-> truncate_pagecache() and ext2_truncate_blocks() - is non trivial. This is
-> correct for two non-obvious reasons:
-> 
-> 1) every caller of ext2_write_failed() holds some sort of exclusion
-> against truncation. In most cases, callers hold (in some way) the inode
-> lock. ext2_write_failed() is only reachable from buffered/direct IO write
-> paths, which hold it. page_symlink() can also call write_begin _without
-> the inode lock_, but at that point the inode is I_NEW, so there are no other
-> users.
-> 
-> 2) the page cache is generally extremely careful at never instantiating
-> pages beyond EOF.
-> 
-> This is all quite confusing. Holding the invalidate lock across both
-> operations is largely simpler, and mirrors other bits of other filesystems
-> (like ext4_truncate_failed_write). Do that.
-> 
-> This has the side effect of making it so ext2_evict_inode() doesn't take
-> the invalidate_lock when truncating blocks on inode deletion. This is safe
-> as the inode should not have any users at that point.
-> 
-> Signed-off-by: Pedro Falcato <pfalcato@suse.de>
+The HWMI interface of the HUAWEI MateBook X Pro 2020 (MACHC-WAX9)
+exposes the keyboard backlight through the \GLIV and \SLIV methods of
+the WMAA dispatcher (MFID 2, SFID 6/7), with the level in byte 2 of the
+buffer. The EC stores the level doubled, so the three levels off/low/
+high are represented as 0, 2 and 4.
 
-There's actually one more reason - filesystems that don't support hole
-punching are generally ok with the synchronization provided by inode lock
-and i_size checks (as within i_size allocated space can never disappear
-under you). But I agree this is all too subtle so you're change is a good
-one. Added to my tree.
+Register a "platform::kbd_backlight" LED class device with a maximum
+brightness of 2 so that userspace, e.g. UPower, can control it.
 
-								Honza
+Changes made with the Fn+F3 hotkey are handled by the EC itself and
+are not reported to the OS on this model: no EC query or WMI event is
+generated. LED_BRIGHT_HW_CHANGED is therefore not set.
 
-> ---
-> 
-> This is a patch that fell out of trying to understand whether
-> 20261021162105.62525-1-matheus.aalmeida@inf.ufrgs.br was correct. I think
-> it is, for the same reason ext2 is correct. I find this to be easier to reason
-> about if we just take the invalidate lock across both operations.
-> 
->  fs/ext2/inode.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/fs/ext2/inode.c b/fs/ext2/inode.c
-> index 12ac4cfe1500..723b31dc7dac 100644
-> --- a/fs/ext2/inode.c
-> +++ b/fs/ext2/inode.c
-> @@ -58,8 +58,10 @@ void ext2_write_failed(struct address_space *mapping, loff_t to)
->  	struct inode *inode = mapping->host;
->  
->  	if (to > inode->i_size) {
-> +		filemap_invalidate_lock(mapping);
->  		truncate_pagecache(inode, inode->i_size);
->  		ext2_truncate_blocks(inode, inode->i_size);
-> +		filemap_invalidate_unlock(mapping);
->  	}
->  }
->  
-> @@ -1236,9 +1238,7 @@ static void ext2_truncate_blocks(struct inode *inode, loff_t offset)
->  	if (ext2_inode_is_fast_symlink(inode))
->  		return;
->  
-> -	filemap_invalidate_lock(inode->i_mapping);
->  	__ext2_truncate_blocks(inode, offset);
-> -	filemap_invalidate_unlock(inode->i_mapping);
->  }
->  
->  static int ext2_setsize(struct inode *inode, loff_t newsize)
-> -- 
-> 2.56.0
-> 
+The level encoding has only been verified on this model, so enable the
+feature through a DMI quirk.
+
+Add a HWMI_BUF_SIZE define for the size of the HWMI result buffer and
+use it for the existing battery threshold and Fn-lock buffers as well.
+
+Tested on: HUAWEI MACHC-WAX9 (MateBook X Pro 2020), BIOS 1.05 and 1.26,
+Ubuntu 24.04 (kernel 6.8.0-147-generic, with this patch backported).
+
+Signed-off-by: Cian Ruane <cian.ruane1@gmail.com>
+---
+Changes in v2:
+- Use named defines for the HWMI buffer size and the level byte offsets
+  instead of literals, and use HWMI_BUF_SIZE for the existing battery
+  and Fn-lock buffers too (Ilpo)
+
+v1: https://lore.kernel.org/r/20261025233910.9907-1-cian.ruane1@gmail.com
+
+ drivers/platform/x86/huawei-wmi.c | 75 +++++++++++++++++++++++++++++--
+ 1 file changed, 72 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/platform/x86/huawei-wmi.c b/drivers/platform/x86/huawei-wmi.c
+index 96ee9a97c..59b3f7d9d 100644
+--- a/drivers/platform/x86/huawei-wmi.c
++++ b/drivers/platform/x86/huawei-wmi.c
+@@ -31,6 +31,9 @@
+ #define WMI0_EXPENSIVE_GUID "39142400-C6A3-40fa-BADB-8A2652834100"
+ #define WMI0_EVENT_GUID "59142400-C6A3-40fa-BADB-8A2652834100"
+ 
++/* Size of the buffer returned by HWMI, byte 0 is the return status */
++#define HWMI_BUF_SIZE			0x100
++
+ /* HWMI commands */
+ 
+ enum {
+@@ -39,8 +42,17 @@ enum {
+ 	FN_LOCK_GET			= 0x00000604, /* \GFRS */
+ 	FN_LOCK_SET			= 0x00000704, /* \SFRS */
+ 	MICMUTE_LED_SET			= 0x00000b04, /* \SMLS */
++	KBD_BACKLIGHT_GET		= 0x00000602, /* \GLIV */
++	KBD_BACKLIGHT_SET		= 0x00000702, /* \SLIV */
+ };
+ 
++/* The EC stores the keyboard backlight level doubled: off/low/high = 0/2/4. */
++#define KBD_BACKLIGHT_MAX		2
++#define KBD_BACKLIGHT_STEP		2
++/* Level byte in the \GLIV result (KBLL) and in the \SLIV argument (SOCP) */
++#define KBD_BACKLIGHT_GET_LEVEL_OFFSET	2
++#define KBD_BACKLIGHT_SET_LEVEL_OFFSET	2
++
+ union hwmi_arg {
+ 	u64 cmd;
+ 	u8 args[8];
+@@ -50,6 +62,7 @@ struct quirk_entry {
+ 	bool battery_reset;
+ 	bool ec_micmute;
+ 	bool report_brightness;
++	bool kbd_backlight;
+ };
+ 
+ static struct quirk_entry *quirks;
+@@ -65,6 +78,7 @@ struct huawei_wmi {
+ 
+ 	struct huawei_wmi_debug debug;
+ 	struct led_classdev cdev;
++	struct led_classdev kbd_cdev;
+ 	struct device *dev;
+ 
+ 	struct mutex wmi_lock;
+@@ -126,6 +140,10 @@ static struct quirk_entry quirk_matebook_x = {
+ 	.report_brightness = true,
+ };
+ 
++static struct quirk_entry quirk_kbd_backlight = {
++	.kbd_backlight = true,
++};
++
+ static const struct dmi_system_id huawei_quirks[] = {
+ 	{
+ 		.callback = dmi_matched,
+@@ -145,6 +163,15 @@ static const struct dmi_system_id huawei_quirks[] = {
+ 		},
+ 		.driver_data = &quirk_matebook_x
+ 	},
++	{
++		.callback = dmi_matched,
++		.ident = "Huawei MACHC-WAX9",
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "HUAWEI"),
++			DMI_MATCH(DMI_PRODUCT_NAME, "MACHC-WAX9"),
++		},
++		.driver_data = &quirk_kbd_backlight
++	},
+ 	{  }
+ };
+ 
+@@ -322,11 +349,52 @@ static void huawei_wmi_leds_setup(struct device *dev)
+ 	devm_led_classdev_register(dev, &huawei->cdev);
+ }
+ 
++/* Keyboard backlight */
++
++static enum led_brightness huawei_wmi_kbd_backlight_get(struct led_classdev *led_cdev)
++{
++	u8 ret[HWMI_BUF_SIZE];
++
++	if (huawei_wmi_cmd(KBD_BACKLIGHT_GET, ret, sizeof(ret)))
++		return 0;
++
++	return ret[KBD_BACKLIGHT_GET_LEVEL_OFFSET] / KBD_BACKLIGHT_STEP;
++}
++
++static int huawei_wmi_kbd_backlight_set(struct led_classdev *led_cdev,
++					enum led_brightness brightness)
++{
++	union hwmi_arg arg;
++
++	arg.cmd = KBD_BACKLIGHT_SET;
++	arg.args[KBD_BACKLIGHT_SET_LEVEL_OFFSET] = brightness * KBD_BACKLIGHT_STEP;
++
++	return huawei_wmi_cmd(arg.cmd, NULL, 0);
++}
++
++static void huawei_wmi_kbd_backlight_setup(struct device *dev)
++{
++	struct huawei_wmi *huawei = dev_get_drvdata(dev);
++
++	if (!quirks || !quirks->kbd_backlight)
++		return;
++
++	if (huawei_wmi_cmd(KBD_BACKLIGHT_GET, NULL, 0))
++		return;
++
++	huawei->kbd_cdev.name = "platform::kbd_backlight";
++	huawei->kbd_cdev.max_brightness = KBD_BACKLIGHT_MAX;
++	huawei->kbd_cdev.brightness_get = &huawei_wmi_kbd_backlight_get;
++	huawei->kbd_cdev.brightness_set_blocking = &huawei_wmi_kbd_backlight_set;
++
++	devm_led_classdev_register(dev, &huawei->kbd_cdev);
++}
++
+ /* Battery protection */
+ 
+ static int huawei_wmi_battery_get(int *start, int *end)
+ {
+-	u8 ret[0x100];
++	u8 ret[HWMI_BUF_SIZE];
+ 	int err, i;
+ 
+ 	err = huawei_wmi_cmd(BATTERY_THRESH_GET, ret, sizeof(ret));
+@@ -619,7 +687,7 @@ static int huawei_acpi_fn_lock_set(int on)
+ 
+ static int huawei_wmi_fn_lock_get(int *on)
+ {
+-	u8 ret[0x100] = { 0 };
++	u8 ret[HWMI_BUF_SIZE] = { 0 };
+ 	int err, i;
+ 
+ 	/* Newer models: use direct ACPI \GFRS method */
+@@ -627,7 +695,7 @@ static int huawei_wmi_fn_lock_get(int *on)
+ 		return huawei_acpi_fn_lock_get(on);
+ 
+ 	/* WMI fallback */
+-	err = huawei_wmi_cmd(FN_LOCK_GET, ret, 0x100);
++	err = huawei_wmi_cmd(FN_LOCK_GET, ret, sizeof(ret));
+ 	if (err)
+ 		return err;
+ 
+@@ -915,6 +983,7 @@ static int huawei_wmi_probe(struct platform_device *pdev)
+ 		mutex_init(&huawei_wmi->wmi_lock);
+ 
+ 		huawei_wmi_leds_setup(&pdev->dev);
++		huawei_wmi_kbd_backlight_setup(&pdev->dev);
+ 		huawei_wmi_fn_lock_setup(&pdev->dev);
+ 		huawei_wmi_battery_setup(&pdev->dev);
+ 		huawei_wmi_debugfs_setup(&pdev->dev);
+
+base-commit: 9d3475065167197742b0882aff21cf8e78393277
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+2.43.0
+
