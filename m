@@ -1,47 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793057454;
-	b=LKiLbIOl5P14Xt+Td/VMwny2PqcmmubEsbYSCyI6bevmM6Tk5kvRI9DkCzkG5Evr/kdm
-	 okFhvIvK2jNrAk5d4S1I9fh4pYdCwWADnOPqpGnW2Ca56XWRNbLdRt1uLMwrY6HmUM4QX
-	 v5YosEqcHBQJNxleMNP8d0++MIHAMamb9w5uamCcUBH9K+ls/KJMbjobKzOrQQGm/aZcL
-	 U2VtjZnTJTlyxB6aGkhM9tyPyevyPnHKjvfl3GAFumD+64CvfkhZhFBtXKZy9JOHvEeMl
-	 F2YSR/+xVD5UDOyD5/i5xU83q/cE9rMthpCGRYnWwUdbUco1xneHO5SM3kVviJAPjEA==
+	t=1793057466;
+	b=Lk6rPF4FlAui6n7AmaEa/pSrf7NiuogO0NyJLmcOybMsjqqMnRk4o2PWDopNnWWP7lmT
+	 b2leI6Q1SrDwIeKWG3Iq1Zt9Q0Zv89Rrx7nUPLAVTuAF3R2xK2HJ2G/NEdfglTbScPJAG
+	 ZR5WAi6w7xMR7n+6kkZGqDrgcPjmrx87JuwO1tckgctC5GzxAAlhpyD2IOBzyF71EaGYK
+	 cSk0RWeNHJUVUN3TyGkki73b07v3IFoFlx23GFkHiknq5ZNA9gjoSq+CAn51uVTI3Bo3B
+	 aZ3XLBVwxO1UwNh8KZNAqp6k9S+3OVAWPF0zZkxxKemdTZ/N9OzdWfm47EAzsJo3KCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793057454;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=Q9qeqP7UIpC4jZdgK/RdXjrodSxtqhxIZFIMBK0dNEo=;
-	b=QGBW57ewY/IGSb6KcJuqDm6tbcvRtoJd6s6Y91HT04aUdGwTPRU0+ggT6gRgS1PZu1Ik
-	 2CoFZIF5YhErY/5P5A1YOa988r7RnZ5b6bNwOIZtY161oZywDpMUITWQc+5mDPiMJAfSF
-	 ljeWlNrlOUkHcZhArpVhMIEm0Phc30NofqkLTK+MAogURmJsUhUHiPK7W6hXtjJpTTXc0
-	 I6ntOj5+O7ly0Lfj0jZFfgfWDyAjEwe8uk5T9XVx3g4Fww28hvXg7spIUK/qKNdqTUlh6
-	 y0wKgG7nEaF22ZwrMWxbLL6W1pgccI160rd9QbBS8TGWq6R+J3F5k9xCRJwQyOgKiAA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793057466;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=BXMaxfxl8pUfKyjU+RYdBrxevhEHCmwAm3DkCRJuUXM=;
+	b=VK1JC2AGddsJZXTvCILXFsu2rlc97mmhP/6IIfA404ZVFtOUhjnJacpU7KFt3sQYTv66
+	 iGnFd2et2+QrJ8FsTQIntBHSPYYY0ntGQQSoQb4/t57o071NGq8hNE8crKu1ExYSfPiI/
+	 OXEEva5duRCpX0Bg3PADxrGZsE2caNLtgaUgNPLzmGmiwm6fsqBKz2jBBt/+pNzRX+jkt
+	 q0JCiyipSrDcEs2XQe2ebwsmTbOFz7m699hdLexmeRMINmxNE2z/FXCo6LMOi4wG3KMU+
+	 wDSQfDlws+9yqW/gtaRFBPUNNPgdsHPPQi4V3pWoMLT/wytG/7ZQhe7zVmsf30sfbWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="aMjXyau/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b827CWyl;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A8D0606A31B;
-	Mon, 26 Oct 2026 23:30:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96CF3606A323;
+	Mon, 26 Oct 2026 23:31:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aMjXyau/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55C791F01825;
-	Mon, 26 Oct 2026 23:30:45 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b827CWyl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FF101F031E0;
+	Mon, 26 Oct 2026 23:31:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793057454;
-	bh=Q9qeqP7UIpC4jZdgK/RdXjrodSxtqhxIZFIMBK0dNEo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=aMjXyau/DEsG4YEydgc7sLdZKV3j2+LW2b3eNS7X04Qc4ps76HV4VLUeqoLpSYofQ
-	 pNs1KkeKtqL5YsMBwS4HuHwBQgtJTMXc8b0J/LV7PC4ZEmv05CevPNCGlefvGzZzOq
-	 SBctlXL5N+6DWUb3QCKOqKJvp/XPk5b9g8EabmrImmA2AFBAHIQRb9BHaxfEWT6YJ5
-	 Wy6SLfoIBnL2o30c+yyJiRVa2EZUQQPBFqVRbNK+Moy1vtqGht1vqXxe9x0SsIb3cw
-	 P+sIyiqcq0KQMpzIa7NPFpdKkz01A9vPZ3PEqp0zq+95N0LLvoKeE67Dw1xNIoyakq
-	 UBliE1LHD86vA==
-Message-ID: <2467500f-d72f-4b09-a049-e70fa3fcfb3b@kernel.org>
-Date: Tue, 27 Oct 2026 00:30:40 +0100
+	s=k20260515; t=1793057466;
+	bh=BXMaxfxl8pUfKyjU+RYdBrxevhEHCmwAm3DkCRJuUXM=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=b827CWyl3P7PTW++NzPzVAN4jcqAt1OMlwu3Tg4YdVJZHb+t3k6vkPdataGUHC09H
+	 m5uQjB9F/3YYYC2eIakeohWLgXrBMDbRf9xqVel5D8pwiPsvFCkSYDSrzAJi5FdbI0
+	 X2h/JDXw7wymz0h+4g2s4f8SzJP7Tmpnf5/fXzo9iWw9O3s2zAIzQYINpwRLkty60B
+	 H34hzkXG+djeZcKcE1ndF9LWu1Jh3vNDmq0wOmjmWLprtvJTGF8bTGojj7HNAyN6r7
+	 FaUTgi4vbpouFmDaHeQM0agJtbU4gt/ECf3ntna2xYtvU92+EzqSXo9OjMcQTOVPiB
+	 RBuCrmeXavPaA==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 2F65ACE0C35; Mon, 26 Oct 2026 16:31:06 -0700 (PDT)
+Date: Mon, 26 Oct 2026 16:31:06 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: KunWu Chan <kunwu.chan@gmail.com>
+Cc: jiangshanlai@gmail.com, josh@joshtriplett.org, work@onurozkan.dev,
+	frederic@kernel.org, neeraj.upadhyay@kernel.org,
+	joelagnelf@nvidia.com, boqun@kernel.org, urezki@gmail.com,
+	rostedt@goodmis.org, mathieu.desnoyers@efficios.com,
+	qiang.zhang@linux.dev, rcu@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Kunwu Chan <chentao@kylinos.cn>
+Subject: Re: [PATCH 7/9] srcu: Detect duplicate callback enqueue at
+ registration
+Message-ID: <c259fb39-153a-41f2-9d82-cba4255e65e8@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20261023101841.2910719-1-kunwu.chan@gmail.com>
+ <20261023101841.2910719-8-kunwu.chan@gmail.com>
+ <60e6148e-b7e1-4f2f-a665-24567305956f@paulmck-laptop>
+ <b5c84b27-5e66-44f1-b95a-d7c1655df69d@paulmck-laptop>
+ <CAN_Opa9MvTvLemY5DYNHu-yXy9xZvJJiLXigknP-qM=bK0Xw7w@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,128 +69,133 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 07/16] mm/shmem: avoid moving the truncation start
- backwards
-To: Zi Yan <ziy@nvidia.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Zhang Yi <yi.zhang@huaweicloud.com>, Gregory Price <gourry@gourry.net>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Ying Huang <ying.huang@linux.alibaba.com>,
- Johannes Weiner <hannes@cmpxchg.org>,
- Vladimir Davydov <vdavydov.dev@gmail.com>, Michal Hocko <mhocko@suse.com>,
- Hugh Dickins <hughd@google.com>, Baolin Wang
- <baolin.wang@linux.alibaba.com>, Lukas Czerner <lczerner@redhat.com>,
- Carlos Maiolino <cmaiolino@redhat.com>,
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- David Stevens <stevensd@chromium.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- William Kucharski <william.kucharski@oracle.com>,
- Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
- Nhat Pham <nphamcs@gmail.com>, Miaohe Lin <linmiaohe@huawei.com>,
- Naoya Horiguchi <nao.horiguchi@gmail.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Chris Mason <mason@kernel.org>,
- stable@vger.kernel.org
-References: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
- <20261026-fixes_shmem-v1-7-703206d5fa0c@kernel.org>
- <2E377C76-D62C-4A2A-94E3-ABC40C6FCDD2@nvidia.com>
- <583728ed-dc63-4685-9ac5-5a980db55973@kernel.org>
- <B1241F56-8000-411D-A137-24596E599C85@nvidia.com>
- <0D22B04E-5730-4D3A-ADA6-9F1AF94F06AA@nvidia.com>
- <f0029758-5f2e-4c26-9b25-dbc4b3f33701@kernel.org>
- <FA2807F3-66EC-4EAE-864E-BB1DE436A1A2@nvidia.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <FA2807F3-66EC-4EAE-864E-BB1DE436A1A2@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAN_Opa9MvTvLemY5DYNHu-yXy9xZvJJiLXigknP-qM=bK0Xw7w@mail.gmail.com>
 
-On 10/27/26 00:28, Zi Yan wrote:
-> On 26 Oct 2026, at 19:24, David Hildenbrand (Arm) wrote:
+On Mon, Oct 26, 2026 at 10:35:02AM +0800, KunWu Chan wrote:
+> Thanks Paul for the detailed review.
 > 
->> On 10/27/26 00:16, Zi Yan wrote:
->>>
->>>
->>> To clarify the dependency, without Zhang Yi’s
->>> truncate_inode_partial_folio() patchset, the ext4 + iomap changes
->>> would cause data loss. We probably want to get Zhang Yi’s patches
->>> in first to avoid that.
->>
->> Ugh, what a mess.
->>
->>>
->>> Patch 7 to 11 do not apply cleanly on top of mm-stable due to Zhang Yi’s
->>> truncate fix, where
->>>
->>> 1. patch 7 can be dropped as I discussed above,
->>> 2. patch 8 needs a folio->mapping guard for the added statement,
->>> 3. patch 9-11 can be applied with fuzzy, but I need to look into
->>> them about functionalities before fully trust what LLM says.
->> Yeah, let me take a look tomorrow.
+> On Sat, Oct 24, 2026 at 3:38 AM Paul E. McKenney <paulmck@kernel.org> wrote:
+> >
+> > On Fri, Oct 23, 2026 at 12:30:57PM -0700, Paul E. McKenney wrote:
+> > > On Fri, Oct 23, 2026 at 06:18:39PM +0800, Kunwu Chan wrote:
+> > > > Move the duplicate-callback check from srcu_do_enqueue() to
+> > > > __call_srcu() entry so that detected duplicate registrations
+> > > > are rejected before they reach the deferred-list enqueue path.
+> > > > Report the callback address, function symbol, and object
+> > > > information, rate-limited to the first three occurrences.
+> > > >
+> > > > Signed-off-by: Kunwu Chan <chentao@kylinos.cn>
+> > >
+> > > Getting the stackof the call_srcu() once double-enqueue is detected
+> > > would be a very good thing!
 > 
-> I will reply to these patches individually in terms of rebasing on
-> top of mm-stable and how they interact with Zhang Yi’s changes.
-> It is not too bad at first look.
-> 
->>
->> I cannot put into words how much this shmem + pagecache shite annoys me.
->>
->> What a piece of crap people created here. And looking at the massive changes to
->> fix stuff, what a piece of crap people are creating.
->>
->> I better go to sleep now :)
-> 
-> Good night. :)
+> I'm also working on the rcutorture support and will send it out separately.
 
-Thanks! :)
+Looking forward to it!
 
--- 
-Cheers,
+							Thanx, Paul
 
-David
+> > > One question below.
+> > >
+> > > > ---
+> > > >  kernel/rcu/srcutree.c | 20 ++++++++++++++------
+> > > >  1 file changed, 14 insertions(+), 6 deletions(-)
+> > > >
+> > > > diff --git a/kernel/rcu/srcutree.c b/kernel/rcu/srcutree.c
+> > > > index 1993ddbdb828..3838d9fdf532 100644
+> > > > --- a/kernel/rcu/srcutree.c
+> > > > +++ b/kernel/rcu/srcutree.c
+> > > > @@ -27,6 +27,7 @@
+> > > >  #include <linux/smp.h>
+> > > >  #include <linux/delay.h>
+> > > >  #include <linux/module.h>
+> > > > +#include <linux/mm.h>
+> > > >  #include <linux/slab.h>
+> > > >  #include <linux/srcu.h>
+> > > >
+> > > > @@ -1511,12 +1512,6 @@ static unsigned long srcu_gp_start_if_needed(struct srcu_struct *ssp,
+> > > >  static void srcu_do_enqueue(struct srcu_struct *ssp, struct rcu_head *rhp,
+> > > >                         rcu_callback_t func, bool do_norm)
+> > > >  {
+> > > > -   if (debug_rcu_head_queue(rhp)) {
+> > > > -           /* Probable double call_srcu(), so leak the callback. */
+> > > > -           WRITE_ONCE(rhp->func, srcu_leak_callback);
+> > > > -           WARN_ONCE(1, "call_srcu(): Leaked duplicate callback\n");
+> > > > -           return;
+> > > > -   }
+> > > >     rhp->func = func;
+> > > >     (void)srcu_gp_start_if_needed(ssp, rhp, do_norm);
+> > > >  }
+> > > > @@ -1529,6 +1524,8 @@ static void srcu_do_enqueue(struct srcu_struct *ssp, struct rcu_head *rhp,
+> > > >  static void __call_srcu(struct srcu_struct *ssp, struct rcu_head *rhp,
+> > > >                     rcu_callback_t func, bool do_norm)
+> > > >  {
+> > > > +   static atomic_t doublefrees;
+> > > > +
+> > > >     /* Misaligned rcu_head! */
+> > > >     WARN_ON_ONCE((unsigned long)rhp & (sizeof(void *) - 1));
+> > > >
+> > > > @@ -1539,6 +1536,16 @@ static void __call_srcu(struct srcu_struct *ssp, struct rcu_head *rhp,
+> > > >     if (WARN_ON_ONCE(ssp->srcu_reader_flavor == SRCU_READ_FLAVOR_ATOMIC))
+> > > >             return; // Leak the callback rather than corrupt SRCU state.
+> > > >
+> > > > +   if (debug_rcu_head_queue(rhp)) {
+> > > > +           if (atomic_inc_return(&doublefrees) < 4) {
+> > >
+> > > Why this hard-coded 4?  Why not 3 or 5?  Should this be adjustable via
+> > > Kconfig or kernel boot parameter?  Or, alternatively, should the below
+> > > pr_err() instead be pr_err_ratelimited()?
+> 
+> Regarding the hard-coded limit, I followed the existing code in tree.c when
+> choosing 4. Thanks for pointing this out. I'll switch to pr_err_ratelimited()
+> in v2 and make the same change in tree.c as well, so the two paths are
+> consistent.
+> > >
+> > > > +                   pr_err("%s(): Duplicate call_srcu() CB %p->%pS()\n",
+> > > > +                          __func__, rhp, rhp->func);
+> > > > +                   mem_dump_obj(rhp);
+> > >
+> > > Does any of this automatically dump out the stack that was recorded
+> > > in earlier patches in this series?
+> >
+> 
+> I'll also add dump_stack() to all three duplicate-enqueue patches
+> to capture the current stack when a duplicate is detected.
+> 
+> > As in shouldn't there be a kasan_print_aux_stacks() in there somewhere?
+> > I did not see an call from mem_dump_obj(), but I could easily have
+> > missed it.
+> >
+> 
+> As for kasan_print_aux_stacks(), as mentioned in my reply to patch 1,
+> it is called by the existing KASAN report path, which prints the auxiliary
+> stack recorded by patches 1-3. It does not need to be called directly
+> from these patches.
+> 
+> Thanks,
+> Kunwu
+> 
+> >                                                         Thanx, Paul
+> >
+> > > > +           }
+> > > > +           WRITE_ONCE(rhp->func, srcu_leak_callback);
+> > > > +           return;
+> > > > +   }
+> > > > +
+> > > >     /* Record the caller: the irq_work's stack says nothing about it. */
+> > > >     kasan_record_aux_stack(rhp);
+> > > >
+> > > > @@ -1554,6 +1561,7 @@ static void __call_srcu(struct srcu_struct *ssp, struct rcu_head *rhp,
+> > > >             if (READ_ONCE(sndp->draining) && !in_nmi()) {
+> > > >                     WARN_ONCE(IS_ENABLED(CONFIG_PROVE_RCU),
+> > > >                               "call_srcu() re-entered during callback drain; leaking callback\n");
+> > > > +                   debug_rcu_head_unqueue(rhp);
+> > > >                     return;
+> > > >             }
+> > > >             sdp = this_cpu_ptr(ssp->sda);
+> > > > --
+> > > > 2.43.0
+> > > >
