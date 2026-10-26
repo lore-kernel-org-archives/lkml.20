@@ -1,130 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.142
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.150
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793031211;
-	b=CKbw2VOS3XkwK0blzGDtGi/F0VFyIt/ZDfxWWt9fTM6hPbECfVRFZ0p/v93zMHZusg3v
-	 XAakkCvXAdc+0mHgi7tQ/tknqVpZKkhZRV4IW+7JsbijF5ySfq+Rc0hzNPQRVsvMt+ZCD
-	 CO/ueBiw4boXlANTRa5N1C9NB8e0FeDP2+DUEjD7NJt+zz3AeWmyRvOyguiqPlGs+fCWl
-	 1W9m2H9zJzPvL4qTGBCi5ck38KiKKYYo5YWlNxicP7cmZuaL4scD9rctA0L0X7bAVC0gi
-	 HNpSDHRwJN1DbRidfGbDTnd8Yoyzp3QxVtTk3LiVVApeEpnhlTpp5Qz6P8qldxPu+lQ==
+	t=1793031341;
+	b=DexdfUYECBFdQpKQGPRILTkV5L5JZ4ZWyrMq7rbITC6olU7/h2dCClpq6mi6OYBl+jfP
+	 qqvCrVh2FKuCroidcApxSM21LKljMmt3pU4a+XKG5eevZtCF+onN4wbWJzBlXVqNYFoUi
+	 M+tNJWPA8kofQ/fSpHMno5TE+fiN1kGwx87iJTUub9h/fHP5vB8O62lDUq03fXZ2nZrdL
+	 Dfc9GZnIrOk1wWT9fy1cugBOdEmqoa/xJMA0rUTjnA+P/YLFieQGOotCi/MukJl/5gh2g
+	 Y2qSRJMkF5tykw51DD8NOB2Nu7v4OVjapy7MURhd2TiCGOD7mrsiWyUBsV4DLhSF2lg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793031211;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793031341;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
 	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
 	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=SuEMA61PD8ypCGtu9RwAMCLG5YHaMT/lSDKBxP64Lpw=;
-	b=N6DNOfY14bYUdgU6XLcW5r//YHOMghNeuqYRCo8DbWl2v8/y2+SQ3AcwjVHKlGKC1DTZ
-	 /ZGbL0/GLU4LFCFnH4/CrwFvw4t1Cq1hxe9b2MXQu6mi2tBmRUamYI+MqSP37Z14SHUcr
-	 0gLmqYaCtwWJ8QeQ0KRnxmEpR9UIDohE7W/q5MiBmfkl8zLKzh8e+e4fWg5JiywynPVaP
-	 uscG4L+VbThPQ7QTjFyZUcQfFJGIJOTtkCFTgWZ04bdRgGHjPyjx8LORSMpoSlKb75h8i
-	 LCGeQIkkcdIu7Xh45LDc8ZvEmYziQrZ4CekjmfhcFBGTJ6cLRx6WotXaB4WVx/HCmcQ==
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=LadA7oSFBe2MnzmMMCXptSFizDKk5wHQyhypwaSRsbQ=;
+	b=tajjVTWBVEuLoLq3RdjoYqThz8geduaxDnDZ96deQkzTSEG0nYwIuwtN1a2LyLyg7h0/
+	 ZBL1QWclJKsPkG39BUfK75IFlx/QeQUG/13wGyLCKl2apzMonYpL9JY5vcHRwIPdsLa/y
+	 7YQ/xJMrJmVYqpYMfhMX2aWK9zr1YPIOl5uzwsNFVFe1IWzwCb1ZVqq5S4iqFLfqiHwD0
+	 WiOAkPPNytkJ+rsKivY/G3Q9nRjxgzn6StFc5EHcVbrv65ZZGbk5O653r7QqQ8RoBwRae
+	 VsfzO+k6SFEYK/NFzPxvHa07WOrfRcIKvLT3w/svYPfQt6a0PnF857Hyb87BTWmx8kg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=shutemov.name;
-	spf=pass smtp.mailfrom=shutemov.name;
-	dkim=pass header.d=shutemov.name header.i=@shutemov.name header.a=rsa-sha256 header.s=fm1 header.b=oJmC6Xsf;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Cb1maXTk;
-	arc=none smtp.remote-ip=103.168.172.142
-Received: from flow-a7-smtp.messagingengine.com (flow-a7-smtp.messagingengine.com [103.168.172.142])
+	dmarc=pass header.from=kumba.dev;
+	spf=pass smtp.mailfrom=kumba.dev;
+	dkim=pass header.d=kumba.dev header.i=@kumba.dev header.a=rsa-sha256 header.s=fm3 header.b=jR2Juekp;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Ju1ZMT7J;
+	arc=none smtp.remote-ip=202.12.124.150
+Received: from fout-b7-smtp.messagingengine.com (fout-b7-smtp.messagingengine.com [202.12.124.150])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE4A0606A337
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 16:13:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE4A0606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D32A606A31E
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 16:15:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D32A606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kumba.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kumba.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=shutemov.name header.i=@shutemov.name header.a=rsa-sha256 header.s=fm1 header.b=oJmC6Xsf;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Cb1maXTk
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailflow.phl.internal (Postfix) with ESMTP id 262FE1380082
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:13:30 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-03.internal (MEProxy); Mon, 26 Oct 2026 12:13:30 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm1; t=1793031209; x=
-	1793038409; bh=SuEMA61PD8ypCGtu9RwAMCLG5YHaMT/lSDKBxP64Lpw=; b=o
-	JmC6Xsfow1yjAZvNP33bJMXf5QY+i5XLHravTrgfuUCsaWbIpBFuTAyiBGRWfzjV
-	1dlqnm623/dOTK6ZeM9oXZ012Glr2ZzTSWB5cbMUYaQNOhfvSb+br37HHzad7Mew
-	YSoqZ1bQIt+/HrK86GlC0l8ihnxPo++AyQVR/CL6z4c4B7H/j6hEts7HjWqmCYi6
-	Dij5oR+kOfo7I4m9b0H0RIgf1Y8DVcG4zMb0gtKvFxUiCssnLsTAUw7wBN8CSXun
-	Rv27Eex5wPm0gULIAO7uqy45Bl7M2JvPMmURWBRR4YgwcAZFygUuOmXf3GL5fwVp
-	HGLRFuIjafJGovqd/yD5Q==
+	dkim=pass (2048-bit key, unprotected) header.d=kumba.dev header.i=@kumba.dev header.a=rsa-sha256 header.s=fm3 header.b=jR2Juekp;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Ju1ZMT7J
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfout.stl.internal (Postfix) with ESMTP id D4D8F1D00383
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:15:39 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-01.internal (MEProxy); Mon, 26 Oct 2026 12:15:39 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kumba.dev; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1793031339;
+	 x=1793117739; bh=LadA7oSFBe2MnzmMMCXptSFizDKk5wHQyhypwaSRsbQ=; b=
+	jR2Juekp0hCO/rHrFgF6MebMkBHNq1nNFrGxlhmGxwFHtHUkukCkhkLKupog8VQL
+	7eHulNTUFC0y+hgPPi0TlGkaWHQ5OqdypjNRWEzQM/i3QT89aezGF7EJ6rAmunxa
+	b5x6N2QtsAQc+StsYvfE79oLPTGr2i9Dv+tOlnUQkB2NSAVH6NEoBELdq5aV2BC2
+	8ndAsjIA6fRkmrwD66ksj9Z53gsHL0IWndtM+RACCVXW5qvvivEyWH/Kypg6Zzha
+	kh2X9EyAUzUDN/w8nMNIXEjNi/i6cyViF0of/gMnqolae4PBmuf8WTMIT248unb7
+	iPk/bllXC/H/iGtuK++DPg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1793031209; x=1793038409; bh=SuEMA61PD8ypCGtu9RwAMCLG5YHaMT/lSDK
-	BxP64Lpw=; b=Cb1maXTkRxdSrJDSeCUZhRNJVEOAhC0nIyYPlubphV/2InsX1vj
-	CKga3SeUmjNJb6ZRxYxf7o75fVEESWgnYk2DFP2D0JHiEZA07AN2P0/b9PYWyKoW
-	5ZS83JtRizqFf7/rbcjXl2BmOFBs7RweB/9A4QBfclyL+Y6NQQWXVl+k58gwZPj6
-	oyg8vo+1lkXqSiEFI1opSznaGLXkVzNf3HVhXZzqF5WLE+2w4WTptzclGxpCACJC
-	fUhhD1p2/DXENyImJ9kxipMuSKZFpOPZZBl6O7q6sLLHyid/Xyr9Vk8r0K6xBsrV
-	fripqVEVRosLWlqDqD1IQIDUzY5kxMZm0SA==
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793031339; x=
+	1793117739; bh=LadA7oSFBe2MnzmMMCXptSFizDKk5wHQyhypwaSRsbQ=; b=J
+	u1ZMT7J8s2JrzhXIrWw9EiTEICXl+CJ5rho2HEhuvQPN/KB/KDgu4X4t1xS/rNpG
+	wjyd3rwrH8FwgVd2Hv6AxuJQkXV6PyWLK5utTGsc3otaZzswwxaOvBcYAxy73X5H
+	8dydz7mxLGGF7mPII1+WzKCr7eGouGPrdIBARtPktRWzlkQgsBG77bWSWSR8awQe
+	dl4uLrkE9vPRRn6busaUgkpsOmTCU6whmY8/ltD9Jhe9LQd4dgbM1VcK4owQz+e0
+	+apQug7ie+Fh5xTavCWpMJnYW856T5wPUq+Bimty07eM3MpSeexnN+mOrki7pcYe
+	Ot4x5lFCOlJizkthICOsA==
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
 	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=sign d=shutemov.name a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793031209; d=shutemov.name;
-	mf=PGtpcmlsbEBzaHV0ZW1vdi5uYW1lPg==;
+	action=sign d=kumba.dev a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793031339; d=kumba.dev;
+	mf=PGxpbnV4QGt1bWJhLmRldj4=;
 	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:MubiO917KQcaYgySJM350yq5KtMBif0SlBfNCeTwUhzIpXw
-	JIugo5EtKgZRsbDPOe5dilpmZi0fNg3evXJR+FauJs/8vPYa7zOzsxGea/yXdHbS
-	KTbD/mpgAImNp083sKd+fnQrmMMRF0IbMBFklmrUZG2Y8qn9PliD5SakXKNiLvuq
-	BQ5YbJvtNGycZULwc4eGtcAz+FTkysChPuLQGlAvWCOF5odcaiB2L6j+OEprau1m
-	+DUqpXtLlP0kBXBXnq33RkJhDhEE9z54EbcH0S+jZTjPRQHFLTAZR8rsxUGiip32
-	TovHDJ5XMaJclXlD59Lx2oebQqRSKLNEAZqrT2Q==;
+	s=fm3:rsa-sha256:Ad3YAu3aHQh0EX/jYl6ZsYsALzgAzb2yJwuXLXf6Sac3IDX
+	IGTTbDNQTRAj7754zR5DFGB90DIsB6DDMw9PSPUFBUzKmNlNxkiA/25tw/27XoRo
+	dLSyjDos8z/H82GflRV0xEg5xqE+4HYsjo9+pvxPVGtIR3CpNMVVsmZKQECzsVBT
+	Ipfgw3sis/ZGmw4V+7RmfgryAwy5G00MZke4Rubt9FOGQ4IaIijUXGjBfqqL+Tn4
+	7kBiFseAvIBGnENGR5z5qSv4ADsopaIL3t92WrrcOzy4PNYEF08GGpEMprVZq98V
+	dfwuuR55Y38/IV/G6Fnm71C82KEOgYEMCErGWuQ==;
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
 	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-disposition,content-type,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:P9tqkjtr7xJ0LZI83z6SZ6DETyMxibEyw+1uHfVj6Zg=:JLuqQrk98leSnt6vv9Cw5t0oqfF/5BKxz1YFDI+HSBc=;
-X-ME-Sender: <xms:J3zfalgYzmFLkjivWEpvSfZqG2OoqNdinomxBIXdw0khYzSPk8Ia0w>
-    <xme:J3zfagu-Pz_FO68c6gFQ9AsJDcOloRLceN5gDhUDkwHZKXCfw5XH0j887loyEWRuM
-    9xqnPBm-XR6YUT2AMrrN_APFTdTp27asP8TrpCG2-u7PUZSB0eEkD-w>
-X-ME-Received: <xmr:J3zfavSa0XBfO4-iC9Ee1B3PxoCm5kctj88IxDRhA7pPrpGJrK-uOmVtTd4>
-X-ME-Proxy-Cause: dmFkZTGBB2cNjuELTs67fGgvkDQEDSU8qux6+8nxtLoE35+WVs+aWAZCsMVW4zWZvl//3o
-    d+Nts1yMBYhfz0A2pBdaxzFlZZaoafSDu63LVpeb+vxy9Vwm87V8WMyFLNk7rWQLoUa5/G
-    k0yzKLjsyVStCe8yZI9HHv7vy5dspIr4hypntb/PIB9H4GNYku4+EG1lzv/wuo8fa87di9
-    +CF8ONEHEzQPPZF0ighPmGYTs5ZHVZOXemZ2aI7j2mAiAgvuUBkiiwxC2GgD8XiB+Phzk7
-    kD0l7xy/HxT+YKPa/yncQBqQq8O7UuH9+4cIXrnIxtjuWoj2OdbkHw4f/dvsCiGqt0GPJ6
-    5XToz1kkUWDtBnx/w21CqNEaW1qZCvZGci3D50ojvkPRVd8HZEg01/INknz4HMFlhsZqAX
-    BgPwRhczFxR3vNXil2moy+KyOZlL14BR/CppwtBzFCXgKpreiHrIjMKpLWLmW0aV/9ND7x
-    o2+CZ0TyrN34nBMGfM1olHAEhI2/mxv3mkAWJHEz8epr0WELvKEStcO2gFrRIN1FQC7sPV
-    RVysmrQ+pAibpu010ENwev3dXzBi0OYRiVIY3IoRKhCaAuO2k5glaEdwhGn+EUxT/nggPe
-    OKKPMnGTGlBnPIt3aeIzpw/5QeNySULr6bW8Ff0Rm+pBvg06Se3/TBr3MdOw
-X-ME-Proxy: <xmx:J3zfaq5Pa-KToeTPK8EsXreG0-ZZRQpQfP5oche3lz2EtpVZb99A5g>
-    <xmx:J3zfamjKiP0dGK1Zh6_Z6YQcsHArXWREOXYSfXPzaUYkwyJfx7b1CA>
-    <xmx:J3zfattvMyNG8zSYSZXeVAfaFOviFi2vceffpzvUOZP_SnZ6KiqLFA>
-    <xmx:J3zfaii39xyfykCc74-fjNwcC1MJZwle20cXhV-3PTdJ2RtNOAXukg>
-    <xmx:KXzfahsomsDyKod-euTcJeG0g_T_Ta9KwojHvoPH_natJJqeuGKu88An>
-Feedback-ID: ie3994620:Fastmail
+	action=mi-m=1; hc=14;
+	hn=cc,content-language,content-transfer-encoding,content-type,
+	date,feedback-id,from,in-reply-to,message-id,mime-version,
+	references,subject,to,user-agent;
+Message-Instance: m=1; h=sha256:kJgPRr3LRcWvsxBmdUCuCuy6DPRECUX+RDWXJyBVy0U=:epsfrOmRLCX2LpJzgIWbHF79T0AJrdEXA2bMPxsAc2U=;
+X-ME-Sender: <xms:q3zfajdk9epvqGs3vk1DOrTqfLuYvzkJdwnEaEDhEwICz6R7mmvfJg>
+    <xme:q3zfanAjWXAfjviw_k30HOpgpyfyJBAzwMEjenppfaCdj1gAKxExOqKREbthRXc_4
+    YFhEwVI31iI3EfnQ6yW75jZSHu5swMESfBi86fyPH3Km18wad7sEEB1>
+X-ME-Received: <xmr:q3zfam_sS2SkzVXehqsdHF8Xj6dawkiO6rFQDqwpQtKoUsNP7z3WNDlyjS9As7-h-40ggntTfw17FQSn1W7P37cMDmVZlYHgKm6cBmoauPNy4Dju0g>
+X-ME-Proxy-Cause: dmFkZTGO9rLPf+4qiqYFulg8Z3hp3kVUeyI8L2rVif6hsVF6VH0vYNyY8ZT6NrWn7jdo4P
+    sCgJEWIfEK2T90jprMBEhQt6C/K0KRQlgqpa+AbdbCy9glAu/KNl8zVIN72rL4q8iaxqCY
+    +CqZSKayJojbqhqqH9Y1YqP/HdlsaNEidbSaw9E4e5hOMyY4PL1jHoPF+uobvgPXCIlcOh
+    Ibdf3IigrzPBYH5THpu1r0I8o1VFqRRz2Bp98h1lVHnlFJVyo3pHwM+R20scdfm7XLeUyU
+    OxPyoVN+mtbw1XqDuNhbMel7y1sR5SHD/iu/E061iNObJTmGORaM5DD8FoX9ImiWbtvGlJ
+    oU+o2LMENO9PqqjJM8wGZgUjP3TU+wsFX7W6oZVnmPWUCBLH5vDfOgWeQmKYYw2fj8ErZ0
+    OTJgYxsB7OdBSJ35VKTnJzbaceQXDwxL+aRYvx7frrsDD1qvTrlaCUDWVbwXk/vetu964z
+    mjZe9b9xZ5vter/rarmx/vv1Fwb2yPh5dGFtKC017OLQsOhyIaJgcgAaM869MAevsM3BY3
+    d1fclEferufy9p+YU8bwWHpxU5jjp0yPw25muvT2Gh87UCVhaNamTZxDDLtS5KSJDovi/R
+    HQR+R/RtXFDQ92u2zEpzDE8PFk5ShAoJsnADAt9jfxfA1T6W+bMaaS3sQRaA
+X-ME-Proxy: <xmx:q3zfaiKzqXFyxoQU5MQnoO-Z18zr1NstxgGwX1sY2boxzzepxJz7yw>
+    <xmx:q3zfavjkdAOWzJznQ6ivWEryznH4SRAkhmqg1qsvLhI9_YvX28OdvA>
+    <xmx:q3zfai40Sb6sLNzVe2euWmvoBJZW3Q3jaP0VgLAJl3FpvTuLWfH7WQ>
+    <xmx:q3zfanYeh2s7hwXQC_ErBCxH9X9rfg-sKg39bkl_eWdnbKQfC9dUDQ>
+    <xmx:q3zfarqAJwGG9ty4tT4gGEXOBuknm_LTbTlSlhm5mdt30rNJKiOhIPLK>
+Feedback-ID: if8114916:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 26 Oct 2026 12:13:26 -0400 (EDT)
-Date: Mon, 26 Oct 2026 16:13:25 +0000
-From: Kiryl Shutsemau <kirill@shutemov.name>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Gregory Price <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
-	Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Vladimir Davydov <vdavydov.dev@gmail.com>, 
-	Michal Hocko <mhocko@suse.com>, Hugh Dickins <hughd@google.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Lukas Czerner <lczerner@redhat.com>, 
-	Carlos Maiolino <cmaiolino@redhat.com>, Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
-	Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>, Muchun Song <muchun.song@linux.dev>, 
-	Oscar Salvador <osalvador@suse.de>, David Stevens <stevensd@chromium.org>, 
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>, William Kucharski <william.kucharski@oracle.com>, 
-	Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, Nhat Pham <nphamcs@gmail.com>, 
-	Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi <nao.horiguchi@gmail.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org
-Subject: Re: [PATCH 06/16] mm/shmem: hold off eviction in shmem_writeout()
-Message-ID: <at97dZY434e1maVl@thinkstation>
-References: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
- <20261026-fixes_shmem-v1-6-703206d5fa0c@kernel.org>
+ 26 Oct 2026 12:15:38 -0400 (EDT)
+Message-ID: <35a6296a-332a-4e7e-a199-26b99602caed@kumba.dev>
+Date: Mon, 26 Oct 2026 12:14:59 -0400
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -134,56 +119,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261026-fixes_shmem-v1-6-703206d5fa0c@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/2] rtc: ds1685: power-off fixes
+To: Imre Kaloz <kaloz@kernel.org>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>
+Cc: linux-rtc@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261013094930.574-1-kaloz@kernel.org>
+Content-Language: en-US
+From: Joshua Kinard <linux@kumba.dev>
+In-Reply-To: <20261013094930.574-1-kaloz@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 26, 2026 at 10:40:39AM +0100, David Hildenbrand (Arm) wrote:
-> From: Josef Bacik <josef@toxicpanda.com>
+On 10/13/2026 05:49, Imre Kaloz wrote:
+> Two fixes for ds1685_rtc_poweroff(), on SGI O2 and Octane machines.
 > 
-> Once shmem_writeout() has moved the folio from the page cache to the
-> swap cache, the folio lock no longer keeps the inode alive: truncation
-> and eviction find a swap entry, free it and do not wait for anybody.
-> That did not matter as long as swap_writeout() was the last thing the
-> function did.  But since it puts the folio back when swap_writeout()
-> returns AOP_WRITEPAGE_ACTIVATE, it uses the mapping and the inode
-> afterwards:
+> Patch 1 arms the wake-up alarm only if an alarm is set, so that stale
+> alarm registers no longer power the machine back on.
 > 
->   reclaim                               last close of an unlinked file
->   shmem_writeout()
->     shmem_delete_from_page_cache()
->     swap_writeout()
->       zswap_store() fails               shmem_evict_inode()
->       writeback is disabled               shmem_truncate_range()
->       return AOP_WRITEPAGE_ACTIVATE         shmem_free_swap()
->                                         destroy_inode()
->                                         ... RCU grace period, freed
->     shmem_add_to_page_cache(mapping)
->       xas_lock_irq()            <- use after free
+> Patch 2 repeats the PAB write, clearing the kickstart and wake-up
+> flags with it, until power is removed.
 > 
-> swap_writeout() behaves that way if zswap is enabled, cannot take the
-> folio and the memcg or one of its ancestors has memory.zswap.writeback
-> set to 0.
+> Patch 1 was tested on an O2, patch 2 on an Octane.
 > 
-> shmem_unuse() already added infrastructure to deal with that.
-> Reuse info->stop_eviction to protect the inode during writeout. Increment
-> it before removing the folio from the page cache, and decrement it after
-> swap_writeout() and any attempted reinsertion and inode accounting.
-> In shmem_evict_inode(), wait for the counter to reach zero even if
-> swapoff has already removed the inode from the swap list. Add some helpers
-> to make the code easier to digest.
+> Imre Kaloz (2):
+>    rtc: ds1685: arm the wake-up alarm at power-off only if an alarm is
+>      set
+>    rtc: ds1685: keep setting PAB until power is removed
 > 
-> Fix generated by an LLM and sent by Josef Bacik in private.
+>   drivers/rtc/rtc-ds1685.c | 38 +++++++++++++++++++++++++-------------
+>   1 file changed, 25 insertions(+), 13 deletions(-)
 > 
-> Fixes: 6344a6d9ce13 ("mm/shmem: writeout free swap if swap_writeout() reactivates")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> [ david: code cleanups; improve description ]
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> 
+> base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
 
-->stop_eviction is ugly, but, oh, well...
+Both of these look good.  I am unable to test them right now, but it sounds 
+like the second patch might fix the sporadic issue of an Octane sometimes 
+not powering off.
 
-Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Thanks!
 
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+Acked-by: Joshua Kinard <linux@kumba.dev>
+
