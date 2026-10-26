@@ -1,79 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793027964;
-	b=p1uGyEJyPgfpkHc2LXHe78lYnQPQ+pUzVpNKQXJRxQ5s5HHVHUwLvZYBxu4mxZH7wJcR
-	 IXscHl/UTOwkokSAwYTs6L6zneZAzs0Dn0EBInYKswDccNsOeCrTYlCnheXCFmuWK/RB5
-	 YVHJ5hvUsLTTFLtWPJBrA6Tv2id+rEgMoGQFB/6mpDeKccADWKuo5PZ5AViq3KTwqb5th
-	 kVx9IInMcGvbJhendZwquGfUEZsEQN2NZfWQJtnf885eRpLQljwiEn5N0GAt2gttG1bCk
-	 Elr9h/3ro+XS8stW1b/cwt2cQZ4VN6yOVSY4TmZlfe5gT2o6d8jNJdmQhF+ypd7pitw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793027964;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=oec+Wt3gHa1boqU1HQuJjZMLSuduFm7h1veFSZGd5Z8=;
-	b=4CKOE7M4+p0T6mundsuSMD9TvYHCdO/xOx+2uctJu+93AtkzcvHgdkvlPnOaT2lSz7MX
-	 EuTT4Y/ipaLuLrsAY/GFhnwDoKXHzeqkkP7rgRMTa8Ac/FLtJjm6jTaPDu3mDDfw9DC/u
-	 6QuoHtvtKL8jgYGDRUv6ilfXS9N3JlGunbN7vz5SDN+dckwjsVdYuL1N2SBzMOZGPifSu
-	 oDjEsgLJIdAW/A7VdcHVGksSB/EImcVLLAAh0AZKLyQ1WDzwupExgoIeN5FF9LPq8fjbh
-	 A8WcOjSRZRUbD+UF6/RjMtok8Tu5klJ1CluncZCOC4obVVNNF7NNDm/r0UszOOUe0QA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B0t5NWQd;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2C16606A320;
-	Mon, 26 Oct 2026 15:19:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B0t5NWQd
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793027963;
-	b=yZlmAG/6kDJ1pVk1famdY35V8HRCuDqcAYtQNBzITYb4rx8W/s1o7kYsDx2spE93EJmZ
-	 cz+Z7akQRVle4EjXOafUdwndYsfaCPM2yCCjE3VItEB2bEiVmukwmZN2NcaV9BwgJjEHb
-	 /ElSmt4rr0LE59If3wc/sr4MCfDQR3NTmFaqNJ6PObZC+O9UWksrutrFS01L4PmsbZxc2
-	 TAFpuiBh0iKEOLHS2p7iBJ28OSAzieO5lqoADS5zIamVoYqZC1kTEouFAba4blm4OJ80r
-	 DqfSkuFSeCKljavk/XggL4ywytHEo47xRTcP8XgTfFMSfqMnDwTtrbvchjYr/YBoSdw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793027963;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=oec+Wt3gHa1boqU1HQuJjZMLSuduFm7h1veFSZGd5Z8=;
-	b=TO952MsxUNPxN7ZlFOy4K/t9wqLWIqnplApmrjmXkCRsNKKgpMUTadkG8gpOFTorEI/I
-	 +fQM16CRBd8ZTBusOEt1HYW62V/XwK8YWUtSm8b74uC4qUr4GllALfP2EHZBiBIDUm1pX
-	 bDCqeVJHM+W+A2d0jaghWPsLAFDXLOxt0GQFkthsVVcZ2j7KnMWMJgKoAXpJ/EVwBntSY
-	 CSw5DSstXpxO5vLYeXL/qwnADPlgjaiHy95p4BuT4oZGCfARQYpIOQphUzo1qDQEW1WSO
-	 nE/tL4EKx0DRCc1UZ11Bo9NpaEztq+UCkh34PjLzs38L6uPvdNTGdJP8sgwB/miJ88Q==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.48
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793028014;
+	b=IWKf4dK4KVpUlX0UShCEPjXLEoO6XBhPIUL2kdtkmTftLiAKGOski1db3ci8KeskTYhJ
+	 tZ90eMXGrc2VtePF9i3d2RKHG9fKTCC6FEXFOsTp+T247Fig26gBKns6s0f7O3tUctSFg
+	 PFHMZ0sG457XJoZAJFT/kraBdPvY/tyGjtfm8Brkz5n1/AOgREHbGjRMQ5VAo9EYiZm7r
+	 wYjkByJabf06aydNZukIEGcb9JOKYPXC+HvBx7uVmQ/L32dUDr9xMXxRO/lH29m5Dy711
+	 3EBRpWA1zuqrs+VhC8yie341uJiorBiTGSoCVfcEIRwoh8eV/sS5FQfrt7QYen8Mmvw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793028014;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=GDoT1f97HMSzIl27AFxsGzgU14gBpQzsSaLQbUyRuPE=;
+	b=t9xMDE/cAcp1eyRjtFIuzWxwB62YJBvEZjHzH6WFXgonCjx9snEqrXn7SxcuSlE3INMf
+	 IwZK8gBjYDCqOI/0dwNDz2Z7pwUgX118Fui9wR1VASbSMquyzzS/HtvPD4gjMzioG/B6v
+	 V7JFaGdgNjsVKesE3ypyywBIgEXkv+LbA6arQo2+ZEY3ZI6ynA+0EMAboj+s1yH63l2jt
+	 reTGsr2/hxeM1rGRANT7QD6evRuvFODDcSgeB+CtAYF45B0h2bcH00WZc595sjB/F8oVU
+	 aY3zoiUBUF8nsM5/CiobcQ0sL9qG/K8IyfPCmHC29PF8BctQe1SCKZKqH0+RjYVhQ0Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ToNzRoTL;
+	arc=none smtp.remote-ip=209.85.216.48
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id E5D5A1F01828;
-	Mon, 26 Oct 2026 15:19:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793027963;
-	bh=oec+Wt3gHa1boqU1HQuJjZMLSuduFm7h1veFSZGd5Z8=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=B0t5NWQd1nYWesXGLcbrS5kIqaa+VvY0/tbodjEnwvJ5wo1tIqTUI06PKj6l/bMKT
-	 xBd/oyTG7CIhOUfZ0ieIllPHBiBLyaNT47UGekYDpLrda5OoUEpOz/jahJzFjwAjM9
-	 idmReAf/WQBEc+OhKhSP34qzldEOlBeFiiRp8Lxfi9TfUuyVLyzAY/BLv8n2Ps+5XL
-	 VIu5H7skGiDMOUWglf42kNzmVflS2YiiqWw+UJXAmkxzEQrrICeEhpSpRiXFREUz/3
-	 nswRpm4gku5MjlqbJUe0s6QT9ZsnFtaJaY7MJPz411f64fmJlRzAlWYs/W6lZSjDwZ
-	 NdqNPFzFfPn4Q==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 4C90044D49;
-	Mon, 26 Oct 2026 15:19:22 +0000 (UTC)
-From: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>
-Date: Mon, 26 Oct 2026 11:19:22 -0400
-Subject: [PATCH] mm, swap: stop cluster list scans once swapoff clears
- SWP_WRITEOK
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBB60606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 15:20:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBB60606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ToNzRoTL
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3ada8bc2380so1259608a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 08:20:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793028013; x=1793632813; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GDoT1f97HMSzIl27AFxsGzgU14gBpQzsSaLQbUyRuPE=;
+        b=ToNzRoTLP4HJzM6XNq6Q3Qj8LuNiIenfeWp0aOxyA/K5ytxu5ZsC3I2YihUkowTmBo
+         6xPeIK7d7VwVycUAy+tvEa3GZwfo803+5TJb1itvtPBr/NEiZIYAbLpKdE0YTXA9ANNf
+         2AeuzW1okTGm/goAuj8aI465AEMoDrCdRKDM6fDi9xoG4MpsrbMkmUH6hYutlRz7zi8t
+         1nnsRv4+ERNzZuHxkeZxVX/GWP6HEClUCjqp5Hbd+JQYze4gglesifdNgYVts8EtPLwQ
+         RLDBiFme4GMN/7InZpF7Bxl88jdxwOKnuIjMOHNMuHQUOkAwL6lGJ8jOPGFOuVmORTL3
+         R9HQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793028013; x=1793632813;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GDoT1f97HMSzIl27AFxsGzgU14gBpQzsSaLQbUyRuPE=;
+        b=r0Xz6MLLhw29+zMYlxw3GfXC8TzMbVV0sPhIH1sHPdRJ8wWRx0YdxGWZ3ZbSdDS2KE
+         pvOxZJ6rvkD76zVPYafPXKYNH3/lTtOUyDxvPnB378Gra7Kc5rgPn8U4qAlDWO0MQtlG
+         LPHlxcgAnU2b7tLZkKPRJqUi9RjUy357F+pMAX0201RxZNgQDHro3utDUUBWarKsbw/D
+         1/8LHwDfI0bsm7OReb7r8v6K/SGBFzHouWSwmyuJoNfmBr0/6dP0WZfoPk4fa+OGBHGi
+         GgnsDnsa3P5H01HYHOPeU85pdch0Xf/T2ajJ8iRk9qVO8hoAD8rD/sZw6VmjaaayXsjC
+         eoew==
+X-Forwarded-Encrypted: i=1; AKwUvBxHD7UOr8XQ3KK45jprVOt4oxDnoUEJZJQ+bn2QA92IMXXRaYP9RARnRs8LdrNVLMxHiFmbYUdn56xH7OU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLfC/bdn4OfkyLp8JwlNdUb0WzoF3mIBnsFqZ/KA+0r2UOA8xVx
+	iZsSrqV1lcYYtoPfM1FEA3UI2hj84048h6cQhYZY6QULgcaR6D0Cijvi
+X-Gm-Gg: AYBFou0wXEfQ534Zy20VH9Vj7LvU4Ru6c2Q5ghBaqxMrdDQIWPiacNJamHTicqzh+1h
+	HRxM1o8rc8yXPjYXpYB8xDheHQ63nDDu1j4kWRWhaC9WP3DcxZrNBLB7UO7gboZLwhaWW7pCEfs
+	gcawHDrEobs76uG1o6hO3gXj034ptBcs4PmLde01wHzks4NOtXkSvgfOZXmY6PaOBJfcL4/+4Lp
+	IffOFxOpuOaq95rkDZYIX03UcMc6r/O5V2pIoRVXsHsGtuuaXPf35tl6HQ3C52YUai2Nos1Yspy
+	X1aTTb0IuOX5BA57lRI6OD38orE15xKDdTOb1DkUAlZgYMxkyGRrZ1YxVtrs+gopJyoRU5BpDeC
+	55kJWoPG5NxsB5holbjM6jeDDucrq7aEblY3knt+/Dq244HB+He+SQiKKuT81vtWqVv6hiMtuic
+	PY5PGLZw1zJZEPWvLT1ysG9Ay/cdPsbIVWCebxHiE3Svy+QUtS2GlQQvrvoAijTAjy+KesW2+xh
+	8kA8VyojJ/SnCXNd2TMROvmLSwE2NITxdTsfiEcOGr/FT4=
+X-Received: by 2002:a17:90b:4a81:b0:3a8:a98c:ea07 with SMTP id 98e67ed59e1d1-3adea8966e7mr5384743a91.13.1793028011866;
+        Mon, 26 Oct 2026 08:20:11 -0700 (PDT)
+Received: from [198.18.0.1] ([38.182.104.55])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd8ccc682d8sm1799598a12.18.2026.10.26.08.20.09
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 26 Oct 2026 08:20:11 -0700 (PDT)
+Message-ID: <af546d6b-d1c0-45df-8f81-ad839e7e4d6d@gmail.com>
+Date: Mon, 26 Oct 2026 23:19:58 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,134 +91,118 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261026-swapoff-writeok-v1-1-4f4cd420aa33@columbia.edu>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDINYtLk8syE9L0y0vyixJzc/WTbEwSjNKTEk2SjQ1VgLqKihKTcusAJs
- YHQvhF5cmZaUml4CMUaqtBQDWLk8TcwAAAA==
-X-Change-ID: 20261026-swapoff-writeok-d82f2adc2a53
-To: Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>, 
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
- Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, tz2294@columbia.edu, 
- stable@vger.kernel.org, Mani Tofigh <mt4022@columbia.edu>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793027962; l=4058;
- i=mt4022@columbia.edu; s=20261026; h=from:subject:message-id;
- bh=13fz6rqNh91gTcPzM8hXNMOTAxUdtQgWk+c7vws4zJ8=;
- b=vg9IYQzJgsesZ3/7DOx8iiu+UpwzJK/cT7keQ9ZTtaH4xqfxdkhcRRPeZI97Poq9QOz1X1L6b
- rOOceG7nTAZB9hJbL18eVW0RArdVG4aOyGUa783AMsl5Gc87b5so/gq
-X-Developer-Key: i=mt4022@columbia.edu; a=ed25519;
- pk=gljCMQDuxyKPmd5y37CRpEJGSPXDV1MyAnHBhCgXl0I=
-X-Endpoint-Received: by B4 Relay for mt4022@columbia.edu/20261026 with
- auth_id=1322
-X-Original-From: Mani Tofigh <mt4022@columbia.edu>
-Reply-To: mt4022@columbia.edu
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/2] ksmbd: fix named-pipe reply loss with small output
+ buffers
+To: Namjae Jeon <linkinjeon@kernel.org>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, Tom Talpey
+ <tom@talpey.com>, ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
+ linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <SEYPR02MB69642EAEE79F3CF02F782597E6612@SEYPR02MB6964.apcprd02.prod.outlook.com>
+ <SEYPR02MB69641633E70AC3FBF14BB14FE6612@SEYPR02MB6964.apcprd02.prod.outlook.com>
+ <CAKYAXd9vAUH6J_Mbx3ZTzGT9U+unoOsdDL4j_Q8UsDypW3a82g@mail.gmail.com>
+Content-Language: en-US
+From: Wang Zhaolong <wangzhaolong633@gmail.com>
+In-Reply-To: <CAKYAXd9vAUH6J_Mbx3ZTzGT9U+unoOsdDL4j_Q8UsDypW3a82g@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-From: Mani Tofigh <mt4022@columbia.edu>
+Hi Namjae,
 
-SWP_WRITEOK is cleared under si->lock when swapoff starts so that no
-new swap entries are allocated from the device, and try_to_unuse()
-then waits for writeback of the folios that still use the device.
+>
+> if (rpc->pending)
+>     rsp->hdr.Status = STATUS_BUFFER_OVERFLOW;
+> Should we add this check ?
+>
+>> +       goto done;
+>>
+>> +empty:
+>> +       err = ksmbd_iov_pin_rsp(work, rsp,
+>> +                               offsetof(struct smb2_read_rsp, Buffer));
+>> +       if (err)
+>> +               goto out_put;
+>> +done:
+>>         rsp->StructureSize = cpu_to_le16(17);
+>>         rsp->DataOffset = 80;
+>>         rsp->Reserved = 0;
+>> @@ -9349,7 +9375,6 @@ static noinline int smb2_read_pipe(struct ksmbd_work *work)
+>>         rsp->hdr.Status = smb2_pipe_error_status(err,
+>>                                                 STATUS_UNEXPECTED_IO_ERROR);
+>>         smb2_set_err_rsp(work);
+>> -       kvfree(rpc_resp);
+>>         return err;
+>>  }
+>>
+>> @@ -9947,7 +9972,7 @@ static noinline int smb2_write_pipe(struct ksmbd_work *work)
+>>         if (IS_ERR(rpc)) {
+>>                 err = PTR_ERR(rpc);
+>>                 rsp->hdr.Status = smb2_pipe_error_status(err,
+>> -                                                       STATUS_INVALID_HANDLE);
+>> +                                                        STATUS_INVALID_HANDLE);
+>>                 smb2_set_err_rsp(work);
+>>                 return err;
+>>         }
+>> @@ -11440,20 +11465,25 @@ static int fsctl_pipe_transceive(struct ksmbd_work *work, u64 id,
+>>         struct ksmbd_rpc_command *rpc_resp;
+>>         struct ksmbd_session_rpc *rpc;
+>>         char *data_buf = (char *)req + le32_to_cpu(req->InputOffset);
+>> -       unsigned int nbytes;
+>> -       int err;
+>> +       unsigned int nbytes = 0;
+>> +       int ret;
+>>
+>>         rpc = ksmbd_session_rpc_get(work, id);
+>>         if (IS_ERR(rpc)) {
+>> -               err = PTR_ERR(rpc);
+>> -               rsp->hdr.Status = smb2_pipe_error_status(err,
+>> -                                                       STATUS_INVALID_PARAMETER);
+>> +               ret = PTR_ERR(rpc);
+>> +               rsp->hdr.Status = smb2_pipe_error_status(ret,
+>> +                                                STATUS_INVALID_PARAMETER);
+>>                 smb2_set_err_rsp(work);
+>>                 return 0;
+>>         }
+>>
+>> -       rpc_resp = ksmbd_rpc_ioctl(work->sess, rpc, data_buf,
+>> -                                  le32_to_cpu(req->InputCount));
+>> +       /* Write new input without reading past an already buffered reply. */
+>> +       if (rpc->pending)
+>> +               rpc_resp = ksmbd_rpc_write(work->sess, rpc, data_buf,
+>> +                                          le32_to_cpu(req->InputCount));
+>> +       else
+>> +               rpc_resp = ksmbd_rpc_ioctl(work->sess, rpc, data_buf,
+>> +                                          le32_to_cpu(req->InputCount));
+> This WRITE leaves KSMBD_DCERPC_RETURN_READY set in mountd. After the
+> cached reply is drained, the next TRANSCEIVE can return the previous
+> reply without processing its own input.
+>
+> Thanks.
 
-However, an order-0 allocation that chose the device can race with
-swapoff clearing the flag and then loop forever.  It takes a cluster
-from the fragment cluster list of a higher order with
-isolate_lock_cluster(), the allocation from that cluster fails because
-SWP_WRITEOK is clear, and relocate_cluster() puts the cluster back on
-the same list, so the loop keeps finding clusters on it.
 
-The looping task is in reclaim, and it may have set writeback on a
-folio whose write has been queued but not yet submitted.  swapoff then
-waits for that folio, while the reclaiming task, stuck in the loop,
-never reaches the point where it submits the write:
+Thanks for catching this.
 
-  CPU0 (reclaim)                          CPU1 (swapoff)
-  --------------                          --------------
-  shrink_folio_list()
-    pageout(F)
-      /* F under writeback,
-         write not submitted */
-    folio_alloc_swap(G)  /* order 0 */
-      swap_alloc_slow()
-                                          del_from_avail_list(si, true)
-                                            si->flags &= ~SWP_WRITEOK
-                                          try_to_unuse()
-                                            folio_wait_writeback(F)
-        cluster_alloc_swap_entry()
-          isolate_lock_cluster()
-          /* allocation fails:
-             !SWP_WRITEOK */
-          relocate_cluster()
-          /* repeats forever */
-    swap_write_submit()
-    /* never reached */
+I reproduced the sequence you described and confirmed the problem.
 
-This results in a soft lockup on CPU0 and a swapoff that never returns.
+For the READ path, your suggested STATUS_BUFFER_OVERFLOW check looks
+appropriate when a positive-length read leaves unread bytes from
+the same reply.
 
-isolate_lock_cluster() used to check SWP_WRITEOK under si->lock until
-commit 07adc4cf1ecd ("mm, swap: implement dynamic allocation of swap
-table") removed that check.  Restore the check.  Since swapoff clears
-the flag under the same lock, isolate_lock_cluster() then returns NULL,
-which ends the scan; the swap slot allocation for G fails, and reclaim
-goes on to submit the write of F.
+For TRANSCEIVE, I think the correct fix needs some discussion.
+One possibility is to return STATUS_PIPE_BUSY when cached reply
+data remains, without issuing another IPC request or consuming the
+cached data. The client would need to drain that reply through READ
+before submitting another transaction. MS-FSCC §2.3.48[1] lists
+PIPE_BUSY for a pipe containing unread data.
 
-Given that this is a race, its reproducibility is non-deterministic.
-We reproduce it by using a non-rotational swap device that is not
-synchronous, with 64K mTHP enabled, where one CPU repeatedly pages out
-two 64K folios and a 4K page with madvise(MADV_PAGEOUT), while other
-CPUs run swapoff and swapon on the same device.  In my tests it
-triggers within 20s in each run, and with the fix applied, it runs for
-300s without any hang/kernel report.  This bug was found and
-reproduced deterministically using a deterministic hypervisor that is
-currently under development.
+However, I would like to confirm that this is the intended behavior
+for this SMB2 path before preparing v4. Simply omitting the WRITE
+and returning cached data would still silently discard the input.
 
-Fixes: 07adc4cf1ecd ("mm, swap: implement dynamic allocation of swap table")
-Cc: stable@vger.kernel.org
-Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
----
-Before commit dda8fb68b590 ("mm/swap: also use struct swap_iocb for
-block I/O"), reclaim submitted the swap write right away, so on 6.18
-to 7.2 the loop most likely ends once swapoff frees the slots instead
-of hanging.
+Would rejecting the transaction with STATUS_PIPE_BUSY be appropriate
+here, or would you prefer a different approach?
 
-Reproducer: https://github.com/manitofigh/swapoff-repro/blob/main/swapoff.c
----
- mm/swapfile.c | 5 +++++
- 1 file changed, 5 insertions(+)
+[1] https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-fscc/f48cecf1-98d8-48dc-926f-2f3a48f07cf6
 
-diff --git a/mm/swapfile.c b/mm/swapfile.c
-index 601979b97f95..2b03d14b5f52 100644
---- a/mm/swapfile.c
-+++ b/mm/swapfile.c
-@@ -627,6 +627,10 @@ static struct swap_cluster_info *isolate_lock_cluster(
- 	u8 flags = CLUSTER_FLAG_NONE;
- 
- 	spin_lock(&si->lock);
-+
-+	if (unlikely(!(si->flags & SWP_WRITEOK)))
-+		goto out;
-+
- 	list_for_each_entry(ci, list, list) {
- 		if (!spin_trylock(&ci->lock))
- 			continue;
-@@ -642,6 +646,7 @@ static struct swap_cluster_info *isolate_lock_cluster(
- 		found = ci;
- 		break;
- 	}
-+out:
- 	spin_unlock(&si->lock);
- 
- 	/* Cluster's table is freed when and only when it's on the free list. */
-
----
-base-commit: e9011a65d78258901ba123c5f522bef26d29902f
-change-id: 20261026-swapoff-writeok-d82f2adc2a53
-
-Best regards,
---  
-Mani Tofigh <mt4022@columbia.edu>
-
+Thanks,
+Wang Zhaolong
 
