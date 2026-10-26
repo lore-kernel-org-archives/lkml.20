@@ -1,66 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.169.15
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793035973;
-	b=ZTb7i9Go0rfkufxoMBWNpPQSoVx2xhvKhdNNXnLKAmyamzbw2MASHkn0uztgy1ZQ//BP
-	 1LYHiW2xRWsnZ3au3dhw9xZcQc9mPLrX1rategKXC3zN8mzDkeRiGnfcrUJysakLkw6d0
-	 F7c3d8vc5aY0OxbSO84s3hG0bC8E+/frEuaJriEIFqViwGsEbrXLczduDRTiw2L5SN8CT
-	 WSlMIny9gzD4JcvK97xL6O7YWPT/y8oguz1/34WS0eA1HsTTcxG5cC+W2izvrD6DxYE5z
-	 lS77i/o4zVfRZY5eE+AkSQUXZ6gYt/J3+JWSir5f937e4rPvob8flhU01gSaQA7ntbg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793035973;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.197
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793035994;
+	b=p5Z9+Jy858AHKDWPNo0xPmKvZJmStv82VnVdtQsDpscEen7BabiVgpJu5T8IyH1WYp+l
+	 O4jAlLzpaZTykJy0AtxUaze6X8RzHX42BFsEkRu0J+zSqK9opoO+uYyU0A4qPR+EK4bJx
+	 wwC0Gc1Vq23Dm+2ISj8x9khev1CdpkAp0EI2rkMIQBY2FOnluQtRLfzABRfLOnO9MzbUu
+	 Tll/pu+uc/vunnj3236zY24hTfPb+2DCgCA7XGPooQtTSULZjS1vDz7o5Ygd+mHf+THQZ
+	 HezVh2OLvJsf/4Zhoq6ZlKJRSb+RATGnyluQlVxD3vpLtOQaDzsL0nsJHk76cYkcbTA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793035994;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=m21+6xwsTas/4aG1GnIOqBxWmhfu5Hmar62qCJvzW0Y=;
-	b=vSRKEDyv8tMXVtA4PJhCpxrjxZWoFMm/tv1GZmhsEkJaTeF+4ZjGPdrk4s7n3BSZvCnK
-	 dCXekNXRGN5QDLk2O4ScEVoc87ORrQZE7eiVQeShOVnH5m+8LglcnZR2cAElaq4E4WghK
-	 G0MDdE98bM4H5ZdpXpHrdQqAvlDOHC6n10l4u9n3dKlLKjZhn5vvUhR08hXoMxt7iPUY1
-	 o+UAv49gGXD2dlxdV36VZTCT0mYTp7lczR+GfP611hFQFq1Ws6CNrXt8tHz1Lnuq7Z4tR
-	 S+O7GLNpV5jladgL5fbjiuQ/bOslZc9CKKKsyNO8u7L93ra2ym987tEMXcuw2+Kp0xg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iav.lv;
-	spf=pass smtp.mailfrom=iav.lv;
-	dkim=pass header.d=iav.lv header.i=iav@iav.lv header.a=rsa-sha256 header.s=zoho header.b=L4B9SDM2;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.169.15
-Received: from sender-op-o15.zoho.eu (sender-op-o15.zoho.eu [136.143.169.15])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	bh=+/ZMm9aYjbUSd2YiTQuZAI9AV6w5Y2nBgKyqoyIHLWw=;
+	b=qO8R9tjgUj3v22TBLr9EZhAG2+xulKlFd2nfkb7KcD3EM7rKP/QP7fU3Rq5x6BW6NOHh
+	 NMr29Z93NVmxWufljwCGk2x/Pougzf5CdHvt9U6QelF0x9Cgq+DZ3XhW69c+/L1ETIB8x
+	 j5nHYAl2ZO3bzCF1areVl77cIBfI1SU3C1zJfy6CN016bvOAZhmGBMUL44Cv4LSTMWcwc
+	 HC5i/16eFjFx/dlk5D2est9IEnoR9cB6U8a0gaVP6JNEcTWAsndKpke23A8yyw+OgJsIm
+	 sEalP4WiQ6nqzLWssEGbEdwnTdtcVkVtjLxO5A7+48SjDsOhYV49MDlA8Dk7WqT/Bwg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=i2YUP51p;
+	arc=none smtp.remote-ip=209.85.210.197
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54FD0606A31A;
-	Mon, 26 Oct 2026 17:32:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54FD0606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iav.lv
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iav.lv
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2537B606A322
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 17:33:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2537B606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=iav.lv header.i=iav@iav.lv header.a=rsa-sha256 header.s=zoho header.b=L4B9SDM2
-ARC-Seal: i=1; a=rsa-sha256; t=1793035938; cv=none; 
-	d=zohomail.eu; s=zohoarc; 
-	b=L4zQ3u3Gh1/7EhzANUJon02xknPj3GiVgg4ZS0UxAbpSBG3w65jqGNeozU9TGhN5ddGM/1bLqnvOnZWFX87gH7Oaq4FdiDDhXR79wY+0+Mg3gFDo6xycPHWn3/e54VX5CXlNouVacY7sXdE2TJc/MnaGk7CPvBBLHwr7eDJ1K/U=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
-	t=1793035938; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=m21+6xwsTas/4aG1GnIOqBxWmhfu5Hmar62qCJvzW0Y=; 
-	b=IZO9T7/N/eOCy0jaC29UtkZmDSKqbPk3XXDzZJSrn9HC0dk/sgxTzDMirfbx8SO4F2rqmwF5jtmn5MumsZDiugnLRu+c0o0xZhEbVLygo5eiCO2skCw3XgF/3ppsclAwAYHCNmMZwtg6PJoKopIG/z3gbS6J3vHbKHUJ8q2Su7M=
-ARC-Authentication-Results: i=1; mx.zohomail.eu;
-	dkim=pass  header.i=iav.lv;
-	spf=pass  smtp.mailfrom=iav@iav.lv;
-	dmarc=pass header.from=<iav@iav.lv>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1793035938;
-	s=zoho; d=iav.lv; i=iav@iav.lv;
-	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:In-Reply-To:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=m21+6xwsTas/4aG1GnIOqBxWmhfu5Hmar62qCJvzW0Y=;
-	b=L4B9SDM2cdS9Q7k+OkzkqgqYuPMF+hd+yoekcQcM57YAYK1l8dWh3QwXuE0ZBku7
-	x2V2qDOioR+uHpGrbrPzJXG+JbK2bt32byxKSexnZJLa5xupW73zSUgs3poLkvPsfiT
-	OKfPiduLZOZEKpaOTQqf60FBNuskYqk+taKAiYsg=
-Received: by smtp.zoho.eu with SMTPS id 179303593657064.19003206138837;
-	Mon, 26 Oct 2026 18:32:16 +0100 (CET)
-Date: Mon, 26 Oct 2026 19:32:15 +0200
-From: Igor Velkov <iav@iav.lv>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Lukas Wunner <lukas@wunner.de>, "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, Wei Fang <wei.fang@nxp.com>, Niklas =?iso-8859-1?Q?S=F6derlund?= <niklas.soderlund@ragnatech.se>, Paul Barker <paul@pbarker.dev>, Florian Fainelli <florian.fainelli@broadcom.com>, Doug Berger <opendmb@gmail.com>, Thangaraj Samynathan <Thangaraj.S@microchip.com>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, Igor Velkov <iav@iav.lv>
-Subject: Re: [PATCH net v2 1/2] net: phy: move irq_suspended and irq_rerun out of the bitfield
-Message-ID: <20261026-phylib-v2-lock-reply-1@iav.lv>
-In-Reply-To: <b99454f1-9c3e-42eb-ad03-3941015879a2@lunn.ch>
-References: <20261026045343.837889-1-iav@iav.lv> <20261026045343.837889-2-iav@iav.lv> <b99454f1-9c3e-42eb-ad03-3941015879a2@lunn.ch>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=i2YUP51p
+Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-8a064f294cbso2611618b3a.2
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:33:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1793035993; x=1793640793; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=+/ZMm9aYjbUSd2YiTQuZAI9AV6w5Y2nBgKyqoyIHLWw=;
+        b=i2YUP51phoHzvaj/SMz/PnuMcU370Qehx32+bv+4/p3RvLQAgL8y6y/AfUdoc5V/Lt
+         5RdjTvnk6dkmPHicypSA0TNhzw8N1Clmi+rlzIvdV/vU5lM7y3kSZrguKyqVWxv5Wlrz
+         sZRefvB+OuseyNlhDY5bk4Rcb8tKy/XespEpABkVkOjrC9cV1feXbBmLmT3TFuFmInZY
+         8LByrgpevpJwElkHp0oB19GXGfTDG6MAnhRHkfLIrS9KvNgUJj34RpqxDliHJ82TLPul
+         NtXtBmNj7iOoxLJh+liFsYW4izSrfBKwo8iXJc0AR0ES4Hz4TaIqGlPkER9QPIvHVXUx
+         5Pjg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793035993; x=1793640793;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+/ZMm9aYjbUSd2YiTQuZAI9AV6w5Y2nBgKyqoyIHLWw=;
+        b=bTQsZw/8chJs6SeRn3Or0ISJnoiDTCRuJhbm1IaekLfWWQqQ4Cxy7CQzJH8LJmH4X9
+         aghwo1Tp5NNCtIK6h36DLe6FdZF04YIQ8dp5t0uKpxlm+mqCbuNHdBMep/6Yzjg1RB/6
+         9hInjfRav0CeduWWU5B2vK3QDpifSNJJb8BbYwJ7LFtxo2TaCiH8buDkMTUbWf6xPF+W
+         2lyrS7qARiuMnuSh1qzju4e8iaGHur+7+B5pVpJJHrkvJxRagJdrw3mn9NEaHkfJP00+
+         cTxWVjY30yxOogL+BS3BP+euV0XzAxrHEBfooH1EzKIXF2bzDQRWiK/Z89Uq60P9D64d
+         Nd+A==
+X-Forwarded-Encrypted: i=1; AKwUvBz8dVNTOS237a6ERp5dvrDn/sS0ppWPsub+DcLhvifBXYXXRdZwVR2nx+vW6DRODmyl1czCrLqU5/DQb9o=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLlCsJcOiVpqSMC43hnbDTJhu539w24K2F2BtbKjBjd+8Ml8JSK
+	D4xNSkKvGraCu8ahNN3llrLEUP10eS4Lm62csgP/aNYQRH56GO7rc+LKbdfkkUOp28diAAn3fDi
+	x4iWCiA==
+X-Received: from pgm4.prod.google.com ([2002:a05:6a02:6084:b0:cd8:c65f:79da])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:d81a:b0:3e2:a07b:f383
+ with SMTP id adf61e73a8af0-3e7cd5a6198mr5636818637.70.1793035993143; Mon, 26
+ Oct 2026 10:33:13 -0700 (PDT)
+Date: Mon, 26 Oct 2026 10:33:12 -0700
+In-Reply-To: <CAO9r8zMdu+YyPb3RhdTDzYteRAE9dBqxTQZKSajm4eYZCp9Y9Q@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,21 +79,113 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20261012233638.2546339-1-yosry@kernel.org> <20261012233638.2546339-27-yosry@kernel.org>
+ <CALMp9eS8KDozNGT9J_uN69W32QEvTbg2JrtRqN0ESi00b_uq=A@mail.gmail.com>
+ <atK3Y5XxL-zmAvY-@google.com> <CALMp9eRcWZ8fh8_m35RDw-VNrqz4kapVodGoLr=B_iAZaPOA=Q@mail.gmail.com>
+ <CAO9r8zMdu+YyPb3RhdTDzYteRAE9dBqxTQZKSajm4eYZCp9Y9Q@mail.gmail.com>
+Message-ID: <at-O2HiN-y5M4R_D@google.com>
+Subject: Re: [PATCH v3 26/27] KVM: nSVM: Use different ASIDs for L1 and L2
+From: Sean Christopherson <seanjc@google.com>
+To: Yosry Ahmed <yosry@kernel.org>
+Cc: Jim Mattson <jmattson@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Maxim Levitsky <mlevitsk@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, 
+	Tom Lendacky <thomas.lendacky@amd.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	David Woodhouse <dwmw@amazon.co.uk>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Oct 26, 2026, Andrew Lunn wrote:
-> As you say, it is an IRQ thread. Because interrupt handlers might need
-> to access the PHY, which is a blocking operation,
-> request_threaded_irq() is used in phy_request_interrupt(). So you can
-> just take the mutex and make the RMW thread atomic.
+On Mon, Oct 19, 2026, Yosry Ahmed wrote:
+> On Mon, Oct 19, 2026 at 11:50=E2=80=AFAM Jim Mattson <jmattson@google.com=
+> wrote:
+> >
+> > On Fri, Oct 16, 2026 at 5:25=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> =
+wrote:
+> > >
+> > > On Fri, Oct 16, 2026 at 02:17:30PM -0700, Jim Mattson wrote:
+> > > > On Mon, Oct 12, 2026 at 4:37=E2=80=AFPM Yosry Ahmed <yosry@kernel.o=
+rg> wrote:
+> > > > >
+> > [ ... ]
+> > > > Per the APM, volume 2, Section 15.16.1, "TLB Flush":
+> > > >
+> > > > > All TLB entries belonging to all ASIDs are flushed by SMI, RSM, M=
+TRR modifications, IORR modifications, and access to other system MSRs that=
+ affect address translation.
+> > > >
+> > > > With two separate ASIDs and the unconditional flush removed, do we
+> > > > flush both ASIDs in the above instances?
+> > >
+> > > SMI and RSM, yeah I think so. kvm_smm_changed() ->
+> > > kvm_mmu_reset_context() deletes all roots, and kvm_mmu_load() will fl=
+ush
 
-The lock in phy_interrupt() only orders against writers that hold it.
-phy_suspend() writes wol_enabled and suspended unlocked, e.g. from
-phy_stop() in the MAC's suspend while the link-down interrupt may set
-irq_rerun, and it cannot take the lock: phy_may_wakeup() can call
-phy_ethtool_get_wol(), which takes it. mdio_bus_phy_suspend() and
-phy_config_interrupt() write that word unlocked too. As bools,
-irq_suspended and irq_rerun share it with none of them.
-Would you still prefer the lock?
+s/deletes/unloads, because the roots themselves are almost always still rea=
+chable
+through the hashed list of shadow pages.
+
+> > > the current ASID when a new root is loaded.
+> >
+> > Okay. Is this mechanism obvious to those who are versed in the ways of
+> > the KVM MMU?
+>=20
+> I don't consider myself versed in the ways of the KVM MMU, it took me
+> a few minutes to track this done, so I think it's okay.
+
+No, it's not ok, though it's also not something that needs to be addressed =
+in
+this series.  Historically, KVM relied on kvm_mmu_reset_context() to perfor=
+m TLB
+flushes basically everywhere, e.g. on CR0 and CR4 writes.  It was a nightma=
+re
+on multiple fronts, e.g. it was suboptimal when toggling bits that needed a=
+ TLB
+flush but not a full MMU rebuild, and understanding whether KVM was deliber=
+ately
+doing TLB flushes or not was difficult, which in turn made trying to optimi=
+ze
+any of that code very painful because it meant disentangling years of KVM c=
+ode
+*and* pouring over the SDM and APM to make sure we got the TLB flushes righ=
+t.
+
+In short, the fact that kvm_mmu_reset_context() happens to guarantee a TLB =
+flush
+of the new/current root is a side effect and an implementation detail.  If =
+a TLB
+flush (for the guest) is architecturally required, then KVM should emulate =
+that
+exact requirement, even if it means queueing up what will be redundant flus=
+hes.
+That makes it easier for newcomers to follow the code, and gives us more fr=
+eedom
+to tweak and optimize MMU context changes/resets.
+
+Concretely:
+
+  Author:     Paolo Bonzini <pbonzini@redhat.com>
+  AuthorDate: Mon Feb 14 11:50:36 2022 -0500
+  Commit:     Paolo Bonzini <pbonzini@redhat.com>
+  CommitDate: Tue Mar 1 08:50:42 2022 -0500
+
+    KVM: x86: flush TLB separately from MMU reset
+   =20
+    For both CR0 and CR4, disassociate the TLB flush logic from the
+    MMU role logic.  Instead  of relying on kvm_mmu_reset_context() being
+    a superset of various TLB flushes (which is not necessarily going to
+    be the case in the future), always call it if the role changes
+    but also set the various TLB flush requests according to what is
+    in the manual.
+
+For SVM, the redundant flushes are a complete non-issue.  It's basically an=
+ extra
+memory write.
+
+For VMX, the INVVPID isn't free, but for emulated SMM I can't imagine it's =
+a
+meaningful performance issue.  And FWIW, the only reason not doing
+KVM_REQ_TLB_FLUSH_GUEST isn't a bug is because hardware isn't allowed to ca=
+che
+linear mappings when EPT is in used (and INVEPT invalidates both guest-phys=
+ical
+and combined mappings).
