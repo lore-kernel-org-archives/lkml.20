@@ -1,100 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.180
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792974984;
-	b=ddSgqRgNaokjlVn5Ud3BzTnE+UNDS4pZY/H8H2eoPFTRUI8sLiuGH6+2tzij4Wn6f1io
-	 URiFvhJBI/QiI9DdfhKXWCBmdcZKaU1T8pLcqOxBuXUdtGwLsc40QRijTqYlFWDrUUE9/
-	 x7SDV0MFXkwyfM+bVgjox7/LvyqutFfZrf2WLZeAFihbvbHitFzaryPmv9Tqd5Ds0jtoW
-	 MNoc4fKhEO6lQggj/t9GqIfsNrbGisMQmvZKWzcPDFDruJcUGXHHdYkVVmL18ONFEOUIc
-	 15AH36VzEo/in/fqEq6RFzmE9GYRkzpn+nwmeCiVBjSEJtpxHlAbPmqZZxrux3IvOKQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792974984;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Sender:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=xKp+d3bHeDhxK2cX/G/plq+5MAzOmIHe2O0mVksp/JE=;
-	b=mn1NFAPWUi7GdXyTcYnAWc16fJP1nrFMlPkAitdyvNGukt05VqvGnrD4NTvYV+rhZIRJ
-	 Pgfa0XqcgIiePaIIHkGQiJy60o6Bzh+Rwvsf4D8Y15kWETDVLGCvcEhJ2t1m1ZzSTRS2w
-	 s36NdbE7Fn9+RLnlizCn3JwH4Jv2tsx/mzVMLPSUmZyW+ebwUSNpNt1x57G+fyrn/lZyf
-	 jTrK8X+Eb60BMM+oqkIh566rRNH/3oIKp9xq7axAebTHp1xSDfOt7/bqDlHL6lXP9MOua
-	 /xw+xpNTOR+FLchHWHFkZ74+lFQUa69pdpQFIaZGvU66zHZB2QWHe0rCkj6/U7HdLSw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="A/k/dzgx";
-	arc=none smtp.remote-ip=209.85.210.180
-Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792975013;
+	b=bkgcHVL03ZFMvG0LkXgWWAwJ+qaVH69Yo1U8iGPtRRAj0dGNVsdlw7hL3CJQxaPgIgOd
+	 5mybtYaihD0FnHyUMwmZ3BxN3LZkd/SatoKmooE/g4OODt+OEd9vO4IpvOpa+pg//7b1I
+	 NVGhD1HrUnxbaL++khQ7ZRvI/s83h7sFUquvejZCLGg2R1IpK19X10Oj0NWdM/bAb6nld
+	 28eDFkMPgr7AcWZY4K87HMMHN8hyfTvjaUcfNvczNd9JaExXMmddKioRfJat9gGP49Zrt
+	 xd+3+xw+49CJqiker+8eNnmQpQiNofqwBvzKd7Penvk6LnausjolzumxhrTPvaQlUAw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792975013;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=RlD54kshLBKNNvMnTbh1mTyFvIDmq+VY2q9wTJdmNkQ=;
+	b=2JeTMPj4h6RBd6e6PQQ1E3QDdLVxGvuEjlo6c6y/hcDiubLv6JPcBbcW5Rni3YfOdvoA
+	 aDtbI3itJ4c+kVo3hBEx5klDqq1ssQqgxijeZtQX7OFiuLR2h/xiP+sk9mNKu5rPs+U6U
+	 rGCYR8mGvUBfvZGjs0nNs7wchNmW2Lst9CKkbAnZiRh0bHValiWJDCVeT5aIM2Kf24VGo
+	 7sCXCRVcz8rZtsNQBXEx/YH/AJ7Pdi69Kznifc7JOTm87V0wUQoyEx8ZUNx7Zs/9uCGDy
+	 /4xIpU/HGOgQx20hN7iLUvuwpmHF69BNVfVQKj4dnkxqDmxnk3E9IrLGzsPlUDmX4cw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CAeni4Ia;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE264606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 00:36:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE264606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8485606A31A;
+	Mon, 26 Oct 2026 00:36:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=A/k/dzgx
-Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-8a39e5161c1so721191b3a.3
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 17:36:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792974983; x=1793579783; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=xKp+d3bHeDhxK2cX/G/plq+5MAzOmIHe2O0mVksp/JE=;
-        b=A/k/dzgxFGHZlnRPKB0uFI6RamiDqcObc53ls5NqfEmj2xDJOQswLIvnDVWhoUj/1S
-         OOsihDiG+3Gv4PBnR6VH4yMr/F6jxy0aYVKrnXYEqnVrf/XCqBhlqhLjIMbZGiHXjYRQ
-         TtFUzok0tjLSq+9JtQbSdfjYDhk0oezU8aS86CtASqyVE9eXcAL02GPUsjSEuE3Ig2i+
-         2mCLr88OhzqJtBR8P4dYjmec6q2utQ7jzwRnurfkrYWsPB3Siqmm8WkE0Ahey105KuHw
-         1jD0MT7SCTK+x0qX4z41EntpYGV3zofbXUldvJVBFsJrr0C5UVQlqm8MTu2dQnz4eACE
-         Stgw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792974983; x=1793579783;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xKp+d3bHeDhxK2cX/G/plq+5MAzOmIHe2O0mVksp/JE=;
-        b=qkhoWug+ij4B1izDVHyu/SAgxUR2cnxIl96VbL/cCDz6tcQks3EdMrCagvKXOJP4Dt
-         Z23otvMotLW3Q/R9DWBnTuF88ylgvCujlvBEAO4bZ9/KRVD4OjWWcMvp4H1ApPHbVkKY
-         v61GWByar5qvBOBfA7apN078t6Hct3R2FQ6vzeizA/503TiyMjcXliVEcP43Cfh+dnLE
-         zhMFpIEIcAqVC2IflmLLRiSkOvXfYXx8obcvtjWpeUfuhpjbsSHHwa6jydF/Xn+Av35J
-         tjiC6HZVG7kj3DNgXz251zy0X12VonkmYQsQRraIisD11WignPHp4RfwGwaeR4+TUFHt
-         /BRw==
-X-Forwarded-Encrypted: i=1; AKwUvBzngMNJKyHbx8d+UhrC6YS8bK+MFREyKVm2y6o1FXYSKoc/y4dsKGG0czLi/Y5vHTye/sT/166Dk348Zko=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLbUmFwKPxGZEEecrzkr5MchzLbEOF8XCff3aOBcrlBeWK/DWE8
-	hNDdIwus5OckyLZcIjsTlQDayer5V+zMB9Fx4M8MN2mF6ktNu6xq0IN6
-X-Gm-Gg: AYBFou1FhMO+GoH167m2ToP4hWmZSYpWuXJLqfJAmuvwZNfQEJdpIL+bp++rv4YvlBA
-	g9bW8UtnZQwQGZVcWGa24OPafQMLancuAoQaj2rfB9Lj/+XlXHCqLhHB9WhcSJ1HH5ZJHCAAKvT
-	EiK9xlR2G1jaKcteAHveO13gKh6YhnUwmiyFlchLQIk+DPH9qwjbCz2tedbGtTKzXacm26KZIbJ
-	XxPAdjXA6IhgnUz8uwiJinwkFJKEaC2RsNOknhTNz2KRgXI+oS1SEe6mtqGztxFE6ecTEARbERT
-	DsY5p5Zl+sABm001yPwsdgaillq2DcbbIbYpCt5NPRBnupH2+O9dSpYt+vjV2L/MpYX2IYSazHF
-	Eaw5BuTFABoGerWD9geeMEC2nezZqU+hjira0Hz5MQmbDMYLhO6s0gTRdU3QFNwMD09HKW+xkFn
-	knQLtDQOIZeeJMkong1qpYtq0GB/0/gZJhVNvfpUzyHQ6+nLdUHndwzEwuilvNDV+DYkpOrPxdT
-	thnRoVWXNBJ6VFbP+ykbjas5JR83LNIXnCDr/Ab3jOwwc4vsbXUXV0hpcGJw3rJjse3QA==
-X-Received: by 2002:a05:6a20:ef1b:b0:3e1:c08e:38f1 with SMTP id adf61e73a8af0-3e7cd4d9f61mr3858101637.14.1792974983056;
-        Sun, 25 Oct 2026 17:36:23 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a368d86790sm804169b3a.1.2026.10.25.17.36.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 17:36:22 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Sun, 25 Oct 2026 17:36:21 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Lars Petter Mostad <lars.petter.mostad@appear.net>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-hwmon@vger.kernel.org, linux-doc@vger.kernel.org
-Subject: Re: [PATCH v4 2/4] dt-bindings: trivial-devices: Add TDK FS1412 and
- FS1525
-Message-ID: <b5298436-ed79-40dc-996c-887b2d4bca73@roeck-us.net>
-References: <20261020-hwmon-pmbus-fs1412-v4-0-27ece4e43d04@nexthop.ai>
- <20261020-hwmon-pmbus-fs1412-v4-2-27ece4e43d04@nexthop.ai>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CAeni4Ia
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792975012;
+	b=nKhLlqKsVugn29Td8qe+D6LhttKzNl8prFHQ/sZ+sij1+hEYakHV2X6exrkmrcMz/ZhF
+	 9CE1OpVFX/6qDoRA3SvSpe969b87qf2kzKsbz+5Q2w/ABd5swEugzrMcPqFKoOgtxOguE
+	 m8TkOlcQE1SRVRwNpnMakJSxsHTlPkA3CxQJKxlL+vsl/X2Bnvc1f7rNcQJi0t/7gYA6a
+	 uYOOZsaTD1Q/u+6xILx/h1mWdxPfoTi/Do/Hkfc65wIgLyoodZMMiEVoVTVQQMG1NuyBd
+	 Bkt0KCSRoUyfKvSO054aKTFSIq/jQTonG7NLu3dSfQauhs5ZytDNKLlQlgH2D+KGqrw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792975012;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=RlD54kshLBKNNvMnTbh1mTyFvIDmq+VY2q9wTJdmNkQ=;
+	b=tx+XYU58ERpARVr8KGkenLndayyXuvIQaKkHjCa5QSMWW4DfRUXNuZcRZu/xFkToXWxC
+	 FJXt6BuoFI/6zo5QXxTSW9NdVVHogQBAZLlNf+cohfaZZH11SW0x9fxcpsXeSL7fzs10u
+	 yNN9mD/gmPHyCWUQNlEF+jMfg7MYqzqbmq/bUwbPqFcH80hH2Mw1AyTxQiQUP7w+owIn+
+	 fibajDjoO9we4sDcUtfq3qEVpQC70QREKVcv1rVCBWSeRF7qxD+zSBdkLOhyMDY9e6Yuo
+	 S7HO6bRkJz12SKPADdEmYZQi5XBwBrTv4njii9GtjoN3Jly+yAu3J6kIjYtfAV63Hng==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id C96011F031E0;
+	Mon, 26 Oct 2026 00:36:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792975012;
+	bh=RlD54kshLBKNNvMnTbh1mTyFvIDmq+VY2q9wTJdmNkQ=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=CAeni4IaBC1IPyHKbfjI+FTNz3v2HYCCNiKBKRLrDP3a+tdXqp62PDqnD4zAJibwb
+	 DwpZo3h20qoWQxBlRiWfHmOcvpF44KVpvC/HfFh6UTPNbXD/4l6Zd11B9MDfg2wzh+
+	 1zRluCRGVpsRHpv9CjtWB2T6iM3uE/9GD4qHA9RQOUD0DUwu04Akazn3BH//a045/i
+	 045KuGmRhSieOmP3TA4DPQOnbrcGImhoo7vLy0VS1IC9IIxkdW8+YffjyJxfu8QXFt
+	 LAj2ZOn8wxgUqWrpGVYAF8dKPi5MJ46RH/jmmnF+wHj/vNO+DCeR6/fxp4nYeTSt65
+	 wfuPlCr6KoJdQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 26A8544B5E;
+	Mon, 26 Oct 2026 00:36:51 +0000 (UTC)
+From: Martin Belanger via B4 Relay <devnull+martin.nvme.dev.gmail.com@kernel.org>
+Subject: [PATCH RFC net-next 0/5] tls: perform TLS 1.3 KeyUpdate in the
+ kernel
+Date: Sun, 25 Oct 2026 20:36:47 -0400
+Message-Id: <20261025-keyupdate-rfc-v1-0-60b7756eccbd@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,19 +84,174 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261020-hwmon-pmbus-fs1412-v4-2-27ece4e43d04@nexthop.ai>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQ6CMBREr0L+2p+UilbdmngAt8QFtoN+TQppC
+ 8EQ7m7R5ZvMezNFBEGkUzFTwChROp+h3BRkn41/gMVlJq30vlR6x298ht41CRxay8fKba3BoVL
+ GUHb6gFamX6+m6+W8bh6JPaZEt/8hDvcXbFqrtCxfZv3gx4IAAAA=
+X-Change-ID: 20261025-keyupdate-rfc-94d3c7e84077
+To: John Fastabend <john.fastabend@gmail.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Sabrina Dubroca <sd@queasysnail.net>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, Shuah Khan <shuah@kernel.org>
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ Hannes Reinecke <hare@kernel.org>, Chuck Lever <cel@kernel.org>, 
+ kernel-tls-handshake@lists.linux.dev, linux-nvme@lists.infradead.org, 
+ Alistair Francis <alistair.francis@wdc.com>, 
+ Martin Belanger <martin.belanger@dell.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792975010; l=6847;
+ i=martin.nvme.dev@gmail.com; s=20261014; h=from:subject:message-id;
+ bh=8UZFN1cRdKbWt6RJPkStUNTa4RaQUBhZuK1TTZ3bbtE=;
+ b=9MNgUSopJBMSt7m4hdjDuxnr3gNYQbXURaMI+up1uJel/qpXEeJG/fcJ+2TUyyg1MyvXlAjTp
+ wROEebcVrJnDJAutgSEJ343k2Lof6UaoTgb4HzudvAfJ/9ZITMRgii+
+X-Developer-Key: i=martin.nvme.dev@gmail.com; a=ed25519;
+ pk=4K+XXetGK35w2LzRRddd/bbHawZU222BN+YZRuSpN+k=
+X-Endpoint-Received: by B4 Relay for martin.nvme.dev@gmail.com/20261014
+ with auth_id=1176
+X-Original-From: Martin Belanger <martin.nvme.dev@gmail.com>
+Reply-To: martin.nvme.dev@gmail.com
 
-On Tue, Oct 20, 2026 at 08:02:06PM -0700, Abdurrahman Hussain wrote:
-> The TDK FS1412 and FS1525 are 12A and 25A uPOL regulators with a PMBus
-> interface. They need only a reg property, so document them as trivial
-> devices.
-> 
-> Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+kTLS does not currently handle TLS 1.3 KeyUpdate. It never sends a
+KeyUpdate. And when it receives one, it blocks the socket until the
+application installs the next key. kTLS also does not enforce the key
+usage limit on transmit.
 
-Applied.
+This applies to TLS libraries in user space as well as kernel users such
+as NVMe/TCP or sunrpc:
 
-Thanks,
-Guenter
+- GnuTLS sends a KeyUpdate after 2^24 records when it runs its own
+  record layer. With kTLS, the record layer is handled in the kernel and
+  GnuTLS therefore never runs the check. OpenSSL never sends a KeyUpdate
+  on its own.
+- NVMe/TCP and sunrpc don't have a mechanism to install a new key. A
+  conforming peer that sends a KeyUpdate stalls their connection.
+
+RFC 9846 (July 2026), which obsoletes RFC 8446, makes the limit
+mandatory (section 5.5): "Implementations MUST either close the
+connection or do a key update as described in Section 4.7.3 prior to
+reaching these limits." Long-lived connections with small records reach
+the limit quickly. One NVMe/TCP queue sends at least one record per
+command, and more with large I/O. Depending on the load and link speed,
+the 2^24 limit can be reached in less than 10 minutes in many cases.
+
+With this series, kTLS handles KeyUpdate in both directions for a socket
+that registers its traffic secrets. A socket that does not register them
+behaves as before. A user can opt in by passing the secrets after the
+handshake. GnuTLS and OpenSSL install the kTLS keys themselves, so they
+could register the secrets at the same time. tlshd gets the secrets from
+GnuTLS through a callback it uses for QUIC.
+
+Why the record layer
+====================
+
+KeyUpdate must be handled where the records are built.
+
+The 2^24 limit is a record count, and only the record layer can see the
+count precisely as it changes. A user sitting above kTLS can only read
+the count with getsockopt(TLS_TX) after each write. A kTLS user writes
+bytes, and the kernel splits and merges those bytes into records. I
+counted send calls in an NVMe/TCP prototype trying to guesstimate the
+2^24 limit. The count was correct with 4 KB I/O, but was 21 times too
+low with 1 MB I/O. Each send call translates into a different number of
+records. It's simply not possible to precisely guess the number of
+records based on the number of send calls.
+
+The KeyUpdate must also go at a precise place in the record stream
+(section 4.7.3). It is encrypted with the old key, and every record
+after it with the new key. When the peer sets update_requested, our
+KeyUpdate must go out before the next Application Data record. The key
+can only change between two records. Only net/tls has control over that.
+Fixing this in one driver or library would leave other drivers or
+libraries to re-implement their own (imperfect) solution.
+
+The in-kernel QUIC series under review on netdev splits the work the
+same way as this proposed fix. The handshake stays in user space, the
+secrets are passed in with a socket option, and the kernel derives each
+key update with HKDF-Expand-Label (quic_crypto_key_update()).
+
+What the series does
+====================
+
+- Two new socket options, TLS_TX_TRAFFIC_SECRET and
+  TLS_RX_TRAFFIC_SECRET, are used to register the application traffic
+  secrets. The secret is passed as raw bytes. The kernel derives the
+  hash (SHA-256 or SHA-384) from the cipher installed with TLS_TX or
+  TLS_RX. The TX secret must be set first because the RX secret needs
+  the TX secret in case a received KeyUpdate asks for a reply.
+- A third socket option, TLS_TX_KEY_UPDATE, can be used to send a
+  KeyUpdate now. It can also optionally ask the peer to update too.
+- Receive: kTLS consumes the KeyUpdate, installs the next key and
+  continues. This works for recvmsg, splice and read_sock.
+- Transmit: kTLS sends a KeyUpdate after 2^24 records, a margin below
+  the 2^24.5 limit of RFC 9846 section 5.5, and in reply to
+  update_requested. ChaCha20-Poly1305 has no record limit.
+- kTLS aborts the connection when a peer sends more than 8 KeyUpdates in
+  one second, or an invalid KeyUpdate. GnuTLS uses the same rate limit.
+- Software path only. Device offload is unchanged.
+- SM4-GCM and SM4-CCM are not supported: the kernel has no HMAC-SM3.
+
+Testing
+=======
+
+- NVMe/TCP host and target over loopback, with the record limit and the
+  rate limit lowered for the test: more than 1000 KeyUpdates in each
+  direction under I/O, with AES-128-GCM and AES-256-GCM.
+- Interoperability with OpenSSL in user space, which derives the keys on
+  its own, including the reply to update_requested.
+- New selftests in tools/testing/selftests/net/tls.c for every TLS 1.3
+  cipher kTLS supports. The full tls selftest passes.
+
+The matching tlshd change for ktls-utils is a small patch to be
+submitted at a later time if this series is accepted.
+
+Questions
+=========
+
+This is an RFC for feedback on the design and the new socket options, in
+particular:
+
+1. I used one socket option per direction, like TLS_TX and TLS_RX. Is
+   that the right form? Would one option that sets secrets for both
+   directions be better?
+2. When the application installs a key itself with TLS_TX or TLS_RX
+   after the secrets have already been registered, the series removes
+   the registered secrets (TLS_TX removes both, TLS_RX only the RX
+   secret) and gives KeyUpdate back to the application. Is that right,
+   or should the key change be refused while a secret is registered?
+3. TLS_TX_KEY_UPDATE (patch 4) is not needed for the record limit. I can
+   move it to a separate series if you prefer a smaller first step.
+
+Signed-off-by: Martin Belanger <martin.belanger@dell.com>
+---
+Martin Belanger (5):
+      tls: add HKDF-Expand-Label for the TLS 1.3 key schedule
+      tls: add socket options to register the traffic secrets
+      tls: update the RX key when a KeyUpdate is received
+      tls: send a KeyUpdate at the record limit and on request
+      selftests/tls: add KeyUpdate tests
+
+ Documentation/networking/tls.rst  |  43 +++++++
+ include/net/tls.h                 |  23 ++++
+ include/uapi/linux/tls.h          |   3 +
+ net/tls/Kconfig                   |   2 +
+ net/tls/Makefile                  |   3 +-
+ net/tls/tls.h                     |   5 +
+ net/tls/tls_hkdf.c                |  82 +++++++++++++
+ net/tls/tls_keyupdate.c           | 155 ++++++++++++++++++++++++
+ net/tls/tls_main.c                | 118 +++++++++++++++++-
+ net/tls/tls_sw.c                  | 184 ++++++++++++++++++++++++++--
+ tools/testing/selftests/net/tls.c | 249 ++++++++++++++++++++++++++++++++++++++
+ 11 files changed, 858 insertions(+), 9 deletions(-)
+---
+base-commit: 1a2c35c49cc7c6be860038b8442b52424a8f123c
+change-id: 20261025-keyupdate-rfc-94d3c7e84077
+
+Best regards,
+--  
+Martin Belanger <martin.nvme.dev@gmail.com>
+
+
