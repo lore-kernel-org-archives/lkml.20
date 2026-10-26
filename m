@@ -1,83 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793034745;
-	b=xNS3oxjLhfFT5Ah1D5+gbyYTLNz6LtY1q2QE7i1DS8skdYVMjkvLlJCay3MGYhb/AZ8a
-	 QV2EZd6VDgj6/lAsyT5a7jypqMAdE0ZuzH/8pAKQGw+lDKfmunHUyelGz6UhyJCHFjMG8
-	 uQkLRixnp9GXPpDiLwcYslDQeiQZpgHhgIpVXVWzS6JlPLVpI+t2FVbs/NF0OfaR2144A
-	 gihtQo+gefzGpid/Vd4UMuu9BDcj6hI/Zl0R4X9QVK3bfOfFT+TLg/15lengglKgWhh9t
-	 mCdC9hlWO9ZBdJ8dVOg8adD9BqL5gMH6GQt2N12uGDrvlvRKc99itdIW2OBYqhFc0kg==
+	t=1793034742;
+	b=BK4h8Z/8TDCmaMLQjX60Vzxf/Jav9el7fRf/H2JdsJdI7Wqho4V5F40LxJYIY3iC401P
+	 UZ9L1zcj2h05wOnjp8YM6pZj4kVAPefZ6L/UhA27ZQFNJYlL3YszU7K8q2rCxN8It7gR5
+	 w8W7hzdUVcDEPCCrT/bJWGVPXxMpGKtGWMOStnQF9LQJRPtv4joAyoJez/FEfE31zrcr7
+	 USdz7ARoQBI61ksNMWNLYaq9GSWzvniRDe1/QwtYVRXJg8V391/u0aiC8LUlN8OIqGbKi
+	 zVOi9E7mzihCjdIlGi03fZJXWQuFR+tcMPT1W3cwfCCpdFurZM+m9LmZAe3GVKqk/lQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793034745;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793034742;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=iOoWEuPN8PjFnVXTaFSVmZD4apYLmhkxv/+CXdjOZWk=;
-	b=QPVkovifsiWVZXJYAn1DkpocOIeu3LgiTO+cveNoUKoleZ7fhOeIuQYY7WXBptH2sHEj
-	 BdKRn3eL3iUC3Ie+hH+Je3sfliv5eWUo3q7km1yNfPtgzFnKMWX2WTBEcDRsYZ8fg37ly
-	 dIX/KH60uwpr7yH4Va8NXTVyRGw9Nxj5NVEIu0NTPGUKP3H6zpPMKlFWgOFbFdSwgq2bq
-	 z4bTC4tcg9tmlPusgRyKjhPoKtzero8CsWVKFnY5EuDNo15vKKKY7EMgYWuOOaLzRbbFV
-	 nsRMwnEc7of4AL/PygGVeG5Pf08J/cC95ENGJoBPcBwpsom0+4unEDJMHzjk8wg1u6w==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=/UWa9cXw4yw98mMhsberGzcPxMx0T4HT1OYdgpW1NKw=;
+	b=aQtLasSFrvjX0pcfTipSlCb609HH7u0cQOc4LwWcOF22+YpktzxkyJsiCCXoI4gLRHoz
+	 tOw/rYr2W7dQHPHgRNfVS1DX0BLUY2vYEPdZ5fxseNQBQonbrPkGNpSwuMSJIuRwIkWQx
+	 H150NQAdBjBdHQpw2gahBu3kUMm8Nji24FuUayjGUYLViIeR9Uk2siLaFcPFD/7bWdDSv
+	 4mqeypa2fuXsoUF4RKC2snSonvbE9LFyn0HUkZOvtLdCvntMAD/BKEJFa9Ex0EUwkNb11
+	 32KyUfMrus0CnWbNSvklHhXCjSY8pyXtmWe8do54H5mFgC+4HOQzg8/PZTFbiU6gYmQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=byAEJTzM;
-	arc=none smtp.remote-ip=74.125.82.178
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=hZAvbhrS;
+	arc=none smtp.remote-ip=74.125.82.181
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69A70606A323
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 17:12:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69A70606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75A62606A31E
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 17:12:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75A62606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=byAEJTzM
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso9512194eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:12:25 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=hZAvbhrS
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-33fb4680717so5889951eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:12:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793034745; x=1793639545; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iOoWEuPN8PjFnVXTaFSVmZD4apYLmhkxv/+CXdjOZWk=;
-        b=byAEJTzM5h3m3pLs9kOLClXB4NK0e6CQybHiG3+TjFRtHyzUb3K68VWa5AHmyQdhsF
-         jncHkDdouVXXW9VDmMqC/9nXvk1uzbZce/nZ2KY8e4pRXeYWHd1A0gfZa6/pSM+OlX4o
-         3VKAi7j/p+RTSXR0hNpw1TuCVlCSK1ExEy4INfLTuYm12YpNdS5oeveQYd8oDhcxiOcA
-         /oituPNmc7JAw0NMDBJouk6GgWvoqr7QmQi3ph9m+4aXlMhTsA/nrmyVAdN9r7/nifq2
-         ewhSACOKiL2Y5/KTGRg2qvEE7PXxWePB3mkSQj0E+bQuusYQspjqft8kRWZQ/+vGnkqu
-         VIuA==
+        d=gmail.com; s=20251104; t=1793034741; x=1793639541; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/UWa9cXw4yw98mMhsberGzcPxMx0T4HT1OYdgpW1NKw=;
+        b=hZAvbhrSMainnQpfsPBEEjcu5q2TyNtUPH1dDMKzJCIgYBPtvQUv/WLBENwclcvtSw
+         B7p63z96Dw//7bDqd/WqceKFM5ItJR7cwIGZSp/koDwC3iU/A+DLL34p7uXe5cfZSgJ3
+         A80scB7/wdXobGzBdFv4B/k9r3EZCNTWm/DZJJFU2f6cV0KqZG1p6wOnOcdIaHE0BFwj
+         /1WJNttieMFtlvA495SGtNISLfvab1BdS/SwoSp7+IkklFEwq2kN9GinxxLQElWERpMS
+         KBu6u6lbceDVbSOP5dgOZwXaw4Xap7svxzoBSv9MFbDqedkRCbc6HnU4HB68KIZKJnBL
+         KS1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793034745; x=1793639545;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iOoWEuPN8PjFnVXTaFSVmZD4apYLmhkxv/+CXdjOZWk=;
-        b=umO7B/S8Ov3TQavVBwPbvzi/lH/jSNnC7CM9fiTAW1r+XAa0Zt1wOOE8RantJHkSes
-         37XIy3Ce42FFsnBgzh4EBd9uwJm1gDnlta5S/vJWL1L2Zt+ZixT3rUkreYSLxE5XTTjx
-         3wQF53bFAp3T+uyQ4hS4YKgqQIX+aTLycwucYtjLY9IL9c6E9r4yAMj0kYyXetDfLpcg
-         LlZg2Kw/UTyLhczT6k6hDwb0kA7TYxPRrNpKgJpsgHu8V5/jxjo6cT30K7TQxEefgfAD
-         nBFI8oHMvvJifBimerw9/imL9ScHv7G3jWz46Vnp47Xqn/NMwip9aVPp/Lq8HtNdP3BU
-         kwLw==
-X-Forwarded-Encrypted: i=1; AKwUvBw6iOJChQKHoSu6C5F8Fe3VND6s8nUdRlWkOneC3GLyBjwRl8T914vRwol76uk7eYQM68Ty/9g5RSx3pHU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJlrIaJyvVhhRlDjJgbDqhGyNSTWRv/WXrFtr5sxxfaJc80kAMd
-	JtFfo9ozB19o8zbfeoj6j5ANiGRQ4JdpH7G99c5INvhXv+i/U5FKU/IHBa20JVMt
-X-Gm-Gg: AYBFou3C3z9ZmzdGS9v35hnUDwvtwIZniLYfxMk8daFMfgagQxzwwGVpZd9cvm3Rf1h
-	b31YBh38i5X8nigxi15+zx+Xf0HdcCocSiKoDg/vjHxaPppc1E9NZzgzYF4Zs+Fajz9z7kcYD1X
-	IbTqDMU1REFpB+qiBb0A8LkDbuIGhwXP8Clqk2ZJ6fIxT6T1rQW/ko5CKde/7/758ZV9B1znCL5
-	CvWJMDp6Qs1fZCEf8aJRfzx/fb49w5XmSXrApzHIkIzt49xRbP9jdSJ0nxcxetjKyzbcn7rj9hA
-	+tpRMn+JA29cAl/5rlxIkzt+FcLY1eWvA/fZ2uEc7XabfnxIDpxkxqTIJy8aaRK5q30JvvZ/wVS
-	AkoZjcjBcss4vTuCPUAb1FGgRCqt2Msr+z5B7qefIKkFokdMxQpMLA6OmBQvAar2Y2+OD8vAqUo
-	MBgEP70tvDje5h4UV39KS/OUc6KpflHS447J+b1jdtcy7jmqane7reeUkywrIloMdUjWph9CzdW
-	D8ay2OhSuFKiH0isOjK7bxOolsf1llg+C5/vS91PJPeN0jONZeaSIj7ILidp+X5Nbsu5feZjSF8
-	fZ74DXklxg6/5wTEyQeqp1OP5ubACxcQZfrJbRj4Df1Pm2OugwoKHWE=
-X-Received: by 2002:a05:7300:2301:b0:347:8d01:164f with SMTP id 5a478bee46e88-369e84b15ccmr17584028eec.19.1793034744342;
-        Mon, 26 Oct 2026 10:12:24 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1793034741; x=1793639541;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/UWa9cXw4yw98mMhsberGzcPxMx0T4HT1OYdgpW1NKw=;
+        b=BGt6fLK+9O3GB5AYPsFlkdakPc8kMgmcroIeNCPK+lviGBExyG2jYvoeaYiajzOoDO
+         iGxviuhlsYk/dzU7rUaMpE86Ivmkl6s7zPca8qqLG4j/7zHkX6YwaTKLsVMFpa3hoSqo
+         uReLNJNPwb4I2N9hW2yyGhzmwADXGI2HR+Ums6TXbYmprHtaSus+OVxtj0Hrss9bReOi
+         K1Dwn07xsl7ELBJivxFfCuGooXfSyBIJlLRjgUcZQyNvLzCD0SSPoea1m/v0vsPxQZrj
+         0y9NA+HnYaZlPSJYZJYVI4wtTgkWpOAnm3DlYqqKJj0Gf9zeoZzXjPJTqCU+T1yUGYax
+         Hsww==
+X-Forwarded-Encrypted: i=1; AKwUvBy1g/FmlDQf+aBfB5YhfpmlaKFt1FbKxsGxkDZBLWumQna1IVPwDiB1yiEOVZUGmLtlltr9O036KJ1oFpM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLtKV2hoIR9ywWe+kTRkrgLG/adwySp4pMT/gJrf0FwKxOLyTnc
+	u96VlEgUKdPJXmbnNJuKX0YmuewoiJsBRHxRwridbCkz3aNtctSmExhR
+X-Gm-Gg: AYBFou16iTehzXIPHOPbqKbqds9pN7mlzCx14PdCkGxCupbbPDGosxR0gji8vXvBers
+	g9euPcID/tXlrWfasTTo4s8YZnp1aOp4p3xPfuQlXJn9iGwnhrCCcUC24Pr0sMYqPXz8ggKZyCD
+	vBDqhBemRrMfn7nDo0dXf/FlwhUPV/ERnV4hJbHga6Yp3it4okIEOBgkZe7QA5FkMixey4Hn0d2
+	BHpg0Wj5GAGIV4yamesksK0ArKq5hUkPzEqniJ9kLOjuHhspjyclxpsxAbfHK0w0QyQMxMSb4ME
+	fEB2+5AjF9Hz69Uw9HcZi3WkMoY4QumI74hIUeFO5iywT9eqK/EhwZhvsWwjc0SN5oSxkYedM3d
+	nHMHL2k1L4q36iAD1lbpny/PO25pWK9y2iWD7DHBQM8Vl7rvLtTpmgaisoXVkUjk+93Wrdotuyy
+	lMkbQzp/LSrwGLB5W0pl8ga84f+jZ2GoEw6L0irzcPSxYd5fb4llEMjmGMaz29oW779SBxUSi4y
+	isaaxuMm653Fo8s/wXDnoIs7PTwEEMgv4JJiZAkQorte5JsfV/l86P0O8wHEI3RvGRzOSixWFI8
+	xlDy6w==
+X-Received: by 2002:a05:693c:415b:10b0:368:c6b9:d3c0 with SMTP id 5a478bee46e88-369e85080a0mr13138493eec.28.1793034741233;
+        Mon, 26 Oct 2026 10:12:21 -0700 (PDT)
 Received: from eldorado (ip70-187-214-22.oc.oc.cox.net. [70.187.214.22])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369f27d5bf8sm24878750eec.4.2026.10.26.10.12.22
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369f27d5bf8sm24878750eec.4.2026.10.26.10.12.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 10:12:22 -0700 (PDT)
+        Mon, 26 Oct 2026 10:12:20 -0700 (PDT)
 From: Florian Fainelli <f.fainelli@gmail.com>
 To: netdev@vger.kernel.org
 Cc: Florian Fainelli <f.fainelli@gmail.com>,
@@ -89,12 +88,10 @@ Cc: Florian Fainelli <f.fainelli@gmail.com>,
 	Paolo Abeni <pabeni@redhat.com>,
 	Simon Horman <horms@kernel.org>,
 	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH net v2 2/2] net: dsa: mv88e6xxx: fix 88E6171 statistics type
-Date: Mon, 26 Oct 2026 09:47:33 -0700
-Message-ID: <20261026164733.737299-3-f.fainelli@gmail.com>
+Subject: [PATCH net v2 0/2] net: dsa: mv88e6xxx: 88E6171 stats fixes
+Date: Mon, 26 Oct 2026 09:47:31 -0700
+Message-ID: <20261026164733.737299-1-f.fainelli@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261026164733.737299-1-f.fainelli@gmail.com>
-References: <20261026164733.737299-1-f.fainelli@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,42 +103,24 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The 88E6171 uses the 6095 statistics operations, which advertise and name
-BANK0 and PORT counters. Its stats_type bitmap instead selects BANK0 and
-BANK1. Since statistics collection started using that bitmap, it has
-written a different set of counters from the one advertised to ethtool.
+These two patches fixes statistics on the 88E6171 present on the Linksys
+EA4500 router. These changes were found during testing using a
+resurrected version of Andrew's dsa-tests:
 
-For this chip, get_sset_count() accounts for 30 BANK0 counters, three
-PORT counters and five ATU/VTU counters. Collection instead writes 30
-BANK0 counters, 26 BANK1 counters and five ATU/VTU counters: 61 entries
-rather than the advertised 38. This mislabels the tail of the returned
-statistics and writes past the advertised statistics buffer.
+https://github.com/lunn/dsa-tests
 
-Select BANK0 and PORT counters to match the chip's statistics operations
-and restore the filter used before the bitmap was introduced. Tested on
-an EA4500, where the two-bridge forwarding and multicast snooping tests
-now pass their hardware counter checks.
+Changes in v2:
 
-Fixes: 5595e3613ea7 ("dsa: mv88e6xxx: Move available stats into info structure")
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
-Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
----
- drivers/net/dsa/mv88e6xxx/chip.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+- cover all of the affected switches in patch #1
+- add Andrew's R-b tag in patch #2
 
-diff --git a/drivers/net/dsa/mv88e6xxx/chip.c b/drivers/net/dsa/mv88e6xxx/chip.c
-index 675b82857754..dbc4a6be54fd 100644
---- a/drivers/net/dsa/mv88e6xxx/chip.c
-+++ b/drivers/net/dsa/mv88e6xxx/chip.c
-@@ -5960,7 +5960,7 @@ static const struct mv88e6xxx_info mv88e6xxx_table[] = {
- 		.age_time_coeff = 15000,
- 		.g1_irqs = 9,
- 		.g2_irqs = 10,
--		.stats_type = STATS_TYPE_BANK0 | STATS_TYPE_BANK1,
-+		.stats_type = STATS_TYPE_BANK0 | STATS_TYPE_PORT,
- 		.atu_move_port_mask = 0xf,
- 		.pvt = true,
- 		.multi_chip = true,
+Florian Fainelli (2):
+  net: dsa: mv88e6xxx: fix 6351 family statistics snapshot
+  net: dsa: mv88e6xxx: fix 88E6171 statistics type
+
+ drivers/net/dsa/mv88e6xxx/chip.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
 -- 
 2.53.0
 
