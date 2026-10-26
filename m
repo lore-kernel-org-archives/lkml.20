@@ -1,64 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.111
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.250.56.165
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793018897;
-	b=nrOL0KlbbuQigosvcWsX5jmqDWgk3GDALL9NaI2xv/W22jDTG+ADglyyZx3jiAl7vgMj
-	 CQFhmQnjFhbZ8+CNSUDZItg0wKF0qjSnH/426JrDLIg4vCpmq6k50Z5DmWhT+CwVl0GPr
-	 jguQBJoaZhCp0cR2d7Z05NWW1O6OSeXnrsSUh8Tj1a/BHzh3EPV0vL/eB15svLvcqm/mS
-	 XmEKpqR7ZnorjFRo8baowsHuTIceusuk1BlSs4jz6jnNftDLdmReO2ew22TxXvxW4gH7E
-	 4ibBxAP5ciEvEHfoy64wGtqoIsAPJBWPPqb8a8qkrDdUWKxh6KIJT855lq96bl+bqbA==
+	t=1793018945;
+	b=0ewIJwdy15VfbdlYU+sdThTQRquwicjSFBQI62qWtPqTZsacVxLhIaX6n31gmbF/m0OS
+	 6Fh0kcUHDXdvSWzGZLy2HXYyznBWBCsHsX4xw/4Q8DzvIpd8MFBdteCSBe+AY0HmYGSnP
+	 v0p9KEohf+He2wiqeGL0yfuNBrZNvhfIk4TRNFl3j7d5qyzt+athBX/wEb4QqwHPEbisE
+	 xAYEYr1BmU0z0OtiH5xhikvJ4vsr3xqAxnbcbHxpPZ0yC1IndV7ttUXwfCkf64CLHnHe+
+	 /PVmFqlwTCwuAcYWg88SqpwvQ2f9CEfS9hjKKnO6UNWPkbcuhX6m25BiMPgGwcgs7Kg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793018897;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793018945;
+	h=DMARC-Filter:Received:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=iSQTJc/iRoE9ap2PM0X1PteM4qNBL5Yn8mEgnBJnQKo=;
-	b=rYH34tLXzSAs35g2VKkcCU2r35OQIVCqHIbhJz3Df6yIJWVeiwOl8LPh/mhmpqtFWjC9
-	 mqgwFN215v+ogS4uaZtHsfhCNjY17X+Vxetf64zj/7iCIyIfWg34vwbL1DgotpfGzLjyn
-	 wZn3tEXT42XIE4ZqgE4ehzsKaWB+v+cXFO2+o0TCvvYN6ODgL88SGJSa5AIXfmk3vqAzd
-	 VofWRAOeWvy/Dlq6b+34++TNic319dU3kA+5BR4MclJ2O8In2K5MOjmqIeK/kIyQ7f86m
-	 6j5+KG5Rzf9+htKC0zPTLxCAIAs99Bktclu/BeWHtS/germbPIPH1zjrrE0Lc3BJMAA==
+	bh=x3tZrNEj6Izrz6Ol6so5T/1/B/wLw4Q2nD05/ulbAI4=;
+	b=J3d7v/6Dx7Oio2dWAesAyjTEYG3ZfmMryd81SyQFrYcO+GYAjmCOWPLdu7A2tkykggpb
+	 12QukwcNja11XKRGvLzD6qcn2JYmutrzjbIMMgAg/kkg9HOfc2l9SY89TTX6/kvM9fePf
+	 1NOBybR9JbpecASlbJpPtg/CiSt1VR5040dBZv3HyzyOiCw6iQI/mUbmm4wCuzTFFbmj0
+	 e1D6aYPwwXrjEOhUY62JU/BNwbfRresHf5jOyfdwGEKHkIrMlczhtTHhzY+ZH/ye83i15
+	 QwToTmI9ICqKzQ9l0/XwkRJ87jF5YWhBT74h4vcxwQk/IUrDXlGFKaKazIXoYAe0Ixg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=UmeEj3gw;
-	arc=none smtp.remote-ip=115.124.30.111
-Received: from out30-111.freemail.mail.aliyun.com (out30-111.freemail.mail.aliyun.com [115.124.30.111])
+	dmarc=pass header.from=ideco.ru;
+	spf=pass smtp.mailfrom=ideco.ru;
+	dkim=pass header.d=ideco.ru header.i=@ideco.ru header.a=rsa-sha256 header.s=ics header.b=ZnG4lyXx;
+	arc=none smtp.remote-ip=51.250.56.165
+Received: from smtp.ideco.ru (smtp.ideco.ru [51.250.56.165])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EB2F606A31B;
-	Mon, 26 Oct 2026 12:48:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EB2F606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56C12606A31A;
+	Mon, 26 Oct 2026 12:49:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56C12606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideco.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideco.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=UmeEj3gw
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1793018891; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=iSQTJc/iRoE9ap2PM0X1PteM4qNBL5Yn8mEgnBJnQKo=;
-	b=UmeEj3gwt1JUY4jmlwN9yfmGtOahX/+YRi01iz5RV064oVTtKlUl6X22oy+ObTkxCtb+H9+1e4FEY9oA1z7S4AWULqffnviSD3clw+df0uGtblyaLg+XsHPRgMFHFJMbJqZoB0DC8bRNDt41Kevy6qn2YDuBeiYny+3990LXIMk=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R171e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=xiangzao@linux.alibaba.com;NM=1;PH=DS;RN=10;SR=0;TI=SMTPD_---0XDYKCv3_1793018881;
-Received: from banye.tbsite.net(mailfrom:xiangzao@linux.alibaba.com fp:SMTPD_---0XDYKCv3_1793018881 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Mon, 26 Oct 2026 20:48:10 +0800
-From: Yuanhe Shu <xiangzao@linux.alibaba.com>
-To: sashiko-bot@kernel.org
-Cc: mkp@kernel.org,
-	linux-scsi@vger.kernel.org,
-	target-devel@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=ideco.ru header.i=@ideco.ru header.a=rsa-sha256 header.s=ics header.b=ZnG4lyXx
+Received: from [169.254.254.254] (localhost [127.0.0.1])
+	by smtp.ideco.ru (Postfix) with ESMTP id 1B9B618A4E;
+	Mon, 26 Oct 2026 17:48:55 +0500 (+05)
+Received: from fedora (5cfcac1b.dynamic.mv.ru [92.252.172.27])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.ideco.ru (Postfix) with ESMTPSA id 723C133363;
+	Mon, 26 Oct 2026 17:48:25 +0500 (+05)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp.ideco.ru 723C133363
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ideco.ru; s=ics;
+	t=1793018934; bh=x3tZrNEj6Izrz6Ol6so5T/1/B/wLw4Q2nD05/ulbAI4=;
+	h=From:To:Cc:Subject:Date;
+	b=ZnG4lyXxmaYqab22+7p1mNqqmEpiLAp4nPsQqZmK24/PYwag4HNi05WuXboXdSxSE
+	 gMAttKm6++CN3tGJ890xlA8WhE3zbE5muBfE33sJmxI2obZqMzrswYkXQsuMG3EWlc
+	 7KsiHQxW7e08SBJ+F5Ul1vj0pO0Jii88M0K/LoP5ePoX40hv8BMBA/hMPbAzQ5mWnD
+	 5bmy8jvDhn2qqn4fYJM4j3Sv7uG/holFmNbn0WxUiRzqWol8G8z1E6azBqMID9hOyL
+	 +UMySHZpUvRmZ9z1cFvwAd/tTd0TtQvf01pcdz4r/De9GRNS17u6Pp9VBcyexkIG0R
+	 vQjudsoFN9q1Q==
+From: Alex Kazinsky <a.kazinsky@ideco.ru>
+To: Detlev Casanova <detlev.casanova@collabora.com>
+Cc: Alex Kazinsky <a.kazinsky@ideco.ru>,
+	Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	john.garry@linux.dev,
-	ddiss@suse.de,
-	hexlabsecurity@proton.me,
-	xiangzao@linux.alibaba.com
-Subject: Re: [PATCH] scsi: target: Verify the iSCSI ISID is NUL-terminated
-Date: Mon, 26 Oct 2026 20:48:01 +0800
-Message-ID: <20261026124801.2720682-1-xiangzao@linux.alibaba.com>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <sashiko-outbox-184760@kernel.org>
-References: <20261026044632.1738901-1-xiangzao@linux.alibaba.com> <sashiko-outbox-184760@kernel.org>
+	lvc-project@linuxtesting.org
+Subject: [PATCH v2] media: rkvdec: Handle interrupts without a current context
+Date: Mon, 26 Oct 2026 16:48:07 +0400
+Message-ID: <20261026124808.642373-1-a.kazinsky@ideco.ru>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,14 +80,140 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Sashiko is right.  get_unaligned_be64() reads the first 8 bytes
-unconditionally, and the NUL check alone does not bound that when
-fewer than 8 bytes remain in the descriptor.
+The watchdog can finish the current job before the threaded IRQ handler
+retrieves its context. In that case, v4l2_m2m_get_curr_priv() returns NULL,
+but the variant IRQ handlers unconditionally dereference ctx->dev.
 
-v2 requires 8 bytes to remain after the separator, in addition to
-the NUL, so every consumer stays inside the descriptor.
+Pass the device pointer to the variant IRQ handlers independently of the
+context. Clear the interrupt status and, for VDPU383, disable interrupts
+before returning if no current context exists. This avoids dereferencing
+NULL while still acknowledging the interrupt.
 
-v2: https://lore.kernel.org/r/20261026124138.2708365-1-xiangzao@linux.alibaba.com/
+Found by Linux Verification Center (linuxtesting.org) with SVACE.
 
+Fixes: f9c7b7deeffd ("media: rkvdec: Support per-variant interrupt handler")
+Signed-off-by: Alex Kazinsky <a.kazinsky@ideco.ru>
+---
+Link to v1: https://lore.kernel.org/all/20261023131124.94116-1-a.kazinsky@ideco.ru/
+
+This issue has not been reproduced on hardware. The watchdog/IRQ race
+described above is based on code analysis.
+
+A possible test would be to submit a single decoding job and temporarily
+delay the IRQ thread before v4l2_m2m_get_curr_priv() for longer than the
+watchdog timeout. This would artificially widen the suspected race window.
+This experiment has not been performed.
+
+Changes in v2:
+- Fix continuation-line alignment in the IRQ handler declarations.
+- Clarify that the issue has not been reproduced on hardware and
+  describe a possible test.
+
+ .../media/platform/rockchip/rkvdec/rkvdec.c   | 23 +++++++++++++------
+ .../media/platform/rockchip/rkvdec/rkvdec.h   |  4 +++-
+ 2 files changed, 19 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec.c b/drivers/media/platform/rockchip/rkvdec/rkvdec.c
+index 061281f903f3..da4ed7bde05c 100644
+--- a/drivers/media/platform/rockchip/rkvdec/rkvdec.c
++++ b/drivers/media/platform/rockchip/rkvdec/rkvdec.c
+@@ -1434,15 +1434,18 @@ static void rkvdec_iommu_restore(struct rkvdec_dev *rkvdec)
+ 	}
+ }
+ 
+-static irqreturn_t rk3399_irq_handler(struct rkvdec_ctx *ctx)
++static irqreturn_t rk3399_irq_handler(struct rkvdec_dev *rkvdec,
++				      struct rkvdec_ctx *ctx)
+ {
+-	struct rkvdec_dev *rkvdec = ctx->dev;
+ 	enum vb2_buffer_state state;
+ 	u32 status;
+ 
+ 	status = readl(rkvdec->regs + RKVDEC_REG_INTERRUPT);
+ 	writel(0, rkvdec->regs + RKVDEC_REG_INTERRUPT);
+ 
++	if (!ctx)
++		return IRQ_HANDLED;
++
+ 	if (status & RKVDEC_RDY_STA) {
+ 		state = VB2_BUF_STATE_DONE;
+ 	} else {
+@@ -1457,9 +1460,9 @@ static irqreturn_t rk3399_irq_handler(struct rkvdec_ctx *ctx)
+ 	return IRQ_HANDLED;
+ }
+ 
+-static irqreturn_t vdpu381_irq_handler(struct rkvdec_ctx *ctx)
++static irqreturn_t vdpu381_irq_handler(struct rkvdec_dev *rkvdec,
++				       struct rkvdec_ctx *ctx)
+ {
+-	struct rkvdec_dev *rkvdec = ctx->dev;
+ 	enum vb2_buffer_state state;
+ 	bool need_reset = 0;
+ 	u32 status;
+@@ -1467,6 +1470,9 @@ static irqreturn_t vdpu381_irq_handler(struct rkvdec_ctx *ctx)
+ 	status = readl(rkvdec->regs + VDPU381_REG_STA_INT);
+ 	writel(0, rkvdec->regs + VDPU381_REG_STA_INT);
+ 
++	if (!ctx)
++		return IRQ_HANDLED;
++
+ 	if (status & VDPU381_STA_INT_DEC_RDY_STA) {
+ 		state = VB2_BUF_STATE_DONE;
+ 	} else {
+@@ -1486,9 +1492,9 @@ static irqreturn_t vdpu381_irq_handler(struct rkvdec_ctx *ctx)
+ 	return IRQ_HANDLED;
+ }
+ 
+-static irqreturn_t vdpu383_irq_handler(struct rkvdec_ctx *ctx)
++static irqreturn_t vdpu383_irq_handler(struct rkvdec_dev *rkvdec,
++				       struct rkvdec_ctx *ctx)
+ {
+-	struct rkvdec_dev *rkvdec = ctx->dev;
+ 	enum vb2_buffer_state state;
+ 	bool need_reset = 0;
+ 	u32 status;
+@@ -1499,6 +1505,9 @@ static irqreturn_t vdpu383_irq_handler(struct rkvdec_ctx *ctx)
+ 	writel(FIELD_PREP_WM16(VDPU383_INT_EN_IRQ | VDPU383_INT_EN_LINE_IRQ, 0),
+ 	       rkvdec->link + VDPU383_LINK_INT_EN);
+ 
++	if (!ctx)
++		return IRQ_HANDLED;
++
+ 	if (status & VDPU383_STA_INT_DEC_RDY_STA) {
+ 		state = VB2_BUF_STATE_DONE;
+ 	} else {
+@@ -1521,7 +1530,7 @@ static irqreturn_t rkvdec_irq_handler(int irq, void *priv)
+ 	struct rkvdec_ctx *ctx = v4l2_m2m_get_curr_priv(rkvdec->m2m_dev);
+ 	const struct rkvdec_variant *variant = rkvdec->variant;
+ 
+-	return variant->ops->irq_handler(ctx);
++	return variant->ops->irq_handler(rkvdec, ctx);
+ }
+ 
+ /*
+diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec.h b/drivers/media/platform/rockchip/rkvdec/rkvdec.h
+index a24be6638b6b..8bcb51db5105 100644
+--- a/drivers/media/platform/rockchip/rkvdec/rkvdec.h
++++ b/drivers/media/platform/rockchip/rkvdec/rkvdec.h
+@@ -30,6 +30,7 @@
+ #define RKVDEC_8K_PIXELS		(7680 * 4320)
+ 
+ struct rkvdec_ctx;
++struct rkvdec_dev;
+ struct rkvdec_rcb_config;
+ 
+ struct rkvdec_ctrl_desc {
+@@ -72,7 +73,8 @@ vb2_to_rkvdec_decoded_buf(struct vb2_buffer *buf)
+ }
+ 
+ struct rkvdec_variant_ops {
+-	irqreturn_t (*irq_handler)(struct rkvdec_ctx *ctx);
++	irqreturn_t (*irq_handler)(struct rkvdec_dev *rkvdec,
++				   struct rkvdec_ctx *ctx);
+ 	u32 (*colmv_size)(u16 width, u16 height);
+ 	void (*flatten_matrices)(u8 *output, const u8 *input, int matrices, int row_length);
+ };
 -- 
-Yuanhe
+2.56.0
+
+
