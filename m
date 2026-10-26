@@ -1,54 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.216
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792982374;
-	b=jj9dljbvJA/vYhpaO1UxsT6lNwp4h9KThTf04k/CV3AOj5yan52Qd8VCLc8MCZUbkkQq
-	 oGHGGg5R8jjvNYGq8YkCfgfRgadLDD0zYhGAFl4M8AlGibp7KrtKsaQ74I8FwXawyog/P
-	 qzdPMIqiJ+KC3ZGVtnmpJ7Ej3xyTQz2ZPtCEFtMZrK9HyWNAVn3N4swiFSQg2tz4ajKWl
-	 GiHxGLKBdz4hOonXLnx97d922raCYqq4YVjrVPJHmK9piISv5vDHn98Wvx1UNkROeV+75
-	 W/I+XKyjRKV5+bhSbieXkPSYWAvQA1mgHCL0jLDeP5bYZv5BzngepHUnilDjwF7AfFQ==
+	t=1792982473;
+	b=s5cUDlYK3H0sfmsp9Zf8vxm5wBP+zF00lIS28uxSI2337MaZiPtamMPnqofAfgKfGX1R
+	 Qx4TjlXuW3CdP+M9vNY1SAfw/gHDgNQr71zss0B/gaVAUDtvfLVcVmLAQc6KB8sSF/scr
+	 pbUAl6enjnRoFOTpwKppYSLmUIJA0x6nDD5BgjE20GdllVgZhnQPjrcIzHomh0JSK17Wc
+	 wWHsxDBeiEv7tr+U0eTBzGNsVXu4i0fBs2pmSCWm33D9hfd/rLAcbwDeoDZHLJ/wZ1Xts
+	 lJM0Yjkpvq9BiGccEF3+8tvd55KfkPLQcjz6M81Rpu/TuiytVU+0y917OFLNwuLZPng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792982374;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=EWIAgwzBcg7K8A8tYbwaBO/laAOinWsGzDghXjTvN3M=;
-	b=KiA1zz7h6WQd5XI95jJKewCVZC25W+/L0LmXXYJUn+l2456hyDwhZxrsUfnq39e0My3m
-	 KJoQgonnAIK2B5mhMY2C94eIs3fnDpuVBcc3Qbe4SBPXjeYCWNh0oLzvOtSCZjshqIVKB
-	 GmOz2xtXKsztymqpPVccKesgq0BoKAqJVGn+nn/7cEEcuRsU1cj3dH6VGTBqJnCmUmBQS
-	 SG5b/LaPkGTvIeFfrOHNaDHfkz4s7qz5ejdSAHf4o5NtqY3qFr+67gZyVpdhdyf4oBdYt
-	 EAH4fdjieq9DpVUcGjjwTp+jkzScSLsY0vuCrG9ifuiTZ1uOBSRBm9fa8PVAhT1zY4Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792982473;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=8md3aC1uv79iBkW0iZ31AbdvtK6VKNmFBBO3obnuVyw=;
+	b=LYvTzB6fFNXinImAVDPG7vyu54+ohy1a2RnFGZ+LlcYy6Cfi1PjefSGrJvbHFELpHM5p
+	 vvFBmol3j+jFwzNZuqsELQHRmJULXFtJ0g7epJQuCCJynL5w/ZvmKDo/I13EAjq7netqN
+	 qWyEqNaS6fCGoyhNXOD/xpXc6gMiKHPn14708XejRdfRslLJF+gwzE8xT8si+dwShdg6a
+	 6ep5q8MYRkYJ4iG/t30BZb/f/nWQuErdcJtS+2UH+9+QdImtVCSvMtB7bzETToIOcI4zp
+	 K9oyQqLS6+y/IsJcX5P9Y42lJk/Y5vABfAlJLgLJWaqagjjFXlExl1sJ8AHYLP0g1Gw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=aSlFAcPN;
-	arc=none smtp.remote-ip=198.137.202.133
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=JTSuRcbb;
+	arc=none smtp.remote-ip=113.46.200.216
+Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C82BD606A31A;
-	Mon, 26 Oct 2026 02:39:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C82BD606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0714606A31D;
+	Mon, 26 Oct 2026 02:41:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0714606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=aSlFAcPN
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=EWIAgwzBcg7K8A8tYbwaBO/laAOinWsGzDghXjTvN3M=; b=aSlFAcPNmvamUP6oh8yhFU3dbt
-	pDzZiUh0KJYdgfvaDJA8JRIl1ze8ftTCn4F1DhnAemxrgfjgkvHVC/8PWuIC3K2NkFFNNmiimmgbo
-	GrFerzcy8HWPNd2jDoz5/1z3raxq3O5ywXq3mg9guoQ66gRsLe2ogzhjU3i+vNrwzsOwCYu2Bsgpl
-	jbwmukGTeC4DrKqW2MpkI+HY5EokkDvjoXNxVV9afkkwzEvJ+auaQhfoh47f5XvjWfyTf4yMxoNTQ
-	yeqcWbnDCszkc0NjjCnn3tL3+0fCYdGWQ5H1nOgycTRseJ30fB0g8OwaYahPGtCV0qb2dXLlsfDg6
-	RAGrS8hA==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xLAcX-00000001ccV-0oxL;
-	Mon, 26 Oct 2026 02:39:33 +0000
-Message-ID: <004fbff3-7fbc-440c-9c44-44585795521c@infradead.org>
-Date: Sun, 25 Oct 2026 19:39:32 -0700
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=JTSuRcbb
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=8md3aC1uv79iBkW0iZ31AbdvtK6VKNmFBBO3obnuVyw=;
+	b=JTSuRcbbjtl1P87qGeQqwzfuIBaibQP3rmYWsWmdXuosNrD+8IpuVY7IxAcUP+PcG4jmofV9d
+	38fLxi+vrSxaCEFNtqRmaH78UoxqgIRYQo3GQQRD4HD3AQLv6RvsW7aT/Wr8d4OEnptOEs+MfmQ
+	YlYPeCPoQ5eOIhkjr/lL5Go=
+Received: from mail.maildlp.com (unknown [172.19.163.0])
+	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4jCdCq5m07z1T4j9;
+	Mon, 26 Oct 2026 10:40:55 +0800 (CST)
+Received: from dggpemr200001.china.huawei.com (unknown [7.185.36.96])
+	by mail.maildlp.com (Postfix) with ESMTPS id 3EC0540537;
+	Mon, 26 Oct 2026 10:41:02 +0800 (CST)
+Received: from huawei.com (10.50.85.155) by dggpemr200001.china.huawei.com
+ (7.185.36.96) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 26 Oct
+ 2026 10:41:01 +0800
+From: Ran Hongyun <ranhongyun1@huawei.com>
+To: <drifabdelmalekmohamedsaid@gmail.com>
+CC: <a.hindborg@kernel.org>, <brauner@kernel.org>, <jack@suse.cz>,
+	<leitao@debian.org>, <linux-fsdevel@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <ranhongyun1@huawei.com>,
+	<syzbot+63336d70e1af377d7388@syzkaller.appspotmail.com>,
+	<syzkaller-bugs@googlegroups.com>, <viro@zeniv.linux.org.uk>,
+	<chengzhihao1@huawei.com>, <yangerkun@huawei.com>, <yi.zhang@huawei.com>
+Subject: Re: [PATCH v2] configfs: fix slab-UAF Write in config_item_put
+Date: Mon, 26 Oct 2026 10:33:26 +0800
+Message-ID: <20261026023326.4041232-1-ranhongyun1@huawei.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20261023162906.2938-1-drifabdelmalekmohamedsaid@gmail.com>
+References: <20261023162906.2938-1-drifabdelmalekmohamedsaid@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,63 +74,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/7] docs: ABI: power: rt9471: Fix invalid inline emphasis
-To: Waqar Hameed <waqar.hameed@axis.com>, Sebastian Reichel <sre@kernel.org>
-Cc: kernel@axis.com, linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
- Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-References: <cover.1792965060.git.waqar.hameed@axis.com>
- <ba11515d8e0dc45ad90f162302bcd1b20db9bd92.1792965060.git.waqar.hameed@axis.com>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <ba11515d8e0dc45ad90f162302bcd1b20db9bd92.1792965060.git.waqar.hameed@axis.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
+ dggpemr200001.china.huawei.com (7.185.36.96)
 
+Hi Drif,
 
+Thanks for your detailed reply and the new patch. I agree that the
+IS_DEADDIR() check is needed when simple_rmdir() fails, and that my
+error paths mishandle parent_item and leak target references.
 
-On 10/25/26 3:05 PM, Waqar Hameed wrote:
-> `docutils` warns:
-> 
->   Documentation/ABI/testing/sysfs-class-power-rt9471:1: (WARNING/2) Inline emphasis start-string without end-string.
->   Documentation/ABI/testing/sysfs-class-power-rt9471:20: (WARNING/2) Inline emphasis start-string without end-string.
-> 
-> Fix this by escaping the `*`.
+With IS_DEADDIR() added, the patch looks functionally correct. There
+is one small point: in the CONFIGFS_USET_DIR path of configfs_rmdir,
+S_DEAD is set regardless of whether simple_rmdir() succeeds or fails,
+so the subsequent parent_item check appears redundant there. It is
+still necessary for the non-CONFIGFS_USET_DIR paths, though.
 
-I'm still seeing this issue after the patch is applied (same for patch 4/7).
-Maybe we are fighting a docutils your-version vs. my-version problem
-or just a moving target.
+I have not found a clean way to avoid this redundancy, but it does not
+cause any functional issue. It may be the best way to fix the UAF issue
+so far.
 
-$ docutils --version
-docutils-3.13 (Docutils 0.23, Python 3.13.16, on linux)
-
-> Reported-by: kernel test robot <lkp@intel.com>
-> Closes: https://lore.kernel.org/oe-kbuild-all/202609110722.GAZVme6v-lkp@intel.com/
-> Signed-off-by: Waqar Hameed <waqar.hameed@axis.com>
-> ---
->  Documentation/ABI/testing/sysfs-class-power-rt9471 | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/Documentation/ABI/testing/sysfs-class-power-rt9471 b/Documentation/ABI/testing/sysfs-class-power-rt9471
-> index 0a390ee5ac21c..04a771cd23512 100644
-> --- a/Documentation/ABI/testing/sysfs-class-power-rt9471
-> +++ b/Documentation/ABI/testing/sysfs-class-power-rt9471
-> @@ -1,4 +1,4 @@
-> -What:		/sys/class/power_supply/rt9471-*/sysoff_enable
-> +What:		/sys/class/power_supply/rt9471-\*/sysoff_enable
->  Date:		Feb 2023
->  KernelVersion:	6.3
->  Contact:	ChiYuan Huang <cy_huang@richtek.com>
-> @@ -16,7 +16,7 @@ Description:
->  		- 1: enabled
->  		- 0: disabled
->  
-> -What:		/sys/class/power_supply/rt9471-*/port_detect_enable
-> +What:		/sys/class/power_supply/rt9471-\*/port_detect_enable
->  Date:		Feb 2023
->  KernelVersion:	6.3
->  Contact:	ChiYuan Huang <cy_huang@richtek.com>
-
--- 
-~Randy
-
+Thanks,
+Ran Hongyun
