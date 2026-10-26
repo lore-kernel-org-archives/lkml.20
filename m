@@ -1,72 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793048163;
-	b=h/KMJ/7Vzr9zSg6kRKS99sO91Hkb2WH1rSsfsyQdg27wQGR4Skz9mzBnkUYDG4qL101x
-	 +JvW7VVTVhGv5rYbyKX4/BvArmM5wpiX5BCC6IQVr5B0Bh+D3iwpmh8AK4aMXgF6d2+Yx
-	 BBQUv0ChLaygsE7W0w5gdruhzHhk6VA3G4vQWdIbAuRVybTnVbXWguLHgJ9ytaNH2EotP
-	 1ZITh+BqxYkZzGvk9hCKbUMMBBoL1uVDRsicJHzVCYau0zNvfM3YAnaXLrQLpTz3Kqm43
-	 GrrTkpoVRGvi7WJum2ey9CIgA29e+Sb4GJZErQsHbqLEynMxQ9IDMNXb4mLZMUHM+Cw==
+	t=1793048221;
+	b=nHJ14Py2s6O+gBUy5nvB5clnX0kTMw9r3bl2Bw7HUXiUd1A9V0Pr4bEr3hcF6OU1WSbx
+	 3+omsJ0zCKDCD0FnloBWl4FFqBykalAd46GDh+9iwjfV/FXG4QZeUM3X07GyGBoi4h64x
+	 BKWLwrf2l8fAq6P92vIBW4pY4t8E+F2Y5XXMDvk9+auZkbdxaN41pFSlb8HMZnl1aWGne
+	 c6v+SkEyVb6E0sUFjWlV2T8CfStuIgHV14Uoul4x2AfnniJX+huJfhPC+KQPmKawcRZ9i
+	 uMqQDdTLbMe+1YKYXDfW/9SlFx9hegwutjLv5LPDiXsbnqZgWyOOKs+VQ5+JyGV+pog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793048163;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=3B44qYC1y1oMWzUzev4ii49MY2PIUQMP+MPnvqlHD0k=;
-	b=QDXgloXcpKkuT4FyPwx3lxJ82ZCv3w2iRxTfd9zCQ4pG2uQDcOstKd/C2ZH7JSXiFU35
-	 ZL605SjEkVp4PootNBDkywJiPLilOiz91AJw4cEyn40ml5/NIRlpr5JW/+r7fzhX+26oz
-	 oo1+uP89mqFJ6lZsNGgUfl5QeDEAgW4H/CjWbmAvk+bOaiq8azYZ/pAE/14UMVnQhNIZt
-	 DIZ2rY1bHkE2ZaSE0a9TZJMTwDudJN31DuEkVULIk5H5piJ+8AJZ6xVn22a8jZXD6H3ca
-	 07cSgH6Ld+7XuTj9yTx4eALkFPJ12ic2ZRhDhXvJs/6xk/7GKO94F3Wp95selHiKKUA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793048221;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=zFo4l7j16ZsDQEUF+stMjRBTlBJ8Z+3F5xTug7lrKcA=;
+	b=HlXRR0DJ8UqbStRJWAgHlG98kA1WHbyoYngYl9IGVLy4ZLe3vHmkXazKyuf8Juz6fSw/
+	 eRSE3E+4FqKqikTSBTyXmC0GcOKQtBGagHQrBfEHq9XZYcNgLTRj4TgzRUMSLx/8PXGJv
+	 LnblV8VmoOKIGcD06jj+eLQvXHpUpeIw8SbtbRHtAfDXizDv1mbDc0lTzWiqrBSWj5oiq
+	 QoQW128KR6hjMqNHCa/d/UrSnTXynGsFby6AOd5piKuoCqZ/c9wClC2VSjm0ANxU89fbu
+	 Cnx/b4Qm7oGYQk9YPVuQOhrpRaqxv4zmZ9l2f0jHYMT2WMQGHjJt1z9T8Qq+G9D0IoQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--skhawaja.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=A+AZHrl6;
-	arc=none smtp.remote-ip=209.85.214.199
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	dmarc=none header.from=hackers.camp;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FD3A606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 20:56:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FD3A606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--skhawaja.bounces.google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=A+AZHrl6
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2ea63087d79so35462725ad.3
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:56:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1793048162; x=1793652962; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3B44qYC1y1oMWzUzev4ii49MY2PIUQMP+MPnvqlHD0k=;
-        b=A+AZHrl65W8yvx+twdQ2Zl0C041QiC4aIxbw4UqrAJgWKUy+u+RrStSW3L1pSKiWVm
-         quNPq3st7bcrd3lJyRLLcD1A8lh1kK9EOmzyi8SdigV6xrQ5qNrobNRhjwAo8qYPyU50
-         zcM2HA19Uj+e39zoGBi2DnF0jO6kD5qqVmVG+pAfuRJAI8O0PMyA9AEogFfulGKL+uA4
-         Um3UQce0OLoVrUoI9qfqHdCNGAmEtdK9dGvooFMieTMVJWwmFI9dn/G5jNLnm1LgPuTU
-         1/aAs/SiuNkKI7S+q/cPiUxeiTMp99WNhbVeYUaEOb5lfNXtfTIag6+E07E8H4lPkMQi
-         y0sQ==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C616B606A31B
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 20:57:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C616B606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hackers.camp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a73fdd2966so1223745e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:57:00 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793048162; x=1793652962;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3B44qYC1y1oMWzUzev4ii49MY2PIUQMP+MPnvqlHD0k=;
-        b=P5hNcDwj2eHy9cFDIgYzG+imDvgFxqXerPn9JaUFs9Kfb/7KkGboh/iGch4hyMO2Ei
-         FuZ9hnSfy5KWjytJV2MCb23SGynMS0ANnr7cbl2i8HLI61yEtLUAEMo8Fw/OP21+Gsjp
-         S/sM3T1KROK2SGg50ezjHNXTPxbYEJeXrtZngW0VabSH/Dd4/fqzkROEO4ybQarzV4wi
-         mTauNY0/sDM4G23H6JVBbKGChJA9DQmEvJ8jBYkBMRkJKVIfRrFSXHqkKPYDKtuhzMs3
-         x96stwpgiFvdX4Nlfv2TXGhWR6nIp46k2PGwEg6TFsg9W4Zz0q7SqWmHICXnSODDNI4J
-         6Jjg==
-X-Forwarded-Encrypted: i=1; AKwUvBzT8P5eH6kPXSLgEV3mlZ4q9re4PZ9HGu/dbQ03aIBW+vli3CRn9iOlqmYaPXPW2CcWbri6NJCA7aLxYpY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIAoeyYePh4hvioW+j+9Kbp+ARp8gAqelmjHO6K7FSo4Dh5oJrY
-	ljyheThq1XqUgG/X5egc/Vbo8yC9OHS38DBdVF3sMhyU8h6X0nsXn2HH+AGd/uDOY8DuXp+UqjI
-	ZOUcQDhOB+romxw==
-X-Received: from plot20.prod.google.com ([2002:a17:902:8c94:b0:2e9:6468:1ffe])
- (user=skhawaja job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:903:3806:b0:2e9:5175:2eb with SMTP id d9443c01a7336-2ea9c0f388fmr65823665ad.1.1793048161845;
- Mon, 26 Oct 2026 13:56:01 -0700 (PDT)
-Date: Mon, 26 Oct 2026 20:55:55 +0000
+        d=1e100.net; s=20260707; t=1793048219; x=1793653019;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zFo4l7j16ZsDQEUF+stMjRBTlBJ8Z+3F5xTug7lrKcA=;
+        b=qZRHm2aPOAdpxIaWtObmP3b/xIm4+jwwpmxrHnMo2nNt1nQqHS33NqaNjLPKVV11zr
+         kl+4vsGZvMgq4i8F5oNlqg7QI/XZXSDWmBzNwuU6fRMfW4+4+yGFpgIFCms+7TK2Uo0/
+         tyiTsHUmC4Wu8Auf+FXKmz6ejSTRN93Qy3iq5klPueS1+A651UM2zM2FG4RZi13Z/fPe
+         cez7QSQOruoSrvzw6AqEe7moRHcFhJqLrPgP7Da97FatU1aAP4WC5J0k4YlY9HOESoSc
+         dRzXWzo02H/2NtnZcKQAgRSfsXRmpJFzxrKbJLj5UML2CQRqrfh5SMY3rftxbXj9dQVz
+         yifw==
+X-Forwarded-Encrypted: i=1; AKwUvBwO1YWPL69H2K61rh2tbtxXqWwSjrSxJLAxl6xvrHjCbJsRKgqYVbO5BqsSVepxQfTf/B1Mb/0wxyXbQHg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKLsPfy/fv6chnVV7h6DoqWezj5c8bRIbvImpnRL81+aBLROOsr
+	S99pPqPaTW+CrvnYoHZjDjcnSZnuI4fGoHjY5Hz3j5LWMdDoxQwxQ9v4
+X-Gm-Gg: AYBFou2PtLGTqyYRMaabVdaqEKpzHkLppR3B4l0Ef7QOkBnLptQ7T3BGoNv6TNU6jhT
+	R49xx8kFaQPOG8zqdFBvVOI9Qtcxe8m4mAuzq0aaOGHoJSS9PxgTq61nsx4wQIRePvifUPc4Qbg
+	HMguKplwK4d7Ih19Y9/SMwJuYIExkTOAIe8ddlPVp/M2MLRmsJ+EkBU5GfmKqv6CUWJb2AdDFwo
+	c6utErFiGQmVeWosG/67fU+XmPyIBr0Zf6EChybWh6arE7ug0Uq6kr+AgnwEJnsSS5aCIFmKE7K
+	L0nBUP6Sf1KWUtbj7LxepSfxRIdai9YjeSKxLbCiNdfrbUreSj3owH2OF+05PYdEeXkwdCxtEGh
+	Oz5RThcPzOiAv9Qga4qCLvQk4LgFIKogbV6OImX7oNssrJbY7Igagr1yzlX9Sb0B+oX+eNnzLNW
+	heK79B/6yxGHOAB47phGQBo4fauhLt4+Qp3Q/bSUmOoDe4sE4Ogb0XYkU9wD0OGugvsov25+N56
+	Md0kIbmXrwlbm6iZs6dzGjzvUWSAW0tASNVMwE5QFW09EUXI03ghYwHAspAEtzX5iw8Fr5rWi+k
+	jvl9DOi37hjwawPt7DGZcJ9w1QnUgqShwljaUDA=
+X-Received: by 2002:adf:fe50:0:b0:48b:58e:6cb7 with SMTP id ffacd0b85a97d-48e3eb91422mr11908114f8f.6.1793048219015;
+        Mon, 26 Oct 2026 13:56:59 -0700 (PDT)
+Received: from spartian.home ([2a01:cb1c:76:ed00:602f:c5f4:d108:b925])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebd48fasm18401915f8f.31.2026.10.26.13.56.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 13:56:58 -0700 (PDT)
+From: Aurelien DESBRIERES <aurelien@hackers.camp>
+To: jack@suse.cz
+Cc: brauner@kernel.org,
+	willy@infradead.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	aurelien.desbrieres@gmail.com
+Subject: Re: mmb_sync: b_mmb NULL window races mmb_mark_buffer_dirty
+Date: Mon, 26 Oct 2026 21:56:57 +0100
+Message-ID: <20261026205657.88074-1-aurelien@hackers.camp>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <q472nkbfcfdumbxm3cebfnnmueqyl6uhhnper5t6e2cxajpvtu@7prjjo7k6ia3>
+References: <q472nkbfcfdumbxm3cebfnnmueqyl6uhhnper5t6e2cxajpvtu@7prjjo7k6ia3>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,62 +84,25 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
-Message-ID: <20261026205555.2918396-1-skhawaja@google.com>
-Subject: [PATCH] hugetlbfs: enforce F_SEAL_EXEC on chmod
-From: Samiullah Khawaja <skhawaja@google.com>
-To: Andrew Morton <akpm@linux-foundation.org>, Muchun Song <muchun.song@linux.dev>, 
-	Oscar Salvador <osalvador@suse.de>
-Cc: David Hildenbrand <david@kernel.org>, Jeff Xu <jeffxu@google.com>, 
-	Daniel Verkamp <dverkamp@chromium.org>, David Matlack <dmatlack@google.com>, 
-	Pasha Tatashin <tatashin@google.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	Samiullah Khawaja <skhawaja@google.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-F_SEAL_EXEC prevents the exec bits of a memfd from being changed once
-the seal has been set. F_SEAL_EXEC is included in F_ALL_SEALS, so
-userspace can set it with F_ADD_SEALS on hugetlbfs memfds just like on
-shmem memfds, and F_GET_SEALS then reports it as set. However, the check
-that rejects the mode change was only added to shmem_setattr().
-hugetlbfs_setattr() never looks at the seal, so the owner of a sealed
-hugetlbfs memfd can still make it executable with chmod(). For the same
-reason, MFD_NOEXEC_SEAL provides no guarantee when it is combined with
-MFD_HUGETLB.
+On Mon 26-10-26 14:08:12, Jan Kara wrote:
+> Well, yes, mmb code is all built on the assumption that each buffer has at
+> most one inode with which it can be tracked. If the filesystem tries to
+> attach it to more than one inode, all bets are off and we give no
+> guarantees what happens. I guess we should add an assertion to
+> mmb_mark_buffer_dirty() for that to warn about buggy filesystem code early.
+>
+> So what you did - handling shared buffers separately - is the right fix for
+> the problem you were hitting.
 
-The memfd selftest already covers this, but only the shmem run passes.
-When run as "memfd_test hugetlbfs", the test aborts in SEAL-EXEC because
-fchmod() succeeds on a sealed file, and none of the remaining tests are
-executed.
+Thanks, that settles it: one buffer, one mmb, and our fix stands.
 
-Add the same check to hugetlbfs_setattr() that shmem_setattr() has, so
-that a mode change touching the exec bits fails with -EPERM while
-F_SEAL_EXEC is set.
+The assertion in mmb_mark_buffer_dirty() I can send, if you want it
+from here: a WARN_ON_ONCE on bh->b_mmb set to another mmb, before the
+NULL check. We still have the module that attached shared buffers to
+several inodes, so the warning can be shown firing on the same
+generic/241 run that corrupted the list.
 
-Fixes: 6fd7353829ca ("mm/memfd: add F_SEAL_EXEC")
-Cc: stable@vger.kernel.org
-Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
----
- fs/hugetlbfs/inode.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/fs/hugetlbfs/inode.c b/fs/hugetlbfs/inode.c
-index 01c4d6f44ebe..56e0588d295d 100644
---- a/fs/hugetlbfs/inode.c
-+++ b/fs/hugetlbfs/inode.c
-@@ -842,6 +842,10 @@ static int hugetlbfs_setattr(const struct mnt_idmap *idmap,
- 
- 	trace_hugetlbfs_setattr(inode, dentry, attr);
- 
-+	if ((info->seals & F_SEAL_EXEC) && (ia_valid & ATTR_MODE) &&
-+	    ((inode->i_mode ^ attr->ia_mode) & 0111))
-+		return -EPERM;
-+
- 	if (ia_valid & ATTR_SIZE) {
- 		loff_t oldsize = inode->i_size;
- 		loff_t newsize = attr->ia_size;
-
-base-commit: f1ac44c32cba88ad65dcecd4a279661d14e93651
--- 
-2.56.0.307.g5fe7bd680c-goog
-
+Aurelien
