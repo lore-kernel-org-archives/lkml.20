@@ -1,78 +1,120 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792983063;
-	b=IVaKilpO+4wD15Tkvndqewn8HS3WK1BPh8U4FF8VubhINnzmR60IL39ILcwYND/seSe4
-	 Y8rhuFSy5DKreQTVUAbIH+wZyCG7yg7RANu64WJ0zLK0QP6fqzixWQNY0ow3QyiTZ+RfM
-	 Ar0BxoNECLFTs99a7s8gPpNwjRooaf7hPnRLRdf5610Okhe72u6y8yu9o+RpjTtNWBll8
-	 4LPDhL1yKWtAbSJv5c4xA+zwo8HOgqMzgErFMc8g4eF6E6msqwMkV/XfAg8hS8yer16NV
-	 X6RGU3cVMpcNyITHcYdppQxs6t4fC7FtyCI5s4JsgbLw65NRFyk+p8A+rpIys9A35Dg==
+	t=1792983109;
+	b=mF4NovCRxoyWFH6qC2mR2L46BZM2Psc0rMVaaF2u/zg1hCpiw25NJcU4Ix8BAvNymKzX
+	 wL02EzKfjq7BMzPU9CdKGzJYnAcuhgbmdnqt6kmWstXCXp0u2HRo4gt+lWxdHimwg9S8q
+	 OzaR0hinWS8u0KyLcFyTIVwOq7og98eBAsRzEmKA8UlNfldbmgYYs3F3XmSOez/F6vYiV
+	 fhS24toDRdWZxTK0DwFh6C1Ri/8PBJhY7LgTl76fm+NuUV9aol3mgvk/HdQK/FWewkwmV
+	 sd9JGXu4h3XgdXtA3XWFTUSgXAvCAIXdT0kVtdRcRZewIufmPGRbQNX7oHV2hAyVOsw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792983063;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=xHuoZ+h2G+HqgwQEUWSqVaW/80N7rYFmQYCMmYvVBMc=;
-	b=2x9DZxCOGN0XNVNS2kPisS+VEumALOHgRYe04kpLiyGIr5xOqPWHycoFPV22AiTaDTcs
-	 z1SCV9Z2hX3sQ9Ilf9z3zJ2YW5ARqOFcqCA4YUshRauNjG7eL06ZItt3V6MhWgfHy0s7L
-	 4QUwBaOZvljZhBR6Ru7RkfeMSZ4bpfj4Dmc4paAO+Gxx1eFYL+Sar4ABrqwlblyUnwLMo
-	 RpXGgSGlWhyT2A8L2b+hLtlTVewkbGL9xFfFoi/9nhw7+/K9leamsSi20ubRDgvM99DJP
-	 mqYAHNbXQfNQ9xGI1g+cORLURIRK2MuuWYIafdDWstzfglzoTIbr+YW5LPQnFI72NVQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792983109;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=IEkv/QW2n3UCakr8PhLDY+azEONjvwOgumA41eOj6t4=;
+	b=NUAyCJ4qO5ur6J7Xbx3qun8JVXKUcrCn7wyk0DSX06UwQ603Njk+EUgaG+eTtdPUKxrJ
+	 PyluZ+ImAdWG5f39J/3ts20owzdOyJKflVNO7xtXx+tCpMPtnodjbL5rPaDtyDBxUfH1d
+	 5Ux5v1/Bwo58Avibnbwkr3QgGUp67ePZupYA9zv1Xio2HJZ7op8i7yts5047flIuG9pQA
+	 dNf6fLKj1AybbjC55kXuNrgUArw+w89b/B9vTOZo5RHLFGjkFA2TDCFC71yAdATJo/kl1
+	 r3Oh8wbgwqZjHJKEy0Aaqo5QO+Uae0WkRREfIHv2QTI0CdCqOlQyvU/NYnptVFT+CKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eE0xLLmA;
-	arc=none smtp.remote-ip=198.175.65.18
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=FmeYuR8y;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CF1Bh6hc;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7008606A31B;
-	Mon, 26 Oct 2026 02:51:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7008606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71BB1606A31D
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:51:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71BB1606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eE0xLLmA
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792983062; x=1824519062;
-  h=date:from:to:cc:subject:message-id:mime-version:
-   in-reply-to;
-  bh=37QYAusxgWwB+9fgXsOBG6M9Blu9law9qU4Uq9MXK1w=;
-  b=eE0xLLmAUpBI9Oze0JEfbTVUj1Y4hVuiTNNaC0f9vBY9eUfzRK1BbmrP
-   oKLpzVVn23lEzd7lBpMJkncZvTVHBm5U3laFWEotGY5ZokoYXAoXrzeZI
-   5O7slihLgdR4Op2eDzrzGgw2g/clMuCTC8hoQQnCUtSGCccwvAqQ4FpNr
-   8kTaVwzKwoQ1NglDhjZ8adiOqOiih6UIuvT2MAuLUadu/sHXKwsLDL1Dy
-   kI/GkpFASlYX947+FnaMCWe322lnsBU1lcxggnMI1bZVI8545f9Kkq8Ny
-   a5mQXW9NyQjnLrUVwD++OId6rxb+Tyt6aGi5rysu8oKkMExQ35tfzyh8G
-   A==;
-X-CSE-ConnectionGUID: 6hu8MXxHTJawZRAZdxsiGg==
-X-CSE-MsgGUID: lqY/zz6fRoivRmvY3klqRw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1645943"
-X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
-   d="scan'208";a="1645943"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 19:51:02 -0700
-X-CSE-ConnectionGUID: 68vOWsN9QrqwoxAiQxXaYg==
-X-CSE-MsgGUID: UalFpjLVSCOmuymhkr5uvg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
-   d="scan'208";a="4244243"
-Received: from ly-workstation.sh.intel.com (HELO ly-workstation) ([10.239.182.64])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 19:50:59 -0700
-Date: Mon, 26 Oct 2026 10:50:56 +0800
-From: kernel test robot <yi1.lai@intel.com>
-To: Qu Wenruo <wqu@suse.com>
-Cc: oe-lkp@lists.linux.dev, lkp@intel.com, linux-kernel@vger.kernel.org,
-	Christian Brauner <brauner@kernel.org>,
-	Christoph Hellwig <hch@lst.de>,
-	Pankaj Raghav <p.raghav@samsung.com>, linux-xfs@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org, linux-btrfs@vger.kernel.org,
-	yi1.lai@intel.com
-Subject: Re: [PATCH v4] iomap: follow the alignment requirement for
- iomap_dio_hole_iter()
-Message-ID: <202610261048.3dc64aea-lkp@intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=FmeYuR8y;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CF1Bh6hc
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69Q2KjnT1936636
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:51:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=IEkv/QW2n3UCakr8PhLDY+az
+	EONjvwOgumA41eOj6t4=; b=FmeYuR8ykUjaHHqWfE4YEIzloPqx/S04aCNCs7l9
+	5k3Ozn894zbngFZATQeonfgl3dupQD3kLZfZrUGHrh2z42EWrokJ2Vu7k9P9jPx9
+	Ib6CzBeJeSUerDQPH0+6g8COTgc/RRu4EFTpcpHa9lzlfziFIOMqgA0lG0zmioBu
+	nJ9oiEg7RpIg7F1PtTLLEwrYLHAfgHV75+K/vsowKW/RJl1Z+lm4cvcc5LU2K/YT
+	CNwH36yJXijEmMIlQQqCvWEcNR8C8I6hYl8lbDcjmRdpvJntuWWgCmCEZl9kp0RT
+	s/1EM1uYAzAaHDgveHNG7oqticVZed1ssWdGna2ZpQfZzw==
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hhvdd89fb-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:51:47 +0000 (GMT)
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-3425098ae4bso4965046eec.0
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 19:51:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792983106; x=1793587906; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=IEkv/QW2n3UCakr8PhLDY+azEONjvwOgumA41eOj6t4=;
+        b=CF1Bh6hcT4RHZGf7a0ynatK3sXT94RoS9qGapTidRFUQKp7wewqjtBIFLbTOLaeg+H
+         lyjJD1/LWCvj5B6Mrtmcer8nuOyIaLcerSnopVmc3BML2aTzJDRBYriaMl4h6ROQyT61
+         SU2Lv7OL+8mSNcJfUDt1yTDDmDahxtrOgJCVdnvjH5G69z+3/kNTJMKc+E6v4dvJMLFf
+         M+rI1JHdwqQKlSdo1EqRMXbzRLnkEcW2znH4b72bL5H7xRRVJgZ88tv5ztZL2+sy92EE
+         27eWaIYZDeyj3YuKc6NR8xlVvfw3jT9Mw5LkASZV9jCuXVFb9feNGBdzdqyLzr1ZgWA8
+         tiHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792983106; x=1793587906;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IEkv/QW2n3UCakr8PhLDY+azEONjvwOgumA41eOj6t4=;
+        b=Vbdcun/tGCd+dxJ2D0JOcGPj5v9fv4jTtZPYN9bII7MCO2WWvVel9jXC421PMcSspe
+         e0xO2HKwYCQItYEKIEbwDwjA500xuhnFnTEYquHSKEoQZmkOF85dfEj0mchGR1m0WCIr
+         x1BnF4VNbZtN7jgAgwtZ5jIQwlHF5fWgNBotMaoBhYfVVnrNuI1Ujk2DqLtWQK3SZAFm
+         PCvUkQze65cy/iJispBtZ5Q2u4YNi8wj6ZuLMOA6WteXcee3bhnIIhyqFVglgPqFBpGB
+         XDElJ6I/gva6vm9xlNKFGqIjaw8hjC2LyplVdeAyxAGgUeX64nUs6Rtc2wYhPScP0+zl
+         /Wmw==
+X-Forwarded-Encrypted: i=1; AKwUvBzmriWtloPDZn6cfDNz/WMg1i8cqdUTMcpp8XvBr3vNwxIGX3puVehEg5z1ZoMJNd3Nynjx2mAjQKI8Wx0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKW+oUvv/bZ3RUqv2NhNNfiXoIyWvFgvClJB3IjwpShuliarWp2
+	1oKtPk+t6be1NMcXyju8CgcAfMR/8eUr8aNmIrG2xloD6FHFjN1dYG+dDC7xUWRq68ojvRsxduQ
+	csU2UDuVYVEjtwUAxcpVfPQrQ8f6RkkVlLUJfgIbZf2Iq2giBZzUnDpeZEQrm3jqjrWk=
+X-Gm-Gg: AYBFou2V3Xx/fyN1IqxHT1cPQEpdY8rbHl9HSBlLaPgGBvwdmsUzT/voipH8L/Dr7uR
+	lj5Be3d/dW1I1Q0hFN+/F2tDPYXsoeEwDjG29zPPl8OI7/p6PqLrLqsrKH7ElNjDiWay4tRVyNI
+	btMy1d+8o1NVqjKCkeOeNu/XwWGlII7r+FxWbvTu8p1k5JdDNEXYpmHxLU/69L9AFC8qhXz6EWD
+	of0IPNEsMKJEz/Xi71rU8rq4x+BFVpJ/mFRL3qT7tnOO0ev8zvXRiHhe7dXBczIsekog4v07NgT
+	M9eNkSKRWZWp0gOn3OKmZS6Mq3jruSuAkLYAA1TV261w2vjhZzNAYx2DfTtEorH1lSo79z47qzE
+	h8WJmr19u3JnkqodAXQEgm0rrNEu6fHsSZGp1HdtgOXNXy1d9/TdIAL8k
+X-Received: by 2002:a05:7022:3b82:b0:159:f192:5290 with SMTP id a92af1059eb24-1993505eb32mr8885768c88.13.1792983106050;
+        Sun, 25 Oct 2026 19:51:46 -0700 (PDT)
+X-Received: by 2002:a05:7022:3b82:b0:159:f192:5290 with SMTP id a92af1059eb24-1993505eb32mr8885698c88.13.1792983105262;
+        Sun, 25 Oct 2026 19:51:45 -0700 (PDT)
+Received: from YUANJIEY2.ap.qualcomm.com (i-global254.qualcomm.com. [199.106.103.254])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a2a5937dsm20442306c88.20.2026.10.25.19.51.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 25 Oct 2026 19:51:44 -0700 (PDT)
+Date: Mon, 26 Oct 2026 10:51:38 +0800
+From: yuanjiey <yuanjie.yang@oss.qualcomm.com>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
+        krzk+dt@kernel.org, conor+dt@kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        tingwei.zhang@oss.qualcomm.com,
+        Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>,
+        Ziyue zhang <ziyue.zhang@oss.qualcomm.com>
+Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: Add base HAMOA-IOT-COME board
+Message-ID: <at7AOnFJT94NYWk0@YUANJIEY2.ap.qualcomm.com>
+References: <20260727070758.528-1-yuanjie.yang@oss.qualcomm.com>
+ <20260727070758.528-3-yuanjie.yang@oss.qualcomm.com>
+ <ebd754fd-96bc-4f37-b390-35a952dc6328@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,83 +126,114 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <73bd4d9b39e821453028ca8e567eaad2ebe0fc18.1785880740.git.wqu@suse.com>
+In-Reply-To: <ebd754fd-96bc-4f37-b390-35a952dc6328@oss.qualcomm.com>
+X-Proofpoint-ORIG-GUID: wpyMeiaZrasrUhgYvtQH5RYVj04oCk9z
+X-Proofpoint-GUID: wpyMeiaZrasrUhgYvtQH5RYVj04oCk9z
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDAxMSBTYWx0ZWRfXxrxh7Ai6cpOb
+ B3Ty99DhpjI4qDXB7lPZ8Ri6z3Q2W2Goe9UvjdTAXj7759ETtHou9/Xp9KFn5ydQ9YmAtNGTfml
+ Dnb0Wyuv95NyPBzSXHQe5XRGxrnNf6usmVr6fvCZGV/iKtKs2Un9CHBQoxriDYiGKVdfZSlU4zm
+ CyUkiz7SCekwUAtxdI5JLBruxKzBcbCP3SR4CuKtn7+ksNqfh7RvUTtWovD7a895OadsJE1iXhM
+ ev3QYRy8Fs3rqnPZ0Vm8oQ3EeGwL9JYsaDd7u0+OqHkKwqO4Mf93y+diqAf16E730jYSN6h/gzl
+ uM/yjFMk2EkIt6ah1xTY08Fxr2PWzHD7kmagyuY912pS1GUVvHZ4bmzM99VqiEbeEJXLZF1in68
+ +wpMKq5u2umFxmtlLcXUC6xydf3YybhBM8kHXNr9WN5ipAU4eLqWg27I/7F3R2xeeB1+IMw5Dpf
+ ORCCPOJZLj7wUQ/3nPw==
+X-Authority-Analysis: v=2.4 cv=N8+8hG9B c=1 sm=1 tr=0 ts=6adec043 cx=c_pps
+ a=Uww141gWH0fZj/3QKPojxA==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=TJUqZQk6AAAA:8 a=UhjQvpYGxMY_E1aW340A:9
+ a=CjuIK1q_8ugA:10 a=PxkB5W3o20Ba91AHUih5:22 a=Q0W1slMkcave-rSCEGgY:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDAxMSBTYWx0ZWRfXx4Or91cIuV4v
+ LUEUNlTJzrFFU4S8yA8WzgiSe8w8sn5911XSvRTXCmOx3n0o7UbDn5HUZLW1rTPdtc4SealE1nv
+ axoae9qcrp56oROHIsnJcobteFU52ig=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-26_01,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 phishscore=0 priorityscore=1501 adultscore=0 bulkscore=0
+ malwarescore=0 suspectscore=0 lowpriorityscore=0 spamscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610260011
 
+On Wed, Oct 21, 2026 at 12:18:39PM +0200, Konrad Dybcio wrote:
+> On 7/27/26 9:07 AM, Yuanjie Yang wrote:
+> > Add the initial device tree for the HAMOA-IOT-COME platform based on
+> > the Qualcomm X1E80100 SoC.
+> > 
+> > The platform consists of a system-on-module (SoM) mounted on a carrier
+> > board. The SoM integrates the core system functionality through a SiP
+> > containing the X1E80100 SoC and its supporting components.
+> > 
+> > Hierarchy:
+> > 
+> >     Carrier Board
+> >         -> SoM
+> >             -> SiP
+> >                 -> SoC
+> > 
+> > The COME SiP hardware is effectively the same as the SoM used on the
+> 
+> "is effectively" or "is"?
+is,
 
-Hello,
+My description here was inaccurate. I have revised it in v4.
+https://lore.kernel.org/all/20260806-hamoa-come-v4-v4-0-706021d4bc8c@oss.qualcomm.com/
 
-kernel test robot noticed "xfstests.generic.091.fail" on:
+The platform consists of an Advantech SOM-6820 system-on-module (SoM)
+mounted on an Advantech SOM-DB5830 carrier board. The SOM integrates an
+IQ X7181 EVK SiP containing the Qualcomm X1E80100 SoC and its supporting
+components.
 
-commit: 4025185cf953e3f52ab63cf5fec50c1485ee7bb7 ("[PATCH v4] iomap: follow the alignment requirement for iomap_dio_hole_iter()") https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git master patch link: https://lore.kernel.org/all/73bd4d9b39e821453028ca8e567eaad2ebe0fc18.1785880740.git.wqu@suse.com/
-patch subject: [PATCH v4] iomap: follow the alignment requirement for iomap_dio_hole_iter()
+> [...]
+> 
+> > +&ufs_mem_phy {
+> > +	vdda-phy-supply = <&vreg_l3i_0p8>;
+> > +	vdda-pll-supply = <&vreg_l3e_1p2>;
+> > +
+> > +	status = "okay";
+> > +};
+> > +
+> > +&ufs_mem_hc {
+> > +	reset-gpios = <&tlmm 238 GPIO_ACTIVE_LOW>;
+> > +
+> > +	vcc-supply = <&vreg_l17b_2p5>;
+> > +	vcc-max-microamp = <1300000>;
+> > +	vccq-supply = <&vreg_l2i_1p2>;
+> > +	vccq-max-microamp = <1200000>;
+> > +
+> > +	status = "okay";
+> > +};
+> 
+> Does UFS come stuffed on all such SoMs?
+yes, UFS is stuffed on all such SoMs.
 
-[test failed on linux-next/master 20a33c6b6cbe7e4805dfb6cd68816937443aa148]
+here is the SoM doc.
+https://advdownload.advantech.com.cn/productfile/PIS/SOM-6820/file/SOM-6820_DS(052925)20250529110758.pdf
 
-in testcase: xfstests
-version: xfstests-x86_64-22348afe-1_20261019
-with following parameters:
+> > +
+> > +&usb_1_ss0 {
+> > +	/delete-property/ usb-role-switch;
+> > +	dr_mode = "peripheral";
+> > +};
+> > +
+> > +&usb_1_ss1 {
+> > +	/delete-property/ usb-role-switch;
+> > +	dr_mode = "host";
+> > +};
+> > +
+> > +&usb_1_ss2 {
+> > +	/delete-property/ usb-role-switch;
+> > +	dr_mode = "host";
+> > +};
+> 
+> And this sounds like a limitation of the carrier board more than
+> anything else
 
-	disk: 4HDD
-	fs: ext4
-	test: generic-group-09
+The SoM is a self-contained, pluggable module, and these USB role configurations are part 
+of its basic functionality. Therefore, I chose to define them in the SoM dtsi, consistent
+with the USB configuration in hamoa-iot-som.dtsi.
 
+Thanks,
+Yuanjie
 
-config: x86_64-rhel-9.4-func
-compiler: gcc-14
-test machine: 8 threads Intel(R) Core(TM) i7-6700 CPU @ 3.40GHz (Skylake) with 28G memory
-
-(please refer to attached dmesg/kmsg for entire log/backtrace)
-
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <yi1.lai@intel.com>
-| Closes: https://lore.kernel.org/oe-lkp/202610261048.3dc64aea-lkp@intel.com
-
-
-2026-10-24 23:20:06 cd /lkp/benchmarks/xfstests
-2026-10-24 23:20:07 export TEST_DIR=/fs/sda1
-2026-10-24 23:20:07 export TEST_DEV=/dev/sda1
-2026-10-24 23:20:07 export FSTYP=ext4
-2026-10-24 23:20:07 export SCRATCH_MNT=/fs/scratch
-2026-10-24 23:20:07 mkdir /fs/scratch -p
-2026-10-24 23:20:07 export SCRATCH_DEV=/dev/sda4
-2026-10-24 23:20:07 sed "s:^:generic/:" /lkp/benchmarks/xfstests/tests/generic-group-09
-2026-10-24 23:20:07 ./check -E tests/exclude/ext4 generic/091 generic/092 generic/093 generic/094 generic/095 generic/096 generic/097 generic/098
-FSTYP         -- ext4
-PLATFORM      -- Linux/x86_64 lkp-skl-d01 7.3.0-rc2+ #1 SMP PREEMPT Sat Oct 24 20:47:23 CST 2026
-MKFS_OPTIONS  -- -F /dev/sda4
-MOUNT_OPTIONS -- -o acl,user_xattr /dev/sda4 /fs/scratch
-
-generic/091        [failed, exit status 1]- output mismatch (see /lkp/benchmarks/xfstests/results//generic/091.out.bad)
-    --- tests/generic/091.out	2026-10-19 16:30:12.000000000 +0000
-    +++ /lkp/benchmarks/xfstests/results//generic/091.out.bad	2026-10-24 23:20:20.173485972 +0000
-    @@ -1,7 +1,25 @@
-     QA output created by 091
-     fsx -N 10000 -l 500000 -r PSIZE -t BSIZE -w BSIZE -Z -R -W
-    -fsx -N 10000 -o 8192 -l 500000 -r PSIZE -t BSIZE -w BSIZE -Z -R -W
-    -fsx -N 10000 -o 32768 -l 500000 -r PSIZE -t BSIZE -w BSIZE -Z -R -W
-    -fsx -N 10000 -o 8192 -l 500000 -r PSIZE -t BSIZE -w BSIZE -Z -R -W
-    -fsx -N 10000 -o 32768 -l 500000 -r PSIZE -t BSIZE -w BSIZE -Z -R -W
-    -fsx -N 10000 -o 128000 -l 500000 -r PSIZE -t BSIZE -w BSIZE -Z -W
-    ...
-    (Run 'diff -u /lkp/benchmarks/xfstests/tests/generic/091.out /lkp/benchmarks/xfstests/results//generic/091.out.bad'  to see the entire diff)
-generic/092         1s
-generic/093         1s
-generic/094         14s
-generic/095         51s
-generic/096         1s
-generic/097         2s
-generic/098         11s
-Ran: generic/091 generic/092 generic/093 generic/094 generic/095 generic/096 generic/097 generic/098
-Failures: generic/091
-Failed 1 of 8 tests
-
-
-The kernel config and materials to reproduce are available at:
-https://download.01.org/0day-ci/archive/20261026/202610261048.3dc64aea-lkp@intel.com
-
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
-
+> Konrad
