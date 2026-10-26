@@ -1,76 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.171.160.6
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793000244;
-	b=JScCRfmlsldaxmR3zWAcwiZia6shRzXv01W9QY9NZtfVcZ1C2Zn1NRaTRNTEnAqrikKM
-	 FqHV3SXpbEQHwlqYwYIZbEeWXIdJxZaIOd5mWkTfs3baMurqJFzHC/jRmQ0d4uKDClPz3
-	 Yi2/KTlSQ5vmABx2wMKGnm5t6Wk37hTIIFZK1naBUL9S3mPHMj8Why097YkEvZW0B+12b
-	 09Egj/b729grbtVckvyNxjSqGQVCbQlzTNxrhZkrgtw0FZ4HvGDiPu0LYQ/sJiHlSD5sE
-	 aU95WBPbg7nkXXO03GAQDdSbIatuPIqqZKCSpXYX8GiWkWQktGSmFHSiR0dhh55PVDA==
+	t=1793000273;
+	b=ocoJ3b0Wknzq5JlppUT0o2ylJN1DAL58ZED9ZAd5C3VbEQyP+fPP25L/AyzN3I9KIlvr
+	 58qFXCm0vyl+L7vnDi+8642Cupthh3m0RydKkqo7wYQSoZ1AxDuzmwR5zIhUF6mE9zaTU
+	 oYDWM4qd+3Qj28HeyILvosMTsohr8DOuJoUM6f8qwB0MZWWCq+XYkic2SBwQq+U7pbECW
+	 /8y9GJCoZ//9Pec6AjEkECLYQr6tmZwjofIJvkXspVqfpGCsNs8YxVvvI8sRmbJj4k/HU
+	 BPTkPdgASQ4GMG2BSWPNfNH1CtCKuI0qWwvTXMwxxL4puoRcHGhgEQqoPzGdxbtz+Aw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793000244;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
-	 Received:From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 User-Agent:MIME-Version:Content-Type;
-	bh=2vp3QjJ817iw+uy+pcrWq/RDVWdRNpTEg9ybL2+diMQ=;
-	b=su1btq3Wyx+hHcGsBn2grUHpgdK9IOA343moc4mbQuJGtqk6d5UB54z6/0rIe3YDVlF5
-	 OG6tejVA4b+zm9ljKVPA8RtKy6vJ8HDf7EoVcUIAv7XI1ovPJ3VgIiDyvSdRGmO50cIoo
-	 ozXfosY4oOZTnynIXY4g1IWihjLZ1HteFjilXqz+rhUf7jK/FH/cKBwV3Tf6JasDrVdyB
-	 wf9nOy8Pi56UCQyvXt9+W83gBxvgfRyODOPVimyLuDOLJdRLoixqFEdXxtOWva7Q3Lgx2
-	 DpLOoP3gUQFET4Ly3oJsT8ozbSN/pkYpKJhSxFw4g1sc7YvV2McI9lnm6klgw39ITgQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793000273;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=sNH47+qhqvIkLJM70XO7X5MhEUEpHyY8xi1+x4fP4S8=;
+	b=nS5Iu0YyZKAxLlExgGEqblnwwvDbLXb5GUFb6PEy9O6RhZwk7fIi64Ur9r/2ye5n5t6J
+	 u5jJ3GQAjpZBX8GYrso578RxAal6/+PM9tGtNfmB3uuopjGU5ExiSM7QNke3WEkYCA7ot
+	 x+SoLBww8rg6gOwSnitufVWw1GtzqzVTY5/yXpper7DA+EP5jLgqU4WLFO+iLjqGqXBQM
+	 +XsoQLPFE4B25woXMA6nbqw0AZiEk29+BTE3n9wvJH9oRFIZU38xmzaQSGzOmUlSrtC1n
+	 Yr3cyGKScizGVDNziyLQ1YhqsHgGRa2PRvuyE8ByPCKi9Vgjdb7egEvNGmJD1A8siCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.parknet.co.jp;
-	spf=pass smtp.mailfrom=parknet.co.jp;
-	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=rsa-sha256 header.s=20250114 header.b=tcpGJ6HM;
-	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=ed25519-sha256 header.s=20250114-ed25519 header.b=NJG1i8Px;
-	arc=none smtp.remote-ip=210.171.160.6
-Received: from mail.parknet.co.jp (mail.parknet.co.jp [210.171.160.6])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=oc5b+gSr;
+	arc=none smtp.remote-ip=220.197.31.4
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0730606A31E;
-	Mon, 26 Oct 2026 07:37:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0730606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.parknet.co.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=parknet.co.jp
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0B97606A31A;
+	Mon, 26 Oct 2026 07:37:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0B97606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=parknet.co.jp header.i=@parknet.co.jp header.a=rsa-sha256 header.s=20250114 header.b=tcpGJ6HM;
-	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=ed25519-sha256 header.s=20250114-ed25519 header.b=NJG1i8Px
-Received: from ibmpc.myhome.or.jp (server.parknet.ne.jp [210.171.168.39])
-	by mail.parknet.co.jp (Postfix) with ESMTPSA id 4F44426F7658;
-	Mon, 26 Oct 2026 16:37:13 +0900 (JST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=parknet.co.jp;
-	s=20250114; t=1793000233;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=2vp3QjJ817iw+uy+pcrWq/RDVWdRNpTEg9ybL2+diMQ=;
-	b=tcpGJ6HMXlfIONcreIbHlyJFH5AsaoMz+8VE0snqTbIhrEakFRC7ts1VvQBNSa8PjqPA+9
-	mVDLlbb2/1esUdIvvk+X7WYhRiU74HMKlDFzXoCBxaX75j4QRYC8mOS7a7StSqJZ2XS97l
-	bN0bS8AlTdRZN3z4b5GVqJzdaIfLPZE5+GD/8irrNfcISYUBZI6GJ8123nnZYxoLjNv+6m
-	zjq77ZvGS1IrJDYOi93yF05wfX4MCgX64VvoI2kvxUTWYBQq0l8/p25et9Cb8w45bNdIWo
-	jMU0HLo0ptObmtp6HIDv4ZMj6l9uIZY0kjlNrUAo5eJJt/neBpeBPLEZe2NUXA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=parknet.co.jp;
-	s=20250114-ed25519; t=1793000233;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=2vp3QjJ817iw+uy+pcrWq/RDVWdRNpTEg9ybL2+diMQ=;
-	b=NJG1i8PxSDqk+iaOWqE1F/2WQENTpl4yyUDuMM/eiX+0Ua1TxhMuwmPMJNo8+IjkKfndI0
-	7bp70YMMYKRhOoDg==
-Received: from devron.myhome.or.jp (devron.myhome.or.jp [192.168.0.3])
-	by ibmpc.myhome.or.jp (Postfix) with ESMTPS id C5802E00171;
-	Mon, 26 Oct 2026 16:37:12 +0900 (JST)
-Received: by devron.myhome.or.jp (Postfix, from userid 1000)
-	id B8565220019C; Mon, 26 Oct 2026 16:37:12 +0900 (JST)
-From: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
-To: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
-Cc: linux-fsdevel@vger.kernel.org,  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] fat: batch synchronous mirror writes
-In-Reply-To: <20261025191006.407209-2-matheus.aalmeida@inf.ufrgs.br>
-References: <20261025191006.407209-1-matheus.aalmeida@inf.ufrgs.br>
-	<20261025191006.407209-2-matheus.aalmeida@inf.ufrgs.br>
-Date: Mon, 26 Oct 2026 16:37:12 +0900
-Message-ID: <87ecdchpzr.fsf@mail.parknet.co.jp>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=oc5b+gSr
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=sN
+	H47+qhqvIkLJM70XO7X5MhEUEpHyY8xi1+x4fP4S8=; b=oc5b+gSrnG596ADi/5
+	v6LlHYEpRDq+lOpZx056lB4zM9HYvKqCc4OJinLty/ICF9ah4FDm9u82wGEWhIEx
+	cKqXnPOFcVLHEOjwUBzdhrqH7W2OnU2aF+uo/066HBDOzYzfdZhhqC5ak3Rjq/9O
+	klRZpEm+PQ25uKQAIOuOO2GmU=
+Received: from localhost.localdomain (unknown [])
+	by gzsmtp2 (Coremail) with SMTP id PSgvCgDnhy0WA99qbWwVCA--.55172S2;
+	Mon, 26 Oct 2026 15:36:55 +0800 (CST)
+From: Feng Yang <yangfeng59949@163.com>
+To: ast@kernel.org,
+	daniel@iogearbox.net,
+	andrii@kernel.org,
+	eddyz87@gmail.com,
+	memxor@gmail.com,
+	martin.lau@linux.dev,
+	song@kernel.org,
+	yonghong.song@linux.dev,
+	jolsa@kernel.org,
+	emil@etsalapatis.com,
+	ihor.solodrai@linux.dev
+Cc: bpf@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH bpf v2] bpf: Fix out-of-bounds btf->types write for split BTF
+Date: Mon, 26 Oct 2026 15:36:54 +0800
+Message-Id: <20261026073654.840705-1-yangfeng59949@163.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,189 +69,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PSgvCgDnhy0WA99qbWwVCA--.55172S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxZFWxGFykKFWUXFWrtFy3XFb_yoW5Crykpr
+	4rCFs5Cwsag3WxXa47ta45Wa18Kw1rC3y7JFZ0yrWFyF4j9r10vF1UGrW293sFvFn7GrWY
+	yr4v9rZYgw48WrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jjuWLUUUUU=
+X-CM-SenderInfo: p1dqww5hqjkmqzuzqiywtou0bp/xtbCzxdY0GrfAxdEpQAA3Q
 
-Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br> writes:
+From: Feng Yang <yangfeng@kylinos.cn>
 
-> fat_mirror_bhs() currently synchronizes buffer-by-buffer on synchronous
-> mounts, serializing I/O and degrading performance.
->
-> Make fat_mirror_bhs() batch dirty buffer heads and use fat_sync_bhs()
-> to sync several at once. Add a fat_brelse_array() helper that releases
-> buffer heads in an array.
->
-> Benchmarking was done under QEMU/KVM with a virtio-blk device using
-> cache=directsync. Each result is the arithmetic mean of 10 samples.
->
-> start = now_ns();
-> for (unsigned i = 0; i < count; i++) {
-> 	fallocate(fds[i], FALLOC_FL_KEEP_SIZE, 0, bytes);
-> }
-> elapsed = now_ns() - start;
->
-> Sync-mounted FAT32 using count=16 files:
-> File size    Cluster size    Before    After    Improvement
-> 256MiB       512B            49.81s    12.26s   4.06x
-> 1MiB         512B            0.198s    0.057s   3.50x
-> 256MiB       4096B           7.060s    1.640s   4.31x
-> 1MiB         4096B           0.073s    0.028s   2.60x
->
-> Asynchronous mounts were also benchmarked with no noticeable performance
-> change.
->
-> Signed-off-by: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
-> ---
->  fs/fat/fat.h    |  1 +
->  fs/fat/fatent.c | 81 +++++++++++++++++++++++++++++++++++--------------
->  fs/fat/misc.c   |  6 ++++
->  3 files changed, 65 insertions(+), 23 deletions(-)
->
-> diff --git a/fs/fat/fat.h b/fs/fat/fat.h
-> index b18385461de8..5086c35230ac 100644
-> --- a/fs/fat/fat.h
-> +++ b/fs/fat/fat.h
-> @@ -479,6 +479,7 @@ void fat_truncate_time(struct inode *inode, struct timespec64 *now,
->  int fat_update_time(struct inode *inode, enum fs_update_time type,
->  		unsigned int flags);
->  extern int fat_sync_bhs(struct buffer_head **bhs, int nr_bhs);
-> +void fat_brelse_array(struct buffer_head *bhs[], int n);
->  
->  int fat_cache_init(void);
->  void fat_cache_destroy(void);
-> diff --git a/fs/fat/fatent.c b/fs/fat/fatent.c
-> index 8897a5dd522d..4fa1fae5abf9 100644
-> --- a/fs/fat/fatent.c
-> +++ b/fs/fat/fatent.c
-> @@ -376,39 +376,74 @@ int fat_ent_read(struct inode *inode, struct fat_entry *fatent, int entry)
->  	return ops->ent_get(fatent);
->  }
->  
-> -/* FIXME: We can write the blocks as more big chunk. */
-> -static int fat_mirror_bhs(struct super_block *sb, struct buffer_head **bhs,
-> -			  int nr_bhs)
-> +static int fat_mirror_one(struct super_block *sb, struct buffer_head **bhs,
-> +			  int nr_bhs, int target)
->  {
->  	struct msdos_sb_info *sbi = MSDOS_SB(sb);
-> +	sector_t backup_fat = sbi->fat_length * target;
-> +	/*
-> +	 * Use the value of MAX_BUF_PER_PAGE for 4K pages. This reduces stack
-> +	 * usage on large-page architectures as callers may already have a
-> +	 * MAX_BUF_PER_PAGE-sized array in their stack.
-> +	 */
-> +	struct buffer_head *dirty[8];
->  	struct buffer_head *c_bh;
-> -	int err, n, copy;
-> +	int err, err2, n, nr_dirty;
->  
-> +	nr_dirty = 0;
->  	err = 0;
-> -	for (copy = 1; copy < sbi->fats; copy++) {
-> -		sector_t backup_fat = sbi->fat_length * copy;
-> -
-> -		for (n = 0; n < nr_bhs; n++) {
-> -			c_bh = sb_getblk(sb, backup_fat + bhs[n]->b_blocknr);
-> -			if (!c_bh) {
-> -				err = -ENOMEM;
-> -				goto error;
-> +	for (n = 0; n < nr_bhs; n++) {
-> +		c_bh = sb_getblk(sb, backup_fat + bhs[n]->b_blocknr);
-> +		if (!c_bh) {
-> +			err = -ENOMEM;
-> +			goto error;
-> +		}
-> +		/* Avoid race with userspace read via bdev */
-> +		lock_buffer(c_bh);
-> +		memcpy(c_bh->b_data, bhs[n]->b_data, sb->s_blocksize);
-> +		set_buffer_uptodate(c_bh);
-> +		unlock_buffer(c_bh);
-> +		mmb_mark_buffer_dirty(c_bh,
-> +			&MSDOS_I(sbi->fat_inode)->i_metadata_bhs);
-> +		if (sb->s_flags & SB_SYNCHRONOUS) {
-> +			dirty[nr_dirty] = c_bh;
-> +			++nr_dirty;
-> +			if (nr_dirty == ARRAY_SIZE(dirty)) {
-> +				err = fat_sync_bhs(dirty, nr_dirty);
-> +				fat_brelse_array(dirty, nr_dirty);
-> +				nr_dirty = 0;
-> +				if (err)
-> +					goto error;
->  			}
-> -			/* Avoid race with userspace read via bdev */
-> -			lock_buffer(c_bh);
-> -			memcpy(c_bh->b_data, bhs[n]->b_data, sb->s_blocksize);
-> -			set_buffer_uptodate(c_bh);
-> -			unlock_buffer(c_bh);
-> -			mmb_mark_buffer_dirty(c_bh,
-> -				&MSDOS_I(sbi->fat_inode)->i_metadata_bhs);
-> -			if (sb->s_flags & SB_SYNCHRONOUS)
-> -				err = sync_dirty_buffer(c_bh);
-> +		} else {
->  			brelse(c_bh);
-> -			if (err)
-> -				goto error;
->  		}
->  	}
-> +
->  error:
-> +	if (nr_dirty) {
-> +		err2 = fat_sync_bhs(dirty, nr_dirty);
+btf_add_type() bounds the btf->types array by BTF_MAX_TYPE, but for a
+split BTF the type ids it registers are start_id .. start_id +
+nr_types - 1, so what is actually left of the id space is
+BTF_MAX_TYPE - start_id.  Two things follow from that:
 
-		int err2 = fat_sync_bhs(dirty, nr_dirty);
+ - the limit check is an equality test,
+   'start_id + btf->types_size == BTF_MAX_TYPE'.  It is evaluated only
+   when the array has to grow, with btf->types_size == btf->nr_types,
+   and the growth (T' = min(BTF_MAX_TYPE, T + max(T / 4, 16)), starting
+   from 0) is clamped to BTF_MAX_TYPE, which it lands on exactly (...,
+   928143, then min(BTF_MAX_TYPE, 1160178)).  So unless
+   BTF_MAX_TYPE - start_id is one of the 48 sizes that sequence hits,
+   the check does not fire for a split BTF at all;
 
-I'd like to see err2 as local.
+ - new_size is clamped to BTF_MAX_TYPE instead of
+   BTF_MAX_TYPE - start_id, so the array can still grow to
+   BTF_MAX_TYPE entries even though only BTF_MAX_TYPE - start_id type
+   ids exist.
 
-> +		if (!err)
-> +			err = err2;
-> +		fat_brelse_array(dirty, nr_dirty);
-> +	}
-> +
-> +	return err;
-> +}
-> +
-> +static int fat_mirror_bhs(struct super_block *sb, struct buffer_head **bhs,
-> +			  int nr_bhs)
-> +{
-> +	struct msdos_sb_info *sbi = MSDOS_SB(sb);
-> +	int err, copy;
-> +
-> +	err = 0;
-> +	for (copy = 1; copy < sbi->fats; copy++) {
-> +		err = fat_mirror_one(sb, bhs, nr_bhs, copy);
-> +		if (err)
-> +			break;
-> +	}
-> +
->  	return err;
+As a result nr_types can reach BTF_MAX_TYPE for a split BTF while its
+type ids have already gone past BTF_MAX_TYPE; a type never validates its
+own id, only the ids it references (btf_ref_type_check_meta()).  At that
+point btf->types_size == btf->nr_types == BTF_MAX_TYPE and the growth
+branch computes the same size again: it allocates a fresh BTF_MAX_TYPE
+entry array, copies the entries, and the loop is left with
+btf->types_size != btf->nr_types, so that branch is not taken anymore.
+Every type after this writes btf->types[btf->nr_types++] past the end of
+the array: BTF_MAX_TYPE * 8 == 8388600 bytes are requested, so the first
+such write lands in the 8 byte rounding slack of the 8MB allocation, and
+each further type writes another 8 bytes beyond it.
 
-		int err = fat_mirror_one(sb, bhs, nr_bhs, copy);
-		if (err)
-			return err;
-	}
+Fix both by bounding the array with BTF_MAX_TYPE - start_id and by
+turning the equality check into a '>=' one, so that the array stops
+exactly where the id space ends. Base BTF behavior (start_id ==
+0) is unchanged.
 
-	return 0;
+Fixes: 951bb64621b8 ("bpf: Add in-kernel split BTF support")
+Signed-off-by: Feng Yang <yangfeng@kylinos.cn>
+Reviewed-by: Mahe Tardy <mahe.tardy@gmail.com>
+---
+ kernel/bpf/btf.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-very minor (either is ok actually)
-
->  }
->  
-> diff --git a/fs/fat/misc.c b/fs/fat/misc.c
-> index e79762cf1975..f8f89b947baf 100644
-> --- a/fs/fat/misc.c
-> +++ b/fs/fat/misc.c
-> @@ -365,3 +365,9 @@ int fat_sync_bhs(struct buffer_head **bhs, int nr_bhs)
->  	}
->  	return err;
->  }
-> +
-> +void fat_brelse_array(struct buffer_head *bhs[], int n)
-> +{
-> +	while (--n >= 0)
-> +		brelse(bhs[n]);
-> +}
-
-I'd like this is noop if n == 0, possibly easier to use and safer in future.
-
-Thanks.
+diff --git a/kernel/bpf/btf.c b/kernel/bpf/btf.c
+index 7ed1ff71a089..ca49c47f6a45 100644
+--- a/kernel/bpf/btf.c
++++ b/kernel/bpf/btf.c
+@@ -1752,15 +1752,17 @@ static int btf_add_type(struct btf_verifier_env *env, struct btf_type *t)
+ 		/* Expand 'types' array */
+ 
+ 		struct btf_type **new_types;
+-		u32 expand_by, new_size;
++		u32 expand_by, new_size, max_size;
+ 
+-		if (btf->start_id + btf->types_size == BTF_MAX_TYPE) {
++		if (btf->start_id >= BTF_MAX_TYPE ||
++		    btf->start_id + btf->types_size >= BTF_MAX_TYPE) {
+ 			btf_verifier_log(env, "Exceeded max num of types");
+ 			return -E2BIG;
+ 		}
+ 
++		max_size = BTF_MAX_TYPE - btf->start_id;
+ 		expand_by = max_t(u32, btf->types_size >> 2, 16);
+-		new_size = min_t(u32, BTF_MAX_TYPE,
++		new_size = min_t(u32, max_size,
+ 				 btf->types_size + expand_by);
+ 
+ 		new_types = kvzalloc_objs(*new_types, new_size,
 -- 
-OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+2.25.1
+
