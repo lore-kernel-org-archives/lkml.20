@@ -1,87 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793028014;
-	b=IWKf4dK4KVpUlX0UShCEPjXLEoO6XBhPIUL2kdtkmTftLiAKGOski1db3ci8KeskTYhJ
-	 tZ90eMXGrc2VtePF9i3d2RKHG9fKTCC6FEXFOsTp+T247Fig26gBKns6s0f7O3tUctSFg
-	 PFHMZ0sG457XJoZAJFT/kraBdPvY/tyGjtfm8Brkz5n1/AOgREHbGjRMQ5VAo9EYiZm7r
-	 wYjkByJabf06aydNZukIEGcb9JOKYPXC+HvBx7uVmQ/L32dUDr9xMXxRO/lH29m5Dy711
-	 3EBRpWA1zuqrs+VhC8yie341uJiorBiTGSoCVfcEIRwoh8eV/sS5FQfrt7QYen8Mmvw==
+	t=1793028016;
+	b=YRYGSsFivfrhON10MXpyIxXs4YJX2I2NQpKjWwTw6kMSG+FCTFqmVYrYyL5lXD3QrBZU
+	 BQnuvAeCEwE0Y17MThTuWDqodTynqz8pIzrEe/tmRGA0HWOIeXiZgwj0bqNLjm3gZN8BY
+	 Q0teP7ONBuSxyBw2JsQ/9z0i0UNXEfitBUjZp+OAz+J1jUZoZoKKh8ERoThvHYT0+L32B
+	 6blrkPqTa0PgJByQuT5zjkKRDv12kXVUpPyPkKtC51EIgQBKUf3pYHdV0tLB4eZh1/z/b
+	 NBgBr1jtqCqgoN0czkbjzha0qUNApR21W0xP2kyHocoLj4l8BhKRpqPZCHX4f1Z+IkQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793028014;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=GDoT1f97HMSzIl27AFxsGzgU14gBpQzsSaLQbUyRuPE=;
-	b=t9xMDE/cAcp1eyRjtFIuzWxwB62YJBvEZjHzH6WFXgonCjx9snEqrXn7SxcuSlE3INMf
-	 IwZK8gBjYDCqOI/0dwNDz2Z7pwUgX118Fui9wR1VASbSMquyzzS/HtvPD4gjMzioG/B6v
-	 V7JFaGdgNjsVKesE3ypyywBIgEXkv+LbA6arQo2+ZEY3ZI6ynA+0EMAboj+s1yH63l2jt
-	 reTGsr2/hxeM1rGRANT7QD6evRuvFODDcSgeB+CtAYF45B0h2bcH00WZc595sjB/F8oVU
-	 aY3zoiUBUF8nsM5/CiobcQ0sL9qG/K8IyfPCmHC29PF8BctQe1SCKZKqH0+RjYVhQ0Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793028016;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition;
+	bh=qh2WYceyg9MtlK+9B4gF9aA89lWm6+cWlBRyI1J8Fug=;
+	b=pc72v7AIBmr5v0nmp0iJPgtWLzY/jj3hpTk5IzFoRQDMpavwgo/JPfYUnCHid+beieiB
+	 fO6nmSXIpXl/eYDJbi3J2Lhuzpp8zNakm6l4D43ItdNQoX4yWyI9aDUg3KFfe/ICg4Q2w
+	 yPob5fcgnAg88OOjXC7SWj8SMcXF3w1h7BIbRmGZxafSMdRel2ou5QowDg8cjYMHHUTmN
+	 NGtFqJvhn/prLDPvJKLLrJBUsMEUALGm8DflMeMPe1aJhi4LywyWfzzo2uTLt6Yb8AnS9
+	 9TbHJS64hAH2MyAprhaZf+sh5B/ky27oa2UnH90xNIcItlKCETh+czuxL/XKVdOraAw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ToNzRoTL;
-	arc=none smtp.remote-ip=209.85.216.48
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TgpMWqp6;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBB60606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 15:20:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBB60606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7AE0606A329
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 15:20:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ToNzRoTL
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3ada8bc2380so1259608a91.3
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 08:20:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793028013; x=1793632813; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GDoT1f97HMSzIl27AFxsGzgU14gBpQzsSaLQbUyRuPE=;
-        b=ToNzRoTLP4HJzM6XNq6Q3Qj8LuNiIenfeWp0aOxyA/K5ytxu5ZsC3I2YihUkowTmBo
-         6xPeIK7d7VwVycUAy+tvEa3GZwfo803+5TJb1itvtPBr/NEiZIYAbLpKdE0YTXA9ANNf
-         2AeuzW1okTGm/goAuj8aI465AEMoDrCdRKDM6fDi9xoG4MpsrbMkmUH6hYutlRz7zi8t
-         1nnsRv4+ERNzZuHxkeZxVX/GWP6HEClUCjqp5Hbd+JQYze4gglesifdNgYVts8EtPLwQ
-         RLDBiFme4GMN/7InZpF7Bxl88jdxwOKnuIjMOHNMuHQUOkAwL6lGJ8jOPGFOuVmORTL3
-         R9HQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793028013; x=1793632813;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GDoT1f97HMSzIl27AFxsGzgU14gBpQzsSaLQbUyRuPE=;
-        b=r0Xz6MLLhw29+zMYlxw3GfXC8TzMbVV0sPhIH1sHPdRJ8wWRx0YdxGWZ3ZbSdDS2KE
-         pvOxZJ6rvkD76zVPYafPXKYNH3/lTtOUyDxvPnB378Gra7Kc5rgPn8U4qAlDWO0MQtlG
-         LPHlxcgAnU2b7tLZkKPRJqUi9RjUy357F+pMAX0201RxZNgQDHro3utDUUBWarKsbw/D
-         1/8LHwDfI0bsm7OReb7r8v6K/SGBFzHouWSwmyuJoNfmBr0/6dP0WZfoPk4fa+OGBHGi
-         GgnsDnsa3P5H01HYHOPeU85pdch0Xf/T2ajJ8iRk9qVO8hoAD8rD/sZw6VmjaaayXsjC
-         eoew==
-X-Forwarded-Encrypted: i=1; AKwUvBxHD7UOr8XQ3KK45jprVOt4oxDnoUEJZJQ+bn2QA92IMXXRaYP9RARnRs8LdrNVLMxHiFmbYUdn56xH7OU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLfC/bdn4OfkyLp8JwlNdUb0WzoF3mIBnsFqZ/KA+0r2UOA8xVx
-	iZsSrqV1lcYYtoPfM1FEA3UI2hj84048h6cQhYZY6QULgcaR6D0Cijvi
-X-Gm-Gg: AYBFou0wXEfQ534Zy20VH9Vj7LvU4Ru6c2Q5ghBaqxMrdDQIWPiacNJamHTicqzh+1h
-	HRxM1o8rc8yXPjYXpYB8xDheHQ63nDDu1j4kWRWhaC9WP3DcxZrNBLB7UO7gboZLwhaWW7pCEfs
-	gcawHDrEobs76uG1o6hO3gXj034ptBcs4PmLde01wHzks4NOtXkSvgfOZXmY6PaOBJfcL4/+4Lp
-	IffOFxOpuOaq95rkDZYIX03UcMc6r/O5V2pIoRVXsHsGtuuaXPf35tl6HQ3C52YUai2Nos1Yspy
-	X1aTTb0IuOX5BA57lRI6OD38orE15xKDdTOb1DkUAlZgYMxkyGRrZ1YxVtrs+gopJyoRU5BpDeC
-	55kJWoPG5NxsB5holbjM6jeDDucrq7aEblY3knt+/Dq244HB+He+SQiKKuT81vtWqVv6hiMtuic
-	PY5PGLZw1zJZEPWvLT1ysG9Ay/cdPsbIVWCebxHiE3Svy+QUtS2GlQQvrvoAijTAjy+KesW2+xh
-	8kA8VyojJ/SnCXNd2TMROvmLSwE2NITxdTsfiEcOGr/FT4=
-X-Received: by 2002:a17:90b:4a81:b0:3a8:a98c:ea07 with SMTP id 98e67ed59e1d1-3adea8966e7mr5384743a91.13.1793028011866;
-        Mon, 26 Oct 2026 08:20:11 -0700 (PDT)
-Received: from [198.18.0.1] ([38.182.104.55])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd8ccc682d8sm1799598a12.18.2026.10.26.08.20.09
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 26 Oct 2026 08:20:11 -0700 (PDT)
-Message-ID: <af546d6b-d1c0-45df-8f81-ad839e7e4d6d@gmail.com>
-Date: Mon, 26 Oct 2026 23:19:58 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TgpMWqp6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B42491F01828;
+	Mon, 26 Oct 2026 15:20:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793028015;
+	bh=qh2WYceyg9MtlK+9B4gF9aA89lWm6+cWlBRyI1J8Fug=;
+	h=Date:From:To:Cc:Subject;
+	b=TgpMWqp6dekPMAPuEw6HP1Us0rH2CMv6fpwvHZRCJlq/FZRmZecPAXXm/I2RPvlfr
+	 SyGwL890id7D6deaT3WIDrDVmuiGvhi5QeYl+Cp6XHOsEoz2t7QWDkBBvjn4/zbbrk
+	 cPZZ/yobSdZ3gGEsY5dJqoRKuPJ6zgaMnys0Bo5Um6x0PbP250NnT+77gyvGmo36FD
+	 92BCpMD4oPMHULcff6ju8YqR2uBOIwXRW3/mDLbz+9XbQTJFR8vCVgEwJv0N2BPXUV
+	 0snfeVaexvzBGolh/SoxL2Iili9ysT/Zq5LvjJ6q4v5jKVccyNpDcdAiFEk10y2CuO
+	 6gH/6ZiMxWPog==
+Date: Mon, 26 Oct 2026 15:20:12 +0000
+From: Lee Jones <lee@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Pavel Machek <pavel@ucw.cz>
+Subject: [GIT PULL] LEDs for v7.4
+Message-ID: <20261026152012.GD2195460@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,118 +55,328 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] ksmbd: fix named-pipe reply loss with small output
- buffers
-To: Namjae Jeon <linkinjeon@kernel.org>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, Tom Talpey
- <tom@talpey.com>, ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
- linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <SEYPR02MB69642EAEE79F3CF02F782597E6612@SEYPR02MB6964.apcprd02.prod.outlook.com>
- <SEYPR02MB69641633E70AC3FBF14BB14FE6612@SEYPR02MB6964.apcprd02.prod.outlook.com>
- <CAKYAXd9vAUH6J_Mbx3ZTzGT9U+unoOsdDL4j_Q8UsDypW3a82g@mail.gmail.com>
-Content-Language: en-US
-From: Wang Zhaolong <wangzhaolong633@gmail.com>
-In-Reply-To: <CAKYAXd9vAUH6J_Mbx3ZTzGT9U+unoOsdDL4j_Q8UsDypW3a82g@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Hi Namjae,
+Good afternoon Linus,
 
->
-> if (rpc->pending)
->     rsp->hdr.Status = STATUS_BUFFER_OVERFLOW;
-> Should we add this check ?
->
->> +       goto done;
->>
->> +empty:
->> +       err = ksmbd_iov_pin_rsp(work, rsp,
->> +                               offsetof(struct smb2_read_rsp, Buffer));
->> +       if (err)
->> +               goto out_put;
->> +done:
->>         rsp->StructureSize = cpu_to_le16(17);
->>         rsp->DataOffset = 80;
->>         rsp->Reserved = 0;
->> @@ -9349,7 +9375,6 @@ static noinline int smb2_read_pipe(struct ksmbd_work *work)
->>         rsp->hdr.Status = smb2_pipe_error_status(err,
->>                                                 STATUS_UNEXPECTED_IO_ERROR);
->>         smb2_set_err_rsp(work);
->> -       kvfree(rpc_resp);
->>         return err;
->>  }
->>
->> @@ -9947,7 +9972,7 @@ static noinline int smb2_write_pipe(struct ksmbd_work *work)
->>         if (IS_ERR(rpc)) {
->>                 err = PTR_ERR(rpc);
->>                 rsp->hdr.Status = smb2_pipe_error_status(err,
->> -                                                       STATUS_INVALID_HANDLE);
->> +                                                        STATUS_INVALID_HANDLE);
->>                 smb2_set_err_rsp(work);
->>                 return err;
->>         }
->> @@ -11440,20 +11465,25 @@ static int fsctl_pipe_transceive(struct ksmbd_work *work, u64 id,
->>         struct ksmbd_rpc_command *rpc_resp;
->>         struct ksmbd_session_rpc *rpc;
->>         char *data_buf = (char *)req + le32_to_cpu(req->InputOffset);
->> -       unsigned int nbytes;
->> -       int err;
->> +       unsigned int nbytes = 0;
->> +       int ret;
->>
->>         rpc = ksmbd_session_rpc_get(work, id);
->>         if (IS_ERR(rpc)) {
->> -               err = PTR_ERR(rpc);
->> -               rsp->hdr.Status = smb2_pipe_error_status(err,
->> -                                                       STATUS_INVALID_PARAMETER);
->> +               ret = PTR_ERR(rpc);
->> +               rsp->hdr.Status = smb2_pipe_error_status(ret,
->> +                                                STATUS_INVALID_PARAMETER);
->>                 smb2_set_err_rsp(work);
->>                 return 0;
->>         }
->>
->> -       rpc_resp = ksmbd_rpc_ioctl(work->sess, rpc, data_buf,
->> -                                  le32_to_cpu(req->InputCount));
->> +       /* Write new input without reading past an already buffered reply. */
->> +       if (rpc->pending)
->> +               rpc_resp = ksmbd_rpc_write(work->sess, rpc, data_buf,
->> +                                          le32_to_cpu(req->InputCount));
->> +       else
->> +               rpc_resp = ksmbd_rpc_ioctl(work->sess, rpc, data_buf,
->> +                                          le32_to_cpu(req->InputCount));
-> This WRITE leaves KSMBD_DCERPC_RETURN_READY set in mountd. After the
-> cached reply is drained, the next TRANSCEIVE can return the previous
-> reply without processing its own input.
->
-> Thanks.
+The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
 
+  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
 
-Thanks for catching this.
+are available in the Git repository at:
 
-I reproduced the sequence you described and confirmed the problem.
+  git://git.kernel.org/pub/scm/linux/kernel/git/lee/leds.git leds-next-7.4
 
-For the READ path, your suggested STATUS_BUFFER_OVERFLOW check looks
-appropriate when a positive-length read leaves unread bytes from
-the same reply.
+for you to fetch changes up to 59cf91cf87abb67a49b1bb7b9d3b06486abde8cf:
 
-For TRANSCEIVE, I think the correct fix needs some discussion.
-One possibility is to return STATUS_PIPE_BUSY when cached reply
-data remains, without issuing another IPC request or consuming the
-cached data. The client would need to drain that reply through READ
-before submitting another transaction. MS-FSCC §2.3.48[1] lists
-PIPE_BUSY for a pipe containing unread data.
+  dt-bindings: leds: lacie,netxbig-leds: Convert to DT schema (2026-10-15 16:53:25 +0100)
 
-However, I would like to confirm that this is the intended behavior
-for this SMB2 path before preparing v4. Simply omitting the WRITE
-and returning cached data would still silently discard the input.
+----------------------------------------------------------------
+LEDs for v7.4
 
-Would rejecting the transaction with STATUS_PIPE_BUSY be appropriate
-here, or would you prefer a different approach?
+- New Support & Features
+  - Core: Add `led_trigger_notify_hw_control_changed()` to allow drivers to notify the
+    core of autonomous hardware control transitions
+  - Core: Add the `hw_offloaded()` trigger callback and `trigger_may_offload_to_hw` sysfs
+    attribute to expose hardware-offloaded triggers
+  - Netdev Trigger: Implement the `hw_offloaded()` callback to report hardware control
+    state to the LED core
+  - Analog Devices LTC3208: Add support for the LTC3208 7-channel multi-display I2C LED
+    driver
+  - ChromeOS EC: Implement the `hw_offloaded()` callback for the `chromeos-auto` trigger
+  - CZ.NIC Turris Omnia: Implement the `hw_offloaded()` callback and declare `omnia-mcu`
+    as a hardware control trigger
+  - STMicroelectronics ST1202: Add hardware-accelerated blink support via `blink_set()`
 
-[1] https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-fscc/f48cecf1-98d8-48dc-926f-2f3a48f07cf6
+- Improvements & Fixes
+  - Class: Always hold the `led_access` mutex in `brightness_show()` to avoid exposing
+    transient registration states
+  - Class: Deactivate active hardware control triggers when writing to the `brightness`
+    sysfs attribute
+  - Core: Enforce strict validation in `led_trigger_is_hw_controlled()` and warn on legacy
+    fallback paths
+  - Flash Class: Initialize the fault variable in `flash_fault_show()` to prevent
+    undefined behavior when callbacks perform bitwise ORs
+  - Kinetic KTD2692: Pass the driver context directly to `regulator_disable_action()` to
+    prevent a NULL pointer dereference during error unwinding
+  - Maxim MAX77705: Use `fwnode_for_each_child_node_scoped()` in `max77705_add_led()` to
+    prevent child node reference leaks on error paths
+  - NXP PCA9532: Check the return value of `i2c_smbus_read_byte_data()` in
+    `pca9532_getled()` to avoid integer underflow on read errors
+  - Qualcomm WLED: Fix a NULL pointer dereference in `wled_remove()` by setting platform
+    driver data in `wled_probe()`
+  - Qualcomm WLED: Fix the WLED3 brightness register stride to prevent consecutive string
+    writes from overlapping
+  - Qualcomm WLED: Read back the hardware-programmed brightness at probe, expose it via
+    `get_brightness()`, and prevent unbalanced OVP IRQ enabling
+  - STMicroelectronics ST1202: Clear unused PWM pattern slots in `pattern_set()` and
+    `blink_set()` to prevent unintended output when sharing the global sequencer
+  - STMicroelectronics ST1202: Program and cap the channel current according to
+    `max_brightness` across brightness, blink, and hardware pattern modes, and scale
+    pattern brightness to the 12-bit PWM range
+  - STMicroelectronics ST1202: Retain a reference to each child LED firmware node for the
+    lifetime of the device
+  - STMicroelectronics ST1202: Use only the blocking `brightness_set_blocking()` callback
+    to avoid sleeping in atomic context during I2C transfers
+  - TI LM3692x: Check the final register write in `lm3692x_leds_enable()` to prevent
+    regulator/GPIO leaks and an inconsistent enabled state
+  - TI LP8860: Fix a `device_node` reference leak in `lp8860_probe()` using
+    `__free(device_node)`
 
-Thanks,
-Wang Zhaolong
+- Cleanups & Refactoring
+  - Core: Move `led_trigger_is_hw_controlled()` and `led_trigger_group` from `led-class.c`
+    into `led-triggers.c`
+  - Core: Replace conditional `set_bit()`/`clear_bit()` patterns with `assign_bit()` and
+    `__assign_bit()`
+  - Flash Class: Simplify `flash_fault_show()` using `sysfs_emit_at()` and omit the
+    trailing space
+  - Maintainers: Add Griffin Kroah-Hartman as an LED subsystem reviewer
+  - Intel SS4200: Fix a spelling typo in a comment
+  - ISSI IS31FL32xx: Convert DT-specific parsing helpers to generic device and fwnode
+    property APIs
+  - NXP PCA955x: Drop redundant intermediate platform data and allocate the LED array
+    using a flexible array member
+  - Qualcomm LPG: Convert LED and channel parsing to fwnode APIs and avoid leaving
+    `default_trigger` uninitialized
+  - Skyworks AAT1290: Use `ARRAY_SIZE()` when allocating `mm_current_scale` to match the
+    target pointer type for type-aware allocators
+  - STMicroelectronics ST1202: Introduce a `st1202_iled_max()` helper to unify channel
+    current ceiling calculations
+  - STMicroelectronics ST1202: Standardize variable and macro naming, fix helper spelling,
+    and use `u8` consistently instead of `uint8_t`
+  - Syscon: Convert from OF-specific property helpers to the generic device property and
+    fwnode APIs
 
+- Device Tree Binding Updates
+  - Core: Allow PHY RX triggers (`phy[0-9]+rx`) in `linux,default-trigger`
+  - Core: Standardize example indentation across multiple LED and backlight binding
+    schemas
+  - Analog Devices LTC3208: Document the LTC3208 multi-display LED driver
+  - LaCie netxbig: Convert LED bindings to DT schema
+  - Motorola CPCAP: Convert LED bindings to DT schemaLEDs for v7.4
+
+- New Support & Features
+  - Core: Add `led_trigger_notify_hw_control_changed()` to allow drivers to notify the
+    core of autonomous hardware control transitions
+  - Core: Add the `hw_offloaded()` trigger callback and `trigger_may_offload_to_hw` sysfs
+    attribute to expose hardware-offloaded triggers
+  - Netdev Trigger: Implement the `hw_offloaded()` callback to report hardware control
+    state to the LED core
+  - Analog Devices LTC3208: Add support for the LTC3208 7-channel multi-display I2C LED
+    driver
+  - ChromeOS EC: Implement the `hw_offloaded()` callback for the `chromeos-auto` trigger
+  - CZ.NIC Turris Omnia: Implement the `hw_offloaded()` callback and declare `omnia-mcu`
+    as a hardware control trigger
+  - STMicroelectronics ST1202: Add hardware-accelerated blink support via `blink_set()`
+
+- Improvements & Fixes
+  - Class: Always hold the `led_access` mutex in `brightness_show()` to avoid exposing
+    transient registration states
+  - Class: Deactivate active hardware control triggers when writing to the `brightness`
+    sysfs attribute
+  - Core: Enforce strict validation in `led_trigger_is_hw_controlled()` and warn on legacy
+    fallback paths
+  - Flash Class: Initialize the fault variable in `flash_fault_show()` to prevent
+    undefined behavior when callbacks perform bitwise ORs
+  - Kinetic KTD2692: Pass the driver context directly to `regulator_disable_action()` to
+    prevent a NULL pointer dereference during error unwinding
+  - Maxim MAX77705: Use `fwnode_for_each_child_node_scoped()` in `max77705_add_led()` to
+    prevent child node reference leaks on error paths
+  - NXP PCA9532: Check the return value of `i2c_smbus_read_byte_data()` in
+    `pca9532_getled()` to avoid integer underflow on read errors
+  - Qualcomm WLED: Fix a NULL pointer dereference in `wled_remove()` by setting platform
+    driver data in `wled_probe()`
+  - Qualcomm WLED: Fix the WLED3 brightness register stride to prevent consecutive string
+    writes from overlapping
+  - Qualcomm WLED: Read back the hardware-programmed brightness at probe, expose it via
+    `get_brightness()`, and prevent unbalanced OVP IRQ enabling
+  - STMicroelectronics ST1202: Clear unused PWM pattern slots in `pattern_set()` and
+    `blink_set()` to prevent unintended output when sharing the global sequencer
+  - STMicroelectronics ST1202: Program and cap the channel current according to
+    `max_brightness` across brightness, blink, and hardware pattern modes, and scale
+    pattern brightness to the 12-bit PWM range
+  - STMicroelectronics ST1202: Retain a reference to each child LED firmware node for the
+    lifetime of the device
+  - STMicroelectronics ST1202: Use only the blocking `brightness_set_blocking()` callback
+    to avoid sleeping in atomic context during I2C transfers
+  - TI LM3692x: Check the final register write in `lm3692x_leds_enable()` to prevent
+    regulator/GPIO leaks and an inconsistent enabled state
+  - TI LP8860: Fix a `device_node` reference leak in `lp8860_probe()` using
+    `__free(device_node)`
+
+- Cleanups & Refactoring
+  - Core: Move `led_trigger_is_hw_controlled()` and `led_trigger_group` from `led-class.c`
+    into `led-triggers.c`
+  - Core: Replace conditional `set_bit()`/`clear_bit()` patterns with `assign_bit()` and
+    `__assign_bit()`
+  - Flash Class: Simplify `flash_fault_show()` using `sysfs_emit_at()` and omit the
+    trailing space
+  - Maintainers: Add Griffin Kroah-Hartman as an LED subsystem reviewer
+  - Intel SS4200: Fix a spelling typo in a comment
+  - ISSI IS31FL32xx: Convert DT-specific parsing helpers to generic device and fwnode
+    property APIs
+  - NXP PCA955x: Drop redundant intermediate platform data and allocate the LED array
+    using a flexible array member
+  - Qualcomm LPG: Convert LED and channel parsing to fwnode APIs and avoid leaving
+    `default_trigger` uninitialized
+  - Skyworks AAT1290: Use `ARRAY_SIZE()` when allocating `mm_current_scale` to match the
+    target pointer type for type-aware allocators
+  - STMicroelectronics ST1202: Introduce a `st1202_iled_max()` helper to unify channel
+    current ceiling calculations
+  - STMicroelectronics ST1202: Standardize variable and macro naming, fix helper spelling,
+    and use `u8` consistently instead of `uint8_t`
+  - Syscon: Convert from OF-specific property helpers to the generic device property and
+    fwnode APIs
+
+- Device Tree Binding Updates
+  - Core: Allow PHY RX triggers (`phy[0-9]+rx`) in `linux,default-trigger`
+  - Core: Standardize example indentation across multiple LED and backlight binding
+    schemas
+  - Analog Devices LTC3208: Document the LTC3208 multi-display LED driver
+  - LaCie netxbig: Convert LED bindings to DT schema
+  - Motorola CPCAP: Convert LED bindings to DT schema
+
+----------------------------------------------------------------
+Cong Nguyen (1):
+      leds: lm3692x: Fix regulator/gpio leak and wrong enabled state on last write failure
+
+David Heidelberg (4):
+      backlight: qcom-wled: Fix NULL pointer dereference in wled_remove()
+      backlight: qcom-wled: Fix WLED3 brightness register stride
+      backlight: qcom-wled: Fix unbalanced OVP IRQ enable at probe
+      backlight: qcom-wled: Read back the programmed brightness at probe
+
+Dmitry Antipov (2):
+      leds: flash: Prevent using uninitialized variable in flash_fault_show()
+      leds: flash: Simplify flash_fault_show()
+
+Griffin Kroah-Hartman (1):
+      MAINTAINERS: Add myself as a LED SUBSYSTEM reviewer
+
+Haibo Chen (1):
+      leds: pca9532: Check i2c_smbus_read_byte_data() return value
+
+Hemanth Selam (1):
+      leds: ss4200: Fix typo "retrive" in comment
+
+Jan Carlo Roleda (2):
+      dt-bindings: leds: Document LTC3208 Multidisplay LED Driver
+      leds: ltc3208: Add driver for LTC3208 Multidisplay LED Driver
+
+Kees Cook (1):
+      leds: aat1290: Allocate mm_current_scale with ARRAY_SIZE()
+
+Krzysztof Kozlowski (1):
+      dt-bindings: leds: Use consistent indentation in the example
+
+Manuel Fombuena (14):
+      leds: st1202: Add hardware-accelerated blink support
+      leds: st1202: Correct the name of the prescaler conversion helper
+      leds: st1202: Spell out the phase-shift configuration bit
+      leds: st1202: Name pattern index variables consistently
+      leds: st1202: Use u8 consistently for 8-bit values
+      leds: st1202: Clear unused pattern slots in pattern_set()
+      leds: st1202: Scale pattern brightness to the 12-bit PWM range
+      leds: st1202: Program the channel current for hardware patterns
+      leds: st1202: Take a reference on the LED firmware node
+      leds: st1202: Do not set brightness from atomic context
+      leds: st1202: Clear unused pattern slots in blink_set()
+      leds: st1202: Honour max_brightness when blinking
+      leds: st1202: Cap the channel current in st1202_led_set()
+      leds: st1202: Give the channel current ceiling a single helper
+
+Manush Prajwal (1):
+      leds: max77705: Use fwnode_for_each_child_node_scoped() in max77705_add_led()
+
+Miles Krause (1):
+      leds: lp8860: Fix device_node leak in lp8860_probe()
+
+Myeonghun Pak (1):
+      leds: ktd2692: Pass context to regulator cleanup
+
+Peng Fan (1):
+      leds: Use assign_bit() where applicable
+
+Rob Herring (Arm) (1):
+      dt-bindings: leds: Allow PHY RX triggers
+
+Rong Zhang (10):
+      leds: class: Always protect brightness_show() with led_access
+      leds: trigger: Move led_trigger_is_hw_controlled() to the right place
+      leds: class: Remove hardware control trigger when writing brightness
+      leds: trigger: Move led_trigger_group to the right place
+      leds: trigger: Add hw_offloaded() callback and provide trigger_may_offload_to_hw attribute
+      leds: cros_ec: Implement hw_offloaded() trigger callback
+      leds: turris-omnia: Implement hw_offloaded() trigger callback and declare hw_control_trigger
+      leds: trigger: netdev: Implement hw_offloaded() callback
+      leds: trigger: Enforce strict checks in led_trigger_is_hw_controlled()
+      leds: trigger: Add led_trigger_notify_hw_control_changed() interface
+
+Rosen Penev (4):
+      leds: syscon: Use device property API
+      leds: is31fl32xx: Use fwnode/device property APIs
+      leds: rgb: qcom-lpg: Use fwnode APIs for LED parsing
+      leds: pca955x: Drop platform data and allocate LEDs with the device
+
+Svyatoslav Ryhel (1):
+      dt-bindings: leds: leds-cpcap: Convert to DT schema
+
+Udaya Kiran Challa (1):
+      dt-bindings: leds: lacie,netxbig-leds: Convert to DT schema
+
+ Documentation/ABI/testing/sysfs-class-led          |  28 ++-
+ .../ABI/testing/sysfs-class-led-trigger-netdev     |   3 +
+ .../devicetree/bindings/leds/adi,ltc3208.yaml      | 183 ++++++++++++++++
+ .../bindings/leds/backlight/lm3630a-backlight.yaml |  52 ++---
+ .../bindings/leds/backlight/lp855x-backlight.yaml  |  18 +-
+ .../bindings/leds/backlight/qcom-wled.yaml         |   2 +-
+ Documentation/devicetree/bindings/leds/common.yaml |   2 +-
+ .../bindings/leds/lacie,netxbig-leds.yaml          | 136 ++++++++++++
+ .../devicetree/bindings/leds/leds-consumer.yaml    |  14 +-
+ .../devicetree/bindings/leds/leds-cpcap.txt        |  29 ---
+ .../devicetree/bindings/leds/leds-lp50xx.yaml      |  12 +-
+ .../devicetree/bindings/leds/leds-lp5860.yaml      |  12 +-
+ .../devicetree/bindings/leds/leds-netxbig.txt      |  92 --------
+ .../bindings/leds/motorola,cpcap-leds.yaml         |  42 ++++
+ .../devicetree/bindings/leds/nxp,pca963x.yaml      |  24 +--
+ Documentation/leds/leds-class.rst                  |  72 +++++++
+ Documentation/leds/leds-st1202.rst                 |   5 +
+ MAINTAINERS                                        |   9 +
+ drivers/leds/Kconfig                               |  12 ++
+ drivers/leds/Makefile                              |   1 +
+ drivers/leds/flash/leds-aat1290.c                  |   5 +-
+ drivers/leds/flash/leds-ktd2692.c                  |  10 +-
+ drivers/leds/led-class-flash.c                     |  21 +-
+ drivers/leds/led-class.c                           |  46 ++--
+ drivers/leds/led-core.c                            |   5 +-
+ drivers/leds/led-triggers.c                        | 177 ++++++++++++++-
+ drivers/leds/leds-cros_ec.c                        |   6 +
+ drivers/leds/leds-is31fl32xx.c                     |  20 +-
+ drivers/leds/leds-lm3692x.c                        |   4 +-
+ drivers/leds/leds-lp8860.c                         |   5 +-
+ drivers/leds/leds-ltc3208.c                        | 234 ++++++++++++++++++++
+ drivers/leds/leds-max77705.c                       |   3 +-
+ drivers/leds/leds-pca9532.c                        |   9 +-
+ drivers/leds/leds-pca955x.c                        |  94 +++-----
+ drivers/leds/leds-pca963x.c                        |   5 +-
+ drivers/leds/leds-ss4200.c                         |   2 +-
+ drivers/leds/leds-st1202.c                         | 240 ++++++++++++++++-----
+ drivers/leds/leds-syscon.c                         |   9 +-
+ drivers/leds/leds-turris-omnia.c                   |   7 +
+ drivers/leds/leds.h                                |   8 +-
+ drivers/leds/rgb/leds-qcom-lpg.c                   |  38 ++--
+ drivers/leds/trigger/Kconfig                       |  10 +
+ drivers/leds/trigger/ledtrig-netdev.c              |  13 +-
+ drivers/video/backlight/qcom-wled.c                |  99 +++++++--
+ include/linux/leds.h                               |  24 +++
+ 45 files changed, 1406 insertions(+), 436 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/leds/adi,ltc3208.yaml
+ create mode 100644 Documentation/devicetree/bindings/leds/lacie,netxbig-leds.yaml
+ delete mode 100644 Documentation/devicetree/bindings/leds/leds-cpcap.txt
+ delete mode 100644 Documentation/devicetree/bindings/leds/leds-netxbig.txt
+ create mode 100644 Documentation/devicetree/bindings/leds/motorola,cpcap-leds.yaml
+ create mode 100644 drivers/leds/leds-ltc3208.c
+
+-- 
+Lee Jones
