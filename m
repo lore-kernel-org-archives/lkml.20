@@ -1,74 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793012217;
-	b=zpg1PhsrolYseCbkg2Inax7FSjOoWH7T2wkzUaqro4jDZmtiKwNUgOjIHnXOg71MVAsB
-	 /f0Rs9kU8KUDUhKB/pX2XuzajbdRV3Cz/07cjhA3HqIsxOPumiYQhlpjooAZbQJ80qcVc
-	 O6Jqtum2xhBM2+gCb167oeDyfI/EZZ9JYAM8CnTi3OOUqob25RMDLuWzSVa25AOAgshyy
-	 t3nfH8nr2pCx2udqbeWm+sK194ZtpmaDCXLPzi3c/MRSrk3hkRCGNe7YpUXE1e1774FDd
-	 zadf24X2RQzZXCRJgGUR0fJYCW4mjv3nXkWtffZ3VS9t7sWfhFrk426XmjF3S1kx2EA==
+	t=1793012231;
+	b=WS1B7oOU1ReHDZBAy1vbiBB3w2drQoxoH7zZyp4XLH4qCnxJPnVrWa1Td55A6Of6vagO
+	 YN2Vs7sdgxvGnCIjQZGJL/8qhxhQIM5nOxGVESdRI7pX6GH6NKxFgtzwW+DFzp1szkeJ7
+	 7JDIEIqVyRNtbwFGBzdcZBKWhgpttXoLsTFjMG4NI1nBhtoV4csBlNS7YxRLtx/Sysjbn
+	 kQsonO11BfobJVWAvvKInTZwhiVxNEjKtse5Dcr25st+ISRBhia+LdaQEAhLGVFS/lDlb
+	 o+aJagVMAAJv1Skqq8mSaR3nnRvY+MnavlX8cBGV5XXcjrONZkGTmhMQ9g7QdGHWg0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793012217;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=iq8sjorBVmoOm9+iAUMWTgdciqg75VQcwz+D0w6sWBI=;
-	b=G/XoLoyp8Fb8QOEKd6/VOwJ8SWCkm0Ejfh7VQqTS+ayoU99onu3nw2QulVErD0d3uFRI
-	 uCCe4CmUGEJUTNJ/+xyBHXXqv0lHP33Y2WCNqiEEZtsVR2nwtkwwjksHwasE3F0/g9Xph
-	 Q4IqFupRNRZv5KMpSb9lICf8eeVVo2GL1uNyTmrQL//QFwR5sVbwqbR5qeKYOAATl5TDP
-	 L8qWFGSH1m/6OXbybP7DHb0qblDuKQMANLy4pBIM4k+kfr3XlG7vBebhToCgNLgTo0UDv
-	 VQNXRXhtQ0f69Xokv+2o7QyxbzTlhczPYveEEF3mO+MNyWhpYF+o8//DXDmTintwODg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793012231;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=A6WQ68hjWi8GGKbr/7ipB7b6//gVmCrXXLJs0RemD+8=;
+	b=Z8x3i3sGLLZGiXh6wGidnsnqhIwdmugD10xeIO3CTwtIFmdVuSJx40Nupl1BBDZa2UQg
+	 C5z/dUotAVLUNaiQlHN9DbTJ9MNH1C8bZkLXMZQkSuwPVDcgD0Y2NE8J4ZBC6Vs618770
+	 k6xlxpQ3TA/YasVbSkG40n5YrKpqzexm6lkxV4SQxlOYHv+ymhS4CJ/iW2Wmxt0gFmY5R
+	 ElF4Uol1EktYkK7+je60f8RGDy8SsqCBz4GHK5VXsXeigl8ObwkwZ+9AKhE2FTK16WvK0
+	 +EGEgZ6Znd0tl/+jsK2oAuH6rzr+zWNsg+yKUovUOc/grD6/Prr/70RSg83BLrpWKrQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eIa46o9o;
-	arc=none smtp.remote-ip=198.175.65.18
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=SEwFXFCD;
+	arc=none smtp.remote-ip=74.125.224.131
+Received: from mail-yx2-f3.google.com (mail-yx2-f3.google.com [74.125.224.131])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DD20606A31A;
-	Mon, 26 Oct 2026 10:56:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0DD20606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F946606A31E
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:57:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F946606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eIa46o9o
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793012217; x=1824548217;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=6R7AThspgB3hLMq7DFgErpgQRXWjFLugVNFYWPwm0pw=;
-  b=eIa46o9omDrVWWr3blLKsllH+8VVLQNQ6D/7GKHLFHR+Qul8JkWsZyxW
-   EGxnQOB55sLF3ffx8xRhxG9ZptQAf3bzEconOhcRLgvUbo3ehYU2yWpCn
-   uE9NZO3Zl9XF/x8BTE/I7qwKHTC6AWuJ3cbVNFnlaGiXfPWYqEuHPvz+6
-   /HUPOeXKmFriMQ7n+vVuMZ/8nP7MF5nppcrHvzMy1BYeNfzFb8UtxvCpR
-   geCQm+IiHnfLVGnqrLb4T1GHkuNGQygLJEosj+RD4enUMQXavG5nV3ja+
-   niw929JDeLjmJCLSsWV1a7gIQL4BvJoQaH40YmzHv/xNVtW+A1gGa2Fp8
-   w==;
-X-CSE-ConnectionGUID: JlLwdF+XRDm/vF3ReEurog==
-X-CSE-MsgGUID: D9BryQeOT3+JI4MBzbtVBg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1680375"
-X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
-   d="scan'208";a="1680375"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 03:56:56 -0700
-X-CSE-ConnectionGUID: HXTIutyZQ6yqPPiOnID3Fg==
-X-CSE-MsgGUID: vyJsS/a5S1uvsAk/B3wf3w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
-   d="scan'208";a="4114405"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.93])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 03:56:55 -0700
-Date: Mon, 26 Oct 2026 12:56:52 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Olli Salonen <olli.salonen@iki.fi>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Subject: Re: [PATCH v1 1/1] media: tda18250: Don't use "proxy" headers
-Message-ID: <at8x9Ho-wkMVDUcg@ashevche-desk.local>
-References: <20260717175155.1784500-1-andriy.shevchenko@linux.intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=SEwFXFCD
+Received: by mail-yx2-f3.google.com with SMTP id 00721157ae682-8a72cead747so6740067b3.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 03:57:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793012230; x=1793617030; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=A6WQ68hjWi8GGKbr/7ipB7b6//gVmCrXXLJs0RemD+8=;
+        b=SEwFXFCDucNx6qmpMqGimfPZJaJTI0ki2nne+w2GO6SVcR6bV4eEPoLxHhMGS++ltR
+         5wcBZtN2FJwhm5J0aqatSL5y2Migbu+86yc+SEJPYHc/MxNZOIDeoYyDp22ICk8w17fJ
+         Laj+rf3DSLBy+j0B22uPefw0mp/IgxbBnG5kUh+ePxDzX1TDngidQYHZVL/hb/bDX/bN
+         jcAJoD5Aa9WDDQaE+b8O7KXv1dFUSNPKU04pDZwLiMtiXxRU4mpTo/FdWAq73KyY7KfH
+         uPFIr9fGxC1aYcz/S4+GovfuSoeXqD4DSwFOzeYi+yhts6kZYQ3YtA0aKpIP7ogpHVkr
+         VB6Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793012230; x=1793617030;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=A6WQ68hjWi8GGKbr/7ipB7b6//gVmCrXXLJs0RemD+8=;
+        b=phdIFgrko47RVT+TERWzW99ukBNV49zfzkPVfKJmq7Bkkq2oMOr5gp3T0YkhaOfeVn
+         yqZRKY9PDe9dKzoGRwoz++aAMbNRVWEjfy5ZwqJG1SdYIpfgvTEcizoRVCfO/29f/K4v
+         irfCQw7tqlHTP5CUx0ZmTFwaMxAqqp+fm9adTe9pBUm7gd6oSHQe6cmOmrdqsfF1EUIz
+         /pjZ5ERawOxXZOLKxhNSVZT6cVjG0GKJsfW5HGnonh5FV2dl/bRRbpYyqO6RNm4GzAl4
+         XsQGGV8FOdMrPPsJHDxPQZSRcfr9IHL53HSyybYplbFlSCO+dixGiCQ5ahjGoBVZBSDi
+         sTeQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxXlp7U4+otU10Xa9F//jWiYltwKOqr+Fz/c4YYkRj30+W/g1tDZIfPfB8veNSYvCKbWrzwhWGvUdonQl0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIbd65SRTyzejRSzI032ivyW4CdogDRNt/52jnO2H6mc6RdgMGC
+	hAkTzG12ib44C+iXK0b0hYvF2aLzJ7wfs9LfU0L4AKCAJYjUuvNWx1NH
+X-Gm-Gg: AYBFou3ImM3U7CC4HtAc2G3lWZM6nCn58I8EPil0ix6UhMEVQcHl53OuX986OtlizbJ
+	9ClOcNwPfyHnbDouEpPLT+gPURnaHjzkbzdCOlgDZVnsbtGfMIJ2bFMcslCdiG5kKOcAkLJEo20
+	3nLudu1HL6wgBBhFsKnpJHXEDEmSqcGRZy7bFVPu5atOi+40tBgzWpZ3BhYgbuwgF1spYa2RJFm
+	U/TciYd/SupMGrFqXpanfthcdibUayZedZy6YAS1fZKNkjdILbBQA0N9+2Vx4zwOZoKv/25S7Nl
+	ZLCKIhw6qiIENxMrnUKwPW8SqMzxu7CFbS2pu0NlpjMa4L4DQaM/Br+faa9P//XMkDRKtvsQ6NH
+	3Wo9ykdG37NauKGla5HDlCCT6/019H6ue424aF5eztiTFpQ/+ZKejDYEpF8qfy/ZRT9iDZudJQq
+	+xCb8EJktd8i9pa+ghkUFn+b0W6ltDiZNAyF6dN1iSsqsVI1bbuqmnYqyNOET0UdFcC5V1B3L68
+	Z/mxVTDD+I24ooFSaDWG+vUrm7EADx+/Yb2bg5xW3duovg1KCQKHvnpkvw/9QQ=
+X-Received: by 2002:a05:690c:dd6:b0:873:5bb2:6c06 with SMTP id 00721157ae682-8b166c4a307mr54037207b3.48.1793012230048;
+        Mon, 26 Oct 2026 03:57:10 -0700 (PDT)
+Received: from [10.0.0.48] ([71.69.222.122])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b166eb116esm28902707b3.37.2026.10.26.03.57.09
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 26 Oct 2026 03:57:09 -0700 (PDT)
+Message-ID: <705f4452-3d07-4d91-9dcd-ea53b2cd75a5@gmail.com>
+Date: Mon, 26 Oct 2026 06:57:07 -0400
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,20 +91,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260717175155.1784500-1-andriy.shevchenko@linux.intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 3/3] nvme-tcp: parallelize I/O queue allocation and
+ startup
+To: Surabhi Gogte <sgogte@purestorage.com>, Keith Busch <kbusch@kernel.org>,
+ Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>,
+ Sagi Grimberg <sagi@grimberg.me>
+Cc: linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
+ mkhalfella@purestorage.com, randyj@purestorage.com, adailey@purestorage.com,
+ Hannes Reinecke <hare@kernel.org>, wagi@kernel.org,
+ shinichiro.kawasaki@wdc.com
+References: <20260922200718.3941465-1-sgogte@purestorage.com>
+ <20260922200718.3941465-4-sgogte@purestorage.com>
+Content-Language: en-US
+From: Martin Belanger <martin.nvme.dev@gmail.com>
+In-Reply-To: <20260922200718.3941465-4-sgogte@purestorage.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Fri, Jul 17, 2026 at 07:25:53PM +0200, Andy Shevchenko wrote:
-> Update header inclusions to follow IWYU (Include What You Use)
-> principle.
+On 9/22/26 16:07, Surabhi Gogte wrote:
+ > Similar to commit 2a8513091d2f ("nvme-rdma: parallelize I/O queue
+ > allocation and startup"), refactor nvme tcp I/O queue setup to use async
+ > API, combining allocation and startup into a single parallel operation
+ > per queue. This reduces connection and reconnection setup time when
+ > there are delays in establishing connections, which is especially
+ > important for high-core-count hosts.
+[...]
 
-Any comments on this one?
+Hi Surabhi,
 
--- 
-With Best Regards,
-Andy Shevchenko
+This patch breaks NVMe/TCP connects with TLS. This is a different bug
+from the pf_cache_lock one that Shin'ichiro reported.
 
+Test: one VM with 4 CPUs, nvmet-tcp on 127.0.0.1 with tsas tls1.3, a
+connect with --tls and 4 I/O queues, and tlshd at upstream commit
+a0bd51d.
 
+- Linus master 6b4b543fa187: 14 of 20 connects fail.
+- Same tree with this patch reverted: 20 of 20 connects pass.
+- Same tree with Daniel's pf_cache_lock fix [1]: 22 of 40 and 17 of 40
+   connects fail.
+
+On each failed connect, one I/O queue logs:
+
+   nvme nvme0: queue 4: TLS handshake complete, error -110
+
+The tlshd that runs for the target logs:
+
+   failed to search 'psk' key 'NVMe0R01 <hostnqn> <subnqn>'
+   gnutls: Error in password/key file. (-31)
+
+and closes the connection. The tlshd that runs for the host then gets
+GNUTLS_E_PREMATURE_TERMINATION, which it reports to the kernel as
+ETIMEDOUT. The other queues use the same PSK, and their handshakes
+succeed. blktests nvme/062 and nvme/063 fail the same way.
+
+I can share the reproducer script.
+
+[1] 
+https://lore.kernel.org/all/20261014-nvme-fabrics-isolcpu-v1-1-355156be27b2@kernel.org/
+
+Martin
