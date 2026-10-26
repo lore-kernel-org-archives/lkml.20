@@ -1,44 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.224.81.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.69
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793005711;
-	b=uQLPGpFsc9OajYdhdga0PiU0YoV4JwNgm4Xn4nLRjhUhag4Ais3A3KDLkYGra1aoV7ar
-	 s7V2908R8ShJuJnobHInFKRPvq0GSOgLXLwut5l/INTovi/CO+Vbt10wrbwB+lhuLM2/p
-	 IIG7eUoMR0PmCaRgtJbwqXeSNrRDEIZ279f8scpqgBVwWWjWftmZzBN8YuBLcgh+AOXRR
-	 WBc+ttVcunnGVfYOTqvFZo9dDlCKYi4DOYZHr72BT0K0AAxAzMRJNmWR2n+5kJ5BwmZ8K
-	 mCX9Q607IadohyeC8h5mXqQUR1xOO6foBaKZkc7D/r7E23kSGGQqXFyAnDg6IsrQQWQ==
+	t=1793005721;
+	b=K6eJqFKz6uww0e0E8jjYZfuNDopthY4n3NQuqV0c1B0TSvyJsD4i5A3nFJkQMooa9UCf
+	 +d/KXSrl/f+6bDrqvBmRQOxSwB95etUubYUiMH/IZOn40JHByRu1AYjybau+1j5SpYXl7
+	 wnHRd0W+sE7e4f8DNArEwDBv+vEYMuvpJWaKgMJpvNm/RGznzY0Ti4PjaQU38Y99TzTJk
+	 RIdl7UXSJdn4bUB/XH8oM+8PV0/AZF9ygqfjYkRdVKAyb3XGdQZbVgB3NGPDs7XvVEBx4
+	 C4fyYYlCTCK36vNb36cIuVHjy54IGxFFMTY+Tl0UyZD0v3eZtCaw9tdQ7aqiAE3arlA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793005711;
-	h=DMARC-Filter:Received:Content-Type:Message-ID:Date:MIME-Version:
-	 User-Agent:Cc:Subject:To:References:From:In-Reply-To:X-HM-Tid:
-	 X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
-	bh=8Q+omKhqp0uDrTODd1TjyUX+NC/fBZ3CVo48Oxe1kOY=;
-	b=yQpngX/xs0uEBp/YTJXk2/+nTFoAytWq1muPvTEEaAbh1nTjHZ5zEVASvlmqSgEAxTGF
-	 CRuDrh742ukVpTYIbRex3Wf1dbq1x7HrH+hZjYjHe0NC/FKylEcyP0wpraqle7YTOOKke
-	 YvnwWKS7hWtdihwDSkwxlMukEdae2demHw5wwRmz66baJyF8m24p1TgoGRyNG8LSGaOW5
-	 tH/UaDvzQoV46SOmQLFH8RVUKpaz42ziN2AYWFSYukvZYSDD6ix8yvX70gDcA2h6qAOJ2
-	 MIL18YLEYDWqsqVaCbYMBXNvO+6tJlo7tZAqQWKNnHKWmTj63xAXnD8GtrV/v/xSLPQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793005721;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=6xeXvSy4w9o/b7yWR4xuzrTkC32fzIISOboFKZOljJg=;
+	b=gDXQPDu35jkQVmDJwXcGO6juSACR+ZTQTyBFrnRfL9NLRvnj4QD4xmusKkrh5UyoT8tO
+	 t5R/WxHJQFlLK38v33L4ZOyAVC0RFUY3UKqXT6Hj5ie9JsQ/g80hUl/OfuVoONwex+WnV
+	 xUcRJ/L8N+Rwcwu9MAvhTpK0UmsHIE0iF5OxqkE8KQwxEHiBilR8rkhfdXZR254niLnXg
+	 w2zpt7GAYdhlEWsDc18sat52lqSYHFItRnpt5E5GJPcZ6Iiih6qiGgDjJRbhpGQuxKX33
+	 6AJC+wX0N9XkY1vIRDPzPL3bfarC4Nd643tRCWxpbdoOfG/xWp6MLX/cRozwxf9xaNQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rock-chips.com;
-	spf=pass smtp.mailfrom=rock-chips.com;
-	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=M2hDB5jY;
-	arc=none smtp.remote-ip=156.224.81.199
-Received: from mail-m81199.xmail.ntesmail.com (mail-m81199.xmail.ntesmail.com [156.224.81.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=E2nChXtY;
+	arc=none smtp.remote-ip=209.85.128.69
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com [209.85.128.69])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07C17606A31A;
-	Mon, 26 Oct 2026 09:08:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 07C17606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5406F606A328
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:08:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5406F606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=M2hDB5jY
-Received: from [172.16.12.48] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 525bae744;
-	Mon, 26 Oct 2026 17:08:17 +0800 (GMT+08:00)
-Content-Type: multipart/mixed; boundary="------------0kbTt3PY7PtVP5ePh8Ay9wDO"
-Message-ID: <4316c1da-f7ff-4fa5-a330-512800474e45@rock-chips.com>
-Date: Mon, 26 Oct 2026 17:08:01 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=E2nChXtY
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4a214a5f8a1so25630995e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:08:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1793005720; x=1793610520; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6xeXvSy4w9o/b7yWR4xuzrTkC32fzIISOboFKZOljJg=;
+        b=E2nChXtYMbQzknLcmsGLItmLC33Vcbz7TbExnMP+FecCooTiWq8lJ493eTYmIPi2PX
+         bZj1RRLB5LqOIVxzeci4CNxwdFZRQW8jAToRqp0ufyGK6ilTTLvlllNRfZpnpK4VreSj
+         9bkldAP250R8LDLN6wNj6MurdUwCQ2ckDlZx84loRK9c0FKIZODfLLBF7McNytU5JgBo
+         f3BnzHEJ7YzXEOatj79J/D6nULRTV+0+3L56I7IzA7FHKTSx9+bXzR+tyS9fKGkIyvbZ
+         goY5gmTvWP6XltVnvDup8uu2RSWRksFpCxGoeNAi0HVXCDBSDveY9BkfVUn+qu+9TMa+
+         EOJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793005720; x=1793610520;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6xeXvSy4w9o/b7yWR4xuzrTkC32fzIISOboFKZOljJg=;
+        b=EZsPaaUVg4KSj8/XMmMGFxz3vge7W8DsbT6uGy5KUDCr7XpvpNnAn3cBagBaj4YchP
+         oYINFsqzkcgdcDfkFJFEwOmlNvHCBGPDQ1TLglXk6QnyhjDGwgy/B++5uiM0a1OMJjGh
+         ds29gc41QJ2WWWPE2m9QGtrBv+3DDFDCkanAP7XpqkTwGhFhd4tBC2q2WFT+Tix1muMH
+         vJuI0tmjaywy1SRlCyVF5BMiaYGSImtz4Rw2Vxt/OzBA75+pn+8zihZjF9UO4sbFGmwr
+         Hc1GZOcRODmi+m0yKweBXutAlfS9+6lk50duLuFLJH9CUfgjTRqskH+jnu9GOsL1fWtM
+         wmdA==
+X-Forwarded-Encrypted: i=1; AKwUvBzNaMagQPBFCD6U8+XZErmeO67rsfPHdgvXOUNyVvGdRr1JBc7hYGLve4y2GSc5T0P197yq6XoaSV9pG4k=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJMX6T5lx1BS/nTqs8v/cDl4dn+ZNsLMbTu5IRuMAgYJ83HtgnX
+	M1r1zig4SV0H/bTpcskcJgGdXH/7upiQM4Tl3Ht5XMrjXgvjHAosgyPKN774uQI5FjvrmeLoW9q
+	rFE/dtn7FadxsZ3NHVQ==
+X-Received: from wrvd13.prod.google.com ([2002:a5d:538d:0:b0:48a:fe63:7751])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:34c9:b0:4a1:f625:2108 with SMTP id 5b1f17b1804b1-4a35acebc28mr107940825e9.33.1793005719194;
+ Mon, 26 Oct 2026 02:08:39 -0700 (PDT)
+Date: Mon, 26 Oct 2026 09:08:36 +0000
+In-Reply-To: <20261005134010.302208-1-laura.nao@collabora.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -47,210 +77,137 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: shawn.lin@rock-chips.com, Rob Herring <robh@kernel.org>,
- Heiko Stuebner <heiko@sntech.de>, linux-pci@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC 0/2] PCI: rockchip-host: Retry training and hot-reset
- a JMB585 on RK3399
-To: iav@iav.lv, Lorenzo Pieralisi <lpieralisi@kernel.org>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>
-References: <20261024-rockchip-pcie-resume-v1-0-58e54a5cf5f1@iav.lv>
-From: Shawn Lin <shawn.lin@rock-chips.com>
-In-Reply-To: <20261024-rockchip-pcie-resume-v1-0-58e54a5cf5f1@iav.lv>
-X-HM-Tid: 0aa17777b9b703aakunm392e8e332fd77e
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCQx8YVk9JHxlPSUNJTUIaS1YVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
-	9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=M2hDB5jYzJG+5nuQv9QyH4DCKXm1JrkSy9iEp6XekBIjcWwlLc56n2GHbihU8hVeG8+ggBSUYZ+DAZlFEyOK1C/IYhK5fw7K3mOz1ADttlTb81JHm8/IdxnGsjUE8T1TxCzsC/Fbd3kKc0wJzeHeNdKo1/x7jZc0SZE6WeUbVvk=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=8Q+omKhqp0uDrTODd1TjyUX+NC/fBZ3CVo48Oxe1kOY=;
-	h=date:mime-version:subject:message-id:from;
+Mime-Version: 1.0
+References: <arOP5iuLuj1aTiLl@google.com> <20261005134010.302208-1-laura.nao@collabora.com>
+Message-ID: <at8YlKUJOWc_X-JV@google.com>
+Subject: Re: [PATCH v6 2/2] drm/tyr: add Job IRQ handling
+From: Alice Ryhl <aliceryhl@google.com>
+To: Laura Nao <laura.nao@collabora.com>
+Cc: a.hindborg@kernel.org, acourbot@nvidia.com, airlied@gmail.com, 
+	bjorn3_gh@protonmail.com, boqun@kernel.org, dakr@kernel.org, 
+	daniel.almeida@collabora.com, deborah.brouwer@collabora.com, 
+	dri-devel@lists.freedesktop.org, gary@garyguo.net, kernel@collabora.com, 
+	linux-kernel@vger.kernel.org, lossin@kernel.org, ojeda@kernel.org, 
+	rust-for-linux@vger.kernel.org, simona@ffwll.ch, tamird@kernel.org, 
+	tmgross@umich.edu, work@onurozkan.dev
+Content-Type: text/plain; charset="utf-8"
 
-This is a multi-part message in MIME format.
---------------0kbTt3PY7PtVP5ePh8Ay9wDO
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-Hi Igor,
-
-在 2026/10/24 星期六 9:02, Igor Velkov via B4 Relay 写道:
-> How should the host recover an endpoint that trains the link but does
-> not answer config requests? On RK3399 that read ends in an external
-> abort (an SError at probe, a synchronous abort on resume), and the
-> kernel oopses instead of seeing an absent device.
+On Mon, Oct 05, 2026 at 03:40:10PM +0200, Laura Nao wrote:
+> Hi Alice,
 > 
-> This happens on a Kobol Helios64 (RK3399, JMicron JMB585 SATA) with
-> v7.3-rc7 and the mainline DT, in two forms:
+> On 9/23/26 10:37, Alice Ryhl wrote:
+> > I agree with sashiko's review here.
+> >
+> > This needs to happen after the free_irq() call in the destructor of
+> > TyrIrq.
 > 
-> - link training times out on resume from s2idle (patch 1);
-> - the link trains, but a config read of the JMB585 aborts in
->    pci_power_up() during resume, and during the bus scan at probe on
->    1 of 4 boots (patch 2).
+> Thanks for the feedback.
 > 
-> Patch 1 trains again after a timeout. Patch 2 hot-resets the endpoint
-> after training and waits the 100 ms required after a Conventional
-> Reset, so every RK3399 probe and resume takes ~105 ms longer.
+> In v5, I was masking the interrupts in TyrIrq's PinnedDrop impl which
+> resulted in clear_mask() being called after free_irq(). However, sashiko
+> warned the device could then assert irqs after free_irq() completes
+> but before clear_mask() runs, potentially leading to an IRQ storm that
+> could result in the shared line being permanently disabled. 
 > 
-> s2idle with both patches:
+> So calling clear_mask() before free_irq() should avoid this, but we
+> still have to deal with threaded handlers potentially re-enabling the
+> mask after clear_mask() has run (as per sashiko's review on this current
+> revision). Adding the atomic state should help with that though, as you
+> suggested:
 > 
->    sleep    patch 1 only    both patches
->    ~40 s    2 aborts / 30   0 / 100
->    ~25 s    1 abort / 11    0 / 40, then 2 aborts in the next 3
+> > And most likely, we need an atomic along the lines of ACTIVE /
+> > PROCESSING / SUSPENDING in panthor_irq.
+> >
 > 
-> In the last of those aborts the link came back 25 ms after the hot
-> reset instead of 2.8-2.9 ms, and the endpoint did not answer. We could
-> not reproduce that state on demand.
+> So I'm thinking something like this for the state:
 > 
-> host_init_port() already pulses PERST# and waits 100 ms before link
-> training, so config reads start as soon as the link is up. Waiting 1 s
-> after link-up before the bus scan did not help: 2 of 2 rebinds aborted,
-> against 2 of 25 without the wait. That test ran without PERST# (the DT
-> had no ep-gpios).
+> #[derive(Clone, Copy, PartialEq, Eq)]
+> #[repr(i32)]
+> enum IrqState {
+>     Active = 0,
+>     Processing,
+>     Unregistering,
+> }
 > 
-> The data is from the code as posted, except that patch 2 now also fails
-> probe and resume when the hot reset itself fails; that path was not hit.
+> unsafe impl AtomicType for IrqState {
+>     type Repr = i32;
+> }
 > 
-> Questions:
-> 1. Is an unconditional hot reset after training acceptable, or should
->     it depend on the board?
-
-Probably it depends on the board.
-
-> 2. Can the host tell before a config read that the endpoint will not
->     answer?
-
-The host cannot distinguish this case. If the endpoint has not prepared
-to respond to a configuration read TLP, the controller should return all 
-ones to the AXI bus instead of triggering a SError. Unfortunately, this 
-is a limitation of the RK3399.
-
-> 3. Is PERST# or a power cycle of the slot the expected recovery from a
->     slow link after the hot reset?
-
-You've tried PERST# with the patch 1 applied. So perhaps it's doesn't
-help.
-
-> 4. Should the reset be a Secondary Bus Reset through the Root Port
->     rather than PCIE_CLIENT_HOT_RESET_CTRL? We did not try it.
+> This could then be stored in TyrIrq:
 > 
-
-They are identical from the endpoint's point of view.
-
-I've attached a vendor's debug patch, perhaps you could try it without
-your patch.
-
-> ---
-> Igor Velkov (2):
->        PCI: rockchip-host: Retry link training that times out
->        PCI: rockchip-host: Hot-reset the endpoint before using the link
+> #[pin_data]
+> pub(crate) struct TyrIrq<T: TyrIrqTrait> {
+>     irq: T,
+>     state: Arc<Atomic<IrqState>>,
+>     #[pin]
+>     _pin: PhantomPinned,
+> }
 > 
->   drivers/pci/controller/pcie-rockchip-host.c | 88 ++++++++++++++++++++++++++++-
->   drivers/pci/controller/pcie-rockchip.h      |  4 ++
->   2 files changed, 89 insertions(+), 3 deletions(-)
-> ---
-> base-commit: 732c4f7d2c04f8c175d85d9243213783ee024ebc
-> change-id: 20261018-rockchip-pcie-resume-2c4dfe23341e
+> Then TyrIrq::handle() proceeds only when the state is active and
+> TyrIrq::handle_threaded() re-enables the mask only if the state is not
+> `Unregistering`.
 > 
-> Best regards,
+> Does this make sense to you?
+> 
+> As for masking before free_irq() runs, I'm thinking of possible
+> alternatives to JobIrqMaskGuard and its ordering convention (i.e. must
+> be stored in a field declared before the corresponding
+> `ThreadedRegistration` in the struct that owns both). Would it make
+> sense to define a TyrIrqRegistration struct that wraps
+> ThreadedRegistration instead? and then clear the mask in
+> TyrIrqRegistration's drop impl.
+> 
+> Something like:
+> 
+> #[pin_data(PinnedDrop)]
+> pub(crate) struct TyrIrqRegistration<'a, T: TyrIrqTrait> {
+>     #[pin]
+>     registration: ThreadedRegistration<'a, TyrIrq<T>>,
+> }
+> 
+> #[pinned_drop]
+> impl<T: TyrIrqTrait> PinnedDrop for TyrIrqRegistration<'_, T> {
+>     fn drop(self: Pin<&mut Self>) {
+>         let handler = self.registration.handler();
+>         handler.state.store(IrqState::Unregistering, Release);
+>         handler.irq.clear_mask();
+>     }
+> }
+> 
+> This should make sure teardown order is still respected without relying
+> on the user correctly putting the guard before `ThreadedRegistration`.
+> 
+> Any thoughts on this approach? In case it helps as a reference, I've
+> drafted both IrqState and TyrIrqRegistration in [1].
+> 
+> [1] https://gitlab.freedesktop.org/laura.nao/linux/-/commit/c78e296690e643b790fb3195660f1229e3cdb5ca
 
---------------0kbTt3PY7PtVP5ePh8Ay9wDO
-Content-Type: text/plain; charset=UTF-8;
- name="0001-arm64-pci-rockchip-Add-a-SError-handler-hook-for-the.patch"
-Content-Disposition: attachment;
- filename*0="0001-arm64-pci-rockchip-Add-a-SError-handler-hook-for-the.pa";
- filename*1="tch"
-Content-Transfer-Encoding: base64
+I believe there is still a race. In this code:
 
-RnJvbSA5YjE0NTU5M2E1MTRkMGI1Y2Q0ZTcxMDEyOWQ2MGM1NGYyMzY4ZTJlIE1vbiBTZXAg
-MTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBTaGF3biBMaW4gPHNoYXduLmxpbkByb2NrLWNoaXBz
-LmNvbT4KRGF0ZTogTW9uLCAyNiBPY3QgMjAyNiAxNjo1NTozMiArMDgwMApTdWJqZWN0OiBb
-UEFUQ0hdIGFybTY0OiBwY2k6IHJvY2tjaGlwOiBBZGQgYSBTRXJyb3IgaGFuZGxlciBob29r
-IGZvciB0aGUgUENJZQogaG9zdAoKU29tZSBSSzMzOTkgYm9hcmRzIHdpdGggYSBQQ0llIHN3
-aXRjaCBiZWhpbmQgdGhlIFJvY2tjaGlwIGhvc3QKY29udHJvbGxlciBzZWUgYSBjb25maWcg
-cmVhZCBlbmQgaW4gYSBzeW5jaHJvbm91cyBleHRlcm5hbCBhYm9ydCwgd2hpY2gKZG9fc2Vy
-cm9yKCkgdHJlYXRzIGFzIGZhdGFsIGFuZCBwYW5pY3MgdGhlIGtlcm5lbC4KCkFsbG93IGEg
-cGxhdGZvcm0gZHJpdmVyIHRvIGluc3RhbGwgYSBoYW5kbGVyIGZvciBTRXJyb3IuIFRoZSBo
-YW5kbGVyCnJ1bnMgYmVmb3JlIHRoZSBkZWZhdWx0IGhhbmRsaW5nIGFuZCwgd2hlbiBpdCBy
-ZXR1cm5zIDAsIHRoZSBlcnJvciBpcwpjb25zaWRlcmVkIGhhbmRsZWQgYW5kIHRoZSBrZXJu
-ZWwga2VlcHMgcnVubmluZy4gR2l2ZSBpdCB0aGUgZmF1bHRpbmcKYWRkcmVzcyBmcm9tIEZB
-Ul9FTDEgYW5kIHRoZSBFU1IgdmFsdWUsIHNvIHRoZSBoYW5kbGVyIGNhbiBkZWNpZGUKd2hl
-dGhlciB0aGUgZXJyb3IgYmVsb25ncyB0byBpdHMgZGV2aWNlLgoKVGhlIFJvY2tjaGlwIFBD
-SWUgaG9zdCBkcml2ZXIgcmVnaXN0ZXJzIHN1Y2ggYSBoYW5kbGVyIG9uY2UgdGhlIGxpbmsg
-aXMKdXAgYW5kIGp1c3QgbG9ncyB0aGUgYWRkcmVzcyBhbmQgRVNSIGZvciBub3cuCgpTaWdu
-ZWQtb2ZmLWJ5OiBTaGF3biBMaW4gPHNoYXduLmxpbkByb2NrLWNoaXBzLmNvbT4KLS0tCiBh
-cmNoL2FybTY0L2luY2x1ZGUvYXNtL3N5c3RlbV9taXNjLmggICAgICAgIHwgIDMgKysrCiBh
-cmNoL2FybTY0L2tlcm5lbC90cmFwcy5jICAgICAgICAgICAgICAgICAgIHwgMTggKysrKysr
-KysrKysrKysrKysrCiBkcml2ZXJzL3BjaS9jb250cm9sbGVyL3BjaWUtcm9ja2NoaXAtaG9z
-dC5jIHwgMTcgKysrKysrKysrKysrKysrKysKIGRyaXZlcnMvcGNpL2NvbnRyb2xsZXIvcGNp
-ZS1yb2NrY2hpcC5oICAgICAgfCAgNSArKysrKwogNCBmaWxlcyBjaGFuZ2VkLCA0MyBpbnNl
-cnRpb25zKCspCgpkaWZmIC0tZ2l0IGEvYXJjaC9hcm02NC9pbmNsdWRlL2FzbS9zeXN0ZW1f
-bWlzYy5oIGIvYXJjaC9hcm02NC9pbmNsdWRlL2FzbS9zeXN0ZW1fbWlzYy5oCmluZGV4IGQz
-MTZhODA0ZWIzOC4uMjk5ODM5ZjUxN2ViIDEwMDY0NAotLS0gYS9hcmNoL2FybTY0L2luY2x1
-ZGUvYXNtL3N5c3RlbV9taXNjLmgKKysrIGIvYXJjaC9hcm02NC9pbmNsdWRlL2FzbS9zeXN0
-ZW1fbWlzYy5oCkBAIC0yNSw2ICsyNSw5IEBAIHZvaWQgYXJtNjRfbm90aWZ5X2RpZShjb25z
-dCBjaGFyICpzdHIsIHN0cnVjdCBwdF9yZWdzICpyZWdzLAogCQkgICAgICBpbnQgc2lnbm8s
-IGludCBzaWNvZGUsIHVuc2lnbmVkIGxvbmcgZmFyLAogCQkgICAgICB1bnNpZ25lZCBsb25n
-IGVycik7CiAKK3ZvaWQgKmhvb2tfc2Vycm9yX2hhbmRsZXIoaW50ICgqZm4pKHVuc2lnbmVk
-IGxvbmcsIHVuc2lnbmVkIGxvbmcsCisJCQkJICAgIHN0cnVjdCBwdF9yZWdzICopKTsKKwog
-c3RydWN0IG1tX3N0cnVjdDsKIGV4dGVybiB2b2lkIF9fc2hvd19yZWdzKHN0cnVjdCBwdF9y
-ZWdzICopOwogCmRpZmYgLS1naXQgYS9hcmNoL2FybTY0L2tlcm5lbC90cmFwcy5jIGIvYXJj
-aC9hcm02NC9rZXJuZWwvdHJhcHMuYwppbmRleCBkNjM5MWFiMjBkYjMuLmQ4N2JkMWJkMGVl
-OCAxMDA2NDQKLS0tIGEvYXJjaC9hcm02NC9rZXJuZWwvdHJhcHMuYworKysgYi9hcmNoL2Fy
-bTY0L2tlcm5lbC90cmFwcy5jCkBAIC05NDYsNiArOTQ2LDkgQEAgdm9pZCBfX25vcmV0dXJu
-IGFybTY0X3NlcnJvcl9wYW5pYyhzdHJ1Y3QgcHRfcmVncyAqcmVncywgdW5zaWduZWQgbG9u
-ZyBlc3IpCiAJY3B1X3BhcmtfbG9vcCgpOwogfQogCitzdGF0aWMgaW50ICgqc2Vycm9yX2hh
-bmRsZXIpKHVuc2lnbmVkIGxvbmcsIHVuc2lnbmVkIGxvbmcsCisJCQkgICAgIHN0cnVjdCBw
-dF9yZWdzICopIF9fcm9fYWZ0ZXJfaW5pdDsKKwogYm9vbCBhcm02NF9pc19mYXRhbF9yYXNf
-c2Vycm9yKHN0cnVjdCBwdF9yZWdzICpyZWdzLCB1bnNpZ25lZCBsb25nIGVzcikKIHsKIAl1
-bnNpZ25lZCBsb25nIGFldCA9IGFybTY0X3Jhc19zZXJyb3JfZ2V0X3NldmVyaXR5KGVzcik7
-CkBAIC05ODAsMTEgKzk4MywyNiBAQCBib29sIGFybTY0X2lzX2ZhdGFsX3Jhc19zZXJyb3Io
-c3RydWN0IHB0X3JlZ3MgKnJlZ3MsIHVuc2lnbmVkIGxvbmcgZXNyKQogCiB2b2lkIGRvX3Nl
-cnJvcihzdHJ1Y3QgcHRfcmVncyAqcmVncywgdW5zaWduZWQgbG9uZyBlc3IpCiB7CisJdW5z
-aWduZWQgbG9uZyBhZGRyID0gcmVhZF9zeXNyZWcoZmFyX2VsMSk7CisKKwlpZiAoc2Vycm9y
-X2hhbmRsZXIgJiYgIXNlcnJvcl9oYW5kbGVyKGFkZHIsIGVzciwgcmVncykpCisJCXJldHVy
-bjsKKwogCS8qIG5vbi1SQVMgZXJyb3JzIGFyZSBub3QgY29udGFpbmFibGUgKi8KIAlpZiAo
-IWFybTY0X2lzX3Jhc19zZXJyb3IoZXNyKSB8fCBhcm02NF9pc19mYXRhbF9yYXNfc2Vycm9y
-KHJlZ3MsIGVzcikpCiAJCWFybTY0X3NlcnJvcl9wYW5pYyhyZWdzLCBlc3IpOwogfQogCit2
-b2lkICpob29rX3NlcnJvcl9oYW5kbGVyKGludCAoKmZuKSh1bnNpZ25lZCBsb25nLCB1bnNp
-Z25lZCBsb25nLAorCQkJCSAgICBzdHJ1Y3QgcHRfcmVncyAqKSkKK3sKKwl2b2lkICpyZXQg
-PSBzZXJyb3JfaGFuZGxlcjsKKworCXNlcnJvcl9oYW5kbGVyID0gZm47CisKKwlyZXR1cm4g
-cmV0OworfQorCiAvKiBHRU5FUklDX0JVRyB0cmFwcyAqLwogI2lmZGVmIENPTkZJR19HRU5F
-UklDX0JVRwogaW50IGlzX3ZhbGlkX2J1Z2FkZHIodW5zaWduZWQgbG9uZyBhZGRyKQpkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9wY2kvY29udHJvbGxlci9wY2llLXJvY2tjaGlwLWhvc3QuYyBi
-L2RyaXZlcnMvcGNpL2NvbnRyb2xsZXIvcGNpZS1yb2NrY2hpcC1ob3N0LmMKaW5kZXggNWIw
-NzFiZGM0ZjkwLi40NjQwYWRlZTEyN2EgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvcGNpL2NvbnRy
-b2xsZXIvcGNpZS1yb2NrY2hpcC1ob3N0LmMKKysrIGIvZHJpdmVycy9wY2kvY29udHJvbGxl
-ci9wY2llLXJvY2tjaGlwLWhvc3QuYwpAQCAtOTA0LDYgKzkwNCwxOSBAQCBzdGF0aWMgaW50
-IHJvY2tjaGlwX3BjaWVfcmVzdW1lX25vaXJxKHN0cnVjdCBkZXZpY2UgKmRldikKIAlyZXR1
-cm4gZXJyOwogfQogCisjaWZkZWYgQ09ORklHX0FSTTY0CitzdGF0aWMgaW50ICgqc2Vycm9y
-X2NoYWluKSh1bnNpZ25lZCBsb25nIGFkZHIsIHVuc2lnbmVkIGxvbmcgZXNyLAorCQkJICAg
-c3RydWN0IHB0X3JlZ3MgKnJlZ3MpOworCitzdGF0aWMgaW50IGRvX3JvY2tjaGlwX3BjaWVf
-c2Vycm9yKHVuc2lnbmVkIGxvbmcgYWRkciwgdW5zaWduZWQgbG9uZyBlc3IsCisJCQkJICAg
-c3RydWN0IHB0X3JlZ3MgKnJlZ3MpCit7CisJcHJfaW5mbygicm9ja2NoaXAtcGNpZTogU0Vy
-cm9yIGhhbmRsZWQsIGFkZHIgJSNseCBlc3IgJSNseFxuIiwKKwkJYWRkciwgZXNyKTsKKwly
-ZXR1cm4gMDsKK30KKyNlbmRpZgorCiBzdGF0aWMgaW50IHJvY2tjaGlwX3BjaWVfcHJvYmUo
-c3RydWN0IHBsYXRmb3JtX2RldmljZSAqcGRldikKIHsKIAlzdHJ1Y3Qgcm9ja2NoaXBfcGNp
-ZSAqcm9ja2NoaXA7CkBAIC05NjksNiArOTgyLDEwIEBAIHN0YXRpYyBpbnQgcm9ja2NoaXBf
-cGNpZV9wcm9iZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KQogCWlmIChlcnIgPCAw
-KQogCQlnb3RvIGVycl9yZW1vdmVfaXJxX2RvbWFpbjsKIAorI2lmZGVmIENPTkZJR19BUk02
-NAorCXNlcnJvcl9jaGFpbiA9IGhvb2tfc2Vycm9yX2hhbmRsZXIoZG9fcm9ja2NoaXBfcGNp
-ZV9zZXJyb3IpOworI2VuZGlmCisKIAlyZXR1cm4gMDsKIAogZXJyX3JlbW92ZV9pcnFfZG9t
-YWluOgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9wY2kvY29udHJvbGxlci9wY2llLXJvY2tjaGlw
-LmggYi9kcml2ZXJzL3BjaS9jb250cm9sbGVyL3BjaWUtcm9ja2NoaXAuaAppbmRleCBiNWRh
-MTU2MDFiNTguLjI5MWJlZmNkZjZjMyAxMDA2NDQKLS0tIGEvZHJpdmVycy9wY2kvY29udHJv
-bGxlci9wY2llLXJvY2tjaGlwLmgKKysrIGIvZHJpdmVycy9wY2kvY29udHJvbGxlci9wY2ll
-LXJvY2tjaGlwLmgKQEAgLTE4LDYgKzE4LDExIEBACiAjaW5jbHVkZSA8bGludXgvcGNpLWVj
-YW0uaD4KICNpbmNsdWRlIDxsaW51eC9yZXNldC5oPgogCisjaWZkZWYgQ09ORklHX0FSTTY0
-CisjaW5jbHVkZSA8YXNtL3NpZ25hbC5oPgorI2luY2x1ZGUgPGFzbS9zeXN0ZW1fbWlzYy5o
-PgorI2VuZGlmCisKIC8qCiAgKiBUaGUgdXBwZXIgMTYgYml0cyBvZiBQQ0lFX0NMSUVOVF9D
-T05GSUcgYXJlIGEgd3JpdGUgbWFzayBmb3IgdGhlIGxvd2VyIDE2CiAgKiBiaXRzLiAgVGhp
-cyBhbGxvd3MgYXRvbWljIHVwZGF0ZXMgb2YgdGhlIHJlZ2lzdGVyIHdpdGhvdXQgbG9ja2lu
-Zy4KLS0gCjIuMjUuMQoK
+        if self
+            .state
+            .cmpxchg(IrqState::Processing, IrqState::Active, Full)
+            .is_ok()
+        {
+	    // <--- thread is preempted here
+            self.irq.reenable_mask();
+        }
 
---------------0kbTt3PY7PtVP5ePh8Ay9wDO--
+If the above code performs the cmpxchg, but then gets preempted before
+it runs the reenable_mask() call, then another thread can come along and
+execute:
+
+        handler.state.store(IrqState::Unregistering, Release);
+        handler.irq.clear_mask();
+
+clearing the mask. Once the original code starts running again, it calls
+reenable_mask() even though the state is now Unregistering.
+
+This incorrectly leaves the irq enabled even though the
+TyrIrqRegistration has been dropped.
+
+Adding a lock around these critical regions would solve this, because
+it would make preemption between `state = Active` and `reenable_mask()`
+impossible.
+
+Alice
