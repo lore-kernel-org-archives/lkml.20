@@ -1,76 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793006599;
-	b=36kIJFF5Ch0/fRBjISn5/lnWYJ1NLv5rbFCQKaF+uBMe2dse7JGm/XVwkPwltiPJ+ptl
-	 Y4yXaxLTnhgSnul4gAJ99d5ULLkMAiFpdtoidk2mP2yWJcjvrGuSBFnoMd4R3mgm8RWVI
-	 yC4Tq3Ww/oLuXT6usMkI/f3cjYpN8rrw4ksesD4ncexRyhr2tvzJ9YCn8LR8+t1YiF/yz
-	 lzvY9Pfp36vL1jG6u+7+htLAFRHXWLflwiQ/tiqN5LeBKO/AKyq/qPtLOrT9udB/8QtvJ
-	 LqoFXGS5N9LESb1Fdvvp1kzY90YDXECG2fbZmqxu+D0JxHwBAJsC7ZeLe1xXqRtI2zQ==
+	t=1793006620;
+	b=jqM5mrVeu3TXzOvbMbnxpxoxmuRLRXT2D1HZsRU0iDeolYefVTfHenYmgeEVNHH1amRr
+	 7QydNapx+6uIvwoU/qtqw1XmTRbUBUrhMuNJDbvKFrjs6rqoSxnx5UqOC253Gh6veEGOy
+	 4UpDJ33JLJWU11kcAh7c8JlLmoN9lmsDZSztqPx0Cq7n32/tNvk3INk/yYfWcUSBIdx1Q
+	 ZlQoBD9RzzhsDaugu7Q2rLUZcXa0WuV3eANti0hx4sb/ihQ38qEgxVYa8E39lT2YbtcP6
+	 lIOr8nbj2tjn5yXVa7MYsFyBMziipP2k9+keEN/Dwf4ZgwDmDRuCrbFuMdTWr+vb/2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793006599;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=9VDRmMuQ5dSrHl8KcWe2A3th4bGKKhbN9IY80G3C7/I=;
-	b=anhCqLJIUbxNwivyXD2u0iXQHaahy4Dr6bObapaMvbeOzLCm0E5lCmlimXC60EdyB+Ys
-	 iUYkwYFf1u836Nleo3aDMNgLdmi1cx+EXU2cwN/BgRkdYWfvSJtlYLeE5WKVNAcVqBiC+
-	 utV+zbXpOqwMvRoraxtf6kJSa5riXcSDngkf+tak5xKSgCX2rXmVLBnXZfHF51pimVj1l
-	 DcUlgyJXlOeQZqxKsokpw+dol4APcfIsnzet3q+fBeSy/gSprgtHKoIZN7973BYreQ4Kl
-	 EErqw4Huc9Gr/sR8d/t4QdnXhILTmQntWgTVpZT8ti5pdXQ/YRnn4bHQMCZJhlJdfJA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793006620;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=N4cUp91wMxlvYw09VF4Kr0LWtc6o4uhdniAPEgCzkbA=;
+	b=SwwAJnqDCStgnXNBwhUPLK16k6CIxmTevEDYk20YFZ131/4ijI7IEBQl1xJ5km5P/Mi0
+	 E9+17oQnfpFVgFazIdgKm9MnuR5JnGMrk0j1+uRUkv8EEj0WLgVIzKFEQLUuXdxbtlfeQ
+	 s4usTMoS/j0wZfYEfx1jm2mImZioiNmk9i1aVh+acktMsouhEeU7ctNtcDyMphZ0QV3kH
+	 dKMZA8sf6SZ10/xwAJ9h4B9GUEqDWughJ1633g0cy8bEpDw2cm536ClNfTo1iQNT6Evgz
+	 9Mu6+t5/NeFS/hx4R+7zRhdc/pQTyQFWtVMqrf1xskjArl0QqQKGa+FQPltokw5gLvQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ddU5GUeq;
-	arc=none smtp.remote-ip=192.198.163.10
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iF6Ka1pZ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A3CA606A31D;
-	Mon, 26 Oct 2026 09:23:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A3CA606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7065606A31A;
+	Mon, 26 Oct 2026 09:23:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ddU5GUeq
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793006598; x=1824542598;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=ALfXT6p+x9/XFdJ+2jlIdBOHagihEU97rKVJ21I5/o4=;
-  b=ddU5GUeqjNpW36ea1Ne2kiQuxTw0ce0UbPwOUXSxnrxJpD1dJH1/JXNr
-   0JWXifo2MB2y3Tnoctvgx3ewWYhiVDtvxV1ID17NOuPVos7+a+/bpQpr/
-   y92gXIMuKyLRvrBq2B6/R68VxcHJ1UsFcPvyXDw3TG1d4AyzsUHqw2/gc
-   5DJmxScLt2T83/NEDjtoSN3FSVfL+5mXNOtuhQ9ZsMZf6EN4/mvoegfc1
-   07hydsokyBAwmGMwkUrtwpXOEbxjQhNfmRsEqGMEM7TtTraJ5MeD1BiHc
-   jqVQf+SsKegCAQxqBNykl0qrAx1RbDl5N2OETkxghlCMpOpu5BQh7iyeZ
-   w==;
-X-CSE-ConnectionGUID: HYkL1yXSR6W9lcwG8YkYLg==
-X-CSE-MsgGUID: pE+xM6wORMCQXIsQh6xuZw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1567461"
-X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
-   d="scan'208";a="1567461"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 02:23:17 -0700
-X-CSE-ConnectionGUID: lGKcouszRSCw3Nn7lI1Gxw==
-X-CSE-MsgGUID: PAVjpMrQSGeEQKIGwuH/3A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
-   d="scan'208";a="4269885"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.93])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 02:23:15 -0700
-Date: Mon, 26 Oct 2026 11:23:12 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: himanshu bakshi <himanshu.bakshi478@gmail.com>
-Cc: andy@kernel.org, gregkh@linuxfoundation.org, dennylin0707@gmail.com,
-	cenzhang@linux.microsoft.com, dri-devel@lists.freedesktop.org,
-	linux-fbdev@vger.kernel.org, linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org, dan.carpenter@linaro.org
-Subject: Re: [PATCH] staging: fbtft: Remove unused macro
-Message-ID: <at8cAMm6psyWsqbe@ashevche-desk.local>
-References: <20261026081832.60570-1-himanshu.bakshi478@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iF6Ka1pZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A66D01F01825;
+	Mon, 26 Oct 2026 09:23:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793006619;
+	bh=N4cUp91wMxlvYw09VF4Kr0LWtc6o4uhdniAPEgCzkbA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=iF6Ka1pZZl7HGvMtqtO9eK0gSGX1zimFZFXXY+TX2e+IdUF9puZCbKq2lBBJ32qWB
+	 WvgvGxFLVUetHBZ4Vi7OuzKv1aK3SR4MZJwyL0mQ74/SuovCH0ssnVCRMj13osZFxJ
+	 g9pkb8RxJXYKFUyYHd8tMq9M5fWch3EKeXJbPYYxFxIcNhWm3BW+UNIOI0xLrIggA3
+	 7xnt48ziG2mg3YuB759QBRlwt7f7OdAUwmfaPoegc+PB8PwhbhI0Yanv7imA951BzD
+	 Rs5tf0QlWQE+ymISkkgfU7Lp8Q65VhQyTJZCcWc8nxwdDUDb4RpXkf8udyngLW/i56
+	 IyeoQYBcRti8g==
+Date: Mon, 26 Oct 2026 10:23:36 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Guohao Zhang <guohao01.zhang@horizon.auto>
+Cc: Hoan Tran <hoan@os.amperecomputing.com>, 
+	Serge Semin <fancer.lancer@gmail.com>, Linus Walleij <linus.walleij@linaro.org>, 
+	Bartosz Golaszewski <brgl@bgdev.pl>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: gpio: dwapb: add snps,native-both-edge
+Message-ID: <20261026-stoic-grebe-of-grandeur-a4efb3@quoll>
+References: <20261023094220.2989225-1-guohao01.zhang@horizon.auto>
+ <20261023094220.2989225-2-guohao01.zhang@horizon.auto>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,38 +59,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261026081832.60570-1-himanshu.bakshi478@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20261023094220.2989225-2-guohao01.zhang@horizon.auto>
 
-On Mon, Oct 26, 2026 at 01:48:32PM +0530, himanshu bakshi wrote:
-> From: Himanshu Bakshi <himanshu.bakshi478@gmail.com>
+On Fri, Oct 23, 2026 at 05:42:19PM +0800, Guohao Zhang wrote:
+> Some DW APB GPIO IP instances are synthesized with the GPIO_INT_BOTH_EDGE
+> feature, which adds the GPIO_INT_BOTHEDGE register to latch both signal
+> edges in hardware. The capability belongs to the IP instance rather than
+> to the SoC, so describe it with a per-controller boolean property instead
+> of a build-time option, which could not express a per-controller
+> difference in a multiplatform kernel.
 > 
-> fbtft_init_dbg is not used in drivers/staging/fbtft directory and
-
-We refer to the functions and semantically similar macros as
-func() or macro() in the text and comments.
-
-> since dev_dbg messages are good enough, fbtft_init_dbg should be
-
-Ditto for both dev_dbg() and fbtft_init_dbg().
-
-> removed. After compiling the driver, there are no undefined macro
-> issues.
-
-> Signed-off-by: Himanshu Bakshi <himanshu.bakshi478@gmail.com>
+> The property only describes the presence of the register. Controllers
+> that do not set it must not probe 0x68.
+> 
+> Signed-off-by: Guohao Zhang <guohao01.zhang@horizon.auto>
 > ---
+>  .../devicetree/bindings/gpio/snps,dw-apb-gpio.yaml     | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
 
-It doesn't say how you tested this, though.
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-...
-
-Code wise LGTM.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+Best regards,
+Krzysztof
 
