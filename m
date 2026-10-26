@@ -1,87 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793030986;
-	b=jShcOv+cjbEvJClcIZLMPLHYuvmdp+cKkHPOfSLv7IHBb7TYvlFE/ol7yZSpivXYxsfc
-	 gr2oxASlxEDpaP8nuou7x2FVdjWyL6pjrXM3Cbn6yQI1arofdUU3A24t8MzmJ9wDLOo6i
-	 2kyIF/yR7wUSFrQ9jFcD3GBLiRgFnPADG5+p31/GQRrpQiBNEey1ww8K0/Nv4xD7+4nLl
-	 dolNkq4YwmPc7B0Ir8Gzq8CS8/rh+eTuzgZ/dmIhLVZQL20e3imZpU1g3FnVrZxRbt19R
-	 dLHuIGYrK2dz0IABzHcPYPLHfzYzz64AvslwPDek1hShv78iF3ebOkJOJXCAuskkgvQ==
+	t=1793031047;
+	b=29LneYPEboE+V4EpEj/VvJGT0TlH7wvEZdLC61yGGOF+PRGe0qSVOucd6Ndcy/ZW+h0A
+	 nY8GlGlpjKVP+W0ysuoFlSoAgt2LpIOcS/8Xbt/ZMUWnui74R8uh1zFLdUD54ny5iF81p
+	 zb8D6BiADl2AAlWOi3L+sAqSxX3D825TccFE/qbLFPaYmczz6iF+3rJ2geXYukafPTlBS
+	 a2f6D8Ds71Ummt5YrosADqisAvOWkPcjPTd7vtTJPaQae+5VT7zo3ivcyfMuzrCCEhnn+
+	 tmqtRXX3RslW0pCwBJsaJWtI4EMfWwLFu+rNXrGCJf+xno0OZqsyIt56FovJPjV4bxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793030986;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793031047;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=yg3SAu7bcjA+P3cd0pQQnqKAc/f2yjYRUKnerwKE1Pk=;
-	b=1ZX47AQ5v8OzbeltNQsmMGFwVoj7blRXMjJiAIZ+S9sqAa1NyChU5/DSbJsm22euakv8
-	 ecUlt9aemYIKJahHu7bLp7qWixTaijDdIPX1HQe8benT4Hv2eqA/eDd/3C2XQ1lTfgENb
-	 sm0FROHxff8WEIXcjGZiy+PkytPCICy5UnbFzGkVqHHupfwFr6n4HoeJPO/VWNZ9fF7bM
-	 QTVy4F2RLdYXVoNZixjEBkdSQqt5hJA+8PklzD+yG2SDW8qBhh0o2kK1OxzUpZNzOwaLi
-	 UejuzLrHOwIVo5ueClOPQ2FmFZpF0kQOMu3WT9kPKHxTsfL1k9sBkBEwLbfVTIR1r1Q==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=kUQvqIgLZiVjTe7e+6FWcgsNotvs+E5CfPr0Pi2+vxo=;
+	b=LqxXbVau/H22lQJKzqwp7FEqDYCuH4tuPWNfVicU2eqC1bfUPXZqP50WgsuiAj6Tw8Mc
+	 VmUaa1FK4opbix5LODCdxH1WxoUdSdjsEHmrdxoYr9ghNZVa1S3zGvuSJ03PpbrVrO4O2
+	 orEXYllEpE4bQU0Cc9jmNh1vnvWReKZbFK7rGDHTMLtcvULrJXFHAoBAalu2V1udD+ecf
+	 geLL3ODamRG8jnBxR79gvA/rWfQpBQNE8CDQzO0fdPWA6wMoVhBh9G35eMxZl5XI2SchO
+	 eZtfAtWPAK//3nudblIilO4mPw+yNDv0dUiZJv2+yV5nmoWBRE0VyAfsJXOlf7jonpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=VanedlGZ;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=IEmZyfZt;
+	arc=none smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DD76606A31E
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 16:09:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DD76606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99E9F606A31D
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 16:10:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99E9F606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=VanedlGZ
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a2072b9832so267845e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:09:46 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=IEmZyfZt
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a2000d5fb1so21370535e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:10:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793030985; x=1793635785; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=yg3SAu7bcjA+P3cd0pQQnqKAc/f2yjYRUKnerwKE1Pk=;
-        b=VanedlGZOu5ndUlScCLSxlKNzB5QUBvJHOy7xAvY+y80EAJmk/V9xxksuf8NQwaU8P
-         CE9ZNZ5I4maGFZZBUtr12or2LPxp/2FL8+VneSbVf5rkar8wljOEfTGIs8TO1HH/r4LR
-         az6MJXoQYmFFLWv4hMzLFxDhabjVMSfzwN7Qa9+LMqNUhNI8xC4lzBoManTpVANSlari
-         bBjs9b+DDHRzGGulw9/AIgtEixrr6DS4UqLJXmlGSO+GGs75pLqAvk0DyQI/Wg8KMGRG
-         PJw7oflt3vrLO05Gsgx5K4XRgx222bHpxgjMJjEQoYksQNS1QMXHMq2Fvea5H/udQ/AO
-         hCfQ==
+        d=suse.com; s=google; t=1793031040; x=1793635840; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=kUQvqIgLZiVjTe7e+6FWcgsNotvs+E5CfPr0Pi2+vxo=;
+        b=IEmZyfZtk2wrFDPKvcvv+Vt8pXHLaDImfYai/0x1kk8e/veezoO4DOxvjM3ITQ+tRd
+         eYKp6X9FgdLdT8xrc0Cl8Motvf0bAU76LOg44CKQWuvj/Kq/Q8Pu5w+GsZm2QHDwyNYy
+         nuN5shLp0zV0+lgXjr1xzubrFI0Qz+EzUZ5ZGXAgWshC7/FXGJ8xqbsld0KItWW2hQ2Z
+         E9uTZcWMghl7Qw8tdJAy0QQ4gMFhyXwV+adONHMclP7BVUp23yIQ/nAKSz9UxMaXdSrr
+         nXorCyuXyKTkSuCZadfv8eolFSslnBGeLuLZ5T/+pyYzmCbTUGqy4Smru7oWw6KRMKeg
+         8DBA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793030985; x=1793635785;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=yg3SAu7bcjA+P3cd0pQQnqKAc/f2yjYRUKnerwKE1Pk=;
-        b=myAuqdCPqEemWaX/B0d+SD8Qxq7xIARtFwwpWmWlNE4XZwxorIrX7qSz5XwDxWR8Wk
-         ODqtuLUP1f+Li0dgn6bVpKibeoM47q9cbtXsZvVurwMSh2o1eNbdBOQe5jrcfgJ4+rcz
-         C/afeZ5J5gWjB1w3SVygNvW5y6/tHc4Q60KRFIQmE3rM2lY6xJQMvECMuQJY3eOnGZMV
-         x1TrDk6N8TS0JYkN4SUM+zq+GdeB8TjdxbRZA7/IGdsIFg8/2eJdA5mxdJhbfXHKM38I
-         d4OACkkDR/TqfVdYnGGr+kC7Rwy1/41+WadPn4s+SxSHfTjE0zn19yi+g7Xm+EJRaNSK
-         tC0Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwOb0ORKdrXirHimVfOe9lvxkTRBU5lvmAtOmgvUzbOrG+rw4jgXBk+OJ2V54QQn6PecaYq66FH3W8PiMI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJxNNza9KmnyJFm3OiqFTGOige4WxpXYa1yJUrNMqhcKcUU6BSO
-	2MbmLc2CfJQlYOKjYF6jelYf9D3YuY1dWW7993VNbG2VFM2Q5eLas/J3
-X-Gm-Gg: AYBFou0TnEIoaPUF6OtsaNnbdtSGF1aiXdXkuuNX2eXDl4w8nORDSgkHU7uTQzcuVaF
-	oF5eA3dAQuOKRkM5HDtXeb04qYlSMcPBhotkozWuLafUtMInKM8BcRjZgtudlvJ7uOmEMuiskCz
-	kE6BKYKaGMxEzq59QqhTSU0ZfCzTKeBmQdLaoZK5jhj1hLdWLu1SS51RcDwLr6/lKvaueY5pVqj
-	I1XsmIVkDe2m0rbMjazWXgjHf0p3q8iAgpeJjKWiogqctiZGnhGnrn6iaWbO+ber6fLEtbgbmZ4
-	yEpz28elBtiYFz3txXWVVRjJPulfA1jC8WiYc/Hpr3/uTIFaE7pQfz/HyBQp3X/5CpKasAdq6yo
-	pFwpY3AxPtDKLN7KbQrKNbKBjqGG0sOD1RpEG9TsS/v76iT1RPLYNHc4E+xAzzcX8bJJlfr4T53
-	aidI5l3SJmMeJBlMbSE8gojcf7UgVzaeUkz8P9Wj9xDkL5h7++9/QGPuFhYPMoCdBaEQdgMgjEQ
-	t68zML7iGTnryuZGhUaIFp5duUwTneQhr9+QFBHYO15l9ffD3EkqV7wIx9Fx3Z4wGjURKWSR8xE
-	9/4YDv1RQHi8+C5XkV2wXYDf/+BKYQ==
-X-Received: by 2002:a05:600c:3115:b0:4a1:88df:8a2a with SMTP id 5b1f17b1804b1-4a7c16c5294mr2538075e9.13.1793030984491;
-        Mon, 26 Oct 2026 09:09:44 -0700 (PDT)
-Received: from theSameSurfase.localdomain ([89.216.103.252])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a0aa097sm224923225e9.3.2026.10.26.09.09.41
+        d=1e100.net; s=20260707; t=1793031040; x=1793635840;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kUQvqIgLZiVjTe7e+6FWcgsNotvs+E5CfPr0Pi2+vxo=;
+        b=JwBINWlMZcEeNmOcErRWB6mM4o7X6Uvndpa162kYcc6Nz+kpHK143tKndiHWivZnS5
+         tCNLW64k+mH2vQLXs7ozcVdVq4uW89OZyymv4KGhNVSf7STAD30kyGumxzuSbRqXE1aY
+         2L76x48phvYsWpnmHdw/QCt/dBcEoYV0sKicT90GcVviXuvvoCDed9l1Jivv0BYlhsa9
+         2zzTVFnFQv3mOUYejFh3Iv0eo5EUtWLjWxDmkyIYAms5yV2ivZBzFJg/6rWPC1tAG6nn
+         3jB+JiM3YmdjLW+HhvtxHywKQyFkzqJBHVxSAWQ4aeChdPUti9TlwvBVEEE45AaDJe7Q
+         P2KA==
+X-Forwarded-Encrypted: i=1; AKwUvBz/UsTojh33t5aqMGuoSM/QZbq48TyLnmkzTCBDG6ESkknYR7+hhH9TOEvgnRac8U+42FdSqHsf0gKbuCU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJI0G0fbQE3da816zlRqSp2utqdDIR8FLJk7PyGOS0oHkHut2wc
+	c0lJU+BteGjJ/fZJeXn5AtFABk55NxAtQrjhZ8O0yY0PxVNXc2rCZaIAS3hQAkEiClo=
+X-Gm-Gg: AYBFou2BWM57uKuk0RsZK7vp+dzt+KYzmw0xKwB37a/Eww8TT2z8VrSOHMW+iXGbpMW
+	ybHZnooFZQZNYzI3Ip/rnLZXPNW25Wy99XZMxxRrKPrbyF1v+YU2ru5vLgiCIUUsvKK3gXUH+Za
+	2AaUPXg2kkjBaqMIYqXbzO0uGFmcAALmrs6cO6ABhauUNVvOP7rHRAOdiygedMAYvhVBNUSoTQZ
+	rGUHAlpjchn3UVq4l3pvvgHbytbjW90lS57H2bfRcZ8gUW/lo/mBY1+t+4ZJKZtaEs2WZGmZXjS
+	D9+pPYJ5AlJF0rTaWeGlFLtwBiqMVrnE+8sauHvOH/S1NvfIztElSSNfNH5MW3a95CyCvgZQMbF
+	bQBFWTLpXosTYOvrSoblM0Jx5eFQ/9JtKTAO3ti3fwpEP3E9G2yxQh0na5Z/WjyK46Bn54ahZxp
+	N8WA9/v4ZgZwwLunVe4BMiT7/BOM2AD6t6OBaL2bjUyB1+H2st6N0wrX8hQl4AzhZDTqLO2+WrC
+	7umRG/GtZAYOGikBNCo2yYHwAc2VggkEedx9SVxn/XYOxTcSmIZooFOFw==
+X-Received: by 2002:a05:600d:82e5:b0:4a1:cd83:b23e with SMTP id 5b1f17b1804b1-4a35aae3e29mr175561725e9.0.1793031039857;
+        Mon, 26 Oct 2026 09:10:39 -0700 (PDT)
+Received: from pathway.suse.cz ([176.114.240.130])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebc3cfasm17465846f8f.17.2026.10.26.09.10.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 09:09:43 -0700 (PDT)
-From: Artem Utkin <thesame.personal@gmail.com>
-Date: Mon, 26 Oct 2026 17:09:14 +0100
-Subject: [PATCH v2] ARM: dts: samsung: exynos4412-p4note: allow powering
- off the wifi card
+        Mon, 26 Oct 2026 09:10:38 -0700 (PDT)
+Date: Mon, 26 Oct 2026 17:10:34 +0100
+From: Petr Mladek <pmladek@suse.com>
+To: Chris Hoy Poy <choypoy@linuxfoundation.org>
+Cc: helpdesk@kernel.org, Steven Rostedt <rostedt@goodmis.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	John Ogness <john.ogness@linutronix.de>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	David Laight <david.laight.linux@gmail.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Jiri Slaby <jirislaby@kernel.org>, linux-kernel@vger.kernel.org
+Subject: Re: Create printk@lists.linux.dev
+Message-ID: <at97ep5tfyQAsb7H@pathway.suse.cz>
+References: <asjrq9g8EoUGepcH@pathway.suse.cz>
+ <as3UxRboBZYY3oCH@ashevche-desk.local>
+ <as3VC2TmhcRXg0Xj@ashevche-desk.local>
+ <atYw6G8V1gP-ksTM@pathway.suse.cz>
+ <CAKkv+gw1MiOQQ1jywejHuX6u+SMLMGBr=dbzTZTpaBDmQU-Jdw@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,69 +107,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261026-exynos4412-p4note-brcmfmac-v2-1-14b372972163@gmail.com>
-X-B4-Tracking: v=1; b=H4sIACl732oC/43NQQ6CMBCF4auQWTuGlgrqynsYFjAMMIltSUsIh
- HB3Kydw+b3F/3aIHIQjPLMdAi8SxbsEfcmAxsYNjNIlg851qXJtkNfN+WiM0jgZ52fGNpDtbUN
- Y3rkiVRQ30/aQAlPgXtYz/q6TR4mzD9v5tajf+ld2Uaiw6PIHm0dJmqrXYBv5XMlbqI/j+AKcD
- dU7xAAAAA==
-X-Change-ID: 20261024-exynos4412-p4note-brcmfmac-68e7c13354bf
-To: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Peter Griffin <peter.griffin@linaro.org>
-Cc: stable@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Artem Utkin <thesame.personal@gmail.com>
-X-Mailer: b4 0.16.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAKkv+gw1MiOQQ1jywejHuX6u+SMLMGBr=dbzTZTpaBDmQU-Jdw@mail.gmail.com>
 
-sdhci_3 serving BCM4334 was missing cap-power-off-card.
-On my N8000 this resulted in the following messages after sleeping:
-[305.759883] PM: suspend entry (deep)
-[306.514698] brcmfmac: brcmf_ops_sdio_suspend: Failed to set pm_flags 1
-[306.671504] brcmfmac: brcmf_sdio_htclk: HT Avail request error: -110
-[307.127267] PM: suspend exit
+On Fri 2026-10-23 14:45:36, Chris Hoy Poy wrote:
+> Hi all,
+> 
+> Apologies for the delays on this mailing list - it was dependant on
+> the migration to the new listserv infrastructure. As announced earlier
+> this week, that migration is complete and new lists are being
+> provisioned.
+> 
+> The printk@lists.linux.dev mailing list is now operational:
 
-The regression was triggered by commit 8c3170628a9c
-("wifi: brcmfmac: keep power during suspend if board requires it").
-Midas already has a fix in commit 2ff147fdfa99
-("ARM: dts: samsung: exynos4412-midas:
-turn off SDIO WLAN chip during system suspend").
-exynos4412-p4note.dtsi does not include exynos4412-midas.dtsi,
-so p4note did not automatically inherit the Midas fix.
+Great. Thanks a lot for the list.
 
-Fixes: 8c3170628a9c ("wifi: brcmfmac: keep power during suspend if board requires it")
-Cc: stable@vger.kernel.org
-Signed-off-by: Artem Utkin <thesame.personal@gmail.com>
----
-Changes in v2:
-- Drop the paragraph about exynos4210-i9100.
-- Add Fixes and Cc stable trailers.
-- Correct the author name to match Signed-off-by.
-- Link to v1: https://patch.msgid.link/20261024-exynos4412-p4note-brcmfmac-v1-1-3d09e496c2c7@gmail.com
----
- arch/arm/boot/dts/samsung/exynos4412-p4note.dtsi | 1 +
- 1 file changed, 1 insertion(+)
+> address: printk@lists.linux.dev
+> archives: https://lore.kernel.org/printk/
+> 
+> with the owners as specified:
+> 
+> Owners     : pmladek@suse.com, john.ogness@linutronix.de,
+> andy@kernel.org, rostedt@goodmis.org
 
-diff --git a/arch/arm/boot/dts/samsung/exynos4412-p4note.dtsi b/arch/arm/boot/dts/samsung/exynos4412-p4note.dtsi
-index 8d52aa13b8..03b514a82b 100644
---- a/arch/arm/boot/dts/samsung/exynos4412-p4note.dtsi
-+++ b/arch/arm/boot/dts/samsung/exynos4412-p4note.dtsi
-@@ -1232,6 +1232,7 @@ &sdhci_3 {
- 	#address-cells = <1>;
- 	#size-cells = <0>;
- 	non-removable;
-+	cap-power-off-card;
- 	bus-width = <4>;
- 	mmc-pwrseq = <&wlan_pwrseq>;
- 
+JFYI, it seems that everyone has to explicitly subscribe, including
+the owners. I have already done this by sending e-mail to:
 
----
-base-commit: b47faa6004d86ade16b90d24fa1e1f179e6f7230
-change-id: 20261024-exynos4412-p4note-brcmfmac-68e7c13354bf
+	printk+subscribe@lists.linux.dev
 
-Best regards,
---  
-Artem Utkin <thesame.personal@gmail.com>
+Also I have sent a patch for updating MAINTAINERS file, see
+https://lore.kernel.org/all/20261026160128.12581-1-pmladek@suse.com/
 
+I am going to investigate how to get Sashiko AI reviews sent to
+the mailing list.
+
+Best Regards,
+Petr
