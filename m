@@ -1,56 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.220
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.226
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793001183;
-	b=HnnRpuUUSd4G5IxLv0uWnhrfBsQ93Dwf1CTMfDMw1ZSuKuvLl+9pHZmKkJmqQqEwkPFN
-	 j6wO44/hBodSlXfMXgTjpVajo90JXaTI+Zu81nA9U+e8C9nCpBz3G2KsG1VdtqZmW93k5
-	 qv61VC6oX4RHzKlkr3Rs1bjcv0WMPZW/xEzu+WFrzifB7HCbGMGtrG44VRvbSE9jZ7lDX
-	 WEICdFSgiWA2kBC05xoSSnQ90Xo3vjImG0HPV6f5wbTdWnrGyVEOdAkKV06QRrlApagQr
-	 bMQ2VXFCNH5sr+4TLm4dvVJnArXkJtoo+CMzLA0fqObtobZWOFKGLPJUUfqR7iB2UDw==
+	t=1793001190;
+	b=JP+bJdZUAyhEnWpUNGBtvQRFmn/mwyRDutYIc2279Zid9H3IGUa5ZWOwBBhl9+x49ap5
+	 XWF8g9uJt8y/UBMq0SjqYlt107EiL4p+LIvA0Bzr+/EvSpJZXlR1KGQK4HRkFFOQUGZqj
+	 kdwQq0Yr4UqumWe5QPAWy0q2jryvvo+Tw73+1/pVDss020eDBc2rK5UWiMUnnECJT9LOS
+	 x3nvqujMGYDUag9pkgsuJzjkz2NdQlYjH558K38VPxWzLt7xj4hKhdfLF37uN4uabAIkn
+	 WA5iepyHb8Z/jXG++ENgdbC4aLoxPHyK1DC7vQygkcCqG71OquFm6X/PgpY10X6+Bfg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793001183;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793001190;
 	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
 	 X-ClientProxiedBy;
-	bh=Q37eFExC6M3HhNsbtTO2StjSIwhNf+LEG0N/7SGQYv4=;
-	b=YN3lT7CQ3UFJKJhGPc8JbzCgKb/88TgglLwRMLp5ne4WdwQ5rX9HCLsOGT+T4U0wcPIk
-	 VXt9HEUb+yfEqX92X7znW1L3M0C+lsjL1oBogBE3b4/tToWpluCMa9216uwP1Rrk1WDoj
-	 XlNMQAdwdFcpPxz3OXkqMnWKbxg6pcLuNiCqoROesmv2UgIJ4yjUtTOq/unJMUlg8K804
-	 860eSn3ZhhTcOhLbsTzMEAugBCi39tq1opYJpTl0u+jMcIxzWa+EAOZ14zO411eiMJkzP
-	 V4ffXsf76x/Ajpe3SEAe5poJcubPc+/0rnW7297v92tFHT5awPkY1v8uGeI6xuvvSxg==
+	bh=+H68sJF9aJkLyzB6hrimo4ydtaIOsZvN/k3FJ/usyC8=;
+	b=3jm2TQq6lfji13Cal2RofQv0x+AEHYTfk/PHK6EZpbIph0lWFNOKdK1d4sdirV2LUDG+
+	 96blE13q9zPmmvDI3NyCYIXeBBa9Y9crurEUreDK510MbVl9Vrk1OqsWf9M6vWjNbQo7U
+	 4/B6xH75syxNyPneUhsG7wSCfbVpTzZ5VloU1YGv+iZojHKj10+TSz3voIf07YzkDser4
+	 oXBqXrZ5LFjH0W6g/qbUWxaIwgoUl+RQvMHmVY/dUHs3H4zZQ23rSVq2kbLv7Ez83LiE0
+	 qhJJMG4YvBfKGpMk2t51LnNzn3qEvVqwN1DR7sLi+0Caxp/lPNCkWgV34my2LKOdhjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=huawei.com;
 	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=Z3shP3oo;
-	arc=none smtp.remote-ip=113.46.200.220
-Received: from canpmsgout05.his.huawei.com (canpmsgout05.his.huawei.com [113.46.200.220])
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=df5DscK4;
+	arc=none smtp.remote-ip=113.46.200.226
+Received: from canpmsgout11.his.huawei.com (canpmsgout11.his.huawei.com [113.46.200.226])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6D46606A331
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 07:53:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6D46606A331
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D50C60A260C
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 07:53:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D50C60A260C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=Z3shP3oo
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=df5DscK4
 dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
 	c=relaxed/relaxed; q=dns/txt;
 	h=From;
-	bh=Q37eFExC6M3HhNsbtTO2StjSIwhNf+LEG0N/7SGQYv4=;
-	b=Z3shP3ooxReMBA6K6DclOtd/c2nZdN888LJ5ncwYrjzheXC87zR6soeusaGbvrPDnNaF8GwCQ
-	tc4X52XOgex3AWsBhHnMMeeLI33bz6Y1GZcn3FLoZQhPUDgfmMnazgw/k4BKLKkBbrSfJ9uqVwE
-	/IsGeUkCOtVWYA6xCLw6NHY=
-Received: from mail.maildlp.com (unknown [172.19.162.197])
-	by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4jCm7s1zgyz12LJ2;
-	Mon, 26 Oct 2026 15:52:57 +0800 (CST)
+	bh=+H68sJF9aJkLyzB6hrimo4ydtaIOsZvN/k3FJ/usyC8=;
+	b=df5DscK40Tt1SNytnExpeo36lbA7KQSmGq/7LYJygas0TPr5fNoxDQPzRPgjRlju1nVwCxybM
+	e7ymL8RV0ldXLw9SGJCA8S1MZYO3RWFy/45k5Q/YRmQtnjiQ1zQ2vf0v1YA4Tc9qW2TkyL1QCci
+	7kNXhE9b/fYNtTEPT6IzPOs=
+Received: from mail.maildlp.com (unknown [172.19.163.127])
+	by canpmsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4jCm7m3dXGzKm4D;
+	Mon, 26 Oct 2026 15:52:52 +0800 (CST)
 Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 3B53B4057D;
-	Mon, 26 Oct 2026 15:52:53 +0800 (CST)
+	by mail.maildlp.com (Postfix) with ESMTPS id 40E7D40572;
+	Mon, 26 Oct 2026 15:53:00 +0800 (CST)
 Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
  (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 26 Oct
- 2026 15:52:51 +0800
+ 2026 15:52:58 +0800
 From: Jinjie Ruan <ruanjinjie@huawei.com>
 To: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
 	<chenhuacai@kernel.org>, <kernel@xen0n.name>, <maddy@linux.ibm.com>,
@@ -73,9 +73,9 @@ To: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
 	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
 	<loongarch@lists.linux.dev>, <linuxppc-dev@lists.ozlabs.org>,
 	<linux-riscv@lists.infradead.org>, <kexec@lists.infradead.org>
-Subject: [PATCH v7 01/15] arm64: kexec_file: Stop using the Image text_offset
-Date: Mon, 26 Oct 2026 15:51:47 +0800
-Message-ID: <20261026075201.699550-2-ruanjinjie@huawei.com>
+Subject: [PATCH v7 06/15] LoongArch: kexec_file: Fix elf_headers memory leak in retry loop
+Date: Mon, 26 Oct 2026 15:51:52 +0800
+Message-ID: <20261026075201.699550-7-ruanjinjie@huawei.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261026075201.699550-1-ruanjinjie@huawei.com>
 References: <20261026075201.699550-1-ruanjinjie@huawei.com>
@@ -93,70 +93,38 @@ Content-Type: text/plain
 X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
  kwepemk200008.china.huawei.com (7.202.194.74)
 
-image_load() adds text_offset to kernel_segment->mem and subtracts it
-from kernel_segment->memsz.  For CMA backed segments this breaks the
-load path: the payload is copied to page_address(cma), which is the CMA
-base, while image->start is set to the adjusted address, so kexec jumps
-into the middle of the kernel.  kimage_map_segment() has the same
-mismatch when a segment has been moved.
+A retry allocates new elf headers and overwrites image->elf_headers,
+leaking the previous buffer.  Free it before assigning.
 
-The adjusted memsz also breaks the release path: the CMA pages are
-freed using segment->memsz >> PAGE_SHIFT, which is fewer than were
-allocated, leaking the tail of the allocation.
-
-Since commit 751c263bb74f ("arm64: remove TEXT_OFFSET randomization")
-TEXT_OFFSET is always zero.  This has been upstream since v5.8, so no
-LTS kernel carries a non-zero text_offset.  Drop the adjustment and
-reject images with a non-zero value instead of booting them from a
-wrong address.  With the adjustment gone, segments stay at their CMA
-base and the release size matches the allocation.
-
-Cc: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Will Deacon <will@kernel.org>
-Cc: Mike Rapoport <rppt@kernel.org>
-Link: https://lore.kernel.org/all/20260921090450.807575-2-ruanjinjie@huawei.com/
-Link: https://lore.kernel.org/all/20260921090450.807575-3-ruanjinjie@huawei.com/
-Fixes: 07d24902977e ("kexec: enable CMA based contiguous allocation")
-Suggested-by: Mike Rapoport <rppt@kernel.org>
+Cc: Huacai Chen <chenhuacai@kernel.org>
+Cc: WANG Xuerui <kernel@xen0n.name>
+Cc: Youling Tang <tangyouling@kylinos.cn>
+Cc: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Cc: Sourabh Jain <sourabhjain@linux.ibm.com>
+Cc: Kees Cook <kees@kernel.org>
+Cc: stable@vger.kernel.org
+Link: https://sashiko.dev/#/patchset/20260729031235.2840255-1-ruanjinjie%40huawei.com
+Fixes: 55d990f0084c ("LoongArch: Add EFI binary support for kexec_file")
 Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
 ---
- arch/arm64/kernel/kexec_image.c | 13 ++++++++-----
- 1 file changed, 8 insertions(+), 5 deletions(-)
+ arch/loongarch/kernel/machine_kexec_file.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/arch/arm64/kernel/kexec_image.c b/arch/arm64/kernel/kexec_image.c
-index b8d0fb0a9daf..74d24c8aa2fa 100644
---- a/arch/arm64/kernel/kexec_image.c
-+++ b/arch/arm64/kernel/kexec_image.c
-@@ -80,12 +80,17 @@ static void *image_load(struct kimage *image,
- 	kbuf.bufsz = kernel_len;
- 	kbuf.mem = KEXEC_BUF_MEM_UNKNOWN;
- 	kbuf.memsz = le64_to_cpu(h->image_size);
-+	/*
-+	 * Pre-v5.8 images carry a non-zero text_offset, which is no longer
-+	 * honored; reject them instead of loading them at a wrong address.
-+	 */
- 	text_offset = le64_to_cpu(h->text_offset);
-+	if (text_offset) {
-+		pr_err("Unsupported Image text_offset 0x%lx\n", text_offset);
-+		return ERR_PTR(-ENOEXEC);
-+	}
- 	kbuf.buf_align = MIN_KIMG_ALIGN;
- 
--	/* Adjust kernel segment with TEXT_OFFSET */
--	kbuf.memsz += text_offset;
--
- 	kernel_segment_number = image->nr_segments;
- 
- 	/*
-@@ -117,8 +122,6 @@ static void *image_load(struct kimage *image,
- 	}
- 
- 	kernel_segment = &image->segment[kernel_segment_number];
--	kernel_segment->mem += text_offset;
--	kernel_segment->memsz -= text_offset;
- 	image->start = kernel_segment->mem;
- 
- 	kexec_dprintk("Loaded kernel at 0x%lx bufsz=0x%lx memsz=0x%lx\n",
+diff --git a/arch/loongarch/kernel/machine_kexec_file.c b/arch/loongarch/kernel/machine_kexec_file.c
+index 62a5be102065..3beb6977ecc6 100644
+--- a/arch/loongarch/kernel/machine_kexec_file.c
++++ b/arch/loongarch/kernel/machine_kexec_file.c
+@@ -166,6 +166,10 @@ int load_other_segments(struct kimage *image,
+ 			vfree(headers);
+ 			goto out_err;
+ 		}
++
++		if (unlikely(image->elf_headers))
++			vfree(image->elf_headers);
++
+ 		image->elf_headers = headers;
+ 		image->elf_load_addr = kbuf.mem;
+ 		image->elf_headers_sz = headers_sz;
 -- 
 2.34.1
 
