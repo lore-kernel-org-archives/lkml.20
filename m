@@ -1,49 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793016986;
-	b=evg/hGx5gqjudKDjCZidFZ/sQht6NnpJfLlWU2iIYcwoep/pdVgKaAzLs1MJuO+CxYHM
-	 iWeykhh99ybibPO7sRRl4MaIhI5BvzyNafRKz0itBsHrdKfHp7w/TZazEyZjbhtIHP9fL
-	 BrULNXBES0e8mFGG2UTaZyN0gfDyaQXUsJqiAkn2W/q5t4q897K38l3B5QBsrzrUwDehV
-	 zMDkk3KkcU+pKgMNetbqA6o78BTEPqWkB8bdotDVyNLxoKYiClZzvl40mPXY1CL6iGyRB
-	 t96Z5u2JY20W5nOYkUHwMVK23FH7hQPjziTpNt0mnK43Ivn848sztZmH3mPCRa0M5tQ==
+	t=1793017001;
+	b=xVwv5gFGDNDtaPuloEcXmjaoKxnvOja3GiZgeo+Wm06Hi+vb1X8V8DxkTBZ+jMa7h96k
+	 CI1KPzJzaPYYPP4vKLnvKkVsZWTpuWlgcRnrpMtlQgBiuboHwN/Xm0vFnCr8uezoFhaZe
+	 cbmfn1nKZQQWm3YXXErwcgFugkU/1ABsYWINwudRb9zGQiE5tQ2p2OBNWqBk2FdXpiyMj
+	 hhlRtO6+NxfNg3+jza6SPiCSJCvJ5qskaXANQ7UEE+AuNLhGllG5aJX0KQrCEBq2jJoaf
+	 ElTCGBDpn2JlLSrWidAxHrQIzaJMn9XjRciKPOZvjxAW/+DVrEa05KA8kc7L0GWXQxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793016986;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=Rg0ETYbEaunw+LkMJf50lkBOkvciZg3rbVHhzrZnfXw=;
-	b=OlIQRM5vOLWODaQAoQWx6wg7dh3hTa5W18z9AzjWgkXzJfHtFkrkRuMoaMOJWTnAQ93O
-	 LrZsZobKLC4f/GpQKnJebOUABezLN8UfU5/62hfpb6qrsQSNMJquFaQBKPTLOndF8LZK1
-	 4KWSMeX1fWe0kSESQov9GyEeN0mrzVWfGQjnl0fNbyImqfZDhmI2xsvGWMR4Kelce901M
-	 VLy0bibEoFPjbHKLFVrvvUXs+PCxFXRJdsrB3bCq3//LyZjEAQTcgdsQbTk8Nqbe3xuM7
-	 2bzx/rtFTAPpK/FUt6uLebLDmUuzzaIO9MborQyQW03N3tMNoRuxg5f4mn95iFfmJTQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793017001;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition;
+	bh=OIRau+K059U9bsoMz+fliJDGjqrERsFkJBBiagvCp88=;
+	b=Qy5spVOXsUfDKioJ0q1cfHRzuau0exempFWZ64R1TR7TCi9bHlc3PE3Qt38otq0nRkP0
+	 POeWSli1UQEubg6fvSiO5u7OEs1ZI4OdEpzwcJA32uIUAqlzpvokrgodtL0sV1NlYw2aw
+	 0KN/vEeA9HkbHuBmjXpYFVfDCoDvBskHHSD60PelxeAPYBPUJqA2Vzfj/EByO6AISX75/
+	 Rd+SiGtPtXLxMXUNiQR5ASk456MdaHHmC9aSsOg56Kx8Kj/7a59rOP1ZnXcbo65nugSWu
+	 lkklVkzyFG0a6bj1XRFp5lRHjEvXbhmS01+/msOy22dqgBRjzNcbEYK+hvNeEM8qxgg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=h5Zoek30;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 46A27606A322
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:16:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46A27606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SoeX1zY3;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EF10606A31A;
+	Mon, 26 Oct 2026 12:16:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=h5Zoek30
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6EC1215A1;
-	Mon, 26 Oct 2026 05:16:22 -0700 (PDT)
-Received: from [10.2.212.8] (e134344.arm.com [10.2.212.8])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CF8593F7B4;
-	Mon, 26 Oct 2026 05:16:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793016985; bh=Gk4eUsoyed4B957tUYZATCS0kUgqsVIGWKLqcaoh44U=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=h5Zoek30G0L+Q7LsMI3bb6Z9oGY3tyyoKd09cgYLswpa0ALiG2swjoNgL8wLguwgl
-	 7/ZeVD+zOKKceSTAYzcRIqvFHgp0kaRz5ICw+2wwpSOZHeGuVYAfovsNExLNL8vFFs
-	 Fq/PWI1Wgg+FZId5F0j7Rg822id+Doa49D3Cmlo4=
-Message-ID: <c5afae4a-c8cc-481c-8c98-8a0f84db1911@arm.com>
-Date: Mon, 26 Oct 2026 12:16:23 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SoeX1zY3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06EC71F01825;
+	Mon, 26 Oct 2026 12:16:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793017001;
+	bh=OIRau+K059U9bsoMz+fliJDGjqrERsFkJBBiagvCp88=;
+	h=Date:From:To:Cc:Subject;
+	b=SoeX1zY3viN6rGWSMONQeAuTuKGc4Fn9punMS2hcuAlfXBG0RHKhLiyVvsC3244JR
+	 sAhoDd1ROM5+o5vYelvp36y+EKJ0gEyeF6+bd4TfZ6Dkc5D/VDqRj4iE6zkz+fn8Do
+	 J16ZHN+Plwivxt+jWs5GjDVfgKmVmsFPeIIALxMdQnWZHhb/qd6pch/zH2AlVcHSiX
+	 Of0i7NuYzZDDHhC0gfIDFbc+jGp/yI6+vPn7H2ADjqjiWFXriPRsIDj32YCIWwnPxV
+	 cDwPECG9jWXHqVEh54Lehz98cOj546E9F1TBahuhLtDIuEpY2EBjasMJZYtsM72b7d
+	 YHV4cXrqZfrCA==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+	id A9DE01AC5994; Mon, 26 Oct 2026 12:16:38 +0000 (GMT)
+Date: Mon, 26 Oct 2026 12:16:38 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Damien Le Moal <damien.lemoal@opensource.wdc.com>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: linux-next: build failure after merge of the libata tree
+Message-ID: <at9EpoN5yijg6WE5@sirena.co.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,53 +57,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm_mpam: Reject ris_idx == MPAM_MSC_MAX_NUM_RIS
-To: Ping Li <leeonion.muyu@gmail.com>, james.morse@arm.com
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- reinette.chatre@intel.com, fenghuay@nvidia.com
-References: <20261022085710.1597276-1-leeonion.muyu@gmail.com>
-Content-Language: en-US
-From: Ben Horgan <ben.horgan@arm.com>
-In-Reply-To: <20261022085710.1597276-1-leeonion.muyu@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="aCfe1SnZC9KnUTxa"
+Content-Disposition: inline
 
-Hi Ping,
 
-On 22/10/2026 09:57, Ping Li wrote:
-> While checking the driver's partid and ris bound checks, after the
-> hardware team mistakenly configured PARTID_MAX in an MSC to 16,
-> this issue was found: MPAM_MSC_MAX_NUM_RIS is the max number of
-> RIS an MSC can have, so a ris_idx of 16 passes the current check,
-> and would later be silently truncated to 0 by FIELD_PREP(),
-> landing all configuration for that ris on RIS 0.
-> 
-> Signed-off-by: Ping Li <leeonion.muyu@gmail.com>
+--aCfe1SnZC9KnUTxa
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Thanks for the patch. Yin already found the same bug and posted a fix first so I'll go with that one.
+Hi all,
 
-https://lore.kernel.org/linux-arm-kernel/20261008-mpam-resctrl-dt-knp-support-v3-1-35196c2b43bf@oss.qualcomm.com/
+After merging the libata tree, today's linux-next build (arm64
+defconfig) failed like this:
 
-Thanks,
+/tmp/next/build/drivers/ata/libata-scsi.c: In function 'ata_scsi_pass_thru':
+/tmp/next/build/drivers/ata/libata-scsi.c:3586:25: error: too many argument=
+s to function 'ata_scsi_set_sense'
+ 3586 |                         ata_scsi_set_sense(dev, scmd, ABORTED_COMMA=
+ND, 0, 0);
+      |                         ^~~~~~~~~~~~~~~~~~
+/tmp/next/build/drivers/ata/libata-scsi.c:206:6: note: declared here
+  206 | void ata_scsi_set_sense(struct ata_device *dev, struct scsi_cmnd *c=
+md,
+      |      ^~~~~~~~~~~~~~~~~~
 
-Ben
 
-> ---
->  drivers/resctrl/mpam_devices.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
-> index 48adc49b833c..347a5a6d6a1d 100644
-> --- a/drivers/resctrl/mpam_devices.c
-> +++ b/drivers/resctrl/mpam_devices.c
-> @@ -700,7 +700,7 @@ static int mpam_ris_create_locked(struct mpam_msc *msc, u8 ris_idx,
->  
->  	lockdep_assert_held(&mpam_list_lock);
->  
-> -	if (ris_idx > MPAM_MSC_MAX_NUM_RIS)
-> +	if (ris_idx >= MPAM_MSC_MAX_NUM_RIS)
->  		return -EINVAL;
->  
->  	if (test_and_set_bit(ris_idx, &msc->ris_idxs))
+Caused by commit
 
+   3bab8c7e0c6ba (ata: libata-scsi: abort multi-sector pass-through command=
+s when multi_count is 0)
+  =20
+interacting with
+
+   c44f095a9d176 (scsi: ata: libata: Use combined sense codes)
+
+which is now in Linus' tree.  I have moved the merge fixup I was
+previously carrying on the scsi-mkp tree to the block tree.
+
+--aCfe1SnZC9KnUTxa
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCat9EpgAKCRAv73Ows9A4
+ieBZAP9zTVrOo/KmKscP1I7pJTPezbiBBG0GPfheKcJ/He4ETQEA7zWQvHCkCO2E
+5lZMqD4aND9aqqB/VnkHZ890VBVjqwI=
+=8qFp
+-----END PGP SIGNATURE-----
+
+--aCfe1SnZC9KnUTxa--
