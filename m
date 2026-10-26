@@ -1,76 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793003827;
-	b=QzvdRjUDyNb/vwP3HUxI7QkaeKR+1dfn0TbayAk+j4qYts3xZ9WADP9ie6vrvKWctbPP
-	 UXNaO4b+vUhykH8RgY+q//HLlgsYgafaGsV74wQLW4LFiAzl4ts28DxmqvVYnhXQM7TJd
-	 R/Hzs/Jq2D8/Eoepy1m94cjoKGrlmr941cf2abUCofOschTNxOdwPIqaUXRSqGchV1IqC
-	 8q5m9rvj9fsjkArnhRIWgCG2sxhXjh2WdA253h0vo0zUniXezlHBSTYzRbxcDqCFibhcA
-	 uMUDmPsmcBIp/U+R/2a4xU02ck+nzqR70FzK0a2FoIIjFArOFWVB2rYwsTWy6JKHZ6A==
+	t=1793003825;
+	b=E5/nBETESXREyFzPTdr/gM6Mm4QDswPTvBMg4SVq38WNLC7KWDyKzdEznxOUph2kMend
+	 /YR/NFxb23pmM9HWeMrfxLQLzlyjUTaez9yGYyegOpJfaZ5N543JpTR9Ne0Kf1S+Es/bf
+	 qnvXP3vt7Egs5DCulYaUotYYkc7MoXdThSBXhyVt4XryO5V9sCihtz4+QeZbauU8aKsBj
+	 61OqZZuEDedbgk+GeIOjsKcMgUcSQEaTBFkVtLvmj7OY8CEGYxQ9/TlFVo0phnrd+i5W3
+	 VKXlqzuv5Jw4ZbH2+YJ6Sk/wBVEQWEeo0OyEaCctbA0Oi/y9nISCZAvtLOa8X0jys0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793003827;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=RUA86guEgQwbbO7ByDKrdW1/1LPSMKM8UU2NIH1n7P8=;
-	b=b5CiuSxQSVb7hN9WO0MmIQ47JU0vnOjxXWdOCR3BkrZATmOXuw5ET+F0RrMel26yCnGT
-	 Ae3f88VXHFvNbWWbKTM6w1zaOGLPX/dv7CDbVzek5Z8nhPwWnbHcdOiqj/s4ceiHsLPsz
-	 erCsf84AAOr8S8ajBdxtEqHh9YwEEKhLra4+XexmiysevWvsg5ofORhDAeevUCSe9DIDp
-	 sDpDzIVCJVHAUWI90pp+iXRGq2ierwp5+SWqNRwmzDkCO6oC6u1HRWH06MTkmY1w3nx46
-	 YrAnBpjob/jKrIhn06KbXaUK9yQbRdqz4Wc/mrNp+cHRMIy+fKMbz3K+2V47csrNocA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793003825;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
+	 Cc:Subject:Message-ID:In-Reply-To:References:Organization:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=/tD+AdggQ8rn3t013FfJIhJkQ3UCqIWgHWwfFpeCerk=;
+	b=RUuLsl2EH/YESOjUQDPviL0uNsqakqq1WsjCHzgfuYIciFDyklJQGPucpTZl7NIR9ae2
+	 7XQlrVtfMRNiriX3Sg70/RXc0f4Q0wp99/3x06q2WESGdIwKRiWqPq3izyRoL+zAXTn9g
+	 dZGpKg4nFYqfAW7Wj7omkBfQu3R4Q6IcgVgYAWvokoEjakcPCkuI0Tq9YmimTF3LkN726
+	 L6b2gePHlM+wSdBcU+T7LqcySALgkinyxPZrfqxyc7jTSxdR43YnEvKeqwLYQBA05sPBE
+	 Oyjol40PiKCstTEigQlUxMphAzG+CflT+ruLkqvzfDPgWU9GVTtypfvdvapvONHyWYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-m68k.org;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.222.47
-Received: from mail-ua1-f47.google.com (mail-ua1-f47.google.com [209.85.222.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=kVwwLWcH;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F62F606A323
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 08:37:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F62F606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ua1-f47.google.com with SMTP id a1e0cc1a2514c-990fbae94f5so2358925241.3
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 01:37:06 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793003825; x=1793608625;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=RUA86guEgQwbbO7ByDKrdW1/1LPSMKM8UU2NIH1n7P8=;
-        b=mZSQt8qbRxTS+Z1E0fRnlg4I7XAnFNnInu6Bj3Dz6MF4E3oD4XQ8yzkT5HlJycu6rP
-         RWvwlk9pDRKtwSnkKcJHbeVBdsWkICPSOutu2d7CdeN/b73eOQ9YPyoMrsHER8zMXilf
-         4KG5BqtzCVUgP6Pb6So2h0GWRZro+mj5sYjCiNDv5pjJbQ95UyH1G/8LuE7JPeKjZlWm
-         vpM9Yj/5fRuRIX+ExSPzD4V5L4ymHpRqzAHW2EhrPKQ0Cz48edyoQxlw7QSB4DqprTat
-         Or9TQHQMoAWl3BBa8U6l9WaGcXzS6EeRLukIuJqIIzJ6BG2jtXmRQu7irOsiDaLEhYPm
-         7IFQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzAKiKJd2I94dGgB9hLC/zTy1HDnp38JXW3C6TxRTnmnx1xrkTOLkTEm/sQiy//XtQSs2Ib2OQxR/4h3dU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIrsfAHlA8oGElhWP5j7ki1ceV+QfcKDvoPGXOhCcjS2dgmGhoM
-	3HWpBUCmSE/YE36orQwFFbovdF/K+vtz4sQ/H3X4YNpPxnJ5SmcS7IA2UaVhllFU
-X-Gm-Gg: AYBFou2u/nTyJRIYr3VBm9YmIsVWqUQzYnKuPHDIcHM5g2xzM5mEhYDS1OaJOKtwCd8
-	yMc3aqZjEWxCjNKM5PsGAlDxxjNmyXEKeWgZzQjEdZhRlRUUtMSYSNG7IGlpG12mJswoMzlO0Py
-	QVCu13z/flFLXpwQg507zDamglF0W0W29j72j70fk/FCIDRP1ZneuuoQCoCAGFlFRfGok61v/4I
-	MMnltmBAWV/AC0UKlfjloKvyyA0BxEEKdQB+oLgN1406yv5aJI5Xl529lgyIqhL/hg+5aUEEh24
-	zOwck/G2dp7aJGAq7nicPUhHFR0+ZDVKfCZpl/mXXAm7YCvfi8z5zkswy/0lZ91cBkspqauZI9T
-	Whu+8Im2qzY7htGNqb6oJUVvWKCpFUKpqm6M3B1QKXbjlexDl98h0goZcnHStTYseb/NcIzR/NM
-	a+DbelY9TO+YdEFs60WaDodtr1nIP5qnIcxV/RL3Oqs0WrMdGZ4/f0kR3dGOTZDybW3VApB0rfs
-	CrGni5dyYhzON4rNjdR/nPsUltvbv2hoWpn8jyeV4objM6xO0YRXi7jMxBQENjwpK434cfUUG4X
-	edHX3+d9TQ6XWnwI5UuKC8SdU0tZEXh8C+YeTzMJTh8=
-X-Received: by 2002:a05:6102:955:b0:7a4:e550:eeb9 with SMTP id ada2fe7eead31-7ce5cd3fae3mr1708220137.22.1793003825459;
-        Mon, 26 Oct 2026 01:37:05 -0700 (PDT)
-Received: from mail-vk1-f177.google.com (mail-vk1-f177.google.com. [209.85.221.177])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9910e80701bsm7545234241.11.2026.10.26.01.37.04
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 26 Oct 2026 01:37:04 -0700 (PDT)
-Received: by mail-vk1-f177.google.com with SMTP id 71dfb90a1353d-5eadadf23e5so2520014e0c.2
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 01:37:04 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBy4WCv/HqQHCbbAUvTguYrvmD98YualkIaHl+i2hpFAIuXHomIgthc4peNBVohIxOGInFS6IIbcawIIEHA=@vger.kernel.org
-X-Received: by 2002:a05:6102:3308:b0:7c3:2168:d603 with SMTP id
- ada2fe7eead31-7ce5c6ba6ffmr2185044137.0.1793003823918; Mon, 26 Oct 2026
- 01:37:03 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6947B606A322;
+	Mon, 26 Oct 2026 08:37:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6947B606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=kVwwLWcH
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id AF21B1A1339;
+	Mon, 26 Oct 2026 08:36:54 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 7ACCD60740;
+	Mon, 26 Oct 2026 08:36:54 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5EA8E10328E76;
+	Mon, 26 Oct 2026 09:36:45 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793003812; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=/tD+AdggQ8rn3t013FfJIhJkQ3UCqIWgHWwfFpeCerk=;
+	b=kVwwLWcHIhHeD43jHUzfytK0VC6XBUa76/BASP5MYWKmgkJg1swUYm6Nbcz0qa+xG5p/oL
+	pSeE11DF5ppRMuS7rksMeF66KVn11wWdOUivyfokhrKZ7xErbqn8fIEl1tJks0CHAZtthZ
+	cWhbZ6XN8mPWp5LHNKJV0xwp7XxAWQMkVja2480JdWKiGwSDfEDwbR0oEDdwIOvyhm0MUo
+	hNNJQLIFP5zJ8wQynpxgiIjyl1Y8iIjjX7Jb57RIAvdh7MSzFiMJg38wkp959gysNKqBVN
+	Cbu+QePb/Kdb07waujHNn0n5ZGQWS72h3IZcn3LWXr8X7jTHGp84GbdAD7WMdQ==
+Date: Mon, 26 Oct 2026 09:36:43 +0100
+From: Herve Codina <herve.codina@bootlin.com>
+To: David Gibson <david@gibson.dropbear.id.au>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
+ <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
+ Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
+ <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
+ <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: Re: [PATCH v3 12/15] libfdt: Introduce fdt_getprop_offset_namelen()
+Message-ID: <20261026093643.15faf244@bootlin.com>
+In-Reply-To: <at1qO7oEdCyhX6k8@gractus.seuss>
+References: <20260826083146.304291-1-herve.codina@bootlin.com>
+	<20260826083146.304291-13-herve.codina@bootlin.com>
+	<arDJmHPwgvwwmITG@gractus.seuss>
+	<20260922182547.6cc7475c@bootlin.com>
+	<20261023092559.7608ff25@bootlin.com>
+	<at1qO7oEdCyhX6k8@gractus.seuss>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,41 +83,119 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261026-dev-mctp-static-assert-fix-v1-1-ceef9913e891@codeconstruct.com.au>
-In-Reply-To: <20261026-dev-mctp-static-assert-fix-v1-1-ceef9913e891@codeconstruct.com.au>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 26 Oct 2026 09:36:52 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdU0-3iyRFCvau7OmjZDmxqbLhTr3Bv8OmymS5yb2p2nMQ@mail.gmail.com>
-X-Gm-Features: AclHuK_Mqm-AEJnYW3-6a7k7aCpVsfjR36Ni_iSj735r1ypyEyzR93mPV5Px40A
-Message-ID: <CAMuHMdU0-3iyRFCvau7OmjZDmxqbLhTr3Bv8OmymS5yb2p2nMQ@mail.gmail.com>
-Subject: Re: [PATCH net] net: mctp: usblib: Fix broken assertion
-To: James Lee <james@codeconstruct.com.au>
-Cc: Jeremy Kerr <jk@codeconstruct.com.au>, Matt Johnston <matt@codeconstruct.com.au>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Mon, 26 Oct 2026 at 04:33, James Lee <james@codeconstruct.com.au> wrote:
-> The expression in a static assertion in the kunit tests was not
-> considered constant by gcc, causing an error. Replace the static assert
-> with a runtime kunit equivalent.
->
-> Fixes: 1e12f734afc1 ("net: mctp: usblib: Add initial kunit tx tests")
-> Reported-by: Geert Uytterhoeven <geert@linux-m68k.org>
-> Closes: https://lore.kernel.org/netdev/CAMuHMdXTGGdGWZ9sKz5_sQF1237gV844cEhkXr6v_TUHPOb78Q@mail.gmail.com/
-> Signed-off-by: James Lee <james@codeconstruct.com.au>
+Hi David,
 
-Thanks, this fixes the build for me.
-Tested-by: Geert Uytterhoeven <geert@linux-m68k.org>
+On Sun, 25 Oct 2026 13:32:41 +1100
+David Gibson <david@gibson.dropbear.id.au> wrote:
 
-Gr{oetje,eeting}s,
+> On Fri, Oct 23, 2026 at 09:25:59AM +0200, Herve Codina wrote:
+> > Hi David,
+> > 
+> > On Tue, 22 Sep 2026 18:25:47 +0200
+> > Herve Codina <herve.codina@bootlin.com> wrote:
+> >   
+> > > On Mon, 21 Sep 2026 16:07:21 +1000
+> > > David Gibson <david@gibson.dropbear.id.au> wrote:
+> > >   
+> > > > On Wed, Aug 26, 2026 at 10:31:43AM +0200, Herve Codina wrote:    
+> > > > > Future operations, such as handling unknown tags on dtb modifications,
+> > > > > need to get an offset to a property based on the node offset and the
+> > > > > property name.
+> > > > > 
+> > > > > Several function exists to get a property based on the node offset
+> > > > > and the property name but none of them allows to get the property
+> > > > > offset.
+> > > > > 
+> > > > > Fill the lack and introduce fdt_getprop_offset_namelen() and its
+> > > > > simple variant fdt_getprop_offset().
+> > > > > 
+> > > > > Signed-off-by: Herve Codina <herve.codina@bootlin.com>      
+> > > > 
+> > > > This seems redundant with fdt_ptr_offset_(), which can trivially get
+> > > > this information when combined with fdt_get_property().    
+> > > 
+> > > Indeed, It should be ok using both functions you pointed out.
+> > > 
+> > > I will remove fdt_getprop_offset_namelen() introduced here and use directly 
+> > > functions mentionned in the next iteration without wrapping those calls in
+> > > a new function.   
+> > 
+> > I've started to replace fdt_getprop_offset_namelen() by the combination
+> > of fdt_ptr_offset_() and fdt_get_property_namelen().
+> > 
+> > As a reminder fdt_getprop_offset_namelen() I proposed was the following:
+> > --- 8< ---  
+> > > +int fdt_getprop_offset_namelen(const void *fdt, int nodeoffset,
+> > > +			       const char *name, int namelen)
+> > > +{
+> > > +	const struct fdt_property *prop;
+> > > +	int lenp, offset;
+> > > +
+> > > +	prop = fdt_get_property_namelen_(fdt, nodeoffset, name, namelen,
+> > > +					 &lenp, &offset);
+> > > +	if (!prop)
+> > > +		return lenp;
+> > > +	return offset;
+> > > +}  
+> > --- 8< ---
+> > 
+> > fdt_get_property_namelen_() was called.
+> > 
+> > Switching to fdt_get_property_namelen() introduces a regression.
+> > 
+> > fdt_get_property_namelen() calls fdt_get_property_namelen() and this function
+> > (without the '_' suffix) performs a check on fdt_version() returning an error
+> > on version < 16.
+> > 
+> > Using it to replace my fdt_getprop_offset_namelen() function will break
+> > write-in-place setprop() for dtb version < 16. Indeed, it is used in [1]
+> > 
+> > [1]: https://lore.kernel.org/devicetree-compiler/20260826083146.304291-15-herve.codina@bootlin.com/#Z31libfdt:fdt_wip.c
+> > 
+> > Now, several options:
+> > 
+> > a) No problem if we break dtb version < 16
+> >    Ok, I will use directly fdt_get_property_namelen() + fdt_ptr_offset_() to
+> >    get an offset and remove my fdt_getprop_offset_namelen() wrapper.  
+> 
+> So, practically speaking this is probably true.  Version before 16 are
+> truly ancient, and versions 1..3 were all before dtbs really caught
+> on.
+> 
+> > b) Keep my fdt_getprop_offset_namelen() function without any modification
+> >    We support version < 16, problem solved.  
+> 
+> Still don't like it.
+> 
+> > c) Keep my fdt_getprop_offset_namelen() but static inline in libfdt_internal.h
+> >    Export fdt_get_property_namelen_() in libfdt_internal.h and use it in the
+> >    static inline fdt_getprop_offset_namelen().
+> >    This implies that fdt_get_property_namelen_() will be no more static and
+> >    usable internally out of fdt_ro.c but only the fdt_getprop_offset_namelen()
+> >    wrapper should be used.  
+> 
+> Eh.
+> 
+> > d) Use directly fdt_get_property_namelen_()
+> >    Export fdt_get_property_namelen_() in libfdt_internal.h and use it
+> >    directly to get the offset.
+> >    I don't really like this solution. I would prefer to have a wrapper to
+> >    explicitly return the offset instead of exposing and using directly
+> >    fdt_get_property_namelen_().  
+> 
+> Hm, I think this is my preferred option.  libfdt_internal.h exists
+> precisely to "expose" things across modules internally, but without
+> exposing them to external users.  Maybe I'm missing something, I don't
+> really see why that's objectionable.
 
-                        Geert
+Well, my first feeling was to avoid exposing this function and use a wrapper.
+I've looked again and indeed the wrapper isn't really worth it.
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+I will expose (internally) and use directly fdt_get_property_namelen_().
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Best regards,
+Hervé
