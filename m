@@ -1,54 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792980397;
-	b=xek8xp45crjBT8L2GmGAgx5ig1t/ibWZOIQlb5XMCTtlccXSLIqKCM3jEgoZZ9gDEtqh
-	 qBxijZmtQP+W6mx0bXrq1XoI8rcrTgq/8byMtiyI/NIGeEjK2wUGYtq18fn2AatGY1dzS
-	 +vugr/dMn9oqBIHdXfnTy6AxY2xhBaIeMNdLMn09CLtBugjKVJBPyrnSvxKJ28tsaVWpz
-	 lS8pVXOzMbfe/EPcEXX5kj2RTAFt/t5wUbMNgpRKhBKteP2gi3C3pQO7L/j/stdJ22fip
-	 HBzZM949XKDX/6a+D10DTZNP2hfPaXIfdhAGl/0Imm3oNRWuxGzQV8rPg+QDFDTNWxA==
+	t=1792980438;
+	b=nrC8+vPuAgEUocwQkdBihvxjceQNU2x2y0wc6Ex4OBCWAHA4cMCR/0jzwnF0BFgRC8OY
+	 IFN/b1d17UDx7pzQE7i2/qt9uHabNFF7XClFrX7y1arcIiJT8PtEpEtDz7U2AxehcZnfW
+	 VsyGeXFga5gBR1FxwI8I+jhAZOcU17f/M6xc6SZIJpCiMpIlYo4EvcoMNnuutbzLbD8pI
+	 V97cD/5kG3P1Fnhc6y0i+7oaUGwRC9tpTfXtmtTiJm6kSyZGq2KLuv4UtjId1otLr8VxN
+	 +lLqJ13OUDmk91wjQRiguw8oFOrD2JnkYNzeUDB0OvPhmcon+39kvGacRMn1TKo+T7w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792980397;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=mCDfbuXqafwmxqopFgxobKIea2hRK1phNt3ZXaJ/k8Q=;
-	b=fjk1C6gbDPkTvdL2bOv12/7L00kp7QLPtkKvrpbj3liJUcqcCuGytkVNikTvtNLTsFNj
-	 ZMQodrfB6/LCCHtum5W0fh0ZD1iSQQcZjIY7/3kG+GeLg8LKFPTre74VL1DGCzR5qZmxK
-	 /Lq5zBW3Kz5+XJvVFRopR7b4MPzVuuvq12pv8zmEXRuyvsLzmLdwDKON1J0b04BbIdIW+
-	 RpyBQIEWSKE1JIlvQ4Ociv87bgrq/lYViXqvXclM+d0MRT4QW00doubxD2hG90+PBViU8
-	 LL7+AxWuozFxLK9A50zKRI4W7VtwGnvwE5a/tBkoVg8uE3BniO2Ne1vN4owlJU3QI9g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792980438;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=+RLvVOkXKlonAki+/AlKB2VSZdJqNFpXfIr0AQZXeJ8=;
+	b=WGF9hJWN/jeyGsGMNdZhky+1NiI6V+GpKXfI/JrLn0RZ4LwdYlTmz1DmHvdwOtdXu1pn
+	 SuQIsqXskp25B0uYHdoZvrmBDqdygvO6ba7ev289wHLMgwLde2E7ZJlkogk3nBVkn1NlJ
+	 5uq361ERE/U5VPWmUxyMGyRRCMU2c+KnBtmkMN4fchr7ILPLMfj04/YSSncQE0FDZAhrM
+	 6wL7rAvIBH/9FtOKBq0CbgyE6gX0ajSkGYOoAGbD8HyAaC+oVaFWPZaX0i6IbpqhK9oRj
+	 ZlCtx+bOaVyuXgQUMqAxTfgF4jhIDd0ivlt+txC/hL60lCTcfmMleT2Tb5ZEIpWjELw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.198
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jvR7up6h;
+	arc=none smtp.remote-ip=198.175.65.11
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 551F7606A31B
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:06:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 551F7606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4db3db8687fso4228340b6e.0
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 19:06:37 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792980396; x=1793585196;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mCDfbuXqafwmxqopFgxobKIea2hRK1phNt3ZXaJ/k8Q=;
-        b=XtUXKuST2Wk38QT+laLqHlIL36fA3A/z91eP6t70bgre+5tCUNosPCRD7bkbFBSFVU
-         Ul+moZDQcY7g/FOHkuVl5rbyqYEm8JhlknfzWTM1E/m/fuwuo2n3gOdafmIU5jiGOnAx
-         zOrRq7dx1i/p9MitsDDYPkFc+Rkumi3lYEUBpz4d8WXJS8Wif1sGrjoyfUP4JrEdMypI
-         wr4L8UFj2ePR0x+pD0pkAFlCDLQgtOKvfQERTuHont9sZiVuNlp8lPzkUclFLqR7rfOD
-         WZmzQ+nPJxQ5fsmx6f8PqQx5Ts+zsTKMltigAiNy9JHjTQh0mLdhrvX4SNnYAQ/yZ0CI
-         LEuA==
-X-Forwarded-Encrypted: i=1; AKwUvBy5vsVeCAQuu4OjfBrplK4OmjAOhSXzlDFkuc4geCat0AYNAzWGNIwwkcgmOajRUYfJvWIDon1VyqJylxk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIaZlKowHkLw+80/ic/F7JEZpmGByrmQBinv6lGPUaDpUTrS4yv
-	D0KdlYRS8X4p6d3nhqXr5mljU1b0yMlE+77OEJYFAjTnwPB5x2zaPYFcifPQ5s2ES7j+fgDR1NC
-	+XnK4XMC56Q02+XWe9jUxFLALJPlWOUEPpBGaxoF5UueKg/k5XuQtFv2vFAM=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACA17606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:07:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ACA17606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jvR7up6h
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792980438; x=1824516438;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=UbH39Nzis7IQ4u7GZ8WUe++P7dmeAdae6e8WWwZCX9A=;
+  b=jvR7up6h11/MGlPmyQL/P3Aq3wRNY4fq1UItt3XRgN4nLgsyvTORkWbd
+   udmBLG9fs/FttiXI0MsX5Irrg4Kr+KzqH2M+oIBqYpcxWyI7SjFmC7GlS
+   ToD7JVLOSPkyq8wsZvJ14xpPYI0VMPhcSNUi0KRtPlxpplDefFnjfUgtx
+   dV48YlzBEW4j4J6T0XQ5K4aBbEqTuqdoaFTEFAtX09k7IA1yCvT97ZLwn
+   vTiPfuoOBDP2z3+ds9iYgR/5GBGm4hMa3ojejsW0GKutIRqD2JkdZ5ykd
+   BKofJJ6JYcUJwApIUdjrqiwxiqPyBpO02dRU86chtyMG+LTZ9kXm5/Sd6
+   w==;
+X-CSE-ConnectionGUID: yNSB7bYFQLaearCbzvev1A==
+X-CSE-MsgGUID: C14aK7/mQCK0TWUfXBHnOA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1525136"
+X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
+   d="scan'208";a="1525136"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 19:07:09 -0700
+X-CSE-ConnectionGUID: 96XTXhBcTkWcPAMaSclZyA==
+X-CSE-MsgGUID: n5dBZ9JrRw21hKbr80YZyQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
+   d="scan'208";a="4045467"
+Received: from unknown (HELO [10.238.0.97]) ([10.238.0.97])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 19:06:47 -0700
+Message-ID: <1b28a8e8-7836-463f-a2a5-129a1dba5b12@intel.com>
+Date: Mon, 26 Oct 2026 10:06:45 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,221 +72,143 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:448b:b0:4f5:4eb5:1cd3 with SMTP id
- 5614622812f47-55c003ade87mr3311230b6e.61.1792980396367; Sun, 25 Oct 2026
- 19:06:36 -0700 (PDT)
-Date: Sun, 25 Oct 2026 19:06:36 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6adeb5ac.a6443767.132891.0053.GAE@google.com>
-Subject: [syzbot] [dm?] KASAN: slab-use-after-free Read in pool_ctr
-From: syzbot <syzbot+83827f9a59abe148bff4@syzkaller.appspotmail.com>
-To: agk@redhat.com, bmarzins@redhat.com, dm-devel@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, mpatocka@redhat.com, snitzer@kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 05/15] virt: tdx-guest: Add TDCM helpers and TEE-IO
+ support check
+To: Zhenzhong Duan <zhenzhong.duan@intel.com>, x86@kernel.org,
+ linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org
+Cc: dave.hansen@linux.intel.com, tglx@kernel.org, mingo@redhat.com,
+ bp@alien8.de, hpa@zytor.com, dave.hansen@intel.com, kas@kernel.org,
+ rick.p.edgecombe@intel.com, jgg@nvidia.com, nicolinc@nvidia.com,
+ aik@amd.com, aneesh.kumar@kernel.org, seanjc@google.com,
+ pbonzini@redhat.com, yilun.xu@linux.intel.com, chao.gao@intel.com,
+ vishal.l.verma@intel.com, kevin.tian@intel.com, chao.p.peng@intel.com
+References: <20260924041032.1096569-1-zhenzhong.duan@intel.com>
+ <20260924041032.1096569-6-zhenzhong.duan@intel.com>
+Content-Language: en-US
+From: Xiaoyao Li <xiaoyao.li@intel.com>
+In-Reply-To: <20260924041032.1096569-6-zhenzhong.duan@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hello,
+On 9/24/2026 12:10 PM, Zhenzhong Duan wrote:
+> Implement internal helper wrappers tdx_tdcm_alloc(), tdx_tdcm_run(),
+> and tdx_tdcm_free() to manage execution context lifecycle for TDX Connect
+> TEE-IO Device Control and Management (TDCM) commands.
+> 
+> Use these infrastructures to deploy all TDCM commands to orchestrate
+> trusted device management, beginning with the first command,
+> TDCM_OP_CHECK_TEEIO_SUPP, executed during the secure device locking
+> sequence.
 
-syzbot found the following issue on:
+I think it needs to be split into 2 patches:
+- implement tdx_tdcm_* and justify why poll mode in chosen instread of notification.
 
-HEAD commit:    4df4d2a577db Merge tag 'acpi-7.4-rc1' of git://git.kernel...
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=1640f481580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=fe03d9a06fc7d5c0
-dashboard link: https://syzkaller.appspot.com/bug?extid=83827f9a59abe148bff4
-compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=1140f481580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=11246621580000
+- Add TDCM_OP_CHECK_TEEIO_SUPP check to tdx_devsec_lock(). We need explain what
+it does, why we need it, and why it needs to be in tdx_devsec_lock() as the
+first step.
 
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-4df4d2a5.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/ff9ee3e3fda0/vmlinux-4df4d2a5.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/a29eeaefab21/bzImage-4df4d2a5.xz
+> Signed-off-by: Zhenzhong Duan <zhenzhong.duan@intel.com>
+> ---
+>  arch/x86/include/asm/tdx.h            |  48 +++++++++
+>  drivers/virt/coco/tdx-guest/connect.c | 139 ++++++++++++++++++++++++++
+>  2 files changed, 187 insertions(+)
+> 
+> diff --git a/arch/x86/include/asm/tdx.h b/arch/x86/include/asm/tdx.h
+> index 4937e23d5483..71cd701d346f 100644
+> --- a/arch/x86/include/asm/tdx.h
+> +++ b/arch/x86/include/asm/tdx.h
+> @@ -105,6 +105,54 @@ int tdx_mcall_extend_rtmr(u8 index, u8 *data);
+>  u64 tdx_hcall_get_quote(u8 *buf, size_t size);
+>  
+>  #ifdef CONFIG_TDX_CONNECT_GUEST
+> +enum tdcm_operation {
+> +	TDCM_OP_CHECK_TEEIO_SUPP	= 1,
+> +	TDCM_OP_BIND			= 2,
+> +	TDCM_OP_GET_DEV_INFO		= 3,
+> +	TDCM_OP_GET_TDI_REPORT		= 4,
+> +	TDCM_OP_START_TDI		= 5,
+> +	TDCM_OP_GET_TDI_STATE		= 6,
+> +	TDCM_OP_UNBIND			= 7,
+> +};
+> +
+> +enum tdcm_status {
+> +	TDCM_STATUS_WAIT		= 0,
+> +	TDCM_STATUS_COMPLETED		= 1,
+> +	TDCM_STATUS_ERROR		= 2,
+> +};
+> +
+> +enum tdcm_error {
+> +	TDCM_ERROR_TDX_MODULE		= 10,
+> +	TDCM_ERROR_TDXIO_DEVICE		= 11,
+> +	TDCM_ERROR_SPDM_MESSAGE		= 12,
+> +	TDCM_ERROR_IDE_KM_MESSAGE	= 13,
+> +	TDCM_ERROR_TDISP_MESSAGE	= 14,
+> +	TDCM_ERROR_INVALID_STATE	= 15,
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+83827f9a59abe148bff4@syzkaller.appspotmail.com
+why not naming them TDCM_xxx_ERROR as GHCI definitions?
 
-==================================================================
-BUG: KASAN: slab-use-after-free in pool_ctr+0x874/0xd60 drivers/md/dm-thin.c:3363
-Read of size 8 at addr ffff8880340cc698 by task syz.0.17/5507
+TDCM_ERROR_TDX_MODULE reads like lacking some information at the end. For
+example, it can be TDCM_ERROR_TDX_MODULE_DURING_UPDATE.
 
-CPU: 0 UID: 0 PID: 5507 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Call Trace:
- <TASK>
- dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
- print_address_description+0x55/0x1e0 mm/kasan/report.c:378
- print_report+0x58/0x70 mm/kasan/report.c:482
- kasan_report+0x117/0x150 mm/kasan/report.c:595
- pool_ctr+0x874/0xd60 drivers/md/dm-thin.c:3363
- dm_table_add_target+0x58d/0xc70 drivers/md/dm-table.c:749
- populate_table drivers/md/dm-ioctl.c:1602 [inline]
- table_load+0x325/0x8a0 drivers/md/dm-ioctl.c:1645
- ctl_ioctl drivers/md/dm-ioctl.c:2221 [inline]
- dm_ctl_ioctl+0x9ec/0xe10 drivers/md/dm-ioctl.c:2243
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fad75f9f559
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007ffe43dedf68 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-RAX: ffffffffffffffda RBX: 00007fad76225fa0 RCX: 00007fad75f9f559
-RDX: 00002000000003c0 RSI: 00000000c138fd09 RDI: 0000000000000003
-RBP: 00007fad76036b20 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007fad76225fac R14: 00007fad76225fa0 R15: 00007fad76225fa0
- </TASK>
+> +};
+> +
+> +struct tdvmcall_tdcm {
+> +	__u16 operation;  /* See enum tdcm_operation */
+> +	__u8  version;
+> +	__u8  rsvd0;
+> +	__u32 rsvd1;
+> +
+> +	__u8  status;     /* See enum tdcm_status */
+> +	__u8  error;      /* See enum tdcm_error */
+> +	__u16 rsvd2;
+> +	__u32 rsvd3;
+> +
+> +	__u32 data_length;
+> +
+> +	__u8  data[];
+> +} __packed;
+> +
+> +struct tdcm_rsp_check_teeio_supp {
+> +	__u8 is_supported;
+> +	__u8  data[];
 
-Allocated by task 5507:
- kasan_save_stack mm/kasan/common.c:57 [inline]
- kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
- poison_kmalloc_redzone mm/kasan/common.c:409 [inline]
- __kasan_kmalloc+0x93/0xb0 mm/kasan/common.c:426
- kasan_kmalloc include/linux/kasan.h:263 [inline]
- __kmalloc_cache_node_noprof+0x3cc/0x620 mm/slub.c:5582
- _kmalloc_node_noprof include/linux/slab.h:1196 [inline]
- open_table_device drivers/md/dm.c:733 [inline]
- dm_get_table_device+0x23e/0x730 drivers/md/dm.c:821
- dm_get_device+0x327/0x760 drivers/md/dm-table.c:388
- pool_ctr+0x4ae/0xd60 drivers/md/dm-thin.c:3329
- dm_table_add_target+0x58d/0xc70 drivers/md/dm-table.c:749
- populate_table drivers/md/dm-ioctl.c:1602 [inline]
- table_load+0x325/0x8a0 drivers/md/dm-ioctl.c:1645
- ctl_ioctl drivers/md/dm-ioctl.c:2221 [inline]
- dm_ctl_ioctl+0x9ec/0xe10 drivers/md/dm-ioctl.c:2243
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
+since data is not used in tdx_is_dev_teeio_support(), is it really needed?
 
-Freed by task 5507:
- kasan_save_stack mm/kasan/common.c:57 [inline]
- kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
- kasan_save_free_info+0x40/0x50 mm/kasan/generic.c:584
- poison_slab_object mm/kasan/common.c:264 [inline]
- __kasan_slab_free+0x5c/0x80 mm/kasan/common.c:296
- kasan_slab_free include/linux/kasan.h:235 [inline]
- slab_free_hook mm/slub.c:2748 [inline]
- slab_free mm/slub.c:6509 [inline]
- kfree+0x1c5/0x650 mm/slub.c:6802
- close_table_device drivers/md/dm.c:798 [inline]
- dm_put_table_device+0x255/0x2a0 drivers/md/dm.c:841
- upgrade_mode drivers/md/dm-table.c:326 [inline]
- dm_get_device+0x56f/0x760 drivers/md/dm-table.c:399
- pool_ctr+0x585/0xd60 drivers/md/dm-thin.c:3336
- dm_table_add_target+0x58d/0xc70 drivers/md/dm-table.c:749
- populate_table drivers/md/dm-ioctl.c:1602 [inline]
- table_load+0x325/0x8a0 drivers/md/dm-ioctl.c:1645
- ctl_ioctl drivers/md/dm-ioctl.c:2221 [inline]
- dm_ctl_ioctl+0x9ec/0xe10 drivers/md/dm-ioctl.c:2243
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> +} __packed;
+> +
+> +#define MAX_TDI_REPORT_SIZE	(16 * PAGE_SIZE)
 
-The buggy address belongs to the object at ffff8880340cc680
- which belongs to the cache kmalloc-96 of size 96
-The buggy address is located 24 bytes inside of
- freed 96-byte region [ffff8880340cc680, ffff8880340cc6e0)
+Add some info in the changelog of where the 16 comes?
 
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x340cc
-flags: 0x4fff00000000000(node=1|zone=1|lastcpupid=0x7ff)
-page_type: f5(slab)
-raw: 04fff00000000000 ffff88801c041280 dead000000000100 dead000000000122
-raw: 0000000000000000 0000000000200020 00000000f5000000 0000000000000000
-page dumped because: kasan: bad access detected
-page_owner tracks the page as allocated
-page last allocated via order 0, migratetype Unmovable, gfp_mask 0xd2cc0(GFP_KERNEL|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 2, tgid 2 (kthreadd), ts 9397553089
- set_page_owner include/linux/page_owner.h:33 [inline]
- post_alloc_hook+0x1f9/0x250 mm/page_alloc.c:1871
- prep_new_page mm/page_alloc.c:1879 [inline]
- get_page_from_freelist+0x2209/0x2280 mm/page_alloc.c:3943
- __alloc_frozen_pages_noprof+0x217/0x5a0 mm/page_alloc.c:5436
- alloc_slab_page mm/slub.c:3347 [inline]
- allocate_slab+0x7d/0x620 mm/slub.c:3462
- new_slab mm/slub.c:3513 [inline]
- refill_objects+0x2d5/0x350 mm/slub.c:7418
- refill_sheaf mm/slub.c:2885 [inline]
- __pcs_replace_empty_main+0x2c8/0x6c0 mm/slub.c:4774
- alloc_from_pcs mm/slub.c:4850 [inline]
- slab_alloc_node mm/slub.c:4984 [inline]
- __kmalloc_cache_node_noprof+0x446/0x620 mm/slub.c:5578
- _kmalloc_node_noprof include/linux/slab.h:1196 [inline]
- __get_vm_area_node+0x155/0x2f0 mm/vmalloc.c:3237
- __vmalloc_node_range_noprof+0x343/0x1540 mm/vmalloc.c:4064
- __vmalloc_node_noprof+0xc2/0x100 mm/vmalloc.c:4165
- alloc_thread_stack_node kernel/fork.c:359 [inline]
- dup_task_struct+0x2c6/0xa00 kernel/fork.c:930
- copy_process+0x7ea/0x44b0 kernel/fork.c:2143
- kernel_clone+0x2d7/0x940 kernel/fork.c:2785
- kernel_thread+0x13f/0x1b0 kernel/fork.c:2846
- create_kthread kernel/kthread.c:459 [inline]
- kthreadd+0x4ec/0x6e0 kernel/kthread.c:817
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
-page last free pid 38 tgid 38 ts 9396138651 stack trace:
- reset_page_owner include/linux/page_owner.h:26 [inline]
- __free_pages_prepare mm/page_alloc.c:1418 [inline]
- __free_frozen_pages+0xc93/0xd90 mm/page_alloc.c:2962
- __kasan_populate_vmalloc_do mm/kasan/shadow.c:393 [inline]
- __kasan_populate_vmalloc+0x1a8/0x1c0 mm/kasan/shadow.c:424
- kasan_populate_vmalloc include/linux/kasan.h:580 [inline]
- alloc_vmap_area+0xd10/0x1410 mm/vmalloc.c:2145
- __get_vm_area_node+0x200/0x2f0 mm/vmalloc.c:3248
- __vmalloc_node_range_noprof+0x343/0x1540 mm/vmalloc.c:4064
- __vmalloc_node_noprof+0xc2/0x100 mm/vmalloc.c:4165
- alloc_thread_stack_node kernel/fork.c:359 [inline]
- dup_task_struct+0x2c6/0xa00 kernel/fork.c:930
- copy_process+0x7ea/0x44b0 kernel/fork.c:2143
- kernel_clone+0x2d7/0x940 kernel/fork.c:2785
- user_mode_thread+0x115/0x180 kernel/fork.c:2862
- call_usermodehelper_exec_work+0x5c/0x230 kernel/umh.c:169
- process_one_work kernel/workqueue.c:3396 [inline]
- process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
- worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
- kthread+0x38b/0x480 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+>  u64 tdx_hcall_tdcm(u16 devid, void *buf, size_t size, u8 vector);
+>  int tdx_mcall_tdi_read(u64 func_id, u64 field, u64 *value);
+>  #endif
+> diff --git a/drivers/virt/coco/tdx-guest/connect.c b/drivers/virt/coco/tdx-guest/connect.c
+> index 80ae7c19e179..1f52a187b30f 100644
+> --- a/drivers/virt/coco/tdx-guest/connect.c
+> +++ b/drivers/virt/coco/tdx-guest/connect.c
+> @@ -7,13 +7,127 @@
+>  
+>  #define pr_fmt(fmt)		KBUILD_MODNAME ": tdx_connect: " fmt
+>  
+> +#include <linux/iopoll.h>
+>  #include <linux/pci.h>
+>  #include <linux/pci-tsm.h>
+> +#include <linux/set_memory.h>
+>  #include <linux/tsm.h>
+>  #include <asm/tdx.h>
+>  
+>  #include "tdx-guest.h"
+>  
+> +/**
+> + * struct tdcm_ctx - TEE-IO Device Configuration and Management (TDCM) context
+> + * @buf: Pointer to 4KB-aligned shared memory (>= one page) used as the command
+> + *       buffer on input and the response buffer on output.
+> + * @buf_size: Total size of the shared memory buffer.
+> + * @max_rsp_data_sz: Maximum expected size of the response data.
+> + * @rsp_data_sz: Actual size of the response data populated by the VMM.
+> + * @devid: Device Identifier.
 
-Memory state around the buggy address:
- ffff8880340cc580: 00 00 00 00 00 00 00 00 00 00 00 00 fc fc fc fc
- ffff8880340cc600: 00 00 00 00 00 00 00 00 00 fc fc fc fc fc fc fc
->ffff8880340cc680: fa fb fb fb fb fb fb fb fb fb fb fb fc fc fc fc
-                            ^
- ffff8880340cc700: 00 00 00 00 00 00 00 00 00 00 00 00 fc fc fc fc
- ffff8880340cc780: 00 00 00 00 00 00 00 00 00 00 00 00 fc fc fc fc
-==================================================================
+As I commented in patch 3, can we add more info of devid. What is it supposed to be?
 
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
