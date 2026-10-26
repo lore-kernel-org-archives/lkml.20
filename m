@@ -1,101 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.53
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792983754;
-	b=5eDz2w8CRSAm03jYKUc4Yj9HcVTOuowDaU/+a+3yf3W0hH3SnplJC10Yvj2bJjWD/deY
-	 w9fUebSHKVkYchUzD0xXmGM25HxPFTakCiopO3mniB0WmFv8aGkO0wPwMBFfHynaYFJdH
-	 uPo1JwSzAcJPvqs/DdfsISMhFlA4QC3rEsBs0mL2CdpATaDlpW6s69GLSncdqgeE+QYwG
-	 lgappYXG4btYY9GAh+Dp+gUi4NYfMaC4LIUDqCx7nr0durbeQXTDSSWuLtFZTGyAXed6H
-	 k8x/s/67Am6VlDbfZZIEc8x4+AV/8HM1FqaO90xuI0VspdTq/9dK9nd2YXsvzfnupvg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792983754;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:
-	 CC:References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=rLFATG+w0mqPlOlTsqDR5HR4AcpWq5cdxTflIC4ai0A=;
-	b=y8I81bq9IPsQfLXnjVvjs8l0BVmSKCIWcpee+n3VnKJkSf+34y2MFw//XkmV6C0Do7Zn
-	 PuMHlhKIQUKrlA38+PjoK6V9dCZSKt8ER1YHz4QCdor3F004Txei1olrHjh4CxHB5WiGC
-	 FMib/2E8Hy5xk+TSuMUfC5w0M05lizdbEqDFWJHQxEWwHl/S7+oVWTG3zl3hkJE5X99lk
-	 7zQgFnurVLnV7DKGrCXOvtPSg9K5TNopLT56xGb5sCCV8EMhSckEVutA7cH16srjQJD2K
-	 q/A+tCZ1lkzsh/tZ2oImVKmCmkvALVzj7ffOgkOjsvwwjdIPh6MpbjivFHnIbZOeK+A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b="D/tUjgvg";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.53
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010053.outbound.protection.outlook.com [52.101.46.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.43
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792984074;
+	b=AXZY/k2evCg6ZakdqIPW70P3Pl9Gnn4AzCVUd0XD+/vES5LoU4pOJYatzBl/5wVrAZBA
+	 E/nt/V6TAT1nrcow1WVhUaxyIds58ePVOwuK8p6OPxQkOOAo2jDJ8iG+w7hsDW3l0Csyq
+	 8vNDzOJach9vTVfI0RCqc/zk4t4MH2l3cGrxVNIH/E4rZMtUv+AkSAevTFoIS6XqoKIDN
+	 hmAP79Kv2zJ7PWxzD9qLNnjAiPkrE8ndBNL5hshOex/nIQSVzAXyNmJSQEOtSapH1eMdT
+	 vrhh1fQJ3jvnoLtBnLiaCpRk4SAf9Xbjun4SGF92q1Zk0j2z43cqoijtgOovsjIVCFQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792984074;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=bDsRW0hZwgFCAJKIXhtjDM35UWFd/bPklgIyU9R6/7g=;
+	b=3hQnjIEdJqprYNH8zkVl475PNkNLi70+Rek7mCY1kVzB3ZVS0SeIZJPz+yWJv86WON+m
+	 gy5E2UKSceCoCPH1WRLhLViiZJkFZrPuX6jQMu3Tc3c9doi3vD5/qg9HbYJPzq9WlLWbz
+	 ykcGTFx/zPKm6GIcyX9Jkj2GDBiow5mOjIlJEl9g/0zy8G0cEIj8R6sc7i6aN3kbUQGYl
+	 pJqepgzjneuN7/MVpTZWFY7wTDnc2c3R+25+EchSWStEuK5xtdhMzUahM1HxNsonlWKm4
+	 jfHV4BZV3hoV6P2ORgr+tM1MV/TjBQHz89/zVR7x0v2vWGZFTzyAq5mpvMT2tf+G+6A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=UVDqhua1;
+	arc=none smtp.remote-ip=209.85.161.43
+Received: from mail-oo1-f43.google.com (mail-oo1-f43.google.com [209.85.161.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02BDC606A31B
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 03:02:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02BDC606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4D38606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 03:07:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4D38606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=D/tUjgvg
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=o4ftc/lkXDNkzzNx5WDFgKXqD/VCpSmCjGEHETve5HB/IuKrrn2dKLJjVNEAfy5kxsAhL32+zOWoGinRu4BmvgSd3OlkYI1RosSN+hKGxKKCbQH9oGF6Qf/LQHkPIeuxo6TnElAbSWN1Mo0kHpIX/BfJI67f02F95bwYmIYSDiYBGxVEEonUenyZMBZu/K1HlDPrCNBSM21lkGTLky1QXm+GJHIczHK0JFwc+YS2FC7vPbyVFnb4ZjIiRsRnVQEA8ae0cInlgCshjvVW3r2H6+SRkf4wYcHD+2oLgl8GykZ8B7gjjtQEutqED/4UKruf//J8nJUcdDRWyYrvOdsMfQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rLFATG+w0mqPlOlTsqDR5HR4AcpWq5cdxTflIC4ai0A=;
- b=PYMPElgKzpMBv5RtoandlsWvfNdFVvyR07Mexl0EOh3GzjglAXK+u7dRYaIqBHYexzbCZG0i2VI+/T6iprc5snKLUckQxLt8tPxWKk/YsE/xcPWgTw95aC4Md0zIP8ltBznWYMQb97ZMiKVXBSfKInI7whHP9cW1cHBqbvy0KmDjtRuYbDbIkPp8tB8MfnvAnczVtejMSgX0tTm0F3E+G2hLYa1s1DMHsFjNfdpGB+luVo0MIQVDrosRKBgzU/6C2WyiCNr6pHs52aQpw6EYLPPm97nW4eDZyqvzBAdgM6bmhY14ACKzpDc+hHxBNzwQQlhcr/MbKYwrnu1OUonEoA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=nvidia.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rLFATG+w0mqPlOlTsqDR5HR4AcpWq5cdxTflIC4ai0A=;
- b=D/tUjgvgx4GzAAEz2W6ZVhzu+m7V/O51ZO7wWr14eRz1mEmOVUQhD1SAjOSXyzGEUSk8o+VJBm9mgN7GszOzj7iOHBrKuPMqpByMVi+MoaxdcBYBeq+RIDg1v4wUaA167flETYVg4XiGjR3lyN+1EDLCgFSZ0qLWx5qyecudvAc=
-Received: from DS7P221CA0033.NAMP221.PROD.OUTLOOK.COM (2603:10b6:8:25e::13) by
- PH0PR12MB7791.namprd12.prod.outlook.com (2603:10b6:510:280::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
- 2026 03:02:28 +0000
-Received: from CH7PEPF00000016.namprd21.prod.outlook.com
- (2603:10b6:8:25e:cafe::14) by DS7P221CA0033.outlook.office365.com
- (2603:10b6:8:25e::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.22 via Frontend Transport; Mon,
- 26 Oct 2026 03:02:27 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH7PEPF00000016.mail.protection.outlook.com (10.167.244.165) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.0 via Frontend Transport; Mon, 26 Oct 2026 03:02:27 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Sun, 25 Oct
- 2026 22:02:24 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Sun, 25 Oct
- 2026 22:02:24 -0500
-Received: from [10.136.43.232] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Sun, 25 Oct 2026 22:02:18 -0500
-Message-ID: <943cc0a1-1547-486b-97fb-7000ae8b8190@amd.com>
-Date: Mon, 26 Oct 2026 08:32:17 +0530
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=UVDqhua1
+Received: by mail-oo1-f43.google.com with SMTP id 006d021491bc7-6d290b10a35so1086002eaf.2
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 20:07:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792984073; x=1793588873; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bDsRW0hZwgFCAJKIXhtjDM35UWFd/bPklgIyU9R6/7g=;
+        b=UVDqhua1NDkYEcmAK1m6++8H4grEOIF2P27IXvv6Fff+cSsaPl+Lgv0KlzS7s/EaHZ
+         jSn4RnpdMjDFbNwDRX8EZKpuAjNG7/mTRgPzEpmESwpe5HTRhZ1h30hfIiGTTpCJcj3Q
+         DW0p2JiZTqoB5he2K3hOGAVd66Z0Oi1fDbiu1q4IjKHbDiffxWjTGIQ0grfse/kPUf2h
+         VMBPHEkxey3b2HtBE+6jH4OcFSnaWwQxzswxkdPASyKUcuJbxCBP2/8sWKxb/IGwIYLn
+         PVBgcy14jUjINI9zStF8iqiLxjSRdwOBzwsVMPg4HZDpMOYyWq3H3lXEW/6ILUhRTraB
+         W9GA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792984073; x=1793588873;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bDsRW0hZwgFCAJKIXhtjDM35UWFd/bPklgIyU9R6/7g=;
+        b=1Dq8cqztvSQVP4wLWI5rpll7inVG/CVBHBgxmYBoKa5YGM75znjNlFkRW/NbEnSMdM
+         ToTmGvGAG/X7ErrxXTKT5JUMq10r49dp0JsTqo0FnSL+qnOA/pL9Utb6IaihhSpVfIfc
+         um0XZB/8RXMCApHw040Yj1vot2WfRJHXjDA3yU+63hkHw1i0jTJAd+oAUNLjq+YO0AIQ
+         vZBhRkLc+J17vA5J2iqAEb9Ge2KNT/o8wfbiW7cUYF39XMl0mjL3/VtTfpCp7l00Xxoy
+         HrArBwjdnYVTAd00bLtXkLk5xzXOWMxSkIivUqfNXTr9I04pSLRowDy7LQxJ/+ewOgL7
+         lKqw==
+X-Forwarded-Encrypted: i=1; AKwUvBzaJGQhkENcd4jZAdioXBHq3ULs9FibnIPI0enxp1TI41prCswipFTQM/TuT2bcryW6+xfoxr6iF/OfMFc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLFD7feBWiGlP8myMK33jSnEJXfLYQwvDysr6fb71mPWQxDEK6r
+	xnj777r0BjhP1In5BQgV8iJkIA+FHDTSmvZlMiZapqEVtro2MWernXbFiyf6JEgh
+X-Gm-Gg: AYBFou3udEEk+UhXtef/ukB4Z0hWKNGZoa2jEudcV2l/OX5eKpNdTeYsU0F7iR5WEym
+	sFRsVC4dfESqePI+y6EwSnFZQj9junD+WFBMsElJHJtgouCvjhoay6q5nFu3+GDEfl97lxaLN/f
+	8TE4MQihPwW/4qXzxEWFsDSJySYOYo+ZhOJfHKBWQvn04gq/2hwkG4ciRUfvsYWPunArgjnRSFs
+	UGsFUPR6BjNDib1T+o7qZ/QS9lq31yBZI7fvxw7yWQNQetFQ+pzv+ETnUzSbNdlWlVw0hgc90f4
+	2vY8gSBW4R0k9gyyuqz5NceL1p+z8bOsnOrPCMUKYXg2m9hAC/O0PF5xvM+1CVXdm7CgIEeQmBv
+	YR776BtAFnThlblFH+sG4nMIDywD26f8w7GVOpHKjF2yZTYh9vbBXLo0gsYaGJfxZ7CKGm+DmhV
+	f7Sev/sLkQe4GmYmpIn06HU2nRnpV9hqIaCPuSKmZVUwK+rR4uz06jRTgYtPzZrh+0tKbFCr9Iy
+	KIsYRCLCUPkJm9lopmHLh2KoN2cOL9X33OpDtDuOmYwM8J0ci2wjVniWY7qUyr3YTV/x/27isLY
+	HG75fbSRAdX/vSQDcKsUmTB0U+A=
+X-Received: by 2002:a05:6820:1614:b0:709:529a:4775 with SMTP id 006d021491bc7-70ba0eaebdamr2956945eaf.50.1792984072858;
+        Sun, 25 Oct 2026 20:07:52 -0700 (PDT)
+Received: from AkhilLaptop (mobile-130-126-255-35.near.illinois.edu. [130.126.255.35])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-850fb0749cfsm6811729a34.9.2026.10.25.20.07.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 25 Oct 2026 20:07:51 -0700 (PDT)
+From: Akhil Boyapati <boyakhil978@gmail.com>
+To: platform-driver-x86@vger.kernel.org
+Cc: Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	linux-kernel@vger.kernel.org,
+	Akhil Boyapati <boyakhil978@gmail.com>
+Subject: [PATCH] platform/x86: hp-wmi: Use only the low byte of the thermal profile
+Date: Sun, 25 Oct 2026 22:06:58 -0500
+Message-ID: <20261026030658.119596-1-boyakhil978@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,87 +96,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v33 3/7] sched/core: Activate blocked donor when no owner
- is found
-To: Andrea Righi <arighi@nvidia.com>, John Stultz <jstultz@google.com>
-CC: LKML <linux-kernel@vger.kernel.org>, Peter Zijlstra
-	<peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, Thomas Gleixner
-	<tglx@linutronix.de>, Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot
-	<vincent.guittot@linaro.org>, Valentin Schneider <vschneid@redhat.com>,
-	Suleiman Souhlal <suleiman@google.com>, Metin Kaya <Metin.Kaya@arm.com>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt
-	<rostedt@goodmis.org>, Zimuzo Ezeozue <zezeozue@google.com>, Waiman Long
-	<longman@redhat.com>, Boqun Feng <boqun.feng@gmail.com>, "Paul E. McKenney"
-	<paulmck@kernel.org>, Joel Fernandes <joelagnelf@nvidia.com>, Qais Yousef
-	<qyousef@layalina.io>, Xuewen Yan <xuewen.yan94@gmail.com>, kuyo chang
-	<kuyo.chang@mediatek.com>, hupu <hupu.gm@gmail.com>, Zhan Xusheng
-	<zhanxusheng@xiaomi.com>, "zhidao su (Xiaomi)" <soolaugust@gmail.com>, Hui Su
-	<sh_def@163.com>, "Shubhang Kaushik (Ampere)" <sh@gentwo.org>,
-	<kernel-team@android.com>
-References: <20261023220431.1106611-1-jstultz@google.com>
- <20261023220431.1106611-4-jstultz@google.com> <atxtWdx0nqTRAAYw@gpd4>
-Content-Language: en-US
-From: K Prateek Nayak <kprateek.nayak@amd.com>
-In-Reply-To: <atxtWdx0nqTRAAYw@gpd4>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH7PEPF00000016:EE_|PH0PR12MB7791:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0de2ad37-3a91-4797-2308-08df330d9181
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|23010399003|376014|82310400026|1800799024|7416014|10067099003|56012099006|18002099003|22082099003|4143699003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	2pEv6spOO54VF8kAdMmVEiYRkGi0z5r1zUQqzZrtLchX+6n2qrl0OxWKEje+tMviffWW+eFG1HvekRSe5NlxdBk/fIUzblD0BzegguUXLLxTyaQaBrSQ8GlBaq8JmHAyiYjrRnS8DTTOCqgFaL3o1WEJDfzVqaAb8m2lZrGFNyVfJEGlyVaC5f7CjM3545RCGDUl1ZcaasnxZ1Why9G1CFaXAdOFWyGujRE46ruGYd++XOSswFjwlRIKNsetZTHUsnhGI7XcYUg7dLfzaQUDxnUGNqztKGPHi0/WpLSeqcuxL8f1Cxxx6IOiiWguCHO0VW5+KD7SikDBtEgpte7DiYRzGuc77ns64t6lfuGynhhXe8fROcIkkeq4aYvBDpHSl5S7iIUCqe7ZnItCOjjaivrt+JqsZUYHzydwt3WR/FtihrGr6liYOK6+R5cgNn1aLFlgxPGzwAk6n8EP0N0dcMhCflnL+f0Bj+LVbdzS6ahOmCqncFGvulg1YOgRa8GNUBTnZAcPi6uwHgYHfKbeSaCLXNIcejW3iDK+qDzR1fnGKhMa2AQB2+mOIkCaOuQv1vHgbpzy0KyR39voQIZ3GRRzm3PqP2oJ3lPhKtFv0uxaqbAo3MBUczSwzXlC9doCENkAgRvXE+nW+Aa9smJU+PprWZtuBojV3fo2GjWsBcT5y83xam6iald/Ox3c/Z6P4Ec6YZOXpn35jOJGyEWFdg==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(376014)(82310400026)(1800799024)(7416014)(10067099003)(56012099006)(18002099003)(22082099003)(4143699003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	bdR2d077JMn9Uzwq8y6Tk1Hax6cYU650Cy8RF9St9haEpr/CUDxbRU8SrnDr8G1DR7LGWdnla96y/ZF0F/4syhA9WAFci1uH7fVWwmN5Vp/or+MV/G0HGEpn8InmwTkU74ZavGyjO+Sy0CLRPNf9Di+xtzC8OrQHcRLRK9uFv2cJq0J9OYmjlu67pE/7cSX8b7tJ5NRb2bY5ao0XTjNwJKGIbnnNwN1WgPnlw7UuFhbungCD7QlXefZGCkmUToz/tIpmgevBZUbxYA/QpEjRSyTLjoiwZOlyYdWUlGaGeJsXrMrx7fHz6vcqmw76iAcBSfYqbTW3Ybs9mh78gzoIFqGHVM+mGTg/wHr99DNBi/VaDYqe9B83jFFzDHM+ZMGfJdJ1uaRrLMI+eGFAaubDTYu4BdAM2VfXU4QxYF8BgxQ060nkOKAbcD6JN+dVrl+M
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 03:02:27.8031
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0de2ad37-3a91-4797-2308-08df330d9181
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH7PEPF00000016.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7791
+Content-Transfer-Encoding: 8bit
 
-Hello Andrea,
+On the HP Spectre x360 14 (board 8C15) the firmware answers the
+thermal profile query (0x4C, read) with more than the profile: the
+DSDT's GTPS method returns the profile in byte 0, OEM flags in byte 1
+and the device posture in byte 2. In Quiet mode in laptop posture the
+value is 0x00041103.
 
-On 10/24/2026 2:03 PM, Andrea Righi wrote:
->> @@ -7013,11 +7026,11 @@ find_proxy_task(struct rq *rq, struct task_struct *donor, struct rq_flags *rf)
->>  		struct mutex *mutex = p->blocked_on;
->>  		if (!mutex) {
->>  			clear_task_blocked_on(p, mutex);
->> -			if (task_current(rq, p)) {
->> +			if (task_current(rq, p) || p->wake_cpu == task_cpu(p)) {
->>  				p->is_blocked = 0;
->>  				return p;
->>  			}
->> -			goto deactivate;
->> +			goto activate;
->>  		}
-> 
-> IIUC, p here isn't necessarily the donor, after the first iteration it
-> can be an intermediate owner that is queued on this rq and blocked
-> itself. If its blocked_on was cleared by a handoff (or its mutex has no
-> owner, below), we now return it when p->wake_cpu == task_cpu(p),
-> skipping the sched_cpu_cookie_match() check at the end of the function.
-> 
-> So with CONFIG_SCHED_CORE enabled, are we running a task that was never
-> cookie-checked by the core-wide pick?
+thermal_profile_get() returns the whole value, so
+hp_wmi_platform_profile_get() matches no profile and reading
+/sys/firmware/acpi/platform_profile fails with -EINVAL. This also
+breaks power-profiles-daemon and tuned-ppd. Probe writes the
+unmasked value back, which only works because the firmware's write
+method (STPS) uses byte 0.
 
-You are right! I guess we should consolidate all the "return p" bits
-to jump to the sched_cpu_cookie_match() check.
+Mask the value to its low byte. Boards that return only the profile
+are unaffected.
 
+Tested on board 8C15 (kernel 7.2.11, module built from this tree's
+driver with the change applied): platform_profile reads back correctly
+after setting each of cool, quiet, balanced and performance, and the
+firmware's ODVP0 follows (3, 4, 2, 1). Not tested on other boards.
+
+Fixes: 4296f679ca50 ("platform/x86: hp-wmi: add platform profile support")
+Assisted-by: LLM
+Signed-off-by: Akhil Boyapati <boyakhil978@gmail.com>
+---
+ drivers/platform/x86/hp/hp-wmi.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/platform/x86/hp/hp-wmi.c b/drivers/platform/x86/hp/hp-wmi.c
+index 52077833a..6180f1d21 100644
+--- a/drivers/platform/x86/hp/hp-wmi.c
++++ b/drivers/platform/x86/hp/hp-wmi.c
+@@ -2117,7 +2117,13 @@ static int platform_profile_omen_set(struct device *dev,
+ 
+ static int thermal_profile_get(void)
+ {
+-	return hp_wmi_read_int(HPWMI_THERMAL_PROFILE_QUERY);
++	int tp = hp_wmi_read_int(HPWMI_THERMAL_PROFILE_QUERY);
++
++	/*
++	 * Only the low byte is the thermal profile. Some firmware (e.g. board
++	 * 8C15) packs OEM flags and the device posture into the upper bytes.
++	 */
++	return tp < 0 ? tp : tp & 0xff;
+ }
+ 
+ static int thermal_profile_set(int thermal_profile)
 -- 
-Thanks and Regards,
-Prateek
+2.56.0
 
