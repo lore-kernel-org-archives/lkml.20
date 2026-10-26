@@ -1,90 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793030493;
-	b=lTA00UDiUPO8+a24/dOJy9fX+XMd3J0oZEUGVO4fsp9l2GXHD14ZAwodcU8G3mdiS1nT
-	 mtaCGWJB3YiqsKm1MtaypTGJQAoAW8FDmm/AvQ0hYNqrCE6NsSS7guIbIMVLQpDjUNc8f
-	 8hmbLGdDIYACsAB3px8x59yuq/BQHeRmQ0+7tMdk+aP5hsoOK27D1/pTBX7LL4DmPCk8S
-	 kaQ6TK1gqFbDiwtVSSsOOacgANdgLUWIPW5gesLQk7r/jNefstzdjXWB81MfrLNMx3Obj
-	 8Fdo3wbNJRyBCAjML5psbcOvmbfQx0HbeSDoA3K9jJzt3WlEY+PY+qQsGw5BMDMhx8Q==
+	t=1793030501;
+	b=wX++8r5bTP2C6bCbSbcZEe4GHuFG3PcYgF6ZWPH3azovjFL1uaLrk7OMwzpd5vO6VjQE
+	 7qBmJT+Pgf31knL+9Bj4zteIhYD9kuh7A7TYPz3Azxz9ZhfFBOaaU+ayYy9wIKs0rPgTE
+	 extALPqtqmUCEwzBx50k546dp2AcwnhhxBvIo0uM2QlS2Vd8IP3SIRdmMAnl7Jj7w0pVn
+	 hMihBp1i0SRhF5XW2nCJKvrMt0OQMdQb7kLYCUI0jsb39W/7kr5VSb+O9/B9XjEjspsFf
+	 XYTwrY4uSog1xNfIdM2/RCi7qF24QMO2iq2kxyMQVX7LWxSt4A6mvwkJFePgZLY+IOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793030493;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793030501;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=uqme9Wp5homb4GKnr1RiyXTopVTpMqOF0DSF1J4+ZFA=;
-	b=yvAuiVo7ijvCDdmrHviI6TEg/Ny6OLwKxddc6kOMKNtDvV0PJZATXQ+lwvJD8WpkVFSX
-	 3w2NUKtjlv+gYyOaCwJTm2tU10LQpMeTj0mP29epKHqoPqRz2lctPMrxwBPvQFAVfhonG
-	 30sRtSi0dlhKX9IB4//0dOn8ZRTNp5CIZ6m+dhqWH2qNfdie1HXg5YsC6Zp1lj0zj+aYp
-	 U/0la1l0GKZdWo0xcR0wo7GWWSVw+g6fd7A72XuHo0ExcRtYSzEiVcLDwjQpKQfGIFMdL
-	 GpavSHjppitDAhvSGkcjlEjY4C9SfVJ5VkRjcvXTP4w9MyIv3rM3+mcpBXqcGQKPiGg==
+	bh=EZQIogsZeMKc8icauriJLlFLU0mrhDSe8yDu+EjToX4=;
+	b=sa9GmaHju+NXQq7aRw2Z8cHZy8YH86kbcM9q/I7Mqes8oytXhamneddBUXI+iXjU4lil
+	 7WttFRuPWynataZcqtT3GYlKrmWY+3CWZh728N5lWat9Qnzbgfi94vS8OThLsPKL6arKa
+	 lcjDYgUhL7WpA+KBTmU5WL4LLRSXaL1QVA4pZV0gZNj5unRSOM0rxGww/jubDzJyrmQaB
+	 KFhlKnDenga/84cN7ld+WZSig0dF2TZqKbX2YSrjuw62UurG5QWMrHMKl7s3MprSE0814
+	 vwYpa/XRkXLU31TKaKVbuErdJlcPG+aApNDe5T94UROGg+aFWBOfgcSWWsRnxhTFRSg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Jizuv7pv;
-	arc=none smtp.remote-ip=209.85.218.46
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=ZRqnti+8;
+	arc=none smtp.remote-ip=209.85.218.49
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADDBD60A260C
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 16:01:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ADDBD60A260C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D23FE606A31E
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 16:01:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D23FE606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Jizuv7pv
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c4677aad67bso338185966b.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:01:31 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=ZRqnti+8
+Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c2afa22e1dcso416070266b.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:01:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793030490; x=1793635290; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1793030487; x=1793635287; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=uqme9Wp5homb4GKnr1RiyXTopVTpMqOF0DSF1J4+ZFA=;
-        b=Jizuv7pvuxy19viM9ptnpuVBxGX1f6XW1wsBz6DO6Cp3AuafDjZiJ+J5sOvDWPAKts
-         PEg2Xn35Ub7+Da3PstmTcQBD3X2ASgeHkaDtimk6USFNs70V+95nQvCLB7MrnTczhp4a
-         M5YSjcDSWih7op3+KOWXNvZLk71LjfdWbUrt2xLCg7QO5lA1gCmz7qltVq4NARKyts2Z
-         sHf5ysV9r7U93QwIYl/L0+1r8SaHSs0ODKyTIG2Q6R3ey0+tInnPmj2usKuUKDO+wR+d
-         le87tvQDOmX6vrGYCKzFINPk8hahdGQdCkAww7iZ/wN2AqUtk7q5XFDEJvk6h5tiWJt/
-         9KjQ==
+        bh=EZQIogsZeMKc8icauriJLlFLU0mrhDSe8yDu+EjToX4=;
+        b=ZRqnti+8byxePhKwYMdYoyvObrLQhX7R7ZIPDQH7df9CjKIz9grfAbYYoxxawRgTVp
+         nUiHWKRl6FUYvwYCId2an2IHwGjTIhtUafJ26vNvWpso0bM9R76cY5P8+Z+oODO7XYkB
+         voCVadBvS1Ylc9VumQL/lxITuM5gs8sEPJn73W2HkNaC3x8X0Y8osXO4ppdEG7GFRxLf
+         YSLfHfs48e9OaRI4Enp7jBgbGad/RO7OYsiuvJB4xZE3lUcUujr7MFPPpqPysjYAqMML
+         LJWob/w3vzHiJDIxzw2rdHJPrjX4sILEsgeKgb/BcMiIN3h+FpNHeYdHpoahaUZ4/UPr
+         +2SQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793030490; x=1793635290;
+        d=1e100.net; s=20260707; t=1793030487; x=1793635287;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=uqme9Wp5homb4GKnr1RiyXTopVTpMqOF0DSF1J4+ZFA=;
-        b=vF60oHILDvNWqnJbUEGfGxkMYhgHzUpb+Mw7yLJ2+abQ+mTH6IBnJzRiL5h05pL66u
-         MAdsdwAnz9rB/bBYsR0Cw1VYT1xZkbc7wAvOqKhlf54oQgM0fSOW3DE4JtfGA9hOM8ue
-         9Pl8C+s+ZyT/4iPzuUprT86YPmbSvBE53JrEOEYmRhmkUjvfPgZGe4BzroI24Prk+ioo
-         DRRc/BWH8UVNyZoG+hc9CHZCw5zrkQCv2W1VwdoXiwuyDbEYFZAAkFr21iQl906F1O97
-         Ru63L8WqFq/mEO0K4Sk84Ht7b4B0pRJBpmAdyw4azrkc3JbIGnnDHLD2B4kdDwd0WSe8
-         37yQ==
-X-Forwarded-Encrypted: i=1; AKwUvByj1LsmzgibFbGHNjMNn0Ms/S5wX/uOYTE/cO5IKARLt7XA/DtPQ1Pm0Dz9J6EWwzmmQ8NImq8noSWiBK8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL0YlqAIoMJQcdnzjKm2OOMBmPw2no14yb2Y7WumIVoHgPbISXQ
-	5uQT+J5hqUKvcj7dHDnFcu107q131pT2GYqG6DLlavo7Y0RtIYk6F5ZG+1DMwogicxw=
-X-Gm-Gg: AYBFou0GnJXv4+Yq7I3bdcHA2wigZlNVojZREiCnVnTiNkDk14ICBQGYT9TVKKyEKxE
-	Zq22Ehak7e3EYgK5YhnwtKZNhvIe65pA9H9bgktMwxGPWJ+DgyOgPgFbH62ZXNPkH76wnQWotqT
-	Z0HL/a9bc6JRoxiokNEreBMMOcXls3wyen4Hken/cUKtv+fcrtYEypTZ6jciD4YIRm71IgZVDlM
-	NYB3//g9ba8/A6MtzG5ChPFP34EniwMM1S7pfxvkylOgRJnSnyWIbAF3UCT+YqOckDTmhWBM8H0
-	Ie5j3aLqXZf+U3jyo0eGcBxJ6USTTUxk1bcjQ/Me1xjTW807g/aPrAjMIpnR+NGOORbRKLSeBSs
-	FOxLEvecGrlnlEc0A8f62D/P8bcrsxAjv864+hATjxb3nv3r5q09AvMWz8QuU2JNsUK62uHYkGp
-	aqdmrCdk8moRA5RngVTTRzvrGzLUY+R3I7cmvhBYD6ZFHSYcr/N3I8ECVg9iDzw6IulWs6CIJSo
-	yTVH43gff/GjfwhJ5U3z6T/j4nzGrOQkkN4I1sxSPLIll7gPKcze4n2dVMWsShtJ8XcEqzIpDwQ
-	rQEl5nR4gE38xUlBns+Hrhfkepj3lW3vkIchpvKgF/rOtKFOEjFlEtMglR+UXPyuu4AzwhXyK+g
-	QaV84FtYOwQ==
-X-Received: by 2002:a17:907:7f9e:b0:c41:5970:2360 with SMTP id a640c23a62f3a-c46bde8d65dmr797137366b.41.1793030489913;
-        Mon, 26 Oct 2026 09:01:29 -0700 (PDT)
+        bh=EZQIogsZeMKc8icauriJLlFLU0mrhDSe8yDu+EjToX4=;
+        b=QWIJkk6xJ5hJQK23lAdXfHDPeACF5gKxAMSMSPliMYtgfRE/90lZ9fSN9RPluZBzk0
+         60Jhe5YXxb5RUxO6IOxJKKz4HXOKb3RmlLkjQqk3HpxXkV6xCjelsSpykp8UBY7w34PK
+         7/K4bJ+KrjXjcDdg9UgGky1ADsjXkQBQxEzWe33PEl8kP9eEV+A/AxvFuXcHnXFJbRbE
+         nNJuCW0VizBDnjVfVRTmrTIrhDoJknAkl5SmpqXTDst4ThwSYUegD8wtgGBHyUMtlhh/
+         4/yF7t7VY+slYUNS2iKV6u5CpaIb0AX6kN1xjuCPa0KIDpje+Az+GZfbqxhhZw6KH9S9
+         s8lA==
+X-Forwarded-Encrypted: i=1; AKwUvBw6T5BEqA0hKJlVA32SBXaOUmbBaWhJN9mSOg9p9SfsIHmh87o+YHLi3rJGWCdGO6Fa7Q0b2ELlUBeXUZc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIo4O/vWwhccCOcQJcK0Cg88WGDfFY0alwqe/m7gmE54WxgscpF
+	9Uanc3IrC6ziYDNNcXOH23bdw1QkPoHkD8GUjRV/0NuLBrG6bHV0504SzYwg78mYEQ0=
+X-Gm-Gg: AYBFou3vXiug3wxsYNbQMG+r4SJ2HLPAIup0NmLvRGwOrQkHBHhVSjeUF/9od+vxgKA
+	RpB6Enyj2090poMWuHjpekczCTJEuH1Oj/V9wbndHpGPxcsMT9PqFlJ8wpuObeEkJVDZe/yVFZX
+	vd/LiGA+UQUkIeQm7YirEPw0Q8sIbZn5/2D0OvCZmmLnJun9+OH365MwESO/8ospV/3sWSBdLVz
+	q1OgHd86ww0yAgbC6DEg3aeZFrK5tT6d3uKvt9AImPf/kALsfqX5hD4VMhXVwwkho0yEg2BZ0Ly
+	3KRTA+SFtNqCbFWXOBUyh6ToRNCgGwQXe3M+fdks3syBUgYSUOZcJ5cEpDZzRSLKgZp7s361dGb
+	Dz/Fm9JK7skYK+JvcDRxytoegc8ozFgoCLdeIBQ5s/wPOy7rT77oRBgRUAn7Lavvaa64SgKjFXa
+	ME79WUWujZcnv5GuNJmuqxSQZlL36syaqShsIg1B+C7m9mobXh+qEzc9OZYsRRkm254nYLAbbSl
+	mcBLpGzQvcyi07mAPBx5NptzdV81kwIqpP7bzNwcwnnRypaXQHaguVG6LbYizFgrVPshP8m3ilD
+	XMEBRziULhORowUSydrEDqhXnkK5hl78Cwdtew==
+X-Received: by 2002:a17:907:6ea5:b0:c32:3da2:69bf with SMTP id a640c23a62f3a-c46bde8a540mr860179566b.30.1793030487233;
+        Mon, 26 Oct 2026 09:01:27 -0700 (PDT)
 Received: from ta2.c.googlers.com (231.141.38.34.bc.googleusercontent.com. [34.38.141.231])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c49a530f520sm17307466b.23.2026.10.26.09.01.29
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c49a530f520sm17307466b.23.2026.10.26.09.01.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 09:01:29 -0700 (PDT)
+        Mon, 26 Oct 2026 09:01:26 -0700 (PDT)
 From: Tudor Ambarus <tudor.ambarus@linaro.org>
-Date: Mon, 26 Oct 2026 16:01:25 +0000
-Subject: [PATCH 08/15] thermal/drivers/samsung: acpm-tmu: Annotate lockless
- sensor->enabled access
+Date: Mon, 26 Oct 2026 16:01:21 +0000
+Subject: [PATCH 04/15] thermal/drivers/samsung: acpm-tmu: Disable IRQ
+ across system suspend/resume
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,7 +95,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261026-acpm-tmu-fixes-v1-8-0637431b7268@linaro.org>
+Message-Id: <20261026-acpm-tmu-fixes-v1-4-0637431b7268@linaro.org>
 References: <20261026-acpm-tmu-fixes-v1-0-0637431b7268@linaro.org>
 In-Reply-To: <20261026-acpm-tmu-fixes-v1-0-0637431b7268@linaro.org>
 To: Daniel Lezcano <daniel.lezcano@kernel.org>
@@ -110,62 +109,88 @@ Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
  =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
  Juan Yescas <jyescas@google.com>, linux-pm@vger.kernel.org, 
  linux-samsung-soc@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Tudor Ambarus <tudor.ambarus@linaro.org>
+ linux-kernel@vger.kernel.org, Tudor Ambarus <tudor.ambarus@linaro.org>, 
+ Sashiko <sashiko-bot@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793030483; l=1693;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793030483; l=2590;
  i=tudor.ambarus@linaro.org; s=20241212; h=from:subject:message-id;
- bh=s+vlmicvmxoIoV/zG2HTAfaht+VsOMx3OvHNh06nsKQ=;
- b=sr3Gr7+wPMBcALGw6z7oTnVQMKMSvhD4VWlJImkrIylHLhmr5t9yYa8CM8+YcRQX0+qwzTdZ7
- MYcDNOc0I6uAEEX6sHSgfiz0P4Wgj2B+LSwh2tq1C1/bqWW9EUL4LL6
+ bh=VungbphQq4N0jonOAgd10JUjrmj+uUeuGFdaY8Jr4Ow=;
+ b=OlMBwVWV0K+I8MCQ7zTlId1NV0MOWldwb7ipLvJ1oDsDkvYkIkS52kjOcu7TB34yhnLWRvFsp
+ 3sUgZ++lT1yDBe1R+EvobwvPfYXh3UH1OsPkt2wDOLMdyswAKf4YaPM
 X-Developer-Key: i=tudor.ambarus@linaro.org; a=ed25519;
  pk=uQzE0NXo3dIjeowMTOPCpIiPHEz12IA/MbyzrZVh9WI=
 
-acpm_tmu_get_temp() reads sensor->enabled outside sensor->lock as a fast
-path before resuming the device via runtime PM, while
-acpm_tmu_op_tz_control() updates sensor->enabled under sensor->lock.
-Because both accesses are plain C accesses, concurrent execution is a
-data race.
+The PM core masks device IRQs in dpm_suspend_noirq() and unmasks them in
+dpm_resume_noirq(), leaving the TMU interrupt enabled after
+acpm_tmu_suspend() and before acpm_tmu_resume() while runtime PM is
+disabled and PCLK is gated:
 
-Pair READ_ONCE() on the lockless fast-path read with WRITE_ONCE() in
-acpm_tmu_op_tz_control() to prevent compiler misoptimizations and KCSAN
-data-race warnings.
+1. If acpm_tmu_thread_fn() runs in that window,
+   pm_runtime_resume_and_get() fails with -EACCES and returns IRQ_NONE
+   without clearing the level-high hardware interrupt, triggering an
+   unhandled IRQF_ONESHOT interrupt storm when the line is unmasked.
+2. If acpm_tmu_thread_fn() is already running when acpm_tmu_suspend()
+   executes, pm_runtime_force_suspend() ignores usage_count and gates
+   PCLK underneath MMIO INTPEND reads.
+
+Call disable_irq() at the start of acpm_tmu_suspend() to mask and
+synchronize the interrupt before tearing down sensors and runtime PM,
+and re-enable it with enable_irq() on acpm_tmu_suspend() rollback and
+before returning from acpm_tmu_resume().
 
 Fixes: 50a2c5d4062a ("thermal/drivers/samsung: Add Exynos ACPM TMU driver GS101")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Link: https://sashiko.dev/#/patchset/20260603-acpm-tmu-v8-0-0f1810a356e6@linaro.org?part=2
 Signed-off-by: Tudor Ambarus <tudor.ambarus@linaro.org>
 ---
- drivers/thermal/samsung/acpm-tmu.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ drivers/thermal/samsung/acpm-tmu.c | 15 ++++++++++++---
+ 1 file changed, 12 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/thermal/samsung/acpm-tmu.c b/drivers/thermal/samsung/acpm-tmu.c
-index 1f56c69af76f..65be8884a8c5 100644
+index f490551de69a..55ee97218f47 100644
 --- a/drivers/thermal/samsung/acpm-tmu.c
 +++ b/drivers/thermal/samsung/acpm-tmu.c
-@@ -7,6 +7,7 @@
+@@ -541,6 +541,8 @@ static int acpm_tmu_suspend(struct device *dev)
+ 	const struct acpm_tmu_ops *ops = &handle->ops->tmu;
+ 	int ret, restore_ret;
  
- #include <linux/cleanup.h>
- #include <linux/clk.h>
-+#include <linux/compiler.h>
- #include <linux/device/devres.h>
- #include <linux/err.h>
- #include <linux/firmware/samsung/exynos-acpm-protocol.h>
-@@ -148,7 +149,7 @@ static int acpm_tmu_op_tz_control(struct acpm_tmu_sensor *sensor, bool on)
++	disable_irq(priv->irq);
++
+ 	ret = acpm_tmu_control(priv, false);
  	if (ret)
- 		return ret;
+ 		goto err_restore_sensors;
+@@ -568,6 +570,8 @@ static int acpm_tmu_suspend(struct device *dev)
+ 		dev_err(dev, "Failed to re-enable TMU after suspend failure: %d\n",
+ 			restore_ret);
  
--	sensor->enabled = on;
-+	WRITE_ONCE(sensor->enabled, on);
- 
- 	return 0;
++	enable_irq(priv->irq);
++
+ 	return ret;
  }
-@@ -199,7 +200,7 @@ static int acpm_tmu_get_temp(struct thermal_zone_device *tz, int *temp)
- 	 * concurrent disabling is caught by the second check under the lock
- 	 * after PM resume.
- 	 */
--	if (!sensor->enabled)
-+	if (!READ_ONCE(sensor->enabled))
- 		return -ENODATA;
  
- 	ret = pm_runtime_resume_and_get(dev);
+@@ -580,14 +584,19 @@ static int acpm_tmu_resume(struct device *dev)
+ 
+ 	ret = pm_runtime_force_resume(dev);
+ 	if (ret)
+-		return ret;
++		goto out_enable_irq;
+ 
+ 	/* APB clock not required for this specific msg */
+ 	ret = ops->resume(handle, priv->mbox_chan_id);
+ 	if (ret)
+-		return ret;
++		goto out_enable_irq;
++
++	ret = acpm_tmu_control(priv, true);
+ 
+-	return acpm_tmu_control(priv, true);
++out_enable_irq:
++	enable_irq(priv->irq);
++
++	return ret;
+ }
+ 
+ static int acpm_tmu_runtime_suspend(struct device *dev)
 
 -- 
 2.56.0.257.gf7497c7d27-goog
