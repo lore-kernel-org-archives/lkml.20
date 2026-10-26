@@ -1,54 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.140
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793004709;
-	b=v8xiWtxLc+r5pH9qcysz4uahtQs9j+2uQRJmmszdwOTiU1IvxbxxKdpC/EsNMWD83tLL
-	 IgyAfvukMx1uxO90+d6bpUYYObzzvtWrMtO5gPkDfEzz+pX7c9SONVdqp4wKwiHQauZ9S
-	 T/odcOU7IGFafTzuT3qckzgpSJRkbqw1/5DQjt1A9VwUsuHnvFPUg/0XqwShNA6eWkGF7
-	 JSpPQYXiEECSLRnFVE4xP68/ctGSRByZuUoEQvK7LeE36Az+KRsixjdLCKnT43H17cDrR
-	 /o/bAHqz6y1KKNy25rrwQiivl7V/DCVEPYb6nRuzYOL/biVOsceCybOjwzknJvpvjSA==
+	t=1793004711;
+	b=0Y75EJUcNWFL+79itN19KI51WYTyFDI3hd2TxkHNN6JW5bNRORESUkM6B5Yf5Qoj+CJW
+	 M4a1gv7sCfHeIVxRQgvPdak3R5xMMXqJrt6S2qO8Ykezus2xaKIwuYyL0iy9uv/HbGYEr
+	 90ujGo4+n+fbQFzuDgA2ebUidAeWf5bUEhqcs4LwEMaySw/3Czw5DZM8LUl+8tvn9qO4s
+	 J2eDQOV4S/pm0c5suamCNjYxISmIKFXEvcuMfenE5LwKExIwkBbi8l0KHleHjoR7PRzRd
+	 W0z1E0B+5se8nsQbHugPPaxOM3iEFmHetrf64F9jk4fRhu44tFKeYUr/4EricE9ReVg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793004709;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=ZinQ6VNv4xBXZl4N4C9ER6UekGAVyBfk45WZEBqx6kM=;
-	b=QxpOyj5HO/CoViMSfBbAtEAr2Tm1A/jXylujodNIQ54rLq7cp4q/pDFb3k42SZ+ZMJU+
-	 vhLWzc9k017GFS03UYBanYpylHbddnD0EjCJa+eoRsvaCUzKOWMTGJtjmTnGtlKJ0dJE/
-	 iaovZRwhQfjYK1rMFBDgIpkQ8E6xt+7vC08k8dWt1/f0OanuhVFp+CRiFdxOzrE+m+OeN
-	 SjrH0vgYh6ezz3kOwxiCpSNnH2AxqVXgI2vbti3wD3khMDW24xZG4bH1xMRsYkpETCTX1
-	 wxNOBMkoLkUg963zaYdfD8+sCV3olLTLs4cyNewfzxN7ND+gsdosl8p1Zpycj8EUiqg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793004711;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=xWiTlDTyc6PTyNRCBNyeHOu3tzSbgoo2LUTk5932AiQ=;
+	b=RxDqd029O5zc9gxef3iYAmonVab1bkpCXPwGYmLxv7lo19R4lv5xW9W9Pk1IsVam0BvU
+	 KqrisIwBpA1DjH3LwWyPAaqsPPeu5HtQ5UsPRs114bHKS+Y/+hJIHCVVibNBKZP1ffBQ6
+	 J9viATvRofPb8usr9AjbRaOuswcNQa/Yxd16NUlrEz3rpCRx+kPTHwVpqIJl9jN0V4O4i
+	 4B0JPZPUNF9A8j4YZCU+LwanZ/OcJklKLsGS/BNup8kuFARdEE75bKAlyfzkHJy5KDv1k
+	 ftMcpMFoHMTL3ZFXEHU1ay3nVxbkNziCwvh0bbiWS9+jR92rSImH960h3J+b31zYvNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=u3v+FL4y;
-	arc=none smtp.remote-ip=95.215.58.140
-Received: from mta1.migadu.com (out-140.mta1.migadu.com [95.215.58.140])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=J5ysOHc4;
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C34C3606A31D
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 08:51:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C34C3606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 374F7606A328
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 08:51:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 374F7606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=u3v+FL4y
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=OApuNekQXX8U7HnevQle7FcTjvOpTGZzG9MKgoTNv5w=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793004706; v=1; x=1793609506;
- b=u3v+FL4yfxuhQ9RYtNgsEWRw0oUkbZVa8JgcWbUJ0obK6A6FKr+NIQ9F+JbkRyrOBx9fI+PT
- 5V6kt3xH7oy4R7Z59JkIv8cyXhWiV/6gfFob5pW1erSrccMwtzAoVE3g/xfuHJwAWnom9F4wg1i
- xAZM8xuWakz+s6pXxnB6ogrU=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 76da52be332fa9e2;
-	Mon, 26 Oct 2026 08:51:45 +0000
-X-Mizu-Trace-ID: 76da52be332fa9e2
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <29f2442d-60c5-44ce-814e-7ad2d7391a5e@linux.dev>
-Date: Mon, 26 Oct 2026 16:51:37 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=J5ysOHc4
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a5720b0a57so4269835e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 01:51:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793004709; x=1793609509; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=xWiTlDTyc6PTyNRCBNyeHOu3tzSbgoo2LUTk5932AiQ=;
+        b=J5ysOHc4KnG16Nsx67Jslwk2ZoEGuq3b+fT/Vmj8nf4Ee53HTT+mun/PygW+NpsNvm
+         JCwYAAlcSpxpHR2LfJ9/IaQf+4RPMz/aC6rE575ITFbduv/UTAEmY7ZyS89vbIRQCQ+L
+         eiJobtD3vxxRluJSDSIhxfsRkyZHxUw2DLG5qDqE9i3fgrAdN34M9kx3/arpQdJPdVUF
+         FWmM4D6k4OYrmvDe2xOR8FIWXxB/GJCoZDvBxwCT++ls96c/hdqi1fzTM+IHqzID6kYg
+         VqGP8b9ryQRCNstRFjE1p/+gqpV+4q6E3pqCP9LsmcxPjWv1ujuvms2lz+nqCHvHH9u0
+         lnHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793004709; x=1793609509;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xWiTlDTyc6PTyNRCBNyeHOu3tzSbgoo2LUTk5932AiQ=;
+        b=vgEAZM+XvezJpVZunfJqzvFq4zs6FcbLZejCMespwbhfhlNdoZNcp9ET3AWt5GbtjO
+         mS6QjfW8sq+qmEmkehKbza2Ky0qNIen0ySab4Nq2ARu8BPlJmzjcd2EO1RazGCeCYC6E
+         JXaHDDUirirYS2o3OlaTaY9eOv5SlbzlkO2xSYhxQCp0Z4WrvbuGRSOBS1ps5kAwTchd
+         g+ygyCSyPeR4DSPt0bIfudE758ktn8T3Jd2p+SQPHBlEBTcsYS7/pTQGxMcKLPqIwcEC
+         h0jYBiL+lEbrYI7s/G/zY6s4cUZCqCzZWYtZM7TwtwhvtjDctSvDxeS4DvnaFciKZnLX
+         Uxrw==
+X-Forwarded-Encrypted: i=1; AKwUvBxrxnkFOTFhgePpk3xTLtBcn9IGbpzS1yM80hLzJ6Wx2OQae3ckXGMOcNIx+iffXAWQGr1rIo7itJj13b4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLfhQuSqchsTB3C13/2PSeRzIUFfMlnvgWq2LNxAQZ58munzI0O
+	E3wsHkZov4LsYFZAQqirXDw87lZAkTerOAMcmKoqu0PRn9RZg4RcYFsYtxwYrX8ek4+w4MPT
+X-Gm-Gg: AYBFou3I3krTZnoDUAeIi5hQFGIpqtcIX1XEJUMGDnJTjKEnVgsIEZoCTDkSjFLbHQr
+	Yy7Y+Z8RTrRr2Ky5lJZhzF+6+JdUKkVa3TVeuTGvoN9VMZu2X7dWblrnLE7FsABZwAhvdiE9Eec
+	2CvziVFUbWR+wrTsVmhZgNRip1DOf1PYZDC1OchDXGhWu8WXv+A7CvIVZXl0P7BLl0Wh1tjEucj
+	75QxSXf2eo7La8hTxOEUk+NA+Nc1o3M/z2h9UTBb2xNh8vcRwbhIYqtmze+xCJx2fCHZN+klAEY
+	1P5Bi1lcxRF1a6LHIj+SWHOHtuuVxBNXn/WeLVHiGrSS7uj4btQKa7fYYq2vQ4g4lMFkB65Kidp
+	z2R+CSqyHxCdmPDK5WPOX8GHcaEJRjPm0K73vPDB8XlDDQz7tENjwaFJgjdWXkW+XgrQxR4oRlF
+	Jj2enB+lHMRaDecb7q7Ug4pestmhxMqB4810Y5xx5p8hCf8OQ238OHO3+l6Pv/FPb5rcWGRI7wH
+	pZzHI/CrcjCbPSldLZN6B7qVZ52YZ5TaaS1NwP+ocXkaQjcHoCJ
+X-Received: by 2002:a05:600c:630f:b0:4a1:efbe:529c with SMTP id 5b1f17b1804b1-4a35ae9e071mr121463405e9.12.1793004709351;
+        Mon, 26 Oct 2026 01:51:49 -0700 (PDT)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a0aa0bcsm224781085e9.4.2026.10.26.01.51.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 01:51:48 -0700 (PDT)
+Date: Mon, 26 Oct 2026 11:51:44 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: himanshu bakshi <himanshu.bakshi478@gmail.com>
+Cc: andy@kernel.org, gregkh@linuxfoundation.org, dennylin0707@gmail.com,
+	cenzhang@linux.microsoft.com, dri-devel@lists.freedesktop.org,
+	linux-fbdev@vger.kernel.org, linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org, dan.carpenter@linaro.org
+Subject: Re: [PATCH] staging: fbtft: Remove unused macro
+Message-ID: <at8UoLDzrO9ypMeR@stanley.mountain>
+References: <20261026081832.60570-1-himanshu.bakshi478@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,102 +97,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH-next v3.1 09/11] cgroup/cpuset: Release invalid isolated
- CPUs with a shrunk root partition parent
-To: Waiman Long <longman@redhat.com>, Ridong Chen <ridong.chen@linux.dev>,
- Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
- =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
- Shuah Khan <shuah@kernel.org>
-Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org
-References: <20261025214449.310715-10-longman@redhat.com>
- <20261025235359.320155-1-longman@redhat.com>
-Content-Language: en-US
-From: Guopeng Zhang <guopeng.zhang@linux.dev>
-In-Reply-To: <20261025235359.320155-1-longman@redhat.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261026081832.60570-1-himanshu.bakshi478@gmail.com>
+
+On Mon, Oct 26, 2026 at 01:48:32PM +0530, himanshu bakshi wrote:
+> From: Himanshu Bakshi <himanshu.bakshi478@gmail.com>
+> 
+> fbtft_init_dbg is not used in drivers/staging/fbtft directory and
+> since dev_dbg messages are good enough, fbtft_init_dbg should be
+> removed. After compiling the driver, there are no undefined macro
+> issues.
+
+This commit message is sort of acceptable but a better commit message
+would be:
+
+"The fbtft_init_dbg() macro is not used, so delete it."
+
+1. () after the macro name to show it works as a function.
+2. We care about the whole kernel not just drivers/staging/fbtft.
+3. No need to discuss dev_dbg().  That is unrelated.
+4. No need to discuss compiling the driver since that is assumed.
+
+Otherwise it looks fine.
+
+Reviewed-by: Dan Carpenter <error27@gmail.com>
+
+regards,
+dan carpenter
 
 
-
-在 2026/10/26 07:53, Waiman Long 写道:
-> It is also reported by sashiko that there may be leakages of isolated
-> CPUs when a root partition parent shrinks its effective_xcpus with
-> isolated partition children. Leakage here means that isolated_cpus may
-> contain extra CPUs that are not in any isolated partitions and not boot
-> time isolated. Those CPUs cannot be used in any isolated partitions
-> anymore.
-> 
-> There are 2 different cases here. The effective_xcpus becomes empty and
-> the isolated partition should be invalidated in this case. Alternatively
-> some of its effective_xcpus are not in parent's effective xcpus but
-> still have some valid effective_xcpus left. The isolated partition can
-> remain valid. In both cases, the invalid isolated CPUs will have to be
-> released from isolated_cpus if appropriate.
-> 
-> Fix that by calling isolated_cpus_release() to release those isolated
-> CPUs from isolated_cpus.
-> 
-> New test cases are added to test_cpuset_prs.sh to test this.
-> 
-> Fixes: 11e5f407b64a ("cgroup/cpuset: Keep track of CPUs in isolated partitions")
-> Signed-off-by: Waiman Long <longman@redhat.com>
-> ---
->  kernel/cgroup/cpuset.c                           | 16 +++++++++++++++-
->  .../testing/selftests/cgroup/test_cpuset_prs.sh  |  6 ++++++
->  2 files changed, 21 insertions(+), 1 deletion(-)
-> 
->  [v3.1] Fix the typo "cs->effective_cpus" => "cs->effective_xcpus".
-> 
-> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-> index 6d224e614e74..9a2a6f727929 100644
-> --- a/kernel/cgroup/cpuset.c
-> +++ b/kernel/cgroup/cpuset.c
-> @@ -2012,8 +2012,22 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
->  		 *
->  		 * A partition error happens when parent has tasks and all
->  		 * its effective CPUs will have to be distributed out.
-> +		 *
-> +		 * For an isolated partition with a shrunk root partition parent
-> +		 * we may need to return some or all of its isolated CPUs.
->  		 */
-> -		if (nocpu || cpumask_empty(tmp->delmask)) {
-> +		nocpu |= cpumask_empty(tmp->delmask);
-> +		if ((parent_prs == PRS_ROOT) && (old_prs == PRS_ISOLATED)) {
-> +			cpumask_clear(tmp->addmask);
-> +			if (nocpu)
-> +				cpumask_copy(tmp->addmask, cs->effective_xcpus);
-> +			else if (!cpumask_subset(cs->effective_xcpus, parent->effective_xcpus))
-> +				cpumask_andnot(tmp->addmask, cs->effective_xcpus,
-> +							     parent->effective_xcpus);
-> +			if (!cpumask_empty(tmp->addmask))
-> +				isolated_cpus_release(cs, tmp->addmask);
-> +		}
-> +		if (nocpu) {
->  			part_error = PERR_NOCPUS;
->  			if (is_partition_valid(cs))
->  				adding = cpumask_and(tmp->addmask,
-> diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-> index d7d0bef0a17a..ceb1a3b4f94e 100755
-> --- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-> +++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-> @@ -522,6 +522,12 @@ TEST_MATRIX=(
->  	# its effective xcpus will be removed from isolated_cpus.
->  	" C1-4:P1 C3-4:P2   .      .    T:C3-4   .      .      .     0 A1:3-4|A2:3-4 A1:P1|A2:P-2 ."
->  
-> +	# When a root partition parent with an isolated partition child is shrunk
-> +	# so that its effective xcpus is no longer a superset of its child effective
-> +	# xcpus, the invalid isolated CPUs should be removed from cpuset.cpus.isolated.
-> +	" C1-4:P1 C3-4:P2   .      .    T:C4-6   .      .      .     0 A1:5-6|A2:4 A1:P1|A2:P2 4"
-> +	" C1-4:P1 C1-2:P2   .      .    T:C4-6   .      .      .     0 A1:4-6|A2:4-6 A1:P1|A2:P-2 ."
-> +
->  	#
->  	#  old-A1 old-A2 old-A3 old-B1 new-A1 new-A2 new-A3 new-B1 fail ECPUs Pstate ISOLCPUS
->  	#  ------ ------ ------ ------ ------ ------ ------ ------ ---- ----- ------ --------
-
-Reviewed-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
-Tested-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
-
-Thanks,
-Guopeng
