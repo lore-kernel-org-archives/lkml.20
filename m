@@ -1,73 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.70
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.71
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793036546;
-	b=0sSYhiUVTqNPaoRyvO3/5r+PNNl0YlSj0nzE480lhPilNi+F1m0kgv/F5Q640RjVC1Yd
-	 ZAZLs15heYLNSsnc2AtMUehdbS1GEuyz1V6yBmyays++SDVhq45rY0lv4M4QzYKFMlvsi
-	 WK8rUEozhNgeIpk4OAxRTJU26dZJcjEnAWqEBIy59pccgOckl2pyZ52QAJLzAFZ+lwRZ3
-	 Ajffha0rO/49SpKk05kWUPiNRqrIL17H7nGYvDFuR8UhsjeMcBFRC+jN/B4xVD3XaMyIj
-	 xHjVSnBtzj00BXnMCKSvGOhMIeBi0lIWvkotWQFdAHMsBXPqt7QpK/3Y7IFeqxbn+Fw==
+	t=1793036543;
+	b=ZVT7n9LYjx2jqYmiJgAEB+c4lTBZhTNsTyT2BhvCEuoPAsBIsEwlONI3oJGKfCIJiTbz
+	 6y4ipWdRKjdwou6RHDQn1rTGE27m/t39KtByf1CoakQdKEPT43PVg52N75fxExqcR0UyL
+	 4iaefJZiY4fpCG4AKmVIvxksCPiLctSMgfAsyewJABMuuE0eX5iw0sIs2r0MGVCS63Lm8
+	 ITbU46fIcAgtYsGgclHC0kK7mkk7UNaNNFyt1DSyGI1+3XRrVjsgj2xhDCL/KwOjv5uDR
+	 srTjM93BiXW0hQcpfiq4/oWBOlES1vfgxgG5lynnqK+AsulQ684+XkLQ43ctV79CX+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793036546;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793036543;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Received:Date:In-Reply-To:Mime-Version:
-	 References:X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=6FbknuYB2KaKiO/nAwNHeWF6UfDvsJ7xQW+UNHo6NJE=;
-	b=EspBloSQrn1bir08jEuNEb0YhOMm2lPBG7G2FR5srb0Iqp94v/8Fox02WFggjAPIFGOQ
-	 zyggXKcSiXvHkXomVBimpY3n70+8eooVipKaQ31MaYx0F/1yrPRcJkDIhJKaJpUG/G93e
-	 Oyg+J8KTbrGxHYE2hlKqX6X/3ZYA96HhTdbTqxIi5LBkVs45J+WZuToHXwjZ+yKjukZ5f
-	 3vHVFsLH/D4llHxn77hQjqiUWwQ/KVUTM1PcSok6I7x1VgGFKPt42+vVPRvn+BUoYsKgK
-	 CyaGTK0EG4n560bqK7O4pyN6C6GKgc8XksopJ80crpDhRUO1sjfqXYtWjDvsH6SiqOQ==
+	 X-Gm-Message-State:X-Received:Date:Mime-Version:X-Mailer:Message-ID:
+	 Subject:From:To:Cc:Content-Type;
+	bh=B4ANvDZKg/XTDKTxx6DRbKMCW8lIWCNJ9Qz1jlrn4KM=;
+	b=rTZj/X79Rinc5dPGqiv6vQ19iFaIStGWPJg7PWYDw2PPrL8+IEnMCn4OMV51trk56fnW
+	 jX2A8eXxk6m2dsdbth0XpcgD4d3ba73BIgZAolhIMcAH7BV3IqkRiLifr15m10i/5Yauf
+	 hDwqzT/KrS15TVa++7STfBAtWp73RI0+Zv6Z8c/psIwqhppFMRAiiLa0w2m1BengdZdPj
+	 sigWs0+EtUYeDI8XIUEZCKjjtw2Rt+Q6WG3iGezU/8L7m1oJ0zTRN7/T/F/yZeGVpJox7
+	 QJ2vZ2tRkk06cHGUg5o/rhZrPiHGqx/KvwoFXYKxPKjrRxcvAaqEPKTuN7VBNfdDxrg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=Dw19YtuS;
-	arc=none smtp.remote-ip=209.85.218.70
-Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com [209.85.218.70])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=ABqpX9Vq;
+	arc=none smtp.remote-ip=209.85.218.71
+Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com [209.85.218.71])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55143606A328
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 17:42:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55143606A328
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D319606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 17:42:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D319606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=Dw19YtuS
-Received: by mail-ej1-f70.google.com with SMTP id a640c23a62f3a-c2e8c76334fso292562166b.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:42:26 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=ABqpX9Vq
+Received: by mail-ej1-f71.google.com with SMTP id a640c23a62f3a-c42394d1e41so274480366b.3
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:42:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1793036545; x=1793641345; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6FbknuYB2KaKiO/nAwNHeWF6UfDvsJ7xQW+UNHo6NJE=;
-        b=Dw19YtuSCBkDZ+YV3esZ3Fwyy4DxWgbYfY7ajuc+UMo56P4l1RJi/NpNrFVz0acP37
-         Radrhs9Y8dbUpCYq1Q3/BLrNaHL2zF0bDYJ0k8C50q/mfDqgVB7rkylzjkq3AxBB2Ypt
-         FJyIh355MY/eXiRA+PMXy69zZ35Ti9hoMrF7mlCj5stBmm2PFEUzGAldox2Dm+K03gX7
-         3cD6/ikLxWZ1qaEBvyO+0eB+fippzfgGvE7jn8cBXiQ9FKf2BcLJL9nDSH+440wj+Vva
-         Mepau1xQFgRApy7cyCve8Er0IQaRebnWHnQYuVtlVzt3k9nQDMVeFdNFJrLByZGkXaWc
-         DEHA==
+        d=google.com; s=20251104; t=1793036542; x=1793641342; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=B4ANvDZKg/XTDKTxx6DRbKMCW8lIWCNJ9Qz1jlrn4KM=;
+        b=ABqpX9VqN6Ssux3wIpQW4nXroSCmeRodpSjYaN/gIHUFht2naaGD/beFCK2i24Cts2
+         YK48+BZzpbdgyPx3L4gtpXgZZ+MAfxHqkVpvTogL5562lRcHMpebRStj27qQUzIX/Fkz
+         +cEfQpiKQRIVnkGrHDGy9oLo3NUvWyCPeRk71XM1yweb+9Ddou14NgXMCDJGf5GzjYcR
+         7xZVK5byIO0oykPbiEoz2L3fvApCyvux6SZ/4OELyQZuA6bowg5OIX9Rzq71nlcJkkSu
+         88ZGvrQHAS+N5iLZiL8KC0x1Hzoy48O1aqcBu/VNtbJ8ZoRRFXtalqkSivEPxcsLkvXx
+         SgBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793036545; x=1793641345;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6FbknuYB2KaKiO/nAwNHeWF6UfDvsJ7xQW+UNHo6NJE=;
-        b=uSMMRT1pSETe51AbSH1UxtvyBKU0RARHB3ECGxNPfTLzF/nnvvH4/TGQ5qmmky4jjB
-         pJ0Ve26gDSozDxQtnfrWzsCvx2B64V6FDjLiZiutjaNDseNbEVTwjB2Ut1pt+YJHbyD2
-         0S5JRp+k4EZkFl+AwB6jZkuXF5QOlb6Qrh/nVQDSJrgAyHwddwcvRmAzL7d85D4VZevE
-         DQAwokh22FHwYi20F/gWnwonNpyrbKqTZCcIFRZ8Semp3IF4ysINrFNLnyCriTew/saq
-         z8u2MKn99kepoNrL76z3woxFqMsK45AoycfnVKxKXAtKEc6Di8JT6th6tlYfrVUjXkd/
-         aUJw==
-X-Gm-Message-State: AFq9FYLk5HlszKiXEIfjjWnhxyyLa3U40c5/nsIfoeV1HsfxmsveczDy
-	FzJB3Idp084DBr1HdgTmuYnV9NkrNskKeBmEZ88aLpIUin3hQzknq/2qgf+FInb+O152ShFYiAg
-	8szysEyce9S0FgdLr0w==
-X-Received: from ejczw1-n1.prod.google.com ([2002:a17:907:e001:10b0:c42:73df:9346])
+        d=1e100.net; s=20260707; t=1793036542; x=1793641342;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=B4ANvDZKg/XTDKTxx6DRbKMCW8lIWCNJ9Qz1jlrn4KM=;
+        b=DB0wUffw1Kps9fCsrRVxV5aKm+UJ0ER0utrNOnMPLcKesbDhZAX3s2C7dXQLOyimzH
+         OEEf5waSnK27GjM+KnBT8uzjjV3POp+294x8RVWFGgbTUlawHiNqxe/GIcyacvjJuwl4
+         lKDcji1/UbhyB+j+0+87RVpGC9hmULx3ScTL5Rijl545s0UUf+V0B58QcnVALFewrZLi
+         jH5wh+K/JKSjYOH8nO04ZhNs+VZbk7MJwpsMbkR5OBEdX6p6Sj5c0FFofhpNr7GJvCCJ
+         vJSkG0kfriPf0m5xvH5DweG7GZ+BLZeYTC9DUIVSsdbnHixdH+4rbG4N189ym2mBOlKj
+         lRXg==
+X-Gm-Message-State: AFq9FYKWhSGILi55LtokgmSv7ZqgnUxrq8tW40di6qFf3L3HSlzvKrsl
+	h6789d8bj0Mo7Bcl07MfB0M6gLUdr3r6u1ZNa7ZIswnxufkXiQhH4ZPmcmx8pNUiP5d8OBvLc3S
+	QSOjYrqt0ixS8chYpDA==
+X-Received: from ejjj17-n1.prod.google.com ([2002:a05:6938:a091:10b0:c46:a6d4:6c2b])
  (user=tarunsahu job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:906:f585:b0:c41:e75e:5889 with SMTP id a640c23a62f3a-c46bde3a942mr794298266b.33.1793036543707;
- Mon, 26 Oct 2026 10:42:23 -0700 (PDT)
-Date: Mon, 26 Oct 2026 17:42:17 +0000
-In-Reply-To: <20261026174217.603114-1-tarunsahu@google.com>
+ 2002:a17:907:608e:b0:c46:8b87:c1f4 with SMTP id a640c23a62f3a-c46bddc4a4emr843314466b.20.1793036539136;
+ Mon, 26 Oct 2026 10:42:19 -0700 (PDT)
+Date: Mon, 26 Oct 2026 17:42:13 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,10 +75,10 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
-References: <20261026174217.603114-1-tarunsahu@google.com>
 X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
-Message-ID: <20261026174217.603114-5-tarunsahu@google.com>
-Subject: [RFC PATCH v3 4/4] liveupdate: Add KUnit test for the feature header helpers
+Message-ID: <20261026174217.603114-1-tarunsahu@google.com>
+Subject: [RFC PATCH v3 0/4] liveupdate: Add feature header for fine-grained
+ ABI compatibility
 From: Tarun Sahu <tarunsahu@google.com>
 To: loganodell@google.com, alex@shazbot.org, dwmw2@infradead.org, 
 	seanjc@google.com, Mike Rapoport <rppt@kernel.org>, will@kernel.org, pbonzini@redhat.com, 
@@ -94,203 +92,104 @@ Cc: linux-kernel@vger.kernel.org, kexec@lists.infradead.org,
 	Tarun Sahu <tarunsahu@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Add a KUnit test suite in lib/tests/liveupdate_feature_kunit.c covering
-the Live Update feature header declared in include/linux/kho/abi/luo.h.
+Changes since RFC v2 [1]:
+- Dropped the file handler compatible rename and per-FD handler
+  selection patches.
+- Replaced the fixed 128-byte header with an expandable struct
+  luo_ser_hdr (size, nr_features, flags[]), kept separate from the
+  payload structure. The header is 8 bytes with no features and 16 bytes
+  for 1 to 32 features.
+- Each subsystem declares its wrapper once with DECLARE_LUO_SER_WRAP(),
+  passing its feature enum MAX; the macro sizes the flags entries and
+  generates name##_wrap_init(), so callers never pass sizes or counts.
+  The target kernel reaches the payload with luo_ser_payload().
+- Feature bits describe only what each preserved object uses. The target
+  kernel checks them against its own boolean supported table, and the
+  header is trusted as the source of truth: validation only rejects a
+  required feature the target kernel does not support. 0b10 is reserved.
+- Moved the __packed removal into its own patch (1/4) and added a KUnit
+  test (4/4).
 
-The suite contains two focused test cases:
-- luo_ser_hdr_set_get_test: verifies DECLARE_LUO_SER_WRAP structure
-  sizing, header initialization, payload pointer resolution, and 2-bit
-  feature flag setting and retrieval across flags entry boundaries,
-  including out-of-range queries.
-- luo_ser_hdr_truth_table_test: verifies luo_ser_hdr_validate against
-  all rows of the feature state truth table (absent, optional,
-  required, and reserved 0b10 encodings), as well as empty supported
-  tables.
+Changes since RFC v1 [2]:
+- Replaced the 3-mask (supp, req, active) design with a header of 2-bit
+  feature states.
 
-Signed-off-by: Tarun Sahu <tarunsahu@google.com>
----
+[1] https://lore.kernel.org/all/20261021152527.375070-1-tarunsahu@google.com/
+[2] https://lore.kernel.org/all/20260903023452.721732-1-loganodell@google.com/
+
+==========COVER LETTER==============
+
+LUO and its file handlers rely only on coarse-grained compatibility
+strings (such as luo-v5 and memfd-v2) to validate handed-over state
+across kexec. Any change to a serialized structure, even an optional
+additive field, requires bumping the string and breaks live update
+between adjacent kernels.
+
+This series adds a feature header (struct luo_ser_hdr) ahead of
+serialized LUO structures so subsystems can evolve their serialized state
+per feature. Each subsystem groups its serialized fields under feature
+indices, with index 0 for the base fields. New capabilities append fields
+at the end of the payload under a new feature index, and retired fields
+stay in place so offsets never shift. Only a change that feature flags
+cannot express needs a new handler with a bumped compatibility string.
+
+Each feature has a 2-bit state set by the source kernel:
+- LUO_FEAT_ABSENT (0b00): not in the payload; a target kernel that
+  supports it can use default values.
+- LUO_FEAT_OPTIONAL (0b01): in the payload; a target kernel that does not
+  support it ignores the data.
+- LUO_FEAT_REQUIRED (0b11): in the payload; a target kernel that does not
+  support it rejects the state with -EOPNOTSUPP.
+- LUO_FEAT_RESERVED (0b10): reserved, not checked by the target kernel.
+
+The target kernel checks the header against its own boolean supported
+table:
+
+  Source hdr  Target supported[i]  Action
+  ----------  -------------------  ----------------------------------
+  00          0 or 1               Accept: feature absent in payload
+  01          0                    Accept: ignore the feature data
+  01          1                    Accept: use the feature data
+  11          0                    Reject: -EOPNOTSUPP
+  11          1                    Accept: use the feature data
+  10          0 or 1               Reserved: not checked by target
+
+struct luo_ser_hdr holds the total size of the serialized structure
+(u32), the number of features (u32 nr_features), and 64-bit flags
+entries with 32 features each. With no features the header is 8 bytes;
+with 1 to 32 features it is 16 bytes.
+
+On the source side, a subsystem declares its wrapper once with
+DECLARE_LUO_SER_WRAP(name, expected_size, nr_features), passing its
+feature enum MAX, then calls name##_wrap_init(), marks the features the
+preserved object uses with luo_ser_set_feat(), and fills wrap->ser. On
+the target side, incoming state is never cast to the wrapper, since the
+source kernel may use a different number of flags entries. The target
+kernel calls luo_ser_hdr_validate(), finds the payload with
+luo_ser_payload(), and reads the fields of a feature only after
+luo_ser_get_feat() shows it present.
+
+Patch 1 removes __packed from the LUO and memfd ABI structures. Patch 2
+adds the header and converts struct luo_ser. Patch 3 converts memfd and
+bumps its compatibility string to memfd-v3. Patch 4 adds KUnit tests.
+
+Tarun Sahu (4):
+  liveupdate: Remove __packed from LUO and memfd ABI structures
+  liveupdate: Add feature header for fine-grained ABI compatibility
+  mm: memfd_luo: Add the feature header
+  liveupdate: Add KUnit test for the feature header helpers
+
  MAINTAINERS                          |   1 +
- lib/Kconfig.debug                    |  16 ++++
+ include/linux/kho/abi/luo.h          | 359 ++++++++++++++++++++++++---
+ include/linux/kho/abi/memfd.h        |  43 +++-
+ kernel/liveupdate/luo_core.c         |  62 +++--
+ lib/Kconfig.debug                    |  16 ++
  lib/tests/Makefile                   |   1 +
- lib/tests/liveupdate_feature_kunit.c | 118 +++++++++++++++++++++++++++
- 4 files changed, 136 insertions(+)
+ lib/tests/liveupdate_feature_kunit.c | 118 +++++++++
+ mm/memfd_luo.c                       |  68 +++--
+ 8 files changed, 577 insertions(+), 91 deletions(-)
  create mode 100644 lib/tests/liveupdate_feature_kunit.c
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 5d1b58271989..dad09961c275 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -15191,6 +15191,7 @@ F:	include/linux/liveupdate.h
- F:	include/uapi/linux/liveupdate.h
- F:	kernel/liveupdate/
- F:	lib/tests/liveupdate.c
-+F:	lib/tests/liveupdate_feature_kunit.c
- F:	mm/memfd_luo.c
- F:	tools/testing/selftests/liveupdate/
- 
-diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
-index 134b15a44625..d8208f3f4515 100644
---- a/lib/Kconfig.debug
-+++ b/lib/Kconfig.debug
-@@ -2906,6 +2906,22 @@ config LIVEUPDATE_TEST
- 
- 	  If unsure, say N
- 
-+config LIVEUPDATE_FEATURE_KUNIT_TEST
-+	tristate "KUnit test for the Live Update feature header helpers" if !KUNIT_ALL_TESTS
-+	depends on KUNIT
-+	default KUNIT_ALL_TESTS
-+	help
-+	  This option enables the KUnit test suite for the Live Update
-+	  Orchestrator feature header helpers defined in
-+	  include/linux/kho/abi/luo.h. It checks the feature flag encoding,
-+	  the flags array sizing, the source/target kernel validation
-+	  truth table, header initialization and the payload size checks.
-+
-+	  The helpers are self-contained, so the test does not depend on
-+	  CONFIG_LIVEUPDATE and can also run under UML.
-+
-+	  If unsure, say N.
-+
- config CMDLINE_KUNIT_TEST
- 	tristate "KUnit test for cmdline API" if !KUNIT_ALL_TESTS
- 	depends on KUNIT
-diff --git a/lib/tests/Makefile b/lib/tests/Makefile
-index 3cac3b63a752..2f1f1f765617 100644
---- a/lib/tests/Makefile
-+++ b/lib/tests/Makefile
-@@ -33,6 +33,7 @@ obj-$(CONFIG_KFIFO_KUNIT_TEST) += kfifo_kunit.o
- obj-$(CONFIG_TEST_LIST_SORT) += test_list_sort.o
- obj-$(CONFIG_LINEAR_RANGES_TEST) += test_linear_ranges.o
- obj-$(CONFIG_LIVEUPDATE_TEST) += liveupdate.o
-+obj-$(CONFIG_LIVEUPDATE_FEATURE_KUNIT_TEST) += liveupdate_feature_kunit.o
- 
- CFLAGS_longest_symbol_kunit.o += $(call cc-disable-warning, missing-prototypes)
- obj-$(CONFIG_LONGEST_SYM_KUNIT_TEST) += longest_symbol_kunit.o
-diff --git a/lib/tests/liveupdate_feature_kunit.c b/lib/tests/liveupdate_feature_kunit.c
-new file mode 100644
-index 000000000000..fc9d2de263d9
---- /dev/null
-+++ b/lib/tests/liveupdate_feature_kunit.c
-@@ -0,0 +1,118 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * KUnit tests for the Live Update Orchestrator feature header helpers
-+ * in include/linux/kho/abi/luo.h.
-+ *
-+ * Copyright (c) 2026, Google LLC.
-+ * Tarun Sahu <tarunsahu@google.com>
-+ */
-+
-+#include <kunit/test.h>
-+#include <linux/kho/abi/luo.h>
-+#include <linux/module.h>
-+
-+struct luo_test_multi_ser {
-+	u64 val;
-+};
-+
-+static_assert(sizeof(struct luo_test_multi_ser) == 8);
-+DECLARE_LUO_SER_WRAP(luo_test_multi_ser, 32, 35);
-+
-+struct luo_test_one_ser {
-+	u64 val;
-+};
-+
-+static_assert(sizeof(struct luo_test_one_ser) == 8);
-+DECLARE_LUO_SER_WRAP(luo_test_one_ser, 24, 1);
-+
-+struct luo_test_zero_ser {
-+	u64 val;
-+};
-+
-+static_assert(sizeof(struct luo_test_zero_ser) == 8);
-+DECLARE_LUO_SER_WRAP(luo_test_zero_ser, 16, 0);
-+
-+static void luo_ser_hdr_set_get_test(struct kunit *test)
-+{
-+	struct luo_test_multi_ser_wrap out;
-+	struct luo_test_zero_ser_wrap zero;
-+
-+	memset(&out, 0, sizeof(out));
-+	luo_test_multi_ser_wrap_init(&out);
-+
-+	KUNIT_EXPECT_EQ(test, out.hdr.size, 32U);
-+	KUNIT_EXPECT_EQ(test, out.hdr.nr_features, 35U);
-+	KUNIT_EXPECT_EQ(test, LUO_SER_NR_FLAGS(out.hdr.nr_features), 2U);
-+	KUNIT_EXPECT_EQ(test, luo_ser_hdr_size(&out.hdr), 24UL);
-+	KUNIT_EXPECT_PTR_EQ(test, luo_ser_payload(&out.hdr), (void *)&out.ser);
-+
-+	/* 0, 31 in flags[0]; 32, 34 in flags[1] */
-+	luo_ser_set_feat(&out.hdr, 0, LUO_FEAT_REQUIRED);
-+	luo_ser_set_feat(&out.hdr, 31, LUO_FEAT_OPTIONAL);
-+	luo_ser_set_feat(&out.hdr, 32, LUO_FEAT_REQUIRED);
-+	luo_ser_set_feat(&out.hdr, 34, LUO_FEAT_OPTIONAL);
-+
-+	KUNIT_EXPECT_EQ(test, (int)luo_ser_get_feat(&out.hdr, 0), (int)LUO_FEAT_REQUIRED);
-+	KUNIT_EXPECT_EQ(test, (int)luo_ser_get_feat(&out.hdr, 1), (int)LUO_FEAT_ABSENT);
-+	KUNIT_EXPECT_EQ(test, (int)luo_ser_get_feat(&out.hdr, 31), (int)LUO_FEAT_OPTIONAL);
-+	KUNIT_EXPECT_EQ(test, (int)luo_ser_get_feat(&out.hdr, 32), (int)LUO_FEAT_REQUIRED);
-+	KUNIT_EXPECT_EQ(test, (int)luo_ser_get_feat(&out.hdr, 33), (int)LUO_FEAT_ABSENT);
-+	KUNIT_EXPECT_EQ(test, (int)luo_ser_get_feat(&out.hdr, 34), (int)LUO_FEAT_OPTIONAL);
-+
-+	KUNIT_EXPECT_EQ(test, (int)luo_ser_get_feat(&out.hdr, 35), (int)LUO_FEAT_ABSENT);
-+	KUNIT_EXPECT_EQ(test, (int)luo_ser_get_feat(&out.hdr, 100), (int)LUO_FEAT_ABSENT);
-+
-+	memset(&zero, 0, sizeof(zero));
-+	luo_test_zero_ser_wrap_init(&zero);
-+	KUNIT_EXPECT_EQ(test, sizeof(struct luo_ser_hdr), 8UL);
-+	KUNIT_EXPECT_EQ(test, luo_ser_hdr_size(&zero.hdr), 8UL);
-+	KUNIT_EXPECT_PTR_EQ(test, luo_ser_payload(&zero.hdr), (void *)&zero.ser);
-+	KUNIT_EXPECT_EQ(test, luo_ser_hdr_validate(&zero.hdr, NULL, 0), 0);
-+}
-+
-+static void luo_ser_hdr_truth_table_test(struct kunit *test)
-+{
-+	struct luo_test_one_ser_wrap out;
-+	bool supp_yes[1] = { true };
-+	bool supp_no[1] = { false };
-+
-+	memset(&out, 0, sizeof(out));
-+	luo_test_one_ser_wrap_init(&out);
-+	luo_ser_set_feat(&out.hdr, 0, LUO_FEAT_ABSENT);
-+	KUNIT_EXPECT_EQ(test, luo_ser_hdr_validate(&out.hdr, supp_no, 1), 0);
-+
-+	luo_ser_set_feat(&out.hdr, 0, LUO_FEAT_OPTIONAL);
-+	KUNIT_EXPECT_EQ(test, luo_ser_hdr_validate(&out.hdr, supp_no, 1), 0);
-+	KUNIT_EXPECT_EQ(test, luo_ser_hdr_validate(&out.hdr, supp_yes, 1), 0);
-+
-+	luo_ser_set_feat(&out.hdr, 0, LUO_FEAT_REQUIRED);
-+	KUNIT_EXPECT_EQ(test, luo_ser_hdr_validate(&out.hdr, supp_no, 1),
-+			-EOPNOTSUPP);
-+	KUNIT_EXPECT_EQ(test, luo_ser_hdr_validate(&out.hdr, supp_yes, 1), 0);
-+
-+	out.flags[0] = (u64)LUO_FEAT_RESERVED;
-+	KUNIT_EXPECT_EQ(test, luo_ser_hdr_validate(&out.hdr, supp_no, 1), 0);
-+	KUNIT_EXPECT_EQ(test, luo_ser_hdr_validate(&out.hdr, supp_yes, 1), 0);
-+
-+	luo_ser_set_feat(&out.hdr, 0, LUO_FEAT_REQUIRED);
-+	KUNIT_EXPECT_EQ(test, luo_ser_hdr_validate(&out.hdr, NULL, 0),
-+			-EOPNOTSUPP);
-+	luo_ser_set_feat(&out.hdr, 0, LUO_FEAT_OPTIONAL);
-+	KUNIT_EXPECT_EQ(test, luo_ser_hdr_validate(&out.hdr, NULL, 0), 0);
-+}
-+
-+static struct kunit_case luo_feature_test_cases[] = {
-+	KUNIT_CASE(luo_ser_hdr_set_get_test),
-+	KUNIT_CASE(luo_ser_hdr_truth_table_test),
-+	{}
-+};
-+
-+static struct kunit_suite luo_feature_test_suite = {
-+	.name = "liveupdate_feature",
-+	.test_cases = luo_feature_test_cases,
-+};
-+
-+kunit_test_suite(luo_feature_test_suite);
-+
-+MODULE_DESCRIPTION("KUnit tests for the Live Update feature header helpers");
-+MODULE_LICENSE("GPL");
 -- 
 2.56.0.307.g5fe7bd680c-goog
 
