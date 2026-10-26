@@ -1,48 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.2
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793041759;
-	b=4pKQzU9zMi7KZd81Il/kTu0t90mJahAKh9v9INYvHnhQKUtK8U0N+rvemHczIXui05cj
-	 ffPn4ZTGAgU+Erv3AzTymcc0WutjylzQ89TkTX7NigV9LaGiOCr84e5/C7DgeAMUi88JY
-	 NZrP5YvQZ15uHFIyuhHc2uzKRrvSOgLCHTeSLbvmv/jrvNXEovXeyejv9wRE67jVcdWni
-	 FKaATLA9vZJU42tljB3jwtRqK8o0YgbJYtED9cqzidurKvCxddd0TY03LezaYot2hI9J9
-	 tvqbswG5x301hAGnLyhznAJatSBT3T2YaFvNl1AOD7rEqak4SWuJC3MTiLRG98MitJQ==
+	t=1793041788;
+	b=ExhRIoG0B6/eTw2cNLIiCLqIXXhQmh/N/Fvd3D0Y56/mwtCkQGKk2ln6wp0yT61w80DV
+	 AoKm0c9hXSD8aMGyxkPfTSMMb8StLmufVSpKUcpgSHu9zQfrex719N+m70BOEFV9Y3PhL
+	 a/MEfQfDYvy0rEU3vKq7OLvx8YMY88IgPv+VrF0eiMGWJniqVSHDTx52WuXT04mY2Goue
+	 zYWEtvN8fOA5wREvZho+HyLdcMoOpMeJRDkcOnrMS2qTovntYe31HulqIimY3MeeAd7d9
+	 rx7pW0CkK0VqDqBWvhXNPGZMJ0eDU6nkhFZ/ktrz60FeiE3Jan8fC5LgUxuVZXIOg8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793041759;
-	h=Received:DKIM-Signature:Received:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=ufKolKQVcCZRQfdZvXHcSVroSzOtiquB8umFqcqSlhc=;
-	b=d0hZQ609VZqNWlDdiSlYfcvjM0uO6ScGivEdnpDA/UWxcAIIEJHYfnlFVyvIrvia5sFm
-	 SGCFsI81xFAumCuxS7ZgspXiOAMP1SQquodOiOmlovIacx9HYGzfTMJT/yPbHvI8/GyO+
-	 mz7mHPRlzNVKlhIR/sL1gWthpa7YodFE1QobPNRMaBOtQ0L7R8awQuqcNz2M64iZgRb5Y
-	 OLbluSxbpCmOMCJnnGjjCbgZlaRyE9oe1YbBNiniyvM26hLHnzJ0zZ0ViOTbmuTvzFnzf
-	 FK1AeiZpYKs3sSFqlbBBTSiqR2tQwS0un5OSx2WZETbQE3YHp+GNGULHeypMTNpEh6Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793041788;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Message-ID:In-Reply-To:
+	 References:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Correlation-ID;
+	bh=d0/9qWWid7eSh4s2p7uR1bCkkdTfC4hPw3dFG/jWyRI=;
+	b=oeT8qDYu0YOXrT4UlZMVQM7XIPvuodQLwsW/tyDBE7HDmVm6VrjKhfuUTw+DBWNitrTO
+	 ihpelUTC3c478rijrCzev/UonFb2c3Ko2WhWhMissLAJD08MTZUrGLymjC7wuZrPWfdCT
+	 StWo32h6G3o1vl1NfLIcoynC0d6Ma0M/HQnpD37y4tW7i4uBF4XJncCHSpX1ODYixcv6/
+	 uGViMDmcRb4Om5/ljitSjy/30w2x5Qc+zRX6zgeMepXSzVG7ne0hkfj+a6VUt2a2bjPaI
+	 /Q7U6NCuO6NKa8ofHh3z+7deI85SsUnm8BhmjPSZpeZpOvYA6mj5HtOSnvEqvSqI+Hw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="b4+b/nF8";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="mOxdfz/J";
+	arc=none smtp.remote-ip=91.218.175.2
+Received: from mta0.migadu.com (out-2.mta0.migadu.com [91.218.175.2])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB762606A31A;
-	Mon, 26 Oct 2026 19:09:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9C7B606A31F
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 19:09:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9C7B606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b4+b/nF8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 657DB1F01825;
-	Mon, 26 Oct 2026 19:09:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793041758;
-	bh=ufKolKQVcCZRQfdZvXHcSVroSzOtiquB8umFqcqSlhc=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=b4+b/nF8DL5zXieShpsfNydbnpoXtVWEDRqfxm3Lzz5qbHUkP9IB84aZf6U3sLLA6
-	 k2uxhnBKasDaAxLv0KMXlQCCMtQcX2ad0k4QFF0cufSQpm6Yms8WkzFP9ooCE6kyV6
-	 4boah/Q99/uudP+ATa7TydwAhO0ePegUwhAYOczC3T9eMCDEFC0JUwruhJMCr6mFQP
-	 lJPgvEFbIW89xWw+wMCPsUtXeh259MnIyieIvRnbKWIaRkct91+9OcOlCE62deqZhb
-	 rY16X4CLbU3wNebzBMt2HqKKKL6n5NTJuL3zoELlycu+HFTrpSizkz1+Fab3anFqCG
-	 h2+8k66sziPew==
-Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id 983441E90E59;
-	Mon, 26 Oct 2026 19:09:04 +0000 (GMT)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=mOxdfz/J
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=d0/9qWWid7eSh4s2p7uR1bCkkdTfC4hPw3dFG/jWyRI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793041779; v=1; x=1793646579;
+ b=mOxdfz/JW9dk9ctPky4ltgnXSJBfYxEIh3TexWocXMVW3Hc3jSnw09yIzM/GGnD1xHlX5DAg
+ ITBRa4QJyPHgL0rPtaZum/1QofKAcyWOjHlOh3z+6pizSvWNjMPoPDipJD69rs9abO+1VAu53KN
+ qVHaSK0sp3dQRyTYevOfXAp8=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 600b06249a500df1;
+	Mon, 26 Oct 2026 19:09:39 +0000
+X-Mizu-Trace-ID: 600b06249a500df1
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 26 Oct 2026 20:09:34 +0100
+From: Denis Benato <denis.benato@linux.dev>
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: linux-pci@vger.kernel.org, bhelgaas@google.com,
+	linux-wireless@vger.kernel.org, miriam.rachel.korenblit@intel.com,
+	emmanuel.grumbach@intel.com, linux-kernel@vger.kernel.org,
+	kernel@lists.opengamingcollective.org
+Message-ID: <76481816-6b21-4f45-8949-144342faf39e@linux.dev>
+In-Reply-To: <20261026184813.GA342157@bhelgaas>
+References: <20261026184813.GA342157@bhelgaas>
+Subject: Re: [PATCH 1/1] PCI: Disable D3cold for Killer BE200-family WiFi on
+ MSI Claw A1M
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,80 +68,105 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v2 5/5] ASoC: pcm179x: Add support for pcm1975
-From: Mark Brown <broonie@kernel.org>
-To: =?utf-8?q?Roman_Smr=C5=BE?= <roman@amarulasolutions.com>
-Cc: Peter Rosin <peda@lysator.liu.se>, 
- =?utf-8?q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>, 
- Lars-Peter Clausen <lars@metafoo.de>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Shenghao Ding <shenghao-ding@ti.com>, 
- Kevin Lu <kevin-lu@ti.com>, Baojun Xu <baojun.xu@ti.com>, 
- Sen Wang <sen@ti.com>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, asahi@lists.linux.dev, 
- linux-sound@vger.kernel.org, patches@opensource.cirrus.com, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-amarula@amarulasolutions.com, 
- Michael Trimarchi <michael@amarulasolutions.com>
-In-Reply-To: <20261016-work-v2-5-9340b9555fbb@amarulasolutions.com>
-References: <20261016-work-v2-0-9340b9555fbb@amarulasolutions.com>
- <20261016-work-v2-5-9340b9555fbb@amarulasolutions.com>
-Date: Mon, 26 Oct 2026 19:09:03 +0000
-Message-Id: <179304174310.199157.17471232393944903445.b4-review@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1679; i=broonie@kernel.org;
- h=from:subject:message-id; bh=cgwC2O16k4wsYmJoGgi9KUgJEgg1loweLeTIZ1V/qVI=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLLuLw04+tL9SfrK50JhV/uexbyXPWozqXzBkvleDW+mb
- ElLPeFv31HKwiDGxSArpsgSl8X9sr7k9Rq+gwvbYOawMoEMYeDiFICJ1HQzMky/9ql0ieDMQ+Jf
- LI5nXLJpOOsjpKI8nzWbK6HM7rnDCjVGhtU/rs8pWdbxtpjh68K7P25M3ZFgeaBgBXvqebv5O13
- ClnIDAA==
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Correlation-ID: <76481816-6b21-4f45-8949-144342faf39e@linux.dev>
 
-> The PCM1795 is register compatible with the PCM1792A, but it encodes two
-> of the register 18 FMT[2:0] values differently: code 001 selects 32-bit
-> standard data instead of 20-bit, and code 100 selects 32-bit I2S instead
-> of 16-bit I2S. It has no 20-bit format at all. The PCM1796 shares the
-> PCM1792A encoding.
+26 ott 2026 19:48:16 Bjorn Helgaas <helgaas@kernel.org>:
 
-> +	{ .compatible = "ti,pcm1795", .data = (void *)PCM1795, },
-> +	{ .compatible = "ti,pcm1796", .data = (void *)PCM1796, },
->  	{ }
->  };
+> On Sun, Oct 25, 2026 at 11:18:13PM +0000, Denis Benato wrote:
+>> During s2idle the platform removes power from the WiFi slot (D3cold).
+>> The Killer BE1750 (Intel BE200, 8086:272b) installed in the MSI Claw A1M
+>> fails to resume from that state: the PCIe link does not retrain
+>> ("pcieport 0000:00:1c.0: Data Link Layer Link Active not set in
+>> 100 msec") and every device register reads back as 0xffffffff, so the
+>> card disappears from the bus and the machine must be power-cycled.
+>>
+>> Keeping the device in D3hot with the link in L1.2 during system sleep
+>> makes suspend and resume work reliably: the package still reaches >99%
+>> S0ix residency and the card survives every cycle (verified over multiple
+>> suspend/resume tests with an RTC-timed wake).
+>>
+>> Disable D3cold for the BE200-family device on this board. This mirrors
+>> the udev-level workaround distributions already ship for the AX200/AX210
+>> (8086:2725), which suffers from the same class of problem, and moves it
+>> into the kernel where it belongs.
+>
+> If 2725 has the same problem, should we make the quirk apply to it
+> also?
+>
 
->  static const struct spi_device_id pcm179x_spi_ids[] = {
->  	{ "pcm1792a", 0 },
-> +	{ "pcm1795", 0 },
+Hi Bjorn,
 
-Don't we need to set the driver data to PCM1795 like we do for the other
-DT based entries?
+Probably yes, but I don't own that hardware, only saw gaming distros are sh=
+ipping an udev rule to do just that.
 
-> +static const struct pcm179x_fmt_table pcm1795_fmt[] = {
-> +	{ SND_SOC_DAIFMT_RIGHT_J, 16, 0 },
-> +	{ SND_SOC_DAIFMT_RIGHT_J, 24, 2 },
-> +	{ SND_SOC_DAIFMT_RIGHT_J, 32, 1 },
-> +	{ SND_SOC_DAIFMT_LEFT_J,  24, 3 },
-> +	{ SND_SOC_DAIFMT_I2S,     24, 5 },
-> +	{ SND_SOC_DAIFMT_I2S,     32, 4 },
+> I suppose this is a firmware problem with whatever is supposed to turn
+> the power back on?=C2=A0 Are there any firmware updates available?
+>
 
-Does this line up with the constraints advertised by the driver?  LEFT_J
-and S32 isn't here, but S16 is?  We're also not handling big endian.
+Not that I know of. I have updated my bios (only update available) but the =
+issue is still there.
 
-> @@ -191,7 +241,7 @@ static struct snd_soc_dai_driver pcm179x_dai = {
->  		.rates = SNDRV_PCM_RATE_CONTINUOUS,
->  		.rate_min = 10000,
->  		.rate_max = 200000,
-> -		.formats = PCM1792A_FORMATS, },
-> +		.formats = PCM179X_FORMATS, },
+>> Closes: https://bugzilla.kernel.org/show_bug.cgi?id=3D220223
+>> Signed-off-by: Denis Benato <denis.benato@linux.dev>
+>> ---
+>> drivers/pci/quirks.c | 21 +++++++++++++++++++++
+>> 1 file changed, 21 insertions(+)
+>>
+>> diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
+>> index 7572b358b50f..60156e6c3e49 100644
+>> --- a/drivers/pci/quirks.c
+>> +++ b/drivers/pci/quirks.c
+>> @@ -6593,3 +6593,24 @@ static void pci_mask_replay_timer_timeout(struct =
+pci_dev *pdev)
+>> DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_GLI, 0x9750, pci_mask_replay_timer=
+_timeout);
+>> DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_GLI, 0x9755, pci_mask_replay_timer=
+_timeout);
+>> #endif
+>> +
+>> +/*
+>> + * MSI Claw A1M: during s2idle the platform removes power from the WiFi=
+ slot
+>> + * (D3cold). The Killer BE1750 (Intel BE200, 8086:272b) fails to resume=
+ from
+>> + * that state: the PCIe link does not retrain ("Data Link Layer Link Ac=
+tive
+>> + * not set in 100 msec") and every device register reads back as 0xffff=
+ffff,
+>> + * so the card disappears from the bus and the machine must be power-cy=
+cled.
+>> + *
+>> + * Keeping the device in D3hot with the link in L1.2 during system slee=
+p makes
+>> + * suspend and resume work reliably: the package still reaches >99% S0i=
+x
+>> + * residency and the card survives.
+>
+> From just this patch, I don't think we can assert the L1.2 link state,
+> can we?=C2=A0 AFAICS, this patch just prevents the use of D3cold.
 
-It'd probably be easier to just register different constraints depending
-on the device rather than having constraints in startup, you'd get much
-better reuse of the core code that way.  Dynamic updates are usually
-done for things that can vary at runtime like clock rates.
+From this patch no, but that is the description of what happens on my msi c=
+law when I enter sleep with this patch, checked via s0ixselftest tool.
 
--- 
-Mark Brown <broonie@kernel.org>
+This is surely better than the previous work around of detaching the driver=
+ and re-attaching it leaving the device in d0.
+
+>
+>> + */
+>> +static void quirk_msi_claw_be200_d3cold(struct pci_dev *pdev)
+>> +{
+>> +=C2=A0=C2=A0 if (!dmi_match(DMI_BOARD_NAME, "MS-1T41"))
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return;
+>> +
+>> +=C2=A0=C2=A0 pci_d3cold_disable(pdev);
+>> +=C2=A0=C2=A0 pci_info(pdev, "disabling D3cold: slot power removal durin=
+g s2idle prevents resume on this system");
+>> +}
+>> +DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_INTEL, 0x272b, quirk_msi_claw_be2=
+00_d3cold);
+>> --
+>> 2.55.0
+>>
+
