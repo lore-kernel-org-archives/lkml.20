@@ -1,82 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793005666;
-	b=kG7dQ2nOJm4TMElwquRbYD21LxEu/ce9fj9gOnHTHfa11G7gUG+UpcuBI1NXQQKVDWyz
-	 iD6C28hUDOTIg+3tY72zoIq0CggvO6GVZCk+Dx/QtsczFny+1HcxB57GIN3xQSG0SyVgA
-	 BsF7TJvdN8axhIhkl12JlbB3uR+fc22WV8e89MEE0GAY6TbUG8tfAXfwvEPZuKjnoxZmE
-	 JDYkQUEdooAILvhcV65k+5tC1lrGVPNnW9j5Z7SXmnps4kM6AIC5wT4ORxqdPR4qE0Zv6
-	 EuyHjeUG7DPdFSIWMDfvMr988UCiSAyriUG1RekUTxAgII+MRlu6gXcmcVLpmvwelGw==
+	t=1793005699;
+	b=14CRlCv4hAruMIYndf9dzFpITWjFoIzCcKJJlMYCl9RSuMZGs4abU3qlwcJ9eaZ8SaMr
+	 U7kaMoCvOvm4ePVB+6ca3mRLOYWNrk0U5Cmd+BVpKXbndtTLWIjgHNTYZKLfurnoFyRMS
+	 YcnvvUInF115CrecK0JI7iIUwEHEWiEE1AL2wKSn6U4T4udy4MuE8mgY6S/uy0C9CpM16
+	 gxI2vUN1BcJOkgdS9giaqvkWfSYqI0JMIbi9RuZJx/nv8Q80CjtJ5WIsiI19xPxmOYyEb
+	 knrFVHtgKv8TKvwzE+b9cVwKMwyJJFy4Tn61x13fwhiDjqoTVg0gMjiHAokuG2YTQLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793005666;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=tku1anvtsxeDxchSeNjnKF1Zpthldyy4qNBOIQp4nOc=;
-	b=RraNLf8JEtAaFs/x7xk7JZRuv7KZkV4XtkYlPzP/HRXpMdoJNf1U7eXd+KIEgkAHbxBX
-	 VKvQvtl1aWbwhKiK2Ta/UIMijHnhdGhLiWiDUQIOT0HtYLT27Eg4kUJtjJoED4Sds2pGx
-	 EmU3qQ0yaIouCW/x9F1flQ7TyXyzPtbrnTn4k0U6FcvRLtaHF4762qzpglsF/LISOE/X+
-	 /9KnhVLPeXN2yKw72dCSq5BCbqpnczHOtxZlTexC7SXjXpYfTn/SHTAP9cidrPdiKxW7L
-	 HGjE156nsXLYJHUNBQJWRQBsdED7ek6ZVsAnrRg+WM4cC5hEUgLJEukbDIBecQ3ke+w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793005699;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=v6eJIBhWX1USRCD2CgCyvJUw5bujIBHqBINSB1Ts9j0=;
+	b=DJ+e1qdoNKj9ejTAp6U0LZ1gynRyBqGYUEpyD83St4TA/5Mvzn+gOaud7C5bnIFRrHrN
+	 lilHYFz759x02qqh1lcD9ZfACFgLaxJPriSZsCe98jJVcvHyHeT017g0yFB0XTw6Idn9+
+	 m0LZUkUxH/x4V0qidSvYedN35uq0rTE+b0fdxNXrcob0gsvPXrARbuFLN7JtNesC0utJE
+	 tzXLCzekgmQOXbepZpAatc4QUCXlunAyfrIqw8Arombnp4AussvlCiXMDg5jD3hVakVRo
+	 OM0wJeQjtn2vO8Wic1t9nQrPMJ4hFWvMNKMljb3zXgEx24JGBNGL+c1PKWKD31K9k3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SgtmbBEL;
-	arc=none smtp.remote-ip=192.198.163.10
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Y4efgHo6;
+	arc=none smtp.remote-ip=209.85.221.53
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A4E8606A31F;
-	Mon, 26 Oct 2026 09:07:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A4E8606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DEA2606A31D
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:08:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DEA2606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SgtmbBEL
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793005665; x=1824541665;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=oRjbsiZqVRUV0hn32VGb6rhu6l3a8Gv47KkMMMF0Q68=;
-  b=SgtmbBELmGMJXwdD2Z5jktDR/cwziyFNV/TIMbwMwOwh+ITRAMsxiRdd
-   YoEJ63KVefAs3pml7A4lqiuTIN+zIWaMrcUCUzJ/PK8ae5KgGZQiIhjfE
-   iynqyYkyNxYy7M5q2bfR6WOx2XBhmqhlBKEVVC92S/vN48HH5nmYbKUXu
-   HfhlGZ7DhY6DhjKOfX8q2wCtZpsnDx+ulp06WGcGUVzRf5RI2SPZcGwPH
-   JXD11U3WT75wVESFcFY83smJj45c2KmKTVJthLXWYoasomIEPCGGowRGA
-   2di9dO5w2Y0t1m6tf3UlioS/aeyESImGeD6BhAfLBbFoTWUAIIBYyQZmg
-   g==;
-X-CSE-ConnectionGUID: MbaHcZjAQMCM63apN38zdQ==
-X-CSE-MsgGUID: gg37bR7ASjqSH1RmouRvYw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1566083"
-X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
-   d="scan'208";a="1566083"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 02:07:44 -0700
-X-CSE-ConnectionGUID: 9Vtw9D1DSD64C3SluN7cIQ==
-X-CSE-MsgGUID: P4xaKnc+TyuJ/TiwCDReBw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
-   d="scan'208";a="4267628"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.93])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 02:07:42 -0700
-Date: Mon, 26 Oct 2026 11:07:39 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Nithishvelan M <mnithishvelan@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Nuno Sa <nuno.sa@analog.com>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
-	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] staging: iio: impedance-analyzer: ad5933: use
- guard(mutex) in ad5933_show()
-Message-ID: <at8YW0nzftacwkga@ashevche-desk.local>
-References: <20261019150248.416-1-mnithishvelan@gmail.com>
- <atZq2GstK_rxOgbj@ashevche-desk.local>
- <20261026024049.556c6642@jic23-hlaptop>
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Y4efgHo6
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48b001cd92bso1518621f8f.2
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:08:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1793005696; x=1793610496; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=v6eJIBhWX1USRCD2CgCyvJUw5bujIBHqBINSB1Ts9j0=;
+        b=Y4efgHo6f2uQUfgBu6LlKapCdLVtJ/9Jq2r6veR7FmHxZW0Gk7M/8OXCpxpKXQhH/6
+         Hle3zjGBdLBEcSglhs5YSab0EaZ8o3SnJDDtUi1oieRfAVWv3oWJrrV+9foFwo85Upg3
+         Zx3M1PZRAv94CambI4tsHrJMj4YqZsRfhhTUsCOHNAMHxByhIxgSr5sEJb8T7dqRu7su
+         AEJyUzsY7YgDQt+yeRYNLZHmcuxVAdTeYj3ci0v6t+iqcTgaovEoCOTNUYbTm810n+0/
+         40lJIaS6oAn42zLYjtEy65RTllGTSYNG6SApOzNX5JhL+uGbKd2Eq2Fj/7kpbQyQqrQr
+         OmUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793005696; x=1793610496;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=v6eJIBhWX1USRCD2CgCyvJUw5bujIBHqBINSB1Ts9j0=;
+        b=ABekw7v27VF1IJbfBv4w4ugBVrjiliQpaDHD58/Que8Vitqwdkvo77CYhu2RX9sbet
+         uxlvMqCt6p46phgAJ3MIfk0xAIq6Nhqpp6jYTkEmhlsE6Okt22REVuHGiaPPs8TloDw9
+         f4VQSVtg7jKRLfVLlXrtqLJQJJpEUFMpa6HseXUPWwlW+3D7SCPGCrC5ibpNql+nmtuF
+         LP3SlMdCbfYikxGyrshtHNTnlsk1jQbVJjKWY4RPvgjfTJuhv8dI2HUzZX/Hq8syj6f7
+         6GJ1K8ehDc5Sz3gnbU1HHkr3GlcHZ8hibGQIcTMVOZZryHXmOo8oLRZBRp/WcSQ4gVkP
+         6HWQ==
+X-Forwarded-Encrypted: i=1; AKwUvByJd2qqYHx0G9o3Txa1/x7e2VfN9fZZaHesc4jffP6CMbQJCYKmWeerLdaVydrnEVd9UcJ+x5JxdjbIUys=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK1E1IhLV1FQ6kgGydVLT7Pv/bwK4IJHth9OQZEU2RpvqvRm34x
+	iU76QfITkLyB3L3gYcsz9ErGeDFor3+iuEDDeSYHHCXXsx0c65Vbg+a6yjJsUjTI04M=
+X-Gm-Gg: AYBFou1Nz0zMNuOUjWIjmkrgko2dG1/BNp3ILdasUvj+6RJ0xH6rBdQR2cqoyFxJh/P
+	Hyn31nHf01lH4GPhHeruC6KcWxesjNPQeSEfaB3+XA6iOb3eVKTH/h88F72bcl7q/s6gJmwuGt8
+	tujFvY0AgRBSJSsvYFrI7ZfpsUgISOmRDJd7iT2JmMSfIAnxjHz35A/iSFF5N5F29Xvmb1Rq8/I
+	lmjws6J2W3o2tUuh+KcXQKQxWtKp6JxnQJpVnJ9vfeJl8PWs4axD+MmGnxgl/SApBvYVB+drqp/
+	El7O3CJtdHecMzoXA+d2J46eZ5YF+AP/Dl3lJ4YGB+Mx1+vlnpqLWqq3JjpBnoPiRsC6WJ0Cf7P
+	OJBaxvI7SmTdkAyzof24JF/Ykg7cAuvcRxE/OKQyNhBtLMOro6crsdqdpQQS1jaa/EqqmHDQwuR
+	dMmRRuTCTWZfGVfl1i7DG1SM4GjA8VtHtTwUd0848eDSJ0yUUOMQ2mFyp469RqvSsJ2xbpfsv6f
+	UwzwQfPJLD7N4YNvTvKN4nvYaTE4TJ3fLfwlhy7ibLnTdBSBXkLs/uzs0cGAn+MKzU=
+X-Received: by 2002:a05:6000:4b0b:b0:48e:3473:3c60 with SMTP id ffacd0b85a97d-48e3eba34a2mr10341811f8f.57.1793005696454;
+        Mon, 26 Oct 2026 02:08:16 -0700 (PDT)
+Received: from [192.168.0.167] ([64.43.151.16])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebd47basm16380307f8f.32.2026.10.26.02.08.15
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 26 Oct 2026 02:08:15 -0700 (PDT)
+Message-ID: <476b23ab-4a9b-4902-8d94-541ec539a9b8@linaro.org>
+Date: Mon, 26 Oct 2026 09:08:14 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,40 +89,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261026024049.556c6642@jic23-hlaptop>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/6] media: qcom: camss: clamp VFE clock rates to the
+ highest level
+To: Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>,
+ linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261024094027.3095475-1-atanas.filipov@oss.qualcomm.com>
+ <D2XTuBJMTMPZaGrUZYisimpk5Xwm95Ms6ofRtgYOPmXT-xG-3Db5oAjBKeneMRsN9rp1OCl11piUQIlKIhsNzg==@protonmail.internalid>
+ <20261024094027.3095475-3-atanas.filipov@oss.qualcomm.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <20261024094027.3095475-3-atanas.filipov@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 26, 2026 at 02:40:49AM +0000, Jonathan Cameron wrote:
-> On Mon, 19 Oct 2026 22:09:12 +0300
-> Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
-> > On Mon, Oct 19, 2026 at 03:02:48PM +0000, Nithishvelan M wrote:
-
-...
-
-> > >  	case AD5933_IN_PGA_GAIN:
-> > > -		len = sysfs_emit(buf, "%s\n",
-> > > -				 (st->ctrl_hb & AD5933_CTRL_PGA_GAIN_1) ?
-> > > -				 "1" : "0.2");
-> > > -		break;
-> > > +		return sysfs_emit(buf, "%s\n",
-> > > +				  st->ctrl_hb & AD5933_CTRL_PGA_GAIN_1 ? "1" : "0.2");
-> > 
-> > You can (re-)use ridx here as well
-> > 
-> > 		ridx = st->ctrl_hb & AD5933_CTRL_PGA_GAIN_1;
-> > 		return sysfs_emit(buf, "%s\n", ridx ? "1" : "0.2");
+On 24/10/2026 10:40, Atanas Filipov wrote:
+> The VFE fails to power on when the pixel rate exceeds the highest rate
+> listed for any of its clocks. The rate tables of the VFE clocks are
+> independent and need not have the same number of levels, so a clock
+> with a lower top rate than the VFE core clock, such as the SC7280
+> camnoc_axi clock, makes the VFE reject pixel rates the core clock
+> still supports.
 > 
-> Maybe call it something else here as its not the range index that I can see.
-
-True! I have no idea where the part of my thought went during the previous
-reply as I definitely kept in mind and wanted to add something like "(and this
-might need a variable renaming)".
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+> Clamp each clock to its highest listed rate instead, and warn that the
+> pixel rate exceeds it when the clock lists more than one rate. Take the
+> clamp into account when another line powers on an already running VFE,
+> so that a clock running at its highest rate does not reject the
+> request.
+> 
+> Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
