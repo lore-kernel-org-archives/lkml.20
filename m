@@ -1,88 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793005205;
-	b=JII9VrgRVBgED77elq6Q8kupuih9uagb+CTmAb/+qI+TRLfQoqrZxEjNXsx+1tKsChn3
-	 Rgdi8gzMF19S1FKwjfIfzAYlyu65YjJiw5SOq3g8WdZFCCn4lDlfN0u4SEz2JCnDwRYhf
-	 8jdOJ6rBTgenXyCvGUrVwdpBM80Db7ft5DKdflHrANvDlBRCf2hz7ORp+7O3WSqUhtzYi
-	 JNLyG+FPJKCl9g5Onqo7ccQxtN1qXrSYTOeGkTS3kDT3Yu4sW0e4Q1nyjCVUeAROnhdD0
-	 FBnTiCqxyARbl9xx0eXh99zHSlMdII2Osi3fXEVfpApLtJnmehuOc6us6gkDamKKWbQ==
+	t=1793005266;
+	b=Fgo4/vu58I9WVEUePZceIIgcJ+oe0cFUH3dH9Gf3ORlFqm7vIpRJrB05DUFOhPyMX25G
+	 NMWLinNCWuIpyBr+yd/iH64IriEZIJnuS2GOoyH5NXfgAu3Tf8Esn9ilHLtPkjbrKXvVB
+	 OVItuIPeM5Wlrcdg1AdLsZOTJjRdpuADJqecjc+OWUPJQsKjkU8UwpbyeNbavRogyzZo3
+	 68/OgyuvQej3+xbm3aajWB3keb8qSsXSpovBCcr+Z1QCrR9V/pUtnmiNf6PNqCOznz0oq
+	 uXfJSHFd4o/Q9aKZUKu5DJN9jxpMllVPlLsfDBU9lvO5X9p47cHNXw4SUaq8IdTHDkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793005205;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:From:Reply-To:Subject:To:Cc:
-	 References:Content-Language:Autocrypt:Organization:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=pQgPzMtG93EgFqIKN+g+Ioi2l+YOrsAj4oztf0+jNvg=;
-	b=ieys6b55luRYZwmYR5YnIQ82kmHpOl3yhT6QsAyM4EtipCsp00CRrnpsar9Ea3bw6MzA
-	 3K8HI2pn9kjV2DC9fh/37EzzypKhYAJKa7Oei2+LW0XKBXdObOLGrFhAaHuGSfQkKZtE8
-	 RDlnv7jqXyiCR4dJPTzIesAVXk4riJGdC/Azx185cgqGEEgOQLj3emIhFiy0yHQ8s+iKL
-	 9cSjs9/ye0VUOSQ5xpDIC6bugQESjY3Fj8YXuhUky1ZfSvAkURb8jPUd3O/r5HENpVU7Z
-	 QhRGDz8tKg32dYXQgupAuDiD58xsOjyKx0258UiIXyZejwDkEFuG9wY2MqqRLTeHaWg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793005266;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:From:To:Cc:Subject:In-Reply-To:References:Date:
+	 Message-ID:MIME-Version:Content-Type;
+	bh=BIokrW6dBSe7+DSoMXOn3ohQYcJwX5c+NY7lmM9Zk94=;
+	b=NBWrQA/wc06pLxzkMiu+aCJEzBpsUgv/EmDRca3/4bB2j269N9leMd+MOPUwVmpZJBj8
+	 ndJYl7TR3LSUR/QpRWcQzaaDekwrS3YuqT/5NtxecxOxAB7DiBiyuSA79F30/nBWnc6gp
+	 jE/ijtTBECBDuG6mjDYChk7Z4Fkf7gCEUMOFjahYF7P4zmuY6dSMAYT+1VSPTd0/aAMAa
+	 mkzk4DfZ8qErka51HUMHMm1dgduxVjU0fmynVAcxHfN3VFatnd46B/+qsO+uNN1As6MxE
+	 zmi/dcgz4MnHllVoiqpFsubcKgVUIp8D/ZWLGfFCvRafap+TVjy+jpDsLufN4d8APXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=u6KM09xC;
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=ZevZ2URH;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=ogcP2P5a;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC10F606A31D
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:00:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC10F606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68474606A31B
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:01:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68474606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=u6KM09xC
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a2000d5fb1so17175705e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:00:04 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=ZevZ2URH;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=ogcP2P5a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793005265;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=BIokrW6dBSe7+DSoMXOn3ohQYcJwX5c+NY7lmM9Zk94=;
+	b=ZevZ2URHWzeRLKdH6xX2QsIUL7Fbn7EdFVVlNnZAWVFR3CXc93WpIubDijrsMSZPFhLQaB
+	MNnOw3UWyyWLcqs2Yd7RukPyNZPuLVU61uNa8jBKH/svyLjKB11LI688rnkeoqMvu9B9/4
+	gLRfF24rzgi85FCVlxwemqAlY0DoLEE=
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-428-6yR2cZG3Mn6ggJB5bn6K4w-1; Mon, 26 Oct 2026 05:01:03 -0400
+X-MC-Unique: 6yR2cZG3Mn6ggJB5bn6K4w-1
+X-Mimecast-MFC-AGG-ID: 6yR2cZG3Mn6ggJB5bn6K4w_1793005262
+Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-48af4046a3bso2874010f8f.2
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:01:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793005203; x=1793610003; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pQgPzMtG93EgFqIKN+g+Ioi2l+YOrsAj4oztf0+jNvg=;
-        b=u6KM09xCqYJ8JXVzXTUiFQILmdo+65ZgWXoyzsVfvN1EZTv+Aexm7+OMZgSYI8gmNo
-         3cOhAcZEXlqppWqtQuejkeAWdltWe4/Wf2QoxrOht5Tc5GF1wywqMmrKE1zibdtjdNn0
-         OjRYHiMdLLnRvIUfwWkB6RCHCeK6xY4Uno7rj6iiAsjJ0lshXTncY1Rh2b4+n46xShZt
-         tqyfGKhjlg4HrEMD7Uq+PtwNOGpX3HFc82YpMZ7zmBV4pIUyaB1eqaz3BQgE0O6ntsUO
-         gUMy/lLCA4j8yJ2Ix5PbYqyF7raWJWoTmtw0cLLWPtoUH4YEXo4q5i+kmssr4ReZfiWW
-         nghA==
+        d=redhat.com; s=google; t=1793005262; x=1793610062; darn=vger.kernel.org;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BIokrW6dBSe7+DSoMXOn3ohQYcJwX5c+NY7lmM9Zk94=;
+        b=ogcP2P5aqyPujJBU2hJgK3UilGfbNv+9mRXw9pUmDl1VN2LZ7ty0IXMevGRWCXCPVh
+         mjvnV1BBdSG0bXq2u2HxbKxOdRKs/B4EAcOuLwPGCptAJCLbW9fKAziyLeyum7nquE2o
+         yziEmiORpgvrGn+EZVzXFtHoARlvpKpY+YzZGJq0Sw1oYwQbMsrnzPj2qwK3dUNbh+t4
+         R5naHS6ryLgxYa6r9dS39p8OXRkkpkXGIL0aXiBNr+kPK3sfVqHh1J+o0W1J9khio/TL
+         vF9kNPbY5Fcr0eLry2VpGA6ohI+SmxHqnKvcSaDF/AwGS8tBQBvQoYgLPTHUR3+0CaRy
+         cAmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793005203; x=1793610003;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pQgPzMtG93EgFqIKN+g+Ioi2l+YOrsAj4oztf0+jNvg=;
-        b=sHyyWbcvPv8MZmYb2XXb9o1SjUeeXjXEp91t7X4MMes4EHz9exeGtILhkpk3ojcw7I
-         Aedof8GeZZr90/72afDV+DuZ7N6RlFeKcRjOk+4r3ghhFXGry/VWuAajsYqjOIj5bb0Z
-         2c0d8tMmC3C6+L6h8Gdej37aiRC3puuUD4E+MfCN4b2RO8k1GK5H7L1NZRb6fUT+HSDz
-         H30Cg+7t/GNkeCL90jMtw3WRCbdUKa3iKgxZhqpBMK7+qYjIfkYkW/J6IPwWcgKB67Qa
-         b80mhuClYAPRLY99d5S+wqmzOn/g6PoGgBLTLZUE+HUBHkeVNTkdxdpGJ6SH17ZG5L+8
-         EusA==
-X-Forwarded-Encrypted: i=1; AKwUvByW90spOnrYYKxHjBO33oD+Vr8LiPNAJD02FaD/MbvNT96H5uaHttoGBsvl2pkXBTorfZS4U0P3iwSI0E0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJaTYgCIiG7YtDDCUKFgBh95V0Et9mEbgRv2XKtTfKKCVhxPdpj
-	6mPW/i1sJwcrY9wXJgPxsTdPHjTKY6WrKdM90w4zI5I/aIEpQVH/JUwVXwru6zI76sc=
-X-Gm-Gg: AYBFou0dNVdHUAeKRIwcGb3Sr2/0q0k8fNjFX7T70Q2oMyvhy/lQved+Pu68RaAjQIA
-	IcMLihBa6vpxGcOYNfU7ERFoqkq85nTgZdZxxyS3k/pC1QHBPhTeZWoOaiEkAw7x1HlEP49sADg
-	ggHugeBQiEKsbImesCvq6tGDPUXZpxrRb7AjDnNU+c+pbveaiT/viMYCzgo1NeHbml9NbTvskWk
-	h95GxDNti0sb+01D8zinVvnq+A2nr+G747CQiDqOI2DJ202mUKywkxZqw4/ws/B6zjp93+M4QAa
-	r/aM0XSE7rRJ/h3bey7C2PZSilTetfLvuFzTQuklshW/aryVotMs3Vnv6TzbVKFp27MUXhZjUBp
-	Qtkry4sK4LLdVA/Qy4fB4DPtXuV3LRSoBGNPFNMR5H7slo+JFQ/yd7eDFjj/sFS5UinIgfLU4Xd
-	+qxDledzfvlZtoF+tw0f7Cr7CpkoRG+EPqBpBpVSukQ1OeAJFfWvfwMxD+j9mimhUp5MmuaSOzw
-	qz6J/Ncz5vyB2Pf8RPiqK9yPxC+q4AzAX4IRKjedfey+8ZP6NHcNdaiFZYONcnZ9Z7CTQ5KeW+R
-	fL6bMSw5Qf+8xh2u0McfnHx+t1ltzVX008Vm
-X-Received: by 2002:a05:600c:3e1a:b0:4a1:e250:b191 with SMTP id 5b1f17b1804b1-4a35aca6ae2mr113669665e9.17.1793005202672;
-        Mon, 26 Oct 2026 02:00:02 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:d07e:c128:5c21:78f2? ([2a01:e0a:106d:1080:d07e:c128:5c21:78f2])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a029332sm159395045e9.4.2026.10.26.02.00.01
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 26 Oct 2026 02:00:02 -0700 (PDT)
-Message-ID: <7f04940f-df1c-41e0-ad51-d9dd9e6974c3@linaro.org>
-Date: Mon, 26 Oct 2026 10:00:01 +0100
+        d=1e100.net; s=20260707; t=1793005262; x=1793610062;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=BIokrW6dBSe7+DSoMXOn3ohQYcJwX5c+NY7lmM9Zk94=;
+        b=n4LM0KMOSeM0wDRW6xj4G/kCb+CqlQUQx7VguUdrnH8O3Wh+nVqql3Wx1MUGafWOFy
+         JYrhXrZyCirTx+p4o4H5TKiqioxtdg7+PdIrd+6DpWilO3cKW7ABmBQUPUml/gFORPw8
+         7mbl4bBB6P2ki+z4hjG5LMdlQkdo7bke1rCh8do70Fe6ezAuY/zy1C3LMxO1NJx8jtOO
+         8PDeI60gt7N54PMgLOSzjoyyPw8iFIJe25i2Cy7pegSGyZxRZTrm4/PK+Fd30UsfDHtc
+         3sS5r+VLUF62/Ipgafd977GX5eRlIsahU0Wkqmx+ZiP8k/eZ+IENA2N+M9b7vLFSc3Rz
+         G2RA==
+X-Forwarded-Encrypted: i=1; AKwUvBwPWRDS7piyMcswbqdTcT+6lSeYJ106fGGB4QLyXByA2mpCeOp2sNRl5+/LNq3DF9M3QxjS9vXS7E3UgR4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKdsoU3L1M4Zq4JWCnRfEQOh9QdA/UmZR4NUuKB8yLAdXZGeAS8
+	sokJEaG/+Q0JObDOexnDRQdXNj6peTCqb/BGYdmoobYMGP3xNS1JjIrZ3umJY94PA0f/KKY275A
+	dzTQcffwz0bu/M02oV1OCPcCKC7lU9zuwGWK1ROYkbBQHLlKNhBkvrq5/psxsxkPS1su9cPP6Tw
+	==
+X-Gm-Gg: AYBFou0EqJpHTy2RI5Rmo5nQo7tUjgP72c98wfx3etlSsI8G/HJWf93Kigq4P/XnvjQ
+	pEKBOE6lnrHICFUVKWXdhzi5UsXQe60Q0tItvcD1PXOfUGBhd63GynvcRPDZ01TbpctErdirIRU
+	VvPoy+m/9oq1ha36NzL7GfqEDRNA38bOZYTysFP0AkhdU7uLFaq8qw7o48HE4Avt8qNYjDe7sz8
+	giJl9bpPAwaQR79znkgMC+kUiRFgX82XoLYBjBu5rqlobmatFgxJaj3S8oBucRl0N/fSdZtXLC1
+	9oILUo0FzexdAjUScwe7xWIAs2X0FVdm/vx9BEeiNEcsQ2lotc16cjsRa/UWDWFUeQLq2N5ZUIs
+	/eD5bY58Fln8rHHIUI/3tRgsBkDA=
+X-Received: by 2002:a05:6000:4011:b0:48e:37e:470f with SMTP id ffacd0b85a97d-48e3ebb84bcmr13704585f8f.51.1793005262091;
+        Mon, 26 Oct 2026 02:01:02 -0700 (PDT)
+X-Received: by 2002:a05:6000:4011:b0:48e:37e:470f with SMTP id ffacd0b85a97d-48e3ebb84bcmr13704486f8f.51.1793005261390;
+        Mon, 26 Oct 2026 02:01:01 -0700 (PDT)
+Received: from vkuznets-thinkpadx1carbongen12.rmtcz.csb (g3.ign.cz. [91.219.240.17])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebd4bc5sm14925277f8f.34.2026.10.26.02.01.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 02:01:00 -0700 (PDT)
+From: Vitaly Kuznetsov <vkuznets@redhat.com>
+To: Amirmohammad Eftekhar <amirmohammad.eftekhar@cispa.de>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, seanjc@google.com,
+ pbonzini@redhat.com
+Subject: Re: [PATCH] KVM: VMX: Add array_index_nospec() to evmcs_field_offset()
+In-Reply-To: <20261017093016.32348-3-amirmohammad.eftekhar@cispa.de>
+References: <20261017093016.32348-3-amirmohammad.eftekhar@cispa.de>
+Date: Mon, 26 Oct 2026 10:00:59 +0100
+Message-ID: <kuph5i8x2d0.fsf@vkuznets-thinkpadx1carbongen12.rmtcz.csb>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,73 +115,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 0/5] arm64: dts: qcom: allow SM[456]50 HDK/QRD boards to
- play audio via DisplayPort
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261022-topic-sm8x50-upstream-dp-altmode-playback-v1-0-8a189c71938c@linaro.org>
- <5a7wc4hqox6gbpdkttgbtwkk4rfohe23lajlnydk3sl3f756ax@ywultzk2f5xq>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <5a7wc4hqox6gbpdkttgbtwkk4rfohe23lajlnydk3sl3f756ax@ywultzk2f5xq>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 
-On 10/22/26 12:34, Dmitry Baryshkov wrote:
-> On Thu, Oct 22, 2026 at 11:36:20AM +0200, Neil Armstrong wrote:
->> Add the DAI link needed to enable audio playback over the DisplayPort altmode
->> outputs for the SM8450/SM8550/SM8650 HDK & QRD boards.
-> 
-> Does this need an update of the AudioReach topology?
+Amirmohammad Eftekhar <amirmohammad.eftekhar@cispa.de> writes:
 
-Already done in https://github.com/linux-msm/audioreach-topology/commit/6040c950021b88c6db287cfffa17abbf917f56cf
+> evmcs_field_offset() bounds-checks the guest-supplied field index against
+> nr_evmcs_1_fields and then indexes vmcs_field_to_evmcs_1[] without an
+> array_index_nospec() clamp, unlike its vmcs12 counterpart
+> get_vmcs12_field_offset().  An enlightened VMREAD/VMWRITE from the guest
+> can therefore speculatively read out of bounds of vmcs_field_to_evmcs_1[]
+> past the bound check (Spectre v1).
 
-Need to add it to the SM8450-HDK
+I think your concern is valid but the changelog requires massaging.
 
-When this is merged I'll update the topology in linux-firmware.
+"enlightened VMREAD/VMWRITE" is basically the guest doing just memory
+read/write and we can't do much about it. These reads/writes don't trap
+to KVM. What the guest can actually do, is try executing 'normal'
+VMREAD/VMWRITE instructions.
 
-Neil
+Note, Hyper-V TLFS states that
 
-> 
->> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
->> ---
->> Neil Armstrong (5):
->>        arm64: dts: qcom: sm8450-hdk: add DisplayPort audio playback support
->>        arm64: dts: qcom: sm8550-hdk: add DisplayPort audio playback support
->>        arm64: dts: qcom: sm8550-qrd: add DisplayPort audio playback support
->>        arm64: dts: qcom: sm8650-hdk: add DisplayPort audio playback support
->>        arm64: dts: qcom: sm8650-qrd: add DisplayPort audio playback support
->>
-> 
+"Any VMREAD or VMWRITE instructions while an enlightened VMCS is active
+is unsupported and can result in unexpected behavior."
+
+and our initial implementation was completely forbidding
+both. Unfortunately, it turned out that Windows itself does not comply
+and does occasional VMREADs, see 6cbbaab60ff3 ("KVM: nVMX: Allow VMREAD
+when Enlightened VMCS is in use"). I think you need to add corresponding
+Fixes: tag.
+
+My understanding is that VMWRITEs are still completely forbidden while
+eVMCS is active. So I think you need to say something like
+
+"""
+Regular VMREAD instruction is allowed when eVMCS is active since
+6cbbaab60ff3 ("KVM: nVMX: Allow VMREAD when Enlightened VMCS is in use")
+but unlike get_vmcs12_field_offset() evmcs_field_offset() does not clamp
+the index and thus the guest may be able to speculatively access
+hypervisor's memory.
+"""
+Note, 'offset' is short and thus the exposure is somewhat limited.
+
+Other pathes using evmcs_field_offset() should not be under the direct
+guest control but array_index_nospec() should not hurt.
+
+>
+> Clamp the index with array_index_nospec(), mirroring
+> get_vmcs12_field_offset().
+>
+> Signed-off-by: Amirmohammad Eftekhar <amirmohammad.eftekhar@cispa.de>
+> ---
+>  arch/x86/kvm/vmx/hyperv_evmcs.h | 2 ++
+>  1 file changed, 2 insertions(+)
+>
+> diff --git a/arch/x86/kvm/vmx/hyperv_evmcs.h b/arch/x86/kvm/vmx/hyperv_evmcs.h
+> index bc08fe405..052b62b8e 100644
+> --- a/arch/x86/kvm/vmx/hyperv_evmcs.h
+> +++ b/arch/x86/kvm/vmx/hyperv_evmcs.h
+> @@ -136,6 +136,8 @@ static __always_inline int evmcs_field_offset(unsigned long field,
+>  	if (unlikely(index >= nr_evmcs_1_fields))
+>  		return -ENOENT;
+>  
+> +	index = array_index_nospec(index, nr_evmcs_1_fields);
+> +
+>  	evmcs_field = &vmcs_field_to_evmcs_1[index];
+>  
+>  	/*
+
+-- 
+Vitaly
 
