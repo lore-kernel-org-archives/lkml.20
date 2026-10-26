@@ -1,59 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792973176;
-	b=26jBHPHcbJWbnwBlG3vFqGvAOIAH6Ye1MS38vREGAfIedHucNVf5vyy6FRqpC8XYmkgm
-	 gLCmwaivv+leoIMpXOckkL2Dfp/ar+dRTiS21v67fUHMiBX8MjNqPlIHWiQFhogv3JltJ
-	 e9fgdH7q9PRf3MCbdgFZs8I/uWz1n3nuz32sFxqZOnZUYyi5gXM7MA3CbhbFDbfKr6Vtq
-	 jzzXCTdiFKQJmb9iiGdo7WkSM+CsehyJcaLbKMJRicIS6fLFFcyWncTVm80QI60BWR0Ey
-	 w3yjp+XpGfSIh3lgKsVmOyiEsldOjw6WIfsBRgFYD4Y5hA+3AHtmhDLf9hwxJLv43hw==
+	t=1792973269;
+	b=MMKcTsJQaipjuDDLND/2qe869zZ5s7QkbyjbHyr3Kcq1Z1tMv+V0QbqJjaZWR4i4sWY2
+	 nyg/s2vn/Y5EONt78sFdPYx4p5Km51f2t6AQrl88B6zRdjE4daBlCJb3wrGkq1CVt8PNT
+	 hyTm21tkLZQNBPcJ8QxLmYw/mHP/MPP269A7KQnYWR2xGSg+wLKDaWU0yn9q96ViUxZi6
+	 3UAAzjwGyXGHGQhk3YVs2LnVB7iMTi0FBfx8aX0zEwxFpupZJE48WH+yNs1caMT/SLMb3
+	 okQfgYxafdLes+gMGKCtCSqz0F74s81Znb7nt5od5pCUyadOK8tOtYwMMLJGEVQEa4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792973176;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=iLJUa7RNyvktGWZspqCmJJxytObzLNUkqP+M9DQ5xt4=;
-	b=CZQyy9KMxzLB1Mz9C8fn9ZN/pBAvJvuHGY/gxQZ6X9fclBEcoMh6SjyESVX5LFp2l3LX
-	 uWw3bepek5nb7NCWV7r1iivCnX5f7hyPz40SfpYKgVQbx6AVBla8R4gbVk3cSvIVPu4Ve
-	 7c42VBmIko/GG2AWsgaN+oPxIZ9t6a7eOd/cXip2fproOV5tBcT1uBLQ6/5jm91Y2l8RT
-	 CscAmfWPK58Fh+h5Ndi4/TnO3ao+fPR6wEEWexizLE1MoIRNbw1muFq0+t/7QSfVnmJ7e
-	 O5pfom5Y+pCB5pLJogBIW68qoRmA822hDEEUEDblU5CmFFPMu9CXJj6+5mWOXQtXZbg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792973269;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=VdkT2RHYcWV7GvnLz4TIAWoUXNhRorpoV7gVhnHjlPM=;
+	b=B/EcVxK2X1Pqcd+e/yv2F/WP19R371MTVdESldm/OrgHMwsIKI/vmzu3jH0qXtc38rM5
+	 94IgyIjxvQH+Q9nLS6z8kJbIoWv0iMvM5RbKJ4FndINKYzgTtnc/7uo59ztgdzV8ZBKe6
+	 mqf51UTkJUhbIk6OjeppLpK9glQciPBJdaQCsVASjhu8SCjGp61CyA1lfZMor1y5akCuT
+	 t9aOpOah5znc+gOUEaoz3ICoOWSmm91J7CoEjS7bkyT/qZ0zUANETXNbBnpu9BgKGoCiN
+	 OLS/JLjlRGIw003k2giPNHCJWZdoI7YM6VsZKvr9sE78wjSKPaJXyWvvzKQdbYoe5vA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nB+xwxhw;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=isslab.korea.ac.kr;
+	spf=none smtp.mailfrom=isslab.korea.ac.kr;
+	dkim=pass header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=lj3sD4Am;
+	arc=none smtp.remote-ip=209.85.216.49
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BB5B606A31A;
-	Mon, 26 Oct 2026 00:06:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB6C0606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 00:07:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB6C0606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nB+xwxhw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DF181F01825;
-	Mon, 26 Oct 2026 00:06:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792973176;
-	bh=iLJUa7RNyvktGWZspqCmJJxytObzLNUkqP+M9DQ5xt4=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=nB+xwxhwtztbe4cVzrr7c8zzmFgOCRUra0/q3I+Q7KR8Kj3GRn4an/M/pqVY8oasN
-	 rZZQ/hku1ZTpm2hbgaP87qmkcWxIAwwhabXICZfhN33ayMv/Hsftv5rCXaaR0JRrSd
-	 DsgxVN+lujYi71Gk1bFHy5FifogawOspSI+ylqJu/RYg02FdPbKPXnM2FK9OdNEmqq
-	 BVekgnnD7D3LqNqAe4xdD+Ed6vekhgBru6z4WctrfW6FYbZHnOZIXEBRBQRbz8JbqQ
-	 gaEdCGAelbVhq7/JWHArO/JXV7DEAGYk6CdZihp7RCCAn0ZaENHVHLEYd8gFaTW+e4
-	 8hbTYoJobuK7w==
-Subject:
- Re: [PATCH net] net: 8139cp: close race between NAPI completion and Rx unmask
-From: netdev-bot+sashiko@kernel.org
-To: colton.pawielski@gmail.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, daniel@0x0f.com, geert@linux-m68k.org
-Date: Mon, 26 Oct 2026 00:06:15 +0000
-Message-ID: <179297317507.3134.14510456592684233796@kernel.org>
-In-Reply-To: <20261021-b4-8139cp-napi-v1-1-c9b683d9564b@gmail.com>
-References: <20261021-b4-8139cp-napi-v1-1-c9b683d9564b@gmail.com>
-X-sashiko-severity: Critical
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=lj3sD4Am
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3adac5b29ebso1463225a91.2
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 17:07:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792973267; x=1793578067; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VdkT2RHYcWV7GvnLz4TIAWoUXNhRorpoV7gVhnHjlPM=;
+        b=lj3sD4Am/aiIHN7NCAcRfN8n2iip+RovV4pk3Sly44YZsCSGUEBj0DgCgvVeVkFXdQ
+         9TlJQ9zIP1xpPhhThjHi7/fEoyCZRadpXMA1mFN0dhmRKlBS+4Yt6sMuPKdAuYTKmidm
+         wgYwnYUCIvkmHVBO2/TiZnuiRiDbFG4dm4oWEGSBwkyrgtcU7j0RrzOCZblUVFiuZDap
+         KcKh1TNZmjBRoqMHVb+CyrBPd08FR3LSOSHmDKWpeihRtLAhNA+D9/GvJ5NZFCt47jbV
+         p2c18tE05jCBwMtNuFxU8O+gxvcJdUzcIBhe5NRpVL1PFgtC7pzBztio7v/bKGy0ffTm
+         KMJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792973267; x=1793578067;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VdkT2RHYcWV7GvnLz4TIAWoUXNhRorpoV7gVhnHjlPM=;
+        b=UrEMbHeVdl2Vx/sof1kfwg7WzXkpTlcVe7qQLO6sbky8bcT/fo5hXFSd4C8nn3eJoT
+         4GoQRDuSgdm906rDmy3Oq79WpZ53YS5QXQNrzT33KEaVnSYE2YWF9yMts85fXP0ZMNkl
+         p46R9FMrec/fizoDXQtSZvCNuWxi7+PiP4c4SeQc/lwQSxLQCmKt+vJdqxfOY51p+ez7
+         WG5ry3oyUpO2M107uhntz4Vr1+me89SkkGv21Sk+W33GJotoziYn+OmKs2yowDU/Nq7K
+         PwnVVcDV25loDfcy4tc42qnWEDHI/zqU7RUfvpPupxMG1+NQJpld6PIbwLAj2ya9xXY7
+         dmTQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzhFrFCGzbZQ1CK1M+TtF3hljaE1gBkCk7LCwm7e6Am1NFTyTYkYwzt+QPoqf/ac9ucKXRacxdEEmVe//U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIkZZZUCy8NHiFWivFAdb4JwGcce63envP+pe3n6ztVUUmku1+t
+	D0YS8Efr87r/jSDQZ46I98tm1sB4Jx7iGgXnP4xEGtzzkPdsL3sZny7duycDBxhO6PjbGLducqf
+	rEY/8
+X-Gm-Gg: AYBFou3EDqYzT0M3RsF6Q8hCEGF8GKVyF4RZ5DHMTOjQbbJ4sqm2NQCAuD48mypD8ln
+	d7ncf9R2o5HRAKz5/++1K+aMeblghkIcVYFokElgNT0lreztTzb2EtTELelLvBVim3RIo0Q01kH
+	hyDTPna7NMQIhZfEKDZR1pbNHxF4bzdtyU6OxFB5tDj1UyCb8/hK5vgIAJxwCobHs2uQfUsZCnW
+	dJBXrB9oRgY5uFyjWGLJcvTXFZAyS8GGnnwtwnzv6yUp3Rp/AaaKnByizy8mM6GQCYn6VGe2BUq
+	QLPNOAbz0fda8nF8CCJKFh73ujPB68ycNyaX3KZBWn7T8Et1AbZqI23DqHSv0vPpN0sz6rh71Tg
+	XtJbMFsJnHCCozy14a70DWIn+chnXBmXL02FebsZVML8yp1n5cVkow0d0JXp1opwgVCUR7RWPgr
+	23LTxxnylap7L79Kf+BOqNc4Xg0xR+gORJeJF6nI58+gbpT+S9LDfnhU/E3METtX7BgJYzfmEHG
+	IVXnBbbx796WWwbuS2fUTbQ4CDE6R+C8q4CZrQOtwGfs/pMCU2sF6aC86wagcvku7ngOk88VEyQ
+	qHanZBYUIVaLqNql2WtQyZ4vA3hJEuIDedwymfLAUZO9DQPTYgwMVWecbi3aFd0FsYEFWg==
+X-Received: by 2002:a17:90a:e7ca:b0:3a8:59d3:5317 with SMTP id 98e67ed59e1d1-3adeaf98405mr4816886a91.32.1792973266605;
+        Sun, 25 Oct 2026 17:07:46 -0700 (PDT)
+Received: from yhlee-960QFG.. ([125.131.91.97])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adeb819729sm5942331a91.0.2026.10.25.17.07.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 25 Oct 2026 17:07:46 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: Sagi Grimberg <sagi@grimberg.me>,
+	Max Gurtovoy <mgurtovoy@nvidia.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Leon Romanovsky <leon@kernel.org>
+Cc: "Martin K . Petersen" <martin.petersen@oracle.com>,
+	Mike Christie <michael.christie@oracle.com>,
+	linux-rdma@vger.kernel.org,
+	target-devel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
+	stable@vger.kernel.org
+Subject: [PATCH] IB/isert: set ISER_CONN_DOWN only after the connection has been released
+Date: Mon, 26 Oct 2026 09:07:33 +0900
+Message-ID: <20261026000733.4178856-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,123 +103,179 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+Removing an RDMA device (rdma link delete, module unload, hot-unplug -
+a local administrative action) while an iSER connection is in
+ISER_CONN_UP, i.e. the CM handshake has completed but iscsi has not
+yet accepted it through isert_accept_np(), lets the
+RDMA_CM_EVENT_DEVICE_REMOVAL handler free the isert_conn while
+isert_connect_release() is still tearing it down.  A remote initiator
+alone cannot trigger this; it can only supply the ISER_CONN_UP
+connections that the local device removal then races against.
 
-Critical: 1 · High: 0 · Medium: 0 · Low: 0
+isert_cma_handler() waits for the connection to reach ISER_CONN_DOWN and
+then frees it:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+	wait_event_interruptible(isert_conn->rem_wait,
+				 isert_conn->state == ISER_CONN_DOWN);
+	kfree(isert_conn);
 
-- [Critical] The patch moves napi_complete_done() inside
-  spin_lock_irqsave(&cp->lock) in cp_rx_poll()…
+but isert_release_work() published ISER_CONN_DOWN before dropping the
+last reference, so the condition becomes true at the start of the
+teardown instead of at its end.  The wake-up at the end of
+isert_connect_release() is in the right place; the condition was not.
+The handler could return and free isert_conn while
+isert_connect_release() was still dereferencing it.
 
---
+That ordering requirement is not incidental.  Sagi Grimberg spelled it
+out when this handling was introduced (2014-10-28,
+<544FC5B2.70104@dev.mellanox.co.il>): "cma_remove_one sequence ...
+requires the cmd is owner to finish cleanup before the end of the
+callback because in the end of it, it will allow the device to remove."
 
-net: 8139cp: close race between NAPI completion and Rx unmask
+Publish ISER_CONN_DOWN from isert_connect_release() instead, immediately
+before the wake-up, so the condition and the signal refer to the same
+point.  It has exactly one store and one load in the tree, so nothing
+else is affected.  The store no longer takes isert_conn->mutex: the last
+reference has been dropped, the only legitimate accessor left is the
+rem_wait waiter, and wake_up_interruptible() provides the ordering.
+isert_conn->state is already accessed without that mutex in
+isert_accept_np() and in the wait condition itself.
 
-This commit moves napi_complete_done() in cp_rx_poll() so that it runs
-under cp->lock with interrupts disabled. NAPI completion and the Rx
-IntrMask unmask then happen atomically with respect to cp_interrupt().
-The goal is to fix an Rx interrupt storm that hard-hung SH7751 LANDISK
-boards.
+One visible side effect: the connection now stays in
+ISER_CONN_TERMINATING until isert_connect_release() runs, so a second CM
+event in that window takes the ISER_CONN_TERMINATING case instead of
+default:, and the "conn %p terminating in state %d" warning is no longer
+logged.
 
-> diff --git a/drivers/net/ethernet/realtek/8139cp.c b/drivers/net/ethernet/realtek/8139cp.c
-> index 9016527e229a..a9334d3a0f7d 100644
-> --- a/drivers/net/ethernet/realtek/8139cp.c
-> +++ b/drivers/net/ethernet/realtek/8139cp.c
-> @@ -554,11 +554,12 @@ static int cp_rx_poll(struct napi_struct *napi, int budget)
->  	/* if we did not reach work limit, then we're done with
->  	 * this round of polling
->  	 */
-> -	if (rx < budget && napi_complete_done(napi, rx)) {
-> +	if (rx < budget) {
->  		unsigned long flags;
->  
->  		spin_lock_irqsave(&cp->lock, flags);
-> -		cpw16_f(IntrMask, cp_intr_mask);
-> +		if (napi_complete_done(napi, rx))
-> +			cpw16_f(IntrMask, cp_intr_mask);
+Reproduced with soft-RoCE (rdma_rxe) under KASAN, preempt=full, an
+initiator opening 32 CM-only connections (no login PDU) concurrently, so
+that they queue up in ISER_CONN_UP, followed by "rdma link delete".  The
+window is sub-microsecond, so the rate is low.  The splat below
+reproduces on an unmodified kernel and does not with this patch applied
+(36 of 60 runs unpatched, 0 of 60 patched).
 
-[Severity: Critical]
-Can this deadlock on cp->lock?
+  BUG: KASAN: slab-use-after-free in isert_connect_release+0x5cb/0x620
+  Read of size 4 at addr ffff88810ca1d158 by task kworker/u16:1/43
 
-8139cp passes every received frame to GRO in cp_rx_skb():
+  CPU: 0 UID: 0 PID: 43 Comm: kworker/u16:1 Not tainted 7.3.0-CTL2-13247-g330517c63aa9 #1 PREEMPT(full)
+  Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+  Workqueue: isert_release_wq isert_release_work
+  Call Trace:
+   <TASK>
+   dump_stack_lvl+0x53/0x70
+   print_report+0xd0/0x630
+   ? __pfx__raw_spin_lock_irqsave+0x10/0x10
+   ? kfree+0x121/0x390
+   ? isert_connect_release+0x5cb/0x620
+   kasan_report+0xce/0x100
+   ? isert_connect_release+0x5cb/0x620
+   isert_connect_release+0x5cb/0x620
+   process_one_work+0x697/0x1060
+   ? __pfx___schedule+0x10/0x10
+   ? __pfx_process_one_work+0x10/0x10
+   ? _raw_spin_lock_irq+0x81/0xe0
+   ? __pfx_isert_release_work+0x10/0x10
+   ? assign_work+0x11d/0x370
+   worker_thread+0x45b/0xd10
+   ? __pfx_worker_thread+0x10/0x10
+   kthread+0x2c8/0x3b0
+   ? recalc_sigpending+0x15c/0x1e0
+   ? __pfx_kthread+0x10/0x10
+   ret_from_fork+0x36e/0x5a0
+   ? __pfx_ret_from_fork+0x10/0x10
+   ? __switch_to+0x572/0xdc0
+   ? __pfx_kthread+0x10/0x10
+   ret_from_fork_asm+0x1a/0x30
+   </TASK>
 
-    napi_gro_receive(&cp->napi, skb);
+  Allocated by task 24:
+   kasan_save_stack+0x33/0x60
+   kasan_save_track+0x14/0x30
+   __kasan_kmalloc+0x8f/0xa0
+   __kmalloc_cache_noprof+0x148/0x360
+   isert_cma_handler+0x1e3/0x2840
+   cma_cm_event_handler+0x3e/0x240
+   cma_ib_req_handler+0x17d9/0x4480
+   cm_process_work+0x41/0x330
+   cm_work_handler+0x5727/0xc160
+   process_one_work+0x697/0x1060
+   worker_thread+0x45b/0xd10
+   kthread+0x2c8/0x3b0
+   ret_from_fork+0x36e/0x5a0
+   ret_from_fork_asm+0x1a/0x30
 
-Frames that GRO cannot merge wait on gro->rx_list until gro_normal_batch
-is reached, and TCP flows can sit in the GRO hash. All of them are
-delivered by napi_complete_done() when the poll ends with rx < budget:
+  Freed by task 218:
+   kasan_save_stack+0x33/0x60
+   kasan_save_track+0x14/0x30
+   kasan_save_free_info+0x3b/0x60
+   __kasan_slab_free+0x43/0x70
+   kfree+0x121/0x390
+   isert_cma_handler+0x10ff/0x2840
+   cma_cm_event_handler+0x3e/0x240
+   cma_process_remove+0xff/0x5a0
+   cma_remove_one+0xcc/0x250
+   remove_client_context+0xa4/0xf0
+   disable_device+0x128/0x240
+   __ib_unregister_device+0x226/0x3f0
+   ib_unregister_device_and_put+0x50/0x70
+   nldev_dellink+0x28e/0x3d0
+   rdma_nl_rcv_msg+0x29c/0x4e0
+   rdma_nl_rcv_skb.constprop.0.isra.0+0x21d/0x370
+   netlink_unicast+0x68f/0x940
+   netlink_sendmsg+0x810/0xf20
+   __sys_sendto+0x337/0x390
+   __x64_sys_sendto+0xdb/0x1b0
+   do_syscall_64+0xdd/0x4a0
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-napi_complete_done()
-  gro_flush_normal()
-    gro_flush()
-    gro_normal_list()
-      netif_receive_skb_list_internal()
+Not fixed here: a connection still in ISER_CONN_INIT when the device is
+removed is never cleaned up - isert_disconnected_handler() only warns -
+so nothing makes the wait condition true and the removal blocks.  That
+pre-existing case is why the wait is left interruptible rather than
+converted to wait_event().
 
-With this change, that receive processing runs with cp->lock held and
-hard IRQs off.
+Fixes: 63b268d232b8 ("IB/isert: Properly release resources on DEVICE_REMOVAL")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+---
+ drivers/infiniband/ulp/isert/ib_isert.c | 16 ++++++++++------
+ 1 file changed, 10 insertions(+), 6 deletions(-)
 
-Suppose the stack replies synchronously on the same interface, for
-example with an ARP reply, an ICMP echo reply, a TCP ACK, or a forwarded
-or bridged frame. The transmit path then seems to come back into the
-driver:
-
-netif_receive_skb_list_internal()
-  arp_process() / icmp_reply() / tcp_send_ack()
-    dev_queue_xmit()
-      sch_direct_xmit()
-        dev_hard_start_xmit()
-          cp_start_xmit()
-            spin_lock_irqsave(&cp->lock, intr_flags);
-
-Wouldn't this CPU then spin forever on a cp->lock it already holds? On
-SMP, one ARP request or ping from a peer on the link looks like enough to
-trigger it. That includes QEMU's emulated rtl8139, which reports revision
-0x20 and binds to 8139cp.
-
-There may also be a second path. __dev_queue_xmit() uses
-rcu_read_lock_bh()/rcu_read_unlock_bh(), and netfilter uses
-local_bh_disable()/local_bh_enable(). Both reach __local_bh_enable_ip().
-That function does lockdep_assert_irqs_enabled(), and with
-CONFIG_TRACE_IRQFLAGS it also calls local_irq_enable().
-
-Could hard IRQs come back on while cp->lock is still held? Then
-cp_interrupt() could run on the same CPU and spin on:
-
-    spin_lock(&cp->lock);
-
-The commit message says:
-
-    Do the completion and the unmask under the lock, as 8139too does.
-
-Does that comparison carry over? rtl8139_rx() in 8139too calls
-netif_receive_skb() directly, so its GRO lists stay empty. As a result,
-napi_complete_done() under tp->lock in rtl8139_poll() never delivers
-packets.
-
-Before commit ab1e7e1d2666 ("8139cp: use napi_complete_done()"),
-cp_rx_poll() called napi_gro_flush(napi, false) before taking cp->lock.
-Only __napi_complete() and the IntrMask write were done under the lock.
-
-The SH7751 test boards are UP. There, spin_lock() without
-DEBUG_SPINLOCK reduces to preempt_disable(), which may explain why this
-didn't show up in testing.
-
-Would it work to keep GRO flushing and stack delivery outside cp->lock?
-Only the NAPI state change and the IntrMask unmask would then run under
-the lock. One way is to flush GRO before taking the lock. Another is to
-keep napi_complete_done() outside the lock and close the race some
-other way, for example by re-checking IntrStatus or handling the case in
-cp_interrupt().
-
->  		spin_unlock_irqrestore(&cp->lock, flags);
->  	}
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261021-b4-8139cp-napi-v1-1-c9b683d9564b%40gmail.com
+diff --git a/drivers/infiniband/ulp/isert/ib_isert.c b/drivers/infiniband/ulp/isert/ib_isert.c
+index efa8d7b7844c9..cd0ca3cf131cb 100644
+--- a/drivers/infiniband/ulp/isert/ib_isert.c
++++ b/drivers/infiniband/ulp/isert/ib_isert.c
+@@ -506,10 +506,18 @@ isert_connect_release(struct isert_conn *isert_conn)
+ 
+ 	isert_device_put(device);
+ 
+-	if (isert_conn->dev_removed)
++	if (isert_conn->dev_removed) {
++		/*
++		 * Publish ISER_CONN_DOWN only now.  The
++		 * RDMA_CM_EVENT_DEVICE_REMOVAL handler waits for it and then
++		 * frees isert_conn, so it must not become visible before the
++		 * teardown above has finished using the connection.
++		 */
++		isert_conn->state = ISER_CONN_DOWN;
+ 		wake_up_interruptible(&isert_conn->rem_wait);
+-	else
++	} else {
+ 		kfree(isert_conn);
++	}
+ }
+ 
+ static void
+@@ -2537,10 +2545,6 @@ static void isert_release_work(struct work_struct *work)
+ 
+ 	isert_info("Starting release conn %p\n", isert_conn);
+ 
+-	mutex_lock(&isert_conn->mutex);
+-	isert_conn->state = ISER_CONN_DOWN;
+-	mutex_unlock(&isert_conn->mutex);
+-
+ 	isert_info("Destroying conn %p\n", isert_conn);
+ 	isert_put_conn(isert_conn);
+ }
