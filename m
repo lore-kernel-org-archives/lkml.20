@@ -1,47 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793006549;
-	b=Uz5EWf6LeQU6/W3BIj3HkjcYruzVEumYr6nVPiU6RWy5E9TgbE5d3yzd7839OyBPTcp4
-	 S7eqmnS7Pdw7jMh5UfjCXXxBD7hUM1JT9EF1KRlSAthhKWzuvlHEs5duYWM6TozLY/vzb
-	 dMd2e7VlRuE6837ScqmOOBKAkWB6fgwmsLgfkH6NuZniLZ5ZsH+PbdnZqpzkybpqamuvm
-	 0xui97ssUyMDzq4vixFdn1hzRxgercKYSVswHn3qcO/g0JzrkkeuTSO9pZ2dqdC1Iat6z
-	 B8QhRKmAxu9El678INLY2rW4paeKO4JvSzY/hA+8RreVF2S6fiBedlQZ6EgJCiFpauw==
+	t=1793006546;
+	b=sKysuUuwm+XBVor0J8zPgHOEjZ09gcUEL4e7OG4Umsel2E18QF3mfIaUb5q0zSH0VHau
+	 l65I2jGtIW+H7PQQEGJ2U61tdXfd/SYQcgZJy+LLZOLiiPuuGiUnmhM/1qCrvCIalBwRj
+	 apDL8m86EWh+UdO4SWkppUjQY5T5Cfp2tMIQIzl6p/ZNOUIccsohppncVyxq2ksG5Ntqm
+	 wq3XZDPqyhXLWHwOpOkw0tWQS0pzfaGQ1AR1gcL3OVrPvve6a+GCMesoh70SDyo2pIOdV
+	 82fRuQOK6bkXMrD5E8zR3MV2f1+T07IAEMh3e2PWuUQqPgmb8NMBVPsVReUMarNbILg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793006549;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=qhR5USygJ3CB78JYGZu8Bdj4Ga57gkEWi5cn82mwy+g=;
-	b=0jwydRX/Jhxw/NLy2bWVErs/H+x2WUa0wU1ugaTPjkDaS/1p/CNaYxUApLep7qjxBvaY
-	 FxfMlHbWVpIvDJk8GTtjGcPJA5IdU1oGpCk6OYv81+kq3w37KPgSp3gGqUDSsyAXoVp5q
-	 isbE9HbNfoL29RzsqUNrSlhPKurUWho9V6vFqEUG+R+gIWvhL9oUnEPkN1BFsnyGEgL2C
-	 lCcNMnjjI1zsu8TJzpq7a3UqWBjdnPvquDc6IngW2lm4nCI+1+TLHlRBWel1AtPpQsIvu
-	 kPoVBE2tEcH+NFwC3216MyhEMQ+9ZOYjE77qEbaMYv6IlNABjjNHGb/mIjbPKhJmMIg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793006546;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=KLAz+LSoKYpUFYpmLED3+ouddRavFyctHlwqyoedBik=;
+	b=Wo+7LEp57/CAymoAtJ5suwdsrxxvdnJ/sWeVypvauSG1k6NEShaNqeqRJ8WAjWhSs2pz
+	 vBIqI0rCv95Z+QGfgqd0M0HOzNCcmS/tlnCh3aueL/eNDfWTkowivRLmfHgEMHN2dAG3C
+	 SfS+jUGwAgX38HNDahv+uNSPkLEPzt54wTePgA7lGZYj97LuFFxbXqqaWfZmKF9I+p0nC
+	 RAU79csCZj92PcMtzpp0H60ULoNsLgksIfvrR94Q5U9rbfJPmfj4++mqk399mIwkGn5xh
+	 xC83x8/TTy2adxm0Nwj9sgG39AuYH3Pc2hPpO9bn1/bkgIkuwiug2o92iYcDbEsWZMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="I6YvE/gY";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=kaoasQmm;
+	arc=none smtp.remote-ip=209.85.210.169
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17EB0606A31B;
-	Mon, 26 Oct 2026 09:22:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89666606A31E
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:22:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89666606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I6YvE/gY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC9ED1F031E1;
-	Mon, 26 Oct 2026 09:22:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793006548;
-	bh=qhR5USygJ3CB78JYGZu8Bdj4Ga57gkEWi5cn82mwy+g=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=I6YvE/gYGXgvx/dS51oJ+vhNzxFT/QgIyoyGpK6mHjSAuSnuWw0cBJjHTki1SHsbF
-	 aciQZxOgZpZF8rQWeI9JGlEKFa3jS0wX62Lz8zxnwZMfhiLTSX7/AbRR36HWY0t7eO
-	 9alwY2VThrpLH3UISHBPp1AaV8IBF+P8wwIiokDBjkjEmW5cDjyuoObmZCephYY4g3
-	 rUZZEzGdq5+gjjr68cMHeJBQ7xsbQEQ2xdI3ikjdSdqc4/8gOKPxE/NLRUb/aL92w9
-	 Glt7oHfgDRwKajlCm9u/oHhLlagpTuw71DMN06V1wWogpArGYgk96jL0mvRauBbBRU
-	 ZZyCdXFS6bDZA==
-Message-ID: <f8173d20-3193-45e6-bf27-a05de7187ae7@kernel.org>
-Date: Mon, 26 Oct 2026 09:22:25 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=kaoasQmm
+Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-8a39e5161c1so912339b3a.3
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:22:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793006546; x=1793611346; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KLAz+LSoKYpUFYpmLED3+ouddRavFyctHlwqyoedBik=;
+        b=kaoasQmmDydfWLx1m9/jkMSVPSP8PixcxmKmh5tt0rOoQyw7Z9LopjuZwTTo8fJ6mT
+         mL+FuHXT4+XZiOx8l+hAdgYbJ3x2s/3qPC+LwUuNLgyC9xVPC77zs1UayFRALWA3FEO0
+         y5aQX5iNcfz9vKPyLeplWKRqJ9QjSh8R8jG0Z4HAYcKuJVZnihyKp6IlcrD3aDAdLyJY
+         DsVLRyg2/OoZ631aEPTkckuQA72BdU0MTA2d+Zpfg8kRsDrGtENNaf3+coFwg8YfXrIO
+         y/bEaPnYWzEcbIz1EGqS/V4K0K/1btYZZ9l0/+8x762SnowlfM2FgDqNaTRpWXsmV3CM
+         DlDA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793006546; x=1793611346;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KLAz+LSoKYpUFYpmLED3+ouddRavFyctHlwqyoedBik=;
+        b=L94HPeez1vPIbrt5Ki0mWJ+SiDrRg9YengQMaeLis2bqV9fxWC9O+ej219bpK2SteT
+         0jfz8u5cBb0Lfro5Yfi4IRGP9U6Z7zCtoLgBVBbrldNPk/maxznBosp0OY4zBxeIrCiB
+         3bLW/K4dW6b/HfPFYnj4wHngo/URrK1tfcBuoMkc2xZTOLpiDOd38t43j4zTUnf2nPGz
+         fVKZYthqQVyba0688xGnT12H3zH7ZR0wFoy4rf7MvK9oKofa0evZ+Z9bMYkU7XQQM6pK
+         5R/ta1xkufAwtAbtdZlqzMDCFAF8++JStEdvjBP34Thyb0E8/R2oPwj1CiZA4UP6Q3e3
+         wS6w==
+X-Forwarded-Encrypted: i=1; AKwUvBxvlMZhx2uu9hT8+hwZEnmip6E/ePdJjWYM1lKUMRX70BinQFAn0Ckp3ph9fkoCtnto2PwJBRMIkjMyMqE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKI4zNh2OHldNDAGiMhivCifrmbJavNeWC2ARZddLspXXnUulXV
+	b6rOUu+qE3HyiE2tqX4YrilM8eul3yHn8b79u/lcl350Gg0brCcLAjeX
+X-Gm-Gg: AYBFou2NrXnHHW5ou7fpmVJ2c6Al8awQngTB+K8zHcRewpdUAIYmn3cLihq9In4uirg
+	KEgzYeVy4Be7Wpaaie+/l/Q5E1zd2xPJ3n+f1oIzOMN9jmcsJ44yE8lXE1/rKlu3FTl1xvPOr8D
+	l8vwhbPo3Oxas3MBbRrQKThV03ZQG6yKscvEhZsmH9N+debVDTnupKNCrErRasoAqwvJfk1o5CL
+	wPAFSWc+ggGgxPrdxwDF+a2VAy1zZnKlZHXD2arz1ArcjcVOwUjv9jIGrTXS11MoTm+3Ben2XYR
+	pV64zuhSwF2h4C7g4BOsuensmQ78aGZ1yxawGpkEl+ADlz9fWSlSYnGNkRqgaQaX9fT22FcU1un
+	4m4YRO/s2yW901w4Eym4y3W+0Oog5Bb3tvTJzO+6g+PpsA/2rRCsm3ab26cN2ApVwqwIusjoFj9
+	CNC6zHkNYlfm7D0GPJ5fQwa735ruA/eOPe/qyhPs2+5vwJ9Hp7tN28HqE0LQHZcq0VhG834Uivz
+	dGptsZ/i1p2ta2oqoOODrBqoQ0XdAlAMux+iZOaPImER8o4btTMwnwuQO0Lyi3FTB66F+qTDw==
+X-Received: by 2002:a05:6a00:98d:b0:89f:fdb7:a9df with SMTP id d2e1a72fcca58-8a364b4c9b1mr4646584b3a.5.1793006545834;
+        Mon, 26 Oct 2026 02:22:25 -0700 (PDT)
+Received: from osman.mioffice.cn ([43.224.245.178])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a36b37145fsm1055887b3a.22.2026.10.26.02.22.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 02:22:24 -0700 (PDT)
+From: Zhan Xusheng <zhanxusheng1024@gmail.com>
+To: xiang@kernel.org
+Cc: chao@kernel.org,
+	zbestahu@gmail.com,
+	jefflexu@163.com,
+	dhavale@google.com,
+	hongbohbli@tencent.com,
+	guochunhai@vivo.com,
+	giuseppe@scrivano.org,
+	linux-erofs@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	zhanxusheng@xiaomi.com
+Subject: [PATCH v2] erofs: don't reuse a superblock for a mount that passes device=
+Date: Mon, 26 Oct 2026 17:22:17 +0800
+Message-ID: <20261026092217.2129604-1-zhanxusheng1024@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <at8UCyjlHgxxBAaf@MacBookPro>
+References: <at8UCyjlHgxxBAaf@MacBookPro>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,99 +104,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 5/6] media: qcom: camss: sm8250: set the VFE AREG clock
- rate from the VFE
-To: Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>,
- linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261024094027.3095475-1-atanas.filipov@oss.qualcomm.com>
- <K6MC-msR24ox6sm-W8vHRTvM3_t8Qc0jO6yiVwtqAFBqiFAx7a0PGnTIBDg_cyr5uZmULgOISgoJXMYZrNVeVA==@protonmail.internalid>
- <20261024094027.3095475-6-atanas.filipov@oss.qualcomm.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-GB
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <20261024094027.3095475-6-atanas.filipov@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 24/10/2026 10:40, Atanas Filipov wrote:
-> The SM8250 VFE AREG clock lists four rates, 100, 200, 300 and 400 MHz,
-> in both the VFE and the CSID resources. The VFE only enables it, as
-> vfe_match_clock_names() does not match the AREG clock name, so its rate
-> is set by the CSID, which always selects the lowest one.
-> 
-> Match the VFE AREG clock in vfe_match_clock_names(), so that the VFE
-> selects its rate from the pixel rate of its lines like for its other
-> clocks, and drop its levels from the CSID resources. The AREG clocks of
-> VFE0 and VFE1 share the fast AHB source, which then runs at the highest
-> rate requested by the two VFEs.
-> 
-> Signed-off-by: Atanas Filipov<atanas.filipov@oss.qualcomm.com>
-> ---
+From: Zhan Xusheng <zhanxusheng@xiaomi.com>
 
-Sets the lowest, isn't necessarily a bug.
+superblock_share together with device= is rejected in
+erofs_fc_fill_super():
 
-Why is 100MHz a problem and if it is, why not just fix to 400MHz ?
+	if (test_opt(&sbi->opt, SUPERBLOCK_SHARE) &&
+	    sbi->devs->extra_devices)
+		return -EINVAL;
 
-areg is a register access / AHB clock - your worst case outcome is 
-'register access goes slower' - which to me accepting we don't do 
-driver-specific clock-aggregation => raise the clock required across VFE 
-and CSID so that nobody looses out on the bus times..
+but extra_devices is kept in sbi->devs, not in sbi->opt, and
+erofs_sb_share_test_super() compares only the backing inode, the
+fsoffset and sbi->opt.  So once the image is mounted with
+superblock_share, a second mount with superblock_share,device= matches
+that superblock and get_tree_super() reuses it without calling
+fill_super() at all.
 
-Again instead of having a driver-specific clock aggregation mechanism, 
-if we need to solve for two siblings voting for their parent's rate - 
-then lets do that in CCF so that every CCF consumer benefits.
+The same command line therefore either fails with -EINVAL or succeeds
+with device= quietly dropped, depending on whether a compatible mount
+already exists.
 
-That's obviously a separate and potentially large series so for this 
-specific case I'd suggest 400MHz iff a problem can be shown.
+Refuse to match a context that brought device= options, so that it gets
+a superblock of its own and fill_super() decides as it does today.
 
+Only the incoming context can be tested: a shared superblock may have
+extra_devices set itself, because erofs_scan_devices() fills the device
+table from the image when no device= was given.
+
+Fixes: cd4108319bb3 ("erofs: reuse superblock for file-backed mounts")
+Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
 ---
-bod
+v2: fold the check into the return statement and drop the comment
+    (Gao Xiang)
+v1: https://lore.kernel.org/all/20261021083826.1870937-1-zhanxusheng1024@gmail.com/
+
+ fs/erofs/super.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/fs/erofs/super.c b/fs/erofs/super.c
+index 16fa3b853f1b..8ca44b1c0bd1 100644
+--- a/fs/erofs/super.c
++++ b/fs/erofs/super.c
+@@ -827,7 +827,8 @@ static int erofs_sb_share_test_super(struct super_block *sb,
+ 		return 0;
+ 	return file_inode(sbi->dif0.file) == file_inode(new_sbi->dif0.file) &&
+ 	       sbi->dif0.fsoff == new_sbi->dif0.fsoff &&
+-	       !memcmp(&sbi->opt, &new_sbi->opt, sizeof(sbi->opt));
++	       !memcmp(&sbi->opt, &new_sbi->opt, sizeof(sbi->opt)) &&
++	       !new_sbi->devs->extra_devices;
+ }
+ 
+ static int erofs_file_get_tree(struct fs_context *fc)
+
+base-commit: 52dceb88082b4c7983d1c8c7de1c181f018055ac
+-- 
+2.43.0
+
