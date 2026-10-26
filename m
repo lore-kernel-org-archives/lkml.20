@@ -1,70 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793004050;
-	b=2Un+lZgalU0cNj4Sjd+45pFfSe1AeT9AYJW2v7Gu5eog5aTANdqpWlHkq9BRp5qpaNLt
-	 2OlMb/qc3TqNut5A/wHOxShSUk1OOAevMuIL6HKI2857hCAXpik6EDzaYvA9ICZbP75MY
-	 K7gSADQzEOG5i8H9Z61rjwmPjTv4GmwoA058sJlIkEhc9HU0RPAXh/Ht8hvf1NPCW8YCA
-	 cpZrv4oKdlrdYBGkG1wfG3EuhJGucQeSNczzMuLmsa8q3HYQVLgCuqDMVDW2QJHSxq6cP
-	 JCliQLsS9p0d7ryItCDf72pNt2pmS3/3Ri39+MZgNAHnC+odcc6Wsh0U+NinSaRTUFQ==
+	t=1793004130;
+	b=AzZSAIn6ee+7Q6CCq7US68NkACmp5RaPNuleWTkk+f7zpKj8zrN5iGbfMFg4mKqSVCCz
+	 6qhYAHUf955IWcyyfWN1Xr7BUeV7FDtwgxLwWtzdyYAOKsQwlmX9BBWrXUGuGwODFUfsc
+	 I8Decu04/r78vE6P1B49LpIyovvHxThGyt+pBc1dGBZThJT0xjKGjWgkoNJNSo1QtJ4Re
+	 j/aYoVJWJJD2YfSgyUpH6SUSI5Q4HiY1dTKjWUG5ua+4sskixLmtkSTBJ9MQx+wY+AWg8
+	 Y2GrYukhgYa/ZjJlz/2S8Wdt1MlcoISZcRzRfl8w+bmD90475NzFa9hx1AZu5UIoGXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793004050;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=IVuwUZCiZVCcOzmALM/+anMvBSOFJqql17OFoN+/rok=;
-	b=sBEfZVf6dICsd1KN1p+q+0AYhguZ2FjcCJo/zJI07XN7fTsQ3LScHHe6j36cBSuI5RM2
-	 hALESPcSSehurGiZ9u8qnI0t3m6fz0SUERGQay5CefzahNt0UC97z4bOQqyi2++6TABXD
-	 cbMEdOFn2FObUJBXxrS8vDRItnXB1v7Xk2uwRlWOAt34QH4/10/9FueKv6ahW6n1feQpB
-	 o/Fk4L8rEDlRfdkVVPK7ZoPr4bzsKHs8v3azYuxJ/s2g90Ks0rlFVIN3hiDMpUhokcJ2Y
-	 9RUnFfxu67OUlKCTBnZJlWZSPJrqtq/p2sQ2tgILIr5b7YiwisMuFqsKQV24fMUMXRQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793004130;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=qzSDOlgy7IPmTrnuWw7M56rTWdyjH9dWqupudfVxyvk=;
+	b=NOLoh9KrNlesuXGdCYIlTbVkaTEXRMzSl85wuMTpkQIFtLerf8kfEBZz9/tufgYG3mWg
+	 ActSVEWkSX9kCZhiVuXWL85Ewuh0ZhMqz/yrs0NaTWTEaKditZZTkNYQnl/Hswlt7hyS6
+	 nwQi+FK7UhAcpPJJTTHX2QLkMB87LEfSkbVbCyKe9+1c58UtagxgpkG6c8Em82PQuB9Rq
+	 sDMyRlLlTbZ7pMofid3UxrLguOtQcC7Eqrzajyo3Bt/Ayh1jQzzgaqTkVZeiYHa0IYngz
+	 Zx0XVX/EMmCeqOrdlHtO+qMaVS6J4pqigJrnZWpyZLu9pTbBx5TvYY3rfpsENfRaqpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=RCN03E1x;
-	arc=none smtp.remote-ip=91.218.175.197
-Received: from mta0.migadu.com (out-197.mta0.migadu.com [91.218.175.197])
+	dmarc=none header.from=linux-m68k.org;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.222.52
+Received: from mail-ua1-f52.google.com (mail-ua1-f52.google.com [209.85.222.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B463C606A31B
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 08:40:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B463C606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=RCN03E1x
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=/Hf66diN7HgXIle5bCAln5FJ1fGnhiHCivfIINozcnI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793004046; v=1; x=1793608846;
- b=RCN03E1xlgO4yK4Ob1U8xBojil4CjKxYZZDKnJ8RZj2Ib0zamVlG5Qwct8U35ijGvEZ0OL68
- mTxMvUY4Sx300ppEZrXXrea0VSAssc93NUJycxcoF5iqN1PgTNVfERjONz9iVP/K7K9h7V0QpKN
- IADB/tVqIzczUeGPbLtGXcSM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 126a90acec0e74e9;
-	Mon, 26 Oct 2026 08:40:39 +0000
-X-Mizu-Trace-ID: 126a90acec0e74e9
-X-Migadu-Flow: FLOW_OUT
-From: "Hui Zhu" <hui.zhu@linux.dev>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Yu Zhao <yuzhao@google.com>,
-	Kairui Song <kasong@tencent.com>,
-	Barry Song <baohua@kernel.org>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Cc: Hui Zhu <zhuhui@kylinos.cn>
-Subject: [PATCH v2] mm/mglru: fix a no-op lru_gen_clear_refs() call in lru_lazyfree()
-Date: Mon, 26 Oct 2026 16:40:35 +0800
-Message-ID: <20261026084035.535989-1-hui.zhu@linux.dev>
-X-Mailer: git-send-email 2.53.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE759606A31B
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 08:42:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE759606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ua1-f52.google.com with SMTP id a1e0cc1a2514c-9906c3fc88cso1166948241.2
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 01:42:09 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793004129; x=1793608929;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=qzSDOlgy7IPmTrnuWw7M56rTWdyjH9dWqupudfVxyvk=;
+        b=yI36k+NcRwPaU8M9Uu74gWBCiiSanKbzssixkYt8Tv5/F/25QSuEoGIW9zTXGFwpSn
+         ruWPJbsAI6WhK+a6mHbc1tTIb3JE7Q5nR/9GCaobYHyvgYW4soZa0iqq+FOPFDsw19+H
+         JYrHNHTtUvPPbWDThis4+79L6yMFe+GoHH/3MCCQQCijcv9DXEwVOIoHJf+SYjYYJyJT
+         dz9B716M/a9aOCO4DLIonsOLz48Q3eyvGCLMdUe37W45lPS+77+ZMkCa0uF3Oss6leXH
+         4Ci8b5tPaKso3MsKdgiyILKqTfkRmN/KygNtSdGR530U8rp6QWcao8L5pF9s+QvRyJwG
+         ymrA==
+X-Forwarded-Encrypted: i=1; AKwUvBxAPPAatkjxgc02sRS7OyJP1/O1ApuvB07E4Vr7M2B+tgePzDw6XLeTynre0/jTU4GvGQ7+/x16NsDo3Wc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKhVWZ+D7djT8DMT7Fa88eSS7/E0rJ4GVLvhzUTGdzVxyKtrn+D
+	ElfrjHCinob1PkzECnEOdo+3DApJLlSSpDX+8hCscamGjfIz+iMryehIs3sHhpoe
+X-Gm-Gg: AYBFou3QcEf4SYBVE9oydpzgFYmdYCrdbASmU/AYnt0hRemLwGe3U5oxw7YwPNJlc1o
+	vUxvofSniZl7X1DVswinDH9hayKm0a4otfZyMJEx2l/PYSAIAWLCIn8wOQaYHzgEhyLP+byNIq7
+	coCCsJA3n5RGJGvWTl0KJ9O3PqKkD4BFw5RxsMmSsyMbAWrC3xr4jkIiMTem62cMA0MSTSaYktb
+	uw38D5RHkzhajAbSRKMIRCwmwgMi9t7Z4EF8PK4o+Hkjj4INektsQJFCLl0FUW55C3xC8F4fcUk
+	xGN9dtdPPnZURqg7N0NR/Vm+iJm4Z/eQZO7qpYGmBZS8GbMlAbGO4cFAkIb7sGAGQJX1CNRtoI3
+	Y+JPmyuqXE9aRBTUuW7Hdm2Wn8vuNL1E1Xi8T076gWkGtRWKMki5c66rBqjPR1WDz7JZgPAmN6w
+	3YVmuHsS/2TC5jSSAkcdmQsuXE0M4oUfJEY/saDgVL75qEiNkT/+nLz0ryh0gumG3ehBtbnTLOF
+	U22AFAuyH9fq7Cu2j1wgf7tUMQGYqnowDalVLRwpgJ9tQ19aGPG2vvkj6Lca4l+fFHjm7Knd9+6
+	cOFufQ5DEbP2CW0+aA==
+X-Received: by 2002:a05:6102:6ce:b0:7a0:eb10:79b5 with SMTP id ada2fe7eead31-7ce5cca862emr2715922137.10.1793004128887;
+        Mon, 26 Oct 2026 01:42:08 -0700 (PDT)
+Received: from mail-ua1-f50.google.com (mail-ua1-f50.google.com. [209.85.222.50])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7ce5e1bd10esm6842429137.6.2026.10.26.01.42.08
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 26 Oct 2026 01:42:08 -0700 (PDT)
+Received: by mail-ua1-f50.google.com with SMTP id a1e0cc1a2514c-9906c3fc88cso1166945241.2
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 01:42:08 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzcitafzG0p+GZ2L25x2XCfWNnS7LytoIPGvhfALTHY9bknF4P5UdVWX94PBziaUGce+KeqB6KXBTu/bPE=@vger.kernel.org
+X-Received: by 2002:a05:6102:4b1b:b0:7c3:ac79:9b09 with SMTP id
+ ada2fe7eead31-7ce5ce62789mr1802171137.30.1793004127932; Mon, 26 Oct 2026
+ 01:42:07 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,66 +80,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261017233416.47b09ffff48f.i2c-sh-mobile@gmail.com> <atvUWb-PzouZzL5D@zenone.zhora.eu>
+In-Reply-To: <atvUWb-PzouZzL5D@zenone.zhora.eu>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 26 Oct 2026 09:41:56 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdXnJqADrLwGHdcdbAF7LTmcevhhXeuiDvThjjnnmdg-eg@mail.gmail.com>
+X-Gm-Features: AclHuK-70od6XOcmvqKR7Sl7Q5xoAjafCFmOmm0SnnlxPySBXQ6b06PhHFeSvys
+Message-ID: <CAMuHMdXnJqADrLwGHdcdbAF7LTmcevhhXeuiDvThjjnnmdg-eg@mail.gmail.com>
+Subject: Re: [PATCH] i2c: sh_mobile: request IRQs after mapping registers
+To: Andi Shyti <andi.shyti@kernel.org>
+Cc: Myeonghun Pak <mhun512@gmail.com>, wsa+renesas@sang-engineering.com, 
+	linux-renesas-soc@vger.kernel.org, linux-i2c@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, ae878000@gmail.com
+Content-Type: text/plain; charset="UTF-8"
 
-From: Hui Zhu <zhuhui@kylinos.cn>
+On Sat, 24 Oct 2026 at 00:09, Andi Shyti <andi.shyti@kernel.org> wrote:
+> On Sat, Oct 17, 2026 at 11:35:16PM -0400, Myeonghun Pak wrote:
+> > The managed IRQ handlers are acquired before the managed register
+> > mapping, so devres unmaps the registers before freeing the IRQs. A
+> > transfer wakes its waiter before the ISR's final register read, and
+> > unregistering the adapter does not synchronize these IRQs. An in-flight
+> > handler can therefore still access the mapping when it is released
+> > during driver detach.
+> >
+> > With forced-threaded IRQs, the handler can be preempted after waking the
+> > transfer waiter and before its final ICSR read.
+> >
+> > Map the registers before requesting the IRQs so that managed cleanup
+> > frees and synchronizes all handlers before unmapping their registers.
+> > Keep IRQs available while unregistering the adapter because client
+> > removal may perform transfers.
+> >
+> > This issue was identified as part of our ongoing research while
+> > reviewing kernel code.
+> >
+> > Fixes: 7fe8a9993337 ("i2c: sh_mobile: devm conversion, irq setup")
+>
+> Normally, I don't like taking fixes that don't address real
+> issues, especially speculative AI-generated fixes.
+>
+> However, this looks like a harmless reordering that seems
+> correct, although the issue it addresses is rather
+> hypothetical.
+>
+> I'll remove the Fixes: tag, since this is purely speculative,
+> and apply the patch to i2c/i2c.
 
-lru_lazyfree() calls lru_gen_clear_refs() after lruvec_del_folio(), but
-lru_gen_del_folio() has already cleared LRU_GEN_MASK, so folio_lru_gen()
-returns -1 and lru_gen_clear_refs() exits at its "gen < 0" check without
-clearing the refs or PG_workingset.
+FWIW, no issues seen when boot-testing several platforms using
+this driver.
+Tested-by: Geert Uytterhoeven <geert+renesas@glider.be>
 
-A MADV_FREE folio therefore keeps the state it had before madvise(2),
-even though madvise_free_pte_range() has already cleared the accessed and
-dirty bits of its PTEs.  lru_gen_folio_seq() places it one generation
-younger, and PG_workingset puts it in the last tier, so sort_folio()
-promotes and protects it instead of evicting it and charges it to
-lrugen->protected[], which read_ctrl_pos() uses to balance anon against
-file reclaim.  __folio_inc_gen() clears the refs but not PG_workingset,
-so this repeats every time the folio reaches the oldest generation.  If
-the folio is redirtied first, ttu_anon_lazyfree_folio() keeps it and
-lru_gen_eviction() packs the stale state into the shadow entry, so a
-later refault is promoted to the youngest generation.
+Gr{oetje,eeting}s,
 
-Call lru_gen_clear_refs() while the folio is still on the generation
-list, as deactivate_file_folio() and folio_deactivate() already do.  Its
-return value only says whether the folio is in the oldest generation,
-which lru_lazyfree() does not need because it re-adds the folio below.
-Keep folio_clear_referenced() unconditional: the classic LRU needs it,
-and it also covers the folios that lru_gen_clear_refs() skips.
+                        Geert
 
-Fixes: cc8ec7be78ff ("mm/mglru: optimize deactivation")
-Suggested-by: Barry Song <baohua@kernel.org>
-Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
----
-Changelog:
-v2:
-Call lru_gen_clear_refs() before lruvec_del_folio() instead of
-open-coding the flag clears; drop the lru_gen_enabled() branch and
-the comment (Barry Song).
-
- mm/folio.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
-
-diff --git a/mm/folio.c b/mm/folio.c
-index 35e242b48870..ea3adb6a89d7 100644
---- a/mm/folio.c
-+++ b/mm/folio.c
-@@ -597,12 +597,10 @@ static void lru_lazyfree(struct lruvec *lruvec, struct folio *folio)
- 	    folio_test_swapcache(folio) || folio_test_unevictable(folio))
- 		return;
- 
-+	lru_gen_clear_refs(folio);
- 	lruvec_del_folio(lruvec, folio);
- 	folio_clear_active(folio);
--	if (lru_gen_enabled())
--		lru_gen_clear_refs(folio);
--	else
--		folio_clear_referenced(folio);
-+	folio_clear_referenced(folio);
- 	/*
- 	 * Lazyfree folios are clean anonymous folios.  They have
- 	 * the swapbacked flag cleared, to distinguish them from normal
 -- 
-2.53.0
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
