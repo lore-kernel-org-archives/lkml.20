@@ -1,96 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.99
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.98
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793048831;
-	b=YQ1xETBMcS877e0T1htarMQ73oLFG+Z/m2/2m+IOaokQOi13s3qd8CHwbCIQS8K+g++R
-	 p9czav7dsLW9SDszzYBEOl9CHSkfNWgi1Kps1E8I4Ih1mpHVYkcSsnGHbDp5pY6e84i6Z
-	 u0d18BEvJUF3QnC62DUI057+/mHFN1mrP3hNJWGEuOGuoOT+BPojzBhVNKIkiCBCgqMAg
-	 rESkLCOvYWqVDYdM8KBxsUKeufrQINOfI/PeLY7ufiUqdPOL33ese93/ft0BUigdwgV1v
-	 iQM4XEfW31/02B0AfDB22vr5lYD6zBw3it8NS0/okpu5Je4vZtMWJBA5MxyVn3EzmCg==
+	t=1793048841;
+	b=S7zEMeUkU0jDGpCSMQBpgGQ4ISH9yZJngS4YFJyCZBhK3fHhCWut6F36TMw5IOYghx5y
+	 oGn66/6EXaky+rrbmfmvT8VD1UgfZ+HbcjDnxryjmKvkYmmYDIwcGYhuAi/GHJFKi6Kzt
+	 ZUTT+ki+QT/gup7T0rhD5X/MaFWW7s+mjTb/2HKVOwgggFRUsc9BXXyif3GtnCI+RrF+j
+	 f6/G0RBnMa+2FtCcNNwPBU3rpkx7KSvR+IpkyPZWy9kWx3RSYQ8pi5mIGidP4Mf5+3kJq
+	 X1TUYyjASTU9KmmhkmoBroacjcblx7FAXF/J2vCocVSh2USqUJGecywvzDetkiantLg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793048831;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793048841;
 	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
 	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-DetectorID-Processed;
-	bh=DC12OXR6B3T51NugMDFwf/bpu8Tt4YhOIMBqSWA+f5s=;
-	b=PNZk7hYXPsFzW/isRCZiXcHqHjZgY9RWRAVYJ/QbsapOVlVodRL1lv/PQNRYxvjlKFah
-	 4yZQdGk5a0Hti76xZr9fhj/n7kCQ3owRvvcmzvp62fChkkgJvD8YfR52RadX1OgnoEe3i
-	 PF+e+ApPzRJbqigcN0ysns0PQZzDDNWP2fPENM+JsSbOijMdzVftg+trOwkzAvn0ZfHMY
-	 HjZjcDAKoUwF6vj6xYd3lx++/DPZB2gS2R5w/0wFHpbgdH3RS4+uOgR941oXndeZdYsR5
-	 OfePJsavXJ2ict3bufSZOJE1N//QgqUibZ/e1qruSQlH0wKlBg3sLn5CS06hbwH4EFQ==
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-DetectorID-Processed;
+	bh=uTkZJ0Yzp0GGufzljGd6jbiq9eMnJlsjmW0Q6mSjuiU=;
+	b=N8UdRxYKyDh3EDoXUPIeTRMELrm8hlTRic0wvlLjt0p8vugKj4PPhDdUYW6GXbh2sWDb
+	 le3ItpumZCWFcFVtJhusiIehQr8rDlVp/Z8USCl1wkTh9jtISGUwiGM7MYFyF7Cmt0U87
+	 UCNfnSJzt5BqVm64MKbVPMOIT+vJ5GAq8ivvNmG9JbgpKCyTPX5UmmBmbyCxIeY3d6HG4
+	 NKKzVJ4r50J7Ik2vLd/TddFR+HdT5taILDcUf4Bk1CN1vyyf0YR9X2aSoZsvZS/vmioSi
+	 qi/iV8a9wNye7TpUEFOT4k95tv8CkuB/x+hWnmSfER8EMY4+PQNJj8aAIBDWF4rpBWg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=broadcom.com;
 	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b="Umw/h/ch";
-	arc=none smtp.remote-ip=209.85.216.99
-Received: from mail-pj1-f99.google.com (mail-pj1-f99.google.com [209.85.216.99])
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b="GB1J/OwO";
+	arc=none smtp.remote-ip=209.85.216.98
+Received: from mail-pj1-f98.google.com (mail-pj1-f98.google.com [209.85.216.98])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AC8E606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 21:07:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5AC8E606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20416606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 21:07:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20416606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=Umw/h/ch
-Received: by mail-pj1-f99.google.com with SMTP id 98e67ed59e1d1-3ac451e128cso2505419a91.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:07:11 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=GB1J/OwO
+Received: by mail-pj1-f98.google.com with SMTP id 98e67ed59e1d1-3ad787b79ffso1959969a91.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:07:20 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793048831; x=1793653631;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=DC12OXR6B3T51NugMDFwf/bpu8Tt4YhOIMBqSWA+f5s=;
-        b=nvgGJQrLblSIZ4WVFZiZU2+qc7Cwtwf6k5gMVM6FFlWMf/7eGGp9jgYKC41FZr6qMU
-         xMiZhzS2bCp4arz2ty8EKMCVE3NucvcPjx+6ghlc6mSDY9GQiSjccjMXWn3pAoMW5xyo
-         qt3WNR0T6pWvCwyXFsQ/TihxNnL0ADduIUvv9Yxwmo+WuT/KJhcrzCJOh9JIojFr1Z4n
-         fP6NU/Pv9KVZcC3OKNrnAT4u96E1dDx1B0YqoQGSFWF6JoHfTFz/KLMX3N3D77zLh1tG
-         O/DompXUudCJEXFaYFq2kN6sPa+qotAbvq2F5ZjdMkGR3roMyU7uwbF/Ql2jyoK99cRx
-         9K5A==
-X-Forwarded-Encrypted: i=1; AKwUvBw0cbjK0BFnzC5Ox+yyx7kR7Xx/FMZItmiIxVF+hTugq1NYqoMzq+NDKMqEylTzqnAL9Ermc35pjJwxFW0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIub58kksR6rmc6ucYRFeOM/0CfoUqBDBrmRYJymP+kaFHa8Ndh
-	KTG/hNuJuraJGYSXZtZIJnTscxgtc8MWhLCM3RPVbQS0TQJBixyoWlN9eqrsfe84foII2zbGvyX
-	0pda7rcs3bB3adFbJIxC6ApCVhQ1I1dH86I0HbbHZCp8VVE43Yw2UaEc7oKCFomFoLns3T3HTRa
-	PU06jGTyZdcbWbauvHynWF+wnX0qLyefwQXj1Xr0NeGqcFwAn7Effpoy+OLXMnYUgG9MJ8bxCpW
-	ESwVfE/D5PiiCai3aHwyQB/G6M=
-X-Gm-Gg: AYBFou23xpEWECL+tzpW1dy5fZgKM7S7dJMr4eA76gSNjEwlC9Wpcgu5BNwZyEkZLly
-	jh68wtoS0xkUiH0GCNC437VWmVMMdkOgpyVEgFMjaLoD720rrNf9F0BDAK64gL4ydGelMAiA+xn
-	txq0fa/6jzETQw4bzX9bbAeV3E2jqNibjdTePNWYlOEzXSrwc8qF3RM9B7Z4soido5rAEYzPSzR
-	TSTdNv/XKOI2BM8x1T3Hvm1f+yyi59q6+cnlyYriU0D5aK1Tx5liNaYOrd7i5QQUNlqMiyLxMLx
-	SrcaeMxBhli2Zz4RA3sV8quN3hCwTm8BuO8nz/GerGFZyW8GNjYgW2ZOPKltDB2mOAFI89EMCFy
-	UkJNzUhIijQfJ326lXNOMACaOsB0l5sKldVwkjqfDXSSnU6JlZYpTdX0yyhfTAjh7ab3mIn1b0G
-	UbVYq81qfZv1L2n6dPJ961LDfZYb6iccbhIAKL+0pAeyU=
-X-Received: by 2002:a17:90b:1dc6:b0:3ab:be66:ddb6 with SMTP id 98e67ed59e1d1-3adeae6caffmr6175292a91.20.1793048830530;
-        Mon, 26 Oct 2026 14:07:10 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-120.dlp.protect.broadcom.com. [144.49.247.120])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3ae407e4ce3sm496931a91.6.2026.10.26.14.07.10
+        d=1e100.net; s=20260707; t=1793048840; x=1793653640;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uTkZJ0Yzp0GGufzljGd6jbiq9eMnJlsjmW0Q6mSjuiU=;
+        b=hs3CHgtFIRxpuNy8gYbJzE6w8CelYPhNrkkPYfMGBhWiOs/x322dLgQfGq1eklzcgy
+         H9Re4L0vnah+QOhIn07vzxisb6fnsOpXrG/KRfqqVTTE8U+eLAPMr2yEp456MT8Om6B8
+         X80V3H8Mvhk2TtG3hH0WTccuWqpSkxPmYc3kxrQqD/bGNTceE+NYL3iceJ1G2OF+WocK
+         nsS9DPzzGcstmGKBYepnwlT9bJQyaPxDjTH5+Ap/lX22s8fYfjUG+er6LEaX0HtE7b91
+         6kcbIeMHy/GgjJqPsOt/1DcRwTcOxobqi/7s9f7+GK2elV3pbc80+fPQ1aF6Wr9EivNE
+         dkZA==
+X-Forwarded-Encrypted: i=1; AKwUvBzS7kfC6V0CBVMSIvchQJKXrCQ3UNY30OwMyRzZMU77RO0BRhtDzUn0NboRfY6keCBhgccdk1k1TGMMDSk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIyypVhmSloUDmmgMSG/3grFEj3oAKjuasMm/p53iki/ci1PSpf
+	jYFuA6c3EXYQSdL4Ll5ZFxst1JTJXpCMZ08KJSQB69WW52A5eTTaib2+e5jFiHUnXZIKIBnFH54
+	uUKeIHHg4zrPSenJxtYqA3OuuYp703w3RGqWnXUKBO/D63eaNSFxH8q/r+SN66JP9REgFXeMNUF
+	o4LyXdvhsG4QRegCt/FF0JQZJDQorQgUDEd2l1wQ5IY6tosb7DnP8sAso7DCVM9KR4krzXLHAVT
+	Y5NGZSLsZGfYDhg+r2I6Xk6fo0=
+X-Gm-Gg: AYBFou2dqCGl8OZCQ+6MG52hKp7/NWpSGTJTsR6MEEVxw5wv1q42P4CeBpXOC9f23iA
+	SwxE/sBgEq0qPRMan9DSyWnGUQHVlEkro0jzk3IM5w/8d0kVxTHsNS3ov9J1pvYh4fL5AkVTRB/
+	e0aKCg02VUJ0ZB0ItWdujBK5Y3TdZ2/QnPiDJmczzX0SeeEIrwLNB9seJr69sCvBFXZo9oLr/tf
+	3V5KTWhY6MHHgMkbbNKxu2Otto6KMJwll4pwcr1SFiTZl7yE5k3vosLwjySofynZndX2Rs3hjLj
+	S//knFwwkFGTYuOHSMoIrAD19S88xZ0qRc14sUoTmnyXYyyVmYuwoqDTsVNvbkuwAQ7Mmjvln+a
+	qtxuzTzktWnvve7LZc/dgat2Ir9l+Im9CpYLTj/NoewLRVSppQO/GprG1PO3BhClAWNgPx6dNyT
+	9kJHGlLsXQ+vonuQH4kvU25qvdQygfowDImac3PwZO
+X-Received: by 2002:a17:90b:1804:b0:3ab:4e4:e979 with SMTP id 98e67ed59e1d1-3adead4fb3cmr6205446a91.36.1793048840432;
+        Mon, 26 Oct 2026 14:07:20 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-28.dlp.protect.broadcom.com. [144.49.247.28])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3ae407e4ce3sm497258a91.6.2026.10.26.14.07.19
         for <linux-kernel@vger.kernel.org>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 26 Oct 2026 14:07:10 -0700 (PDT)
+        Mon, 26 Oct 2026 14:07:20 -0700 (PDT)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2cec4226c70so27999625ad.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:07:09 -0700 (PDT)
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2e80f7acc67so38183155ad.2
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:07:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1793048829; x=1793653629; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DC12OXR6B3T51NugMDFwf/bpu8Tt4YhOIMBqSWA+f5s=;
-        b=Umw/h/ch4ahM/7QdeTNI6Qj7VGq1vbCSRbUOp4x2wtlAT4X5a2Y2Aa7JkpJqrk4Apm
-         v0/muilirFQZfzfwUDgee1Cr2SPLt26NLJpdeUcn5qUXWuYCU+h7znUMIwktn3zqrMho
-         pQPLvZOBEGTS058D5O1j2tUFayUq0upNYunWc=
-X-Forwarded-Encrypted: i=1; AKwUvBy3UpfLwfqTKkIcB8tq2DX7LaEu7L7eQprQhQP8cJ1FwDT0TYEySvE4gvZVSgw6hop+ofFzj96vLGFuqhw=@vger.kernel.org
-X-Received: by 2002:a17:903:1a0f:b0:2dd:c0ff:e72b with SMTP id d9443c01a7336-2ea9c9197e2mr64294085ad.61.1793048828780;
-        Mon, 26 Oct 2026 14:07:08 -0700 (PDT)
-X-Received: by 2002:a17:903:1a0f:b0:2dd:c0ff:e72b with SMTP id d9443c01a7336-2ea9c9197e2mr64293975ad.61.1793048828375;
-        Mon, 26 Oct 2026 14:07:08 -0700 (PDT)
+        d=broadcom.com; s=google; t=1793048838; x=1793653638; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uTkZJ0Yzp0GGufzljGd6jbiq9eMnJlsjmW0Q6mSjuiU=;
+        b=GB1J/OwOUp9OwFeIaRzNnLPUia/7R/jz4jRHDP/RgEsXdjC+vVEteMqdNlI8e7GNEg
+         bDl6Z6m2REAPpjX5/XAyHEyFl4huzQ/thNQDlJBr/2/4lGezIhGsQZoiDEbnAH6ebaWl
+         nPzzI6dpPLQFs5xn/pHzxjsXBvpE+aRYwwPD8=
+X-Forwarded-Encrypted: i=1; AKwUvBz0JlDani8kakXSwVXndkFNkM5p6BfKbTLCH8P4ypt7vV/DD5XzwXL4l5vdUWUcxtEtOAuZJEV+d6L03Qk=@vger.kernel.org
+X-Received: by 2002:a17:902:fc45:b0:2e9:9a19:c5b with SMTP id d9443c01a7336-2ea9c7bf298mr69830645ad.47.1793048838533;
+        Mon, 26 Oct 2026 14:07:18 -0700 (PDT)
+X-Received: by 2002:a17:902:fc45:b0:2e9:9a19:c5b with SMTP id d9443c01a7336-2ea9c7bf298mr69830405ad.47.1793048838119;
+        Mon, 26 Oct 2026 14:07:18 -0700 (PDT)
 Received: from fainelli-desktop.igp.broadcom.net ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6ce5d92sm808245ad.75.2026.10.26.14.07.03
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6ce5d92sm808245ad.75.2026.10.26.14.07.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 14:07:06 -0700 (PDT)
+        Mon, 26 Oct 2026 14:07:16 -0700 (PDT)
 From: Florian Fainelli <florian.fainelli@broadcom.com>
 To: netdev@vger.kernel.org
 Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
@@ -106,10 +108,12 @@ Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
 	Jon Mason <jon.mason@broadcom.com>,
 	Arnd Bergmann <arnd@arndb.de>,
 	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH net v3 0/2] Fix TCP retransmissions on NS/NSP SoCs
-Date: Mon, 26 Oct 2026 13:37:40 -0700
-Message-ID: <20261026203742.3198673-1-florian.fainelli@broadcom.com>
+Subject: [PATCH net v3 2/2] net: dsa: b53: restore the NSP IMP port 2 Gbps mode
+Date: Mon, 26 Oct 2026 13:37:42 -0700
+Message-ID: <20261026203742.3198673-3-florian.fainelli@broadcom.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261026203742.3198673-1-florian.fainelli@broadcom.com>
+References: <20261026203742.3198673-1-florian.fainelli@broadcom.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -122,53 +126,45 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-On Northstar and Northstar Plus SoCs we would see about 1000 TCP
-retransmissions per second due to a rate mismatch between bgmac and b53,
-make sure that we run at the same speed on both side to avoid dropping
-packets on the floor.
+The Northstar Plus IMP port uses the switch's proprietary 2 Gbps mode for
+its internal link to the AMAC.  Its fixed-link description reports 1 Gbps,
+so applying that speed clears PORT_OVERRIDE_SPEED_2000M and leaves the two
+ends of the internal link configured at different speeds.
 
-This issue was found during testing on a Northstar Plus reference board
-(BCM958625HR) while running iperf3 to a test machine and noticing
-retranmsisions:
+Force the 2 Gbps mode and flow control for BCM5301x and NSP CPU ports.  The
+mismatch caused switch output queue discards on both copper and SerDes
+ports, with one discard for every TCP retransmission.  With both ends
+restored to their high-speed modes, iperf3 reports no retransmissions.
 
-# iperf3 -c 192.168.3.1
-Connecting to host 192.168.3.1, port 5201
-[  4] local 192.168.3.204 port 49856 connected to 192.168.3.1 port 5201
-[ ID] Interval           Transfer     Bitrate         Retr  Cwnd
-[  4]   0.00-1.00   sec   111 MBytes   933 Mbits/sec  915   99.0 KBytes
-[  4]   1.00-2.00   sec   111 MBytes   928 Mbits/sec  909    109 KBytes
-[  4]   2.00-3.00   sec   110 MBytes   925 Mbits/sec  1097   99.0 KBytes
-[  4]   3.00-4.00   sec   111 MBytes   928 Mbits/sec  814   58.0 KBytes
-[  4]   4.00-5.00   sec   111 MBytes   930 Mbits/sec  1187    109 KBytes
-[  4]   5.00-6.00   sec   110 MBytes   923 Mbits/sec  893   72.1 KBytes
-[  4]   6.00-7.00   sec   111 MBytes   929 Mbits/sec  843   67.9 KBytes
-[  4]   7.00-8.00   sec   111 MBytes   928 Mbits/sec  920   79.2 KBytes
-[  4]   8.00-9.00   sec   111 MBytes   929 Mbits/sec  1109   66.5 KBytes
-[  4]   9.00-10.00  sec   111 MBytes   930 Mbits/sec  1055   63.6 KBytes
-- - - - - - - - - - - - - - - - - - - - - - - - -
-[ ID] Interval           Transfer     Bitrate         Retr
-[  4]   0.00-10.00  sec  1.09 GBytes   933 Mbits/sec  9742
-sender
-[  4]   0.00-10.01  sec  1.09 GBytes   933 Mbits/sec
-receiver
+Fixes: b6a8a5477fe9 ("net: dsa: b53: fix resetting speed and pause on forced link")
+Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
+---
+ drivers/net/dsa/b53/b53_common.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
-Changes in v3:
-
-- correct commend in the second patch about what is being forced
-  on the CPU port, it's not just flow control, it's also speed
-
-Changes in v2:
-
-- make it apply cleanly to net/main
-
-Florian Fainelli (2):
-  net: ethernet: bgmac: preserve forced 2.5 Gbps link speed
-  net: dsa: b53: restore the NSP IMP port 2 Gbps mode
-
- drivers/net/dsa/b53/b53_common.c      | 12 +++++++++---
- drivers/net/ethernet/broadcom/bgmac.c |  8 ++++++--
- 2 files changed, 15 insertions(+), 5 deletions(-)
-
+diff --git a/drivers/net/dsa/b53/b53_common.c b/drivers/net/dsa/b53/b53_common.c
+index 0880310c9ce3..743fc04da0a4 100644
+--- a/drivers/net/dsa/b53/b53_common.c
++++ b/drivers/net/dsa/b53/b53_common.c
+@@ -1663,9 +1663,15 @@ static void b53_phylink_mac_link_up(struct phylink_config *config,
+ 	}
+ 
+ 	if (mode == MLO_AN_FIXED) {
+-		/* Force flow control on BCM5301x's CPU port */
+-		if (is5301x(dev) && dsa_is_cpu_port(ds, port))
+-			tx_pause = rx_pause = true;
++		/* Force flow control and 2Gbits/sec on BCM5301x and NSP CPU
++		 * ports
++		 */
++		if ((is5301x(dev) || dev->chip_id == BCM58XX_DEVICE_ID) &&
++		    dsa_is_cpu_port(ds, port)) {
++			tx_pause = true;
++			rx_pause = true;
++			speed = 2000;
++		}
+ 
+ 		b53_force_port_config(dev, port, speed, duplex,
+ 				      tx_pause, rx_pause);
 -- 
 2.53.0
 
