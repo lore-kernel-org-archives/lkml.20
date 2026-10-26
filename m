@@ -1,79 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793004295;
-	b=mvSuPKQKnv8WUtgGG7jlL0W63YdB93VAdBnMIZIVnHI/5EXqAnTCwR8buMPseJm14M1a
-	 UBmZE/RJjWSvhQxgLiO+ZNvbuUReIinOBTUG/GNj9sjDF/w/yCclDyIWUMfj7Kz04sZjK
-	 ZrigrMLYbuKZiAeRkIyRF7/9ufvIY6+q0HpS33KDI3guo9gsHX6UWhAk9ox/p1s9J3eEH
-	 IHJCY0shRecbZH7/kRVqS/WbeTclrhQKQ4Ft4m+20OVnoCbAp25PwBdeq7NOqi5pYa5sq
-	 CEer2DBi6iZBfxG/3KIyFeH8Atyjib5AfkKQw1MMOesG8+cCHzLgM8Cz0ne/wjZ9LAA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793004295;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=jz30Kqva1oj2ZOG9QQrY/EiApxn9BM5nq3IuAzI3TSs=;
-	b=WgF39tCMKgLMCnduiDDYRdjGEha0Wy9fw5IruCaPQgOsVoQXmpoYi1rRp81X9e4JyCSw
-	 NnecXd0Axh8r+G/wZLgIxVBsQliL4Xx5aOfPskqrsdYeB/E2i8ipTtx0u6ZhLWz7MaTq5
-	 QEyPSrLvSE51WYwpgtBNVco+p+ncEOjk+aSGfCV8rNVNvkiJRgxT8PCQ7R6FtuEl+RIv2
-	 LfcJeIXz7/x8iBY1mLa8pDxNt9jFZ+GzQS15185bpKJFmzmnObk5SuVyROOTwSqdBGNbm
-	 wAepkU+cXA6/gH9Jm9+JOq3zhQtDQZpAjkaRo5rtlfufsYci2aeM19Z8vqa36RGSs9Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gMJKtiEh;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74E30606A31A;
-	Mon, 26 Oct 2026 08:44:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gMJKtiEh
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793004295;
-	b=dWAN0EA67mkCKq8VUjhqFwoFk5EgPe7rQxVRZtXhCamRDaG0JOQBtpRNRIpXws6k40pC
-	 tJP+5kOd6C4Hgyi6XuuQ+U01PEOO2ZtDebFLBpkLn8Y7iwkhrdzlgShRRNedcsnLEW9pl
-	 MEuTuGsmbb/alOXiHDwUKAKt0La+bBfX8M9IeoOzv4BqVqkwUhQ4Sihi8wpjd/QwOKldV
-	 ZTs4O9yJFEqJ3sr/NfWaipq/KZKX31pI7Q7Amj2HFcYTLGnJvwQNx4gTIvXDp5OHNwxQH
-	 oD70KtbJXOLfK+HN1x4RbMqP+oalQ6zgQjLXMPz8zi5xxcu1Jqv4FN8JB9RESgKeowQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793004295;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=jz30Kqva1oj2ZOG9QQrY/EiApxn9BM5nq3IuAzI3TSs=;
-	b=V2glH+uPavtLp8oC12tl6S82+lnS2XoUinfKVH1jwr1dQrH703vtaCUGENd4zVgbUn9Y
-	 mgmYSVnSGySHYw8kzTZc7h5zQVGBwjydRPt2D9ciAYUicEuXna+tmfyzX5hS2fQGLLd76
-	 Gd00nlH8x//PWJrp4cxLMtQ80N+gzwoQpIMEuw2VnlhCNV6XKghFVdAf6S9nbRLrdFPPH
-	 V0na7/SZvzGCFZYd8p+PloY8RmcgqtbqBQpf/7zF/GgK5Syo+pqZORR2MlWOdQAETG4d/
-	 ifgdWx5Zdg6D6nHH+CzJ/jrj1QK1+0gCiHCxDreHj4rGweboxjftByzcmWkc9Ll1s3A==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793004344;
+	b=g5+zNLZP/EUdZf4QcvmeoEXvp2PyVX8o6IsmyeOfVXAAMu72IXONUsp0BHZC8NblsSVL
+	 tQvm31HcOX4Y2OR74InceebvQ1BmPfOCEige7lJuaREiLnKHoQa0WJL96Wix4O1y+Jl5a
+	 RqZeq0AXSbwCggxdgb8EnfHVrXBhCNWytLwedtV220dtDg0qZjq0w+uwW/qAUbcin9ogx
+	 s+vcMXifCIDl+nnOUNEdIsWHbqGQzRZSJAGQd+1Sw/RdhdlVrA0kY9xjrL1by2x1dJ9Im
+	 zGRYBpWCZL7YY6Xg46c2NSFNexDZvZUJ8X4ZmfC6GrO6Y2FVHngF5cpD/8/Vi5o35aQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793004344;
+	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
+	 Message-ID:Date:Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:
+	 X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:
+	 X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
+	bh=oJlTQ1J1/v00rGsmIpPjsX1DcEmgAQSHXTSDO4b7bcw=;
+	b=TtsaIQaxbJCswtMHsqNuFgQZY/yeOe2vZnUDCg8mLVP6xLj3mrGYcmwrJrdprIhHPyrO
+	 PhH0C9bo1gcU1jpUPY3ltlW29h8MPm6WGN2CMuz7qoQyk682w4TXlRKFR16dKCVPRa3zU
+	 iNWqkRO7ltmdA91Wd1h2rJZJACD+fcIVwMMpFhm3C3Ex8THj2iphE2qrcCFb9ynmzAq4v
+	 SVyjnGFvQL0xrdSziavc05fuezZdPHA+AbCOqrKgsI9qwm1ExPS7UTXyJtyQhqpDUw/+i
+	 KIJBeZyzJe9xG5pXOiatVKIthzz9dVtB+rx0RgqYfYHWCqN57rQyT60EgYI0HwahiDQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=zte.com.cn;
+	spf=pass smtp.mailfrom=zte.com.cn;
+	arc=none smtp.remote-ip=183.62.165.209
+Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 6D5901F01825;
-	Mon, 26 Oct 2026 08:44:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793004295;
-	bh=jz30Kqva1oj2ZOG9QQrY/EiApxn9BM5nq3IuAzI3TSs=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=gMJKtiEhaIn1a8UWqUtN0VcNNYZr2qYm/gsIoW1ftDtXtGpU7qPh7SpqdZgRHbAov
-	 3IIIl2ogDpTY+vBlxc8gH9x83SEg3WaRj8FvSiFvq4usmr5fDEd2cpw7E+pxyo0/Ow
-	 hg8hMrpbFiBx+yifOqbJ0V3tzYJY7X5FcmKJ364HsmfbkFPNMbALe5QR9p7bd8pyz0
-	 Xx3JrZ6JbeTA+wzR9ZnpMBlB+eZFklCcxK6iuu3X0WFS7razZ5/qo8j1c+FHQpqKFs
-	 YYkXyWC6mqaQPOmzYwJB3pxKAZNroon3Vc7Z7pOXKOfwxCioUZUylIo54wRYk8I5Ir
-	 lLoF+rr0JB/VA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id E064A44C77;
-	Mon, 26 Oct 2026 08:44:53 +0000 (UTC)
-From: Enric Balletbo i Serra via B4 Relay <devnull+eballetb.redhat.com@kernel.org>
-Date: Mon, 26 Oct 2026 09:44:34 +0100
-Subject: [PATCH 3/3] clocksource/drivers/nxp-stm: Increase min_delta to
- 20us for PREEMPT_RT
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 006D8606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 08:45:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 006D8606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jCnJX6dcrz5B163;
+	Mon, 26 Oct 2026 16:45:32 +0800 (CST)
+Received: from xaxapp02.zte.com.cn ([10.88.97.241])
+	by mse-fl2.zte.com.cn with SMTP id 69Q8jODI078452;
+	Mon, 26 Oct 2026 16:45:24 +0800 (+08)
+	(envelope-from shao.mingyin@zte.com.cn)
+Received: from mapi (xaxapp04[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Mon, 26 Oct 2026 16:45:26 +0800 (CST)
+X-Zmail-TransId: 2afb6adf132641b-92d16
+X-Mailer: Zmail v1.0
+Message-ID: <20261026164526813_4KvPc2SI-CEJ2Mzh7HN3@zte.com.cn>
+Date: Mon, 26 Oct 2026 16:45:26 +0800 (CST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,74 +56,61 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261026-nxp-stm-fixes-v1-3-20a64a4ea454@redhat.com>
-References: <20261026-nxp-stm-fixes-v1-0-20a64a4ea454@redhat.com>
-In-Reply-To: <20261026-nxp-stm-fixes-v1-0-20a64a4ea454@redhat.com>
-To: Daniel Lezcano <daniel.lezcano@kernel.org>, 
- Thomas Gleixner <tglx@kernel.org>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
- Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>
-Cc: linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
- linux-arm-kernel@lists.infradead.org, linux-rt-devel@lists.linux.dev, 
- Enric Balletbo i Serra <eballetb@redhat.com>, stable@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793004293; l=1611;
- i=eballetb@redhat.com; s=20261026; h=from:subject:message-id;
- bh=2oVeDkpoG/kZGujP8YpSokhvVMo8D6Pr1tME75FCvYQ=;
- b=oJOj++Ax9eLtn9MXj4cg6VRzFKwnoiO5tNLT0d23izNOmKsdtC/1h8bWWET1Y35f76g/bOVb0
- XhycJ+0Wl1tApeDDk7ptKBEbENZ1EAQRpXw1C/GUzgfGlAMb2CHSQBl
-X-Developer-Key: i=eballetb@redhat.com; a=ed25519;
- pk=5zh6xuAxTiQwglL2NXQFqWuyRPmCE8T5KPXLbNXhnKI=
-X-Endpoint-Received: by B4 Relay for eballetb@redhat.com/20261026 with
- auth_id=1324
-X-Original-From: Enric Balletbo i Serra <eballetb@redhat.com>
-Reply-To: eballetb@redhat.com
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+From: <shao.mingyin@zte.com.cn>
+To: <hare@suse.de>, <hch@lst.de>, <sagi@grimberg.me>, <kch@nvidia.com>,
+        <linux-nvme@lists.infradead.org>
+Cc: <kbusch@kernel.org>, <axboe@kernel.dk>, <linux-kernel@vger.kernel.org>
+Subject: =?UTF-8?B?W1BBVENIXSBudm1ldC1hdXRoOiBmaXggZXJyb3IgaGFuZGxpbmcgb24gQ0hBTExFTkdFIGZhaWx1cmU=?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl2.zte.com.cn 69Q8jODI078452
+X-TLS: YES
+X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
+X-SOURCE-IP: 10.5.228.133 unknown Mon, 26 Oct 2026 16:45:32 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6ADF132C.000/4jCnJX6dcrz5B163
 
-From: Enric Balletbo i Serra <eballetb@redhat.com>
+From: Shao Mingyin <shao.mingyin@zte.com.cn>
 
-Under bus contention on PREEMPT_RT kernels, the 2us min_delta is too
-small and the counter can advance past the programmed comparator value
-before the overshoot check runs. While the -ETIME fallback handles this
-case, repeated retries add latency. Increase min_delta to 20us to reduce
-collision probability.
+In nvmet_execute_auth_receive(), when nvmet_auth_challenge() fails (for
+example when the initiator-supplied allocation length is shorter than the
+DH-HMAC-CHAP challenge response, or the challenge nonce allocation fails),
+the error path sets status = NVME_SC_INTERNAL and breaks out of the
+switch. The unconditional
 
+    status = nvmet_copy_to_sgl(req, 0, d, al);
+
+after the switch then overwrites the error status (nvmet_copy_to_sgl()
+returns 0 on success), so the AUTH_RECEIVE command incorrectly completes
+with SUCCESS and the initiator proceeds with a truncated/empty challenge.
+
+Fix this by freeing the buffer and jumping to the common done: label on
+CHALLENGE failure, skipping the copy_to_sgl() entirely and preserving the
+NVME_SC_INTERNAL status.
+
+Fixes: db1312dd9548 ("nvmet: implement basic In-Band Authentication")
 Cc: stable@vger.kernel.org
-Signed-off-by: Enric Balletbo i Serra <eballetb@redhat.com>
+Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+
 ---
- drivers/clocksource/timer-nxp-stm.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/clocksource/timer-nxp-stm.c b/drivers/clocksource/timer-nxp-stm.c
-index ed7662a4e2bc..a0761d7f8b01 100644
---- a/drivers/clocksource/timer-nxp-stm.c
-+++ b/drivers/clocksource/timer-nxp-stm.c
-@@ -335,14 +335,14 @@ static int nxp_stm_clockevent_starting_cpu(unsigned int cpu)
- 	/*
- 	 * The timings measurement show reading the counter register
- 	 * and writing to the comparator register takes as a maximum
--	 * value 1100 ns at 133MHz rate frequency. The timer must be
--	 * set above this value and to be secure we set the minimum
--	 * value equal to 2000ns, so 2us.
-+	 * value 1100 ns at 133MHz rate frequency. However, under bus
-+	 * contention on PREEMPT_RT, 2us is too small and causes missed
-+	 * matches resulting in 32s wraparounds. Increase to 20us.
- 	 *
--	 * minimum ticks = (rate / MICRO) * 2
-+	 * minimum ticks = (rate / MICRO) * 20
- 	 */
- 	clockevents_config_and_register(&stm_timer->ced, stm_timer->rate,
--					(stm_timer->rate / MICRO) * 2, 0x7FFFFFFFU);
-+					(stm_timer->rate / MICRO) * 20, 0x7FFFFFFFU);
- 
- 	return 0;
- }
-
--- 
-2.52.0
-
-
+diff --git a/drivers/nvme/target/fabrics-cmd-auth.c b/drivers/nvme/target/fabrics-cmd-auth.c
+index 1fe21f2672f1..bd1185f13ab2 100644
+--- a/drivers/nvme/target/fabrics-cmd-auth.c
++++ b/drivers/nvme/target/fabrics-cmd-auth.c
+@@ -605,10 +605,11 @@ void nvmet_execute_auth_receive(struct nvmet_req *req)
+ 	switch (req->sq->dhchap_step) {
+ 	case NVME_AUTH_DHCHAP_MESSAGE_CHALLENGE:
+ 		if (nvmet_auth_challenge(req, d, al) < 0) {
+-			pr_warn("ctrl %d qid %d: challenge error (%d)\n",
+-				ctrl->cntlid, req->sq->qid, status);
++			pr_warn("ctrl %d qid %d: challenge error\n",
++				ctrl->cntlid, req->sq->qid);
+ 			status = NVME_SC_INTERNAL;
+-			break;
++			kfree(d);
++			goto done;
+ 		}
+ 		req->sq->dhchap_step = NVME_AUTH_DHCHAP_MESSAGE_REPLY;
+ 		break;
