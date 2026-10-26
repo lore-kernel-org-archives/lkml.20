@@ -1,80 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.96
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793001808;
-	b=C6u+vLG9F5zNfO2hn+HawyAypmu6+rQfUxdvYpuy3241C+47yiWGr0pDggW20ti6totA
-	 mpayFluczPA1TyHTF7WLga9mT9uQ+COYfVIz2J+ghin33DKx/Fvy3bxJALH2yXc2qgTq1
-	 HvQlfjh/SgiZqXrpgrDFO0nktAp2zOB33DQaCAArRBL+161Iw14OYdpz9iYT+SKJBozzd
-	 3ProyvEjWrRUpZ89djbV9SMEYIKCKSVbiFIfqoIKtY4zTuYnmqz2ly2qiQx7GJu5LcB+9
-	 8uJuRNiV1+F9Oc/dqnsv7oE6NWeNZye66Nsh7LiVtQ8apn7BmLAQL+1OJmX09gB4lNw==
+	t=1793001856;
+	b=kS2BCoKs4qx43d276PLofOidLlauptZx3mSK2JasMbH2Qtc3LdTLPtkjvvlxQYzy7+qM
+	 FXijdaYmu/xunsHOhcuCwTIOxOcTX5oGjBEeT2crpqf7MahY0/tmZeC68dxtOp+D5YebB
+	 +3DfM6WTgOKvcIPQtfWG8Y/JqJSYOi/ZtVOqIjTYnVHPv7jcq2QQYtymfR8m0jeX4As4E
+	 QMAnux2ZrJE86/GniXLW7GrTNyP5Gy2ZcRd/i0HLrg7Uf0c9Tx/S2adnyd6w7osAEXJ1c
+	 lUtEUsCV0AQWicunsm3zyzXxVlLiu801y+3/QEjF0ECmMkZIA5i+7M3ebOV8/jFfXhA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793001808;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=xXtS8nqPI8bMiiZsI5aMJRhf4Xi82nV2lL/o/RcncNM=;
-	b=IAJQoenugAzK2nsFSMqKsH5O6jsCIyuKjf457PewRiYu7VvGBVdMLQqj1QF3LP78iZSB
-	 Q6xGtKOWSAsZfTmwgUNj5qpT9U0kVGJv4dfdkI1MdgPLkz5QCcKICl+d5u2qNKWrgIjn/
-	 h126bVouMlt/EAfyH7IBbMDBi085FxvOS93OcktDH6W8WPSImVPLyZSOOWn2fYL5diMMi
-	 a1fB7G2lc4PvKdG/j+40YQamZf6n34+7LcmC0XmVSwqbZr9LGW9KWsma2rzInIurZrT+Y
-	 /UkBWFgpEupI9jB70paClTyOyzVK/auVd5yNi4GLdmT9/+1glQ0/CScF1rm4sy058pA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793001856;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=gEr8Jp+Ny4YtsUekpUShINHIGkwK2BkTrE3Zld9rNuw=;
+	b=EhU8iUaAZEMa9w0qw+6Q9L0LpHLlHYIT9tVRSbP10SWr6mWoQMitXOQvrK6k8m/d54ji
+	 Fl0SxJbivkFYvS/A18CJ0NpbVN7mTNe6gs5CaVmuiEldq4jNbT2Th1X0/AXC8BdAsnnlm
+	 Bg5zphC0rDwKVPGMLdA4rfp1Zm9vkW7bjhP6e/Kcpi1hs+dgexPxfVcnJxR6xdQEgOJ12
+	 XqxSM8YNa+th/jM74t2Vz4mijn9rlhcj9iI1jmVCm8b9sTiTHxFYvNtu7j/ojobHI5UuE
+	 vVPGudxyCuzlAjKrepozfn4KjZLEL5POvIpZxt/8Ueh6n3xc9WR8EOpnRHWzVZjYi5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=b4JDoQom;
-	arc=none smtp.remote-ip=95.215.58.96
-Received: from mta1.migadu.com (out-96.mta1.migadu.com [95.215.58.96])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DxXqkW9E;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 359C2606A322
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 08:03:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 359C2606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63D04606A31B;
+	Mon, 26 Oct 2026 08:04:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=b4JDoQom
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=5qs+zHZlkyqRDMqx7SNWEDLyLXIGQ6DciwEgGF1OF3Y=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793001806; v=1; x=1793606606;
- b=b4JDoQom0Koi8+FkzooWTOyPmsr0fbisC++3eRpFProHJO7+Si+JBtJij98PWU28h+c4QRA9
- AV9k3+2v7Ud3w7hGWKerJwW0MY5hJvXXKVcgj36+5a/KSDfDvD1d6KPl+vsmMDccHSTWq+SYXK+
- kfJ+Jd0or1Hgp+JFMEZU8qyU=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 63343c3c8e1494da;
-	Mon, 26 Oct 2026 08:03:25 +0000
-X-Mizu-Trace-ID: 63343c3c8e1494da
-X-Migadu-Flow: FLOW_OUT
-From: Hao Ge <hao.ge@linux.dev>
-To: Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Alexander Potapenko <glider@google.com>,
-	Marco Elver <elver@google.com>,
-	Dmitry Vyukov <dvyukov@google.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Dennis Zhou <dennis@kernel.org>,
-	Tejun Heo <tj@kernel.org>,
-	Christoph Lameter <cl@gentwo.org>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	Hao Ge <hao.ge@linux.dev>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Dev Jain <dev.jain@arm.com>
-Cc: linuxppc-dev@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	kasan-dev@googlegroups.com,
-	linux-mm@kvack.org
-Subject: [PATCH v3 10/10] mm/percpu: stop unmapping the CPU that failed to map
-Date: Mon, 26 Oct 2026 16:03:29 +0800
-Message-Id: <20261026080329.140244-11-hao.ge@linux.dev>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261026080329.140244-1-hao.ge@linux.dev>
-References: <20261026080329.140244-1-hao.ge@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DxXqkW9E
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 425F31F01825;
+	Mon, 26 Oct 2026 08:04:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793001856;
+	bh=gEr8Jp+Ny4YtsUekpUShINHIGkwK2BkTrE3Zld9rNuw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=DxXqkW9E+JzaMAvDiRXG0Xzi6+JdRIL4xCzN2V6egLlB7qKOjaKgYOaVW+dpK/rn6
+	 MpNO++pB342va2JOO4oKNtWCcBq4yq2eO4k3m4JLKjku9kzVmCY5qZ4aIxBWaucifk
+	 vZVph1+iuIqlUE6xWzJKqO+P55aPZIJUg5YQFFy1FkKN72GILaqhlHiBlcxzt/zZhf
+	 3Yd+rs68rnrk7wVTrO54XuE/V4rU8zzKh/cyyNVDSNZpj3OP0EA8CZbp4ibyg4ve6B
+	 W+38Au+p4pgbu32P3djgPbdGBMP6pR1xTfBaZFg43Tl81trUPI2J5tO/rL5Igbeuu9
+	 2GXZP5oWCACQA==
+Date: Mon, 26 Oct 2026 09:04:12 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Ishu Brar <patches@brar.si>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: display: panel: Add Samsung AMS644VK04
+Message-ID: <20261026-petite-ultramarine-barnacle-4ca4db@quoll>
+References: <20261023-panel-ams644vk04-v1-0-56096aecd0ff@brar.si>
+ <20261023-panel-ams644vk04-v1-1-56096aecd0ff@brar.si>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,37 +61,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261023-panel-ams644vk04-v1-1-56096aecd0ff@brar.si>
 
-__pcpu_map_pages() clears the PTEs it installed when it fails, so
-pcpu_map_pages() only has to tear down the CPUs it mapped before
-the failing one.
+On Fri, Oct 23, 2026 at 01:51:16PM +0530, Ishu Brar wrote:
+> +...
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index a08087fb6..1eec53b0e 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -8462,6 +8462,12 @@ S:	Maintained
+>  F:	Documentation/devicetree/bindings/display/panel/raydium,rm69220.yaml
+>  F:	drivers/gpu/drm/panel/panel-raydium-rm69220.c
+>  
+> +DRM DRIVER FOR SAMSUNG AMS644VK04 PANEL
+> +M:	Ishu Brar <patches@brar.si>
+> +S:	Maintained
+> +T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
 
-Reviewed-by: Suren Baghdasaryan <surenb@google.com>
-Reviewed-by: Uladzislau Rezki (Sony) <urezki@gmail.com>
-Signed-off-by: Hao Ge <hao.ge@linux.dev>
----
- mm/percpu-vm.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+Drop, unless you are committer there. There is little point in
+duplicating subsystem data in individual entries.
 
-diff --git a/mm/percpu-vm.c b/mm/percpu-vm.c
-index 509d8901835c..59d3a336a6bd 100644
---- a/mm/percpu-vm.c
-+++ b/mm/percpu-vm.c
-@@ -252,10 +252,11 @@ static int pcpu_map_pages(struct pcpu_chunk *chunk, struct page **pages,
- 	return 0;
- err:
- 	for_each_possible_cpu(tcpu) {
--		__pcpu_unmap_pages(pcpu_chunk_addr(chunk, tcpu, page_start),
--				   page_end - page_start);
-+		/* The failing CPU's partial mapping undoes itself */
- 		if (tcpu == cpu)
- 			break;
-+		__pcpu_unmap_pages(pcpu_chunk_addr(chunk, tcpu, page_start),
-+				   page_end - page_start);
- 	}
- 	pcpu_post_unmap_tlb_flush(chunk, page_start, page_end);
- 	return err;
--- 
-2.25.1
+With this fixed:
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+
+Best regards,
+Krzysztof
 
