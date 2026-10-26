@@ -1,107 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793020099;
-	b=t7kF8ObXs2VYijTjiMdtF2PH8nhEWr9pYulTFuHg30OMjfL0vQ17PGAo5FwiWZPq/0u5
-	 Mb3E8ViE2TaTx9Wj2chXOJazQeqyZ8DiP745C4lWqylX7IjFXS9q+peUlTUkHKTo2zcZv
-	 wj9TFv1bvV0vAvUoHrYbgclAXGph4GGiMwrpGnkUWpK/q9JzHmVLraOhoU14vmBKrV0Nw
-	 S0GiiY3gOpTaRL3oxaME04PfdiHa/R0xy107nv6f5eV2rWepqFKXYjuv0cyYwuuuOCM57
-	 1yIrSU3l/mbqnm09r5a9WBWptlcYH2K14vC8w29lUBJzj/LfnX16+936J2jAYz5scIQ==
+	t=1793020199;
+	b=Kvruj5O/aMsV896EFHV0n7egjNZOiv9y5iAdmKzqjB3eXfP5+AHOQxBv42GmZre2mJAs
+	 Y7gRnnSLDN71GpZTSiMY7968JM1CkBYa98qgJIwUaj/a825yrrqKSEQ++sm2ZivV4Vm19
+	 bvFSU92E2ZcVo2Fc6gObAH8k1siU5YgmFvUJCS7WrR6Xz8Wq/1VF7ASOb+FxSld1oGnMS
+	 IjvtslSE0r5XVTQNOW/t0K1TXr7Ef/JI2A13F1kC/XQWH669FVf6u8CSYQW9wJcsrKeS1
+	 yfuaxH/NACFlZIaa20zyxQ61LGQnrag+GWkauH1xAEk5XkoC7q551MVL37l4kAJtqyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793020099;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:
-	 X-Spam-Flag:X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
-	bh=/LaJPNgoMxQGKTEoJPunrzJNT9OGNjl3wT3+JfDy8Hg=;
-	b=Sccc1Ye/daaCBeMqfi5+WMXODSCxaMKIuVW26av2W8uwBf6ll67UiOCi4X4Amsjefca4
-	 92+6kcoudjs0MNcDxW3WDoyTZC6wHKTi3lEVdmfPrrMWryugjiv/KCa/NeeMisYsi0ZEm
-	 kp5SRBzmrzBUNWakBoCtj6Ofqvta6A8X/o04ivK+2OGrXmXwyHJlfGY7VVGqMWdfc+maw
-	 1c3aKMt9IEwOs7zwC7j9eicgCJEEtYK8Dle7y10QhbJudkEYegOe1g4NNhqLkIrFYc/br
-	 Je/3LrFmooK3mLdME12Kl8keFF+eOHn/pmK75kvoESj9LT2uRkkggTsatpOMVWTrgpw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793020199;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=n7yxWtPMUXi7IWlyGxpU0TZfSphuR8DxMIcDIMKDNB8=;
+	b=NiuCJZ7NJfFRcFyny0PfiZAOPaFs2GlCql0nNLau8E1M8Aeeg051asz5IhZJzUG7yfIE
+	 4GUohtW637uFrGFhj6HobSAMVkqsLkl+hpyTKH6CF/Dvibqc54iQnvOCCbbILKGOPjI7U
+	 lhGywENs+LT0IXJrLJK1A1aP0ve/qCiRf2EvTk51bzTR5DE08631Se6FJsvwtqLhfp+uZ
+	 4XKSlA6Dsn85ADxvWxTsDWP4B3AUlSY6Bv+JpfQ34SwDvK3wVL95uPfBNq8agZiKT57/F
+	 CUw+14YtRLqXcEjxlNbadnauphQhm8Gv8W0h9bt0J1/KkJ8A1cGR04LKsKug5jqqmmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b="qelMB/Bj";
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=DQqv8XHd;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b="qelMB/Bj";
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=DQqv8XHd;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=murfKBxV;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=eqwvHt3j;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFA9B606A31A;
-	Mon, 26 Oct 2026 13:08:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BFA9B606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C285B606A326
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:09:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C285B606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=qelMB/Bj;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=DQqv8XHd;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=qelMB/Bj;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=DQqv8XHd
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id C34F11F461;
-	Mon, 26 Oct 2026 13:08:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793020096; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/LaJPNgoMxQGKTEoJPunrzJNT9OGNjl3wT3+JfDy8Hg=;
-	b=qelMB/BjFqgvBS9P67zjljz5Wws2dZUqmlkIhVigU025OG7xbEOxO/aUr8LR0pJ/gDOoe3
-	W2flsV0wedLYw7sbrt5eyJ0RVRjs42T6t/hjeu5v5KE1JO6TJEQ52OK7Zk9cIYfPO8BPcn
-	PqtpXX6ISIhgl6StiyqFj884id5bZLQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793020096;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/LaJPNgoMxQGKTEoJPunrzJNT9OGNjl3wT3+JfDy8Hg=;
-	b=DQqv8XHd7HzpJlYdj0mmdtWpp4P1dANZjsxxD7uRLKcapc5xxTgEn+x/I1wEPMqRG6XPwx
-	12GSjdEpXKpjylDQ==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b="qelMB/Bj";
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=DQqv8XHd
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793020096; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/LaJPNgoMxQGKTEoJPunrzJNT9OGNjl3wT3+JfDy8Hg=;
-	b=qelMB/BjFqgvBS9P67zjljz5Wws2dZUqmlkIhVigU025OG7xbEOxO/aUr8LR0pJ/gDOoe3
-	W2flsV0wedLYw7sbrt5eyJ0RVRjs42T6t/hjeu5v5KE1JO6TJEQ52OK7Zk9cIYfPO8BPcn
-	PqtpXX6ISIhgl6StiyqFj884id5bZLQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793020096;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/LaJPNgoMxQGKTEoJPunrzJNT9OGNjl3wT3+JfDy8Hg=;
-	b=DQqv8XHd7HzpJlYdj0mmdtWpp4P1dANZjsxxD7uRLKcapc5xxTgEn+x/I1wEPMqRG6XPwx
-	12GSjdEpXKpjylDQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 95A6913408;
-	Mon, 26 Oct 2026 13:08:16 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id CtXvG8BQ32qwYAAAD6G6ig
-	(envelope-from <jack@suse.cz>); Mon, 26 Oct 2026 13:08:16 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 2597DA1419; Mon, 26 Oct 2026 14:08:12 +0100 (CET)
-Date: Mon, 26 Oct 2026 14:08:12 +0100
-From: Jan Kara <jack@suse.cz>
-To: Aurelien DESBRIERES <aurelien@hackers.camp>
-Cc: jack@suse.cz, brauner@kernel.org, willy@infradead.org, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, aurelien.desbrieres@gmail.com
-Subject: Re: mmb_sync: b_mmb NULL window races mmb_mark_buffer_dirty
-Message-ID: <q472nkbfcfdumbxm3cebfnnmueqyl6uhhnper5t6e2cxajpvtu@7prjjo7k6ia3>
-References: <20261024170609.125348-1-aurelien@hackers.camp>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=murfKBxV;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=eqwvHt3j
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69QAtNS43050893
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:09:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	n7yxWtPMUXi7IWlyGxpU0TZfSphuR8DxMIcDIMKDNB8=; b=murfKBxV5uzBPNCR
+	T54ppeH1fTQLM3q/mBgRjDF8P1SH6AV3rdnDYWH0i3t5OJ4iY28DaWIC0mFxcNi8
+	vIUm3Xi8GEy6U1GLXNSYwCfDdsmcWOf6r1tGAwS23/MyH3LgIKQu5bGDcqsukvzm
+	O7zJfhIsDdGbP4w/2nm8TOW7PClBA2eXKAlD0ygEM72cSir51B2owyLYK/gLmcKi
+	u6IH4uc9plP5f6e8X9gbHpgVL1tsneix2Ae5+YHmzmJ+mX7+S3bAiTlHjc9FXxkM
+	AWf6368sFLrAjH9BrUG3rB16k7h5ia7hPV9HOkOGcv0zD3ajUxcGqMBsHOfQHH9U
+	uRiOhQ==
+Received: from mail-oo1-f72.google.com (mail-oo1-f72.google.com [209.85.161.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hhvdda8tp-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:09:57 +0000 (GMT)
+Received: by mail-oo1-f72.google.com with SMTP id 006d021491bc7-7052c0a5836so3522145eaf.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 06:09:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793020197; x=1793624997; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=n7yxWtPMUXi7IWlyGxpU0TZfSphuR8DxMIcDIMKDNB8=;
+        b=eqwvHt3j0UtIVaY/HHDorO/6I4+QBu5n0DLjHVO7ly+Ki2zHoCCNGLxvgZdziQ09z6
+         vm2z9CDrXtEulbdwtEJixHAwJC7oXwvL55xrim1jTGPdIHFSPulbpn+K5iAoufCVOlCK
+         jSRqgaln7PJeXMH49QmsKAl3BdyhnlOd8F/IaF2ZBmvf8/TJUkxDOVaQ5nAQ1ILNzY5D
+         mjsmVyrW9QUUH3IKRqSfAgKmorRDDtpegXIROO7zfUIeuF93MxcfmswtiLSl69dOT2XL
+         jTtWPi46/Xf/nXCQverR9jhV5z495EpnbJK3DctrERI0uJ2kvgRk5oBmbUvPIiuEed0f
+         8kDw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793020197; x=1793624997;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=n7yxWtPMUXi7IWlyGxpU0TZfSphuR8DxMIcDIMKDNB8=;
+        b=mYErPj2sTmkIOzg+YW0Tr0rP40Ksi2imlATlffwz5tbS74zyBQR6R0GJVIb9aJC1XS
+         rjq+4cshvpdtTBN6sMksTf2zy5tU4N/hNiZE+c3W+3mF1Asda6Sc0+xlkIaVdDxBgOqq
+         WCVP4lIeCmPgtiBmlDZTkYauA1RnToq83O7tZtweQzc0YJ0SI/4XfBQdQFb1k4tgBm9x
+         Ccqk/CIvRquIk6tTh05PQVO2I07GF88b+LZ42beq4aUmJzNt5M2bujNpN8rexgtTHZoC
+         14kk2Q24dFp327IFfPgEHM2IRDbUAAfGYobhV9nh9AdVQe4vQW9xajkX2YSmx6K0PH6h
+         h/cw==
+X-Forwarded-Encrypted: i=1; AKwUvBxD62EAM8KD8Fx5O9cGPCD8U7+KaoEIcxeQA2q9RjdYsmjzdWylZNwdf9IsXnxK73ez4QVErmXLpikYsCY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKZJ6otN28e16gXtNjpMmhDDCXpNdPBbwDJI7F/cRnyBnz2c5d7
+	P4FWQHH5s9wuSS37DUoHJNBr4tWGZb3i38oTaRXBOH7EjYAjd5jW3jJYWav4FFDsfjrrWBJF2dg
+	oBGczavngBcAXruT43Paa4XuM+goxIRjNbU0voJPJpMjbhW/O5f3ZqM36E/xBXUwXJuo=
+X-Gm-Gg: AYBFou0wrURmA85sf2iyHKeX9evQOjIklTwivYxIXBDpVcSABQjS2Xg90bCMWjq4YWL
+	snmn0aIvfUbHd4LljdwM4B5UVHaOrCyk5gjgfZvDrS8mIfVPeGEW2gkYwJeL2OfSnRO7ahAz2wD
+	Y9WFoVrpbvMzuClevK0XXusVd1d5mD2HsHvNcA6Qfer9heer0yEyYmWh1bwlz6yJ8M147/aj3a5
+	MClE/tqwEBXsLxvrrLxPcYboM3A6pWTMdErFXCMyDKxXhCmNQMOAU7fSizMpPk+P+h9L0Xswjo0
+	TWeuApHH80U8QMEPusMPKNoP6ro2YqAWw/5Ne9V8+koq5BKMLnejWZWR8iT+26SZ3frYayINJBs
+	U6V5pOOGyuh09SBVB6IANAUetmag/lZBCdK1PfvgTx56J+gPpcR7f4igwcYwFaEXYwpzaSot9o7
+	InE4Ks2iwKoyMYV9C4tZ5ic7UhVlc=
+X-Received: by 2002:a05:6820:61d:b0:70c:f411:409a with SMTP id 006d021491bc7-70cf411484bmr1858261eaf.60.1793020196911;
+        Mon, 26 Oct 2026 06:09:56 -0700 (PDT)
+X-Received: by 2002:a05:6820:61d:b0:70c:f411:409a with SMTP id 006d021491bc7-70cf411484bmr1858226eaf.60.1793020196412;
+        Mon, 26 Oct 2026 06:09:56 -0700 (PDT)
+Received: from [10.190.200.105] (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-70b9e163a5dsm6838618eaf.8.2026.10.26.06.09.46
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 26 Oct 2026 06:09:55 -0700 (PDT)
+Message-ID: <0cace778-b68f-49a9-b52d-dc632bf3a0ea@oss.qualcomm.com>
+Date: Mon, 26 Oct 2026 18:39:45 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,147 +116,106 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261024170609.125348-1-aurelien@hackers.camp>
-X-Spamd-Result: default: False [-11.51 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_COUNT_THREE(0.00)[3];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	FREEMAIL_CC(0.00)[suse.cz,kernel.org,infradead.org,vger.kernel.org,gmail.com];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	TAGGED_RCPT(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	MISSING_XM_UA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.cz:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -11.51
-X-Spam-Level: 
-X-Rspamd-Queue-Id: C34F11F461
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/5] dt-bindings: arm: qcom: Document Microsoft Surface
+ Laptop 8th Edition
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Maximilian Luz
+ <luzmaximilian@gmail.com>,
+        Hans de Goede <hansg@kernel.org>,
+        =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+        Douglas Anderson <dianders@chromium.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Pankaj Patil <pankaj.patil@oss.qualcomm.com>
+Cc: Rajendra Nayak <rajendra.nayak@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org,
+        dri-devel@lists.freedesktop.org
+References: <20261006-mahua-surface-laptop-v1-0-406fc042162a@oss.qualcomm.com>
+ <20261006-mahua-surface-laptop-v1-1-406fc042162a@oss.qualcomm.com>
+ <245e5eef-e18a-4ec5-b57c-65e561101351@oss.qualcomm.com>
+ <52adff3a-370c-4445-9797-e0b0dde36fab@oss.qualcomm.com>
+ <5568fd0f-e412-4f2a-9f1e-729a469da572@oss.qualcomm.com>
+ <65f6883d-8ead-4c6e-80f5-81f6857df0b8@oss.qualcomm.com>
+ <f624b075-df3b-4862-8231-8fcae7f18d50@oss.qualcomm.com>
+ <5cfc6414-735d-4df3-868d-c8c3c4a98e30@oss.qualcomm.com>
+ <5478c0da-e28b-4ea5-9b7a-f7aef2c7f437@oss.qualcomm.com>
+Content-Language: en-US
+From: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
+In-Reply-To: <5478c0da-e28b-4ea5-9b7a-f7aef2c7f437@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: a4l4WXHcYZPI4vIz7gTvGVS80RGBSqb2
+X-Proofpoint-GUID: a4l4WXHcYZPI4vIz7gTvGVS80RGBSqb2
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA1MiBTYWx0ZWRfX+a0WRj+TlQBc
+ EH+tQ1ia4DFqarNC9Sry6XN3LSk2VZ62bkriYk0LamWs75Qqvhr+eVcGc2uk47de60G9LbjCvEK
+ h9qnVXWzvhfqHMtUL/AYuaCwgFkcDxpAyDUP7b3b4/kbp1clYJNSu89LpGs1QWacdVkDydOjVB5
+ uOrgVBgoaRa+ZeXBJgIpMCzXrSHpnCDIGoA/qJFSC+Fn6EOWIzynrjZ1C044cNQ2guA4fSpWr86
+ ygD+TfkRV3QdZSCI8G+bkS6A3uEtiBfzIFA5+4l4xctOsNea1P0y9w9/YwYcZ8RWLFIOHXX6qp8
+ DpPw7GQaBfYj2xtPRn3o74AT2yIMQBaAHsyqlPLOY+n8jNi9DtIYbg4TKWnwPt5CMWBAB4dcixn
+ Pv3RMPUSoEv4XDEsNwAlqmJ9593YqS9ECJXvd+oMoX0z3f8kUO0Ub+foVv37ciq+6hnUs6RLeO3
+ WzxSqRNwKlwuglmiwNQ==
+X-Authority-Analysis: v=2.4 cv=N8+8hG9B c=1 sm=1 tr=0 ts=6adf5125 cx=c_pps
+ a=wURt19dY5n+H4uQbQt9s7g==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=orzTaoVzejLQ65uNlDkA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=-UhsvdU3ccFDOXFxFb4l:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA1MiBTYWx0ZWRfX1NDeIHw0ocC4
+ KEhrIqWLwUC2Qh8fyy4QMlQ3W5YykYpn3+8vOUxVAw6dC37ce3XIFq6B/okm1JawyG3I8miqisr
+ oJ68qpxBaz2T6DD2Cy1LAieZgRDkNoU=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-26_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 phishscore=0 priorityscore=1501 adultscore=0 bulkscore=0
+ malwarescore=0 suspectscore=0 lowpriorityscore=0 spamscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610260052
 
-Hi!
 
-On Sat 24-10-26 19:06:09, Aurelien DESBRIERES wrote:
-> While measuring beamfs on vfs.all (2c3ba1f1cb41, on v7.3-rc7) we hit a
-> list corruption in fs/buffer.c that I think is a window in mmb_sync()
-> rather than anything specific to our filesystem, so here it is with
-> the trace. beamfs was attaching buffers that several inodes share
-> (bitmap blocks, parity regions) to the allocating inode's
-> i_metadata_bhs, so the same buffer_head moved from one inode's list to
-> another's. We have since given those buffers a list of their own and
-> the problem is gone on our side; the window remains.
 
-Well, yes, mmb code is all built on the assumption that each buffer has at
-most one inode with which it can be tracked. If the filesystem tries to
-attach it to more than one inode, all bets are off and we give no
-guarantees what happens. I guess we should add an assertion to
-mmb_mark_buffer_dirty() for that to warn about buggy filesystem code early.
+On 10/19/2026 4:02 PM, Konrad Dybcio wrote:
+> On 10/19/26 12:31 PM, Konrad Dybcio wrote:
+>> On 10/16/26 11:26 AM, Sibi Sankar wrote:
+>>>
+>>>
+>>> On 15/10/2026 19:02, Konrad Dybcio wrote:
+>>>> On 10/15/26 2:47 PM, Gopikrishna Garmidi wrote:
+>>>>> Hi Konrad,
+>>>>>
+>>>>> On 10/13/2026 2:09 PM, Konrad Dybcio wrote:
+>>>>>> On 10/7/26 9:11 AM, Gopikrishna Garmidi wrote:
+>>>>>>>
+>>>>>>>
+>>>>>>> On 10/6/2026 3:20 PM, Gopikrishna Garmidi wrote:
+>>>>>>>> Document the Mahua-based Microsoft Surface Laptop 13.8" 8th Edition.
+>>>>>>>>
+>>>>>>>> Signed-off-by: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
+>>>>>>>> ---
+> 
+> [...]
+> 
+>>> microsoft,surface-laptop-8-lcd13
+>>> microsoft,surface-laptop-8-lcd13p8
+>>> microsoft,surface-laptop-8-lcd15
+> 
+> (FWIW I don't think there's a non-LCD option)
+> 
 
-So what you did - handling shared buffers separately - is the right fix for
-the problem you were hitting.
+ACK, I’ll drop the lcd suffix and use microsoft,surface-laptop-8-13p8
+instead.
 
-								Honza
-
-> The window
-> 
-> mmb_sync() does, under mmb_A->lock:
-> 
-> 	__remove_assoc_queue(mmb, bh);	/* list_del_init, b_mmb = NULL */
-> 	smp_mb();
-> 	if (buffer_dirty(bh) || buffer_locked(bh)) {
-> 		list_add(&bh->b_assoc_buffers, &tmp);
-> 		bh->b_mmb = mmb;
-> 
-> Between the NULL store and the restore, mmb_mark_buffer_dirty(bh, mmb_B)
-> on another CPU sees !bh->b_mmb, takes mmb_B->lock (a different lock),
-> its cmpxchg(&bh->b_mmb, NULL, mmb_B) succeeds, and list_move_tail()
-> writes bh->b_assoc_buffers while CPU A's list_add() does the same.
-> The second loop of mmb_sync() has the same shape (remove, then
-> list_add back to mmb->list when still dirty).
-> 
-> The old mark_buffer_dirty_inode() took the bdev mapping's
-> i_private_lock, shared by every inode of the device, so the two
-> writers could not overlap. A per-mmb lock protects a buffer that
-> belongs to one mmb for life; it does not protect the moment a buffer
-> changes hands. The comment above the cmpxchg says it is there for a
-> corrupted filesystem with multiply claimed blocks, and the kernel-doc
-> says the buffer is added "if it is not already on a list": that is
-> exactly the case the window lets through, so a corrupted ext2, fat,
-> minix or udf volume in which two inodes claim one indirect block
-> should be able to reach it as well, given an fsync on one inode while
-> the other dirties the buffer.
-> 
-> What it does when it hits
-> 
-> With CONFIG_DEBUG_LIST, __list_del_entry_valid_or_report() refuses the
-> del, list_del_init() does nothing, and the first loop of mmb_sync()
-> is `while (!list_empty(&mmb->list))` on a list whose head never
-> leaves: the CPU spins holding mmb->lock. We lost the node to it
-> (soft lockup from 48 s up, then kmemleak and the OOM killer).
-> 
->   list_del corruption. next->prev should be ffffa26a6e8d4820, but was ffffa26a63804190. (next=ffffa26a432e1238)
->   WARNING: /lib/list_debug.c:65 at __list_del_entry_valid_or_report+0xf6/0x110, CPU#0: dbench/16440
->   CPU: 0 UID: 0 PID: 16440 Comm: dbench Not tainted 7.3.0-rc7 #1 PREEMPT(lazy)
->   Call Trace:
->    __remove_assoc_queue+0x20/0x80
->    mmb_sync+0xba/0x300
->    beamfs_write_inode+0x45/0x190
->    __writeback_single_inode+0x480/0x630
->    writeback_single_inode+0x11d/0x4d0
->    sync_inode_metadata+0x46/0x70
->    simple_fsync_noflush+0x55/0x90
->    simple_fsync+0x16/0x40
->    do_fsync+0x50/0xc0
->    __x64_sys_fsync+0x13/0x20
->   [...]
->   rcu: INFO: rcu_preempt self-detected stall on CPU
->   RIP: 0010:mmb_sync+0xc0/0x300
->   [...]
->   watchdog: BUG: soft lockup - CPU#0 stuck for 48s! [dbench:16440]
->   watchdog: BUG: soft lockup - CPU#0 stuck for 413s! [dbench:16440]
-> 
-> xfstests generic/241 (dbench) on a 4-CPU x86_64 guest, kernel vfs.all
-> at 2c3ba1f1cb41 with CONFIG_DEBUG_LIST, PROVE_LOCKING and kmemleak.
-> 
-> A thought, not a patch
-> 
-> The NULL is observable only because the buffer is unlinked and then
-> relinked. Keeping b_mmb set while the buffer merely moves between
-> mmb->list and tmp (list_move() instead of __remove_assoc_queue() plus
-> list_add(), clearing b_mmb only when the buffer is actually dropped as
-> clean and unlocked) would leave mmb_mark_buffer_dirty() nothing to
-> race with inside mmb_sync(); the lockless check would then see either
-> the old mmb or none, never a transient NULL on a buffer that is about
-> to come back. I have not written or tested that, and you know what
-> else looks at b_mmb.
-> 
-> If a fix is wanted, we can run it against the module as it was before
-> our change, on the same guest: that is where the race showed, and the
-> same test passes 24 of 24 trials with the shared buffers on one list.
-> 
-> Aurelien
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+Thanks,
+Gopikrishna
