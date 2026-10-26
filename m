@@ -1,97 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793008860;
-	b=uMJng33DdW3Rq+5x/hu2UG81PmkZDQr7IiPn245VuBnTerMPJOuYALVZr5u27MpnhVq6
-	 UwUw+65nkyw1ydki+IhRNpx6gPmVD3yUNQABdJiurg24/lrF0nx1ylPB8mL/ihesOjvgt
-	 mgwX+Qakq3EDWPBENw4S1WeCSJP9xHq6tVFznFxtXTt8ZL8YKhOURc/Rz9mBU3W9IXrdI
-	 bVQ4lB/PGSlYkuz6my1Vy8wfuRQnO+qRwzg9oaFb1NlYpe7mYWZlXoV3P9NULHH8spAHe
-	 MeqpR/8TFuyHnGYevJ5u3Q+bFO+a84eqw9UUvVrqjRPLaIvAkLjlEJsi9V3lpNGeXIQ==
+	t=1793008861;
+	b=zduFFPH+q4gl/S23GqoMMOFj+lzcoMAnOo6Y0a+mo/nJQ6ZguuSma6kiIZq2NRbSBVez
+	 dyVpX7ccir9cxGonUU70P8TLuzJ2JOwcqizXPVFKL0VdGglKiuwWLTnRGBL7mwaN/aWUt
+	 CuoQgry2SpVxqkhDZIZ5bNw1hmjvSMN7F4bE4w2HBfGP+1c/9Ny9lK+qRV6XWtdi6J94i
+	 xvkXi9cMqUqJZKojlAjs+UNltTRmG9kl+vstsJ80q/LSIOq4qlWvBKn7ZUhp0b/tckfx4
+	 VPjN2kmhMaMfLbfqgy+bJlo+awaz0nJnk3g/1qK0NECOFxfT4uaNZJjtKoI2aOhlODg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793008860;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=yUNue8RqNAG3xbvxKJkiWvhSC7sssvJxNpD4oMJGghY=;
-	b=Dg+3ktHj5JZNyxw/E7B3tJqhVKLaNrVJkgtqFRcrZV/5wQDELfFX4YXArlSdNtwc0jlx
-	 6pAZCAkYOAyTuPsD7qLToMXOvfocVtECkn+z7FgYFZ0n6MtFQ1d9xvrEtD7xGAw56Ev5R
-	 TFBAq3z5ODYZTBAiZeykqqm6x/LZlo48mU4wommJE/GkGQx0BJlTxbDYv3BiTELVB1x2A
-	 54ENbCTF1mZ9i3R2NPY+NK/j1yp+xHn48HGx5wpDuPY8hB8VActWgFtAkIoLLZ1wKDUIl
-	 fnAKj5PfHcquqW0VszPIIx5ZRov43/gu/zPuOEWXlr+YVtqkSyL6pmPfyqLMvO9PCpA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793008861;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Message-ID:In-Reply-To:
+	 References:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Correlation-ID;
+	bh=FAPaL/S+HviWhVsH4Q4LtOnNt8IZUscDcNfZSJPE0Ic=;
+	b=bapGgs3mG9mjShrDswXik+PKyTNpNHjcq/IkH8abzfrhv8aY3L6L8sEk9nNppPuLMnNl
+	 AdNgVsvq3/Mh1+W6QtniUDUlG8IZdjPE9CKEMcgna0QpOn7GVvc1CaCs5KLMdm00aV07A
+	 +L11VoZFnLgl3P/5ZyyqF9Sw3Y9JVNNpL2NQXNkf7ox2efqYHdikQ9trDDqMAUagJiDHc
+	 OYbWUwdQXT/80fZk7bJTwHpLLE6YmBkhxj6g4XGdA4xLYlji0k7an4xRinEPslaIhkiln
+	 Nnqq10iPtS4pQzxhBex6ryV0ksqorSi7to2Wdgc/4QlbL5PvUd7et0afLpNqToeEVnA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="O/1e9Whu";
-	arc=none smtp.remote-ip=74.125.82.47
-Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="JIA/WLaW";
+	arc=none smtp.remote-ip=95.215.58.1
+Received: from mta1.migadu.com (out-1.mta1.migadu.com [95.215.58.1])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C650606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFCC1606A31B
 	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:00:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C650606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFCC1606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=O/1e9Whu
-Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-156cbe59524so1910159c88.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 03:00:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793008858; x=1793613658; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yUNue8RqNAG3xbvxKJkiWvhSC7sssvJxNpD4oMJGghY=;
-        b=O/1e9WhuRj5MV0MSVJ/fCJ+d2Csw/EvdUVILQtiqBCNrVw2OXmB71KQukWHsM+3SBc
-         gVTl0OaIEBRElvVZbt22X9R2lExgCsH70Eepn4lJuXgVwHRPRMxr81DMRS9DysV+oiFQ
-         Vku5nnGFOdI8I0Hk4vt22aMqA74ehwiShxq63/eKYphx3BPxJPP3kh0m4BUA4BT/t/ud
-         Vf2Frefo06rVKqEPy8J25uzpAk0ECeDhnfAxcAmsZnO++g7K2MEgTKTwqAXl4rt7/qOM
-         9C8htxP1+mOll8ttMad2MWAMLSts/UmjHkgNqW1bOTe27d+XGb/HjYS029Qh13dkGMLZ
-         KAww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793008858; x=1793613658;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yUNue8RqNAG3xbvxKJkiWvhSC7sssvJxNpD4oMJGghY=;
-        b=U88+9kugyF+TUZznXNdkwL2NAiYXeP3tHdYJx5yRVzbVk0uuIs8DbOJZYj+aGt/JO3
-         bO5RxZLKKHGCuqXCCRodj29I43ObfxsXHclGucZkitf0q+RWhDdrNbUUqN+9Ufb5tlY7
-         sjJb2wqqIpFqg0qYm0XnAy1uFdGg2kwrM1DfFkQuHnDdQu6ygiBhd/1PNmWrm6ZF/dO8
-         MqnX4P5CfAb97N28Uk1sfwPzKB7mh8T+k2ZqEm2B4afFdXiHuO8yrAd1R1P+VqfTflqL
-         Gl9hMrxKVhIkMm5vvO/wi+ZhNt3N9kyD8VUiECN16QRFYIlHYPvgvCCXxqvgi5tH+/Bw
-         iuOQ==
-X-Forwarded-Encrypted: i=1; AKwUvBygGbzTP7CUc34kd/HGU+GWyqqpsAUMOn7HbvkrsJgspU+v0wslpC1xdTkcsAcFno2VJ4niSL8aa1gOZhY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLOAVvsDGGBLL340w1qnKC9qq6o3CoidHbD9kgMRpWHOfJm3cRU
-	eU1kcYpVzJA4hZYHZmFyK2PbwTcxvfObaZEBXY8gCJuSq2yyGEAlktWL
-X-Gm-Gg: AYBFou1PqKvoa6UEoqb05qR5v5E0TrtPKkMT5EJ/LZmLdWENd+/Jw0L8CuQtuPZwj2j
-	U++TU7Lgl/iKeevg8HPhdH8jz4dqfFLark+TCb+zMpq7qxnMB/lX5GPcnwoNKNqGA6lZnBOhZso
-	WWhSgvKnqqJHe5Icp8iagKJjNMSJIi62vMT724GcBUcPZEZW3PC54Es/kvr5Q37zpEtOkGMAB75
-	5aJ0cXlJM9TT4XWpcB3PtN8uob1RmrD32lxdiZjZf6hI+5+FUxvJ2eCz6wcoiKDPoWb4xO0GKK8
-	ARcPWnUwc80Mktk1o50/VbKrvVQOsF2K4AFcqZS8MvSUiPRWs3CyDuC1JDqWNqwPLndWugJ01la
-	WvHf/lWbZapoGGrpv9VscNL3epAj1axByijKHeDBugOwDs6oYybhBG4dFcJx+AUB/3/xZE7PiqK
-	EllW9CEP4zKVzbzVbwTSJbBQI+LC+1KpQk+CR2qw1PyBhfPXsMfh5RsQ1q+t/ZQ1Fuek1c86DLX
-	jKnJz4XHy8t/DAHK7ux0N8Zqu3Jyp48vijpG7YyEIkasVwTVBa8ltJIDHnbO17nM7GptZvmOD/f
-	WOchTLQ6MqRCfCT+NuCNKA1TlRVM+5gCnxAVceomKJlArzGysiG0Yt0uiTGuW5hYgKnNkdQWm1y
-	r3Jei5Bi1/uQ=
-X-Received: by 2002:a05:701b:428a:20b0:192:fd91:c567 with SMTP id a92af1059eb24-19935906f80mr10155416c88.11.1793008858180;
-        Mon, 26 Oct 2026 03:00:58 -0700 (PDT)
-Received: from kapoor.iiserb.ac.in ([203.18.51.239])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a2a5a515sm21224176c88.19.2026.10.26.03.00.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 03:00:55 -0700 (PDT)
-From: Arnav Kapoor <kapoorarnav43@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	Stephen Boyd <swboyd@chromium.org>,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Arnav Kapoor <kapoorarnav43@gmail.com>
-Subject: [PATCH] iio: proximity: sx9310: report a hysteresis of 0 when it is disabled
-Date: Mon, 26 Oct 2026 15:30:32 +0530
-Message-ID: <20261026100041.16018-1-kapoorarnav43@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=JIA/WLaW
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=FAPaL/S+HviWhVsH4Q4LtOnNt8IZUscDcNfZSJPE0Ic=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793008858; v=1; x=1793613658;
+ b=JIA/WLaWnR/2F60qpmRq0UdqAS9piNIRd3w/SfQtZk8tSVMGbcmL3rIT6l9L7KH5HNd2r/Gd
+ Xr1xnn7M/92zEaF9M7bgzdPyi5pWI1QQ6K0Ab5tTuNijEcELXxZLu6XP8/esGCTEJEtY2kgELfa
+ 4HYrJA0iz2q6NPghSEAcf5OU=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 7ca0a9e6d7d82528;
+	Mon, 26 Oct 2026 10:00:57 +0000
+X-Mizu-Trace-ID: 7ca0a9e6d7d82528
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 26 Oct 2026 11:00:52 +0100
+From: Denis Benato <denis.benato@linux.dev>
+To: Sakari Ailus <sakari.ailus@iki.fi>
+Cc: linux-kernel@vger.kernel.org, linux-input@vger.kernel.org,
+	Benjamin Tissoires <bentiss@kernel.org>,
+	Jiri Kosina <jikos@kernel.org>, "Luke D . Jones" <luke@ljones.dev>,
+	Mateusz Schyboll <dragonn@op.pl>,
+	Denis Benato <benato.denis96@gmail.com>,
+	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Message-ID: <6b5fd961-245f-4b19-9007-03af59170ca3@linux.dev>
+In-Reply-To: <at8jnW4RaMPJItUK@valkosipuli.retiisi.eu>
+References: <20260216175539.12415-1-denis.benato@linux.dev> <20260216175539.12415-2-denis.benato@linux.dev> <at8jnW4RaMPJItUK@valkosipuli.retiisi.eu>
+Subject: Re: [PATCH 2/2] hid: asus: always fully initialize devices
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,39 +69,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Correlation-ID: <6b5fd961-245f-4b19-9007-03af59170ca3@linux.dev>
 
-sx9310_read_hysteresis() turns a PROXHYST value of 0 (no hysteresis)
-into a shift of 0 and reports the full threshold, which writing back
-then usually fails with -EINVAL. Report 0, as sx9324 and sx9360 do.
+26 ott 2026 10:55:55 Sakari Ailus <sakari.ailus@iki.fi>:
 
-Fixes: 08f0411c48f2 ("iio: sx9310: Support setting hysteresis values")
-Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
----
-Compile-tested only (W=1); I don't have SX9310 hardware.
+> Hi Benato,
+>
+> On Mon, Feb 16, 2026 at 06:55:39PM +0100, Denis Benato wrote:
+>> ASUS has more devices other than laptop keyboards which needs
+>> to be initializated: the init sequence is the same as keyboards.
+>>
+>> ID1 and ID2 are USB report IDs that are correctly enumerated:
+>> send init commands to all devices that supports those reports IDs.
+>>
+>> Signed-off-by: Denis Benato <denis.benato@linux.dev>
+>
+> This patch appears to break input devices on Asus T100TA. With the patch
+> applied, I'm getting a steady flow of:
+>
+> [=C2=A0 256.358075] usb 1-3: USB disconnect, device number 120
+> [=C2=A0 257.034324] usb 1-3: new full-speed USB device number 121 using x=
+hci_hcd
+> [=C2=A0 257.175003] usb 1-3: New USB device found, idVendor=3D0b05, idPro=
+duct=3D17e0, bcdDevice=3D 2.49
+> [=C2=A0 257.175050] usb 1-3: New USB device strings: Mfr=3D1, Product=3D2=
+, SerialNumber=3D0
+> [=C2=A0 257.175073] usb 1-3: Product: ASUS Base Station(T100)
+> [=C2=A0 257.175091] usb 1-3: Manufacturer: ASUSTek COMPUTER INC.
+> [=C2=A0 257.180978] input: ASUSTek COMPUTER INC. ASUS Base Station(T100) =
+as /devices/pci0000:00/0000:00:14.0/usb1/1-3/1-3:1.0/0003:0B05:17E0.02DB/in=
+put/input749
+> [=C2=A0 257.266585] asus 0003:0B05:17E0.02DB: input,hidraw1: USB HID v1.1=
+1 Keyboard [ASUSTek COMPUTER INC. ASUS Base Station(T100)] on usb-0000:00:1=
+4.0-3/input0
+> [=C2=A0 257.270711] asus 0003:0B05:17E0.02DC: Fixing up Asus T100 keyb re=
+port descriptor
+> [=C2=A0 257.272302] input: ASUSTek COMPUTER INC. ASUS Base Station(T100) =
+as /devices/pci0000:00/0000:00:14.0/usb1/1-3/1-3:1.1/0003:0B05:17E0.02DC/in=
+put/input750
+> [=C2=A0 257.327059] asus 0003:0B05:17E0.02DC: input,hiddev0,hidraw2: USB =
+HID v1.11 Device [ASUSTek COMPUTER INC. ASUS Base Station(T100)] on usb-000=
+0:00:14.0-3/input1
+> [=C2=A0 257.332642] input: ASUSTek COMPUTER INC. ASUS Base Station(T100) =
+as /devices/pci0000:00/0000:00:14.0/usb1/1-3/1-3:1.2/0003:0B05:17E0.02DD/in=
+put/input751
+> [=C2=A0 257.334115] asus 0003:0B05:17E0.02DD: input,hiddev1,hidraw3: USB =
+HID v1.11 Mouse [ASUSTek COMPUTER INC. ASUS Base Station(T100)] on usb-0000=
+:00:14.0-3/input2
+> [=C2=A0 257.336098] asus 0003:0B05:17E0.02DD: Asus handshake 5d failed to=
+ send: -71
+> [=C2=A0 257.336263] asus 0003:0B05:17E0.02DD: Failed to initialize 0x5d: =
+-71.
+> [=C2=A0 257.336605] asus 0003:0B05:17E0.02DD: Asus failed to start multit=
+ouch: -71
+> [=C2=A0 257.367022] asus 0003:0B05:17E0.02DD: probe with driver asus fail=
+ed with error -71
+> [=C2=A0 257.367917] usb 1-3: USB disconnect, device number 121
+>
+> I haven't tried to debug this yet so just FYI.
+>
 
- drivers/iio/proximity/sx9310.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+Hi Sakari,
 
-diff --git a/drivers/iio/proximity/sx9310.c b/drivers/iio/proximity/sx9310.c
-index 79ba46d8a0aa..80b9714caf39 100644
---- a/drivers/iio/proximity/sx9310.c
-+++ b/drivers/iio/proximity/sx9310.c
-@@ -447,10 +447,9 @@ static int sx9310_read_hysteresis(struct sx_common_data *data,
- 
- 	regval = FIELD_GET(SX9310_REG_PROX_CTRL10_HYST_MASK, regval);
- 	if (!regval)
--		regval = 5;
--
--	/* regval is at most 5 */
--	*val = pthresh >> (5 - regval);
-+		*val = 0;
-+	else
-+		*val = pthresh >> (5 - regval);
- 
- 	return IIO_VAL_INT;
- }
+Thanks for testing this! Is that device of yours a touchpad? This commit ha=
+s been bugfixed before and the issue is related to report sizes being sent =
+as 64 bytes (and also additional unsupported messages in the case of touchp=
+ads).
 
-base-commit: 2ef6f5c4ee56e90c237c5f7687f09e635f7d30a9
--- 
-2.53.0
+Can you try linux-next please? That has all bugfixes for already known prob=
+lems.
+
+Best regards,
+Denis Benato
+
+> --
+> Kind regards,
+>
+> Sakari Ailus
+
