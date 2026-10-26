@@ -1,102 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793008813;
-	b=1xf7Ez3FBpF5WJjPxpIaaHQaaW5d/tTe4DdmeyhTGiNN9gX4ORQn8gy4TujoEMnoHhwP
-	 uVWwaz+nVLQiiRiRDxSV9NBblwP5l5xaWRJwJkBqSZki7DzBFepT7RZYtIJu8KYuXH3c1
-	 6AS/sEqNtLBUx+JOKoYJtWYCrT1sgKSF+pweCMBukD6W37CBiThKsAys8WVOthwXjFz9T
-	 UeDmMsxkzGpt/MF3ELLUoJTw7LMEijbETWAgFgFw2HJf9MbN1hhNDENdEMvfBL0BQnP5X
-	 Vbz547DcLtkBNS+WmM/S7hJqlSuc5cCpLD6YwEoDb22lnPAZKarLDJiHgMNfPT6Uofw==
+	t=1793008821;
+	b=YKUWx2wihlgT85xcmnpPJBCnkJcDHaBDitQkwjKsOettuWCaHF06v5oK7+TmshWkmGEQ
+	 6nA22oWSdaBwaZi6KYV1qBwQTWyiKKasIzY8f2ipuME8iTAqolqU4kIpFX1ZALsonRg+b
+	 9eckReJjqwiL14Zb6IREUrzX+tD6kNfG5x+K5Qw1LiLbXKiV23j+74RGFf+l4lpPsHZMe
+	 nASlo+ta9zHyKtOPk2TzCEclddiJ+okZAxB/pcHUI9jzIjY9/w6DSuRKfPQEXFajJ8y5D
+	 WeYBz/0P9+SzwegR20xx3TFoEwZmcF6AbDtrNvCtASq6h0hf65ZX3vgdTfjcEQthn0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793008813;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=JxMaWVtUV0uwXPkwo9Mu+D6xSwARN7kCHxKOQvkbv58=;
-	b=2oYgcaOGjMvwqNmVpqWsnZdbW1IMEZ9dEaQh2u9HLC6vSjsiXTAs4H6AAbOzfL3uNdxh
-	 RzTzpDXqAtW9++/KV1ctu0sxXzrX5gorokwvBTPoQreS08tqCB/cv2UYvor7Srp2D47vP
-	 wpMjNkBuBKg/sEr+V1UjLqqDqSlyZXkYhtmdb27AFOaPBw/mc610r3stAmePh1AlGovGr
-	 E/id1Woko/nNS7YXvItmMmeq42H3hcVvZs7cYlsH4tyIWF3gaRmaRtOMh3KtZDv0TnlLd
-	 g9MjjoFFrVwdCh0IssCqydcZNkNSAZYY6nKqutOVKKSfKZAXfvUrRRxrgOY8QFDvrqw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793008821;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=qwsz26b0tZjqhoYLPK/FZwU2WFoITBl0s4nEjxKpcLo=;
+	b=akUHUVGrZQExj2f/1xVRwT8grZnQ5qqPhF8uHQstuPh3ldq8aSgdVz1N/sforvhCz5Iw
+	 WE1jHGQVrpPlSRC6MFVQDZT0X2G+ADhTCKrphFJo7XiTfLGuH/QaxzzlfqxT7ioeclg/s
+	 OPqZDgw6K3f3ppwV5iWlmTwNh9RW8t2kdaYqIHIlILCRUpLmdXqKHOsIskcdT2OWQ1I85
+	 /Hp2qo2uilsQ0T+depfGXIWLMk/wf2f2i6PG770kmYU08GLvhvj6RNgNXe3vaB//vBwZy
+	 DQsD3Y1JbltVdlQb0g3NCdfv+s+o+gXIZPZN/n4/nfvN0JV6qa8T569+tYf5pBcX9Jg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="rO9H/JJi";
-	arc=none smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=jP14w2rA;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="itopHW/t";
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD915606B468
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:00:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD915606B468
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0F01606B47E
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:00:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0F01606B47E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rO9H/JJi
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a208d93758so32041655e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 03:00:12 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=jP14w2rA;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=itopHW/t
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69Q4arU53303594
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:00:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	qwsz26b0tZjqhoYLPK/FZwU2WFoITBl0s4nEjxKpcLo=; b=jP14w2rApGTMbMf6
+	l+QzyozzoWyE1HyH1ji7tFA5QK90VUOBhExRB2YXAGIexXP9mlbaebp7txRuz1TZ
+	ZywYN9s51uiwKDXUAAiZCukYdSI5Xk6JzHwJSKNuuHaoRGHitl64iqHCfmwcJLhg
+	APLqVHkxmFHUhMN3PaiQxmN7ucGmwOYwDxqUIZt2LDyWxYWQtmRxuYVmxwWsVZxA
+	gbJKpXXYUimEQVk/e2+8RDn1D2qS38xfDwAKAp0Dsl2LI3Wxz/RF1evukLr4P3tl
+	2sfoN5c3bcc9szj1Do3b7BdklkFZG1env3abowSbnJ8BWeoMHeHygEWoL4DWnUGo
+	hbRVzQ==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hgkmsdw4d-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:00:20 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-536708d1a3eso11990931cf.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 03:00:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793008811; x=1793613611; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=JxMaWVtUV0uwXPkwo9Mu+D6xSwARN7kCHxKOQvkbv58=;
-        b=rO9H/JJiNVMoiSub6cjqmC2tT3lU2Gip1qc+hCn0V192ZnRtIPYPHh6ywTdpoL67dx
-         u0E7cWwXQA4Ww74WYuBC0SfnqVTzEJ/B0co6Fl6RmJkg9VK36ePgDIKRuio70j+Kniwj
-         9WtODl4KfhStM1ILHf8rjV8fU5A4nVmr3T+itpLquLk/w7elg/qrpM255BdimiA3QwTq
-         u7mjNK/St9prrUNO6Z8YLgWR7PUBI5gbq1c+4L6Gv5QI3VPRBcdpc1nd3ENyFsQhtl+G
-         I7hSH5iUvaEl3Nl2u1zHrqlSOxmu0mqhcre13RDT2dxEFypZ1EKvE7wbxXIStUPHvWYq
-         0mnQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793008811; x=1793613611;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1793008819; x=1793613619; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=JxMaWVtUV0uwXPkwo9Mu+D6xSwARN7kCHxKOQvkbv58=;
-        b=UktXfeIQU+ltc1hamVt0JHhthzcs9cQFpsCsnXg5Psku+nM1S/HxoYIURfevQ6aAcg
-         UkQkeGkMk0UU3wy5n3JwJzcvWZrXOiq+aFdVr0ffNHLS/h/7P0FbUAdPFAk5vp9T6my9
-         9EjT3fL88vMnRNPKAJ1z2E1ga2gogYnLXPXmNNEKf5ar2PLqVkpUsWHA+rJeyGSsFyIq
-         hRGKt1cNUelKI5vhTOKPYE/Xsc4nzcX8p+IZVAIRrpb+jYM/Cz9Ei2KKKlQKa8fhohe3
-         F8C9fR+ISyEupORWii8gabywmhGYehhiCWbYXcDxavhNmFVtoIgpwfvWiai/lwscqgT7
-         LMjg==
-X-Forwarded-Encrypted: i=1; AKwUvBzHXgRbIwyUiHFjt2wz1EfFCN8PSl5BRuZmC35q0FeW2/XQ1zI4PYgG1ldUJO4S7xHfkQ0cCv5/tR8fzwU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJopiaxp/ciAG2TKPpCdoyw3HmmpjUTiGzboAG0MA/hmwU6J2Ao
-	KHkCEbfUZMbmdW6iW44rF2dKEZUbxPApweXogXhFp8ZjqxPR+8Fuf65P
-X-Gm-Gg: AYBFou0IpngkIZLeR4hRnX8e2bIXcki/33WHGW1XACwe7IBBw4Q5Zalm9/fnlOkCZQi
-	laQWJonueFza4BGty6Z1/LhrwNKWRwX4iEKWuvN4uU6c7qVy71siT//g81tu5EvmbDr0R4iZgUb
-	CvEClmfQML+Ozv094XjrvHpiSFbHDu7iWCPuoobtXFqWdBTJK1wMqCcxibYbYKRBiwfSjYZRcyE
-	xeAAs4uG1N2mebXGhQyPJes81dA4iZAw2BwHqaSIt5/hrVpwHDi/r78eS+G+uJZVqBOGKCkx2V6
-	4UesWesNPe4/z5cVm7pCacHb6ikMOs/9eCbGzLxBjy7fyfg+4NEcObD4wj4odnk8LIZNo3+eH+h
-	AukQOLR9FYvhGUMOSqflLtOmw1PGr8lIb9jCgExuILJSVG8s+VEMOPrB7dcBuB+zNBHc8skkNLr
-	Xy8Or//0Z17BrvaoRZ0x4t6r4BymHXbiBzmPEItuK3ptkwqZfpD9ZxUzZVzVNCl/feYankSRQHI
-	ycTV2BVsFTsJe11F9JPgw95XwCZJlo/1SwJ7CZ4kTbK9TmsGoCIvNtqVk/qmEGmhje26lpnRAfN
-	AFYPc7QhwYFbtTJPoDHiMYOfdLzsWLwL1eZ/oeXCgPN0FmRiBMZAJ4/XU2UfIM/Q3VCm8YbJ6cU
-	oF8BETqGh27SyF3jHlRJDBuEcftZewwPM2Lg6mpySTIRCqK0uvqBo1zkVr1NZFlZvPwYBwSuthv
-	imgwsLbKzDPiTk7XQGKtrRop3cQgxGQU4QYLqbB6tHzloWHUo9eAJYIIZJ7hDQdw==
-X-Received: by 2002:a05:600c:3d8d:b0:4a1:f377:5c75 with SMTP id 5b1f17b1804b1-4a35acc2edbmr93717435e9.33.1793008810377;
-        Mon, 26 Oct 2026 03:00:10 -0700 (PDT)
-Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a359fbc718sm154241835e9.2.2026.10.26.03.00.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 03:00:10 -0700 (PDT)
-Date: Mon, 26 Oct 2026 11:00:08 +0100
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Olivier Louvignes <olivier@mgcrea.io>
-Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
- <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Paul
- Cercueil <paul@crapouillou.net>, "H . Nikolaus Schaller"
- <hns@goldelico.com>, linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] iio: adc: Add a driver for the Ingenic X1600 ADC
-Message-ID: <20261026110008.00005296@gmail.com>
-In-Reply-To: <20261026083631.48406-3-olivier@mgcrea.io>
-References: <20261026083631.48406-1-olivier@mgcrea.io>
-	<20261026083631.48406-3-olivier@mgcrea.io>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+        bh=qwsz26b0tZjqhoYLPK/FZwU2WFoITBl0s4nEjxKpcLo=;
+        b=itopHW/tIgtLD54QjqF+F1fhH71t03r1aenaEdt2s8NJKNp8wTwUbVgp2yws3ifuIr
+         l9Z9h5DHBJOtf75ZxmRf2SQqjVlQGpC2hMtLbmY0MoVePWJs9AZOMX0+NRc7Ord6Fcjp
+         ksTrNgj0jv/palJGOfpbr6i18dQkuzaEr903JoeF1O3oS209/GQrOlCXSgl2yX917GMy
+         jflGWcEDF3oLKoWP2e+0N53qUh7/otdy+1yG53TGKccVkG3yNdmSI9VJqYKD9PnDllZi
+         0vlHFSkXCMyMKPkFqMVW9uPPutJBgiVqtkf9Zji21GVBeA7OnXRj/FKy/zEqa/NWjQmX
+         noxw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793008819; x=1793613619;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qwsz26b0tZjqhoYLPK/FZwU2WFoITBl0s4nEjxKpcLo=;
+        b=m9Yeka3LjJ6+8d7e4yJiwjWTMy3b0u+ZByL+T4OotERPbusJeOxMnIgQofekseqUK9
+         EUsjo7odXvizrDyqpTzJKQTZqpZr3cq0r+Ghubs7XpU//UoKm7kC2v6A2DiY6mTAV6tf
+         PnQ/kdn9JWIaMsRHJOHzbFMlBRwdPTQjXWBfTDLopohWe3wyWcAojzt6ePDhREuTP54O
+         mih+XOiS2YQykgXijlc1l1ZdE1S48Q/0R/lyg34bE42i1zZv3aLA8Th1HqNMMNryuzl9
+         gDlkE2ninDRQ+/0FMKudZH11bKmReg6TiEWt6CKeoHpEq9oTY7m4sM5l+YWIAIp8Vfxr
+         bMxQ==
+X-Forwarded-Encrypted: i=1; AKwUvBykeDEcNiwFKk6G1ThGEjNkVFUMUSrVqm+GruPC8bjb1Peiu4xPR/5xYKfCycp9kX+3cAe5oRB/oejfPi8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKc25chcg8jzr6apDlJhqpZb0bIJiXcQAzn7BLYpmRGj9ITxGkw
+	Ftu9CkaI1NUBPVL2wgf3iQHMhR3ZBIEROc2pmvNK1AQR01CcenuactbyOufXWmdfBSi1QZPAeWV
+	idhTPqyqRQS3FKofVe2p4r3bxFRR6/19J+qciHGfRnNwsUeG9NrKIW0pmACDTZqXCxsQ=
+X-Gm-Gg: AYBFou3ZZxBU6Ej/7M1UO3VzeJCdor34e9TRmeJ5G8APQPseDs2SVmoAfP7xY5XLo01
+	Suo6T0cCO/feEwzV/Smh9TLRaXntCij3/tJhJ0w8c69sf9doh1q3FaIDlHv/3z4XAhsgq27ZCx/
+	+oRiTQDhlA/bEz5+ZdTJT+j6zGVOKjU0V814CywQb5eGcWY+kd6K9YgMVHF4YAEh16VDr/1kMff
+	KFWvSCbg7HAfK5yptQMqRL65l77t2fKPALQJ0aPxoXnRTdm2RLGJaxq6Wz6eY3sH4/LovOtbNQ3
+	bt9Qo1hNRLEiOYD4Q78SBYxPaCEfCiDQ74PgQ+gEypUhOwrgTLTPobtPciFToLAwQuFQeef4Gjt
+	Sqxqw9FNEnFP58LztSHs6sQ==
+X-Received: by 2002:a05:620a:2301:10b0:939:9205:4d78 with SMTP id af79cd13be357-940ef8d1323mr907962685a.3.1793008818828;
+        Mon, 26 Oct 2026 03:00:18 -0700 (PDT)
+X-Received: by 2002:a05:620a:2301:10b0:939:9205:4d78 with SMTP id af79cd13be357-940ef8d1323mr907957185a.3.1793008818264;
+        Mon, 26 Oct 2026 03:00:18 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd7abf6asm295380766b.81.2026.10.26.03.00.15
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 26 Oct 2026 03:00:17 -0700 (PDT)
+Message-ID: <0a36d49a-a1c8-4434-a9c9-36cb1ccfc097@oss.qualcomm.com>
+Date: Mon, 26 Oct 2026 11:00:14 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,33 +115,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] arm64: dts: qcom: x1e80100-medion-sprchrgd-14-s1: Add
+ PWM backlight
+To: ferreira@se-rg.io, Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Georg Gottleuber <ggo@tuxedocomputers.com>,
+        Ettore Chimenti <ek5.chimenti@gmail.com>,
+        Jens Glathe <jens.glathe@oldschoolsolutions.biz>,
+        Srinivas Kandagatla <srini@kernel.org>
+References: <20261025-medion-sprchrgd-14-backlight-v2-1-bf2979485ec2@se-rg.io>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261025-medion-sprchrgd-14-backlight-v2-1-bf2979485ec2@se-rg.io>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: tuv_q5d6b8QZq4tJ93HD_sau0qQ_gY5R
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDAzOSBTYWx0ZWRfXxoYBV6hKB5+J
+ 7vU9kVeJ7CPt6Tju2P02DgwvidDi8a+VD+7IxI02WOxwm31b+jtWifs2FPzS/4GUHt9NSwCpGnJ
+ 9fDxFK8al0wmf89xnAqZfei7Rmv5C0b5bS2NneHTVj9a3xq3X6RwFTfEEtiPzUzNVhhl2keURB0
+ Byo7EnfCL2v/yxE8PQ3wSL433xdWCC9B5LaondMotZVkJ8DsYQ8ao2xm5PP7+AKc7U08Lj7Hu5E
+ oVDBwxzDWNp/nMFmOF7czjK3Ry/4aDeg8G2nDumHkJlOlR1zeRujKZnFjBiGtN3/2hVS1fC+1i5
+ kR0J1o+58BQsOHMIEucHa3Hs5UUN162SH9a+ObL2WxC9I+HLZDAhiX7TU1NsK4ANXyQumrEcObM
+ DCgoABYmhxh6gfdrbdH0mDCudSzDE/LXo6EbkVVYeMIKEcbVvyAfY4DH7uq/FbjnRnO56/ZFIJI
+ NsSUsJy5D1zwrpK5i2A==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDAzOSBTYWx0ZWRfX+/k3y1oOq2tE
+ 8Y3DlKXnYqM4Z3bmsQaaPN/28uixEMl1SlnPHa23BxzZo/Lp8Iynh0BBjYhFf6pL2lgeyJVyB2X
+ MhPdiuUPHIdb/DTeDv/XZhTDSmngClE=
+X-Authority-Analysis: v=2.4 cv=UqX2pOwB c=1 sm=1 tr=0 ts=6adf24b4 cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=85Z2xdU_f4vHkJConSkA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-GUID: tuv_q5d6b8QZq4tJ93HD_sau0qQ_gY5R
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-26_01,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 suspectscore=0 spamscore=0 clxscore=1015
+ lowpriorityscore=0 impostorscore=0 bulkscore=0 phishscore=0 adultscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610260039
 
-On Mon, 26 Oct 2026 09:36:31 +0100
-Olivier Louvignes <olivier@mgcrea.io> wrote:
-
-> The X1600's SAR ADC has four auxiliary channels, each with its own start
-> bit, interrupt flag and 12-bit result, and none of the touchscreen or
-> battery engines of the JZ47xx ADCs that ingenic-adc drives. Add a small
-> driver that exposes the four channels as voltages against the 3.3 V
-> reference.
+On 10/25/26 8:51 AM, Sérgio Ferreira via B4 Relay wrote:
+> From: Sérgio Ferreira <ferreira@se-rg.io>
 > 
-> The registers are in chapter 19 of the X1600 programming manual. The
-> ADC clock divider is even, as the manual has it (an odd value divides
-> by one less); the vendor kernel writes the divider minus one, which
-> gives a slightly faster clock than it asks for.
+> The eDP panel (CSOT MNE007ZA3-2, IPS LCD) cannot have its brightness
+> set over eDP AUX. With no backlight phandle on the panel, panel-edp
+> falls back to the DP AUX backlight, which registers dp_aux_backlight
+> with a maximum brightness of 0, so brightness control has no effect.
 > 
-> Tested on a HiBy R1, whose play/pause and volume keys sit on channel 0
-> behind adc-keys: all three read and report correctly.
+> Brightness is driven by PWM instead. UEFI leaves PM8550 LPG channel 3
+> running and the PWM output configured on PM8550 GPIO 8, and drives
+> PMC8380_3 GPIO 4 high as the backlight enable:
 > 
-> Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
+>   pm8550 gpio8 : out low func1 vin-0 no pull push-pull medium
+>   pmc8380_3 gpio4 : out  high normal  vin-1 pull-down push-pull medium
+> 
+> The panel configuration in the Windows ACPI tables confirmed this.
+> (PMIC-controlled PWM, PMIC 1, bank 3, 9-bit, 2 kHz).
+> 
+> Describe this with a pwm-backlight node: enable pm8550_pwm, add pinctrl
+> states for the enable GPIO and for gpio8 func1, and attach the
+> backlight to the panel.
+> 
+> Tested on a Medion SPRCHRGD 14 S1 (X1E78100): brightness control over
+> the full range, brightness keys, suspend/resume and restore after
+> reboot.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Sérgio Ferreira <ferreira@se-rg.io>
 > ---
 
-The driver looks good to me now!
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
-
--- 
-Kind regards,
-Joshua Crofts
+Konrad
