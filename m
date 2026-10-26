@@ -1,97 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792975398;
-	b=4F1pf48hgtiDvMcmP+vQ6g1eLeNPiDJ0y83bvarGq6MsvJQADWP/Oh5SEV+2UM6p6K4o
-	 DCFvjuxuqfyd2GzGeMHhbe0AAkJfZ4fkoxCOWVsyHrmeqzR+Jyj/xCSj9fP22TW1Fxw55
-	 SWAk2J9d4kr2dLq3nB4Vs3ZfgGWK6yDnsEr0c4WIYVuDzt9UO8pOXpx4MDs6KGr/XrTSC
-	 2DKD29bjSch5z0ZcMqXnPlPUz2dzLRUIt8p/IQMix12pPZ+QP/gsGEhqY3CnfvjQpPQTe
-	 wQRC7LJ/0UEcC573UvajgCOSpX+AfIQ75j4ZX8j4kZoV+oCOK+bAcHGQ4noTf+kgiYA==
+	t=1792975401;
+	b=RJXsqip5JDxGGy49lStpG98b/aFXmidgXFrHWneJZ9h45WSyiy5n1veQbiqk6UTta+wR
+	 WHJRxGzTsPm53ScAiG6KTFUcv0BcQKmiohLHD+i77KQaTSY6AdrM3WwHDGXm7SgEfYLvx
+	 hIskKUsufjwDcnHr+rcJN4tG3/QjsBJxjJd/xl7hOL7YnVfc95SbUXHEOThktJeNtTAj2
+	 xab2on3WTGS77IQdnqh1i2FlTMWY1O4MzGAPhV1xWS3BJSm/u04frzNqwGnnf/ZlxiQzE
+	 YCf4E060a3VNbRhiabBA6LYG8M2CWHwJiC6/1SEYH8lGm8DsPp8M5UZrZ9kOQz76cJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792975398;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792975401;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=jg0rxb4i0zuX7MOwDvfayzYPg4XcPP8VQ/0tVg/T24w=;
-	b=gOhVAJYt4hMeddFlK5MfzdbtHv3YO4OTzeAYbvGmSGHSETp2rviY+glszRhQSOHOABoK
-	 qGLBIdHAADrtQu4Iq5z6kIAZ4BEFXa9GDvljYBq1wfFGuD4zJeBWzynJLYFhkQLvViAdA
-	 hjl3NeycmcGcECr9yJG2lOYl5yp+bOEh9Ak+ixtwzbwZH1dbUZs9B4P8o4z9Riz7EvKpi
-	 fLJuyZ+OVsemhBOkZJjQfyTlI+7jMVw/McXUITTVc+SAXUZSCUFqHiiMKR8X+KjMpSAFV
-	 c7+yLO/vGSKGazo8nchr7jP71LBHpuX5fJSpJiqku/D3eopLHLQ65KVlz83Uj+6W4cQ==
+	bh=mdvyCnUTqtKZWJP8Qz2Rtn+aEZNUKTGAttllLV0iXqI=;
+	b=uBJn1A6T2IMHLjXrkZ32Lj3fG0xT9lrHFfIfwWmE/cif6Vlnw+mJUF63bXWOxwQORYsd
+	 j5xjvaoeCRN1Yip0Axd2yTdUcg7UemI6rXxNpZS6VuXeLbyt0GOIT32L4D5OZ85U8VCi/
+	 tFMjsL8PrE/MZTJLIqVTlHKarzKHmlfwR6tRvK57dK/FutrzD3+uKD870oY/GHPhWm0vk
+	 gRGx1Rj8kaebHlriKJx13atHmSXx07tH3MPR7A1vjO5VJJrj0kOgs33WxEgtOEBP1bHWc
+	 4UGnUemtCvaXQXk2/u53JVquuapSZ+bRRhrqVkWZIz3O45c5tM+2Bup2UU/g/XdUqQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=sc30ac7c;
-	arc=none smtp.remote-ip=209.85.128.43
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qhHjseQF;
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B44CB606A327
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 00:43:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B44CB606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4A15606A320
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 00:43:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4A15606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=sc30ac7c
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a207b02a2cso15496325e9.1
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 17:43:17 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qhHjseQF
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a35ac4475dso9344545e9.2
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 17:43:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792975396; x=1793580196; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792975399; x=1793580199; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=jg0rxb4i0zuX7MOwDvfayzYPg4XcPP8VQ/0tVg/T24w=;
-        b=sc30ac7c5kYA+pwb3NLGkDbFet7M4kuQGoPsTOMqc+geb2PY5w0O4Y/ebMQ6ng0ptf
-         WTNyiupMlgA6Z/J6TkucXog74hoocwTN1+P1JofQPPn9VFT63edwb2N8hzcTY24eK1aS
-         7CeIkQtBR8+5ne3GTjtU1qiN/rb+JzD24FGbYaMvx0Dv8Re2WgpE0piXMePKWVctt+f2
-         qggwfxWHVjhArQDD0aaMRcWi9fmrXIw64EsjmcE4JUoSQWw0lb2jKUR6OSuEeA16LY2g
-         VIA3I7g7pU9a36ByEpzhgfuGkwuoLd7H2+bbBxOTVSgdOypyOlenAo2iUFvpr9vf6LlT
-         sCxw==
+        bh=mdvyCnUTqtKZWJP8Qz2Rtn+aEZNUKTGAttllLV0iXqI=;
+        b=qhHjseQFxPohnXGosRRx/o7M2PLm1bfjxu3ALxwY1b1hfJ/c1GtwK+2xu7/q3VlV0J
+         HYct1VN6Jp1wj4Bta7FfxZ/oyC7OFqGw/a8wI9caJXy8grnIYuCgBd8mAs8bsDWS6sX2
+         9agAK9Eszln109iOZV7sJkxSMlfhCo5NsWAKI9f3yuMwPLUBXnInZiMNLKmZCoTf5jPo
+         XOX/2ZmHyyVbSQcgHLytv9q231mHYYnN0Hq1Gi/XGLjs0ner9SyHFRuf/DbrcB3w+0Jl
+         ku6fNRrOKoJnerHHCRFK9JfWQfs6KUNBrKZEneQfUfzDU3+VDSX6ZSMWu5uUYBq8NsnO
+         HR1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792975396; x=1793580196;
+        d=1e100.net; s=20260707; t=1792975399; x=1793580199;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jg0rxb4i0zuX7MOwDvfayzYPg4XcPP8VQ/0tVg/T24w=;
-        b=laUejzdlojy7yJZOllbjzin07eAifE2Knu04yDLV1Sn1CpJaYns5LMompozrFy/Gk4
-         VW/W+/tZrjLK0DOrHKtmczlxhTKT+S/q19kFTxi4eoGb3xFWDFgfP03FYi7AIkGTrACd
-         8hsU3TXz6NUBnaQQxxCV7X3GDx4fHzl/5TpAwxP6l3PcLs/33lRPjK5O0sPv5UjADQWa
-         t0eodE7BszspIW2C3WV3N2bcpQf9zEbGJpN9iDRpD00t+w5t88EyXCsAMLKCnSuZrmT8
-         Dnx/K7QZPGTC2PqtBV68A/eW4/qbMf0lLDvBr3o4KabIkJjUiS0J+f7s2+Zrhc/PeQpL
-         mmSQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwZyxXE4yn8E4EtLstgBBp1hMHJX96VWOvsRWZtziMmGazXpo8HUB9VoiPGxi7Ay5Lml3sE5DaAO59lpgY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJwUhgYa1zcEknt7Tp5zHv6OPYz3elJuz1VZN84EcaXwJxZ9Yt6
-	BTK6iMQ8MaGbB+ebzRF62PtQPPgd6sUHBqjsOoTQkrJ7Aza9CX294f/I6uiU81oheddYBg==
-X-Gm-Gg: AYBFou0XGHpQQDSktcZ14mQVarIXNE5tEJ4Ksfl9kdLiZQUR0YQ8Sh1vHCyAyISJpZC
-	1P+kR49K61Uc3klT5elenzGPHZ4EZ80jN7yVLV8Hn2mmSPkMDVaqxlXUC6BqZemFOXKqEMxz3ql
-	7K72SmHipJ6dvqed1ziybjeR5y51YlqhxYCUUYr4mrY9kJQYgAZdcJph6y6Tr7dFZXjXXlY1tV8
-	8kOtimHs+qCNOROvMYMYTIqm18IXiepXCF8LIID8dFRCkEAUuiJ9FarE2DBoDHBbLgsupU5s/X1
-	pxd6JzhGcXhuYn11wwhcys//ob58bNxu4I2S6a1wqXclxOF2Xn5BNf0kYKFVNIccmAFasVAAAL9
-	umjz20XgVGMaz5XEEBvGUST70unjwPSoGml8Ir/6e/dwtvLgcN7suvLa5Y07noEh+zr+diIYN5E
-	PNuYosk9vpsY9/VAtZCg9quEhrVooL+5q6ZhNNBRLvuhGi8tkp6sJxjz2Z5gGR2hlc95lnKLm0W
-	xA92ei7HppnPGniX2CCE9/s+ZbmHRqf/Ss2Dvdl08XFYfoTlZ1Cmhvw/Uip9IJ17rQR7Go0CH+H
-	q2RzpzTWEjg5W9I=
-X-Received: by 2002:a05:600c:1388:b0:4a1:fb01:13 with SMTP id 5b1f17b1804b1-4a35aca74f6mr115897345e9.18.1792975396086;
-        Sun, 25 Oct 2026 17:43:16 -0700 (PDT)
+        bh=mdvyCnUTqtKZWJP8Qz2Rtn+aEZNUKTGAttllLV0iXqI=;
+        b=HOZvRlREmIXgBsj6o+c524EWeH0RaMyrqp98YIHENMUGGyS3rnoUMTNZpRGaKKNzox
+         55mxvNrXJBqbLqYj85I8OHsLgH07l8noy50xOuAE1t6P89zw7bpD1efWQvKjFgEoqlYj
+         BiOHw6b19sYbYHy8gT9fUirAsa+K1zSKr89sY5i2qpZd462MJfW/nhQSew2t+nGuXm03
+         6dnIOMbpZ+t4679iChlqmCqulXfLsF8PC0Wfmk5pJwAVa96/9TFX84HVqZzP8P9srDYm
+         zsvINRZA3IZBRiRldo/7jG17nZqozFC7g02AEbX+T186RRpbaIc3sKQxrbHpDiG0HYzm
+         dQGA==
+X-Forwarded-Encrypted: i=1; AKwUvByWPYHQ8VDZcjDTQ+Wv6cgzrMSIWxUb4NC7JS8xrCwGBTvwOXDlFJH9/Rf/ImHjo3hdzM/krd/wtRTIgZw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLnm6gFTnkgzIwoXu+UDMgZ6zvByKarM7q9qVDZwFnBJLHtDCDG
+	TiowTy6DhL2QevL8OAIdlZgbIzDr6kovArOgFn4ArtjAphFIGEG44hls
+X-Gm-Gg: AYBFou0G9u4VK8Ytz+19m6Nm0SJOt1eCGbsEUwXPjlhnJfdee3HmmdpAssHM2h5OFT/
+	U4TXyLzOCENZh2S7GruB3cLXlO3gziU4XA0o1npGsjfM0t97ofBs+daaczeIa/LJZVYeU38GOGw
+	bTvaf88eUPB4zQyosycX5kBqqDahM+ls51gZ3dlGWdlLCb6FhaDYH5aMQfTUlCk6OXPjZ/HScAI
+	X0Wv4Zb9BhBt0oZldKZDVC7l9C/vtQLOBEDUN72kTFqQxDDgdaByGJmwL8JZU9Hg39q9r36ltWv
+	V2NyqZFMAv4F69g4cpVKtcYTyC7dK3nAzjP+gyDnN4ivkgMaBY8WNoB7cR/RG04Rsqp/YGYjPTu
+	y3MKiBP4P3gotu5OSRrrrCOUP2KSW7EQDjPWrBC5P79P4aMwdyS9fRBiQpCyWTruSiUtgu/xwCZ
+	kj3f1BCO85RKBKj9E49eWmIWZToYUSe6RcsdugXSXDdo969vQtYmqEnhjfw7DLyTTks7K60e6kB
+	qk6KiETux1CMaOMNebyk8X3X3a1oBndLrNIdJBXci4rPSTj7pYt1IwmPWFhyw94r4hN8fUTj0cm
+	wWQniesPLVpTZA==
+X-Received: by 2002:a05:600c:3b2a:b0:4a1:71e5:9420 with SMTP id 5b1f17b1804b1-4a35aca4e4emr92594645e9.13.1792975399138;
+        Sun, 25 Oct 2026 17:43:19 -0700 (PDT)
 Received: from debian (ip-78-137-176-146.broadband.digiweb.ie. [78.137.176.146])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a07ebc0sm74574555e9.3.2026.10.25.17.43.12
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a07ebc0sm74574555e9.3.2026.10.25.17.43.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 17:43:14 -0700 (PDT)
+        Sun, 25 Oct 2026 17:43:18 -0700 (PDT)
 From: Pablo Mazzini <pmazzini@gmail.com>
-To: Mark Brown <broonie@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Lee Jones <lee@kernel.org>,
-	Guenter Roeck <linux@roeck-us.net>
+To: Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>
 Cc: Pablo Mazzini <pmazzini@gmail.com>,
 	Alistair Francis <alistair@alistair23.me>,
 	Andreas Kemnade <andreas@kemnade.info>,
-	mfd@lists.linux.dev,
-	linux-hwmon@vger.kernel.org,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 6/7] regulator: sy7636a: bind to the I2C device directly
-Date: Mon, 26 Oct 2026 00:39:17 +0000
-Message-ID: <20261026003918.155321-7-pmazzini@gmail.com>
+Subject: [PATCH 7/7] ARM: imx_v6_v7_defconfig: drop the SY7636A MFD and hwmon options
+Date: Mon, 26 Oct 2026 00:39:18 +0000
+Message-ID: <20261026003918.155321-8-pmazzini@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261026003918.155321-1-pmazzini@gmail.com>
 References: <20261026003918.155321-1-pmazzini@gmail.com>
@@ -106,312 +106,33 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-With the temperature reported here, the regulator is all that is left
-behind simple-mfd-i2c. Bind to the chip directly, as the TPS65185 and
-FP9931 drivers do, and drop the MFD glue and header. It now probes before
-the GPIOs may be ready, so report the power good GPIO with
-dev_err_probe().
+The SY7636A regulator driver now covers the whole chip.
 
 Signed-off-by: Pablo Mazzini <pmazzini@gmail.com>
 ---
- drivers/mfd/Kconfig                   | 10 ----
- drivers/mfd/simple-mfd-i2c.c          | 10 ----
- drivers/regulator/Kconfig             |  3 +-
- drivers/regulator/sy7636a-regulator.c | 86 +++++++++++++++------------
- include/linux/mfd/sy7636a.h           | 34 -----------
- 5 files changed, 50 insertions(+), 93 deletions(-)
- delete mode 100644 include/linux/mfd/sy7636a.h
+ arch/arm/configs/imx_v6_v7_defconfig | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/drivers/mfd/Kconfig b/drivers/mfd/Kconfig
-index 0a2778052519..9130dac7a7ff 100644
---- a/drivers/mfd/Kconfig
-+++ b/drivers/mfd/Kconfig
-@@ -1305,16 +1305,6 @@ config MFD_SPMI_PMIC
- 	  Say M here if you want to include support for the SPMI PMIC
- 	  series as a module.  The module will be called "qcom-spmi-pmic".
- 
--config MFD_SY7636A
--	tristate "Silergy SY7636A voltage regulator"
--	depends on I2C
--	select MFD_SIMPLE_MFD_I2C
--	help
--	  Enable support for Silergy SY7636A voltage regulator.
--
--	  To enable support for building sub-devices as modules,
--	  choose M here.
--
- config MFD_RDC321X
- 	tristate "RDC R-321x southbridge"
- 	select MFD_CORE
-diff --git a/drivers/mfd/simple-mfd-i2c.c b/drivers/mfd/simple-mfd-i2c.c
-index 168b4cf49b8c..0c9162034899 100644
---- a/drivers/mfd/simple-mfd-i2c.c
-+++ b/drivers/mfd/simple-mfd-i2c.c
-@@ -67,15 +67,6 @@ static int simple_mfd_i2c_probe(struct i2c_client *i2c)
- 	return ret;
- }
- 
--static const struct mfd_cell sy7636a_cells[] = {
--	{ .name = "sy7636a-regulator", },
--};
--
--static const struct simple_mfd_data silergy_sy7636a = {
--	.mfd_cell = sy7636a_cells,
--	.mfd_cell_size = ARRAY_SIZE(sy7636a_cells),
--};
--
- static const struct mfd_cell max5970_cells[] = {
- 	{ .name = "max5970-regulator", },
- 	{ .name = "max5970-iio", },
-@@ -123,7 +114,6 @@ static const struct of_device_id simple_mfd_i2c_of_match[] = {
- 	{ .compatible = "maxim,max5970", .data = &maxim_max5970 },
- 	{ .compatible = "maxim,max5978", .data = &maxim_max5970 },
- 	{ .compatible = "maxim,max77705-battery", .data = &maxim_mon_max77705 },
--	{ .compatible = "silergy,sy7636a", .data = &silergy_sy7636a },
- 	{ .compatible = "spacemit,p1", .data = &spacemit_p1 },
- 	{}
- };
-diff --git a/drivers/regulator/Kconfig b/drivers/regulator/Kconfig
-index f0d8d1319a1b..49b7c6dc541f 100644
---- a/drivers/regulator/Kconfig
-+++ b/drivers/regulator/Kconfig
-@@ -1621,7 +1621,8 @@ config REGULATOR_SUN20I
- 
- config REGULATOR_SY7636A
- 	tristate "Silergy SY7636A voltage regulator"
--	depends on MFD_SY7636A
-+	depends on I2C
-+	select REGMAP_I2C
- 	help
- 	  This driver supports Silergy SY7636A voltage regulator.
- 	  If HWMON is enabled, it also provides temperature measurement.
-diff --git a/drivers/regulator/sy7636a-regulator.c b/drivers/regulator/sy7636a-regulator.c
-index 816df7716c0e..e170461a15ad 100644
---- a/drivers/regulator/sy7636a-regulator.c
-+++ b/drivers/regulator/sy7636a-regulator.c
-@@ -12,14 +12,23 @@
- #include <linux/hwmon.h>
- #include <linux/i2c.h>
- #include <linux/interrupt.h>
--#include <linux/mfd/sy7636a.h>
- #include <linux/module.h>
--#include <linux/platform_device.h>
- #include <linux/regulator/consumer.h>
- #include <linux/regulator/driver.h>
- #include <linux/regulator/machine.h>
- #include <linux/regmap.h>
- 
-+#define SY7636A_REG_OPERATION_MODE_CRL		0x00
-+#define SY7636A_OPERATION_MODE_CRL_VCOMCTL	BIT(6)
-+#define SY7636A_OPERATION_MODE_CRL_ONOFF	BIT(7)
-+#define SY7636A_REG_VCOM_ADJUST_CTRL_L		0x01
-+#define SY7636A_REG_VCOM_ADJUST_CTRL_H		0x02
-+#define SY7636A_REG_POWER_ON_DELAY_TIME		0x06
-+#define SY7636A_REG_TERMISTOR_READOUT		0x08
-+
-+#define VCOM_ADJUST_CTRL_MASK	0x1ff
-+#define VCOM_ADJUST_CTRL_SCAL	10000
-+
- #define PGOOD_TIMEOUT_MSECS 200
- 
- struct sy7636a_data {
-@@ -194,49 +203,52 @@ static const struct hwmon_chip_info sy7636a_hwmon_chip_info = {
- 	.info = sy7636a_hwmon_info,
- };
- 
--static int sy7636a_regulator_probe(struct platform_device *pdev)
-+static const struct regmap_config sy7636a_regmap_config = {
-+	.reg_bits = 8,
-+	.val_bits = 8,
-+};
-+
-+static int sy7636a_regulator_probe(struct i2c_client *client)
- {
--	struct regmap *regmap = dev_get_regmap(pdev->dev.parent, NULL);
-+	struct device *dev = &client->dev;
- 	struct regulator_config config = { };
- 	struct regulator_dev *rdev;
- 	struct gpio_desc *gdp;
- 	struct sy7636a_data *data;
-+	struct regmap *regmap;
- 	int irq, ret;
- 
--	if (!regmap)
--		return -EPROBE_DEFER;
--
--	device_set_of_node_from_dev(&pdev->dev, pdev->dev.parent);
-+	regmap = devm_regmap_init_i2c(client, &sy7636a_regmap_config);
-+	if (IS_ERR(regmap))
-+		return dev_err_probe(dev, PTR_ERR(regmap), "failed to allocate regmap\n");
- 
--	gdp = devm_gpiod_get(&pdev->dev, "epd-pwr-good", GPIOD_IN);
--	if (IS_ERR(gdp)) {
--		dev_err(&pdev->dev, "Power good GPIO fault %ld\n", PTR_ERR(gdp));
--		return PTR_ERR(gdp);
--	}
-+	gdp = devm_gpiod_get(dev, "epd-pwr-good", GPIOD_IN);
-+	if (IS_ERR(gdp))
-+		return dev_err_probe(dev, PTR_ERR(gdp), "Power good GPIO fault\n");
- 
--	data = devm_kzalloc(&pdev->dev, sizeof(struct sy7636a_data), GFP_KERNEL);
-+	data = devm_kzalloc(dev, sizeof(struct sy7636a_data), GFP_KERNEL);
- 	if (!data)
- 		return -ENOMEM;
- 
- 	data->regmap = regmap;
- 	data->pgood_gpio = gdp;
- 
--	ret = devm_regulator_get_enable_optional(&pdev->dev, "vin");
-+	ret = devm_regulator_get_enable_optional(dev, "vin");
- 	if (ret)
--		return dev_err_probe(&pdev->dev, ret,
-+		return dev_err_probe(dev, ret,
- 				     "failed to get vin regulator\n");
- 
--	data->en_gpio = devm_gpiod_get_optional(&pdev->dev, "enable",
-+	data->en_gpio = devm_gpiod_get_optional(dev, "enable",
- 						GPIOD_OUT_HIGH);
- 	if (IS_ERR(data->en_gpio))
--		return dev_err_probe(&pdev->dev,
-+		return dev_err_probe(dev,
- 				     PTR_ERR(data->en_gpio),
- 				     "failed to get en gpio\n");
- 
--	data->vcom_en_gpio = devm_gpiod_get_optional(&pdev->dev,
-+	data->vcom_en_gpio = devm_gpiod_get_optional(dev,
- 						     "vcom-en", GPIOD_OUT_LOW);
- 	if (IS_ERR(data->vcom_en_gpio))
--		return dev_err_probe(&pdev->dev,
-+		return dev_err_probe(dev,
- 				     PTR_ERR(data->vcom_en_gpio),
- 				     "failed to get vcom-en gpio\n");
- 
-@@ -244,25 +256,24 @@ static int sy7636a_regulator_probe(struct platform_device *pdev)
- 	if (data->en_gpio)
- 		usleep_range(2500, 4000);
- 
--	platform_set_drvdata(pdev, data);
-+	i2c_set_clientdata(client, data);
- 
- 	ret = regmap_write(regmap, SY7636A_REG_POWER_ON_DELAY_TIME, 0x0);
- 	if (ret) {
--		dev_err(pdev->dev.parent, "Failed to initialize regulator: %d\n", ret);
-+		dev_err(dev, "Failed to initialize regulator: %d\n", ret);
- 		return ret;
- 	}
- 
- 	irq = gpiod_to_irq(data->pgood_gpio);
- 	if (irq < 0)
--		return dev_err_probe(&pdev->dev, irq, "no power good interrupt\n");
-+		return dev_err_probe(dev, irq, "no power good interrupt\n");
- 
- 	init_completion(&data->pgood_completion);
--	ret = devm_request_threaded_irq(&pdev->dev, irq, NULL, sy7636a_pgood_handler,
-+	ret = devm_request_threaded_irq(dev, irq, NULL, sy7636a_pgood_handler,
- 					IRQF_TRIGGER_RISING | IRQF_ONESHOT,
- 					"sy7636a-pgood", data);
- 	if (ret)
--		return dev_err_probe(&pdev->dev, ret,
--				     "failed to request power good interrupt\n");
-+		return dev_err_probe(dev, ret, "failed to request power good interrupt\n");
- 
- 	/* VCOM switched by the VCOM_EN line; otherwise it follows the power on sequence */
- 	if (data->vcom_en_gpio) {
-@@ -272,43 +283,42 @@ static int sy7636a_regulator_probe(struct platform_device *pdev)
- 			return ret;
- 	}
- 
--	config.dev = &pdev->dev;
-+	config.dev = dev;
- 	config.regmap = regmap;
- 
--	rdev = devm_regulator_register(&pdev->dev, &desc, &config);
-+	rdev = devm_regulator_register(dev, &desc, &config);
- 	if (IS_ERR(rdev)) {
--		dev_err(pdev->dev.parent, "Failed to register %s regulator\n",
--			pdev->name);
-+		dev_err(dev, "Failed to register %s regulator\n", desc.name);
- 		return PTR_ERR(rdev);
- 	}
- 
- 	if (IS_REACHABLE(CONFIG_HWMON)) {
- 		struct device *hwmon_dev;
- 
--		hwmon_dev = devm_hwmon_device_register_with_info(&pdev->dev, "sy7636a", data,
-+		hwmon_dev = devm_hwmon_device_register_with_info(dev, "sy7636a", data,
- 								 &sy7636a_hwmon_chip_info, NULL);
- 		if (IS_ERR(hwmon_dev))
--			dev_notice(&pdev->dev, "failed to register hwmon\n");
-+			dev_notice(dev, "failed to register hwmon\n");
- 	}
- 
- 	return 0;
- }
- 
--static const struct platform_device_id sy7636a_regulator_id_table[] = {
--	{ .name = "sy7636a-regulator" },
-+static const struct of_device_id sy7636a_of_match[] = {
-+	{ .compatible = "silergy,sy7636a" },
- 	{ }
- };
--MODULE_DEVICE_TABLE(platform, sy7636a_regulator_id_table);
-+MODULE_DEVICE_TABLE(of, sy7636a_of_match);
- 
--static struct platform_driver sy7636a_regulator_driver = {
-+static struct i2c_driver sy7636a_regulator_driver = {
- 	.driver = {
- 		.name = "sy7636a-regulator",
- 		.probe_type = PROBE_PREFER_ASYNCHRONOUS,
-+		.of_match_table = sy7636a_of_match,
- 	},
- 	.probe = sy7636a_regulator_probe,
--	.id_table = sy7636a_regulator_id_table,
- };
--module_platform_driver(sy7636a_regulator_driver);
-+module_i2c_driver(sy7636a_regulator_driver);
- 
- MODULE_AUTHOR("Lars Ivar Miljeteig <lars.ivar.miljeteig@remarkable.com>");
- MODULE_DESCRIPTION("SY7636A voltage regulator driver");
-diff --git a/include/linux/mfd/sy7636a.h b/include/linux/mfd/sy7636a.h
-deleted file mode 100644
-index 22f03b2f851e..000000000000
---- a/include/linux/mfd/sy7636a.h
-+++ /dev/null
-@@ -1,34 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0-only */
--/*
-- * Functions to access SY3686A power management chip.
-- *
-- * Copyright (C) 2021 reMarkable AS - http://www.remarkable.com/
-- */
--
--#ifndef __MFD_SY7636A_H
--#define __MFD_SY7636A_H
--
--#define SY7636A_REG_OPERATION_MODE_CRL		0x00
--/* It is set if a gpio is used to control the regulator */
--#define SY7636A_OPERATION_MODE_CRL_VCOMCTL	BIT(6)
--#define SY7636A_OPERATION_MODE_CRL_ONOFF	BIT(7)
--#define SY7636A_REG_VCOM_ADJUST_CTRL_L		0x01
--#define SY7636A_REG_VCOM_ADJUST_CTRL_H		0x02
--#define SY7636A_REG_VCOM_ADJUST_CTRL_MASK	0x01ff
--#define SY7636A_REG_VLDO_VOLTAGE_ADJULST_CTRL	0x03
--#define SY7636A_REG_POWER_ON_DELAY_TIME		0x06
--#define SY7636A_REG_FAULT_FLAG			0x07
--#define SY7636A_FAULT_FLAG_PG			BIT(0)
--#define SY7636A_REG_TERMISTOR_READOUT		0x08
--
--#define SY7636A_REG_MAX				0x08
--
--#define VCOM_ADJUST_CTRL_MASK	0x1ff
--// Used to shift the high byte
--#define VCOM_ADJUST_CTRL_SHIFT	8
--// Used to scale from VCOM_ADJUST_CTRL to mv
--#define VCOM_ADJUST_CTRL_SCAL	10000
--
--#define FAULT_FLAG_SHIFT	1
--
--#endif /* __LINUX_MFD_SY7636A_H */
+diff --git a/arch/arm/configs/imx_v6_v7_defconfig b/arch/arm/configs/imx_v6_v7_defconfig
+index 6ac42c06c1e9..bd1f692dd7b2 100644
+--- a/arch/arm/configs/imx_v6_v7_defconfig
++++ b/arch/arm/configs/imx_v6_v7_defconfig
+@@ -223,7 +223,6 @@ CONFIG_SENSORS_IIO_HWMON=y
+ CONFIG_SENSORS_JC42=m
+ CONFIG_SENSORS_LM75=m
+ CONFIG_SENSORS_PWM_FAN=y
+-CONFIG_SENSORS_SY7636A=y
+ CONFIG_THERMAL_STATISTICS=y
+ CONFIG_CPU_THERMAL=y
+ CONFIG_IMX_THERMAL=y
+@@ -238,7 +237,6 @@ CONFIG_MFD_DA9062=y
+ CONFIG_MFD_DA9063=y
+ CONFIG_MFD_MC13XXX_SPI=y
+ CONFIG_MFD_MC13XXX_I2C=y
+-CONFIG_MFD_SY7636A=y
+ CONFIG_MFD_RN5T618=y
+ CONFIG_MFD_STMPE=y
+ CONFIG_MFD_ROHM_BD71828=y
 -- 
 2.52.0
 
