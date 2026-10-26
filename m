@@ -1,94 +1,44 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.209.128.33
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792976314;
-	b=H8ra1NwmqyX2LOzOjPXVYibbC+pV+LKmRqFxevWdHCOx4hYfoU6h8IOiDb+mUaPZwS73
-	 ONMt8C0Xf9OD5QXiG0daf4K3sFsOspfEUPlDIk1oXbedTs6rGugqe//LHOuYcu0eMCEGz
-	 hWvUZGd0ayD4eHlRRBC/AToY9Jy6TnAPtBg20z+tpJCFwAozSA9nv/gw0g00466aKWnfK
-	 zlvRBRbaa2tddRuwowdwekt/AOT85CM+EIaiAWLPS5HYry8+A0ThyLppLPoOjtN6Qjw4g
-	 v8W2dTlsTtBS9ainm7XymUqB0Z5Mdgr6+5hAkF52EVZ7Dvaf7PmSk0XYTONeHU+d2Mg==
+	t=1792976319;
+	b=oc/wnLzZZh33ny0P0/uOU00VDOVf8m+hfJz13YcHAeCVbj5Tx5mHJuUCd4LsU7A3zT13
+	 vSC8RQIvL4s/XDj8ky7rR+RrHhVTNWGxZWw5ltQVJfLIXI9otNfM64HsF9S6fBusqTaUz
+	 NhaKX0DZKt9xfESiNCiBX+49gVYEdWoFib8P/FM+zKUZzcS0TVHhmfwWQaxcEphbCtwBP
+	 268kXukPVNkvwjKBXDtBJ1+sszsFGLfFb2BKX125jD6SwPHrxX/0BKX8VLHdtBZX04FDX
+	 wmiiVFygzf+/QwKUW/6yTcYppJCcSn3UIb8ZieKjk2yFz8+BiUX0gPku069Xwck4h0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792976314;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Sender:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=V6XEtkWxuej4IEYIwv0eUDHd5HsULUW/pPlJVdLGiWU=;
-	b=sOzxIInX88V137VoPuLCgxlVLB8FWpjBsmLSsri3QWYO8+P/7l33HncXy3zHgDgMlWlE
-	 26N8x87cX3c/715lvdx5jCROfwttQ4AWm6VrvkPxHOqGvkxpjJ7/xwVtUd7lDp4qFvvPQ
-	 pwBuSMhlOqaPIniBAlb6AYJfBZbdOMxAMt6pQVuO/vq30gmQS0ConisCtcKX1FaNk9hkF
-	 O9sA715QN9xZ4s41sJOSH2dToeUrwfls6moKfMTgNAEmtqaN7rai/oc2I5Ai8hDsbBBLJ
-	 SprCY4vRoayupJU+sOrppHkO1tIicUT8b7D7ga1b868x8ne3/O7pEiwRzKTJZr8WPQA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792976319;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:Cc:
+	 Subject:To:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:X-HM-Spam-Status:
+	 DKIM-Signature;
+	bh=ndzVmn65cOBuWVor3lRdzIgrEJdfaczyS9t22oR5j9c=;
+	b=Ul8zdtKddXaozltR0JgbMBfgukaBMqpoEPKcguJA4Z0KBbfrUI9GQFqxjZ0LOnOSF6KD
+	 LQVee+TOQv0MHSArqpv2O30/mnF3maND7e7TH1y9rTUeMb01i0RabYMXwIa/Gxz2bid2w
+	 J3w2rBgDndBLlFCE3L/M+NRUd6yBVDLIqmsrRXODQU4CVgYLDgUiGTAAMitHQtx72vk9q
+	 kbxSYB6IE5ZSi1Miu6u/g16TSpELWvDDzw34MkJH2EGdobfNDYpTX+H2GnurPOGRxXOWZ
+	 vseEiZ+e2g/rcdklR8ElAZ8hczStQymtn1DUHm4S3qCE7SZ5hyYW6ViEMtwT/UKu7Jw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=f+CAz1ZK;
-	arc=none smtp.remote-ip=209.85.210.171
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=rock-chips.com;
+	spf=pass smtp.mailfrom=rock-chips.com;
+	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=fx4pbgL4;
+	arc=none smtp.remote-ip=103.209.128.33
+Received: from mail-m12833.netease.com (mail-m12833.netease.com [103.209.128.33])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1A39606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 00:58:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1A39606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55E3B606A330;
+	Mon, 26 Oct 2026 00:58:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55E3B606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=f+CAz1ZK
-Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-8a064dcfcfdso720739b3a.2
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 17:58:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792976313; x=1793581113; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=V6XEtkWxuej4IEYIwv0eUDHd5HsULUW/pPlJVdLGiWU=;
-        b=f+CAz1ZKWhBKwDsPwUx64Uky52lZvae9T64JKjHaNee/0bBgrRCJvH6GzFOuPRcqNJ
-         fWNWnsv4fLDSSgDXv/1mStQdRmFa9tY44zaBzg6/xQeeDNcTYHTbfdzp+dmwLLRbsEtk
-         BTRCD7wZYH9sOuf17HIgIq8Y4lOuZGRjLHYIdaeRLOv8oJw3rx84/DTPLOTxPCpiFZml
-         EfOolz6iO7kdUQdV5abRQFVvcxrUw3RDv0LDhRAfEe24zkWqRlqF/Xea5VgZ+4zI69Gj
-         qok77+IPJX8463Vi7CGb19Jdecyci/xtKFJLijT0b0kC3TgsgfF15SyAbrxo+odt/9cy
-         g96g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792976313; x=1793581113;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=V6XEtkWxuej4IEYIwv0eUDHd5HsULUW/pPlJVdLGiWU=;
-        b=vZrwOl9X8cOiE8xUIZegvFvEdeeK/pL7hqXrvLhMiJn2IdosLLC6ieCLPZ5ok2ODM+
-         fYelHvVg2tWhdDufH0fzp6FG/AYgWn4VCGaWyNY1DfiXKIHXOHeS4lZuA/Vk8Iju3BE5
-         rB6nNs416QZALfX+8x/BwaVxFk4k7EgrmqO4UzE/N6RBdyNuJhk02d1URXerpNKYlU84
-         TAZ1g9KIjpvOcY/NkoLHQfvU/+S12SRYQVtmRE1IANdFdnj1k4GtVBHVxteZ7lpvgBup
-         O5OnBAut/ShCuffYjfqW3pml86iboPf5U1tQU9NEUyDGArcpHg8gPFXHT8lv0Gzk0XWZ
-         dgew==
-X-Forwarded-Encrypted: i=1; AKwUvByaYCHqcGqzWPSS8tGyAbtnOhae6i/CYfjZAbhkvL1LvWnt5XrVr/YOrUCieDPqJBAiDmuun/BJK3XVFz4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK3gPSgdSEHP+dQ0tNuEuhtqDxi9ZNy4YIytv02O3mAHD76/+Ql
-	Czg8IQWq1Tf79iEH6pvUk+LPhxGb11TG+gaCztIq+ShW+Snd8WT3DVtO
-X-Gm-Gg: AYBFou3f5msorDf2BwXvHjC8pFBL+cwkD+4QuD89gimOAo6bkOYTVUdW1fhjiT05j6u
-	i9dWZbikYoZB/IPUe/450vSZIitjcVo6oeXKvo+38xBEV3uN9TH95neDSp6TK9LhX5U/uvc0ylX
-	OsqmyR8S8qfFIuDtVrO2RW9D+wxzM4JnZ4TZryzPSbrhDuQfkzZC4HR3Qz14SQrnSkM1A5bquV3
-	EsxpKEKa/M/JE+KBBEst/XfPIQcM/8YRlmvQH7LoljctH5Tl0SwJcFAp5bsT/9qDSYDIBc0uNg2
-	ucgMMrmuRBGQbVz1T7KFhLvNR7wwPAIMzvrUPBX22mByQfezE2P5TTefedichQDHosAoMItIAPH
-	Ag+XBedoRZ/wKhq/lFfHjOrf2DlSYsRfb06rLe2CWwD2aiYnV5bsEvh/ED7yVGu7iRx+eRT/6pX
-	jhM9o+ML1PjHzNOrLcL9qb7lFFOw/hVQnRX2KgdB1GLmO/jG9NjPowNfkZSdw6y/xRg7FyZUtbs
-	aB0G5KjztzxOMoenF7T340PadDOg6ZpKbUNIf9b0Urdpx8svCndaDZTv0evmf5c3zSwtw==
-X-Received: by 2002:a05:6300:388:b0:3dd:85aa:4524 with SMTP id adf61e73a8af0-3e7bfac61c2mr3509972637.31.1792976313097;
-        Sun, 25 Oct 2026 17:58:33 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd8cccd4cfbsm1063454a12.28.2026.10.25.17.58.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 17:58:32 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Sun, 25 Oct 2026 17:58:31 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Jiale Yao <yaojiale02@163.com>
-Cc: Aleksa Savic <savicaleksa83@gmail.com>, Jack Doan <me@jackdoan.com>,
-	linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] hwmon: (aquacomputer_d5next) reject short status
- reports
-Message-ID: <aa00972d-b3d7-43df-bd0d-0778e3336a04@roeck-us.net>
-References: <20261021120408.48495-1-yaojiale02@163.com>
+	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=fx4pbgL4
+Received: from [172.16.12.48] (unknown [58.22.7.114])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 52486416d;
+	Mon, 26 Oct 2026 08:58:27 +0800 (GMT+08:00)
+Message-ID: <2155efb5-4d22-4a4e-8541-29f263f96dc9@rock-chips.com>
+Date: Mon, 26 Oct 2026 08:58:27 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,31 +48,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261021120408.48495-1-yaojiale02@163.com>
+User-Agent: Mozilla Thunderbird
+Cc: shawn.lin@rock-chips.com, linux-mmc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Jensen Huang <jensenhuang@friendlyarm.com>,
+ Ulf Hansson <ulfh@kernel.org>
+Subject: Re: [PATCH 1/2] mmc: core: sdio: retry without UHS if UHS init fails
+To: Deomid rojer Ryabkov <rojer@rojer.me>
+References: <20261023232813.2983368-1-rojer@rojer.me>
+ <20261023232813.2983368-2-rojer@rojer.me>
+From: Shawn Lin <shawn.lin@rock-chips.com>
+In-Reply-To: <20261023232813.2983368-2-rojer@rojer.me>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa175b7450f03a4kunm9d88549f3c8782
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZGRkdQlZKTBoYTx0eSU
+	1LQ0xWFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
+	tIVUpLSU9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=fx4pbgL4725wbNIYiLeLMF/CuLrTtmOwGb09pgxKOTtDSj1xUf5/2BE3PTortC8CmAFNmbJTFqANSpNBW3qWihL5hvU/7680obcFqYNjfdPB96YYh/xBOpM1YgC0JXxS9Pu1Bsb6sPLGHpvcgk5fXEbTx43ZbNLETLMdsnpbDh0=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=ndzVmn65cOBuWVor3lRdzIgrEJdfaczyS9t22oR5j9c=;
+	h=date:mime-version:subject:message-id:from;
 
-On Wed, Oct 21, 2026 at 08:04:07PM +0800, Jiale Yao wrote:
-> The HID raw_event callback runs before HID core validates the received
-> report length. aqc_raw_event() reads device-specific status fields at fixed
-> offsets, including multi-byte values, without first ensuring that the
-> received buffer contains every field. A truncated report can therefore
-> cause out-of-bounds reads and update hwmon state with unrelated data.
+在 2026/10/24 星期六 7:28, Deomid rojer Ryabkov 写道:
+> If mmc_sdio_init_uhs_card() fails, typically because tuning finds no
+> working sample phase, card initialisation fails and the card is not
+> usable at all, even though it would work fine in high-speed mode.
 > 
-> The required length differs between supported devices and cannot be
-> derived from the HID report descriptor. Define the minimum length needed
-> by each asynchronous status format, select it while configuring the
-> device, and reject reports that do not contain the last field accessed by
-> that format. Keep the published length zero until probe configuration is
-> complete, which also excludes legacy devices whose status is retrieved
-> through feature reports.
+> This happens for example on the FriendlyElec NanoPi R2S Plus when the
+> SDIO pins of the RTL8822CS Wi-Fi module are left at their default 4 mA
+> drive strength:
 > 
-> Suggested-by: Guenter Roeck <linux@roeck-us.net>
-> Fixes: 0e35f63f7f4e ("hwmon: add driver for Aquacomputer D5 Next")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jiale Yao <yaojiale02@163.com>
+>    dwmmc_rockchip ff5f0000.mmc: All phases bad!
+>    mmc2: tuning execution failed: -5
+>    mmc2: error -5 whilst initialising SDIO card
+>    [... repeated for every init frequency ...]
+>    mmc2: Failed to initialize a non-removable card
+> 
+> There is already a fallback for a failure to read the CCCR in UHS mode:
+> power-cycle the card and restart the init sequence without
 
-Applied.
+Nit: It doesn't power-cycle the card but soft-reset it.
+Otherwise it looks good to me,
 
-Thanks,
-Guenter
+Reviewed-by: Shawn Lin <shawn.lin@rock-chips.com>
+
+> R4_18V_PRESENT. Do the same when UHS init fails, so that the card comes
+> up in high-speed mode instead:
+> 
+>    mmc2: UHS init failed (-5), retrying without UHS
+>    mmc2: Skipping voltage switch
+>    mmc2: new high speed SDIO card at address 0001
+> 
+> The fallback is taken at most once, as the retry doesn't request UHS.
+> 
+> Signed-off-by: Deomid rojer Ryabkov <rojer@rojer.me>
+> ---
+>   drivers/mmc/core/sdio.c | 10 ++++++++--
+>   1 file changed, 8 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/mmc/core/sdio.c b/drivers/mmc/core/sdio.c
+> index 83085e7648..6787fdf1c5 100644
+> --- a/drivers/mmc/core/sdio.c
+> +++ b/drivers/mmc/core/sdio.c
+> @@ -867,8 +867,14 @@ static int mmc_sdio_init_card(struct mmc_host *host, u32 ocr,
+>   	/* Only if card supports 1.8v and UHS signaling */
+>   	if ((ocr & R4_18V_PRESENT) && card->sw_caps.sd3_bus_mode) {
+>   		err = mmc_sdio_init_uhs_card(card);
+> -		if (err)
+> -			goto remove;
+> +		if (err) {
+> +			pr_warn("%s: UHS init failed (%d), retrying without UHS\n",
+> +				mmc_hostname(host), err);
+> +			mmc_sdio_pre_init(host, ocr_card,
+> +					  card != oldcard ? card : NULL);
+> +			retries = 0;
+> +			goto try_again;
+> +		}
+>   	} else {
+>   		/*
+>   		 * Switch to high-speed (if supported).
+
