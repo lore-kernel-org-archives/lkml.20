@@ -1,106 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793032201;
-	b=T6hYNlpi9pKdoz28ZMaq33EGUu6ma23CfD95Wb+nkkk+HEGggFoDUi+bHMw0WBDIh7/S
-	 hEZ5eOiKIYGNqu5eBuZkGnPzNG0NMBftG85NeRwb8IpCWvG8hhdHIyKnOMvGys3dNiJ+k
-	 vD7kVufAQoqbyR37Yo+ZMG+VMvPFmrU6qJHeQ+ORX5JNqnqsjry+p9nAYxMUBQFf83S34
-	 AfriYRASqU/cBPOzxXLdYeVgSPyXzj5wSOtxkKdDV95U6Sgv5SoNVZ/Tm9SBCxb9dohN8
-	 2V0VBrYfLr68bwj16Nw2VK1Xkn7fUNupMSHIpJ1mqcvRHz5v+MmCBHuHepIsGjcHn6Q==
+	t=1793032197;
+	b=amnIpL5JCx1O2Xi32JnjmRls+rEYzIr/mXdE6zL+hqVDNpXYIhS6veoWEYrM5qz7cjb6
+	 cs0p5syJ7yLsTdD1A7TMEfzcF2E5YEo0LOm3T46fgMoVAclsPxJM7TXOiLU0TG8XtC5DJ
+	 lwRHJltx5/UEn0MtQnkRiZKGa3xt1Y2iLz+THnXLl4MYld61K8wSdpAFSskmZ7nVk2IQd
+	 16Lcy4tuvKjZTNR9hRyNA2rFDgR2LZWesSercJH1CXIgJtpSRwkqk+IPvg6dgFEok+Mnq
+	 IeYoqUT2NkjIO1FElEIX+etjk+l0y3bY+EbHDzTSOjMJMCLFFcfZBKQIpuJ7Zk1yX4g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793032201;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793032197;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=jjilxrpwleM7JjznJ3SOmEz03/yuCCXHu5R1S91kJ5I=;
-	b=JouTzg+amzMD+IsV+IHusNL+F6oLNXAWZIYJFlZT6H9fUqck5C1HUmx2m3QNmNbKySJR
-	 GETeooR5iMTTIZPhOFe5nPEYchFfM/Hv/dTJZt2YrUYiDyQ2/dG0z55Adui0UY6gjyPor
-	 CqrNycSS/p+3UOBE9gyJTkJuEncHyNys6RJ0owRGNrROiYgCqeV0ApPVI+aBK042Q8uf0
-	 oRFKgSw7RIRAITUr28VuoaAx9yIaR3dcI7BxHFZbuovPy8oUM0M44WMlZ2Ry0bheIdewD
-	 UlZXvmQD1oZOqHUwXTdRxUH893Ita35np/hAJW4kLn52J7q+910UPZdrsd9cUma5TPA==
+	 MIME-Version:Content-Type:X-Developer-Signature:X-Developer-Key:
+	 Content-Transfer-Encoding;
+	bh=08drD1ymTUi9hsmUJNZ4ArGmW7O1mMyycL0HsIwG3PI=;
+	b=Ldna1lJy9CV3yUmCAlfa+1kOlWU0yCZbziuFlk5MNShf9FEVkyjzQeG/b+lz5Su329TI
+	 9LWSAvEcJr/y5y7djEKXKaQuNqEm6x9d3FaT6PNKYIptTzpHohq3wEf5w+NrRTx9qkniW
+	 kXdvhHmTXf2Kr8MgIsAqK6owdo5CLpoV2d1uNBLxDI8AeqNMdGZiO9/GmFs2JcCPVMz9g
+	 Rp94o3AI++ngTnCGP+2vb8Q0uG+ame/YXw/qgBgx44XQp5hEkC4jwrZI/ee4XfqX7jjcC
+	 rKJlcHoSQWFojyg1QWskIZO7fsXvyX9vYq9aAYxbr8E41XtBBg9uD2WM8bLK2Qn9XlA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=MkplGEdg;
-	arc=none smtp.remote-ip=74.125.82.49
-Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
+	dmarc=none header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b="amHo/jsa";
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CBCA60A6F43
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 16:30:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8CBCA60A6F43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9735160A260E
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 16:29:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9735160A260E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=MkplGEdg
-Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-18cdcfc05ffso3841133c88.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:30:01 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=amHo/jsa
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a35d5d4a20so20101795e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:29:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793032201; x=1793637001; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jjilxrpwleM7JjznJ3SOmEz03/yuCCXHu5R1S91kJ5I=;
-        b=MkplGEdgwv61Zw8JhaNpM5yqOMQ8yrSLA258S+L/taf1GNFtMPZn1LO5xfzNxX2vHQ
-         X6byKfV1WyVJTBy4kDP35Rn4sOSjwFOo7sx+4WGIuYgOZP0xcqgBxTvjW30gdSsPC2Ry
-         gXUxNfNZv6wA84y2fYIZoRqmTjsCiTIi+t0GB5ZrmVkbDIhn0ZxyctJOpiq7rFOmLdW2
-         8PN0rHwTJXzwpv1s6r617NdtDSEqIRMMaKHcZMCpriOSljWCYEAkiUFMSUE5D4lwOvGc
-         +N8FNgdbv9yhn4MHBanaQ8wK0QU9r1955YxxHHGY4yuyHg8vj8ND1tGEhr8puZ0d8MJb
-         1JgQ==
+        d=baylibre.com; s=google; t=1793032195; x=1793636995; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=08drD1ymTUi9hsmUJNZ4ArGmW7O1mMyycL0HsIwG3PI=;
+        b=amHo/jsag43OcljCOXW4vz3z8ua3VyuUOPYTMKVde2FieVi/yc1yuhS8dDJuoP+jjA
+         N+BU+M/cvgwzNqMlGcOYDTxuEviYmgKV4ruodeCVF6OGBO7obOkqNT2pGlGABrjFPt3O
+         vsDLsrPrgmcbPS2KPTbjPmyceoHK2Lqxfi+yG80uJqltRWWlejpRGr9lwsNvl7HtecdU
+         iCOIRkJ+ywNsy5s0HCsba4eDp4Bb5oZX4b9M9hjNVNcj17Z35yXWilh/QLYZf/h+z1QU
+         v/IK5VMp+NJMpUQCcPttzbOTJ9c/o5oqEsr1ZtF8tzMCizTWSIFBNuUdZr/cWtSIJ5og
+         HpfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793032201; x=1793637001;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jjilxrpwleM7JjznJ3SOmEz03/yuCCXHu5R1S91kJ5I=;
-        b=xxaKdiKQoZE89QizjDB58dF85b3mMIOwZN3lu5Cb+TgIxtH7wpTf433h0D9jyLafeD
-         jxkAtx/4zsDSE3xx4xaW2QrIe89gDlpGmO3QGPCu31uDfvf+QAWxuQlWOR/knbhWh5CL
-         QWrOjCTmFw3n0zw5B715l9iaijTJD32rULJk4H+hkBX28JbnSBi8haYJOO/sPFXVJb+a
-         CSBFwWwV/gUniro96wu0BvODV65isDS+zVaY0P+ItjHtA4mkUib+YWtFD4RSBjcacMuP
-         C1PduMIef6kJXvp8ZGoZJP6VYkfwQ+ENNG5KxRjxJJ0u8mDJ45FhA4Z6bl4D/wIDYJUA
-         K/Xw==
-X-Forwarded-Encrypted: i=1; AKwUvBxYGMXoT1cmbxJXecfXj5tknOX14nM1fTSpv/LmmrhmqoAZKPVsttFRkBG3HPflPEDUbaGql2pnaYZw/Ew=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKXokqbeb7J5M1BZ7yUC1jYUPhTKtPzkN5yTfOkNNkOChFPNzGf
-	QUl4/lbjru0TjCTUjqIlJCcN55TEFPlNVI9ebqpeGzcoqnOsjL2xlJla
-X-Gm-Gg: AYBFou3Jd/RfhM/ELFh2PZf1tBE2QKbM4xMirBxvcz1jZEX7JbteTlKXrXRqg/Myh4C
-	uH8tIm8ZdPKLfpIymjTK6hQs5yFK79DZEFJsMA5LUuITtoDNEZhLu+hqc+vwcD4iSMrOWdatlTI
-	xqRMQbnbXqDSlr6hrqwNEAp+Rv/sNhj1Gub0Dbm3LALm7EFRTmjgJxEDQVKhxnEVaZsnTuXitcK
-	SoEGkn7fcQVQpg+PO0GZ1lPvu7Iest8TIIMmnoNhgf1UQgVuR2dE9thrzk5TQrhQOQhN/V/5V4D
-	4nL42YZSHfR2KqyOGrPCpFVHCY/ZlnZyuNnXjJdeNeqwqg50jPYyUH4lkqI+qT3Xd7BfgphgyQ1
-	UwPJY667pDe7B9gFuYWk4pUT4w2a3kJKLxj1pQtezPbY1S/trCw6O4+F0pSuUrLQ8OafA1HdU9U
-	WfJI47M77B2+d9aqzxChZfvqLu2eG2URbgppO9lLqS1AUhEcHkTMbWpP8eWwliLvi2FK6ZOkFm0
-	LfWXfv2LFubGzFpD4Js5a01nusy+yfuXB2bOM/MH1bPr0srSRL4LEPVEu4jkJI1mIkiEDB0CcUs
-	jnns2LXsaVwGOi1eIQlWLp3HKsuEWv1NHpqGrdeeahUPKGwBsG7DAFJq8raJKUQN4dCDbFoll5s
-	=
-X-Received: by 2002:a05:7022:ea44:b0:1a0:9d29:c32a with SMTP id a92af1059eb24-1a09d29c4c2mr4635325c88.9.1793032200306;
-        Mon, 26 Oct 2026 09:30:00 -0700 (PDT)
-Received: from nixos ([2405:201:c40d:9039:f859:3f74:c064:3281])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8db7b23sm36119014eec.19.2026.10.26.09.29.32
+        d=1e100.net; s=20260707; t=1793032195; x=1793636995;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=08drD1ymTUi9hsmUJNZ4ArGmW7O1mMyycL0HsIwG3PI=;
+        b=HOdUAdfL5l1r1vn+th9s0xr7f0s57LV+YNIBmoR6jSIUQB1IbGzvTjB6ZDvYtVBdFE
+         ojTxJF5+sCwa5fm6CrxI7A17BUsyMJ72aFnokdoQVOjLUWcIhq7g8Cc7Uptlan28aT/Q
+         0OdMbH3sqcrpgERv5yRam6rru+0Po2EwTfsW11Po/EdVzqxX2nUvtqB3BdB0pivYAr8L
+         pAnrWqpLsRJ1TXuNnwYRG58JVrCwjWQColluSeDQAAJwnJt+EuevwC07lu0d1N9/q9zH
+         PMYb1GVc+t9Xh2fXGGJwLWDA8tbn6X0OrH6TcjpnBAZ1QaXFPxZxlpVBM8+EwNYOqUBy
+         srLw==
+X-Forwarded-Encrypted: i=1; AKwUvBxwpLU7CvviflSvoQJuAq16K/05EiCkDlsbL8XwniJgYJyVUjQu1JiygxL417o6bttLWsQ+cqfBn5Hm280=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ4J/pjzKnMQouQcT4+pASE8SyQwyiOqqiPb6gmSsPD99bgP2jF
+	ksHk1rlpgZvLZgCWUScEgAohpb5cz6Pe3N32+Qfgsk0zdGc22YWWS4iSDtln95n7Ybw=
+X-Gm-Gg: AYBFou312XLNBPkwv+Q9DCVx8IzV0v2KsPefBE/6o6OFx4q+VnJ08B7r767w736K00b
+	LPxtGHr3cwqGjXTKITnl4BKQ7cw3DTdPsEJ1fOIvY1PJI2vElNtdCTxqazpPltLlbzkbyMt0r8G
+	haszTu2IjToLE/iIKMa7EZrCZiWxJFt5pDLboHnDvdawIztrWQmp7TL1+NzDffia7S7WORuRRSq
+	xX6lIR5xXcxObJtiEX/abjfYkrq+7+7n0mpl8Sfy/NnobPNt7M+UDSRGqIbprNX3EMYTczDT1zq
+	MV53DvLwewmmMDPH2W3OVdkPkNVoQ30n1mdvZVcsxnjzFuqgUtKd4UsQN5GUksfx9veoTga8Viq
+	ZdVzbZxx3MzC8oU5+hSEhHYFjbxCJpokBa6YyW7IC0dxDHazuk6woeYE8UL/STCxRMdNvzrxlEB
+	ZvV+xsDlKYjNCjxtz41zPYiUSx4bUVsLM6j1rkiemWTQqiRHq6inEaJYDzH3QhX/i9IDuST9BFS
+	mYtWT+rgMVPcNS+yQJTtjkINvJ51nu8WwBc8rpZzHKGpAajaRVhpaa0S6GvwZO2nZcuarUAshF/
+	vU6ZstjdKp5rQMYkU2Jwi9GsBQIp/2MjAblnqvdpsGx1
+X-Received: by 2002:a05:600c:4e43:b0:4a3:5991:719 with SMTP id 5b1f17b1804b1-4a7776698f9mr22225345e9.31.1793032195002;
+        Mon, 26 Oct 2026 09:29:55 -0700 (PDT)
+Received: from localhost (p200300f65f19a904cbccaa7a4d73ac15.dip0.t-ipconnect.de. [2003:f6:5f19:a904:cbcc:aa7a:4d73:ac15])
+        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-48e3ebd49afsm17669401f8f.35.2026.10.26.09.29.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 09:29:59 -0700 (PDT)
-From: Ayushman Rout <ayushmanrout27@gmail.com>
-To: bpf@vger.kernel.org
-Cc: ast@kernel.org,
-	Ayushman Rout <ayushmanrout27@gmail.com>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Mykyta Yatsenko <yatsenko@meta.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH bpf v2 1/2] bpf: Fix bpf_dynptr_copy() for overlapping ranges in one packet
-Date: Mon, 26 Oct 2026 21:58:08 +0530
-Message-ID: <20261026162810.12862-2-ayushmanrout27@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261026162810.12862-1-ayushmanrout27@gmail.com>
-References: <20261026162810.12862-1-ayushmanrout27@gmail.com>
+        Mon, 26 Oct 2026 09:29:54 -0700 (PDT)
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>
+To: Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>
+Cc: "Enrico Weigelt, metux IT consult" <info@metux.net>,
+	Viresh Kumar <vireshk@kernel.org>,
+	Andy Shevchenko <andy@kernel.org>,
+	linux-gpio@vger.kernel.org,
+	virtualization@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Viresh Kumar <viresh.kumar@linaro.org>
+Subject: [PATCH v3 16/22] gpio: virtio: Use a named initializer for virtio_device_id array
+Date: Mon, 26 Oct 2026 17:28:27 +0100
+Message-ID:  <214191c76607fa156b8c9d9209ec8f4e49a4b44d.1793030820.git.u.kleine-koenig@baylibre.com>
+X-Mailer: git-send-email 2.56.0.rc1
+In-Reply-To: <cover.1793030820.git.u.kleine-koenig@baylibre.com>
+References: <cover.1793030820.git.u.kleine-koenig@baylibre.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,89 +105,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1078; i=u.kleine-koenig@baylibre.com; h=from:subject:message-id; bh=HvLKZnIb7RtprxLD/D+7QxSMDdlX02hi9zaVYI1agxw=; b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBq33/E2/88AYjCtY1NH3iLuLQmQBlGZKTuZPwEN I+ROn5ltvSJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCat9/xAAKCRCPgPtYfRL+ Ti09CACXlBrBIggIPRy7K+bnoOgAplGl7A2GNsIbOzirBWsIaPJ2sZoYQcdMyaUJ7dyRvMEXVbW 4L0MenSBLD1aCJBa1sMnYOMhhp8r5UL7zjAmh/SiFLr6pzbUPdtgqE5PTo7t6yueD2k3HBmQ/0x 3aepLEUro6ABLL8k3sKyfLFK18CuxIYb5BggqhKSQHjbN661TVZHaT+oFi1PkgaCWI0qSMn2jMB cizrNJq1w7ITdmWFrRo/RdJELM8a1EnZw/2y3/Whjc6kVbLVxxnBHm6F7wsZhJLgDCdt4dPBhLC dnbcvS1DmGYvPVju+7LvCxleQFfL7OzCNCctALVZU66wcsq3
+X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp; fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
 Content-Transfer-Encoding: 8bit
 
-When both dynptrs point into the same packet and the ranges overlap,
-bpf_dynptr_copy() can copy wrong data in two ways.
+While being less compact, using named initializers allows to more easily
+see which members of the structs are assigned which value without having
+to lookup the declaration of the struct. And it's also more robust
+against changes to the struct definition.
 
-If one range fits into a segment and the other one does not, the slice
-of the first range is used as the buffer for __bpf_dynptr_read() or
-__bpf_dynptr_write(). The range that crosses into a frag is copied piece
-by piece, and an earlier piece can overwrite bytes that a later piece
-has yet to read.
+This patch doesn't modify the compiled array, only its representation in
+source form benefits.
 
-If neither range fits into a segment, the chunks are copied from the
-start to the end through a 256 byte stack buffer. When the destination
-is above the source, a chunk written to the destination overwrites
-source bytes that later chunks have yet to read. For a copy of 1200
-bytes with the destination 100 bytes above the source, the first chunk
-writes source bytes 100..355 and the second chunk then reads bytes
-256..355 after they were overwritten.
-
-Do not use a slice as the buffer when both dynptrs share the same data,
-and copy the chunks from the end to the start when the destination is
-above the source, like memmove() does.
-
-The selftests added later in this series pass with this change.
-
-Fixes: daec295a7094 ("bpf/helpers: Introduce bpf_dynptr_copy kfunc")
-Suggested-by: Alexei Starovoitov <ast@kernel.org>
-Signed-off-by: Ayushman Rout <ayushmanrout27@gmail.com>
+Acked-by: Viresh Kumar <viresh.kumar@linaro.org>
+Signed-off-by: Uwe Kleine-König (The Capable Hub) <u.kleine-koenig@baylibre.com>
 ---
- kernel/bpf/helpers.c | 16 ++++++++++++----
- 1 file changed, 12 insertions(+), 4 deletions(-)
+ drivers/gpio/gpio-virtio.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/kernel/bpf/helpers.c b/kernel/bpf/helpers.c
-index 648abe1ba63a..b74c03669b5f 100644
---- a/kernel/bpf/helpers.c
-+++ b/kernel/bpf/helpers.c
-@@ -3291,8 +3291,10 @@ __bpf_kfunc int bpf_dynptr_copy(const struct bpf_dynptr *dst_ptr, u64 dst_off,
- {
- 	const struct bpf_dynptr_kern *dst = (struct bpf_dynptr_kern *)dst_ptr;
- 	const struct bpf_dynptr_kern *src = (struct bpf_dynptr_kern *)src_ptr;
-+	bool same = src->data == dst->data;
- 	void *src_slice, *dst_slice;
- 	char buf[256];
-+	bool rev;
- 	u64 off;
+diff --git a/drivers/gpio/gpio-virtio.c b/drivers/gpio/gpio-virtio.c
+index ed6e0e90fa8a..42871db05ec1 100644
+--- a/drivers/gpio/gpio-virtio.c
++++ b/drivers/gpio/gpio-virtio.c
+@@ -646,7 +646,7 @@ static void virtio_gpio_remove(struct virtio_device *vdev)
+ }
  
- 	src_slice = bpf_dynptr_slice(src_ptr, src_off, NULL, size);
-@@ -3303,25 +3305,31 @@ __bpf_kfunc int bpf_dynptr_copy(const struct bpf_dynptr *dst_ptr, u64 dst_off,
- 		return 0;
- 	}
- 
--	if (src_slice)
-+	/* The other range is copied piece by piece. A slice of the same packet
-+	 * may overlap with it, so it cannot be the buffer for that.
-+	 */
-+	if (src_slice && !same)
- 		return __bpf_dynptr_write(dst, dst_off, src_slice, size, 0);
- 
--	if (dst_slice)
-+	if (dst_slice && !same)
- 		return __bpf_dynptr_read(dst_slice, size, src, src_off, 0);
- 
- 	if (bpf_dynptr_check_off_len(dst, dst_off, size) ||
- 	    bpf_dynptr_check_off_len(src, src_off, size))
- 		return -E2BIG;
- 
-+	/* like memmove(): from the end if the destination is above the source */
-+	rev = same && dst->offset + dst_off > src->offset + src_off;
- 	off = 0;
- 	while (off < size) {
- 		u64 chunk_sz = min_t(u64, sizeof(buf), size - off);
-+		u64 pos = rev ? size - off - chunk_sz : off;
- 		int err;
- 
--		err = __bpf_dynptr_read(buf, chunk_sz, src, src_off + off, 0);
-+		err = __bpf_dynptr_read(buf, chunk_sz, src, src_off + pos, 0);
- 		if (err)
- 			return err;
--		err = __bpf_dynptr_write(dst, dst_off + off, buf, chunk_sz, 0);
-+		err = __bpf_dynptr_write(dst, dst_off + pos, buf, chunk_sz, 0);
- 		if (err)
- 			return err;
- 
+ static const struct virtio_device_id id_table[] = {
+-	{ VIRTIO_ID_GPIO, VIRTIO_DEV_ANY_ID },
++	{ .device = VIRTIO_ID_GPIO, .vendor = VIRTIO_DEV_ANY_ID },
+ 	{},
+ };
+ MODULE_DEVICE_TABLE(virtio, id_table);
 -- 
-2.54.0
+2.56.0.rc1
 
