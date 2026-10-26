@@ -1,102 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=130.149.7.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793003773;
-	b=h+do4+FOlNQY8bYaxFhiI5ORKwD77RqarCuHQUkOGGrAZrEdp3Zch9ydQwPIWgFMAWHy
-	 FE/GTJ9hxxju/C31ylk6hiDZWyBNo1XOvB0NdJasFZhzz2RyhQ3/3CW6ZrUmww5kT++ET
-	 TYPBdNzo1cO09aA6Ykg/sz2uhLDdsQaybZkvNfWdyo3zlDHjiETJzzjSIZWia9YbG+yTU
-	 +BuhHlMKkS7jMHU5KikhBul7J9ly6q241+BvJEXd78+2QrC3OM7WcRML3gmioYL/YQXSd
-	 pZjgcjwngMdJiccfSq0iDI4zVluHLGBS3MJof2gKo4H1MFoL5Nuqc6e4a4OS2h1nnlA==
+	t=1793003749;
+	b=W251cEceVANGrJzfpppK6n9qxUfFuNTISjP9gSDWgBFXPm93NT+doEGXb8lhzw5n7+4T
+	 7zO+ghLXRkvTT4MHXhLoEuLXF6Xq/UiWGxEHjtyfW3nMavPKEUu1IJJiqcFat/wwm/FCL
+	 OqpQhHCPrmkAO1aDo1vjCZpMEE2Dotm/Z9kVsLkNjfyXNyVj/LgMYTx89JOrjhhr47BYH
+	 BZBIfPu0cRlbG/WtFTJBxD2R4gSUWftCerOB7pwuBIhgSqTaU9lFGn8Jul6mIA6H9b5vy
+	 xaZIRqhmfdgqlHWooUWXRXX9kfQdbOrWBUjf5NrPP63W/NTo2U/dPkHc/zpK7ioPypQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793003773;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=RgXmha7CcSQWW68lEObtrAB+EUYAPG7XpUlj/LZ3mcs=;
-	b=GZnBUMYhiFRHVxzPRwZ8GMwjdr8QQLFBh9rsmfBlV5BFZBxnRLts6iWzzDe/IhOr2Xk+
-	 rDvGPaQy/5/Rh4xPt3IozjOO3uWJfBLt52FPZ3SLbPqOrZzcM0Ph72yL6qMkY3t56pMDR
-	 V22C640gRsLcdH3v/+ZKpVpNwvGPv2hjyq6nrK/Iy3kMiZ+jIPp2GS+jJVFHW6iTGwpPt
-	 BJKXwrAuI9YxrIIMQhsXidfidnBk7eX65oNs9EDkAAZwskfRu8Szwssec27tJTZcJnd3f
-	 DX3Omjt48vqtkuo8NNTV0xZI9x7XT415J0QiZdvfASHSKuQLKfGd0/TnwAcu6G3ei9g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793003749;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:CC:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=t5aVGQFnIo2fbR/ym25z3W3C+Yluhz2Oy30vSlBhxGY=;
+	b=uuz7TFPQUj2eA/6hwbbG65KMQNRHMcmKZ0hjmMJhJORCdPSo8E20+Nv3ScDjO/CxwcIv
+	 N+OGMlQ8HHB6+2CchxeVl1SOgTLza7sVEw0cjSSWweSvK3I4swM10oe+Qr7kR9o1EeT91
+	 hVUTcUjem08QiM1IvdEgPPMEInZFig6/v5WQMZgsZQgntlmVcHdjGk40Voae6/LBIY0hj
+	 sD1W/B/U5WGZN0k/MRvgytwRK20CYtK9HH1D10Ah/FwS7MxiQ05HekO+lBRhoBABleKn3
+	 79R6WjHljqhNfgpric/Y2MAi2AOQd+Txj+gYDMRcbcMo3GoqfNFkwydiQB9VhCn5u7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=mgcrea.io;
-	spf=pass smtp.mailfrom=mg-crea.com;
-	dkim=pass header.d=mg-crea-com.20251104.gappssmtp.com header.i=@mg-crea-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=mGQJ5UIA;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=tu-berlin.de;
+	spf=pass smtp.mailfrom=tu-berlin.de;
+	dkim=pass header.d=tu-berlin.de header.i=@tu-berlin.de header.a=rsa-sha256 header.s=dkim-tub26 header.b=ECK0mPRH;
+	arc=none smtp.remote-ip=130.149.7.70
+Received: from mailrelay.tu-berlin.de (mailrelay.tu-berlin.de [130.149.7.70])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD561606A322
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 08:36:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD561606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=mgcrea.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mg-crea.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB1B4606A31A;
+	Mon, 26 Oct 2026 08:35:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB1B4606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tu-berlin.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tu-berlin.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mg-crea-com.20251104.gappssmtp.com header.i=@mg-crea-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=mGQJ5UIA
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a5b2be99a8so6373765e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 01:36:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mg-crea-com.20251104.gappssmtp.com; s=20251104; t=1793003770; x=1793608570; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RgXmha7CcSQWW68lEObtrAB+EUYAPG7XpUlj/LZ3mcs=;
-        b=mGQJ5UIAjeAsqYsIBhhQC0hB4fWg9EkY0mtMeaR8jnwNlB852EvDVO259FZj8wXLUU
-         SubmyClKZxzskwEi/dMo4MTox7VHMrua9XESny39VGJLqeSgw9bGUN34r1L4kOTrxmoA
-         k4FVc5tr3tmKrZ9SOvcmmGhR5unbpsUkmKyzjsma0OpsiBBTModDy0kyaLLpS50wNDd0
-         RcA+x4QxASsVtbx7T4QEvtD3W3mAfQd4QiIm2HaXLUwlWfuEcYsjc63ORfxMahf9VzoG
-         agW0415AWW/dvl4qbQgE+cPYQJI0uuKm7VIIJiifaLJsEzOSuS2n8oCiOuIiTkONfhtD
-         qujQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793003770; x=1793608570;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RgXmha7CcSQWW68lEObtrAB+EUYAPG7XpUlj/LZ3mcs=;
-        b=TtPmeJ/jF+DWi2kErgX3RwPFKkp0p/LnyF/jfciH1fyJwW6mQeJiTuMQ81K9yy8dOR
-         r7zDUQVFSCLE79t3qpa3o61e6o8baOSGu19bbn3h3kzQL8L5wmdFVqjr4n9KcwzYhH6o
-         wzGWwjE4SbCi8MVopX4quHPNsXdk2oJ3XdHERX8Tz5IFZ7A6EpjFFYyDCzcrST8mXErZ
-         3EDhYmKSIFKevrBUoAY6ab/ZiKLHMLHjtPCRoGIUAEhud0MOs7iVJdKHc9BktWCMJjSa
-         O/VdfvSn+ysVo6ZcnI/JTs/n3Zmq7qksVeqq1mTkR/P66kJT6hfFHPHjcm9UuPHvG8Xm
-         HIPg==
-X-Forwarded-Encrypted: i=1; AKwUvBynpXme8mMYeW8wyF7tR4b9wxUB41O6fBjuf3IbXEWPBDhpXwQfUbEaqHNwi2WL+87ZMa5dmnf72AFfqEc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJh92f+LRt7WmpT9lUpF4AeFzKReMNF9WRFhMFJ8aPRdUR3lFAh
-	VC+hrc5ZydhqCD1A14b/i0Mw4XypEGUmSBohrrfcmcFEBs0YJg1b4EDat3FID/QsH2Y=
-X-Gm-Gg: AYBFou3DnR2DuWmlsgKJeDFtTLk9S4CQjfW7vJwbIkZkiEDQnh9yMzFJf+wXGNuGZRa
-	gGn5vSOZi0eaIa99auhGHMbFJlPpQvWIAEjDTQqXYaB8CMnz/xRfDymDjQK3W+mKorODn49iBfd
-	VhuZS2XkAlHlRBVQyy4DIMNc0mJftneKygJWmDQDFYrMQeV/6zz9U7/ERNzBQdokWAlwlHZ6LKH
-	w4OfD7NGMpi+8vTiZ4W/Nsab0TpV7lVkxJtCyK54u1SGBcX9YXcEWHQngc5jSmwcjW1z+I0ZPel
-	0AZozXz8ciH1/XyisyYXbSrObO5PwFq5UAr6tcGC8CalLG4OAmWEz7ee4HifS/pdIKpE99QQuhJ
-	hgPan0fwdnNWxtXVVqCUx8iZmNjPNfQSB0jfI+ekLnqoMlDd4ViXCZ8Y8r1H3+Vs8DWP7NdWpx8
-	b49Dno4P7oYHqyo8lW+SKLkfzrx3MmtknjGRYtcvxgXIQUh5qJ4iaDuEJgd5d90YMEGKJBNZDGD
-	GZJ3+81FOmUcnMlXdQtY5X32Yby3CfEbgA2sddyvFRCuEoaVHBjmKfk2Idlk6n/8LHREz4vxZFg
-	bn1c7f+CC/YBow==
-X-Received: by 2002:a05:600c:3e8c:b0:4a2:392:9de2 with SMTP id 5b1f17b1804b1-4a35acab6cdmr93617695e9.28.1793003770060;
-        Mon, 26 Oct 2026 01:36:10 -0700 (PDT)
-Received: from localhost.localdomain ([2a01:e0a:9d2:5a71:6dfc:5715:ead7:7540])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a59d998sm186175175e9.15.2026.10.26.01.36.09
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 26 Oct 2026 01:36:09 -0700 (PDT)
-From: Olivier Louvignes <olivier@mgcrea.io>
-To: Vinod Koul <vkoul@kernel.org>,
-	"H . Nikolaus Schaller" <hns@goldelico.com>
-Cc: Paul Cercueil <paul@crapouillou.net>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	linux-phy@lists.infradead.org,
-	linux-mips@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Discussions about the Letux Kernel <letux-kernel@openphoenux.org>,
-	Paul Boddie <paul@boddie.org.uk>,
-	Andreas Kemnade <akemnade@kernel.org>,
-	Olivier Louvignes <olivier@mgcrea.io>
-Subject: Re: [PATCH] phy: ingenic: fix unbalanced regulator_disable() warning
-Date: Mon, 26 Oct 2026 09:34:54 +0100
-Message-ID: <20261026083454.29787-1-olivier@mgcrea.io>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <96da5fe557f3b2501447358895bd78decc4633ef.1735482146.git.hns@goldelico.com>
-References: <96da5fe557f3b2501447358895bd78decc4633ef.1735482146.git.hns@goldelico.com>
+	dkim=pass (2048-bit key, unprotected) header.d=tu-berlin.de header.i=@tu-berlin.de header.a=rsa-sha256 header.s=dkim-tub26 header.b=ECK0mPRH
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/relaxed;
+  d=tu-berlin.de; s=dkim-tub26; t=1793003747;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=t5aVGQFnIo2fbR/ym25z3W3C+Yluhz2Oy30vSlBhxGY=;
+  b=ECK0mPRHOPAqkif+dngu8d1bwJcbU0Cnc1kUsZCko/WMNudnIzX4vW/+
+   ydhHrshryg+WGlvRTL1mFAHu7Zf8bKbq/EgjjQUnjJpbNx+uHWh+M27Da
+   fycJkfCqLOeo2HcxyjyvCigqmKrgWDLS5CHCxtUMvRDsr8Oma5q+JskUw
+   RmiCEpCM6UXEl3lIAx41wcH2TuWwQHuFz29LUprv4k11ARqcDxYFQax+A
+   zFEkotYWEOf8730jT0FXixRHOBGEEBnsW5xIBx3TYe/LkbKp5XVV4v4qm
+   /6hZSR+agKzxmSSP7ZloqioBZtdUgcfej//MBCQo1ENt71gQElOoYe3kC
+   w==;
+X-CSE-ConnectionGUID: zBdUs2ZiRfO1z7KXzqHd4w==
+X-CSE-MsgGUID: jEwqq7qaS4yR3m1RQByAfA==
+X-IronPort-AV: E=Sophos;i="6.27,179,1787004000"; 
+   d="scan'208";a="53777538"
+Received: from bulkmail.tu-berlin.de (HELO mail.tu-berlin.de) ([141.23.12.143])
+  by mailrelay.tu-berlin.de with ESMTP; 26 Oct 2026 09:35:39 +0100
+Message-ID: <3625cee3-3643-4ef8-808d-2fe8267593fd@tu-berlin.de>
+Date: Mon, 26 Oct 2026 09:35:37 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,26 +63,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] net/sched: sch_cake: skip redundant cake_mq rate updates
+To: "Shubhang Kaushik (Ampere)" <sh@gentwo.org>,
+	=?UTF-8?Q?Toke_H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>, Jamal Hadi Salim
+	<jhs@mojatatu.com>, Jiri Pirko <jiri@resnulli.us>, "David S. Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
+	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
+	<horms@kernel.org>, Shubhang Kaushik <shubhang@os.amperecomputing.com>,
+	"Christoph Lameter (Ampere)" <cl@gentwo.org>
+CC: =?UTF-8?Q?Toke_H=C3=B8iland-J=C3=B8rgensen?= <toke@redhat.com>,
+	<cake@lists.bufferbloat.net>, <netdev@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+References: <20261025-net_sched_sch_cake-v1-1-5165c924a590@gentwo.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Jonas_K=C3=B6ppeler?= <j.koeppeler@tu-berlin.de>
+In-Reply-To: <20261025-net_sched_sch_cake-v1-1-5165c924a590@gentwo.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Vinod, Nikolaus,
+On 10/25/26 9:38 PM, Shubhang Kaushik (Ampere) wrote:
+> cake_mq periodically counts active child qdiscs in cake_dequeue() and
+> derives an effective per-child shaper rate. cake_dequeue() currently
+> reconfigures every tin after each scan, even when that effective rate
+> is unchanged.
+> 
+> The dequeue-time call chain is:
+> 
+>    cake_dequeue()
+>      -> cake_configure_rates(..., true)
+>        -> cake_config_*()
+>          -> cake_set_rate()
+> 
+> With rate_adjust=true, cake_set_rate() only refreshes rate-derived
+> state. Tin 0 records the unscaled rate argument in every supported
+> CAKE tin mode, so its installed rate identifies whether this call chain
+> would change any state.
+> 
+> Skip the reconfiguration when the effective rate is already installed,
+> while continuing to update the activity-sampling timestamp and
+> active-queue statistic.
+> 
+> Fixes: 1bddd758bac2 ("net/sched: sch_cake: share shaper state across sub-instances of cake_mq")
+> Signed-off-by: Shubhang Kaushik (Ampere) <sh@gentwo.org>
+> ---
+> Tested on an 80-core SMP, non-SMT Ampere Altra system (aarch64)
+> The test used a 32-TX-queue veth pair, with cake_mq
+> bandwidth 2gbit on the transmit side and the peer in a network
+> namespace. The workload was:
+> 
+>    iperf3 -c 198.18.0.2 -P 32 -t 30
+> 
+> Validation against mainline commit a32e63a613aa80, the patched kernel
+> reduced cake_configure_rates() calls by 99.99% (2,477,627 to 206) and
+> aggregate helper time by 99.986% (3.477 s to 0.498 ms), while retaining
+> approximately 1.91 Gbit/s aggregate throughput (baseline:
+> 1.91-1.92 Gbit/s). A separate per-child trace observed no
+> same-effective-rate calls on the patched kernel (@unchanged: 0).
+> Changing cake_mq bandwidth from 2Gbit to 1Gbit and back invoked
+> cake_configure_rates() 64 times, matching all 32 child CAKE qdiscs
+> updated for each of the two control-plane changes.
+> ---
+>   net/sched/sch_cake.c | 3 ++-
+>   1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/net/sched/sch_cake.c b/net/sched/sch_cake.c
+> index aa4043d662c1cc18858d3f9c80f9d9b281f26f72..dd2539cb472087af9a96b74f2ac571eb8b0a8a27 100644
+> --- a/net/sched/sch_cake.c
+> +++ b/net/sched/sch_cake.c
+> @@ -2052,7 +2052,8 @@ static struct sk_buff *cake_dequeue(struct Qdisc *sch)
+>   		if (num_active_qs > 1)
+>   			new_rate = div64_u64(new_rate, num_active_qs);
+>   
+> -		cake_configure_rates(sch, new_rate, true);
+> +		if (new_rate != READ_ONCE(q->tins[0].tin_rate_bps))
+> +			cake_configure_rates(sch, new_rate, true);
+Thanks! Yes, I think the idea is right. I think we could even omit the
+READ_ONCE.
 
-I sent the same one-line fix on Saturday without finding this one first,
-sorry for the duplicate:
-https://lore.kernel.org/all/20261024051756.79342-1-olivier@mgcrea.io/
+Best
+Jonas>   		q->last_checked_active = now;
+>   		WRITE_ONCE(q->active_queues, num_active_qs);
+>   	}
+> 
+> ---
+> base-commit: a32e63a613aa80dfdb9acc0a09efab940e96054f
+> change-id: 20261025-net_sched_sch_cake-e6653fd393d6
+> 
+> Best regards,
 
-Please drop mine and take this one, it is the same change and it came
-first. It still applies to phy next.
-
-Tested on v7.3 on a HiBy R1 (Ingenic X1600, dummy PHY supply): without
-it the unbalanced disable warning comes at every dwc2 probe, with it
-there is none and USB still enumerates at high speed.
-
-Tested-by: Olivier Louvignes <olivier@mgcrea.io>
-
-If you want a Fixes tag, mine had:
-
-Fixes: 31de313dfdcf ("PHY: Ingenic: Add USB PHY driver using generic PHY framework.")
-
-Thanks,
-Olivier
