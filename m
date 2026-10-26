@@ -1,79 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793003825;
-	b=E5/nBETESXREyFzPTdr/gM6Mm4QDswPTvBMg4SVq38WNLC7KWDyKzdEznxOUph2kMend
-	 /YR/NFxb23pmM9HWeMrfxLQLzlyjUTaez9yGYyegOpJfaZ5N543JpTR9Ne0Kf1S+Es/bf
-	 qnvXP3vt7Egs5DCulYaUotYYkc7MoXdThSBXhyVt4XryO5V9sCihtz4+QeZbauU8aKsBj
-	 61OqZZuEDedbgk+GeIOjsKcMgUcSQEaTBFkVtLvmj7OY8CEGYxQ9/TlFVo0phnrd+i5W3
-	 VKXlqzuv5Jw4ZbH2+YJ6Sk/wBVEQWEeo0OyEaCctbA0Oi/y9nISCZAvtLOa8X0jys0Q==
+	t=1793003854;
+	b=r3XTqZaGewDdg1Qca0xDK+W5DZIFxCfa54YU0As6yhEORinJ7aAgHWWGG4sHlyBaHdWU
+	 M8g1sCvfC258wRt2OnryovQc1BfPNigH2jdbhoQpMluOvqxOCQV5OVSBBXzNj5PRei+AK
+	 UGMdqrNJQOlKYum5xHWOSllNuChAhbKWFCEtwdIMeX6D/ToNz/sZ9Ba4+LonLZIsmpytn
+	 Dn7e3Z6XVJD9G5dIonkL/hkdJFcFI6CLMXKXuWl/OqmNTlmDcM1DPUdib0j3708Be7g4A
+	 xstYwivU3yVFd1EfC4KMhQl7CX3mvFTffgPOU8PldkaIFmqcuwY6GN/bLeiF+b91z+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793003825;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
-	 Cc:Subject:Message-ID:In-Reply-To:References:Organization:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Last-TLS-Session-Version;
-	bh=/tD+AdggQ8rn3t013FfJIhJkQ3UCqIWgHWwfFpeCerk=;
-	b=RUuLsl2EH/YESOjUQDPviL0uNsqakqq1WsjCHzgfuYIciFDyklJQGPucpTZl7NIR9ae2
-	 7XQlrVtfMRNiriX3Sg70/RXc0f4Q0wp99/3x06q2WESGdIwKRiWqPq3izyRoL+zAXTn9g
-	 dZGpKg4nFYqfAW7Wj7omkBfQu3R4Q6IcgVgYAWvokoEjakcPCkuI0Tq9YmimTF3LkN726
-	 L6b2gePHlM+wSdBcU+T7LqcySALgkinyxPZrfqxyc7jTSxdR43YnEvKeqwLYQBA05sPBE
-	 Oyjol40PiKCstTEigQlUxMphAzG+CflT+ruLkqvzfDPgWU9GVTtypfvdvapvONHyWYQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793003854;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=DUCKXpFhOMZBT2HnErNgc1GGFPbfPUwN4bKfvKKAN5I=;
+	b=VJduNCqk6u+R/U9y1Yoy7PdRnHdNcxxvrjc9HSAQ49ZjxBxqHTQa6y6v1ZQVWzaWRhrM
+	 yHw18CsiRAArNDOBvdhPr/mxP/6Aj9B4Qh+5hLHHLUXZfxiWATSI5qI7wccArSp2czvYv
+	 jSm1rvwnhrjfP6N/7J5Rby1IB1yCTT5RHvbOdMmeDVAJHvViKmrx2G6nPHjC49pa4+Xpw
+	 PIBzvoZRqdGNoCaBX8/Nft4+zyG+Fk3Bdhr3arl+CF5RDTAtYh3m5QEAnbExDv2xJwqlW
+	 /uDZGJ94rywl+Pw0v3QrD1vXaZaw8mR29lH+pp/LRzPg49qqUxMZWr0nuQsVif/mXBA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=kVwwLWcH;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=BsO8qC9F;
+	arc=none smtp.remote-ip=209.85.221.41
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6947B606A322;
-	Mon, 26 Oct 2026 08:37:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6947B606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FF00606A31F
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 08:37:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7FF00606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=kVwwLWcH
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id AF21B1A1339;
-	Mon, 26 Oct 2026 08:36:54 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 7ACCD60740;
-	Mon, 26 Oct 2026 08:36:54 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5EA8E10328E76;
-	Mon, 26 Oct 2026 09:36:45 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793003812; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=/tD+AdggQ8rn3t013FfJIhJkQ3UCqIWgHWwfFpeCerk=;
-	b=kVwwLWcHIhHeD43jHUzfytK0VC6XBUa76/BASP5MYWKmgkJg1swUYm6Nbcz0qa+xG5p/oL
-	pSeE11DF5ppRMuS7rksMeF66KVn11wWdOUivyfokhrKZ7xErbqn8fIEl1tJks0CHAZtthZ
-	cWhbZ6XN8mPWp5LHNKJV0xwp7XxAWQMkVja2480JdWKiGwSDfEDwbR0oEDdwIOvyhm0MUo
-	hNNJQLIFP5zJ8wQynpxgiIjyl1Y8iIjjX7Jb57RIAvdh7MSzFiMJg38wkp959gysNKqBVN
-	Cbu+QePb/Kdb07waujHNn0n5ZGQWS72h3IZcn3LWXr8X7jTHGp84GbdAD7WMdQ==
-Date: Mon, 26 Oct 2026 09:36:43 +0100
-From: Herve Codina <herve.codina@bootlin.com>
-To: David Gibson <david@gibson.dropbear.id.au>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
- Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
- <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
- <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [PATCH v3 12/15] libfdt: Introduce fdt_getprop_offset_namelen()
-Message-ID: <20261026093643.15faf244@bootlin.com>
-In-Reply-To: <at1qO7oEdCyhX6k8@gractus.seuss>
-References: <20260826083146.304291-1-herve.codina@bootlin.com>
-	<20260826083146.304291-13-herve.codina@bootlin.com>
-	<arDJmHPwgvwwmITG@gractus.seuss>
-	<20260922182547.6cc7475c@bootlin.com>
-	<20261023092559.7608ff25@bootlin.com>
-	<at1qO7oEdCyhX6k8@gractus.seuss>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=BsO8qC9F
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48b001cd92bso1499383f8f.2
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 01:37:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1793003852; x=1793608652; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DUCKXpFhOMZBT2HnErNgc1GGFPbfPUwN4bKfvKKAN5I=;
+        b=BsO8qC9F2lOPtizlCkLobBeDKo4VQrsOUuJGH/4KWvKOlrPpYOCzISiIvipa8qmSzw
+         l8Lfqk7a4UUWjyqof3zy2lF5xwhnjuOAKQd3zdKE0Bto3CmWD84GGOf0om3tquqAImA+
+         +elsN2pWhKZjySDOJYoRmRAp9AGobzxKWeXfTItdztxUt7yD06bLS1VzyGwj1IfhHKnh
+         i0KApEtUYN7KWz1sdIeDml7OdanoI2NIVx8ubkRoDv3bgHlj4mfYNV1i97fGdL9p6CEe
+         J5UwZmveldODhXwblREBXLDqfIhHar2Ufm18GOc1Pnq3nRQQ0Q2fOSVr4+TTa939nBMO
+         rMeQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793003852; x=1793608652;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :references:in-reply-to:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DUCKXpFhOMZBT2HnErNgc1GGFPbfPUwN4bKfvKKAN5I=;
+        b=qKdRO9hRNx0gZ+qVNOnWWl2ohqp2GywhdiLzy6LUgBu44EwesLuq9/r+3sINnNJA/u
+         sgDgu1BpDeNxJ59tPuUHr7n0LwfnwQUn/LtdtwQFgDbyIsJ877appNtQkOUceulLIaIE
+         WXnGj/OlEJuF8lgLAbEG1PFBUO9/foBMdbOYRhyDp+1RMvLGxaGokcWlS6b0oBaseASh
+         4GcGjFMmMRditZKQaoWCaBvXIXGRIKJuCYUBaI3BdUl5urw6dGhwBo7zOVbaXJXJvJiR
+         bQ2myFXRY9a9Xtpa//hmZ1Z/2YF6u1RlITNm1oszSfTsg8+FSAZDrLV0CgKF5f3ufKw7
+         5EKQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz4+l2yyerXwi1xDhp/9L7tqidvEb47FOrK8a2HTCHS+2fMOAugyaXNrBLLnkhtO/SvWZ5qZLlb1IoBOIg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIxOxann7dwagSzi2vJzwo2lMn8np7NUm8/T9Xp0uDUmKe/9G+m
+	BTEHwjEQL0ORvT5nkELjhCOs1+znvf8p8EvvsEJWK7B56mxtzmjFf1x7e7v7qW9B+hA=
+X-Gm-Gg: AYBFou2ZbcN6Qffr9x3NQantDD49x/0+SHdbQfcHkiOqnBHemtDJCcWJXDyK8AgJAvG
+	zAEP+qvo801pz+Apef0ChjSYzu4scZxNJDsgV/XQWLSYMjKD+L3au+Zj/6vpo4XNBWfmxDQm1RC
+	JFxAiLgeAWlqjqH5vHP+E7mSmXIqq5V+5EvdV5/nSDH8pLPAgV2EiSMzemDHYaP0ALaZWoONsWE
+	mH3KDddCaFZuKJdnDLF6Gu7xiNi+TeMMz3xxnGyy3wvXFPmq/WrXy4w0Hl6QsxZpOZhTp7Z90f4
+	M5buaUYHFUYAglytul4ecg6LQpZ2WrmmHhxeJ2f1Vgjfo5G/Q5DXTMtDbdjHAb2JrW3J6c3rkYf
+	ncbNj0nTgL5OoSCeFCpGTG8kNiu/ObxbLW5amCjj1fiVJiPM24zPmBb0UjhkA+W6+uzvVjTOPyW
+	HAciTyyk2IVCOKbXeexfXKyaAWKtvo53lxT82VFM2ToblfrhLROGHnknzImtMhC0R3Oo3OeNONa
+	gF1H97ZpZXSCHteuXBbM895mhEeUcVkbNnO+z7PXQjTQGfx0eLEjkNv9vbhwOUw+e8MwdD6l30R
+	o/5plsUdvDYpSq1wm/3SfA==
+X-Received: by 2002:a5d:64ed:0:b0:487:1575:ebe2 with SMTP id ffacd0b85a97d-48e3eb96fb0mr10894843f8f.44.1793003851960;
+        Mon, 26 Oct 2026 01:37:31 -0700 (PDT)
+Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e542ed998sm73219f8f.13.2026.10.26.01.37.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 01:37:31 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: christian.koever-draxl@student.uibk.ac.at, neil.armstrong@linaro.org,
+ sboyd@kernel.org, bmasney+clk@redhat.com, khilman@baylibre.com,
+ martin.blumenstingl@googlemail.com, yu.tu@amlogic.com
+Cc: linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Christian Stefan =?utf-8?B?S8O2dsOpci1EcmF4bA==?= <ckoever@outlook.de>
+Subject: Re: [PATCH 2/2] clk: meson: s4: propagate rate requests through the
+ CEC 32k muxes
+In-Reply-To: <20261025191852.208226-3-christian.koever-draxl@student.uibk.ac.at>
+References: <20261025191852.208226-1-christian.koever-draxl@student.uibk.ac.at>
+ <20261025191852.208226-3-christian.koever-draxl@student.uibk.ac.at>
+Date: Mon, 26 Oct 2026 09:37:30 +0100
+Message-ID: <1jmrs0kgc5.fsf@starbuckisacylon.baylibre.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,119 +102,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hi David,
+On dim. 25 oct. 2026 at 20:18, christian.koever-draxl@student.uibk.ac.at wr=
+ote:
 
-On Sun, 25 Oct 2026 13:32:41 +1100
-David Gibson <david@gibson.dropbear.id.au> wrote:
+> From: Christian Stefan K=C3=B6v=C3=A9r-Draxl <ckoever@outlook.de>
+>
+> The AO-CEC driver asks its core clock for 32768 Hz. On S4 that request
+> stops at ceca_32k_sel / cecb_32k_sel: both are muxes without
+> CLK_SET_RATE_PARENT, so it never reaches the dual divider that can
+> produce the rate, and probe fails with
+>
+>   meson-ao-cec fe044000.cec: core clock set rate failed
+>   meson-ao-cec fe044000.cec: CEC controller registration failed
+>
+> The equivalent G12A mux, ao_cec_sel, carries the flag, which is why CEC
+> works there. Add it to both S4 selectors.
+>
+> The other parent of these muxes is the RTC clock, which must not be
+> reprogrammed on behalf of CEC, so boards should pin the mux parent to
+> the dual divider with assigned-clock-parents.
 
-> On Fri, Oct 23, 2026 at 09:25:59AM +0200, Herve Codina wrote:
-> > Hi David,
-> > 
-> > On Tue, 22 Sep 2026 18:25:47 +0200
-> > Herve Codina <herve.codina@bootlin.com> wrote:
-> >   
-> > > On Mon, 21 Sep 2026 16:07:21 +1000
-> > > David Gibson <david@gibson.dropbear.id.au> wrote:
-> > >   
-> > > > On Wed, Aug 26, 2026 at 10:31:43AM +0200, Herve Codina wrote:    
-> > > > > Future operations, such as handling unknown tags on dtb modifications,
-> > > > > need to get an offset to a property based on the node offset and the
-> > > > > property name.
-> > > > > 
-> > > > > Several function exists to get a property based on the node offset
-> > > > > and the property name but none of them allows to get the property
-> > > > > offset.
-> > > > > 
-> > > > > Fill the lack and introduce fdt_getprop_offset_namelen() and its
-> > > > > simple variant fdt_getprop_offset().
-> > > > > 
-> > > > > Signed-off-by: Herve Codina <herve.codina@bootlin.com>      
-> > > > 
-> > > > This seems redundant with fdt_ptr_offset_(), which can trivially get
-> > > > this information when combined with fdt_get_property().    
-> > > 
-> > > Indeed, It should be ok using both functions you pointed out.
-> > > 
-> > > I will remove fdt_getprop_offset_namelen() introduced here and use directly 
-> > > functions mentionned in the next iteration without wrapping those calls in
-> > > a new function.   
-> > 
-> > I've started to replace fdt_getprop_offset_namelen() by the combination
-> > of fdt_ptr_offset_() and fdt_get_property_namelen().
-> > 
-> > As a reminder fdt_getprop_offset_namelen() I proposed was the following:
-> > --- 8< ---  
-> > > +int fdt_getprop_offset_namelen(const void *fdt, int nodeoffset,
-> > > +			       const char *name, int namelen)
-> > > +{
-> > > +	const struct fdt_property *prop;
-> > > +	int lenp, offset;
-> > > +
-> > > +	prop = fdt_get_property_namelen_(fdt, nodeoffset, name, namelen,
-> > > +					 &lenp, &offset);
-> > > +	if (!prop)
-> > > +		return lenp;
-> > > +	return offset;
-> > > +}  
-> > --- 8< ---
-> > 
-> > fdt_get_property_namelen_() was called.
-> > 
-> > Switching to fdt_get_property_namelen() introduces a regression.
-> > 
-> > fdt_get_property_namelen() calls fdt_get_property_namelen() and this function
-> > (without the '_' suffix) performs a check on fdt_version() returning an error
-> > on version < 16.
-> > 
-> > Using it to replace my fdt_getprop_offset_namelen() function will break
-> > write-in-place setprop() for dtb version < 16. Indeed, it is used in [1]
-> > 
-> > [1]: https://lore.kernel.org/devicetree-compiler/20260826083146.304291-15-herve.codina@bootlin.com/#Z31libfdt:fdt_wip.c
-> > 
-> > Now, several options:
-> > 
-> > a) No problem if we break dtb version < 16
-> >    Ok, I will use directly fdt_get_property_namelen() + fdt_ptr_offset_() to
-> >    get an offset and remove my fdt_getprop_offset_namelen() wrapper.  
-> 
-> So, practically speaking this is probably true.  Version before 16 are
-> truly ancient, and versions 1..3 were all before dtbs really caught
-> on.
-> 
-> > b) Keep my fdt_getprop_offset_namelen() function without any modification
-> >    We support version < 16, problem solved.  
-> 
-> Still don't like it.
-> 
-> > c) Keep my fdt_getprop_offset_namelen() but static inline in libfdt_internal.h
-> >    Export fdt_get_property_namelen_() in libfdt_internal.h and use it in the
-> >    static inline fdt_getprop_offset_namelen().
-> >    This implies that fdt_get_property_namelen_() will be no more static and
-> >    usable internally out of fdt_ro.c but only the fdt_getprop_offset_namelen()
-> >    wrapper should be used.  
-> 
-> Eh.
-> 
-> > d) Use directly fdt_get_property_namelen_()
-> >    Export fdt_get_property_namelen_() in libfdt_internal.h and use it
-> >    directly to get the offset.
-> >    I don't really like this solution. I would prefer to have a wrapper to
-> >    explicitly return the offset instead of exposing and using directly
-> >    fdt_get_property_namelen_().  
-> 
-> Hm, I think this is my preferred option.  libfdt_internal.h exists
-> precisely to "expose" things across modules internally, but without
-> exposing them to external users.  Maybe I'm missing something, I don't
-> really see why that's objectionable.
+Again, the change is OK in itself but if you are going to assign the
+mux parents through assigned rate why, why don't you assign the parent
+rate too ?
 
-Well, my first feeling was to avoid exposing this function and use a wrapper.
-I've looked again and indeed the wrapper isn't really worth it.
+You are doing half the job in DT, half in the driver, that is kind of
+odd.
 
-I will expose (internally) and use directly fdt_get_property_namelen_().
+>
+> Only the CECA path was tested; CECB is the same defect in the
+> duplicated block.
+>
+> Fixes: 57b55c76aaf1 ("clk: meson: S4: add support for Amlogic S4 SoC peri=
+pheral clock controller")
+> Signed-off-by: Christian Stefan K=C3=B6v=C3=A9r-Draxl <ckoever@outlook.de>
+> ---
+>  drivers/clk/meson/s4-peripherals.c | 2 ++
+>  1 file changed, 2 insertions(+)
+>
+> diff --git a/drivers/clk/meson/s4-peripherals.c b/drivers/clk/meson/s4-pe=
+ripherals.c
+> index 329cd526749e..8e303db6154c 100644
+> --- a/drivers/clk/meson/s4-peripherals.c
+> +++ b/drivers/clk/meson/s4-peripherals.c
+> @@ -407,6 +407,7 @@ static struct clk_regmap s4_ceca_32k_sel =3D {
+>  			&s4_rtc_clk.hw
+>  		},
+>  		.num_parents =3D 2,
+> +		.flags =3D CLK_SET_RATE_PARENT,
+>  	},
+>  };
+>=20=20
+> @@ -514,6 +515,7 @@ static struct clk_regmap s4_cecb_32k_sel =3D {
+>  			&s4_rtc_clk.hw
+>  		},
+>  		.num_parents =3D 2,
+> +		.flags =3D CLK_SET_RATE_PARENT,
+>  	},
+>  };
+>=20=20
+> --=20
+> 2.56.0
+>
+>
+> _______________________________________________
+> linux-amlogic mailing list
+> linux-amlogic@lists.infradead.org
+> http://lists.infradead.org/mailman/listinfo/linux-amlogic
 
-Best regards,
-Hervé
+--=20
+Jerome
