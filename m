@@ -1,51 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793042831;
-	b=uYRimq+fxDnn1+k3rlfKmzuO10KLWBJkOMW5ZlmZOC6VpM7yBTcUch1DjkBKHH6333T4
-	 YfaMmLr/FC3PC10VDISJCBAw1PF2i2B9BH80V+nSWLCoatOAAVfMzxwRTm/vGUi8iRsDW
-	 JwZ4ltRIkmQAX8+CXp/hKPyqHGsRtOdpWxLrp8Su1v2KlMSpO87+OdUdkAMZ8OfESjtOl
-	 WJo45OBufj+HHCWjhE7JFe0v8axUZc8M7gfTY+iMuAASLyaLQA+Gyr0ZsQP+Vk99K8fsy
-	 3au0/+QcW+KyfB4nX3ZEvlWrrZ2Ab/6rpX4xSJsw6/pCeX74i/MqWWscl9ochQo1IWw==
+	t=1793042937;
+	b=2E0X5d79wsOARcqPlnkU2/PJ9O6sz5L/eboSqurrgI4y5GCMnXsBx6ys1aBAb5GZXjyv
+	 6RL7/vJF1llq/Y+8pdi2lF433lgxudC5PxRLMaUySp8/Jy3PkC8IiCux1WxpksWDG59nL
+	 aaKiz7KmeMyZ1nFUeD/9urfoA4JKQbtGGsN05YV+lgkh9M1kjKnci/6hKxEE7cp6+EZK9
+	 K3gZxEBg+lbCkwtDbCYuxaa8kzHBEvAYxDDHUknKhsKNePBgSiF/7PtwVTIRavLqKdkEX
+	 JRN5fakAIYpI5abwAWzoBASzHdVdyro2cgun0/7/RcSf1SwgkmlvoFGOtKjyrIS873Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793042831;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition;
-	bh=PaKimVo4hnbicpErBECZydxL5Ui/oBiamdmnm3XZIR0=;
-	b=JsounW76O3WWNWqmuGFEIFnO3AsMetFOI1jIyszhbejek4dybkOVSni/dUuC2Z9F77uD
-	 ZyfGvCtq0dsoLvn6HIfp5TIIKYrv4U+OtDMWvy+yWLFjO84Xz6lT2/aOIqVDlF436fUa9
-	 C70upWmTdP8LDS8JxO+RyjtHUvcAOvSUS+RaRsDetKBCCnSzCYms4Js98gCLbNz/nqLTL
-	 PRp/KYR54uIFRRkglTdfJ+/5ruVqVMaQtUaJY6qPzO1pDxP5MM1S2Xh9jBDGEaGraNs/o
-	 6BZijlqYbUDcHNP2FVt6md90QILEfxz+EHGtOLEd/ZR9Q1h+nPGglbdouqDM2cCxeaw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793042937;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Scanned-By;
+	bh=/+clPk1hjSLqNCvPzIA08CV3arVH0SH3THT/TSky46I=;
+	b=gNjItFxr6dYddbup4wwtawT6AIbJKaELm9oRS7k0tw/GxCy2c+4oQt/Q9xB9XlTySU9x
+	 A6nNIA8KFumYmqm4h8IwH9Qb3qa+pjgykMCK4IGlK5Nxc+X8X1J9KvL7kIC9IKFtwUDL1
+	 pxzKp4TwxtJxcKF/kkvdBeLwQLIjy2mtZcQZECEPWGWHvIPIoH2OULblH5WG/KzrvOOk+
+	 tdHyGD6dzOtdWdWdEFOfDbQD5YT5kZOU7Lf+prPq5N3w2QfFJA/Z6IM8jy6LWM2IAV/ox
+	 PmTniLghAVjGOgd4F2NtZPCicGkYOX45NWlZPi0kHDctr9CaS4bN3m3323nAdiLfdiA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BerEIIzO;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=B9eSLOFc;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47E3A606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 19:27:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB816606A324
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 19:28:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB816606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BerEIIzO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F09CE1F01828;
-	Mon, 26 Oct 2026 19:27:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793042831;
-	bh=PaKimVo4hnbicpErBECZydxL5Ui/oBiamdmnm3XZIR0=;
-	h=Date:From:To:Cc:Subject;
-	b=BerEIIzOtxVPXCTSk7v7w54INP38C/IPuXU9Z4F2xuNcc8HQ3SdG9473KpZS3Bui/
-	 VSQlD22DCf7bxQ0Ea2ovEkKu2Y0Ia/u/Jxlcc0tt1BLmk6NBdPoDjGQRRSFze/f4m+
-	 ln4J+zR1o1P8vGVm/eLFtegzy1uRMLv+lPnwkg74SswWaiF71cvtOLB8Mck22G3UAp
-	 vZ+qCNeSR9j8qILPeRW6VOsDcdu4INAfaJMrrrk3ph/Qb69WrDn56nsIZUGAL0UYfD
-	 AmPAxaoFJi6rCsbE00Eor/Fp7txywysaqNh+7VBga2Oodl6qEINJlaIuNWdLsOrH2w
-	 oX2STkGZfevlg==
-Date: Mon, 26 Oct 2026 19:27:09 +0000
-From: Jaegeuk Kim <jaegeuk@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux F2FS Dev Mailing List <linux-f2fs-devel@lists.sourceforge.net>
-Subject: [GIT PULL] f2fs for 7.4-rc1
-Message-ID: <at-pjQ691G9O8-2i@google.com>
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=B9eSLOFc
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793042935;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/+clPk1hjSLqNCvPzIA08CV3arVH0SH3THT/TSky46I=;
+	b=B9eSLOFc9D/1JtfhpzwDJWH06ow0p0lFMkjGc6K/jRHMIUVr3nn5y/Dr1r6WMM48t1tXj3
+	wRGF817EcUxsXa3h74U7VLmNiA6OVPLwBbLBbraIadWMz1b9Qckt08wSZE1iOfFcCAfLJn
+	aWmFUj6AhifN0XF5i4SspZ8ghrxSA3A=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-457-seZ8Fz0GNyG6_SmLnbe4pw-1; Mon,
+ 26 Oct 2026 15:28:50 -0400
+X-MC-Unique: seZ8Fz0GNyG6_SmLnbe4pw-1
+X-Mimecast-MFC-AGG-ID: seZ8Fz0GNyG6_SmLnbe4pw_1793042929
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id BCA54195606A;
+	Mon, 26 Oct 2026 19:28:48 +0000 (UTC)
+Received: from loberman-thinkpadp16gen3.redhat.corp (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id AAE297C6;
+	Mon, 26 Oct 2026 19:28:47 +0000 (UTC)
+From: Laurence Oberman <loberman@redhat.com>
+To: mkp@kernel.org
+Cc: linux-scsi@vger.kernel.org,
+	target-devel@vger.kernel.org,
+	bvanassche@acm.org,
+	michael.christie@oracle.com,
+	mlombard@redhat.com,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v5 1/2] scsi: target: Complete an aborted command at most once
+Date: Mon, 26 Oct 2026 15:28:34 -0400
+Message-ID: <20261026192835.1431767-2-loberman@redhat.com>
+In-Reply-To: <20261026192835.1431767-1-loberman@redhat.com>
+References: <20261026192835.1431767-1-loberman@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,226 +82,126 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-Hi Linus,
+target_cmd_interrupted() queues target_abort_work for a command that has
+CMD_T_ABORTED set and returns without setting CMD_T_COMPLETE and without
+changing t_state, so target core records nothing that would stop a second
+completion of the same command. A second call re-initialises and re-queues
+cmd->work while the first is still queued or running, and calls
+transport_complete_callback() again. For COMPARE AND WRITE that callback is
+compare_and_write_callback(), which releases dev->caw_sem, so a repeated
+call releases that semaphore twice.
 
-Could you please consider this pull request?
+More than one site can reach that conclusion for the same command. A WRITE
+still in TRANSPORT_WRITE_PENDING has never been passed to the backend, so
+the fabric has to complete it when a TMR aborts it, and for iSCSI both the
+DataOut paths and iscsit_release_commands_from_conn() during connection
+teardown will do so.
 
-Thanks,
+Guard the CMD_T_ABORTED branch with a one-shot CMD_T_ABORT_QUEUED flag,
+tested and set under t_state_lock. The CMD_T_ABORTED test moves under that
+lock as well, which is the lock __target_check_io_state() sets
+CMD_T_ABORTED under, so there is no window between the test and the set.
+Second and later calls are a no-op by design and still return true, so
+callers do not proceed with normal completion. A fabric that completes an
+aborted command exactly once never reaches the guard and is unaffected.
 
-The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
+The CMD_T_STOP branch is deliberately left unguarded. complete_all() is
+idempotent and t_transport_stop_comp is initialised once in
+__target_init_cmd(), so a repeated call there is harmless. A guard shared
+between the two branches would also be wrong: a first call taking the
+CMD_T_STOP branch would then suppress the queueing of target_abort_work if
+CMD_T_ABORTED were set afterwards, which is the hang this series started
+from.
 
-  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
+Suggested-by: Bart Van Assche <bvanassche@acm.org>
+Signed-off-by: Laurence Oberman <loberman@redhat.com>
+---
 
-are available in the Git repository at:
+Notes:
+    Prerequisite for patch 2, which relies on a second completion of an
+    aborted command being a no-op.  Both need to travel together to stable.
+    
+    I have not put a Fixes: tag on this one -- the double completion is older
+    than the iSCSI hang and I am not certain which commit to name.  If you
+    would like one here, please say which.
 
-  git://git.kernel.org/pub/scm/linux/kernel/git/jaegeuk/f2fs.git tags/f2fs-for-7.4-rc1
+ drivers/target/target_core_transport.c | 37 ++++++++++++++++++++------
+ include/target/target_core_base.h      |  1 +
+ 2 files changed, 30 insertions(+), 8 deletions(-)
 
-for you to fetch changes up to ee17c0cd763b622012bc725253015b6a721b48f8:
+diff --git a/drivers/target/target_core_transport.c b/drivers/target/target_core_transport.c
+index 927861c..4896a92 100644
+--- a/drivers/target/target_core_transport.c
++++ b/drivers/target/target_core_transport.c
+@@ -882,24 +882,45 @@ static void target_abort_work(struct work_struct *work)
+ 	target_handle_abort(cmd);
+ }
+ 
++/*
++ * Returns true if the command has been aborted or stopped, in which case the
++ * caller must not carry on with normal completion.  For an aborted command the
++ * work that must not run twice -- the completion callback and the queueing of
++ * target_abort_work -- is done once, under CMD_T_ABORT_QUEUED.
++ */
+ static bool target_cmd_interrupted(struct se_cmd *cmd)
+ {
++	bool queue_abort = false, stop = false;
++	unsigned long flags;
+ 	int post_ret;
+ 
++	spin_lock_irqsave(&cmd->t_state_lock, flags);
+ 	if (cmd->transport_state & CMD_T_ABORTED) {
+-		if (cmd->transport_complete_callback)
+-			cmd->transport_complete_callback(cmd, false, &post_ret);
++		if (cmd->transport_state & CMD_T_ABORT_QUEUED) {
++			spin_unlock_irqrestore(&cmd->t_state_lock, flags);
++			return true;
++		}
++		cmd->transport_state |= CMD_T_ABORT_QUEUED;
++		queue_abort = true;
++	} else if (cmd->transport_state & CMD_T_STOP) {
++		stop = true;
++	}
++	spin_unlock_irqrestore(&cmd->t_state_lock, flags);
++
++	if (!queue_abort && !stop)
++		return false;
++
++	if (cmd->transport_complete_callback)
++		cmd->transport_complete_callback(cmd, false, &post_ret);
++
++	if (queue_abort) {
+ 		INIT_WORK(&cmd->work, target_abort_work);
+ 		queue_work(target_completion_wq, &cmd->work);
+-		return true;
+-	} else if (cmd->transport_state & CMD_T_STOP) {
+-		if (cmd->transport_complete_callback)
+-			cmd->transport_complete_callback(cmd, false, &post_ret);
++	} else {
+ 		complete_all(&cmd->t_transport_stop_comp);
+-		return true;
+ 	}
+ 
+-	return false;
++	return true;
+ }
+ 
+ static void target_complete(struct se_cmd *cmd, int success)
+diff --git a/include/target/target_core_base.h b/include/target/target_core_base.h
+index 002b0fc..7fa6733 100644
+--- a/include/target/target_core_base.h
++++ b/include/target/target_core_base.h
+@@ -537,6 +537,7 @@ struct se_cmd {
+ #define CMD_T_STOP		(1 << 5)
+ #define CMD_T_TAS		(1 << 10)
+ #define CMD_T_FABRIC_STOP	(1 << 11)
++#define CMD_T_ABORT_QUEUED	(1 << 12)
+ 	spinlock_t		t_state_lock;
+ 	struct kref		cmd_kref;
+ 	struct completion	t_transport_stop_comp;
+-- 
+2.43.0
 
-  f2fs: compress: don't overwrite populated compress cache entry (2026-10-26 15:34:50 +0000)
-
-----------------------------------------------------------------
-f2fs-for-7.4-rc1
-
-In this round, key enhancements focus on introducing a dedicated metadata
-cache infrastructure and dynamically parameterizing on-disk block layouts
-and geometry macros. Moving meta, node, and compress blocks out of the VFS
-page cache removes the page == block size assumption for metadata, which
-along with dynamic block layout descriptions paves the way for large folio
-and page != block support in the future. We also opt in to multigrain
-timestamps, add bio entry-count throttling for asynchronous write_end_io
-completion, and expose the resizable_tail feature via sysfs.
-
-Alongside these features, critical bug fixes resolve race conditions across
-compression, mmap write faults, checkpoint/shutdown, and filesystem freeze,
-prevent write bio splitting and GC holes on sequential zoned devices, and
-strengthen on-disk sanity checks for SIT/NAT bitmaps, read-only curseg
-entries, and device aliasing. Additional stability patches address online
-resize, roll-forward recovery, atomic file operations, quota handling, and
-dirty inode syncing livelocks.
-
-Enhancement:
- - implement dedicated metadata cache for meta, node, and compress blocks
-   to decouple metadata from page cache for large folio and page != block
-   support
- - dynamically describe SIT, NAT, orphan, dentry, node, and xattr block
-   layouts and parameterize block/sector/node conversion macros
- - opt in to multigrain timestamps
- - introduce max_atc_write_bio_entry_cnt sysfs node
- - expose resizable_tail feature via sysfs
- - avoid unnecessary reads in f2fs_update_meta_block()
-
-Bug fix:
- - compress: force out-place update for all writes, allow pinning empty
-   compressed files, and fix truncate/writeback and cache population races
- - zone: avoid bio split and GC target block grab failure on sequential zones
- - quota: convert inline quota files on quotaon, fix flush failure during
-   freeze, and restore empty string mount options
- - atomic/mmap: disallow mmap write and data-modifying fallocate on atomic
-   files, avoid truncate_inode_pages_final() on live inodes, and fix races in
-   f2fs_vm_page_mkwrite()
- - resize/alias: refresh pinned allocation boundary and flush SIT journal
-   during resize, and drop pending discards before reserving device alias
- - sanity check: bound SIT/NAT bitmaps by checkpoint pack, check all
-   cur_*_segno[] on readonly images, and validate multi-device on device alias
- - recovery/cp: release removed xattr node in roll-forward recovery, invalidate
-   curseg on change_curseg() failure, and return -EIO for lost inode block
-   after cp_error
- - fix livelock in syncing dirty inodes and preserve APPEND/UPDATE ino entries
- - use bio_in_atomic() in f2fs_{read,write}_end_io()
- - fix 32-bit shift truncation in mount option bitmasks and defragment range
-
-And, the series includes a number of minor bug fixes.
-
-----------------------------------------------------------------
-Arnd Bergmann (1):
-      f2fs: quota: fix unused-label warning
-
-Chao Yu (35):
-      f2fs: parameterize node helpers and macros
-      f2fs: fix to avoid folio->mapping dereference in is_{meta, node}_folio()
-      f2fs: compress: fix to handle race between truncate and writeback
-      f2fs: cache: implement metadata cache
-      f2fs: cache: initialize meta cache
-      f2fs: cache: introduce shrinker
-      f2fs: cache: introduce writeback thread
-      f2fs: cache: use meta cache
-      f2fs: cache: initialize node cache
-      f2fs: cache: use node cache
-      f2fs: cache: initialize compress cache
-      f2fs: cache: use compress cache
-      f2fs: cache: support fault injection
-      f2fs: cache: introduce tracepoints
-      f2fs: cache: show per-cache usage in debugfs
-      f2fs: cache: pin cached block in f2fs_end_cache_writeback()
-      f2fs: cache: pin cached block in f2fs_unlock_cache()
-      f2fs: fix to check continuousness in f2fs_sync_meta_pages() correctly
-      f2fs: fix to set sbi->log_blocksize in advance
-      Revert "f2fs: skip node_change lock for inline data writes"
-      f2fs: zone: fix to avoid bio split on sequential zone
-      f2fs: cache: introduce metadata_cache sysfs node
-      f2fs: cache: shrink meta and node caches in f2fs_balance_fs_bg
-      f2fs: cache: wake up f2fs_writeback when exceeding threshold
-      f2fs: cache: support asynchronous write_end_io
-      f2fs: introduce max_atc_write_bio_entry_cnt
-      MAINTAINERS: f2fs: add dev branch to git tree entry
-      f2fs: fix to invalidate curseg if change_curseg() fails
-      f2fs: fix to use bio_in_atomic() in f2fs_write_end_io()
-      f2fs: fix to use bio_in_atomic() in f2fs_read_end_io()
-      f2fs: fix to avoid potential reference count leak in do_garbage_collect()
-      f2fs: zone: fix to don't fail to grab GC target block on zoned device
-      f2fs: fix to fetch ino via ino_of_node() under cache lock
-      f2fs: fix to update superblock crc in sanity_check_area_boundary()
-      f2fs: compress: don't overwrite populated compress cache entry
-
-Daeho Jeong (10):
-      f2fs: drop pending discard commands before reserving device alias
-      f2fs: fix livelock in syncing dirty inodes
-      f2fs: cache: count the temporary pins apart from the regular references
-      f2fs: convert inline quota files when turning quota on
-      f2fs: disallow mmap write and data-modifying fallocate on atomic files
-      f2fs: return -EIO for a lost inode block after cp_error
-      f2fs: release a removed xattr node in roll-forward recovery
-      f2fs: use BIT_ULL for mount option bitmasks
-      f2fs: expose resizable_tail feature via sysfs
-      f2fs: don't use truncate_inode_pages_final() on live inodes
-
-Hengyu Liang (1):
-      f2fs: allow empty strings for journaled quota options
-
-Jaegeuk Kim (2):
-      f2fs: rename page_count with cache_count
-      f2fs: rename nr_pages_to_skip with nr_caches_to_skip
-
-Jeff Layton (1):
-      f2fs: opt in to multigrain timestamps
-
-Jianan Huang (2):
-      f2fs: quota: fix stale lock holder on remount failure
-      f2fs: quota: fix quota flush failure during filesystem freeze
-
-Jiucheng Xu (1):
-      f2fs: force out-place update for all writes on compressed file
-
-Joanne Chang (1):
-      f2fs: allow pinning empty compressed files
-
-Kaixuan Li (2):
-      f2fs: check every cur_*_segno[] entry on readonly images
-      f2fs: bound the SIT/NAT bitmaps by the checkpoint pack
-
-Kelvin Zhang (11):
-      f2fs: initialize sb_info early in f2fs_fill_super
-      f2fs: describe SIT block layout dynamically
-      f2fs: describe NAT block layout dynamically
-      f2fs: describe orphan block layout dynamically
-      f2fs: describe dentry block layout dynamically
-      f2fs: describe {i,d,id}node block layout dynamically
-      f2fs: describe xattr block layout dynamically
-      f2fs: parameterize sector conversion macros
-      f2fs: parameterize byte and block conversion macros
-      f2fs: describe node tree geometry dynamically
-      f2fs: parameterize block size and mask macros
-
-Nanzhe Zhao (2):
-      f2fs: remove mappedtodisk flag usage in mmap write path
-      f2fs: read i_size once in f2fs_vm_page_mkwrite
-
-Seongjae Jeong (5):
-      f2fs: skip node_change lock for inline data writes
-      f2fs: reject device aliasing without a multi-device configuration
-      f2fs: fix termination of f2fs_sync_meta_caches()
-      f2fs: avoid unnecessary reads in f2fs_update_meta_block()
-      f2fs: fix submit accounting for IPU writeback
-
-Wenjie Qi (3):
-      f2fs: wait for inode record work before clearing ino bitmaps
-      f2fs: flush SIT journal during filesystem resize
-      f2fs: refresh pinned allocation boundary after resize
-
-Zhan Xusheng (1):
-      f2fs: fix defragment writeback range truncation on 32-bit
-
-Zhiguo Niu (1):
-      f2fs: fix to record both APPEND and UPDATE ino entries
-
- Documentation/ABI/testing/sysfs-fs-f2fs |   41 +-
- Documentation/filesystems/f2fs.rst      |    3 +-
- MAINTAINERS                             |    2 +-
- fs/f2fs/Makefile                        |    2 +-
- fs/f2fs/acl.c                           |   26 +-
- fs/f2fs/acl.h                           |    8 +-
- fs/f2fs/cache.c                         |  894 ++++++++++++++++++++
- fs/f2fs/cache.h                         |  252 ++++++
- fs/f2fs/checkpoint.c                    |  568 +++++++------
- fs/f2fs/compress.c                      |  195 ++---
- fs/f2fs/data.c                          |  657 ++++++++++-----
- fs/f2fs/debug.c                         |  100 ++-
- fs/f2fs/dir.c                           |  221 ++---
- fs/f2fs/extent_cache.c                  |   25 +-
- fs/f2fs/f2fs.h                          |  518 +++++++-----
- fs/f2fs/file.c                          |  241 +++---
- fs/f2fs/gc.c                            |  242 +++---
- fs/f2fs/inline.c                        |  293 +++----
- fs/f2fs/inode.c                         |  242 +++---
- fs/f2fs/iostat.h                        |   11 +
- fs/f2fs/namei.c                         |  114 +--
- fs/f2fs/node.c                          | 1343 ++++++++++++++++---------------
- fs/f2fs/node.h                          |  193 +++--
- fs/f2fs/recovery.c                      |  255 +++---
- fs/f2fs/segment.c                       |  445 +++++-----
- fs/f2fs/segment.h                       |  100 ++-
- fs/f2fs/shrinker.c                      |   16 +-
- fs/f2fs/super.c                         |  451 +++++++----
- fs/f2fs/sysfs.c                         |   44 +-
- fs/f2fs/verity.c                        |    6 +-
- fs/f2fs/xattr.c                         |  133 +--
- fs/f2fs/xattr.h                         |   23 +-
- include/linux/f2fs_fs.h                 |  140 ++--
- include/trace/events/f2fs.h             |   71 ++
- 34 files changed, 4901 insertions(+), 2974 deletions(-)
- create mode 100644 fs/f2fs/cache.c
- create mode 100644 fs/f2fs/cache.h
