@@ -1,111 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793007634;
-	b=fH35m2es0YGSZ0cugO6qdHb+mhlK3pw20W9oS5AjMdvW0AQj7MDNTGruoYYnWcapI6FS
-	 KEedbVbQgvMYL7ZTso6OAAwasxZ6czr3oEnhd2XSiWZIjPSYdM11lV8UVNOuxOEkVE936
-	 ukNaCurWnHfXqO7TjEGQzu8H8qosFp+dLvJQBnRl4NU4o9fqbHcz6dWCxwqf/lAY9cyml
-	 nIEPBT+h8xv8BGs2xby5cdWVy5UjsGMzHFULTzPSZAXoUlqfjzOKo9zeoee32Qr91K0iA
-	 TedDBa46VgTYvC13bh+GlHBxiRYnBV8g+DCG29v3GPF9szRwqsExbRKDgSBuSzhP2GA==
+	t=1793007649;
+	b=N2VVXICzSLMZUgRBxB+OdXzyq6DWfcgSRTCvm3BUmGeIfqJNk7I2ipSMP1k5pHeXQx+x
+	 FKumuZbxwO1Ft1ORo9fQPudg9PDP7g1H6p92qM5zliq8RCr/k6l3byRDXmOdUpGn60s0P
+	 iLAQw7Rd6mpHHbAjoNDa+HQFQSfMylPpwyhKSjJgTCvtRiBFCqoEU7tAW24l+6AdZtaQM
+	 K6NJGpMcjUgm2rvoCe5QY4zIWzZugc02zBc5X4TUdQxTuK42VCpyhT6KwMLnAYBujTqao
+	 BNDn1rwpsSGzo+8+TjGh24+J43eQaPj25cVaifPfw3dpNJNMd1DrPbePJRsltswT8eQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793007634;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=OcTBksbIW2mgBaa78YQJkuMhgafx6BdMoS+/otq+mGA=;
-	b=5Ne4YQlDTwxzLLJDK0PCzdyAZgI5KN3Uy8qP4JogPrBXLcXctLLjZ/TvzjGy9y4SguLN
-	 KCyWCqMPFDTFNIdA/UXSdX87xtggijyJRaDhkOucoA3vWWim+JPXQwvWpoqJu9+K5ymvm
-	 Z/vLqdxglEnIcoPWIdtx9WhuJn5TWr7Brob7RuCblldn6cqPr5nhM1gVEl3m8eVpYfuNH
-	 Jrn/CPKjkMSLUycrWiud+I/4XIjvRcSOVKpJmMFxTU0/IlP1/XQe8j5iEitGqDnffkxw2
-	 VKETZ8siddJurb6J0DbQFpFu4Z1P56kXi+pBptPNWIEXj+9QTheKIDBkjt5V1D0MwTQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793007649;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=2BjP65a0dju6snpvx5OIcMNe63lU1CrZcjwyc0/9yUs=;
+	b=ZIIcuzjdFf7paEeE3Gn3D+S7V2kFbD6kOr9AgvlXWhwuGy00FCmVj7f7u3O1wMnkYWvU
+	 INBpM64e42rQxWqoLiLcY3J+tO8tBMKNoibKOSCfOQ4bbF7CCgktawxKSVaVgoy7OQV2L
+	 dNNrYNqvKsDpWaul69EV27Lh8lNZb/f5bpBbZvu3HjDAF5CnyQvN4np7uAHK/St1ry8MB
+	 UNoR2Y8mGC1XJwOiOpy2r/P5c5bzbHlOno4RwKPSa6CUxpRADB7DPxTVVY8f4OZLYywoU
+	 PFD3NvjiWp3rNkM+WAUMEuQeGrs8xEQ0wWTmJEyePFZEEtBVutAiBbtJvmiGt2xRajg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=IJTvIbc4;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=kRYHzBzX;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jblt39Dj;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5AFF606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:40:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5AFF606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58F9A606A31A;
+	Mon, 26 Oct 2026 09:40:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=IJTvIbc4;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=kRYHzBzX
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69Q4auge2255188
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:40:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	OcTBksbIW2mgBaa78YQJkuMhgafx6BdMoS+/otq+mGA=; b=IJTvIbc44rF5CL39
-	Dl/OAuV0Pu4/t2JqcNSgZ8FgEH5YHfDNzAoTj1m6HyEwm/976G785vA1nB9G/KWG
-	BVMCXYSejpmXkTLUFhQcFXpHxMSIr4bpVpd2tUMHRQJgb+vcLHCTbbloGhZzEBJV
-	hRsagjmw5WTcY9ZkE8UF+T1gwIgJjtBMx7SjeiJJYVc8ReFj2bawChK/SPQmmOuC
-	rY8XC6X3DZkd5gp60d0uuqdgAPixY4JoJ/Oypwj40+FttqVdbCeqXVMa3npiPcrc
-	Ocr1J8ZzzEa/1tV0bVwNczkAT5ZFDXUfyWBOgttaIU+Ma0Nkt62t8+KQS5U62YeL
-	MV3Ftw==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hgmw3nq4q-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:40:32 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93df7a9466bso28227485a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:40:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793007632; x=1793612432; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OcTBksbIW2mgBaa78YQJkuMhgafx6BdMoS+/otq+mGA=;
-        b=kRYHzBzXKTfQZLrRNsgkhxqY7r2FZsijVhP1FSh4qh9jH7lcZoeDTSfc+ssE7WSrj4
-         JEcgtCOicmxc7UdJKpeABnVZb4JnfNtGOspeCCDGddeuYr1AJ8fOHYkrV9KA+ivewW+X
-         ZNwGSsrY0KzXOg4NFXnwULckp57tsA6GyREJm6J0bRt1PYs1q/IjRyE21NW4UWVBO5Ep
-         og6WeOJ1ppUNbApG2Gjpisw6nEryoctIaMZEKNaQOgbYK88mYnFiRG3TWKsrd/52ozgc
-         RYzb9ThF7GFN79gxaDRF0Vbenq3YY617qFq1KM/LDHy2yWNk0Niq4CZnVbID064FztO/
-         4ekA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793007632; x=1793612432;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OcTBksbIW2mgBaa78YQJkuMhgafx6BdMoS+/otq+mGA=;
-        b=qMVUE1m+cDJnVYdUtQ3eC6vUDWbmi1Kk8J5/fiGLZFVT2ZGLCYhf9/jIBFORR1BvQ+
-         Gar4y/a+E6QWS9cDOuyendr0JGe1jVe/CZvnz7XPIXNfFA0SiJNih944OTDeKXpy+OeD
-         NRHqPn2JToQV/eq0z6FSY/k1Xr64MbiuLjGfaEy+93wKQjE/03Yq3VOfMs9ymSFjPdRj
-         //XtTrHGP+DDdma4DwMYgvtBtmLt59SFLeyiFZZITRfWw6YoQQ261x6d6ZipB9EVq54G
-         aI2IsJEh6sTNZS5YqLzVEQbXHtKQod1t+HG6xG3rsUeNplJ4Pd+6rD/lMsY5nBKmc9uT
-         gSeg==
-X-Forwarded-Encrypted: i=1; AKwUvBy/TrxxiVHsyW75lD5ghiNp39pRAcpDPWugYbuXRV9bCembFMaPcTw8jAJ+6g2rNIyHu5tCIocM5paBwCA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK8l48zpsqU+39ag/DPVj5qulPKq6epKc/leB2WtFoD8xPIHPv6
-	wDROLTbr8jZU/SZ9zCZ/mi72SmgA0epxRfKyUfh4bakGIcTp4B0oC9J0exU/ojjtK0Bfj0a2lUq
-	0veltyb6xxB+tbcPAUBrLfzKVEaI59ht13wyNUCKP0btvWrO7SMid/7Y2iIOhys6FmKU=
-X-Gm-Gg: AYBFou091NCkPDSRFNdafeeOTGMOslRHWXbN1olvIb6LuPKoUD8ebaYuNR9Wbrl6iVM
-	vDPf16nT4/QTaHZi8ARl5QB86CGQh+Ydsamgr8qDpmIAA79ponSENCZtOx76HsI+zAV59JqIoF8
-	wq+oJfgSFgpx53QczmnJPuJgTOhIpU0zi5AQ3KJ/vG+a7vfU0JYQnL6uBVoc2P+bWK/7mRw0Ufs
-	WQ4z4vJyk9QQOPCSoEzfyMSvckRsBhD0CpmEl2iWtUM2e0YXEB9YUAUws+fTfjpZ74KYgX9XrOd
-	IXAZYnZ7zp3VIbURInVmSzXAIjUwXZigST1uj2LVschSmPXJOx7aFFzByXVw8u3Bb+8Df4rUOva
-	OIWVRaeE3MPy5J8kNQxBZUg==
-X-Received: by 2002:a05:620a:8794:b0:93f:43a4:a48f with SMTP id af79cd13be357-940ef96b4d0mr911111485a.5.1793007631913;
-        Mon, 26 Oct 2026 02:40:31 -0700 (PDT)
-X-Received: by 2002:a05:620a:8794:b0:93f:43a4:a48f with SMTP id af79cd13be357-940ef96b4d0mr911109685a.5.1793007631426;
-        Mon, 26 Oct 2026 02:40:31 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd34f465sm296760466b.8.2026.10.26.02.40.29
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 26 Oct 2026 02:40:30 -0700 (PDT)
-Message-ID: <c3fa2f7b-42ba-4e10-af06-4cbf5676e438@oss.qualcomm.com>
-Date: Mon, 26 Oct 2026 10:40:28 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jblt39Dj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A99C81F01828;
+	Mon, 26 Oct 2026 09:40:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793007648;
+	bh=2BjP65a0dju6snpvx5OIcMNe63lU1CrZcjwyc0/9yUs=;
+	h=From:Subject:Date:To:Cc;
+	b=jblt39DjKjWhCyE2330ECduwS0UxtYU/7n9ZMoQmM00C7NoVq1UENPRqHevUYt394
+	 LMhihUwoEFZQiPQznsRmxR/ZCZe2iKHd4ia6ANaY/JzIUavv4BwjpVgX/hSQmf1VGS
+	 nXuL337J8he9sx6J8mvdIoFUMT8vLD4EtTHhcXmrOsWvRdybiF8EnWEbU9G7JOSGcm
+	 BNBX4DEqPchaadGDXYfPqy70QHZQtR7kBnO3Ae5AHRxKf9wj2ZEd8zaYkkCxxBV9K3
+	 flr1fdXYV7b96+jtpKxju3u9cDO2dkuU1Uj5um/QwS4KZLBQdMksmaRx5+uxaqUaxG
+	 UaOwvCbUKAysw==
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Subject: [PATCH 00/16] mm/shmem: various (urgent?) fixes
+Date: Mon, 26 Oct 2026 10:40:33 +0100
+Message-Id: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,70 +53,155 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 08/14] drm/msm/mdp4: unwind a failed mdp4_kms_init()
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov
- <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20261024-msm-kms-destroy-fixes-v3-0-66a30120a5ea@oss.qualcomm.com>
- <20261024-msm-kms-destroy-fixes-v3-8-66a30120a5ea@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261024-msm-kms-destroy-fixes-v3-8-66a30120a5ea@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: iuqkG4o2SHRmcpu6wKRs9TG0JUsmX8Of
-X-Proofpoint-ORIG-GUID: iuqkG4o2SHRmcpu6wKRs9TG0JUsmX8Of
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDAzOCBTYWx0ZWRfX7gs5GJ14zBjK
- G95ftvgMmwSIU1XSpwYCszB4hGmq34aHU51BvWi3gzWki4TkagBJXVMOPRH32LYL82jLLrqmCBw
- XgEE36mwTLgJa3PUztwIbsdzmMoNFVg=
-X-Authority-Analysis: v=2.4 cv=HqHjiETS c=1 sm=1 tr=0 ts=6adf2010 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=kk-Jr0jdRmDx8_r1h5YA:9 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDAzOCBTYWx0ZWRfX/sgwQF7ctqSD
- RA/LZR/L2wvoz68r9qtGdX04XUoPK8Bv5zogKRsFjomnoN9cNqmJT8KNJbIJyTe+e688Y8XiwVD
- lGtSon6DxwU1Hr0xPq7DxgBa1E5RtpMqOLulBO/+0Zbbh4VytyeawCbCmPGrCIxq0p7jTtCppVd
- k77L4T1x/jXYhS7Lxdm/YavHujp/BC9V6pNVlrGT2d7A4DUOaqv3gcw8zZFa3xdiMG8bwIhMAlu
- ZszzjdtUCAjqK1B5uQ6m+xZeQlIP2r8001OkVEEoMJOC6ht6EffkaCxAgWJqPbP1e13Pz+NY/oG
- Lw/kX8javsFmbVC7EHML+j9mSqK7Kca//L44A4F22GiQXKAi+c/OsOic2R5rlg5+jhTCHY3YTxO
- 1fYmWnI2l1FnEnIwVsTd2dDKAjq/yPXgc9OpRyq1sHBs40Vzg0IjZbiDhi0qPTUNY+9E31IE58M
- fTTxUVdwhWZTo+3nE5g==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-26_01,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 bulkscore=0 malwarescore=0 lowpriorityscore=0
- clxscore=1015 impostorscore=0 adultscore=0 phishscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610260038
+X-B4-Tracking: v=1; b=H4sIABEg32oC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDAyNT3bTMitTi+OKM3NRcXSNzCyNzQ8skQ2ODVCWgjoKiVLA0UEN0LIR
+ fXJqUlZpcAjJCqbYWAE47UcJvAAAA
+X-Change-ID: 20261025-fixes_shmem-2782719b130e
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ Gregory Price <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Johannes Weiner <hannes@cmpxchg.org>, 
+ Vladimir Davydov <vdavydov.dev@gmail.com>, Michal Hocko <mhocko@suse.com>, 
+ Hugh Dickins <hughd@google.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Lukas Czerner <lczerner@redhat.com>, Carlos Maiolino <cmaiolino@redhat.com>, 
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+ Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ David Stevens <stevensd@chromium.org>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+ William Kucharski <william.kucharski@oracle.com>, 
+ Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Miaohe Lin <linmiaohe@huawei.com>, 
+ Naoya Horiguchi <nao.horiguchi@gmail.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ "David Hildenbrand (Arm)" <david@kernel.org>, 
+ Chris Mason <mason@kernel.org>, stable@vger.kernel.org, 
+ Josef Bacik <josef@toxicpanda.com>, 
+ Eva Kurchatova <eva.kurchatova@virtuozzo.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4200; i=david@kernel.org;
+ h=from:subject:message-id; bh=2I+jzvosTRnUx4luk06Osx1EmmShNw/DPI/mK6ve0MU=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLLuK4jmnRLcK1cVtXb5V8EzQTxlJ/L9P6wuWS3hyV/Hu
+ aXo3U7FjlIWBjEOBlkxRZag4PsGL1+uq61242OGmcPKBDKEgYtTACZSOpfhF/OLQzsbA1cu19rJ
+ vPWr+6Yo0fOpkX5TzvTny84UFboT5MvwP069749jdd3s5VsCZ+1xOPbi4ObXVydLrhdRF/erL1m
+ dzg0A
+X-Developer-Key: i=david@kernel.org; a=openpgp;
+ fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-On 10/24/26 1:19 AM, Dmitry Baryshkov wrote:
-> mdp4_kms_init() returns straight away when one of its steps fails and
-> lets the ->destroy() callback, which the caller runs afterwards, clean
-> up. mdp4_destroy() however dereferences mdp4_kms->dev, which is only set
-> after mdp_kms_init() has succeeded, so a failure there turns into a NULL
-> pointer dereference. It also leaves the vdd regulator enabled.
-> 
-> Set mdp4_kms->dev before anything can fail, undo the steps which have
-> completed, in the reverse order, and tell the caller not to run
-> ->destroy() after a failed init. Fold the hardware setup, which can't
-> fail, into mdp4_kms_init().
-> 
-> Fixes: 93c125e4ea98 ("drm/msm: don't tear down KMS twice when KMS init fails")
-> Assisted-by: LLM
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
+Hi,
 
-Acked-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+the fixing fun continues.
 
-Konrad
+This is a handful of fixes for shmem/tmpfs. I sneaked in a related
+hugetlb fix that stalled upstream.
+
+Some of the stuff is more urgent (patch #1, F_SEAL_EXEC, truncation
+hangs), others are less urgent but still rather unpleasant.
+
+The majority are fixes from Anthropic that I cleaned up or reworked.
+While doing that, I found a bunch of other issues and tried to fix them
+somewhat cleanly.
+
+In general, shmem + swap handling is a nightmare. shmem_undo_range() is
+such utter garbage it makes me want to cry. I mean, really, WTF did we
+end up creating there. Does any expert here have time to clean that up and
+make it *actually* maintainable.
+
+The following things are still broken in shmem_undo_range():
+
+(1) Truncate/punch of a single page of a large swap-error marker
+
+We don't split. Consequently, read access afterwards will still fail
+instead of returning 0s.
+
+I have a fix to try to split (which can fail), but I don't consider it
+that urgent, really. So I'm not including it. Might send it later
+separately.
+
+Truncate/punch of a partial page can obviously never do the right thing,
+as we cannot poison parts of pages ...
+
+(2) Truncate/punch whole pages within part of a large swap entry
+
+We try to read the entry, but if we are out of memory that might fail.
+Consequently, we will not free up swap space and a re-read will not give
+us 0s but the previous content.
+
+AI proposed a nasty NOFAIL patch which has too many nasty side effects
+IMHO (allowing users to force-read pages and retain them afterwards even
+though memory.max would disallow it). This needs a proper thought. Likely,
+support for splitting large swap entries (and large folios in the
+swapcache, which I recall is under development  by Kairui). But splitting
+can fail ...
+
+(3) Truncate/punch of a part of a base-page swap entry
+
+We obviously have to read the page in, in order to 0-out the parts to
+discard. That might obviously fail.
+
+Maybe we should install swapin-error markers if swapping during
+truncate/punchhole fails, to at least tell user space on later access
+that something went wrong? We might affect unrelated data, outside the
+requested range, though. Anyhow, these are long standing issues and
+I don't consider them urgent.
+
+They need a proper solution.
+
+I did my best trying to test these fixes. I was able to reproduce some
+of the things (including unkillable truncation hangs), and the fixes seemed
+to help.
+
+But again, shmem_undo_range() is just an absolute mess.
+
+Please prioritize review of these fixes, I want to get fixes for the
+issues in a timely manner upstream.
+
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+---
+Chris Mason (5):
+      mm/mempolicy: charge shared policy nodes
+      mm/shmem: honour F_SEAL_EXEC when an ACL is set
+      mm/shmem: avoid moving the truncation start backwards
+      mm/shmem: stop retrying folios that cannot be split
+      mm/shmem: preserve data in clean folios when splitting fails
+
+David Hildenbrand (Arm) (7):
+      mm/shmem: discard whole new large folios on fallocate rollback
+      mm/shmem: rescan after nonuniform folio splitting
+      mm/shmem: fix truncate hang in large swap entry
+      mm/shmem: preserve allocation errors when swapping in large entries
+      mm/shmem: fix truncate loop after boundary swapin failure
+      mm/shmem: fix accounting of swapin-error markers
+      mm/shmem: fix truncation of files containing only swapin-error markers
+
+Eva Kurchatova (1):
+      hugetlbfs: enforce F_SEAL_EXEC in setattr
+
+Josef Bacik (3):
+      tmpfs: keep the quota soft limits of an unused id
+      tmpfs: preserve explicitly disabled quota limits
+      mm/shmem: hold off eviction in shmem_writeout()
+
+ fs/hugetlbfs/inode.c  |   8 +++
+ include/linux/memfd.h |   9 +++
+ mm/mempolicy.c        |   4 +-
+ mm/shmem.c            | 170 +++++++++++++++++++++++++++++++++++---------------
+ mm/shmem_quota.c      |  28 +++++----
+ 5 files changed, 154 insertions(+), 65 deletions(-)
+
+---
+
+base-commit: 21a7f44fd0765fcc5194130b28767786eba1d1e7
+
+change-id: 20261025-fixes_shmem-2782719b130e
+
+--
+
+Cheers,
+
+David
+
