@@ -1,63 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793046733;
-	b=ubUA4jqJfp8hp8lMjY8Nirmtxg5bLZK/iDIJsjtSwcorV+0tQkeNZfQLeTeEIYTImSfG
-	 mVyU6oe6O2OBZsbXIn8oPFnPeQ35wxvCUvCfv3jwEtWNObxTSg/KGcu1t1Sjjg9tAi1JQ
-	 fl1C++UQM/9/ApjtD7ocy16niHyjzf6VimZQTVg/Au40wDuJW3nminC40Ag5Mw4jCF24Z
-	 yFi4akkhPigdQSFyVKcO6pIFGLkyfiNGL4FhN5WS0cQ4qPooxIGMInzkE0f64y+gxHXvg
-	 xZrbHqwcx6X/hjTtYtTSG4tqXoTMQRGHhcCbsVLGEXL6SGpPEv3rvoy8FtDSn5Ul7Lg==
+	t=1793046782;
+	b=OJ7h1/RrRIL02TtEx9gDDlYOdQjSu2XNCOnm4Q/ZxNF9v3IHDb/r/itxwa/MMEKMK46i
+	 x2ivuMY3wALNclbv1TDdlyO8Iuwrm3ixHQWcIR+4iwxxqfav9lRxopuitoB9IqRt7xeMI
+	 Id3zvAcFEqA2v4mKGvV8Smw0nwmU0f1bvmU3ct2AM7NFb1APOE5L13i6SNWttTuPeZpi1
+	 2iWq560pPv4vgMx52jbkxWjaDBWnzrrk3lMLJ2w5JR/7xc/WuPMKL+FmO+2/10GhXV2T9
+	 HWwYAshQAJxRuwKPhUE0IIJ7Ri0gF1QQE6Ds7C6We6X0nWiW76QSALLCLK2q6W4MUGw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793046733;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=WLSSNphe2t25gveuhQlDdNE5rvwvF50Zw1dxiVqEoXc=;
-	b=mXndlytUsNMSmE/QpUBpYC2ZRpKdivTXHaaZSn/UFTPcudCM3QBG/nhvTIowZFyCllIi
-	 KzqosmLukg2Oq6hfIw1zCfbGIjFNn21Cbd1nDaEfWHpU1IQq5T5eM7EYEr1lgvetcqZIm
-	 6ZHAmf5GHB2MjGYFtY15vP7Fue9pJpDuyaIUiifmZKZVo+A8A2a64r2DzbgSm1JYZ4De6
-	 GNixwB8ap+jDnTNg/4d4AcFMp7nFW/tClCDl0hvmzIEGr807kFdjLrfBv3qufmxyaZOMw
-	 Zw9Od2tOMdJ4QPwhBIqrejGjSCPEM57sZtaxerE6OUv7U5ydgBvYDVix4569iSHYe3g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793046782;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Stat-Signature:X-Rspamd-Server:
+	 X-Rspamd-Queue-Id:X-Spam-Status:X-Session-Marker:X-Session-ID:
+	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
+	bh=Y0n9Pif+8prsy1OUgMVKboyTwqg4OezgtGdxHdvVZOA=;
+	b=BYkCJHVBSD0bATwFcAw5QkWZs6k8f5julNUnH3WAGntc/HjkzYpC1J3UybU+JiqYU4lp
+	 pWaLdRk/Y+eBlW1t/hy7hKA0dFQQXxKijeDGDpwzkUFNv2AM1yap/Yhzk3vIpIjI+kCo1
+	 A58u2MD3Vsw91Rr4Q3YycTm5rlcrK2gOtcIayVmKdTPOheMNBrSkjSAQTarmvAZIPVh9l
+	 AzvHm778jbivaEUNgQVQxVINBspOr78kc1WqeRtdQLFb0jVX01VkSMVTe2WusgSzU3fOX
+	 U/fjHmIwJzevmQGnb+HpDXeaoL8o/kE2m/j0BM27I/lCbpOKtBToDrVu27vCYIQ0vsQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NlJm4Ssb;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=goodmis.org;
+	spf=pass smtp.mailfrom=goodmis.org;
+	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=vHyaIy2b;
+	arc=none smtp.remote-ip=216.40.44.15
+Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8314F606A325;
-	Mon, 26 Oct 2026 20:32:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9C1D606A31A;
+	Mon, 26 Oct 2026 20:33:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9C1D606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NlJm4Ssb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A1C71F01825;
-	Mon, 26 Oct 2026 20:32:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793046733;
-	bh=WLSSNphe2t25gveuhQlDdNE5rvwvF50Zw1dxiVqEoXc=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=NlJm4SsbnT2kYHfVsAjuTwIhlcJuf8HmYODezDTZ4SxaYuxCOD2yvPsaCRqIg1Ngw
-	 p9qvUFOu4NhHnpH8xCZNevt6UJBjy//5kFuy9VXLLMZYGbexQwA4oRP80VylLjt6qT
-	 ZBVd5U59ephkf44s8ZOc49vvB0HdEgsGXQsu3SySQkcFZE55pSPEjGU3xgptrfQIpS
-	 diDGoXeTF3vyqsqpoUvOeRd842+zfprSLsKJ04G7RINGdUakh5hCgW8myCKOIe0Aak
-	 seXt+lLZU0wzgH0ClLNgkcqTbDKyd3G6bMV1rJAeZq0ZZutIs/rwDBvJA54uWkNXA9
-	 g17TRina2ajPw==
-Subject: Re: [PATCH net V2 3/4] {RDMA,net}/mlx5: notify IB uplink on LAG
- aggregate speed change
-From: netdev-bot+sashiko@kernel.org
-To: tariqt@nvidia.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, netdev@vger.kernel.org, pabeni@redhat.com,
- bhelgaas@google.com, cjubran@nvidia.com, cratiu@nvidia.com,
- edwards@nvidia.com, gal@nvidia.com, jgg@ziepe.ca, kees@kernel.org,
- leon@kernel.org, linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org,
- linux-rdma@vger.kernel.org, msanalla@nvidia.com, mbloch@nvidia.com,
- ohartoov@nvidia.com, saeedm@nvidia.com, shayd@nvidia.com
-Date: Mon, 26 Oct 2026 20:32:11 +0000
-Message-ID: <179304673172.3134.1508256184291095453@kernel.org>
-In-Reply-To: <20261022193053.3815866-4-tariqt@nvidia.com>
-References: <20261022193053.3815866-4-tariqt@nvidia.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=vHyaIy2b
+Received: from omf07.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay01.hostedemail.com (Postfix) with ESMTP id 72D291C41A6;
+	Mon, 26 Oct 2026 20:33:00 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf07.hostedemail.com (Postfix) with ESMTPA id 8F6912003A;
+	Mon, 26 Oct 2026 20:32:58 +0000 (UTC)
+Date: Mon, 26 Oct 2026 16:32:57 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+Cc: Shuah Khan <shuah@kernel.org>, Mathieu Desnoyers
+ <mathieu.desnoyers@efficios.com>, linux-kernel@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH v2 5/9] tracing/filters: Fix function event operand
+ parsing in parse_pred()
+Message-ID: <20261026163257.434af154@gandalf.local.home>
+In-Reply-To: <179291747675.492959.6739928041718890503.stgit@devnote2>
+References: <179291742944.492959.11659339795290028998.stgit@devnote2>
+	<179291747675.492959.6739928041718890503.stgit@devnote2>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,286 +62,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Stat-Signature: 87oj1x3swnehbiikzjp6ekfua33enjk5
+X-Rspamd-Server: rspamout01
+X-Rspamd-Queue-Id: 8F6912003A
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX1+8HdPT26W0ZVuuJNgaLFCbK7trRttRxpI=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=Y0n9Pif+8prsy1OUgMVKboyTwqg4OezgtGdxHdvVZOA=; b=vHyaIy2bDWNeSBGKTpmm7+z0Gfc1OuKbbKCYuHPYubo6rxF6gc4BBgUF8MzusEPIce4JOoIjgUTKZear3GcYkTqHmSL9ROQzHU/i+xeutxIiIY681G3YwYoOlui4WDIZL7A8PLPGDpYoC3JqymizMNsnA/L3VIVkzB3KC3owo2o=
+X-HE-Tag: 1793046778-132600
+X-HE-Meta: U2FsdGVkX1/VI5Bj3IEqQoMFgpAlwlk5IfzmSap4b1hCrEcmjZ70ESJFtrRsiEdHfdpiAdUDI3I9IjdSviNOmv4BRsvhLXkDnNhh4buxZhfyWVBvo8KN15CHsyHwmBZX90UOAliKv/+rt6zcs8HBt0b4N9OT1u18Gh5B1IqTF8wkRVf4q0PZ/3LazfUu5XtoJkTMWApMHW0/gFrnJSQqtzp+Dpg0oxu6aaw+sBL3PINRFkYpQWpZIhofdyNxFdryxWkf9OYihpZ8Jt0ipn3Q3JJ6YpnHKbur1J3GUUdNKsj3ztIv983VjnTmUtvLNH1ZS5lKVBwwf9lLXKvOxs0GkNEjSG0aG8Ur3huQqYgXTmS7hXvzbIDPjA==
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+On Sun, 25 Oct 2026 17:37:56 +0900
+"Masami Hiramatsu (Google)" <mhiramat@kernel.org> wrote:
 
-Critical: 0 · High: 2 · Medium: 1 · Low: 0
+> From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+> 
+> In parse_pred(), the ftrace_event_is_function(call) branch has several
+> bugs when parsing the string operand:
+> 
+> 1. The loop 'for (i++; str[i]; i++)' unconditionally increments 'i' before
+>    checking whether str[i] is the NUL terminator. When the operand is empty
+>    (e.g. 'ip == '), this advances 'i' past the NUL terminator and reads
+>    out-of-bounds memory until another zero byte is encountered.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Can't this part simply be fixed with:
 
-- [High] The fix does not reach the IB uplink device in non-shared-FDB
-  switchdev (SRIOV) LAG, although the commit message says it fixes the…
-- [High] Use-after-free of struct ib_device through async event work
-  queued by the new MLX5_DRIVER_EVENT_LAG_SPEED_CHANGE handler.
-- [Medium] net/mlx5: LAG speed change notified before updating eswitch
-  vport speeds
+diff --git a/kernel/trace/trace_events_filter.c b/kernel/trace/trace_events_filter.c
+index 5e74d2dae40a..6a14c964c115 100644
+--- a/kernel/trace/trace_events_filter.c
++++ b/kernel/trace/trace_events_filter.c
+@@ -1733,6 +1733,11 @@ static int parse_pred(const char *str, void *data,
+ 	while (isspace(str[i]))
+ 		i++;
+ 
++	if (!str[i]) {
++		parse_error(pe, FILT_ERR_INVALID_FILTER, pos + i);
++		goto err_free;
++	}
++
+ 	s = i;
+ 
+ 	pred = kzalloc_obj(*pred);
 
---
+> 
+> 2. When the operand is quoted (q != 0), the loop breaks with str[i] at the
+>    closing quote, but 'i' is never incremented past it (unlike the regular
+>    string literal parser which does 'i++'). Furthermore, it does not check
+>    for a missing closing quote (!str[i]). Returning 'i' at the closing
+>    quote causes predicate_parse() to immediately re-invoke parse_pred() on
+>    the closing quote and fail with FILT_ERR_TOO_MANY_PREDS.
 
-{RDMA,net}/mlx5: notify IB uplink on LAG aggregate speed change
+This is a separate bug and needs to be a separate patch.
 
-This patch raises IB_EVENT_DEVICE_SPEED_CHANGE on the IB uplink device
-when the cached LAG aggregate speed changes. mlx5_lag_update_agg_speed()
-now calls a new helper, mlx5_lag_notify_speed_change(). The helper sends
-MLX5_DRIVER_EVENT_LAG_SPEED_CHANGE on the P1 PF's lag_nh chain, and
-lag_event() in mlx5_ib turns it into an IB async event.
+> 
+> 3. If the operand length is 0 (e.g. 'ip == )' or 'ip == ""'), it accepts an
+>    empty pattern instead of rejecting it with FILT_ERR_INVALID_VALUE.
 
-> diff --git a/drivers/infiniband/hw/mlx5/main.c b/drivers/infiniband/hw/mlx5/main.c
-> index 6594d38cf1993..cfa7c7ba2b737 100644
-> --- a/drivers/infiniband/hw/mlx5/main.c
-> +++ b/drivers/infiniband/hw/mlx5/main.c
-> @@ -3690,6 +3690,16 @@ static int lag_event(struct notifier_block *nb, unsigned long event, void *data)
->  			rdma_roce_rescan_port(ibdev, portnum + 1);
->  		}
->  		break;
-> +	case MLX5_DRIVER_EVENT_LAG_SPEED_CHANGE: {
-> +		struct ib_event speed_event = {};
-> +
-> +		if (!dev->ib_active)
-> +			break;
-> +		speed_event.device = ibdev;
-> +		speed_event.event = IB_EVENT_DEVICE_SPEED_CHANGE;
-> +		ib_dispatch_event(&speed_event);
+Well, empty value ("") is actually valid. May be meaningless, but it's not
+wrong.
 
-[Severity: High]
-Can the work queued here outlive the ib_device?
+> 
+> 4. When the operand is unquoted (q == 0), stray quotes or '(' inside the
+>    operand are consumed as part of the pattern, desynchronizing
+>    parse_pred() from calc_stack().
 
-ib_dispatch_event() copies the event, including the raw ibdev pointer,
-into an ib_update_work and queues it on ib_wq. It takes no reference on
-the device. Nothing synchronizes the dev->ib_active check with
-__mlx5_ib_remove():
+This is a separate bug and needs to be a separate patch, although it may be
+the same as #2 above.
 
-__mlx5_ib_remove() {
-	dev->ib_active = false;
+-- Steve
 
-	/* Number of stages to cleanup */
-	while (stage) {
-		stage--;
-		if (profile->stage[stage].cleanup)
-			profile->stage[stage].cleanup(dev);
-	}
-
-	kfree(dev->port);
-	ib_dealloc_device(&dev->ib_dev);
-}
-
-The stages are cleaned up in reverse order. In pf_profile and
-raw_eth_profile, MLX5_IB_STAGE_IB_REG comes after MLX5_IB_STAGE_ROCE.
-That means ib_unregister_device() runs first, including its last
-flush_workqueue(ib_wq) in ib_cache_cleanup_one(). Only after that does
-mlx5_eth_lag_cleanup()->mlx5e_lag_event_unregister() run.
-
-One possible ordering:
-
-CPU1 (bond work or mlx5_mpesw_speed_update_work, holding ldev->lock)
-mlx5_lag_update_agg_speed()
-  mlx5_lag_notify_speed_change()
-    blocking_notifier_call_chain()      /* down_read(&lag_nh.rwsem) */
-      lag_event()
-        sees dev->ib_active == true
-        <preempted>
-
-CPU2 (rmmod mlx5_ib or auxiliary unbind)
-__mlx5_ib_remove()
-  dev->ib_active = false;
-  mlx5_ib_stage_ib_reg_cleanup()
-    ib_unregister_device()              /* last ib_wq flush */
-  mlx5_eth_lag_cleanup()
-    mlx5e_lag_event_unregister()
-      blocking_notifier_chain_unregister()   /* waits on rwsem */
-
-CPU1
-        ib_dispatch_event()
-          queue_work(ib_wq, &work->work);
-    up_read(&lag_nh.rwsem)
-
-CPU2
-  ib_dealloc_device()
-    ... ib_device_release()
-      kfree_rcu(dev, rcu_head);
-
-ib_wq worker
-ib_generic_event_task()
-  ib_dispatch_event_clients()
-    down_read(&event->device->event_handler_rwsem);   /* freed */
-
-The commit message says:
-
-    blocking_notifier_chain_unregister() in mlx5_eth_lag_cleanup() takes the
-    write side and cannot return until any in-flight callback has completed,
-    so no event can be dispatched to a freed device after unregistration.
-
-The rwsem waits for lag_event() to return. Does it also wait for the
-ib_wq work that lag_event() queued? Nothing seems to flush ib_wq after
-mlx5e_lag_event_unregister().
-
-The existing mlx5_ib_event path seems to avoid this, because its
-DEVICE_NOTIFIER stage is torn down before IB_REG. The last patch in this
-series doesn't appear to change this path.
-
-> +		break;
-> +	}
->  	default:
->  		return NOTIFY_DONE;
->  	}
-> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/lag/lag.c b/drivers/net/ethernet/mellanox/mlx5/core/lag/lag.c
-> index 05e6d0aa31fcf..afe0b9909f2dc 100644
-> --- a/drivers/net/ethernet/mellanox/mlx5/core/lag/lag.c
-> +++ b/drivers/net/ethernet/mellanox/mlx5/core/lag/lag.c
-> @@ -1540,8 +1540,24 @@ static int mlx5_lag_get_devices_oper_speed(struct mlx5_lag *ldev,
->  	return 0;
->  }
->  
-> +void mlx5_lag_notify_speed_change(struct mlx5_lag *ldev)
-> +{
-> +	struct lag_func *pf;
-> +	int idx;
-> +
-> +	idx = mlx5_lag_get_dev_index_by_seq(ldev, MLX5_LAG_P1);
-> +	if (idx < 0)
-> +		return;
-> +	pf = mlx5_lag_pf(ldev, idx);
-> +	if (!pf)
-> +		return;
-> +	blocking_notifier_call_chain(&pf->dev->priv.lag_nh,
-> +				     MLX5_DRIVER_EVENT_LAG_SPEED_CHANGE, NULL);
-
-[Severity: Medium]
-Is the event sent before the vports it describes have been updated?
-
-mlx5_lag_set_vports_agg_speed() calls mlx5_lag_update_agg_speed()
-first. Only after that does it walk the PFs and push the new
-max_tx_speed to each eswitch vport with MODIFY_VPORT_STATE:
-
-mlx5_lag_set_vports_agg_speed() {
-	if (mlx5_lag_update_agg_speed(ldev))
-		return;
-	...
-	mlx5_ldev_for_each(pf_idx, 0, ldev) {
-		...
-		mlx5_lag_modify_device_vports_speed(mdev, speed);
-	}
-}
-
-With this patch, mlx5_lag_update_agg_speed() calls
-mlx5_lag_notify_speed_change() as soon as agg_speed_mbps is written.
-So lag_event() queues IB_EVENT_DEVICE_SPEED_CHANGE on ib_wq while the
-FW vport state still holds the old speed. This applies to
-mlx5_do_bond(), mlx5_mpesw_speed_update_work() and
-mlx5_lag_shared_fdb_create(), which all go through
-mlx5_lag_set_vports_agg_speed().
-
-On the switchdev representor ib_device, only the uplink port reads the
-cached aggregate. The VF/SF representor ports on the same ib_device
-query FW instead:
-
-mlx5_ib_query_port_speed_rep() {
-	if (rep->vport == MLX5_VPORT_UPLINK) {
-		if (mlx5_lag_is_sriov(mdev))
-			return mlx5_ib_query_port_speed_from_bond(...);
-		...
-	}
-
-	op_mod = MLX5_VPORT_STATE_OP_MOD_ESW_VPORT;
-	return mlx5_ib_query_port_speed_from_vport(dev->mdev, op_mod,
-						   rep->vport, ...);
-}
-
-A consumer could handle the event and query ports 2..N before the
-mlx5_lag_modify_device_vports_speed() loop has finished. It would then
-read a stale max_tx_speed. I couldn't find anything that raises a
-second IB_EVENT_DEVICE_SPEED_CHANGE on the representor ib_device once
-the loop completes. In that case the stale value would be all the
-consumer ever sees for that change.
-
-The commit message says:
-
-    That cache is where the IB layer now takes the effective speed
-    from, so a consumer that queries after receiving the event is
-    guaranteed to read the new value.
-
-That holds for the uplink port. Does it hold for the other
-representor ports on the same device?
-
-Could the notification be sent from mlx5_lag_set_vports_agg_speed()
-after the vport loop, instead of from mlx5_lag_update_agg_speed()? Or
-is there a reason the event has to be raised before the vports are
-updated? Any callers of mlx5_lag_update_agg_speed() outside
-mlx5_lag_set_vports_agg_speed(), such as RoCE LAG, would presumably
-still need their own notification.
-
-[Severity: High]
-Does this event reach the IB uplink device in switchdev (SRIOV) LAG
-when shared FDB is not used? That is the case when
-mlx5_lag_shared_fdb_supported() returns false and mlx5_do_bond() takes
-the mlx5_activate_lag(..., MLX5_LAG_MODE_SRIOV, false) branch.
-
-The event only goes to P1's lag_nh. mlx5_eth_lag_init() registers
-lag_events only if LAG is already active when the IB device
-initializes:
-
-mlx5_eth_lag_init() {
-	...
-	ns = mlx5_get_flow_namespace(mdev, MLX5_FLOW_NAMESPACE_LAG);
-	if (!ns || !mlx5_lag_is_active(mdev))
-		return 0;
-	...
-	mlx5e_lag_event_register(dev);
-	...
-}
-
-IB reps are loaded when switchdev mode is enabled, which is before the
-bond forms. The non-shared-FDB branch of mlx5_do_bond() doesn't reload
-or rescan the IB devices. Only the RoCE LAG and shared FDB paths do:
-
-mlx5_do_bond() {
-	...
-		if (!shared_fdb)
-			mlx5_lag_set_vports_agg_speed(ldev);
-	} else if (mlx5_lag_should_modify_lag(ldev, do_bond)) {
-		mlx5_modify_lag(ldev, &tracker);
-		mlx5_lag_set_vports_agg_speed(ldev);
-	...
-}
-
-mlx5_create_lag() also reinitializes the chain when LAG is activated,
-which drops any earlier subscriber:
-
-	BLOCKING_INIT_NOTIFIER_HEAD(&dev0->priv.lag_nh);
-
-Without shared FDB, mlx5_ib_vport_rep_load() also leaves lag_master
-pointing at the PF itself. So each PF's uplink IB device has
-ibdev->mdev set to its own PF. A P2 uplink device would subscribe to
-P2's lag_nh, if it subscribed at all, so an event sent only to P1 could
-not reach it.
-
-These uplink devices still report the cached aggregate, because
-mlx5_ib_query_port_speed_rep() doesn't check for shared FDB:
-
-	if (rep->vport == MLX5_VPORT_UPLINK) {
-		if (mlx5_lag_is_sriov(mdev))
-			return mlx5_ib_query_port_speed_from_bond(dev,
-								  port_num,
-								  speed);
-
-In this setup, wouldn't the uplink IB device still get only the
-immediate physical-port event, possibly before agg_speed_mbps is
-updated, and nothing once the aggregate settles? That is the behavior
-the commit message says it fixes:
-
-    The uplink vport is deliberately skipped when pushing the aggregate
-    speed, so the IB uplink device never gets a second event once the
-    aggregate has settled.
-
-Could the notification go through a chain on each PF that every mlx5_ib
-device is always subscribed to, instead of only P1's lag_nh? The later
-patch in this series, "net/mlx5: Lag, save and restore vport
-max_tx_speed across LAG", doesn't appear to touch the notification path.
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261022193053.3815866-1-tariqt%40nvidia.com
+> 
+> Fix this by advancing 'i' and 's' past the opening quote before the loop,
+> starting the loop at the current 'i' without a blind increment, checking
+> for missing closing quotes, advancing 'i' past the closing quote, and
+> rejecting empty operands or stray quotes/'(' in unquoted operands.
+> 
+> Fixes: 80765597bc58 ("tracing: Rewrite filter logic to be simpler and faster")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+> ---
