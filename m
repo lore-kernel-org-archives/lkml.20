@@ -1,95 +1,95 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.98
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793049128;
-	b=feYlUjNOMdYKcahNOGfbdlSDyZjOa3gUrG86rK7J/VvEL7MCPIFD1qyhmuMPvSPbDGnH
-	 3K8MO524sDx6U/VQ4Vhdx2mrdmNumbIhRq16AtBl3ttFz1ApCeTRVwh+k8TPCOEH3hfo5
-	 q9K1C7dLPfqyUdK5UEP8IVc6ClzZd9LW/olUSFGM5sAU9qtPRHii8HkT18dV6vUzpR0XS
-	 /4f82seL/Vh3PRaes1JEhvmNz8A7Rn6mW3pcUqKOd9Fzxo27Gwfk/w29X7kF4IfY/BMGV
-	 g+zASb8qSPPZJ4Cc5OL1fNExVFx5HscJ1Gd1ZDdll2eeYxMfM4GCCnesBGmMoZTORAw==
+	t=1793049124;
+	b=m44/BpaQB6Ko9Bhm9DsAB13wsWh71aEgZLoGddN0KZJjut+LOb1lLl7/3vpkfQ2+ZJmv
+	 52gLej9tqzN0jipzZSquAlX4wNlUtgamFlFHux/K5aROZUzCO6nydbWHHsCsdFdyf3cAk
+	 57MHTd7s+lx8OeqRzbTEkr6a4H/k6E1es18vzEp1zG9HB2Jd6aeRlrlEPtK3sBcLeTREW
+	 8/dwk+KjiclK4ClkhBaAQsf+QiO8TsV0qUIylgdD79w217D4NHknP/yWGIvmCjq9Ym0OQ
+	 FrndY/nfhs7rJ0yoV9jkAeB9M+2CFwJrRGLTraq1mn7Q0HeGFsCJ2SqOIAw7OeOhVuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793049128;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793049124;
 	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
 	 X-Gm-Gg:X-Received:Received:X-Relaying-Domain:X-CFilter-Loop:Received:
 	 DKIM-Signature:X-Received:X-Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:X-DetectorID-Processed;
-	bh=QkAGfe/UDsHGvMGKL2L3uZbprb9NTy21LdH6RR7axyA=;
-	b=PqeaVxG4PBWo6yov0lMDXUsUYPwJSho0vCYJVHCTU40Evs+/L6Eg+kRhyKtASapm2MZ3
-	 o+aLSCKCNpOSFCKZl9pCGGT8UZ5VqR7tb/nxEluTdjSxENQjHgWDrLupE2Ua6IDqoVf8X
-	 +hErNmlSTk/rOLKeF94xjRUwoWXxgIXUI9oIUP+tQLoCYLHL08CnwxjoewTYrA4BUTvm+
-	 MZClGpRhhruGj5p5D3Z46+ajNfh7ypFML79kSJt/tOweQ1JrmAxT0n+k7tN6SJ3Ye41nP
-	 lX7HTq3LUZjsxwtD+elyg9Q6ioF7Z9k62u3pH1jMzTk5u4H/REVaX+QwyFIvtBNLvpw==
+	bh=C6OnP1vGWmb9YnZS8P9AwgUEc+BdAnjPfL2XGArdBN4=;
+	b=BCSa4L+30ZmWLhjZqZ0Vs9Rda1BnAq9sK3QO9jRipiFfnrZBPCJlU+wMm9EKAWZl591F
+	 SFIuOH7uWjWp5mBfqjHo+ao5hTsXUFjNJFamOwaJFW2oCobvfQYhZjaSvflAw0nLQtKOD
+	 Ailk9AzBYflk2BDxNc4gjh0T2Aixi47swgsI+Q7RmohGk6Gq4l754tCSl6KzkAZkhWkyL
+	 4/kdrNXnBHX5lBmWzXN6L5QX7UdIRBBNATcceLB1kGDelWw03KPv8Tf8l2sE6uUABSnRc
+	 pbmbVdcR7mZnPG4MNblBbF9rAqCHEmZm9jsaowyQrRv7xr4yAD4I7tNujxumMCtERBQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=broadcom.com;
 	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=PfhwGTgB;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=NnysnYU7;
 	arc=none smtp.remote-ip=209.85.216.98
 Received: from mail-pj1-f98.google.com (mail-pj1-f98.google.com [209.85.216.98])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B2E5606A326
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 21:12:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B2E5606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C7FC606A32C
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 21:12:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C7FC606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=PfhwGTgB
-Received: by mail-pj1-f98.google.com with SMTP id 98e67ed59e1d1-3aded3c6103so1097565a91.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:12:08 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=NnysnYU7
+Received: by mail-pj1-f98.google.com with SMTP id 98e67ed59e1d1-3ace9e6e1a5so205726a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:12:04 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793049128; x=1793653928;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QkAGfe/UDsHGvMGKL2L3uZbprb9NTy21LdH6RR7axyA=;
-        b=w+9FDxkvB4iNgqVN2MOgPvpcjDkuW8KnY8UsiGW9mBzjypBScI469/iQ4FX7+ZduqP
-         wTYw0wOERQOpE5RW971i9YrauE0equowO1RBn6PH89gLCggik6okH+JBLR1mntUB4aM7
-         2kTf3fYpWMwQrXb2x2Cr+uaTbBXz9mGpRgXJ2Iv9c2l9p88w/DlH989Hk4OeCqVz4Db6
-         UpXhOOzuIc91mre5ekTw78Q12BYFMnr9yiKSLE/PdQIDkjY3m/AaSC8T10ndlAfi1Tzs
-         Y2KwKhbVQ3avPFdk7K+pHlmRuAegaD+H1EWfpAWzxVsUnLzIZhLvmS+5/ePno3a6VKdB
-         a41A==
-X-Gm-Message-State: AFq9FYIiqeXIOYRW9C4jBIuSyPoKZ+mJ2AkxbZPJrg9l5i0t4szUymB+
-	AX63/I13B8GcwafJ6zWlNlm9toRCfrqaG9kBS/MYx4LYGefcOWP7d/s4SGRcZbz207vn1Yaqvzs
-	DKu7k90s0z32tfANJtTF3HifeqXn1JbcoT+BUQg9hkwmRRLO50g1uw9Y0qFn7zn1d4oqKrTM2xf
-	kulKKfQv0tpkjVemg1zPLvB1ltBX9aGojsTLOoYkdv8K1Vt/iDIXMzdJKel3UlCBP3moyf+w0Z+
-	qdFuWVK/hYIW90/UXJnp+yq
-X-Gm-Gg: AYBFou1GsavJEomnHPNVTtJheMdz2JW913vXmtrO2ON8Kcmab4PZaXNKZ5P1xWVaBCf
-	PJsTMijypWyQq47I2CYTcny167OK9LCoqGv6DWsx6FuIkYOe12isGnirFQVv/WM/nKFJIds1QRV
-	QieEs5EbGDJeSfHXArjFjRNoHOm7F/d/i0byGEAPreRO46SF7eLydZt6zPOKuWVUXUT7WY/6u5y
-	bpTaY05gsc7nHE+3Cj5jeIVltvjMgsZohmxTX6z+PlxpvKr1HjfM1gqylNSRtDZgXQuPdqxA5Ca
-	OIY4fj6dxeIF3THrJcSSDITH3xz4xZQbwd9M8sem4QCYfBrv17TQJOrbTMC4/UgTWSaLVCvMqIR
-	AJQZ+O9jLdku49r8A/SC2+Ls+GXqwUv7s2C3cZeClLmw+O3273XW6Hj6QIlWKInvg1xI/BI45sQ
-	pcZXRy9Mv2bb850QW0+FXLj7Bb5Jq4108d6PH9pUzV
-X-Received: by 2002:a17:90b:3905:b0:3ab:be66:ddbf with SMTP id 98e67ed59e1d1-3adeb131801mr6408817a91.54.1793049127656;
-        Mon, 26 Oct 2026 14:12:07 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-28.dlp.protect.broadcom.com. [144.49.247.28])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3adeb83a327sm3599984a91.0.2026.10.26.14.12.07
+        d=1e100.net; s=20260707; t=1793049123; x=1793653923;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:dkim-signature
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=C6OnP1vGWmb9YnZS8P9AwgUEc+BdAnjPfL2XGArdBN4=;
+        b=m1JirjOWfnIyJfkA8eXw9JeDINZSGF8aF1S68C4VA1Ql3rS8zWknsE9JFDNxXOh+wu
+         DYymHBcSjLr7BVN+07ubknULAmw4/hiUKUs6i6klhUhnxlbPPHGpcVasOErAUR9O4Aat
+         Y9LzHqnoBuTPQNWrkjHKYsWslwKKpGbMbx75TLTCYackBAmMwrcqdqXXL6s8kY4sxxMB
+         REi63tZ4pBM6O/FJSKvW5QlwnsUeXIVEyC0UnW9YxGfxRbNHRkoHAmOKkIIf1c9A6zWb
+         PqJTvu1kctDyQdBYtjbL7e8RKpJY+HorOyNwBOCK9eh1hHyR3shKvd6ZYFoxY4cNVY5I
+         uhCg==
+X-Gm-Message-State: AFq9FYL/Q8w2xG9bXkWnipDPhNRrk7RAa7+PQJfFQ+Jmsb68+cjtEJH/
+	mb+I/IHp6ynZhvLO+IGBoEk0gbTX1Xsh5WPx1CraawhZ1m0VSVCopu6rL726KicfIloTowhgeau
+	Wcb69VnMSgfgM23cZgXzrwuWeervHNuf16xhHJkRuc/5ay3UIyzsaRPM0s0SG2bM5CSV1qmAfvO
+	lXGLMQFMSjr8/FkHEg0SNJ2fXlOuFfTjsHQEj3FjIq4QLH/xjanoMMIUK7zL/rBgRfDCOlnoObP
+	khhe2MLOKrVueUyBVr/b1BPASk=
+X-Gm-Gg: AYBFou3xUZ5j4ikWTeAYKFR8aPqYhTFky23rL2WazvgBUPTK1sno9oCzKEGvc8ffTI2
+	Tud+c9EhZSx4dF+H1VpUbqcVJBRU3G+YSTfCf7T2arIYCAbGcDYKpY+8FqgW5WUQd6b2KD4BpMZ
+	dkFKfrGx4p19vkvlLobcJfJm0Uxg3+kcau1sCU38iI/QFZWexYd+way0dwjGKX/94/8BOSLWV1R
+	0Y/Syk/XznlFc19ng3wegOzszgw5PSVsBF5aC5HOtgjbsg+4JRhwD4AE6gTudCoCKOxciuJuyXl
+	F3b9s4FiJeeoWcxeP5xS3aknX+Rj82f+m8mfs4yVc59r5/1DHr01N4ajh5eq/jR4lcBlYRfIiif
+	sOkihxXNP/CsnT4wGG+krHn8P+Hc7zx06SHAhG3o1JOkYeWLzi+iuBK2iuopdD/PbyI7LHR2t4l
+	D44YEiaTxPg0xVGHioovXfv6+MVZQwv6IsQynqNdBg
+X-Received: by 2002:a17:90a:da8b:b0:3a0:eec6:b065 with SMTP id 98e67ed59e1d1-3ae40283e13mr350213a91.13.1793049123152;
+        Mon, 26 Oct 2026 14:12:03 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-13.dlp.protect.broadcom.com. [144.49.247.13])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3ae406dc8fbsm495780a91.1.2026.10.26.14.12.02
         for <linux-kernel@vger.kernel.org>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 26 Oct 2026 14:12:07 -0700 (PDT)
+        Mon, 26 Oct 2026 14:12:03 -0700 (PDT)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
-Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-1665200f4c2so4093028c88.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:12:06 -0700 (PDT)
+Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-151dcfb1569so170870c88.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:12:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1793049126; x=1793653926; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QkAGfe/UDsHGvMGKL2L3uZbprb9NTy21LdH6RR7axyA=;
-        b=PfhwGTgBUJ5zVQWhxz7I/MWHGTjwtEFi9lj8OhLboPwwYtWFCEHd6vrlAKSuoPTfNQ
-         PVmETTYCdSTnH2Kn5A2I15wJ80v5D5POqMQVujnoUbNWV+cplC0XsBh9VxycTzpjOeTd
-         7YXlmUeWiyFXpMMax+eVFNra0ZwM13Sq8eX9w=
-X-Received: by 2002:a05:7022:eb50:10b0:191:a5b2:ef4a with SMTP id a92af1059eb24-1993677ac8fmr11277921c88.28.1793049125817;
-        Mon, 26 Oct 2026 14:12:05 -0700 (PDT)
-X-Received: by 2002:a05:7022:eb50:10b0:191:a5b2:ef4a with SMTP id a92af1059eb24-1993677ac8fmr11277868c88.28.1793049125085;
-        Mon, 26 Oct 2026 14:12:05 -0700 (PDT)
+        d=broadcom.com; s=google; t=1793049121; x=1793653921; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=C6OnP1vGWmb9YnZS8P9AwgUEc+BdAnjPfL2XGArdBN4=;
+        b=NnysnYU79YnMhg6jBSRtE+Fl4SdFXflwUjWH0sCUcG7gUl7ebUhnf3ZwNUCXCAF9VP
+         jxtfuO5z99UZUwaeAM7SVNyvAPkFb8Q1uHbiSN4Gxl44r+eZz0fD3E+5EBEjPK5eVgOA
+         rT+ZXQTw6PMvAANqPbelwSi4jlqjcLxNRVa+g=
+X-Received: by 2002:a05:701b:42d1:20b0:158:b944:b15 with SMTP id a92af1059eb24-1a3c6150260mr1039966c88.22.1793049121450;
+        Mon, 26 Oct 2026 14:12:01 -0700 (PDT)
+X-Received: by 2002:a05:701b:42d1:20b0:158:b944:b15 with SMTP id a92af1059eb24-1a3c6150260mr1039903c88.22.1793049120586;
+        Mon, 26 Oct 2026 14:12:00 -0700 (PDT)
 Received: from fainelli-desktop.igp.broadcom.net ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a0f81ea9sm31915678c88.11.2026.10.26.14.12.03
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a0f81ea9sm31915678c88.11.2026.10.26.14.11.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 14:12:04 -0700 (PDT)
+        Mon, 26 Oct 2026 14:11:59 -0700 (PDT)
 From: Florian Fainelli <florian.fainelli@broadcom.com>
 To: linux-kernel@vger.kernel.org
 Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
@@ -110,9 +110,9 @@ Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
 	linux-doc@vger.kernel.org (open list:DOCUMENTATION),
 	linux-perf-users@vger.kernel.org (open list:ARM PMU PROFILING AND DEBUGGING),
 	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS)
-Subject: [PATCH 3/3] ARM: dts: BCM5301X: Enable AXI PMUs
-Date: Mon, 26 Oct 2026 14:11:51 -0700
-Message-ID: <20261026211151.3212237-4-florian.fainelli@broadcom.com>
+Subject: [PATCH 1/3] dt-bindings: perf: Describe the Broadcom BCM5301X AXI PMU
+Date: Mon, 26 Oct 2026 14:11:49 -0700
+Message-ID: <20261026211151.3212237-2-florian.fainelli@broadcom.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261026211151.3212237-1-florian.fainelli@broadcom.com>
 References: <20261026211151.3212237-1-florian.fainelli@broadcom.com>
@@ -125,43 +125,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-Describe the three BCM5301X AXI Trace Modules and enable them on the
-BCM5301X base DTS file.
+Describe one APB register window per AXI Trace Module. The counters are
+have no overflow IRQ.
 
 Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
 ---
- arch/arm/boot/dts/broadcom/bcm5301x.dtsi | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+ .../bindings/perf/brcm,bcm5301x-axi-pmu.yaml  | 43 +++++++++++++++++++
+ MAINTAINERS                                   |  1 +
+ 2 files changed, 44 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/perf/brcm,bcm5301x-axi-pmu.yaml
 
-diff --git a/arch/arm/boot/dts/broadcom/bcm5301x.dtsi b/arch/arm/boot/dts/broadcom/bcm5301x.dtsi
-index f06a178a9240..dcae7cba37c4 100644
---- a/arch/arm/boot/dts/broadcom/bcm5301x.dtsi
-+++ b/arch/arm/boot/dts/broadcom/bcm5301x.dtsi
-@@ -10,6 +10,21 @@
- 
- / {
- 	mpcore-bus@19000000 {
-+		axi_pmu_m0: pmu@3000 {
-+			compatible = "brcm,bcm5301x-axi-pmu";
-+			reg = <0x3000 0x1000>;
-+		};
+diff --git a/Documentation/devicetree/bindings/perf/brcm,bcm5301x-axi-pmu.yaml b/Documentation/devicetree/bindings/perf/brcm,bcm5301x-axi-pmu.yaml
+new file mode 100644
+index 000000000000..686b20d4cd29
+--- /dev/null
++++ b/Documentation/devicetree/bindings/perf/brcm,bcm5301x-axi-pmu.yaml
+@@ -0,0 +1,43 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/perf/brcm,bcm5301x-axi-pmu.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+		axi_pmu_m1: pmu@4000 {
-+			compatible = "brcm,bcm5301x-axi-pmu";
-+			reg = <0x4000 0x1000>;
-+		};
++title: Broadcom BCM5301X AXI Trace Module performance monitor
 +
-+		axi_pmu_acp: pmu@7000 {
-+			compatible = "brcm,bcm5301x-axi-pmu";
-+			reg = <0x7000 0x1000>;
-+		};
++maintainers:
++  - Florian Fainelli <florian.fainelli@broadcom.com>
 +
- 		a9pll: arm_clk@0 {
- 			#clock-cells = <0>;
- 			compatible = "brcm,nsp-armpll";
++description: |
++  The BCM5301X ARM subsystem contains three AXI Trace Modules, monitoring the
++  two PL310 AXI master interfaces and the Accelerator Coherency Port (ACP).
++  Each module has its own APB register window and fixed performance counters
++  for commands, data beats, channel activity and stalls, latency, and cycles
++  with outstanding commands. Counters support local start, stop, and clear
++  commands. No counter overflow interrupt is provided.
++
++  Each node describes one module. The separate ATB trace output and its
++  CoreSight connections are outside the scope of this binding. This block
++  is distinct from the BCM2835 family AXI bus-watcher performance monitor.
++
++properties:
++  compatible:
++    const: brcm,bcm5301x-axi-pmu
++
++  reg:
++    maxItems: 1
++    description: APB register window of one AXI Trace Module.
++
++required:
++  - compatible
++  - reg
++
++additionalProperties: false
++
++examples:
++  - |
++    pmu@19003000 {
++        compatible = "brcm,bcm5301x-axi-pmu";
++        reg = <0x19003000 0x1000>;
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index f53047aa8d3c..b97f22107fbf 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -5220,6 +5220,7 @@ M:	Rafał Miłecki <zajec5@gmail.com>
+ R:	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
+ L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
+ S:	Maintained
++F:	Documentation/devicetree/bindings/perf/brcm,bcm5301x-axi-pmu.yaml
+ F:	arch/arm/boot/dts/broadcom/bcm-ns.dtsi
+ F:	arch/arm/boot/dts/broadcom/bcm470*
+ F:	arch/arm/boot/dts/broadcom/bcm5301*
 -- 
 2.53.0
 
