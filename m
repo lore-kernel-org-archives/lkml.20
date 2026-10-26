@@ -1,75 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.70
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793051581;
-	b=tPXp5OR31L/ecoG/3DrjkobH7K9FXbGBPMn+SiPDSmxMN3MM6DVM5JL5nZjLIQ3RZzzB
-	 QqQnSo06Y8DtSsPkQwmSxNM+zYt7D9yoH76hLliXXTbUeSE69c/kxZRyzU1RPg6OTSoKx
-	 M46m2HKqcPS7KVikxlkReEkjH5a/SlPhmWmMmwORsnByknH+eHd6+jzr/Lo9j2eB/TbgX
-	 GpYNSPUj3ntOPMRAxCPjzolRkfW47oZWYTU+AnydDZ24efKH+rv40mf3JKOa/Edgh8RRa
-	 8RVf4LOKt+sUAXGq52eIRBsQ/lL99zSTCklUcA8xIzcqSxWvpxb6hsLsKmtM/J6mDMQ==
+	t=1793051569;
+	b=VeAXfQTpLhODijzjVsVOnKJjuXd6T4nPzA7Hps4OsFOeQMJ3NavxpaAf+7VHYAsQd1j1
+	 /s/e2BU2JAYXc9x1w82YSVy8jPEkcM+nK6H2xdMQQbdDBnFlT7tJjut0EJcNjeOBH35yz
+	 gTjKnlpvHxi3GIIzcnF84d7cVmhmu7yVt3JGxWG7LwM2sJKnS1eCa/xaEAaw7WgItfLvr
+	 AwPV3PMnxW0EKFH05lW8mbJmGngp0oOf1CQddLDlfw4R02wGL/WBv0e3NnRqF3t3sDwgO
+	 IZrE+jqDmWr9W3YlKb22PTEfyNHn0yHzP2q8Kq3+ZuNnvq6uVLcpJS5ZzHOS4CgDW1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793051581;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793051569;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=CxmWryDZw0sLLhu4Yu8pG4ro8w6TSaSVJ3F6CzsZUrg=;
-	b=ioR4WO0CztR4FpS1kUdSSNSphIyYfkqXegUmSDRUTsULHz+Dv+//QcP/ViYtCQlla7ZD
-	 g4sgq9qCQhzZRzG8X/nWJunHjdB+BJe15Hx+eBb44wk4aSudkhWQUxvV1Nr9gBz0omg2a
-	 f0BisfFn8nycevID2zg/4HomIy9ZQezHc7IZAlkppKpCV6dr2kuCb3MuPn17BqB4i+8P5
-	 B1AurZQ3f8ExUnVV6PvWwtc0QnQ5Fld+ViWiuwG3dPv1gHVw0xTGWgKfKI1S80c/DRTHB
-	 mIQYGzhHzKAgko/8HTzx5iMsr3VWkBLYl1S33Srw+YcNAse6QBcSRLztl9kkW4qkTqQ==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=nNWbrH52AzRslkHtbLVib7oaB3pAEHtIJlP9l4sYI30=;
+	b=MSf/1PDM2nmDwBhsDNdJD0b8EhpHGTHW29lwGclOnU31FrPdf8W1WZQw/C4lTmP99T7z
+	 WnBxYnBIK4msONLn5Hyl/K4lo2D4gTW58ELfbx5iSZcGRb9LgEWrPpCMcWtWoJ1EdThq3
+	 6Wvu6fDCa/wtzC/bdkhT+xgx397V67FoS0M2PxhF+7ULI0Ye57WOx+r/zbvugMFNGXu6V
+	 uUsXMExisfghk5AM/+fjOoCgjVFmbKiw4X0RbiwnCW0p55SihByUkqI052s3J7GS1livK
+	 Bckw1bZfu/5rq3P+nhemlcAqkWTt//FS5ILsn3ZsombLqevTl1M3Xfouvk2+4Lffv8g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--jthoughton.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=vwBVk4Eg;
-	arc=none smtp.remote-ip=209.85.216.70
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=RFIxgHQB;
+	arc=none smtp.remote-ip=209.85.214.199
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 453C360A5BC5
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 21:52:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 453C360A5BC5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF553606A31D
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 21:52:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF553606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jthoughton.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=vwBVk4Eg
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3adc5b185bfso3742018a91.3
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:52:56 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=RFIxgHQB
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2e8e16d22d8so58560595ad.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:52:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1793051576; x=1793656376; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CxmWryDZw0sLLhu4Yu8pG4ro8w6TSaSVJ3F6CzsZUrg=;
-        b=vwBVk4Eg09FolRMa6tRB7d5lsew1CjWLZH1mRph6PMJYmgjTNheP7Sd4o5eGAMvAyY
-         V6sX3O8qxifPaSM8SAimDe/+474bzlMc2Hcqs3VRVifNP9e/pO75qbo0cfoBQ/27vhk+
-         JXvvG9sZISWS1NB0aufLlMc0OIIJHXqaCUXAPnJL4/0XCYPBLthPEcFHCd3d1mhXVjBH
-         uW0/e9bzH62zgLC2NePzoB0tOVy9OUIaj99j0tsvFGNNDGBEBfG+TbAY7CA/G1KN9e2s
-         0j7vDCaNYVA+byW3gUlOfgD/e4GxYBsUCGsfK3BvvvyuSSHn51A+ijlMc9HrDdl/yQvB
-         Gu+w==
+        d=google.com; s=20251104; t=1793051568; x=1793656368; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nNWbrH52AzRslkHtbLVib7oaB3pAEHtIJlP9l4sYI30=;
+        b=RFIxgHQBLA5kwXeKeZ7BbXe0EEOafgFGP6cFlYVWixeuRgrG4hX0zvT1DtthEHURdd
+         4h29lzMH98SKcMcg6ASHzle56OYbArDK7a6MjfuTiMXPxXwo0zPzx/IAwkzjDehcb8sA
+         JV5rcHcILXMzSiTp/BBX54to4mvdoGoA9s0pP15/ZfmclpvyZ7ncKJ3qETO0P+2PtzW+
+         e89gMiBeQnyIvImbQ4X8TbE4LbCYzSe09Gcom0qmEakRnZAAjSNivHZ736gNxEzeHuLh
+         6N4H52f7m6P4cLzI3i5axB9WEX44AJSAZr7me/AQyWAS7HkIClpNysvWlG9RgONwSoaU
+         u2Wg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793051576; x=1793656376;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CxmWryDZw0sLLhu4Yu8pG4ro8w6TSaSVJ3F6CzsZUrg=;
-        b=lMH+pRYwjiqmI2khm5r/IHGSByToov50JxKJLFMc5aCW17e1pJtM0gbI7LMUGiZQB9
-         mF7cYjfNC4d+B/4iuE/80On+uma0XiC3PYP4/bHl/GQ2uipDIG4DZ1q1h/dvJoQfXCgx
-         ulXa55WDTXkkgCLpACtQstpJ7vxJRPDfNKA468tksuL4Kfox9tPoZRNZtfEDp8D0MqrS
-         G2oCvsENM5HZRekp08McWET8UpRHxdRx68rlNg3bVXu1WWSyRXetUkAYpWIqmduxqB0s
-         sndbP7HwmIKVVAK79w4NIas51iT6EbZNv+/2enkhaB3bSSOn7ycxxH74zXqXfz9a+cQP
-         G77w==
-X-Forwarded-Encrypted: i=1; AKwUvBwZuZAiz48L9NpAs/gUaa081Vi2839jNc3A25a03rur6lJNodfl7pHdIHCALvViW5I/aMVC47R6afbaJUU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLsClxOafbY3br9kNgzXY2oqghbyF5WCeRwJU+s6ox8xJfURtad
-	K9S6zsfq7RLNSnWyoVUbMN82O468ihEWdJk++8xqb1ueEIwU7oGoK7EIdWxzmdcIAuVfntl6oAO
-	kP3EigYpWady/9wfF+0UvBw==
-X-Received: from pjuy5.prod.google.com ([2002:a17:90a:d705:b0:3a8:211b:6c8b])
+        d=1e100.net; s=20260707; t=1793051568; x=1793656368;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nNWbrH52AzRslkHtbLVib7oaB3pAEHtIJlP9l4sYI30=;
+        b=Gzh2cDnrpYvrCJ7krkVANRZ2LLWX2mmcKof0+Kfb2vQwQtApFJ7rUBQbneV0oGjAxb
+         x/2DStFSo3zFLk3QjbHgr2SgVMZI2HHXg3Sqi/349t2v22nhFJP/7GTse0jrXLc6Sefw
+         7LzmaRrYZziDbxWt+Qk/yqeccnXOZj6Pl21pKB9Rv9CIN915LTSFJ6USm51Cp/HX9vym
+         mcglCp+6BGjVu1Q9FcVw13DJZIt4Q33XiyQYk3FBqt2urPcmKIitkJKP43zsvqhPRxTR
+         HhsdxL/fO6LIf74Ql3tYu1d+L5OnzYHcN2uAX6g8C34ZljWLFqWW2jll9On2CfWeSJmF
+         FDsA==
+X-Forwarded-Encrypted: i=1; AKwUvBwT5XEbI7GDKBHJiPaoitKkMY2xaU/US5ETVb4RORfkX71j/6xfRr4PbzAo69uocWA489WB87TPO40496g=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLeHXdvgJEMgQm3C3tYHVVQq0O7QCoDkrI0knQRk8Ah4vulMW4i
+	AUqgfcpALCU6equAtpmzrp3bkvMIc/7j8iCIjvdn6TXR+YS/eY4SOmFiB2bbBkHeSFImi0lX4Jh
+	pljMIaqgYDGWJaJL4KPXftA==
+X-Received: from pjbfa12.prod.google.com ([2002:a17:90a:f0cc:b0:3ab:c012:2f80])
  (user=jthoughton job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:90b:3b8f:b0:3ac:450a:f9d4 with SMTP id 98e67ed59e1d1-3adeb16364bmr7181921a91.64.1793051575471;
- Mon, 26 Oct 2026 14:52:55 -0700 (PDT)
-Date: Mon, 26 Oct 2026 21:52:25 +0000
-In-Reply-To: <20261026215226.3713941-1-jthoughton@google.com>
+ 2002:a17:90b:280c:b0:3aa:ff19:42b8 with SMTP id 98e67ed59e1d1-3adead4792bmr6561021a91.27.1793051567868;
+ Mon, 26 Oct 2026 14:52:47 -0700 (PDT)
+Date: Mon, 26 Oct 2026 21:52:16 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,11 +76,10 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
-References: <20261026215226.3713941-1-jthoughton@google.com>
 X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
-Message-ID: <20261026215226.3713941-10-jthoughton@google.com>
-Subject: [RFC PATCH 09/10] uaccess: Refuse and warn on more user accesses
- without an mm
+Message-ID: <20261026215226.3713941-1-jthoughton@google.com>
+Subject: [RFC PATCH 00/10] uaccess: Refuse and warn on user accesses when
+ current->mm is NULL
 From: James Houghton <jthoughton@google.com>
 To: Andrew Morton <akpm@linux-foundation.org>, Alexander Viro <viro@zeniv.linux.org.uk>
 Cc: Thomas Gleixner <tglx@kernel.org>, Peter Zijlstra <peterz@infradead.org>, Kees Cook <kees@kernel.org>, 
@@ -106,117 +102,197 @@ Cc: Thomas Gleixner <tglx@kernel.org>, Peter Zijlstra <peterz@infradead.org>, Ke
 	linux-kernel@vger.kernel.org, James Houghton <jthoughton@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Several generic user access paths don't go through the copy helpers
-that check for a NULL current->mm. Add the uaccess_without_mm() check to
-them as well, so that they warn and fail without attempting the access:
+Hi everyone,
 
- - __scoped_user_access_begin(), covering scoped_user_*_access() and
-   get_user_inline()/put_user_inline() on all architectures, including
-   when masked user access is used.
- - strnlen_user().
- - check_zeroed_user().
- - The iov_iter user copy routines that call into architecture-specific
-   helpers: copy_to_user_iter_mc() (copy_mc_to_user()),
-   copy_from_user_iter_nocache() (copy_from_user_inatomic_nontemporal()),
-   copy_from_user_iter_flushcache() (copy_from_user_flushcache()) and
-   zero_to_user_iter() (clear_user()).
+This series comes out of a set of bugs that were found in KVM where the
+kernel can sometimes write to a random process's user memory[1]. The KVM
+fixes at [1] are still required, even with this uaccess series, as noted
+by Sean here[2] and below in this cover letter. The beginning of this
+series includes fixes for similar bugs found through static analysis
+with Claude Opus 5.5. I don't think any of these bugs are more severe
+than the KVM bugs[1].
 
-Only check for a NULL mm here rather than using uaccess_should_fail(),
-so as not to start injecting failures in these paths.
+We hit one of the KVM bugs in production, and it was challenging to
+debug. This series makes such bugs, where the kernel is doing uaccess
+without an mm, much more obvious.
 
-Paths implemented entirely by architectures, e.g. get_user(),
-put_user(), clear_user(), and direct users of user_access_begin() or
-masked_user_access_begin(), are still not covered.
+The Cc list is wide because the fixes at the start of the series touch
+several subsystems: SCSI (patch 1), btrfs (patch 2), BPF (patch 3),
+tracing (patch 4) and perf (patch 5). They're included because the new
+warning in patches 6-10 would otherwise fire on those paths. The core
+uaccess change is in patches 6-10.
 
-Signed-off-by: James Houghton <jthoughton@google.com>
----
- include/linux/uaccess.h | 2 ++
- lib/iov_iter.c          | 8 ++++++++
- lib/strnlen_user.c      | 3 +++
- lib/usercopy.c          | 3 +++
- 4 files changed, 16 insertions(+)
+I have a reproducer only for patch 3 (a bpf_wq callback calling
+bpf_copy_from_user(), which triggers the new WARN without the patch and
+fails with -EFAULT with it); some details are in the notes section of
+patch 3.
 
-diff --git a/include/linux/uaccess.h b/include/linux/uaccess.h
-index eae204f7261b..7d26d2de9599 100644
---- a/include/linux/uaccess.h
-+++ b/include/linux/uaccess.h
-@@ -781,6 +781,8 @@ static __always_inline void __scoped_user_rw_access_end(const void *p)
- ({									\
- 	typeof(uptr) __retptr;						\
- 									\
-+	if (uaccess_without_mm())					\
-+		goto elbl;						\
- 	if (can_do_masked_user_access()) {				\
- 		__retptr = masked_user_##mode##_access_begin(uptr);	\
- 	} else {							\
-diff --git a/lib/iov_iter.c b/lib/iov_iter.c
-index 21e2ccf1e8f2..a0769874241c 100644
---- a/lib/iov_iter.c
-+++ b/lib/iov_iter.c
-@@ -204,6 +204,8 @@ static __always_inline
- size_t copy_to_user_iter_mc(void __user *iter_to, size_t progress,
- 			    size_t len, void *from, void *priv2)
- {
-+	if (uaccess_without_mm())
-+		return len;
- 	if (access_ok(iter_to, len)) {
- 		from += progress;
- 		instrument_copy_to_user(iter_to, from, len);
-@@ -277,6 +279,8 @@ static __always_inline
- size_t copy_from_user_iter_nocache(void __user *iter_from, size_t progress,
- 				   size_t len, void *to, void *priv2)
- {
-+	if (uaccess_without_mm())
-+		return len;
- 	return copy_from_user_inatomic_nontemporal(to + progress, iter_from, len);
- }
- 
-@@ -296,6 +300,8 @@ static __always_inline
- size_t copy_from_user_iter_flushcache(void __user *iter_from, size_t progress,
- 				      size_t len, void *to, void *priv2)
- {
-+	if (uaccess_without_mm())
-+		return len;
- 	return copy_from_user_flushcache(to + progress, iter_from, len);
- }
- 
-@@ -451,6 +457,8 @@ static __always_inline
- size_t zero_to_user_iter(void __user *iter_to, size_t progress,
- 			 size_t len, void *priv, void *priv2)
- {
-+	if (uaccess_without_mm())
-+		return len;
- 	return clear_user(iter_to, len);
- }
- 
-diff --git a/lib/strnlen_user.c b/lib/strnlen_user.c
-index 4a6574b67f82..45709798eb8f 100644
---- a/lib/strnlen_user.c
-+++ b/lib/strnlen_user.c
-@@ -96,6 +96,9 @@ long strnlen_user(const char __user *str, long count)
- 	if (unlikely(count <= 0))
- 		return 0;
- 
-+	if (uaccess_without_mm())
-+		return 0;
-+
- 	if (can_do_masked_user_access()) {
- 		long retval;
- 
-diff --git a/lib/usercopy.c b/lib/usercopy.c
-index e2f0bf104a59..9146c729c47a 100644
---- a/lib/usercopy.c
-+++ b/lib/usercopy.c
-@@ -48,6 +48,9 @@ int check_zeroed_user(const void __user *from, size_t size)
- 	if (unlikely(size == 0))
- 		return 1;
- 
-+	if (uaccess_without_mm())
-+		return -EFAULT;
-+
- 	from -= align;
- 	size += align;
- 
+Patches 1, 2, 4 and 5 are only build-tested (plus syzkaller running on
+the final kernel). Let me know if you'd like to see reproducers (or if
+any of the patches are incorrect and should be dropped).
+
+== Introduction ==
+
+Accessing user memory from a task that has no mm is always a bug. This
+can happen from a kernel thread that is not using kthread_use_mm(), or
+from a task that has already gone through exit_mm(), e.g. when the last
+reference to a file is dropped at exit and its release handler runs
+from exit_task_work(). For example, KVM's nVMX code can write to guest
+memory while a vCPU is being freed during VM destruction[1], and other
+drivers may have similar bugs.
+
+Such an access does not reliably fail. The user portion of the address
+space belongs to whatever mm happens to be lazily loaded, if any. If
+the access faults, the fault handler refuses to handle it and the copy
+fails, but if the page is already mapped, the access silently reads or
+writes another task's memory.
+
+== Fixes ==
+
+Patches 1-5 fix existing places that access current's user memory
+without an mm:
+
+ - Patches 1 and 2 fix io_uring passthrough completions in scsi_bsg and
+   btrfs that copy to the submitter's user memory even when io_uring
+   runs them canceled from a kworker, e.g. after the submitter exited.
+   These are real bugs of the kind this series is meant to catch.
+
+ - Patch 3 makes the sleepable BPF user copy helpers fail when
+   current->mm is NULL, e.g. for bpf_wq callbacks or lsm.s programs
+   running from kernel threads or exiting tasks.
+
+ - Patches 4 and 5 make stack_trace_save_user() (ftrace's
+   userstacktrace option) and get_perf_callchain() (bpf_get_task_stack()
+   on the current task) use is_user_task(), so that they don't unwind
+   the user stack of PID 1 before exec, usermode helpers before exec,
+   or tasks that have gone through exit_mm().
+
+== The New WARN ==
+
+The rest of the series makes the generic uaccess helpers WARN_ON_ONCE()
+and refuse the access when current->mm is NULL:
+
+ - Patch 6 adds uaccess_should_fail(), which combines the existing
+   should_fail_usercopy() fault injection check with the NULL mm check,
+   and uses it in place of should_fail_usercopy(). This covers
+   copy_{to,from}_user() on all architectures (including the masked
+   user access paths, which never call access_ok()), the
+   __copy_{to,from}_user() variants used by KVM's guest memory
+   accessors, the user-backed iov_iter copy routines and
+   strncpy_from_user().
+
+ - Patch 7 makes the user nofault helpers fail quietly when
+   current->mm is NULL. They are meant to be callable from any context
+   (BPF, kprobes, perf), including from kernel threads, where failing
+   is the expected outcome rather than a bug.
+
+ - Patch 8 splits the NULL mm check out into uaccess_without_mm() and
+   adds it to __copy_from_user_inatomic(), without also enabling fault
+   injection there.
+
+ - Patch 9 adds the check to the remaining generic paths: the scoped
+   user access helpers, strnlen_user(), check_zeroed_user(), and the
+   iov_iter routines that call into architecture-specific helpers.
+
+ - Patch 10 is included for reference only. It moves the warning out of
+   line, which removes ~16 KB of __bug_table growth on arm64 (where
+   copy_{to,from}_user() are inlined), at the cost of warning only once
+   system-wide and a slight size regression on x86_64. With defconfig +
+   KVM, patches 6-9 grow vmlinux by +5,884 B (+0.014%) on x86_64 and
+   +40,948 B (+0.10%) on arm64 without it, and by +9,714 B (+0.023%)
+   and +24,609 B (+0.06%) with it.
+
+The checks are deliberately limited to generic code. Accesses
+implemented entirely by architectures (get_user(), put_user(),
+clear_user(), and direct users of user_access_begin() or
+masked_user_access_begin()) are not covered. Please let me know if the
+new check should be placed elsewhere.
+
+The check also cannot catch a valid mm that isn't the one the caller
+expects, e.g. when a file's release or ioctl handlers run in a
+different process than the one that created it. Code that keeps user
+addresses belonging to a specific mm still has to compare current->mm
+against that mm itself. For KVM, Sean's series[1] does exactly that for
+guest memory accesses, and so complements this one: it handles the case
+where the VM is destroyed from another process, which this series cannot
+detect.
+
+Without [1], the nVMX vCPU teardown path described there may trigger
+the new warning when the last reference to a VM is dropped by an
+exiting task or by the delayed fput kworker. The write to guest memory
+is then refused, which is also what [1] does.
+
+For example, running Jim Mattson's selftest for that bug[3] (adapted
+slightly) on a kernel with this series but without [1] gives the
+following warning, and the write to guest memory is refused. The warning
+comes from uaccess_warn_without_mm() because patch 10 was applied;
+without it, it points at the inlined copy helper in the caller instead.
+
+  WARNING: lib/usercopy.c:31 at uaccess_warn_without_mm+0xa/0x12, CPU#2: vmx_shadow_vmcs/5299
+  Call Trace:
+   kvm_write_guest_offset_cached.cold+0xa/0xf
+   __nested_vmx_vmexit+0x1974/0x3fd0
+   nested_vmx_free_vcpu+0xb3/0xd0
+   vmx_vcpu_free+0x96/0x350
+   kvm_arch_vcpu_destroy+0x15c/0x400
+   kvm_destroy_vcpus+0x270/0x3f0
+   kvm_arch_destroy_vm+0xc7/0x230
+   kvm_put_kvm+0x560/0xbf0
+   kvm_vm_release+0x3c/0x50
+   __fput+0x3f8/0xb50
+   fput_close_sync+0x113/0x250
+   filp_close_sync+0x75/0xa0
+   put_files_struct+0x201/0x390
+   exit_files+0x97/0xd0
+   do_exit+0x872/0x2a00
+   do_group_exit+0xd5/0x2a0
+   __x64_sys_exit_group+0x3c/0x50
+
+== Testing ==
+
+Build-tested on x86_64 and arm64. Verified that the KVM reproducer hits
+the new WARN, and that the BPF reproducer hits it without patch 3.
+
+I'm also fuzzing this series with syzkaller on x86_64 (syzbot's
+upstream KASAN config, nested VMX enabled), so far for about a day and
+a half. syzkaller hasn't triggered the new warning yet, i.e. it hasn't
+found any other path that accesses user memory without an mm. Fuzzing
+is ongoing, and I'll report anything it finds in reply to this RFC.
+
+Please let me know what you think. Thank you!
+
+[1] https://lore.kernel.org/kvm/20261001202234.3794060-1-seanjc@google.com
+[2] https://lore.kernel.org/kvm/aqMBidJ_96qroogH@google.com/
+[3] https://lore.kernel.org/kvm/20260911191011.528460-1-jmattson@google.com/
+
+James Houghton (10):
+  scsi: bsg: Don't copy sense data to user memory when canceled
+  btrfs: Don't copy encoded read data to user memory when canceled
+  bpf: Fail sleepable user copy helpers when current->mm is NULL
+  stacktrace: Don't unwind the user stack without an mm
+  perf/core: Don't unwind the user stack without an mm
+  uaccess: Refuse and warn on user copies when current->mm is NULL
+  uaccess: Fail user nofault helpers quietly when current->mm is NULL
+  uaccess: Refuse and warn on __copy_from_user_inatomic() without an mm
+  uaccess: Refuse and warn on more user accesses without an mm
+  uaccess: Move the NULL mm warning out of line
+
+ drivers/scsi/scsi_bsg.c   | 10 +++++++-
+ fs/btrfs/ioctl.c          | 10 ++++++++
+ include/linux/uaccess.h   | 50 +++++++++++++++++++++++++++++++++++----
+ kernel/bpf/helpers.c      | 11 +++++++--
+ kernel/events/callchain.c | 12 ++++++----
+ kernel/stacktrace.c       |  8 +++++--
+ kernel/trace/bpf_trace.c  |  4 ++++
+ lib/iov_iter.c            | 12 ++++++++--
+ lib/strncpy_from_user.c   |  2 +-
+ lib/strnlen_user.c        |  3 +++
+ lib/usercopy.c            |  9 +++++++
+ mm/maccess.c              | 17 +++++++++++++
+ 12 files changed, 131 insertions(+), 17 deletions(-)
+
+
+base-commit: 2a08195e4db5aba84600db6518089a1dbe2d04c7
 -- 
 2.56.0.307.g5fe7bd680c-goog
 
