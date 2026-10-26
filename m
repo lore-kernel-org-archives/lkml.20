@@ -1,97 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792991955;
-	b=3EBbKqN6Z/Md4KPgsoQaT6y2eSz4pdD/qkVRHwujRpv5+zkg888qg9I965AXgvgYHxKm
-	 cQs7XsFoAJ4irJvybmVpAXX0FWxTunR8ylpGEwjRodDjPXrBeyxOMl+Qp8i1DsGzrCgZ6
-	 opC5ZgF2l49DTLp68PC9yql3t/dx/dZeA8I94JPUc0S2HPu2pRC4DA6N9ObnRCNxucPIL
-	 et9yfKGcYAAwRmbfwiAVD2IUv0+s54KGrSygIkdcgkcHNSAu+uFYHnjpmIR9T2oDTHhvZ
-	 DfmKzMi8pxNsITcaNJqNO8oN85YngZOrKjPlzlQ54Q1EEMVsufAnu4k1vZnES4DfXfg==
+	t=1792991972;
+	b=MB6k/OMl0jC1tkZRzuGObJmJfg3pngxy4NshvMikkt8Riy/3K4f6vZj2ow/GX/3CUcHo
+	 gFUKTXwCnGRd1u8z5jwUyNHGGmUesE+Jp4W6RVAVohhIZJCDRGMCguiyArqvtd6j94Wi+
+	 xr9LEQm1DisB+GC9L2netVMoX/db5UaL6U3OrlW+g6algDeD+MdOkdyoh83TVZwfTttL+
+	 ZfbvNe6h+i4u9plnG0zoABcF0GoC404XNCvjT+swf//jhsPLHP4K0/LDa524/jJosMGWt
+	 qAJ83SOW0oZ7QUc96Iq7Aa/URcXHM/0LzsrBdPzfOFRRyrfsREPH1GLiTTD5i9hT6Yg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792991955;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=GR1SJvSKmvxCr2BjcQJzd+vqvhW2VA+xloz7HS/XgAs=;
-	b=vCGqcldVJWw9ibVsBHsFv6beX+7vvsJgXWL/LGZw52gYm7MkznMPb+cvdcpvMMkl+8js
-	 Otp+dTmRdDpGtwxRLNvpZVXwLThlnyr6Cpn+Q++cyK3N1z2qsuRWiZn/VGPmtS+INCB4t
-	 mCcMHHlU7RRy5IuCYwAKKY+zI0rXBKNASC62aHo+9XtrvHW7yEKUKKQjQ9AYJXXrImmI/
-	 o0Y2sguYpsXDn6kqbgU4OwvaHlHk/RybjYjgMLd3oIJM8waAEWXl86S+40PEdhgNNuTuP
-	 WrJ+8orwmVmnmJXa2UH2uD+ELbO6NIY86bnzvD7lk8Ta3zTv2NoMEk7m+fmtiaWbmmw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792991972;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=OHOM8Cu7CdWrDvbIao5t5J+yLFREYpGZJ+T5gds31o0=;
+	b=G2YR9COoE/uSdsSdtBRQnGMSLswADtdUVdXXYLVtaMDb8wg8HqPZemkoFfMn0tONw9dl
+	 Rhobzp8+h5RpDv40D5u/zFu9GZmrhVr8zGFAU5SDEV5wIbga46qcZCGlnRQ+45kXgkXpE
+	 jJM8wpVfscoMDPXI30SUujP1HLQHXDuMDkAvcoJI3NlWjRrh/IU1/p4B8kHgHFeSbU5OF
+	 h3ZlI9WeehxNTIBOXgFQcW3xD4ZBrMNdda28b0GBTWC7VnWoKjIzH4XBvUzg6s6QhWUWl
+	 CDUCfsJYiwopz/cxZBItWWIBBWdn3ThCm9+xtLBD/SxjC7LELCjQD2qoKCSV9Z+5LBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=kl88xs12;
-	arc=none smtp.remote-ip=209.85.221.48
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=FAvxXeJT;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=TpzJx7Fn;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFC16606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 05:19:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFC16606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CF68606A31D
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 05:19:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5CF68606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=kl88xs12
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48df0fa43c5so1546856f8f.0
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 22:19:14 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=FAvxXeJT;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=TpzJx7Fn
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69Q4avCD2727085
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 05:19:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	OHOM8Cu7CdWrDvbIao5t5J+yLFREYpGZJ+T5gds31o0=; b=FAvxXeJTkmgLobHK
+	V4DG018BE55SPh9JT+LXRr7nDfgVUxBpmnWfGGp4aHj6y+aYGPsi2X6stGLf0yTn
+	J0ifJiZ+MuQxO+nlb88zJgKtjp8UvS+NeGZwn2Yxtwjj9RPuC2SlbYKzV/sfZzNz
+	U+vPwS2UaLNaze6Ufmpi9E5CLd/lHma+QLwagSAS+P5tqSYP7CBzrRnaGVBIWPZj
+	qZHdzKJa/yrNT8CRQvhd1nijXRfjpGdo7/D1ku/DoaGB8p17044GoYlGEZfOCee8
+	kNS79AqL8IM+Zs9ipz5sdWlHz2R6S/N55EwSGOkkZI8nK611ty3NGEAecaanVDGr
+	P0IFzg==
+Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hgkp6myub-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 05:19:31 +0000 (GMT)
+Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-169846a19aaso3614698c88.0
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 22:19:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792991953; x=1793596753; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1792991970; x=1793596770; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=GR1SJvSKmvxCr2BjcQJzd+vqvhW2VA+xloz7HS/XgAs=;
-        b=kl88xs12a4DUn4RWwpvSIEj9DqMyCBJuuTbiJsXrpo4LqeUWra3r6jxSNY77+hi+pH
-         FC7WgVXm2uLm3iBRhJYyIztvONqSdTTJ7O0nMHc/Oab19AZGZi8jW0P/1oXKTNU6AfGW
-         wBHqmmajV9PNZsB4tOogGUqXSL7ZO3LpqtXCxU1MR2muPjhBotIEwv26VVMIPj0MZJWz
-         Kq8x110PyZj99fCIozOeXbuKCze4BMv6srieDTYZcdG8VLegA1Yo+/59OWaP56c/stFp
-         fuXfOmqyySum8NxvFQiO1BQxREmRmqex/OA1a3NAnjmiZ/OyeZ0RZHNf4MFzVGVVHBr1
-         uMIA==
+        bh=OHOM8Cu7CdWrDvbIao5t5J+yLFREYpGZJ+T5gds31o0=;
+        b=TpzJx7FnVHuZldFTkR2JGkcpiAO5ue0fPzgO+UuGlUZ3c5IOogd4iI+sxzeWfhmeiP
+         7NqAp8pyEqQBSSMs0SFEirICLeMOMFBGG/wjehNH4RNcJElNKgddbamNDKAVQzYgbtkX
+         G3AWpTZgSfIca3Sd32+6RzYg0+XR0+g1FVdLMbtwXPN5WLEV5CZ9s+IrOyQkFnum3W7c
+         Gwa7jPvdS30GWgtSEIQ5cG8KVJMudLjtqAmCdhkEuq318UUCdYPk8vB0Evw2/fQNCuav
+         JFbpb6vmXTTnCDazWM4DlVNAIMhGIaod7mtHIPSs2ABkcR+QydJE9F5GqJ8B//Oa4LaB
+         a2lg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792991953; x=1793596753;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=GR1SJvSKmvxCr2BjcQJzd+vqvhW2VA+xloz7HS/XgAs=;
-        b=sHaxHwcSX2g/oi5ldP5FyewAaFQ+QQ2DV1MW7uOLpm5clNmqDJZzqCDKBmMfZXaKzB
-         tLkPqk34ymcPOMJJp/LdCdPNhVbE79UoT+A1PM2YdNwrTpgSdB5l0fUzaeUeLKV6v77m
-         tWpOENYKg7P3/BV3mKuZ/fURMoWPuPnA0sScvewK5efB3hkeHpReB8W09rp3jph5HVJH
-         vG6l63iNDzX6rjpYV/xZ04hn8yz5nc6elgwcQPTH7mMFK0EMWc0F5yjy4lGqKkI7iity
-         TUyocrPcxRVYIJfrF1mYUZXOavx4wcyHwFV5cRE87hyt87qEihkrXvCJcE95Z4luObBH
-         bV2w==
-X-Forwarded-Encrypted: i=1; AKwUvBz9sHmnbmXRrKeuD+4JMao5B/6tybelA3GV+cHcAmXTN5Dyh789dIJhe8q+YzA7qjVgZYbpRuTP74U9/J8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK9TPhQSZTuKlz1A6LLZzg9zvaaitD5nit2KHHxJBosjYEJMrzP
-	ZBtOuqRZR8cs/ZtR8Di6cgvDJWa0wjxAk+fQU3MpO4GG4L9RkJYHPHom
-X-Gm-Gg: AYBFou36/JSmKNzuRzDdlMkMo+EpCYliYRT7LQkHcD0cJnrFFm4yR4ymCEdXDP3/FLY
-	O+zWBNyVjaGhn8Hrt+SxMNOpnjV81q+kqEt3OZpwdPL93VvxQQZxN7PSJROM0cOPkbl0Bj8wCfO
-	5m5OKpQCuN7dfz+ySF7c8oopYuA2T0QLZD3yAULpAm+S+UeDu7AISGmZDHHye1ns2zQ/Pr0DojB
-	D2kduhHu25m5UhI41hbV011wUcQeIpxO0DCjTeA/J83ecADR58oQfGxbe4ts5hHlZ9/iZ/qmUyv
-	cmh76re5Q3SF4qRbLcI1poupW/eunC6oPgX/YLizXqP0TTXZg4WXxMvYZDtfjYUJbAeOzil/b6c
-	VmAMOEYOEuFCy1H7sp6RSd3cuo1QbEVK49KUrgpBtxE3E+eYnGBfNjMXXqlTeY4e/cubV3zRlHQ
-	X1O4PmgoiOUoTh8vne9kQR16chjcTGXu49ezmoSpKYWmH1h92INFuXLgDD3htYgR2ru1GRZ1IxH
-	5aQEU9yn2K7PSx3ZWqY6CharegTQ1tWGv3dAZB0D1xaQy/yL2/pWCesTm+aUfNpWNOQxx+bsEIs
-	UWLzxFq0HWeXRkKoI1qG48MSL3zlc0+hwA==
-X-Received: by 2002:a05:6000:2992:20b0:48c:7f94:8755 with SMTP id ffacd0b85a97d-48e3ed3b79fmr6670550f8f.20.1792991953028;
-        Sun, 25 Oct 2026 22:19:13 -0700 (PDT)
-Received: from fedora ([131.123.42.30])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3eb8f387sm13667258f8f.4.2026.10.25.22.19.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 22:19:12 -0700 (PDT)
-From: Muhammad Bilal <meatuni001@gmail.com>
-To: jorge.lopez2@hp.com,
-	hansg@kernel.org,
-	ilpo.jarvinen@linux.intel.com
-Cc: andriy.shevchenko@linux.intel.com,
-	linux@weissschuh.net,
-	platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	meatuni001@gmail.com
-Subject: [PATCH v8] platform/x86: hp-bioscfg: fix heap OOB in hp_enforce_single_line_input()
-Date: Mon, 26 Oct 2026 10:17:40 +0500
-Message-ID: <20261026051740.88791-1-meatuni001@gmail.com>
-X-Mailer: git-send-email 2.56.0
+        d=1e100.net; s=20260707; t=1792991970; x=1793596770;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OHOM8Cu7CdWrDvbIao5t5J+yLFREYpGZJ+T5gds31o0=;
+        b=HCcjL5FYFxdW84wL3ZCw4iK0W0rkylj7WThDyxXHXB1f3Cw4vnzFIKZpZe1z1Fiiko
+         vsUoFT/UkdEnayunzijtZkNgQMn+mLaKgYIDjyVXCa9Im7AxKa1zXRAw1igDxUpFqiLo
+         8E3Bwj+FDighCcP2nm4sFVsPj9asDvibcdHZLo3mEvznxUfOyRqTEWsrZ4RA4a226gSp
+         75td+R89cf/4p5gzFLFOJeREBcTJyO83D1PTnWNiFZ+1JsH3kftahRI6g5zOlQ5pIJST
+         c3mMbVXNfOpjR5b/otKnt2hhTSy0byx3IOFUvN8FeOuCP2ydGlk9nnUUnmjP8yEZ605C
+         5abg==
+X-Forwarded-Encrypted: i=1; AKwUvBxf6vmwMG2OBasbjb/cuhSkpjX5ehVX9qbmxUQMPIvtRSJZKGVfuVEWeKXKU3sxAI5qdCu0dHXOK1o+EI8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIL8ZfGNP4cbDlKGU+VRZdIEJqArQcohQFG3R2YXEX5xeRVIaqd
+	6+wL72QXrkQ/FBF4GAtLfVcTEtOF6YC9PLHqDMl7XpmZkRChYApvhIopL5ii51g8RFF3g1M3NkL
+	1J2DFEw0rWv6Un5mExjBq1S/ExPmC2JN/mTELJHzQ9SEzHiD5cWXptNQ6oK5EELuRygo=
+X-Gm-Gg: AYBFou0GuyzQNyQ2PBDHzg9VhBSYJuQymXXzK6BTirFk2OdslcjEK6Wgv1nNKAx6kg7
+	sqXIWWGwLblOu/aiR1SH4q/Uy3hgJuFWfiXLWnXHAkqvmHuhkoE/QGXQIOfHum/+G9GtGoEaDdP
+	Fp8k77zSRls/UyQDek3DsGrvKWu8Flr0dt7lRe/7sn/bc7L5nQvFdGScbj+ZvXwCwSLh5Jv3PgU
+	X/1h+ZiWAtL0dB96gfSvrJZyZimO1qz5DiyKgNCcUg1MakhCI8VEqea+0i44Q7uDiDZH/9FoUOM
+	Apm5rmS0T5pX8hN8gURXsJjmZqmBAdJatUSWweIEsnLg20vjfllleIItGeL63Qt3BWRiUmFIGW4
+	NwlbT36OpTH9NYIXkthqeE2h+PV13
+X-Received: by 2002:a05:701a:ca0b:b0:17d:7b45:f91f with SMTP id a92af1059eb24-1993580fcd2mr9596163c88.32.1792991969819;
+        Sun, 25 Oct 2026 22:19:29 -0700 (PDT)
+X-Received: by 2002:a05:701a:ca0b:b0:17d:7b45:f91f with SMTP id a92af1059eb24-1993580fcd2mr9596126c88.32.1792991969030;
+        Sun, 25 Oct 2026 22:19:29 -0700 (PDT)
+Received: from [10.218.7.34] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a249c331sm45504857c88.17.2026.10.25.22.19.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 25 Oct 2026 22:19:28 -0700 (PDT)
+Message-ID: <9d247a5d-5afe-4b57-997f-b6edf6d0a3fa@oss.qualcomm.com>
+Date: Mon, 26 Oct 2026 10:49:21 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,66 +115,128 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 4/6] arm64: dts: qcom: glymur-crd: Add PM8010 camera
+ PMIC
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Suresh Vankadara <svankada@qti.qualcomm.com>,
+        Vikram Sharma <vikram.sharma@oss.qualcomm.com>
+References: <20261015-glymur_camss_dts-v2-0-e7b1f403146f@oss.qualcomm.com>
+ <20261015-glymur_camss_dts-v2-4-e7b1f403146f@oss.qualcomm.com>
+ <f9de345f-ae9a-450c-bd49-3598fcfe3137@oss.qualcomm.com>
+Content-Language: en-US
+From: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
+In-Reply-To: <f9de345f-ae9a-450c-bd49-3598fcfe3137@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: hpYvUED4Ijr9m50d0y4tkNHjNS5Kp_RU
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDAyMCBTYWx0ZWRfX1MOyEPM2z+7B
+ CLYU09CC8l6UeqF0A3fGglGLKk3z57Rxv90z2rn4o5N7/Z+6vARq93Yk2p68zgMoKXs8Pc8xQwJ
+ Saaw49bt85NCzTprq+iuaI1+4TBdvZs=
+X-Proofpoint-GUID: hpYvUED4Ijr9m50d0y4tkNHjNS5Kp_RU
+X-Authority-Analysis: v=2.4 cv=bq/Zl0ai c=1 sm=1 tr=0 ts=6adee2e3 cx=c_pps
+ a=kVLUcbK0zfr7ocalXnG1qA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=IRdjy-4fp-2gG-jZbTAA:9 a=QEXdDO2ut3YA:10
+ a=vr4QvYf-bLy2KjpDp97w:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDAyMCBTYWx0ZWRfX7/mHJ2DuA9Fz
+ N1r86wYAFHlB0uinmXN3BI5PvBo0CZQfdXhNr5WuKyYCAePYiOOHkAHeOPDyH7IEGpJmYjGel5W
+ Hy21xq3wHw+pbWOJbsW0RSffDzBWsLypPdjsmSHyfKzshh3W+B2o8k/QI+Me6LdrEIGRsrQaxXe
+ bRWGRDwXy32/gq/BBRbn4ggUjT0XhzCzVgHcL+epB2lE99f5ae8/nVU5zifP91tzbGWa0lCSx1k
+ YIN9+3ddyLHh3Sb5gfuGxeJ4R18SHwq6TGw1u5yebwWZqXh/p8udj0MDF4fxztPtICjTYBeGWkB
+ Dllg1rnkCF56mC563qi3Re/5uWiDvhxchcJlBadx71DGtfgQYJxLhGl0JkjKYvb2sFsqO/UOF5e
+ 3OZWUujMgrfeH4uC+eWhRABVMWSturOJLKqN1VWg4CGtH6+LvVsNJMn/GpZWWhOyCxpWh0EKcxy
+ 8y06HRjw41d4QxWTbMQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-26_01,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 malwarescore=0 bulkscore=0 impostorscore=0 spamscore=0
+ suspectscore=0 clxscore=1015 lowpriorityscore=0 priorityscore=1501
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610260020
 
-The input is copied with kstrdup(), which stops at the first NUL, but
-the full write size is passed to hp_enforce_single_line_input(). With
-an embedded NUL the helper reads, and can write one byte, past the
-copy. Use strnchrnul() so the scan stops at the first NUL, and return
--EINVAL for a NUL or newline before the last byte.
+Hi Konrad,
 
-Tested on HP EliteBook 840 G2 (Fedora 44, Linux 7.2.8): writing "A\0"
-followed by 4093 bytes of "B" to current_password 100 times returns
--EINVAL every time, without reading into the heap.
+On 10/19/2026 5:38 PM, Konrad Dybcio wrote:
+> On 10/15/26 12:52 PM, Nihal Kumar Gupta wrote:
+>> From: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
+>>
+>> Add the PM8010 PMIC node with seven LDO regulators and pinctrl
+>> configuration for reset pin. The LDOs are needed to power the
+>> camera sensors and associated hardware.
+> 
+> [...]
+> 
+>> +	pm8010: pmic@8 {
+>> +		compatible = "qcom,pm8010-i2c";
+>> +		reg = <0x8>;
+>> +
+>> +		reset-gpios = <&tlmm 106 GPIO_ACTIVE_LOW>;
+>> +
+>> +		vdd-l1-l2-supply = <&vreg_l6p>;
+>> +		vdd-l3-l4-supply = <&vreg_bob1_e0>;
+>> +		vdd-l5-supply = <&vreg_bob1_e0>;
+>> +		vdd-l6-supply = <&vreg_bob1_e0>;
+>> +		vdd-l7-supply = <&vreg_bob1_e0>;
+>> +
+>> +		pinctrl-names = "default";
+>> +		pinctrl-0 = <&pm8010_default>;
+> 
+> property-n
+> property-names
+> 
+> in this order, please
+> 
+> [...]
+> 
+>> +		regulators {
+>> +			vreg_l1p: ldo1 {
+>> +				regulator-name = "vreg_l1p";
+>> +				regulator-min-microvolt = <1200000>;
+>> +				regulator-max-microvolt = <1200000>;
+>> +			};
+> 
+> Shouldn't this be 1.104 V?
 
-Fixes: a34fc329b189 ("platform/x86: hp-bioscfg: bioscfg")
-Cc: stable@vger.kernel.org
-Suggested-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Suggested-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
----
-Changes in v8:
- - Restore the comments dropped in v7 (Andy)
+Yes, you're right, I checked again and I see L1P and L2P should
+both be updated to this.
 
-Changes in v7:
- - Use strnchrnul() instead of a separate NUL check (Andy)
- - Drop the trailing comments
+I'll address this and your other comments in the next patch version.
 
-Changes in v6:
- - Return -EINVAL on embedded NUL instead of limiting the scan (Ilpo)
+Thanks,
+Jishnu
 
-Changes in v5:
- - Limit the scan to the string instead of copying the input past its
-   first NUL (Ilpo)
-
-v7: https://lore.kernel.org/all/20261024172641.19424-1-meatuni001@gmail.com/
-v6: https://lore.kernel.org/all/20261016025352.230535-1-meatuni001@gmail.com/
-v5: https://lore.kernel.org/all/20261007134711.473857-1-meatuni001@gmail.com/
-
- drivers/platform/x86/hp/hp-bioscfg/bioscfg.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c b/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
-index 876fc35d035b..435639e19c59 100644
---- a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
-+++ b/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
-@@ -162,11 +162,11 @@ int hp_enforce_single_line_input(char *buf, size_t count)
- {
- 	char *p;
- 
--	p = memchr(buf, '\n', count);
-+	p = strnchrnul(buf, count, '\n');
- 
- 	if (p == buf + count - 1)
- 		*p = '\0'; /* strip trailing newline */
--	else if (p)
-+	else if (p < buf + count - 1)
- 		return -EINVAL;  /* enforce single line input */
- 
- 	return 0;
-
-base-commit: 8667bd30fd033295b3038ce374c551d1059538ba
--- 
-2.56.0
+> 
+> 
+> [...]
+>  > +	pm8010_default: pm8010-default-state {
+>> +		reset-n-pins {
+> 
+> Drop this inner node and put the properties directly under pm8010_default
+> 
+> Konrad
+> 
+>> +			pins = "gpio106";
+>> +			function = "gpio";
+>> +			drive-strength = <2>;
+>> +			bias-disable;
+>> +		};
+>> +	};
+>> +
+>>  	sdc2_card_det_n: sd-card-det-n-state {
+>>  		pins = "gpio221";
+>>  		function = "gpio";
+>>
 
