@@ -1,60 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793057639;
-	b=miMDahqawaiJyFsJPv4gf2goUwvhu7NX+oMNkNmSeaLERf08nly6gdq07IbNLZ5vFseb
-	 Q29BgNcASsaPi9VIqbuf/So89HBERbJWC7aP+ZESe9uT2X2P64YjpoT9p1eppWMmdiZaE
-	 dUoYFDB04+ZDEXu8PYA5B2rzU7ih8fRZrXKgBGeO7FqFPxbagjJpZA9NhP8y5sRQEhFBv
-	 FNN0KH/HXoHqfK92KGQnDqdDxl3WA2DBBDB9LW3agJ3/KeJj1muvHUdkX2rCQjhvzD91x
-	 ZmZg7vbs0PuibkPnvo2LlAzmqxL4IFr6W+b4r39O3VsxG3fh+dZdlwhId1ZQcGyIi3A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793057639;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=daP6GwsRM9DByuR5xTLfMIYYnF/wV/XvrTIz+Eg7eJ0=;
-	b=wpFcIBEiP4pWELiIVlAPZX8m9nyCQTzohPghJryUq3KbM858Z1UH/prLm8Ea7wEYa43n
-	 LGuyRUAQCgKw3eYqU21AKVxeEb17g+ddtk6we8klpErnY4MbrYDbietvzOKuNvB6tbEt4
-	 NNJGIvky+FzEVoYXnP5ZPKY7p4aRJTUgRhEGpZ3FTCsEatjiQnCc1eNfVgMKzkntjZTwt
-	 DIp0aNE0UKMnwDU5irnm6j1IbYG6Ygb6qPOrDCoi38kzHp/MKMo7xK5nAU8PfCr6EAmu2
-	 Oo60gZD9q2wGRHB3I5JCUFULbv7K4IkmUjX9BCnuGQ3iP1Ica0XHQl560AdX78HTR5g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HDUN4QUB;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793057695;
+	b=kLQdwBrZdeRE6VSyvt4Bl/xe+McTcUqIoHm4tRdBdfM7q+GWqJrHmtGs2H3RPBUOqKCa
+	 RmId34MMSSXVGm0EHUo2GWISYVxkEVcROeszy9IPFFfWSqH99p+OA8ICQPJnyMbQRZlI8
+	 H7jvbrihbuCLEdwJLcK2ZGtXbNfYMsIGfNDb1E7mD7YBqIOSbDZWHgu6VUUyEIOo3947I
+	 wV4N/oFDh5NuO7zUOl8X4pQIGxA11dLixgBWAqtw/faW2WKJt5034dFull6Pqoi+qfE4r
+	 5vcS7ycEzzidm0fn4Y6L1r7yzK+mU9w5ZKZpVbnDXUGRzHfIyAKEDrziurQflD+GrZQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793057695;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=MeqapdHk4YD2xGr4hOW9N3bcaYW9GCT1w2/RAdnybrA=;
+	b=FUOxnjYcv7NwIPew6mpOJvvoyp5RXkn31xY1NwjfyDnzajevSNOiBZ2CphXWVQvxJJIc
+	 eSYKcVvAfMCisZGBR1ir92Z3Y0y8WZOVMRrw98RUyUEW5Waa/dMXgoRTPaI+qiAQrphnu
+	 m6IkgOMSD5d81p3CfTXZ6uHNdtLYMqxt7iRzjiIanU4RGcaaedhFVsNRhcYFu4XXxUddt
+	 ENaif/VcsJ+kyBNMZ0AZIJNgx7us6FY8CNrd27DowiGPbG+NQ7ufKyKbeC3h2PW9yPNpQ
+	 bL/Q/dOSajFD5a2u2Qf/naVHt86z0YOfVZXTIzp4zvxXNcOV6fYonCxa+TleOPPO2Fw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IP2i7VFL;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01CAE606A31D;
-	Mon, 26 Oct 2026 23:33:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E101606A31B;
+	Mon, 26 Oct 2026 23:34:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HDUN4QUB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72B891F01825;
-	Mon, 26 Oct 2026 23:33:58 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IP2i7VFL
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793057693;
+	b=NTDZQwH/P4C6LVlwc9q+Dd6LSvjz4QGy71Djm1/OlbqQQBzRVoswY6gs1s9Zc/w8afIT
+	 d0fp1VgWwZMF74xNt5BcFqMROLTJnsrL7Zf6tJaTOxkBFCEl4tYHr91DxqMug83bn/472
+	 rIX3ntxRMwwzF/rt44kLBKzkdf5DrXQOHa2z6x8MxVvpr5N5GwSAE5WJzXbcjMEwIredK
+	 fjsnUI/33vEJ7uujfkzMU/sLAnWsSx4SCK+Q9Zarl0Wtv0TObE9ctaObZfrmmGrrEBbN7
+	 apPIuCntn+h4fbkGe24lmbMFLln2o/lBTDMSua9d0YtRGn6iH6YMDPrD1uytfuRSUrw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793057693;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=MeqapdHk4YD2xGr4hOW9N3bcaYW9GCT1w2/RAdnybrA=;
+	b=moBaQ/X1VNqpDp4UC3rj2/BD9QVWy7LDJ2T14H6uQGCZaMlU+SA27pcOiq0AU083rQuN
+	 IZGIB3rD3oCbRoCrvDR1DRXP/sOD2IU8pSCDXN2aCosvvo2wMxVMXtF+iTFeJPobkZVS4
+	 AGncmpI973mIT5hQCcacaXyFDFozT8WKTRbXPMDRnwbt4FZr75ubeOaazJxu3DzZiA+1w
+	 FrVq57/G155+WzczEF6VE9fGqaNTLes6eNadF00fKrNzOrlL6Q68a/E63GBla+5DbYeKS
+	 bYafvti2dcVUETLTBnIIUZ+cRL2GwmLzYyd9+6mpJseKDDfmkVvQnE9ncod/DF7njWw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 588F71F01828;
+	Mon, 26 Oct 2026 23:34:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793057638;
-	bh=daP6GwsRM9DByuR5xTLfMIYYnF/wV/XvrTIz+Eg7eJ0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=HDUN4QUBXLiS13EHvgIM04q1mhOpLKbV0FZqTXhXVZTtqZZM0Z6Y7e43kXv2xSWGQ
-	 etxWIv+D8AwDnDJBH9llN3Sb/ntvEOhPNqU/GtVRgm2j0GSlEQczvQ01vFG4scoPB7
-	 brgq8QA08G7L1miCBwje1eJe8aZh+T8Lbm1rIBVgWJqJhU0fcwgbSFSPIN0iNZxEk0
-	 vaf4sFyo3rWJ8kRmAO/RLyTkYy3XPzCqc1cCADSMUtm86kwrQM6X/XLu/5iFSwpvr5
-	 0oSeQ7uZv8cfaI8JzhZWf6ebnZdKK2vDWgBOqUHmWKhNa6ZCLAbxgTXZeUWNXCnbRF
-	 NZgriV7l3SRtw==
-Date: Mon, 26 Oct 2026 16:33:57 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, davem@davemloft.net, Eric Dumazet
- <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
- <horms@kernel.org>, Russell King <linux@armlinux.org.uk>, Kuniyuki Iwashima
- <kuniyu@google.com>, Stanislav Fomichev <sdf.kernel@gmail.com>,
- thomas.petazzoni@bootlin.com, Alexis =?UTF-8?B?TG90aG9yw6k=?=
- <alexis.lothore@bootlin.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v3] net: Use a dedicated flag to track disabled napi
- instances
-Message-ID: <20261026163357.5d1bdb29@kernel.org>
-In-Reply-To: <20261022075757.1164283-1-maxime.chevallier@bootlin.com>
-References: <20261022075757.1164283-1-maxime.chevallier@bootlin.com>
+	s=k20260515; t=1793057693;
+	bh=MeqapdHk4YD2xGr4hOW9N3bcaYW9GCT1w2/RAdnybrA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=IP2i7VFLrRsu8j7FKFMYfW/oAOcR7n43sjyaXJWJfrVe1YNjhKEUb68HEg8oWg29/
+	 QFRVN+WsESZhqr6ekuLC/JVGZC32547mliJHCszpUq/S7kbXpx1tCpaAsdH+Ly1vLT
+	 jv7Qjw4vRIqckxW3BiMLOmYJRgDvPXGMkMORviTbA0/Q7Rx2NrdFUp0Et8tQH3hxPz
+	 t1PwK/q0ofQuLfSpMhAandIBm6Mi/YG1WaXircQM79cEvSTqR49e6hvcXCCbrRnw9p
+	 0fFK7AXC01wNFMH/9ee6/xAbgAyhLkBZQdcBPpkk1pXkXg940yIM3Ia8+8ZCrCQB/5
+	 Xg7vy8zRAxoVg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id C4A7944EA9;
+	Mon, 26 Oct 2026 23:34:52 +0000 (UTC)
+From: Cristian Filipescu via B4 Relay <devnull+filipescu.cristian.gmail.com@kernel.org>
+Date: Mon, 26 Oct 2026 23:31:00 +0000
+Subject: [PATCH v3 1/2] dt-bindings: arm: sunxi: Add Orange Pi 3 LTS board
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,12 +82,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261026-sunxi-orangepi-3-lts-v3-1-98fef4f75184@gmail.com>
+References: <20261026-sunxi-orangepi-3-lts-v3-0-98fef4f75184@gmail.com>
+In-Reply-To: <20261026-sunxi-orangepi-3-lts-v3-0-98fef4f75184@gmail.com>
+To: linux-sunxi@lists.linux.dev, devicetree@vger.kernel.org, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
+ Samuel Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Andre Przywara <andre.przywara@arm.com>, linux-kernel@vger.kernel.org, 
+ Cristian Filipescu <filipescu.cristian@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793057459; l=1216;
+ i=filipescu.cristian@gmail.com; s=uboot-20261021;
+ h=from:subject:message-id;
+ bh=t1m1y0S3cSpYjFuC+gfshCNEaxwz0B7aj0D0DiamZcc=;
+ b=UFkwKF+LrzoyYlPZx7NGE7L9qOh5eMWicHqcBsCJRMBtxjrifjRp/3azHzu7mWQHF+XUvGXuY
+ GXaxojGsbatD9mB5zS+yKFeD8XkOpQinDmJXSOOchOVErTzKIa5/SR8
+X-Developer-Key: i=filipescu.cristian@gmail.com; a=ed25519;
+ pk=o7Ui0tU3x+X/6Pq6PZHmd2KFtOdPWttoPuNFOvdD8t0=
+X-Endpoint-Received: by B4 Relay for
+ filipescu.cristian@gmail.com/uboot-20261021 with auth_id=1255
+X-Original-From: Cristian Filipescu <filipescu.cristian@gmail.com>
+Reply-To: filipescu.cristian@gmail.com
 
-On Thu, 22 Oct 2026 09:57:57 +0200 Maxime Chevallier wrote:
-> Trying to disable the napi threaded state while the napi instance is
-> disabled will hang forever in napi_stop_kthread(), as it waits for
-> NAPIF_STATE_SCHED_THREADED to clear.
+From: Jernej Skrabec <jernej.skrabec@gmail.com>
 
-does not apply
+The Orange Pi 3 LTS is similar to the Orange Pi 3, with different
+Ethernet and wireless hardware. It includes 2 GiB RAM and 8 GiB eMMC.
+
+Add its board compatible to the Allwinner platform binding.
+
+Link: https://lore.kernel.org/linux-sunxi/20250413134318.66681-2-jernej.skrabec@gmail.com/
+Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Cristian Filipescu <filipescu.cristian@gmail.com>
+---
+ Documentation/devicetree/bindings/arm/sunxi.yaml | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/arm/sunxi.yaml b/Documentation/devicetree/bindings/arm/sunxi.yaml
+index f04db28c6..379dc8591 100644
+--- a/Documentation/devicetree/bindings/arm/sunxi.yaml
++++ b/Documentation/devicetree/bindings/arm/sunxi.yaml
+@@ -1008,6 +1008,11 @@ properties:
+           - const: xunlong,orangepi-3
+           - const: allwinner,sun50i-h6
+ 
++      - description: Xunlong OrangePi 3 LTS
++        items:
++          - const: xunlong,orangepi-3-lts
++          - const: allwinner,sun50i-h6
++
+       - description: Xunlong OrangePi 4A
+         items:
+           - const: xunlong,orangepi-4a
+
+-- 
+2.47.3
+
+
