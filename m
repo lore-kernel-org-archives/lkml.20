@@ -1,57 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793039570;
-	b=fB2fKxFAaP1ETTmywk6BsL3Vy5vbvD1m8aUP9h/b2gVqTddwRYINWXDv1phkUJQB4S28
-	 J2DZNK3wONJINkCcYKNl6s1Ltju0FfunQwL7HZ08XJsAQeP9bKJg+2AIPnXrPHGXeLp5O
-	 reeEY86EBU9t4y4isxI2uhjTWdQFuOWA9n+85jvV2N5m1IByanM234/LAarMIW+DQWcUU
-	 GCQFyG5JguRDr0R+pUPXp+vIJENVrvvwqeFNMHzx8GWiWlk8RtiWwyd6MCFmAEvpimLSt
-	 UzrjIbu4Kcn2CRgFbSEtJNKk0Yhzb0nvunHkMzD1nnS6uJ9cUHi71D0UFFSdmu4z2DA==
+	t=1793039572;
+	b=LjPFlRsU/Kl8oPaEUsLL/znVS5IabN1mpehs1jZRLbhgGlnQ0XHZVu0UH6y2/YmsaXN0
+	 J4uKlkTfiF8Sficekxog/aqcmXzIFPE+wHzFPsSfUV8ZdpBfPMPPkKBAgdIq4GwDy3nJJ
+	 l2PJDlYCWmu8KQHv4PTbw3IyelUnlw6pmzU3zhhR1qKdp9lCd0U+laBL65+QkCq15NLFd
+	 /qROvLMxd5T33lGvms0acoMA8ZVEc6wMtLm9WBR4R8IOQ4jPHF5r39/cR9KXtV6BMOT25
+	 nY1C4UUMXpbR3h3zkjwZql74XXgmszdhgKd30wwNJkLPgZ0Qq6ipoOEUC1aZ4pHX8KA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793039570;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=yBDBfddaUvxfPKX7S3biSebLhWa78wPzWcZi2nvKfc4=;
-	b=10HS5mYOnYtUpY/hqAvb8pTY//BNgGOvIEQvdVebKYR8mSC7cZdCDS2WvDnH8Kq8XrTF
-	 zIJ7h60zI8/wTLiFmtv4XPwLgDaZkpdDWo3+yi+OYkvrJRNo0KTM37CpNLjO586M6f0tG
-	 7fJm/p1ST3fr8cWUAs0l8cgYH3HR+BdIUk9xwAcI4QYsP9i7KUxQ0tQcoiTBHGTqfEvrJ
-	 S79nxdFzxzXqXozP3qcS7x3l+uSrrnHxYvutp89imLctMOQzfg0yJomQ4FC11sFDT83OX
-	 ery+PXlvQHE+9ReeEq0z0HzU7x1bIpGZol2+h+iXXbK6nLYPHy5T22VHczXxPvMuXtQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793039572;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=Y656h6emly7vQtOx07lZuRhTn1i7lVTDjqa7PpKqvx8=;
+	b=pHqO351CqjAemkOwyFMq0ojWqF5HcEQ74siN62EgG0iPIW5HCpiufShZocQLl3sM3fB0
+	 7l1p1jlks86PHCwqMMAZzsSIRpOjLSkiAjhyZpQg8zB5GxzHh5eAo7D/CDh7gneE3iJCD
+	 SaOFrg3Vdy+SMqXfZLpTXlOlIiX69T+Q4tSPqe1WgrRsBQ3WGW4W9McWNy3ljPs03HrR2
+	 78wRar906FTn49b46omKVtM4hbIDnEDeJjKzdSwsrn6+7L0o08/9xThY9/Nm0iXzK7AYM
+	 KilCsx9MxKhVzekwmYdTQ65OBct8RKo30gfIcjbqwHKEr07z91PzQvOYcalwhTIfGBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=JeJjMLC7;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 26836606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 18:32:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26836606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k0Ekg354;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA787606A326;
+	Mon, 26 Oct 2026 18:32:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=JeJjMLC7
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 426D415A1;
-	Mon, 26 Oct 2026 11:32:46 -0700 (PDT)
-Received: from arm.com (RQ4T19M611-7.cambridge.arm.com [10.0.144.47])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 52D0E3F7B4;
-	Mon, 26 Oct 2026 11:32:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793039569; bh=KyOTK+JHmlO+rcDJ12BHciVm13fsPWlRYD/5lfdsduk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=JeJjMLC7Y+Do9bszcjHu+F7V++WE6b4FSUWOc+6miEWnE6wx7ab8VGUpWBKoWZwQd
-	 1VHo2IYXWh1soAcUMux5cYpkxT42ynzJmu7VJOZdoe2F5ukJtWee7fnPC2Wnect0eo
-	 ZTz5Z100eZ85VG8/o7b9PL4ei0CSnJjaYhZ0al+8=
-Date: Mon, 26 Oct 2026 18:32:45 +0000
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Zhao Gongyi <zhaogongyi@bytedance.com>
-Cc: will@kernel.org, mark.rutland@arm.com, oleg@redhat.com,
-	ruanjinjie@huawei.com, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] arm64: ptrace: don't warn on missing siginfo in a
- group-stop
-Message-ID: <at-czRUYRPRxi9dy@arm.com>
-References: <20261023110710.10145-1-zhaogongyi@bytedance.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k0Ekg354
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 410C71F01825;
+	Mon, 26 Oct 2026 18:32:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793039571;
+	bh=Y656h6emly7vQtOx07lZuRhTn1i7lVTDjqa7PpKqvx8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=k0Ekg354iaJT6YupxoOlPphuD8uLZIHh6yvGX6y5eiJKkP3CpDlxXHxrmx+WMVNGo
+	 AqQzXiYfZjysQfb9/soz9Lg5eCnaDKeMAyxGcYkIznG5+jn6Y/HsYpKczSFfos0AEW
+	 AcCuT/O2qp26rucfEjQjkO25murjqyJDtWsvs8RmDZYDBC1JQ3bRa2h4eW/RAgKots
+	 VIA/U0mo61RYJNx+ie0Jjoj8w0THxCAuPESWlCAmZCKuV5nFepDpGoz0WH0vMKYODl
+	 8rnN0AUOIm/XML9X2IXfwRYZLJxvMI3n5sjIgjnkW25uwQ0fkYw9woURAPGTBql9/X
+	 DplKslTuXs0rQ==
+Date: Mon, 26 Oct 2026 13:32:50 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Nicolas Chauvet <kwizart@gmail.com>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>, linux-pci@vger.kernel.org,
+	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] PCI: quirks: Skip nv_msi_ht_cap_quirk when host bridge
+ 00:00.0 is absent
+Message-ID: <20261026183250.GA332821@bhelgaas>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,65 +60,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261023110710.10145-1-zhaogongyi@bytedance.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CABr+WTnD8RXfth=MT562uPT5qn6VefvcF0CbEn+Ye++nFRji3A@mail.gmail.com>
 
-On Fri, Oct 23, 2026 at 07:07:10PM +0800, Zhao Gongyi wrote:
-> PTRACE_ATTACH to a group-stopped child can enter do_jobctl_trap(),
-> which calls ptrace_stop() without siginfo. If the tracer writes
-> NT_ARM_SYSTEM_CALL, system_call_set() can change syscallno from
-> NO_SYSCALL before calling update_syscall_orig_x0_after_ptrace(). The
-> WARN_ON_ONCE(!info) then fires, although this is a valid ptrace stop.
+On Sat, Oct 24, 2026 at 07:52:02PM +0200, Nicolas Chauvet wrote:
+> Le sam. 24 oct. 2026 à 19:25, Karl Mehltretter
+> <kmehltretter@gmail.com> a écrit :
+> >
+> > __nv_msi_ht_cap_quirk() runs on all PCI_VENDOR_ID_NVIDIA devices to
+> > enable or disable HyperTransport MSI mapping relative to a host bridge
+> > at bus 0, slot 0, function 0.
+> >
+> > On NVIDIA Tegra SoCs (such as Tegra210 on Jetson Nano), the PCIe
+> > controller exposes root ports at 00:01.0 and 00:02.0 with no device at
+> > 00:00.0, and the root port's HT MSI mapping capability is already
+> > disabled (found == 1). Looking up 00:00.0 returns NULL and logs a
+> > false-positive warning on every boot:
+> >
+> >   pci 0000:00:02.0: nv_msi_ht_cap_quirk didn't locate host bridge
+> >
+> > Return silently when no 00:00.0 device exists on the domain, matching
+> > nv_ht_enable_msi_mapping().
+> >
+> > Assisted-by: LLM
+> > Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+> > ---
+> > Observed on a Jetson Nano 4GB (Tegra210, p3450-0000) booting v7.3
+> > (c03c1a14507d), where the Tegra PCIe controller (1003000.pcie)
+> > enumerates the active root port at 0000:00:02.0 ([10de:0faf]) with no
+> > 0000:00:00.0 device on bus 00:
+> >
+> >   pci 0000:00:02.0: [10de:0faf] type 01 class 0x060400 PCIe Root Port
+> >   pci 0000:00:02.0: nv_msi_ht_cap_quirk didn't locate host bridge
 > 
-> Remove the warning and guard the syscall-exit-stop check against a
-> missing siginfo. Keep recognizing both SIGTRAP and SIGTRAP | 0x80:
-> syscall-exit-stops use either value depending on whether the tracer
-> enabled PTRACE_O_TRACESYSGOOD. With no siginfo, allow the final
-> assignment to synchronize orig_x0 from x0.
-> 
-> Fixes: 88b839ce497c ("arm64: ptrace: Keep 'orig_x0' in-sync with x0 on syscall entry")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Zhao Gongyi <zhaogongyi@bytedance.com>
-> ---
-> Changes since v1:
-> - Remove the warning and early return, as suggested by Oleg.
-> - Keep recognizing syscall-exit-stops with or without PTRACE_O_TRACESYSGOOD.
-> 
-> v1: https://lore.kernel.org/r/20261016024536.18938-1-zhaogongyi@bytedance.com
-> 
-> Tested on arm64 KVM at af32da41b032 with this v2 applied.
-> At a group-stop, PTRACE_GETSIGINFO returned -EINVAL and an
-> NT_ARM_SYSTEM_CALL write succeeded. Syscall-entry and seccomp
-> x0 rewrites worked. At syscall-exit-stops, NT_PRSTATUS writes succeeded
-> with and without PTRACE_O_TRACESYSGOOD (si_code 133 and 5,
-> respectively). No kernel warnings occurred.
-> 
->  arch/arm64/kernel/ptrace.c | 6 +-----
->  1 file changed, 1 insertion(+), 5 deletions(-)
-> 
-> diff --git a/arch/arm64/kernel/ptrace.c b/arch/arm64/kernel/ptrace.c
-> index f743cbec1..22fb9eeed 100644
-> --- a/arch/arm64/kernel/ptrace.c
-> +++ b/arch/arm64/kernel/ptrace.c
-> @@ -573,10 +573,6 @@ static void update_syscall_orig_x0_after_ptrace(struct task_struct *target)
->  	if (regs->syscallno == NO_SYSCALL)
->  		return;
->  
-> -	/* We should only be called when target is in a ptrace stop */
-> -	if (WARN_ON_ONCE(!info))
-> -		return;
+> There is this patch that was well tested on the tegra side (but likely
+> less on the older x86 nv cases)
+> https://codeberg.org/libre-tegra/linux/commit/63f7810994f4d2866a27b753ec8d5bc36e84373c
 
-That's a slight semantic change since this function may now update
-orig_x0 even when !info. However, I think it makes more sense as the aim
-of commit 88b839ce497c ("arm64: ptrace: Keep 'orig_x0' in-sync with x0
-on syscall entry") was to update orig_x0 in all cases other than
-syscall-exit-stop. We can't have the latter with !info.
-
-I'll wait for a couple of days to see if Will has any comments and queue
-it.
-
-Thanks.
-
--- 
-Catalin
+If anybody thinks this is better, please post with the appropriate
+commit log and signed-off-by.
