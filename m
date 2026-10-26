@@ -1,47 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793048909;
-	b=m+SEvswsvhI6VhhMYreBLLlr5fU7MZ7eEtt5at0pgK0e9f2WDyKMx1S1gArrnCvu7F9B
-	 I9l6d8Mg5Sgmo8KJAoaNDmPb40+h5DajpMk+PHRPUkRngAVOI6YAk7c+UDnWWHrZNvm3c
-	 pJhituZGxW0PyoFHv6D5zxQGtnlYYRaNDkDzJiE54YJgkSMKrK6LoSbMvsRHJrAP4j2C7
-	 YBcG4WfagXpX8KPdBpmkyEdGTTbk5tIXte2K7SrDkmkfr5g05pqvkuENOGjhtLsajy23H
-	 Bi41eMDO1ByoODnM3BvBkOVCsXXmc2EFZfnl55BlpdBkvitAuSL7I2O4mBn05daYKgw==
+	t=1793048955;
+	b=D8Q05LrkuOpHupsIaeJn2u1FtaHbz3c8qQPS7LQF9hT+YWsuViZAn9jcGQmu+TIoVVOD
+	 NoAmpEbUtt6IZwnDk2f0w1aCyvfldMlI3F30urkbBrAB0eGUTnJOWdjqnps+rKrvSe/nF
+	 EuW3roRFf1jiunFoha4v/wjq13pYwVXAbRgyflXPSEFHTkFyotn8MuLdnBbZriTXyx5C8
+	 y+dL3C5r99ivo8E0xP/iThIwb0tj9WoIc1saIEkL14fSkikokMAkuy4j1qEhnf92J6Rj5
+	 7DKYWfzddmOYRBaG6ND+o6ZKiBbjv0iuPvI9J+oMi14z6sMzeBbY4ptQebfmRJRMyLA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793048909;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=aZY6emueEsceME7nXNq6gUfKhqrQcT2cFezDIABkUGw=;
-	b=xODoqTUr3/OUb5DaLnAJnSao6m2Zb+T3LoH0kUXvvOJipi6O+MCJa22Hsp1+A3tO3LlB
-	 qO8IQ+pjqM94IyVyziMPHTnPQM3KRBkbZNeVh6Wq2OP13fygrLaKqervJXxPwWIwdriaZ
-	 6Fzus9Wbstfm5xf3V984UOfXKp1zK0ClT2BP0FbGGG9cDgkeQ3eYUKSz8Se2riljuvrCa
-	 ZMYaLboIqL9j+u/jBbXB1waOEoUZbCpEjG7hHWGQXtzBTVnN9GIbcajNSyBHdAkkge07R
-	 0fdJ+7gYi52qVwp6GIsagW2Cc9uhpK0eh1/25XkGmGFgwUFaSVy54WIUct/hbR9EbBQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793048955;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=DuQ1Wcl/9/AjDY4J7olX6CC7aGgr2FQKZCCHnkWjylo=;
+	b=IM5BPUPe2DEhVeWt0D/kW6r35qt0MCR0g1gHgovRxLiNfURrRRi3KJuDXNi6eivKE+62
+	 7zysK7jWkPldxERC+j1wSDD14ONV1gx3dB38KhL1z+wplSsGJtsPUy0zeUAt605WSB5xI
+	 n9DRGBIufYNuPOFh0lZ5U9PMdRJ3G2ObhROnUmXqASZllJe7+Wx95qtTU+Maa8YJj6tCS
+	 9/+zo6gz98QEAh3T4h3796G0n/JvUMl2mpBgZ4GuuQgPode0U7Rb/woH7kj73l5c6fG0/
+	 w1ISPm0MkhjbB/pw61oqST2Fi4MSZyKaSiMLLFrkgbphRLMitFEG6Iy3h35ubWeMKNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hwhsj8kN;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UEthL+LK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D763606A31E;
-	Mon, 26 Oct 2026 21:08:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA557606A31D;
+	Mon, 26 Oct 2026 21:09:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hwhsj8kN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B4DF1F01828;
-	Mon, 26 Oct 2026 21:08:26 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UEthL+LK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CF011F031E5;
+	Mon, 26 Oct 2026 21:09:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793048908;
-	bh=aZY6emueEsceME7nXNq6gUfKhqrQcT2cFezDIABkUGw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Hwhsj8kNM/003xoVUCIY6kkGhTMwCG7vilt/Dph6Rs2EcwYc9BgMFYtM3gSdCLUv4
-	 I+tMEzKtq5KAbamFFvZx7+ti1rXjRJsMZjvz0qerVCMxXjC93hhuyyMUiLAmtzc1/W
-	 LR4Z/+Pq0jLyAo39zmyDSxqVjNIeiDuZTxpYCVfdxa8mhWwNuCyhOz1ppbvUAknygE
-	 3GYifpJYvEc3MVOEyQZ5/oL5Xo0WCWkoroRzPUaoRpTDIFj7D2vLbekCufU0BWV8ka
-	 oeA1q6H6o0L+DLOpROZC2NULQUuPdxHZ3YYT75nxwHQAPF+Dr37k+z7MxY7tkjCqzh
-	 wc8fUODq2yO1Q==
-Message-ID: <5d441cff-ef78-4bdf-b727-9eb697ca7478@kernel.org>
-Date: Mon, 26 Oct 2026 22:08:16 +0100
+	s=k20260515; t=1793048954;
+	bh=DuQ1Wcl/9/AjDY4J7olX6CC7aGgr2FQKZCCHnkWjylo=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=UEthL+LK+SeCZfbCHGVzaV/gk0VshJ/5PD+uFYgI+2BE7WR8PgF7y8omMn261NDD4
+	 qupOKV6GJlVnOdb5b9tOEe329pU+ho3qM2K2rykuS69mC3cSMa2nY8mIxbHAvjbW/T
+	 AzPTo9vI2nBHfrhvwGUuPC7dmNnS2tfM3IkDALni6jQvH7PMQ3pqeix1j17AuyOQKF
+	 zIiux1z25USkVLoIXdUx/zyyFiLLGBGwSJqquU6e5iEkAml06KDnYAXQLZckVng09v
+	 MQfOCx2CaiMnhvi4v3/uvIFEjid7XMNww6HGfWiVUsCPbXP9ECVNeK9cgspxobiqh4
+	 VBbZiOCrrc1TQ==
+Subject: Re: [PATCH] net: lan966x: fix double fwnode_handle_put() and missing
+ mdb deinit in probe error path
+From: netdev-bot+sashiko@kernel.org
+To: mashikiselby@gmail.com
+Cc: horatiu.vultur@microchip.com, UNGLinuxDriver@microchip.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Mon, 26 Oct 2026 21:09:13 +0000
+Message-ID: <179304895357.3134.7579048649329959225@kernel.org>
+In-Reply-To: <20261025203155.455075-1-mashikiselby@gmail.com>
+References: <20261025203155.455075-1-mashikiselby@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,113 +64,216 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] hugetlbfs: enforce F_SEAL_EXEC on chmod
-To: Samiullah Khawaja <skhawaja@google.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>
-Cc: Jeff Xu <jeffxu@google.com>, Daniel Verkamp <dverkamp@chromium.org>,
- David Matlack <dmatlack@google.com>, Pasha Tatashin <tatashin@google.com>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261026205555.2918396-1-skhawaja@google.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261026205555.2918396-1-skhawaja@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 10/26/26 21:55, Samiullah Khawaja wrote:
-> F_SEAL_EXEC prevents the exec bits of a memfd from being changed once
-> the seal has been set. F_SEAL_EXEC is included in F_ALL_SEALS, so
-> userspace can set it with F_ADD_SEALS on hugetlbfs memfds just like on
-> shmem memfds, and F_GET_SEALS then reports it as set. However, the check
-> that rejects the mode change was only added to shmem_setattr().
-> hugetlbfs_setattr() never looks at the seal, so the owner of a sealed
-> hugetlbfs memfd can still make it executable with chmod(). For the same
-> reason, MFD_NOEXEC_SEAL provides no guarantee when it is combined with
-> MFD_HUGETLB.
-> 
-> The memfd selftest already covers this, but only the shmem run passes.
-> When run as "memfd_test hugetlbfs", the test aborts in SEAL-EXEC because
-> fchmod() succeeds on a sealed file, and none of the remaining tests are
-> executed.
-> 
-> Add the same check to hugetlbfs_setattr() that shmem_setattr() has, so
-> that a mode change touching the exec bits fails with -EPERM while
-> F_SEAL_EXEC is set.
-> 
-> Fixes: 6fd7353829ca ("mm/memfd: add F_SEAL_EXEC")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
-> ---
->  fs/hugetlbfs/inode.c | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
-> diff --git a/fs/hugetlbfs/inode.c b/fs/hugetlbfs/inode.c
-> index 01c4d6f44ebe..56e0588d295d 100644
-> --- a/fs/hugetlbfs/inode.c
-> +++ b/fs/hugetlbfs/inode.c
-> @@ -842,6 +842,10 @@ static int hugetlbfs_setattr(const struct mnt_idmap *idmap,
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
+
+Critical: 0 · High: 1 (2) · Medium: 0 (1) · Low: 1
+
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [High] The new cleanup_mdb label calls lan966x_mdb_deinit()
+  (lan966x_main.c:1302) and then jumps to cleanup_switch, so the…
+- [Low] The commit fixes a real refcount bug but has no Fixes: trailer.
+
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but the reworked
+  error ladder keeps it.
+- [High] This problem wasn't introduced by this patch, but it is in the
+  error path the patch reworks.
+- [Medium] The probe error ladder in lan966x_probe() never calls
+  lan966x_mac_purge_entries(), unlike lan966x_remove() (line 1332).
+
+--
+
+net: lan966x: fix double fwnode_handle_put() and missing mdb deinit in probe error path
+
+This commit reworks the error ladder in lan966x_probe(). Failures after
+the port loop no longer reach cleanup_ports, so fwnode_handle_put(ports)
+is not called a second time. A new cleanup_mdb label calls
+lan966x_mdb_deinit(), and a new cleanup_switch label skips the fwnode
+puts and goes straight to lan966x_cleanup_ports().
+
+> In lan966x_probe(), fwnode_handle_put(ports) is called after the
+> fwnode_for_each_available_child_node(ports, portnp) loop finishes.
+> However, if lan966x_fdb_init(), lan966x_ptp_init(), lan966x_fdma_init(),
+> or lan966x_vcap_init() subsequently fails, execution jumps to or falls
+> through to cleanup_ports, calling fwnode_handle_put(ports) a second time
+> and skipping lan966x_mdb_deinit().
+
+[ ... ]
+
+> Signed-off-by: Selby Mashiki <mashikiselby@gmail.com>
+
+[Severity: Low]
+Should this have a Fixes: tag?
+
+Both the fwnode_handle_put(ports) after the port loop and the one under
+cleanup_ports came in with commit 925f3deb45df ("net: lan966x: add
+missing fwnode_handle_put() for ports node"). That commit has its own
+Fixes: tag, so the double put is probably in stable trees as well.
+
+Something like:
+
+Fixes: 925f3deb45df ("net: lan966x: add missing fwnode_handle_put() for ports node")
+
+and possibly, for the missing MDB deinit:
+
+Fixes: 7aacb894b1ad ("net: lan966x: Extend switchdev with mdb support")
+
+> diff --git a/drivers/net/ethernet/microchip/lan966x/lan966x_main.c b/drivers/net/ethernet/microchip/lan966x/lan966x_main.c
+> index e4c9c5812ccab..887385833b4d6 100644
+> --- a/drivers/net/ethernet/microchip/lan966x/lan966x_main.c
+> +++ b/drivers/net/ethernet/microchip/lan966x/lan966x_main.c
+> @@ -1271,7 +1271,7 @@ static int lan966x_probe(struct platform_device *pdev)
+>  	lan966x_mdb_init(lan966x);
+>  	err = lan966x_fdb_init(lan966x);
+>  	if (err)
+> -		goto cleanup_ports;
+> +		goto cleanup_mdb;
 >  
->  	trace_hugetlbfs_setattr(inode, dentry, attr);
+>  	err = lan966x_ptp_init(lan966x);
+>  	if (err)
+
+[Severity: High]
+This is a pre-existing issue, but it sits in the error path being
+reworked here. What happens to PTP clocks that are already registered
+when lan966x_ptp_init() fails partway through?
+
+lan966x_ptp_init() registers LAN966X_PHC_COUNT clocks and returns on the
+first failure:
+
+drivers/net/ethernet/microchip/lan966x/lan966x_ptp.c:lan966x_ptp_init() {
+    ...
+	for (i = 0; i < LAN966X_PHC_COUNT; ++i) {
+		err = lan966x_ptp_phc_init(lan966x, i, &lan966x_ptp_clock_info);
+		if (err)
+			return err;
+	}
+    ...
+}
+
+Suppose ptp_clock_register() fails for PHC 1 or 2. The clocks registered
+before it stay registered, and lan966x_probe() jumps to cleanup_fdb,
+which skips lan966x_ptp_deinit().
+
+Those clocks have ptp->info pointing at lan966x->phc[i].info. That is
+inside the devm-allocated struct lan966x, which is freed when probe
+fails.
+
+After that, could reading /sys/class/ptp/ptpN/clock_name (clock_name_show()
+dereferences ptp->info->name), or any operation on /dev/ptpN, touch freed
+memory?
+
+lan966x_ptp_deinit() unregisters every PHC unconditionally, so it can't
+just be called here. lan966x_ptp_init() would need its own unwind for
+the clocks it already registered.
+
+[ ... ]
+
+> @@ -1298,10 +1298,15 @@ static int lan966x_probe(struct platform_device *pdev)
+>  cleanup_fdb:
+>  	lan966x_fdb_deinit(lan966x);
+
+[Severity: High]
+This isn't a bug introduced by this patch, and the reworked ladder keeps
+it. lan966x_fdb_deinit() destroys lan966x->fdb_work before
+lan966x_cleanup_ports() calls unregister_netdev() on the ports.
+
+Suppose a port is already in a bridge when the ptp, fdma or vcap init
+fails. Would unregistering that port go through this chain on a
+workqueue that has already been destroyed?
+
+lan966x_cleanup_ports()
+  unregister_netdev()
+    bridge unlink -> NETDEV_PRECHANGEUPPER
+      lan966x_port_prechangeupper()
+        lan966x_fdb_flush_workqueue()
+          flush_workqueue(lan966x->fdb_work)
+
+FDB events on the still-registered ports in that window would also reach
+lan966x_handle_fdb()->queue_work(lan966x->fdb_work, ...) on the freed
+workqueue.
+
+If lan966x_fdb_init() itself fails (now goto cleanup_mdb), fdb_work is
+NULL. Would the same unregister path then end up in flush_workqueue(NULL)
+or queue_work(NULL, ...)?
+
+lan966x_remove() avoids this by calling lan966x_fdb_deinit() only after
+lan966x_cleanup_ports().
+
 >  
-> +	if ((info->seals & F_SEAL_EXEC) && (ia_valid & ATTR_MODE) &&
-> +	    ((inode->i_mode ^ attr->ia_mode) & 0111))
-> +		return -EPERM;
+> +cleanup_mdb:
+> +	lan966x_mdb_deinit(lan966x);
+> +	goto cleanup_switch;
+
+[Severity: High]
+Does this free the MDB and PGID lists while the port netdevs are still
+registered?
+
+lan966x_probe_port() calls register_netdev() inside the port loop. The
+matching unregister_netdev() only runs later, in lan966x_cleanup_ports()
+under cleanup_switch.
+
+lan966x_mdb_purge_mdb_entries() and lan966x_mdb_purge_pgid_entries() call
+list_del() and kfree() without taking any lock. During this window, the
+switchdev notifier can still deliver PORT_MDB/HOST_MDB add and del for
+these ports under rtnl, for example on bridge join replay or a bridge mdb
+add from userspace:
+
+lan966x_mdb_ip_add()
+  lan966x_mdb_entry_get() / lan966x_mdb_entry_add()
+    list_add_tail(&mdb_entry->list, &lan966x->mdb_entries);
+
+Could the unlocked purge race with these handlers, corrupt the list, or
+free an entry a handler is still using? Entries added after the purge
+but before unregister_netdev() would also leak.
+
+lan966x_remove() does it the other way round:
+
+	lan966x_cleanup_ports(lan966x);
+	...
+	lan966x_mdb_deinit(lan966x);
+
+Should lan966x_mdb_deinit() also run after lan966x_cleanup_ports() in
+the probe error path?
+
 > +
->  	if (ia_valid & ATTR_SIZE) {
->  		loff_t oldsize = inode->i_size;
->  		loff_t newsize = attr->ia_size;
-> 
-> base-commit: f1ac44c32cba88ad65dcecd4a279661d14e93651
+>  cleanup_ports:
+>  	fwnode_handle_put(ports);
+>  	fwnode_handle_put(portnp);
+>  
+> +cleanup_switch:
+>  	lan966x_cleanup_ports(lan966x);
+>  
+>  	cancel_delayed_work_sync(&lan966x->stats_work);
 
-https://lore.kernel.org/r/20261026-fixes_shmem-v1-5-703206d5fa0c@kernel.org
+[Severity: Medium]
+This is a pre-existing issue, but since the ladder is gaining an MDB
+deinit: does the probe error path leak the lan966x_mac_entry objects on
+lan966x->mac_entries?
+
+lan966x_remove() calls lan966x_mac_purge_entries() after
+lan966x_cleanup_ports(). None of the probe error labels do.
+
+The list is initialized in lan966x_init()->lan966x_mac_init() before the
+port loop. After that, the ANA learn IRQ can allocate entries:
+
+lan966x_ana_irq_handler()
+  lan966x_mac_irq_handler()
+    lan966x_mac_irq_process()
+      list_add_tail(&mac_entry->list, &lan966x->mac_entries);
+
+lan966x_mac_add_entry() can also add entries from FDB work once the
+ports are registered.
+
+If lan966x_fdb_init(), lan966x_ptp_init(), fdma_init or
+lan966x_vcap_init() fails after that, these entries are never freed. The
+devm-allocated struct lan966x that holds the list head is then released.
 
 -- 
-Cheers,
-
-David
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261025203155.455075-1-mashikiselby%40gmail.com
