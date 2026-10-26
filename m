@@ -1,54 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793045633;
-	b=bGT4pAjiiciqNhnvNpWPfPzEhNa8aqIj1sRqpxbSraXOA2+s+cPHtm+yhEeKGRvCZVP1
-	 Pl6gfc/3nK4MngxB6dPgowbskvhOpxflS38SqGic2okNPnNuh8f8YsnCzqq6Qlt//o+EC
-	 7+ZZKsD1wyXZiRe192UXtXbfxjvyIHtObt4jCPKDCd7sFyuEGe+OibuPzaxAGljjdFcEl
-	 KIYxzls4YjYvF2Nk40xtLgyghQJ1Do48kxc3t7tTcti3BjPX/3FGpIABuBQvx5qX1NT3k
-	 NEBIUPxtKJ3GRwG9Fs5bJMp6mqg62v1GuJxoBIsxfAPdwHrAUuRhBnpcDVsK6KIx3yA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793045633;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=ZFEoz4zAnNP/e2CZdR6xrHUiI8JHFR28GWwihmBnonQ=;
-	b=FFGhT4AKmPR+6D72V+MK1hSVPLp/TEh08s1XA9g/pMnW6grz4cw7/zHh0u0ADKUhBgj6
-	 hzyCOEF4MxkxptYjkT1hvNf0P25wab4wt72epTB5jeIC1fQ4N87U61L4N7m6dxTnjSFaf
-	 Q3BMp9HWgWaPOXkYcDdtsHA4CptF/k0SVaR+in7eQQ1h7te3bMAVXw6XyhaGyMKTeiKG9
-	 T/XonN0ZgChC/spODVToISGIKCqTYaf4iQDSrf0TEGPhWusummqy1vn1/mnokXxli70tu
-	 tdSSUsDS8PeRE7YGDOTpnJj/1D5tJ6oxFzWod6wyh4qZaKFNCZgFUfl1bqm/6XhGWQg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=fYT53Vx2;
-	arc=none smtp.remote-ip=198.137.202.133
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793045656;
+	b=nGkyWiuaUCgCr8jzEqcwbY7szrroLQGtsQ0goLLRfUW8OJsT1bU6QqwqB9v4GGpDROIw
+	 RpbjSCpUV53wbLX1CjILU5QWY9kxj0lryl7vDOCtLVf5rYAe/FYShwEM4XixuOchSIa46
+	 PMbvVkst0c7gpB8ZrntRyiCpktGjZx51tJcerFap5hHFeZ+x/QbNI3uOHfVNhrX6S9qhS
+	 pNLDjmf7tPuvzr0zw7II9G6r4LBQ9yh5lGO5cVbjZHcvibQ1pfPIDGubpX5sgfDFJYzNU
+	 NDwKVNKNMkZkKqfH2G/fu/b4cusXF4d0BDQ+Grv2nqaVNKsTpGIHacSOBtaU/RQdMLw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793045656;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=mo7OWb0vTAkrLxJfq6AdadkFhTqOpVSPlDI1WMfvFp0=;
+	b=ENkZPwTCF12PzQfgzP2yIrIMLAb1Fz6KsXK1AOPyXkEyjmvKXsxaKOK63R5UdMq38bku
+	 w1otPzVn/e/6V5pDLFu/9hTsNyGm6/8Os0sf6FJqvxTY7msnDLpMV/wgTYkwz5evjWGo7
+	 pGKG+rORfCZgFk1npeGIAE418acj88TaiToI+ngAAOwjq5ZgdD5bdb71ALqwNFOAcHbpP
+	 8DJ68wasDH8J6mJtq2ad7aGJEJ6ACBT6/7rTSl9f3Ih6eU4RneGJVXZMzaG7DIQuEyJgc
+	 fz7yKdEUh2ETBfGu+E+WTNoDPPo6e+BTZMSFk0Y9A3/uPtsnvBdP/mgN4FxWsjF2oEg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=GVm0Xmmf;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95D67606A31E;
-	Mon, 26 Oct 2026 20:13:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95D67606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D67A606A31A;
+	Mon, 26 Oct 2026 20:14:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D67A606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=fYT53Vx2
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=ZFEoz4zAnNP/e2CZdR6xrHUiI8JHFR28GWwihmBnonQ=; b=fYT53Vx2tLwuv3kAl7B2FqH8br
-	kcYZT6KxYso9fB6zwWepCQafujHWHtRYTwauBP552d0J6ICs6czTL2dgIwWDi99j8vIUjcGKxdGfQ
-	0yWLAuWaoRY+shgcTPjSzJoWSBUPlXogBcdFCIc5dbqdiGeD07wGJsmzHSvAqGpBk6gYpH8R1Dl4H
-	6UJGb2qGUEAfFB5EtNGivqRiBu8WMoyAlMl3XqABsroJ4WmNSuGIyOO7CLAkKcES0MBouGsfnaxRX
-	l8MXg90/BqHtEEoTlLrPcQLLITv2ZdJ+uSdBM65Rc3k24MpbmG+PdeovQ0QgqpkOZ3SJhXY4yMhvk
-	ClZxbWvw==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xLR4o-00000003Cv0-2j7I;
-	Mon, 26 Oct 2026 20:13:50 +0000
-Message-ID: <4ab3e196-0326-48d9-bfdb-ede2f8cfac64@infradead.org>
-Date: Mon, 26 Oct 2026 13:13:49 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=GVm0Xmmf
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id EE1D5202292;
+	Mon, 26 Oct 2026 21:14:08 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793045648;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mo7OWb0vTAkrLxJfq6AdadkFhTqOpVSPlDI1WMfvFp0=;
+	b=GVm0Xmmf1jcolQhG8NMyztFC2thu7NcadWEwPx/q7nfoAWcTF+2qU88rlILKr/2Y+71YNx
+	cPc2gOXRaqhffBMG7whiYH/jCqTKuBUKlNKiQmhUqo7YbFNwnWa0NkJ4PiIH4GIU17/fK/
+	Rll9HMbGRoAaBv2TBzayQIr0ArUc/A6rkBvStLPpyBzhhsdO/xS+bG1aC2mwytXHGzZEYY
+	AFI1rQf8831zr1qZwdzdjBk0NLApQRvViJnfofav8+XwF1RnR0ccjQkBXuqZv2zJyw7jye
+	1stT3O6s1Q7ZlghlSJHgoUrtRkW+bIHX3Y3kNxYtm9MS/my06jyyDBQnu+4l/Q==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793045648; a=rsa-sha256;
+	cv=none;
+	b=FGcY3t5XNNnDmDeHeo4773vmOP3hVzGQImqEUIF2o6/DveiJgnztDkNV3molrJlOuoiS1p
+	Z8p7bCk//W9KMbtVmRO00VzG2GVgDU4MK6m1x2edb5prCZ1b1WAU4LFIP/s9mxjs3zdKxu
+	kgmvcNVE5SthSarjJ9OfYPWtNXxu99wSEnJ497Q2fyGuEmyOqcUCLTiRK8QMY2CW4jY7A/
+	6q0ESN9stL+uKnaWh3NmhhsFbZee7mrOgwCpVilV4fcWs2H91rS9/r23B8//kf+/TPwPjs
+	Lm4wDgRonX47TJkX1U0DeH5Qi9hTwotbZlhyMepngN8XDmOXmbiuNUT+gvYqSw==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793045648;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mo7OWb0vTAkrLxJfq6AdadkFhTqOpVSPlDI1WMfvFp0=;
+	b=KP30/GzNXgcJA/Hmyn8tBHDpTdrDa8B0P83uW0LbEWnrKI5gTwx34mGAnc2JldPACcAeS6
+	DymO7aiMlHEDVu//qXj1l8yJSZeXNKsGPmRP0MKv27DlJAawZSO+Zu5o4HgNKlq8Il8bFA
+	9TEAKeazKI4P8dp2T76QKe43cjVZ2cUjXnIM2I0HovMLkjiu5ed20HyEZ0JDtw0YWD3tki
+	Xzt3zTpeHwvLvcgp5msPOzfG43idJrs2MJKjP9wkOx/YtCuddNprB+VHECYndc+I7m4B6u
+	qWhGBTymG9+b3XPYPR863FucnTgGCqZNjI0dWNizYx/njYMAKeoADlUKJiTkQQ==
+Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <mkl@pengutronix.de>)
+	id 1xLR56-001KbB-2n;
+	Mon, 26 Oct 2026 21:14:08 +0100
+Received: from pengutronix.de (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	(Authenticated sender: mkl-all@blackshift.org)
+	by smtp.blackshift.org (Postfix) with ESMTPSA id 936C35D7313;
+	Mon, 26 Oct 2026 20:14:08 +0000 (UTC)
+Date: Mon, 26 Oct 2026 21:14:08 +0100
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+To: Bart Van Assche <bvanassche@acm.org>
+Cc: Vincent Mailhol <mailhol@kernel.org>, 
+	Wolfgang Grandegger <wg@grandegger.com>, Kurt Van Dijck <dev.kurt@vandijck-laurijssen.be>, 
+	linux-can@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] can: softing: Fix locking in softing_card_shutdown()
+Message-ID: <20261026-adorable-furry-wildcat-0d5bf2-mkl@pengutronix.de>
+References: <192450922df0eb9ce0cebccf381363680db65604.1793044027.git.bvanassche@acm.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,117 +100,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/7] docs: ABI: power: rt9471: Fix invalid inline emphasis
-To: Waqar Hameed <waqar.hameed@axis.com>
-Cc: Sebastian Reichel <sre@kernel.org>, kernel@axis.com,
- linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
- Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-References: <cover.1792965060.git.waqar.hameed@axis.com>
- <ba11515d8e0dc45ad90f162302bcd1b20db9bd92.1792965060.git.waqar.hameed@axis.com>
- <004fbff3-7fbc-440c-9c44-44585795521c@infradead.org>
- <pndse1svbin.a.out@axis.com>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <pndse1svbin.a.out@axis.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="3s5bhnhdp5et65kd"
+Content-Disposition: inline
+In-Reply-To: <192450922df0eb9ce0cebccf381363680db65604.1793044027.git.bvanassche@acm.org>
 
 
+--3s5bhnhdp5et65kd
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] can: softing: Fix locking in softing_card_shutdown()
+MIME-Version: 1.0
 
-On 10/26/26 6:26 AM, Waqar Hameed wrote:
-> On Sun, Oct 25, 2026 at 19:39 -0700 Randy Dunlap <rdunlap@infradead.org> wrote:
-> 
->> On 10/25/26 3:05 PM, Waqar Hameed wrote:
->>> `docutils` warns:
->>>
->>>   Documentation/ABI/testing/sysfs-class-power-rt9471:1: (WARNING/2) Inline emphasis start-string without end-string.
->>>   Documentation/ABI/testing/sysfs-class-power-rt9471:20: (WARNING/2) Inline
->>> emphasis start-string without end-string.
->>>
->>> Fix this by escaping the `*`.
->>
->> I'm still seeing this issue after the patch is applied (same for patch 4/7).
->> Maybe we are fighting a docutils your-version vs. my-version problem
->> or just a moving target.
-> 
-> Hm, that's weird. What output do you actually get? The '*' is escaped
-> now, so it shouldn't complain...
-> 
+Hello Bart,
 
-docutils still complains:
+thanks for you contribution.
 
-Documentation/ABI/testing/sysfs-class-power-rt9467:1: WARNING: Inline emphasis start-string without end-string. [docutils]
-Documentation/ABI/testing/sysfs-class-power-rt9471:1: WARNING: Inline emphasis start-string without end-string. [docutils]
+On 26.10.2026 12:47:07, Bart Van Assche wrote:
+> If mutex_lock_interruptible() fails, softing_card_shutdown() goes on
+> without holding card->fw.lock and later unlocks that mutex anyway.
+> Shutting down cannot fail, so use mutex_lock() instead. This makes
+> sure the firmware state is always changed with fw.lock held and that
+> only a held mutex is unlocked.
+>
+> Fixes: 03fd3cf5a179 ("can: add driver for Softing card")
+> Signed-off-by: Bart Van Assche <bvanassche@acm.org>
 
-and running the command that Mauro provided:
-$ ./tools/docs/get_abi.py -D Documentation/ABI/testing/ rest --enable-lineno|grep -A20 rt9467
+Are you actively using this driver? It's scheduled for removal in the
+v7.15.
 
-gives me:
-.. LINENO Documentation/ABI/testing/sysfs-class-power-rt9467#1
+regards,
+Marc
 
-.. _abi_sys_class_power_supply_rt9467_sysoff_enable:
+--=20
+Pengutronix e.K.                 | Marc Kleine-Budde          |
+Embedded Linux                   | https://www.pengutronix.de |
+Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
+Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
 
-+------------------------------------------------------------+
-| **\/sys\/class\/power_supply\/rt9467\-\\*\/sysoff_enable** |
-+------------------------------------------------------------+
+--3s5bhnhdp5et65kd
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Defined on file :ref:`sysfs-class-power-rt9467 <abi_file_testing_sysfs_class_pow
-er_rt9467>`
+-----BEGIN PGP SIGNATURE-----
 
-This entry allows enabling the sysoff mode of rt9467 charger
-devices.
-If enabled and the input is removed, the internal battery FET
-is turned off to reduce the leakage from the BAT pin. See
-device datasheet for details. It's commonly used when the
-product enter shipping stage. After entering shipping mode,
-only 'VBUS' or 'Power key' pressed can make it leave this mode.
-'Disable' also can help to leave it, but it's more like to
-abort the action before the device really enter shipping mode.
+iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCat+0jQAKCRDMOmT6rpmt
+0oGhAQDeVNRVtO4S17yIk/I7fCX/mzpENiyH4c2iIiY+91PnLAD9H/qrY8B5CMlP
+7zef8MYqUh/nUDSkABkk8eB8/VxrWAo=
+=IyuS
+-----END PGP SIGNATURE-----
 
-Note: use /sys/class/power_supply/rt9467-*/load_switch instead.
----
-
-Aha. It's the line above that now needs to have the '*' character
-escaped. I have no warnings after that is done.
-
-
->>
->> $ docutils --version
->> docutils-3.13 (Docutils 0.23, Python 3.13.16, on linux)
-> 
-> I have
-> 
->   docutils (Docutils 0.20.1, Python 3.12.3, on linux)
-> 
->>
->>> Reported-by: kernel test robot <lkp@intel.com>
->>> Closes: https://lore.kernel.org/oe-kbuild-all/202609110722.GAZVme6v-lkp@intel.com/
->>> Signed-off-by: Waqar Hameed <waqar.hameed@axis.com>
->>> ---
->>>  Documentation/ABI/testing/sysfs-class-power-rt9471 | 4 ++--
->>>  1 file changed, 2 insertions(+), 2 deletions(-)
->>>
->>> diff --git a/Documentation/ABI/testing/sysfs-class-power-rt9471 b/Documentation/ABI/testing/sysfs-class-power-rt9471
->>> index 0a390ee5ac21c..04a771cd23512 100644
->>> --- a/Documentation/ABI/testing/sysfs-class-power-rt9471
->>> +++ b/Documentation/ABI/testing/sysfs-class-power-rt9471
->>> @@ -1,4 +1,4 @@
->>> -What:                /sys/class/power_supply/rt9471-*/sysoff_enable
->>> +What:                /sys/class/power_supply/rt9471-\*/sysoff_enable
->>>  Date:                Feb 2023
->>>  KernelVersion:       6.3
->>>  Contact:     ChiYuan Huang <cy_huang@richtek.com>
->>> @@ -16,7 +16,7 @@ Description:
->>>               - 1: enabled
->>>               - 0: disabled
->>>
->>> -What:                /sys/class/power_supply/rt9471-*/port_detect_enable
->>> +What:                /sys/class/power_supply/rt9471-\*/port_detect_enable
->>>  Date:                Feb 2023
->>>  KernelVersion:       6.3
->>>  Contact:     ChiYuan Huang <cy_huang@richtek.com>
-
--- 
-~Randy
-
+--3s5bhnhdp5et65kd--
