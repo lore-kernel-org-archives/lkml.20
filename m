@@ -1,107 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793018221;
-	b=fbJuw/6dJTf8WM3ARaX/XNhmap59HjAso4HD+nU5iHlaijYQ+YT0MavhZAiNyw/zkU04
-	 PhRp2GOLC6cix9DcF6vR8kHDFpd2loinkRocHoxkW7E5FNpALywmwg3LIMWewLr+0hOe9
-	 MIIuNsJAp05Bur4qQdgs+uBxkatnIFsAtgPSU0/UPCNHJTLazTxoqlPlYoGntIrizJgSj
-	 cvEqPEMT6XNPk86S7Yy7TEycCn6E84FOAzCwkbP1JnwRUZeDGwyGaZ3Bz3NP4kaDcdmsD
-	 KfVmXdOEewCISGPslfWnd45Cp7AoM9jCV3VDG5imE+cPUpMO2LJSX8EYemif0GS1naA==
+	t=1793018299;
+	b=RI7QGnKreEbNugcJpYUhDNXB6MltyT/RPliyVZbwhnrqV8jGjxp7NenR15MMLnUfOtSC
+	 Ku5fbfngpTfl5ZTdIj0++W3G0eSVtEGUdg0AM+ycRHGNfhYmIcjDJyS5H0ee18Oz1gNyT
+	 RFBUPdJ+xxTWJ7bLQ75z0BU2fmDuILJA2qI8ywXvWaaEqu45z9niEd4mF1eh/DpULE54U
+	 pXXx9jsGI5IwHk76LCQMntv6upl7lRatGJxYo1fFU2BNVXruC7Bfx0y9Mk5nsXBLc3gZH
+	 l/kekKU+aDuN7kz69wGFkvWR+JgDIq6KiMr0vgzc+TphfNR1MQebeaabGBa4trJ5VQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793018221;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
-	bh=IapZrkFbN6yZwsYwvNZV/1EXOBGEAI4iKHYi+uhMbcw=;
-	b=UoPR9B6eR4/gFrnfuXCizj9efJFHdulKpeTs9LvKbUDLY1oxKRkCakRVoPy53RA+W0pN
-	 3XFv6WPg2UiNNaP+o2mhSPiaKK0SA7ghmE5os3q+6p0nujinPwqmtS5I1h/AioNCAL/A0
-	 cladgL0v0TRlOInhimNDKX7Sc8XtWXdZHkRiX2Yi5dFq3CRyVnoyObtOoUr7cljRtnBbp
-	 ODrAyFMXQaH0DLKUtErekcRes7JjAqTRAxrGvJmIwBmn7MsueVPjFsjDZDuRuAsH2iHWo
-	 HLXg7r5JpRzJ9T6eMvUE4roP9aZdKBzJk6NwI+BAfZUg+w0k+/lJ/isM5EQSHihepvA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793018299;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=XG8Szrq9HyP4p8mCyECorg47iCZAl2TOpPnmqA0Xpkw=;
+	b=IBZGfzgZOsCw/vyHFCUnCGA+Unuxj8E6VS4CYKikm2pXmc7xyOJOR/OZVC68V/EtY++f
+	 aAuChqtDUQRcB3ZGHNowi1rcLi1g8q9BNe4DLajmS0omtWk0bSA+em/Ss8x9wObAZDyKA
+	 dsHWeokT4gKNLd2DENjR32ymx046pQ9N0wN0blPUD8nrKJN7AXHohWeJauVjK86vbsg9X
+	 2SBD7MFs9oaaEdL2UkuUbqpEg7ycsY2AGrNEP0eYZ39fS/diRauIVjMALhYasgXd2PdEM
+	 UnPLCLhv6SKrBYoq12FMI8zVjoWLYIursG9P5VOZtbKibnke0g5Di+X6lce2s03y+wg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=FHN+IrQ2;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=43GhXORS;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=FHN+IrQ2;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=43GhXORS;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZjLm8FtS;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3534F606A32A;
-	Mon, 26 Oct 2026 12:37:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3534F606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D231606A31E
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:38:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=FHN+IrQ2;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=43GhXORS;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=FHN+IrQ2;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=43GhXORS
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 49F1221F14;
-	Mon, 26 Oct 2026 12:36:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793018219; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=IapZrkFbN6yZwsYwvNZV/1EXOBGEAI4iKHYi+uhMbcw=;
-	b=FHN+IrQ20ZBglpHxGfQrW4Y+0ICqCyEG6zdiE83qL/vIZbN+oORyOuCH/74SCCnN+P0KWs
-	I/CjzemDjjXOJAGh0dVTdKRiRewj5am00ENCvJnASo27LjTEpfieGE9BdIMvMq8SAKNM0Q
-	JVYqQ2zXynxPKggzM7yuo06qk/RhQiY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793018219;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=IapZrkFbN6yZwsYwvNZV/1EXOBGEAI4iKHYi+uhMbcw=;
-	b=43GhXORSrj5vdJ71hVP4L+mwqWQs8zmm+tFVdHd3tr7WbvA6nFW2r+fM8eThjIqExQ1TPi
-	hLZhR77IotezSVDA==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793018219; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=IapZrkFbN6yZwsYwvNZV/1EXOBGEAI4iKHYi+uhMbcw=;
-	b=FHN+IrQ20ZBglpHxGfQrW4Y+0ICqCyEG6zdiE83qL/vIZbN+oORyOuCH/74SCCnN+P0KWs
-	I/CjzemDjjXOJAGh0dVTdKRiRewj5am00ENCvJnASo27LjTEpfieGE9BdIMvMq8SAKNM0Q
-	JVYqQ2zXynxPKggzM7yuo06qk/RhQiY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793018219;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=IapZrkFbN6yZwsYwvNZV/1EXOBGEAI4iKHYi+uhMbcw=;
-	b=43GhXORSrj5vdJ71hVP4L+mwqWQs8zmm+tFVdHd3tr7WbvA6nFW2r+fM8eThjIqExQ1TPi
-	hLZhR77IotezSVDA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A479B13319;
-	Mon, 26 Oct 2026 12:36:51 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id pRbNH2NJ32oTQAAAD6G6ig
-	(envelope-from <jack@suse.cz>); Mon, 26 Oct 2026 12:36:51 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 4A613A1419; Mon, 26 Oct 2026 13:36:51 +0100 (CET)
-Date: Mon, 26 Oct 2026 13:36:51 +0100
-From: Jan Kara <jack@suse.cz>
-To: Josef Bacik <josef@toxicpanda.com>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/5] quota: make quotactl_fd(2) killable on s_umount
-Message-ID: <6brwbb4yrqgmndji5amhiz6uk4dwsqyq7ga6oxciokd3jo5akk@krzyvlsyc6zt>
-References: <20261023-b4-s-umount-killable-v1-0-844a341ff1df@toxicpanda.com>
- <20261023-b4-s-umount-killable-v1-2-844a341ff1df@toxicpanda.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZjLm8FtS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D41CB1F031E5
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:38:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793018298;
+	bh=XG8Szrq9HyP4p8mCyECorg47iCZAl2TOpPnmqA0Xpkw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=ZjLm8FtShg0tZhNiT+oKp913XnkSkLx/78VjPoVNrWiTHkCSmS4c3LBPxoIHUU08n
+	 1dGRvAOAkhPCG+83WlAsP3/L0Yr3DKYkbVGpfRX5zBVbBP7bnTGTuzev+v5S8t/JHw
+	 +g3L3okX2yOeF04zu0Eg+13Ak/6OScCvZY7VTjBFImLpeYZC06W3sV6iMG10wuoLWW
+	 AQhV1H4bSQH64Jbz3j0Ewl+TyfqaQuNBfwv80Ldo85+QgS/RtLgyS2vAY/NlC6jJHq
+	 7uo3ZwPh3c/RQJZkwV6k1V7XXI1HuemK9zLTl0ITxbz1UQ5+W4/JhssuE8v+uWE7vH
+	 Ok5+sneFl/1Ow==
+Received: by mail-oa1-f52.google.com with SMTP id 586e51a60fabf-4a822463a22so1605872fac.2
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 05:38:18 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxW1c9XZbDV+D+BBjuP8P++8DC39sG0F9YBYsCNxtBFs9HooH3WL8C6lnYTYnmv09fukqo5PfO6pTl0SUE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLAQfnIIck9dCtCs0J95hUDK3bc6ykIwh8FnP/OFeqwspQ2cmzD
+	sve2YV1pVdWOAA9dCFrbpXAusffqyil7Y1G9YqIBSBceurVw/xlFRqrIMW6GDzacJzNULoJEWe0
+	zrRugJhEI2G4TRCYnI1p208/vfPvMrWg=
+X-Received: by 2002:a05:6871:a69f:b0:491:b7fa:76f8 with SMTP id
+ 586e51a60fabf-4a83ec452e7mr3868754fac.0.1793018298084; Mon, 26 Oct 2026
+ 05:38:18 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,90 +59,153 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261023-b4-s-umount-killable-v1-2-844a341ff1df@toxicpanda.com>
-X-Spamd-Result: default: False [-12.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo,suse.cz:email,suse.com:email,toxicpanda.com:email];
-	RCVD_COUNT_THREE(0.00)[3];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.cz:email,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -12.80
-X-Spam-Level: 
-X-Spam-Flag: NO
+References: <pm-mptcp-objects-candidate-0066-v3-73df72b7a543d4cada0e@gmail.com>
+In-Reply-To: <pm-mptcp-objects-candidate-0066-v3-73df72b7a543d4cada0e@gmail.com>
+From: Eric Dumazet <edumazet@kernel.org>
+Date: Mon, 26 Oct 2026 13:38:07 +0100
+X-Gmail-Original-Message-ID: <CAL4WiiqEHwZRhSRXqFOtF3OYsX_v3519Ey8AEknbaZKFNogeJA@mail.gmail.com>
+X-Gm-Features: AclHuK-yOS0_zQhnBgPZbv2A9ize24MPt8Vf2Uf9oc7WYOKvbednnhX2kOUiocA
+Message-ID: <CAL4WiiqEHwZRhSRXqFOtF3OYsX_v3519Ey8AEknbaZKFNogeJA@mail.gmail.com>
+Subject: Re: [PATCH net] mptcp: protect listener backlog reads in diagnostics
+To: Cen Zhang <zzzccc427@gmail.com>
+Cc: matttbe@kernel.org, martineau@kernel.org, davem@davemloft.net, 
+	kuba@kernel.org, pabeni@redhat.com, geliang@kernel.org, horms@kernel.org, 
+	netdev@vger.kernel.org, mptcp@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	baijiaju1990@gmail.com, jjzuming@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri 23-10-26 20:39:31, Josef Bacik wrote:
-> quotactl_fd(2) takes s_umount of the filesystem the file descriptor is on,
-> exclusively to turn quota on or off and shared for everything else.  If
-> the lock is held for a long time, by a syncfs(2) on a device which doesn't
-> answer say, the caller sits in D state and can't be killed.  For the
-> commands which write it does so holding write access to the mount.
-> 
-> quotactl(2) with a device can already be killed at this point, it gets the
-> lock from user_get_super().
-> 
-> All that has been done by the time the lock is taken is getting that write
-> access.  Use the killable variants, and drop it on the way out.
-> 
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Le lun. 26 oct. 2026 =C3=A0 13:04, Cen Zhang <zzzccc427@gmail.com> a =C3=A9=
+crit :
+>
+> mptcp_diag_get_info() reports the accept queue of a listening MPTCP
+> socket by reading msk->first. The token based dump and the exact token
+> query only hold a reference on the MPTCP socket, which pins neither the
+> first subflow nor the listener hash bucket, and __mptcp_close_ssk()
+> drops the last reference on the first subflow before clearing
+> msk->first.
+>
+> An application can disconnect a connected MPTCP socket with AF_UNSPEC,
+> which removes the token but retains the first subflow, listen on it
+> again and close it. A dump that obtained the MPTCP socket before the
+> disconnect then reads the backlog of a freed TCP listener:
+>
+>   Token diagnostic                 Application
+>   mptcp_token_iter_next()
+>     retain MPTCP socket
+>                                    connect(AF_UNSPEC)
+>                                      remove token, retain first
+>                                    listen()
+>                                      reuse first
+>   mptcp_diag_get_info()
+>     observe TCP_LISTEN
+>     lsk =3D msk->first
+>                                    close()
+>                                      mptcp_destroy()
+>                                        __mptcp_close_ssk()
+>                                          release first
+>     read lsk->sk_ack_backlog
+>
+> Take the MPTCP data lock around the listener state check and the
+> backlog reads, and only follow msk->first while no process owns the
+> socket. Every path that disposes of the first subflow runs with the
+> socket owned, and lock_sock() has to take the same spinlock to become
+> the owner, so the reads cannot overlap with the release. Waiting for
+> the owner is not an option: mptcp_diag_dump_listeners() calls this
+> function with the listener hash bucket lock held, which the owner needs
+> to unhash that very listener. While a process owns the socket, the dump
+> reports the MPTCP socket's own queue values instead.
+>
+> BUG: KASAN: slab-use-after-free in mptcp_diag_get_info+0x415/0x490
+> Read of size 4 at addr ffff888111763818 by task python3/499
+>
+> Call Trace:
 
-Looks good. Feel free to add:
+Adding these stack traces without symbols is not really nice.
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+Time to use scripts/decode_stacktrace.sh
 
-								Honza
-
+>
+> Fixes: 4fa39b701ce9 ("mptcp: listen diag dump support")
+> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+> Assisted-by: LLM
 > ---
->  fs/quota/quota.c | 8 +++++---
->  1 file changed, 5 insertions(+), 3 deletions(-)
-> 
-> diff --git a/fs/quota/quota.c b/fs/quota/quota.c
-> index f906e4fd3f0f..94e6407734c7 100644
-> --- a/fs/quota/quota.c
-> +++ b/fs/quota/quota.c
-> @@ -997,9 +997,11 @@ SYSCALL_DEFINE4(quotactl_fd, unsigned int, fd, unsigned int, cmd,
->  
->  	sb = fd_file(f)->f_path.mnt->mnt_sb;
->  	if (quotactl_cmd_onoff(cmds))
-> -		down_write(&sb->s_umount);
-> +		ret = down_write_killable(&sb->s_umount);
->  	else
-> -		down_read(&sb->s_umount);
-> +		ret = down_read_killable(&sb->s_umount);
-> +	if (ret)
-> +		goto out;
->  
->  	ret = do_quotactl(sb, type, cmds, id, addr, ERR_PTR(-EINVAL));
->  
-> @@ -1007,7 +1009,7 @@ SYSCALL_DEFINE4(quotactl_fd, unsigned int, fd, unsigned int, cmd,
->  		up_write(&sb->s_umount);
->  	else
->  		up_read(&sb->s_umount);
-> -
-> +out:
->  	if (quotactl_cmd_write(cmds))
->  		mnt_drop_write(fd_file(f)->f_path.mnt);
->  	return ret;
-> 
-> -- 
-> 2.55.0
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+>  net/mptcp/mptcp_diag.c | 8 +++++++-
+>  1 file changed, 7 insertions(+), 1 deletion(-)
+>
+> diff --git a/net/mptcp/mptcp_diag.c b/net/mptcp/mptcp_diag.c
+> index 136c2d05c0ee..a71bcaee15c8 100644
+> --- a/net/mptcp/mptcp_diag.c
+> +++ b/net/mptcp/mptcp_diag.c
+> @@ -199,7 +199,12 @@ static void mptcp_diag_get_info(struct sock *sk, str=
+uct inet_diag_msg *r,
+>                           READ_ONCE(mptcp_sk(sk)->backlog_len);
+>         r->idiag_wqueue =3D sk_wmem_alloc_get(sk);
+>
+> -       if (inet_sk_state_load(sk) =3D=3D TCP_LISTEN) {
+> +       /* The listener walk holds the listen hash lock: do not wait for =
+a
+> +        * socket owner that could be unhashing the first subflow.
+> +        */
+> +       mptcp_data_lock(sk);
+> +       if (!sock_owned_by_user(sk) &&
+> +           inet_sk_state_load(sk) =3D=3D TCP_LISTEN) {
+>                 struct sock *lsk =3D READ_ONCE(msk->first);
+>
+>                 if (lsk) {
+> @@ -210,6 +215,7 @@ static void mptcp_diag_get_info(struct sock *sk, stru=
+ct inet_diag_msg *r,
+>                         r->idiag_wqueue =3D READ_ONCE(lsk->sk_max_ack_bac=
+klog);
+>                 }
+>         }
+> +       mptcp_data_unlock(sk);
+>
+>         if (!info)
+>                 return;
+
+This seems overkill, and adds a new msk slock -> ilb->lock nesting from
+mptcp_diag_dump_listeners(). It also makes ss randomly report msk
+rmem/wmem instead of the accept queue while the listener is owned.
+
+msk->first is a TCP socket: TCP listeners have SOCK_RCU_FREE, and
+tcp_prot / tcpv6_prot use SLAB_TYPESAFE_BY_RCU. Reading two integers
+under rcu_read_lock() is safe, and stale values are fine for diag.
+
+mptcp_diag_dump_listeners() already holds rcu_read_lock(), only the
+token dump and mptcp_diag_dump_one() paths are missing it.
+
+Something like:
+
+diff --git a/net/mptcp/mptcp_diag.c b/net/mptcp/mptcp_diag.c
+index 136c2d05c0eeb8f7050344a63396396d8718206c..28a42eee665129fe56c47dc2dd5=
+b265ba18b2e95
+100644
+--- a/net/mptcp/mptcp_diag.c
++++ b/net/mptcp/mptcp_diag.c
+@@ -200,8 +200,10 @@ static void mptcp_diag_get_info(struct sock *sk,
+struct inet_diag_msg *r,
+        r->idiag_wqueue =3D sk_wmem_alloc_get(sk);
+
+        if (inet_sk_state_load(sk) =3D=3D TCP_LISTEN) {
+-               struct sock *lsk =3D READ_ONCE(msk->first);
++               struct sock *lsk;
+
++               rcu_read_lock();
++               lsk =3D READ_ONCE(msk->first);
+                if (lsk) {
+                        /* override with settings from tcp listener,
+                         * so Send-Q will show accept queue.
+@@ -209,6 +211,7 @@ static void mptcp_diag_get_info(struct sock *sk,
+struct inet_diag_msg *r,
+                        r->idiag_rqueue =3D READ_ONCE(lsk->sk_ack_backlog);
+                        r->idiag_wqueue =3D READ_ONCE(lsk->sk_max_ack_backl=
+og);
+                }
++               rcu_read_unlock();
+        }
+
+        if (!info)
+
+
+pw-bot: cr
