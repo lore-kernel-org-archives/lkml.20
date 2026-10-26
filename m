@@ -1,109 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793018528;
-	b=ZK9kgd7bdrs2PWdER15jAHGK4ljzT4Xp3oG3gwLZ8m7kM4mBK/YCDZ1rpP6bTR6jBKb9
-	 8dac02dwGQDri+mTReKLzbdq0XKa1GoD5ASyL4faAaf6sEoY34g4d0BzwoRs8KgL7Yfpx
-	 MxE2MFJ/gYWZJo0bxkFya0g38kjveIbnCrM4A3pBjxgkkm12MrrQTMR7U4UCQPeTpsDhN
-	 jjvTVNhQJFKlZxu3eTl0A+Jec44y7GGLI1r8fDicli4BWvpHI5vDmvkyZbPm89cYiFJsg
-	 TmtycImelqTbsyN553PHLDYxSPylxBSbD3HGkdKh9Rkpnq6gEKMBm+7fYDIbST2BHYA==
+	t=1793018515;
+	b=dZyjEjYZPuhh5e+PtPYIKlv/PjrhVEhq4EKOeXsUzsKS/5UUlXEOsmyhBSIBDA7chhEG
+	 YglAIMUYnBuJRSPh4thrJA2RhNRWe0kgGVfOrbTeSRi1QfmV+48EwqUJlfEsoafKlomOF
+	 b1UMsKZbnBIkyLuUSBn1RDQpPGM2O3CnAtclEfjvWIFvTfqRnvgnKHj6+Z6P5zviDR63o
+	 uXAA1Z5b7i7C5kFkUzjyE7x7S5/nGI47sJnpE2GBlpUlfZINYvWlX/pYPsyN+CXrf7v8w
+	 5273WZrBTEIexOgCBtsPUWHnQZNt4En3qJw5qvSqbg9H+PF+NahbICPvReMUu7Ni3Mg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793018528;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793018515;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
 	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:
-	 X-Rspamd-Action:X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
-	bh=DpukdYIvsAZh6Daxa3geKTB5+fBh730tJTBi3TPMR/k=;
-	b=WzmiKhrokVsN0lnVkDyRy2uM8iKnJ7ubGUPXSKuqQRLJa8+z1A1lEXYSbYXb14Y4W9p9
-	 PeAL8PMyGg4V4D7eBY2soOpJKLYz9NYfq8ucQIARmp+iBe/4U+p18jqMo2Z/K82PnIuiQ
-	 zVnS+7Mhu4/SNjN/mzlPkuFep66nu398LzJkMfzbSy18EncQPnp/7G5C1on7glucTftv7
-	 IcEfh1Dc+BsHqiUoRrrgGOTNMeLA7qhrVRy7ZDv9UZOpv+DKgJlNyILZks98VaWoKzXyz
-	 ntwMMGb8eRUXOeLWuCnDfPoJembHON3ePAtvEEceTbf856tofUGxeXQm0PxDgeldiLQ==
+	 In-Reply-To;
+	bh=KO7AYtEHal7/gxD3bZY/yRpvMfzoftniypepjR/yBzQ=;
+	b=G0Gfe9kFgzD1iklOwhdOCzbWLgVTI+lN4nn7k/18TezS3phrIjGxr+l7sqO3jaUT1+ki
+	 9KUjTUv6v+9IUHIihQA5zATMN50YLLzodq65hKjwb6ef19/SWXgePBXrxdGKBSScnaLIv
+	 o1ZByr0d1fS5nW0RkbHhjYwKPXVv+BOyK20gany2E0d9SMn1aMOiNjKrGPKd2p9hDXfMS
+	 ++Q+Mra0eagdnUYqStZeYchbaQFoMwRuvflV1MM5OchC31RJ+UiD+sLoY6wLr20KT9uUX
+	 /XX01CFNHzraKkRGjKGmiNtJJB3jnWfDW1xY3VI3ZAG5UawYjVFnM91i+lcWd2UQCNQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=ZMBgjNHr;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=L9fDCNrm;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=LzW2ER1i;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=nLUbVMFR;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=r6x+pAn3;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A16B0606A32A;
-	Mon, 26 Oct 2026 12:42:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A16B0606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38AAE606A31B;
+	Mon, 26 Oct 2026 12:41:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38AAE606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=ZMBgjNHr;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=L9fDCNrm;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=LzW2ER1i;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=nLUbVMFR
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 914C71F46E;
-	Mon, 26 Oct 2026 12:42:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793018525; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DpukdYIvsAZh6Daxa3geKTB5+fBh730tJTBi3TPMR/k=;
-	b=ZMBgjNHrYW8EDznz5iHfD1XWjprH8L/ZEgpEgi5NCoWeW1O71DDkwWEIc42FToZWlcZXOe
-	CXJVo3G9+EUQLPORzVx//czoOgw1NfyDdQc8UJ6tCMacMDQEtcSoGZTvs01Lc/PVYaru/p
-	FPLJxJ0eOPlomDfm2J5WQr1VWY4RyIE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793018525;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DpukdYIvsAZh6Daxa3geKTB5+fBh730tJTBi3TPMR/k=;
-	b=L9fDCNrmcMHnbeFkgN7ozJwShqODu28hrd9dYHkxOMV8Bwh1a56Dtw7qMVjLP/qr0gVmdX
-	wIOkoDi0sofMpQAQ==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=LzW2ER1i;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=nLUbVMFR
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793018524; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DpukdYIvsAZh6Daxa3geKTB5+fBh730tJTBi3TPMR/k=;
-	b=LzW2ER1iJcOr9L76Lr0XF6js4bvs334uUcIg3kToNLmY5SXrNKMZiuppB4T3yoGhW5OsoL
-	ShUj/v71jGJWR73oLheeVZNaKUocIVrr3V4VLVPHf8hnDqjC2k6qpwl8+kB6/taR85eN8q
-	Jog4qKTrCspRkiY+VSW6/8enRHNhjQs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793018524;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DpukdYIvsAZh6Daxa3geKTB5+fBh730tJTBi3TPMR/k=;
-	b=nLUbVMFRn2xWKH1S737Ci/u2yvhamQK6ErYoioHFrGyaB//zjH4ncunDWXXT0FaU3M2alg
-	BLF0fz1MkStZGIAA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5C3B913319;
-	Mon, 26 Oct 2026 12:42:04 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id kDH7DZxK32oIRQAAD6G6ig
-	(envelope-from <jack@suse.cz>); Mon, 26 Oct 2026 12:42:04 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id EC68CA1419; Mon, 26 Oct 2026 13:41:59 +0100 (CET)
-Date: Mon, 26 Oct 2026 13:41:59 +0100
-From: Jan Kara <jack@suse.cz>
-To: Josef Bacik <josef@toxicpanda.com>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 5/5] fs: make umount(2) of the root killable on s_umount
-Message-ID: <3plsmxduym4c4nledoza7aqvbgqr4aevmjr2acbzrmmemh6vgr@guznki656dpk>
-References: <20261023-b4-s-umount-killable-v1-0-844a341ff1df@toxicpanda.com>
- <20261023-b4-s-umount-killable-v1-5-844a341ff1df@toxicpanda.com>
+	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=r6x+pAn3
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=KO7AYtEHal7/gxD3bZY/yRpvMfzoftniypepjR/yBzQ=; b=r6x+pAn3/3SnE4lLsyaHXEwvxg
+	/d+P3KMrgPP0jUVmei8RNTPdbQ0cOBhVfKbtikmsd+RhqX8aOD1SmkrefuiLVhhvWc/nFDL5ViXA+
+	tOvuXuAPDoighu2Ox0apsNs3b3BbsVEJzltMqtkdySK1svrEhKErqzlM0fP3XgPL00Dc=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xLK1L-00CnVL-Ae; Mon, 26 Oct 2026 13:41:47 +0100
+Date: Mon, 26 Oct 2026 13:41:47 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: David Yang <mmyangfl@gmail.com>
+Cc: netdev@vger.kernel.org, Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] net: dsa: motorcomm: Fix function parameter types
+Message-ID: <46921fb6-e89a-49c8-b15d-eba8d3eb3f8e@lunn.ch>
+References: <20261026083252.12684-1-mmyangfl@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,81 +66,19 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261023-b4-s-umount-killable-v1-5-844a341ff1df@toxicpanda.com>
-X-Rspamd-Queue-Id: 914C71F46E
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-13.01 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	MISSING_XM_UA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FROM_HAS_DN(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCVD_TLS_LAST(0.00)[];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	TO_DN_SOME(0.00)[];
-	DKIM_TRACE(0.00)[suse.cz:+]
-X-Spam-Score: -13.01
+In-Reply-To: <20261026083252.12684-1-mmyangfl@gmail.com>
 
-On Fri 23-10-26 20:39:34, Josef Bacik wrote:
-> Unmounting the root of the caller doesn't unmount anything, it remounts
-> the filesystem read-only.  So it has the same problem as a remount: it
-> waits for s_umount in D state, can't be killed, and keeps every later
-> reader of the lock waiting behind it.
-> 
-> Use down_write_killable() in do_umount_root().
-> 
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+On Mon, Oct 26, 2026 at 04:32:48PM +0800, David Yang wrote:
+> yt921x_fdb_add_index_in12() mistakenly takes the two register images
+> as u16, while all registers are 32-bit wide, silently losing the upper
+> half. Widen the parameters to u32.
 
-Look good. Feel free to add:
+I'm surprised the compiler is not warning about this. Have you tried
+building with W=1? or W=2 ?
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+> Fixes: 186623f4aa72 ("net: dsa: yt921x: Add support for Motorcomm YT921x")
+> Signed-off-by: David Yang <mmyangfl@gmail.com>
 
-								Honza
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
-> ---
->  fs/namespace.c | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
-> 
-> diff --git a/fs/namespace.c b/fs/namespace.c
-> index 837f531e494b..b874accabf76 100644
-> --- a/fs/namespace.c
-> +++ b/fs/namespace.c
-> @@ -1897,9 +1897,11 @@ static void shrink_submounts(struct mount *mnt);
->  
->  static int do_umount_root(struct super_block *sb)
->  {
-> -	int ret = 0;
-> +	int ret;
->  
-> -	down_write(&sb->s_umount);
-> +	ret = down_write_killable(&sb->s_umount);
-> +	if (ret)
-> +		return ret;
->  	if (!sb_rdonly(sb)) {
->  		struct fs_context *fc;
->  
-> 
-> -- 
-> 2.55.0
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+    Andrew
