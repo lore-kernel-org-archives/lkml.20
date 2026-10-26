@@ -1,93 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793011229;
-	b=BvDCqCdeKN8N6URYJ+As0F6P6P0QVK8qm6kWE+dC/StCQsG06TuRnpZvaWdbUR8e94KW
-	 8jzyWrghUztTZCGdkNqecrVPL88hMukDgSYtC/E6QNcmp9toR3V/z+TH3VqUTIMQx+wrQ
-	 R1kEXkw5HPBfi1LoH+xfF8CfPmCnD2Hg/3u7Goh4c5pSkoCXjigUR+VqJ9/dHdTKf9eNm
-	 uM7x2lEqUXTllOuqJOVQcJyE2Db9tYbNS4oyJVaSELghXZjHt/p1q7XXDQ6arbnPzYZms
-	 Ae4o94gfM0V9p2aj9vkaogqyv/ieNvcJs7bf+x4yryQh/08qIOeDyVp3vMxb30gFNtQ==
+	t=1793011247;
+	b=Gmq8fDoV3ouZf6Bb9MpAcONHa34ArYZY4Y+To3ZHRbQN9ZBvv0/xSWwpLPoF7V5JUJML
+	 CiRXPwXessHfrCgzjd4OI/0oAx5rwudcS2CZqGN1fvirQ25cp8iKonm7nbhiH8S+P+2ri
+	 sknEgb0fPLDtyDreUDs25tI1SGtOaWe26rh1vEue1iGDBwzxVtRlNPM81qLvo2cDgYIWE
+	 2WSqyDzZFsXcFht5AmSI689tsxWTuml0eGHUkg1SJ3bMiCA4KSyMd+k2T5dO0E9n17X1F
+	 jmNip767zSHcZy+3qz1d8LcmYtSLdt7E2YcMVboO1THGaG4i4Lutrm/1JTA2Sqj4pfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793011229;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=cV0613HkIy6oDcHR5pHciUveYweuUKAGb8FXSxW3Ddk=;
-	b=UCfXo7TPsovEsjSBdTI5rH8FdWi/WFFYkH6of3r7u8JpgxzJQ1bRKqYY+ZMQNEJNmpkL
-	 7cBCx0NIQEng3iSPIjnJWVhMQ0lbYSkW81INvrfrQIkzlOkFIgZwQAjFr04TjmJrIseb+
-	 AH97x4Wrh4KMveFaGxWVNUnS965QcaIE+3ysZcDiGJw7xLkqBfy7hCF4pE2gN1EM7AMh4
-	 yHtRPZKqMYQfHTndULR16t9CdUx7jNMyL4A181NsYRCKQq+Mcrm9OBgrStty8tA3ld1Z4
-	 kamk5GW2o1hABEHwGaN4eKEKNik3utKtRRtB7Q2SH4ZEaglyqvgeNZcBQPPUfZJ7H2A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793011247;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 Mail-Followup-To:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=EP4HK2sAGEG6Sk9+NnIgjZnlbU/DTAHtGnb+M3I0RHo=;
+	b=XeZpMVtZHPIUGWFgj1zKijIgxcsLvBO+OBwMmqamk8e9UxHJ5x9rlKmUF+zLlwVI7L2i
+	 1WNqS09uOlzBUqJyuo2ybTz2lbuUjkTMWHw7euESV7QBQcgIk1KLXoHVnav36BTXjcM/p
+	 KhFwN8t4cR+BczHZk3Wmw+4Zx1DDAXu3dRI4kmnS2xbdIdT7GmRtW7/Pagr5VLCpsWM/m
+	 8lcgcgxDjaGXEJ7RFaGqhVUTP4jtiZCpqsaJY7VEKLMs8j/dS/RRFIvhIYaGlTaii8Ho+
+	 fu6aMG1WuGRpt8GZfPykfYqckt1Zbl+8QdRONPcNuv9cNif9s2xaGf2bTqqqgyI2HJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OlxKvaFx;
-	arc=none smtp.remote-ip=198.175.65.10
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ojG/I6nA";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 033DE606A31A;
-	Mon, 26 Oct 2026 10:40:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 033DE606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41EB1606A32D
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:40:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OlxKvaFx
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793011228; x=1824547228;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=0/Q8KSTo0adxm5V8+rvOuCbruYkK+f5oqI4EGetOZUs=;
-  b=OlxKvaFxaseF7IbyPAACeHlZln3IUETOIKKYPxuF5CfSh3Pw+WQV+eU5
-   1FjgRiGQ8tUfJwmEl4JETDjNg2Uxx8NLwVhtfx2Xz3kx3PeZ+0bOY6Jhp
-   82smqGvJvLQOflV/643Pqecr69/lsVSzpMMF18A7wBBCEsbl7ZHGFIK6O
-   a933mFZCszCF2JdmKg9h7jodrDsszN7BkKAUREFRnWJGKFNs+SPORWh5I
-   /zhzu4bgPuEu0kYAYrP/gLwhXxD03W0Vpl2R+yxhiaOInRSMBQYfC8i3S
-   GUTgTAa2y+FY9qCa/KTdPVHOiBFsFKqeUKXfzkmyiIR6mVKadkXWRKOVP
-   g==;
-X-CSE-ConnectionGUID: yOm/syLARwOOhgEkmkfsxA==
-X-CSE-MsgGUID: PCwhZI6tSaWNuXh3PMwg4Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1564747"
-X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
-   d="scan'208";a="1564747"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 03:40:27 -0700
-X-CSE-ConnectionGUID: uynkbYzyQsm+WZ1I78OQRA==
-X-CSE-MsgGUID: 2U+XNF39ROSidvrT8TCMtA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
-   d="scan'208";a="6089682"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.93])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 03:40:23 -0700
-Date: Mon, 26 Oct 2026 12:40:20 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Prabhakar <prabhakar.csengg@gmail.com>,
-	Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Andy Shevchenko <andy@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>, linux-iio@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: Re: [PATCH v3 8/8] iio: adc: rzt2h: Add support for RZ/V2H(P) SoC
-Message-ID: <at8uFFHk7DHH9e1l@ashevche-desk.local>
-References: <20261023175919.160103-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20261023175919.160103-9-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <atyKo0pTYZyt5XJc@ashevche-desk.local>
- <CAMuHMdV8Q9UKrpoZuZfDUutrG=bOwcNWLnht1bufv0YVXJPNDw@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ojG/I6nA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E67D1F01828;
+	Mon, 26 Oct 2026 10:40:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793011247;
+	bh=EP4HK2sAGEG6Sk9+NnIgjZnlbU/DTAHtGnb+M3I0RHo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ojG/I6nARC+3zNB6Jjc/jmbjIcDZSvlgu9MpO8czPyyVpMlw/KnmvJ8TE4BnjY+Hn
+	 6XknwjXP+TIpYh9goWlaatrny8u2RobcbspIIXWMIsnDIT/IvbMf3Wac8s64gRZQe5
+	 NjJf0VkaT+DmzoH4zyorAxT3yQhgjYLstjrkN3YSJnhmki9x0WjG+01iaWzq/46qh3
+	 LNTc/mDsxGmuWcpa/EdoTY/Nb0IsG9zv+lH3qT+ZRuHUGl0QzdUOAvylwYxbLlhplD
+	 9H3Qqs5njDSCGn4tWYZGhos4V/WNA/SXY8C+yR4xUnjqNSX/B+uzbgkwgAAZIImtqn
+	 kHyKsZ2islK3A==
+Date: Mon, 26 Oct 2026 11:40:37 +0100
+From: Gao Xiang <xiang@kernel.org>
+To: Zhan Xusheng <zhanxusheng1024@gmail.com>
+Cc: xiang@kernel.org, chao@kernel.org, zbestahu@gmail.com, jefflexu@163.com,
+	dhavale@google.com, hongbohbli@tencent.com, guochunhai@vivo.com,
+	giuseppe@scrivano.org, linux-erofs@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org, zhanxusheng@xiaomi.com
+Subject: Re: [PATCH v2] erofs: don't reuse a superblock for a mount that
+ passes device=
+Message-ID: <at8uJdaEhdkZVsfY@MacBookPro>
+Mail-Followup-To: Zhan Xusheng <zhanxusheng1024@gmail.com>,
+	xiang@kernel.org, chao@kernel.org, zbestahu@gmail.com,
+	jefflexu@163.com, dhavale@google.com, hongbohbli@tencent.com,
+	guochunhai@vivo.com, giuseppe@scrivano.org,
+	linux-erofs@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+	zhanxusheng@xiaomi.com
+References: <at8UCyjlHgxxBAaf@MacBookPro>
+ <20261026092217.2129604-1-zhanxusheng1024@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,49 +67,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <CAMuHMdV8Q9UKrpoZuZfDUutrG=bOwcNWLnht1bufv0YVXJPNDw@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20261026092217.2129604-1-zhanxusheng1024@gmail.com>
 
-On Mon, Oct 26, 2026 at 11:14:53AM +0100, Geert Uytterhoeven wrote:
-> On Sat, 24 Oct 2026 at 12:38, Andy Shevchenko
-> <andriy.shevchenko@intel.com> wrote:
-> > On Fri, Oct 23, 2026 at 06:59:19PM +0100, Prabhakar wrote:
-
-...
-
-> > > +static int rzt2h_adc_write_scale(struct iio_dev *indio_dev,
-> > > +                              struct iio_chan_spec const *chan,
-> > > +                              int val, int val2)
-> > > +{
-> > > +     struct rzt2h_adc *adc = iio_priv(indio_dev);
-> > > +     u64 req_scale, scale;
-> > > +     unsigned int i;
-> > > +
-> > > +     if (!(adc->chip_info->features & RZT2H_ADC_FEATURE_RES_SELECT))
-> > > +             return -EINVAL;
-> > > +
-> > > +     req_scale = mul_u32_u32(val, NANO) + val2;
-> >
-> > But what's wrong with the simple 1ULL * val * NANO?
+On Mon, Oct 26, 2026 at 05:22:17PM +0800, Zhan Xusheng wrote:
+> From: Zhan Xusheng <zhanxusheng@xiaomi.com>
 > 
-> IMO that looks like a useless multiplication, which will be removed
-> again in some future "cleanup"...
+> superblock_share together with device= is rejected in
+> erofs_fc_fill_super():
 > 
-> There is a reason the mul_u32_u32() helper exists...
+> 	if (test_opt(&sbi->opt, SUPERBLOCK_SHARE) &&
+> 	    sbi->devs->extra_devices)
+> 		return -EINVAL;
+> 
+> but extra_devices is kept in sbi->devs, not in sbi->opt, and
+> erofs_sb_share_test_super() compares only the backing inode, the
+> fsoffset and sbi->opt.  So once the image is mounted with
+> superblock_share, a second mount with superblock_share,device= matches
+> that superblock and get_tree_super() reuses it without calling
+> fill_super() at all.
+> 
+> The same command line therefore either fails with -EINVAL or succeeds
+> with device= quietly dropped, depending on whether a compatible mount
+> already exists.
+> 
+> Refuse to match a context that brought device= options, so that it gets
+> a superblock of its own and fill_super() decides as it does today.
+> 
+> Only the incoming context can be tested: a shared superblock may have
+> extra_devices set itself, because erofs_scan_devices() fills the device
+> table from the image when no device= was given.
+> 
+> Fixes: cd4108319bb3 ("erofs: reuse superblock for file-backed mounts")
+> Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
 
-I don't see that. The 9e3d6223d209 ("math64, timers: Fix 32bit
-mul_u64_u32_shr() and friends") tells a different story.
+Reviewed-by: Gao Xiang <xiang@kernel.org>
 
-> > > +     for (i = 0; i < chan->num_ext_scan_type; i++) {
-> > > +             scale = mul_u32_u32(RZT2H_ADC_VREF_mV, NANO) >>
-> >
-> > Similar Q.
+Also I will update the subject as "erofs: fix disallowing superblock_share
+if device= is set".
 
--- 
-With Best Regards,
-Andy Shevchenko
-
+Thanks,
+Gao Xiang
 
