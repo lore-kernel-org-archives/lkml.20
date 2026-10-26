@@ -1,96 +1,44 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.229.1
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793014623;
-	b=eIR6v6YZIwDxoIkyYOybdkxqAL+jjpM2JNmaZjSJkcJ/BXDAlLip7pWGMxUw693DpuQz
-	 LrMsuj6Os1blyELtnVaI+frH7aZlML1/8kI7D3A4nxXOymarpJXpaCIMxdFlojwEAs6LM
-	 smSi9+IuZ/2IcFmy5AiUB9QWAsy7NnFpXcCF0hbI2Yv0bRVRheotEdHDUOpMV4AgVLJpc
-	 RzqxGdnFIzHWj349fdEMhB8BbcMFC68aC0Y33OROQMI6Iw9JdfrWdn7u1r56BdHP5IzX4
-	 OvnM7LPBYI7jOFOAuYWTSb6HznUAoGvve6+00GkfIaeXOfIRQWvCxuBj9Cud+W9jkJA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793014623;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=/q+cu0IMhbkUSyO2IVNcOzMWw31ny4dUBrb6tlnrqCE=;
-	b=ynqAyszbylXkW4Taf51Yof9e4/Q7uOnSvYDVJttCrxwAU2WvM9WJVVLZ0Y8kvcpwXlDL
-	 WrEYWKsBL5u5OzFXugTXD898iNlMLlkthp3PiKmE4u1tVdSiQr+MqiXBL3YrWT1pkkMSi
-	 4fIH+PVQ2KyuzbZMw3Joh9LbAg9GZL+PBu3vIex93vEKQmd4WTLpfeeK4SCMSYqHVJsnZ
-	 lusIvf18kO6WDI2yAww4zUAhJ0Cbu3qH2SV+cyl+cmMczWweKMAujG6u9OiJSzqqhNjcM
-	 tAOfvh+4ouJLlWmhbvxszHh06pKTQJrOjiZB9fCrvvLz2Yye1udlL5+pKtgOhXo4Apg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=renesas.com;
-	spf=pass smtp.mailfrom=renesas.com;
-	dkim=pass header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256 header.s=selector1 header.b=a8NOeXYi;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.229.1
-Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11010001.outbound.protection.outlook.com [52.101.229.1])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.195.17.204
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793014644;
+	b=WqXrf5SX/VsgyccsORRm8c2k7qba5S4uRrThlrFaU7/IM609sBseaxMAkPgzP6YWzZV9
+	 i5G/fW6tLMZME8sdbB8wxh7WxEBS1sg24scll1L8pt59KNkddPP8Gto0Hw9tUx/SDrTZT
+	 IHDFCMiAFLYYzm+0tN5avOexRBwcwY8LL2bNnyVHWd0g8DSkfuBQfBXM/oSulVH9CvJXU
+	 2kClYZV7LRZkRg7rLio95GIrzPGCfLDtqR5j7TS+oMXy215wk6Y1yXXNZAYFw3BDvfpGK
+	 48vJoCEpwM3v4SS5EaMKMLVa661B8FAmT3Fih9t8/uiVB+dLlyT5nSUDVlB2CudO6vg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793014644;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:From:To:Cc:References:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:X-HM-Spam-Status:
+	 DKIM-Signature;
+	bh=HEKtYIbgkzruBNpb+DZV777xMRKUL99v7GeZyU05Q6o=;
+	b=mfl+WRU7jF5FsHcebLuAAd0pQz1NdiVHnMA0AL9kruzOlFkgq+mTOM1PK8HgR3M+WnDG
+	 d3TLWrALyaCPoCvwJFqGOzjFk5v5VfhdXRoKjR30C+FlKvkQj8eCoICLZhp+TPa9kay73
+	 vyQsQiXIhZEgBqeYDoYj9c9fdmdXr+oGfbtR9k9vQ9s/keMnMt9K25zEe1HbJpgDBihn4
+	 mD1azQsDkPYo/115GF9bAqleNAIpRv5Bqv9cf0dhwa5cAI8DXTvA7TVXr3DVzISpVWUXD
+	 prFZM30FxN6ybyptGF7pDlOKVP7g0MH0Ag571lgxlINjkEjb7ds+eERGVgvsVZvzzSg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=rock-chips.com;
+	spf=pass smtp.mailfrom=rock-chips.com;
+	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=VNMfoH3W;
+	arc=none smtp.remote-ip=45.195.17.204
+Received: from mail-m17204.xmail.ntesmail.com (mail-m17204.xmail.ntesmail.com [45.195.17.204])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DF8460A260E;
-	Mon, 26 Oct 2026 11:37:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5DF8460A260E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADD09606A31E;
+	Mon, 26 Oct 2026 11:37:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ADD09606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256 header.s=selector1 header.b=a8NOeXYi
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WJMNgDD1xiK/81UyeWoh/cB4e9LmAPeAJBM95/GRrIZyMPq6xVxQ9i1Kyo2CrDPwLnao8IPEOmECE26nD8ksE00Wzn0Y+b1Zn6YVXGN+iFefv+EWlpfL+95kg8XI5EYviqgCFlwlV6w0ynjcWnUXJI67B5JUsywDaHh3WdLUO8TKJOCt/Hbrn4/MSo30PozoR9X4swOnHCX6gvyGjuQ/5kqkA1BFjo3wojBseARnyIhoFRWyjczPFl70Q4XcS9wg31cg1vAB9INEYf0YIaJj2FTV/T6jTjXfoajgF0S3lnKtgWBOl5TFYfUuI6dsdK7z93KNhMTJXPwM/aekd0jRdg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/q+cu0IMhbkUSyO2IVNcOzMWw31ny4dUBrb6tlnrqCE=;
- b=u97568RYIGILvnuUowWe007CIrydUl3wNyExMBM4k1tR3b6A0EQnA936f7t0BkLqU6lHm4KnTugEcjWDRGxWfAlg5X7BuBnVL31cqh71NcF+vGGcXb1de1OPK4rXdD98QOJfq945y81DwWt4GKrOse85uK8O6RxL9iDWyZ1ZKJmZrDtTySyl/2qzIJRmGjJfW589oWcFYnKW/dv+5Bv3TkoCqDDvo8aypYIFkyTy5+dvE4M7J84yx7exMWgSsYS0miTiaYC5H9/iExM3FgJAuvhuUfTwV7w3TqRNi1SMyZ0cJq6PR3t5/yK4OUSU41rk0R0GbvCds3cP8xcrinb98g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 8.62.32.50) smtp.rcpttodomain=baylibre.com smtp.mailfrom=renesas.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=renesas.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/q+cu0IMhbkUSyO2IVNcOzMWw31ny4dUBrb6tlnrqCE=;
- b=a8NOeXYiLKDZXO16qPjodrRwoLxvUT8e3Whz9P6hNlZ68wYUtG2ni/7cpk9eNam2TUDV7MD8SNl0wXUUbBYhebFDk9xll0DAwCGwNIjO9CQUPw/Wn37YM7nSBecn5JJOf7yOXL7okR6vta2Qni04wWWmg6EpxtUrgRGduDhtIdk=
-Received: from OS3PR01CA0036.jpnprd01.prod.outlook.com (2603:1096:604:db::23)
- by TYYPR01MB13352.jpnprd01.prod.outlook.com (2603:1096:405:1c6::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
- 2026 11:37:00 +0000
-Received: from OS1PEPF0000D216.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:604:db:cafe::82) by OS3PR01CA0036.outlook.office365.com
- (2603:1096:604:db::23) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.22 via Frontend Transport; Mon,
- 26 Oct 2026 11:37:00 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 8.62.32.50) smtp.mailfrom=renesas.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=renesas.com;
-Received-SPF: Pass (protection.outlook.com: domain of renesas.com designates
- 8.62.32.50 as permitted sender) receiver=protection.outlook.com;
- client-ip=8.62.32.50; helo=ejcrelay005p.adwin.renesas.com; pr=E
-Received: from ejcrelay005p.adwin.renesas.com (8.62.32.50) by
- OS1PEPF0000D216.mail.protection.outlook.com (10.167.240.23) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.4
- via Frontend Transport; Mon, 26 Oct 2026 11:37:00 +0000
-Received: from [192.168.1.82] (unknown [10.226.92.223])
-	by ejcrelay005p.adwin.renesas.com (Postfix) with ESMTP id 2AD523000253;
-	Mon, 26 Oct 2026 20:36:51 +0900 (JST)
-From: Diogo Ivo <diogo.ivo.sx@renesas.com>
-Date: Mon, 26 Oct 2026 11:35:50 +0000
-Subject: [PATCH v2 7/7] arm64: dts: renesas: r9a08g046: Add I3C support
+	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=VNMfoH3W
+Received: from [172.16.12.11] (gyproxy-mailtls0-entmail-virt215.gy.ntes [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 52608528f;
+	Mon, 26 Oct 2026 19:37:06 +0800 (GMT+08:00)
+Message-ID: <d4e92131-ceb8-4143-b8f8-21e7f9638bdb@rock-chips.com>
+Date: Mon, 26 Oct 2026 19:37:06 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,196 +48,484 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261026-divo-ssgrlpcsrc-2966-i3c-v2-7-2e76b87209bb@renesas.com>
-References: <20261026-divo-ssgrlpcsrc-2966-i3c-v2-0-2e76b87209bb@renesas.com>
-In-Reply-To: <20261026-divo-ssgrlpcsrc-2966-i3c-v2-0-2e76b87209bb@renesas.com>
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>, 
- Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>, 
- Alexandre Belloni <alexandre.belloni@bootlin.com>, 
- Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>, Stephen Boyd <sboyd@kernel.org>, 
- Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Linus Walleij <linusw@kernel.org>
-Cc: linux-i3c@lists.infradead.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
- linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, 
- Diogo Ivo <diogo.ivo.sx@renesas.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793014549; l=4789;
- i=diogo.ivo.sx@renesas.com; s=20240529; h=from:subject:message-id;
- bh=KxAZw+LJvuR5A3VLM7tEpFJpnpPJOciCtYDezW1GNNc=;
- b=rfxprELImaGLr6EQkDKC8WdOkK1hk2aqmBghW9ZIjNS+lDr2BnqhHYYhdhG8A/Gf5c3y8xWvQ
- IaNad9+kuEtAdWCVrwtBVhX8OirdfUeRZhV1uinMf8zoAvay5vFUm0J
-X-Developer-Key: i=diogo.ivo.sx@renesas.com; a=ed25519;
- pk=BRGXhMh1q5KDlZ9y2B8SodFFY8FGupal+NMtJPwRpUQ=
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: OS1PEPF0000D216:EE_|TYYPR01MB13352:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8fc4f507-4794-4c26-7af8-08df335572c8
-X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|82310400026|36860700016|23010399003|1800799024|921020|11063799006|56012099006|261021123027099003|261021121427099003|261022105027099003|261009223027099003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	MMjLnfwsJKXWuQjmVmwFyTT9CEXOsBEGsYHiqTamAKseX4kN2Y7N0QSnuYr6gMw7gd5vb9QjM55vZBTkx2jNJrSGVeRYKgTwBGinzrxp4A4rD4RWEPXemAvEFiIVrSsYNRyEUSYz2huufoBVHrcVojwzaJBnXOdGXmXiUNN4vCV19nlq5EDKrerbokLuzeOfWvvnxUEfypaiuS1aM42Hx8qQEYGeUesW0XnfiJwENoCz/z/+gyShK0D9KyaJfqJwMRbyuOjQbn0Nv+YL99Acn5CWbsCspH/0yz2igrJmmpP/ojXHxTGgn3BUVe9+vVe4mBE6xTF9ZBVJC85KkxqMiVK33IMsqNVNlvq8AwizwlBrOzPn8aiIk/9cAu1uoPoQYnG0qmV0FQT+n3VQMD8rkO/VZtTFtaBI+HobRslRqNCBWgANX5R4TOuNB2hPOoA2a8jzLwCeEWdomp4riJgHkFRSbjJlUaf1PdAz8YVApwBOdHcv6svJwfZ4n3WRlIl9LMO/roeQk9zn32ROuQ1nebgDj75xAb+hPY1Qw0moAxGAkGhZr4DQHsxH5YufcjePkyyfEp2cHGHtyVRZ1HmwFhjFpmDX9c9ox/hMOVmFb2DL3o72DZYfb189HHio9FArAF12Bou15Y9h+RTz51CCgCtjeweM9aa1WpNouoA08TB1M0AtpGLaBnGGh5yHio8gzv3QBWVuYwvLLjTilLFsx597/29xNchCtoJcSrhsTaZDoN1vbwgYK4PTPW10xIe7
-X-Forefront-Antispam-Report:
-	CIP:8.62.32.50;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ejcrelay005p.adwin.renesas.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(82310400026)(36860700016)(23010399003)(1800799024)(921020)(11063799006)(56012099006)(261021123027099003)(261021121427099003)(261022105027099003)(261009223027099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	UV8Mkk1jtzmtcQkFasvaOPfyki/mv/mVosYE9iJ2AvQBoqI6xIunsDmxslCuBUSCjcBNi5Gwbz7Cnu1DnY/kZ3Se/atroM8BUKBnaje5nTBqQnj9EJbUojBDHdHY0trKiJVZeEsjEBlZU7AS5fgwNfXVaZrdxbUVyrdH6OxBk4E+tivqqUzsvtPo2dbbasNW0N1YcWwhrnjk2XRGVg+mbvRAopgYzwG0Kh7xuZvEYwpyoTkJ57GImoB+0ZHFmKPFZPVB51aj3ZEyRnYWTgsNAXrVVVqRuDVCK6O16fqAWUwo4A4ArdwmKSE5bOExzPZ584er9B8GSae+OuYzA9QCE7XgfAtHYbSF66ekqVV4RjWCCniIsvKJnH5P6CEs8a6JSdEj1pOv7He68qVpiL3RRCrBoziFSvNejPg8rPFJhg/zG+SA+5Xc3GnECrBjWEZ5
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 11:37:00.0240
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8fc4f507-4794-4c26-7af8-08df335572c8
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=53d82571-da19-47e4-9cb4-625a166a4a2a;Ip=[8.62.32.50];Helo=[ejcrelay005p.adwin.renesas.com]
-X-MS-Exchange-CrossTenant-AuthSource: OS1PEPF0000D216.JPNP286.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYYPR01MB13352
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/2] pmdomain: rockchip: Add RK3572 boot peripheral
+ domains
+From: Finley Xiao <finley.xiao@rock-chips.com>
+To: 1579567540@qq.com, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Elaine Zhang <zhangqing@rock-chips.com>, Ulf Hansson <ulfh@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-pm@vger.kernel.org
+References: <20261026-add-board-ok3572-c-pmdomain-v3-0-70d614d3d921@qq.com>
+ <20261026-add-board-ok3572-c-pmdomain-v3-2-70d614d3d921@qq.com>
+ <18fcfe7a-e25a-4516-810f-d787b779914d@rock-chips.com>
+In-Reply-To: <18fcfe7a-e25a-4516-810f-d787b779914d@rock-chips.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa177fff99c09dakunm641cefa435c1f4
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDGRlMVh8ZSk1NSh9MS0kaTFYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+	9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=VNMfoH3WZzNqyxfs96Wvtr29zf904g8OgBBMSGVV/lJwvX3tAu37R/0E1Va2cuCJgP62iDleydznQ4XZK6Bn5bvttzZpMlO87TLYwu9v262EA/8iryJxR+yunfwtU73yA+5ycvptlrx8//L6vg6yVGStiEw8we++3446S5CjXHg=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
+	bh=HEKtYIbgkzruBNpb+DZV777xMRKUL99v7GeZyU05Q6o=;
+	h=date:mime-version:subject:message-id:from;
 
-Add the I3C Bus Interface node to the RZ/G3L (R9A08G046) SoC DTSI and
-enable it on the RZ/G3L SMARC EVK, together with the required pin
-control.
 
-The driver only consumes resources that are common to the RZ/G3L and
-the RZ/G3S (R9A08G045), so the node uses the SoC-specific
-renesas,r9a08g046-i3c compatible with a fallback to the
-renesas,r9a08g045-i3c compatible of the RZ/G3S, following the bindings.
+在 2026/10/26 16:47, Finley Xiao 写道:
+>
+> 在 2026/10/26 11:21, Cunhao Lu via B4 Relay 写道:
+>> From: Finley Xiao <finley.xiao@rock-chips.com>
+>>
+>> Add support for the RK3572 NVM0, NVM1, PHP, and VOP power domains.
+>>
+>> Signed-off-by: Finley Xiao <finley.xiao@rock-chips.com>
 
-The I3C pins are shared with RIIC3, so the controller is only enabled
-when the SW_I3C_EN switch is on.
+I have to point out that the changes (the shutdown/restore
+rework, pending-state tracking, etc.) were not made by me, and I have
+not reviewed them in detail. Therefore, I should not remain as the
+author (From:) of this patch, nor should my Signed-off-by be kept on
+it.
 
-The I3C I/O voltage can be set to 1.2V or 1.8V on the board through
-the SYS.3 (I3C_IOVS) switch, so configure the pin controller for the
-selected voltage through the power-source property.
 
-Signed-off-by: Diogo Ivo <diogo.ivo.sx@renesas.com>
----
-Changes in v2:
- - Declare compatible with G3S fallback
- - Sort the &i3c and i3c_pins nodes alphabetically in
-   r9a08g046l48-smarc.dts
----
- arch/arm64/boot/dts/renesas/r9a08g046.dtsi         | 35 ++++++++++++++++++++++
- arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts | 21 +++++++++++++
- arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi   |  4 +++
- 3 files changed, 60 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/renesas/r9a08g046.dtsi b/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
-index f33d5d7468ff..fccfe8d7faf5 100644
---- a/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
-+++ b/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
-@@ -620,6 +620,41 @@ canfd: can@100c0000 {
- 			/* placeholder */
- 		};
- 
-+		i3c: i3c@100e0000 {
-+			compatible = "renesas,r9a08g046-i3c", "renesas,r9a08g045-i3c";
-+			reg = <0 0x100e0000 0 0x1000>;
-+			interrupts = <GIC_SPI 354 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 355 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 358 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 359 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 360 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 361 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 362 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 363 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 364 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 369 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 370 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 372 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 373 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 374 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 375 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 376 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "ierr", "terr", "abort", "resp",
-+					  "cmd", "ibi", "rx", "tx", "rcv",
-+					  "st", "sp", "tend", "nack", "al",
-+					  "tmo", "wu";
-+			clocks = <&cpg CPG_MOD R9A08G046_I3C_PCLK>,
-+				 <&cpg CPG_MOD R9A08G046_I3C_TCLK>;
-+			clock-names = "pclk", "tclk";
-+			resets = <&cpg R9A08G046_I3C_PRESETN>,
-+				 <&cpg R9A08G046_I3C_TRESETN>;
-+			reset-names = "presetn", "tresetn";
-+			power-domains = <&cpg>;
-+			#address-cells = <3>;
-+			#size-cells = <0>;
-+			status = "disabled";
-+		};
-+
- 		ssi0: ssi@100e4000 {
- 			compatible = "renesas,r9a08g046-ssi", "renesas,rz-ssi";
- 			reg = <0 0x100e4000 0 0x400>;
-diff --git a/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts b/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
-index 68d7b579e352..a713d63b4510 100644
---- a/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
-+++ b/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
-@@ -13,6 +13,7 @@
- #define SW_DPI_EN		0
- #define SW_GPIO4		1
- #define SW_I3C_EN		0
-+#define SW_I3C_IOVS		0
- #define SW_SER0_PMOD		1
- 
- #define PMOD_GPIO4		0
-@@ -120,6 +121,16 @@ da7212: codec@1a {
- };
- #endif
- 
-+#if SW_I3C_EN
-+&i3c {
-+	pinctrl-0 = <&i3c_pins>;
-+	pinctrl-names = "default";
-+	i2c-scl-hz = <400000>;
-+	i3c-scl-hz = <12500000>;
-+	status = "okay";
-+};
-+#endif
-+
- &keys {
- #if !RZ_BOOT_MODE3 || !SW_GPIO4 || PMOD_GPIO4
- 	/delete-node/ key-1;
-@@ -163,6 +174,16 @@ i2c3_pins: i2c3 {
- 			 <RZG3L_PORT_PINMUX(2, 1, 4)>; /* RIIC3_SDA */
- 	};
- 
-+	i3c_pins: i3c {
-+		pinmux = <RZG3L_PORT_PINMUX(2, 0, 2)>, /* I3C_SCL */
-+			 <RZG3L_PORT_PINMUX(2, 1, 2)>; /* I3C_SDA */
-+#if SW_I3C_IOVS
-+		power-source = <1800>;
-+#else
-+		power-source = <1200>;
-+#endif
-+	};
-+
- 	pcie-clkreq-n-hog {
- 		gpio-hog;
- 		gpios = <RZG3L_GPIO(G, 6) GPIO_ACTIVE_HIGH>;
-diff --git a/arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi b/arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi
-index 91b2d0d43104..5959e62ad7ed 100644
---- a/arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi
-+++ b/arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi
-@@ -13,6 +13,10 @@
-  *      0 - SMARC_I2C_GP is enabled
-  *      1 - I3C is enabled
-  *
-+ * Switch position SYS.3, Macro SW_I3C_IOVS:
-+ *      0 - I3C voltage is 1.2V (when SW_I3C_EN == 1)
-+ *      1 - I3C voltage is 1.8V
-+ *
-  * Switch position SYS.4, Macro SW_SD2_EN:
-  *      0 - Select I2S0
-  *      1 - Select SD2
-
+>>
+>> - Returned firmware shift-ready wait errors to callers.
+>> - Kept the domain pending after a firmware shift-ready wait failure.
+>> - Retried power-on without repeating completed memory resets.
+>> - Recorded low-level power-on and restoration stages before hardware
+>>    operations so retries complete unfinished low-level work.
+>> - Kept memory resets pending across failures, including when memory 
+>> is off.
+>> - Preserved QoS snapshots after a failed power-on and cleared progress
+>>    after successful power-on or shutdown.
+>> - Tracked incomplete shutdowns to preserve QoS and complete firmware 
+>> updates.
+>> - Preserved pending memory resets across shutdown and cancelled 
+>> unfinished
+>>    power-on requests.
+>> - Attempt to restore the domain after power-off errors, while preserving
+>>    the original error returned to genpd.
+>>
+>> Co-developed-by: Cunhao Lu <1579567540@qq.com>
+>> Signed-off-by: Cunhao Lu <1579567540@qq.com>
+>> ---
+>> Changes in v3:
+>> - Track incomplete shutdowns to preserve QoS and complete firmware 
+>> updates.
+>> - Preserve pending memory resets across shutdown and cancel unfinished
+>>    power-on requests.
+>> - Attempt to restore the domain after power-off errors, while preserving
+>>    the original error returned to genpd.
+>>
+>> Changes in v2:
+>> - Record low-level power-on and restoration stages before hardware
+>>    operations, so a retry cannot skip unfinished low-level work.
+>> - Retain pending memory resets even if memory is off on retry, and
+>>    avoid repeating completed resets during restoration.
+>> - Preserve QoS snapshots across failed power-on and shutdown; clear
+>>    progress after successful power-on or shutdown.
+>> ---
+>>   drivers/pmdomain/rockchip/pm-domains.c | 187 
+>> +++++++++++++++++++++++++++++----
+>>   1 file changed, 167 insertions(+), 20 deletions(-)
+>>
+>> diff --git a/drivers/pmdomain/rockchip/pm-domains.c 
+>> b/drivers/pmdomain/rockchip/pm-domains.c
+>> index e193f978d5f3..668d208dea55 100644
+>> --- a/drivers/pmdomain/rockchip/pm-domains.c
+>> +++ b/drivers/pmdomain/rockchip/pm-domains.c
+>> @@ -39,6 +39,7 @@
+>>   #include <dt-bindings/power/rockchip,rk3528-power.h>
+>>   #include <dt-bindings/power/rockchip,rk3562-power.h>
+>>   #include <dt-bindings/power/rk3568-power.h>
+>> +#include <dt-bindings/power/rockchip,rk3572-power-controller.h>
+>>   #include <dt-bindings/power/rockchip,rk3576-power.h>
+>>   #include <dt-bindings/power/rk3588-power.h>
+>>   @@ -59,6 +60,9 @@ struct rockchip_domain_info {
+>>       u32 pwr_offset;
+>>       u32 mem_offset;
+>>       u32 req_offset;
+>> +    u32 status_offset;
+>> +    u32 firewall_mask;
+>> +    u32 clk_ungate_offset;
+>>   };
+>>     struct rockchip_pmu_info {
+>> @@ -72,6 +76,8 @@ struct rockchip_pmu_info {
+>>       u32 mem_status_offset;
+>>       u32 repair_status_offset;
+>>       u32 clk_ungate_offset;
+>> +    u32 firewall_status_offset;
+>> +    bool chain_status_inverted;
+> please keep the abbreviation consistent with the other struct
+> members and use fw_mask / fw_status_offset instead of firewall_mask /
+> firewall_status_offset.
+>>       u32 core_pwrcnt_offset;
+>>       u32 gpu_pwrcnt_offset;
+>> @@ -90,6 +96,13 @@ struct rockchip_pmu_info {
+>>   #define QOS_SATURATION        0x14
+>>   #define QOS_EXTCONTROL        0x18
+>>   +enum rockchip_pd_power_state {
+>> +    ROCKCHIP_PD_IDLE,
+>> +    ROCKCHIP_PD_ON_HW,
+>> +    ROCKCHIP_PD_ON_RESTORE,
+>> +    ROCKCHIP_PD_OFF,
+>> +};
+>> +
+>>   struct rockchip_pm_domain {
+>>       struct generic_pm_domain genpd;
+>>       const struct rockchip_domain_info *info;
+>> @@ -101,11 +114,14 @@ struct rockchip_pm_domain {
+>>       struct clk_bulk_data *clks;
+>>       struct device_node *node;
+>>       struct regulator *supply;
+>> +    enum rockchip_pd_power_state power_state;
+>> +    bool mem_reset_pending;
+>>   };
+>>     struct rockchip_pmu {
+>>       struct device *dev;
+>>       struct regmap *regmap;
+>> +    struct regmap *grf;
+>>       const struct rockchip_pmu_info *info;
+>>       struct mutex mutex; /* mutex lock for pmu */
+>>       struct genpd_onecell_data genpd_data;
+>> @@ -373,15 +389,16 @@ static bool rockchip_pmu_domain_is_idle(struct 
+>> rockchip_pm_domain *pd)
+>>       const struct rockchip_domain_info *pd_info = pd->info;
+>>       unsigned int val;
+>>   -    regmap_read(pmu->regmap, pmu->info->idle_offset, &val);
+>> +    regmap_read(pmu->regmap, pmu->info->idle_offset + 
+>> pd_info->status_offset, &val);
+>>       return (val & pd_info->idle_mask) == pd_info->idle_mask;
+>>   }
+>>   -static unsigned int rockchip_pmu_read_ack(struct rockchip_pmu *pmu)
+>> +static unsigned int rockchip_pmu_read_ack(struct rockchip_pm_domain 
+>> *pd)
+>>   {
+>> +    struct rockchip_pmu *pmu = pd->pmu;
+>>       unsigned int val;
+>>   -    regmap_read(pmu->regmap, pmu->info->ack_offset, &val);
+>> +    regmap_read(pmu->regmap, pmu->info->ack_offset + 
+>> pd->info->status_offset, &val);
+>>       return val;
+>>   }
+>>   @@ -400,7 +417,8 @@ static int rockchip_pmu_ungate_clk(struct 
+>> rockchip_pm_domain *pd, bool ungate)
+>>         val = ungate ? (pd_info->clk_ungate_mask | clk_ungate_w_mask) :
+>>               clk_ungate_w_mask;
+>> -    regmap_write(pmu->regmap, pmu->info->clk_ungate_offset, val);
+>> +    regmap_write(pmu->regmap, pmu->info->clk_ungate_offset +
+>> +             pd_info->clk_ungate_offset, val);
+>>         return 0;
+>>   }
+>> @@ -431,7 +449,7 @@ static int rockchip_pmu_set_idle_request(struct 
+>> rockchip_pm_domain *pd,
+>>         /* Wait util idle_ack = 1 */
+>>       target_ack = idle ? pd_info->ack_mask : 0;
+>> -    ret = readx_poll_timeout_atomic(rockchip_pmu_read_ack, pmu, val,
+>> +    ret = readx_poll_timeout_atomic(rockchip_pmu_read_ack, pd, val,
+>>                       (val & pd_info->ack_mask) == target_ack,
+>>                       0, 10000);
+>>       if (ret) {
+>> @@ -543,6 +561,9 @@ static bool 
+>> rockchip_pmu_domain_is_chain_on(struct rockchip_pm_domain *pd)
+>>       regmap_read(pmu->regmap,
+>>               pmu->info->chain_status_offset + pd->info->mem_offset, 
+>> &val);
+>>   +    if (pmu->info->chain_status_inverted)
+>> +        return !(val & pd->info->mem_status_mask);
+>> +
+>>       /* 1'b1: power on, 1'b0: power off */
+>>       return val & pd->info->mem_status_mask;
+>>   }
+>> @@ -600,16 +621,13 @@ static int 
+>> rockchip_do_pmu_set_power_domain(struct rockchip_pm_domain *pd,
+>>       struct rockchip_pmu *pmu = pd->pmu;
+>>       struct generic_pm_domain *genpd = &pd->genpd;
+>>       u32 pd_pwr_offset = pd->info->pwr_offset;
+>> -    bool is_on, is_mem_on = false;
+>> +    bool is_on;
+>>       struct arm_smccc_res res;
+>>       int ret;
+>>         if (pd->info->pwr_mask == 0)
+>>           return 0;
+>>   -    if (on && pd->info->mem_status_mask)
+>> -        is_mem_on = rockchip_pmu_domain_is_mem_on(pd);
+>> -
+>>       if (pd->info->pwr_w_mask)
+>>           regmap_write(pmu->regmap, pmu->info->pwr_offset + 
+>> pd_pwr_offset,
+>>                    on ? pd->info->pwr_w_mask :
+>> @@ -620,13 +638,13 @@ static int 
+>> rockchip_do_pmu_set_power_domain(struct rockchip_pm_domain *pd,
+>>         wmb();
+>>   -    if (is_mem_on) {
+>> +    if (on && pd->mem_reset_pending) {
+>>           ret = rockchip_pmu_domain_mem_reset(pd);
+>>           if (ret)
+>>               return ret;
+>> +        pd->mem_reset_pending = false;
+>>       }
+>>   -
+>>       ret = readx_poll_timeout_atomic(rockchip_pmu_domain_is_on, pd, 
+>> is_on,
+>>                       is_on == on, 0, 10000);
+>>       if (ret) {
+>> @@ -644,14 +662,29 @@ static int 
+>> rockchip_do_pmu_set_power_domain(struct rockchip_pm_domain *pd,
+>>       return 0;
+>>   }
+>>   +static int rockchip_pmu_wait_firewall(struct rockchip_pm_domain *pd)
+>> +{
+>> +    struct rockchip_pmu *pmu = pd->pmu;
+>> +    u32 mask = pd->info->firewall_mask;
+>> +    u32 val;
+>> +
+>> +    if (!mask)
+>> +        return 0;
+>> +
+>> +    return regmap_read_poll_timeout(pmu->grf, 
+>> pmu->info->firewall_status_offset,
+>> +                       val, (val & mask) == mask, 0, 10000);
+>> +}
+>> +
+>>   static int rockchip_pd_power(struct rockchip_pm_domain *pd, bool 
+>> power_on)
+>>   {
+>>       struct rockchip_pmu *pmu = pd->pmu;
+>> +    bool is_on;
+>>       int ret;
+>>         guard(mutex)(&pmu->mutex);
+>>   -    if (rockchip_pmu_domain_is_on(pd) == power_on)
+>> +    is_on = rockchip_pmu_domain_is_on(pd);
+>> +    if (is_on == power_on && pd->power_state == ROCKCHIP_PD_IDLE)
+>>           return 0;
+>>         ret = clk_bulk_enable(pd->num_clks, pd->clks);
+>> @@ -662,18 +695,38 @@ static int rockchip_pd_power(struct 
+>> rockchip_pm_domain *pd, bool power_on)
+>>         rockchip_pmu_ungate_clk(pd, true);
+>>   -    if (!power_on) {
+>> -        rockchip_pmu_save_qos(pd);
+>> +    if (power_on) {
+>> +        if (pd->power_state == ROCKCHIP_PD_IDLE ||
+>> +            pd->power_state == ROCKCHIP_PD_OFF ||
+>> +            (pd->power_state == ROCKCHIP_PD_ON_RESTORE && !is_on)) {
+>> +            /* A failed reset may still be forcing memory off. */
+>> +            pd->mem_reset_pending |= pd->info->mem_status_mask &&
+>> +                rockchip_pmu_domain_is_mem_on(pd);
+>> +            pd->power_state = ROCKCHIP_PD_ON_HW;
+>> +        }
+>> +
+>> +        /* A status bit alone does not prove the low-level sequence 
+>> finished. */
+>> +        if (pd->power_state == ROCKCHIP_PD_ON_HW) {
+>> +            ret = rockchip_do_pmu_set_power_domain(pd, true);
+>> +            if (ret < 0)
+>> +                goto out;
+>> +            pd->power_state = ROCKCHIP_PD_ON_RESTORE;
+>> +        }
+>> +    } else {
+>> +        if (pd->power_state == ROCKCHIP_PD_IDLE)
+>> +            rockchip_pmu_save_qos(pd);
+>> +        pd->power_state = ROCKCHIP_PD_OFF;
+>>             /* if powering down, idle request to NIU first */
+>>           ret = rockchip_pmu_set_idle_request(pd, true);
+>>           if (ret < 0)
+>>               goto out;
+>> -    }
+>>   -    ret = rockchip_do_pmu_set_power_domain(pd, power_on);
+>> -    if (ret < 0)
+>> -        goto out;
+>> +        /* Cancel a pending power-on even if its status is still 
+>> off. */
+>> +        ret = rockchip_do_pmu_set_power_domain(pd, false);
+>> +        if (ret < 0)
+>> +            goto out;
+>> +    }
+>>         if (power_on) {
+>>           /* if powering up, leave idle mode */
+>> @@ -681,8 +734,14 @@ static int rockchip_pd_power(struct 
+>> rockchip_pm_domain *pd, bool power_on)
+>>           if (ret < 0)
+>>               goto out;
+>>   +        ret = rockchip_pmu_wait_firewall(pd);
+>> +        if (ret)
+>> +            goto out;
+>> +
+>>           rockchip_pmu_restore_qos(pd);
+>> +        pd->mem_reset_pending = false;
+>>       }
+>> +    pd->power_state = ROCKCHIP_PD_IDLE;
+>>     out:
+>>       rockchip_pmu_ungate_clk(pd, false);
+>> @@ -733,11 +792,18 @@ static int rockchip_pd_power_on(struct 
+>> generic_pm_domain *domain)
+>>   static int rockchip_pd_power_off(struct generic_pm_domain *domain)
+>>   {
+>>       struct rockchip_pm_domain *pd = to_rockchip_pd(domain);
+>> -    int ret;
+>> +    int ret, err;
+>>         ret = rockchip_pd_power(pd, false);
+>> -    if (ret)
+>> +    if (ret) {
+>> +        /* genpd still considers the domain on after a failed 
+>> power-off. */
+>> +        err = rockchip_pd_power(pd, true);
+>> +        if (err)
+>> +            dev_err(pd->pmu->dev,
+>> +                "failed to restore domain '%s' after power-off 
+>> failure: %d\n",
+>> +                domain->name, err);
+>>           return ret;
+>> +    }
+>
+> The changes to rockchip_pd_power()/rockchip_pd_power_off() (the
+> power_state state machine, mem_reset_pending, and the restore after
+> a failed power-off) are generic rework of the shared power path;
+> they are not required for basic RK3572 support and they affect all
+> the other SoCs. Please split them out of this series.
+>
+>
+>>         rockchip_pd_regulator_disable(pd);
+>>       return ret;
+>> @@ -1064,6 +1130,11 @@ static int rockchip_pm_domain_probe(struct 
+>> platform_device *pdev)
+>>       mutex_init(&pmu->mutex);
+>>         pmu->info = pmu_info;
+>> +    if (pmu_info->firewall_status_offset) {
+>> +        pmu->grf = syscon_regmap_lookup_by_phandle(np, "rockchip,grf");
+>> +        if (IS_ERR(pmu->grf))
+>> +            return dev_err_probe(dev, PTR_ERR(pmu->grf), "failed to 
+>> get system GRF\n");
+>> +    }
+>>         pmu->genpd_data.domains = pmu->domains;
+>>       pmu->genpd_data.num_domains = pmu_info->num_domains;
+>> @@ -1313,6 +1384,62 @@ static const struct rockchip_domain_info 
+>> rk3568_pm_domains[] = {
+>>       [RK3568_PD_PIPE]    = DOMAIN_RK3568("pipe", BIT(8), BIT(11), 
+>> false, false),
+>>   };
+>>   +static const struct rockchip_domain_info rk3572_pm_domains[] = {
+>> +    [RK3572_PD_NVM1] = {
+>> +        .name = "nvm1",
+>> +        .pwr_mask = BIT(4),
+>> +        .pwr_w_mask = BIT(20),
+>> +        .mem_status_mask = BIT(4),
+>> +        .repair_status_mask = BIT(3),
+>> +        .req_mask = BIT(6),
+>> +        .req_w_mask = BIT(22),
+>> +        .idle_mask = BIT(6),
+>> +        .ack_mask = BIT(6),
+>> +        .clk_ungate_mask = BIT(6),
+>> +    },
+>> +    [RK3572_PD_PHP] = {
+>> +        .name = "php",
+>> +        .pwr_mask = BIT(7),
+>> +        .pwr_w_mask = BIT(23),
+>> +        .mem_status_mask = BIT(7),
+>> +        .repair_status_mask = BIT(5),
+>> +        .req_mask = BIT(9),
+>> +        .req_w_mask = BIT(25),
+>> +        .idle_mask = BIT(9),
+>> +        .ack_mask = BIT(9),
+>> +        .clk_ungate_mask = BIT(9),
+>> +        .firewall_mask = BIT(28),
+>> +    },
+>> +    [RK3572_PD_VOP] = {
+>> +        .name = "vop",
+>> +        .pwr_mask = BIT(12),
+>> +        .pwr_w_mask = BIT(28),
+>> +        .mem_status_mask = BIT(12),
+>> +        .repair_status_mask = BIT(10),
+>> +        .req_mask = BIT(14),
+>> +        .req_w_mask = BIT(30),
+>> +        .idle_mask = BIT(14),
+>> +        .ack_mask = BIT(14),
+>> +        .clk_ungate_mask = BIT(14),
+>> +        .firewall_mask = BIT(23),
+>> +    },
+>> +    [RK3572_PD_NVM0] = {
+>> +        .name = "nvm0",
+>> +        .pwr_mask = BIT(15),
+>> +        .pwr_w_mask = BIT(31),
+>> +        .mem_status_mask = BIT(15),
+>> +        .repair_status_mask = BIT(13),
+>> +        .req_mask = BIT(0),
+>> +        .req_w_mask = BIT(16),
+>> +        .idle_mask = BIT(0),
+>> +        .ack_mask = BIT(0),
+>> +        .clk_ungate_mask = BIT(0),
+>> +        .req_offset = 4,
+>> +        .status_offset = 4,
+>> +        .clk_ungate_offset = 4,
+>> +    },
+>> +};
+> 1. Only 4 of the 14 domains are added here. The internal implementation
+>    covers npu, gpu, nvm0, nvm1, dsmc, php, audio, img, vdec, vi, venc,
+>    vo, vop and vop_pre. Please add the remaining domains.
+>
+>    Note that the npu domain also needs the voltage-domain handshake from
+>    the internal code (vd_offset = 0x220, per-domain vd_en and a
+>    rockchip_pmu_vd_on() call before powering on the domain), so either
+>    include that support as well, or leave out npu until it is ready.
+>
+> 2. Please use a DOMAIN_RK3572 macro like the other SoCs in this
+>    driver (see DOMAIN_RK3576).
+>> +
+>>   static const struct rockchip_domain_info rk3576_pm_domains[] = {
+>>       [RK3576_PD_NPU]        = DOMAIN_RK3576("npu",    0x0, BIT(0),  
+>> BIT(0), 0,       0x0, 0,       0,       0, false),
+>>       [RK3576_PD_NVM]        = DOMAIN_RK3576("nvm",    0x0, BIT(6),  
+>> 0,      BIT(6),  0x4, BIT(2),  BIT(18), BIT(2), false),
+>> @@ -1536,6 +1663,23 @@ static const struct rockchip_pmu_info 
+>> rk3568_pmu = {
+>>       .domain_info = rk3568_pm_domains,
+>>   };
+>>   +static const struct rockchip_pmu_info rk3572_pmu = {
+>> +    .pwr_offset = 0x210,
+>> +    .status_offset = 0x230,
+>> +    .chain_status_offset = 0x250,
+>> +    .chain_status_inverted = true,
+>> +    .mem_status_offset = 0x260,
+>> +    .mem_pwr_offset = 0x300,
+>> +    .req_offset = 0x110,
+>> +    .idle_offset = 0x130,
+>> +    .ack_offset = 0x120,
+>> +    .repair_status_offset = 0x570,
+>> +    .clk_ungate_offset = 0x150,
+>> +    .firewall_status_offset = 0x140,
+>> +    .num_domains = ARRAY_SIZE(rk3572_pm_domains),
+>> +    .domain_info = rk3572_pm_domains,
+>> +};
+>> +
+>>   static const struct rockchip_pmu_info rk3576_pmu = {
+>>       .pwr_offset = 0x210,
+>>       .status_offset = 0x230,
+>> @@ -1648,6 +1792,9 @@ static const struct of_device_id 
+>> rockchip_pm_domain_dt_match[] = {
+>>           .data = (void *)&rk3568_pmu,
+>>       },
+>>       {
+>> +        .compatible = "rockchip,rk3572-power-controller",
+>> +        .data = &rk3572_pmu,
+>> +    }, {
+>>           .compatible = "rockchip,rk3576-power-controller",
+>>           .data = (void *)&rk3576_pmu,
+>>       },
+>>
 -- 
-2.56.0
+Best regards,
+
+底层平台中心 肖锋（Finley Xiao）
+************************************************************************************
+瑞芯微电子股份有限公司
+Rockchip Electronics Co., Ltd.
+福建省福州市铜盘路软件大道89号软件园A区21号楼 350003
+No.21 Building, A District, Fuzhou Software Park, Fuzhou, Fujian 350003, P.R. China
+Tel: 0591-83991906-8602 Mobile: 18506057603
+************************************************************************************
 
