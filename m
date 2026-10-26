@@ -1,65 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793022030;
-	b=rkEHFxxpNts6tgn99uVL3ot6R2eW11Kl6BTk4dfhF1niW6hjOChLF6djusCVDt3xWoDO
-	 1P9x+1T6vQXjUjKjQKWNqiH3iTVsZgas3iZ9oaYvKg7/r1StWCtp7j34TBJtCeOgWqW2H
-	 fhxs2+yxsg/3F8jq0NUULkOUJsoixag6hw+ETEyhxmf1M9xwzrmSGZRxM9uzGmZBiY21z
-	 tUBlOGTWYbV80J2wQ7bdA4qfpPSLTZtlKWFrC+X3TSs8xC3hYGwUBQ6S5N7n/lFMj4L+r
-	 CGlZOrLG192fyYYuY2KbaTbVZRM58bt0tRTfk6e9cOpxDH/MPyQ7VcObdoId/NlW1kg==
+	t=1793022182;
+	b=zJawCeLzC744uz3Vssb1umk8EYM1HbnrXh7xq+4nLgc3MixthXbY4B61Kq6E+EjaY4oA
+	 ElNRzBtUmE6MxmpkyK6IqwnDWuGUbmV9o1mtn5fcX0k6mAIqF+BWnxNRZ/divaAeRtkT4
+	 xsIgLwT+i4ypAksB8/WXgtVZEVHeNwZHtBKwL7SWbdB+sxOzmQNyTbylzBGdIWix7ow+o
+	 mXx3JuRrkA1F3PQfBzc6zJHCmyJAjee+tWsFlcDMkFtVcqSdisDZYF4TqhB/ZgD1wMobc
+	 v4S5ZaR2MHk+wbaJPpKdExMm5XdRQXzkT7fqiNmD+CeL2yxr7oqhaVeqB8iXDtuxf1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793022030;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=24ivy98Nb+0GCxYIxoSVFTKgFdRPh8s2EZHT1CRlH54=;
-	b=iRuF9Ac74hVC0GUjFoOfgxikD9HgfAHSb9r5YfC3lyUs1F8xvFK0CCIDqRg8nfQ6zxi0
-	 d5qQyTYbNIPRWNZIa/+0z+NetwY4lfI7wkyvtKTOpIQsCEGr+d87ZqEF8LiGOh1PePhpu
-	 ieQutWIKqXg3327qVAMZStiPb8ISwcrHTyPjx+JLwAttsCKzyRLhJyXvYPD6ZbdXG7o9r
-	 RBimQPXZqUl77JvaQCe0Vj2trnDsFqfxl2KgYswff9zb8ef12YqGLjdOAsZd159El77u3
-	 mIF/3+J++tuKTfSdZYBLAUwzzksghFR6iIkTDv4mSt1nu5qBJtu6w2vmqKPJkBnDN/Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793022182;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=nWl4ECtXObpUU/bffH0+yhXjtGI+yckqht/vP3iJXgg=;
+	b=z40SM5ivJh/L1sg8aFfnb16VwcFlQV3FQNG28CMgYa5B2zdhy4fDKc4wuGNYM2mK+q4N
+	 qXy+h3+wCS9YUi3Fty14qUXCR5OC0By86Y3j+2BZb84V7ljYEzJ1Mr0xg6R0EEG+I/gZ1
+	 T8eOMWRtm2KpxvxGUwIUefI+JPgt2PoMfWugjHyy3m8KriV6s8UGdY2450wCLmH13bxI4
+	 Zwiw0NLo3Tt/CNW9pzKfY8VnKwBIcWmQn8FOEPn1JuSjyM/B265+jNpIE3PWEWtl0QQSx
+	 wYKbdGyVL7eRO3zaXeqHfX+RXM9D7aW8kVf6ZRnjsh0yi7ipRh38Q4j9peXaX/AevEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=ToEhdHJz;
-	arc=none smtp.remote-ip=111.22.67.139
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 29407606A31A;
-	Mon, 26 Oct 2026 13:40:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29407606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X+00u1u9;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 570CC606A31F;
+	Mon, 26 Oct 2026 13:43:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=ToEhdHJz
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=ToEhdHJzuRGAuRkWA4M5shhS15275FdX7FJkF8c3nCAA2OtIuJHzkQEmn7abuCH3j1UJwi281+we7
-	 chE12L53I85CMDKXNrxs+t8X5AGsCbGUj/5g6QLyu7AKiv+vQyHVlqkAyyv/5dWPw+8NrHrl0s0Hix
-	 1yqEqCat5PUSM6qM=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app01-12001 (RichMail) with SMTP id 2ee16adf583a041-2aa1c;
-	Mon, 26 Oct 2026 21:40:21 +0800 (CST)
-X-RM-TRANSID:2ee16adf583a041-2aa1c
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from FHA-W6400298 (unknown[10.55.1.71])
-	by rmsmtp-syy-appsvr06-12006 (RichMail) with SMTP id 2ee66adf5843b7a-b3de4;
-	Mon, 26 Oct 2026 21:40:21 +0800 (CST)
-X-RM-TRANSID:2ee66adf5843b7a-b3de4
-From: Tang Bin <tangbin@cmss.chinamobile.com>
-To: stern@rowland.harvard.edu,
-	gregkh@linuxfoundation.org
-Cc: linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	tangbin@cmss.chinamobile.com
-Subject: [PATCH] USB: ohci-spear: check clk_prepare_enable in probe
-Date: Mon, 26 Oct 2026 21:40:19 +0800
-Message-ID: <20261026134019.3020-1-tangbin@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.52.0.windows.1
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X+00u1u9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3693E1F01825;
+	Mon, 26 Oct 2026 13:42:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793022181;
+	bh=nWl4ECtXObpUU/bffH0+yhXjtGI+yckqht/vP3iJXgg=;
+	h=From:To:Cc:Subject:Date;
+	b=X+00u1u9tjhZ8YZqzq9a+DTF8qNcUAMogw6s3S4FCNspGPu8nuf+cHXWGgeAardrR
+	 le6fYjXEOmpNuws/h0gyc2CUVTYbkASg7uAy8KjBB4j5ijGkGOsXR/+Lj4geskMpaj
+	 nLI26LPnDqhRJvZydCUW9eXZhgeCkW2Rpxw7q3EoUXiVJAJ/9ZQdhkVisvhbQC8OMc
+	 7EsP7XhG5p/mfHUoiI/HlyyHN2q2ZJIgpUKzFRww5EE+itVETlcjHBfkgndhOq5eCO
+	 BRN4Wxq1tA3I6knWWotcLHfdgiQnyvP4dxcHPZG+bRdFn0wbtgrs5n4sijgRigZ2yS
+	 42paFiEo+J4wQ==
+From: Imre Kaloz <kaloz@kernel.org>
+To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	linux-mips@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Johan Almbladh <johan.almbladh@anyfinetworks.com>,
+	Paul Burton <paulburton@kernel.org>,
+	bpf@vger.kernel.org
+Subject: [PATCH 0/5] MIPS: Select the R10000 LL/SC workaround at boot
+Date: Mon, 26 Oct 2026 14:41:40 +0100
+Message-ID: <20261026134147.15988-1-kaloz@kernel.org>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,34 +72,54 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-spear_ohci_hcd_drv_probe() ignored the return of
-clk_prepare_enable(sohci_p->clk). On failure usb_add_hcd() runs unclocked
-and the error path clk_disable_unprepare() would unbalance the count. Check
-the return and bail to err_put_hcd on failure.
+Kernels for IP27, IP28 and IP30 select CONFIG_WAR_R10000_LLSC, which
+retries ll/sc sequences with a branch-likely that only R10000s before
+revision 3.0 need. On an R12000 Octane, dropping it makes fork, pipe,
+futex and file creation 1-4% faster.
 
-Fixes: 1cc6ac59ffaa ("USB: OHCI: make ohci-spear a separate driver")
-Signed-off-by: Tang Bin <tangbin@cmss.chinamobile.com>
----
- drivers/usb/host/ohci-spear.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+This series keeps it built in and decides at boot. Unless an affected
+CPU is present, sc branches become beqz, modules are patched at load,
+and tlbex and the BPF JIT emit beqz.
 
-diff --git a/drivers/usb/host/ohci-spear.c b/drivers/usb/host/ohci-spear.c
-index 5aeabb051..9d93b3f86 100644
---- a/drivers/usb/host/ohci-spear.c
-+++ b/drivers/usb/host/ohci-spear.c
-@@ -80,7 +80,9 @@ static int spear_ohci_hcd_drv_probe(struct platform_device *pdev)
- 	sohci_p = to_spear_ohci(hcd);
- 	sohci_p->clk = usbh_clk;
- 
--	clk_prepare_enable(sohci_p->clk);
-+	retval = clk_prepare_enable(sohci_p->clk);
-+	if (retval)
-+		goto err_put_hcd;
- 
- 	retval = usb_add_hcd(hcd, irq, 0);
- 	if (retval == 0) {
+Patch 3 conflicts in context with the IP35 series' "MIPS: SGI-IP27:
+give each CPU its own topology package id"; it resolves in one line.
+
+Patch 5 depends on patch 2, so I'd like the whole series to go through
+the MIPS tree, with an Acked-by from the BPF maintainers on patch 5.
+
+Tested on an R12000 Octane, and the BPF JIT with test_bpf on QEMU
+64-bit Malta. No R10000 before revision 3.0 was available.
+
+Imre Kaloz (5):
+  MIPS: Use SC_BEQZ in the futex and sysmips ll/sc loops
+  MIPS: Select the R10000 LL/SC workaround at boot
+  MIPS: SGI-IP27: Report all CPUs to the R10000 LL/SC workaround
+  MIPS: tlbex: Follow the boot-time R10000 LL/SC choice
+  bpf, mips: Follow the boot-time R10000 LL/SC choice
+
+ arch/mips/Kconfig                 |   5 +-
+ arch/mips/include/asm/asm.h       |   7 +-
+ arch/mips/include/asm/futex.h     |   5 +-
+ arch/mips/include/asm/r10k-llsc.h |  29 ++++++++
+ arch/mips/kernel/Makefile         |   1 +
+ arch/mips/kernel/module.c         |   5 ++
+ arch/mips/kernel/r10k-llsc.c      | 111 ++++++++++++++++++++++++++++++
+ arch/mips/kernel/setup.c          |   2 +
+ arch/mips/kernel/smp.c            |   2 +
+ arch/mips/kernel/syscall.c        |   2 +-
+ arch/mips/kernel/vmlinux.lds.S    |   8 +++
+ arch/mips/mm/tlbex.c              |   3 +-
+ arch/mips/net/bpf_jit_comp.c      |   5 +-
+ arch/mips/net/bpf_jit_comp.h      |  12 ++--
+ arch/mips/net/bpf_jit_comp32.c    |   1 +
+ arch/mips/net/bpf_jit_comp64.c    |   5 +-
+ arch/mips/sgi-ip27/ip27-smp.c     |   2 +
+ 17 files changed, 188 insertions(+), 17 deletions(-)
+ create mode 100644 arch/mips/include/asm/r10k-llsc.h
+ create mode 100644 arch/mips/kernel/r10k-llsc.c
+
+
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
 -- 
-2.52.0.windows.1
-
-
+2.47.3
 
