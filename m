@@ -1,54 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.126
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792998890;
-	b=CBh+jjxSC3zn2EFQv9QZt5WXkx3wMqRKLajvNLP5B064pGawGhoMk71263HWLnAp8PNL
-	 yL4OTLe/FNjI6bN3WTPz+YCfpMCbOFEAczEDtDfd9mLqOchqZXnUXfhPbkYeq4qfUGt86
-	 suRc5Tol3V663fL4SDr5o3Hhht81RTKXPd3qGawWLfqTSXq6qfxmfgBYRmHa9cGd7Y+Fw
-	 +XWIG69wRQIojz9Zk5QmOhJLUJJtpbg460Gsap2/skE4An/+aaNUbtCZ6O9Xm1w/86zUh
-	 djr020crPFxTqMVL+cOD8fml5hPApUHw7WjjlWLEW9FkmDNg/6geB4XVwq3TvAyQElQ==
+	t=1792999072;
+	b=OYqhRlbvKLxgLH8S4tRWdsoRp5kFV87dV4POpUAZRiDhkTBa27PnCg+o3l1lCBsBpf9N
+	 2R/+p01AXrXhXzUoYBatUww+5zC847Gc5xxZe0WB6xvo0o4FzWFUzpBVh/HNx/TeFtRqC
+	 dWi+XZE6Du7Snhk/JVuUDc+nCDCAZVQ+BwFi4cylxvwUi4wmrEuKD8wurEHSpS6xwAWrV
+	 HEH9CiPK6NX8EMTZDKq5J1M0YSfhVhh4Kw8CZFhXNGDninVRCY9IShx5WBep1cchQAGZT
+	 kMCv8BmWkH+Ibi0kFJJ5reS0mycQ6NBvgkGzai9PO0GNI6bloz7nXI5P4V5YsC889Tg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792998890;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=7IxDyJbZWxHDoC0bblBTQ5bGPqjyYBabUNc5tcD1R8U=;
-	b=XQvPBS0V7uU1Bh5/sBBpG3no2lnHWK/9Njh8LbIRJVnhEyXaOoV9rGueES0xLv3OxAbw
-	 M0g8dJZVRZfoSgUOSPq7p6V5C/ikNrpHGRj3m6gMglIX0mvNXx0pBFwm3KozYFEjs1v1k
-	 loH7cmLLrg+WujvJ7Goz/G7EbrYBU97hRod2lwFVkNqc9RV50ulMcTMsn0KiM4/IUMLIj
-	 DuJpCwJEmVPffSegjE/TQ+nIjjzWeschClwC0CNLGZM5K0YfGkK7SHIedHgKbltFKsQPb
-	 uYycVghzjQPXNu18ziX1jesEtp2WRy7dGhVOVrWB1DjFViNDjbpFpypaxa9XcOGfh4g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792999072;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=HGCg69LbAWBbuCTTtP179KzH2F4LVTblzOcbjp1ClJc=;
+	b=SbrorG+8QGzQMGCLv1DI+/g4kirKHiVVDK3ZgaEmQcnW7fZZiCJLHNZyCZQncV5KdG4M
+	 EOYxrpp3yCYaCyQoB4x2AQlqXbLrS0ZUkwzvZNS0i0u++vyCU267m/A6uoblAdvOqyVgm
+	 IVRkXVMIusxk0dd/7mDKy2wFHeidaS0ara4bxiYrkkNtcCN8foSQfTX2KXe9ztdKDvq9T
+	 Ib22SQSHwChTK+kB7/E3HqZMo3hkkq9HQMwjDrg0rSER5EUy9YO6/5HE+q4UCq/uxLAWq
+	 uST1Pf2lsin+bh9ubIU8YlYexb9ow25DfWMd8Wuxkxs4ZGGJ7GGHWxncaSvbeV6TScw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=mNAArU6x;
-	arc=none smtp.remote-ip=95.215.58.126
-Received: from mta1.migadu.com (out-126.mta1.migadu.com [95.215.58.126])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=g0tFNOOj;
+	arc=none smtp.remote-ip=209.85.221.48
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14404606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 07:14:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14404606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DECEB606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 07:17:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DECEB606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=mNAArU6x
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=D8qdKfD8isdpKK2ega5gE9qpSwZ5A7vpI6b2/K44K1s=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792998887; v=1; x=1793603687;
- b=mNAArU6xoIj0CeMQMULX7cbNnqfpjEhFCPvzut9uYgUF0aMSu2rCtVRBwUvyX4oR9gfLFOY8
- uhbX3fe+w55ljHYSh7J7ky/OssUk0tp0/UsGuo6hViR4StZySIyti2zAhPOR7faf0RErq46ea6+
- jztbZeph9CHcR8pkX/GLO9Aw=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 3f613b975126340a;
-	Mon, 26 Oct 2026 07:14:47 +0000
-X-Mizu-Trace-ID: 3f613b975126340a
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <8f654d81-570a-440c-83c3-04502eecf7f6@linux.dev>
-Date: Mon, 26 Oct 2026 15:14:38 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=g0tFNOOj
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48441a2ba1bso1576232f8f.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 00:17:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792999070; x=1793603870; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=HGCg69LbAWBbuCTTtP179KzH2F4LVTblzOcbjp1ClJc=;
+        b=g0tFNOOjjbxDQCczODTc2/oN+MH7WTPjugxRyVbZvu7hhjD4oR6htskt9tZ04lnHQ5
+         j6xMvY+MaoG54zOuQlymxac93Iup9ePkEzBdVpBzgA3TIkxQIhy3ueSKlsp3rogCK73o
+         yIOBxqPRwo1H7pGB4hNC10LtqOdmQXe9y20ResPNlsNsx/I7u3BNQeUFQHk2/Ue2HGNo
+         RNww6MIHIurU08kMVUaGji7BZiV/SCN0uY1CKK9mVZHpG+v4nNsKg5axjl6e5M9Vc9zw
+         wVpOhsA++vZgPf6AFNIcTtqvGpENwyeJQ7f8liL/eDh0bwPKNDRThKpe6gihKgwwHG7D
+         vIXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792999070; x=1793603870;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HGCg69LbAWBbuCTTtP179KzH2F4LVTblzOcbjp1ClJc=;
+        b=SMGYKZ997fVWE4382oR1sLV8d5+gmd9JpHuRKw5TkkxdDaGTxw25sheCNRx+EZgs15
+         YERP+UMm+NxSXMAASoy4YBDlMMevzgvqm2rxIR5dN1IaulYDSJNO7yNFreFrjNexXmd0
+         /6jtjKca7Npe4Kq03P5du8/563S2/KFQivFqSX88F/UwRIwSGQKIx+7Oz4nGIsAFV2MZ
+         t9yIYBbXGRl4XobxKHJkp18RBE2hcJb2RgxeGvB3zzLfMd+Wj+j60F7+CwtfFFFagNYS
+         fmirbxH2wfGLu3/N/pgWS+UUJIyu+1LwQe2ScPf14k1T4k+LC1iAF23byGgfl2PHmzn9
+         ii3w==
+X-Forwarded-Encrypted: i=1; AKwUvBzyvlxk4IVU0I6Bm1lJ6SQGk2aNZHE3r9ygc4ZSZYm1/4evKw3/XLTTqWaNWl2KmLbminHLxf5gVXPRmkY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIzEFEqJE8KLcvLqeZUn1zM7aWNBgT3saf3A7BRJ5QHP8SqMDjB
+	F0y8afHKZ4MxgTj83WAVlWzmfDa7yp2dPnNaLvXkUvRVDAbtDkiU5GQdnwND9Gg2nOo=
+X-Gm-Gg: AYBFou3OA3KyYqAxkACljnU6mhP4S4STeMY3pyJtizFILkW31QJEOs2WO/YGJqxeOSH
+	zPxTDBuhll9dPoMnW2uSXjmlMLlK7ww59/aI+iuX9161gl+d+MroGmIf3ZJjjEAhERXhYMNRheZ
+	zREkH1VdOIJKpaJ8Wy7mEBc4Hj+46kcQvoQSu8/iDs0+Biguut53AyIbPW0DoZ4aO33nZvf3CpH
+	6GFAZRu6nRsPdr3TpOP1UoKkIj84DSHf2axqtzNHvRNP70vn8pfp6cvlggiXYqnLogTBc/kjtO7
+	WVLJH2UcxzVVtyk3Gnaj9e1DfL5ofndWKCT5nRQY6HZbqgM++7lr3R//MfFzw97PoldgXXAWsnf
+	6CNVd+NDnZKBnWsjRAsW1ES16uLTbU2GfyICwD/s8pEPqERmpbyfontiQ/Uav4rINUa2G7J74le
+	Q7/py177UwL5yII0V0oBCjgA0+lwuS5MtxEP1bsKunLiEGXhIrcw4AGaV3BGEDJ8LGYImfLJgvI
+	o+F9ww1VrFf8xCvYs1WDHT0y/E+ot5ggTB7BCNs9GqF2XOGNHYVDgROx1KCq8/J29a4iHYU7Oea
+	BqglzQ11kSBfdzrQcct/0o4ASE5aHcete7NxmVj1eLqReDGA32Kg2Sn3VZsrMZJrpynrLSsXgZ/
+	a2NGM1ioDd1A4yx7I6Bfd+TTWHBuyAiMuzOFBMT/hzlpjWqFSRI3ZkleZoJQYE0hJ2Q==
+X-Received: by 2002:a05:6000:41c3:b0:48e:f07:160e with SMTP id ffacd0b85a97d-48e3eb98eeemr9291878f8f.38.1792999069985;
+        Mon, 26 Oct 2026 00:17:49 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-b1a4-1201-5c78-89f4-99d8-70d7.310.pool.telefonica.de. [2a02:3100:b1a4:1201:5c78:89f4:99d8:70d7])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebc3932sm15758606f8f.18.2026.10.26.00.17.48
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 26 Oct 2026 00:17:48 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Tomasz Figa <tfiga@chromium.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] media: videobuf2: finish prepared buffers in VIDIOC_REMOVE_BUFS
+Date: Mon, 26 Oct 2026 08:17:35 +0100
+Message-Id: <20261026071735.37220-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,76 +101,154 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH-next v3 07/11] cgroup/cpuset: Make sure
- compute_partition_effective_cpumask() is only called for valid partition
-To: Waiman Long <longman@redhat.com>, Ridong Chen <ridong.chen@linux.dev>,
- Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
- =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
- Shuah Khan <shuah@kernel.org>
-Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org
-References: <20261025214449.310715-1-longman@redhat.com>
- <20261025214449.310715-8-longman@redhat.com>
-Content-Language: en-US
-From: Guopeng Zhang <guopeng.zhang@linux.dev>
-In-Reply-To: <20261025214449.310715-8-longman@redhat.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+VIDIOC_PREPARE_BUF leaves a buffer DEQUEUED after calling buf_prepare()
+and the prepare() memory operation. VIDIOC_REMOVE_BUFS accepts that state
+but frees the buffer without calling the matching finish operations.
 
+With VIDEO_ADV_DEBUG, vivid reports:
 
-在 2026/10/26 05:44, Waiman Long 写道:
-> With visual inspection to make sure that
-> compute_partition_effective_cpumask() is only called for valid partition
-> root, it was found that the function can be called for an invalidated
-> partition near the end of cpuset_hotplug_update_tasks(). When partcmd is
-> set, update_parent_effective_cpumask() is called to either invalidate a
-> valid partition or with partcmd_update to check if an invalid partition
-> can be switched back to valid. In both cases, cpuset_force_rebuild()
-> should be invoked. However, compute_partition_effective_cpumask()
-> should only be called when an invalid partition is switched back to
-> valid. When a partition is invalidated, compute_effective_cpumask()
-> should be called instead.
-> 
-> Also add a WARN_ON_ONCE() in compute_partition_effective_cpumask() to
-> ensure that a valid partition root is passed in.
-> 
-> Fixes: 72c6303acfa1 ("cgroup/cpuset: Take isolated CPUs out of workqueue unbound cpumask")
-> Signed-off-by: Waiman Long <longman@redhat.com>
-> ---
->  kernel/cgroup/cpuset.c | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
-> 
-> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-> index 8903e441ecc1..53fa3970946e 100644
-> --- a/kernel/cgroup/cpuset.c
-> +++ b/kernel/cgroup/cpuset.c
-> @@ -2163,6 +2163,8 @@ static void compute_partition_effective_cpumask(struct cpuset *cs,
->  	struct cpuset *child;
->  	bool populated = partition_is_populated(cs, NULL);
->  
-> +	WARN_ON_ONCE(!is_partition_valid(cs));
-> +
->  	/*
->  	 * Check child partition roots to see if they should be
->  	 * invalidated when
-> @@ -4035,9 +4037,12 @@ static void cpuset_hotplug_update_tasks(struct cpuset *cs, struct tmpmasks *tmp)
->  
->  	if (partcmd >= 0) {
->  		update_parent_effective_cpumask(cs, partcmd, NULL, tmp);
-> -		if ((partcmd == partcmd_invalidate) || is_partition_valid(cs)) {
-> +		if (is_partition_valid(cs)) {
->  			compute_partition_effective_cpumask(cs, &new_cpus);
->  			cpuset_force_rebuild();
-> +		} else if (partcmd == partcmd_invalidate) {
-> +			compute_effective_cpumask(&new_cpus, cs, parent);
-> +			cpuset_force_rebuild();
->  		}
->  	}
->  
+  unbalanced counters for queue 000000009fa716f8, buffer 0:
+       buf_prepare: 1 buf_finish: 0
+       prepare: 1 finish: 0
 
-Acked-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
+Factor the per-buffer cancellation tail out of __vb2_queue_cancel() into
+__vb2_buf_cancel() and call it from vb2_core_remove_bufs() after the
+range check, so prepared buffers are finished and reinitialized before
+being freed.
 
-Thanks,
-Guopeng
+Fixes: a3293a85381e ("media: v4l2: Add REMOVE_BUFS ioctl")
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+v2:
+  - Factor the per-buffer cancellation tail out of __vb2_queue_cancel()
+    into __vb2_buf_cancel() and call it from vb2_core_remove_bufs()
+    after the range check (Tomasz Figa).
+  - Send standalone ahead of the rest of the series while the cache-API
+    questions on patches 2-4 are resolved:
+    https://lore.kernel.org/r/20261019063401.3674-2-kmehltretter@gmail.com/
+
+ .../media/common/videobuf2/videobuf2-core.c   | 88 ++++++++++---------
+ 1 file changed, 47 insertions(+), 41 deletions(-)
+
+diff --git a/drivers/media/common/videobuf2/videobuf2-core.c b/drivers/media/common/videobuf2/videobuf2-core.c
+index b0a6084f17573..29e539ee002e9 100644
+--- a/drivers/media/common/videobuf2/videobuf2-core.c
++++ b/drivers/media/common/videobuf2/videobuf2-core.c
+@@ -1717,6 +1717,46 @@ int vb2_core_prepare_buf(struct vb2_queue *q, struct vb2_buffer *vb, void *pb)
+ }
+ EXPORT_SYMBOL_GPL(vb2_core_prepare_buf);
+ 
++static void __vb2_buf_cancel(struct vb2_buffer *vb)
++{
++	struct media_request *req = vb->req_obj.req;
++
++	/*
++	 * If a request is associated with this buffer, then
++	 * call buf_request_cancel() to give the driver to complete()
++	 * related request objects. Otherwise those objects would
++	 * never complete.
++	 */
++	if (req) {
++		enum media_request_state state;
++		unsigned long flags;
++
++		spin_lock_irqsave(&req->lock, flags);
++		state = req->state;
++		spin_unlock_irqrestore(&req->lock, flags);
++
++		if (state == MEDIA_REQUEST_STATE_QUEUED)
++			call_void_vb_qop(vb, buf_request_complete, vb);
++	}
++
++	__vb2_buf_mem_finish(vb);
++
++	if (vb->prepared) {
++		call_void_vb_qop(vb, buf_finish, vb);
++		vb->prepared = 0;
++	}
++	__vb2_dqbuf(vb);
++
++	if (vb->req_obj.req) {
++		media_request_object_unbind(&vb->req_obj);
++		media_request_object_put(&vb->req_obj);
++	}
++	if (vb->request)
++		media_request_put(vb->request);
++	vb->request = NULL;
++	vb->copied_timestamp = 0;
++}
++
+ int vb2_core_remove_bufs(struct vb2_queue *q, unsigned int start, unsigned int count)
+ {
+ 	unsigned int i, ret = 0;
+@@ -1746,6 +1786,10 @@ int vb2_core_remove_bufs(struct vb2_queue *q, unsigned int start, unsigned int c
+ 			goto unlock;
+ 		}
+ 	}
++
++	for (i = start; i < start + count; i++)
++		__vb2_buf_cancel(vb2_get_buffer(q, i));
++
+ 	__vb2_queue_free(q, start, count);
+ 	dprintk(q, 2, "%u buffers removed\n", count);
+ 
+@@ -2253,48 +2297,10 @@ static void __vb2_queue_cancel(struct vb2_queue *q)
+ 	 * be changed, so we can't move the buf_finish() to __vb2_dqbuf().
+ 	 */
+ 	for (i = 0; i < q->max_num_buffers; i++) {
+-		struct vb2_buffer *vb;
+-		struct media_request *req;
+-
+-		vb = vb2_get_buffer(q, i);
+-		if (!vb)
+-			continue;
+-
+-		req = vb->req_obj.req;
+-		/*
+-		 * If a request is associated with this buffer, then
+-		 * call buf_request_cancel() to give the driver to complete()
+-		 * related request objects. Otherwise those objects would
+-		 * never complete.
+-		 */
+-		if (req) {
+-			enum media_request_state state;
+-			unsigned long flags;
+-
+-			spin_lock_irqsave(&req->lock, flags);
+-			state = req->state;
+-			spin_unlock_irqrestore(&req->lock, flags);
+-
+-			if (state == MEDIA_REQUEST_STATE_QUEUED)
+-				call_void_vb_qop(vb, buf_request_complete, vb);
+-		}
+-
+-		__vb2_buf_mem_finish(vb);
+-
+-		if (vb->prepared) {
+-			call_void_vb_qop(vb, buf_finish, vb);
+-			vb->prepared = 0;
+-		}
+-		__vb2_dqbuf(vb);
++		struct vb2_buffer *vb = vb2_get_buffer(q, i);
+ 
+-		if (vb->req_obj.req) {
+-			media_request_object_unbind(&vb->req_obj);
+-			media_request_object_put(&vb->req_obj);
+-		}
+-		if (vb->request)
+-			media_request_put(vb->request);
+-		vb->request = NULL;
+-		vb->copied_timestamp = 0;
++		if (vb)
++			__vb2_buf_cancel(vb);
+ 	}
+ }
+ 
+
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+-- 
+2.39.5 (Apple Git-154)
+
