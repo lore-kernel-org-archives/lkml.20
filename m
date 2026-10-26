@@ -1,52 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.194.8.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793018618;
-	b=B6Uop3GP7GGG6otdDU5rIdAXaPlOviv1KHRExCOiGqHuxsOUwmMhetn2yttlM4/mZiQg
-	 OcIOAIyTS2tGgilGEhqBb7xAZpQbLCter1Ebpl5Okri5q14za9f6G5LkDIH844ohUKNlP
-	 OuaEx7m+JVbSMqNTx8qioo4xz2CziiPaHulbQ/ZFJMUOAJfC64OlBWFSTsj3NWDjYWHtJ
-	 55d1qyvPhj0T+YxMmulaBRKBuDHQzB6U1qOxQIcjtm6Mz0HB7zHNgpJJtD37dMCLWJjde
-	 z81CaDt7TFOVK+x0LW2MmyHPuBQezrSOfH1GWgJUeNeWD0Ssd0r6cgZpuiJvrlFGBUA==
+	t=1793018616;
+	b=ksHblVb/UYIbzoQCobiMM520EapQc0FU/h5a3idiDQzd400VGyBgChJq9N9W+1UjI0uI
+	 Tof5lml+YASM6ah6gOF/zcs0Hegil8qSn6krW6B9qOu7oz4uT3sncy0eWfm8so//R3u45
+	 s3l1EobK5TBaHzluC6ZdcUL1mKdHmzjsDetbRLvPEK/jZzXSMBbHIZxEg9TY3+RQT4Btc
+	 /XmmfhXztAPoOoplDFfDeut3dYqA6bYaZ/sBbmd/k8DXAn1mXN8EZx7lIwj3mXaOgTrEu
+	 8+taQSTdEdo7DUTPvrZ2da9RXR4wmD9a8JsFk/VNCbrqdHidZdjAkJhVRHI9FUjjpAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793018618;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:MIME-Version:Date:Content-Type:
-	 Content-Transfer-Encoding:From:Message-ID:TLS-Required:Subject:To:Cc:
-	 In-Reply-To:References;
-	bh=x98ue6edYcJSRLvXIUfs73a6xLz9MbtvdfK+VXF01fw=;
-	b=BqhJ8hO52LVvPqpcP8GA+pFk+FBk8kQVmmcAX0b/guhasnDV1XQbdk4bv2+Busb+YLMa
-	 N3ALPkkUbACHXVaLajL9pimVjtBNxaf+NZruozrS2WCNaBgf30Up/jiO4Z2nVaaeml625
-	 9j4SI9gVbAvj6V0BGhHR1UDOst87tPlKpYt2+UgJcX5QX3fPZ6AFDr7rxdTeOUioDBARW
-	 VI4zt+1xmL8Wtcvu5sdq/dDASYpBUSgmR/S4/MYxA8qnnci44UdAPVDupcnuMDxIgeykY
-	 Q1ApdjTP9eNJiV4m3UPboXM4FQi9JqKUwIsZzgF5hjtUE6VCDdchd6XmEqwVM/DView==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793018616;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=8Jq41rEZlW8dpYSa9haaT2V6LwzTgLLlt9p+Cr4IhUw=;
+	b=uPXiewQWiywy5huY3VHAQBGcE+hqCK+dzu66wwGe+tv4lM6xmY4wsVaSCuLMlAimoY3q
+	 cwQ9wXNKd3EzRkohjW1bxOQ5+qbhbYs3icEsovY7KMtQV7hOlSvNnDH/ks88geyrfYfMW
+	 v73MCuXQdexm8ASHVcjYMgj0VEpRAihacJFCIFewBbnZM3QzwF9tazmwS83CUtx1iYSRj
+	 vryBdINamy6McdXshojLnZ9oicCIHoiUcJ3FVoaJIF6JCqDTF4ekpTvLu42j4I4yS+aNS
+	 Bdq1V964lB8vv3+9hkx/ZM1Ml2xfVEDjo5IIpdwKvfSW2nWfyPbryvw7DCqR8P0FJgA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=NazLLNnL;
-	arc=none smtp.remote-ip=95.215.58.118
-Received: from mta1.migadu.com (out-118.mta1.migadu.com [95.215.58.118])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=dolcini.it;
+	spf=pass smtp.mailfrom=dolcini.it;
+	dkim=pass header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=c0j25kco;
+	arc=none smtp.remote-ip=217.194.8.81
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 685AB606A31E
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:43:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 685AB606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CF4E606A31B;
+	Mon, 26 Oct 2026 12:43:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6CF4E606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=NazLLNnL
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=nzH/f4GJg9wr8FRWhRIYnnTP3YVJewQQsdvAvpslUiM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793018614; v=1; x=1793623414;
- b=NazLLNnLwbBMGC2WbW/8HmE4Wn+9br1Pdx2NkiYKwQg418koQP4WHpRgWXgflUXbJLLZTg4l
- 6mjNYsx6mdupmGj7lq3p1/L6uMtOg6Q32T6yi3EBUIKHcBmKE9pnZMJKzvwX3mKDw2TqF9j5UGl
- Kd528nDgqAoD51zxcN6FdhNQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ecc5c76a2f6b2875;
-	Mon, 26 Oct 2026 12:43:34 +0000
-X-Mizu-Trace-ID: ecc5c76a2f6b2875
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (2048-bit key, unprotected) header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=c0j25kco
+Received: from francesco-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch [83.173.201.248])
+	by mail11.truemail.it (Postfix) with ESMTPA id C19941F973;
+	Mon, 26 Oct 2026 13:43:31 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1793018612;
+	bh=8Jq41rEZlW8dpYSa9haaT2V6LwzTgLLlt9p+Cr4IhUw=; h=From:To:Subject;
+	b=c0j25kcozqWxHZK8k4lBZiOqMKsEnvOVVj0qHrqrR5JU1hPOJdPXOnBp59eFFHruV
+	 7xPUxXwmDCu4kK4gP0UOBk0fNhZop+bAQKW6xBjFmAsIWAXfguyWbP/hYY9cKcb/oA
+	 jo6AqaoPi3wOtfZh2E9jY4j6/jBdwqEEAjBHhW07kuoP5L2zA2Jr2bCN6pbpmvv/8V
+	 vzt0BgOaUCSuqefPmlAOG/DIhcDrqoM27vAJecaG4SjGUW8EhswlMYUVhfHY+48mys
+	 yylU3vezcoKyrdCeUbqQ6Z6NeLulsM+7faYDOB4wt0RZffywk8+1CYXGilqIJQV2GB
+	 T4scWNfIGgZGA==
+Date: Mon, 26 Oct 2026 13:43:28 +0100
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Leonardo Costa <leoreis.costa@gmail.com>
+Cc: Frank Li <Frank.li@oss.nxp.com>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	Leonardo Costa <leonardo.costa@toradex.com>
+Subject: Re: [PATCH v2 3/3] ARM: dts: imx6q-apalis: Add VGA overlay
+Message-ID: <20261026124328.GA82443@francesco-nb>
+References: <20261019-v2-apalis-imx6-enable-vga-v2-0-ef6a3a780472@toradex.com>
+ <20261019-v2-apalis-imx6-enable-vga-v2-3-ef6a3a780472@toradex.com>
+ <atZxhWaUWthEHkti@SMW015318>
+ <lozimedmt3h7v6odvp4svvmatvk7726a4ztn3j7ft44oto7p5p@dmrudrmzyz3s>
+ <ateQWqoTtXSBSBvm@SMW015318>
+ <wancrsxcem5uep5oy5pnw5prewefqah7drmhiu5wrq3ctykltl@akwvtqbebblb>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,59 +86,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Mon, 26 Oct 2026 12:43:34 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-From: "Luka Gejak" <luka.gejak@linux.dev>
-Message-ID: <c8bc5affa75d7519b424ea98c07c1d6b65942347@linux.dev>
-TLS-Required: No
-Subject: Re: [PATCH wireless] wifi: mac80211: abort chanswitch when leaving
- an IBSS
-To: "Mehmet Fide" <mehmet.fide@gmail.com>, "Johannes Berg"
- <johannes@sipsolutions.net>
-Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
- mehmet.fide@screeningeagle.com
-In-Reply-To: <20261025193615.1123718-1-mehmet.fide@gmail.com>
-References: <20261025193615.1123718-1-mehmet.fide@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <wancrsxcem5uep5oy5pnw5prewefqah7drmhiu5wrq3ctykltl@akwvtqbebblb>
 
-Hi Mehmet,
+On Mon, Oct 26, 2026 at 09:25:20AM -0300, Leonardo Costa wrote:
+> Hi Frank,
+> 
+> On Tue, Oct 20, 2026 at 11:01:30AM -0500, Frank Li wrote:
+> > On Tue, Oct 20, 2026 at 07:33:10AM -0300, Leonardo Costa wrote:
+> > > On Mon, Oct 19, 2026 at 02:37:41PM -0500, Frank Li wrote:
+> > > > On Mon, Oct 19, 2026 at 07:17:16AM -0300, Leonardo Costa wrote:
+> > > > > From: Leonardo Costa <leonardo.costa@toradex.com>
+> > > > >
+> > > > > Add a device tree overlay for the VGA output available on the Apalis
+> > > > > Evaluation Board, which is driven from a parallel RGB interface passing
+> > > > > through a non-programmable video DAC to a VGA connector, without VESA
+> > > > > DDC I2C signals.
+> > > > >
+> > > > > The non-programmable video DAC consists of a simple resistor ladder that
+> > > > > converts the digital 16-bit RGB signal to VGA. The VGA output is gated by
+> > > > > an active-low data-enable signal.
+> > > > >
+> > > > > The overlay is also combined with the various Apalis Evaluation Board
+> > > > > device trees to provide ready-to-use DTBs.
+> > > > >
+> > > > > Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
+> > > > > ---
+> > > > >  arch/arm/boot/dts/nxp/imx/Makefile                 | 21 ++++++
+> > > > >  .../boot/dts/nxp/imx/imx6q-apalis-eval-vga.dtso    | 80 ++++++++++++++++++++++
+> > > >
+> > > > what's difference with
+> > > >
+> > > > https://lore.kernel.org/imx/20261019-colibri-imx6-overlays-v1-5-e4d028727382@toradex.com/T/#u
+> > > >
+> > > > Is it possible share one dtso also?
+> > > >
+> > > > Frank
+> > >
+> > > Hi Frank,
+> > >
+> > > The Apalis iMX6 one needs to set up the connection between the IPU the
+> > > LCD interface (endpoints ipu2_di0_disp0 and vga_display_in), and the
+> > > Colibri iMX6 one uses a DVI connector instead of a VGA one. Most of all,
+> > > the bridge on the Colibri iMX6 doesn't have any control signals, while
+> > > this one on the Apalis iMX6 has an active-low data-enable signal
+> > 
+> > This make sense to use difference dtso to cover it. Is it use name
+> > imx6q-ipu-di0-vga.dtso, because this dtso have not boards specific part,
+> > which can reuse for other similar hardware? Or we can rename it when reuse
+> > happen.
+> 
+> I think the overlay should be kept as imx6q-apalis-eval-vga.dtso. As it
+> currently is, it's easy to identify the hardware it may be used with. If
+> another board is added which uses the same interface in this same way,
+> we can evaluate if it's adequate to change names for reusability.
 
-Thanks for picking this up. One comment below.
+2 more cents. There is no such other board in the toradex portfolio and
+it's very unlikely we are going to build any new board with an old VGA
+interface.
 
-October 25, 2026 at 8:36 PM, "Mehmet Fide" <mehmet.fide@gmail.com> wrote:
+Francesco
 
-> diff --git a/net/mac80211/ibss.c b/net/mac80211/ibss.c
-> index d74b66426349..b9ab4ceb0332 100644
-> --- a/net/mac80211/ibss.c
-> +++ b/net/mac80211/ibss.c
-> @@ -669,6 +669,10 @@ static void ieee80211_ibss_disconnect(struct ieee8=
-0211_sub_if_data *sdata)
->       ifibss->state =3D IEEE80211_IBSS_MLME_SEARCH;
->
->       netif_carrier_off(sdata->dev);
-> +
-> +     sdata->vif.bss_conf.csa_active =3D false;
-> +     ieee80211_vif_unblock_queues_csa(sdata);
-> +
 
-As far as I can see, the driver never finds out that the switch was
-dropped here. ath9k_htc only clears priv->csa_vif once the countdown
-completes with csa_active still set, or when the interface goes away.
 
-So if I read it right, after leaving mid countdown and joining again, the
-next switch with a countdown now gets past mac80211 and runs into this in
-ath9k_htc_channel_switch_beacon():
-
-        if (WARN_ON(priv->csa_vif))
-                return;
-
-Before this patch mac80211 stopped it earlier, so this couldn't happen in
-IBSS. AP mode seems to have the same problem already after
-ieee80211_stop_ap(), so I think it is better fixed in ath9k_htc, maybe by
-dropping csa_vif when beaconing stops.
-
-Since you have worked on ath9k already, would you be willing to send a
-fix for that too?
-
-Best regards,
-Luka Gejak
