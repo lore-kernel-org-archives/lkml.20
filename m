@@ -1,54 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.3
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793027224;
-	b=LNEnqVUHv1W8xdHCbTaO0yJEJT6ycVCjewaku5RFvRe0VWWi5FGvwpUBPnZqJizFNUSJ
-	 DzRDRg74zKzzdPOZ0gkCPBQPMoov5hnSfAlJp7U0fcRLCY82ggXbGaro7vrqqGmCNjJSe
-	 JnBVpFSsB5De2wuJ6gPE0pl6MX3icrIZkWZrAlwuP9k6zmE6kUFQKLKMUEh5mYSDk0eI5
-	 hsQv2AdJ4xYxty9MlvdYxvORxoAiljX3SUF+KoR4YO8HAjrw4QPgqB//4Y5OoAuJlxwCp
-	 1eRHL/CBm48BZAeHqqNmllS5s5xPd0puW5WL2GcA5x5a4rkmvk6+GjisOKI/pBOFWAQ==
+	t=1793027245;
+	b=Dj2MbSLe+apIWNKxdlNjmzBMqgDtcY93lculNu9p0i4vZGYrb8HThrw2kckIfcFGX9YW
+	 siIgnz03sldqsa753gVK6D1p0qY/9VZRoOBpJLlHAbszmU9TgF0dfzO9spRH09YDrR3jf
+	 k1PiAf9Z26SVQ5d2HOxlYExRDfsnuBy8B3EWKHUb6+OBc4DN5jtn3YG1CxJu1UaegUsgB
+	 IEPqioUyuaPEpEzJ9W3LxutD8steMvws5GSFB+bUSTTJI51cG0w1tqFp/0RQaIGJh3bXo
+	 V8eImvLs+Of/zfUcHdxfLFT6F4RaxCmgLdDd2KqJ9sapeN6Ddo2fmfQU6HS17sXjq3A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793027224;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=J0h2FhD1/ZqD4NmuBs6+MD7h5IX24/kXFYvf/GTy2DY=;
-	b=CQEd1oToxZj4fclFJpg0WU+lwIX/D13I50ztObmLpWA3BM8Qmfz4NleiUJJ801PtYxzS
-	 AYMPVrdtjevl719eFdIgexodxFHGiehV+Ej3UfXAn5sRUHMg3VBr02jKrQR6W5vUPqbzw
-	 84UvmMguDSpPLkeJm78BTMOStAqSr2XoKlGm6DrdKrUF7VjAPA5MvGh9C9DWvzNtQ0X1M
-	 myiXqj7O8Flk0ta8keh7D4JLFqtq+i2cUpTLlK2QrfxkpH26jDcU/Odwmbc5uYRYj6V2a
-	 J5vnWiCFPWfBOMNE/2DV9FkVzh3yfHdUY7lhA2hQjuJyjSFUvQGpFRAK/bZYIt8V++w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793027245;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Scanned-By;
+	bh=TFkRKjpchuDLGDuX92gc6zM+k/XaXSJ19+/LXT9gQH8=;
+	b=dG/oZhkVWVNXNQ+n7E10D4tv+dJvXcZm8R0jiXfKwU3P3mCo4fliX0YemURMdKUHm3sZ
+	 cyrC+2wUBzdoiNf6kt4+EMets9QPGyetysQ8Ey2LIUtjse0CvNzi/GwIBxFt+FA61h6PL
+	 AhwkU2o5JqXyMHiW+rRkI6UZrCw1RKKJ0RwF24BDP2si9ziKgWxNKcbPhBj0+00dtNZ1t
+	 +ik0JBzxVw0aSdxstQPju1ovLjjE7pQzGt5fsovv8G6k+KZxioQBY/R35V+pKqbRAxHB/
+	 46b3qnF8JeQQQ1w5tWui75BqfCgoXC1A6Yk3ZGCwteta215PmhRmTXDrFf+RBILCcIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=U1jWtkhE;
-	arc=none smtp.remote-ip=95.215.58.3
-Received: from mta1.migadu.com (out-3.mta1.migadu.com [95.215.58.3])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=T4UXyutt;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F893606A31E
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 15:07:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F893606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAB8E606A33B
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 15:07:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AAB8E606A33B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=U1jWtkhE
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=kiILAlyer4KDpB0b5u3nzcUamLQxdEs4r06HO3T5veo=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793027221; v=1; x=1793632021;
- b=U1jWtkhEvPVicrPfdsHIpVLOXo72c7aLMno8krFfUvbgKnzQsQpIlLhKe3tWUCA4k/pcRgwN
- qErXJJ4YbcFpURTDKybz1aMWxpjWl0W3BHrLy0z/i5nPS7cZc4kBHMa7M0k/VJ3qs7NRUf3T0cZ
- 7lu0GyCuVUrxV99CeJ12NyK8=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 873537cec047169a;
-	Mon, 26 Oct 2026 15:07:00 +0000
-X-Mizu-Trace-ID: 873537cec047169a
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <f971dbdc-cc00-42fc-8989-5e6460f88c22@linux.dev>
-Date: Mon, 26 Oct 2026 23:06:51 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=T4UXyutt
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793027243;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TFkRKjpchuDLGDuX92gc6zM+k/XaXSJ19+/LXT9gQH8=;
+	b=T4UXyuttmRoOnxDzADOSOs6G5moY+GRap3NbZlV186bPx4K5iY0i1AnJ2Z/wgc95bPHV3C
+	JSqGSOHBc6jQjR91eto5AdvS/94lqqymmKlUaVDLsxim9MKKRcWiF6FsQXoP3c0jK02b41
+	CpRIBfhwLOzhbdt7WfawuvxsdnuFZe4=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-568-s0arET9TPaib_C1Zgk5tBg-1; Mon,
+ 26 Oct 2026 11:07:21 -0400
+X-MC-Unique: s0arET9TPaib_C1Zgk5tBg-1
+X-Mimecast-MFC-AGG-ID: s0arET9TPaib_C1Zgk5tBg_1793027240
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 36155180267B;
+	Mon, 26 Oct 2026 15:07:20 +0000 (UTC)
+Received: from loberman-thinkpadp16gen3.redhat.corp (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id CE91730000E3;
+	Mon, 26 Oct 2026 15:07:18 +0000 (UTC)
+From: Laurence Oberman <loberman@redhat.com>
+To: mkp@kernel.org
+Cc: linux-scsi@vger.kernel.org,
+	target-devel@vger.kernel.org,
+	mlombard@redhat.com,
+	michael.christie@oracle.com,
+	bvanassche@acm.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v4 2/3] scsi: target: iscsi: Claim the completion in __iscsit_check_dataout_hdr()
+Date: Mon, 26 Oct 2026 11:07:09 -0400
+Message-ID: <20261026150710.1063511-3-loberman@redhat.com>
+In-Reply-To: <20261026150710.1063511-1-loberman@redhat.com>
+References: <20261026150710.1063511-1-loberman@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,75 +83,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf-next v4 2/6] bpf: Add syscall common attrs support for
- xdp link_create
-To: Alexei Starovoitov <alexei.starovoitov@gmail.com>, bpf@vger.kernel.org
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S . Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
- Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>,
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
- Emil Tsalapatis <emil@etsalapatis.com>,
- Ihor Solodrai <ihor.solodrai@linux.dev>,
- Jesper Dangaard Brouer <hawk@kernel.org>,
- John Fastabend <john.fastabend@gmail.com>,
- Stanislav Fomichev <sdf@fomichev.me>, Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Shuah Khan <shuah@kernel.org>, Kuniyuki Iwashima <kuniyu@google.com>,
- Hangbin Liu <liuhangbin@gmail.com>, Martin Karsten <mkarsten@uwaterloo.ca>,
- Masashi Honma <masashi.honma@gmail.com>, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org
-References: <20261024153608.58569-1-leon.hwang@linux.dev>
- <20261024153608.58569-3-leon.hwang@linux.dev>
- <DMDIVEW7P9QN.1TB58XDPD7V3A@gmail.com>
-Content-Language: en-US
-From: Leon Hwang <leon.hwang@linux.dev>
-In-Reply-To: <DMDIVEW7P9QN.1TB58XDPD7V3A@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-On 2026/10/25 09:19, Alexei Starovoitov wrote:
-> On Sat, Oct 24, 2026 at 08:36 AM Leon Hwang <leon.hwang@linux.dev> wrote:
->> Instead of passing bpf log or extack to bpf_xdp_link_attach(), pass an
->> errmsg pointer to receive the kstrdup() error msg, because
-> 
-> [...]
-> 
->> 2) passing extack will access underlying driver string out of dev_put()
->>    guard, which will crash kernel when the device is unloaded
->>    concurrently.
-> 
-> Netlink does exactly that.
-> rtnl_setlink() looks up the dev with __dev_get_by_index(), so no refcnt,
-> do_setlink() -> dev_change_xdp_fd(dev, extack, ...) calls into the same
-> drivers that set the same strings, rtnl is unlocked, and only then
-> netlink_rcv_skb() -> netlink_ack() does strlen(extack->_msg).
-> All extack users work this way. kstrdup() in one of them fixes nothing.
+Commit d5869dae5080 ("scsi: target: iscsi: Fix hang for aborted
+WRITE_PENDING commands") made __iscsit_check_dataout_hdr() complete an
+aborted WRITE once the final DataOut PDU for the last outstanding R2T has
+been received. That call records nothing to say the command has been
+completed.
 
-Oops, I was overthinking about it when self-reviewing the patch. Failed
-to verify the describing crash issue just now. I should verify my review
-when self-reviewing.
+target_complete_cmd() on a command that already has CMD_T_ABORTED set goes
+to target_cmd_interrupted(), which queues target_abort_work and returns
+without setting CMD_T_COMPLETE and without changing t_state. The command
+therefore stays in TRANSPORT_WRITE_PENDING and on conn_cmd_list until
+target_abort_work reaches iscsit_aborted_task(). If the connection drops in
+that window, iscsit_release_commands_from_conn() finds the command still in
+TRANSPORT_WRITE_PENDING and completes it a second time, which
+re-initialises and re-queues an se_cmd->work that is already queued.
 
-> 
-> Instead of patches 1 and 2:
-> 
+Route this site through iscsit_complete_aborted_cmd() so that the
+completion is claimed and connection teardown leaves the command alone. The
+helper makes the same iscsit_stop_dataout_timer() and target_complete_cmd()
+calls when it takes the claim, so the completing path is unchanged.
 
-Will change like this.
+Fixes: d5869dae5080 ("scsi: target: iscsi: Fix hang for aborted WRITE_PENDING commands")
+Cc: stable@vger.kernel.org
+Signed-off-by: Laurence Oberman <loberman@redhat.com>
+---
 
-> 
-> I'm think I gave this suggestion earlier. Why did you go with strdup()?
-> 
+Notes:
+    This depends on patch 1 of this series, which adds
+    iscsit_complete_aborted_cmd().  d5869dae5080 has been backported to 5.10.y,
+    5.15.y, 6.1.y, 6.6.y, 6.12.y, 6.18.y and 7.2.y, none of which carry the
+    helper, so a backport to those branches needs patch 1 as well, or the claim
+    open-coded.  Happy to send a standalone version for stable if you would
+    rather not carry patch 1 there.
 
-Sorry for my overthinking. Will verify my review to my patches in the
-future.
+ drivers/target/iscsi/iscsi_target.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-Thanks,
-Leon
+diff --git a/drivers/target/iscsi/iscsi_target.c b/drivers/target/iscsi/iscsi_target.c
+index aab9237..1db6051 100644
+--- a/drivers/target/iscsi/iscsi_target.c
++++ b/drivers/target/iscsi/iscsi_target.c
+@@ -1533,10 +1533,8 @@ __iscsit_check_dataout_hdr(struct iscsit_conn *conn, void *buf,
+ 		 */
+ 		if (se_cmd->transport_state & CMD_T_ABORTED) {
+ 			if (hdr->flags & ISCSI_FLAG_CMD_FINAL &&
+-			    --cmd->outstanding_r2ts < 1) {
+-				iscsit_stop_dataout_timer(cmd);
+-				target_complete_cmd(se_cmd, SAM_STAT_TASK_ABORTED);
+-			}
++			    --cmd->outstanding_r2ts < 1)
++				iscsit_complete_aborted_cmd(cmd);
+ 
+ 			return iscsit_dump_data_payload(conn, payload_length, 1);
+ 		}
+-- 
+2.43.0
 
