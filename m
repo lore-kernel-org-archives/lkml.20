@@ -1,103 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793045638;
-	b=mtsvP9zMk8VztIZfto66CtLmHOMFHBBoDFpU8WIar3avj4+Fg95O2VPQH0oKbnzAcu0n
-	 NcoJZqcYPvASbgzgbAPnYlRtlM3/CGUeeEvTo2wSY29//PrU0R4JtCHU4flJekQbpinyD
-	 1KkbIXISAVZG5gCiSQ3hJTx3JpfdHX+QLGyYLud450l0Ln5+tNsAKV0Rp5MNWDfz1ZTt1
-	 TWNX9AOWCfx33O1tP5wutXkE56N3uNHbl7sGQdVmdBjSGHvWip8RDqM0UcMEbgvsHjeim
-	 oY3U+qP4jEbE6Xux0IJcscrhpEobQ5VqwuyFr4gMv7T1ksw2PnimMSHG2NanbqL9gNQ==
+	t=1793045633;
+	b=bGT4pAjiiciqNhnvNpWPfPzEhNa8aqIj1sRqpxbSraXOA2+s+cPHtm+yhEeKGRvCZVP1
+	 Pl6gfc/3nK4MngxB6dPgowbskvhOpxflS38SqGic2okNPnNuh8f8YsnCzqq6Qlt//o+EC
+	 7+ZZKsD1wyXZiRe192UXtXbfxjvyIHtObt4jCPKDCd7sFyuEGe+OibuPzaxAGljjdFcEl
+	 KIYxzls4YjYvF2Nk40xtLgyghQJ1Do48kxc3t7tTcti3BjPX/3FGpIABuBQvx5qX1NT3k
+	 NEBIUPxtKJ3GRwG9Fs5bJMp6mqg62v1GuJxoBIsxfAPdwHrAUuRhBnpcDVsK6KIx3yA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793045638;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=q8AEEwHTufrmryJTMsqhvzKZ6h2afKOYiH2xqSkBe5Y=;
-	b=vC/xcQZ8XFWSBJCJvEzPNuPSLZXwRltL6UW6ytn0q5lb/nw9XWE5vS/KI6aGnkefq8Xx
-	 /tl0ucCJiF76rRKqVnMYNLWJU5XN/QVS2q7CRgoyRBiAaEzp2zUcTsSaWlWupRvmmo1gj
-	 VByBhQVS8gfJjjj6JrwNn3Gb1VZv40x8UXofhFm7cUVT3CgE0jIdM1EmXZRPpkVM8U10/
-	 P31k9+pu8NbE5nFiE3lowLad7RD5Xekwqn2ZxoMrDSoJ7dIgzT5u+l4y2v8vNW/yXU372
-	 4QnaByHCjWeYvtOQVjtJoYAc39Dh1lPRUTk/mNQMoVl4Q58mQb1ng+CNcWhzn6xf6OA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793045633;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=ZFEoz4zAnNP/e2CZdR6xrHUiI8JHFR28GWwihmBnonQ=;
+	b=FFGhT4AKmPR+6D72V+MK1hSVPLp/TEh08s1XA9g/pMnW6grz4cw7/zHh0u0ADKUhBgj6
+	 hzyCOEF4MxkxptYjkT1hvNf0P25wab4wt72epTB5jeIC1fQ4N87U61L4N7m6dxTnjSFaf
+	 Q3BMp9HWgWaPOXkYcDdtsHA4CptF/k0SVaR+in7eQQ1h7te3bMAVXw6XyhaGyMKTeiKG9
+	 T/XonN0ZgChC/spODVToISGIKCqTYaf4iQDSrf0TEGPhWusummqy1vn1/mnokXxli70tu
+	 tdSSUsDS8PeRE7YGDOTpnJj/1D5tJ6oxFzWod6wyh4qZaKFNCZgFUfl1bqm/6XhGWQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=M9nqX60h;
-	arc=none smtp.remote-ip=74.125.82.51
-Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=fYT53Vx2;
+	arc=none smtp.remote-ip=198.137.202.133
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0670F606A320
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 20:13:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0670F606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95D67606A31E;
+	Mon, 26 Oct 2026 20:13:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95D67606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=M9nqX60h
-Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-156cbe59622so2743184c88.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:13:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793045637; x=1793650437; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=q8AEEwHTufrmryJTMsqhvzKZ6h2afKOYiH2xqSkBe5Y=;
-        b=M9nqX60h6UASgVEfTP+vJ5fHXK4iggnxl8c+u1lnR7uefcFeJ9KYTdmZUHOA+9XpEV
-         zuExPp84uVmsvMkYlwaW6vXWn2EXnLyo23Kdodrg2at8RCg+CM+/bqdWeL56Fv4vSDjX
-         y4dS3Q/Z21K+V9pib0nUKUKjVrNAoh0m7jvzl3PTovN/UNAcECvVP5nwkXS57ij6Ba4K
-         3Fliq0BP2LJn3uEbDvkMOzWQARHYPgRC+U8Ki3S8WIMsMzrVbKYvso6pxzBEGH/YJqV0
-         y8RjJ+CsSZ7hVFZk+h8/1mgqkvQ+awGQAsJcPicNKqUYu85zXAkO3sB8O42VlAm9an7L
-         UqfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793045637; x=1793650437;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=q8AEEwHTufrmryJTMsqhvzKZ6h2afKOYiH2xqSkBe5Y=;
-        b=O7fR7Ksw5q1+mf2yMNBWNCkg5jCw2V/lEGUB7EQq/3ycfVFXn/jmtccDVXrUrYKmzD
-         tu+5pEbmzbXSiH3S3vwHf7WXj9yJvUw/hIxqogmgp1E9qNkOBHEiU6Y0bBns8lcH5Drg
-         21XYGLKERgcjQ2VUdrsJIkhm/efFKgp1pTEnvqR6Loox1fPg2YdRJ/bRrNza4nsUL6+5
-         ag7D5lDvJhQAOpU/e0eed3boTfKwKlfUPIN/OMeMYRtLPMqNZUXdV12fTDmkE54wzYJW
-         rvN2VRT1i10uGkS/0sIwWYOCx1qvNXg++HuTuQbSbMkBK968dwmsqIiWNzOol3I9YVsz
-         FNhQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwyScuN5+NAmsrfZTlCcgjzGxpwtVrl8eBcs1ppbRvmZsmAQmCzMslVLpNqPn7CdzX668wV4iA6yf0XmFY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJBc/o/oU6DCnjyF4xMgaYiJ+VAnIHsMvDnYBFHUN15TkLSp+bE
-	3y0ztCxIr+x5EP95Ep1kaQHYoTP0lin7H9O2ECya6wIcFtgyzllmMwwb2YUV5w==
-X-Gm-Gg: AYBFou3WeLNJtEy3ziMYu6x67IM9q5d1hn/ZU0ZaLFzIoWH413YkeVPKdECKcl5XCpc
-	0Hwxkzpc9gTxXt6EXHgS5ONFOOFEv5t1gcv8kUy7SaKscqdlF5UGd2NyHcJBF+86uU327bB8C+W
-	p1jhag0T1aEmbhpEPNS4VBqMjgjfqGodyRCFvlG6Nc/FLMvBn/Rv8zUofNbKLmcHeuMOYydGRTz
-	RRYGIAGGA7+xGw6s4xuxJVLI9THRp3T1PF+yXxvdeYaJLWLP5jZW6tMWIUHCiD8cN9nY1kBmNHM
-	0tjS+VerD/DF6ddgIZzsOA2Ew4PZJeczWg/Q9EAdyp0FzpMWSNhUvZ8mY8jRPO5aslVctsdE0+S
-	Hmtn24fdu5cKhcy4gGitTVwfmf7crJj705mH8a9ZjlDdDNy/8caiGnFFW/6+hPZnManYeP1LwtA
-	g4N/dd1O2jHyvOKUAAQAsWc8skKGS48uC98Ny/IzuzdzjvalwEYSpzUo2yNAa7osjwGh10dY/UU
-	78YceLZF+EWMfpnLT3sFM6O88a++VXilvaZRvyQHeSk4wGVQbgv+cUGwglftbM=
-X-Received: by 2002:a05:7022:1702:b0:14e:d0ba:7569 with SMTP id a92af1059eb24-199290fe34cmr9680108c88.6.1793045636848;
-        Mon, 26 Oct 2026 13:13:56 -0700 (PDT)
-Received: from valdaarhun.localdomain ([2401:4900:1c44:61b8:f26f:bd5b:b550:7a07])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a020df20sm31730486c88.6.2026.10.26.13.13.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 13:13:56 -0700 (PDT)
-From: Sahil Siddiq <sahilcdq0@gmail.com>
-To: jonas@southpole.se,
-	stefan.kristiansson@saunalahti.fi,
-	shorne@gmail.com,
-	naveen@kernel.org,
-	davem@davemloft.net,
-	mhiramat@kernel.org
-Cc: pjw@kernel.org,
-	wangruikang@iscas.ac.cn,
-	namcao@linutronix.de,
-	kees@kernel.org,
-	linux-openrisc@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Sahil Siddiq <sahilcdq0@gmail.com>
-Subject: [PATCH v3 4/4] openrisc: Add Kretprobes
-Date: Tue, 27 Oct 2026 01:42:40 +0530
-Message-ID: <20261026201240.107462-5-sahilcdq0@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260930202744.50489-1-sahilcdq0@gmail.com>
-References: <20260930202744.50489-1-sahilcdq0@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=fYT53Vx2
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=ZFEoz4zAnNP/e2CZdR6xrHUiI8JHFR28GWwihmBnonQ=; b=fYT53Vx2tLwuv3kAl7B2FqH8br
+	kcYZT6KxYso9fB6zwWepCQafujHWHtRYTwauBP552d0J6ICs6czTL2dgIwWDi99j8vIUjcGKxdGfQ
+	0yWLAuWaoRY+shgcTPjSzJoWSBUPlXogBcdFCIc5dbqdiGeD07wGJsmzHSvAqGpBk6gYpH8R1Dl4H
+	6UJGb2qGUEAfFB5EtNGivqRiBu8WMoyAlMl3XqABsroJ4WmNSuGIyOO7CLAkKcES0MBouGsfnaxRX
+	l8MXg90/BqHtEEoTlLrPcQLLITv2ZdJ+uSdBM65Rc3k24MpbmG+PdeovQ0QgqpkOZ3SJhXY4yMhvk
+	ClZxbWvw==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xLR4o-00000003Cv0-2j7I;
+	Mon, 26 Oct 2026 20:13:50 +0000
+Message-ID: <4ab3e196-0326-48d9-bfdb-ede2f8cfac64@infradead.org>
+Date: Mon, 26 Oct 2026 13:13:49 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,233 +58,117 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/7] docs: ABI: power: rt9471: Fix invalid inline emphasis
+To: Waqar Hameed <waqar.hameed@axis.com>
+Cc: Sebastian Reichel <sre@kernel.org>, kernel@axis.com,
+ linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+References: <cover.1792965060.git.waqar.hameed@axis.com>
+ <ba11515d8e0dc45ad90f162302bcd1b20db9bd92.1792965060.git.waqar.hameed@axis.com>
+ <004fbff3-7fbc-440c-9c44-44585795521c@infradead.org>
+ <pndse1svbin.a.out@axis.com>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <pndse1svbin.a.out@axis.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Add Kretprobes support for OpenRISC. Kretprobes allow a probe to be
-fired when a function returns. They are built on top of the generic
-rethook framework and also require the KProbe mechanism introduced
-in the previous commit. This work is primarily based on similar work
-done for RISC-V.
 
-Kretprobes work by inserting a KProbe at a function's entry point.
-When the function begins to execute, the KProbe is fired and its
-pre-handler replaces the function's return address with that of the
-rethook trampoline. The trampoline in turn calls the kretprobe handler.
-Control is returned to the original caller following this.
 
-Signed-off-by: Sahil Siddiq <sahilcdq0@gmail.com>
+On 10/26/26 6:26 AM, Waqar Hameed wrote:
+> On Sun, Oct 25, 2026 at 19:39 -0700 Randy Dunlap <rdunlap@infradead.org> wrote:
+> 
+>> On 10/25/26 3:05 PM, Waqar Hameed wrote:
+>>> `docutils` warns:
+>>>
+>>>   Documentation/ABI/testing/sysfs-class-power-rt9471:1: (WARNING/2) Inline emphasis start-string without end-string.
+>>>   Documentation/ABI/testing/sysfs-class-power-rt9471:20: (WARNING/2) Inline
+>>> emphasis start-string without end-string.
+>>>
+>>> Fix this by escaping the `*`.
+>>
+>> I'm still seeing this issue after the patch is applied (same for patch 4/7).
+>> Maybe we are fighting a docutils your-version vs. my-version problem
+>> or just a moving target.
+> 
+> Hm, that's weird. What output do you actually get? The '*' is escaped
+> now, so it shouldn't complain...
+> 
+
+docutils still complains:
+
+Documentation/ABI/testing/sysfs-class-power-rt9467:1: WARNING: Inline emphasis start-string without end-string. [docutils]
+Documentation/ABI/testing/sysfs-class-power-rt9471:1: WARNING: Inline emphasis start-string without end-string. [docutils]
+
+and running the command that Mauro provided:
+$ ./tools/docs/get_abi.py -D Documentation/ABI/testing/ rest --enable-lineno|grep -A20 rt9467
+
+gives me:
+.. LINENO Documentation/ABI/testing/sysfs-class-power-rt9467#1
+
+.. _abi_sys_class_power_supply_rt9467_sysoff_enable:
+
++------------------------------------------------------------+
+| **\/sys\/class\/power_supply\/rt9467\-\\*\/sysoff_enable** |
++------------------------------------------------------------+
+
+Defined on file :ref:`sysfs-class-power-rt9467 <abi_file_testing_sysfs_class_pow
+er_rt9467>`
+
+This entry allows enabling the sysoff mode of rt9467 charger
+devices.
+If enabled and the input is removed, the internal battery FET
+is turned off to reduce the leakage from the BAT pin. See
+device datasheet for details. It's commonly used when the
+product enter shipping stage. After entering shipping mode,
+only 'VBUS' or 'Power key' pressed can make it leave this mode.
+'Disable' also can help to leave it, but it's more like to
+abort the action before the device really enter shipping mode.
+
+Note: use /sys/class/power_supply/rt9467-*/load_switch instead.
 ---
-Changes v2 -> v3:
-- arch/openrisc/kernel/rethook_trampoline.S:
-  (save_all_base_regs): Save SR and SP registers
-  (restore_all_base_regs): Restore SR register
 
-Changes v1 -> v2: New commit
+Aha. It's the line above that now needs to have the '*' character
+escaped. I have no warnings after that is done.
 
- arch/openrisc/Kconfig                     |   2 +
- arch/openrisc/kernel/Makefile             |   1 +
- arch/openrisc/kernel/rethook.c            |  32 +++++++
- arch/openrisc/kernel/rethook.h            |   8 ++
- arch/openrisc/kernel/rethook_trampoline.S | 111 ++++++++++++++++++++++
- 5 files changed, 154 insertions(+)
- create mode 100644 arch/openrisc/kernel/rethook.c
- create mode 100644 arch/openrisc/kernel/rethook.h
- create mode 100644 arch/openrisc/kernel/rethook_trampoline.S
 
-diff --git a/arch/openrisc/Kconfig b/arch/openrisc/Kconfig
-index d240533b424b..82365eb8f574 100644
---- a/arch/openrisc/Kconfig
-+++ b/arch/openrisc/Kconfig
-@@ -28,6 +28,8 @@ config OPENRISC
- 	select HAVE_ARCH_JUMP_LABEL_RELATIVE
- 	select HAVE_PCI
- 	select HAVE_KPROBES
-+	select HAVE_KRETPROBES
-+	select HAVE_RETHOOK
- 	select HAVE_UID16
- 	select HAVE_PAGE_SIZE_8KB
- 	select HAVE_REGS_AND_STACK_ACCESS_API
-diff --git a/arch/openrisc/kernel/Makefile b/arch/openrisc/kernel/Makefile
-index 0c1cade09e0c..e36537cea319 100644
---- a/arch/openrisc/kernel/Makefile
-+++ b/arch/openrisc/kernel/Makefile
-@@ -15,6 +15,7 @@ obj-$(CONFIG_STACKTRACE)	+= stacktrace.o
- obj-$(CONFIG_MODULES)		+= module.o
- obj-$(CONFIG_OF)		+= prom.o
- obj-$(CONFIG_KPROBES)		+= kprobes.o
-+obj-$(CONFIG_RETHOOK)		+= rethook.o rethook_trampoline.o
- obj-$(CONFIG_OR_KPROBES_KUNIT)	+= tests/
- obj-y	+= patching.o
- 
-diff --git a/arch/openrisc/kernel/rethook.c b/arch/openrisc/kernel/rethook.c
-new file mode 100644
-index 000000000000..50ef6715d044
---- /dev/null
-+++ b/arch/openrisc/kernel/rethook.c
-@@ -0,0 +1,32 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Generic return hook for OpenRISC. Depends on KProbes.
-+ *
-+ * Linux architectural port borrowing liberally from similar works of
-+ * others.  All original copyrights apply as per the original source
-+ * declaration.
-+ *
-+ * OpenRISC implementation:
-+ * Copyright (C) 2026 Sahil Siddiq <sahilcdq0@gmail.com>
-+ */
-+
-+#include <linux/kprobes.h>
-+#include <linux/rethook.h>
-+#include "rethook.h"
-+
-+unsigned long arch_rethook_trampoline_callback(struct pt_regs *regs)
-+{
-+	return rethook_trampoline_handler(regs, regs->gpr2);
-+}
-+NOKPROBE_SYMBOL(arch_rethook_trampoline_callback)
-+
-+void arch_rethook_prepare(struct rethook_node *rhn, struct pt_regs *regs, bool mcount)
-+{
-+	/* Store original return address and frame pointer */
-+	rhn->ret_addr = regs->gpr9;
-+	rhn->frame = regs->gpr2;
-+
-+	/* Set return address to trampoline */
-+	regs->gpr9 = (unsigned long)arch_rethook_trampoline;
-+}
-+NOKPROBE_SYMBOL(arch_rethook_prepare)
-diff --git a/arch/openrisc/kernel/rethook.h b/arch/openrisc/kernel/rethook.h
-new file mode 100644
-index 000000000000..332306a5c380
---- /dev/null
-+++ b/arch/openrisc/kernel/rethook.h
-@@ -0,0 +1,8 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
-+#ifndef __OPENRISC_RETHOOK_H
-+#define __OPENRISC_RETHOOK_H
-+
-+unsigned long arch_rethook_trampoline_callback(struct pt_regs *regs);
-+void arch_rethook_prepare(struct rethook_node *rhn, struct pt_regs *regs, bool mcount);
-+
-+#endif
-diff --git a/arch/openrisc/kernel/rethook_trampoline.S b/arch/openrisc/kernel/rethook_trampoline.S
-new file mode 100644
-index 000000000000..5e8fd5a65222
---- /dev/null
-+++ b/arch/openrisc/kernel/rethook_trampoline.S
-@@ -0,0 +1,111 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
-+/*
-+ * Author: Sahil Siddiq <sahilcdq0@gmail.com>
-+ */
-+
-+#include <linux/linkage.h>
-+
-+#include <asm/asm.h>
-+#include <asm/asm-offsets.h>
-+#include <asm/ptrace.h>
-+
-+	.text
-+
-+	.macro save_all_base_regs
-+	l.sw	PT_GPR2(r1),r2
-+	l.sw	PT_GPR3(r1),r3
-+	l.sw	PT_GPR4(r1),r4
-+	l.sw	PT_GPR5(r1),r5
-+	l.sw	PT_GPR6(r1),r6
-+	l.sw	PT_GPR7(r1),r7
-+	l.sw	PT_GPR8(r1),r8
-+	l.sw	PT_GPR9(r1),r9
-+	l.sw	PT_GPR10(r1),r10
-+	l.sw	PT_GPR11(r1),r11
-+	l.sw	PT_GPR12(r1),r12
-+	l.sw	PT_GPR13(r1),r13
-+	l.sw	PT_GPR14(r1),r14
-+	l.sw	PT_GPR15(r1),r15
-+	l.sw	PT_GPR16(r1),r16
-+	l.sw	PT_GPR17(r1),r17
-+	l.sw	PT_GPR18(r1),r18
-+	l.sw	PT_GPR19(r1),r19
-+	l.sw	PT_GPR20(r1),r20
-+	l.sw	PT_GPR21(r1),r21
-+	l.sw	PT_GPR22(r1),r22
-+	l.sw	PT_GPR23(r1),r23
-+	l.sw	PT_GPR24(r1),r24
-+	l.sw	PT_GPR25(r1),r25
-+	l.sw	PT_GPR26(r1),r26
-+	l.sw	PT_GPR27(r1),r27
-+	l.sw	PT_GPR28(r1),r28
-+	l.sw	PT_GPR29(r1),r29
-+	l.sw	PT_GPR30(r1),r30
-+	l.sw	PT_GPR31(r1),r31
-+	/* Save SR in pt_regs */
-+	l.mfspr	r13,r0,SPR_SR
-+	l.sw	PT_SR(r1),r13
-+	/* Save SP in pt_regs as it was prior to setting up this frame */
-+	l.addi	r13,r1,PT_SIZE
-+	l.sw	PT_SP(r1),r13
-+	.endm
-+
-+	.macro restore_all_base_regs
-+	/* Restore SR from pt_regs */
-+	l.lwz	r13,PT_SR(r1)
-+	l.mtspr	r0,r13,SPR_SR
-+	/*
-+	 * r1 doesn't need to be explicitly restored from pt_regs. When
-+	 * arch_rethook_trampoline_callback finishes, it restores SP to
-+	 * what it was before its frame was set up.
-+	 */
-+	l.lwz	r2,PT_GPR2(r1)
-+	l.lwz	r3,PT_GPR3(r1)
-+	l.lwz	r4,PT_GPR4(r1)
-+	l.lwz	r5,PT_GPR5(r1)
-+	l.lwz	r6,PT_GPR6(r1)
-+	l.lwz	r7,PT_GPR7(r1)
-+	l.lwz	r8,PT_GPR8(r1)
-+	/* Return address in r9 is stale, so don't restore it */
-+	l.lwz	r10,PT_GPR10(r1)
-+	l.lwz	r11,PT_GPR11(r1)
-+	l.lwz	r12,PT_GPR12(r1)
-+	l.lwz	r13,PT_GPR13(r1)
-+	l.lwz	r14,PT_GPR14(r1)
-+	l.lwz	r15,PT_GPR15(r1)
-+	l.lwz	r16,PT_GPR16(r1)
-+	l.lwz	r17,PT_GPR17(r1)
-+	l.lwz	r18,PT_GPR18(r1)
-+	l.lwz	r19,PT_GPR19(r1)
-+	l.lwz	r20,PT_GPR20(r1)
-+	l.lwz	r21,PT_GPR21(r1)
-+	l.lwz	r22,PT_GPR22(r1)
-+	l.lwz	r23,PT_GPR23(r1)
-+	l.lwz	r24,PT_GPR24(r1)
-+	l.lwz	r25,PT_GPR25(r1)
-+	l.lwz	r26,PT_GPR26(r1)
-+	l.lwz	r27,PT_GPR27(r1)
-+	l.lwz	r28,PT_GPR28(r1)
-+	l.lwz	r29,PT_GPR29(r1)
-+	l.lwz	r30,PT_GPR30(r1)
-+	l.lwz	r31,PT_GPR31(r1)
-+	.endm
-+
-+SYM_CODE_START(arch_rethook_trampoline)
-+	/* Allocate enough space on stack for pt_regs */
-+	l.addi	r1,r1,-PT_SIZE
-+	save_all_base_regs
-+
-+	l.addi	r3,r1,0	/* pt_regs */
-+	l.jal	arch_rethook_trampoline_callback
-+	l.nop
-+
-+	/* use the result as the return-address */
-+	l.addi	r9,r11,0
-+
-+	restore_all_base_regs
-+	l.addi	r1,r1,PT_SIZE
-+
-+	l.jr	r9
-+	l.nop
-+SYM_CODE_END(arch_rethook_trampoline)
+>>
+>> $ docutils --version
+>> docutils-3.13 (Docutils 0.23, Python 3.13.16, on linux)
+> 
+> I have
+> 
+>   docutils (Docutils 0.20.1, Python 3.12.3, on linux)
+> 
+>>
+>>> Reported-by: kernel test robot <lkp@intel.com>
+>>> Closes: https://lore.kernel.org/oe-kbuild-all/202609110722.GAZVme6v-lkp@intel.com/
+>>> Signed-off-by: Waqar Hameed <waqar.hameed@axis.com>
+>>> ---
+>>>  Documentation/ABI/testing/sysfs-class-power-rt9471 | 4 ++--
+>>>  1 file changed, 2 insertions(+), 2 deletions(-)
+>>>
+>>> diff --git a/Documentation/ABI/testing/sysfs-class-power-rt9471 b/Documentation/ABI/testing/sysfs-class-power-rt9471
+>>> index 0a390ee5ac21c..04a771cd23512 100644
+>>> --- a/Documentation/ABI/testing/sysfs-class-power-rt9471
+>>> +++ b/Documentation/ABI/testing/sysfs-class-power-rt9471
+>>> @@ -1,4 +1,4 @@
+>>> -What:                /sys/class/power_supply/rt9471-*/sysoff_enable
+>>> +What:                /sys/class/power_supply/rt9471-\*/sysoff_enable
+>>>  Date:                Feb 2023
+>>>  KernelVersion:       6.3
+>>>  Contact:     ChiYuan Huang <cy_huang@richtek.com>
+>>> @@ -16,7 +16,7 @@ Description:
+>>>               - 1: enabled
+>>>               - 0: disabled
+>>>
+>>> -What:                /sys/class/power_supply/rt9471-*/port_detect_enable
+>>> +What:                /sys/class/power_supply/rt9471-\*/port_detect_enable
+>>>  Date:                Feb 2023
+>>>  KernelVersion:       6.3
+>>>  Contact:     ChiYuan Huang <cy_huang@richtek.com>
+
 -- 
-2.55.0
+~Randy
 
