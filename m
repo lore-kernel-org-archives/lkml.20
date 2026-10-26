@@ -1,88 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.153.30
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792993734;
-	b=cz5kkJt6gE/bqySPkNnlsUWfF8iKYwgX8Fl6YR7JnmYAM5+d0cF+o/H/B1HRaGHMWpDK
-	 5yHiMahXnhtVXr5Mtb00i0AQUHxLTD2//1bSF/gbZ6fU/XjXOQ7imyJMI8iK79aOi8RsU
-	 2PJ4JLo4OVPRm0brXyokI4W8jJ7oZXFSUxzsULL59G4xa3njrIz8c+dP07bHCEV3SpV9I
-	 CjFubGsjWujXNIBj6VYH8MsN0hWAnsUDSLt3w1pgLeM2mDAmSrte1cy9gpTgD3HDw7E6r
-	 FGJYOnps9LkbpdcyhNJlicfe6CudzbgFsTga/FRhV7x0sALFCmmZKzkOZRXK/KB4ZUw==
+	t=1792993735;
+	b=AL1S67Jugzex+U8R2mkIKNQvNd7IQs7nL0gpfsN41FaI3F5vZxv+O/lelh/Kl5R0Erl7
+	 oP9t6aE9zyJh8a1Mtmelf4RwkbI8RqdH1P8H6LEyC/b3P3Os4Llm4vKPWdKcIR+iPRAag
+	 b8+s7mXhKMq3eNtofsw/2Rh9kuMuI7JK/J2Cc+JDQJ8RZjitvr7Aj17nNBxarFDd3AcDn
+	 lEciJ0+FzNuXtvo/UFyd7Bak6bLtsHZeQ6l3CWaM4GHrwvqeaXsyeRLLyMUezMteU1YEG
+	 808SlFeKklqG4ml51SfbDurnNnHNviB5Q6G9CeS2hZyrGiAm8Lt/HB7OXeLB8JvxsvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792993734;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Virus-Version;
-	bh=i2QrinkU+yR8MbSvKb5Nl4SmWTgXlkF2S8BMMSrGkmE=;
-	b=5qwA+/qipoMPOZIAgGfuOUqBMFekXquNqgBJXPvcG6VPMRBzj5xtoMPcwNsUBcYzV6j2
-	 EBYPksdZWemHMy/3/zeXSL6RqT9MZ0cTxbeU8OLXZMXJCDle/sxsEY8Le8asEgNioM7SP
-	 9C0sOMtD5GyxGM3jOzCw2Xiu80f0lMJc+VwlHRVZNA0c5lgvk1pYvRBPwOVOukQsn5k8i
-	 7jN5/hqTZubSP06O0SfvQYGdTwTH0YrbEWNIqttTYbGAsbcKH/XsFPxYLkLqCdcl28Z28
-	 4u4wzbONSib9xGEK9AJfLODijtaSSye/6q7reif3gZmoMCJYHhRKeEP5iOhcJ/X8IYQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792993735;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=RYAYmmDh2YKbl8OgItUgUWB8sbjY7eRAlNwNblYFtjE=;
+	b=zLuXwCAd9YrO89/seUTMllyBCypByNKnI7RY9ySJW4BpNkh/yAWrmdVNKt8J5N5wdcGp
+	 eSnCsOEIM28avECjhYJ9+Jl7UZawUU/Cs7Vzsjwd7sRaQma6e5ejtpC5PqECZMx/N2YWa
+	 +9idqTtC2hJyKM4/BQ22KQBmuEEyoiTYZQN9VJ83LuzN3t4+rsAxHoTPfZPhYrikpDV/G
+	 7nEBBH3/6nzHVuLb3VzwjbywmxBm3clHr/fLFqrdm83QTQxfLS3dueCkyjBCXvcg4qzg6
+	 G9dqxC6IgAxCKK2csGF46OC45OKp2zKX0d78hRt/SZT4EqknE4ttxz+q6KGdyKCWjig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fb.com;
-	spf=pass smtp.mailfrom=meta.com;
-	dkim=pass header.d=fb.com header.i=@fb.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=sPklDkqo;
-	arc=none smtp.remote-ip=67.231.153.30
-Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com [67.231.153.30])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=XWLsYV4u;
+	arc=none smtp.remote-ip=209.85.221.51
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7C48606A323;
-	Mon, 26 Oct 2026 05:48:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7C48606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fb.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE307606A31D
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 05:48:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE307606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fb.com header.i=@fb.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=sPklDkqo
-Received: from pps.filterd (m0528005.ppops.net [127.0.0.1])
-	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69Q38eQK2161310;
-	Sun, 25 Oct 2026 22:48:32 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	pps82601-s2048-2026-q3; bh=i2QrinkU+yR8MbSvKb5Nl4SmWTgXlkF2S8BMM
-	SrGkmE=; b=sPklDkqoimkWAy3v6AzfX2hmpJbyEvx4x2rd0Vr6rhzVPj30l6uwQ
-	9Oiw+OEnKTJ0iwkfz1jdUFqYBuOkLWKaSnwxdxCxSq/W06tCjyY5TOu/HXeL8+OS
-	3tJwSFWqEKKrxQ8Pjm5j3ZiXN1FsVFKJSXocYAidt4jz8pVTUSkO3RMQytRMPSSe
-	3jpRXpNspcUMqI0UZZEkq8BoxiNd4c8MxovZ6TnrPPmGIAat7uL8jCEeBdlS1M7v
-	X4i8RCk91mE2BLAQikR/gbTfj8vv34VdeFf0Blor18g7PfHVvVxC2cGOZryO1DrK
-	clxq68yJx6umx/9+Gej3CgkuAwquWPrOg==
-Received: from maileast.thefacebook.com ([163.114.135.16])
-	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4hhe8h3bgn-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
-	Sun, 25 Oct 2026 22:48:31 -0700 (PDT)
-Received: from localhost (2620:10d:c0a8:1b::8e35) by mail.thefacebook.com
- (2620:10d:c0a9:6f::237c) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.56; Mon, 26 Oct
- 2026 05:48:31 +0000
-From: Amir Ayupov <aaupov@fb.com>
-To: James Clark <james.clark@linaro.org>, Leo Yan <leo.yan@arm.com>,
-        Suzuki K
- Poulose <suzuki.poulose@arm.com>,
-        Mike Leach <mike.leach@arm.com>,
-        Alexander
- Shishkin <alexander.shishkin@linux.intel.com>
-CC: Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-        Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Jonathan Corbet <corbet@lwn.net>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Randy Dunlap
-	<rdunlap@infradead.org>,
-        Shuah Khan <skhan@linuxfoundation.org>,
-        Daniel
- Pereira <danielmaraboo@gmail.com>,
-        <coresight@lists.linaro.org>, <linux-arm-kernel@lists.infradead.org>,
-        <linux-perf-users@vger.kernel.org>, <linux-doc@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>
-Subject: [PATCH v4 1/7] coresight: etm4x: Fix event count decoding
-Date: Sun, 25 Oct 2026 22:48:21 -0700
-Message-ID: <4d45171946cf41751215e8c1cd9a8b14d38d3159.1792989860.git.aaupov@fb.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <cover.1792989860.git.aaupov@fb.com>
-References: <cover.1792907332.git.aaupov@fb.com> <cover.1792989860.git.aaupov@fb.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=XWLsYV4u
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48e1d0e5dafso2418418f8f.1
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 22:48:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792993728; x=1793598528; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=RYAYmmDh2YKbl8OgItUgUWB8sbjY7eRAlNwNblYFtjE=;
+        b=XWLsYV4uiHkUfWr4Q/biUnve12vHb3l187f8nBcPpVIcfi6tUCwW/CadSRqpyeRfiA
+         dH9iWalQFr7XHBQnkLQ+d2/dZrCYkkUKtvcaQiPRQzSvLmS63AUzt5AfaFOeSd9eqWNu
+         AheBWJKc6d+CkJ0UJS94rN+tS2wDqy7R9ZAEYia15ERZrecUcXjq2zP5/dU56/7Qjm3E
+         kibvOTNqbm18DDAOVYWyl2bctFVfn8XG/hQLIiXZryxLf1MT5S2pA1/stzMngM/aIL4U
+         KM3Gf53CMGo1rPkcJjJoxdfSV5aFeP6K8HJq9pduAOkpr4V+S+wIx3iqfTtWFvmtIsWy
+         V2Ig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792993728; x=1793598528;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RYAYmmDh2YKbl8OgItUgUWB8sbjY7eRAlNwNblYFtjE=;
+        b=dwaGrkhaG63QCu7uX0d8naetPbTcQ1cJfzJEJZ/OfQ4BPWo17iw0+ks/dcmDpDbYeJ
+         umY4k0Zk+S41BhbcP7xoVX1tLlgJRKPETjV5w4kuwn+wmtZNuxTP6gIbGZTa8dpoGkAA
+         LKFGzKDfKlZySkzKvGLTVIgVU3LyuJpqqdI+07nzJxlXFsuZLHn2lQ0iUbKCJwacrLC3
+         JEk2XqFbA58x5Z6ZdldLzsZl8jxA9zGa3hFsG27LMzW2TIfVrTMlKEBNL+JMH5H034AH
+         Sm+aGgbI0fwRXl1SZxTl/pabSJTyu5lmy1KnRM0Hl74hrERS6LysKdlQkijmwS+qPjJF
+         FmwA==
+X-Forwarded-Encrypted: i=1; AKwUvBwVi8B+RDMv575sPdEYYBTjIKApq/diU94XtN+1ycd/lWhO3XRMyZAMPw1Ur+zF6kIH3gbkPw8I/opWuvY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJZ1wfPSXNUkgtIO2yDWM34oosRtlY0r/Dw57ExkCRw3Q0c0q9P
+	5fJr8cdCr3SATx/zj6QgX+jvWo/K+QdNlgIcBKl/c6hgA+u5Qvti5/VOqZO4t6o9/EF5evhb
+X-Gm-Gg: AYBFou3XLuKkVvZ7IP6dKSD54fSzQcIGRCULid0V0vQoFs9ECIa4+JA5Y4ag5vD1NJr
+	OOCrhUooxbVaKnTNOSqwTugnuhmKVBizov4/At8AaZGInRmQ+clOlKfJYoLtAkNXKnTX/9uv2Ak
+	K8eNV3eY0ucN1NmGA7RHg9sAv5HAeEUUMFqTRVinAuj3OZOP/3frmR+I0teO9pC8+MrGQ2iYKxK
+	Wiz3iWtVaA0RtWZ6wObDzlK+4UZGxNaLLLobiG1rtH77RSgKTzAZJlTQ623y5zJnqnmgVMV3d6W
+	yjCkgn5JbDk7L0OWEQINCAuQZy3NuSNIqvv2a4wCpcmg187n0QCG+VyOepm2iSCIgxlVPrV3gBD
+	PW56AWS2uiz7yImPdlRG3X0tNFmDftqT6H/n3zyABZrgVIUXqzZXuMdySo9QdFU/xJWBXXA9hTg
+	ml14Pni9t+SapfaVc5mKNlIU7hyE5/EP5XXbkRkkX9qgvr2SWlNCdgIcc4SgZ6F6xqW6iowBnK3
+	UTEHkBKXfRBBO6zhcEvJI1nElEFv9MBz7cMAGKE0qVy9msjaPA0A1HbAfdVRhMko81DvF6fjw==
+X-Received: by 2002:a5d:6184:0:b0:48e:22fd:1ea3 with SMTP id ffacd0b85a97d-48e3eb93665mr8333616f8f.28.1792993728187;
+        Sun, 25 Oct 2026 22:48:48 -0700 (PDT)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebcb9cesm14713554f8f.27.2026.10.25.22.48.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 25 Oct 2026 22:48:47 -0700 (PDT)
+Date: Mon, 26 Oct 2026 08:48:43 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: himanshu bakshi <himanshu.bakshi478@gmail.com>
+Cc: andy@kernel.org, gregkh@linuxfoundation.org,
+	dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] staging: fbtft: Fix line length warning
+Message-ID: <at7pu4hldDTgZtXy@stanley.mountain>
+References: <20261025164003.143864-1-himanshu.bakshi478@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,151 +96,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-GUID: IAQOOmHtbXtxyY9YiqNhswxvkqJr6OAG
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDAyMiBTYWx0ZWRfX5j7tw+MaSaqH
- iB+aoKS4JMhLl9bCyOHG/e3gt3TBnembiV+MzEoCVDlFEmYKMqbm5YOfEA20s7ySyNFqFyti/ZP
- FBpbvVYocLkN8ePUrlaxlIBcplH+bm8=
-X-Authority-Analysis: v=2.4 cv=MbD5KJ/f c=1 sm=1 tr=0 ts=6adee9af cx=c_pps
- a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
- a=jCddH8ec0KUNCymVuxII:22 a=7CQSdrXTAAAA:8 a=nO7UQp2L8s1CClaFxKwA:9
- a=a-qgeE7W1pNrGK8U0ZQC:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDAyMiBTYWx0ZWRfX9sZmDLLfWYzk
- 2Z1FAJYhS3RWQR1ushzKoVfhsvJEUxUHvZ+AdLdmrbXzDElyptYfxyafwiNbUF/pfUsD5345Qpi
- 3c0NcpIdQbpfM9qkXlY7bOZfZl/Bzd0N0Vj81QynpfnjyvJF4podoSt8I0koN50mb1PBqZ+B5Eo
- nl555h8D9G31oZ7zMJfKugYWlOMn6V0thypJhalFX1V3NiUw5rqk88ahMDeL5b/S+Eo7Rf3ojTK
- xkkR0gWFUk6/qANwSFJW647IkgY0ODbCmilBI+MpbYQvESot1bvo+iz+FXtow842qpXNqG3k/ys
- ICuxrUKmrfYxFCnhWB7WqOLO3hVk9EgG+asSH0q7LNzP46pJCmuvKupMubNWIaHIm3dfT4gDWn6
- CvMhDElk2E96dNSkSQwoVZYAY0WV68OVKAKWlx/Eb+LigjmHM5pJ4KHoSjsdBBHoJB8WyOIpVkB
- vUYLR4cQc2J+dWjyu8g==
-X-Proofpoint-ORIG-GUID: IAQOOmHtbXtxyY9YiqNhswxvkqJr6OAG
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-26_01,2026-10-21_02,2025-10-01_01
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261025164003.143864-1-himanshu.bakshi478@gmail.com>
 
-From: Leo Yan <leo.yan@arm.com>
+On Sun, Oct 25, 2026 at 10:10:03PM +0530, himanshu bakshi wrote:
+> From: Himanshu Bakshi <himanshu.bakshi478@gmail.com>
+> 
+> Hi Andy,
+> 
 
-TRCIDR0.NUMEVENT normally encodes the number of events minus one.
-From ETMv4.3 onwards, including ETE, a zero TRCIDR4.NUMRSPAIR instead
-means that no events are implemented and NUMEVENT is zero. The sysfs
-event controls currently interpret this combination as one event and
-allow writes to unsupported event fields.
+We don't need this in a commit message.
 
-Decode NUMEVENT after NUMRSPAIR and store the actual number of events
-in nr_event. Use the decoded resource count so that older ETM versions,
-where a zero NUMRSPAIR represents one resource pair, still report at
-least one event. Update both sysfs event controls to use the actual
-count and clear their event fields when no events are implemented.
+Also I would prefer to delete these weirdo debug messages.  The
+normal dev_dbg() messages are good enough.  Plus, is this even
+used?
 
-Also correct the instruction event enable mask for the single-event
-case to use INSTEN[0]. The existing mask uses INSTEN[1], preventing
-event 0 from being enabled.
-
-This change depends on the recent driver refactoring. With no reported
-failures, it is not intended for stable backporting.
-
-Signed-off-by: Leo Yan <leo.yan@arm.com>
----
- .../coresight/coresight-etm4x-core.c          | 13 +++++++--
- .../coresight/coresight-etm4x-sysfs.c         | 29 ++++++++++---------
- 2 files changed, 27 insertions(+), 15 deletions(-)
-
-diff --git a/drivers/hwtracing/coresight/coresight-etm4x-core.c b/drivers/hwtracing/coresight/coresight-etm4x-core.c
-index e21be6468e954..af017bd8a5477 100644
---- a/drivers/hwtracing/coresight/coresight-etm4x-core.c
-+++ b/drivers/hwtracing/coresight/coresight-etm4x-core.c
-@@ -1451,8 +1451,6 @@ static void etm4_init_arch_data(void *info)
- 	caps->trccci = !!(etmidr0 & TRCIDR0_TRCCCI);
- 	/* RETSTACK, bit[9] Return stack bit */
- 	caps->retstack = !!(etmidr0 & TRCIDR0_RETSTACK);
--	/* NUMEVENT, bits[11:10] Number of events field */
--	caps->nr_event = FIELD_GET(TRCIDR0_NUMEVENT_MASK, etmidr0);
- 	/* QSUPP, bits[16:15] Q element support field */
- 	caps->q_support = FIELD_GET(TRCIDR0_QSUPP_MASK, etmidr0);
- 	if (caps->q_support)
-@@ -1519,6 +1517,17 @@ static void etm4_init_arch_data(void *info)
- 	caps->nr_resource = FIELD_GET(TRCIDR4_NUMRSPAIR_MASK, etmidr4);
- 	if ((drvdata->arch < ETM_ARCH_V4_3) || (caps->nr_resource > 0))
- 		caps->nr_resource += 1;
-+
-+	/*
-+	 * NUMEVENT encodes the number of events minus one. From ETMv4.3,
-+	 * including ETE, NUMRSPAIR == 0 means no events are implemented.
-+	 * nr_resource already accounts for the pre-ETMv4.3 encoding.
-+	 */
-+	if (caps->nr_resource)
-+		caps->nr_event = FIELD_GET(TRCIDR0_NUMEVENT_MASK, etmidr0) + 1;
-+	else
-+		caps->nr_event = 0;
-+
- 	/*
- 	 * NUMSSCC, bits[23:20] the number of single-shot
- 	 * comparator control for tracing. Read any status regs as these
-diff --git a/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c b/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c
-index db9e603f97ba8..fb38f0102290a 100644
---- a/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c
-+++ b/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c
-@@ -513,19 +513,22 @@ static ssize_t event_store(struct device *dev,
- 
- 	raw_spin_lock(&drvdata->spinlock);
- 	switch (caps->nr_event) {
--	case 0x0:
-+	case 0:
-+		sysfs_config->eventctrl0 = 0;
-+		break;
-+	case 1:
- 		/* EVENT0, bits[7:0] */
- 		sysfs_config->eventctrl0 = val & 0xFF;
- 		break;
--	case 0x1:
--		 /* EVENT1, bits[15:8] */
-+	case 2:
-+		/* EVENT1, bits[15:8] */
- 		sysfs_config->eventctrl0 = val & 0xFFFF;
- 		break;
--	case 0x2:
-+	case 3:
- 		/* EVENT2, bits[23:16] */
- 		sysfs_config->eventctrl0 = val & 0xFFFFFF;
- 		break;
--	case 0x3:
-+	case 4:
- 		/* EVENT3, bits[31:24] */
- 		sysfs_config->eventctrl0 = val;
- 		break;
-@@ -565,22 +568,22 @@ static ssize_t event_instren_store(struct device *dev,
- 	/* start by clearing all instruction event enable bits */
- 	sysfs_config->eventctrl1 &= ~TRCEVENTCTL1R_INSTEN_MASK;
- 	switch (caps->nr_event) {
--	case 0x0:
--		/* generate Event element for event 1 */
--		sysfs_config->eventctrl1 |= val & TRCEVENTCTL1R_INSTEN_1;
-+	case 1:
-+		/* generate Event element for event 0 */
-+		sysfs_config->eventctrl1 |= val & TRCEVENTCTL1R_INSTEN_0;
- 		break;
--	case 0x1:
--		/* generate Event element for event 1 and 2 */
-+	case 2:
-+		/* generate Event element for events 0 and 1 */
- 		sysfs_config->eventctrl1 |= val & (TRCEVENTCTL1R_INSTEN_0 |
- 						   TRCEVENTCTL1R_INSTEN_1);
- 		break;
--	case 0x2:
--		/* generate Event element for event 1, 2 and 3 */
-+	case 3:
-+		/* generate Event element for events 0, 1 and 2 */
- 		sysfs_config->eventctrl1 |= val & (TRCEVENTCTL1R_INSTEN_0 |
- 					     TRCEVENTCTL1R_INSTEN_1 |
- 					     TRCEVENTCTL1R_INSTEN_2);
- 		break;
--	case 0x3:
-+	case 4:
- 		/* generate Event element for all 4 events */
- 		sysfs_config->eventctrl1 |= val & (TRCEVENTCTL1R_INSTEN_0 |
- 					     TRCEVENTCTL1R_INSTEN_1 |
--- 
-2.52.0
+regards,
+dan carpenter
 
