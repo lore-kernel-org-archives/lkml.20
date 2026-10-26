@@ -1,97 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793003317;
-	b=R1r2+EuQVgrvpRvLJf675E9s1mAGfQPlcS4TkvdFEhj8iwV66clKudpZgvM+eK3kUn1n
-	 ZuF5vM7vceT/vu5FmABvxavgGaxZ5XHAtthhgrG2GfWXd/juxpU1OwU4yHmma8s0UTSic
-	 8C64x5AZZqlBhrjRGs3n0Q47JiXxf8CuyEI7S2omGiGEwA1+UqAErPPnN2X3QJoLUQbZ8
-	 nPtJMsDIMFA5Fjw6zF9u/pEMW5cygoRqDWBp5prRVtaUtdRjexK0EKW9/R9wKUC+mUEGp
-	 IEr/JgdKXTt5dKB84iRbLYPdodPVsCfTScSqvU0eTstcnRy2Bhc8ZrhFh+CUauglFFA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793003317;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=EjCtGVYy8oVZbBDhEOaUUsJdWh7LVDwBlPS7EGRKlGg=;
-	b=cptjinUDkBXUxdVCzCVl/KZ4XZ/IVDDJSLmkdH7v8CvuQDEysKJc1Cv8MEKNtVbfdZ2c
-	 a4xG0u5TvTv8Dbw/eaqgXRnp3xJdk9sSrxaApkxDnB8IhvyUL1Qc1wE6utl8dZ/dwk5fN
-	 jWIbOulOzAuLRH0B0KExDTSt5gr5zGd4BCuUkSLgbBtFv8kHCU13vlp8pcUSAtu34RzNW
-	 KdLBoeBumAMufV52Q6GQ46Z3f3yQCaoX6HtzA0gexW/lelp1998MM/cmGYp06Kv61zl0G
-	 dYQudUX4xe8R1OQOulgGpGKfstJBu094q51km30vvJfoT1EAgl0va/9T4OoeU/L4XjQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="lGX6M/cV";
-	arc=none smtp.remote-ip=74.125.82.176
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793003366;
+	b=SFVhX+0Dow3VUx67NeOFIty8ruVaSBBMNNNRFo2v9rQFpaVCnrrat3xde6HTUOHUp3ED
+	 2df6jYR9CnPx2Ya2GxC2JBZSGdGFLJsjXvxBjGD395x69wUsidtxeS0JNtZ3q9El123e7
+	 ISbBIFkyT16cZokF7MH0r16FcP0j+bwqRUszHyvHF57Ik0T2QeJ50Qfb3ULi/27AxEE1w
+	 TteNn2/ktKlL1+g8It7uqtRqDZsJZJCnSzBRvyUyIYhK9Yo63LHMEkxrzShTJy3YZvHeg
+	 l26OFGDElrEoJ9aJ1K4qMlRIHZGP5qm41FnYtNFUYZy/a7L63SYc2LYq0LA6fMiAzyg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793003366;
+	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=KQlF6PoEcsNhxcyBiIGKVmyhgBC+BfLt7M/wlDsGWb0=;
+	b=SRgoRUr7DfqO4L4L7j2X0htctuQ7Ie5e1+h3LnFwokTVC2qumimUCCbb6BPIDemuXWcj
+	 rKhIIvhsQAHur++njUvDfKAqQx6kI4raZBmWDtIpH8SriDu9WPtaSl26hnCumlKK3MJAV
+	 b+/rNVX+8ydJl91fW+vvikqXyHjgZGzIvojyTl5q1oNUQ+drGDNsWWhwFNRsVFzbIQqHD
+	 lLoIaL+7YSoZ9MlsQYK2s6cAiUxJbtI2G2cVYxo/ssPRVdbl5n93Celzj44IXxI8rZ5F2
+	 ce4fxTuPj1v5aaA7ata3GpAzcPklTFly0G5CgOiIbBKjz83OqBOKuCGOodkcQQU+k/w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=SbUVZ4Hs;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7B66606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 08:28:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7B66606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97CCA606A31F;
+	Mon, 26 Oct 2026 08:29:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97CCA606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=lGX6M/cV
-Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-36681e85e87so145164eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 01:28:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793003316; x=1793608116; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EjCtGVYy8oVZbBDhEOaUUsJdWh7LVDwBlPS7EGRKlGg=;
-        b=lGX6M/cV1LoTJcMaZ/TBu0ayjwwhkTFtefO3b5Z2FSFZQOzdhpxLHaHavxIAHNeVI1
-         pBdtkgHwt66JEEAeYYiTO7+zXlSTIZDGL5nFe5xT77m+N2aeTBwroww9yk9WVTaoK8XI
-         6tDN6XZ4XM5LNEBEo+GLGe+yLz6jZFqgsTbwU8W84yXv/K9oPSyF3V/Emda0gwqp5E0k
-         pfjWNw39FaHJ18VyEevYiXfzmjZrIq8P+NcmqKvXGF3ktuSy27Rnmi4ygmH1GQysaVk6
-         CbNZiV0IT/vT+3f5AnHM94QYUYpQGKdk/HPQWJ5a7C86QbayikziLADK98rwCLJH2YRx
-         a9Cg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793003316; x=1793608116;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EjCtGVYy8oVZbBDhEOaUUsJdWh7LVDwBlPS7EGRKlGg=;
-        b=uuj2ktVpndMBuIys3gSe2zvPSkylkRRS8XexsMnEmL/tR4IVL/7N5+qhAZxow6qkkq
-         shh5ZKLqEiI/e9E6ShbDufGo83BXZhgdOHq2+HzQJFwptE3twZfOIvyxEgXpK6+f5b87
-         CTVwnMOl7v3n8v2DHCW/RKW1owlKj/vzcpDAAgM2E6D6DXdlUy/WbTkC9awof3OZJkmj
-         jtWtID0W1EI1o7sFojqdPTn/vTJKjIRfqTaNA6iLaz5CyTM14xmGSuJ3KS5TgS7cTC2F
-         a0FGAnb5WIqsfvudoSLHQ8ThGKpS9MNAJ7Rhvh18vw0atG3KwvH1Fg7pXrl5YwNqXHqu
-         UBYw==
-X-Forwarded-Encrypted: i=1; AKwUvBwyY2DFuZ9+89ASkR8XqzZEfW5IilquwPwkvPyqwDg3UaBmo8HmZDP0OxBjiHB8JwcEZqr2k4xS1FO2dec=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK2rKSeKx5AouoaO+MTnBgboXFcGO00ObeHMP4j5Oub1f/t3PTO
-	cClLN9fC04kwpkwdkD5kj0CeloTeanyXHkM0Z3iVR6zKUok/0KdI6joP
-X-Gm-Gg: AYBFou25NNAOSLckeilFtQBsQS7rChXBxqXTnssYJqlHBWLstR3kFmEC3cfbwv7TwBY
-	9hFfYhTyhV2vQsUNujuiv6d7vMLIo7Q0lfL5rJMgFcpTNMl+1C/Loj/QA41YV2ma1ZtDaYGdn9P
-	Qbnu+jrVeIm+y9kZNHonutLdoa75iTh2DEF6MJGx3D6QN/ZTVrnfm7KAFlgEJho7Ab+UDN4o0sT
-	SkZ5k0AkodIBAWmMAaYpCQiD0mVszzaLuNQBtLIiAwMp+7p39Cn1hwV2pwfr4bbcSRdSQyPp8Qu
-	UknSFBXTn8bsbMjq3R2GXb9kFFUKnWV2iGmNOZNPcaQEfi14q75qjE4UQtcWKZwXjjy5xguS6JQ
-	nFW9UaNo6Sz7aDpfVkOZali887gb3wIdA8E0YeXajVljiK4sDN78a0xBK2y28hvMguiV1euuV6i
-	PcQAEYIQAwRwfdUQ+4hviDK4ZElyEM3dNNbZcN+I1PGmDM6VSZ9Hj8z3f7TisOh95qL2pioitYh
-	D74XDxTx4I6XX8kGPuqEAvyk7Vo5+gce/tOw5WIFxH7QjI8UwMp8mo2yyzr8pKz7cr3d9lrph46
-	wNWO
-X-Received: by 2002:a05:693c:87c4:10b0:36a:43d:8ef7 with SMTP id 5a478bee46e88-36a043d9429mr1824611eec.18.1793003315844;
-        Mon, 26 Oct 2026 01:28:35 -0700 (PDT)
-Received: from NithishVelan.localdomain ([152.57.83.124])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369ef6a71a4sm22301819eec.8.2026.10.26.01.28.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 01:28:35 -0700 (PDT)
-From: Nithishvelan M <mnithishvelan@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Nuno Sa <nuno.sa@analog.com>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	linux-iio@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Nithishvelan M <mnithishvelan@gmail.com>
-Subject: [PATCH v3] staging: iio: impedance-analyzer: ad5933: use guard(mutex) in ad5933_show()
-Date: Mon, 26 Oct 2026 08:28:28 +0000
-Message-ID: <20261026082828.652-1-mnithishvelan@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=SbUVZ4Hs
+Received: from ratatoskr.trumtrar.info (unknown [IPv6:2a00:1f:f805:2b01:a03:2f4:308a:7b52])
+	(Authenticated sender: str@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id BBDF22019D1;
+	Mon, 26 Oct 2026 09:29:23 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793003364;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KQlF6PoEcsNhxcyBiIGKVmyhgBC+BfLt7M/wlDsGWb0=;
+	b=SbUVZ4HsLbi+mMsfNVfSsMzJSEORToKeymYd9A4Mp9lnTDdtVZ7oNSZgeNfJ1SJiutkn/k
+	9oohnDQ9+8nuL6+EWDMoUNU3ahPf24xEHhLA8xsG632PZik7iZUpR89d0q6iC79PAWWnxv
+	yITgIz3889wy92jt+ktZBdmTpxsPCMDnehg2mSEFt7sQQCl+SZ5jPh28GuYvYSfgkukLOl
+	OxGo6NWtK3w2RaMSmdngqzJ1+M6Ogu/7AJJgX/vdmhASKWWVAQ9TRf1G442JzgHHelo9ol
+	bEWF1rWnntqLYHi2fvpHr7TjJbP+7tRc6LucJ36dixKMTPUiFjtBLXZ45AlKDw==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793003364; a=rsa-sha256;
+	cv=none;
+	b=Ku4MgVczwoceRwk2AuToIlanv22q7gN4iv0QokoLIbIC+oBZG2j2ytREVSX+/d+27Ff0T3
+	tyTEvDZFV4ldTJsbXodX/GvJ3SOS44YIVJt117gh0fdNgYavCGrelQ4RN1g2u7aZrK0fWE
+	ADGi8YisDq9gx5aDsIRcd+6E+0g8qkWFDMV1Zbjd9c6Yp3YbFuEbVTi+glxON0/bnssfY4
+	ggaHh1kupF5owXSyCmiGnlyn9W73N2A/ksP6Qk0jbddf1lP2W2bnaYvaafcNMpADDLKv9D
+	No0sCXE93gYcY91O6fjSCNymrrTJg6qoM4+9YzpJhW/nxTwxFT52bqEdg4AfTQ==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=str@pengutronix.de smtp.mailfrom=s.trumtrar@pengutronix.de
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793003364;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KQlF6PoEcsNhxcyBiIGKVmyhgBC+BfLt7M/wlDsGWb0=;
+	b=GtAptxFG/4LI3f21e8TmFz3QDm5/67jBenD1r8VK7uMKTro8fl8iwwBDHUxTvyVAa5d9Dw
+	Cm4L+udyO1HnAPnfWDNxRSRd+qHCntII9AKKPiU9RgMJIaCTi2xWANcembt7NuwnRQ9qR1
+	Lksuc+/Xdm8s/V2KGtQyO6RSVI5w5kng/3bEV+Mi2osPh0hEcyHHdHeBo3/B9oCyoj8c9O
+	pJWXLWQYfJrprQyLbCLBiHyR3ofbpjduHiTtQGySpKMUQZUgNph3aaeuiXSDsFjSSMphxX
+	Nz8qbCylLueSKYosQsnaKpzg5PxDnySlzaSSb8k5TxUaoJrcPiPJ7YjNYE/UYQ==
+From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+Date: Mon, 26 Oct 2026 09:29:03 +0100
+Subject: [PATCH RFC v4 3/6] virtio-net: assert header sizes
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,97 +83,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261026-v6-7-topic-virtio-net-ptp-v4-3-008af03cd43b@pengutronix.de>
+References: <20261026-v6-7-topic-virtio-net-ptp-v4-0-008af03cd43b@pengutronix.de>
+In-Reply-To: <20261026-v6-7-topic-virtio-net-ptp-v4-0-008af03cd43b@pengutronix.de>
+To: "Michael S. Tsirkin" <mst@redhat.com>, 
+ Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
+ "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Richard Cochran <richardcochran@gmail.com>, 
+ Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ =?utf-8?q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>, 
+ Jason Wang <jasowangio@gmail.com>, Alexei Starovoitov <ast@kernel.org>, 
+ Daniel Borkmann <daniel@iogearbox.net>, 
+ Jesper Dangaard Brouer <hawk@kernel.org>, 
+ John Fastabend <john.fastabend@gmail.com>, 
+ Stanislav Fomichev <sdf@fomichev.me>, Eric Dumazet <edumazet@kernel.org>
+Cc: Steffen Trumtrar <s.trumtrar@pengutronix.de>, 
+ virtualization@lists.linux.dev, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org, kvm@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1371;
+ i=s.trumtrar@pengutronix.de; h=from:subject:message-id;
+ bh=VNqggOE1Eks6kcVJq7bwJA4oYcZtrmSlslNSc9TyIn8=;
+ b=owGbwMvMwCUmtVehiCsuTInxtFoSQ9Z9/sQcmbdGF9M2T35eoL8zOKnmxppn+aUFQksOt05aa
+ 1Gz5fW0jlIWBjEuBlkxRRaVhRV8oh4fPCOniXDBzGFlAhnCwMUpABO5ZMfwTy3IId3osrfbO8t3
+ lvolucquB2WNJl8Q+ZVyiPtQb3b/U4Y/XBW7Z6R6xWak7r/+/hrb/Y2R0QYNE2yN1vzecPP7vdo
+ PvAA=
+X-Developer-Key: i=s.trumtrar@pengutronix.de; a=openpgp;
+ fpr=24A1780E1548F0495996140A1ABD20720A5E5622
 
-Use guard(mutex) to automatically manage the state lock in
-ad5933_show(). This simplifies the function by allowing direct returns
-from each switch case, eliminating the mutable return variables and
-manual mutex_unlock() calls.
+The header is cast from skb->cb and from device buffers, so its layout
+must not change silently. Add static_asserts for the offset of tstamp,
+the total size, the alignment, and that the header fits into skb->cb.
 
-Signed-off-by: Nithishvelan M <mnithishvelan@gmail.com>
+Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+Assisted-by: Claude:claude-opus-5-5
 ---
-Changes in v3:
- - Rename local variable 'ridx' to 'val' to avoid conflating range index
-   with PGA gain bit (Jonathan Cameron).
- - Re-use 'val' in AD5933_IN_PGA_GAIN to keep sysfs_emit() simple
-   (Andy Shevchenko).
+ include/linux/virtio_net.h | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-Changes in v2:
- - Extract range index into local variable 'ridx' to prevent static
-   analysis warnings (Andy Shevchenko).
- - Keep short return sysfs_emit() call on a single line (Andy Shevchenko).
- - Split AD5933_OUT_RANGE_AVAIL arguments logically across lines (Andy Shevchenko).
- - Remove redundant parentheses in AD5933_IN_PGA_GAIN ternary (Andy Shevchenko).
- - Resend using git-send-email to preserve tabs and whitespace.
- .../staging/iio/impedance-analyzer/ad5933.c   | 38 ++++++++-----------
- 1 file changed, 15 insertions(+), 23 deletions(-)
-
-diff --git a/drivers/staging/iio/impedance-analyzer/ad5933.c b/drivers/staging/iio/impedance-analyzer/ad5933.c
-index 798e62bae2..c05a5f4b42 100644
---- a/drivers/staging/iio/impedance-analyzer/ad5933.c
-+++ b/drivers/staging/iio/impedance-analyzer/ad5933.c
-@@ -6,6 +6,7 @@
-  */
+diff --git a/include/linux/virtio_net.h b/include/linux/virtio_net.h
+index 2abd8a614a23f..e7776a37a486b 100644
+--- a/include/linux/virtio_net.h
++++ b/include/linux/virtio_net.h
+@@ -29,6 +29,17 @@ struct virtio_net_common_hdr {
+ 	__le16 tstamp[4];	/* le64 TAI receive time in ns, 0 if none */
+ };
  
- #include <linux/bits.h>
-+#include <linux/cleanup.h>
- #include <linux/clk.h>
- #include <linux/delay.h>
- #include <linux/device.h>
-@@ -333,39 +334,30 @@ static ssize_t ad5933_show(struct device *dev,
- 	struct iio_dev *indio_dev = dev_to_iio_dev(dev);
- 	struct ad5933_state *st = iio_priv(indio_dev);
- 	struct iio_dev_attr *this_attr = to_iio_dev_attr(attr);
--	int ret = 0, len = 0;
-+	unsigned int val;
++/*
++ * The header is cast from skb->cb and from device buffers, the layout must not
++ * change silently.
++ */
++static_assert(offsetof(struct virtio_net_common_hdr, tstamp) == 32);
++static_assert(sizeof(struct virtio_net_common_hdr) ==
++	      offsetofend(struct virtio_net_common_hdr, tstamp));
++static_assert(__alignof__(struct virtio_net_common_hdr) == 2);
++/* virtio_net_common_hdr must fit into skb->cb */
++static_assert(sizeof(struct virtio_net_common_hdr) <= sizeof_field(struct sk_buff, cb));
 +
-+	guard(mutex)(&st->lock);
- 
--	mutex_lock(&st->lock);
- 	switch ((u32)this_attr->address) {
- 	case AD5933_OUT_RANGE:
--		len = sysfs_emit(buf, "%u\n",
--				 st->range_avail[(st->ctrl_hb >> 1) & 0x3]);
--		break;
-+		val = (st->ctrl_hb >> 1) & 0x03;
-+		return sysfs_emit(buf, "%u\n", st->range_avail[val]);
- 	case AD5933_OUT_RANGE_AVAIL:
--		len = sysfs_emit(buf, "%u %u %u %u\n", st->range_avail[0],
--				 st->range_avail[3], st->range_avail[2],
--				 st->range_avail[1]);
--		break;
-+		return sysfs_emit(buf, "%u %u %u %u\n",
-+				  st->range_avail[0], st->range_avail[3],
-+				  st->range_avail[2], st->range_avail[1]);
- 	case AD5933_OUT_SETTLING_CYCLES:
--		len = sysfs_emit(buf, "%d\n", st->settling_cycles);
--		break;
-+		return sysfs_emit(buf, "%d\n", st->settling_cycles);
- 	case AD5933_IN_PGA_GAIN:
--		len = sysfs_emit(buf, "%s\n",
--				 (st->ctrl_hb & AD5933_CTRL_PGA_GAIN_1) ?
--				 "1" : "0.2");
--		break;
-+		val = st->ctrl_hb & AD5933_CTRL_PGA_GAIN_1;
-+		return sysfs_emit(buf, "%s\n", val ? "1" : "0.2");
- 	case AD5933_IN_PGA_GAIN_AVAIL:
--		len = sysfs_emit(buf, "1 0.2\n");
--		break;
-+		return sysfs_emit(buf, "1 0.2\n");
- 	case AD5933_FREQ_POINTS:
--		len = sysfs_emit(buf, "%d\n", st->freq_points);
--		break;
-+		return sysfs_emit(buf, "%d\n", st->freq_points);
- 	default:
--		ret = -EINVAL;
-+		return -EINVAL;
- 	}
--
--	mutex_unlock(&st->lock);
--	return ret ? ret : len;
- }
- 
- static ssize_t ad5933_store(struct device *dev,
+ static inline bool virtio_net_hdr_match_proto(__be16 protocol, __u8 gso_type)
+ {
+ 	switch (gso_type & ~VIRTIO_NET_HDR_GSO_ECN) {
+
 -- 
-2.53.0
+2.52.0
 
