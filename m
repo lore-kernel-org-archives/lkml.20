@@ -1,71 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.167
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793008465;
-	b=JEb7foHUF1DQlxRGPR6z+AI8YnGQmFNs+fcKF2i70vVyMc3pbsYVA23/LQkfhRZMSwCL
-	 W6LafF3t7021/2KS696sNrOUNk99uhSCz4+W1uYc6+2GO78Tw0Qb0RPI1RHy7kOoZhX1a
-	 YUTLLyHnH0iW+F8TdCU3q73RE+UVY4ZBYorKhTuqFwukEyU12j2zrY54n4hIMX8kEat+x
-	 mBsm6D3TQQmbxDKKUpgNhH6G/qthWQnhE5FS5u2E6buuxCNn0w5FLN82sNP+2XcR/YWZR
-	 BZS+IQHy5ekAzgtaRU5453U7TbzOmw84H2on0fcYFyHUA7a+D96U/b+6q6KfnM1BoIg==
+	t=1793008459;
+	b=RYhFrK16OYw2jHwqKFqRuotwRWMZVY/mb/H9kLgSrsqDQHqjuBT2uU9+PgrHra5v143d
+	 Cr6N41nsSnxrYRAZfav6RLWdm9m4k84BAofRwl4LrrAnnySYl7uiA3dkT8BYyRE0ewqLX
+	 gkahXCEB4MNWV3/Z6CHfKN1HAg5CAKfEm/fi+dyDaPyItC3Y3mmUcxyOn+aW8xmlAWGlP
+	 zKrXOJ5I8VMdb+4da4yxfaIurUlWq3uAfdo1Vnrt6JVtLW/libZwYdqIZYkAByv0bRgvV
+	 G1z0HHyrK39TyosdlOg29ccQEJg5FNgS9n789/RNmXFpf9t7KlrH+/oqfx9wh7cGNPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793008465;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=+CdnSQYOGYAynrzkG/QTB342cWFFcGggZ0YCcMYw7pY=;
-	b=VKQkHQHje4gKwLCPN4CwKrigCOAmBn+GYfH1UpqcJ45dajidNIgsjeeVwmyzfdtWUqPw
-	 y5HfMaijYFg1Fh8iITs8lLwh42N5A1fJ8f1xbiT+vHGjbktETpjbZbYUPP3TsAWWOSoCn
-	 7vApvye+5bHiv6Izsn3PMlP6BBmK+ixvE7nfrB+BkpbZG7lUyjz9hoL4rFS04cos2pGMf
-	 40ZCHNz2eWY3eFjw83xBVxkUWKdG4UdZZNstQXYvz/RUodDSlDa1L69c+YFZRTWayUh8h
-	 JTfghOCRnQcp2ZiVBFbIig3UhNLLTpKzxF7gNhFrU4WMGpLJJouPiOXOt1weHs9dvAQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793008459;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=D/VaSOMcUlwPUAdjntA1Q0HEeOmbUij0t3BgSN8ccDo=;
+	b=fqU2iLO2VpLJ2dEZeENAxWVOriJ+QNYZr4kq5pa/HF8/1kNxJmULJ/WUtLFkdRT3o9Kc
+	 m4tDiStWeWLYOdPDK65EzCjvCQfX6ZBTFfi81zCIXOfkBsXCJEWsMELt/PTvnDblpIyQe
+	 YirEZrS83oDvuu3DhF9WWqhwGegJ2eZ7KkqNwEmIFbZ0k7E75TT7Rf9EM5OuUPnLzB5sk
+	 poY8pZaE3h/kN3Gj7HqfEO4XIiQua+Mfm87BBy04LG5QpTkpwUQ3/jXyu5uKsQrR4Wqgk
+	 1CRjFb/tqu8tDYbRRWo51C11AN/KLKa+g+XROXDNhuGBsojdHANcdueBl38eX8omSYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="Wb/iLEPb";
-	arc=none smtp.remote-ip=95.215.58.167
-Received: from mta1.migadu.com (out-167.mta1.migadu.com [95.215.58.167])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=aaTnvn64;
+	arc=none smtp.remote-ip=209.85.221.44
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB192606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:54:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB192606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95CA6606A324
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:54:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95CA6606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Wb/iLEPb
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=FYVvf+389IS8ZL6LsNXMb88YYC2tzhligrXA3E/+ZL0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793008463; v=1; x=1793613263;
- b=Wb/iLEPbv3K7GHUiIqw889QbfCrcH2mC+AUhsEyrBPQAXu95Lzcr2MAktRyZituMje0+6/8R
- p5VHLxnQH4i5V5S+cImVJk9HlxygorSQuP7NNJqRtxLD7Z+sPm9aEjcNPl/pZoJtGjaCu0VUjsC
- ak1GPMc6QB4m2zgg8RAsguq8=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 9e2f4d0ab2390074;
-	Mon, 26 Oct 2026 09:54:22 +0000
-X-Mizu-Trace-ID: 9e2f4d0ab2390074
-X-Migadu-Flow: FLOW_OUT
-From: Xuanqiang Luo <xuanqiang.luo@linux.dev>
-To: netdev@vger.kernel.org
-Cc: saeedm@nvidia.com,
-	leon@kernel.org,
-	tariqt@nvidia.com,
-	mbloch@nvidia.com,
-	borisp@nvidia.com,
-	witu@nvidia.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	linux-rdma@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=aaTnvn64
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48e00eee27dso1718147f8f.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:54:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793008457; x=1793613257; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=D/VaSOMcUlwPUAdjntA1Q0HEeOmbUij0t3BgSN8ccDo=;
+        b=aaTnvn64/QBcpX/pHFhqq2YhMDxBaXebWmQjWa05pDNGjrYYJSz7ukx2+UyEWspfO/
+         SWEwMIz46wRXbwn236vYnsnUm8QvS8vdWVGXSlKGz7giEK4fcfgGmBFxnxMQaEUTZkHm
+         5nftAGEnW/xkjsWtPaDFtCOAfV3qTUybKuV/ERwvD9QIzBAAiWB2rd5OgA7aPBhlOIRL
+         GuLCZ7S0ay24QIuil3U+mat2FrT08g7aQUlQoTf69SrYAF7lttN2x72dylaK/L3jJIEe
+         nS1b3nTg45aDowTu42xQeLLkkK/kykgetHearnFCnYd2p932Pgz1SIlN15FLlzpxkM/+
+         61ug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793008457; x=1793613257;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=D/VaSOMcUlwPUAdjntA1Q0HEeOmbUij0t3BgSN8ccDo=;
+        b=Ao+vOZSQbvri2pq68mTQy0fU8/cAhRcy4OT/EgYSeVwMEse/neE9CrltXHVhXqETVv
+         iaDXPO8adEfvVlVGDlH3/KcQ1fzYYmNgAx88MMSvwbrvLlfeQvKzQTzJU0CVRxd77bZY
+         KrKXjKz37qJ6oEakjpAR5/ZnmCcSVXq2x/rwIWmfPPVpJ6vvre8gyR288wcARjM5moWC
+         IW2B5bnIJdCnpqGtYmxjyAY9BtkDYee+Ec3nJLOTN9iTC2HrWppp12buFpFgBfhcLpDd
+         fcsug3UarS8hqo4S6wcfyjA8kATpQalb5wiVsgneisIUhu1uqNjhycm3TpLluzHhzVNy
+         SzKQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz+0qwMXrEz973JQ3V4Neq5mhR443GXsQVSiQYFjcR7i3VuMfnCNP6r6K9muOvG3eK6bQpjxM085u2DhyI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKsjoPo6lgKbeoIUdk+L/MH1alOXeyL2YWpdiNdXM9rdOr7EzWF
+	5Rn3G+ECddl5JjAZvIa3TTXTKLlboI7dS8JXxseFYA9B2aZ+vR+99X4dvDnokVvBnxjeZ6Ty
+X-Gm-Gg: AYBFou3WQ8wTzmX5Sq9N6nvBv85f8InTiwqkJ+RE6TYABen185sQlrMT56J/lr+0eF/
+	Guc9pS4Ets2F1HVRDhp1t0KpZN/J6/lSdWBs9Xi0Cn/Kd2OMArFV2GAa5GCzq+uJ/8tLD046JEl
+	ph1GTBTiNb6eKJ0lgG9kLuFGgEVkNTq5tBsyI1uXhZk1jdkx3cSdJZan4D2Wot5R6TJ9545AWXw
+	Nbk+x5PGOPxmxlwMcPMBZ9EyAFnk25z/tfbYwJYj/2ikzMzgIUwyh7R24SOJTBVYufQ7ZZLqBTF
+	y7kpHm7RZuwj/y8VUu4nDbFY5YMAAZUVParm37WkTnLj69AZ+KU/wqAS4Lyh9rIBMWdL4jIGsh/
+	kGOHjUHm4jZ92d7EG9vnfNcFdtBM48ihuEk6JJQl490pzFRibTCUI3IoWCpem6s444NqePTtbeL
+	uDe06gX1h+mlimO3l4U6zHr4KYEAWm5aod2RsPl4CGI4xOIWW/fdN1YvNv1Tf4XkvfaH/2LBpHl
+	z3VS1R2w/St62PCRG5mHnPGASGlRVK4IaZiosHstInRSlxToeXgi3ve5T8MeR+TcJqUfmaHmF8U
+	g4reWp7Ol4mFhO3L79+u4df6QRI+AcuA5VBSVg==
+X-Received: by 2002:a05:6000:2312:b0:48c:557d:ab24 with SMTP id ffacd0b85a97d-48e3eb2cdbfmr11414765f8f.4.1793008456800;
+        Mon, 26 Oct 2026 02:54:16 -0700 (PDT)
+Received: from localhost ([217.150.74.224])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecdf9bdsm14960572f8f.55.2026.10.26.02.54.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 02:54:16 -0700 (PDT)
+From: Eduard Zateev <hackerowskiy@gmail.com>
+To: johannes@sipsolutions.net
+Cc: linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Xuanqiang Luo <luoxuanqiang@kylinos.cn>
-Subject: [PATCH net v1] net/mlx5e: kTLS, Fix missing error unwind when enabling RX offload
-Date: Mon, 26 Oct 2026 18:53:46 +0900
-Message-ID: <20261026095346.1212609-1-xuanqiang.luo@linux.dev>
-X-Mailer: git-send-email 2.43.0
+	syzbot+c38f93f387ac25eabf68@syzkaller.appspotmail.com
+Subject: [PATCH] wifi: mac80211: use owner vif for AP VLAN station TXQs
+Date: Mon, 26 Oct 2026 19:54:14 +1000
+Message-ID: <20261026095414.149334-1-hackerowskiy@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,59 +97,40 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+AP VLAN interfaces are not added to the driver, so their station TXQs
+must wake the queue through the owning AP interface.  Keep the AP VLAN
+interface in skb control data for key selection, but associate its
+station TXQ with the driver-facing AP vif.
 
-Since commit abed42f9cd80 ("net/mlx5e: Conditionally create async
-ICOSQ"), the async ICOSQ is only created when an XDP program is attached
-or priv->ktls_rx_was_enabled is set. When TLS RX offload is enabled for
-the first time, mlx5e_ktls_set_feature_rx() sets the flag and reopens
-the channels so that they get the queue, but it ignores the return value
-of mlx5e_safe_reopen_channels().
+This avoids calling drv_wake_tx_queue() with an AP VLAN vif that has no
+IEEE80211_SDATA_IN_DRIVER flag.
 
-If the reopen fails, mlx5e_safe_switch_params() keeps the old channels,
-which have no async ICOSQ, while NETIF_F_HW_TLS_RX is still reported as
-enabled. The next offloaded RX connection then dereferences the NULL
-c->async_icosq in post_rx_param_wqes(). Enabling the feature again does
-not help, as the flag is already set and the reopen is skipped.
-
-Propagate the error, clear the flag and destroy the accel TCP flow
-tables again, so that the feature stays disabled and the next attempt
-retries the reopen.
-
-Fixes: abed42f9cd80 ("net/mlx5e: Conditionally create async ICOSQ")
-Signed-off-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+Fixes: e937b8da5a59 ("mac80211: Add TXQ scheduling API")
+Reported-by: syzbot+c38f93f387ac25eabf68@syzkaller.appspotmail.com
+Link: https://syzkaller.appspot.com/bug?extid=c38f93f387ac25eabf68
+Signed-off-by: Eduard Zateev <hackerowskiy@gmail.com>
 ---
-Found by code inspection while backporting commit abed42f9cd80 to a
-downstream kernel. I do not have a crypto-enabled ConnectX NIC, so the
-failure has not been reproduced and the fix is only compile-tested.
+ net/mac80211/tx.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-The crash itself is the one described in the changelog of abed42f9cd80
-("async ICOSQ allocation is not triggered, causing a NULL pointer
-crash"). This patch only covers the case where the reopen that should
-create the queue fails. ktls.c is also the only caller that ignores the
-return value of mlx5e_safe_reopen_channels(); the callers in health.c
-and reporter_tx.c check it.
-
- drivers/net/ethernet/mellanox/mlx5/core/en_accel/ktls.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ktls.c b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ktls.c
-index 337201f128958..3cc1213c2f682 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ktls.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ktls.c
-@@ -139,7 +139,11 @@ int mlx5e_ktls_set_feature_rx(struct net_device *netdev, bool enable)
- 		err = mlx5e_accel_fs_tcp_create(priv->fs);
- 		if (!err && !priv->ktls_rx_was_enabled) {
- 			priv->ktls_rx_was_enabled = true;
--			mlx5e_safe_reopen_channels(priv);
-+			err = mlx5e_safe_reopen_channels(priv);
-+			if (err) {
-+				priv->ktls_rx_was_enabled = false;
-+				mlx5e_accel_fs_tcp_destroy(priv->fs);
-+			}
- 		}
- 	} else {
- 		mlx5e_accel_fs_tcp_destroy(priv->fs);
+diff --git a/net/mac80211/tx.c b/net/mac80211/tx.c
+index e9b6a0415..7446c8d9d 100644
+--- a/net/mac80211/tx.c
++++ b/net/mac80211/tx.c
+@@ -1571,6 +1571,13 @@ void ieee80211_txq_init(struct ieee80211_sub_if_data *sdata,
+ 	INIT_LIST_HEAD(&txqi->schedule_order);
+ 
+ 	txqi->txq.vif = &sdata->vif;
++	if (sta && sdata->vif.type == NL80211_IFTYPE_AP_VLAN) {
++		struct ieee80211_sub_if_data *ap;
++
++		ap = container_of(sdata->bss,
++				  struct ieee80211_sub_if_data, u.ap);
++		txqi->txq.vif = &ap->vif;
++	}
+ 
+ 	if (!sta) {
+ 		txqi->txq.tid = tid;
 -- 
-2.43.0
+2.56.0
 
