@@ -1,63 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793050372;
-	b=0cfU6ztLw3Wt6Ik+7jzCx+Dj4yTYB7rwggE54ON85pXI1mIiR2J3dHmXQ6Nwdzu/3mKR
-	 /ADzwWDFfRYptgxG1nVgMeruplEeRaaFe1Gm+lDRHeBuvcam5DfqH5emwNP+KHV4B3Xjf
-	 RviV5tU661Zm1HuWJtSPfbmItCYab2iL9otR9wDB8MH0mOAHZlDX+4IJKXC1aE1Yz+1+N
-	 Oi1QjiQxe8MpRGAkAH82zSamqNiW1nuGpGFuIPzC8WGzz4x8Cfsgidd6UGDmd5GeGJ7Mo
-	 OokQokQ1FLgopeNbayG+GID9wkL49VZPPEQssZvCRdhauzR8NUakbNm5vi5C1I1lDAg==
+	t=1793050435;
+	b=3psdgzK4Bybr8BHpYGhdYc1EQK7c6RdqQqK1cFCL5ZSQyPGeokMaiytMzOPrnHCOschu
+	 rTpo1Ymm+0vQ7OKMXWxvd5g8HNsEBMBMOBmy1VPvrcxpyCH3+1mzb9KtNxMZwqe3P6EYo
+	 1vEFpYKTZZ+xleiW/S9u+1BFxKewRPVc2BYpAryESLsSx5C0oVASaDWBkyESRD2CMkIUq
+	 bjIx95ENVCwEJRMBDanksUQ8O2B2nuzv5Gj6h/pGGxWNKKh4ZDpUZSGqUYe63AWa4pm27
+	 yNQmtgK1sEUZoGIAo8KkcgndAKRUsdc3MY2SCKFiO7hvU/DG86yYKkEjkw1mOl/csdg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793050372;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Cookie;
-	bh=6UXRkofqIopc1VIlz2O51kfJ8AOtnEZxYiLwN12udko=;
-	b=a+y79iVBdRx0UfLVRYL0jWvI8f1fuM7XusTVjcGjJu5RmdUTsvgQHOtvr2fF63Iu1aQh
-	 L0XVeTDDsWdSA9+6qO+pnBohuzLyMfjWqcrNKKU8Gl+y65UrN0GDRh64ejK4cHKj/6+z2
-	 hID+1aHZjTVYayeOyLZYLIWHwFgCJR+3k2YrvQy8X33RjSdGRExPje/eEV5B6dZoqNo6r
-	 2PoDuBdmxulA1wnkU+55iiq7d810eA1DSh7VdgzgG5pTXz1b0az5bysGKR8KTMf7JIOi4
-	 5NLyx0y4QXajBZ2bkNj28+OfGZwsdWk7Tec14FGpiYNyh4yMFykoQeUhWHt62nZY9hw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793050435;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=Dz35/3AuvDO18S1ap1WD5Da+psq9zQUaDV9gOjeP834=;
+	b=y5wm5Xi8jZFV9srpUZwmftOWNOO6c+ZGYtbttROUYzsqWNnzjwhxEIx+eo56u6mMGhOc
+	 XLCC9qGFYmnxLyzGcKRXjcvnaem+4Os21K1RjOrr0o+GtEXhG7twu6qNcZTW/NiF+qsFR
+	 dhHJRjMwMsyjWg14UwTJvXnCB8QO7ap+bagyNlsk1oN38lx2OYJXV3GMyX1rbNcO5iCxE
+	 paZRTMerzDGJxvWQYBYJn55f/HVPL60K0g6aHwRQWYZdyIq26c5vBHEwQDld0KlSeoqIh
+	 kmgXO0oV+vwBwbKcwmQfqkS/y8mrAgPPyBHkmUWGDxOhMDgBLDDLie5IoVGy79/WMRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aD+zDZ5M;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=EUMUGfJy;
+	arc=none smtp.remote-ip=95.215.58.108
+Received: from mta1.migadu.com (out-108.mta1.migadu.com [95.215.58.108])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 705BB606A31A;
-	Mon, 26 Oct 2026 21:32:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEA3F606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 21:33:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AEA3F606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aD+zDZ5M
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D627B1F01825;
-	Mon, 26 Oct 2026 21:32:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793050372;
-	bh=6UXRkofqIopc1VIlz2O51kfJ8AOtnEZxYiLwN12udko=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=aD+zDZ5MKeko/KtyWmyU0tJWGzehxKk8dqVx5bNemApyR0czWhDVPAZn70FNVhnbA
-	 crFhrdWAJNrwd4kUi73t4guNK5Y4I6AOIh5T5/PFPtpXiXQWh6uTMDR3IeqVStcGyz
-	 MkNOULRqjcrkeLR8/Y5UNQDFLKtlR1ohf27mFslfYJKfFumaXy0NTyCJgAMDWttmQU
-	 VkVsExzqu9kHsE/9OkzzIpQqh2Rk6KXmXSZrHaQ2PsMeZsVveWc1BWCqjcdHByyNAZ
-	 ZWa1X478duR3KSR7jr9ARz/G8esOFk43bqLgOJO4DCTwYg32U5EMAk6vNHMMs4Bwln
-	 BO9mTs4QFC8Qg==
-Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
-	id 387F81F4211F; Mon, 26 Oct 2026 21:32:39 +0000 (GMT)
-Date: Mon, 26 Oct 2026 21:32:39 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Karthik S <karthik.s@oss.qualcomm.com>
-Cc: Srinivas Kandagatla <srini@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 0/5] ASoC: qcom: Add Shikra IQS LT9611UXD EVK audio
- support
-Message-ID: <at_G9w-g-f_x-49c@sirena.org.uk>
-References: <20261022094313.1074873-1-karthik.s@oss.qualcomm.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=EUMUGfJy
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=RhJVRUhhLZt+aePS7fCAUtL8lWa14lc3+sdZ/JP8HZw=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793050432; v=1; x=1793655232;
+ b=EUMUGfJytvdpOG0PIQz5BaNE7I4aLO63MuJHXueRJd0aP53cD0ZnyLnfI6Ub5CnQkHFC7l9d
+ PorKV4TDXTyACJYzU8y8mJSewGi+3z2tZH9zLSrhpXzEu8nLLRnYr5gsDLvcfB3IlUG81/SjY/+
+ DFO12jUjzYF+7FUrfYGV2cm8=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 34d1e3635c42cd72;
+	Mon, 26 Oct 2026 21:33:52 +0000
+X-Mizu-Trace-ID: 34d1e3635c42cd72
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <a4dfbe84-aaf4-4711-8eac-6455470d1e7d@linux.dev>
+Date: Mon, 26 Oct 2026 15:33:46 -0600
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,33 +58,122 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="sLF79ND+0+YdUvNI"
-Content-Disposition: inline
-In-Reply-To: <20261022094313.1074873-1-karthik.s@oss.qualcomm.com>
-X-Cookie: Whoever dies with the most toys wins.
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] mm/huge_memory.c: skip zero-page remapping when
+ underused THP shrinker is disabled
+To: Barry Song <baohua@kernel.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ Yu Zhao <yuzhao@google.com>, Xu Xin <xu.xin@linux.dev>,
+ Chengming Zhou <chengming.zhou@linux.dev>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
+ Gregory Price <gourry@gourry.net>, Ying Huang
+ <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
+ Usama Arif <usamaarif642@gmail.com>, aarcange@redhat.com
+References: <20261025-b4-ksm_fixv2-v2-0-8b61ad0491f1@linux.dev>
+ <20261025-b4-ksm_fixv2-v2-1-8b61ad0491f1@linux.dev>
+ <CAGsJ_4zUVpBJazRxc1CzN6u5XvpUaGnaf-_7JMz-rGK_ZTYMtw@mail.gmail.com>
+ <e865f7f0-087c-4fe5-b729-6e6946cd20f6@linux.dev>
+ <CAGsJ_4wp_jCtCeMx39nW0Z1Jm5pja7_V6XNwLB6p7zTan0c3VA@mail.gmail.com>
+ <dee39669-b726-480e-8ca6-10f19512da68@linux.dev>
+ <CAGsJ_4w4ozXM+=T0qGBAhC323F49Y4LxrrKKt3GFCs+en_TVCg@mail.gmail.com>
+Content-Language: en-US
+From: Nico Pache <nico.pache@linux.dev>
+In-Reply-To: <CAGsJ_4w4ozXM+=T0qGBAhC323F49Y4LxrrKKt3GFCs+en_TVCg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
 
---sLF79ND+0+YdUvNI
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-On Thu, Oct 22, 2026 at 03:13:08PM +0530, Karthik S wrote:
-> This series adds audio support for the Shikra IQS EVK board variant
-> that uses the LT9611UXD HDMI bridge as an I2S audio codec instead of
-> the MAX98091 codec used on the base Shikra IQS EVK.
+On 10/26/26 2:58 PM, Barry Song wrote:
+> On Tue, Oct 27, 2026 at 4:02 AM Nico Pache <nico.pache@linux.dev> wrote:
+>>
+>>
+>>
+>> On 10/25/26 10:52 PM, Barry Song wrote:
+>>> On Mon, Oct 26, 2026 at 5:48 AM Nico Pache <nico.pache@linux.dev> wrote:
+>>>>
+>>>>
+>>>>
+>>>> On 10/25/26 2:28 PM, Barry Song wrote:
+>>>>> On Mon, Oct 26, 2026 at 1:40 AM Nico Pache (Red Hat)
+>>>>> <nico.pache@linux.dev> wrote:
+>>>>>>
+>>>>>> The zero-page remapping in __folio_split() was added to support the
+>>>>>> underused THP shrinker. When the shrinker is disabled via
+>>>>>> shrink_underused, gate TTU_USE_SHARED_ZEROPAGE on split_underused_thp
+>>>>>> to avoid scanning subpages for zero content unnecessarily.
+>>>>>>
+>>>>>> Suggested-by: David Hildenbrand <david@kernel.org>
+>>>>>> Fixes: b1f202060afe ("mm: remap unused subpages to shared zeropage when splitting isolated thp")
+>>>>>> Signed-off-by: Nico Pache <nico.pache@linux.dev>
+>>>>>
+>>>>> is b1f202060afe a correct fixes tag? as
+>>>>> commit b1f202060afe has no even "split_underused_thp" there.
+>>>>
+>>>> I believe so. IIUC these two series were merged together. While
+>>>> 81d3ff3c6f7 introduces the toggle, b1f202060afe is where the behavior
+>>>> started.
+>>>>
+>>>> I guess you could argue that the Fixes should include both?
+>>>>
+>>>> Not entirely sure!
+>>>
+>>> Thanks for the clarification. I guess it's fine.
+>>>
+>>> BTW, with the code below, we no longer add fully mapped
+>>> folios to deferred_split_folio. So the scanning code only
+>>> handles partially mapped folios to set up zero-page mappings
+>>> for their subpages.
+>>>
+>>> I'm still not quite sure whether this is really harmful, though.
+>>> Am I missing something, or was there some discussion I missed?
+>>
+>> The issue is not in the actual shrinker code or the deferred split list.
+>>
+>> The issue is that any split leads to this zero-page remapping
+>> indiscriminate of the actual toggle. The same way this toggle is gating
+>> things going on the deferred split list, we should be gating the actual
+>> zero-page remapping too.
+> 
+> I'm not quite sure this is true. The toggle prevents fully mapped
+> folios from being added to the deferred split list, so their
+> subpages won't have a chance to be remapped to zero.
 
-This doesn't apply against current code, please check and resend.
+Correct, but the deferred split list is not the only caller of 
+folio_split(); all other callers get unconditional zero page remapping.
 
---sLF79ND+0+YdUvNI
-Content-Type: application/pgp-signature; name="signature.asc"
+Additionally theres a difference between being fully mapped (and zero), 
+and being partially unmapped. the zero-page remapping checks the content 
+of the page. We could add folios to the deferred split list that are 
+fully mapped but contain mostly zeros. With shrinker_underused turned 
+off we no longer do any underutilized scans on reclaim, but other 
+splitters (KSM, vmscan, migration, etc) will still scan the content of 
+the memory and do the remapping whether this is on or off.
+  >
+> For the remaining folios that are not fully mapped, or those
+> that were added to deferred_split_list while the toggle was
+> on and remain there after it is switched off, allowing
+> remapping to zeropfn doesn't seem to violate the toggle's
+> intention of preventing fully mapped folios from being added
+> to deferred_split_list.
+> 
+> Anyway, I don't have a strong opinion on this.
 
------BEGIN PGP SIGNATURE-----
+I think theres a misunderstanding here, but hopefully the above clears 
+it up :) if not just lmk!
 
-iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCat/G9gAKCRAv73Ows9A4
-iS/pAP9L8xikTlyFwI312pIvQdu7ppiUpfFKf9aD9gkuha7PXQD9ETqUINmBzQCe
-NSSNDrMJJfSxpRnUpMP56Q46aULBEA4=
-=grle
------END PGP SIGNATURE-----
+Cheers,
+-- Nico
 
---sLF79ND+0+YdUvNI--
+
+> 
+> Thanks!
+> Barry
+
