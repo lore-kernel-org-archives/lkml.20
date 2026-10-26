@@ -1,107 +1,116 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793026695;
-	b=iyjL/O1AC9+PeDzui883kbGG+8NffIvoPjhK4jaAsaS7O3UdICINdehmHKvWY0NfXUuz
-	 I1BC9BmiJE1wPKshjbyDcNEEfItMmToa15IjT0i9Eo4W/BOWcGVzFTVcuaJpGs2nHD3xD
-	 H04xB4Sex/qPHTB3DzhRK5+Y/BMce3vQNR1BYCSfGzZMAU2xaakVdh19v9uSVb2fWMZ8z
-	 nmzQ/5LBbni0uAZd9zfKO/qgd3CFQZBnKHHpggVTvIuFoDH9WjejeojQQfVC4YYZpOFds
-	 pyzfx+cGWoWoqDi23f0WdEnLM7IA8/3Mckk4ECWKoOeK5ycxT6AI67Mxl+d2vnhtZtw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793026695;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=FJS89KuNZwh7/7cErKHYPAXh9YyRaZbbAgWp3J/Ttec=;
-	b=GrDaRVe+nwimLH/upQIInBjVaLTpdFW7TvOqNMNIKW4dNi0rI946hyHj/wNOX+jMfi+T
-	 j8oOOxzwxfctL1DiXJqzLx3umGdzeFiZYtGphhVhcJ2i7SglvoqimpaozDGbD5w0rgLdf
-	 c6r7o9107tj+BzGyTanpdDnQCe7rAzqJymLaEy0UaT7ZKsgtwUWT9paV0Ab0spxv6W8V6
-	 mxP1d3Y2gB5r52gr0QALkNf7rrTFUjl0RCgUa9umKCe0mnkUrQfkW1N/xoWDChSXzOe87
-	 XEAzLQlHqfUmZru6bgJqzxp6Zt3LGLzlotWqrCLQpX49Y5lOfFBGbhrxOxJE/EjTTWg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=hG6q6yQg;
-	arc=none smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793026734;
+	b=XAROua/P3DbywTe7ZsrwQSVg7Ra7xowPhOKix6fzNZ4aVw5EdHz3nSoq7tc2ShCGTcEh
+	 bxexQHbo64eLZXV0pfpgbWZXlTq6PT4uOVjucisYz1CXECuCd5+bRVRtG4YY4bTyL72xE
+	 4DdXZyDzonc/6P0AW0weKjbk336/oHIBgN12AXg7L/oPMvPrGkRKiwGA09oLnUUxqtvhu
+	 3UX+vVa3CZlcOhR2VnBOqWi9bicmW9cI1rgsmqOgxt4MHWS+Cg1rueCOxhZBMYuSE6oqb
+	 LvwE+Ut8cPRrxTmVDWxbXBVa2dtaQdshiXadie05v/w3C7tgdLxZahxepeN5g654A6w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793026734;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=QSmOZrIpRY65/d5vWIFXFZ1Wq5EMAjQ6Og4Ui6Xnkoo=;
+	b=ItVKQJGxImU18nhzBzftL9EUw6msPuRVFs3MIUNpc5HIZjUYrHFiFITC6U48bscVXhRG
+	 A4GxI2ezjuHjxbvK6zilmmY+R4GgxFXgaR7lNruhmwvriTsZTC+NUG6GyNn/XquJwzaDM
+	 6S7jM69XRgjEhSzRkRLUL/OINMHU12vcgo5GzMBfTIFgDdZjKj/n8a1fk9t3+NLKDO0sW
+	 CIfn3hH23ORtE5eWIFuvYq3hA9HAk2dXSH7wzuzt1B7vzyge8cdb1t7gUbHGHJInExOcC
+	 KeXmV7XFCRYTQofPrKf9cd+5xup4RMqkZlFS25PsuGwBMUc96V+2+6iXqWhooYDKUYA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=HaOnoQFq;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.13
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013013.outbound.protection.outlook.com [40.107.162.13])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDE75606A322
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:58:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EDE75606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13BC5606A31B;
+	Mon, 26 Oct 2026 14:58:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13BC5606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=hG6q6yQg
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a1fbd52ab6so19816885e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 07:58:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1793026693; x=1793631493; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=FJS89KuNZwh7/7cErKHYPAXh9YyRaZbbAgWp3J/Ttec=;
-        b=hG6q6yQgnImNhH9iUb0H3TAMaZ6XUqV0ei3aaw2ghXRT929UaGAYimUg0iIa6VeFUh
-         jWGG9Mq7QpZWkLoRa1nteywXfHeLQTJ12a1aoDgfV2RrIb9qpDNYmdxT0g50ad7o6O2v
-         4lE3401qAWMKmJ/H0m4VF4Fj1zcJb0ymcxYv0OsnJH3/Z1zAaXev5JQYXoyYDbPwJyuG
-         Rm8J/wtxoxGSMpuXBSdvW4nfI6zb2GiemVQqiv23xsuUIK/RrX8c8Kdvc78BWM9Pj0/m
-         hoTQ4jXiTSbUSoF80Ob7exNxamKuuN3lHgnD4QNSoYxvS2+Asb5HlY6wqZf6vG1yWndd
-         T9ng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793026693; x=1793631493;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FJS89KuNZwh7/7cErKHYPAXh9YyRaZbbAgWp3J/Ttec=;
-        b=0tU3EM5t6HA77ceQIKTQtWPal3pa2yAbpsV7paSGlX6tkGZne4ZN6BWEvdSVwW8y/Y
-         5F3LklL4TLAVOV4FpifsWN5V/xjeTeB7VYN0AOXfeF3sFemwuS5euVNzv6ftkrFeyNif
-         FZSks2+K0j95lLFhnRDMR5HmuwPtud7oIQunPq4nhWbxHc8CEJ4ErUqbDI0UO2ozDBZw
-         eG+cmppYjXKzpiXQSOKyN9qbNTotlPXPte4M1j/CROsH7IZawKSrZe1rA6sHzwz0PDbB
-         +KuC8tRG5f3yKWKk2xJM7rdy9gzkf2SnWjYmsNb/d58OFyH7RhOBQynm/BV5zMmz9drI
-         NZtQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxzh2shulhIFtaQXbUomU/Fpsg1gQaaxJU6P4uWZub4nntctpkIdSnELkVJ7r9n1T1Vr0VpmRu2dCAVcpg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKYmf0IaXng/lSrxhpjzyW7X+Wp63TThCzCx/D94Q8P6HfAH342
-	q0KbX2NGfh0uuraZOIdsBsEu7ZGYGkM4Fv8c0UaPiI0PE2w5Nnj+VkJX8N7HcZ4uDE4=
-X-Gm-Gg: AYBFou0Ex9ZjrVM4qKy3OSRPZU62cU3oDcZWt2pq6lU7YzfKKlVWLjcDlI//yumIcKI
-	sFil4cgehWuZvUDadGiz6h3iTm52fxGVQOwXuaMFjk3JpW7YCZtR9SrjYJpqe0XChBYOhTeGuDF
-	9ePH9rK6fWAw4ABR5OBrMcMQ+6uOd6eopeWkyfDar61LAvxZKs2td/4VFX5whtcv/8Ku5WCyYxf
-	nnrh33x44OIMqA2ftWOUrNGv7XG1WdlUrw1sNWaQ384+WG9h54AYYUWnO+ovgcBDie9ycrJ7oGy
-	5MGcpIoEeiZGoHFna7jB7fILQuOt/8bgwgppGwqZNuOsjq7GbOQGHL3xhjjxoDPEeyHg5+H+X3W
-	fzOw+BVTRepz9yTanrJ0X0nN2v9E9i2I+ynW9zXF0yUQyPRJk59C+lEpInlFS/pAiqjOn3gk9dL
-	p1g0eH/MTKOwz9WjRT+ULMzrPr3Ht7mNLCjnxOKqKjhcgFfSD+QYNPCCuLC16PjXLiBMozYMhPW
-	jZfDlYsezt+sDcwnJj5WfHtq9oVZYJKGh9SV0GzHmJXqMUjPPF6giQzPA==
-X-Received: by 2002:a05:600c:4f50:b0:4a2:1050:aff with SMTP id 5b1f17b1804b1-4a35ac8c32emr168076125e9.6.1793026693314;
-        Mon, 26 Oct 2026 07:58:13 -0700 (PDT)
-Received: from pathway.suse.cz ([176.114.240.130])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a08643dsm158480615e9.4.2026.10.26.07.58.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 07:58:11 -0700 (PDT)
-Date: Mon, 26 Oct 2026 15:58:08 +0100
-From: Petr Mladek <pmladek@suse.com>
-To: John Ogness <john.ogness@linutronix.de>
-Cc: Breno Leitao <leitao@debian.org>, chris@chrisdown.name,
-	Sam Crossley <samuelcrossley@gmail.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Simon Horman <horms@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>, linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org, linux-doc@vger.kernel.org
-Subject: Re: [PATCH RFC 0/2] netconsole: allow replaying the printk buffer on
- demand
-Message-ID: <at9qgBucVm-QHnye@pathway.suse.cz>
-References: <20261024-netcons-replay-upstream-v1-0-9613f38496e5@gmail.com>
- <87fqxskdpl.fsf@jogness.linutronix.de>
- <at84qygscue8crQi@gmail.com>
- <87a4o0k3qa.fsf@jogness.linutronix.de>
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=HaOnoQFq
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=UMmJ8i7MQYrgznJ5pScjKOLFjJ4PT5tmm4jN/ScCHUXwdzaejSmOim3UGV7mb2dgStvuAjGqELIg81c9fvE/hHKMtiwX322AzlIPljHBAdj5Dur3QDTFsZqo+pV+3vkHEEaiykv8hX7Kh+1A5wZ0sdzFYe7wC/F++6B9cwoCDKMbW8/Ae/BCHoHIUDiKVx8DuS36yVF9vrcuyYYib4rGCHsyHyP43LwEgUdKehsiG6b1O1fkb8D++dD/I16UyiZDDhIpnTQhFbX16UD+dmbcR6EYk2iitCO0nJ0fw+gCF36dg36Vu4/GMlpg8ukj7GbtxUgw1rlC8Ve38GH3MTubyg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QSmOZrIpRY65/d5vWIFXFZ1Wq5EMAjQ6Og4Ui6Xnkoo=;
+ b=r7GJsFLCJx9el/4O/ulWK4ulFVCQOTVKiCM8ACXhYfED3hiCs1oyltljxLmgerBMNnRbxY0L+/qSURtUDECs72iWYmWqXP0xPHuhpWrinyqwxJghZ53WFlLnDRyxi2grWNEnwv58baF8Ax4zTukW1Z9tr3OOgB+FkCQm0a7Vmcp1clgVvyBU3tGoD1/I+nMDY+MiAuC2AfGmbcYrqc5LW6OacjywIK48bJZpin8Wf9th1IppUEJvouRFfkzHq1SABy04NNgyCr/duHbQhOHvKSC0tbdBZi+/RafUI65OO00GnmKjAmyT4x1kH7W8oPJTD8bav1fZzIbNWhGU7izoag==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QSmOZrIpRY65/d5vWIFXFZ1Wq5EMAjQ6Og4Ui6Xnkoo=;
+ b=HaOnoQFq8lGPJuieI9gNNGjxQdnmbdNqC3w7n0SxXa5MSzEX/78RQ7h1VNgX8B2B2BeWBpAbliyYUICpIawgjKveY8e4XDiV59iLnOJj6HCe0pXdYU4Xrjf/sRdoT5FsREjoDIyTBJjzItmHwUc52p76nu/iY51Pqa1QxAXnMu43nB6ksEcdNJvkZqvOEJ0YjVqyh5Hfbqmvm/5UawA5Qe70TIqO3HS2ffZaMk7NENoQo7fy8D3ib9/PYwa9J2DzTJpunJuHOXeg+ntvkLR9gBMBNydUoBZ4mLY0tM68/YV5YcZiku7Hci+0K6EUCD27p47hcVv+002wOmk7ad44rw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by AM0PR04MB662462.eurprd04.prod.outlook.com (2603:10a6:20b:7fb::24) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
+ 2026 14:58:50 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
+ 14:58:50 +0000
+Date: Mon, 26 Oct 2026 09:58:38 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Francesco Dolcini <francesco@dolcini.it>
+Cc: Leonardo Costa <leoreis.costa@gmail.com>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	Leonardo Costa <leonardo.costa@toradex.com>
+Subject: Re: [PATCH v2 3/3] ARM: dts: imx6q-apalis: Add VGA overlay
+Message-ID: <at9qnn_njux-hwj2@SMW015318>
+References: <20261019-v2-apalis-imx6-enable-vga-v2-0-ef6a3a780472@toradex.com>
+ <20261019-v2-apalis-imx6-enable-vga-v2-3-ef6a3a780472@toradex.com>
+ <atZxhWaUWthEHkti@SMW015318>
+ <lozimedmt3h7v6odvp4svvmatvk7726a4ztn3j7ft44oto7p5p@dmrudrmzyz3s>
+ <ateQWqoTtXSBSBvm@SMW015318>
+ <wancrsxcem5uep5oy5pnw5prewefqah7drmhiu5wrq3ctykltl@akwvtqbebblb>
+ <20261026124328.GA82443@francesco-nb>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261026124328.GA82443@francesco-nb>
+X-ClientProxiedBy: DS7PR03CA0296.namprd03.prod.outlook.com
+ (2603:10b6:5:3ad::31) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,59 +120,124 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <87a4o0k3qa.fsf@jogness.linutronix.de>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|AM0PR04MB662462:EE_
+X-MS-Office365-Filtering-Correlation-Id: a2809a36-084d-4543-b8ae-08df3371a53b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|19092799006|23010399003|366016|1800799024|261026140227099002|261026121527099002|4143699003|11063799006|56012099006|261021121427099003|261022105027099003|261009223027099003|10067099003|18002099003|22082099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	yXqFxykwJji3vXgxki86xjKpVDHjKJtd8T5BafR4Gkm6VSBQQ7iOMoC9AARo+AZOCoRJXNDshbGA3D7KoZd3I2pcc92SHn2TJXVshu2I4j/lQU2rYa5ntlpgjCV36leX5ndOu4PrXayP+urNieVrmt14IC8gWEeJnjlRZ9gYZnHuEMCz+rnHvzlprOfk6WgDPNjRHHoBlfiuzTLJkqIOddCg8BAklOXK7zy0B8hQninGEREI2x+f11l7EcFJmTrV5eEr/JfUrdcOE8HE/i7r6WMvOJUGs8z+R9SOZUCzjszzkI3Us6zY2paGtC8BnpvT7os6lmTQed1yp+6iIRYjQBPYYYPLguJNVgXYp73XetIG4DcAwEzdaHxUxlzFkz+QDWY6wOZZCoHPqmHnQaq2zHZ5hcKRu5iE+kSCLzdCjP77z1FICH3kZJsoFC9LfRQrO4JrZ6mplTOzOiWH8ii7kqK1sJPTHwTibyldARFnqA8NKW7Wg43j5LA9+Y8Uzw1XviRLPKky12VXkT0VvMrNnO9y/+noWtCv/47f5/1hAbsHIXGERL+kMIu9sFEDEJIJ05hQxGhrRGgE5vMUuibApF1tmOAQcwkdjh8c0rgx/78a/K6F3fYQVd/bkgGxT17a
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(19092799006)(23010399003)(366016)(1800799024)(261026140227099002)(261026121527099002)(4143699003)(11063799006)(56012099006)(261021121427099003)(261022105027099003)(261009223027099003)(10067099003)(18002099003)(22082099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?ujRAjjNxBonV26zJ8am51G3tm9XDLDcx4lGXt11Ir4yvl+viksWDyAUOMkiF?=
+ =?us-ascii?Q?tdXrusU/HSDsEBa/i6J8eMtZAbLAghi9ootYf88kAMs2bqPrMcuPElgGvT2D?=
+ =?us-ascii?Q?5Bfd1JIGT6kk6w7w2C0EBI1hlXDB2picoqKQ90xXD4peJ2GO130ZradGNpDF?=
+ =?us-ascii?Q?AfZWdTs4ul7mBx/f9G2AGu22QtlJSaeca4xLhb9zS8OXPJPpSgH6xIX7emuj?=
+ =?us-ascii?Q?zoTnT48DzHg4WSsps/pYdP0/3EuOsbi2vjDVkJxT+zWY8dBauwVpYRwQ4WAK?=
+ =?us-ascii?Q?1Hi6msNIITKWCRXQJFcEPwKtloFPoxtR7Jj0DGgBUI2tf1Pu/0isY+pi4dkG?=
+ =?us-ascii?Q?gQ9FBAaSwTMnRSj6kLyfRvqz39gQmVtfcP3lFHhmBPLwcKov9MsxqBUQOuI2?=
+ =?us-ascii?Q?t4caScUZmWxyV5n071FnqLdtrHthcBohvW/edSXBmXpUYvR3thgKS5o7w9bn?=
+ =?us-ascii?Q?8XdlxndC6jJ9Me+LQCCxiwI+W1aumA30K2VBCnyBp6LmCXL2pK+9UbpXOpBk?=
+ =?us-ascii?Q?t8vnKAWinOYjLXnngYa6o/rwkwUZpZH9xnruHml8Nr7eBCR7E8Y/EkcQNtEP?=
+ =?us-ascii?Q?L1vKugOGEZzN09+Xg/qOQ+D8megSWwEDVHd3E9OLp5U+zVlwEo+4Cce1At91?=
+ =?us-ascii?Q?rOjwK1o5KDU0nlGxPfyxBFoMMH/XDu3SgBf/5auhLZBE2gNt2ecQIQvNpyg2?=
+ =?us-ascii?Q?CdH15m7Db28iAwilTJsxdmCUzGRbYwwLb0zY2DdoC6D0IA0sUD1EA5OgkJLD?=
+ =?us-ascii?Q?Bj81OQxrk/sKCuJpQqpbfY+E22YAkfpnybe3K2Zvnntl5mriT1D7IIT7i8Rw?=
+ =?us-ascii?Q?Aq/eIf57sP3dAx8QBJeL3DWAwQ4Vec1cXHW5ZHwhVfv2sfDtekX9xv2smj1r?=
+ =?us-ascii?Q?sxPHvXpcZ676MJtho3jluyWxtcZtypfbuAJ1CSO9xdf4YV0yh0DVXSnaFXd3?=
+ =?us-ascii?Q?dU2lN+YtQlDy3NhzEDB1HadUQu4Fm38BqSz3zGwPbJmBI0aGTgRNfDzIiwNg?=
+ =?us-ascii?Q?v++cKlepFsiyX2aNKqjdUVAXorOt4oqzRm0GS7ZIhtrmOqpaq4mCauoTi689?=
+ =?us-ascii?Q?iCSru8qqWocg8NQxIjUHDn8+r6Mim7GJaQhXNAN6FTGN/57VrgmvKKdI2kF/?=
+ =?us-ascii?Q?mkC1zD2lEPKRhk/AC/imaALezY9QY4d5yrcfIEeza6KFGt/cDPKounvbUEvQ?=
+ =?us-ascii?Q?vf/iFlL5cfM+q748LhuxQwAMWBBGJZGTPm1i2+qWAkF5hRGtBJpfZDDQ9v5d?=
+ =?us-ascii?Q?o1GGAnjOzoqXtcuRR33Z/WCu2xfkiqIQ7gw+szicUWFcW53OZbzKkwNoLEGV?=
+ =?us-ascii?Q?q0A3XOUq13IaqxfCXT4lbzmli2wcUEQZhfTKjCAVHqgHXVrrSi3ioZx+F0NA?=
+ =?us-ascii?Q?QJbBASihQgMBpqSYHAcj1U7jnga9jZh3rux/ZGidemBSn27CLEiQSRXzZJpG?=
+ =?us-ascii?Q?rNbfmvdq2OEzf12XJVtSnsVtQ6Et/IFSGDvmysmdNLKUDk8y947nwAJeiCsE?=
+ =?us-ascii?Q?9m3E/ihybFX12Wsg4PVly74UOohG7ehpsMbEbxvdX080zzEpyB8or5R/DPpu?=
+ =?us-ascii?Q?9hnkhw39dhMORzZqHOufVLySSL2DqaXp8U0U5usH8wJGrAZIkyLVEtx3GkjS?=
+ =?us-ascii?Q?YKmRaOzpVUBudrgLQNDa/hrTkzslVkn1jAn/3gcf+/INoz/N4vBmIZr4xsFq?=
+ =?us-ascii?Q?ezzQZXdXLm1VxkLHav1PDDJDzjJzrPpbNYXPF/QUpZt47VqApQ60V41lgK7S?=
+ =?us-ascii?Q?El29u+Z27z9s14oF+JMhDQAikpnT7e0p5NDFUVLon6l25QroFjWf?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a2809a36-084d-4543-b8ae-08df3371a53b
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 14:58:50.8279
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3UpClUqnueZ3CjW1B+NgrgJ1hrSnS/NA2lSNYF1O/4l6vTFhCj+TiBOConBzsrAINggtAE9liaMS2+H5oiD6ZRhwpk47+ah//TdqNjEGDo02/sgneYkspK/auflsiXb5
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB662462
 
-On Mon 2026-10-26 14:15:49, John Ogness wrote:
-> On 2026-10-26, Breno Leitao <leitao@debian.org> wrote:
-> >> In the per-console loglevel series Chris Down introduces [2]
-> >> /sys/class/console/ to sysfs. This is where we would put all the
-> >> upcoming per-console knobs. I would expect a replay trigger would fit
-> >> well there.
+On Mon, Oct 26, 2026 at 01:43:28PM +0100, Francesco Dolcini wrote:
+> On Mon, Oct 26, 2026 at 09:25:20AM -0300, Leonardo Costa wrote:
+> > Hi Frank,
 > >
-> > That makes sense from a design perspective. Thanks for the direction.
+> > On Tue, Oct 20, 2026 at 11:01:30AM -0500, Frank Li wrote:
+> > > On Tue, Oct 20, 2026 at 07:33:10AM -0300, Leonardo Costa wrote:
+> > > > On Mon, Oct 19, 2026 at 02:37:41PM -0500, Frank Li wrote:
+> > > > > On Mon, Oct 19, 2026 at 07:17:16AM -0300, Leonardo Costa wrote:
+> > > > > > From: Leonardo Costa <leonardo.costa@toradex.com>
+> > > > > >
+> > > > > > Add a device tree overlay for the VGA output available on the Apalis
+> > > > > > Evaluation Board, which is driven from a parallel RGB interface passing
+> > > > > > through a non-programmable video DAC to a VGA connector, without VESA
+> > > > > > DDC I2C signals.
+> > > > > >
+> > > > > > The non-programmable video DAC consists of a simple resistor ladder that
+> > > > > > converts the digital 16-bit RGB signal to VGA. The VGA output is gated by
+> > > > > > an active-low data-enable signal.
+> > > > > >
+> > > > > > The overlay is also combined with the various Apalis Evaluation Board
+> > > > > > device trees to provide ready-to-use DTBs.
+> > > > > >
+> > > > > > Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
+> > > > > > ---
+> > > > > >  arch/arm/boot/dts/nxp/imx/Makefile                 | 21 ++++++
+> > > > > >  .../boot/dts/nxp/imx/imx6q-apalis-eval-vga.dtso    | 80 ++++++++++++++++++++++
+> > > > >
+> > > > > what's difference with
+> > > > >
+> > > > > https://lore.kernel.org/imx/20261019-colibri-imx6-overlays-v1-5-e4d028727382@toradex.com/T/#u
+> > > > >
+> > > > > Is it possible share one dtso also?
+> > > > >
+> > > > > Frank
+> > > >
+> > > > Hi Frank,
+> > > >
+> > > > The Apalis iMX6 one needs to set up the connection between the IPU the
+> > > > LCD interface (endpoints ipu2_di0_disp0 and vga_display_in), and the
+> > > > Colibri iMX6 one uses a DVI connector instead of a VGA one. Most of all,
+> > > > the bridge on the Colibri iMX6 doesn't have any control signals, while
+> > > > this one on the Apalis iMX6 has an active-low data-enable signal
+> > >
+> > > This make sense to use difference dtso to cover it. Is it use name
+> > > imx6q-ipu-di0-vga.dtso, because this dtso have not boards specific part,
+> > > which can reuse for other similar hardware? Or we can rename it when reuse
+> > > happen.
 > >
-> > So the next step would be to add a basic /sys/class/console/, similar to
-> > [2], and put a `revplay` entry in it. 
-> >
-> >
-> > That would be about three patches:
-> >
-> >   1. Create /sys/class/console/, similar to [2] but without any loglevel
-> >      handling. cdown can build on it when respinning the loglevel series.
-> >   2. Add the per-console replay helper, similar to [3].
-> >   3. Add the first entry (/sys/class/console/replay), which triggers the
-> >      helper from patch 2.
-> >
-> > Is that what you have in mind?
+> > I think the overlay should be kept as imx6q-apalis-eval-vga.dtso. As it
+> > currently is, it's easy to identify the hardware it may be used with. If
+> > another board is added which uses the same interface in this same way,
+> > we can evaluate if it's adequate to change names for reusability.
 
-Sounds good to me.
+Okay, we can rename at that time.
 
-> Yes. But perhaps someone else wants to provide some feedback about this?
+Frank
 
-The "replay" approach looks like a big hammer. Many messages might get
-duplicated, especially when the outage was small.
-
-A better solution might be to do not increment con->nbcon_seq
-when the transmission failed. And try it later again.
-
-con->write_thread() currently does not return anything. I believe that
-it is partly a historical limit. Two problems come to my mind:
-
-   1. There used to be a global "console_seq" counter which was common
-      for all console drivers. But we have a per-console counter since
-      the commit a699449bb13b70b8bd1 ("printk: refactor and rework
-      printing logic").
-
-   2. There has never been a try-later logic. But is should be easier
-      to add it now. We have the kthreads. And even the legacy loop
-      is able to break when there is not progress.
-
-Best regards,
-Petr
-
-
-> >> [2] https://lore.kernel.org/lkml/84b8d91693e56f6026271bc40553bcb6657ab24d.1764272407.git.chris@chrisdown.name/gy
-> >
-> > [3] https://lore.kernel.org/all/20261024-netcons-replay-upstream-v1-1-9613f38496e5@gmail.com/
+>
+> 2 more cents. There is no such other board in the toradex portfolio and
+> it's very unlikely we are going to build any new board with an old VGA
+> interface.
+>
+> Francesco
+>
+>
+>
