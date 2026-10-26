@@ -1,97 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793019081;
-	b=5fG9/BS2ayH0h1kFtAPhDnmYe+0nohMAANGn4VOfbKLFLP4BqUoukWZjCojLo0okDmiz
-	 OPugco3gjrrw2mpi0PU2Gmgcq9LwwyDgI7J0JXZNHU6necqKYXHTT43x6GF+boKgjX2yX
-	 h5PH6cWZW2ki7/imnHX+2HV4MgXXJW5+MeCkj2j+9ZbxB/qCVhuhnBZZe0ZyrK9u4Od+7
-	 36GGWg/L/7INjyO7Ee6qf8R/MYz4QAHSDkl6UrOxHAfNAwqo75d5yHu3wnMLxlLCk4u5x
-	 azlG6Fhdz3xJg2nE3Twu37TpzREp8OzF7gPHgwL7gSn6Fy8YK70zPtMUdqxELYqhbyQ==
+	t=1793019082;
+	b=zG3A5PiOtoRxHsPtG2bDkaY0EluzANevlVkZf9MTXxJpW/9u7uEPDFjkOV2/XZpiww3+
+	 7YlQp6bnuCUHRNvBCW3ZndNI8QfCriL1AapffdvhgkBlVbtn44HyxfiblE+MRqBSguBps
+	 ZL6QDh8CuEm24QQtNck8SFifKHupnIv7LQM9aBbT/l/qOaxn9kGlWnGxMTk9Sz1IPca02
+	 nubBYiUaRUCHqRV/yMJdOXiJCIxCp43wFSEVuUO2Zihvkgn+e/a/+BwTt/VK+dleVjW50
+	 m9WsSjIiYe6b9QjCvNYXtVyiuGjfWuT/UrH63m64OU1JHUJ2b0wD1hwesZJustIZLeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793019081;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=AyJwyUEzaLqYdxznGDAau4i6Ab2C6BDv4m/n+Yvt084=;
-	b=sStet9hJeHa+5GiNFF5i7OWS6s+cGLXguWjuy5iTZW+jr+fY8rNVgtxl4Ii7u5xQqvFw
-	 E5CiK5zj+Mx2mHH0hz7ZlGNbE0jyyr5W6H+COndfQOa4Qt6ZELXe8I6Uw9mCuckMgufCJ
-	 hiS5bhJgZXEEMqtzkDYQU7fU16CM/U4KrJo9wYTYrOKuBI74L8M/EaNnGsb8W97/NaAKn
-	 T97Z60Q0i7PipOjbZTyM437GlewaHSstX1n3Seh+UpqNnPdU+6pTjAp3ixM6+fQthek7/
-	 sLsfQx4pqUvy43qs3j9gXg7J3R5IwqLOiy3HcFWf5VkPkakLppp0X2LmFeBo3VSOo4Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793019082;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=F8szgZKbup36rnTjzztsF3nyDIrjVIlZaiGjJwJeU/U=;
+	b=K+25zCt0QAkLZBZWW6CuElIF3YOLFs1td5eW2JYzgout/YiP/S4w6iiZEKzn9NK2FC47
+	 ifJCRD3mA/bSDTQ54HO0yFeDWoEkBlHUJIDCtSySJM+VfV55nCqlo7q/Lezx8xQKGDz4i
+	 RJnqjyN52BE7fx+yvSE5lWKmt/2wX3NJzW135euymk35xXtdKxaSDni/vX9lilYRN0NVA
+	 vCIuzzfDbubnZTRHOntyuSSXYFphBtr4Kx/qCNEjdu5VMIJmVQEtye4pdRGEzg5bDLJmZ
+	 OlvGzaLvF28RSJZCqHj06p6Xnzttq9bPiryf2P8HDHxBHJZlECwu6WyBza3J7I0s9ow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=iAZzmVib;
-	arc=none smtp.remote-ip=209.85.221.53
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WzIebW9M;
+	arc=none smtp.remote-ip=198.175.65.17
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6281D606A327
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:51:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6281D606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19236606A31D;
+	Mon, 26 Oct 2026 12:51:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19236606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=iAZzmVib
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48e0d1da913so2358873f8f.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 05:51:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793019080; x=1793623880; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AyJwyUEzaLqYdxznGDAau4i6Ab2C6BDv4m/n+Yvt084=;
-        b=iAZzmVibNZ5pXAmJsCf9QwWsIrQYAfHeu5kyYReNIuzI6oS/f2HYWCX7Q8ivzDoW4O
-         neaRZ31K6y3YVy0hK9Z9UKswFGDGDVf5Dainac8GhMB5WI9Pca6o9kxfSnsaFXUBFILP
-         dJQHwIHxzpvzxFQQ+p7qI2NiifdOcoi6ZaSLHVJtakYKE/BjKEhAIS47gqUHgkc7NeNs
-         mF7+HYQ0jp1hxQDhQSt9rY4xFFBS73TQHdB+FveLr7n1sJZibkuITzoN9YLHyG1ANn/O
-         9eQEnjBmfLx8TaLolPwWLNFgLlwhJ/5QKJJfsZUUKCuSIsV4Qrf9N6X0YZmelNBSYoxF
-         AMgA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793019080; x=1793623880;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AyJwyUEzaLqYdxznGDAau4i6Ab2C6BDv4m/n+Yvt084=;
-        b=ftNfqqNR+H1I9zvSbUGL+07DKau8xZO/ZEM9eLvucolvn4CaiVlJSgwQDUiHyQJeas
-         roRX/0oGmleQtuBkI9fpcMIJ/tshaY71PoK/72+c6JxuZjjWfsSFBlYWoMDeoEm7eVPO
-         x+kc4V5BpzejBitFxTuVj2NcWP4fhTVVqmw8Ml+PKBr1Mo5PNkuLpAL3nfuC8yob2YPR
-         xA+1Zm0GZ1UDgD5D7w/6b0VW/Z7BojPajDUoINZHG9kL0atrLgimEOBl3PgHSCB4JaOI
-         vS6jEvgdC0ibXp2qMk82rGoOzwmGkeLmhAasFG6OZi4RPXj8/vRQaMRJNbTSqSQ2ix8T
-         GHSg==
-X-Forwarded-Encrypted: i=1; AKwUvByE1rAKdqQVnYzYhcIKA+Bybujq+8VIPxTsb2rUsySMqTGFJ5+rbx+H19+lZKo3VyuOf6qSNJa2MpXu6RM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIihJAcyIUbrRjXC74Gnk1YGjyewbl5zLjFUOavIumGXjzc2m23
-	V8TFk5GCCPkareViEUsv057GEG2e4HT1aA8HwZ5sQZxc5xshIoEg5UGX
-X-Gm-Gg: AYBFou2tjABrxYV7NUbGTle8pMPQtTF5jF7J//bcgS6WlJIimWhtvJsly4zmYsz0OQV
-	QrDX17OmyHssTYBjz3KWxE3SCiSiwN8jKq3UnbMQDVB7FhrCncE4RhJrH7FebKSTq6nwcDxvgoi
-	3lC3I9vOczZMBg9KiMvlJ7RnfUtw1ZelXo6Sy+fef4R9rRu0a8m3jFkW8HtAi5BcksMmFEtIcDl
-	5+5l9XvhtMDUy39RHaL39lBkm2E5gezVte8HaRzsnfKoSUCpAhwiZza7VVbuc1ZJxPYccfMf/41
-	yn/gIABR/4IsWYKs4LV066/WzH9Bnlr1ZrFAZbAzUZwfKAfgMBsej2TBWKeBJ7cUV0bZ44yx3By
-	7wKqvD+Wj5sh6WLpq6cc1UNaxPBOsFpBz+Akud35QlM0b0ta6c79UaxDelMz+24GQu2GMLh7OWy
-	S832FboAUTfcDQ0i4hmAQddUAoG4QLJvr8vZRkz3N1K76FOSAp0dTpL4XlBjT5JhdrEBnKrLXUS
-	hx3E2WUTbEN1WxIQovOGx2jSOuquT0zht24126Du/vO/3NYMyD2Z0+Tn8+/k4BOoQ2E8Xrws5kY
-	y6YsQ5mkYbM7+ssw7FIhyyjA0wkcEQ==
-X-Received: by 2002:a5d:6308:0:b0:48a:fff3:f9c1 with SMTP id ffacd0b85a97d-48e3eb87c2amr9417775f8f.20.1793019079507;
-        Mon, 26 Oct 2026 05:51:19 -0700 (PDT)
-Received: from DESKTOP-IR7J1S9.localdomain ([129.45.79.200])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebc3dd7sm15828994f8f.15.2026.10.26.05.51.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 05:51:19 -0700 (PDT)
-From: Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
-To: agk@redhat.com,
-	snitzer@kernel.org,
-	mpatocka@redhat.com,
-	bmarzins@redhat.com,
-	jason.cai.kern@gmail.com
-Cc: dm-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>,
-	syzbot+83827f9a59abe148bff4@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH] dm: reject aliased metadata/data and pool/origin devices
-Date: Mon, 26 Oct 2026 13:51:14 +0100
-Message-ID: <20261026125114.251-1-drifabdelmalekmohamedsaid@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WzIebW9M
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793019081; x=1824555081;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=pFxTYZtPPSR39b79kBl6/XP9+bGJX6+0ouOVT2RXIAw=;
+  b=WzIebW9MxCG4J+E5XdGF6l85+R1H2D9u+T7gEyo6rAjdb7EsHt0H37wf
+   M3fR1BFRydRHHm2FLYNNQeDqD+TTgDx57ukV91TUTfjJl6qK3M6+QHIGc
+   W1AezsCREu+qmamnRTjSp8O/DusiqOuTutQkWAj4cr5KpRR5OMEXgqHkK
+   eW4bmrZ12SlU7ZN/bh1TrniNZKllqAerQbF2e4n2siaxan4ybZYjLRfJP
+   /vy1kNMXmCO6WUFJefQPKzETR4FZ77xhMvaAF1hALp/RM5eXicw2BtpDk
+   OwXoyLyjZvyFPWYwHd6QCgdF0QpnnDYMBiHs9gWtnidBbLj5UrjIzjnRG
+   Q==;
+X-CSE-ConnectionGUID: 9Sj4yWkgTXaK3NR7fXhx+A==
+X-CSE-MsgGUID: 6A0wOgKyQyqM0DxtbYa9GA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1697218"
+X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
+   d="scan'208";a="1697218"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 05:51:20 -0700
+X-CSE-ConnectionGUID: pKJqMod6Txq9jUGATxrGaA==
+X-CSE-MsgGUID: UDRXdixbRPOZRpsaO+UvLw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
+   d="scan'208";a="4653784"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa009.fm.intel.com with ESMTP; 26 Oct 2026 05:51:17 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xLKAT-00000000Vvq-2mhi;
+	Mon, 26 Oct 2026 12:51:13 +0000
+Date: Mon, 26 Oct 2026 20:51:09 +0800
+From: kernel test robot <lkp@intel.com>
+To: "H. Nikolaus Schaller" <hns@goldelico.com>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Paul Cercueil <paul@crapouillou.net>,
+	Paul Burton <paulburton@kernel.org>,
+	"Maciej W. Rozycki" <macro@orcam.me.uk>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org,
+	letux-kernel@openphoenux.org, kernel@pyra-handheld.com,
+	"H. Nikolaus Schaller" <hns@goldelico.com>
+Subject: Re: [PATCH 3/6] MIPS: Ingenic: Add cpu-probe setup for XBurst and
+ XBurst II R2
+Message-ID: <202610262006.fTqK3Ge7-lkp@intel.com>
+References: <1658997f198411f20bc5a489e9488800e4597e19.1792956055.git.hns@goldelico.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,183 +89,149 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <1658997f198411f20bc5a489e9488800e4597e19.1792956055.git.hns@goldelico.com>
 
-dm_get_device() identifies devices by their resolved dev_t, but pool_ctr()
-and thin_ctr() only reject identical argument strings.  Different paths
-such as "/dev/ram0" and "1:0" therefore bypass the check and select the
-same dm_dev_internal.
+Hi Nikolaus,
 
-syzbot reported a slab-use-after-free in pool_ctr() when a read-only pool
-used such aliased metadata and data devices.  Opening the metadata device
-read-only first and the data device read-write second made upgrade_mode()
-replace dd->dm_dev and free the old table_device, leaving metadata_dev
-dangling before __pool_find() dereferenced metadata_dev->bdev.
+kernel test robot noticed the following build errors:
 
-syzbot reported:
+[auto build test ERROR on linus/master]
+[also build test ERROR on v7.3 next-20261023]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-BUG: KASAN: slab-use-after-free in pool_ctr+0x874/0xd60 drivers/md/dm-thin.c:3363
-Read of size 8 at addr ffff8880340cc698 by task syz.0.17/5507
+url:    https://github.com/intel-lab-lkp/linux/commits/H-Nikolaus-Schaller/MIPS-Ingenic-Fix-inverted-MIPS_NO_APPENDED_DTB-logic-in-Kconfig/20261025-202050
+base:   linus/master
+patch link:    https://lore.kernel.org/r/1658997f198411f20bc5a489e9488800e4597e19.1792956055.git.hns%40goldelico.com
+patch subject: [PATCH 3/6] MIPS: Ingenic: Add cpu-probe setup for XBurst and XBurst II R2
+config: mips-bcm47xx_defconfig (https://download.01.org/0day-ci/archive/20261026/202610262006.fTqK3Ge7-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 186e70f4e6a1521991d2340d3d49b23b1beff11f)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261026/202610262006.fTqK3Ge7-lkp@intel.com/reproduce)
 
-Call Trace:
- <TASK>
- dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
- print_address_description+0x55/0x1e0 mm/kasan/report.c:378
- print_report+0x58/0x70 mm/kasan/report.c:482
- kasan_report+0x117/0x150 mm/kasan/report.c:595
- pool_ctr+0x874/0xd60 drivers/md/dm-thin.c:3363
- dm_table_add_target+0x58d/0xc70 drivers/md/dm-table.c:749
- populate_table drivers/md/dm-ioctl.c:1602 [inline]
- table_load+0x325/0x8a0 drivers/md/dm-ioctl.c:1645
- ctl_ioctl drivers/md/dm-ioctl.c:2221 [inline]
- dm_ctl_ioctl+0x9ec/0xe10 drivers/md/dm-ioctl.c:2243
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610262006.fTqK3Ge7-lkp@intel.com/
 
- Allocated by task 5507:
- kasan_save_stack mm/kasan/common.c:57 [inline]
- kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
- poison_kmalloc_redzone mm/kasan/common.c:409 [inline]
- __kasan_kmalloc+0x93/0xb0 mm/kasan/common.c:426
- kasan_kmalloc include/linux/kasan.h:263 [inline]
- __kmalloc_cache_node_noprof+0x3cc/0x620 mm/slub.c:5582
- _kmalloc_node_noprof include/linux/slab.h:1196 [inline]
- open_table_device drivers/md/dm.c:733 [inline]
- dm_get_table_device+0x23e/0x730 drivers/md/dm.c:821
- dm_get_device+0x327/0x760 drivers/md/dm-table.c:388
- pool_ctr+0x4ae/0xd60 drivers/md/dm-thin.c:3329
- dm_table_add_target+0x58d/0xc70 drivers/md/dm-table.c:749
- populate_table drivers/md/dm-ioctl.c:1602 [inline]
- table_load+0x325/0x8a0 drivers/md/dm-ioctl.c:1645
- ctl_ioctl drivers/md/dm-ioctl.c:2221 [inline]
- dm_ctl_ioctl+0x9ec/0xe10 drivers/md/dm-ioctl.c:2243
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
+All errors (new ones prefixed by >>):
 
-Freed by task 5507:
- kasan_save_stack mm/kasan/common.c:57 [inline]
- kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
- kasan_save_free_info+0x40/0x50 mm/kasan/generic.c:584
- poison_slab_object mm/kasan/common.c:264 [inline]
- __kasan_slab_free+0x5c/0x80 mm/kasan/common.c:296
- kasan_slab_free include/linux/kasan.h:235 [inline]
- slab_free_hook mm/slub.c:2748 [inline]
- slab_free mm/slub.c:6509 [inline]
- kfree+0x1c5/0x650 mm/slub.c:6802
- close_table_device drivers/md/dm.c:798 [inline]
- dm_put_table_device+0x255/0x2a0 drivers/md/dm.c:841
- upgrade_mode drivers/md/dm-table.c:326 [inline]
- dm_get_device+0x56f/0x760 drivers/md/dm-table.c:399
- pool_ctr+0x585/0xd60 drivers/md/dm-thin.c:3336
- dm_table_add_target+0x58d/0xc70 drivers/md/dm-table.c:749
- populate_table drivers/md/dm-ioctl.c:1602 [inline]
- table_load+0x325/0x8a0 drivers/md/dm-ioctl.c:1645
- ctl_ioctl drivers/md/dm-ioctl.c:2221 [inline]
- dm_ctl_ioctl+0x9ec/0xe10 drivers/md/dm-ioctl.c:2243
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
+>> arch/mips/kernel/cpu-probe.c:1840:16: error: use of undeclared identifier 'CPU_XBURST2'; did you mean 'CPU_XBURST'?
+    1840 |                 c->cputype = CPU_XBURST2;
+         |                              ^~~~~~~~~~~
+         |                              CPU_XBURST
+   arch/mips/include/asm/cpu.h:317:32: note: 'CPU_XBURST' declared here
+     317 |         CPU_BMIPS4380, CPU_BMIPS5000, CPU_XBURST, CPU_LOONGSON32, CPU_M14KC,
+         |                                       ^
+   1 error generated.
 
-The buggy address belongs to the object at ffff8880340cc680
- which belongs to the cache kmalloc-96 of size 96
-The buggy address is located 24 bytes inside of
- freed 96-byte region [ffff8880340cc680, ffff8880340cc6e0)
 
-Validate the resolved device numbers with dm_devt_from_path() before either
-device is opened, keeping the existing string comparison.  Do this in both
-pool_ctr() and thin_ctr(), which has the same problem for the pool and
-optional origin devices.  Checking the device identity up front avoids the
-mode upgrade entirely and is preferable to switching the dm_get_device()
-call order, which would rely on the data mode being a superset of the
-metadata mode and would only cover pool_ctr().
+vim +1840 arch/mips/kernel/cpu-probe.c
 
-Reported-by: syzbot+83827f9a59abe148bff4@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=83827f9a59abe148bff4
-Fixes: 70de2cbda8a5 ("dm thin: add sanity checks to thin-pool and external snapshot creation")
-Cc: stable@vger.kernel.org
-Signed-off-by: Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
----
- drivers/md/dm-thin.c | 36 ++++++++++++++++++++++++++++++++++++
- 1 file changed, 36 insertions(+)
+  1751	
+  1752	static inline void cpu_probe_ingenic(struct cpuinfo_mips *c, unsigned int cpu)
+  1753	{
+  1754		decode_configs(c);
+  1755	
+  1756		/*
+  1757		 * XBurst misses a config2 register, so config3 decode was skipped in
+  1758		 * decode_configs().
+  1759		 */
+  1760		decode_config3(c);
+  1761	
+  1762		/* XBurst does not implement the CP0 counter. */
+  1763		c->options &= ~MIPS_CPU_COUNTER;
+  1764		BUG_ON(__builtin_constant_p(cpu_has_counter) && cpu_has_counter);
+  1765	
+  1766		/* XBurst has virtually tagged icache */
+  1767		c->icache.flags |= MIPS_CACHE_VTAG;
+  1768	
+  1769		switch (c->processor_id & PRID_IMP_MASK) {
+  1770	
+  1771		/* XBurst®1 with ISA */
+  1772		case PRID_IMP_XBURST:
+  1773			c->cputype = CPU_XBURST;
+  1774			c->writecombine = _CACHE_UNCACHED_ACCELERATED;
+  1775			__cpu_name[cpu] = "Ingenic XBurst";
+  1776			break;
+  1777	
+  1778		/* XBurst®1 with MXU1.0/MXU1.1 SIMD ISA */
+  1779		case PRID_IMP_XBURST_REV1:
+  1780	
+  1781			/*
+  1782			 * The XBurst core by default attempts to avoid branch target
+  1783			 * buffer lookups by detecting & special casing loops. This
+  1784			 * feature will cause BogoMIPS and lpj calculate in error.
+  1785			 * Set cp0 config7 bit 4 to disable this feature.
+  1786			 */
+  1787			set_c0_config7(MIPS_CONF7_BTB_LOOP_EN);
+  1788	
+  1789			switch (c->processor_id & PRID_COMP_MASK) {
+  1790	
+  1791			/*
+  1792			 * The config0 register in the XBurst CPUs with a processor ID of
+  1793			 * PRID_COMP_INGENIC_D0 report themselves as MIPS32r2 compatible,
+  1794			 * but they don't actually support this ISA.
+  1795			 */
+  1796			case PRID_COMP_INGENIC_D0:
+  1797				c->isa_level &= ~MIPS_CPU_ISA_M32R2;
+  1798	
+  1799				/* FPU is not properly detected on JZ4760(B). */
+  1800				if (c->processor_id == 0x2ed0024f)
+  1801					c->options |= MIPS_CPU_FPU;
+  1802	
+  1803				fallthrough;
+  1804	
+  1805			/*
+  1806			 * The config0 register in the XBurst CPUs with a processor ID of
+  1807			 * PRID_COMP_INGENIC_D0 or PRID_COMP_INGENIC_D1 has an abandoned
+  1808			 * huge page tlb mode, this mode is not compatible with the MIPS
+  1809			 * standard, it will cause tlbmiss and into an infinite loop
+  1810			 * (line 21 in the tlb-funcs.S) when starting the init process.
+  1811			 * After chip reset, the default is HPTLB mode, Write 0xa9000000
+  1812			 * to cp0 register 5 sel 4 to switch back to VTLB mode to prevent
+  1813			 * getting stuck.
+  1814			 */
+  1815			case PRID_COMP_INGENIC_D1:
+  1816				write_c0_page_ctrl(XBURST_PAGECTRL_HPTLB_DIS);
+  1817				break;
+  1818	
+  1819			default:
+  1820				break;
+  1821			}
+  1822			fallthrough;
+  1823	
+  1824		/* XBurst®1 with MXU2.0 SIMD ISA */
+  1825		case PRID_IMP_XBURST_REV2:
+  1826			/* Ingenic uses the WA bit to achieve write-combine memory writes */
+  1827			c->writecombine = _CACHE_CACHABLE_WA;
+  1828			c->cputype = CPU_XBURST;
+  1829			__cpu_name[cpu] = "Ingenic XBurst";
+  1830			break;
+  1831	
+  1832		/* XBurst®2 with MXU2.1 SIMD ISA */
+  1833		case PRID_IMP_XBURST2:
+  1834			c->cputype = CPU_XBURST;
+  1835			__cpu_name[cpu] = "Ingenic XBurst II";
+  1836			break;
+  1837	
+  1838		/* XBurst®2 with MXU3.0 SIMD ISA */
+  1839		case PRID_IMP_XBURST2_R2:
+> 1840			c->cputype = CPU_XBURST2;
+  1841			c->writecombine = _CACHE_UNCACHED_ACCELERATED;
+  1842			__cpu_name[cpu] = "Ingenic XBurst II R2";
+  1843			break;
+  1844	
+  1845		default:
+  1846			panic("Unknown Ingenic Processor ID!");
+  1847			break;
+  1848		}
+  1849	}
+  1850	
 
-diff --git a/drivers/md/dm-thin.c b/drivers/md/dm-thin.c
-index 358ed77ffb2b..281b2e1745c3 100644
---- a/drivers/md/dm-thin.c
-+++ b/drivers/md/dm-thin.c
-@@ -3292,6 +3292,8 @@ static int pool_ctr(struct dm_target *ti, unsigned int argc, char **argv)
- 	dm_block_t low_water_blocks;
- 	struct dm_dev *metadata_dev;
- 	blk_mode_t metadata_mode;
-+	dev_t metadata_devt;
-+	dev_t data_devt;
- 
- 	/*
- 	 * FIXME Remove validation from scope of lock.
-@@ -3314,6 +3316,22 @@ static int pool_ctr(struct dm_target *ti, unsigned int argc, char **argv)
- 		goto out_unlock;
- 	}
- 
-+	r = dm_devt_from_path(argv[0], &metadata_devt);
-+	if (r) {
-+		ti->error = "Error opening metadata block device";
-+		goto out_unlock;
-+	}
-+	r = dm_devt_from_path(argv[1], &data_devt);
-+	if (r) {
-+		ti->error = "Error opening metadata data device";
-+		goto out_unlock;
-+	}
-+	if (metadata_devt == data_devt) {
-+		ti->error = "Error setting metadata or data device";
-+		r = -EINVAL;
-+		goto out_unlock;
-+	}
-+
- 	/*
- 	 * Set default pool features.
- 	 */
-@@ -4204,12 +4222,30 @@ static int thin_ctr(struct dm_target *ti, unsigned int argc, char **argv)
- 	tc->sort_bio_list = RB_ROOT;
- 
- 	if (argc == 3) {
-+		dev_t pool_devt;
-+		dev_t origin_devt;
- 		if (!strcmp(argv[0], argv[2])) {
- 			ti->error = "Error setting origin device";
- 			r = -EINVAL;
- 			goto bad_origin_dev;
- 		}
- 
-+		r = dm_devt_from_path(argv[0], &pool_devt);
-+		if (r) {
-+			ti->error = "Error opening metadata block device";
-+			goto out_unlock;
-+		}
-+		r = dm_devt_from_path(argv[2], &origin_devt);
-+		if (r) {
-+			ti->error = "Error opening metadata data device";
-+			goto out_unlock;
-+		}
-+		if (pool_devt == origin_devt) {
-+			ti->error = "Error setting metadata or data device";
-+			r = -EINVAL;
-+			goto out_unlock;
-+		}
-+
- 		r = dm_get_device(ti, argv[2], BLK_OPEN_READ, &origin_dev);
- 		if (r) {
- 			ti->error = "Error opening origin device";
--- 
-2.43.0
-
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
