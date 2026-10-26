@@ -1,79 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793025635;
-	b=Gr8lzUF+rCzb6a1bKaCNJ5xC+51WrRvTl8rMo3DjXKtq79m9hil9BXKAxPamFEtVsFDb
-	 ff7N6pip6RlNMe8QDY0lXpgXYHDrtZK2r/jYgYgpeIGMUPl3VWsHq44LmC8BJwmj+jy3e
-	 RaRn5cJmgPe/Fw1ocSLg/A70f6DYAkNoavVzOJZaJqJg8yhmiYA2jF3LoY5hvSELas6yP
-	 9CqjXq6Kdt53pwkvbuVzLmrskEVXWwSe37I/nw4gbsNb0tl9JJflbGKGAAICx2RYwQxeW
-	 b8iMSM4RxsmRHAF9ZNtpQ1ZSMR/lToIEfmipLnvTCiveGGxRxb3+AXhItd3b/wfL5JA==
+	t=1793025651;
+	b=m4GPp8cHYBc7UQNmNlWhn8345VhJ7ncGtAkmkGlXrDwPoKONDwOoxugYAZwI2jxZPd9h
+	 rLzwe4KEzoiiEVdsvHwWYpg2NVcWNrRA1NuTwKaCHbgya23o39OiH79m0xxF+4iiwoiVO
+	 by/v3lUF7agyjalLhTgRx3Bq2EhLC0GwPtQ4xQy/uwMt6+tlDRjwrkGX2AKjYq/MgQV3D
+	 DrTDbB/v+W6PAxPTZ384sSxpHTki1g4qZNHDa9+3gtMMmViYfjaqf4W/PzVvio0Rx0bCp
+	 UQtx7+r72p5Pp738PVEEehyWM7tWK9g1ZV3cKH+3X8jIp8otE64ekJDP8spZgl8YqfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793025635;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=F5us/NfKXPDNTHhAYC35aaKem6Di7MpGF6aT1zqz7t8=;
-	b=rD+gX1OLFIz/iFvcbKauAqJe+YrqPJ3vMO1nj7hdI/mdZRvJKOMgtuqwxyuZ0y2nnge7
-	 v76sduHkO4TdVZZyhnxg46JC4HIVTgGmd771mePYtRCcjDTKQBcHRLjtz+0CKlDu/xk6H
-	 Esul27zEQz19DYoarw3I2CZLN3lMxNGnslKH6spGOnZlaleDXKZn02g48YAUfNtCZ1hH0
-	 NatxV8IZRfkWlUktoTCP6ZINd1hthSIJ23getZmNg1ODdVx+OkuDJXX9WRjcytF3aZAPp
-	 6b+rgRAqErPJKKIVsdDIlLY9ZvhgkAJSnHdT/aHpDy18elWIonQMhc4Ke9OjOZMGVdg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793025651;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=8Kll1iF/QT91YErkwJEoScaiXhixs9z1aNQZhsSbLyI=;
+	b=rHsx/PFaxXPvgAl8CbVjPwGRmPglsc8wcFmHwGicxp808mvelM4cW47ccGxfr3J7gQLz
+	 cVhoAXzDdiJVuUJdkabndgcunAqjJx6hdnr4SU8pkzscTaMPRYOkpbzhvZPMDEOWn87Ag
+	 Y6tqQJxU37ntXsgphAjRMQnfkWcmzxqcQsWs+y+CX8UXracffKeTvptYpTXzaHVUI6a5k
+	 CmOBRERL0SJ48TpyY5SYx4UuZN5n9SVYF/uuepPkBjThwEo6/q0CycvqYvQICy0KXhXCZ
+	 Z7KvFtgAIVEu2H3598kMAhcvah0C1/WqglirykKhjLlpJhuvjJJ+7xoDzsuEch9APVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=A0Ni4yu+;
-	arc=none smtp.remote-ip=198.175.65.13
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--starchang.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=pmQnzjNm;
+	arc=none smtp.remote-ip=209.85.215.199
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0781606A31A;
-	Mon, 26 Oct 2026 14:40:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0781606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 026DC606A31B
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:40:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 026DC606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--starchang.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=A0Ni4yu+
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793025635; x=1824561635;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=6jc8Jbaf9Kdvp5Op6EZFBAdH72w4QRhrxSuuw3RIqFA=;
-  b=A0Ni4yu+4k+lHW19MqYPl3KiDVIOb6ThhtBFKOLZ/d2K1OMYXdLByhbM
-   RoBIyrW9/x4tQ6VkgD5JvBKgxcU46bETDvA9wEIJMK/SrEPg61itn8+mi
-   qGBi031/DwZ2TyuHQxLzWVvhwzy0WtFcbN6z8jZkl0zNghG4ZGAdPo1bE
-   gaRbQCe0XvbqVd3YLtfw0U7l0mpWHOS90JPl8vsAi9bbJHKSxIndpJWl/
-   IJ7kAvrnL1e+GkY22bT/bZ8GOc+eDKJjjXTmljAHaD3MGtxdPej2kqhf3
-   JmU0ANaOcy4956jHKFsAlLnreIUOXJniSYQzPP8+kLeay6uESVHVD1PJ3
-   A==;
-X-CSE-ConnectionGUID: Sa+Lz83GSzqfrkBuhtYLzw==
-X-CSE-MsgGUID: BkdATaWeQG2mV+W8gpFhqg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1571176"
-X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
-   d="scan'208";a="1571176"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 07:40:34 -0700
-X-CSE-ConnectionGUID: UdR2FaPCTb+ZtJWssi7leg==
-X-CSE-MsgGUID: fXaTc6KjS9O2IqiUWYzQ1w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
-   d="scan'208";a="4357913"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.93])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 07:40:32 -0700
-Date: Mon, 26 Oct 2026 16:40:29 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: rodrigo.alencar@analog.com
-Cc: linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>
-Subject: Re: [PATCH v4 4/6] iio: test: rescale: compare scales against the
- precision of the output
-Message-ID: <at9mXdRhiM-9TVyg@ashevche-desk.local>
-References: <20261026-e-notation-v4-0-a366a6d14d57@analog.com>
- <20261026-e-notation-v4-4-a366a6d14d57@analog.com>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=pmQnzjNm
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc7e0321ec1so4110761a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 07:40:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1793025650; x=1793630450; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8Kll1iF/QT91YErkwJEoScaiXhixs9z1aNQZhsSbLyI=;
+        b=pmQnzjNmSkFRFPDCyIkvlEdyjgJNNIq2cNF8/Wxm+gHU+CgXs5sKZtGIFtmlU+ioeA
+         LwOPD2YbJ188JbL6zVXDA603WzrzvkQnYcnlmjgdEnmOE3NvwZBtLHzmF3ZjFlsjtxfz
+         vNMfFDbM3OAv67a7OEcFvjMqfW8W400BQVNPbFyaTi7TmkUWf5GojlXOdLZ7tqVohXQD
+         D/d8qDEkwcgKQsfei26OOOWGbnkijg2t9MLoucP/we45obWsekt3sEaMH6tIET/+ux9S
+         QOfsITDYlVIKFyWTsGT9K00vOs5f3BX8i8g74gl2OIAB5UDgHswJOKFUf81sid8WX4cz
+         ZwAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793025650; x=1793630450;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8Kll1iF/QT91YErkwJEoScaiXhixs9z1aNQZhsSbLyI=;
+        b=aIlRM2g7w5pjnjrPKy2NQqSHrV/607r582vsGSKTDu3MIklce+oQC8WcHVueJxuwvn
+         4JPwrOzI6jkhFHqR24hVz40uDRYIZQbV0yDP/k8sbwYzvSWLY4JLlshYYSWTYlDblWK1
+         ktNCF2dTv5/HD5ILh/O9ALR6FdIJ67dpG6cNk9Aw5aJYbt/T3faTLFCOR1xFgslEkHIm
+         2sOs/GDEsxUqH++vx9Ohu+ZlKiLhhd6EwUv98rJs9tz43J8+1UVaWUEqFzT4nLL+Jcq4
+         UP6YiJfHPt6UxzrJtIFUAy4G1p5p/chbiR096zWjQR0P/JBq6tlhibUFVtKwAaape2ka
+         lIfg==
+X-Forwarded-Encrypted: i=1; AKwUvBzz+L1dd5fNKLiYIkZofwNUdazDVpiZwlOoMbF8Q1iwn/pS2OVSLS14CTfBmLEX8XoaZbhSEGrnROj3BW4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI82vzHUnwSTe1u/tckOaml1eYAHOn4/X0H7ypf3WY68NlH9gFX
+	5RCitKYnw3zW90dT+f8kK/QQka52W87C4UX/lsfYDka9GgiFpmB54wbUEnYF4Hp5+PrKLawpwMb
+	/4OtSjPHF82lUPcDgFA==
+X-Received: from pfh4.prod.google.com ([2002:a05:6a00:12c4:b0:89f:6242:b2d2])
+ (user=starchang job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6a21:200a:b0:3e1:d13f:5fa9 with SMTP id adf61e73a8af0-3e7cd641742mr4292671637.73.1793025650060;
+ Mon, 26 Oct 2026 07:40:50 -0700 (PDT)
+Date: Mon, 26 Oct 2026 14:40:32 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,53 +75,157 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261026-e-notation-v4-4-a366a6d14d57@analog.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.257.gf7497c7d27-goog
+Message-ID: <20261026144032.1338614-1-starchang@google.com>
+Subject: [PATCH net v2] net: Fix Hole-196 vulnerability by dropping unicast
+ ARP/IP in L2 BMC
+From: Star Chang <starchang@google.com>
+To: netdev@vger.kernel.org
+Cc: dsahern@kernel.org, edumazet@google.com, kuba@kernel.org, 
+	pabeni@redhat.com, davem@davemloft.net, linux-kernel@vger.kernel.org, 
+	Star Chang <starchang@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, Oct 26, 2026 at 08:54:08AM -0300, Rodrigo Alencar via B4 Relay wrote:
-> 
-> The scale tests format the rescaled value with iio_format_value(), which
-> prints at most nano precision, and require the relative error to the
-> expected value to be below 1 ppm. Both strings are parsed back with
-> iio_str_to_fixpoint() at nano precision, so for the small scale cases the
-> check only passes because the expected value, like the formatted one, is
-> truncated to nano. For example, "0.000000033594" is parsed as 33 nano,
-> equal to the formatted "0.000000033", although the actual error is about
-> 1.8%. If the expected value were rounded instead, it would be parsed as
-> 34 nano and the test would fail even though the output is as accurate as
-> the format allows.
-> 
-> Parse both values with kstrtodec64() at a scale of 10, one digit more
-> than the output precision, so the expected value keeps the digits lost
-> when formatting. Scale 10 is the largest that still fits the overflow
-> cases (about 2.1e8) in an s64. Compute the relative error with
-> mul_u64_u64_div_u64(), as the product with 10^6 no longer fits in 64 bits
-> for those cases.
-> 
-> Then allow a relative error up to the relative size of one nano of the
-> expected value, the precision of the formatted output. This is 0 ppm for
-> values of 0.01 and above, so those cases are checked as before, and it
-> accepts the formatting error for the small scale cases.
+Wi-Fi 802.11 to 802.3 frame translation allows attackers to inject
+unicast L3 packets or ARP payloads inside GTK-encrypted L2 broadcast
+and multicast (BMC) frames (the "Hole-196" vulnerability).
 
-...
+While the `drop_unicast_in_l2_multicast` sysctl was introduced to drop
+unicast IPv4/IPv6 packets received over L2 BMC, it had several gaps:
 
-> +/*
-> + * iio_format_value() prints scales with up to nano precision. Parse values
-> + * with one more digit, so the expected values keep the precision lost there.
-> + * Scale 10 is the largest that fits the overflow test cases in an s64.
->   */
-> +#define IIO_TEST_DEC_SCALE	10
-> +#define IIO_TEST_NANO		10	/* one nano at IIO_TEST_DEC_SCALE */
+1. ARP packets were not checked in `net/ipv4/arp.c`, allowing attackers
+   to perform ARP poisoning via L2 BMC frames (`group-arp-unicast`).
+2. Enforcement lacked DHCP client (UDP port 68) exemption, which could
+   discard legitimate DHCP server responses sent via L2 broadcast.
+3. Dropped packets were silently discarded without warnings or MIB stats.
 
-I would put them as (9 + 1) to show that actually show that "with one more digit".
-I also don't follow the comment near to the last definition. What does it mean?
+The issue was identified via manual code inspection and protocol security
+analysis of cross-station frame injection in 802.11 shared-key (GTK)
+networks. In laboratory testing, crafted 802.11 broadcast frames containing
+unicast ARP payloads (e.g. ARPOP_REQUEST / ARPOP_REPLY with tha set to a
+victim's unicast MAC) bypassed the existing sysctl, poisoning the victim's
+ARP cache. Furthermore, per RFC 2131 inspection, unconditionally dropping
+L2 broadcast frames carrying unicast IP addresses discards standard DHCP
+server responses (DHCPOFFER/DHCPACK) destined for UDP port 68 during lease
+negotiation.
 
+Enhance `drop_unicast_in_l2_multicast` sysctl enforcement:
+- Extend sysctl checks to `net/ipv4/arp.c` (`arp_process()`) to drop
+  unsolicited ARP Replies and ARP Requests with a non-zero unicast
+  Target Hardware Address (tha) received over L2 BMC.
+- Exempt Gratuitous ARP (GARP) and RFC 5227 Address Announcements
+  (`sip == tip`) from L2 BMC unicast drop logic so they defer to the
+  `DROP_GRATUITOUS_ARP` sysctl, preserving VRRP/HSRP router failover.
+- Exempt non-fragmented DHCP client traffic (UDP dest port 68) in
+  `net/ipv4/ip_input.c` and safely reload `ip_hdr(skb)` after
+  `pskb_may_pull()` to prevent dangling pointer access.
+- Log rate-limited warnings (`pr_warn_ratelimited`) and increment MIB
+  error counters (`IPSTATS_MIB_INHDRERRORS`) for dropped frames.
+
+Signed-off-by: Star Chang <starchang@google.com>
+---
+v1 -> v2:
+  - Clarified discovery method (manual code inspection and protocol analysis)
+    and triggering context in commit message per netdev-bot automated feedback.
+ net/ipv4/arp.c       | 29 +++++++++++++++++++++++++++++
+ net/ipv4/ip_input.c  | 27 +++++++++++++++++++++++++--
+ net/ipv6/ip6_input.c |  2 ++
+ 3 files changed, 56 insertions(+), 2 deletions(-)
+
+diff --git a/net/ipv4/arp.c b/net/ipv4/arp.c
+index d409f606aec0..ad23db2e2f59 100644
+--- a/net/ipv4/arp.c
++++ b/net/ipv4/arp.c
+@@ -791,6 +791,35 @@ static int arp_process(struct net *net, struct sock *sk, struct sk_buff *skb)
+ 	    (!IN_DEV_ROUTE_LOCALNET(in_dev) && ipv4_is_loopback(tip)))
+ 		goto out_free_skb;
+ 
++/*
++ * Hole-196 defense for ARP:
++ * If drop_unicast_in_l2_multicast sysctl is enabled on this interface,
++ * drop ARP Replies in L2 BMC frames, and ARP Requests in L2 BMC frames
++ * that specify a non-zero unicast Target Hardware Address (tha).
++ *
++ * Legitimate Gratuitous ARP (GARP) and RFC 5227 Address Announcements
++ * require (sip == tip) and tha matching sha (tha == sha). Only valid
++ * GARP frames are exempted so they defer to DROP_GRATUITOUS_ARP below.
++ */
++	if ((skb->pkt_type == PACKET_BROADCAST ||
++	     skb->pkt_type == PACKET_MULTICAST) &&
++	    IN_DEV_ORCONF(in_dev, DROP_UNICAST_IN_L2_MULTICAST)) {
++		bool is_valid_garp = (sip == tip) && tha &&
++				     !memcmp(tha, sha, dev->addr_len);
++
++		if (arp->ar_op == htons(ARPOP_REPLY) && !is_valid_garp) {
++			net_warn_ratelimited("Drop ARP Reply in L2 BMC on %s\n",
++					     dev->name);
++			goto out_free_skb;
++		}
++		if (dev->addr_len == ETH_ALEN && tha &&
++		    is_valid_ether_addr(tha) && !is_valid_garp) {
++			net_warn_ratelimited("Drop unicast THA ARP Req in L2 BMC on %s\n",
++					     dev->name);
++			goto out_free_skb;
++		}
++	}
++
+  /*
+   *	For some 802.11 wireless deployments (and possibly other networks),
+   *	there will be an ARP proxy and gratuitous ARP frames are attacks
+diff --git a/net/ipv4/ip_input.c b/net/ipv4/ip_input.c
+index 9860178752b8..f863aa293020 100644
+--- a/net/ipv4/ip_input.c
++++ b/net/ipv4/ip_input.c
+@@ -456,10 +456,33 @@ static int ip_rcv_finish_core(struct net *net,
+ 		 * this is 802.11 protecting against cross-station spoofing (the
+ 		 * so-called "hole-196" attack) so do it for both.
+ 		 */
++		/* Hole-196 defense:
++		 * Drop unicast IP packets received over L2 BMC frames.
++		 * Exempt DHCP client responses (UDP port 68).
++		 */
+ 		if (in_dev &&
+ 		    IN_DEV_ORCONF(in_dev, DROP_UNICAST_IN_L2_MULTICAST)) {
+-			drop_reason = SKB_DROP_REASON_UNICAST_IN_L2_MULTICAST;
+-			goto drop;
++			bool is_dhcp_resp = false;
++
++			iph = ip_hdr(skb);
++			if (iph->protocol == IPPROTO_UDP && !ip_is_fragment(iph) &&
++			    pskb_may_pull(skb, iph->ihl * 4 + sizeof(struct udphdr))) {
++				const struct udphdr *uh;
++
++				iph = ip_hdr(skb);
++				uh = (const struct udphdr *)(skb_network_header(skb) +
++							    iph->ihl * 4);
++				if (uh->dest == htons(68))
++					is_dhcp_resp = true;
++			}
++
++			if (!is_dhcp_resp) {
++				net_warn_ratelimited("Drop unicast IP %pI4 in L2 BMC on %s\n",
++						     &iph->daddr, dev->name);
++				__IP_INC_STATS(net, IPSTATS_MIB_INHDRERRORS);
++				drop_reason = SKB_DROP_REASON_UNICAST_IN_L2_MULTICAST;
++				goto drop;
++			}
+ 		}
+ 	}
+ 
+diff --git a/net/ipv6/ip6_input.c b/net/ipv6/ip6_input.c
+index 8972863c93ee..caf9811f6352 100644
+--- a/net/ipv6/ip6_input.c
++++ b/net/ipv6/ip6_input.c
+@@ -278,6 +278,8 @@ static struct sk_buff *ip6_rcv_core(struct sk_buff *skb, struct net_device *dev,
+ 	    (skb->pkt_type == PACKET_BROADCAST ||
+ 	     skb->pkt_type == PACKET_MULTICAST) &&
+ 	    READ_ONCE(idev->cnf.drop_unicast_in_l2_multicast)) {
++		net_warn_ratelimited("IPv6: Drop unicast IP %pI6c in L2 BMC on %s\n",
++				     &hdr->daddr, dev->name);
+ 		SKB_DR_SET(reason, UNICAST_IN_L2_MULTICAST);
+ 		goto err;
+ 	}
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.56.0.257.gf7497c7d27-goog
 
