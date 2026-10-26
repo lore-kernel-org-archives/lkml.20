@@ -1,102 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793033519;
-	b=0G+8uKG9Fx/RAjRV+t0Fjzjz7/obNfkv8n5jbWDg6A2T17PlI/G0+WOE4IBCjepvXMJo
-	 6s+lk+lhuh4qLo1buHN3fWu01ob5mcwlIaE5K7drWMqbjkCsl5K5fnuqsQJVrtdoTqpUW
-	 SPUF6dzw5waMYPrOIryzqvRsvSe+WPlHqC+gSPHFc2D4qAhuwonekjQWVIDJcTUrMck6b
-	 mT4TyUqVr1pRsD6+YKgJFrJixAh5lnz0I+SCnRMLNtw4hp6JA0VgvtcQcqkHmDAA/wUcx
-	 mfCwCqVbdtPj8hkqYJ/qk0hAVB8qgUVuBddlLjtVYWOHHoil9oeyZ4BLuJ7Pex1YHng==
+	t=1793033576;
+	b=zjDWBW4x/7pgAtA0WznpMWLOrirOKYSB/jh9MFeJxW21zrK/ESxr09zVVSVLlqSqbC+c
+	 De5aAUkMt6rhXgwCUO8PTEr2PQ5q2V0FY0Xme8kLdIUryku3HQw82oZlcxaGNIraSV5y3
+	 rBwlHdV2aPsllOG8n8KTXbaqWNW9+9JGganJd7bWnk4p1FLIK5Y8NkXJfHpd00BlVbHg2
+	 pgBKVztEZ90deoXhK1CANIdkwk4XhHkqzXv106/C4mTDdX0XKbArxmKmh7qetkBKoZ+Mo
+	 I8BLTnKL4RPv3Hsfh+r6zahje5h5v6Bt6L4t3/7/M4DYUAwmyzi2gG4ghGN1lbw5dnw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793033519;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=2/2qQgHjg7B4L90wJY7NcYQb/sw77pDt+0YufHxfkwg=;
-	b=SXLl6vDfGFhPXNR/lDhs8VAh4mNcbr6RrDrmZMj5o2qR6ohyQV2/XJJk2e83nPdW4jnQ
-	 W6Qro4JbqBmosWqTslTIw2zyWJg3udFg7Hmf2emEMRDJN2+JOHhbY6V33YHDKbpsmPZeD
-	 3oHs937NFYgfYAE8s20FkS6L+3MCalz0V/oyNQdlfu3HNKzaS26WZcyIwormNvyP2Hfjt
-	 q7jMxZgFbny4BEiFIvR8AfFnkNyt5bG6om3sqbRAw27VM+npKwDuvjvwTDsjXgPS9IpPA
-	 sQ1JDrN2bdE4vvET8GZXXzd1eTEMSEW5Wb+uWHmEBdaCjoQPDagxFvta3vJ1JxHdbiA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793033576;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition;
+	bh=V8PvGXZ7VCsMB0ruiPuEvtUOu6j7X/roxqJhe5mrWAM=;
+	b=RvvZAWF47ZUNtpr36xrGGArRreIta4RFxB2HsVBRU+zPnve94xYRUapKkk8sPQp1izk5
+	 8/BJxBI/cWYfdkWSW1m1g0s68A4lpvZmpMWTb6dl5VitvB8ZKOBgCxMHCKglqdqAfTjaU
+	 f/zjDt8SN8pmOAchJdkQz9n8my1lO7RbIykI9z4Tb1DacTf/cHdecYB70x3uhonaG5Ujm
+	 NzjPpevWYTvbqVa8temwz4RxANbhkSvo6a5YmhV2hbINnVh0hDqxzyXVtkXS+SofNO2aF
+	 EE5b/QU/LAMMrUIy4vgEf8vBVSvVSLIBWOzpTyYuUAXOP2P2JtungBXwu115gHQF4Rw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=uMdD4p6K;
-	arc=none smtp.remote-ip=209.85.128.43
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WL4CmMux;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 290D7606A324
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 16:51:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 290D7606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4179C606A31A;
+	Mon, 26 Oct 2026 16:52:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=uMdD4p6K
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a5087a5348so14085685e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:51:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1793033516; x=1793638316; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2/2qQgHjg7B4L90wJY7NcYQb/sw77pDt+0YufHxfkwg=;
-        b=uMdD4p6KVakawh179kk8FHBLF5CXO9wel4SSzout3Cv109M7RXUmUmrC9sJPIgWsSH
-         9ABB0JV8Z5NUOTGY7GHDP30lVe2PF06Z5Rb3sGZu9AHhb2etfX/cHvQCyiGlPRRn3Cbe
-         CFLeOIxpliD0sRukb/bWQTt0J7k1R+JKXgZVJ1KMgCeuSSmAA57l+zaNLFl6HnQ/Ahaw
-         zQi33bNvGhiw52l+kM3vvg4nLkAUFO3pt8PlK45P8ZDXb1WCt8rTiBonnjcILrrKElFt
-         fjlgVO/cXdwsEDjIa5uw8AyiN4qBUQXEww/1M11No4eGietgwgSL41okjBF4DwT+0EjC
-         VbRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793033516; x=1793638316;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=2/2qQgHjg7B4L90wJY7NcYQb/sw77pDt+0YufHxfkwg=;
-        b=L8obojHWfa0sf479YcIHQ/KiqiK6156nOOLD5lfjf2l+suk3D75q8SMN3DVGaEMpMs
-         oE0e/njB+6lw+tX82ijb+8/e2hM8UTiHLO3BflzpbyM1Ppo6AyimUha+Uf+HmpnVkbFw
-         aaRm8Mjo6s0mr13njMStte2OlWNwXILNOBFa2+mtc25SaHLczltuaduuIXNiuA26DD9Q
-         0bymgS9FbfujGhkhiwxut9IJGgDGu/hVKyP+YIqVLOv/PhDM6TAH7hEzk+2gu8Joli28
-         lfRe+bHfzYn9Gr2toWyU5RrO0aJ8yJHrrg5q2XN5MFUIg9JwSdQsvhXZ5QIYmQ1xMmse
-         J7ww==
-X-Forwarded-Encrypted: i=1; AKwUvBwNahQCGpGrCGml6Wnc53mxR2ptO8Zpa0zj2yaEC4Be4DWtO2l0AliEZNxHoTxcSpDKF6yesI9xZPMyTe4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLa3Xdkjz61gecMzgwkHwv0PBUOg4VNjM/PK8KcHOcplUKbnLU5
-	B4biJnfTZA0cKjXfZToOTAfDFQGogxb2cRgaX/rcJL7cOoYFxKZZNSfGHmkcxa/3MQ==
-X-Gm-Gg: AYBFou0YFi7lYkdcOXQ90Dd9yW8+kR9UN0LBkGtshUvLMTh960zrtm8IN0ocweNvqsN
-	iSRqTjUfDGzhT6DnsQbysiMXi1etW9KGkAOsy7TxOlmlHpFZjS42BKRGpSY8GYbpw5mTCV0hdzg
-	FNxx/znFS3IIB8DVizhsMwnU71Cr5pPtMNQzlOec+dSXXNXd401T+CXlRQuzyecz+Ze+y228Jgs
-	Yxr8sSivyKaVOPO2IPjkM3DFJbt6aehj0vuY/xFGLrzX5ukUw8rd80wcxscyld0vtu53tslNG6f
-	2CAsk23ghAaExLzyOZSvhsoJvMi9rZPevJGTjqVn8rFAqCWXhl2Pi8VRx5BXiBDvqmT1Yr+Lym0
-	ZLCS/mLFVqanLs4/yLAq+qxP2lM5brRz3IdFLfTMjA0n/CNv6tve/bPjAvIHzasELmtklbQZuda
-	a1NB3UY4UEuDXg4NW0SjOzK3hUJVueA0LfKSWTF9R5gGhDKhAf5IRxV9tX6wthWxZwfrL7h/CMe
-	JcsGqXKnob2AvDr0ImBlmBd/+R1C2q56z9dxzhXze54/xjy7we5qAoYvnIppY1AE5v417jP7/tG
-	da0XfEef5VPZ5xF13o+uphGx
-X-Received: by 2002:a05:600c:46c5:b0:4a2:1364:252b with SMTP id 5b1f17b1804b1-4a35acba20dmr143926245e9.35.1793033515974;
-        Mon, 26 Oct 2026 09:51:55 -0700 (PDT)
-Received: from google.com (197.183.140.34.bc.googleusercontent.com. [34.140.183.197])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a58a293sm204540985e9.12.2026.10.26.09.51.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 09:51:55 -0700 (PDT)
-Date: Mon, 26 Oct 2026 16:51:52 +0000
-From: Vincent Donnefort <vdonnefort@google.com>
-To: Amit Machhiwal <amachhiw@linux.ibm.com>
-Cc: Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	linux-trace-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-	Michal =?iso-8859-1?Q?Such=E1nek?= <msuchanek@suse.de>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-	Harsh Prateek Bora <harshpb@linux.ibm.com>,
-	linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
-	kvm-ppc@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v4] ring-buffer: Do not check si_mem_available() before
- deferred init completes
-Message-ID: <at-FKOk_-OrKTP8H@google.com>
-References: <20261023145459.47516-1-amachhiw@linux.ibm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WL4CmMux
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 955B01F01825;
+	Mon, 26 Oct 2026 16:52:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793033575;
+	bh=V8PvGXZ7VCsMB0ruiPuEvtUOu6j7X/roxqJhe5mrWAM=;
+	h=Date:From:To:Cc:Subject;
+	b=WL4CmMuxAg/ZGy1bOfU+tg5BTB9JnMCnrkHeqRyBoXqp7WSDJdXJFfDDroRm6k81Y
+	 PQRhCuvVFoTJeIMmE4UaFhoYty5CzTeUyKuncx1eQtLFLRUS4nDEUhYTnRFyuZeXi+
+	 TtOb/YQWAcVYlLJ6jme7uBfPlpMdWWgy7d29JhpfDURIQ3aDI5tpqvH7xpW6vlHfYD
+	 RG/BkAN7fWEpAFXx5FaMyGZpkxqZlzcfh73uHn1sv82ZiC06eDqHKaePjNW9dxn5F+
+	 TV0ai87s9Bg+FbIU609n9yL8V418U0iRQo1d5KFWpw60QXU5NsWaw87mWhc9EfN/XH
+	 Vm52pdlURzuww==
+Received: by venus (Postfix, from userid 1000)
+	id 821BC1806C8; Mon, 26 Oct 2026 17:52:53 +0100 (CET)
+Date: Mon, 26 Oct 2026 17:52:53 +0100
+From: Sebastian Reichel <sre@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org
+Subject: [GIT PULL] power-supply changes for 7.4
+Message-ID: <at-FRLALI5DhW7Lh@venus>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,112 +56,296 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="bw5hswutkyqd2qag"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261023145459.47516-1-amachhiw@linux.ibm.com>
 
-On Fri, Oct 23, 2026 at 08:24:59PM +0530, Amit Machhiwal wrote:
-> During early boot (early_trace_init() called from start_kernel()),
-> tracing allocates initial ring buffers (temp_buffer, array_buffer, and
-> snapshot_buffer) for CPU 0.  Later, as secondary CPUs come online during
-> smp_init(), each CPU's ring buffer is allocated via trace_rb_cpu_prepare().
-> 
-> Before attempting page allocation, __rb_allocate_pages() performs a
-> heuristic check using si_mem_available() to return early with -ENOMEM if
-> memory appears insufficient.
-> 
-> However, on kernels built with CONFIG_DEFERRED_STRUCT_PAGE_INIT=y,
-> NR_FREE_PAGES only reflects the initial non-deferred pool across the entire
-> period from early_trace_init() through smp_init().  defer_init() leaves
-> only a single section per node (e.g.  16 MiB with 64 KB pages) initialized
-> up-front, and on kernels with large static binary footprints (debug
-> configurations enabling PAGE_OWNER, DEBUG_PAGEALLOC, KFENCE, or SLUB_DEBUG),
-> early core initialisations (SLUB caches, vmalloc, static ftrace records)
-> consume virtually all managed pages in this pool.
-> 
-> si_mem_available() therefore returns a false negative (often 0-1 pages)
-> across both SYSTEM_BOOTING (for the initial CPU 0 buffers) and
-> SYSTEM_SCHEDULING (for secondary CPU buffers via trace_rb_cpu_prepare()),
-> causing __rb_allocate_pages() to prematurely abort with -ENOMEM.
-> 
-> This failure is false: the buddy allocator is designed to replenish
-> ZONE_NORMAL on demand via deferred_grow_zone() when an actual allocation
-> is attempted.  Checking si_mem_available() before calling alloc_pages_node()
-> short-circuits this on-demand growth entirely.
-> 
-> deferred_grow_zone() is only permanently disabled after page_alloc_init_late()
-> completes (it spawns per-node kthreads and blocks until done), which happens
-> inside kernel_init_freeable() — before system_state is set to
-> SYSTEM_FREEING_INITMEM.  Skip the si_mem_available() check until
-> SYSTEM_FREEING_INITMEM, at which point all deferred pages are initialized
-> and si_mem_available() is accurate.
-> 
-> Use IS_ENABLED(CONFIG_DEFERRED_STRUCT_PAGE_INIT) to set i = LONG_MAX during
-> this window, unconditionally bypassing the threshold check.  On kernels
-> without deferred init IS_ENABLED() compiles the branch away and the original
-> check is preserved unchanged.
 
-Commit messages are not LLMs' strong suit.
+--bw5hswutkyqd2qag
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: [GIT PULL] power-supply changes for 7.4
+MIME-Version: 1.0
 
-Otherwise.
+Hi Linus,
 
-Reviewed-by: Vincent Donnefort <vdonnefort@google.com>
+The following changes since commit 5b4bd13e0552926648a46c2c9a12a24dfaee3715:
 
-> 
-> Fixes: 2a872fa4e9c8 ("ring-buffer: Check if memory is available before allocation")
-> Cc: stable@vger.kernel.org
-> Reported-by: Michal Suchánek <msuchanek@suse.de>
-> Closes: https://lore.kernel.org/all/arYskzbiaNzBR9MD@kunlun.suse.cz/
-> Link: https://lore.kernel.org/all/arYskzbiaNzBR9MD@kunlun.suse.cz/
-> Signed-off-by: Amit Machhiwal <amachhiw@linux.ibm.com>
-> ---
-> Changes since v3:
->  - Replace #ifdef CONFIG_DEFERRED_STRUCT_PAGE_INIT / #else / #endif with
->    IS_ENABLED() + i = LONG_MAX to avoid duplicating the threshold check.
->    (Vincent Donnefort)
->  - Trim the in-code comment to one sentence. (Vincent Donnefort)
-> 
-> Changes since v2:
->  - Rebase on top of upstream ring_buffer.c changes from Vincent Donnefort;
->    update threshold to i < (nr_pages << subbuf_order). (Michal Suchánek)
-> 
-> Changes since v1:
->  - Extend the guard to cover SYSTEM_SCHEDULING as well: smp_init() calls
->    trace_rb_cpu_prepare() -> __rb_allocate_pages() before page_alloc_init_late()
->    completes, so the false negative window spans both SYSTEM_BOOTING and
->    SYSTEM_SCHEDULING. Use system_state >= SYSTEM_FREEING_INITMEM as the correct
->    boundary.  (Sashiko, Vincent Donnefort)
->  - Wrap in #ifdef CONFIG_DEFERRED_STRUCT_PAGE_INIT to preserve the original
->    check unchanged on non-deferred kernels. (Vincent Donnefort)
->  - Drop Tested-by: guard condition changed, requesting fresh test.
-> 
->  kernel/trace/ring_buffer.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
-> 
-> diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-> index 9c4e40847e43..09c02e838c4d 100644
-> --- a/kernel/trace/ring_buffer.c
-> +++ b/kernel/trace/ring_buffer.c
-> @@ -2463,8 +2463,16 @@ static int __rb_allocate_pages(struct ring_buffer_per_cpu *cpu_buffer,
->  		 * memory. It may not be accurate. But we don't care, we just want
->  		 * to prevent doing any allocation when it is obvious that it is
->  		 * not going to succeed.
-> +		 *
-> +		 * With CONFIG_DEFERRED_STRUCT_PAGE_INIT, si_mem_available()
-> +		 * will reflect the actual available memory only after
-> +		 * SYSTEM_FREEING_INITMEM.
->  		 */
->  		i = si_mem_available();
-> +		if (IS_ENABLED(CONFIG_DEFERRED_STRUCT_PAGE_INIT) &&
-> +		    system_state < SYSTEM_FREEING_INITMEM)
-> +			i = LONG_MAX;
-> +
->  		if (i < (nr_pages << subbuf_order))
->  			return -ENOMEM;
->  
-> 
-> base-commit: 734bef548a96e8774d6eef5dfa2026c6edc4e80b
-> -- 
-> 2.54.0 (Apple Git-157)
-> 
+  power: supply: core: prevent unregistering a power supply while a callbac=
+k runs (2026-10-04 18:49:02 +0200)
+
+are available in the Git repository at:
+
+  https://git.kernel.org/pub/scm/linux/kernel/git/sre/linux-power-supply.gi=
+t tags/for-v7.4
+
+for you to fetch changes up to f0f400459bf6a037e70768de623fff3f8920b8bb:
+
+  power: supply: gpio-charger: Report discharging without input power (2026=
+-10-18 12:21:00 +0200)
+
+----------------------------------------------------------------
+power supply and reset changes for the 7.4 series
+
+ * power-supply core
+  - introduce LOAD_SWITCH property
+  - pack power_supply_desc to optimize memory
+  - prevent power-supply device unregistration while callback runs
+  - drop last CONFIG_OF build-time dependencies from the core
+  - documentation fixes
+ * power-supply drivers
+  - bq27xxx: add support for bq27z746, bq28z620
+  - ab8500: add AB8505 support
+  - bq257xx: fix probe time configuration race condition
+  - multiple: convert drivers with custom LOAD_SWITCH properties to the
+    new standard one
+  - cros_charge-control: restore EC state on resume
+  - qcom_battmgr: fix USB type reporting, notify charger online state,
+    report full batteries and correct capacity on X1E
+  - gpio-charger: always report as discharging if input power is missing
+  - bq24190_charger: don't reset registers across system suspend
+  - qcom_smbx: a lot of independent fixes
+  - lots of error and module removal path fixes
+  - misc. fixes
+ * reset drivers
+  - misc. fixes
+
+----------------------------------------------------------------
+Alexey Charkov (5):
+      dt-bindings: power: supply: bq27xxx: add BQ28Z620
+      power: supply: bq27xxx: add support for BQ28Z620
+      power: supply: bq257xx: Use psy directly instead of driver data
+      power: supply: bq257xx: Convert parameters setup to the new .init cal=
+lback
+      power: supply: bq257xx: Describe the dev field in the driver data str=
+ucture
+
+Andrew Pam (1):
+      power: supply: cros_charge-control: restore EC state on resume
+
+Babanpreet Singh (1):
+      power: supply: max17042_battery: Make the fractional macros safe
+
+Bjorn Andersson (1):
+      power: supply: qcom_battmgr: report full batteries
+
+Brandon Williams (1):
+      power: supply: qcom_battmgr: Notify charger supplies of online changes
+
+Daniel Lezcano (1):
+      power: supply: Fix power limit documentation
+
+Derek J. Clark (1):
+      Documentation: sysfs-class-power: Update Long_Life description
+
+Fabricio Akio (1):
+      power: supply: qcom_smbx: set the charge enable after software control
+
+Fan Wu (1):
+      power: supply: bq27xxx: Ensure poll work is cancelled on remove
+
+Hang Nan (1):
+      power_supply: serialize property access with unregister
+
+Hemanth Selam (2):
+      power: reset: keystone: fix missing space in error message
+      power: supply: fix typos in comments
+
+Henrik Grimler (3):
+      dt-bindings: power: bq27xxx: bq27z561: allow interrupts property
+      dt-bindings: power: bq27xxx: document bq27z746
+      power: supply: bq27xxx: add support for bq27z746
+
+Igor Velkov (1):
+      power: supply: gpio-charger: Report discharging without input power
+
+Iv=E1n Ezequiel Rodriguez (4):
+      power: supply: return -ENOMEM on OCV table alloc failure
+      power: supply: restore hwmon if extension update fails
+      docs: power: supply: fix power_supply_class.rst status, health and ti=
+me_to
+      power: supply: use tabs in power_supply_get_property_direct
+
+Joonhoe Kim (1):
+      power: supply: qcom_battmgr: report the USB type from USB_ADAP_TYPE
+
+Karl Mehltretter (1):
+      power: supply: mp2629: Use the full batt_impedance_compensation name =
+in the ABI document
+
+Kees Cook (1):
+      power: supply: qcom_smbx: Remove const from desc allocation type
+
+Linmao Li (1):
+      power: supply: bq2515x: Propagate charge-enable read errors
+
+Linus Walleij (16):
+      dt-bindings: power: supply: ab8500: Add AB8505 charger
+      power: supply: ab8500_fg: Accept status from supplied power
+      power: supply: ab8500_fg: Report sub-percent charge changes
+      power: supply: ab8500: Correct register definitions
+      power: supply: ab8500_fg: Drop nonexistent AB8505 controls
+      power: supply: ab8500_btemp: Fix event temperature reporting
+      power: supply: ab8500: Preserve battery termination current
+      power: supply: ab8500_charger: Fix AC charger re-enable
+      power: supply: ab8500_charger: Decode AB8505 USB status
+      power: supply: ab8500_charger: Respect AB8505 register layout
+      power: supply: ab8500_charger: Handle detection errors
+      power: supply: ab8500_charger: Skip absent AB8505 main charger
+      power: supply: ab8500_charger: Retry AB8505 USB detection
+      power: supply: ab8500_charger: Recover inactive AB8505 charger
+      power: supply: ab8500_fg: Finalize current measurements
+      power: supply: ab8500_fg: Avoid reserved AB8505 CCConf bit
+
+Liviu Nicoara (1):
+      power: supply: qcom_battmgr: Report capacity on X1E80100
+
+Matt DeVillier (1):
+      power: supply: cros_charge-control: adopt EC charge state on probe
+
+Maurizio Casciano (1):
+      power: supply: core: Honor supplied-from with CONFIG_OF=3Dy
+
+Myeonghun Pak (2):
+      power: supply: pf1550: drain IRQ work before unregistering supplies
+      power: supply: sbs-battery: disable polling before supply teardown
+
+Reza Kurniawan (1):
+      power: supply: bq256xx: Expose VBUS state through extcon
+
+Robert Killick (1):
+      power: supply: sysfs: Ratelimit "unavailable enum value" warning
+
+Robin Snyders (5):
+      power: supply: qcom_smbx: include base when petting watchdog
+      power: supply: qcom_smbx: test battery health status bits
+      power: supply: qcom_smbx: fix float voltage selector
+      power: supply: qcom_smbx: validate battery float voltage
+      power: supply: qcom_smbx: notify battery overvoltage recovery
+
+Ryan Brue (3):
+      power: supply: bq24190_charger: use the wake irq API
+      power: supply: bq24190_charger: don't reset registers across system s=
+uspend
+      dt-bindings: power: supply: battery: allow 101 ocv-capacity points
+
+Sebastian Reichel (1):
+      Merge power-supply fixes branch
+
+Shengzhuo Wei (1):
+      power: supply: bq27xxx: synchronize work cancellation on suspend
+
+Sumeet Pawnikar (1):
+      power: Use %pe to print error pointers symbolically
+
+Tim Douglas (1):
+      power: supply: generic-adc-battery: fix status with no supplier
+
+Uwe Kleine-K=F6nig (3):
+      power: supply: axp20x*: Drop check for disabled devices
+      power: supply: axp20x_usb: Introduce a helper variable for &pdev->dev
+      power: supply: axp20x_usb: Improve probe error reporting
+
+Waqar Hameed (8):
+      power: supply: Pack power_supply_desc to eliminate holes
+      power: supply: Add sysfs entry for system load control
+      power: supply: ltc4162-l: Use POWER_SUPPLY_PROP_LOAD_SWITCH
+      power: supply: rt9471: Use POWER_SUPPLY_PROP_LOAD_SWITCH
+      power: supply: rt9467: Use POWER_SUPPLY_PROP_LOAD_SWITCH
+      power: supply: bq24257: Use POWER_SUPPLY_PROP_LOAD_SWITCH
+      power: supply: bq24190: Use POWER_SUPPLY_PROP_LOAD_SWITCH
+      power: supply: bq25630: Add support for BATFET control
+
+Wentao Liang (1):
+      power: supply: ltc2941: Fix of_node reference leak in ltc294x_i2c_pro=
+be()
+
+Zongmin Zhou (1):
+      power: supply: s2mu005-battery: return errors from dev_err_probe() in=
+ probe
+
+bui duc phuc (1):
+      power: supply: generic-adc-battery: Propagate charged GPIO errors
+
+hpp.iscas (1):
+      power: supply: mm8013: Publish the OF module alias
+
+ Documentation/ABI/testing/sysfs-class-power        |  49 ++-
+ .../ABI/testing/sysfs-class-power-ltc4162l         |   2 +
+ Documentation/ABI/testing/sysfs-class-power-mp2629 |   2 +-
+ Documentation/ABI/testing/sysfs-class-power-rt9467 |   2 +
+ Documentation/ABI/testing/sysfs-class-power-rt9471 |   2 +
+ .../devicetree/bindings/power/supply/battery.yaml  |   3 +-
+ .../devicetree/bindings/power/supply/bq27xxx.yaml  |   4 +-
+ .../power/supply/stericsson,ab8500-charger.yaml    |  76 +++-
+ Documentation/power/power_supply_class.rst         |  23 +-
+ drivers/power/reset/keystone-reset.c               |   3 +-
+ drivers/power/reset/macsmc-reboot.c                |   4 +-
+ drivers/power/supply/Kconfig                       |   1 +
+ drivers/power/supply/ab8500-bm.h                   |   8 +-
+ drivers/power/supply/ab8500_bmdata.c               |   3 +-
+ drivers/power/supply/ab8500_btemp.c                |  30 +-
+ drivers/power/supply/ab8500_chargalg.c             |   9 +-
+ drivers/power/supply/ab8500_charger.c              | 406 +++++++++++++++++=
++---
+ drivers/power/supply/ab8500_fg.c                   | 181 +++------
+ drivers/power/supply/axp20x_ac_power.c             |   3 -
+ drivers/power/supply/axp20x_battery.c              |   3 -
+ drivers/power/supply/axp20x_usb_power.c            |  50 +--
+ drivers/power/supply/bq24190_charger.c             | 101 +++--
+ drivers/power/supply/bq24257_charger.c             |  43 ++-
+ drivers/power/supply/bq2515x_charger.c             |  15 +-
+ drivers/power/supply/bq25630_charger.c             |  84 +++++
+ drivers/power/supply/bq256xx_charger.c             |  96 ++++-
+ drivers/power/supply/bq257xx_charger.c             | 125 +++----
+ drivers/power/supply/bq25890_charger.c             |   2 +-
+ drivers/power/supply/bq27xxx_battery.c             |  24 +-
+ drivers/power/supply/bq27xxx_battery_i2c.c         |   4 +
+ drivers/power/supply/charger-manager.c             |   2 +-
+ drivers/power/supply/cpcap-charger.c               |   4 +-
+ drivers/power/supply/cros_charge-control.c         | 186 +++++++++-
+ drivers/power/supply/da9030_battery.c              |   2 +-
+ drivers/power/supply/generic-adc-battery.c         |   5 +-
+ drivers/power/supply/gpio-charger.c                |   5 +-
+ drivers/power/supply/intel_dc_ti_battery.c         |   2 +-
+ drivers/power/supply/ltc2941-battery-gauge.c       |   6 +-
+ drivers/power/supply/ltc4162-l-charger.c           |  56 ++-
+ drivers/power/supply/max17042_battery.c            |  28 +-
+ drivers/power/supply/mm8013.c                      |   1 +
+ drivers/power/supply/pf1550-charger.c              |  32 +-
+ drivers/power/supply/power_supply_core.c           | 110 +++---
+ drivers/power/supply/power_supply_sysfs.c          |  20 +-
+ drivers/power/supply/qcom_battmgr.c                |  53 ++-
+ drivers/power/supply/qcom_smbx.c                   | 113 ++++--
+ drivers/power/supply/rt9467-charger.c              |  54 ++-
+ drivers/power/supply/rt9471.c                      |  54 ++-
+ drivers/power/supply/s2mu005-battery.c             |   4 +-
+ drivers/power/supply/sbs-battery.c                 |  11 +
+ drivers/power/supply/sbs-charger.c                 |   4 +-
+ drivers/power/supply/smb347-charger.c              |   4 +-
+ include/linux/power/bq27xxx_battery.h              |   2 +
+ include/linux/power_supply.h                       |  18 +-
+ 54 files changed, 1566 insertions(+), 568 deletions(-)
+
+--bw5hswutkyqd2qag
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmrfhV0ACgkQ2O7X88g7
++pqsJA/+IyBcvqAxPLwmWikOcPItSgyJan8EeZei/qous06suzUOVIIUdRhstuno
+kLR86W5Cj02qN8V72/eTCZSwxvOZ6Y3b/WZYBgxi/bOlNMjN4BZqshPVqntplfxc
+N2eklVBVbHEAqUGxveyCcsT6zd0K7YZHPURjCrNL59KUDbm3/GwLOIOvN40TD6uW
+t+W0ukQGkof+QHBRLF9hHgOtigrLOYm85Ax0gX1c+hEXmZ5WijVCQuiYmjaPnjdm
+VyWGbCIWvDr34/+vz/MnkLjbJ8QXDSX6I5In8/qrRC0Z3K25NYaMQBPSP6J4dZpX
+Mn92+hY3ZjfJXhFclTJ0vxC/Vqay0SxhLPb2b1eXUZ4X4gp43C0TzzySQQseGMoz
+DjHvtz6JQGweYIiPQ1zfW7TWHMkZoKrQjV51ECBcRjrlVjWxnR+3baeo0bqXN9Wk
+LQ3Egq3I1XiLw9vS4Y13/sENwGXpgt11YM2WS9CUp+bLUeOag61CMr0t034iLSRI
+yyXYhALq1kGUFw3wN3iY3+hTGnM9pvS2xBxMrAmj6akqQ+K1PnM7bs8fVNI2yzeQ
+TJv+X/9mFxK+AgCfry+ZoMZ8untJJISXRtLK3zkG/SDtjzsD9yby6m/MloWXC3CT
+2TFrKfZSgzwHp7sfe1yv5ayyRnElZBndZ1xyYJj5yxtxi4Zy7V8=
+=0mhb
+-----END PGP SIGNATURE-----
+
+--bw5hswutkyqd2qag--
