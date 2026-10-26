@@ -1,105 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793017532;
-	b=p+9XU26gk1pKH0XMfbXqOsa5qcDo+adncS6Qr6XlWXI1TYFZ83HA33Jw8khPPjGjBhjO
-	 wvKJDctvZpa5uSHLqYjCoGi26rfpm3saiwsGec4NezSSp7+jGBliQsB8uKRGI8Tp5aoko
-	 o1aLge7WvX/BIHshB2C9LfChSdT2TQawZtP8LkcU6qhwM9y0xSIvnkAtEnaKsv9xKShJp
-	 qAFPpm+C9pAol5dWzH8b03xq+PjOCQAMuaXoloxSvJ482zuON/p2/rFxdDVU3KyoyBRbO
-	 NQ1FsZDLiCxAgQynfnw9xSiFTcjrZbqhuNobA4IzC/axQDjj1XX9wfdvRjb65cXEYUA==
+	t=1793017563;
+	b=XZRkYoGiYw8LoGsEgKpFFktjF/J9g0Rfm7qrQklZwCUog4FFOPDgzwK+ritXu80rGTJZ
+	 BXHA3FcEaBmQF0Vxc0jwhwBrFrRWm/sfi1QlX0u8pFFZTyDqJofHoIWKowiv14WZml7pt
+	 HSPonA9y+DA4ByxRZZ4gAGySTM0wZZXSj/jbdLmfCOMlANPVHH+PL9CpBWy+ymKhGHueg
+	 ard9AR4X3iFMtIOkNzaLUl3qhFcLsz7w/eQPMbIraG3N+jlyPbTl7tG/yajiFXyVVQrp+
+	 VFxugRcRwxuaZkMT8wOtHhgwQilN1yeANw0vw6U4AEOPZ4Ra+uegL34HdfcWv0JwB/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793017532;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=Uy/PqV0xn8AdfJOF2rmqxMZ7uFIic9NZvt40QP1514k=;
-	b=K42Zn369gXbFoMceyVPOxTDUpch0/J7oug6q72oi4ZQ+B1LHCluSSo5BpeKLz9rK1k6b
-	 rhv8HpJilQm2Y5osCwh4Kamk9A4GwRsMFvP0GNMNs8ndlpiXGx1FxzxudcdNN3GMlTbQs
-	 V6xMtVjEfzIR/uW0KykHCQdCsA+tRMP2JcybQRfIOgSTX8haArC04GRCu66clbeaB0mWF
-	 W58lDREs1NdgoT4MDDz2MIFrWL82VaC+siamxtAtaEjR2XrsFjUzGsJvtlPsNjcJs4ZKH
-	 9eAt8C3prMDRM73HippTCzc/QyPyUrfzU4YMi0B56+OHbxQBi4VTk954KdF2CLF9YCA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793017563;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=G8xQcDH2otxxYZLzgFmvvHPotcztln45z2AqQl3MVAo=;
+	b=C4l0p2L2c6oZcqigE1a13aK0fnS2klMlRoy8PzB/bcTj0xHGwifSScEtM3NlzQt2ZWr9
+	 lRgy0lBkCd08IYEpH3JOBZUgGie/37NYujdJZvUvUrLlC3Yw4aaZcbK0ksP/zOY8s7njf
+	 5pK03AVZRKcLxaurEXi1ZXMEkHarQBBuG1mxDK5sG4DUuY3oEgQuC9zgts9+qmbIVJ2Iv
+	 eWf4GjtqtoF2tBV4GGyzZStmOnRqg7uulV4ZkMCf05AVDYLBkvL3R0E99nVcWU54Sr09k
+	 vtEIM3+KaEKpfhvLBZu2VdJGMzZz9imFRTh7V/4O8wHqwNF6zC0/+uLY/JlCrHt4mAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=WPjPMV2G;
-	arc=none smtp.remote-ip=209.85.217.42
-Received: from mail-vs1-f42.google.com (mail-vs1-f42.google.com [209.85.217.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F120C606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:25:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F120C606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=jXpba3B5;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D53F7606A31B;
+	Mon, 26 Oct 2026 12:26:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D53F7606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=WPjPMV2G
-Received: by mail-vs1-f42.google.com with SMTP id ada2fe7eead31-7ce6cb4c6faso66688137.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 05:25:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793017531; x=1793622331; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Uy/PqV0xn8AdfJOF2rmqxMZ7uFIic9NZvt40QP1514k=;
-        b=WPjPMV2GzhWEE5rB6rxz833ehsMAXDta3sOoZVRktCEdyknFwVsUHRtDGVizYRxiUF
-         A5aK+EQBPpgFkVgArRFSWn0A95GZvt2FzhgPqRdIUp2Ox1s9tJ6wVnGUjO0+IR3STb2G
-         oWcriSEJAIOUIoGa6UWmJJ5waV1c8RQ/ha7agfcknGH2LM2FJoa0fmpQaY8nNAVRystk
-         rECssJkyILd7Ze4hFYVNaD/uWDd0YbGMulbZN3CyIH+BWXWfaQcSpG2HtD6Huw7A14dP
-         u3Tp8g7XGn6Nhr3GiaXIhcrwkJttjeVmjSJxCITht07b4nxh9VScxAO/mbTQmLpJKGx+
-         z0UA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793017531; x=1793622331;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Uy/PqV0xn8AdfJOF2rmqxMZ7uFIic9NZvt40QP1514k=;
-        b=2FwzaVuU4ROyLP1EF7QN1fnsgc9lSPNX3StTNOrVhHgZ1UqyGvUO48cDKqXNNjAKwn
-         NFVxhcqyBO1Wm395mIecifSfmv42i/7pDgLhsPiZaKufBNzSg1nmLs5ixMufHJ89s+qN
-         oH28gIoUxnqvgdNxxNbgNQKKjUVHmeMtlvSp2F3lzePLmPM3fGGoR/qf9b3AykdwMgW9
-         dige0sq5RvjFAUzC71fjhsJ8pTKuEUgOc+6B0jpM/dCirTszqib/SaT2rvLWZGu6Rwq4
-         4EgypQIsGJhqfKV2zDsV6y2BYj1WjLGiBs9Ca2tV2PGwl6//pDbNSxvn1NFHXIMVCghg
-         PLlQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwVXCY5Ny/NqzMSvVI/knIztfko3pEBevWUhdc/rRSwgARf8R295DVnvIjMSlAloDbYCin8iwrmCUtrB5I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKXvVYrQ1eP31VYK/YIPeQEtu5FGurdXP8WOZTTYUbv3ygqE2+3
-	dUl3y+5FJ8vHBexWItRSPLJPIVnOfPqYTltLDKQ7MzHCfCvlxYzCNxA2
-X-Gm-Gg: AYBFou3k4APxlp2ZdfAYWaEjtHVsSnnHT5Lklqyzz0/O5YDqiIpRgh5mLVhIo7AUm8W
-	uGoJ1S7maXw/3OY28qbhaXVVyS9BPoubkBfIEb2vOumLv6mytx2BzHNSAbpSSI/Irnq45QdDkjS
-	vSM/OAY2iSXSDV2rRvRtxeZ2QkEL7h0wCwiULJs4OaFxIhCFYo/cWhQhTSOKq2BrQ1bvbTrJKkv
-	7EEylDx5vS607d81mVUDRs9GVXaU1fahZhYNrqZjTHwLEN9yukb5imqtdQa1OP8jiVbeOH9uhMQ
-	GJPh5wBDk44mf4KwIGdG7onac3Hbc1oxz4N6xJlz+BA8HVcOwdKzVVZWWEFpeG6PoKVkGJRP2Ed
-	SOZ1tELpo8co2Wax7bi0Q0Pet1iUHUOSnvH6SfPXvwc9umzPZ98K0YkyVfOpHrT+/wFy+WzaphL
-	wDHDYegMcBqIatiVUz183ODKxt1iz0IfZqL1VL9uc+RmS9MGWBAcDFcQ+lFqA3qulz0NduvkG6m
-	FifWO6FopubwJmTvJrXfpZh5onY3iICGiVEVA99NsUUmekEL4RE9gW8lVxObA==
-X-Received: by 2002:a05:6102:604e:b0:7cc:1b19:9258 with SMTP id ada2fe7eead31-7ce5ca1e48fmr1995133137.3.1793017530653;
-        Mon, 26 Oct 2026 05:25:30 -0700 (PDT)
-Received: from leonardoc-nb ([67.159.246.222])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9910e7b7069sm8121766241.3.2026.10.26.05.25.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 05:25:30 -0700 (PDT)
-Date: Mon, 26 Oct 2026 09:25:20 -0300
-From: Leonardo Costa <leoreis.costa@gmail.com>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	Leonardo Costa <leonardo.costa@toradex.com>
-Subject: Re: [PATCH v2 3/3] ARM: dts: imx6q-apalis: Add VGA overlay
-Message-ID: <wancrsxcem5uep5oy5pnw5prewefqah7drmhiu5wrq3ctykltl@akwvtqbebblb>
-References: <20261019-v2-apalis-imx6-enable-vga-v2-0-ef6a3a780472@toradex.com>
- <20261019-v2-apalis-imx6-enable-vga-v2-3-ef6a3a780472@toradex.com>
- <atZxhWaUWthEHkti@SMW015318>
- <lozimedmt3h7v6odvp4svvmatvk7726a4ztn3j7ft44oto7p5p@dmrudrmzyz3s>
- <ateQWqoTtXSBSBvm@SMW015318>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=jXpba3B5
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D037428C7;
+	Mon, 26 Oct 2026 05:25:58 -0700 (PDT)
+Received: from e143943.arm.com (unknown [10.57.58.20])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id E9DD33F7B4;
+	Mon, 26 Oct 2026 05:25:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793017562; bh=i2qQHLE0grhenajYcjIhJMoYmoqCSUyZD0j5cnUvM9o=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=jXpba3B5Td/GG+JNUHPNpT5ECro24BKMrW/Pidl8gZNO5BAFy5B0eUjTmklhucykY
+	 l74MdKxItGu3cnA7ZA5t3sTa8lLCT7lvd+QuDhgz231qebyh0kRq303T4GMoNe7Luo
+	 o2tPD3Ib4Quz6brmuHdhEa5rXCGWEvv0x9hmSV34=
+From: Beata Michalska <beata.michalska@arm.com>
+To: ojeda@kernel.org,
+	dakr@kernel.org,
+	gregkh@linuxfoundation.org,
+	rafael@kernel.org,
+	aliceryhl@google.com
+Cc: boqun@kernel.org,
+	gary@garyguo.net,
+	bjorn3_gh@protonmail.com,
+	lossin@kernel.org,
+	a.hindborg@kernel.org,
+	tmgross@umich.edu,
+	daniel.almeida@collabora.com,
+	boris.brezillon@collabora.com,
+	work@onurozkan.dev,
+	samitolvanen@google.com,
+	acourbot@nvidia.com,
+	rust-for-linux@vger.kernel.org,
+	driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-pm@vger.kernel.org
+Subject: [PATCH v5 0/3] Rust: add runtime PM support
+Date: Mon, 26 Oct 2026 13:25:42 +0100
+Message-ID: <20261026122551.536381-1-beata.michalska@arm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261026120523.526942-1-beata.michalska@arm.com>
+References: <20261026120523.526942-1-beata.michalska@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,60 +78,115 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ateQWqoTtXSBSBvm@SMW015318>
+Content-Transfer-Encoding: 8bit
 
-Hi Frank,
+Hi All,
 
-On Tue, Oct 20, 2026 at 11:01:30AM -0500, Frank Li wrote:
-> On Tue, Oct 20, 2026 at 07:33:10AM -0300, Leonardo Costa wrote:
-> > On Mon, Oct 19, 2026 at 02:37:41PM -0500, Frank Li wrote:
-> > > On Mon, Oct 19, 2026 at 07:17:16AM -0300, Leonardo Costa wrote:
-> > > > From: Leonardo Costa <leonardo.costa@toradex.com>
-> > > >
-> > > > Add a device tree overlay for the VGA output available on the Apalis
-> > > > Evaluation Board, which is driven from a parallel RGB interface passing
-> > > > through a non-programmable video DAC to a VGA connector, without VESA
-> > > > DDC I2C signals.
-> > > >
-> > > > The non-programmable video DAC consists of a simple resistor ladder that
-> > > > converts the digital 16-bit RGB signal to VGA. The VGA output is gated by
-> > > > an active-low data-enable signal.
-> > > >
-> > > > The overlay is also combined with the various Apalis Evaluation Board
-> > > > device trees to provide ready-to-use DTBs.
-> > > >
-> > > > Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
-> > > > ---
-> > > >  arch/arm/boot/dts/nxp/imx/Makefile                 | 21 ++++++
-> > > >  .../boot/dts/nxp/imx/imx6q-apalis-eval-vga.dtso    | 80 ++++++++++++++++++++++
-> > >
-> > > what's difference with
-> > >
-> > > https://lore.kernel.org/imx/20261019-colibri-imx6-overlays-v1-5-e4d028727382@toradex.com/T/#u
-> > >
-> > > Is it possible share one dtso also?
-> > >
-> > > Frank
-> >
-> > Hi Frank,
-> >
-> > The Apalis iMX6 one needs to set up the connection between the IPU the
-> > LCD interface (endpoints ipu2_di0_disp0 and vga_display_in), and the
-> > Colibri iMX6 one uses a DVI connector instead of a VGA one. Most of all,
-> > the bridge on the Colibri iMX6 doesn't have any control signals, while
-> > this one on the Apalis iMX6 has an active-low data-enable signal
-> 
-> This make sense to use difference dtso to cover it. Is it use name
-> imx6q-ipu-di0-vga.dtso, because this dtso have not boards specific part,
-> which can reuse for other similar hardware? Or we can rename it when reuse
-> happen.
+This series adds initial Rust support for Linux runtime PM.
 
-I think the overlay should be kept as imx6q-apalis-eval-vga.dtso. As it
-currently is, it's easy to identify the hardware it may be used with. If
-another board is added which uses the same interface in this same way,
-we can evaluate if it's adequate to change names for reusability.
+The concept for Rust abstraction gets introduced in the first patch.
+It provides callback registration, PM callback dispatch through PMOps trait,
+scoped request helpers for common runtime PM operations and configuration
+helpers.
 
-Best regards,
-Leonardo
+The abstraction intends to keep the request semantics aligned with
+the C runtime PM core.
+
+Second patch integrates dev_pm_ops into the Rust platform driver abstraction,
+enabling drivers to register PM callbacks with the core.
+
+The last in the series is provided for demonstrative purposes
+(not intended to be an actual merge material).
+
+This has been lightly tested with the Tyr driver.
+
+Based on drm-next.
+
+---
+v5:
+- Added doc comment for `rust_private`
+- Dropped the `RuntimePMState::Unknown` as that was no longer needed
+- Dropped masking the RPM mode in `ResumeScope::release_inner` as that is not
+  necessary and brings in only confusion
+- Fixed the behaviour of `AwakeScope::new` when the `Request::resume` returns
+  `EINPROGRESS`.
+- Note on `RetainScope`: the pairing of:
+  `Request::get_noresume` ->`Request::put_noidle`
+  is intentional to avoid mixing the expected behaviour of `Scope`s
+- Cleaned up all the CONFIG_PM guards
+- Switched the `PMPayload` to use `ManuallyDrop<>` instead of `Option<>`
+- Apply the `PMConfig` only after successfully marking the devices devices PM
+  state
+- Dropped `#[pin_data]` for `RegistrationData`
+- `Registration::new()` is now usafe to with the safety requirement that the
+  `Registration` cannot be mem::forgotten
+- Overall cleanup for attributes and formatting
+- The `platform::Driver` trait is now sized to enable making the DevPMOps an
+  associated constant.
+
+v4:
+- Simplified the PMOps/DevPMOps type model by making the bus adapter an
+  associated type of PMOps, so DevPMOps is now parameterized only by the
+  driver PM implementation type.
+- Added DevPMOpsRef to pass typed, adapter-scoped dev_pm_ops references through
+  bus registration code.
+- Made DevPMOps own the generated dev_pm_ops table and require a static
+  DevPMOps instance for Registration::new().
+- Made the runtime PM payload mandatory.
+- Replaced the PMContext enabled flag with an explicit Disabled/Enabled/Dead
+  state machine to prevent re-enabling through stale PMContext clones during
+  teardown.
+- Updated with_get() to reject NOWAIT profiles in addition to ASYNC profiles.
+- Changed AutoSuspendDelay to i32 to match the C runtime PM API.
+- Renamed RuntimePMState variants to Rust-style names.
+- Dropped the local EINPROGRESS error addition: already available
+- Updated the platform PM wiring and Tyr example to the new DevPMOpsRef/static
+  DevPMOps model.
+- Cleaned up comments, docs, and minor typos.
+
+v3:
+- Dropped macros in favour of plain encoding of the PM callbacks
+- Moved Mode to use kernel::impl_flags
+- Generated PM callbacks, the stored payload, and the device cast
+  are all monomorphized for the same (Adapter<T>, T) pair,
+  with the registration sealing the contract by validating installed dev_pm_ops
+- Platform PM wiring should be type-safe now
+- Tracking runtime enable/disable state
+- Few fixes for issues pointed out by Sami Tolvanen (samitolvanen@google.com),
+  like making the registration teardown respecting the CONFIG_PM settings or
+  fixing AwakeScope for async/no wait calls; Sami is also the person behind
+  adding get_if_active variant (much appreciated)
+- Changed base branch
+v2:
+- Moving away from the old PMContext<T, Dormant/Active> type-state design
+- Introducing an explicit Registration<'a, T> object.
+- PMContext now carries a lifetime and is derived from the registration
+- Callback data is no longer recovered through driver data
+- Simplified PMOps
+- Runtime payload handling change
+- Request helpers slightly extended
+
+
+*** BLURB HERE ***
+
+Beata Michalska (3):
+  rust: add runtime PM support
+  rust: platform: wire runtime PM callbacks
+  drm/tyr: enable runtime PM
+
+ drivers/base/base.h             |    4 +
+ drivers/gpu/drm/tyr/driver.rs   |  110 ++-
+ drivers/gpu/drm/tyr/file.rs     |    3 +
+ rust/bindings/bindings_helper.h |    1 +
+ rust/helpers/helpers.c          |    1 +
+ rust/helpers/pm_runtime.c       |   89 +++
+ rust/kernel/lib.rs              |    1 +
+ rust/kernel/platform.rs         |   32 +-
+ rust/kernel/pm.rs               | 1106 +++++++++++++++++++++++++++++++
+ 9 files changed, 1326 insertions(+), 21 deletions(-)
+ create mode 100644 rust/helpers/pm_runtime.c
+ create mode 100644 rust/kernel/pm.rs
+
+-- 
+2.43.0
+
