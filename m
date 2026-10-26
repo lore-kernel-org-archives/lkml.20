@@ -1,63 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=92.121.34.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793008052;
-	b=G9WSQ8j1fpd3FJOPDj0NkfHR14IVQ0FzI9leAIf7O1W3T41gT5sSHb1Hsb7FfNJ/wOcp
-	 KyTu/z2AQecDY65aLqgyEl1xEC1iuaUeIFQRJUabeQ49q4tcjW4neno8JIaiaEQt+nP8w
-	 qOXwucqTZWWLqnS98mXcpaf2oRqChvIZWBcofmZasIG8iHxcCFx/hprZpMf4nFmJ8AAvm
-	 e8AZ1EYOy6bsp0VdERhYjW+0JD0dRRIAfwBR4P/pyOd3FTdGMZBVP1mK5MVKQBGvzYefH
-	 +qtRVP/hiwrZRQEA5fWdXz0xWHfcB2uYI2+zEBL3otqDeNkym/lY60Hg+REkxLen8VA==
+	t=1793008055;
+	b=cPeUGqFc2vAP3F/auuNSQHVKjr7tvt+wtYVMW6BenoJpk7PavBz9JH9D74yXkblsDWxk
+	 70E2hn4mKA2Qu+z+DpsH9HH4IXHvaizb4E54H/iJEM9402uvezEYnn8LrcDWjPtHlusR2
+	 cP4d2T5nr3WiUxq0aUp2LEN8qbrdIW4Tbe75iGbL70CzH+TT4p1qkN8ngL1Pmyd6SgBfV
+	 +La+2NO0QvZBkGwNFtBNajJrupVJZNu/HYSZzs6O8s1BdE1F1S92HlHE5fY2/8Sfqsz3I
+	 aG8a54T863pvqGRc4j6hO5EN71/9t3q4j3XbN/t4iYb9KvBufDyCxFTjX8wTCzCmpTg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793008052;
-	h=DMARC-Filter:Received:Received:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Virus-Scanned;
-	bh=FwZcDRqY3Jap7dLMReoLtXkcEqUnbrA7ktdDihwA5iE=;
-	b=QVRR1p67TUeHkdkRLYPNgo3/0UmpCdT401aeBhtyu6umQJ7kb2yaaAxhoU/16HpM+btN
-	 ZoiU1FeDJvDKwO+AaT4wBy8bioMQqWJU5/oF5iUY2qwtpLMzLiFiETgTixCHMT7yPtDqE
-	 rglMBkN6fec6sAzuo4Wdpr07+MDVvbUmQfdkgaQ1rsp9ub3rz/zrOuSjM8KjttZeoOOd2
-	 FzZr8ZYPSemL5AlJSgzxTXfMWGMBdji72UdnGqzVNhsOeeLJ0aL3n2cGUuGphUbb/KdeR
-	 vb5BNiURL7xCoYZndfbtIwK7nr7OEXG1vxnGfdAJsnc8Wya3OAfrMT6L3oLNymz05Iw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793008055;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=EvvplJFfhyuyl66C9bJB9eiSNKH9CgBX8ofvcWM2oto=;
+	b=iYt5MI9IrxviGSxLhLjLIWx3ouaiNkunZtUjV5PRPhSwKD3ikeeKZ0r3X88bFL7NUSwy
+	 zKNdt1yx8DCFphMkBFgvQmOx28Ss7fURJKiACFopi0/fhar06AkUFQaYTl6TjiedEEqT2
+	 Mu70Nc5LgdBq8/X7p22HXDxV30ZrWScvhqwthL38ol6RQ6jgvDLQSvLYzxDDMRNQz5qKJ
+	 kSFq6jvS0zG5kJJJpi0C5nMklx0WyD38lVTpMKPPRZKkVFGWnkqMSPHOXjaySL1sVN5Up
+	 RQSsqOZ+Rcpbx6ZKDvY/4m+F+dznK4CkMHqerpkovEbZxNDcILJgLMwHJNDNRwHqn8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nxp.com;
-	spf=pass smtp.mailfrom=nxp.com;
-	arc=none smtp.remote-ip=92.121.34.21
-Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=hYNzNYxN;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=QG+qJitP;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15A27606A326;
-	Mon, 26 Oct 2026 09:47:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15A27606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
-Received: from inva021.nxp.com (localhost [127.0.0.1])
-	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id E76EB200037;
-	Mon, 26 Oct 2026 10:47:24 +0100 (CET)
-Received: from aprdc01srsp001v.ap-rdc01.nxp.com (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
-	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id B252320004C;
-	Mon, 26 Oct 2026 10:47:24 +0100 (CET)
-Received: from lsv03900.swis.in-blr01.nxp.com (lsv03900.swis.in-blr01.nxp.com [10.12.177.15])
-	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id B15DC180006C;
-	Mon, 26 Oct 2026 17:47:21 +0800 (+08)
-From: Lakshay Piplani <lakshay.piplani@nxp.com>
-To: alexandre.belloni@bootlin.com,
-	linux-rtc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	wim@linux-watchdog.org,
-	linux-watchdog@vger.kernel.org,
-	linux@roeck-us.net
-Cc: vikash.bansal@nxp.com,
-	priyanka.jain@nxp.com,
-	Lakshay Piplani <lakshay.piplani@nxp.com>
-Subject: [PATCH v8 2/5] rtc: pcf85363: support reporting battery switch-over via RTC_VL
-Date: Mon, 26 Oct 2026 15:17:09 +0530
-Message-Id: <20261026094712.205214-2-lakshay.piplani@nxp.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261026094712.205214-1-lakshay.piplani@nxp.com>
-References: <20261026094712.205214-1-lakshay.piplani@nxp.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DC53606A334
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:47:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8DC53606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=hYNzNYxN;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=QG+qJitP
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69Q4b9Iw718211
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:47:34 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	EvvplJFfhyuyl66C9bJB9eiSNKH9CgBX8ofvcWM2oto=; b=hYNzNYxNpZUjWKls
+	QvHeOhnNOU2Nm+KKSGOdRsMeYRWFtGso4ZLfC5YrZ9wH6VCKfDVSxMyH0Uk9qE0t
+	ggJU0bFUFTVsdpWtipYHDtwTmjtXNeSHCCqnCgrYwSc22hB8u0HXH8FFbW9/A5xv
+	qPQh2h36K81i2Bxd2AHk4v1W/RI861Olho2RfSPngTiHfaUsDqWAeCtZBMcKEdTO
+	3qM/nZtdagc1K2TlsQmg1eJvC+l2scyn5DUbbCMKzJO+y1rWuKEWHkd6cNblT3vP
+	ME9ZRLZHWFuI+Tadro4UdwyrGDD4+H4Sk+s/PZz1SXmRoQTKmpfC9QLeevokoGEl
+	1uYiqQ==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hhsgssunx-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:47:33 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-92eebb130dcso42773385a.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:47:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793008053; x=1793612853; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EvvplJFfhyuyl66C9bJB9eiSNKH9CgBX8ofvcWM2oto=;
+        b=QG+qJitP858grVQ0VUiOw9QWplLb8jhRSl6LWABCfl5vX6ZR67gW7GhGr4WaOothQ6
+         7b4//Ul6Vpk0Tb0g626q05ryOBIxcY1xrCgqFppc9qLUacIgZlblbWyxZ/+DBz0coQNc
+         FGo+xnOfgg0+b8A+1sPnNIZrIUgzt/pElQi7gs9ISSljJK+bGOW4d4V9w7sRsoM9ZDih
+         Pp+neG5eZFCJSDmOZLCOdcY3admYRdD0P5+l8SSCEVwYmXt8gg18h4lGkkw9yTSHUiMJ
+         eHf97KaP3RuIokwq7zm5MnkjBFB5bRboCcZmkrUuo//eEh1I66PJoK/9rMPfnTHOTKDw
+         Rylg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793008053; x=1793612853;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EvvplJFfhyuyl66C9bJB9eiSNKH9CgBX8ofvcWM2oto=;
+        b=hfua6oW8NYlG1s0MqdiNXyUrSJhdoUxXqw+/dXG+VzGzTLz1p5pMWvXWiJF5lQSo8h
+         waHwa4g2o1A/hgZVQ3u3rr/1dDXdiGJSMlVJ55JQgv7dqfTdzyvCSSWX1LJyzAMfCu3z
+         oA8/ztbLgkBzTNHMaaL3Hy+Gs6Ld4rnsNU2dU2ft3KSF7n3iNkINcM3bZlDYdu5o+ij4
+         067HY1AUH8WIVshaGWSiMeb2hTPxnJvJ7T8EbmH7Iffg8Pvz6MCttJAW9IFIBEJJsiIN
+         KKOd5orP3HXWanMNum4He2Of2YbJKNIuBFCfjTODAiyQZD6GX4C2SBQ0mix3zPzW+LPv
+         E0eg==
+X-Forwarded-Encrypted: i=1; AKwUvBwpb9jyxuB+RNoWkjnNVjfyHUsNx7VDIqtmvnFG+E1iLHJQ+uwOqWfhLP2RlipHUnU/06xWzX//d0U5dOE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK5DHJZqw5+fMeVtCMm4NI1AKokEqIweQpbh6q6iKFVVwbOFhQZ
+	VAZmlNGudn6y6BoPTxGdrsdhph9PKL9t1nTl9gHdHFLvcu6TGlPtjbaCgwjQHRqhNCTEW1/D3dN
+	oZm2a2ZcV3ARnEVEYerqineax5qzUL5CF5bN97Fzl8reh4MdXhRmvOkMT8C6prSR4caA=
+X-Gm-Gg: AYBFou39NvzolX+WaI5yTncY0P7nSn0HInDJKmlFGLP9N1iTzW0NkChPf6a/M+ahtQL
+	kmTtE/ktYfVRs/iPbnWAUPc2p7zpU9NQ1jIGfhousemesOQzpgrzi8gdBfKUvWbskReTFGScyZT
+	LBa4oEWoYMpTucxTSbeAwB0xglHf9WhmZMYFytFzb9wQZlFK+nb8hErlmx0jABo5KhfJsK9J6pN
+	FI2fL6Wu8fiacVuGfqyuaX5psj4+9rSs7Hx0RTpMq9YBRTXfyOdNVVddFBnuH6m/Po1E87HEhBZ
+	EfG4lhwxPt/6rEcuUM4HI5MRmdF8Bj8elIEhFKpRBla8eJ2rBGVsynyagkv7A5OQNpmI/a8LBLI
+	jSQXcLjSCzu1slrdyarHNzA==
+X-Received: by 2002:a05:620a:26e4:b0:93e:6d87:4f69 with SMTP id af79cd13be357-940ef8ec03dmr1009175285a.3.1793008052880;
+        Mon, 26 Oct 2026 02:47:32 -0700 (PDT)
+X-Received: by 2002:a05:620a:26e4:b0:93e:6d87:4f69 with SMTP id af79cd13be357-940ef8ec03dmr1009170885a.3.1793008052401;
+        Mon, 26 Oct 2026 02:47:32 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd64f8b6sm295595766b.48.2026.10.26.02.47.29
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 26 Oct 2026 02:47:31 -0700 (PDT)
+Message-ID: <48d378b8-ca15-4e80-9c99-d4610f6657fb@oss.qualcomm.com>
+Date: Mon, 26 Oct 2026 10:47:28 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,361 +115,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Virus-Scanned: ClamAV using ClamSMTP
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/8] drm/msm/a6xx: Fix GMU shutdown idle check
+To: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+        Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Jordan Crouse <jordan@cosmicpenguin.net>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+        Luben Tuikov <ltuikov89@gmail.com>,
+        Antonino Maniscalco <antomani103@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+        Jie Zhang <jie.zhang@oss.qualcomm.com>, stable@vger.kernel.org
+References: <20261024-assorted-fixes-oct-v1-0-2977f974ddb7@oss.qualcomm.com>
+ <20261024-assorted-fixes-oct-v1-2-2977f974ddb7@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261024-assorted-fixes-oct-v1-2-2977f974ddb7@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDAzOCBTYWx0ZWRfX95SvINPECgXO
+ Jio0mU5Mi5POBMJ4hGqEznyY8BZRIlIQjtT8zVioIZigtg3kxVn75ehaVINQpH7m0CMC48nGxsO
+ pJUzHYaf22HwhKLxP5cuSysux0IJAs8=
+X-Proofpoint-GUID: 4uFjObr-Mm77SOvtrYPs2pH0XKmUkdlL
+X-Authority-Analysis: v=2.4 cv=c+8+0h9l c=1 sm=1 tr=0 ts=6adf21b5 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=TPaDMEC0OJE0i2k_fPcA:9 a=QEXdDO2ut3YA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-ORIG-GUID: 4uFjObr-Mm77SOvtrYPs2pH0XKmUkdlL
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDAzOCBTYWx0ZWRfXz5b669qVDrRY
+ aUQBgfU7Hm3Y//kjXZ8kQWKqzcGwtTD9LPqzZeglx7wirivBIRlvoXa87UR7wIAjbZCKQNKitsF
+ yTD7rLMbsjhPDjUl5/Uf6cqHLJ8iIzci6x5nxNRVzHfrSkMcRDkOzlV0mzXv/gAs6ypJetBzP9D
+ r8MKfP5LsXHoY00sYFgTHqh2RQ0LY8NnWtDCoeS+cFxrX77rm5Y0XEjPlqVMVL0Aj0P00d5T9I8
+ 2B5x0wyn0PXNyR0R3O1nPYke8huJO5Cq/9qMfc5TfWaiz8aPG6IvZ4Kx4jvV/RltHm5U1+3qzuM
+ P4mfzML7AaGNSwynkhiqqxDwHl89aZd2tdpSj+gJm9iAh7UPZtLOASPUclfpFaBEEzxWlpWHylK
+ nzYioYdK//nyeNzx1u+fgxDPUASbECKFP9Eb3GVfm9C/oK4lc4wDsnP9GB1iIpZpCvdxUzH80U2
+ F7YqtJBgAPCWqOisnNg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-26_01,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 lowpriorityscore=0 clxscore=1015 priorityscore=1501
+ suspectscore=0 adultscore=0 phishscore=0 impostorscore=0 spamscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610260038
 
-Report battery switch-over on PCF85263/PCF85363 through the standard
-RTC_VL_* ioctls: RTC_VL_READ exposes the BSF flag and RTC_VL_CLR clears
-it. The flag is cached before it is cleared so it survives re-arming, and
-it is collected from both the IRQ handler and RTC_VL_READ so poll-only
-setups still see it.
+On 10/24/26 12:30 PM, Akhil P Oommen wrote:
+> From: Jie Zhang <jie.zhang@oss.qualcomm.com>
+> 
+> GPUBUSYIGNAHB only indicates GPU hardware busy status and does not cover
+> the whole GPU subsystem. Use CXGXCPUBUSYIGNAHB instead so GMU shutdown
+> waits until CX/GX/CPU busy activity is cleared.
+> 
+> Also, increase the timeout to 100ms to match the downstream driver.
+> 
+> Fixes: 4b565ca5a2cb ("drm/msm: Add A6XX device support")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jie Zhang <jie.zhang@oss.qualcomm.com>
+> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+> ---
 
-CTRL_FLAGS is write-0-to-clear, so a read-modify-write can drop an
-unrelated flag. Add pcf85363_clear_flags(), which writes the complement
-of the mask to clear only the requested bits.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Probe no longer blanket-clears CTRL_FLAGS, so pre-existing events are
-preserved. As the battery-backed registers can hold stale flags across a
-power cycle and storm the level-triggered INTA line, probe masks off only
-the interrupt sources and Alarm2 enables this driver never services and
-clears their flags, and the IRQ handler clears any unserviced A2F/PIF
-flags.
-
-Signed-off-by: Lakshay Piplani <lakshay.piplani@nxp.com>
----
-
-V7 -> V8:
-- No change.
-
-V6 -> V7:
-- Track IRQ acknowledgement failures in the threaded handler and return
-  IRQ_NONE when an asserted source cannot be serviced or cleared, so the
-  genirq spurious-interrupt detector can shut down a permanently stuck
-  INTA line instead of looping forever. Apply the policy consistently to
-  the A1F, battery-switch and unserviced A2F/PIF paths, and only mark the
-  interrupt handled when a source was actually cleared.
-- Use dev_err_ratelimited() on the flag-clear failure paths so an I/O
-  error on the level-triggered line cannot flood the log.
-
-V5 -> V6:
-- Mask INT_WDIE alongside the other unused INTA sources at probe so a
-  battery-backed watchdog-enable left by the bootloader cannot storm the
-  level-triggered INTA line before watchdog support is added later in
-  the series
-
-V4 -> V5:
-- Add pcf85363_clear_flags() for the write-0-to-clear CTRL_FLAGS register
-  and use it everywhere, so a read-modify-write no longer drops flags.
-- Cache BSF before clearing it and collect it from both the IRQ handler
-  and RTC_VL_READ so poll-only setups still observe it.
-- Latch pending events in probe instead of blanket-clearing CTRL_FLAGS,
-  and mask/clear only the unused INTA sources to avoid an interrupt storm.
-- Propagate register-access errors out of pcf85363_collect_events(); the
-  IRQ handler logs them but still acknowledges the interrupt.
-- Serialise the cached event state with a mutex.
-
-V3 -> V4:
-- No changes in v4.
-
-V2 -> V3:
-- Split into separate patches as suggested:
-  - Battery switch-over detection.
-  - Timestamp recording for TS pin and battery switch-over events.
-  - Offset calibration.
-  - Watchdog timer (to be reviewed by watchdog maintainers).
-- Dropped Alarm2 support
-- Switched to rtc_add_group() for sysfs attributes
-
-V1 -> V2:
-- Watchdog related changes due to removal of vendor specific properties
-  from device tree
-  * remove vendor DT knobs (enable/timeout/stepsize/repeat)
-  * use watchdog_init_timeout (with 10s default)
-  * derive clock_sel from final timeout
-  * default, repeat=true (repeat mode)
-- Fixed uninitalised warning on 'ret' (reported by kernel test robot)
-- Use dev_dbg instead of dev_info for debug related print messages
-- Minor cleanup and comments.
-
- drivers/rtc/rtc-pcf85363.c | 205 ++++++++++++++++++++++++++++++++++---
- 1 file changed, 191 insertions(+), 14 deletions(-)
-
-diff --git a/drivers/rtc/rtc-pcf85363.c b/drivers/rtc/rtc-pcf85363.c
-index ccc7834e5759..00f37ffcca26 100644
---- a/drivers/rtc/rtc-pcf85363.c
-+++ b/drivers/rtc/rtc-pcf85363.c
-@@ -14,6 +14,8 @@
- #include <linux/err.h>
- #include <linux/errno.h>
- #include <linux/bcd.h>
-+#include <linux/device.h>
-+#include <linux/mutex.h>
- #include <linux/of.h>
- #include <linux/regmap.h>
- 
-@@ -113,6 +115,9 @@
- struct pcf85363 {
- 	struct rtc_device	*rtc;
- 	struct regmap		*regmap;
-+	/* Serialises access to the cached event state below. */
-+	struct mutex		lock;
-+	bool			bsf;
- };
- 
- struct pcf85x63_config {
-@@ -120,6 +125,15 @@ struct pcf85x63_config {
- 	unsigned int num_nvram;
- };
- 
-+/*
-+ * CTRL_FLAGS is write-0-to-clear, so write the complement of the mask to
-+ * clear only the requested bits without disturbing the others.
-+ */
-+static int pcf85363_clear_flags(struct pcf85363 *pcf85363, u8 mask)
-+{
-+	return regmap_write(pcf85363->regmap, CTRL_FLAGS, (u8)~mask);
-+}
-+
- static int pcf85363_load_capacitance(struct pcf85363 *pcf85363, struct device_node *node)
- {
- 	u32 load = 7000;
-@@ -253,7 +267,7 @@ static int _pcf85363_rtc_alarm_irq_enable(struct pcf85363 *pcf85363, unsigned
- 		return ret;
- 
- 	/* clear current flags */
--	return regmap_update_bits(pcf85363->regmap, CTRL_FLAGS, FLAGS_A1F, 0);
-+	return pcf85363_clear_flags(pcf85363, FLAGS_A1F);
- }
- 
- static int pcf85363_rtc_alarm_irq_enable(struct device *dev,
-@@ -292,9 +306,41 @@ static int pcf85363_rtc_set_alarm(struct device *dev, struct rtc_wkalrm *alrm)
- 	return _pcf85363_rtc_alarm_irq_enable(pcf85363, alrm->enabled);
- }
- 
-+/*
-+ * Latch a pending battery-switch event into the software cache. Runs from
-+ * the IRQ handler and the RTC_VL_READ path, so it is seen with or without
-+ * an interrupt line. BSF is cached before it is cleared so it survives
-+ * re-arming. Caller must hold pcf85363->lock. Returns a negative errno on
-+ * a register-access failure, otherwise the handled flag mask.
-+ */
-+static int pcf85363_collect_events(struct pcf85363 *pcf85363)
-+{
-+	unsigned int flags;
-+	int handled = 0;
-+	int ret;
-+
-+	ret = regmap_read(pcf85363->regmap, CTRL_FLAGS, &flags);
-+	if (ret)
-+		return ret;
-+
-+	if (flags & FLAGS_BSF) {
-+		pcf85363->bsf = true;
-+
-+		ret = pcf85363_clear_flags(pcf85363, FLAGS_BSF);
-+		if (ret)
-+			return ret;
-+
-+		handled |= FLAGS_BSF;
-+	}
-+
-+	return handled;
-+}
-+
- static irqreturn_t pcf85363_rtc_handle_irq(int irq, void *dev_id)
- {
- 	struct pcf85363 *pcf85363 = i2c_get_clientdata(dev_id);
-+	bool ack_failed = false;
-+	bool handled = false;
- 	unsigned int flags;
- 	int err;
- 
-@@ -302,16 +348,108 @@ static irqreturn_t pcf85363_rtc_handle_irq(int irq, void *dev_id)
- 	if (err)
- 		return IRQ_NONE;
- 
-+	if (flags) {
-+		dev_dbg(&pcf85363->rtc->dev, "IRQ flags: 0x%02x%s%s\n",
-+			flags, (flags & FLAGS_A1F) ? " [A1F]" : "",
-+			(flags & FLAGS_BSF) ? " [BSF]" : "");
-+	}
-+
- 	if (flags & FLAGS_A1F) {
--		rtc_update_irq(pcf85363->rtc, 1, RTC_IRQF | RTC_AF);
--		regmap_update_bits(pcf85363->regmap, CTRL_FLAGS, FLAGS_A1F, 0);
--		return IRQ_HANDLED;
-+		err = pcf85363_clear_flags(pcf85363, FLAGS_A1F);
-+		if (err) {
-+			dev_err_ratelimited(&pcf85363->rtc->dev,
-+					    "failed to clear alarm flag: %d\n",
-+					    err);
-+			ack_failed = true;
-+		} else {
-+			rtc_update_irq(pcf85363->rtc, 1, RTC_IRQF | RTC_AF);
-+			handled = true;
-+		}
-+	}
-+
-+	if (flags & FLAGS_BSF) {
-+		guard(mutex)(&pcf85363->lock);
-+
-+		err = pcf85363_collect_events(pcf85363);
-+		if (err < 0) {
-+			dev_err_ratelimited(&pcf85363->rtc->dev,
-+					    "failed to collect events: %d\n",
-+					    err);
-+			ack_failed = true;
-+		} else if (err) {
-+			handled = true;
-+		}
-+	}
-+
-+	/*
-+	 * Clear flags this handler does not service (e.g. A2F/PIF); otherwise
-+	 * they hold the level-triggered INTA line asserted and storm the IRQ.
-+	 */
-+	if (flags & (FLAGS_A2F | FLAGS_PIF)) {
-+		err = pcf85363_clear_flags(pcf85363, FLAGS_A2F | FLAGS_PIF);
-+		if (err) {
-+			dev_err_ratelimited(&pcf85363->rtc->dev,
-+					    "failed to clear unhandled flags: %d\n",
-+					    err);
-+			ack_failed = true;
-+		} else {
-+			handled = true;
-+		}
-+	}
-+
-+	/*
-+	 * If any asserted source could not be serviced or cleared, the INTA
-+	 * line stays asserted; return IRQ_NONE so the spurious-IRQ detector can
-+	 * disable a permanently stuck line instead of looping forever.
-+	 */
-+	if (ack_failed)
-+		return IRQ_NONE;
-+
-+	return handled ? IRQ_HANDLED : IRQ_NONE;
-+}
-+
-+static int pcf85363_rtc_ioctl(struct device *dev,
-+			      unsigned int cmd, unsigned long arg)
-+{
-+	struct pcf85363 *pcf85363 = dev_get_drvdata(dev);
-+	int ret;
-+
-+	switch (cmd) {
-+	case RTC_VL_READ: {
-+		u32 status = 0;
-+
-+		guard(mutex)(&pcf85363->lock);
-+
-+		/* Refresh so a poll-only setup still latches the BSF flag. */
-+		ret = pcf85363_collect_events(pcf85363);
-+		if (ret < 0)
-+			return ret;
-+
-+		if (pcf85363->bsf)
-+			status |= RTC_VL_BACKUP_SWITCH;
-+
-+		return put_user(status, (u32 __user *)arg);
- 	}
- 
--	return IRQ_NONE;
-+	case RTC_VL_CLR: {
-+		guard(mutex)(&pcf85363->lock);
-+
-+		ret = pcf85363_clear_flags(pcf85363, FLAGS_BSF);
-+		if (ret)
-+			return ret;
-+
-+		pcf85363->bsf = false;
-+
-+		return 0;
-+	}
-+
-+	default:
-+		return -ENOIOCTLCMD;
-+	}
- }
- 
- static const struct rtc_class_ops rtc_ops = {
-+	.ioctl  = pcf85363_rtc_ioctl,
- 	.read_time	= pcf85363_rtc_read_time,
- 	.set_time	= pcf85363_rtc_set_time,
- 	.read_alarm	= pcf85363_rtc_read_alarm,
-@@ -412,6 +550,10 @@ static int pcf85363_probe(struct i2c_client *client)
- 	if (!pcf85363)
- 		return -ENOMEM;
- 
-+	ret = devm_mutex_init(&client->dev, &pcf85363->lock);
-+	if (ret)
-+		return ret;
-+
- 	pcf85363->regmap = devm_regmap_init_i2c(client, &config->regmap);
- 	if (IS_ERR(pcf85363->regmap)) {
- 		dev_err(&client->dev, "regmap allocation failed\n");
-@@ -435,17 +577,52 @@ static int pcf85363_probe(struct i2c_client *client)
- 
- 	wakeup_source = device_property_read_bool(&client->dev,
- 						  "wakeup-source");
--	if (client->irq > 0 || wakeup_source) {
--		err = regmap_write(pcf85363->regmap, CTRL_FLAGS, 0);
--		if (err)
--			return dev_err_probe(&client->dev, err,
--					     "failed to clear flags\n");
- 
--		err = regmap_update_bits(pcf85363->regmap, CTRL_PIN_IO,
-+	/*
-+	 * Latch and clear any battery-switch event that occurred before
-+	 * probe (for example while the main supply was off) instead of
-+	 * blanket clearing CTRL_FLAGS, so the cached state is preserved.
-+	 */
-+	scoped_guard(mutex, &pcf85363->lock) {
-+		ret = pcf85363_collect_events(pcf85363);
-+		if (ret < 0)
-+			return dev_err_probe(&client->dev, ret,
-+					     "Failed to latch boot-time events\n");
-+	}
-+
-+	/*
-+	 * Battery-backed registers can retain stale state across a power cycle.
-+	 * A stale asserted flag would storm the level-triggered INTA line, so
-+	 * disable only the interrupt sources and Alarm2 enables this driver
-+	 * never services and clear their flags; leave the managed sources
-+	 * (A1IE, BSIE) and Alarm1 for their own paths to arm. WDIE is masked
-+	 * too so a bootloader-armed watchdog cannot storm INTA before the
-+	 * driver is ready to service it.
-+	 */
-+	ret = regmap_update_bits(pcf85363->regmap, CTRL_INTA_EN,
-+				 INT_WDIE | INT_A2IE | INT_OIE | INT_PIE | INT_ILP,
-+				 0);
-+	if (ret)
-+		return dev_err_probe(&client->dev, ret,
-+				     "Failed to mask unused INTA sources\n");
-+
-+	ret = regmap_update_bits(pcf85363->regmap, DT_ALARM_EN,
-+				 ALRM_MIN_A2E | ALRM_HR_A2E | ALRM_DAY_A2E, 0);
-+	if (ret)
-+		return dev_err_probe(&client->dev, ret,
-+				     "Failed to mask Alarm2 enables\n");
-+
-+	ret = pcf85363_clear_flags(pcf85363, FLAGS_A2F | FLAGS_PIF);
-+	if (ret)
-+		return dev_err_probe(&client->dev, ret,
-+				     "Failed to clear stale flags\n");
-+
-+	if (client->irq > 0 || wakeup_source) {
-+		ret = regmap_update_bits(pcf85363->regmap, CTRL_PIN_IO,
- 					 PIN_IO_INTAPM, PIN_IO_INTA_OUT);
--		if (err)
--			return dev_err_probe(&client->dev, err,
--					     "failed to set interrupt pin mode\n");
-+		if (ret)
-+			return dev_err_probe(&client->dev, ret,
-+					     "Failed to configure INTA pin\n");
- 	}
- 
- 	if (client->irq > 0) {
--- 
-2.25.1
-
+Konrad
