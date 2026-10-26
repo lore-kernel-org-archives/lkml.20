@@ -1,79 +1,131 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793036983;
-	b=DMJ7FQvArYcMwVbF7IXQB9RBmGwkR0BQum+6kSGs1R7cHQUBdr+Wua7h2O5z7G+t+o5e
-	 8k/ITKP6CQNSy6H/qj4ht082CUnminnBQLb64pVnVwFvBu9aV2HcmmI0+ZWdyK8eG243/
-	 Tw9AN2pa29UlDv5rrHjhGOBMCYpcC0MqpUiV51iMUOpil/PdQKWZqJ81l29iLoksyC2kt
-	 VzOy9vqV8cqwRaBnT+gN3UvXiectA79cs1fAw5blx1ul4j6nFxLUP/Q03R8W9kv8OdIow
-	 xMddXPad34d2oRMf3U95BxDXXSuYLWSFbSgVrQqn84RG84nBvYVH9vJsIwlDCfX+uIg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793036983;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=L+qyGH6ySCuV5mqAbs8WF+BRZoRK7QFaEzq6u87HoQ4=;
-	b=B44lcoEEKk6dJoviEMvjCIGxrZGY4RT7YS8sjJMeqY/fhxPaGC9aTEddHdtvEn+bJzyt
-	 GuVkMrbg/qPY/o2V9zZGHcmgl/KS8cvtL+p7OtpaCr/fBCfWFfa/1QtNf7B0j7dhDTpb0
-	 AnDOHimi9vOwe6gq/JV6JG4la4SMEIcgQ5HxXrxHt2OeZf73MQRF0jkeZe3/wDyrMxPCU
-	 HtBa4wi3S8FsyZWPBfwWTvdUizZmSjwWGKEMEZhoLc2/dyPsheKkUd4pCDye5WKFOu3xU
-	 x9FIvfYhBwvESebmUPL+u6A31WEHOyGrG4uRSv9dOgiqmzhHIZieu88Nnl21fBimELw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Wn/DwqQl";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.142
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793036986;
+	b=bu3AlxkabtI/L9gIPD6jRRRRp+jBxV/8+0BPmRJSFdc+t+Ae4RTrayHBsDb9pmuJm033
+	 x1UB/hhMqMi0hSOYT9F+NrZNgMLvTDIsY+3OAlxJF2BNFDzmC6oTuEitPaKf/VrzLvcr/
+	 GXzlgNxKHTFhnkR73pqBdenAgU/0XI9Nr6wNXcnOpxaG5tFAx9FMbQj7N53hzq+9rg6se
+	 EUYEend17K8F0zhDFGpfx8Fetq6FGdIJKDxx3IrBCIU4p6tSX5nwrlj7KKnJdjWEL9Qe9
+	 CZqJI2jhGzaxAq+krugZdc+T3Ge+gf/yc/6B10YvRCIRO4moQ6iN2IZqnEfxckCVDNQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793036986;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=xxV5ov3c0hTKqd9UolE8DYnovGSmzcocUgKkmdnwh3k=;
+	b=pMJOWMsiA4yZaa5Hdm71n0DhIuB+yGh+Wkd7FG2RNROqMkIn+wjfpQZld0rs0oCrRFRt
+	 CNRI4Nzn8GMGrlNKmH++6QDD80kjYG0VzhAAV0O67h31Jkik4u4EusFoVA6I0XWkuRPvz
+	 alI9tfuUwQIZft0+bKesh0IXKU3JfOq+XiHqzQ0xV1jXgftVeGVeNWvZdYfPPqpsLU9nR
+	 c02JcR0me5SvIHmP3mstNCeLQ/VH2UbRJ7tok/vN/ARox+Kc2+ReK/YAcOcNpVw30SOFq
+	 55xZlrn4UEkv/hYamPrpLNFfDFrBy2GiQXV06ijjufnB38TYV3Sa3XOO+7UAma8TXaA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=shutemov.name;
+	spf=pass smtp.mailfrom=shutemov.name;
+	dkim=pass header.d=shutemov.name header.i=@shutemov.name header.a=rsa-sha256 header.s=fm1 header.b=JdL3NJqd;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=jsaKGria;
+	arc=none smtp.remote-ip=103.168.172.142
+Received: from flow-a7-smtp.messagingengine.com (flow-a7-smtp.messagingengine.com [103.168.172.142])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD71D606A31E;
-	Mon, 26 Oct 2026 17:49:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3E8D60A2604
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 17:49:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3E8D60A2604
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wn/DwqQl
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793036982;
-	b=ST5cuH6hNljOiZ4ZoGjz9+ZgsAFD21p79lE3w5M8Gb+XXoL2PNKWIQWVti5+iMmrGU/s
-	 djHXtmMmVOhPyqDWk8TaPgQu88V5WK5tphFOJnJaejBS/Va5dvsf306DasG9VQ8/76mCS
-	 4rGkKtbgyc71d0vUvZRUWtbVsGeUVN64sTdBBrgZQXi8xbCqTj8ipPJ8v5TcY143defsH
-	 ArxHpm87NaUOzArGO7B6N0ZvU10MjvbRYbFEW1cbz8Y9G2UFy+SMMjI8ik897VRwvXz1D
-	 3S9t37VDIk/xIro4p/whOSFxnK/xya5nTn+ps2va+ctbRUYJjomfTccRB5aQ45j9RTA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793036982;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=L+qyGH6ySCuV5mqAbs8WF+BRZoRK7QFaEzq6u87HoQ4=;
-	b=Uodtf3jTvRN+7qyqJHpBJtZ9DuVtZD9Iky7AHE4lHfxbcMVQnFBxA3msxcU/jNioho33
-	 DloYZjbeHxjSqEPi2IALuWn3rgyTHhEaej2TEEuS/J8ekaoWmWPt36Kqa4hA1h7BUjfoG
-	 Hmz7/ufM2rJyJQsQP54bLzvx/ChLJbK6CNMPtPCGeOLVoHFr4CWvpsZ+eTaiLHX8bXU0Z
-	 UK851/2R7iMNRJfEiZSou9St7RK5/PMp7dv2MlJRB/YUstM9qM3I+o9acWAoSoTI/xhya
-	 7SoNhEFnstgo41tRurBaZJAU9Z231iDhEIL5FmgGR71cXVBLaSx+OXvAhGAfw8bcTsw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id CCFED1F01829;
-	Mon, 26 Oct 2026 17:49:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793036982;
-	bh=L+qyGH6ySCuV5mqAbs8WF+BRZoRK7QFaEzq6u87HoQ4=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=Wn/DwqQlOwlOM22vp5B+wz55hAgVFXgQeG+z284mVLGm+49UO886+zEEpQysUt70o
-	 ckjRZ1EoPGEkIFtsLyy1VC5p5caQv5Vr9A33UoECfk3bGhtW2vB5JnSFZ98ARXvLSf
-	 moowr2y1C0DAz3W07h5zGWhZgQ9muLkeAnl8qDGu8YWUQthhjgnZiLBcKFjl5f05HT
-	 ZA8cOn0k5eqTb+ZDJMbTX9bWKP24f/THVAb8uvAQrCNFG4+9JPuaK2BiMYWhnw2eQ3
-	 GhYF9NyaDF9EJYOLoKkmFNmbLvc0aRli+ubFigLKf1Hza2kNgNPw80DmuaI3HzTDvr
-	 OAa02OHgmMHzw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 4CF0144DF5;
-	Mon, 26 Oct 2026 17:49:41 +0000 (UTC)
-From: Ishu Brar via B4 Relay <devnull+patches.brar.si@kernel.org>
-Date: Mon, 26 Oct 2026 23:18:17 +0530
-Subject: [PATCH v3 1/2] dt-bindings: interconnect: qcom: Add SM7250 RPMh
- NoC
+	dkim=pass (2048-bit key, unprotected) header.d=shutemov.name header.i=@shutemov.name header.a=rsa-sha256 header.s=fm1 header.b=JdL3NJqd;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=jsaKGria
+Received: from phl-compute-11.internal (phl-compute-11.internal [10.202.2.51])
+	by mailflow.phl.internal (Postfix) with ESMTP id DBE361380274
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:49:44 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-11.internal (MEProxy); Mon, 26 Oct 2026 13:49:44 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
+	 h=cc:cc:content-type:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm1; t=1793036983; x=
+	1793044183; bh=xxV5ov3c0hTKqd9UolE8DYnovGSmzcocUgKkmdnwh3k=; b=J
+	dL3NJqdbugJRjuL9LjsbKRphw2KicwxMAV+dxpERQY19YmZ6QzhL4ln9wQHwiRfA
+	TnU5tgHVCMuKDz2ydh5yqEc6EV5jCwljkkQj5ZzyPNS3axhN+/hZgOXyZkM/RtCl
+	9H4yepfmeOHHV3GJJdQv6ve8B9gW3kfR3KxjI7e4KDv8mLQVmsJcmR2Lppfijn+t
+	U0bMcyWlTqeZTEcSSfT1blE7VQo0bfWtsnRymicu6qzh6hPxZ3SKxuYefnpAhLyn
+	K5or2rlyWtepue8dI6zJyXApcau2pJxOGCpQFsxmwhXzgQXmXs+W7obSdzuFvJhB
+	ArncCXmZNz1bgx71MLw5g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1793036983; x=1793044183; bh=xxV5ov3c0hTKqd9UolE8DYnovGSmzcocUgK
+	kmdnwh3k=; b=jsaKGriaA692dIgpgEARXfonTPOY41+tEtlzdyhDRdnf0v/lFz+
+	IxIAldbuY99yXj2+uvwHOgBYeG5g2FbmNzgrMSdNjQrdWzYO72La7ZCdUG1f9d9J
+	Af60QpKAvmZ0RHGaWtqd7AiXuoG0sfBjbbg0mrPU4EZ4YR9IOmVFhSc3+nSwNnzS
+	ouQHdvYZsOx4LL9XXeYHdChsXjpNHSbE53VnBXxZFlwuftFZHKE88Ukc6HVdGyl9
+	6nlEbXIzh61dNNA6idTeqYQmheLPlFDf2hj4CxzM5NGSizwEo1XjWs6sPmF1gx50
+	c0KDCCrRBx+TfNBYTIAurgl9KFFzUjhsn1A==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=sign d=shutemov.name a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793036983; d=shutemov.name;
+	mf=PGtpcmlsbEBzaHV0ZW1vdi5uYW1lPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:poMQzOfOblpDEHyS3KqfGayocGYqhunnOSLu+H70MXbRf26
+	NwkQk+c7k0KtMkXwLouhUSfOdqn6PrPn19AutsnFe5W8u1Nj2FFFLBoH2yYRe2ye
+	2gPYk6yVcoMicUN02L5gKEHU3i/oQIXWHczQuFKzvnTh11VSZwQgRkRHN8XEGJeT
+	9OynG+kgg4H80HeGOWGEIwW8ZoI8oBzluEXmhgzUFbANWGegcAAG+ADEs+lXJv46
+	Z7u2GDtQl2/SlzyJWOjucNJK2lwxH32vk2wgJa76DjxG4h/Eipb7ulb93uoh1Ty7
+	/EjlxxtvMwC79/yy76QQKrr8rL9GS/gClwor9Dg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:oAI8CvIbumntInw+4PFy9SOzhfVHaiSI3xBGsLX0Fcc=:cIqzR+dk4dI8U2SGLdBfaB3Z+vbsjVLGPogfgOdxTgQ=;
+X-ME-Sender: <xms:tJLfaiFURCNdynr59obpYBBiVl4V5UzanoXaw9VQTms5MmvDtIuP-w>
+    <xme:tJLfaiezpFzXO-Zfv_74k1daYZBx6nHLGhU7gb5qHt1m95IWKbwRmmHtAaVqg2Wis
+    zafiftWyYeKAGSyT1Kjbi9iIpDJqezGMiLgTiCWhUE99To5FR2lAiWt>
+X-ME-Received: <xmr:tJLfahJkh1-pM4dmfx0_FPH8hg8zgScCWFiPl7YL1n4UUWyyhTGAzxUa80U>
+X-ME-Proxy-Cause: dmFkZTF3TFhuE3wGcZJjUzIyjpcTOyexH41fjQWtbyhLeXHhYokFl+PdzJCSXxGGgJCuOJ
+    dy5xoklUsRtz+csfRFFFJskyhlsSQsto9rVk3Xlz3nETmWH8sqjeYYmCn0LJzkpgO57i5k
+    rdDoyf1u9Kchi7X+0v96xV5zGmpLMOO9JQ5HHJkAv5WxzI0OrT8Sq74zbsPUvq7mGA7rRZ
+    IIwvOGRi06s646S/NkFK+4dyblma9DUxNKJT1uTJkvS+vsg2bD+Upt3/LTu/0HWVZlK0Jj
+    DlFAwQClbZ6XOv6mqbXadmBiTvGlWIFDBKnMCr7YO4yM+t3ktQ/4bZdUK9LFzakP+92+Fm
+    vG79z7HcXs2kjYGMgAzRjuQ0Qg90Hot+Ca0+OaVT98vuHtEbFT0dJOmcOSmfcw/Xw6u2d1
+    ydWX/qnX0spiO/oLJjHsmk+rsjzeachNCfZqYri4OECtaMqBqLsy8GKT4bQbqK5deL+Y+j
+    xz4oi0XTNlD6jG61NGTNYmy4QmHW5t9idNlTTjUXxyjcS9YURryFMnzp27h1BibhDflcz5
+    UY0o1n8SpTQHwQ3/5malhwYKSeSMg8q6/xrtSPPcVMnMpyyR9vsCGY0TTUpc/3e38AVljE
+    CwiXQtNotFjguQ2i5vkeoRsoHb1TyfkFlTP3gRHzl3UveODfQuz8nenQXqlQ
+X-ME-Proxy: <xmx:tJLfarraKcese7WoQH1qripNE2RW3sQ02AnhQpBgIvlz7tnud-QoxA>
+    <xmx:tJLfagazhqAewp0B4A9M3D6fTyn7_VpRNZ0nuifN8YsHYk9-7jyB2Q>
+    <xmx:tJLfahiI7id630K9NmomSvn62flSZaHn2KKrgta1RGySXMbr7guD7g>
+    <xmx:tJLfatrSUI9pQ0K6u_jA0hZM_uWTVUEDYP0jCuf0p5tgifabZsZhnQ>
+    <xmx:t5LfapU-At2geLhbkQFkmFVQe5KK6EYoSm5kLoDw3GYWlWKmcDqAJ0O7>
+Feedback-ID: ie3994620:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 26 Oct 2026 13:49:39 -0400 (EDT)
+Date: Mon, 26 Oct 2026 17:49:38 +0000
+From: Kiryl Shutsemau <kirill@shutemov.name>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Gregory Price <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
+	Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Vladimir Davydov <vdavydov.dev@gmail.com>, 
+	Michal Hocko <mhocko@suse.com>, Hugh Dickins <hughd@google.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Lukas Czerner <lczerner@redhat.com>, 
+	Carlos Maiolino <cmaiolino@redhat.com>, Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+	Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>, Muchun Song <muchun.song@linux.dev>, 
+	Oscar Salvador <osalvador@suse.de>, David Stevens <stevensd@chromium.org>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, William Kucharski <william.kucharski@oracle.com>, 
+	Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, Nhat Pham <nphamcs@gmail.com>, 
+	Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi <nao.horiguchi@gmail.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 13/16] mm/shmem: preserve allocation errors when swapping
+ in large entries
+Message-ID: <at-SpfCdyXq18_Ab@thinkstation>
+References: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
+ <20261026-fixes_shmem-v1-13-703206d5fa0c@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,285 +135,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261026-icc-sm7250-v3-1-aa303226298c@brar.si>
-References: <20261026-icc-sm7250-v3-0-aa303226298c@brar.si>
-In-Reply-To: <20261026-icc-sm7250-v3-0-aa303226298c@brar.si>
-To: Georgi Djakov <djakov@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Ishu Brar <patches@brar.si>
-Cc: linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org, 
- Konrad Dybcio <konradybcio@kernel.org>, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793036977; l=7497;
- i=patches@brar.si; h=from:subject:message-id;
- bh=V8SI39O/5f8JabUuGbywqtG5GhFLOg9lTl9A7yyFsA8=;
- b=uSjhS5j/p+JfClDtUVQo1skYOl7+TbJGXHywKL1tqXC1B/QicOahMW3suTMYhLEAVNorWGkXU
- itUD35oWebrBqBF9baFH652BgI1OYt9FUEfZ5T90Hm6j1ahwlgGi4vv
-X-Developer-Key: i=patches@brar.si; a=ed25519;
- pk=Ds+E23E3ntzjPzuBDyVRkOouclcNI5k75R+N42yJtCk=
-X-Endpoint-Received: by B4 Relay for patches@brar.si/default with
- auth_id=1189
-X-Original-From: Ishu Brar <patches@brar.si>
-Reply-To: patches@brar.si
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261026-fixes_shmem-v1-13-703206d5fa0c@kernel.org>
 
-From: Ishu Brar <patches@brar.si>
+On Mon, Oct 26, 2026 at 10:40:46AM +0100, David Hildenbrand (Arm) wrote:
+> shmem_swapin_folio() adjusts swap to the requested slot within a large
+> swap entry before allocating a folio. If allocation or charging fails,
+> the error path compares this adjusted value with the original entry
+> still stored in the XArray in shmem_confirm_swap().
+> 
+> Unless the index is at the start of the entry, this turns -ENOMEM into
+> -EEXIST even though nothing changed.
+> 
+> The caller retries -EEXIST, so persistent allocation failures can leave
+> the task spinning instead of returning the error.
+> 
+> Restore swap to index_entry on allocation failure so the existing error
+> path checks the original entry. This preserves the allocation error if
+> the entry is unchanged and still retries if it changed concurrently.
+> 
+> Original fix generated by an LLM and sent by Josef Bacik in private.
+> 
+> Fixes: 91ab656ece13 ("mm/shmem, swap: tidy up swap entry splitting")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Document the Network-On-Chip interconnect providers of the Qualcomm
-SM7250 SoC (Snapdragon 765/765G/768G), which are controlled through RPMh
-Bus Clock Managers, and add the header with the node and slave IDs.
-
-Signed-off-by: Ishu Brar <patches@brar.si>
----
- .../bindings/interconnect/qcom,sm7250-rpmh.yaml    |  81 +++++++++++
- .../dt-bindings/interconnect/qcom,sm7250-rpmh.h    | 148 +++++++++++++++++++++
- 2 files changed, 229 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/interconnect/qcom,sm7250-rpmh.yaml b/Documentation/devicetree/bindings/interconnect/qcom,sm7250-rpmh.yaml
-new file mode 100644
-index 000000000000..5de570cda187
---- /dev/null
-+++ b/Documentation/devicetree/bindings/interconnect/qcom,sm7250-rpmh.yaml
-@@ -0,0 +1,81 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/interconnect/qcom,sm7250-rpmh.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Qualcomm RPMh Network-On-Chip Interconnect on SM7250
-+
-+maintainers:
-+  - Ishu Brar <patches@brar.si>
-+
-+description: |
-+  RPMh interconnect providers support system bandwidth requirements through
-+  RPMh hardware accelerators known as Bus Clock Manager (BCM). The provider is
-+  able to communicate with the BCM through the Resource State Coordinator (RSC)
-+  associated with each execution environment. Provider nodes must point to at
-+  least one RPMh device child node pertaining to their RSC and each provider
-+  can map to multiple RPMh resources.
-+
-+  See also: include/dt-bindings/interconnect/qcom,sm7250-rpmh.h
-+
-+properties:
-+  compatible:
-+    enum:
-+      - qcom,sm7250-aggre1-noc
-+      - qcom,sm7250-aggre2-noc
-+      - qcom,sm7250-compute-noc
-+      - qcom,sm7250-config-noc
-+      - qcom,sm7250-dc-noc
-+      - qcom,sm7250-gem-noc
-+      - qcom,sm7250-mc-virt
-+      - qcom,sm7250-mmss-noc
-+      - qcom,sm7250-npu-noc
-+      - qcom,sm7250-qup-virt
-+      - qcom,sm7250-system-noc
-+
-+  reg:
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+
-+allOf:
-+  - $ref: qcom,rpmh-common.yaml#
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - qcom,sm7250-compute-noc
-+              - qcom,sm7250-mc-virt
-+              - qcom,sm7250-qup-virt
-+    then:
-+      properties:
-+        reg: false
-+    else:
-+      required:
-+        - reg
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    interconnect-0 {
-+        compatible = "qcom,sm7250-qup-virt";
-+        #interconnect-cells = <2>;
-+        qcom,bcm-voters = <&apps_bcm_voter>;
-+    };
-+
-+    interconnect-1 {
-+        compatible = "qcom,sm7250-mc-virt";
-+        #interconnect-cells = <2>;
-+        qcom,bcm-voters = <&apps_bcm_voter>;
-+    };
-+
-+    interconnect@1620000 {
-+        compatible = "qcom,sm7250-system-noc";
-+        reg = <0x01620000 0x19200>;
-+        #interconnect-cells = <2>;
-+        qcom,bcm-voters = <&apps_bcm_voter>;
-+    };
-diff --git a/include/dt-bindings/interconnect/qcom,sm7250-rpmh.h b/include/dt-bindings/interconnect/qcom,sm7250-rpmh.h
-new file mode 100644
-index 000000000000..2b1fa23d0a21
---- /dev/null
-+++ b/include/dt-bindings/interconnect/qcom,sm7250-rpmh.h
-@@ -0,0 +1,148 @@
-+/* SPDX-License-Identifier: GPL-2.0 OR BSD-2-Clause */
-+/*
-+ * Qualcomm SM7250 interconnect IDs
-+ *
-+ * Copyright (c) 2020, The Linux Foundation. All rights reserved.
-+ */
-+
-+#ifndef __DT_BINDINGS_INTERCONNECT_QCOM_SM7250_H
-+#define __DT_BINDINGS_INTERCONNECT_QCOM_SM7250_H
-+
-+#define MASTER_A1NOC_CFG		0
-+#define MASTER_QUP_1			1
-+#define MASTER_SDCC_2			2
-+#define MASTER_SDCC_4			3
-+#define MASTER_EMMC			4
-+#define MASTER_UFS_MEM			5
-+#define MASTER_USB3			6
-+#define A1NOC_SNOC_SLV			7
-+#define SLAVE_SERVICE_A1NOC		8
-+
-+#define MASTER_A2NOC_CFG		0
-+#define MASTER_QDSS_BAM			1
-+#define MASTER_QUP_0			2
-+#define MASTER_CRYPTO_CORE_0		3
-+#define MASTER_IPA			4
-+#define MASTER_QDSS_ETR			5
-+#define A2NOC_SNOC_SLV			6
-+#define SLAVE_SERVICE_A2NOC		7
-+
-+#define MASTER_NPU			0
-+#define MASTER_NPU_CDP			1
-+#define SLAVE_CDSP_GEM_NOC		2
-+
-+#define SNOC_CNOC_MAS			0
-+#define MASTER_QDSS_DAP			1
-+#define SLAVE_A1NOC_CFG			2
-+#define SLAVE_A2NOC_CFG			3
-+#define SLAVE_AHB2PHY_SOUTH		4
-+#define SLAVE_AHB2PHY_CENTER		5
-+#define SLAVE_AOSS			6
-+#define SLAVE_CAMERA_CFG		7
-+#define SLAVE_CLK_CTL			8
-+#define SLAVE_CDSP_CFG			9
-+#define SLAVE_RBCPR_CX_CFG		10
-+#define SLAVE_RBCPR_MX_CFG		11
-+#define SLAVE_CRYPTO_0_CFG		12
-+#define SLAVE_CX_RDPM			13
-+#define SLAVE_DCC_CFG			14
-+#define SLAVE_CNOC_DDRSS		15
-+#define SLAVE_DISPLAY_CFG		16
-+#define SLAVE_GRAPHICS_3D_CFG		17
-+#define SLAVE_IMEM_CFG			18
-+#define SLAVE_IPA_CFG			19
-+#define SLAVE_IPC_ROUTER_CFG		20
-+#define SLAVE_LPASS			21
-+#define SLAVE_CNOC_MNOC_CFG		22
-+#define SLAVE_NPU_CFG			23
-+#define SLAVE_PDM			24
-+#define SLAVE_PIMEM_CFG			25
-+#define SLAVE_PRNG			26
-+#define SLAVE_QDSS_CFG			27
-+#define SLAVE_QUP_0			28
-+#define SLAVE_QUP_1			29
-+#define SLAVE_SDCC_2			30
-+#define SLAVE_SDCC_4			31
-+#define SLAVE_SNOC_CFG			32
-+#define SLAVE_TCSR			33
-+#define SLAVE_TLMM_NORTH		34
-+#define SLAVE_TLMM_SOUTH		35
-+#define SLAVE_TLMM_WEST			36
-+#define SLAVE_UFS_MEM_CFG		37
-+#define SLAVE_EMMC_CFG			38
-+#define SLAVE_USB3			39
-+#define SLAVE_VENUS_CFG			40
-+#define SLAVE_VSENSE_CTRL_CFG		41
-+#define SLAVE_SERVICE_CNOC		42
-+
-+#define MASTER_CNOC_DC_NOC		0
-+#define SLAVE_GEM_NOC_CFG		1
-+#define SLAVE_LLCC_CFG			2
-+
-+#define MASTER_AMPSS_M0			0
-+#define MASTER_SYS_TCU			1
-+#define MASTER_GPU_TCU			2
-+#define MASTER_GEM_NOC_CFG		3
-+#define MASTER_COMPUTE_NOC		4
-+#define MASTER_GRAPHICS_3D		5
-+#define MASTER_MNOC_HF_MEM_NOC		6
-+#define MASTER_MNOC_SF_MEM_NOC		7
-+#define MASTER_SNOC_GC_MEM_NOC		8
-+#define MASTER_SNOC_SF_MEM_NOC		9
-+#define SLAVE_MCDMA_MS_MPU_CFG		10
-+#define SLAVE_MSS_PROC_MS_MPU_CFG	11
-+#define SLAVE_GEM_NOC_SNOC		12
-+#define SLAVE_LLCC			13
-+#define SLAVE_SERVICE_GEM_NOC		14
-+
-+#define MASTER_LLCC			0
-+#define SLAVE_EBI_CH0			1
-+
-+#define MASTER_CNOC_MNOC_CFG		0
-+#define MASTER_CAMNOC_ICP		1
-+#define MASTER_CAMNOC_HF0		2
-+#define MASTER_CAMNOC_HF1		3
-+#define MASTER_CAMNOC_SF		4
-+#define MASTER_MDP_PORT0		5
-+#define MASTER_MDP_PORT1		6
-+#define MASTER_ROTATOR			7
-+#define MASTER_VIDEO_P0			8
-+#define MASTER_VIDEO_P1			9
-+#define MASTER_VIDEO_PROC		10
-+#define SLAVE_MNOC_HF_MEM_NOC		11
-+#define SLAVE_MNOC_SF_MEM_NOC		12
-+#define SLAVE_SERVICE_MNOC		13
-+
-+#define MASTER_NPU_SYS			0
-+#define MASTER_NPU_NOC_CFG		1
-+#define SLAVE_NPU_CAL_DP0		2
-+#define SLAVE_NPU_CP			3
-+#define SLAVE_NPU_INT_DMA_BWMON_CFG	4
-+#define SLAVE_NPU_DPM			5
-+#define SLAVE_ISENSE_CFG		6
-+#define SLAVE_NPU_LLM_CFG		7
-+#define SLAVE_NPU_TCM			8
-+#define SLAVE_NPU_COMPUTE_NOC		9
-+#define SLAVE_SERVICE_NPU_NOC		10
-+
-+#define MASTER_QUP_CORE_0		0
-+#define MASTER_QUP_CORE_1		1
-+#define SLAVE_QUP_CORE_0		2
-+#define SLAVE_QUP_CORE_1		3
-+
-+#define MASTER_SNOC_CFG			0
-+#define A1NOC_SNOC_MAS			1
-+#define A2NOC_SNOC_MAS			2
-+#define MASTER_GEM_NOC_SNOC		3
-+#define MASTER_PIMEM			4
-+#define SLAVE_APPSS			5
-+#define SNOC_CNOC_SLV			6
-+#define SLAVE_SNOC_GEM_NOC_GC		7
-+#define SLAVE_SNOC_GEM_NOC_SF		8
-+#define SLAVE_OCIMEM			9
-+#define SLAVE_PIMEM			10
-+#define SLAVE_SERVICE_SNOC		11
-+#define SLAVE_QDSS_STM			12
-+#define SLAVE_TCU			13
-+
-+#endif
+Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 
 -- 
-2.56.0
-
-
+  Kiryl Shutsemau / Kirill A. Shutemov
