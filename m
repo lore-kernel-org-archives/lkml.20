@@ -1,90 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793030494;
-	b=g8viSiXbY2H3sNI+vv4XXjyatkYyAXBhlAJkoize1Q8XuiP3lMj+W8auFc6NsdCJ0M5k
-	 uDRANAs/3i3mEbr5cnda9O0C7MKPymfDN3CPOIFcB7+Qs6n9xUVunWI/ihn6uZkwJQqto
-	 ijBN8o6r+yLi8wEmfKYub4rKbkw+kZCxrty2aPsnUq0RY1K8Bi5fzEAWLWafaHyEpW2D3
-	 jcZGvpY/naCMXyppIqq4uKVRYQUTkgIHVpapJDqdV5LCg7D7N2i7QVHXSmZ3m3/2WeNnb
-	 A3ILI1MDa2949wjiBU+AItKcgA+RcVY9o3fbkWOeU9x7DmuMkxsxJ3SxdxGmh+ohx4g==
+	t=1793030495;
+	b=XPvpChpz4CPiPF7PDeyg4H1ACK7X26TOr2CSG+jFZu9qQegVT9jbvHaeV9+B8S5Flmoy
+	 m5BEBPD5UGzQydHOoVaOr2lOt1lbMu9frIt7/7K7sYGfQhApyla7YdFFSC8OVb3FAre7C
+	 qNBkYTlZlo1RN39cQLy4lSqLCHeAh+Zsgli9x5hkNvTD3TEwELDp6E1IVkMsXegqNg1Ok
+	 mlFirfHn3fRxvHaX0UWWLSx3MZk7oal/fnAEPLlwFebYNJZrRYntcuN1C2plQQe0FLrBE
+	 B6miZxtoLZJqiuH/IIu6dDHqutQS1K8eojHUgjgSw92O5E8ET2weDOTS48pCayv6hmg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793030494;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793030495;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=G5mOJb0RnfSFctotyurw1MWzkVYTqMttYi7YnmnVgyQ=;
-	b=qce5btggZj50Af9f8JEOm4AL2SotnsbcXt63W/tuRCSp4nOmJ3h9L0jkrY1/5/SRXoPw
-	 Zxfhwkwpfl9n/SrbygqOU/wqlvj//lUE84hwheiZUC318TwI3L00O+5/8N6V0z7srEAgK
-	 qTedm6KuVTr1chFcmH05fzN/0L0upHQmZXWYVyQQuaHq2zt5sf8NjlSm3GwUf5Qtqysca
-	 Lk5578nV4oC8xuOqWtqHqA9koBx3tn5tAjhQ6jlpZm/+eBj8iMS0NummegzbWc58xrLi1
-	 gW7cmNQjs6YTaIQ2TYsmXDcxjOhP+ygH/7X0WQpWuvRlg4X4F2y8ob3FKfE+ladqRPg==
+	bh=c6EuVLjw7aLVrQNqvXTXfqYTtqWjy0bjr6R8GsvXIw8=;
+	b=fLeGUtu7eAG9f7fiqiGiVGA/dqe/zJrT8pdLlO/A+piLMri1qZymmeA0mK5KASjHfO9o
+	 iadc2mTWEr6DTkzULAoKzGJETw7ugqY4QCCmvOwATDS43rd+TLYBp9uYsYOFjI+EOFn3Q
+	 XKnu6r6eK+2jFhjQ1nBvq8merEh3buzfFrBkAfLgjCJPemV8d90VwCo2qGYDLowk9vKLe
+	 JSaQwMsO7K4o+4fU2bBIHFwN2BF0ndh8uvwmyRQyFKSScmbqrBjG57nnSRZzY7x6/55Xu
+	 hV8ysz1zkrZ1jZwAvsVdCDSs/bFziSJ4ppvN9WFrik9PesmhawEtXBGJUV53fY2Vcew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=dW3Fc24n;
-	arc=none smtp.remote-ip=209.85.218.46
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b="rciUpn1/";
+	arc=none smtp.remote-ip=209.85.218.44
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA38B606A323
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 16:01:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA38B606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81FFE606A325
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 16:01:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81FFE606A325
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=dW3Fc24n
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c34bff61551so459589366b.2
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:01:32 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=rciUpn1/
+Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c46822eefb6so406775566b.2
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:01:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793030491; x=1793635291; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1793030488; x=1793635288; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=G5mOJb0RnfSFctotyurw1MWzkVYTqMttYi7YnmnVgyQ=;
-        b=dW3Fc24nHwm7RX4RtLNqTM5TYYHXznFabtwjEmnDJBOV0ztb/htbS668pgH+XdCeDb
-         ss9PL8XqeU4mGTspAXLGVRtIE2oPt9TSPKdW9BcEZnPG46g+TA6jB0ogpTd3atRSFWaU
-         ddsrmUeb1fVu4rotrra/pP//4B2YatJB9QUhTqnCj8hYYXGofjUyFtglScfFOP6tFyLd
-         rAsy+t6ehs0dhjvOMxC0EHsbDYLz+2vXS1gdnpEaeCMkserfcwPRuXAO0r7/W6FqxAv5
-         07LJRDKiYFrilduw8Y9WjZldcwhov715zOcrax2BqNa4jRNWYHgucCbMvj0clGub9Sqf
-         p4dg==
+        bh=c6EuVLjw7aLVrQNqvXTXfqYTtqWjy0bjr6R8GsvXIw8=;
+        b=rciUpn1/7Xo7G9njTEVek3Qj3kMcASnP7qFcKPmeSxqzy/u724P5SfiWmOoE6gXvXJ
+         3BYGmxxpueNy0gfq0m4mlwwg6BYEc2DwpROrJEHUwsryDzaS+XZ/X5y4Y7B+sL1+3GBg
+         dqdpX7AC3YFaR8SeknL/u3NAxnLmubfKP9QYAYnPZWb7qBwZEmzr5PdLdXkTl7Z7crHb
+         4Vq6dgXtHl7fgXOITxf57vUaTUtn4BAl+y4AJ4uyIq5SzXNu5L+GlDi4flUQkOr7QQSB
+         XLWo97cL+JBSUfx6chs8W3XsrBqH8j0c7gdR7iNE/LZuVJJ43I94IdxrbDMJudh03FZc
+         84vA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793030491; x=1793635291;
+        d=1e100.net; s=20260707; t=1793030488; x=1793635288;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=G5mOJb0RnfSFctotyurw1MWzkVYTqMttYi7YnmnVgyQ=;
-        b=p+Q6RF8i+V2myC22plQko22OVUyGJL2NXXh3D/QshLjp/JAPfuXnEJntEJxZNnRjPk
-         vEJ7+g1gz3Orj8+cLHu+DyINZRn84qrZI1DPqkPWhxX+oexWeoG4h6tfdntxG0pV99QG
-         yvn3E225o3fJtpL4YOqZKzd1RybFlmWNkxFzQC7YwP55/HxoN32Go6aa1z44ZRJnmeiD
-         wTLrD5VIiRsVFmb/Qn4z9PY9/Hd6+xAIAU3yNzCj1mbY6dQilTGRDHSIISFw9qUL4Ipi
-         H2N1xz6Mn8D5icejmg9NI58jUVZ5435EU9269lEgkptVW9ZJArDnFW0CXSWNZJ41X0s6
-         B6qg==
-X-Forwarded-Encrypted: i=1; AKwUvByOWPPSJO9vrvesDUDA+swHw26xOLuT2/Fv4VXQUmNOQ1axTwKvMjPIbYO1ZKZkCZYTfEq6KK2te2Ac1OU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLA/tRv2UxXdTPIE9YxPCZ2XTp7bDsoBRUrQLSWiHfkxWqiZhI5
-	Yw/MuhGYMba0TjeXtkNTuPcnPj5nILYcOtUq4AFuJ0ttRPGVhb4uRIzX4mmV3t8aoFs=
-X-Gm-Gg: AYBFou37RUEsexeV9eRwu45nXNq7YzA+5wi1gFMp7d5g64rnn2458Dr0jmiIZ2o1JAs
-	S4NVjZ4N58+qHgeTWTcikLQk9UGODPUFH0cmoiy+sP9JM2aODl2Sa8BHm6RX8K3zHLY5EzCXSR1
-	4iAlTCQ1bRJknJTSw/AVUuQCs+Zj8n9hbvH+J0Gm+JHoqJe8HivG9N2D4ZLF0Wa297vFw0LAPW6
-	H6E4Ypex6NhaLrgPAvcPyENIkj4vwnlzc5SQSYbqeXZMa00VgvznsUtak9xiIcScVCt31EQuN71
-	kIWG+dxJAc+7+qMYDLTVZVkr3emTthgJ1kSb21b7ii0WvnTWmhJIXEMXdmsIo7WFqL5BwqrMwGS
-	ko5/7qAdY2SPf1WufWzMoClODNKRV9EAdANtqvEjg9sZS0J4lvDZxYJwObtxHz9rBuwaCZBie9T
-	1mflg8sDzo0R4FyCoNs9NUx21mB5dJcSj8Ky0oYI1kmT1AdLiLRSSXGIW60jQeYsOJ79D5kyvjn
-	u+ayiM8Uw8xZREVCKJpjvvBoYg/4m/eznJEqgml1X41/0dLjoYWVB0n9D4bRYsV5Z8najPzJCRm
-	VBGP7iXy2VuigW17EYzrexMaRbhF6qSYyhBeWVBRjYfHUKAt8yPXLGxgMNmcaZDGDNMKLWW/4Y/
-	qD8IFCT6EYLZY80fw7hW+WBrfrJlNdYcv
-X-Received: by 2002:a17:906:dc95:b0:c34:83c0:b92b with SMTP id a640c23a62f3a-c46bde24eebmr834629766b.23.1793030491260;
-        Mon, 26 Oct 2026 09:01:31 -0700 (PDT)
+        bh=c6EuVLjw7aLVrQNqvXTXfqYTtqWjy0bjr6R8GsvXIw8=;
+        b=sCUynuSW33YDsGitIwFArTc0SOnAINVXB4G521AX7BO6mssgXJgdNsdA1LD6dHmKiw
+         rjU30wFtLvTtqgU2SuA68miXG/5kX+mSkH1eFr6m9LBO3V9eJ/6ujgZnzrcz1IpCXeZS
+         zTblD8u+YO4X4aXYaoTPwETxibVKwnnyG1n5OKoGYv7kylx8RbYXGoIQpCtilT6jwX7E
+         JnaDEpdfmtghuP6Z5PHKzBeOHTsdtlW8wx37pd+pptM46v4X36wDuvrxCWVHIgJnipl6
+         I5Q2xVxi1MWbIBDnQpKFdYshlAOgTq+l1C5yKRa+B4qI5r7Wt6A3dE7YvnAhApEOJ9iZ
+         bbgA==
+X-Forwarded-Encrypted: i=1; AKwUvBxYFug3Snb1OPAA3xnXmryd4lCK/5PoJGoijxw0CR8Ur8MnJzG+rOFOZy6oTmTk5+vXSa1tk+7xP2S6BW8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJp/dl2zkcjpOz0Hlbc2C8OBXe13YkbOfd5VcbctQBRWm+25Y8s
+	EenxEMrlAY7ASIxSZpURp/gCOXZGWnJe4DF4e+qnwer5BSh0bhho9kgbK8oETUUYFQY=
+X-Gm-Gg: AYBFou3oV3Xmrl+9QNACMs5hcEf+e+Hs1ewJxJE7LDfO8B/RcDfByylakunGJwvybcf
+	hklLJIywdy40Sql7tPTwg9iJNOfTAch4/1CeQ2PzlnB+Z9Be4zI13r/Azjh73HYB8s/lttJkN7N
+	/PZa96hN2WwCSBrU3P6ilO2AjM7BVU+f6SNvDMbcxGtrZnOLyY5qvwiYI1ZoLzIaadie4VpbJai
+	SefQ9CGnDKguiLz0AJL3BOWM+d2IKR0cq6FmoFhuoYhj1NIcC0V4PchqW0AnsnAXfALgUwpdGch
+	AwildUjozQPSNMS4GK+oYlZDTSI/IGQtaDdUCV+/w+YziU8Mb5GEaTzg9MPMtu8A8NkSt0ylLs8
+	1nl3wc8MY343j6AIbin4cHQ85/GZGtCPMkSIeuvAMsJ8Cn4buEn5ycMR/nCfVQfdKYHjdrM2nJp
+	S1LLQkq+W/GrNOrAFOUlyXR5JroaszbxX1uqU2P0dfeAWt8nF1IpJvLkErl+BthF/eltKA2fyPn
+	saXtmUjUuSaUh4MmuocNFrkraswqKeUm9Y/XhoskY/fkwKfkdKWGhVTbRmLeWVOiy7WVmrgRZ3n
+	L9OJnxOvIsOaU/hr0/xpDwc6RMFNRL8O2ltt
+X-Received: by 2002:a17:907:6088:b0:c46:9ca9:f524 with SMTP id a640c23a62f3a-c46bde7a7fbmr786701066b.32.1793030487883;
+        Mon, 26 Oct 2026 09:01:27 -0700 (PDT)
 Received: from ta2.c.googlers.com (231.141.38.34.bc.googleusercontent.com. [34.38.141.231])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c49a530f520sm17307466b.23.2026.10.26.09.01.30
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c49a530f520sm17307466b.23.2026.10.26.09.01.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 09:01:30 -0700 (PDT)
+        Mon, 26 Oct 2026 09:01:27 -0700 (PDT)
 From: Tudor Ambarus <tudor.ambarus@linaro.org>
-Date: Mon, 26 Oct 2026 16:01:27 +0000
-Subject: [PATCH 10/15] MAINTAINERS: Use linux-pm mailing list for Samsung
- Exynos ACPM thermal driver
+Date: Mon, 26 Oct 2026 16:01:22 +0000
+Subject: [PATCH 05/15] thermal/drivers/samsung: acpm-tmu: Implement
+ .change_mode() callback
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,7 +95,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261026-acpm-tmu-fixes-v1-10-0637431b7268@linaro.org>
+Message-Id: <20261026-acpm-tmu-fixes-v1-5-0637431b7268@linaro.org>
 References: <20261026-acpm-tmu-fixes-v1-0-0637431b7268@linaro.org>
 In-Reply-To: <20261026-acpm-tmu-fixes-v1-0-0637431b7268@linaro.org>
 To: Daniel Lezcano <daniel.lezcano@kernel.org>
@@ -112,38 +111,160 @@ Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
  linux-samsung-soc@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
  linux-kernel@vger.kernel.org, Tudor Ambarus <tudor.ambarus@linaro.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793030483; l=927;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793030483; l=5675;
  i=tudor.ambarus@linaro.org; s=20241212; h=from:subject:message-id;
- bh=BUTSbzEDMtAp9xedXXWiQmdqZWmXBU0Yaz6LK7Awqpw=;
- b=QC+yB04KHzmX5XUlB+M3WHYVAVTzsEU7atGXSGu9B/dV19AW24NT684VZEvIKwYcRbj6F20Un
- wPF2S4wqf9pBCDVZf1GnUpDmH22JyWeQwySA4zYEGDPNhN/tKZ9uvFY
+ bh=w2ecfEB/xX3PndCX8EcUnYllde5x9JugkBdWgmk2zsc=;
+ b=eRDnPhWbxd6q7jd4dlxppZcodrM59EH+3xuhEo1aKtKeDKGb6bDzFcr34WgVTeS3FyUuFlVDG
+ Ahojv5tTVdQBKBQvdN+e1CXDzcZrHo/4kEqzUqSXDjfuBD2436BRJbC
 X-Developer-Key: i=tudor.ambarus@linaro.org; a=ed25519;
  pk=uQzE0NXo3dIjeowMTOPCpIiPHEz12IA/MbyzrZVh9WI=
 
-List the power management and thermal subsystem mailing list
-(linux-pm@vger.kernel.org) instead of the general
-linux-kernel@vger.kernel.org list under SAMSUNG EXYNOS ACPM THERMAL
-DRIVER.
+Because acpm-tmu did not implement the .change_mode() callback and
+instead enabled the hardware sensor manually after registration, the
+hardware sensor state was out of sync with the thermal core:
 
-Fixes: 05657c7822f2 ("MAINTAINERS: Add entry for Samsung Exynos ACPM thermal driver")
+1. Disabling a thermal zone (e.g. via /sys/class/thermal/thermal_zone*/mode
+   or thermal_of_zone_unregister()) only set tz->mode to
+   THERMAL_DEVICE_DISABLED and stopped software polling, while leaving
+   sensor->enabled true and the ACPM TMU sensor active in hardware.
+   Consequently, crossing a trip threshold still fired the hardware IRQ
+   and ran acpm_tmu_thread_fn(), where thermal_zone_device_update()
+   returned early without updating the trip window. Direct sysfs and
+   hwmon temperature reads via thermal_zone_get_temp() also continued to
+   resume the device and query ACPM over IPC on a disabled zone.
+2. System suspend/resume paths in acpm_tmu_control() unconditionally
+   toggled all registered sensors without checking the thermal zone mode
+   or current hardware state. As a result, acpm_tmu_suspend() issued
+   redundant disable IPC calls for already-disabled zones,
+   acpm_tmu_resume() unconditionally re-enabled zones that had been
+   disabled via sysfs prior to suspend, and suspend error recovery sent
+   redundant enable IPC calls to sensors that had not yet been disabled.
+3. devm_thermal_of_zone_register() enables the zone and triggers an
+   initial thermal_zone_device_update() before returning. Because
+   sensor->enabled was still false during registration, the initial
+   acpm_tmu_get_temp() call failed with -EAGAIN and scheduled a retry,
+   requiring a manual sensor enable and a second
+   thermal_zone_device_update() call in acpm_tmu_probe().
+
+Implement the .change_mode() callback to manage sensor hardware state
+transitions directly through the thermal core and record the requested
+zone mode in sensor->mode. Update acpm_tmu_control() to only toggle
+sensors whose zone mode is THERMAL_DEVICE_ENABLED and whose
+sensor->enabled state differs from the target state. Drop the redundant
+manual sensor enablement and thermal_zone_device_update() call from
+acpm_tmu_probe().
+
+Fixes: 50a2c5d4062a ("thermal/drivers/samsung: Add Exynos ACPM TMU driver GS101")
 Signed-off-by: Tudor Ambarus <tudor.ambarus@linaro.org>
 ---
- MAINTAINERS | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/thermal/samsung/acpm-tmu.c | 59 ++++++++++++++++++++++++++------------
+ 1 file changed, 40 insertions(+), 19 deletions(-)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 0e9fe9c2a39b..6da7c884373a 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -24382,7 +24382,7 @@ F:	include/linux/firmware/samsung/exynos-acpm-protocol.h
+diff --git a/drivers/thermal/samsung/acpm-tmu.c b/drivers/thermal/samsung/acpm-tmu.c
+index 55ee97218f47..69793fce3bf1 100644
+--- a/drivers/thermal/samsung/acpm-tmu.c
++++ b/drivers/thermal/samsung/acpm-tmu.c
+@@ -68,6 +68,7 @@ struct acpm_tmu_sensor {
+ 	struct thermal_zone_device *tzd;
+ 	struct acpm_tmu_priv *priv;
+ 	struct mutex lock; /* protects sensor state */
++	enum thermal_device_mode mode;
+ 	bool enabled;
+ };
  
- SAMSUNG EXYNOS ACPM THERMAL DRIVER
- M:	Tudor Ambarus <tudor.ambarus@linaro.org>
--L:	linux-kernel@vger.kernel.org
-+L:	linux-pm@vger.kernel.org
- L:	linux-samsung-soc@vger.kernel.org
- S:	Supported
- F:	Documentation/devicetree/bindings/thermal/google,gs101-tmu-top.yaml
+@@ -188,9 +189,12 @@ static int acpm_tmu_control(struct acpm_tmu_priv *priv, bool on)
+ 		if (!sensor->tzd)
+ 			continue;
+ 
+-		mutex_lock(&sensor->lock);
+-		ret = acpm_tmu_op_tz_control(sensor, on);
+-		mutex_unlock(&sensor->lock);
++		scoped_guard(mutex, &sensor->lock) {
++			ret = 0;
++			if (sensor->mode == THERMAL_DEVICE_ENABLED &&
++			    sensor->enabled != on)
++				ret = acpm_tmu_op_tz_control(sensor, on);
++		}
+ 		if (ret && !err)
+ 			err = ret;
+ 	}
+@@ -313,7 +317,34 @@ static int acpm_tmu_set_trips(struct thermal_zone_device *tz, int low, int high)
+ 	return ret;
+ }
+ 
++static int acpm_tmu_change_mode(struct thermal_zone_device *tz,
++				enum thermal_device_mode mode)
++{
++	struct acpm_tmu_sensor *sensor = thermal_zone_device_priv(tz);
++	struct acpm_tmu_priv *priv = sensor->priv;
++	struct device *dev = priv->dev;
++	bool enable = (mode == THERMAL_DEVICE_ENABLED);
++	int ret;
++
++	ret = pm_runtime_resume_and_get(dev);
++	if (ret)
++		return ret;
++
++	scoped_guard(mutex, &sensor->lock) {
++		ret = 0;
++		if (sensor->enabled != enable)
++			ret = acpm_tmu_op_tz_control(sensor, enable);
++		if (!ret)
++			sensor->mode = mode;
++	}
++
++	pm_runtime_put_autosuspend(dev);
++
++	return ret;
++}
++
+ static const struct thermal_zone_device_ops acpm_tmu_sensor_ops = {
++	.change_mode = acpm_tmu_change_mode,
+ 	.get_temp = acpm_tmu_get_temp,
+ 	.set_trips = acpm_tmu_set_trips,
+ };
+@@ -463,17 +494,17 @@ static int acpm_tmu_probe(struct platform_device *pdev)
+ 
+ 	for (i = 0; i < priv->num_sensors; i++) {
+ 		struct acpm_tmu_sensor *sensor = &priv->sensors[i];
++		struct thermal_zone_device *tzd;
+ 
+ 		mutex_init(&sensor->lock);
+ 		sensor->group = &data->sensor_groups[i];
+ 		sensor->priv = priv;
+ 
+-		sensor->tzd = devm_thermal_of_zone_register(dev, i, sensor,
+-							    &acpm_tmu_sensor_ops);
+-		if (IS_ERR(sensor->tzd)) {
+-			ret = PTR_ERR(sensor->tzd);
++		tzd = devm_thermal_of_zone_register(dev, i, sensor,
++						    &acpm_tmu_sensor_ops);
++		if (IS_ERR(tzd)) {
++			ret = PTR_ERR(tzd);
+ 			if (ret == -ENODEV) {
+-				sensor->tzd = NULL;
+ 				dev_dbg(dev, "Sensor %d not used in DT, skipping\n", i);
+ 				continue;
+ 			}
+@@ -481,17 +512,7 @@ static int acpm_tmu_probe(struct platform_device *pdev)
+ 			ret = dev_err_probe(dev, ret, "Failed to register sensor %d\n", i);
+ 			goto err_rollback;
+ 		}
+-
+-		mutex_lock(&sensor->lock);
+-		ret = acpm_tmu_op_tz_control(sensor, true);
+-		mutex_unlock(&sensor->lock);
+-		if (ret) {
+-			ret = dev_err_probe(dev, ret, "Failed to enable sensor %d\n", i);
+-			goto err_rollback;
+-		}
+-
+-		thermal_zone_device_update(sensor->tzd,
+-					   THERMAL_EVENT_UNSPECIFIED);
++		sensor->tzd = tzd;
+ 
+ 		ret = devm_thermal_add_hwmon_sysfs(dev, sensor->tzd);
+ 		if (ret)
 
 -- 
 2.56.0.257.gf7497c7d27-goog
