@@ -1,72 +1,77 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793016083;
-	b=pNJLg10wRIyhnsF+K5Q00g4afIYzo9EMpPU5HdvOrkDaZWo5V24z++hO2wU+L5CIzMrL
-	 hT+Qt3HUE+PaCy6IKqzKNSbZBwa6aGqAgud/TZ/KNIHJ7TX+PqRbFrbwBGLWV6VpACH7C
-	 +Deyd9hsRszmf1TVxEenJ7eULg/8H2MhzNjiuPv5fW+5jKtmxhapqcnTfiu5M50EDGnkS
-	 k3rEbc/Z26+50/mV/9QIrM8VtRZtQyXLSTA39joF7kJyntFw6sAprHYTyH57vtjuXdPm2
-	 fdm1gxvwLUGs+wtqTRD8I9q66KRw+0zPdhw9+jHnrIfgxgUo/DS03qiIWNqSHGR1iSw==
+	t=1793016080;
+	b=DU9p7b4td4bbdyNt7o546FM9g6gDlEQuQinxKDlwYo/sHTWH0bRyIP1uvOU+94CDP3L8
+	 q1ox5/tflPOEKefMF8yydaWPqSLMAnItJjhxlqPTffBAi+4zYzvJt7VOsCxiAI+g6GfO2
+	 zzdmjVlddBRmmUmo/0UIJjfQCGStHQnBgmZzCSlz57ZyIexpe4YrEIoavlExhrYwe2JLC
+	 TMVhX4ceuCOLwRUSI24MWW0DJruBtdQUkpXXYItb5YHpRuKd01KDcPIbIt9pBoZve/5FZ
+	 f08OHKvfp+pLR4Wdn4D2Rr73mP7uT1PY3prX4rtFIqIC2jcC0+eeyftSurvtYBgn9BA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793016083;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793016080;
 	h=Received:DKIM-Signature:Received:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:
 	 X-SA-Exim-Mail-From:X-SA-Exim-Scanned;
-	bh=+HC72Y1jKdcbuWDLnQBb8Fp4fKK/OIykYftoe6H0k2o=;
-	b=ZQgY9WUWMMA9TD01wLwMfYLAsuRgEJw23z9HRoKHYo46ZhuRpE5x1PyAQO8nb3NKDMOB
-	 d+dhvO2f+s67gh9qVFxy1HAqO/LEgQrrP1QUji1HcQZOx9V/BirCtOZFQrHijfirSxiJG
-	 f1sj0i5oxebeUgwvdMHfrYTfCmvqmc/IFdf4RMq9o/uKBlv/B46vGXSZQDcpwxqYH3sET
-	 f2RxKjfQv23/CypOkspVmfl3f5bBQ/PsKXb4RDmQgpI4LzGBjNcdG3CuYg7D41/oiX0e4
-	 JNOITrVkrMm7XiC5bNAgjjZlaxHD7QOnV8C9lAsgQy6Lrppl27A1pPj4Tx+Ng/l+7Ew==
+	bh=7jqk4Wusj+dbOg4A9kCrSGLO68/43vHoF4FXQEeCH0I=;
+	b=klQahzyF2l3q0qiZ5IxZ5zisbDgYhtE5mC0vFiugFFvvjpDX2QHsdrnFienD9HqRixv8
+	 GDfZh74qTp+pFo/PBMD/aKEIDMwttAhYHVuncWyLkowFxNQL8m82FOM0DdNts1Np/lDRi
+	 7AuCi+JQXK2wIs7M2+BAUOBW7k5R5nk47RBUGGaxbWu7pJAcAQYIJwC+xAbuYnovZZsdv
+	 BhNxb3i2HsqMbVl1mvlepAJ+WgedjjmfW/ra9VUlwg8zfGJU2un+GXV81xg68a2mp0dFy
+	 lb5kK0xP6fIVgsupCUeFa3Q117JbCaOZzHhbupAPSeSuTVkSPrG3QTKpGuonZGcVvhw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d4w8gOM9;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mqGZjti3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A2C6606A324;
-	Mon, 26 Oct 2026 12:01:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AADC60A2605;
+	Mon, 26 Oct 2026 12:01:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d4w8gOM9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD1751F01825;
-	Mon, 26 Oct 2026 12:01:17 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mqGZjti3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1AEE41F01829;
+	Mon, 26 Oct 2026 12:01:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793016077;
-	bh=+HC72Y1jKdcbuWDLnQBb8Fp4fKK/OIykYftoe6H0k2o=;
+	s=k20260515; t=1793016080;
+	bh=7jqk4Wusj+dbOg4A9kCrSGLO68/43vHoF4FXQEeCH0I=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=d4w8gOM9JmL0XNVTh4Q53d7oRI5ss1U4vYzcbfoJvM8QcKcNnrYW4DDaur8Me2LpX
-	 kqVbb0xenDVMDlPVR++8Qo3VyCYxi9U/YQ7Uob3rdjEUdFa8t/lQpk/WLN5c7p2l4g
-	 F38TxfpzaCnnyLi3vF/Q6N/PdYORpb7hVJhq+ivHCgHfkRWRLbCkv1OuG1L+XbYNGc
-	 7kayykz7VYnhinzVcYyTQa+ddxhRGKK44T7DP/fZJKjKj8QqmGYAqrqhWEcrxZ2ZtE
-	 o1v0N2Pn0tQI8diuCvb5PAKTj4flWbairPg/h/QcYA7jV50ElUkJORWKlLOp2hg0qG
-	 tfTD6SG3Zs3Eg==
+	b=mqGZjti3x9eLYOQqnwLx/WRv/5LOs1rrJEUDXgx7hgVZALUeDD7mDdINyRXzVIbuQ
+	 L7SUTZbMX3eIbEx4jyur3RTA88/7qUIA6InFOJde3klYWVuO3H87+719wLth4Mam7d
+	 xF4pLNndTo43/byerXjx2eNuyxPh8CRZnACt3aHX0Oh20FX9Jn7ZzFUoJfTuvaGE89
+	 fbqDZYA110QxtNNdvYVXKbOAaHBCSenMna1ZM6DMuMiz/4pQ91sReKbRuTKp10d6si
+	 /aR3Gukxe0R1K2oVFjKHBMi1rfdFavUoc7SJy96nNhIKnMl7IW1cwKYIG/tP79B3iI
+	 VOcvUC3/smlWg==
 Received: from sofa.misterjones.org ([185.219.108.64] helo=valley-girl.lan)
 	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 	(Exim 4.98.2)
 	(envelope-from <maz@kernel.org>)
-	id 1xLJO8-00000007Fr6-0u1z;
-	Mon, 26 Oct 2026 12:01:16 +0000
+	id 1xLJOA-00000007Fr6-1mpF;
+	Mon, 26 Oct 2026 12:01:18 +0000
 From: Marc Zyngier <maz@kernel.org>
 To: Oliver Upton <oupton@kernel.org>,
-	Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
+	Sasha Levin <sashal@kernel.org>
+Cc: Fuad Tabba <fuad.tabba@linux.dev>,
+	Mark Brown <broonie@kernel.org>,
+	Joey Gouly <joey.gouly@arm.com>,
 	Suzuki K Poulose <suzuki.poulose@arm.com>,
 	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Andre Przywara <andre.przywara@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Shuah Khan <shuah@kernel.org>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Itaru Kitayama <itaru.kitayama@fujitsu.com>,
 	linux-arm-kernel@lists.infradead.org,
 	kvmarm@lists.linux.dev,
+	kvm@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] KVM: arm64: vgic-its: Fix LPI double mapping and DISCARD
-Date: Mon, 26 Oct 2026 12:00:59 +0000
-Message-ID: <179301587180.2527370.8777107405308568501.b4-ty@b4>
+Subject: Re: [PATCH v2] KVM: arm64: selftests: Skip unwritable ID fields in the failed-run test
+Date: Mon, 26 Oct 2026 12:01:08 +0000
+Message-ID: <179301587204.2527370.7441548835620478409.b4-ty@b4>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261013081646.933312-1-fuad.tabba@linux.dev>
-References: <20261013081646.933312-1-fuad.tabba@linux.dev>
+In-Reply-To: <20261026012128.2270251-1-sashal@kernel.org>
+References: <20261026012128.2270251-1-sashal@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,26 +84,27 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: oupton@kernel.org, fuad.tabba@linux.dev, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, andre.przywara@arm.com, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org
+X-SA-Exim-Rcpt-To: oupton@kernel.org, sashal@kernel.org, fuad.tabba@linux.dev, broonie@kernel.org, joey.gouly@arm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, seiden@linux.ibm.com, pbonzini@redhat.com, seanjc@google.com, shuah@kernel.org, ljs@kernel.org, itaru.kitayama@fujitsu.com, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, kvm@vger.kernel.org, linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
 X-SA-Exim-Mail-From: maz@kernel.org
 X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Tue, 13 Oct 2026 09:16:44 +0100, Fuad Tabba wrote:
-> Changes since v1 [1]:
->   - Dropped the second mapping of an LPI at MAPTI, instead of keeping a
->     doubly mapped LPI out of GICv4 forwarding. (Marc)
->   - Keyed that check on whether an ITE maps the LPI, not on whether its
->     vgic_irq exists.
->   - Added a patch that makes DISCARD remove the pending state. (Marc)
+On Sun, 25 Oct 2026 21:21:28 -0400, Sasha Levin wrote:
+> test_idreg_frozen_after_failed_run() checks that changing a feature ID
+> register after a failed first KVM_RUN is rejected with -EBUSY, and does
+> so for every field of every register in test_regs.
+> 
+> On a host without AArch32 support at EL0, KVM treats the AArch32 ID
+> registers as RAZ/WI: aa32_id_visibility() returns REG_RAZ | REG_USER_WI,
+> and kvm_sys_reg_set_user() ignores the write and returns 0 before
+> set_id_reg() checks whether the ID registers are final. The test then
+> fails on the first such register:
 > 
 > [...]
 
 Applied to fixes, thanks!
 
-[1/2] KVM: arm64: vgic-its: Don't map an LPI from more than one event
-      commit: de81b28f0b83b22163d7d9a9b708d7aa912e0ef7
-[2/2] KVM: arm64: vgic-its: Remove the pending state of a discarded LPI
-      commit: e99ff76f4a02be8542e2c3ecc8843d7339a0200d
+[1/1] KVM: arm64: selftests: Skip unwritable ID fields in the failed-run test
+      commit: a4be8d69698b11d976c122be2d32bb72b8a52809
 
 Cheers,
 
