@@ -1,47 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.216
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793008315;
-	b=uXUvKhW9WM5vEi1lV2isG2Qze2LRrRurNJhQ63pXGrJNCZwFVIZwnG9Jw8EpqP7uUJ99
-	 cXDFEf4S+TpKqqgv59wOMfY6Iygip8cIf4wp2liUCSQUbOfpHU/KTDfAtNMEqhoSNRJTX
-	 BsIrBJn/m5PmF8Yp6uMUh26w3G7DuVUBNJ0N4LncwS64+oOxm6bEYXQkCpckwhWcQ7xS7
-	 WEBfsqD+mAtHUxDJBqukPiFl9az3qpHVJeO3/nAJpL/VMOhsPhbVG40oYGCvTnfb6U/ka
-	 nWX0/uDmKzj9N0nwGwu6b9dNwtvhybwQyxDQSSqkADHFOccffu46s/8klv0/0MVGh+w==
+	t=1793008323;
+	b=Km0QBqLK6S1CkzRuYioW+c/vHNvYOlWe3IAVwxk+4U9iF+yOUW6iXzXyqQOVu0oACSZR
+	 cseBRXNwtXOvDwOt8Om39F32fjOTPazdgj3+soA9xfcye3iGLUo0x3P1zKEg6RTuStCgX
+	 H7cfoUtGEeu0jD1FU5MghmFKwnMsxfC8Xzgk3YIFizx7q9RI4SdMF4vsiFfG9bDCLGQyX
+	 JN2T557GRPBo22G5N0asGmkIl9upuXEWoLPx9E5llVF/OEkgNlzmRcosFLVOBxUHVW0tU
+	 DaOX6u0mom1iM8EV1YWT/fy0P8wemO/KKvh6KoCm3eGtt+8vqzSZ+pU6563bun8vq9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793008315;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=lYPa8kg2EtIwfOZw7CZi0DilOcT4hEy9fRcyMfL076k=;
-	b=Z1KzBmwAeUbQwIVQYU3iA4er/oet/jsEJfNdX1QyqfIev7wrsfp62kTkHt8wubhM/jtA
-	 dR70L/qTupcqPw2xvDrMNYUAsHvEX/RxhhKe06SXFzsEeqRoWZAJn/HOp6ifvV895adg0
-	 QmbNVEAV3mrVupcyn+n3g3Mt6QWKZvsRrNiOGP5w3Bd4Z4tS3TuwmP+sQ9Hf3qGVGHiQq
-	 EPfufAK6gYBlVIKtzF0Kr7JiTQbOvFs7dDyWWU+watYA/Ee6qBvvnr1778KvgJ3YWyOxx
-	 wEHvw1dMDUjjAuXILWxcaT5T5A26B1GsrWUlGH5PtDItKnGXGaZRTVGzSFyMHnePimg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793008323;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=1/hnSVO0qNWPHzymRfeFblNxFqKdYqMKmWvP+gKl0eY=;
+	b=fiEjFHp+98Ju1HBOt3Kc4Yppny8a4JfEXzLuAYahA0YPvVKmkXAQaDXHG4D8JRVdPECQ
+	 HLOUHU6rwcORi/ZT/KkKZbeT8jf/95nzH1LvZ/nbNz2BXcc+H7pPkDV3tnyigElsK1/RW
+	 zKUKkuIWQHRXVbCf+sKrMTgteaqizuy6DWljnLlYuMXerrFUFSL1vv0wckaZHW2dTCkU2
+	 YSSiVdDka1eGODI1qqxm+/OncmMOibvIAZXmWpw6rnjpDRp+qOi9SA5yS+OE134Yik7zZ
+	 4UM6dBX8TnuYASO4pDoEeTnaWdETLjJUHB7lCmKavtsT3Ldj+ZY8TOkjXMWWd3aFMfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SNjygxAU;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=CuqQUOLg;
+	arc=none smtp.remote-ip=113.46.200.216
+Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29682606A31D
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:51:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 495C6606A31D
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:52:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 495C6606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SNjygxAU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96A1F1F01828;
-	Mon, 26 Oct 2026 09:51:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793008314;
-	bh=lYPa8kg2EtIwfOZw7CZi0DilOcT4hEy9fRcyMfL076k=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=SNjygxAUKQsgRdJGwwkDVu6actTZe3YlqOk3+VTB9UT07TKVL0SC3SZnOGZeCr0Rt
-	 oIYgl0c/ZF4m8TGW4iEQ27iHikTPnaGnDGxbny+iuWk37x1Dgr7VzceulskaMmxBaJ
-	 Haq0V0rLxbev+ZMQJOmS+AQLWYH1nPyMPKwW+3Ox64YA4W+mN9HNjirc201upz7/lV
-	 2MVGUv/X0tOJj5TlSmxeTbm94EV3gW0vioHNIpEoGbSncQS9/Xcex/zNEkkI2mJpLX
-	 XjaTU9U9xI6p1HMs/4sXGdtizAXnGpd4huFlpWVpOM6HhipDDOUOzXbDksBCw2Snvf
-	 Py050TJGKoaSA==
-Message-ID: <916c7258-5b2f-438f-b59b-db9dde28889e@kernel.org>
-Date: Mon, 26 Oct 2026 10:51:47 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=CuqQUOLg
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=1/hnSVO0qNWPHzymRfeFblNxFqKdYqMKmWvP+gKl0eY=;
+	b=CuqQUOLguK0FGBBx0r0fJQVdpKAooBNNu1J69jMzFkxc43D2a0tEV29Y6uLrOsp06m6QqE/JP
+	zF0SDL9pHErTXuF0Oo0JdY/cIquSDZRgA5bJmfxkHTcaIHhKmorOIHzhAey+UmiR1yQATUE+39R
+	2neOuihWOQOWT69XxR8wfMI=
+Received: from mail.maildlp.com (unknown [172.19.163.0])
+	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4jCpn353cYz1T4Fj;
+	Mon, 26 Oct 2026 17:51:51 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 8A1E64057A;
+	Mon, 26 Oct 2026 17:51:58 +0800 (CST)
+Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 26 Oct
+ 2026 17:51:47 +0800
+Message-ID: <a7419cfe-f597-408a-a982-f210b4a5be8c@huawei.com>
+Date: Mon, 26 Oct 2026 17:51:47 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,105 +63,223 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] mm/compaction: skip folios containing hwpoisoned
- pages
-To: Yuanhe Shu <xiangzao@linux.alibaba.com>, kaitao.cheng@linux.dev
-Cc: "Huang, Ying" <ying.huang@linux.alibaba.com>, akpm@linux-foundation.org,
- vbabka@kernel.org, linmiaohe@huawei.com, nao.horiguchi@gmail.com,
- ziy@nvidia.com, wangkefeng.wang@huawei.com, tujinjiang@huawei.com,
- mgorman@techsingularity.net, chengkaitao@kylinos.cn, muchun.song@linux.dev,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org
-References: <20260928105805.1215770-1-xiangzao@linux.alibaba.com>
- <20260928105805.1215770-2-xiangzao@linux.alibaba.com>
- <99cbd960-439d-4672-aba9-6b49697db8b3@kernel.org>
- <20260929034123.2705745-1-xiangzao@linux.alibaba.com>
- <331b4e40-8d0c-4333-b2b6-b81e4c4b2e17@linux.dev>
- <877bjowf9i.fsf@DESKTOP-5N7EMDA>
- <20261020071600.3695395-1-xiangzao@linux.alibaba.com>
- <95a5ab94-5d91-4a01-a417-19f27aa91b54@kernel.org>
- <fbd5ae06-b6da-48f6-9c46-188fb6ba9684@linux.dev>
- <bc1b3255-99f7-49c8-bb52-bada6df80f72@kernel.org>
- <23d3756c-1a87-402d-80b4-c838dfc29f4d@linux.dev>
- <9da90d76-031f-4211-b9de-439cbf7bc63d@kernel.org>
- <49966df8-c092-40de-a05a-ff6d69382dd4@linux.dev>
- <e4c3ce3a-c19b-418a-a92e-40e077f1ea63@kernel.org>
- <58cfeba3-a3c0-426e-ba97-8f82da5b1e8d@linux.dev>
- <20261026025747.1432066-1-xiangzao@linux.alibaba.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261026025747.1432066-1-xiangzao@linux.alibaba.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Subject: Re: [RFC PATCH v2 03/10] arm_mpam: resctrl: Do not fail CPU online
+ when domain setup fails
+To: Reinette Chatre <reinette.chatre@intel.com>, <ben.horgan@arm.com>,
+	<james.morse@arm.com>, <Dave.Martin@arm.com>, <fenghuay@nvidia.com>
+CC: <tony.luck@intel.com>, <yu.c.chen@intel.com>, <babu.moger@amd.com>,
+	<fustini@kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>, <patches@lists.linux.dev>
+References: <cover.1792443633.git.reinette.chatre@intel.com>
+ <660ffee2c7d069aed25c2757c51e12b28318bbc7.1792443633.git.reinette.chatre@intel.com>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <660ffee2c7d069aed25c2757c51e12b28318bbc7.1792443633.git.reinette.chatre@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-On 10/26/26 03:57, Yuanhe Shu wrote:
-> On 10/22/26 20:39, Kaitao Cheng wrote:
->> Here are a few subtle corner cases I came up with. They may be
->> extremely unlikely to occur.
-> 
-> Both cases set the flag while the memcpy still succeeds - that is
-> the "how this makes sense" for checking after the copy: a check
-> before it misses them, the recheck after it catches both, and the
-> refusal is the same either way (the data is still good in case A,
-> already bad in case B).  What no flag check, before or after, can
-> catch is corruption whose hardware report lands after the last
-> check; that needs architecture support, as David noted.
 
-Yes. And you really want to avoid reading corrupt data an triggering some
-undesired HW reaction (MCE )etc.
+
+在 2026/10/20 6:07, Reinette Chatre 写道:
+> When a CPU comes online, mpam_resctrl_online_cpu() adds it to the resctrl
+> domains of each resource in use, and sets up a new domain when the CPU
+> is the first of its domain to come online. A failure to set up a domain
+> is returned as the failure of MPAM's CPU hotplug startup callback.
+
+Indeed the code works this way.
 
 > 
-> The migration paths spell out the same placement and races in v2
-> (patch 2, just posted), and the fallback patch ("mm/highmem: refuse
-> to copy hwpoisoned folios in the !copy_mc fallbacks") is posted as
-> well, with the races in its changelog.
+> The CPU hotplug core does not run the teardown callback for a CPU whose
+> startup callback failed, so everything done for the CPU before the
+> failure stays in place: the CPU remains in the domains of the resources
+> that were handled before the failing one, and MPAM's per-MSC state for
+> the CPU is not undone. If the failure happens when MPAM installs its
+> CPU hotplug callbacks during enabling, the hotplug core discards the
+> callbacks, leaving MPAM enabled and resctrl initialized but MPAM no
 
-Sorry, which patches did you post? Do you have a link? Do the supersede
-both patches here?
+By the way, I previously ran into a case during testing where adding the
+"maxcpu" boot parameter caused MPAM enabling to fail.
+
+Link:
+https://lore.kernel.org/all/20261020134239.3921377-6-ruanjinjie@huawei.com/
+
+> longer notified of CPU hotplug. If it happens when a CPU comes online
+> later, the CPU fails to come online.
+> 
+> Setting up a domain only fails if a memory allocation fails or if a
+> class unexpectedly has no component for the CPU. For such rare failures
+> losing a resctrl domain is a smaller cost than failing CPU online or
+> leaving MPAM in an inconsistent state.
+> 
+> Do not report domain setup failures from mpam_resctrl_online_cpu() and
+> leave the CPU without a domain for that resource. Make
+> mpam_resctrl_alloc_domain() return nothing since its failures are no
+> longer reported. Keep adding the CPU to resctrl's default group even
+
+Yes, We now always call resctrl_online_cpu() to add them to the default
+group.
+
+> when a domain could not be set up, since the CPU is online and runs
+> tasks regardless, and resctrl expects every online CPU to belong to a
+> resource group. Drop the warning when a CPU going offline has no domain,
+> since a missing domain is now expected.
+
+It is now valid for the domain to be empty when a CPU goes offline.
+
+> 
+> Only domains that were set up are exposed through resctrl and torn down
+> when their CPUs go offline. When another CPU of the same domain comes
+> online, it sets up the domain again, and if that succeeds the domain
+> does not include the CPU for which setup failed.
+> 
+> Signed-off-by: Reinette Chatre <reinette.chatre@intel.com>
+> ---
+>  drivers/resctrl/mpam_devices.c  |  2 +-
+>  drivers/resctrl/mpam_internal.h |  4 ++--
+>  drivers/resctrl/mpam_resctrl.c  | 31 +++++++++++++++----------------
+>  3 files changed, 18 insertions(+), 19 deletions(-)
+> 
+> diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
+> index 48adc49b833c..d17d7a72dba1 100644
+> --- a/drivers/resctrl/mpam_devices.c
+> +++ b/drivers/resctrl/mpam_devices.c
+> @@ -2249,7 +2249,7 @@ static int mpam_cpu_online(unsigned int cpu)
+>  	}
+>  
+>  	if (mpam_resctrl_enabled)
+> -		return mpam_resctrl_online_cpu(cpu);
+> +		mpam_resctrl_online_cpu(cpu);
+>  
+>  	return 0;
+>  }
+> diff --git a/drivers/resctrl/mpam_internal.h b/drivers/resctrl/mpam_internal.h
+> index 1f86cc158100..84c7adbb1a40 100644
+> --- a/drivers/resctrl/mpam_internal.h
+> +++ b/drivers/resctrl/mpam_internal.h
+> @@ -525,13 +525,13 @@ int mpam_get_cpumask_from_cache_id(unsigned long cache_id, u32 cache_level,
+>  #ifdef CONFIG_RESCTRL_FS
+>  int mpam_resctrl_setup(void);
+>  void mpam_resctrl_exit(void);
+> -int mpam_resctrl_online_cpu(unsigned int cpu);
+> +void mpam_resctrl_online_cpu(unsigned int cpu);
+>  void mpam_resctrl_offline_cpu(unsigned int cpu);
+>  void mpam_resctrl_teardown_class(struct mpam_class *class);
+>  #else
+>  static inline int mpam_resctrl_setup(void) { return 0; }
+>  static inline void mpam_resctrl_exit(void) { }
+> -static inline int mpam_resctrl_online_cpu(unsigned int cpu) { return 0; }
+> +static inline void mpam_resctrl_online_cpu(unsigned int cpu) { }
+>  static inline void mpam_resctrl_offline_cpu(unsigned int cpu) { }
+>  static inline void mpam_resctrl_teardown_class(struct mpam_class *class) { }
+>  #endif /* CONFIG_RESCTRL_FS */
+> diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
+> index b07e5dd895dd..dc442851fd7e 100644
+> --- a/drivers/resctrl/mpam_resctrl.c
+> +++ b/drivers/resctrl/mpam_resctrl.c
+> @@ -1615,8 +1615,8 @@ static struct mpam_component *find_component(struct mpam_class *class, int cpu)
+>  	return NULL;
+>  }
+>  
+> -static struct mpam_resctrl_dom *
+> -mpam_resctrl_alloc_domain(unsigned int cpu, struct mpam_resctrl_res *res)
+> +static void mpam_resctrl_alloc_domain(unsigned int cpu,
+> +				      struct mpam_resctrl_res *res)
+>  {
+>  	int err;
+>  	struct mpam_resctrl_dom *dom;
+> @@ -1631,11 +1631,11 @@ mpam_resctrl_alloc_domain(unsigned int cpu, struct mpam_resctrl_res *res)
+>  	comp = find_component(class, cpu);
+>  	/* class has no component for this CPU */
+>  	if (WARN_ON_ONCE(!comp))
+> -		return ERR_PTR(-EINVAL);
+> +		return;
+>  
+>  	dom = kzalloc_node(sizeof(*dom), GFP_KERNEL, cpu_to_node(cpu));
+>  	if (!dom)
+> -		return ERR_PTR(-ENOMEM);
+> +		return;
+>  
+>  	if (r->alloc_capable) {
+>  		dom->ctrl_comp = comp;
+> @@ -1678,7 +1678,6 @@ mpam_resctrl_alloc_domain(unsigned int cpu, struct mpam_resctrl_res *res)
+>  		}
+>  		if (!any_mon_comp) {
+>  			WARN_ON_ONCE(0);
+> -			err = -EFAULT;
+>  			goto offline_ctrl_domain;
+>  		}
+>  
+> @@ -1694,7 +1693,7 @@ mpam_resctrl_alloc_domain(unsigned int cpu, struct mpam_resctrl_res *res)
+>  		pr_debug("Skipped monitor domain online - no monitors\n");
+>  	}
+>  
+> -	return dom;
+> +	return;
+>  
+>  offline_ctrl_domain:
+>  	if (r->alloc_capable) {
+> @@ -1703,9 +1702,6 @@ mpam_resctrl_alloc_domain(unsigned int cpu, struct mpam_resctrl_res *res)
+>  	}
+>  free_domain:
+>  	kfree(dom);
+> -	dom = ERR_PTR(err);
+> -
+> -	return dom;
+>  }
+>  
+>  /*
+> @@ -1757,7 +1753,7 @@ mpam_resctrl_get_domain_from_cpu(int cpu, struct mpam_resctrl_res *res)
+>  	return mpam_resctrl_get_mon_domain_from_cpu(cpu);
+>  }
+>  
+> -int mpam_resctrl_online_cpu(unsigned int cpu)
+> +void mpam_resctrl_online_cpu(unsigned int cpu)
+>  {
+>  	struct mpam_resctrl_res *res;
+>  	enum resctrl_res_level rid;
+> @@ -1772,9 +1768,13 @@ int mpam_resctrl_online_cpu(unsigned int cpu)
+>  
+>  		dom = mpam_resctrl_get_domain_from_cpu(cpu, res);
+>  		if (!dom) {
+> -			dom = mpam_resctrl_alloc_domain(cpu, res);
+> -			if (IS_ERR(dom))
+> -				return PTR_ERR(dom);
+> +			/*
+> +			 * On failure the CPU is left without a domain for this
+> +			 * resource, which mpam_resctrl_offline_cpu() tolerates.
+> +			 * resctrl_online_cpu() still adds the CPU to the default
+> +			 * group because the CPU is online and runs tasks.
+> +			 */
+> +			mpam_resctrl_alloc_domain(cpu, res);
+>  		} else {
+>  			if (r->alloc_capable) {
+>  				struct rdt_ctrl_domain *ctrl_d = &dom->resctrl_ctrl_dom;
+> @@ -1790,8 +1790,6 @@ int mpam_resctrl_online_cpu(unsigned int cpu)
+>  	}
+>  
+>  	resctrl_online_cpu(cpu);
+> -
+> -	return 0;
+>  }
+>  
+>  void mpam_resctrl_offline_cpu(unsigned int cpu)
+> @@ -1812,8 +1810,9 @@ void mpam_resctrl_offline_cpu(unsigned int cpu)
+>  		if (!res->class)
+>  			continue;	// dummy resource
+>  
+> +		/* The domain may be missing if its setup failed. */
+>  		dom = mpam_resctrl_get_domain_from_cpu(cpu, res);
+> -		if (WARN_ON_ONCE(!dom))
+> +		if (!dom)
+>  			continue;
+
+Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
+
+>  
+>  		if (r->alloc_capable) {
+
 -- 
-Cheers,
+Best regards,
+Jinjie
 
-David
