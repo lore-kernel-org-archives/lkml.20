@@ -1,104 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792992474;
-	b=sZOl+lwV2Wh/2GL/15RO2RsWh/hw4emOCsiYlxBiGqG92DfoZQJZRNapbMylWvcD0cnR
-	 jVA41ksULL0NR13ysiUSyK090btS+EnVPtkuuLXMA/lzojKoG/ZHsf2TrFV512s+GCwAK
-	 I1BK85GJezzMdmuSQUVRvu//Vah8m2i/dlzFP1Guyi5x0VZBDngZw2DXHcDiRhzfHp5Q8
-	 2PZsUDUhArzjggnPYShniOjyHzAoXsEmPNZXntVkjPo0/a5eBZ7A4+w/w2u5Awf37BmwS
-	 hNqb0Uh0A12+BYY9fdAYAiz5A3fzF6PXtYp6PQ/D4AD9NSR7yEa2brefkQ8vrqp+2VQ==
+	t=1792992609;
+	b=RnTlah2kKxNr1AgUu2E9O+Jvem25+Qgm8MSHOGEj3x1i+zipAaWjxGQZrE/ggOvtKPVu
+	 pn7mwdpCIvZw1AQ76lRecdKJVFqbjdLp1T+2POyeRrgLG/NCZpZ2+Gmth7eoeV8kL20Od
+	 mTO+0mgtX4Z49sHxe9b4HysgDn5EfGgliDzszCjp+v89tWjj/esUH+oykY9F166rapVVS
+	 A9eondZWEJO33Tf9QB8ph71+QXKF9weu+Cu3/bWY+hQm7r17tpbfTN/Jgal9lBar9QOKD
+	 UP1E2miLwTD9UdJ+bVX5gRazMjKP6BW57BleSL+i6cDfvef4Duv75xQBVAPHI7ixllQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792992474;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792992609;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=c2vVLfr5r23oMNsvxAvIsVWSucEEuXtAs0YtxOnot1U=;
-	b=u7Et94bOmfEHj0SaDvBhzdUgW6S9EW7DwOT9gmw+Ro/ewGfRhKTNWQHu3Ovlu+VlJFWq
-	 oUPH2PljXxIlG6qvrb0CL//oj0tceiTU87TrdpJ6lZjFa9sOC/grTEaBh1R0HbCyPj5/f
-	 TqXsZSJMfbUuFQRPSBGzB6YJmScwXYn+5ZKKKF0dhp6ACJKiu8HqH7tc7ITk1YQ79R5ON
-	 sfmVSgBc+HWW8B/pxeCEtPJPatDCnmnoR30zm5QHqMOj+myPHQ7Bc4uzAWpTQ6gwdqHjt
-	 s4j3hqWlTxTDMfC3yxXG6tI+Zpyv6+mXQF0Bq4aBrxDcyuqYNbQSyLa/6YmgGlkd9+w==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=6OD8mOSD4xUumfZoJOx4KZDALoWc84UxiNE2jvRNJ8o=;
+	b=xyp2G9OaJidVbT4NoyvuSeyZwioBJNOchq4MQ54CeSoRihzhsgLw5q+CLhEJY9GCeiGq
+	 j1qiZesEVnVpySul6yU2wjfKjj1UsjzEb3MselO3CdQcS19+EXS7cIPt7Pi5zkCQpjOwD
+	 2Zfq1mT7wwhiJEZ4tROx5chX0c6TrBWhSsD9KDykRC6FkLKcX+z9NPlG66MHi+Gi32dEG
+	 AgTW5vAi695ibdu0qoPBYAmyd+uI1Fl2QuZp/lJk3p8L1hJOkpWieAJ5HH6gyAXPtCFmy
+	 ij8XICzE7Ra9riAtaleO2wswTRfFo7pkmTpjJUX8pfiIIcJXNA4b6yWtGJKaOlwm2xQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="jMP/3eHG";
-	arc=none smtp.remote-ip=74.125.82.50
-Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=gthIh1AK;
+	arc=none smtp.remote-ip=74.125.82.174
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E3AC606A322
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 05:27:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E3AC606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CC28606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 05:30:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CC28606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jMP/3eHG
-Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-157fe9d771bso3099662c88.0
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 22:27:54 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=gthIh1AK
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-35943f55c06so3592676eec.0
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 22:30:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792992473; x=1793597273; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=c2vVLfr5r23oMNsvxAvIsVWSucEEuXtAs0YtxOnot1U=;
-        b=jMP/3eHG+EcjoJUjkHbgDNSNscVw1lpaVMGVmlUpSZzj8OH+U3b1U1M2BhE2Mv8I9+
-         vqrrRNa5OA9HhlhBVpqgpBpk+jw8d9HwWsf/blISembtKeT6gaD0G3HT7EacBY1BhFNA
-         QazbKzpgew+ACfErhewIOJ3thbxuc2XrD5GfdKyk8zl6bM+EIWPMksj6qQ3oBrXZOzwC
-         mpWCSIUiPObAEG/CqyHrzXy7Fa4E05tF/kJHXvIHnKYcNxDDGyyKgG36WcNdxV5hs+0E
-         rXurmLsgyIVpwv09sjXTYPzp89m0LKWKukArbhcO9O1hgvfCJNbxYu4tl3umhJy8fGfi
-         dynQ==
+        d=linaro.org; s=google; t=1792992608; x=1793597408; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6OD8mOSD4xUumfZoJOx4KZDALoWc84UxiNE2jvRNJ8o=;
+        b=gthIh1AKAU0A3AJJG069Cbtlgxlem6fGpkULCLsWK1TM7qt0L32vkm4SwAPpsVLD1a
+         Zk8fsxIyOoL0yXA8LNGkT+UWyitP8Hdh3MUB2nhVWvwvTVwYxyfVMdGfYMdqf3Dz+EAl
+         KyCQZM94tCvzVrcKCvLOvEEblmzKBU1nMInRbR4lFBmO3lXdK2Tn3/6U/HxOOm1TMQLp
+         LSoS8W4imx/fQzIYVzdXoML4S/clFhy6X66qFSWkazQ/eFXqIZgWWWFJACbmdvCpl6to
+         RDu0QmQB5lIHpCjEl0QCv1WQmBbWZkSqeD2c4QBmLATFw08ZlqSHWoSpHJ7R+tvJLnIQ
+         SKqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792992473; x=1793597273;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=c2vVLfr5r23oMNsvxAvIsVWSucEEuXtAs0YtxOnot1U=;
-        b=OUPUhW9C41Sh2Mb6cyiGc1IXh5KStsasOgJo2ruTHnY8ysSVtqSZgLzZWiZ3NlhqOh
-         0vHROZ2EOY+MtpMAFdS4Xljf8xpCgy0jmAKuQU5FKQGzA8l/5ZL51dLPJpNjl9+mcys+
-         OKzaRPbvBNoxh9wglj9cTr5dyiujztxNpsH94vvxe5mmJD1XvFZTNNwdyjIrjWXP9EEl
-         K92R4e57w3FDgySYMv6Tpv0jsEDCYaxvYn7DUuAfFf30wKNkAhg46hxbu7V8CE+xVrRf
-         dUg9byVlFVa0N2bW/IqTBlRRVgdXptElj2VH9RF1tNBXGc8nq+dUZQqKpOWkz3uBl6du
-         Qn8A==
-X-Forwarded-Encrypted: i=1; AKwUvBxTSjYa7S5sUzRwTWPn8A4SC39VRF+i0R+kfD2fsBgQf9NsLOTCXJN8tqvrFREq9z3guvqiwd2rwzD1N8w=@vger.kernel.org
-X-Gm-Message-State: AFq9FYImx9wFdrwAwnpT7xCLWMsemYMnRLUdLIpsOqegoMdNBgq5X6A6
-	S4565pVG6TFffv0DYT70coEv4dl7PnfRUxNLVa4kQvxe1zQgymGdf3nB
-X-Gm-Gg: AYBFou2z5TtTFX0lHYvgAp128Z170YXG/L/mTJ8l7WRdQ18Ogu9JdutEjhY2UECLOgC
-	A6qX8Xxssr4Mxk5opD6PNXsOgUhaOH1g2AebN/jj5pp3RApYu4M+qEET68YIf4Wk+E9tvQrc/qr
-	DNK6gDDNhGY70Wfz1U+pYZ+NNbLwSz5V/nE8kg/vBI0Gh95ic1dA9p75QGPK54ViIJd/4+1dYD5
-	/sbqf1qPB+hIF/BVoLLJwR7/ChR6Ys4lYNxXW+zJcmZvfJRiy6+vbAglnfyVJELMpExoqD1VfQu
-	rRs3B19v73uTBrulR3VcRdotLkJraL+gtROvbwRNGnUynrD2mzKC6D735CeroI5WQVAcgPcyJvo
-	vn4lCGLIV6CebFfcBOnz1Ds7Dw6kKuKRVWftNypqOPcx/yh4cV1hgsMYfoBrsEWEASD3h0t71TS
-	OdSJStMcHzKE1jUQ4uabReBru19H/rDTpug7XaXzps6pIzBcQnB7iIJ7wd3rB4M++gsPjm3T0Eq
-	HlAWSWjTBBhz8tRTWOOT19CJWYndXMX0tVGuOIg7+SeVcjAvIAeiR94JH/Kzfj+tok5WLYz/Wc5
-	o36z6m8/hkeKO5wq/Iq4ERvyOQ==
-X-Received: by 2002:a05:7022:b04b:10b0:164:4e36:f956 with SMTP id a92af1059eb24-19935905c52mr8981726c88.16.1792992473149;
-        Sun, 25 Oct 2026 22:27:53 -0700 (PDT)
-Received: from localhost.localdomain ([136.25.42.214])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a0e8d700sm25064523c88.10.2026.10.25.22.27.52
+        d=1e100.net; s=20260707; t=1792992608; x=1793597408;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=6OD8mOSD4xUumfZoJOx4KZDALoWc84UxiNE2jvRNJ8o=;
+        b=EkcTLu5aTRYLBxprAo3kLRuHGOgy7ej7NNCmN9NI9ddTGwB6meif9GN8cV2PIyKZn/
+         PU1Cr0By1DInuMuNZ0tASQ/LP8eKvGrZQr01TWJdy3NSq3qCPQ4kuDE3hGbH5qs+Kaa+
+         AVWoU3DeDyclF0uTAIHvedaxW/SliQmkDviC7xPSCoDcfFkoRljYaWlG1ujSMdfiC8Km
+         Bqb40Xtn7Swap7zGb3Nj9rPYUVynqRHTNirDFcAc5zt5L5C/dcSUZbShAjQMyPQgT5Pm
+         h8VCTRs7OnY37SehQO9xB1hOMWEs8qu8zpGFRhvRKIy6kFnQn7e9ijOjP3mxpJtCSeiV
+         uBYg==
+X-Forwarded-Encrypted: i=1; AKwUvBzrDyUQVemdW4DPjQY/U4Dq/xPQfTl+xwt2QPFS/tcUDFJ8TsO6YW5gB6Cg9w56bUA1I6O2yGANMz/1+9U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJC5n7ecxY/ftO6N10719kqB1Rnhh09hIHCv6vHcfIx0kgOrnNE
+	ysJ1PJ616FYVH4nRzOgRnbDpOM9BL5w6DuEtmUSrifk82wVLD4wm3lxZJzEbMUtupus=
+X-Gm-Gg: AYBFou08jrYSvZlgK1vRLUCT7dsvFpuvLJ5N/J/kdHdOhooGk+1PTf7IDwboedCUnhl
+	AwauA5YAt8upUG26nPCTUgP91/tpN6JG6P6FS1TGvKT1m2f43fp5PdrHS6U2b8ihol9ZQPM2dOV
+	XRfTn8qfSed6FfeL2XeQ81K7Z7DUtkmyDAM5A80vxomb+ZAOU2XDtLl/AZvjMMPxClvMwVbUaGq
+	ZgSUuk5RNixnHWC12ZO91bCPRiGsG8NM7Gz9qUSCtxKRdHPXiCSiM3XC5F1DxNiuqacstYq6rql
+	JSWbQ6KVO405kDNOK/3cQuDpjlPTkDEB7yegBtHW1EsJqThvoHaDlluh3mrRoRd8SP8btSGUM/U
+	lmG8LIfcFRDHE5fT62xRVg/ByJY9D3uQ4XVZxshiavoTcscQDjH1nWFgC4/aT+kU6uLv1fVPSXw
+	Qf8ZfUDtGTeKQ2P0bHw42Y48tCEXc2fnjmBb6HZomGp7gTAJ21qO6rMTb1geJX5CQBJeSpIavDe
+	iQVOfw4T8CcXRpR1U9mtBvq3NuIdW9WBtzvN+u+smFBT/58KtYZb8xbUQ==
+X-Received: by 2002:a05:7300:c8c7:b0:369:f231:b98f with SMTP id 5a478bee46e88-369f231be73mr5481082eec.4.1792992607224;
+        Sun, 25 Oct 2026 22:30:07 -0700 (PDT)
+Received: from localhost ([122.172.82.240])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369ff5a4d68sm7075259eec.14.2026.10.25.22.30.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 22:27:52 -0700 (PDT)
-From: Tim Budding <tim.budding@gmail.com>
-To: netdev-bot+sashiko@kernel.org
-Cc: netdev@vger.kernel.org,
-	linux-sctp@vger.kernel.org,
-	lucien.xin@gmail.com,
-	marcelo.leitner@gmail.com,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	shuah@kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net 4/4] selftests: net: add SCTP I-FORWARD-TSN tests with message interleaving
-Date: Sun, 25 Oct 2026 22:27:48 -0700
-Message-Id: <20261026052748.187496-1-tim.budding@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <179293012994.3134.15218902499880345860@kernel.org>
-References: <20261024120627.837568-5-tim.budding@gmail.com> <179293012994.3134.15218902499880345860@kernel.org>
+        Sun, 25 Oct 2026 22:30:06 -0700 (PDT)
+Date: Mon, 26 Oct 2026 11:00:04 +0530
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: christian.koever-draxl@student.uibk.ac.at
+Cc: neil.armstrong@linaro.org, jbrunet@baylibre.com, sboyd@kernel.org,
+	bmasney+clk@redhat.com, khilman@baylibre.com,
+	martin.blumenstingl@googlemail.com, rafael@kernel.org,
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	linux-kernel@vger.kernel.org, linux-amlogic@lists.infradead.org,
+	linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
+	Christian Stefan =?iso-8859-1?Q?K=F6v=E9r-Draxl?= <ckoever@outlook.de>
+Subject: Re: [PATCH 4/4] cpufreq: add an Amlogic speed-bin driver
+Message-ID: <at7lXEqds7ukoR2V@vireshk-B250M-D3H>
+References: <20261025192219.209137-1-christian.koever-draxl@student.uibk.ac.at>
+ <20261025192219.209137-5-christian.koever-draxl@student.uibk.ac.at>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,58 +103,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261025192219.209137-5-christian.koever-draxl@student.uibk.ac.at>
 
-On Sun, 25 Oct 2026 12:08:49 +0000, netdev-bot+sashiko@kernel.org wrote:
-> [Severity: Low]
-> This isn't a bug, but the deadline check and the poll() timeout use two
-> separate now_ms() samples. If end - now_ms() comes out negative, poll()
-> blocks with no timeout.
+On 25-10-26, 20:22, christian.koever-draxl@student.uibk.ac.at wrote:
+> From: Christian Stefan Kövér-Draxl <ckoever@outlook.de>
+> 
+> Every S4 speed bin runs the same CPU frequencies but needs its own
+> voltage curve, and the bin can only be read through the secure monitor.
+> 
+> Read the bin from the firmware, select the matching
+> "opp-microvolt-speed<bin>" property for all CPUs, then register
+> cpufreq-dt. Bins outside the known range fall back to bin 0, which
+> has the highest voltages. Like sun50i-cpufreq-nvmem, the driver binds
+> on the SoC compatible and needs no node of its own, and S4 is added to
+> the cpufreq-dt-platdev blocklist so cpufreq-dt is only created after
+> the bin has been applied.
+> 
+> Signed-off-by: Christian Stefan Kövér-Draxl <ckoever@outlook.de>
+> ---
+>  MAINTAINERS                          |   1 +
+>  drivers/cpufreq/Kconfig.arm          |  14 ++
+>  drivers/cpufreq/Makefile             |   1 +
+>  drivers/cpufreq/amlogic-cpufreq.c    | 184 +++++++++++++++++++++++++++
+>  drivers/cpufreq/cpufreq-dt-platdev.c |   2 +
+>  5 files changed, 202 insertions(+)
+>  create mode 100644 drivers/cpufreq/amlogic-cpufreq.c
 
-Agreed, I'll fix it in v2.
+Is it safe to apply just this one ? I can take this via the PM tree then.
 
-> [Severity: Low]
-> Does the reset case check that queued I-DATA is discarded on reset?
-
-[...]
-
-> The test does show that MIDs restart at 0, because the marker is
-> delivered. Could the test leave stale fragments, or a message in partial
-> delivery, pending on the server when the reset is issued?
-
-Agreed. As it stands, the reset test only shows that the reset
-completes and that MIDs start again from 0. A reset is only performed
-when the data sender has nothing outstanding, so in v2 the pending data
-will come from two PR-SCTP messages that the client abandons while nft
-drops the I-FORWARD-TSN: one partly received on stream 0 and one in
-partial delivery on stream 1. The reset is requested once by the server
-and once by the client, so that both new abort_pd() calls are covered.
-The test then checks for SCTP_PARTIAL_DELIVERY_ABORTED on stream 1,
-that RX_QUEUE is 0, and that a new fragmented message on stream 0,
-which reuses MID 0, is delivered intact.
-
-> [Severity: Medium]
-> Can the RX_QUEUE check fail on a correct kernel in the ordered and
-> unordered tests?
-
-[...]
-
-> Should this poll assoc_rx_queue() until it reaches 0, with a timeout?
-> Or wait for some sign on the server that the I-FORWARD-TSN was
-> processed?
-
-Yes, confirmed. Lowering net.core.wmem_default alone wasn't enough:
-there were no failures in 140 runs between 212992 and 66000. small is
-then sent after all of big, but Nagle holds the marker back until small
-is abandoned, and it then goes out in the same packet as the
-I-FORWARD-TSN, behind it. With SCTP_NODELAY on the client and
-wmem_default=70000, the ordered and unordered tests fail 10 times out
-of 10 with "2464 bytes left queued on the association": the marker
-goes out right after small, and the I-FORWARD-TSN follows one RTO
-(300 ms) later.
-
-Rather than poll RX_QUEUE, v2 will have the client wait (with a
-timeout) until all of its data has been acked, i.e. until SCTP_STATUS
-sstat_unackdata is 0, and then check RX_QUEUE once. The server's
-cumulative TSN can only move past the abandoned TSN once it has
-processed the I-FORWARD-TSN, so the check no longer depends on timing.
+-- 
+viresh
