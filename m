@@ -1,47 +1,117 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.227
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793048991;
-	b=QGZ43NjzN87diN+R7AV30dOiHdwpHrs2Q8+1ZWrfW8eSAHHF0bpQXP61FEy65DUqpeMZ
-	 kCqRYovLCqt500PG4a3cGjI+lQNwXqiahLDEAxZ38ktEhiJAQiWPL9ctRjATLCcdvLQYY
-	 NkYHIQQpFhJpHkHeMRYylakq7pKiQRxaA6BmtTiNALqdz3mhZC0Z4G4mxm+LjiyI8feD6
-	 hmKLy3W91nflOuKwKxW4LwMSCEqMbhVSJab9SWx5YUEq0P+0uwY+nqqE5WtdWohh2ZZiR
-	 uo3rgOjvVdOZAnghuKwkEsFxTNgLCNNNFsfxk7FQowOmsKUaaTXWXzngub3TMVDzcyw==
+	t=1793049123;
+	b=hk47j4z55XxjP6Qia0heEiJ47yvVSugOtnaczue7tWooChgnR4r+nZ1+LpQhBwXK/gGy
+	 kLXiw1KnpG7B/pdRyosfI2N6hVJTV942hJ2sHz+0YfTZasIzaDSS34Z586XJnjhUWMzNr
+	 YNfv/WJicH+6DehR+08GoLKzkgbqQRY/LpTfOKfRZ/TY4aygsKOBLF5Pj0NL03mys1bRc
+	 D56xIFFnzbN6MzI+EViUL8Yy4827kdMi1e8dD/GtY1+ZRQPJpLgSddTAjcj+wMUGtQQ/L
+	 0GsDdDZyM56cPCVOmU0JNOb68l/+bZbzfwpRSLX8jZrwXxdPRa3UYHTPEfyKTk5+8RA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793048991;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=Km1rvIZ3U8wdp/hbA44AgM+K1KBOJrLBa2SNISYlT0M=;
-	b=4Nuwtutqxwlgtk7NVyHEFi2/cooCtc+hGgZGyT+DCOxfLQk0nSX1Wz3xBTHHL2unkjpG
-	 5OfjfA1MNJSZd/IG2IEs6GSmXYUNs/yLJWYz3ybQTQAWa3rcygvexWs1dQctV6EElmCEl
-	 fTQciy/7BhOkJhRWwkysfWL/RkeoJCC7Q0cCH6AgpJnvIdrhD/YHHMDAyHlbwP8vlLtIr
-	 SbhdzkYVctVatletnwKlyPBViNT965V8m0X0+zOHfm+yMtSL6Zmsey0gFhryz81Q7Ar+p
-	 ftbtmh6eMwZBiEYJFVruM7gzrPdUX0AGXbNs72vrlPjaYq8E8KveKlb/r79QUMJfRaA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793049123;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
+	 X-Gm-Gg:X-Received:Received:X-Relaying-Domain:X-CFilter-Loop:Received:
+	 DKIM-Signature:X-Received:X-Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-DetectorID-Processed;
+	bh=/ESG1GK92x5B58pgVYf4SxkXNGgkEl2iePaEHR3ImRM=;
+	b=ZwiuJrdVz2lhbc7aw6yZCHN7wTTiCZTfekVl+mkoBgNDo1+/4ZxkdPPm43JF3SismTmU
+	 UMSSuC241SY0CL1CDQ5CjoTfaotnBHnBVgk9Ny5hSA9nOSkoZVMfqcLR0puP7i93x+YIQ
+	 4OGTIk37tASvW7rtgPXjRaj0jxLZMjcCDmczvaSy27a+huB3huckeA0wksDXnKmNcqAtr
+	 dL6SXu6LIFvJggsjavZqk6A3KtTCu7UbKMPv0Lp05eJ7p34GkRNwueCMlqWmITK5tltWK
+	 Kgv+xtG+Ubwn+60O5QF2UKD5b+mECB4QuXaiJplls9Wn3LhaLDu2+0mhtnQziNlFrFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f+UaSY8l;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b="N7msw/Lj";
+	arc=none smtp.remote-ip=209.85.210.227
+Received: from mail-pf1-f227.google.com (mail-pf1-f227.google.com [209.85.210.227])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11E31606A31A;
-	Mon, 26 Oct 2026 21:09:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C0B3606A31D
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 21:12:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C0B3606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f+UaSY8l
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D05771F01825;
-	Mon, 26 Oct 2026 21:09:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793048990;
-	bh=Km1rvIZ3U8wdp/hbA44AgM+K1KBOJrLBa2SNISYlT0M=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=f+UaSY8l63lGr7187Oqi5dgWlzYCfWCFaR+aTlR56miEamPTBI4jbIlQqtDV4H+mh
-	 BLRVFIVd9jZkJpPOplQT67gOCLCjIxjBiDjg6DWbAS1RCwcdMi8TkwxsG5AcBeLf8j
-	 8hgPaTi/N6aVWdyw6QbM8e5ynYzOOsMInDRLXP3Tk2Cxm8qnQvFd0ecIYIAEwDwjD+
-	 GHnAbdyPr1B1jcq0txZD4N+6/U8T6KlIS3FmJXW8dej3Z66+3iVYyi/v8kCg9+3zCq
-	 ST/TH1O9+5Jop7hjGAp31uVHgqKJq3BTf4vFndIHSV+Da7tw148EFhdvLcMoJWhNmm
-	 m9us8+cBvgVMA==
-Message-ID: <5d10eba8-11cb-4031-84e1-a394ca5b4cba@kernel.org>
-Date: Mon, 26 Oct 2026 22:09:40 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=N7msw/Lj
+Received: by mail-pf1-f227.google.com with SMTP id d2e1a72fcca58-8a06c60065fso2654353b3a.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:12:02 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793049122; x=1793653922;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=/ESG1GK92x5B58pgVYf4SxkXNGgkEl2iePaEHR3ImRM=;
+        b=YCI9fuo6lAsU930u4Kv7Sq9Pt4A2yYajy9cY9nZzabxWOtYx8aHNUwI95Nmo6cz9mH
+         tUcucxygrRrRUbeJW9NNSLYGrYuhXe2oxsM8djIvYgCbmf4G66N3QL2iYlElpj7ZB7by
+         9zoINJJqB6EcyLBxUVlLfdZhYKCBYTfgt2WuyGTiscNrxw1o1YO5TS2ewpPkKM9/eKs4
+         89AeLQJ7pEubwjZ3hnRXZ12/M6wUNNYkf16ok3lJz7vS1d3aejPH5sOhEZctDDM/C/bC
+         vzSlug2kSveP5RG/WO0aWGCmNEE4PD5tBA7TY4pjWV9hh0WXA9PvXE48ZzgQZ1VUn4YD
+         jnDw==
+X-Gm-Message-State: AFq9FYLRmPBgHXOdWJ4jhb2Pvrp4eL89EObkMnK9YEVcLRu1lGO2xMfF
+	MKnylsbOwfndM7ebl4iwGX5r2Hzt33RQT/MuhYGEeORYfxi+lh0UK3yUVEqkvfZG8ppqM8Rs/XB
+	KP/jvZ34syeFDS1mTuBwu1CJzUrxi08Lz4EaDN0cyz7cy2bHEAhM+Vm0rQIduchWUzy1m3Dhyks
+	CpXj7w5kq/3wbV4bq5lHAJmK9DWmBFTgWiSny2K9vyEQ/M5XUmofniG52ydc86+nDBTNNUJJ9r8
+	GP8PWTDjcUDixAbhmvN07uWyH0=
+X-Gm-Gg: AYBFou3zJ6ifnMMa1kUGcX9Mp/abuVwFiw/IzVs58l1wQ6P+mDS8ld4gfRKce9J8fj4
+	o2NeawUu/rqqmTVTWX6jqo+W2Iy0TXKeCYVmCXTPqQA30aFU1y6MFwJ18MT4iKaFdBIVHKUZZ6T
+	Y8QC7uvfjUWJuCQR74HCyqSf9k3Bj0HZlzPD3M5fAjC/JfC5sWxnZuFs/ffAZdomO+JYQJ0vN25
+	+nXEhq8HHcJ3qClgmXUJ6RBSd7a+bv/Wo/35rgJZLS/UtKFLLaeBUs/uPHM9IhYT5Q/8A2xi5hY
+	vHFDp19GZ/etchw6Gh90nnLMW/pKXOo/xIr9DQHAET78hGZm2lBSNtXgls1V1Ez/6Z/JbwXuy0L
+	oAKxXfD4L7BVQgabyOwmr0xtYmuF7vdp6/FXEBnsQzCuN1anX7M+kxN1XDNyJo4orFJGrVbQNxk
+	y4F8eHdXs0PTgC5UIx2rmRBxjdYSTOT4S6l/9p5ndz
+X-Received: by 2002:a05:6a21:a109:b0:3e2:a412:4f1f with SMTP id adf61e73a8af0-3e7af7fc643mr5468199637.9.1793049121781;
+        Mon, 26 Oct 2026 14:12:01 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-13.dlp.protect.broadcom.com. [144.49.247.13])
+        by smtp-relay.gmail.com with ESMTPS id 41be03b00d2f7-cd8cccdc86csm99578a12.23.2026.10.26.14.12.00
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 26 Oct 2026 14:12:01 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-186c1aae818so3301971c88.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:11:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1793049119; x=1793653919; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/ESG1GK92x5B58pgVYf4SxkXNGgkEl2iePaEHR3ImRM=;
+        b=N7msw/LjUAO06jTT33HAeE2jfXss/tWdcRa9CMPvn2AKZ84mrvNCO+U7NZQpgULCVG
+         ktJvfFKjLUPxWZyP7zlpGrpw15mIHiNENiWyKewSda7W+LPLvHHM0zs50wssyTonX1Jn
+         HhxxF+MXnk2PkUrCusJPEKXuOzENWxd0e7gWw=
+X-Received: by 2002:a05:701b:42cd:10b0:165:4b88:abc2 with SMTP id a92af1059eb24-19936e394f2mr11809698c88.26.1793049118944;
+        Mon, 26 Oct 2026 14:11:58 -0700 (PDT)
+X-Received: by 2002:a05:701b:42cd:10b0:165:4b88:abc2 with SMTP id a92af1059eb24-19936e394f2mr11809638c88.26.1793049118184;
+        Mon, 26 Oct 2026 14:11:58 -0700 (PDT)
+Received: from fainelli-desktop.igp.broadcom.net ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a0f81ea9sm31915678c88.11.2026.10.26.14.11.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 14:11:57 -0700 (PDT)
+From: Florian Fainelli <florian.fainelli@broadcom.com>
+To: linux-kernel@vger.kernel.org
+Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
+	Hauke Mehrtens <hauke@hauke-m.de>,
+	=?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <zajec5@gmail.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Besar Wicaksono <bwicaksono@nvidia.com>,
+	Ilkka Koskinen <ilkka@os.amperecomputing.com>,
+	linux-arm-kernel@lists.infradead.org (moderated list:BROADCOM BCM5301X ARM ARCHITECTURE),
+	linux-doc@vger.kernel.org (open list:DOCUMENTATION),
+	linux-perf-users@vger.kernel.org (open list:ARM PMU PROFILING AND DEBUGGING),
+	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS)
+Subject: [PATCH 0/3] Support for BCM5301X AXI trace PMUs
+Date: Mon, 26 Oct 2026 14:11:48 -0700
+Message-ID: <20261026211151.3212237-1-florian.fainelli@broadcom.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,112 +121,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/16] mm/shmem: various (urgent?) fixes
-To: Gregory Price <gourry@gourry.net>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Ying Huang <ying.huang@linux.alibaba.com>,
- Johannes Weiner <hannes@cmpxchg.org>,
- Vladimir Davydov <vdavydov.dev@gmail.com>, Michal Hocko <mhocko@suse.com>,
- Hugh Dickins <hughd@google.com>, Baolin Wang
- <baolin.wang@linux.alibaba.com>, Lukas Czerner <lczerner@redhat.com>,
- Carlos Maiolino <cmaiolino@redhat.com>,
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- David Stevens <stevensd@chromium.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- William Kucharski <william.kucharski@oracle.com>,
- Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
- Nhat Pham <nphamcs@gmail.com>, Miaohe Lin <linmiaohe@huawei.com>,
- Naoya Horiguchi <nao.horiguchi@gmail.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Chris Mason <mason@kernel.org>,
- stable@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>,
- Eva Kurchatova <eva.kurchatova@virtuozzo.com>
-References: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
- <at-yaxmjeOXtA15M@gourry-fedora-PF4VCD3F>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <at-yaxmjeOXtA15M@gourry-fedora-PF4VCD3F>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-On 10/26/26 21:08, Gregory Price wrote:
-> On Mon, Oct 26, 2026 at 10:40:33AM +0100, David Hildenbrand (Arm) wrote:
->> I did my best trying to test these fixes. I was able to reproduce some
->> of the things (including unkillable truncation hangs), and the fixes seemed
->> to help.
-> 
-> Given the (urgent?) you're the unwilling recipient of my schlopp-testing
-> harness.  The good news is that the selftests (attached) all look
-> reasonable and reproduce quite easily.
+This patch series adds support for the BCM5301x PMUs which are AXI trace
+engines present in the chip.
 
-Thanks! Yeah, I had ran a bunch myself, but not as many as you managed to
-trigger I think.
+Florian Fainelli (3):
+  dt-bindings: perf: Describe the Broadcom BCM5301X AXI PMU
+  perf: Add Broadcom BCM5301X AXI Trace Module counters
+  ARM: dts: BCM5301X: Enable AXI PMUs
 
-> 
-> Everything below is largely clanker-generated, but after a review I feel
-> comfortable with tagging this.
-> 
-> I was able to directly test:
->   #1-#5
->   #10
->   #12-#16
-> 
-> so for those you can add:
-> 
-> Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-> 
-> feel free to take or leave the selftests.
-
-Thanks, no time to polish selftest ;)
+ .../admin-guide/perf/bcm5301x-axi-pmu.rst     |  92 ++++
+ Documentation/admin-guide/perf/index.rst      |   1 +
+ .../bindings/perf/brcm,bcm5301x-axi-pmu.yaml  |  43 ++
+ MAINTAINERS                                   |   3 +
+ arch/arm/boot/dts/broadcom/bcm5301x.dtsi      |  15 +
+ drivers/perf/Kconfig                          |  12 +
+ drivers/perf/Makefile                         |   1 +
+ drivers/perf/bcm5301x_axi_pmu.c               | 450 ++++++++++++++++++
+ 8 files changed, 617 insertions(+)
+ create mode 100644 Documentation/admin-guide/perf/bcm5301x-axi-pmu.rst
+ create mode 100644 Documentation/devicetree/bindings/perf/brcm,bcm5301x-axi-pmu.yaml
+ create mode 100644 drivers/perf/bcm5301x_axi_pmu.c
 
 -- 
-Cheers,
+2.53.0
 
-David
