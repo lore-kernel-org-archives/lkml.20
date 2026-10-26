@@ -1,111 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793014200;
-	b=tXXxvevUN9OTq91WxZAHAR6Nhz2wazNpJAsLoY052mKha5GmyE0lvXsARt0jN6SO5dMw
-	 AxgFwSTRawLdXL4Rj6JznOd4FtpNSkgAEJXnqA3xjuWXrZ05iM5F0W0X155UTh3iFKLJa
-	 0yYz0R9m+kRTWMBBw8/dPbbmtssVz9LYDveuTC6Asfv9T/jYojs2/OGujf2qKzhV7mFrj
-	 htFal+QvrqEx9f5QHQjmLSnvL/wilkoaznOOOiJ9imx4T+imRTiuqxgOQk5p37bZBTyz4
-	 vgpXZ1zFpEDD8k1IsigvTqnqfowCWhophfKjohzpCnvVu7qBkICa5pnUvm/ysUVCyVg==
+	t=1793014206;
+	b=wEy2YmgIutKIFmUTp0AzZFE1FF6cYVuzCP7z0F8AJHv1SNEdgEmomGxygYnMXYDcG+Zh
+	 HXIfyiWwj6zsfBsHhIyj4oQAFtkh7wPr/52UiU0lpMNl5bxiYT4jPj6syINQsJv++lW5W
+	 0lxlHUwvxUhAEkukQDC6zIR4nYOqtH7ZVbjdVxJQmQPBIx9AHZL0Qi+DoH18vlykGeKxj
+	 VwLDs0PFreIFHhaLtWLJm3miEIHGEuNVwRJ8eddhjBZFCdW8i/W2CgkKl8wtwF8EvpwXA
+	 kfSL9bSLkjzIWvgFKdatASwU0pA+5/4qAjHgBDeyyxWGg1rCW6Pd8+1AegU/Lq9ihOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793014200;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=5+hi2NlDZX5Pao7C4sGve2f68JIj+9H2GCXxUBBJ1EM=;
-	b=urjfimIhVU+x2mLW2p9Kd6gBCIwyUizNxRMz5pC/Rz/Y6+gcADjTyeq36x9UOdavBxD8
-	 AkkkLQ90BvuWufmFj1jGqE9lGPCvClLGw7c6BKmxxiWCYbK58I6H+WN1d7/37aLnMahLu
-	 m8shey+fAYb0tskYVbZ0D16sXkLsLBnfWPw+rY954A3Tm2H5XfNRWPt7BUat+Q2S0GsME
-	 7QdPV2clgzotvXDhK1IpvDtMeA8/1UiZ5xgr7saEYhqbn2monZBDUwXeF2u7JO3Zso1Tv
-	 PKYwXIlosPL6r7g5k2n5zO76QFLM+bbOs+A2O2444ZjtTxAO4BHEAKcJizETTg5z5kQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793014206;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=iClfX9ozOF/woLXVn0LlRbJhaticE1zUNij0OSGeYsI=;
+	b=RlphnF9fNwnGO1wP/ZC3CTJm4hJ2BEoPGpTwwdKkiXJnqJ5MOwJ8CiqVMCxvAd1L8ry6
+	 PpXlaVoYt8MXvo0JioXjxn1JRsfsll0g/5CQ+IZFF9K3iXpaNhhzcsE+/yyPzqwRPj4uY
+	 9RvmzrcQTOOsY+iwnDFtmGFncQvqcPK40iY+nT24Zk7T5f1GSgbld05EOS5sfBc6Qw+eB
+	 oIOQiW4znMgxrl2j4hUng2k1SAkvo/d9ED4XUMBI5km3GQi2mNGyWgb+8TlDwCqQ9Eyjm
+	 S/bufI/grGJwaMWtMVmguCanmTqV4uImfaLmqlMu3mA4vt9Ibq/3PAhtzLDCzOYMmBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ov+GCi7x;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=UZMoi31A;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R6xjyQPW;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3740C606A31F
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:30:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3740C606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17501606A325
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:30:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ov+GCi7x;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=UZMoi31A
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69QAsxTu3631944
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:29:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	5+hi2NlDZX5Pao7C4sGve2f68JIj+9H2GCXxUBBJ1EM=; b=ov+GCi7xKRd1I+Ri
-	qOWyUO4k/s7FTg8ltD/EBkUtEUyOLqARivYn/syb03lEcSoPZq1RZq7egxrpPmQw
-	5pa+pCMQaK+Bzyq6RUcPvCMN9ztlg+apmtkDmQeAChqKZYBsyAYIk1A4F4CYyP18
-	t1VLapeJCnzxxa1BpVpe/ZHQ4NO4kJ8Vd+j4+ZKXc6YNtwSC5Q8du+WFBdLsz+Se
-	MpAKVlwswpPPnKGB6TXf7M8lOFpJYx8w7lsor5ziMmE1H616MJem/tVgCGpq6uPb
-	b9I5yw/ofHr8epUT/tbdK0wZbDRdVaT0XS80kNgOFmx4W2bnzXqDl+da0XCiq7aC
-	4MOCSA==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hj4sf09t7-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:29:59 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3ada6ccd402so2565949a91.2
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 04:29:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793014198; x=1793618998; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5+hi2NlDZX5Pao7C4sGve2f68JIj+9H2GCXxUBBJ1EM=;
-        b=UZMoi31A/E0lO4BOSjiu1c3mlFzL3ftR1fmozKnM1XzxsyBEYek7pbT4jR/gAnO10b
-         7H++KCMdPhpYbZ0wItf4aMRnx2UodJA/PRqOzFlrwa4H/p8dlSgudcOwQ6ZoAr2o4Bzr
-         Ff8hCE5AY7178akXxFkPKvyoTymBiJT6+1SpykJoD4BnvSiUlYHVAcWv2kCBZiy4rYys
-         M3RabDJzpA9TYRssoh/Ncv7zUT8NwFFHEl86XYa3bR34Vc8hcDMNZzn+E1H47jcPByGh
-         Q0sJotIbfbVVoC8T6Mgr63H2/HU0CMBaSxtDpHfd0gOeWTCQM12DRmaurxptJy0/pl9D
-         FW5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793014198; x=1793618998;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5+hi2NlDZX5Pao7C4sGve2f68JIj+9H2GCXxUBBJ1EM=;
-        b=BSxyEf0XmFQNrCb6vpnz5/TxSKahh42mLWJmCOx9C0PYVdWtU7A3V+o33/aj4OTewj
-         lJKh5E7hlgVrjZpxGD7sHUpAGm37kTwASKLVttrj0O0A5SrrWhmOyQUysXBcs7pvZMPR
-         5J4WUjK80SgpHCBQsxFtqtiUF/F97XEWQa+dMC1Y0FutR1dPhZJFjfr0JqH6SMq1a15o
-         iBKRGJ0gLOdzmWfToC3ylZV6Ke0WP5ZjrjO50O+t2+nq2DJTAUWrLNLu8cMIdGfP895/
-         KkLW7qJLTz7xX+vbuGiuBEuivlNc05evBENl2IfKKTg6L5Urc4hqjemGYxKIdZycs9/G
-         vC4A==
-X-Forwarded-Encrypted: i=1; AKwUvBwRe7s71cSaQhiNFADoXyEG4TOHHb9tFcMxHshG3ZdJNRvlrxlyCZHM0pGELgC2B61xzmYQZ5hWsubuLh0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJeWX4FD0GuONUnnRhRWLsuAIdC32nyYfpoDVx2p1u8ERDb2u0V
-	d1EWUSBSyqhfFgLmzIOM9wVh6JkOe2FWHqy+S3FvCL2VWzQkdMNjfkY13K3Qh+S+nBe5tCEqrgB
-	3bZWrpFGJwF6g2yJdmV0obm5YjXfQ+Il6eTlatpAahbTRI2KqQrMSpi67yT57zG4/gy4=
-X-Gm-Gg: AYBFou0SgwvnIw0VnrrvoMpk7X68ru7TzcJAb+EVAKTYLTdfqYt6ttNKtVjyAT9zyr+
-	qNIouonreC//qKVzRpGZy5y+86IazAfxOn5J8CIU4QfLgap22DMUB0b39HLdM+46qlqqbkQ6+QT
-	YEVG0labsMmy40kZey0ZQN9rq16bzD+EtMsdTvVa8CU0AXGjDoKOxEgO2ysAnakNxr6ygfGYAZE
-	Aqiji+5JiRSfH3YYLQv2ogzPRGOvXvXY2+sNYt3TVWRKfpcrmzYN7upkvQBaPC2QKDiNmU3lBkr
-	EErweOI0cCQGNg9LhnNs6Hf2F7Xn5zjyX1wafoHRom5O16owmv7lnHUVbKqpzwNXH3skZC79EhI
-	uWPkwylg/ZGg7RsAih1A3Qvw=
-X-Received: by 2002:a17:90b:3c8a:b0:3ac:8897:7bab with SMTP id 98e67ed59e1d1-3ade9b2c4a0mr5122116a91.6.1793014198019;
-        Mon, 26 Oct 2026 04:29:58 -0700 (PDT)
-X-Received: by 2002:a17:90b:3c8a:b0:3ac:8897:7bab with SMTP id 98e67ed59e1d1-3ade9b2c4a0mr5122090a91.6.1793014197529;
-        Mon, 26 Oct 2026 04:29:57 -0700 (PDT)
-Received: from hu-tdas-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adec0bcb0asm8020388a91.17.2026.10.26.04.29.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 04:29:57 -0700 (PDT)
-From: Taniya Das <taniya.das@oss.qualcomm.com>
-Date: Mon, 26 Oct 2026 16:59:28 +0530
-Subject: [PATCH v2 02/12] dt-bindings: clock: qcom: Add PDM XO4 divider
- clock IDs
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R6xjyQPW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B78D1F01828;
+	Mon, 26 Oct 2026 11:30:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793014205;
+	bh=iClfX9ozOF/woLXVn0LlRbJhaticE1zUNij0OSGeYsI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=R6xjyQPWBjiuYXew3w3sfn4+CzEysPk0vzqWiQIv5pJt56ssZjMobDW3D8wF8ogVT
+	 1RxFwlq31/AyZhuFaanPLtGT3usurakSt1TmWR2b2uWPnfEFzNVmyLaLABttLcHgGp
+	 mFXEbIi4s5hnW8k7Uiy8CaoWdgJNNy84TMHQzQQnF9wDWqY+IV6KUQPGPbZ/jVbR88
+	 QYBSJBzA9d+OXYu8pQaJFEFlLRmR0J/deJoxsjji9/iBkkpQPYPBZrvbQt70I1fxH2
+	 +ya3dLzgrd25M7uGgv72s/e1cqEyeX1yx2p455bfR1Ng/B5ksE/aG7gUUG/z1AKh25
+	 Fmb2plckH6erQ==
+Message-ID: <ea4128b9-6c82-4594-b34e-77fbe4404858@kernel.org>
+Date: Mon, 26 Oct 2026 12:20:40 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,120 +51,285 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261026-b4-pdm_clk_gp_mnd_v2-v2-2-ff8e4bc8d567@oss.qualcomm.com>
-References: <20261026-b4-pdm_clk_gp_mnd_v2-v2-0-ff8e4bc8d567@oss.qualcomm.com>
-In-Reply-To: <20261026-b4-pdm_clk_gp_mnd_v2-v2-0-ff8e4bc8d567@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
-        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
-        Jerome Brunet <jbrunet+clk@baylibre.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Linus Walleij <linusw@kernel.org>,
-        Richard Cochran <richardcochran@gmail.com>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
-        Imran Shaik <imran.shaik@oss.qualcomm.com>,
-        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-gpio@vger.kernel.org, netdev@vger.kernel.org,
-        Taniya Das <taniya.das@oss.qualcomm.com>
-X-Mailer: b4 0.15-dev-aa3f6
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA0NSBTYWx0ZWRfX7zhtRRlhnxyd
- liuaTkFfbXCOVKFDoyVq+wSKod6U57iL2dLtMgjuV0e9ogEz6XZCbpicPCeiB4HwE0n7Pk3KpsT
- f7zc1djfB/e7xIg66xqo5AL3r10C9IE=
-X-Authority-Analysis: v=2.4 cv=ZOdCCn7b c=1 sm=1 tr=0 ts=6adf39b7 cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=JzXKva1iMknIiGK8KiYA:9 a=QEXdDO2ut3YA:10
- a=rl5im9kqc5Lf4LNbBjHf:22
-X-Proofpoint-GUID: fZ1hqgaRISBy9NYauLqftX83wxm_63Bx
-X-Proofpoint-ORIG-GUID: fZ1hqgaRISBy9NYauLqftX83wxm_63Bx
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA0NSBTYWx0ZWRfX8872jBszvW6w
- BBhSiaQKH0+jqhaWbYqYB4F1QU3jfYHhXtf9YGcN4jdSMJBQ46QhWIULzAjNRaFOMkyHpJShhBu
- 7OB4jGYvLjz0h6ZdYtEyi8D2uP6piUCyLY4isdqvyOE1GuCyXbW9CaaV3ZVXV78l5qIZ2tq9Iiz
- VYmQFfhOYTrq+hZKKofacK4aB0jbM7SyrWe+bY9SqzW7lIDzYmL++O+MmbyzVv6QEiKND7ro+nr
- 077CmJNrYkydOCUiB/PKvbTojYzZ3BW97r1FdgXw7nHiGrnrL0tO8ajo+qAJk5r3cyh9w6yDWdx
- GZ4ZbmPQORPN9vupMaQDxMPudLIQfuc7F8TXXmTZFu9lXXOlty05SdimR4dldILt9LDTMPLuHBd
- 2Z0OyvN+r85ljZznpao4wBeYcEjYHlV7dMT0msdl6rISxaOEmmM4m6EuoLiYgv13tJqBee52Es3
- KfXpg92E7/dlXRZEuCg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-26_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 clxscore=1015 lowpriorityscore=0 priorityscore=1501
- malwarescore=0 adultscore=0 spamscore=0 bulkscore=0 impostorscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610260045
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] mm: memory: fix truncation removing mapped folios
+To: Baolin Wang <baolin.wang@linux.alibaba.com>, akpm@linux-foundation.org
+Cc: ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, rppt@kernel.org,
+ surenb@google.com, mhocko@suse.com, qi.zheng@linux.dev, jack@suse.cz,
+ pfalcato@suse.de, ayushr@modal.com, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+References: <4cc521a118564b4145edf0324066ab532fb41181.1792979870.git.baolin.wang@linux.alibaba.com>
+ <c3dd24e7-68e4-47f9-a9d2-067c5534a4c4@kernel.org>
+ <8779b778-c124-49ff-8072-2c995394ed8e@linux.alibaba.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <8779b778-c124-49ff-8072-2c995394ed8e@linux.alibaba.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Add clock IDs for the PDM XO4 divider sources on QCS615, QCS8300,
-SA8775P, and SC7280. The corresponding GCC drivers use these IDs to
-register the divider clocks.
+On 10/26/26 12:02, Baolin Wang wrote:
+> 
+> 
+> On 10/26/26 6:00 PM, David Hildenbrand (Arm) wrote:
+>> On 10/26/26 03:05, Baolin Wang wrote:
+>>> Ayush reported an issue that shmem/tmpfs folios are still mapped when
+>>> truncating them on production:
+>>> "
+>>> BUG: Bad page cache in process ...  pfn:...
+>>> page dumped because: still mapped when deleted
+>>> "
+>>>
+>>> I reproduced the issue with Ayush's reproducer [1] with the latest mm-unstable
+>>> branch, and I got the following crash info. From the dump message, we can
+>>> see that truncate_inode_folio() is really trying to remove mapped folios,
+>>> which is incorrect.
+>>>
+>>> "
+>>> [  189.171977] page: refcount:3 mapcount:1 mapping:00000000fe168ee1
+>>> index:0x3880 pfn:0x191647
+>>> [  189.171995] memcg:ffff0000cc073d40
+>>> [  189.171997] aops:shmem_aops ino:3c01 dentry name(?):"memfd:runsc-memory"
+>>> [  189.172006] flags: 0x17fffef0002022d(locked|referenced|uptodate|lru|
+>>> workingset|swapbacked|node=0|zone=2|lastcpupid=0x3ffff)
+>>> .......
+>>> [  189.172017] page dumped because: VM_BUG_ON_FOLIO(folio_mapped(folio))
+>>> [  189.172026] ------------[ cut here ]------------
+>>> [  189.172027] kernel BUG at mm/filemap.c:155!
+>>> [  189.172057] Internal error: Oops - BUG: 00000000f2000800 [#1]  SMP
+>>> .......
+>>> [  189.177721] CPU: 3 UID: 0 PID: 5521 Comm: repro Kdump: loaded Tainted:
+>>> 7.3.0-rc4+ #277 PREEMPT(lazy)
+>>> .......
+>>> [  189.183986] Call trace:
+>>> [  189.184124]  filemap_unaccount_folio+0xf0/0x1e8 (P)
+>>> [  189.184391]  __filemap_remove_folio+0x34/0x160
+>>> [  189.184633]  filemap_remove_folio+0x4c/0xb0
+>>> [  189.184859]  truncate_inode_folio+0x34/0x58
+>>> [  189.185087]  shmem_undo_range+0x220/0x658
+>>> [  189.185308]  shmem_fallocate+0x2f0/0x470
+>>> [  189.185527]  vfs_fallocate+0x128/0x328
+>>> ......
+>>> [  189.187078]  el0t_64_sync+0x184/0x188
+>>> "
+>>>
+>>> After analysis, I believe the race exists between truncation and MADV_DONTNEED,
+>>> and shmem's ->map_pages() merely makes the issue easier to reproduce. Since
+>>> MADV_DONTNEED synchronously releases the pagetable page before calling
+>>> tlb_flush_rmaps(), this could cause another thread's truncation to skip
+>>> zap_pte_range() (due to pmd is none) but still observe the folio's mapcount
+>>> as non-zero. A possible race scenario is as follows:
+>>>
+>>> CPU 0                           CPU 1
+>>> shmem_fallocate                 madvise_dontneed_single_vma
+>>>    unmap_mapping_range            .......
+>>>    ......
+>>>    (filemap_map_pages() remap folios)
+>>>                   zap_pte_range
+>>>    truncate_inode_folio            zap_empty_pte_table(pmd clear)
+>>>      unmap_mapping_folio
+>>>      ......
+>>>        zap_pmd_range (saw pmd none, skip)
+>>>
+>>>    filemap_remove_folio
+>>>      BUG_ON(folio_mapped)
+>>>                                      tlb_flush_rmaps(remove rmaps)
+>>>
+>>> To fix this issue, we should move the pmd clear operation (via
+>>> zap_empty_pte_table())
+>>> to after tlb_flush_rmaps() and use sync_with_folio_pmd_zap() to sync with
+>>> concurrent zapping, so that when we find a pmd_none() while unmapping a folio
+>>> without holding the PTL, the folio's mappings are guaranteed to have been
+>>> removed via tlb_flush_rmaps().
+>>>
+>>> [1] https://lore.kernel.org/all/20260925065013.3682431-1-ayushr@modal.com/
+>>> Reported-by: Ayush Ranjan <ayushr@modal.com>
+>>> Closes: https://lore.kernel.org/all/20260924061708.1645968-1-ayushr@modal.com/
+>>> Fixes: 6375e95f381e ("mm: pgtable: reclaim empty PTE page in
+>>> madvise(MADV_DONTNEED)")
+>>> Acked-by: Qi Zheng <qi.zheng@linux.dev>
+>>> Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+>>> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+>>> Signed-off-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+>>> ---
+>>> Changes from v3:
+>>>   - Collect review tags from Qi, Pedro and Lorenzo. Thanks.
+>>>   - Update the related comments per Lorenzo.
+>>> Changes from v2:
+>>>   - Use use sync_with_folio_pmd_zap() to sync with concurrent zapping (Per
+>>> David).
+>>> Changes from v1:
+>>>   - Add an smp_rmb() to pair with the smp_wmb() (Per Lorenzo and Pedro).
+>>> ---
+>>>   mm/internal.h | 10 ++++++----
+>>>   mm/memory.c   | 28 +++++++++++++++-------------
+>>>   2 files changed, 21 insertions(+), 17 deletions(-)
+>>>
+>>> diff --git a/mm/internal.h b/mm/internal.h
+>>> index b1b0f29d2216..ffb8eaec90e3 100644
+>>> --- a/mm/internal.h
+>>> +++ b/mm/internal.h
+>>> @@ -584,14 +584,16 @@ void free_pgtables(struct mmu_gather *tlb, struct
+>>> unmap_desc *desc);
+>>>   void pmd_install(struct mm_struct *mm, pmd_t *pmd, pgtable_t *pte);
+>>>     /**
+>>> - * sync_with_folio_pmd_zap - sync with concurrent zapping of a folio PMD
+>>> + * sync_with_folio_pmd_zap - sync with concurrent zapping of folios
+>>>    * @mm: The mm_struct.
+>>>    * @pmdp: Pointer to the pmd that was found to be pmd_none().
+>>>    *
+>>>    * When we find a pmd_none() while unmapping a folio without holding the PTL,
+>>> - * zap_huge_pmd() may have cleared the PMD but not yet modified the folio to
+>>> - * indicate that it's unmapped. Skipping the PMD without synchronization could
+>>> - * make folio unmapping code assume that unmapping failed.
+>>> + * zap_huge_pmd() may have cleared the PMD but not yet updated the folio
+>>> + * mapcount, and zap_empty_pte_table() clears the PMD only after the rmaps
+>>> + * for the table have been removed, but nothing orders the pmd_none() read
+>>> + * against later mapcount reads. Skipping the PMD without synchronization
+>>> + * could make folio unmapping code assume that unmapping failed.
+>>>    *
+>>>    * Wait for concurrent zapping to complete by grabbing the PTL.
+>>>    */
+>>> diff --git a/mm/memory.c b/mm/memory.c
+>>> index e911e63ba1ed..6a93b7fa48b2 100644
+>>> --- a/mm/memory.c
+>>> +++ b/mm/memory.c
+>>> @@ -2036,6 +2036,15 @@ static unsigned long zap_pte_range(struct mmu_gather
+>>> *tlb,
+>>>           }
+>>>       } while (pte += nr, addr += PAGE_SIZE * nr, addr != end);
+>>>   +    add_mm_rss_vec(mm, rss);
+>>> +    lazy_mmu_mode_disable();
+>>> +
+>>> +    /* Do the actual TLB flush before dropping ptl */
+>>> +    if (force_flush) {
+>>> +        tlb_flush_mmu_tlbonly(tlb);
+>>> +        tlb_flush_rmaps(tlb, vma);
+>>> +    }
+>>> +
+>>>       /*
+>>>        * Fast path: try to hold the pmd lock and unmap the PTE page.
+>>>        *
+>>> @@ -2043,18 +2052,12 @@ static unsigned long zap_pte_range(struct mmu_gather
+>>> *tlb,
+>>>        * to hold the pmd lock failed, then we need to recheck all pte entries
+>>>        * to ensure they are still none, thereby preventing the pte entries
+>>>        * from being repopulated by another thread.
+>>> +     *
+>>> +     * Clear the PMD after the rmaps for the table have been removed, in case
+>>> +     * an incorrect mapcount is observed after unmapping the folio.
+>>>        */
+>>>       if (can_reclaim_pt && direct_reclaim && addr == end)
+>>>           direct_reclaim = zap_empty_pte_table(mm, pmd, ptl, &pmdval);
+>>> -
+>>> -    add_mm_rss_vec(mm, rss);
+>>> -    lazy_mmu_mode_disable();
+>>> -
+>>> -    /* Do the actual TLB flush before dropping ptl */
+>>> -    if (force_flush) {
+>>> -        tlb_flush_mmu_tlbonly(tlb);
+>>> -        tlb_flush_rmaps(tlb, vma);
+>>> -    }
+>>>       pte_unmap_unlock(start_pte, ptl);
+>>>         /*
+>>> @@ -2102,12 +2105,11 @@ static inline unsigned long zap_pmd_range(struct
+>>> mmu_gather *tlb,
+>>>                   continue;
+>>>               }
+>>>               /* fall through */
+>>> -        } else if (details && details->single_folio &&
+>>> -               folio_test_pmd_mappable(details->single_folio) &&
+>>> -               next - addr == HPAGE_PMD_SIZE && pmd_none(*pmd)) {
+>>> -            sync_with_folio_pmd_zap(tlb->mm, pmd);
+>>>           }
+>>> +
+>>>           if (pmd_none(*pmd)) {
+>>> +            if (details && details->single_folio)
+>>> +                sync_with_folio_pmd_zap(tlb->mm, pmd);
+>>>               addr = next;
+>>>               continue;
+>>>          
+>> Sorry if I sound annoyed, but why don't you keep the
+>>
+>> } else if (pmd_none(*pmd)) {
+>>
+>> above as I suggested?
+>>
+>> Because we fancy unnecessary PMD table lock cycles?
+> 
+> Ah, sorry, I misunderstood what you meant before [1]. Yes, this is still correct
+> and looks good to me.
+> 
+> [1] https://lore.kernel.org/all/179c26ed-1764-4e5b-
+> a7ee-047ddabbfea1@linux.alibaba.com/
+> 
+> Do you want me to respin a new version or just apply the following diff?
+> 
+> diff --git a/mm/memory.c b/mm/memory.c
+> index 6a93b7fa48b2..d9c54549b85b 100644
+> --- a/mm/memory.c
+> +++ b/mm/memory.c
+> @@ -2105,9 +2105,7 @@ static inline unsigned long zap_pmd_range(struct
+> mmu_gather *tlb,
+>                                 continue;
+>                         }
+>                         /* fall through */
+> -               }
+> -
+> -               if (pmd_none(*pmd)) {
+> +               } else if (pmd_none(*pmd)) {
+>                         if (details && details->single_folio)
+>                                 sync_with_folio_pmd_zap(tlb->mm, pmd);
+>                         addr = next;
 
-Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
----
- include/dt-bindings/clock/qcom,gcc-sc7280.h  | 1 +
- include/dt-bindings/clock/qcom,qcs615-gcc.h  | 2 ++
- include/dt-bindings/clock/qcom,qcs8300-gcc.h | 1 +
- include/dt-bindings/clock/qcom,sa8775p-gcc.h | 1 +
- 4 files changed, 5 insertions(+)
+That's not the correct fixup I think.
 
-diff --git a/include/dt-bindings/clock/qcom,gcc-sc7280.h b/include/dt-bindings/clock/qcom,gcc-sc7280.h
-index 3d5724b79bff18a858bdbb5c1654c5174e8cb23b..68dfd6616ce4b1c1e41f11603be639685301129f 100644
---- a/include/dt-bindings/clock/qcom,gcc-sc7280.h
-+++ b/include/dt-bindings/clock/qcom,gcc-sc7280.h
-@@ -192,6 +192,7 @@
- #define GCC_WPSS_RSCP_CLK				182
- #define GCC_EDP_CLKREF_EN				183
- #define GCC_SEC_CTRL_CLK_SRC				184
-+#define GCC_PDM_XO4_DIV_CLK_SRC				185
- 
- /* GCC power domains */
- #define GCC_PCIE_0_GDSC					0
-diff --git a/include/dt-bindings/clock/qcom,qcs615-gcc.h b/include/dt-bindings/clock/qcom,qcs615-gcc.h
-index 9704091636b87108a2a8c5ccc4a6b293829d8272..cddf21466a96a2990f1aaaf7c655fa6a4369ccbd 100644
---- a/include/dt-bindings/clock/qcom,qcs615-gcc.h
-+++ b/include/dt-bindings/clock/qcom,qcs615-gcc.h
-@@ -175,6 +175,8 @@
- #define GCC_UFS_PHY_PHY_AUX_HW_CTL_CLK				165
- #define GCC_UFS_PHY_UNIPRO_CORE_HW_CTL_CLK			166
- 
-+#define GCC_PDM_XO4_DIV_CLK_SRC					167
-+
- /* GCC Resets */
- #define GCC_EMAC_BCR                                            0
- #define GCC_QUSB2PHY_PRIM_BCR                                   1
-diff --git a/include/dt-bindings/clock/qcom,qcs8300-gcc.h b/include/dt-bindings/clock/qcom,qcs8300-gcc.h
-index 3c674c7baaba91815b13450e647b41053bd7330d..cee26f50092044f4a0b4cead6f669f0ccf7343c0 100644
---- a/include/dt-bindings/clock/qcom,qcs8300-gcc.h
-+++ b/include/dt-bindings/clock/qcom,qcs8300-gcc.h
-@@ -196,6 +196,7 @@
- #define GCC_TSCSS_CNTR_CLK_SRC					186
- #define GCC_TSCSS_ETU_CLK					187
- #define GCC_TSCSS_GLOBAL_CNTR_CLK				188
-+#define GCC_PDM_XO4_DIV_CLK_SRC				189
- 
- /* GCC power domains */
- #define GCC_EMAC0_GDSC						0
-diff --git a/include/dt-bindings/clock/qcom,sa8775p-gcc.h b/include/dt-bindings/clock/qcom,sa8775p-gcc.h
-index 01f54234963d6a531926103f8658307d4e0662f2..e101c9b565d650495e63f5f97b3458375d0e85ec 100644
---- a/include/dt-bindings/clock/qcom,sa8775p-gcc.h
-+++ b/include/dt-bindings/clock/qcom,sa8775p-gcc.h
-@@ -257,6 +257,7 @@
- #define GCC_UFS_PHY_ICE_CORE_HW_CTL_CLK			246
- #define GCC_UFS_PHY_PHY_AUX_HW_CTL_CLK			247
- #define GCC_UFS_PHY_UNIPRO_CORE_HW_CTL_CLK		248
-+#define GCC_PDM_XO4_DIV_CLK_SRC				249
- 
- /* GCC resets */
- #define GCC_CAMERA_BCR					0
+Please send a new version with the correct one ;)
 
 -- 
-2.34.1
+Cheers,
 
+David
