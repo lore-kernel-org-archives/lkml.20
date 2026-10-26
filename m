@@ -1,100 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.44
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793038801;
-	b=V4m1gJCi32JbJlyui9g5vuX/+1c6lsI2ew8YxA5Zz4idw2FVnRbH8xN0v5Z7zQpCPFGo
-	 uKSBjJ0KowQc72aWwHIfq+zUmWFEB0h7oU3SLtk1BucT5QL++Px4pk4JWMwFqrrqJEE96
-	 EToubgTKsuaojnfW8frsE1ce8sjEnmi5nDF+b4ZpyZD+mXpxZAdhewfS8UH//k1/Me27X
-	 Kim0+R4nj33Um+slazlVzVrpxa+NL6QXMeAvy6qUNX2moKxS1Hi6NMMjfXCHPsO6Pc3XP
-	 ly+q1nN1+W/EZEr1KZpMOPa1IEKAUBapHllYKVvkRtzCl37/GNhI0eMzVi7PZMgH8ew==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793038801;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=WA5AxzH89R1SOTsw3YYXHEoBQlAVi2xqh5J2QmPmhV8=;
-	b=xfGS/VYixo0b3Jku+/PtvisZjvxiae1OkjnIcfxG6jr/v06SrCagMZjCyZSvyhhLKgBk
-	 igo6I9UVd6m+YHA4dh4+yqw40Rdcff7jw8VBjuRBafiKVeBUAzHtHomB0bkFxWatYS/CM
-	 klVjzJ6tu6vehtGXucljiCUsm3GPSNa9o10CJxqfo+7bqWybeUKx0M0/IakFx5N8l9nro
-	 wNI7QKmM29UJNdziea77Mtfha/Z1cjz0GjYVPB0VVWNZi53h6nCsNgbmBB3pky9gHyZML
-	 ibXUQxrP5jhCUF8emExC43POKQcnCGUfyf95xmNhYXm48+BvINbPM3pKGoodWAyUq8g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=raspberrypi.com;
-	spf=pass smtp.mailfrom=raspberrypi.com;
-	dkim=pass header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=Mb6V2eoO;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.44
-Received: from mail-oa1-f44.google.com (mail-oa1-f44.google.com [209.85.160.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.14
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793038926;
+	b=3K43j2peuSxlH1F/KU2s9P/WB9QcnaK5hIFOhyxwIwP1nO7iRc9iMxZHwwPpJ515KrpQ
+	 2hP2LCqC3gGAH8kBlWzCL16b9zSL9hwmRf1iVekK3N5jP5mf3RVJvTn2nSvRDIzlboR/6
+	 96Fm9MVU0zQLkETncQNg5faOh3IK2yNKwYdxQSjKcxrcMO1KHNkM1pONP/sm4KMydMYdi
+	 ti1eY/7iMmUtYE4KHI4ZI8DJIraIxMDpPzSN51oAflWNYbngpIBPGOV6s0E5JU69Eww7y
+	 OqmP3G/qnmhtIjxxFILa1TXSbTiMyN8keMsu5O9qFfXOPysKuB//FD+bkgiuL2JZw4Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793038926;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
+	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
+	bh=6XL6YcX8cL37HBNREbXC4Z1+wZEs5Q469sUSJUjSMy4=;
+	b=PyQJozqx+L90zDK3RKyVxTu53Bo59CKJt7lMOXK6Bek3nZdQmYPOSgCaGTUgxvPyO8sC
+	 75zgcTucOz63/mLixAgJI5+uMFXY4jK2q7oVDGmwWssI/mvZK8U4H3zGOS14melGnniB+
+	 fqev5x3tmaBYxcRyvt22jZT+qWaeFWrU4q3RcUODyDIGBZmk2wDaceGxzx5hW6SCJcrHE
+	 ASjaNXoqaHv9bTePfQGXOhl29iOyBDOuzxPLALHJkn7IpuA0yJfIJTu38TwW7moK9eA4D
+	 Y2Sz+/Zs2IqNiiPMS448LyZjbdIxOl8DBZGIv3/Q9Kzrr6T4rrqYlb8yjxbDSzdg+uQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="k2/1Iat4";
+	arc=none smtp.remote-ip=192.198.163.14
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFD74606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 18:20:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BFD74606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B699B606A31A;
+	Mon, 26 Oct 2026 18:22:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B699B606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=Mb6V2eoO
-Received: by mail-oa1-f44.google.com with SMTP id 586e51a60fabf-490d838b425so1636193fac.3
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:20:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793038800; cv=none;
-        d=google.com; s=arc-20260327;
-        b=gfqhhQGodw5wlt5tNDZXh/Px2PqkzV+XRKG6R4WGQ7IA/3w83rPq8nrSuvs0B4IF09
-         g3yX2pVbdQhA4d3W2GMBYOFt66+fWGUOCaauryPaqHZNf6osqUbIO/DOeaVK37doKwi5
-         56aBfCINz6GQUx4rzXjnhIkWJjcXrq67RrdrX23o3MBe5v1qxiMtGR6FTbcu10EYmWjv
-         yjICJ8GJog7fqWr6ihnhJUEFZYw1bEmZ5APtxYMRQEmWbQ/6vi6L1z3HUbyeUVdU8eJO
-         Hx5/4tAOl3xklYw2GFk5ahIiR8NoghZqnf/xSvJjn/S5TyqRpXQIrB22mwxaHnzKfyZr
-         8LHg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=WA5AxzH89R1SOTsw3YYXHEoBQlAVi2xqh5J2QmPmhV8=;
-        fh=UpN7zgf8vtkPfgWIYehP6hstZENP29pptVC7vL6Snws=;
-        b=sFYxOW2gcv12MfcYCe7nbDNFARTGZ5JLfmfusdn3fbPoLDpsfixBqpPapTaFGoWC4d
-         APHazyjccyR8XaRnzsXskcZtVMTkO/lHpPI2z24YkH1EWllImwFaSPscSSXlQemiGNMP
-         WcntVkS3BNODiuOQpF3qfaEz/CdcRLRM+a21yhjGAPIwzmYqS1LhpoKuJGFUXC9ZAeb6
-         eyqpQUCiXtMzyU6AYoeKZrx+UG3bdfx+Gozpfh5nLRwkmUR21MdaQvY8vRwpRxL7KlBm
-         du55AuBLmNwPWSpfYMoXL/47ue9NeK0rLCHaz9P20NaglmzYDcJqREy3OVmL7CcfV6IK
-         ffSw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1793038800; x=1793643600; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WA5AxzH89R1SOTsw3YYXHEoBQlAVi2xqh5J2QmPmhV8=;
-        b=Mb6V2eoOWavEVv+MXTwqgbRxrNOlLO4KfXmGottrVsWG0niDFM6UKXFlXfakohM8MZ
-         iDmoJgXHrwoXhoZdAjgKZs6KNIxygaE+bdPDh2IzN88Fa74xRiS6893GLeqmWr6SRWHu
-         /iz74fwbywsJh/L5fUPBDm1S1VMSVJFjrBmQjuZpA6FteP6i2H7c8pe8JtlLEtBnv/CH
-         EQTSVcS/iVVCxvrfqkfrXeFunfr8FfMKmN2l5XcCJ9ncV3idXP9t442k3r/RA+xqqoKa
-         dgrH/mI4XRIt4HpKNgZLggFe+BRYlWEPefFOpsK60FOTzBEV0j4OGNEJM8jdF8oR09db
-         9gnA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793038800; x=1793643600;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=WA5AxzH89R1SOTsw3YYXHEoBQlAVi2xqh5J2QmPmhV8=;
-        b=CKSSAI3islU9ousieuOj3zqqmtOqBvUVdL3uxa5kMuwPzl2rPzp2R484dYSlIQz4lH
-         +to8IwEnLt6G7AkofbQp63ntDYwEhO1tJk6Y6aVJ6yhfstoFcPah+UZN1xVLCCRRWvps
-         fT72hzoc3FFg0zB9HHjXBoCVFr8gkmNlVF/EM5CAFB696E7LlELFPUaMkw0IrLrFWhs9
-         o2e3vN0oenS5ypGADmEpv1bfCmsEmmtfvi+Jxsj/AICzuY3CyPRsxr9zMkrMNVDK6kNG
-         J6UunLuj4grifE7waaQpWywtji+cOkg1dBlBxFYB54EnpmbWGNb+fnk3SmIl8QowQfyZ
-         /tlQ==
-X-Forwarded-Encrypted: i=1; AKwUvByQ7vZWBcAgTfGCho0/0y5gbDoEaXxKhIUODm7aJDWnC97RKo7uALW5MtVUJxscFNr58pSc/3S2g+MThBg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK8bjz0s6gAzNIae8QtzK6tgM14ax6BKo/qiBGOdK3a8V5YXG1u
-	DiMvRSuhQFH56lHDhp6ymLW1Uz4pC1zJgvRph0hNRHIcOc4QvKO/I2Vmu6Y9xwuQ/tT4H1KF4Fa
-	u1sdHC94zSBqKBeWDQ6OceG2nSrfFDPm1PfclaOQefNrZDJun7pvX/Fc=
-X-Gm-Gg: AYBFou3bSYd+OW/rCuFY3GmZWWTTdI2bpBb6WRdwVR8vdQgOiZdA7qG7h1MK/RB/t5r
-	yJk5una1KroKrCYMLKU3OmQ2OKUF96a4E8ngMtjWPXf+Ylh7vSeFz3TDyIB6vVEyHeWplGECU9E
-	04XuvOQEyFQvfmz23Ld4YtiGkLh+Etn5r/5hdgOXxvfWD7Ajqf3vx+24y8hQNoMMtWHfoIDYMUh
-	6L97AU1hbH2Uy+35oCjCWakcKa35zOMLKAzDZH3yb60AZAFy5HsBNbHTlr59eZm3x/gQ+77EhZk
-	wDv2QJEG6sx+bN5rAYf5sMWKo6mp6GoNYWWN3P3XV+qPxhSrqKZwwLRfJAG5HKWgOh4fbdwKjb4
-	plwov6Snlzt19wdnbOJIqp8mdWHwDYVdml9OVpFVvpQJyy7qvCKfQAjKOLEyctEud7ppO7Ml+Ut
-	hqsyZ0q/En5Upx0Lv1T2ShsV995pPWx4/2kS+pbVJJPHuA3MymtW/pyQ==
-X-Received: by 2002:a05:6871:d3:b0:494:75ba:c6d2 with SMTP id
- 586e51a60fabf-4a83f4a1680mr5146584fac.13.1793038799703; Mon, 26 Oct 2026
- 11:19:59 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=k2/1Iat4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793038925; x=1824574925;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=W58r7ddDUpnAk7HTNMuAQzfTn6aAlqEu+z1t7GbR9Og=;
+  b=k2/1Iat450hCLtFFKBx7KtLj7lI/6/nae/U7B/toleZovAJw0XmB6vx6
+   LGnCnulS3JopXhD45Z8gn4L4YiKAavhloWNUFYDfUVOSRgj3KiTi8FLv0
+   BdRMDxLexUNL4hT+wp3RDWIiYB/RWcRgo62qh2Q4rSBYriK2/uUU98zOt
+   fIwJXRaYelE7yn8Y/zHwGlSxVMtvF66S1D5ioPeRI7KVNHFepS8FNCDTz
+   MtJUL8qPCUE63Sg5VWrS+8Ebe5XkWVcOw+qjBZm33Vz8+aUWx1/79ixpL
+   cMR4fnCtEfByJvLZW7DokQxEJOyfnQzeTOZncleqtLFRJ4xh/xZuv8xUg
+   g==;
+X-CSE-ConnectionGUID: FpZQW2TCSqaWM36wOeRrgQ==
+X-CSE-MsgGUID: XGgi/VVnSt2v9GX6+ieMUg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1747053"
+X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
+   d="scan'208";a="1747053"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 11:22:03 -0700
+X-CSE-ConnectionGUID: K+l3cBvSSGmXyI6SxfTf8g==
+X-CSE-MsgGUID: pwLIt1CWRyG9WIcAOjS9Tw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
+   d="scan'208";a="4474684"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.109])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 11:21:57 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Mon, 26 Oct 2026 20:21:54 +0200 (EET)
+To: Sakari Ailus <sakari.ailus@iki.fi>
+cc: Denis Benato <denis.benato@linux.dev>, LKML <linux-kernel@vger.kernel.org>, 
+    platform-driver-x86@vger.kernel.org, linux-input@vger.kernel.org, 
+    kernel@lists.opengamingcollective.org, 
+    Benjamin Tissoires <bentiss@kernel.org>, Jiri Kosina <jikos@kernel.org>, 
+    "Luke D . Jones" <luke@ljones.dev>, 
+    Mateusz Schwartz <matthew.schwartz@linux.dev>, 
+    Denis Benato <benato.denis96@gmail.com>, 
+    Jonathan LoBue <jlobue10@gmail.com>, 
+    Khamunetri Clark <khamunetriclark@gmail.com>, 
+    "Derek J. Clark" <derekjohn.clark@gmail.com>, 
+    Joshua Leivenzon <hacker1024@users.sourceforge.net>, 
+    Nathan Chancellor <nathan@kernel.org>, 
+    =?ISO-8859-15?Q?Rebecca_Mara_M=FCller?= <rebecca.mara@posteo.de>, 
+    Ivan Levchenko <me@livan.pro>, Corentin Chary <corentin.chary@gmail.com>, 
+    Hans de Goede <hansg@kernel.org>
+Subject: Re: [PATCH v11 08/18] HID: asus: add support to force feedback
+In-Reply-To: <at9JNgMf8EZdCHEh@valkosipuli.retiisi.eu>
+Message-ID: <1c017f49-bc69-fc68-20f8-0c66a2c85719@linux.intel.com>
+References: <20261025235232.129945-1-denis.benato@linux.dev> <20261025235232.129945-9-denis.benato@linux.dev> <at9JNgMf8EZdCHEh@valkosipuli.retiisi.eu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,92 +91,182 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261019174930.7237-1-henryzhang62@gmail.com> <20261019174930.7237-4-henryzhang62@gmail.com>
-In-Reply-To: <20261019174930.7237-4-henryzhang62@gmail.com>
-From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Mon, 26 Oct 2026 18:19:42 +0000
-X-Gm-Features: AclHuK9tlTBZJu7ULazzmt-h2nMwB_CPhUkhsXOT5jfzH2rY1dSineF5A9oA7q0
-Message-ID: <CAPY8ntAyrZO5Oi5hxDfSKHdSFpJTR29J8kUDCL7Au0QCXR0iLg@mail.gmail.com>
-Subject: Re: [PATCH v2 3/3] drm/vc4: dsi: Serialize host transfers
-To: Henry Zhang <henryzhang62@gmail.com>
-Cc: Maxime Ripard <mripard@kernel.org>, =?UTF-8?B?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>, 
-	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=US-ASCII
 
-On Mon, 19 Oct 2026 at 18:55, Henry Zhang <henryzhang62@gmail.com> wrote:
->
-> vc4_dsi_host_transfer() fills the command FIFOs and the TXPKT registers
-> and waits on a single completion without any locking. Two callers
-> sending at the same time, for example a panel driver and a backlight
-> update, can overwrite each other's packets, and the timeout recovery
-> added in the previous patch could reset the block under a transfer
-> that is still in flight.
->
-> Hold a mutex for the whole host transfer, including the recovery.
->
-> Signed-off-by: Henry Zhang <henryzhang62@gmail.com>
+On Mon, 26 Oct 2026, Sakari Ailus wrote:
 
-Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+> Hi Denis,
+> 
+> I tested this on Asus T100TA, it seems to work fine.
+> 
+> Please see my other comments below.
+> 
+> On Sun, Oct 25, 2026 at 11:52:21PM +0000, Denis Benato wrote:
+> > Unlike ROG ally the X version and following ones uses DInput protocol
+> > and the force feedback needs to be implemented as its protocol is
+> > vendor-specific, therefore add support for FF_RUMBLE with magnitude
+> > scaling on a work-queue based approach to avoid using possibly
+> > sleeping calls in atomic context.
+> > 
+> > Signed-off-by: Denis Benato <denis.benato@linux.dev>
+> > Signed-off-by: Khamunetri Clark <khamunetriclark@gmail.com>
+> > Signed-off-by: Luke Jones <luke@ljones.dev>
+> > ---
+> >  drivers/hid/Kconfig    |   1 +
+> >  drivers/hid/hid-asus.c | 321 +++++++++++++++++++++++++++++++++++++----
+> >  2 files changed, 297 insertions(+), 25 deletions(-)
+> > 
+> > diff --git a/drivers/hid/Kconfig b/drivers/hid/Kconfig
+> > index 2481bc01c435..042e3bb0d817 100644
+> > --- a/drivers/hid/Kconfig
+> > +++ b/drivers/hid/Kconfig
+> > @@ -189,6 +189,7 @@ config HID_ASUS
+> >  	depends on USB_HID
+> >  	depends on LEDS_CLASS
+> >  	depends on ASUS_WMI || ASUS_WMI=n
+> > +        select INPUT_FF_MEMLESS
+> 
+> Tabs, please.
+> 
+> >  	select POWER_SUPPLY
+> >  	help
+> >  	Support for Asus notebook built-in keyboard and touchpad via i2c, and
+> > diff --git a/drivers/hid/hid-asus.c b/drivers/hid/hid-asus.c
+> > index e1883ee20413..a3a21a1493aa 100644
+> > --- a/drivers/hid/hid-asus.c
+> > +++ b/drivers/hid/hid-asus.c
+> > @@ -244,6 +244,23 @@ struct ally_config {
+> >   */
+> >  static struct ally_config *ally_config;
+> >  
+> > +/* XInput force-feedback report (output report 0x0d, gamepad interface) */
+> > +struct ff_data {
+> > +	u8 enable;
+> > +	u8 magnitude_left;
+> > +	u8 magnitude_right;
+> > +	u8 magnitude_strong;
+> > +	u8 magnitude_weak;
+> > +	u8 pulse_sustain_10ms;
+> > +	u8 pulse_release_10ms;
+> > +	u8 loop_count;
+> > +} __packed;
+> > +
+> > +struct ff_report {
+> > +	u8 report_id;
+> > +	struct ff_data ff;
+> > +} __packed;
+> > +
+> >  struct ally_handheld {
+> >  	/* All read/write to IN interfaces must lock */
+> >  	struct mutex intf_mutex;
+> > @@ -269,6 +286,13 @@ struct ally_handheld {
+> >  	bool ally_x_probe_in_progress;
+> >  	bool keyboard_probe_in_progress;
+> >  
+> > +	struct ff_report ff_packet;
+> > +	struct work_struct ff_work;
+> > +	/* Serializes ff_packet and update_ff between play_effect and ff_work */
+> > +	spinlock_t ff_lock;
+> > +	bool ff_work_initialized;
+> > +	bool update_ff;
+> 
+> Arranging these with the rest of the bools would save some memory.
+> 
+> > +
+> >  	struct hid_device *keyboard_hdev;
+> >  	struct input_dev *keyboard_input;
+> >  
+> > @@ -384,10 +408,15 @@ enum ally_command_codes {
+> >  	CMD_SET_ANTI_DEADZONE           = 0x18,
+> >  };
+> >  
+> > +/* XInput rumble magnitudes use the hardware's 0..100 intensity range. */
+> > +#define ALLY_FF_MAX_INTENSITY 100
+> > +
+> >  static const u8 ALLY_FORCE_FEEDBACK_OFF[] = {
+> >  	0x0D, 0x0F, 0x00, 0x00, 0x00, 0x00, 0xFF, 0x00, 0xEB
+> >  };
+> >  
+> > +static_assert(sizeof(struct ff_report) == sizeof(ALLY_FORCE_FEEDBACK_OFF));
+> > +
+> >  /*
+> >   * The ROG Ally device presents multiple USB interfaces (keyboard, mouse, gamepad,
+> >   * and custom configuration interface) that bind to the same module. Since only
+> > @@ -395,6 +424,7 @@ static const u8 ALLY_FORCE_FEEDBACK_OFF[] = {
+> >   * ally_handheld structure to share state across these separate HID interfaces.
+> >   */
+> >  static void ally_resume_work_fn(struct work_struct *work);
+> > +static void ally_x_ff_work_fn(struct work_struct *work);
+> >  
+> >  /*
+> >   * Changes to ally_drvdata must lock: the raw_event callbacks, which may
+> > @@ -410,6 +440,13 @@ static struct ally_handheld ally_drvdata = {
+> >  	 */
+> >  	.resume_work = __DELAYED_WORK_INITIALIZER(ally_drvdata.resume_work,
+> >  						  ally_resume_work_fn, 0),
+> > +	/*
+> > +	 * Initialised statically for the same reason as resume_work: remove()
+> > +	 * drains the work whichever of the interfaces probed or failed to
+> > +	 * probe, so it must be safe to cancel unconditionally.
+> > +	 */
+> > +	.ff_work = __WORK_INITIALIZER(ally_drvdata.ff_work, ally_x_ff_work_fn),
+> > +	.ff_lock = __SPIN_LOCK_UNLOCKED(ally_drvdata.ff_lock),
+> >  };
+> >  
+> >  /*
+> > @@ -2425,7 +2462,8 @@ static void ally_config_remove(struct hid_device *hdev, struct ally_config *cfg)
+> >  	 * create them, so a device without those capabilities does not
+> >  	 * trigger a "not found" warning.
+> >  	 */
+> > -	if (cfg->user_cal_support || cfg->anti_deadzone_support) {
+> > +	if (cfg->user_cal_support || cfg->anti_deadzone_support ||
+> > +	    cfg->resp_curve_support) {
+> >  		for (i = 0; i < ARRAY_SIZE(ally_cal_attr_groups); i++)
+> >  			sysfs_remove_group(&hdev->dev.kobj,
+> >  					   ally_cal_attr_groups[i]);
+> > @@ -2611,6 +2649,106 @@ static void ally_x_input_close(struct input_dev *dev)
+> >  	hid_hw_close(input_get_drvdata(dev));
+> >  }
+> >  
+> > +/**
+> > + * ally_x_send_ff_report() - Send a force-feedback report to the gamepad
+> > + * @hdev: HID device
+> > + * @buf: buffer containing the report to send
+> > + * @len: length of the report
+> > + *
+> > + * The gamepad interface consumes force-feedback packets as output reports,
+> > + * unlike the config interface which expects feature reports: a rumble packet
+> > + * sent as HID_REQ_SET_REPORT would be rejected by the hardware.
+> > + *
+> > + * The caller must hold ally->intf_mutex, so that a send cannot race with
+> > + * the gamepad interface being unbound and its transport being stopped.
+> > + *
+> > + * Return: count of data transferred, negative if error
+> > + */
+> > +static int ally_x_send_ff_report(struct hid_device *hdev,
+> > +				 const u8 *buf, size_t len)
+> > +{
+> > +	u8 *dmabuf __free(kfree) = kmemdup(buf, len, GFP_KERNEL);
+> 
+> It's not very nice to assign variables and then check for errors. I'd thus
+> separate the declaration and the assignment.
 
-> ---
->
-> Notes:
->     New in v2 (Sashiko review).
->
->  drivers/gpu/drm/vc4/vc4_dsi.c | 9 +++++++++
->  1 file changed, 9 insertions(+)
->
-> diff --git a/drivers/gpu/drm/vc4/vc4_dsi.c b/drivers/gpu/drm/vc4/vc4_dsi.c
-> index 2d985bc..627adf0 100644
-> --- a/drivers/gpu/drm/vc4/vc4_dsi.c
-> +++ b/drivers/gpu/drm/vc4/vc4_dsi.c
-> @@ -25,6 +25,7 @@
->  #include <linux/dma-mapping.h>
->  #include <linux/dmaengine.h>
->  #include <linux/io.h>
-> +#include <linux/mutex.h>
->  #include <linux/of.h>
->  #include <linux/of_address.h>
->  #include <linux/platform_device.h>
-> @@ -595,6 +596,8 @@ struct vc4_dsi {
->          */
->         struct clk *pixel_clock;
->
-> +       /* Serializes host transfers, including the recovery after a timeout. */
-> +       struct mutex transfer_lock;
->         struct completion xfer_completion;
->         int xfer_result;
->         int irq;
-> @@ -1434,6 +1437,8 @@ static ssize_t vc4_dsi_host_transfer(struct mipi_dsi_host *host,
->         u32 disp0_ctrl;
->         ssize_t ret;
->
-> +       guard(mutex)(&dsi->transfer_lock);
-> +
->         ret = vc4_dsi_transfer(dsi, msg);
->         if (ret != -ETIMEDOUT)
->                 return ret;
-> @@ -1911,6 +1916,7 @@ static int vc4_dsi_dev_probe(struct platform_device *pdev)
->  {
->         struct device *dev = &pdev->dev;
->         struct vc4_dsi *dsi;
-> +       int ret;
->
->         dsi = devm_drm_bridge_alloc(&pdev->dev, struct vc4_dsi, bridge, &vc4_dsi_bridge_funcs);
->         if (IS_ERR(dsi))
-> @@ -1918,6 +1924,9 @@ static int vc4_dsi_dev_probe(struct platform_device *pdev)
->         dev_set_drvdata(dev, dsi);
->
->         dsi->pdev = pdev;
-> +       ret = devm_mutex_init(dev, &dsi->transfer_lock);
-> +       if (ret)
-> +               return ret;
->  #ifdef CONFIG_OF
->         dsi->bridge.of_node = dev->of_node;
->  #endif
-> --
-> 2.47.3
->
+I actually thought the same thing first.
+
+But then stopped and realized, it's mid-function declaration of a cleanup 
+variable exactly following the guidelines (the long comment in cleanup.h).
+
+So this function doesn't really have variable declaration block at all, 
+making the mid-function variable declaration look like one. I understand 
+it looks confusing when encountering this for the first time, it was for 
+me as well.
+
+> > +	if (!dmabuf)
+> > +		return -ENOMEM;
+> > +
+> > +	return hid_hw_output_report(hdev, dmabuf, len);
+> > +}
+
+-- 
+ i.
+
