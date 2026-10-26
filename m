@@ -1,100 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793010606;
-	b=p/bMQSPY67jig5bEu+6KQ+vAOJCQMBsvDMffMCBiJ1r+MaurKfRjqmungZcbC2IK8SuY
-	 mBtrveq/gvnM12sjrSLQUJ91gKklz+tJc3KQyWrcKhfTf5EncccagO6tTURz+JxWb8EhY
-	 4yX0TWKlpNikIOB7rlkqY7a8VDqMDFvEiR4WXXHtV/LHpjThRz+RqOpiLRpXyMAtkVHp1
-	 npG/a8LEsJ4QCBBNe/JO7xQLbVWY2L3G2/u8HmEy52VC2dtwa9If9O0wzPvjAm1hL/Swq
-	 nsRqKtIOsbMGumSVRolC6H2IuPiymu/p6HxSl/GgZN/bBcknql1YBPUPnIdxyclAHBA==
+	t=1793010602;
+	b=HLXOqCfm83d6qgQfjg4z9ekNXk0xxfyL8ifXsOrTqh+BwqqXVTog3IjyuDQEcHIoO8g+
+	 /FAc1/YbmCxm+ZpUj/Gi52uVaotR5KcQ8dBKOe8i1omMziTvq49Y4dq0GokI6KEdwABoE
+	 J5CBABKH59rFxG8eA71UzC3OHG+MXUoAZvmg/kGaDZ94FfkXRmc3buiOUIXRR/bNLJxF1
+	 EKNjc+JqMX9b8HzZ+sAnsBJsIBwAzxaiIFBIS4UuF/Q6KI0RdHcpbKBzjSGCcKFc4A8gU
+	 t826PMF6FF555L06kB3QwBKL86cBK41Qz564/3eWVVin8VbaZC6pyHljOsJQ75k3gFQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793010606;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=NDSA+pzge1C0zTEnSXsB3WKAsTlM2nQWx+uXvGZECG4=;
-	b=CZUD4N8rjZ7r90NoxHEoPBKjbnqlHFDZQwcXsjqCeWjNfUYCTpDToqjtvR0eugdfjdCh
-	 3LFeOqZdrCXvyVQyySF6royDGS1CZYJ+qsG2aXueq4lheZpbu/OrPGfnRbHhJX/9BzPva
-	 egH11sgwVyb+5Qf0LWy1cvbf+5x8dnVjCz/SV64Ap8mzP6ueIw2uyteg0hphPCTY2Iwbl
-	 24+7FUPzkgHHfULAVg2qsX1niwrxDotiRFG1B89z9YGz6pcU8653IrqDMerE8BRkfOpel
-	 Qft/9JW1NtRPMbs9VbE9JqZbapMqnk/tMEARQepNi32cIa7vnR/eq8YIiB7u6XD+j0g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793010602;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-TM-AS-GCONF:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=6JXbCFCwjc9xBgnowhhTThLNsI/J24nPWtlQJ3rLlUs=;
+	b=cfh5qjRYoKqium3DDzxgMTwzNSSzBluc8QDB3dF6QBa1gIkDPOGaEEeMQbi6icYp0UcR
+	 pUlIpMezsSZLQ/G20LbcOnuiLjnjAC0oyLp2uBw9/iet9Dp55/zwyuZeg1dKKhADbOGCC
+	 aNpFakimYL+QKTh9PHtPQqHC/LX9zn/0neXjhrBXNFu30Wnei0LXNXMwdpOntn7DwEXUp
+	 333Os06GDa0CDnRsP/Mptoo18as0idiU8N1cKggfiQM1/q2Ldt+UmaGkmOsqlr/0Ta+uc
+	 fFyv43FUSmrIKJlmriVGQMOgI2padmFa5w4tQPup5VUZFegyeN7wfJlfmRxgEMwjXGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=BcFpsY2B;
-	arc=none smtp.remote-ip=209.85.210.181
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=M8zUoGd3;
+	arc=none smtp.remote-ip=148.163.158.5
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E314C606A31B
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:30:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E314C606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2F3C606A31E;
+	Mon, 26 Oct 2026 10:30:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2F3C606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=BcFpsY2B
-Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-8a06b436dffso1327179b3a.3
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 03:30:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793010604; x=1793615404; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NDSA+pzge1C0zTEnSXsB3WKAsTlM2nQWx+uXvGZECG4=;
-        b=BcFpsY2BMaqSEmqQx5qNCvNjQnYLWc9QDvOUWbRzUBasLilpoTUeSQ+Ri4YnLxOFDs
-         De7d1+Wl2XycUVlgRVsUQjM5jqXrbQCqgS6b4Hohm4wAEVRh83m3BxqR1RcSOR4PIotq
-         2bEiYYZkax1er7W4aRdE5JjBi4B0ICknjoH9S6FZkBhfYjMu5TvlTJni7/PwRnvZyfTj
-         lISOXwruO24sdXkcl+c7uvjdt20HfyXGDF3nhKiTOLUIDc2rNNjLytAXtqVBErkmBH10
-         oI6+M3tfySQwNG7ZgJTaQja7CWJSdl5CAoxnsa1D84Cjm+gnJL/kIMpWRyCQEQep4Mwl
-         wazg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793010604; x=1793615404;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NDSA+pzge1C0zTEnSXsB3WKAsTlM2nQWx+uXvGZECG4=;
-        b=EJLcp4AkjiChTGjvQ5u69lGJ8JuWXWzHVu2YA7nSqNrIO3fg+gJlsqa0EWNwyO0YYJ
-         twiVVyL4NECWNJOjXqDnQIpvDG5z8E1jNElf10zOm2gImBaJpxnVspZNtVA/0h8h0Si5
-         0bp859LrM5isQuGnAEVll3OAMb5RVr67rslYEtm+1FXbU5kYDKFt5CsOIrEfW50D14pD
-         sAQR1iw7oqrcNM+ZMEsjvyCipdH86nUumHv8riGImG3ZhLlKMV16d3AK1A75uj3+IvS5
-         38E3faQgI03k/L7cGSimyYD1hzYww8DoNRv0w1ggYy5usIEjCUc65/Pn64uJIWYkqtc7
-         PanA==
-X-Forwarded-Encrypted: i=1; AKwUvBz7vrDfkXEwc2DNX8UKsmBrVV+cq8PT29FJv0EZR71b4GLM4MF+FDF5DWeVpXjW8R6Y0SSs6JBH6PtNiSs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJkNgTj21J7TGago3nwTXbMH/fn7gIoOArHSsXyuH4AbGQbBh4F
-	tYVfsK7soCANwHMU6loPqfo6tTqLYxjth0mVsDq50fdKOe8+LOsMYJfD
-X-Gm-Gg: AYBFou3D6wflxB/Ynxll66F/ETfxFn7Iv3pQf+EEdb7C8zxdbBdgpXCa0rDaccurOHA
-	maFmnpnu2YmSrnHIi59a3ZPWnomkl3XJyiiOidJtdmG7Frh2IJwMlvz89C9QAFFs+1t1cLt7rvF
-	u7neFpCeoj1GhnbVgioJTQra/+YQdqpRwXtWTa+YNCKt1cSDUbpWh0A2mWp7d8AbrGAN0jfredg
-	hg4RLOB4Apd1Rn2JJktl44jVPzI70VKffYlzerHQNxqwXnFuJ39k6wDTwcFOLP59TmlWAk3v6Q8
-	kxRh0uoOTI98irddgQbH54ki7MbIvgl6ajwdPdINpqE5AT3kOFQb7zG+lwJM+tyCJ7RsoyXGb/I
-	MP92uqCzZHwAjheRqmc6l9OT/xY2jMogxA0eCzn+kZZGiHEs7qxk5gzpBqbT52SUXbGZeyVhkkw
-	nP49VCrbM97ylL00fLRc2YvUFpLGih3rX9OVNu7jRQOn56vscMAsoNyI5YggoGa6PrVUYiMiVHB
-	lxxwilY7lxu6eJ1ZnfWNC5BX0wWKeC1oRIllz85oZI/+4b6U94giZI//mOcXJFXxUQHXug93n/J
-	Jxk=
-X-Received: by 2002:a05:6a00:ad0e:b0:899:9267:3a9d with SMTP id d2e1a72fcca58-8a3695472a8mr4851008b3a.59.1793010604152;
-        Mon, 26 Oct 2026 03:30:04 -0700 (PDT)
-Received: from gmail.com ([223.153.219.249])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a36c0fdfefsm1097110b3a.50.2026.10.26.03.29.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 03:30:03 -0700 (PDT)
-From: Xue Boyang <fuchen.dust@gmail.com>
-To: kadlec@netfilter.org,
-	pablo@netfilter.org,
-	fw@strlen.de
-Cc: netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	phil@nwl.cc,
-	Xue Boyang <fuchen.dust@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH nf v3] netfilter: ipset: fix double free on kernel-side delete during resize
-Date: Mon, 26 Oct 2026 05:29:57 -0500
-Message-ID: <20261026102957.5530-1-fuchen.dust@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=M8zUoGd3
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69Q2i5FT1978797;
+	Mon, 26 Oct 2026 10:30:01 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=pp1; bh=6JXbCFCwjc9xBgnowhhTThLNsI/J24nPWtlQJ3rLl
+	Us=; b=M8zUoGd3Di76BhTOIZ60+RZMLOhLMlWNLHNEbWFYmCm7CKxelh2i2yMm1
+	cSfYc5kUCut7XdYims69ngsfA34Mx0b9/VdvrWbxSMGnzSSOpgHUs8wJ43ZzcP99
+	/3YLF50X3jBtOA0EQoHDDiUdfJ9J5PvC0tG2TM5v/Ts4HvjrZTBz3CHnkHUxbif6
+	7YsjzULw28wOw5mpeebShX8STzbfaswP3DCTDl+QseE3DQssDkUyL5xXS82m05gS
+	d116uLkfBfKAMibQsCa3JobcOzoyyRABFnzkT7PoCpgrVRhSjJjXB+wHyfVWtUQj
+	VsD3124g08geSQYcI7JmmqPzC+OMw==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hgmav8x6j-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 26 Oct 2026 10:30:00 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69Q7F6TL1822045;
+	Mon, 26 Oct 2026 10:30:00 GMT
+Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hh80jdb7f-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 26 Oct 2026 10:30:00 +0000 (GMT)
+Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com [10.20.54.106])
+	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69QATqGX40174074
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 26 Oct 2026 10:29:52 GMT
+Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 3EB172004B;
+	Mon, 26 Oct 2026 10:29:52 +0000 (GMT)
+Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 2333620043;
+	Mon, 26 Oct 2026 10:29:52 +0000 (GMT)
+Received: from tuxmaker.lnxne.boe (unknown [9.87.85.9])
+	by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 26 Oct 2026 10:29:52 +0000 (GMT)
+From: Heiko Carstens <hca@linux.ibm.com>
+To: Alexander Gordeev <agordeev@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>
+Cc: linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org
+Subject: [PATCH] s390: Use static call trampolines when kCFI is enabled
+Date: Mon, 26 Oct 2026 11:29:51 +0100
+Message-ID: <20261026102952.4153711-1-hca@linux.ibm.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261025090609.v2reply.4093.fuchen.dust@gmail.com>
-References: <20261025090609.v2reply.4093.fuchen.dust@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,276 +92,162 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Authority-Analysis: v=2.4 cv=P8SvFSAu c=1 sm=1 tr=0 ts=6adf2ba8 cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=RzCfie-kr_QcCd8fBx8p:22 a=VnNF1IyMAAAA:8 a=Paj0-Z-736eVyoMAdw0A:9
+X-Proofpoint-GUID: 8VvyADv0BpM_H3fYzMtTedcr-mFhQLUg
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA0MCBTYWx0ZWRfXznL9VCYM5NW5
+ nx0FGm3pEkdKj7JNAeYPIE5cA6whRwc9EC8tY2Q0+CmD05DWS0ItAP/+pbIoyQdq5qBK5DmkUdd
+ 9WdzDcZy75zuxirq8qGtRni5L/Rx9mM=
+X-Proofpoint-ORIG-GUID: 8VvyADv0BpM_H3fYzMtTedcr-mFhQLUg
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA0MCBTYWx0ZWRfX6Unq1l4VT5Pq
+ MAnfdIHSefUqO+vK8xniLSCLoJZUs5a3sWWcHZFxo/0a0lsWZF3O9mYnJmeojWHNHTbw2n2O2E5
+ bmhYwXKm/YcWrtMDesqXF9IxV8V2/f2gSF8tuGg7D1jvhvN0XivVjHveQaFFA6whnGhJlIMxEc8
+ Sfp8zrEeSiAYguhDKBDY+yDpXkkDz3WV5bghh1wqb0FMUssSXOBYrk4CMU23qALR4bEN2Gi/Z3y
+ pR7Qi/4O69PKK+TjXD8oT2PVoRBPjwM616XWlUX81tPkFNoykZvXEf/BG9Vd4fCUXdNVTHbZkmH
+ 4xxylqZE92nPDMDy7EEpP2l8S9rw0q10zLtAIpRHdQzfk0kg7BOotwDAPfg6u1sSf+9xV7tkIHk
+ +tZNmw0YxsRbhe7XT57jsPxQUg/g0ArnDe9a0UID91aQH6ZYv0nI/+kAJrz+NMdSNv9nIYZPI21
+ DnvRoFZhQtBjebxUoVA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-26_01,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 adultscore=0 malwarescore=0 phishscore=0 spamscore=0
+ clxscore=1015 bulkscore=0 suspectscore=0 priorityscore=1501
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610260040
 
-A kernel-side delete, i.e. a delete triggered by the SET target while
-the set is being resized, is applied to the current table and saved in
-the resize backlog, to be replayed against the new table when the
-resize finished. Both tables share the element extensions: the resize
-copies the element to the new table, keeping the pointer to the
-extension data, e.g. to the comment. Deleting the element in the
-current table calls ip_set_ext_destroy() and releases the shared
-extension. The replay then deletes the copy from the new table and
-releases the same extension again, i.e. the same rcu_head is queued
-twice. With CONFIG_DEBUG_OBJECTS_RCU_HEAD (and slub_debug=F, which
-keeps kfree_rcu() off the sheaf fast path):
+Add support for the 'unoptimized' static call variety, which routes all
+calls through a trampoline that performs a tail call to the chosen
+function. Wire it up for use when kCFI is enabled to work around an
+issue where the prototypes of default handlers such as
+__static_call_nop() and __static_call_ret0() don't match the expected
+prototype of the call site, resulting in kCFI false positives.
 
-  ODEBUG: activate active (active state 1) object type: rcu_head
-  WARNING: lib/debugobjects.c:629 at debug_print_object+0x7b/0x100
-  kvfree_call_rcu(): Double-freed call. rcu_head ffff88810474ce40
-  WARNING: mm/slab_common.c:2041 at kvfree_call_rcu+0x10b/0x140
-  Call Trace:
-   <TASK>
-   debug_object_activate (lib/debugobjects.c:905)
-   kvfree_call_rcu (mm/slab_common.c:2039)
-   hash_ip4_del (net/netfilter/ipset/ip_set_hash_gen.h:1226)
-   hash_ip4_kadt (net/netfilter/ipset/ip_set_hash_ip.c:96)
-   ip_set_del (net/netfilter/ipset/ip_set_core.c:820)
-   set_target_v3 (net/netfilter/xt_set.c:411)
-   ipt_do_table (net/ipv4/netfilter/ip_tables.c:345)
-   nf_hook_slow (net/netfilter/core.c:619)
-   raw_sendmsg (net/ipv4/raw.c:652)
-   __sys_sendto (net/socket.c:2281)
+This is the s390 version of commit 54ac9ff8f119 ("arm64: Use static
+call trampolines when kCFI is enabled").
 
-The double free is reachable from an unprivileged user namespace and
-permits local privilege escalation.
-
-Fix this by deferring the delete when a resize is in progress: the
-element is not deleted in the current table, only saved in the backlog,
-like it is done for kernel-side adds. The resize copies the element
-including its extension pointers, and the replayed delete releases the
-extension exactly once. This also avoids updating the cidr counters
-twice for the same element.
-
-Clearing the used bit of the deferred delete instead is not an option:
-the extension of an element the resize copy loop has not reached yet
-would never be freed, the old table is destroyed with ext_destroy=false
-to protect the extensions shared with the copied elements. The element
-thus stays in the current table until the resize completes, so
-
-- a kernel-side add of such an element must be deferred too, otherwise
-  it is rejected with -EEXIST and lost, and the replayed delete removes
-  the element for good, leaving the set without an element the last
-  packet-path operation added;
-
-- the backlog must keep the arrival order of the operations: deferred
-  deletes are queued with list_add_tail() like the deferred adds, so an
-  add followed by a delete of the same element is not replayed the
-  other way around, resurrecting the element.
-
-A resize which is aborted before the new table is in place replays the
-backlog against the original table, which stays the live table, instead
-of dropping it. This covers the allocation failure in the copy loop and
-the early exits of a retry after -EAGAIN, which inherits the backlog of
-the previous attempt: the deferred deletes are the only record of the
-delete there, dropping them would leave elements in the set which the
-packet path believes deleted, and the backlog entries would leak.
-
-The deferred delete reports -ENOMEM when the backlog entry cannot be
-allocated, instead of returning success without deleting anything.
-
-Fixes: f66ee0410b1c ("netfilter: ipset: Fix "INFO: rcu detected stall in hash_xxx" reports")
-Cc: stable@vger.kernel.org
-Signed-off-by: Xue Boyang <fuchen.dust@gmail.com>
+Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
 ---
+ arch/s390/Kconfig                   |  1 +
+ arch/s390/include/asm/static_call.h | 39 +++++++++++++++++++++++++++++
+ arch/s390/kernel/Makefile           |  1 +
+ arch/s390/kernel/static_call.c      | 20 +++++++++++++++
+ arch/s390/kernel/vmlinux.lds.S      |  1 +
+ 5 files changed, 62 insertions(+)
+ create mode 100644 arch/s390/include/asm/static_call.h
+ create mode 100644 arch/s390/kernel/static_call.c
 
-Changes in v3:
-
-- Drop the non-standard "Assisted-by:" trailer with no email address,
-  which fails checkpatch; the AI assistance is documented in the
-  changelog below instead.
-
-Changes in v2, addressing the review of v1 linked in
-https://sashiko.dev/#/patchset/20261012163353.4093-1-fuchen.dust%40gmail.com :
-
-- Defer the kernel-side add of an element still present in the current
-  table during the resize ("missing clear_bit() breaks operation
-  ordering during resize"). The add was rejected with -EEXIST without
-  being queued, so an add following a deferred delete was lost and the
-  replayed delete removed the element.
-
-- Replay the backlog on all resize failure exits, not only on the
-  allocation failure in the copy loop ("memory leak of deferred
-  operations on resize failure"). The exact path claimed there, an
-  allocation failure of the first attempt, exits before the table is
-  marked resizing and the backlog is empty; the leak is real however
-  for the early exits of a retry after -EAGAIN, which inherits a
-  non-empty backlog from the previous attempt.
-
-- Queue the deferred deletes with list_add_tail() ("backlog replay
-  ordering during resize resurrects deleted elements"). The prepend
-  predates this patch, but the fix relies on the backlog preserving
-  the arrival order, so all deferred operations are now queued FIFO
-  and the failure path replays the full backlog in order instead of
-  dropping the deferred adds.
-
-- Report -ENOMEM when the deferred delete cannot allocate its backlog
-  entry.
-
-The "memory leak of extensions for expired elements" concern is
-preexisting (the resize copy loop skips expired elements and the table
-destroy keeps ext_destroy=false) and is not addressed here.
-
-The reproducer (SET --del-set rule plus a userspace add triggering the
-resize) was run against v7.3-rc5 (mainline tree at 6d25ffca055a):
-before the patch the double free shows up as the warning quoted in the
-commit message and as duplicate objects in the SLUB RCU sheaves; with
-the patch applied it no longer reproduces in repeated runs. The
-reproducer is not attached; it is available and can be shared privately
-upon request. The ordering of the deferred operations and the replay of
-the backlog were verified with a packet-path del+add / add+del
-regression test racing continuous resizes: v1 shows the lost add and
-the resurrected element, v2 shows neither in repeated runs.
-
-Found with AI assistance (DeepSeek V4.1 Flash); the
-patch was reviewed, reproduced and tested by hand.
----
- net/netfilter/ipset/ip_set_hash_gen.h | 77 +++++++++++++++++++--------
- 1 file changed, 56 insertions(+), 21 deletions(-)
-
-diff --git a/net/netfilter/ipset/ip_set_hash_gen.h b/net/netfilter/ipset/ip_set_hash_gen.h
-index 80ca523f304b..f24c51d489e2 100644
---- a/net/netfilter/ipset/ip_set_hash_gen.h
-+++ b/net/netfilter/ipset/ip_set_hash_gen.h
-@@ -764,6 +764,7 @@ mtype_resize(struct ip_set *set, bool retried)
- 	struct hbucket *n, *m;
- 	struct list_head *l, *lt;
- 	struct mtype_resize_ad *x;
-+	LIST_HEAD(backlog);
- 	u32 i, j, r, nr, key;
- 	int ret;
- 
-@@ -786,13 +787,13 @@ mtype_resize(struct ip_set *set, bool retried)
- 	t = ip_set_alloc(hsize);
- 	if (!t) {
- 		ret = -ENOMEM;
--		goto out;
-+		goto drain;
- 	}
- 	t->hregion = ip_set_alloc(ahash_sizeof_regions(htable_bits));
- 	if (!t->hregion) {
- 		ip_set_free(t);
- 		ret = -ENOMEM;
--		goto out;
-+		goto drain;
- 	}
- 	t->htable_bits = htable_bits;
- 	t->maxelem = h->maxelem / ahash_numof_locks(htable_bits);
-@@ -934,20 +935,34 @@ mtype_resize(struct ip_set *set, bool retried)
- 	if (ret == -EAGAIN)
- 		goto retry;
- 
--	/* Cleanup the backlog of ADD/DEL elements */
-+drain:
-+	/* Cleanup the backlog of ADD/DEL elements: replay them in arrival
-+	 * order against the original table, which is still the live table.
-+	 * Kernel-side adds of elements still present are no-ops, the
-+	 * deferred deletes remove the elements. This is also reached when
-+	 * the resize fails early, e.g. on allocation failure in a retry
-+	 * after -EAGAIN: the backlog may still hold deferred operations
-+	 * from the previous attempt.
-+	 */
- 	spin_lock_bh(&set->lock);
--	list_for_each_safe(l, lt, &orig->ad) {
-+	list_splice_init(&orig->ad, &backlog);
-+	spin_unlock_bh(&set->lock);
-+	list_for_each_safe(l, lt, &backlog) {
-+		x = list_entry(l, struct mtype_resize_ad, list);
- 		list_del(l);
--		kfree(l);
-+		if (x->ad == IPSET_ADD)
-+			mtype_add(set, &x->d, &x->ext, &x->mext, x->flags);
-+		else
-+			mtype_del(set, &x->d, NULL, NULL, 0);
-+		kfree(x);
- 	}
--	spin_unlock_bh(&set->lock);
- 	goto out;
- 
- hbwarn:
- 	/* In case we have plenty of memory :-) */
- 	pr_warn("Cannot increase the hashsize of set %s further\n", set->name);
- 	ret = -IPSET_ERR_HASH_FULL;
--	goto out;
-+	goto drain;
- }
- 
- /* Get the current number of elements and ext_size in the set  */
-@@ -1053,6 +1068,19 @@ mtype_add(struct ip_set *set, void *value, const struct ip_set_ext *ext,
- 				j = i;
- 				goto overwrite_extensions;
- 			}
-+			if (t->resizing && ext && ext->target) {
-+				/* Resize is in progress and kernel side add
-+				 * of an existing element: the element may
-+				 * have a deferred delete pending in the
-+				 * backlog and it is going to be copied to
-+				 * the new table, sharing the extensions.
-+				 * Defer the add too, so that the replay of
-+				 * the backlog after resize keeps the order
-+				 * of the operations.
-+				 */
-+				ret = 0;
-+				goto resize;
-+			}
- 			ret = -IPSET_ERR_EXIST;
- 			goto unlock;
- 		}
-@@ -1217,6 +1245,26 @@ mtype_del(struct ip_set *set, void *value, const struct ip_set_ext *ext,
- 			goto out;
- 
- 		ret = 0;
-+		if (t->resizing && ext && ext->target) {
-+			/* Resize is in process and kernel side del: do not
-+			 * delete the element and free its extensions here,
-+			 * the extensions may be shared with the copy in
-+			 * the new table. Save the values, the resize replays
-+			 * the delete against the new table.
-+			 */
-+			x = kzalloc_obj(struct mtype_resize_ad, GFP_ATOMIC);
-+			if (!x) {
-+				/* Don't bother, deleting the element here
-+				 * could free the shared extensions twice.
-+				 */
-+				ret = -ENOMEM;
-+				goto out;
-+			}
-+			x->ad = IPSET_DEL;
-+			memcpy(&x->d, value, sizeof(struct mtype_elem));
-+			x->flags = flags;
-+			goto out;
-+		}
- 		clear_bit(i, n->used);
- 		smp_mb__after_atomic();
- 		if (i + 1 == pos)
-@@ -1224,19 +1272,6 @@ mtype_del(struct ip_set *set, void *value, const struct ip_set_ext *ext,
- 		t->hregion[r].elements--;
- 		mtype_del_cidr_all(set, h, d);
- 		ip_set_ext_destroy(set, data);
--
--		if (t->resizing && ext && ext->target) {
--			/* Resize is in process and kernel side del,
--			 * save values
--			 */
--			x = kzalloc_obj(struct mtype_resize_ad, GFP_ATOMIC);
--			if (x) {
--				x->ad = IPSET_DEL;
--				memcpy(&x->d, value,
--				       sizeof(struct mtype_elem));
--				x->flags = flags;
--			}
--		}
- 		for (; i < pos; i++) {
- 			if (!test_bit(i, n->used))
- 				k++;
-@@ -1273,7 +1308,7 @@ mtype_del(struct ip_set *set, void *value, const struct ip_set_ext *ext,
- 	spin_unlock_bh(&t->hregion[r].lock);
- 	if (x) {
- 		spin_lock_bh(&set->lock);
--		list_add(&x->list, &t->ad);
-+		list_add_tail(&x->list, &t->ad);
- 		spin_unlock_bh(&set->lock);
- 	}
- 	if (atomic_dec_and_test(&t->uref) && t->resizing) {
+diff --git a/arch/s390/Kconfig b/arch/s390/Kconfig
+index 10ada552d870..5d096a5eb48c 100644
+--- a/arch/s390/Kconfig
++++ b/arch/s390/Kconfig
+@@ -257,6 +257,7 @@ config S390
+ 	select HAVE_SETUP_PER_CPU_AREA
+ 	select HAVE_SOFTIRQ_ON_OWN_STACK
+ 	select HAVE_STACKPROTECTOR if CC_HAS_STACKPROTECTOR_GLOBAL
++	select HAVE_STATIC_CALL if CFI
+ 	select HAVE_SYSCALL_TRACEPOINTS
+ 	select HAVE_VIRT_CPU_ACCOUNTING
+ 	select HAVE_VIRT_CPU_ACCOUNTING_IDLE
+diff --git a/arch/s390/include/asm/static_call.h b/arch/s390/include/asm/static_call.h
+new file mode 100644
+index 000000000000..6e196cd18240
+--- /dev/null
++++ b/arch/s390/include/asm/static_call.h
+@@ -0,0 +1,39 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef _ASM_S390_STATIC_CALL_H
++#define _ASM_S390_STATIC_CALL_H
++
++#ifdef CC_USING_EXPOLINE
++#define __STATIC_CALL_BR_EX_R1						\
++	"557:	jg	__s390_indirect_jump_r1\n"			\
++	"	.pushsection .s390_indirect_branches,\"a\",@progbits\n"	\
++	"	.long	557b-.\n"					\
++	"	.popsection\n"
++#else
++#define __STATIC_CALL_BR_EX_R1	"	br	%r1\n"
++#endif
++
++#define __ARCH_DEFINE_STATIC_CALL_TRAMP(name, target)			\
++	asm("	.pushsection .static_call.text, \"ax\"\n"		\
++	    "	.balign	4\n"						\
++	    "	.globl	" name "\n"					\
++	    name ":\n"							\
++	    "	lgrl	%r1,1f\n"					\
++	    __STATIC_CALL_BR_EX_R1					\
++	    "	.type	" name ", @function\n"				\
++	    "	.size	" name ", . - " name "\n"			\
++	    "	.popsection\n"						\
++	    "	.pushsection .rodata, \"a\"\n"				\
++	    "	.balign	8\n"						\
++	    "1:	.quad	" target "\n"					\
++	    "	.popsection\n")
++
++#define ARCH_DEFINE_STATIC_CALL_TRAMP(name, func)			\
++	__ARCH_DEFINE_STATIC_CALL_TRAMP(STATIC_CALL_TRAMP_STR(name), #func)
++
++#define ARCH_DEFINE_STATIC_CALL_NULL_TRAMP(name)			\
++	ARCH_DEFINE_STATIC_CALL_TRAMP(name, __static_call_return0)
++
++#define ARCH_DEFINE_STATIC_CALL_RET0_TRAMP(name)			\
++	ARCH_DEFINE_STATIC_CALL_TRAMP(name, __static_call_return0)
++
++#endif /* _ASM_S390_STATIC_CALL_H */
+diff --git a/arch/s390/kernel/Makefile b/arch/s390/kernel/Makefile
+index f84b8fb41331..a8800319033d 100644
+--- a/arch/s390/kernel/Makefile
++++ b/arch/s390/kernel/Makefile
+@@ -70,6 +70,7 @@ obj-$(CONFIG_KEXEC_CORE)	+= machine_kexec.o relocate_kernel.o
+ obj-$(CONFIG_VMCORE_INFO)	+= vmcore_info.o
+ obj-$(CONFIG_UPROBES)		+= uprobes.o
+ obj-$(CONFIG_JUMP_LABEL)	+= jump_label.o
++obj-$(CONFIG_HAVE_STATIC_CALL)	+= static_call.o
+ obj-$(CONFIG_STACKPROTECTOR)	+= stackprotector.o
+ obj-$(CONFIG_KEXEC_FILE)	+= machine_kexec_file.o kexec_image.o
+ obj-$(CONFIG_KEXEC_FILE)	+= kexec_elf.o
+diff --git a/arch/s390/kernel/static_call.c b/arch/s390/kernel/static_call.c
+new file mode 100644
+index 000000000000..e8e20e4f782f
+--- /dev/null
++++ b/arch/s390/kernel/static_call.c
+@@ -0,0 +1,20 @@
++// SPDX-License-Identifier: GPL-2.0
++#include <linux/static_call.h>
++#include <asm/uaccess.h>
++
++struct insn_ril {
++	u16	opc;
++	s32	ri2;
++} __packed;
++
++void arch_static_call_transform(void *site, void *tramp, void *func, bool tail)
++{
++	struct insn_ril *insn = tramp;
++	void *literal;
++
++	literal = tramp + insn->ri2 * 2;
++	if (!func)
++		func = __static_call_return0;
++	s390_kernel_write(literal, &func, sizeof(func));
++}
++EXPORT_SYMBOL_GPL(arch_static_call_transform);
+diff --git a/arch/s390/kernel/vmlinux.lds.S b/arch/s390/kernel/vmlinux.lds.S
+index 1f0e71c58eb9..b9d58441f669 100644
+--- a/arch/s390/kernel/vmlinux.lds.S
++++ b/arch/s390/kernel/vmlinux.lds.S
+@@ -48,6 +48,7 @@ SECTIONS
+ 		SCHED_TEXT
+ 		LOCK_TEXT
+ 		KPROBES_TEXT
++		STATIC_CALL_TEXT
+ 		IRQENTRY_TEXT
+ 		SOFTIRQENTRY_TEXT
+ 		FTRACE_HOTPATCH_TRAMPOLINES_TEXT
 -- 
 2.53.0
 
