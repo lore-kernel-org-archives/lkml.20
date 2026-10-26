@@ -1,48 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793057199;
-	b=v5VHw7Kf97ECf36zfP/L8gUIcKEnabf3VKHk5qcVlFP734vEbv1a6CiQmWuETw4WbdUE
-	 FKuf847DpsZYtEsC/L2HR01hcTIMuptJgkIOo2eAgtOZlThOQrRnGc4OPxoJ2k0Db8Pyo
-	 B5i2mKUXJ/onASk+ojnXL4oltnUvtauKP+kHrxfgjXEuXhdM8jnvP308lHWM9AdpGn0W7
-	 vRhTV+u30tL8b2NsCh+9SJVjCUSToiZs/r0rwwU/VoMd7MOp8gV5mLBqFs38PR1gAmWQD
-	 fjUbiCsodxqZUQCGj0YRnInZGrY9ZgX0e7VcNiOkq6g7li3j2fZLa0Aa189+CtlMwBg==
+	t=1793057211;
+	b=lo/dRlgWlE7qL12qSs1SRsJ52gqA+rX8K5BillYWxJeaQsL7YxL/l9sjwiPx4dueTM9t
+	 OSZRDH8kuG8/2NGlfGEV0aCMYpe+byNN+jSK2Jgzq2UwJ26Nx3+AlDeapS40cgCs/Lntj
+	 xUFuQOWiNFywyKAapIQECoogm00RhjsD6GUY+trx1TcVKJlMUAh6RZ5eGvUu7q2R+zQUs
+	 nid1pjtyAnAafekFcKHKuKjc0tc4gTNE66237Qid2zOzECQexKsvkW4PSbNdDzNINxC7L
+	 6kua/M5X9AkzEnAfLz57dVnEvT7HWzKkFcSwDWSAaoYBALXdyoLuh10kyVBzpRWHyRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793057199;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=JD3h3UamRh59QcjyL8J1MuE/w/u1X5RZ3DOsE1wllXg=;
-	b=NeQb2GcWBl5Inypx+1MhdXyhs1QJBavrKhzQAnVRw7fDgBWMtC61HFlGZRgWFOPyQZ4i
-	 leMfK5UUStfpZfCbWGFR/gWnhiBJwxiWRxMs8FtSosQ/U+r671WiC1aUlFox3lMYd8/D5
-	 9776zCmnWSMg9zcikAfDdpMxMH1k20RvdJQ3beErtpMTpF+EKpFIZxHHw6NtcKLMstYmX
-	 Paf1qn3X3AtsxiTFqdu44V56FpUn3nstBCerh/DFpXUnVWwLYXbfChzbn8RIFhHxZR7Il
-	 DOAVElna8z1VlEwQTfTW+Aa4p/CJJiwg/qmYBdicuamtLdj7Ik0/Vr9aO7Ij6PUU0Yw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793057211;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=8OJ2lhnY0frKoHt4pVBk06hVCxKUnE042Gwl3AD2UNY=;
+	b=4Xz3tYKCK+6iMNwUyM6vfMk+UhmyL3feDviFqRurPvLgaHugJTAKCZbbx8Gx0WoxGiyr
+	 U1fVhZv7DP6OuzxZmeh1heeSaGdIz39obwXLqhGrh20vKq4LRapJJ4KQ3ld1pAl6BApRF
+	 ALwGnxszEP/0PZxsemLTjky5APfyAVxlOFEGXc9q3hmwPm3cwvbWhRaLd+C2EypHjFzGc
+	 xbgxEIRJnRNpqahowDFJJHQ3/p2d6s24T1m7x0aEi2pGDE7zDSsNJ4h+EobR5f6cLda1X
+	 6DJprx9DdXPNHrz4LeaObQDTLWtSOAigSTZ+dj0Pl5dFhArzCpl0ATeD+alzBk71beA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NqxXcyZ5;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=acm.org;
+	spf=pass smtp.mailfrom=acm.org;
+	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=LWM+Ogvq;
+	arc=none smtp.remote-ip=199.89.1.14
+Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73544606A31A;
-	Mon, 26 Oct 2026 23:26:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D31F3606A322;
+	Mon, 26 Oct 2026 23:26:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D31F3606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NqxXcyZ5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06A8C1F01825;
-	Mon, 26 Oct 2026 23:26:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793057199;
-	bh=JD3h3UamRh59QcjyL8J1MuE/w/u1X5RZ3DOsE1wllXg=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=NqxXcyZ5B7hNxVICB8D7ZuTu2KTFj1aY/wZHjWEHcrphKUZXEhErMydzk2Pzo1mLO
-	 KXsakbOlKadHDvCpmoPg4VdpWYop82udMmVVbnJSsa/yNZfnIpnc7zXVJuFxKNqzsX
-	 XXtyntURfV0Gyys700YmRUpcZNsNBwSVXZSPdu5SAf1AyhwNb3x1lfgitOWD3HGdQS
-	 vWS7Cl3Pan8Rn7XnMFij0eGv/K6IbU4S0Jzeq3EhdCV3hZuhxaFbAcpEYOR+STaAHN
-	 NiDWgUxmVXVvm5yitg/azM9C5yVHptICOOnN2qnAup6cV1VLBTsoFalfWOvsoe9Zzc
-	 roonF+qboPgYw==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Tue, 27 Oct 2026 00:17:48 +0100
-Subject: [PATCH 28/46] mm/mmu_notifier: set ->mm only after mmgrab()
+	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=LWM+Ogvq
+Received: from localhost (localhost [127.0.0.1])
+	by 011.lax.mailroute.net (Postfix) with ESMTP id 4jD8sQ1nfmz1XM30g;
+	Mon, 26 Oct 2026 23:26:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
+	content-transfer-encoding:content-type:content-type:in-reply-to
+	:from:from:content-language:references:subject:subject
+	:user-agent:mime-version:date:date:message-id:received:received;
+	 s=mr01; t=1793057206; x=1795649207; bh=8OJ2lhnY0frKoHt4pVBk06hV
+	CxKUnE042Gwl3AD2UNY=; b=LWM+OgvqO9YeCXbcglwV52/PFMK6y9Qp9tnkeQJe
+	yzJuoIasZQeqFaQH4MDWN9d1fwV4i7XQSdchMwl5nPj9QkndYUlluHiHl8RbmIw3
+	pvMjvRH2Zimes31WMI9+8SaYhEqs7nob32pFErdMaCweqIpUGOOAbEXYCBw2yw39
+	vQOWo75p0j+PXgECZfb/lK06fmFOAcamlb1f0GassQCRTWqV6IC486IUTjpERIKm
+	jts4gTPJHG2GmDqhen7tEMM+ch/PnK3zbuggnM7u/6QpwLRfeACQzMmXQorVv1bu
+	LVN1guWeUzuTBtJwvYKPIE0KH8Cv70po8mLwlg4ZmZv/fw==
+X-Virus-Scanned: by MailRoute
+Received: from 011.lax.mailroute.net ([127.0.0.1])
+ by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
+ id kcc2EYQsIKR7; Mon, 26 Oct 2026 23:26:46 +0000 (UTC)
+Received: from [IPV6:2a00:79e0:2ed2:d:d824:fc54:e646:594c] (unknown [104.135.182.40])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bvanassche@acm.org)
+	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4jD8sK2bfKz1XM4Tl;
+	Mon, 26 Oct 2026 23:26:45 +0000 (UTC)
+Message-ID: <5adbbab4-11f2-48be-9924-9d14a06d0ed7@acm.org>
+Date: Mon, 26 Oct 2026 16:26:43 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,109 +70,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/5] scsi: ufs: Fix device management timeouts and runtime
+ PM errors
+To: Stanley Jhu <stanleyjhu@google.com>, "Martin K . Petersen"
+ <mkp@kernel.org>,
+ "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>
+Cc: Alim Akhtar <alim.akhtar@samsung.com>, Bean Huo <beanhuo@micron.com>,
+ Can Guo <can.guo@oss.qualcomm.com>, Peter Wang <peter.wang@mediatek.com>,
+ linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261025013446.345974-1-stanleyjhu@google.com>
+Content-Language: en-US
+From: Bart Van Assche <bvanassche@acm.org>
+In-Reply-To: <20261025013446.345974-1-stanleyjhu@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-fixes_core-v1-28-6f74bec9a5bb@kernel.org>
-References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
-In-Reply-To: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>, 
- Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
- Baoquan He <baoquan.he@linux.dev>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
- Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, 
- Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>, 
- Pasha Tatashin <pasha.tatashin@soleen.com>, 
- Pratyush Yadav <pratyush@kernel.org>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
- Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
- Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>, 
- Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
- Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
- linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, 
- Chris Mason <mason@kernel.org>, stable@vger.kernel.org, 
- "David Hildenbrand (Arm)" <david@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1928; i=david@kernel.org;
- h=from:subject:message-id; bh=x0mKttz+HwDvoeWV/WYBCh6ori+6WykC26zRhsHss7s=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLLu358WvjBTPacmt4dPIdDk5tcpn+01cwTchGfUrDY2m
- /szsutzRykLgxgHg6yYIktQ8H2Dly/X1Va78THDzGFlAhnCwMUpABOZdZHhf0TH64MXTnQzGVbk
- qRb3zPUxmqEu+rl0VcOt4H8i+Tv3tjEyTI9WCD+789mjnlXPFlqk3zA4dezK72lrV9nE/lCeLr9
- WlhcA
-X-Developer-Key: i=david@kernel.org; a=openpgp;
- fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-From: Chris Mason <mason@kernel.org>
+On 10/24/26 6:34 PM, Stanley Jhu wrote:
+> Add ufshcd_rpm_resume_and_get() around pm_runtime_resume_and_get() and
+> convert the 20 external and helper call sites to abort and propagate the
+> error when resuming the W-LUN fails. The three lifecycle call sites in
+> ufshcd_rpm_dev_flush_recheck_work(), ufshcd_wl_shutdown(), and
+> ufshcd_remove(), plus ufshcd_err_handling_prepare(), are intentionally
+> left unchanged.
 
-Radeon uses a non-NULL notifier->mm to decide whether to call
-mmu_interval_notifier_remove() when freeing a buffer object.
-__mmu_interval_notifier_insert() sets ->mm before validating the range,
-so a wrapping userptr range can leave ->mm set after insertion fails.
-Cleanup then tries to remove an unregistered notifier for which no mm
-reference was acquired.
+Patches 3/5 - 5/5 introduce a behavior change: a failed runtime suspend 
+sets power.runtime_error but leaves the W-LUN in the RPM_ACTIVE state.
+Today, sysfs, BSG and hwmon accesses still work in that state. With this 
+series they all fail with -EINVAL until the error handler's
+ufshcd_recover_pm_error() clears the flag. Is this behavior change
+intentional?
 
-Set ->mm only after mmgrab(), once insertion can no longer fail. While
-we could fix radeon's code instead, setting ->mm on success only makes
-the code more robust.
+Thanks,
 
-Fix generated by an LLM and sent by Chris Mason in private.
-
-Fixes: 3506ff69c3ec ("drm/radeon: use mmu_interval_notifier_insert")
-Cc: stable@vger.kernel.org
-Signed-off-by: Chris Mason <mason@kernel.org>
-[ david: simplify description ]
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
----
- mm/mmu_notifier.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
-
-diff --git a/mm/mmu_notifier.c b/mm/mmu_notifier.c
-index 2e20f88e162d7..a7bae5de5fedc 100644
---- a/mm/mmu_notifier.c
-+++ b/mm/mmu_notifier.c
-@@ -947,7 +947,6 @@ static int __mmu_interval_notifier_insert(
- 	struct mmu_notifier_subscriptions *subscriptions, unsigned long start,
- 	unsigned long length, const struct mmu_interval_notifier_ops *ops)
- {
--	interval_sub->mm = mm;
- 	interval_sub->ops = ops;
- 	RB_CLEAR_NODE(&interval_sub->interval_tree.rb);
- 	interval_sub->interval_tree.start = start;
-@@ -964,8 +963,12 @@ static int __mmu_interval_notifier_insert(
- 	if (WARN_ON(atomic_read(&mm->mm_users) <= 0))
- 		return -EINVAL;
- 
--	/* pairs with mmdrop in mmu_interval_notifier_remove() */
-+	/*
-+	 * Pairs with mmdrop in mmu_interval_notifier_remove(). Drivers take a
-+	 * non-NULL ->mm for "registered", so set it only with the reference.
-+	 */
- 	mmgrab(mm);
-+	interval_sub->mm = mm;
- 
- 	/*
- 	 * If some invalidate_range_start/end region is going on in parallel
-
--- 
-2.43.0
-
+Bart.
