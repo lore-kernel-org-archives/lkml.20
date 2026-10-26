@@ -1,47 +1,81 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793044940;
-	b=VfUoL1DyTbPXg2HRnNSeWjdR7X/tF3oWjkfxcdiSL+3474dVNAK0qw3dl4TwqdABeHew
-	 CDcFMVEwB+6FO+Y/C4sV4h7SrswXr0fJsQHld8k1A5Z2b54kKpgH780WyGJ2MyOkFaSnL
-	 7tSW2cFXvmzMBnogW4FpsHQN16zE0gGSFtdvfS86D0vM87e90EUlLjfU65zEIF0+sYz5/
-	 hk3Gq8SFmEnEv6bYLfwcr1+UnZ7pUKQpaZnF3Fe4Q9gG0UkKf1LW6EAZA+X8ctYl/oR6S
-	 SD8wJqKjKRoz7f8WMmM6lOiZ8lHRsH9CF1lgvLkXBaTk3OtCQxQGFciIB+Ptzuu3WOw==
+	t=1793045108;
+	b=F0Ip3MryqY85Vdq/dOP9DxjlIfS3PAt2YtPUS+i0lrIzAb9IXmnfn5/OXJJK9GBQs2Ft
+	 gYP/h3I35ljYQN8q1di/K0hvv+2zV4O8IP+jB9tQbMybw1srL18PaOaHLZQIXkSR6Todk
+	 ewRvV/DZc9BBErVK0+Ki8VlsmmR/Zc+v9AIn7BgjWPktOTR0Uwar03M1z6fmX3Kac6g4t
+	 X7kTzPOGJPsUjelo0PU3NLsUVRP7WIrrE+ndBtxGKT3dtLun/WH9Y03URlDL7wMaLK9Fk
+	 EPVnhcF3VlbmVQ8L+WMAb3M7pNWbGR1k6FTggD5ks4nKZES3FC3w2cdE8aEXgJdt0iw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793044940;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=pU5b5ihcYnoiOulq03sY9zpKeBhkxlrYNGiLlmtR8+0=;
-	b=JN24DP1D0kGEA1qY/E7cb3UZtGB2X9Yr+J7DzoKAFoGla96+kHoHXe2cmQIUnHuFngPr
-	 s1SZ+2EzGnQ66FB24acR90ZA0TUUUCL7xnSBATLIZKh6qnAG5vchnLwEMKw9PG5V8dP62
-	 XSfXBn8rH3es23/TRwWiejbZEbM25e4hoe4aSjo/iUyiusbswwnzCUB97H92qk08tOsCK
-	 X+d5+qAteIY0aZGFjDVFIT/6SimBLmpxcMJ14GmpJ6BIdnvPUBc/vB/18UkUeL3RmiCWk
-	 oQThcPEmQB4fiL2zGoa+473NjDdpMlxJummYYlh5ALD9FBd11ryFbxyinpapGOhZEmA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793045108;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=BawehOGx+swDNz30BXtD0rUayjwrRWdohfXeiD3Nwuc=;
+	b=rxd/TfUd8nEkr+Bhk134tT+Avsdhy0ugVOzSOk2nX0w0aX2B0atn/IoIOEr2rwIY26d7
+	 ga1q3AjO5GecHsaWBRcMhyFpR50ROnhOxa9VBnB7huH0LvCshEuMgL0Ab4uGpUocQh8C4
+	 pT2Ht/LTW/f89mqFKXVpOlovhOHXrVwEJoXMSjl6+nquGF0tVu6xBZwV1vMQans8JTRdP
+	 IGUrAVtCDqC8YHsJmxJDzGlPSVybnX2/R9ZsMpwDjPMziIxP0pjxs/kCpFckCMxl62qkJ
+	 bS16L3cvVoho4AEHVyMAgYyMFDz01V5NNfPpPTFQPC2YutztW1LJcoqGrnZl1GyL69A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fa30BEEM;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=uqkQoFM5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1CF2606A31A;
-	Mon, 26 Oct 2026 20:02:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0B8C606A31A;
+	Mon, 26 Oct 2026 20:05:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fa30BEEM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AABE41F01825;
-	Mon, 26 Oct 2026 20:02:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793044939;
-	bh=pU5b5ihcYnoiOulq03sY9zpKeBhkxlrYNGiLlmtR8+0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=fa30BEEMAWJNd6ifbLnG4k7C33ee498bhauewafyMZ8tZfJMmcFcflsxoC5yxOCce
-	 W0qY/OwtxQL+zBTGzNQsVV7X+pPlERL4xCA2FHtWvySY7Ybkyt1OinOjnQLWpUoCym
-	 73fI/lUYwhOLl6TvnjQ/aHUVDVVbg1phGDGdAPt13DY8wtlpuPbNo2xUadOYuJCP/U
-	 CoXYhrZL0vKfG56uby3pc8IMk++oVCNAxxUmAm4ppxxPlAlhTV57ypqcn+1mLxozez
-	 AIP4JIJFJiBHL9XFSV/GJ/4kPa/iefpS83DlBQCDmYIZYqlgf8fu1RLL1BNw92CsRj
-	 9QzCCaOsQ4QPA==
-Message-ID: <f2dd98be-0551-4857-93c7-59ffad1d3e88@kernel.org>
-Date: Mon, 26 Oct 2026 21:02:12 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=uqkQoFM5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFCD41F01825;
+	Mon, 26 Oct 2026 20:05:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793045107;
+	bh=BawehOGx+swDNz30BXtD0rUayjwrRWdohfXeiD3Nwuc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=uqkQoFM52klwzT7RGNaUFA6Qga4FuWuGaYyefzROIzukjBhIFqREK+pqTr4hriVoK
+	 PDd/0ELiJmI8EHpbo0nbvO9gLFbi48BLIx5y9dL4ZVWfdn+SY805AGZXuJumJAO/Tm
+	 19C/ca7D7sF/slrGjQ3K2AJ2vFy+qN+CzA+phAus=
+Date: Mon, 26 Oct 2026 21:05:06 +0100
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Leon Romanovsky <leon@kernel.org>, Alex Williamson <alex@shazbot.org>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
+	Armin Wolf <W_Armin@gmx.de>, David Lechner <dlechner@baylibre.com>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Luis Chamberlain <mcgrof@kernel.org>,
+	Petr Pavlu <petr.pavlu@suse.com>,
+	Daniel Gomez <da.gomez@kernel.org>,
+	Sami Tolvanen <samitolvanen@google.com>,
+	Aaron Tomlin <atomlin@atomlin.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Bradley Morgan <brads@mainlining.org>,
+	Aleksandr Nogikh <nogikh@google.com>, linux-modules@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-usb@vger.kernel.org, driver-core@lists.linux.dev,
+	linux-trace-kernel@vger.kernel.org, Johan Hovold <johan@kernel.org>,
+	Richard Weinberger <richard@nod.at>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Bjorn Helgaas <helgaas@kernel.org>, linux-pci@vger.kernel.org
+Subject: Re: [PATCH v4 0/3] driver core: add TAINT_FORCED_BIND for when
+ userspace manually messes with devices and drivers
+Message-ID: <2026102604-tint-catcall-433e@gregkh>
+References: <DLIL9H50MALI.3JROXYEEUM3KU@kernel.org>
+ <arIvG0nx4LXG9nlW@monoceros>
+ <defb3953-7516-437e-b70b-d57de55b91bf@baylibre.com>
+ <9bd3a34b-5e98-4038-80d6-da2c3b1948dd@gmx.de>
+ <2026092321-province-yearly-44aa@gregkh>
+ <arOfHEsGGglNse7T@monoceros>
+ <2026092348-victory-erased-0e5a@gregkh>
+ <20261023181326.0dc2f7ed@shazbot.org>
+ <20261026122243.GA28851@unreal>
+ <20261026184312.GA1685504@ziepe.ca>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,76 +85,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v14 RESEND 0/6] Merge redmi-wmi into bitland-mifs-wmi
-To: Chris Taraszka <chris@miget.com>
-Cc: Mingyou Chen <qby140326@gmail.com>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Ilya Gladyshev <ilya.gladyshev@linux.dev>, KentoNion <kento@kekto.ru>,
- platform-driver-x86@vger.kernel.org, ted eric <ericted8810@gmail.com>,
- Armin Wolf <W_Armin@gmx.de>, linux-kernel@vger.kernel.org,
- Matias Civadda <matias.civadda2342001@gmail.com>, =?UTF-8?B?6auYIOS/ig==?=
- =?UTF-8?B?5paH?= <btx342@gmail.com>, powerfullz <wleizc7319@gmail.com>,
- =?UTF-8?B?5a2ZIOiqiemTrQ==?= <wolf109909@outlook.com>,
- =?UTF-8?Q?Milo=C5=A1_Vlku?= <vlku.milos.fun@gmail.com>, Rsplwe
- <i@rsplwe.com>, Bozhen Peng <bozhenpeng93@gmail.com>,
- Anton Karasev <uselessfire@gmail.com>, Jame Jao <jaojame6@gmail.com>,
- Serhiy Shliapuhin <shlyapugin@gmail.com>
-References: <20261026102101.224568-1-qby140326@gmail.com>
- <073e6aaa-12dd-4fc1-b7dd-4d27cb4e27b6@kernel.org>
- <CAAcRvKNvBKwVcPQ6vv-+OGZdL2Gxd-ocNyvZO_q-g083QNfR5w@mail.gmail.com>
-From: Hans de Goede <hansg@kernel.org>
-Content-Language: en-US, nl
-In-Reply-To: <CAAcRvKNvBKwVcPQ6vv-+OGZdL2Gxd-ocNyvZO_q-g083QNfR5w@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261026184312.GA1685504@ziepe.ca>
 
-Hi,
-
-On 26-Oct-26 20:56, Chris Taraszka wrote:
-> On Mon, 26 Oct 2026, Hans de Goede wrote:
->> 1) This assumes the event indicates a platform-profile-change has happened, if
->> it is a request for a platform-profile-change then platform_profile_cycle();
->> should be used instead.
+On Mon, Oct 26, 2026 at 03:43:12PM -0300, Jason Gunthorpe wrote:
+> On Mon, Oct 26, 2026 at 02:22:43PM +0200, Leon Romanovsky wrote:
 > 
-> Hi,
+> > This is needed for two reasons: to save hardware and software resources
+> > when creating a large number of VFs, and to allow the PCI config space to
+> > be configured *before* the driver starts using it.
+> > 
+> > There is no in-kernel alternative.
 > 
-> Some data for this and for Mingyou's KBD_BRIGHTNESS question, from the
-> Xiaomi Book Pro 14 (TM2424, BIOS XMAPT4B0P0A0A), traced with a kprobe
-> on bitland_mifs_wmi_notify() with v13 on v7.3 (v14 has the same event
-> handling):
+> Having userspace involved in driver binding has also always been the
+> plan for confidential computing needs. We cannot have a device driver
+> bound across some of the HW transitions like TDISP shared/private, so
+> there has always been an expectation of bind/unbind.
 
-Thank you for the info.
-> - Fn+Space (keyboard backlight) sends no WMI event at all, neither 0x05
->   nor anything else, and does not change the backlight under Linux. So
->   this model cannot tell whether the firmware handles KBD_BRIGHTNESS.
+What, why?  What forces that decision?  What's wrong with the proper
+driver for the hardware being bound automatically to the device?
 
-Hmm, I wonder if this maybe sends some scan-code on the PS/2 atkbd
-interface? Windows must get an event somehow ...
+> For this case the existing sysf drivers_probe is good enough for bind,
+> but we must have taint-free unbind for PCI devices too.
 
-> - Fn+K sends event 0x28 with value_low 0x01 on every press (01 28 01 00),
->   not 0x16. The firmware does not change the mode by itself: the
->   SystemPerMode value (EC 0x68) stays the same across the presses. If
->   0x28 is the performance mode key on this model, it is a request rather
->   than a notification, so platform_profile_cycle() would fit. 0x28 is
->   currently logged as "Unknown WMI event".
+Why?
 
-Ack, this sounds like a case for calling platform_profile_cycle() if
-platform-profile support is present.
+> I think this patch should be reverted ASAP, it is a pretty major
+> regression for a lot of users.
 
-> - On Windows on the same machine, with Xiaomi PC Manager not running
->   (it fails to start on this install), neither Fn+K nor Fn+Space does
->   anything either. So Fn+K looks like a request that Xiaomi's software
->   normally acts on, not a mode change made by the firmware.
-> 
-> - Mic mute sends 0x21 with value_low 1 and 0 and is reported as
->   KEY_MICMUTE, as expected.
+But this use case hasn't even happened yet, so what would regress?
 
-Hmm, if the value-low toggles I wonder if the firmware also mutes
-the mic itself ?  This may need some special handling.
+I'm not talking about the vfio thing, that's different here...
 
-Regards,
+thanks,
 
-Hans
-
-
+greg k-h
