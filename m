@@ -1,68 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793009588;
-	b=ZoRztwWZETuqon7TYtsK0/VUHVewTSkAM4sTYROW4y67Mj5cUUyJJ8W804rRtVEJbcfz
-	 XdwTcSARAb0OmLjbZlj1bXMzr4npD6jBiMr4ISHl2WuIOSzl18w1N4bdrZ+bJD4XsRyFR
-	 wlvFwCsf7pY54LfS/zZ5eCegX03/DAGfJmedcAgTp1pBIrFcfpiwkuUe3FsXP3YppPeHV
-	 FJ7toHKlJYOmtrXJbL9v7H0eTH7jTe4U58cfNTU8JtXpECqSddE6D9Oy4mEGvj+JTfJCx
-	 X59Wle4PC2KPWkgQ2QfCVWjPb3IvHBpbrU3HZt6EKvJkiZY3hmFgG9ywV1s2w42n72Q==
+	t=1793009592;
+	b=TVBNCG7/GKoIGmhBO07/z5Q1STi0oeGvDIKPOw4F2bJFmJ3ZjOGyWRhOc/iP/T4q8sE5
+	 /qt6C9eRFyMCd8i+UaKun6YnJR+e/AWXouIyYBPfElwvXzTu458E7xavSMOpp9rOcW7KA
+	 At2Nsmw4e3KwzAJBqJ/YMCVh0ytZT0+nhMOMMZ5oM6WfxTpwjKfiXme78a9yl1zc5M7jC
+	 jbvPirC3MJM23/qt9Ww6kl8mA4ziW7OS8MBqxu5QAbFTwSA1Lt1FchLQf9G0iyw45lzts
+	 wjgqxhnT/SLNZAjcLF/lG7AXHeLfAFX/L0F5Kjt5gRxkt+x8fFxcZRQVahS+BHPTTJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793009588;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=nESduMqia6gP/rxZ9IW15LDaNeBLJQQduuyyyp24WF4=;
-	b=fbkr/x5iY7p1l2udGbg6CUODKDpXTDFIgXtyk3TRenQN5g9DKb09vZADY5WleSQHcZst
-	 0sIARym7GtqoSk3VbqthvyKOz5ZEvauvL0rR3Rrzg7kMNpB5t76i8uf+v7IgsrjqmhF7W
-	 IaPNcG/aqvVUTHH+wyt1qxjpmdTIq86/k4nKadGWR6e8sV5AXdisLZ9YsiLIM+TDU/Q/S
-	 3wuGoh3qTYr29xfZJ/jDExBQcypFlL3zrWdMos5DeGBsh68RmG3tmxV4PldOdOFSdBpvn
-	 4eTGxyz1OSLZ2Vhye9IKjwuNwRVbYR2fwSef0JbUNesLmnIHfEY+mDNnF7pqJF6RyAw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793009592;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=W4JDUkT65UJKUap/Q3QCQO+wt9GFW6OJmeRPM0Y//64=;
+	b=3uqA5elsoSpeaHV0zldTvhnVY+vqBUXVFvoYI6fc0glgihKgy2ElJZJgI6P2ZT2KmOZk
+	 u1+6MluYXRvM4EJNs5ebS5Z1SBP1+JnZ1pfKspdm4LsapXU+8QMXYp2sMVSZ+VGO22naE
+	 eWjYzIuV2JKox72Nu52K3DrT00eUVGtyVcfMp7Mv9llILqtfASM23Qzmma7KVxwhwjc+Y
+	 1zRubmhNJxwMQed42Tla/Mo0P62DjF12Qf+sJBUFxXJydpE4VxG3tht4oYZLJfUbefGWB
+	 0swjVWWM9mI66o/ySTN6Bbjdj2qKCbLMHqlDg8vrVz9BKe0xcs3iHctQY6uqfd8giSQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=BKeCC0N8;
-	arc=none smtp.remote-ip=90.155.92.199
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=RkbyZFMY;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=PEbwae9S;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7791A606A31B
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:13:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7791A606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9971606A326;
+	Mon, 26 Oct 2026 10:13:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9971606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=BKeCC0N8
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=nESduMqia6gP/rxZ9IW15LDaNeBLJQQduuyyyp24WF4=; b=BKeCC0N8FdK+zM2O8LOPyYlCMN
-	XeAaerQyAdn3wU3IN8eUf5nM83W75IJU04tw7ukkj8yzBt+QjAMYQaO3b/JikxFSDrZHDB7zltGsk
-	0+PIJWUvpoDMNueID6beoyyfW4PlJcV3qr/kCvLJwpfWVnTuesnc88KBshGxHXeod3hgy424nCgta
-	tRqHRRd3LH81KQ3DzaXM0/cJrdpmp2XMiegqdiucd2DvdYTrBl25BPRpa6XSWKxpim0lA6w0I/+oF
-	kAtdXrF8oupJLQeo3z3wDKP2GKdT4MtdBRVhJRoiDxGJ9/7HApXDfIDWlg7DF45x97m+kCTg9W13i
-	iKrczC8Q==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xLHhI-0000000DgL5-2k3c;
-	Mon, 26 Oct 2026 10:12:56 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id F24F3300DB9; Mon, 26 Oct 2026 11:12:54 +0100 (CET)
-Date: Mon, 26 Oct 2026 11:12:54 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: Qais Yousef <qyousef@layalina.io>
-Cc: Ingo Molnar <mingo@kernel.org>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Christian Loehle <christian.loehle@arm.com>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	John Stultz <jstultz@google.com>, linux-kernel@vger.kernel.org,
-	Wei Wang <wvw@google.com>
-Subject: Re: [PATCH v2] sched/uclamp: Fix race condition leading to
- imbalanced uclamp_rq
-Message-ID: <20261026101254.GA2668200@noisy.programming.kicks-ass.net>
-References: <20261025162612.360033-1-qyousef@layalina.io>
+	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=RkbyZFMY;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=PEbwae9S
+Date: Mon, 26 Oct 2026 11:13:08 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1793009590;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=W4JDUkT65UJKUap/Q3QCQO+wt9GFW6OJmeRPM0Y//64=;
+	b=RkbyZFMYs0L7R5zuL0JWZHga3ct9XtrUDTrWCMaMRGYIq91pY/d1SQuVEGMtzPYQCzfyOS
+	vcyZOBvAk9c/CHwlROUnxw954sKtPMGSZQar7+581RlNofCmaeTr4yHBim4sqz+fhCf4+/
+	iwMmLzjYdSKG1DD6AqttRb1Q52l7SOp1GnFMz6BElwB/c2hlN2EXbdHxv2g3XkbIKaJ1sb
+	xfzyM1ZY6PBOB5LIiJJW2AUV6GpdQjUkWW7abNmFEhdquFLWnFu6+CYd5HUOjMi4QK4OFI
+	LJhkteHZgnRoKkGg3636s4fVssuTg/7U/Tt6ClnXqPRZmqkCuv2Q1FPjUdIeWw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1793009590;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=W4JDUkT65UJKUap/Q3QCQO+wt9GFW6OJmeRPM0Y//64=;
+	b=PEbwae9SGq63+8A+pJEll85BEiUCOOXC2cD2cFdcb2Kv2zumeDW0KxCdtxjtUc2UI7XpRa
+	CvMm07pet+3HKLCw==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Paolo Abeni <pabeni@redhat.com>
+Cc: Jakub Kicinski <kuba@kernel.org>, Daniel Zahka <daniel.zahka@gmail.com>,
+	Alexander Duyck <alexanderduyck@fb.com>, kernel-team@meta.com,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Jesper Dangaard Brouer <hawk@kernel.org>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	Eric Dumazet <edumazet@kernel.org>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, bpf@vger.kernel.org
+Subject: Re: [PATCH net-next v2 1/4] eth: mpnic: count packets, bytes, and
+ drops per ring
+Message-ID: <20261026101308.P7PJXd9E@linutronix.de>
+References: <20261012-mpnic-counters3-v2-0-8afba81c2d5a@gmail.com>
+ <20261012-mpnic-counters3-v2-1-8afba81c2d5a@gmail.com>
+ <20261016220930.i32JEcqe@linutronix.de>
+ <DM8U47F4MNK3.2V54CCQ9YTNBY@gmail.com>
+ <20261019215405.OCzrrKYw@linutronix.de>
+ <20261019190543.419e70bc@kernel.org>
+ <20261020212155.47v0ot4g@linutronix.de>
+ <68046007-3737-4f85-bcd1-559daa5835d4@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,86 +88,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261025162612.360033-1-qyousef@layalina.io>
+In-Reply-To: <68046007-3737-4f85-bcd1-559daa5835d4@redhat.com>
 
-On Sun, Oct 25, 2026 at 04:26:12PM +0000, Qais Yousef wrote:
+On 2026-10-21 10:26:12 [+0200], Paolo Abeni wrote:
+> > Right. If you think is all makes sense and is needed then why not. It
+> > just looks odd.
+> Sebastian, my understanding is that your doubts are mostly because you
+> are unfamiliar with the current reference NIC stats scheme. That has
+> evolved significantly in recent time.
+> 
+> I think the approach here is actually quite nice, I don't see blockers.
 
-> diff --git a/kernel/sched/idle.c b/kernel/sched/idle.c
-> index 76f3c84ca6846..950e2885bba63 100644
-> --- a/kernel/sched/idle.c
-> +++ b/kernel/sched/idle.c
-> @@ -502,6 +502,23 @@ static void set_next_task_idle(struct rq *rq, struct task_struct *next, enum snt
->  	 * lost_idle_time of clock_pelt
->  	 */
->  	update_idle_rq_clock_pelt(rq);
-> +
-> +	/*
-> +	 * Due to a race condition when enabling sched_uclamp_used static key,
-> +	 * we can end up with imbalance where uclamp_rq_inc_id() has happened
-> +	 * on a CPU without uclamp_rq_dec_id() on another CPU that hasn't seen
-> +	 * the static key flipped. The race condition is unlikely, but ensure
-> +	 * the uclamp_rq() state is set properly on each entry to idle.
-> +	 *
-> +	 * The reset will cause the uclamp_max from uclamp_idle_value() to be
-> +	 * lost. Since we are imbalanced, hard to know what is right. So just
-> +	 * cleanup. This should be a transient error state once we recover
-> +	 * everything should work as expected.
-> +	*/
+That might be it. As I just wrote in my recent reply, if you have a
+driver recommendation what is currently recommended I would take a look.
 
-Whitespace fail here.
+> /P
 
-> +	if (uclamp_is_used()) {
-> +		if (unlikely(uclamp_is_imbalanced(rq)))
-> +			init_uclamp_rq(rq);
-> +	}
->  }
->  
->  struct task_struct *pick_task_idle(struct rq *rq, struct rq_flags *rf)
-> diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-> index 7d2ec527b8a25..47dcfd74e150f 100644
-> --- a/kernel/sched/sched.h
-> +++ b/kernel/sched/sched.h
-> @@ -3704,6 +3704,7 @@ static inline unsigned long cpu_util_rt(struct rq *rq)
->  #ifdef CONFIG_UCLAMP_TASK
->  
->  unsigned long uclamp_eff_value(struct task_struct *p, enum uclamp_id clamp_id);
-> +void init_uclamp_rq(struct rq *rq);
->  
->  /*
->   * When uclamp is compiled in, the aggregation at rq level is 'turned off'
-> @@ -3783,6 +3784,33 @@ static inline unsigned int uclamp_bucket_id(unsigned int clamp_value)
->  	return min_t(unsigned int, clamp_value / UCLAMP_BUCKET_DELTA, UCLAMP_BUCKETS - 1);
->  }
->  
-> +static inline bool __uclamp_is_imbalanced(struct rq *rq, enum uclamp_id clamp_id)
-> +{
-> +	struct uclamp_bucket *bucket = rq->uclamp[clamp_id].bucket;
-> +	int bucket_id = UCLAMP_BUCKETS - 1;
-> +
-> +	/*
-> +	 * On idle all bucket.tasks must be 0, or we have hit imbalance
-> +	 * problem.
-> +	 */
-> +	for ( ; bucket_id >= 0; bucket_id--)
-> +		if (bucket[bucket_id].tasks)
-> +			return true;
-> +
-> +	return false;
-> +}
-> +
-> +static inline bool uclamp_is_imbalanced(struct rq *rq)
-> +{
-> +	enum uclamp_id clamp_id;
-> +
-> +	for_each_clamp_id(clamp_id)
-> +		if(__uclamp_is_imbalanced(rq, clamp_id))
-> +			return true;
-> +
-> +	return false;
-> +}
-
-Anyway; I was thinking, since we have a hole in struct uclamp_rq; and
-also uclamp_flags. Can we fold uclamp_flags into the hold, and also use
-UCLAMP_FLAG_IDLE to detect if we need this bucket scan at all?
+Sebastian
