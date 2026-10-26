@@ -1,100 +1,116 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.50
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793032005;
-	b=VbW/rXLyg8WowjveP//Hg1TA6J+GXFK4A9VmDP6j2AH36yLZK3qNhenbHrA3TTERXvvT
-	 HhPYIXUCNbBCQgVlvwOd8RWCp0M0GbVQb9Kxn5EBFKPUozG0N+xtKUYc9bc5pfGKYlq2i
-	 WJnDIiwo75CedyOlbl3AY/fsOBlF8TVJkVK5+uPnDYa/3yK1sh3k0CkE92MSek8NnJTPI
-	 ff7GDuhYO6qHek/OKuh9uZvkuwdAoqsHE+RHzcmQb/h6Cgge/VzxkjPX09CKn3OD2kYty
-	 lBSePKDT7qV3uVtLDIQH7VJo0JEnQGTZ681j6WYiBq84UgFHTt7hG0M35cvAWizOVeA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793032005;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=lW187BX7pvnv89/fgKm/N1OWRtkvU+9tvFLWWwcKajk=;
-	b=WSn2dAeVgclo0DUwCD8d1EyEColoh8sTA9KqyU2DxzFHgniYUp6qG4LQyQI4HyrJ+F7T
-	 js7nO6gQfEPhu2zrmbaWGaxHiXJTHsKHG8sqIB7A2q9yRjx9hfUfxgs21VUoOs0vkmIZF
-	 C5FnODYTh7l9wMENkjL3GPiFuL33Zgc4J7QMjxPsIUzLGGTgpgBXK67CrGzF6VWzO7JAH
-	 hbJGJnd8XC7UkYjUINwwjQKrsrgwwDveVQBpva0XJ+im13dzFPJg6xyxp0UZcp4luOQ3r
-	 eUJ+aymU/Cz6qx9dy3wRKnUAw0KzViYDWYga1JI9IgMMFk5TUeQuX9q52bB3VY3J1eg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=MUOvYbUG;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.50
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.144
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793032012;
+	b=UmVSX8XzpBIbVh/9e6im1G2eNBeQhliSJCKwDxvzKcNx2wWi0WzunepGLmgc+F20gWv1
+	 tTY5tZ74W1lC4H8kzI37aWs8It76nY7Gxsj00dpvkJdgTfPZe1bOcOM1bMdafAeLW0qn5
+	 VhilWvLZRv88MtawTrWBP7z1ex/LYRLt6FUoMo7RaWnTs2R+u6TO4y9m5fghs6BJLFLu4
+	 HtmKbA7Vt5qG3Hei+zBs2nQmOvGYfcBNYnH0/ksVuh1fsuSaFm0BwXS/36bOgaxxXKaGs
+	 yowY4o7+veYhl/XiRd+pmAw0AuLhmaUWJWyQ4oGXvkQbfbEwAeYP4D9Xv7X035fzltg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793032012;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=v5/eiN+AAmFMXx9+44dNMnlZYUhVAO9q0k9ZrZf2VVo=;
+	b=jDpEOaiQjzLCycjcK9Q+GTmjXsefCWZvxlroqJ2G4QMSrWb9qhg5tZG8CB5JNoOpDQe6
+	 k6BMWTw3Hfa8CJftKErVtdnX0/OQhio0RecEtK38OXx1AQaG4090RgY7BZolOWmct+CD/
+	 RIfYMIeaYfCDaEWWLzhcfjmiGUoUpC5sPgfHKXnWTTRtvyxKbYCLVELis+9/o4hPyOr1r
+	 hqtpTstxBVG3Z/uGingRWiGoAWQ3nu6Yz4buf9ovn30GmAFXSaMeQSh3xbuod4z7m2/Pl
+	 UjBfN4Y/JO1KqTKUREOZFLJ9q/z4ZL47UjZJFFtMcO764xaIc1GcfVEAmBcMlOSpk8A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=jannau.net;
+	spf=pass smtp.mailfrom=jannau.net;
+	dkim=pass header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b=ICxllQTw;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=lFNljEV5;
+	arc=none smtp.remote-ip=103.168.172.144
+Received: from fout-a1-smtp.messagingengine.com (fout-a1-smtp.messagingengine.com [103.168.172.144])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D1E7606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 16:26:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D1E7606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A094A606A333
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 16:26:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A094A606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jannau.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=MUOvYbUG
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6b408f2d936so4669675a12.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:26:45 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793032004; cv=none;
-        d=google.com; s=arc-20260327;
-        b=TugZbQyxOUcao822ahme+6zJGhPFndPGjY16kmN7I000+UZyhlVPvoA5amUXIixzUU
-         JI26/t0gWYTIOE8ruYsFsaEhZZoY1Ry+aAwSKrtXEc8xlC2aHs5p6a1+64R4JrR+NlfF
-         bLnWrWDH1BOesn6sdBRRv5nk7/RHz76fPP12dxIKuIGlC7nIN/ghQEbaGlyqumMwb5vG
-         kcYZNcB7HW6r2ibY/9rw8cSkO0O213KlJY8tBLyD4RJ53TecktRfiPxzfD8kJXP4wli1
-         /S+DlM9MLBZN2DR8MALOk8lawI0ynlyqCD8cEjZvomAiEp3neYfLmIHR9H8nYqqpgQ2O
-         X1KA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=lW187BX7pvnv89/fgKm/N1OWRtkvU+9tvFLWWwcKajk=;
-        fh=AIJiEmH3v6GgzlplKayuQA0j11j/CjY454D1hHc3toY=;
-        b=cESZze62zj4jOwHb0zTsWpZHaxdarCV5LxXFUbtcSHkySr/329Lnj2kbGAu84pbJgB
-         5ow6dwgN4SBUwpGqC2FwS9rdtJHx/UhqW8Kix7zdTs1wQ9Ut9R8HDkvj7T0/aQWnhv3P
-         MuBe6KBRoHALD6P/Hf4Ak2HX2Wf1PIIdW7RYOlO2b1lzYbf4TK8aISON+NtQ2LMGOp2h
-         x3o+Q0sEp32b4zAgxuC6VYbpkal/Znwrhon5+0ipuWO1UiEbm9YJqTwD/2F+yQyzOVLs
-         krwuwMsoDtfQaqJM6qkdxO6ch3A+53bTxTD6PKpGtBe8vM1cbSQlfPKKxvy3UrtAm368
-         MFIQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793032004; x=1793636804; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=lW187BX7pvnv89/fgKm/N1OWRtkvU+9tvFLWWwcKajk=;
-        b=MUOvYbUGJvLRY+4ozSTJAEYhkO+CViDCgDR/3HRZ2ZWklhcxdU68sVei8SZjibc+9J
-         J/ZNuFm8p9TkB2fxCuz3OVOlpf2qJp2bkWOYL6xSqXJ86bQpdYp+2R+NuOF3onvlTqMA
-         Je20QgRQFsAlFNpoRVlKQx/997AKY43XUf9v7WKQD5FKqoZM//oU3SRUwQG2FwMcct48
-         FPWtM84uU9h6uUcStZ5/AMLizASUvfEq+/F9MQT9uXBPbHezFapVQJANiRTyQ1zgykLO
-         +TstMVO6d3IdV6JbtXoZLedXzaQgSP4HKjde5q+zJ2c8iK3D6Wtb0C/VG7RPtmcKiKA+
-         ejWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793032004; x=1793636804;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lW187BX7pvnv89/fgKm/N1OWRtkvU+9tvFLWWwcKajk=;
-        b=DhuYlarmidigahkALFPJulzNA3OhRLmJcOV0xmfG9V81lyNboPHKte4UBEJsk0kuLw
-         YPUwo+lu57SlqQ4uAW1A5f0eIPTVahJJ4QgiePs3JTB5pvr+iGCCYVI7a0FvK0wjvZbO
-         TlsbPRQUYLGyaY7AF7V0Q4VIH5ijQZEgwi9dyGyV+b458l/E1uwrOH27gmZkGempcGcA
-         pZYM5yTzPlhEMEQ3xRDsTQtXxUlpI/0hkeHfnipDSqMvcFPUvVyb+rauHaNaXqGW8ttH
-         6z2mG+1+w0jQ1fyyDa5uvDpBg2aM9I3mDZnnPuV+JeQgDNbS8BCeeebiHC4ngBKLSYlj
-         sA+g==
-X-Forwarded-Encrypted: i=1; AKwUvBwUkJozopEWPpq3FsdsAv8BlenmoYbCCXgexx8MBUc2T7NQDDbXKc1IE/QvTFraVcvsXCeWTJJVVeni8cs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLW4QD+ZtbbQCSysfSxlmo0PZAe3DxjGO8kZ21UWDY6LqOHrgvI
-	3MKR++l/4yGsAL8Wjz7eiLzLVRXIH89iiM4RneplVmSd/o6WcuIKYn4tEZh4BaFzIhl2GnjNmpf
-	lD7LiRYQ0g1YXQ4P1NG32mFW9gxX/FQgSy6+fERUUavzY
-X-Gm-Gg: AYBFou2B4c2zqMzTTMwKqegj9GW0fDGVYUDPBFjKSpQ04DDf+rVM8NrrbyNT1vroA8l
-	ZlPUBl83r+gqilCicmreYg6G8Nkoi0jZB1JmGQllBdb4Lt8WrwqLqnRrtb9/AgIP8rCYcbFTMNF
-	y+/J8M3C2AIglumyLi/yNdldaOq8puXAFMpXPVxD/uMM/5tWHRPAGyYUW7q6+AkDJpZ9cCpaEvj
-	C4rkaiEG+xiV5RwJO5/8o3z33vLMG8ypVRB2SZbwj3jjNR6ZxcGddERDmmjmNpIwy/ahjx5qAoL
-	MROZ42KMntlQAabTbbgNGb4BcfwKpx5XVytFWsJP0I/Xl/zTk/V0lMnl7GVEK+PrdPkReXZOGoz
-	8ku63scDN+wnHEBdNiPK79UUHcXqkLT6nYozSsIKa09Q1bxODwHCCQc8e56NRgKmzyqgbAA==
-X-Received: by 2002:a17:907:961a:b0:c44:14d:d95d with SMTP id
- a640c23a62f3a-c46bde35b78mr860710466b.23.1793032003455; Mon, 26 Oct 2026
- 09:26:43 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b=ICxllQTw;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=lFNljEV5
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfout.phl.internal (Postfix) with ESMTP id D7861EC0AB2
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:26:50 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-04.internal (MEProxy); Mon, 26 Oct 2026 12:26:50 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jannau.net; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1793032010;
+	 x=1793118410; bh=v5/eiN+AAmFMXx9+44dNMnlZYUhVAO9q0k9ZrZf2VVo=; b=
+	ICxllQTwg9Lftgrt8ad9UCBEOjbQ2ENzWJr3GZtkCJomknEpg6pvnoal2HRATGMZ
+	uWMpuVVVEmXFg+aT+uPuI0OPb1Z2zMCpUqO3/q++hM0Qq6rw4/fTny/eoLYgCkyK
+	Q8bZO2VABbQ1x/m2PpJInExY51b7vksQKkWppX3ny4T9n3JmNgoKDc3jxBaxMK9P
+	erLNFLUV3BK786dYBmZznSiOWey4zJrLeF7sJBbnLNVEIV/jPxRjbn+D4X42aNqL
+	alqBJoQFPkRdXio56uSB4PPkbqfijTFpK0aBGxh2WQ+06u4RHZrzXgiR5H57xFqi
+	X1L1jtF07O6ym9pzEF5/ZQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793032010; x=
+	1793118410; bh=v5/eiN+AAmFMXx9+44dNMnlZYUhVAO9q0k9ZrZf2VVo=; b=l
+	FNljEV5LSwPtntZ23N/p1p6snlqZbsdfr7ax10zklHY+JPjJVhJQa9ScYimHk/+M
+	7y3Gpq856z/1gaxRu1o7twFsph7bGzuZHIzeHPP26li2r5GN4kgn+0MB4MCuJ9qP
+	pbp6OEc8eft4WgqXE1TZMePW3JGUP1zYDnJNi5FZi4WOjgk+ccrgk6V1ONhh0af7
+	bQwEoTfwesnGM6PBm9oXBpsFJiCwyw4BzB1UqlomKl4mbkFUhUJxJNgYHWm1OLvK
+	W634ivXdm8ugoTGZw5TO1DK4+t7Ter3Ukue3Kjv5IMojtZsoG1LuYE79I3pqQXu4
+	wf8N9QKFfx3K19OXPATcQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=sign d=jannau.net a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793032010; d=jannau.net;
+	mf=PGpAamFubmF1Lm5ldD4=;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:c5AY+DJBvAgG1cvimq/1ij0aZvQiiHl44c+abWD1r14DVGR
+	zz9rEgUZBCbZXt1nP9Ntl2eclyrgjZOEr29vJiatD4EmkRdmxbKshJvFwDUAsdTt
+	l1bqsxVTi/FpziFdgBNQQh1iuMjh/38oWSRSBFZKz9zzmueese0iGMrW9cNzGSri
+	HNg27CYsV5uxfuzkqBu5YYZyLxFP8bprzNFyU3jp0LUAkhX3dGUOx0s+SEaSpjxv
+	9QaKpFMIIQjZ0FQaNK87/qGe8isTQSjPToK+D8tv/oGg+C7QquLkRFXwnFFNr4zH
+	v524jopbTCCowrukYSCPaFg3A5MzgtUaIgQ8ueQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:/2j+pl3CO4qCHP03Nf/eC0I7uDT2ya4oGbVgICYKoDU=:p4AsKPuSZJBHU8NIV3zR8KMmRkLRfKbGhEsWcEswygY=;
+X-ME-Sender: <xms:Sn_fanUJ5UHQqDvDyTAJreJ2cq5ulEQ6dcpkGrkSXVICs9SoPIHuhw>
+    <xme:Sn_falmc4tuRZnX5jCjeAicPPMePxFesDcgMSecB_wBe0a465kAE57120jYnPl-C8
+    xwYVeTuou_zHqFXq6wVPDSvdmtE6rGIpMEBmjlmSw06aW26ptPxMa1n>
+X-ME-Received: <xmr:Sn_fauPwwBthFpdWJioDgB-Ywi_aaW0VuE8GdKURWHUlMN_fCRqLp883SZBY1129kfmypD4rPoffmkiZtkeGQt1THmHJ6G-oWvI>
+X-ME-Proxy-Cause: dmFkZTEWkkLBT9rP3p1Wyz0X+m97kuBUnCDDnSBjZXGE+danOKcks90ZCL1x5kFWbQEwZQ
+    C/LOTGnj005YKhoS9HeAw+Erp63RPnpthbHBHREmt9p/MFMd+Md/bpiYc1niUxBlZqQhAK
+    59b6OQOTULM98lp1jRF041mVOgzZ4rG32mzoyxZ3yObBAyJagwqWtbE75lg1fpvOcZ5lbO
+    nDixwRUg+66OBd8I+jfqYKPPDFhGEMx/7qUc6gwNZAe7hEqt97Wi99Wzb46e8o3Kmh6jXZ
+    p7pCYaQY1WTE98lsHtyLyqqoeFi5HqK2hSD36I5k4XGS2xKmyAM1EHIH1fqMrzfu8JsVL8
+    KPdO0ObxybLmXkZrL5/0EWWEWHCL1lHeRr+0cL7RZXtCMTmbRoESELYWJmjiozGDAfNhWk
+    vnXJ3CI9Dj+mBFOVKfv6EoAm9ranFVAbNmw3DkcvxB81oO6eanzJ/i554q6ueNxkHmZr3V
+    2i/xsy/F+fqdNa4YmjPqWtZ6flartFZuohz2/vHvhkBB8IPg+rch/3xDGKbACf+ymuz0Dr
+    srgsRezdvrFbWLFeYGw9hBsJB06rpBHBf2DgNOwCiAKqV+QxrE+SLxVwKaIZrE3OV8SxYz
+    EXWbZpFg14uLC2d+FIMah901gzOyPFKxgN2XwqAmGgvQm6RUgoosrLIbM36g
+X-ME-Proxy: <xmx:Sn_falKTSNc5VI6S1ZCn1sM1RHDDed5jyaqS4M0nyFT4AWgCooIk6A>
+    <xmx:Sn_fag0oVVPK6ldoBbkSvVRIHGXOaZmAjmtAgutsmZmwKPB8eQxXog>
+    <xmx:Sn_fapVBspEE9dM4J03lBOY1-78a3x7x5x8dskP-04EiZPvN5iPNUw>
+    <xmx:Sn_faiMOfNJoujGtTqKiuMj-T4UaUV211jyS-yfQ1f3Y8gynoPuvNA>
+    <xmx:Sn_faqR_xzkK2my0GQf0wwxtLUzafA43Jm6FfD4LlhI2cgqSYIIjrFEO>
+Feedback-ID: i47b949f6:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 26 Oct 2026 12:26:49 -0400 (EDT)
+From: Janne Grunau <j@jannau.net>
+Date: Mon, 26 Oct 2026 17:26:39 +0100
+Subject: [PATCH 1/2] net: atlantic: AQC113: Fix hw_packet_filter_set for l2
+ filter base index > 0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,127 +120,125 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261026154604.579823-2-bestswngs@gmail.com> <2f8371e4-ea8c-45d4-8a42-e1a616915b61@gmx.de>
-In-Reply-To: <2f8371e4-ea8c-45d4-8a42-e1a616915b61@gmx.de>
-From: Weiming Shi <bestswngs@gmail.com>
-Date: Mon, 26 Oct 2026 09:26:07 -0700
-X-Gm-Features: AclHuK8xJMkjzycsM_PGDEWxDNP3nAsGNewoI6y1CFU9ObUj4hzqU8eQ9FVmawY
-Message-ID: <CANgPUi1WDS4aK9+7LO+O4D1JDvGd3isWVWps_W-ocD_fT39HAQ@mail.gmail.com>
-Subject: Re: [PATCH v2] fbdev: vfb: Validate framebuffer geometry and memory size
-To: Helge Deller <deller@gmx.de>
-Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, co+b0df61d49532b2ee@bugs.sh, 
-	Xiang Mei <xmei5@asu.edu>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261026-net-atlantic-aq113-apple-l2-filter-slots-v1-1-d72e99b69583@jannau.net>
+References: <20261026-net-atlantic-aq113-apple-l2-filter-slots-v1-0-d72e99b69583@jannau.net>
+In-Reply-To: <20261026-net-atlantic-aq113-apple-l2-filter-slots-v1-0-d72e99b69583@jannau.net>
+To: Sukhdeep Singh <sukhdeeps@marvell.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Janne Grunau <j@jannau.net>, stable@vger.kernel.org
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4506; i=j@jannau.net;
+ s=yk2025; h=from:subject:message-id;
+ bh=p4AsKPuSZJBHU8NIV3zR8KMmRkLRfKbGhEsWcEswygY=;
+ b=owGbwMvMwCW2UNrmdq9+ahrjabUkhqz79a5RGxbbn4oK2RLi3/hwiVVn0qan+rf3S5ZP8dAqn
+ HqyJle/o5SFQYyLQVZMkSVJ+2UHw+oaxZjaB2Ewc1iZQIYwcHEKwEQOVDP8d7rvtXP/6v+6nP9m
+ XAy2kkkM4M1Stk5OuRO/jkvvVk8JIyPDMj1JVvM1ep+rr3fx+zgpz1CMmno29lTGXoY1UX9PTK/
+ hAwA=
+X-Developer-Key: i=j@jannau.net; a=openpgp;
+ fpr=8B336A6BE4E5695E89B8532B81E806F586338419
 
-Helge Deller <deller@gmx.de> =E4=BA=8E2026=E5=B9=B410=E6=9C=8826=E6=97=A5=
-=E5=91=A8=E4=B8=80 09:06=E5=86=99=E9=81=93=EF=BC=9A
->
-> On 10/26/26 16:46, Weiming Shi wrote:
-> > FBIOPUT_VSCREENINFO can supply a virtual width large enough to
-> > overflow get_line_length()'s int multiplication and bypass the
-> > video-memory limit, allowing fbcon to write past the framebuffer. The
-> > offset additions can also wrap, while an excessive videomemorysize
-> > module parameter can be truncated when PAGE_ALIGN() is assigned to
-> > unsigned int.
-> >
-> > Limit virtual geometry and offsets to 8192 x 8192 and cap video
-> > memory at 512 MiB, keeping the stride, framebuffer-size, and generic
-> > fbdev drawing calculations within their destination types.
-> >
-> > KASAN reports:
-> >
-> >    BUG: KASAN: vmalloc-out-of-bounds in sys_fillrect
-> >      drivers/video/fbdev/core/sysfillrect.c:24
-> >    Write of size 8 at addr ffa0000001671000 by task poc/198
-> >    sys_fillrect
-> >      drivers/video/fbdev/core/sysfillrect.c:24
-> >    bit_clear_margins
-> >      drivers/video/fbdev/core/bitblit.c:247
-> >    fbcon_clear_margins.constprop.0
-> >      drivers/video/fbdev/core/fbcon.c:1410
-> >    fbcon_switch
-> >      drivers/video/fbdev/core/fbcon.c:2261
-> >    redraw_screen
-> >      drivers/tty/vt/vt.c:994
-> >    fbcon_modechanged
-> >      drivers/video/fbdev/core/fbcon.c:2693
-> >    fbcon_update_vcs
-> >      drivers/video/fbdev/core/fbcon.c:2732
-> >
-> > Cc: stable@vger.kernel.org
-> > Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> > Reported-by: <co+b0df61d49532b2ee@bugs.sh>
-> > Suggested-by: Helge Deller <deller@gmx.de>
-> > Assisted-by: LLM
-> > Signed-off-by: Weiming Shi <bestswngs@gmail.com>
-> > ---
-> > Changes in v2:
-> > - Limit virtual geometry and offsets to 8192 x 8192. This retains 8K mo=
-de
-> >    support while bounding all generic fbdev drawing calculations.
-> > - Cap videomemorysize at 512 MiB.
-> > - Keep the existing arithmetic types now that all inputs are bounded.
-> >
-> >   drivers/video/fbdev/vfb.c | 17 ++++++++++++++++-
-> >   1 file changed, 16 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/video/fbdev/vfb.c b/drivers/video/fbdev/vfb.c
-> > index de137b2bd..de40ba8c3 100644
-> > --- a/drivers/video/fbdev/vfb.c
-> > +++ b/drivers/video/fbdev/vfb.c
-> > @@ -31,6 +31,9 @@
-> >        */
-> >
-> >   #define VIDEOMEMSIZE        (1*1024*1024)   /* 1 MB */
-> > +#define MAX_VIDEOMEMSIZE     (512 * 1024 * 1024)
-> > +#define MAX_XRES             8192
-> > +#define MAX_YRES             8192
-> >
-> >   static void *videomemory;
-> >   static u_long videomemorysize =3D VIDEOMEMSIZE;
-> > @@ -159,6 +162,14 @@ static int vfb_check_var(struct fb_var_screeninfo =
-*var,
-> >       else
-> >               return -EINVAL;
-> >
-> > +     if (var->xres_virtual > MAX_XRES ||
-> > +         var->yres_virtual > MAX_YRES)
-> > +             return -EINVAL;
-> > +
-> > +     if (var->xoffset > MAX_XRES - var->xres ||
-> > +         var->yoffset > MAX_YRES - var->yres)
-> > +             return -EINVAL;
->
-> Instead of returning EINVAL, I wonder if we could simply
-> cap the resolutions at MAX_XRES/MAX_YRES?
->
->
-> > +
-> >       if (var->xres_virtual < var->xoffset + var->xres)
-> >               var->xres_virtual =3D var->xoffset + var->xres;
-> >       if (var->yres_virtual < var->yoffset + var->yres)
-> > @@ -434,9 +445,13 @@ static int __init vfb_setup(char *options)
-> >   static int vfb_probe(struct platform_device *dev)
-> >   {
-> >       struct fb_info *info;
-> > -     unsigned int size =3D PAGE_ALIGN(videomemorysize);
-> > +     unsigned int size;
-> >       int retval =3D -ENOMEM;
-> >
->
-> and here maybe
->         videomemorysize =3D min(videomemorysize, MAX_VIDEOMEMSIZE);
->
-> that way the driver loads even if the provided too big value?
->
-> Helge
-> > +     if (videomemorysize > MAX_VIDEOMEMSIZE)
-> > +             return -EINVAL;
-> > +     size =3D PAGE_ALIGN(videomemorysize);
->
->
+hw_atl2_hw_packet_filter_set() wraps hw_atl_b0_hw_packet_filter_set()
+which has no concept of `l2_filters_base_index` and enables/disables
+filters from `HW_ATL_B0_MAC_MIN` (1) to `HW_ATL_B0_MAC_MAX` (33). After
+commit 6c1ca112a6e4 ("net: atlantic: fix AQC113 HW init: ART, L2 filter
+slot, MAC address") this may result in disabling filters set in
+hw_atl2.c including the l2 filter for the MAC address.
+The AQC113 adapters integrated in some Apple silicon desktop systems
+report 9 as l2_filters_base_index which results in broken network.
+The l2 filters set in hw_atl2.c are disabled after
+hw_packet_filter_set() calls.
+Pass the base location to hw_atl_b0_hw_packet_filter_set() to ensure it
+neither touches reserved firmware filters or disables filters configured
+in hw_atl2.c.
 
-Yes, that makes sense. I'll cap the geometry and videomemorysize as
-suggested and send a v3.
+Fixes: 6c1ca112a6e4 ("net: atlantic: fix AQC113 HW init: ART, L2 filter slot, MAC address")
+Cc: stable@vger.kernel.org
+Signed-off-by: Janne Grunau <j@jannau.net>
+---
+ drivers/net/ethernet/aquantia/atlantic/hw_atl/hw_atl_b0.c | 14 +++++++++++---
+ drivers/net/ethernet/aquantia/atlantic/hw_atl/hw_atl_b0.h |  6 ++++--
+ drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2.c  |  5 ++++-
+ 3 files changed, 19 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/net/ethernet/aquantia/atlantic/hw_atl/hw_atl_b0.c b/drivers/net/ethernet/aquantia/atlantic/hw_atl/hw_atl_b0.c
+index 6c25ad264b19..5c67edf8030c 100644
+--- a/drivers/net/ethernet/aquantia/atlantic/hw_atl/hw_atl_b0.c
++++ b/drivers/net/ethernet/aquantia/atlantic/hw_atl/hw_atl_b0.c
+@@ -1038,8 +1038,9 @@ int hw_atl_b0_hw_irq_read(struct aq_hw_s *self, u64 *mask)
+ 
+ #define IS_FILTER_ENABLED(_F_) ((packet_filter & (_F_)) ? 1U : 0U)
+ 
+-int hw_atl_b0_hw_packet_filter_set(struct aq_hw_s *self,
+-				   unsigned int packet_filter)
++int hw_atl_b0_hw_packet_filter_set_int(struct aq_hw_s *self,
++				       unsigned int base_location,
++				       unsigned int packet_filter)
+ {
+ 	struct aq_nic_cfg_s *cfg = self->aq_nic_cfg;
+ 	unsigned int i = 0U;
+@@ -1065,7 +1066,7 @@ int hw_atl_b0_hw_packet_filter_set(struct aq_hw_s *self,
+ 	hw_atl_rpfl2broadcast_en_set(self, IS_FILTER_ENABLED(IFF_BROADCAST));
+ 
+ 
+-	for (i = HW_ATL_B0_MAC_MIN; i < HW_ATL_B0_MAC_MAX; ++i)
++	for (i = base_location; i < HW_ATL_B0_MAC_MAX; ++i)
+ 		hw_atl_rpfl2_uc_flr_en_set(self,
+ 					   (cfg->is_mc_list_enabled &&
+ 					    (i <= cfg->mc_list_count)) ?
+@@ -1076,6 +1077,13 @@ int hw_atl_b0_hw_packet_filter_set(struct aq_hw_s *self,
+ 
+ #undef IS_FILTER_ENABLED
+ 
++static int hw_atl_b0_hw_packet_filter_set(struct aq_hw_s *self,
++					  unsigned int packet_filter)
++{
++	return hw_atl_b0_hw_packet_filter_set_int(self, HW_ATL_B0_MAC_MIN,
++						  packet_filter);
++}
++
+ static int hw_atl_b0_hw_multicast_list_set(struct aq_hw_s *self,
+ 					   u8 ar_mac
+ 					   [AQ_HW_MULTICAST_ADDRESS_MAX]
+diff --git a/drivers/net/ethernet/aquantia/atlantic/hw_atl/hw_atl_b0.h b/drivers/net/ethernet/aquantia/atlantic/hw_atl/hw_atl_b0.h
+index 5298846dd9f7..9ea469d3330f 100644
+--- a/drivers/net/ethernet/aquantia/atlantic/hw_atl/hw_atl_b0.h
++++ b/drivers/net/ethernet/aquantia/atlantic/hw_atl/hw_atl_b0.h
+@@ -69,7 +69,9 @@ int hw_atl_b0_hw_irq_enable(struct aq_hw_s *self, u64 mask);
+ int hw_atl_b0_hw_irq_disable(struct aq_hw_s *self, u64 mask);
+ int hw_atl_b0_hw_irq_read(struct aq_hw_s *self, u64 *mask);
+ 
+-int hw_atl_b0_hw_packet_filter_set(struct aq_hw_s *self,
+-				   unsigned int packet_filter);
++int hw_atl_b0_hw_packet_filter_set_int(struct aq_hw_s *self,
++				       unsigned int base_location,
++				       unsigned int packet_filter);
++
+ 
+ #endif /* HW_ATL_B0_H */
+diff --git a/drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2.c b/drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2.c
+index 25dd7150aaaf..82be3bb2e76d 100644
+--- a/drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2.c
++++ b/drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2.c
+@@ -759,9 +759,12 @@ static int hw_atl2_hw_ring_tx_init(struct aq_hw_s *self,
+ static int hw_atl2_hw_packet_filter_set(struct aq_hw_s *self,
+ 					unsigned int packet_filter)
+ {
++	struct hw_atl2_priv *priv = self->priv;
++	u32 base_location = priv->l2_filters_base_index + 1;
+ 	hw_atl2_hw_new_rx_filter_promisc(self, IS_FILTER_ENABLED(IFF_PROMISC));
+ 
+-	return hw_atl_b0_hw_packet_filter_set(self, packet_filter);
++	return hw_atl_b0_hw_packet_filter_set_int(self, base_location,
++						  packet_filter);
+ }
+ 
+ #undef IS_FILTER_ENABLED
+
+-- 
+2.56.0
+
