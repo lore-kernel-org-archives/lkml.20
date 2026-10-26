@@ -1,47 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.155
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793035166;
-	b=SFxzbK6aOA5ZAltnxYVPtFuNFU6M9MtYo842qksZ+2P3BWsOLl34pdydcFTZ9irXlUD2
-	 BY6MMasVky7Kcil8TySYr5ZNyn+2hInxKtn399QhVyktK0XR/o3PnEB2Aj6f8jVlJhRN4
-	 WdYcla0+xG3IgUAxmANcay27Uyqztm0lvAXtolk3kffwx5aN2dHZUAmyRyeqywUoDXLz5
-	 9sgwPA2lr8WUo8LQcc6XOVDIBHExsdpGGbGj+9U+5PzB6JCApoa4+Bn8cB+BMowsiBbfa
-	 NkaM5DnjyFbjIBOqN3yQS8x71LgpSWJhezTlyYZDB13cP7skVI5eiPbhZnUvS48pDwg==
+	t=1793035184;
+	b=kx9fiZVLETvdlkNMm5m/xkdek/er/TTr9sSwh/gFEPMtgxShpKFro2UARBEBGA33YpM+
+	 pVw/Du06V0Wu4cXyx/NHy6JqVkubg69CmJ1MLU3sXsB4n6ShPraLgnQhOwZk7OaAZTRxm
+	 oMo5rTo/pL7DstfCiWzhciVh4CKvNQd4eRivbcSoiEmloc0KoY9E8FbzP5Dt/V6SBsbV2
+	 asd3ggN/oCdHoz20IaVAeejTfgadN1pa3BrQnXGYv565d6Ek+G9d5yIvL2V41reesVmrv
+	 1cWoCbxRJ4YAAA+FSYB9piK1/gxQ//hJSjLp6PgEwFAQcgeYPcxtFiU6zVibpZVmDxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793035166;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=y7D/pdzVN/EOHLF1gwbwRGUqI6dGzbr7tUliJl/6fgo=;
-	b=wNEb00+dptkdb4lXlzIneGhLYL87wY8g4s50URYDPLvOyGhz4kFiHzZXDRSemK/uEtzZ
-	 0hGkvNS9dy/tTe6bdJ9TZ1iELOwmbxDZznqwgn0qi1VnXFajjqMtNjeB5a6ImsXqN1omz
-	 MstYkZ0Ji+CAGlj+MASx5CTrw9m2KnE9I1JdjVzbOUH0+YHgEsissDJclGPElUzmEvP5W
-	 jp1asjvpcIxmHmopIBDrYDseEDmtwWhe+Lej/WKLagcu0deRGBZQXWpVCX88gnc9mruSa
-	 XZkcQbavvgAg6ET7WUv2sfnEdunlU9IfzS/JNbJh24HxgODTue8KdM/LL/lw6dP4oFw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793035184;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=gZs3jKMIPqWazalHPQYcPiZqTTC7ha5sI4oY/dMv+ow=;
+	b=evRHRnpNh/Ylt0AuKH+OwCvqyw5QB5+nNrdZnc+Ovf8pnVc8UYl2xU3rx2A7ePv9fa5+
+	 MqVVrA40gFfJw7Q5iqkuBq+F1t7uYiYbHBgYu0zkG3i0+dEFRkbUTeWXRa0Hd+qnAM9gI
+	 17nYtHGsdiRoRHFdm0RdkeDJXk1h38JkULG95opi5WctIokWHAHmXOLOprJ7BBjloPf3i
+	 eikreB54DAktquE9TLRZiNe7aplZUlHFvIhgY3ni7vBWKd1j6Isx3vkUTsU7Igd6w3HFh
+	 yA3GZjU+8GKREvQPsuomK79ecg5CUepV263ihLrqB0YubCSVLzCMi3UXiPpNMzGxPZw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ABc53r48;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b="oqi/HOuS";
+	arc=none smtp.remote-ip=203.205.221.155
+Received: from out203-205-221-155.mail.qq.com (out203-205-221-155.mail.qq.com [203.205.221.155])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E215606A31A;
-	Mon, 26 Oct 2026 17:19:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11EC5606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 17:19:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11EC5606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ABc53r48
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1700C1F01825;
-	Mon, 26 Oct 2026 17:19:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793035165;
-	bh=y7D/pdzVN/EOHLF1gwbwRGUqI6dGzbr7tUliJl/6fgo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ABc53r489ndRB3kIsExwwubwn6BqoifdFxeF1V+6mq9C7La+CDHEtMJsqgEEPoSND
-	 8vUaIBWAZh58EgGBXLGaH0CqTeEtQVtVnOZ3msKhpQnjFswQWULV8YPtS3I+otpqxK
-	 /5aUBOFZfYFSniG7HO3v+Bjovn3HoHc/s2iL9OPHtHBHugWWuzTK5KLorEyBm87JXr
-	 zbNyqybGDw0b8DwJbika7xM4e1ZSJrqdk4ef4rOIQKOfEwCPPl8xGCFN4q7LqiEHbY
-	 7qR8Qv4YWaiChOlyAmpq9ADrjRahNKDRT2aPT0/BjCzB7SLIv1a1ApZFkTFrh7VmTO
-	 PE5ISzb4Lg8jA==
-Message-ID: <8c5a8fb7-233e-4433-af45-b67cb2528b60@kernel.org>
-Date: Mon, 26 Oct 2026 18:19:18 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=oqi/HOuS
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1793035174; bh=gZs3jKMIPqWazalHPQYcPiZqTTC7ha5sI4oY/dMv+ow=;
+	h=From:To:Cc:Subject:Date;
+	b=oqi/HOuSO7UQBJlrB4SxqMSB1Iv8Cr7Sh4VPDJfSaMkkKfh3bETLOz5ecCSWPHTxD
+	 +SsFYzvpHlfd6W3zq6qNx6PTIROJkft3TNb8z6HIkQdXc88qMNyHxBSpp4PyUADf+u
+	 aR7lZ8jWDm1klpvO4nfzGsNNfb8zBjh53h+QixJE=
+Received: from XP-PC-fangsz.localdomain ([112.65.82.64])
+	by newxmesmtplogicsvrszc43-0.qq.com (NewEsmtp) with SMTP
+	id 4A083AB5; Tue, 27 Oct 2026 01:18:32 +0800
+X-QQ-mid: xmsmtpt1793035112ta3usl98z
+Message-ID: <tencent_D7A5991BA49FFDC9706385B0D2BED254EF06@qq.com>
+X-QQ-XMAILINFO: MzNwb/pqyJTkaJMRF3aR0mtj43p4VetxXrcVwWEHNudQyB+IUfd3Bd0dvzawae
+	 lcKMhoEXDcIgW8tfUcCgb4i9FCnkfDSLBJjOX7MIvJrbSntdGpqLgkZYTl5FUBMXWH6cnVOvxfic
+	 CvUZAuqKASzlVT4kXHo2ib/H56AdUE6a8zTBxr1Cz1PtXnAl8k8vuG+pPjJu/v0IxrrIqvPsWsON
+	 Ztysjh9/Y75wHiYPpekJNMkvNyyynQQQAdqJxWRUbt633joX02K8gpxcJe9/rHzEXsBuX8nmHQM8
+	 ViB1iOq2LrQjqEDg08VZert4L+hggYt5mgyf92tD5TmhQNishc3CPM2kwgRmgLz3oEN5qky/x0P/
+	 hWoG1MJyAj/KjPa8vUceapgh4ms1oYSaK/naLG+PQwXLqNCxNYwRsNfj5mvpLlkMS9TPNRRl/En/
+	 FSAR89VK+DjIPtcDKBIDsYeZoNJB773SGbpoWw7uSxKCy0x111ghe8Zx+wd8b4NPIpAFlowC/nKR
+	 QT+W4Kfja8lOyDsNO++po6tubeXs4OqtuoLaIsVXLSyB+N9w0FcqhOKG5TivSiNF4nt2lnscK0Pc
+	 8TDm/oig+0dvH7V+gxMW5wu7GHdNaByowVkzxkeda6TZMsBegeQj0Als8m+PyJA+875hYuk8jYdW
+	 qwOXVBbIMg2sKQ1UJd5sRzcDVZNCaCvYQAxLI2fNsbq7hBZjjOM7BJBwHKdL3GsInZsK7t1cZsq0
+	 1DBNGH/DoZoJL/ynVwcf4skPpgjrhpZagmSWpSP9bUb4SP30rKheAxaFzMLx/HKwb/OfQdtDgbQo
+	 2jeguXJfTyR9QChximcpYBdR+3YGnBM61r1k4qvTSRtIrCBOwW1NHEcQr0mjJNOOFTQjzPuLmWwH
+	 afHB69wnCjRDZjRqn6MhoaBrwJRq8MxmUs7hrEDR67uDxhJoNJUpZIXK7CAFz+vKEyPAC0y+q4Ja
+	 6cROYPZ/JXXH3RuEl/nWw6GxajaDDhC2mbHplxenTqmnD7t0LHndm7aSoe2kqL9Ucs9nrr+dShw+
+	 XVQ2RvOUN3N3UkaYY5hoVrt3mXrmPqmXQCIKtAGgWw1O3whZAPbAnHXAFGTC6Zy4+RqHmaIw==
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+From: fangsz <315539811@qq.com>
+To: tglx@linutronix.de,
+	anna-maria@linutronix.de,
+	frederic@kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	richardcochran@gmail.com
+Subject: [PATCH] posix-clock: bind the device before the cdev is published
+Date: Tue, 27 Oct 2026 01:18:32 +0800
+X-OQ-MSGID: <20261026171832.336277-1-315539811@qq.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,91 +78,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] fs/proc/task_mmu: fix missed VMAs when reading
- /proc/PID/maps and friends
-To: Suren Baghdasaryan <surenb@google.com>,
- "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
- Shakeel Butt <shakeel.butt@linux.dev>, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, stable@vger.kernel.org
-References: <20261025-per_vma_maps-v1-1-c4eec45b9387@kernel.org>
- <at8-42OwXk2z6-HB@gremlin>
- <CAJuCfpFaxo06yHdVKsEEmFf9qoOYS0DbMvUuAZEhNfDe7dcwJA@mail.gmail.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <CAJuCfpFaxo06yHdVKsEEmFf9qoOYS0DbMvUuAZEhNfDe7dcwJA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
->> +       /*
->> +        * No lock was held since the last call, so the iterator's cached range
->> +        * may no longer be valid. Always restart by address.
->> +        *
->> +        * The vma_range_is_empty() checks below avoid unnecessary mmap_lock
->> +        * fallbacks.
->> +        */
->> +       vma_iter_set(vmi, from_addr);
-> 
-> This is clearly simpler but this unconditional vmi reset is not ideal.
+posix_clock_register() adds the character device and only afterwards
+stores the device pointer:
 
-Yes, exactly how I ended up where we am right now.
+	cdev_init(&clk->cdev, &posix_clock_file_operations);
+	err = cdev_device_add(&clk->cdev, dev);
+	if (err)
+		...
+	clk->dev = dev;
 
-I pref my current fix as something to backport that avoids performance changes.
+device_add() publishes the /dev/ptpN node through devtmpfs_create_node()
+before it returns, so a concurrent open() can reach posix_clock_open()
+while clk->dev is still NULL. get_device(NULL) is a no-op, so such a file
+does not hold the reference it is supposed to hold, while
+posix_clock_release() unconditionally calls put_device(clk->dev) and thus
+drops a reference that was never taken.
 
-If you two disagree, please take it over and drag it over the finishing line in
-a timely manner.
+That stray put frees the parent device early. When the character device
+is released later, cdev_default_release() calls kobject_put() on the
+already freed device and the refcount saturates:
 
-I wasted enough of my weekend with this over-enginered piece of software. (had
-to change one word before sending, can you guess which :P )
+  refcount_t: underflow; use-after-free.
+  WARNING: CPU: 6 PID: 4270 at lib/refcount.c:28 refcount_warn_saturate+0xec/0x140
+  ...
+  Call trace:
+   refcount_warn_saturate+0xec/0x140
+   kobject_put+0x160/0x208
+   cdev_default_release+0x78/0x90
+   kobject_put+0xa8/0x208
+   cdev_put+0x20/0x40
+   __fput+0x2cc/0x2e8
+   __arm64_sys_close+0x3c/0x88
 
--- 
-Cheers,
+The window is small, but it is hit in practice once a driver registers
+and unregisters the PTP clock repeatedly, for example on every link up
+and down, while ptp4l keeps reopening the node:
 
-David
+  [   50.048138] eth0: registered PTP clock
+  [   50.767426] ptp4l: refcount_t: underflow; use-after-free.
+  [   55.735110] eth0: Link is Down
+  [   55.816736] eth0: registered PTP clock
+
+The ordering was introduced by a33121e5487b, which added the
+get_device()/put_device() pair around clk->dev but left the assignment
+at the end of posix_clock_register(). Bind clk->dev before the character
+device is published and clear it again when cdev_device_add() fails, so
+that an open() racing with the registration always finds a valid device
+to take a reference on.
+
+Fixes: a33121e5487b ("ptp: fix the race between the release of ptp_clock and cdev")
+Cc: stable@vger.kernel.org
+Signed-off-by: fangsz <315539811@qq.com>
+---
+ kernel/time/posix-clock.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/kernel/time/posix-clock.c b/kernel/time/posix-clock.c
+index dab3729..1c61382 100644
+--- a/kernel/time/posix-clock.c
++++ b/kernel/time/posix-clock.c
+@@ -163,15 +163,23 @@ int posix_clock_register(struct posix_clock *clk, struct device *dev)
+ 
+ 	init_rwsem(&clk->rwsem);
+ 
++	/*
++	 * cdev_device_add() publishes the device node before it returns, so
++	 * clk->dev must be set up front.  Otherwise an open() racing with the
++	 * registration skips the get_device() in posix_clock_open() while
++	 * posix_clock_release() still drops a reference for it.
++	 */
++	clk->dev = dev;
++
+ 	cdev_init(&clk->cdev, &posix_clock_file_operations);
+ 	err = cdev_device_add(&clk->cdev, dev);
+ 	if (err) {
++		clk->dev = NULL;
+ 		pr_err("%s unable to add device %d:%d\n",
+ 			dev_name(dev), MAJOR(dev->devt), MINOR(dev->devt));
+ 		return err;
+ 	}
+ 	clk->cdev.owner = clk->ops.owner;
+-	clk->dev = dev;
+ 
+ 	return 0;
+ }
+
