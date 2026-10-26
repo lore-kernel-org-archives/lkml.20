@@ -1,100 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.208.48
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793005367;
-	b=x7EhnfRNSAy03/DhxwSBswEumGIKC9mPW5dEcHDrshlePbCjUUlw/MIUd6GgNKSCVy80
-	 9lX3RI+DyIVExx7+UJvHbU6M1sVo+lxILD69tFyR1bnTbWWBcHBr/oRsXh+gP4YDVTDzR
-	 pYYa1/2MYvMu7rf1txueXcz/NAZ2OX/QU/ijMp335AWY7U6o7nJH4QvTjFJCN/CBFwrYA
-	 1E++Rsz3ysr+Hf2cKDHFziu/G5SEcE2USGbEKYyTwTBF2Yt8evLb1OlUVe/OmYQZw1Cka
-	 1N8bdRk6MP7xBNs8jZHB6jZEBrX24fs531bGAmowbIMFoRcCiBccNzshCGFocxebh2Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793005367;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.44
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793005443;
+	b=1Mh2VZ5chUulWlqi1mWMUCVl9JfkoVa+X9TZ/JDOu182AGx3F1Lw9V6SxV1BT+iXw+qo
+	 Lzg0IphokrvlI4a9gU+XHyDU9dpuPFrRO7GtH3huAkI3bI2oCjrx2ZK9T0l499boiicjL
+	 2dkd/9wvLgszsi493/7GdPYla9Qept8u1z/gt7IWaPDtMBN5tjfOSMEbcX+QiBsldLwVD
+	 gcdhMQl+Hr2oB4dKiJS22TWYYBigrapV489AhH71xbrGyvB8uw9xCYCSuwEyPN6NlL8bu
+	 IEF7lRPmi+wOPp/hFXxxwO40giBERscokkqUnB7NermJ3OoEKvrepSaD9n/qREOvAmA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793005443;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=g4ANt8QiPje/vd+XmOCfwQ8O8188yDlc5I5mBp2AsQY=;
-	b=0v8xrD/C5TurMqxLbPgcv9ETH8gfgIk1nFRCGDCaJo2QK+i2TbrRKn0krg2KwwwXkwkz
-	 PmjBbBHS2J1n3yI/NMyznQ91FGgZxvoGWv24pqe8bdsrpK+4sU0G5PnzUXW++G8QBckGk
-	 HY6WXSbVGnpdUK39G8DFDE+EYow4q9mqPOZ58xKAYETyZD4f+9GneXrbIcHfeYPdtAE/C
-	 FIfVsqwbxYqR2ZQ6usnG3JgXqGvyHqqvbraBkK0lo2XfsJ4t4E8gQt+0eOiWddGoPAfJq
-	 bBZ17aPzPnXLZJI4OvKSkXTNQz2a0V+wc1qGL5H890bXLRnpE3zzukM8d9tKBfTrqtg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qLZsAbGj;
-	arc=fail smtp.remote-ip=209.85.208.48
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=JM0+SvISYIbOGSD5ge2cDEyh3J0IZqqsu8OtCVwpkho=;
+	b=MTiucHZWjnt7ZQ4Pe3YZPe86fe8rhBBrKMUA/2fmLl9S+Y0m9DPc94qLIfryDTIc1ek9
+	 SkJoQDG0zvH+QuaqbOJf7cDVuF6j/CWYGB4WZUPhm8BrNdoJw9t7sX76bO59vY2M5VK4A
+	 xYJtoACTwMrOWZx58/6p8Jou1y4qfNUcKwie0Ik75Zf5Xpi/wgPdoFBRwMFIpg/+u2MW5
+	 AjKMJovSocZ+EU5+EVWL+uDOD1HVzQBA2g8r/EiUET4xSg87Gvl09zCgI40/jbo852bmT
+	 DaR1rRwhntF9puxvvPRIqNdRLM7QuCPw9F/eP71PeNEsRHVXRaxQnWJsY0omQ7Ybd1Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=FMU83mp8;
+	arc=none smtp.remote-ip=209.85.218.44
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91B58606A31E
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:02:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91B58606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45311606A320
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:04:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45311606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qLZsAbGj
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6b408f2d936so3922254a12.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:02:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793005365; cv=none;
-        d=google.com; s=arc-20260327;
-        b=QYVaWKdOuYikc8mjLuN58JFPRlZyD+Qddf7/vOtw9QLShXqKjUUEDaJGaXqoTdo+Zy
-         MmpnNXXP+aFX8r0Fng11igbLMqazxbVUFPge32OWpd8OpC1/pTdzKMRn/sAKoFZrf/og
-         OJAqVL4rTOzdpRErx97GDKcPUNaQ3jfHULnX7pbZcrW2ZiKzVUt7k9pWpLTFptKJ78xA
-         WSnvN0eVzbiDy8wYGJhWQe+6An1YcKGkCEgQ7i8lWrc0J4XZRPQ7mmYFeQl5aeOZDigU
-         49Ta3Cyhqm+H+Z0iR9QqquSGj1T5fVDX0y633/kfotW2WKDziXKJJcdgsjwaDpqTzKoW
-         8ELQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=g4ANt8QiPje/vd+XmOCfwQ8O8188yDlc5I5mBp2AsQY=;
-        fh=Uy1sWpKVGdO96KYSxUpdUXxmi5S/6iJnOfpdPKte+CE=;
-        b=Yk2nHsCrsW2GIOfIRdpAdUA80zljSnyeYI/Nz8mMZwjil77iDBFzukjn880luMBmCE
-         ZyiDMsZXEVAIzpYW6gl0vQkgS+qQZcR8mtLIfHTkZbwvPL1Q/F1yxm2r9YduYGkNHb70
-         93tyagB7VWO7vAW8a6/KdqH1i8CGJjE/CHtcG2FlkrAgKibYDBdx1BoOrfa/SmkOwKta
-         r84XlG1JHVyWgCkL6eT5d5M6ndDqcxc43LQ3sV5mNLiqFGZWJQnHG+Ch0Lr9+VVbleyq
-         aFTP7NW7Yj8KSthKXPPKg8hwg9y5IIPqUV+p+Ufd/KG7j1NBdg52IrK0DVSGfucTZ9Gt
-         zCVQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=FMU83mp8
+Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c46d41f6af3so123284866b.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:04:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793005365; x=1793610165; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=suse.com; s=google; t=1793005442; x=1793610242; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=g4ANt8QiPje/vd+XmOCfwQ8O8188yDlc5I5mBp2AsQY=;
-        b=qLZsAbGjyhOdJYoX4EsSnYS4ZxHYKYOA5sWs+jPhLE8FVmdXf2M5MlK6AoPKeVw0EC
-         IFKRqq3vpCOpcybm9W8p1utbSK78D+GC7CKCDRA7EzPslPZda9G4Hx+aUNowG5n9m5HH
-         Q7zI0oz7lBoS+j8xPojdDeBhv5h4sNXUM2hnlQVTcSFrGFS9L4vZscL1pUk5xM4TGx+Q
-         IshB5L7JTrlqlJsEkQ3vmOcc3EmCW2eFVJwkM9CUTM7ldURZC0zw8XuiLgqPiRLSt9P2
-         GxnWMgavOQuFtwmggQY/pXnr3BrFQ+IyKQZf1tTCSMvUOPrN/ZKbUxJ70XDEAIaa+era
-         wW8w==
+        bh=JM0+SvISYIbOGSD5ge2cDEyh3J0IZqqsu8OtCVwpkho=;
+        b=FMU83mp8ZzZDzERBMqxyQ+KOkK5gA3Ya9rheWJuHrY/YwWyKqjr6OXtWWkbul7Feva
+         XoNBuJABPK0fitlY5dXn1LIOd9957kMVAZ3n3qdio1oyox5oGjLHGScPWylqZZHGnFGl
+         zoDbZ1IxDXAsovK+7fWkQbpcSubRNkQ1tWUqDYTZOuwGC+NELCfK9onzH0Y9fw7hc/FB
+         NEIL//MO/N4O05hlivPB3FnkkREH7QasXiajHOGFJ2K02AB+v0H0LeSDr1JRSYBQnAPc
+         iw83FQ5L1D8aE9Y9hUpHe5UU7wMHmNILSzDDn1OvLR+j5vP8NFXZvAAWRmcu63gTakEA
+         ZNYQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793005365; x=1793610165;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1793005442; x=1793610242;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=g4ANt8QiPje/vd+XmOCfwQ8O8188yDlc5I5mBp2AsQY=;
-        b=qxIIxbSFPB7e267t/o5WCfKnllo4IUUt46TOjKz0Wy+2o9EZSVRp4M5b+tH+b73fI3
-         +p9PcEBT6LiLID0oN0hbXb8RDoZ0D/Gb4ARXuZeUhNND4h7jOrcRGlerqBVcwZyxa3TD
-         Rou38ewH6b38JcJzbCIWmkADRFEKzOp/+f/EPgGx4DBOBe6MFc2JnBQ7HSGkD35wJ5Ht
-         IaaIrX+LitpMvx6T3GdrHAd2rVs1q4eNMCkl+0NfFu2nRfWZCN45IlHDaVLv7tmgjsUb
-         b1niam/v5Vd8OQeCABFUZWH17C639e6EpGBnAWdR3TsEtBEcA1iJUNP4emaCZFnt/NXW
-         iF6w==
-X-Forwarded-Encrypted: i=1; AKwUvBxoeHa1FQfMSnV09+hRJR6rh7il+w9q038nTv17o2IvStmVR6z7sLDuCCEmjywmSU9kbaOJNR0HPPVWIEg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJBwqq6fPw3ndNd2fGpTOsGX/6DPrkaRWDolPubmbmgc/lkp7QM
-	llT1WybFTaSMMPaZCRl9IofFrq+4FF6WM6dhVbrrtV7ZallFVnoTTOOnUf7NoD5rsPkL1vPAb9B
-	NwAnwxt2bLKix4N2uKXjmFrdeUPd4aA0=
-X-Gm-Gg: AYBFou0YbuVR8OezLqdEf+U8O3WWr5MtoEufBE4czboc5VWrNF/R9nylUyR//uspGuB
-	ZrfTJ1oO3oSedgVyAB1OMXiyYwiNQC/PbvGRziiHbY1DzvUFxlm0Y60NQ1i8ScFfAUZKVsWhpSr
-	EzxFZWn//ZGA71C2Ad8CEzPfu+JSUzWgzncZxUSlRkTCciN3diz984tiWr1O9F2AEh1gJ3+YUP3
-	vEksiWHQ3bbE+f88SWhrl7Q0iXoLbbf1HoDw8gBcH0JcKOyNsf3jyp5fdIYEZG2KGyWQ7164IYl
-	ia3RYFUr49e4HbjeCmEzpEXiE6hQPjZ/a5rBGtlkzNRQC5hZxUuC4/O8hE7CnvDilJUCg99ZXC8
-	SWXC6QpMIRmToywqIqcDtbLD0Ryq33I7zbKuRMjDdhHKzGyvl6YN8qg4QLju42U7jorAb2g==
-X-Received: by 2002:a05:6402:4410:b0:6b4:203:a182 with SMTP id
- 4fb4d7f45d1cf-6b442a89b98mr8306001a12.3.1793005363531; Mon, 26 Oct 2026
- 02:02:43 -0700 (PDT)
+        bh=JM0+SvISYIbOGSD5ge2cDEyh3J0IZqqsu8OtCVwpkho=;
+        b=sH27WEZ7osHl/d7ADGDISJQy7wPyCMRZF4XhadMBAPsl/aj/FFX54NUMOIDHiuazWJ
+         ej03yg2AQUCZPeYmYFK5H5KI3sjnln+c5t4tC+qQCFDIHzXhpnY15Y9LzEo/AZKGjnO8
+         pGHjgRvcrTCaLlS+FqpYntiuGBnoPM0O7yqI5PRSNkfFkt9Z3Yumlc/KS1HotqLRtZbG
+         20Moh/ftUNzAUcmx370g6Ot1Cx+Is9y44U5j+Tmj7DcQWA0oX0RK+RRL47FI0l2O9BIV
+         qcryYeKDLwbe3nPm4gSxQCBBc0RSgctl7nEGtitCa8A4Occ1JO+pzm9bYXfCCICCFNxi
+         Ioag==
+X-Forwarded-Encrypted: i=1; AKwUvBzhptJkjfZG9QSz+VtwCfzeHsLP65i6/wq+GSHUQ3Xx90y7lFvi2JU99T5eM1ydqEjXIeSpxxJY0BdR0qI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKs3KuwJuchLRa8D5jfN9cNUBhCEbErl+Nvvmn+XeDGyb7WoYPh
+	U7DNVGSPRxcWcG8y5qHSARAvOaup6SLZBhOQqH5KNelBfZamlAgLOp8HXet6/TVM2cw=
+X-Gm-Gg: AYBFou0KqBQib/V6Ch4RNRRgVAZE3Klu2BeJegv4+Pa5HxB7SysK25utOHVWTMrsLUv
+	7u/Gt5q0HNsqWQuMNcx4D2oPwefF6tDgkQ/IVzlWJArpL4tLn13sfMfeF1YlVtXM2kNduLEgiZ0
+	SDBCkdx+Rn8sW0zb1KpzBkk0myo5AnYSL3Z3KDS5FyBa4AgiZfYhdlduPgGV/g9h0xUiCOVCBJs
+	4rbmecr+ct2Ojilqw/hiaD+CD6OSZ3QXQ7/3hNmlWAAn/JJkHJd+krUrs/YYf30GfcKDqc8whOE
+	TUjuNBQ71xrjWdlGSWm2oj7fBXFZrUAaUZzqbEpixRbfRAxPSpeoRwcR6kPwceBGh55rlsLnM0X
+	u6Oba2elq+hzulUusOsz95YLyEbZflgu5RIVsXDrx6p/VkAUwHWeGIFO1A6omJaZGbsod+eNWZ4
+	XOY7h0bvbYdfwZDaq0OGjiOu4yo0tXDtMu89z/lxd7ufEsQiOSIwrb3xQMRFhPJWSP4eiZfIgsU
+	0nKQW5OiscjCgNg4JBkKmV4akckR9dRqK2QCfoPORmNrUPdn5ilghz8ujkSTQovtxt3hQAZYd3r
+	cr7FJ7GjLd5SbZo=
+X-Received: by 2002:a17:907:6094:b0:c41:6de7:7dee with SMTP id a640c23a62f3a-c46bda6a198mr773866466b.7.1793005441393;
+        Mon, 26 Oct 2026 02:04:01 -0700 (PDT)
+Received: from localhost (109-81-20-177.rct.o2.cz. [109.81.20.177])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecd8ddasm16802864f8f.48.2026.10.26.02.04.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 02:04:01 -0700 (PDT)
+Date: Mon, 26 Oct 2026 10:03:58 +0100
+From: Michal Hocko <mhocko@suse.com>
+To: Joshua Hahn <joshua.hahnjy@gmail.com>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Maarten Lankhorst <dev@lankhorst.se>,
+	Maxime Ripard <mripard@kernel.org>,
+	Natalie Vock <nat@pixelcluster.dev>, Tejun Heo <tj@kernel.org>,
+	Michal Koutny <mkoutny@suse.com>,
+	Oscar Salvador <osalvador@suse.de>, cgroups@vger.kernel.org,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+	kernel-team@meta.com
+Subject: Re: [PATCH v7 0/5] mm/page_counter: move stock from mem_cgroup to
+ page_counter
+Message-ID: <at8XfoqWwe9HSL9y@tiehlicka>
+References: <20261021225516.1620680-1-joshua.hahnjy@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,69 +113,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261026015738.46230-1-dennylin0707@gmail.com>
-In-Reply-To: <20261026015738.46230-1-dennylin0707@gmail.com>
-From: Amir Goldstein <amir73il@gmail.com>
-Date: Mon, 26 Oct 2026 11:02:31 +0200
-X-Gm-Features: AclHuK8o2w3ue0fEsBYRmit5mrje2LPX_3oSwwLStLIHIXFr91Z3Gm5NRG4zIpo
-Message-ID: <CAOQ4uxhxwOw4LNi6NV1FZzSePHZ4_SEg5QikvoH-L7GcKrkoPw@mail.gmail.com>
-Subject: Re: [PATCH] fs: skip copy_file_range write limits when there is no data
-To: Hungyu Lin <dennylin0707@gmail.com>
-Cc: brauner@kernel.org, viro@zeniv.linux.org.uk, jack@suse.cz, 
-	djwong@kernel.org, dchinner@redhat.com, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261021225516.1620680-1-joshua.hahnjy@gmail.com>
 
-On Mon, Oct 26, 2026 at 3:58=E2=80=AFAM Hungyu Lin <dennylin0707@gmail.com>=
- wrote:
->
-> generic_copy_file_checks() reduces count to zero for a source offset at
-> or beyond EOF, but still checks the destination write limits. If pos_out
-> is at RLIMIT_FSIZE, this sends SIGXFSZ and returns -EFBIG even though
-> there is no data to write.
->
-> For example, GNU cat copying a 1024-byte regular file to another regular
-> file with RLIMIT_FSIZE=3D1024 copies all bytes and is then killed by its
-> next copy_file_range() call at EOF. A zero-length request can fail in
-> the same way.
->
-> Check write limits only when count is nonzero, as the ordinary write
-> checks already do. Keep the other copy validation in place.
->
-> Fixes: 96e6e8f4a68d ("vfs: add missing checks to copy_file_range")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+[Sorry for coming to this really late]
 
-Thanks for the fix!
+On Wed 21-10-26 15:55:09, Joshua Hahn wrote:
+> v6 --> v7
+> =========
+> - Preserve two cgroup v1 proprerties that previously followed implicitly
+>   from sharing a stock:
+>   - memory.usage_in_bytes <= memory.memsw.usage_in_bytes
+>   - Reclaim does not swap when memory and memsw have equal limits.
+> - Wordsmithing commit messages for 4/5 and 5/5 to document the
+>   cgroupv1 divergence (bounded) between memory and memsw caused by
+>   independent stock.
+> 
+> INTRODUCTION
+> ============
+> Memcg keeps a per-CPU stock of precharged pages so that small, frequent
+> allocations do not walk the page_counter hierarchy every time.
+> Today, the stock implementation is within memcontrol code, even though
+> the operation it caches is a page_counter charge. This makes it
+> difficult to add new page_counters to a memcg and preserve the fast
+> path behavior.
+> 
+> This matters for future work like my tiered memcg limits series [1]
+> which introduces multiple new page_counters to memcg. Without making
+> stock a page_counter-level property, it means that every memcg charge
+> now goes through multiple page_counter hierarchy walks, instead of
+> being able to cache these charges.
+> 
+> To make future page_counters scalable and performant, move stock from
+> mem_cgroup to page_counter so that each page_counter can opt into its
+> own per-CPU cache of pre-charged pages.
 
-Reviewed-by: Amir Goldstein <amir73il@gmail.com>
+What does it mean that each counter can opt into its own per-cpu
+caching?
 
-> ---
->  fs/read_write.c | 8 +++++---
->  1 file changed, 5 insertions(+), 3 deletions(-)
->
-> diff --git a/fs/read_write.c b/fs/read_write.c
-> index 4da846a2bf17..c05ad2c42e75 100644
-> --- a/fs/read_write.c
-> +++ b/fs/read_write.c
-> @@ -1531,9 +1531,11 @@ static int generic_copy_file_checks(struct file *f=
-ile_in, loff_t pos_in,
->         else
->                 count =3D min(count, size_in - (uint64_t)pos_in);
->
-> -       ret =3D generic_write_check_limits(file_out, pos_out, &count);
-> -       if (ret)
-> -               return ret;
-> +       if (count) {
-> +               ret =3D generic_write_check_limits(file_out, pos_out, &co=
-unt);
-> +               if (ret)
-> +                       return ret;
-> +       }
->
->         /* Don't allow overlapped copying within the same file. */
->         if (inode_in =3D=3D inode_out &&
-> --
-> 2.43.0
->
+> We get an added benefit of simplifying try_charge_memcg(), which now
+> has all the stock management handled transparently within the
+> page_counter layer.
+
+This is quite a large change and I believe it will be really benefitial
+to have some high level design overview in the cover rather than trying to
+chase it in respective patches.
+Namely, are there any changes to the locking (which is arguably quite
+tricky to allow completely lockless fast path)? Also what are
+implications to caching at different levels of the hierarchy? An example
+of cache propagation up/down the hierarchy during
+charge/uncharge/draining would be really useful to wrap ones head around
+how this is supposed to work.
+
+> EFFECT ON MEMCG V2 USERS
+> ========================
+> This series has no functional changes intended for memcg v2 users. We
+> preserve all draining, refilling, and (un)charging behavior, including
+> the uncharge path's refills / direct uncharges.
+> 
+> EFFECT ON MEMCG V1 USERS
+> ========================
+> For memcg v1 users, the decoupling of the memsw and memory stock means
+> that each of them now manage their own independent stocks and can lead
+> to a different size of precharged cache for each.
+> 
+> Cgroup v1 has an invariant that memory.memsw.usage_in_bytes is larger
+> than or equal to memory.usage_in_bytes, because memsw is a superset of
+> memory. With separate stocking, this could have been broken in scenarios
+> where the memory stock is bigger than the memsw stock, leading to
+> memory usage appearing to be inflated and greater than memsw usage,
+> even though the real usage preserves the invariant.
+
+How can this happen when counters are always charged together?
+
+-- 
+Michal Hocko
+SUSE Labs
