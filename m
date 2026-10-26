@@ -1,68 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792977137;
-	b=R4RkPoq9U1FqbePxaOCGq5MLp6Li0MQ0oXuSNZZGAM3F/ZJioCy1n36iNc/hwFRPAjER
-	 3DfBunl9m2ytvTySYpE2BOEHXJOfBED9kptuTUJhfu0Qmtix/LUnbcHex0r+JfNVzzUtq
-	 +OyYVV372omRF3jW7NbH3zl0Q0IIWgWTDiqQSx1ULgklM/DOH1k9oUaGQhRsI9DaXpmRn
-	 Lmp/KZUVYqWZmesPer/K1aSGqq9QlmI/pFAlQA6sjdt4uLkPuk7bAPRx4MKa/RR2dSg/L
-	 JId3wUDOpTkpShL68QBtUP3Nn7nVjEWwD0I7Wzrm/sZAlrQDrHl0uR7xwh/i6AWjpcg==
+	t=1792977229;
+	b=ueykCiTjrVsHXuEvmJLn3z196twnJgRHgyVsF4YwYYgPuYQEy2NkgGAGkFTtJtK0lE4l
+	 nxic8qfN/nGbVc8Q/Ag7vE6QRw0Yw4KF2KekPSEge12d6oAwHR6B0bxrKRqIxTRxouFh7
+	 KX0bLEQ8JYBJcNQZ8WjF8a7/0Ube6oskIGMZh23ysSdSPGL6bz9j1TzfbAUL2lN3YgrgA
+	 L/hoGQblIAEIPRT+jtYNZALVbVhM3EDvZcQVr3Y918TcP/EARwkBcvNu2TxxFvwKXbHS4
+	 gPf553h/M0JF/Q6NlPTwpjibmQDXmHeVf/tboQWRQn/X59pWqgnV1QlwfZrW3arGr5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792977137;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=3X51DrL+h3p2iTcU0G73FAwwj+hmcogr8rUVwNWHjjY=;
-	b=fmDrZokT7JAdyDilrdGX+52V4R/GgjKJuhLAvvBoQBRdhPgqSJEhyQ9hEgjoMXsXlyTH
-	 LXtb5Bt10rASvexAvceCo4+bT0sSCrwEK/S4c4ajOwOeTKUitjwU3iPO4JmQGyvnb6UYt
-	 OY315gk1Et4dQHaIlLZw87v0/qU+oNyUyzo638pfw8YoN+r5haoAtgvVICkdf+18PDX5E
-	 xINDGpxS5oEd2oAO7V5pjYDx+prowrJEa8HYxkcQ9jWRkPIF1CwWJTUaBQd/TCZclWatD
-	 e13ivWFeTKbPI82DjrVOBa3vbvU50qu9i93Q5daMRg6qQHhVRyU5lfmJClybVSzmk0w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792977229;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=WVvNKLceFMws7Rkx2c9OqMhvST1ZscHVOQd+zxV06sg=;
+	b=Lq7BgJZqk846es/vTwDJDENKkaKBRgQgXUejaPCo7Ky6LYwjkFypoteOp2FvqOBg7HB5
+	 IgooKzEHtwVCtt4j8gWv47zT6cSXdVwyvETwBj+TZQTDNnGVDl3yejXENqhqKVwLCspXU
+	 nXEslEB6AsVgqwU8DlhNem92UzAYIaKSFTcJG9BxZqyagOu2EhdLd0DIqTv6Wbxpv9eye
+	 W+Mbr1fMjkfgMuSaN6wOKXghtdcJr02DFaVJ1XlI8Cre7a3G3f5dNTT0PLVNbvObRXod1
+	 M83KDIAT3LF4Ui1V9ciQqqDyxU5fbM2QaNQZz2OvWVBjQrktrT9Ej3F88x2YmQQdutA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="B/qOaqfh";
-	arc=none smtp.remote-ip=198.175.65.10
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DN0LU9ue;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38B70606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 01:12:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38B70606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7079606A31A;
+	Mon, 26 Oct 2026 01:13:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=B/qOaqfh
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792977136; x=1824513136;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=7vxOB6c1LDsjNrFUi3kDjbYiRM3DXA8ZtuHRDPgm3SM=;
-  b=B/qOaqfhlT/rcCg5wgww2PHvFKFimcpmRHv6GmhDx7nlV9Vi6mZ7rJg6
-   BhqFW+piXTkT1emPI6DJ8e+fXdvIS6wMh6Zq0Au8ne+9OfJ77hM5v+70U
-   aT7+O9WgPH5srdH1qn7q8oblSYBSlKMVa2dHcO8xvSaA/KHdiQtZ8IZQm
-   rPeNXLCElbLn82UDuu5gwW329FXp5XcvUVGN5xz5M6X2JiAi3ApDLK2Xd
-   K7JQZ1htsW1Ti+k95psszLNSxHbS5OPmXRgrZcDVnRNvCmqNyHM0RVJkK
-   27prLFR15wCiQDr9JVMpdjR+9k1g3SqcJSFlSGbXL6WSJ58bBKgxQew2A
-   Q==;
-X-CSE-ConnectionGUID: 8z0xesfHTBioLTJo97ZtHw==
-X-CSE-MsgGUID: EvlQyBbGQ0uZDKC5/ZpoAA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1524176"
-X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
-   d="scan'208";a="1524176"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 18:12:15 -0700
-X-CSE-ConnectionGUID: Bft3j/rkRm66jbfs8CYX4w==
-X-CSE-MsgGUID: Sm1CsZSSRFq8qP9e2dp39Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
-   d="scan'208";a="4182616"
-Received: from unknown (HELO [10.238.0.97]) ([10.238.0.97])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 18:12:09 -0700
-Message-ID: <59b997ce-f5b9-4a3b-9de8-91533289bfe7@intel.com>
-Date: Mon, 26 Oct 2026 09:12:07 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DN0LU9ue
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F247F1F01825;
+	Mon, 26 Oct 2026 01:13:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792977228;
+	bh=WVvNKLceFMws7Rkx2c9OqMhvST1ZscHVOQd+zxV06sg=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=DN0LU9ueW46ghLNxA1WGEN7h4QWnL9ZK36HtUd4zIPyoj1UxHcLGJVeux15BJ+Glf
+	 ureZF9JS2feNem6FB/IR/iiSSRxMPlZixW5JCJwTRdZknMnjCo8HgPeGFCH7ZmkieR
+	 GDrigtBdv4YFOXXJME0+6HFRiwvH0NSpqR/vVPx2+wfckfsuTg4XmFVBHuAlNp+zlO
+	 Z/DibI/xG18H04uI9TdhkNaodYTzRNIRDZ9fZTASOgYcQD9Ldn62Dmca5QoGXzHomC
+	 WFb+pFMx1joQYopyGWu44gXINE88rCzfKgFmf2jLsLkoMzLg3sm/184y3AHu9dnmpi
+	 w/UPx5nf4bLjg==
+Date: Mon, 26 Oct 2026 01:13:41 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Brian Norris <briannorris@chromium.org>
+Cc: Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, "Rafael J. Wysocki"
+ <rafael@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
+ linux-pm@vger.kernel.org, Andy Shevchenko <andy@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 12/17] iio: imu: kmx61: Discard
+ pm_runtime_put_autosuspend() return values
+Message-ID: <20261026011341.227e575a@jic23-hlaptop>
+In-Reply-To: <20261021165858.v2.12.Ibb6be74faca4446a1147537fa1a82bb6b9d5c580@changeid>
+References: <20261021235818.3059519-1-briannorris@chromium.org>
+	<20261021165858.v2.12.Ibb6be74faca4446a1147537fa1a82bb6b9d5c580@changeid>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,246 +64,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 04/15] virt: tdx-guest: Support devsec TSM for secure
- devices
-To: Zhenzhong Duan <zhenzhong.duan@intel.com>, x86@kernel.org,
- linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org
-Cc: dave.hansen@linux.intel.com, tglx@kernel.org, mingo@redhat.com,
- bp@alien8.de, hpa@zytor.com, dave.hansen@intel.com, kas@kernel.org,
- rick.p.edgecombe@intel.com, jgg@nvidia.com, nicolinc@nvidia.com,
- aik@amd.com, aneesh.kumar@kernel.org, seanjc@google.com,
- pbonzini@redhat.com, yilun.xu@linux.intel.com, chao.gao@intel.com,
- vishal.l.verma@intel.com, kevin.tian@intel.com, chao.p.peng@intel.com
-References: <20260924041032.1096569-1-zhenzhong.duan@intel.com>
- <20260924041032.1096569-5-zhenzhong.duan@intel.com>
-Content-Language: en-US
-From: Xiaoyao Li <xiaoyao.li@intel.com>
-In-Reply-To: <20260924041032.1096569-5-zhenzhong.duan@intel.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On 9/24/2026 12:10 PM, Zhenzhong Duan wrote:
-> Register Intel TDX secure device (devsec TSM) to the TSM framework and
-> supply the tdx_devsec_ops callback operations. This enables control and
-> management of the Trust Device Interface (TDI) through those hooks in
-> accordance with the TDISP protocol.
+On Wed, 21 Oct 2026 16:57:13 -0700
+Brian Norris <briannorris@chromium.org> wrote:
 
-It only implements the placeholders for these hooks. Please state them accurately.
-
-> Check the TDCS configuration flags during driver initialization to
-> ensure the hardware interface is supported before attempting device
-> registration.
+> The kmx61 driver propagates the return value of
+> pm_runtime_put_autosuspend(), which is not particularly useful.
 > 
-> Signed-off-by: Zhenzhong Duan <zhenzhong.duan@intel.com>
-> ---
->  arch/x86/include/asm/shared/tdx.h             |  1 +
->  drivers/virt/coco/tdx-guest/Kconfig           | 15 ++++
->  drivers/virt/coco/tdx-guest/Makefile          |  3 +
->  drivers/virt/coco/tdx-guest/connect.c         | 81 +++++++++++++++++++
->  .../coco/tdx-guest/{tdx-guest.c => main.c}    |  6 ++
->  drivers/virt/coco/tdx-guest/tdx-guest.h       | 20 +++++
->  6 files changed, 126 insertions(+)
->  create mode 100644 drivers/virt/coco/tdx-guest/connect.c
->  rename drivers/virt/coco/tdx-guest/{tdx-guest.c => main.c} (98%)
->  create mode 100644 drivers/virt/coco/tdx-guest/tdx-guest.h
+> Returning an error code from pm_runtime_put_autosuspend() merely means
+> that it has not queued up a timer or work item to check whether or not
+> the device can be suspended and there are many perfectly valid
+> situations in which that can happen, like after writing "on" to the
+> device's runtime PM "control" attribute in sysfs for one example.
 > 
-> diff --git a/arch/x86/include/asm/shared/tdx.h b/arch/x86/include/asm/shared/tdx.h
-> index 665c12925ff6..499103f7a01b 100644
-> --- a/arch/x86/include/asm/shared/tdx.h
-> +++ b/arch/x86/include/asm/shared/tdx.h
-> @@ -56,6 +56,7 @@
->  
->  /* TDCS_CONFIG_FLAGS bits */
->  #define TDCS_CONFIG_FLEXIBLE_PENDING_VE	BIT_ULL(1)
-> +#define TDCS_CONFIG_TDX_CONNECT		BIT_ULL(5)
->  
->  /* TDCS_TD_CTLS bits */
->  #define TD_CTLS_PENDING_VE_DISABLE_BIT	0
-> diff --git a/drivers/virt/coco/tdx-guest/Kconfig b/drivers/virt/coco/tdx-guest/Kconfig
-> index dbbdc14383b1..2e9407f8bc70 100644
-> --- a/drivers/virt/coco/tdx-guest/Kconfig
-> +++ b/drivers/virt/coco/tdx-guest/Kconfig
-> @@ -10,3 +10,18 @@ config TDX_GUEST_DRIVER
->  
->  	  To compile this driver as module, choose M here. The module will
->  	  be called tdx-guest.
-> +
-> +config TDX_CONNECT_GUEST
-> +	bool "Intel TDX Connect Guest Support"
-> +	depends on TDX_GUEST_DRIVER
+> For this reason, modify this driver to simply discard the
+> pm_runtime_put_autosuspend() return value.
+> 
+> Note: kmx61_set_power_state() is a possible inlining candidate, but it
+> performs some non-trivial logic on the {acc,mag}_ps fields, so I leave
+> it alone.
+> 
+> This will facilitate a planned change of the
+> pm_runtime_put_autosuspend() return type to void in the future, similar
+> to commit 3afd8df02433 ("PM: runtime: Change pm_runtime_put() return
+> type to void").
+> 
+> Signed-off-by: Brian Norris <briannorris@chromium.org>
+Agreed with your analysis that inlining this one hits some non
+obvious complexity.  So applied - maybe as step one of of
+cleaning this up more generally.
 
-maybe select TDX_GUEST_DRIVER ?
+Thanks,
 
-> +	depends on PCI_TSM
-> +	default y
-> +	help
-> +	  Support Trust Device Interface (TDI) feature enumeration,
-> +	  validation, and activation within an Intel TDX guest.
-> +
-> +	  This option enables the guest kernel to establish secure,
-> +	  isolated connections with trusted devices assigned to the TD,
-> +	  validating MMIO maps and authorizing DMA remapping tables.
-> +
-> +	  If unsure, say Y.
-> diff --git a/drivers/virt/coco/tdx-guest/Makefile b/drivers/virt/coco/tdx-guest/Makefile
-> index 775cb463f9c8..cfa991c7aeb5 100644
-> --- a/drivers/virt/coco/tdx-guest/Makefile
-> +++ b/drivers/virt/coco/tdx-guest/Makefile
-> @@ -1,2 +1,5 @@
->  # SPDX-License-Identifier: GPL-2.0
->  obj-$(CONFIG_TDX_GUEST_DRIVER) += tdx-guest.o
-> +
-> +tdx-guest-y := main.o
-> +tdx-guest-$(CONFIG_TDX_CONNECT_GUEST) += connect.o
-> diff --git a/drivers/virt/coco/tdx-guest/connect.c b/drivers/virt/coco/tdx-guest/connect.c
-> new file mode 100644
-> index 000000000000..80ae7c19e179
-> --- /dev/null
-> +++ b/drivers/virt/coco/tdx-guest/connect.c
-> @@ -0,0 +1,81 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * TDX Connect guest driver
-> + *
-> + * Copyright (C) 2026 Intel Corporation
-> + */
-> +
-> +#define pr_fmt(fmt)		KBUILD_MODNAME ": tdx_connect: " fmt
-> +
-> +#include <linux/pci.h>
-> +#include <linux/pci-tsm.h>
-> +#include <linux/tsm.h>
-> +#include <asm/tdx.h>
-> +
-> +#include "tdx-guest.h"
-> +
-> +struct tdx_devsec {
-> +	struct pci_tsm_devsec pci;
-> +};
-> +
-> +static struct tdx_devsec *to_tdx_devsec(struct pci_tsm *tsm)
-> +{
-> +	return container_of(tsm, struct tdx_devsec, pci.base_tsm);
-> +}
-> +
-> +static struct pci_tsm *tdx_devsec_lock(struct tsm_dev *tsm_dev, struct pci_dev *pdev)
-> +{
-> +	int ret;
-> +
-> +	struct tdx_devsec *tdevsec __free(kfree) = kzalloc(sizeof(*tdevsec), GFP_KERNEL);
-> +	if (!tdevsec)
-> +		return ERR_PTR(-ENOMEM);
-> +
-> +	ret = pci_tsm_devsec_constructor(pdev, &tdevsec->pci, tsm_dev);
-> +	if (ret)
-> +		return ERR_PTR(ret);
-> +
-> +	return &no_free_ptr(tdevsec)->pci.base_tsm;
-> +}
-> +
-> +static void tdx_devsec_unlock(struct pci_tsm *tsm)
-> +{
-> +	struct tdx_devsec *tdevsec = to_tdx_devsec(tsm);
-> +
-> +	kfree(tdevsec);
-> +}
-> +
-> +static int tdx_devsec_run(struct pci_dev *pdev)
-> +{
-> +	return -EOPNOTSUPP;
-> +}
-> +
-> +static struct pci_tsm_ops tdx_devsec_ops = {
-> +	.lock = tdx_devsec_lock,
-> +	.unlock = tdx_devsec_unlock,
-> +	.run = tdx_devsec_run,
-> +};
-> +
-> +static void devsec_tsm_remove(void *tsm_dev)
-> +{
-> +	tsm_unregister(tsm_dev);
-> +}
-> +
-> +int tdx_connect_init(struct device *dev)
-> +{
-> +	struct tsm_dev *tsm_dev;
-> +	u64 config, ret;
-> +
-> +	ret = tdg_vm_rd(TDCS_CONFIG_FLAGS, &config);
-> +	if (ret)
-> +		return -EIO;
-
-The kernel already manadates and assumes TDCS_CONFIG_FLAGS is always supported
-in disable_sept_ve().
-
-Can we make them consistent? Maybe just treat config as 0 when reading
-TDCS_CONFIG_FLAGS fails?
-
-> +
-> +	if (!(config & TDCS_CONFIG_TDX_CONNECT))
-> +		return 0;
-> +
-> +	tsm_dev = tsm_register(dev, &tdx_devsec_ops);
-> +	if (IS_ERR(tsm_dev))
-> +		return PTR_ERR(tsm_dev);
-> +
-> +	return devm_add_action_or_reset(dev, devsec_tsm_remove, tsm_dev);
-> +}
-> diff --git a/drivers/virt/coco/tdx-guest/tdx-guest.c b/drivers/virt/coco/tdx-guest/main.c
-> similarity index 98%
-> rename from drivers/virt/coco/tdx-guest/tdx-guest.c
-> rename to drivers/virt/coco/tdx-guest/main.c
-> index d0303e31e816..801a1f2b5f3d 100644
-> --- a/drivers/virt/coco/tdx-guest/tdx-guest.c
-> +++ b/drivers/virt/coco/tdx-guest/main.c
-> @@ -25,6 +25,8 @@
->  #include <asm/cpu_device_id.h>
->  #include <asm/tdx.h>
->  
-> +#include "tdx-guest.h"
-> +
->  /* TDREPORT buffer */
->  static u8 *tdx_report_buf;
->  
-> @@ -428,6 +430,10 @@ static int __init tdx_guest_init(void)
->  	if (ret)
->  		goto free_quote;
->  
-> +	ret = tdx_connect_init(tdx_misc_dev.this_device);
-> +	if (ret)
-> +		pr_warn("Failed to enable TDX Connect: %d\n", ret);
-> +
->  	return 0;
->  
->  free_quote:
-> diff --git a/drivers/virt/coco/tdx-guest/tdx-guest.h b/drivers/virt/coco/tdx-guest/tdx-guest.h
-> new file mode 100644
-> index 000000000000..4218541c7f3b
-> --- /dev/null
-> +++ b/drivers/virt/coco/tdx-guest/tdx-guest.h
-> @@ -0,0 +1,20 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +/*
-> + * TDX guest driver private declarations
-> + *
-> + * Copyright (C) 2026 Intel Corporation
-> + */
-> +
-> +#ifndef __TDX_GUEST_H
-> +#define __TDX_GUEST_H
-> +
-> +#include <linux/kernel.h>
-> +#include <linux/device.h>
-> +
-> +#ifdef CONFIG_TDX_CONNECT_GUEST
-> +extern int tdx_connect_init(struct device *dev);
-
-extern is not needed.
-
-> +#else
-> +static inline int tdx_connect_init(struct device *dev) { return 0; }
-> +#endif /* CONFIG_TDX_CONNECT_GUEST */
-> +
-> +#endif /* __TDX_GUEST_H */
-
+Jonathan
