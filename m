@@ -1,143 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793010024;
-	b=foeLSHIHbeDDMSWSf6RxnI/Gvqv/oVbpraJOIUll7SvSDekLORLsuKpLv8Qx2MunzHfO
-	 Hbx7EPgnDt1hiUm9qPZAaoepeUB8479hXzfcXCkBWdMt/UkhZHB1ybABFEYp9cA4GcMrO
-	 MfDGdmQG4fugcijYWOG2KtlpEbLQsNyGSxGMwjEo657KJol7bEeufuJ7zM5FdBnVxCkXg
-	 6FYNqhvQoepyzfvGFMSPafujO+RW0g+0NwRFFxY/8yNFWz7wdgaCWSo5ojaxtAbYTzksJ
-	 zlRyPe8kA77uTJ3KXOLsIWuFMQtUGEIVIDdiFA0lNaGyWScrbBa3i8RYZvW8CQgysTA==
+	t=1793010028;
+	b=sp4/nsfFWV2RN8jUCSY8ggbL8nige1pnGoikcCc2Pet0WoZ+F53EKUlvcJYqo4VSrNgb
+	 rgkDobzDKtrWre3RZOSclPGsMCHwsA8OZhQ+lLSYHXBoEfn40hmwFcwqtkiBlXrOwrbsq
+	 IdsHdyvXpqInw2duep9vpKSMVlL8lC82E8bIcdFuzr/OYzgg2vdw2zgkdUG9e1z1Cl8h7
+	 gxA4j5RizYyqKzYO/sSWQCehhCOc5EJ4ZhP2Ohx6d1jqvTXeg2Sa3iIfrAjm14J/GMrqM
+	 d6Hn0Sf67/jiwI/APk5tRKvM4FuE/LvacFVtTBGFbSZpv2T+guNOCPKwsvaJIIDAuag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793010024;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=7FDKcPmUfm8pKhwk0XQXsdGdq3ble75jjcxbCWLT98U=;
-	b=NdpRzMkkidQnxfqAAMs13WGeeV3/OVkwdj13+eMGJzHDi/clPrjtzsQiEFlWlKxTYshl
-	 VrIiNWb31AQjfg0SD9DDizRxlLJhxkwwFitVK56vTYQWHDiwZ/d7ZcHmeAHIeVZZARBmh
-	 qMqISlcs4ElI5QdTd+xa9Z2+2sSUMJ143wefMKgXEjj9pAlpZuYDWy2b6xDiBBu0ikCuh
-	 xVj33MPXris+hRhtp9JBjyokYWjXpgGAY34h9xefM9PIO7adU5KEHsMW76iB/2G2oiTBL
-	 N7nLnfWwSH+R2xdY4yZhI2R0JuGDralaFvun5Pd2itV7oRnQaSOFjnVRoFibSihYBuA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793010028;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=dw+PwsoARdbNap3UWfqkjK7ETMLi6GNoF5pQtgsQHaU=;
+	b=JXIgFY3j6nArs/2GooevRj4P7GIfQY/AOMOZeSrNqc/TLHFZNASpQkFSa7R95+w869wn
+	 8/LCk21ayDulOlKapVp+nGGzcatBYsgk/ek+HWUP6Sw0mtqDbRS6EHHNZBydHSoH9vbaO
+	 wyGqZMge0PPeu33BQKufJQ+mDg5uHs9ED9ayuGOgoBVdkLMokMCxfVtfE99KDvRgrYNVN
+	 3EHTWfijQMceM5D0FiRylZ03xmGnKiTYvHsOA9ysN6DT35xQk5NA8bo3MeGH6TT4A7lUL
+	 MKogWLM+5I6vFLj0gCPNQakABn7g3cJkckloywZZvRMORuHe6D8Xizy4pOhMzRef/lg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=WBa5R6DO;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Eo7kzBOn;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=TDfS0xlW;
+	arc=none smtp.remote-ip=209.85.216.51
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E56EF60A2608
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:20:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E56EF60A2608
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0578960A261A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:20:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0578960A261A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=WBa5R6DO;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Eo7kzBOn
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69Q4aPq72222520
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:20:18 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	7FDKcPmUfm8pKhwk0XQXsdGdq3ble75jjcxbCWLT98U=; b=WBa5R6DOTbjnjhg6
-	oR+yaDocepQyyKbFvCO8gL6By+UFGT9Xohprkgdmh7jPeGBhZAFyjKNzaOkuOypT
-	ygzkq3W3+P2AB2eBq0ri/8gOaObnxIJZbgBCgl7T4MBG7s6FV7bY0VSnSZwv4NF5
-	binG9KB7KqKnNomvsStayo0oaocFxa7jCR/BVD064JVSxlhcVi8cKS7vvnu6EY4b
-	GSN0Ee60XYevX2wC0LUHkZQfp40FkLpgI0o0Sc4KPoXwqP332NqnWvsKeTPSH/8/
-	WX6l2wAtYXEdbplrkbwhypaNUQBMopXZofmInDGYDmvKKslYj1LcLb9bEiebykoC
-	v9AuwA==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hhvdd9ngu-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:20:17 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93f322ef7d3so639181985a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 03:20:17 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=TDfS0xlW
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3ada8bc2380so1105780a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 03:20:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793010017; x=1793614817; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7FDKcPmUfm8pKhwk0XQXsdGdq3ble75jjcxbCWLT98U=;
-        b=Eo7kzBOnfE9nj63lRNDeCCx/2zXQFBWATqVXNDJtVg8QO6LhuD77GnKlHOK5qR7+FW
-         zEnJLaXV/a+ZY4Icw+89xbU8kL+VE/m0ekQPMs5EqdZrHWtTg0eKU5CsT1ttJkSc9FEq
-         vgzsACxbydYauiPvBIs/ckmV/cyDCtrHGwWyqAFCNBiTS+pg/5DvxTc7WA1gxFAQrW9q
-         LuBYohScr4/tNL5jtR+rJw1lrUNsDgOqVsLLvU5NpvALrYefxpAAT7PtSZrtbU42I6Id
-         3uoF5IF8LKT1UZtcln7W9ObN/ANLHh3ftaIHR2RW33xII/o/FlvfAajCjHettkpma48D
-         uy1A==
+        d=gmail.com; s=20251104; t=1793010026; x=1793614826; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dw+PwsoARdbNap3UWfqkjK7ETMLi6GNoF5pQtgsQHaU=;
+        b=TDfS0xlWQusW0fH9g2pM/4e8HSd/eujucbM8MhnotTazib7bS52pZsslSe9N7pvs2U
+         rvhVJSwADwZ9ON1GjQDJWoYRYFHBIPTCxOtHpuvVvgaLdmTRtFUGWCcfLhdeZp70z0AY
+         c6viuNWaHgKWS8j1JOxl0d1JFu7ypCiE7CkVvfhEFUq+IDx0l6LuXaxc6IAwrr2i2nA+
+         H03b6Y6PFvjHyCwSmW45H/8SvyDr7tMtGFSodQZcPkfEA2t6HBWpVJbX/ivR/fDOrk6+
+         LV/ctJ3lQF0D7ZR67Rm6d7ocrkJPwVmjZN/MrrxLo+dA60XoaNWJ9uRyFPxmamehi1rx
+         ZeGw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793010017; x=1793614817;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=7FDKcPmUfm8pKhwk0XQXsdGdq3ble75jjcxbCWLT98U=;
-        b=JW2D+6hy3mrZO9j8DWlcPiHKK/kdwVCSSC/ohg+PLXvSUE/3TP/usLe/VbXlIMJeyw
-         cv7b2TZXwjMkKzIlXm74tj3YnejSGlG2OVSUqalLQB6a32faAeX1eASl3qsEOCmhkd5Z
-         T1IiCX5m8wx9M161xk/e5MjhYtTjFBozRGpuIZHFD33dRNbL22JHafWNxchykSqQQQR0
-         u6YpExT7U0qP2W0oPGD38mCAPDQNhf7la6wpXaR9FH4G0z0jokIi/nTa5goYbLcicNRF
-         bemIqlyFHGAFK7hhXoHLQpGxQE2Jik5iII4booRZVFeDCCe/IIjRXK4r/5ukYInjC9nh
-         VP6Q==
-X-Forwarded-Encrypted: i=1; AKwUvBx2fQtgvar+UVnGEUXkWipRMM7TCfnXQSQki2CchGVWEMlwlR8XqLqXdf7WibpSwlv8TRlF3OV+WHn5iv8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL1jXNG12BYOyFDT13QAFpLiorUKx7FoY7DgWnZUysRzHrEq9Xr
-	sm5XCZMG3hEFZRCwVjw7dLbCztofGr6lDN/CaL7/4OfhNpPnCN64oqLb2j/e3br3i7sbAGrkKc0
-	5nwh984ZrkUI9kXMrxT6xELwiVG/vOm0fPg0l0Kf+p1ugBviNBgeX/dZXQlIbEA3V8Fw=
-X-Gm-Gg: AYBFou2sQqZUByANzlMCYjL7YI5NScOy8iJxw0T9gq4faYYi86h8OtJB2AWJv4VF32x
-	fbX3fU/uJq8T4olPPVr6q9Q4kN49v2M6IYwFejbWgW6gY75Izt+wpOuuldVFWqVcEqUSR4niuQq
-	XTG8evT/s3VGUxmnR3q5P+aeszpn8qME1/hEofMbj0xhPDR2aDArqaqtAMtKi9DEaQSOzxJigj+
-	ERF2kUiDzERgVN7uLaZN084tuNITzTlstAzNnAFV4mXObAv/NB96dLxLAdZ5u/zcaxRAScflGLl
-	xxe/uKBdQ2sNUyhtCXdPPJV8tBsXg0XxhgpChKYBb1mnu+LsfNLDRP7ZWLTrYsKcElEG6OnR2pX
-	zODdlshxBkAD8IOlUWSGpEoNqgoyQDsBjE77fWh/mNxmYhiugZoNemypn4yqv6mLkk9fbxskZFx
-	77MHFBDwIAptmV
-X-Received: by 2002:a05:620a:4002:b0:93e:910c:5fbd with SMTP id af79cd13be357-940ef9a6dabmr876605585a.63.1793010017171;
-        Mon, 26 Oct 2026 03:20:17 -0700 (PDT)
-X-Received: by 2002:a05:620a:4002:b0:93e:910c:5fbd with SMTP id af79cd13be357-940ef9a6dabmr876600685a.63.1793010016682;
-        Mon, 26 Oct 2026 03:20:16 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfb7a6ac6asm1437302e87.22.2026.10.26.03.20.15
+        d=1e100.net; s=20260707; t=1793010026; x=1793614826;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dw+PwsoARdbNap3UWfqkjK7ETMLi6GNoF5pQtgsQHaU=;
+        b=HPViqb12tCOwAUbyraIDyBvOKDPyWSTHZLi8CIOmreRj9C6r8OGWdgVdZOKmgGxXO6
+         esHt1zNmW0DIWFjyHe1Bioy7PpdxXVKqZAYfMll+sfye8TKC9jFTPoS4rKJeXCvxfWAf
+         eZDdzeCSHEkUkv7fx9auquyEkcb8htP0FZqnD3kZa1ZvNdMmNAgs5xxMmRjDHyewk402
+         Kd2n0GL+oy5S6XYIOesNTWTE02u8wvQoBhPCsmNA684ySXwgQV8geIaSboqcsOQ49M/x
+         1DT87BXWLFVPAw+4sNV+EZt73jPEnrS3gw78e1gKmO3MYIrK3D8cZJcqj5azIZr5kuCX
+         RHpA==
+X-Forwarded-Encrypted: i=1; AKwUvBwR6h5VGfK8B3p2h56VtSTI7H1sA++A3e8Ig2v4dO0yJM0hAY39aekr8P6tF0u3YOCF/zQGrAog4vf1Jz0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLDUXxJQ9LueCLcictyWSaXqiZDDIRK1LE/6GhqrPPFShc1r5T1
+	YskmyZPgVtUPCPQLAIRaWeltyUgdPJgDk7DeUtqF60qPZatAGxIeP03M
+X-Gm-Gg: AYBFou0oZmx6QLBLPLzdSCDNxA7OmYr0a544g16/76t3Nayjr95MzUc7a8yTaUFlEKe
+	jE5FlaVLDeQrlngIawq/USbo72ecpw8wDOa64VDWFVlrqFy1/jCKxuPiGO3Rv/KdSCNjiB4Y+bc
+	DJO1vkuuxKGJrtQiA5G7SVmvsaYQK9VgG+DyvH12q9Qc8zjujbUWNicGfHHiOhbEf4E7DzBqJcb
+	6BHrBPWPyGIWUkneBYEU2xUET7g5kLV3R3mfBvCknoit+AyRsL41P/twQtAbQur9nPhMFUs+3CI
+	R4D4JScPLWlCSaXaKy1jntEx1uncuTBKYo1ivhjUuTi+ivrsNBtzfQ17JAyn2OCq09IKX+cbSBu
+	LQbtYvAHwIxHMI4oCFy7dj5UozxM3F66l3BEhyWqEwUQikGwHVohRy4zQdodXJti/TofkiWlwZv
+	vHnDORcFXOR/0ejPar2o2awiwgkIwXPoFP/K+4A47+I+w4DUxsw0VbUJUH6j6BFBAR29H9AcxFC
+	X7+AVJN3JnbqKZ0b+zgauU/7ATfGRHa2Xt+rNAMifjn+dR3W9Z4W8L/U+Y/sYbfXGWH/B8MQ4Fx
+	6H5S+zvQVJQc9w1AVRT1XnI=
+X-Received: by 2002:a17:90b:314e:b0:3a2:bb45:d37b with SMTP id 98e67ed59e1d1-3adeaae8947mr5593294a91.25.1793010026082;
+        Mon, 26 Oct 2026 03:20:26 -0700 (PDT)
+Received: from anatasluo-Precision-5560 ([2408:820c:d29:db90:8486:5157:635e:e0f0])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adeba32e38sm8477565a91.2.2026.10.26.03.20.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 03:20:15 -0700 (PDT)
-Date: Mon, 26 Oct 2026 12:20:13 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Sumit Semwal <sumit.semwal@linaro.org>,
-        Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
-        Philipp Stanner <phasta@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>,
-        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>, linux-arm-msm@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
-        iommu@lists.linux.dev
-Subject: Re: [PATCH 09/13] drm/msm/dcp: Register DCP display pipeline
-Message-ID: <vd6e7jr4ciipj6ork5i36att6bamm4gpzxjdeqoqof3rdj2m4q@rtg7jop2bfwf>
-References: <20261015-jshekhar-drm-msm-dcp-v1-v1-0-48aad0fe4f72@oss.qualcomm.com>
- <20261015-jshekhar-drm-msm-dcp-v1-v1-9-48aad0fe4f72@oss.qualcomm.com>
- <64603812-672f-43ba-9c5b-783d666d0ac0@kernel.org>
- <c7bdcdf2-1fa4-42a5-a89f-689e688af5ae@oss.qualcomm.com>
+        Mon, 26 Oct 2026 03:20:25 -0700 (PDT)
+From: Longjun Luo <luolongjuna@gmail.com>
+To: jpoimboe@kernel.org,
+	peterz@infradead.org
+Cc: mbenes@suse.cz,
+	pmladek@suse.com,
+	joe.lawrence@redhat.com,
+	song@kernel.org,
+	puranjay@kernel.org,
+	nathan@kernel.org,
+	ndesaulniers@google.com,
+	morbo@google.com,
+	justinstitt@google.com,
+	live-patching@vger.kernel.org,
+	llvm@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Longjun Luo <luolongjuna@gmail.com>
+Subject: [RFC PATCH 3/3] objtool/klp: Test DWARF identities and reference checksums
+Date: Mon, 26 Oct 2026 18:19:16 +0800
+Message-ID: <20261026101916.3823942-4-luolongjuna@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261026101916.3823942-1-luolongjuna@gmail.com>
+References: <20261026101916.3823942-1-luolongjuna@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -147,68 +109,924 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <c7bdcdf2-1fa4-42a5-a89f-689e688af5ae@oss.qualcomm.com>
-X-Proofpoint-ORIG-GUID: JkFXAy2WTnkNvvlZGpmuafZXHpSnhcif
-X-Proofpoint-GUID: JkFXAy2WTnkNvvlZGpmuafZXHpSnhcif
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA0MSBTYWx0ZWRfX8yTk6w+7H/Rb
- VCU9tVDnswYdijhnuZMmR8x1/DGPncJrQS2GGFBLLpbntTMFbDvOztx/vjcGCs/rpiGcM9R9AG9
- pWbDWqZhUiVyJ3HDc0fuvia+8pvmIyEKVJjIsonBoEyxuMEqBY5KYsjg8p2FW4aL/JQiN+XjFtj
- QSJE0bN+ftOQ/XvEYBJ6eQVcId8mJ51DrXVMkure3qQNYurkrW159yUcpT1FT1IQXTyV6ccvlYM
- QVoExjFjsSFhb6upLWUoQQFHB4M2v77zMlgKUo8rOknJPzBnpbMOf+tTw08bKzY3QcWGjxUuoow
- LyYMi659yWtmg4iO10n37yJNxpCYXBqxBELDNefn2gCR/Yw17PIo4D9nlH/gkUrDt2qG8kZ7wfI
- 3hXDOJ/xpVWdppIUP7OVM8ClZRzDP9Puz0tBpN/PRxxNOPuBxKiZLiLK+ytkCZd/jVHXCRdbqCT
- l4AoChlA9YHe89hip8A==
-X-Authority-Analysis: v=2.4 cv=N8+8hG9B c=1 sm=1 tr=0 ts=6adf2961 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8
- a=XPLrJM8uNFvCFI0Cpc4A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA0MSBTYWx0ZWRfX4AE6P5D9MwYJ
- KelWV3aGweDidRLuZTij7w+TXfrSwuOmg3dqkXfO5onkLZNRjy/X7UhWwTSZScDgjq909n2t03M
- ZefEUygoGqBA2DJ9k9/HdcMX5nuCp9k=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-26_01,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 phishscore=0 priorityscore=1501 adultscore=0 bulkscore=0
- malwarescore=0 suspectscore=0 lowpriorityscore=0 spamscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610260041
 
-On Fri, Oct 23, 2026 at 01:42:43PM +0530, Jayant Shekhar wrote:
-> 
-> On 21-10-2026 17:35, Krzysztof Kozlowski wrote:
-> > On 15/10/2026 09:38, Jayant Shekhar wrote:
-> > > The DCP firmware exposes display resources through capabilities rather than
-> > > through host-visible display registers. The MSM DRM backend therefore needs
-> > > to build its KMS objects from the firmware capabilities and device-tree
-> > > display graph.
-> > > 
-> > > Complete DCP KMS registration, including power and IOMMU integration,
-> > > capability handling, display-graph parsing, and creation of DRM planes,
-> > > CRTCs, encoders, bridges, and connectors.
-> > > 
-> > > Signed-off-by: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
-> > > Assisted-by: LLM
-> > 
-> > Your tag is the last one.
-> 
-> Sure, but I notice there are checkpatch errors, should we keep this or
-> remove?
+Cover same-named static state in different scopes and TUs, compiler
+renumbering, ThinLTO promotion and name drift, Full LTO, and newly
+added source files. Check that patched functions reference their own
+original state and that new functions use new state. Verify that
+read-only descriptors retain their original addresses and reject
+changes to their contents.
 
-Read the docs?
+Also cover calls, data references and function-pointer tables switching
+between same-named local and external targets, and an external caller
+moving between TUs.
 
-> 
->   ● env: :3: WARNING: Non-standard signature: Assisted-by:
->   ● env: :3: ERROR: Unrecognized email address: 'LLM'
-> 
-> > Best regards,
-> > Krzysztof
+Tested on x86-64 with tools/objtool/tests/run-tests.sh:
 
+  GCC 16.2.1:   51 passed, 3 failed, 7 skipped.
+  Clang 22.1.8: 57 passed, 3 failed, 1 skipped.
+
+All nine new tests pass with Clang; GCC passes six and skips the three
+Clang LTO tests. Both DWARF 4 and 5 were exercised. Without the
+reference checksum patch, only the two new checksum tests fail.
+
+The three tests covering behavior that this series rejects by policy
+still fail: local-to-global-flip (source-level linkage change), and
+sympos and sympos-vmlinux (duplicate identities from compiling the same
+source into multiple objects). They are left unchanged for discussion;
+if the policy is accepted, they will be updated to expect the rejection.
+
+Assisted-by: LLM
+Signed-off-by: Longjun Luo <luolongjuna@gmail.com>
+---
+ .../tests/generic/fixtures/identity/common.h  | 15 +++++
+ .../generic/fixtures/identity/consumer.c      | 30 +++++++++
+ .../tests/generic/fixtures/identity/entries.c | 10 +++
+ .../generic/fixtures/identity/full_left.c     | 16 +++++
+ .../generic/fixtures/identity/full_right.c    |  6 ++
+ .../generic/fixtures/identity/move_left.c     |  9 +++
+ .../generic/fixtures/identity/move_right.c    |  8 +++
+ .../generic/fixtures/identity/new/same.c      |  6 ++
+ .../generic/fixtures/identity/new_driver.c    | 15 +++++
+ .../generic/fixtures/identity/new_provider.c  |  4 ++
+ .../generic/fixtures/identity/old/same.c      |  6 ++
+ .../fixtures/identity/promotion_bounds_a.c    | 12 ++++
+ .../fixtures/identity/promotion_bounds_b.c    | 12 ++++
+ .../fixtures/identity/promotion_bounds_d.c    |  8 +++
+ .../generic/fixtures/identity/provider.c      |  9 +++
+ .../generic/fixtures/identity/readonly.c      | 30 +++++++++
+ .../tests/generic/fixtures/identity/record.h  |  8 +++
+ .../tests/generic/fixtures/identity/rx.c      |  4 ++
+ .../generic/fixtures/identity/source_driver.c | 11 ++++
+ .../generic/fixtures/identity/static_scope.c  | 31 +++++++++
+ .../fixtures/identity/static_scope_reorder.c  | 31 +++++++++
+ .../tests/generic/fixtures/identity/tx.c      |  4 ++
+ .../generic/test-checksum-identity-source.sh  | 24 +++++++
+ .../tests/generic/test-checksum-identity.sh   | 31 +++++++++
+ .../tests/generic/test-identity-full-lto.sh   | 28 ++++++++
+ .../tests/generic/test-identity-new-tu.sh     | 22 +++++++
+ .../generic/test-identity-readonly-address.sh | 23 +++++++
+ .../tests/generic/test-identity-source.sh     | 26 ++++++++
+ .../generic/test-identity-static-scope.sh     | 35 ++++++++++
+ .../test-identity-thinlto-name-drift.sh       | 65 +++++++++++++++++++
+ .../test-identity-thinlto-promotion.sh        | 25 +++++++
+ tools/objtool/tests/identity-lib.sh           | 65 +++++++++++++++++++
+ 32 files changed, 629 insertions(+)
+ create mode 100644 tools/objtool/tests/generic/fixtures/identity/common.h
+ create mode 100644 tools/objtool/tests/generic/fixtures/identity/consumer.c
+ create mode 100644 tools/objtool/tests/generic/fixtures/identity/entries.c
+ create mode 100644 tools/objtool/tests/generic/fixtures/identity/full_left.c
+ create mode 100644 tools/objtool/tests/generic/fixtures/identity/full_right.c
+ create mode 100644 tools/objtool/tests/generic/fixtures/identity/move_left.c
+ create mode 100644 tools/objtool/tests/generic/fixtures/identity/move_right.c
+ create mode 100644 tools/objtool/tests/generic/fixtures/identity/new/same.c
+ create mode 100644 tools/objtool/tests/generic/fixtures/identity/new_driver.c
+ create mode 100644 tools/objtool/tests/generic/fixtures/identity/new_provider.c
+ create mode 100644 tools/objtool/tests/generic/fixtures/identity/old/same.c
+ create mode 100644 tools/objtool/tests/generic/fixtures/identity/promotion_bounds_a.c
+ create mode 100644 tools/objtool/tests/generic/fixtures/identity/promotion_bounds_b.c
+ create mode 100644 tools/objtool/tests/generic/fixtures/identity/promotion_bounds_d.c
+ create mode 100644 tools/objtool/tests/generic/fixtures/identity/provider.c
+ create mode 100644 tools/objtool/tests/generic/fixtures/identity/readonly.c
+ create mode 100644 tools/objtool/tests/generic/fixtures/identity/record.h
+ create mode 100644 tools/objtool/tests/generic/fixtures/identity/rx.c
+ create mode 100644 tools/objtool/tests/generic/fixtures/identity/source_driver.c
+ create mode 100644 tools/objtool/tests/generic/fixtures/identity/static_scope.c
+ create mode 100644 tools/objtool/tests/generic/fixtures/identity/static_scope_reorder.c
+ create mode 100644 tools/objtool/tests/generic/fixtures/identity/tx.c
+ create mode 100755 tools/objtool/tests/generic/test-checksum-identity-source.sh
+ create mode 100755 tools/objtool/tests/generic/test-checksum-identity.sh
+ create mode 100755 tools/objtool/tests/generic/test-identity-full-lto.sh
+ create mode 100755 tools/objtool/tests/generic/test-identity-new-tu.sh
+ create mode 100755 tools/objtool/tests/generic/test-identity-readonly-address.sh
+ create mode 100755 tools/objtool/tests/generic/test-identity-source.sh
+ create mode 100755 tools/objtool/tests/generic/test-identity-static-scope.sh
+ create mode 100755 tools/objtool/tests/generic/test-identity-thinlto-name-drift.sh
+ create mode 100755 tools/objtool/tests/generic/test-identity-thinlto-promotion.sh
+ create mode 100644 tools/objtool/tests/identity-lib.sh
+
+diff --git a/tools/objtool/tests/generic/fixtures/identity/common.h b/tools/objtool/tests/generic/fixtures/identity/common.h
+new file mode 100644
+index 000000000000..d0f56751fcd9
+--- /dev/null
++++ b/tools/objtool/tests/generic/fixtures/identity/common.h
+@@ -0,0 +1,15 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/* Copyright (C) 2026 Longjun Luo <luolongjuna@gmail.com> */
++#ifndef KLP_TEST_IDENTITY_H
++#define KLP_TEST_IDENTITY_H
++
++#ifdef __clang__
++/* Use noinline on Clang to keep calls visible in these tests. */
++#define NOIPA __attribute__((noinline))
++#else
++#define NOIPA __attribute__((noipa))
++#endif
++#define MODINFO static const char modinfo[] \
++	__attribute__((used, section(".modinfo"))) = "name=vmlinux"
++
++#endif
+diff --git a/tools/objtool/tests/generic/fixtures/identity/consumer.c b/tools/objtool/tests/generic/fixtures/identity/consumer.c
+new file mode 100644
+index 000000000000..4aad0e941bc3
+--- /dev/null
++++ b/tools/objtool/tests/generic/fixtures/identity/consumer.c
+@@ -0,0 +1,30 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Copyright (C) 2026 Longjun Luo <luolongjuna@gmail.com> */
++#include "common.h"
++MODINFO;
++#ifdef PATCHED
++static NOIPA int helper(int uid) { return uid == 0 ? 0 : -1; }
++#else
++int helper(int uid);
++#endif
++#ifdef DATA
++#ifdef PATCHED
++static volatile int limit = 1500;
++#else
++extern volatile int limit;
++#endif
++#endif
++#ifdef TABLE
++struct operations { int (*check)(int); };
++struct operations ops = { .check = helper };
++#endif
++NOIPA int caller(int uid)
++{
++#ifdef DATA
++	return uid <= limit ? 0 : -90;
++#elif defined(TABLE)
++	return ops.check(uid);
++#else
++	return helper(uid);
++#endif
++}
+diff --git a/tools/objtool/tests/generic/fixtures/identity/entries.c b/tools/objtool/tests/generic/fixtures/identity/entries.c
+new file mode 100644
+index 000000000000..53e809957c1c
+--- /dev/null
++++ b/tools/objtool/tests/generic/fixtures/identity/entries.c
+@@ -0,0 +1,10 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Copyright (C) 2026 Longjun Luo <luolongjuna@gmail.com> */
++#include "common.h"
++MODINFO;
++unsigned int tx(unsigned int n);
++unsigned int rx(unsigned int n);
++unsigned int entry_tx(unsigned int n) { return tx(n); }
++#ifdef PATCHED
++unsigned int entry_rx(unsigned int n) { return rx(n); }
++#endif
+diff --git a/tools/objtool/tests/generic/fixtures/identity/full_left.c b/tools/objtool/tests/generic/fixtures/identity/full_left.c
+new file mode 100644
+index 000000000000..1a75df588712
+--- /dev/null
++++ b/tools/objtool/tests/generic/fixtures/identity/full_left.c
+@@ -0,0 +1,16 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Copyright (C) 2026 Longjun Luo <luolongjuna@gmail.com> */
++#include "common.h"
++MODINFO;
++static volatile int state;
++#ifdef PATCHED
++static NOIPA int helper(void) { return ++state; }
++#endif
++NOIPA int left_fn(void)
++{
++#ifdef PATCHED
++	return helper();
++#else
++	return ++state;
++#endif
++}
+diff --git a/tools/objtool/tests/generic/fixtures/identity/full_right.c b/tools/objtool/tests/generic/fixtures/identity/full_right.c
+new file mode 100644
+index 000000000000..17583384cf32
+--- /dev/null
++++ b/tools/objtool/tests/generic/fixtures/identity/full_right.c
+@@ -0,0 +1,6 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Copyright (C) 2026 Longjun Luo <luolongjuna@gmail.com> */
++#include "common.h"
++static volatile int state;
++static NOIPA int helper(void) { return ++state; }
++NOIPA int right_fn(void) { return helper(); }
+diff --git a/tools/objtool/tests/generic/fixtures/identity/move_left.c b/tools/objtool/tests/generic/fixtures/identity/move_left.c
+new file mode 100644
+index 000000000000..7d3b03bc87e5
+--- /dev/null
++++ b/tools/objtool/tests/generic/fixtures/identity/move_left.c
+@@ -0,0 +1,9 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Copyright (C) 2026 Longjun Luo <luolongjuna@gmail.com> */
++#include "common.h"
++MODINFO;
++static NOIPA int helper(int n) { return n <= 1500 ? 0 : -90; }
++NOIPA int keep_left(int n) { return helper(n); }
++#ifndef PATCHED
++NOIPA int caller(int n) { return helper(n); }
++#endif
+diff --git a/tools/objtool/tests/generic/fixtures/identity/move_right.c b/tools/objtool/tests/generic/fixtures/identity/move_right.c
+new file mode 100644
+index 000000000000..9a5f82a7d9ba
+--- /dev/null
++++ b/tools/objtool/tests/generic/fixtures/identity/move_right.c
+@@ -0,0 +1,8 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Copyright (C) 2026 Longjun Luo <luolongjuna@gmail.com> */
++#include "common.h"
++static NOIPA int helper(int n) { return n <= 4096 ? 0 : -90; }
++NOIPA int keep_right(int n) { return helper(n); }
++#ifdef PATCHED
++NOIPA int caller(int n) { return helper(n); }
++#endif
+diff --git a/tools/objtool/tests/generic/fixtures/identity/new/same.c b/tools/objtool/tests/generic/fixtures/identity/new/same.c
+new file mode 100644
+index 000000000000..54550f20fe79
+--- /dev/null
++++ b/tools/objtool/tests/generic/fixtures/identity/new/same.c
+@@ -0,0 +1,6 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Copyright (C) 2026 Longjun Luo <luolongjuna@gmail.com> */
++#include "../common.h"
++static volatile int bytes;
++static NOIPA int helper(int n) { return bytes += n; }
++NOIPA int account_new(int n) { return helper(n); }
+diff --git a/tools/objtool/tests/generic/fixtures/identity/new_driver.c b/tools/objtool/tests/generic/fixtures/identity/new_driver.c
+new file mode 100644
+index 000000000000..c06a1ac27609
+--- /dev/null
++++ b/tools/objtool/tests/generic/fixtures/identity/new_driver.c
+@@ -0,0 +1,15 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Copyright (C) 2026 Longjun Luo <luolongjuna@gmail.com> */
++#include "common.h"
++MODINFO;
++#ifdef PATCHED
++int clamp(int value);
++#endif
++NOIPA int target(int value)
++{
++#ifdef PATCHED
++	return clamp(value);
++#else
++	return value;
++#endif
++}
+diff --git a/tools/objtool/tests/generic/fixtures/identity/new_provider.c b/tools/objtool/tests/generic/fixtures/identity/new_provider.c
+new file mode 100644
+index 000000000000..69c1b3d0b6a7
+--- /dev/null
++++ b/tools/objtool/tests/generic/fixtures/identity/new_provider.c
+@@ -0,0 +1,4 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Copyright (C) 2026 Longjun Luo <luolongjuna@gmail.com> */
++#include "common.h"
++NOIPA int clamp(int value) { return value < 0 ? 0 : value; }
+diff --git a/tools/objtool/tests/generic/fixtures/identity/old/same.c b/tools/objtool/tests/generic/fixtures/identity/old/same.c
+new file mode 100644
+index 000000000000..e03f14f16214
+--- /dev/null
++++ b/tools/objtool/tests/generic/fixtures/identity/old/same.c
+@@ -0,0 +1,6 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Copyright (C) 2026 Longjun Luo <luolongjuna@gmail.com> */
++#include "../common.h"
++static volatile int bytes;
++static NOIPA int helper(int n) { return bytes += n; }
++NOIPA int account_old(int n) { return helper(n); }
+diff --git a/tools/objtool/tests/generic/fixtures/identity/promotion_bounds_a.c b/tools/objtool/tests/generic/fixtures/identity/promotion_bounds_a.c
+new file mode 100644
+index 000000000000..74eb8ac0bfc3
+--- /dev/null
++++ b/tools/objtool/tests/generic/fixtures/identity/promotion_bounds_a.c
+@@ -0,0 +1,12 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Copyright (C) 2026 Longjun Luo <luolongjuna@gmail.com> */
++static volatile int state[4];
++
++int a_get(unsigned int index)
++{
++#ifdef PATCHED
++	if (index >= 4)
++		return 0;
++#endif
++	return state[index];
++}
+diff --git a/tools/objtool/tests/generic/fixtures/identity/promotion_bounds_b.c b/tools/objtool/tests/generic/fixtures/identity/promotion_bounds_b.c
+new file mode 100644
+index 000000000000..2b96569ce6cd
+--- /dev/null
++++ b/tools/objtool/tests/generic/fixtures/identity/promotion_bounds_b.c
+@@ -0,0 +1,12 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Copyright (C) 2026 Longjun Luo <luolongjuna@gmail.com> */
++#include "common.h"
++MODINFO;
++
++int a_get(unsigned int index);
++int d_get(unsigned int index);
++
++int target(unsigned int index)
++{
++	return a_get(index) + d_get(index);
++}
+diff --git a/tools/objtool/tests/generic/fixtures/identity/promotion_bounds_d.c b/tools/objtool/tests/generic/fixtures/identity/promotion_bounds_d.c
+new file mode 100644
+index 000000000000..a4d6c35f80a9
+--- /dev/null
++++ b/tools/objtool/tests/generic/fixtures/identity/promotion_bounds_d.c
+@@ -0,0 +1,8 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Copyright (C) 2026 Longjun Luo <luolongjuna@gmail.com> */
++static volatile int state[4];
++
++int d_get(unsigned int index)
++{
++	return state[index];
++}
+diff --git a/tools/objtool/tests/generic/fixtures/identity/provider.c b/tools/objtool/tests/generic/fixtures/identity/provider.c
+new file mode 100644
+index 000000000000..412c5cb67341
+--- /dev/null
++++ b/tools/objtool/tests/generic/fixtures/identity/provider.c
+@@ -0,0 +1,9 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Copyright (C) 2026 Longjun Luo <luolongjuna@gmail.com> */
++#include "common.h"
++NOIPA int helper(int uid)
++{
++	return uid == 0 || uid == 1000 ? 0 : -1;
++}
++
++volatile int limit = 4096;
+diff --git a/tools/objtool/tests/generic/fixtures/identity/readonly.c b/tools/objtool/tests/generic/fixtures/identity/readonly.c
+new file mode 100644
+index 000000000000..f145d3344d60
+--- /dev/null
++++ b/tools/objtool/tests/generic/fixtures/identity/readonly.c
+@@ -0,0 +1,30 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Copyright (C) 2026 Longjun Luo <luolongjuna@gmail.com> */
++#include "common.h"
++MODINFO;
++struct protocol { int kind; };
++NOIPA const struct protocol *tcp_type(int valid)
++{
++#if defined(PATCHED) && defined(CHANGE_VALUE)
++	static const struct protocol type = { 4 };
++#else
++	static const struct protocol type = { 1 };
++#endif
++#ifdef PATCHED
++	if (!valid)
++		return (void *)0;
++#endif
++	return &type;
++}
++NOIPA const struct protocol *udp_type(int valid)
++{
++	static const struct protocol type = { 1 };
++	return &type;
++}
++#ifdef PATCHED
++NOIPA const struct protocol *unix_type(int valid)
++{
++	static const struct protocol type = { 1 };
++	return &type;
++}
++#endif
+diff --git a/tools/objtool/tests/generic/fixtures/identity/record.h b/tools/objtool/tests/generic/fixtures/identity/record.h
+new file mode 100644
+index 000000000000..5af00486c5f4
+--- /dev/null
++++ b/tools/objtool/tests/generic/fixtures/identity/record.h
+@@ -0,0 +1,8 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/* Copyright (C) 2026 Longjun Luo <luolongjuna@gmail.com> */
++static inline unsigned int record(unsigned int n)
++{
++	static volatile unsigned int state;
++
++	return state += n;
++}
+diff --git a/tools/objtool/tests/generic/fixtures/identity/rx.c b/tools/objtool/tests/generic/fixtures/identity/rx.c
+new file mode 100644
+index 000000000000..5d9871527b08
+--- /dev/null
++++ b/tools/objtool/tests/generic/fixtures/identity/rx.c
+@@ -0,0 +1,4 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Copyright (C) 2026 Longjun Luo <luolongjuna@gmail.com> */
++#include "record.h"
++unsigned int rx(unsigned int n) { return record(n); }
+diff --git a/tools/objtool/tests/generic/fixtures/identity/source_driver.c b/tools/objtool/tests/generic/fixtures/identity/source_driver.c
+new file mode 100644
+index 000000000000..0ebcb01ced02
+--- /dev/null
++++ b/tools/objtool/tests/generic/fixtures/identity/source_driver.c
+@@ -0,0 +1,11 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Copyright (C) 2026 Longjun Luo <luolongjuna@gmail.com> */
++#include "common.h"
++MODINFO;
++#ifdef PATCHED
++int account_new(int n);
++NOIPA int account(int n) { return account_new(n); }
++#else
++int account_old(int n);
++NOIPA int account(int n) { return account_old(n); }
++#endif
+diff --git a/tools/objtool/tests/generic/fixtures/identity/static_scope.c b/tools/objtool/tests/generic/fixtures/identity/static_scope.c
+new file mode 100644
+index 000000000000..a467f24f1a14
+--- /dev/null
++++ b/tools/objtool/tests/generic/fixtures/identity/static_scope.c
+@@ -0,0 +1,31 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Copyright (C) 2026 Longjun Luo <luolongjuna@gmail.com> */
++#include "common.h"
++MODINFO;
++
++NOIPA int tx(int n)
++{
++	static volatile int bytes;
++
++#ifdef PATCHED
++	if (n < 0)
++		return 0;
++#endif
++	return bytes += n;
++}
++
++NOIPA int rx(int n)
++{
++	static volatile int bytes;
++
++	return bytes += n;
++}
++
++#ifdef PATCHED
++NOIPA int extra(int n)
++{
++	static volatile int bytes;
++
++	return bytes += n;
++}
++#endif
+diff --git a/tools/objtool/tests/generic/fixtures/identity/static_scope_reorder.c b/tools/objtool/tests/generic/fixtures/identity/static_scope_reorder.c
+new file mode 100644
+index 000000000000..a451e632a6cb
+--- /dev/null
++++ b/tools/objtool/tests/generic/fixtures/identity/static_scope_reorder.c
+@@ -0,0 +1,31 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Copyright (C) 2026 Longjun Luo <luolongjuna@gmail.com> */
++#include "common.h"
++MODINFO;
++
++#ifdef PATCHED
++NOIPA int rx(int n)
++{
++	static volatile int bytes;
++
++	if (n < 0)
++		return 0;
++	return bytes += n;
++}
++#endif
++
++NOIPA int tx(int n)
++{
++	static volatile int bytes;
++
++	return bytes += n;
++}
++
++#ifndef PATCHED
++NOIPA int rx(int n)
++{
++	static volatile int bytes;
++
++	return bytes += n;
++}
++#endif
+diff --git a/tools/objtool/tests/generic/fixtures/identity/tx.c b/tools/objtool/tests/generic/fixtures/identity/tx.c
+new file mode 100644
+index 000000000000..d536c3c63549
+--- /dev/null
++++ b/tools/objtool/tests/generic/fixtures/identity/tx.c
+@@ -0,0 +1,4 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Copyright (C) 2026 Longjun Luo <luolongjuna@gmail.com> */
++#include "record.h"
++unsigned int tx(unsigned int n) { return record(n); }
+diff --git a/tools/objtool/tests/generic/test-checksum-identity-source.sh b/tools/objtool/tests/generic/test-checksum-identity-source.sh
+new file mode 100755
+index 000000000000..b320a57c6a76
+--- /dev/null
++++ b/tools/objtool/tests/generic/test-checksum-identity-source.sh
+@@ -0,0 +1,24 @@
++#!/bin/bash
++# SPDX-License-Identifier: GPL-2.0
++# Copyright (C) 2026 Longjun Luo <luolongjuna@gmail.com>
++# Moving an external caller changes which TU-local helper it calls.
++. "$(dirname "$0")/../identity-lib.sh"
++
++setup
++modes=(none)
++case "$($CC --version | head -1)" in *clang*) modes+=(thin) ;; esac
++
++for mode in "${modes[@]}"; do
++	build_identity_pair "$mode" "" identity/move_left.c identity/move_right.c
++	[ "$(in_symbols orig.o | awk '$4 == "FUNC" && $8 ~ /^helper($|.llvm.)/' | wc -l)" = 2 ] ||
++		fail "fixture lacks two TU-local helpers"
++	assert_checksum_differs caller
++	assert_checksum_matches keep_left
++	assert_checksum_matches keep_right
++	run_diff
++	assert_patched caller
++	assert_not_patched keep_left
++	assert_not_patched keep_right
++done
++
++pass "moving a caller between TUs detects the changed local target"
+diff --git a/tools/objtool/tests/generic/test-checksum-identity.sh b/tools/objtool/tests/generic/test-checksum-identity.sh
+new file mode 100755
+index 000000000000..77248e547040
+--- /dev/null
++++ b/tools/objtool/tests/generic/test-checksum-identity.sh
+@@ -0,0 +1,31 @@
++#!/bin/bash
++# SPDX-License-Identifier: GPL-2.0
++# Copyright (C) 2026 Longjun Luo <luolongjuna@gmail.com>
++# Checksums for calls, data references and function-pointer tables must
++# distinguish same-named static and external targets.
++. "$(dirname "$0")/../identity-lib.sh"
++
++setup
++modes=(none)
++case "$($CC --version | head -1)" in *clang*) modes+=(thin) ;; esac
++
++for mode in "${modes[@]}"; do
++	build_identity_pair "$mode" "" identity/provider.c identity/consumer.c
++	[ "$(in_symbols patched.o | awk '$4 == "FUNC" && $8 ~ /^helper($|.llvm.)/' | wc -l)" = 2 ] ||
++		fail "fixture lacks the local and external helpers"
++	assert_checksum_differs caller
++	run_diff
++	assert_patched caller
++
++	build_identity_pair "$mode" -DTABLE identity/provider.c identity/consumer.c
++	assert_checksum_differs ops
++	run_diff 255
++	assert_diff_log 'changed data: ops'
++
++	build_identity_pair "$mode" -DDATA identity/provider.c identity/consumer.c
++	assert_checksum_differs caller
++	run_diff
++	assert_patched caller
++done
++
++pass "call, data and function-pointer targets use the full identity"
+diff --git a/tools/objtool/tests/generic/test-identity-full-lto.sh b/tools/objtool/tests/generic/test-identity-full-lto.sh
+new file mode 100755
+index 000000000000..7d68a7de7982
+--- /dev/null
++++ b/tools/objtool/tests/generic/test-identity-full-lto.sh
+@@ -0,0 +1,28 @@
++#!/bin/bash
++# SPDX-License-Identifier: GPL-2.0
++# Copyright (C) 2026 Longjun Luo <luolongjuna@gmail.com>
++# Full LTO merges FILE entries; a new helper must not replace an existing TU's helper.
++. "$(dirname "$0")/../identity-lib.sh"
++
++setup
++build_identity_pair full "" identity/full_left.c identity/full_right.c
++
++[ "$(in_symbols orig.o | awk '$4 == "FUNC" && $8 ~ /^helper(\.[0-9]+)?$/' | wc -l)" = 1 ] &&
++[ "$(in_symbols patched.o | awk '$4 == "FUNC" && $8 ~ /^helper(\.[0-9]+)?$/' | wc -l)" = 2 ] ||
++	probe_skip "Full LTO did not emit two same-base helper names"
++left_helper="$(identity_relocs patched.o .rela.text.left_fn | awk '{ sub(/^\.text\./, "", $5); print $5 }')"
++right_helper="$(identity_relocs patched.o .rela.text.right_fn | awk '{ sub(/^\.text\./, "", $5); print $5 }')"
++[ -n "$left_helper" ] && [ -n "$right_helper" ] || fail "missing helper references"
++left_state="$(identity_object_for orig.o left_fn)"
++[ -n "$left_state" ] || fail "missing left state reference"
++
++run_diff
++assert_patched left_fn
++assert_not_patched right_fn
++assert_patched "$left_helper"
++assert_not_patched "$right_helper"
++assert_reloc_sym .text.left_fn "$left_helper"
++run_post_link
++assert_original_reference "$left_helper" "$left_state"
++
++pass "Full LTO helpers retain their defining TUs"
+diff --git a/tools/objtool/tests/generic/test-identity-new-tu.sh b/tools/objtool/tests/generic/test-identity-new-tu.sh
+new file mode 100755
+index 000000000000..31b2e10de83f
+--- /dev/null
++++ b/tools/objtool/tests/generic/test-identity-new-tu.sh
+@@ -0,0 +1,22 @@
++#!/bin/bash
++# SPDX-License-Identifier: GPL-2.0
++# Copyright (C) 2026 Longjun Luo <luolongjuna@gmail.com>
++# A patch may extract validation into a newly added source file.
++. "$(dirname "$0")/../identity-lib.sh"
++
++setup
++build_pair identity/new_driver.c
++build_one identity/new_provider.c provider.o
++mv "$workdir/patched.o" "$workdir/driver.o"
++partial_link "$workdir/patched.o" "$workdir/driver.o" "$workdir/provider.o" || fail "partial link failed"
++
++[ "$(in_symbols patched.o | awk '$4 == "FILE"' | wc -l)" -gt "$(in_symbols orig.o | awk '$4 == "FILE"' | wc -l)" ] ||
++	fail "fixture did not add a FILE entry"
++
++run_diff
++assert_patched target
++assert_patched clamp
++assert_diff_log 'changed function: target'
++assert_diff_log 'new function: clamp'
++
++pass "new translation unit does not block existing symbol correlation"
+diff --git a/tools/objtool/tests/generic/test-identity-readonly-address.sh b/tools/objtool/tests/generic/test-identity-readonly-address.sh
+new file mode 100755
+index 000000000000..18c49856833b
+--- /dev/null
++++ b/tools/objtool/tests/generic/test-identity-readonly-address.sh
+@@ -0,0 +1,23 @@
++#!/bin/bash
++# SPDX-License-Identifier: GPL-2.0
++# Copyright (C) 2026 Longjun Luo <luolongjuna@gmail.com>
++# Read-only descriptors still need their original pointer identity.
++. "$(dirname "$0")/../identity-lib.sh"
++
++setup
++build_pair identity/readonly.c
++old="$(identity_object_for orig.o tcp_type)"
++[ -n "$old" ] || fail "missing TCP descriptor reference"
++
++run_diff
++assert_patched tcp_type
++assert_patched unix_type
++assert_not_patched udp_type
++run_post_link
++assert_original_reference tcp_type "$old"
++
++build_pair identity/readonly.c -DCHANGE_VALUE
++run_diff 255
++assert_diff_log 'changed data:'
++
++pass "changed function retains the original read-only descriptor address"
+diff --git a/tools/objtool/tests/generic/test-identity-source.sh b/tools/objtool/tests/generic/test-identity-source.sh
+new file mode 100755
+index 000000000000..1c551cb91afc
+--- /dev/null
++++ b/tools/objtool/tests/generic/test-identity-source.sh
+@@ -0,0 +1,26 @@
++#!/bin/bash
++# SPDX-License-Identifier: GPL-2.0
++# Copyright (C) 2026 Longjun Luo <luolongjuna@gmail.com>
++# old/same.c and new/same.c share the FILE name "same.c"; static state
++# from the new file must still be treated as new.
++. "$(dirname "$0")/../identity-lib.sh"
++
++setup
++build_pair identity/source_driver.c
++build_one identity/old/same.c old.o
++build_one identity/new/same.c new.o
++mv "$workdir/orig.o" "$workdir/driver-orig.o"
++mv "$workdir/patched.o" "$workdir/driver-patched.o"
++partial_link "$workdir/orig.o" "$workdir/driver-orig.o" "$workdir/old.o" || fail "original link failed"
++partial_link "$workdir/patched.o" "$workdir/driver-patched.o" "$workdir/new.o" || fail "patched link failed"
++for obj in orig.o patched.o; do
++	in_symbols "$obj" | awk '$4 == "FILE" && $8 == "same.c"' | grep -q . || fail "missing same.c FILE"
++done
++
++run_diff
++assert_patched account
++assert_patched helper
++assert_no_klp_sym bytes
++assert_section .bss.bytes
++
++pass "private state from a different TU is new even with the same basename"
+diff --git a/tools/objtool/tests/generic/test-identity-static-scope.sh b/tools/objtool/tests/generic/test-identity-static-scope.sh
+new file mode 100755
+index 000000000000..fc0372100886
+--- /dev/null
++++ b/tools/objtool/tests/generic/test-identity-static-scope.sh
+@@ -0,0 +1,35 @@
++#!/bin/bash
++# SPDX-License-Identifier: GPL-2.0
++# Copyright (C) 2026 Longjun Luo <luolongjuna@gmail.com>
++# Reordering functions or adding a same-named static must retain old state.
++. "$(dirname "$0")/../identity-lib.sh"
++
++setup
++
++build_pair identity/static_scope.c
++tx_state="$(identity_object_for orig.o tx)"
++extra_state="$(identity_object_for patched.o extra)"
++[ -n "$tx_state" ] && [ -n "$extra_state" ] || fail "missing static reference"
++
++run_diff
++assert_patched tx
++assert_not_patched rx
++assert_patched extra
++assert_section ".bss.$extra_state"
++assert_reloc_sym .text.extra "$extra_state"
++run_post_link
++assert_original_reference tx "$tx_state"
++
++build_pair identity/static_scope_reorder.c
++rx_state="$(identity_object_for orig.o rx)"
++[ -n "$rx_state" ] || fail "missing RX static reference"
++
++run_diff
++assert_patched rx
++assert_not_patched tx
++out_symbols | awk '$4 == "OBJECT" && $7 != "UND" && $8 ~ /bytes/' | grep -q . &&
++	fail "existing static state was copied"
++run_post_link
++assert_original_reference rx "$rx_state"
++
++pass "named scopes preserve state through renumbering and additions"
+diff --git a/tools/objtool/tests/generic/test-identity-thinlto-name-drift.sh b/tools/objtool/tests/generic/test-identity-thinlto-name-drift.sh
+new file mode 100755
+index 000000000000..03bb6cf2c074
+--- /dev/null
++++ b/tools/objtool/tests/generic/test-identity-thinlto-name-drift.sh
+@@ -0,0 +1,65 @@
++#!/bin/bash
++# SPDX-License-Identifier: GPL-2.0
++# Copyright (C) 2026 Longjun Luo <luolongjuna@gmail.com>
++# A bounds check stops importing a_get(), leaving its state local.
++# With -always-rename-promoted-locals=false (used by the kernel when
++# supported), the plain promoted name moves to d.c and ELF-only matching
++# silently redirects a_get() to d.c's state. Older LLVM loses correlation
++# and copies the state instead. Both must retain a.c's state.
++. "$(dirname "$0")/../identity-lib.sh"
++
++setup
++clang_only "ThinLTO requires clang"
++find_thinlto_toolchain || probe_skip "no matching clang/lld pair"
++CC="$THIN_CC"
++FIXTURE_CFLAGS="$FIXTURE_CFLAGS -flto=thin -fsplit-lto-unit -fvisibility=hidden"
++
++build_one identity/promotion_bounds_a.c orig-a.o
++build_one identity/promotion_bounds_a.c patched-a.o -DPATCHED
++build_one identity/promotion_bounds_b.c b.o
++build_one identity/promotion_bounds_d.c d.o
++
++# Match the kernel's ThinLTO import limit and promotion naming policy.
++link_flags=(--lto-whole-program-visibility -mllvm -import-instr-limit=5)
++rename_flags=()
++if "$THIN_LD" -r -mllvm -always-rename-promoted-locals=false \
++	"$workdir/orig-a.o" -o "$workdir/rename-probe.o" \
++	2>"$workdir/rename-probe.log"; then
++	rename_flags=(-mllvm -always-rename-promoted-locals=false)
++fi
++for side in orig patched; do
++	"$THIN_LD" -r "${link_flags[@]}" "${rename_flags[@]}" \
++		"$workdir/$side-a.o" "$workdir/b.o" "$workdir/d.o" \
++		-o "$workdir/$side.o" 2>"$workdir/$side-link.log" ||
++		fail "ThinLTO link failed: $(tail -1 "$workdir/$side-link.log")"
++done
++
++state_a="$(identity_relocs orig.o .rela.text.a_get |
++	awk '$5 ~ /^state(\.llvm\.[0-9]+)?$/ { print $5; exit }')"
++state_d="$(identity_relocs orig.o .rela.text.d_get |
++	awk '$5 ~ /^state(\.llvm\.[0-9]+)?$/ { print $5; exit }')"
++[ -n "$state_a" ] && [ -n "$state_d" ] && [ "$state_a" != "$state_d" ] ||
++	probe_skip "ThinLTO did not emit distinct promoted state references"
++[ "$(identity_object_for patched.o a_get)" = state ] ||
++	probe_skip "the bounds check did not leave a_get's state local"
++in_symbols patched.o | awk '$4 == "OBJECT" && $5 == "LOCAL" && $8 == "state"' |
++	grep -q . || probe_skip "missing local state after the bounds check"
++
++if [ "${#rename_flags[@]}" -ne 0 ]; then
++	[ "$state_a" = state ] && [[ "$state_d" = state.llvm.* ]] ||
++		probe_skip "a_get's state did not claim the original plain name"
++	in_symbols patched.o | awk '$4 == "OBJECT" && $5 == "GLOBAL" && $8 == "state"' |
++		grep -q . || probe_skip "the plain promoted name did not move to d.c"
++fi
++
++run_diff
++assert_patched a_get
++assert_patched target
++assert_not_patched d_get
++out_symbols | awk '$4 == "OBJECT" && $7 != "UND" && $8 ~ /^state(\.|$)/' |
++	grep -q . && fail "unchanged state was allocated again"
++run_post_link
++assert_original_reference a_get "$state_a"
++assert_original_reference target "$state_d"
++
++pass "ThinLTO import changes preserve both TUs' original state"
+diff --git a/tools/objtool/tests/generic/test-identity-thinlto-promotion.sh b/tools/objtool/tests/generic/test-identity-thinlto-promotion.sh
+new file mode 100755
+index 000000000000..62f9cc70568a
+--- /dev/null
++++ b/tools/objtool/tests/generic/test-identity-thinlto-promotion.sh
+@@ -0,0 +1,25 @@
++#!/bin/bash
++# SPDX-License-Identifier: GPL-2.0
++# Copyright (C) 2026 Longjun Luo <luolongjuna@gmail.com>
++# A new caller makes ThinLTO import rx() and promote rx.c's copy of
++# record()'s static state; the patch must keep using the original state.
++. "$(dirname "$0")/../identity-lib.sh"
++
++setup
++build_identity_pair thin "" identity/tx.c identity/rx.c identity/entries.c
++
++in_symbols orig.o | awk '$4 == "OBJECT" && $5 == "LOCAL" && $8 == "record.state"' |
++	grep -q . || probe_skip "RX state was not local before importing"
++[ "$(in_symbols patched.o | awk '$4 == "OBJECT" && $5 == "GLOBAL" && $8 ~ /^record.state.llvm./' | wc -l)" = 2 ] ||
++	probe_skip "ThinLTO did not promote both state instances"
++rx_state="$(identity_object_for orig.o rx)"
++[ -n "$rx_state" ] || fail "missing RX static reference"
++
++run_diff
++assert_patched entry_rx
++out_symbols | awk '$4 == "OBJECT" && $7 != "UND" && $8 ~ /record.state/' | grep -q . &&
++	fail "promoted state was allocated again"
++run_post_link
++assert_original_reference entry_rx "$rx_state"
++
++pass "header state retains its defining TU across promotion"
+diff --git a/tools/objtool/tests/identity-lib.sh b/tools/objtool/tests/identity-lib.sh
+new file mode 100644
+index 000000000000..69d9619ae7d8
+--- /dev/null
++++ b/tools/objtool/tests/identity-lib.sh
+@@ -0,0 +1,65 @@
++# SPDX-License-Identifier: GPL-2.0
++# Copyright (C) 2026 Longjun Luo <luolongjuna@gmail.com>
++# Shared build helpers for the multi-TU identity fixtures.
++. "$(dirname "$0")/../lib.sh"
++
++FIXTURE_CFLAGS="$FIXTURE_CFLAGS -fno-pie -fno-pic"
++
++# build_identity_pair <none|thin|full> <extra-cflags> <fixture.c...>
++build_identity_pair()
++{
++	local mode="$1" cflags="$2" side file i
++	local CC="$CC"
++	local flags=() parts=() patched=()
++	shift 2
++	if [ "$mode" != none ]; then
++		clang_only "LTO fixtures require clang"
++		find_thinlto_toolchain || probe_skip "no matching clang/lld pair"
++		flags=("-flto=$mode")
++		CC="$THIN_CC"
++	fi
++	orig_obj=orig.o
++	patched_obj=patched.o
++	for side in orig patched; do
++		patched=()
++		[ "$side" = patched ] && patched=(-DPATCHED)
++		parts=()
++		i=0
++		for file in "$@"; do
++			build_one "$file" "$side-$i.o" "${flags[@]}" "${patched[@]}" $cflags
++			parts+=("$workdir/$side-$i.o")
++			i=$((i + 1))
++		done
++		if [ "$mode" = none ]; then
++			partial_link "$workdir/$side.o" "${parts[@]}" || fail "partial link failed"
++		else
++			"$THIN_LD" -r "${parts[@]}" -o "$workdir/$side.o" || fail "LTO link failed"
++		fi
++	done
++}
++
++# identity_relocs <object> <relocation-section>
++identity_relocs()
++{
++	# readelf prints the section name in single quotes.
++	in_relocs "$1" | awk -v sec="'$2'" '
++		/Relocation section/ { active = $3 == sec }
++		active && $1 ~ /^[[:xdigit:]]+$/ { print }'
++}
++
++# The fixture's function references one static in .bss or .rodata.
++identity_object_for()
++{
++	identity_relocs "$1" ".rela.text.$2" | awk '
++		$5 ~ /^\.(bss|rodata)\./ {
++			sub(/^\.(bss|rodata)\./, "", $5); print $5; exit
++		}'
++}
++
++# After post-link, check the reference to the original symbol, not just its presence.
++assert_original_reference()
++{
++	identity_relocs out.o ".klp.rela.orig..text.$1" |
++		awk -v n=".klp.sym.orig.$2," 'index($5, n) == 1' | grep -q . ||
++		fail "expected '$1' to reference original '$2'"
++}
 -- 
-With best wishes
-Dmitry
+2.53.0
+
