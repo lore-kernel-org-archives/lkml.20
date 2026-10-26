@@ -1,60 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.97
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792983193;
-	b=vHi+jC5LTzmlSZdJDrSds10yFox/Mrw19mdtAu3q92LzmB9P9TZn6KrNIuJTENbU8w5+
-	 4HkoYS0nGR3NOgJk6r//kzJ64YWNKwgOC9vsK41owbnppV0R6dnDtXW4Nb5e8vI1BZcsf
-	 DMotbwnLeJA7C80/uEpkas6KgkNW+7Qqql0ghj0skLrXMEUfux/dmsq+OTICeU6lwE+9f
-	 A455GfxdTBPUMXmuQpCzSyGqdxfm3C6HkGkbqgyA2AmoEWIs5/CsnXIInwaNG2xEMl3Tc
-	 0nBTrpYhjZYujyowP7OrlZKoE8l+O3jwMzUy1D9oVxmfHWdmgZMDh21ZO4WIMPK1fQw==
+	t=1792983369;
+	b=crwl7zfgr5NhGE7FembkOgE4adtJhWDswohqAZ1em/N7qJgxqo38dI5hYHKbdXVkWOhA
+	 LfjsG7+kJo6uUDNRxZDT0m7ZopypJwIRZdooUybAykNKAFUfslVKQDz3eqRS2tKQuZeJO
+	 RvSmIxYwsX9fMvBo9jJKEbWM+ysTFB+4qkBLnTG701flRMKJpYA7WYSoe2vr9/TLBHNCG
+	 tDWU2ru7K6+6h6shYwOF7ZTqggb7k92pdB59wHzklG6zl3JT9FZkrcAxwOymwee/yY1o0
+	 WD8rVfbvLK7otFBjPFYytoMnkL/aT0DXs7bgd/Mem+N7SH1X245qsuZnYFCLjW15x7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792983193;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792983369;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=agh72Qss4ABdzK/M6v877pX8NbLoD6L5vuSt4NpILOw=;
-	b=AcP7TBdnVNx/bJMlcZRViTie+TS3hvzi9mP4r0Xmzf4kGYI7oCXiMGjPv1zIlpn6DSzd
-	 hGw3Nkq9nx5HyumypvMreGRhp/3h9zkdck5WnVxHJRp+Dx3lYl+RLGXvQHMW3mi6NVM6k
-	 odv8raU4GIxppnkcR97R0faiVVGkiaSIS/b3UZeg86ldAsO7eAhAAV9+sMU4Ke/6GvRZT
-	 qO82gYhmznZSfqRSHW1iZR2k+BOdpPZDmhf7pXIKiqQmUK3ym2K4zOkPtSoOQR1T9etHP
-	 0vAj2E2VqIMSxpJJHpLmK0DzUgGd8jAKj7SdEMhPd2CHN8NWWzH+4CZjeAO+3Ka0qDA==
+	bh=Iy8CvcCXZdt7wKCpczgHps2OAcckKLpjCVLtI0G4qWM=;
+	b=we/BIbok5IB4gPTrqCxtBXFA+15zdjFhHR4G+YsMQTXIlL9nhomIBHz4dnRJMovTF4Uy
+	 NpB0x31lBeFloVGgBoEHDato4eJ3Jcia/4oplu9p4Bn0azw8Bw6sx1+zgEjbalpvw1w56
+	 0dDbgvYvyi2NqyL+9y/QpQcLRB9MzlVkXmS6CyDXTYXZ+Wb7dN/v2BMYeaN/ZkmshdnYO
+	 24598ko5SzZkLpqH7G4c4ZB9x0wnzkeo3Z8/cmQi4Kxqm2Q5Bm3CgbhjZuBDbPPF6Npzg
+	 Dxtr6tduMX6SRG5cad0d9JPh9LXuWyvMwxfFei6C6fodUdOophhfhD919X6aQY/+yQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mQa6mSTE;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=juGUkou+;
+	arc=none smtp.remote-ip=115.124.30.97
+Received: from out30-97.freemail.mail.aliyun.com (out30-97.freemail.mail.aliyun.com [115.124.30.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9586606A31A;
-	Mon, 26 Oct 2026 02:53:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 783C1606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:56:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 783C1606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mQa6mSTE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4117C1F01825;
-	Mon, 26 Oct 2026 02:53:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792983192;
-	bh=agh72Qss4ABdzK/M6v877pX8NbLoD6L5vuSt4NpILOw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=mQa6mSTEl349w46VcBnqaVHgVs+rie4UWFvFV/x7sWKmwLz56W5cZjAG8Mobw0qem
-	 22314WNUTNUfPu5CkjKzFoiUebxJgRbHoCGOAx+b6u2fy7pngOZgdbn5ybzrQmNHdb
-	 r5Q/rTPxVR9cGW09781uoqhy9kasUyYs+I0MpK0bRzc7p5kihwwmXQxcheLm9xpM9d
-	 hFuSBmZ90cr7y6hFrTlGxqjGK1A3rCQx2HpLxO+3jzbaB2PouOKFH4/RT6Kn8LFaQL
-	 n+D4rueF7TNcqA7gf2R52DxgezQOTEaFCDV9F1MiY2T/n5zMYfd3v4kPFBS8eIZLiC
-	 0+avzXjS39tWA==
-Date: Mon, 26 Oct 2026 02:53:07 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Vidhu Sarwal via B4 Relay <devnull+vidhu.linux.gmail.com@kernel.org>
-Cc: vidhu.linux@gmail.com, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, David
- Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-iio@vger.kernel.org, Shuah Khan <skhan@linuxfoundation.org>
-Subject: Re: [PATCH 3/3] iio: proximity: Add Benewake TF-Luna LiDAR driver
-Message-ID: <20261026025307.3e142195@jic23-hlaptop>
-In-Reply-To: <20261020-tf-luna-v1-3-53a88f93db24@gmail.com>
-References: <20261020-tf-luna-v1-0-53a88f93db24@gmail.com>
-	<20261020-tf-luna-v1-3-53a88f93db24@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=juGUkou+
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1792983364; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=Iy8CvcCXZdt7wKCpczgHps2OAcckKLpjCVLtI0G4qWM=;
+	b=juGUkou+TQe2gndPw8Yy/bBpsRgJhP7yTonBTbimg791KNym/QBHTZQ/LmhTVPNNrN1o0BgoX8kfkKHLjSmOw4VubSrr5O4DufREjJTAre8rJBSllh4Q3My/XDjprCV0oq2LyIBS2IKByqA+txsA+niex0xVPqFnuFMFTjT27fU=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R161e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=xiangzao@linux.alibaba.com;NM=1;PH=DS;RN=16;SR=0;TI=SMTPD_---0XDRaMdK_1792983352;
+Received: from banye.tbsite.net(mailfrom:xiangzao@linux.alibaba.com fp:SMTPD_---0XDRaMdK_1792983352 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Mon, 26 Oct 2026 10:56:03 +0800
+From: Yuanhe Shu <xiangzao@linux.alibaba.com>
+To: akpm@linux-foundation.org
+Cc: david@kernel.org,
+	"Huang, Ying" <ying.huang@linux.alibaba.com>,
+	Kaitao Cheng <kaitao.cheng@linux.dev>,
+	vbabka@kernel.org,
+	linmiaohe@huawei.com,
+	nao.horiguchi@gmail.com,
+	ziy@nvidia.com,
+	wangkefeng.wang@huawei.com,
+	tujinjiang@huawei.com,
+	mgorman@techsingularity.net,
+	chengkaitao@kylinos.cn,
+	muchun.song@linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	xiangzao@linux.alibaba.com
+Subject: [PATCH v2 0/2] mm: don't migrate folios containing hwpoisoned pages
+Date: Mon, 26 Oct 2026 10:55:50 +0800
+Message-ID: <20261026025552.1427901-1-xiangzao@linux.alibaba.com>
+X-Mailer: git-send-email 2.43.7
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,59 +72,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Tue, 20 Oct 2026 00:03:43 +0530
-Vidhu Sarwal via B4 Relay <devnull+vidhu.linux.gmail.com@kernel.org> wrote:
+v2 of this series.  No changes to the approach; the two deltas are a
+wording correction promised in the v1 discussion and a third check
+suggested by Kaitao Cheng.
 
-> From: Vidhu Sarwal <vidhu.linux@gmail.com>
-> 
-> Add a driver for the Benewake TF-Luna, a single-point time-of-flight
-> LiDAR distance sensor with a range of 0.2 m to 8 m, connected over I2C.
-> 
-> The sensor is run in trigger mode. Each read starts one measurement and
-> waits for the timestamp register to change before reading the result.
-> In continuous mode a read can catch the sensor in the middle of updating
-> its result registers unless it is synchronised to the data ready output,
-> which this driver does not use yet.
-> 
-> When the signal strength is too low the sensor reports a dummy distance
-> of 0, so such readings, as well as overexposed ones, return -ENODATA
-> instead of a distance.
-> 
-> The datasheet is available at:
-> https://en.benewake.com/uploadfiles/2025/04/20250430174501874.pdf
-> 
-> Signed-off-by: Vidhu Sarwal <vidhu.linux@gmail.com>
-One trivial addition to comments from other reviewers.
+memory_failure() can end up abandoning a folio while PG_hwpoison is
+already set on it.  Two ways to get there:
 
-> diff --git a/drivers/iio/proximity/tf-luna.c b/drivers/iio/proximity/tf-luna.c
-> new file mode 100644
-> index 000000000000..b2f6e664b614
-> --- /dev/null
-> +++ b/drivers/iio/proximity/tf-luna.c
+  1. Race: any isolator (compaction, NUMA balancing, move_pages(),
+     mbind(), CMA, long-term GUP) clears PG_lru from under
+     memory_failure(), which then fails the HWPoisonHandlable()
+     check, exhausts the get_any_page() retries and bails out with
+     MF_IGNORED - without holding any reference, but with the flag
+     set.
 
+  2. No race at all: the THP-split-failure path
+     (kill_procs_now() + MF_MSG_UNSPLIT_THP) leaves a large folio
+     on the LRU with a PG_hwpoisoned subpage by design.
 
+In both cases the migrator still holds the folio on its migration
+list and migrates it like any other: the corrupted data is copied
+into a fresh folio with no poison marker, and no hwpoison PTE entry
+is installed on the way back, so the userspace mapping is silently
+redirected to the corrupted copy - no SIGBUS is ever delivered.
 
-> +
-> +static const struct iio_info tf_luna_info = {
-> +	.read_raw = tf_luna_read_raw,
-> +};
-> +
-> +static const struct iio_chan_spec tf_luna_channels[] = {
-> +	{
-> +		.type = IIO_DISTANCE,
-> +		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
-> +				      BIT(IIO_CHAN_INFO_SCALE),
-> +	},
-> +};
-Where there is only ever going to be one channel it is fine
-to just not use an array and hard code num_channels = 1.
+This was reproduced on v7.3-rc4-75-g62f4c998b297 (the base of
+this series): an order-0 stress workload (madvise(MADV_HWPOISON)
+racing move_pages()) left the poison flag set on 8426 abandoned
+folios in a 180-second run; 698 of them were subsequently
+migrated, and in every case the address then served the copied
+corrupted data with no SIGBUS.  With patch 2, 0 of 9711 were
+propagated.
 
-If you plan to add buffered support (no idea if that makes sense
-for this device), then I don't mind you leaving this as an array
-to make that step easier later.
+The compaction-side guard is needed regardless of how the race in
+memory_failure() itself might be addressed: the steady state
+(split failure leaves the folio on the LRU with the flag already
+set) is not a race at all.  Deterministically validated 16/16
+poisoned mTHP folios migrated unpatched vs 0/16 with patch 1,
+with clean controls migrating 16/16 in both runs.
 
+The checks compose with, not replace, copy_mc: folio_mc_copy()
+still catches real-DRAM corruption during the copy on archs that
+implement it, and the flag checks refuse software-injected poison
+on all archs before and after the copy.  Extending the
+!ARCH_HAS_COPY_MC fallbacks of copy_mc_user_highpage() and
+copy_mc_highpage() with the same flag check - which would also
+cover their non-migration callers - was proposed by Huang, Ying
+and welcomed by David in the v1 discussion; that is posted as a
+separate patch right after this series.
 
+Changes since v1:
 
+- Patch 1: the isolation check's claim is narrowed to folios that
+  are already flagged when compaction sees them ("avoids the
+  migration of a folio that is already flagged"); a poison landing
+  after isolation is patch 2's business, as David pointed out.
+
+- Patch 2: a third check after the copy, before the mapping is
+  transferred, suggested by Kaitao Cheng.  It closes the copy
+  window itself, which the debugfs corrupt-pfn injector can hit
+  since it has no GUP or PTE ordering constraint.  In the v1
+  racing workload the pre-copy checks already propagated 0 of
+  9711, so the new check is measured-neutral there.
+
+- Both patches carry Assisted-by: LLM, as promised in the v1
+  discussion.
+
+Yuanhe Shu (2):
+  mm/compaction: skip folios containing hwpoisoned pages
+  mm/migrate: refuse to migrate folios containing hwpoisoned pages
+
+ mm/compaction.c |  8 ++++++++
+ mm/migrate.c    | 49 ++++++++++++++++++++++++++++++++++++++++++++++--
+ 2 files changed, 55 insertions(+), 2 deletions(-)
+
+base-commit: 62f4c998b297cf233997a2b4cd6fc2d2df0319c9
+-- 
+2.43.7
