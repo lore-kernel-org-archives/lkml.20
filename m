@@ -1,59 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.238.236.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793002246;
-	b=qI7ZVcj2GT/anakb867m3raNskPdKTLiyeZudXsb5fK2BE17wvM3rb5jkFaL50hEsHxg
-	 5ofBokoZgNTs7EwK0sGcQ30FgvaQLCDqjemX4Qwiit9c3tW9GjpKTu6EM++19QfUOPzX2
-	 sHxDld7Kbsdt//TMTDnPVovTKTYi0ar+/1CskSxzNVwKLW+j4nWTpMA3o6zKk6k+NAlou
-	 o5LkTVWtJQmtPhwEbhLGN7cak05oHTzPqVsd1fDlOtR5G5D6+Wa179YVekm6W/HVHIofa
-	 1u8zW3rG7rAzBalRYktSD3AGZr3OYN2/dMr6b1hNCFeCq0SGuNt/CbxPYPEfl23tC2A==
+	t=1793002334;
+	b=l3R93vyhhBmh0GQdRLTFuVeAhnDPoi9dTaMs1LBwd21CteiNLqOmWe2KBQ2bDTQEVvL6
+	 S0TBZzvlc69+NgPjMDfMm5bG9lCskdt7PZ/ZoYwVPVuDNSx1AqUR8gf11jl6s9sLkS9jk
+	 p95PIYV2Zx7msYqRUkeO+Njl4xRFeyh8qS/TGYZ/+XLITouG941tMCN70NbB6u2ylMcSp
+	 7D9NSNfxT3Z4u3O1pJtvlhkl/Omc5cuIAWJKN4VsjrbmQFToBjRWgZD6FsCvS8ca4wPX/
+	 OwnXfv04HDcjatt5bXfZIgtJIXHKFm5Q/PzjXH4/NGI2VXwFUdEJexgAYlOIcX9PrUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793002246;
-	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=FT2R+3LBW1RgNSBu29PCS8eirV9Pz7HjQL+1gPg5bno=;
-	b=2Q5/yO4NUGcW+88oB8hNT/9z0NLjaX+qvkq4gL97W5Ia6M+4R2cMxnA2yer8icuyi5/8
-	 KRr8Nyvvvloxqq4RvFKHxP/3RivlVABFqkPl2NurOUNSdraGBRYxyWLnqiozs2mTIKNlG
-	 Jn4SUqr6iNBP5ttjLBnjhyjWwEekuA9bcXH1pBDHzeRaOSpOVIfkjdWlWQYZlrda+f4uw
-	 0d3/c2DXkQFoRfUS9vML7qN8wdvRtnq5BDPrTqBnO1Zun/KmATCn/mgFVGPC97OWVruGh
-	 tRhK1TjWGGBgo4ZZ1z72dxDtx195r1tmVQKj87XCvo9/jyogbeZ8CphqKG9JSsSkSyg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793002334;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=788vu28/RmpbuxZcV5D6HBDXw42mfNytDK356zbWFxI=;
+	b=pQbEgqwq6Guw7ra5Zcef2JQ4mZVvWZ0LX/LJRljGB1HcjEe+uB/ZaxBkuyyF3TMDdf8b
+	 RbSux5rD7iVk6Q42epYS0qqu15GG66KdvrR9jIQuqRw/Sl6CiJxYv+2zCz5MQzpNsC+l6
+	 Ov3Fb1/beYZRv6Pd5ii2ofDWofmrtxRSh+PGz08Jb/iJfIcDoCGEk8Uv8yfPpATQpqc16
+	 dVgiC5xV61ZAL6CqogNlfoKng+MN2sqSmlAs1y00zR1TKIz/C6CE1BVAWPagS1/LWwPt0
+	 A9GcMQ4KhRJVq117XZNgRhCzbz8TVhMqERTAGlbdciK902czUsyhExyv5vp765w3EjA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kemnade.info;
-	spf=pass smtp.mailfrom=kemnade.info;
-	dkim=pass header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b="sy9Pf/tb";
-	arc=none smtp.remote-ip=178.238.236.174
-Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SkrhOp0e;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83D78606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 08:10:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83D78606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8E75606A31A;
+	Mon, 26 Oct 2026 08:12:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=sy9Pf/tb
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
-	Reply-To:Content-ID:Content-Description;
-	bh=FT2R+3LBW1RgNSBu29PCS8eirV9Pz7HjQL+1gPg5bno=; t=1793002246; x=1794211846; 
-	b=sy9Pf/tbEYmKkvRpsy8UdaS35GQvhJrVzX3l7+IagA9wEFjXYK0OY/eDrFynnAzz/UNC9o3WmrL
-	2ctmEtYco/At3EwK2DlM9N0aJz/6/ETVANnhSSD4O8f2MKuDvSZQE/Ztttl8PGUyLJHoEdvVtxNOF
-	w22WQIAbY+FgsHpE6iIRkLGxQ/YTdiK0uymWTOVa/5gR2hdMoBIc0f/AKRbm5Lbb992qPfaCTAij9
-	aPAvxZ9VY1cHe1tvXU8N7vBPTLhaSe4AAS7Sdb6gzqqzTX8xEg70RfNgfv5VHmq5lw3dcd5vLM2d2
-	hpKVbhIeafOdK1m4FgMKC/mm2YI3+y0WJ3JQ==;
-Date: Mon, 26 Oct 2026 09:10:42 +0100
-From: Andreas Kemnade <andreas@kemnade.info>
-To: Pablo Mazzini <pmazzini@gmail.com>
-Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Alistair Francis <alistair@alistair23.me>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 4/7] regulator: sy7636a: wait for power good, then
- switch VCOM_EN
-Message-ID: <20261026091042.5376dd7d@kemnade.info>
-In-Reply-To: <20261026003918.155321-5-pmazzini@gmail.com>
-References: <20261026003918.155321-1-pmazzini@gmail.com>
-	<20261026003918.155321-5-pmazzini@gmail.com>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SkrhOp0e
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 799B21F01828;
+	Mon, 26 Oct 2026 08:12:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793002333;
+	bh=788vu28/RmpbuxZcV5D6HBDXw42mfNytDK356zbWFxI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=SkrhOp0e/e07xdOA0NDEcNPwlL2Nasi5VA7pBzAWQODpGpG9ijvkEVaxFupqoizIL
+	 2Uj5ucNWlMY7KR2dj2lF+aT+B2UA4NKpSrTK5Qgx8uBl9F0sHSIEoFVBIF02kRkfp6
+	 32Xy42c2RUPwIX81GkNaK4/kQ7UNu8bzeuTwRsM+iDE8e+WujeZ8IKIMgWCD62iznl
+	 Byss+a7f2GeKaArfI6iiM1AaeIgTYNA8QLfxQ9NRAGSHGxiLwMFFxDEi37sHDBXWPP
+	 NpVRWDpqZ2RWQUeY0JJD3mglfrXetvjjULZkXB8MMbvb7LdNk1aZwFKAukBJ7OPrTr
+	 Yhl4wJXOnkzOw==
+Date: Mon, 26 Oct 2026 09:12:09 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Jelly Jia <Jelly.Jia@cixtech.com>
+Cc: vkoul@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, robin.murphy@arm.com, sboyd@kernel.org, bmasney+clk@redhat.com, 
+	jbrunet+clk@baylibre.com, devicetree@vger.kernel.org, Frank.Li@kernel.org, 
+	cix-kernel-upstream@cixtech.com, dmaengine@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, joakim.zhang@cixtech.com
+Subject: Re: [PATCH v1 1/5] dt-bindings: soc: cix: Describe the Sky1 AUDSS
+ DMA IRQ controller
+Message-ID: <20261026-able-complex-skunk-d7db4c@quoll>
+References: <20261023093045.3248630-1-Jelly.Jia@cixtech.com>
+ <20261023093045.3248630-2-Jelly.Jia@cixtech.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,37 +61,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261023093045.3248630-2-Jelly.Jia@cixtech.com>
 
-On Mon, 26 Oct 2026 00:39:15 +0000
-Pablo Mazzini <pmazzini@gmail.com> wrote:
+On Fri, Oct 23, 2026 at 05:30:41PM +0800, Jelly Jia wrote:
+>  examples:
+>    - |
+> -    audss_cru: clock-controller@7110000 {
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +
+> +    gic: interrupt-controller {
+> +        #address-cells = <2>;
+> +        #interrupt-cells = <4>;
+> +        interrupt-controller;
+> +    };
 
-> Wait for power good on enable, as the TPS65185 and FP9931 drivers do.
-> 
-which is a good idea that the consumers can relay on the regulators being
-useable when enabled.
+Drop node, not relevant.
 
-> The VCOM_EN line was requested but held low. When it is wired, let it
-> switch VCOM after power good.
-> 
-What is the reason for this change? VCOM gets enabled this way, too.
-I added this line just for having the hardware completely documented.
+Best regards,
+Krzysztof
 
-A possible scenario where I could imagine this line being useful:
-
-Calibration of required VCOM voltage, You would turn on everything else,
-do a mode 0 refresh on the EPD and measure some kickback voltage on the
-otherwise inactive VCOM line and have your calculated value for that
-regulator.
-
-To be useful, several things are needed:
-- SY7636a driver needs to model vcom as a separate regulator turning
-  on a vposneg regulator. The TPS65185 driver defines a vposneg regulator.
-- ADC input is needed. The TPS65185 provides (not implemented in the
-  driver yet) such measurement. Of course that can come from another
-  chip.
-- Some (probably userspace logic) to control all of this.
-
-Regards,
-Andreas
