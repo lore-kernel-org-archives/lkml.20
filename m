@@ -1,64 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793058818;
-	b=lFqhCJX0DjTIdSJYXTC9EXHJIsnC6uGW8ijuCrTMZkFKQtQWfJmY6FNeuR+8a8dQsrN6
-	 E5MWkZDECqYLjfpmsApGm1qPbdhM+R7rdWcDITH3AyP1LHRvCWQ7NuJbVWoi4sKRUWPWm
-	 BYhn9D7lPaHE3qx32/3z5WMQMi9QDbidY0IcGbOcOoM2xda7tTPSpM4/Oi5agt4N0PhJa
-	 kJPnlg/lcdXSRqaod/iCBvUzUeKqbksCkj32bhc4Wm+71PNo3H7uIGisZxeFh6jiSCiYK
-	 dvtNLxT7PvtJjoncEQE7eAnxzvLF7Cf4puJKXL7eToku5cqxxUIrBmwZw0lUFcHVD5g==
+	t=1793058812;
+	b=5AnP/eK7P+nn6qR00k07roPci6snt5dRs3Bx0pILaDtYSK2AQH0G1S+PnTg4vD5d/pBL
+	 veYeaUq7VAsud/TNXliSXolKyz/+ApilKQBl1Mx2epAHHmCqbeuxssi7TXNxtEa251TG1
+	 99rILU1AZGtnibffnpfjpWuwerBbUn4aXWrB2y8CS10e2oHQxlDT7Mu2Erb1/lkVjTkgR
+	 KCVr4p9oFRa4GefTI3++HgSVLPI/5T0tMzFhk+UR+HRwXYIqSYHKhF+yG0+y3QeyR1OW/
+	 nATutSHQBeouixzCRAr0WWWcy5UKLKT/6lD0qhnv5/PLNeoj5TArxecGfF3NohhVMfg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793058818;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=sFeDkC9zqMittCSgY8EWGhM+YGFJ67oEKhT0Sl3nYak=;
-	b=AeZ0kzZFjrLE5+ZWrjUXtwcBnUYmBw/HK78JmyLuSVov6XvV2yPa6jzisR6EplstexMb
-	 BklAKR+JcUB/z7z+raJxr9Nc4QpgIP4FfVvycS8q9K2fl+eIuTWGJj2t6cI/zDmA1B5Rz
-	 xtv6f1v07IkYmdCdq0WiA5rO051JWN1GJMfMpJGy9eh6OQAitCh3QTZQ7q1+Dzb940Udd
-	 9xWuaXZ3pMH91L4EifAh5qCvbqqGqKM7DeEtQCo16P+V7ITzvIrXuxalHH+p2mNgD1n0q
-	 QYkpn+BrEm/7IWF1KKFwvulJXFna5YSGYVXYRBF9K3QrIMtTp7t1INWWmpt+Rdx6IoQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793058812;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:X-Mailer:X-Mutt-Fcc;
+	bh=bjaWup0FuAJOmpAyAzTIR20DllfFLEmJV+1+Hi1zMWs=;
+	b=si1i9+cFPS1minVqtW/yK0NxUieM6lLeMKHxz5qQcVy6RQJrP/9IkVpMQxLf+i4Hbtpz
+	 TM1Mv1CVJAeoUZ9zret+bgIBwBF7MG+kG3ygd3dD8Wz7UdWbGg4Zzs3+7ddvud5tGJi+3
+	 FbyOy08i4ukrA7XmV97lco0ZvYiiRienf1uG1e3P5S9TKYly6yojS9stDn9/Wwh0m/MSa
+	 5az9xLjwos4RPjY/QMEZoDQW4cmSP4DAebYavcqSUeVyxWScgAY4sDV/JK0+SvK6gR6yf
+	 dh35fdJJwsIzFmstVzrXME+zYZiWVwfwOIiXDkAdwWxDZkGfZ03A2n8oH3OeOeU7fbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="S7yYrGX/";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=NSHGypTg;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=o3RSWRfb;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D20FB606A324
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 23:53:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70DAF606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 23:53:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70DAF606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S7yYrGX/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65AED1F01828;
-	Mon, 26 Oct 2026 23:53:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793058817;
-	bh=sFeDkC9zqMittCSgY8EWGhM+YGFJ67oEKhT0Sl3nYak=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=S7yYrGX/h0IEwuHPwFco0u6cJlXg2PKopBlNQjCgrtxUZmbrkKSwymrIotMhDHqK0
-	 n2XBhabBqpUyipFjH3Nv6Qnyit3R+P+lQ8nnbgKNQ1uLwXIHCHdCusSelx84CJTp44
-	 oxwVI8DKhx0jEX+D60CCP3OpR6ta4ri+rK3qxVfOlXwbz4tQd5MyYT7PZ6bOnk1Ddb
-	 ZTdxIt0emLPidkQRU+VSYv7M0hdOKREB1Pfsz7wLHlvs/QVoRt2Q9blCda5EI0Cn0C
-	 1KGzc2jZ5HbEni33D+kD4Sdtmjtxw89D6/cVpj5qFrl1kk5BfOuMXqGgGvE8qspylo
-	 PKK4ZX4Z1r8Eg==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 0D1ABCE0C35; Mon, 26 Oct 2026 16:53:37 -0700 (PDT)
-Date: Mon, 26 Oct 2026 16:53:37 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Dave Hansen <dave.hansen@intel.com>
-Cc: Borislav Petkov <bp@alien8.de>, Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>, x86@kernel.org,
-	linux-kernel@vger.kernel.org, kernel-team@meta.com
-Subject: Re: [PATCH v2] x86/nmi: Enable panic() when NMI handler runs too long
-Message-ID: <abc1e11c-52b1-4069-9a9d-60d1efd69f04@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <53ff8d29-b7ce-4b3f-bdcf-9ac1f31f0a9f@paulmck-laptop>
- <8b14bd35-8f7e-4e41-9aae-e085f9a536f6@paulmck-laptop>
- <20261020045247.GEatbzn7VKvUfDTbR4@fat_crate.local>
- <5182974b-500a-4076-b9a1-5c67dded8380@paulmck-laptop>
- <d8a05f9e-42ac-4c19-8713-558e1f002bd0@intel.com>
- <47884f06-820d-4a95-8036-4c75f45fbb6c@paulmck-laptop>
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=NSHGypTg;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=o3RSWRfb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793058810;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type;
+	bh=bjaWup0FuAJOmpAyAzTIR20DllfFLEmJV+1+Hi1zMWs=;
+	b=NSHGypTghZthu88N1o+vGv+J1D0RmBioknlkzzumPVM+5RSr63VAs4xnQDhh5VpR4FC7zN
+	XgEae8SVmlFX0MexRk/eFfP99teG3b6IFFrdARnYXM7vHcEgIAAksOUcKgD2iKJ7WHniaB
+	ZbX3l+NnGhfpnRX5fIulXWYFFGjAKJo=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-91-MMt8p9S6MP67tsoyCWFk3w-1; Mon, 26 Oct 2026 19:53:29 -0400
+X-MC-Unique: MMt8p9S6MP67tsoyCWFk3w-1
+X-Mimecast-MFC-AGG-ID: MMt8p9S6MP67tsoyCWFk3w_1793058808
+Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4a80bd45e1cso468105e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 16:53:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1793058808; x=1793663608; darn=vger.kernel.org;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bjaWup0FuAJOmpAyAzTIR20DllfFLEmJV+1+Hi1zMWs=;
+        b=o3RSWRfb3/yIHldM83LZA/BFaSMjQeRMrvwO7M+xGVymbbbJGUQJafl/+3mS/urKln
+         1P7SvfVEwnCywye/735oOeZC02O+4oj8Uy+4+2Y8ov3xlwlCBtNepjIvfT97qWCZD8SY
+         7UVWj7+kmQbykd16hJXmPMRkgDPsNoZtNkoGJJNc+BATNWvlJiXoeN32CU+6NQtngRFz
+         GIuzwIV8p1eug4JDQVZJ9tz0IxDpGoH0CDR/Z6tt7gWzV4N+Gxo1ywvz9pG4IuaFlTQZ
+         015cpgxEAuUDW/baYYaeOyoQVuQe6jxlgu6eW9cXZBjtJ+FjLrBAcSgFhhXWKLhE8OKY
+         ZPfw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793058808; x=1793663608;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bjaWup0FuAJOmpAyAzTIR20DllfFLEmJV+1+Hi1zMWs=;
+        b=YjVvgeTjndFtr5W9R3qPW5bZ1ATa28H72Vy4dGrgo7ZvBfINNPdltCTiY9gaFrTTnu
+         BJBXY6rUlVD+TyKfokVcNtrnG7HJzp9a5B62r2AnXhGtCgZDKDi8gfwatctmRh9SckC0
+         G0yGTvsG59P+/hhMxM+x8kgS6OnOrzDFI0V00McTZ1aIXyOUr97X10OSQ6j0ytWUQoyc
+         uzs8a2H6988gG/nKYE6AUr3nZmnxBuQyYXBOv/1CXSsOGZjpgtQhXlDjRZB2N1aXVCro
+         dL+3JUHW1Sm9ql0dZGvfHlnw/V/zOO8p4Jjrf9rHVR56/ttT06rpG64mTND60VKcFTJX
+         LyWA==
+X-Gm-Message-State: AFq9FYI4haXvEXcKcCOw4aHDQC9DWzxH/PJsljxduqIx9pKh7szsz0Po
+	uRKjHYrs7ulxQxXLLDnLIsXb9RHYlJbRJD4p4+2Ng5igdS6+R4FzfSQWvgaN5hyB2g9CGAzuVnx
+	Ysq3tH3OAgajsrt0ea9s1Cs2DgUN3jv0+QI99Z73MoD9poFSa3/NXS7txhGgbjqfbm7nz4g+Mjx
+	O3CxBviTDDnP+FpKjHEnBogkmQOTMciT+pP26lmUE3pWA=
+X-Gm-Gg: AYBFou3q6Zc41aqFV9G+REEHCivI3iJfvYR9xhdmzOn7DIwlpxKR2a0Loj90ULzY91h
+	EDhsQ+jAw1jRG2OHOOn9WaovK/odV9h0/4R9G43lzRBGDXiMdXE9RVLAOg0hJEwyjg1+i+kbicq
+	MItQxLZep451PfzFQSJ41QqM9EhSr6SQfc8iUn/oCfvbHMstgWQa6YRNm2aMGOqPtuCcOJYTcAv
+	z3r2IIvU6qFujA0T8XWWUa5bpfsBmueUetRETbt1SvzIWXpRXbcRl5+/88hLzkbV32pX0SeZUee
+	9icrmNiUMg6F/fdPL1wBZHuoHLppwiqX7ILp/XfwYfJI6hqk9kUODnr04Yq70j7uebI=
+X-Received: by 2002:a05:600c:1992:b0:4a2:1a:a121 with SMTP id 5b1f17b1804b1-4a35acaf98emr138793545e9.18.1793058807610;
+        Mon, 26 Oct 2026 16:53:27 -0700 (PDT)
+X-Received: by 2002:a05:600c:1992:b0:4a2:1a:a121 with SMTP id 5b1f17b1804b1-4a35acaf98emr138793265e9.18.1793058807090;
+        Mon, 26 Oct 2026 16:53:27 -0700 (PDT)
+Received: from redhat.com ([2a0d:6fc0:1536:fc00:b838:383:1c7:6e81])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3eb8f305sm17811321f8f.3.2026.10.26.16.53.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 16:53:26 -0700 (PDT)
+Date: Mon, 26 Oct 2026 19:53:24 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: linux-kernel@vger.kernel.org
+Cc: Jason Wang <jasowang@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	Eugenio =?utf-8?B?UMOpcmV6?= <eperezma@redhat.com>,
+	virtualization@lists.linux.dev
+Subject: [PATCH v2 1/2] virtio_ring: add virtqueue_enable_cb_delayed_max
+Message-ID: <32e21059adb6cb1fd08c3f4426a313c77cf450ec.1793057483.git.mst@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,78 +112,238 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <47884f06-820d-4a95-8036-4c75f45fbb6c@paulmck-laptop>
+X-Mailer: git-send-email 2.51.2.2891.g4157995a80.dirty
+X-Mutt-Fcc: =sent
 
-On Tue, Oct 20, 2026 at 11:27:00AM -0700, Paul E. McKenney wrote:
-> On Tue, Oct 20, 2026 at 09:45:48AM -0700, Dave Hansen wrote:
-> > On 10/20/26 09:15, Paul E. McKenney wrote:
-> > >>> +	toolong_nmi_panic= [X86]
-> > >>> +			Cause a panic upon return from an NMI handler
-> > >>> +			that took longer than the specified number
-> > >>> +			of milliseconds.  The default value of zero
-> > >>> +			suppresses these panics.
-> > >> Cause a panic after an NMI?!
-> > > When the NMI handler runs for more than ten seconds, life is hard anyway.
-> > > And no, these were not bugs in the several affected NMI handlers themselves.
-> > > 
-> > >> Oh boy, is this trying to solve a Meta fleet problem and you're thinking, why
-> > >> not upstream it too?
-> > >>
-> > >> Because I fail to use the usefulness of this...
-> > > I might be wrong, but I doubt that Meta's fleet is the only place where
-> > > such bugs appear.  😉
-> > 
-> > Yeah, I once upon a time had a bunch of problems with NMIs taking
-> > forever to run. In my case, it was some actually wonky firmware, but
-> > differentiating the broken firmware from NMI handlers just being slow is
-> > what motivated the existing "took too long to run" message next to which
-> > you added the nmi_panic().
-> 
-> I guess I am glad that it is not just us seeing this sort of thing.
-> 
-> The existing "took too long to run" message is a good thing, but in
-> our case we needed a global timeout and we needed it to be quite long,
-> as in multiple *seconds*.  I did not see a nice way to integrate what we
-> needed into the existing ->max_duration checks, perhaps due to a failure
-> of imagination on my part.
-> 
-> > That said, I'd much prefer something more generic than something
-> > NMI-specific.
-> > 
-> > Would the systems that set toolong_nmi_panic=1 also set panic_on_warn=1?
-> > Are there any other "extra" panics that these systems also find useful?
-> 
-> We do often also set panic_on_warn=1 on our fleet, so in theory we
-> could make this be a WARN_ON() instead of a direct call to nmi_panic().
-> In practice, we would need to do something like make check_panic_on_warn()
-> check in_nmi() and invoke nmi_panic() if so.  Other adjustments might
-> be needed, I don't claim to be familiar with this code.
+virtqueue_enable_cb_delayed places the used event at 3/4 of the
+currently queued buffers, so with VIRTIO_RING_F_EVENT_IDX the device
+interrupts early and often - this is a good fit for drivers that poll
+and process buffers as they trickle in, like virtio net.
 
-And following up on this one, setting panic_on_warn=1 everywhere we care
-about too-long NMI handlers is a no-go.
+Some drivers queue a batch of buffers and then sleep waiting for the
+whole batch to complete.  For these, an interrupt before the last
+buffer is used is pure waste.
 
-> Or is there a better way?
+To fix, add virtqueue_enable_cb_delayed_max: same API, but the used
+event is placed at the last currently queued buffer, so the device
+only notifies us once it has used everything.
 
-So unless I hear (or think of) a better way, I will forward-port what
-I have when -rc1 comes out.
+Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+---
 
-							Thanx, Paul
+Notes (changelog):
+    changes since v1:
+        fix off-by-one: place the used event one entry before the
+        last queued buffer.  The device only signals once it passes
+        the event, so with the event at the last buffer it never
+        fired and callers waiting for the batch to complete hung.
 
-> > I'm kinda curious if, for instance:
-> > 
-> > 	hung_task_panic=1
-> > or
-> > 	softlockup_panic=1
-> > 
-> > would also panic() these systems.
-> 
-> They did not do so on our systems because the NMI handlers ran for "only"
-> a few tens of seconds, which is not long enough to trigger these panics.
-> We did get the occasional RCU CPU stall warning at 21 seconds in, but
-> these proved to be unhelpful in this case because the IPIs used by this
-> stall-warning code are deferred until exit from the NMI.
-> 
-> 							Thanx, Paul
+ drivers/virtio/virtio_ring.c | 127 +++++++++++++++++++++++++++++++++++
+ include/linux/virtio.h       |   2 +
+ 2 files changed, 129 insertions(+)
+
+diff --git a/drivers/virtio/virtio_ring.c b/drivers/virtio/virtio_ring.c
+index fbca7ce1c6bf..4c0bb860b703 100644
+--- a/drivers/virtio/virtio_ring.c
++++ b/drivers/virtio/virtio_ring.c
+@@ -180,6 +180,7 @@ struct virtqueue_ops {
+ 	bool (*kick_prepare)(struct vring_virtqueue *vq);
+ 	void (*disable_cb)(struct vring_virtqueue *vq);
+ 	bool (*enable_cb_delayed)(struct vring_virtqueue *vq);
++	bool (*enable_cb_delayed_max)(struct vring_virtqueue *vq);
+ 	unsigned int (*enable_cb_prepare)(struct vring_virtqueue *vq);
+ 	bool (*poll)(const struct vring_virtqueue *vq,
+ 		     unsigned int last_used_idx);
+@@ -1122,6 +1123,43 @@ static bool virtqueue_enable_cb_delayed_split(struct vring_virtqueue *vq)
+ 	return true;
+ }
+ 
++static bool virtqueue_enable_cb_delayed_max_split(struct vring_virtqueue *vq)
++{
++	u16 bufs;
++
++	START_USE(vq);
++
++	/* We optimistically turn back on interrupts, then check if there was
++	 * more to do. */
++	/* Depending on the VIRTIO_RING_F_USED_EVENT_IDX feature, we need to
++	 * either clear the flags bit or point the event index at the next
++	 * entry. Always update the event index to keep code simple. */
++	if (vq->split.avail_flags_shadow & VRING_AVAIL_F_NO_INTERRUPT) {
++		vq->split.avail_flags_shadow &= ~VRING_AVAIL_F_NO_INTERRUPT;
++		if (!vq->event)
++			vq->split.vring.avail->flags =
++				cpu_to_virtio16(vq->vq.vdev,
++						vq->split.avail_flags_shadow);
++	}
++	/* Point the used event one entry before the last queued buffer:
++	 * the device signals when it passes the event, so this makes it
++	 * notify us exactly once it has used everything. */
++	bufs = (u16)(vq->split.avail_idx_shadow - vq->last_used_idx) - 1;
++
++	virtio_store_mb(vq->weak_barriers,
++			&vring_used_event(&vq->split.vring),
++			cpu_to_virtio16(vq->vq.vdev, vq->last_used_idx + bufs));
++
++	if (unlikely((u16)(virtio16_to_cpu(vq->vq.vdev, vq->split.vring.used->idx)
++						- vq->last_used_idx) > bufs)) {
++		END_USE(vq);
++		return false;
++	}
++
++	END_USE(vq);
++	return true;
++}
++
+ static void *virtqueue_detach_unused_buf_split(struct vring_virtqueue *vq)
+ {
+ 	unsigned int i;
+@@ -2318,6 +2356,68 @@ static bool virtqueue_enable_cb_delayed_packed(struct vring_virtqueue *vq)
+ 	return true;
+ }
+ 
++static bool virtqueue_enable_cb_delayed_max_packed(struct vring_virtqueue *vq)
++{
++	u16 used_idx, wrap_counter, last_used_idx;
++	u16 bufs;
++
++	START_USE(vq);
++
++	/*
++	 * We optimistically turn back on interrupts, then check if there was
++	 * more to do.
++	 */
++
++	if (vq->event) {
++		/* Point the event one entry before the last queued buffer:
++		 * the device signals when it passes the event, so this
++		 * makes it notify us exactly once it has used everything. */
++		bufs = vq->packed.vring.num - vq->vq.num_free - 1;
++		last_used_idx = READ_ONCE(vq->last_used_idx);
++		wrap_counter = packed_used_wrap_counter(last_used_idx);
++
++		used_idx = packed_last_used(last_used_idx) + bufs;
++		if (used_idx >= vq->packed.vring.num) {
++			used_idx -= vq->packed.vring.num;
++			wrap_counter ^= 1;
++		}
++
++		vq->packed.vring.driver->off_wrap = cpu_to_le16(used_idx |
++			(wrap_counter << VRING_PACKED_EVENT_F_WRAP_CTR));
++
++		/*
++		 * We need to update event offset and event wrap
++		 * counter first before updating event flags.
++		 */
++		virtio_wmb(vq->weak_barriers);
++	}
++
++	if (vq->packed.event_flags_shadow == VRING_PACKED_EVENT_FLAG_DISABLE) {
++		vq->packed.event_flags_shadow = vq->event ?
++				VRING_PACKED_EVENT_FLAG_DESC :
++				VRING_PACKED_EVENT_FLAG_ENABLE;
++		vq->packed.vring.driver->flags =
++				cpu_to_le16(vq->packed.event_flags_shadow);
++	}
++
++	/*
++	 * We need to update event suppression structure first
++	 * before re-checking for more used buffers.
++	 */
++	virtio_mb(vq->weak_barriers);
++
++	last_used_idx = READ_ONCE(vq->last_used_idx);
++	wrap_counter = packed_used_wrap_counter(last_used_idx);
++	used_idx = packed_last_used(last_used_idx);
++	if (is_used_desc_packed(vq, used_idx, wrap_counter)) {
++		END_USE(vq);
++		return false;
++	}
++
++	END_USE(vq);
++	return true;
++}
++
+ static void *virtqueue_detach_unused_buf_packed(struct vring_virtqueue *vq)
+ {
+ 	unsigned int i;
+@@ -2640,6 +2740,7 @@ static const struct virtqueue_ops split_ops = {
+ 	.kick_prepare = virtqueue_kick_prepare_split,
+ 	.disable_cb = virtqueue_disable_cb_split,
+ 	.enable_cb_delayed = virtqueue_enable_cb_delayed_split,
++	.enable_cb_delayed_max = virtqueue_enable_cb_delayed_max_split,
+ 	.enable_cb_prepare = virtqueue_enable_cb_prepare_split,
+ 	.poll = virtqueue_poll_split,
+ 	.detach_unused_buf = virtqueue_detach_unused_buf_split,
+@@ -2654,6 +2755,7 @@ static const struct virtqueue_ops packed_ops = {
+ 	.kick_prepare = virtqueue_kick_prepare_packed,
+ 	.disable_cb = virtqueue_disable_cb_packed,
+ 	.enable_cb_delayed = virtqueue_enable_cb_delayed_packed,
++	.enable_cb_delayed_max = virtqueue_enable_cb_delayed_max_packed,
+ 	.enable_cb_prepare = virtqueue_enable_cb_prepare_packed,
+ 	.poll = virtqueue_poll_packed,
+ 	.detach_unused_buf = virtqueue_detach_unused_buf_packed,
+@@ -2668,6 +2770,7 @@ static const struct virtqueue_ops split_in_order_ops = {
+ 	.kick_prepare = virtqueue_kick_prepare_split,
+ 	.disable_cb = virtqueue_disable_cb_split,
+ 	.enable_cb_delayed = virtqueue_enable_cb_delayed_split,
++	.enable_cb_delayed_max = virtqueue_enable_cb_delayed_max_split,
+ 	.enable_cb_prepare = virtqueue_enable_cb_prepare_split,
+ 	.poll = virtqueue_poll_split,
+ 	.detach_unused_buf = virtqueue_detach_unused_buf_split,
+@@ -2682,6 +2785,7 @@ static const struct virtqueue_ops packed_in_order_ops = {
+ 	.kick_prepare = virtqueue_kick_prepare_packed,
+ 	.disable_cb = virtqueue_disable_cb_packed,
+ 	.enable_cb_delayed = virtqueue_enable_cb_delayed_packed,
++	.enable_cb_delayed_max = virtqueue_enable_cb_delayed_max_packed,
+ 	.enable_cb_prepare = virtqueue_enable_cb_prepare_packed,
+ 	.poll = virtqueue_poll_packed,
+ 	.detach_unused_buf = virtqueue_detach_unused_buf_packed,
+@@ -3197,6 +3301,29 @@ bool virtqueue_enable_cb_delayed(struct virtqueue *_vq)
+ }
+ EXPORT_SYMBOL_GPL(virtqueue_enable_cb_delayed);
+ 
++/**
++ * virtqueue_enable_cb_delayed_max - callback for all queued buffers
++ * @_vq: the struct virtqueue we're talking about.
++ *
++ * Like virtqueue_enable_cb_delayed, but with VIRTIO_RING_F_EVENT_IDX
++ * the used event is placed at the last currently queued buffer, so the
++ * device only notifies us once it has used everything we queued.
++ *
++ * Returns "true" if the callback is armed and we can sleep waiting
++ * for the notification, or "false" if some buffers were already used
++ * and we should poll instead.
++ */
++bool virtqueue_enable_cb_delayed_max(struct virtqueue *_vq)
++{
++	struct vring_virtqueue *vq = to_vvq(_vq);
++
++	if (vq->event_triggered)
++		data_race(vq->event_triggered = false);
++
++	return VIRTQUEUE_CALL(vq, enable_cb_delayed_max);
++}
++EXPORT_SYMBOL_GPL(virtqueue_enable_cb_delayed_max);
++
+ /**
+  * virtqueue_detach_unused_buf - detach first unused buffer
+  * @_vq: the struct virtqueue we're talking about.
+diff --git a/include/linux/virtio.h b/include/linux/virtio.h
+index 3bbc4cb6a672..214fa36b8eed 100644
+--- a/include/linux/virtio.h
++++ b/include/linux/virtio.h
+@@ -114,6 +114,8 @@ bool virtqueue_poll(struct virtqueue *vq, unsigned);
+ 
+ bool virtqueue_enable_cb_delayed(struct virtqueue *vq);
+ 
++bool virtqueue_enable_cb_delayed_max(struct virtqueue *vq);
++
+ void *virtqueue_detach_unused_buf(struct virtqueue *vq);
+ 
+ unsigned int virtqueue_get_vring_size(const struct virtqueue *vq);
+-- 
+MST
+
