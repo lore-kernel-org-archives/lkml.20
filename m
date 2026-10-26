@@ -1,65 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793019168;
-	b=X42+G9Q63kHkRBOGhuUo4tGbUI5to8pS2vLVV1XJNj36NIlfi42L/0nrZo/UpiaTNIRJ
-	 IpWUxW9XJOFQxr+cljZXwcEDGec+4BpmgbX2bRC0IABaP2MeLAP01wP+2sI3Src81D2wq
-	 ogMeRkZ5AirlHadiUnmgTO6OK9Jm9+QT9dt4UBGUaHNrarV34Elw5oWjyah+SxS2OfPF9
-	 jhCOTQOEA1UUw0VpVv7oHxW7L4Da/Mht+Cf9KULAKSQCTIEwoPn7EAKCOypb68cdRDun6
-	 nLaki9PDy0r3NBYaF4ekeTR/rbd/TRvLHg/+2OK/H4+iH8b01ZwvkLYObyxdHkL5nWg==
+	t=1793019207;
+	b=OiByDZ6F+Du4abrpcm8VqPzL/55vZTMm472jVSzya+oyDVJl+jLpGGghAVGcMQ8sKBPo
+	 FQiNr356d7SuX8aAAR53pegAMU2yp4rX3z8YM7WqdXLaIyGUh7RuveYhdy1xZVIVJCnni
+	 Yf4jgs0d9u96hGcDdPeR8fgW1bUFrRE80BkGuEi9hVUdwKNvbZp9hSyrnPP8SHnv7iQwe
+	 2PozQz6tpQJq8ZpiwOKspC0jLlKdGmIqp5XdjPFk2Wv/auCxLW0NRSa6H7ifChAMFc3Io
+	 rN5X1BYhJdAmfwjtT9qx1ue3zKLgzaN8ImWmdKLhYtEKPUhYlnxbTt/aEQJ9gqzkAbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793019168;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-Last-TLS-Session-Version;
-	bh=XxBlJ450fGP5NE0P23Mw4mDA1i18VKdOWeLhUI4rES0=;
-	b=XvoJoieYylxeNh/ZGABe26gkrxq45nUuHAyjktZ/dtzTll/TW3R0KxbUypQ2igRooOZk
-	 9i/RPMr0P+pZlKyMN/8OllMCE11dgKJkS5ZQZcZbnK0WWb9JhmcXXOy5m1gfanJSZNqbD
-	 dLj0LNTOxbirfKUpzc1kUKshOunTlQz2vVsB6giD4d68Oe4WyyjLH+QvZHd+j5J7bYgFV
-	 RyfCw0X48jrtBk6gbKL85hUb705KvO+9qa5lhoK9ycAF5SNolb1G1x2/Hv89DDdXA2ekV
-	 l0XoTW9WrmNlSuvK7XPFA6guN9ZQMZFAVR2/NqVIlFo0T0xRKG2bUDUoiO4yF5ubw7g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793019207;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=4sPsWijS0o1vuhCMct6ehUV/2rvCyrpEssuEEpT4abY=;
+	b=OvtRb0ywLae+NntUE46ywdEFIn+Zle7r55qgnhPkIndZwgrNvxQOrpo8lq/hsPQ7h+S+
+	 zrG3zTWL4/kRUe7U9Lo0Xe2UFvj/MYvaWVsWCr2cXm04/HbSd4cK+5okAD4rXQQOtInCB
+	 a7Z5q2IM0bLfD6/FlfOs5T4yBgdg5W7fOSPtHhRMJYHJ1N1HFwyojlk2pv5pt47WFmk+l
+	 ca9+0mv7EQ8hYyEtW81OEG7wX/EwdduP1MWI682WR1eItqRWdsZTwaqLXhvOf4RvW8/ZN
+	 tkU99i84aIWxpRcKm3vQ629CkmUemBqCFuDpXtSdmriNdvAoeGwH8wdrmE2BQH8S/cQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nabladev.com;
-	spf=pass smtp.mailfrom=nabladev.com;
-	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=AlgiRuq7;
-	arc=none smtp.remote-ip=178.251.229.89
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+	dmarc=none header.from=xiaopeng.com;
+	spf=pass smtp.mailfrom=xiaopeng.com;
+	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=AWBEHmIh;
+	arc=none smtp.remote-ip=115.124.28.169
+Received: from out28-169.mail.aliyun.com (out28-169.mail.aliyun.com [115.124.28.169])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE6D5606A31A;
-	Mon, 26 Oct 2026 12:52:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE6D5606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3C31606A31A;
+	Mon, 26 Oct 2026 12:53:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3C31606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=AlgiRuq7
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7E4BF109A73;
-	Mon, 26 Oct 2026 13:52:41 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1793019162; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding; bh=XxBlJ450fGP5NE0P23Mw4mDA1i18VKdOWeLhUI4rES0=;
-	b=AlgiRuq7A2ePvip9fex8piaNBG59JakTzjeRi3XN14FOb14aKXQbYAlZNgZWP4V8YmwFGz
-	DEmSqOncC0hKIa0e9C+UGVKzX+DfdFblTironaPUW0jwH6ChFP+YpvvqrNJvTiLYI/4HXd
-	3i+jtVg/GKRaV2nYKZ6EjmcBSGnW+xI6v/0yLbCb0tqDC1r2YvEANKYaMWP/xml7jDt6Rn
-	gjr/QV0bEcq7mKfOgieTWv+hhJaW2Bx3oLywjqPchLDZvTCLPAsmWFsehypOJCIpFBHxwA
-	9MJHOQdJOlSb5/0ZHPu80WTVTgGyBteV/r7zfcE0428JAegbDMeKWNUVuZGfLA==
-From: Marek Vasut <marex@nabladev.com>
-To: linux-arm-kernel@lists.infradead.org
-Cc: Marek Vasut <marex@nabladev.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Christoph Niedermaier <cniedermaier@dh-electronics.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	devicetree@vger.kernel.org,
-	kernel@dh-electronics.com,
+	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=AWBEHmIh
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1793019196; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=4sPsWijS0o1vuhCMct6ehUV/2rvCyrpEssuEEpT4abY=;
+	b=AWBEHmIhQCCnHyNEvCdhbg0f2AuqsF7AlHUVK/HiYovR0/32IKs2kjcIZCP069tXRLWsw/u9r0GZvDRiQBOO+corbwKai9+asfvc8LkSD5n9JSMRfgArWLl/p4/yQ/HuJ7UF0iDP5uKNHdQbTH1bPtR6aLSLpmo5tfDFCJAyKXo=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.05106358|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0177122-0.0906822-0.891606;FP=18328251804473314834|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037034138;MF=fangxy@xiaopeng.com;NM=1;PH=DS;RN=13;RT=13;SR=0;TI=SMTPD_---.jq1bEE5_1793019194;
+Received: from localhost.localdomain(mailfrom:fangxy@xiaopeng.com fp:SMTPD_---.jq1bEE5_1793019194 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Mon, 26 Oct 2026 20:53:15 +0800
+From: Fang Xieyan <fangxy@xiaopeng.com>
+To: pablo@netfilter.org,
+	fw@strlen.de
+Cc: phil@nwl.cc,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	netfilter-devel@vger.kernel.org,
+	coreteam@netfilter.org,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com
-Subject: [PATCH] arm64: dts: st: Update gpio-line-names on STM32MP23xx DHCOS SoM
-Date: Mon, 26 Oct 2026 13:52:11 +0100
-Message-ID: <20261026125240.76753-1-marex@nabladev.com>
-X-Mailer: git-send-email 2.53.0
+	Weibin Liu <liuwb@xiaopeng.com>
+Subject: [PATCH] netfilter: xt_policy: add NULL check for skb_dst() in output policy match
+Date: Mon, 26 Oct 2026 20:53:13 +0800
+Message-ID: <20261026125313.14810-1-fangxy@xiaopeng.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,217 +70,38 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-Adjust gpio-line-names to match both STM32MP23xx and STM32MP25xx DHCOS
-SoM pads respectively in their matching SoM DTs.
+match_policy_out() accesses dst->xfrm without checking whether
+skb_dst() returned NULL. If no dst entry is attached to the skb,
+this dereference is invalid.
 
-Fixes: 6642d6a47901 ("arm64: dts: st: Add support for DH electronics STM32MP23xx/STM32MP25xx DHCOS SoM and Breakout Board and DHSBC")
-Signed-off-by: Marek Vasut <marex@nabladev.com>
+Check dst before accessing dst->xfrm and return -1 when no dst entry
+is present. This follows the existing handling of a dst entry
+without XFRM state and preserves the XT_POLICY_MATCH_NONE semantics
+in policy_mt().
+
+Code review identified the unchecked dereference. No reachable path
+that passes an skb with a NULL dst to match_policy_out() has been
+identified in current kernels.
+Reviewed-by: Weibin Liu <liuwb@xiaopeng.com>
+Signed-off-by: Fang Xieyan <fangxy@xiaopeng.com>
 ---
-Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: Christoph Niedermaier <cniedermaier@dh-electronics.com>
-Cc: Conor Dooley <conor+dt@kernel.org>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: Rob Herring <robh@kernel.org>
-Cc: devicetree@vger.kernel.org
-Cc: kernel@dh-electronics.com
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-stm32@st-md-mailman.stormreply.com
----
- .../boot/dts/st/stm32mp23xx-dhcos-som.dtsi    | 54 +++++++++++++++++++
- .../boot/dts/st/stm32mp25xx-dhcos-som.dtsi    | 47 ++++++++++++++++
- .../boot/dts/st/stm32mp2xxx-dhcos-som.dtsi    | 45 ----------------
- 3 files changed, 101 insertions(+), 45 deletions(-)
+ net/netfilter/xt_policy.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/arm64/boot/dts/st/stm32mp23xx-dhcos-som.dtsi b/arch/arm64/boot/dts/st/stm32mp23xx-dhcos-som.dtsi
-index 5d4624c3200ad..7a95f56bf857f 100644
---- a/arch/arm64/boot/dts/st/stm32mp23xx-dhcos-som.dtsi
-+++ b/arch/arm64/boot/dts/st/stm32mp23xx-dhcos-som.dtsi
-@@ -20,6 +20,60 @@ aliases {
- 	};
- };
+diff --git a/net/netfilter/xt_policy.c b/net/netfilter/xt_policy.c
+index ff54e3a8581e..6bbaf92f0cfc 100644
+--- a/net/netfilter/xt_policy.c
++++ b/net/netfilter/xt_policy.c
+@@ -87,7 +87,7 @@ match_policy_out(const struct sk_buff *skb, const struct xt_policy_info *info,
+ 	int strict = info->flags & XT_POLICY_MATCH_STRICT;
+ 	int i, pos;
  
-+&gpioa {
-+	gpio-line-names = "", "", "", "",
-+			  "", "", "", "",
-+			  "", "", "", "",
-+			  "DHCOS-C", "", "", "";
-+};
-+
-+&gpiod {
-+	gpio-line-names = "", "DHCOS-K", "DHCOS-J", "",
-+			  "", "", "", "",
-+			  "", "", "", "",
-+			  "", "", "", "";
-+};
-+
-+&gpiof {
-+	gpio-line-names = "", "", "", "",
-+			  "", "", "", "",
-+			  "", "", "", "DHCOS-E",
-+			  "DHCOS-N", "", "", "DHCOS_RAM-CODE_2";
-+};
-+
-+&gpiog {
-+	gpio-line-names = "", "", "", "",
-+			  "", "", "", "DHCOS-P",
-+			  "DHCOS-O", "DHCOS_RAM-CODE_0", "DHCOS_RAM-CODE_1", "",
-+			  "", "", "DHCOS-F", "DHCOS_HW-CODE_0";
-+};
-+
-+&gpioh {
-+	gpio-line-names = "", "", "DHCOS-I", "",
-+			  "", "DHCOS-H", "DHCOS-L", "",
-+			  "DHCOS-G", "", "", "",
-+			  "", "", "", "";
-+};
-+
-+&gpioi {
-+	gpio-line-names = "DHCOS_HW-CODE_1", "DHCOS_HW-CODE_2", "", "",
-+			  "", "DHCOS-M", "", "",
-+			  "", "", "", "DHCOS-D",
-+			  "", "", "", "";
-+};
-+
-+&ioexp {
-+	gpio-line-names =
-+		"#ETH1_RST_P0_0", "#ETH0_RST_P0_1",
-+		"BT_REG_ON_P0_2", "WL_REG_ON_P0_3",
-+		"USB1_PWR_EN_P0_4", "USB1_PWR_STAT_P0_5",
-+		"USB0_PWR_EN_P0_6", "USB0_PWR_STAT_P0_7",
-+		"SDIO0_CD_P1_0", "USB0_SS_SEL_P1_1",
-+		"#PCIe_RST_1_2", "#PCIe_Wake_P1_3",
-+		"#QSPI_RST_P1_4", "#CSI0_PWDN_P1_5",
-+		"#CSI0_RST_P1_6", "#PCIE_CLKREQ_GPIO_Q_P1_7";
-+};
-+
- &rv3032 {
- 	interrupts-extended = <&gpiod 10 IRQ_TYPE_EDGE_FALLING>;
- };
-diff --git a/arch/arm64/boot/dts/st/stm32mp25xx-dhcos-som.dtsi b/arch/arm64/boot/dts/st/stm32mp25xx-dhcos-som.dtsi
-index 23c25ea086445..3f3bdef05ce4e 100644
---- a/arch/arm64/boot/dts/st/stm32mp25xx-dhcos-som.dtsi
-+++ b/arch/arm64/boot/dts/st/stm32mp25xx-dhcos-som.dtsi
-@@ -20,6 +20,53 @@ aliases {
- 	};
- };
+-	if (dst->xfrm == NULL)
++	if (!dst || dst->xfrm == NULL)
+ 		return -1;
  
-+&gpioa {
-+	gpio-line-names = "", "DHCOS-M", "DHCOS-K", "DHCOS-L",
-+			  "DHCOS-E", "DHCOS-J", "", "",
-+			  "DHCOS-D", "", "", "",
-+			  "", "", "", "";
-+};
-+
-+&gpiof {
-+	gpio-line-names = "", "", "", "",
-+			  "", "", "", "",
-+			  "", "", "", "",
-+			  "", "", "", "DHCOS_RAM-CODE_2";
-+};
-+
-+&gpiog {
-+	gpio-line-names = "", "", "", "",
-+			  "", "", "", "",
-+			  "", "DHCOS_RAM-CODE_0", "DHCOS_RAM-CODE_1", "",
-+			  "", "", "DHCOS-F", "DHCOS_HW-CODE_0";
-+};
-+
-+&gpioh {
-+	gpio-line-names = "", "", "DHCOS-I", "DHCOS-N",
-+			  "", "", "DHCOS-O", "DHCOS-H",
-+			  "DHCOS-G", "", "", "",
-+			  "", "", "", "";
-+};
-+
-+&gpioi {
-+	gpio-line-names = "DHCOS_HW-CODE_1", "DHCOS_HW-CODE_2", "", "",
-+			  "", "", "", "",
-+			  "", "DHCOS-C", "", "",
-+			  "", "", "", "";
-+};
-+
-+&ioexp {
-+	gpio-line-names =
-+		"#ETH1_RST_P0_0", "#ETH0_RST_P0_1",
-+		"BT_REG_ON_P0_2", "WL_REG_ON_P0_3",
-+		"USB1_PWR_EN_P0_4", "USB1_PWR_STAT_P0_5",
-+		"USB0_PWR_EN_P0_6", "USB0_PWR_STAT_P0_7",
-+		"SDIO0_CD_P1_0", "USB0_SS_SEL_P1_1",
-+		"#PCIe_RST_1_2", "#PCIe_Wake_P1_3",
-+		"#QSPI_RST_P1_4", "#CSI0_PWDN_P1_5",
-+		"#CSI0_RST_P1_6", "#ETH3_RST_P1_7";
-+};
-+
- &rv3032 {
- 	interrupts-extended = <&gpioi 10 IRQ_TYPE_EDGE_FALLING>;
- };
-diff --git a/arch/arm64/boot/dts/st/stm32mp2xxx-dhcos-som.dtsi b/arch/arm64/boot/dts/st/stm32mp2xxx-dhcos-som.dtsi
-index bcf63e2ea9898..6febdbfe83649 100644
---- a/arch/arm64/boot/dts/st/stm32mp2xxx-dhcos-som.dtsi
-+++ b/arch/arm64/boot/dts/st/stm32mp2xxx-dhcos-som.dtsi
-@@ -218,41 +218,6 @@ &arm_wdt {
- 	status = "okay";
- };
- 
--&gpioa {
--	gpio-line-names = "", "DHCOS-M", "DHCOS-K", "DHCOS-L",
--			  "DHCOS-E", "DHCOS-J", "", "",
--			  "DHCOS-D", "", "", "",
--			  "", "", "", "";
--};
--
--&gpiof {
--	gpio-line-names = "", "", "", "",
--			  "", "", "", "",
--			  "", "", "", "",
--			  "", "", "", "DHCOS_RAM-CODE_2";
--};
--
--&gpiog {
--	gpio-line-names = "", "", "", "",
--			  "", "", "", "",
--			  "", "DHCOS_RAM-CODE_0", "DHCOS_RAM-CODE_1", "",
--			  "", "", "DHCOS-F", "DHCOS_HW-CODE_0";
--};
--
--&gpioh {
--	gpio-line-names = "", "", "DHCOS-I", "DHCOS-N",
--			  "", "", "DHCOS-O", "DHCOS-H",
--			  "DHCOS-G", "", "", "",
--			  "", "", "", "";
--};
--
--&gpioi {
--	gpio-line-names = "DHCOS_HW-CODE_1", "DHCOS_HW-CODE_2", "", "",
--			  "", "", "", "",
--			  "", "DHCOS-C", "", "",
--			  "", "", "", "";
--};
--
- &gpioz {
- 	gpio-line-names = "", "", "DHCOS-A", "DHCOS-B",
- 			  "", "", "", "",
-@@ -278,16 +243,6 @@ ioexp: gpio@20 {
- 		interrupt-controller;
- 		#interrupt-cells = <2>;
- 		wakeup-source;
--
--		gpio-line-names =
--			"#ETH1_RST_P0_0", "#ETH0_RST_P0_1",
--			"BT_REG_ON_P0_2", "WL_REG_ON_P0_3",
--			"USB1_PWR_EN_P0_4", "USB1_PWR_STAT_P0_5",
--			"USB0_PWR_EN_P0_6", "USB0_PWR_STAT_P0_7",
--			"SDIO0_CD_P1_0", "USB0_SS_SEL_P1_1",
--			"#PCIe_RST_1_2", "#PCIe_Wake_P1_3",
--			"#QSPI_RST_P1_4", "#CSI0_PWDN_P1_5",
--			"#CSI0_RST_P1_6", "#ETH3_RST_P1_7";
- 	};
- 
- 	eeprom0: eeprom@50 {
+ 	for (i = 0; dst && dst->xfrm;
 -- 
-2.53.0
+2.50.1
 
