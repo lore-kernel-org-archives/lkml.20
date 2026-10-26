@@ -1,102 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.35.73
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.43
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793009298;
-	b=dn8stK4O7U+Q/wszSaAfn76DZ6+LtIkwgqLUtcDJJ7Ga3DVstyphbrcgCpCRi4S2FaaT
-	 Gau0zFnhk/DcZQWejRAnu0xuKVnJv54FvTvrfU9w76Ov2DAwoTWIJjBhUaUsz/QumEAEX
-	 rbyLDNLga+pTz7k8QLkkAvqW+y32R/pjle8FWvAmgRmhtRhIAxYQKG6u7n7WARc8hRgCV
-	 u/tj42LIIjEcepRKjVrnQmwzFRT6h39gOIf6gp6ZxWq7YijbB8lHPDGCqFY22hd5cQmXH
-	 errSSoCRRxeTeWxOaPcxAYG9QOxPjxvHcYbbndFnx/Q8lKFzlJGCavaoM4pJiwfAllg==
+	t=1793009350;
+	b=Kkp3xxDy1wrJQdWFAlO170Dr5sKEy3jJBk0DY7nJE+htyocUq7kzIaHV0Ycgq+O15Bk8
+	 0KI85kAu2tvnrRd0mzZ8PvDBYV1HX5rnD2Eo79QyyODmXSS8P/04CxuLmoDAdBmmBSxGv
+	 wzctjw55faGZYnn3etjxoRzcuIquERRFG08Z0NOqWgrOhK6Lg41JiRLbSQA1z84ElfNcw
+	 AEo8j+/Q2RH6/6QQXKR1qONJwvxQwor07EmFXsSTlsBdupVOYdjcVxY6iIvazFLC5CqJZ
+	 DdNaLx45OK/niBIDU70KNR5xRbOjWmgmMsUGmNLOa0oGTnirCrs290QkjCRxcL/JUwg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793009298;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:
-	 X-Microsoft-Original-Message-ID:MIME-Version:
-	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Jh3gJDtE8sPEumE5jIP9Jhv1Exct2n9Bhk02xWe4QPY=;
-	b=OxPIEbkLAz3eDrq26/FuVX+0hgucrop9NQa6yv/WOmGvRcPQ+NU5OasLuz4lYRuL4+G6
-	 qkiAC9Au+w3jwlCshz1suOhJEwbb4oCi3BgbYmO3bhafDglVPZL1tGK0jK9X0YsAT8Qhn
-	 CaAdMW+HO4aRZkan9pRIAB85+XbbH9P9gzPVtSDwQC2spHvSlEMK6WZAreHZoHGBUjXW4
-	 8jgEYNisi+c0JgDR6P8kl82RPPchmsF2rtS5Zwx2aqm0GGFpegYJ2u2aimLH1xNcydb2g
-	 VtWnMlfAKCaKfhaf6wxEO/j7E8XbNtLnDzpdeKenewmgka2TP2I0hGoaCFxYTw/Pq0w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793009350;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=lqgswGVrjDSSdxxGQJBHiCq23U2S/DjC2jo9ZomP9DE=;
+	b=pm8CabbWs8a+JJBsZ6DJqSwp6+FsuD2/eUlxv3cHxPnlNZEOB5vdi0Afj+lO5NBU4cuf
+	 WYox6bXcHb5fNtH/C3tc8bEbIG6nTO4ccamdegkUO0XQ3f90QysZT+6awlrOMte3Apy3r
+	 rW22hIhGvL2LWgQi/EuMMqlJNwcT1vqVA1eSZqPiC5t5G8qwr0MaU165wPDN1eC3GFmoB
+	 yBbkQiQ1C1N/h4I3aI2Td5tucfWENbS2crmCakQAe6KZ0O09L0CSFvE27Q6vCY9RmCEvl
+	 36qukPCKUbOEvJQPSuI7JKoj1f+gtrdJ7VJYcru0DVWjhVpByUAKY9l53PjHsKzO3iw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=outlook.de;
-	spf=pass smtp.mailfrom=outlook.de;
-	dkim=pass header.d=OUTLOOK.DE header.i=@OUTLOOK.DE header.a=rsa-sha256 header.s=selector1 header.b=RCBlX9sv;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.35.73
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazolkn19013073.outbound.protection.outlook.com [52.103.35.73])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=FA9FnVWw;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.43
+Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 266D4606A31B;
-	Mon, 26 Oct 2026 10:08:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 266D4606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=outlook.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BDA0606A322
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:09:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1BDA0606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=OUTLOOK.DE header.i=@OUTLOOK.DE header.a=rsa-sha256 header.s=selector1 header.b=RCBlX9sv
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZN6ssiP/qpxt1+jIDBoBGBEH1kvjuj/vzLUqpbYawT1MxL9npes0JP4MkDoKXm+XHxS+arm3tUF06gQW7m1UPrrqM40HaLztDl7RXbITdbSrYAHsKWq4zLQjgNgm2qGO00nXxFa3OFdEIIKbFrokcv/DYQyJJsQPrdy7g2+Pvp8TGI+n5uxvELxQFoZDTBtDhyu16Gmg+9s17RztKVop69Hul5BNuuWslf/nGdnKuAE7KsG5x1Zujq0z0G5Ivt8rHqRxE/0Ykaezdi5LINMPh59Bg7cpziQivmGLTy3bjJvXa+fs322Z+gI+WRdc/69qaTCy6v/9kaeZS/4MJUHRKg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Jh3gJDtE8sPEumE5jIP9Jhv1Exct2n9Bhk02xWe4QPY=;
- b=K+Y+vGwW41SkWx7+9kawhKv/bOupNXj6Z6sVC+Vc8M5AR0nzMdGeUiO/Dk27/q7LTj6cPWv3KcCTBWAyxnJ5Z0oRzhwQnItIJSmCbncVZT7QzrzXhQgQV9G6ygG39USnpra1eEjfqDj9rd8WTxQA3rCAV6YHSs6Greqljjc1ZJPEhODc2BbPpK4RpgvXS5SCvy1ujEDGwxARkqCy0Ve6Wvre7vVlGBGrCE4lFwRUdjZvMVR7Y0o+4Grq41CUG3sVlWhdkugYQ89B6uTKt7PN/S8BbHlgwbuSYRIKfGpjv8IufxYmBJaarHwmJBw4BTvJ+s+okdvV9pZasFjoSPh+DQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=OUTLOOK.DE;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Jh3gJDtE8sPEumE5jIP9Jhv1Exct2n9Bhk02xWe4QPY=;
- b=RCBlX9svj7XWjVZdAkUUDAc/GIWKeCQY9rk43pZ81yZP1jSxtdnnrZg8lcGZnpCMGsDJPCtcWDgAVTRfvY+KmhpSjwt71zrUAIXWiWFUYJ8Gwx+3s0hVELfTs1YGNpjnP7pnpUC9Dnp4D234YkzD6a7RS+CbsGXuXez0/u2MruQ0DKmzCtboCVOdAMZmMwTWzdGHTqo+QFAo4pGGj7GFiCO+j43MWMfV56wEUtalcKDBiJBPMpJpMKx1xta2MtC8EKAg3mtZiXz+OZuNnbVZgVhfaALmpWT4pCpTQ7Nhw9VCwqinR9syRFyIWhVJ18ZO38Nzn35fr8mQBzEo5jgp5g==
-Received: from MMZPR08MB549315.eurprd08.prod.outlook.com
- (2603:10a6:190:28::19) by AS8PR08MB9361.eurprd08.prod.outlook.com
- (2603:10a6:20b:5a8::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.14; Mon, 26 Oct
- 2026 10:08:15 +0000
-Received: from MMZPR08MB549315.eurprd08.prod.outlook.com
- ([fe80::21ab:3314:172:c7e5]) by MMZPR08MB549315.eurprd08.prod.outlook.com
- ([fe80::21ab:3314:172:c7e5%5]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
- 10:08:15 +0000
-Message-ID:
- <MMZPR08MB549315DB32DCE8589A27E461B5DF612@MMZPR08MB549315.eurprd08.prod.outlook.com>
-Date: Mon, 26 Oct 2026 11:08:04 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/4] cpufreq: add an Amlogic speed-bin driver
-To: Jerome Brunet <jbrunet@baylibre.com>
-Cc: neil.armstrong@linaro.org, sboyd@kernel.org, bmasney+clk@redhat.com,
- khilman@baylibre.com, martin.blumenstingl@googlemail.com, rafael@kernel.org,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- linux-kernel@vger.kernel.org, linux-amlogic@lists.infradead.org,
- linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
- =?UTF-8?Q?Christian_Stefan_K=C3=B6v=C3=A9r-Draxl?= <ckoever@outlook.de>
-References: <20261025192219.209137-1-christian.koever-draxl@student.uibk.ac.at>
- <20261025192219.209137-5-christian.koever-draxl@student.uibk.ac.at>
- <at7lXEqds7ukoR2V@vireshk-B250M-D3H>
- <1jbj8gkff1.fsf@starbuckisacylon.baylibre.com>
- <at8WfX_G0tfTlFrm@vireshk-B250M-D3H>
-Content-Language: en-US
-From: =?UTF-8?Q?Christain_Stefan_K=C3=B6ver-Draxl?= <ckoever@outlook.de>
-In-Reply-To: <at8WfX_G0tfTlFrm@vireshk-B250M-D3H>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR3P281CA0097.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a1::15) To MMZPR08MB549315.eurprd08.prod.outlook.com
- (2603:10a6:190:28::19)
-X-Microsoft-Original-Message-ID:
- <792d5a57-ba6f-4100-8145-7f863435a7c4@outlook.de>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=FA9FnVWw
+Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-15ea896ddc8so4806648c88.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 03:09:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793009348; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Ls5PQT9dibmEWcc8q/gVhlUS3Te2tXTwx9kZgQ3Ayrues+EOlSh7CeIcFPlVrQoWeM
+         K9Lns+dR39rxNNIzW7AWVOq8OMv74vLP8JJ6T6FMLRIOeKcPBisCKd0qqwEm8KQVl6KL
+         /vX1YWY04hdHEn/pI2D7ED5Y7LGy9e6bHfttdcbyj7ByvUZynqtBPlBHyQDJWeNADIF6
+         iaBFwz1pu+aQkNDMNup1EuAJQx7PV/42/806UF17h/gwpzT3aB6/YsuBofxQ2x/EVHLe
+         LWl5i5GqCUVJJXN6w2qCmOxYZYYQBcDO/bFtaxPMoX6kMaWPOuPlSwwhTyoIuBiW//Yc
+         gfuA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=lqgswGVrjDSSdxxGQJBHiCq23U2S/DjC2jo9ZomP9DE=;
+        fh=D6M171IP2X4cJCG9GWgKtT+zYMYnlTrId75WJM56HBk=;
+        b=p+mwpT5bA1MGUGOf99rdXCoV6T2vt3dpm1cvsdEcbdvQZw6izg0LG2rBAI279dvG+M
+         S8yDh8acPFT7V7hOX1fVrDy1ZAjOzM3MlJBqPDZRVl6VV3rzlSoTbNyy2H/mkY6aY1w8
+         fqcHYLXlFyduxmtOUSxuIUnwafk0qRgbM8qehlhcBlqM/kf06PmpLN7x/vm+rrMMNnFZ
+         jK2LY1bvMlNk56oYYgQjv3+moVqX4VTAAXu1jfSYJDrSnhjQp6f820BD2L5d6pZL+Qnj
+         1iHb+VzIOP8MOyZNpmp3jLWIUdF9s50sfSB1IGh6Wk9dpqtZ7wiJkTN0BRIj/WovXee6
+         MZ+Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1793009348; x=1793614148; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lqgswGVrjDSSdxxGQJBHiCq23U2S/DjC2jo9ZomP9DE=;
+        b=FA9FnVWwCzdWrl5dV9KBXUQ3q/f90Hear2GGjarskzOfwkVUVPV6siYWJQontuDlOi
+         Zq3A8r5uPTrQgMDAT19fKl9rXfnAZkHtfh1Po5ZYIQQ71cb402idibkLMf/GrR30/Rhi
+         EzyAAdOiqk34LFtcB+e3UUVDZfpbjuwmBiJ0ZOgqbJ1heUfuVzgWYzPL+afcs00qrc4e
+         EudXjDayGsbqhrqbu+PajSpOJs5+XabNWAACixIsIksf+LWI7O8YAEc2dVlxwfoe8EiA
+         0Xsi9J2mPnHnGU1sM4QuegJ91CNkjHk7SAhv/Tz4XrXHd+EeLNQLSUV8s09z6Ij+V2mO
+         KoYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793009348; x=1793614148;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=lqgswGVrjDSSdxxGQJBHiCq23U2S/DjC2jo9ZomP9DE=;
+        b=D+1pePMT9M0z7iNoqAssEt2gl3L6cCOr5IkcqZT9rGCYyrP3E0dVbV+mWHwm0ee1vH
+         4I0HPdAaRQG6WXoX2nfhKj5VY+bRvvBunZeoGDRYu++lDvaekKMZgiznJbDLRNTVWwQF
+         7z/zD/oJI++qvBp2gGCi/4huO97gIXrvpnIkThghhSt9dfKQkDCMSPPdc6Zua89K7ZVm
+         aE0AgztgxPcS3gTjyKpZUP86K3wA0/6Feio9Ute+jPrYVWUkbN8bCWnQ+6zGxcbZDvWb
+         WEzTAgjsCrWqb2LEYX+O2RIEV027W84OGIRnjpEkndMh9Bt6sqRvg6Me5RFDkOXGTFkb
+         /JIQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzLkHUkt5ZNhCkedouLXtryMBpNyKuzqEp6WBj3x8h4QOMDECCqTh4Ls5sf55J1hwGOFXDohQ3wVe8qp80=@vger.kernel.org
+X-Gm-Message-State: AFq9FYILivVERdn4YotGKhCOjG0HZp1rat48H1j+CnG+apbvGDEs2xx6
+	VCPA5X8MJy/RObg469HxAEAqz6g+zgGctbYZiURRb8URUt6ssIJUmwJ/zcW3pkg0+P4rWWDE8sF
+	voCyj+mBsqqDcTBPD4nOoyEZ/ydU0KNtSOX5O1wbg
+X-Gm-Gg: AYBFou2HyoDpBs6grQ/VJ4U7Iq82I2sH9nUkPCljzp48jEL5s9wqTxaAMQtvmLUN0h5
+	5mjzQvfT2ijN2jXEs8HhDjXzSUJNWnULgtvZdeukCKORtGFkBaTw1exggD8EvfN56awWvzqqE/a
+	03nTwPxjE2w9RqfjZteHaKHS3kG8JBPwqPyUyPZZSNmsYqYW/QamRJLXcdZv4Z3c2X8aW44/P7l
+	vzXySxN76e3t4W3IIE5Q35FAZSqzDtjAYmeyjxgRP/sgFHjniZ6AKLz1VfnExHwPfIX/cWBhMK6
+	YFjxfNOZ2i57F+4WN2392oDCXSk8kwb2A5cCtWpDp1YbpOT/qoEahmOT4Mgz3B013bzJFK7bT9Y
+	AU3+ANcyPK8oNJIoLiSjWgRhXGWAypeaSNQv9P5FQXKiwC+TKS9i7bQMEtsY+ru32dJ9q
+X-Received: by 2002:a05:701b:230e:b0:18c:640f:7f48 with SMTP id
+ a92af1059eb24-19936b56ab7mr8768054c88.44.1793009347392; Mon, 26 Oct 2026
+ 03:09:07 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,123 +103,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MMZPR08MB549315:EE_|AS8PR08MB9361:EE_
-X-MS-Office365-Filtering-Correlation-Id: da040348-fd84-4b6d-7fff-08df33490cfb
-X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|39105399006|22141099003|25010399006|4140399003|19110799012|23021999003|8060799015|5072599009|15080799012|19101099003|6090799003|41105399003|40105399003|440099028|3412199025|1710799026;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?Qkt4NHhiRmlXeE10ZklNZGMrWGtNTEJPaGxDRUF6engrZ1YvaEprZFRDNkoy?=
- =?utf-8?B?QW9UVWw4SnRKcjJJdjF3MUhOMGlDTFVlM2JZRGl5K3l3M2plY0pqU05qS2hq?=
- =?utf-8?B?bGVoYUxaSzh1SzEyNkNhWHRzdWdwU0Zma2JLVzVuQUlybzNuajdmOEcrVHpJ?=
- =?utf-8?B?bGdjSUxEREIwcUlzTXRWbkRuaUFZaUx4bnZ4NU81b0VUWkpYcFpRWG5oMyty?=
- =?utf-8?B?RDVJMjZiVXYwUGw1aHRiNithWTV3WXZPNFhWcFJNMVR4Qi90bmlYRjBMTEsy?=
- =?utf-8?B?aDFkK0t3b24wQ1NhUHRvbDUzQ05OcDNwZGhjb1ZnQWc5bXZtdnpEUkJEZVVW?=
- =?utf-8?B?cEZRRmQ2MUlXTzZ2bUJGck5TeXE4TU96THpHbVpjSjZKSVNQLzRiT3QrbjhO?=
- =?utf-8?B?RlFXNnQyZ0lHTjlDeDZ0SnZEVU1FQWtQdFA0Mmo1Z1MvNERneVpoeldNTnAx?=
- =?utf-8?B?QXVyU0V1cWhZZ3UybTQrRUtkdFhpTDQ3Vlljb09pMFkwZ1JINlZQUU50TGZR?=
- =?utf-8?B?M3BKU0ZObGk1dTRiS1lKRnE2MWh0V3NFdUdudmtjdVZZOXQyWDYxMzAwdHpk?=
- =?utf-8?B?ZVNKM1dLWFFQSzZGK2ZvQWhDNTJKYnJlZC9mcmxxSG5NWmJXMDdwaXo5bFZR?=
- =?utf-8?B?N2Q0Vzk5MUg1cjAwd01TKytLbG9KRVVvRU8xdWh3ZGxGOWY5OVB1N09UcTQ2?=
- =?utf-8?B?SURwcFBEVEp3LzZjTWN6Z1pOT1Q0ZEtnejFmVzlsc2Z6NjF1MXJlcWtuY1cr?=
- =?utf-8?B?OW1UN0R0OUlIZWQya0NrekdnaU5VZnJEdmdSSmRHd090MWc1RXhEbmxUc0tG?=
- =?utf-8?B?WXdla0hUYkZIR2pobGtBdDhMN2ZiK0FNbWZqbEZTUTJRNXhwdyt2OGpFU3Nv?=
- =?utf-8?B?dGVDTVFPL3kwaGRqU2NsRmx6WFNFMXA2RGRYV3lpeUNHZGdHcmJtaHNHdlgz?=
- =?utf-8?B?aEQ3OCt3alllemJmNjNhdFFEU3ZqRVU5aTM5eDRNZ0M0Z2k2bkY3Yyt5MGw4?=
- =?utf-8?B?eFQwQjhzWjBJUHR3TzBqWm9TaU51VXVwTXhrVUk0VXFyQzVqamJFd1c3b0Vr?=
- =?utf-8?B?N2NoeGFqTmtjc25iSjFBM2ZZQTJKSG1zNDNXT1FNamlBVXhJUmhXWjFKNm1U?=
- =?utf-8?B?RXVlMm1yTnhJVEN4a2ZtTkxYaU9yNTVhems1ME0zcFhrbnZXU1BoTWNiNnE0?=
- =?utf-8?B?QkpRc1BuQk9nNnRJSFU4cWI1RFBDRTgwbmw1LzN2VEcwWmJuU1VGOTYzRnlC?=
- =?utf-8?B?Uzk1UXBjd0hjNVBrcDQ5S29xVHl4WThGT3RMUkZ3cnpSbnZGZDcrazZkREZC?=
- =?utf-8?B?RUl5UFFIRXFJc3ErYnFCaEpkalVCQVJRRVAvdkxoS0N5RTVLRmp3SzdFbXA3?=
- =?utf-8?B?am5UU0IzTENVR1RIaG1ia1JOdDJ3aXgxM0lpd3RtRFhPeStsanozcjhwOVV6?=
- =?utf-8?Q?cKdvhWTw?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TkFBU3cxQVJvUlAzcnFxTEpEdUJycWpwNHNib3Fjem5rNmpKMSsxVmh5K3I5?=
- =?utf-8?B?SmFmK0paTFM0Nm9sQmcrU2pHeXZCaDBPdnl1MmFEckx4NVAxbXRwVkpKM2pQ?=
- =?utf-8?B?ejJpUUxnSVI3V0wzTWFsR01YZ2xNd1RiaFh0V1c5d0VCa25STW1tZnhWSy9h?=
- =?utf-8?B?VktOSWxFU3YvMEpmR3dJT09YS2hkeGRFYmU2TjRlbjB1N043eDFzNmZoT1BR?=
- =?utf-8?B?amt5N3hrbE1zTVBYQkU0cmhJbEpqeXhmOFdMekQxdUZ2cmpRZk5DaVFzWUhl?=
- =?utf-8?B?czhmYzRJR3NzS1YwSGZMUElKOVZSdk9neiswVVN5TmFEQWFDNzZHdE91Qmdn?=
- =?utf-8?B?eEVVVXpZMmxnb3d1cGtnQzFMK0p5Nit5K1VzUDFtL2g3Q2hkSCtzYkZxeVNt?=
- =?utf-8?B?eFBZbFpkOUMxWWxOOWlraEVwZUFvOGlJaGIwbXZRWFhURUhPUnR0enYyUGo5?=
- =?utf-8?B?bEdtY3dReDNocjhYMGxiMmZNUkNDUVYrL291R0kxVWl3dFNEZWdESU94VU1E?=
- =?utf-8?B?LzlsTXdtKzJCQU5NMUZpY042VDFqTTVhQkQ5Q0xhWEJIK1ZTaVpndis0NkVr?=
- =?utf-8?B?UzVWTFVhZkJsRmM0eEtLOVdleVVscnV1L2NTYW1mN0h3ekVqWEN5QzRWZ1l1?=
- =?utf-8?B?US92N21uUnlqc3lCNmc0UnAyYTV1MlpMUk9Yb1daYiszc2xyRW1iZDNrdFdt?=
- =?utf-8?B?bTBBWSt3L0lwZDRKalF5RVhWbTNLcS9EbXF5cFAwZ2ZwZ1JTRER0Sk1PSGN0?=
- =?utf-8?B?dWxUendZWUFOZ0pvWm9QS1hyVHBMYi9EWDR4R3dwbHhuMVZqS2N4aVZIZ3E2?=
- =?utf-8?B?WnFjeFB2WHlSSkxYcS9YMUM2VTg5L0RQK0JnSjQ1WXBuZDNxVTU2TzBpUjFp?=
- =?utf-8?B?SVRySVNxb2dPNi9tUU5iRzgxWFJDbCtNNEFDeW5tbkE5RXdjbFdpNjRLLzIv?=
- =?utf-8?B?UDQwR0t2L1RLWktUZmRKNDVGYlRjVFI3NDZtUHB2NTdvRnJWMXAzRmgyRWdT?=
- =?utf-8?B?aTdmQzRsbXNNNHI2d25qcGV5Wm0vL2k1VllRaUJSNkQyVzJ4RVlhUFVzODBL?=
- =?utf-8?B?dUMzYnRxR0NXbUVZd3RBUUpCVThUTCtYc1dSSkF1LzFpSDVjd2x6Q1k4bUc1?=
- =?utf-8?B?cnpXcDJwZVRrSjNnNG9Ga0RjZ09pZXlGWmc2aFl5eTQvTHp4Um9HdjF2RUtX?=
- =?utf-8?B?aDREN00vV0I4ak1velkzWHUrNnFWWVdWQ1ZDZzFGRkIwdmN4Q0dEUGw5Uzhx?=
- =?utf-8?B?WGZtcnJReG55MGtXR0s0RjNoUllJUHpEdVhyZFlnVWNrU2RWeE15V3J5TW5R?=
- =?utf-8?B?QmJIVTJMME15SDNrUkxyRmZhS1BvVmZlMjgwSlpnZC9iQy9Ca0NBZ0JYZHVt?=
- =?utf-8?B?K2ZCZStseDFidHBmWEhuZDFsbVdMNzFKUit0dkV0cXZPSy95U1diYmIwZkpF?=
- =?utf-8?B?NkNJOHdzU3didDRZOTd3SXM5YnpzMzNxTVQ4UFArcStoZ2piUVkyWGl5SlBw?=
- =?utf-8?B?NjZzQi9CZWNJSTdzMHFOaXNTMytEbk9XdEJQRU0xbXJIOWlpNVlnMnQrU1dv?=
- =?utf-8?B?cHQ5QTRFL1hzQ0ZjQ290a3VNa3NPbXFlSENqb2E4alNadE9Hd25TaTFwV0dp?=
- =?utf-8?B?UHBKOHlUVVFkckJmYkZQZytxVjhSVThHdk9PMTdpM0xWdzBtN1o2bkZOYnBm?=
- =?utf-8?B?OTR1cSsxQnpPSTNEcUJ2VXNlcVRla05wVk5oa0dhdEdFa09QaEhVVFczMW1G?=
- =?utf-8?B?amhyMHMrb2NzMHBkdnBMRUdWaXZwdzVxRHZhZmxIQ2krYkF0YWJmTGNyNVNh?=
- =?utf-8?B?YmtWZXZHWmQwUGp6TmdpajRvL3RQWUVSYmRGUStjNDdhMHUwSTZwS0h2bkJN?=
- =?utf-8?Q?xIcN3KgFzrLsz?=
-X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-fbb9b.templateTenant
-X-MS-Exchange-CrossTenant-Network-Message-Id: da040348-fd84-4b6d-7fff-08df33490cfb
-X-MS-Exchange-CrossTenant-AuthSource: MMZPR08MB549315.eurprd08.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 10:08:15.5305
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB9361
+References: <20261023-ext2-fix-context-analysis-clang-24-v2-1-a33961453899@kernel.org>
+In-Reply-To: <20261023-ext2-fix-context-analysis-clang-24-v2-1-a33961453899@kernel.org>
+From: Marco Elver <elver@google.com>
+Date: Mon, 26 Oct 2026 11:08:30 +0100
+X-Gm-Features: AclHuK-_bb8psGiBbD_JTWNAC_hBLtM-Cc7GOo20LnSEwgov2hxqFzjQ2_-lDFU
+Message-ID: <CANpmjNODG_MBuSJvRkzUjwWqeD=hSQLWtHkre8=9Z6-3ZmTKEA@mail.gmail.com>
+Subject: Re: [PATCH v2] ext2: Make sbi an proper alias for EXT2_SB(sb) in ext2_fill_super()
+To: Nathan Chancellor <nathan@kernel.org>
+Cc: Jan Kara <jack@suse.com>, Timothy Day <timday@thelustrecollective.com>, 
+	linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	llvm@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Viresh,
-Hi Jerome,
+On Fri, 23 Oct 2026 at 23:25, Nathan Chancellor <nathan@kernel.org> wrote:
+>
+> A recent LLVM change to fix parsing and validating __guarded_by on
+> structure members [1] reveals a couple of warnings in ext2_fill_super()
+> from the annotations added by commit 023051c2d0f1 ("ext2: mark
+> s_mount_state as guarded by s_lock") and commit c23746524faf ("ext2:
+> annotate s_rsv_window_root as requiring s_rsv_window_lock"):
+>
+>   fs/ext2/super.c:1040:7: error: writing variable 's_mount_state' requires holding spinlock '_res->s_lock' exclusively [-Werror,-Wthread-safety-precise]
+>    1040 |         sbi->s_mount_state = le16_to_cpu(es->s_state);
+>         |              ^
+>   fs/ext2/super.c:1040:7: note: found near match 'EXT2_SB(sb).s_lock'
+>   fs/ext2/super.c:1138:8: error: writing variable 's_rsv_window_root' requires holding spinlock '_res->s_rsv_window_lock' exclusively [-Werror,-Wthread-safety-precise]
+>    1138 |                 sbi->s_rsv_window_root = RB_ROOT;
+>         |                      ^
+>   fs/ext2/super.c:1138:8: note: found near match 'EXT2_SB(sb).s_rsv_window_lock'
+>
+> Context analysis does very minimal alias detection [2], so it is not
+> able to figure out that sbi == sb->s_fs_info == EXT2_SB(sb). The only
 
-On 10/26/26 09:59, Viresh Kumar wrote:
-> On 26-10-26, 09:57, Jerome Brunet wrote:
->> On lun. 26 oct. 2026 at 11:00, Viresh Kumar <viresh.kumar@linaro.org> wrote:
->>
->>> On 25-10-26, 20:22, christian.koever-draxl@student.uibk.ac.at wrote:
->>>> From: Christian Stefan Kövér-Draxl <ckoever@outlook.de>
->>>>
->>>> Every S4 speed bin runs the same CPU frequencies but needs its own
->>>> voltage curve, and the bin can only be read through the secure monitor.
->>>>
->>>> Read the bin from the firmware, select the matching
->>>> "opp-microvolt-speed<bin>" property for all CPUs, then register
->>>> cpufreq-dt. Bins outside the known range fall back to bin 0, which
->>>> has the highest voltages. Like sun50i-cpufreq-nvmem, the driver binds
->>>> on the SoC compatible and needs no node of its own, and S4 is added to
->>>> the cpufreq-dt-platdev blocklist so cpufreq-dt is only created after
->>>> the bin has been applied.
->>>>
->>>> Signed-off-by: Christian Stefan Kövér-Draxl <ckoever@outlook.de>
->>>> ---
->>>>   MAINTAINERS                          |   1 +
->>>>   drivers/cpufreq/Kconfig.arm          |  14 ++
->>>>   drivers/cpufreq/Makefile             |   1 +
->>>>   drivers/cpufreq/amlogic-cpufreq.c    | 184 +++++++++++++++++++++++++++
->>>>   drivers/cpufreq/cpufreq-dt-platdev.c |   2 +
->>>>   5 files changed, 202 insertions(+)
->>>>   create mode 100644 drivers/cpufreq/amlogic-cpufreq.c
->>> Is it safe to apply just this one ? I can take this via the PM tree then.
->> I would advise to wait a little for Amlogic to chime in.
+Right, though function-local aliases are resolved. We just aren't able
+to figure out aliases that propagate through non-local variables.
 
-Viresh, thanks, but please don't apply it alone. It would need the 
-speed-bin call from patch 3 (meson_sm), and without the CPU clock from 
-patch 2 it has nothing to scale.
+> reason there were no warnings before the above LLVM change is because
+> the annotation was not parsed and verified correctly.
+>
+> Rework the allocation and assignment of sbi to have a direct assignment
+> of EXT2_SB(sb) to sbi so that the analysis knows that sbi and
+> EXT2_SB(sb) refer to the same object, clearing up the warnings.
+>
+> Fixes: 9708538ba204 ("ext2: enable context analysis support for ext2 filesystem")
+> Link: https://github.com/llvm/llvm-project/commit/217e229a1f32785fccdd3b3f51429f0d309dea45 [1]
+> Link: https://clang.llvm.org/docs/ThreadSafetyAnalysis.html#no-alias-analysis [2]
+> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
 
-Best regards,
-Christian
+Reviewed-by: Marco Elver <elver@google.com>
 
-> Sure, I wasn't going to wait for the maintainers to respond anyway.
+Additional note: This was uncovered by an unstable Clang 24
+(unreleased) change, which was meant to make the analysis more precise
+[1], yet stumbled over this. This change is needed to prepare for
+Clang 24.
+
+Thanks!
+
+> ---
+> Changes in v2:
+> - Fix allocation size (Sashiko). I thought that I checked that they
+>   were equivalent but I guess not :/
+> - Link to v1: https://patch.msgid.link/20261023-ext2-fix-context-analysis-clang-24-v1-1-2b35c33cd0fa@kernel.org
+> ---
+>  fs/ext2/super.c | 9 +++++----
+>  1 file changed, 5 insertions(+), 4 deletions(-)
+>
+> diff --git a/fs/ext2/super.c b/fs/ext2/super.c
+> index fb217ef2d69f..bde5b433776c 100644
+> --- a/fs/ext2/super.c
+> +++ b/fs/ext2/super.c
+> @@ -883,17 +883,18 @@ static int ext2_fill_super(struct super_block *sb, struct fs_context *fc)
+>         __le32 features;
+>         int err;
+>
+> -       sbi = kzalloc_obj(*sbi);
+> -       if (!sbi)
+> +       sb->s_fs_info = kzalloc_obj(*sbi);
+> +       if (!sb->s_fs_info)
+>                 return -ENOMEM;
+> +       sbi = EXT2_SB(sb);
+>
+>         sbi->s_blockgroup_lock =
+>                 kzalloc_obj(struct blockgroup_lock);
+>         if (!sbi->s_blockgroup_lock) {
+> -               kfree(sbi);
+> +               kfree(sb->s_fs_info);
+> +               sb->s_fs_info = NULL;
+>                 return -ENOMEM;
+>         }
+> -       sb->s_fs_info = sbi;
+>         sbi->s_sb_block = sb_block;
+>
+>         guard(spinlock_init)(&EXT2_SB(sb)->s_lock);
+>
+> ---
+> base-commit: 782654a3e9c4065dea2e9f10539899d348b7a1fc
+> base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+> change-id: 20261023-ext2-fix-context-analysis-clang-24-504b5dd53038
+>
+> Best regards,
+> --
+> Cheers,
+> Nathan
 >
