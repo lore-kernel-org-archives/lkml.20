@@ -1,76 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793036020;
-	b=uws5V8NY/6clXjyma+eZOjUpZOh8XfCpcajDNTiK+isLAFxD4rv3gfbRmD++C297Yu5G
-	 MZpE0k1W/Q5Oz21C7qUn6xVMJsYXSbqV8GuP3A62ZDJO4D4zv2X/2gupvYHC0DjOrS+m1
-	 mITPpX/nsgClO8ClXTjvnhDN9QF8pUUgMtnQ6sXVDbUyqoyspQk8sLaFVgwrtnoqOfCDX
-	 FZyEQyTXu4m437ovX93s4vTEb1bV7FBLb6cYaL7ACKPzq1BicKLFDuHX5hv1zshdu1iy7
-	 XDzJLdVW6dERk2IL693KxYltCTw+VpyGF22MHH4GfvB/EXw2/7Hg7GWWo5CCWNsJBuw==
+	t=1793036021;
+	b=YY0cBOTZDOHqSvEF73aX/OyFH8Lmrg9eNU9kvc+aeglJ1lRh9EWKCww8vEgeH1eRj0tn
+	 6RRE7B6sWMoHfkMEoDhCppQwfJIkFpf2VYfSXcamuF3/0vPi2cHNEcRO0cY2649ezNMpL
+	 KtcyIXge22yjqtAPIPHfuendLQBy6eAEGdLaovAX1GL9h62ErvWRL/4bdj30tkdB9dPoi
+	 7Gp7T2v6h4MS/YRZOqW440YEkKent4yiZx+aJhj6zZdFZpfQ5FyYgWypcoIBXHxXD49ka
+	 O/iE9Lczavrxf9aDb9UZu8rjkEbHa3N6kQSrxE4t1PIZ/h5zCcQNRK6EwjKPq+QqEZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793036020;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=xMNotNXN0v+rqef+RGi08mcoZsVflWbvcWJddr3TJy0=;
-	b=MAjDHVQj2e7pQaYUgoY1Rv7c2av0UlrWIIITElpSUdlxZU5ALidXSVRG21INuF/iLSZA
-	 GU8dh+rCi9h/GJzYau74Q1UDkoy5FwhB1GcX5BDp7n11V18A6txRtQTontt6eMoVyWBOg
-	 +k2iHsUBDIWWwKfET9ar9QckyelHhacrmCcPFJWPlYGZqvGzpURRn8D1iUCY81B1JRIzK
-	 hTXW6v9dLZ9gnYp4DI/c/eHXadnu9dj4USG+KKRFIUgVaU8T5ieaOyazPbt++dZeB2S/f
-	 VkuQKIqlP51PKYQ0aoqfwlK98Q09UCKYRk/H7QrRfQpZ9b9vo3pqLGeenEVBCcx/31Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793036021;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=SXsqzoFNedK5GT1shEs1eQ24eoNySIwst4DZBbCDUO8=;
+	b=nSd0ZHtn/3q7u4AotZ7Bd+F3M3XUvbVm2YtbFr5REw8qBjmMdPzaCtVYeoZCVI1rpNQ3
+	 mJB+tN6YBaWKxvcsQvB+j07Otj8HCD5DE3Y2ifl6qCFuC8qHmjhfQKls26JcPnAhNy5L9
+	 OaWsSc0BnR5Z0BqyZz0eagGe/na+9ks3FUVt22TfeQtXwmHTIGOExeYW8zE4oRHQ0fajY
+	 CrmrdGwnUALSZSBfsrowhCiFOcBi40EDgCtGB1U8XCTHAaQFv3sVJsQPmsSMb/g6rIKeJ
+	 TRfO5Fln2ZqOj4ibnRboqpYK+/RPLVAPH2QR64P76iIvMmtpi+MDfDQWdLhq59rBZHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=Yx0+965+;
-	arc=none smtp.remote-ip=209.85.215.198
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lVBxyOB3;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 972E9606A31E
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 17:33:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 972E9606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24DA1606A31D;
+	Mon, 26 Oct 2026 17:33:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=Yx0+965+
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cd67e98f68fso4459219a12.3
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:33:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1793036020; x=1793640820; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=xMNotNXN0v+rqef+RGi08mcoZsVflWbvcWJddr3TJy0=;
-        b=Yx0+965+y9TSk15G0RaTkGx+8zPA7oN4/6+ScKbVEBHUPHpWGXXEJObzM8/IsWw2eI
-         ZvE3WWIGS393vaup4Xtr/a1H/Q0cbTIz7Mao4gtBXk3vP08a4o804K8CkuCMciC8MS1Z
-         HxmzxGUfJ72rmdY14CY+lSUMHH72svcIH0FBbhfzcJS2zh16rh17L5KWew0vTdwcAXYD
-         JpwwABAyPB0r5MfcexeOtwKyYbicKH5gjFtkf1uVn7tfqir70UFMl1ivi6DKcZdcYZ7x
-         3ErixlaCdpgbXY9gZX83zlfLPz4CJt9Nnpv5t39DStxFGDckFPSvC4Yau6JKpY+siH+u
-         CIZg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793036020; x=1793640820;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xMNotNXN0v+rqef+RGi08mcoZsVflWbvcWJddr3TJy0=;
-        b=O6PPX0YzZVX0Q1xxw3+Ozd59QClzxC7qGzYM+wfc9HFJCBYdsCOCYK01NY1HSHePJ3
-         f/rr7SJF/+AG38kMlRHSTxJoVsuRCrnl0wHpnbeae3yoJIRpwnD4PsuTsq4ckgKDuLMK
-         Ju5Xc1M5S7ItJxwS2MstS+68evfh5/vRUDCQn0jQlYE+r1FC2guI3+CD2jQTsNHWqQ9r
-         7zJNrCcSQkTexNzlfc1ONSfIekihy6nw4Wi/ozNSp2WvVBMASTJ6UPQjPs+dvAmYboUq
-         bSPp8dbb7nw5Z7YBxofZWSSAh3faSjTzuf+fZX7AI+pfuT3yWvNkTMH1gl0ZoPWUaCfF
-         b24A==
-X-Forwarded-Encrypted: i=1; AKwUvBx2Ny2cOzTB1EsOSaQEXSa6UAIUWJob30eJ3TudUsi90IITRacEqROlA3L+78nhoJigNncU/yR85s4WqfU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI/F/D8cOAscnrM2ih1n5vmjcirGbS+7lGSyoS95H3a/dS2t4fe
-	aYxuIDweMj9yhjP9GXFni4Gs5v5c3/Zgcq5CilUtUdcntUkeI5y8UsZDc4jjJLucYiOoAsTiBtH
-	1HoqdSA==
-X-Received: from pgvq4.prod.google.com ([2002:a65:6244:0:b0:cc7:52da:b682])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:e08a:b0:3e2:83bb:a608
- with SMTP id adf61e73a8af0-3e7afa9a445mr6169026637.2.1793036019697; Mon, 26
- Oct 2026 10:33:39 -0700 (PDT)
-Date: Mon, 26 Oct 2026 10:33:39 -0700
-In-Reply-To: <CAO9r8zMqiW=3t7zRo_WAhKJfpYsDwuG3e=nK14GXhrq+foYnOw@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lVBxyOB3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90A011F01825;
+	Mon, 26 Oct 2026 17:33:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793036020;
+	bh=SXsqzoFNedK5GT1shEs1eQ24eoNySIwst4DZBbCDUO8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=lVBxyOB3iIJGyZH4wmlC3WW+1P5J2do+e4zkT5CK8SclBjB5ja6r0ScmMUFPRhAty
+	 7VKcIMP0mnh/tELbv2tM0UZQFMPV/DFzCeNefHOX8pkawaLCS418kCOpZ18HE6Ud8o
+	 g0rhfPt7J5+OtByFAJV4ItGX95a0tHkB209PutVhVFpyvwWwKeiduL0Fu/y0m6WbkP
+	 WgX4grmnqiZ7yuNjp/JKHMvg2ICu1BDGcPDXnqGcCVZTGolPPoaqyIu2KoKu+xYQ/l
+	 I7KVG3wqP3ZcdLSh+RszExNu2B7T8wCOefkmPFZVeT3anvdsPnIeS5uzXxSrmtzAPT
+	 zrE23m+culeqw==
+From: Tejun Heo <tj@kernel.org>
+To: sched-ext@lists.linux.dev
+Cc: David Vernet <void@manifault.com>,
+	Andrea Righi <arighi@nvidia.com>,
+	Changwoo Min <changwoo@igalia.com>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	David Dai <david.dai@linux.dev>,
+	linux-kernel@vger.kernel.org,
+	Tejun Heo <tj@kernel.org>
+Subject: [PATCH v2 1/4] sched_ext: Don't sign-extend unsigned enums in __COMPAT_read_enum()
+Date: Mon, 26 Oct 2026 07:33:39 -1000
+Message-ID: <20261026173339.584908-1-tj@kernel.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261023232102.1124938-2-tj@kernel.org>
+References: <20261023232102.1124938-2-tj@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,56 +62,61 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261012233638.2546339-1-yosry@kernel.org> <20261012233638.2546339-27-yosry@kernel.org>
- <CALMp9eS8KDozNGT9J_uN69W32QEvTbg2JrtRqN0ESi00b_uq=A@mail.gmail.com>
- <atqRyeqSXViiNIk6@google.com> <CAO9r8zMqiW=3t7zRo_WAhKJfpYsDwuG3e=nK14GXhrq+foYnOw@mail.gmail.com>
-Message-ID: <at-O8-tzgezj2du-@google.com>
-Subject: Re: [PATCH v3 26/27] KVM: nSVM: Use different ASIDs for L1 and L2
-From: Sean Christopherson <seanjc@google.com>
-To: Yosry Ahmed <yosry@kernel.org>
-Cc: Jim Mattson <jmattson@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Maxim Levitsky <mlevitsk@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, 
-	Tom Lendacky <thomas.lendacky@amd.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 22, 2026, Yosry Ahmed wrote:
-> On Thu, Oct 22, 2026 at 3:44=E2=80=AFPM Sean Christopherson <seanjc@googl=
-e.com> wrote:
-> >
-> > On Fri, Oct 16, 2026, Jim Mattson wrote:
-> > > On Mon, Oct 12, 2026 at 4:37=E2=80=AFPM Yosry Ahmed <yosry@kernel.org=
-> wrote:
-> > > Moreover, does this change the semantics of PV TLB flush? In
-> > > record_steal_time(), we have:
-> > >
-> > > if (st_preempted & KVM_VCPU_FLUSH_TLB)
-> > >         kvm_vcpu_flush_tlb_guest(vcpu);
-> > >
-> > > IIUC, an idle vCPU that wakes into L2 will flush only L2's ASID. In
-> > > the past, with a shared ASID, L1's ASID was always flushed on emulate=
-d
-> > > VM-exit anyway. Now, L1's ASID will be unaffected. Though I can't fin=
-d
-> > > any real documentation on PV TLB flush, it *seems* like the remote
-> > > vCPU would want L1's ASID to be flushed. OTOH, this change makes nSVM
-> > > behave just like nVMX.
-> >
-> > That's a bug that absolutely needs to be fixed, probably relatively urg=
-ently.  We
-> > should also document that passing through the steal_time shared informa=
-tion to L2
-> > to utilize PV TLB flushes for L2 is explicitly not supported.
-> >
-> > I hate to re-introduce deferred actions for L2 =3D> L1 things, but that=
- seems like
-> > the only sane way to handle this, because handling the !tdp_enabled cas=
-e, where
-> > KVM needs to sync the current root, requires knowing what MMU is going =
-to be in
-> > use when L1 regains control.  Yuck.
->=20
-> Are you implying that *you* will be re-introducing deferred actions? :P
+__COMPAT_read_enum() looks an enumerator up in the running kernel's BTF. For
+a 4-byte enum, it assigns struct btf_enum.val, an __s32, to the u64 result,
+which sign-extends. BTF records the enum's signedness in the type's kflag.
+The code ignores it, so an unsigned enumerator with bit 31 set is
+sign-extended too.
 
-Heh, probably not this calendar year.
+b1c2a6b0d90d ("sched_ext: scx_qmap: Read SCX_RESCUE_DISABLE through the enum
+lookup tables") added SCX_RESCUE_DISABLE to the enum lookup tables. It is
+U32_MAX in enum scx_consts and the only such enumerator in the tables. BPF
+code sees it as 0xffffffffffffffff instead of 0xffffffff, so a comparison
+against a u32 holding the real value never matches.
+
+scx_qmap, its only user, narrows the value to u32 in userspace and is
+unaffected.
+
+Sign-extend only when the kflag says the enum is signed and zero-extend
+otherwise. A signed enum keeps the sign extension, which is what C gives
+when the enumerator converts to u64. SCX_TASK_CURSOR, 1 << 31 in a signed
+enum, still reads 0xffffffff80000000. Verified with a probe against a built
+kernel's BTF.
+
+v2: Note in the comment that pahole < 1.24 never sets the kflag (Andrea).
+
+Signed-off-by: Tejun Heo <tj@kernel.org>
+Reviewed-by: Andrea Righi <arighi@nvidia.com>
+---
+Applied to sched_ext/for-7.5.
+
+ tools/sched_ext/include/scx/compat.h | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/tools/sched_ext/include/scx/compat.h b/tools/sched_ext/include/scx/compat.h
+index 07fb55e63c57..8a17854cc626 100644
+--- a/tools/sched_ext/include/scx/compat.h
++++ b/tools/sched_ext/include/scx/compat.h
+@@ -143,7 +143,15 @@ static inline bool __COMPAT_read_enum(const char *type, const char *name, u64 *v
+ 				if (t->size == 8 && !strncmp(type, "scx_", 4))
+ 					return __COMPAT_recover_truncated_enum64(type, name,
+ 										 (u32)e[i].val, v);
+-				*v = e[i].val;
++				/*
++				 * kflag marks a signed enum. BTF generated by
++				 * pahole < 1.24 never sets it, so signed enums
++				 * are zero-extended there too.
++				 */
++				if (btf_kflag(t))
++					*v = (s64)e[i].val;
++				else
++					*v = (u32)e[i].val;
+ 				return true;
+ 			}
+ 		}
+-- 
+2.56.0
+
