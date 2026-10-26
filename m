@@ -1,87 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793041835;
-	b=se98PeMkh9LVn3lG9JhRi90zkOHAYQMi/KrlySY+y2RS3lTZnyIWhQTfBkd7Nq3c+fcg
-	 zE/sAocND5AZ2k3oB46h2qnVpud9CdSvp3D1jLGharRT+N9AeZzZZ4Ybfq0VyeB96aNXh
-	 pUVnfReL+Zij9OjEgYine4cG6385aYpfcRoqREpEijXrdTa2PBOzJWJJjaT+eEOdZT46g
-	 F3lppqEeqHr7Cx6GhK7gPzmZR6dW7wYC1Ozl7ef2jU4y1asOaQ16Dq5jaDnMQVDcgj4WG
-	 TqTZ2rQluUojDYL1p9lBKq1ua9pH6WhUfjf2pFSwXDOFwrSUifLmba6eNid0LDcNmrg==
+	t=1793041842;
+	b=MCxLvF7/ctSbg2Fxkfg6BgvJpBpAl/MWaIelWWMU39KaovZ7+m3Btj6FMSkQHZRQjBWM
+	 gVqylALK9f7Eifqu+QS2W+MLmHDEnZhGitBehMFeujYIAvBmyDeUFVSLhawWitqMmSVNm
+	 ihoPjdy8GaUfhAcp1Jbr0K+CPELwqGD6371i4MiKyakmQyAN9C3NxiwvGi+3Bsihk6206
+	 Mr3KMhpLGqDjQuxZJfQ62O9oVDXDwXOjw5CGs+VvTEjMlikMlNrFqa+K7yf0SbWtbxSPx
+	 I87IlCuyU8wSkeOgNX8CZrNh1gbpMQeL9/JyJJMzWdapzHQKv3sz87uYcJbiUSVncnQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793041835;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793041842;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:
-	 X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type;
-	bh=bIE3He9LeKSpIs1Rd+jCIaq8Jt5h1E3mzpq41bLxV0Y=;
-	b=p53kRVnfSp04fJAwNgs+KXj5FHdkNmdXQEwOxzW5phe6+bXIc2vr/uTQEINvmA0RY8yj
-	 6nm+SME+4oaHApSfnBWPiI4yKFIYbpUhPbAjsHAxTdCGuefIobf0JmfcaStCIvQzCP8zR
-	 t9NtQy2UhxKLcyU9iU4LzC0Cu3imqjb/RMov/r9fRNjR3IGTsam2tN7TfN5ZCe7EZaWr7
-	 nbCX3hzjnjKwkmTmWwnvJEn0IOUP4mmzCRyHW03NXKFGDpLiGmFC0o+VCyCuOf1Esshtm
-	 CggNXOQIM9NNO72D1etU0nl3VFzQkfR6QxV7MVk3oFhZuv+ves8QJed2TAXCsuf5H/g==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=Vyh3iBjJiIVu4mxU7sYBtj/3/lKMxZvgStAYP3dEPdE=;
+	b=lFt5ziah3NirN9FSDYOplY5KP5bwzLujjoUW4hzOJpUz2YS26sp1rHXSBlhjTs0rZmol
+	 d1J48qzt58rRDETAWBHGoSeHpamLZB6DIcZoME1H5Hs1cQleuNqAjU5q6DnHClMQbHRbi
+	 C7zyCcy/dyhuXbrWRUoO7ZP6xoNtNbSjrb0UVujM/+WNDUkGiijzQyYIn719QP12A+HrE
+	 82p4fyzdIzCYBsaidgtpolZTjMu/CjmTOMDWDLgj0Cz8An50eDXgz8eeqXb+qDEuc9zT/
+	 1BBXdwhInwbDkwmeRr8XXJr5jPoNeR3N/N4YUb8Mpd2II5lAXEQwFxaml5VPuZkW+tA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-foundation.org;
-	spf=pass smtp.mailfrom=linuxfoundation.org;
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=EkTmKzjk;
-	arc=none smtp.remote-ip=209.85.218.48
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=sShvy7za;
+	arc=none smtp.remote-ip=74.125.231.200
+Received: from mail-oi2-f8.google.com (mail-oi2-f8.google.com [74.125.231.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CE76606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 19:10:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5CE76606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1396B606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 19:10:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1396B606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=EkTmKzjk
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c40e02b2ebaso520310766b.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:10:34 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=sShvy7za
+Received: by mail-oi2-f8.google.com with SMTP id 5614622812f47-53c4858eb76so1446900b6e.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:10:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google; t=1793041833; x=1793646633; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bIE3He9LeKSpIs1Rd+jCIaq8Jt5h1E3mzpq41bLxV0Y=;
-        b=EkTmKzjk4oSAaXC5Zevyy7xdB0cSdeQteFYiT5ukDqD09UAxJQ+Shug7+oJb6BoM/r
-         dKSvsJJWptmaMbM4hcLp5O//K6waT55PMNmK5PCFEfwCJJdXJ6Pwl5PCfSfD72tjiyyJ
-         0if2DVcoArKDx3ruWBQNfxNbVcQQ8qgn2E9kc=
+        d=gmail.com; s=20251104; t=1793041841; x=1793646641; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Vyh3iBjJiIVu4mxU7sYBtj/3/lKMxZvgStAYP3dEPdE=;
+        b=sShvy7zangLTRy5ngZOGMlPg2vVwKdPo/iJKehA9yjLv3k47wBx3uCpGjyjXeCOv6J
+         wFb16CIlM6Gc4VYDMrA3bVZWvlMIWI3V7BUeQQm04IbJ/0wkptBA+i06vjQsu/CgJ/lN
+         J0wuX1rsX/3c6bYxWrvKY/+e2NvppCdZtbXgU+Dkv1r8OdamXVmaEd2FHiu5A9iu37Zc
+         ZSEjDgHKUoMu5iglBz5ZRB/hVs9jOH3L+h0aZ3lKY9XklpejSxcLP+8pxohseIA0le2J
+         z7kTArcUULKqgz/CStma2b/JeGtpvwxiNOxWXPTLLMu8VmwMMM0hTksRVVmatRnfmxZA
+         i78g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793041833; x=1793646633;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+        d=1e100.net; s=20260707; t=1793041841; x=1793646641;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=bIE3He9LeKSpIs1Rd+jCIaq8Jt5h1E3mzpq41bLxV0Y=;
-        b=Ld0fN7Fea51zoWP2ynY3Bl7ImyW2QjBcv32F+buEX5Wnt2SG2FKwUKjtVmY31wA7x7
-         6+tVUUVKpY+z+ALkNbx8EOclt+EePLAOJjCbX2BWulPoap/3EDuXUIVVbc32UsCI2K/S
-         bk1FhIUq8WmmIEnHHB1v0IAzZrpOWANMFzygiVFaJvxBqT3petbP7gmvlJj2HwWAMCSO
-         mRlSQFPDXJdfintp4BrfMr/yEUWcwA6AZvcScm0Xqw+RohA0aNT9nuBlJFtnzE8ieWgk
-         Z65w5sJm5ykyAtfqE0z/V5APR7OrXv14ZSslVod1vzwp8RgcSNcBCnnD4kEdoFnrrNtX
-         BW4w==
-X-Gm-Message-State: AFq9FYI514W/t3bP7SwktNhf0O2bvKQImktK9ZKYRXox9F6s+8oipx5V
-	mK4EpwHF1yOQ/0DUPn5/rinzdMnMMZ1k2HvvvyZGb3r1iJL+BWQuefGtwFX9OeSr/atXVXVRDlP
-	j0JIIlkE=
-X-Gm-Gg: AYBFou1XBKFGJwu6+OGV0BwVN/1RruIZFKKVddrCYCPDgnLt1AsbanjuTQC7VJq8McT
-	sG9qQTr/lMdZ57ryq9PgZfsIzCvizorTzagI3BuhHO93tzBXZxjPJvpDqD7/rP87Tb0d3jo39N1
-	0aHbhPBiYJakjUnIGWmuwuHyez282MKTX9N9HY/pDyDHyC5EeRsGWmm41TP2Fivzo8JCjColhkF
-	8aCC9JphVNIOMksR1Sdl9Yvn8/u7gcEqBW9e7JXjsUnCK4h26/tGeoIPlzo/gpRw1d6JzpeEi3U
-	rIjHAb4QD9HB1WqNGdMnXG/osqDCR9ymsso1XpPTgYHzwLifcXZH7hm0CW8q+R9pQwXyPyHSsLy
-	E5juefnVzsLd1/Mah7HNb6nAb3JR8gvdMizl46ncqSqtNT2b9dwvm2LVSGKcphWkFlbBaYI7Yhc
-	Yhz+EW2Ife66EZe3XMvC6MNX8OPBEsdybrD2+VomPAuCLNWPfRH+mPvtlV4fpma3f4wSYAbeo1Y
-	Dzq8AVqMEzQoLsqc0y3UlCOgFsupcmTWsCLACY+O5uT6OnMEDDqWE2OOIgdFHepb0XGYV2MS8dA
-	z28LgIAjZpdAoaES0/Y8oBGP5xtB9g==
-X-Received: by 2002:a17:907:a909:b0:c41:44f2:f7d2 with SMTP id a640c23a62f3a-c46bde5469bmr871633466b.24.1793041832544;
-        Mon, 26 Oct 2026 12:10:32 -0700 (PDT)
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com. [209.85.218.51])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd79eb05sm350573966b.79.2026.10.26.12.10.32
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 26 Oct 2026 12:10:32 -0700 (PDT)
-Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c3f8d72d7ceso520529566b.3
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:10:32 -0700 (PDT)
-X-Received: by 2002:a17:907:3e08:b0:c41:64c1:cc2e with SMTP id
- a640c23a62f3a-c46bdfdd37fmr907356766b.46.1793041831784; Mon, 26 Oct 2026
- 12:10:31 -0700 (PDT)
+        bh=Vyh3iBjJiIVu4mxU7sYBtj/3/lKMxZvgStAYP3dEPdE=;
+        b=w/06buxzelFjgA+1AOYanHBdlb10Ek2cMEU36ByJPqHWlZoDG/9cNglJoCVcvDgP1n
+         gP/9i51jrXVMo3mtMbR15mLMGep0wC2nVg5ewme2IkmliBnFsZ9devvINGK3Vua20fQt
+         RgKfngmXqaZa+cQXVJNDTbElb1pyj9vi0EiEp3cOIdWytc2eRzxBsP/i1qckpwBxDwMo
+         M46iucGxj0Z6G/JIfANzxArdUGhM+sUjYgDEDBQWtr2ycWKEGGIMhZYYeYrFQeMkMWmR
+         ETFSvGjG1+e0k1Ra2oRIMu4WjjkqkauR3xBcEDEqwhBXlu4Qbtq18AtGz0+bxPp7ycfB
+         2TiA==
+X-Forwarded-Encrypted: i=1; AKwUvByzI98WfBbfWNd7hStozvVTrI2/Jxt/eRYX0s6cXqS1vNqAQup0WXWguQxjckEBEdmdJ8EuXp35x6I9Ilg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJTKWN7/x0McPFO4EJJnvRzOmeSoOz+m4TaZcVSEkFa429kfngi
+	PXRyLuSRas8zM9vk4sYjEUn6Sd5ToSw6wrdPWHrLtnw/y8s0Hebm07tY
+X-Gm-Gg: AYBFou1mca1JgrrJK4alFAjAx8l2619fwRQOrQjKigjNWLJ0Zp5z9Vev89c5QDwQ5x2
+	fZm4YjSIxQkM0AmQx1QBJaqiyiloZqEJdHgL0Z/mPX6cvQ5bTJSpdQglHSR4UL9Q9mm9I++B72H
+	A4Ddh+DEnNO1QUBm1UnYYG4T008gX60EJazjiUK1l0AXdSkyRy5WB2EU14P80DGSJcT/G7yIdLX
+	GGdE+9jgeI9mobA6TncfvMUmyUS2aM0Ic9FWThpqg5ElhHoMU1wxJ28hcdnv5G8owcR6LNgdRQr
+	SugATzWKXfcB887oZt8I6EXBozmtR8Iaqncek9hWiJq02LbxX8xT3eraBum69ALYY39DDiKwhpm
+	AZtQ1J5RClxGoOTb/X32arsVByXvShkFlN1CVgHBmfTDjvYFOqUGcjU9weQNvcel1kz4G6GCkiD
+	tTgQPMRbnbJcTVB81ouCOQ2G22KckYS2N/COi28T/yL3LefTX0TNJsSM/ZU2JH9HTKrJpcLSelg
+	PWdwFn6E7uCsgZ4QyvdAYduLJIN62My26rmoIXfWtwyNQPcDRZ1z8pL25N5R85mYTCTSrqHAXEN
+	y/Y+zh2wDA+BetLm9YGVbly9T0NC6aWkWjkMhp+otqq+Fg==
+X-Received: by 2002:a05:6808:50a6:b0:4ec:4c7e:37b5 with SMTP id 5614622812f47-55c002c4d6cmr5571600b6e.29.1793041840897;
+        Mon, 26 Oct 2026 12:10:40 -0700 (PDT)
+Received: from [10.10.18.223] (wsip-64-207-253-118.tu.ok.cox.net. [64.207.253.118])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-55c03dc3524sm5740834b6e.0.2026.10.26.12.10.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 12:10:40 -0700 (PDT)
+From: Ryan Brue <ryanbrue.dev@gmail.com>
+Subject: [PATCH 0/4] wifi: mt76: mt7663s: two fixes and fewer SDIO status
+ reads
+Date: Mon, 26 Oct 2026 14:10:35 -0500
+Message-Id: <20261026-rbrue-sheldon-upstreaming-mt7663s-v1-0-944b1f7e63a8@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,72 +93,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261026152012.GD2195460@google.com>
-In-Reply-To: <20261026152012.GD2195460@google.com>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Mon, 26 Oct 2026 09:10:15 -1000
-X-Gmail-Original-Message-ID: <CAHk-=wgdJOTies4qhrDKFERAYdGS_=6SiGu_onr19qftqKvfrg@mail.gmail.com>
-X-Gm-Features: AclHuK_CTE7Xq7Ts6pbcNQ_EPNlLZ7rTpxUFYXs94rFqYikAWFfPNBdyVuUb14w
-Message-ID: <CAHk-=wgdJOTies4qhrDKFERAYdGS_=6SiGu_onr19qftqKvfrg@mail.gmail.com>
-Subject: Re: [GIT PULL] LEDs for v7.4
-To: Lee Jones <lee@kernel.org>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, Pavel Machek <pavel@ucw.cz>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/x3NUQqDMAwA0KuEfBuwKXSjVxn7cG3UwKyS6BiId
+ x/sXeCd6GIqjhlONPmo69owQ+gAyzy0SUgrZkDuOYWeA9nLDiGf5V3XRsfmu8mwaJto2W8pRSf
+ mEkONY0n3ih3gZjLq9388ntf1A00N4KtzAAAA
+X-Change-ID: 20261021-rbrue-sheldon-upstreaming-mt7663s-22c31d3fc68d
+To: Felix Fietkau <nbd@nbd.name>, Lorenzo Bianconi <lorenzo@kernel.org>, 
+ Ryder Lee <ryder.lee@mediatek.com>, Shayne Chen <shayne.chen@mediatek.com>, 
+ Sean Wang <sean.wang@mediatek.com>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+ Ryan Brue <ryanbrue.dev@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793041838; l=2308;
+ i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
+ bh=tyqWodcb4HgA2IBe3psm2WrhLsTpaYYAyzN5LeZv4/A=;
+ b=E4ysnrAqpc/wKUI5mzFLxFe8CxGZEzCtxfGQ1JNY+laZcPUAM6KONFWstDZqbNG1+jqMwAzk5
+ HJ/ByhvWs+cCbQl2zCyqQISK2s1XAC/Ns8YnvGdS8EMZajk3AVJWTye
+X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
+ pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
 
-On Mon, 26 Oct 2026 at 05:20, Lee Jones <lee@kernel.org> wrote:
->
-> Good afternoon Linus,
+These came out of bringing up the MT7663 SDIO module of the Amazon Fire
+TV Stick (3rd generation, MT8695) on mainline. The board's devicetree
+is not upstream yet.
 
-Lee,
- your pull requests are already fairly unreadable because they aren't
-exactly summaries, they are long lists of details.
+Patches 1 and 2 are fixes. With the offload firmware, a hw scan with a
+random source address ends at once with no results, so NetworkManager,
+which randomizes by default, finds no networks; patch 1 stops
+advertising random-address scans on SDIO. Patch 2 lets mt7663s wait
+while btmtksdio holds the ROM patch semaphore, instead of failing to
+load its firmware when Bluetooth probes first. The matching btmtksdio
+fixes for the same race are posted separately to linux-bluetooth.
 
-But darn it to heck, that is *not* made better by then repeating the
-same long list of details *twice* for no apparent reason.
+Patches 3 and 4 make the txrx worker cheaper on the bus: the interrupt
+mask writes become CMD52s, and mt7663s takes the next interrupt status
+from the end of each RX read (RX enhance mode) instead of reading WHISR
+before every RX read. On this board they halve the status reads; the
+link is air-limited, so throughput did not change.
 
-> LEDs for v7.4
->
-> - New Support & Features
->   - Core: Add `led_trigger_notify_hw_control_changed()` to allow drivers to notify the
->     core of autonomous hardware control transitions
->   - Core: Add the `hw_offloaded()` trigger callback and [...]
-[...]
-> - New Support & Features
->   - Core: Add `led_trigger_notify_hw_control_changed()` to allow drivers to notify the
->     core of autonomous hardware control transitions
->   - Core: Add the `hw_offloaded()` trigger callback and [...]
+All four were tested on v7.3 on the stick, with btmtksdio built in; six
+boots in a row brought up both functions, with each driver downloading
+the patch first at least once. They apply cleanly to the mt76 tree, where
+they were build-tested with W=1.
 
-Please try to make your pull requests more readable. Make them
-explanations of what the pull brings in - highlighting important parts
-but at the same time *summarizing* thg contents, not just listign
-every single detail. Much less twice.
+This series was developed with the help of an LLM coding assistant.
 
-The goal of the pull request message should be to explain why I should
-pull it, but also act as documentation for what has been going on.
+Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
+---
+Ryan Brue (4):
+      wifi: mt76: mt7663s: don't advertise random MAC address scans
+      wifi: mt76: mt7615: wait while Bluetooth downloads the MT7663 patch
+      wifi: mt76: sdio: use CMD52 to mask and unmask the interrupt
+      wifi: mt76: mt7663s: use RX enhance mode
 
-The *details* are in the individual commits. Nobody wants the details
-repeated, people want the highlevel "what's up, what's interesting,
-what is this bringing to the kernel".
+ drivers/net/wireless/mediatek/mt76/mt76.h        | 10 +++++++++
+ drivers/net/wireless/mediatek/mt76/mt7615/init.c |  6 +++++
+ drivers/net/wireless/mediatek/mt76/mt7615/mcu.c  | 14 ++++++++++--
+ drivers/net/wireless/mediatek/mt76/mt7615/sdio.c | 28 +++++++++++++++++++-----
+ drivers/net/wireless/mediatek/mt76/sdio.c        |  3 +++
+ drivers/net/wireless/mediatek/mt76/sdio_txrx.c   | 21 +++++++++++++-----
+ 6 files changed, 69 insertions(+), 13 deletions(-)
+---
+base-commit: 16f56d6e78fb3cdb3214bdc6a61c2b1c567c9aa0
+change-id: 20261021-rbrue-sheldon-upstreaming-mt7663s-22c31d3fc68d
 
-And the merge message is there as documentation for others to read, to
-get an overview of what is going on - both if things work well, but
-also if some merge ends up causing problems. That's when people look
-at merge messages - for people do a "git bisect --first-parent" to do
-a rough "which merge caused this problem", but also for people who
-aren't experts on some particular subsystem but still want to get an
-idea of what has happened.
+Best regards,
+-- 
+Ryan Brue <ryanbrue.dev@gmail.com>
 
-A suggestion I've given other maintainers is to treat the pull request
-not just as a "let Linus know", but also think of it as the thing that
-sites like linuxnewbies and phoronix woudl be able to use to then let
-people know about what is going on in new kernel versions. So yes, the
-email is for me to know what I'm merging, but it's *also* for those
-kinds of third parties (the third parties may be kernel developers
-too, who just are working on other parts of the kernel but want to see
-what is going on elsewhere - again, not interested in individual
-commits, but in the "big picture")
-
-And yes, when an already not very easily readable version then shows
-up twice, that is just annoying.
-
-                Linus
