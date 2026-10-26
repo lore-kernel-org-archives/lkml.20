@@ -1,78 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.154.123
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792999319;
-	b=jQWnTaXs2u2gxWTa3PF9vbkxVzhT2LRcOtP+zNsJ3+CaJdSdD+h7cZ1Fo1lZMFWv1u+6
-	 iClJWZ13cvEaaGFCrIngzFT75xQkM8O0P1KjMqcs/1IgCpVgZEoffl0xug7iVfrRN8kNy
-	 OzHsydUzG3f4Ut7z8vCOPeziI83tPGYQc4NOsRKior2Lsd0umToIBHq6DgBAOtPuaegkt
-	 Si2J0sUllhE8wRjwKRmaFfsgXKI9prHDDYBp9OxvYjE/GuNqBn+Wc4kDn0YdQtfT8hM2t
-	 9DVsCfFVpa3ZLo+lB3uzPjYlvoCZZA2ArfpLzRZ8oBiifNqggxOzDK7XbPCHbzoDJlw==
+	t=1792999318;
+	b=Fm9b48ReBQbHsExURJ8uZqORHKn1Mj9pIHWLZ8Nqg7Z4nS8QOQ3QZMdh9bbf3PNN7D7l
+	 BiK0/yjjA5fPc5F4qu1g6p8i0Sd0006QwkzOytfJMfIVnY5m5IPRLABv1HbCTOzjNbg+h
+	 aRXetmkVNpPQy8izMaD7eree3UmNPifeZt0Jl07MsZMHFMKjv8WCamlDZATHd55/gDE3c
+	 MIOSSWM4/wqgSVy93KPC4AW+Ak7AV3FgtbKzg2pqt22vgP0wKmhex1OHqoMxWhRVNXy2v
+	 wCCHPJvzejRRohKyuow2gG6JLC+I8/OdknBeppPGBU9zmnIR5WDVIzPFoAwrNr++IoA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792999319;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:Date:From:To:CC:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=BOPcVymxNrx1ajpQ+9wn+1qx2hBtOqLVwS2WonSwSm0=;
-	b=edHGoO6cW1Y4KDXVRtSFQXubR24DdXzeowJwkom6fu3Qa4g8uyO2DtStXScOImElsSlL
-	 0xStOxSTcQUIoGcJgaaJ6gZ1mFaFwF+qR1vd4JtIRwZqjiWSg7Nh6QmbGQB4OzTSITkTe
-	 XN92qYEVF/LSxZDSdQBPR33SuxVSwufeO8eFWNrg1Q/UJ7DhOT9rSTvLT2aLaUd/QM8Bq
-	 cHjwbsNNjsL8696MKSy+xOr68SgFO3K/7pjlMB4ydS7DkPfsths8hbNXxB+LWqAy3PNWn
-	 Zz8opQP7ZP8/1/ns7KyynrG0+pKILboru9FbOtQPHhiG4YoNhvTIZXkZ3XhqIxfeZBA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792999318;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=A9EGVBKkrkz1X1MPL0NIUMm6e0BXOgjEpTvvw/7s/20=;
+	b=SgALe7etdKmN5ltArB5kyOHCNvJYFVU9iHhbEIIgmhZNM26GBwzGFNEf+qHyJEncX2Av
+	 M7cCMM2qzQ7djdWaUDS6lTuZWfERm/q2XPRSnxguRhwQ7UEfhPOClVsPfSLSw4ZcVAK5f
+	 epCbuBUknToi1oHD9k8WhN8nu3KqJLV07dHG4oDDFIEE87J5zpoNfZKSztnp8u3JhikNu
+	 g1EPMBx3rw8jqIkaU9y9i8jvLpsdrn+TKjKeYc7kwomULWC9w5xv/nO3plRuMX6TkTedD
+	 6ivWMb6uwrZBIucZdrgD9vPTV9PSEQ/Ix0xMIMoLIxyTiHyIWvNPdUq1t33UP9NWzew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=microchip.com;
-	spf=pass smtp.mailfrom=microchip.com;
-	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=mvGqOZUK;
-	arc=none smtp.remote-ip=68.232.154.123
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ItyfWi21;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85A64606A31E;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16889606A31A;
 	Mon, 26 Oct 2026 07:21:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85A64606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=mvGqOZUK
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1792999318; x=1824535318;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=deFrrVpWgMGxOTxrTbK4OH/vduPGE+WvscKcvDwKZss=;
-  b=mvGqOZUK8xiEn9PLGLVd1f6q2XJfcP68YkCLUI69U/dMsUoCHkArpURi
-   2uq6jsvTmBLQ+1MF8lmc2dV3JSKVtt5RLQtWKkyZnedxCDJ3tWaacJBu1
-   LtHcbaQvPznmZAq+nBtb+LG9n3r71C6X+qLaw2v2ghKS6ZJvHZr4ND2FO
-   A6AP8iEfkPVaLUZ0cm+xZgmTOEu0y9MmJIffvUkf5/PebQSRlaZg7tZdO
-   Jekhmm43sjgBSuXWmjrwjEBb2rCyPGAC5A3FbDHVtzygXXKMkKX+wSqg4
-   X3TUrb/C3VfekcX9aiG5Zt+jjbTWRrycwQ0TsrX9OQ3ozuFHQV/jgcZ6B
-   g==;
-X-CSE-ConnectionGUID: pwURBPWpR1OCTpQ/dUnt4w==
-X-CSE-MsgGUID: dg3/cerwTSCVeC5mPYzY5w==
-X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
-   d="scan'208";a="232624030"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa6.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 00:21:52 -0700
-Received: from chn-vm-ex01.mchp-main.com (10.10.87.71) by
- chn-vm-ex1.mchp-main.com (10.10.87.30) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.49; Mon, 26 Oct 2026 00:21:51 -0700
-Received: from DEN-DL-M70577 (10.10.85.11) by chn-vm-ex01.mchp-main.com
- (10.10.85.143) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
- Transport; Mon, 26 Oct 2026 00:21:49 -0700
-Date: Mon, 26 Oct 2026 08:21:48 +0100
-From: Daniel Machon <daniel.machon@microchip.com>
-To: Selby Mashiki <mashikiselby@gmail.com>
-CC: Horatiu Vultur <horatiu.vultur@microchip.com>,
-	<UNGLinuxDriver@microchip.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S
- . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, "Jakub
- Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	<netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] net: lan966x: fix double fwnode_handle_put() and missing
- mdb deinit in probe error path
-Message-ID: <20261026072148.6qwynmdj3n2go23x@DEN-DL-M70577>
-References: <20261025203155.455075-1-mashikiselby@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ItyfWi21
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29FC01F01825;
+	Mon, 26 Oct 2026 07:21:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792999317;
+	bh=A9EGVBKkrkz1X1MPL0NIUMm6e0BXOgjEpTvvw/7s/20=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ItyfWi21wEo1RismX/BZZZ3L9JrNV7K+fx+vGxsiR+zLmr0JARZEaElYMbMcP7aJl
+	 aJaYmW92PibTGdZBxibriScjNFjREcQ/mRi/cix/KRPniU+nh2wrGRXvIwwfuL9SH6
+	 Rop9dnzO6ed1qE/Mfdk4vrm5RRNCZnROUHxZAeoswFo1GAoYHQcRlXXIX2SNRatail
+	 ASAaDlf2B01L6mxDViCLvW+I8ir8AFwGHejlwDuhU6/Igypr+zoUNSp5eEVFtOX0Vd
+	 mp+zg/zF4xxjj5Iz8fP3OSR5Fw7k2uEcNNhi4P571v3Nk72eHd5SD7cvNg1nNt/MkS
+	 CIWdlY+FGxn0Q==
+Date: Mon, 26 Oct 2026 08:21:53 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Lars Rask <lars.rask@axis.com>
+Cc: Marcus Folkesson <marcus.folkesson@gmail.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	kernel@axis.com
+Subject: Re: [PATCH 2/2] dt-bindings: display: sitronix,st75156: add example
+ for SPI
+Message-ID: <20261026-judicious-exotic-beetle-a5d7ff@quoll>
+References: <20261022-add_st75156_support-v1-0-582525a39a39@axis.com>
+ <20261022-add_st75156_support-v1-2-582525a39a39@axis.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,73 +63,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261025203155.455075-1-mashikiselby@gmail.com>
+In-Reply-To: <20261022-add_st75156_support-v1-2-582525a39a39@axis.com>
 
-Hi Selby,
+On Thu, Oct 22, 2026 at 05:31:06PM +0200, Lars Rask wrote:
+> From: Lars Rask <lars.rask@axis.com>
+> 
+> Add example for using st75156 with SPI.
 
-> In lan966x_probe(), fwnode_handle_put(ports) is called after the
-> fwnode_for_each_available_child_node(ports, portnp) loop finishes.
-> However, if lan966x_fdb_init(), lan966x_ptp_init(), lan966x_fdma_init(),
-> or lan966x_vcap_init() subsequently fails, execution jumps to or falls
-> through to cleanup_ports, calling fwnode_handle_put(ports) a second time
-> and skipping lan966x_mdb_deinit().
+Your patch does not add example but entire binding. Please describe your
+patches appropriately.
+
 > 
-> Add cleanup_mdb and cleanup_switch labels so post-loop initialization
-> failures deinitialize MDB and clean up ports without calling
-> fwnode_handle_put() on ports again.
-> 
-> Signed-off-by: Selby Mashiki <mashikiselby@gmail.com>
+> Signed-off-by: Lars Rask <lars.rask@axis.com>
 > ---
->  drivers/net/ethernet/microchip/lan966x/lan966x_main.c | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
+>  .../bindings/display/sitronix,st75156.yaml         | 67 ++++++++++++++++++++++
+>  MAINTAINERS                                        |  1 +
+>  2 files changed, 68 insertions(+)
 > 
-> diff --git a/drivers/net/ethernet/microchip/lan966x/lan966x_main.c b/drivers/net/ethernet/microchip/lan966x/lan966x_main.c
-> index 1179a6e12..7abfd97ad 100644
-> --- a/drivers/net/ethernet/microchip/lan966x/lan966x_main.c
-> +++ b/drivers/net/ethernet/microchip/lan966x/lan966x_main.c
-> @@ -1228,7 +1228,7 @@ static int lan966x_probe(struct platform_device *pdev)
->  	lan966x_mdb_init(lan966x);
->  	err = lan966x_fdb_init(lan966x);
->  	if (err)
-> -		goto cleanup_ports;
-> +		goto cleanup_mdb;
->  
->  	err = lan966x_ptp_init(lan966x);
->  	if (err)
-> @@ -1255,10 +1255,15 @@ static int lan966x_probe(struct platform_device *pdev)
->  cleanup_fdb:
->  	lan966x_fdb_deinit(lan966x);
->  
-> +cleanup_mdb:
-> +	lan966x_mdb_deinit(lan966x);
-> +	goto cleanup_switch;
+> diff --git a/Documentation/devicetree/bindings/display/sitronix,st75156.yaml b/Documentation/devicetree/bindings/display/sitronix,st75156.yaml
+> new file mode 100644
+> index 000000000000..a3897ddc5e38
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/sitronix,st75156.yaml
+> @@ -0,0 +1,67 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/display/sitronix,st75156.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
->  cleanup_ports:
->  	fwnode_handle_put(ports);
->  	fwnode_handle_put(portnp);
->  
-> +cleanup_switch:
->  	lan966x_cleanup_ports(lan966x);
->  
->  	cancel_delayed_work_sync(&lan966x->stats_work);
-> -- 
-> 2.56.0
+> +title: Sitronix ST75156 Display Controller
+> +
+> +maintainers:
+> +  - Marcus Folkesson <marcus.folkesson@gmail.com>
+> +
+> +description:
+> +  Sitronix ST75156 is a monochrome dot matrix LCD panel used in SPI 4-wire mode.
+> +
+> +allOf:
+> +  - $ref: panel/panel-common.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    const: sitronix,st75156
+> +
 
-This might fix the mentioned deinit issues listed in the commit description,
-however it is still racy with the netdevs, which are unregistered at a later
-point.
+Everything looks the same as sitronix,st7571, so why this cannot be
+added there?
 
-As I mentioned in my lan966x-pci series [1], I will redo the whole error/deinit
-path in a series for net-next, which will fix it for good, including the issues
-in this patch.
+Best regards,
+Krzysztof
 
-I can't reject this with pw-bot, since I am currently not listed as a maintainer
-for lan966x. Horatiu is pre-occupied with PHY stuff, so he probably wont reply
-either. I will add a patch that adds me to maintainers once net-next opens, so
-patches are routed properly to me.
-
-[1] https://lore.kernel.org/netdev/20261002090248.xwlcm3zclt6imaou@DEN-DL-M70577/
-
-/Daniel
