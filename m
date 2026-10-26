@@ -1,98 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793037987;
-	b=pEeALMhMNMnWqzIMJ7Q9uTFAu+c0EY3wpWMHzGfcAyxomZCvWmixVZHLnvtfDKenDumc
-	 qZVzzQotEd1ho/ZAflaOKdVpOqwe6hwImcHvc27kBSxOJCaCaYkkZucLEvFDZEpTp7yVG
-	 hYX2sspUpMp7bpp++GgsfOOV+Pr2LzHBE3Wq0uxA+0hozr41kDzEZk3bL7NU/OYUwz31N
-	 wkWxoZsejvd8gIaORwKn2aah2ZcVlF7EcWkowPcVWCdVxzBJ9AHUF+6hykUH8xIlLFnx7
-	 UHjuv5R1QJSCv4teugt1rjAH8Br5QY0UEMtBplKwpGBiQ+rYtgKfxuFnjvqAxljAUIQ==
+	t=1793038002;
+	b=DCXhhveiWrJzHdp9b81K/vUdp9Dr8gp4eTnoFkh++ZtSgFd0FG6WoS3WTEZXcaAl22Ae
+	 VN1Cn84bNQOMElIVkc6xDx3HGxg8pkAKl627LuHj4xPDGwvMFBRF9Nkng7nGI6vTYGuSW
+	 JONJmhroWrKgp3TX/6xQ26egrgZU2zNRIocGy+5ko+S2U5Cb56OikpNUrQRvxkW609uCa
+	 zTZMArEGrZ9zgDmOIcS7HahXJxoH4czLMsYy/oEhUXvRzYvy1Eojr9tc0kXhoBDSffW81
+	 XV/3oIOgZ1Q9ZYz9kE/bmrL3S7nEWT0UGKHDAwUEE/DmkD6RlZRtKWMEDBUioax4Sdw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793037987;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=xHfjRrcnHq0gMjmE8KEiw2pb4RTHUukE8vXn8oTU6AA=;
-	b=fS5FLA/CwLW8CtsU/asyj6IJSVg7UUk7OTTTa6EcoRxrA7s5jja+qkzNKvz3eT/7a53H
-	 /5YJHJ6prdLHYzhcEn3cI7bcdflPWmfwdkcoJjm94pNAqjtNZW5wB1kcJO0GftkSY7Bxb
-	 eEKK0KXiHITb+svYnWhqweDa4c48FYUNk+Log4A38oFRfRFf9zOMwz9eoyDq53Mk9CV+0
-	 0uVZI7QMtxoGHaeNQc2+Mrjfhq5uuMUI+EfKqjB7cOKWHXj6fs9skqpvxlvh6qioJgrbB
-	 Y0uM5F28AEMFgin6SP9jkGrV5AfxZKoh9y3hzgQdVR0UL+To+GDKBsoTMSO5oOvY1wQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793038002;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=+WO5y2AngqrfTxKT/T6m0OE0wBrX03D/nrxV02HU4vc=;
+	b=L6mVY1RkWCR6mqs0A91gt+hTf8nNjeklwUWUCXrfle+PRJKjewfm14XCBvzKe5IVrOpy
+	 n6wzifJnqFWmGBZ9xDAPGnDTgdYyQbOEkvfC6D/lL7Ohm800paUQIXDC4PPVCCPP6Ye0M
+	 0ZpmpKHDAwXVb3h/9vHeZeDaZsx/NsgetngyTtYk+XdxRQKAo+eX9RJftjKKG/VPVdhB7
+	 qCrDe74Idq8xh+rETUbr9h6jTe1GkVrqabIdbr8CzgO7Wv6MeglKUsLVMUj/1T+faH+bg
+	 dGX9N52V1OrZTin2M5zN7bWHpM67+Lz5N8rtD/vnJqxLzo+KBombtDyOfg2YQ25QfpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=o6YgJ9hw;
-	arc=none smtp.remote-ip=209.85.221.49
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nuZXGavS;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E1A5606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 18:06:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E1A5606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 970DD606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 18:06:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=o6YgJ9hw
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48e0d885929so2202327f8f.3
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:06:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793037985; x=1793642785; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xHfjRrcnHq0gMjmE8KEiw2pb4RTHUukE8vXn8oTU6AA=;
-        b=o6YgJ9hwBkPl3jqVNbqlawnck8SEmLFj67acDobAFAJHw7IAOdzm/7GapKqpsYzHHb
-         4/AxJx7EygdI7UDzPpEFU732U3zq5O6cUfZm0WevnyLaJyO9qa4Hy8IE7UFyTokTzkbo
-         yhV16Dc0zG8els4Pu3fRhtKSr7i9yagF+hH+WH/fSljpWZxrw6HASGVpq3NheTiVMajf
-         6Iqn/VwO9D1HJX2aZQxY/VKSduQz8+CO/TId8cWkSSj0fK5WCPK+4YExuTDUNZLx03Dg
-         zgKOSf7WnGEHBhMXzuL88lL8Wy2rujcNbbfSLj4/BmuWunGkZNy5v4qu/MLmu/HDu8y9
-         jIuA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793037985; x=1793642785;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xHfjRrcnHq0gMjmE8KEiw2pb4RTHUukE8vXn8oTU6AA=;
-        b=xeYsqbiv+mjoqMKv5zgHi2dO+jxa/SW3kpTopQWICU1JwckCHlGeCOnPqdAHLIB93L
-         1MKGf8dxyuMG3fzZK+kJFbugSXzNIjwRlovsfemWaompKBSfKohkEP002z7OZX2aAR7D
-         msN67i+6Whq/CKvIMUezb7NTAWi0lKY4iBQBIR7mDqo8OE2yVLJoSO2OsZJ2Zk3+HDov
-         UzHMNIqZfCbQGYBmF0jDc/YA84/P+qjrl8pmRqYGn0FvZ/y8pAhWs4El6AMPwR+YO7cm
-         B/8uiK9yEgCxtU6eBIKWuaaCj/FwZ793Zxl64YOQTvCx+jCkifT+ofkSe9jpyODaujRh
-         +bcg==
-X-Forwarded-Encrypted: i=1; AKwUvBz/thdDZxXUBEVd4nt4VUmj/x45haHYaA1ef45Agmm/Zg47cK1l3/sNdPt1yDr6ptPok4yGLgT0JowvZUU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLxcRWjqNXSR2Q6KjVG8MmeB7RrJcAKOiFiixrECjF1O8BNU4N9
-	7H8ZImrmLgx0MJ0FUA++9l0x6o7lCPItK86r9f7OK/+wqhe/FagSCxxI
-X-Gm-Gg: AYBFou1q4uKnLCUvJl8SJKA7Feu45QnQ3d7ieIFNWOgoBujKuWYlOasS4ZUCEql2HtF
-	WNN4aeHIv5hJcCiXIGbbowEJ5mJiEyg2CNPu7wcVgso8c5pBHWDobLzB1rPvv5Sm8EoSgx5fEOh
-	iWLS3xigvjjO7dlCOGwwQ6Dy0/f0HS9xin360RYwy3B6cZ1clKx+U3I0T9qxcGnq9jyQDhgwC/P
-	AdmXXbQuGpHwPB/IxpcYsvvSm9hiE1o50fDPJ2sKqGFyyZGF6Gob9ylq70g939Pnd8ukPAVNTWQ
-	0cdGTy4SYDnYBrlN6ZCYROKRfa2Sk/UWQUvhYBudbQdr/CJQMJqB534wJMP4+c2l4N8zHjf1xMy
-	p+MdpKFZUlZIJxAhloTvImWvRGT1KjN4fIGDgTR+08dTbTSow4F9ypyks7kLXvktyWGpq86/mUE
-	E9PIv/0oYSEwbqmhrgpW4KSlRrc83ckVvd/S/bwxPHP3HgNk64xh+RNt5zoUCBjR05FXoAFrCe8
-	gSl/3MW3no+kBOfOQdXbjpPvNkEtaEvd+MVg2dkzYXWvu0gOhWIherpBTBB0OUmd2WRCXiI0k96
-	MW7SJKIMCj8Crh7QsfWea9UznLQ=
-X-Received: by 2002:a05:6000:2405:b0:48e:517b:cf21 with SMTP id ffacd0b85a97d-48e517bcfedmr5799152f8f.26.1793037985247;
-        Mon, 26 Oct 2026 11:06:25 -0700 (PDT)
-Received: from andreayoga.wind3.hub ([31.189.109.255])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebd48fasm17694846f8f.31.2026.10.26.11.06.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 11:06:24 -0700 (PDT)
-From: Andrea Parri <parri.andrea@gmail.com>
-To: Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>
-Cc: Andrea Parri <parri.andrea@gmail.com>,
-	Jan Kara <jack@suse.cz>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	linux-fsdevel@vger.kernel.org,
-	linux-block@vger.kernel.org,
-	linux-btrfs@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-api@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] iov_iter: take an unsigned long segment count in import_iovec()
-Date: Mon, 26 Oct 2026 19:06:18 +0100
-Message-ID: <20261026180619.4147910-1-parri.andrea@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nuZXGavS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 757CE1F031E0
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 18:06:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793038002;
+	bh=+WO5y2AngqrfTxKT/T6m0OE0wBrX03D/nrxV02HU4vc=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=nuZXGavS7nwFeAtYZG7Ii6CGpwv1djXJ4FILZrlSUIc/7SDyHIO6iDDZZxvwrm5fB
+	 jcFWKx3mcvvX1zH9ZMh+bDWAO2Auj0SS4Vs1jScV19plYqqgc0djX650H0AGyeRHS7
+	 sHBXCymBNa2Eug59E93QeFQx9Jcgl+n3fSjHNEAmQDN2wKkissZqp0MrUW79u+nTFt
+	 gtSnUzGfqk+10Hxe71diHoMxPx6bhOPEYKOT1W4AqvT3grHwCdqVrQuEjGnhMclcDa
+	 Ct77NL6BxqTRehOjetYmscGLySn1ssD0IqEjrFiB+T1s/VMtg2goFQnaeTUYr5U5VV
+	 g71TmvtcZx6xw==
+Received: by mail-qk1-f175.google.com with SMTP id af79cd13be357-93f1e5d7450so311281585a.2
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:06:42 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzUhGzOxKxVtLFw569fGaaSYRO/158PCNI//X9EB8OUHsgQB83KRp0uoDqIcGf/PtQG69LTUnXpqYxBZSw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJRYSrNWPM1ZIcIEFtAJJYMBS9v3TImCMGdiy1gtW8maY2AHHNY
+	sXgTrPA3yFmjUPKHdGHPh6c3cwUcHA0atW7xc8NX3bF1jlQE6Y5ICADXLNuNYcOUoBz6nUxZynN
+	Sg/abpFI3Cmiq6fVGnxDyGcr3rM4bXzs=
+X-Received: by 2002:a05:620a:2984:b0:93a:82a:71e5 with SMTP id
+ af79cd13be357-940ef901e83mr1117271685a.19.1793038001851; Mon, 26 Oct 2026
+ 11:06:41 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,135 +59,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261012233638.2546339-1-yosry@kernel.org> <20261012233638.2546339-27-yosry@kernel.org>
+ <CALMp9eS8KDozNGT9J_uN69W32QEvTbg2JrtRqN0ESi00b_uq=A@mail.gmail.com>
+ <atqRyeqSXViiNIk6@google.com> <CAO9r8zMqiW=3t7zRo_WAhKJfpYsDwuG3e=nK14GXhrq+foYnOw@mail.gmail.com>
+ <at-O8-tzgezj2du-@google.com>
+In-Reply-To: <at-O8-tzgezj2du-@google.com>
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Mon, 26 Oct 2026 11:06:27 -0700
+X-Gmail-Original-Message-ID: <CAO9r8zO8ViSqCBer4rV5qBQGcDKA_60Aj_KEVQx2obd9zU7-Hg@mail.gmail.com>
+X-Gm-Features: AclHuK_nwQrxES2GqNZh5mrxNi_TR0Sm-muFcxiIyZPzWxpBNhYA6gRX4WEkbgA
+Message-ID: <CAO9r8zO8ViSqCBer4rV5qBQGcDKA_60Aj_KEVQx2obd9zU7-Hg@mail.gmail.com>
+Subject: Re: [PATCH v3 26/27] KVM: nSVM: Use different ASIDs for L1 and L2
+To: Sean Christopherson <seanjc@google.com>
+Cc: Jim Mattson <jmattson@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Maxim Levitsky <mlevitsk@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, 
+	Tom Lendacky <thomas.lendacky@amd.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-readv(), writev() and their positional variants, process_vm_readv(),
-process_vm_writev(), vmsplice(), process_madvise(), vectored aio and
-the btrfs encoded I/O ioctls all take a full-width segment count, and
-all of them hand it to import_iovec() or __import_iovec().  Those take
-an unsigned int count, so on 64-bit kernels the upper 32 bits are
-dropped before iovec_from_user() checks the count against UIO_MAXIOV.
+On Mon, Oct 26, 2026 at 10:33=E2=80=AFAM Sean Christopherson <seanjc@google=
+.com> wrote:
+>
+> On Thu, Oct 22, 2026, Yosry Ahmed wrote:
+> > On Thu, Oct 22, 2026 at 3:44=E2=80=AFPM Sean Christopherson <seanjc@goo=
+gle.com> wrote:
+> > >
+> > > On Fri, Oct 16, 2026, Jim Mattson wrote:
+> > > > On Mon, Oct 12, 2026 at 4:37=E2=80=AFPM Yosry Ahmed <yosry@kernel.o=
+rg> wrote:
+> > > > Moreover, does this change the semantics of PV TLB flush? In
+> > > > record_steal_time(), we have:
+> > > >
+> > > > if (st_preempted & KVM_VCPU_FLUSH_TLB)
+> > > >         kvm_vcpu_flush_tlb_guest(vcpu);
+> > > >
+> > > > IIUC, an idle vCPU that wakes into L2 will flush only L2's ASID. In
+> > > > the past, with a shared ASID, L1's ASID was always flushed on emula=
+ted
+> > > > VM-exit anyway. Now, L1's ASID will be unaffected. Though I can't f=
+ind
+> > > > any real documentation on PV TLB flush, it *seems* like the remote
+> > > > vCPU would want L1's ASID to be flushed. OTOH, this change makes nS=
+VM
+> > > > behave just like nVMX.
+> > >
+> > > That's a bug that absolutely needs to be fixed, probably relatively u=
+rgently.  We
+> > > should also document that passing through the steal_time shared infor=
+mation to L2
+> > > to utilize PV TLB flushes for L2 is explicitly not supported.
+> > >
+> > > I hate to re-introduce deferred actions for L2 =3D> L1 things, but th=
+at seems like
+> > > the only sane way to handle this, because handling the !tdp_enabled c=
+ase, where
+> > > KVM needs to sync the current root, requires knowing what MMU is goin=
+g to be in
+> > > use when L1 regains control.  Yuck.
+> >
+> > Are you implying that *you* will be re-introducing deferred actions? :P
+>
+> Heh, probably not this calendar year.
 
-A count of 0x100000001 is therefore imported as one segment: writev()
-on a pipe writes a byte and readv() reads it back, instead of both
-failing with EINVAL.  A count of 0x100000000 returns 0 as an empty
-vector.
-
-import_iovec() was added with an unsigned int count, but the helper it
-wrapped, rw_copy_check_uvector(), took an unsigned long, as does
-iovec_from_user() today.  Until v4.1, readv(), writev(), preadv(),
-pwritev(), process_vm_readv(), process_vm_writev() and vectored aio
-therefore failed these counts with EINVAL, as did vmsplice() until
-v4.18.
-
-Widen nr_segs in both import helpers so the UIO_MAXIOV check sees the
-count the caller passed.  Callers with 32-bit counts are unaffected.
-
-AI assistance was used to find the bug, develop the fix, and run the
-reproducers.
-
-Fixes: bc917be81059 ("saner iov_iter initialization primitives")
-Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
----
-Tested on x86_64 with virtme-ng, base 734bef548a96e vs patched:
-readv, writev, preadv, pwritev, preadv2, pwritev2, vectored aio,
-process_madvise, process_vm_readv, process_vm_writev and vmsplice with
-counts 0, 1, 1024, 1025, UINT_MAX, 2^32, 2^32+1, 2^32+1024, 2^32+1025
-and ULONG_MAX (LONG_MAX for aio).  The base kernel accepts 2^32,
-2^32+1 and 2^32+1024 on every path; the patched kernel rejects every
-count above 1024 with EINVAL.  Also built every caller with
-allmodconfig W=1, and lib/iov_iter.o and the readv, vmsplice and
-process_vm callers with i386 defconfig W=1.
-
-Reproducer (64-bit userspace):
-  cc -Wall -Wextra -O2 repro.c -o repro
-  ./repro
-
-// SPDX-License-Identifier: GPL-2.0-only
-#define _GNU_SOURCE
-#include <errno.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/syscall.h>
-#include <sys/uio.h>
-#include <unistd.h>
-
-int main(void)
-{
-	char source = 'x', received = '-';
-	struct iovec wiov = { .iov_base = &source, .iov_len = 1 };
-	struct iovec riov = { .iov_base = &received, .iov_len = 1 };
-	const unsigned long count = (1UL << 32) + 1;
-	long wret, rret;
-	int pipefd[2], werr;
-
-	if (pipe(pipefd)) {
-		perror("pipe");
-		return EXIT_FAILURE;
-	}
-	errno = 0;
-	wret = syscall(SYS_writev, pipefd[1], &wiov, count);
-	werr = errno;
-	close(pipefd[1]);
-	errno = 0;
-	rret = syscall(SYS_readv, pipefd[0], &riov, count);
-	printf("writev=%ld (%s) readv=%ld (%s) byte=%c\n",
-	       wret, strerror(werr), rret, strerror(errno), received);
-	close(pipefd[0]);
-	return EXIT_SUCCESS;
-}
-
- include/linux/uio.h | 8 ++++----
- lib/iov_iter.c      | 6 +++---
- 2 files changed, 7 insertions(+), 7 deletions(-)
-
-diff --git a/include/linux/uio.h b/include/linux/uio.h
-index fe2e985d74d24..529c6cd53df7a 100644
---- a/include/linux/uio.h
-+++ b/include/linux/uio.h
-@@ -362,11 +362,11 @@ struct iovec *iovec_from_user(const struct iovec __user *uvector,
- 		unsigned long nr_segs, unsigned long fast_segs,
- 		struct iovec *fast_iov, bool compat);
- ssize_t import_iovec(int type, const struct iovec __user *uvec,
--		 unsigned nr_segs, unsigned fast_segs, struct iovec **iovp,
--		 struct iov_iter *i);
-+		 unsigned long nr_segs, unsigned int fast_segs,
-+		 struct iovec **iovp, struct iov_iter *i);
- ssize_t __import_iovec(int type, const struct iovec __user *uvec,
--		 unsigned nr_segs, unsigned fast_segs, struct iovec **iovp,
--		 struct iov_iter *i, bool compat);
-+		 unsigned long nr_segs, unsigned int fast_segs,
-+		 struct iovec **iovp, struct iov_iter *i, bool compat);
- int import_ubuf(int type, void __user *buf, size_t len, struct iov_iter *i);
- 
- static inline void iov_iter_ubuf(struct iov_iter *i, unsigned int direction,
-diff --git a/lib/iov_iter.c b/lib/iov_iter.c
-index 2072c04e99d05..55cf2ff5bfdad 100644
---- a/lib/iov_iter.c
-+++ b/lib/iov_iter.c
-@@ -1362,8 +1362,8 @@ static ssize_t __import_iovec_ubuf(int type, const struct iovec __user *uvec,
- }
- 
- ssize_t __import_iovec(int type, const struct iovec __user *uvec,
--		 unsigned nr_segs, unsigned fast_segs, struct iovec **iovp,
--		 struct iov_iter *i, bool compat)
-+		 unsigned long nr_segs, unsigned int fast_segs,
-+		 struct iovec **iovp, struct iov_iter *i, bool compat)
- {
- 	ssize_t total_len = 0;
- 	unsigned long seg;
-@@ -1434,7 +1434,7 @@ ssize_t __import_iovec(int type, const struct iovec __user *uvec,
-  * Return: Negative error code on error, bytes imported on success
-  */
- ssize_t import_iovec(int type, const struct iovec __user *uvec,
--		 unsigned nr_segs, unsigned fast_segs,
-+		 unsigned long nr_segs, unsigned int fast_segs,
- 		 struct iovec **iovp, struct iov_iter *i)
- {
- 	return __import_iovec(type, uvec, nr_segs, fast_segs, iovp, i,
-
-base-commit: 734bef548a96e8774d6eef5dfa2026c6edc4e80b
--- 
-2.53.0
-
+Are you opposed to this series landing before that is fixed, keeping
+in mind that it will expose nSVM to the pre-existing bug?
