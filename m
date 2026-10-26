@@ -1,122 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.98
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793039826;
-	b=BH5g/6IlJIaoV1LG+dR89q3VPn0jkj8mCm7TOGpdb7yQvP+gitukEh1OCAj6GUGuWCdc
-	 4+b3Zm7WpufARD7spS07J0jjBHh+mKqTI6gYykM4+33eVrCGNSEK9fpjrm0NSltL8Z5sX
-	 rY+jjWYCRhGeOZhxHPf6eEMX+M67Qy8XQ0pdM3GTMphKojlkpMWYX8qkRuLM8fGc0Gdej
-	 sazkesfwFXKY488vFzJd9AkaiCJQJqJBp05Gmff/AQdAuaG9oxChL8udGqf85nR1EYsnw
-	 feEmDPGJf2Croyzw5/wgjgc6uagqinH/XrHrOuyYdC1aqAl253aQJDFUTC8SCA0xTug==
+	t=1793039840;
+	b=2cANUdRmanymPxZUtiKO1EnH12Wd98ssv8ytC+YFaYhO4FSjNoUAFsvMUzuUP3dnITbY
+	 TNdw/enK0uMG4ZPyJUF173jcn0+4kkwvLHJO6+EtxJlS4uR5PwwkgXAkptoNLtVIL/zBh
+	 Cs5Eo7y6YTxof1qlruzUGpX6x+fNzcJH/ETLBLl8nTLIwXJRxwMoFAX0N7+z37PrD2w9J
+	 AgMt2x5VzkPyIBM9xES/firGqKjY2z0o7m2mm5DAv70b7ANRmj0c8W2dGlq8d815mNASV
+	 glYc7xwmdIIclVbpr/LY7YX//tWrw5U7eBfXvgPeGPNmdHTT/REiD3fnkPEu8gHsKHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793039826;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
-	 X-Gm-Gg:X-Received:Received:X-Relaying-Domain:X-CFilter-Loop:Received:
-	 DKIM-Signature:X-Received:X-Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-DetectorID-Processed;
-	bh=1MIbl2zx8FaPW7oX7ST7fbgJ9gFOgJZeuRxXV0E1qzg=;
-	b=pFy9DTFVt55Hlw0TWdeeVECea6FWxuOyUJBkeKW402/vEgtnoROTf6bAGpPm7itkCpOs
-	 rtf//zICbw1luub6GnWpiCRj0rrP/2t7e4dIS8VfyzTbIfHDYxZ8ZulxuxxxtYygA43f9
-	 oSAw30t7WKAIpWFemt4oaICpFcpf8py1gt4KXvP3ypyDKnf+QrrBkiuK4oDeab+rz6IOX
-	 RardtaZ6RNUdmsK3N1P+iIQUa5H5lfnxz5JSEzplg3Y3qGKEyQ0DFpy14fatYHs9QSFSv
-	 mAomX4RvSv+qA43z5/I0CmNsbtkhw8D+6LDb5KaKMFmGKI9XCTHmkSOIXslEmz3KVLw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793039840;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Kb+i0dehyGP8y6ZgLQAfXJ/ELyQ0v/y9crVmQDJxX9Q=;
+	b=tKmEDCdU/1+c0bi2RZHrO4w+UmBSRpJ5WTmVU1ZANwRXd0KXwXbUcWZ4g65gnYiGBzhe
+	 gst6steW29rq6Yt4WOu08pecR4eg482aoll4Gc2Q746tyyOElg6E0wrjKx/3LxuzzAbaP
+	 m/ilxiTgOVdQ9EpgFBBWeo5XUr7Qvty8QwPhpaM52X11p51eezakpfjJNKvfSjuxU0zEt
+	 U9uDSEY794ir9kOeBI1VgwKZL/oTYdI4B+WeRC5doT5IUbS5EcMsf1OGUl8BWTzg+uRbZ
+	 KFIvaOXck5WkTUpQX4e1HUOn0wn7fbLmWVko4vDurHVpMUvyTzH2I1AvlGYsF2Kf9mA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=Mm0hduLg;
-	arc=none smtp.remote-ip=209.85.216.98
-Received: from mail-pj1-f98.google.com (mail-pj1-f98.google.com [209.85.216.98])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KEfOZiqd;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C374606A31E
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 18:37:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C374606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77E04606A31D;
+	Mon, 26 Oct 2026 18:37:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=Mm0hduLg
-Received: by mail-pj1-f98.google.com with SMTP id 98e67ed59e1d1-3ab752f6244so3287436a91.2
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:37:06 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793039825; x=1793644625;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1MIbl2zx8FaPW7oX7ST7fbgJ9gFOgJZeuRxXV0E1qzg=;
-        b=zsIEQbt+81IS0V5f95JDERL+WRA5iqHT7nmHhihQgy807tE+CerlmKbjij/IZklCQz
-         EuKhUvOVmPASJTAinK+S6WwwOfMaKV27h5EwggM1MM5Tr7OsPbMIuViDpqjNmRoi8iNc
-         S5ZkpySsG18Ri+xzTQXYfnJobDcRIhWOL6ADhMD4NyWT2mu22nCFFyeb32OJwBocqq8k
-         ONEbuGm04e9I88BaQLNyHlhu2qS9X1R5L9N2EpwtpzXaGPOvipgerA3GMh/xfD52Y+vf
-         7pcbUcVGYEOfe8RjEXY51Sfg5b+0QBOg1bADOyEIL4cHIrCQbQdmwIB9H+O5AA8lfssg
-         PRuQ==
-X-Gm-Message-State: AFq9FYJwe2LC/5m8qH6leBOXkmxGHesvsCw5RrP3XL9zQOhD0pMEjo/0
-	mCrni801LfnHELT7SWMFL8gQLZlm7+WgJEiTs4/v/4xNJ+oyJ2MOfwo9UoGWEU02v+jk5L0Csk4
-	Mu9wzFEVhthZJ0V92fkIX6ItUvLixaL4GBobaeOPfKPDQi+VJ+u4X3BK5X/JyGhZzqF37OLDHrX
-	lvMSfl5wfVgwMzX6Hhop5GP7shAIDYQFjxxgM5Lokna4t06bvEa8J19NmYvK5aJgnP19TJsrAv6
-	jYdb38wBHFST+vkdkmlDxg/MYM=
-X-Gm-Gg: AYBFou19s+lALm3DeHtX++Y52WvUuE54T3pT/y2Uz9ApaD2qYTJvvTLK5D4nQ5L6ujw
-	KqUZ2KZDLYu92eQ+PLKC9w3Z2RocQCSwUHcZdDBYXq/6r+lnEGA8a/HRKFl2jEWO025nsvMAUn4
-	/o5TL4Hgh1kKL+ZnSYXOIGa47BrvYYfcyaewrwIwRM9Gnld1lk3pv75BeF+0xsSCPpGEXc34BdS
-	cj3hWuUOfx4ZsAecKnprgWG7ingqRGVilEj+Hu4QIF3b97ccBfqFfYnMiOnFAe9ccqa3pWgTpVI
-	W3mp63OKnKBsSjybgJcU68jeT2MU/RKndI8U/Kv3PIe4eMIflAhPjxVXwS14Ed0gwxwLsT63y1r
-	JOe2DM40sVyUAJG3llPGijEBV9VvwI9e8Mo3NryHoWUnevNZTHPJAevLnEKXwsCC5ydP7kkl4H2
-	kH6Bv+xrVShsI4k/tD+R5ATLZhSbAj5RzZZt9H+U/E
-X-Received: by 2002:a17:90b:2b4f:b0:3a8:6a6b:596d with SMTP id 98e67ed59e1d1-3adead4819emr6236043a91.26.1793039825437;
-        Mon, 26 Oct 2026 11:37:05 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-28.dlp.protect.broadcom.com. [144.49.247.28])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3ae40784dfasm245063a91.3.2026.10.26.11.37.04
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 26 Oct 2026 11:37:05 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-3662e7a9299so16127973eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:37:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1793039824; x=1793644624; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1MIbl2zx8FaPW7oX7ST7fbgJ9gFOgJZeuRxXV0E1qzg=;
-        b=Mm0hduLgOvGQ5TVv2Qemd4U96rQbIRzolGqo/DCHQ6mwg4QJm8/2b1lnNJB9kOMfOF
-         HmZsouqPtGhLD7ciatUvvrIvHMzeXcLdPXr8v626WOq2QXfESYOeNblo/SjuEx8VZD5O
-         riB5F6oAaw6ra8pqdXFUkpQ3C77GODZKDSveg=
-X-Received: by 2002:a05:693c:68db:b0:369:f7d2:d7a0 with SMTP id 5a478bee46e88-369f7d2edf6mr7300562eec.25.1793039371758;
-        Mon, 26 Oct 2026 11:29:31 -0700 (PDT)
-X-Received: by 2002:a05:693c:68db:b0:369:f7d2:d7a0 with SMTP id 5a478bee46e88-369f7d2edf6mr7300511eec.25.1793039370933;
-        Mon, 26 Oct 2026 11:29:30 -0700 (PDT)
-Received: from fainelli-desktop.igp.broadcom.net ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a01fa4c58sm24657259eec.21.2026.10.26.11.29.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 11:29:30 -0700 (PDT)
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-To: linux-kernel@vger.kernel.org
-Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
-	Damien Le Moal <dlemoal@kernel.org>,
-	Niklas Cassel <cassel@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Ray Jui <rjui@broadcom.com>,
-	Scott Branden <sbranden@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Kishon Vijay Abraham I <kishon@kernel.org>,
-	Tejun Heo <tj@kernel.org>,
-	Yendapally Reddy Dhananjaya Reddy <yendapally.reddy@broadcom.com>,
-	linux-ide@vger.kernel.org (open list:LIBATA SUBSYSTEM (Serial and Parallel ATA drivers)),
-	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
-	linux-arm-kernel@lists.infradead.org (moderated list:BROADCOM IPROC ARM ARCHITECTURE),
-	linux-phy@lists.infradead.org (open list:GENERIC PHY FRAMEWORK)
-Subject: [PATCH v2 4/6] ARM: dts: broadcom: Add the NSP SATA IDM registers
-Date: Mon, 26 Oct 2026 11:28:54 -0700
-Message-ID: <20261026182856.3168686-5-florian.fainelli@broadcom.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261026182856.3168686-1-florian.fainelli@broadcom.com>
-References: <20261026182856.3168686-1-florian.fainelli@broadcom.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KEfOZiqd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D01801F01825;
+	Mon, 26 Oct 2026 18:37:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793039840;
+	bh=Kb+i0dehyGP8y6ZgLQAfXJ/ELyQ0v/y9crVmQDJxX9Q=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=KEfOZiqdb04mNcmXdV03bHX2QadJmb7mf29bXsoHNUygzQRyROcy5KdYYdm6Y8akC
+	 6rUCID+Q9XTb7ahJ8TUhUvL1RZk+qpECeWcjEgG0lU/FI+o9U4h991B3Va24DpJXvG
+	 kw0YLXFuQ82zMLufNab4w8zFxmQj6rHNyLw+ZzbgEu7ZOflLEUNYW1OckGgYx0fxxx
+	 eo7Z7ph4MOqgMoZkom5zPW2GR1gaZ8vYLhYJOt2Hxiq9msrx/duw8KikQeh2fUcJnF
+	 dY7rmaQaLKXPRDIamuBg1GAriYJYWdVBZkqUdbt81u/xrl8xysrtTT+tXpvKFDQmbJ
+	 wayxn7ajcHpag==
+Date: Mon, 26 Oct 2026 13:37:18 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Thorsten Blum <blum@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>, Jesse Barnes <jbarnes@hobbes.lan>,
+	Lukas Wunner <lukas@wunner.de>, Ingo Molnar <mingo@elte.hu>,
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RESEND v2] x86/early-quirks: Scan all functions in
+ early_pci_scan_bus()
+Message-ID: <20261026183718.GA335290@bhelgaas>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -126,47 +60,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260916100206.92853-2-blum@kernel.org>
 
-The NSP SATA description omits the IDM block at 0x1811e000, leaving the
-interface clock and core reset dependent on firmware initialization.
+On Wed, Sep 16, 2026 at 12:02:07PM +0200, Thorsten Blum wrote:
+> early_pci_scan_bus() stops scanning a PCI slot when check_dev_quirk()
+> returns nonzero, which avoids probing functions 1-7 on single-function
+> devices, but also stops scanning when a function is absent on a
+> multifunction device.
+> 
+> This can skip early quirks on multifunction devices with holes in their
+> function numbering.
+> 
+> On iMac13,1 and iMac13,2, the BCM4331 AirPort card is behind root port
+> 00:1c.3, also documented by the model list in commit abb2bafd295f
+> ("x86/quirks: Add early quirk to reset Apple AirPort card").
+> 
+> Public lspci output for 2012 iMacs [1][2] shows that 00:1c.0, 00:1c.2,
+> 00:1c.3 and 00:1c.4 are present, but 00:1c.1 is missing. The old code
+> stops at 00:1c.1 and never reaches 00:1c.3, so the AirPort reset quirk
+> is silently skipped on these machines.
+> 
+> Check function 0 first, and if it indicates a multifunction device, scan
+> functions 1-7 independently so that absent functions do not cause later
+> ones to be skipped.
+> 
+> Fixes: 15650a2f644a ("x86/PCI: fixup early quirk probing")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Thorsten Blum <blum@kernel.org>
+> Link: https://forum.libreelec.tv/thread/26799-wifi-not-detected-on-2012-imac-in-11-0/ [1]
+> Link: https://zoringroup.com/forum/5/7170/ [2]
+> Reviewed-by: Lukas Wunner <lukas@wunner.de>
 
-Supply the IDM as the third controller register region so ahci_brcm can
-perform the downstream clock/reset sequence. Extend the AXI bus range to
-cover the complete IDM aperture.
+Acked-by: Bjorn Helgaas <bhelgaas@google.com>
 
-Fixes: 8dbcad020f2e ("ARM: dts: nsp: Add sata device tree entry")
-Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
----
- arch/arm/boot/dts/broadcom/bcm-nsp.dtsi | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+Let me know if you'd prefer this to be merged via the PCI tree.
 
-diff --git a/arch/arm/boot/dts/broadcom/bcm-nsp.dtsi b/arch/arm/boot/dts/broadcom/bcm-nsp.dtsi
-index 6a4482c93167..9dbcd810e27b 100644
---- a/arch/arm/boot/dts/broadcom/bcm-nsp.dtsi
-+++ b/arch/arm/boot/dts/broadcom/bcm-nsp.dtsi
-@@ -168,7 +168,7 @@ periph_clk: periph_clk {
- 
- 	axi: axi@18000000 {
- 		compatible = "simple-bus";
--		ranges = <0x00000000 0x18000000 0x0011c40c>;
-+		ranges = <0x00000000 0x18000000 0x0011f000>;
- 		#address-cells = <1>;
- 		#size-cells = <1>;
- 
-@@ -538,8 +538,9 @@ sata_phy1: sata-phy@1 {
- 
- 		sata: sata@41000 {
- 			compatible = "brcm,bcm-nsp-ahci";
--			reg-names = "ahci", "top-ctrl";
--			reg = <0x41000 0x1000>, <0x40020 0x1c>;
-+			reg-names = "ahci", "top-ctrl", "idm";
-+			reg = <0x41000 0x1000>, <0x40020 0x1c>,
-+			      <0x11e000 0x1000>;
- 			interrupts = <GIC_SPI 159 IRQ_TYPE_LEVEL_HIGH>;
- 			#address-cells = <1>;
- 			#size-cells = <0>;
--- 
-2.53.0
-
+> ---
+> Changes in v2:
+> - Add iMac13,x background information and supporting links (Lukas)
+> - v1: https://lore.kernel.org/r/20260807094601.263450-2-thorsten.blum@linux.dev/
+> ---
+>  arch/x86/kernel/early-quirks.c | 14 ++++++++------
+>  1 file changed, 8 insertions(+), 6 deletions(-)
+> 
+> diff --git a/arch/x86/kernel/early-quirks.c b/arch/x86/kernel/early-quirks.c
+> index 6b6f32f40cbe..c641f38eca3a 100644
+> --- a/arch/x86/kernel/early-quirks.c
+> +++ b/arch/x86/kernel/early-quirks.c
+> @@ -795,12 +795,14 @@ static void __init early_pci_scan_bus(int bus)
+>  	int slot, func;
+>  
+>  	/* Poor man's PCI discovery */
+> -	for (slot = 0; slot < 32; slot++)
+> -		for (func = 0; func < 8; func++) {
+> -			/* Only probe function 0 on single fn devices */
+> -			if (check_dev_quirk(bus, slot, func))
+> -				break;
+> -		}
+> +	for (slot = 0; slot < 32; slot++) {
+> +		/* Only multifunction devices may have functions 1-7 */
+> +		if (check_dev_quirk(bus, slot, 0))
+> +			continue;
+> +
+> +		for (func = 1; func < 8; func++)
+> +			check_dev_quirk(bus, slot, func);
+> +	}
+>  }
+>  
+>  void __init early_quirks(void)
