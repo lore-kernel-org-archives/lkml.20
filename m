@@ -1,84 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.219
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793001205;
-	b=sPkoU2uLD8sJPW4W4eevm/5FMCvG2lzBcqAuYYRUO6IHK+Jh7EOF2KLmdmuSE5ax+nCv
-	 0aeLP/9LW7l1uK7ksLcggeh5K+GpL9KIkTxePjl3Acm3VgMwNOW3grrYVs4OoDj3hX4xo
-	 oEFsGAqYf1Y7FgoHObZUhWO7tDIksGE4zwHhvOYx1EADmyqN34t5w+TDhdMaAWh5vPN+E
-	 M3J7NwXDh5UvUCrWZ2w6cLcRAPqbEVbJoCJIa5+CuIQ8T3FwD3H+xoMRVCkhd7IwPzSrt
-	 l8j2s5WzC8TdyGRow2S3W0CCYMdYhw/efPicThELkHcbbqy+yW6Bo67/n6ksIuqbXvQ==
+	t=1793001197;
+	b=QY9dHRT8gt34oZ9VocAHua6Wzf/3beAmU1vq4ZHlBTmMul1Q0nAHGszG1g7DjG7zRPmc
+	 PbLoe8QEBi/ucb9PSfAozuY9tKegUSszun3EC29Zjq9jkI8syp0rVNOXme41dLSceUH8d
+	 H7+znSQ2wd8ZWaLbIKbGMDOFDafIIab8FFXGVqKYzEaPoQZknjmaqNWUYakW0oic0Ygfo
+	 ybxKd/K0sJQRT93r8AX1A5hx4Kk/wAJU/XsQyf6q3jibcOlHzOrXJL8WC4U0h2Vsc2Lrm
+	 v6fIqY1Ll+x4/6s2ZT2Vff4e62O6gcsVZSROYdf/AxNfioEEDXXXAi8m4V5SWolyJbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793001205;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=7H64bTVCPsglH5oQkvbahT7Iyth8QZTOTgxkAwcQAL4=;
-	b=ola4Hx+q2WslfMWctPuMFkc3TjtqvM/JEYUPR/HKaF01f72OXolLL0soKeizm9U6yoTf
-	 3vQaSAMic7AQRJ6T7UTp81Lys0GYuQ9JeeU2XjfQTdM4naGl54KGb5y0/GZVDDJvEaGC+
-	 0hxHJlmYX6+0hm8J4KRq9pE6SkhvrFmywIxipbgZoPnOLgaitkLc0IMricXr8wnIkzMhf
-	 vivDzsMCrRVTbpWIg2AMG601Sqvw1itu6/RA7QyvaqMMtd35gKUloV4hKXo+26ldvm9/x
-	 Oh8G/GdSrPHmzDF9sbYlm7cZPP7dlGHXRUcXt9xyk9WZ1tS89KMfzyP/84WPV2R7uFQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793001197;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=0qw5HqjCC5zdFEPhrGxqWLo+k92+fiCBMMJ19xH2DEQ=;
+	b=RMSCsKyZBPFgDHg16oznlLpqNDhDyzou1TMxOIJrzYx1FpvEcz+cUZugynUU2O5mETHY
+	 d7ucV+QZOXT8BWOI0sH6RmWJ7JTSEIR/TfIPl9+ez+F7XM8gmikawgwFAVBRRzxCvQ1fX
+	 mCxoX34RRP8BMaeuCc7Gh+aKYz9Yzc7nbSxjwQrocE2HElvGxuM23NnGkHO4AfFjHszV1
+	 duIZzl3xC2MwCVEIItD8+9vLgxp6L+UsLLrmaQL9j6mYZJYWrEReUOtwnlRyu3gznCrew
+	 XDKf/mbbA/GuMzRsnIF9ReWraV+Z3nBy6OwkpqJVdvkHXPsY6fyOkti3RpZyLrTfZqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=LhZdWlpY;
-	arc=none smtp.remote-ip=113.46.200.219
-Received: from canpmsgout04.his.huawei.com (canpmsgout04.his.huawei.com [113.46.200.219])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R0W5OmGj;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A098D606A325
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 07:53:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A098D606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8221460A2629;
+	Mon, 26 Oct 2026 07:53:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=LhZdWlpY
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=7H64bTVCPsglH5oQkvbahT7Iyth8QZTOTgxkAwcQAL4=;
-	b=LhZdWlpYGh5Hie+QsKe8U5cnQOnd1upYBlst5kgpKz5R7GDhjEr7iJTZ1l/cNnyM20C75+wJG
-	HW4zmrjGfKXrqOc80L7Yg//KogmJMJH4e1JSppRFkJ8nr+3Il/1SM4UuC1REW2ybbf1N5LS02LG
-	9j6DKQ5fn0Sek6DbtVeb7Fw=
-Received: from mail.maildlp.com (unknown [172.19.162.144])
-	by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4jCm8C22Pgz1prr8;
-	Mon, 26 Oct 2026 15:53:15 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 243DC4056D;
-	Mon, 26 Oct 2026 15:53:22 +0800 (CST)
-Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 26 Oct
- 2026 15:53:20 +0800
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-To: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
-	<chenhuacai@kernel.org>, <kernel@xen0n.name>, <maddy@linux.ibm.com>,
-	<mpe@ellerman.id.au>, <npiggin@gmail.com>, <chleroy@kernel.org>,
-	<ritesh.list@gmail.com>, <sshegde@linux.ibm.com>, <pjw@kernel.org>,
-	<palmer@dabbelt.com>, <aou@eecs.berkeley.edu>, <alex@ghiti.fr>,
-	<tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>,
-	<dave.hansen@linux.intel.com>, <hpa@zytor.com>, <akpm@linux-foundation.org>,
-	<baoquan.he@linux.dev>, <rppt@kernel.org>, <pasha.tatashin@soleen.com>,
-	<pratyush@kernel.org>, <thuth@redhat.com>, <ruanjinjie@huawei.com>,
-	<leitao@debian.org>, <yeoreum.yun@arm.com>, <robh@kernel.org>,
-	<sourabhjain@linux.ibm.com>, <kees@kernel.org>, <coiby.xu@gmail.com>,
-	<Yeking@Red54.com>, <tangyouling@kylinos.cn>, <maqianga@uniontech.com>,
-	<zhangtianyang@loongson.cn>, <guodongtai@kylinos.cn>, <blum@kernel.org>,
-	<adityag@linux.ibm.com>, <hui.wang@canonical.com>, <sohammetha01@gmail.com>,
-	<guoren@kernel.org>, <gaohan@iscas.ac.cn>, <kai.huang@intel.com>,
-	<kas@kernel.org>, <vishal.l.verma@intel.com>, <piliu@redhat.com>,
-	<jbouron@amazon.com>, <mclapinski@google.com>, <me@linux.beauty>,
-	<graf@amazon.com>, <bgwin@google.com>, <x86@kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<loongarch@lists.linux.dev>, <linuxppc-dev@lists.ozlabs.org>,
-	<linux-riscv@lists.infradead.org>, <kexec@lists.infradead.org>
-Subject: [PATCH v7 15/15] riscv: kexec_file: Use kexec_load_other_segments() to simplify code
-Date: Mon, 26 Oct 2026 15:52:01 +0800
-Message-ID: <20261026075201.699550-16-ruanjinjie@huawei.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261026075201.699550-1-ruanjinjie@huawei.com>
-References: <20261026075201.699550-1-ruanjinjie@huawei.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R0W5OmGj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11EAB1F01825;
+	Mon, 26 Oct 2026 07:53:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793001197;
+	bh=0qw5HqjCC5zdFEPhrGxqWLo+k92+fiCBMMJ19xH2DEQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=R0W5OmGj345e4icryfA6fmnT8OgSJcIR8OQam9Wmi8BjCF3R/kxzOMZDEEBp9woD2
+	 6Bti1BCAESy0yW0J10ko/4lcrjCk07Tpa5Hixfha3SmHATic55UY5l2yenHih385bJ
+	 HsNaHX/lZKesxTZfZ9PUa2ZliBh0B/sufpncUaoXdmUXLVja1ajQYgr2gefUfstMb5
+	 lSnSDm++Ronw+1HC3Ias/9pBNpTmf0+ttRoO9n/t85wQfRFlWHE8YVuVjzxhnFuDmw
+	 MeVOQ3mFIIJUZMpoF/r/CIOOFVK6TtDEkviQmq7NG6vuOJeY2vOXXGgwcNnD/FYDx/
+	 F1m2ljTC0lyGg==
+Date: Mon, 26 Oct 2026 13:23:09 +0530
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Anthony Ruhier <aruhier@mailbox.org>
+Cc: Bjorn Helgaas <helgaas@kernel.org>, 
+	Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Baochen Qiang <baochen.qiang@oss.qualcomm.com>, 
+	Vasanthakumar Thiagarajan <vasanthakumar.thiagarajan@oss.qualcomm.com>, Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+Subject: Re: [PATCH] PCI: Disable LTR on Qualcomm WCN7850 [17cb:1107] to
+ allow ASPM L1.2
+Message-ID: <at8GgTHUjOF8Tv1J@debian>
+References: <20261023-quick-wcn7850-v1-1-9a139b9b2c8e@mailbox.org>
+ <20261023182004.GA2796729@bhelgaas>
+ <atvQtV71SbtMK-jZ@tour-anthony.aruhier.fr>
+ <at7x8K9Xxa92xW2j@debian>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,195 +63,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+In-Reply-To: <at7x8K9Xxa92xW2j@debian>
 
-Replace load_extra_segments() with the common helper.
+On Mon, Oct 26, 2026 at 12:55:25PM +0530, Manivannan Sadhasivam wrote:
+> On Fri, Oct 23, 2026 at 11:49:22PM +0200, Anthony Ruhier wrote:
+> > On Fri, Oct 23, 2026 at 01:20:04PM -0500, Bjorn Helgaas wrote:
+> > > By "firmware reports LTR value", do you mean that the WCN7850 sends an
+> > > LTR Message with snooped/non-snooped values just below
+> > > LTR_L1.2_THRESHOLD?
+> > >
+> > > And since the reported LTR values are never greater than or equal to
+> > > LTR_L1.2_THRESHOLD, the link never enters L1.2?
+> > 
+> 
+> This is correct.
+> 
+> > Not exactly. The firmware doesn't report a max snoop/no snoop that I could see
+> > in lspci (it's set at 0ns), but if I set one with setpci, the card still
+> > doesn't reach L1.2.
+> 
+> Max Snoop/No-Snoop latencies are supposed to be set by the host software, not
+> the Endpoint firmware. The Endpoint firmware only uses these values to send
+> their Snoop/No-Snoop latencies in the LTR message.
+> 
+> But there are two issues here in Qcom platforms:
+> 
+> 1. Neither the BIOS, nor the PCI core/pcie-qcom driver set the Max
+> Snoop/No-Snoop latencies for the Endpoints/Upstream Ports based on the platform
+> requirement.
+> 
+> 2. The L1_2_Threshold calculated by the PCI core doesn't match the Qcom platforms:
+> 
+> l1_2_threshold = 2 + 4 + t_common_mode + t_power_on;
+> 
+> On the Qcom platforms, T_POWER_ON is 0 by default. I initially misunderstood
+> that the T_POWER_ON value of '0' was wrong. But after checking more, I
+> understood that '0' was indeed the correct value, but there is one more
+> parameter that we are not taking into account, which is TL10_REFCLK_ON time. It
+> is ~40-80us depending on the platform.
+> 
+> Unfortunately, PCIe base spec didn't define any registers to pass the
+> TL10_REFCLK_ON time to the OS. I'm planning to introduce a DT property, set
+> it in Root Port node and take it account in the l1_2_threshold calculation.
+> 
+> Because of the issue (1), the Endpoint firmware reports 0 Snoop/No-Snoop
+> latencies as the LTR latencies cannot exceed Max Snoop/No-Snoop latencies set
+> by the host software. This is the behavior across all Endpoints connected to
+> the Qcom host machines.
+> 
+> So if the LTR requirement bit is set, and the Endpoint sends 0 latencies in LTR
+> message, then L1.2 is not entered all the time because, LTR > L1_2_Threshold.
+> The spec mandates that the link should enter L1.2 only if LTR <= L1_2_Threshold.
 
-The purgatory, DTB and kdump command line move to the setup hook. And the elf
-core header is now 64K aligned.
+Typo here. I got the condition inverted. Currently, LTR < L1_2_Threshold and
+spec mandates LTR >= L1_2_Threshold for entering L1.2.
 
-Cc: Palmer Dabbelt <palmer@rivosinc.com>
-Cc: Alexandre Ghiti <alexghiti@rivosinc.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Cc: Baoquan He <baoquan.he@linux.dev>
-Cc: Mike Rapoport <rppt@kernel.org>
-Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
----
- arch/riscv/include/asm/kexec.h         |  4 --
- arch/riscv/kernel/kexec_elf.c          | 11 ++++-
- arch/riscv/kernel/kexec_image.c        | 11 ++++-
- arch/riscv/kernel/machine_kexec_file.c | 65 ++++++--------------------
- 4 files changed, 31 insertions(+), 60 deletions(-)
+- Mani
 
-diff --git a/arch/riscv/include/asm/kexec.h b/arch/riscv/include/asm/kexec.h
-index b9ee8346cc8c..b0400de9acfd 100644
---- a/arch/riscv/include/asm/kexec.h
-+++ b/arch/riscv/include/asm/kexec.h
-@@ -69,10 +69,6 @@ struct kimage;
- int arch_kimage_file_post_load_cleanup(struct kimage *image);
- #define arch_kimage_file_post_load_cleanup arch_kimage_file_post_load_cleanup
- 
--int load_extra_segments(struct kimage *image, unsigned long kernel_start,
--			unsigned long kernel_len, char *initrd,
--			unsigned long initrd_len, char *cmdline,
--			unsigned long cmdline_len);
- #endif
- 
- #endif
-diff --git a/arch/riscv/kernel/kexec_elf.c b/arch/riscv/kernel/kexec_elf.c
-index 3e9a32acb8f2..202600760f91 100644
---- a/arch/riscv/kernel/kexec_elf.c
-+++ b/arch/riscv/kernel/kexec_elf.c
-@@ -110,6 +110,12 @@ static void *elf_kexec_load(struct kimage *image, char *kernel_buf,
- 	unsigned long new_kernel_pbase = 0UL;
- 	struct elfhdr ehdr;
- 	struct kexec_elf_info elf_info;
-+	struct kexec_load_params params = {
-+		.initrd = initrd,
-+		.initrd_len = initrd_len,
-+		.cmdline = cmdline,
-+		.cmdline_len = cmdline_len,
-+	};
- 
- 	ret = kexec_build_elf_info(kernel_buf, kernel_len, &ehdr, &elf_info);
- 	if (ret)
-@@ -126,8 +132,9 @@ static void *elf_kexec_load(struct kimage *image, char *kernel_buf,
- 	if (ret)
- 		goto out;
- 
--	ret = load_extra_segments(image, image->start, kernel_len,
--				  initrd, initrd_len, cmdline, cmdline_len);
-+	params.kernel_load_addr = image->start;
-+	params.kernel_size = kernel_len;
-+	ret = kexec_load_other_segments(image, &params, true);
- out:
- 	kexec_free_elf_info(&elf_info);
- 	return ret ? ERR_PTR(ret) : NULL;
-diff --git a/arch/riscv/kernel/kexec_image.c b/arch/riscv/kernel/kexec_image.c
-index 51dc89259f16..e0d0aa912a76 100644
---- a/arch/riscv/kernel/kexec_image.c
-+++ b/arch/riscv/kernel/kexec_image.c
-@@ -42,6 +42,12 @@ static void *image_load(struct kimage *image,
- 	u64 flags;
- 	bool be_image, be_kernel;
- 	struct kexec_buf kbuf = {};
-+	struct kexec_load_params params = {
-+		.initrd = initrd,
-+		.initrd_len = initrd_len,
-+		.cmdline = cmdline,
-+		.cmdline_len = cmdline_len,
-+	};
- 	int ret;
- 
- 	/* Check Image header */
-@@ -83,8 +89,9 @@ static void *image_load(struct kimage *image,
- 	pr_info("Loaded kernel at 0x%lx bufsz=0x%lx memsz=0x%lx\n",
- 		kbuf.mem, kbuf.bufsz, kbuf.memsz);
- 
--	ret = load_extra_segments(image, kbuf.mem, kbuf.memsz,
--				  initrd, initrd_len, cmdline, cmdline_len);
-+	params.kernel_load_addr = kbuf.mem;
-+	params.kernel_size = kbuf.memsz;
-+	ret = kexec_load_other_segments(image, &params, true);
- 
- out:
- 	return ret ? ERR_PTR(ret) : NULL;
-diff --git a/arch/riscv/kernel/machine_kexec_file.c b/arch/riscv/kernel/machine_kexec_file.c
-index d191351c6055..e79b71a8b7aa 100644
---- a/arch/riscv/kernel/machine_kexec_file.c
-+++ b/arch/riscv/kernel/machine_kexec_file.c
-@@ -234,51 +234,26 @@ int arch_kexec_apply_relocations_add(struct purgatory_info *pi,
- 	return 0;
- }
- 
--
--int load_extra_segments(struct kimage *image, unsigned long kernel_start,
--			    unsigned long kernel_len, char *initrd,
--			    unsigned long initrd_len, char *cmdline,
--			    unsigned long cmdline_len)
-+int arch_kexec_setup_other_segments(struct kimage *image,
-+				    struct kexec_load_params *params,
-+				    unsigned long initrd_load_addr)
- {
--	int ret;
--	void *fdt;
--	unsigned long initrd_pbase = 0UL;
--	char *modified_cmdline = NULL;
-+	unsigned long kernel_start = params->kernel_load_addr;
-+	char *cmdline = params->cmdline;
- 	struct kexec_buf kbuf = {
- 		.image = image,
--		.buf_min = kernel_start + kernel_len,
-+		.buf_min = kernel_start + params->kernel_size,
- 		.buf_max = PFN_PHYS(max_low_pfn),
- 	};
-+	char *modified_cmdline = NULL;
-+	void *fdt;
-+	int ret;
- 
- #ifdef CONFIG_CRASH_DUMP
--	/* Add elfcorehdr */
-+	/* Setup cmdline for kdump kernel case */
- 	if (image->type == KEXEC_TYPE_CRASH) {
--		ret = crash_prepare_headers(true, &kbuf.buffer, &kbuf.bufsz, NULL);
--		if (ret) {
--			pr_err("Preparing elf core header failed\n");
--			goto out;
--		}
--
--		image->elf_headers = kbuf.buffer;
--		image->elf_headers_sz = kbuf.bufsz;
--
--		kbuf.mem = KEXEC_BUF_MEM_UNKNOWN;
--		kbuf.memsz = kbuf.bufsz;
--		kbuf.buf_align = ELF_CORE_HEADER_ALIGN;
--		kbuf.top_down = true;
--
--		ret = kexec_add_buffer(&kbuf);
--		if (ret)
--			goto out;
--
--		image->elf_load_addr = kbuf.mem;
--
--		kexec_dprintk("Loaded elf core header at 0x%lx bufsz=0x%lx memsz=0x%lx\n",
--			      image->elf_load_addr, kbuf.bufsz, kbuf.memsz);
--
--		/* Setup cmdline for kdump kernel case */
- 		modified_cmdline = setup_kdump_cmdline(image, cmdline,
--						       cmdline_len);
-+						       params->cmdline_len);
- 		if (!modified_cmdline) {
- 			pr_err("Setting up cmdline for kdump kernel failed\n");
- 			ret = -EINVAL;
-@@ -306,23 +281,9 @@ int load_extra_segments(struct kimage *image, unsigned long kernel_start,
- 		pr_err("Error update purgatory ret=%d\n", ret);
- #endif /* CONFIG_ARCH_SUPPORTS_KEXEC_PURGATORY */
- 
--	/* Add the initrd to the image */
--	if (initrd != NULL) {
--		kbuf.buffer = initrd;
--		kbuf.bufsz = kbuf.memsz = initrd_len;
--		kbuf.buf_align = PAGE_SIZE;
--		kbuf.top_down = true;
--		kbuf.mem = KEXEC_BUF_MEM_UNKNOWN;
--		ret = kexec_add_buffer(&kbuf);
--		if (ret)
--			goto out;
--		initrd_pbase = kbuf.mem;
--		kexec_dprintk("Loaded initrd at 0x%lx\n", initrd_pbase);
--	}
--
- 	/* Add the DTB to the image */
--	fdt = of_kexec_alloc_and_setup_fdt(image, initrd_pbase,
--					   initrd_len, cmdline, 0);
-+	fdt = of_kexec_alloc_and_setup_fdt(image, initrd_load_addr,
-+					   params->initrd_len, cmdline, 0);
- 	if (!fdt) {
- 		pr_err("Error setting up the new device tree.\n");
- 		ret = -EINVAL;
 -- 
-2.34.1
-
+மணிவண்ணன் சதாசிவம்
