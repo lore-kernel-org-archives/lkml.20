@@ -1,112 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793046229;
-	b=PVoNqa8kyVuUV72pnuJocK+rslH/C588IfIarDn6wp8pMkF8zhPVpN3a4+2wVfzieqU8
-	 RuwoMckiMKYrARP3hBJMn6FTYru3D0Yr5n8DLs7FLRB3pB8rOgZjI6g2wsSZOuxka0cc/
-	 RNEIWdjJLHQ6YCvh45xKwMCL0SlFG6E7lfJlfz0YZkYzXECTFhMX60lomlsnxDgAyTfbC
-	 vBoaZzNJwBW+K+XTAAcFz8isHNh+2pLHpyJmGZL7ENXqEA8mvAJ92Oi4YAK6U5vBgxDV7
-	 eWzMloDBLd7E0FaWQr8fBooWXTwdK1qjhQ9Sud8xuRdA70hL0JmQ3sE6k3ytWCTZlnA==
+	t=1793046236;
+	b=N7mq8nLucRuXSIrFr7yMh4NmFVEhxsB7/oSJ2/UtFN/ae4itloKA05DqZN+8xdqMkp85
+	 HAa+EYsVpTeBJpkxZrjYs6RwHTK7mG98xFh5kn+A5wMshAs5vXIm2K0aM6bmV+unb6RTt
+	 6lnVwP6uGCsDnUzWOVmKr9GcpH4iRtwJTDnKCvgRoE0gNgp0kZXf59GOTfx/n7fX6T6pL
+	 HS2TrK/L+d9seOnPTFYNHWvEgyXfwQ0RXpE8yH9UisHtur+eSbD2ip9rDo4TJ1VSdu6ib
+	 609WDXK5YoPuFposoropN2qvas70z6WM7gvAxkDEPA6XAmzicscS0KapSOfia1xhb/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793046229;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793046236;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=faymWgnFdRC1Ks69YF78/tFXx05sYwA9Q3xwmQUKoUw=;
-	b=BFxoNnf0o54/b3OvzEHM6cDFsp5XdSA+jzr/cwcQtlLOlPTt0s4fdwOCZb0dhnc2HSx0
-	 whtd7qiulc/kG/36yjbdOtRv6l/flecn+/MqlS5JpkSKu85poOOnu77R1TakqYPUgbC28
-	 CF78JLCGbmUCoRObigwpUjFcAZ2matCrZRTfnuczgBe1YEcv9eKwmhzC65tp6yuL3XID8
-	 x6rU5vfugy3gPOxfR1V26KtQVJT4WMZsmxqwSg8eJkemKnt9wkzak1SM8OVjKfbQGtfSj
-	 SEo2eQqpBRLd5fPHuwxcoN1qRp2WzsZXdJCMQZB9UyFA4uNrRckxNlCntqIjVvoWA8g==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=dgrqIkyT1AWg6HRmyXzx36ddvTTSHAJSFT3GWfCe4Hc=;
+	b=WqG78XmfAg7BUbcZ99BBU14ujAoU42mttWlbTehJpaNaUkETyjc0NXF9ZgyIsTgnGs/E
+	 r7Fjorbp0M/79RY9NMV22BD/JiZOlkL2R/EAEn3oBEb+nR53WvS0iZfw24/8DZK08CIXq
+	 KNYzIjeGDV9kF4pKf7WZhISO/XMyDyM5PXOFzak/dzoWsRCgO1pvts0BIvEGfC0zW8jU/
+	 jHXtz0MnLWpiEzx/sqmbvDLvRyiS5ZpURBXzWsD6iCpQGD5BStxEcQixZ/kyS17tsv+uN
+	 G7ItilcqIUt9N3n3VRP7uV9yvtFrAa3k28PrGK5xERWPMc65PBoR0JxfnG8272/YayQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KcXqNYbs;
-	arc=none smtp.remote-ip=209.85.210.173
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qiXMIULT;
+	arc=none smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 282D6606A31F
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 20:23:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 282D6606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AE8A606A31E
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 20:23:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7AE8A606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KcXqNYbs
-Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-8a06e79e152so1667355b3a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:23:48 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qiXMIULT
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a2d6d01ecbso16884505e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:23:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793046228; x=1793651028; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=faymWgnFdRC1Ks69YF78/tFXx05sYwA9Q3xwmQUKoUw=;
-        b=KcXqNYbsPqvSDhGBrUyabXjruTIPint79F2Q17hVWRy86nY+ZDwCy1nTyH0t5NULbi
-         uB1TDe2CA+bBEYE3xymiMu8L3n6NG4NL8w11Mcqcv+/PyjC12qrJXGiQjl9/6uPHW0O3
-         CCPK52XMPrhZC2cck+K0TUWA4yIVY12KCypFQVABVKs41LrF+Nmqlggk5P2MJVbQXke4
-         MFaClQ0iiDaItHjt7SRfAAcNX+0oGWqZ0vTWI7wY6o4Dm2qle8Qh3A4+F208TBMbjsaD
-         matL/l5Jm10FggyqhIeH3xFyQsFXbKRKkHJ80JkmNl5UxifBHAxC6ZtIbgjINtqg3Z/D
-         UoFA==
+        d=gmail.com; s=20251104; t=1793046235; x=1793651035; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dgrqIkyT1AWg6HRmyXzx36ddvTTSHAJSFT3GWfCe4Hc=;
+        b=qiXMIULTMilEl52GvHDMqPoPym++LhzLyKjb5b2IU+yFy92yJJ2Gb+M00zfq85nNF7
+         tp3bwlQSiJd0II1nJjJ4U+xDt7VP7CKfUe0d21Rj+Cu2eZ8WBhZVA8P3fd2k5gTRBDwn
+         pzKqrk9C/CfztgqHXNicXUU+toQAiVUb8l/cB4pmzbBCCEy0AjOexuTUecVN3M1nwjbk
+         zkWrsxjFw9AADuOUAuWPeNLCRSXOfq9utR77e1aFSlFgmBCyS6T0atL8dizD673I2CiD
+         gFOt9Yr9dbsCR2Lk7J5HVmgC/sub6MXUnD9jrkZkQM8mfcofQs1/kllUybaPZrNj1LNv
+         VzDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793046228; x=1793651028;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=faymWgnFdRC1Ks69YF78/tFXx05sYwA9Q3xwmQUKoUw=;
-        b=bRsPVl5bULi8shatc4HS81J5HdkKAByE/p//qFchh7V7OnsTZR3Ck463Jna2jF3xeF
-         xGnW+Y6hqfpQoD6GumZQHxUZO3/Brr7LPuTs4V8Bc4C/dlG5iOH8J5YGQyPIxctN/CLP
-         2p4T48iCmLozNFfbrObbhTS7jQwhupLO0jr2wqpp7ynIhMhSx4NGXBdXXgw8Un4e1riN
-         uvh1QUTkgsDi0x4e7NdFj/WpuJR25V7IiBE7/JUGriUDCl9vWqNIglp81KhcTXWJkTgX
-         03MJidwWCaIaVDzPE1a2n13TkxaVjtzweXw7y4dHCRdRpVJ7Yz5h1KUKcYiRU9DgvgxP
-         T7Lg==
-X-Forwarded-Encrypted: i=1; AKwUvByUdtMQfkC/5XZYMXwoecmuYw5DImksAkBdjovhtIZIfO2IT/ZgG4W/DtK9Y93eHAtfeWfmZtEB+PmHB/8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLuxXyKmA+MpWo4mszqgjZeko++vQ2js5g8/ObaBlbGbUcedAm/
-	lXKf/QPH6hNVGYgSRt74KcVjdkQC7Yuu+xK1H9O0VTLC8lIjATopTJoI
-X-Gm-Gg: AYBFou3nTw+KSdJRMaVUwxFfNhXYHvCJw30a+NV/sR+INPjHULXyaZu05oTDR1JmsVO
-	NL0EsXUKHa9YHepLWtoXxu1Ooe6Bxh2eIBGR6JhYdxV7SqNT8s4Y5uwMykMEf2GScveilZ+p3to
-	2h/YJSQ53ej/2OFGESGT8F1COaec6/bTSdz693NJ6zDBueMWX6muC3mckbOVs9bCj9NOBojxgqM
-	5QPl1W8cRdd2nb1RajPjTGmNTky/hmYuan6KNL6gEPpIIM6nF2rA+abYa/e/xdBBJxHLIBApmZQ
-	Xn0Y7/KrfbFGGmEpfrz9hlSspp76KsakmwRWxn/xJ3LXQ/5874qQrWOXUIfdodeoXQZ28rj3c9N
-	OKvk2zwAB9N0OoFU2AvpYdlm0mEkaNsrOXbKwfK4FV7RYexYLKOHFeDskcoZWlQMMLGwyuVj2Pa
-	Dxa1NDjC4Zwt0WZ2Axq3Kjc+Z8A+g7RSxasWFw7MEXhx6WDTP3fBkyFax0SQIv2kPKcghZKi1t4
-	d5v3ubfESFRmUvsih2jrbzS8+DS8yDYviLoDRKl3aTLADsO1/IZeEoFRp1PIbMUDfvmL4Ld2sW3
-	X4U1iGVMd+GTBcLnrZ5h00qFA7kwkrBX//JhRU+s7LFgysIYYnyDf2bvE63dqMdApJordS7u8NX
-	GPmooV+o7FBzyi/Mxuc5bCe5siQBJws0KaIEoCQpoEFDH+8UiiDBK4ZzyCWwF7w3jSv0=
-X-Received: by 2002:a05:6a00:12d9:b0:8a0:6860:cb16 with SMTP id d2e1a72fcca58-8a364e52e50mr5448635b3a.8.1793046228194;
-        Mon, 26 Oct 2026 13:23:48 -0700 (PDT)
-Received: from sid-dev-env.cgrhrlrrq2nuffriizdlnb1x4b.xx.internal.cloudapp.net ([4.155.54.158])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a36bb29546sm1627846b3a.33.2026.10.26.13.23.46
+        d=1e100.net; s=20260707; t=1793046235; x=1793651035;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dgrqIkyT1AWg6HRmyXzx36ddvTTSHAJSFT3GWfCe4Hc=;
+        b=b57OzrCOBnGWQu3R0xdRafvYaDnPryyatu297a8AQq81i69qSPCPUoomP6/EqRMImE
+         HbMCy6XsCqi7daK/EGVwDbKpPyWLp8yH3wdFp7FPl3zkt5Tbb5cv/KrDP0cMWudvK7C9
+         W3YGoLnxbw1hv4zY8gB4zCFERVwwqgNhZMKCyfZEityBfMOfkFx3Ks9c1z9TcWVnibKF
+         WfhVpsjUcQZIJ+SiRO4wc5Dh0qfFr3nfcUVSLbOeBeeJqralVmYkEYgCcK0pdjoPoXBy
+         67b2rNPRE93jadXMrcKrv6RHDjdOaYGsvW47eaS1aI1tb8yV0+4ofgCW/KyF/1fjmWi5
+         CJvQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxRd5PkoaVZvZFRUI1I3+k4jp6q7R9qPKofjUYgIqn/XJTIvWxlVuknUyRCOg0bJvQ3yqL4gI36o/wzZzU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIxTlL2E1bepF7VFw6QUMr27xkNgJBbCCcVU1maCbCzLugJhpZt
+	rpeMTzbsUv9Ek6ESRKPYBgul1OxcGrATg8zerdpIlo5qlIV95XGTyzDB
+X-Gm-Gg: AYBFou3TYmkbczwvgFvoLjDetiwT8gLYDL71D+d9m6rXCsOdyp4Ae7lAJHUnE0ILSzp
+	3gAk40rVEUqmw509EhdPNzfZ8KeNXSeJTYow+IRaeo14u0mlTolCUHzboJCKpBqzkOr07uzcSMu
+	+hVCBhYnklqEcZi+gLnugz8113bQNrCCbfwFsAuH0i35NHQxeb6X5LwtdZFSpx9ccEbjLFZdmNG
+	uLUp/ES1kZ7/aFzQonCGh7SB9E/OKuBOo22bKdrJU4HSIwfuoGILkfM7LNKzqha9GBakLgiUOWG
+	+Uy8D9Sbnyotj0Jo0gCVqTxR2e09Wkt7xUnBcvm2B2ZT1oZKYwizCEFrV//k7Qvxxc158onEOFf
+	+0m1VdZK2LrtQfg8o1s/XNgPSnjIG4DWncJbK7RQRcKmRgmzsrmOBwOEQDmATStQk6B+K19QyvD
+	d/9MAgCwx+KkZJ38BY/+47qkadeqjLS1+IYh48hq6j4q/ccEgEyWeASrgxEkFnZ6rEnZUU/d5h3
+	qeEqcxcPjtJr3DgU08SXnpX1KD4k0bpbGwOpo3TBiHSfDYAVzgHyq/Yu2J8msffpVw=
+X-Received: by 2002:a05:600c:6289:b0:4a1:cfa7:e968 with SMTP id 5b1f17b1804b1-4a35acc8109mr141449025e9.21.1793046234663;
+        Mon, 26 Oct 2026 13:23:54 -0700 (PDT)
+Received: from unicorn.lan.internal ([2a0d:3341:b894:4600:8f9a:af38:72d6:7c0e])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecde7easm18710967f8f.52.2026.10.26.13.23.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 13:23:47 -0700 (PDT)
-From: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
-To: akpm@linux-foundation.org,
-	hannes@cmpxchg.org
-Cc: david@kernel.org,
-	mhocko@kernel.org,
-	qi.zheng@linux.dev,
-	shakeel.butt@linux.dev,
-	ljs@kernel.org,
-	kasong@tencent.com,
-	baohua@kernel.org,
-	axelrasmussen@google.com,
-	yuanchu@google.com,
-	weixugc@google.com,
-	baoquan.he@linux.dev,
-	baolin.wang@linux.alibaba.com,
-	yuzhao@google.com,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	apais@microsoft.com,
-	rlmenge@gmail.com,
-	Siddharth Chintamaneni <sidchintamaneni@gmail.com>,
-	Hardik Garg <hargar@linux.microsoft.com>
-Subject: [PATCH v2 2/2] mm: multi-gen LRU: remove get_lruvec()
-Date: Mon, 26 Oct 2026 20:23:13 +0000
-Message-ID: <20261026202313.63122-3-sidchintamaneni@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261026202313.63122-1-sidchintamaneni@gmail.com>
-References: <20261026202313.63122-1-sidchintamaneni@gmail.com>
+        Mon, 26 Oct 2026 13:23:54 -0700 (PDT)
+From: Giuseppe Piscitelli <ooonea@gmail.com>
+To: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+	"Martin K. Petersen" <mkp@kernel.org>
+Cc: linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] scsi: scsi_debug: Drain target cleanup before module exit
+Date: Mon, 26 Oct 2026 21:23:41 +0100
+Message-ID: <20261026202342.668361-1-ooonea@gmail.com>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,173 +96,38 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-get_lruvec() was originally introduced in commit ec1c86b25f4b ("mm:
-multi-gen LRU: groundwork") to guard against NULL NODE_DATA(nid) on
-uninitialized NUMA nodes (`return pgdat ? &pgdat->__lruvec : NULL;`).
-After commit 09f49dca570a ("mm: handle uninitialized numa nodes
-gracefully") and commit 931b6a8b36a2 ("mm: multi-gen LRU: remove NULL
-checks on NODE_DATA()"), that NULL check was removed, leaving
-get_lruvec() as a thin wrapper around mem_cgroup_lruvec().
+Target destruction queues cleanup in an exclusive async domain. The
+module loader's async_synchronize_full() does not wait for exclusive
+domains. Wait for target cleanup after removing the hosts and before
+removing the debugfs root and returning from module exit.
 
-Remove get_lruvec() and call mem_cgroup_lruvec() directly at all call
-sites.
-
-Suggested-by: Barry Song <baohua@kernel.org>
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Signed-off-by: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
-Signed-off-by: Hardik Garg <hargar@linux.microsoft.com>
+Fixes: b402a0dce64a ("scsi: scsi_debug: Fix create target debugfs failure")
+Signed-off-by: Giuseppe Piscitelli <ooonea@gmail.com>
 ---
- mm/vmscan.c | 39 +++++++++++++++------------------------
- 1 file changed, 15 insertions(+), 24 deletions(-)
+OpenAI Codex found this gap during SCSI teardown analysis and wrote the
+fix and its local validation.
 
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index 99e9f07fa2e1..5767b94fd8e8 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -2741,15 +2741,6 @@ static bool should_clear_pmd_young(void)
- #define get_memcg_gen(seq)	((seq) % MEMCG_NR_GENS)
- #define get_memcg_bin(bin)	((bin) % MEMCG_NR_BINS)
+Earlier validation included a Linux 7.3 build and three ordinary
+corrected-module lifecycles. No unpatched race was forced; this gap was
+not established as the cause of the original allocation messages. This
+base was checked for applicability; no new build or runtime test was run.
+
+ drivers/scsi/scsi_debug.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/scsi/scsi_debug.c b/drivers/scsi/scsi_debug.c
+index 3346562..8aa8652 100644
+--- a/drivers/scsi/scsi_debug.c
++++ b/drivers/scsi/scsi_debug.c
+@@ -8675,6 +8675,7 @@ static void __exit scsi_debug_exit(void)
  
--static struct lruvec *get_lruvec(struct mem_cgroup *memcg, int nid)
--{
--	struct pglist_data *pgdat = NODE_DATA(nid);
--
--	VM_WARN_ON_ONCE(!memcg && !mem_cgroup_disabled());
--
--	return mem_cgroup_lruvec(memcg, pgdat);
--}
--
- static int get_swappiness(struct lruvec *lruvec, struct scan_control *sc)
- {
- 	struct mem_cgroup *memcg = lruvec_memcg(lruvec);
-@@ -2942,7 +2933,7 @@ void lru_gen_add_mm(struct mm_struct *mm)
- 	spin_lock(&mm_list->lock);
- 
- 	for_each_node_state(nid, N_MEMORY) {
--		struct lruvec *lruvec = get_lruvec(memcg, nid);
-+		struct lruvec *lruvec = mem_cgroup_lruvec(memcg, NODE_DATA(nid));
- 		struct lru_gen_mm_state *mm_state = get_mm_state(lruvec);
- 
- 		/* the first addition since the last iteration */
-@@ -2972,7 +2963,7 @@ void lru_gen_del_mm(struct mm_struct *mm)
- 	spin_lock(&mm_list->lock);
- 
- 	for_each_node(nid) {
--		struct lruvec *lruvec = get_lruvec(memcg, nid);
-+		struct lruvec *lruvec = mem_cgroup_lruvec(memcg, NODE_DATA(nid));
- 		struct lru_gen_mm_state *mm_state = get_mm_state(lruvec);
- 
- 		/* where the current iteration continues after */
-@@ -4424,7 +4415,7 @@ void lru_gen_online_memcg(struct mem_cgroup *memcg)
- 
- 	for_each_node(nid) {
- 		struct pglist_data *pgdat = NODE_DATA(nid);
--		struct lruvec *lruvec = get_lruvec(memcg, nid);
-+		struct lruvec *lruvec = mem_cgroup_lruvec(memcg, pgdat);
- 
- 		spin_lock_irq(&pgdat->memcg_lru.lock);
- 
-@@ -4446,7 +4437,7 @@ void lru_gen_offline_memcg(struct mem_cgroup *memcg)
- 	int nid;
- 
- 	for_each_node(nid) {
--		struct lruvec *lruvec = get_lruvec(memcg, nid);
-+		struct lruvec *lruvec = mem_cgroup_lruvec(memcg, NODE_DATA(nid));
- 
- 		lru_gen_rotate_memcg(lruvec, MEMCG_LRU_OLD);
- 	}
-@@ -4459,7 +4450,7 @@ void lru_gen_release_memcg(struct mem_cgroup *memcg)
- 
- 	for_each_node(nid) {
- 		struct pglist_data *pgdat = NODE_DATA(nid);
--		struct lruvec *lruvec = get_lruvec(memcg, nid);
-+		struct lruvec *lruvec = mem_cgroup_lruvec(memcg, pgdat);
- 
- 		spin_lock_irq(&pgdat->memcg_lru.lock);
- 
-@@ -4480,7 +4471,7 @@ void lru_gen_release_memcg(struct mem_cgroup *memcg)
- 
- void lru_gen_soft_reclaim(struct mem_cgroup *memcg, int nid)
- {
--	struct lruvec *lruvec = get_lruvec(memcg, nid);
-+	struct lruvec *lruvec = mem_cgroup_lruvec(memcg, NODE_DATA(nid));
- 
- 	/* see the comment on MEMCG_NR_GENS */
- 	if (READ_ONCE(lruvec->lrugen.seg) != MEMCG_LRU_HEAD)
-@@ -4489,7 +4480,7 @@ void lru_gen_soft_reclaim(struct mem_cgroup *memcg, int nid)
- 
- bool recheck_lru_gen_max_memcg(struct mem_cgroup *memcg, int nid)
- {
--	struct lruvec *lruvec = get_lruvec(memcg, nid);
-+	struct lruvec *lruvec = mem_cgroup_lruvec(memcg, NODE_DATA(nid));
- 	int type;
- 
- 	for (type = 0; type < ANON_AND_FILE; type++) {
-@@ -4536,7 +4527,7 @@ static void try_to_inc_max_seq_nowalk(struct mem_cgroup *memcg,
-  */
- void max_lru_gen_memcg(struct mem_cgroup *memcg, int nid)
- {
--	struct lruvec *lruvec = get_lruvec(memcg, nid);
-+	struct lruvec *lruvec = mem_cgroup_lruvec(memcg, NODE_DATA(nid));
- 	int type;
- 
- 	for (type = 0; type < ANON_AND_FILE; type++) {
-@@ -4613,8 +4604,8 @@ void lru_gen_reparent_memcg(struct mem_cgroup *memcg, struct mem_cgroup *parent,
- 	struct zone *zone;
- 	enum lru_list lru;
- 
--	child_lruvec = get_lruvec(memcg, nid);
--	parent_lruvec = get_lruvec(parent, nid);
-+	child_lruvec = mem_cgroup_lruvec(memcg, NODE_DATA(nid));
-+	parent_lruvec = mem_cgroup_lruvec(parent, NODE_DATA(nid));
- 
- 	for_each_managed_zone_pgdat(zone, NODE_DATA(nid), zid, MAX_NR_ZONES - 1)
- 		for (type = 0; type < ANON_AND_FILE; type++)
-@@ -5370,7 +5361,7 @@ static void lru_gen_change_state(bool enabled)
- 		int nid;
- 
- 		for_each_node(nid) {
--			struct lruvec *lruvec = get_lruvec(memcg, nid);
-+			struct lruvec *lruvec = mem_cgroup_lruvec(memcg, NODE_DATA(nid));
- 
- 			lruvec_lock_irq(lruvec);
- 
-@@ -5501,7 +5492,7 @@ static void *lru_gen_seq_start(struct seq_file *m, loff_t *pos)
- 
- 		for_each_node_state(nid, N_MEMORY) {
- 			if (!nr_to_skip--)
--				return get_lruvec(memcg, nid);
-+				return mem_cgroup_lruvec(memcg, NODE_DATA(nid));
- 		}
- 	} while ((memcg = mem_cgroup_iter(NULL, memcg, NULL)));
- 
-@@ -5533,7 +5524,7 @@ static void *lru_gen_seq_next(struct seq_file *m, void *v, loff_t *pos)
- 		nid = first_memory_node;
- 	}
- 
--	return get_lruvec(memcg, nid);
-+	return mem_cgroup_lruvec(memcg, NODE_DATA(nid));
+ 	sdebug_erase_all_stores(false);
+ 	xa_destroy(per_store_ap);
++	async_synchronize_full_domain(&sdebug_async_domain);
+ 	debugfs_remove(sdebug_debugfs_root);
  }
  
- static void lru_gen_seq_show_full(struct seq_file *m, struct lruvec *lruvec,
-@@ -5715,7 +5706,7 @@ static int run_cmd(char cmd, u64 memcg_id, int nid, unsigned long seq,
- 		goto done;
- 
- 	sc->target_mem_cgroup = memcg;
--	lruvec = get_lruvec(memcg, nid);
-+	lruvec = mem_cgroup_lruvec(memcg, NODE_DATA(nid));
- 
- 	if (swappiness < MIN_SWAPPINESS)
- 		swappiness = get_swappiness(lruvec, sc);
-@@ -5899,7 +5890,7 @@ void lru_gen_exit_memcg(struct mem_cgroup *memcg)
- 	VM_WARN_ON_ONCE(mm_list && !list_empty(&mm_list->fifo));
- 
- 	for_each_node(nid) {
--		struct lruvec *lruvec = get_lruvec(memcg, nid);
-+		struct lruvec *lruvec = mem_cgroup_lruvec(memcg, NODE_DATA(nid));
- 		struct lru_gen_mm_state *mm_state = get_mm_state(lruvec);
- 
- 		VM_WARN_ON_ONCE(memchr_inv(lruvec->lrugen.nr_pages, 0,
+base-commit: 6a53f401e671b75c129245e371ca6e9d47fc3c9a
 -- 
-2.45.4
+2.54.0
 
