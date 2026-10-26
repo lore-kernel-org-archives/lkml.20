@@ -1,55 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792999995;
-	b=fGwXXZR31MX3w5OqdSewqUTRYcehcfZ8ta4HRggSlvYxE6F27Md/Kt66uwHMpF5ZiQMV
-	 DSzq0wqzKeq7g3YeQRZ+BulWGImYcg9CHlA0/ibnG1fuzpHGSyI3h2Kyp7q6fAhQLQEUI
-	 ejV6y96YcH5z9WgUwGVmJ6bycfafyibvYXBo3zYmMUEDc/Xsj+Dw/T3iHF4SvMk3bEmh2
-	 mGFBY2J42sil6/kX/cC6F39nL9CT6uYGfFKFdFQHuhmPLbNnPiljk98ZmRpYnKKk5rifY
-	 YzZsvb5J2ySJJevlJy49ESizmYtIN1qfqp3+Hl6+bgNBoJAKWB0W25oc/ZwRaLyBr2A==
+	t=1793000034;
+	b=KQ4nafnZRJs1wZ4EA3uNJ92rlsh5jVhY6NXfo07nQC1wPE2gZeLVNQ+2+A0VWxbHae8a
+	 uLcK1gVYUjZthwhxUCv1CDeGJk6u1o5MV6VEWDryDuerD5YSvu15DzJKRHEDUr5qE6feM
+	 6me/ClPfiEyLr3Dep/YkFQbdCppKONTbyHKja86MWpAhtZaHulc/kuwFcWo3L9WdmgTLu
+	 zDw049kdEB68FmRfCKrASSv30GCVLJPB2qpo3AaxM1abJuOK49Jx+gg63YkQmCdIQ6sby
+	 grEx104O6NFnjs84Pm5Kc2ZX6bn0E5rL9b79/gIPpOfjZlyG9BpQfI1fl/usBsACwHw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792999995;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=7oPMs0d7czZDgpisnaM9AZCe31nOE82TuAm2YPxvoec=;
-	b=vDOYjB2vpbdT1nlgb4oqxuXJB3mgWy5bkcTlkkCJ7IZQwkQzPb4fNwJfz0m8XOsBHwmG
-	 aKMbnmPYVxc50HFaZTKrcdw3SBWPCa24TIRM/dgzHos26WjzMtw3Z7qLUP95bMk6h7tmn
-	 BVq98iTR1B931CLKgztT95r61yOOJtSQwyaOrd1mf/N0UrKORy9GusN/7jtQ+PqaHtJXL
-	 cOdeikhy9DR67JVNG+YbB1zjKNqrreI/A/M/Rhd0Iet3VUsaTIXHhv32ilfe+kZPniCSm
-	 CnCIyoGdcstsa7qyyxO8ZfTQKmn5UiDv3kGDKkOqQ4dzUOu/Q1S1N/HGxYhPwab0VMw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793000034;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=F8U0LKvHGA5PLMBRYsbuaSBNWEEM8e/eqX0yoWLbYmU=;
+	b=J1k6Xeq+ORW+EYIqBt8oE3d1UeeIblX5+Ro4QiCHhW0PJEBJETryUgEj9we5yj7ef4Vy
+	 ficsPJZW0a53WuFxhf/Waz1Yt74r3XB1EVbvIFv5RtbCijAEK3mELAZ9v5uZj7BsRJ2HW
+	 qtElnxA62sFxwWbOzwHTw6IuKQ7it2f3tSKGgt8M4TQShynfiwSDwEU7NLawWFqDjB9kU
+	 B9zpe89S9m7R+oKGGYX2XU8s46IQZ0TjSXEtvLK3DIOurPKzASRk0HXuxxRWrXM7wdzWZ
+	 IE313DVrDTpqZaYw3GLwPTzjmLhVQZzueI2ymync16Rhvdxmb08tOgLMLTGvwPdk5EA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OpZjsW6u;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Iv7Jv4BW;
+	arc=none smtp.remote-ip=209.85.208.170
+Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com [209.85.208.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 271B2606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 07:33:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4121C606A31B
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 07:33:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4121C606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OpZjsW6u
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5E2C1F031E9
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 07:33:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792999994;
-	bh=7oPMs0d7czZDgpisnaM9AZCe31nOE82TuAm2YPxvoec=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=OpZjsW6umHSAJmIGuIlw0vg3e6dV/zUq02ZzorYxiCk6cN37MBJNachEl0rKqkH8i
-	 v3Nk9jJAzZvvuZD8JhipJyWbvmoN8ICO7VxpsH9q2R6JxH6u7/Dn99BqrXDx8AiqCZ
-	 B5ikN31G5bl2To/jKxerWsJBAKubEO5lGcVSuR7tTY8OFurF6B32p3CkdvVAIF6M3+
-	 srQYhcb0mK+7RiMhIcz5qy4l0KAZ/oSpo5BbqJCMDeWMDYxddi4V1pTm/bbTxdW4FX
-	 HmAggB67Iyb8OrgB6ScnD2lVZep61hF8ZzPQwvPzMerEwL09lj9mHyCdzYK3z0cFEe
-	 yszlz25KU06+Q==
-Received: by mail-oa1-f43.google.com with SMTP id 586e51a60fabf-4a75171af39so726442fac.2
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 00:33:14 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBytaalK8rb+N9TwHRhG0JzZAogxOUmVQ+auNl5dBuEHjUYhFO/bdWDVM1omPSBp9S41umYzvaMt/8BYTks=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ5IqPY+QFV/ST4VUldVteEWjBBHSXQtfv6D3QJq/XgrBLziH/Z
-	rvKLlJqEVkdBkfm4BKu5OjImvP6WyWDT/H5BVawJbxU0r0szmjVZqnwPvN1qXyLeCnlp9f8UaMs
-	QqE4x6DEPmpZNo0N8Bo+K4+usxmtEaIo=
-X-Received: by 2002:a05:6870:1702:b0:486:a82a:a345 with SMTP id
- 586e51a60fabf-4a83f588cc1mr3264518fac.25.1792999994001; Mon, 26 Oct 2026
- 00:33:14 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Iv7Jv4BW
+Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-3ab28f3e4dcso30277211fa.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 00:33:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793000032; x=1793604832; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=F8U0LKvHGA5PLMBRYsbuaSBNWEEM8e/eqX0yoWLbYmU=;
+        b=Iv7Jv4BWEjH3RCZxW59xap37rB2DpPqWMaBupTktmbSB457Ye6EljU6meZDw9BgwLX
+         sNQ4QXuCJGIMDYCuHWOe/up3oHvsvmZp60g3XpEEgRtQf3ecGpSjdxqo04VYhaw1O9xg
+         nD9ZYEwMAIvTJu9OJzvZXZ74l5hWSo5K1zcCgYfP4IF0Qfgsh6B20bGmX9aXk+tkurVh
+         gZUR/glYKjTLgHVPZ5W3POEn1TMoKVSQgFOv0P6LsBOugdnNaJG7SwawOW/ieEDd90O2
+         z4MbNFAlEZUARLqcKIkN6tKCMBwUJTxW+KE5MEDok7TLmOIoIVf70OLlPRKNdCK+3OcK
+         aDQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793000032; x=1793604832;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=F8U0LKvHGA5PLMBRYsbuaSBNWEEM8e/eqX0yoWLbYmU=;
+        b=equgzVK1k1rnbILoiAGcz1U2FvIuZ+E/CI/uWKQQyTUvCROH0zQ5nVrWyAtvWg4vGi
+         G+QCXCtA6K90TIshSScdwlr3Aaa5M8cudp8yl/2wCN1j3sfaEBdGQMV8dc8YXGaeOb/O
+         7MW8+SqT3/c3EUxIDOCuMQqhfW93+mXWHqqGUVFjdJcw8oyIVrlOi9BxHwVh/D6KQ8/G
+         MZ5aZv3SRVYIyJT+S2cV5b/ucLKKMPgj1JVbsLThUZXp9piWg0JoMuPUM8ZmGIGqji4c
+         LaXCpFk5ORkZtttG5flANtfI8Uyuzg/2jmK/xYZN1gCZ5tVQTukyjIDEGTckqEBl2e+0
+         +Bsw==
+X-Forwarded-Encrypted: i=1; AKwUvByWS6VcMORD59zyp2PCbCsm4qaBne+ZDmQvG0mHk02w4C+Kt34RuYSR+wm9Px7cG9o+UZSPPiG7CWY16fg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKuFAqYYq+NY66JK8ZAnBKRSo0Un+5caHlGo/BX/2HCH11+hpTB
+	S+R3R9aK81PeEX7+3BxEr+ncrnPr24pMQ2gHOBI1f36ZjYRowyN5hgNT
+X-Gm-Gg: AYBFou1KVpdUupqkHGlw/hTvfhb22ia2dJ1pDZfUGAST4WKR0B9BfzFzqJRc3sEMIuC
+	P+C/Rg/akot2UFqdBfA8AYMuMLGz4lCBIiiTdYdNEv7xmhZ8V0J+cKFocbEJKDiNRL1LsFqwdGk
+	Z8zZiwnsO3mivI/SAa/A96wc4EPYeEL+Jdv2ttrGVq8luCzmSLbJlkfiWgg1moUFbOVczZe3jMr
+	HG8zmUQ5qjdGPkgvZhRSdrRGXvpXNGK9mbK+fKK8GfRUiowl1lWYhgj7k7fUZfeXv6TwaXjHhrO
+	gAB/1g/Ibsi1vY21p3y4ZjsY6pM1Ykp5x75Vn2eDk8JzyPYcHutGnXDDgD16jqrlXxlU6kZbeZg
+	eRFKJD9CEmXaY92XfSZH6izzihAEd1QFgJ1HCypltiOhm6xCHvWgDh/5zLgYsHR++9HbFg6OV5N
+	CHaWXdB/4jc38gbBkByqPScsrgH+nrAQXFK5GUpSV5moeXBHu/PEiedlgtVIzqTH8X9NCXWokFK
+	ZdIYLcGB1+QTbnqpOoVnR2lSN/FGa9eCB/pIwLXsD+gKn/eEw3OJI+Wp3vIZ5ca8CaFxtx/4SS5
+	pQErbw/0ROONEUY87MTXP06g1c38VZWkWxk/HyjdkbkOPhd7tGM9pw==
+X-Received: by 2002:a05:6512:3c9a:b0:5bc:f296:a12b with SMTP id 2adb3069b0e04-5bfb7449714mr1568356e87.26.1793000032116;
+        Mon, 26 Oct 2026 00:33:52 -0700 (PDT)
+Received: from localhost ([178.214.243.78])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfc085a3d2sm236852e87.10.2026.10.26.00.33.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 00:33:50 -0700 (PDT)
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+To: Harry Wentland <harry.wentland@amd.com>,
+	Leo Li <sunpeng.li@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>
+Cc: Alex Hung <alex.hung@amd.com>,
+	Alvin Lee <Alvin.Lee2@amd.com>,
+	Jun Lei <Jun.Lei@amd.com>,
+	Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>,
+	Fangzhi Zuo <jerry.zuo@amd.com>,
+	Rodrigo Siqueira <siqueira@igalia.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
+	Josh Kasten <jkasten@gmail.com>
+Subject: [PATCH v2] drm/amd/display: set allow_freesync before validating a new stream
+Date: Mon, 26 Oct 2026 12:33:45 +0500
+Message-ID: <20261026073345.297491-1-mikhail.v.gavrilov@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,69 +106,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261026061300.256009-1-qingfang.deng@linux.dev>
-In-Reply-To: <20261026061300.256009-1-qingfang.deng@linux.dev>
-From: Eric Dumazet <edumazet@kernel.org>
-Date: Mon, 26 Oct 2026 08:33:03 +0100
-X-Gmail-Original-Message-ID: <CAL4WiipU7wttXiBu-+CL=DaP4nfnkEpoMm01uJWorSYdS2fb9w@mail.gmail.com>
-X-Gm-Features: AclHuK_dI9VeKqD4E1U4bCUOsW46HKqWcruEWLK_U7y7CH1Lv7Vlz9PQFvLLTb4
-Message-ID: <CAL4WiipU7wttXiBu-+CL=DaP4nfnkEpoMm01uJWorSYdS2fb9w@mail.gmail.com>
-Subject: Re: [PATCH net v2] pppoe: wait for RCU readers before reusing a socket
-To: Qingfang Deng <qingfang.deng@linux.dev>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Arnd Bergmann <arnd@arndb.de>, 
-	Guillaume Nault <gnault@redhat.com>, Felix Fietkau <nbd@nbd.name>, Eric Woudstra <ericwouds@gmail.com>, 
-	Asim Viladi Oglu Manizada <manizada@pm.me>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Sashiko <sashiko-bot@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Le lun. 26 oct. 2026 =C3=A0 07:13, Qingfang Deng <qingfang.deng@linux.dev> =
-a =C3=A9crit :
->
-> When pppoe_connect() disconnects or reuses a socket, it removes the old
-> session from the hash table and resets the socket's fields. An RCU
-> reader that reached the entry before it was unlinked can still be using
-> its address, ifindex or next pointer.
->
-> If sockets A and B share a hash bucket with A preceding B, a concurrent
-> __get_item() looking for B can be traversing A when it is removed.
-> Clearing A->next then makes the lookup miss B and drop the packet.
-> Reinserting A can similarly redirect the reader into another hash chain.
->
-> Call synchronize_net() after unlinking the old session and before
-> clearing its fields. This allows existing receive-path and
-> /proc/net/pppoe readers to finish before the socket is cleared or reused.
->
-> This was found by Sashiko's static analysis, and reproduced on a VM
-> stress test with KCSAN.
->
->  BUG: KCSAN: data-race in hash_item+0x1c/0x60
->
->  race at unknown origin, with read to 0xffff888000a1c566 of 2 bytes by ta=
-sk 147 on cpu 2:
->   hash_item+0x1c/0x60
->   pppoe_seq_next+0x112/0x1b0
->   seq_read_iter+0x595/0x700
->   seq_read+0xb0/0xe0
->   proc_reg_read+0xd0/0xf0
->   vfs_read+0xbd/0x220
->   ksys_read+0xa9/0x100
->   __x64_sys_read+0x47/0x60
->   x64_sys_call+0x98/0x1fd0
->   do_syscall_64+0x5b/0x260
->   entry_SYSCALL_64_after_hwframe+0x4b/0x53
+After resume from S3, DC enables SubVP on a single FreeSync display at
+a high refresh rate, although dcn32_allow_subvp_high_refresh_rate() is
+meant to keep SubVP off that configuration ("For single display cases,
+freesync must be disabled").  On an RX 7900 XTX driving a FreeSync TV
+at 3840x2160@120, amdgpu_dm_capabilities reports sub-viewport disabled
+after boot and enabled after "rtcwake -m mem", and the memory clock
+starts switching.  It stays that way until a later commit re-validates
+the state; a CRTC gamma change (toggling Night Light) turns SubVP off
+again.
 
-Please next time include symbols. (scripts/decode_stacktrace.sh)
+The policy reads dc_stream_state::allow_freesync while the new state
+is validated, but amdgpu_dm sets that field only in
+amdgpu_dm_update_freesync_state_on_stream(), on the first flip after
+the commit.  A stream created by a modeset is therefore validated as
+if FreeSync were off.  On resume, dm_destroy_cached_state() drops the
+streams and forces a modeset, so the resumed state is validated
+without FreeSync.
 
->
->  value changed: 0x0002 -> 0x0000
->
-> Fixes: 72cdc67e7fa7 ("pppoe: remove rwlock usage")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/2026102009211=
-8.47416-1-qingfang.deng@linux.dev
-> Signed-off-by: Qingfang Deng <qingfang.deng@linux.dev>
-> ---
+Set allow_freesync in amdgpu_dm_get_freesync_config_for_crtc(), which
+atomic check calls for every active CRTC and which already writes
+ignore_msa_timing_param to the stream.  It uses vrr_supported, the
+condition the flip-time value is derived from.  With this change the
+same TV keeps SubVP disabled across "rtcwake -m mem".
 
-Reviewed-by: Eric Dumazet <edumazet@kernel.org>
+On this machine SubVP is also what exposes the single-frame scanout
+corruption reported in the thread linked below, so the FreeSync
+setting stopped working as a workaround after every suspend.
+
+Fixes: 87f0c16e0eeb ("drm/amd/display: Enable SubVP for high refresh rate displays")
+Link: https://lore.kernel.org/all/20260829010525.29935-1-mikhail.v.gavrilov@gmail.com/
+Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/5714#note_3736349
+Tested-by: Josh Kasten <jkasten@gmail.com>
+Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+---
+v2:
+ - Rebased onto amd-staging-drm-next, where vrr_supported also depends
+   on vrr_timing_valid, so v1 no longer applied there.  No functional
+   change.
+ - Added Tested-by from Josh Kasten, who ran v2 on next-20261023 (the
+   file is the same there as in amd-staging-drm-next) and saw SubVP
+   stay disabled across rtcwake with FreeSync enabled.
+ 
+v1: https://lore.kernel.org/all/20261018221726.27259-1-mikhail.v.gavrilov@gmail.com/
+
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c    | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
+index 386ba88c57c6..936a899aef00 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
+@@ -170,6 +170,14 @@ void amdgpu_dm_get_freesync_config_for_crtc(
+ 					vrefresh <= aconnector->max_vfreq &&
+ 					vrr_timing_valid;
+ 
++	/*
++	 * DC reads allow_freesync while validating the new state, for example
++	 * to keep SubVP off a single FreeSync display, but it is otherwise set
++	 * only on the first flip after the commit.  Set it here, so that a
++	 * stream created by this commit is not validated without it.
++	 */
++	new_crtc_state->stream->allow_freesync = new_crtc_state->vrr_supported;
++
+ 	if (new_crtc_state->vrr_supported) {
+ 		new_crtc_state->stream->ignore_msa_timing_param = true;
+ 		fs_vid_mode = new_crtc_state->freesync_config.state == VRR_STATE_ACTIVE_FIXED;
+-- 
+2.56.0
+
