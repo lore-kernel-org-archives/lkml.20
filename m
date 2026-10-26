@@ -1,49 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793015448;
-	b=DnJ/Lwmo5Gl0FaXFDU4o0WNSyb409yLUOYB0uDEoYztxMmF7+wXbnfJ0nfGwuZ72ucCM
-	 CRoKiHnQ/ZQBRVA5eOb0ovtQbzX8lTgvkV/iBJm86e3Gwb5ov8QnlNw0LeCDMTi0LEscs
-	 3/e1zFXgLgAb9qMRAKulgS97NRSgDJesKS7eziWpICdJWOExpqF+8eRuCN8Ehzi/o5syN
-	 8T3iXWSnU65iJWskvKeAmYeVMxrMsqUypb9HBuArPirxBWtfmb+KDy5kM7xJDN8ibnxCp
-	 E4cM66vJ/2ZJzXpPf0uGbLKWL7hS6UqxKGTkjrxmA0/REvjrYLL1BWShXhKXW9DJyCA==
+	t=1793015445;
+	b=2z23iUySRPtzYZQCM3AAZ8IUwlNRrp252AwLCtSRDzlfAdf8RLM7H4jgiHhN5Rv1FxtQ
+	 5Wdj7ctfs8BrvyANT4mlSeuETpIMpALn4AzV9JWkjza0JOi12WF3rN3xzHVgLMdFz0t76
+	 Kr1IG4xL1Tkv/eRy2cUwfL3UW4RVa+YhpyBbIWvo6ldK6nXy4eZOZftSSs7ERXFU6ll+U
+	 5N31T7M+uK+OGIyLDHLz/17H2DFbZ3G4iPn4qVc4qlkQo96/lwJGtCl9tM7X8iSKMjyce
+	 aTFu3OsKd9RsprznlSrxRtkkxSw038VBYkZTaqzqQHoisq5WhJUtAnMOdm11EB3zEQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793015448;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:References:Content-Language:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=IMqP5d2GpqKsgJhfrXjzZSIVvDhsXw2uZqS/tTymGN4=;
-	b=RISl7UzXR6fqGAp1zejEE/pFFABRrIjQDMfb7Qp4msuWZCBN4bahZX7Q292jQOEU2sV9
-	 3ABA/w7CchFCntr3TcXmHC+ISFV22HWE871a70nV40syfvSXPnP42I9adfaLvV0tnQS7i
-	 qN74IWFIvYkhxV4NaRzapkFDe5MvGwR/8ANgJhBxJ8ToNe8zKl3whQk6z/QSjxfFXSOGp
-	 57UcZbUL1erBaJA4HoTqyAKid8wN1O1iZdCickvo2bIrLajRqtuJ4l2fqRtaUm7zd7swU
-	 XDMkmsPFeoqO0XXA4s59vFk4EFy75+Qy5dqPM418ezx9uXlRrT2no4fbJS73iiNLIJw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793015445;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Lhhy4dOxtnnyPutzo8dg+ONteVRvx6diYiVVEcbUzY0=;
+	b=riZXBOofLJ/eQSh55ysddYr+gkfRiMZ5DAM2Cs0l4bpiHLQ85c+Nq+4M/opDcabNjHti
+	 jF7hMvGQQESxyw1BZELy0Y0lxZ+MK8OCaDnnWN50o8yqHiRZND7cj8MWVqTFCnnywbS+D
+	 zY28u/kzOfv+r64wShChgwaTtRt6RPGF5ODqBkQaRQtNFDpjKyF7nV3lFMKv6cI5CB7H9
+	 N5U9HJzvmO4g9n3/JrUs4+qfnmychYkJ5KyMSQZ/q2aicKIHmfGESR4FLcCmhLQMiKg13
+	 byMMlRMOV8L6CuxyiAD/PSrXEGpFfeylplwv5OkchYqTN2fW6HFJvVb3qO6/ymKQRlw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=B1593lYj;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 232B7606A324;
-	Mon, 26 Oct 2026 11:50:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 232B7606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mzsx+Qdn;
+	arc=none smtp.remote-ip=209.85.210.174
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 463DE606A31B
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:50:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 463DE606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=B1593lYj
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F31421684;
-	Mon, 26 Oct 2026 04:50:42 -0700 (PDT)
-Received: from [10.2.212.8] (e134344.arm.com [10.2.212.8])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C02823F59E;
-	Mon, 26 Oct 2026 04:50:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793015446; bh=G+G01ItkIFohq402BAAUlhnrkeJG8Ezyba+2qQt36bU=;
-	h=Date:Subject:To:References:From:In-Reply-To:From;
-	b=B1593lYjBN+4eNbhB643XLJJfGmT5+PuzpSL8xUN9GPjr/WvSKD61pDCAAvXa5ArN
-	 1pnmDqpxDCeX5YJU4awrn2r776ZroCdD0xdamoNGUtzFDaHBLFPCDHCL5LsRe99+St
-	 KItdwL0IkOtxLwiJ0efIFKE+oxhC1hvHm56++PYc=
-Message-ID: <68fa8cba-cccc-4b4c-9421-5b631f539727@arm.com>
-Date: Mon, 26 Oct 2026 11:50:42 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mzsx+Qdn
+Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-8a06b27bf9bso1429359b3a.2
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 04:50:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793015445; x=1793620245; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Lhhy4dOxtnnyPutzo8dg+ONteVRvx6diYiVVEcbUzY0=;
+        b=mzsx+QdnmaXh6VOzJMQh2Yfr1eD/E7W/Xn0ObOfzC0kuS024gNwgs0zu75Cn0ZysSN
+         3yA56gDH1PgrKcivO5g4r6AgqgE0kL4Vy6rKM1J0q62dkvPBruzKi0jHpF30KHKC+4hM
+         MaTookWu7XMs32Tk70Vucpa+C8abpJt6CSfS9gw7O9XILpYmLPRJMVt+3aPhHIpara0a
+         JA3K0ch2LMxwp7oC36IgpbnzucCPJr5u8SYAgRKqEBAVdxqtlr40koOSh/Q/GeEB5Hq3
+         810xcANoR64mFFIknEr2J5184bt3pz+n6mGfcXdEyy1emdp6iQzILEIXiInIw1WwbgzZ
+         Sp6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793015445; x=1793620245;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Lhhy4dOxtnnyPutzo8dg+ONteVRvx6diYiVVEcbUzY0=;
+        b=mMN5iPCT1nQ1K2AywRg7riE3mR2zv3rD5ThbWTfXZ8t7ULhQuGMWDEcWCpokz8dvAS
+         pn16rtlSMtKgrgq14YJbZAImP4RFa/EZWQAefLU+N4IOxOw5hQOaxMWIcyxnKWt9ZmyR
+         Zx46MPN3q4qWQCRj90SyBYjy8a+3SaKq/y5NuwmRz4Lotkhcoc3oFJsiJ4UetzF6xZVI
+         hGrx8OuNf9hIZJwD4GGa6wWJfuyMwIpjkmyag0gcRhjgmngTP1DZ3GcE/fL5AI5UV2Tj
+         xb2HCAlLnop3iJGqYdZ2EU8ecsqFJBkirtZeh/4EWWn2gDViDnJUc1vGw3HdK1g0uVuH
+         VLyA==
+X-Forwarded-Encrypted: i=1; AKwUvBw5clBiCXL7PZejvFdgHFqIIcOrACtAW4mfZM7W5sdMEBHAH5WndA0xMti3KnTerucv8cEicpQbR89nLgM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJsgZ9a23oS9T+4F2Saqrjb8CRUpCz+Z5el1V3wshXu1OI2wQ21
+	2lV6LVbPh5w3ebSXXG5uSirh68skstIucFPqAkkcBTONb0fs0mCxJafJ
+X-Gm-Gg: AYBFou1Qtukjy/7B3e8qlfr+aPGz5Ej7DV6aVHaNqOGwmU6ZK5ksCGm8ijiuvZeEFa3
+	R6LZzD5qO3I0ASJ8E59eXFHIE48z5oyO79a2qBT/ksvlZvwSeuv5CRffFnUJTu7OidWhuxEGCgm
+	LolbBd0c0g95PgLLiKGJWy4n64Z6OpK7GxmLZ7KN5LE2fJCW2iH7eS4ZL4RtZ/Qtfi6Ebpsx1fn
+	YZySbAqSrWo8njtxeHWipzBw4Q+9E4zp2FlFyYXvDdiGM9vaTBEdnZAg11Q2iDwiOgWKmm513iv
+	Y+9mLV5gZXilDKNRy90FpQK+vy0ubvQ74XFT4lS+aJVBAJN834B37RkJ4Q25sy7ffO82laxhq/l
+	0orjkkUzWYR5D0fjQxYchyWV/oQPTwiCCbXEUvL1Fhyazi8JLjgktgYX0M85aub0/ivm3X87G0H
+	5ywcXXLI1CpkgJ0ULcyVkknbTb+SnXFiIlTLXKqIw2Wm5zC9/qUv+SuVH0gDy7bbb0cNhmkroHn
+	RUs7bLrZXcOuMN0uLCA5GO9VlzocRxZK6VD9bbYDjOLbaakdg1mAN+LAzUiYJ6B6hdVeXru4hIm
+	+Qo9JwUV8b1OyOWLoZqs
+X-Received: by 2002:a05:6a00:148c:b0:878:34d7:69b2 with SMTP id d2e1a72fcca58-8a369b1d3bcmr4776262b3a.57.1793015444491;
+        Mon, 26 Oct 2026 04:50:44 -0700 (PDT)
+Received: from spiderman.taila3fd8c.ts.net ([202.112.47.77])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a37695ab9dsm1054245b3a.26.2026.10.26.04.50.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 04:50:44 -0700 (PDT)
+From: Li Ximo <lixicaicai@gmail.com>
+To: =?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>
+Cc: Zhang Rui <rui.zhang@intel.com>,
+	Lukasz Luba <lukasz.luba@arm.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	linux-renesas-soc@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Wang Haoran <haoranwangsec@gmail.com>,
+	Li Ximo <lixicaicai@gmail.com>
+Subject: [PATCH] thermal/drivers/rcar_thermal: fix list_first_entry on possibly empty sensor list in suspend/resume
+Date: Mon, 26 Oct 2026 19:50:18 +0800
+Message-Id: <20261026115018.3227372-1-lixicaicai@gmail.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,158 +103,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 2/7] fs/resctrl: Add the L2 monitor events
-To: Jinjie Ruan <ruanjinjie@huawei.com>, catalin.marinas@arm.com,
- will@kernel.org, mark.rutland@arm.com, corbet@lwn.net,
- skhan@linuxfoundation.org, rdunlap@infradead.org, james.morse@arm.com,
- reinette.chatre@intel.com, fenghuay@nvidia.com, tony.luck@intel.com,
- Dave.Martin@arm.com, babu.moger@amd.com, x86@kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261022084821.4014873-1-ruanjinjie@huawei.com>
- <20261022084821.4014873-3-ruanjinjie@huawei.com>
-Content-Language: en-US
-From: Ben Horgan <ben.horgan@arm.com>
-In-Reply-To: <20261022084821.4014873-3-ruanjinjie@huawei.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Jinjie,
+From: Wang Haoran <haoranwangsec@gmail.com>
 
-On 22/10/2026 09:48, Jinjie Ruan wrote:
-> Add the L2 cache occupancy (l2c_occupancy) and L2 bandwidth
-> (mbm_core_bytes) monitor events, and route RDT_RESOURCE_L2 through the
-> same per-domain read path as the L3.
-> 
-> As ARM MPAM Specification said, MPAM resource monitors are associated
-> with a shared partitionable resource in an MSC, not with a particular
-> cache level: the level comes from firmware's description of the MSC.
-> L2 monitors were only missing a resctrl scope. The events are
-> exposed once an architecture reports the L2 resource
-> mon_capable; x86 never does.
-> 
-> Update Documentation/arch/arm64/mpam.rst to mention L2.
-> 
-> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
-> ---
->  Documentation/arch/arm64/mpam.rst | 23 ++++++++++++++---------
->  fs/resctrl/monitor.c              |  9 +++++++++
->  include/linux/resctrl_types.h     | 13 ++++++++++++-
->  3 files changed, 35 insertions(+), 10 deletions(-)
-> 
-> diff --git a/Documentation/arch/arm64/mpam.rst b/Documentation/arch/arm64/mpam.rst
-> index 67fe515ed501..f0697dedde03 100644
-> --- a/Documentation/arch/arm64/mpam.rst
-> +++ b/Documentation/arch/arm64/mpam.rst
-> @@ -32,8 +32,9 @@ Because the user interface to MPAM is via resctrl, only MPAM features that are
->  compatible with resctrl can be exposed to user-space.
->  
->  MSC are considered as a group based on the topology. MSC that correspond with
-> -the L3 cache are considered together, it is not possible to mix MSC between L2
-> -and L3 to 'cover' a resctrl schema.
-> +the L3 cache are considered together, as are MSC that correspond with the L2
-> +cache; it is not possible to mix MSC between L2 and L3 to 'cover' a resctrl
-> +schema.
->  
->  The supported features are:
->  
-> @@ -61,9 +62,11 @@ The supported features are:
->    When the MPAM driver finds multiple groups of MSC it can use for the 'MB'
->    schema, it prefers the group closest to the L3 cache.
->  
-> -* Cache Storage Usage (CSU) counters can expose the 'llc_occupancy' provided
-> -  there is at least one CSU monitor on each MSC that makes up the L3 group.
-> -  Exposing CSU counters from other caches or devices is not supported.
-> +* Cache Storage Usage (CSU) counters expose the occupancy of the cache they
-> +  monitor: 'llc_occupancy' for the L3 group and 'l2c_occupancy' for the L2
-> +  group, provided there is at least one CSU monitor on each MSC that makes up
-> +  the group. Exposing CSU counters from other caches or devices is not
-> +  supported.
->  
->  * Memory Bandwidth Usage (MBWU) on or after the L3 cache.  resctrl uses the
->    L3 cache-id to identify where the memory bandwidth is measured. For this
-> @@ -82,10 +85,12 @@ The supported features are:
->    have a corresponding L3 cache. 'mbm_local_bytes' is not exposed as MPAM
->    cannot distinguish local traffic from global traffic.
->  
-> -  All these restrictions based on L3 cache are due to resctrl, currently, only
-> -  supporting monitoring at the L3 scope. It is expected that going forward more
-> -  MBWU monitors can be exposed to the user after support for more monitoring
-> -  scopes is added to resctrl.
-> +  MBWU monitors on an L2 MSC expose the bandwidth the cache sees as the
-> +  'mbm_core_bytes' event on the L2 resource.
-> +
-> +  These restrictions are due to resctrl only supporting monitoring at the L2
-> +  and L3 cache scopes. MBWU monitors on caches at other levels, or on devices,
-> +  are not exposed.
->  
->  Reporting Bugs
->  ==============
-> diff --git a/fs/resctrl/monitor.c b/fs/resctrl/monitor.c
-> index f9f4d4486c1b..ee296c27c6e8 100644
-> --- a/fs/resctrl/monitor.c
-> +++ b/fs/resctrl/monitor.c
-> @@ -543,6 +543,13 @@ static int __mon_event_count(struct rdtgroup *rdtgrp, struct rmid_read *rr)
->  			return __mon_event_count_one_domain(rdtgrp, rr);
->  		else
->  			return __l3_mon_event_count_sum(rdtgrp, rr);
-> +	case RDT_RESOURCE_L2:
-> +		WARN_ON_ONCE(rr->evt->any_cpu);
-> +		if (WARN_ON_ONCE(!rr->hdr)) {
-> +			rr->err = -EINVAL;
-> +			return -EINVAL;
-> +		}
-> +		return __mon_event_count_one_domain(rdtgrp, rr);
->  	case RDT_RESOURCE_PERF_PKG: {
->  		u64 tval = 0;
->  
-> @@ -1032,6 +1039,8 @@ struct mon_evt mon_event_all[QOS_NUM_EVENTS] = {
->  	MON_EVENT(QOS_L3_OCCUP_EVENT_ID,		"llc_occupancy",	RDT_RESOURCE_L3,	false),
->  	MON_EVENT(QOS_L3_MBM_TOTAL_EVENT_ID,		"mbm_total_bytes",	RDT_RESOURCE_L3,	false),
->  	MON_EVENT(QOS_L3_MBM_LOCAL_EVENT_ID,		"mbm_local_bytes",	RDT_RESOURCE_L3,	false),
-> +	MON_EVENT(QOS_L2_OCCUP_EVENT_ID,		"l2c_occupancy",	RDT_RESOURCE_L2,	false),
-> +	MON_EVENT(QOS_L2_MBM_CORE_EVENT_ID,		"mbm_core_bytes",	RDT_RESOURCE_L2,	false),
->  	MON_EVENT(PMT_EVENT_ENERGY,			"core_energy",		RDT_RESOURCE_PERF_PKG,	true),
->  	MON_EVENT(PMT_EVENT_ACTIVITY,			"activity",		RDT_RESOURCE_PERF_PKG,	true),
->  	MON_EVENT(PMT_EVENT_STALLS_LLC_HIT,		"stalls_llc_hit",	RDT_RESOURCE_PERF_PKG,	false),
-> diff --git a/include/linux/resctrl_types.h b/include/linux/resctrl_types.h
-> index a5f56faa18d2..f31b8f2ccb8b 100644
-> --- a/include/linux/resctrl_types.h
-> +++ b/include/linux/resctrl_types.h
-> @@ -37,7 +37,14 @@
->  /* Number of memory transactions that an MBM event can be configured with */
->  #define NUM_MBM_TRANSACTIONS		7
->  
-> -/* Event IDs */
-> +/*
-> + * Monitor Event IDs, representative a variety of monitoring events:
-> + * QOS_L3_OCCUP_EVENT_ID:     L3 Cache Occupancy statistics event
-> + * QOS_L3_MBM_TOTAL_EVENT_ID: Global Memory Bandwidth statistics event
-> + * QOS_L3_MBM_LOCAL_EVENT_ID: L3 Cache Bandwidth statistics event
-> + * QOS_L2_OCCUP_EVENT_ID:     L2 Cache Occupancy statistics event
-> + * QOS_L2_MBM_CORE_EVENT_ID:  L2 Cache Bandwidth statistics event
-> + */
->  enum resctrl_event_id {
->  	/* Must match value of first event below */
->  	QOS_FIRST_EVENT			= 0x01,
-> @@ -50,6 +57,10 @@ enum resctrl_event_id {
->  	QOS_L3_MBM_TOTAL_EVENT_ID	= 0x02,
->  	QOS_L3_MBM_LOCAL_EVENT_ID	= 0x03,
->  
-> +	/* ARM MPAM L2 Events */
-> +	QOS_L2_OCCUP_EVENT_ID,
-> +	QOS_L2_MBM_CORE_EVENT_ID,
+rcar_thermal_suspend() and rcar_thermal_resume() call
+list_first_entry(&common->head, ...) without checking whether the list
+is empty. list_first_entry() does not return NULL for an empty list; it
+returns the container_of() of the list head pointer, i.e. a wild pointer
+into struct rcar_thermal_common. Dereferencing it at
+priv->chip->needs_suspend_resume (and the MMIO accesses through
+priv->base that follow) is undefined behavior and can corrupt memory or
+crash the kernel.
 
-These are essentially, L2 versions of L3 events. Does it not make sense to generalize the existing
-events to apply in different scopes?
+The list can indeed be empty: rcar_thermal_probe() only adds a sensor to
+common->head after platform_get_resource() succeeds, and it returns
+success even when zero sensors were probed (no i == 0 check before
+"return 0"). With a malformed DT node (no MEM resource) the driver binds
+successfully with an empty list, and the PM core then unconditionally
+invokes the suspend/resume callbacks. This was found by code audit; we
+do not have R-Car hardware to reproduce it at runtime.
 
-Thanks,
+Fix both callbacks by switching to list_first_entry_or_null() and
+returning 0 early when the sensor list is empty. This matches how the
+rest of the driver already tolerates an empty list via the
+list_for_each_entry()-based rcar_thermal_for_each_priv() iterator used
+in remove and IRQ handling, and does not change behavior on the normal
+non-empty path.
 
-Ben
+Reported-by: Wang Haoran <haoranwangsec@gmail.com>
+Reported-by: Li Ximo <lixicaicai@gmail.com>
+Signed-off-by: Wang Haoran <haoranwangsec@gmail.com>
+---
+ drivers/thermal/renesas/rcar_thermal.c | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
 
-> +
->  	/* Intel Telemetry Events */
->  	PMT_EVENT_ENERGY,
->  	PMT_EVENT_ACTIVITY,
+diff --git a/drivers/thermal/renesas/rcar_thermal.c b/drivers/thermal/renesas/rcar_thermal.c
+index 9a9038671..65dba6354 100644
+--- a/drivers/thermal/renesas/rcar_thermal.c
++++ b/drivers/thermal/renesas/rcar_thermal.c
+@@ -530,8 +530,11 @@ static int rcar_thermal_probe(struct platform_device *pdev)
+ static int rcar_thermal_suspend(struct device *dev)
+ {
+ 	struct rcar_thermal_common *common = dev_get_drvdata(dev);
+-	struct rcar_thermal_priv *priv = list_first_entry(&common->head,
+-							  typeof(*priv), list);
++	struct rcar_thermal_priv *priv = list_first_entry_or_null(&common->head,
++								  typeof(*priv), list);
++
++	if (!priv)
++		return 0;
+ 
+ 	if (priv->chip->needs_suspend_resume) {
+ 		rcar_thermal_common_write(common, ENR, 0);
+@@ -545,10 +548,13 @@ static int rcar_thermal_suspend(struct device *dev)
+ static int rcar_thermal_resume(struct device *dev)
+ {
+ 	struct rcar_thermal_common *common = dev_get_drvdata(dev);
+-	struct rcar_thermal_priv *priv = list_first_entry(&common->head,
+-							  typeof(*priv), list);
++	struct rcar_thermal_priv *priv = list_first_entry_or_null(&common->head,
++								  typeof(*priv), list);
+ 	int ret;
+ 
++	if (!priv)
++		return 0;
++
+ 	if (priv->chip->needs_suspend_resume) {
+ 		ret = rcar_thermal_update_temp(priv);
+ 		if (ret < 0)
+-- 
+2.30.2
 
