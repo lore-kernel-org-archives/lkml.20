@@ -1,94 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793019425;
-	b=vO0zOb3BJ3wyLutGIh9kmFS92XuMxKsdAsN+r4p5+eXRUyCoofFr35MztfegPk23mxOf
-	 0U1hYIo+fWsqgFS7Ai0bbaND5FioHbse/sfkwRQSCRWZ5uja1l2CdYcdm8Zu+l8LtQY92
-	 dRItzmOvJ9kLFf1rltiNmynbhsn3ha7Om8wizhl1O5ihfG6nddLCkTGbEXfsO8ex5rfJB
-	 Lg2vLvaNz4R3YYQaqv3P2y04sHxSof1OnoiDNtA3cXS1ENjU2MtWZH4sHn2PKuQ5rjN8m
-	 0cg9bEF2wmuE9yteQkJ1GLPlWqrppGuO+Icha/V2tXSOhj3sEjgakXDxA0oSUZ8hcNg==
+	t=1793019430;
+	b=yePU38qN/vNUSN6T0XpyiNvRer6SGwEbe2yy/uojRiinElYwxGV3g3/sPXT2U4urUUkk
+	 j70Ua1qmmjqBEUrSrPZ+dGXiIkpIO58R4Czp5q8X59VOMYS/0ybJFd9OMEnAsvC6r9kXP
+	 T7+5DBy8X9cURfXXoc4sG0oO26OxzciqU6g/elI8NL1dgWpbJ/+jvZzTqklyGT30UElxI
+	 xFDxi+vnQyf18+dcu+ll2rFhKGawsn7lDvo8D2HmpvOxD4K2RspS2WwBCBhpj+au8G9C9
+	 hjaCvbPpBf+7gaDsacZ1VpqB0JZTtjIIIFlEyMQZE5132jlvVX5kXHC9bXPCCk9xawg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793019425;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=oVuKwGIjjXyEyowEZBI9FlnKfe9p52diw5KrP0Znboo=;
-	b=C1pjQJCNEkK35YHBBisjnFcNJA8fHFPYUikUASpbYS/vjr5Q8Cvi9YF9WAdL397q6Dvk
-	 XZ04+WodB9OZ4oOld+IN4klodzZGIvW6vUaVFC6bL5slQ4U3gCpaY+W8/UJ6tghXS8DPq
-	 HfoqPkw2Xiep2YgrpemWC7Wu2raoMvtSkkCpSxxyxeuPUPjRXtIPBYgmDxZlI1axSPenP
-	 cAGxrShr7GaeY1y5ATnl2Z1L7/ILiTGaQPwTVSVZS0qcIaZ8ZN4mG/Tx4G87Z8pCVCwkV
-	 CGgpCu1WHxI1YDaYxsU9ULAOYFXkRsrLQxSHd5G+zNdn9jKRG29bqj9gvKWxBamIzZA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793019430;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
+	bh=rtIcRoPsuzvE303euSvkccl6Hv/dLG7a9Be0HhrqmYI=;
+	b=dB45kFwQS4LP7KgXqIT3R97L8o1aI9NzgEuOF7ZP0xHcexF4T/Td0Kao3j5SkxUvP/t2
+	 VIjrKsh1K5XsbIqYiZY70gzRElomQrp2iUhju700rKgsSbq8tvNbO0ObSio7sfJDwkiLa
+	 6DC4d3/MxovNQgZvvbHPlbNsGaIPIWVqOKCsoePEQo4k7R28yZHuDz9YeO7MFm/OFT0/x
+	 D5tOc+tm2Gd625euFNYW7limuH0GBXcsDQ12TVTeNHQTKWEyAQZlkOIAmyuf/OLp2aAy5
+	 UZpbIBFot9wfpFVOMRnrEs7eAFv8LgAF+X16yBV/dVmzs+EMeAd5Il1IiJ5DUW1gEkQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qeT6jpq7;
-	arc=none smtp.remote-ip=209.85.210.182
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=gC3U5SKs;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=FQwhEslu;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=gC3U5SKs;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=FQwhEslu;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB669606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:57:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB669606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B376F606A31A;
+	Mon, 26 Oct 2026 12:57:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B376F606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qeT6jpq7
-Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-88cfa501c5cso984940b3a.3
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 05:57:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793019424; x=1793624224; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=oVuKwGIjjXyEyowEZBI9FlnKfe9p52diw5KrP0Znboo=;
-        b=qeT6jpq7I2LtcCl7Qu+xvIx4uXs73wb44YbT+9FyF5C+Nvgy2bQ3j895OsD8OSGjv+
-         +WpZUhX3+6+HKHt36sD1KG4MamoCCYpfCDJWzyybL3852TFmnOC3nV8dJz66sIMFo0cm
-         zGXLZYClv3iIVLDNnosegCl46e3XKjAhyJQr+fMh5kTtGcHb1K7ZvTn6ZHq0fJa6rcif
-         TFP68HrzEngo/vAKB7+uwijarPNp7kCDie7c3Jb6T1xlY4fXQ5dxi9HqEZgPeRIzizsL
-         9vEI5m54WwHFu37BI/48u28s1k+xCO0Qtk6EqCpTX/KMerMklAibB06TfrfCHS/I4nWA
-         zkxg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793019424; x=1793624224;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oVuKwGIjjXyEyowEZBI9FlnKfe9p52diw5KrP0Znboo=;
-        b=C5ARU7zlseHgX2Tbd8Yli8lNDsQHV/N3z0jO6tdA1QtLF0YM/6b9wtg3cZAAtIeDYz
-         ReU+tgY8BxwddrAabwIOEf+6IfuasM5/zU1r2H2crgsSpHSVEYE77mGjgDS5pSEgUl5z
-         KookgjIbA80O38O6IPXSSmLBKhgLa21prBi4AfaBt4JK8ENOYdrC8921cCC5ITPCcmaF
-         7kB7w9F9k4gYGuZRUVuWMHq74hnIn11aJtBAWYtPN6Uh/h2dBGoAYlftfqFzVq8sqze6
-         9FlVS/JsKvibyleoIXOTwFchMAsIQJRrIJUTPidx7FEoXzwHbAY23PGk7ArYcgu7dCjl
-         SsaA==
-X-Gm-Message-State: AFq9FYJlr/Jv/EessS76ed+vac/DGPZkuvh+buo0ewvoRIjWA8CUuRG3
-	qukvCRFoXwiGVIuryBbUOfHJqyAem53c9wIbYnLDu02cbof4SwO15GKk
-X-Gm-Gg: AYBFou2nycAVhv0f+mvZuV1/j1TrovBkM8KPtFoBoxxyt3REbd/gZLDpLiefWTRWvph
-	eR8Ts95m3sFxx3cZJGxn8SQnpLRroVeSvNfKo5UVelckHqbGhyp8oxD2Zb7COT7beiGmoqf1g9o
-	PX8AfIcJ19dXxHEyFG5wL8tmV4bCQ6O4yHSnUBYUZHPp2DDqvDSwQel5rENI/KphsDnjjEL1e9A
-	YIOIPeytt5RfUK0ko7/FOBdhUU5A2Ues74ZEWffYjjoN2YGkCgEC9dTT8pf3JiYSjF/U6GobYru
-	jVU2dDtgJVLxT+1GBulCPPkWjt9IeL4ROuk2bO1WFkROTwJbLYIXK7cwJfXmZj+oFZuRbkzfVgc
-	cHga5so/4JPZCV+qDXrSpkpgpoMkJ9lbSBq9w5GnjIaSi7PEpBvWradrTBxTwa+RdrnsUbPcnIT
-	iW/SJjXi4ica5sSMlMhb+GYEGlm/cVhIsGmMlyz1YTkRdnNniC6OazTXaNooq7k5MEa8U45GBfV
-	4a6WjJ3jz9FKVnH77r0ECFjDUuGC7f7Y8tRWM9khpUCLV1fZTc45LAhTZBQ5CQfNaX7trm4nQi/
-	yiVlSNTnzN/FXfFF63M69ZWX/ExybFxT7yEOHQD+0flD65rMbJl0HOt97IQjkRVDYsjWBPTt4Iq
-	CnFyfKX7DfelI8LYqHm2MVq6+CLrG
-X-Received: by 2002:a05:6a00:a20d:b0:89e:261c:448b with SMTP id d2e1a72fcca58-8a366d7a756mr5101551b3a.34.1793019424147;
-        Mon, 26 Oct 2026 05:57:04 -0700 (PDT)
-Received: from EAIT-H54D9Q2FJQ.eait.uq.edu.au ([130.102.10.17])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a368d87afasm1336811b3a.7.2026.10.26.05.56.57
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 26 Oct 2026 05:57:03 -0700 (PDT)
-From: Yu Zhang <yuz08559@gmail.com>
-To: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
-	Christian Gromm <christian.gromm@microchip.com>
-Cc: linux-kernel@vger.kernel.org,
-	Yu Zhang <yuz08559@gmail.com>
-Subject: [PATCH 2/2] most: core: serialize comp_list and pin the matched component
-Date: Mon, 26 Oct 2026 22:56:07 +1000
-Message-ID: <20261026125607.73453-2-yuz08559@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261026125607.73453-1-yuz08559@gmail.com>
-References: <20261026125607.73453-1-yuz08559@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=gC3U5SKs;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=FQwhEslu;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=gC3U5SKs;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=FQwhEslu
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id B8EB21F46E;
+	Mon, 26 Oct 2026 12:57:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793019427; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rtIcRoPsuzvE303euSvkccl6Hv/dLG7a9Be0HhrqmYI=;
+	b=gC3U5SKscHPXg8RjeWwr3oZamighRtqxYQRxVNIjY/Y6YK8s6TQqmhGyALsdAWqI8ejswA
+	T+rG5lmAVGUtVhaN/yYAcLf4QrIQObD0vS4ju5KSjgp0or4xwNEXd04cxTcIUKXOcdGriZ
+	ococ2Hfp6IrF3/SNKrEO3nZKgi8u8PE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793019427;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rtIcRoPsuzvE303euSvkccl6Hv/dLG7a9Be0HhrqmYI=;
+	b=FQwhEsluY/yj6aGnxk6vNIjdQg6JMSvTMi1YubrRCm6nbZKeGaLY7aLGkcZyAfsEiVUZ4Y
+	oZhfSEg8RUKZwjDA==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793019427; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rtIcRoPsuzvE303euSvkccl6Hv/dLG7a9Be0HhrqmYI=;
+	b=gC3U5SKscHPXg8RjeWwr3oZamighRtqxYQRxVNIjY/Y6YK8s6TQqmhGyALsdAWqI8ejswA
+	T+rG5lmAVGUtVhaN/yYAcLf4QrIQObD0vS4ju5KSjgp0or4xwNEXd04cxTcIUKXOcdGriZ
+	ococ2Hfp6IrF3/SNKrEO3nZKgi8u8PE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793019427;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rtIcRoPsuzvE303euSvkccl6Hv/dLG7a9Be0HhrqmYI=;
+	b=FQwhEsluY/yj6aGnxk6vNIjdQg6JMSvTMi1YubrRCm6nbZKeGaLY7aLGkcZyAfsEiVUZ4Y
+	oZhfSEg8RUKZwjDA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 15BE513408;
+	Mon, 26 Oct 2026 12:57:06 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id eyl2MyFO32rLVAAAD6G6ig
+	(envelope-from <pfalcato@suse.de>); Mon, 26 Oct 2026 12:57:06 +0000
+Date: Mon, 26 Oct 2026 12:57:04 +0000
+From: Pedro Falcato <pfalcato@suse.de>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>, 
+	Davidlohr Bueso <dave@stgolabs.net>, SJ Park <sj@kernel.org>, Kees Cook <kees@kernel.org>, 
+	Colin Cross <ccross@google.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH 2/4] mm/vma: write lock source VMA before duplicating it
+ in __split_vma()
+Message-ID: <at9NKAYk-W7PhlGu@pedro-suse.tail5790ac.ts.net>
+References: <20261023-fix-vma-atomic-v1-0-8ff4fae1fc85@kernel.org>
+ <20261023-fix-vma-atomic-v1-2-8ff4fae1fc85@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,160 +114,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261023-fix-vma-atomic-v1-2-8ff4fae1fc85@kernel.org>
+X-Spamd-Result: default: False [-13.30 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	MISSING_XM_UA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[16];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -13.30
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-comp_list is walked by match_component() and components_show() and
-mutated by most_register_component() (list_add_tail) and
-most_deregister_component() (list_del), all with no lock - the only locks
-in the core are per-channel. A components_show() read or a
-match_component() lookup can therefore run concurrently with a component
-module unregistering and unloading, walking into the list node that
-most_deregister_component() removed and the module freed, i.e. a
-list-traversal use-after-free.
+On Fri, Oct 23, 2026 at 02:47:28PM +0100, Lorenzo Stoakes (ARM) wrote:
+> From: "David Hildenbrand (Arm)" <david@kernel.org>
+> 
+> __split_vma() duplicates the source VMA before taking its VMA write lock,
+> and until the VMA is write-locked, a concurrent thread might set
+> VMA_MAYBE_GUARD_BIT, resulting in the duplication missing the flag.
+> 
+> If this happens, then fork may fail to duplicate guard markers and, if a
+> file-backed mapping, THP collapse may also discard the markers.
+> 
+> Resolve this by taking the VMA write lock before vm_area_dup() and, since
+> all callers of vm_area_dup() now hold the VMA write lock, assert that this
+> is the case there, and add a comment to explain why it's needed.
+> 
+> Fixes: 2ab7f1bbafc9 ("mm/madvise: allow guard page install/remove under VMA lock")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> [ ljs - add VMA write assert in vm_area_dup(), commit message touchup ]
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-match_component() also returned a bare pointer that its callers
-(most_add_link(), most_remove_link(), most_cfg_complete()) dereference
-after the lookup, so the component could be torn down between the lookup
-and the use.
+Reviewed-by: Pedro Falcato <pfalcato@suse.de> 
 
-Add a mutex around every comp_list access, and have match_component()
-take a reference to the component's module before returning so it stays
-alive while the caller uses it; the callers drop it with module_put().
-
-Signed-off-by: Yu Zhang <yuz08559@gmail.com>
----
- drivers/most/core.c | 42 +++++++++++++++++++++++++++++++++++-------
- 1 file changed, 35 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/most/core.c b/drivers/most/core.c
-index c2616da..d17f538 100644
---- a/drivers/most/core.c
-+++ b/drivers/most/core.c
-@@ -28,6 +28,7 @@
- static struct ida mdev_id;
- static int dummy_num_buffers;
- static struct list_head comp_list;
-+static DEFINE_MUTEX(comp_list_mutex); /* protects comp_list */
- 
- struct pipe {
- 	struct most_component *comp;
-@@ -445,14 +446,21 @@ static const struct attribute_group *interface_attr_groups[] = {
- 	NULL,
- };
- 
-+/* On success takes a module ref; caller must module_put(comp->mod). */
- static struct most_component *match_component(char *name)
- {
- 	struct most_component *comp;
- 
-+	mutex_lock(&comp_list_mutex);
- 	list_for_each_entry(comp, &comp_list, list) {
--		if (!strcmp(comp->name, name))
--			return comp;
-+		if (strcmp(comp->name, name))
-+			continue;
-+		if (!try_module_get(comp->mod))
-+			comp = NULL;
-+		mutex_unlock(&comp_list_mutex);
-+		return comp;
- 	}
-+	mutex_unlock(&comp_list_mutex);
- 	return NULL;
- }
- 
-@@ -517,10 +525,12 @@ static ssize_t components_show(struct device_driver *drv, char *buf)
- 	struct most_component *comp;
- 	int offs = 0;
- 
-+	mutex_lock(&comp_list_mutex);
- 	list_for_each_entry(comp, &comp_list, list) {
- 		offs += scnprintf(buf + offs, PAGE_SIZE - offs, "%s\n",
- 				 comp->name);
- 	}
-+	mutex_unlock(&comp_list_mutex);
- 	return offs;
- }
- 
-@@ -666,12 +676,15 @@ int most_set_cfg_packets_xact(char *mdev, char *mdev_ch, u16 val)
- int most_cfg_complete(char *comp_name)
- {
- 	struct most_component *comp;
-+	int ret;
- 
- 	comp = match_component(comp_name);
- 	if (!comp)
- 		return -ENODEV;
- 
--	return comp->cfg_complete();
-+	ret = comp->cfg_complete();
-+	module_put(comp->mod);
-+	return ret;
- }
- 
- int most_add_link(char *mdev, char *mdev_ch, char *comp_name, char *link_name,
-@@ -679,11 +692,17 @@ int most_add_link(char *mdev, char *mdev_ch, char *comp_name, char *link_name,
- {
- 	struct most_channel *c = get_channel(mdev, mdev_ch);
- 	struct most_component *comp = match_component(comp_name);
-+	int ret;
- 
--	if (!c || !comp)
-+	if (!c || !comp) {
-+		if (comp)
-+			module_put(comp->mod);
- 		return -ENODEV;
-+	}
- 
--	return link_channel_to_component(c, comp, link_name, comp_param);
-+	ret = link_channel_to_component(c, comp, link_name, comp_param);
-+	module_put(comp->mod);
-+	return ret;
- }
- 
- int most_remove_link(char *mdev, char *mdev_ch, char *comp_name)
-@@ -695,15 +714,20 @@ int most_remove_link(char *mdev, char *mdev_ch, char *comp_name)
- 	if (!comp)
- 		return -ENODEV;
- 	c = get_channel(mdev, mdev_ch);
--	if (!c)
-+	if (!c) {
-+		module_put(comp->mod);
- 		return -ENODEV;
-+	}
- 
--	if (comp->disconnect_channel(c->iface, c->channel_id))
-+	if (comp->disconnect_channel(c->iface, c->channel_id)) {
-+		module_put(comp->mod);
- 		return -EIO;
-+	}
- 	if (c->pipe0.comp == comp)
- 		c->pipe0.comp = NULL;
- 	if (c->pipe1.comp == comp)
- 		c->pipe1.comp = NULL;
-+	module_put(comp->mod);
- 	return 0;
- }
- 
-@@ -1222,7 +1246,9 @@ int most_register_component(struct most_component *comp)
- 		pr_err("Bad component\n");
- 		return -EINVAL;
- 	}
-+	mutex_lock(&comp_list_mutex);
- 	list_add_tail(&comp->list, &comp_list);
-+	mutex_unlock(&comp_list_mutex);
- 	return 0;
- }
- EXPORT_SYMBOL_GPL(most_register_component);
-@@ -1257,7 +1283,9 @@ int most_deregister_component(struct most_component *comp)
- 	}
- 
- 	bus_for_each_dev(&mostbus, NULL, comp, disconnect_channels);
-+	mutex_lock(&comp_list_mutex);
- 	list_del(&comp->list);
-+	mutex_unlock(&comp_list_mutex);
- 	return 0;
- }
- EXPORT_SYMBOL_GPL(most_deregister_component);
 -- 
-2.43.0
-
+Pedro
