@@ -1,63 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793028092;
-	b=tFanCdWOXWvq5Q/f136KHuNNooL/ZEonGA3LoJMNa7H/70h85MvR8kC4kJNCkcAnywSs
-	 FKY/CCqTVZPnoW+35DnqwJP9XgKHp6jfT4jKyzExxM3KA67yRwaYE4C6Nz1GPJWitLpSF
-	 UIhdSs/NI4oRRxJEoVAH7gMQntXroVYgOwJazik2MbE+A/kimeMJkjD4ftoCQII4Cb1TO
-	 ReNMemQeNNWebsoG/LYoZGgg+26C2u+Ei5a/0B7wRWr9brCrTsxMu76DvMrVzFKLvvmEZ
-	 3eIQQ8QXEz8mWBOEkq3mrw1f0+XGwBjxqKyB2pRGGowsuXnHrSeewsPu3L3Dzt2+vDg==
+	t=1793028118;
+	b=hQSaCYIISB3SUMihZOj+35Z0Nt3V64K0HlL8+1J6Mn8TuWnvnNMtNc4fTBPV7lARBkX5
+	 VVm4k5jxxmGGHNCTNamiRMO+YgxXs1aQs+S+PU7+BwWNLGho2YrbITkLPevYuXpmWxfCT
+	 F7+kFmESHfoQJmtSXr167SPdkxbBqlmouItfOITfg+xYOh3h+n6EivfJcXM9x6TtloNCg
+	 AovxYIW/F2SSy4ZdZsw5dB03U/PIz7horm6/BBBB88zYipuLoVDG1QT56+umReXIM5Zsa
+	 eQIxflMNsf0D0t1z6rnHkk5ZGlkpUH6nygROd5O60GQCNuCXCRY4wk56WfLbXVj1KJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793028092;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-Originating-IP:X-CM-SenderInfo;
-	bh=NgUZou+QAUenodbqqsNTHG+MAZHRcJXPTQZv1JbHVys=;
-	b=KjMVvh+zlRiztdj8G6JL7IgdvxlaS4NMxKF+IC5DzP2ioA+lTAfvQnfkcJ49tNIlNFIz
-	 7+Dc9JjmEkAtG7cRC3wo6qKjbxo3JObh52txomrmx+Sg6pujVXtD9pnBUsShpkt8aXzER
-	 NdaBEJnOLmPDQDmZIs2Ef7lskjQo5AI8P1ORbloVecjE03tk8IpmidNIN3fRbBZOhRQUw
-	 Id19h2uAtlcwcUHizRRfDer2ILvxe0+UFsjvZ8wxu7dorPhCP3F2GgP6XW7ecPYtZa6HF
-	 Yx1Lh+qSi9qLm7cNVtZs0HzxtoN7TlO//ZC0kyklRI5/YWQ18gxEk7ummkEpl1OwTFw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793028118;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition;
+	bh=GufoAbBLk6Ghtl7Jz0h33C6x4w2eCg5HBPMB/M3XR4E=;
+	b=byiCwEVNuJEvUcayTgYmobAum8ETBXEVF/EBXyjyy8j+KybYJ3/ZXPHKc3cWhcfGx3qM
+	 FYCa/1QXhBOfoq8VxfAJHX29Y79QiONNv2bLxQgqK/VUowWAUG6XIHEjjwYukYuRxOl90
+	 E5qYLaP7QZSgqyq1OqSORLH5kXo0L0262EDcNoqwf8rEyL9y1xfwyOx1Sd3yjJwNY39W/
+	 Z58s/kxBVnf6cIw52AMQCFP+5f/PGnF6f8OgJ44oa8VtQiygUAAFZcf2n03vPhdV+eDL1
+	 zODy1VEb/++walY5g72FCFDwNLNnpaAOtwwDK0jL35SAquH4Ozm8z9qEO2cFIWVEUew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Zdp1usVO;
-	arc=none smtp.remote-ip=220.197.31.4
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DJyiyWpk;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4A55606A31A;
-	Mon, 26 Oct 2026 15:21:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4A55606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06D5C606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 15:21:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Zdp1usVO
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Ng
-	UZou+QAUenodbqqsNTHG+MAZHRcJXPTQZv1JbHVys=; b=Zdp1usVO+wA1HyRZky
-	ELohWUrb/FJ+Wz0rd8BNcMAJLR2AJTCopWLgYZjKLUQrhK2qtFJIp8OBGc82TKSJ
-	XJDf45LKpo/wjE6WreuMLkMg14/R/8xSMf45Cc6Vrixj9BJddKRvmlWXk86cUPr7
-	iHtijdSLB3Vlf6BkvdfoVPlxU=
-Received: from SYPC (unknown [])
-	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wDXXx3Ub99q1qL2Cw--.8607S2;
-	Mon, 26 Oct 2026 23:20:52 +0800 (CST)
-From: Yang Siyuan <hsyysy@163.com>
-To: Linus Walleij <linusw@kernel.org>
-Cc: Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	linux-gpio@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] pinctrl: sunxi: request the per-bank supply optionally
-Date: Mon, 26 Oct 2026 23:20:27 +0800
-Message-ID: <20261026152027.1417178-1-hsyysy@163.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261026144751.1392715-1-hsyysy@163.com>
-References: <20261026144751.1392715-1-hsyysy@163.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DJyiyWpk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C23551F01825;
+	Mon, 26 Oct 2026 15:21:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793028117;
+	bh=GufoAbBLk6Ghtl7Jz0h33C6x4w2eCg5HBPMB/M3XR4E=;
+	h=Date:From:To:Cc:Subject;
+	b=DJyiyWpkn2j9monPW6tOtScnxmT9B5i999ufH7CUChPKep8WZ0BKUYwXoI9fVOjwM
+	 wBdMHIzZWDGsjiNuIj7Lqt8v49TC8nZZz6D9T5IenVtR+tQojLo1uI/LXN2fVb/1qD
+	 KccV6bROMQ+cHJ2N7A+XbHn+dtHmOro31RfT8D+awqtPueaEgckmqSEyqxIAP7u+eV
+	 PX90kRbea2ODLoglWnROd0S/Am7/yETTwEEJAOWf0u/q8XaFRpO9YfoQbmW2K/P2Cp
+	 xZ6drkOMfLfzEPzTT/YNkn+mrkcOCq9KicXyYfSEq/sbpuGSbQZx7VyUs+j698GtW+
+	 4uIfwjn3RH4jQ==
+Date: Mon, 26 Oct 2026 15:21:54 +0000
+From: Lee Jones <lee@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Daniel Thompson <danielt@kernel.org>
+Subject: [GIT PULL] Backlight for v7.4
+Message-ID: <20261026152154.GE2195460@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,84 +55,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDXXx3Ub99q1qL2Cw--.8607S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxCFW7AF43XF4fAr4UAFyftFb_yoW5Xr4kpr
-	sxXr1akr4kAFyfKw47uw1xtr1fuan7Ja43CFy0g34rXFs8AFs3Xw1akF4YkFWkGr4kXr4Y
-	yryDZFyxGF45Z3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UH7K3UUUUU=
-X-CM-SenderInfo: 5kv152r16rljoofrz/xtbC7RWj12rfb9XufgAA3T
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-The per-bank "vcc-pX" supplies are optional in the device tree: the
-binding documents them, but notes that many boards do not describe them.
-sunxi_pmx_request() uses regulator_get() anyway, so the regulator core
-falls back to a dummy regulator and warns for every bank that has no
-supply:
+Good afternoon Linus,
 
-  sun50i-h616-r-pinctrl 7022000.pinctrl: supply vcc-pl not found, using
-  dummy regulator
+The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
 
-The H616 R_PIO is such a controller, and its PL0/PL1 pins drive the
-R_I2C bus, so every H616 board hits the warning during boot.
+  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
 
-Use regulator_get_optional() instead.  A bank supply that is described
-in the device tree is still acquired and enabled, as it powers the
-physical VCC-Px rail, but one that is absent is skipped without a
-warning.
+are available in the Git repository at:
 
-Signed-off-by: Yang Siyuan <hsyysy@163.com>
----
+  git://git.kernel.org/pub/scm/linux/kernel/git/lee/backlight.git backlight-next-7.4
 
-Changes in v2:
-- Do not skip the supply on controllers without IO bias configuration:
-  the per-bank regulator also powers the physical VCC-Px rail, so a
-  supply described in the device tree must still be requested and
-  enabled.  Use regulator_get_optional() so only banks that have no
-  supply are skipped, which silences the warning without changing the
-  power management behaviour.
-- Link to v1: https://lore.kernel.org/linux-gpio/20261026144751.1392715-1-hsyysy@163.com/
----
- drivers/pinctrl/sunxi/pinctrl-sunxi.c | 16 ++++++++++++++--
- 1 file changed, 14 insertions(+), 2 deletions(-)
+for you to fetch changes up to eacfbe6f9716d00536edc229a58895405e73c2e4:
 
-diff --git a/drivers/pinctrl/sunxi/pinctrl-sunxi.c b/drivers/pinctrl/sunxi/pinctrl-sunxi.c
-index 70099052d..23c1fbd46 100644
---- a/drivers/pinctrl/sunxi/pinctrl-sunxi.c
-+++ b/drivers/pinctrl/sunxi/pinctrl-sunxi.c
-@@ -925,11 +925,19 @@ static int sunxi_pmx_request(struct pinctrl_dev *pctldev, unsigned offset)
- 	}
- 
- 	snprintf(supply, sizeof(supply), "vcc-p%c", 'a' + bank);
--	reg = regulator_get(pctl->dev, supply);
--	if (IS_ERR(reg))
-+	reg = regulator_get_optional(pctl->dev, supply);
-+	if (IS_ERR(reg)) {
-+		/*
-+		 * The per-bank supply is optional: boards that do not
-+		 * describe it simply have no regulator to manage.
-+		 */
-+		if (PTR_ERR(reg) == -ENODEV)
-+			return 0;
-+
- 		return dev_err_probe(pctl->dev, PTR_ERR(reg),
- 				     "Couldn't get bank P%c regulator\n",
- 				     'A' + bank);
-+	}
- 
- 	ret = regulator_enable(reg);
- 	if (ret) {
-@@ -959,6 +967,10 @@ static int sunxi_pmx_free(struct pinctrl_dev *pctldev, unsigned offset)
- 					    PINS_PER_BANK;
- 	struct sunxi_pinctrl_regulator *s_reg = &pctl->regulators[bank_offset];
- 
-+	/* The per-bank supply is optional, so this bank may not have one. */
-+	if (!s_reg->regulator)
-+		return 0;
-+
- 	if (!refcount_dec_and_test(&s_reg->refcount))
- 		return 0;
- 
-base-commit: 091b06388b117fefdcb63336ac09956a4914b961
+  backlight: qcom-wled: Read back the programmed brightness at probe (2026-10-14 13:30:50 +0100)
+
+----------------------------------------------------------------
+Backlight for v7.4
+
+- Improvements & Fixes
+  - Qualcomm WLED: Fix a NULL pointer dereference in `wled_remove()` by setting platform
+    driver data in `wled_probe()`
+  - Qualcomm WLED: Fix the WLED3 brightness register stride to prevent consecutive string
+    writes from overlapping
+  - Qualcomm WLED: Read back the hardware-programmed brightness at probe, expose it via
+    `get_brightness()`, and prevent unbalanced OVP IRQ enabling
+  - TI LM3630A: Cancel delayed work synchronously after freeing the IRQ and before
+    destroying the workqueue in `lm3630a_remove()`
+
+- Cleanups & Refactoring
+  - Ilitek ILI9320 / Kinetic KTD253: Fix spelling typos in comments
+
+----------------------------------------------------------------
+David Heidelberg (4):
+      backlight: qcom-wled: Fix NULL pointer dereference in wled_remove()
+      backlight: qcom-wled: Fix WLED3 brightness register stride
+      backlight: qcom-wled: Fix unbalanced OVP IRQ enable at probe
+      backlight: qcom-wled: Read back the programmed brightness at probe
+
+Hemanth Selam (1):
+      backlight: ili9320/ktd253: Fix typos in comments
+
+Myeonghun Pak (1):
+      backlight: lm3630a: Cancel delayed work before destroying workqueue
+
+ drivers/video/backlight/ili9320.c          |  2 +-
+ drivers/video/backlight/ktd253-backlight.c |  2 +-
+ drivers/video/backlight/lm3630a_bl.c       |  1 +
+ drivers/video/backlight/qcom-wled.c        | 99 ++++++++++++++++++++++++------
+ 4 files changed, 84 insertions(+), 20 deletions(-)
+
 -- 
-2.56.0
-
+Lee Jones
