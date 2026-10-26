@@ -1,54 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792978365;
-	b=tk5M3y0Z9KWcrKfB6gPSVj5xpo3s/x/YKLQRqr9/gaSR+GbHDiUnEKufh9PoYFHGgQE0
-	 Ab9DnnhOEJOIn0AGqTbe9X8jiLJWOxKU9XO3f/T1nNElY9n8bUWVctQvLQZw+99bEkERE
-	 ZCfmhF3Z6aiBhvDDvHRTmUsdQg/Eqzu7xutPHvA9FGhQc3cvw69vvq5d/d2wgSRxb9MvV
-	 lH1IVDZ42mVOdtgoe8pc1UasuiTRQU9ZR0xBBO8GM4t0uQOqJOi2w6v7LpMqG8Vh9Tf/R
-	 PWyLWAHuYl2nNqxRWJQU0BVxqbNvI2th8PWJlo+OWpFTJPTeX+gxmLmhG02+JKJgs5w==
+	t=1792978538;
+	b=DZiqYAXMYr+PI9y3chTdW/Ep23W+YdJGI9qLMY5yYUHNoQmUAocl+NghSpZQsDYtSg2e
+	 h7tZwOoi0d5Sc5D2gUs1aWjPPTO8YPnzOXePPUBQlHN2q915QE3ZVRPygZWgr3Jc/d+Z+
+	 N4pRmbnthjQ8Z6KsBjAcjFSCAfkV1r+OzZDWwFO3hfazquIr8Ouh3/w5WvN5gT9jXRl4L
+	 bHZx7owcBd5/GXiOvYBsvfo7CjHSXKg8klPXhEiJZspIRS/fJRNQaej0fvXz0ObPJ1WkQ
+	 6bFYQGX2iyMtAPUfuoNAZYHwsfYmZR2Dw8zjv7ZL+B4/RH1Nc6ghpc6SOrGojmtvH/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792978365;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=1WrAPJVqztXGeicWZ8YmBuP6dCF2HqU/IaTH6pLRzhE=;
-	b=cQBNNog9HKrbbVFgTUcBtLxr8wUGcASebP799K38Yh5tlZNLR4JnCJm7crSBnAenZmQP
-	 Sp4Xgolwh+UXDzKxNgDDqKpoimUNzIM1B/v0hdl0eMjhQhWksULl6muj8ll2/DoVzLKLk
-	 RLqK0hgJ/IL1ijKMtnOp/4i+pGLQvUHjMIxYu4e6+d1d68D3dzpVvhdAiz+JiSj8CMsc2
-	 BdFG0m9N1IkEcRtsjYaLcWltqzvP5Qf3fBvTGRevnjthcaxt3TdG/n/YiAHWejOFNXkaK
-	 eSxVpSXHoFrwrEvQh17o72FhyuvkxjFPCIrfv6IIS2RyKS9TDYXs1ySMqIa+oR9+a5w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792978538;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=lGz688wnSiLBt9+k0E3kJwGc/ixPHcTO0dNjdQ1l4Hg=;
+	b=Pp/fhCejKgLddsLrFMyL6127Mo6ZTUhElbwgYum0AsGaifWpNv7F0St2OR4zEqTfjIPT
+	 GhuXCNHOV9uWPF7axaMF5aZHM9WTQlgbfc9teTWZou9xeOEJhK4SR3/Xn59fsbb07eWso
+	 1g+mMljWhUEqcvEhcrNs6FON4ZgSCQl9Pjv8CMcTStk1j9bIn0I05ddDuPDeUgHlYoz0B
+	 5UswnhAqI3Gi9MZM8bqGfqmUXv6X1+R0a0+m4mm7gYng4B0XG5Vs9JmKBFt/b8PkU0teo
+	 4XyUcrS4VgGGnT7Mck4lbppXdAHHN270l0d8EaMEFOtAvfsTONHjZ6HGKz51SYCCQNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.198
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eSEUPBH6;
+	arc=none smtp.remote-ip=198.175.65.9
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12EDA606A31B
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 01:32:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12EDA606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-54dbbf252cdso4402324b6e.2
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 18:32:44 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792978364; x=1793583164;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1WrAPJVqztXGeicWZ8YmBuP6dCF2HqU/IaTH6pLRzhE=;
-        b=EpXs4Yv67rrSxxZ1+gXJz2mfHm0IfJYOrWODArZks6ljuDlGZrneqN7pcQkRYtDseR
-         /BVNCrDcYhFe5h+BDv6t8eHO/T8ArPeJIyIDcUSXjRkadWEYVTB4uZLD3vcmgmP39RLU
-         +7mAK+znL6f1qDeYn1jUeHoNtANs2dnkd9LfiAgiU7la3hiKRIN5wXujWTyITvD3uSvJ
-         MYijo2XFsw0o4ozlounmG+0mdORnaWrYDcrFfWFbJQvMRI8jXNozWPVnYYyfpcRFPtx8
-         RZ/C1j1qFWW1e2okMZHC3b29cQvpM1ZKzZqEDN/BxK55m5s3Iism1AJ9JhirVosNsS5M
-         nImw==
-X-Forwarded-Encrypted: i=1; AKwUvBwQLz2nW1ZkUm2tIW5/h/19VXvxJhPO5y7KnPO+sWbBrCPqDQgn7zw0AQeFPfEu/Xa+kadoapEyHwaMa5U=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKccjr0zNo9a2dMaBTq6BYWpwhuqOr9lrUVI4Ge84qBNn2mEjLf
-	jav+GpW5dkDpRYLcs3Rusv+5hkmVDGoG/Sr9bBMwrhw+loGKGJ/7trGtKKjF22kumlHkQENk/sj
-	z+F4TGs4mNF7gL2I71/BH3HfcVf9Q1dlDz7i9unuB4LNqKM3SgbB6m31o3u0=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39118606A31B;
+	Mon, 26 Oct 2026 01:35:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39118606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eSEUPBH6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792978537; x=1824514537;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=6XeH1nDmIKEwWHahs4esRbq75DGdv4dggga0X48z5aw=;
+  b=eSEUPBH6T8Q016bNzJ00C1hFieXAsgN/C7tVsDrH19JAyM2h5bh2QWhW
+   BGnkiq4VTpHMwWhVc8f1Sulj8btJEcI+pPQjx2aQIk0EyD7pMY+Q/L0r8
+   v3Q/q8oJaF59VbrztuxMU5ontR2mxuWqQ/I5QwjwVxQ95xe5IeUPt5ZV0
+   tnW/OkzEC17HUaWUSH8uKnE8bHRIBxLZZjlmap0l/sg44sXvIPz0NhyQ5
+   UqcE5tAYvbGyfNeCTSRSOj9EBISmA6R1pScW0KgO6w/t5v4qvHeqhYbuO
+   r+Bwx5kDZd+8iuXVCjwmwVutp9LhA9KyFW2tGDykYgNIbrTWo3x0aCkEH
+   w==;
+X-CSE-ConnectionGUID: CvnvwPB3RsWh6FwmPmAFRw==
+X-CSE-MsgGUID: XarbEz7VQKWXuHY0w8C+eg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1516724"
+X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
+   d="scan'208";a="1516724"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 18:35:36 -0700
+X-CSE-ConnectionGUID: vn57Yzv8QpO+fs+7TSm88Q==
+X-CSE-MsgGUID: UBJTCDoEQU252vSwaq5npw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
+   d="scan'208";a="4147146"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by orviesa004.jf.intel.com with ESMTP; 25 Oct 2026 18:35:31 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xL9cW-00000000VL4-0M45;
+	Mon, 26 Oct 2026 01:35:28 +0000
+Date: Mon, 26 Oct 2026 09:34:44 +0800
+From: kernel test robot <lkp@intel.com>
+To: Philipp Stanner <phasta@kernel.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+	Yury Norov <yury.norov@gmail.com>,
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+	Danilo Krummrich <dakr@kernel.org>, Gary Guo <gary@garyguo.net>,
+	"Paul E . McKenney" <paulmck@kernel.org>
+Cc: oe-kbuild-all@lists.linux.dev, linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+	linux-arch@vger.kernel.org, Philipp Stanner <phasta@kernel.org>
+Subject: Re: [PATCH 2/2] dma-buf/dma-fence: Order setting of the signaled-bit
+ properly
+Message-ID: <202610260958.IcV50YNq-lkp@intel.com>
+References: <20261021095512.1345191-4-phasta@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,89 +92,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:220a:b0:4ed:7045:d3bc with SMTP id
- 5614622812f47-55c002d9ed3mr3460748b6e.32.1792978364068; Sun, 25 Oct 2026
- 18:32:44 -0700 (PDT)
-Date: Sun, 25 Oct 2026 18:32:44 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6adeadbc.a6443767.132891.0050.GAE@google.com>
-Subject: [syzbot] [wireless?] WARNING in cfg80211_cac_event
-From: syzbot <syzbot+3df76a08d929e91e5327@syzkaller.appspotmail.com>
-To: johannes@sipsolutions.net, linux-kernel@vger.kernel.org, 
-	linux-wireless@vger.kernel.org, netdev@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261021095512.1345191-4-phasta@kernel.org>
 
-Hello,
+Hi Philipp,
 
-syzbot found the following issue on:
+kernel test robot noticed the following build errors:
 
-HEAD commit:    734bef548a96 Merge tag 'net-next-7.4' of git://git.kernel...
-git tree:       net-next
-console output: https://syzkaller.appspot.com/x/log.txt?x=12a55469580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=d0f4f48df8e34eb3
-dashboard link: https://syzkaller.appspot.com/bug?extid=3df76a08d929e91e5327
-compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+[auto build test ERROR on 1ecab8b0bad393750c60cc3819ce9c256595463c]
 
-Unfortunately, I don't have any reproducer for this issue yet.
+url:    https://github.com/intel-lab-lkp/linux/commits/Philipp-Stanner/asm-generic-bitops-Add-set_bit_release/20261021-115512
+base:   1ecab8b0bad393750c60cc3819ce9c256595463c
+patch link:    https://lore.kernel.org/r/20261021095512.1345191-4-phasta%40kernel.org
+patch subject: [PATCH 2/2] dma-buf/dma-fence: Order setting of the signaled-bit properly
+config: m68k-allyesconfig (https://download.01.org/0day-ci/archive/20261026/202610260958.IcV50YNq-lkp@intel.com/config)
+compiler: m68k-linux-gcc (GCC) 16.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261026/202610260958.IcV50YNq-lkp@intel.com/reproduce)
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/585a51a9cc57/disk-734bef54.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/b2888e6093ab/vmlinux-734bef54.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/74d0b6ec60eb/bzImage-734bef54.xz
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610260958.IcV50YNq-lkp@intel.com/
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+3df76a08d929e91e5327@syzkaller.appspotmail.com
+All errors (new ones prefixed by >>):
 
-------------[ cut here ]------------
-!time_after_eq(jiffies, timeout)
-WARNING: net/wireless/mlme.c:1309 at cfg80211_cac_event+0x45b/0x6e0 net/wireless/mlme.c:1309, CPU#1: kworker/u8:3/2120
-Modules linked in:
-CPU: 1 UID: 0 PID: 2120 Comm: kworker/u8:3 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/07/2026
-Workqueue: events_unbound cfg80211_wiphy_work
-RIP: 0010:cfg80211_cac_event+0x45b/0x6e0 net/wireless/mlme.c:1309
-Code: fc ff ff e8 67 a8 7d f6 90 0f 0b 90 eb c8 e8 5c a8 7d f6 48 8d 3d 85 18 43 06 67 48 0f b9 3a e9 35 fd ff ff e8 46 a8 7d f6 90 <0f> 0b 90 e9 82 fe ff ff 89 d9 80 e1 07 fe c1 38 c1 0f 8c 24 fc ff
-RSP: 0000:ffffc9000328f918 EFLAGS: 00010293
-RAX: ffffffff8b4abdda RBX: 0000000100010317 RCX: ffff888031c13e80
-RDX: 0000000000000000 RSI: ffffffffffffffff RDI: 0000000000000000
-RBP: 0000000100011a86 R08: ffff888031c13e80 R09: 0000000000000003
-R10: 0000000000000005 R11: 0000000000000000 R12: ffff8880569213e8
-R13: dffffc0000000000 R14: 0000000100011a87 R15: 1ffff1100ad2427d
-FS:  0000000000000000(0000) GS:ffff888123b6b000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007ffd8c6a5cdc CR3: 000000007562a000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- ieee80211_dfs_cac_timer_work+0x264/0x380 net/mac80211/mlme.c:3995
- cfg80211_wiphy_work+0x29e/0x420 net/wireless/core.c:610
- process_one_work kernel/workqueue.c:3495 [inline]
- process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3578
- worker_thread+0xa47/0xfb0 kernel/workqueue.c:3659
- kthread+0x38b/0x480 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
+   drivers/dma-buf/dma-fence.c: In function 'dma_fence_signal_timestamp_locked':
+>> drivers/dma-buf/dma-fence.c:393:9: error: implicit declaration of function 'set_bit_release'; did you mean 'seq_release'? [-Wimplicit-function-declaration]
+     393 |         set_bit_release(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags);
+         |         ^~~~~~~~~~~~~~~
+         |         seq_release
 
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+vim +393 drivers/dma-buf/dma-fence.c
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+   337	
+   338	/**
+   339	 * dma_fence_signal_timestamp_locked - signal completion of a fence
+   340	 * @fence: the fence to signal
+   341	 * @timestamp: fence signal timestamp in kernel's CLOCK_MONOTONIC time domain
+   342	 *
+   343	 * Signal completion for software callbacks on a fence, this will unblock
+   344	 * dma_fence_wait() calls and run all the callbacks added with
+   345	 * dma_fence_add_callback(). Can be called multiple times, but since a fence
+   346	 * can only go from the unsignaled to the signaled state and not back, it will
+   347	 * only be effective the first time. Set the timestamp provided as the fence
+   348	 * signal timestamp.
+   349	 *
+   350	 * Unlike dma_fence_signal_timestamp(), this function must be called with
+   351	 * &dma_fence.lock held.
+   352	 */
+   353	void dma_fence_signal_timestamp_locked(struct dma_fence *fence,
+   354					      ktime_t timestamp)
+   355	{
+   356		const struct dma_fence_ops *ops;
+   357		struct dma_fence_cb *cur, *tmp;
+   358		struct list_head cb_list;
+   359	
+   360		dma_fence_assert_held(fence);
+   361	
+   362		if (unlikely(dma_fence_test_signaled_flag(fence)))
+   363			return;
+   364	
+   365		trace_dma_fence_signaled(fence);
+   366	
+   367		/*
+   368		 * When neither a release nor a wait operation is specified set the ops
+   369		 * pointer to NULL to allow the fence structure to become independent
+   370		 * from who originally issued it.
+   371		 */
+   372		ops = rcu_dereference_protected(fence->ops, true);
+   373		if (!ops->release && !ops->wait)
+   374			RCU_INIT_POINTER(fence->ops, NULL);
+   375	
+   376		/* Stash the cb_list before replacing it with the timestamp */
+   377		list_replace(&fence->cb_list, &cb_list);
+   378	
+   379		fence->timestamp = timestamp;
+   380		set_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT, &fence->flags);
+   381	
+   382		list_for_each_entry_safe(cur, tmp, &cb_list, node) {
+   383			INIT_LIST_HEAD(&cur->node);
+   384			cur->func(fence, cur);
+   385		}
+   386	
+   387		/*
+   388		 * This orders the signaled-state with the test_bit_acquire() in
+   389		 * dma_fence_test_signaled_flag(). This ensures that functions like
+   390		 * dma_fence_is_signaled() can only ever return true once signaling is
+   391		 * completed (i.e., after the callbacks above ran).
+   392		 */
+ > 393		set_bit_release(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags);
+   394	}
+   395	EXPORT_SYMBOL(dma_fence_signal_timestamp_locked);
+   396	
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
