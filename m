@@ -1,97 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.229.143
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792996796;
-	b=tNzKzZPFRcIEXkoX+IDbT/8NCqdf+JxTO3fOxOwcubg2fHLIj+xIzZUb2jwTi8RG9iX0
-	 S5vhq3k+eWolOxxl1pI53hjxWOm8yw3aXKODMki+tOELzAqmucHdyi7JpGM5R+9cCilL7
-	 06uhRNBMjMZ++acw3/jgBemykMltyfNCeysuNZzEpuEKXpEjyNIJBYvNdB1BtQ2boi4L4
-	 B0yY89gMwaDttQjc3nl0pHj+jzLD4RzRxYyhe3Cm6krmrNeUEXsyx7UeB20Z4UhJLIxhl
-	 BQOI2F+T5WMkaKOzcIQPvnXWhKbeeoovl0ZIOWZAh8jYfvNY12pkaLNnjXI9H25Tb0Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792996796;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:Content-Transfer-Encoding:Content-Type:
-	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=QuTAB/WvGRyPfcIPuN+3aV/aND7R5Ds7Z45qXwbKMgI=;
-	b=s2ed0zbnpT5pp9VKl6UfILsBbO7Q/uvwKa2XBfTYwI0RZZ1pVBe1T3Zlbv7w58p18JT6
-	 f2c5Iqllna4Lpdpt8cdDUIUzIu+J+4S1lvBBNPDHBI0EWB45/0itVdK8TukyD0oSkTjoh
-	 8lTKdkL9SEWkrc3TuIjPsX7qyK6BeCiChBN6cEgiDuBzkN+EgOJHFSO6c4Q4ao1EEH/WK
-	 3Id44IKJU9bxzKz38Wp8riHoCLCPKYxjx1DBuGn4yQ44aInQvJ3+eFzkMSEptkQRmt1y0
-	 6ZQwA7UvZkGr3DX5ifZcmfWHZwm4a/+2H4350KAKlxT42uurmWzdEUsBg5rUnR8wlTg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=valinux.co.jp;
-	spf=pass smtp.mailfrom=valinux.co.jp;
-	dkim=pass header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b=VvpldK2P;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.229.143
-Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11020143.outbound.protection.outlook.com [52.101.229.143])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.200
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792997067;
+	b=l29A21wlRCeNEnAXQYYr5uSm7b8IY+4txiiYsKljxutB5fBdfIFZbxrSb7tqo+S19clh
+	 VEox+hte47qNsFoZwK/8TUaqItlKbL0PaedBzbLB4xaZWKnQTZJnD+Cay2hNFbKgzsfIf
+	 8dGWA8M4Vmn0YomYRWuyxzvgRZbHltX3k6oKlIpGyFeC7epqAMavGNuNH2ZSSD0ax5rcz
+	 s2FoalRE+0c3v1c32uWOPw4g9h7iPZqxiO5TLO7J/Tyvbp5fljTTeDiVb66dUFhqU2U4f
+	 /WBFvyOE8d8wiZjk/FSPzlJf/IQRG3lAmHeo4vHM8GpX07374w+H8xJ8kf/SnoRJpPA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792997067;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=4z6v3tcaLUknSyizTZBG4Psqu25Q3ieXoWj4ZLsIugA=;
+	b=q/lOlsXtB5eHqOowetyqVyd87Usf9HI/8+U+aW9/jkYGEbLlOI0IzfoaHsj+hl00k5Mn
+	 CCekP0peym1U2VvFFfI86UPcTldFt7lVvVhOc2lQqXCFC2vTiVquZDwgLcWde9VeBmCa6
+	 xy15O68Kz5sBEnpai/6zvGNplvEdSq7Wk6bgcQ0JC3r+7/1YfbDGXCAo3mUjTEpFw6Y7i
+	 7KU9kM0zwfwSPZwfOxc7gzVYm14OqJcK8sgnCFsZcOP7cnKC8uaJekM3wnFy2Sft6zs9a
+	 lV+zJ4UZ7265NFQs56d6NRJL0eB91RxJBDNVeaZm1TeVG1bA8y6MWc43aLsSgo1CqUg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--gongtao.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=VswrmlK2;
+	arc=none smtp.remote-ip=209.85.210.200
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23DEA606A31A;
-	Mon, 26 Oct 2026 06:39:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23DEA606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 208F5606A323
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 06:44:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 208F5606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--gongtao.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b=VvpldK2P
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Foe8TpA7Gt2LdX7rN1Kw+gtGQ6ZO+rdPQzYgdxsgm+aKqYLjXb07I5SNSUM3C5SY0CLhNsugYSjkdydEn3TDf8bmiMuZNrUCPN3gEIdkkkvzeP808erIhXK64P+10TllxLBjfjqSgdfSAAeyaXm2VsPtb//zizX30lP2S4808GTSxnjbfgWqxG5OOG8EInKjbUroMD1dTiseWZT1iQUbqzweK0rMHAypjDl5j35QAMm+/pVHRUx3E45dMuZHxWfIXK0n9kOqXTK1m1jeTZ/bMqDHWhdw1zrU/X5mhvjCJPg4+dAaCHUgFMK2701ajyfi8D/s3Zl0Rjob+X4bCqreLQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QuTAB/WvGRyPfcIPuN+3aV/aND7R5Ds7Z45qXwbKMgI=;
- b=DyD0ZzAluC5Q8HO1R66xNyEC0h8V2njf89GBZ2TKDvsGM0k5JtcnBPtnI+zI31k4e3etEAu5zyFeh/Dmh8vrUhEdAjJs6g0Pzi+h25DTRSpwE7+eWcrDEZP9nt9UW/n9jx4u9yB2hGpuY5GkfnpYtKYV1MVmf5kQsZjT8FZCNAM5Uf9YyxssuNDhK05HESk6tduC/rP4O7iyhFWcWlQh+xYfBxHdcPaiId176yJyFxJ3wmKHZvK+kdnd7RiM/MZZ5gE3AZ+XcqTyJu18tPabpCl6SpMecU5zyh8Os9tgCCMayRIzIpKaA2RR6tdmrxyCp5M5wqo8rLyuvWTo3k8vkA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
- header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QuTAB/WvGRyPfcIPuN+3aV/aND7R5Ds7Z45qXwbKMgI=;
- b=VvpldK2PVHhds9cYPHOZWSqAvl4NPhgzV2zg96fwwdFEpqe68GplpyUllgVrR4VCzfoVNLxFtFXzByF8DnZxc+uBQgrK0aBybqsjXUCPeG/Ua3gCZAPPicjDDm2ahShS5ch8M31Utft714aZLBlIiqA2f0vRh31G3A+tqGaJiFQ=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=valinux.co.jp;
-Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:325::11)
- by TY1P286MB3373.JPNP286.PROD.OUTLOOK.COM (2603:1096:400:2e2::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
- 2026 06:39:50 +0000
-Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
- ([fe80::cce5:2aa8:53f9:dba9]) by TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
- ([fe80::cce5:2aa8:53f9:dba9%5]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
- 06:39:50 +0000
-From: Koichiro Den <den@valinux.co.jp>
-To: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
-	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
-	linux-renesas-soc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] arm64: dts: renesas: spider: Add overlay for PCIe ch0 endpoint mode
-Date: Mon, 26 Oct 2026 15:39:41 +0900
-Message-ID: <20261026063942.3173469-1-den@valinux.co.jp>
-X-Mailer: git-send-email 2.54.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: TYCP286CA0228.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:3c7::7) To TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:325::11)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=VswrmlK2
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-887c99013edso1563308b3a.3
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 23:44:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792997065; x=1793601865; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4z6v3tcaLUknSyizTZBG4Psqu25Q3ieXoWj4ZLsIugA=;
+        b=VswrmlK2OiETfO8j/RGU9kxD1BMJj8tSQf8QofGUHuurk4smjH0NCs6Ja9QHxFZgKT
+         2S5xpV+/44dIjfyDibstLfcimnS1N9Bwa0PJFoUFqGDIraXuJ3griPYazSWpRk6JyRIk
+         +GDCJwN82pyZuymxkd7Kg73MY6Ojnj4wQBTulAJANN1eH2zSIjMTBbhPcMm5badb0rNq
+         P/OyzfKkczaEwQfm2XvNBRCkwi871/TNiYiV0if+S+gLVtuQa3kr5+IvMSb4Bs3KRk/h
+         ffH+cz2LVCsG7PQi+EKfLLo4Xc6TMYegrC+ZpV87SJKo1SEAfgZUzWhRby6gFnlQOfEt
+         bY+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792997065; x=1793601865;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4z6v3tcaLUknSyizTZBG4Psqu25Q3ieXoWj4ZLsIugA=;
+        b=m3nArST+78+GeQqTjsvldkBay51ISpQe2zttSilOsAh/l/dEABLiYWyqOF3I71Io67
+         m9WpHwpwNmUyysHu2B6x3RI6vhxEsi3NB42Q3s7BAkehXp/7kF2GtZNjP9VxqF0LmJbL
+         2CdalHhnZt/WV5m6r2JKyN/m4saQb0MMhnQokAKng2yk28SpyNkoUeAs3mu3eqwDepU5
+         dFzMB3F9LeHiBE+oVj48ICax1fjDQTP/MC7rkQ3KqZWhvWaSfGJ4fnrqiJzTqRsBFRh6
+         tvSK4XP8FS5/JHrdQkjrStTy+YI6eSKAvHnqw2RKbHCrz/Azfoge/mEBGSsbSICL8Wcy
+         ZpCw==
+X-Forwarded-Encrypted: i=1; AKwUvBx10qJPmZFBtSnKlo35V0fRZzWpo2Ndj1RYlCwKT5/p2SJx851ERzyFt99svDCeRRXypyC0OggxafTsQ4I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKco9ODrveYFTyMXSbpBhNtUKh32kLz36EmFjR3Ddxh7sCbopa2
+	W1wOs7K/upm/jvFyRlPu5xzNxW8/lzEVFtcqITK3b3x1v0udEzCTM3RsHypnU/mMAVC7BXstU/A
+	4fYBbvIixfQ==
+X-Received: from pgbcq4.prod.google.com ([2002:a05:6a02:4084:b0:cca:dcca:4599])
+ (user=gongtao job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:3f94:b0:3e5:396d:1f89
+ with SMTP id adf61e73a8af0-3e7af7e9aa3mr4608722637.6.1792997065214; Sun, 25
+ Oct 2026 23:44:25 -0700 (PDT)
+Date: Sun, 25 Oct 2026 23:44:19 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,120 +75,203 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY7P286MB6866:EE_|TY1P286MB3373:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1a0ce2d1-914c-48eb-6fcd-08df332bef67
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|10070799003|23010399003|366016|1800799024|56012099006|261021121427099003|261021135927099003|261022075727099003|261009223027099003|260925021911599003|260925021311599003|260925022911599003|10067099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	EmLdNP+oKqj9gduDNkGe8+K4GkgF4IXc77VUP7jfQ2cBUzpFb7fqDIJ31rtMPSC3HH3mARkE0J7gIu9WyCp0hrQYNRnTBKIG16O6scHAuiYo/bzzVWlZrYuqxLf0q1DWV41sLuFMwTJB7suX6AXaFx820d5q0rtOOLAmU007B+XeI6kRGiTKcoWik7vUHM4Z7mh1EKDEq93nl1fl8RAKM6OCvWPgiOAFrVaiv6kH//DAg0NTEs/kwYciuGW3TN6p/9v8WAPKG+Uz5iGSj00sTW9KbB/JllJVHrp4vCTrS5MYMk4sl7BkoZw3nFNYjUbE+P+not9SYCEcUIz+injENTkntTNgvkdwPOKoZCV+NMjM4EGECBuGQt+snkUOG8IZBsyNRER3AWnk+QMbOxvEcVj/CD4rvsIid6e6BLIYQxfSvH5XdlY4ASMLTp0RokLOqMLLTXbHKmveHWkomxFOH1IImhXushR434of/QGX+ly0y4BcnuO27KsP4AgRqctOvkFQKfsIHxWqNnxX2PDU+eLNIFfGS0bAY/EQDlHK0nip0sAJjla0JUeuaUOkcHyxeNwxMVZPVFWAfIzidIjxdcS07kBAyN87fBQk3AsgBZ0p/MCoBxvZ0PGZTmc1+GwA
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(10070799003)(23010399003)(366016)(1800799024)(56012099006)(261021121427099003)(261021135927099003)(261022075727099003)(261009223027099003)(260925021911599003)(260925021311599003)(260925022911599003)(10067099003)(18002099003)(6133799003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?fqreoWvBHc7l61boAhABLcr8KBvoxmSJET0w6rA05TK6MXbBS+zl+D2fBb+o?=
- =?us-ascii?Q?l01DWqplFBXM0tVIzCPdHac6tp8/6M7RqPnwqUrM/93zgtZBndq7YivEBjlb?=
- =?us-ascii?Q?FtNAoxkWxdeWUMbnwAkJuUeYQ0oRL267EPRvcVBiRlUOcB+XPeCDPzo8F1r9?=
- =?us-ascii?Q?8xBPfMX1tYTkpZf+DuQNWRkzqU//zatDNb2nyhpYzdiJdKjrqGl6lNpaCp+l?=
- =?us-ascii?Q?lqX1DTei85D0I1XZvvIY50eQhJKyK/E7AzJjwO5oxD0w9haIQjZGQ67TfIN8?=
- =?us-ascii?Q?812ye8EmJbUY2DzpgYov0GXlzQ7+Lxobr7R3RxPokkXvv0GnEx4oAK0KR4GW?=
- =?us-ascii?Q?1VJjIivXSkaa3CRHpZyL0G0Eko6yL0Ddc1kObiUbwqXuiI56AiH+PnOtVoYI?=
- =?us-ascii?Q?Iakne8swpp1YYfgwY5hwMCDPl8q7FhMqJbXxvp9wa8Ujj3jFE93hFwxaxdda?=
- =?us-ascii?Q?XnDZcv5VawFK1vkg35RHz/KdeQSW6k6tcgvnbBzj5+kyrgL0tp4E4crRAiDI?=
- =?us-ascii?Q?fmIKkxGPyk9RWWIQP9ZN8TPsvQLjfzwyF7hUfsaWmjJsssyfvb7Y1vhAX99y?=
- =?us-ascii?Q?vpB4ErzkW/66EdtDf3oQduSJ65AN7Hzq95ajYZWOy5cl9KpynY8lMbnUmVwi?=
- =?us-ascii?Q?fv3NC58pP2/M3oqtnsrREloEHvsJ2k7ewir9kFi1ajDKc2I2eXBdviNQqh6R?=
- =?us-ascii?Q?McN3yytdWX5M72N609wVjcQuhyeZH4eA1DV240MeB+x+htWISj9I/BsMIoh/?=
- =?us-ascii?Q?6Zd/8zGw3XfzhPXyunjldg0qgnXhIANFjhR+CCT9e9MFHhPTF9tX+6Z4mvgR?=
- =?us-ascii?Q?ZxvgzR2zsNQyf3ShNjBrO0oP5B2ki62wLVG9T/zCOkEXHpTyvZFg5SjldEHb?=
- =?us-ascii?Q?CSOKqPyEtV9gTMBddRhg4X/pyJTsLeSs+QolMnnmSfnCMrW7era27nF4VFVi?=
- =?us-ascii?Q?GQR2Y3KlcYCDG7mM8/tVgJ6a1YxACL5pSl+3+2iuI0thPNaatIcPOq48PcaZ?=
- =?us-ascii?Q?ntQCC0ubDRXuZE8SJO8lJwxD7gSE3izmqwqoky0BB7n5ueOlI98khLmXgVPj?=
- =?us-ascii?Q?J1MRsESetP9QpvBXNFB9wKDL0WfRvpMsUQvPu7ArpQRZOuhlmsNutwBuNB2A?=
- =?us-ascii?Q?SKVXKd+NkdTBREqArgqqP8QerXBZ1WaJL8k9Amuf3rvVtuXmtCp8wFJJQgvE?=
- =?us-ascii?Q?Jctbp6zGDAzWAgVIlE2PiPta1iaGKa7otsHuhyPHAucIyFP9nWsnNVjnw8Uw?=
- =?us-ascii?Q?0o5IwKOnJ+qosf/G5SicheciRhHTYsQAWcUTuS9r3gu26xOWjcF6/6ISfWmu?=
- =?us-ascii?Q?4uLi3Qipbre7Ha0KK81zFxM9ZzOQVewZgKasnH3iuFRv/ZWo5J8mvq6i9iek?=
- =?us-ascii?Q?PS1+V2VwGYHvXaImddnXig8STJPK4+nmyoiio/UP7RsXq5RepBiNeu8pwnyJ?=
- =?us-ascii?Q?zw/s1AugqGsf2NNhghKPspVI+syJRShtFU+ClLXscVr6+oAP44dd0hxo/dl3?=
- =?us-ascii?Q?ggfghh2MdAVnvz4R64wn11U4wPLVkHk5j/iBtIjHLhZ6sHJRRMjUKz+7A4UA?=
- =?us-ascii?Q?rES/eRAbGnj4AMJ2imQka1oXEXPaqDeN9q/XeYCHtaALU6eSrUQoMxNrVyiZ?=
- =?us-ascii?Q?shDeYf5fiQsvqteuRBHyQ/xkJX0ArahCErBxZ8eNIjdZEX7WSHfCQsXX6tvE?=
- =?us-ascii?Q?IjlbZHwH+W8MIQEiwHicUETgrGcnCO3oztPsYT3klTrL97N3ObjTn/O2Yy1f?=
- =?us-ascii?Q?V+rm+jelwGiiEew2CNZqVZ/V1tkz2XO+TSoLtaqwmLDa16q3jiui?=
-X-OriginatorOrg: valinux.co.jp
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1a0ce2d1-914c-48eb-6fcd-08df332bef67
-X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 06:39:50.4389
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dlScNdHS10sEWG648sER5gnm2f4AnbQSEPhYkVYz4/NSy3nizs39B/dLvP6mkO4TL+RJsV+UMqaxb+y11KC9fA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY1P286MB3373
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.257.gf7497c7d27-goog
+Message-ID: <20261026064424.3003536-1-gongtao@google.com>
+Subject: [RFC PATCH v3 0/5] KVM: guest_memfd: Add KVM_LINK_GUEST_MEMFD ioctl
+From: Tao Gong <gongtao@google.com>
+To: kvm@vger.kernel.org, Paolo Bonzini <pbonzini@redhat.com>, 
+	Sean Christopherson <seanjc@google.com>
+Cc: Tao Gong <gongtao@google.com>, David Hildenbrand <david@kernel.org>, 
+	Ackerley Tng <ackerleytng@google.com>, Ryan Afranji <afranji@google.com>, 
+	Vishal Annapurve <vannapurve@google.com>, Sagi Shahar <sagis@google.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-PCIe channel 0 on the R-Car S4-8 Spider board can work either as a Root
-Complex (the default) or as an Endpoint. Add an overlay that disables
-the RC node and enables the EP node, to let it work in EP mode.
+Hello,
 
-Signed-off-by: Koichiro Den <den@valinux.co.jp>
----
-Changes in v2:
-  - Polish the header (Marek)
-  - Link to v1: https://lore.kernel.org/r/20261022082113.3163666-1-den@valinux.co.jp/
+This series adds KVM_LINK_GUEST_MEMFD, a VM ioctl that takes an existing
+guest_memfd fd and returns a new guest_memfd fd, bound to the VM on which
+the ioctl is invoked, that refers to the same underlying guest_memfd
+inode.
 
- arch/arm64/boot/dts/renesas/Makefile          |  3 +++
- .../dts/renesas/r8a779f0-spider-pcie0-ep.dtso | 21 +++++++++++++++++++
- 2 files changed, 24 insertions(+)
- create mode 100644 arch/arm64/boot/dts/renesas/r8a779f0-spider-pcie0-ep.dtso
+It is v3 of the gmem linking RFC [1][2], rebased onto kvm-x86/coco and
+reduced to the linking part: the prerequisites from RFC v2 are upstream
+now, and the KVM_CAP_VM_MOVE_ENC_CONTEXT_FROM memory context changes will
+be posted as a follow-up series on top of this one.
 
-diff --git a/arch/arm64/boot/dts/renesas/Makefile b/arch/arm64/boot/dts/renesas/Makefile
-index c6f3718cd19f..2b0012118287 100644
---- a/arch/arm64/boot/dts/renesas/Makefile
-+++ b/arch/arm64/boot/dts/renesas/Makefile
-@@ -86,6 +86,9 @@ dtb-$(CONFIG_ARCH_R8A77995) += r8a77995-draak-panel-aa104xd12.dtb
- dtb-$(CONFIG_ARCH_R8A779A0) += r8a779a0-falcon.dtb
- 
- dtb-$(CONFIG_ARCH_R8A779F0) += r8a779f0-spider.dtb
-+dtb-$(CONFIG_ARCH_R8A779F0) += r8a779f0-spider-pcie0-ep.dtbo
-+r8a779f0-spider-pcie0-ep-dtbs := r8a779f0-spider.dtb r8a779f0-spider-pcie0-ep.dtbo
-+dtb-$(CONFIG_ARCH_R8A779F0) += r8a779f0-spider-pcie0-ep.dtb
- dtb-$(CONFIG_ARCH_R8A779F0) += r8a779f4-s4sk.dtb
- 
- dtb-$(CONFIG_ARCH_R8A779G0) += r8a779g0-white-hawk.dtb
-diff --git a/arch/arm64/boot/dts/renesas/r8a779f0-spider-pcie0-ep.dtso b/arch/arm64/boot/dts/renesas/r8a779f0-spider-pcie0-ep.dtso
-new file mode 100644
-index 000000000000..cdfc898e44f6
---- /dev/null
-+++ b/arch/arm64/boot/dts/renesas/r8a779f0-spider-pcie0-ep.dtso
-@@ -0,0 +1,21 @@
-+// SPDX-License-Identifier: (GPL-2.0 OR MIT)
-+/*
-+ * DT Overlay for enabling PCIe channel 0 in Endpoint Configuration with the
-+ * R-Car S4-8 Spider board.
-+ *
-+ * Copyright (C) 2026 Renesas Electronics Corp.
-+ *
-+ * For example, follow the standard configfs steps for pci-epf-test documented
-+ * in Documentation/PCI/endpoint/pci-test-howto.rst to set the endpoint up.
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+&pciec0 {
-+	status = "disabled";
-+};
-+
-+&pciec0_ep {
-+	status = "okay";
-+};
+Problem
+-------
 
-base-commit: d99e991749f3b12a3a8b23224725dbc1ca15f6bf
+A guest_memfd is bound to the VM that created it: binding a memslot to
+a guest_memfd requires the file's owning VM to be the memslot's VM, and
+there is no way to reassign a guest_memfd instance to a different KVM
+instance. Passing the fd to another process does not change that.
+
+For VMs with private memory this is a hard limit. Private memory is not
+accessible to the host, so it cannot be copied through userspace into a
+new VM's guest_memfd. The only way to move a confidential VM to a new VM
+instance on the same host (intra-host migration, e.g. to replace the
+VMM) is for the new VM to take over the same memory in place.
+
+Design
+------
+
+guest_memfd already splits state between the file and the inode: memslot
+bindings and the owning VM belong to the file (struct gmem_file), while
+the memory itself, its flags and (with in-place conversion) the
+shared/private attributes belong to the inode (struct gmem_inode).
+Linking creates another file for the same inode, so a second VM can bind
+the same guest memory to its memslots without the memory being copied or
+going through userspace.
+
+Linking is only allowed between distinct, compatible VMs. On x86 both
+VMs must have the same VM type, so that e.g. memory private to a TDX
+guest can never be mapped into a non-TDX VM; the generic fallback
+requires both VMs to agree on kvm_arch_has_private_mem(). These checks
+are defensive; the underlying rule is that KVM must never create a
+stage-2 mapping for a confidential VM to another confidential VM's
+private memory (see the cutover question below). Linking therefore
+does not make private memory shareable between VMs: a private page
+remains usable only by the VM that owns it.
+
+Use cases
+---------
+
+1. Intra-host migration of VMs with private memory, where the
+   destination VM takes over the source VM's guest memory in place:
+
+   a. Userspace passes the source VM's guest_memfd fd to the destination
+      VM, e.g. over a Unix socket.
+   b. The destination VM calls KVM_LINK_GUEST_MEMFD to get a new fd for
+      the same inode, bound to the destination VM.
+   c. The destination VM binds the new fd to its memslots with
+      KVM_SET_USER_MEMORY_REGION2, at the same offsets as the source.
+   d. The remaining VM state is moved with KVM_CAP_VM_MOVE_ENC_CONTEXT_FROM
+      (SEV only today; generalized by the follow-up series) and the
+      destination VM is run as normal.
+
+   Linking does not revoke the source VM's access; the source simply
+   stops using the memory, so every private page keeps a single owner.
+
+2. Sharing guest memory between non-confidential VMs. Both VMs bind the
+   same inode at the same time, each through its own file, and the
+   memory keeps its guest_memfd properties: neither VMM needs a
+   userspace mapping of it, and inode-level operations such as a hole
+   punch apply to every linked VM.
+
+   A related use raised in discussion is Nitro Enclaves-style memory
+   donation, where a guest gives part of its memory to a sibling VM on
+   the same host ("nesting without real nesting").
+
+Alternatives considered
+-----------------------
+
+* Passing the VM fd to the new VMM and adding a way to reset the VM
+  while keeping its vCPUs and guest_memfds. A KVM VM is bound to the mm
+  that created it (VM, vCPU and device ioctls from another process fail
+  with -EIO), and its memslots and MMU notifier refer to that address
+  space. Re-homing a VM would be considerably more invasive than
+  creating a new VM and moving state into it, which is the model KVM
+  already uses for SEV intra-host migration
+  (KVM_CAP_VM_MOVE_ENC_CONTEXT_FROM); linking extends that model to
+  guest_memfd.
+
+* Keeping the memory and its attributes in a "memory provider" and
+  creating two independent guest_memfd instances on top of it. The
+  guest_memfd inode already plays that role today (page cache,
+  attributes and the list of files), so linking gets the same result
+  without a new abstraction. If guest_memfd grows a provider layer,
+  linking could be expressed on top of it.
+
+Open questions
+--------------
+
+* Cutover: for confidential VMs, an explicit cutover that delinks the
+  source VM's file at handover, instead of relying on the source to
+  stop, may be required for security: it is what guarantees that a
+  private page is never usable by two VMs when memory is transferred.
+  That would be a separate operation on top of this series;
+  non-confidential VMs probably do not need it.
+
+* IOMMU and DMA: whether iommufd page tables and in-flight DMA keep
+  working across a handover, and how they would be transferred, is not
+  addressed here. The pages themselves stay alive for as long as any
+  linked file exists.
+
+* Conversions: with in-place conversion the shared/private attributes
+  live on the inode, so a conversion by one VM applies to, and
+  invalidates, every linked VM. That is the intended behavior for
+  migration, where only one VM is live. Between confidential VMs it is
+  also required: with today's hardware they can at best share their
+  shared ranges.
+
+Patches 1-2 add the ioctl, patch 3 advertises KVM_CAP_GUEST_MEMFD_LINK,
+and patches 4-5 add selftests, including a test that transfers private
+memory between two KVM_X86_SW_PROTECTED_VMs.
+
+The series is based on kvm-x86/coco at commit ad06cf5338bc ("KVM:
+guest_memfd: Avoid deadlock in error_remove_folio()").
+
+Tested with the KVM selftests (guest_memfd_test, set_memory_region_test,
+guest_memfd_conversions_test, private_mem_conversions_test,
+private_mem_kvm_exits_test, private_mem_migrate_tests) on an Intel host,
+both with and without kvm.gmem_in_place_conversion.
+
+Changes from RFC v2 [2]:
++ Dropped the anon inode and guest_memfd inode patches, which are
+  upstream now (anon_inode_make_secure_inode() and commit a63ca4236e67
+  ("KVM: guest_memfd: Use guest mem inodes instead of anonymous
+  inodes")).
++ Dropped the KVM_CAP_VM_MOVE_ENC_CONTEXT_FROM memory context patches
+  and their selftests, to be posted separately on top of this series.
++ Rebased onto kvm-x86/coco: uses struct gmem_file and the inode's
+  gmem_file_list, and takes the mapping's invalidate_lock when adding a
+  linked file to the list.
++ Renamed kvm_gmem_alloc_view() to kvm_gmem_alloc_file().
++ Only allow linking between compatible VMs (same VM type on x86).
++ Reject non-zero reserved fields and fds larger than INT_MAX.
++ Dropped the i_nlink increment, which had no matching decrement.
++ Take the inode reference before creating the linked file.
++ Added KVM_CAP_GUEST_MEMFD_LINK and gated the selftests on it.
++ Documented KVM_LINK_GUEST_MEMFD in Documentation/virt/kvm/api.rst.
++ Selftests: fixed the negative tests to exercise the intended checks,
+  added tests for out-of-range fds, non-zero reserved fields and VM type
+  mismatch, and made private_mem_migrate_tests work with in-place
+  conversion.
+
+[1] https://lore.kernel.org/all/cover.1691446946.git.ackerleytng@google.com/
+[2] https://lore.kernel.org/all/cover.1747368092.git.afranji@google.com/
+
+Ackerley Tng (4):
+  KVM: guest_memfd: Refactor out kvm_gmem_alloc_file()
+  KVM: guest_memfd: Add ioctl KVM_LINK_GUEST_MEMFD
+  KVM: selftests: Add tests for KVM_LINK_GUEST_MEMFD ioctl
+  KVM: selftests: Test transferring private memory to another VM
+
+Vishal Annapurve (1):
+  KVM: guest_memfd: Advertise support for KVM_LINK_GUEST_MEMFD
+
+ Documentation/virt/kvm/api.rst                |  50 ++++++
+ arch/x86/kvm/x86.c                            |  10 ++
+ include/linux/kvm_host.h                      |   1 +
+ include/uapi/linux/kvm.h                      |   9 ++
+ tools/testing/selftests/kvm/Makefile.kvm      |   1 +
+ .../testing/selftests/kvm/guest_memfd_test.c  |  64 ++++++++
+ .../testing/selftests/kvm/include/kvm_util.h  |  18 +++
+ .../kvm/x86/private_mem_migrate_tests.c       | 118 ++++++++++++++
+ virt/kvm/guest_memfd.c                        | 150 ++++++++++++++----
+ virt/kvm/guest_memfd.h                        |   1 +
+ virt/kvm/kvm_main.c                           |  12 ++
+ 11 files changed, 407 insertions(+), 27 deletions(-)
+ create mode 100644 tools/testing/selftests/kvm/x86/private_mem_migrate_tests.c
+
+
+base-commit: ad06cf5338bc5501bd989584db6dc71972bb436a
 -- 
-2.54.0
+2.56.0.257.gf7497c7d27-goog
 
