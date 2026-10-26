@@ -1,104 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793045616;
-	b=H/CnFS+BwZy3vqk5sY8EvolrMwbLdzpcz6XbrgGp/FQwFS4EROZEf950uoMBDO0L4i6s
-	 AhXu1TPdfskN+28FS+6OUJqF4J3pocLdXQRtkIavjHnU0VspTqylEAHXYhxZAFqJQzO8S
-	 kAlGr8wnRUeWWorJKXRFs0LRpztJ6DoyW6mWGZIKK4dp+HwD3aomgCqDox1fLi1yPvr9M
-	 aQWkT3jcoq39kvtSMo+geyoqGlRi6Vwzq9E9ALABmCRx/jJWzShEHA8SlZjNoZMkjIslk
-	 tkfn8u/JH736oIPSMNIAcstUoXRa7A2EdCUl0vo/cVBORfBnKf8tRad3Px5b7In/W+Q==
+	t=1793045624;
+	b=1nPe62vAyUBk3audvSqW0/F2dEHkUVgIWCLvQ+TiiS5zHzhZJJXiG6pg06tjNoxoo638
+	 JG21KlGMoKpYwi5sqFvzMonewsgbeXgHCCgGWNTzdkxeFGSyOTJmrdJjbsW0emxmf1Wku
+	 jMxAwZ43+1rj6Ehogs37Mt5XOzuSstfGExfY5/UuGjp8S32/EwRUTHX9nl0b6qZu9WjX7
+	 uCcXIZOxmn8g64DawEcoA0VCqdv1owERVAXpTjDfLhpaiFn+Q5H6VOG23lx9ySG0gdIK7
+	 dITEWoiyo+g//P/BQj6nyX4LtiYVTy7WXx6UlcYWIwpfBnVNkF6fsnyCNP94Ro+yX1g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793045616;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=29PYuZcMuk+6BqVhsEf3/8y855sPSJj2J3ONQETVxCk=;
-	b=vhbcDA303NfXoOzoiekwzCtafB0i94PwTPm++ygAX45FN0SMv6pPKZKHYw/rQIE1wscY
-	 p6LOy2pYpqfsZVtcgWYj4TdNZuME3xoFbGlMZE96VhUqlMgqWTzA36BKglBwGxmjaP2Cw
-	 Di0s+miLhbbFo9pk7d8okjMcm4CPRWa7WV2sea6OlH5nTshX93P9xKcWQELrPYEynYFzU
-	 CepSRF4lopEMiifSLTez+CHdqPO4vK+pHqyjhQahtaIBk/DVFLNQ3r4DiGxB0rp5Vf1aW
-	 HgqcOddFiLmeoAtntKr9AUXTGdif2Tw2q1hmgyvLnqIJLClKRWdUT/KQX3k1MiCJhoA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793045624;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=kNy67E0ovLt8TzLvMy++WQEgiPFH7FIGj23FzpCowmk=;
+	b=UeC24sZ40M6JoKe21DbVjt+g1QX1erwQJ6C7A4wUntBXAInUNYncSp94P5RhCcsg6OHL
+	 djOjwfBi5OYrwrhFDDhCgoUio0YSJPcPJxxVBV+6LNpL6hBX9CAglP8P00V/DfxpSJA4g
+	 1RbGoZHG30NSTjZ9OmVCp7rLV/EfOA7MknQ+HOfJ0lP88+TX9CPY3lviqlSlpID3vPTQx
+	 1cfQiqnL8Mvgf/MTuDZ3YMx4Wqzsm3kR8rqiEUuQ6BkazXNR2fE+eijss5ChcF3YrYFV5
+	 1PZ3dmNxbFSfjk9aqUDGk3C6e/ixjbcCWgHnW5TbjmZArFPGPJVNX/lPN5fpxbp6e0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=lgqiTZBv;
-	arc=none smtp.remote-ip=74.125.82.50
-Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ClTBrJB7;
+	arc=none smtp.remote-ip=198.175.65.17
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77D31606A31E
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 20:13:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77D31606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8318E606A323;
+	Mon, 26 Oct 2026 20:13:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8318E606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=lgqiTZBv
-Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-15ea896ddc8so5921059c88.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:13:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793045616; x=1793650416; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=29PYuZcMuk+6BqVhsEf3/8y855sPSJj2J3ONQETVxCk=;
-        b=lgqiTZBvuwBsm/QD6Q04dpuwb3hT5D0KF0Iidza14BSZtsryM3FuxPGAxoRcl1+aHU
-         Wum0veb4k29fmNZUzA6I5nsDRMm8/ROiICgggJyWWxqY8841k3ihr20RjfaXuPNcjyK3
-         +pvcvDJcn6hdr93DZn6xuLytaLaJ1JpcjEIdCHOgVqhv3tOKwmxl0d2zhxgX7aXhP/9s
-         9DP8cQO6iot5Sfrln4aAaFfi/qTJFVGtDlokuQxrSr/TzgMEOo+yqiGUlU5c4xWdpSr+
-         ZdSX/HFPTLJD+C0FjK6rfj+Gib3kmVSlDvHdlQ/zrLNSeHC4L9bCWAfn5ltoKwImxREK
-         7O9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793045616; x=1793650416;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=29PYuZcMuk+6BqVhsEf3/8y855sPSJj2J3ONQETVxCk=;
-        b=w1Jle4C2qLky6Ig4vW+6niKZHGHCAF84HDCGzguukZQNXWbD8Zbn4M5szy16vser7t
-         lNWOj/Qg+c7Oxj5ai3VdzmToN8nriw3dOousK9ma7JLZwT6nko+JQWXUuLkc+2m97O6b
-         uCKKEhMRbVsQlkyrJNov9i/x/wKTBrn8XI9WTEhcMoaINguLv6SoGcXh0Joez2X3pA4E
-         f+K86+DkpLbJDp89fi503ZTzWSiuXNvtBBlTd4X8wpJ9xob6RnUaq0mA+TaU9Xm7z+ij
-         XuvxIOehqNX9f1SgNaS1AlCC3CMaIrl30K7/iIjxsaKaJ4s74i2NdiVywN5AeDW2ExL/
-         rXYA==
-X-Forwarded-Encrypted: i=1; AKwUvBy0ERWMfAPP68uSdqng7MNdobL1GguLIEH+8pbWlhGlo9FOjw+ekG7dp+jURB6Ab46AjFevUF+Zro04nC8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLjfV3OBUW/7HzZB02CJrfvQ3JepQdm+C/7WbMe9pxbr1Tc9ha9
-	bhJCXFR6rOUKJs2uQk9b1gi6DjxOCIcaDecB/ciH6DoSBkubojtelF99
-X-Gm-Gg: AYBFou3UQurp+0opd+8wutylM2AYNRjSCsnPJIh/0g/u8GUQE0o2qsg/+/y5qMUsYj3
-	X+BkBs9Pe7adQ1n4Hor9AI0qf73sWJpzbojd16i3BIdpncvOi/frK5mQbUMXNiEYSF5WYrPHWaw
-	Ed8mX25qaYwKjbvO20U2aAlVc8j8Ab4JZGYc79cBM7A25mA4wTJvij3S5IwmOR0lzeR7VXH5Ncp
-	BFBsGMpUsUc+w6S4Ca/e+9pFpipLpkJ1I6gAtOatNqdZ8pqIg7p13r98Hj1aENr4BvCL43tAkvn
-	ssofp29JP61gikJWHyzzRRY7Jn1NQ/LoHXGg6lV1VjnL9OxTKDwyB874pZLIXJHc0aFW+rCrjUm
-	1US7MWlfK1HjEQ3AfWiHfs9Nk9Vwa96oUPuFY3pzHwamf3OFBE+BaBqq7XOmsKeUkzygR+79yqw
-	Xfm0VvJH3X88W9pDXR3SPUIJ6y+IkN3Nbq8GXU57OcAzEIVpa1TOitGK0TYI2LuCQa3CphwF3ZB
-	rjlRYSH8T9Xc/gtg4Ob0NlEadIJ3d7xD5hcoObGNhcdQ4UVa6fXdOHv/Y9GZjWJMsVb4yAbWah5
-	/AJ2DOr7aKPD8YZU2Zi42DE+w41lh+ESPXbm
-X-Received: by 2002:a05:7023:885:b0:136:b50c:c0e9 with SMTP id a92af1059eb24-19934a96fffmr13762865c88.21.1793045615364;
-        Mon, 26 Oct 2026 13:13:35 -0700 (PDT)
-Received: from valdaarhun.localdomain ([2401:4900:1c44:61b8:f26f:bd5b:b550:7a07])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a020df20sm31730486c88.6.2026.10.26.13.13.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 13:13:34 -0700 (PDT)
-From: Sahil Siddiq <sahilcdq0@gmail.com>
-To: jonas@southpole.se,
-	stefan.kristiansson@saunalahti.fi,
-	shorne@gmail.com,
-	naveen@kernel.org,
-	davem@davemloft.net,
-	mhiramat@kernel.org
-Cc: pjw@kernel.org,
-	wangruikang@iscas.ac.cn,
-	namcao@linutronix.de,
-	kees@kernel.org,
-	linux-openrisc@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Sahil Siddiq <sahilcdq0@gmail.com>
-Subject: [PATCH v3 3/4] openrisc: Add unit tests for KProbes on branch instructions
-Date: Tue, 27 Oct 2026 01:42:39 +0530
-Message-ID: <20261026201240.107462-4-sahilcdq0@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260930202744.50489-1-sahilcdq0@gmail.com>
-References: <20260930202744.50489-1-sahilcdq0@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ClTBrJB7
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793045623; x=1824581623;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=fY6/ucNuO0SnDJMQGPu88RMx9ffrdOcwr4EHZtee2B4=;
+  b=ClTBrJB7qcyl/ZN9s5pUTQCFbmifZ8JJcwuRJ+XZB3CwrbXWfi0V8brg
+   yXrc/shK46Bu2HdhJhK6uI4vwSFu36juvE7pHVvHG/mpI0oBojDeYBsnP
+   Tw0rKKH18iE/M6CWBuzFMQYLr2U1Wg9/qwXlLjFN+IxYMlOFOoguRP/rj
+   pagQuV9oxRR0eNdFUcNad42vOHSt3ckhf8jNsosE4tNJh+lOPsMdAP6rU
+   c9j6FobO5MNI7QfpWiyr9gtKA/D5r0gnoOO/Xhjyb1WO5ln5xC44Ir7jK
+   g09ShNvqCLGINd9CoPP1GtTIl5wOG2qL9jciQQzYxxeBNQZfdg5vxBFde
+   g==;
+X-CSE-ConnectionGUID: OGcxCygyT/W0rLcSEfv/sA==
+X-CSE-MsgGUID: /KW1lquXS8GsR2j5d/Zpig==
+X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1745022"
+X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
+   d="scan'208";a="1745022"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 13:13:42 -0700
+X-CSE-ConnectionGUID: DXPwm/T8SWCi+oFe6kcQhw==
+X-CSE-MsgGUID: pvvSMQkSShmg8Xd3guMmdg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
+   d="scan'208";a="4311673"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.93])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 13:13:40 -0700
+Date: Mon, 26 Oct 2026 22:13:37 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Victor Chernyakin <chernyakin.victor.j@outlook.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 4/4] iio: cdc: add Texas Instruments FDC1004 driver
+Message-ID: <at-0cXiBV0RM-Att@ashevche-desk.local>
+References: <SN1PR12MB252882C0E885BF3368E036E5A5612@SN1PR12MB2528.namprd12.prod.outlook.com>
+ <SN1PR12MB2528DB8EE8ACEBF9551ED52EA5612@SN1PR12MB2528.namprd12.prod.outlook.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,352 +82,220 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <SN1PR12MB2528DB8EE8ACEBF9551ED52EA5612@SN1PR12MB2528.namprd12.prod.outlook.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Tests already exist lib/tests to verify the generic functionality of
-KProbes. Add unit tests to verify that KProbes work on instructions
-that require simulation in the OpenRISC ISA, and that the corresponding
-delay slots are handled correctly.
+On Mon, Oct 26, 2026 at 11:51:14AM -0500, Victor Chernyakin wrote:
+> The FDC1004 is a high-precision 4-channel capacitive sensor that talks
+> over I2C. It can report the values of each of its 4 channels individually,
+> as well as the difference between any two of them.
+> 
+> This initial driver allows performing single reads and configuring
+> the sensor's various settings (sample frequency, calibration
+> gain/offset, etc.). It could be extended with support for triggered
+> buffers, repeated measurement mode, and/or power management.
 
-Signed-off-by: Sahil Siddiq <sahilcdq0@gmail.com>
----
-Changes v2 -> v3:
-- arch/openrisc/kernel/tests/test_kprobes_asm.S:
-  - (test_kprobes_*): Set value in r11 register to 0 prior to running tests
-  - (test_kprobes_adrp):
-    Place function at page-aligned address
-    Use PAGE_SIZE macro instead of magic number
-    Move value in r13 to r11 before exiting
+...
 
-Changes v1 -> v2: New commit
+> +static int fdc1004_soft_reset(struct fdc1004_data *data)
+> +{
+> +	int ret;
+> +	unsigned int val;
 
- arch/openrisc/Kconfig.debug                   |  30 +++-
- arch/openrisc/kernel/Makefile                 |   1 +
- arch/openrisc/kernel/tests/Makefile           |   3 +
- arch/openrisc/kernel/tests/test_kprobes.c     |  59 +++++++
- arch/openrisc/kernel/tests/test_kprobes.h     |  24 +++
- arch/openrisc/kernel/tests/test_kprobes_asm.S | 157 ++++++++++++++++++
- 6 files changed, 273 insertions(+), 1 deletion(-)
- create mode 100644 arch/openrisc/kernel/tests/Makefile
- create mode 100644 arch/openrisc/kernel/tests/test_kprobes.c
- create mode 100644 arch/openrisc/kernel/tests/test_kprobes.h
- create mode 100644 arch/openrisc/kernel/tests/test_kprobes_asm.S
+Try to keep all of them in the reversed xmas tree order.
 
-diff --git a/arch/openrisc/Kconfig.debug b/arch/openrisc/Kconfig.debug
-index 295942fe3fd5..54110f3a111f 100644
---- a/arch/openrisc/Kconfig.debug
-+++ b/arch/openrisc/Kconfig.debug
-@@ -1,2 +1,30 @@
- # SPDX-License-Identifier: GPL-2.0-only
--# dummy file, do not delete
-+menu "openrisc Testing"
-+
-+menuconfig RUNTIME_KERNEL_TESTING_MENU
-+    bool "openrisc kernel runtime testing"
-+    default y
-+    help
-+      Enable openrisc kernel runtime testing. With this option, one can
-+      build and run tests to verify the correctness of relevant components
-+      in the kernel at runtime.
-+
-+if RUNTIME_KERNEL_TESTING_MENU
-+
-+config OR_KPROBES_KUNIT
-+    tristate "KUnit test for kprobes on openrisc"
-+    depends on KUNIT
-+    depends on KPROBES
-+    default KUNIT_ALL_TESTS
-+    help
-+      Enable testing of KProbes in OpenRISC for instructions that
-+      require simulation. When further changes related to probes or
-+      tracing are added to OpenRISC's port, these tests can help
-+      verify that instruction simulation and processing of delay slots
-+      continue to work as expected.
-+
-+      If unsure, say N
-+
-+endif # RUNTIME_KERNEL_TESTING_MENU
-+
-+endmenu # "openrisc Testing"
-diff --git a/arch/openrisc/kernel/Makefile b/arch/openrisc/kernel/Makefile
-index 2ac824867963..0c1cade09e0c 100644
---- a/arch/openrisc/kernel/Makefile
-+++ b/arch/openrisc/kernel/Makefile
-@@ -15,6 +15,7 @@ obj-$(CONFIG_STACKTRACE)	+= stacktrace.o
- obj-$(CONFIG_MODULES)		+= module.o
- obj-$(CONFIG_OF)		+= prom.o
- obj-$(CONFIG_KPROBES)		+= kprobes.o
-+obj-$(CONFIG_OR_KPROBES_KUNIT)	+= tests/
- obj-y	+= patching.o
- 
- clean:
-diff --git a/arch/openrisc/kernel/tests/Makefile b/arch/openrisc/kernel/tests/Makefile
-new file mode 100644
-index 000000000000..9e9693fd3550
---- /dev/null
-+++ b/arch/openrisc/kernel/tests/Makefile
-@@ -0,0 +1,3 @@
-+obj-$(CONFIG_OR_KPROBES_KUNIT)	+= openrisc_test_kprobes.o
-+
-+openrisc_test_kprobes-objs := test_kprobes.o test_kprobes_asm.o
-diff --git a/arch/openrisc/kernel/tests/test_kprobes.c b/arch/openrisc/kernel/tests/test_kprobes.c
-new file mode 100644
-index 000000000000..a41bdec662e1
---- /dev/null
-+++ b/arch/openrisc/kernel/tests/test_kprobes.c
-@@ -0,0 +1,59 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * KProbe unit tests for OpenRISC
-+ *
-+ * Unit tests borrowed liberally from similar work of RISC-V. All
-+ * original copyrights apply as per the original source declaration.
-+ */
-+
-+// #include <linux/kernel.h>
-+#include <linux/kprobes.h>
-+#include <kunit/test.h>
-+#include "test_kprobes.h"
-+
-+static void test_kprobe_openrisc(struct kunit *test)
-+{
-+	unsigned int num_kprobe = 0;
-+	unsigned long (*func)(void);
-+	struct kprobe *kp;
-+	int i;
-+
-+	while (test_kprobes_addresses[num_kprobe])
-+		num_kprobe++;
-+
-+	kp = kcalloc(num_kprobe, sizeof(struct kprobe), GFP_KERNEL);
-+	KUNIT_EXPECT_TRUE(test, kp);
-+	if (!kp)
-+		return;
-+
-+	for (i = 0; i < num_kprobe; ++i) {
-+		kp[i].addr = test_kprobes_addresses[i];
-+		KUNIT_EXPECT_EQ(test, 0, register_kprobe(&kp[i]));
-+	}
-+
-+	for (i = 0;; ++i) {
-+		func = test_kprobes_functions[i];
-+		if (!func)
-+			break;
-+		KUNIT_EXPECT_EQ_MSG(test, KPROBE_TEST_MAGIC, func(), "function %d broken", i);
-+	}
-+
-+	for (i = 0; i < num_kprobe; ++i)
-+		unregister_kprobe(&kp[i]);
-+	kfree(kp);
-+}
-+
-+static struct kunit_case kprobes_testcases[] = {
-+	KUNIT_CASE(test_kprobe_openrisc),
-+	{}
-+};
-+
-+static struct kunit_suite kprobes_test_suite = {
-+	.name = "kprobes_openrisc",
-+	.test_cases = kprobes_testcases,
-+};
-+
-+kunit_test_suites(&kprobes_test_suite);
-+
-+MODULE_LICENSE("GPL");
-+MODULE_DESCRIPTION("KUnit test for OpenRISC KProbes");
-diff --git a/arch/openrisc/kernel/tests/test_kprobes.h b/arch/openrisc/kernel/tests/test_kprobes.h
-new file mode 100644
-index 000000000000..26c26920d430
---- /dev/null
-+++ b/arch/openrisc/kernel/tests/test_kprobes.h
-@@ -0,0 +1,24 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
-+/*
-+ * Unit tests borrowed liberally from similar work of RISC-V. All
-+ * original copyrights apply as per the original source declaration.
-+ */
-+
-+#ifndef TEST_KPROBES_H
-+#define TEST_KPROBES_H
-+
-+#define KPROBE_TEST_MAGIC          0xDEADC0DE
-+#define KPROBE_TEST_MAGIC_LOWER    0x0000C0DE
-+#define KPROBE_TEST_MAGIC_UPPER    0x0000DEAD
-+
-+#ifndef __ASSEMBLER__
-+
-+/* array of addresses to install kprobes */
-+extern void *test_kprobes_addresses[];
-+
-+/* array of functions that return KPROBE_TEST_MAGIC */
-+extern unsigned long (*test_kprobes_functions[])(void);
-+
-+#endif /* __ASSEMBLER__ */
-+
-+#endif /* TEST_KPROBES_H */
-diff --git a/arch/openrisc/kernel/tests/test_kprobes_asm.S b/arch/openrisc/kernel/tests/test_kprobes_asm.S
-new file mode 100644
-index 000000000000..bc87a5fb00d5
---- /dev/null
-+++ b/arch/openrisc/kernel/tests/test_kprobes_asm.S
-@@ -0,0 +1,157 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
-+/*
-+ * KProbes unit tests for OpenRISC
-+ *
-+ * Unit tests borrowed liberally from similar work of RISC-V. All
-+ * original copyrights apply as per the original source declaration.
-+ */
-+
-+#include <linux/linkage.h>
-+#include <asm/asm.h>
-+#include <asm/page.h>
-+
-+#include "test_kprobes.h"
-+
-+SYM_FUNC_START(test_kprobes_j)
-+test_kprobes_j_addr1:
-+	l.addi	r11,r0,0
-+	l.j	2f
-+	l.nop
-+1:	l.ori	r13,r13,KPROBE_TEST_MAGIC_LOWER
-+	l.addi	r11,r13,0
-+	l.jr	r9
-+	l.nop
-+2:	l.movhi	r13,KPROBE_TEST_MAGIC_UPPER
-+test_kprobes_j_addr2:
-+	l.j	1b
-+	l.nop
-+SYM_FUNC_END(test_kprobes_j)
-+
-+SYM_FUNC_START(test_kprobes_jal)
-+	l.addi	r11,r0,0
-+	l.addi	r15,r9,0
-+test_kprobes_jal_addr1:
-+	l.jal	2f
-+	l.nop
-+1:	l.movhi	r13,KPROBE_TEST_MAGIC_UPPER
-+	l.jr	r9
-+	l.nop
-+test_kprobes_jal_addr2:
-+2:	l.jal	1b
-+	l.nop
-+	l.ori	r13,r13,KPROBE_TEST_MAGIC_LOWER
-+	l.addi	r11,r13,0
-+	l.addi	r9,r15,0
-+	l.jr	r9
-+	l.nop
-+SYM_FUNC_END(test_kprobes_jal)
-+
-+SYM_FUNC_START(test_kprobes_jr)
-+	l.addi	r11,r0,0
-+	l.movhi	r15,hi(2f)
-+	l.ori	r15,r15,lo(2f)
-+test_kprobes_jr_addr1:
-+	l.jr	r15
-+	l.nop
-+1:	l.ori	r13,r13,KPROBE_TEST_MAGIC_LOWER
-+	l.addi	r11,r13,0
-+	l.jr	r9
-+	l.nop
-+2:	l.movhi	r13,KPROBE_TEST_MAGIC_UPPER
-+	l.movhi	r15,hi(1b)
-+	l.ori	r15,r15,lo(1b)
-+test_kprobes_jr_addr2:
-+	l.jr	r15
-+	l.nop
-+SYM_FUNC_END(test_kprobes_jr)
-+
-+SYM_FUNC_START(test_kprobes_jalr)
-+	l.addi	r11,r0,0
-+	l.addi	r15,r9,0
-+	l.movhi	r17,hi(2f)
-+	l.ori	r17,r17,lo(2f)
-+test_kprobes_jalr_addr1:
-+	l.jalr	r17
-+	l.nop
-+1:	l.movhi	r13,KPROBE_TEST_MAGIC_UPPER
-+	l.jr	r9
-+	l.nop
-+2:	l.movhi	r17,hi(1b)
-+	l.ori	r17,r17,lo(1b)
-+test_kprobes_jalr_addr2:
-+	l.jalr	r17
-+	l.nop
-+	l.ori	r13,r13,KPROBE_TEST_MAGIC_LOWER
-+	l.addi	r11,r13,0
-+	l.addi	r9,r15,0
-+	l.jr	r9
-+	l.nop
-+SYM_FUNC_END(test_kprobes_jalr)
-+
-+SYM_FUNC_START(test_kprobes_branch)
-+	l.addi	r11,r0,0
-+	l.addi	r15,r0,1
-+	l.addi	r17,r0,0
-+	l.sfgts	r15,r17
-+test_kprobes_branch_addr1:
-+	l.bf	2f
-+	l.nop
-+1:	l.ori	r13,r13,KPROBE_TEST_MAGIC_LOWER
-+	l.addi	r11,r13,0
-+	l.jr	r9
-+	l.nop
-+2:	l.movhi	r13,KPROBE_TEST_MAGIC_UPPER
-+	l.sfeq	r15,r17
-+test_kprobes_branch_addr2:
-+	l.bnf	1b
-+	l.nop
-+SYM_FUNC_END(test_kprobes_branch)
-+
-+	.align	PAGE_SIZE
-+SYM_FUNC_START(test_kprobes_adrp)
-+	l.addi	r11,r0,0
-+	l.addi	r13,r0,0
-+	l.addi	r15,r9,0
-+	l.addi	r17,r0,-PAGE_SIZE
-+	l.jal	1f
-+	l.nop
-+1:	l.and	r19,r9,r17
-+test_kprobes_adrp_addr:
-+	l.adrp	r21,0
-+	l.sfeq	r21,r19
-+	l.bnf	2f
-+	l.nop
-+	l.movhi	r13,KPROBE_TEST_MAGIC_UPPER
-+	l.ori	r13,r13,KPROBE_TEST_MAGIC_LOWER
-+	l.addi	r11,r13,0
-+2:	l.addi	r9,r15,0
-+	l.jr	r9
-+	l.nop
-+SYM_FUNC_END(test_kprobes_adrp)
-+
-+    .section .rodata
-+SYM_DATA_START(test_kprobes_addresses)
-+	.word test_kprobes_j_addr1
-+	.word test_kprobes_j_addr2
-+	.word test_kprobes_jal_addr1
-+	.word test_kprobes_jal_addr2
-+	.word test_kprobes_jr_addr1
-+	.word test_kprobes_jr_addr2
-+	.word test_kprobes_jalr_addr1
-+	.word test_kprobes_jalr_addr2
-+	.word test_kprobes_branch_addr1
-+	.word test_kprobes_branch_addr2
-+	.word test_kprobes_adrp_addr
-+	.word 0
-+SYM_DATA_END(test_kprobes_addresses)
-+
-+    .section .rodata
-+SYM_DATA_START(test_kprobes_functions)
-+	.word test_kprobes_j
-+	.word test_kprobes_jal
-+	.word test_kprobes_jr
-+	.word test_kprobes_jalr
-+	.word test_kprobes_branch
-+	.word test_kprobes_adrp
-+	.word 0
-+SYM_DATA_END(test_kprobes_functions)
+> +	ret = regmap_write(data->regmap, FDC1004_REG_FDC_CONF,
+> +			   FDC1004_FDC_CONF_RST_MASK);
+
+	struct regmap *map = data->regmap;
+	...
+
+	ret = regmap_write(map, FDC1004_REG_FDC_CONF, FDC1004_FDC_CONF_RST_MASK);
+
+(yes, it's fine to have 81 characters here)
+
+> +	if (ret)
+> +		return ret;
+> +
+> +	return regmap_read_poll_timeout(data->regmap, FDC1004_REG_FDC_CONF, val,
+> +					!(ret & FDC1004_FDC_CONF_RST_MASK),
+> +					1 * USEC_PER_MSEC, 200 * USEC_PER_MSEC);
+> +}
+
+...
+
+> +static int fdc1004_read_raw(struct iio_dev *indio_dev,
+> +			    const struct iio_chan_spec *chan,
+> +			    int *val, int *val2, long mask)
+> +{
+> +	struct fdc1004_data *data = iio_priv(indio_dev);
+> +	struct regmap *map = data->regmap;
+> +	unsigned int reg_val;
+> +	u16 reg_vals[2];
+> +	int ret;
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_SCALE:
+> +		iio_val_s64_decompose(fdc1004_scale, val, val2);
+> +		return IIO_VAL_DECIMAL64_YOCTO;
+> +	case IIO_CHAN_INFO_RAW: {
+> +		guard(mutex)(&data->lock);
+> +
+> +		/* Configure the measurement we want. */
+> +		reg_val = FIELD_PREP(FDC1004_CONF_MEAS_CHA_MASK, chan->channel)
+> +			| FIELD_PREP(FDC1004_CONF_MEAS_CHB_MASK, chan->channel2)
+> +			| FIELD_PREP(FDC1004_CONF_MEAS_CAPDAC_MASK,
+> +				      data->offsets[chan->channel]);
+
+We don't practice this style in IIO.
+
+		reg_val = FIELD_PREP(FDC1004_CONF_MEAS_CHA_MASK, chan->channel) |
+			  FIELD_PREP(FDC1004_CONF_MEAS_CHB_MASK, chan->channel2) |
+			  FIELD_PREP(FDC1004_CONF_MEAS_CAPDAC_MASK,
+				      data->offsets[chan->channel]);
+
+> +		ret = regmap_write(map, FDC1004_REG_CONF_MEASn(0), reg_val);
+> +		if (ret)
+> +			return ret;
+> +
+> +		/* Start the measurement. */
+> +		reg_val = FDC1004_FDC_CONF_MEAS_n_MASK(0)
+> +			/* "+ 1" because the chip wants a 1-indexed value. */
+
+Move comment on top of the assignment.
+
+> +			| FIELD_PREP(FDC1004_FDC_CONF_RATE_MASK,
+> +				     data->samp_freq_index + 1);
+
+Same about the style.
+
+> +		ret = regmap_write(map, FDC1004_REG_FDC_CONF, reg_val);
+> +		if (ret)
+> +			return ret;
+> +
+> +		/*
+> +		 * Wait for the measurement to complete.
+> +		 * The slowest sampling frequency the chip supports is 100 SPS,
+> +		 * i.e. 1 sample every 10 ms, so our timeout can't be shorter
+> +		 * than that. Go with 40 ms to be safe.
+> +		 */
+> +		ret = regmap_read_poll_timeout(map, FDC1004_REG_FDC_CONF, reg_val,
+> +					       reg_val & FDC1004_FDC_CONF_DONE_n_MASK(0),
+> +					       1 * USEC_PER_MSEC, 40 * USEC_PER_MSEC);
+> +		if (ret)
+> +			return ret;
+> +
+> +		/*
+> +		 * Now read the two registers making up the measurement.
+> +		 * The datasheet says to read MSB first, LSB second.
+> +		 */
+> +		ret = regmap_bulk_read(map, FDC1004_REG_MEASn_MSB(0),
+> +				       reg_vals, ARRAY_SIZE(reg_vals));
+> +		if (ret)
+> +			return ret;
+> +
+> +		*val = (sign_extend32(reg_vals[0], 15) << 8) | (reg_vals[1] >> 8);
+
+We still have two shift operators, so it might be not a bad idea after all to
+have a combined variable with wordswap done in case of LITTLE_ENDIAN
+architecture. Jonathan, what do you think about this? Reading the whole set as
+32-bit value and convert it if required
+
+		// also note in this case we don't need to have _MSB in the name
+		ret = regmap_bulk_read(map, FDC1004_REG_MEASn(0), reg_val, sizeof(reg_val));
+		if (ret)
+			return ret;
+
+#ifdef __LITTLE_ENDIAN
+		reg_val = swahw32(reg_val);
+#endif
+
+		*val = sign_extend32(reg_val >> 8, 23);
+
+		// I assume the following is also possible in this case
+		// *val = (int)reg_val >> 8;
+		// but usually we use sign_extend32() in IIO even when simple
+		// casting is okay
+
+This also reduces stack usage.
+
+> +		return IIO_VAL_INT;
+> +	}
+> +	case IIO_CHAN_INFO_SAMP_FREQ: {
+> +		guard(mutex)(&data->lock);
+> +
+> +		*val = fdc1004_samp_freqs[data->samp_freq_index];
+> +		return IIO_VAL_INT;
+> +	}
+> +	case IIO_CHAN_INFO_OFFSET: {
+> +		guard(mutex)(&data->lock);
+> +
+> +		*val = data->offsets[chan->channel] * fdc1004_offset[1];
+> +		return IIO_VAL_INT;
+> +	}
+> +	case IIO_CHAN_INFO_CALIBBIAS:
+> +		ret = regmap_read(map, FDC1004_REG_OFFSET_CAL_CINn(chan->channel),
+> +				  &reg_val);
+> +		if (ret)
+> +			return ret;
+> +
+> +		iio_val_s64_decompose(sign_extend64(reg_val, 15) *
+> +				      fdc1004_calibbias[1], val, val2);
+> +		return IIO_VAL_DECIMAL64_FEMTO;
+> +	case IIO_CHAN_INFO_CALIBSCALE:
+> +		ret = regmap_read(map, FDC1004_REG_GAIN_CAL_CINn(chan->channel),
+> +				  &reg_val);
+> +		if (ret)
+> +			return ret;
+> +
+> +		iio_val_s64_decompose(reg_val * fdc1004_calibscale[1], val, val2);
+> +		return IIO_VAL_DECIMAL64_FEMTO;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+
+...
+
+> +static const int fdc1004_calibbias_decomposed[] = {
+> +	lower_32_bits(fdc1004_calibbias[0]), upper_32_bits(fdc1004_calibbias[0]),
+> +	lower_32_bits(fdc1004_calibbias[1]), upper_32_bits(fdc1004_calibbias[1]),
+> +	lower_32_bits(fdc1004_calibbias[2]), upper_32_bits(fdc1004_calibbias[2]),
+> +};
+> +
+> +static const int fdc1004_calibscale_decomposed[] = {
+> +	lower_32_bits(fdc1004_calibscale[0]), upper_32_bits(fdc1004_calibscale[0]),
+> +	lower_32_bits(fdc1004_calibscale[1]), upper_32_bits(fdc1004_calibscale[1]),
+> +	lower_32_bits(fdc1004_calibscale[2]), upper_32_bits(fdc1004_calibscale[2]),
+> +};
+
+We still haven't decided on this one. I think the 2D array is better for these.
+And with the above we effectively have a duplication of the tables.
+
+...
+
+> +#define FDC1004_DIFFERENTIAL_CAPACITANCE_CHANNEL(_chan1, _chan2)         \
+> +	{                                                                \
+> +		.type = IIO_CAPACITANCE,                                 \
+> +		.indexed = true,                                         \
+> +		.differential = true,                                    \
+> +		.channel = _chan1,                                       \
+> +		.channel2 = _chan2,                                      \
+> +		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),            \
+> +		.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE),    \
+> +		.info_mask_shared_by_all = BIT(IIO_CHAN_INFO_SAMP_FREQ), \
+> +		.info_mask_shared_by_all_available =                     \
+> +			BIT(IIO_CHAN_INFO_SAMP_FREQ),                    \
+> +	}
+
+Please, use tab for indenting the \ slashes (and only spaces at the end if you
+want to shorten that a bit).
+
 -- 
-2.55.0
+With Best Regards,
+Andy Shevchenko
+
 
