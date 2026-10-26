@@ -1,54 +1,135 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.149
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793056285;
-	b=F2yG/DjeT/kI6gzs5AxMZ6pbBwUSks0J/8JQ4RMODqB/sO7bBSpG1o4HIutf9ezi253+
-	 jDfZZ+UFTL9wcu+0qDexuiJv8f+8XSexiKC3fJTEv8oPjKTA2csWcigzEEffWhCtWMyf5
-	 MGEEIuCutMdSUcw/dTtsFZNFOLhm1IJ4qEQuGA7mKp74aq8n8ZbsIY1A6eDmY0r0PKQkv
-	 zGX0c/hBtCTej5/DYTQvr+mnmGLgla4dYY9dzan9Q040LD+ECzwSyAHt2vXgvXEG1Nrro
-	 df9E2zkyqArlRi2mH3imHByAysNb7SHKNASWVSrFo2jHJQx3snmH6G21PCjEVlQiQ4g==
+	t=1793056308;
+	b=OWrQ0XDTTHBSvfLJcAX8cIfSadSaqBnbl/ugBAmvK4a6syNANZBYJJYZDZ0buhpzONrW
+	 M0kcb00ZWO21/3CUwqTADQVk+2M2s8pN4RVKc7IaWnv3oLs0PDeDL8oVx/BtyooGe11Fd
+	 tiA+qIpNXU1CrNWcjG2jR9prNPmviGOy7LbM0KBcIqTIGGFybkmhwAbg7ieoUxyCbv2KK
+	 slWoAlU/DBFMILmEz8JDXqDdzVCDwNFKrLmhietQwe+6nHoSCXkKQ9o9EKnIfzPaz+Ioy
+	 LEYmeevV78DPDm9Cf4jLQn6Dv1YfivgHy5+bnSap6/me81/urYzY/N1pel+9nT3GglQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793056285;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Sq8U6qRkxAVCxLJVMdW3PdUBR2QnCqOWhnBaz9IJe/k=;
-	b=kVDFXlEKxjK2kTNGdKWbrBqqdV4qhilqMqiK8T+39OrYAyJ+ZDQBDUMH5VsM8syhMR/H
-	 Yku/0yhByWs+O06OVHUpcUhipt+mGO618gI7HN7iZiczYkC3dlTkG0La+znf43jb3zeh3
-	 Umz5kSTgi1EmsnMsgbyj5/uIlPU97JawTWOuqKp4G/oZDiPqZN2kXe/cEXJf+DWNVr728
-	 V3eHp1FcH+Vz43l40SYLTgWmDFZ/3gSZ8fV/FwopaIdE2zI/ggAtfZ2GprjR7m7SB/cQf
-	 1+NvhsiyVtOmDJgNQ9Wm/l84+Lb++qBcGNDjmANR4HAvER5bxWukTpMY/dGuiaMkrLw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793056308;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=dvML+/R4qQbTxhU2z6PfyaJFwg8cDUrAEKJw4xPVIt0=;
+	b=q7fKdAxIg5LnCuzO24IafOWyoo0QxNpkSuyAxZkNpF6V1wrtxj8UiakSjCPU1LI9a2m4
+	 tGDCyInrhxQF5mux7A+ho6KdedxUCcprOKe0+fU/sDB4+zCOZY0MytMon+ho3gxyZllGU
+	 ovIBr29cE0v3yQI+VW7E3cqWG5qTxpqGR9Q6QKCZSuRqkOhqZqvwZqCPsnCElwkTO0aSA
+	 LZB4icbYt6sJtnYhU0PmCkMCHVqSEd3PJxDt3vcxaWg3yLuTAd34pfsvlqyflyAt8A55o
+	 WHZonfdU7QaFnzTq3gbKVxOKomDLDZN0JRkBPutN0NCPfBsZR84IV4YtM5TW4mJFsnw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jhCj6au1;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=themaw.net;
+	spf=pass smtp.mailfrom=themaw.net;
+	dkim=pass header.d=themaw.net header.i=@themaw.net header.a=rsa-sha256 header.s=fm1 header.b=eF47GSn9;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=n8Dv85jI;
+	arc=none smtp.remote-ip=202.12.124.149
+Received: from fout-b6-smtp.messagingengine.com (fout-b6-smtp.messagingengine.com [202.12.124.149])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7914B606A31A;
-	Mon, 26 Oct 2026 23:11:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 568D0606A31E
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 23:11:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 568D0606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=themaw.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=themaw.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jhCj6au1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D223F1F01825;
-	Mon, 26 Oct 2026 23:11:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793056285;
-	bh=Sq8U6qRkxAVCxLJVMdW3PdUBR2QnCqOWhnBaz9IJe/k=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jhCj6au1k5AOhOtgclDmE+QL9AVzh5MUBFxg00YqaxsnCigg+6Kn9VbFM7CG08sHs
-	 Gny7d7kNGKTfG/VZCLtihttNO48vi1iNnTWXrE9HFY9ww1zwAXbYGe9V1Gfs0NvZiG
-	 sejWtQqWvIn8YadQqIHsqE43iS5VBbw4/rm691IxxmQLxvkakhWat/jSG624n1ZjmV
-	 6zbC+BsZB6oQ+jhQE9yKqUrp6xJ+8Vwf0vdZFoa7l1dRu+d4UHf38BiQpWL6tf/Dbp
-	 Mk2U1n8yQM0/6xhRwUiStuZt3bqAy2yBqiERoCNTTmC+cJryvPvjo3DHU9sQ9GMv50
-	 8l8JUan1ZDktA==
-From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-To: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-Cc: Steven Rostedt <rostedt@goodmis.org>, Shuah Khan <shuah@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH v2 1/9] tracing/filters: Fix MATCH_END_ONLY regex matching for fixed-size strings
-Date: Tue, 27 Oct 2026 08:11:22 +0900
-Message-ID: <undine-1793056282077825155-5234c76709b60359@undined.local>
-X-Mailer: UndineD 0.1
-In-Reply-To: <179291743946.492959.9624495647021680807.stgit@devnote2>
-References: <179291742944.492959.11659339795290028998.stgit@devnote2> <179291743946.492959.9624495647021680807.stgit@devnote2>
+	dkim=pass (2048-bit key, unprotected) header.d=themaw.net header.i=@themaw.net header.a=rsa-sha256 header.s=fm1 header.b=eF47GSn9;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=n8Dv85jI
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfout.stl.internal (Postfix) with ESMTP id D8A581D0025D
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 19:11:47 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-04.internal (MEProxy); Mon, 26 Oct 2026 19:11:47 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=themaw.net; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1793056305;
+	 x=1793142705; bh=dvML+/R4qQbTxhU2z6PfyaJFwg8cDUrAEKJw4xPVIt0=; b=
+	eF47GSn9FIOirROKVFcXBmktSKnI31tpcGER4Q9xGqhk39aCWQfoZa3Lm7CACJYw
+	fVHcnPwYX2ma0tfoOMkmLYMRzYcAoNxr+pNmWMouR4bYMWO9oqDwyn283q9XpWJ6
+	4MNKxnJKzbEDUkilxZXsp1VXYkgjE4IjdYT/uyA4FSWOo96tWJtdZyihCUZys3hK
+	2QDeL3Uhdyu7d4ZAsewtPPXCpXcEIdpeHNcnTKBr5P7owpj1DZkLUfKn7lnZB4Rf
+	ZicwkQJ7zMGYvvA4VDdMwVobSkSHhRIHM9BZlBAGW1hjIz1Tor4ZB19pTxajuQLa
+	47YbAXhNaWBieUr1bTo8ng==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793056305; x=
+	1793142705; bh=dvML+/R4qQbTxhU2z6PfyaJFwg8cDUrAEKJw4xPVIt0=; b=n
+	8Dv85jI+8C/MNhFNCCIXYqCcshAF8dbb9g/N0GwJRSFhwYCD+zXrCBBsURU3bTSk
+	8jlrC1pX8a68+fxFVH0CWRNoBSjs8JOKpk1xWAXPHEb5naBjxJIZI4kVX1GJoYeX
+	IxgGlH0agkPMHbpGKXeFzLkzdFu8O4pckeySBCMTR8H6mu2Y4gnBELiKh07d1nYx
+	Ryw5XfJMpIuQVQfizYzQbKQqLIY3gUmTHeWl74FcYc7mIqmY+3rNyLieXBuWm6Dw
+	5d251R+UHyuWseBz5NtjXxPa8UXJiXiiVnkfbqpphxx3aTvhK4smWyXPcfAFqrm6
+	EdRcHt9nU0LfHQxRC2zAw==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=sign d=themaw.net a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793056305; d=themaw.net;
+	mf=PHJhdmVuQHRoZW1hdy5uZXQ+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:ihuCVM9VE2MY10hwQ6QFhUYPVPaMza4G3YDOshomQyTrO2P
+	QhhThYbmmeKKHbxOqZDWcTvKa+ipTXn1RGwQY3wMaYjWUXxUzwtnOOcY/BkaANTB
+	q9KCLkCfc68O2YskVs2PJn3jXMrroALClXy4YjDD2tpD8GqyB0hqE4ukZfuf9yb2
+	AiUaevY02GiCHWy3K99pr6gMxULBU/LVW/sHhrzRRyJCHk6It3CCV92W0WF91/xA
+	nIIfM8rgpx2zyNEbvdiLk9RvTaZz3rXcUHuoSN7175THQ/JUvKwWSPw+ncEJIFy2
+	PNkXZ+PNueUTNUR/c5QLihoD2HANNorZTS9E+LQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=mi-m=1; hc=13;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to,
+	user-agent;
+Message-Instance: m=1; h=sha256:vPusySQWVNzJFF54CdHHDfiPLt7mpt6sO2TlTCCEQWI=:dvML+/R4qQbTxhU2z6PfyaJFwg8cDUrAEKJw4xPVIt0=;
+X-ME-Sender: <xms:MN7fagMmxjqXRUL9aqo6FPAmYSgnud9gkzoDPwcZyYx6L6C4U0X2Ng>
+    <xme:MN7fat4-LMa6NTmzFI3l_ucCq-9QCy9WAgqm9KF0q1MtPcamV2J2q7fiCmWYDHDhN
+    xDis-1IXreWyODvEAKvpiLeyxzt-xzqNlovPKQoV35HMhnI>
+X-ME-Received: <xmr:MN7fasWK6Ut_3eAGiLn98SEo8l_L8nO_K1LpvsziKTeuNJAhMgcxEV1argJv9YhJrTZ6PmLhAzc9UqLrs_IUAYtxd1dTfjQ8uy0ggQ1NXFsX6qFFKwHoG9gpdxI>
+X-ME-Proxy-Cause: dmFkZTEyzjjaeQZJI/HSd3tpXSqYi01yU3P3/gK5SMN8wdEOWguYY1wXiE1GG6AojV+QZn
+    Rrd8nivv5YeCrOrqBgj9sZ6l7GKzSUoNcbhot48nAQcX6YMBwJLeRLJ4VkXadZFqyn07ur
+    D1aOfKyqkboA+Ewom2Ofk/Nj8VjAohFzhpDY/z5kDx9YPFVYvkz6kOssnxzL1PL/K63CX3
+    e4JAWbp5m8M+8yTCemGdtASRGGm5koyhSvgfTarM2LSLutLrM7kZ6nJhhe6uO17RCILbvp
+    CYu1T0dF1FXTF+J4vT72krSyimQh/BjxPUMLaVaS55ARGYeANDrleXwwXWliq4KhS26/hj
+    kyK4x8Ih3ZqS+refPXHiSfHJRqyv6h5huOtmYa6DxgvQ8tZix32SxngBS5UAnfAgg4aFei
+    qiyJ/RYrf40f3iwCK3ypCEJHC+OJVRcrpygmffiY3epFoK3ixNQqcVhqC56sjf9HWKpau5
+    OF49zxfozS/+m7Xv2M4/Epvq4Dl8cggFLk9hBvzqd5Uw2FMSU3kDL2l/CQxBYdpDoNlx99
+    0s+P7E+sr2dUQb2wjKmmkK9uvhgpo1D0iiknUP2sf2/vSAfpN+0/fNa3GO/YomQEo/bcNs
+    OiHdHE86XF6h+0S6s2YYoWYkdxAl9JGAjcBnC9XeBOadE9JUdGIQgKyP2J8Q
+X-ME-Proxy: <xmx:MN7fav1Lbw2OGyNFnSzlwfOk_8bW3ADI9pxz9x0XLO-PSiZSi9dlxQ>
+    <xmx:MN7fajOdQ0SE8DAEIVKT845WJJKd6W3exuyaL-mCVCu6FEXJpCJ6gg>
+    <xmx:MN7fai2Y23G0x_9cCtqafEcrIMxHLZ8_IecYpOW_PW5WOpNH2v5KAQ>
+    <xmx:MN7faq2BAEidWJUisI6-nzczcPB96Z9UFwXHjor8z9esYIiVudKDWw>
+    <xmx:Md7farpABo2w_IxuVO7e3DOz0_2mHDyGyGv7yWm14tpkkdHKxW5DxoYq>
+Feedback-ID: i31e841b0:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 26 Oct 2026 19:11:38 -0400 (EDT)
+Message-ID: <4f56c93a9fc5fee152364974773df0a319c84af9.camel@themaw.net>
+Subject: Re: [PATCH 0/2] kernfs, autofs: fix pipe lock cycles through sysfs
+ stores
+From: Ian Kent <raven@themaw.net>
+To: Krystian Kaniewski <krystianmkaniewski@gmail.com>, Greg Kroah-Hartman
+	 <gregkh@linuxfoundation.org>
+Cc: Tejun Heo <tj@kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>, 
+ Danilo Krummrich	 <dakr@kernel.org>, Alexander Viro
+ <viro@zeniv.linux.org.uk>, Christian Brauner	 <brauner@kernel.org>, Jan
+ Kara <jack@suse.cz>, Ingo Molnar <mingo@redhat.com>,  Peter Zijlstra
+ <peterz@infradead.org>, Andrew Morton <akpm@linux-foundation.org>, Jens
+ Axboe <axboe@kernel.dk>, 	driver-core@lists.linux.dev,
+ autofs@vger.kernel.org, 	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, 
+	syzbot+002fb7b2d0bc53bf7e75@syzkaller.appspotmail.com
+Date: Tue, 27 Oct 2026 07:11:35 +0800
+In-Reply-To: <dc65c28e408d6b64d4b13b7ad30e5fe70ddaa441.camel@themaw.net>
+References: <6aa23178.f81106d8.2ab401.0006.GAE@google.com>
+		 <cover.1792577179.git.krystianmkaniewski@gmail.com>
+	 <dc65c28e408d6b64d4b13b7ad30e5fe70ddaa441.camel@themaw.net>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44app2) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,76 +139,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
 
-On Sun, 25 Oct 2026 17:37:19 +0900, Masami Hiramatsu (Google) <mhiramat@kernel.org> wrote:
-> From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-> 
-> regex_match_end() calculated string length as "len - 1", assuming @len is
-> the string length including trailing '\0'. However, for fixed-size string
-> fields, filter_pred_string() passes field->size as @len, and for "comm",
-> filter_pred_comm() passes TASK_COMM_LEN as @len.
-> 
-> Because @len in these cases represents the buffer capacity rather than the
-> actual length of the string, regex_match_end() tests against the tail of
-> the buffer (typically trailing '\0' padding) rather than the end of the
-> string. Furthermore, if @len is 0 (denoting an empty dynamic array without
-> trailing '\0'), "len - 1" underflows to -1.
-> 
-> First check "len < r->len" and return 0, which safely rejects negative
-> lengths and cases where the buffer capacity is smaller than the pattern.
-> Then compute the actual string length using strnlen(str, len), which
-> bounds the scan by @len (stopping at the first '\0') without dereferencing
-> past the buffer.
-> 
-> Fixes: a3291c14ecf0 ("tracing/filters: Fix MATCH_END_ONLY filter matching")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-> ---
-> Changes in v2:
->  - Check "len < r->len" to guard against negative lengths and avoid
->    calling strnlen() when the buffer capacity is smaller than the pattern.
->  - Use strnlen(str, len) directly instead of calling strlen(str) when
->    len is 0, avoiding an out-of-bounds read on 0-length dynamic arrays.
-> ---
->  kernel/trace/trace_events_filter.c |   10 +++++++---
->  1 file changed, 7 insertions(+), 3 deletions(-)
-> 
-> diff --git a/kernel/trace/trace_events_filter.c b/kernel/trace/trace_events_filter.c
-> index 5e74d2dae40a..fac51a2953dd 100644
-> --- a/kernel/trace/trace_events_filter.c
-> +++ b/kernel/trace/trace_events_filter.c
-> @@ -1075,10 +1075,14 @@ static int regex_match_middle(char *str, struct regex *r, int len)
->  
->  static int regex_match_end(char *str, struct regex *r, int len)
->  {
-> -	int strlen = len - 1;
-> +	int slen;
->  
-> -	if (strlen >= r->len &&
-> -	    memcmp(str + strlen - r->len, r->pattern, r->len) == 0)
-> +	if (len < r->len)
-> +		return 0;
-> +
-> +	slen = strnlen(str, len);
+On Tue, 2026-10-27 at 06:07 +0800, Ian Kent wrote:
+> On Wed, 2026-10-21 at 14:51 +0200, Krystian Kaniewski wrote:
+> > syzbot reports a lockdep cycle &pipe->mutex --> &of->mutex -->
+> > &sbi->pipe_mutex. splice holds a pipe mutex while it calls the
+> > write
+> > or
+> > read handler of a kernfs file, kernfs takes of->mutex there, and a
+> > write
+> > to /sys/power/resume looks up a path that can make autofs write a
+> > request
+> > into its daemon pipe and wait for the daemon.
+> >=20
+> > Patch 1 stops holding of->mutex around the ->store() callback of
+> > regular
+> > sysfs attributes, which do not get the open file and already run
+> > concurrently for separate opens.
+> >=20
+> > Patch 2 handles the case that patch 1 leaves. A store called from
+> > splice
+> > still runs with the pipe locked. autofs no longer sends or waits
+> > for
+> > a
+> > request in that context and returns -EAGAIN instead. A new mount is
+> > refused before it is marked pending, so no other lookup sends the
+> > request
+> > in its place. This also removes a deadlock in which the spliced
+> > pipe
+> > is
+> > the autofs daemon pipe itself.
+> >=20
+> > Patch 2 changes behavior for one narrow case. A lookup from a
+> > splice
+> > callback that needs an automount fails with -EAGAIN instead of
+> > waiting.
+> >=20
+> > The series was tested in QEMU with lockdep using the original C and
+> > syz
+> > reproducers and focused splice and autofs cases. The target reports
+> > were
+> > not reproduced with the series applied, and the paired functional
+> > cases
+> > matched the unpatched baseline.
+> I can't seem to find a reproducer that reproduces the bug or maybe
+> I don't know what to expect from running the syzbot reproducer I
+> did locate.
 
-Hmm, this fixes 2 different issues. One is out-of-bound access issue (len == 0 case)
-and MATCH_END_ONLY for COMM/STATIC_STRING issue. For example, FILTER_COMM will pass
-the TASK_COMM_LEN as @len, thus "str + (len - 1)" points the end of comm array.
-Thus in most cases, the filter checks only the zero padding area.
+I think I have found the appropriate reproducer, certainly looks
+like it.
 
-OK, let me split this into 2 patches.
+Commit 1e8c813b083c ("PM: hibernate: don't use early_lookup_bdev
+in resume_store") looks like it's been around for a while so I
+assume the reproducer should work on 7.2.12?
 
-Thanks,
+What should I expect, a hang, it doesn't.
 
-> +	if (slen >= r->len &&
-> +	    memcmp(str + slen - r->len, r->pattern, r->len) == 0)
->  		return 1;
->  	return 0;
->  }
-> 
->
+Also it looks to me like the reproducer is trying exploit an
+invalid request similar to what I described earlier but I can't
+test to see if my simple autofs resolution fixes it if I don't
+know what to expect from the reproducer.
 
--- 
-Masami Hiramatsu (Google) <mhiramat@kernel.org>
+Ian
+>=20
+> Can anyone help please.
+>=20
+> Ian
+> >=20
+> > Krystian Kaniewski (2):
+> > =C2=A0 kernfs: do not hold of->mutex across sysfs ->store()
+> > =C2=A0 autofs: do not wait for the daemon while splice holds a pipe
+> >=20
+> > =C2=A0fs/autofs/expire.c=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 6 +++++
+> > =C2=A0fs/autofs/root.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 28 +++++++=
+++++++++++++++--
+> > =C2=A0fs/kernfs/file.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 52 +++++++=
+++++++++++++++++++++-----------
+> > --
+> > --
+> > =C2=A0fs/splice.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 | 13 ++++++++++-
+> > =C2=A0fs/sysfs/file.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 18 ++=
+++++++++++++-
+> > =C2=A0include/linux/kernfs.h | 11 +++++++++
+> > =C2=A0include/linux/sched.h=C2=A0 |=C2=A0 2 ++
+> > =C2=A0kernel/fork.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 |=C2=A0 1 +
+> > =C2=A08 files changed, 109 insertions(+), 22 deletions(-)
+> >=20
+> >=20
+> > base-commit: 93f51579e7df248780214094418f205253383cc5
