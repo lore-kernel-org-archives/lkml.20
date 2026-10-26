@@ -1,66 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793039739;
-	b=aZDZGk86vp5n47usDH4yAbR0vuPQEfIHUYDx/imfXgXuPJLk71OtI6l8jMpZwKdRKg8G
-	 q5HRLeD/766L/3n6mlyBtiTMEgYL+L2IsejnEBF0W0B0YCsxTQeHTthrAbUZzM3qfYQ+V
-	 pUwCTH14wWLFYXb/BJ2+D6y6nlhT27obGSpDlCCMEbyFZ+h8OScjgJ+3mUTv4Q50Ho1XG
-	 ucnyTB57tpInRGjhjE9rDbmW6bn6x1/F4zF7KNRBhDswi0mPi3W4No9OuBtzCsw4U0Quv
-	 kWfFc1bekxToPy5aD4ygzOAgt/Xbe/CFTy6aV6Ty1+gtm+F/jdVl8Ewb6pHG/ee67sA==
+	t=1793039737;
+	b=2fX4IdCkzXFaziSL/qfRp/798p6lohmc1l6Wjw9YO7P8PYkg3nbKN5M/O4xG2bcu7va8
+	 9YifmU/REPcVqHUaip8OB4YxMS1X9dINPIHQH4guxFiqJbtW4qYi7ktabQuiIrsfi4WxQ
+	 rLaQIG0sGJ7uX0bDePCjLFY3JZ8iSBqFI4INH3VdCS34Mikidg49zMr4s9ouH+/gO2wpz
+	 kvbbvydkpF8KxHiEgkeeAlZbBQaDd43gZE0PQ4FUX7MGAVWIBBSqo8hbym+LjH65dZF22
+	 oO/m2UsM3lFQfyVfaB7UhgytYLZpIsRmewASYVW4Vyeb+hCoaerfKSv9MLcXSZV/r7w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793039739;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793039737;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=oOsWYs5J52jJpaI/tqgmvUEXCNrzxmHhTjyrVcOLTo8=;
-	b=QADG8h4mKNCMHyzY7RydvakllcCV3lvZBI/8ixuDPYvFOE/yKe4muET/34I/6h+PhPjK
-	 d5l5FgjO3M7/5QyoKFFoQRYxQJ/8f3wskJdaBa1GueE8DD22JZemS0ECWBbaEr38HBJci
-	 RnplM4ZjJbgssPF+vfXbpjvEllt2nbjPCW/aI83RzeLmUCgiSloGTtI4MkPh4ExZLnFC5
-	 CMGM5fJzStM2ftC/8/bgVbGYMpw0pqJGEgRSkBKgLvqRulkAg9y0OSqQxP73NUD5Gs+O/
-	 esfVIaGfU/VLZOe5snh8GEN6VRhd47Wi+SNwkpf5GbbZWNKkkEtDtKge7yeECRXDC0w==
+	bh=DutGulekxiyubV8Y4BVhzApq0tJxXeLDnBFDChJe/jQ=;
+	b=wcrSNKmLtK+iqmtl61fU22OIu2ZMY9E/jKndZ/ihaVJdpFTV2QkHpidcP5kZa0CceD17
+	 Ml2okRe8oM05Q3S5ng1P71VRY+7UEbzN3gZuOhrj6kn+THLDMot7FcfiZ7roY0ciCBDP/
+	 o9rcHbApnSmCziIdzkdgcU/NILUdc4YcfGR0jA0EvoUHA7J6fL1SYYI9Apkaz5dnDjAQO
+	 tsbfQIm3w/XB2frLi70RX5YU4ihjDmOuVFIfrcSD1fGmKSgmm8ber+/q8hHSkMRnHB9bc
+	 8FlCp+MjZ3q4yUIQDN3YdLMBlBGh6Cj3HDLQuyww6FcNpG4ZeGGTjqfMfy1XFzhtXdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=TGtR5Lvk;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=m4QFAvMW;
 	arc=none smtp.remote-ip=192.198.163.16
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DB93606A326;
-	Mon, 26 Oct 2026 18:35:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2DB93606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 261CC606A31E;
+	Mon, 26 Oct 2026 18:35:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 261CC606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=TGtR5Lvk
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=m4QFAvMW
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793039739; x=1824575739;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=vOEetN6B1gQxi1WFP/OWgNL1Gb2g8930BL49ybIBsq8=;
-  b=TGtR5LvkLYiFBtgrDMvyae+IubIMQ5Yo4oDx0gk/+XpCIokE5V3NI6Gv
-   XuAO2pi1y4z71rTUzEB7rPGWYjqZAeFs2SD0012A0iqgdNeFj5r9DufkP
-   W7Htq09ccsTebjyDZqW8YqxorDWhYA+Sc4rIrquXUZ0HufqBfrtPKyYfc
-   9T6vBOBdLAVN/YQ3GpVQF/XQ5rNfl9NOuzb8z8M2GjLQ0eXxnMPqnZpZd
-   wrOpRQHwcoX2UpBtEYTj3I9H/pCkypCPsjNKWpsqWMDL8ToS1hZt3jJ2l
-   am5CHMXmrgMNZizB+Z01wzrMMBAqXJFJzqIXipwtB+6jO1iVlRs5amP1/
-   w==;
-X-CSE-ConnectionGUID: vPZ+iWDsTuyL52owsyMFHw==
-X-CSE-MsgGUID: tNhLvw5GR/ye0eO+I2nCMQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1731469"
+  t=1793039736; x=1824575736;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=gUOGIIA12IZ2RJQA6xl7ouXGMrXgc47zgb7kK7764bw=;
+  b=m4QFAvMWAq6xC6o9p3xvbXcMgfz9XNffAysDtnW+4pG9gRgiQQq7/mTZ
+   zFIpIpd/RbJkO/townQdDZ5APMe5vuf5SgMccH4zfgfy3S6GL7hHYw8ef
+   4Hb2rpAdh4k6vpbED2WR2SFiMzeqFae7vzcPeLHT0ViTK3hbyrsEOLvQw
+   mYOeJs9Q+9/CL4w1tujnRz7reeBSIOuZ4pZvZitHwfOODlYEOaMANdywb
+   SfdlYGmKaRl89NiQ5dq6fcIllesVXUPqOFHe2MwTFfipOPYNUiZDBxVR+
+   wv41g3ZIv+m3BG8Ak7+kQrnDzAImsf85DNnxHQDDkgroEd/qEyPh9vZ3p
+   A==;
+X-CSE-ConnectionGUID: oMbkIZdISEWLO2jFUqwEKg==
+X-CSE-MsgGUID: Y+kH/li9TZapaba4BCeSGg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1731429"
 X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
-   d="scan'208";a="1731469"
+   d="scan'208";a="1731429"
 Received: from orviesa003.jf.intel.com ([10.64.159.143])
   by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 11:35:35 -0700
-X-CSE-ConnectionGUID: flF4SY08QgS2g3tg0+kcoQ==
-X-CSE-MsgGUID: 8Mp/5OSTSXiNIETBlGSV7A==
+X-CSE-ConnectionGUID: /Xd8VV+vRWW2EI2Ji/wtKQ==
+X-CSE-MsgGUID: VaV0SkrESQ6F432M0KN6cg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
-   d="scan'208";a="4293870"
+   d="scan'208";a="4293857"
 Received: from jf.intel.com (HELO jf.intel.com.jf.intel.com) ([10.165.154.102])
-  by orviesa003.jf.intel.com with ESMTP; 26 Oct 2026 11:35:36 -0700
+  by orviesa003.jf.intel.com with ESMTP; 26 Oct 2026 11:35:35 -0700
 From: Ehab Ababneh <ehab.ababneh@intel.com>
 To: ilpo.jarvinen@linux.intel.com,
 	hansg@kernel.org,
@@ -82,12 +82,10 @@ Cc: ashok.raj.linux@gmail.com,
 	sathyanarayanan.kuppuswamy@linux.intel.com,
 	pengfei.xu@intel.com,
 	ravi.v.shankar@intel.com
-Subject: [PATCH 04/17] platform/x86/intel/ifs: Use u64 to define the bits of IFS MSR registers
-Date: Mon, 26 Oct 2026 11:38:07 -0700
-Message-ID: <20261026183820.129459-5-ehab.ababneh@intel.com>
+Subject: [PATCH 00/17] platform/x86/intel/ifs: Support group-based In-Field Scan and Diamond Rapids
+Date: Mon, 26 Oct 2026 11:38:03 -0700
+Message-ID: <20261026183820.129459-1-ehab.ababneh@intel.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261026183820.129459-1-ehab.ababneh@intel.com>
-References: <20261026183820.129459-1-ehab.ababneh@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,140 +95,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Qiuxu Zhuo <qiuxu.zhuo@intel.com>
+Some Intel Xeon processors, starting with Diamond Rapids (DMR), share
+one SCAN test engine between multiple CPU cores in a module (Dual-Core
+Module, DCM), instead of only between the threads of a single core. All
+logical processors that share an engine must start the In-Field Scan
+(IFS) test at the same time. The current driver assumes the sharing
+domain is cpu_smt_mask(), which does not hold on these systems. Also,
+although the cores in a module are tested together, each core gets its
+own result: on a DCM, one core can pass while the other fails.
 
-The IFS (In-Field Scan) related MSR registers are all 64-bit wide.
-Use a single u64 within a struct to define the bits of an IFS MSR
-register in a more compact form, instead of using {u16, u32} for
-each bit, to enhance readability.
+This series:
 
-No functional changes.
+ - Patch 1 removes the SBAF test, which is not planned for any CPU and
+   whose test images were never published.
 
-Signed-off-by: Qiuxu Zhuo <qiuxu.zhuo@intel.com>
-Signed-off-by: Ehab Ababneh <ehab.ababneh@intel.com>
----
- drivers/platform/x86/intel/ifs/ifs.h | 66 ++++++++++++++--------------
- 1 file changed, 33 insertions(+), 33 deletions(-)
+ - Patches 2-6 are cleanups and preparatory refactoring (comment fixes,
+   clearer MSR bit names, u64 MSR bitfields, early return on image
+   errors, a generic Array BIST parameter struct). Patches 2-4 have no
+   functional change.
 
-diff --git a/drivers/platform/x86/intel/ifs/ifs.h b/drivers/platform/x86/intel/ifs/ifs.h
-index 0f5cdc1ad14d..f52287745366 100644
---- a/drivers/platform/x86/intel/ifs/ifs.h
-+++ b/drivers/platform/x86/intel/ifs/ifs.h
-@@ -156,26 +156,26 @@
- union ifs_scan_hashes_status {
- 	u64	data;
- 	struct {
--		u32	chunk_size	:16;
--		u32	num_chunks	:8;
--		u32	rsvd1		:8;
--		u32	error_code	:8;
--		u32	rsvd2		:11;
--		u32	max_core_limit	:12;
--		u32	valid		:1;
-+		u64	chunk_size	: 16,
-+			num_chunks	:  8,
-+			rsvd1		:  8,
-+			error_code	:  8,
-+			rsvd2		: 11,
-+			max_core_limit	: 12,
-+			valid		:  1;
- 	};
- };
- 
- union ifs_scan_hashes_status_gen2 {
- 	u64	data;
- 	struct {
--		u16	chunk_size;
--		u16	num_chunks;
--		u32	error_code		:8;
--		u32	chunks_in_stride	:9;
--		u32	rsvd			:2;
--		u32	max_core_limit		:12;
--		u32	valid			:1;
-+		u64	chunk_size		: 16,
-+			num_chunks		: 16,
-+			error_code		:  8,
-+			chunks_in_stride	:  9,
-+			rsvd			:  2,
-+			max_core_limit		: 12,
-+			valid			:  1;
- 	};
- };
- 
-@@ -183,21 +183,21 @@ union ifs_scan_hashes_status_gen2 {
- union ifs_chunks_auth_status {
- 	u64	data;
- 	struct {
--		u32	valid_chunks	:8;
--		u32	total_chunks	:8;
--		u32	rsvd1		:16;
--		u32	error_code	:8;
--		u32	rsvd2		:24;
-+		u64	valid_chunks	:  8,
-+			total_chunks	:  8,
-+			rsvd1		: 16,
-+			error_code	:  8,
-+			rsvd2		: 24;
- 	};
- };
- 
- union ifs_chunks_auth_status_gen2 {
- 	u64	data;
- 	struct {
--		u16	valid_chunks;
--		u16	total_chunks;
--		u32	error_code	:8;
--		u32	rsvd2		:24;
-+		u64	valid_chunks	: 16,
-+			total_chunks	: 16,
-+			error_code	:  8,
-+			rsvd2		: 24;
- 	};
- };
- 
-@@ -216,8 +216,8 @@ union ifs_scan {
- 				u16	stop;
- 			} gen2;
- 		};
--		u32	delay	:31;
--		u32	sigmce	:1;
-+		u32	delay	: 31,
-+			sigmce	:  1;
- 	};
- };
- 
-@@ -236,10 +236,10 @@ union ifs_status {
- 				u16	chunk_stop_index;
- 			} gen2;
- 		};
--		u32	error_code		:8;
--		u32	rsvd2			:22;
--		u32	control_error		:1;
--		u32	signature_error		:1;
-+		u32	error_code		:  8,
-+			rsvd2			: 22,
-+			control_error		:  1,
-+			signature_error		:  1;
- 	};
- };
- 
-@@ -247,10 +247,10 @@ union ifs_status {
- union ifs_array {
- 	u64	data;
- 	struct {
--		u32	array_bitmask;
--		u16	array_bank;
--		u16	rsvd			:15;
--		u16	ctrl_result		:1;
-+		u64	array_bitmask		: 32,
-+			array_bank		: 16,
-+			rsvd			: 15,
-+			ctrl_result		:  1;
- 	};
- };
- 
+ - Patch 7 adds stop_cluster_cpuslocked(), the cluster-level counterpart
+   of stop_core_cpuslocked(), so that all threads of a cluster can
+   rendezvous and issue WRMSR at the same time.
+
+ - Patches 8-10 enumerate ALL_LP_JOIN_NEEDED, select the CPUs to test
+   together from topology_cluster_cpumask(), and check at driver init
+   that TID_BIT_SHIFT matches that mask.
+
+ - Patches 11-13 record per-CPU results for group tests and expose them
+   through new sysfs files (status_list, details_list, cpus_ran_list,
+   addnl_details_list). The existing status and details files remain,
+   but now report the result of the CPU written to run_test rather than
+   the first CPU in the group.
+
+ - Patch 14 adds Diamond Rapids to the CPU match table.
+
+ - Patch 15 removes the 256 limit on the batch file number.
+
+ - Patches 16-17 update the IFS documentation and ABI document.
+
+Most of this series was developed by Jithu Joseph and Qiuxu Zhuo, who
+have both since left Intel. I have taken over upstreaming it, so please
+send questions and review comments to me. The patches keep their
+original authorship and Signed-off-by tags. Where Qiuxu changed a patch
+written by someone else, the change is noted in brackets in the commit
+message, and I have added my Signed-off-by to every patch.
+
+Jithu Joseph (7):
+  platform/x86/intel/ifs: Refactor Array BIST function interface
+  platform/x86/intel/ifs: Enumerate the bit to determine if CPUs need to
+    join for IFS tests
+  platform/x86/intel/ifs: Select CPUs from topology_cluster_cpumask()
+    for simultaneous IFS tests
+  platform/x86/intel/ifs: Track and report scan results on a per-CPU
+    basis
+  platform/x86/intel/ifs: Add new sysfs interfaces {status, details,
+    cpus_ran}_list
+  platform/x86/intel/ifs: Add additional details sysfs interface
+  platform/x86/intel/ifs: Add Intel Diamond Rapids server support
+
+Qiuxu Zhuo (9):
+  platform/x86/intel/ifs: Revert SBAF feature
+  platform/x86/intel/ifs: Fix IFS sysfs interfaces in the comments
+  platform/x86/intel/ifs: Clarify In-Field Scan MSR bit macro
+    definitions
+  platform/x86/intel/ifs: Use u64 to define the bits of IFS MSR
+    registers
+  platform/x86/intel/ifs: Early return on the IFS image hash/chunk error
+  stop_machine: Add stop_cluster_cpuslocked() for per-cluster operations
+  platform/x86/intel/ifs: Validate TID_BIT_SHIFT matches
+    topology_cluster_cpumask()
+  platform/x86/intel/ifs: Update IFS documentation
+  Documentation/ABI: Update IFS ABI doc
+
+Tony Luck (1):
+  platform/x86/intel/ifs: Remove limit on number of batch files
+
+ .../ABI/testing/sysfs-platform-intel-ifs      |  28 +-
+ arch/x86/include/asm/msr-index.h              |  17 +-
+ drivers/platform/x86/intel/ifs/core.c         |  97 +++--
+ drivers/platform/x86/intel/ifs/ifs.h          | 223 +++++-----
+ drivers/platform/x86/intel/ifs/load.c         |  52 +--
+ drivers/platform/x86/intel/ifs/runtest.c      | 394 ++++++------------
+ drivers/platform/x86/intel/ifs/sysfs.c        | 104 ++++-
+ include/linux/stop_machine.h                  |  15 +
+ include/trace/events/intel_ifs.h              |  27 --
+ kernel/stop_machine.c                         |  35 +-
+ tools/arch/x86/include/asm/msr-index.h        |  14 +-
+ 11 files changed, 487 insertions(+), 519 deletions(-)
+
+
+base-commit: 98f039265e580291d5e76a11b2072541fbb1c393
 -- 
 2.43.0
 
