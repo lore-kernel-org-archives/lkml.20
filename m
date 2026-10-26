@@ -1,79 +1,118 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793042239;
-	b=sLPuiWKXaK34WZPzx4NS0g6GFMxql1T7HpsE8e4WwUBF5CrNlsJIx6qst3vtDd00mjFV
-	 eT3om6qK0sau/smxO/wsr6rF//fZ06tQBY1JcqfT0hrWWeZwObilNDUxGGKXcGAvHDDj5
-	 rLZmrbxkzrmv94PRw0FSkrPnTLBd+ClHJEDN+DPxiuGwUKbUUPj62p0MPsBlZWGFVFQAJ
-	 MawLuzsSf28m7HR7x4woimRhcI/lO9nlMPmyhM8tK587FKG0+BwkPVs7CeZcrB04rItVT
-	 WiXan6Ymfu0CCzHJhj1VnDWivFvpJ/OBFkk9qnIaOE2vDCjCiPouatXbyGClpO4LxMA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793042239;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=14rfyzm65lxIesVgmpqsb3ClQ/W4rPHSeHF6M+MbKeI=;
-	b=bdh5ErFow7vvpf+tEekjC6cjUa4gDCsktxrgjrmkeCOnhDMH3z3BrBnwFd/6aqN97m1C
-	 bD3kx3gIREe0jv0jf3rbdguCjCv9fOv5MxBjTcmZzuH9gpSS9V77osAW0Tor4MIdHPrD9
-	 DVfC3UNfnQ1jALOf6x/W/tRuhINNParKz1V7tLNbL9223emzW75mT8pl8ji+peyIzoOIh
-	 tKFieEHL63Atic1qGj21SB4KhcPmA3fgAyxThkOyL7hhvPwjBTB7FPsVKEA7FUS2KoFkP
-	 NvfAmXpgxdlLRRL/Upz9ClM4TrrYnL3NtAtPnf9TIBIwnIW4RjIodYYBCG/pquPnrUQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VLSPxDOH;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 924A060A2601;
-	Mon, 26 Oct 2026 19:17:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VLSPxDOH
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793042238;
-	b=kx+V4n8SbADSUpw550YT/jlvFREIffVPDdHBQfBfPGJy6yGzRQw6WicLqc9lfg9z6089
-	 5ENz+2gjOFtlhWmjUxILWEf2QVEmQOhdQ6MdDD1497hmfEax/01NrkllOYrLIr3u4ZaUs
-	 GZ19dHesIcwK2iDh+YeLtsEx+G6G0xDSbNE3vH4M/4zm8YV4c0KWFp19qiOajoeNWOSxB
-	 8MzB2h4kdmp5jQdQVZx4LOfTHOQ4qCpTqOBdLny2bqJHDzI2xkyALzEhHccTfmujz9jg4
-	 m17tw+AdP52ZbgkCeCopoNN0wDEO3HxK7XwMauQ+iKPjOFenvKJNMJ3TgEbcqaWmrZQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793042238;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=14rfyzm65lxIesVgmpqsb3ClQ/W4rPHSeHF6M+MbKeI=;
-	b=G0TpD8uw6xnin59lKuZzimJasVqiL9hF8ThL4uOVmU9E+KEOGvklod4l4Ls4fdELff5H
-	 msrPTS74sNRM74Lmr0QzNI7JcOITZFWEpBflvfzmM/ZZtc6DvzXbOE1zQRoeX1LTCBbmd
-	 CguRPv9xeE12XBbsXffyJ16VrI9uJnuTxFuwQDrTHykXid8bhmbp0gAuvQ/UkUca6Ftfr
-	 Cbp37cnFapd0ojV0LbMMWybRR9UXS3MX7ZW6XVn1gg/w510Ow9xrpbuOjbCHkhWVcbOXp
-	 12NI2U/JP14imtbLUI1AiiQC86fKAeNX7JK4aYx70jSmn/r2NWSiGh9BvBvA2Gs9qkQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.227
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793042284;
+	b=itWVjl9Vv1P6631C87dqDKExNsydskDfh0cOCNvuKQmapVM7FHYToW4GPQr3HGiUu/m3
+	 He1d5bKedrfAidfTbtHyDf0Ye3csB53Ydo+TMi2npNU6a9OuaMyj/qUctb1OXZQ7CXUM7
+	 5LcS8A6y/VpmXCtpONAuAXfRiPmCXaHmMeJsDhgnZA7I2Clyj2XtN0kIvUIB4NsryXZxt
+	 G9iT9pv1nKDEV1OkatNTmcVskGu7AlqjHe3W8Uip6khd7Ubt3vmAjPCpdFQqXjSE5yCaZ
+	 lv47HTUr4queORfpW7FCOmc6lbF+h01rapYwG7LCU4ivcD7pfYFR2Lgov2GWrlZGJjg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793042284;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
+	 X-Gm-Gg:X-Received:Received:X-Relaying-Domain:X-CFilter-Loop:Received:
+	 DKIM-Signature:X-Received:X-Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-DetectorID-Processed;
+	bh=0p/mlaTn2+IjGPmTD4Eg87y9QseS3N0pAeXCuAryT24=;
+	b=3dJfW/FZGrvvs7dONvgprAvufXGowVJ0ocZBF4rJqq/9gkrIJO3JO80gEaKdjfWeeGOK
+	 JmSMjkGXtxyr7d7KQC77k9mjrM9NVt/uD83kOrxTxnGBmYxNHNLBsx6AooKjdyK5K1CrJ
+	 03W6a2XtMyaxtnTKEJxMCxQeTLRRyBh5i8bLI+9D6PXuROd/qgJ8RkZ2FSejMKt5mhxgI
+	 bRQ6folvGgGE1ExNN2SfTlkQxaeFEEaTN5f6xqs5cvvEmPI4+9Od29FfjmHwzi/eu3K4g
+	 NJZtA28QesVnUa8orw9cU9M9nCqJYvaVQvqbVQmgx/ULRuQOZq9+vzP76o+9d1JVw8w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=VnXo6gFW;
+	arc=none smtp.remote-ip=209.85.215.227
+Received: from mail-pg1-f227.google.com (mail-pg1-f227.google.com [209.85.215.227])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 4138F1F031E4;
-	Mon, 26 Oct 2026 19:17:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793042238;
-	bh=14rfyzm65lxIesVgmpqsb3ClQ/W4rPHSeHF6M+MbKeI=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=VLSPxDOHrN8ex+rMYXNdJmZ3u7Djxyabua6sGerQCnHIY+PaTtGLCnmxcgO+BLtM5
-	 9KHogUujLcvF6navi3pwPGjiIHEBBwsAoIlP8oCoPUi7Fu3ejWcK1rkdhATk+YLHjy
-	 lpi6hgwNkW5WWvqee1iexr8GB3G9A+5gPDoKzocSys3/kBJ7flocq4KsTKrbxTWEew
-	 lx2dTqcsUb93azTeMqcYFIO9NYJHXJ4mKEM0csVJaoAvP31TcizwBSFZkLIhsYY3y4
-	 GttNpQL49gYvKToYYP7RrqnAcQYuRH2cAnWpqGRajqORiz9cWN79i0MZfPUeS5WYDA
-	 iLGKKrdCvZXZA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id BAE1344E4C;
-	Mon, 26 Oct 2026 19:17:16 +0000 (UTC)
-From: Xi Zhang via B4 Relay <devnull+xz.ca.cn.gmail.com@kernel.org>
-Date: Mon, 26 Oct 2026 16:16:51 -0300
-Subject: [PATCH 3/8] drm/msm/dpu: use common helper cleanup function in cmd
- mode disable
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4003606A320
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 19:18:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4003606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=VnXo6gFW
+Received: by mail-pg1-f227.google.com with SMTP id 41be03b00d2f7-cd67cc518a6so2228427a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:18:03 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793042283; x=1793647083;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=0p/mlaTn2+IjGPmTD4Eg87y9QseS3N0pAeXCuAryT24=;
+        b=NW5sHHW5mHGnIAHzhm/VyZI2z+/NNXoTezedsqlwskf2kycw7DFM2tNJHzB3XCTnRG
+         KNXarcIvF41s+hTf0a1iMGM5AX02+PODTjlsWvep/K3w16ykqv4U5wzyDBMTGSvGZ4YO
+         FfqwznNT6eWmulX/xBR3IYhGWLCrfvd4fF3Jr9DmVq8FdWtcvu+vJxbaK+yNp8IP3o+G
+         O+96/zELiPpyZeo2xOV4Zdf5oi8eXnz6DQXdwmx94WFwT9Pgpogh/IlLEG6OsA34OMMf
+         lzt49FX8PzZXiBWdSsaVOcNmnnTFJvd8zLNt8jRDr0YNbSAQnp4t5exbdA1VR90Yo1Hc
+         bejA==
+X-Gm-Message-State: AFq9FYLM1Ze0WDV7Rc2fSuMcWg2g2iu6G341LlnMRIy85wApT97lUYIo
+	YZ6W1bfK37n2Nt6OtwsAhP2tYCyAOMM49gay+tr54z5E6SY2icO0hXfvKVNJ9uMixBXl4n1zTSj
+	8GRJYKEPYDX5pBnZ/51Cm3JwEO7z2wU/c3OjwLzWEHjILyn4VvUIAYxCciF1K0Ta5IszyiptF+/
+	UX+Jk6O5Wf4WT1Zgv0gBwpCJHrwgul6oS1uZm/QekMaSkmiNbhFwcZdlkS0Ot+uXwo1vDLEWfq4
+	VXdm59saGDcEbnOLSnPGi4aNdQ=
+X-Gm-Gg: AYBFou1rB/vm8ksCgkcP7iafibGn5/oVgOGXwYYSPv+kUUMbe1Dwt1EGwWpCLjcWB3M
+	apxnP70LCtKcnHCmBZPjo9kNmoYKeI9J88g94FejEHt6RS2+1wgylXXMvMyTzsFqlWHkzLTkqwA
+	N4e3pwk2lXZudEf7d00DB3Qh/sHyi2vuuEbT+bIln4i9ad3M2fpickvriiYJAwqnzOhFpn/tLn4
+	NO1afHGZuLPMcnSFCVyf86sNFi6PFFUj/BScir5i0tIDeInNqsIIWfjEDO5Uad+taxC4iIvXBPW
+	Rxms+VvXMkbWHC8kQoCXO6Ky1duYf1YrQP/k2BbZlZsHEN2J2drKFtfQrWD4rLLXac3cJREcqnF
+	ADnCh9CoiiUlfC/NIIdieT8bvKIOrv7h46CHcV++cmFk/gukLu3TKQtzeBbFTRH44AW+/mzNQmx
+	7gtmo3Jj/0Hs9PvSk2SELVnsqCy2YMW4pyX+Ud6tS1
+X-Received: by 2002:a17:90b:5744:b0:3ac:9e76:aa9e with SMTP id 98e67ed59e1d1-3adea1ad770mr6678084a91.3.1793042283198;
+        Mon, 26 Oct 2026 12:18:03 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-13.dlp.protect.broadcom.com. [144.49.247.13])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3ae4063d1e9sm344876a91.7.2026.10.26.12.18.02
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 26 Oct 2026 12:18:03 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-535066512b0so98839941cf.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:18:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1793042282; x=1793647082; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0p/mlaTn2+IjGPmTD4Eg87y9QseS3N0pAeXCuAryT24=;
+        b=VnXo6gFWH9nAhmmymggKFZZTI+AkfpYAmNp7DrWbikPLFr5SiGjsQSuc3lllB84tLx
+         dU+FbJGy7NMcOM/jvc4SaDcmLF4tVSFZGlYo8fUhVgOhQbZy6B4BMivewgIGGiYs1Yg2
+         zNE2mrl698m/8EOSJjbcGWdoAKk85g98j9OAA=
+X-Received: by 2002:ac8:5f82:0:b0:536:11c5:1dc1 with SMTP id d75a77b69052e-5383b653983mr109740071cf.76.1793042281919;
+        Mon, 26 Oct 2026 12:18:01 -0700 (PDT)
+X-Received: by 2002:ac8:5f82:0:b0:536:11c5:1dc1 with SMTP id d75a77b69052e-5383b653983mr109739171cf.76.1793042281166;
+        Mon, 26 Oct 2026 12:18:01 -0700 (PDT)
+Received: from fainelli-desktop.igp.broadcom.net ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c62063dacsm33430996d6.37.2026.10.26.12.17.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 12:18:00 -0700 (PDT)
+From: Florian Fainelli <florian.fainelli@broadcom.com>
+To: linux-kernel@vger.kernel.org
+Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
+	Damien Le Moal <dlemoal@kernel.org>,
+	Niklas Cassel <cassel@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Ray Jui <rjui@broadcom.com>,
+	Scott Branden <sbranden@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Kishon Vijay Abraham I <kishon@kernel.org>,
+	Tejun Heo <tj@kernel.org>,
+	Yendapally Reddy Dhananjaya Reddy <yendapally.reddy@broadcom.com>,
+	linux-ide@vger.kernel.org (open list:LIBATA SUBSYSTEM (Serial and Parallel ATA drivers)),
+	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
+	linux-arm-kernel@lists.infradead.org (moderated list:BROADCOM IPROC ARM ARCHITECTURE),
+	linux-phy@lists.infradead.org (open list:GENERIC PHY FRAMEWORK)
+Subject: [PATCH v3 0/6] Fix SATA support for NSP SoCs
+Date: Mon, 26 Oct 2026 12:16:12 -0700
+Message-ID: <20261026191618.3178830-1-florian.fainelli@broadcom.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,97 +122,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261026-msm-dpu-res-clean-v1-3-f46130a8a717@gmail.com>
-References: <20261026-msm-dpu-res-clean-v1-0-f46130a8a717@gmail.com>
-In-Reply-To: <20261026-msm-dpu-res-clean-v1-0-f46130a8a717@gmail.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Xi Zhang <xz.ca.cn@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793042236; l=2525;
- i=xz.ca.cn@gmail.com; s=20261026; h=from:subject:message-id;
- bh=gZ1zC6u8j/CKI/qwlb5BfuiGxnpobk+GG3KE6oTYs3E=;
- b=djxSX4RkzGCjSlbrGlDEDQTemoOHmmwWVv3U6EqgJqc3gjSxfRZHYmyKyI7l0tIR3a4tgvWE1
- KaOqgDsEm/lCj2DQejbY1fYbGErlUkz9xTZzHmPKFYvGiYzrUtBbytL
-X-Developer-Key: i=xz.ca.cn@gmail.com; a=ed25519;
- pk=aRUll5L3eJbwG8Y4BO9uySKGzm+Uy+Ccei9prnRVZRs=
-X-Endpoint-Received: by B4 Relay for xz.ca.cn@gmail.com/20261026 with
- auth_id=1328
-X-Original-From: Xi Zhang <xz.ca.cn@gmail.com>
-Reply-To: xz.ca.cn@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-From: Xi Zhang <xz.ca.cn@gmail.com>
+This patch series fixes SATA on the Northstar Plus (BCM58xxx/8831x)
+which was broken due to a number of things:
 
-cmd mode encoder previously did not clean up dsc, or LMs during
-disable.
+- the SATA PHY assumed separate PCB windows when a shared one is used
+  for this generation of SoCs
+- the clock/reset (IDM) was not being configured by the driver which
+  meant that depending upon what the boot loader did, or did not, we
+  could have had the AHCI controller still in reset by then
+- on some reference boards, the AHCI controller is not DMA coherent,
+  assuming so leads to all sorts of timeouts, data corruption, etc.
 
-Change to use the common dpu_encoder_helper_phys_cleanup function
-for cmd mode disable.
+Since this touches several subsystems: DT, PHY, AHCI and DTS, I would be
+keen on having Damien merge all of those via his tree if acceptable by
+the DT and PHY maintainers, I am OK either way for Broadcom SoC.
 
-Also do not set intf_cfg.mode_3d during disable:
-dpu_encoder_helper_get_3d_blend_mode accesses drm_encoder->crtc->state
-directly so intf_cfg.mode_3d weren't set to expected value for disable.
-intf_cfg.mode_3d is also ignored by ctl->ops.reset_intf_cfg.
+Thanks!
 
-Signed-off-by: Xi Zhang <xz.ca.cn@gmail.com>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c          |  4 ++--
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c | 10 +---------
- 2 files changed, 3 insertions(+), 11 deletions(-)
+Changes in v3:
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index 09afc0681248..0ab151369c99 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -2332,8 +2332,8 @@ void dpu_encoder_helper_phys_cleanup(struct dpu_encoder_phys *phys_enc)
- 		dpu_enc->dsc = NULL;
- 	}
- 
--	intf_cfg.stream_sel = 0; /* Don't care value for video mode */
--	intf_cfg.mode_3d = dpu_encoder_helper_get_3d_blend_mode(phys_enc);
-+	intf_cfg.stream_sel = 0; /* Ignored by reset_intf_cfg */
-+	intf_cfg.mode_3d = 0; /* Ignored by reset_intf_cfg */
- 	intf_cfg.dsc = dpu_encoder_helper_get_dsc(phys_enc);
- 	intf_cfg.cwb = dpu_enc->cwb_mask;
- 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-index 45079ee59cf6..111f9dd5e053 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-@@ -538,7 +538,6 @@ static void dpu_encoder_phys_cmd_disable(struct dpu_encoder_phys *phys_enc)
- {
- 	struct dpu_encoder_phys_cmd *cmd_enc =
- 		to_dpu_encoder_phys_cmd(phys_enc);
--	struct dpu_hw_ctl *ctl;
- 
- 	if (phys_enc->enable_state == DPU_ENC_DISABLED) {
- 		DPU_ERROR_CMDENC(cmd_enc, "already disabled\n");
-@@ -566,14 +565,7 @@ static void dpu_encoder_phys_cmd_disable(struct dpu_encoder_phys *phys_enc)
- 			phys_enc->hw_pp->ops.disable_tearcheck(phys_enc->hw_pp);
- 	}
- 
--	if (phys_enc->hw_intf->ops.bind_pingpong_blk) {
--		phys_enc->hw_intf->ops.bind_pingpong_blk(
--				phys_enc->hw_intf,
--				PINGPONG_NONE);
--
--		ctl = phys_enc->hw_ctl;
--		ctl->ops.update_pending_flush_intf(ctl, phys_enc->hw_intf->idx);
--	}
-+	dpu_encoder_helper_phys_cleanup(phys_enc);
- 
- 	phys_enc->enable_state = DPU_ENC_DISABLED;
- }
+- actually submit the addressed feedback
+
+Changes in v2:
+
+- addressed Damien's comment: comment line too long, imbalanced IDM call
+  sequence in suspend/resume compared to probe
+
+Florian Fainelli (6):
+  phy: broadcom: brcm-sata: Keep NSP ports in the shared PCB window
+  dt-bindings: ata: sata-brcm: Describe the NSP IDM registers
+  ata: ahci_brcm: Initialize the NSP interface clock and reset
+  ARM: dts: broadcom: Add the NSP SATA IDM registers
+  ARM: dts: broadcom: Use noncoherent SATA DMA on BCM958625HR
+  ARM: dts: broadcom: Enable SATA on BCM958625HR
+
+ .../bindings/ata/brcm,sata-brcm.yaml          | 20 ++++++++++-
+ arch/arm/boot/dts/broadcom/bcm-nsp.dtsi       |  7 ++--
+ arch/arm/boot/dts/broadcom/bcm958625hr.dts    |  5 +++
+ drivers/ata/ahci_brcm.c                       | 36 +++++++++++++++++++
+ drivers/phy/broadcom/phy-brcm-sata.c          |  5 +--
+ 5 files changed, 67 insertions(+), 6 deletions(-)
 
 -- 
-2.55.0
-
+2.53.0
 
