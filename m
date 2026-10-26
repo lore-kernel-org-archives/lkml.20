@@ -1,96 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.54
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1793033131;
-	b=jHcXyJogkMgM0/kaU2CilUr5uJUJwsmDKz6KJ1gST7kwATT/KtMRgMKbI0n69enDXA6D
-	 WdbCtK78TLlmDifInKS31wpc2Au9YStfE7Ra0vl/JR2PIvafccPC78vH3qT1tleFsQMMQ
-	 Ic9J0Q/yR+h7gl26Qw6WP/94zO4kN4Wpm/ZCqXFMp8FVHfvvN+eq2dGaqfeQTaih+ydxw
-	 sNtwDPSVwHHIY5vQrfpE1vT6e1Xfvz9eFMQ6mBNlzxuojUpDw8hrbzU9fG+DBW8LnFgpc
-	 +3Khj77E3Wtc0Orc2VBMiLd/0wuUL6aSlKw5lTaflFRut4se4Rxp1qqMwzXRJm0lOeQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	b=1SmxIkrEw+8nJbipvTZNH902bsX2mwCvJExAEgdCV2+GUgoF1y3lVRBx5aOBzK8ovtFq
+	 01AevryetH/EP3IQd57WXkjZeTHMs2rOdczXTaXk+8PMnnx1pBD5iISSlwe28+qBSAmkg
+	 0473nKgb/cizdwvq8yzpcp6f7TpjMwQyFOXx3kOP283ChknQ7sYVs+/vWxLY0SdczGyM4
+	 6edbeQ+CnMZIokXANGs7j2ZU3OgMqU0R9K7eWj7sbvze4pVeuMCBuKwQkSnoc4b7MeXm9
+	 T41FYrCDXnJLc1uPUAe2t+Z2pS+Xm87nU5fxzOey/2XjnF50uWz63Qhz4t8G0Etw2UQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793033131;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=iSfwRAOyFGTwTZB2XgAXVYKS7LWy0ZRk9pXzKQmllSI=;
-	b=ksUsKcMC7NsqL7PnVyhOwdbIs1cokjZpRoBRzkRe+OHW5PPuPmaVy9JS4GuKoCLuMWZZ
-	 5uIbQDPPvZyrUhdGHSmxRS/KEL97DOx2w83QsvUzeJ+narxcz7ZEs5rTfNvxwGqczqzk3
-	 xTbsF0Ff/mIKo4Vr0+EPx71efkAWA3RN/HnY2znYdFI4wOl3fuit3fkVcu/EGf3b/fGg4
-	 w5HNQic4BLVVby1SOfcCR/w5nCijFBzIk/9iXXqJsef2+hwd+snvO45y6/sPQGn/iqQ5J
-	 od7zOt5oB3Q4vviiGlkRDXJ+VbcaBBuiKlY8EqGf9flltstvOgiaPCiBpVgu+78H+mA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=a1FNF3ek;
-	arc=none smtp.remote-ip=209.85.208.54
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=9lNcbi/00HapmznVu9Lst2xGU1PENo4wfUKNt0U+SR4=;
+	b=LDwAatFu9yibGqui8HnTmO/ycA1JWUpS3FVPd/VSWOHevwWjpn/uNxKau1Mi4ZRGHbRX
+	 diAnlVb6EdUyK8GCbLk7sbEYb1UFmSzfrN/UyC+cteRB8zbhtGFFICFuKNcuMv2Dy9KRG
+	 wtlG2hifKkG3Eh6T792N46/bd0YKPSu6QOR6o7j81lHjsyTj+8TzX2ltCvQ+QIUiFIXkP
+	 zIYbUQVSxozztfB+QYloekqy2dues8PGVvai1AlG/C6haPSAlalbAGOtivGigv6smnraE
+	 DavO8kYKnACMsftr+ztusdKsm94IxCqp34pJOPn627OA/8O5qm9kw7yjtNCSaP71IZA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=HshfGUN8;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFC2E606A322
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 16:45:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFC2E606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F03C606A320;
+	Mon, 26 Oct 2026 16:45:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F03C606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=a1FNF3ek
-Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6b2237b596cso4973324a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:45:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793033129; x=1793637929; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iSfwRAOyFGTwTZB2XgAXVYKS7LWy0ZRk9pXzKQmllSI=;
-        b=a1FNF3ekg6HdqRi0KYX2mUwmdgwGj1M9QwJhgyu0MG2Kkw9rLj4PiQ7qnWNDrmlux0
-         OvJT/1AT0+UWiiX6iZ0WW36Xo+/+WVKDGAEgqai8Foq1/1Ib9CMZRi5cMlhqWxLUfETG
-         V30Sm6X2gavfVMXyog5Fos9URtttVeLf+ADPQFtjJP2CWBd0guEq9pZmPXNpbAv3w99i
-         iXLRKFQ4pijRdu4JOd0sohte3vf2GgpSbQ3036xtodHzqfYBK0z3i1rmYdqeEoJ/PU1j
-         Bu3R5nUfDu9a+biUwpsGqCxQBRrYTT3iVaGrS/5UClcjmtfwV0UEuvDqZfwYOVD5oBXI
-         JVIA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793033129; x=1793637929;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iSfwRAOyFGTwTZB2XgAXVYKS7LWy0ZRk9pXzKQmllSI=;
-        b=iIANm7IBDYSVvj4c5fu7NuAhXVzmwN8WaH7VLj1gWBXJiFnBD8TwPmq/HB5pHfyiIT
-         fItzXAWCkET8uBnIbsMecY0Nst7WGCaXB2mysbVTvnXiQKOQG9PzrG32w01QCz/NHaWM
-         zKmxif7WmCPeTWNHcP3H4NAoz+wjTa4HIIao+6/fMn/CP5Bh97xrmsiE4J+OdNg85kCO
-         FHXqrFuj7G/Et9cTv/gJbJ2bo+4EAOxkFlTjCO78yVUti8cjCX9AY9WuAioFodIbEKvp
-         kyWS9nQwgIl77HWSSHtpad+12ey73BA2CXlX6ohkuweGjkoTTh5P877nP20voSqMIchz
-         6bxA==
-X-Forwarded-Encrypted: i=1; AKwUvBynUQNylLNETjwRNigCy7eEFDn31615vbqRxaQbXMG7IaW1Z88aWnoFZBbJ0NB+7Kay69Ptc2Qbg9nBh1s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIcTcL8DDFKMifQJJBtns5G3rQDYeg4dO06Dhps/GFVl+7Bw0jJ
-	vK2OsV8BRbkX8ACzXPJHYYB3OEE4s0rQapn864QuaIF4dKTKc4OAcJtK
-X-Gm-Gg: AYBFou0tU4AHzPyF61Aj6m4jgP+2VC/cJlCwJN+6bqHmIQgs1YcuGsGDyojQ1TNNBgN
-	ebnaU0gwr51j+Kc8k3BdNazcI1Tej78w/tq5Wy+FtQ3CV1mbl8x6s0kTdrakXQxi7+0ymlhsgIU
-	J4F3bMeu93ZKk3NyjVXBbp5FX2fF6xtvyueLynhIVeYTD7sIZoswXtP1+Rl7+m+xTaFIMxADOil
-	6+Ji/5sa4hX/HYqCcI5gywH/+YQbnHndYnk8/E+qzHIrJymlyLSRy+BZbsfpWAPj+bCcopwAd/f
-	RFrLgKjPvRRnfsNRDQCPawNildsD9zEQc0zWbd0BYXwueIQ1QCb3KS5O04/EtINzaYmhuQw3Ka8
-	CXiunUMpqRS5/Hi9swMINL/CgK04kkWUaLD59WeMRY0Ph0KGkGRDTVYbO0Va4pYn9qzsRxnnh05
-	IKVHObidaafFFkMnvCjuiuXdV+OKqjRAHI3klzVDalp6o7ib8GRTH85oGPt/PzSsKUrR0sxqJb8
-	O+ydJ1my4qyLDaFxXlcGB1SBHezOB/wbODEwv7DQ06pbb1ZXi5U0UDVdoloY/2F9F3q/Q==
-X-Received: by 2002:a05:6402:51d2:b0:6b1:da03:d010 with SMTP id 4fb4d7f45d1cf-6b442fff12emr8703602a12.23.1793033128875;
-        Mon, 26 Oct 2026 09:45:28 -0700 (PDT)
-Received: from beelink ([187.13.23.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b44595d7c8sm3876411a12.8.2026.10.26.09.45.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 09:45:27 -0700 (PDT)
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-To: Yu Zhang <yuz08559@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Massimo Toscanelli <massimo.toscanelli@leica-geosystems.com>,
-	Neill Kapron <nkapron@google.com>,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Subject: Re: [PATCH] usb: gadget: f_ecm: serialize notification state with a spinlock
-Date: Mon, 26 Oct 2026 13:44:51 -0300
-Message-ID: <20261026164451.548670-1-qwe.aldo@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261026060031.60582-1-yuz08559@gmail.com>
-References: <20261026060031.60582-1-yuz08559@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=HshfGUN8
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 6B73D202922;
+	Mon, 26 Oct 2026 17:45:24 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793033124;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9lNcbi/00HapmznVu9Lst2xGU1PENo4wfUKNt0U+SR4=;
+	b=HshfGUN8TjJTZueS2O++NoRfh3IpLJjG8TaZ3KN7YglxYUx22RMFlBjpseTG4p+WaSuhBd
+	XJOQDi7goSzx8KRU8/l0iyZaI3Gwke5EIjwW2Xvn8oXifx2LFPmIocJ9sA9Ylgc4P9bLn1
+	kvk79V/f+UQsyDdHDp9//VOHtu8QeF05AaW1eTVwPLroBw0p6Iw8dvTM1JIni83RRBfOuu
+	3Vso6VXz0/bRyQ44kkHAw0RgX+ueHeGTDbV1S7RGCEAY+c8qH8Tvx5UWwaifKEgeB6jCdF
+	6YNbyHk7l8/el2vTO0IDr76CpiJTprWFfHDABIulUlbBYVIi7l9nOX3ukH8rPg==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793033124; a=rsa-sha256;
+	cv=none;
+	b=JiINnM6adpBM0YhqcndI3eB8y0wVsFdhzhd7L05y17vTHLL3nuQsGx4X3WILLQNEFyNqmy
+	fFq37P4TCUGyP/H1XndoLutljO2dR0PTt5enAAEvL0wCNsfgQXOKZ/8+vp/oA+EClEpvJW
+	mOskhHD0GbDZQ7qDzjbIAXdsMalutRCDzJyLD4SO2hVhNupwFDNUnUCN3vp6yj1M5FpDgk
+	Dg0raHYK6kMT4iE031sK6/rmHrywiuncIIXY9bxBQ67GOiSShDfuUGgWT8gyNcEmFzzJuQ
+	0Cupk3FsPFI7T9AcRyLa3kXfYBh72HvLPNCL076d81okeZ1DTXZPRveLfWzrrQ==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793033124;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9lNcbi/00HapmznVu9Lst2xGU1PENo4wfUKNt0U+SR4=;
+	b=bd7rarn4Qpa7haDpVzWOPACZqYxgJL7gXKlgxGpV9lAVCk+ouy1X2AXGFoKd/mFW6F7rrO
+	on0fdH7dAfF2JWRd7eL8V2R+M464pd4fXlnMG5MhQ6S5oBB4yPjliLWptMv2L07BGd2UYZ
+	Tq++b6pXJAURUfhXyIzQnpALjY1gbkxQoE/DmiziwAVhHHLJt6Lo5F9N4KueoqBHBkIVi2
+	KwPX1lf1gGqCMm6ysnsYgqLtn+NDZZxW1yECKeLuQP3vFPchsTkIhbyaL+FT5APPjisVWq
+	wIjjWVcolOGMUv7HNg0B2QEZ84fRozGOR4nzGrCYPioqEXv8lrc7RsMK8bgcQg==
+Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <mkl@pengutronix.de>)
+	id 1xLNp6-001JFk-13;
+	Mon, 26 Oct 2026 17:45:24 +0100
+Received: from hardanger.blackshift.org (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	(Authenticated sender: mkl-all@blackshift.org)
+	by smtp.blackshift.org (Postfix) with ESMTPSA id D8BF55D716B;
+	Mon, 26 Oct 2026 16:45:23 +0000 (UTC)
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Mon, 26 Oct 2026 17:45:08 +0100
+Subject: [PATCH v3 4/4] can: gs_usb: gs_usb_receive_bulk_callback(): add
+ missing call to can_rx_offload_irq_finish
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,16 +98,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261026-gs_usb-fixes-v3-4-3a68f1f62813@pengutronix.de>
+References: <20261026-gs_usb-fixes-v3-0-3a68f1f62813@pengutronix.de>
+In-Reply-To: <20261026-gs_usb-fixes-v3-0-3a68f1f62813@pengutronix.de>
+To: Vincent Mailhol <mailhol@kernel.org>, Peter Fink <pfink@christ-es.de>, 
+ Eric Evenchick <eric@evenchick.com>, 
+ Maximilian Schneider <max@schneidersoft.net>, 
+ Wolfgang Grandegger <wg@grandegger.com>
+Cc: kernel@pengutronix.de, linux-can@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Marc Kleine-Budde <mkl@pengutronix.de>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.17-dev-d7211
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1258; i=mkl@pengutronix.de;
+ h=from:subject:message-id; bh=V70xppMYnTmZVIDljTzPiitow+b3ymMgyc5OPZswWIs=;
+ b=owGbwMvMwCV2xirl17qZay8xnlZLYsi637yw9crOMzMe1zvtuK/TrBX/6FONrftN4+W22fXPe
+ Pce/muZ1VHKwiDGxSArpsiy9McJRYFAh9LelwmTYOawMoEMYeDiFICJHFzB8D9Kvbzj+iWtxo2N
+ Sf3vljx9v3HzvPLXV8qWnuy6mlOosMaKkeFfobfZv1Z+h1WbGh2+/jOvjVd/L3G+lb3nxJrwz8s
+ Vc9gB
+X-Developer-Key: i=mkl@pengutronix.de; a=openpgp;
+ fpr=C1400BA0B3989E6FBC7D5B5C2B5EE211C58AEA54
 
-The locking itself looks right -- matches what f_ncm already does,
-and dropping the lock around usb_ep_queue() avoids the re-entrant
-completion deadlock.
+If the overflow flag is set for a host frame and the allocation of the
+error SKB fails, the URB should not be resubmitted immediately.
 
-Note this conflicts with [1] which removes the ecm_notify() call
-from ecm_set_alt(). If [1] lands first, drop the lock/unlock pair
-around that call from this patch.
+Instead, call can_rx_offload_irq_finish(), since an SKB may have been added
+to rx-offload.
 
-[1] https://lore.kernel.org/linux-usb/20261023-ncm-ecm-lpm-v1-2-d01e81fbf460@leica-geosystems.com/
+Closes: https://sashiko.dev/#/bug/linux-441137e2-cd75-411f-9ff5-dc4d473c5ddb
+Fixes: 24bc41b45583 ("can: gs_usb: convert to NAPI/rx-offload to avoid OoO reception")
+Cc: stable@vger.kernel.org
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ drivers/net/can/usb/gs_usb.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Reviewed-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+diff --git a/drivers/net/can/usb/gs_usb.c b/drivers/net/can/usb/gs_usb.c
+index 5b0c58fde53c..0e945f04d81b 100644
+--- a/drivers/net/can/usb/gs_usb.c
++++ b/drivers/net/can/usb/gs_usb.c
+@@ -741,7 +741,7 @@ static void gs_usb_receive_bulk_callback(struct urb *urb)
+ 
+ 		skb = alloc_can_err_skb(netdev, &cf);
+ 		if (!skb)
+-			goto resubmit_urb;
++			goto can_rx_offload_irq_finish;
+ 
+ 		cf->can_id |= CAN_ERR_CRTL;
+ 		cf->len = CAN_ERR_DLC;
+@@ -750,6 +750,7 @@ static void gs_usb_receive_bulk_callback(struct urb *urb)
+ 		gs_usb_rx_offload(dev, skb, hf);
+ 	}
+ 
++can_rx_offload_irq_finish:
+ 	can_rx_offload_irq_finish(&dev->offload);
+ 
+ resubmit_urb:
+
+-- 
+2.53.0
+
