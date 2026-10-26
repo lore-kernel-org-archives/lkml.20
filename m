@@ -1,54 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.140
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792997875;
-	b=CjVK3+o/ujqQlsQz81yx3G18qUgWVn7yknWqswKZkF7G8YquVA7kpIsUFBG9dMw/nzSM
-	 9tXqqUC93pocw+r2P73pZk3i4XfRCuqRaJ2oED5dfuqRDY/eGkY47RCAZW2QnCXfpk3tE
-	 FTgq6QXWbp/GAZJKJUDF2P/VEwRTUZZpoSoN0Kt6ACUJwHteInPVqL2IpaRyoxO1vEY+R
-	 w1T63kGAcuvThFLg1XVpvxdv9V6etevhmaA00Pbhhw64OsyLoNlC3UMLXX2blShv7wapJ
-	 kpN8z1PHwbsMPxlG3sRalcbcxy7jKXivKZkmulCWD52V2I8ZWQGTTPva18HvAF6y3ZA==
+	t=1792998303;
+	b=lz56Mqy9DTBGj0hY+M/lPehj3Azax5+RjvnlRMAHBYrod4OHJWJxzyLfRUi6laoDwBN6
+	 T4bGQEVQIfa0XH0d9Cs8ZqDE4vfYh/wKN2CDmufWWr396V90sKdKpLessfY8ArpF2SgPQ
+	 2okv9lHbNcl5zsXW4mIzvPhNLz0rhjFHeqe/9/7Z1TnR6628JGG2ZBX+0bvpxu2sn56oK
+	 IcI5ZZt4U4Tggi8yyARAJoM6GGRBXB769wa9brEYw4PFoSa47N5ER5qo5XKorJYuVQpTP
+	 FXw+XGZWKDAjBbZgKG1jUSfXOwV6qMfeJaY9AVALTEhY5TRSL4h+T8g71QgEPGGm6Fw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792997875;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=6MYmiyMNNxmPZVSn7NxOuJvdYE95KXrKDGSAkln0XZw=;
-	b=FrvJpms/ENkHxzaV/xUKvB9/K31Ba/nbVSsXEjjgYxrU9SvnijpWUKVCKBpDAz/XQXjM
-	 PcAyf/0DCEv30NUWmhZTqzP5H/H/+O4K1E3OFimpQTgJx4oNqPbeei/zg4m9M+K4ciewn
-	 blBEkrLVdhImpsZKmEZGeVwt6EznYIuN/ZtRcdOtwwbndkb2qJzCaB4XnKAnaC2xUfQ1x
-	 GqLB2AzYO8QHOHX1hfR9a/rUsapEiTCmfYDRs8RWTOC2o+D0EUROa3Xw4vcNyUVAXz6wj
-	 N4Jpqvcdrcl8dQE8WgVqd6j0CJUZukX1iOoeRXh/MA0QsCN0tF4AyP3ErmqC9jeM5qA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792998303;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=V/3eey45d+JaCwVerzhDOyT37kNJkT85h4ieQcxO5u8=;
+	b=aGaXEkNloqQ4HvPHr+VTfmAaEI7w8sckmbkwNCShOQ7HXfQ0Z2X1DW3lr+hiuzLMIE4x
+	 zFokth2ahoT+HgVgzhkZyWhXqDt+3dJRNV0Db6verU9Zls/rPoWFjiz7dFOF05SLmA5/m
+	 YnG14uh7+gJPDdK4VTpYviBOxhfP13WgDMPs1IQb8XIZqhtz4Ar1zgApAttdfx8gs8UEn
+	 M9PoKXrDFVkcqB9d3L89428zGKOn8pIzohVxh2qAHC6kPnxcbV4QQediepy6PKMA6RfjG
+	 YpDjoTNKe8bJX2ECWbegeiIoQ0ovMbu+nBznZx4mRmfefk9ganfZFAfchTAbDdUSS1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=WA5qsQVF;
-	arc=none smtp.remote-ip=95.215.58.140
-Received: from mta1.migadu.com (out-140.mta1.migadu.com [95.215.58.140])
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.197
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5320606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 06:57:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5320606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=WA5qsQVF
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Omdv+WOtscuCJgDtzN1JU1Cup2BWNZGGk5v6wAlPMyM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792997867; v=1; x=1793602667;
- b=WA5qsQVF1vTp7ouS68Ajm6Oh/THN0pBPx1LzAod9AERXiIDkO9XXLjahCFTGRe3OwdxAWhyT
- e5BkDpk1QLyKJvCAjlLv31fPiBiCG/L0mbAvsCaj6TrGPGnzZzTlz1Ut/fygmpyA+QO5yWdyO+9
- 6uiI+h+Nlk6dtmtk7Vblo+Tk=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 7f2be5f8bc58c681;
-	Mon, 26 Oct 2026 06:57:46 +0000
-X-Mizu-Trace-ID: 7f2be5f8bc58c681
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <1961a890-0917-416c-9733-272d92a59d35@linux.dev>
-Date: Mon, 26 Oct 2026 14:57:36 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 866F2606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 07:05:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 866F2606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4b597558c4cso4343509b6e.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 00:05:03 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792998302; x=1793603102;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=V/3eey45d+JaCwVerzhDOyT37kNJkT85h4ieQcxO5u8=;
+        b=sMeALIOlU7H1XgbuGysozG8rnNGV4HwAnXLFwho0QywIYmNYZkdCOX/NfTKS+eLwnC
+         mhq3WdQH4mhKwzgQkwyLDc4kaj4P9G7U6Oc37D5/iN3r0SgS/anbDKlAqtdzqjGUEnPt
+         FaZvYhMC9L1X/l1cgnSEAFZqsUZ7Ut4aq785iEN1LA2Y8aqAz7NZw5G4bBovs8yPm+hg
+         NzbL3MCIFYfx94VyqrIqZbamrbhGhXv6kzX7K5jrYgPDrwcoW28fCqvh/YJB5iO/d/ES
+         YXjfk8rR36xkqClQNdMZIb2GXqTBN+1mghhcrPnYYw2ujRisNUA+lrDVDEY9YlugthqU
+         yxeA==
+X-Forwarded-Encrypted: i=1; AKwUvBw/rzCRt3NwoRwTJFkRvacCBzXJZIJ/U9NDwmRFVF/8N2DJRhhfVzrUeH3pAPcqWf8s/5do/MawFycufk0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKSE08fU/lmIdA7Is3WLBFKb7SwN46Xs/O/sNCVNVHlzRZORJ20
+	E6HBPTlzcGis3j5xJeQh4XHSSREG96/nPbW1DwKiE2sWjza2V49JMb2nQ1iHJTx2rNTZtGnI/3r
+	X0qGmIhlccKcTewUtwNcbnT95iZUtZncpRm2dkp4GXlqqhXuW5ikXY8N1f9M=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,151 +58,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH-next v3 04/11] cgroup/cpuset: Minor fixes to
- prstate_housekeeping_conflict()
-To: Waiman Long <longman@redhat.com>, Ridong Chen <ridong.chen@linux.dev>,
- Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
- =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
- Shuah Khan <shuah@kernel.org>
-Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org
-References: <20261025214449.310715-1-longman@redhat.com>
- <20261025214449.310715-5-longman@redhat.com>
-Content-Language: en-US
-From: Guopeng Zhang <guopeng.zhang@linux.dev>
-In-Reply-To: <20261025214449.310715-5-longman@redhat.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:1204:b0:4f6:4b04:4b3c with SMTP id
+ 5614622812f47-55c002ead02mr3641998b6e.40.1792998302517; Mon, 26 Oct 2026
+ 00:05:02 -0700 (PDT)
+Date: Mon, 26 Oct 2026 00:05:02 -0700
+In-Reply-To: <20261026015942.167369-1-eadavis@sina.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6adefb9e.8652420f.2f2d6f.04b9.GAE@google.com>
+Subject: Re: [syzbot] [dm?] KASAN: null-ptr-deref Read in dm_kcopyd_client_destroy
+From: syzbot <syzbot+a2626a25eb2595e3ec3c@syzkaller.appspotmail.com>
+To: eadavis@sina.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
+Hello,
 
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-在 2026/10/26 05:44, Waiman Long 写道:
-> Commit 9527ff78a413 ("cgroup/cpuset: Consider all the exclusive CPUs when
-> doing housekeeping check") changes the way prstate_housekeeping_conflict()
-> is being used by considering all the exclusive xcpus to be owned by the
-> partition when doing housekeeping check. However there are two minor
-> issues reported by sashiko with that patch:
-> 
->  1) In partition_cpus_change(), prstate_housekeeping_conflict() can
->  be called with an invalid partition root. In that case, there are
->  no isolated CPUs that are going to be returned back to the system to
->  become housekeeping CPUs, so the calculation of the del_cpus cpumask
->  is meaningless.
-> 
->  2) The checking of del_cpus in prstate_housekeeping_conflict() to see
->  if it can contain an active housekeeping CPU that can be returned to the
->  system ignores the fact that an active CPU not in HK_TYPE_DOMAIN_BOOT HK
->  cpumask will not become an active housekeeping CPU when it is released
->  by an isolated partition.
-> 
-> Update the existing code to handle these two issues properly to make
-> prstate_housekeeping_conflict() produce more accurate result.
-> 
-> Fixes: 9527ff78a413 ("cgroup/cpuset: Consider all the exclusive CPUs when doing housekeeping check")
-> Signed-off-by: Waiman Long <longman@redhat.com>
-> ---
->  kernel/cgroup/cpuset.c | 45 +++++++++++++++++++++++++++++-------------
->  1 file changed, 31 insertions(+), 14 deletions(-)
-> 
-> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-> index 37bc79d0c647..57e5334eb919 100644
-> --- a/kernel/cgroup/cpuset.c
-> +++ b/kernel/cgroup/cpuset.c
-> @@ -1446,6 +1446,9 @@ static bool prstate_housekeeping_conflict(int new_prs, int parent_prs,
->  	    !cpumask_subset(new_cpus, housekeeping_cpumask(HK_TYPE_DOMAIN_BOOT)))
->  		return true;
->  
-> +	if (del_cpus && cpumask_empty(del_cpus))
-> +		del_cpus = NULL;
-> +
->  	/*
->  	 * Exit 2nd check early and return false if
->  	 * 1) there is no boot time isolated nohz_full CPU
-> @@ -1454,8 +1457,7 @@ static bool prstate_housekeeping_conflict(int new_prs, int parent_prs,
->  	 *    be returned back to the parent.
->  	 */
->  	if (!housekeeping_enabled(HK_TYPE_KERNEL_NOISE) ||
-> -	    (new_prs == parent_prs) ||
-> -	    ((new_prs == PRS_ROOT) && (!del_cpus || cpumask_empty(del_cpus))))
-> +	    (new_prs == parent_prs) || (!del_cpus && (new_prs == PRS_ROOT)))
->  		return false;
->  
->  	/*
-> @@ -1466,20 +1468,29 @@ static bool prstate_housekeeping_conflict(int new_prs, int parent_prs,
->  	if (parent_prs == PRS_ISOLATED)
->  		swap(new_cpus, del_cpus);
->  
-> -	if (del_cpus &&
-> -	   (cpumask_first_and_and(del_cpus, housekeeping_cpumask(HK_TYPE_KERNEL_NOISE),
-> -				   cpu_active_mask) < nr_cpu_ids))
-> -		return false;
-> -
->  	if (!alloc_cpumask_var(&full_hk_cpus, GFP_KERNEL))
->  		return true;
->  
-> +	/*
-> +	 * Check if del_cpus may contain a CPU that can become an active
-> +	 * housekeeping CPU again.
-> +	 */
-> +	if (del_cpus) {
-> +		cpumask_and(full_hk_cpus, housekeeping_cpumask(HK_TYPE_KERNEL_NOISE),
-> +			    housekeeping_cpumask(HK_TYPE_DOMAIN_BOOT));
-> +		if (cpumask_first_and_and(del_cpus, full_hk_cpus,
-> +					  cpu_active_mask) < nr_cpu_ids) {
-> +			res = false;
-> +			goto out;
-> +		}
-> +	}
-> +
->  	cpumask_and(full_hk_cpus, housekeeping_cpumask(HK_TYPE_KERNEL_NOISE),
->  		    housekeeping_cpumask(HK_TYPE_DOMAIN));
->  	cpumask_andnot(full_hk_cpus, full_hk_cpus, isolated_cpus);
->  	cpumask_and(full_hk_cpus, full_hk_cpus, cpu_active_mask);
->  	res = !cpumask_weight_andnot(full_hk_cpus, new_cpus);
-> -
-> +out:
->  	free_cpumask_var(full_hk_cpus);
->  	return res;
->  }
-> @@ -2486,23 +2497,29 @@ static void partition_cpus_change(struct cpuset *cs, struct cpuset *trialcs,
->  				  struct tmpmasks *tmp)
->  {
->  	enum prs_errcode prs_err;
-> +	int parent_prs = is_remote_partition(cs)
-> +		       ? PRS_ROOT : parent_cs(cs)->partition_root_state;
->  
->  	if (cs_is_member(cs))
->  		return;
->  
->  	prs_err = validate_partition(cs, trialcs);
-> -	if (!prs_err && !cpumask_empty(trialcs->effective_xcpus)) {
-> +	if (!prs_err && (parent_prs > 0) &&
-> +	    !cpumask_empty(trialcs->effective_xcpus)) {
->  		int prs = cs->partition_root_state;
-> -		int parent_prs = is_remote_partition(cs)
-> -			       ? PRS_ROOT : parent_cs(cs)->partition_root_state;
-> +
->  		/*
->  		 * Check for housekeeping conflict by passing the whole
->  		 * effective_xcpus as well as those CPUs that are to be
->  		 * removed from cs as delmask.
->  		 */
-> -		cpumask_andnot(tmp->delmask, cs->effective_xcpus, trialcs->effective_xcpus);
-> -		if (parent_prs > 0 &&
-> -		    prstate_housekeeping_conflict(prs, parent_prs,
-> +		if (prs > 0)
-> +			cpumask_andnot(tmp->delmask, cs->effective_xcpus,
-> +				       trialcs->effective_xcpus);
-> +		else
-> +			cpumask_clear(tmp->delmask);
-> +
-> +		if (prstate_housekeeping_conflict(prs, parent_prs,
->  						  trialcs->effective_xcpus, tmp->delmask))
->  			prs_err = PERR_HKEEPING;
->  	}
+Reported-by: syzbot+a2626a25eb2595e3ec3c@syzkaller.appspotmail.com
+Tested-by: syzbot+a2626a25eb2595e3ec3c@syzkaller.appspotmail.com
 
-Reviewed-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
+Tested on:
 
-Thanks,
-Guopeng
+commit:         4169c9c9 powerpc/irq: Fix build with CONFIG_PROC_FS=n
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=108a238e580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=e397d1e24d3cb03
+dashboard link: https://syzkaller.appspot.com/bug?extid=a2626a25eb2595e3ec3c
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=10aa6195580000
+
+Note: testing is done by a robot and is best-effort only.
