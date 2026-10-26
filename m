@@ -1,50 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793016858;
-	b=1A0aN0ApeSrA+3bYkYJcefWxZEckMITFClQdcY8NPj3L8D7EuXt/J2vYZgyBhjuSlcWe
-	 vaJwFcppbxrpc71f6+w6OZyZlDyK7auMyrZz0JDHvd+QfeynWgjKVhpIgEIrjM1hU54gP
-	 NrCyNUll1wnH48x4TR/QFbGEEBcwLKX7v6Kch+Bg6b4Yo6BY7KEDcMuAxBFfxcVqTh6NP
-	 Sfh+xYXPIRCBvKO3DjxwRJNDFw52Te2OolMTKHxqmIMVEbeTqCOqh1Ev5pELKCkVGV5na
-	 mtvLz39XC41kp97pwG2YDHR1z1l+FNFnc99Kn/bEO4H0PSRfmKmSlXHGa7pALQVTaGw==
+	t=1793016934;
+	b=hx/4bWZox+gb+gtsAC3nv09f7DAr4t47ebu9SFoJYim7v83E3noG8j5YurkR31FODIEF
+	 +ii1+5PlYXLPYDzYbQpeCDqXVol1jwpCsfhAD+hHCusxhFN1Zrdu9zQ4aBcnNurLuE9NA
+	 gCvGP0kn7Eqat3Xspbnstm4KvXXTEch9yDdNIjtq28//MpBzhmzzXEyx0i9Y5hVhWIA9u
+	 0psYfYWN775BL/qfIAFaawc/s9JsSId/UaIEeolopAxBA8/ItPhh0qLVU1iF5TzZUsANp
+	 0nBhGUTJ3NTLcnlDiZIMhdesNNCcc1r63eVHDhoJlEyNiXvVD/sLLZF7jEYEBNdsTiA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793016858;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=VfkFMg7lN1Y1FIMRAMt9+6vwJVysrowoa3EWgGjm5B4=;
-	b=2Z6PdvsUj3/h2NayQO5P2Q4/A74Kutv6dfWnu0ZVtyTiO7nP3RyPZFaZgRXYlNGm+++1
-	 FGNzg5RW809/gKiiBoNua9wtB9oVk25e7wq7z37Bijd7EzzgxyQpXGoJMYxR7RfS2BN/Z
-	 qfQulBuNaImEAxzbIV35IuXNk0fhmcIvYXtpaE7tez1xklCcJcoLCu1iI51qr+4AFL5d7
-	 yupdUT3UlatCoj52DFEATw1HqHLXCdE49Hekc8iY3VTrK0AGYiCXl0NFxuqKQzd2FHi4h
-	 US6O6mTrsL7skCrKdnaNKD6LdaTZlMAG822Jbqxe/QJlp3O9Se8Q75kSooEcwh+tjvQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793016934;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=YmcQx9OcgaD1ZkmOw8NwOu+cadyxIp1x2breeYxHURY=;
+	b=E9UC6phoasEkqB7T6ux4W3Lw5szsMQzR34b/RkdwQBE/MrKSO902Ec23rwSa11cuT2fB
+	 xotiJJon794fQn4w5WLcZ2Gurr2Ap9i01mCtRM+c9kA6joT9yNljqErR40jOQtVixeYRj
+	 a5upF7iYacs7ham2uo/qCicizNAku3CSUYDmsnPaUtk3k57FjF5ruF1zT1Ymw+Qn0WUGD
+	 f7Du/RopK6cg30h7A2qSk9/tRPp2HEKmK2zHjaz4d0a7nTlnMGGNQ6JhDfYIn4mWXuXLO
+	 abW3cyJQyf5OyhpYmn92ynoHGqpAbAUeyzOWH8zfwtUNav7JaARSzPw66IBmzOM/vJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=sNLaF6cD;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="gRo/l0Xs";
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=PsekKf+x;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3879606A31B
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:14:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29E44606A320
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:15:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29E44606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=sNLaF6cD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC5DD1F01825;
-	Mon, 26 Oct 2026 12:14:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793016857;
-	bh=VfkFMg7lN1Y1FIMRAMt9+6vwJVysrowoa3EWgGjm5B4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=sNLaF6cDcuRtRmvivvrPrBVNXE2rwyt6EWfgY+3bSUeqSQ4KT43hMSXCYPzFi4wPq
-	 cAYoZQiRpGmxzxonASRWDmdP3PLlOjrSU8Y2ZiOZB7nlGuV4aXs+UlSkzqpEHPOcXv
-	 yJ6g3uzSPFvWUHWfSoRlFj/ma3s0TUT+oGW5Wt4A=
-Date: Mon, 26 Oct 2026 13:14:16 +0100
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Akshay Gupta <Akshay.Gupta@amd.com>
-Cc: linux-kernel@vger.kernel.org, arnd@arndb.de,
-	naveenkrishna.chatradhi@amd.com, Anand.Umarji@amd.com,
-	Prathima L K <Prathima.Lk@amd.com>
-Subject: Re: [PATCH v1] misc: amd-sbi: Fix use-after-free on driver unbind
-Message-ID: <2026102651-prideful-finance-b60a@gregkh>
-References: <20261026113910.1003008-1-Akshay.Gupta@amd.com>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=gRo/l0Xs;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=PsekKf+x
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69QAtMF92009906
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:15:33 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	YmcQx9OcgaD1ZkmOw8NwOu+cadyxIp1x2breeYxHURY=; b=gRo/l0Xsb7hVMkRX
+	1EkygAHZF0+2YgS/MpowSWWROkEhf+LNkEtrcEsDmhhQGc9ipXwOfyg33Jw4M8Q4
+	pwCpwRV571v8rN0ze3xBYb8+j682Yi+SRuTfpllykIWTNWeOVzUVYLrcQgq5pOdW
+	Yen1WzKtuA102L9t2pZMX1q+9vC3WOlREjDaJX9mdw4v55TwpjaBtDjSvwAmd0Wy
+	tUFCnR2nq/FW4ghWfszlk67ejCrxxL00zH37LgVSnmLlAqfTTV2XVvqXIg0R70cS
+	yw2KH9ZC3xEs2BrpOESlqS5KqMcTKhtcpCUOawvD1Ca003ZYh0GznlDkcg/zwVyq
+	DjO11w==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hgn27xa7d-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:15:32 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93ea6b66e53so39000885a.2
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 05:15:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793016932; x=1793621732; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YmcQx9OcgaD1ZkmOw8NwOu+cadyxIp1x2breeYxHURY=;
+        b=PsekKf+x4eWHyEPw/DQs478VuQdoH8mpoRUNVD35qHrlTzZEZonP/R2uWCpgAZhVoV
+         fv1X4yjcWTmPMoWXGkqoJLBXQcT5wW63nIDK7qiTG20KjbnyuCabMI2zOeTHf6YfsZKM
+         UTPMjUgo0FPFhwhyk7ULqOfhkaHn52E8Nyfch4tfcXJnmd61XaFiBaJk7rf3fBOpeWJA
+         UUh7LEqtFTfteEHX2X8FvcmG/4zOw0SSiLMN6c8jJD46ocXIDInUXSoOhVBz42sfm99E
+         DKl07WsScVD7tTs0RYZJzOpj2KykL+1+daSaOs4AJTQI+42vWmYnaVSHEFDxO+KV0xUm
+         MSUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793016932; x=1793621732;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YmcQx9OcgaD1ZkmOw8NwOu+cadyxIp1x2breeYxHURY=;
+        b=ZjAj+N6rG9N84yfAgeumGaQg+99Cv7PHqePIcp4YzSnAxpsSl7zuUU/VWH4BT+SMA8
+         WI385Vn67kUNG0UOn7CJeEmVoMfkZT6uIFBYEY9xTvZQ9aTAKSQk75fhoRk7lW23F8Hh
+         n9PAoa/YDHviy1vClpZ4+aMLb3de06V/+bsq5ovu4A+7d/aUqvuyAY/BbnBx9qU2kiLN
+         8naDwIPCsbbEIl5FG30rl5YjIbULtaIVdVaFJyfwZcSqPMgNAi64jwho4Y8Fzy+6qIbo
+         XQVkaQn5k/T2nq0KcclzGcx0sbxb6M8Z+j+6RXOudnPzxEGPKaPg5vU5fHze0iBTlXJ/
+         +C1A==
+X-Forwarded-Encrypted: i=1; AKwUvBzq3Qxmtjvv7sQNtoY8/K0hpCWCyDqe+d9gjCsTgfLSgQsX4kGdZBChrIX3AafTQoAyTMHrCiKLSbcD5No=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL6euMJNgdTqRK6rzsGnZ8zrOqG55SRxkkoRfVuIZOzJ7/HdCaR
+	pMaukgfe+CUzJa/Z0cFnZSegTuD+DJ1fnbd0/wCTtlAfZ7HTcvdqBLQ+5ypBCXTVO4QJrHe4n7U
+	DSkBuyQmaPkXfVO3GXLP5HnpPiSrFaK0RNdg5d9DRY1sUBLK7JB8gcTM2J9CAtlO3K4QQRNwiNt
+	I=
+X-Gm-Gg: AYBFou3KhJNkVrNW+iyb8FJsD799yKQHfUHZjNMsD0fJXxyMJW0dAemw3oyGwJiclst
+	HSyOFEORkjAE63vgiBwb+lhT3y6nBCWpAIu5KgTuwAEl2PoLQitiXZUmXzqGV7OkH5I0pBo3BdL
+	cP21k9rR9AYflVLOX9gXWVrizxZvbydE6t0vbKdO/bC35Cgquch75f9/WbSF9AxoqIUNwGZlawF
+	eSGFkdfv2453dR5ldr4CUboiwD4Hz2uQrTxUAvc/LeDpfxAjrFBBHPNO49mi+J33Izp9x610rS7
+	44acp8/CKKIQD7d50xC+qh2AkpwUvzzRNUe0n/D1VT43vq6B4dwwVHQVh6dFQGHCQGXSaWdOVf4
+	hjuLXerCgYKuF/dnYuWngHQ==
+X-Received: by 2002:a05:620a:7302:20b0:93f:211f:7ba4 with SMTP id af79cd13be357-940ef945ddcmr961458885a.5.1793016932124;
+        Mon, 26 Oct 2026 05:15:32 -0700 (PDT)
+X-Received: by 2002:a05:620a:7302:20b0:93f:211f:7ba4 with SMTP id af79cd13be357-940ef945ddcmr961453885a.5.1793016931605;
+        Mon, 26 Oct 2026 05:15:31 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfb7a8b85fsm1495986e87.55.2026.10.26.05.15.29
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 26 Oct 2026 05:15:30 -0700 (PDT)
+Message-ID: <09a09f96-7572-4f11-924c-49f7fb21e2c2@oss.qualcomm.com>
+Date: Mon, 26 Oct 2026 13:15:28 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,150 +116,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261026113910.1003008-1-Akshay.Gupta@amd.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 4/6] arm64: dts: qcom: sdm660: Remove FastRPC compute
+ CB9 entry
+To: Abhinav Parihar <abhinav.parihar@oss.qualcomm.com>,
+        srinivas.kandagatla@linaro.org, linux-arm-msm@vger.kernel.org
+Cc: gregkh@linuxfoundation.org, quic_bkumar@quicinc.com,
+        ekansh.gupta@oss.qualcomm.com, linux-kernel@vger.kernel.org,
+        quic_chennak@quicinc.com, dri-devel@lists.freedesktop.org,
+        arnd@arndb.de, stable@vger.kernel.org
+References: <20261023090308.2898683-1-abhinav.parihar@oss.qualcomm.com>
+ <20261023090308.2898683-5-abhinav.parihar@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261023090308.2898683-5-abhinav.parihar@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=G7GJgNk5 c=1 sm=1 tr=0 ts=6adf4465 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=ssGiREWd8Ca_oH2jvLkA:9 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-ORIG-GUID: n6CsUCathgHKzla4-Vuql0iCfAK5qQpW
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA0OCBTYWx0ZWRfXzYy0HzOKWmDF
+ Ky2bcr9SbnvpBL3PAhAxzDzsK3tScgr39Dyo4M+MW2zIt+NQMVoVVMX3M7y3s1zciAiXus3Y0ji
+ dTy5/1uWpm1EN4K7sv2HtV4hEmO+pZs=
+X-Proofpoint-GUID: n6CsUCathgHKzla4-Vuql0iCfAK5qQpW
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA0OCBTYWx0ZWRfX7bAcoxnA5b5d
+ sev6cca9ndXP1+odl+HViM6zqV8xYdr6UNW8lu2RCpYy2iIMYG03Gok6YMUgH6pk+YmetNPwfqi
+ DB+r265uRtgyEJgWz/Z8Zf4RolxZT9TYqGiM7QP5JKHykrfY3qvi1tmEskORu5JPhAfxKIZcSGN
+ GrYzYYlYQZ+h+bw6UhCb5t25MnbmYw7557YQV62H/3NwjdiTLsyz/lQdOHVhXEKvfXZFJdFN03J
+ q2UQ2albMtHTamBZwcAlHecbJOZOr6iYPE6r2LMjkYk0EpMfKOGc/MhMixqk4nhfJUQtZ21g8cY
+ KnBJGz7n5DHxWTfKtYtkTnyUv2zpRVsAJTkS3oEs/wsLiXTBcKCcSue0qFtmqD6xudKOJlBoIGR
+ 8dmrRlCey6Koy1saxFyAAZ7LH1cis80qAc6uIW91KiNZHcc694C5WVHqXB52h3vl2ih/qMo+5m/
+ hr4cYa6KiIHclcP4CrQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-26_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 lowpriorityscore=0 clxscore=1015 adultscore=0
+ priorityscore=1501 suspectscore=0 bulkscore=0 phishscore=0 spamscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610260048
 
-On Mon, Oct 26, 2026 at 05:09:10PM +0530, Akshay Gupta wrote:
-> From: Prathima L K <Prathima.Lk@amd.com>
+On 10/23/26 11:03 AM, Abhinav Parihar wrote:
+> Remove the compute-cb@9 nodes from sdm660 device tree to
+> prevent clients from selecting a secure context bank for normal FastRPC
+> workloads.
 > 
-> sbrmi_data was allocated with devm_kzalloc() and freed at unbind while
-> an open /dev/sbrmi-* fd could still reference it, leading to a
-> use-after-free on ioctl after removal.
+> Secure use case support is not currently implemented upstream.
 > 
-> Refcount sbrmi_data with a kref: take a reference in open(), drop it in
-> release(), and free the structure only when the last fd closes. Mark the
-> device 'detached' under lock when the misc device is deregistered so all
-> ioctl/xfer paths return -ENODEV. Move misc deregistration to a devm
-> action and drop the now-unneeded i2c/i3c ".remove" callbacks.
-> 
-> Fixes: 35ac2034db72bbbc73609aab5f05ff6e0d38fdd0 ("misc: amd-sbi: Add support for AMD_SBI IOCTL")
-
-The documentation shows how to properly format this line, please fix it
-up, and don't put a blank line between it and these:
-
-> Reviewed-by: Akshay Gupta <Akshay.Gupta@amd.com>
-> Signed-off-by: Akshay Gupta <Akshay.Gupta@amd.com>
-
-signed-off-by implies review.
-
-> Signed-off-by: Prathima L K <Prathima.Lk@amd.com>
-
-Wait, this is out of order, yours should be below this, right?
-
-
-
+> Fixes: 708ab9d3bc5b ("arm64: dts: qcom: sdm660: set cdsp compute-cbs' regs properly")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Abhinav Parihar <abhinav.parihar@oss.qualcomm.com>
 > ---
->  drivers/misc/amd-sbi/rmi-core.c | 54 +++++++++++++++++++++++++++++++++
->  drivers/misc/amd-sbi/rmi-core.h |  6 ++++
->  drivers/misc/amd-sbi/rmi-i2c.c  | 54 +++++++++++++++++++--------------
->  3 files changed, 91 insertions(+), 23 deletions(-)
+>  arch/arm64/boot/dts/qcom/sdm660.dtsi | 6 ------
+>  1 file changed, 6 deletions(-)
 > 
-> diff --git a/drivers/misc/amd-sbi/rmi-core.c b/drivers/misc/amd-sbi/rmi-core.c
-> index 95c9109101b5..e77f114c16c6 100644
-> --- a/drivers/misc/amd-sbi/rmi-core.c
-> +++ b/drivers/misc/amd-sbi/rmi-core.c
-> @@ -13,6 +13,7 @@
->  #include <linux/module.h>
->  #include <linux/mutex.h>
->  #include <linux/regmap.h>
-> +#include <linux/slab.h>
->  #include "rmi-core.h"
+> diff --git a/arch/arm64/boot/dts/qcom/sdm660.dtsi b/arch/arm64/boot/dts/qcom/sdm660.dtsi
+> index 0fca9662c64a..723bffc99b67 100644
+> --- a/arch/arm64/boot/dts/qcom/sdm660.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sdm660.dtsi
+> @@ -386,12 +386,6 @@ compute-cb@8 {
+>  					iommus = <&cdsp_smmu 8>;
+>  				};
 >  
->  /* Mask for Status Register bit[1] */
-> @@ -193,6 +194,10 @@ static int rmi_cpuid_read(struct sbrmi_data *data,
->  	u16 thread;
->  
->  	mutex_lock(&data->lock);
-> +	if (data->detached) {
-> +		ret = -ENODEV;
-> +		goto exit_unlock;
+> -				compute-cb@9 {
+> -					compatible = "qcom,fastrpc-compute-cb";
+> -					reg = <9>;
+> -					iommus = <&cdsp_smmu 9>;
+> -				};
 
-Why isn't a guard being used here instead?  Then you can do a simple
-"return -ENODEV", right?
+On this platform, it seems like the secure ones are SID 1/2
 
-> +static int sbrmi_open(struct inode *inode, struct file *fp)
-> +{
-> +	struct sbrmi_data *data;
-> +
-> +	data = container_of(fp->private_data, struct sbrmi_data, sbrmi_misc_dev);
-> +
-> +	mutex_lock(&data->lock);
-
-Again, please use a guard.
-
-> +	if (data->detached) {
-> +		mutex_unlock(&data->lock);
-> +		return -ENODEV;
-> +	}
-> +	mutex_unlock(&data->lock);
-> +
-> +	kref_get(&data->kref);
-
-Are you attempting to use a kref without a lock?  That way lies madness
-and is sure to be wrong.
-
-Are you attempting to keep the data "alive" somehow?  Are you sure this
-is correct?
-
-> +
-> +	return 0;
-> +}
-> +
-> +static int sbrmi_release(struct inode *inode, struct file *fp)
-> +{
-> +	struct sbrmi_data *data;
-> +
-> +	data = container_of(fp->private_data, struct sbrmi_data, sbrmi_misc_dev);
-> +	kref_put(&data->kref, sbrmi_data_release);
-
-If open is the only thing that can get the reference to the kref, and
-this is the thing that drops it, why is the kref needed at all?
-
-
-
-> +	return 0;
-> +}
-> +
->  static long sbrmi_ioctl(struct file *fp, unsigned int cmd, unsigned long arg)
->  {
->  	void __user *argp = (void __user *)arg;
-> @@ -570,6 +622,8 @@ static long sbrmi_ioctl(struct file *fp, unsigned int cmd, unsigned long arg)
->  
->  static const struct file_operations sbrmi_fops = {
->  	.owner		= THIS_MODULE,
-> +	.open		= sbrmi_open,
-> +	.release	= sbrmi_release,
->  	.unlocked_ioctl	= sbrmi_ioctl,
->  	.compat_ioctl	= compat_ptr_ioctl,
->  };
-> diff --git a/drivers/misc/amd-sbi/rmi-core.h b/drivers/misc/amd-sbi/rmi-core.h
-> index 975ae858e9fd..ae084beb6c03 100644
-> --- a/drivers/misc/amd-sbi/rmi-core.h
-> +++ b/drivers/misc/amd-sbi/rmi-core.h
-> @@ -9,6 +9,7 @@
->  #include <linux/miscdevice.h>
->  #include <linux/mutex.h>
->  #include <linux/i2c.h>
-> +#include <linux/kref.h>
->  #include <linux/platform_device.h>
->  #include <linux/regmap.h>
->  #include <uapi/misc/amd-apml.h>
-> @@ -56,9 +57,13 @@ struct sbrmi_data {
->  	struct regmap *regmap;
->  	/* Mutex locking */
->  	struct mutex lock;
-> +	/* Reference count; keeps @sbrmi_data alive while misc fds are open */
-> +	struct kref kref;
->  	u32 pwr_limit_max;
->  	u8 dev_static_addr;
->  	u8 rev;
-> +	/* Set on driver unbind; open/ioctl return -ENODEV afterward */
-> +	bool detached;
-
-How can open/ioctl even run if the driver is unloaded?  You aren't using
-the cdev api properly I think...
-
-thanks,
-
-greg k-h
+Konrad
