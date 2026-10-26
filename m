@@ -1,79 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792979646;
-	b=nP+C10g1ZdsPAazZ9Px+kfi12LVAQFxyVGQgEKAW+hxPg2Y2o2U3vZdyJz+aTCzep+4p
-	 Lq9vKh3sLcS2UuyG/i3hCTg6zcyA/5pNnIqGOjfkPqBw9QpJcuQ8SUZoMD4RdyemHy3eA
-	 GRNR6vGA0dGCURYQPUQrV+njuyBW6RTrk6kaGFKsl3T9DTW90KTOMPHD0WwrRpCFDS2jf
-	 H8xFcvJIhSGK4Wzhubkq5tMRkwM0B4aU7CfwdsreJTsUn0Kb5zSjHEvJBN2FcwkVHXaMk
-	 y6vlANzL4AJFDqxNpkvFFEe+uuOD2K3+W77tNDSFGd7KBN2q/2SwL6fGmX+RF0xfCPw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792979646;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=V88JQ3oyGEUdehJQsXeJlx+37xUAQ2Dh+/95FVC7EQs=;
-	b=Y1ldH06hJ0Fu7jdxkcM/LtHmrlNZSfTgykUlSNXjCjlsADtGrjOZ5gaJ8Rfm2uajZowi
-	 vKrIXvRTrWWKvU8fuS2+6anSuITiWiySMJzYkh1eHqJPhCKtrl7vvyH1EDhdl7yzEcG8a
-	 TGHIm/c8+UJhPOXTT/hwsNBGJPEQvcVyO5F7ReuyyjU+Wmm17xwMmaeD8fLuf/XSn6Lux
-	 DjzyzaqVwzuv6pvTLTwhwlWkVzvY1dDGTKpOTEJGoirZgKkKl5Ww4woC8ajt2aaYJGxD2
-	 k7731GjhPSt8BWk1ub3OqnGgKII5wEfvPv6tQxJNc1Mom00dRHew3DAgWH0QxwH6fuw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hn4NEJVp;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79906606A31B;
-	Mon, 26 Oct 2026 01:54:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hn4NEJVp
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792979646;
-	b=qJIBk4esroS+FjOvSAd1+MeuIMZMcrsuBPMNtagLDUOo0G+RIlvXgIguEi+5YdX1wlxc
-	 afzIcmFqRLIpAg40sVVvosO7/Pdb5KVq6IPwlaynX//OrF6TxguV/P3XmqHI6DWMSpyxc
-	 VofREwb7D1szUtfa4Vdf69AvVGaobV8TAV8RFy1BkXanctuShxCanh7G55WSRY2z/8rXi
-	 qZ0X5RvzWj44d8mAmyOsU+uCZPUr/6MqIFQMotzc2leAP7sFRnhCUusb257FY8uQcM/mn
-	 pMQjTpHs2kPbIGmLaoaHxo2mH48OcBzmY3kF/15sIDQAZWiVCgFDugbG28AdZJdGbkw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792979646;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=V88JQ3oyGEUdehJQsXeJlx+37xUAQ2Dh+/95FVC7EQs=;
-	b=HT0J65agwuilrAvY1j9V2grfIynjX2JjD0eetn5cHvrGsKDVYh7vxEFP/JfDyJrmuKr9
-	 Sv0ELL+aaYd9pcmWQj71hg3biE1bkaZSlGvwDRis0SX+bSyDR7vwvqrpe0pzw+eGKuPlg
-	 9IlGoNnuhciJ8j2xOJwRrW4VtbOObEcJ9mbXIyYC1EH3ggJjsuafIzbkMuREpCmWFTBkx
-	 rpRMwrTLh8kSFaHUxy6imA4EY9ZfsJaS2TIMLRIAlfKv4mZoQatvUbRgd8dDHBiDvOtxx
-	 UttqOiklfR84ipkRHdXMw+GV/KiZyUVzrnNw2JL9Fsisv6gjdJ1/Eir0RqgYBP5b2Vw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.47
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792979814;
+	b=JX+l/giPATfk2X+sbvKdEjQEV1If+WoD/H9Q+MMJbc24vJvawxq3fbajHY8SOz8NQbbu
+	 JJEOjUH1Br8OPeLMz53/SCO3i1tAi4wmzc55EWW1Frk3w9KRX1aaJkfUwVGxndHBwFirz
+	 V1mAjbgpIffwQ8ZWlS6EYwswUIdaPCuCBEew1bYCHsSiUqHAZyfQEAU5KI6onPeE2lnOj
+	 QSZKGSbzz7CxKMv3YkkiG31BDqt393Hk5qIVOdk6cUsi38d43wwpRpsuMaWPzuZNkyXLt
+	 +VGEKjZNqRFmOUaP2d/7HLM9PNMAb3CsjDFKgLvJmi0074cdSg1yn/rcn6v9eBO0r7A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792979814;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:In-Reply-To:References:Message-ID:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=SDc9vfJEDvOZ9KutnQcEZVkooC4ZxQzWj68/tktcKGU=;
+	b=ipuwDTjZIJANGeybiZMSw+bEeZaQoG8fhOO0jWZ8W+/fp2FSdtxTUDv3HpG8JCq+DScJ
+	 j02PKZedHeHZBgiFZbmVMR+Q0NuhFjQhbW1y0m+vHurkBRfto4W+WIazD9O3uvCrH/4Xe
+	 tPTvQUmXld+FXkJ88QxZzZBn/RvwPJr9/lAIzhk1NRczjYiyELLhM+0z8n9NGuCDLpihs
+	 e9V2t60qkglog8fspLMPTrXh6be5PfPy+CtiRmOn8DSEeitbtz5/WDIC9yyYc3OX7+f2W
+	 RnQRsDg2m8n3JmZ2W1w0xlqbfs+yrFLUwua1QNMZPPWlYA6RpnuEVnOvWoTYPwBetjA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qrclkRgf;
+	arc=none smtp.remote-ip=209.85.219.47
+Received: from mail-qv1-f47.google.com (mail-qv1-f47.google.com [209.85.219.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 6987B1F01829;
-	Mon, 26 Oct 2026 01:54:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792979646;
-	bh=V88JQ3oyGEUdehJQsXeJlx+37xUAQ2Dh+/95FVC7EQs=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=Hn4NEJVp5Kc/BW7mVCRbHBD4T4ETuvg2uV/ora/TyCjw/44gGSz6zqhCz3xC33srZ
-	 EwZfDHdig0lmTeEuXYm94cpGFpk8ZDRwwKMJC1J/qShBUeODmnaZaucNwL3uuV0L5I
-	 OkziD2isHPbvIm3JFtz7nllMb+o5jaXhX/kpl6/1XPfkDVDI+n+Nr0q4XJI4AewP7W
-	 ps4ByjkY3wJ/JHL5XQul9ih8nmw1LQfeEbwdXJ3xvAG4uX2i0fKT/aA9cAMqInfQ53
-	 nDeEyc087kOAC2bUf89sxYkqD9CpVkeLjpayu0t5s/O8KhoFEvKkslX6ODzKNttZkf
-	 4QMUg/UzHku7w==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id BE72644B77;
-	Mon, 26 Oct 2026 01:54:04 +0000 (UTC)
-From: Daejun Park via B4 Relay <devnull+daejun7.park.samsung.com@kernel.org>
-Subject: [PATCH 0/2] xfs: discard every free extent in a whole-AG FITRIM
-Date: Mon, 26 Oct 2026 10:54:04 +0900
-Message-Id: <20261026-xfs-fitrim-skip-v1-0-cddd8414f99c@samsung.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ECA0606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 01:56:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6ECA0606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qrclkRgf
+Received: by mail-qv1-f47.google.com with SMTP id 6a1803df08f44-91b9e758c50so36319386d6.1
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 18:56:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792979813; x=1793584613; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:content-type:message-id
+         :references:in-reply-to:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=SDc9vfJEDvOZ9KutnQcEZVkooC4ZxQzWj68/tktcKGU=;
+        b=qrclkRgfOsMEvFkIVMdRXfEd2lcoY8o9dNOvaxoMTrQFTPc5o7DDMlGN+yQbh6Th0j
+         5PUw1WZX9P0G12ow8Peh3qmIdqdZ6WHkA1B2czj4ubaEKsuW5LE7K8kZDuyHvDvIhTJ5
+         Q0tRp+lDWWCZeeh10rr+WNBY25J2kRJcr2re0yxD81ZKrM4NAgBkyz8V7RVb5GFkeYoW
+         x/76pPUtf77yYlbLEnrFauoJumApj7y5cOcmmb3MbXb0moNZGnGXM0Jm/kmrsjR81kvY
+         n1dtaSyy3IhPS91RdYmfMahfGxRYQ7ct3qBp9nRE4VXxK20+bd6I8MJ1H2Iqg3KwPGtb
+         0M0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792979813; x=1793584613;
+        h=mime-version:content-transfer-encoding:content-type:message-id
+         :references:in-reply-to:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SDc9vfJEDvOZ9KutnQcEZVkooC4ZxQzWj68/tktcKGU=;
+        b=bGPEtHc7htXVQZdqqUf/EVuWU/rA37Fk+8tiAKKebROxjnPekkNRM97XFNhVWP3AtV
+         Y1ccpYDhQsnSVQ2ubD+8PUrxAp8+HxhNJrlpQlbjJwsmxlZ7r/I5cAbssmc1CrPnLXAk
+         3UNP6f4PLaIB8WYSCqT2yWd1mgvIxoGG7/Feq3krhO2xlzf5fjqqXp81yAFYF45VQgdB
+         JSttHEh68I9bRv8t/gH1nnWfSJKuSe57oFnxdiWZjA3QxnFnqD4CocYzQGTbm39qZ+Rg
+         WBDUl9p24yT9QKj7USnvwCu3zr1+ZlvaPDjaQlLpyrp/XGQExMIwd+MWZZfZgeI4MLjo
+         dPEw==
+X-Forwarded-Encrypted: i=1; AKwUvBx2QmV32nlBJT9ykOOkRXgDK1X5UdK5r1rTGJ75fuLM/lta6A2e1g3RxHGqt1yJ5RQgo2EBaTDQtTwDyR0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLhp3VY7fa2Rvio2vnwwELJ8y5vmk6Adh9rRViAmWbdDl7swK3M
+	ojlpAWZwTS0cVwVHiLG/Qq2pyx1kypuuiydi83RWRiPDSCW37t+b77CgjoBWkQodLo8D0mg4
+X-Gm-Gg: AYBFou1vNCVtQAM6rBwu8Uo49XX46jf639jrek0/HEwXf8DoSVF99os4wNsCrmrmd+o
+	0RZte0nbWXgiPq9q5un8pqebKBsZ2+GewvNCQA1vvRUvSeHPBUUXOxV3yUPNEvWipCjQ3YaKH9F
+	KhMR+EBP75jPXwgRqUlLC8a9Z/anOlFjRMy4lNeEY16bZWm2TvuzzX7aDDjoSxSKZwG3QsZqYbH
+	LUAal9VWMf93z+Duvo8Byx5s9jY90A60ygqOL3IeO4T+O6g0ucjt3EnUMAqUD1GaascJpCLkOh0
+	yRLNF4NJtWpuECciwUtb1UTdrnTJP3fvD7oOOqPbUZ2tDnpJALGz6IQarH3mis74eAmz05OxjJS
+	oZ9uzyqpQ30dyuy60z6VyJbRUwmup84kqyEiA6w28yWrIjZKOvcz7KDiaYHCokYE2OkHBvQdgRG
+	+oz/VDFUX5y/9llTw1g+b6fFVtiszH/379GWv+LIdIAoTGtKGfuyzZj/qLnYyzGKq7uNr9uhRbd
+	vrXx0KdLQ+gQsGmgRyYFsJJ59ZKEcGjfBFF+SG4eGpoZnDINEH5VagNCsi3dRWjTp39ONKb4neb
+	T4BqKTgMb6XXI076+bGwI43g8NyZAho0ALM5fx+qaUUYJYNGaJE7ww==
+X-Received: by 2002:a05:6214:3217:b0:914:4c57:5103 with SMTP id 6a1803df08f44-91c48ecc76cmr89332146d6.8.1792979813343;
+        Sun, 25 Oct 2026 18:56:53 -0700 (PDT)
+Received: from localhost.localdomain ([217.150.74.224])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c51eb8b4dsm42413926d6.21.2026.10.25.18.56.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 25 Oct 2026 18:56:52 -0700 (PDT)
+Date: Sun, 25 Oct 2026 18:56:52 -0700 (PDT)
+From: Eduard Zateev <hackerowskiy@gmail.com>
+To: toke@toke.dk
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject:
+ Re: [PATCH] wifi: ath9k: make sure we stop the wmi tasklet on init fail
+In-Reply-To: <20261021120237.481898-1-toke@toke.dk>
+References: <20261021120237.481898-1-toke@toke.dk>
+Message-ID: <179297981008.47871.8854747166395230996@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,49 +99,16 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIALyy3moC/x3MSQqAMAxA0auUrA20dQKvIi6kJhrEgUZEKN7d4
- vIt/k+gFIUUOpMg0i0qx57hCgNhGfeZUKZs8NY3zvoSH1ZkuaJsqKuc2DK7wLZsqlBDrs5ILM9
- /7If3/QA0pdLzYQAAAA==
-To: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org
-Cc: "Darrick J. Wong" <djwong@kernel.org>, Dave Chinner <dgc@kernel.org>, 
- Christoph Hellwig <hch@lst.de>, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Daejun Park <daejun7.park@samsung.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792979644; l=823;
- i=daejun7.park@samsung.com; s=20261006; h=from:subject:message-id;
- bh=IkSnMGO4RLkaGK9K0XCl13Zs2nXzPjRFhg/jdMsWFtA=;
- b=vRZMtnQaD1kclpEj1aOKEIogO+2AExrRgNiakFIHTsTuDDp9Cx/Q9NjskiiJJ2CfSmcO6I/N5
- bl4C3E3lbWOBajcz/1hBhDdV9oU7iUgD4LImQC9Hrjtnsl/zH/0vcMh
-X-Developer-Key: i=daejun7.park@samsung.com; a=ed25519;
- pk=4yUfDqGRZTIj0Ik43z1GoMZRWCNm/rgX6uJuM9dtNIg=
-X-Endpoint-Received: by B4 Relay for daejun7.park@samsung.com/20261006 with
- auth_id=1122
-X-Original-From: Daejun Park <daejun7.park@samsung.com>
-Reply-To: daejun7.park@samsung.com
 
-A whole-device fstrim walks each AG but the last by length. Two bugs
-in that walk leave free extents undiscarded, while fstrim reports the
-whole range as trimmed. Patch 2 depends on patch 1.
+Hi Toke,
 
-The new fstests case xfs/842, sent separately, fails without this
-series and passes with it. ./check -g trim shows no regressions
-(generic/038 and 500 were not run).
+I tested this patch with the syzbot C reproducer and KASAN on a 7.3.0 kernel =
+built from upstream commit 21a7f44fd.
 
----
-Daejun Park (2):
-      xfs: don't skip free extents in later batches of a whole-AG FITRIM
-      xfs: don't skip free extents of the longest length in a whole-AG FITRIM
+On the baseline kernel, the reproducer hit the reported slab-use-after-free i=
+n tasklet_action_common during ath9k_htc probe failure. With this patch, the =
+same failure path completed without a KASAN report. Both kernels were run in =
+QEMU with the syzbot config and ath9k firmware extracted from the syzbot root=
+fs.
 
- fs/xfs/xfs_discard.c | 26 ++++++++++++++++++--------
- 1 file changed, 18 insertions(+), 8 deletions(-)
----
-base-commit: ec8f62cc109a3f596b3c65dc0f1011c209239051
-change-id: 20261023-xfs-fitrim-skip-7ff1cf0364c5
-
-Best regards,
--- 
-Daejun Park <daejun7.park@samsung.com>
-
-
+Tested-by: Eduard Zateev <hackerowskiy@gmail.com>
