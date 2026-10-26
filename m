@@ -1,76 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793044351;
-	b=3fOwRoyY6sF5Y7TuCA6AKcKMz0rZdlSCB5dmV2AzsYTBKW2WoPBl8XfiRQUmtmfeRZ6h
-	 wkNiV6pjynCl1L8rbcHyZgJDpkJXEFe8xSwoUKmgD1z3jcq1IAwyDtmno96OtHpbxuiaO
-	 Shsm06JEe+Yy47s3wfLrD6O/z+1KsF7zFOAdzxDYqahMwObC6hYYN63JjLmvEL5/zan6R
-	 5SXjWIaNKMNRRVr0bpw6NhdJ65Yzdgu80WM/4qZTY0P6oIukh/S1HUStJ4uOc5JqUjmDU
-	 v6SAEUvYSjRcEr1EUPusICYELjeIK70c17IKOwTsNsKRkRv0JHJq0Cj4PQVR7k8ZM8g==
+	t=1793044392;
+	b=cfs4z7bbQ4wEpmvsPqrbIGtvmt0jWdhBNB7zQGFfF+BZTci9GMDVTqJsJbkiYw7t1qok
+	 tOifFHs3pNUzdSrPuTtq+9HUuUYU/bYPYsE9eKJFFMiVgPkcLDXZu6mrHGwzKYAiWEV4Q
+	 apN8O0QpPBHesAHxjrwgY880w5nip7LnL6p+NbCSyZp9wjcNoPyx3WJfqgCpqhumrbg63
+	 QyjoSEct3PK/oQQkLVp1bo48ehlmcUqpY9UVnjSqPRcxrw0GlJujTtfgdhqxtzLrCclNY
+	 0cr6HCxUFTZsGDb99boYkrPWqTfyqiZAcg+EvbMyQIZtL6N8gVwZhCCIcWkB/tfG2TA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793044351;
-	h=Received:DKIM-Signature:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:X-SA-Exim-Mail-From:
-	 X-SA-Exim-Scanned;
-	bh=IoO8jhMb7zvyQD2W9noPd0i8Vmj5N2eTxpmHRimEf5s=;
-	b=z6lJ6wqUVmrSMcLXUfGFF/2AxzvTGgQCTPB8EhsdKghdI1DdV1NIir7n1PVdbEUcINCY
-	 z+RnTfr2LD5sNjoEHVogJ8jeG620eEMy/OzRJEOLfzPDzWzxxU/y3qnQxxHjCFR5QFraX
-	 UWVUO4sRCRj0W0xtg8pkXyoUDNJ4A6R7Tz1WM/rE+TdiIXa+VYkzOzW6V4M28nExcD2Jw
-	 3bWsNvDXHLItMA3geo1PQcVQLY7IlqLbaTjy7F144aOTLwsUpjnU+K+ogzNFmsb6lSZwn
-	 C/UtnLuy0KL3qJFcnYRr4WamN3/UMFigU4+zksTvcoFJvbDjuLLb2YG4NIKsiE2kV3A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793044392;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Z4jGd5Zh1+L1LJCrBnBDsKwIyWcB7a2BkfTKeB8G4WQ=;
+	b=mAuTXEw/31yFV/LCikSEpRKPmD8JCyKKanILRnx+6nJafBMWVr6PHeI1L2BB4jqriVq3
+	 Th7z68kt1dXRyAwy8zQYAMzmttnKZb9tTQu6Njagcyim5dVagJdsvZG3+B/e2yzq5yKsQ
+	 QdjpRbOHgwyIdHApa9v2rI959J7aYmbFQfWQigwFizP0Axbl3ZIJFQncyhDydpmyumf+6
+	 ovS9CxHz6nAJNd1AMXOGkS4hi9Sz60WMD0SnkZH4bFEOSMyytcTcCw1G7pI/S3xFXMGcC
+	 MV+l1bfIw554JMnkMqkRILYv7Ibo7OhKMDmsunE2hrz1OsItJLj4CTbLqUkCim8Tn5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dh+lMa57;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=acm.org;
+	spf=pass smtp.mailfrom=acm.org;
+	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=f608s+15;
+	arc=none smtp.remote-ip=199.89.1.14
+Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B3E5606A31A;
-	Mon, 26 Oct 2026 19:52:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 894F9606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 19:53:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 894F9606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dh+lMa57
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA57C1F01825;
-	Mon, 26 Oct 2026 19:52:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793044350;
-	bh=IoO8jhMb7zvyQD2W9noPd0i8Vmj5N2eTxpmHRimEf5s=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Dh+lMa57ctnoQbPT7OdxHHCZrljxrsPpdfG+vxEZI13YMHVbXy6qtk+DCZfdOyFy4
-	 N2TwljPdyHZfAI3mTwwX+b8iU8Z2zoO17BoQShYNMRMjoZBxqCes75qo2DHtS9gMoM
-	 Cc58wmExV10KhJuIAULNgA4RkzDuACLlF2KbJUb2psbb9b2pukicYbhg1RMuV2cuDR
-	 /+Zxh0hL2q4tUH7bLb5pBAwvwR3yl5B8d89vs8iNbDcxemwB73Dgre6rPTLuaweKa+
-	 XKdlLz3XZ9csWRf+zaaIbXJtuQj9rPph2U/fB+G1AcchVvrclH1NN/a++AaFj8heBy
-	 bUgId6+bxkhFA==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xLQk8-00000007QAT-1I5B;
-	Mon, 26 Oct 2026 19:52:28 +0000
-Date: Mon, 26 Oct 2026 19:55:45 +0000
-Message-ID: <87qzhc8ce6.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Oliver Upton <oupton@kernel.org>
-Cc: Fuad Tabba <fuad.tabba@linux.dev>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Raghavendra Rao Ananta <rananta@google.com>,
-	Eric Auger <eric.auger@redhat.com>,
-	Will Deacon <will@kernel.org>,
-	Fuad Tabba <tabba@google.com>,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] KVM: arm64: vgic-v4: Don't allocate vPEs for a GICv2 VM
-In-Reply-To: <at-mF3Qvq67Nh_v5@kernel.org>
-References: <20261026152639.3926498-1-fuad.tabba@linux.dev>
-	<20261026152639.3926498-2-fuad.tabba@linux.dev>
-	<at-mF3Qvq67Nh_v5@kernel.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=f608s+15
+Received: from localhost (localhost [127.0.0.1])
+	by 011.lax.mailroute.net (Postfix) with ESMTP id 4jD46v05BVz1XM30g;
+	Mon, 26 Oct 2026 19:53:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
+	content-transfer-encoding:mime-version:x-mailer:message-id:date
+	:date:subject:subject:from:from:received:received; s=mr01; t=
+	1793044386; x=1795636387; bh=Z4jGd5Zh1+L1LJCrBnBDsKwIyWcB7a2BkfT
+	KeB8G4WQ=; b=f608s+15EKsPZtFmXhhYUAiBVIXES8fzj6bK/qGB943CfTh6eEs
+	ecd5l40Hyi3/1IsPB1s4Lao0bJ+DxapF1ze3CgxwEASzPJEn0ehhKWg/aNVUt/Ks
+	xk7BLFiuVO1nop0PFWAMvSxHzcHte88DLBKUITv3CHD56x3mfG3pAAV6fBLYaau2
+	8Sc05/VI7DjJWwM39/K5OHPKcZ4cnzwksBnIjeRpV3BhJqs+QblQrAvr3UBJiMrY
+	54oYPATb78o+Q2CHVW7hUJcxCRyPnre5CcfVf29Hywjb6UugVahxV1fhJE8ZSlNv
+	7vggzIrgXJIiZjnmU1RNf1bO4C4/B7qqTDg==
+X-Virus-Scanned: by MailRoute
+Received: from 011.lax.mailroute.net ([127.0.0.1])
+ by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
+ id H6DJu_4K8ou7; Mon, 26 Oct 2026 19:53:06 +0000 (UTC)
+Received: from bvanassche.c.googlers.com.com (57.237.82.34.bc.googleusercontent.com [34.82.237.57])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bvanassche@acm.org)
+	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4jD46n5QVqz1XM4Tl;
+	Mon, 26 Oct 2026 19:53:05 +0000 (UTC)
+From: Bart Van Assche <bvanassche@acm.org>
+To: Madhavan Srinivasan <maddy@linux.ibm.com>
+Cc: Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Christophe Leroy <chleroy@kernel.org>,
+	Ritesh Harjani <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Qian Cai <cai@lca.pw>,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	Bart Van Assche <bvanassche@acm.org>
+Subject: [PATCH] powerpc/iommu: Fix an RCU read lock leak in mm_iommu_is_devmem()
+Date: Mon, 26 Oct 2026 12:52:50 -0700
+Message-ID: <56f0c45723ee53149a21ceb599010e957457afd8.1793044370.git.bvanassche@acm.org>
+X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,28 +80,34 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: oupton@kernel.org, fuad.tabba@linux.dev, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, rananta@google.com, eric.auger@redhat.com, will@kernel.org, tabba@google.com, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, 26 Oct 2026 19:12:23 +0000,
-Oliver Upton <oupton@kernel.org> wrote:
-> 
-> On Mon, Oct 26, 2026 at 03:26:38PM +0000, Fuad Tabba wrote:
-> > KVM can run a GICv2 VM on a GICv4.0 host whose CPU interface supports
-> > legacy operation.
-> 
-> I'm pretty sure there's no IP out there that has GICv4.0 and legacy
-> mode...
+mm_iommu_is_devmem() returns true from inside its RCU read-side
+critical section without calling rcu_read_unlock(). Neither caller,
+iommu_tce_xchg_no_kill() nor tce_page_is_contained(), drops the RCU
+read lock, so every successful lookup leaks one RCU read lock. Fix this
+by calling rcu_read_unlock() before returning true. The pointer to the
+list element is not used after the RCU read lock is dropped.
 
-My favourite space heater, HiSi D05, says otherwise: 64 A72,
-GICv4.0. Remember that it is the *CPU* that provides compat mode, and
-not the GIC.
+Fixes: b5952f8125ae ("powerpc/mm/book3s64/iommu: fix some RCU-list locks"=
+)
+Signed-off-by: Bart Van Assche <bvanassche@acm.org>
+---
+ arch/powerpc/mm/book3s64/iommu_api.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-	M.
-
--- 
-Jazz isn't dead. It just smells funny.
+diff --git a/arch/powerpc/mm/book3s64/iommu_api.c b/arch/powerpc/mm/book3=
+s64/iommu_api.c
+index 60d00c9e7f19..e1e43573e8a8 100644
+--- a/arch/powerpc/mm/book3s64/iommu_api.c
++++ b/arch/powerpc/mm/book3s64/iommu_api.c
+@@ -371,6 +371,7 @@ bool mm_iommu_is_devmem(struct mm_struct *mm, unsigne=
+d long hpa,
+ 			 * and the caller needs to distinguish this situation.
+ 			 */
+ 			*size =3D min(1UL << pageshift, end - hpa);
++			rcu_read_unlock();
+ 			return true;
+ 		}
+ 	}
