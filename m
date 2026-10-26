@@ -1,93 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793011881;
-	b=yKcstU3O9GKiYYFj5QfI9a95kT5/yKl/P27CLAvZry8F3S6PbEe7QrPzolPoCupxiJRi
-	 FHtK/wOU/+87Gf6chGH2lGfoKnohc8O9Qp2+2H5SGq5s0qZcwNZgUygJ7hX9fmQkhE/Tf
-	 bnRPbbzf8Y6O0Eu901Qh6FfCuNlWpRruax/3YEyS91NC/bBsGBgVI0/56AcGxE1js/mq0
-	 y21sVyc9yNeH8/MPRlrmGJQ0X42kXQL2CelwkhbFk+jhMVXGuwmnmUuas2MYMDfGK9TqT
-	 Z9wCnPQHTfR8S0MxthAX/U/yJ5ge3JNz91Y6pUGjj/PS+77E8fqqOEHb2tS2d6NItcw==
+	t=1793011911;
+	b=Mf6btLN0hG5VRH6K3+qxST1GuBIzP5n4eBKG8FuCChGRIo7DQPVZTH301IPw0xdnl5/R
+	 Lf4ltxWSIEz4tkGVrIvuINOLXSOy9/yCFLOXDlfTVVtpd5kRaiRF86NltLmSlMaGXASwN
+	 rkrlMheHWDoxMwddB3aNQz9BfZOoGUbaXyV7Q+ij1yaCFNMRKDJIHCBjxdFRwtvmZg1OB
+	 BDixQ9sLyi6AxlDv+WOPjGeuHvq9KNK70dnkXBmvqI2CkB3OsOxcLNWAPP9t6CmG1aV6N
+	 u3xPfaZOhXGhmDLKJX3JSaz54d7RWAZFy3xpF07seLNI+hjupxcZClXYoPEcgD1av+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793011881;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793011911;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=QXblNSR8xULU+e1FuWNkvIygdbsQqdtYiPxZfiJKQg0=;
-	b=xZ0TKedMyn5ogLZr7HJSumkDL8qMKVi1YtZdtnagOuOY0FoCTF3bsYOA6M4RB62qy/Gf
-	 8221AA3IZAvQksi2VRZOdOp4hS3QbMIpMtgmhfxcB3qmpyxOH06N+aajavxcPDmgvKkt9
-	 6npHaMxiLGhf6deXYhnGeOtxi2bF/wIwKQu6L7x5D8oQF9dGs+EOfF8KkhVqYQmNYSN/8
-	 4aoXDxCV3a+uPs06XRro8+vxaNnEwocDX/+4JAbZ/QLdPHKeR1MSCxAVKJ/yc5KtY1HKq
-	 M0xH04BMCa8R511SvlkRrzEP7Fr6DewcOqBHLi+sCPGXp47C5ZDXyoJeiExmcaaceGw==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=EBf3Sy+5DcnC0QRUJ+VDMuCVNHbnBlvEfTw0fhN6JSU=;
+	b=4Rv/Th1JO9PInqmRgcgFCv94uiIAxfuZGI9zI+CDmuuAoj5GP8TdSiPbWwUcZy68uKpy
+	 dqZ0OVF7cBGQgo71k2qbu2XGd3KESwNxFxW9YWNAAOjwMkJuP25xsRqBDfSMbddU+TJxU
+	 w325TvC2c1/bsuO/om9IiRRNYP5+CJhREZqz5cNjhiLqdOgZZmVzEanYcb2MRA8k56vtV
+	 QGrUHStKhl5VVzG5bV3jLqbTv5h5XwYyYxs4iQW05sHdbciJ9KZxGfNjC8tF6T0PKb3mt
+	 lUryvgEdKvecX8elrVhxj0XF/E7xvazlcYgBjbOYyGeYf4ypRwNP0/I3ybVKTsg6T+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Qrw5sAsh;
-	arc=none smtp.remote-ip=74.125.82.52
-Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=XzVAHkr4;
+	arc=none smtp.remote-ip=209.85.221.47
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 550B6606A31B
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:51:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 550B6606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2268D606A31F
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:51:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2268D606A31F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Qrw5sAsh
-Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-1517bda04a0so2922372c88.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 03:51:21 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=XzVAHkr4
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48bbb06e746so1423994f8f.3
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 03:51:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793011880; x=1793616680; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QXblNSR8xULU+e1FuWNkvIygdbsQqdtYiPxZfiJKQg0=;
-        b=Qrw5sAshChMITFyQBNK3qy3rOjPlqRKLvy0I10a+jkUn8D1B3To+HKYWuYF2rGn3m7
-         juWhgnE8SDB/Y9XsNhNk9BNJmcrr32JiEZ+3bOJ51hfSsqUSGdTrrMPvPJ3dNJxmk+KR
-         LxmVAxcCtSOuF7OUIPU7cnx+gvsLnU4XGQDarjd4zGn4rYHquEMBBSeOfd43w8VyxUiq
-         9yylOy2Qxz6JGtTdb0i3lgtNGdg5i5koFxqMLjDGxI7HgyNGRKEzgXIK272K0hbmWItQ
-         73gmlT9YJDTna7Fnjj+daCsoq+8iSSTvCCvMLe5kSwQLgSRwQPB4JAHx7KgGI6YfVvIT
-         K1+Q==
+        d=gmail.com; s=20251104; t=1793011909; x=1793616709; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=EBf3Sy+5DcnC0QRUJ+VDMuCVNHbnBlvEfTw0fhN6JSU=;
+        b=XzVAHkr4KWhp4SR2WwzWQxCcMQaShtXQTlQewihtNNAK1hZbhAGGWkFVNIWtDj5tBg
+         /gD5ANjWnHbwfvhif89hJqLigAQUenx1D+8TiKsF1DHrhMImwKFR6pYxmgg6erew40sf
+         aI/3V8zvt2t1A5d5wSFIBBoz8mzW+ZGPW8iUitC+gOiNnGDHSYsesinfxorfPqqzsURJ
+         OsAm2v3Iib9vHikarRa3/4A09l9F81lyojFEgbR7Ym83DdBlp+HCylhTV6PUEdzCSPWP
+         mhR7EbbrdhAWzLqKssx3G8ny9998zK4hW8qpOIR9ljdEPGITQhnR7z4rK1YfPLG9dHMV
+         alyg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793011880; x=1793616680;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QXblNSR8xULU+e1FuWNkvIygdbsQqdtYiPxZfiJKQg0=;
-        b=TL0/JuFSs3Jyb05fdUmtiLMs//RAjp7KuzTRU74j+/fpeM0ypqm1RmC+zIwp+Dwsaf
-         iwWijwT4iTu8T0rn8Hsvod01e3NkAh5EF/53jn6nuQN6UtBAQKV+I7AlhSQo7oIpj2If
-         5o4nVnGn7GQ1IN7+KykuSnHG6r4us7VbBcgUznmGZFqD9SP6HKiS/PlWiAHEWBcp6ctR
-         bZwSwMsj+Coy2lkj91q5ywqpJW5KG5grB0QR7i5GfgqWVEM6jZhv6WI7Z7MkF+GFLk98
-         lXioBvhKISLQOZeIWNFNk9CO5zUwssk9d95yElJp41LhzNot9PPrU2FwEv5LJAIz6RSv
-         jXGQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxpzd+zDl/8C3Oc0XhnLbWjfeNjzybcy7eYj99JhppICOFMwbZpUQQP/LEHz2jQatQYGMNCaj4o+DYbC/A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIwkGYJKSpsDnEw64GCaB4+Ul0olaK7NH4u0WYOmm3EPkELODFc
-	xhojLIlS8248Pnwat7uVUPEdJI/0igTVg4hNYnQQomcjGHTt1A+IZLtL
-X-Gm-Gg: AYBFou1fSUmm9fIEhAtFp4lJAVnulgFYQ2gaS1M1Kq6cFpd9GXD1ahXm+f49Wq/qQ5e
-	C4TZmkU1T9Q8xadyAXeAcPsfRblfHVNnLut8/dTGl4BMqI3J1r26M/yYlbn5hXNtWsg+2yECzI0
-	zPDwk/ndy2PyMqhQhGWl8vmbKjUlTpcaeq5tCEGWXUIQw85Xh6QPliQCEEz1zIhuHon7qCVHW4z
-	E6TQujRAtfAjl89ELZXTtjV4bqR4TU7xjJl5IDxs20Ftt/3u8VG0NovrElwVssBga5llMUy1lcH
-	E2ARzJ7CghHwJCC5gs129OGhsSbGO4MeJrSBscyBerMBLPFlY83ZnStNWv07sMXBBt6RNOcXR3M
-	DdN5U5c4ZM+EBli53T8v6qg8RED/smwp6zXF9s52nqCKiu71cDsmx/0qjfwsVpxufa7vwgX3/mR
-	G5Jaws9QZuO+LTgYCzj9VMTStT3+i2FBT2iOeppQGStqGawizFiSe8gun8Gx2Kzcp6NOmAy7ay0
-	2d1FYIHJIt536Q3SP+HZaKsrBpw5H7mqtqg11kcILuopcAClbk3cGu/bAr84L43+mkKCM6i95pj
-	lMHbzP7d0mGUF7lEDMg4
-X-Received: by 2002:a05:7022:4387:b0:1a1:8974:593f with SMTP id a92af1059eb24-1a1897459a7mr3025660c88.30.1793011880275;
-        Mon, 26 Oct 2026 03:51:20 -0700 (PDT)
-Received: from youngkk-vm.localdomain (67.216.200.102.16clouds.com. [67.216.200.102])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a0e8d700sm27785940c88.10.2026.10.26.03.51.16
+        d=1e100.net; s=20260707; t=1793011909; x=1793616709;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EBf3Sy+5DcnC0QRUJ+VDMuCVNHbnBlvEfTw0fhN6JSU=;
+        b=wIVB2WhlmalhzSAkvdu3qK5bnHQzR6bR1SRzgZ4X/S+DerA8S5ujcdyhQI3E7oCEvD
+         B6Wlsq+nHhm6Fnx/Gt++5Vt+4BkMv16tyNVkhQ77cElYog/uoDA3zp3EpHur6WVaqeV4
+         ohG9RRgPT1ciQuIYrBBWefi5DmUfJ8myKrhcImpZi3uQHCwnpYaoXX7utw1aNkw7i7a6
+         0wY5QXEUFUPk05DA9puM5H3pX3zdw8DxQKb3Mzk6QmrKcJARnFipgMP1QForPN0Ia9jo
+         L7PuvHMvMq5zD4MCkehP+7q8QRpHONJ4GtBkNCxz9CZRfzX7gBYJXHrlSTrDxVtB1w8r
+         ArBQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzpa2Rd86uZMwN1rwo01hZcRMDcuOyNf2fbHNrrpeF5jFNu0ud7Fdv6V43AmoRJziHLSPJsKJAuq/VL+44=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK/siA+oXW+78nS3uu9FITOKjpwW1/9voh+LQZXEYHOWJV5iMri
+	jJ33rWDZHwEm3vwexMCPlOKqsh6Ay4c9K6i3cLix0rBk4ILs+drnDBdD
+X-Gm-Gg: AYBFou1z4xa423X80ZADqqBZ/QaEL2Va9fG+qN5YPeaAN/89ZFB1wEQQJitYYpajAFX
+	SOQ46uldL8xiH0uOywf9Aji46VLPKBmA5BYzlkXflA4h7qCRWoP3773iUnmhMElchhlqtPmEEOX
+	ny9IFoK9FZX30i2MdpiuKmVqPYVvXJ5EnNjRBoW6B8SbXYz/C1vf5WLQ/F7A1GgAWvdMDd6iZJS
+	VCmrxlva+70vPSLHcj9ss898DJtRkiDwqCQN0D37s/rci9q+2WiEXf1n7/R0b4YfrzHbS9CFYG1
+	FY2fefrkNG2bWkkaN7weGzsWlX9Y5Brs3KUDmGPKCZOb/YLQ6uOX8b5WTIqC0FTe1vwERVj9vJj
+	CeqdPLpThyigSpoksZPMm05CfQacHFf2TutdEUT9X+KEeYoyTCS5UbcypS9PLK4C5c8A9lkNfoE
+	eZ1PjPrU3mjsmICtY8+Y2ee7xoyc5vgCiKL1OAxx3YasrYmk1PnKVD3UGCsYpC19MPKpridS0oV
+	7T/1kGovHmFf5s+2AxrWF0mq75JLXpXpHcGzeeUC0xkxF4lxFXjOgIRSSq6LqJATFtRAhQXqUHB
+	uxNJ4BWcU2Po6Nz9elQuy3Qo1Q/zqvx/H0SJSH7qd93gZLZTp0JZd40=
+X-Received: by 2002:a05:6000:2999:20b0:488:8ab9:f74c with SMTP id ffacd0b85a97d-48e3eb2b9a3mr8914050f8f.3.1793011909237;
+        Mon, 26 Oct 2026 03:51:49 -0700 (PDT)
+Received: from ernest.hoecke-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecd3c32sm16077045f8f.47.2026.10.26.03.51.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 03:51:19 -0700 (PDT)
-From: Cheng Yongkang <teel4res@gmail.com>
-To: David Sterba <dsterba@suse.com>
-Cc: Chris Mason <mason@kernel.org>,
-	linux-btrfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Qu Wenruo <wqu@suse.com>
-Subject: [PATCH v2] btrfs: remove devid kobject when deleting a missing device
-Date: Mon, 26 Oct 2026 03:51:09 -0700
-Message-Id: <20261026105109.1148939-1-teel4res@gmail.com>
-X-Mailer: git-send-email 2.34.1
+        Mon, 26 Oct 2026 03:51:48 -0700 (PDT)
+Date: Mon, 26 Oct 2026 11:51:47 +0100
+From: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
+To: Johannes Berg <johannes@sipsolutions.net>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Jeff Johnson <jjohnson@kernel.org>
+Cc: Jeff Johnson <jeff.johnson@oss.qualcomm.com>, 
+	Andrew LaMarche <andrewjlamarche@gmail.com>, linux-wireless@vger.kernel.org, devicetree@vger.kernel.org, 
+	ath12k@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+Subject: Re: [PATCH v2] dt-bindings: wireless: ath12k: allow calibration
+ variant for WCN7850
+Message-ID: <xrszqxg7ketpbjtafssgyjdgygwuhqx7p2ln3phrabcinrqn7c@vor67puwvmyd>
+References: <20260907-ath12k-calibration-variant-v2-1-1a9d6c47dade@toradex.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,75 +101,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260907-ath12k-calibration-variant-v2-1-1a9d6c47dade@toradex.com>
 
-btrfs_rm_device() removes the sysfs device entry only when
-device->bdev_file is non-NULL.  A missing device (created by
-add_missing_dev() for an absent disk) has bdev_file == NULL, but
-btrfs_sysfs_add_device() still registers its devid kobject under
-/sys/fs/btrfs/<uuid>/devinfo/<devid>.
+On Mon, Sep 07, 2026 at 04:17:20PM +0200, Ernest Van Hoecke wrote:
+> From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+> 
+> qcom,calibration-variant is the generic Qualcomm Wi-Fi DT property for
+> selecting board-specific calibration data when the device identity alone
+> is ambiguous.
+> 
+> Commit 06cca100ad08 ("wifi: ath12k: support calibration-variant from
+> device tree") implemented support for this property in the ath12k
+> driver.
+> 
+> WCN7850 can be used in systems where the PCI device ID and machine
+> compatible are identical across product variants, or across regions with
+> different regulations. For regulatory changes, the hardware description
+> does not change, but the vendor-provided calibration data can differ. In
+> that case neither the PCI identity nor the machine compatible can
+> identify the required data, so DT needs an explicit calibration variant.
+> 
+> The ath10k, ath11k and ath12k WSI bindings already allow this generic
+> property for the same class of board-data selection. Allow it for
+> WCN7850 PCIe devices as well.
+> 
+> Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+> ---
+> Changes in v2:
+> - Rebased
+> - Updated commit message
+> - Link to v1: https://lore.kernel.org/r/20260701-ath12k-calibration-variant-v1-1-d3eddaabf026@toradex.com
+> ---
+>  Documentation/devicetree/bindings/net/wireless/qcom,ath12k.yaml | 6 ++++++
+>  1 file changed, 6 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/net/wireless/qcom,ath12k.yaml b/Documentation/devicetree/bindings/net/wireless/qcom,ath12k.yaml
+> index dc68dd59988f..cf3e1fd99c12 100644
+> --- a/Documentation/devicetree/bindings/net/wireless/qcom,ath12k.yaml
+> +++ b/Documentation/devicetree/bindings/net/wireless/qcom,ath12k.yaml
+> @@ -54,6 +54,12 @@ properties:
+>    vddpcie1p8-supply:
+>      description: VDD_PCIE_1P8 supply regulator handle
+>  
+> +  qcom,calibration-variant:
+> +    $ref: /schemas/types.yaml#/definitions/string
+> +    description:
+> +      String to uniquely identify variant of the calibration data for designs
+> +      with colliding bus and device ids
+> +
+>  required:
+>    - compatible
+>    - reg
+> 
+> ---
+> base-commit: 1d8e73163ef933624341075f576e2f36ef9133f7
+> change-id: 20260701-ath12k-calibration-variant-b7850f7ffd7c
+> 
+> Best regards,
+> -- 
+> Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+> 
 
-When such a device is deleted, btrfs_free_device() frees the
-btrfs_device while the devid kobject remains registered.  The kobject
-is embedded in the freed btrfs_device and its show functions use
-container_of() to reach it, so reading any devinfo attribute is a
-use-after-free:
+Hi,
 
-  BUG: KASAN: slab-use-after-free in sysfs_kf_seq_show+0x157/0x490
-  Read of size 8 at addr ffff88801d8172a8 by task poc/9385
-  ...
-  Freed by task 9385:
-   kfree
-   btrfs_rm_device+0x11ee/0x17b0
-   btrfs_ioctl_rm_dev+0x265/0x400
-  Allocated by task 9390:
-   btrfs_alloc_device+0x7e/0x400
-   device_list_add
-   btrfs_scan_one_device
-   btrfs_control_ioctl
+Just a friendly ping on this since this since 06cca100ad08 ("wifi:
+ath12k: support calibration-variant from device tree") has been in the
+tree for a while now.
 
-The freed object is kmalloc-1k and the faulting access is 680 bytes
-inside it (offsetof(struct btrfs_device, devid_kobj) = 640 plus
-offsetof(struct kobject, ktype) = 40), confirming the embedded
-devid_kobj.
-
-btrfs_sysfs_remove_device() already skips the block-device link when
-device->bdev is NULL and only touches the devid kobject when it is
-initialized.  Call it for missing devices too.
-
-Link: https://lore.kernel.org/all/20261025180252.349049-1-teel4res@gmail.com/
-Fixes: 668e48af7a94 ("btrfs: sysfs, add devid/dev_state kobject and device attributes")
-Cc: stable@vger.kernel.org
-Reviewed-by: Qu Wenruo <wqu@suse.com>
-Assisted-by: LLM
-Signed-off-by: Cheng Yongkang <teel4res@gmail.com>
----
-v2: add Link, Fixes and stable tags, keep the Reviewed-by because the code is
-unchanged, and remove local validation details from the commit message.
-
- fs/btrfs/volumes.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/fs/btrfs/volumes.c b/fs/btrfs/volumes.c
-index 85ea9c5..912a1ef 100644
---- a/fs/btrfs/volumes.c
-+++ b/fs/btrfs/volumes.c
-@@ -2479,11 +2479,11 @@ int btrfs_rm_device(struct btrfs_fs_info *fs_info,
- 
- 	btrfs_assign_next_active_device(device, NULL);
- 
--	if (device->bdev_file) {
-+	if (device->bdev_file)
- 		cur_devices->open_devices--;
--		/* remove sysfs entry */
--		btrfs_sysfs_remove_device(device);
--	}
-+
-+	/* remove sysfs entry, including for a missing device */
-+	btrfs_sysfs_remove_device(device);
- 
- 	num_devices = btrfs_super_num_devices(fs_info->super_copy) - 1;
- 	btrfs_set_super_num_devices(fs_info->super_copy, num_devices);
--- 
-2.34.1
+Kind regards,
+Ernest
 
