@@ -1,62 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.238.236.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.153.233
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792999883;
-	b=wlhQMx9Ml4BDJQ16MZD5F99KpGAgEIgLZJFZT0qrp2OrYLEgeVlaOG1aBizy1Jai8b07
-	 Ov3jn6IRRtyOAEer5Xg3HsEWFRABLkOb0BulpqisCWpUWMyp+P8h+ORVVujawXby//JRP
-	 gvv2oaKh5b8BZ2NOAXRG7eskgWOLb3C7MOJfW6ZJcaJItn7Ed9WxLmDtSCn+DaR30tJtv
-	 UUqu48QkLMtYEH4sX5wojXquepLHj3iOkQS1rQZd7mcyNPP3IzzHteWuuQhCl6ryg55kz
-	 gUp2Po4pwB18fZz6QBdVPE1MSXBv2GbBzUDzWGeI6nhNPRKMjlTKDjuznPD8ZONaAAQ==
+	t=1792999966;
+	b=sswNGVLRs1nvcXklYmju9u0AsGVkSPVe/qTDUxb+et5CDS6FGDUUdLObbkWGlUH6sGDT
+	 tC61D9Bh2lQQT/Od/4EUiTuhkdk8zrPOd4ybZGu/BPmcQP/cZa+U7brHtrSfDV5liQymb
+	 45Qy136gohh55UaoQAso6ZmyygepRSDHLSZtVJCYPhFbC+c6omKeogyV9Zwdkf2G0RNMx
+	 mwi1+z/ujQ3It94+fEtLg83z0pVQ98ovi7vpEwWvzS63sJBqj80y+qLG/FhL4FOlvwOmG
+	 CPVL5N113Nc0sUQo0eQHeO/4Zt37tAkNRqVlBWJWwUjR+KdthcpU7fELZYPAnbWW+9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792999883;
-	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=3k2gQfSx3BsVVF9yxHoO/WKzvaeGtbZNRBYzH/o7M2o=;
-	b=Ve0IQy1Qz0IusfT8VZgBmiQRjuE9KHRM7QVvOBnG4zKf3xPDNJCNlm3zy1LFL5+wUVmM
-	 ETsxAKtEU16zTEER1mpT9/8g02z3F6UTJJ9WM5T8kL2fYSAC19PKSnZNpFySH1PYhZA8d
-	 O9EiiOgJbgBLBObajSwdB68XQv5ez5roGe2GQYdNMuRFjoTz/QWCrLdC28QgO8iGH8tRM
-	 ssC5af5DDr4EsxmX2rO7Qbo9u7WNUIUOsCnUgk89nDFFk0nULwEBESPkL6F/OkR5W86sl
-	 Ts6APEoVZ+OFjBgAg85tUIuMEAb2FMocobKu8B6gyQTzxfiOpy5cmxj4w2g6MXRhLJQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792999966;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:Date:From:To:CC:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=W+cxyww2TucNEepNfRrQ0ekDRXr+LHAHYoofn3JixiI=;
+	b=1STtIzrxeQrgm1uDUjfHWp/uAdjjbS4ERHUe2mx2ziAHPX6ybu+OS7NrhI05kVKFlRuJ
+	 d+sDe9XVJh8DjFmACVmMID59mvHvihaDL3wiqA1MC/USYeCfihCzbArUkkWZjkijOtrhE
+	 9had0OLTqg7OX8nxEpAjEF8cwnbSy2GqXlHTtm4dCSgfe5tBlTfwAglNWRqN5zEN4juu0
+	 4Keh5j1jN4MlbQspdUlPjFCdIKbk8NNIKPyq5kfggiFdLgx8Mu/thny+6+imJJrIwm0Dl
+	 5+Wqu9CDyHcz1jA8wT85FfrhiwU57gKJDPe7dboAsF4DatefFcF7OsQdfr4m2FIFCBQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kemnade.info;
-	spf=pass smtp.mailfrom=kemnade.info;
-	dkim=pass header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=xPftORw7;
-	arc=none smtp.remote-ip=178.238.236.174
-Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
+	dmarc=pass header.from=microchip.com;
+	spf=pass smtp.mailfrom=microchip.com;
+	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=puZ9RAZF;
+	arc=none smtp.remote-ip=68.232.153.233
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A211606A31B;
-	Mon, 26 Oct 2026 07:31:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A211606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31FC4606A31A;
+	Mon, 26 Oct 2026 07:32:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31FC4606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=xPftORw7
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
-	Reply-To:Content-ID:Content-Description;
-	bh=3k2gQfSx3BsVVF9yxHoO/WKzvaeGtbZNRBYzH/o7M2o=; t=1792999883; x=1794209483; 
-	b=xPftORw7Wf57gPlwZKEQbrEdkbnBHATENc0ed3687dBlnRGCANqLnqTvwoIlqjrswgYm2B/UwV6
-	a0f/SyX+CdlaEvLb7WAtAh6V8LYrcPpsXiaiL+di7zgkB3447Y2NGp5hkq44dXDXX+Jm9GD0YnG/z
-	JqQDRPUAajp/uQ4JS1TIGLtYIUcaSul6G2TFrlds2TFpFXijJhOHHfeR6O14RPnWOXzjzv22IfEr8
-	Vc720/CwOjRoNW9UlUErutu9XBPRH/MZezrrB124x5OEo1MV/LRk5/cd/uNIaeL76Y4KiNAc3vl/o
-	+F9R9/st08nzpfitD7wBXHNv5VWx7Jd+DMbg==;
-Date: Mon, 26 Oct 2026 08:30:58 +0100
-From: Andreas Kemnade <andreas@kemnade.info>
-To: Pablo Mazzini <pmazzini@gmail.com>
-Cc: Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, Rob
- Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
- Dooley <conor+dt@kernel.org>, Alistair Francis <alistair@alistair23.me>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam
- <festevam@gmail.com>, devicetree@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/7] ARM: dts: imx: keep the SY7636A VCOM on
-Message-ID: <20261026083058.04173f10@kemnade.info>
-In-Reply-To: <20261026003918.155321-2-pmazzini@gmail.com>
-References: <20261026003918.155321-1-pmazzini@gmail.com>
-	<20261026003918.155321-2-pmazzini@gmail.com>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=puZ9RAZF
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1792999966; x=1824535966;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=7xCx4d3ZGL9TKpbq2riWZWJdYVevoxdH+V0DwFIpJy0=;
+  b=puZ9RAZFKyGBVQtFhlj+WLHMB4Z6vBxAdASC3LmccygbwTw2wh5CtdZY
+   ntnPXeirPd4dah3tAM43XOcYUe4ftwl5Xyau8yUQFsXn6JggxhBdnB7TW
+   ScEaISnzEF91nnJyNdGtrrB/+SYMo+U+KJR0vKDKlSdnjtoWCkhD1dqA0
+   QACjsqmDoxmoJSQ9SBqCtuZNBuF00RW3kQdmPMTf0IcmI6NS9XJ0vmPnK
+   PijS/fF+xTcb8NuoBvUyKtWERI8QgJ2iBbf9wkt6KtsQeA6ngQ0+Ba3YN
+   fY26vALTFjOmvaMD5fO0CBIHTH7/HO702IpQnkTR697ROB4zH1g0990tq
+   Q==;
+X-CSE-ConnectionGUID: lx7BMXXCT0Kk/SReMKYRFA==
+X-CSE-MsgGUID: z6QjRkdEQLmY3DY7Pm5BNg==
+X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
+   d="scan'208";a="296974928"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 26 Oct 2026 00:32:39 -0700
+Received: from chn-vm-ex02.mchp-main.com (10.10.85.144) by
+ chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.58; Mon, 26 Oct 2026 00:32:38 -0700
+Received: from DEN-DL-M70577 (10.10.85.11) by chn-vm-ex02.mchp-main.com
+ (10.10.85.144) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
+ Transport; Mon, 26 Oct 2026 00:32:36 -0700
+Date: Mon, 26 Oct 2026 08:32:35 +0100
+From: Daniel Machon <daniel.machon@microchip.com>
+To: Joas Antonio dos Santos <joasantonio108@gmail.com>
+CC: "David S. Miller" <davem@davemloft.net>, Eric Dumazet
+	<edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+	<pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Tony Nguyen
+	<anthony.l.nguyen@intel.com>, Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+	<intel-wired-lan@lists.osuosl.org>, <netdev@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH net] net: dcb: initialize PFC value before calling
+ getpfccfg
+Message-ID: <20261026073235.3huvz6o5h6psyv76@DEN-DL-M70577>
+References: <179289284460.50470.572724041164324949@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,60 +83,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <179289284460.50470.572724041164324949@gmail.com>
 
-On Mon, 26 Oct 2026 00:39:12 +0000
-Pablo Mazzini <pmazzini@gmail.com> wrote:
-
-> The SY7636A hwmon driver turns VCOM on at probe. The reMarkable 2, Kobo
-> Libra H2O and Tolino Vision 5 have had the rails on so far. Mark VCOM
-> always-on before the driver stops doing it.
+> dcbnl_getpfccfg() and dcbnl_cee_fill() pass the address of an
+> uninitialized stack u8 to the driver's getpfccfg() op and then put it
+> into the netlink reply unconditionally.  The op returns void, so the
+> core cannot tell whether the driver wrote the value.
 > 
-> Signed-off-by: Pablo Mazzini <pmazzini@gmail.com>
+> i40e_dcbnl_get_pfc_cfg() and ice_dcbnl_get_pfc_cfg() return without
+> writing *setting unless the DCBX agent is host managed and in CEE mode.
+> Both drivers normally run with firmware managed DCBX
+> (DCB_CAP_DCBX_LLD_MANAGED), and i40e with FW LLDP disabled runs host
+> managed in IEEE mode, so on a DCB capable i40e/ice port the PFC values
+> in DCB_CMD_PFC_GCFG and DCB_CMD_CEE_GET replies, and in the CEE part of
+> RTNLGRP_DCB notifications, come from uninitialized stack.  The same u8
+> is reused for all eight priorities, so this is one byte per reply.
+> 
+> dcb_doit() only requires CAP_NET_ADMIN for RTM_SETDCB, so the GET
+> commands are available to unprivileged users.
+> 
+> Set the value to 0 before each call, like the PG config path already
+> presets its outputs to DCB_ATTR_VALUE_UNDEFINED.  0 is also what the
+> reply contains today on kernels built with CONFIG_INIT_STACK_ALL_ZERO,
+> so nothing changes for those.
+> 
+> Fixes: b94b013eb626 ("ice: Implement DCBNL support")
+> Fixes: 5effa78e7c94 ("i40e: Add netlink callbacks support for software based DCB")
+
+I am not entirely sure, but should this patch add a fixes tag for a driver, when
+the change is only in the API?
+
+Also, if this dates back to the introduction of DCBNL then I guess its not a
+regression and maybe a fix for net-next?
+
+> Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
+> Assisted-by: Yaga Agent HackerSec Claude:claude-opus-5-5
 > ---
->  arch/arm/boot/dts/nxp/imx/e70k02.dtsi           | 1 +
->  arch/arm/boot/dts/nxp/imx/imx7d-remarkable2.dts | 1 +
->  2 files changed, 2 insertions(+)
+> Found by code inspection, compile-tested only (W=1).  I don't have
+> i40e/ice hardware to check the reply.  On kernels built with
+> CONFIG_INIT_STACK_ALL_ZERO the byte is already zero, so in practice
+> it only leaks on builds without stack auto-initialization.
 > 
-> diff --git a/arch/arm/boot/dts/nxp/imx/e70k02.dtsi b/arch/arm/boot/dts/nxp/imx/e70k02.dtsi
-> index dc7ff108aa85..bd9c6c6fa117 100644
-> --- a/arch/arm/boot/dts/nxp/imx/e70k02.dtsi
-> +++ b/arch/arm/boot/dts/nxp/imx/e70k02.dtsi
-> @@ -154,6 +154,7 @@ sy7636: pmic@62 {
->  		regulators {
->  			reg_epdpmic: vcom {
->  				regulator-name = "vcom";
-> +				regulator-always-on;
->  			};
->  		};
->  	};
-No, please not. That regulator is in practice used with a not yet upstreamed
-driver for the EPDC on that platform used to deal with the current kernels
-fp9931 / tps65185 drivers. So it is very welcome to have it not always turned
-on.
+>  net/dcb/dcbnl.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/net/dcb/dcbnl.c b/net/dcb/dcbnl.c
+> index ab71f53128..ad0aebe0ad 100644
+> --- a/net/dcb/dcbnl.c
+> +++ b/net/dcb/dcbnl.c
+> @@ -281,6 +281,7 @@ static int dcbnl_getpfccfg(struct net_device *netdev, struct nlmsghdr *nlh,
+>  		if (!getall && !data[i])
+>  			continue;
+>  
+> +		value = 0;
 
+Why noy initialize this at the declaration, like getall is?
 
-> diff --git a/arch/arm/boot/dts/nxp/imx/imx7d-remarkable2.dts b/arch/arm/boot/dts/nxp/imx/imx7d-remarkable2.dts
-> index ff9d50942884..6cf5603c0752 100644
-> --- a/arch/arm/boot/dts/nxp/imx/imx7d-remarkable2.dts
-> +++ b/arch/arm/boot/dts/nxp/imx/imx7d-remarkable2.dts
-> @@ -327,6 +327,7 @@ sy7636a: pmic@62 {
->  		regulators {
->  			reg_epdpmic: vcom {
->  				regulator-name = "vcom";
-> +				regulator-always-on;
->  				regulator-boot-on;
->  			};
->  		};
+>  		netdev->dcbnl_ops->getpfccfg(netdev, i - DCB_PFC_UP_ATTR_0,
+>  		                             &value);
+>  		ret = nla_put_u8(skb, i, value);
+> @@ -1395,6 +1396,7 @@ static int dcbnl_cee_fill(struct sk_buff *skb, struct net_device *netdev)
+>  			goto nla_put_failure;
+>  
+>  		for (i = DCB_PFC_UP_ATTR_0; i <= DCB_PFC_UP_ATTR_7; i++) {
+> +			value = 0;
 
+Same.
 
-Here the situation is a bit different. If I remember correctly, there
-is some special EPD logic in userspace on top of some ordinary kernel
-display driver. But thesse things are missing is devicetree?! But
-that might need to learn to deal with regulator enabling/disabling.
+>  			ops->getpfccfg(netdev, i - DCB_PFC_UP_ATTR_0, &value);
+>  			if (nla_put_u8(skb, i, value))
+>  				goto nla_put_failure;
 
-Regulator always on is probably not desired here, either.
-
-Regards,
-Andreas
+/Daniel
