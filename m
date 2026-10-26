@@ -1,96 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793026919;
-	b=dYUzK+SoGu2wA49t18r3/1SA9Dj/JrQmDqtQfXvwe+MgDgasCYOmsT1RPaiYojmDGna+
-	 dZ75iaF2ExgVdZMImWYgiO8XRcsDxX2bG63znRWxGUN7YFv9lyLftE9wqh7GvGs3VgAG5
-	 LYgFCm9pn2wD41wYpgrGpQYeqIE1xi5Hn7EGCNjEnvJJwDcELZIDQ5trdw2BdRq2rEapn
-	 bUYFfZ8R5GKxwHokq1NrkY/fO/9niLEXT119Wu0Fc1a+gxFFRigcJn40xC05+/QXU3Gn3
-	 q1YNaPKOOZKA+h5gELA+ltNJl1GWEFz8ucfJ7xQGBznM7O/RlgqEhIC1Ly919lN1Hcg==
+	b=FB5PJvAVobFQ4mtXgKq5YnT8+p2Y7ujoaMXXbT/AkqFqsTmjOABX3jSoFiAIg4zJ6/uA
+	 DfhBUqqWnrymxP/wpUr4lNcmPyGFkqFa0zwhS84zNgzXGZiLr8Fgoa+MbuorzOGMIhMO0
+	 d6Ngc5aHYYIWUnB3+flA77NPa9gf93FvTWsOSVLVmh99ifmQQ2tBUOMCjIKj4pKA76CUs
+	 eoqMroGXePROagbA1YpxE2DSNjzJOo1wB9/Z6lKQ2DKUKG84jRtK++xYxQdFaIH6+gVCn
+	 v6wdis84gGlr+qzmfO9ZZquyodQ4zF9xSJhPtajv7wzaXDW3lVM7o5gSlUQGBL4NpPw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793026919;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=FKglKiC8IbMZIVJCxsEwPR2kCXlX7Bw1azpbHhEs958=;
-	b=Fq+qRC/zABzlqku1x9VFwqddD+bd4DRDD7ipo4YNDFg2XAU4/awzBAKiOf0mJH/duq+d
-	 0h+vC4tajHEdOkcjdxsdqlesLNDDbana0Syw34Ge3VyHBVZKiwLL1iVO3HTmoOruntQeb
-	 cI4RvVT2gwGfMjrEqd8tCMSdjDynryyQzYtlnfBBX5L+Rztw3MshV8FGeII5DjUW6zalz
-	 8hVvknQgOKuQfQJkpQbB8uMAWsI+XWQNzcicpXGrRCs9W6FZvoJ/bgeJkW8p90j++8FrV
-	 WaPJmgl1njNE9e4jaI+8483y6THlRGuXNcWW1xo3gDVFIsK/S/kb+CJS1xbMiBnaJRQ==
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=CD3Du/kC//dk/9ggBqhnp23Dvqb48YN55ouEt/7rfd8=;
+	b=MHYbuRlPfIApx0O/1FR7OsHoiLnRCTCukTIBrOuNS45BlMF4Q/mQGcPkuooAi/EssVuY
+	 U23bPbFwJXxLmMbLzdeuuIb4JAA+ppdi8JkoGl+NjQTmheR/7sn7lwHleTV6gDBPfRWlB
+	 FLS3elCU+q2c4P5G5+oFWRtz2r7RgCjVx78phTLif72YYi85NuvOx5Q8nHJmpjqtIhJkc
+	 K8tY49H/R4BnMxJNoWEAfKM8sl8xy9pNhSHr9WU/EMk1b9GfgcK58vSjeJWOw2eq2R8/f
+	 VOqRW2YZwFAtaG+pVPiYzL/s8R8Y24p00uguvlV1TFV4FHWSBbr2OvWgNirvflZ3rYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=GB3tzbFi;
-	arc=none smtp.remote-ip=209.85.214.179
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=OTKp1JuX;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JgtSKSoS;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0A7F606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7085606A327
 	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 15:01:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0A7F606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7085606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=GB3tzbFi
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2ea0efd636dso25088565ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 08:01:58 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=OTKp1JuX;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JgtSKSoS
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69QEvdAb465843
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 15:01:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	CD3Du/kC//dk/9ggBqhnp23Dvqb48YN55ouEt/7rfd8=; b=OTKp1JuXO6ngGHdb
+	CxbYX1WhhHvfgBeGckmjHW90sgY/QNxRNnbYF0Lja0LmSz49rWN5E3mTHg+oRfgn
+	ELF15Z+2RuqOucq6t+f3km/qRww5kKoY/Zasc0NV5oiIqebIQq7lullQ3e9QqgkN
+	02NjhTCacHKhEGpj0i+Q7/za6qljNsHxOaH/O/RqYppQ1MD0iPVND04Gxsuulm/f
+	n/ArG5EcKR7D7DBmYlu1/31X1JfIjJlCC7ym1gflyU1NssaSsT/h6YkRBRX6qwYO
+	ewmwDyrqRzOUZAljTLZSpxAe568pfsGLksNeEe8xDu5UYZ2WlBcNbpLTGLy0Us59
+	OhG8cA==
+Received: from mail-ua1-f72.google.com (mail-ua1-f72.google.com [209.85.222.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hhshpty6m-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 15:01:57 +0000 (GMT)
+Received: by mail-ua1-f72.google.com with SMTP id a1e0cc1a2514c-988bcc2f50fso148974241.2
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 08:01:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793026918; x=1793631718; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FKglKiC8IbMZIVJCxsEwPR2kCXlX7Bw1azpbHhEs958=;
-        b=GB3tzbFijwvnbZ5k1cOUDGMX8soebDi9zgxxpFCPa5bcbQTqUGz6Cv1vacFc819zeD
-         NaNcTBFmcBmL2AkVd/A1czH6u0WxkrzqQ36MjyfB4i7nwydmynEiRaryN4Jv7WOv4Az5
-         Z04IaEjC+VBHJPFpkZDT65YkdkOQaY5JYwixPKY2kEfyw055BUJZOQzdO0VX70J6TgjK
-         kSv4cZHoKp92nkBonNTux54vNW90PRB8JkV4+McMUFQgpmF7sruGRfy7QclZ6HtFgYuB
-         eY+GOWKIqiCFLo9WfL3drlzbCIS2PJsHx/+cdFx4iJrKfqEZqgHESfuIteAWod6aRiqm
-         mD4g==
+        d=oss.qualcomm.com; s=google; t=1793026917; x=1793631717; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CD3Du/kC//dk/9ggBqhnp23Dvqb48YN55ouEt/7rfd8=;
+        b=JgtSKSoS0fsbtObV0XOmSQ6yVmEJw8F63r6B1wEINtOsRgVil33sS5lGCfBHgn+jy3
+         eRmlbyks8eAvAUse4ISVWYxLD7lB6zpWK/+xZUx7Fue4Kwro9jrX3JzoI4aRFr0jiki/
+         n0oGAZC3NifLG5m6dFJvnPwBAXwR1li/5B/nV+HiHGV5f173KAxPO9SpqKt0kEScVElm
+         aj3E52Zz1xHSs67zG5JXObfNxEuvFobr4jEltWqPkLvUHcvIqEpeOC0fKHkFAhFtRp9G
+         jJ35seAbYI0g2AIEUic1Il0cVKcd8Bzwvx6vEcOSi2bhrJWnBNNJrLcw1LrKny1kDu61
+         WFCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793026918; x=1793631718;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1793026917; x=1793631717;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=FKglKiC8IbMZIVJCxsEwPR2kCXlX7Bw1azpbHhEs958=;
-        b=BKKkDablBUS5xyQIbKasa3ktk8duXbHDnaua4gAYsphafdQhUZ5UzxWDV9TGknFTu0
-         MXxaw8khmt+6aCG6sDs4+romdtFb5tga2mNxLOdvSznhoB7hikIaUuFIZ6Uq+wMhkxa4
-         Ruf3bYunaH8ZHBFY7xCl9BHboiM3irhiwqgHp7SlqOb72oiJfF2bV0BHSbNSc5jLb3hz
-         JO3qFxPOJwNYtA17c74mX7Kncw0y5gUzu77T3hC9dIRzsvTe1fm7wwjoXlJ8RVEyphhP
-         P4c/n1hxDC/Rt1iPHD5D13Q8tdx4BdbMDLbxttzOlZZc7DEdmCesmSACd+psJJ8dfLjY
-         fEAQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxAL0VYPFUeB4hAG6Zxo3t3wZj9noJ/kLQy16WA5praGObIkZ1BG/zXy3onbJaGB/O34vybSoe8WHs/Zr0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKDjspvTgJi+Bnus8diQcJFd7VBz6Ksp8q2Hb1kg3SZCy8lj4Hi
-	c4Ql5Tm4XeqGwDNMdqanknzGqKQ9JUHOXOhHYRafgGPCRBYsKHBzZYMD
-X-Gm-Gg: AYBFou31FLIphcnC4qWo47GuFIcFxfN1Br12pB2TJEawAfYAWielfSue5HY8eUmbZ/3
-	+jUnUspTKsJtwMnYa4rwF+ncvpdW4enYljShN/wHZ7LHvtbQse3tK5Sx0sw0Pephlxsf4bWs+od
-	HaMfRupEGT3b+Vot1leakPKQiNh+byLDnc3O7jjcIoBJole1HsdKSqow1lC3lyl5vSGoCvb+6hF
-	6Y19gR22locYrSJNyws0s0mmkLLHALugJ//7tre5VzpVkNJg1YoFAb5tTLEJPmVhdjCQx07PGOy
-	LLwvdSX1BmGXMjj4J1WMO+YE543IMGr/XWNH02lnWavlKkJxz2ticc/Hzw0NrXEmVmqgSXQ6K2X
-	zBI14Qu75Fkaz2u+z3DoK2AY1SngfGTFwumpyaFX8D/T1yE6G41a3MAcP5gEGi9GRq8GIhvh3Bt
-	1k/J5F+NVOtYiNuGf9cFXFiJjTWlBik/Dw1zimS2w65npVRaq/4t/HK9ygosY4twkt3N2iDMCpW
-	t08s+Ars9xVXEpKJffJMRdacWMUCs+xC/P4fhb5wyDSJkiCci0=
-X-Received: by 2002:a17:902:da8e:b0:2ea:19a1:cd3e with SMTP id d9443c01a7336-2ea9c83381dmr62792325ad.33.1793026918029;
-        Mon, 26 Oct 2026 08:01:58 -0700 (PDT)
-Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea9b11f48dsm18761515ad.17.2026.10.26.08.01.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 08:01:57 -0700 (PDT)
-From: Cen Zhang <zzzccc427@gmail.com>
-To: mark@fasheh.com,
-	jlbec@evilplan.org,
-	joseph.qi@linux.alibaba.com
-Cc: heming.zhao@suse.com,
-	ocfs2-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com,
-	zzzccc427@gmail.com
-Subject: [PATCH] ocfs2: stop recovery before shutting down local allocators
-Date: Mon, 26 Oct 2026 23:01:52 +0800
-Message-Id: <pm-ocfs2-objects-candidate-0019-v6-7241e0b915991218f315@gmail.com>
-X-Mailer: git-send-email 2.34.1
+        bh=CD3Du/kC//dk/9ggBqhnp23Dvqb48YN55ouEt/7rfd8=;
+        b=L6LLVCuyeKGxngRWja/ctJMyO0wY70NxStF7+r7S/69qt2vYQWI5mKhtxoErAHHWoU
+         7m9hWLWqv9WLM30Epf1f0EO+y1JM4MJWxruC6mGbHrT26Dw7QvcDj0gyIxact6xVi+YP
+         7q9tfEOVlSxxji9BhG5OI5Ng0WdfRcqAKttkj8/kS7wsRacpsIr3sBxOPDCk306myQmt
+         PyasuzjKa+O/iFMp7brsltWq75WEcILMu0EXX4rSop00scPVUqoyVSGJNU1QP/1VKQMe
+         EYw/VWvSBSHFc/DvIkqvGQxer3FN3853vonY7N9DnX9VvoHwSy/+2YVNLUdscAxmnl0m
+         qpWQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwZJ6iTSa548HTKAALHMDt+8U4BZrb79y+PVNchcfEMhg2GjcbliW/pDDaniiPHftdHQKZFTf+Wp6Pthtc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI9D1HVRP66w8rsQNhI4Wcjk7OjkRFzoFLI+yxQPYsCTeu2RXde
+	aCq+g1ST0r7zfVJzcaUDYeQHvkUfpEVNYFSHLvrgpGfetTxDDecaM53I4KglJ56en8pGvLx27T7
+	8b4VpSLGsIBkepQHtCpwyQVFL/gBU+sQ8Xhr+jBIF0G3Q/4jA7ZLXiYWtooBSfuRK2Gk=
+X-Gm-Gg: AYBFou0oQWTrhlCfGNIRSTthCBvwLpV8g+kJTViFyiF3kdE1RMx+bf2GuZCwa8gQr1D
+	3luFA0phmLFbcb3W8uGULjKmcmOnsYqdM/EyyG8tVmWJFBzjLQgx6WL8G2sNWmAD4whZSDTM6q2
+	rlj+IoxeKbY1qg3URpPd7WbJqW9xHLmAzzOc0L2z3MnrW2APNcyLURR8q84uZHSPjYNkU4vzmlt
+	n7yHtbg/1vKRWN91IMmYgaQdDnml5u73kZuO3yRcNQfEcHfGNKXN4mxsQ3Na7raveFkoEd1aojL
+	Ia3UifLj7WhmDv5QzZzgmJ9KqCu0tn3J5D5aRmVirfbak82NbPIO5iy9essHHt5GdAerkqikIop
+	uhlS2xdIUNumbE/IOzR6O/w==
+X-Received: by 2002:a05:6122:6b8c:20b0:5e6:589b:eeec with SMTP id 71dfb90a1353d-5ec2331473amr2105818e0c.5.1793026916382;
+        Mon, 26 Oct 2026 08:01:56 -0700 (PDT)
+X-Received: by 2002:a05:6122:6b8c:20b0:5e6:589b:eeec with SMTP id 71dfb90a1353d-5ec2331473amr2105731e0c.5.1793026915612;
+        Mon, 26 Oct 2026 08:01:55 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd4e89cesm335488366b.13.2026.10.26.08.01.50
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 26 Oct 2026 08:01:53 -0700 (PDT)
+Message-ID: <cf9aa65d-5603-425e-b09e-0a5ae86fa551@oss.qualcomm.com>
+Date: Mon, 26 Oct 2026 16:01:49 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,221 +115,222 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 5/7] arm64: dts: qcom: Add initial support for MSM8952
+To: muzafferkadir@mainlining.org, Srinivas Kandagatla <srini@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+        Robin Murphy <robin.murphy@arm.com>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Amit Kucheria <amitk@kernel.org>,
+        Thara Gopinath <thara.gopinath@gmail.com>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@kernel.org>,
+        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Kees Cook <kees@kernel.org>,
+        Tony Luck <tony.luck@intel.com>,
+        "Guilherme G. Piccoli"
+ <gpiccoli@igalia.com>,
+        Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: David Heidelberg <david@ixit.cz>, phone-devel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
+        linux-pm@vger.kernel.org, linux-input@vger.kernel.org
+References: <20261011-msm8952-initial-support-v5-0-1857074992ec@mainlining.org>
+ <20261011-msm8952-initial-support-v5-5-1857074992ec@mainlining.org>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261011-msm8952-initial-support-v5-5-1857074992ec@mainlining.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA1OSBTYWx0ZWRfX/jjcz32c2rIK
+ PQ043Yu4VFreIl0RYtqR4m/mNlJ1uTX7OR5VV+MzTaiZ1Wi1HpyyBgoEviESs74LguJ5AXx3Pke
+ Y3BbtIL0Yd2DreYB2GhCeQtStMvFvvE=
+X-Proofpoint-GUID: XH2vgxuQszIxLyVnB82Wbqsw0G-0lkYF
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA1OSBTYWx0ZWRfX9hnL/zTE6p1f
+ J017yqBCtRXq76FFyL+qMlH+HD+wDfrW9e4kbtll5EJsWkcKGrYsc7cy1TSis2Svax/7uBzLYb1
+ U4p0VhGcNDXsU7UZRsjCVi17A3NgrW95K7AUTT2R7iyTxjsXSGva9qfGbeKgASUbzx7yrILLg5g
+ 2uOOsad0OCR4xNckY2XNOeIsgbNf1yh9/SszMXrjgXLPquspcs51/XfJpz+bZFp3kluAKB/o/rl
+ ysnrmLKJRaG3Bnz/9FrEI2KgSrf7mXLJAX9sg1Vk4x4ZY9Ej1pAiQfIvohDfIjfZij5I5Ysy3I+
+ RlQxIpTBdi54w6aGntSLha8mN9pKjpmYGFW/9NRVqilAwfN9ioK3jAPhxzQXfyssvsmtKpeKIqf
+ 6Pioth19MD/7a2cDyplrNOzR7FT91QlAtWP/m0reCxEO4JZ/c0L7L+qhzVtToKP+3W+4mXNnja9
+ mLSWn8HbSQmmqMXIltA==
+X-Authority-Analysis: v=2.4 cv=HZWB3SE8 c=1 sm=1 tr=0 ts=6adf6b65 cx=c_pps
+ a=ULNsgckmlI/WJG3HAyAuOQ==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=OuZLqq7tAAAA:8 a=FRBEkmYdsRQmicOyHakA:9 a=QEXdDO2ut3YA:10
+ a=1WsBpfsz9X-RYQiigVTh:22 a=AKGiAy9iJ-JzxKVHQNES:22
+X-Proofpoint-ORIG-GUID: XH2vgxuQszIxLyVnB82Wbqsw0G-0lkYF
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-26_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 phishscore=0 clxscore=1015 adultscore=0 priorityscore=1501
+ impostorscore=0 lowpriorityscore=0 bulkscore=0 suspectscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610260059
 
-Recovery completion needs the local allocators until it has finished
-reclaiming a failed node's allocation window and truncate log. During
-unmount, quota recovery is stopped first, but that leaves recovery_state
-at OCFS2_REC_QUOTA_DISABLED. New non-quota recovery can still start.
+On 10/11/26 6:51 PM, Muzaffer Kadir via B4 Relay wrote:
+> From: Muzaffer Kadir <muzafferkadir@mainlining.org>
+> 
+> Add initial support for MSM8952 SoC.
+> 
+> AI help is used for calculating qfprom nodes.
+> 
+> Downstream reference for port is [1] which is very lightly modified
+> version of [2].
 
-ocfs2_truncate_log_shutdown() drains existing completion work and releases
-osb_tl_bh before ocfs2_recovery_exit() closes that publication path:
+Generally this looks good, couple more comments
 
-  Unmount                             Recovery
-  -------                             --------
-  stop quota recovery; disable quotas
-  truncate_log_shutdown()
-    flush existing completion work
-                                      recover another failed node
-                                        queue completion
-    flush local log; release buffer
-                                      complete_truncate_log_recovery()
-                                        use released osb_tl_bh
-  recovery_exit(): disable and drain
+[...]
 
-An extra buffer reference alone would still let completion append new
-records after the final truncate-log flush.
+> +	soc: soc@0 {
+> +		compatible = "simple-bus";
+> +		ranges = <0 0 0 0xffffffff>;
 
-Split stopping and draining recovery from freeing its state. Stop all
-recovery producers and drain completion work before shutting down either
-local allocator. Keep recovery-state release at its existing later point,
-so its lifetime relative to other teardown users stays unchanged. The
-second stop at recovery_exit() is harmless once recovery is disabled.
+this is equal to `ranges;`
 
-KASAN report as below:
+[...]
 
-    BUG: KASAN: slab-use-after-free in ocfs2_truncate_log_needs_flush+0x23d/0x360
-    Read of size 8 at addr ffff8881093711e8 by task kworker/u16:3/53
-    
-    CPU: 0 UID: 0 PID: 53 Comm: kworker/u16:3 Not tainted 7.3.0-rc4-next-20260921-pmb-ocfs2-functional-v1+ #1 PREEMPT(lazy) 
-    Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-    Workqueue: ocfs2_wq ocfs2_complete_recovery
-    Call Trace:
-     <TASK>
-     dump_stack_lvl+0x93/0xd0
-     print_report+0xce/0x630
-     ? ocfs2_truncate_log_needs_flush+0x23d/0x360
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __virt_addr_valid+0x20e/0x420
-     ? ocfs2_truncate_log_needs_flush+0x23d/0x360
-     kasan_report+0xe0/0x110
-     ? ocfs2_truncate_log_needs_flush+0x23d/0x360
-     ocfs2_truncate_log_needs_flush+0x23d/0x360
-     ? __pfx_ocfs2_truncate_log_needs_flush+0x10/0x10
-     ? __pfx_down_write+0x10/0x10
-     ocfs2_complete_truncate_log_recovery+0x315/0x780
-     ? trace_hardirqs_on+0x18/0x160
-     ? __pfx_ocfs2_complete_truncate_log_recovery+0x10/0x10
-     ? ocfs2_complete_recovery+0x666/0x11b0
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? kfree+0x308/0x580
-     ocfs2_complete_recovery+0x676/0x11b0
-     ? __pfx_ocfs2_complete_recovery+0x10/0x10
-     ? reacquire_held_locks+0xdd/0x200
-     ? process_one_work+0x7c8/0x1b40
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? lock_acquire+0x190/0x300
-     ? __pfx_autoremove_wake_function+0x10/0x10
-     ? process_one_work+0x834/0x1b40
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? lock_release+0xc8/0x290
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     process_one_work+0x9a8/0x1b40
-     ? __pfx_process_one_work+0x10/0x10
-     ? lock_acquire+0x190/0x300
-     ? lock_is_held_type+0x8f/0x100
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     worker_thread+0x65c/0xe40
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __kthread_parkme+0x177/0x220
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx_worker_thread+0x10/0x10
-     kthread+0x351/0x460
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx_kthread+0x10/0x10
-     ret_from_fork+0x659/0x940
-     ? __pfx_ret_from_fork+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __switch_to+0x74f/0xf70
-     ? __pfx_kthread+0x10/0x10
-     ret_from_fork_asm+0x1a/0x30
-     </TASK>
-    
-    Allocated by task 538:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     __kasan_slab_alloc+0x89/0x90
-     kmem_cache_alloc_noprof+0x20b/0x5c0
-     alloc_buffer_head+0x26/0x120
-     folio_alloc_buffers+0x122/0x1d0
-     bdev_getblk+0x299/0x4f0
-     ocfs2_read_blocks_sync+0x513/0xbc0
-     ocfs2_iget+0x9cd/0x1a00
-     ocfs2_get_system_file_inode+0x25e/0x7a0
-     ocfs2_fill_super+0x1b05/0x3930
-     get_tree_bdev_flags+0x35d/0x5f0
-     vfs_get_tree+0x93/0x320
-     fc_mount+0x1d/0x200
-     path_mount+0x592/0x1e00
-     __x64_sys_mount+0x24b/0x2d0
-     do_syscall_64+0x114/0x620
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
-    
-    Freed by task 553:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     kasan_save_free_info+0x3b/0x60
-     __kasan_slab_free+0x5f/0x80
-     kmem_cache_free+0x242/0x580
-     free_buffer_head+0x4b/0xc0
-     try_to_free_buffers+0x1dc/0x330
-     ocfs2_truncate_log_shutdown+0x789/0x1290
-     ocfs2_dismount_volume+0x1da/0x940
-     generic_shutdown_super+0x15f/0x490
-     kill_block_super+0x40/0xa0
-     deactivate_locked_super+0xae/0x120
-     deactivate_super+0xa2/0xc0
-     cleanup_mnt+0x217/0x450
-     task_work_run+0x144/0x230
-     exit_to_user_mode_loop+0x17d/0x570
-     do_syscall_64+0x4d1/0x620
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
-    
-    The buggy address belongs to the object at ffff8881093711c0
-     which belongs to the cache buffer_head of size 160
-    The buggy address is located 40 bytes inside of
-     freed 160-byte region [ffff8881093711c0, ffff888109371260)
-    
-    The buggy address belongs to the physical page:
-    page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x109371
-    flags: 0x200000000000000(node=0|zone=2)
-    page_type: f5(slab)
-    raw: 0200000000000000 ffff8881008883c0 dead000000000100 dead000000000122
-    raw: 0000000000000000 0000000000120012 00000000f5000000 0000000000000000
-    page dumped because: kasan: bad access detected
-    
-    Memory state around the buggy address:
-     ffff888109371080: 00 00 00 00 fc fc fc fc fc fc fc fc 00 00 00 00
-     ffff888109371100: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-    >ffff888109371180: fc fc fc fc fc fc fc fc fa fb fb fb fb fb fb fb
-                                                              ^
-     ffff888109371200: fb fb fb fb fb fb fb fb fb fb fb fb fc fc fc fc
-     ffff888109371280: fc fc fc fc 00 00 00 00 00 00 00 00 00 00 00 00
-    ==================================================================
 
-Fixes: ccd979bdbce9 ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+> +		sdhc_1: mmc@7824900 {
+> +			compatible = "qcom,msm8952-sdhci", "qcom,sdhci-msm-v4";
+> +			reg = <0x07824900 0x500>, <0x07824000 0x800>, <0x7824e00 0x200>;
+> +			reg-names = "hc", "core", "cqhci";
 
----
- fs/ocfs2/journal.c | 11 ++++++++---
- fs/ocfs2/journal.h |  1 +
- fs/ocfs2/super.c   |  3 +++
- 3 files changed, 12 insertions(+), 3 deletions(-)
+Please break up these into one-per-line (also for properties below)
+the last reg entry needs a leading zero
 
-diff --git a/fs/ocfs2/journal.c b/fs/ocfs2/journal.c
-index a3938a03e93b..065076b1278d 100644
---- a/fs/ocfs2/journal.c
-+++ b/fs/ocfs2/journal.c
-@@ -227,13 +227,18 @@ void ocfs2_recovery_disable_quota(struct ocfs2_super *osb)
- 	ocfs2_recovery_disable(osb, OCFS2_REC_QUOTA_WANT_DISABLE);
- }
- 
-+/* Stop producers and drain completion work without freeing recovery state. */
-+void ocfs2_recovery_stop(struct ocfs2_super *osb)
-+{
-+	ocfs2_recovery_disable(osb, OCFS2_REC_WANT_DISABLE);
-+}
-+
- void ocfs2_recovery_exit(struct ocfs2_super *osb)
- {
- 	struct ocfs2_recovery_map *rm;
- 
--	/* disable any new recovery threads and wait for any currently
--	 * running ones to exit. Do this before setting the vol_state. */
--	ocfs2_recovery_disable(osb, OCFS2_REC_WANT_DISABLE);
-+	/* Disable producers and drain work before freeing recovery state. */
-+	ocfs2_recovery_stop(osb);
- 
- 	/*
- 	 * Now that recovery is shut down, and the osb is about to be
-diff --git a/fs/ocfs2/journal.h b/fs/ocfs2/journal.h
-index 19fc920d26b1..4b52bf7b0938 100644
---- a/fs/ocfs2/journal.h
-+++ b/fs/ocfs2/journal.h
-@@ -147,6 +147,7 @@ void ocfs2_complete_recovery(struct work_struct *work);
- void ocfs2_wait_for_recovery(struct ocfs2_super *osb);
- 
- int ocfs2_recovery_init(struct ocfs2_super *osb);
-+void ocfs2_recovery_stop(struct ocfs2_super *osb);
- void ocfs2_recovery_exit(struct ocfs2_super *osb);
- void ocfs2_recovery_disable_quota(struct ocfs2_super *osb);
- 
-diff --git a/fs/ocfs2/super.c b/fs/ocfs2/super.c
-index 0af2245ae303..3072b0386db8 100644
---- a/fs/ocfs2/super.c
-+++ b/fs/ocfs2/super.c
-@@ -1831,6 +1831,9 @@ static void ocfs2_dismount_volume(struct super_block *sb, int mnt_err)
- 	/* Wait for worker to be done with the work structure in osb */
- 	cancel_work_sync(&osb->dquot_drop_work);
- 
-+	/* Stop recovery producers before releasing their local allocators. */
-+	ocfs2_recovery_stop(osb);
-+
- 	ocfs2_shutdown_local_alloc(osb);
- 
- 	ocfs2_truncate_log_shutdown(osb);
--- 
-2.43.0
+(in general one-per-line is cool)
 
+[...]
+
+
+> +		usb: usb@78db000 {
+> +			compatible = "qcom,ci-hdrc";
+> +			reg = <0x078db000 0x200>,
+> +			      <0x078db200 0x200>;
+> +			interrupts-extended = <&mpm 58 IRQ_TYPE_LEVEL_HIGH>,
+> +					      <&mpm 49 IRQ_TYPE_LEVEL_HIGH>;
+> +			clocks = <&gcc GCC_USB_HS_AHB_CLK>,
+> +				 <&gcc GCC_USB_HS_SYSTEM_CLK>;
+> +			clock-names = "iface",
+> +				      "core";
+> +			assigned-clocks = <&gcc GCC_USB_HS_SYSTEM_CLK>;
+> +			assigned-clock-rates = <80000000>;
+> +			resets = <&gcc GCC_USB_HS_BCR>;
+> +			reset-names = "core";
+> +			hnp-disable;
+> +			srp-disable;
+> +			adp-disable;
+> +			ahb-burst-config = <0>;
+> +			dr_mode = "otg";
+
+dr_mode = otg is default - you can drop it
+
+[...]
+
+> +			pll_opp_table_c1: opp-table {
+> +				compatible = "operating-points-v2";
+> +
+> +				opp-499200000 {
+> +					opp-hz = /bits/ 64 <499200000>;
+> +				};
+> +
+> +				opp-806400000 {
+> +					opp-hz = /bits/ 64 <806400000>;
+> +				};
+> +
+> +				opp-960000000 {
+> +					opp-hz = /bits/ 64 <960000000>;
+> +				};
+> +
+> +				opp-1094400000 {
+> +					opp-hz = /bits/ 64 <1094400000>;
+> +				};
+> +
+> +				opp-1344000000 {
+> +					opp-hz = /bits/ 64 <1344000000>;
+> +				};
+> +
+> +				opp-1440000000 {
+> +					opp-hz = /bits/ 64 <1440000000>;
+> +				};
+> +
+> +				opp-1516800000 {
+> +					opp-hz = /bits/ 64 <1516800000>;
+> +				};
+> +
+> +				opp-1651200000 {
+> +					opp-hz = /bits/ 64 <1651200000>;
+> +				};
+
+Drop the last entry for the same reasons you explained
+
+[...]
+
+
+> +		a53pll_cci: clock@b1d0000 {
+> +			compatible = "qcom,msm8939-a53pll";
+
+This needs a 8952-specific compatible (bindings-only fallback
+is fine)
+
+> +			reg = <0x0b1d0000 0x40>;
+> +			clocks = <&xo_board>;
+> +			clock-names = "xo";
+> +			#clock-cells = <0>;
+> +		};
+> +
+> +		apcs2: mailbox@b1d1000 {
+> +			compatible = "qcom,msm8939-apcs-kpss-global", "syscon";
+
+Likewise
+> +			reg = <0x0b1d1000 0x1000>;
+> +			clocks = <&a53pll_cci>,
+> +				 <&gcc GPLL0_VOTE>,
+> +				 <&rpmcc RPM_SMD_XO_CLK_SRC>;
+> +			clock-names = "pll",
+> +				      "aux",
+> +				      "ref";
+> +			#clock-cells = <0>;
+> +			#mbox-cells = <1>;
+> +		};
+> +
+> +		adsp: remoteproc@c200000 {
+> +			compatible = "qcom,msm8996-adsp-pil";
+
+And likewise
+
+also IMEM, DSI, RPMPD, RPMCC
+
+[...]
+
+> +	thermal-zones {
+> +		aoss0-thermal {
+> +			polling-delay-passive = <250>;
+
+TSENS sensors are interrupt-driven so you don't need polling
+
+AOSS is surely the wrong name - that hw didn't come until years
+later than 8952 was released. I can't find a mapping of the
+sensors for this SoC right now, so either drop these or give them
+some generic names
+
+[...]
+
+> +	timer {
+> +		compatible = "arm,armv8-timer";
+> +		interrupts = <GIC_PPI 2 (GIC_CPU_MASK_SIMPLE(8) | IRQ_TYPE_LEVEL_LOW)>,
+> +			     <GIC_PPI 3 (GIC_CPU_MASK_SIMPLE(8) | IRQ_TYPE_LEVEL_LOW)>,
+> +			     <GIC_PPI 4 (GIC_CPU_MASK_SIMPLE(8) | IRQ_TYPE_LEVEL_LOW)>,
+> +			     <GIC_PPI 1 (GIC_CPU_MASK_SIMPLE(8) | IRQ_TYPE_LEVEL_LOW)>;
+> +		clock-frequency = <19200000>;
+
+Drop this property, it's only needed for very broken FWs
+
+Konrad
