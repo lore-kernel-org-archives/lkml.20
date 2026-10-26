@@ -1,60 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793026136;
-	b=MKTd6IfJLAVDTjYZ2rtZrl2JrXEwMACdptRFPwHJI+BR4QI4k5D6qDZS4vB68L0vXSna
-	 gWuz6F1yHdPj5BX29pQ5nYTHWjv46gy9E+wCU7WPbj6tqkJnNqDyYYTf7c4G20PybHeme
-	 kaKUI7fBfFG0H1HaPwEIpl9Moi/ecxDx/nVcaxe5EnOip756lHZ/ctH8g7lXTLjOEiNlV
-	 O13AptZmOVR0ScC6qgKcNev9/QWrOuxHtxs/J6Gf5bv/Djaur7xpCprqE7c/XUUrdCdLt
-	 8RyNcDfrifPMT3hnjo9EsuCUDJ35/03H3eU21bP1+g0MhPjWtk/J9GeQ6jN1d7edH+g==
+	t=1793026129;
+	b=qJK4SNEDzTFJUTkTmURNLHx0RzD6aczUpUHeJ2YwV0tAQBS2RmXcQYpCs6xu/rZsX88k
+	 RArgbWjIB7+L0cVlzc7UKAyIsLYXqS5Ro0TRdz5c8DZn/G/gLYUn2rzw7s1UszSyfvDb2
+	 W5qpmmfQGe2CFDVbdev0C2WgN3uPSeFu6noif/KvTJhqeqSynD6TFyr6SeKw92jDdik4n
+	 c+sav8w2+VFyDe1yAkBw+OUfOebwloq6amMDSmzVTulPXsMOfBln77ccAwDCVMIkJOh0n
+	 kjSJpe4vmrghW7p1Ga5PJeQSEllfTrDvJ1/H8vbtxCpD697etqnHahEuTGvekqO0jWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793026136;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793026129;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
 	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=YvL7WO9Qw1q6ibNOgJWDcAWvN4SLSOgyAvGF80Zshr4=;
-	b=mIFdNDBnKpiJzZ0j+u/c2iIFdr4p9LxHweoPSVUi/IbqvaqACxePbbDnA5cGAYfybAnG
-	 xaAbgTSrmAm9NPDMrdeodxopi/DljvIVa3657Fbr594xApFzsdA390W6iehG3yi0jW1BD
-	 5q/ztB7WDUTEhMNVK24c5VSs9E9oIcZMbpcgcE8G8kdgHF6PCjRwhxAwjnCVRf2vSvIGx
-	 4om4XM/Q1EpoElPHLbYe58hL/uQRgPCPLHruEp5D1xTe16hUlclvj9apYJ60BiNKrAsji
-	 ZkDdVVzCMdz8uk5UVyU/i7hKSaamYjl1Y9Yvu5DIQwSy1sJcv0Rtpn0g+KTKzHw6JUQ==
+	bh=9miV1nubylsMwRnZKYXYzy2lkCWAGHgmbPrTBCKz+Kk=;
+	b=Vf+DLFFO5e5Vm7QI35mEbJrznooCH1JKI0tpWhGiWqrlTxWeOGeRTe6b1HsFPtbF1Opv
+	 5PcOKM975otPu/o05dq8ujO5zoj0rEDkxgJSkiyGshvfWsWpiWMAiTxFv0vArIUa2avd6
+	 3Kc4npChBmQU9hK5uDdEirhBU2XeGCwEMMPM4fZf7h8RXHP02eCxy7shsgXsLDQL7iDe7
+	 rOZDziKySYlvULd+trspxlXfLNF0GB2b/rMbGoynBLavZvkyO/tgaUqkKb24bv5Lc5ze9
+	 bI6N5BRFnkIDbJhrZs3YQHquj8/XswCx46JV/7WrpnRHBGjcQhevL5S3j1tkJauLs5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=jUES+ATa;
-	arc=none smtp.remote-ip=220.197.31.3
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=EBNmbG+q;
+	arc=none smtp.remote-ip=220.197.31.4
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51770606A31F;
-	Mon, 26 Oct 2026 14:48:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51770606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1146606A321;
+	Mon, 26 Oct 2026 14:48:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1146606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=jUES+ATa
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=EBNmbG+q
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Yv
-	L7WO9Qw1q6ibNOgJWDcAWvN4SLSOgyAvGF80Zshr4=; b=jUES+ATay1UNY6Zu+4
-	877kKgw2yEEO1AaQJzGqdbxkzFiFt7ddfiQfdLBN87IxnIu9Yx73HAWjjBAyPTGM
-	S4/TfyoaZfCA96ynYMu8n8cG5xvBE0LdPNl8esffgPx54Y0bgQMvdkziRKKEr/BM
-	3FGoHnjBJmDZvR7IcvUFDJGtE=
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=9m
+	iV1nubylsMwRnZKYXYzy2lkCWAGHgmbPrTBCKz+Kk=; b=EBNmbG+qIjrjnMCm69
+	fwWOlP2TdBg2kw3o99ZUGL5FPBA++pdhPpcrboasof/77uZM+Zf0W7MixU06W/Z5
+	IrUaWz7JxjAqPSXYPnROi5cDrCuPJ1o31ToWxssSWPvFKdteViu3W/dH0NUZvnX6
+	13PAf5foGvROQJnZ329BzJNsg=
 Received: from SYPC (unknown [])
-	by gzsmtp2 (Coremail) with SMTP id PSgvCgA36gkvaN9qPCpOCA--.62724S2;
-	Mon, 26 Oct 2026 22:48:16 +0800 (CST)
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD3v15BaN9qgQzCCw--.42660S2;
+	Mon, 26 Oct 2026 22:48:33 +0800 (CST)
 From: hsyysy@163.com
-To: Linus Walleij <linusw@kernel.org>
-Cc: Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	linux-gpio@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Yang Siyuan <hsyysy@163.com>
-Subject: [PATCH] pinctrl: sunxi: skip unused per-bank supply on controllers without IO bias
-Date: Mon, 26 Oct 2026 22:47:51 +0800
-Message-ID: <20261026144751.1392715-1-hsyysy@163.com>
+To: Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-kernel@vger.kernel.org,
+	Yang Siyuan <hsyysy@163.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] reset: core: honour optional resets when the GPIO fallback is unusable
+Date: Mon, 26 Oct 2026 22:48:09 +0800
+Message-ID: <20261026144809.1392806-1-hsyysy@163.com>
 X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -66,64 +61,60 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PSgvCgA36gkvaN9qPCpOCA--.62724S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxJr17Kr1xAw1kZF1ktr1fWFg_yoW8ur4rpF
-	sxXFyayr18XF4aqwsrC34ayFy3Gan7G34fCF48KryrXFsxCan8ury2kryrKF4kGrZ5Xr4Y
-	qrZ8ZasFgFn8XaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pi2NtOUUUUU=
-X-CM-SenderInfo: 5kv152r16rljoofrz/xtbC7hC47GrfaDABZAAA3i
+X-CM-TRANSID:_____wD3v15BaN9qgQzCCw--.42660S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Aw4xury5GF45Jw18GryrtFb_yoW8CFyxpF
+	s5Jr4rAr95Ga1fCr4Fqr4FvFyrZw4rKFWxGFWfG3yxuw43Zryavw1UKF1Yqr4UAry8ZFWY
+	vF47tFn7uFyvy3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piK9a-UUUUU=
+X-CM-SenderInfo: 5kv152r16rljoofrz/xtbC7QG88GrfaEH45AAA3g
 
 From: Yang Siyuan <hsyysy@163.com>
 
-sunxi_pmx_request() always requests the "vcc-pX" regulator of the pin's
-bank, but that supply is only consumed by
-sunxi_pinctrl_set_io_bias_cfg(). Controllers without io_bias_cfg_variant
-never use it, so the request only makes the regulator core warn:
+__fwnode_reset_control_get() honours RESET_CONTROL_FLAGS_BIT_OPTIONAL for
+every failure source except the reset-gpio fallback: when
+__reset_add_reset_gpio_device() fails, the error is returned even for an
+optional reset.
 
-  sun50i-h616-r-pinctrl 7022000.pinctrl: supply vcc-pl not found, using
-  dummy regulator
+This is reachable on Allwinner SoCs, whose pinctrl uses three-cell GPIO
+specifiers. The reset-gpio fallback only supports two cells, so it
+returns -ENOENT and a consumer asking for an optional reset fails to
+probe instead of falling back to its own GPIO handling. mmc-pwrseq-simple
+on the Anbernic RG35XX family hits this: its wifi_pwrseq node has
+reset-gpios but no resets, so the SDIO WiFi adapter never probes.
 
-The H616 R_PIO is such a controller, and its PL0/PL1 pins drive the
-R_I2C bus, so every H616 board hits the warning during boot.
+Keep propagating -EPROBE_DEFER, since the GPIO provider may be available
+later, but treat any other failure as "no reset" when the request is
+optional.
 
-Return early when the controller cannot configure the IO bias voltage,
-and teach the free path that no supply was requested for that bank.
-
+Fixes: c721f189e89c ("reset: Instantiate reset GPIO controller for shared reset-gpios")
+Cc: stable@vger.kernel.org
 Signed-off-by: Yang Siyuan <hsyysy@163.com>
 ---
- drivers/pinctrl/sunxi/pinctrl-sunxi.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+ drivers/reset/core.c | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/pinctrl/sunxi/pinctrl-sunxi.c b/drivers/pinctrl/sunxi/pinctrl-sunxi.c
-index 70099052d..a5222cfbd 100644
---- a/drivers/pinctrl/sunxi/pinctrl-sunxi.c
-+++ b/drivers/pinctrl/sunxi/pinctrl-sunxi.c
-@@ -924,6 +924,15 @@ static int sunxi_pmx_request(struct pinctrl_dev *pctldev, unsigned offset)
- 		return 0;
+diff --git a/drivers/reset/core.c b/drivers/reset/core.c
+index 38e189d04..f2375dd17 100644
+--- a/drivers/reset/core.c
++++ b/drivers/reset/core.c
+@@ -1181,7 +1181,17 @@ __fwnode_reset_control_get(struct fwnode_handle *fwnode, const char *id, int ind
+ 		ret = __reset_add_reset_gpio_device(fwnode, &args);
+ 		if (ret) {
+ 			fwnode_handle_put(args.fwnode);
+-			return ERR_PTR(ret);
++
++			/*
++			 * The GPIO provider may just not be available yet, so
++			 * EPROBE_DEFER must always be propagated. Any other
++			 * failure means that the fallback cannot be used,
++			 * which is not an error for an optional reset.
++			 */
++			if (ret == -EPROBE_DEFER || !optional)
++				return ERR_PTR(ret);
++
++			return NULL;
+ 		}
  	}
- 
-+	/*
-+	 * The per-bank supply is only used to configure the IO bias voltage.
-+	 * Controllers without bias configuration (e.g. the H616 R_PIO) have no
-+	 * supply to request, and asking for one only makes the regulator core
-+	 * warn about the missing regulator for every bank in use.
-+	 */
-+	if (!pctl->desc->io_bias_cfg_variant)
-+		return 0;
-+
- 	snprintf(supply, sizeof(supply), "vcc-p%c", 'a' + bank);
- 	reg = regulator_get(pctl->dev, supply);
- 	if (IS_ERR(reg))
-@@ -959,6 +968,10 @@ static int sunxi_pmx_free(struct pinctrl_dev *pctldev, unsigned offset)
- 					    PINS_PER_BANK;
- 	struct sunxi_pinctrl_regulator *s_reg = &pctl->regulators[bank_offset];
- 
-+	/* No supply was requested for this bank (no IO bias configuration). */
-+	if (!s_reg->regulator)
-+		return 0;
-+
- 	if (!refcount_dec_and_test(&s_reg->refcount))
- 		return 0;
  
 base-commit: 091b06388b117fefdcb63336ac09956a4914b961
 -- 
