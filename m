@@ -1,63 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.3
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793007700;
-	b=f2ubfFHTk/Hwk2HneJ6ycjw9JAkiDusp/QLI+fHymAIQBLE0I0rub1P6DZ5X6PQUIc0v
-	 SHkvXzUok2ILJsm5YvEpSd5OogAnzfanwo8a2i1wH0DLKcZvawpY003PY1Erou/603FXL
-	 ti27bxiiGZkYimgKo6OLMO9spN/DeZ83IuEN+E6oJi8ZkGkAMMydbpUOeSWSn6APOKG6X
-	 ST6No4HwFBiZw1slX9NakCSHrfOhkKEduPKdcbq42vEzhvH9gDbAy3nFskPARTyPcLPmo
-	 vQfM8TgSJnp4CY47tFVbEGyg3G0D3OUeTJGOBxYkX/Wyg/b3t6IgCwrwKY8Lhj9zhGg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793007700;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:Sender:
-	 X-CM-SenderInfo;
-	bh=JgiWxZmRIHTWEjiXSDwq0C9oBBVSA5xc05w3DSwHI58=;
-	b=yhAGSdvcFDlJkeJsn05xl6QwN2YLChtLr4vq7Ai93p9ZxJhGcJoma+C9oAnqqPMsq4qp
-	 No841WEWRdn1ABwtzHv4alsvT1oOjYHxUjQveGi5Gv5npHh0DHttpepsD6UHGAg619E9n
-	 7TkKl7Ark8yh5iqf2wnNuo/knMsgYS/i/8gSj6c31DAiW15eUTuhR2Z3nM9tsiqRG3OXZ
-	 Fc/SZf7lO31gNTYARUYsIR61xBtt8bUiMn+7TPSOErTWfSC7PdQsAgJP5enyJZREW3wwF
-	 NLmO/aamkeor47Ug/8HVtU006RfXgKxO16em2F/UrdXeinNDgZrn+X/FCfw77to7Lgg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kylinos.cn;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=YXC0Ropa;
-	arc=none smtp.remote-ip=220.197.31.3
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793007696;
+	b=C5QWHN6pwNygmME0fMW0pIXO5s1MeI3VTqP03Bq3NvIo9VssuPIVkFpVWScB20ghM1pu
+	 15yfUL3Iedx0/O35ed0/WGrg7ehkRB9pIOaIRjj2reeSCnvZoB49B1hUZLRWGIovvAWX+
+	 RetHXd0s0kc4hp0an/GLn3co1gej4megqAl2sAPPIS6g5162dTuiOiiXc+LFipMDQiJau
+	 yIriyTPUvY/fvrL3Grf4gfPuauWuWQDddaz6D3Y1t4zgTff9V9usz8n6k7GkGjI6f638K
+	 oucqEIkjwarWkzSS3JJW1+YMSaRiHEtAXK4nTFUC4cCy5e9nfNNmZNRcuWbcU9s6D5Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793007696;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=GFa/9AhpktP6FOXsCdm6LvF/HzjXgt12PVZ89+MSLA4=;
+	b=nUb2oK/WmIHRCU9Aw7b6PQusOfeUNA4ixIQS6W/MufnfDlFIbW2Rf2Rn19+yqtgvQyQo
+	 +Wm3txwQXqlvBHS23msova2G7FZ9MR7wpvXumnWNzAoPleG5gjEfHnhmnx0cBJsU2kMAj
+	 qevQ8eCsa3YR4O8HzmAfYQkVCEzIgfIz42Kx8UUuynzdqOseCv8ymetaRriubzgG+8Nk9
+	 lPewzgn9hTKc6+8SSdNpyPFpzQxyXuQmeXZq9nxY+wa+q9BM80+U4IX60k69ZjPIZ5fuH
+	 8BsaRbU8FV/mbNU7jvO7jKwQTcWHViG+TrlfT/rfaN7YQBe3P4Zz+94wDkAcaZfjVcA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=SdKpId4d;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02424606A33C;
-	Mon, 26 Oct 2026 09:41:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02424606A33C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCD42606A33D
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:41:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CCD42606A33D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=YXC0Ropa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Jg
-	iWxZmRIHTWEjiXSDwq0C9oBBVSA5xc05w3DSwHI58=; b=YXC0RopaQByhhsrR8l
-	bq9vFwEWO27+xAG/HZDxga++ggErN5QV3kZV7sM9YWZN8Fvo5SdB1OBnYZBuDG/W
-	7FpSvDpWDrIxH60ca0I8BJo3vN/NHakcpdw7+Efl4XrXqmw9qBMDtniuhUKJq60x
-	zIQUqQq5zi6pbgQ1MFDqKwabM=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wD337_7H99qxoxSCg--.51708S2;
-	Mon, 26 Oct 2026 17:40:11 +0800 (CST)
-From: Yang Xiuwei <yangxiuwei@kylinos.cn>
-To: x-professor@outlook.com
-Cc: mkp@kernel.org,
-	James.Bottomley@HansenPartnership.com,
-	linux-scsi@vger.kernel.org,
-	bvanassche@acm.org,
-	axboe@kernel.dk,
-	io-uring@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 6/6] scsi: bsg: release io_uring requests in end-I/O
-Date: Mon, 26 Oct 2026 17:40:10 +0800
-Message-Id: <20261026094010.1324076-1-yangxiuwei@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <8f30e238d2b169702308303687e9504c7513ecc8.1793003363.git.x-professor@outlook.com>
-References: <cover.1793003363.git.x-professor@outlook.com> <8f30e238d2b169702308303687e9504c7513ecc8.1793003363.git.x-professor@outlook.com>
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=SdKpId4d
+Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
+	(Authenticated sender: pza@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id A160C200582;
+	Mon, 26 Oct 2026 10:41:32 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793007692;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=GFa/9AhpktP6FOXsCdm6LvF/HzjXgt12PVZ89+MSLA4=;
+	b=SdKpId4dTJbgYyxzZbNN9DugHjNWEzkp9IMzbfx5qVgdUhQTkZLjlsUcpJFVB9Ak5ql1ct
+	1qJLNgpvM0OXaoUGSQoahePQy3uw3pNMhjZh7ULgUfwYIFawNI0AEYWomVMiiAcSGswpRo
+	7aemvBJhhSY1nwYYUP1lkLb7OS8OfgOHtrGhjYyuQW8nRml7wFN3frFbptYzwX0B5Qobjn
+	SlaZz/Qik064EHNr0p973G/2ygUxv6ic8/WGbUFaO7Tcw31ZPwP5lErEINDy7ypASNagAn
+	LEFV6lFlpqd2Y0EMmFbGcYa8bRq+P6t8tB+5ub0IkObWsDqo2B4ulPlrUxjlEw==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793007692; a=rsa-sha256;
+	cv=none;
+	b=aajC+xUVBsTyyd/PBwB/UNdgA7BQKYuk9Og84AWDeQEpxarXNAyow/IMyh8p4VXCWArC9H
+	TGEaokZ+KMTwRUhX9xHWUhTLKqHSM5J5ko2DSThDw+XpLPSNKrPY/U8N4x3/H1BilMavdZ
+	j7wHx4tB6H4cexPp5fXIYr1qALunboMJz7y3HhR7VOVYCSylDVafgxSxzclvpsnfC2zHnZ
+	b47KB5b4ZNX1U/O+G9RWEBavWnPWrKUGLR971DAUuuAKPXudu4Yky9X9LcPqj1VEjSfXg2
+	Ieb8V7AWvjNRJ+GkLIhKx9vdrvCcu7w9VFoI5caXRDJphAOAlOHdd8ZqQqPh3A==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793007692;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=GFa/9AhpktP6FOXsCdm6LvF/HzjXgt12PVZ89+MSLA4=;
+	b=Dh733mwdJ/iCWDlRpE1a07iUA5ctJgDxe1vFDY+OdZPjaiUFlx0GCPv1TN6T0HHuVLfq/V
+	XmZxzkcWhv9Z+KcOvJNUFRd1aViK9EsEDYhMAkrD8kHekPCR8et0CdRKGQ2RLq7gs2Y4Pd
+	YzCS8lPXphDM32dhJdc128PpYHVrnzrPeFcUj+pMxraqx1Op/AupsYd9TSlyUlv2O6K9DU
+	HhmwYoW78Wyw+PRVClNFpQAuL1RmNJVPu131qq+LUQhaOYyJSmhlSvYj2suH2AlZShto1e
+	8rxTurfzRNkqs1CyW5MGrgr5rnv+2iBAmmJQWk6xEh/tIPCiVy7so9Ra6+DdMg==
+Message-ID: <98198337c909563214bd156c9640402663d08137.camel@pengutronix.de>
+Subject: Re: [PATCH] reset: fix racy acquisition of exclusive reset controls
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Alvin =?UTF-8?Q?=C5=A0ipraga?= <alvin.sipraga@analog.com>, Bartosz
+ Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Shengjiu Wang <shengjiu.wang@nxp.com>, linux-kernel@vger.kernel.org
+Date: Mon, 26 Oct 2026 10:41:32 +0100
+In-Reply-To: <20261022-reset-acquire-race-v1-1-adab083d7274@analog.com>
+References: <20261022-reset-acquire-race-v1-1-adab083d7274@analog.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,26 +92,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD337_7H99qxoxSCg--.51708S2
-X-Coremail-Antispam: 1Uf129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
-	VFW2AGmfu7bjvjm3AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjxUYc_TUUUUU
-Sender: yangxiuwei2025@163.com
-X-CM-SenderInfo: p1dqw55lxzvxisqskqqrwthudrp/xtbC6huYKWrfH-uF4gAA32
 
-Hi Yingjie,
+On Do, 2026-10-22 at 20:06 +0200, Alvin =C5=A0ipraga wrote:
+> A given reset line may only be acquired by up to one exclusive reset
+> control at a time. If two tasks with their own exclusive controls race
+> to acquire a currently released line, only one may succeed.
+>=20
+> Since the blamed commit, which introduced more granular locking, this
+> guarantee has been lost. The mutex rstc->lock was introduced to
+> serialize the internals of reset_control_acquire(), but since this lock
+> is local to a given reset control, it achieves no synchronization
+> between distinct reset controls, even though they may refer to the same
+> underlying reset line.
+>=20
+> As it happens, there is already sufficient synchronization in this
+> function through the rcdev->lock mutex, which protects the controller's
+> reset control list. Under this lock, the acquisition logic correctly
+> validates that the line is not acquired by another control. But the
+> control is marked as acquired only after the lock is freed, wherein
+> another task may race to the same point and mark itself acquired too.
+>=20
+> This is easy to fix: just mark acquisition while the rcdev->lock mutex
+> is still held. And since the rstc->lock is only used here, and achieves
+> nothing, it can be disposed of.
+>=20
+> Tested under QEMU (-M ast2600-evb -smp 2) with some driver hacks to
+> provoke the race. With this fix, the race is no longer reproducible.
+>=20
+> Fixes: 8c91302a29bc ("reset: protect struct reset_control with its own mu=
+tex")
+> Link: https://lore.kernel.org/lkml/atnZWUA9bc1btCix@analog.com/
+> Signed-off-by: Alvin =C5=A0ipraga <alvin.sipraga@analog.com>
 
-On Mon, 26 Oct 2026, Yingjie Wang wrote:
-> +		pdu->sense_buffer = kmalloc(pdu->max_response_len,
-> +					    gfp_mask | __GFP_ACCOUNT);
+Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
 
-Tested in a VM: INQUIRY batch latency went from 30us to 42us with this
-allocation.
+> ---
+> Philipp, this will probably conflict with Shengjiu's fix for the shared
+> reset race. If you want, I'll gladly resend after that fix has been
+> applied. Just putting out for you to check now.
+> ---
 
-The long tag hold is IORING_SETUP_DEFER_TASKRUN. Returning -EOPNOTSUPP
-for that flag seems like a compromise. I'd like to hear what others
-think.
+That's fine, the conflict is trivial to resolve. I'll pick up both into
+next after -rc1.
 
-Thanks,
-Yang Xiuwei
-
+regards
+Philipp
