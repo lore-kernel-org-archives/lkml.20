@@ -1,60 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793041945;
-	b=hHB2UlH9d4vxWd/6WROwTgTJROcWnEveRZi7/s/ukyM5th0XY0XXdZUqC57E2+Dt6NW8
-	 xKFOOBqSJlZMPgFOKEB+XWUIGaxL+9LR7EoKarcwc69Jbr/fB860jgCPLvhiodL/hBvfY
-	 AWb4LleLvTvTdf7bXo6J2i8CBsITurx+neQ9NGVoZQ+kfbDVcNG2t5yrWRagXP8Onyula
-	 5UW2b7kh5m3YJjiTy1qzulQlAnwd35S15k3Mue3NV7zZJReSH4GZMyBD91HJs8Vm+FOI3
-	 7QqCzdn07GOzzRkmx7Cd1ULUtNg/NFcgQWAZQDfNknIMme5tyihj+hl1et7/v4sUujA==
+	t=1793042004;
+	b=GhgoL8zgZDPyOJmcLcjZn+dQsfhbwn/+LiiSTVhOvGz6JV43bF6KLiXPBlKx6zrQ9YW4
+	 zXyNrHDlz9bRpzTrheF9Zpb8HwFk88F67YIpFi/4HYtp/XDwCSpy/mfvpV2bUOlepNSWU
+	 kj8dZNrUIpypd16/VAAXW3k03AfThGfWRcOF6RsBDKsl01/vptFLwW37peWuePoCV/0qO
+	 3i2sfc1blrsQvSuacy5rhFRSu9F+F/a0qeGZuO6oYCpxTIDE4vsGka9KrZrXSlkx2hqOY
+	 sZf5FEIEOqVNS8sSloTNEMHdWHiz+udo4FYzcH7p3iNhzIq8Gg4qhl0znQSgcb94aTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793041945;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=/xdSDdeNwO4oLUk3isMtVnIVH6TEXIfV4gp7YgJ8B1k=;
-	b=iqrnissL9EU6rS3eDWY0njWKiiZ21gQixvMQWwwTB0q0G0YPJd3pfPw7awLE88dcgw5c
-	 I5w8q7+AoKOYoNK7AAQK6Ciuw8M91w7SSPENDnqLfTov7n8uc32TYObi1nmxvejfw10Yc
-	 +ttMDFIKZfC5mExtrdEWPsB7u8GDAkxdN6vz44/lEZbd3hb+xuJ+rzB9289eEpK15xsp9
-	 gbWdkM3VOzcI/okSCngmDEOcZaSqKDESUaUjfuxioE6/yLjT1+dybCd9Zs7M90FYhDGy4
-	 Zj+wqQOHHg0j9QMby9L+yQurMT+ajveKyq9eA7iJ5/JeE1eckMzm6RZunPrt2FM0cKQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793042004;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=3yrz+Ov6jBpPKPNpWn5AEy9fZTQAY5u9WL+GOyU2/X0=;
+	b=HXIhY3XtF1P5hyAmLKuYXDyv695DINrRgG6U4Gy/6q73OHCEWJldFuVGbtEP4v0O5R0p
+	 O7YW/wX+EoMDxVyyz4eU/9XLpxyRSicdPQrJQbzfs5w1vo9o7H5hXVCc/ymFStLcbZLRj
+	 voW37OdoasQ7cPQE2w+Kw3WWE80sUTUAGC1fsKD17xIfkuwKKltKAisxcBK86pw5J4RU4
+	 UkCeSM32r3pG0RG9KXHRDS5Fce+qMje0tqYZubkEnOZlMxo9ssJAlsX7oX4pE3gamwSjy
+	 U3/ROXmzIB51Fen6z/WYVMh3QaRUWFedWtevLg+FAzyWTOUEUrRKiPfHE5fZ3K2Ku0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Gvl/U9ym";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=UlrdTnkq;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C642606A31D;
-	Mon, 26 Oct 2026 19:12:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D377606A31E;
+	Mon, 26 Oct 2026 19:13:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D377606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gvl/U9ym
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7A191F01825;
-	Mon, 26 Oct 2026 19:12:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793041945;
-	bh=/xdSDdeNwO4oLUk3isMtVnIVH6TEXIfV4gp7YgJ8B1k=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Gvl/U9ymGmD76EDO8gM1idS4m2xm2nI+zYFCJ02a5UHiKYkdMkYM89OkW7lpaQ7zI
-	 kOjq7yrAq+hFHOVpyuqNGqTkvCTKIJGt55YdMDWL1LX3T6SUwB0clNHjiAXtbefSA6
-	 wVZMhfp4HvGIbtEYIpajRqW5OGW4vf/JJyTNLQ6Nc3W7Jps1ujwvQIf/dULCm63oJK
-	 om0DQbzTvw2LiMx2QuidllGglTAbWkrVI2d/pJkCrmBt+slX6elHe1Cr1NewXJ++5X
-	 BjyTwYkAsKqdRi6sCPJ3kkzYhoNGnlYTIpwCe8dL4DKo+6Kn14Bqikqh9mL6vusfJf
-	 HKH0VAw9U0y8w==
-Date: Mon, 26 Oct 2026 12:12:23 -0700
-From: Oliver Upton <oupton@kernel.org>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Marc Zyngier <maz@kernel.org>, Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Raghavendra Rao Ananta <rananta@google.com>,
-	Eric Auger <eric.auger@redhat.com>, Will Deacon <will@kernel.org>,
-	Fuad Tabba <tabba@google.com>, kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] KVM: arm64: vgic-v4: Don't allocate vPEs for a GICv2
- VM
-Message-ID: <at-mF3Qvq67Nh_v5@kernel.org>
-References: <20261026152639.3926498-1-fuad.tabba@linux.dev>
- <20261026152639.3926498-2-fuad.tabba@linux.dev>
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=UlrdTnkq
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id E18CCB1A;
+	Mon, 26 Oct 2026 20:11:09 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1793041870;
+	bh=ivDiP8NI9Z30mey8L2KGIt+N5uRIkUdxK3fKOwTUsIg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=UlrdTnkqAoAFbqjmbN7M+tq859syiUuvI+z+afkwnI9wFCwCRXWY9kCG97buiEXVC
+	 U+0a9Ivky/rYi9rgEJmtnrzqSlvTK4XpOX3qlDrv08bfpheaKA6L1DzqC1eX27Y38F
+	 rxMygoM85k+PJJ8+lIC35GjauAVkRbhTzsxWUz50=
+Date: Mon, 26 Oct 2026 21:13:19 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Linux Media Mailing List <linux-media@vger.kernel.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Hans Verkuil <hans@jjverkuil.nl>
+Subject: Re: [GIT PULL for v7.4] media updates
+Message-ID: <20261026191319.GA1996520@killaraus.ideasonboard.com>
+References: <20261024185058.20410953@foz.lan>
+ <CAHk-=whVSx-=wUbY7e79bgW-C+m27+ON+HLm13mKHJBfBgUqOg@mail.gmail.com>
+ <at-a-2wTtf7bJQwU@kekkonen.localdomain>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,54 +67,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261026152639.3926498-2-fuad.tabba@linux.dev>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <at-a-2wTtf7bJQwU@kekkonen.localdomain>
 
-On Mon, Oct 26, 2026 at 03:26:38PM +0000, Fuad Tabba wrote:
-> KVM can run a GICv2 VM on a GICv4.0 host whose CPU interface supports
-> legacy operation.
-
-I'm pretty sure there's no IP out there that has GICv4.0 and legacy
-mode...
-
-> Such a VM has no LPIs and never uses vPEs, so
-> vgic_supports_direct_irqs() is false for it and kvm_vgic_dist_destroy()
-> never tears them down. However, userspace can still create an ITS for
-> it. Once the vgic is initialised, vgic_its_create() calls
-> vgic_v4_init(), which allocates the vPEs and requests a doorbell IRQ for
-> each vCPU. They're then never freed, and each doorbell handler stays
-> registered with a vCPU that's freed with the VM.
+On Mon, Oct 26, 2026 at 08:24:59PM +0200, Sakari Ailus wrote:
+> Hi Linus, Mauro,
 > 
-> Only allocate vPEs for a GICv3 VM.
+> On Mon, Oct 26, 2026 at 07:34:12AM -1000, Linus Torvalds wrote:
+> > On Sat, 24 Oct 2026 at 06:51, Mauro Carvalho Chehab wrote:
+> > > Sakari Ailus (60):
+> > >       media: Don't hide I²C or SPI drivers by default
+> > 
+> > This needs to be fixed some way.
+> > 
+> > The kernel config is asking about ridiculous things that no sane user
+> > can know the answer to. And that change has made it worse.
+> > 
+> > Asking a user for random media drivers by chip ID is *NOT* ok. It
+> > needs to be hidden some way. If the old way didn't work, some new way
+> > needs to happen.
+> > 
+> > Guys, the kernel config phase is already *the* most annoying thing for
+> > people trying to build their own kernel. Don't make it worse by asking
+> > questions that make no sense to a normal user.
 > 
-> Fixes: 74fe55dc9ab77 ("KVM: arm/arm64: GICv4: Add init/teardown of the per-VM vPE irq domain")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
-> ---
->  arch/arm64/kvm/vgic/vgic-v4.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> The patch in question puts camera sensors and related chips in line with
+> how the rest of the drivers are selected elsewhere.
 > 
-> diff --git a/arch/arm64/kvm/vgic/vgic-v4.c b/arch/arm64/kvm/vgic/vgic-v4.c
-> index ed236f083f0d7..a01de4de608a6 100644
-> --- a/arch/arm64/kvm/vgic/vgic-v4.c
-> +++ b/arch/arm64/kvm/vgic/vgic-v4.c
-> @@ -248,7 +248,7 @@ int vgic_v4_init(struct kvm *kvm)
->  
->  	lockdep_assert_held(&kvm->arch.config_lock);
->  
-> -	if (!kvm_vgic_global_state.has_gicv4)
-> +	if (!kvm_vgic_global_state.has_gicv4 || dist->vgic_model != KVM_DEV_TYPE_ARM_VGIC_V3)
+> The reason why I wrote the patch was that Arch Linux kernel missed enabling
+> these drivers, which given how the MEDIA_HIDE_ANCILLARY_SUBDRV option
+> worked before the patch was to be expected at some point (rather it's a
+> small miracle no-one had complained about this earlier). Raw camera sensors
+> are quite common in laptops these days and the only way to enable compiling
+> them before my patch was to enable CONFIG_EXPERT first.
+> 
+> I guess we could have an option to compile pretty much all media drivers as
+> modules (it may be hard to draw a line) and then require CONFIG_EXPERT to
+> allow choosing amongst them. I'm not sure I like that idea much though.
 
-use vgic_is_v3() instead
+As far as I understand, the goal of the patch was to stop hiding the
+"Miscellaneous helper chips" section by default, and let users select
+VIDEO_INTEL_CVS. While the commit message states that it applies to all
+camera and lens VCM drivers, that doesn't seem to be the case, those are
+not covered by MEDIA_HIDE_ANCILLARY_SUBDRV today as far as I can tell.
 
-Thanks,
-Oliver
+One simple option could be to drop MEDIA_HIDE_ANCILLARY_SUBDRV only for
+the section that covers the CVS. It's not ideal, but it could be a quick
+fix until we find a better option.
 
->  		return 0; /* Nothing to see here... move along. */
->  
->  	if (dist->its_vm.vpes)
-> -- 
-> 2.47.3
+Junjie also proposed automatically selecting VIDEO_INTEL_CVS in
+VIDEO_INTEL_IPU6 and VIDEO_INTEL_IPU7. You didn't like that because CVS
+is an I2C device separate from the IPU6 and IPU7, but is it found in any
+platform other than in conjunction with an IPU6 or IPU7 ?
+
+> I wonder what others think.
 > 
-> 
+> Also cc Hans and Laurent.
+
+-- 
+Regards,
+
+Laurent Pinchart
