@@ -1,144 +1,125 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793011792;
-	b=OdGHwRQ07zOwKAq+RjVPUlVGBe8cRIqsIJgVHTm1oWEijHoxaODMYZTOarZgciZAdkRD
-	 DaZtFjIdhoKIC+cVTrHZEQOqHJoLJLtaH8nFhbfcTV5iiYtXLIlLLs2x4+m5tPAAp6Fn1
-	 3QbhIEgjzl8/lluJKprOGFtLW+pVZs4EmEKNxXy9mI58CCGUpf4RsoKXo4RyFPrA4apPe
-	 n3j+ciRjEeDSnRXGkih1puJF0Ya1RaV3aWTL+pmDCOd/kIo31VMoaLtColcZRkQ8w2CFl
-	 ElvtwixALueJa53tJ9LY8uclvbq6tjK/ZiqKLCpeg/MakiDk5E9RU5w1MeKUVVRM01A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793011792;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793011805;
+	b=DS34pJr7vf7uDGoqLLRKXCmpYYMb3NbHuARmMGS45TcPV5gZpxXVd365XACDQJCblogN
+	 VE9LTRFyuHulDGpalO0IvjzGMILHEgzopSGCqPDfF3fBBH9ye7tbQY+ARwYRJj6RRgvUw
+	 9zdvbWWtMNLlvFkqqFLsI4i/lwF01nv/x8DIIex6ZfnQA4JR2XAMmv4PcdyYcbmrpUYK2
+	 t7KBUIr3CjEy4O5aKdMZL/qZtLm3pkWVI+K4RlIlY34uA9d24TdTnK8A1YyIEqHUXHiah
+	 aS50et+ww5ZapVXDvOq6bVQaEfFgsQ/Tyc62Z1SAeGm9eN8hZsColjfbLWdzfcFeI6Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793011805;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
+	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
+	 Cc:Content-Type:Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
 	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
 	 X-Proofpoint-Spam-Details;
-	bh=FPVx73+o/2eZCSRturT4nizp7EjPIBp9bA02vRpn8yc=;
-	b=STTHhzlTk3Nq/OhtmxdwDeZ5iR9Sf+fEemtYvA+LuzUb7b5oZp04170KGD7eMF7L+l62
-	 6ENJu7QRuPDJ+D9omr/YosL5LnOMY8qqv76WaoA5zkUq/79HY56+n4Tap3Af1DI7ybEKH
-	 YTtx4OaEYjXGC+HXxSoQ+rkdDFQmKmjHf6IW7bJqbsul28aZXGtwEJc1m+pi9XdV6QJvh
-	 6Syu3YpYT9kVzNsD3I25etArfEMTEBICaKG/JsxFpL8uoAsZ+g07tgm/cIOLH9UsmakC5
-	 9g3c6CgIjuC6DSua5I7qfs46NcxnXWMjaTR7qjyN9zCeriDnV36hd9VoYZXHxsPHmAw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	bh=QejenxWYa9M+khgrhEJbW4O8EWlyjJIqohWKnghei/g=;
+	b=EPn1vnDBaaVGTXJ8tIpwKEcIB4iRPU3go2HxwVL079SLAwspKSbL1lrg88AKeJNMKoY+
+	 NHKIujW59jPpolR1Z4jBdh08EWqe4Ig0KNyNkPVz3o6855L0j5HsmTA3ZDS9T99t7znNj
+	 7Meu6+w/gMrlVZEhfyHQHuoyGCoTeAkgJLg1m2JB5AeWP57cHXZ+mcY99Vi1edVe+OZmk
+	 E4R8/Sy4wf9SAKmIaWZQCw1kdkcyF3lzGJ8sNgW3u5l/iBk3t9LLr+CAEVINj5PyjQ/W/
+	 irTn7hU4gxoWG7rYss6+cwsa0RMbFRoL9mMWMhgSJBPNmuEcxoQLHUxtnRR4RJT/60g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=njiqU+LK;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=DKaP4MXH;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=IurfTYVf;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=bEe6ayBB;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB908606A322
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:49:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB908606A322
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5779606A31D
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:50:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5779606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=njiqU+LK;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=DKaP4MXH
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69Q4bAoY718251
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:49:51 GMT
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=IurfTYVf;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=bEe6ayBB
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69QA3nnr3521736
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:50:02 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=FPVx73+o/2eZCSRturT4nizp
-	7EjPIBp9bA02vRpn8yc=; b=njiqU+LKqhmxkOs+b9fJ9ZBcjVSKyFZUris7RBz4
-	J7EP6QfsWbYHoLNJl2aq4bdQ5bbRMK58ci9g3S4b97eQ6F8nqbrfwQ9zkFuInmf0
-	HWeo5ntnl7PYkiOmMqqyCGczB1sDdy4a3GCP0UTFLd2jeluTGG8gH28x3cv1DNRB
-	m5fQI+IzKuXIxqmlpfrIb2DesDe9D15M77GZzXz5rodwBwQnTi4TbnJMjcp8wQ/+
-	5uX/YD9v0IgJXTDJpICLrZeyS4bOkB3Lq3MzFWPCZRcCL44UBmCA900b5GJJ47ti
-	oBX5G5esOtyf4JhxKqef2oKP9ceEv/A4HSh410+BIRZcnA==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hhsgst30m-1
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	QejenxWYa9M+khgrhEJbW4O8EWlyjJIqohWKnghei/g=; b=IurfTYVfhC5r+w7L
+	OqUTiG7fCsx7oYwF6I9u4iL3b53fRYnvKakcWLxl322Sl3Fnv8e/84tQ4MG0cdGI
+	uVhR1PYFH5aIowJx8bQ/lGY4CRul7USMYbDH7IuPqpJtvsDB+rx4sPt04mmcVtHl
+	OH+DW5ac5+LpM89B/aoL4DKXAowOH5dqpaiIOqjdCeWB77DbF66oPIi4LqIdiBit
+	2k/Dj4AjXdFP0fTgJyTwTisz/Z+NXZZ8d2q1Di6Ul0wmDEpsS0jbXff86bvLKI/G
+	VYHa+8GnclwgCD6tZ2Ya4NYGSqn841ioBkrybImhYbPXRvTFlnmC9thWS8Tm6wEs
+	aP27hw==
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hj4sf055w-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:49:50 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93f322ef7d3so642457385a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 03:49:50 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:50:02 +0000 (GMT)
+Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-91bebff9fcaso104370996d6.2
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 03:50:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793011802; cv=none;
+        d=google.com; s=arc-20260327;
+        b=L53FEaVTTy/+Htqm/Xgj5SIE2tNjsfyRgu5FI7JLpatv0fLiwUTQ3OpZ4CcJpcYUFU
+         aFbyzUha20mjXio0C3EWx+5nlNiVdRwAfZLcNxKVFjJm0DiVyx9EuRfbB2NrV0cJ8zQ5
+         1pUZi6SgV/aLnofMaxZ6c/MbOQ/2XuuqTX0g9qwvq0AapPK0qNabJnLL/DoyKywRu1F7
+         S4BVuf6rtmAiQLxyRmTgRo/cIXVUjlJRW98KwhbaT+bEsup/c+ZL+UTc1/prHI598hKX
+         VhqJz1dN10TmzaZmMCLrXssJRPnGUSk9I3p/qlPqQiM9YXAOwTsiq5yTJFoA0TvLspFz
+         zHew==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=QejenxWYa9M+khgrhEJbW4O8EWlyjJIqohWKnghei/g=;
+        fh=fBuruTjz8n9y6Xpe8h4vc0QslyqSXXAUESPadFvmkWg=;
+        b=KV6ZtBQbeIWiKYN2XUjp1yRFvrFdLw6ic0K7wtV1ariNzzY4ceoUFTeL4L1dG+2lxO
+         T67mZG5iSu8SDq0VUDXUq3oNQo31Wqls1U/wzuEb/dIqmvwJzsSXfbK3qKmG2SoJzgeR
+         ubz+nFlkNlYgO4+vovousScqUNw9/jnnomSKsolkqUE9QAS9zu9SBwDmgNmzDkOlUGNl
+         a7dBOJ2s0oxeHRgYp+JcZ/DNy+axsUq917CacsClGstGgXz8h1kbUBwjKQQFLjzGv8pM
+         6ym3kyz9o1OnNP0DPb8Qp1jDGMEP4Nk19qNjbYxd3zOwG6lNc6R2wNty3HQaLIcamqp+
+         yeww==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793011790; x=1793616590; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=oss.qualcomm.com; s=google; t=1793011802; x=1793616602; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=FPVx73+o/2eZCSRturT4nizp7EjPIBp9bA02vRpn8yc=;
-        b=DKaP4MXHiGwBge71/HrVpWvtczjTc3W1DA10StrNhurzXHww3RDlnewp4SspALJGhs
-         Olo04ciFbuMa5Ajj+3jnjY8FsndHkU7jvJ+SlgqQpVev+dhVIerODkEd3+CSZYQgP9FB
-         zwy+wpXw1Wp7bfJuP4WIFD08WVUxtC6x2yR1F0wpZSJ/h40PBnB6mA5XW+aGJI2OxnKE
-         zfI5V85tEy0HlQyn7kt6c6v2drhDLshl+3li05aaaPMm7RC5SQK1VXij2IgTEQMBAIM3
-         fJ6PzSJ9JD5tHvFgh2FtQBcczpj135rROSKKCN6+jnItCZ2nuzm3C+lS1JFVMFIHTBEe
-         Q5uA==
+        bh=QejenxWYa9M+khgrhEJbW4O8EWlyjJIqohWKnghei/g=;
+        b=bEe6ayBBCHmX8d1YwwvqAX69IeN7o1bcLLmhoMqw5+yYadQXRsFZ6sgNGMVvUsxq3C
+         Cz6QKt1WmknF1jqw6EWuYTytEfn4Wx0NxsV27M93wD94D8TbVLPZJ1sMClo5mFRifdfy
+         OEQ3Wc6QkZ92NBWrrtgeHy4qKb6px9wmW/zbhUqeuBj5DIp8iuo/Zcsfh775xWTpqXgM
+         6gsOsg8o3U0YB+J38QtAFR4CyvoQKypxFluYbvfpjIqS5RpkUExtVIsvkTVqNwx01VUs
+         XiMefm/UqIElmzamDxaea8JxOxUpXDW0vMk3oaXNsPVPZjm92ps6yhe3yeYzN0xDgbtJ
+         9QIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793011790; x=1793616590;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1793011802; x=1793616602;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=FPVx73+o/2eZCSRturT4nizp7EjPIBp9bA02vRpn8yc=;
-        b=nn0j6fAgzZPA1iEsZu63pQxNHPJp2v7oDomZRTUuOKCK9/7YEn9irDxgWdqfIrILfQ
-         IXxLcNBBGrDoQUHW2XQJUlD5MR/GwonBLTcPFatOU/v0z8d8XO6Oop8u5a+a/8LICne/
-         jX6UMT9fbDusa9g7NFQrVHGRgcsrDEfeZBrBQVfO3pUm5O/JdD1C6+3lhYUcPxkTNG3Q
-         P4BApfKc0KrkF8HKBHJmBAGru49i8U3BCWAxYj4QtYJzKu9dv6ZD0WqbVHKmsQt5e5BM
-         vlG+QhNLQL+NZawnTQK3v0WzQ0r6HMhlRdZmilkGLut4gm2KysdU4bjSY1mk3HrH/X3g
-         wCSA==
-X-Forwarded-Encrypted: i=1; AKwUvBx0QCpfNlA3bCm3bfu4jfRLVTnirQCr/v/3W/LR2+2SJnrpnELLtax+HgP8M4ysUt1Fy3knvFEbhCCbtww=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI6MnOB+yLAO/c6Wh/uYa5KM6b8H9i2In2B9mkTZhIBJVIR2GGz
-	52og1/NMQThxMBAlYbICkrvtFDJk8yq6wxypJpHTvM/xasn/f/xAlF+c7T88yTeey70BDRsU37c
-	XBH0zVCEYSjK92hn4BYHioVTw5p27b9LyZ7k0djm+wv3k4ZjpBiK9IZiLveLO77PeUUI=
-X-Gm-Gg: AYBFou0HDm6Jwn40aCyiZsyvt0H0v9kzPxz05LzMsMvl5jwEEEVaeyFxXkbR4PJUDY1
-	NXApHYYp7Q9VtS04rZhsAYuDv/+RXDrtDrXCznKl9nzzrAyr/4sGO4+1/Rkxt4hW1f++dMz0hjh
-	1XcYfYq5RsMmWcKfvff1wJbF2kicDrwGZ0NTafqUWy4hUMRfG8QEZM0c055+vUkgNzvN7/PWrLY
-	b1QNPFBHLAYvavgBsBRplVYTKotEQ6EkG92OclBEg2qhYN9Vl8XYo9qvqjB+VXpeJTvXfIO53ZE
-	rpBL8sNPV9XrGBw3ibFwkvAHPCGltInnHyHohfA9SiOx1uAy8KuV/gVjC7YpemFIrsxzIHwxjc8
-	BOiI9ucWLaYsNJJ7p9nSRrPF+4Gdy+qWuobWXlvvCngGNdcM+vcF3bepxwlk+q6owDxqjUTQ+j5
-	0+UNrdseUgzAB1
-X-Received: by 2002:a05:620a:462c:b0:93f:1dbf:6ceb with SMTP id af79cd13be357-940ef7d657amr872492385a.3.1793011789354;
-        Mon, 26 Oct 2026 03:49:49 -0700 (PDT)
-X-Received: by 2002:a05:620a:462c:b0:93f:1dbf:6ceb with SMTP id af79cd13be357-940ef7d657amr872486585a.3.1793011788666;
-        Mon, 26 Oct 2026 03:49:48 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfb7a6aba3sm1483503e87.17.2026.10.26.03.49.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 03:49:47 -0700 (PDT)
-Date: Mon, 26 Oct 2026 12:49:45 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        "Michael S. Tsirkin" <mst@redhat.com>,
-        Jason Wang <jasowangio@gmail.com>,
-        Eugenio =?utf-8?B?UMOpcmV6?= <eperezma@redhat.com>,
-        Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-        Sumit Semwal <sumit.semwal@linaro.org>,
-        Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
-        Philipp Stanner <phasta@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>,
-        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>,
-        Flemin Jose <flemin.jose@oss.qualcomm.com>,
-        Mahadevan P <mahap@oss.qualcomm.com>, virtualization@lists.linux.dev,
-        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
-        linaro-mm-sig@lists.linaro.org, iommu@lists.linux.dev
-Subject: Re: [PATCH v2 11/23] drm/msm/dcp: Add DCP CRTCs and shared plane
- state
-Message-ID: <xffnjqr7qruizfph63lucyml66xl54rftgug4dulyyopmogebf@nwbzhjcoypsy>
-References: <20261026-jshekhar-dcp-hlos-v2-0-7cf014efdee1@oss.qualcomm.com>
- <20261026-jshekhar-dcp-hlos-v2-11-7cf014efdee1@oss.qualcomm.com>
+        bh=QejenxWYa9M+khgrhEJbW4O8EWlyjJIqohWKnghei/g=;
+        b=HKCjGUddwFqlit2Lu4wt8gx7ArWYPnkcLY9nJzlsSezGJi+j5e1SpzQgJhKrg1Sk7w
+         w/6lhAyD1ZTG4R8K0Pbg1et4LC89HXmF/0VP58fjKjiEJp6xj3YumQOI71aNCR7SiqXP
+         jMeUgv8P+5LkA/mDaAqFEMGMo28ulUjhSmaeTnIZiHGRFKtqG7D+PVV3t78Dn0lc+m43
+         a/bpKRpRVRy4hem5vTcxZaeLCAM5n/cLebAbeDTOzGI5oNpqr+EZhRhhnHCDgQxB6WKR
+         G3VJQoLkXeUs7EJJI4V485cJK8dPLBxsulDV9BxlsLSeVD62rAwzKgy/PTeWMRO3X3GL
+         b0qw==
+X-Forwarded-Encrypted: i=1; AKwUvBxKveLJYu4d3rOfwEbnJHNrnc9Nc/d1nMsWa32ylp5ENw2zxWW+sddqkNTd1ATfeP0p1PxCxh/TRpbbxnY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJC7L5OvMs0oKiuUDT0eEAWdHU7fp43eIXFOOJaEIToEJgnCUC1
+	sQ+F0YbSkxDumPInUQuJAf3nJls8+1q1CYbPdn7X3dgYXShZLZSK1GIQ6jJtVahs1R2NK2q6nqo
+	PL9Vn8XlLo5A617Ck1u5w4qPsBfXwGlFZ8xlXfpwaHMlWGx4kLCihrmgulIjs1JFTrnWO8IJ+hN
+	DaV5QGq80yhU2TyZh9F15EOcPQ/tYuwqjN5l71oOXM4A==
+X-Gm-Gg: AYBFou0KsNDC+v5GVC5Td7TBksM1p2k+TWlE0QEwJFpyyEeXfcWbPISe6SsQu5R9sTt
+	RUYpttzwyuHEv5eASCb33cd+ozBm9JJsW6WROAQzHnU0zhnLDviX1foCIMBFNek9/LYIB6Inyjp
+	vZV2XTInCPW8hba3aWGmMzxVIPGFTcbmz8K+5XQ68HoaQ6KR6JQ4HDrOL96oy5uZ1vmR9QfEwOZ
+	CS29Z3Hdd2U27iDG2nq/UB2H5j1JhbrLEKtejm/lzA/hJ+QB9PwIfVPYb2N92in1gHr76XyOT7n
+	MYOY4oSAWah01dtpYal0X477FvGa
+X-Received: by 2002:a05:620a:649b:b0:93e:c12c:9dd0 with SMTP id af79cd13be357-940ef9e41cbmr908463085a.80.1793011801798;
+        Mon, 26 Oct 2026 03:50:01 -0700 (PDT)
+X-Received: by 2002:a05:620a:649b:b0:93e:c12c:9dd0 with SMTP id
+ af79cd13be357-940ef9e41cbmr908459285a.80.1793011801243; Mon, 26 Oct 2026
+ 03:50:01 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -148,1138 +129,674 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261026-jshekhar-dcp-hlos-v2-11-7cf014efdee1@oss.qualcomm.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA0MyBTYWx0ZWRfX//GvV2CA+vev
- 9oDG/n38eCQGg+xdlJL1dAeJbgDr2EymaDboEhy7DsTSGwZgHISh32AEiuMuPDuOqqXHyy5ijtI
- lPiz/0nRgUP6ZAIo0D420NUAxBaM2jQ=
-X-Proofpoint-GUID: ZbDamqC0L4fQBYnLRWyhnWoC_WU0JQiv
-X-Authority-Analysis: v=2.4 cv=c+8+0h9l c=1 sm=1 tr=0 ts=6adf304e cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
- a=HNynV2uSN_wXD6ujLfoA:9 a=CjuIK1q_8ugA:10 a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-ORIG-GUID: ZbDamqC0L4fQBYnLRWyhnWoC_WU0JQiv
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA0MyBTYWx0ZWRfX6d6b6qnGVqEK
- js6Q4lfaEnk3RioOGGYlwcJEcIyv1k9lZIXrxV+BmWl8IoWnerCQiDt30iOjbeCD7U9sbTEq44l
- OinS1Thu1zJvkboLkT/6HNePBMRIDetXz5eJzhuNEgwp1DfZtrOA+ASqWNghpSLCGZU9dIiz957
- xiDQ6yhwk5dvP+yp838mMvDHswWGjxnU+zXg5Wu629RDThHJmIfgINTh2PJVXWmKHjz1MjoX4+P
- BsuPkGUMMI/7VV7UbqdnIa2px9LvoFJk7C2JJ2bZ5c+81cwvht4EWGtkYdnl8/SAKsLID6lL1+/
- T9a5aX6weMm0YC8LsdgqrIV4NwBO6h1hMxojGBcCogDNZptjqHkpdmimjgFQJZhhwp9PtGaLR79
- Nd6FqOgS/jk28j1u+jAiPMDkc1iUrEnbj+pps8lTb/P0rAvNcKXwUP/lvgJMffIXFNDDHfSjaeR
- 473d6dVxTXdgKyBHFUg==
+References: <20261024-kaanapali-camss-v22-0-7da3ea49c8a1@oss.qualcomm.com> <20261024-kaanapali-camss-v22-8-7da3ea49c8a1@oss.qualcomm.com>
+In-Reply-To: <20261024-kaanapali-camss-v22-8-7da3ea49c8a1@oss.qualcomm.com>
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Mon, 26 Oct 2026 11:49:49 +0100
+X-Gm-Features: AclHuK-SK4jFNaYaLq--4p96jXxua1uXM9mabCbSu1EN8fLtJgZF6_IRwe5h5uw
+Message-ID: <CAFEp6-3kJA+yct3GbWzs+NG=xFv_OGZj6OgToOnfcPkb9H=BuA@mail.gmail.com>
+Subject: Re: [PATCH v22 08/14] media: qcom: camss: csid: Add support for CSID 1080
+To: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+Cc: "Bryan O'Donoghue" <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        "Bryan O'Donoghue" <bryan.odonoghue@linaro.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, linux-phy@lists.infradead.org,
+        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        jeyaprakash.soundrapandian@oss.qualcomm.com,
+        Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>,
+        Atiya Kailany <atiya.kailany@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA0MyBTYWx0ZWRfXx4luVPMM1xuP
+ c++REttbMcLZpMOBDqKmToxEqZEWRMwdkwGlB4Dt6veJG1z1EqaJQoZNz4GC+sycj8N1KzhML5m
+ g/A1N/POdsndUAg7utXSuYqT3nSMj0Q=
+X-Authority-Analysis: v=2.4 cv=ZOdCCn7b c=1 sm=1 tr=0 ts=6adf305a cx=c_pps
+ a=wEM5vcRIz55oU/E2lInRtA==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8
+ a=DRRBbasCgIJkhilYQr8A:9 a=oAGWM7O9vgNgu-T_:21 a=QEXdDO2ut3YA:10
+ a=O8hF6Hzn-FEA:10 a=OIgjcC2v60KrkQgK7BGD:22
+X-Proofpoint-GUID: nOqtgi-ISEXakALwPuxnL2rxnOW3vO9A
+X-Proofpoint-ORIG-GUID: nOqtgi-ISEXakALwPuxnL2rxnOW3vO9A
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA0MyBTYWx0ZWRfX4LyKcsWrq02A
+ SrsSPYbYISVmYM3L7EOHsBrbw4gnFezYcYY+LBqixBrwxQhWdC4a0hDrUPj1TSKY9l8QB4Kbfb8
+ /KIX+wJQ5vsTmfz3ThFowciQSeTZuDgSSLB3RyIZlvdlQRSE0KGJjK8715bUg5YzH8Z9L3Ze6Ga
+ 3Irt0j0mDIIRW62ZmjkBFedx28546PSG0xvhGw08KX6Ddz8dykKwWwMRIRTCYPDE8YWO4Wjol1U
+ bltddzklCWU6+oRV3mug1NJlT6mOHEGOAL0V/v6yUfGPCrW+CRSI/H9JxMYoJJoz4ebf/vuC761
+ No7eiuVmRqkKocgNZN41lA0/9VYwCJJw8kLgHOY/L/z3JxqYKfbkQzMHWUBDybYROv182z43NWm
+ clEM6SirA3g7iFkKmQ4zwXSM8LirYh5DpFkuWhNmYq9yRhUJF8uJntPqDaaRnkj0sALO9F1akzu
+ kQYnNY+Oe4+GQG1x3NQ==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-10-26_01,2026-10-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 lowpriorityscore=0 clxscore=1015 priorityscore=1501
- suspectscore=0 adultscore=0 phishscore=0 impostorscore=0 spamscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ phishscore=0 clxscore=1015 lowpriorityscore=0 priorityscore=1501
+ malwarescore=0 adultscore=0 spamscore=0 bulkscore=0 impostorscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
  definitions=main-2610260043
 
-On Mon, Oct 26, 2026 at 11:51:21AM +0530, Jayant Shekhar wrote:
-> Create the DRM CRTC objects and shared state needed to expose the
-> firmware-owned DCP pipeline through MSM DRM. Without CRTC state,
-> DRM cannot track firmware sessions, aggregate bandwidth, or validate
-> the display configuration.
-> 
-> Implement CRTC objects, display lookup and session state, CRTC
-> bandwidth aggregation, and the shared plane state used by validation
-> and plane programming.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+On Sun, Oct 25, 2026 at 4:17=E2=80=AFAM Hangxiang Ma
+<hangxiang.ma@oss.qualcomm.com> wrote:
+>
+> Add support for the CSID 1080 hardware found on the Kaanapali SoC.
+>
+> Introduce the CSID 1080 hardware resource descriptions and implement
+> the hardware-specific register programming, reset sequence, and
+> BUF_DONE interrupt handling.
+>
+> CSID 1080 uses separate registers for RUP and AUP updates, with a SET
+> register used to commit them. Extend the CSID interface to support this
+> scheme while retaining the legacy combined reg_update mechanism.
+>
+> Also define the INFO_INPUT_EOF and INFO_CAMIF_EOF bits in the per-RDI
+> IRQ status register alongside the existing SOF bits, as well as
+> TOP_IRQ_STATUS_RDI_OFFSET for RDI0 in the top-level IRQ registers.
+> These definitions are added for completeness and don't enable SOF or
+> EOF interrupts.
+>
+> Reviewed-by: Bryan O'Donoghue <bod@kernel.org>
+> Co-developed-by: Atiya Kailany <atiya.kailany@oss.qualcomm.com>
+> Signed-off-by: Atiya Kailany <atiya.kailany@oss.qualcomm.com>
+> Signed-off-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
 > ---
->  drivers/gpu/drm/msm/Makefile              |   2 +
->  drivers/gpu/drm/msm/dcp/dcp_crtc.c        | 725 ++++++++++++++++++++++++++++++
->  drivers/gpu/drm/msm/dcp/dcp_crtc.h        | 104 +++++
->  drivers/gpu/drm/msm/dcp/dcp_dpu_kms.c     |  21 +
->  drivers/gpu/drm/msm/dcp/dcp_dpu_kms.h     |  54 +++
->  drivers/gpu/drm/msm/dcp/dcp_plane_state.h |  37 ++
-
-If you need plane state for the CRTCs, then put planes support before
-adding CRTCs.
-
->  6 files changed, 943 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/msm/Makefile b/drivers/gpu/drm/msm/Makefile
-> index 77c268aabca6..80341ce07d53 100644
-> --- a/drivers/gpu/drm/msm/Makefile
-> +++ b/drivers/gpu/drm/msm/Makefile
-> @@ -72,6 +72,8 @@ msm-display-$(CONFIG_DRM_MSM_MDP5) += \
->  	disp/mdp5/mdp5_smp.o \
->  
->  msm-display-$(CONFIG_DRM_MSM_DCP) += \
-> +	dcp/dcp_crtc.o \
-> +	dcp/dcp_dpu_kms.o \
->  	dcp/dcp_hfi_core.o \
->  	dcp/dcp_hfi_crtc.o \
->  	dcp/dcp_hfi_dsi.o \
-> diff --git a/drivers/gpu/drm/msm/dcp/dcp_crtc.c b/drivers/gpu/drm/msm/dcp/dcp_crtc.c
+>  drivers/media/platform/qcom/camss/Makefile         |   1 +
+>  .../media/platform/qcom/camss/camss-csid-1080.c    | 402 +++++++++++++++=
+++++++
+>  drivers/media/platform/qcom/camss/camss-csid.h     |   9 +-
+>  drivers/media/platform/qcom/camss/camss.c          |  75 ++++
+>  4 files changed, 486 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/media/platform/qcom/camss/Makefile b/drivers/media/p=
+latform/qcom/camss/Makefile
+> index 27898b3cc7d3..218ba3a95939 100644
+> --- a/drivers/media/platform/qcom/camss/Makefile
+> +++ b/drivers/media/platform/qcom/camss/Makefile
+> @@ -8,6 +8,7 @@ qcom-camss-objs +=3D \
+>                 camss-csid-4-7.o \
+>                 camss-csid-340.o \
+>                 camss-csid-680.o \
+> +               camss-csid-1080.o \
+>                 camss-csid-gen2.o \
+>                 camss-csid-gen3.o \
+>                 camss-csiphy.o \
+> diff --git a/drivers/media/platform/qcom/camss/camss-csid-1080.c b/driver=
+s/media/platform/qcom/camss/camss-csid-1080.c
 > new file mode 100644
-> index 000000000000..ec4f74c2920f
+> index 000000000000..9830fa0f8d24
 > --- /dev/null
-> +++ b/drivers/gpu/drm/msm/dcp/dcp_crtc.c
-> @@ -0,0 +1,725 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
+> +++ b/drivers/media/platform/qcom/camss/camss-csid-1080.c
+> @@ -0,0 +1,402 @@
+> +// SPDX-License-Identifier: GPL-2.0
 > +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + * DCP CRTC implementation.
-> + */
-> +
-> +#include <linux/slab.h>
-> +#include <linux/spinlock.h>
-> +#include <linux/wait.h>
-> +
-> +#include <drm/drm_atomic.h>
-> +#include <drm/drm_atomic_helper.h>
-> +#include <drm/drm_blend.h>
-> +#include <drm/drm_crtc.h>
-> +#include <drm/drm_framebuffer.h>
-> +#include <drm/drm_rect.h>
-> +#include <drm/drm_vblank.h>
-> +
-> +#include <drm/drm_managed.h>
-> +
-> +#include "msm_drv.h"
-> +
-> +#include "dcp_crtc.h"
-> +#include "dcp_drv.h"
-> +#include "dcp_hfi.h"
-> +#include "dcp_dpu_kms.h"
-> +#include "dcp_plane_state.h"
-> +
-> +#include "hfi/hfi_defs_display.h"
-> +#include "hfi/hfi_properties_display.h"
-> +
-> +#define DCP_FRAME_DONE_TIMEOUT_MS	500
-> +
-> +static struct dcp_dpu_kms *dcp_crtc_get_kms(struct drm_crtc *crtc)
-> +{
-> +	struct msm_drm_private *priv = crtc->dev->dev_private;
-> +
-> +	return to_dcp_dpu_kms(priv->kms);
-> +}
-> +
-> +static struct drm_crtc_state *
-> +dcp_crtc_atomic_duplicate_state(struct drm_crtc *crtc)
-> +{
-> +	struct dcp_crtc_state *cstate;
-> +
-> +	if (WARN_ON(!crtc->state))
-> +		return NULL;
-> +
-> +	cstate = kzalloc_obj(*cstate, GFP_KERNEL);
-> +	if (!cstate)
-> +		return NULL;
-> +
-> +	__drm_atomic_helper_crtc_duplicate_state(crtc, &cstate->base);
-> +
-> +	cstate->topology_mixer_count =
-> +		to_dcp_crtc_state(crtc->state)->topology_mixer_count;
-> +	cstate->topology_bits_per_component =
-> +		to_dcp_crtc_state(crtc->state)->topology_bits_per_component;
-> +	memcpy(cstate->mixer_roi, to_dcp_crtc_state(crtc->state)->mixer_roi,
-> +	       sizeof(cstate->mixer_roi));
-> +	cstate->update_roi = to_dcp_crtc_state(crtc->state)->update_roi;
-> +	return &cstate->base;
-> +}
-> +
-> +static void dcp_crtc_atomic_destroy_state(struct drm_crtc *crtc,
-> +					  struct drm_crtc_state *state)
-> +{
-> +	struct dcp_crtc_state *cstate = to_dcp_crtc_state(state);
-> +
-> +	__drm_atomic_helper_crtc_destroy_state(state);
-> +	kfree(cstate);
-> +}
-> +
-> +static struct drm_crtc_state *
-> +dcp_crtc_atomic_create_state(struct drm_crtc *crtc)
-> +{
-> +	struct dcp_crtc_state *cstate;
-> +
-> +	cstate = kzalloc_obj(*cstate, GFP_KERNEL);
-> +	if (!cstate)
-> +		return ERR_PTR(-ENOMEM);
-> +
-> +	__drm_atomic_helper_crtc_state_init(&cstate->base, crtc);
-> +	cstate->topology_mixer_count = 1;
-> +	cstate->topology_bits_per_component = 8;
-> +	return &cstate->base;
-> +}
-> +
-> +static void dcp_crtc_aggregate_bw(struct drm_crtc_state *crtc_state,
-> +				  bool enable)
-> +{
-> +	struct dcp_crtc_state *cstate = to_dcp_crtc_state(crtc_state);
-> +	struct drm_plane *plane;
-> +	const struct drm_plane_state *pstate;
-> +
-> +	cstate->dram_ib  = 0;
-> +	cstate->dram_ab  = 0;
-> +	cstate->llcc_ib  = 0;
-> +	cstate->llcc_ab  = 0;
-> +	cstate->core_clk = 0;
-> +
-> +	if (!enable)
-> +		return;
-> +
-> +	drm_atomic_crtc_state_for_each_plane_state(plane, pstate, crtc_state) {
-> +		if (!pstate->visible || !pstate->fb)
-
-Can it be visible if there is no fb?
-
-> +			continue;
-> +
-> +		const struct dcp_plane_state *dcp_pstate = to_dcp_plane_state(pstate);
-> +
-> +		cstate->dram_ib  = max(cstate->dram_ib, dcp_pstate->fetch_bw);
-> +		cstate->dram_ab += dcp_pstate->fetch_bw;
-> +		cstate->llcc_ib  = max(cstate->llcc_ib, dcp_pstate->fetch_bw);
-> +		cstate->llcc_ab += dcp_pstate->fetch_bw;
-> +		cstate->core_clk = max(cstate->core_clk, dcp_pstate->clk);
-> +	}
-> +}
-> +
-> +static enum drm_mode_status
-> +dcp_crtc_mode_valid(struct drm_crtc *crtc,
-> +		    const struct drm_display_mode *mode)
-> +{
-> +	struct dcp_dpu_kms *kms = dcp_crtc_get_kms(crtc);
-> +	u32 max_width, max_height;
-> +
-> +	dcp_mode_limits(mode, kms->caps->max_width, kms->caps->max_height,
-> +			&max_width, &max_height);
-> +
-> +	return drm_mode_validate_size(mode, max_width, max_height);
-> +}
-> +
-> +static void dcp_crtc_atomic_begin(struct drm_crtc *crtc,
-> +				  struct drm_atomic_commit *state)
-> +{
-> +	struct dcp_crtc *dcp_crtc = to_dcp_crtc(crtc);
-> +	struct dcp_crtc_state *cstate = to_dcp_crtc_state(crtc->state);
-> +	struct dcp_dpu_kms *dcp_kms = dcp_crtc_get_kms(crtc);
-> +	u32 mixer_count;
-> +	u32 session_id;
-> +	u32 i;
-> +	int ret;
-> +
-> +	if (!crtc->state->active)
-> +		return;
-
-Can't you just use DRM_PLANE_COMMIT_ACTIVE_ONLY?
-
-> +	if (!dcp_kms->commit_pm_active) {
-> +		cstate->hfi_error = -EIO;
-> +		return;
-> +	}
-> +
-> +	if (!dcp_crtc_get_session(crtc, &session_id)) {
-> +		cstate->hfi_error = -ENODEV;
-> +		return;
-> +	}
-> +
-> +	if (cstate->core_clk > 0 || cstate->dram_ib > 0) {
-> +		ret = dcp_hfi_crtc_set_bw(dcp_kms->hfi, session_id,
-> +					  cstate->dram_ib,  cstate->dram_ab,
-> +					  cstate->llcc_ib,  cstate->llcc_ab,
-> +					  cstate->core_clk);
-> +		if (ret) {
-> +			cstate->hfi_error = ret;
-> +			return;
-> +		}
-> +	}
-> +
-> +	mixer_count = cstate->topology_mixer_count;
-> +	if (mixer_count < 1 || mixer_count > DCP_MAX_MIXERS) {
-> +		cstate->hfi_error = -EINVAL;
-> +		return;
-> +	}
-> +	for (i = 0; i < mixer_count; i++) {
-> +		struct dcp_mixer_roi *roi = &cstate->mixer_roi[i];
-> +
-> +		if (!roi->w || !roi->h) {
-> +			drm_err(crtc->dev, "CRTC%u: invalid zero-sized LM%u ROI\n",
-> +				dcp_crtc->display_id, i);
-> +			cstate->hfi_error = -EINVAL;
-> +			return;
-> +		}
-> +
-> +		ret = dcp_hfi_crtc_set_resource(dcp_kms->hfi, session_id,
-> +						i, roi->w, roi->h, roi->x, roi->y);
-> +		if (ret) {
-> +			cstate->hfi_error = ret;
-> +			return;
-> +		}
-> +	}
-> +
-> +	ret = dcp_hfi_crtc_set_dest_roi(dcp_kms->hfi, session_id,
-> +					cstate->update_roi.x, cstate->update_roi.y,
-> +					cstate->update_roi.w, cstate->update_roi.h);
-> +	if (ret) {
-> +		cstate->hfi_error = ret;
-> +		return;
-> +	}
-> +}
-> +
-> +static void dcp_crtc_atomic_flush(struct drm_crtc *crtc,
-> +				  struct drm_atomic_commit *state)
-> +{
-> +	struct dcp_crtc *dcp_crtc = to_dcp_crtc(crtc);
-> +	struct dcp_crtc_state *cstate = to_dcp_crtc_state(crtc->state);
-> +	struct dcp_dpu_kms *dcp_kms = dcp_crtc_get_kms(crtc);
-> +	unsigned long flags;
-> +	u32 session_id;
-> +	int ret;
-> +
-> +	if (!crtc->state->enable)
-> +		return;
-
-So, atomic_being happens only for active CRTCs, but atomic_flush also
-happens for enabled, but not active CRTCs. Why?
-
-> +	drm_dbg_driver(crtc->dev, "DCP_FLUSH CRTC%u mask=0x%x err=%d\n",
-> +		       dcp_crtc->display_id, crtc->state->plane_mask,
-> +		       cstate->hfi_error);
-> +
-> +	if (!dcp_crtc_get_session(crtc, &session_id)) {
-> +		drm_dbg_driver(crtc->dev,
-> +			       "CRTC%u: atomic flush without HFI session\n",
-> +			       dcp_crtc->display_id);
-> +		goto flush_done;
-> +	}
-> +
-> +	if (cstate->hfi_error)
-> +		goto flush_done;
-> +
-> +	ret = dcp_hfi_crtc_set_scan_sequence_id(dcp_kms->hfi, session_id,
-> +						++dcp_crtc->commit_seq_id);
-> +	if (ret)
-> +		goto flush_error;
-> +
-> +	ret = dcp_hfi_crtc_set_autorefresh(dcp_kms->hfi,
-> +					   session_id, true, 1);
-> +	if (ret)
-> +		goto flush_error;
-> +
-> +	goto flush_done;
-> +
-> +flush_error:
-> +	cstate->hfi_error = ret;
-> +
-> +flush_done:
-> +	spin_lock_irqsave(&crtc->dev->event_lock, flags);
-> +	dcp_crtc->event = crtc->state->event;
-> +	crtc->state->event = NULL;
-> +	spin_unlock_irqrestore(&crtc->dev->event_lock, flags);
-> +}
-> +
-> +void dcp_crtc_set_session(struct drm_crtc *crtc, u32 session_id)
-> +{
-> +	struct dcp_crtc *dcp_crtc;
-> +	unsigned long flags;
-> +
-> +	if (!crtc)
-> +		return;
-
-Why?
-
-> +
-> +	dcp_crtc = to_dcp_crtc(crtc);
-> +	spin_lock_irqsave(&dcp_crtc->spin_lock, flags);
-> +	dcp_crtc->session_id = session_id;
-> +	dcp_crtc->session_valid = true;
-> +	spin_unlock_irqrestore(&dcp_crtc->spin_lock, flags);
-> +}
-> +
-> +void dcp_crtc_clear_session(struct drm_crtc *crtc)
-> +{
-> +	struct dcp_crtc *dcp_crtc;
-> +	unsigned long flags;
-> +
-> +	if (!crtc)
-> +		return;
-
-Why?
-
-> +
-> +	dcp_crtc = to_dcp_crtc(crtc);
-> +	spin_lock_irqsave(&dcp_crtc->spin_lock, flags);
-> +	dcp_crtc->session_valid = false;
-> +	dcp_crtc->session_id = 0;
-> +	spin_unlock_irqrestore(&dcp_crtc->spin_lock, flags);
-> +}
-> +
-> +bool dcp_crtc_get_session(struct drm_crtc *crtc, u32 *session_id)
-> +{
-> +	struct dcp_crtc *dcp_crtc;
-> +	unsigned long flags;
-> +	bool valid;
-> +
-> +	if (!crtc)
-> +		return false;
-
-Why?
-
-> +
-> +	dcp_crtc = to_dcp_crtc(crtc);
-> +	spin_lock_irqsave(&dcp_crtc->spin_lock, flags);
-> +	valid = dcp_crtc->session_valid;
-> +	if (valid && session_id)
-> +		*session_id = dcp_crtc->session_id;
-> +	spin_unlock_irqrestore(&dcp_crtc->spin_lock, flags);
-> +
-> +	return valid;
-> +}
-> +
-> +void dcp_crtc_set_topology_state(struct drm_crtc_state *state,
-> +				 u32 mixer_count,
-> +				 u32 bits_per_component)
-> +{
-> +	struct dcp_crtc_state *cstate = to_dcp_crtc_state(state);
-> +
-> +	cstate->topology_mixer_count = mixer_count;
-> +	cstate->topology_bits_per_component = bits_per_component;
-> +}
-> +
-> +void dcp_crtc_commit_kickoff(struct drm_crtc *crtc)
-> +{
-> +	struct dcp_crtc *dcp_crtc = to_dcp_crtc(crtc);
-> +	struct dcp_dpu_kms *dcp_kms = dcp_crtc_get_kms(crtc);
-> +	struct dcp_crtc_state *cstate = to_dcp_crtc_state(crtc->state);
-> +	u32 session_id;
-> +	int ret;
-> +
-> +	if (cstate->hfi_error) {
-> +		drm_err(crtc->dev,
-> +			"DCP_TRIGGER CRTC%u suppressed after HFI error %d\n",
-> +			dcp_crtc->display_id, cstate->hfi_error);
-> +		return;
-> +	}
-> +
-> +	if (!dcp_crtc_get_session(crtc, &session_id)) {
-> +		drm_warn(crtc->dev,
-> +			 "CRTC%u: no active session, skipping FRAME_TRIGGER\n",
-> +			 dcp_crtc->display_id);
-> +		return;
-> +	}
-> +
-> +	/* MSM serializes commits, so only one frame completion may be pending. */
-> +	if (atomic_cmpxchg(&dcp_crtc->pending_kickoff_cnt, 0, 1)) {
-> +		drm_err(crtc->dev,
-> +			"CRTC%u: frame completion already pending\n",
-> +			dcp_crtc->display_id);
-> +		cstate->hfi_error = -EBUSY;
-> +		return;
-> +	}
-> +	dcp_crtc->pending_seq_id = dcp_crtc->commit_seq_id;
-> +
-> +	ret = dcp_hfi_display_commit(dcp_kms->hfi, session_id);
-> +	if (ret) {
-> +		drm_err(crtc->dev,
-> +			"HFI commit failed for CRTC%u (session=%u): %d\n",
-> +			dcp_crtc->display_id, session_id, ret);
-> +		atomic_dec(&dcp_crtc->pending_kickoff_cnt);
-> +		wake_up(&dcp_crtc->frame_done_wq);
-> +	}
-> +}
-> +
-> +void dcp_crtc_wait_for_commit_done(struct drm_crtc *crtc)
-> +{
-> +	struct dcp_crtc *dcp_crtc = to_dcp_crtc(crtc);
-> +	unsigned long timeout = msecs_to_jiffies(DCP_FRAME_DONE_TIMEOUT_MS);
-> +
-> +	if (!atomic_read(&dcp_crtc->pending_kickoff_cnt))
-> +		return;
-> +
-> +	if (!wait_event_timeout(dcp_crtc->frame_done_wq,
-> +				atomic_read(&dcp_crtc->pending_kickoff_cnt) == 0,
-> +				timeout)) {
-> +		drm_err(crtc->dev,
-> +			"frame done timeout for CRTC%u\n",
-> +			dcp_crtc->display_id);
-> +		atomic_set(&dcp_crtc->pending_kickoff_cnt, 0);
-> +	}
-> +}
-> +
-> +void dcp_crtc_complete_commit(struct drm_crtc *crtc)
-> +{
-> +	struct dcp_crtc *dcp_crtc = to_dcp_crtc(crtc);
-> +	unsigned long flags;
-> +
-> +	if (!crtc->state->active)
-> +		dcp_crtc_aggregate_bw(crtc->state, false);
-> +
-> +	spin_lock_irqsave(&crtc->dev->event_lock, flags);
-> +	if (dcp_crtc->event) {
-> +		drm_crtc_send_vblank_event(crtc, dcp_crtc->event);
-> +		dcp_crtc->event = NULL;
-> +	}
-> +	spin_unlock_irqrestore(&crtc->dev->event_lock, flags);
-> +}
-> +
-> +int dcp_crtc_vblank(struct drm_crtc *crtc, bool enable)
-> +{
-> +	struct dcp_crtc *dcp_crtc = to_dcp_crtc(crtc);
-> +	struct dcp_dpu_kms *dcp_kms = dcp_crtc_get_kms(crtc);
-> +	u32 session_id;
-> +	int ret;
-> +
-> +	if (!dcp_kms->hfi || !dcp_crtc_get_session(crtc, &session_id))
-
-Can HFI be NULL here?
-
-> +		return -ENODEV;
-> +
-> +	if (enable)
-> +		ret = dcp_hfi_display_event_register_async(dcp_kms->hfi,
-> +							   session_id, HFI_EVENT_VSYNC);
-> +	else
-> +		ret = dcp_hfi_display_event_deregister_async(dcp_kms->hfi,
-> +							     session_id, HFI_EVENT_VSYNC);
-> +	if (ret)
-> +		return ret;
-> +
-> +	WRITE_ONCE(dcp_crtc->vblank_enabled, enable);
-
-Why do you need vblank_enabled in addition to the
-drm_vblank_crtc::enabled?
-
-> +	return 0;
-> +}
-> +
-> +void dcp_crtc_vblank_callback(struct drm_crtc *crtc)
-> +{
-> +	struct dcp_crtc *dcp_crtc = to_dcp_crtc(crtc);
-> +
-> +	if (!READ_ONCE(dcp_crtc->vblank_enabled))
-> +		return;
-> +
-> +	if (ktime_compare(dcp_crtc->vblank_cb_time, ktime_set(0, 0)) == 0)
-> +		dcp_crtc->vblank_cb_time = ktime_get();
-> +	else
-> +		dcp_crtc->vblank_cb_count++;
-> +	drm_crtc_handle_vblank(crtc);
-> +}
-> +
-> +void dcp_crtc_frame_done_callback(struct drm_crtc *crtc)
-> +{
-> +	struct dcp_crtc *dcp_crtc = to_dcp_crtc(crtc);
-> +
-> +	atomic_add_unless(&dcp_crtc->pending_kickoff_cnt, -1, 0);
-> +	wake_up(&dcp_crtc->frame_done_wq);
-> +}
-> +
-> +static struct drm_crtc *dcp_crtc_find_by_session_id(struct dcp_drv *drv,
-> +						    u32 session_id)
-> +{
-> +	struct dcp_dpu_kms *dcp_kms;
-> +	struct drm_crtc *crtc;
-> +	u32 active_session_id;
-> +
-> +	if (!drv || !drv->kms)
-> +		return NULL;
-
-Why?
-
-> +
-> +	dcp_kms = drv->kms;
-> +
-> +	crtc = dcp_dpu_kms_get_crtc(dcp_kms, session_id);
-
-Hmm, why are you passing session_id here even though the function
-accepts display_id?
-
-> +	if (!crtc || !dcp_crtc_get_session(crtc, &active_session_id) ||
-> +	    active_session_id != session_id)
-> +		return NULL;
-> +
-> +	return crtc;
-> +}
-> +
-> +void dcp_crtc_hfi_vblank_cb(struct dcp_drv *drv, u32 session_id)
-> +{
-> +	struct drm_device *dev = drv && drv->kms ? drv->kms->dev : NULL;
-> +	struct drm_crtc *crtc = dcp_crtc_find_by_session_id(drv, session_id);
-> +
-> +	if (crtc)
-> +		dcp_crtc_vblank_callback(crtc);
-> +	else if (dev)
-
-Can dev be NULL here?
-
-> +		drm_err_ratelimited(dev,
-> +				    "unknown CRTC for HFI VSYNC session %u\n",
-> +				    session_id);
-> +}
-> +
-> +void dcp_crtc_hfi_frame_done_cb(struct dcp_drv *drv, u32 session_id, u32 sequence_id)
-> +{
-> +	struct drm_device *dev = drv && drv->kms ? drv->kms->dev : NULL;
-> +	struct drm_crtc *crtc = dcp_crtc_find_by_session_id(drv, session_id);
-> +
-> +	if (crtc) {
-
-Why? Also, if the !crtc can actually happen, handle it as something
-non-standard:
-
-if (!crtc) {
-	drm_err_ratelimited(...);
-	return;
-}
-
-struct dcp_crtc *dcp_crtc = to_dcp_crtc(crtc);
-...
-
-
-> +		struct dcp_crtc *dcp_crtc = to_dcp_crtc(crtc);
-> +
-> +		/* A single pending commit makes equality valid across sequence wrap. */
-> +		if (sequence_id != dcp_crtc->pending_seq_id) {
-> +			drm_warn(crtc->dev,
-> +				 "CRTC%u: ignoring stale FRAME_SCAN_COMPLETE seq=%u expected=%u\n",
-> +				 dcp_crtc->display_id, sequence_id,
-> +				 dcp_crtc->pending_seq_id);
-> +			return;
-> +		}
-> +		dcp_crtc_frame_done_callback(crtc);
-
-Can't you inline it here?
-
-> +	} else if (dev)
-> +		drm_err_ratelimited(dev,
-> +				    "unknown CRTC for HFI frame-done session %u seq=%u\n",
-> +				    session_id, sequence_id);
-> +}
-> +
-> +static int dcp_crtc_setup_mixer_rois(struct drm_crtc *crtc,
-> +				     struct drm_crtc_state *crtc_state,
-> +				     struct dcp_crtc_state *cstate)
-> +{
-> +	const struct drm_plane_state *pstate;
-> +	struct drm_plane *plane;
-> +	const struct drm_display_mode *mode = &crtc_state->adjusted_mode;
-> +	u32 mixer_count = cstate->topology_mixer_count;
-> +	u32 mixer_width = mode->hdisplay / mixer_count;
-> +	u32 i;
-> +
-> +	if (!mixer_width)
-> +		return -EINVAL;
-> +
-> +	cstate->update_roi.x = 0;
-> +	cstate->update_roi.y = 0;
-> +	cstate->update_roi.w = mode->hdisplay;
-> +	cstate->update_roi.h = mode->vdisplay;
-> +	for (i = 0; i < mixer_count; i++) {
-> +		cstate->mixer_roi[i].x = (mode->hdisplay * i) / mixer_count;
-> +		cstate->mixer_roi[i].y = 0;
-> +		cstate->mixer_roi[i].w = (mode->hdisplay * (i + 1)) / mixer_count -
-> +			cstate->mixer_roi[i].x;
-> +		cstate->mixer_roi[i].h = mode->vdisplay;
-> +		drm_dbg_driver(crtc->dev,
-> +			       "DCP_CHECK CRTC%u LM%u roi=(%u,%u %ux%u)\n",
-> +				to_dcp_crtc(crtc)->display_id, i,
-> +				cstate->mixer_roi[i].x, cstate->mixer_roi[i].y,
-> +				cstate->mixer_roi[i].w, cstate->mixer_roi[i].h);
-> +	}
-> +
-> +	drm_atomic_crtc_state_for_each_plane_state(plane, pstate, crtc_state) {
-> +		bool fullscreen;
-> +		bool assigned = false;
-> +		u32 mixer_idx;
-> +
-> +		if (!pstate || !pstate->visible || !pstate->fb)
-> +			continue;
-> +
-> +		for (mixer_idx = 0; mixer_idx < mixer_count; mixer_idx++) {
-> +			struct dcp_mixer_roi *mixer = &cstate->mixer_roi[mixer_idx];
-> +
-> +			if (pstate->crtc_x >= mixer->x &&
-> +			    pstate->crtc_x + pstate->crtc_w <= mixer->x + mixer->w) {
-> +				assigned = true;
-> +				break;
-> +			}
-> +		}
-> +
-> +		/* Any plane may cover the complete split display. Plane type is
-> +		 * not a resource-selection mechanism in the universal-plane API.
-> +		 */
-> +		fullscreen = pstate->crtc_x == 0 && pstate->crtc_y == 0 &&
-> +			pstate->crtc_w == mode->hdisplay &&
-> +			pstate->crtc_h == mode->vdisplay;
-
-Why do we need to special-handle the fullscreen planes?
-
-> +
-> +		if (!assigned && !fullscreen && mixer_count > 1) {
-> +			/*
-> +			 * Split-pipe/source-split and multirect allocation are
-> +			 * deferred until the atomic pipe resource manager is added.
-> +			 * Reject planes needing multiple mixer rectangles for now.
-> +			 */
-> +			return -EOPNOTSUPP;
-> +		}
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int dcp_crtc_atomic_check(struct drm_crtc *crtc,
-> +				 struct drm_atomic_commit *state)
-> +{
-> +	struct dcp_dpu_kms *dcp_kms = dcp_crtc_get_kms(crtc);
-> +	struct drm_crtc_state *crtc_state =
-> +		drm_atomic_get_new_crtc_state(state, crtc);
-> +	struct dcp_crtc_state *cstate = to_dcp_crtc_state(crtc_state);
-> +	struct drm_plane *plane;
-> +	const struct drm_plane_state *pstate;
-> +	u32 max_width, max_height;
-> +	u32 mixer_count;
-> +	int num_planes = 0;
-> +	int ret;
-> +
-> +	drm_dbg_atomic(crtc->dev, "CRTC%u: atomic_check enable=%d active=%d mode=%s\n",
-> +		       crtc->base.id, crtc_state->enable, crtc_state->active,
-> +		       crtc_state->mode.name[0] ? crtc_state->mode.name : "none");
-> +
-> +	if (!crtc_state->enable || !crtc_state->active)
-> +		return 0;
-> +
-> +	mixer_count = cstate->topology_mixer_count;
-> +	if (mixer_count < 1 || mixer_count > DCP_MAX_MIXERS) {
-> +		drm_err(crtc->dev,
-> +			"CRTC%u: invalid mixer count %u (limit 1..%u)\n",
-> +				crtc->base.id, mixer_count, DCP_MAX_MIXERS);
-
-No, don't let userspace spam the kernel log.
-
-> +		return -EINVAL;
-> +	}
-> +
-> +	ret = dcp_crtc_setup_mixer_rois(crtc, crtc_state, cstate);
-> +	if (ret)
-> +		return ret;
-> +
-> +	dcp_mode_limits(&crtc_state->adjusted_mode,
-> +			dcp_kms->caps->max_width, dcp_kms->caps->max_height,
-> +			&max_width, &max_height);
-> +
-> +	if (crtc_state->adjusted_mode.hdisplay > max_width ||
-> +	    crtc_state->adjusted_mode.vdisplay > max_height) {
-> +		drm_err(crtc->dev, "CRTC%u: mode %dx%d exceeds DCP caps %dx%d\n",
-> +			crtc->base.id,
-> +			crtc_state->adjusted_mode.hdisplay,
-> +			crtc_state->adjusted_mode.vdisplay,
-> +			dcp_kms->caps->max_width,
-> +			dcp_kms->caps->max_height);
-> +		return -E2BIG;
-> +	}
-> +
-> +	/* Limit visible planes to the firmware blend-stage count. */
-> +	drm_atomic_crtc_state_for_each_plane_state(plane, pstate, crtc_state) {
-> +		if (!pstate || !pstate->visible)
-> +			continue;
-> +		num_planes++;
-
-I think I commented here. Can't you use normalized zpos in plane's
-atomic_check instead?
-
-> +	}
-> +
-> +	if (num_planes > DCP_MAX_BLEND_STAGES) {
-> +		drm_err(crtc->dev, "CRTC%u: %d planes exceeds max blend stages %d\n",
-> +			crtc->base.id, num_planes,
-> +			DCP_MAX_BLEND_STAGES);
-> +		return -EINVAL;
-> +	}
-> +
-> +	dcp_crtc_aggregate_bw(crtc_state, true);
-> +
-> +	return 0;
-> +}
-> +
-> +static u32 dcp_crtc_get_vblank_counter(struct drm_crtc *crtc)
-> +{
-> +	return drm_crtc_vblank_count(crtc);
-> +}
-> +
-> +static void dcp_crtc_atomic_enable(struct drm_crtc *crtc,
-> +				   struct drm_atomic_commit *state)
-> +{
-> +	struct dcp_dpu_kms *dcp_kms = dcp_crtc_get_kms(crtc);
-> +	struct dcp_crtc_state *cstate = to_dcp_crtc_state(crtc->state);
-> +	u32 session_id;
-> +	int ret;
-> +
-> +	if (!dcp_crtc_get_session(crtc, &session_id))
-> +		return;
-> +
-> +	ret = dcp_hfi_crtc_set_power_mode(dcp_kms->hfi, session_id,
-> +					  HFI_MODE_DPMS_ON);
-> +	if (ret) {
-> +		drm_err(crtc->dev, "CRTC%u: DPMS ON failed: %d\n",
-> +			to_dcp_crtc(crtc)->display_id, ret);
-> +		cstate->hfi_error = ret;
-> +	}
-> +
-> +	drm_crtc_vblank_on(crtc);
-> +}
-> +
-> +static void dcp_crtc_atomic_disable(struct drm_crtc *crtc,
-> +				    struct drm_atomic_commit *state)
-> +{
-> +	struct dcp_dpu_kms *dcp_kms = dcp_crtc_get_kms(crtc);
-> +	struct dcp_crtc_state *cstate = to_dcp_crtc_state(crtc->state);
-> +	u32 session_id;
-> +	int ret;
-> +
-> +	if (dcp_crtc_get_session(crtc, &session_id)) {
-> +		ret = dcp_hfi_crtc_set_bw(dcp_kms->hfi, session_id, 0, 0, 0, 0, 0);
-> +		if (ret) {
-> +			drm_err(crtc->dev,
-> +				"CRTC%u: clearing bandwidth vote failed: %d\n",
-> +				to_dcp_crtc(crtc)->display_id, ret);
-> +			cstate->hfi_error = ret;
-> +		}
-> +
-> +		ret = dcp_hfi_crtc_set_power_mode(dcp_kms->hfi, session_id,
-> +						  HFI_MODE_DPMS_OFF);
-> +		if (ret) {
-> +			drm_err(crtc->dev, "CRTC%u: DPMS OFF failed: %d\n",
-> +				to_dcp_crtc(crtc)->display_id, ret);
-> +			cstate->hfi_error = ret;
-> +		}
-> +	}
-> +
-> +	drm_crtc_vblank_off(crtc);
-> +}
-> +
-> +static const struct drm_crtc_funcs dcp_crtc_funcs = {
-> +	.set_config             = drm_atomic_helper_set_config,
-> +	.page_flip              = drm_atomic_helper_page_flip,
-> +	.atomic_create_state    = dcp_crtc_atomic_create_state,
-> +	.atomic_duplicate_state = dcp_crtc_atomic_duplicate_state,
-> +	.atomic_destroy_state   = dcp_crtc_atomic_destroy_state,
-> +	.enable_vblank          = msm_crtc_enable_vblank,
-> +	.disable_vblank         = msm_crtc_disable_vblank,
-> +	.get_vblank_counter     = dcp_crtc_get_vblank_counter,
-> +};
-> +
-> +static const struct drm_crtc_helper_funcs dcp_crtc_helper_funcs = {
-> +	.atomic_check         = dcp_crtc_atomic_check,
-> +	.atomic_enable        = dcp_crtc_atomic_enable,
-> +	.atomic_disable       = dcp_crtc_atomic_disable,
-> +	.atomic_begin         = dcp_crtc_atomic_begin,
-> +	.atomic_flush         = dcp_crtc_atomic_flush,
-> +	.mode_valid           = dcp_crtc_mode_valid,
-> +};
-> +
-> +struct drm_crtc *dcp_crtc_init(struct dcp_dpu_kms *kms,
-> +			       struct drm_plane *primary_plane,
-> +			       u32 display_id)
-> +{
-> +	struct drm_device *dev = kms->dev;
-> +	struct dcp_crtc *dcp_crtc;
-> +	int ret;
-> +
-> +	dcp_crtc = drmm_kzalloc(dev, sizeof(*dcp_crtc), GFP_KERNEL);
-> +	if (!dcp_crtc)
-> +		return ERR_PTR(-ENOMEM);
-> +
-> +	dcp_crtc->display_id = display_id;
-> +
-> +	spin_lock_init(&dcp_crtc->spin_lock);
-> +	init_waitqueue_head(&dcp_crtc->frame_done_wq);
-> +	atomic_set(&dcp_crtc->pending_kickoff_cnt, 0);
-> +
-> +	ret = drmm_crtc_init_with_planes(dev, &dcp_crtc->base,
-> +					 primary_plane, NULL,
-> +					 &dcp_crtc_funcs,
-> +					 NULL);
-> +	if (ret) {
-> +		drm_err(dev, "CRTC%u init failed: %d\n", display_id, ret);
-> +		return ERR_PTR(ret);
-> +	}
-> +
-> +	drm_crtc_helper_add(&dcp_crtc->base, &dcp_crtc_helper_funcs);
-> +
-> +	drm_dbg_driver(dev, "CRTC%u initialized\n", display_id);
-> +	return &dcp_crtc->base;
-> +}
-> diff --git a/drivers/gpu/drm/msm/dcp/dcp_crtc.h b/drivers/gpu/drm/msm/dcp/dcp_crtc.h
-> new file mode 100644
-> index 000000000000..ae7046e8d97a
-> --- /dev/null
-> +++ b/drivers/gpu/drm/msm/dcp/dcp_crtc.h
-> @@ -0,0 +1,104 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + * camss-csid-1080.c
 > + *
-> + * DCP CRTC implementation.
+> + * Qualcomm MSM Camera Subsystem - CSID (CSI Decoder) Module
+> + *
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
 > + */
-> +
-> +#ifndef __DCP_CRTC_H__
-> +#define __DCP_CRTC_H__
-> +
 > +#include <linux/completion.h>
-> +#include <linux/spinlock.h>
+> +#include <linux/delay.h>
+> +#include <linux/interrupt.h>
+> +#include <linux/io.h>
+> +#include <linux/kernel.h>
+> +#include <linux/of.h>
 > +
-> +#include <drm/drm_crtc.h>
+> +#include "camss.h"
+> +#include "camss-csid.h"
+> +#include "camss-csid-gen3.h"
 > +
-> +struct dcp_dpu_kms;
-> +struct drm_plane;
+> +/* Reset and Command Registers */
+> +#define CSID_RST_CFG                           0x108
+> +#define                RST_MODE                                BIT(0)
+> +#define                RST_LOCATION                            BIT(4)
 > +
-> +#define DCP_MAX_MIXERS 6
-> +#define DCP_MAX_BLEND_STAGES 12
+> +/* Reset and Command Registers */
+> +#define CSID_RST_CMD                           0x10C
+> +#define                SELECT_HW_RST                           BIT(0)
+> +#define                SELECT_IRQ_RST                          BIT(2)
+> +#define CSID_IRQ_CMD                           0x110
+> +#define                IRQ_CMD_CLEAR                           BIT(0)
 > +
-> +static inline void dcp_mode_limits(const struct drm_display_mode *mode,
-> +				   u32 cap_width, u32 cap_height,
-> +				   u32 *max_width, u32 *max_height)
+> +/* Register Update Commands, RUP/AUP */
+> +#define CSID_RUP_CMD                           0x114
+> +#define CSID_AUP_CMD                           0x118
+> +#define                CSID_RUP_AUP_RDI(rdi)                   (BIT(8) <=
+< (rdi))
+> +#define CSID_RUP_AUP_CMD                       0x11C
+> +#define                RUP_SET                                 BIT(0)
+> +#define                MUP                                     BIT(4)
+> +
+> +/* Top level interrupt registers */
+> +#define CSID_TOP_IRQ_STATUS                    0x180
+> +#define CSID_TOP_IRQ_MASK                      0x184
+> +#define CSID_TOP_IRQ_CLEAR                     0x188
+> +#define                INFO_RST_DONE                           BIT(0)
+> +#define                CSI2_RX_IRQ_STATUS                      BIT(2)
+> +#define                BUF_DONE_IRQ_STATUS                     BIT(3)
+> +#define                TOP_IRQ_STATUS_RDI_OFFSET               16
+> +
+> +/* Buffer done interrupt registers */
+> +#define CSID_BUF_DONE_IRQ_STATUS               0x1A0
+> +#define                BUF_DONE_IRQ_STATUS_RDI_OFFSET          16
+> +#define CSID_BUF_DONE_IRQ_MASK                 0x1A4
+> +#define CSID_BUF_DONE_IRQ_CLEAR                        0x1A8
+> +#define CSID_BUF_DONE_IRQ_SET                  0x1AC
+> +
+> +/* CSI2 RX interrupt registers */
+> +#define CSID_CSI2_RX_IRQ_STATUS                        0x1B0
+> +#define CSID_CSI2_RX_IRQ_MASK                  0x1B4
+> +#define CSID_CSI2_RX_IRQ_CLEAR                 0x1B8
+> +#define CSID_CSI2_RX_IRQ_SET                   0x1BC
+> +
+> +/* CSI2 RX Configuration */
+> +#define CSID_CSI2_RX_CFG0                      0x880
+> +#define                CSI2_RX_CFG0_NUM_ACTIVE_LANES           0
+> +#define                CSI2_RX_CFG0_DL0_INPUT_SEL              4
+> +#define                CSI2_RX_CFG0_PHY_NUM_SEL                20
+> +#define                CSI2_RX_CFG0_PHY_SEL_BASE_IDX           1
+> +#define CSID_CSI2_RX_CFG1                      0x884
+> +#define                CSI2_RX_CFG1_ECC_CORRECTION_EN          BIT(0)
+> +#define                CSI2_RX_CFG1_VC_MODE                    BIT(2)
+> +
+> +#define MSM_CSID_MAX_SRC_STREAMS_1080          (csid_is_lite(csid) ? 4 :=
+ 5)
+> +
+> +/* RDI Configuration */
+> +#define CSID_RDI_CFG0(rdi)     (csid_is_lite(csid) ?\
+> +                                       (0x3080 + 0x200 * (rdi)) :\
+> +                                       (0x5480 + 0x200 * (rdi)))
+> +#define                RDI_CFG0_RETIME_BS                      BIT(5)
+> +#define                RDI_CFG0_TIMESTAMP_EN                   BIT(6)
+> +#define                RDI_CFG0_TIMESTAMP_STB_SEL              BIT(8)
+> +#define                RDI_CFG0_DECODE_FORMAT                  12
+> +#define                RDI_CFG0_DT                             16
+> +#define                RDI_CFG0_VC                             22
+> +#define                RDI_CFG0_EN                             BIT(31)
+> +
+> +/* RDI Control and Configuration */
+> +#define CSID_RDI_CTRL(rdi)     (csid_is_lite(csid) ?\
+> +                                       (0x3088 + 0x200 * (rdi)) :\
+> +                                       (0x5488 + 0x200 * (rdi)))
+> +#define                RDI_CTRL_START_CMD                      BIT(0)
+> +
+> +#define CSID_RDI_CFG1(rdi)     (csid_is_lite(csid) ?\
+> +                                       (0x3094 + 0x200 * (rdi)) :\
+> +                                       (0x5494 + 0x200 * (rdi)))
+> +#define                RDI_CFG1_DROP_H_EN                      BIT(5)
+> +#define                RDI_CFG1_DROP_V_EN                      BIT(6)
+> +#define                RDI_CFG1_CROP_H_EN                      BIT(7)
+> +#define                RDI_CFG1_CROP_V_EN                      BIT(8)
+> +#define                RDI_CFG1_PACKING_FORMAT_MIPI            BIT(15)
+> +
+> +/* RDI Pixel Store Configuration */
+> +#define CSID_RDI_PIX_STORE_CFG0(rdi)   (0x5498 + 0x200 * (rdi))
+> +#define                RDI_PIX_STORE_CFG0_EN                   BIT(0)
+> +#define                RDI_PIX_STORE_CFG0_MIN_HBI              1
+> +
+> +/* RDI IRQ Status in wrapper */
+> +#define CSID_CSI2_RDIN_IRQ_STATUS(rdi) (0x224 + (0x10 * (rdi)))
+> +#define CSID_CSI2_RDIN_IRQ_MASK(rdi)   (0x228 + (0x10 * (rdi)))
+> +#define CSID_CSI2_RDIN_IRQ_CLEAR(rdi)  (0x22C + (0x10 * (rdi)))
+> +#define                INFO_RUP_DONE                           BIT(23)
+> +#define                INFO_INPUT_SOF                          BIT(12)
+> +#define                INFO_INPUT_EOF                          BIT(9)
+> +#define                INFO_CAMIF_SOF                          BIT(4)
+> +#define                INFO_CAMIF_EOF                          BIT(3)
+> +
+> +static void __csid_aup_rup_trigger(struct csid_device *csid)
 > +{
-> +	*max_width = cap_width;
-> +	*max_height = cap_height;
-> +
-> +	if (mode->hdisplay < mode->vdisplay && cap_width > cap_height) {
-> +		*max_width = cap_height;
-> +		*max_height = cap_width;
-
-Why? I guess, the caps interface is just incorrect. We have two
-limitations: the maximum width and the maximum clock / bandwdith.
-maximum height doesn't seem to make any sense here.
-
-> +	}
+> +       /* trigger SET in combined register */
+> +       writel(RUP_SET, csid->base + CSID_RUP_AUP_CMD);
 > +}
 > +
-> +struct dcp_mixer_roi {
-> +	u32 x;
-> +	u32 y;
-> +	u32 w;
-> +	u32 h;
-> +};
-
-Is this an HFI or an internal value? If it's the latter, please use
-drm_rect.
-
-> +
-> +struct dcp_crtc {
-> +	struct drm_crtc base;
-> +	u32 display_id;
-> +	u32 session_id;
-> +	bool session_valid;
-
-Why do we need a separate flag here? When is the session being set and
-when is it removed?
-
-> +	struct drm_pending_vblank_event *event;
-> +	wait_queue_head_t frame_done_wq;
-> +	atomic_t          pending_kickoff_cnt;
-> +	/* Protects CRTC-local vblank and commit state. */
-> +	spinlock_t        spin_lock;
-> +	u32     vblank_cb_count;
-> +	bool    vblank_enabled;
-> +	ktime_t vblank_cb_time;
-> +	bool    enabled;
-> +	u32 commit_seq_id;
-> +	u32 pending_seq_id;
-> +};
-> +
-> +struct dcp_crtc_state {
-> +	struct drm_crtc_state base;
-> +
-> +	u32 topology_mixer_count;
-> +	u32 topology_bits_per_component;
-> +	struct dcp_mixer_roi mixer_roi[DCP_MAX_MIXERS];
-> +
-> +	struct dcp_mixer_roi update_roi;
-
-It's set exactly to the display mode. Can we drop it?
-
-> +	int hfi_error;
-
-Why is it a part of the state? What does it mean if we got an HFI error?
-What is a recovery model? Is it fine to restart the session? Or is the
-whole device wedged?
-
-> +	u64 bw_ctl;
-> +
-> +	u64 dram_ib;
-> +	u64 dram_ab;
-> +	u64 llcc_ib;
-> +	u64 llcc_ab;
-> +	u64 core_clk;
-> +};
-> +
-> +#define to_dcp_crtc(x)       container_of(x, struct dcp_crtc, base)
-> +#define to_dcp_crtc_state(x) container_of(x, struct dcp_crtc_state, base)
-> +
-> +struct drm_crtc *dcp_crtc_init(struct dcp_dpu_kms *kms,
-> +			       struct drm_plane *primary_plane,
-> +			       u32 display_id);
-> +
-> +void dcp_crtc_commit_kickoff(struct drm_crtc *crtc);
-> +void dcp_crtc_wait_for_commit_done(struct drm_crtc *crtc);
-> +void dcp_crtc_complete_commit(struct drm_crtc *crtc);
-> +int dcp_crtc_vblank(struct drm_crtc *crtc, bool enable);
-> +void dcp_crtc_vblank_callback(struct drm_crtc *crtc);
-> +void dcp_crtc_frame_done_callback(struct drm_crtc *crtc);
-
-Are those used outside of dcp_crtc.c? If not, drop all the prototypes
-and definitions which are local to the module. Reorder the functions as
-required to remove the need for the forward declarations, where
-possible.
-
-> +struct dcp_drv;
-> +void dcp_crtc_hfi_vblank_cb(struct dcp_drv *drv, u32 session_id);
-> +void dcp_crtc_hfi_frame_done_cb(struct dcp_drv *drv, u32 session_id, u32 sequence_id);
-> +
-> +void dcp_crtc_set_session(struct drm_crtc *crtc, u32 session_id);
-> +void dcp_crtc_clear_session(struct drm_crtc *crtc);
-> +bool dcp_crtc_get_session(struct drm_crtc *crtc, u32 *session_id);
-> +void dcp_crtc_set_topology_state(struct drm_crtc_state *state,
-> +				 u32 mixer_count,
-> +				 u32 bits_per_component);
-> +
-> +#endif /* __DCP_CRTC_H__ */
-> diff --git a/drivers/gpu/drm/msm/dcp/dcp_dpu_kms.c b/drivers/gpu/drm/msm/dcp/dcp_dpu_kms.c
-> new file mode 100644
-> index 000000000000..44b1c2200aee
-> --- /dev/null
-> +++ b/drivers/gpu/drm/msm/dcp/dcp_dpu_kms.c
-> @@ -0,0 +1,21 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + * DCP KMS driver.
-> + */
-> +
-> +#include <drm/drm_crtc.h>
-> +
-> +#include "dcp_dpu_kms.h"
-> +
-> +struct drm_crtc *dcp_dpu_kms_get_crtc(struct dcp_dpu_kms *dcp_kms,
-> +				      u32 display_id)
+> +static void __csid_addr_update(struct csid_device *csid, int port_id)
 > +{
-> +	unsigned int i;
+> +       csid->aup_update |=3D CSID_RUP_AUP_RDI(port_id);
+> +       writel(csid->aup_update, csid->base + CSID_AUP_CMD);
 > +
-> +	for (i = 0; i < dcp_kms->num_crtcs; i++)
-> +		if (dcp_kms->crtcs[i].display_id == display_id)
-> +			return dcp_kms->crtcs[i].crtc;
-> +
-> +	return NULL;
+> +       __csid_aup_rup_trigger(csid);
 > +}
-> diff --git a/drivers/gpu/drm/msm/dcp/dcp_dpu_kms.h b/drivers/gpu/drm/msm/dcp/dcp_dpu_kms.h
-> new file mode 100644
-> index 000000000000..f8010fc5d32f
-> --- /dev/null
-> +++ b/drivers/gpu/drm/msm/dcp/dcp_dpu_kms.h
-> @@ -0,0 +1,54 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + * DCP KMS state.
-> + */
 > +
-> +#ifndef __DCP_DPU_KMS_H__
-> +#define __DCP_DPU_KMS_H__
+> +static void __csid_addr_update_clear(struct csid_device *csid, int port_=
+id)
+> +{
+> +       csid->aup_update &=3D ~CSID_RUP_AUP_RDI(port_id);
+> +}
 > +
-> +#include <linux/spinlock.h>
+> +static void __csid_reg_update(struct csid_device *csid, int port_id)
+> +{
+> +       csid->rup_update |=3D CSID_RUP_AUP_RDI(port_id);
+> +       writel(csid->rup_update, csid->base + CSID_RUP_CMD);
 > +
-> +#include "msm_drv.h"
-> +#include "msm_kms.h"
+> +       __csid_aup_rup_trigger(csid);
+> +}
 > +
-> +struct dcp_hfi;
-> +struct dcp_caps;
-> +struct dcp_dsi_bridge;
-> +struct dcp_drv;
-> +struct drm_crtc;
+> +static void __csid_reg_update_clear(struct csid_device *csid, int port_i=
+d)
+> +{
+> +       csid->rup_update &=3D ~CSID_RUP_AUP_RDI(port_id);
+> +}
 > +
-> +#define DCP_DPU_AUTOSUSPEND_DELAY_MS	5000
-> +#define DCP_DPU_MAX_CRTCS	4
-> +#define DCP_DPU_MAX_PLANES	12
+> +static void __csid_configure_rx(struct csid_device *csid,
+> +                               struct csid_phy_config *phy)
+> +{
+> +       u8 lane_cnt =3D phy->lane_cnt;
+> +       int val;
 > +
-> +struct dcp_dpu_kms {
-> +	struct msm_kms		 base;
-> +	struct drm_device	*dev;
-> +	struct device		*pm_dev;
-> +	struct dcp_drv		*drv;
-> +	struct dcp_hfi		*hfi;
-> +	struct dcp_caps		*caps;
-> +	struct device_node	*dpus_np;
-> +	struct device		*iommu_dev;
-> +	bool			 rpm_enabled;
-> +	bool			 commit_pm_active;
-> +	struct dcp_dsi_bridge	*dsi_bridge[2];
-> +	struct {
-> +		struct drm_crtc *crtc;
-> +		u32 display_id;
-> +	} crtcs[DCP_DPU_MAX_CRTCS];
-> +	unsigned int num_crtcs;
-> +};
+> +       if (!lane_cnt)
+> +               lane_cnt =3D 4;
 > +
-> +#define to_dcp_dpu_kms(x) container_of(x, struct dcp_dpu_kms, base)
-> +struct drm_crtc *dcp_dpu_kms_get_crtc(struct dcp_dpu_kms *dcp_kms,
-> +				      u32 display_id);
-> +int dcp_dpu_kms_prepare_crtc_session(struct dcp_dpu_kms *dcp_kms,
-> +				     struct drm_crtc *crtc);
+> +       val =3D (lane_cnt - 1) << CSI2_RX_CFG0_NUM_ACTIVE_LANES;
+> +       val |=3D phy->lane_assign << CSI2_RX_CFG0_DL0_INPUT_SEL;
+> +       val |=3D (phy->csiphy_id + CSI2_RX_CFG0_PHY_SEL_BASE_IDX)
+> +              << CSI2_RX_CFG0_PHY_NUM_SEL;
+> +       writel(val, csid->base + CSID_CSI2_RX_CFG0);
 > +
-> +int dcp_dpu_drm_obj_init(struct dcp_dpu_kms *dcp_kms);
-> +extern const struct msm_kms_funcs dcp_dpu_kms_funcs;
-> +int dcp_kms_init(struct drm_device *ddev);
+> +       val =3D CSI2_RX_CFG1_ECC_CORRECTION_EN;
+> +       writel(val, csid->base + CSID_CSI2_RX_CFG1);
+> +}
 > +
-> +#endif /* __DCP_DPU_KMS_H__ */
-> diff --git a/drivers/gpu/drm/msm/dcp/dcp_plane_state.h b/drivers/gpu/drm/msm/dcp/dcp_plane_state.h
-> new file mode 100644
-> index 000000000000..aafa93cb69b9
-> --- /dev/null
-> +++ b/drivers/gpu/drm/msm/dcp/dcp_plane_state.h
-> @@ -0,0 +1,37 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> +static void __csid_configure_rx_vc(struct csid_device *csid, int vc)
+> +{
+> +       int val;
+> +
+> +       if (vc > 3) {
+> +               val =3D readl(csid->base + CSID_CSI2_RX_CFG1);
+> +               val |=3D CSI2_RX_CFG1_VC_MODE;
+> +               writel(val, csid->base + CSID_CSI2_RX_CFG1);
+> +       }
+> +}
+> +
+> +static void __csid_ctrl_rdi(struct csid_device *csid, int enable, u8 rdi=
+)
+> +{
+> +       int val =3D 0;
+> +
+> +       if (enable)
+> +               val =3D RDI_CTRL_START_CMD;
+> +
+> +       writel(val, csid->base + CSID_RDI_CTRL(rdi));
+> +}
+> +
+> +static void __csid_configure_rdi_pix_store(struct csid_device *csid, u8 =
+rdi)
+> +{
+> +       u32 val;
+> +
+> +       /*
+> +        * Configure pixel store to allow absorption of hblanking or idle=
+ time.
+> +        * This helps with horizontal crop and prevents line buffer confl=
+icts.
+> +        * Reset state is 0x8 which has MIN_HBI=3D4, we keep the default =
+MIN_HBI
+> +        * and just enable the pixel store functionality.
+> +        */
+> +       val =3D (4 << RDI_PIX_STORE_CFG0_MIN_HBI) | RDI_PIX_STORE_CFG0_EN=
+;
+> +       writel(val, csid->base + CSID_RDI_PIX_STORE_CFG0(rdi));
+> +}
+> +
+> +static void __csid_configure_rdi_stream(struct csid_device *csid, u8 ena=
+ble, u8 port, u8 vc)
+> +{
+> +       u8 lane_cnt =3D csid->phy.lane_cnt;
+> +       u32 val;
+> +
+> +       /* Source pads matching RDI channels on hardware.
+> +        * E.g. Pad 1 -> RDI0, Pad 2 -> RDI1, etc.
+> +        */
+> +       struct v4l2_mbus_framefmt *input_format =3D &csid->fmt[MSM_CSID_P=
+AD_FIRST_SRC + port];
+> +       const struct csid_format_info *format =3D csid_get_fmt_entry(csid=
+->res->formats->formats,
+> +                                                                  csid->=
+res->formats->nformats,
+> +                                                                  input_=
+format->code);
+> +
+> +       if (!lane_cnt)
+> +               lane_cnt =3D 4;
+> +
+> +       val =3D RDI_CFG0_TIMESTAMP_EN;
+> +       val |=3D RDI_CFG0_TIMESTAMP_STB_SEL;
+> +       val |=3D RDI_CFG0_RETIME_BS;
+> +
+> +       /* note: for non-RDI path, this should be format->decode_format *=
+/
+> +       val |=3D DECODE_FORMAT_PAYLOAD_ONLY << RDI_CFG0_DECODE_FORMAT;
+> +       val |=3D vc << RDI_CFG0_VC;
+> +       val |=3D format->data_type << RDI_CFG0_DT;
+> +       writel(val, csid->base + CSID_RDI_CFG0(port));
+> +
+> +       val =3D RDI_CFG1_PACKING_FORMAT_MIPI;
+> +       writel(val, csid->base + CSID_RDI_CFG1(port));
+> +
+> +       /* Configure pixel store using dedicated register in 1080 */
+> +       if (!csid_is_lite(csid))
+> +               __csid_configure_rdi_pix_store(csid, port);
+> +
+> +       val =3D 0;
+> +       writel(val, csid->base + CSID_RDI_CTRL(port));
+> +
+> +       val =3D readl(csid->base + CSID_RDI_CFG0(port));
+> +
+> +       if (enable)
+> +               val |=3D RDI_CFG0_EN;
+> +
+> +       writel(val, csid->base + CSID_RDI_CFG0(port));
+> +}
+> +
+> +static void csid_configure_stream(struct csid_device *csid, u8 enable)
+> +{
+> +       u8 i, k;
+> +
+> +       __csid_configure_rx(csid, &csid->phy);
+> +
+> +       for (i =3D 0; i < MSM_CSID_MAX_SRC_STREAMS_1080; i++) {
+> +               if (csid->phy.en_vc & BIT(i)) {
+> +                       __csid_configure_rdi_stream(csid, enable, i, 0);
+> +                       __csid_configure_rx_vc(csid, 0);
+> +
+> +                       for (k =3D 0; k < CAMSS_INIT_BUF_COUNT; k++)
+> +                               __csid_addr_update(csid, i);
+
+Do we really need to trigger the same AUP several times (one per
+buffer in the FIFO)? could we have a small comment on why?
+Isn't this already done from the vfe_enable_output helper?
+
+> +
+> +                       __csid_reg_update(csid, i);
+> +
+> +                       __csid_ctrl_rdi(csid, enable, i);
+> +               }
+> +       }
+> +}
+> +
+> +static int csid_configure_testgen_pattern(struct csid_device *csid, s32 =
+val)
+> +{
+> +       return 0;
+> +}
+> +
+> +static void csid_subdev_reg_update(struct csid_device *csid, int port_id=
+, bool is_clear)
+> +{
+> +       if (is_clear)
+> +               __csid_reg_update_clear(csid, port_id);
+> +       else
+> +               __csid_reg_update(csid, port_id);
+> +}
+> +
+> +static void csid_subdev_addr_update(struct csid_device *csid, int port_i=
+d, bool is_clear)
+> +{
+> +       if (is_clear)
+> +               __csid_addr_update_clear(csid, port_id);
+> +       else
+> +               __csid_addr_update(csid, port_id);
+> +}
+> +
+> +/**
+> + * csid_isr - CSID module interrupt service routine
+> + * @irq: Interrupt line
+> + * @dev: CSID device
 > + *
-> + * DCP plane state definitions.
+> + * Return IRQ_HANDLED on success
 > + */
+> +static irqreturn_t csid_isr(int irq, void *dev)
+> +{
+> +       struct csid_device *csid =3D dev;
+> +       u32 val, buf_done_val;
+> +       u8 reset_done;
+> +       int i;
 > +
-> +#ifndef __DCP_PLANE_STATE_H__
-> +#define __DCP_PLANE_STATE_H__
+> +       val =3D readl(csid->base + CSID_TOP_IRQ_STATUS);
+> +       writel(val, csid->base + CSID_TOP_IRQ_CLEAR);
 > +
-> +#include <drm/drm_plane.h>
+> +       reset_done =3D val & INFO_RST_DONE;
 > +
-> +#define DCP_PLANE_PROP_PKT_MAX_SIZE	512
+> +       buf_done_val =3D readl(csid->base + CSID_BUF_DONE_IRQ_STATUS);
+> +       writel(buf_done_val, csid->base + CSID_BUF_DONE_IRQ_CLEAR);
 > +
-> +struct dcp_plane_state {
-> +	struct drm_plane_state base;
+> +       for (i =3D 0; i < MSM_CSID_MAX_SRC_STREAMS_1080; i++) {
+> +               if (csid->phy.en_vc & BIT(i)) {
+> +                       val =3D readl(csid->base + CSID_CSI2_RDIN_IRQ_STA=
+TUS(i));
+> +                       writel(val, csid->base + CSID_CSI2_RDIN_IRQ_CLEAR=
+(i));
 > +
-> +	u64 fetch_bw;
-> +	u64 clk;
+> +                       if (val & INFO_RUP_DONE) {
+> +                               __csid_addr_update_clear(csid, i);
+> +                               __csid_reg_update_clear(csid, i);
+> +                       }
 > +
-> +	u8     prop_pkt[DCP_PLANE_PROP_PKT_MAX_SIZE];
-> +	size_t prop_pkt_size;
-> +	u32 prop_pkt_id;
+> +                       if (buf_done_val & BIT(BUF_DONE_IRQ_STATUS_RDI_OF=
+FSET + i))
+> +                               camss_buf_done(csid->camss, csid->id, i);
+> +               }
+> +       }
 > +
-> +	bool needs_dirtyfb;
+> +       val =3D IRQ_CMD_CLEAR;
+> +       writel(val, csid->base + CSID_IRQ_CMD);
 > +
-> +	u32 src_img_w;
-> +	u32 src_img_h;
+> +       if (reset_done)
+> +               complete(&csid->reset_complete);
 > +
-> +	u32 hfi_pipe_id;
-> +	u32 hfi_format;
+> +       return IRQ_HANDLED;
+> +}
+> +
+> +/**
+> + * csid_reset - Trigger reset on CSID module and wait to complete
+> + * @csid: CSID device
+> + *
+> + * Return 0 on success or a negative error code otherwise
+> + */
+> +static int csid_reset(struct csid_device *csid)
+> +{
+> +       unsigned long time;
+> +       u32 val;
+> +       int i;
+> +
+> +       reinit_completion(&csid->reset_complete);
+> +
+> +       val =3D INFO_RST_DONE | BUF_DONE_IRQ_STATUS;
+> +       writel(val, csid->base + CSID_TOP_IRQ_CLEAR);
+> +       writel(val, csid->base + CSID_TOP_IRQ_MASK);
+> +
+> +       val =3D 0;
+> +       for (i =3D 0; i < MSM_CSID_MAX_SRC_STREAMS_1080; i++) {
+> +               if (csid->phy.en_vc & BIT(i)) {
+> +                       /*
+> +                        * Only need to clear buf done IRQ status here,
+> +                        * RUP done IRQ status will be cleared once isr
+> +                        * strobe generated by CSID_RST_CMD
+> +                        */
+> +                       val |=3D BIT(BUF_DONE_IRQ_STATUS_RDI_OFFSET + i);
+> +               }
+> +       }
+> +       writel(val, csid->base + CSID_BUF_DONE_IRQ_CLEAR);
+> +       writel(val, csid->base + CSID_BUF_DONE_IRQ_MASK);
+> +
+> +       /* Clear all IRQ status with CLEAR bits set */
+> +       val =3D IRQ_CMD_CLEAR;
+> +       writel(val, csid->base + CSID_IRQ_CMD);
+> +
+> +       val =3D RST_LOCATION | RST_MODE;
+> +       writel(val, csid->base + CSID_RST_CFG);
+> +
+> +       val =3D SELECT_HW_RST | SELECT_IRQ_RST;
+> +       writel(val, csid->base + CSID_RST_CMD);
+> +
+> +       time =3D wait_for_completion_timeout(&csid->reset_complete,
+> +                                          msecs_to_jiffies(CSID_RESET_TI=
+MEOUT_MS));
+> +
+> +       if (!time) {
+> +               dev_err(csid->camss->dev, "CSID reset timeout\n");
+> +               return -EIO;
+> +       }
+> +
+> +       return 0;
+> +}
+> +
+> +static void csid_subdev_init(struct csid_device *csid)
+> +{
+> +       csid->testgen.nmodes =3D CSID_PAYLOAD_MODE_DISABLED;
+> +}
+> +
+> +const struct csid_hw_ops csid_ops_1080 =3D {
+> +       .configure_stream =3D csid_configure_stream,
+> +       .configure_testgen_pattern =3D csid_configure_testgen_pattern,
+> +       .hw_version =3D csid_hw_version,
+> +       .isr =3D csid_isr,
+> +       .reset =3D csid_reset,
+> +       .src_pad_code =3D csid_src_pad_code,
+> +       .subdev_init =3D csid_subdev_init,
+> +       .reg_update =3D csid_subdev_reg_update,
+> +       .addr_update =3D csid_subdev_addr_update,
+> +};
+> diff --git a/drivers/media/platform/qcom/camss/camss-csid.h b/drivers/med=
+ia/platform/qcom/camss/camss-csid.h
+> index 2f7e593defed..603621c16315 100644
+> --- a/drivers/media/platform/qcom/camss/camss-csid.h
+> +++ b/drivers/media/platform/qcom/camss/camss-csid.h
+> @@ -162,7 +162,13 @@ struct csid_device {
+>         void __iomem *base;
+>         u32 irq;
+>         char irq_name[30];
+> -       u32 reg_update;
+> +       union {
+> +               u32 reg_update;
+> +               struct {
+> +                       u32 rup_update;
+> +                       u32 aup_update;
+
+I would say keep it simple and just add addr_update field after reg_update.
+
+
+> +               };
+> +       };
+>         struct camss_clock *clock;
+>         int nclocks;
+>         struct regulator_bulk_data *supplies;
+> @@ -224,6 +230,7 @@ extern const struct csid_hw_ops csid_ops_4_1;
+>  extern const struct csid_hw_ops csid_ops_4_7;
+>  extern const struct csid_hw_ops csid_ops_340;
+>  extern const struct csid_hw_ops csid_ops_680;
+> +extern const struct csid_hw_ops csid_ops_1080;
+>  extern const struct csid_hw_ops csid_ops_gen2;
+>  extern const struct csid_hw_ops csid_ops_gen3;
+>
+> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/pl=
+atform/qcom/camss/camss.c
+> index 0358ee384012..7acace363fc2 100644
+> --- a/drivers/media/platform/qcom/camss/camss.c
+> +++ b/drivers/media/platform/qcom/camss/camss.c
+> @@ -83,6 +83,79 @@ static const struct camss_subdev_resources csiphy_res_=
+kaanapali[] =3D {
+>         },
+>  };
+>
+> +static const struct camss_subdev_resources csid_res_kaanapali[] =3D {
+> +       /* CSID0 */
+> +       {
+> +               .clock =3D { "csid", "csid_csiphy_rx" },
+> +               .clock_rate =3D { { 400000000, 480000000 },
+> +                               { 400000000, 480000000 } },
+> +               .reg =3D { "csid0" },
+> +               .interrupt =3D { "csid0" },
+> +               .csid =3D {
+> +                       .is_lite =3D false,
+> +                       .parent_dev_ops =3D &vfe_parent_dev_ops,
+> +                       .hw_ops =3D &csid_ops_1080,
+> +                       .formats =3D &csid_formats_gen2
+> +               }
+> +       },
+> +       /* CSID1 */
+> +       {
+> +               .clock =3D { "csid", "csid_csiphy_rx" },
+> +               .clock_rate =3D { { 400000000, 480000000 },
+> +                               { 400000000, 480000000 } },
+> +               .reg =3D { "csid1" },
+> +               .interrupt =3D { "csid1" },
+> +               .csid =3D {
+> +                       .is_lite =3D false,
+> +                       .parent_dev_ops =3D &vfe_parent_dev_ops,
+> +                       .hw_ops =3D &csid_ops_1080,
+> +                       .formats =3D &csid_formats_gen2
+> +               }
+> +       },
+> +       /* CSID2 */
+> +       {
+> +               .clock =3D { "csid", "csid_csiphy_rx" },
+> +               .clock_rate =3D { { 400000000, 480000000 },
+> +                               { 400000000, 480000000 } },
+> +               .reg =3D { "csid2" },
+> +               .interrupt =3D { "csid2" },
+> +               .csid =3D {
+> +                       .is_lite =3D false,
+> +                       .parent_dev_ops =3D &vfe_parent_dev_ops,
+> +                       .hw_ops =3D &csid_ops_1080,
+> +                       .formats =3D &csid_formats_gen2
+> +               }
+> +       },
+> +       /* CSID_LITE0 */
+> +       {
+> +               .clock =3D { "vfe_lite_csid", "vfe_lite_cphy_rx" },
+> +               .clock_rate =3D { { 400000000, 480000000 },
+> +                               { 400000000, 480000000 } },
+> +               .reg =3D { "csid_lite0" },
+> +               .interrupt =3D { "csid_lite0" },
+> +               .csid =3D {
+> +                       .is_lite =3D true,
+> +                       .parent_dev_ops =3D &vfe_parent_dev_ops,
+> +                       .hw_ops =3D &csid_ops_1080,
+> +                       .formats =3D &csid_formats_gen2
+> +               }
+> +       },
+> +       /* CSID_LITE1 */
+> +       {
+> +               .clock =3D { "vfe_lite_csid", "vfe_lite_cphy_rx" },
+> +               .clock_rate =3D { { 400000000, 480000000 },
+> +                               { 400000000, 480000000 } },
+> +               .reg =3D { "csid_lite1" },
+> +               .interrupt =3D { "csid_lite1" },
+> +               .csid =3D {
+> +                       .is_lite =3D true,
+> +                       .parent_dev_ops =3D &vfe_parent_dev_ops,
+> +                       .hw_ops =3D &csid_ops_1080,
+> +                       .formats =3D &csid_formats_gen2
+> +               }
+> +       }
 > +};
 > +
-> +#define to_dcp_plane_state(x) \
-> +	container_of(x, struct dcp_plane_state, base)
-> +
-> +#endif /* __DCP_PLANE_STATE_H__ */
-> 
-> -- 
-> 2.43.0
-> 
-
--- 
-With best wishes
-Dmitry
+>  static const struct resources_icc icc_res_kaanapali[] =3D {
+>         {
+>                 .name =3D "ahb",
+> @@ -5652,9 +5725,11 @@ static const struct camss_resources kaanapali_reso=
+urces =3D {
+>         .version =3D CAMSS_KAANAPALI,
+>         .pd_name =3D "top",
+>         .csiphy_res =3D csiphy_res_kaanapali,
+> +       .csid_res =3D csid_res_kaanapali,
+>         .icc_res =3D icc_res_kaanapali,
+>         .icc_path_num =3D ARRAY_SIZE(icc_res_kaanapali),
+>         .csiphy_num =3D ARRAY_SIZE(csiphy_res_kaanapali),
+> +       .csid_num =3D ARRAY_SIZE(csid_res_kaanapali),
+>  };
+>
+>  static const struct camss_resources msm8916_resources =3D {
+>
+> --
+> 2.34.1
+>
