@@ -1,62 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.165
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793034633;
-	b=MJbuU1wMDefQVnhrxgyx1qgrxwlTJk2xZX9aTyKXE4myfQ2mPOHUFqOdwXDwelFmyJAw
-	 3f+t+SEhk0+t3sXOe1LTaRciSAXyHyVjP4/jxEjAWyw3IY2v8zon1ex9Dk7Zw+94jkV5f
-	 LhhRwCunOXGvq4tLMf8h1Nbsp9amWvphQAqPiuO3lIr72xkcNo9P2UJN0wmclUPQGjMQ3
-	 3E5pG3jNzVZrr0QkIPfm/4vnSu4A1Q/ObqNtz6RvCeSiAA8QSAOMNZJIHu2Jq51uA3huB
-	 BxrzzfUZErbNhdw0GoZ6bz1rteqdDpCx4vp3T19Z3coaFOj+d1PuOnyBsmwAHRKQeHA==
+	t=1793034644;
+	b=BwH/4nyo2rYeUd8lptdypgTS50vWy6u1NwJrQ0aB1PyNvWKdRlXkaugVZwp6ga1aAZpp
+	 2yUhnAZcS7sDCq0s8KFa4saM8FQlydxg/x2M2XXHjSWD3IQXGZDnXb+1FirfTZEis9b46
+	 yedcd0wb8GHDSeSrTPSxsyCWJf2U1wY+oU0KC8WQt2Aah4L8AcVJnaSVtjTyzGaoVb4ND
+	 2S4aQW9S7XGeYKMlnMglaZ25Yg4wjOqoWbbWt2hoScTytM7S4GLtNfuMBZNTTQML3Isuy
+	 oizRpt/SbYfnaUjBq0g+hlpKzxc4l/jiTIMkWHaY7ezyXfzDK853IPb9zLsgV1O8mng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793034633;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=PYgl4/AlR9E7qD/6t01/AqAhjtHt2uKRS8XnGrG05+A=;
-	b=JWsfLA57qnABfL9E7Qse0PYsLgqMZWVldF/ybCDJOBaCNiTP/ARD5EGrjiBH0YL1vJuV
-	 MpX107rnhkXXSIHLFjwShLmB4CBnwa5odIlQ73P160U+tqiC5r5w2h+8OtFpVdFhV0CUQ
-	 SifOTdP7mmQ7eiD2b5wijIUvNgOnOcEAaQep4ttYEkN3eRritkcyIVkCAlY95hxSy9LU5
-	 56vQIWsM7aZ9+bwrXrsyT/ZRq3epo/Heg4ngTrVAwG9FHnb8t4/Nq0DmLPHzd/zvX+eCT
-	 nUrp0sKD+P1n0wn4CyTGbE7T8QtPNKDKxObr79ZX2IeA/w3o42zccdpxBoRitzXzYWg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793034644;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=epdRLgbapYMRA4ir25N+P6Qr0N6BbX3gxt7GqKIcd6c=;
+	b=2ip8tneiKTzYavTmUSWP/KOb+wHR18dleWKiCCLOqgeipcMNcNHHJOQSwaC+HGBRu72N
+	 c4K48dQIPH+WxEAe+4D4BXfDIeVP1M/gjjyPsDZ79/L1cUW4I1n9iF6jp7gTggbxN+L/q
+	 X+iCwJLnP3yAwccGfawlgjMsPCDvZ6GcsgdjPrvaE1GFMecrPaYQL9hHGSsxQfzJEoJVE
+	 BYcXjncAlk/P0c5WTG8/Sg6dqLoxAdY5cTM5XeT2isAOQOCuWbtnLg4c4ey6nutxOJmzB
+	 t6DYdRhtevukfKqccwsIkwBLw2xcAtxrEc8+s56jt3euw011JEFLdEdUO2Q6sFvJPFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=IvwcoIFU;
-	arc=none smtp.remote-ip=91.218.175.165
-Received: from mta0.migadu.com (out-165.mta0.migadu.com [91.218.175.165])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dpu3tG7S;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50106606A321
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 17:10:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50106606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14596606A31A;
+	Mon, 26 Oct 2026 17:10:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=IvwcoIFU
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=pcthy6ORiWzW3EmGLV8zsnkU+qv48Vriy9rB5HlVHlU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793034629; v=1; x=1793639429;
- b=IvwcoIFUwnmW6X8wZFE90I/ZGEzZdt3lwnKHTcY0+9LG9Mtcg7nt7cEoqLCdMBmRRfD0LhWM
- JVLhwl5jKMKRCSYivSEJwdUT/jyAuzwbyolm8peKQwGdCOLlGRjVz+wcQUY1x8mEmWJ/B+cRdG6
- H2w+V2lRGYQSeRzRfQNIHgbk=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ca7cc9c82adf714d;
-	Mon, 26 Oct 2026 17:10:28 +0000
-X-Mizu-Trace-ID: ca7cc9c82adf714d
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5be58ad9600so456e87.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:10:24 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByOmP079s8ADd+NzV9inf0DDHNPSV/ybtGt0EaTY3vP4eS0UaMnrxPjcUjGbWtVuY1B0+DQWs/2MXSw8DI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKFRRx/wQV2OIBncC5Gf+s2Va3WK2Ns12nmYFEkUa8od/dEZ6Se
-	U5m2Z1oPF78iL19bNha1qE6n1NNcaD3zMXzezldBVqq1QJ1dVGThrnWiJoykLwpI7guT05x8JCb
-	3McwJspBjegaaFK//RX5RrziuYBfDBSgafxBVOq1l
-X-Received: by 2002:a05:6512:130c:b0:5bf:c1d8:b44b with SMTP id
- 2adb3069b0e04-5bfc1d8b53amr122078e87.14.1793034623586; Mon, 26 Oct 2026
- 10:10:23 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dpu3tG7S
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AD6B1F01825;
+	Mon, 26 Oct 2026 17:10:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793034643;
+	bh=epdRLgbapYMRA4ir25N+P6Qr0N6BbX3gxt7GqKIcd6c=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Dpu3tG7ShVanJ39uB4XgafwFk5q1QNmxSM6CmjXEHU6TTw3lnif1eUv5qzrZmFUKS
+	 a9SQmMKkPIin/v0K/+GF93LuMI9ylV2D5wFE1jhqimEMZyBfUmmadRo4yfvsLA9tx5
+	 FUYBakHibnwc3c23g0IKGtg1yjTGma9oPcM98/S4gKJkjzoet/CcXMsIY1C58vwQVo
+	 ok+jnxaFl6dbGjILM+9x3MyxIDYRnTHCob1oZUU8AgA74rWSeezzoB7xmbU7rZJw/3
+	 uJTdfDzZDJ3bQ7KmDWv264at3MHd/1u5D2WJQzGaCPv0Ok2k4BzbVN6vS62B9+QQ7t
+	 Ag7mZU+reI+vg==
+Date: Mon, 26 Oct 2026 17:10:39 +0000
+From: Simon Horman <horms@kernel.org>
+To: Ayush Yaduvanshi <ayush37735@gmail.com>
+Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] net: 8390: fix kernel-doc warning for __ei_tx_timeout
+Message-ID: <20261026171039.GG257209@horms.kernel.org>
+References: <20261022084046.214725-1-ayush37735@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,43 +57,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261025075138.2919734-1-fuad.tabba@linux.dev>
- <20261025075138.2919734-4-fuad.tabba@linux.dev> <a86348e5-a55a-4a99-a3c6-24b3213ed3d1@arm.com>
-In-Reply-To: <a86348e5-a55a-4a99-a3c6-24b3213ed3d1@arm.com>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Mon, 26 Oct 2026 17:09:47 +0000
-X-Gmail-Original-Message-ID: <CA+EHjTxyenZzByhAckimWUSgG5fMFVBwyB8bsC15xaoaU1RPVQ@mail.gmail.com>
-X-Gm-Features: AclHuK-pKf8gC2S2-5qJFUs5PfEVBnKKd1_HAZS3RuQB33ufSZ6ApBNWFpRYh6w
-Message-ID: <CA+EHjTxyenZzByhAckimWUSgG5fMFVBwyB8bsC15xaoaU1RPVQ@mail.gmail.com>
-Subject: Re: [PATCH v2 3/5] KVM: arm64: Add context-switch of ACCDATA_EL1
-To: Suzuki K Poulose <suzuki.poulose@arm.com>
-Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, kvmarm@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Joey Gouly <joey.gouly@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
-	Steffen Eiden <seiden@linux.ibm.com>, Mark Rutland <mark.rutland@arm.com>, 
-	Yicong Yang <yangyicong@hisilicon.com>, Zhou Wang <wangzhou1@hisilicon.com>, 
-	Arnd Bergmann <arnd@arndb.de>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261022084046.214725-1-ayush37735@gmail.com>
 
-On Mon, 26 Oct 2026 at 15:41, Suzuki K Poulose <suzuki.poulose@arm.com> wrote:
-[...]
-> > +static inline bool ctxt_has_accdata(struct kvm_cpu_context *ctxt)
-> > +{
-> > +     struct kvm_vcpu *vcpu;
-> > +
-> > +     /* The host never uses ACCDATA_EL1 */
-> > +     if (!cpus_have_final_cap(ARM64_HAS_LS64_ACCDATA) || !ctxt_is_guest(ctxt))
-> > +             return false;
-> > +
-> > +     vcpu = ctxt_to_vcpu(ctxt);
-> > +     return kvm_has_feat(kern_hyp_va(vcpu->kvm), ID_AA64ISAR1_EL1, LS64, LS64_ACCDATA);
->
-> minor nit: Aligning with the other kvm_has_feat() usecsaes, should we
-> wrap this under kvm_has_accdata() (with moving the cpus_have_final_cap()
-> to the wrapper ?)
+On Thu, Oct 22, 2026 at 02:10:46PM +0530, Ayush Yaduvanshi wrote:
 
-Thanks Suzuki. I'll do this change if I respin.
+A description and your Signed-off-by needs to go here.
 
-Cheers,
-/fuad
+> ---
+>  drivers/net/ethernet/8390/lib8390.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+
+But, more importantly, this is an orphaned driver, and:
+
+Quoting documentation:
+
+  Clean-up patches
+  ~~~~~~~~~~~~~~~~
+  
+  Netdev discourages patches which perform simple clean-ups, which are not in
+  the context of other work. For example:
+  
+  * Addressing ``checkpatch.pl``, and other trivial coding style warnings
+  * Addressing :ref:`Local variable ordering<rcs>` issues
+  * Conversions to device-managed APIs (``devm_`` helpers)
+  
+  This is because it is felt that the churn that such changes produce comes
+  at a greater cost than the value of such clean-ups.
+  
+  Conversely, spelling and grammar fixes are not discouraged.
+  
+See: https://www.kernel.org/doc/html/next/process/maintainer-netdev.html#clean-up-patches
+-- 
+pw-bot: reject
