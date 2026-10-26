@@ -1,100 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.45
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793006700;
-	b=nFqDeYSFDx2ETy3PpJF6ScGHKljEnRsNsWb1JZoL276IWHabPi4jA8yy17MvdoUW035i
-	 CUi66i0nJbzpRUxG4aljOnFxnTL+Fqo9T9pHsF8mnYWleDAqo3IeN7OfZKoknmi444wDX
-	 dgFdKe4YEh3SLS7edA8L+zLaMiBht3UqFY5wsOBgaQJHq1+9xjjX5Yc+Juk1B8zYvP6OP
-	 YniNF0/8X1SL7HzdIYwLy1/MvvBN8Vq1VrszX/plcxQ0xtNNmy3f5YQCyukRkIbXVzBo+
-	 oVYnMGU2eHbxbdTHE3uAvFTlSrGGUEeRG34vz9Zy0lw3ka/GnThB3Qz+3my5SY5DeDA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793006700;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=iH7cQ2YJ8diUnJspTVTMz6UMogpLRPO/6WHl7KC9WGw=;
-	b=oJte2aFIR7pTs/jiO6hPsGQ8F/f5g3x8ZqgOkZRI+o7S/nXE6/WBUhGQEjx51X3w2GXH
-	 Y6PihDMSCFIWRNxW8HipL9aDrLmDbOQcV3CVx8LBlpzfmQASf7SzgOJKLGMWNotAdQRbq
-	 txd0G88XaqciCC7amYXP2qLjvr2e1ddkmqWkyLf3UrYAGI5Q4q0gfKPunyvwtVdhASxDR
-	 uUBn4zXpOALeszksJsQGu1cwvtQzqzKg8KvhmwMl8WDURNK7rCU7Dl0bBBeo7spDU7lYK
-	 DhsyS58lV8Jjkvhw/ByrPgz7XOveNfzySdTpAb7KyabQgu+KG8arSOkoU2xTASCZjDA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=npI9svaZ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.45
-Received: from mail-ot1-f45.google.com (mail-ot1-f45.google.com [209.85.210.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.119
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793006727;
+	b=c7E6DC4gk3TJGHVGbxQifj7xupctiUPqHoN7KNn+FhktTC1JTsUdEodpbmsbAjk/YIg7
+	 J7NjX4EfJdL2ghsuMctN28pf9esLUSIdwyM56Ump6+Tfyg1JXmzfCf0Lh6aWz3ke/GGMc
+	 i2HgS6L7e9VYywT4GgsTNgly7Zr0lsmnQBk+XDW5uzdfFjWzIyAMg4RYT4/HroP5QKbEw
+	 8Xr0OzM1ptT0cay+VQPMIWCNtNQs8QQgM4yLOBxTzbTLGpzh3Ayd33TjIh8qXml67tW5e
+	 VYLre+2FYB9E5SjV0TSV7woVOg3uZEtV9jxfDd/IlLkSmNkTxbFvYYeCXxdY2wMKDVg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793006727;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=neal1959JqgEWou8sGoT1vgWhum0hw9FeMKlI6YLU5c=;
+	b=tLNkvpyps0yKpW3eGQ7jBh8hImlrmTZQ/VS3DcEJjvEsSeDfYzeaF/4f3gD8YpptrcTa
+	 vtoQ2sGhVgrvUVTOEXJi18+Ke1VWMNHYg58E02sCAffvSrQInnEA/W6aEbDGp4ZF6DYrX
+	 62/jLlVzZ3WpagPg1swJP17wzO9EiN2Arv8GjskPQFP6mf/KTQnsRIgzNlOmsUqEnM49H
+	 9XnK+79BdZO4R0665puwFanjsW+fFnXJzJmmUBkuPuEUjEQXQh9p+MwnHQrQe6DwV0UB1
+	 C1ttp2LllkixElN3XTSto1irEZz/wzb2b3U0z3QSwk+gooDpf3GdEuq3+yO1WZITQYg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nxsw.ie;
+	spf=pass smtp.mailfrom=nxsw.ie;
+	dkim=pass header.d=nxsw.ie header.i=@nxsw.ie header.a=rsa-sha256 header.s=protonmail2 header.b=J9tfiFXB;
+	arc=none smtp.remote-ip=109.224.244.119
+Received: from mail-244119.protonmail.ch (mail-244119.protonmail.ch [109.224.244.119])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 750A0606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:25:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 750A0606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96883606A31B;
+	Mon, 26 Oct 2026 09:25:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96883606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nxsw.ie
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxsw.ie
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=npI9svaZ
-Received: by mail-ot1-f45.google.com with SMTP id 46e09a7af769-833e671ee9fso2544171a34.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:25:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793006699; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ld3DwFVgpIHveFLwhiLN7tc3lCmMlcThwTqHzao+o4gNV2q6wZ79V1IuD99RVGi01X
-         DLKnIqbQLVRyuZskwprFV8oUv1W9apQ5CLp3KXEEEYawuWngsJAbo0kl+E/LM9uIXhL6
-         g/0KpDzg+Z924XVzEFnioygLtL7Be8fMjfPV65X3nkJ2Un7c/5NIKZppnnOIUyZCp1Xc
-         xT6upcqMVmsR7Lw6qqBpMU0jj9UQ9NmkrOxC3JFey2FUWl2YtJHdvSvgvQe9MDlnrh60
-         JBbV80mKBZ1s1utkpzbswAPiUH+mgRMZuBwrlc/H+SYATJtlnccfhT8AXL3lPuRUOfQy
-         B7uw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=iH7cQ2YJ8diUnJspTVTMz6UMogpLRPO/6WHl7KC9WGw=;
-        fh=PNLiUyMMtaq/iHhG5v34eE0HXUaScVvmnIEI0sLZRiA=;
-        b=OVeFDeCvYKhMjGCEMDmZ2rjJjgqGwIc9Zl+KCymsdJXZKEytRn28qi0/MzTuqcZIcN
-         rTQLmXvxOr/cKJvbM9LFbscTYupY6WEeD7XNTLoaX64bH4WQCAv0LVJ6DFMjJQ0mlx4n
-         a1rwrlF7b1XT2infZv1Vu5DaniCGY4cQhrHfG9efMypHwuVn+21Ihjl3vcbImLun68N3
-         I7N/NtDNfZmFT7VqrUbTWvLDGYWBZ4OSRu0mZwAHzq/eGCQPMiOpbT76bXdmYfr/WKI9
-         4PrJUQN74xMzSr3Z/MNXd9VuTTJ1NU+0YbkQETZI+gO5wcu0bGhe5GbHcI6PDMpCIjTC
-         33hw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793006699; x=1793611499; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=iH7cQ2YJ8diUnJspTVTMz6UMogpLRPO/6WHl7KC9WGw=;
-        b=npI9svaZBA6Q/fnfV8DcOEJhjM9ZLDS7VKmClWBDff5edZZiF6kchNGvifgPa1EOZd
-         AeVbItT7ET3ew8/gY4XKFNZIgp3QInHg8Atm2aMpQYuGE2lDS8j4Ik7d70Nh4SaZ4PvN
-         l7GdMvWvPCwYQzqgikQQHAV/HNGacsVxOHYaiMYK1V86tSfTxFuGjrmAFw/HXRc5qCw/
-         vjDNT4a7X1v2QFgwiBxa/4Xs7AxgS7nD5gqWba2iwXTCO8zzp+mhd7kHZt1TnlFEJEvV
-         SbdIv1kthQ0diCNhkVe+TB2b7HCMB2gfbD8m5PMKjcE50+qjjAzlI5i1Rc5GPxgeNnPo
-         d9sg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793006699; x=1793611499;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iH7cQ2YJ8diUnJspTVTMz6UMogpLRPO/6WHl7KC9WGw=;
-        b=WRjwVqGR3a5nKwpfz5wP/0zVbFm8sMDhnTUwiWk/NF7yrxKiyI1ubTS79BPBy9xZvH
-         nZTjnnLIi+JL5zZXMugp4WL+plRYkZLo5qSxFsvo2HNgeMmY15OUkFyAT2EOYnHiL+c2
-         mgI0Ji7ao1zvTxr9uRYvRJWrCcDDIMzvK634jKC7d6RUCZvY+TVI/+PQxbgZArf4bAdf
-         1UuhA2c3ksNuLQdGbHJ52EBGoXrOy28pmwO8syWaIdAphnYe0JSIaWme+d6h3Jev6/jc
-         wcqIpATIInXxplK7a5t1ObP7Hvcfpolfw9v1cMbYyf/lTg8M9Pi8SUPpFb7vRNQV1pgw
-         YeUg==
-X-Forwarded-Encrypted: i=1; AKwUvBz2j/fqDRxV+rCdQcDjQwBnqOuqURlwQ0U4j4Pwwa9HdQHhDXdhwkHFs1RkhARMWTfDkbksUQlvo6tKsl8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJk8y5EoWiJbzJB1UZGuH0Qs+wVsyBTf29H6Yy1Ye/K7V+7Ehwm
-	hNKorandftDSR1wmGvfy9ZjcSkhctJGKilU0wLu09+nODaAbd1FXx2YPiSPUq3LFUfcck4Q1S6I
-	ocLEVs2vwLwB4qOwBIn9CVE2uJItR9sg=
-X-Gm-Gg: AYBFou2/Uj+kHbnjIIw4gwqGjffcJje/9+t+Aq3328Hcjh7uobNqvgN5cuFIuA23KkI
-	ym2wWgJ9yGctKwH0bU8zshdxIg4ondH73SXEZhAWFwj4qE1C/ajRsVWzDnFFVX3EavnPJBa5ujM
-	hmyNarA1et+JKPC6isL+mT64U3fmteE1ngGf0712A6LWu+gwNBgfTqsKzBGOjlUEbAAToZrrP13
-	RmfYZUDuCkvwpJmfMM+yCSMhmAxJJz5JLajisY7vtJ+E98OGwL6KJSoKbdLVCRq/xE1Kkw/+K64
-	vaSX+CiD8HdIRb/yhKZe+4vJjXHLKhJbci/AURpOFNkwalI8h8Z33Bbj94E+9AdAip4v/JCkqmz
-	IiFJ3XmEO8aZE3+TGDw/c3QZRJopirFsbEDRxQkXK1gn2Z/aC06aRk/VTWpn/MMQD6E3Yg9U=
-X-Received: by 2002:a05:6820:6fc7:b0:704:d59f:2a2f with SMTP id
- 006d021491bc7-70ba1004bfdmr2405887eaf.86.1793006699407; Mon, 26 Oct 2026
- 02:24:59 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=nxsw.ie header.i=@nxsw.ie header.a=rsa-sha256 header.s=protonmail2 header.b=J9tfiFXB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxsw.ie;
+	s=protonmail2; t=1793006723; x=1793265923;
+	bh=neal1959JqgEWou8sGoT1vgWhum0hw9FeMKlI6YLU5c=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=J9tfiFXBdHnS9yXgU6FBFY1bjpHOJP/cTWUV/Z03uGDF4BZMXjebFI3y58WKFjVDG
+	 PtSWTqGpTZta8ZEcnC5akkI37V3H942KHRZh6qtOxX4Mg0OHfmnQ9De+Aqtxa06cG0
+	 okEwQC0PMCvRZiaJgN9k2LgslCsAOajwN+NBgDg5ViWgKRXroqVq8TGr5RbqdNpz+n
+	 7NLo7nv8Mp3KQLWI29wsSSjzL7/gQv3CUC2tDUGbBW/sI9GTgyJn5vzZxPN9UY0969
+	 saXbRRQaEvqOfyYAip2mamg3TzKVVOXlSqROp7/fgVIom5N7HEh9W8SmpA2j74W57i
+	 aljsMp2lRtkFQ==
+Date: Mon, 26 Oct 2026 09:25:19 +0000
+To: Atanas Filipov <atanas.filipov@oss.qualcomm.com>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Mauro Carvalho Chehab <mchehab@kernel.org>
+From: Bryan O'Donoghue <bod.linux@nxsw.ie>
+Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Loic Poulain <loic.poulain@oss.qualcomm.com>, Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>, linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 6/6] media: qcom: camss: sm8250: set the camera NoC AXI rate from the VFE
+Message-ID: <35facf70-8693-4d7a-8d00-b884078f0a99@nxsw.ie>
+In-Reply-To: <20261024094027.3095475-7-atanas.filipov@oss.qualcomm.com>
+References: <20261024094027.3095475-1-atanas.filipov@oss.qualcomm.com> <20261024094027.3095475-7-atanas.filipov@oss.qualcomm.com>
+Feedback-ID: 136405006:user:proton
+X-Pm-Message-ID: a1ae12a058cef00e2bf4f9a74eeec8a01593b2a5
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,46 +64,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261026081832.60570-1-himanshu.bakshi478@gmail.com> <at8UoLDzrO9ypMeR@stanley.mountain>
-In-Reply-To: <at8UoLDzrO9ypMeR@stanley.mountain>
-From: Himanshu Bakshi <himanshu.bakshi478@gmail.com>
-Date: Mon, 26 Oct 2026 14:54:47 +0530
-X-Gm-Features: AclHuK9P_GrPtY5hmmGoqr94XfczFIROopEnJs5pAYehQGelpuKw7iWG8V9_J8c
-Message-ID: <CAGLmz9JD3UQ+4cAV4nigm8U4Jtb47=oBGi06miQWuetenszoYw@mail.gmail.com>
-Subject: Re: [PATCH] staging: fbtft: Remove unused macro
-To: Dan Carpenter <error27@gmail.com>
-Cc: andy@kernel.org, gregkh@linuxfoundation.org, dennylin0707@gmail.com, 
-	cenzhang@linux.microsoft.com, dri-devel@lists.freedesktop.org, 
-	linux-fbdev@vger.kernel.org, linux-staging@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, dan.carpenter@linaro.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Oct 26, 2026 at 2:21=E2=80=AFPM Dan Carpenter <error27@gmail.com> w=
-rote:
-> This commit message is sort of acceptable but a better commit message
-> would be:
->
-> "The fbtft_init_dbg() macro is not used, so delete it."
->
-> 1. () after the macro name to show it works as a function.
-> 2. We care about the whole kernel not just drivers/staging/fbtft.
-> 3. No need to discuss dev_dbg().  That is unrelated.
-> 4. No need to discuss compiling the driver since that is assumed.
->
-> Otherwise it looks fine.
->
-> Reviewed-by: Dan Carpenter <error27@gmail.com>
->
-> regards,
-> dan carpenter
+On 24/10/2026 10:40, Atanas Filipov wrote:
+> The SM8250 VFE resources list both the camera NoC AXI RCG,
+> camnoc_axi_src, and its camnoc_axi branch. The camnoc_axi_src levels
+> are never applied, since vfe_match_clock_names() does not match that
+> name, and they list 480 MHz, which the RCG does not support. The
+> camnoc_axi branch has no rates, so the camera NoC runs from XO and two
+> concurrent streams stall.
+>=20
+> Drop camnoc_axi_src, as the camnoc_axi branch keeps it enabled through
+> its parent, and list the 300 and 400 MHz camera NoC AXI rates for the
+> camnoc_axi branch, whose rate the VFE sets through the parent. The four
+> VFEs share its source through a clock domain, so it runs at the highest
+> rate requested by the running VFEs.
+>=20
+> Signed-off-by: Atanas Filipov<atanas.filipov@oss.qualcomm.com>
 
-Hi Dan,
+I suggested bundling in clk_set_rate_range() to this patch but I believe=20
+it would be more productively and correctly done as a wholesale=20
+replacement of patch #4.
 
-Thank you so much for the review. I cannot find any call site for this
-macro in the overall kernel anywhere and hence it is safe to remove
-it.  I have sent over the PATCH v2 with all the changes that you
-suggested and will be glad if you take a look at it.
+The point of your patch#4 was to fix the framework, which should be done=20
+I agree as a standalone patch - not mushed in here.
 
-Thanks and regards,
-Himanshu Bakshi
+---
+bod
+
