@@ -1,54 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793030284;
-	b=JBFWDHh5KaeVGtZ8/srlYbN/vchHeWMf7JEsV4gzg5VwSgpfab1lxZp9ClGWaUf7/6sx
-	 +S8XplqtcIy9eXvrBTvUEkEZFaknL/NfMs+tB9qwEMU/Ek3fCOR4PZfKaz4v/iYwEpHVs
-	 h6py/FRX8xnpSMnoktgE7nLaOPxU5v7Y264x7aNGGvrnF9BBPDUt8U/6extlecE4s5gpt
-	 A3p03DUgWbV9m1o4g3pE2DtcSsjhdUU5Jw1NztQyP319usSyb3i0xPxy9RQAFefmIOLlz
-	 XaYzEbjf2lrE6+oI3Y+Mt/LdH4FTL59t3b70xTJ/lMjt1skDpGzeKXU0RlHEKdGSjQw==
+	t=1793030324;
+	b=0a0cEzRBsEsCdu+ZTzYXbTjAN3SQc5sfUbIzmSa9FpQqlfi0Wq1pcasF7ABFj5IPIeJU
+	 8iOnB0F/ORghksZ2UfnOoNfDp8n4ba/G11kKiQLrLBssuS/RgfRf7Cf+8hFB5x/K0B+ri
+	 AEy3O44Pk+TqCIxC/ENQOVKhJxxiuEYFoHcFbb6VseYby+eIzbZM8Qf6Qnvdow7JwGBYE
+	 4/rbKp56pAtkYVa0iyPMqwoPRVbQEhd/rDsrePZ0jNRo2oG7Gqs+G2jjvVrSn8IQiKJSN
+	 YPk0c4GQEeANodBTNKTwQwkDIHpJ/bMjMW+dI5JeAi2GschogVNuWb6YM+hEktakZzQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793030284;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793030324;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=vDe8CRpYtfnlmiKQSVOlxcNlMy5T26XfLimRRniHF+0=;
-	b=LF2VNBTf1vyy7M7FxEYxI9WpLIvvDS1GMn8gtHm+uZvENmRzG+OeuAe88yqxdSAzIH0d
-	 OxSqSs6XiQkpV6eFt7DuBMNyAbS07bv2r7XniUdgTOexedDwsvG7cdSLoY2Me8+zPf8Mg
-	 6QbL4ZJWGvGGw3ZV9Ad5wTUTB8e5TLY1mgMrJ5HXH3q3t1ca1w9DC4kyJ/iONcQr6i7l8
-	 OKE2UdiKseylVRamvO4WBLz9kD6p7TazRE+q7zyd/5Pm6ohYza4rKpRODaCugN85q4GxG
-	 n3ZrHt7tfS2Ql9dzdvm6Llvh43B9GIGYRl9NSegqyV9AaY3QQC0CNunAlUurwZ6zscQ==
+	bh=eZAP7Nz9rXRWZhVSYPJ/pbBpkrnLzpAj+W5fvtEnIBg=;
+	b=e5vCd4rWiTEmAtb1/O/fCX552QEXQmzAmxrgZTh4+LYP5pv3g/G86DINO5ceMW4FdUOW
+	 bfPk5cZT+l5GVeelbsCJJmb5kkMaXwxhu6se3qg33G9//Ahx8dG3mjEe1OpfjW2hXo50g
+	 7s9o50E2jmfAoTZxT8qm8shYOVC/ivgRPlEHt+oFV8WZyyi+jLqYS/yOKFR0z6noyxuXn
+	 JrsVof8XtxmSnnb23ZLWgHd/vo7Y/Cb2zlisBoNOboW6K5zWxL7BQ129MUG2dtrXm5qv1
+	 uK9WjoIpWqejUU1+8MFpe2UFuv9KXBs6S3nHFT6fhDYCz51hrdqZe/JgB13ORekeW8w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RfGdENv1;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IZhlpQ4N;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 847CF606A31D;
-	Mon, 26 Oct 2026 15:58:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37884606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 15:58:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RfGdENv1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA1081F01825;
-	Mon, 26 Oct 2026 15:58:03 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IZhlpQ4N
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93AFA1F01825;
+	Mon, 26 Oct 2026 15:58:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793030284;
-	bh=vDe8CRpYtfnlmiKQSVOlxcNlMy5T26XfLimRRniHF+0=;
+	s=k20260515; t=1793030323;
+	bh=eZAP7Nz9rXRWZhVSYPJ/pbBpkrnLzpAj+W5fvtEnIBg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RfGdENv1KO6WGultc5JBQI30mnFo6lIKcY9IMNm242LLG++yypD0knxji/25b8PHA
-	 KWUyeaY+4qcol3KBKeNo/GMw23xHfVVKzB402sfacJYzvNeFe0vZy2sQNkMTR4sBTA
-	 aS24MMu0Ia1VzOQuVdZFCc+ZaXidM1CweyLxsyn4wzGVxu8YYpmOW2gjBQ9Z6qCaSb
-	 N5LRLymxHHOcSDK0YF1Oa37aZCvH6asL4lEb88PKQ34ncvLwNfAQNWCB9f2nPYsiyM
-	 cX9YDggdR5JCxlrTsVUznB2IBeWahvXy3OARhdTDh0GYMww/mQKO50oK7pU4vvBbOz
-	 mWdsfHDrHsgeQ==
-Date: Mon, 26 Oct 2026 09:58:02 -0600
+	b=IZhlpQ4N5DCp/PmhUmxzRbgq9jO+mfSoW1UQ1VvC5j5CmzacXCjiC1v2VmxZ2GWTN
+	 LcyGxJ07ckVqTLeU/4sI3D9k4fp9qMrSxaUS9Of3Bq6nIsVEk+gJAXlkWcm6lvh3VQ
+	 b4dCTbR1BycywQqPcBSJylYzfiKEShKlU6EzzqwgUZioQP7dXfaYNfOSEFVa7zfdKU
+	 /PpGAWTKIU0eHorMa593v84AAqgqKIH25WOIQRmQZCreyWVRkFGSEISCLlzMDEEkNC
+	 LamIDbM/x92K1NTCfdQX6tzpKEsrGt0t4LuBPIOKlcuwGCuEcGNn8Q1frbIfhzREnc
+	 J1J5wvdT2BwHA==
+Date: Mon, 26 Oct 2026 09:58:42 -0600
 From: Keith Busch <kbusch@kernel.org>
-To: Christian Aurich Zanettini Martins <christian.aurichzm@gmail.com>
-Cc: linux-nvme@lists.infradead.org, axboe@kernel.dk, hch@lst.de,
-	sagi@grimberg.me, sgogte@purestorage.com, mgurtovoy@nvidia.com,
-	israelr@nvidia.com, wagi@kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] nvme-rdma: fix NULL metadata_sgl dereference with T10-PI
-Message-ID: <at94ipr6nhBIMBK2@kbusch-mbp>
-References: <20261024213737.506824-1-christian.aurichzm@gmail.com>
+To: Rongzheng Wang <testwrzwrz@gmail.com>
+Cc: Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
+	Chaitanya Kulkarni <kch@nvidia.com>, linux-nvme@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] nvmet: use the enabled transport when disabling a port
+Message-ID: <at94snlz2OrINQcC@kbusch-mbp>
+References: <20261023191851.5316-1-testwrzwrz@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,25 +59,20 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261024213737.506824-1-christian.aurichzm@gmail.com>
+In-Reply-To: <20261023191851.5316-1-testwrzwrz@gmail.com>
 
-On Sat, Oct 24, 2026 at 06:37:37PM -0300, Christian Aurich Zanettini Martins wrote:
-> Since commit 2a8513091d2f ("nvme-rdma: parallelize I/O queue allocation
-> and startup") the I/O tag set is allocated before the I/O queues.
-> nvme_rdma_init_request() only sets req->metadata_sgl if
-> queue->pi_support is set, but pi_support is only set later by
-> nvme_rdma_alloc_queue(), so every I/O request is left with a NULL
-> metadata_sgl.
+On Sat, Oct 24, 2026 at 03:18:51AM +0800, Rongzheng Wang wrote:
+> nvmet_disable_port() looks up the transport from the current
+> disc_addr.trtype, while nvmet_enable_port() records the transport in
+> port->tr_ops.  If trtype is changed while a port is being enabled, the
+> port can be removed through a different transport, passing the private
+> data of the original transport to the wrong ->remove_port().
 > 
-> With an RDMA device that supports integrity and a namespace formatted
-> with protection information, nvme_rdma_dma_map_req() then dereferences
-> the NULL pointer on the first integrity I/O, already during the
-> namespace scan when there is more than one I/O queue.
+> The same mismatch is reachable with loop and RDMA: loop add_port()
+> leaves port->priv NULL, and RDMA remove_port() dereferences it.
 > 
-> Queues that a later reconnect adds for the first time have the same
-> problem.
-> 
-> Check queue_idx and the controller's max_integrity_segments instead,
-> which is what nvme_rdma_alloc_queue() derives pi_support from.
+> Use port->tr_ops for removal and serialize trtype changes with
+> nvmet_config_sem in nvmet_addr_trtype_store(), so the transport that
+> added the port is also the one that removes it.
 
 Thanks, applied to nvme-7.4.
