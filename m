@@ -1,103 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793006951;
-	b=PwQxn9VslxGdLav6GL8mfWN9FksU2Q0RJoqorZRaCmHJ63L1Gev5pHZJN+NaQl5ALq8W
-	 KR3BbwnA7n4uGIt9dNVvCoFVUGXuwkLPUF6/ziE0iEKzHdXTCMwLe1lxVZrOIahhvvgsU
-	 7zVYNkAXa7cZnZOzMt3Cvp8/C8oqMQGoxCA/lX4SL4HyWYA3v6zpscRmOjpJTD3JX5YaM
-	 QANNOqZwprObI4GE33TaGbY2eqlkgxikMD79UAfpfkFwF6dt5qP79Jo6bclIaP9zagRa7
-	 RQ8Lo7UwpIAJw3ivJk/ZEq8YHsiOqVBgwSSqZcNxOpwsw6y5FAW//VZPEIa+Ti6TobA==
+	t=1793007006;
+	b=HeYel71Px/OUj6JybVFumI3Jrmoo7MFep84Iokt97euQMsp3xlJhG2K6p1CnrgchcZPJ
+	 qZDKy56gLqiuphHNPM9tbinrCa9Y66cSU/v5Rw6NY/Qq/YZHb02seQNdvCAZpTwettxyv
+	 Jtd4MW+yBOsb7e8tfEccAUzaHyNKv92BOFf2uQfviwZ6u70dQuK4sOjB3b3leVpewgUZh
+	 VZwMJD+4hXGDCgC9BmBfzuCs6JkwKVN0JwG3+Tios8IQ1byCrlt2ZZRUBmwdYz8CJEzFH
+	 WvWYTK/Z96sUPGO+cLFM2iW4pJtSgjMermHvaP0NRVEHKj65Q3P6VfnOdfJmwS7z1Dw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793006951;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793007006;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=iHJl2Qh8Tnlk572C5kNHQyc3XqOREsPzi1FpNma4L3I=;
-	b=zlI3DzyvqJBItDK3HzbSWryfxnfduK78DcWZVozPfvDjCwovNoN0XfAKzktUGQF3S501
-	 Uim9yJQZ+tjsiMaVddMXCLpuxT0PHukfZ+juSjK8kCzwRrolIQYWNDUMTB1Yo536H4S7q
-	 vcyNa1vhBAb+qbMpF5HROc5gpFnu6xWSIlPWOBygABxR81cAPmfE+dTZ0td85IAGDJ19u
-	 DwaI1ugQkmqMYYgbOF4It56wWjwwVLkeExRKk+0Bcu9wey1b05jNRnBg6RzQiPxWbNa+J
-	 ckUZDw3J8AD4OukmQrjgz8CIjVsScqwu6WEutX2aqhylH32cTUubFl08BhNxnz4iMjQ==
+	bh=hTY8VQIlE+Xjvg0Xp6QPO+Pn1Af1VD1rvxxNkn+l+OU=;
+	b=IoSBB0xo8l6ODVkbA3FzL6spXmcESnBOSZ60dVpHAPfaM5W9d3w9AQQbyAjnegjCkwio
+	 kDd/uLshNbArY3DkSyaCrBv8iVh3xO2f4qa1CwPmcBjSyTpQ1MSlVq+pCtGgwS1qz9Hqn
+	 ewPnnCdkigbbqU70NNsz4WuFOciDPGh8J+v3VK4dG4CzyZr8kNayKGgXRnAgM5hn9Go+E
+	 ABJ/uZzGjY11WLL8ziyBCAS5d/4w3Ks92089dKqLAG0nLM8TGJIgBASPnKiE9CC6x42j4
+	 Wn9VZCFk++Z3xCrzmekDoUhCWsxUM3Wtk3nj853yuowSrNcVfr467W+rpN5Nn4nWCTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=fTCqnJmZ;
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KNKoMm9G;
+	arc=none smtp.remote-ip=74.125.227.139
+Received: from mail-pj2-f11.google.com (mail-pj2-f11.google.com [74.125.227.139])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99A1D606A331
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:29:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99A1D606A331
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55A31606A31E
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:30:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55A31606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=fTCqnJmZ
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a35ac4475dso11853935e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:29:10 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KNKoMm9G
+Received: by mail-pj2-f11.google.com with SMTP id 98e67ed59e1d1-3ae378e2f41so76836a91.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:30:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793006949; x=1793611749; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iHJl2Qh8Tnlk572C5kNHQyc3XqOREsPzi1FpNma4L3I=;
-        b=fTCqnJmZsRBXplhYxFAOrUar5/9FwpEu+rdiQIigRVB4eQQKie4OHxu5TCFViIK4iz
-         ue6D5JQThOG585rYCKrUQVMR5qHWIptSC+SYYJuQ+pPMTOwyGLWkC1d0Jp5arloi2hTw
-         wcC209kO5rlY3dNSgI6lFVjvJxR/Gzj58rQo3ddtI3g/DBcfyjKrqckNPOMesd0VgJBv
-         X9CGPij/vQAgye8IP6aDhAG0TPkz37vjYJ2I/mtuasGA7hjNEomOXEX9tDcpoL65e9sF
-         fnGG5eAZ99kbgYRS10swnHx8QTEXG6xe8D5GuHwWi3weR4sgSF8dwYbnY/86hmhbaDRn
-         fbNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793006949; x=1793611749;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1793007006; x=1793611806; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=iHJl2Qh8Tnlk572C5kNHQyc3XqOREsPzi1FpNma4L3I=;
-        b=dQq1l8aJPAcvMFlkXdB+w6PqG8IAjwM2v1o5pJyl+qvwnlq3eKXvpELvV7EsnKQmOA
-         7HbF2KAj5ATBDalIh2mCNg4O+pS3dVgAVexJ/m5qxreynGhViluYKoptNv4VQsy/GcaE
-         V1VMHNtImYgcTHcAuhEEv6SlbemmfjgTFXgA3aOasl09HJ/p7ojvjuGWJpCFQdE/9s0l
-         4uykPUYLkEoi0xjshAB+QjvImQWxH7lYVEfUmtA+PvnXHlOPodRnszQZlaKaTDLHoRk9
-         x0xpi/uooPdBi9ctX+XKM8jT58zyPjQYTMx1mI1D1p/D/kSvcuKwpvCj5UB3rUvekizL
-         PLAg==
-X-Forwarded-Encrypted: i=1; AKwUvBxk8c2l5de8zK1zIoHnhbHp+JKHCk5hvQGtxDyEN64tMQotvwQcP5GgU32rRz57BLu9ZrXS/N3f6It4nFg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJtqRqtU/uox/pXIzyOslc5R6Ovya/5gEOw2ibKNgEVQ628zzmg
-	veW6gtHcm8ic2vBuHA8GGhQZMRA9UXE308/iyIdTW02kH31eup34CprH
-X-Gm-Gg: AYBFou1D/CbaI2DNQnYeNl0fkbLUowxB/NBgSpbbD+zIAKVVTFNjxeOHyBqF20GqjAK
-	Z+gMW2Hck2pFcIWSwkJ27oq3/OL8oSS7IMmR/ATe5PDBqbs0+aCoWMkuNw5E6NtcNOvA0iF/uNA
-	+3KCCZMSH/nQsffbo8CH7iiUdM404klCOJCo+SgZTxHBjEEbRQFRb0zf74egoIHRzh0GuNpEJux
-	TooXPkzTth4s2OoO76rZ5rMJQsVmSw0DicxjB2XCBA910kwS4Tv5pjgDRf3zxEcS/TFsw+vKOoo
-	HZvWdBJeh4xKgbIZMZIpklTh8eux3insUHmS5NRJP3cf/tFJZF0qW2PsQrdDkV20eV56k3lzb4Y
-	ZyN1IyjeIIX7OZa6vzNKiJ/xS68jLsMmdhZiOq1wtLWRt4AlC3CeFHyDz5xMBQkFnfyldZ75VtZ
-	BfEmOSIeuN8wmSCrtNdt+vPgniwg+DztAqrFtFjF3OhAm8CAQH+Jn4hQhYdKJO28FdkblKhEeLS
-	i1Agpb4vkpHMM6rpPUdsT/fkQYIE/mTUrCOisZbplRP3hp9KkYhRXhrcpAbT7JHaeXfTpcSatsh
-	rzQzId9MrjOgzTB5MbyL9QrxyvLgSoewIOWZV3xpm6w7pDLYPqxHY3Yi+YzmLJhz1H3Z2yRj4dE
-	=
-X-Received: by 2002:a05:600c:a04:b0:49f:fe39:5bc8 with SMTP id 5b1f17b1804b1-4a7555d89c5mr4396695e9.12.1793006948732;
-        Mon, 26 Oct 2026 02:29:08 -0700 (PDT)
-Received: from GLaDOS.station ([187.13.216.220])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a5822a7sm187356525e9.11.2026.10.26.02.29.06
+        bh=hTY8VQIlE+Xjvg0Xp6QPO+Pn1Af1VD1rvxxNkn+l+OU=;
+        b=KNKoMm9GdSSemJHKGLoeohsnsg0ixA1NMl64D/Xh2c7FKtHknla26gWCSEmX9kY9mD
+         /5tGTEQzM3p/ghxQr+uvSi8Th/3GD0RtT13QB4v82UaFH888dXuqagcAZ7+ZVxilF/u7
+         s9bT1ENlFk0Fbtgn47cjpG35UYUFmaxuNtVJFpRD2MMIDhADhgOabr++4ZUMmdkTcc3I
+         9gxV6AVOn7enmTZbjY/dMVthzsgFL9CWbYpIjIYMczFdk4NAx2eR8SNxDNZUToaORbXU
+         nT5n6JWA32WiYsOJ9ElxiK1fMUSNYoOkmHv4s935Zkjp8UyqU0QVwWENLT++Nw1XY9Dn
+         qlWw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793007006; x=1793611806;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hTY8VQIlE+Xjvg0Xp6QPO+Pn1Af1VD1rvxxNkn+l+OU=;
+        b=DPu8cTS8RnQoLKA+/mDNLA1lnAAdKHppdnwBrzXtH9eO1ZIzIBMY4pNBrMg9CVr1jV
+         mKIY5S9PmLWSd1/YPFlfZssfbE1fIjKv9Iglv4jCI1rrIcGWhVKkAcxJ+uGOd7+2fSQy
+         eVSRIdosp6Lbq+tUsPGtKksSVcPYZDMNKAfLnTHGDdiXm0Me8g/IH3T27ae+mn93xFFz
+         gbMM6CSfaXhlvb32I+F4/lqcRGOSdMmzQdzGXV8FGCC59HSNwqs0+KCfIkhml5beYHsC
+         QyQlfvfKLT5AlMhhtu80Ef1W2E3vcI0Zi6Ji7EeGeSQYsrozYGJfHKU2vHpLiXKdOPx+
+         O5CQ==
+X-Forwarded-Encrypted: i=1; AKwUvByyGi+QjDwBn3ijiycXtF0+02rEaHsyKjtSXPvAR/NnNwE4YNFSLApWHn79g+CWQhJz5LwYxnycHTWOWi8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLgEUeBABc7fKfIjth0Dxp0/JD7IOfdAF66do54mdhhtD4mZbMP
+	O84RI3GX1eG29VhT3S06sd/D1AbbY5ChqgWpwR48vpHj+9RcpBbpOjbx
+X-Gm-Gg: AYBFou3uKkO+rv/EkvCWqcr4/Is3QcAd1V4t29mw1LPznS1UovHjFehnjICxMWiGNIu
+	x9T/7xFns6PvJh7/mVLRUaV2i+a6aAdFxB3pLv0lU0ZTqoiSzD59HeeRK9OUYGnwHJ7OV3M/rNg
+	oWGfpFSExfVY/Upp3f7JX3y6pd43jmb7FM98ia+Ehmfznhw29k39JauHFeS4wAXS8e2zuPljO6d
+	1SCoKwhYWRiS5w00O0aNaKUodQ8zT9HCEbjrHcfcJAThW6ZpeG8b5Ut/+fu2OuSrxbhU/HyHJWJ
+	4rg5IwykEOLkDAXzWPpNpJoDg9p504tFSjdfjsBfZHvQ19sYNcpC2h9mZp+h12hdwsgWt2JRrBM
+	qD2CrzqbUkjG0chg3yelimFhWPv/lUDbfgx208rVzGxvJTBQ6G+eBCv9RKK1O5mVASGIGO44fUN
+	6YB8k8ck+KuPsy0GLqCDQ4SYfsyS6I2e0nfqQx4U4TwMME/HQ00cLw3PIrAMZYejtc8Wnxof/c/
+	0ae1WbxKx+VkhpywIfHsnUgb2M+81+1fpuPFPxTjtBPB7i2ECtoJyWtumZS7TDi4aCnrUZrp57m
+	CzM5iR0=
+X-Received: by 2002:a17:90b:1c8f:b0:3ab:3384:1a44 with SMTP id 98e67ed59e1d1-3adeaae6ab1mr5668619a91.12.1793007005446;
+        Mon, 26 Oct 2026 02:30:05 -0700 (PDT)
+Received: from lima-ubuntu.hz.ali.com ([47.246.98.219])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adebaddd45sm5436708a91.2.2026.10.26.02.30.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 02:29:08 -0700 (PDT)
-From: Stefano Radaelli <stefano.radaelli21@gmail.com>
-X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
-To: Frank Li <Frank.Li@nxp.com>,
+        Mon, 26 Oct 2026 02:30:04 -0700 (PDT)
+From: Qing Wang <wangqing7171@gmail.com>
+To: harry@kernel.org
+Cc: akpm@linux-foundation.org,
+	cl@gentwo.org,
+	hao.li@linux.dev,
 	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Cc: pierluigi.p@variscite.com,
-	Stefano Radaelli <stefano.r@variscite.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Luan Rafael Carneiro <luan.r@variscite.com>
-Subject: [PATCH v1 1/1] arm64: dts: freescale: imx8mm-var-dart-sonata: Fix PCIe PHY init
-Date: Mon, 26 Oct 2026 10:28:58 +0100
-Message-ID: <20261026092858.10591-1-stefano.r@variscite.com>
-X-Mailer: git-send-email 2.47.3
+	linux-mm@kvack.org,
+	rientjes@google.com,
+	roman.gushchin@linux.dev,
+	vbabka@kernel.org,
+	wangqing7171@gmail.com
+Subject: Re: [PATCH] mm/slab: only require the requested size when refilling
+Date: Mon, 26 Oct 2026 17:29:57 +0800
+Message-Id: <20261026092957.2305785-1-wangqing7171@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <attrLy_Q-53FnjhL@thinkstation>
+References: <attrLy_Q-53FnjhL@thinkstation>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,35 +106,33 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Stefano Radaelli <stefano.r@variscite.com>
+On Fri, 23 Oct 2026 at 22:22, Harry Yoo <harry@kernel.org> wrote:
+> On Fri, Oct 23, 2026 at 05:44:01PM +0800, Qing Wang wrote:
+> > kmem_cache_prefill_sheaf() and kmem_cache_refill_sheaf() only guarantee
+> > @size objects, but for standard capacity sheaves
+> > __prefill_sheaf_pfmemalloc() uses refill_sheaf(), which actually fills
+> > the sheaf up to s->sheaf_capacity.
+> >
+> > The call thus fails with -ENOMEM > whenever the sheaf cannot be filled
+> > completely, even when @size objects were already obtained.
+> 
+> This is extremely rare condition to happen, and so...
 
-The PCIe PHY times out during initialization on the DART-MX8M Mini
-with the Sonata carrier, preventing PCIe device enumeration.
+Yes, I went to measure the number of times of
+kmem_cache_prefill_sheaf() and kmem_cache_refill_sheaf() in qemu. It's also
+very low.
 
-Add fsl,clkreq-unsupported to configure the PHY for operation without
-CLKREQ# support. This makes the PHY driver clear AUX_EN_OVERRIDE,
-allowing PHY initialization to complete.
+> 
+> > This leads to needless flushing of the partially
+> > filled sheaf in kmem_cache_prefill_sheaf(),
+> 
+> It doesn't make much sense to micro-optimize slab in low or out of
+> memory situations.
 
-Fixes: 770aba46ea0f ("arm64: dts: imx8mm-var-dart: Add support for Variscite Sonata board")
-Co-developed-by: Luan Rafael Carneiro <luan.r@variscite.com>
-Signed-off-by: Luan Rafael Carneiro <luan.r@variscite.com>
-Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
----
- arch/arm64/boot/dts/freescale/imx8mm-var-dart-sonata.dts | 1 +
- 1 file changed, 1 insertion(+)
+I agree with you. Because it's so rare.
 
-diff --git a/arch/arm64/boot/dts/freescale/imx8mm-var-dart-sonata.dts b/arch/arm64/boot/dts/freescale/imx8mm-var-dart-sonata.dts
-index 57d29a5c3821..ccc81e5b3d36 100644
---- a/arch/arm64/boot/dts/freescale/imx8mm-var-dart-sonata.dts
-+++ b/arch/arm64/boot/dts/freescale/imx8mm-var-dart-sonata.dts
-@@ -267,6 +267,7 @@ &pcie_phy {
- 	fsl,refclk-pad-mode = <IMX8_PCIE_REFCLK_PAD_INPUT>;
- 	fsl,tx-deemph-gen1 = <0x2d>;
- 	fsl,tx-deemph-gen2 = <0xf>;
-+	fsl,clkreq-unsupported;
- 	clocks = <&pcie0_refclk>;
- 	status = "okay";
- };
--- 
-2.47.3
+Thanks for your careful review.
 
+--
+Best regards,
+Qing
