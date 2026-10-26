@@ -1,90 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793016217;
-	b=grs29+DETs4ydAb/TbNfl8DtpJTAeCne7iHwAc5Mbx4f4LXffpGX+fvhV+w6fQ17PqN9
-	 Ycfxzm1pQAH8uRM1ffORHK+UQP7Lr1kgWX8SMts5EWJiqEhtVWaCK2sp2LLuJXHdle5MM
-	 thmVDvgzh73tRvJB4wu10xCPPevtz5vX6fu35sWo24t0sMDuyRbgVc//hn9Tp7evi/3Op
-	 sDFWheejq0w5UOQQM1rqMPuhJIVG2xe8M8UDCHF0GROyIVXB+6b/HhK4rJr3/++10aD9Z
-	 wf1SNYsQb/WZ378tK+OMub/RRP+BeYiYBOtqm8yQzGTlg1VvOhYXP4ZZZEyutw9RZ6Q==
+	t=1793016258;
+	b=y5gr8D+DrHh547juukiYNo0+W7RPaB7FhXy8s48bXF5GpCRsfmhDWiSgY5NOHPUg+EwI
+	 Xdllgz9e7QdzV48l4SrClqejWSl5b4AyKVFPI7X6cLHmyjBgrKACAI/HrDVn+Hdq9HZJh
+	 si0lbc/lCbiQlmlq1FnLKFMFJ/ZyRQTXsZVkYE8+eJ0CJyuqXHJ5O0Q89xzq0lsiVeJE6
+	 xDm+s8UJL0vTJwb62gugbXiBa7QnJtSwMnOEYNdi6Q0NFxi6AhgRTwl3yiXhGWUhuhtQZ
+	 JbY8Qxl/qrUKYtBHAPIFRnQpom5Hoz72+E6rmbEWaKXcIqGFvJZDh5fXzjpLL5lAA5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793016217;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-TM-AS-GCONF:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=pJvkKezVsaptzcKzZ1UJNWhruCUdQlQPxasi1dFLfpA=;
-	b=xMsXaOgPUnDNDWJoQoraJEP/8O9aWMtvEmHYZuiErVWjdMDGTUAYAqiHtMTGMCMTdcVE
-	 1RZ+/sm0K1sWbXAHWFDA6sogorabAKuKkqXEuMdDMY7RpZdYSk8tyrhGnxCDZ53IlniGE
-	 Vsr5R8T+0/fb+G2AgvVnKotpR6RKzKLJgpURT+q5rtkz2pTPHyCvI/M0lUwdth64ajt7b
-	 lTbY5xby/tyB7TFMhTcORQWXaoy48cy4suZbAgHlO5yRiShlnKed9XGLNjARAABdAvVvZ
-	 6KP+IDdwGoLfcJcd0pb/TpZtVs96dcvUKH2/wgWzzs7FqAKuUoWzKqZv+0xBvOwI/FA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793016258;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=kLE4fUltKdv5uUw+RRFjSPgUp/UfLHROFugaciW1IrQ=;
+	b=FhouvSDrRLFWWdJTmdoOL1oxo7H1y37XjgfB/tqZjzHWAM3rBba5AZoLcM87qIuJ7Pg1
+	 tcCoiT24gm8TdDWoQbnS2uVblOEkKnKeFH39r2UMaXAxpmEW/TxCs6q0dmotzGigsWQ16
+	 Fi8AOgr/nd6VpB1pVcXIxrroIaTkEQyx1pJGcyvs5wBG4H7UySvpfCQKyBj/T3AhnTa3X
+	 n+zlBRJcTIsXmprgaSXmVXHHJM+RAoPZ7r3WQvuEG/4Q15iCWAcUmj3Isrx0ZjlJKFYd+
+	 ZaHpcq3MQXEI5EII98I5totF7cBebgOADWtY60xGFExxP5V9xVKaXb2kq9VXxMVZfRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=ZMXNCE2G;
-	arc=none smtp.remote-ip=148.163.156.1
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="c44ex/XP";
+	arc=none smtp.remote-ip=209.85.216.54
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5FD2606A330;
-	Mon, 26 Oct 2026 12:03:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5FD2606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74754606A31D
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:04:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74754606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=ZMXNCE2G
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69QBECjB1707101;
-	Mon, 26 Oct 2026 12:03:36 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=pJvkKezVsaptzcKzZ
-	1UJNWhruCUdQlQPxasi1dFLfpA=; b=ZMXNCE2GZJwaeoUKxY/su22iUL9k+nTy7
-	DMDjvzfrh/JauYlq4C3YkHtmRrEdu5H9LkuRZDy7Kl4pCglragG0Rwr0zpjaXo8l
-	pY31iHRxxObGsfIqJw4A3uyK3QPhtvHwXTiHqHFM6t3+gLeCC4F2LIlNy5naGAlP
-	xbzys+ME2X8rNFL1OH09YSKsxClG8w4s996OsaahPzeBlVKRtsukih03skpvn2Mp
-	Y1eFJ6nd5AH6qgFQYvrboo4Q82XAtnFpw5BmOEPWmhgdMzuojP1d6dzRAVT0cbk5
-	pjx/eAeSCRZh5/EXLkaA/+b1haK9XZNboWq/mRtzJVBuEHgG5KmCw==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hgmbsspt2-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 26 Oct 2026 12:03:35 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69QB51Ha2500630;
-	Mon, 26 Oct 2026 12:03:35 GMT
-Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hh8ggwmmc-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 26 Oct 2026 12:03:34 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
-	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69QC3UPU44564760
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 26 Oct 2026 12:03:31 GMT
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id DD0962004E;
-	Mon, 26 Oct 2026 12:03:30 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id B78CF20040;
-	Mon, 26 Oct 2026 12:03:30 +0000 (GMT)
-Received: from tuxmaker.lnxne.boe (unknown [9.87.85.9])
-	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Mon, 26 Oct 2026 12:03:30 +0000 (GMT)
-From: Heiko Carstens <hca@linux.ibm.com>
-To: Alexander Gordeev <agordeev@linux.ibm.com>,
-        Sven Schnelle <svens@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Ilya Leoshkevich <iii@linux.ibm.com>
-Cc: linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org
-Subject: [PATCH 4/4] s390/maccess: Remove spinlock from __s390_kernel_write()
-Date: Mon, 26 Oct 2026 13:03:29 +0100
-Message-ID: <20261026120329.1792436-5-hca@linux.ibm.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261026120329.1792436-1-hca@linux.ibm.com>
-References: <20261026120329.1792436-1-hca@linux.ibm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=c44ex/XP
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3ada8bc2380so1138168a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 05:04:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793016258; x=1793621058; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kLE4fUltKdv5uUw+RRFjSPgUp/UfLHROFugaciW1IrQ=;
+        b=c44ex/XPmtqTVtiuqa/0GcvrFN4lsMr7UlokOnm3tm9vhaHcNfNJKiEURU+QVnnbv7
+         77acTuyynbe0+PdVQGEaDijC3a7byLiox8BIL3MBqsKZF4Ylc+eAEO0vdFwsakKv8zDQ
+         bfQXgM1jf4PGxlPRskyEuXcfL9qFOpE/k6BIeA2hGli4kIbXYD+1pH3VoTPkhxeon4Ax
+         sso5eO+f7PVempwkWje+R68n+7ExMEGVIU1a5otcmxh6MYp2b3U7D9XsyeUQpM8WZ+zJ
+         2H8tZnia2t1DL3MjtZuDJBqozookU/+h1WpjEl6BQ0vmR9nDamBBByuTjYa6jFWOaGVU
+         s4bQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793016258; x=1793621058;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kLE4fUltKdv5uUw+RRFjSPgUp/UfLHROFugaciW1IrQ=;
+        b=Xomo2G5fs7r4Q49Uu7W1794QDfzIvSyNbdto1Hz3clE1t95E3pYrStsWqm27YsOJ6D
+         uTDsSMiw1+U9/ZCoFz8GebHyqkxnCnTqWFQounTpPywhn3iA6M71MFU6HggTvsfffQIT
+         0MMYwY0wwye2at2m6FuqBQWfIA0IdtCKCOuGJOHoSBveJtdt1S41q+54Q7ucW+9tmI3e
+         wXVexnY8jucM1VEwdHStV0qso9lRkTB+LagToRSpK62n3yc8v8dQ9YBwy0L+j8apE69x
+         2ySCVd2MDmpJgS+XT2zamt4XCeS0Jq6vzbFHcF9qUWUal4IS4RwTEORI0hn0d2Z+8lCP
+         s2NA==
+X-Forwarded-Encrypted: i=1; AKwUvBzWSRbOn5EuCVO5BjApSURxM5I+50wsmRpIqgewg0ZaoKDy6Anu0UO9WnWTggsktlo5b+8goy8yrfAG+rk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIgSoZOetulmOl+9R5WD1+GOB6DFVIZxgPh29nP1Sy+fGsAg9Y+
+	kKg57pk/NuVBa9lDc0PyuHVj1nVXLmJGad1atNIXcZzo9fRuFbeExYkf
+X-Gm-Gg: AYBFou3pafzJBFBqGkw1Pp2Y4ajMW+JA3VnJoMZe0U7JLyboGIG88ImctN2GO5DQG9U
+	+sqpeIsZCPDt6lZF0++bsayH+pWrlZ1JYZp4jjuR6DYPIMDFShvR+mlOGdB8b3WSCuJfGaxQcWu
+	c+KwhJj91bhg5jMOdtpxCPbO0+02oBRCVjGDPIOxnPwMpBDUVT6LNPje5KDygssp4u6xCYlWLcR
+	7F4jhIRmwOJ50zIFTugGQZz52DYcnIEmmMZpKSJ0txOQfe4MDl3trUVWXMlzIrDwEiCIzUuyQhV
+	5tNcNjKYTSYSHvQ51Hxw1wD8V79eQmUKNs7U3ewVrTy5/Reg2Vn3Oos0VH1/5lDacequByaIWhH
+	he8s5c3hcEj4utb3HvmjdJK/q3UE5QBy9MznrVX+1WMJJyOnIwmqpnETXrhbHMqKPLBUG+M4pF9
+	d5zfE60eW2q4yG3e1q+0NYyTwsLfQrPKo4ldMWPeYSXLy/M9jU+9aMUPBk2+yZTx/tdn5hLP+dj
+	GXIbFSA9EiT6Nm5fCDPZazueDRJku+PJadv7a50sflzvH0rZ4w=
+X-Received: by 2002:a17:90b:2e8c:b0:3ac:8897:7b9f with SMTP id 98e67ed59e1d1-3adeae77a16mr5287757a91.43.1793016257392;
+        Mon, 26 Oct 2026 05:04:17 -0700 (PDT)
+Received: from localhost ([111.228.63.84])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adebb0639bsm8298309a91.12.2026.10.26.05.04.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 05:04:16 -0700 (PDT)
+From: Cen Zhang <zzzccc427@gmail.com>
+To: matttbe@kernel.org,
+	martineau@kernel.org,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com
+Cc: geliang@kernel.org,
+	horms@kernel.org,
+	netdev@vger.kernel.org,
+	mptcp@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com,
+	zzzccc427@gmail.com
+Subject: [PATCH net 0/2] mptcp: subflow context lifetime fixes
+Date: Mon, 26 Oct 2026 20:04:07 +0800
+Message-Id: <pm-mptcp-objects-candidate-0010-v3-14c229ea28a7d31f60a0-0@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,94 +105,30 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA0NiBTYWx0ZWRfX7nKj+NMLzief
- fMGjhtt3qA7tqcjPpXxjVFmN+Cda+RubbJDAwbGLPmAazdtpz8MzaT60o/r5FlMytBrw/UrjMt9
- 6mNruNSQQC6jA12JmIC9FdgX/GNdtrV1tKGy6vYQxFX4GWt/EnZOsMTjs7yfN9pfEQayM4zq6OY
- izkMT6FFoYloa6p8+9G2vP8NPLWzFVw2m540gDFoPfwhbjWH67M/bazEDAm6z74lmwDbicNplAU
- 8HGV8CGkHI8DyjsgufX6VJRjT5PCQ9QxKYohct/9q5sOudZFPg45ssPSMOywS1jUAZGzOFD41VO
- 6srvJiq/jahwS5DKf7SqtdFqOjnfAtQ2s5Q0h4wJ4C+wWC0V8C504aTUd9M5SYsZBASZ1cTCqtW
- cszBkB2tFAFukj/rDyMNIzM1mAguLIc3c73APqlTwwY8yvleZ7gb2kYus5BTur/Sqnd1s3FAcpU
- 6m9AaaidjSTPW0UXE2Q==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA0NiBTYWx0ZWRfX0JFogmDOXIji
- hwSBhfgwaMSu6G8gQGcPPTdHUYnaL9MGnbHzh36qMibcTBBuHIEXpcCngI8REI7zyvDPTbbf1UM
- jeVYuYYaBkvegRX+yhy27K4tAEc5v5U=
-X-Proofpoint-ORIG-GUID: l0wCHTx9IBHlxqMPxV8OoY67RZSjHl9t
-X-Proofpoint-GUID: l0wCHTx9IBHlxqMPxV8OoY67RZSjHl9t
-X-Authority-Analysis: v=2.4 cv=CeKdd7rl c=1 sm=1 tr=0 ts=6adf4198 cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=uAbxVGIbfxUO_5tXvNgY:22 a=VnNF1IyMAAAA:8 a=FgSWGUQ1hMViQLcLPCwA:9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-26_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0 malwarescore=0 phishscore=0 clxscore=1015
- adultscore=0 lowpriorityscore=0 priorityscore=1501 bulkscore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610260046
 
-The spinlock in __s390_kernel_write() was introduced to serialize the
-read-modify-write sequence against concurrent callers. Now that all
-relevant runtime callers of s390_kernel_write() hold the text_mutex, the
-spinlock is not required anymore.
+Two use-after-free fixes around the lifetime of the MPTCP subflow
+context, both found with KASAN.
 
-Replace it with preempt_disable() / preempt_enable() and sync_core().
-Previously, CPU serialization was implicitly done by other
-instructions. Make this explicit with sync_core() instead of
-relying on that.
+The delegated-action queue pins the TCP subflow socket, but its queue
+entry is embedded in the separately allocated subflow context, which the
+ULP release frees on its own. Patch 1 keeps a retired context attached
+to its socket until the socket is destroyed, and lets NAPI free a
+context that the plain-TCP fallback dropped while it was still queued.
 
-Preemption is disabled so that sync_core() issues the CPU serialization
-instruction on the same CPU that executed the stores. This completes all
-previous stores and makes them visible to other CPUs.
+That context also owns the only reference a holder of the TCP child has
+on the MPTCP parent. Patch 2 moves that release to the same socket
+destructor. This covers a BPF program that converted a TCP child with
+bpf_skc_to_mptcp_sock() as well as a delegated action that updates the
+parent after the ULP was released. It depends on patch 1, also for
+stable backports.
 
-Other CPUs need to perform CPU serialization, e.g. with text_poke_sync(),
-to discard already prefetched instructions.
+Cen Zhang (2):
+  mptcp: keep delegated subflow contexts alive until socket release
+  mptcp: release the parent socket reference with the subflow context
 
-Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
+ net/mptcp/protocol.c | 18 +++++++++++++++-
+ net/mptcp/protocol.h |  8 +++++--
+ net/mptcp/subflow.c  | 51 +++++++++++++++++++++++++++++++++++++++-----
+ 3 files changed, 69 insertions(+), 8 deletions(-)
+
 ---
- arch/s390/mm/maccess.c | 9 ++++-----
- 1 file changed, 4 insertions(+), 5 deletions(-)
-
-diff --git a/arch/s390/mm/maccess.c b/arch/s390/mm/maccess.c
-index f39968dd8063..cda3f81dfbc2 100644
---- a/arch/s390/mm/maccess.c
-+++ b/arch/s390/mm/maccess.c
-@@ -6,6 +6,7 @@
-  *
-  */
- 
-+#include <linux/text-patching.h>
- #include <linux/uaccess.h>
- #include <linux/kernel.h>
- #include <linux/types.h>
-@@ -60,22 +61,20 @@ static notrace long s390_kernel_write_odd(void *dst, const void *src, size_t siz
-  * bytes from destination at an eight byte boundary, modifies the bytes
-  * requested and writes the result back in a loop.
-  */
--static DEFINE_SPINLOCK(s390_kernel_write_lock);
--
- notrace void *__s390_kernel_write(void *dst, const void *src, size_t size)
- {
- 	void *tmp = dst;
--	unsigned long flags;
- 	long copied;
- 
--	spin_lock_irqsave(&s390_kernel_write_lock, flags);
-+	preempt_disable();
- 	while (size) {
- 		copied = s390_kernel_write_odd(tmp, src, size);
- 		tmp += copied;
- 		src += copied;
- 		size -= copied;
- 	}
--	spin_unlock_irqrestore(&s390_kernel_write_lock, flags);
-+	sync_core();
-+	preempt_enable();
- 
- 	return dst;
- }
--- 
-2.53.0
-
