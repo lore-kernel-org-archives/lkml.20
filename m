@@ -1,87 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793007927;
-	b=IMGy/wYXe7ICd6lkboLAPSXd6+sXsp1sUBY4LxkzYwzgZ1IxR45jOOASAanBZ3bPiIDN
-	 H2LoUUtmmxtfIY1bjaOE2PBq4UHLogwx2a0N/Vx42FF3a0o02O6wmaTAJUfP2/uRBMNCA
-	 mIoEVKsbBOZLSo2o8WPFcJ1LDwAnu0aKtibeibHDfWUIOKiB4ntfanXjrDaUGP8T+3lwn
-	 AAhGiCp9Nc7SSZClG1OOis0SJsraXWBop+X6N3plnplpm6JoNlKKaUb0mpniyawAo3txf
-	 p0owIqQ52WmvS0qev0BuEqnnzWiwFt32Kk2v1YtK8v3HZd+oQdia4uq5uTjtZKz1cbQ==
+	t=1793007952;
+	b=1g4ezM5SNcUyqu6JmLKHqUtgwdR8Yz76l3XwglsnbdDWavhnvW4XAEGZ7ET5Y8OnMuoR
+	 jERgKdh4P+MFDXhx0K7PpYH1dFDOWNch1Fc/MQNuNFas/sfWKDR5UJTYsyFvHNIfimmZy
+	 lHNuVtwbXAc4dIeQnJCg4NCel8vt2NPAgk9S/1XjbJTg2Xo/A05BpADeeXAPfPVI2SQug
+	 VozP0XNxmwm1fjJiCoBEasRYrLBGf6wv0ZuUkJHxVfpBaT1ddn/1WNyuRtZy/i1WdEJ9n
+	 wKIqjN04OCyoTnY0QY9X7JBgl2MMUt43e0pBnOGvw/3o9O9fbMAoWMpvBbW0x56yl0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793007927;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793007952;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
 	 Content-Language:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=OxqCDFNDcVrCibYsLviO4SvUbmAgApQDj/6HsjdxJ9k=;
-	b=xoAi1uaIqJ8EIuCn1YThhwy3mySHricFx10H+LzRLQygTYAmwc6NM53RxjPAlW1qMF0n
-	 3Jyu7UBHZBloUvbKHjqNiUtJ2ZBvrw6mILyBdsIqGTHTAm/1Jo8YmJhr9SwIOycaXdqf7
-	 ZjjRU5+k1+qqqxpTJ2WPj4EN2ZinvAH6OSma6bB+L3gqD3J2BisdK0/OQ/0YaCU6ueyV6
-	 sV38rTeuSbCT12rDcmDWzzwdvJHhRr14zOFlnVhtvVPwKCbAwa+fpq8fMZ5DJunvAI8KD
-	 O14xDR9nw9OVZgENBw1BzhbLRLY2r19fVk08qK4QCENfAF3yjKGBuHOooZoxFwpluxg==
+	bh=uISNjmCShJIJ9U7oVaCYIDvxAqLTubZCQAnAKv9Gul0=;
+	b=yHRqtMHSK3lgG5jUBAUtBgmgJTG2HCS0aMHWh5HCJd4BKCd3JI9QfY3q1XvDTvS0OHIr
+	 k+U1iBycHUfjlqcAgvhbS5aoDxfvBjcp9aQQEnRlA1PmqjGqavkQPv0T+XnJJlMl0KWY5
+	 jCQVrMohvy/1+infvaWvNm5Dgsoejx3WRjcnLx04U7nTUKTHSwrmRdR9KTXItsl3aapGC
+	 W8FZs9eCppQimAgw5409WhIb34h9D6fF7YLgoRlqcwDBiaBvGIR4AJJXOATJANQBR/dSu
+	 HAPuwybNYCcD3oYSmOAv/caa0I0u9ib9hHPvFBFv8l/Il5O38Mp/AlQ0zFedH4Jwo3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=ow3ZlImR;
-	arc=none smtp.remote-ip=209.85.221.49
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=a8cOFiNT;
+	arc=none smtp.remote-ip=209.85.221.47
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0096F606A320
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:45:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0096F606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4331606A31F
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:45:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4331606A31F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=ow3ZlImR
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48e09aa5264so1465385f8f.2
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:45:25 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=a8cOFiNT
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48dfb76b304so200181f8f.2
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:45:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793007924; x=1793612724; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1793007950; x=1793612750; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=OxqCDFNDcVrCibYsLviO4SvUbmAgApQDj/6HsjdxJ9k=;
-        b=ow3ZlImRoLAIEZneKyfcOu3h6HDCLEChKMiLYOtQqK2HRydILGjO+5CaDdGGn/ToaE
-         PYpyKaIGca/z/yv0rXB0ZK9LmFCc88nBbKAUIhn3P7ZycFuyqgkREWuydPabsd6KBM4V
-         Fkyfah/yPOPOwODiaeGY99ymFoVGGacrgDfDSDV6cvwUYQ4sSlsF/ZQY8r3NaiWr45/R
-         DjYOLvBAkMYrw08wIpzj31JCf+H4V/Mq4seZzf0dIAlHcI6pjcs4rjN3St3ayxBsRql4
-         oC2CibQXa/oGWHfEZvR4LFlLvMMXkdRacCkPFqQDMUfxrfKuToYGVU6CkBdBXRuPY7bK
-         ucgQ==
+        bh=uISNjmCShJIJ9U7oVaCYIDvxAqLTubZCQAnAKv9Gul0=;
+        b=a8cOFiNTzODoESqu/FX14nDX71ki+Ovb0lGMc4rG5YGA9fH/QDDHfoWo1RO2CmbE8W
+         J5fKFEWzSMwVDgDCO8tMN/Dx7KyN8mGNby7U+hXaT+LtLVXUBUlYh6J2asFA0GAu7OAQ
+         uIFCj2tEtPNskelLAqpWqFipr27pHfvBILQgIrW2wF/PaLIybuXHDas4wHZofKaQc5vN
+         xICU37igjo5OnzjevgRB6Fgy5PsrNVsGq6ubhh9QZ9qzK5RquJmkXipoyjIWWt63vGFX
+         ueyXwDs3FLPC0EgQyHzcp3SwTM8L9WVrb9Tk5heX7QgYYd1vo7QQD9QE1TgrywCfn0n1
+         wdnA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793007924; x=1793612724;
+        d=1e100.net; s=20260707; t=1793007950; x=1793612750;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=OxqCDFNDcVrCibYsLviO4SvUbmAgApQDj/6HsjdxJ9k=;
-        b=bBLFA2vcbev/MC516856g+llS/4fnUBXhnlqwJfON2aTZEpKOtX0rsrENLs0wYiJIq
-         sCsh/vLb3iNDp36ZmuJAptYkboE+/A/DMGsz4mu1aZwIQKmNvjI5r/PGixTYK/E7fWFe
-         +8neCn6vjObF+loyyMABsOJbUfG4zRlp5MzLecpYiTJSP6ERrvB2FXjG5pprMSgCSBDV
-         vvrG7flWaWlpJQupGhYCQVvUGHWj+MA+jGSpHFjEbPfu1P9JBVYTknPOqwdSKSonGsEC
-         E/UmwqGZ2pqPi3mmCblUGJQqo3ZT1XPEqgY8QAMkgreW+LOdBb00MqAkuZ0G5LzpmZHp
-         0ihQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzo1JycYQiWk3GNV/B0FzBXQ1hUMLHIQkOFk85vYU/iXcsdpQ6iecFmDJfEwe8DfnTGGOJP905XT1fUgtg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ4/XCNX8s5b/SrBRYTh0Djfx51omtYpQm5+CEsWqx0oH56793E
-	OuMPLQvDgUf+exqB1ZUG2a/ElcODzcS5esphSOShpKJ3DdbPDf+z+ZZZK4yHaJA9HhI=
-X-Gm-Gg: AYBFou27AQNegQKxeKcpcKtFBtWMFHsbuSwICLo7U0/SacGDEsaiHcJ0YLnAmW3cLS2
-	NSjaUm0g5+5cjKlKXErSlSGOFz+HaiK/VlHB3T4aFIhLd7eqXLmYJBkR0YopOJ3mbL7UoYjdSkZ
-	dGXpIvH7I79RGoiHKAmBsVPqAMhtaEyn3hTdB2otDwwdk6Qk9NTtLFHoPo+uJWGlSTek5qWEChK
-	wjMZ4e1wf1Ni2o8cigQA1GMHkpWwW3OWYmcuc0Ow0QBFIPyOx3YsqTw0mmt9G2RBsH+EOf191lb
-	BbJZuK0gnGYP9rbhOq+ijRyjtxlkLYlyUuyRmO+aKmD1aGU7C0nsO9MKRB7YmF+6V+BMPOBiavq
-	v8kl4hnhcMBHNvdsxECWYdZMcy+Pw3W3UR8YgY86q7QeZ+GEo3bfnoQKlw88JLnFl582ncPnNip
-	+/TEUH2hDQkeIyzIQPyKo967iwjYP8i2U3ngYmtYtYvfUpem4WqJf2ciH8daSsY3wzX485+9Mce
-	krReZ+nyuoiov0fgW/j9W12LwNMl5a1oaZN7jZQ7+CzZtDMKz5hMIEHuCUP
-X-Received: by 2002:a5d:4fd0:0:b0:48a:f59f:8b70 with SMTP id ffacd0b85a97d-48e3eb9fc55mr7288327f8f.46.1793007924239;
-        Mon, 26 Oct 2026 02:45:24 -0700 (PDT)
+        bh=uISNjmCShJIJ9U7oVaCYIDvxAqLTubZCQAnAKv9Gul0=;
+        b=ggaKYVFUKmS+Yc9y17SvLrZSYhv+W4sA7/sKCCFg/QBjnKfcDypiGNX+Yz6YZzQejs
+         /cayqA9TZbeeLH2x6a9Q9VARst1eciaHpJxEaYZKubZb7xwdU4v0BiCizNSVY8aEzGfL
+         SI/2JdG4opoikprlpAVPRs6L7g6ZSdOu6ShFrLDeS135nC/l61XNn1ECvJkHWujfh5s7
+         SO44u6D4TybgOSk7T17yVwkRrVJEshZBhRpjgHGyINAK6wsIJ+Xu48Tz9zGQn+Kgu6z/
+         q5FKKbyXCf+gTMzugzdkXy52YZeyscSy0b0/Rhg6/WG4ls7Yt3khf+s3NA7lOVQ+ky1q
+         RbAQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxEGxhxrUDIn+zigxRPTfIQvilHsH6zv0E3XOdHmDyBNkS4PcukComAlD/f+whDCzvGdJt6QQAqWbm20Ow=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLrX2tcrfkntxDL3Sm7tCI7wAyTOdyZF4DMADw4M2QB4nWBhA4F
+	+AhyCC7lnPlUluz2kG9hhjv8wDIa51OxH4gBuIStIWkPWmn2nYKUUMXaYROiP3bJeeQ=
+X-Gm-Gg: AYBFou2v+tho0/zCQOwiaUHpaN9gKFSxNEI/RT0hzgvyqSjESs0jEUngea7qOTD29i+
+	0TE5R0OeL4LTUZiin/In3a4vLqxAdygiBQLAUev78VLH8xBaRI2koYvEoUBBf85rerGdj/P23Yv
+	If8Y8DVkw9c3GfSpIXgjL8by9uylIZ2/pvTuCoRELXayq4mh90KQYc3zRsfuAIRL4tBh/WGbWHW
+	aq3Irkc3ZNiuEfzyDjT9BhI4YJeLNGwhNJ4zhC/WPWDwBnb0Q2wUqIams90cDbZKsm9ATNhlddp
+	sqf1DTr2eELjSM54rOwI8OdESFdWwfLzPLpPRPPvLl6U7sMQ0hDNigNk1KTrzg1mZDTS25eCDLe
+	r6+urgVeuOnC21kOTDnDZWGRwlhu7qIA+8SGwEBBwXrXssHGQtMLwgnxHuWbsx2wU4yzDYwv7FJ
+	bjeTSqpxlsSVECV/WW1lEiNbI+NlTYOoqDmHVutwRURLnIHlItq+aghvkF434baf9btFUtXlK02
+	UQP+DuXtLlgvjQENi6UBo7n1tA/KLKu+v8un+AU/QkoAeN8n8AtT+j0WYYc7V2/yGmx70ocTI/S
+	5WFfXw==
+X-Received: by 2002:a05:6000:46c3:b0:48d:fed0:ccbd with SMTP id ffacd0b85a97d-48e3eb93719mr6507061f8f.34.1793007949962;
+        Mon, 26 Oct 2026 02:45:49 -0700 (PDT)
 Received: from [192.168.1.3] ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebc3c5bsm16044979f8f.9.2026.10.26.02.45.23
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebd4ba7sm15594852f8f.33.2026.10.26.02.45.48
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 26 Oct 2026 02:45:23 -0700 (PDT)
-Message-ID: <c89d4824-eec4-4330-a700-65b936d8fac4@linaro.org>
-Date: Mon, 26 Oct 2026 09:45:22 +0000
+        Mon, 26 Oct 2026 02:45:49 -0700 (PDT)
+Message-ID: <d3e80414-4f27-44de-b6fe-36d9a675e4d3@linaro.org>
+Date: Mon, 26 Oct 2026 09:45:48 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,8 +93,8 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/7] coresight: syscfg: Match feature capabilities
- separately from device class
+Subject: Re: [PATCH v4 4/7] coresight: syscfg: Remove unused
+ CS_CFG_MATCH_INST_ANY
 To: Amir Ayupov <aaupov@fb.com>
 Cc: Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
@@ -108,132 +109,41 @@ Cc: Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
  Alexander Shishkin <alexander.shishkin@linux.intel.com>
 References: <cover.1792907332.git.aaupov@fb.com>
  <cover.1792989860.git.aaupov@fb.com>
- <6fd94860b3c13c0ddc1a5184d5d9331edc27d9f0.1792989860.git.aaupov@fb.com>
+ <52b3c337cbf4a8460e399b084c6f854eb3beee89.1792989860.git.aaupov@fb.com>
 Content-Language: en-US
 From: James Clark <james.clark@linaro.org>
-In-Reply-To: <6fd94860b3c13c0ddc1a5184d5d9331edc27d9f0.1792989860.git.aaupov@fb.com>
+In-Reply-To: <52b3c337cbf4a8460e399b084c6f854eb3beee89.1792989860.git.aaupov@fb.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 
 
 On 26/10/2026 05:48, Amir Ayupov wrote:
-> A feature loads on a device when the two share any match flag. That works
-> for device classes, where a feature wants any one of them, but not for
-> capabilities a device may or may not have: a feature that sets a class
-> and a capability would still load on a device of that class without the
-> capability.
+> CS_CFG_MATCH_INST_ANY has been defined since the system configuration was
+> introduced but is not used by any configuration, feature or device.
+> Remove it.
 > 
-> Split the match flags into CS_CFG_MATCH_CLASS_MASK for device classes and
-> CS_CFG_MATCH_CAP_MASK for capabilities. A feature now loads on a device
-> that shares one of its classes and has all of its capabilities. Check
-> this once in cscfg_load_feat_csdev(), which both the feature and the
-> device registration paths call. No capability flags are defined yet, so
-> matching is unchanged.
-> 
+> Suggested-by: Leo Yan <leo.yan@arm.com>
 > Assisted-by: Devmate:Opus-5.5
 > Signed-off-by: Amir Ayupov <aaupov@fb.com>
 > ---
->   .../hwtracing/coresight/coresight-config.h    |  8 ++++
->   .../hwtracing/coresight/coresight-syscfg.c    | 37 +++++++++++++------
->   2 files changed, 34 insertions(+), 11 deletions(-)
+>   drivers/hwtracing/coresight/coresight-config.h | 3 ---
+>   1 file changed, 3 deletions(-)
 > 
 > diff --git a/drivers/hwtracing/coresight/coresight-config.h b/drivers/hwtracing/coresight/coresight-config.h
-> index ae6295e308131..f04e73b91d9a6 100644
+> index f04e73b91d9a6..220bc54f8e5e1 100644
 > --- a/drivers/hwtracing/coresight/coresight-config.h
 > +++ b/drivers/hwtracing/coresight/coresight-config.h
-> @@ -7,6 +7,7 @@
->   #ifndef _CORESIGHT_CORESIGHT_CONFIG_H
->   #define _CORESIGHT_CORESIGHT_CONFIG_H
->   
-> +#include <linux/bits.h>
->   #include <linux/cleanup.h>
->   #include <linux/coresight.h>
->   #include <linux/types.h>
-> @@ -30,6 +31,13 @@
+> @@ -39,9 +39,6 @@
 >    */
->   #define CS_CFG_MATCH_CLASS_SRC_ALL	0x0001	/* match any source */
->   #define CS_CFG_MATCH_CLASS_SRC_ETM4	0x0002	/* match any ETMv4 device */
-> +#define CS_CFG_MATCH_CLASS_MASK		GENMASK_U32(7, 0)
-> +
-> +/*
-> + * flags defining device capabilities a feature can require. A feature loads on
-> + * a device that matches one of its classes and has all of its capabilities.
-> + */
-> +#define CS_CFG_MATCH_CAP_MASK		GENMASK_U32(15, 8)
+>   #define CS_CFG_MATCH_CAP_MASK		GENMASK_U32(15, 8)
 >   
->   /* flags defining device instance matching - used in config match desc data. */
->   #define CS_CFG_MATCH_INST_ANY		0x80000000 /* any instance of a class */
-> diff --git a/drivers/hwtracing/coresight/coresight-syscfg.c b/drivers/hwtracing/coresight/coresight-syscfg.c
-> index a816c22c87bc8..3ee104e94a4cd 100644
-> --- a/drivers/hwtracing/coresight/coresight-syscfg.c
-> +++ b/drivers/hwtracing/coresight/coresight-syscfg.c
-> @@ -171,8 +171,22 @@ cscfg_alloc_csdev_feat(struct coresight_device *csdev, struct cscfg_feature_desc
->   	return feat_csdev;
->   }
->   
-> -/* load one feature into one coresight device */
-> +static bool cscfg_match_feat_csdev(u32 feat_flags, u32 csdev_flags)
-> +{
-> +	/* The device must be in one of the feature's classes */
-> +	if (!(feat_flags & csdev_flags & CS_CFG_MATCH_CLASS_MASK))
-> +		return false;
-> +
-> +	/* The device must have every capability the feature requires */
-> +	if (feat_flags & ~csdev_flags & CS_CFG_MATCH_CAP_MASK)
-> +		return false;
-> +
-> +	return true;
-> +}
-> +
-> +/* Load the feature into the device if it matches, otherwise skip it. */
->   static int cscfg_load_feat_csdev(struct coresight_device *csdev,
-> +				 u32 match_flags,
->   				 struct cscfg_feature_desc *feat_desc,
->   				 struct cscfg_csdev_feat_ops *ops)
->   {
-> @@ -183,6 +197,9 @@ static int cscfg_load_feat_csdev(struct coresight_device *csdev,
->   	if (!ops->load_feat)
->   		return -EINVAL;
->   
-> +	if (!cscfg_match_feat_csdev(feat_desc->match_flags, match_flags))
-> +		return 0;
-> +
->   	feat_csdev = cscfg_alloc_csdev_feat(csdev, feat_desc);
->   	if (!feat_csdev)
->   		return -ENOMEM;
-> @@ -212,11 +229,11 @@ static int cscfg_add_feat_to_csdevs(struct cscfg_feature_desc *feat_desc)
->   	int err;
->   
->   	list_for_each_entry(csdev_item, &cscfg_mgr->csdev_desc_list, item) {
-> -		if (csdev_item->match_flags & feat_desc->match_flags) {
-> -			err = cscfg_load_feat_csdev(csdev_item->csdev, feat_desc, &csdev_item->ops);
-> -			if (err)
-> -				return err;
-> -		}
-> +		err = cscfg_load_feat_csdev(csdev_item->csdev,
-> +					    csdev_item->match_flags, feat_desc,
-> +					    &csdev_item->ops);
-> +		if (err)
-> +			return err;
->   	}
->   	return 0;
->   }
-> @@ -739,11 +756,9 @@ static int cscfg_add_feats_csdev(struct coresight_device *csdev,
->   		return -EINVAL;
->   
->   	list_for_each_entry(feat_desc, &cscfg_mgr->feat_desc_list, item) {
-> -		if (feat_desc->match_flags & match_flags) {
-> -			err = cscfg_load_feat_csdev(csdev, feat_desc, ops);
-> -			if (err)
-> -				break;
-> -		}
-> +		err = cscfg_load_feat_csdev(csdev, match_flags, feat_desc, ops);
-> +		if (err)
-> +			break;
->   	}
->   	return err;
->   }
+> -/* flags defining device instance matching - used in config match desc data. */
+> -#define CS_CFG_MATCH_INST_ANY		0x80000000 /* any instance of a class */
+> -
+>   /*
+>    * Limit number of presets in a configuration
+>    * This is related to the number of bits (4) we use to select the preset on
 
 Reviewed-by: James Clark <james.clark@linaro.org>
 
