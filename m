@@ -1,67 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793010220;
-	b=NCPo+6A8i2/eLeTNMtWfJefqklqTdgIhPKvOTznVoSmKld3c1gVhMkcuIlHtxnPNBrX8
-	 baBtdPfBb9n2peGpDdla0U8uSSLKFn9ldJHr8/g/4vYLTAhmWeicyal6gL4SN0bua//7i
-	 9RbFaLiyTB5L4n0p3a0kHWhAumyUYvpG5rDfSPk0/BXUHvxILDqsYdhpWfNQ3/jDNmduE
-	 MD9VPgBUELef6gEYrgKrcNITGPxjLI5wPIrdAOBEYW8M1OwUw1UoEtFAgle6wL8XBO0HR
-	 ZwOncrpj6278R9ymoSEeiJalrEzQYINA9c11Y6B5o+PMUykabORau6R8asGz9NbXhPQ==
+	t=1793010308;
+	b=sTlahQ5C6LxbRyFZtp3+68hFt9qbMMOmkzSSFVuUao9jSB2pePwxKMweHT6WC8U6NwFO
+	 +kbPAkKG1Y1EF+XyMkqPF8ex4OBWkH5gRBO8xVu/9KOETmaMwT+RKK/YOaJ3yoyyf94tC
+	 YZuTz7SgtNSXIpeD8aKhPIciKpC8g389IbjKa0LE/hGnvTHiNvw06tUkTMNbu8NYAAA4a
+	 IllZWodqNduH9eCzu73XblKdopT2RfPsVMp2b/qGRIdN0QOV2dZhjlCKY4F+h+LMEc95O
+	 godI9Pr+k+qiYTj7ATTaiylGe4cQI6fYHcFmmE7ujY2riPXIHL7ED9oYAaGjazjQ0Lg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793010220;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=okdfPAUG/95gVMAQwqPlFeuM9Ab2hbczPB989+Nnh8A=;
-	b=xI/wB0qBRFz5egfDhPv3S23m7fAJVI5c+DjuCR7C/f6kRnCTV7ARxFDxle3bjU6+jdUB
-	 6UAVjgZcEnGvTAJN9ZHLgEbbb3m69rhZT91FQbRCboA+YOfIWiz1TuRhHu/hYtMdQ61DO
-	 Njvv+/ZsrmEBEiBx6V0x1CM8UQS7IV++qEigHUHN5dLG/Dsr+uMI1Ne7iLJ1OSZ+OjF+Z
-	 LyOqMeBv2W9OM21DoxggKB3yzQrR7x53mP0G8rEVBijidjF1aKkGTmF1y2e6w4yVQm1Ap
-	 MMfaYJO7X4iinIQIsdEVOe+9CIXTdtbi9kgyDMAFajnsk7kFN/MaAX4t0XBjeckMqpw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793010308;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=vC3+m1bXV4BFKZGwxaXpJ49T5jUkMEzs9Tuz0+gllWI=;
+	b=G0BeBYGK5zURipzbx6aYLa9J3uYqDpZdlWXkj1OBXuEvdi4m/aptZLJ/UEswP717DTkc
+	 GiV5OUdHjnOBjb19fKuHtNPMUdcyVuUuBrPvV1EBwzLkNk/Dz/J+Fal05oDnY0P8MKJbm
+	 ZIkY7bZrTR5+Kk5WvQzv+Lh+49k9MEjzWkuNRIBjQBeTu6jqbD2rUCH9TCLFXY4b+oCjB
+	 62iU5NhN3iQx6vOP1kElXcJSuqFQsUXjDlXGAxcb2aeBGH6WOyUmMlE2U3gXpS0ZfssH/
+	 D3qSK7OjqzAYTOMHsfPiAiNY60EFjhXMex/QfhBY70OlzZ/ODma7avnH5PCcdatALZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=Uz73HNC5;
-	arc=none smtp.remote-ip=90.155.92.199
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=n3brcmes;
+	arc=none smtp.remote-ip=209.85.218.42
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B36E4606A31D
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:23:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B36E4606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACCF8606A31B
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:25:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ACCF8606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=Uz73HNC5
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=okdfPAUG/95gVMAQwqPlFeuM9Ab2hbczPB989+Nnh8A=; b=Uz73HNC5lZ1q0U4x7QEx2+B/ZH
-	W40bkcZxhehHLm0p1STMmTz7+2PlM/pbZ5yUhLMtmFeCaI12vt4B8FtLbVea9wNshblVvSBGjJBGZ
-	/LQPw+P1zZRH4C5aFKd8H+m1ucWRm0HC9yIBPVn5RqfejAvAdHqzazJJZWJvYZcgwOPVQjdYHI4by
-	bNXCqQkqRwS8OBzlFX8rihjDC9kr4XEyo1vuT4ulUZ+v47p360aMQzJ6gSPUarTRBYiVFDRQ9Iej8
-	M/43SnV17EcrU19Eu+ZSduO3ydX5ocr2qbMdhkj3GQBhk7LerKSmC5sk3bqtYuBQb6o30Nl0CaH1Z
-	Qp5C8/Uw==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xLHrZ-0000000Dh8Z-1wMg;
-	Mon, 26 Oct 2026 10:23:34 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id AF037300DB9; Mon, 26 Oct 2026 11:23:32 +0100 (CET)
-Date: Mon, 26 Oct 2026 11:23:32 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: Marc Zyngier <maz@kernel.org>
-Cc: zhangqiao22@huawei.com, Zhan Xusheng <zhanxusheng1024@gmail.com>,
-	tglx@linutronix.de, jstultz@google.com, sboyd@kernel.org,
-	mark.rutland@arm.com, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, zhanxusheng@xiaomi.com
-Subject: Re: [QUESTION] sched/clock: Potential timestamp jump due to
- inter-CPU counter skew?
-Message-ID: <20261026102332.GB2668200@noisy.programming.kicks-ass.net>
-References: <cf7a043c-384c-0642-204c-8f207eff3d42@huawei.com>
- <20261026082730.2117173-1-zhanxusheng1024@gmail.com>
- <86zew0ygqr.wl-maz@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=n3brcmes
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c4395d31228so418241966b.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 03:25:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793010306; x=1793615106; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vC3+m1bXV4BFKZGwxaXpJ49T5jUkMEzs9Tuz0+gllWI=;
+        b=n3brcmesV8gp5qwy+1W+Gw/F/RvOX7AIRhxBgR1Htj1qth9aQpnqjQ2x7/N19TXyiD
+         gQWTcO60sxUgtqEoJvvU379DAdiUxr6uE4jjAjOQUY/UbgtS0UZh1zLEic00CtpvHQP2
+         qxa1Iw7YRw7s4ODzwDt4fsz8BCW0lCgP2Fw8vvWM6OCTjaP2yyHrYNhGuGGpKk7LhHHD
+         4f6xhhENAub9y8N0Ocbz7URjR7EQC/AexpbDZmVlAJ4zaGbOGLPKHBoGpk5qcX2o8nX4
+         bf+rvWSsOP9HAqhExpnfAiuUEbYdgmV+fLN3sJCDMEdV5PyH0CT6B+jgPDXfAp58ZUyZ
+         iv6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793010306; x=1793615106;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vC3+m1bXV4BFKZGwxaXpJ49T5jUkMEzs9Tuz0+gllWI=;
+        b=Dt4v7DA11PRflLNrd0IlHCEpOW8Ic1n9jKiMhFncIiisZ8Pd16f4KzXVmcH9bZTcG8
+         MZTZdikKl/ldPidCJTJlE6Aoe3L/FgKok4rgCsVaK/Z1jSA0c8TeP/T9MGuK3ooABKTl
+         nH8WHrWI9mBai2KLjdcq4Rh43WQJa0w4vwD7zXxMkkC1s/9lj7kpG1f66BxAdlC81e4f
+         qS3yXLoheG2Fc4EpDdbMyHSk+PKpQIhQbFeFxr7xSEDQlheSNRcIZ+wQ9ediBiUMuvup
+         vsHbq5mFiXlGei1B+GPlM0bYXwcedKZtXmSIwz4CIBXqCoqOcUdpaSUOkvFY8zbUjLyb
+         gi9w==
+X-Forwarded-Encrypted: i=1; AKwUvBwDbnD39eJuiYYP6jWmSRffK1Mif3EVQC0matsLwifK4Sg7EstsPxvNeQYLj4J1WLODvIFYlViF/2gZmoY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKeP1KNpwE9oZplVURy6Ap+swe6Tn4ZWC63j3Vuw68wVMsEmo6L
+	1axsxHIVJKwM7x2djIIzO+ykPXAQ+lGt6p4NoQ8xqBMsjlWo63n0f3RZ
+X-Gm-Gg: AYBFou1kvyM7AdwtPqf10praNsjlsyDnu7oZqjrVr1U8O2sD+nbhGCKHgLlZZI2fJTl
+	C+Vv6q7F2RJiNctlrzOT74EMpfFPTEL1kJleoYQAgXHMjycFVbX5RUdyZ5EolkaAPH4Hoq4KWKr
+	LiRyOTDOW8/y2JB0U3ObnuPFhsp4nvSQUFb4IF+Ldp7jmPxtRGsx2RG6Y7VwVcetgsPYj3zaGeQ
+	Y9Ve0QHtqldvFDP9NnWx+UhOrC/INpkXhPIlLkMjUfVMS4/Y6gGwuQ9lEyOj/PvFk8lpP89zDfd
+	SZZ2RdTf3PlLRAPY+Hac3Drr9Rq7mH8roDOc0DHHbIXTR+WwOhvDBV89v3zEpL19HNpgSi+neA0
+	TCnwRZTqqSlBjPwE+6KKpIpEPwHtRaYheAF0R0jb3ATO9o4A6NmKUiGFNy3Qw99P137ceONxjuX
+	/AfzHSQq25Tmcn404y95DWjfRFw8mVxvr4koIwxG0+7jZZAfrZp2I+bzdWozggvdcA3it6dKpAp
+	uESBu4tDZWLV8SMpGLdP5mNBRnX55WIvaS77VgjWCaBj4M=
+X-Received: by 2002:a17:906:3a88:b0:c49:901c:d9f with SMTP id a640c23a62f3a-c49901c2556mr174648266b.49.1793010305891;
+        Mon, 26 Oct 2026 03:25:05 -0700 (PDT)
+Received: from localhost.localdomain ([2001:9b1:d5a0:a500::24b])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd52435asm298667066b.36.2026.10.26.03.25.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 03:25:05 -0700 (PDT)
+From: "Uladzislau Rezki (Sony)" <urezki@gmail.com>
+To: linux-mm@kvack.org,
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: Baoquan He <baoquan.he@linux.dev>,
+	LKML <linux-kernel@vger.kernel.org>,
+	Uladzislau Rezki <urezki@gmail.com>,
+	"David Hildenbrand (Arm)" <david@kernel.org>
+Subject: [PATCH] mm/vmalloc: Bail out if in softirq context
+Date: Mon, 26 Oct 2026 11:25:03 +0100
+Message-ID: <20261026102503.30860-1-urezki@gmail.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,39 +96,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <86zew0ygqr.wl-maz@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 26, 2026 at 09:05:00AM +0000, Marc Zyngier wrote:
-> On Mon, 26 Oct 2026 08:27:30 +0000,
-> Zhan Xusheng <zhanxusheng1024@gmail.com> wrote:
-> > 
-> > On arm64 the system counter is meant to give all PEs a common view of
-> > time, and keeping the copies on separate dies in step is the
-> > implementation's job.  The kernel has no tolerance for skew.  The counter
-> > errata handled in arm_arch_timer.c (Freescale A-008585, HiSilicon
-> > 161010101, Cortex-A73 858921, Allwinner A64) are all reads on a single
-> > CPU returning a wrong value, worked around by reading twice; none of them
-> > is skew between CPUs.
-> 
-> Indeed. If the implementation cannot give any two arbitrary CPUs
-> anywhere in the system the exact same view of the counter, then this
-> implementation is broken, and unsupported. No discussion.
+vmalloc() is not allowed to be invoked from the NMI,
+hard-irq and softirq contexts because doing so may
+deadlock on internal locks.
 
-The limit is the cross-cpu latency.
+Commit 04aa71da5f35 ("mm/vmalloc: do not trigger BUG()
+on BH disabled context") replaced the deprecated in_interrupt()
+macro with explicit in_nmi() and in_hardirq() checks, but
+unintentionally dropped the softirq context check.
 
-CPU-0			CPU-1
+Example:
 
-			A = clock();
-t1 = A;
-t2 = clock();
+<snip>
+vzalloc() in a task
+ spin_lock(&vn->busy.lock)
+  <------ Hard irq
+   irq_exit()
+    process softirq on the same CPU
+     vmalloc()
+      spin_lock(&vn->busy.lock)
+       spins forever
+<snip>
 
-BUG_ON(t2-t1 < 0);
+Restore the check by checking the caller's context with
+the in_serving_softirq() helper. Note that, it is still
+allowed to invoke vmalloc() with disabled bottom halves.
 
+Replace BUG_ON() with WARN_ON_ONCE() for in_nmi() and
+in_hardirq() case.
 
-CPUs must never be able to tell time goes backwards. This is not to say
-the clocks must be in perfect sync, only up to the point where the error
-is smaller than the observation limit.
+Cc: David Hildenbrand (Arm) <david@kernel.org>
+Fixes: 04aa71da5f35 ("mm/vmalloc: do not trigger BUG() on BH disabled context")
+Signed-off-by: Uladzislau Rezki (Sony) <urezki@gmail.com>
+---
+ mm/vmalloc.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-So effectively, if software can tell the clock is wobbly, you've lost.
+diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+index 7521b9b3bfd2..36e6e3be6ba4 100644
+--- a/mm/vmalloc.c
++++ b/mm/vmalloc.c
+@@ -3252,7 +3252,13 @@ struct vm_struct *__get_vm_area_node(unsigned long size,
+ 	struct vm_struct *area;
+ 	unsigned long requested_size = size;
+ 
+-	BUG_ON(in_nmi() || in_hardirq());
++	/* IRQ re-entrancy -> irq_exit() -> process softirq. */
++	if (in_serving_softirq())
++		return NULL;
++
++	if (WARN_ON_ONCE(in_nmi() || in_hardirq()))
++		return NULL;
++
+ 	size = ALIGN(size, 1ul << shift);
+ 	if (unlikely(!size))
+ 		return NULL;
+-- 
+2.47.3
+
