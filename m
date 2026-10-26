@@ -1,107 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.30
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793033371;
-	b=pBL2ZJ+d6PXxHHRk1hW0QPG7qG8GcPtgsnsnuRbhSYT7dU0KY6RJq3UW77m57sPSKy5j
-	 qpah112ZeGyhDTJZhF50C1LwR/jQWrxrgQER5lCFY4acYvVmKXINNanGKR0B4nJW9iQ2A
-	 1/iGWB8ipT5Q6biWeAzg6bA3FcMyISIhwgGlX4evLM05VjLY+j3TuCWVs2WdMohAizRRW
-	 nr8s6wCohiOdBxnMlYdrWENuOWwuZCmtlp1dkK6TRrum952fCewtdc4IkS7qWVSez94pU
-	 8qA8rB4S7QsF0bt/04/+L/ExJw+q3Ifdrk2U052aGtian7z61Mbfgv5h8E5oBYiQGVg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793033371;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:Content-Language:To:Cc:References:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=CuMr5O2dc0SYh8l56ne+XDDxsQrly1A7DyhGpcssdaw=;
-	b=zlu89Q+X7gzuoOEEHacLLdRQ9/8JMfbNCsDRFbkxe3r7acrseMbByz8vlW2EaC3Y3D/1
-	 BzZ8AZtn0HU/TiKFLui7nxd+4CVza7Do7sMWkY87I6IRrXsVf+OdiJC5z8MHL+DxRrhev
-	 wdI6wawqGGKg2wGdtZLiA8DGsWu7xV9roUE+SnvPDiFKSiLuI54G6/9cI3cFgq21KYHyd
-	 mqYTaLxWc9VQXnWbV/a2glzK17J0fVdAXmf9/1UHJiozqDbWL1pqg5eHRaWeHSF3PNUkP
-	 KX41bhmvCY61fkrHg4OeSmxyhM+vhRzZA3QH/wvcPwaSprglcbinsXK9HdO7gX3xQBg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Yakm6ZzH;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.30
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012030.outbound.protection.outlook.com [40.107.209.30])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793033382;
+	b=cTJ5+k9tm2am0BA2FJuBt0u5zqnZmlCM9zReP34G1yYgm5fj+0EnazWmTswr892QfSnN
+	 8G0wngKrp0fWON25+pLS95zEHf7Vw6dtcarzsUS4ukuCcF5/O0ooiIXlf1VGBl9XTR/Sw
+	 3yu+m/RL4UdhWW2zkoW6OyUeZfVMujVMO475afdv7D/LL3bpxh/F1cXOaWU4yE3gFT7b+
+	 sfUKqMw/UagVEFkc7EXJqDl+GNgauu7wQj+xYa9tGieZhEop0Mh3A84uj+e3sUxvIPk/c
+	 ggvHx3P6WcLz0jnD8r96edHUdqwl1mmHxK7FbUpJkBnWXsYo8giXVZlHVFo0XJ2BE8Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793033382;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=y23T2h2GqwoD/whugkXIP7aaex8iTjdAPLzd5mbQF8c=;
+	b=ribm8DUxpGG0Baoye6cInDVa8FuL0pv8pS2tBHKW6LpOAMcAr1VhcuWAffwxa2j9q6oo
+	 YLIEilpiQSsg3MSlV193Ol9B6byVY2CdPmIUXIVndzwBqpa90F1QBphNvqpTJACy+4Egz
+	 O2OiF6hDfqVU0Vc0Y4NM7thFbvxypJ+hKQFcOsKkk3XWm+GqUbrKAPnsIE750+9UKWROW
+	 HS899fzb+kInlw49H470K57BJKjynVl/fNVHz7wo5g+W1Xloxcs34Yu7KCdsx9UYS1EQG
+	 irsjThfv/0rYOMC6+RVnJlLbFNpRlH3yTFT/ny0t53TRxMOUv2upwH1RNEjaEB1x/Qw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="eSIUbj/f";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CADF0606A31E;
-	Mon, 26 Oct 2026 16:49:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CADF0606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AF2B606A325;
+	Mon, 26 Oct 2026 16:49:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Yakm6ZzH
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ELgfOfyft1bSHslIbOsK7XWAVCcD5g4oTKJgRvpD5N1iu2PIb0h00Mvf+6zr4ycmc68bgPDqLgR/9tuhFAAjhkR7oeKHPPJJdRPiy8NTU98VzPapJ+wA7mVICVDV6vxBjQLUkf0551oeOmE9sYlQMjq8fuALLDqZ09R4ULMxMivFUsVtIm66c73YDgIsA/qp1ApdydGxYvpCsF2TDRimsaGmEKRE94n0PJSnsz2xw4FcIbUfWc1d/bihyMbSzX5vr5zPiBIHl1k2cqTroJnV75uzCfGTChOBxDfHIOZ1mU0XL/B9l57uy51Adhn24X1rvA3NxDPPd1vMjYSQNW4pHQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CuMr5O2dc0SYh8l56ne+XDDxsQrly1A7DyhGpcssdaw=;
- b=IqCMuTUnEDSCVypyRhL88wqc+K16QNWDEQBKPzMlRLsaPY9rbudyVPZVJoFwvaqy4IM23wQZwQlJDRjIo17VVmAKb7vxbxPjV3c6bNlMGKvsu9O0OlYXv+i1q3BPMpyuwN4+f9phyB7y7/vDHqxMI7GCx889Qd6kEwXzfiGukV7kkLqN/1mQCAHdFLPufDJBxTOFGBwggdHqAG6pxKRQ7Y0yB8x11PHD1991oC0dwpTXP6qW7jVazQrz+HU2gSbFmlWd/MLaKl9jWzFieuGidTomCNm5qYSoDBy+1FelJSsuiU7ZVQXS5JSsChrwf9v/k3fflHv4QZGoxyNYvm0KQg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CuMr5O2dc0SYh8l56ne+XDDxsQrly1A7DyhGpcssdaw=;
- b=Yakm6ZzHTXr5NuXiLvGTskGLGojXq2q1+ic3gsnTXARb//zSeiyZUW7mc3fgSAWHG2G1Tx5dwHSUE+6PU1MuVJEoQusV/K9BHCgviA0nt6s7YHG8lP2Tcys3ClexDNqiqm/C8p09Wo0QGOw/7SRs3YutKJibv1uhKCm3ICnKy9k=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB9174.namprd12.prod.outlook.com (2603:10b6:510:2ed::9)
- by IA1PR12MB8264.namprd12.prod.outlook.com (2603:10b6:208:3f5::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.21; Mon, 26 Oct
- 2026 16:49:28 +0000
-Received: from PH7PR12MB9174.namprd12.prod.outlook.com
- ([fe80::eaaa:b430:ba9:5dc]) by PH7PR12MB9174.namprd12.prod.outlook.com
- ([fe80::eaaa:b430:ba9:5dc%7]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
- 16:49:27 +0000
-Message-ID: <58b96909-215f-4e83-9b59-37dd24581248@amd.com>
-Date: Mon, 26 Oct 2026 11:49:24 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/6] platform/x86: msi-wmi-platform: Move guard out of
- switch in platform_write()
-Content-Language: en-US
-To: Antheas Kapenekakis <lkml@antheas.dev>
-Cc: Derek John Clark <derekjohn.clark@gmail.com>,
- Guenter Roeck <linux@roeck-us.net>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- W_Armin@gmx.de, corbet@lwn.net, jdelvare@suse.com, kuurtb@gmail.com,
- linux-doc@vger.kernel.org, linux-hwmon@vger.kernel.org,
- LKML <linux-kernel@vger.kernel.org>, platform-driver-x86@vger.kernel.org
-References: <20250511204427.327558-1-lkml@antheas.dev>
- <20260803221614.59324-1-derekjohn.clark@gmail.com>
- <20260803221614.59324-2-derekjohn.clark@gmail.com>
- <f8b2c85a-2800-c9a3-4e56-7af4c53823e5@linux.intel.com>
- <58a9c644-98c2-47ee-b083-0d5b19fa5053@roeck-us.net>
- <CAGwozwGdwhE6Sm6oa2uxx_sHfFNQ6fHYnAhYHkEPQcp_Yb=Z6w@mail.gmail.com>
- <CAGwozwFUTagam+dr0SXyziAMz1MJKcYMYUgrogFcmvEaE1X0UQ@mail.gmail.com>
- <CAFqHKTmQ2R-UAP9rAZzoxe=p-T1_JKPU1NaQ2ijrVg0RXZEHUA@mail.gmail.com>
- <CAGwozwGUAEb4Q9pfd_+aXMw2P3qY376F+usPHdUFO5Q6mV_ATQ@mail.gmail.com>
- <baf91d42-13dd-41eb-88d7-d6311ee0d9f9@amd.com>
- <CAGwozwF00=zMvJKrjMG7mO18zRqSVF_Pz4DDf+og0giC5oSRcA@mail.gmail.com>
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <CAGwozwF00=zMvJKrjMG7mO18zRqSVF_Pz4DDf+og0giC5oSRcA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SN7P220CA0014.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:806:123::19) To PH7PR12MB9174.namprd12.prod.outlook.com
- (2603:10b6:510:2ed::9)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eSIUbj/f
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25FFF1F01825;
+	Mon, 26 Oct 2026 16:49:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793033381;
+	bh=y23T2h2GqwoD/whugkXIP7aaex8iTjdAPLzd5mbQF8c=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=eSIUbj/fyojBq3HQRFxeIxkdrXfEVy5YRekWnqL35S2BnC5Bf/oiaHYfBdAH8oNEY
+	 2i/i01wzlokhmE/3L1Ww4kgiNjWe/HwTf+CiwHVFdkI119DRPPpOXVrUEd0jxtrrnH
+	 2H36+acnUxai2XOlTF5HfH3qMsgxsqQRzU9xgCEXkiDCL4Mt0ZXu97VRi7SpIjINtv
+	 GmThBhfL8OuXuH2KAaOiOUlr+4Uy6+yrl7ReQPLBmdw6a5cixPqG9Ly8q/npqOvtks
+	 BQ+lJzRetFSi0aPDJj6zFVtJ3N+L2XpF/MKrCmFzsU8lVGXYFgS7dB9/EAiUbV/NHU
+	 cfchkEP8B0Tcg==
+Subject: Re: [PATCH net v3] selftests/net: test network sysctl extremes
+From: netdev-bot+sashiko@kernel.org
+To: sahaj123.sc@gmail.com
+Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, shuah@kernel.org, hangbin.liu@linux.dev,
+ netdev-bot+sashiko@kernel.org, linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org, linux-kselftest@vger.kernel.org
+Date: Mon, 26 Oct 2026 16:49:40 +0000
+Message-ID: <179303338069.3134.8407087775481756454@kernel.org>
+In-Reply-To: <20261025160927.3934600-1-sahaj123.sc@gmail.com>
+References: <20261025160927.3934600-1-sahaj123.sc@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,82 +63,319 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB9174:EE_|IA1PR12MB8264:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9148289e-a99e-4f99-a5b9-08df3381189b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|7416014|376014|23010399003|4143699003|11063799006|56012099006|261026121527099003|18002099003|22082099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	JtV28XyNlMilg+fuc39Mfh9pTgk0srct/ipW2hDCjQH7hQdgfCSSvZTSvYbxPjHW5urMeaNk8DSkoenaaOuJ+Gi2+MmAtIPuMLTluaxNkRMMTT0oD4dszfbk37OkPPZYIW2hP8992Kb2Zd1eLLzbT5DcWgZ226cvYzNDEAJfY9bMmUaNKshF4abGi8EjVk7ZaRTJ/zqIqhyc0+Xee3XdO+fLDJE29jlAkAMrjh8z3V/7+IsFXh7FZJoxWfFei6QfqOPoNnqOTBugAd40SDwPvCv1iiCj8yeNp1BJAUVbn+HWvdlC5IQ/bcJX6PCdemTTebq+XKMBkZAAdteyL05VcRJCbKx2NB47NIYoUpjvlz6XW5wbmDYi6WAYkjQT5931b+xCmWbWLmsbkUq7ZThjjL7wi7TPW1CGDba9jUUZYxJJuTW7IwhLpyKtGYs5BQKNkNzMbgzSYt9yAEgF6zcT6uLjMK+wsFNKhZe4GMGS3Ik06/QPukmDvwH0tFuutwDOUvOzF9krxa/Cf2XUlyanRg9w6Si3IBvkMnIjYse45Huk/pyBeyLRtbUQz8G2QNlsdb29shzcYxnstfryhezhWYQivNfzWWBVIoDfHMixCxoh37k3iYOhyV3WFM53CEKzz3Bw8gMC5OhT9SaqrmBrGMoA7odNbLFFf8o09yTDIeU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB9174.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(23010399003)(4143699003)(11063799006)(56012099006)(261026121527099003)(18002099003)(22082099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?N0NXUXFRODc3WXBYbUcxRWNneTJWZjlkc0tlcVd6aGFGdVJ6dm1FaXVBMTQ0?=
- =?utf-8?B?eWMzeDY5cEx5ZFZvRi80eS9qcndIdGhHMVBnbFJVU2ZVNEE1dDdxaUg2Titq?=
- =?utf-8?B?b2NpNXhuY0phMS8xTE5PSVBOUFRtVW83WkdONXBrNTdMeXBvRkFWMDRwOGZO?=
- =?utf-8?B?cHV5MVNVV0lkN3Fva2R0azlSRjZ6aitJRTU3SHNDaFJ6dHlSTDEvVEpmeFRK?=
- =?utf-8?B?T1VDVUFRTmZUM01rL01XNW5Uenljd2daZ1AydVQ5RUNxbnlzVjQ3UmFKUWha?=
- =?utf-8?B?STlEcXpGeE5pSklKQ1JIbHpnZEFYS2tVWlpvMVh6QWNtR1JKbFg4WnV0Wm1s?=
- =?utf-8?B?bFp0cHJ4WkpLMG9WbkEzdXZCNzVROU9FK01aTGF6a0pQRXpLZ1IvdWtnNWg3?=
- =?utf-8?B?M0lVNythN3dRWFNuSUhsb0s3UmdOK2dyM3RWOTN1SDVmT2FxeVpBZ2Yzc2g5?=
- =?utf-8?B?V1ZTZkRCU2tyY1d5THVPUUFSVkx4NTdUNEJEdnQ2MXFZOFpkNmZxQUhaeE9K?=
- =?utf-8?B?bERReDlGZVQwd2R3TFNXMTYwaGdnTkNuV0xxUUtCT2t4ZDFrb2h6bE9mQ3dS?=
- =?utf-8?B?ckxPaDJGcldLRE5WK3FRMkRHcFVRQ2dEbldram0rUnJxdlN5QmZiTHpKQWlo?=
- =?utf-8?B?eHhoZWYralBKZGlaMWUzWUE3Qk83S0x2bUFsbi9NZW8xS0hPVys1QklwOXIz?=
- =?utf-8?B?WWlQWG03VkFJQ0o4bGE3Y0ZVNVFydmRyeFBCR29xMzRSMmN4SWVpaGo0VVJY?=
- =?utf-8?B?ajJrQS91NVlmbzZWOE02MmJUSWM2OC8rWldiaE93Ny90Nm8zMElCaXB4elN2?=
- =?utf-8?B?bHp3blVyYTVSVktveVV5VHlHYXNRazJpWmo3czdVRzBxVlR6ZDBscGRKNnpW?=
- =?utf-8?B?eDY2ajNVWUt2eHVBUFFXOC9lYmxMSHRjOEd5c0ZMbEJzTlU1K0VyS3lMbHUy?=
- =?utf-8?B?Si9GM3dLOXRCSmYwc0pMS2lRalBsSGxPVy9JUmZ6T1phbzBldUdpaXdSekg5?=
- =?utf-8?B?YVFCc1lzUnJlaGNLeDhIc05JM204NkJtMXdxSVhIUmdKUlBvR2ROUjlDZ29s?=
- =?utf-8?B?Y3lvY0w1QndITnl0NnYzeVNjb3c0Wnk3K1k5L1FaZHlDMGJmajg4QndxRHdG?=
- =?utf-8?B?R1FvKzVva0gxMzRuR24xSzFkOFBYbTZ0Vk1jMmU1MDMyUkRMRVFDT28xYXYz?=
- =?utf-8?B?emdQMDdQdldBYXNiTzlLQThhT0ptNlNWV1J6UDhkblV0bzRicjJhVFZmQUJy?=
- =?utf-8?B?cS94eERLck5JaEtnWTFIMWd2YTlWYmRRNTUrdG5OdFFnb1BHaERZNW5ObTRr?=
- =?utf-8?B?Unc2REtlOFRlbHV4QVV0eVpLbDR4b0hNOE5LUHduRTNabHFVZmUwMVQvWXRi?=
- =?utf-8?B?VWkrVnVVZm11dHgzTGxoR2tTdnhyNk5yQ0NMTHJIMUhYSkd1eHRrS09rWjNh?=
- =?utf-8?B?a2NERVYrNjBUTDhKQWFPY0pHWnZZVCtscTUzQWIvSW9XSVU1R1RJOStBRDVr?=
- =?utf-8?B?RjhqSHc4Qy9PN2hKRWRtSzRRUkF0R3FLaEZBOFRVRmxCVHpaTVY1L0x1WHZE?=
- =?utf-8?B?MFdiWlVubG10bEU1eFdVcjQ4UkhsRDdJMjNnTHFoM2hIYUkvY2dWRG5PdzNi?=
- =?utf-8?B?Ri9BR213SGt3OTE0QXZqSGUvcnQ0bWU5RkcyUzVMcVZUUHJLcWdrd1IyaTE5?=
- =?utf-8?B?UFoydFVMVCtjcHBpVnVONlZSR0NqejZuMWsycEtLdnI0b2NFd0xtSVNGTVNv?=
- =?utf-8?B?eHdHL1ZmbEh4aFppSmk2enkwN2xlRmtFa2phSGFWK0RjbDFPL0xIc3hWcFNo?=
- =?utf-8?B?VHJoMEQ5OTNldHlPaElrYkV3UGdvR3g4V1BBUzVFMjdWTjJXSnpNbVJBNlN2?=
- =?utf-8?B?MVArd1lxcGZQa1h1cDE3WDl1UTJzQ0VNc1FSRGJHVDFVU0w0dmNLYVV1WjBB?=
- =?utf-8?B?MUVPNXJEaW00akd6QlRhR2hmSW80b1UrL2JhcWhORFRGTnNpUkdKMGtQNFV6?=
- =?utf-8?B?aGtxRTQwN3VHS1A5VTJicVk2MTFEQmN3RWZBS2YrZ1RwZitCSDJPWUZFYkJO?=
- =?utf-8?B?V0tHU01VUVJpL2ZOd1YxeHNzNnVrZHE3U3NTQUhPYUZpTmFHUXh4SzhXdnhF?=
- =?utf-8?B?NVNjQU1LNGhYcWRkbGlyRVJjc04yNVdvTkRsaThuMDZ6OFo2dXlhY2NjVEdP?=
- =?utf-8?B?SWtoN2QrL0xHbnhTWW83bCtIWHMrRytoMm51MERjZzYyTWQ5aUhzTnc3V2o0?=
- =?utf-8?B?NTdjTmFQZTdSODczcStJQ3NoVnpTVndNd0ZkWUZWWjlHbnNqTTVtbGs5SWRu?=
- =?utf-8?B?Z04zVE9uVHdidWtoNGNUR1hwSmdLR3JpUHRSNEgyVjdaWS9CbC9mUT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9148289e-a99e-4f99-a5b9-08df3381189b
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB9174.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 16:49:26.9491
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: E4w+XwtjBvlzb+Dpdkya/4KOb+q/8o4qxRdAND7X1gHtxCxawv+lwRTou38/MMV5rbAZ/LqJkjP4kBIaKYlCuw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8264
 
+Thank you for your contribution! Sashiko AI review found 7 potential
+issue(s) to consider.
 
->> If their BIOS/EC is using one and reverse engineered software is using
->> the other, you will expect problems.
-> 
-> Correctly implemented ACPI should 1-1 match both modes, so we do not
-> care what the manufacturer did. Caring means their boost values are
-> not being properly set.
-> 
-The problem you need to keep in mind is that if the EC or BIOS is 
-setting policy you are going to get into a situation of last one setting 
-it wins.
+Critical: 0 · High: 0 · Medium: 4 · Low: 3
 
-BIOS/EC policy could change on anything: battery level, power adapter, 
-sensors etc.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
+- [Medium] Several splat patterns in check_kernel_log()
+  (tools/testing/selftests/net/sysctl_net_test.c) do not match what this…
+- [Medium] The test says it exercises TCP and UDP loopback traffic at
+  every accepted lower and upper bound of tcp_rmem/tcp_wmem, but its…
+- [Medium] Every whole-test skip path in main() calls
+  ksft_test_result_skip() and then ksft_finished().
+- [Medium] check_kernel_log() can still be spoofed by text a task
+  controls, even though the v3 notes claim "Match kernel splat…
+- [Low] The permanent commit message mixes revision history into the
+  change description, overstates scope, and leaves out behaviour that…
+- [Low] The test's verdict depends on global kernel log activity that has
+  nothing to do with the sysctls under test.
+- [Low] The boundary search has no expected value to compare against.
+
+--
+
+selftests/net: test network sysctl extremes
+
+This adds a new kselftest, sysctl_net_test. It unshares a network
+namespace, searches for the accepted lower and upper bounds of each value
+in ipv4/tcp_rmem and ipv4/tcp_wmem, and runs TCP and UDP loopback traffic
+at each bound. While it runs, it also watches /dev/kmsg for kernel splats.
+
+Link: https://lore.kernel.org/r/20261014041446.2821085-1-sahaj123.sc@gmail.com
+
+> selftests/net: test network sysctl extremes
+>
+> Probe the accepted lower and upper bounds of per-network-namespace TCP
+> receive and send memory sysctls, then exercise loopback traffic at each
+> bound.
+>
+> Drop udp_rmem_min and udp_wmem_min: one-byte UDP traffic does not create
+> the memory pressure needed to test them. Keep UDP loopback only as a
+> transport smoke check.
+
+[ ... ]
+
+> Tested: W=1 selftest build; x86_64 QEMU with CONFIG_NET_NS=y.
+
+[Severity: Low]
+This isn't a bug, but the "Drop udp_rmem_min and udp_wmem_min" paragraph
+describes a change from an earlier posting. This commit creates
+sysctl_net_test.c from scratch, so nothing is dropped in git history.
+Should that text go below the --- line with the rest of the changelog?
+
+The subject "test network sysctl extremes" also sounds broader than the
+code. representative_sysctls[] only lists ipv4/tcp_rmem and
+ipv4/tcp_wmem.
+
+The body doesn't say that the test reads the global /dev/kmsg and fails
+on any kernel splat. It also doesn't say that the test skips when
+/dev/kmsg can't be opened or seeked, or when printk records are lost.
+Could the commit message describe this?
+
+Also, "Tested:" isn't a standard trailer.
+
+> diff --git a/tools/testing/selftests/net/sysctl_net_test.c b/tools/testing/selftests/net/sysctl_net_test.c
+> new file mode 100644
+> index 0000000000000..81b9b32245f42
+> --- /dev/null
+> +++ b/tools/testing/selftests/net/sysctl_net_test.c
+> @@ -0,0 +1,982 @@
+
+[ ... ]
+
+> +static bool check_kernel_log(void)
+> +{
+> +	static const char * const splats[] = {
+> +		"WARNING: possible circular locking dependency",
+> +		"BUG: unable to handle",
+> +		"------------[ cut here ]",
+> +		"Kernel panic - not syncing:",
+> +		"BUG: KASAN:",
+> +		"watchdog: BUG: soft lockup",
+> +		"watchdog: BUG: hard LOCKUP",
+> +	};
+> +	static const char * const error_prefixes[] = {
+> +		"Oops:",
+> +		"divide error:",
+> +		"general protection fault:",
+> +		"invalid opcode:",
+> +	};
+
+[Severity: Medium]
+Do these patterns match what the kernel prints today? Several of them
+don't seem to line up with the current format strings.
+
+For WARN, __warn() in kernel/panic.c prints:
+
+	pr_warn("WARNING: %s:%d at %pS, CPU#%d: %s/%d\n", ...
+	pr_warn("WARNING: at %pS, CPU#%d: %s/%d\n", ...
+
+So the "WARNING: CPU: <n> PID: <n>" parser later in check_kernel_log()
+can never match. WARNs are only caught by the "cut here" entry.
+
+For x86 oopses, __die_header() in arch/x86/kernel/dumpstack.c prints:
+
+	"Oops: %s: %04lx [#%d]%s%s%s%s\n", str, err & 0xffff,
+
+page_fault_oops() passes "Oops" as str, so the record reads
+"Oops: Oops: 0000 [#1] ...". The error_prefixes check:
+
+	splat = *p == ' ' && isxdigit((unsigned char)p[1]);
+
+rejects that record ('O' is not a hex digit). It also rejects
+"Oops: general protection fault: ..." and "Oops: invalid opcode: ...".
+No record starts with the bare "general protection fault:" or
+"invalid opcode:" prefixes. Only "Oops: divide error" matches, and only
+because 'd' happens to be a hex digit.
+
+On x86, a kernel NULL dereference goes through show_fault_oops() in
+arch/x86/mm/fault.c:
+
+	pr_alert("BUG: kernel NULL pointer dereference, address: %px\n",
+
+That string isn't in splats[], which only has the "BUG: unable to
+handle" branch. The die() path prints no "cut here" line, so nothing
+matches a NULL dereference.
+
+On arm64, __die() in arch/arm64/kernel/traps.c prints
+"Internal error: %s: %016lx [#%d] SMP", and die_kernel_fault() prints
+"Unable to handle kernel %s at virtual address". Neither is matched,
+even though the commit notes cite an arm64 run.
+
+watchdog_hardlockup_check() in kernel/watchdog.c prints:
+
+	pr_emerg("CPU%u: Watchdog detected hard LOCKUP on cpu %u\n", ...);
+
+So the "watchdog: BUG: hard LOCKUP" entry never matches anything.
+
+Lockdep also prints "WARNING: possible recursive locking detected",
+"WARNING: inconsistent lock state", "WARNING: suspicious RCU usage",
+"WARNING: bad unlock balance detected!" and others with no "cut here"
+line. Only the circular dependency report is listed.
+
+An oops can happen in softirq, a timer or a kworker, for example in TCP
+timers or loopback RX at an extreme rmem/wmem value. If it does, the
+test keeps running and reports a pass. Could these patterns be updated
+to match the current format strings?
+
+[ ... ]
+
+> +		/* Ignore messages that userspace wrote to /dev/kmsg. */
+> +		prefix = strtoul(record, NULL, 10);
+> +		if (prefix >> 3 != 0)
+> +			continue;
+
+[Severity: Medium]
+Can a task still fake a splat here? The v3 notes say the matcher no
+longer matches task-controlled "BUG:" text. However, some facility 0
+kernel records start with the task comm, and those get past this
+filter.
+
+On x86, show_signal_msg() in arch/x86/mm/fault.c does:
+
+	printk("%s%s[%d]: segfault at %lx ip %px sp %px error %lx",
+		loglvl, tsk->comm, task_pid_nr(tsk), address,
+
+show_unhandled_signals defaults to 1. On arm64, arm64_show_signal()
+does:
+
+	pr_info("%s[%d]: unhandled exception: ", tsk->comm, ...);
+
+TASK_COMM_LEN is 16, so a comm can be up to 15 characters. /dev/kmsg
+isn't namespaced, so any unprivileged process on the host can do this:
+
+	prctl(PR_SET_NAME, "BUG: KASAN:");
+	/* then take an unhandled SIGSEGV */
+
+The record "BUG: KASAN:[pid]: segfault at ..." matches the
+"BUG: KASAN:" entry in splats[], so the test fails with "kernel splat
+detected".
+
+Other comms work the same way:
+
+  "Oops: 0" matches the "Oops:" prefix, since a space and a hex digit
+  follow it.
+
+  "divide error: a" is exactly 15 characters.
+
+  "UBSAN: x" passes the isalpha() check.
+
+The validation in the notes only used the comm "BUG:", which is shorter
+than every pattern, so it doesn't cover this case.
+
+[ ... ]
+
+> +static int find_bound(const char *path,
+> +		      const struct sysctl_values *original, size_t index,
+> +		      bool lower, bool unsigned_domain,
+> +		      struct sysctl_number *bound)
+> +{
+
+[ ... ]
+
+> +	*bound = unsigned_domain ? number_from_unsigned(valid) :
+> +		 number_from_signed(unordered_value(valid));
+> +	return 0;
+> +}
+
+[Severity: Low]
+Should the bound found here be checked against an expected value?
+find_bound() takes whatever value the kernel accepts as the correct
+bound.
+
+Documentation/networking/ip-sysctl.rst says each tcp_rmem value "cannot
+be set below 4096". net/ipv4/sysctl_net_ipv4.c enforces this with:
+
+	.extra1		= &tcp_min_rcvbuf,
+
+Suppose that minimum regresses. The notes describe a vendor 6.12.57
+kernel that accepted tcp_rmem[1]=1 and sent zero-window SYN/SYN-ACKs.
+The test would just find the new bound and run traffic there.
+
+The verdict in main() only needs one success, so the arm64 run with TCP
+11/12 would still pass.
+
+[ ... ]
+
+> +int main(int argc, char **argv)
+> +{
+
+[ ... ]
+
+> +	if (unshare(CLONE_NEWNET)) {
+> +		ksft_test_result_skip("cannot create network namespace: %s\n",
+> +				      strerror(errno));
+> +		ksft_finished();
+> +	}
+
+[Severity: Medium]
+Does this exit with KSFT_PASS instead of KSFT_SKIP?
+ksft_test_result_skip() increments ksft_cnt.ksft_xskip, and
+ksft_finished() is defined as:
+
+	#define ksft_finished()			\
+		ksft_exit(ksft_plan ==		\
+			  ksft_cnt.ksft_pass +	\
+			  ksft_cnt.ksft_xpass +	\
+			  ksft_cnt.ksft_xfail +	\
+			  ksft_cnt.ksft_xskip)
+
+With a plan of 1 and one skip, the condition is true and
+ksft_exit_pass() exits with 0. run_one() in kselftest/runner.sh tells
+pass from skip only by the exit code, so the run is recorded as a pass.
+
+main() uses the same pattern for the /dev/kmsg open and seek failures,
+for the loopback failure, and for the "no selected writable numeric
+network sysctls found" case. It also uses it for the
+kernel_log_incomplete case, which v3 added so that an incomplete splat
+check would not count as a pass.
+
+Would ksft_exit_skip() be the right call for these whole-test skips?
+
+> +
+> +	kmsg_fd = open("/dev/kmsg", O_RDONLY | O_NONBLOCK | O_CLOEXEC);
+
+[Severity: Low]
+Should the result of this test depend on the global kernel log?
+unshare(CLONE_NEWNET) isolates the sysctls, but /dev/kmsg is
+system-wide.
+
+check_kernel_log() runs after every probe and traffic step. A WARN from
+unrelated work running at the same time, such as other selftests,
+drivers or kworkers, would fail this test with "kernel splat detected".
+
+Also, a printk burst that causes EPIPE sets kernel_log_incomplete. The
+whole run is then reported as a skip, even if every sysctl and traffic
+check passed:
+
+	if (kernel_log_incomplete) {
+		...
+		ksft_test_result_skip("cannot complete kernel splat check\n");
+
+netdev CI already scans dmesg after each test. Is a separate check
+needed here?
+
+[ ... ]
+
+> +	if (!failure[0] && (!tcp_successes || !udp_successes))
+> +		set_failure("loopback delivery incomplete: TCP %zu/%zu, UDP %zu/%zu",
+> +			    tcp_successes, tcp_attempts,
+> +			    udp_successes, udp_attempts);
+
+[Severity: Medium]
+Is this check strict enough? When delivery fails,
+run_loopback_traffic() only copies the first error into
+tcp_delivery_failure or udp_delivery_failure. That string is printed as
+a '#' comment, and set_failure() is never called.
+
+So the test only fails here when every TCP attempt fails or every UDP
+attempt fails. With TCP 1/12 or UDP 1/12, main() still reaches:
+
+	ksft_test_result_pass("TCP/UDP loopback smoke: TCP %zu/%zu, UDP %zu/%zu\n",
+
+The arm64 run in the notes had one TCP timeout in 12 attempts at
+tcp_rmem[1]=1, and it would be reported as a pass.
+
+Should a delivery failure at any bound fail the test?
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261025160927.3934600-1-sahaj123.sc%40gmail.com
