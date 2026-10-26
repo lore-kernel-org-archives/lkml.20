@@ -1,57 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.201
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792994972;
-	b=ycYn5V2tAOr4yUQ+gsFUfUySpB4hh4qGJ1ApeRNS3dpbm9H9gx1VAKLIhVejuPWNExf2
-	 o+1/6rVLG71wwMztGfUDMyfXvfzE/vX8j3PzDT+C3VtU/857Baj2z/4mjY4E0uqU4mEV/
-	 jKL6WMjdLfj3A7SM/GXxNNLRePtCb4Yi0D88QVBI/Fp24SjwBhYHGwajjCBwVyf8QVbiX
-	 pvEl4Y7dcxv86kNqgewzngQ2DVJ9vlm7NSDCtjlj1/ayyciZtV5/vuIfkRyG3ZTH8eYnV
-	 lr0XooXZqn5V78h08jTDMOYtIxid7PLxETLNPVNmFkott/s4WdN1Wm4xgKMWAU9/4zQ==
+	t=1792994976;
+	b=Q2cDHHeDVfV7NU65H18svkYkKtEDhkyU9QeLizgjGNwZQVsB/SLivvWf5DBbytVgoM3/
+	 kby0d24KhEYbJ/lcxiggUfETXkRBcsskT8VZVQxKxxJKNvkv79YNhzj26RyUdxpt4VmjY
+	 ZaSEcBrkbzCdPr/InO3mQoIcKJmYjfEn4p+XPJobO2AXHtp8xUmGRLwAhq9JuZW9qfMIY
+	 OdQzmEO8fvJZXu/M51i5+9YiPxqxpL8YG1VBbwFu1GejwovIXSkkZeyW/n2ll0zX6WD5C
+	 SLLf5hPrEZe/AsVDAFrSMPIbx6WoBFeF8lw2WFAulhzmGQdIBS2etJqFuUSS7Xh10kw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792994972;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792994976;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer;
-	bh=9/nGkbV+fUPPeLqyGNZSPjPsYCz8iycYQbfenjHMLyo=;
-	b=eipBgGO9c0TJIq2krNtzkmFYGYd56Ihvys3C9smfYumuIBuneHy7nKmiYLRExJjpu/NQ
-	 aPVb/ahDjrLb+j5d9kKVOXMr1wOuPSFUues9l+iqun52eR7gW+LEgR2m30S0p3ynPIchu
-	 an1VH745xHnuMNtXBbyZCSkO9uAIIWfydnoHOVYhC3DNnjJy62FfvXbKoGG+42Vl6aqHc
-	 zGw0wyCw+NVHu5fI/tTLZ8NMd4o9dzRgzQE+8dkWQMxDq2MxfFUVGOHJitemGI6mOeoAe
-	 kdUL+9HASS6Koxp4mC9xwLZcWHuFvv8nk1tRD+trmYwo8xXzmznkgZVSwE6NzZ2iUDw==
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer;
+	bh=LRO5qjnwALlrQa/AL5APisjMR4z2O+zqds9mzHpxSAU=;
+	b=m4DNZiG9ZbnHz7uoobEYM5kaYFdEmZrdowlNDMTGeSfyv4Ts6Yi9hdrCqcAcaw87DdvY
+	 Ndvb1Lt4o8Oc8GGY8alamGmdsKjheDe3kerimra5O18eYONbWHtL/5eZEpjI8V9GM76sk
+	 RMR1EPzN7ENEE0hG81sBRd8eyA2yP8j3OK8mpvM/znjxv37aWyQZNhQj3v8SCEoKrfPSX
+	 OUzUDdAoBB6ukf78ojMIIMX7+gXcGYF7EUJCvCn0aH8R7Qh1uWNUsyko9hKf2Df0iaSu1
+	 5MsFIbI4meeAJ9P/fgu+DWODDzFe57QJ31YPb4qq/oVZ+YA4aBDF9XIsrEtY52ObMxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=P7qrESev;
-	arc=none smtp.remote-ip=95.215.58.195
-Received: from mta1.migadu.com (out-195.mta1.migadu.com [95.215.58.195])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="nOLT5lV/";
+	arc=none smtp.remote-ip=95.215.58.201
+Received: from mta1.migadu.com (out-201.mta1.migadu.com [95.215.58.201])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 517EF606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 06:09:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 517EF606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56DC0606A31F
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 06:09:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56DC0606A31F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=P7qrESev
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=nOLT5lV/
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=2v1X/4ZNw/k4n0QQySBSm3vuF3Ioo/pID4q6JpER+64=;
+DKIM-Signature: a=rsa-sha256; bh=uaY+B1fHFP1ahLgB0T3Rk+kqqo7Xd5Z1Iz1h35K6LdY=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792994969; v=1; x=1793599769;
- b=P7qrESevDfEBLBVoUte5Tp8c4MLoxJTAP2gUDuLPLCk4+eTBxSt7B/Nk/GtbAhDIjmUp0Prl
- OHv8KjaMB81GJ5BPGofTkt5we/sMwC7oYnbf/lHbZCId/eGBflwi/OBZRUPhT12KvmSvLRaIzk9
- zwpHzemitrIez0ZxjLL0uH0k=
+ t=1792994973; v=1; x=1793599773;
+ b=nOLT5lV/D9H6z5XSR8y/VBJHt9xb7rxn1Z396Z4ctj1Qx+3WlSkuu7qB7kprGEaCjpVxG5O0
+ g63D+Y6IXTEQ0m6kpw/R4QsWnvFKeGTU1ZKVac/bkMOpFYTxgfPtfVEFNtAjMfxHkBSF8+hJDIN
+ tXteDGLbnNHuSJNOb7pJxah0=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id f1f0116670f74061;
-	Mon, 26 Oct 2026 06:09:29 +0000
-X-Mizu-Trace-ID: f1f0116670f74061
+Received: by smtp.migadu.com with ESMTPS id 530052733c7de91c;
+	Mon, 26 Oct 2026 06:09:33 +0000
+X-Mizu-Trace-ID: 530052733c7de91c
 X-Migadu-Flow: FLOW_OUT
 From: Ye Liu <ye.liu@linux.dev>
-Subject: [PATCH 0/2] mm/vmalloc: harden remap_vmalloc_range_partial against
- NULL pages
-Date: Mon, 26 Oct 2026 14:09:22 +0800
-Message-Id: <20261026-vmalloc_remap-v1-0-b7a907814e90@linux.dev>
+Date: Mon, 26 Oct 2026 14:09:23 +0800
+Subject: [PATCH 1/2] mm/vmalloc: drop VM_DMA_COHERENT from
+ remap_vmalloc_range_partial
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,46 +62,52 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAJLu3moC/yXMywqAIBCF4VeJWSeoREivEhE2TTXRDS0JonfPa
- nEW3+L8F3hyTB6K5AJHgT2vS4RKE8DBLj0JbqNBS52rOBFmO00r1o5muwmpNHaZMqitgfjZHHV
- 8fr2y+u2PZiTc3wjc9wPSLN5scQAAAA==
-X-Change-ID: 20261026-vmalloc_remap-012cf418c2a8
+Message-Id: <20261026-vmalloc_remap-v1-1-b7a907814e90@linux.dev>
+References: <20261026-vmalloc_remap-v1-0-b7a907814e90@linux.dev>
+In-Reply-To: <20261026-vmalloc_remap-v1-0-b7a907814e90@linux.dev>
 To: Andrew Morton <akpm@linux-foundation.org>, 
  Uladzislau Rezki <urezki@gmail.com>
 Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
  Ye Liu <liuye@kylinos.cn>
 X-Mailer: b4 0.17-dev-39d60
 
-remap_vmalloc_range_partial() passes vmalloc_to_page()'s result to
-vm_insert_page() unchecked, oopsing via page_folio() if the page is
-NULL. The NULL case never happens today because VM_USERMAP areas keep
-every page mapped, but that assumption is nowhere checked.
+From: Ye Liu <liuye@kylinos.cn>
 
-Patch 1 drops VM_DMA_COHERENT from the allow-list -- a dead entry (no
-caller maps a DMA-coherent area through this path) whose presence also
-opens a NULL-deref path, since VM_DMA_COHERENT is not in vrealloc's
-shrink skip-list.
+No caller maps a VM_DMA_COHERENT area through this path: such areas
+come from dma_alloc_coherent() internals and are freed via vunmap(),
+never through remap_vmalloc_range[_partial](); all 13 callers pass
+vmalloc_user()/vmalloc()-backed addresses.
 
-Patch 2 adds a WARN_ON(!page) to flag any future break at the
-vmalloc_to_page() call site before the oops.
+The flag was added in commit fe9041c245196 ("vmalloc: lift the arm
+flag for coherent mappings to common code") as a mechanical
+translation of ARM's VM_ARM_DMA_CONSISTENT. It is also unsafe to keep
+since commit 5ea8ec74c57c0 ("mm/vmalloc: free unused pages on
+vrealloc() shrink"), which frees tail pages of non-VM_USERMAP areas
+(VM_DMA_COHERENT is not in that skip-list): a shrunk-then-mapped area
+would hit vmalloc_to_page()==NULL and vm_insert_page() would
+dereference it unchecked.
 
-Patch 1 is a behavior change (no in-tree caller affected); Patch 2 is
-dead code. The two are independent.
+Drop it so DMA-coherent areas can never enter the path.
 
 Signed-off-by: Ye Liu <liuye@kylinos.cn>
 ---
-Ye Liu (2):
-      mm/vmalloc: drop VM_DMA_COHERENT from remap_vmalloc_range_partial
-      mm/vmalloc: warn on NULL page in remap_vmalloc_range_partial
+ mm/vmalloc.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- mm/vmalloc.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
----
-base-commit: 2efb7a11f1aa4d2dc285fe2680cca22cb9f72f64
-base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-change-id: 20261026-vmalloc_remap-012cf418c2a8
+diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+index db669103dc66..a888eca016a8 100644
+--- a/mm/vmalloc.c
++++ b/mm/vmalloc.c
+@@ -4894,7 +4894,7 @@ int remap_vmalloc_range_partial(struct vm_area_struct *vma, unsigned long uaddr,
+ 	if (!area)
+ 		return -EINVAL;
+ 
+-	if (!(area->flags & (VM_USERMAP | VM_DMA_COHERENT)))
++	if (!(area->flags & VM_USERMAP))
+ 		return -EINVAL;
+ 
+ 	if (check_add_overflow(size, off, &end_index) ||
 
-Best regards,
---  
-Ye Liu <ye.liu@linux.dev>
+-- 
+2.43.0
 
