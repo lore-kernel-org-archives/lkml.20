@@ -1,116 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.145
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793013387;
-	b=AAKbA5pCCRLUmKVJiqJV9+T7HP0Nfvafd4gtJfI3/gOhGW5bX2lHTB6lsn6b2wBvHfRX
-	 j+4+3swdyv/NXq8O1NgqBO5ObWThTUnCwKMpaa5bFymvkVkv3Yegx8DC5JlTqiv8CO+kk
-	 MeF4emdi7/nllvSoB2WRv0ZYWe3f8cjfmlVdPbY6RLFj+p0Wb1kAw2S5hQn9395qIGNt6
-	 Ub+kOijTQJKHZRB8q7qZHjrvYdBnsP1zA4Q+5NUUDyQU14a5QeVUQM9frd4MNAl/eZcI6
-	 dd8tbW4mU043tVJH4FK21vptvfqXYmKaKSKIm06anwazVLahRLNIhuvupIn9UeJ53ug==
+	t=1793013385;
+	b=GIJ7l0lKKmndO9QV/8eufcUikZTiVkhHYPTV/OAe4tdfTuRaCHnSIwpZYE2uRAuqJujA
+	 WGF7tlmGLUG7XRK2bXabv4FQgaI5c0efTi2rsbWUrcPxcwI9D/GG7p75sEtCSE2DlN7Qm
+	 zkhgjIt8nrYS6kVWk5hQzExeX//re66utY4VRiEPf4IahD7wKIMImT3d/46rigPU8BuJA
+	 OLPxWQr7UMhgezhANT9qJ1Rjjdr6GUfFFjvne13LmI2I7JTU7IcO3Ldy14rGc6j7Cqgtc
+	 LWXbSsbSgE8aP2zBfRaD0ktY54Za7/ElMyi9R42U+6VUuBsOZL3jo4osreVE0URoY9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793013387;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=VGBLjM7SDQH++/mXaqqVJ79FQu5D+4L9GnlGy61fp3Q=;
-	b=I3n1RltjUVQ64pmZcn6d8LjbRcD2FqRjkCJ8phMSPIUdOoWVSGAC5uvJvIVt0O+8n5t/
-	 hGkMdL4px3Hs/rrSSX59VqJ+CEZNeFltA+c+Il1Aqt0cUoTTnGzeD+TtBriT/3U3RrWky
-	 U/FF3A1gnOjm62VK1dmslTYZQRuzd/vWlSlIcLug0HzI9UDhek1M3iYGgBYGUux4aZHjF
-	 MnHJCSydHT8WfyoJnLRh6J67pE8TaVvt2VdKEXcoOMzzWaZKNQv9DbgO8u9uELYkAP5rL
-	 yL1gXB/MoXQcHcAll21HRvzF/jLpXIplVyMQReTxd53AiK78hjXgCinivlkylebgBrw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793013385;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Date:Message-ID;
+	bh=8rYpsphUHQN5o3M8ULTGHPBVlkOicoYy0qDzZu7+FCs=;
+	b=wwMqUKRPO2HCEYnEmQ4zCFmgMQRymF3WoekIADDhBL3+Wr+qJqOjxaVXumslPPEOOBM6
+	 QC1qhRF947XStLBxNouCYI5L2Il030h4cWuGx51I058lbHgOBdP9FH6JZ3puypo1+ECVZ
+	 un/vFp9A2BhtPRFTfmsJDVn26hnbHdkveDACmFq2NmjrPDRby/s4RMrZ/eZ+eMKs7zO5G
+	 tomTjnTf1xX1BKzvzt5hXc2m3YdDxD3xXmF3so94R5pcuG/bLFGbgnGvWwJVEoKkMqpNw
+	 /7pBT+ieG0YiIGV9cSlk3Ch1+puhTkxowQbMzpfb9oYpUp3qXiqWXcsUTUHhDvGdx6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=jannau.net;
-	spf=pass smtp.mailfrom=jannau.net;
-	dkim=pass header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b=GNfmh3hO;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=mNXXjtI9;
-	arc=none smtp.remote-ip=103.168.172.145
-Received: from fout-a2-smtp.messagingengine.com (fout-a2-smtp.messagingengine.com [103.168.172.145])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="I/dtqwDD";
+	arc=none smtp.remote-ip=74.125.227.130
+Received: from mail-pj2-f2.google.com (mail-pj2-f2.google.com [74.125.227.130])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9D28606A91C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EEB2606A909
 	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:16:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9D28606A91C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jannau.net
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2EEB2606A909
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b=GNfmh3hO;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=mNXXjtI9
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfout.phl.internal (Postfix) with ESMTP id 5018DEC0364
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 07:14:24 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-03.internal (MEProxy); Mon, 26 Oct 2026 07:14:24 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jannau.net; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1793013264;
-	 x=1793099664; bh=VGBLjM7SDQH++/mXaqqVJ79FQu5D+4L9GnlGy61fp3Q=; b=
-	GNfmh3hOyQVax7CNbpAzK310rHceDepCZE5qTQkOkpzW+06wSBizx3o6W6Ac5nCa
-	r4uRPunxJGtBD06y8zSvQAFcpm69tmVpUPhdYi6+bTgQ6ZLeS/13yen1LKEa5tfm
-	73we+CV9q0rXOHrqzMwWWWO9RuKRpUjv010RBFVTE3j2uxwcNLUsWAoUmUBs6dg7
-	7NBEpub01qyRGqOmRExt9JwrTA7jNsJDAbpdrf2nqUJ1o8ir/s0cEtXB3jeHfcic
-	bC3gSxev+9ihsmHyhlRgNW+RzgN4rghkGwyWxEzKPseD8bzW2ry5PebJG9lFtPpT
-	EfPYTKjHKLLNiNI//WN3Zg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793013264; x=
-	1793099664; bh=VGBLjM7SDQH++/mXaqqVJ79FQu5D+4L9GnlGy61fp3Q=; b=m
-	NXXjtI9/hnzITJX5oriq1uk8vzza+R1ZSpMR8YcJlt6hPUrvDCX0pus3UTg0lcUR
-	ZFvYt2yst/6qI/72pdycFtDmbH/wbJKYDmj7y2VMzeNdThwbuwArCqfiWsaQCe90
-	6k6+8VzZXNXpgIA4XXMOELfp9YbT8AZH+6Si0IW/1u17jjueKybzuMT4bqxRw0TB
-	d1OpFQRqzRhmqkwCYbgpj4CMX/ChJX0pGLg19gB/hJNIshHHPCgtiYHIwt9XUZPv
-	N8AwLwEagC7Qp3ztsMDBAoXJIev82hY92kOHVlmaZdiO8KxTyWmPc+gxAFIABNUN
-	kz5q6ghn9mcChWLGoljTQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=sign d=jannau.net a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793013264; d=jannau.net;
-	mf=PGpAamFubmF1Lm5ldD4=;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:ujwcexuyEjZ0xqqYpIGjnh6vK0PiOLuinLm9MAnyectw9Xs
-	Ehu5b0DEM07iL/fbKBdHGOEfbdft3asWuoXdqAyodVpHrgMXXisDgMB6ZmnqfCGi
-	HPiMBerciWTr6UT+anP2nPHExO/c5BXwAbx8tHJ/p3PiQhiilRDBwU4TWfxUu21Z
-	C/7oDk0gcjwc6OJkYszx3q8eRztcgHpSIiUcMorL+meH7fAxqYWz8ith7IHyhA/Y
-	+tD9TSYp2Cpz9U72fJQ73zWQ2ViCbF6R8QrNPFkj2Kqeyp8dg10wYORAdVYekkZK
-	efHX/yjJLJyTlksQ1SXKId98HAu8wbAvMjeaxfg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:YSoNeyNrG4CfMl1j6hcDg/4DniAVIIZlxVahQd81k2s=:ZyvwKt18G8J5HU6pAQZZqmPmJp6gZNNhMqevnb0OmUU=;
-X-ME-Sender: <xms:EDbfau2CUKQvRED9eFZ_ULwK5T8gXVQkSOl5kLvtaXjGgdf6zr7AoA>
-    <xme:EDbfalD0jlL3JbwU9Bqobl2_An9iZZMwT_W7_TWy_g_nZJFODEiAmRlrdjZ4KCp9b
-    sT4CAxBbq3s9r0YLvAbyVAtjaNQdBAyQVJyFUh_D3HKwRL4oQNXFD2m>
-X-ME-Received: <xmr:EDbfavYl23gw061ekfOrChr6yWr3yEIOhIq7ffLi63-uhxhehMYm9hkc7lXTQX5ya-zRrzz3Vi7ZKc5SD3nFxSHygHCf8VU7dIU>
-X-ME-Proxy-Cause: dmFkZTGTFujyhpQRn/Z7T0xOelb7xJXAv8ylCTHqF+8T/0TsZvej1Jr2T9JvpNAc5ENmEo
-    8Sh2lU1+NtJ3tgHLUyq1wL8KSK1OIfK6IQOkQhFd0B59bqDNtvn8whox8aFArwFkZQynLk
-    qujVyJ9fDqClnzSDEqraV9VZVP4Har4RVkBpA0pliSBoQ7UMTCEIoC18ZQg3OFZNWMeX3B
-    qJe0qdmp7PswF+x1hxdzfZ5BKSvQpcDY5VXbVwEVOG2zQFMZVb5mrEq8fhqkPgcLU/mtvi
-    d+zZ9I+hhHvon2WZmpIdvh0XWOGgJi3fpD3hFJP2B9MVSTK8ntcc/trrGuCmuol7UhInmE
-    g9dPM+t45CyVWsGXNaD6ryVxz+lLK60J3pNaD/DoFRylf+YgLaTYsgz8eTcPZq3gG0RzfF
-    tOIkDeKTdbfKjbjUGO9RCucKbKEF55UefbkgJcSMyJ2M0IqVz1MFeGJLJDbBxdteMc/NvR
-    GFIQkppdtppEndIzpL6Weffaza+w2t7jUoeNGB4CapTtA4x0MFp3UKBIWlbBD7OKtehAev
-    tttMkqmWlnlQ0qaLf+pB+m2dZrdfje3sZNRNe09gUDJ3kEgabaKTSb7kLMOT1kYPWOnSkl
-    XOcj+RWr2hg3WNArwZq5mSqpTie8mkPV1xmNQk1KxHjFg80VpI/RcXMAPuwA
-X-ME-Proxy: <xmx:EDbfapY-Dh4Dz5j15TyJ5Eyi8QTRjwmw1CI-kSuSzhM166TpXWlrcg>
-    <xmx:EDbfaom8Wy3PAqCvRQX4mUlglcFBp0oojLC8VTKcEthfsTkTQfXyIQ>
-    <xmx:EDbfajRuB1cop1alm2hmhiz0TasDuWSHoiF6LweDsPjuAu1Bwbe-eA>
-    <xmx:EDbfalXKDbu8tJbhvFG8s5fc0BfBG-DWWz5ErGn1I1IA_2tKsaJV9g>
-    <xmx:EDbfag3Zv6PH65Q2_uP61VDUfgdACXgmaCLq7ZB0jrKb-AHsD9cpwE5A>
-Feedback-ID: i47b949f6:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 26 Oct 2026 07:14:23 -0400 (EDT)
-From: Janne Grunau <j@jannau.net>
-Date: Mon, 26 Oct 2026 12:14:08 +0100
-Subject: [PATCH 1/3] rust: drm: gem: shmem: implement gem_create_object for
- prime imports
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=I/dtqwDD
+Received: by mail-pj2-f2.google.com with SMTP id 98e67ed59e1d1-3ad6011ecebso523762a91.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 04:16:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793013384; x=1793618184; darn=vger.kernel.org;
+        h=message-id:date:content-transfer-encoding:content-type:mime-version
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8rYpsphUHQN5o3M8ULTGHPBVlkOicoYy0qDzZu7+FCs=;
+        b=I/dtqwDD+Us8GmtNcipj1TAJUj0KaLw0UGElvxdGiC6GFTaipKaMxmKYfVJM/J8A3g
+         LZDueCQXvm+fkRUt1+6MFXcLZe7KvUfcMYFZmNSWhmDWKd1WPLTnBPr7EYBEdXSBUpQu
+         lNxZgRF9VcSUrMccK3PADA3Ka26VacgUAyEGqCBPwXpqHe4MhfNK/y/lzUzfTnuTheD+
+         Ufw8W3owRzl7WKbJe80ThKrUI0Tsp4ES1PPESNzurBh+yMQCGPbll5Q040uuajMcTpio
+         8H06DjNzXoFRYqOT1mrVcEKAYkRCFtf1wOEbPjO9ipkw8V+2xuzmDT5Lmu3WeOLd88/7
+         UH6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793013384; x=1793618184;
+        h=message-id:date:content-transfer-encoding:content-type:mime-version
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8rYpsphUHQN5o3M8ULTGHPBVlkOicoYy0qDzZu7+FCs=;
+        b=VKSFn1wDTWAOoq5S2LDSIEMAZRQT2bsfAHndJ5xI/xZcIp3cCceDQ/b0Js3ogKIyFP
+         J1iWfVHusJ18GeaxGr+Ln3uqxvZW9PujL1lc4z3SwXLGLVp4BlJCrqvxNR9UmxBUCzrn
+         65q94N679qCpTmf2aeyMMbiR5BPYO9YRqlSobsYzrRhrqWs/r2pzGJmMbZW2VcfoCtHB
+         zhnQPGxi9qzPi4pKM/F9uzdsKSyGYt63AxPKarqNcSVWPflJDOeRLriEy1JvcP1LH3YE
+         FPrieE6CNnSAAoYIs3nEFDl3TaQd4LhHePzNpUpF290+vWIZh1KXMixbVTLA3Hk6m+kL
+         41iQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx0Ue6waiayfFo1e2cyTojftLqnGcdph5/fKU3BNSPD7vTF1yYpJ8rSsP8+BNbjO/7VRClMVqFYoqxAcjU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYISFrJZ6LIqFYXHtxHANjw0MYd5a9hZ4zEhkybZuT324sCnPzw5
+	rZnmVNSPPml2siLUJ7mfWamIY43XvtFyeqUM8KKrO5Hdo4yP0e6fI/bY
+X-Gm-Gg: AYBFou36xyybpNeFlwLzShGNEgWwInv1DSRkheEQJ3IUaxfVEvzqoSULpe2p4RUWyLF
+	6w42R147pi9BIjlVpkvr+0tvRyZ6A1dRseB3qwXxx0DOcyIHKvEQHYiTIS/oZGghcXvAbi5FU5c
+	pgH9YlZpZsaiQLgdeerP+I4Khk50U4KYIRHnWlTUARRbrYNl6sJB9lM+NaBp0E1VJNYegl+vZ41
+	NtZnhnGnNXiI232b9jTyr8Io2WzGnZy5uMr1fh7mmopwMx/ZwojYswt3GZFDGnXeeKx7UalDqgj
+	ZGhdLgSkv+6Km4JZhSdWenyYiLhI9ipRuYgj/W3cRt2ojjVKhcT5XTM0B7c2mGeVt9PG7ZGa493
+	NeWi8Hb08aWvQs6oNC3HKBqSr2qR3fFIz9dzFqS98v7KDNt9O5ZmwtJh54UzMJme9tzw90nRoBr
+	ycAxhoYY2EMef1O0EFwTZRksCtZeEoCk0luwGibqEghs91hBN18ZhyjuwSejVm5WJjfUMgq8gOg
+	zCas8MQXNgoL7B4c/8aT8f4V0vpX5DVVpZhmKANd/ly9BYAuXXwWnHztQwdVOMv4jP69FSGSDUp
+	6kAgvdLiAY5PNaKIsOvRdKifM+IlR1fBXKUqS7Dgtun+E2AaW0SKDA==
+X-Received: by 2002:a17:90a:b896:b0:3ab:b39f:41c8 with SMTP id 98e67ed59e1d1-3adead4dce8mr3439038a91.46.1793013384321;
+        Mon, 26 Oct 2026 04:16:24 -0700 (PDT)
+Received: from localhost (n106-71-19-159.sun21.vic.optusnet.com.au. [106.71.19.159])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd8ccc90d74sm1382169a12.20.2026.10.26.04.16.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 04:16:24 -0700 (PDT)
+From: Aveline Noir <jm5905938@gmail.com>
+To: SJ Park <sj@kernel.org>
+Cc: Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Manuel Ebner <manuelebnerli@mailbox.org>,
+ damon@lists.linux.dev,
+ linux-mm@kvack.org,
+ linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH 0/8] Docs: damon: fix grammar and typos
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -120,207 +98,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261026-rust-drm-gem-shmem-imported-sgt-v1-1-36f15ace04b1@jannau.net>
-References: <20261026-rust-drm-gem-shmem-imported-sgt-v1-0-36f15ace04b1@jannau.net>
-In-Reply-To: <20261026-rust-drm-gem-shmem-imported-sgt-v1-0-36f15ace04b1@jannau.net>
-To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Janne Grunau <j@jananu.net>, Sami Tolvanen <samitolvanen@google.com>, 
- Lyude Paul <lyude@redhat.com>
-Cc: rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, nova-gpu@lists.linux.dev, 
- Janne Grunau <j@jannau.net>, stable+noautosel@kernel.org
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7436; i=j@jannau.net;
- s=yk2025; h=from:subject:message-id;
- bh=g9e/lpcQLdgtMlIdIOugf3Dae0H34mLBom1lmPdGbW0=;
- b=owGbwMvMwCW2UNrmdq9+ahrjabUkhqz7ZlwH4qaz7korXeTRejd51bkwm0hzFWaXls0K94rTZ
- RsYe792lLIwiHExyIopsiRpv+xgWF2jGFP7IAxmDisTyBAGLk4BmIjkJ4Z/Vjce7nzvsMH0qFhd
- YfylHG/WFCaerZc9req2eqw/eKFtHiPDGvWeGS6srfullZYt+XEwaZNc4Kr3wS5lEvvXt7GwTWf
- hBQA=
-X-Developer-Key: i=j@jannau.net; a=openpgp;
- fpr=8B336A6BE4E5695E89B8532B81E806F586338419
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Date: Mon, 26 Oct 2026 22:14:32 +1100
+Message-ID: <179301327249.2.4690198998605536207.damon-docs-grammar-0@gmail.com>
 
-From: Sami Tolvanen <samitolvanen@google.com>
+I was reading the DAMON docs and kept running into small grammar
+mistakes and typos, so here is a series that tries to clean them up.
+There is one patch per document, and nothing beyond grammar was
+changed :)
 
-For a prime-imported BO with no `gem_create_object` callback,
-`__drm_gem_shmem_create()` allocates `kzalloc(sizeof(struct
-drm_gem_shmem_object))`, which is smaller than the Rust `Object<T>`
-wrapper. A later `container_of!()` from a `drm_gem_object` back to
-`Object<T>` then runs past the allocation and corrupts the heap.
+Some fixes pushed lines over 80 columns, so those paragraphs are
+rewrapped.  Patch 4 picks up what I think was left in lru_sort.rst
+after Manuel's recent fix.
 
-Provide a `gem_create_object` callback that allocates the full
-`Object<T>` via `KBox::pin_init`. Move `obj` to the first field so the
-returned pointer is at offset zero, satisfying the `kfree()` on the
-init-failure path. This is now compile-checked with `const_assert!`.
+Based on damon/next at 9d301805e3f6.
 
-Imported BOs have no userspace creation arguments, so extend
-`DriverObject` with a `create_imported(dev, size)` constructor and
-implement it for Tyr's `BoData`, Nova, and the in-tree KUnit driver.
+Thanks,
+Aveline Noir
 
-Fixes: 80df573af9ef ("rust: drm: gem: shmem: Add DRM shmem helper abstraction")
-Cc: <stable+noautosel@kernel.org> # no in tree users
-Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
-Signed-off-by: Janne Grunau <j@jannau.net>
----
- drivers/gpu/drm/nova/gem.rs  |  4 +++
- drivers/gpu/drm/tyr/gem.rs   |  4 +++
- rust/kernel/drm/gem/mod.rs   |  9 +++++++
- rust/kernel/drm/gem/shmem.rs | 58 +++++++++++++++++++++++++++++++++++++++++++-
- 4 files changed, 74 insertions(+), 1 deletion(-)
+Aveline Noir (8):
+  Docs/admin-guide/mm/damon/start: fix grammar
+  Docs/admin-guide/mm/damon/stat: fix pronoun agreement
+  Docs/admin-guide/mm/damon/usage: fix grammar
+  Docs/admin-guide/mm/damon/lru_sort: fix remaining grammar
+  Docs/mm/damon/design: fix grammar and typos
+  Docs/mm/damon/api: fix verb form
+  Docs/mm/damon/maintainer-profile: fix subject-verb agreement
+  Docs/mm/damon/monitoring_intervals_tuning_example: fix grammar and typos
 
-diff --git a/drivers/gpu/drm/nova/gem.rs b/drivers/gpu/drm/nova/gem.rs
-index 2b6fe9dc0bfa..2e17422e76f5 100644
---- a/drivers/gpu/drm/nova/gem.rs
-+++ b/drivers/gpu/drm/nova/gem.rs
-@@ -27,6 +27,10 @@ impl gem::DriverObject for NovaObject {
-     fn new(_dev: &NovaDevice, _size: usize, _args: Self::Args) -> impl PinInit<Self, Error> {
-         try_pin_init!(NovaObject {})
-     }
-+
-+    fn create_imported(_dev: &NovaDevice, _size: usize) -> impl PinInit<Self, Error> {
-+        try_pin_init!(NovaObject {})
-+    }
- }
- 
- impl NovaObject {
-diff --git a/drivers/gpu/drm/tyr/gem.rs b/drivers/gpu/drm/tyr/gem.rs
-index 3bf3787f5c3f..4b61bb04c845 100644
---- a/drivers/gpu/drm/tyr/gem.rs
-+++ b/drivers/gpu/drm/tyr/gem.rs
-@@ -48,6 +48,10 @@ impl gem::DriverObject for BoData {
-     fn new(_dev: &TyrDrmDevice, _size: usize, args: BoCreateArgs) -> impl PinInit<Self, Error> {
-         try_pin_init!(Self { flags: args.flags })
-     }
-+
-+    fn create_imported(_dev: &TyrDrmDevice, _size: usize) -> impl PinInit<Self, Error> {
-+        try_pin_init!(Self { flags: 0 })
-+    }
- }
- 
- /// Type alias for Tyr GEM buffer objects.
-diff --git a/rust/kernel/drm/gem/mod.rs b/rust/kernel/drm/gem/mod.rs
-index e1ebad77ebe2..e01b8311dd89 100644
---- a/rust/kernel/drm/gem/mod.rs
-+++ b/rust/kernel/drm/gem/mod.rs
-@@ -98,6 +98,15 @@ fn new(
-         args: Self::Args,
-     ) -> impl PinInit<Self, Error>;
- 
-+    /// Create a new driver data object for a GEM object that is being imported
-+    /// from another driver (e.g. via dma-buf).
-+    ///
-+    /// Imported objects are allocated by the importing helper, which only
-+    /// provides the device and size. There is no driver-supplied
-+    /// [`DriverObject::Args`], so drivers must initialize the per-object
-+    /// state without those arguments.
-+    fn create_imported(dev: &drm::Device<Self::Driver>, size: usize) -> impl PinInit<Self, Error>;
-+
-     /// Open a new handle to an existing object, associated with a File.
-     fn open(_obj: &DriverAllocImpl<Self>, _file: &DriverFile<Self>) -> Result {
-         Ok(())
-diff --git a/rust/kernel/drm/gem/shmem.rs b/rust/kernel/drm/gem/shmem.rs
-index a687d46d170d..1df3554893cc 100644
---- a/rust/kernel/drm/gem/shmem.rs
-+++ b/rust/kernel/drm/gem/shmem.rs
-@@ -100,6 +100,12 @@ fn default() -> Self {
- #[repr(C)]
- #[pin_data]
- pub struct Object<T: DriverObject> {
-+    /// Embedded `drm_gem_shmem_object`.
-+    ///
-+    /// Must remain the first field so the allocation address coincides with the embedded
-+    /// `drm_gem_shmem_object`. The DRM shmem helper's `__drm_gem_shmem_create()` error path calls
-+    /// `kfree()` on the returned `drm_gem_object` pointer, which is only sound when it points at
-+    /// the start of the allocation.
-     #[pin]
-     obj: Opaque<bindings::drm_gem_shmem_object>,
-     /// Parent object that owns this object's DMA reservation object.
-@@ -343,6 +349,49 @@ pub fn new(
-         Ok(obj)
-     }
- 
-+    /// Allocates the full [`Object<T>`] wrapper and zero-initializes the embedded shmem object.
-+    /// The helper's `__drm_gem_shmem_init` fills it in after we return.
-+    extern "C" fn gem_create_object_callback(
-+        raw_dev: *mut bindings::drm_device,
-+        size: usize,
-+    ) -> *mut bindings::drm_gem_object {
-+        const_assert!(
-+            core::mem::offset_of!(Self, obj) == 0,
-+            "Object<T>::obj must be at offset 0 so drm_gem_shmem_helper's kfree(obj) error path \
-+             frees the wrapper allocation, not the middle of it"
-+        );
-+
-+        // SAFETY: The DRM shmem helper only invokes this callback for a registered DRM device of
-+        // type `T::Driver`, which is `Self`'s driver per the `AllocImpl` impl below.
-+        let dev: &Device<T::Driver> = unsafe { Device::from_raw(raw_dev) };
-+
-+        let new: Pin<KBox<Self>> = match KBox::try_pin_init(
-+            try_pin_init!(Self {
-+                obj <- Opaque::init_zeroed(),
-+                parent_resv_obj: None,
-+                sgt_res: ManuallyDrop::new(SetOnce::new()),
-+                sgt_lock <- new_mutex!(()),
-+                inner <- T::create_imported(dev, size),
-+            }),
-+            GFP_KERNEL,
-+        ) {
-+            Ok(new) => new,
-+            Err(e) => return e.to_ptr(),
-+        };
-+
-+        // SAFETY: `new.as_raw()` is guaranteed to be valid by the initialization above.
-+        unsafe { (*new.as_raw()).funcs = &Self::VTABLE };
-+
-+        // SAFETY: We never move out of `self`. Ownership of the allocation is transferred to the
-+        // C side, which will run `__drm_gem_shmem_init()` next and later free us via
-+        // `free_callback` (or `kfree()` on the `__drm_gem_shmem_init()` error path, matching the
-+        // C kzalloc fallback contract).
-+        let new = KBox::into_raw(unsafe { Pin::into_inner_unchecked(new) });
-+
-+        // SAFETY: `new` was just produced by `KBox::into_raw` and so is a valid pointer to an
-+        // initialized `Self`. `obj.base` is the embedded `drm_gem_object` the caller expects.
-+        unsafe { &raw mut (*(*new).obj.get()).base }
-+    }
-     /// Creates and returns an owned reference to a virtual kernel memory mapping for this object.
-     #[inline]
-     pub fn owned_vmap<const SIZE: usize>(&self) -> Result<VMapOwned<T, SIZE>> {
-@@ -389,7 +438,7 @@ impl<T: DriverObject> driver::AllocImpl for Object<T> {
-     type Driver = T::Driver;
- 
-     const ALLOC_OPS: driver::AllocOps = driver::AllocOps {
--        gem_create_object: None,
-+        gem_create_object: Some(Self::gem_create_object_callback),
-         prime_handle_to_fd: None,
-         prime_fd_to_handle: None,
-         gem_prime_import: None,
-@@ -623,6 +672,13 @@ fn new(
-         ) -> impl PinInit<Self, Error> {
-             try_pin_init!(KunitObject {})
-         }
-+
-+        fn create_imported(
-+            _dev: &drm::Device<KunitDriver>,
-+            _size: usize,
-+        ) -> impl PinInit<Self, Error> {
-+            try_pin_init!(KunitObject {})
-+        }
-     }
- 
-     #[vtable]
-
--- 
-2.56.0
-
+ .../admin-guide/mm/damon/lru_sort.rst         |  45 ++++----
+ Documentation/admin-guide/mm/damon/start.rst  |  10 +-
+ Documentation/admin-guide/mm/damon/stat.rst   |   8 +-
+ Documentation/admin-guide/mm/damon/usage.rst  |  31 ++---
+ Documentation/mm/damon/api.rst                |   2 +-
+ Documentation/mm/damon/design.rst             | 108 +++++++++---------
+ Documentation/mm/damon/maintainer-profile.rst |   2 +-
+ .../monitoring_intervals_tuning_example.rst   |  28 ++---
+ 8 files changed, 118 insertions(+), 116 deletions(-)
