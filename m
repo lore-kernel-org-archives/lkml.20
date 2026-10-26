@@ -1,59 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.189.121.228
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793035586;
-	b=xdMbxwyr7uACd7fWAvShbkINYYixrenBwHUS6oJk35JWsZSKi4WVB2j3bKtZgbftmvDE
-	 J0O5R2Rm0DF5gKA54Q9C/xqsnMhu9+YvecrDUFuo6iOzKzctTzBxACG6xPylvhNL4j2+V
-	 1g+3FnPtREOL4n4aH+zRR0UQ6AZ4IZWLH3tqVe25Hhb7n0PkPnx9DkwkN8+ToD3hF3cN6
-	 5uahdnlCPBfkvON0c07rOyC039qAuV/lBQMeWUebLgLaJT0akjJjzcsE5HNLPF27cKRgI
-	 9h2TXsQOCRF1ZwS0t2oBzlha8QsRe3qe9kjWI/cSFvAl56FljpB69wix2wvkq/bxDKw==
+	t=1793035735;
+	b=gQeRHJX+0SKoh6L79i5rvrd8aJqA9orw0hXS4qNMVbnXjee3QpW5tyPY0kL8xpi7meuV
+	 fpwooWuJGCZ+sOqtCI+5HadH3mPOyiGdd1EG6ZcxH5FP/jMehIgY02mFljV28FJ02uMxp
+	 usXIkO/yhuO86alS0mtizanN7x9WGh5GU9oAR8EBjnGJL7fRqVZQpBW934HQfvsp4CSdW
+	 gxU3BqroFb+w6bbb5smDsc3g3VIHVe/SnYbQMulG5u8USDrpbaAnlPDyb8rX05N7no2en
+	 Pg6w8HxM2H3FAOTUORW9RNE8x7rQW9WF9qaUdwuf4lrSxyXVGyIeSg6IS91sP0Z1IKA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793035586;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=v0WoLkQVcDbSGumghdYohAdB7aedqeHVhzhgY1ziDNE=;
-	b=WgrZNwBtQwWwdgAogVT1FFqi6KdesdUxYfWbSA9Re6RZCimzN0O7vnvu+tnicqeYZ2bL
-	 O3lOEAziQgh6/IiVtOZsDzOVarYDP8NdVuf9iBj/CfqeHbPsslHJ3SjeInjJGHegZ593E
-	 w4EeEg90Sg41D/fmHhBbJy+ao4SNwk9UKJz28+/d6n8tGwWr7Hj4ygjU+k5vgF95DK1mz
-	 063GTeVkzEOr+F1GRa/TXCp6OKLiIAo6KZvsUWAeoiIU8hHACfdL2G3tqahto9URdhv11
-	 J31BPq25q7Pbi/AxkLKku/iaurdR2kkHzumh/fOuDYKTHwSMPFKzXTpOUdhyBDNkWOA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793035735;
+	h=DMARC-Filter:Message-ID:DKIM-Signature:Subject:From:To:Cc:Date:
+	 In-Reply-To:References:Content-Type:MIME-Version;
+	bh=rNYVoB/vG5hvRMg+OMSDk4D9eXpEA7XdikSaZ4l7fw8=;
+	b=mUEvaaMtTxSg8SD2Kw/c8PTIbYeuswOYPTBUCAboA/mY0p0OKCjySz2PXIJnXhmTBnuf
+	 /R6tmZKPLxBhHCKEHT0YPMRHCO/IeyMpXvLsK47+ZAFXbFzh/+E2dWnd8xZcxm56jz0ha
+	 y7FIXsygKyrbrww9vQ+P2OoNykeO6+y/lwCwXanCf/HChOtnAtZQYmg5NfnMsLEagp/+2
+	 9TAriADeD4eYSPM/XdHIGkFE52kwazZ6ooxiC2EiPjN/frVx4LdFu8orHLEaELO5BhDll
+	 LxK6Tvcsp0UMW4P/CBh87uOSIdK/p+YCGbN3kLzkJTUTN0DQ24JIwVtyGoehOtdT3WA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="UJjjE+w/";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=itx.no;
+	spf=pass smtp.mailfrom=itx.no;
+	dkim=pass header.d=itx.no header.i=@itx.no header.a=rsa-sha256 header.s=mx.itx.no header.b=amgzAXTc;
+	arc=none smtp.remote-ip=91.189.121.228
+Received: from mx.itxnorge.no (itx-kvm-14.itxnorge.no [91.189.121.228])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D98B606A321;
-	Mon, 26 Oct 2026 17:26:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32A3C606A31D
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 17:28:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32A3C606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=itx.no
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UJjjE+w/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 715BA1F031E0;
-	Mon, 26 Oct 2026 17:26:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793035586;
-	bh=v0WoLkQVcDbSGumghdYohAdB7aedqeHVhzhgY1ziDNE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=UJjjE+w/YXLWI0UQBaYCVSGw3pw3SwVACw6Xl+vENBzMgcxNnqssVXl0whwdZzcFb
-	 aC6PVbgiG6rlNIXffQ7/CSshM+uJ8wofvwoA1WQbx2twWv05gNKRg4zbsOownetahZ
-	 gFqHdVAHaa3wyS6p0m6KygE/nIb9evXkgph0RHfLnSfIOwZgiTL9LSQdNGAF+1RSMl
-	 IFjgRMmUPEb15cci+VVrTv/2t4ClbdIC5xeM+YipLCAN52E/YyYnQnty8bueg8Kjk8
-	 V9EiWb/e5kJwlanYEdX4xzdWyceuMjAb6jV89DNZrgaxizTDfn/4TY6Ut2Hu0slW30
-	 6xFiw0AichPIA==
-Date: Mon, 26 Oct 2026 17:26:20 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH] fs/proc/task_mmu: fix missed VMAs when reading
- /proc/PID/maps and friends
-Message-ID: <at-M5hORjFt6aur4@gremlin>
-References: <20261025-per_vma_maps-v1-1-c4eec45b9387@kernel.org>
- <at8-42OwXk2z6-HB@gremlin>
- <CAJuCfpFaxo06yHdVKsEEmFf9qoOYS0DbMvUuAZEhNfDe7dcwJA@mail.gmail.com>
- <8c5a8fb7-233e-4433-af45-b67cb2528b60@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=itx.no header.i=@itx.no header.a=rsa-sha256 header.s=mx.itx.no header.b=amgzAXTc
+Message-ID: <1e00b909b81c6195b3ad5aeda207d20cbedc3971.camel@itx.no>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=itx.no; s=mx.itx.no;
+	t=1793035725;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rNYVoB/vG5hvRMg+OMSDk4D9eXpEA7XdikSaZ4l7fw8=;
+	b=amgzAXTc5NZ/dPYXpBMPiLc6pEMpIXezfi6jYzpnRJcTayuGobqFYTYgQHDdHBtnB7lAjE
+	7ISROa000YgTZfZCG//gugzB3EH6Gfj4cBp/4+CdCEMtwU/1A54W6XSZf0ggc+pafwqLXd
+	ypULGgvlLtG6b6SIuankyq50xZTquhg=
+Subject: Re: [PATCH] sched/cputime: Don't warn when the tick period starts
+ after idle exit
+From: Stian Halseth <stian@itx.no>
+To: Frederic Weisbecker <frederic@kernel.org>
+Cc: Peter Zijlstra <peterz@infradead.org>, Paul Menzel
+ <pmenzel@molgen.mpg.de>,  Thomas Gleixner <tglx@kernel.org>, Anna-Maria
+ Behnsen <anna-maria@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Shrikanth Hegde <sshegde@linux.ibm.com>,  regressions@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+Date: Mon, 26 Oct 2026 18:28:44 +0100
+In-Reply-To: <at-C_3rGi55L1v2X@localhost.localdomain>
+References: <bfe9b14a-6e65-41c5-b638-26f6e033788b@molgen.mpg.de>
+	 <20261025100202.2584654-1-stian@itx.no>
+	 <at-C_3rGi55L1v2X@localhost.localdomain>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-Xt8q2rvFat6JboAfAbBs"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,33 +67,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <8c5a8fb7-233e-4433-af45-b67cb2528b60@kernel.org>
 
-On Mon, Oct 26, 2026 at 06:19:18PM +0100, David Hildenbrand (Arm) wrote:
-> >> +       /*
-> >> +        * No lock was held since the last call, so the iterator's cached range
-> >> +        * may no longer be valid. Always restart by address.
-> >> +        *
-> >> +        * The vma_range_is_empty() checks below avoid unnecessary mmap_lock
-> >> +        * fallbacks.
-> >> +        */
-> >> +       vma_iter_set(vmi, from_addr);
-> >
-> > This is clearly simpler but this unconditional vmi reset is not ideal.
->
-> Yes, exactly how I ended up where we am right now.
->
-> I pref my current fix as something to backport that avoids performance changes.
->
-> If you two disagree, please take it over and drag it over the finishing line in
-> a timely manner.
->
-> I wasted enough of my weekend with this over-enginered piece of software. (had
-> to change one word before sending, can you guess which :P )
 
-No problem, will take over.
+--=-Xt8q2rvFat6JboAfAbBs
+Content-Type: text/plain; charset="ISO-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
---
-Cheers, Lorenzo
+Hi Frederic,
+
+
+On Mon, 2026-10-26 at 17:42 +0100, Frederic Weisbecker wrote:
+>=20
+> I'm a bit confused by the scenario that happens here. Do you mean
+> that after switching from a clocksource to another, ktime_get() goes
+> backward?
+
+No, not going backward, my description was vague, sorry.
+It's tick_next_period that runs ahead, not ktime going back.
+
+Also, please challenge my assumptions, as I might be analyzing this
+wrong. This codebase is still pretty new to me, and I might
+misinterpret some things.
+
+But from how I see it, on jiffies, ktime only moves at the tick. So
+seen from the tick's point of view, tick_next_period =3D=3D ktime_get().=A0
+
+After the switch ktime keeps moving between ticks, but the next tick
+still adds a full TICK_NSEC, so tick_next_period ends up ahead of now
+by the part of the period that jiffies never counted.=A0
+In a KVM guest at HZ=3D250 that was 2.3 ms.
+
+Do you follow my reasoning?
+
+>=20
+> Also refine-jiffies is not a suitable clocksource for nohz, so
+> last_tick shouldn't be updated while refine-jiffies is the
+> clocksource.
+
+Yes, right.=A0last_tick gets its first value from the sched timer expiry,
+which is that tick_next_period rounded up to a tick multiple by
+tick_init_jiffy_update().=A0
+
+In the guest that made the first expiry 4.66 ms after now, so for the
+first 0.66 ms a tick stop leaves last_tick - TICK_NSEC in the future.
+Paul's registers show the same, now 235623102 with last_tick
+240000000.
+
+I can rewrite the commit message along these lines, or fix up
+tick_next_period at the switch instead if you prefer that.
+
+/Stian
+
+--=-Xt8q2rvFat6JboAfAbBs
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTK1ph9OaYoND1R57zoeAEuJe36VgUCat+NzAAKCRDoeAEuJe36
+Vjt9AQDp8Boh0KnF7NRVAg6PQH/JONz79Sk6gO6LlNd8VTUF7gEA7gUWba17J7MI
+YwY8M9vsJE3MvrFvPmHmOD3iO6KW2g8=
+=9Apx
+-----END PGP SIGNATURE-----
+
+--=-Xt8q2rvFat6JboAfAbBs--
