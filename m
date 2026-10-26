@@ -1,57 +1,130 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.142
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793036372;
-	b=VH6dGI630GjB2RQdZvM6oHqBRCTiwgWN6P6aVM7uFBVobxGcXV4r1495VkK5A3zWVedu
-	 7Cb/pPIXKFMlj0V2AkH9IhzHlafBapVaPXeAfUq0MW0m1hI1k11xtb2Q48mmekFHoAGJC
-	 T9XiJTfzrwHCcU8Cl9HiZULNG/D2/R+lxrSdI2kTS3yeGEpZP/v3ZMeO3m0JqoFSD69e1
-	 +1q6lGFzDCmQ/xtkUin9GElwzYQvnnf2b/TIZEj6CP3XLXkTLFeMcJJJygflBsgmGBuNL
-	 HCYi5y3elww5mvm/FDwMcDiUZAePIWOpmtvEiNldclZ30digtRUje4TXfDGFju6nzGg==
+	t=1793036378;
+	b=DczEpG0GzUzSqrHa9jJr9HBMT5ITCuKnkP5N4WmUZ9rA1574wqjAuavXT+SQn2xAl1xh
+	 EWqvu2cFsii1WKP/m81T02ihtpcQSCCS/po2URlnPZX9VMrVCaqCWSpxFohrwJmFfquRY
+	 YgsCXTEl4g4S1M+rJhf8Y7Vi2NpzPvwAzBhl17A/8GpXpLksw1QToXTip+v3+Vrm7j3FZ
+	 UhkK0ATldO1zJFEZGfLm7S2hQvhxbmCr0QQSWlX7BwQra7RqXuxfc1UtvB91URQhEJzC9
+	 r8u0/QJp+ZsKYsxv7CdWjhpuBY4eQzdgWn7repUfF6YfBjA8IjNB/OfDLStoF3WPqIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793036372;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=/OaIQJ55C35QtmqZCOLPnT2R5/UQeB22wSAn3zHiMMg=;
-	b=x8C0wo8KYjQNYP//Wbnx3aUPipDQL87P92vpeuWYkO3Hb9WzKsQaK8jgvD0dSJFR8AEJ
-	 gj0t7SdrTOXL+uxdLOCeh8i/Og/6fNhqoq6wyXcSAGJWWekd3SDttUCLiM1x+0PQ3+ZNE
-	 QNF2CeuOnMHkHZN6lJWJl5VWmrRItVn/KbO3y7XWyiQZuPPj9zArYl1ArI8WRHKE7r2SB
-	 N7DIDWL6ZXPX6U5dynwtJbO85CAlo0PJG3KPG8VFMyRXgApPtGzdFzbZJbxPufb7IOpw/
-	 Id/KZJMJ2kTtg50CDECyERB8OhZsGz6TW2ztvUAMoym0AtYj6qQpwzwDY7kxqIChv/g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793036378;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=OjwL+dOXl1G0XYM6+finyh9q+bDo7EQ0zXCdvP4sKUY=;
+	b=wSdSFHd+QoAUf6T27AQa657+0wEGJuCbQGtNRXFpTcZiEk18y2n5mqPT9iWY3sq+W0/H
+	 wCSCzg3Q6fBvD6DXsKh1YLzZealMUpz0psbHDVDWX/Lhhd2q2ysB29Eo0ME8zrWCcRHW7
+	 cuBUNDu5RbXb0E68Rvhr9X0ThZU7jR8LhiS5KEjf9HpHM09jjE7qXGjp4SLZelZ8PgvgD
+	 /QyC1m424nvHFMxVEvvSVdz9zqNtLY6TvmKEqnWVHr+f4tIzbIye5h4Nmlt/o4CZT3E6g
+	 xut2VlOGckSgUaOS806TamYbfKozp37vIWNdadLBiUFoWyItxAGlgQYQ1b6O9Sx5rEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cyBmfnMT;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=shutemov.name;
+	spf=pass smtp.mailfrom=shutemov.name;
+	dkim=pass header.d=shutemov.name header.i=@shutemov.name header.a=rsa-sha256 header.s=fm1 header.b=FrVDQJkA;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=PWsvFXSP;
+	arc=none smtp.remote-ip=103.168.172.142
+Received: from flow-a7-smtp.messagingengine.com (flow-a7-smtp.messagingengine.com [103.168.172.142])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 98FE4606A31A;
-	Mon, 26 Oct 2026 17:39:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B57BE606A323
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 17:39:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B57BE606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cyBmfnMT
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id A7F231F01825;
-	Mon, 26 Oct 2026 17:39:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793036372;
-	bh=/OaIQJ55C35QtmqZCOLPnT2R5/UQeB22wSAn3zHiMMg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cyBmfnMT/VOS2892+vuXtl0mWe4zx49lqgeZJwqPIoj1yZOuN+EhEAvKn6NX3I+Ms
-	 DV/GgmEinunXnHRcm2vyAPrRowjZgknur+Db284QLpJ1DQSYTnZZ0xRjsLIraiHn39
-	 GE8BHh0I1oq9v7yjg4zv49fzGjkwl5Q+nuo9EY2/EQacPkoJI6UwmbQaet31pEbmTi
-	 saifs2hT2JKqjwAlhplfJGEkQ6qsYXN8Gr3o4MFFByNA+QPsOG0jjqBgTyPQSOXY5K
-	 MGpKSRNrf5pl81BigmUdhKL3Oi2kIyGNFeylC1mAiaybQUhTkNDrWlxe72yR6ZDXu0
-	 768ycXUNj0+tQ==
-Date: Mon, 26 Oct 2026 19:39:28 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Hillf Danton <hdanton@sina.com>
-Cc: David Howells <dhowells@redhat.com>, keyrings@vger.kernel.org,
-	Eric Biggers <ebiggers@kernel.org>,
-	syzbot+c15de43f1e7fffbb7b9b@syzkaller.appspotmail.com,
-	linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org
-Subject: Re: [PATCH] KEYS: dispatch key_gc_work to system_wq.
-Message-ID: <at-QUKgt9Aw6-0Yl@kernel.org>
-References: <20261026031219.2627968-1-jarkko@kernel.org>
- <20261026095609.1220-1-hdanton@sina.com>
- <at-Gbux2IWwF8aqp@kernel.org>
- <at-LgXM3BjyfF21u@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=shutemov.name header.i=@shutemov.name header.a=rsa-sha256 header.s=fm1 header.b=FrVDQJkA;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=PWsvFXSP
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailflow.phl.internal (Postfix) with ESMTP id E57CD1380208
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:39:36 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-02.internal (MEProxy); Mon, 26 Oct 2026 13:39:36 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
+	 h=cc:cc:content-type:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm1; t=1793036376; x=
+	1793043576; bh=OjwL+dOXl1G0XYM6+finyh9q+bDo7EQ0zXCdvP4sKUY=; b=F
+	rVDQJkAnwkechcedtUGj+LlJKPVJxedWqltj8oi1vF61VyeKCt36pkyuCO99sxtk
+	WZiGJ07h+f8//gF4HvxL4FWzL8Z6bvThxlk+lrnMDkNCUQZyXFj8d0Q3UdyTKt2l
+	9iuMoTgmEnBwoxJmtJMsr6NwJ/CY0RV8i0i9rwBeUEET0NdcD1b6Az/Xa4IRiczx
+	YHDkbydGvvTDHRvFuGm0EgYw//c2gwCHBbh3dRJRldyEP9ANvg82ix4frg+0lAYe
+	E0K5CnlCz5p7z0/VFxmZbBptZAv65ZrTpS4H/6F3UKnHcQ6rTbmETipC29I+7n9K
+	kuaI3j+2Xekb5rDOQ2+sw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1793036376; x=1793043576; bh=OjwL+dOXl1G0XYM6+finyh9q+bDo7EQ0zXC
+	dvP4sKUY=; b=PWsvFXSPHwOA7U63+FmsIT5MJ91tmnaoVdIO3ZUPNtH1Ab98ug7
+	6yRLTsnP0VZYP4arU+dkW54hbAXMiH/3avrcLaDlx8VQi5U5X2CaxWFFE6ql9IvH
+	u2KWd57w4YJQ39WjdP1yEr5vXSFiCsczCwW72tOywJYnGGFP5IjHGlc3xUc2zIGJ
+	IuqjRRsuGWnrWtDoBR4G47nB03Yg6FvGmMYfG/gPsCV/5yAoylo+T3aqJXwBsxPG
+	NxVBXkZWY9JY7jTGuC2TYoiFaYmOvxqntUjmj0EzHbSV/SWY2wxpzX/NJVfP+PMs
+	lF55pPKm/iQJGbRExFpKi+RoxKlLRrZTxZw==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=sign d=shutemov.name a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793036376; d=shutemov.name;
+	mf=PGtpcmlsbEBzaHV0ZW1vdi5uYW1lPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:zYB5h4n+fpY7zbkTWro5+XE6BiP9fOEPZrbz4/U74BAQmDS
+	rfc9IfifGMxWUgHJ7Ws20jUAsaarSK204bZfNc2yc14KOHiEyhveSMgY2WN/IGqd
+	Q5jrfjqELPYoJqhBb5qRVV2JyxizBO+Pv24SuvXeN6NiDs5N+AX9mTbT/s+WctcY
+	iiITG7II8l2XhmOxIDJWzp8E/EEB4zqqcvQaG9OYai8a0aiDJF3+CA8XQzuKvAz3
+	XMHtrVVsm0dyaHhMRaY5k69oPk96GrkpXFmew6bvwxZgVv7bSvYzhcaiWG1VQsg+
+	4H/UB7BQ+1jaIhWYOMsGzyJKZwmG6LRN2KoBxzw==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:6Ww9OTLtowtBqWiQULkq+ViRqleNawRqoZVwSFz61xs=:HK5PFLyxFNzFgXX9dEXISx5+CcuJoukdbYSiqq5cWfw=;
+X-ME-Sender: <xms:VpDfakvPYGwmN_RcJhMM65tFUhC25CZ0upVwgyH3PxSnClQheEyqWQ>
+    <xme:VpDfagngJAvfN0X7xcKjN6W8bBdHw39DCvlKQ9KHbLnrX4g-bjZ3ZUPEqIe3OEU2E
+    Bf6sFD51XGQsFxCbFmazWK4kihPX--4aOQhJ_WnQGcKxP4saAk8cw>
+X-ME-Received: <xmr:VpDfakyMxTAcw7YAFXhGLBb7cSk8qCGR1MZW7lU55Eq8QTsPAyQX5K4-lzs>
+X-ME-Proxy-Cause: dmFkZTF6H3SEpQShDd/kr54hvdkdt3MDjTF28+OqAC/bxg6UM4iEJWWMlnnT27v9jePEmz
+    vGMx8mJpChUjh8v1OiOAzIMSlkJxTEn6JkrbUpKe5ErfD84wXqDBMbWsH0xqlTzlt+hdpX
+    HDMnRTKOD4gayTPO77h+/Ew/lA79lBP4gW3fvzv7nBS/pThjI7OlhteCj0KZuy/1hMJ6hl
+    7wmBRBmCVaoZTUGA4TbSiu2cZAiVpR2sAcoEBREPHEr0+AEhMBFYMn8kihpTBwQKSYCN0e
+    19KCYnBmkwGoKFl6OLcnuRebfdT7MuZ9XNsKec6UnbEsx7bfq/xEUZydvzTLi/RATFXjpR
+    wg+k4o4CXPH2SHleMmZd+BJOxQjRUBedVDMhgIl4OfPGAJcx+beaQw6YEv7A+FqYkHm/ut
+    zSnQBLlCtTdKLQafgvSYYz/RytMnVVsxTnFXIt2nl75Gv3qZpsXjjxUKpHBOrTZ3ZdkISo
+    NDQKKsOTGpDz/LwIrqV5boxfnXtPK9RxGT6X8zV4kMwZ3tPcECJ7n2FNAQCeI3MmONSZNa
+    zVwHbzNgIkWSjZgZz2TmJOap4iORe69JcFquTFfiuvDTwYx10HKrvTSr8EO0wMyplkS86w
+    xvaW1X0JnKp3AcjJQzKKgJbBSrQco6NzrXRHjs/+lbO8Y53HXH+/w7g09DeA
+X-ME-Proxy: <xmx:VpDfamwXPRg6kIALhDkqagVgg6yM9zrSZqcuQeKsPQDYoDoh9idcQA>
+    <xmx:VpDfatB2V75JiLUBZeB-0A6yudE42QZQZm0BSVgir-yaurDCmJEAbQ>
+    <xmx:VpDfahph8RNX-Vy4wt4o9RDAs4PQ-LNcicnx_uZWvyvHj56NtyDaZg>
+    <xmx:VpDfarQEV2WjxZIMj2k32K03Eq43nNqa66hkd6edr_rcG7lSkx5J_g>
+    <xmx:WJDfahffJM9mqtUXpu9sfOKyk63ISmf__apPCjOjkhdYXJi2hYZ9tLFA>
+Feedback-ID: ie3994620:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 26 Oct 2026 13:39:33 -0400 (EDT)
+Date: Mon, 26 Oct 2026 17:39:32 +0000
+From: Kiryl Shutsemau <kirill@shutemov.name>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Gregory Price <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
+	Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Vladimir Davydov <vdavydov.dev@gmail.com>, 
+	Michal Hocko <mhocko@suse.com>, Hugh Dickins <hughd@google.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Lukas Czerner <lczerner@redhat.com>, 
+	Carlos Maiolino <cmaiolino@redhat.com>, Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+	Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>, Muchun Song <muchun.song@linux.dev>, 
+	Oscar Salvador <osalvador@suse.de>, David Stevens <stevensd@chromium.org>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, William Kucharski <william.kucharski@oracle.com>, 
+	Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, Nhat Pham <nphamcs@gmail.com>, 
+	Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi <nao.horiguchi@gmail.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 12/16] mm/shmem: fix truncate hang in large swap entry
+Message-ID: <at-Pen0rJcHRDnBv@thinkstation>
+References: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
+ <20261026-fixes_shmem-v1-12-703206d5fa0c@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,58 +136,62 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <at-LgXM3BjyfF21u@kernel.org>
+In-Reply-To: <20261026-fixes_shmem-v1-12-703206d5fa0c@kernel.org>
 
-On Mon, Oct 26, 2026 at 07:19:01PM +0200, Jarkko Sakkinen wrote:
-> On Mon, Oct 26, 2026 at 06:57:22PM +0200, Jarkko Sakkinen wrote:
-> > > --- x/security/keys/gc.c
-> > > +++ y/security/keys/gc.c
-> > > @@ -270,9 +270,8 @@ contended:
-> > >  
-> > >  maybe_resched:
-> > >  	if (cursor) {
-> > > -		cond_resched();
-> > > -		spin_lock(&key_serial_lock);
-> > > -		goto continue_scanning;
-> > > +		schedule_work(&key_gc_work);
-> > > +		return;
-> > >  	}
+On Mon, Oct 26, 2026 at 10:40:45AM +0100, David Hildenbrand (Arm) wrote:
+> Truncating a tmpfs file or memfd to a page-aligned size inside a large
+> swap entry can loop indefinitely in shmem_undo_range(). The task holds
+> the inode lock and cannot be killed.
 > 
-> I guess I'll to elaborate my fix and this proposal as you gave feedback
-> of neither.
+> A large swap entry represents a whole swapped-out folio. For example,
+> truncate a file whose pages 0-7 share one swap entry to four pages:
 > 
-> What you wanted to respond to my patch other than nitpicking is probably
-> this sequence:
+>     [ 0  1  2  3 | 4  5  6  7 ]
+>          keep    |   discard
+>                  ^
+>             new EOF, start = 4
 > 
->   key_garbage_collector()
->     synchronize_rcu()
->       synchronize_rcu_normal()
->         wait_for_completion()
->           schedule_timeout()
->             schedule()
+> i_size has already been updated when boundary handling asks
+> shmem_get_partial_folio() for page 4. Since it is swapped out, the helper
+> calls shmem_get_folio() with SGP_READ. That rejects page 4 with -EINVAL
+> because its starting offset equals i_size. Nothing is read back.
 > 
-> I should have put this to the commit message, and missed also this
-> detail.
+> The final scan cannot free the entry without losing pages 0-3. It skips
+> it, restarts from start = 4, and finds it again indefinitely. An unaligned
+> truncate avoids this particular failure because the requested page starts
+> below i_size. Folios already in the page-cache cannot trigger it as the
+> direct lookup will return them beyond EOF.
 > 
-> So the way I saw this, which could be wrong, is that the workqueue
-> lockup would could happen less often as also other threads are scheduled
-> preemptively in unbounded queue outside critical sections.
-
-I did test this with fairly large keyrings. I think I'll scrape that
-script. That does not mean by any means that the fix is correct at all
-but. Please in future also provide context for your alternative
-proposals because otherwise they pay no contribution to anything.
-
-I'm not really interested whether I'm right or wrong here but
-instead of finding the "truth" aka the correcting reasoning
-that leads to a proper fix.
-
-A random diff won't do it.
-
+> Fix it by letting shmem_get_partial_folio() call shmem_swapin_folio()
+> directly for swap entries. This bypasses the read path's i_size check,
+> allowing the existing boundary handling to zero and split the folio. If
+> swap-in returns a smaller folio, it also splits the swap entry so the final
+> scan can free the entries beyond EOF. Retry the lookup if the entry
+> changes during swap-in.
 > 
-> What you are doing with early return is at least not right as it 
-> corrupts the state. So you should supplement that with something
-> that carries it.
+> Handling swap-in allocation failures remains broken and is unchanged by
+> this commit. Even when shmem_swapin_folio() correctly returns -ENOMEM
+> instead of -EEXIST, shmem_get_partial_folio() returns NULL and
+> shmem_undo_range() skips boundary handling. If the large swap entry
+> remains intact, truncation can still loop in the final scan, while hole
+> punching can return without zeroing the boundary.
 
+Oof.
 
-Br, Jarkko
+> This may read an entire large folio back from swap while holding
+> i_rwsem, only to discard part of it. Avoiding that I/O would require
+> splitting both the swap entry and any large folio still in the swap
+> cache. That, however, is much bigger work.
+> 
+> Original fix generated by LLM and sent by Chris Mason in private.
+> 
+> Fixes: 8a1968bd997f ("mm/shmem, swap: fix race of truncate and swap entry split")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+
+It is getting horrible situation somewhat better, so:
+
+Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
