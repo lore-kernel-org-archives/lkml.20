@@ -1,60 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793006040;
-	b=v0N7YvePrceeWMUBG/l2F4tQ/Cl/VCUGnBjGF4lDGn6VzTJQJIWOgjyv+bAvKH8t3aHN
-	 29hOsInnZPhC6lDvajjRYbHVOkOPuJC0KCzhD4e++3gGkgTMvNhzsMLBbocRVDA3ZHi6R
-	 gTH5+hMqvyO3F64JYaqtBncMQQ9NlFoanY9h32aIKDigaatQ+i9KH38S+UkDvM7w5VyJk
-	 PaR5XyHfEmWbsZD2T5Ml2W+fBZ7hDs/pwONCnmONIE2KBTwgqoiPAxtKjBBDqZVyC1u6J
-	 G9R9Vw1ccgslyHLa9puLf6v1xOkGXIa4HsqIINDYx0B0KLrOHhuT6whUG/yGWNG4VqQ==
+	t=1793006062;
+	b=XpaImP0JXCmZ1O4FN+wSMmynQJenehyiHtDFrcJUlPxXObVssydT3cuHKEL33pC37q82
+	 Bctpw0ZTHKmj70NGx0ti60PrB/W3aLr/fCERpry+KpouEcuAzxRM99RfRF1wWeeLUeurU
+	 SxCdCqhUfxomUzB+WkK/Dl+090ksx6krwhbfsSNUds8dDhyoSyUhG6Qh4V29TSsrWdjlE
+	 CTVDQA1m+UUHb4AWtbMSX7FoChCmUJRoqN5mt9LAGwH+AwJGqZRHv8bQMC/etmp7+dKVm
+	 Wwu1mig86TPHgmScRNiFd/LHaCDeQgpvrR52AImTup2s7Z1c38TXhfMBsj/6hqLUkOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793006040;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
-	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
-	 X-CMS-RootMailID:References;
-	bh=BKmKriFXy7STc0ChdV4GVkhXybSuVhKoMJ3vCyY6ebQ=;
-	b=t0Y19ZSZ2KGzxCphXPkOYjf+M/4yFkiJ/3jGDTqMzH9OrZsfdrKdMUk4bSQgnV8Gho10
-	 OXTtvI8X28Fi6O8yCImm1VKyIYdPMZdNpXLjHy2wbLMul7zxO5sIjBAwt2L/aK6W9gOGu
-	 uwbKVeNxZfzyisnelsvEa+4D1NIy5xe+nB7cDs/FnCYMcc+gIFKong4HMaViSsyxPeJUB
-	 MH45DIQHFdLWGPDqTDp98jHtroj6ZDT8oXCs5zFjYK5jecKlDXhH846e5+M7AUTKUaUTq
-	 ZW4wk4dY541h4IGmfLho886VIAOhCOe6UwVgJUV/IWn20xajaEfMxSWfPz822lyfoUg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793006062;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=x9ZgPhDvONgs3V2EMlOat0JU49k0RZ6dWS+fgn/QIqY=;
+	b=E8rdR6i21EogEqiHnnhg4hkcUE4gNbFasTAKUTlfjk/OLzSERZ3A62K+XKuFiu5yEqJn
+	 WgESadbBkWeHEkh22KrfK3u64IW64vbrBSNainpBcWx90pIyf2EjDRe9qVNaZCrZfPRYO
+	 jRUNf7K1mEWnJK9DVoAuMaE10hNThRfB4cpRxmwpDzKPkkHFpnIeJj/7XauLpaz4BsU6B
+	 etAZLwo1qXU2dW563zopkwwUGjAZ0taWQeusZmNTla2xZ7eRpFloGFaCK5oGlQ9ajbsds
+	 AwwBe7pQhRHScGXuRsUhrLg+CbLViIWTgtCvnSQwyvaPChja65PNrlQFliOSAW3TFdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=uesWt4mf;
-	arc=none smtp.remote-ip=210.118.77.12
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=VZFnAoya;
+	arc=none smtp.remote-ip=117.135.210.4
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05B71606A31F;
-	Mon, 26 Oct 2026 09:13:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 05B71606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97968606A326;
+	Mon, 26 Oct 2026 09:14:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97968606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=uesWt4mf
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261026091349euoutp0260a6484cdb132677f41b85104a90e968~iCXwB5PQU2933229332euoutp024;
-	Mon, 26 Oct 2026 09:13:49 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261026091349euoutp0260a6484cdb132677f41b85104a90e968~iCXwB5PQU2933229332euoutp024
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1793006029;
-	bh=BKmKriFXy7STc0ChdV4GVkhXybSuVhKoMJ3vCyY6ebQ=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=uesWt4mf7L6uH2e2D0Uz0HVRucHuV8HZkP6w6G5X4a91jpvD/uKc3BJqBUmuRXjve
-	 GgrdbGaDFfjJl73WiJG4wPNL+OImYScLzZ5eCyyvPV3LlJUGczWGKuH07jKOHSZaRq
-	 J4j2ifjZbGqdQZI5IPmFXPvANcfdee4i8r50bnPI=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
-	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
-	20261026091348eucas1p104a72aa9c878c637a7ef778613c492a9~iCXvH8nmx3193831938eucas1p1i;
-	Mon, 26 Oct 2026 09:13:48 +0000 (GMT)
-Received: from [192.168.1.44] (unknown [106.210.136.40]) by
-	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20261026091345eusmtip1dd488ccf4592aee32b30711c858f6c13~iCXsMa8873092630926eusmtip1x;
-	Mon, 26 Oct 2026 09:13:45 +0000 (GMT)
-Message-ID: <943aa2e7-3945-48f9-9a87-9c963f97099d@samsung.com>
-Date: Mon, 26 Oct 2026 10:13:45 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=VZFnAoya
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=x9
+	ZgPhDvONgs3V2EMlOat0JU49k0RZ6dWS+fgn/QIqY=; b=VZFnAoyaQgBJo+tneY
+	lDT3CkuUYWm8/YNakrNZABtbUU1Llw7l7/Mye/h5b1jhjlbfE60VZJcrK/qrUcwz
+	LEQh5aXApcQuzcM+l9h5ABg0UYegfbXj7LcaP2ONC/mh7sbVBUxKWvUNRxaTZxAP
+	hXo+WZVpw8qOmy5SmYHZeO9v4=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD332jHGd9q4hmLCw--.8486S5;
+	Mon, 26 Oct 2026 17:13:59 +0800 (CST)
+From: Qunqin Zhao <zhaoqunqin@163.com>
+To: bp@alien8.de
+Cc: tony.luck@intel.com,
+	linux-edac@vger.kernel.org,
+	chenhuacai@kernel.org,
+	zhaoqunqin@loongson.cn,
+	linux-kernel@vger.kernel.org,
+	Wang Jinwei <wangjinwei@loongson.cn>,
+	Dongyan Qian <qiandongyan@loongson.cn>,
+	Chao Li <lichao@loongson.cn>,
+	Huacai Chen <chenhuacai@loongson.cn>
+Subject: [PATCH v5 3/4] EDAC/loongson: Get DIMM size from ACPI _DSM method
+Date: Mon, 26 Oct 2026 17:13:31 +0800
+Message-Id: <20261026091332.30226-4-zhaoqunqin@163.com>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20261026091332.30226-1-zhaoqunqin@163.com>
+References: <20261026091332.30226-1-zhaoqunqin@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,138 +69,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 16/20] phy: Add common Innosilicon HDMI PHY helpers
-To: Vinod Koul <vkoul@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring
-	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss
-	<rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>, Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>, Andy
-	Yan <andy.yan@rock-chips.com>, Philipp Zabel <p.zabel@pengutronix.de>, Emil
-	Renner Berthing <kernel@esmil.dk>, Hal Feng <hal.feng@starfivetech.com>,
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
-	<sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Paul Walmsley
-	<pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
-	<aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Dominique
-	Belhachemi <db@domibel.de>, Brian Masney <bmasney+clk@redhat.com>, Jerome
-	Brunet <jbrunet+clk@baylibre.com>, linux-phy@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, mfd@lists.linux.dev,
-	linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org, Marek
-	Szyprowski <m.szyprowski@samsung.com>, Maud Spierings
-	<maud_spierings@murena.io>, Graham Markall <hello@big-grey.co.uk>, Icenowy
-	Zheng <zhengxingda@iscas.ac.cn>, Chaoyi Chen <chaoyi.chen@rock-chips.com>,
-	Joshua Peisach <jpeisach@ubuntu.com>, =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?=
-	<u.kleine-koenig@baylibre.com>
-Content-Language: en-US
-From: Michal Wilczynski <m.wilczynski@samsung.com>
-In-Reply-To: <asEPmpQTwXYADwTk@parshuram>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20261026091348eucas1p104a72aa9c878c637a7ef778613c492a9
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260915153242eucas1p1394a6a5e272f106b9cab2a0f709ddeb8
-X-EPHeader: CA
-X-CMS-RootMailID: 20260915153242eucas1p1394a6a5e272f106b9cab2a0f709ddeb8
-References: <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
-	<CGME20260915153242eucas1p1394a6a5e272f106b9cab2a0f709ddeb8@eucas1p1.samsung.com>
-	<20260915-jh7110-clean-send-v4-16-f0e4fd6f2cc8@samsung.com>
-	<asEPmpQTwXYADwTk@parshuram>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD332jHGd9q4hmLCw--.8486S5
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Zr13ZryrCw4DAF1xWF4DJwb_yoW8KF17pF
+	45u34fKr43trnruwsIyry5CFy3u34fJF9rGFWxJ3yagw1DC34UXFy5GFW3JFZ8A34rJFW7
+	ZF4kCws5u3WDJr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j2byAUUUUU=
+X-CM-SenderInfo: 52kd01pxqtx0i6rwjhhfrp/xtbC7hgPTmrfGdjsngAA3x
 
-Hi Vinod,
+From: Wang Jinwei <wangjinwei@loongson.cn>
 
-On 10/3/26 16:22, Vinod Koul wrote:
-> On 15-09-26, 17:32, Michal Wilczynski wrote:
->> The Innosilicon HDMI PHY IP is used by several SoCs. They differ in
->> where the PHY register block sits in the register space and in which
->> pixel clocks they support, but the pre-PLL programming sequence and the
->> layout of its registers are the same.
->>
->> Add a small library holding that shared part: the pre-PLL configuration
->> table format, a lookup, clk_ops determine_rate and recalc_rate helpers,
->> and the pre-PLL register programming. Callers pass a regmap, a register
->> offset for the PHY block, and their own pixel clock table.
->>
->> No driver uses it yet; the users are converted separately.
-> 
-> Is there anything in phy patches here that has dependency with rest? If
-> not consider splitting it up...
+Add support to retrieve DIMM size from ACPI _DSM method instead
+of using hardcoded values.
 
-The phy patches don't depend on anything else so they apply cleanly
-from this series alone. The helpers and the Rockchip conversion are
-self contained and the JH7110 phy driver only needs its parent at
-runtime not at build time.
+1. Add loongson_get_dimm_size_acpi() to call ACPI _DSM method
+   to Get DIMM size in MB.
 
-I kept everything in one series so a single posting applies and boots on
-its own. The patches already target three separate trees and everyone
-testing this has been applying the full set splitting would force them
-to assemble two postings in the correct order, given that the JH7110 phy
-driver build depends on the helpers. The v5 cover letter lists which
-tree each patch goes to.
+2. Update dimm_config_init() to use the size from ACPI, with
+   fallback to default 1 MB if ACPI method fails.
 
-That being said, the helpers and the Rockchip conversion are the two
-patches independent of the StarFive work - happy to send those as a
-separate series if you'd rather take them that way.
+3. Add ACPI UUID and DSM function definitions for EDAC.
 
-> 
->> +static u8 inno_read(const struct inno_hdmi_phy_pre_pll *pll, unsigned int reg)
->> +{
->> +	unsigned int val;
->> +	int ret;
->> +
->> +	ret = regmap_read(pll->regmap, inno_reg(pll, reg), &val);
->> +	if (ret)
->> +		return 0;
->> +
->> +	return val;
-> 
-> why not just return regmap_read()
-> 
-> There is no logic here, nothing. This is really not ideal.
-> Also why add a wrapper and not use regmap directly?
+The DIMM size is passed from UEFI through ACPI OperationRegion
+and _DSM method, enabling correct display of memory size in
+/sys/devices/system/edac/mc/mc*/size_mb.
 
-The same IP block is used by both Rockchip and the JH7110 but on the
-JH7110 the registers sit at a 0x100 offset.That is what inno_reg() is
-for.
+Cc: Dongyan Qian <qiandongyan@loongson.cn>
+Cc: Chao Li <lichao@loongson.cn>
+Signed-off-by: Wang Jinwei <wangjinwei@loongson.cn>
+Signed-off-by: Qunqin Zhao <zhaoqunqin@loongson.cn>
+Reviewed-by: Huacai Chen <chenhuacai@loongson.cn>
+---
+ drivers/edac/loongson_edac.c | 32 ++++++++++++++++++++++++++++++--
+ 1 file changed, 30 insertions(+), 2 deletions(-)
 
-Dropping the error is wrong though - nd comes from one of those reads
-and then becomes the divisor in do_div(vco, nd * 5 ) so a failed read
-feeds in 0. I will make it return int and have recalc_rate check.
-
-> 
->> +/**
->> + * inno_hdmi_phy_pre_pll_determine_rate - clk_ops.determine_rate helper
->> + * @pll: pre-PLL instance
->> + * @req: rate request, updated with the rate the PHY would produce
->> + *
->> + * The PHY can only generate the pixel clocks described by its table, so a
->> + * request that does not appear there is rejected rather than rounded.
->> + *
->> + * Return: 0 on success, -EINVAL if the rate is not supported.
->> + */
->> +int inno_hdmi_phy_pre_pll_determine_rate(const struct inno_hdmi_phy_pre_pll *pll,
->> +					 struct clk_rate_request *req)
->> +{
->> +	const struct inno_hdmi_phy_pre_pll_config *cfg;
->> +	unsigned long rate = rounddown(req->rate, 1000);
->> +
->> +	for (cfg = pll->table; cfg->pixclock != 0; cfg++) {
-> 
-> Is there a chance of null/garbage if we reach end of table? You dont
-> know the size of table, and incrementing pointer without bounds does not
-> look good to me.
-
-Fair. For now both config tables end with a sentinel, so it cannot
-happen. I can add the count of the bounds though.
-
-> 
-> 
-
-Best regards,
+diff --git a/drivers/edac/loongson_edac.c b/drivers/edac/loongson_edac.c
+index 018b1e3a907..eb240e418e7 100644
+--- a/drivers/edac/loongson_edac.c
++++ b/drivers/edac/loongson_edac.c
+@@ -13,6 +13,8 @@
+ #include "edac_module.h"
+ 
+ #define ECC_CS_COUNT_REG	0x18
++#define LOONGSON_EDAC_DSM_UUID	"65d0431b-7eb8-46df-b914-b7d568553140"
++#define LOONGSON_EDAC_DSM_FUNC_GET_DIMM_SIZE	1
+ 
+ struct loongson_pvt {
+ 	void __iomem *ecc_base;
+@@ -66,13 +68,39 @@ static void check(struct mem_ctl_info *mci)
+ 			     0, 0, 0, 0, 0, -1, "error", other_detail);
+ }
+ 
++static u32 loongson_get_dimm_size_acpi(struct device *dev)
++{
++	acpi_handle handle = ACPI_HANDLE(dev);
++	union acpi_object *obj;
++	u32 size_mb = 1;
++	guid_t guid;
++
++	if (!handle)
++		return size_mb;
++
++	if (guid_parse(LOONGSON_EDAC_DSM_UUID, &guid))
++		return size_mb;
++
++	obj = acpi_evaluate_dsm(handle, &guid, 0,
++				LOONGSON_EDAC_DSM_FUNC_GET_DIMM_SIZE, NULL);
++	if (!obj)
++		return size_mb;
++
++	if (obj->type == ACPI_TYPE_INTEGER)
++		size_mb = (u32)obj->integer.value;
++
++	ACPI_FREE(obj);
++	return size_mb;
++}
++
+ static void dimm_config_init(struct mem_ctl_info *mci)
+ {
+ 	struct dimm_info *dimm;
++	struct device *dev = mci->pdev;
+ 	u32 size, npages;
+ 
+-	/* size not used */
+-	size = -1;
++	size = loongson_get_dimm_size_acpi(dev);
++
+ 	npages = MiB_TO_PAGES(size);
+ 
+ 	dimm = edac_get_dimm(mci, 0, 0, 0);
 -- 
-Michal Wilczynski <m.wilczynski@samsung.com>
+2.47.2
+
