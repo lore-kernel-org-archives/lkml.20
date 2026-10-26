@@ -1,68 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793014075;
-	b=OA8EhChPBPU2J+OTW7IGWMNnPfLImbGRvDABhE6Q5NDQVRSfGHHo2sW+rAFUHnxVpA1j
-	 VqJgH0f2CY+dEEcr0rXr3hdt7fAAM4aQ0sV6BOIvRli4qTkk0pWfU6yOkg3441dg5RA6B
-	 UI7XQZtGK/8Ykl9M1iffEQTzA3hxF7zeSo4MPLkQgzO7vheIHricrNBUePittmy7AcF2i
-	 jvIt8Jt8Hb5rcaD/kYIcG+fvsnKIKJGf3i9qsJd2SATTYjQj5tKhOfgiol7tEbigQvOmB
-	 lU7RIkenOy1AG/B+Lwm/tzC5Awd3DbUzh6aLIriitfNoJlm0pKZEGDJqcLgtOQpiIGg==
+	t=1793014080;
+	b=mnorehMSu8gVFeJSb0R2tZCP6oeHVzDm71QT9bWt2Lu9TmqosWNYXuN3TKiKxpSMKSaZ
+	 N5DxO67wZs+X2eesr4fOSX92vmOeQJXliUBLs05KNKKW0Z+AyZhwU8JR/bt5drMVvLk7c
+	 pp87qVhpUky5Puyi2w+2aGGgE15MM3dskiJ6rwGgG1dd5oA62KD00SIVhZFp3lv4sKeg6
+	 fi32HzkGeMRDytDYwpWE7tFFG+eEciM2qJI/A7ddfyhQqRc4bZLsGTuW/SwHYr2ayseTC
+	 HmUevY5FnxDz5L/LT9Nu1FE1IPGshg2icPFc9K9JRXB2KO6qGVMpyRYVBN9eB80GIZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793014075;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793014080;
 	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Cookie;
-	bh=+tiPWxbZOQfEU5/yMJic3kMJpur/5RbXUBkUfzXG8yY=;
-	b=Y3zK9jWz7R+dVNs5UjJ384c7ov+Nkp7WNSn41QSdJ+wenwjcscZitu/TmUxAgh/F06sB
-	 +tp5ct6vpyXyRGTNHf8bwDkJJifTeArDFhpdMF5owlrRH6lDXRyhylJsD2QnjTRTkHeqe
-	 Tpu7riDaE3YUEHbj5zgmXEbMki8R7XYczsA57Z++UNO0T0y31wiLrQdsBQ9SK9QC3Dxjf
-	 hr8Ta5HpGx1Bat1ek91RUu5knpFfn5kkb0t/elRiijEThxmDYZUYFjzL79CHacuJkRoLh
-	 6Vrcppk8tZydzs69sPZygXoVS+35M4wNzdyZpSPuuaHcLbdN3ji2W0NVrCaQaIvasSA==
+	 MIME-Version:Content-Type:Content-Disposition;
+	bh=XjcH+8ozQ0OtvBExYzwz/N97y/cZUV7XDXCgJnpVkeQ=;
+	b=NpcmvooUTiD4SfK2T0UhtH9zQNYXY4V0aw5ho5Kfpro+/RU7yOz/vFM1BN4zY60Te7Me
+	 a6ugGulYr74q81me+uMeiWbtEORlBUfuAo/2XejqciVTI72mkibdBVvk2YaLe9Ewte6iG
+	 AYKSzZZMPKbbzbEDNz+Cz8j/2N/4oOGarCxm9Xt9JmbVfkVAp98+acrl8dJCD4/lPvFaL
+	 tN5EuoN+2Rv0ncg5LCyq2+HnZhkWDjTsRlKHUvVZ7/Uj62UL/DkHfeM0JeTukD+FzH1Qf
+	 IUiWpCOzvcA6S/kEC21NtNJyAP1X7p6I/1LBPBr+hZgpAkTT4reEBggW1knM5e880dQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nYZErD+G;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mclNBKeT;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4A15606A31E;
-	Mon, 26 Oct 2026 11:27:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD478606A32F;
+	Mon, 26 Oct 2026 11:27:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nYZErD+G
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D2CE1F01828;
-	Mon, 26 Oct 2026 11:27:54 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mclNBKeT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 393E81F031E4;
+	Mon, 26 Oct 2026 11:27:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793014074;
-	bh=+tiPWxbZOQfEU5/yMJic3kMJpur/5RbXUBkUfzXG8yY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nYZErD+Gh10mccP8da0BljId97OWife8Bn4VwbzhFx2HOruy915xAfbG0I5suDeD6
-	 v+c3lYe1iI3qvUIHEU5Fn+4/kDM3rJ6xKRCZUeE4x8doZy8EwULxjG9TsfYfmaWnik
-	 xvc0lJDSCCRvANVn7AUxF5d+2ICbb5EI5QdT8250QPPYvmavYQt2t+zC52F8ayOiXM
-	 wed43JCpbG+2iJL5i3juB5Hk6tQWWdppkSUmKMZybbSqP7lhBE45Qb7KVGX9YgATHL
-	 sCOVrRXALS+EtbHsIK/wlvck77b5m9cofrtkR4n/IbGc2IUysviMu6sOLTMOyerFpQ
-	 rTdB/M6CPe8PA==
+	s=k20260515; t=1793014079;
+	bh=XjcH+8ozQ0OtvBExYzwz/N97y/cZUV7XDXCgJnpVkeQ=;
+	h=Date:From:To:Cc:Subject;
+	b=mclNBKeTfeA0EzhI37JcUjbelbvU1JdlcqM1EuXThSMc1KXWS7QJWskoEg+j7Hkax
+	 C4KS2tKW0y9AbMfdTRcEstmYRACMllo9y9aTsnmenklv5a/0Gq1V9JNiLiQfnFqMXp
+	 lYWmn0Gqdr+vHZS6nrtHQO4hWMe3xEcY9Uc4/5huYQCiMo5G/aTfJUjCTndlx8ORSx
+	 iE4G8pBVWVFdv+hSLQLTbJLDHfgWqpVW7E3AdUqNCqGXqZiHkiCJMbRjZwWASeg+e/
+	 ck+2FYW4zUOKgpebNdkQRB4fQsclKbxJmcv45khNdtdIOl125caG6MpggcIEm+ukk9
+	 Rg2IMbgn9yKkQ==
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id 611F01AC5994; Mon, 26 Oct 2026 11:27:51 +0000 (GMT)
-Date: Mon, 26 Oct 2026 11:27:51 +0000
+	id 6755F1AC5994; Mon, 26 Oct 2026 11:27:56 +0000 (GMT)
+Date: Mon, 26 Oct 2026 11:27:56 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Eric Biggers <ebiggers@kernel.org>, linux-doc@vger.kernel.org,
-	workflows@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org,
-	Konstantin Ryabitsev <konstantin@linuxfoundation.org>
-Subject: Re: [PATCH] docs: submitting-patches: Require base tree information
-Message-ID: <at85N-zE4_v9CbW0@sirena.co.uk>
-References: <20261020212235.1143086-1-ebiggers@kernel.org>
- <363b228a-7e96-481a-b70f-195ba55d025e@kernel.org>
- <20261021063927.GA31908@sol>
- <d5d0801e-371c-4836-8b4a-26bff33df46f@kernel.org>
- <20261021064940.GC31908@sol>
- <aea2328d-4ea8-45bc-922e-9c1fed94083f@kernel.org>
- <20261021163242.GB325924@killaraus.ideasonboard.com>
- <73d01869-b536-4fcd-a139-6f9d0a043347@kernel.org>
- <20261026104056.GH15441@killaraus.ideasonboard.com>
- <3f518c8c-2950-458e-95fb-5b282db4c384@kernel.org>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: linux-next: manual merge of the ftrace tree with the origin tree
+Message-ID: <at85PHp8XY92t-R8@sirena.co.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,51 +60,63 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ssidfJvz7vJGMrNS"
+	protocol="application/pgp-signature"; boundary="+mvPS1a0JNMBLnEY"
 Content-Disposition: inline
-In-Reply-To: <3f518c8c-2950-458e-95fb-5b282db4c384@kernel.org>
-X-Cookie: Victory or defeat!
 
 
---ssidfJvz7vJGMrNS
+--+mvPS1a0JNMBLnEY
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Oct 26, 2026 at 11:48:16AM +0100, Krzysztof Kozlowski wrote:
+Hi all,
 
-> For me the downside is that if you require it, half or more of my
-> patches would be rejected and I would need to add unnecessary step to
-> remember. Since this step is pointless - it would be linux-next
-> (assuming in the first place that this is what the author wanted here!)
-> - it is a waste of time for me and potential resubmit of series, just to
-> fulfill requirement which brings no benefits. So I have downside and I
-> see no upside for my case, when you require the base.
+Today's linux-next merge of the ftrace tree got a conflict in:
 
-> This might be affecting others as well, but now speaking about my
-> workflow - I have a lot of independent cleanups, which I stack on top of
-> each other, sometimes series, sometimes not, but stacking is important
-> so when I run `make W=1` it passes.
+  kernel/trace/trace_btf.h
 
-That's super common in platform enablement scenarios as well, for test
-purposes people are often working on top of a base that's got a pile of
-other stuff that they need to get the platform running but is off topic
-for the series in question.  You can do something like manually override
-the base but that tends to bitrot which can lead to other issues, and if
-you forget to override it people can get upset that you've given them a
-base they can't find.
+between commit:
 
-It's definitely nice if people can include their base commit info but it
-can be more trouble than it's worth.
+  3f942403bbad3 ("Merge tag 'probes-v7.4' of git://git.kernel.org/pub/scm/l=
+inux/kernel/git/trace/linux-trace")
 
---ssidfJvz7vJGMrNS
+=66rom the origin tree and commit:
+
+  13d8f2241106d ("Merge remote-tracking branch 'ftrace/ftrace/for-next' int=
+o trace/merge/for-next")
+
+=66rom the ftrace tree.
+
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
+
+diff --combined kernel/trace/trace_btf.h
+index b3d408e6a7f6c,54731bb4eab40..0000000000000
+--- a/kernel/trace/trace_btf.h
++++ b/kernel/trace/trace_btf.h
+@@@ -19,7 -19,6 +19,7 @@@ const struct btf_member *btf_find_struc
+  						const char *member_name,
+  						u32 *anon_offset,
+  						const struct btf_type **container_type);
+ +
+  #ifdef CONFIG_DEBUG_INFO_BTF
+  void btf_trim_retval(unsigned long func, unsigned long *retval, bool *pri=
+nt_retval,
+  		     int *fmt, bool hex);
+
+--+mvPS1a0JNMBLnEY
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCat85NAAKCRAv73Ows9A4
-icDiAP4xfIKs/ISIGgLXal2GjQNEmayESAsJVBQ9/8kSzHvxZwD+KaSY7KEnBxLa
-NBL8m8GoLLn0oq1jnP4d9FBIJh/SXwc=
-=XbLr
+iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCat85PAAKCRAv73Ows9A4
+iTOoAP4tcTLuoa1WoSYxPK+bKixSrX+iQ1BOs0iW2ZMpyUbnvwD7B2dFAY2+4oXP
+C8HxkU1QKvlXSqsibL0KV3IgOQi/Ywo=
+=tIoo
 -----END PGP SIGNATURE-----
 
---ssidfJvz7vJGMrNS--
+--+mvPS1a0JNMBLnEY--
