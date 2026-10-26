@@ -1,59 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793005827;
-	b=pXA1Er3dLURuGdhdbcl2bVRztkuM0Frv13HD6z9G8HLT3KwBy2ujPNpXMEVm0gYTB21/
-	 RWqoiXNon9xJ2E4u2Jea3xrtE/9QeYnXSKW5gVPY2HcComte42RIcdBGIWXusyxcCv+H7
-	 FZmWySVwNoOas7hJUBo9w7hAa5o/0dLacSBxS9AaNpeLJiSFXEQVo3rskrPI6HcGlfT0H
-	 g4WFR0ukuknfHf6AH9/aUIHk9w1o32AJlzAKq49WFf1np1ihAdea8xvo9xbpc1HGtGhqB
-	 w8gZU5QeOmuRacTdWX71OZK6srhMH/UTZJLjO43Y8MbgaOHVH9BCKe8PHWlLMPpPQOA==
+	t=1793005830;
+	b=r+ApH8HUeMBBMCXnFE3r6fpgMZ98QlFcyDPXcEvC/ie4aS0xdi8qvhElx+S9ebW7juYM
+	 sXXBe7KEgt4I354xWjBTJwQxGgQ11Udv8DzdbM+L33qpVWDXjqf8MqniNNcJJv8cyTsO5
+	 bV66mxrqAaZ2Epm0OebdN+b1URgrd25r7KEBBmH3AB/tb7xSid04gL6N3wUNP3xizCBr0
+	 xtbDVWwufQfydJ4+j7qiq2M7TDdoyBqoIlA2mZFYd4+tnULLEDH6+8MX6NTivnqjIUEc1
+	 7TCVnpBQ9UCyHPJJAsPxxeVyt2atbsoHAYnx9fEeW+ln3S+IHahkOS++tHwiiBeiQmw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793005827;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
-	b=VwDKz4B6hs/XgGCXZeJOjjKLX6NrBM8Mcc1J6UKkC9XgpnKO5FTcJk1h5bdQJwzAP1AM
-	 yuIt55xt6dK3z3NjWm9QRAcLAfLGLhix8EKxZoFiyIJrrfylPabAHNZUDS5kP+yogNYWc
-	 kc9tD6Kj1dYvV1H0GsRhxSPFKpYSRK5Qs8GUl+sXzrmPrHpt3+bAHcHscDTD7YE2lGFMq
-	 Hs6VvAJD40XMxMHSV/pV76IAoZnB4v8ABslBOYoAa89mA/wiBP3llsf1BZWn0a6C7H5C1
-	 h3gtRTL3GtU7ZUk20Np4k35broPkaH/oycDcUO5zRJBae2UNBO7ZxRDY5EkpifykGKA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793005830;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=SVu1DeEO1ETbeCmNztnv6Ojujj6Uh2JAgOnpKOwVVKc=;
+	b=YIAZ/Ml2lQIggzcMSHgrxZZSb+RLuvUxC2/1fmYLEI2ETpynipt4mvdpo1b4lxfS2ihI
+	 A5aW+jQ68sTV5hErwIoB0JgdKR926zO7K2n4uI32Vsm9rmxe4t6tl9WqlvWXapzXqchoH
+	 oLfc/TZUY8ULP2G0TW5oKwdT4Oe4tC7NysnFOcDr0VcSxJUfe18B4Ivy4HtOarSNAKXDz
+	 ITVa0Zq1Q21zLFg+MutyEqjiMRkAGxmK8hD1iiOrstUfjYWuux6TSkiGF2u0D1UbpUs1f
+	 WLpjv46NmnBPoQghXjVzNno81qkEzSftknusWTm6hikZoYwkmzpsjtj7EWv5l8lq8nw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c1HMM5BG;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jnTYDEkL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3A29606A31F;
-	Mon, 26 Oct 2026 09:10:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C4FB606A31B
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:10:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c1HMM5BG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75C421F01825;
-	Mon, 26 Oct 2026 09:10:26 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jnTYDEkL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2161D1F01829
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:10:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793005827;
-	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=c1HMM5BGJJ/MmGFgyWTYHL8xitMNPkUKsYvI7PLJ1x5yo5/E+VPMjafw4QMv9MVbh
-	 RYzAdYtPhEsu5jHEYcnXHCsGZ+5nm3IJ8P+F1aUYS20nnk0g/2Zsz2+AML+CRlSVWs
-	 iT8RbmQYCkC9nB76R2iw0NWlMDldJ0DVJC7qiwDDCDXCCrk8qYDA0DIggqiUR+r6a+
-	 QwYbeZl7LAf/GkMUcouQTpQgoQIPqULFhDy90lDBr1HwQQyqDIYj0bcZSm1Di/Xob6
-	 h4zqjLboj7vQwbJTmOJRsUu+FyVsaU5SGpe921NqyYKC029zlUwH0EPSrkIZt01ozK
-	 lGafvB/dWw2Xw==
-From: netdev-bot+sinfo@kernel.org
-To: Fang Xieyan <fangxy@xiaopeng.com>
-Cc: jhs@mojatatu.com, jiri@resnulli.us, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- eyal.birger@gmail.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- liuwb@xiaopeng.com, zhugl3@xiaopeng.com
-Subject: Re: [PATCH] net: sched: em_ipt: validate hook value from netlink
-Date: Mon, 26 Oct 2026 09:10:25 +0000
-Message-ID: <179300582598.3327.5117567372202949701@kernel.org>
-In-Reply-To: <20261026090717.41597-1-fangxy@xiaopeng.com>
-References: <20261026090717.41597-1-fangxy@xiaopeng.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	s=k20260515; t=1793005830;
+	bh=SVu1DeEO1ETbeCmNztnv6Ojujj6Uh2JAgOnpKOwVVKc=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=jnTYDEkLhzMMevVmdYW2nBzxjrBRKN7AjzcRREch2Kwm3Ldue13VRQ2UEgP1fex+G
+	 5VBr6HtFZ9aOyXPIg5vi/0m3SWkGWDa1Tlx5Hv2bTuBT3Xjdu7nCR6jNAtonMSsKAa
+	 BwzNszaFa9jN/FXDxUNi4hRl+gkglb2VGHSd6XagcFN0YLoUWoiGN8OMNvTb7isVi3
+	 tqw7imfWNWn6pS6g8/SfceVnuZ6WUER68PBPNtMiVFi0VVt1fLShodQ8eH42Q7VAwy
+	 Y8E7kdVzZp/6H2DVGri/UptzZ+YSFF8c2BlYTvKRLPzK2HloITgmmcvXLsTBpMDBSp
+	 EdklBtGFJ1new==
+Received: by mail-vk1-f182.google.com with SMTP id 71dfb90a1353d-5eac319a6c2so3044448e0c.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:10:30 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzL076GTfHBdADRULuH69RJJBHyNRKKzz9nnF+y7vga8tGq1NP4MtIlwXnceWsuhN8bDG5JA3iAsJN2wBw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK+6ZE5myOXpnDsXzoi2t7gTgKQJPVtMZ4Gxrv6r9bZGcFEy75Y
+	pBmFQfbYHw7f36YZ5paFwmq0jfUoX+lsSNCAi59A/2zN4cx1Nj5BQc0Tkm8rPkv2NcWWkwnWnRl
+	c6v4Quc36q8msjxXqx4aWHNI2R2qiuq0=
+X-Received: by 2002:a05:6122:218e:b0:5ea:bfe3:6035 with SMTP id
+ 71dfb90a1353d-5ec23239b28mr1869905e0c.8.1793005829306; Mon, 26 Oct 2026
+ 02:10:29 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,25 +59,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <20261025180304.349254-1-teel4res@gmail.com>
+In-Reply-To: <20261025180304.349254-1-teel4res@gmail.com>
+From: Filipe Manana <fdmanana@kernel.org>
+Date: Mon, 26 Oct 2026 09:09:53 +0000
+X-Gmail-Original-Message-ID: <CAL3q7H5v8Q-8Be2eRKszfmi4Rh4oLmuOP8dWWfTprRb8VbHxdw@mail.gmail.com>
+X-Gm-Features: AclHuK-nKpWzWnf_ehGUOGNEqkLBaBeTpBcvTscSsSlzGy6A2o8V0eQ6wgxgdPQ
+Message-ID: <CAL3q7H5v8Q-8Be2eRKszfmi4Rh4oLmuOP8dWWfTprRb8VbHxdw@mail.gmail.com>
+Subject: Re: [PATCH] btrfs: return an error for unrepaired RAID56 scrub sectors
+To: Cheng Yongkang <teel4res@gmail.com>
+Cc: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>, linux-btrfs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi!
+On Sun, Oct 25, 2026 at 6:05=E2=80=AFPM Cheng Yongkang <teel4res@gmail.com>=
+ wrote:
+>
+> scrub_raid56_parity_stripe() returns the leftover value of
+> scrub_find_fill_first_stripe() (0 or 1) when it detects unrepaired
+> sectors in a data stripe.  Scrub callers only treat negative values as
+> errors, so the unrepaired state is masked as success and P/Q
+> regeneration is skipped; a device replace can then copy corrupted data.
+>
+> Return -EIO so the unrepaired sectors are reported and the corrupt
+> stripe is not treated as healthy.
+>
+> The masked-success behavior was reproduced 3/3 times: baseline scrub
+> returned 0 with "finished ... status: 0", left P/Q unregenerated, and a
+> device replace copied corruption.  With this change scrub returns -EIO
+> and the replace is canceled; healthy RAID1/RAID5 scrub still succeeds.
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+This information in the last paragraph is rather useless.
+Rather than state the obvious, just check why we were not returning an
+error when we should have. If you checked the git history, you would
+see this is a regression.
+Also, add a Fixes tag identifying the commit, as this is a bug and
+should be backported to stable kernels.
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+You should also check the for-next branches (in kernel.org and on
+https://github.com/btrfs/linux/commits/for-next/) before sending
+patches, as this issue was already fixed:
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
+https://github.com/btrfs/linux/commits/for-next/
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
-
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+>
+> Assisted-by: LLM
+> Signed-off-by: Cheng Yongkang <teel4res@gmail.com>
+> ---
+>  fs/btrfs/scrub.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/fs/btrfs/scrub.c b/fs/btrfs/scrub.c
+> index 479c0e0..ba2e27c 100644
+> --- a/fs/btrfs/scrub.c
+> +++ b/fs/btrfs/scrub.c
+> @@ -2250,7 +2250,7 @@ static int scrub_raid56_parity_stripe(struct scrub_=
+ctx *sctx,
+>  "scrub: unrepaired sectors detected, full stripe %llu data stripe %u err=
+ors %*pbl",
+>                                   full_stripe_start, i, stripe->nr_sector=
+s,
+>                                   &error);
+> -                       return ret;
+> +                       return -EIO;
+>                 }
+>                 bitmap_or(&extent_bitmap, &extent_bitmap, &has_extent,
+>                           stripe->nr_sectors);
+> --
+> 2.34.1
+>
+>
