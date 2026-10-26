@@ -1,79 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793021129;
-	b=Jk64IMu3/4VxZBL8Bre3vmjo9ILkAkgrO1BrvfYiwkaq2zY7tpGvjVY+ZQkEdOcdWEdD
-	 kmV0bnRz46T1peO2VYFcFrZFc4XFOkQAkr3SpSuTsb9x5LBh2o/gmKsSkHS475uz+IzTw
-	 ymjCe6tCx5br46kiOxrtWhyzcIhqavsQ2JdrCskSFGJukQIuHZWKC6EVy7Plr/eH6B1yt
-	 HSiy0hEDI9UpS/GmmE/nYd/JVygPFCz8Z/ficSjz2lJEwEdcxWOg0jYfZaoYPsqyjjr/f
-	 DgHR1CYGz80BHXTJVpPe6yAguhLttt9XYUYy9fkyUV8+as+MJ9bw19FouNSP8h9zylA==
+	t=1793021149;
+	b=TMZffBECzi6ZIv8wKlZ5WW/QuSgH07Gc+q8uBAWgK2Frel0uyICkLkas3gVbpOVJq0PP
+	 tnDpBj6UMR9uYV/MDfyymlxKaeo+gZRSK+9dPkc5Ll9zHnJlLRxY+gJa5VCvxdR/ICOB0
+	 oaB0gsKm6bziQK0F+Nhu0+uNCHfR8PwfSXdRxpg8ZqtuDVzcZ8W7rWw2Po2J9jjEeGV+C
+	 SssXhnEjeEsJwZY62tbyRfWOlPnYv9/ok1j3acPjfRS1b4Z1qRbq6D3pgO8E/3iMJw5jl
+	 lD4Y/rqzU/Wzx5aBsKtW6T6LW4JLv14ktU/ZM8T26e76WqL/ORCnEyeCKO4yDVodEMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793021129;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-Reinject:X-QCInternal:
-	 X-QCInternal:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=9LCy8Kbyxygh7Z9zyIlYZ0wlHWNeQPFIBCRXZNp5puo=;
-	b=O48TVb/t9S29p7+K/zSEXzfHxiIKRKtxREP+lTLDZAowTS91t9TFNEeXE2dqXJr7xEjm
-	 pmOHahsbaKh5JjShmLSxR0ozbfsoIUU3HlnsS4TOArLpmDVghLD1H00ia/5DWCaExiA8x
-	 Bd2ql8wLmbsPVIziqRnwAiJPUTup1eKcA2Eto1jBK87NNVC0iEkfRNXbEnWlbNwPvQRNl
-	 vN31HgP2PLnkN1YU2WZsC8/kNomQOKqGkGAV6G5L/U1lr6fZvvJ9wFajJCa+8fMegCOlT
-	 oME2JkKgY0mbBOI9bIe94lpWDROA/y8KSdRwhxTZpliux7DGQEx6J6XW/Gq/Iph1LJw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793021149;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=JTZ/P1YmJ6IZNJ6lk8Cg6Zigprwxb6S7rjKWG93e8pw=;
+	b=1NfO7M31l9+XDo6f6oWFLyMS0J/Bf8xqDqoPNobJdaPa2zA81IhAuGPa+bcItALYQ0WR
+	 ssV0lXL8hunGAKPvn0DiOWcl7RyLkRutDeGhV63rX08JFJLJlJQUeholfP2EbXkni4rfN
+	 koCe/VHQ8/TPxfGlCvb48LnUoecCA0d5GqgitNzzFtj6xVlK998j63ooIyo1FA/zAqXyT
+	 ZA6uSIQmauxVYeP6jt/bd0dCNzd9wt6ZvTxCfhptU7tf9UaGE5ox8s7YjP1Hju3SV5dOJ
+	 WKpYh63I8mIzP9MziqklhD7zzOvMjGQyyFjTL1A78ymgoCl1EowO9hpQeC12tWOYC/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="NUTFz4P/";
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=TeC2FOPt;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78411606A31A;
-	Mon, 26 Oct 2026 13:25:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78411606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AB9D606A33F
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:25:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1AB9D606A33F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=NUTFz4P/
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69QAtMqK2541998;
-	Mon, 26 Oct 2026 13:25:26 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=9LCy8Kbyxygh7Z9zyIlYZ0wlHWNeQPFIBCR
-	XZNp5puo=; b=NUTFz4P/SYGBnrCtTH1A5bhjEzOFTvsfxVG1sqBs4Vp10eGRG+Q
-	99iXia6GR78BEZsx01ulHu54TNAQ/7ALuYUra4LIPmhzmwwhuCMSvpWLrzMiFbw0
-	goAMLu3G/NZ7ojwVRlje72D7MIFNeyQEFdVq7pSTCAd32cxySZmUP10QIHZKH5sN
-	K++PY9gd/RkTXglSuyfpWqWgQPMKXEykpgZ4BTWP/3/g4XaMv2jwBkWqCB/7uSaO
-	5IS3Mvtc+GF1FLXuWg+aMFwMwEC+j1QfoabjpWyvYC+3wMUSAXav4+4fqrkhTZ6Y
-	pUgVCD8+c19mcIfgfQkC34Jj3x7FT+pOgsg==
-Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hhsjdam84-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 26 Oct 2026 13:25:26 +0000 (GMT)
-Received: from pps.filterd (apblrppmta01.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 69QDPKaM1853279;
-	Mon, 26 Oct 2026 13:25:20 GMT
-Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-ks5-hyd.qualcomm.com [10.147.255.18])
-	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 69QDPKKa1853269
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 26 Oct 2026 13:25:20 +0000 (GMT)
-Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 4763723)
-	id 57A28679; Mon, 26 Oct 2026 18:55:19 +0530 (+0530)
-From: Karthik S <karthik.s@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Karthik S <karthik.s@oss.qualcomm.com>
-Subject: [PATCH v2 0/3] arm64: dts: qcom: qcs6490-rb3gen2: Add HDMI and DP audio support
-Date: Mon, 26 Oct 2026 18:55:14 +0530
-Message-Id: <20261026132517.1133138-1-karthik.s@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=TeC2FOPt
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a207b02a2cso19237935e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 06:25:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1793021147; x=1793625947; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=JTZ/P1YmJ6IZNJ6lk8Cg6Zigprwxb6S7rjKWG93e8pw=;
+        b=TeC2FOPteMhC84ln1XNPf2/uDi0Y1HNEWRFnSOT7TjP9dCtOt9flZwVcpmIH7osh2S
+         f4kq+T7b62JMHP9bVv58rt7+W8RN6vJjr4iPpVcodn4j+Xk1X5eBtPopddvTzpYIsxMK
+         3FNdwQjuoyg7XvmkqvAeADWLNLzjC0zbNgoNVN0+cfAwltOyftmC81rBukPkIweUTb4+
+         G58Jwu1rTaOAWIIl5paP0+PKvr6+i4oCqNSjkpI2Q+g1OyB8CE1k4Lfg2zM+K7BeIy/2
+         RRWUX450SDMx7t3w1AddmhUBy0E/491GGDHDYHDoW5vOcuWcMDODhYjAqqZKC0e5unWk
+         G7HA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793021147; x=1793625947;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JTZ/P1YmJ6IZNJ6lk8Cg6Zigprwxb6S7rjKWG93e8pw=;
+        b=bJn1xmO0/zgnXgWNT6u54SUkVY2caih2qz8Sd8bwj4f0RaNpdm4SOiJaxSVfRorpCY
+         W5V06gCDnlvkpWAtZj7COomAzb/V9Dy6AkivY2Ma1Etup5gKJL7XlDIpgfI00uwIsZPk
+         l20uozn3lsHiOcNhLcGWkd+7cozwtBqnAsQQh/g19hhasv5BqHEbMD7R8G6m8R9hsNsQ
+         bLlUul0hrIR6gfOkVSsRQqahY4/dIxPdS0L5OyywAEFA/Pa3QNk71cU/jBojbuvMJ14U
+         P2m4JGcoG5/xuSc1YX8NiY8ExmVi98hOLIzkKAr5ahDgeOBUB6WkqI2IUWgx1abkt4Ge
+         86DQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw+cSabeS8hx9mgHJ5Fpg7M5rD3WrfvMVrlB1JhVtLAlxxmVZG9ASQYyBKaS1t16RXnUGm0P9b9AJLSRaM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ3N2QQm25U/dzwAZHgCbOIqLjvzm73bCXt/IwuDhqB9YSLNcuK
+	La/khl2bpiYDUZ+2aDBe+62SejPGJmNl6LO2Sy+G4vjg9y/1KoKAvGPEeK5jN381Vt8=
+X-Gm-Gg: AYBFou2mjeZmJYk4cV34+hWusiHEQZVyHwHhNswMg7SS83WNmp2hDx50j8HzeZHbaeD
+	/pyF98oSVs7C3vwG8w9exgfqufgpDzWUdF5ME8qNwiEDCMV1CTbsphqSwT2TrLFtI9qF3F/UAnR
+	pMlE1RZcRUjdKzgEfoZqK0SnyrMwUcOqwiZ8Rf9LsWbiCQ834CiOum0SWJT7ILxe33l6s6LAVSm
+	lfuGRXbi3w6cncyfuruLd3FPVaRfd2pa2JW4P7M40ZxNgGMCNVi4N++nO5XFAxsYkOJsw149KM9
+	TNbdBlVbqAfRmaTdEr3Z0jDQ48fRxtgAv9TWjyHCnB1TbWyOFvjJTsW2DO7mWUcMc0zx0cenBya
+	bRhmyAEXxYSU9NImt/9fkibTB7it6S8SJEdtmNeiTB6rQzIBvyjCpMr/Kqxvj1D/LHYafC2oikW
+	nOJ7tEyEELr3xQ34XCom+3Os2pdpDtfaheyke1rIkTP7ChYqzYKeEjxXfUNfpfy8d2qpgDbnmSW
+	/Fan0h4IJNidPDZAqggcAiCVo+ELOzYF04IY3k0WQTrFVX6aqC+pmc0KtKne2wzt1u6hA==
+X-Received: by 2002:a05:600c:a306:b0:4a4:fc8c:cfd9 with SMTP id 5b1f17b1804b1-4a4fc8cd1edmr72049405e9.25.1793021147467;
+        Mon, 26 Oct 2026 06:25:47 -0700 (PDT)
+Received: from localhost (109-81-20-177.rct.o2.cz. [109.81.20.177])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a30e11bsm232464125e9.1.2026.10.26.06.25.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 06:25:47 -0700 (PDT)
+Date: Mon, 26 Oct 2026 14:25:44 +0100
+From: Michal Hocko <mhocko@suse.com>
+To: "T.J. Mercier" <tjmercier@google.com>
+Cc: hannes@cmpxchg.org, roman.gushchin@linux.dev, shakeel.butt@linux.dev,
+	muchun.song@linux.dev, zhengqi.arch@bytedance.com,
+	akpm@linux-foundation.org, cgroups@vger.kernel.org,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mm: memcontrol: fix NULL pointer deref in
+ high_work_func() on dying memcg
+Message-ID: <at9U2HvyUP-iYOCt@tiehlicka>
+References: <20261023222313.3979455-1-tjmercier@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,73 +99,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-ORIG-GUID: RuXqEa1hQAvWAwSP9BLRmkXwhDqLodqB
-X-Proofpoint-GUID: RuXqEa1hQAvWAwSP9BLRmkXwhDqLodqB
-X-Authority-Analysis: v=2.4 cv=a4elZkSF c=1 sm=1 tr=0 ts=6adf54c6 cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=_K5XuSEh1TEqbUxoQ0s3:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
- a=xet2HuNJtjWVCd9SPpEA:9
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA1MyBTYWx0ZWRfX469lfL5qzhNH
- Tg4nkw4VHydypg9+teXWV9ein66u6yFTk7Ws0aMKFfnEyOM6gT9jOVOxR4jCA3cxbjEl8kPxrIF
- PNIrM26skIxpNgOzdPl9aDjPAcAsQCk=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA1MyBTYWx0ZWRfX89H0nb6QWAS8
- Jrq7HeqDb4V86j8wRS3EHQuQ4OoEw6RGCtCM/GwjFsYUuq5g9RdKQXyfFLudwi1fZ6NeuK1MWDG
- zBRl1xbpdwjV1314ePbeZda0zPcPEWwHNEM7ftcn2I4L+W0mWJHu1u+eWzk0vaWZWA7Chmw2VG4
- lxKEjBOYypbbA0CjUsvD/n/t5TSWpIUFjjITDNzZ4ouASqsnXSzpyYyZ2RhVh7qpZg+zJ0Z/XCN
- p8hpTsYCB+kv9U9jQVi+/XuNQpZ8H7ZI3gwrMtv8VvGpPk38qCe78lEC7Kgmr9+lX3iEkfiOf3+
- BbBmgNugslgVE5WWeTxKyzmm4+AQQ6PD87asiROYHJ/EsvxVIS8454NxzsDh7zQXrxKKGwMZLdf
- yuN+kvgWUPH+4xVivbBQ8zW8wwK/B7KGf+sR8cPoMOBWZ7lz17tEzWLrZ08OZOqMqzkV2aq/cb8
- uVRtt3s+y1KQQCcdmsA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-26_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 malwarescore=0 adultscore=0 lowpriorityscore=0 bulkscore=0
- priorityscore=1501 impostorscore=0 spamscore=0 clxscore=1015 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610260053
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261023222313.3979455-1-tjmercier@google.com>
 
-This series adds audio support for the QCS6490 RB3Gen2 (kodiak) board.
+On Fri 23-10-26 15:23:13, T.J. Mercier wrote:
+[...]
+> ---
+>  mm/memcontrol.c | 5 +++++
+>  1 file changed, 5 insertions(+)
+> 
+> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+> index a05d9a8baa1b..84f4a8fd4d16 100644
+> --- a/mm/memcontrol.c
+> +++ b/mm/memcontrol.c
+> @@ -2457,7 +2457,10 @@ static void high_work_func(struct work_struct *work)
+>  	struct mem_cgroup *memcg;
+>  
+>  	memcg = container_of(work, struct mem_cgroup, high_work);
+> +	if (!css_tryget_online(&memcg->css))
+> +		return;
+>  	reclaim_high(memcg, MEMCG_CHARGE_BATCH, GFP_KERNEL);
+> +	css_put(&memcg->css);
+>  }
 
-The board features an LT9611UXC HDMI bridge connected over secondary
-MI2S and a USB-C DisplayPort output. This series enables audio output
-over both paths:
+OK.
+  
+>  static void high_irq_work_func(struct irq_work *work)
+> @@ -4463,6 +4466,8 @@ static void mem_cgroup_css_offline(struct cgroup_subsys_state *css)
+>  
+>  	page_counter_set_min(&memcg->memory, 0);
+>  	page_counter_set_low(&memcg->memory, 0);
+> +	page_counter_set_high(&memcg->memory, PAGE_COUNTER_MAX);
+> +	page_counter_set_high(&memcg->swap, PAGE_COUNTER_MAX);
+>  
+>  	zswap_memcg_offline_cleanup(memcg);
 
-Changes included in this series:
-- Patch 1/3: Enable secondary MI2S pinctrl and add the MI2S dai-link
-  for HDMI audio output via the LT9611UXC bridge, and sort wsa-dai-link
-  to maintain alphabetical order
-- Patch 2/3: Add #sound-dai-cells to the LT9611UXC node to allow it
-  to be referenced as a sound DAI provider
-- Patch 3/3: Add a DisplayPort dai-link to enable audio over USB-C DP
-
----
-Changes since v1:
-    - Separate patch for #sound-dai-cells addition to lt9611.
-    - mi2s1-playback-dai-link kept sorted before va-dai-link.
-    - Subject line updated to mention kodiak.
-    - Patch 3 enables audio for USB-C DP only.
-    - Dropped patches: ASoC: qcom: q6dsp: Update bit format support for
-      secondary i2s and ASoC: qcom: sc8280xp: don't force S16_LE in
-      hw_params fixup.
-
-Link: https://lore.kernel.org/all/20260413091937.134469-1-kumar.singh@oss.qualcomm.com/ [v1]
-Signed-off-by: Karthik S <karthik.s@oss.qualcomm.com>
----
-Kumar Anurag (3):
-  arm64: dts: qcom: qcs6490-rb3gen2: kodiak: Enable secondary mi2s
-  arm64: dts: qcom: qcs6490-rb3gen2: Add sound-dai-cells to lt9611
-  arm64: dts: qcom: qcs6490-rb3gen2: kodiak: Enable DP audio
-
- arch/arm64/boot/dts/qcom/kodiak.dtsi         |  5 ++
- arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts | 69 ++++++++++++++++++--
- 2 files changed, 69 insertions(+), 5 deletions(-)
+Should we simply disable_work_sync when the memcg is going to be
+released instead (mem_cgroup_css_released)? That should both prevent
+the run reclaim_high during the memcg shut down and and also avoid
+plaing with limits to work around.
 
 -- 
-2.34.1
-
+Michal Hocko
+SUSE Labs
