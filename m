@@ -1,49 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793056938;
-	b=hLIt9rfSSZDqH4CChK4GLCW6dHGE3596oGoOpCFXB1SU4PEDQVTbPkXebT4yjxOL1VaX
-	 QQ9XLdPRZ5+zAz8eSVKbvU7airzfa9mjTVb16JklOCvGcdEL0Wl2b+T8ItwOkARLeqhcl
-	 mZ0zRPD8VWq7Pu29gHKPMhGWZHBgRzuEWTzMiiqJCSXPduIZM+iunj6Jh7ZtIfh7exMHU
-	 5BmXjHf++fXHwkSw9B8O1ndPIptp40SL4LSDpyvR+8xtA+/IPy/wHWOag9sB8bb1Y0KBY
-	 iKP5HAUoeew68hacsqmPK/q2ZxMgV2iru9t1HwUVdRM14HjHjohDmfudaZjF+NJ5YGg==
+	t=1793056950;
+	b=f+1YUj9/Xl/P2ZPRl8yDxc67L4vm/p+BFDW6C+h8NWOGdmRIlbpGTUsg5V0mM9oLxohV
+	 4OvLRg/bzOpHZg996ILRYc00eJwYUb/nhrDekPEKwbZTif9nh7YxjWUs0qOQlACK//G4F
+	 nzJ0BvTmY4CI3zsEBoTl0hDuHGmhhJUczmHoIneJ/q5Q4HFrTITYeSSFJYv9JdnHNflvv
+	 HXSu/2t4pWf95inAnyYxIkB7i4ZMvw/NYJh2nW4Ngw043vv0cEFjJ2p9OU9kykhUKE/eZ
+	 Nf3cifa4k023UMvcw6g77DzJ89dBIlQAagK5TH2U6aC19ZiUJPxsOdWmSaObrZQevXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793056938;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=ord/cNP4CRsRT4Xvi9c7rgpbK1vGRFp0LVhUmuKhqjI=;
-	b=g/Aw8ofccEcGa+ruI9FSRhZt+mYzAkp0cqTbgImRqGqYsekXdTIorDupeianIN6aK8g7
-	 tSiHauvuPVaWOPQ6/wTCweAcwObX3ZhbN3HemFyKEoQvkaiLAVh2FedlSsjkR8Xf4pb35
-	 41ejMaq7YXCwJXek4UITXt9DbIaOfr/cIXJF/HcXgAyPbhk1QuTlod2JogstOtgR8dJ1J
-	 Uu1C+Sy3mYu6wc4ETjUF8fstSH7fv6/5oS1xq9eJ4FNv0dOLzN3mmZMtYAYBIVEXY3V8W
-	 vDbkcP0wpMbnbmhCVIeXOExUkRDRInI7/jK0DbLgYOjYZ3Ydvzmg/B+H5JUqq4XnUfA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793056950;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=VQi76aZsHSnfP5+RWnTNJp9RYYg8+NeBCNLcRHQmMbo=;
+	b=1kj29DpypyZTSUrpaJ3n1xG0JV7ogOXCS5QPwxMDyC9XMY8peMo2ibPeenZCrw51x/nU
+	 L9n/REj8S+3KGdwmFPoLIahwq6Ou0GRc3Z8mIgRggBusHtKN3hf/Ysr8hNqVXnXauQIk3
+	 1ljrgHQM1BcfDIa2Zbzoo6xJoOeNYXrpWah3e30ZUaB5eaUvh0LnIhNBJoRP55aoKlrx0
+	 0knWysvJmrawsxuEaAYYZDVaQSiHI8OID47fvq7VQHuies177YMLUQtBEJUrME60+OjBK
+	 pYfm32SmCdzs15qNMz+uRtBFqyUX44Lh0Mrk+HKhanI96W/MPQtC0+wuNghGxzF0+AQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="A/EO6/mr";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n1acaGHA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB9B7606A31B;
-	Mon, 26 Oct 2026 23:22:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5C75606A322;
+	Mon, 26 Oct 2026 23:22:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A/EO6/mr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B94E1F01825;
-	Mon, 26 Oct 2026 23:21:58 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n1acaGHA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A689B1F01828;
+	Mon, 26 Oct 2026 23:22:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793056937;
-	bh=ord/cNP4CRsRT4Xvi9c7rgpbK1vGRFp0LVhUmuKhqjI=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=A/EO6/mrzkD/mg3LADo0kMno6NcudvbnDZM8+tP9DZDoU8h9co0wU4clyW6YZLGFl
-	 ez77QV1LIY6IfUQBxzaqwM2+Y8X4xFpLbUPyaBW70KMfkz7RLbSPEpjilPcUHcVlaz
-	 Nc9VIAX3oxSv0TtODqmK33x8Gw+Djny92ATTXKcaqlSN630jZjUPuTr//5PNs6+tUj
-	 Bv42ssVm1ha1+CGtMl3ZCTjR1Vr36giZAnOD4Sa1XOnawJ5sMZ9PD0aJQeKTO0fxuS
-	 lWZTZeTL6k/4c+Sx5wtd160zyY8s+XW3ZtFGyroIsKFMK3n51Km+Sv+lIi+J0jrgRR
-	 77f61FFUxGTOQ==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Tue, 27 Oct 2026 00:17:34 +0100
-Subject: [PATCH 14/46] mm/huge_memory: fix zapping migration entries for
- device-private THPs
+	s=k20260515; t=1793056949;
+	bh=VQi76aZsHSnfP5+RWnTNJp9RYYg8+NeBCNLcRHQmMbo=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=n1acaGHAVUUzPJs65rtszWmauyrOg2LYJUYCYKXtC9YshIYeAyp46aLezhDULMxTg
+	 UGOLl5DYfICbGiypWgJDFA7C0aeYojsoA5zeLMpXGz0qdpymRDboLcnFPitm8DIrNb
+	 i9wXYatq3EsU3xvivVZ4SOhkU6qsmLqDslS2A+aVqdfKn3gijCNx8vHsGBNpDPROJD
+	 1cM/wLmb6Kk6plw6CZBtZT7YZVz9uUSfD7DHBdC6op6ux67Dxc74hV2C9RNlTSYn/+
+	 O27yQ67eEZW0DdjbMH0L0MLeExdJ7+yWgUfYbGvBwO99Tkj/OlRwhNJ8KORrgq+a5d
+	 7b1h8pYgKNFWA==
+Subject: Re: [PATCH net v2 1/2] psp: fix transport mode encap with ipv6
+ extension headers
+From: netdev-bot+sashiko@kernel.org
+To: toddfreed@meta.com
+Cc: netdev@vger.kernel.org, daniel.zahka@gmail.com, kuba@kernel.org,
+ willemdebruijn.kernel@gmail.com, davem@davemloft.net, edumazet@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, andrew+netdev@lunn.ch, shuah@kernel.org,
+ raeds@nvidia.com, rrameshbabu@nvidia.com, cratiu@nvidia.com,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ bjorn@kernel.org
+Date: Mon, 26 Oct 2026 23:22:28 +0000
+Message-ID: <179305694824.3134.18415422493301271111@kernel.org>
+In-Reply-To: <20261022223014.556388-2-toddfreed@meta.com>
+References: <20261022223014.556388-2-toddfreed@meta.com>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,96 +66,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-fixes_core-v1-14-6f74bec9a5bb@kernel.org>
-References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
-In-Reply-To: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>, 
- Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
- Baoquan He <baoquan.he@linux.dev>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
- Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, 
- Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>, 
- Pasha Tatashin <pasha.tatashin@soleen.com>, 
- Pratyush Yadav <pratyush@kernel.org>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
- Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
- Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>, 
- Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
- Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
- linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, 
- Chris Mason <mason@kernel.org>, stable@vger.kernel.org, 
- "David Hildenbrand (Arm)" <david@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1559; i=david@kernel.org;
- h=from:subject:message-id; bh=0T8y59LcTWa+97MvrqvLjbP/3maGmTKua0tBD9F4/0I=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLLu35+ia/cvPpk1zX/O+d5dB20O/XTZps6+dGX6/C/Wn
- 32/e/6/1FHKwiDGwSArpsgSFHzf4OXLdbXVbnzMMHNYmUCGMHBxCsBEdq5m+J++r4l1Vdemiaxr
- 97IsOrB126Hm5Fs1z7zO++7NmFr9v2YlI8MSV+slVydHMX/KX/44/mLh7Gc8sTxTlc/N5lTMr6r
- ZxMMDAA==
-X-Developer-Key: i=david@kernel.org; a=openpgp;
- fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-From: Chris Mason <mason@kernel.org>
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-A PMD migration entry can refer to a device-private folio.
-zap_huge_pmd_folio() checks the folio type instead of the entry type,
-so it treats such a migration entry as a device-private entry.
+Low priority / nit picks for your consideration:
 
-Installing the migration entry already removed the reverse mapping and
-dropped the mapping reference. Zapping it must not repeat those
-operations. Concurrent MADV_DONTNEED during migration back to system
-memory can trigger this.
+- [Low] The updated kernel-doc comment on the exported
+  psp_dev_encapsulate() says "With IPv6, they go after any extension…
 
-Check the PMD entry type using pmd_is_device_private_entry().
+--
 
-Fix generated by an LLM and sent by Chris Mason in private.
+psp: fix transport mode encap with ipv6 extension headers
 
-Fixes: 368076f52ebe ("mm/huge_memory: add device-private THP support to PMD operations")
-Cc: stable@vger.kernel.org
-Signed-off-by: Chris Mason <mason@kernel.org>
-[ david: simplify description ]
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
----
- mm/huge_memory.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+This patch changes psp_dev_encapsulate() to walk the IPv6 extension
+header chain. It now rewrites the nexthdr of the last header in the chain
+to UDP, instead of always rewriting the fixed header. Fragment, routing,
+NEXTHDR_NONE and unknown header types are rejected, and psp_dev_rcv()
+does the reverse on receive using ipv6_skip_exthdr().
 
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index eda020dd6e33f..1b50cc2b35351 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -2493,7 +2493,7 @@ static inline void zap_deposited_table(struct mm_struct *mm, pmd_t *pmd)
- static void zap_huge_pmd_folio(struct mm_struct *mm, struct vm_area_struct *vma,
- 		pmd_t pmdval, struct folio *folio, bool is_present)
- {
--	const bool is_device_private = folio_is_device_private(folio);
-+	const bool is_device_private = !is_present && pmd_is_device_private_entry(pmdval);
- 
- 	/* Transfer young+dirty while the folio is still mapped. */
- 	if (is_present && !folio_test_anon(folio)) {
+> diff --git a/net/psp/psp_main.c b/net/psp/psp_main.c
+> index c9c1a8826b7f9..0c009d7b08c00 100644
+> --- a/net/psp/psp_main.c
+> +++ b/net/psp/psp_main.c
+
+[ ... ]
+
+> +static int psp_ipv6_nexthdr_off(const u8 *hdr, unsigned int len)
+> +{
+
+[ ... ]
+
+> +		if (!ipv6_ext_hdr(type) || type == NEXTHDR_NONE ||
+> +		    type == NEXTHDR_FRAGMENT || type == NEXTHDR_ROUTING)
+> +			return -1;
+
+[ ... ]
+
+> @@ -243,7 +280,7 @@ static void psp_write_headers(struct net *net, struct sk_buff *skb, __be32 spi,
+>  }
+>  
+>  /* Encapsulate a TCP packet with PSP by adding the UDP+PSP headers and filling
+> - * them in.
+> + * them in. With IPv6, they go after any extension headers.
+>   */
+>  bool psp_dev_encapsulate(struct net *net, struct sk_buff *skb, __be32 spi,
+>  			 u8 ver, __be16 sport)
+> @@ -251,10 +288,17 @@ bool psp_dev_encapsulate(struct net *net, struct sk_buff *skb, __be32 spi,
+>  	u32 network_len = skb_network_header_len(skb);
+>  	u32 ethr_len = skb_mac_header_len(skb);
+>  	u32 bufflen = ethr_len + network_len;
+> -
+> -	if (skb->protocol != htons(ETH_P_IP) &&
+> -	    skb->protocol != htons(ETH_P_IPV6))
+> +	int nh_off = 0;
+> +
+> +	if (skb->protocol == htons(ETH_P_IPV6)) {
+> +		/* UDP + PSP after the extension headers, if any */
+> +		nh_off = psp_ipv6_nexthdr_off(skb_network_header(skb),
+> +					      network_len);
+> +		if (nh_off < 0)
+> +			return false;
+
+[Severity: Low]
+This isn't a bug, but do the comments on psp_dev_encapsulate() describe
+more than the code accepts?
+
+The kernel-doc says "With IPv6, they go after any extension headers", and
+the inline comment says "UDP + PSP after the extension headers, if any".
+However, psp_ipv6_nexthdr_off() rejects routing, fragment, NEXTHDR_NONE
+and unknown header types. For those, psp_dev_encapsulate() returns false.
+
+Callers such as mlx5e_psp_handle_tx_skb() and nsim_do_psp() drop the skb
+in that case. In the selftest, a socket with IPV6_RTHDR set ends up with
+its data stuck in the send queue.
+
+On the RX side, psp_dev_rcv() already says that fragment and routing
+headers are not supported in transport mode. Could the TX helper's
+comment state the same restriction, so driver authors know that some
+extension header layouts make encapsulation fail?
+
+> +	} else if (skb->protocol != htons(ETH_P_IP)) {
+>  		return false;
+> +	}
+
+[ ... ]
 
 -- 
-2.43.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261022223014.556388-1-toddfreed%40meta.com
