@@ -1,92 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793011944;
-	b=KfpGb+V9dp+AXfJECRk0L1o2D6cyhokJNml32X25HAbseZ0t1MfF6uvCZXh0tJM22CnC
-	 qZSsS1vU7oW5LboV3bX+wXZeIT2syVnsFCw+2FiUG2kgN/H1qMpyXKD4TMaXvSNk37ARu
-	 3nGPemetCmeI+zl+GhksEmRaK5f+PvHPgJlBy/rZtOn1jfO1tWOv+m1Ad7HrJKwkozeLP
-	 2vEYrd7bHLe0ZhhzPb7tMnL2v2cNIhLidSXQOdmRlZPKTowROOVQWPKbf/gKoWLHi9aQb
-	 auO4PD1m/krTnGiORAowS7bvGRougo4YkrSUMpm8g+T5E9igDUYrTd9fNSUrGHyD9aw==
+	t=1793011951;
+	b=RRsyGJI1jOHqq6HOmBdNG8kQF0YOuBLamXXsWdc6tBmq6HXcDysXyY//eU7D2lNMLRLE
+	 ZuNN2ZxWrCJu8XKYvtyOYdVeTrEuO2wkV9dQF3A5BhZlVKVu1FPJBlUQzEA+HgxpcWY8j
+	 jBDW+FXZO7cZQ5rc18R205BijD4KCIFcL68OS5dFPlZhS2cw1h39QJyy0ws1ahRz56dFy
+	 2CglhZPz0DR8CEqQt85+bJt0RCIGLmlE0/VOiECvAHJStC7YuDGmj1ZIFNP/vM5qB/5fJ
+	 klBkr7ZY9IxxhIGPkj60Nfi8A4zLdteEqEuV9LB3tNe+z9KlWO3kdIByis0EaHdruSQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793011944;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793011951;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=gOYmoGPbwEQdywGQ/41fb29WcNoZgPqM/BtBzm9km6Q=;
-	b=fOKHX1EqjVuO7JmigVkMr8x3oeSUXtSAB7bohhq75fqv8x49hwbOny7ZsJnwlfyWQyp+
-	 ayv73BaofsmWWILg2IHWSiNzFIo03lt4VlH2/DgVIlFQPal/O99tqxEtFUyYZdIienbf2
-	 igUtnHnGK6bfvT+worCRkB7D/+ic88xNxV1LhO5x+07AD+UCHEwA2RAfiQ6OyrPWet6Y1
-	 Pvgn1/nttMXkTKv9vQbVxAreoSmq2Fg8xxYRYO3kZ/UFe9u3qgSh4dWbJCxZ/FvSZyPSi
-	 hbKnxJ9eGxfcvVC5VqlemMUoRGSysGXE3QJ/1cEJWfd3LUHrQ/Yba0WkwuBZnLvj+sQ==
+	bh=owqMREQTLT+Zo8QWHeU7T7LGj9Otntmb2TJUoLFPRXc=;
+	b=aUhuVoqxaFaBn2qie9yEYzm4BM60IiVAh77NdjgnGkjFsUq8ORWhQ2XY1BoDS/0a8evv
+	 As+IRWsH41autruCfOFq0LRnf80/S+akPutCuJuUvBz3H4jgGc4ZSiRN97+B3Aw70n2al
+	 EUPqqC0Kjnc7GGHPL0J0soI/aOQ1ps1x1ojbTwMYFvI06val9FCUpd+B3vQwgDYW1xkma
+	 fKEkScSXG0RcQRz+CYm5+i44wA+DzoM9gWaRHrkgPPxdmdoNTq1FKv7JjOurx3iaOo0TQ
+	 oYlb+aFaWPXVlN5uO3lrFtvwwFuXM6pSExnI0X0VEGBP7TUT9atZyUQj+/TFKr0CKwg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rZJnMpRb;
-	arc=none smtp.remote-ip=74.125.82.174
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=r5er5cJS;
+	arc=none smtp.remote-ip=74.125.82.41
+Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C371606A31D
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:52:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C371606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1E7D606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:52:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1E7D606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rZJnMpRb
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso8416075eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 03:52:24 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=r5er5cJS
+Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-15ea896ddc8so4859268c88.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 03:52:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793011943; x=1793616743; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1793011950; x=1793616750; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:message-id:date
          :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=gOYmoGPbwEQdywGQ/41fb29WcNoZgPqM/BtBzm9km6Q=;
-        b=rZJnMpRbX2Ia4RYK1vuImjnGX7O9nlYmr0ED4gNrciX9tqntGQHWBXF+tllAiRKdw/
-         cNC9F1iHLzHnXaAaSt03J7J9Z/3q+pna6nS30Dw926Hgq7JVsKqPZvSsn6iRqHK4gfwd
-         +GbA/d1aDtPHhTm1q21W+SvCYECQxyN5aXke6p2nCQZ0XJ/LmcpOxBb970n9nY+ELLKm
-         ZMB9eBYm89irFnKqpx1GVazc1aGTiANvrvpojt45R+pX/PasowWASWzNw5XdOheYWklk
-         et0nqII1PLjXIU8OMRBmNe2EBcxxJbIzdBYMDOTJnPiWjTlzUcyumeQgjlfiY+0v4wPJ
-         cuTA==
+        bh=owqMREQTLT+Zo8QWHeU7T7LGj9Otntmb2TJUoLFPRXc=;
+        b=r5er5cJSvzXwn7jDrT11oN01E/bRxlwHFle/7BGfEoBV8tSk6Mw3V+nk81Dhd3GQcT
+         MCb/IWLYqiCEnymZ4eyPewC5XV4shu2wdobqXW5U0EjqcNw3rmrStXNvSd+cIsJvMF8b
+         xn8E2S3A48PMPAJiBrLWHScTUHV0+joxI8xRgKSwF3bwzE2cYwDh96mt6JE4hO3jbaRR
+         +wN0dXxYi42CtRUROnKsQaT2w5NK2RCLZrAM+dNkkXhXCgWMkMFxrCAK2rgz2K2cMG7R
+         WEV0IdW+MdsFj+95Mf/lrGhYZlFcC6qv4+L5c1aE2TnUHbZr9BzlhYSZ6/cBXKhAdfX7
+         lYTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793011943; x=1793616743;
+        d=1e100.net; s=20260707; t=1793011950; x=1793616750;
         h=content-transfer-encoding:content-type:mime-version:message-id:date
          :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=gOYmoGPbwEQdywGQ/41fb29WcNoZgPqM/BtBzm9km6Q=;
-        b=EFeBwZIU4cuyqRQttdwCR2xJnR82MHxVsm4v06A+uO4uhzwdrYp9mm3dVlSvQP6vQR
-         k0k8YexAzwKnqOSWt9JOos3EFV8DqbEQi0q0HSUbA/IrURqC4NHXcVDMocaA8fWt4Rk1
-         nnp+kknewKTn7hZJRLu0UtX/IFAAgmSCYuZMCQW2tclnD1QiWUmo6KkD/OTZhgwd82Tb
-         IHKLL+bQh7AVihexRGUF7psClr9TQbKoeDUwsJM7x+N17rISWT7lJyGX0iF4RcTK2c4Y
-         w5IxG8HS2nAu3jh73zh90cuYSXZh/B8JMqq208q4Qn93g6gGFyjdhzU2MTHdA9OxF82M
-         yFfA==
-X-Forwarded-Encrypted: i=1; AKwUvBzMIAymyOj8dOuQrW1jPiQFLKAPN0nLqo4R+WB09Q88Pqh5uBuxH2yc9ovLgwsXCj3XuyLtAxVGhPuWs7g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIAX9pyp0YLHVVCSXINX4d6Iy6kJ2ygEMqCfTg6xQ8QFmMonugT
-	SW8T/AoUkqZrM6z/1OnMDChJqOF8cf7NEU5FOrr4PH1scACbHaad4Ln0
-X-Gm-Gg: AYBFou3bZffN4xXlP/JGCuBdY16gBeQFwcvuXycyW8YntkijOGKrqcdb6IwKg4ly2x4
-	p1IjCY8J/rOjoguRWKLTcqv4aIL9wTwGBN/bQG/8pGRLsaDNFOuQ73k7geCgqkGDw+NusbcTnu+
-	tANx9O2xhdUU01/mFQuItaOxQEXk+RYYZqo5GQfQlJ08DSiHnxXvTapxJ/FPMs8773gdjyqzfoF
-	xeKueolQj12kj5DBlyqyTgGgM2rWJhHCJG52yHJsfsPbeBnrlIKf/zvLXlFYoXi4CjbVBMZQXuO
-	Jj4FunmYkYcBx7BEY+GnQii4ar3LjaTRYmN+1OdSRHVuvsQ3GdREEGp6dmhe6BJmYiN3BE9P2FE
-	xybu1K9Pr13maUK1JnsbGaSRU7e78W6or9iaKiYzV/ORC+iKJEpGdqugHpEhtddV9vKWtj0NdFw
-	U3EP2NVFNhMVIM+cHweysa5NlGMU5kO5d7AmvWc5HyVhNnnP17Dq7h98blzeyvo9STSYnKKMAS3
-	oU1SnwLAMYvj2PKVVSVLNQ2o7yqbASsRnIKLLX/li/UvgzsGmgiKiiev0DEHCecXRj05hSBf9Xv
-	bD33rpi5qPQkNHwLqQ4=
-X-Received: by 2002:a05:693c:88c4:20b0:369:c6d8:5799 with SMTP id 5a478bee46e88-369e86444b5mr9500581eec.41.1793011942963;
-        Mon, 26 Oct 2026 03:52:22 -0700 (PDT)
+        bh=owqMREQTLT+Zo8QWHeU7T7LGj9Otntmb2TJUoLFPRXc=;
+        b=m6dbCGPTolVdFElYMt8pgYkRrb8QHn13Ci+VTrDCjtZffuOH1QogiV9bayqIoczRU8
+         F0/RwSpRps5bwGCmUy5By06t5bi+PEpZxrFQRZNSDZqL/V2kxq8KYps7LbrXhrJtY3DK
+         80l57ilC01AFNJjGJRthRxx8cqlEAZ0xHJevgas+OSOw6/NESArXe85hmofhv/RMRkzQ
+         qPzoYuIYCnD+Ap/0/6qyrAa8B9viWRqJeSgwfBSKJ+z9qiFlYT55yP5ksxuMt7uoE1to
+         9RH/h24kqFvGRc1GuKdM9HDmtyLb8vNQhtToCKCwZk2zZa2tufAfV5YzSZlzI4IY20sm
+         GIwg==
+X-Forwarded-Encrypted: i=1; AKwUvBzQ3WQHVyJBkWmhF/ydmGyu6DE7R54C4ffL3zvq3v0PxpgTMTWq6kJO70ukdyjYswFVNW5s+88Tah7nINE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJf6zl/Q2Ts5sieUbo+fDgH+onbvV1gu2r6EMtJNW1o5aHvwty6
+	85dBp9U5/AHkm5U6rvASq80HfgT3oH9SsZQcwB0NjkhMgB8Tt1b7WEne
+X-Gm-Gg: AYBFou3jaWBydcN/97lvtxU/d49IPVD/IYxjAZFCQNe54NEcopo/iNmFjwFBJfHJn8U
+	EJZsahp7wBtTyIBX0AqSHYj7xQoJgSSmo21oTrY0JvPvKUGL1FaNWL7gr1Wyu3rrZlX4yU+D2ao
+	aa06+fgrK69K35R0GTiSLfMrHsDP6vsODdwKzoRPjaO41rPupSn1epuVXxpP/8GcH7yMYMC8ypc
+	hURv56jSOktBtosVD1R+djE1ymZzOf1FGiYQZCv44JlYm66cV6Zky5i3i+hpBCbnMGFxsKbZtjP
+	K2EfvYSnSO2G7faKCm/t/YegBEcHLyqJ/ZWgAPwcpLEIAPW/brGzGwmP3cAYLqpcFQfAN/E8gKp
+	H2LymqsnoZ+rcFOEUGklaNh1aboIm4tuD+c7j+mScExPMT1yS776kI0toSp4ABvjXkKrRQMSM4o
+	1wWYaJEbmarlvhA64gKVCQ3e5/vAQojZhkUxECAUPCL8Cqo/KDL0EHaytHtKM4ERWIg8Iwxrk/F
+	0wBt91GvC+9chhsWkIdyPd1BQnZRNObomO7vMM+8CpA8KlYD29vDGZLHidIcCKPP+GOrX/cIxkF
+	K9yL9eEYReh/Oee2tOF7Q0teaS7QK4Nu9RxgQjLN
+X-Received: by 2002:a05:701b:420d:10b0:169:bef5:f445 with SMTP id a92af1059eb24-19928f14c3emr10337456c88.4.1793011950077;
+        Mon, 26 Oct 2026 03:52:30 -0700 (PDT)
 Received: from youngkk-vm.localdomain (67.216.200.102.16clouds.com. [67.216.200.102])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8ee72c0sm37475633eec.29.2026.10.26.03.52.20
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1989ff2ee69sm32439171c88.4.2026.10.26.03.52.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 03:52:22 -0700 (PDT)
+        Mon, 26 Oct 2026 03:52:29 -0700 (PDT)
 From: Cheng Yongkang <teel4res@gmail.com>
 To: Trond Myklebust <trondmy@kernel.org>,
 	Anna Schumaker <anna@kernel.org>
 Cc: linux-nfs@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH v2] NFS: keep in-flight slots when shrinking the session slot table
-Date: Mon, 26 Oct 2026 03:52:15 -0700
-Message-Id: <20261026105215.1149970-1-teel4res@gmail.com>
+Subject: [PATCH v2] NFS: pin the superblock across migration recovery
+Date: Mon, 26 Oct 2026 03:52:22 -0700
+Message-Id: <20261026105222.1150121-1-teel4res@gmail.com>
 X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -100,28 +100,30 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-nfs4_reset_slot_table() shrinks the forechannel slot table to the new
-session's max_reqs without checking whether any of the slots being
-freed are still in use.  The session drain it follows only snapshots
-highest_used_slotid once, while nfs4_setup_sequence() and
-nfs41_assign_slot() deliberately let privileged RPCs (sa_privileged,
-e.g. the DELEGRETURN sent while an inode is being evicted) allocate a
-slot after that snapshot.  If such an RPC owns a slot with
-slot_nr >= max_reqs, nfs4_shrink_slot_table() kfree()s it and the
-reply path (decode_sequence(), nfs41_release_slot(), nfs4_free_slot())
-later dereferences the freed slot: a slab-use-after-free.
+The NFSv4 state manager walks clp->cl_superblocks under RCU in
+nfs4_handle_migration() and nfs4_handle_lease_moved(), then drops the
+lock and calls nfs4_try_migration() without holding a reference on the
+nfs_server or its superblock.  A concurrent umount can therefore run
+nfs_kill_super() -> nfs_free_server() while migration recovery is still
+inside nfs4_update_server(): the server is removed from cl_superblocks a
+second time (DEBUG_LIST BUG), and once freed by call_rcu() the migration
+path still writes server->mig_status and touches server->super->s_root.
 
-Clamp the shrink target to highest_used_slotid + 1 when the table is
-not empty, so only slots above the highest used slot are freed, and
-stop resetting highest_used_slotid: the high-water mark is still needed
-to release those slots and to complete a later drain.  max_slotid is
-still set to the server's new highest slotid, so new RPCs cannot use
-the preserved slots above the new max_reqs.  A server advertising
-max_reqs == 0 arrives with server_highest_slotid == NFS4_NO_SLOT; make
-that wrap explicit.
+Pin the superblock with nfs_sb_active() before dropping RCU, as
+nfs_client_for_each_server() already does, and drop it again with
+nfs_sb_deactive() on every path: umount then detaches the superblock but
+cannot reach nfs_kill_super()/nfs_free_server() until migration recovery
+has finished and restored the server's list membership.
+nfs4_handle_migration() releases the pin after nfs4_try_migration();
+nfs4_handle_lease_moved() releases it on both restart paths and before
+its final return.
 
-Link: https://lore.kernel.org/all/20261025180317.349421-1-teel4res@gmail.com/
-Fixes: 87dda67e7386 ("NFSv4.1: Allow SEQUENCE to resize the slot table on the fly")
+Umount may now wait for the migration attempt to finish, bounded by the
+mount's RPC timeouts, the same trade-off as the other nfs_sb_active()
+users.
+
+Link: https://lore.kernel.org/all/20261025180323.349533-1-teel4res@gmail.com/
+Fixes: c9fdeb280b8c ("NFS: Add basic migration support to state manager thread")
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
 Signed-off-by: Cheng Yongkang <teel4res@gmail.com>
@@ -129,49 +131,46 @@ Signed-off-by: Cheng Yongkang <teel4res@gmail.com>
 v2: add Link, Fixes and stable tags, and remove local validation details from the
 commit message.
 
- fs/nfs/nfs4session.c | 26 ++++++++++++++++++++++++--
- 1 file changed, 24 insertions(+), 2 deletions(-)
+ fs/nfs/nfs4state.c | 15 +++++++++++++--
+ 1 file changed, 13 insertions(+), 2 deletions(-)
 
-diff --git a/fs/nfs/nfs4session.c b/fs/nfs/nfs4session.c
-index 175390e..869451c 100644
-@@ -274,8 +274,25 @@
- 		u32 ivalue)
- {
- 	struct nfs4_slot **p;
-+	u32 newsize = server_highest_slotid + 1;
-+	u32 highest_used = tbl->highest_used_slotid;
- 
--	nfs4_shrink_slot_table(tbl, server_highest_slotid + 1);
-+	/*
-+	 * Privileged RPCs are allowed to allocate slots after the session
-+	 * drain has taken its snapshot, so slots above the server's new
-+	 * highest slotid may still be owned by in-flight RPCs.  Shrink
-+	 * only up to the highest slot that is still in use: every slot
-+	 * above it is known to be free.
-+	 *
-+	 * A server advertising max_reqs == 0 arrives here with
-+	 * server_highest_slotid == NFS4_NO_SLOT, for which the addition
-+	 * above wraps to 0.
-+	 */
-+	if (server_highest_slotid == NFS4_NO_SLOT)
-+		newsize = 0;
-+	if (highest_used != NFS4_NO_SLOT && newsize <= highest_used)
-+		newsize = highest_used + 1;
-+	nfs4_shrink_slot_table(tbl, newsize);
- 	p = &tbl->slots;
- 	while (*p) {
- 		(*p)->seq_nr = ivalue;
-@@ -283,7 +300,12 @@
- 		(*p)->seq_nr_last_acked = ivalue - 1;
- 		p = &(*p)->next;
+diff --git a/fs/nfs/nfs4state.c b/fs/nfs/nfs4state.c
+index a5dec04..ff866f6 100644
+--- a/fs/nfs/nfs4state.c
++++ b/fs/nfs/nfs4state.c
+@@ -2169,8 +2169,12 @@ restart:
+ 						&server->mig_status))
+ 			continue;
+
++		if (!server->super || !nfs_sb_active(server->super))
++			continue;
++
+ 		rcu_read_unlock();
+ 		status = nfs4_try_migration(server, cred);
++		nfs_sb_deactive(server->super);
+ 		if (status < 0) {
+ 			put_cred(cred);
+ 			return status;
+@@ -2212,13 +2216,20 @@ restart:
+ 			continue;
+ 		server->mig_gen = clp->cl_mig_gen;
+
++		if (!server->super || !nfs_sb_active(server->super))
++			continue;
++
+ 		rcu_read_unlock();
+
+ 		inode = d_inode(server->super->s_root);
+ 		status = nfs4_proc_fsid_present(inode, cred);
+-		if (status != -NFS4ERR_MOVED)
++		if (status != -NFS4ERR_MOVED) {
++			nfs_sb_deactive(server->super);
+ 			goto restart;	/* wasn't this one */
+-		if (nfs4_try_migration(server, cred) == -NFS4ERR_LEASE_MOVED)
++		}
++		status = nfs4_try_migration(server, cred);
++		nfs_sb_deactive(server->super);
++		if (status == -NFS4ERR_LEASE_MOVED)
+ 			goto restart;	/* there are more */
+ 		goto out;
  	}
--	tbl->highest_used_slotid = NFS4_NO_SLOT;
-+	/*
-+	 * Leave highest_used_slotid untouched: when it is not
-+	 * NFS4_NO_SLOT, the high-water mark belongs to an in-flight
-+	 * privileged RPC whose slot survives the shrink, and
-+	 * nfs4_free_slot() lowers it once that RPC completes.
-+	 */
- 	tbl->target_highest_slotid = server_highest_slotid;
- 	tbl->server_highest_slotid = server_highest_slotid;
- 	tbl->d_target_highest_slotid = 0;
