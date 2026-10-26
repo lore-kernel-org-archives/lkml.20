@@ -1,58 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.226
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793018415;
-	b=D5I7c+iS+/YSdn2WACjPdeXdAvVgfuJHQecwPJwAhyqsIBk1bg+g21AIFleDmLpnWGdQ
-	 s1VXJg4CgeWlu4Pa35kGBPsGBqxfm0EmYpuqUjWGrZaQEhaVhakSnLbDaRGmoFjWXtcWu
-	 vPaTDydc+ldRQD0LXpeQFpf50Yte3YV1uHP+bD9XRVPC2v43RfCWs/6/Bwmk/XeXaYyug
-	 aeAp/+svOHIBqoaFymZOpLTGM9QXgUeHg1ysTmQ+H5+EPEoAl0bAhRit7xEIhJdOUyzcs
-	 LFql10CLcBahRPlHJUe2RNVqfr88Qc7HjrnBECUijnBLMZTkZc+s2tmohCOZX/KU5cA==
+	t=1793018427;
+	b=QSJZS55Z+0W6dXPXSkDOynziCTFnRI3wZHUsPA+VERVG539eEVfjJLKNfvg0niiulCnK
+	 8V8Bq5mPngAhQUyjgr/k3DM6+nbbxUbt9nYjUAjuMQpiigLFWg4UnfANrT9frXhu8nNFJ
+	 EKXzc8YJH+XxmTcBf9+s9oy/iOBFF0EpyCcI1/PCjsdCZB5fL3NDJ5K4EK9ulAA53eH/y
+	 ZomfQMcqYwPsGXYkjiWNJgp6eh/WrF5cjIZiwX3oEBF/y1LNNLCjaqItQHCMm5fDhrmGt
+	 1B+9OnDXrBtQo6TUarc9vzsoxLzdIePwUHspMCE9IUgnAV/2CtfzjYtSJtjJvj31cDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793018415;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=ihE3J0tMhcm8xJUaaHT/JhbOlKVqb9U5D80ilvr1OUQ=;
-	b=EIB4MPPHXGnvjrdcpjiI6aZkevDB1CPvJvAJu1pRQczTEG/5DCBcQ18X0MEuPvsWWuVa
-	 4g9/Pcm/gOOXvyDZne7kd94ad8XUeYD8WKALw1YlyHd5yzWmvVV9m0QMhiTiLP2EonLzb
-	 JjP6DWe31vaUFgeCciJ3P+1NIxjFjSsMxxfq2bMryYpWaST304lN04GbiYK73omrU7dTy
-	 +N6kz0GIjDp+nKFwc6Oq7hAs5AhHmsYXUYnoHCil1J9VnBh3fSuYNWEt5QJ8fS8i4mbAO
-	 LH15qC64ZLOw6hdXY6lwnK+fmTcEp/LeOe9nLWE+1KaAqqbRKzJfjn36D+K3e2gQszA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793018427;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=zrnXTK53OXXWzzbm7OM7SJBtBm4KDJ4lpnFIBSlde30=;
+	b=Lv6vWacE0DamUJWeBmrrPtyZzrEholmWqNacSD5tKko2zDfRkEyJXTvFwPCuRtyAhL9I
+	 xpIwEFj/kcNyGH599QucVTiy9AMOC2vrt/j+BpbqVYzXpjrOjGaZBtew/urAevkp9zdQe
+	 IXaYvJvKtsRF9mU62L8UrZLjHvEg3YvLOCLNz7FSbMXSnmKIqkgQk8rzJw1b0FB5nNRyj
+	 xgsdSAfR/UgA3FblGNO6QJMVwxjPFJbM9RwpKl+7NoMAjKTsLFnqiMj2+qdRMS9dCjIog
+	 pyyVefT2+T+OzSatVwCDqbUwtRR9gpM0Wmprhv9wcSsqzW4fKMkfWdk6fwQX+8zIhmQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=uNqZM3HM;
-	arc=none smtp.remote-ip=113.46.200.226
-Received: from canpmsgout11.his.huawei.com (canpmsgout11.his.huawei.com [113.46.200.226])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hicqi1Hs;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A58A0606A337
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:40:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A58A0606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AF73606A327;
+	Mon, 26 Oct 2026 12:40:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=uNqZM3HM
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=ihE3J0tMhcm8xJUaaHT/JhbOlKVqb9U5D80ilvr1OUQ=;
-	b=uNqZM3HMTQk9Xu0sNLqrju0QZDjawzqeIsP44Uzit3ceBjCo26aeQZ5A0ydLfrwhewGbTQkXv
-	e8bfZW6CITdgUHVckYH7sONZYnXt/JUb3hMIw4EGjTCeSww7wtZYWv/JyKKWEjklt62bJFtQsYC
-	e5HBTHxLlvihKPry+4HlAY8=
-Received: from mail.maildlp.com (unknown [172.19.163.15])
-	by canpmsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4jCtW470pPzKm9S;
-	Mon, 26 Oct 2026 20:40:00 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id D49CB40586;
-	Mon, 26 Oct 2026 20:40:08 +0800 (CST)
-Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 26 Oct
- 2026 20:40:08 +0800
-Message-ID: <d77ead72-4c5c-42bb-b002-f5928c2ae496@huawei.com>
-Date: Mon, 26 Oct 2026 20:40:07 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hicqi1Hs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F7B61F01825;
+	Mon, 26 Oct 2026 12:40:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793018427;
+	bh=zrnXTK53OXXWzzbm7OM7SJBtBm4KDJ4lpnFIBSlde30=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Hicqi1HsKP+dqQJI10BYrVjKMumMla6nqCDnVSlTlKdUZwZ1mU03DmWxuG9SE8/UA
+	 zHAR8tIT4AnJABcqdJUlASBAkWkhjZ4klJvpNpjMFmWASOendLJ9lt9dpHVLi2XgsN
+	 hH9GW5ENMKCHk2+nAidqUQoSB76CQ/rTGp+3R3v3ouDtNvmeFeTf+WDqAppPVbnkzB
+	 /DQ0agTeabsnkA/SjE/Nblj4RlDkC7cm4L6iU49v8PUjwh58tZQhXYLbWpfPDILqx2
+	 UFV0YUkI9lwFVCYqx355Dg6qq9BYY+LJNAZbRbHj/O9JlKt7ac67d0p+WMwXRKAU9n
+	 zhDwiKjyI+brw==
+Date: Mon, 26 Oct 2026 13:40:23 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Michael McAllister <me@michaelmcallister.org>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Rob Clark <robin.clark@oss.qualcomm.com>, 
+	Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+	Adam Skladowski <a39.skl@gmail.com>, linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: display: msm: sm6115-mdss: Add missing
+ AHB clock
+Message-ID: <20261026-beneficial-aquamarine-kestrel-f16e2a@quoll>
+References: <cover.1792852079.git.me@michaelmcallister.org>
+ <5326d23102e89b492767862fc7ae027f3eec2205.1792852079.git.me@michaelmcallister.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,141 +64,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v2 06/10] arm_mpam: resctrl: Rename struct
- mpam_resctrl_dom to mpam_resctrl_ctrl_dom
-To: Reinette Chatre <reinette.chatre@intel.com>, <ben.horgan@arm.com>,
-	<james.morse@arm.com>, <Dave.Martin@arm.com>, <fenghuay@nvidia.com>
-CC: <tony.luck@intel.com>, <yu.c.chen@intel.com>, <babu.moger@amd.com>,
-	<fustini@kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, <patches@lists.linux.dev>
-References: <cover.1792443633.git.reinette.chatre@intel.com>
- <fe38eaea025896ace1baa536fa8e73b409f22b9a.1792443633.git.reinette.chatre@intel.com>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <fe38eaea025896ace1baa536fa8e73b409f22b9a.1792443633.git.reinette.chatre@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <5326d23102e89b492767862fc7ae027f3eec2205.1792852079.git.me@michaelmcallister.org>
 
-
-
-在 2026/10/20 6:07, Reinette Chatre 写道:
-> struct mpam_resctrl_dom holds the control domain of a resource, while
-> its monitoring domain is held by struct mpam_resctrl_mon_dom. Unlike the
-> name of the monitoring structure, the name struct mpam_resctrl_dom does
-> not say which kind of domain the structure holds.
+On Sat, Oct 24, 2026 at 03:27:59PM +0100, Michael McAllister wrote:
+> MDSS register access requires the AHB clock supplied by DISPCC, in
+> addition to the GCC bus clocks and the MDP core clock already listed.
+> The DPU child also uses this clock, but MDSS needs it before the child
+> resumes so that it can access its own registers.
 > 
-> Rename it to struct mpam_resctrl_ctrl_dom to match its monitoring
-> counterpart.
+> Add the missing clock to the end of the list and update the example.
+> Keep the existing three-clock descriptions valid for compatibility with
+> older device trees.
 > 
-> No functional change.
-
-LGTM
-Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
-
+> Fixes: b93bdff44a85 ("dt-bindings: display/msm: add support for SM6115")
 > 
-> Signed-off-by: Reinette Chatre <reinette.chatre@intel.com>
+
+Drop the blank line between tags.
+
+> Signed-off-by: Michael McAllister <me@michaelmcallister.org>
 > ---
->  drivers/resctrl/mpam_internal.h |  2 +-
->  drivers/resctrl/mpam_resctrl.c  | 18 +++++++++---------
->  2 files changed, 10 insertions(+), 10 deletions(-)
-> 
-> diff --git a/drivers/resctrl/mpam_internal.h b/drivers/resctrl/mpam_internal.h
-> index 1df439ecb055..dc304e4e0dc0 100644
-> --- a/drivers/resctrl/mpam_internal.h
-> +++ b/drivers/resctrl/mpam_internal.h
-> @@ -432,7 +432,7 @@ struct mpam_msc_ris {
->  	struct mpam_garbage	garbage;
->  };
->  
-> -struct mpam_resctrl_dom {
-> +struct mpam_resctrl_ctrl_dom {
->  	struct mpam_component		*ctrl_comp;
->  	struct rdt_ctrl_domain		resctrl_ctrl_dom;
->  };
-> diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
-> index ce5519635c51..022920be1862 100644
-> --- a/drivers/resctrl/mpam_resctrl.c
-> +++ b/drivers/resctrl/mpam_resctrl.c
-> @@ -1375,7 +1375,7 @@ u32 resctrl_arch_get_config(struct rdt_resource *r, struct rdt_ctrl_domain *d,
->  	struct mpam_config *cfg;
->  	struct mpam_props *cprops;
->  	struct mpam_resctrl_res *res;
-> -	struct mpam_resctrl_dom *dom;
-> +	struct mpam_resctrl_ctrl_dom *dom;
->  	enum mpam_device_features configured_by;
->  
->  	lockdep_assert_cpus_held();
-> @@ -1384,7 +1384,7 @@ u32 resctrl_arch_get_config(struct rdt_resource *r, struct rdt_ctrl_domain *d,
->  		return resctrl_get_default_ctrl(r);
->  
->  	res = container_of(r, struct mpam_resctrl_res, resctrl_res);
-> -	dom = container_of(d, struct mpam_resctrl_dom, resctrl_ctrl_dom);
-> +	dom = container_of(d, struct mpam_resctrl_ctrl_dom, resctrl_ctrl_dom);
->  	cprops = &res->class->props;
->  
->  	/*
-> @@ -1435,7 +1435,7 @@ int resctrl_arch_update_one(struct rdt_resource *r, struct rdt_ctrl_domain *d,
->  	struct mpam_config cfg;
->  	struct mpam_props *cprops;
->  	struct mpam_resctrl_res *res;
-> -	struct mpam_resctrl_dom *dom;
-> +	struct mpam_resctrl_ctrl_dom *dom;
->  
->  	lockdep_assert_cpus_held();
->  	lockdep_assert_irqs_enabled();
-> @@ -1448,7 +1448,7 @@ int resctrl_arch_update_one(struct rdt_resource *r, struct rdt_ctrl_domain *d,
->  	 * resctrl_arch_update_domains() relies on this.
->  	 */
->  	res = container_of(r, struct mpam_resctrl_res, resctrl_res);
-> -	dom = container_of(d, struct mpam_resctrl_dom, resctrl_ctrl_dom);
-> +	dom = container_of(d, struct mpam_resctrl_ctrl_dom, resctrl_ctrl_dom);
->  	cprops = &res->class->props;
->  
->  	if (mpam_resctrl_hide_cdp(r->rid))
-> @@ -1618,7 +1618,7 @@ static struct mpam_component *find_component(struct mpam_class *class, int cpu)
->  static int mpam_resctrl_setup_ctrl_domain(unsigned int cpu,
->  					  struct rdt_resource *r,
->  					  struct mpam_component *comp,
-> -					  struct mpam_resctrl_dom *dom)
-> +					  struct mpam_resctrl_ctrl_dom *dom)
->  {
->  	struct rdt_ctrl_domain *ctrl_d = &dom->resctrl_ctrl_dom;
->  	int err;
-> @@ -1710,10 +1710,10 @@ static struct mpam_resctrl_mon_dom *mpam_resctrl_get_mon_domain_from_cpu(int cpu
->  	return NULL;
->  }
->  
-> -static struct mpam_resctrl_dom *
-> +static struct mpam_resctrl_ctrl_dom *
->  mpam_resctrl_get_ctrl_domain_from_cpu(int cpu, struct mpam_resctrl_res *res)
->  {
-> -	struct mpam_resctrl_dom *dom;
-> +	struct mpam_resctrl_ctrl_dom *dom;
->  	struct rdt_resource *r = &res->resctrl_res;
->  
->  	lockdep_assert_cpus_held();
-> @@ -1730,7 +1730,7 @@ static void mpam_resctrl_add_cpu_ctrl_domain(unsigned int cpu,
->  					     struct mpam_resctrl_res *res)
->  {
->  	struct rdt_resource *r = &res->resctrl_res;
-> -	struct mpam_resctrl_dom *dom;
-> +	struct mpam_resctrl_ctrl_dom *dom;
->  	struct mpam_component *comp;
->  
->  	lockdep_assert_held(&domain_list_lock);
-> @@ -1780,7 +1780,7 @@ static void mpam_resctrl_remove_cpu_ctrl_domain(unsigned int cpu,
->  						struct mpam_resctrl_res *res)
->  {
->  	struct rdt_resource *r = &res->resctrl_res;
-> -	struct mpam_resctrl_dom *dom;
-> +	struct mpam_resctrl_ctrl_dom *dom;
->  
->  	lockdep_assert_held(&domain_list_lock);
->  
+>  .../devicetree/bindings/display/msm/qcom,sm6115-mdss.yaml    | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
 
--- 
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+
 Best regards,
-Jinjie
+Krzysztof
 
