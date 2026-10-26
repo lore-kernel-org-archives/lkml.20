@@ -1,64 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.219
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792985318;
-	b=mTBYHpiO+FxeEjr6YiLqdBpR9qecdZeZPTw60nY/9eNJYK3OSoMg6ciLXM3X/3510Eo8
-	 aSwf9rLJIXDKu/xacEQszl4znodRsmUbn8rnLVkWNtw3Q8iDB1UTEycwYHCh5BjxZkdmn
-	 KdNgiFEWVy2Yqspv4IbZkWb9RoZY49brHFzLehGE6ri6RHXHNFycAFCw1meSH0E1xP5ih
-	 dzGR5s96qTCkTDzAVAQK5s0JoLQu2r54Kg1fdRbW5a4gqmZoO8lJIKmHMIVdHNQ7+8IsR
-	 MoElc15lyDZaHdZ5pS65gfnHHRIvdrDu+dZocjw3J9oKVRbkiQp07PifvUtNqTXimvg==
+	t=1792985379;
+	b=tb8vT81cDsOycuY1dnapPzUJp+Fq8miFxoPskbaz+Z+vmqyTf2ZjLeeR5v6MyaKTk1mf
+	 isvYGJ2/UKpIgZ84IRjh9uh3MR6c0/014zfHMXis6N7+v0zsAkY0YGtQf54BjN1Tr+V8E
+	 skE7ojhLTpzOgEsGsatVjpvciR5HkQ4zkxBj/3Pfey4SCArwx07L5LefP1vmYzGerlEYv
+	 057mNW4R5gV56sb/AnA7S2zel2kpwZbVCG507ha2+Lm7+bye6krimct58BJkkqa9xfcjH
+	 jFVNh0np1i+TExlb+h8EvJlZXPeOHq2KDES0BMtpXmGP4WBx+ahW6fYFJ5KKqCBHFDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792985318;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=IBTIDqwOl1+d46ImoEeLOzyLK0EFe7V3OxFlPnB6uyI=;
-	b=oU4t2yjgB+n2sF00RcUp0+Yh4lyuQ4mlTqe1ofgBiwr2EvzHhGZnL01V3vYupVt9TWdj
-	 hGbmTumc5Q6gtI/UFH872Es4fu5IIPjE/s12Jsy+iP5571q0lLH3Jg1EeE2tSbZ9SeG5l
-	 WWVtDdCSSIH3H49p8M0JZWs8bc1xUpZHzSv14EmSiEitP4F6VXd27m77b/bTHQRN0lS33
-	 m3yPyY7uJT960GEWu+iCMSAsgtZGtal8+LIeIAvvCRZWGABSz84SMSQS1z4oS3CPcRuHd
-	 RRnf4MvpUsHmzG2Et/B5TpRXaMme17FMpHWXbJXi8wWq7caCfkfWqImocx38irGR6qw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792985379;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Subject:To:CC:
+	 References:From:Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=BQLkrYzA5a4M0h6NQaNmaq/76j0SSO4S3rXXiIgtZNo=;
+	b=vjFqER9xxQyV5kFDjf8Qqvaktdd1GSAp8acHizSzdrQgl359lTkZm66b4Yd0oFKHBgFT
+	 IZF3xG8eQLbajPL8V26iqthj7nW8oJadAXER+TQvCV9EMfOLhDNfCnGfm8SrUAu5wQSa6
+	 rWdwxK5AN+etnvtKzeMtpoou/qg+hDGh2SZ98n2+GEyErl+n7utzblHLOJOZJjrmwHDnO
+	 yO6eu3I9YASyH/nm1ftNZ7JOF/QjNAUCYA8UjpW/6NPlPeAhP/fcnkbZeNIeqLUGj2Old
+	 ODmWVJHQ0HOPR/8oHwSpqQRf//DH9ro01dSbA4iVnm+GwhFdh1qoS6cSJFNW3+ORSbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nPpLnzG0;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=jS7UAufb;
+	arc=none smtp.remote-ip=113.46.200.219
+Received: from canpmsgout04.his.huawei.com (canpmsgout04.his.huawei.com [113.46.200.219])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2942606A31A;
-	Mon, 26 Oct 2026 03:28:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8D05606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 03:29:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8D05606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nPpLnzG0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 812891F01825;
-	Mon, 26 Oct 2026 03:28:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792985317;
-	bh=IBTIDqwOl1+d46ImoEeLOzyLK0EFe7V3OxFlPnB6uyI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=nPpLnzG0MOXaR8f1nQhOyTOlgMuzh7aXsnVxXR0uhdNrsOBTte6gH3getgjIz0oyI
-	 WVF8aKXSvc9K5gLKNDTk4ky9/dOVv4K10LXUJaEThTDxW3aciLHoGHBGJXyuMRkl9r
-	 hZcL1+YZEV1/K6FaTDFzJuRkvoEkutu1FuOenRmErIFMgygnSjqe6Ms6Gk+vI9glJL
-	 anscKchc6T3flijFN02keZHU4K4NfSs23bz+gbOqmEF3TTIce3yxaSrLHSn1XH3Geu
-	 cNDH3/ejrSZ7wafGCn/RG2FcV24Ab3ggxG4pVx/7C1Z6vESj9jqRGrK7otvnMyq9VB
-	 URPpBxMapQxVA==
-Date: Mon, 26 Oct 2026 03:28:31 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Brian Norris <briannorris@chromium.org>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, "Rafael J. Wysocki" <rafael@kernel.org>, Ulf Hansson
- <ulfh@kernel.org>, linux-pm@vger.kernel.org, Andy Shevchenko
- <andy@kernel.org>, David Lechner <dlechner@baylibre.com>,
- linux-iio@vger.kernel.org, Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>, Marek Vasut
- <marek.vasut+renesas@mailbox.org>, linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH v2 06/17] iio: adc: rcar-gyroadc: Discard
- pm_runtime_put_autosuspend() return values
-Message-ID: <20261026032831.358af9a6@jic23-hlaptop>
-In-Reply-To: <CAMuHMdWNuVOnn9KwYuRm5TYsMEf362V_4fSwQGp3fOfR_i7jkg@mail.gmail.com>
-References: <20261021235818.3059519-1-briannorris@chromium.org>
-	<20261021165858.v2.6.Ia4649c7263a5733426a8778ac4b2dc459f3ffef6@changeid>
-	<CAMuHMdWNuVOnn9KwYuRm5TYsMEf362V_4fSwQGp3fOfR_i7jkg@mail.gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=jS7UAufb
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=BQLkrYzA5a4M0h6NQaNmaq/76j0SSO4S3rXXiIgtZNo=;
+	b=jS7UAufbwFhPTiNNeYKJKiTccUpIAfad0NoMp6zvZ0BRIzdz21OWIAHEBRY+JlrSJuLSMLWLL
+	roZ75JHwmRqfTui1RkQp3PlbhkLA7hrX69MZHoQs+rfF2pVTbBSzThlzl7U8GDZm9ZAgcDLlNSE
+	wiF/fE6wx9oDlmly2KyKf84=
+Received: from mail.maildlp.com (unknown [172.19.162.197])
+	by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4jCfHp5LWsz1ps8v;
+	Mon, 26 Oct 2026 11:29:26 +0800 (CST)
+Received: from whupemo200011.china.huawei.com (unknown [7.152.185.179])
+	by mail.maildlp.com (Postfix) with ESMTPS id 81CF14057D;
+	Mon, 26 Oct 2026 11:29:33 +0800 (CST)
+Received: from [10.174.178.46] (10.174.178.46) by
+ whupemo200011.china.huawei.com (7.152.185.179) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Mon, 26 Oct 2026 11:29:32 +0800
+Subject: Re: [PATCH 1/2] ubi: fastmap: Check the PEB numbers in the fastmap
+ lists
+To: Alejandro Pacheco <ale@alepacheco.dev>, Richard Weinberger
+	<richard@nod.at>
+CC: Miquel Raynal <miquel.raynal@bootlin.com>, Vignesh Raghavendra
+	<vigneshr@ti.com>, <linux-mtd@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>
+References: <6083713b-4c4e-4e17-93c5-61f3bb7a77f1@alepacheco.dev>
+ <67870349-f17c-44ef-8647-28a78da80624@alepacheco.dev>
+From: Zhihao Cheng <chengzhihao1@huawei.com>
+Message-ID: <40267039-6718-2d92-d5d4-63fc9c54c674@huawei.com>
+Date: Mon, 26 Oct 2026 11:29:31 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.5.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,37 +74,141 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+In-Reply-To: <67870349-f17c-44ef-8647-28a78da80624@alepacheco.dev>
+Content-Type: text/plain; charset="gbk"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
+ whupemo200011.china.huawei.com (7.152.185.179)
 
-On Thu, 22 Oct 2026 11:23:38 +0200
-Geert Uytterhoeven <geert@linux-m68k.org> wrote:
+ÔÚ 2026/10/24 20:43, Alejandro Pacheco Ð´µÀ:
+> From: Alejandro Pacheco <ale@alepacheco.dev>
+> 
+> ubi_attach_fastmap() reads the free, used, scrub and erase lists of the
+> fastmap and adds every PEB number in them to the attach information as
+> it is on the media. ubi_wl_init() later uses these PEB numbers as
+> indexes into ubi->lookuptbl, which has ubi->peb_count entries, and the
+> PEBs of the used and scrub lists become the PEBs of the volumes' LEBs.
+> None of them is checked against the device, so a fastmap listing a PEB
+> number that is negative or not below ubi->peb_count makes ubi_wl_init()
+> write outside ubi->lookuptbl.
+> 
+> The PEB numbers of the two pools are not affected: scan_pool() reads
+> every pool PEB from the flash before using it, and the MTD layer refuses
+> an offset outside the device. A PEB number of an EBA table is only
+> accepted when it is found in the used list.
+> 
+> Check every PEB number of the four lists against ubi->peb_count, next to
+> the other sanity checks of the fastmap, and treat a fastmap with a bad
+> one as unusable, so that UBI attaches by scanning instead. Fastmaps
+> written by UBI are not affected: ubi_write_fastmap() only lists PEBs of
+> the device.
+> 
+> This needs a crafted fastmap (its data CRC catches random corruption)
+> on a device that UBI attaches at boot or that a user with
+> CAP_SYS_RESOURCE attaches.
+> 
+> An LLM coding assistant was used to find this bug and to write this
+> patch and its changelog.
+> 
+> Fixes: dbb7d2a88d2a ("UBI: Add fastmap core")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Alejandro Pacheco <ale@alepacheco.dev>
+> ---
+>   drivers/mtd/ubi/fastmap.c | 40 +++++++++++++++++++++++++++++----------
+>   1 file changed, 30 insertions(+), 10 deletions(-)
+> 
 
-> On Thu, 22 Oct 2026 at 02:01, Brian Norris <briannorris@chromium.org> wrote:
-> > This driver propagates the return value of pm_runtime_put_autosuspend(),
-> > which is not particularly useful.
-> >
-> > Returning an error code from pm_runtime_put_autosuspend() merely means
-> > that it has not queued up a timer or work item to check whether or not
-> > the device can be suspended and there are many perfectly valid
-> > situations in which that can happen, like after writing "on" to the
-> > device's runtime PM "control" attribute in sysfs for one example.
-> >
-> > For this reason, modify this driver to simply discard the
-> > pm_runtime_put_autosuspend() return value.
-> >
-> > This will facilitate a planned change of the
-> > pm_runtime_put_autosuspend() return type to void in the future, similar
-> > to commit 3afd8df02433 ("PM: runtime: Change pm_runtime_put() return
-> > type to void").
-> >
-> > Signed-off-by: Brian Norris <briannorris@chromium.org>  
+Reviewed-by: Zhihao Cheng <chengzhihao1@huawei.com>
+> diff --git a/drivers/mtd/ubi/fastmap.c b/drivers/mtd/ubi/fastmap.c
+> index 3f9fb7c181f..41ead6b4f0a 100644
+> --- a/drivers/mtd/ubi/fastmap.c
+> +++ b/drivers/mtd/ubi/fastmap.c
+> @@ -558,7 +558,7 @@ static int ubi_attach_fastmap(struct ubi_device *ubi,
+>   	struct ubi_fm_ec *fmec;
+>   	struct ubi_fm_volhdr *fmvhdr;
+>   	struct ubi_fm_eba *fm_eba;
+> -	int ret, i, j, pool_size, wl_pool_size;
+> +	int ret, i, j, pnum, pool_size, wl_pool_size;
+>   	size_t fm_pos = 0, fm_size = ubi->fm_size;
+>   	unsigned long long max_sqnum = 0;
+>   	void *fm_raw = ubi->fm_buf;
+> @@ -640,8 +640,13 @@ static int ubi_attach_fastmap(struct ubi_device *ubi,
+>   		if (fm_pos >= fm_size)
+>   			goto fail_bad;
+>   
+> -		ret = add_aeb(ai, &ai->free, be32_to_cpu(fmec->pnum),
+> -			      be32_to_cpu(fmec->ec), 0);
+> +		pnum = be32_to_cpu(fmec->pnum);
+> +		if (pnum < 0 || pnum >= ubi->peb_count) {
+> +			ubi_err(ubi, "bad PEB %i in fastmap free list", pnum);
+> +			goto fail_bad;
+> +		}
+> +
+> +		ret = add_aeb(ai, &ai->free, pnum, be32_to_cpu(fmec->ec), 0);
+>   		if (ret)
+>   			goto fail;
+>   	}
+> @@ -653,8 +658,13 @@ static int ubi_attach_fastmap(struct ubi_device *ubi,
+>   		if (fm_pos >= fm_size)
+>   			goto fail_bad;
+>   
+> -		ret = add_aeb(ai, &used, be32_to_cpu(fmec->pnum),
+> -			      be32_to_cpu(fmec->ec), 0);
+> +		pnum = be32_to_cpu(fmec->pnum);
+> +		if (pnum < 0 || pnum >= ubi->peb_count) {
+> +			ubi_err(ubi, "bad PEB %i in fastmap used list", pnum);
+> +			goto fail_bad;
+> +		}
+> +
+> +		ret = add_aeb(ai, &used, pnum, be32_to_cpu(fmec->ec), 0);
+>   		if (ret)
+>   			goto fail;
+>   	}
+> @@ -666,8 +676,13 @@ static int ubi_attach_fastmap(struct ubi_device *ubi,
+>   		if (fm_pos >= fm_size)
+>   			goto fail_bad;
+>   
+> -		ret = add_aeb(ai, &used, be32_to_cpu(fmec->pnum),
+> -			      be32_to_cpu(fmec->ec), 1);
+> +		pnum = be32_to_cpu(fmec->pnum);
+> +		if (pnum < 0 || pnum >= ubi->peb_count) {
+> +			ubi_err(ubi, "bad PEB %i in fastmap scrub list", pnum);
+> +			goto fail_bad;
+> +		}
+> +
+> +		ret = add_aeb(ai, &used, pnum, be32_to_cpu(fmec->ec), 1);
+>   		if (ret)
+>   			goto fail;
+>   	}
+> @@ -679,8 +694,13 @@ static int ubi_attach_fastmap(struct ubi_device *ubi,
+>   		if (fm_pos >= fm_size)
+>   			goto fail_bad;
+>   
+> -		ret = add_aeb(ai, &ai->erase, be32_to_cpu(fmec->pnum),
+> -			      be32_to_cpu(fmec->ec), 1);
+> +		pnum = be32_to_cpu(fmec->pnum);
+> +		if (pnum < 0 || pnum >= ubi->peb_count) {
+> +			ubi_err(ubi, "bad PEB %i in fastmap erase list", pnum);
+> +			goto fail_bad;
+> +		}
+> +
+> +		ret = add_aeb(ai, &ai->erase, pnum, be32_to_cpu(fmec->ec), 1);
+>   		if (ret)
+>   			goto fail;
+>   	}
+> @@ -732,7 +752,7 @@ static int ubi_attach_fastmap(struct ubi_device *ubi,
+>   		}
+>   
+>   		for (j = 0; j < be32_to_cpu(fm_eba->reserved_pebs); j++) {
+> -			int pnum = be32_to_cpu(fm_eba->pnum[j]);
+> +			pnum = be32_to_cpu(fm_eba->pnum[j]);
+>   
+>   			if (pnum < 0)
+>   				continue;
 > 
-> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-Applied.
-> 
-> Gr{oetje,eeting}s,
-> 
->                         Geert
+> ______________________________________________________
+> Linux MTD discussion mailing list
+> http://lists.infradead.org/mailman/listinfo/linux-mtd/
+> .
 > 
 
