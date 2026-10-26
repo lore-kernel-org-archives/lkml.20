@@ -1,65 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793008861;
-	b=zduFFPH+q4gl/S23GqoMMOFj+lzcoMAnOo6Y0a+mo/nJQ6ZguuSma6kiIZq2NRbSBVez
-	 dyVpX7ccir9cxGonUU70P8TLuzJ2JOwcqizXPVFKL0VdGglKiuwWLTnRGBL7mwaN/aWUt
-	 CuoQgry2SpVxqkhDZIZ5bNw1hmjvSMN7F4bE4w2HBfGP+1c/9Ny9lK+qRV6XWtdi6J94i
-	 xvkXi9cMqUqJZKojlAjs+UNltTRmG9kl+vstsJ80q/LSIOq4qlWvBKn7ZUhp0b/tckfx4
-	 VPjN2kmhMaMfLbfqgy+bJlo+awaz0nJnk3g/1qK0NECOFxfT4uaNZJjtKoI2aOhlODg==
+	t=1793008854;
+	b=fLnohDA5a/e+DuNk3gFwgS0jFAhDVr3fhYDflEm+83hxncUugfqJlI728XPY5Qi7kY4W
+	 dZ995TOXweoq871xwHaO/loM3qLUXbOSRa1PewZriDoxKMrdWoNO+UVikW8KyQwcHcxrL
+	 C8xpIy8JIEa5qP0XlXE6Eq/VQ/LDyCweFs0xamlvf59kvfbXxi1a5E5HVPcpNf0PdEpRi
+	 CBkZ7SFVFQUzop850fQY+qeNgTZqqAy9xxlA8+kyJtP6j1Zdx9Z/3dJExl6g7PAFh9CYj
+	 /TYCKrlJIcN+2vGr9pv35GuxCZoDyImIHmX4lEsDV1fcWSoIWBwfmbaJ4OkiQ3urrsg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793008861;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Message-ID:In-Reply-To:
-	 References:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Correlation-ID;
-	bh=FAPaL/S+HviWhVsH4Q4LtOnNt8IZUscDcNfZSJPE0Ic=;
-	b=bapGgs3mG9mjShrDswXik+PKyTNpNHjcq/IkH8abzfrhv8aY3L6L8sEk9nNppPuLMnNl
-	 AdNgVsvq3/Mh1+W6QtniUDUlG8IZdjPE9CKEMcgna0QpOn7GVvc1CaCs5KLMdm00aV07A
-	 +L11VoZFnLgl3P/5ZyyqF9Sw3Y9JVNNpL2NQXNkf7ox2efqYHdikQ9trDDqMAUagJiDHc
-	 OYbWUwdQXT/80fZk7bJTwHpLLE6YmBkhxj6g4XGdA4xLYlji0k7an4xRinEPslaIhkiln
-	 Nnqq10iPtS4pQzxhBex6ryV0ksqorSi7to2Wdgc/4QlbL5PvUd7et0afLpNqToeEVnA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793008854;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=XQK2A6aT5V7OwSjqXtS7nuHHrJPakKeFPqrobIkbwms=;
+	b=kNb12DhTo8Y0R9adxWOPexXpJf0mxjxqyZyommCIjXuId5hqyM07JjChw22MPud4ii1G
+	 eqfh4abq5rNh0YIviadc6XiU8IWnVZ3bAL2gaJsZTGUYX86rYh+iuqAjOscg+D7V6EGeh
+	 wehxrpqnkHqkIEtucp0zXi0NXDObE78KWQn+8ddwvb4/KpAHpetNZyyOEXQ13kyVtkqOt
+	 +Q4kh+JztXj6hDjfzGAqJXHPVGOrVF3DTQw2gh2C3BJlVwHn10DOlmlo2qR9lNsb62U+3
+	 dpF0wdd4mcDCRfXFCVbwfmYMBYP+r6offfdw0RT8gJjyGUBzd+CYUrMDH7G9v+t3rPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="JIA/WLaW";
-	arc=none smtp.remote-ip=95.215.58.1
-Received: from mta1.migadu.com (out-1.mta1.migadu.com [95.215.58.1])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="X/2zkzHB";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFCC1606A31B
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:00:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFCC1606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40718606A326;
+	Mon, 26 Oct 2026 10:00:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=JIA/WLaW
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=FAPaL/S+HviWhVsH4Q4LtOnNt8IZUscDcNfZSJPE0Ic=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793008858; v=1; x=1793613658;
- b=JIA/WLaWnR/2F60qpmRq0UdqAS9piNIRd3w/SfQtZk8tSVMGbcmL3rIT6l9L7KH5HNd2r/Gd
- Xr1xnn7M/92zEaF9M7bgzdPyi5pWI1QQ6K0Ab5tTuNijEcELXxZLu6XP8/esGCTEJEtY2kgELfa
- 4HYrJA0iz2q6NPghSEAcf5OU=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 7ca0a9e6d7d82528;
-	Mon, 26 Oct 2026 10:00:57 +0000
-X-Mizu-Trace-ID: 7ca0a9e6d7d82528
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 26 Oct 2026 11:00:52 +0100
-From: Denis Benato <denis.benato@linux.dev>
-To: Sakari Ailus <sakari.ailus@iki.fi>
-Cc: linux-kernel@vger.kernel.org, linux-input@vger.kernel.org,
-	Benjamin Tissoires <bentiss@kernel.org>,
-	Jiri Kosina <jikos@kernel.org>, "Luke D . Jones" <luke@ljones.dev>,
-	Mateusz Schyboll <dragonn@op.pl>,
-	Denis Benato <benato.denis96@gmail.com>,
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Message-ID: <6b5fd961-245f-4b19-9007-03af59170ca3@linux.dev>
-In-Reply-To: <at8jnW4RaMPJItUK@valkosipuli.retiisi.eu>
-References: <20260216175539.12415-1-denis.benato@linux.dev> <20260216175539.12415-2-denis.benato@linux.dev> <at8jnW4RaMPJItUK@valkosipuli.retiisi.eu>
-Subject: Re: [PATCH 2/2] hid: asus: always fully initialize devices
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X/2zkzHB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 294871F01825;
+	Mon, 26 Oct 2026 10:00:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793008853;
+	bh=XQK2A6aT5V7OwSjqXtS7nuHHrJPakKeFPqrobIkbwms=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=X/2zkzHBUQI/0TXX9TdsjhlB0uldFHCuDTpPpy3/ZDSRIwJgmMdqrVk0CFsQrsxV7
+	 cuQMLZKdclmHvOeIXcFCX176q/SDoGh8oqh7WrXo5yeD4OA/tXn4/C2dY6N7Ta2Vdo
+	 II5yW5Wt3xexM3fA1w9KUS+mtPdTL1FGiaOFxXvY1F9BH6qWKP/OoE86cW8BdkNwP9
+	 xhdOOPmD7eyfvKD2vm4TlhxsuYq7WEJDg9hKSLtGtAydXseXle/71uI6BuLZNdBJ4y
+	 5kQj8cEVO9+/Qa56ERfbqQZFr/5aPoa6cVWcuFZYs0tebApKbM1fOiA4FiB+J3hQFQ
+	 yGwuvcO2txfgQ==
+Date: Mon, 26 Oct 2026 11:00:50 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+Cc: linux-kernel@vger.kernel.org, linux-amarula@amarulasolutions.com, 
+	michael@amarulasolutions.com, Brian Masney <bmasney+clk@redhat.com>, 
+	Conor Dooley <conor+dt@kernel.org>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
+	devicetree@vger.kernel.org, linux-clk@vger.kernel.org
+Subject: Re: [PATCH 1/3] dt-bindings: clock: ti: dpll: drop the ti,ssc-*
+ properties
+Message-ID: <20261026-laughing-chubby-lionfish-eaf8c6@quoll>
+References: <20261023145555.3578469-1-dario.binacchi@amarulasolutions.com>
+ <20261023145555.3578469-2-dario.binacchi@amarulasolutions.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,83 +61,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Correlation-ID: <6b5fd961-245f-4b19-9007-03af59170ca3@linux.dev>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261023145555.3578469-2-dario.binacchi@amarulasolutions.com>
 
-26 ott 2026 10:55:55 Sakari Ailus <sakari.ailus@iki.fi>:
+On Fri, Oct 23, 2026 at 04:55:30PM +0200, Dario Binacchi wrote:
+> The common clock binding provides assigned-clock-sscs to configure
+> spread spectrum clocking (SSC), supported by the clock core since commit
+> a7f16660af39 ("clk: conf: Support assigned-clock-sscs"). Keeping the
+> vendor specific ti,ssc-deltam, ti,ssc-modfreq-hz and ti,ssc-downspread
+> properties would leave two ways to describe the same thing.
+> 
+> The properties have no in-tree users, so they can be dropped.
 
-> Hi Benato,
->
-> On Mon, Feb 16, 2026 at 06:55:39PM +0100, Denis Benato wrote:
->> ASUS has more devices other than laptop keyboards which needs
->> to be initializated: the init sequence is the same as keyboards.
->>
->> ID1 and ID2 are USB report IDs that are correctly enumerated:
->> send init commands to all devices that supports those reports IDs.
->>
->> Signed-off-by: Denis Benato <denis.benato@linux.dev>
->
-> This patch appears to break input devices on Asus T100TA. With the patch
-> applied, I'm getting a steady flow of:
->
-> [=C2=A0 256.358075] usb 1-3: USB disconnect, device number 120
-> [=C2=A0 257.034324] usb 1-3: new full-speed USB device number 121 using x=
-hci_hcd
-> [=C2=A0 257.175003] usb 1-3: New USB device found, idVendor=3D0b05, idPro=
-duct=3D17e0, bcdDevice=3D 2.49
-> [=C2=A0 257.175050] usb 1-3: New USB device strings: Mfr=3D1, Product=3D2=
-, SerialNumber=3D0
-> [=C2=A0 257.175073] usb 1-3: Product: ASUS Base Station(T100)
-> [=C2=A0 257.175091] usb 1-3: Manufacturer: ASUSTek COMPUTER INC.
-> [=C2=A0 257.180978] input: ASUSTek COMPUTER INC. ASUS Base Station(T100) =
-as /devices/pci0000:00/0000:00:14.0/usb1/1-3/1-3:1.0/0003:0B05:17E0.02DB/in=
-put/input749
-> [=C2=A0 257.266585] asus 0003:0B05:17E0.02DB: input,hidraw1: USB HID v1.1=
-1 Keyboard [ASUSTek COMPUTER INC. ASUS Base Station(T100)] on usb-0000:00:1=
-4.0-3/input0
-> [=C2=A0 257.270711] asus 0003:0B05:17E0.02DC: Fixing up Asus T100 keyb re=
-port descriptor
-> [=C2=A0 257.272302] input: ASUSTek COMPUTER INC. ASUS Base Station(T100) =
-as /devices/pci0000:00/0000:00:14.0/usb1/1-3/1-3:1.1/0003:0B05:17E0.02DC/in=
-put/input750
-> [=C2=A0 257.327059] asus 0003:0B05:17E0.02DC: input,hiddev0,hidraw2: USB =
-HID v1.11 Device [ASUSTek COMPUTER INC. ASUS Base Station(T100)] on usb-000=
-0:00:14.0-3/input1
-> [=C2=A0 257.332642] input: ASUSTek COMPUTER INC. ASUS Base Station(T100) =
-as /devices/pci0000:00/0000:00:14.0/usb1/1-3/1-3:1.2/0003:0B05:17E0.02DD/in=
-put/input751
-> [=C2=A0 257.334115] asus 0003:0B05:17E0.02DD: input,hiddev1,hidraw3: USB =
-HID v1.11 Mouse [ASUSTek COMPUTER INC. ASUS Base Station(T100)] on usb-0000=
-:00:14.0-3/input2
-> [=C2=A0 257.336098] asus 0003:0B05:17E0.02DD: Asus handshake 5d failed to=
- send: -71
-> [=C2=A0 257.336263] asus 0003:0B05:17E0.02DD: Failed to initialize 0x5d: =
--71.
-> [=C2=A0 257.336605] asus 0003:0B05:17E0.02DD: Asus failed to start multit=
-ouch: -71
-> [=C2=A0 257.367022] asus 0003:0B05:17E0.02DD: probe with driver asus fail=
-ed with error -71
-> [=C2=A0 257.367917] usb 1-3: USB disconnect, device number 121
->
-> I haven't tried to debug this yet so just FYI.
->
+I see the user:
+	git grep ti,ssc-deltam
 
-Hi Sakari,
-
-Thanks for testing this! Is that device of yours a touchpad? This commit ha=
-s been bugfixed before and the issue is related to report sizes being sent =
-as 64 bytes (and also additional unsupported messages in the case of touchp=
-ads).
-
-Can you try linux-next please? That has all bugfixes for already known prob=
-lems.
+Maybe you ordered patches incorrectly. Anyway, properties with in-tree
+users must be documented, so make them deprecated instead.
 
 Best regards,
-Denis Benato
-
-> --
-> Kind regards,
->
-> Sakari Ailus
+Krzysztof
 
