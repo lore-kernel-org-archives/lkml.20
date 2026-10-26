@@ -1,97 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.56
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793002940;
-	b=Q+YwtgI2L40zPZGEXk3aahwTYarCbbnEMDQA7UFN8OgLzv+/2W6SLly1x83ygCP7MJ3T
-	 wo528spoAPoPDzwK2kJ5Y/Rh0CdqhdI1i5BEwToaYFWpDpyNCqD6GLFMXjYwz/cCXWCjP
-	 3680wiS6S2SEOKE01ahFyuoprCdzm2Uo2hBUO7FSYcn6CJPiwJhwQY3kT/a228UPsqKHs
-	 r5Cj3BvRNAAxjaspRzInFmqQRQv2TvRbrKJNVJS9tP74ApiEp0Yd3le8gKhBoX29TD0WA
-	 uhfqEoX3zxSkLEsEe8ZNoV1wLAvUdr8MljFjjheRyVdFTm87xYzskZCPFhVJRZq0oMw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793002940;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=qobjWu3QEHrvQvTIaLJHKnO2+5fag7MYYLOHsHCyxHQ=;
-	b=e7iZYWq91jr1xnak7bPyyevQNkp9a4Tibkbz05FfPPhASSzl3Ssb/136oxzS97xso56f
-	 selDC8IFCv+kubVN4kLw9DtV7iNhtJVCsytpOcLRz/S3QiEHks/txP/Xgwmvrvz5lHJxU
-	 dYrvJv8tWDovol8PxzkPZFA+OwxEbVAoMTTWK6/mtidzOTVWk4Dtbb48+aRXyOExGduOO
-	 d3S00Oy3DwjXwfJ+EMR9DaWNiW1K2oQ1yrvxFQ1BrgjkyeYBRr49Q3dO5lz/2gIYwXU+L
-	 iIm3cAO+uU6rj1gVi86Cvj/nlc7HWMT0wWkbrmhAC3Rghpn8Q1l+C0PEkydj1N04Wug==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=c+DWBFiy;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.56
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010056.outbound.protection.outlook.com [40.93.198.56])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793003156;
+	b=wlN8zxoXGlWU7HcN39WQJaL6C73De3hXPTj3kSqc+TaqbTzEiJvfwkyE/J/DSxB0nDE6
+	 BJlIkRyyjuBvxWyKRd8vZDGMwsDGqU+qS2kxM7+5TiX1y/fw7zv1cVuvTIVRTZY9QFBYA
+	 Je+AykXMaWqmD+bzdjYTaIIsGAbT0yhfk32WgkBdz3tZ5QdGOoa0EQyAM1K7zuUnluMLg
+	 +pxzCan4rNPCW21MpdKkPDukFuH/OUqfY5+owqP/hjKvCMp1gUaz90qhAWM6vFHqQHAAh
+	 Q001ALyYbd3c4KA+DkWdu0T7MbEJBfbOgkT0QFCf4hhRqnyxm6URyaf9MimDIdjX5Cw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793003156;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=7eRaLgV48P2SND4IyWtKYmX6gzcBAgKq+lEfwtAQccs=;
+	b=FFh5XU8oAsmef15Strs6hybQ0jPdBR8aDo24UDeNTE5X5VdsmeaYBk7oQDxn0KeM6USA
+	 uqH3fkJEP3v5ZfrFjIEZXvx+mbgf5ZDlulcDvBAEvI7iY61aYOZsUe3PeBuRmpsSTQcg3
+	 bQ8FUmEdV6vkCtVAKYZEsnZGNQHfnamJaPgXWCSJzkiJXk6viz/7w+rdtrjldV4GHaWxx
+	 ysFhASK1u8B8S0C8D0jW/+wZczY7OXrg2g264Utn2PNINyRKiGd/70Rowy5zS7zvv1EaL
+	 kGqVPunotjSgieZnkE3phjk+sxQltMxcMCvgEQRjT9/UupZWpiRGMXRWZNs4tzi/7Sg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=tEs26hWr;
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 167AF606A31B
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 08:22:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 167AF606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00EEF606A325
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 08:25:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00EEF606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=c+DWBFiy
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=If/UggGSpoyDWvLsEQrwii96BNzK96YSclJKtOktFEc0GInHfCZc9de0YLovk44kbac44Tf2PX0yPTbW9j6T7Iwf8Daqu+AHeC5XjjbQQY9TLs3djRiFyHx9e6NjBY1atoOf+BnCctSnGka/usqwpTUFJPacqLxr+dm8zyA03KZbAzXe3Y6StTwHKn3UQJt/2T1lU+bhxFRo5wG2KAN6EeLJakAIqFhilreU7lwjVH4QZziSOwnsDZADHwOZdYmWO5A2h9tsWieMqD2iVBujlPRnWrz+dwbvM+x+DwDMJh4XE5s/YNzL5JmAl626bbPpUgx4pirWmxRQss8IyrzGHQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qobjWu3QEHrvQvTIaLJHKnO2+5fag7MYYLOHsHCyxHQ=;
- b=aLx65qrQRc2/RDI+LARg+eooLtrOGmusiIL+Z4SC1uWrc9nelfAo55GtyVRgwOql8diZD1Qq+ha+7F7HO1UEvptQ2BKtRWMmd9HcAHDOqhl5aZc1m5shaVnbshmoxffUA406fAiVbdkTgNciWBncTjXS+7Rv/Ko0IjCYbWSx7YxCKmqlcZdLDEHkG8HQN4FxaVA3/M9Er0w5Jmxcuc1YBDIC5+DSmB9y0STQ76Jq4xvvE51AWEr1HgxjsTq/IpSg1VpOlWd+W6+9vktEANX+rUUybgHV5QB5IizppGpXeWWW4QsFwwMFNZRKDSe3dW8gBr6WhSju5tbHI64UewqEeg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qobjWu3QEHrvQvTIaLJHKnO2+5fag7MYYLOHsHCyxHQ=;
- b=c+DWBFiyNZq5YaRnnJAcJ+EK/1Aygk8iQpfQF9VVTlK4ZlgF1FKdi+5UiNoiOweC/BH2YpvzCdnSv6QGNcFoz/MSGvlYOYfYDRxo14j5b+94r4GET5yZ5Z3dCb6GCs4/KCH+JzpSTrBhEEiQpNMgm1m1gqaiZZpz1A9kLzAksos=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DS5PR12MB004700.namprd12.prod.outlook.com (2603:10b6:8:47c::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
- 2026 08:22:18 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
- 08:22:18 +0000
-Message-ID: <88c61950-125e-4109-955e-ce09ebaab7af@amd.com>
-Date: Mon, 26 Oct 2026 09:22:13 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] drm/radeon: process the VCE interrupt on SI and
- Trinity
-To: Matheus Tagliari <mptagliari@gmail.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20261022114754.865669-1-mptagliari@gmail.com>
- <20261022114754.865669-2-mptagliari@gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20261022114754.865669-2-mptagliari@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0356.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:f4::20) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=tEs26hWr
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a5b2be99a8so6268045e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 01:25:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793003154; x=1793607954; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7eRaLgV48P2SND4IyWtKYmX6gzcBAgKq+lEfwtAQccs=;
+        b=tEs26hWr9jfgtvYpkS1MlL+JsdeGjGQygBlHpNNOlrmtbaUvwZMxNxf2aoBzqt1oNg
+         oZQMPxrl2bxskiBYIUvCJaABb/QNcMKXUDQpE2/WsQT9s++o8EpbweJhelru6ZMUQA8m
+         W8jPO+jz8Rg8to7PK/ZlL6pm5RBnkSKdCyMpbx7Q2C+hL67Fb050sR1+FHWBdRovP+kw
+         2nLfcoswtAYob7Daebw5ayI5Swujl6+1sR+qMzoehhBnXm0KMglsYBGHIqSfgt3lLP4f
+         WhsoN8EKIcWFiwqWLYjcCj+bkxIETptMA7QShE8UsINFntf6qRwCpiXCgPjwI4JSLo+b
+         JHIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793003154; x=1793607954;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7eRaLgV48P2SND4IyWtKYmX6gzcBAgKq+lEfwtAQccs=;
+        b=JNwTRduYHItm2C1CYHMP4LG8rlLZAPMLZrftZlmqpU2xUk4HTp3AamquTCKHz8EDeg
+         WLhXCRwK9nOsTyb+0SlnE7IPY0GPzA87s5NZ8LuqpJWdvuT6woKogTHUCfBpSw6xxS7r
+         /JWuM6mBJLa6agYWv10GJ8jFLyE4ocLw9Os4mUCiF989LxV58UVVOoQr1v2J7zWI2VBn
+         73Qxx1/kl6PTid7U9FuBM4HDglHA1HzdMLVEInzC6CMj96k0Pr5jqFmS329sRdmoycrS
+         mf5rutPzr2HGt7nf9YABZEzDMi0eLAhM2ktbVso+BvWQ1yM4V2jPWYg9WQAyTkSBllg4
+         Q2sA==
+X-Forwarded-Encrypted: i=1; AKwUvBxGxvr9ukMylZekvi+ME+pUrHSBKPGsuAC5zIyPDiNQXgtjH/eC6Qt7tDSL6UxfGURECnrMOZRUim6aXBc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJxyzbMEbHzSs6gDHaKxBkttQa+g9IoM6wWrMccO6BgUKrwLMtk
+	rfRFANEADHu5EwwJNtgI4Dr9AfNXZZFEYsnpujtGREFKeHH53RZdVno=
+X-Gm-Gg: AYBFou2oBR4nop9+UImvEo6cM4GeYj5XDZKfttSIzoOe0Z1lHZKswn991ldotlC05mO
+	hiTU8xQ/HUYGRMj+6myc8HZLBeYgUsx6ZRWaYPlACVaD8qVwbNDtRRJNMdqWWnpx1dLiapgVeWg
+	yYqwWJIot+bUnGTKLxLf+qsAWDD97Ea2wB7tCmCEPT5ZkOL3GkMpbvFWKqZWePmxZHGtyBZG93C
+	KXYwCwwEnGQ1pkI9xyph2Qv1p6TDyA0XQIsmTC/qHAJQvUqSLNqTVa4lLe7co7RxHdVqurshEOP
+	vdylIK8lniZae3383j9qHOzmMVgAIzDz6LQ6sUKTYO5/MMQasEagVKBYn9VUxEzgEeP/oWH44GV
+	ASUU7ZQRXy4kQzUpVgmnKH0HoYTq/mw0WEq3eMZOYxoeLPtpczGn1KuVEr8JfzMt4nMnKaXXJA6
+	bJzyVlRUFurMJ5sPzbBga5GoOOp8IBfb4cvWvb+f5lYOZUsms1eu1FIincmG4Aa7h/zf0IJpeR2
+	dAfCRe/8XtD6zsSNLN2hwmsDwpqj85UNkwJjxxYMELsRh6DilM+XPegFvPE46T0ShznIIY9djh2
+	gcdshXaDPnpSt02T+i4ayEO2iEvHpVzhzqgF
+X-Received: by 2002:a05:600c:524c:b0:4a2:105f:ab88 with SMTP id 5b1f17b1804b1-4a35ac963f8mr104850175e9.18.1793003154248;
+        Mon, 26 Oct 2026 01:25:54 -0700 (PDT)
+Received: from surface.. (84.124.213.91.dyn.user.ono.com. [84.124.213.91])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a359ff2189sm211058215e9.1.2026.10.26.01.25.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 01:25:53 -0700 (PDT)
+From: "D. Manresa" <dmanresa@gmail.com>
+To: sakari.ailus@linux.intel.com,
+	johannes.goede@oss.qualcomm.com,
+	dan.scally@ideasonboard.com
+Cc: mchehab@kernel.org,
+	fernandorimoli11@gmail.com,
+	lsa.uz@pm.me,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v5 1/2] media: ipu-bridge: don't reference the module image from software nodes
+Date: Mon, 26 Oct 2026 09:25:48 +0100
+Message-ID: <20261026082549.662885-2-dmanresa@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261026082549.662885-1-dmanresa@gmail.com>
+References: <20261026082549.662885-1-dmanresa@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,147 +102,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS5PR12MB004700:EE_
-X-MS-Office365-Filtering-Correlation-Id: f61b192d-fcf4-4a15-0027-08df333a3faa
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|261009223027099003|261022105027099003|261021121427099003|10067099003|56012099006|6133799003|22082099003|18002099003|11063799006|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	1DE2xsqUAdSA3plR5C4L1UYAtn4KCnG15XrNW7KJGZHl+EeU0MhtiKqhAGFE5Lp8Oal7AvmIhyPsnzpYrn0Bh/4btZMvA90veNfsRxguNN5NBykhz3/af9nm+xLOJtd+c0N7QcIkUPQJuwvNYuM4wCRXEcYtG3kG2eDl95SErltfeilyQ513ommjGMRy7Wa8s3EVPnz+8EiKCVWp+TZWblbJDlgCqjLDMfE7OOVoofrUjGA1thwx1/KHxveEH10ide8mj07cfKWWOBN5WPFZCN6Ik9/w+v99237unZD7zNowjwiIr5p53X7vrGhFRYeTinY7dNf/a4pHPaoLiDYLxdznqQadz4kAdsbE2FJa1iRAVUVzx5McrmZetE3vnYL0OYVzANo/hnBQVNkM0yMzuVzLZo4VKz88uFA43c3/rIVZtcj3a35fLLN+dNUPxifT/j3X9qbJkmUcOk3bvRy7d+Dr1ceImuPNbsyCwbbB/ZlRLGnK0XZGosBhXpPjawOAQ/zKteRyc83EfUplilwPY/OxAIcPqAjcgYJnIMtSKk2ImG85X2lxGW41UU2G390OnQzFOd3TFNr+oFwOK8L2KnBIQbFCoys09O6CJgaRguj9lzBdyAO4Nek46EgWEMp8yY8i/s9vKPqTwIneftVPeeCTkysZMCQ3spv7ac5yRvY=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(261009223027099003)(261022105027099003)(261021121427099003)(10067099003)(56012099006)(6133799003)(22082099003)(18002099003)(11063799006)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TWZwNXJNN1h0WklPSlRHaElYc2t2aXlGM0Z1TkgyU3J2cG9tVHZqeHlZOHB5?=
- =?utf-8?B?bnhoczU2cWZaUktXSVpUSExVK0hnUGtPeEc1TmFhZjJtSlNrYjJxaTU5RnFL?=
- =?utf-8?B?M2ZTbGNIOVh2N2xhMEhzTFFvem1WMHNqM0VIS1Z2WTQ5OG80VldyRFdVbzNN?=
- =?utf-8?B?RzFzYjNialY5TTN6dWFwb2VqRWUvdEFFSFZNNXhLaGQvQjRZSGUwdkRtejRq?=
- =?utf-8?B?N1puMGNmQSsyZFlya3l1K2RaMHQ0Zk1mR3QxbkZLcG9OTFlJa2toMjZwM1A5?=
- =?utf-8?B?YjE1QmR3MldIc2FhenV3Z29TMFU4d2Q2SGI5NGoxa3ZSWW1Da1NmdDNRc2Ra?=
- =?utf-8?B?RmhKT1FpbWphakJKT3YzcFFHVUp0MmF6NHFOc2xTUWpSQnFWOTloVmJIRUl3?=
- =?utf-8?B?SWt0STlXdTZWbkhPVXM5dklvSnZES2hkcTBQeDZVaVk1RFJZOUdJaFBLeHNh?=
- =?utf-8?B?ZWdPeThnblk3WTk1S3VWMWY0SU1iQ1JSVG9seE5VeXdGRmJpcmlQdFNoNThW?=
- =?utf-8?B?QnMvU1ZKUFRUSzBmb08wS2ZVb1h1ZWxDNlRQRjV3Nm9iY3VlMVhpcHhEejY5?=
- =?utf-8?B?K0wzMGdWOGxBQm8rYkhQakZ3Z2ptK0V2T3RXcHBqM0pkRzdoWUtuM0NlT2RK?=
- =?utf-8?B?NEc1dnlSenRUSldtQVlxOGFNWWE3c0Roc1lmUVpYbEdZNjlFMFo4K3J2V0wz?=
- =?utf-8?B?c0lRL0xjaWdpK081ZXRXZkJ3TjQvQjlCZnA4MyswbUxhZTkxeVlGcUUvS1ZD?=
- =?utf-8?B?RE1vMVNXclViQ2RydVRKVDg4M0hRUWY4YnEwK3ZObW1DdDN1K1lkSkpqK2hN?=
- =?utf-8?B?K3dJWE82RnJ3MVpFdSsvRkgxOEpwUkI5KzdhVE1lZjNpR25HR2ZDWjBvRGN5?=
- =?utf-8?B?MStiWk9lam95Z2dTYlBBa0Z6K3VQRmpZRngzV3luUkFYQStDRlllZlUzR0Na?=
- =?utf-8?B?YUZEMS94SGN5amNoSkhNeTYvQnFkUFBpc2V6Y2RKbXhlUDdlQkx0YUxLdzhR?=
- =?utf-8?B?V2N5ZlQvT28zWlhkdDJkMHBNQXRPcEhqdVdsaDk3L2xXNFJWS3Y1QlhTK3ZB?=
- =?utf-8?B?VWgwaGNMbDhzTW9lM09GaU1QUEZFVnlxWmhOQW1XNzN4ZitRZHRxMWl6WWEw?=
- =?utf-8?B?WFI4UzZja20xQS9BbE1uM2R4S2I5TG9OVmg0L3dTeWpVSWc4RmRkQmg1ZG9U?=
- =?utf-8?B?RU1YSi9nS2FuUVQ3aWZxVVUzTGdDRzBDaXA3SGllUG9URmx4RXludmlYNkps?=
- =?utf-8?B?d1pxeVhWeFdPTlBXZDg1VHBGUkQ0ZFJ6Z1pRWmtwTEo5U3p0a1ZoaVJnYlNn?=
- =?utf-8?B?emZleHF5R2VtajA3YWpzQ09ZamVPcTd1WUtNcG1HaVFzelFvZ2h6TS9YcTI2?=
- =?utf-8?B?NlF5dVE4bjg4VFl3dXF6Q0o3cHo1ZktMeENnZzI4RnRxbHN1NDd0Y3ZUS2o2?=
- =?utf-8?B?cW5sRm9VZU5vZnhiUzhlekt5ZFZPZEpuS3Rlb3FIai8wY2xXOEpkanJ1d1Iy?=
- =?utf-8?B?QmI1Z0Z3UEsxWFRtRGRNTHNDRnNUdXRabVZ4Q21leEFPM2VGL0IyNXBsYi83?=
- =?utf-8?B?cWtvRzd6VnRnVlZVOEo0YnNTeXE5bGxzMlZpQkhybHNEdkJDcU9BWWd2L3c0?=
- =?utf-8?B?YVptUmpHZVVCUXk5ZFQ1eVB0Z09vdEZtS0ljTklIb09YRVNrNU1pTmdseVBh?=
- =?utf-8?B?VEJMR20rNGFHeXJXeTFESk5HNXVYYXJKWm1JYTNoM3hZbklmelA3OWFEVE4v?=
- =?utf-8?B?R09ST0pmaEFLajVNSVBua2lQY3JuWHMvWTBoSE9KTFJhdG93T1RGZlQ5Vi9T?=
- =?utf-8?B?WGxYcmJnVDdnc210cDJVNjNkVG1EVWpadkVhdUtMTzV0MmR1dUZVQXhaQnZF?=
- =?utf-8?B?c1FsV0s0eW9aQ0d0QmpQYVJ6QVZXS1kxNE4yMHdGTlF4RG0vTTV3NjVWcWF4?=
- =?utf-8?B?bzMrdHZOM2hNNXcrSjRCKzQyeW1aS1F6MWVLb01GZTlqVkFZY0tlNHJaeWVs?=
- =?utf-8?B?Mk8xVVNMUDFlRVBHZjBhcDZqNzJJRWZhOWhyR2txakZvTjhhUFNicXNBK2V1?=
- =?utf-8?B?ZXdtK2lkWjlLQVhVbjViQjJ0UkJFQjJDUUZCS0hMdituTHhrU3VUWUtzcTBI?=
- =?utf-8?B?VExoc213Tm03ZU1jb0xYK3htY0xJa2tEWHRRUkZBaDdtb1lWb0NMRTJIUVlw?=
- =?utf-8?B?RC9QYWlVVWF6TW8xTlhXVDhJeUk0SElKSWsydmE0RW9YK1BaamYzelM0KzVW?=
- =?utf-8?B?NG13VXNlZHRFNExYWWYxYlB1bUtKb3JsWWpMMzVzWTV3OGhndThDOG5ndDFS?=
- =?utf-8?Q?J/nq+hVEPb7Sdy/7vs?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f61b192d-fcf4-4a15-0027-08df333a3faa
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 08:22:18.0389
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xYhgNJiyYzT809NXfOnm/xBNYxKDfW9jPrbBz0LUnyOmkM156HggqW13169zIXHn
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PR12MB004700
+Content-Transfer-Encoding: 8bit
 
-On 10/22/26 13:47, Matheus Tagliari wrote:
-> radeon_vce_fence_emit() ends every VCE fence with VCE_CMD_TRAP, which
-> raises the VCE trap interrupt (IH src_id 167).  cik_irq_process()
-> handles it by calling radeon_fence_process() for the matching VCE ring,
-> but si_irq_process() and evergreen_irq_process(), which serve the other
-> ASICs with VCE1 (SI and Trinity/Richland), have no case for it.
-> 
-> Add the same handling.  The trap interrupt is not enabled on these
-> ASICs yet, so this does not change behaviour on its own; the next patch
-> enables it.
-> 
-> The SI part was tested together with the next patch.  The Trinity part
-> mirrors the CIK and SI code and has not been tested on Trinity/Richland
-> hardware.
-> 
-> Fixes: a918efab631a ("drm/radeon: add VCE 1.0 support v4")
-> Cc: stable@vger.kernel.org
+The software nodes the bridge registers are deliberately never
+unregistered, so that a later rebind can reuse them. Nothing reachable
+from them may therefore point into the module image, but two properties
+still do: the "link-frequencies" values point at cfg->link_freqs in
+ipu_supported_sensors[], and the "lens-focus" property name is a string
+literal.
 
-Please drop that, we really don't want this to be backported.
+Both dangle once the module is unloaded. Re-probing sensor drivers then
+read poisoned link frequencies from the surviving nodes and fail:
 
-> Signed-off-by: Matheus Tagliari <mptagliari@gmail.com>
+  ov5693: supported link freq 419200000 not found
 
-With the CC: stable tag dropped Acked-by: Christian König <christian.koenig@amd.com>
+Copy both into struct ipu_sensor, where the other property names and
+values already live.
 
-> ---
->  drivers/gpu/drm/radeon/evergreen.c | 14 ++++++++++++++
->  drivers/gpu/drm/radeon/si.c        | 14 ++++++++++++++
->  2 files changed, 28 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/radeon/evergreen.c b/drivers/gpu/drm/radeon/evergreen.c
-> index 3cbc6eedb..eb94916c8 100644
-> --- a/drivers/gpu/drm/radeon/evergreen.c
-> +++ b/drivers/gpu/drm/radeon/evergreen.c
-> @@ -4847,6 +4847,20 @@ int evergreen_irq_process(struct radeon_device *rdev)
->  			drm_dbg(ddev, "IH: UVD int: 0x%08x\n", src_data);
->  			radeon_fence_process(rdev, R600_RING_TYPE_UVD_INDEX);
->  			break;
-> +		case 167: /* VCE */
-> +			drm_dbg(ddev, "IH: VCE int: 0x%08x\n", src_data);
-> +			switch (src_data) {
-> +			case 0:
-> +				radeon_fence_process(rdev, TN_RING_TYPE_VCE1_INDEX);
-> +				break;
-> +			case 1:
-> +				radeon_fence_process(rdev, TN_RING_TYPE_VCE2_INDEX);
-> +				break;
-> +			default:
-> +				drm_err(ddev, "Unhandled interrupt: %d %d\n", src_id, src_data);
-> +				break;
-> +			}
-> +			break;
->  		case 146:
->  		case 147:
->  			addr = RREG32(VM_CONTEXT1_PROTECTION_FAULT_ADDR);
-> diff --git a/drivers/gpu/drm/radeon/si.c b/drivers/gpu/drm/radeon/si.c
-> index 4681ff286..af3c4026d 100644
-> --- a/drivers/gpu/drm/radeon/si.c
-> +++ b/drivers/gpu/drm/radeon/si.c
-> @@ -6347,6 +6347,20 @@ int si_irq_process(struct radeon_device *rdev)
->  			DRM_DEBUG("IH: UVD int: 0x%08x\n", src_data);
->  			radeon_fence_process(rdev, R600_RING_TYPE_UVD_INDEX);
->  			break;
-> +		case 167: /* VCE */
-> +			DRM_DEBUG("IH: VCE int: 0x%08x\n", src_data);
-> +			switch (src_data) {
-> +			case 0:
-> +				radeon_fence_process(rdev, TN_RING_TYPE_VCE1_INDEX);
-> +				break;
-> +			case 1:
-> +				radeon_fence_process(rdev, TN_RING_TYPE_VCE2_INDEX);
-> +				break;
-> +			default:
-> +				DRM_ERROR("Unhandled interrupt: %d %d\n", src_id, src_data);
-> +				break;
-> +			}
-> +			break;
->  		case 146:
->  		case 147:
->  			addr = RREG32(VM_CONTEXT1_PROTECTION_FAULT_ADDR);
+Assisted-by: LLM
+Fixes: 803abec64ef9 ("media: ipu3-cio2: Add cio2-bridge to ipu3-cio2 driver")
+Fixes: 68b9bcc8a534 ("media: ipu3-cio2: Add support for instantiating i2c-clients for VCMs")
+Tested-by: Fernando Rimoli <fernandorimoli11@gmail.com> # Surface Pro 9, IPU6 (8086:465d); boot and sensor rebind, not unload or rescan
+Signed-off-by: D. Manresa <dmanresa@gmail.com>
+---
+ drivers/media/pci/intel/ipu-bridge.c | 12 +++++++++---
+ include/media/ipu-bridge.h           |  6 ++++++
+ 2 files changed, 15 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
+index 3739c4a..aea4699 100644
+--- a/drivers/media/pci/intel/ipu-bridge.c
++++ b/drivers/media/pci/intel/ipu-bridge.c
+@@ -290,6 +290,7 @@ static const struct ipu_property_names prop_names = {
+ 	.remote_endpoint = "remote-endpoint",
+ 	.link_frequencies = "link-frequencies",
+ 	.clock_noncontinuous = "clock-noncontinuous",
++	.lens_focus = "lens-focus",
+ };
+ 
+ static const char * const ipu_vcm_types[] = {
+@@ -623,7 +624,8 @@ static void ipu_bridge_create_fwnode_properties(
+ 		sensor->vcm_ref[0] =
+ 			SOFTWARE_NODE_REFERENCE(&sensor->swnodes[SWNODE_VCM]);
+ 		sensor->dev_properties[3] =
+-			PROPERTY_ENTRY_REF_ARRAY("lens-focus", sensor->vcm_ref);
++			PROPERTY_ENTRY_REF_ARRAY(names->lens_focus,
++						 sensor->vcm_ref);
+ 	}
+ 
+ 	sensor->ep_properties[IPU_BRIDGE_NEXT_PROPERTY(i, EP_BUS_TYPE)] =
+@@ -636,11 +638,15 @@ static void ipu_bridge_create_fwnode_properties(
+ 		PROPERTY_ENTRY_REF_ARRAY(names->remote_endpoint,
+ 					 sensor->local_ref);
+ 
+-	if (cfg->nr_link_freqs > 0)
++	if (cfg->nr_link_freqs > 0) {
++		memcpy(sensor->link_freqs, cfg->link_freqs,
++		       cfg->nr_link_freqs * sizeof(*sensor->link_freqs));
++
+ 		sensor->ep_properties[IPU_BRIDGE_NEXT_PROPERTY(i, EP_LINK_FREQUENCIES)] =
+ 			PROPERTY_ENTRY_U64_ARRAY_LEN(names->link_frequencies,
+-						     cfg->link_freqs,
++						     sensor->link_freqs,
+ 						     cfg->nr_link_freqs);
++	}
+ 
+ 	if (cfg->flags & IPU_BR_FL_CSI2_CLK_NONCONTINUOUS)
+ 		sensor->ep_properties[IPU_BRIDGE_NEXT_PROPERTY(i, EP_CLOCK_NONCONTINUOUS)] =
+diff --git a/include/media/ipu-bridge.h b/include/media/ipu-bridge.h
+index 3ef94c2..7c89fb6 100644
+--- a/include/media/ipu-bridge.h
++++ b/include/media/ipu-bridge.h
+@@ -136,6 +136,7 @@ struct ipu_property_names {
+ 	char remote_endpoint[16];
+ 	char link_frequencies[17];
+ 	char clock_noncontinuous[20];
++	char lens_focus[11];
+ };
+ 
+ struct ipu_node_names {
+@@ -178,6 +179,11 @@ struct ipu_sensor {
+ 	const char *vcm_type;
+ 
+ 	struct ipu_property_names prop_names;
++	/*
++	 * The registered software nodes outlive the module, so the property
++	 * values they point at must not live in it.
++	 */
++	u64 link_freqs[MAX_NUM_LINK_FREQS];
+ 	struct property_entry ep_properties[IPU_BRIDGE_EP_NUM_ENTRIES];
+ 	struct property_entry dev_properties[5];
+ 	struct property_entry ipu_properties[3];
+-- 
+2.43.0
 
