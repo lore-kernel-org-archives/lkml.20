@@ -1,102 +1,123 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.145
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793023810;
-	b=aN2g8NoiLX/5jYoSzejY/+bAqYJ5+r80u4hr6pg3vk7san6XTSYk5+Wgm86Bfg6Gxw1b
-	 CXHAvPITLbXTZSKeTKflup6jaaFusmgb95q26BiVtw2eS4pj5IjuVddC0HPb2J4fBdDS+
-	 NlLVMrSDIyGhfU45EwHxrETtWZVmiWi4w0NeQR5PP/DnqmslRZdSnnI63/c2HqkC41qar
-	 42Z2A/hGZ5Krl0wFpdqJEBsM8+u5Vjr31LAkql4GcbEs7kp7/auXnqyIM3/GMHrqp4JUc
-	 PhoNT0Y6PLJfYm7LxvV/0ROEIYcj89Cy7470CLV5J+4TACB0dwamofOYqWcN6VG32Vg==
+	t=1793023838;
+	b=x99M+X7XrOctaILiUF18yF0hosvNONCgUmEy+i3EvsrN3HNt3BUvbH9u7o8VbN9PrqXp
+	 gIRXl2rpgtn/3EsCq8/A45ADZimFru52SapN+Pwk1TV0l6PUuKihUyy9KiggW86kYAk/j
+	 JkJFHHxTa88NmIDI+gl8h3JV6PpWy1z13nBQOQ4rCuIryT1eciy5Uf/46J3iL7Go/UlnO
+	 ulxXoYp5F7yFSKDD80t8Q/EnaNTT0xx6WC5dpfQU56RgrH9wx3UIZekGjSBHlH2VRMMo6
+	 RlOAwGSlPDNAyEJSwCPcT9diJNsq0fmGuW/+wco/vB5vqxUU+fbgiBukh6Njaw6cLUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793023810;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Spam-Flag:X-Spam-Level:
-	 X-Spamd-Result:X-Spam-Score;
-	bh=WM4vAEGlhlHGhMEi1px3qUFAkL1THxHMrZ+7SD9VpUI=;
-	b=4/lgWYn8S8KMLx3Rtc8vVQnTbArlSKEO24UwE0Y9vQK3vmMByWzmmAN7h0W3jsEKzp75
-	 vMEQhu6QawJA87Whdixy/9Z9cgaMjQAgrLH2C/cdUPZE92XkUG04KizwXXzg4LbWf5pTk
-	 92t5kcESDvTfByY+aqg98Y4G5GhQBc+rfhVQH12REyxuMmwv6x75E59Lrjmpa20NwU5OE
-	 Obf9yYmc2diVD0Ix2qepVkVV8/+A6D/g0IH+WbnWdohiyRG18H2zkb/+KC97/vJYDLiTb
-	 zlsJ0h9PvzVEQl9BchuW2zgOJkyfC1OQqOfDbl+WHu2wPout59uwR1uKZy5mUstDPBw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793023838;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=XLVhkBHtjhTfK6sBZOK38WJWePJ3NEikSwGcu9QP6Sk=;
+	b=a+8spEjwN78RkESlbzSgk4n7a963lNCqoUOdZQuOifPHar5a0RhDOePIaAUclg08109L
+	 SztlmW6P2rY8aqQ2BX6KWYCX+w64E532+vuxS/sbOCPmemMZVeOgHZJ51YPsNb1aPg+8l
+	 YT5NYUOskNfG4HOh9v4NPd7l3lxS+x97XFXoTqm/SH7AboIUVf8SQhx3cl2kZzsL5d7gy
+	 0gV3aKiD96+erD9RFjD2My05U27ST3ajizDSxGIsOCnubxCM2pw2hrdw0+J2iEOuni6Kj
+	 2MEXDzPl3XvB/9+imcu47EfsfBTfxvJOPmJZgCc3EO3JHHf3MQAlZ5Xt3isawt53poA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=M8PpZdww;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=XK0VRyT1;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=M8PpZdww;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=XK0VRyT1;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	dmarc=pass header.from=ragnatech.se;
+	spf=pass smtp.mailfrom=ragnatech.se;
+	dkim=pass header.d=ragnatech.se header.i=@ragnatech.se header.a=rsa-sha256 header.s=fm1 header.b=WQ2gdTci;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b="ly/WNPEb";
+	arc=none smtp.remote-ip=202.12.124.145
+Received: from fout-b2-smtp.messagingengine.com (fout-b2-smtp.messagingengine.com [202.12.124.145])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 116BC606A322;
-	Mon, 26 Oct 2026 14:10:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 116BC606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AE59606A31D
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:10:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0AE59606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=M8PpZdww;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=XK0VRyT1;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=M8PpZdww;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=XK0VRyT1
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 28E90222D1;
-	Mon, 26 Oct 2026 14:10:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793023804; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=WM4vAEGlhlHGhMEi1px3qUFAkL1THxHMrZ+7SD9VpUI=;
-	b=M8PpZdwwPBi8GdZSTVAJs/1VKegcckiCwUXuUa8TdZBzmEDOY2Nc4gUKuHgS2a1WX9vRLy
-	xWTEZZOrnWlVtn7BBnLHSuDlpxjjj351zPOVCdXSL/lSGgPX6rY4sXcrG2QCmrHlcGc/N1
-	DOVoyqxiTB4PhLnGUN41V1R1n57ipb0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793023804;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=WM4vAEGlhlHGhMEi1px3qUFAkL1THxHMrZ+7SD9VpUI=;
-	b=XK0VRyT1SszO2SFQbm8U5dYoFPu4oufO9Kb3gMYZSAKAvnrDx8mrfFDd5pNQwVdvlL/VzO
-	QplSGZqaxYJUZNBg==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793023804; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=WM4vAEGlhlHGhMEi1px3qUFAkL1THxHMrZ+7SD9VpUI=;
-	b=M8PpZdwwPBi8GdZSTVAJs/1VKegcckiCwUXuUa8TdZBzmEDOY2Nc4gUKuHgS2a1WX9vRLy
-	xWTEZZOrnWlVtn7BBnLHSuDlpxjjj351zPOVCdXSL/lSGgPX6rY4sXcrG2QCmrHlcGc/N1
-	DOVoyqxiTB4PhLnGUN41V1R1n57ipb0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793023804;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=WM4vAEGlhlHGhMEi1px3qUFAkL1THxHMrZ+7SD9VpUI=;
-	b=XK0VRyT1SszO2SFQbm8U5dYoFPu4oufO9Kb3gMYZSAKAvnrDx8mrfFDd5pNQwVdvlL/VzO
-	QplSGZqaxYJUZNBg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8DD1013319;
-	Mon, 26 Oct 2026 14:10:03 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id jYdOFztf32oaJAAAD6G6ig
-	(envelope-from <fmancera@suse.de>); Mon, 26 Oct 2026 14:10:03 +0000
-Message-ID: <3141c47e-6fa1-4012-a756-db565f7d1c03@suse.de>
-Date: Mon, 26 Oct 2026 15:08:46 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=ragnatech.se header.i=@ragnatech.se header.a=rsa-sha256 header.s=fm1 header.b=WQ2gdTci;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=ly/WNPEb
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfout.stl.internal (Postfix) with ESMTP id 6EF611D003C6
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:10:36 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-02.internal (MEProxy); Mon, 26 Oct 2026 10:10:36 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1793023835;
+	 x=1793110235; bh=XLVhkBHtjhTfK6sBZOK38WJWePJ3NEikSwGcu9QP6Sk=; b=
+	WQ2gdTcimVXGXgAuw3V5g5ba6l/vd6QMmbdWc74KPXxfIDFV7sBJNvaGyXaZA7Ib
+	fdR7n+UGpVavfoZKjnjvgObyJI17WLOGUPerNkcJnVmHXrbyv/cRK6J+I4gi+RMj
+	o02XhHBvjxb3NhPbKV7Z1nX5GCWzvINaEJGDzU2BNtcU0EPVmb+J6Xk4UVI+BFcF
+	uO9vjJXw5XzaflWEB6cIH2318csRFJkO1kgJlPj3OJd+lorLJlyzZKnYTTYwC8A+
+	h2L1j4nq1LtEB6jqhyBXAVdV0gnfz7ITNnoqY0tctbyhYeFbXl7WS6sY/XGhmvtd
+	VOrOocAVWvPi7EV7qjUltw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793023835; x=
+	1793110235; bh=XLVhkBHtjhTfK6sBZOK38WJWePJ3NEikSwGcu9QP6Sk=; b=l
+	y/WNPEb0LgOsIM3nozya9tCK1dYOmkOmJL6SVpbTHHQkAtNJhVuOBXMavqU9iulu
+	qd9bdXy6hBs0Le4pc/RESaKD2lFfdFsABuJ1BaCyioCc1nfmbGhx2m6i1iS4h1xI
+	lo7xfZ71bcLp3Fuxjq4raVTK9P/viLc2E97ft03GZCuTjROAjmq3lItNc+9Qbr+u
+	keQTBiB7bBVCd8Lkm+X1t6iGC507c0Pcy3+3NXOPR+I2r4x3oszvAraUeVPAU6k4
+	qtC4ZwC2U6He7llyFpND6w30DxKn5OuihCXUMyUnwKsqG6y8Yj6Ie+85Y+nCReUM
+	a9AELYUgHDZ6NaOywFX7Q==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=sign d=ragnatech.se a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793023835; d=ragnatech.se;
+	mf=PG5pa2xhcy5zb2Rlcmx1bmRAcmFnbmF0ZWNoLnNlPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:o+IftSt7kWTIu1BAQsXSnbG9LNIxTSG6fwY3erQCgF2sBWi
+	gHD68p9DxImE0F8FbnkKT/m/O+ZYBZtdImj1prtgyjzdnFoG+XSeCdgDY4hAAx/l
+	Q4U94gu08OOZlInRPLQ6wKtph6K/7EZ3pK+o+bpA+jE1DS0tiHesg7qSF4vt8jCG
+	UBfgO7Ke1/XOnevuACQWw7ESSNYiXc4joOh6Z+lhzoGkB151a/GL7xHQA9dgj6lo
+	qFDXa9sT44usnoiTXZwxKcSbHLjaLgOv2/Nazz/Q2jDSN+TZa7Gmpk+awwrAsyZG
+	whartWjLfWkF8oXlKVZ0M5Od2IpWzsrcvKlWlhw==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=mi-m=1; hc=13;
+	hn=cc,content-disposition,content-transfer-encoding,
+	content-type,date,feedback-id,from,in-reply-to,message-id,
+	mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:XzEcp+Ozae87qecEvYved3QC1QPxoGcgWPMqu2hG1g0=:zuFTg6IUMSKvZi2lLq70VQj5/NkNvPF1cpPXcpL8qEo=;
+X-ME-Sender: <xms:W1_fasU6Bzh6pbyRKUl4jNodTNT26Xmt3VA0z0kN_qtm5rxSFkKfxQ>
+    <xme:W1_fargirezP4LcAIpyNkhTiKk9TPl32TUqfvx3fjFLIasmdoPf18R2KgSlPRapa3
+    n_a2GeN3aJsA2DHiocxrEtDa776PxIhL1LlZW2YctX8fXKF_Dcnpn4>
+X-ME-Received: <xmr:W1_favaOkfKwDpODRAODM_vv-AcjK0Is_0Q8KiFS-FXbyTJ76OoQLLkLd4jBYIA1y9mFsEEsNrxV_Qs1CugJ6iSIe8G46P4>
+X-ME-Proxy-Cause: dmFkZTGQT7/RXl7n6WAVNPPvAZx84vdlPRvmoGm/khRwDVvlfPsPgzzSNxg97AtOI52LtL
+    0hi3K84iP0yq5S+RIdbLUHQSX17+naj0H8NTW8Xqmjv4J3Sq3s27F4Sqc3536brvgwiuBw
+    0gAVwSTp5vqrTXqIAU5+U3indaTGlaIixws/doLTqQL3OLC8XWttg6UKOz/XZiyohHlqDc
+    A2TddgWEZ3XZJcyqWK9rCRDPFhvomVwxETdCsHPFWWbGhqZCE48DDlLWrRl9ml7kYEUuIt
+    /Hlt0hwH6GkyVnCARcbpxcMctZ55G8si8jVA+vyFH+IvqB/+Rj8kJzug+7M3i42KST8mGY
+    EJi/s4QvlfCOvpS6cef2zYLmZO5ocQf6zmWZjEcfLrS892b0oBnJeP13ZfqrjN511Pun4r
+    q0ch+Lzz9g0YNqqgAe9caomKxQ5HNTceYPasoAqHJMGwc7dLTObe2cCAXeGhnWJREXrIOF
+    Knn5EAwnVku9kKG+DIsghbASTDUO8mkHHm4pte72iQOfQe3J+sBy64dgtRSbboN4IK8ejz
+    Pkjp6//78zK5hsExguEMPBMm5LyPSeb3eybszBZcVJVuO+tjjjCO4bGRT2ztFO4Zs6vfGX
+    uBGBW5sq71w5Tw5HwNnFpdx2veTF2ISa07A99t6Ilq2racBnAPgUKhKhOPFQ
+X-ME-Proxy: <xmx:W1_fagrnACwRJGet0J46ncZVniP14pLA5jlXKt-PACUIv6c9s3ftEQ>
+    <xmx:W1_fakM3cSDBDKjoA3DR04UESc_dh5zHbcd48J3df82DbHU_sJVdcw>
+    <xmx:W1_faronTiLm6IYskszt5h_aTQoud7uZ4D-aq3pczX2gyfCiC0LrNw>
+    <xmx:W1_fapfaJAZbDCJVk_Qz71ThS9Q0NeN7Y33GgksSQiUtpez56VNSTw>
+    <xmx:W1_fahN_oREadKAOMUg4A1NmOX1Mu7qQoeHUrweJ-LVBcGBqG8FTdARc>
+Feedback-ID: i80c9496c:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 26 Oct 2026 10:10:34 -0400 (EDT)
+Date: Mon, 26 Oct 2026 15:10:33 +0100
+From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>
+To: =?utf-8?Q?Barnab=C3=A1s_P=C5=91cze?= <barnabas.pocze+renesas@ideasonboard.com>
+Cc: Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>,
+	Jai Luthra <jai.luthra+renesas@ideasonboard.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1] media: rppx1: wbmeas: Fix uapi documentation
+Message-ID: <20261026141033.GC1959885@ragnatech.se>
+References: <20261026140215.603906-1-barnabas.pocze+renesas@ideasonboard.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,85 +127,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] netfilter: nf_conntrack_sip: fix out-of-bounds read in
- ct_sip_parse_transport()
-To: Duc Anh Luu <luuducanh05051995@gmail.com>, pablo@netfilter.org,
- fw@strlen.de
-Cc: netfilter-devel@vger.kernel.org, phil@nwl.cc, coreteam@netfilter.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261022172248.554687-1-luuducanh05051995@gmail.com>
-Content-Language: en-US
-From: Fernando Fernandez Mancera <fmancera@suse.de>
-In-Reply-To: <20261022172248.554687-1-luuducanh05051995@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-13.29 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	XM_UA_NO_VERSION(0.01)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com,netfilter.org,strlen.de];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -13.29
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261026140215.603906-1-barnabas.pocze+renesas@ideasonboard.com>
 
-On 10/22/26 7:22 PM, Duc Anh Luu wrote:
-> ct_sip_parse_transport() compares the "transport=" parameter value against
-> "TCP" and "UDP" with a fixed length of 3, without first checking that the
-> parsed value is that long:
-> 
-> 	if (ct_sip_parse_param(ct, dptr, dataoff, datalen, "transport=",
-> 			       &matchoff, &matchlen)) {
-> 		if (!strncasecmp(dptr + matchoff, "TCP", strlen("TCP")))
-> 		...
-> 
-> ct_sip_parse_param() sets the value end to the surrounding limit when no
-> ';' delimiter follows, and that limit can be the end of the SIP message
-> (dptr + datalen) when no ',' is present either. A Contact/Via parameter
-> such as "transport=tc" placed at the very end of the payload therefore
-> yields matchlen < 3 with matchoff + matchlen == datalen, and the
-> strncasecmp() reads up to two bytes past the end of the message buffer.
-> 
-> The value of the over-read bytes can also flip the detected transport,
-> so this is not purely a read: a crafted short value can make the helper
-> classify the transport using out-of-bounds data.
-> 
-> Both call sites (process_register_request() and
-> process_register_response()) are reached from attacker-supplied SIP
-> traffic when the nf_conntrack_sip helper is active.
-> 
-> Bound each comparison by matchlen. A value shorter than three characters
-> can never equal "TCP"/"UDP", so this only rejects already-malformed input
-> and leaves valid transports (TCP, UDP, TLS, SCTP, ...) unchanged.
-> 
-> Reachability and behavioural equivalence were verified with a userspace
-> ASan harness built from the verbatim parser functions: the over-read is
-> confirmed as a read past dptr + datalen, and the fix removes it while
-> producing identical results for all well-formed transport values.
-> 
-> Fixes: f5b321bd37fb ("netfilter: nf_conntrack_sip: add TCP support")
-> Signed-off-by: Duc Anh Luu <luuducanh05051995@gmail.com>
-Hi, this is a dup of:
+Hi Barnabás,
 
-https://lore.kernel.org/netfilter-devel/179286139765.93379.986858959213810476@gmail.com/
+Thanks for your work.
 
-Since the v1 was sent earlier, let's stick to that patch.
+On 2026-10-26 15:02:15 +0100, Barnabás Pőcze wrote:
+> The format is Q4.12 as already mentioned earlier in the documentation.
+> 
+> Fixes: 884d6794a816 ("media: rppx1: wbmeas: Add support for white balance measurement")
+> Signed-off-by: Barnabás Pőcze <barnabas.pocze+renesas@ideasonboard.com>
 
+Nice catch.
+
+Reviewed-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
+
+> ---
+>  include/uapi/linux/media/dreamchip/rppx1-config.h | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/include/uapi/linux/media/dreamchip/rppx1-config.h b/include/uapi/linux/media/dreamchip/rppx1-config.h
+> index 3507a9ab03dfd..f7c5a88922444 100644
+> --- a/include/uapi/linux/media/dreamchip/rppx1-config.h
+> +++ b/include/uapi/linux/media/dreamchip/rppx1-config.h
+> @@ -154,7 +154,7 @@ enum rppx1_wbmeas_mode {
+>   *	   @ymax_cmp is set to enabled, 24 bits
+>   * @max_csum: chrominance sum maximum value, 24 bits
+>   * @min_c: chrominance minimum value, 24 bits
+> - * @ccor_coeff: coefficients for color conversion matrix, signed 16 bits Q4.6
+> + * @ccor_coeff: coefficients for color conversion matrix, signed 16 bits Q4.12
+>   * @reserved2: padding
+>   * @ccor_offs: R-G-B color conversion coefficients, signed 25 bits 2's complement
+>   * @reserved3: padding
+> -- 
+> 2.56.0
+> 
+
+-- 
+Kind Regards,
+Niklas Söderlund
