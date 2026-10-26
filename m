@@ -1,111 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793007852;
-	b=FPoFbJ04flzuL39bOPfmSzq8o65lCwCqDlbv47I3hYJKd1XHUa8xGgi9KSrPOAst7TSJ
-	 BgrNx7RRV4nb61BK6RyclM2/wV/3F+f2Eti9KGNEPCfbIsOSiUP3KTK+vnvCBLkpAz8g9
-	 A9nfxD1TMhj8WyduY7PcV83TjRgf8tRUA7avC/DhmywFpx+wqYfALymmES+7dYNgqbMNF
-	 +nggrzm9lPUpfF7PfScxqIxBPWd5Nx5T+wgI9IrXIfEk53IUwPP72kyrnuyqCwU5LI/60
-	 IHPqFQEmITQLt7rRwWtL8BKg390dIi/Lxo4ct0z+hmzeN5LGJ5erF4N/Zbb6RnhbYtA==
+	t=1793007863;
+	b=H+IbrK3mxmX8zLkbYSQ7+wXadO+/diXeHmixy5cjfgBdeqQmwFJLX+HctpbA451/q9UQ
+	 yVfCqtJ4Hoft1va6EG7zo5N3lATiIKtPklS32srdOS5C3n9Y+IcOU1Zwr1dTY+/7YA9M4
+	 LADKKwx7bCNC18BnAoI7y0DhFz8szhxzViyXV267hXafnARTI2uzQWsyRW3VPGPKh3acG
+	 R+iyJe70liIIQiQ6/R5Cj//RXdK7T0G11uxU3VJVsC5fIwghgECyTQK41jKeK21sOQWx3
+	 JLBAh7GwaaJoqbctQHsxkW47Ch5FK8p1RnU0aItjld0oK/EcwMcbmIr/MxWH5CJic1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793007852;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=mhl0TRrPmEw3OGZE76My/tb+55cAaHaJ5x+X7Z5JALU=;
-	b=MXvkwqdl0eyqDtlQ3nDXNFSaDlxhXr9aygzrhYyp+bDQtvzyvLqGutsF1RzSpB33k4N0
-	 WlHlDDIuHqF2KXyBICSox8oDOFunwZ06h/xb49SAwSnNnJcQvhPPI3rku0YXHCSTlCx4z
-	 HsyTbLVCKOfZd4wpl5uP4w51lDB//1jsYVQiN0GOlxdjOElJkbTiu1ZWQBctFoCPS0C4b
-	 Gt8/4vIhJfNa+PazAo0WuTs491PVonmE4QJ4kSLF2j0WDbB/41zQ8SHK8vAaMxfwHLA7z
-	 Ix4FZQc2jwK+XoPub4stNqSBfzp+nnn/cHc+eWdpg6IQQs7WYsasfpG03dsSLsRPkMA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793007863;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=/WbmzAiyWcvHmSv7E29sRLAnuB0OvRYI/9hL4j09sAY=;
+	b=RRa6MGK/QjSZneHw1j0d49iKlL56e4ZhjbSk8pz5radvOxinUmBDwrOSnfMIUlVO4enu
+	 hUzYepPqhmsfvu776fzs9FqncHDJjjLAdOkT5CeIhUfpNnEuACcxFbkASF/monsBmckrf
+	 dqQHYEUkBKbrGLQhc1Xf0rs97f7JPamEKXbWpEZYeEk3BhbjVHsYWAMAnNu8g6LQ+JvWr
+	 woW+orAqT19/bkZbqRLaPTMdPPcBzet6cwT/hopV+nJtc1Z2YsJkbHjhbahcicphCn0Uc
+	 OAETkBdKRKd7lxksVmirJObhG/fXV2n9x4sFE/zTeErMZP4GmPFzA/JHgsL2sjG9+/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=XMOhonFV;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="Zz9nVuR/";
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=h7YsY+RA;
+	arc=none smtp.remote-ip=209.85.221.47
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89D73606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:44:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89D73606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7FEC606A31D
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:44:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7FEC606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=XMOhonFV;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Zz9nVuR/
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69Q4av4I2727100
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:44:10 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	mhl0TRrPmEw3OGZE76My/tb+55cAaHaJ5x+X7Z5JALU=; b=XMOhonFVX7ScY582
-	xjnv0tMljWEL1QoQPCYubLs7jtwXz34/1RaHk38yw0W50a/qZ+a45yqXeeHHIQyQ
-	YQTBkJbCTmnvldsM+3kZhICnglxghiTPSOOyh1ACpL3ofk1RBF7HeuR1F248lZOy
-	LeBWB+cQgLMWx87ob+4gie8CIWoybncMIm+9azR52JOIzxMfGgXpsWpSoMxm9e5L
-	iraXlyxkJFjd8zxnEQ8QF6e2opa8/K07rqKB/WxPwiIgcSZyCQ/MX7PxwGOHOvQy
-	hUJdnQ/DXFQaixUsJQkdcXpsi5WQEjb06AFOixm6mlPdz+1GfQySxi/1QLoAMJn7
-	2fvqWA==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hgkp6nvu5-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:44:10 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93cb1091fffso20287285a.3
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:44:10 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=h7YsY+RA
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48dfc0421d9so2378358f8f.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:44:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793007850; x=1793612650; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mhl0TRrPmEw3OGZE76My/tb+55cAaHaJ5x+X7Z5JALU=;
-        b=Zz9nVuR/HZ5/ydEzXtWXkjWMUPC2GiNEnpn8r3Wp602nZNoQ7YzT4aCH4r1u0kTvL+
-         FfbWf4H3ITZmU7l804afFnE4y9ZeLeDix3s7hK9XTRz0sl037P0+lwie7dVbPKQ5peRj
-         MWXMGFZSOLmQYkdYOApl4jV1U+1Lxa8rzuDNEsucsOPBYMt2q5YgDPFd0Fs8BdFpmYS7
-         XBV94bLm2oyDMa26IcDcihasrGvLwM7BnYPpIKVtYxGNjRTL8FmEWvwz95LUaFJkv92X
-         fB+JtsswTfdB+IKb2ugY6MYNfAXw0/nu8K+G51MQaQX0BLejVd9KLkJvAZAztipAb2Ra
-         XaMw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793007850; x=1793612650;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=baylibre.com; s=google; t=1793007860; x=1793612660; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=mhl0TRrPmEw3OGZE76My/tb+55cAaHaJ5x+X7Z5JALU=;
-        b=H7UleIheNh38PHYHUZpfEkFqxkjifesIkVYqRLcgLDBQrshwtDZVHlJimVR88fBmLE
-         um4HVjzUKyslDygqxrebVLExaVTrjEtUf5D0sLWl9LQhWCbki8qeupSXsfyIV2jhuJvu
-         hXT9+9ofkxs8fmZTsivD0rVYsKpW274aIwci6leKPGooJnMLyvGnPJILT8JKPy6ec0Aj
-         VxgbeQmCmiMCGNqH6EQKxgk7MlvDSAjOLPCOVRABpFDKqZgV960qStJ8bwDztDwkLIIr
-         ER3e1UahPxjIK7e3l+A4ZQZKeasvJ4dZRy1GXJzx4KfFno9Vs+ilNM5WXJfHSP5M2UIn
-         2ZSQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxMg8WgChJLkeesNBq8FnT/Rug1zJnYNEcJSFMrJr3iW4p0V5VRuWg4XVRq3IrAcg9B2DaA3xLgYYSYju8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIfMIdMjSg8wyn5tvJ+0qizL8LVBOIKE4ew5CB2TuICfSuZLzg0
-	6I6s6IccfOzlG5/EEj2wLd6rkiHxZro2NStDkN6F3o7tf/8GzXqqqUJbl7fmeyG7qWPBmfxeA4A
-	BgsQv/p46I/vganUzfv4Avu3BBn2R7X2Fow5REotPfyW4rgo2CblU89GUnRBOhI+2W24=
-X-Gm-Gg: AYBFou2j7pb9dJrxpf12+ZX7ioPUsAYasWeC9NeAtIFz3g76Z9gCpkjDvvJvZ95ViYn
-	el+lJgkWzepnWYdRFCqESPvBuwmUSNxrujQfjBEdOUdXIMPtt/W7uok+vpJEIGOYgDYY1gRNB0l
-	ek1l56lA1/ccc44leszPlRf+KxbLlFoOl8uQ2VK0xGGgALihwqAjGq837jeCMeBoBdHWmsA54Zf
-	ArCwI1HyUJXbLI6Rhsn9UcodslFsYWO60Eo0E5jFlgYG8XD78k6D4nfFCvNhPzQxp0m67OQe3lB
-	MyU5TN4kGMqtNb7DLo9VQOG5N4jAIe2FNKFUczO47qbu/2I9jnlm5XBlEJCIGK3f+MX4VeGc+Q/
-	BcG8U7dh7HmWLxxV+mZiHKw==
-X-Received: by 2002:a05:620a:3bcd:b0:939:9ef4:79eb with SMTP id af79cd13be357-940ef96e36amr1004499085a.6.1793007849807;
-        Mon, 26 Oct 2026 02:44:09 -0700 (PDT)
-X-Received: by 2002:a05:620a:3bcd:b0:939:9ef4:79eb with SMTP id af79cd13be357-940ef96e36amr1004496885a.6.1793007849219;
-        Mon, 26 Oct 2026 02:44:09 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b445984b61sm3532927a12.25.2026.10.26.02.44.06
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 26 Oct 2026 02:44:08 -0700 (PDT)
-Message-ID: <fa95ecee-e6e3-46da-abc3-a9e0e6be24dc@oss.qualcomm.com>
-Date: Mon, 26 Oct 2026 10:44:05 +0100
+        bh=/WbmzAiyWcvHmSv7E29sRLAnuB0OvRYI/9hL4j09sAY=;
+        b=h7YsY+RAL0JtvTQozfPkDxUe8mQJDIc48L1S/44tm521STNblp3O3+FHeXx2rNRgON
+         9faSwA4KlgeAZcn4YZKq8pf40CuJMlFOVcUfoDfPCS0PI9rcImXzU1oeFFKr5STjYM9G
+         C+G12b50KqtGVPSBBp7Pe6hzg6/sTkcxnpRgLRzQleQvgjbBQLsxM+RLtrY7o2Bsw166
+         BblRIDBJAd3TMF++94Ue5Op+uCzhXElbk5G4z91ZcdCcxXBn972ykKuYGcwUEsuFzRte
+         5zr76xeHeVj7GaJU6U7I9eZL4joC13e/L8xad5sgGAnPTAlCx03o+2bX2sJRBO1Se+LM
+         GkhQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793007860; x=1793612660;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :references:in-reply-to:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/WbmzAiyWcvHmSv7E29sRLAnuB0OvRYI/9hL4j09sAY=;
+        b=o5LT2rneXSZaf6yMYpAQWEbTmIlfmizi5kLq4kKc8KvItK+9lWZRlzPziAxxQr3mUN
+         0pog/at2LfaTz8wQ8wnjJOVw79609twUM6ziCJtDDzOKHUommGoWjJJKZrZ+E/Wrj3HB
+         0tUMo94cKsXkZOPb3mY8v7p3hYj+faWbTB1tVtNSL56diyJ/sm7LUMheYQQbVRbKMQUs
+         nWx0VaVMtwFp2x260SbwWvNfPo2J+p1I9sOdV+RANiSVDQou8nNcYINynpYpW/2LdW25
+         xApCYBTCEgcGp1Sw+YRQTPMs1ZkwjtPkClhKmCBj+kvem0mir3Dh5qWkQWolhAjk5DuI
+         xp9Q==
+X-Forwarded-Encrypted: i=1; AKwUvByAV6jFFDAs/Amu9M8vAERnOIIE6KwMKl7Ln/Cfs7xQa7wPP6jtOCyMTzN8uGQP/Lb7b9EbletbAyS83oY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIx2cwnl0D4e/qHWAXIYk6fs6NKlqg/N/Sqs7CqfLLfo+UVz6m5
+	vk7k2yradIgnbbH8jJPqkKDtvmXC/oYBc7vdlacLiFoLDRHHR4gRw4Qbkz4D3xeZ7yY=
+X-Gm-Gg: AYBFou14jV23cpU0EKKj880Kk3Va77WRbLzpTlQl7xXm6JomkRoXfnBGjYNBlxNQGlJ
+	1+WNMt3FsJiehLPQHdfPCfxNEqJA91pY0GeCh8Vsm2mIky5ZXou6VEjEko3cgY1Gym7YgYVSY8S
+	gtg7nQCCU4Hu57PpuJUen4Nyw6cwkifQEbw5KZZWYueebjD+rW9vL3jFHbtc8XuBnAkXVJF6pnw
+	I+xqT9AzBXWddTJCPp9E64W0BCSva55m3va9PwtI0UIYXJImYJYF/fSGO0k/0OSLU49e2bArWxs
+	VNEbDOhHRWQhvkFd/xlDQLKQ4S2wamyVpcLm98gEDrxtl7ONRYpF5tKJs5Hndh34oi7tz4RCB4D
+	sY6byhsKEuBscSFEKc1HleCYvW7Q/quMj0WLgVxjQOJVn7enV3npV92MfYI1t3bbNdsZETHaIUo
+	ZJkUVFGG2+MS6ruzxiWFPpCxrYdTeXuyyO4aLUOILT10oxJQWo+aVy1PCanLtVBMrqm3od5q2Nq
+	bsqDJ4hzK3Eh2/weF+gvQQ5u1IUs8XiKX0896jEQCpvrzdPydMxFuxaAYXqKFOc1rLaz6+vVxY=
+X-Received: by 2002:a05:6000:25fc:b0:48a:fb1c:c2a1 with SMTP id ffacd0b85a97d-48e3eb946b0mr10651921f8f.47.1793007860100;
+        Mon, 26 Oct 2026 02:44:20 -0700 (PDT)
+Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecde7easm15669310f8f.52.2026.10.26.02.44.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 02:44:19 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Miquel Raynal <miquel.raynal@bootlin.com>
+Cc: Brian Masney <bmasney@redhat.com>, Stephen Boyd <sboyd@kernel.org>, Abel
+ Vesa <abelvesa@kernel.org>, Peng Fan <peng.fan@nxp.com>, Frank Li
+ <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix
+ Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Thomas Petazzoni
+ <thomas.petazzoni@bootlin.com>, Ian Ray <ian.ray@gehealthcare.com>,
+ =?utf-8?Q?Herv=C3=A9?=
+ Codina <herve.codina@bootlin.com>, Luca Ceresoli
+ <luca.ceresoli@bootlin.com>, linux-clk@vger.kernel.org,
+ linux-kernel@vger.kernel.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH 0/5] clk: Use v2 rate calculation on i.MX8MP
+In-Reply-To: <87h5icnzs9.fsf@bootlin.com>
+References: <20261021-ge-clk-lcm-v1-0-246cc35b5ffb@bootlin.com>
+ <atjIIHkoNwBVDO5b@redhat.com>
+ <1jtsmch5id.fsf@starbuckisacylon.baylibre.com>
+ <87h5icnzs9.fsf@bootlin.com>
+Date: Mon, 26 Oct 2026 10:44:18 +0100
+Message-ID: <1j8q3kkd8t.fsf@starbuckisacylon.baylibre.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,75 +109,429 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 12/14] drm/msm/dpu: unwind a failed dpu_kms_hw_init()
- step by step
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov
- <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20261024-msm-kms-destroy-fixes-v3-0-66a30120a5ea@oss.qualcomm.com>
- <20261024-msm-kms-destroy-fixes-v3-12-66a30120a5ea@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261024-msm-kms-destroy-fixes-v3-12-66a30120a5ea@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: M4m4v4x6EizKm6KgFEqy2HbTydU0dl9z
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDAzOCBTYWx0ZWRfX1Z/3dc/uWuvw
- +abwrwraTyz/lkt3yFWvvuNHwnKx54SYyvWFOMsnO3unk72tA6tQHSzikNVNY7eHFM/Ty4QqT6/
- tb/VQ+SAUsTqGPRJKul/Bh4AfqMi4IE=
-X-Proofpoint-GUID: M4m4v4x6EizKm6KgFEqy2HbTydU0dl9z
-X-Authority-Analysis: v=2.4 cv=bq/Zl0ai c=1 sm=1 tr=0 ts=6adf20ea cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=f5Fz61LfwqCCiFe2G2kA:9 a=QEXdDO2ut3YA:10 a=ZXulRonScM0A:10
- a=zZCYzV9kfG8A:10 a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDAzOCBTYWx0ZWRfX6pG6Why8a5Fw
- PQ/x3yunPjybzX4NCB/aGoaRWye4SbfRd+KdOO4QCH5bCLKBRVvMlB9Zr6mwS8y3WwdM2gy/aUI
- GaW1865rCG69S//LiKLfbUa5yZJiIvRWUr6vnLXRSC7kwsSUCh5YObuR5h75eKRpxv4WUk66tRu
- hHXtYtqenDEKE+vXmvHqR2T9UGOtYp0f0z50qPQBLVWx6m3DJsekIYx8e9V3btKWQR485B7nZSx
- pgDb6VXoXK+fz7Qbyz9VhW/up9kvlPQGPYFtgEN/eLDIlsL1SWzjtPkyVck2HSQ/YYRj3V9CBQC
- 5HPr16m1vkZfhV7kAkxyHzJjSW9QLCmNpywNbqX7NqGLIc0k5aPVj66QctB9k4QpBWHpKwUMzC9
- HPF40JGWPBu6AfAmWRkrj6Fe9IpoRZEHd+NgGvRlRWRPrrtIb82NoDlNfYZJj+21pqDSgLPiK7p
- DXfyZkGNGUu5S9XK4Kg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-26_01,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 malwarescore=0 bulkscore=0 impostorscore=0 spamscore=0
- suspectscore=0 clxscore=1015 lowpriorityscore=0 priorityscore=1501
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610260038
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 10/24/26 1:19 AM, Dmitry Baryshkov wrote:
-> When dpu_kms_hw_init() fails it calls _dpu_kms_hw_destroy(), the teardown
-> of a fully initialised KMS, whatever step it failed at.
-> 
-> Undo only the steps which have completed, in the reverse order, as the
-> kernel convention wants.
-> 
-> The hw_mdp, hw_vbif and hw_intr blocks are allocated with drmm and go
-> away with the DRM device, while dpu_kms stays around for the next bind
-> attempt, so clear the pointers to them as _dpu_kms_hw_destroy() did.
-> Otherwise dpu_runtime_resume() of the next bind attempt passes the stale
-> hw_vbif to dpu_vbif_init_memtypes() before dpu_kms_hw_init() sets it.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
+On ven. 23 oct. 2026 at 18:32, Miquel Raynal <miquel.raynal@bootlin.com> wr=
+ote:
 
-LLM is slightly curious about not clearing dpu_kms->catalog but
-I think it's fine
+> Hello,
+>
+> On 23/10/2026 at 16:10:34 +02, Jerome Brunet <jbrunet@baylibre.com> wrote:
+>
+>> On mer. 21 oct. 2026 at 10:11, Brian Masney <bmasney@redhat.com> wrote:
+>>
+>>> Hi Miquel (and Jerome),
+>>>
+>>> On Wed, Oct 21, 2026 at 03:09:56PM +0200, Miquel Raynal wrote:
+>>>> Hello,
+>>>>=20
+>>>> Thanks to Brian's series, we can finally solve the problem of rate
+>>>> calculation faced with the i.MX8MP LDB/PIX clocks. I've tested this
+>>>> series using a v7.1 mainline kernel with a lot of unrelated DRM
+>>>> patches. I then re-applied it on top of clk-next after fixing the few
+>>>> conflicts when applying Brian's series, but that means I cannot (yet)
+>>>> run a 7.2/7.3 kernel on the platform (and applying this series with b4
+>>>> will fail due to Brian's series no longer applying on top of clk-next).
+>>>>=20
+>>>> The DTS patch is there for reference, I don't mind if it's not picked
+>>>> up.
+>>>>=20
+>>>> Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+>>>
+>>> Thanks for testing and posting this!
+>>>
+>>> I know that Jerome would like to see some changes to my rate change
+>>> series before it can be merged. I'm going to probably poorly describe
+>>> his concerns here, so apologies in advance if I miscommunicate this
+>>> Jerome. I'd appreciate it if you could clarify.
+>>>
+>>> - Currently the latest version posted (v8) to the list has the LCM
+>>>   helper (clk_hw_get_children_lcm) in drivers/clk/clk.c, and the LCM
+>>>   helper should be in clk-divider.c. I agree that it should be in the
+>>>   divider code, but we'd have to export some additional APIs to allow
+>>>   that. In the future if we went with what's in v8, and wanted to fix
+>>>   the fractional dividers, then it would need a similar type of helper
+>>>   in clk.c, which is not ideal. I initially went with this approach to
+>>>   limit the APIs that are exported from the clk core.
+>>>
+>>> - I have a draft v9 series that I haven't posted yet that adds two new
+>>>   helpers: clk_hw_get_num_children() and clk_hw_get_child_by_index()
+>>>   similar to the existing functions for the parents. This allows moving
+>>>   the LCM logic into clk-divider.c where it belongs, however the
+>>>   downside to this approach is that it expands the clk exported APIs so
+>>>   that providers will be able to fully walk the clk tree. The concern is
+>>>   that providers may abuse this in the future and it may limit future
+>>>   changes / cleanups to the clk core. For example, if we wanted to clean
+>>>   up the way locking is done, this may potentially limit the available
+>>>   options.
+>>>   https://git.kernel.org/pub/scm/linux/kernel/git/clk/linux.git/log/?h=
+=3Dclk-divider-scaling-v9
+>>>
+>>> - He would like to see it where each clk consumer sets the min/max rate
+>>>   that's acceptable, and the clk scaling in the provider takes those
+>>>   ranges into account when rates are negotiated.
+>>>
+>>> Anyways, please chime in Jerome if I got this right / wrong, and any
+>>> additional concerns.
+>>>
+>>
+>> Hi Brian, Miquel,
+>>
+>> Thanks Brian for the summary, and Miquel for testing and posting this.
+>> The i.MX8MP LDB/pixel case is a real problem and I'd like us to solve
+>> it. My concerns are about how, more than whether.
+>>
+>> You got most of it. The main nuance is I want to convey is where it
+>> should live IMO: not in a divider helper, and not in providers at all,
+>> but in the core. I'll try to explain.
+>>
+>> So far, CCF has preserved the settings of each element, or more
+>> honestly, left them alone: if a divider divides by 4, it keeps doing so
+>> whatever happens to its parent. This behavior has been there for years
+>> and many devices rely on it, even if unknowingly. Miquel, I understand
+>> you would rather make the new behavior the default, but I think this one
+>> is here to stay. That said, it would be nice to have a way to say that
+>> the rate should be preserved rather than the setting. I'll come back
+>> to that.
+>>
+>> My first concern is about the responsibilities of each component. IMO a
+>> provider should only describe the transfer function it implements:
+>> "given this parent rate, here is what I can do". It should not walk
+>> the tree or care about what its children are doing. Coordinating the
+>> providers is the core's job, without assumptions about their transfer
+>> functions.
+>>
+>> Providers already query their parents: a mux asks each candidate
+>> parent what it can provide, and a clock with CLK_SET_RATE_PARENT
+>> forwards its request upward. That is the request path, and the core
+>> stays in charge of it. Reading the state of children or siblings, and
+>> deciding on their behalf, is a different thing. Once a provider is
+>> allowed to do that, there is no good reason to deny it to the others,
+>> and I think that would make the core much harder to maintain. It could
+>> also get in the way of other pressing work, like the global lock problem,
+>> where tree walking will certainly play a critical role. Miquel's
+>> patch 2 is a good illustration: the helper ends up comparing the
+>> clk_hw of the tree with the inner clk_hw of a composite, which is not
+>> part of the tree.
+>>
+>> My second concern is that it is tied to the integer divider, since it
+>> relies on the LCM. If another element with a different transfer
+>> function sits on the path, it does not work, as we discussed. We could
+>> extend the principle to other types, but:
+>> * I don't see how the different types would reconcile, since each one
+>>   does its own thing in its own .determine_rate();
+>> * the change is no longer simple and harmless if it has to spread to
+>>   every provider to work.
+>>
+>> The behavior is also hard for consumers to predict. For example, the
+>> parent rate is only negotiated with the subtree of the divider's
+>> direct parent. With a gate between the divider and the PLL, the other
+>> branches of the PLL are left out. That could be fixed with more tree
+>> walking in the provider, which brings us back to my first point.
+>>
+>> If such a mechanism is needed, I would much prefer it done entirely in
+>> the core, in a generic way, with no assumption about the transfer
+>> functions involved. I realize this may go against a direction
+>> suggested at a previous LPC, which this series followed, and I think the
+>> points above are worth reconsidering it for.
+>>
+>> I say "if" because I doubt clock trees are designed with runtime rate
+>> negotiation in mind. So far, we have mostly dealt with these cases by
+>> removing CLK_SET_RATE_PARENT and using assigned-clock-rates on the
+>> shared ancestor. I understand that falls short when the PLL has to
+>> follow the display mode, as here.
+>>
+>> For rate negotiation, my suggestion would be to reuse what the
+>> framework already has: clock ranges, and re-running .determine_rate()
+>> on the children being dragged along, with the common ancestor's rate
+>> pinned. When that rate does not suit a sibling's range, other ancestor
+>> rates can be tried within the constraints, rather than giving up.
+>>
+>> clk_set_rate() is a best effort function. It tries to get as close to
+>> the request as possible, honoring the ranges of every clock along the
+>> path, and it is up to the consumer to decide whether the result is
+>> good enough. That decision is lost if the framework recomputes the
+>> rates of a sibling branch on its own. Ranges could help it decide:
+>> either "I'm fine with the new rate", or -EBUSY.
+>
+> I see an upside with this approach: we could keep one single rate
+> negotiation logic. But it still requires modifications to be done on a
+> per user basis to be enabled (but that is needed from your perspective).
+>
+> While I fully understand all the concerns expressed above, there has
+> been one minor point that arose while working on your series: it's
+> very hard to determine the tolerance beyond which the clock rate shall
+> be refused. Expect bikeshedding on a per driver basis.
 
-Acked-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+This is my point exactly. Each consumer is going to need to do its own
+thing and it is why I would prefer if the decision was not a core or
+a provider thing.
 
-Konrad
+A decision must be made somewhere. I don't really see where else it
+could be made than with the consumer. It is the only one which has
+any idea what it is trying acheive.
+
+If the range is about HW capability (from the clock side I mean),
+a range can be set from the provider. Some already do that and I
+think it is fine for that purpose. In the experiment I've provided,
+I did not enable the propagation logic in that case, on purpose.
+It could constrain the clock tree for clock that are actually
+unused. It still participate in the decision logic if a consumer
+enable it however.
+
+>
+>> What I'm suggesting is to treat any clock with a range as one that
+>> needs updating. Its consumer cared enough to tell us what it can and
+>> cannot cope with. That removes the need for a specific flag, and puts
+>> the rate policy in the consumer, which is where I'd prefer use case
+>> choices to live, rather than in the provider or the core. It would
+>> also fix clocks being dragged out of their range during an update.
+>> Presumably, a clock without a range does not care enough to give us a
+>> decider, so the framework has no basis to act on its behalf and keeps
+>> today's behavior. I think this behavior will keep on being good enough
+>> for the vast majority clocks out there and it is a lot lighter
+>> on the math side (which is already quite severe as it is)
+>
+> Well, yeah, I see we share conclusions :-)
+>
+>> I've been checking whether the idea is remotely feasible. It involves
+>> multiple planning stages and multiple tops. It is still very rough,
+>> but there is the beginning of something:
+>>
+>> https://github.com/jbrun3t/linux/commits/clk/clk-rate-range-update/
+>>
+>> Miquel, if you fancy trying it, please let me know whether it works
+>> for you. All you should need is to set a range on the clocks you care
+>> about.
+>
+> I managed to pull most of the clock patches in your branch and apply
+> them to my 7.2 branch (with a couple of tweaks). I then made the changes
+> to request a tolerance as you hinted (available below) in the two
+> relevant drivers: it worked as expected!
+>
+> While doing so, I realized the whole operation (set rate, set rate
+> range, get rate and verify) needs to be repeated almost identically in
+> every user of the "tolerance composition" logic, which probably
+> indicates that a core helper would be relevant instead. I had in mind
+> something like ~clk_set_rate_and_tolerance() which would do the
+> equivalent of my fsl_ldb_link_rate_set() and lcdif_pixel_rate_set()
+> helpers.
+
+Indeed, I suppose an helper could be introduced for that if we don't
+already have one. It does not even depend on the experiment presented
+here. As long as there is a user for it, it would be fine IMO.
+
+Maybe something that takes a rate and a ratio, like the duty cycle API ?
+
+>
+>> Sorry for this rather long explanation.
+>>
+>> Brian, your series is what got this discussion going, I know a lot of
+>> efforts have gone into it already. I'd be glad to work on this together.
+>
+> In case that is relevant, here is below the code snippet which I used to
+> get my panels working after removing the assigned rates from the DTS on
+> i.MX8MP.
+>
+> Thanks,
+> Miqu=C3=A8l
+>
+> diff --git a/drivers/gpu/drm/bridge/fsl-ldb.c b/drivers/gpu/drm/bridge/fs=
+l-ldb.c
+> index 1d65c75845a4..db17b26b7f3f 100644
+> --- a/drivers/gpu/drm/bridge/fsl-ldb.c
+> +++ b/drivers/gpu/drm/bridge/fsl-ldb.c
+> @@ -16,6 +16,13 @@
+>  #include <drm/drm_bridge.h>
+>  #include <drm/drm_of.h>
+>=20=20
+> +#define FSL_LDB_CLK_TOLERANCE_PERCENT  1
+> +
+>  #define LDB_CTRL_CH0_ENABLE                    BIT(0)
+>  #define LDB_CTRL_CH0_DI_SELECT                 BIT(1)
+>  #define LDB_CTRL_CH1_ENABLE                    BIT(2)
+> @@ -111,6 +118,44 @@ static unsigned long fsl_ldb_link_frequency(struct f=
+sl_ldb *fsl_ldb, int clock)
+>                 return clock * 7000;
+>  }
+>=20=20
+> +static int fsl_ldb_link_rate_set(struct fsl_ldb *fsl_ldb,
+> +                                const struct drm_display_mode *mode)
+> +{
+> +       unsigned long requested_link_freq, min_link_freq, max_link_freq;
+> +       unsigned long configured_link_freq;
+> +       int ret;
+> +
+> +       requested_link_freq =3D fsl_ldb_link_frequency(fsl_ldb, mode->clo=
+ck);
+> +       min_link_freq =3D requested_link_freq -
+> +                       requested_link_freq * FSL_LDB_CLK_TOLERANCE_PERCE=
+NT / 100;
+> +       max_link_freq =3D requested_link_freq +
+> +                       requested_link_freq * FSL_LDB_CLK_TOLERANCE_PERCE=
+NT / 100;
+> +
+> +       ret =3D clk_set_rate(fsl_ldb->clk, requested_link_freq);
+> +       if (ret) {
+> +               dev_err(fsl_ldb->dev, "Failed to set %pC to %lu Hz: %d\n",
+> +                       fsl_ldb->clk, requested_link_freq, ret);
+> +               return ret;
+> +       }
+> +
+> +       ret =3D clk_set_rate_range(fsl_ldb->clk, min_link_freq, max_link_=
+freq);
+> +       if (ret) {
+> +               dev_err(fsl_ldb->dev,
+> +                       "Failed to keep %pC in [%lu, %lu] Hz: %d\n",
+> +                       fsl_ldb->clk, min_link_freq, max_link_freq, ret);
+> +               return ret;
+> +       }
+> +
+> +       configured_link_freq =3D clk_get_rate(fsl_ldb->clk);
+> +       if (configured_link_freq < min_link_freq ||
+> +           configured_link_freq > max_link_freq)
+> +               dev_warn(fsl_ldb->dev,
+> +                        "Configured %pC clock (%lu Hz) does not match re=
+quested LVDS clock: %lu Hz\n",
+> +                        fsl_ldb->clk, configured_link_freq, requested_li=
+nk_freq);
+> +
+> +       return 0;
+> +}
+> +
+>  static int fsl_ldb_attach(struct drm_bridge *bridge,
+>                           struct drm_encoder *encoder,
+>                           enum drm_bridge_attach_flags flags)
+> @@ -130,11 +175,10 @@ static void fsl_ldb_atomic_enable(struct drm_bridge=
+ *bridge,
+>         const struct drm_display_mode *mode;
+>         struct drm_connector *connector;
+>         struct drm_crtc *crtc;
+> -       unsigned long configured_link_freq;
+> -       unsigned long requested_link_freq;
+>         bool lvds_format_24bpp;
+>         bool lvds_format_jeida;
+>         u32 reg;
+> +       int ret;
+>=20=20
+>         /* Get the LVDS format from the bridge state. */
+>         bridge_state =3D drm_atomic_get_new_bridge_state(state, bridge);
+> @@ -175,14 +219,9 @@ static void fsl_ldb_atomic_enable(struct drm_bridge =
+*bridge,
+>         crtc_state =3D drm_atomic_get_new_crtc_state(state, crtc);
+>         mode =3D &crtc_state->adjusted_mode;
+>=20=20
+> -       requested_link_freq =3D fsl_ldb_link_frequency(fsl_ldb, mode->clo=
+ck);
+> -       clk_set_rate(fsl_ldb->clk, requested_link_freq);
+> -
+> -       configured_link_freq =3D clk_get_rate(fsl_ldb->clk);
+> -       if (configured_link_freq !=3D requested_link_freq)
+> -               dev_warn(fsl_ldb->dev,
+> -                        "Configured %pC clock (%lu Hz) does not match re=
+quested LVDS clock: %lu Hz\n",
+> -                        fsl_ldb->clk, configured_link_freq, requested_li=
+nk_freq);
+> +       ret =3D fsl_ldb_link_rate_set(fsl_ldb, mode);
+> +       if (ret)
+> +               return;
+>=20=20
+>         clk_prepare_enable(fsl_ldb->clk);
+>=20=20
+> @@ -241,6 +280,8 @@ static void fsl_ldb_atomic_disable(struct drm_bridge =
+*bridge,
+>         regmap_write(fsl_ldb->regmap, fsl_ldb->devdata->ldb_ctrl, 0);
+>=20=20
+>         clk_disable_unprepare(fsl_ldb->clk);
+> +
+> +       clk_drop_range(fsl_ldb->clk);
+>  }
+>=20=20
+>  #define MAX_INPUT_SEL_FORMATS 1
+> diff --git a/drivers/gpu/drm/mxsfb/lcdif_kms.c b/drivers/gpu/drm/mxsfb/lc=
+dif_kms.c
+> index ade76c3f4e4e..2dddb82e0269 100644
+> --- a/drivers/gpu/drm/mxsfb/lcdif_kms.c
+> +++ b/drivers/gpu/drm/mxsfb/lcdif_kms.c
+> @@ -32,6 +32,13 @@
+>  #include "lcdif_drv.h"
+>  #include "lcdif_regs.h"
+>=20=20
+> +#define LCDIF_PIXEL_CLK_TOLERANCE_PERCENT      1
+> +
+>  struct lcdif_crtc_state {
+>         struct drm_crtc_state   base;   /* always be the first member */
+>         u32                     bus_format;
+> @@ -527,6 +534,38 @@ static void lcdif_crtc_atomic_flush(struct drm_crtc =
+*crtc,
+>         spin_unlock_irq(&crtc->dev->event_lock);
+>  }
+>=20=20
+> +static int lcdif_pixel_rate_set(struct lcdif_drm_private *lcdif,
+> +                               const struct drm_display_mode *m)
+> +{
+> +       unsigned long pix_rate =3D m->clock * 1000;
+> +       unsigned long min_rate, max_rate;
+> +       int ret;
+> +
+> +       /*
+> +        * Pin the pixel rate so a change on the PLL made for another bra=
+nch
+> +        * (typically the LDB serializer clock) does not drag it away.
+> +        */
+> +       min_rate =3D pix_rate - pix_rate * LCDIF_PIXEL_CLK_TOLERANCE_PERC=
+ENT / 100;
+> +       max_rate =3D pix_rate + pix_rate * LCDIF_PIXEL_CLK_TOLERANCE_PERC=
+ENT / 100;
+> +
+> +       ret =3D clk_set_rate(lcdif->clk, pix_rate);
+> +       if (ret) {
+> +               drm_err(lcdif->drm, "Failed to set pixel clock to %lu Hz:=
+ %d\n",
+> +                       pix_rate, ret);
+> +               return ret;
+> +       }
+> +
+> +       ret =3D clk_set_rate_range(lcdif->clk, min_rate, max_rate);
+> +       if (ret) {
+> +               drm_err(lcdif->drm,
+> +                       "Failed to keep pixel clock in [%lu, %lu] Hz: %d\=
+n",
+> +                       min_rate, max_rate, ret);
+> +               return ret;
+> +       }
+> +
+> +       return 0;
+> +}
+> +
+>  static void lcdif_crtc_atomic_enable(struct drm_crtc *crtc,
+>                                      struct drm_atomic_commit *state)
+>  {
+> @@ -537,8 +576,11 @@ static void lcdif_crtc_atomic_enable(struct drm_crtc=
+ *crtc,
+>         struct drm_display_mode *m =3D &lcdif->crtc.state->adjusted_mode;
+>         struct drm_device *drm =3D lcdif->drm;
+>         dma_addr_t paddr;
+> +       int ret;
+>=20=20
+> -       clk_set_rate(lcdif->clk, m->clock * 1000);
+> +       ret =3D lcdif_pixel_rate_set(lcdif, m);
+> +       if (ret)
+> +               return;
+>=20=20
+>         pm_runtime_get_sync(drm->dev);
+>=20=20
+> @@ -568,6 +610,8 @@ static void lcdif_crtc_atomic_disable(struct drm_crtc=
+ *crtc,
+>=20=20
+>         lcdif_disable_controller(lcdif);
+>=20=20
+> +       clk_drop_range(lcdif->clk);
+> +
+>         spin_lock_irq(&drm->event_lock);
+>         event =3D crtc->state->event;
+>         if (event) {
+
+--=20
+Jerome
