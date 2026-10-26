@@ -1,51 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.104
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.111
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793001784;
-	b=SZuluQEhpZ8SVCoQxdhBF+MiWD9s11KhaCGO0yun4qdHnD4R+O0FRBW0UUpABzB2kSPY
-	 2SP2f26lGRxynrEJf9Cd7MVVqENpPJhmGEeZlOXOJW+1v0cvRgHIsE0OR9pgWV3tcCrVH
-	 RWI5u+oiUjd0c4mMfROcY98c8/KQ3Z9CJ/Nb3fvzevucMj+KWIAmOzJbaxOVwqjL880kK
-	 SmslqmNR+VvxOwvo2hJj2yGjHnJfwa/FPTWV50mfmJ3CsX5nok7MbBC3JUeg9ISR9sZ7+
-	 LGxXFhEjsPiQ2uTVEoVdUTojwjulyJrXsiZKcW65K40zSPQqxcB4tBeAXu2EuAsLnXQ==
+	t=1793001788;
+	b=0Kxxj7ApGLudCySNZjrdq/vE/vt4qAFBUOWnoSegl7UZOBMVqDNVbbElurtPuA/9m2q5
+	 bXfhjxolbhxqqDWWDqZRRSjhvNQI/gCBfX6tijLkgbyxZWuZD6pX+2MEFLC7wFWnkpiRS
+	 t1ZVsvlL9sO+TLYoR0kWc/GbD4Aq7PG6V+Gevshw7tDSRizNW9mzlMZ6JTxdt+ZsduAia
+	 ouYU8ILMYGuuCud2Jej+YCWBSLASAKmawR15DSwvfx5A3QaPqCT7CjdFEqpZfgyoALSc1
+	 XfHQ3XDgMIY47mzKDHYhUjDqQkoNMWPfZVAmz90Haa5YCbe1hlNdWLJDUqIDWpQt2Rw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793001784;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793001788;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=F50Qplwui3CICEAhuivMriFrkJSXdydW0DAGmo57Xtw=;
-	b=q0Lqt0aYsNO1OQbKyNY2G0BYvGF4CbCQYn0dGnduuUWGs8a1sEAzh4gqDpxbLivxBV2u
-	 4heBhnPxSP3veLQJKzPu98jG6Zsn5V0cfvBZUwiLIb9wxgNyrEuuvYXcsStxOQ+BkGx8v
-	 2CvtDyhWGqVVY4WJrAuBV+J9hj00LEAbprOdUUxtv86aj4kqynI1MAmPu6nnMy6oMl8TT
-	 o8bRvTyWcbL1Z4XPr6Je/G666tu7wuoacNKQupwbXiNOZprULh4FoHPNLuYhZKVGwfzeP
-	 lcKBNGDcXl4hpYTfvHk+BSOs6uq+YxiR0WR3aI/P/+4H2Rtt7jBC8i5NwxrJ7ZEklcg==
+	bh=3Fm/k61dAGn6pWXm3A71qaZX3bTJAZeBybYud9pjwD8=;
+	b=z0sNluXP82IfEuutNoqOr70CByYaGpBfoI8HcIJH6n+DdwhVT/OWLoRD3ImXzldg7A8S
+	 UCm8vUypuyoNWSCIbsiujbmwfie3j/1jmzjK4xeFquz06d1KCVeFULShw6wAXy129m97g
+	 DxnRfNs4tIIjISwQOHrQ27yZzZNNRJiKrad0hYI4/5SmRsY4pmcS6nwYYx4r2MIdRNmXb
+	 ocNzBKgCkdhLvtpa7jMTAnGv4pQBY9wU9b3bgzZQetvVUnxBK0kKzH5EeqqmNmGkImrDF
+	 kPoabcKcowQV5h7U13sHwiwZiNFTKJfQWvcSMDTZctdlpZ2Qn95RSMkJ/mxd+phSP8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=UQ28VxWH;
-	arc=none smtp.remote-ip=91.218.175.104
-Received: from mta0.migadu.com (out-104.mta0.migadu.com [91.218.175.104])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=PfQi0cRB;
+	arc=none smtp.remote-ip=91.218.175.111
+Received: from mta0.migadu.com (out-111.mta0.migadu.com [91.218.175.111])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55313606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 08:03:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55313606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 247CA606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 08:03:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 247CA606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=UQ28VxWH
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=PfQi0cRB
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=pTZFl8UM3ETvokuzfL6iKKBHKQY2m3Ez9MTwzEqi/1A=;
+DKIM-Signature: a=rsa-sha256; bh=yF6bL0ko6Nsx9Q9DKdGf/DM9nR/ox6wnvQ6I+8xeA+o=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793001781; v=1; x=1793606581;
- b=UQ28VxWHre72gDnSeRWu3nb1iQZNIm5O3U2D7Zzy8KTK+mN1s0L8AOB27+kZM9fI0+f8G8dY
- NoxqcWBr+OpgCT72GqbU0zwZrZTbaAqWT/S/mizRTjwhFdd6OAQy9+xEfruf1UMlQGS1V5zpE9g
- LukQmeLeovX/4+EjnXt24Xqc=
+ t=1793001786; v=1; x=1793606586;
+ b=PfQi0cRBBGZFWttKVEVfRzvSfFrnLLjC7/JTTq2DHpzdWmyT6Mh/QR0lNmPkw11bVjIQz+nk
+ mTNYLHfBiOxipL59Yol5IfhEFT/g7l4d02R2/Adl0qbMgWxmQ5mr2+mCIVDUiPGxoGj+Nx80R73
+ /3b9NH1iAcXjd5lmT0IUZBPk=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id e2e51c17888acd15;
-	Mon, 26 Oct 2026 08:03:01 +0000
-X-Mizu-Trace-ID: e2e51c17888acd15
+Received: by smtp.migadu.com with ESMTPS id 9a29ba5e27180e69;
+	Mon, 26 Oct 2026 08:03:06 +0000
+X-Mizu-Trace-ID: 9a29ba5e27180e69
 X-Migadu-Flow: FLOW_OUT
 From: Hao Ge <hao.ge@linux.dev>
 To: Madhavan Srinivasan <maddy@linux.ibm.com>,
@@ -70,9 +70,9 @@ Cc: linuxppc-dev@lists.ozlabs.org,
 	kasan-dev@googlegroups.com,
 	linux-mm@kvack.org,
 	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH v3 05/10] mm/vmalloc: reject an unaligned range in vmap_pages_pte_range()
-Date: Mon, 26 Oct 2026 16:03:24 +0800
-Message-Id: <20261026080329.140244-6-hao.ge@linux.dev>
+Subject: [PATCH v3 06/10] mm/vmalloc: reject empty and unaligned ranges in __vmap_pages_range_noflush()
+Date: Mon, 26 Oct 2026 16:03:25 +0800
+Message-Id: <20261026080329.140244-7-hao.ge@linux.dev>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20261026080329.140244-1-hao.ge@linux.dev>
 References: <20261026080329.140244-1-hao.ge@linux.dev>
@@ -87,35 +87,44 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-commit a739e6b557af ("mm: vmalloc: WARN_ON if mapping size is not
-PAGE_SIZE aligned") made vmap_pte_range() warn and bail out when the
-size is not a multiple of PAGE_SIZE. Its loop only stops at
-addr == end and otherwise steps over it and maps over whatever
-follows the page table. vmap_pages_pte_range() has the same kind of
-loop but was never given the check.
+__vmap_pages_range_noflush() expects a non-empty, page-aligned
+[addr, end) range but does not check it.
 
-Add it there as a backstop.
+An empty range dies in the BUG_ON(addr >= end) of
+vmap_small_pages_range_noflush() on the small-page path, while the
+huge-page path maps nothing and returns 0.
+
+An unaligned range is caught by vmap_pages_pte_range() on the
+small-page path, but the huge-page path misses it, because its
+chunks are always page-aligned, so the check in vmap_pte_range()
+passes, and the mapping just starts at the page boundary below addr.
+
+Check both at the entry of __vmap_pages_range_noflush() and return
+-EINVAL.
 
 Reported-by: Sashiko <sashiko-bot@kernel.org>
 Signed-off-by: Hao Ge <hao.ge@linux.dev>
 ---
- mm/vmalloc.c | 3 +++
- 1 file changed, 3 insertions(+)
+ mm/vmalloc.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
 diff --git a/mm/vmalloc.c b/mm/vmalloc.c
-index d60b99b81ec9..c0f33392c6ad 100644
+index c0f33392c6ad..4d74144dfaff 100644
 --- a/mm/vmalloc.c
 +++ b/mm/vmalloc.c
-@@ -557,6 +557,9 @@ static int vmap_pages_pte_range(pmd_t *pmd, unsigned long addr,
- 	int err = 0;
- 	pte_t *pte;
+@@ -698,6 +698,12 @@ int __vmap_pages_range_noflush(unsigned long addr, unsigned long end,
+ {
+ 	unsigned int i, nr = (end - addr) >> PAGE_SHIFT;
  
-+	if (WARN_ON_ONCE(!PAGE_ALIGNED(end - addr)))
++	if (WARN_ON_ONCE(addr >= end))
 +		return -EINVAL;
 +
- 	/*
- 	 * nr is a running index into the array which helps higher level
- 	 * callers keep track of where we're up to.
++	if (WARN_ON_ONCE(!PAGE_ALIGNED(addr) || !PAGE_ALIGNED(end)))
++		return -EINVAL;
++
+ 	if (WARN_ON_ONCE(page_shift < PAGE_SHIFT))
+ 		return -EINVAL;
+ 
 -- 
 2.25.1
 
