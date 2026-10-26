@@ -1,47 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.181.193.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793027058;
-	b=ghTj1+yBNJiOS5mfKcuvSXEykvJ4/ZIGKeK4VxfKXDvlX5VyJxiis3r+8AWjtXQcqTx3
-	 DUA3Xw6wq6Y5dGjFISzA/V2QODn2K1qXGXr6PqPnzxv2MOG5PKouoQ5q0EukvWCk3zte6
-	 WecW4T9noX5qLRp7upm/IWbY3no6nUxvbmdcp+o72T1CJ9B0egM+ygQJGrVqM46MLLuW/
-	 SiJ8u1Bg6GpDqEHz6ZFYh4eseFHUEhJsoxrOHh8z/s7MEcpJIT2cEOcbRI0yprIyha8/L
-	 jwOZTxJVOxcI+AtHODgAfTr2bGgFdvDfUgSocSdaZr2b5ptCTnPZHOCZfjH1tLBwH4w==
+	t=1793027053;
+	b=np9+fau5Cx6z3mEOHcA9jgzugSIp3ANRVyoVDPhb5tmOLAuve6pqaO7oiZk+zyWBgg66
+	 X0Af8kOImUzdTxqeqBIXPmOHmSzNtYBB1+q8UhoSGBdu8Kvdqz1tTKZ6Zo7YoehJtGgVH
+	 o5d7tDTrfIOyJf5e55wCUWDTtCBWHlgbHOfhcO8itlZ3LIEwLA1or6RT6PLchX9E1+LU1
+	 r7j0/HnPIoL2bZH+gmjeNSrgeGCxW5fDoez0oJ1BZPcZULj1jD0cdFF+xcQsRkAe7LcBC
+	 AtQNlE5KFWyU7q1THTBmg3mVud2LK5U5LTlUwAri/3kZehqxrMvph9mrYMSxuTRzbNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793027058;
-	h=DMARC-Filter:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=ptF7i1CEWzxGvgH4A1Lf6emCPEcMA8fjlZ8zFfi/vgo=;
-	b=3AnAHFsNBhjuETQOCiJQsyU1yWt6FsG2MzfLF7jBthmifjBU4z92ZfZ9Va1lWLcw0aBI
-	 xwcAGqVdBO+G4WUV7hnQc54pkHw8FrgZ5AJ+b/F6t5SodP2pJ1Va/uRKHnCkyaPeVX14p
-	 oYEJzNlvNZ7ryGYBM/3H3vlnlpx2SeR0PgCPnHNZlajU8YJjnSjrdtZ3Ux87PUVCbEMOC
-	 jAY58HCGZmS5rB4KRtD6c+Af9XS0c64smnd+V1cCs12bMoIGs/bn99nuy4M3hdTa8p5gC
-	 y9LNobQJyZ4UWYv5dnW++wH753dqBzD6q6iZP8Y6+4RkVmmx1AU4QU6Ty2bNE7x9Wsg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793027053;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:From:To:Cc:References:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=6hz5uza8UCAu1Jf83s707Rg61KRs8PkOBOl6V9Iw00E=;
+	b=4qzx6HTlPRFZZ/G6T1ShSR8VX7y6zW+R5l1hQe/0fehX/PgkSuBOuNTF48y85A2PkKkm
+	 FlGy7erBEyrRNNEICVc+JHxQp2mpcMH2BcvjxvxnZO3a2xf9rZ28f6XltZ1PqRpusuqZJ
+	 J5iKqNlF3Dl5K0n5K8GARhaCfpNIald8d6K6sCm0+KmW9iNI9dnqT9j683wkPomSxo26E
+	 gx8I6kzsZKO41MZXfXNdqSGrmaGSlqjdwhrCg8KB7e7fLsC07ZgpT3OUJkclxUuzV6j75
+	 GloZLyoTAxIllzz0oJ9hjYefITHMYzFeTWIzAxnIhdWe4FgIWdMk5dVCw3yjlW+/4SA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=auroraos.dev;
-	spf=pass smtp.mailfrom=auroraos.dev;
-	arc=none smtp.remote-ip=95.181.193.9
-Received: from mail.auroraos.dev (unknown [95.181.193.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
+	dmarc=pass header.from=nabladev.com;
+	spf=pass smtp.mailfrom=nabladev.com;
+	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=QAD8j98g;
+	arc=none smtp.remote-ip=178.251.229.89
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D91D606A31B;
-	Mon, 26 Oct 2026 15:04:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D91D606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=auroraos.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=auroraos.dev
-Received: from pc.tailf8c421.ts.net (77.37.240.142) by
- exch16.corp.auroraos.dev (10.189.209.38) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1847.3; Mon, 26 Oct 2026 18:04:10 +0300
-From: Georgiy Osokin <g.osokin@auroraos.dev>
-To: Jens Wiklander <jenswi@kernel.org>
-CC: Sumit Garg <sumit.garg@kernel.org>, <op-tee@lists.trustedfirmware.org>,
-	<linux-kernel@vger.kernel.org>, Georgiy Osokin <g.osokin@auroraos.dev>,
-	<stable@vger.kernel.org>, <lvc-project@linuxtesting.org>
-Subject: [PATCH v2] tee: shm: don't warn on oversized request in tee_dyn_shm_alloc_helper()
-Date: Mon, 26 Oct 2026 18:03:45 +0300
-Message-ID: <20261026150345.284404-1-g.osokin@auroraos.dev>
-X-Mailer: git-send-email 2.54.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56DCF606A31A;
+	Mon, 26 Oct 2026 15:04:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56DCF606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=QAD8j98g
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 08B66109697;
+	Mon, 26 Oct 2026 16:04:02 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1793027046;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=6hz5uza8UCAu1Jf83s707Rg61KRs8PkOBOl6V9Iw00E=;
+	b=QAD8j98ggHzcW8yd8J1Ifh5uWQm69X822XjTfFT0rPzwR0ZNiYPNci8OXcst+l9ZbNbAqR
+	Ywd+teA3k/qiJidFn9pnBtGSWLvBxZl6/OvVlrE0p/t9+FTjQSQ4+YwdHF3s5vKUGjKnqX
+	oHP0Lp+fIcAI74SaVEFixa2ywzeuCacVYk8ezV/mzRt3XkNKgKl4z2kVVN7zeMoQkKqPZQ
+	9xe9jU3Kgy8c37lQBnUyTyfF2jUvMqrriJvfT7vL2TcP7CQJDA02v2fm0bEYxS/sE+2Rf9
+	FZi4imAAafJd6yU6c+LzHzwf0aaESkeXSRv67TUiblMEXtlkBC/jItlbjoGwOA==
+Message-ID: <eca44457-d3d3-4732-977d-d30a408b7b66@nabladev.com>
+Date: Mon, 26 Oct 2026 16:04:02 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,45 +56,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: exch16.corp.auroraos.dev (10.189.209.38) To
- exch16.corp.auroraos.dev (10.189.209.38)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 3/3] arm64: dts: imx95: Add support for Data Modul
+ i.MX95 eDM SBC
+From: Marek Vasut <marex@nabladev.com>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Francesco Dolcini <francesco@dolcini.it>,
+ linux-arm-kernel@lists.infradead.org, Aswath Govindraju
+ <a-govindraju@ti.com>, Conor Dooley <conor+dt@kernel.org>,
+ Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Marc Kleine-Budde <mkl@pengutronix.de>, Rob Herring <robh@kernel.org>,
+ devicetree@vger.kernel.org, imx@lists.linux.dev, linux-can@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260928204741.175754-1-marex@nabladev.com>
+ <20260928204741.175754-3-marex@nabladev.com> <arvPDq8sjjv7na01@SMW015318>
+ <49303872-5622-4e1d-8e1a-01394ec29367@nabladev.com>
+ <20260930174413.GA2463938@francesco-nb> <ar1bhpji35CbArtY@SMW015318>
+ <17f240e5-9c65-4562-ba51-535b0c69c5fd@nabladev.com>
+ <ar19W4wX07p8u3_5@lizhi-Precision-Tower-5810>
+ <4efdcea6-a099-46a6-8d07-dd5c583b962a@nabladev.com>
+Content-Language: en-US
+In-Reply-To: <4efdcea6-a099-46a6-8d07-dd5c583b962a@nabladev.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-tee_dyn_shm_alloc_helper() passes the size from TEE_IOC_SHM_ALLOC to
-alloc_pages_exact(), which needs one physically contiguous block. A size
-above 4 MiB (MAX_PAGE_ORDER with 4 KiB pages) is more than the page
-allocator can serve, so it trips its order warning; on a panic_on_warn
-kernel that is a panic.
+On 9/30/26 11:49 PM, Marek Vasut wrote:
 
-The size comes from userspace and the request fails with -ENOMEM anyway,
-so pass __GFP_NOWARN.
+Hello Frank,
 
-Fixes: abd135ba215c ("tee: optee: add optee-specific shared pool implementation")
-Cc: stable@vger.kernel.org
-Cc: lvc-project@linuxtesting.org
-Signed-off-by: Georgiy Osokin <g.osokin@auroraos.dev>
----
-v2: Fixes now points to abd135ba215c, the commit that introduced the
-    unchecked allocation; cf4441503e20 only moved the code.
-v1: https://lore.kernel.org/all/20261026105209.161195-1-g.osokin@auroraos.dev/
+>>>> So I suggest remove it now and add it when need.
+>>> Can we please go with consistency between these boards from one vendor ?
+>>
+>> Yes, I am keeping consistency, then ask remove it. I applied alex's v2
+>> version. I put v1 link to show krzy's concern.
+>>
+>> https://lore.kernel.org/imx/20260319125013.2421621-3- 
+>> alexander.stein@ew.tq-group.com/
+>>
+>> Changes in v2:
+>> * Changed commit message to imperative form
+>> * Remove (currently unused) display and backlight nodes
+> I sent you a V6 with those nodes removed.
 
- drivers/tee/tee_shm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Have you had a chance to handle the V6 ?
 
-diff --git a/drivers/tee/tee_shm.c b/drivers/tee/tee_shm.c
-index daa4af1..8b117d6 100644
---- a/drivers/tee/tee_shm.c
-+++ b/drivers/tee/tee_shm.c
-@@ -352,7 +352,7 @@ int tee_dyn_shm_alloc_helper(struct tee_shm *shm, size_t size, size_t align,
- 	 * and there's no need for any larger alignment.
- 	 */
- 	shm->kaddr = alloc_pages_exact(nr_pages * PAGE_SIZE,
--				       GFP_KERNEL | __GFP_ZERO);
-+				       GFP_KERNEL | __GFP_ZERO | __GFP_NOWARN);
- 	if (!shm->kaddr)
- 		return -ENOMEM;
-
--- 
-2.54.0
-
+Thank you !
