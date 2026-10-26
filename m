@@ -1,54 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793029071;
-	b=mQt8pWjpLFXnjUfj5TK7a89wY4gTucKnaLZUFjBo6vYAaV9kGM3GW+tsufUIP575ciNX
-	 +jEfd98eQKLbYzh1NF5IunsT7P6+lTEq5QfM1VOHy+EaaCowlChjI4EZffwtkXvEmpDxM
-	 iha5LM5NtL/ymUjxtDAxYvp45vWb3oraFRI2KZ5kJIWgDtA6l2VeMaMwKjy93W6acB4YU
-	 zB0HVjCAKSOBS4HZ6wqK6CAMdYv3n1xIXEc+vk4ubLsQcivVmTSQrKf/fFBcz+Qv6k7lv
-	 Vb7YDnoaVu5JYGuiEYnxpZuiOlg/R5clNSX6lVk3eDh+i9o/8Geo/pMbydHyxsxvjUA==
+	t=1793029084;
+	b=jgteMaRSnHYuIRH7daZ4RvJ8oAleFcWtoeVH/VszgpkKqrfPmgQHSJtT2FVjTZQxNtM/
+	 91cLZQ1Tdm6yIcAk8XXebUbb9rO3s/tYlWVyg2th2wlrvx8K9LB2kE5LtquLXEu3RbeKn
+	 r5E+hDFUbl9woQBqnGpgNkj8h1PThoH63I0/e2V4DB8rJa1tN9hmYWbkeT2Tip99AL+P/
+	 bii292lA1dqDtKqVNoqm1zQdJFZoFAgBIvVRbjAWQUAgAVO3xpCetWd5+7kUtiJYPLr0R
+	 nW2R8rJT7WvVkU3KSXkr0eeRf2vUX5ta+4YM7n2cZhF8nS9eGDxwMCYtKoV7uv1BqVg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793029071;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793029084;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=AlEfw0KnnnKeOGuKhIjsydPMLj3rMy80oPafK21417A=;
-	b=GNZx3+76KOrpp7gpDGjCCFMKF9rQgqduL/axHeOSysXreKjrBzXSTCCtzBdbq9O82bJ+
-	 FtMjtpAEL3mIP3YGZ5M9CbjGLCs+EoaRLUwkBif+cuFwbSNXJOFp9g0seXeAwFxMXhgVf
-	 3JuN0BvGtVWTVJeR5MtdGu+XOy3F5K0XWFfsInlfOXyi4MmDvxSr1f2vacL0ICf2OrSKS
-	 oe824LaArMbT2Uq/1NBGEIUc6gUAXauEvNmtju7jm8wGdrSo5kO2eyuJAAKixJIZ7Zok8
-	 J2yMG58jxdd+nMIrP5HN78P8bvbYJ8t8gWog4FpmXKnfSH1Hs64kVq95D3BqZulKX8Q==
+	bh=KTm/EsES8cuunS5UEzxkNwi2Ban1kMg+H1CeX2MqCAU=;
+	b=MbLGh3Q++GnSmEb/1yNIaGqIgUrq0jJpdkrbBS4aCfMDvd9LskbPHYIRTp7saZ4dlzTz
+	 6cPyGq3kZaKKuhSnSMP20N1HCZyr2wlTWFhCeffCcYLbPZNSvob58nTU2yTVXFx2i+Cql
+	 YQHCeKD0eTJI0ti11RqHxK+YlohHjkqVV1f7xWKVpaMLlQg6uX+TekR2U0W0ZIziOLa3r
+	 TFU0DiCHCXc8gQLtaoO9y1HC5M5S2qA4+Bs4XkYMdQaH21A45QVPHL5HK/es6dEksgSRn
+	 2zZvAHyWkV8ljnN5Q+/PMnMgLvhOdp6dy9+JxWCpuRscnZw0vIaeF816dSHgqgmkCGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aRYEkbzI;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=acm.org;
+	spf=pass smtp.mailfrom=acm.org;
+	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=TKG4ufrJ;
+	arc=none smtp.remote-ip=199.89.1.14
+Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CABE606A31A;
-	Mon, 26 Oct 2026 15:37:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A0FE606A32F;
+	Mon, 26 Oct 2026 15:38:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A0FE606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aRYEkbzI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A561B1F031E7;
-	Mon, 26 Oct 2026 15:37:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793029070;
-	bh=AlEfw0KnnnKeOGuKhIjsydPMLj3rMy80oPafK21417A=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=aRYEkbzIjC0hd1TndRRHR4lM7VbZ0Q5QCANjMJ6oBgumR1bl6mxOap6fZ9YpmiY9n
-	 7y7CCepF5dqMevsqA4fkpg4QPPNkyB1zSjUZR2m1voxHlUsOrRbeH0rtwg4pdKLVxm
-	 4y24uEBW7z8v1gHxNrCX2NJU5k/AxP2qOOUMEXF2s/tqyfF/nc34j9v2jtPhEI9kbx
-	 X/PilGZ6HUaUWcDOPcDZCFwqn2wjxZnYYLht2T25tYDeVPiLdPIBvGZjGuXaqauY5M
-	 35xqztCmdKIoVZZ1olBPWOtUB/ljeqSXaAcC4NnRrgPxumJ+YqkdaSxMxtbXrThZI4
-	 vCKG9/hbAmTuQ==
-From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: Shuah Khan <shuah@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH 01/10] tracing/filters: Fix MATCH_END_ONLY regex matching for fixed-size strings
-Date: Tue, 27 Oct 2026 00:37:47 +0900
-Message-ID: <undine-1793029067840938152-7968d068467a5db1@undined.local>
-X-Mailer: UndineD 0.1
-In-Reply-To: <20261026095441.6a1a7357@gandalf.local.home>
-References: <179285912318.466249.7425922682086130057.stgit@devnote2> <179285913336.466249.16045710288666912574.stgit@devnote2> <20261026095441.6a1a7357@gandalf.local.home>
+	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=TKG4ufrJ
+Received: from localhost (localhost [127.0.0.1])
+	by 011.lax.mailroute.net (Postfix) with ESMTP id 4jCySW6WdCz1XM30g;
+	Mon, 26 Oct 2026 15:38:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
+	content-transfer-encoding:content-type:content-type:in-reply-to
+	:from:from:content-language:references:subject:subject
+	:user-agent:mime-version:date:date:message-id:received:received;
+	 s=mr01; t=1793029079; x=1795621080; bh=KTm/EsES8cuunS5UEzxkNwi2
+	Ban1kMg+H1CeX2MqCAU=; b=TKG4ufrJRlR4tKqzCju2c4LRAyFy8+fcGyF+X0aw
+	VeWB+5SDM5kZqM1lcKHv/r2J0qGGcYDIJYylGjd7T6sVH3JiP0P1dUV4qvcddnPc
+	ul0gn7vazvnKxEfcarNxvEQoWpZOVCWdBNXAmlsM9zg8d0DTk3RiFAu8ZTEJIDT6
+	5GcjrovfW4Jqc0uloWJG2BZazhEb+udnbOwL60w60f66y/te5AMQMvsxI41g1pcC
+	hJK1kUiGTrtsx6VBp0cRQNOtHkFxR53bpiD7ruSUwXiJK4qoT0ISUkfOGpC+WpcP
+	XSDh/OrzU/JI9VkqKlnV6lH0LJ2MefydaFUOVQY0Gw2qsw==
+X-Virus-Scanned: by MailRoute
+Received: from 011.lax.mailroute.net ([127.0.0.1])
+ by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
+ id rozdcBTZuH1K; Mon, 26 Oct 2026 15:37:59 +0000 (UTC)
+Received: from [100.80.231.125] (unknown [104.135.182.41])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bvanassche@acm.org)
+	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4jCySR47tXz1XM4Tl;
+	Mon, 26 Oct 2026 15:37:59 +0000 (UTC)
+Message-ID: <ae182bf3-2fbd-42d8-a5c1-3792807e45e1@acm.org>
+Date: Mon, 26 Oct 2026 08:37:58 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,68 +70,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] scsi: ufs: core: fix NULL deref in remaining
+ scsi_cmd_priv() callers
+To: shao.mingyin@zte.com.cn, martin.petersen@oracle.com,
+ linux-scsi@vger.kernel.org, Stanley Jhu <stanleyjhu@google.com>
+Cc: alim.akhtar@samsung.com, avri.altman@wdc.com, peter.wang@mediatek.com,
+ linux-kernel@vger.kernel.org
+References: <202610261647385343iIt_Rpe2JeqxY7SCEeUl@zte.com.cn>
+Content-Language: en-US
+From: Bart Van Assche <bvanassche@acm.org>
+In-Reply-To: <202610261647385343iIt_Rpe2JeqxY7SCEeUl@zte.com.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, 26 Oct 2026 09:54:41 -0400, Steven Rostedt <rostedt@goodmis.org> wrote:
-> On Sun, 25 Oct 2026 01:25:33 +0900
-> "Masami Hiramatsu (Google)" <mhiramat@kernel.org> wrote:
+On 10/26/26 1:47 AM, shao.mingyin@zte.com.cn wrote:
+> From: Shao Mingyin <shao.mingyin@zte.com.cn>
 > 
-> > From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-> > 
-> > regex_match_end() calculated string length as "len - 1", assuming @len is
-> > the string length including trailing '\0'. However, for fixed-size string
-> > fields, filter_pred_string() passes field->size as @len, and for "comm",
-> > filter_pred_comm() passes TASK_COMM_LEN as @len.
-> > 
-> > Because @len in these cases represents the buffer capacity rather than the
-> > actual length of the string, regex_match_end() tests against the tail of
-> > the buffer (typically trailing '\0' padding) rather than the end of the
-> > string. Furthermore, if @len is 0 (denoting a dynamic string ending with
-> > '\0'), "len - 1" underflows to -1 and never matches.
-> > 
-> > Compute the actual string length using strnlen(str, len) when @len is
-> > non-zero, and strlen(str) when @len is zero.
-> > 
-> > Fixes: a3291c14ecf0 ("tracing/filters: Fix MATCH_END_ONLY filter matching")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-> > ---
-> >  kernel/trace/trace_events_filter.c |    6 +++---
-> >  1 file changed, 3 insertions(+), 3 deletions(-)
-> > 
-> > diff --git a/kernel/trace/trace_events_filter.c b/kernel/trace/trace_events_filter.c
-> > index 5e74d2dae40a..18ce3ec00d34 100644
-> > --- a/kernel/trace/trace_events_filter.c
-> > +++ b/kernel/trace/trace_events_filter.c
-> > @@ -1075,10 +1075,10 @@ static int regex_match_middle(char *str, struct regex *r, int len)
-> >  
-> >  static int regex_match_end(char *str, struct regex *r, int len)
-> >  {
-> > -	int strlen = len - 1;
-> > +	int slen = len ? strnlen(str, len) : strlen(str);
-> >  
-> > -	if (strlen >= r->len &&
-> > -	    memcmp(str + strlen - r->len, r->pattern, r->len) == 0)
-> > +	if (slen >= r->len &&
-> > +	    memcmp(str + slen - r->len, r->pattern, r->len) == 0)
-> >  		return 1;
+> Commit 4cf752f6b99a ("scsi: ufs: core: Fix NULL pointer dereference in
+> scsi_cmd_priv() calls") fixed the callers that dereference the command
+> pointer returned by ufshcd_tag_to_cmd() via scsi_cmd_priv() without
+> checking for NULL first, but three call sites with the same pattern were
+> left:
 > 
-> This slows down the code as it adds more strlen() calculations (it could
-> have already been done.
-
-I sent v2 already, which is slightly lighter (but still using strnlen)
-
-https://lore.kernel.org/all/179291743946.492959.9624495647021680807.stgit@devnote2/
-
-(anyway, 3/10 is already fixed as Sashiko mentioned.)
-
+> - ufshcd_compl_one_cqe(): scsi_cmd_priv(cmd) runs before the !cmd check.
+> - ufshcd_mcq_sq_cleanup(): scsi_cmd_priv(cmd) and scsi_cmd_to_rq(cmd)
+>    run before the !cmd check.
+> - ufshcd_issue_devman_upiu_cmd(): scsi_cmd_priv(cmd) runs before the
+>    WARN_ON_ONCE(!cmd) check.
 > 
-> Let's fix the callers instead and have them pass in the real length.
+> Fix these three remaining sites by deferring the pointer arithmetic until
+> after the NULL check.
 
-OK, let me check it.
+In the Linux kernel, passing NULL to container_of() is safe if the
+result of container_of() is not used. The code modified by this patch
+does not use the result of container_of() before checking that the 
+pointer passed to container_of() is not NULL. In other words, this patch
+doesn't fix any bugs.
 
-Thanks,
+Bart.
 
--- 
-Masami Hiramatsu (Google) <mhiramat@kernel.org>
