@@ -1,82 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793039119;
-	b=PyxLIrbcA2G7RaJct8uK6Ev/dKBeJfMZ9FJLy87O4HKl/gu6nW2/HL1xvdC4X5w5ywUu
-	 cwlxh1vPSHsoatN/S3/kUjdlje0zw6SpgRwrkCmXDPOOji66emp/t5jm0oce5YxuIjWy6
-	 RvlCI6HSuFsNxiEEzCZOfnRUjoxI0IqCRV1cPJk+d8N0vBNNC86Wlh+z+dcaMf/6ayON3
-	 8boA46ECUBAdOqvJki+MqaxTRocRIgJK8JKbHftBif34EglJSv4jcKfEStr5lpll+39+y
-	 KYqQP7S8yElAAe2xGidQDUiAreDMDQmXD4znNS/BJ5v0Tbr5Oiywkb+8SzNdBvsBm3w==
+	t=1793039126;
+	b=wwtc3WqyU/1xC6Hejb6NG/aimJUoHJufnieyY8I9FlOQjuflvXjWLAhR4zwSFqmr5t9i
+	 g2lxVUVbH5Efheq98EYC5jUNbjQGLtRhx+1OT87FNfvwCfU3KYfRz9XjYXsXHc6u76weR
+	 JwrrV1a8VfZ++x3yWfn001qkHJUOtt5wx4f3gUmef10ErjnRX9nfk20cfGUI3wdAldMgK
+	 ea0XZCGbekhu6qBLo6c8d8vuWHTgo+foTxLuIGeg2lOT1fb/+t939pmxY6dTg/d04GE8R
+	 +ZC90VQw39uFLplfkiyqE4JT2cAMv4IED1dmtirNFc0LGeHWewcemOBAzogh3SHmGNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793039119;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793039126;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=xjLdymjveFlr5AB8o2EJE8s7wJtnRZqg0vr0IyW9LqI=;
-	b=EAmWPAGWTOBiLlPddT31vcfzVm6jRX1VqJ90fOmZ2yT6cbAEpZ8YE7e0UP9WFkdfbz0O
-	 w0xa6ijyL+TzQOIKG8WlvbDnKh5tqdSG9h11Wg5dnAyP+NpH/23mrmDjB4fM0zX6JooEo
-	 FsHhSlibo3I/WlvLVsCU44UxTWXDylQ/JQmzcA6UtYkQq2bvOlAJ2MqqmJJgPrSiJLViV
-	 322gEd/Tb9R5fQ+Avn99OjrK/C8Vtew6FOppeYI9/1HxeJujT8OZgW5rhZ43OPxXdOnuM
-	 6A5f1Cs3BYDp97NIbQZ7Huxigw82SCzp483XMyNBHN2TWxaAxxhk9bP1u4o6mI75xxA==
+	bh=as4dLySM74JHCwhJBoWvbRErIcyVkS/DDlAos+E9LjI=;
+	b=DbT3XdYhnMOaJuUuQwXn2FPrvrnrpx9qhDaI3CUJE4eOlv3xWJFRRpQLajxlcvgMhInm
+	 Ib87mDnnUHkffv3VetGTs77JsC1Pbg2bptyZjPKFCEce5t0WfLgIl30dfLfnAS+kiTPeX
+	 gVsr8fzucj41+Ap+pEq5enubmBknm2KYOECW8Jzl148HNIpjrm0aZ7MulLahXkxFratOg
+	 rCBeXx7tAi9Lj61yRatszGA5IbNjxPrVIZiCP49+EJ226gKAQm1jVkW1vm2OuDPhEN3Vy
+	 OBuyGXHsscxQioQO6/e17NM3luyZrbdnqR8mf2SxKB8y1cXyr0fGY+zMR02N+rNXkiw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=OOVKfHBz;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=nk91qd8p;
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BBB7606A31D
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 18:25:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8BBB7606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F29E606A32A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 18:25:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F29E606A32A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=OOVKfHBz
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a610c7e61cso1420615e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:25:18 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=nk91qd8p
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a78ec32fadso1114485e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:25:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793039117; x=1793643917; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1793039125; x=1793643925; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=xjLdymjveFlr5AB8o2EJE8s7wJtnRZqg0vr0IyW9LqI=;
-        b=OOVKfHBzFKwn3Wl1Yd5z9CMzUFn7IfrDS4RhrnrA32AZcLNs97y9VRxUDwlhMJwkRh
-         uAmUIJAktzuWlVxPjCUJEBNFLM6aRu9HDm6xH240xbvGkkB04bOqqr6cLrX2CzTxvjdL
-         5Tkymv5d6XmgsylrDXsR1S2Pmhynu7WScrrza13lN3E809Rtr98XsxG+Vb7TffeowCs8
-         tsA+XXR4drLBoHBVTiAwHw+n44LIQ5GbU12eP/AHtpLOAYrvCTP0/crT1RQMWONW/W9x
-         GfKa6bXujJj5nQCk1LxzPk1I/x5HRVN7EC2MSoQdRTh8nRUGe9EjnZGkMCfZlWmN5RVt
-         jMuA==
+        bh=as4dLySM74JHCwhJBoWvbRErIcyVkS/DDlAos+E9LjI=;
+        b=nk91qd8pvq8xezj42jZxVpU9jl2j+zvLTxTLxQaFC5yOZ3jXkqg0FxUHD5bGNKy4ng
+         bXso+D+pCubRwg66hAUHUPLmXz072+KDsyJVA81SMQ6MrLOAwfVVjnhJzFLTk+rhPLBC
+         fs+lvQGpyDFxCpVGZudqvbszxGKMBUofGnliCV6SwHp0/a42GoWXwjNNn+8Y7SooXhF2
+         lrEiApXOQH3lQAPVHyq87TSfRRdPs4tXVuPUF6m4Jly+x9BtO0LwRiGZmri2hpoH5Sth
+         E/WPRLAD067fNpM4yu33TQtBoTsoo9qZMip5ARq802PkC8FuQmS+3VOXM7DJOCKElzYy
+         GxUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793039117; x=1793643917;
+        d=1e100.net; s=20260707; t=1793039125; x=1793643925;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xjLdymjveFlr5AB8o2EJE8s7wJtnRZqg0vr0IyW9LqI=;
-        b=zAHWI+ge4gj8dkCRO2Xp7AmdDU893P+/NuWXBSRofoLrglrK9SGqDFQKFSfjmd9qlX
-         QLolsE7YqIj+w42EOyNJdwiYqNyGN0JCj/Foua/uKdnU1dlkYtZZQPzSgPi7IZ0YDkRD
-         ftrmw9XEAshgmxcdDSfWTEebg5PNrqAkVNrQHwRO2WvfhCzHEDGYHxPc7HRGUpD12kxw
-         qG9x/qfrEuO6ko+XXc6hxzddNN0SOA4gx8f+hQz5h6l7pTqMP/8K5x+CQSH2FWeRRZZM
-         YAI3WVIxA+F7XtNA56Zvh96nga+ylPNFk0jay2ET6vgXs8nyZxQTBuYuBjkFgmxwk+Ki
-         luSg==
-X-Forwarded-Encrypted: i=1; AKwUvBzGOEa76Ws0IRqB1fh6X/GXgs/h/L7z3rOBIYLyrGqj7TRoGYlEDZDGtTu2OQlHdcmeS4/TlkJje+P86oY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ68StnGxmRLT8Vk6oaNtPCJb63pXtw2EQhkGLZ2U3oPO1XdPLg
-	4r2m2iEBkuz4A3ZzG/K8MPoK7U2YBjDC9dRbkw5kaRWxnUrZVIjbWhNk
-X-Gm-Gg: AYBFou0WouhMeKSyZupHMBljm58s0iiRnslxrI5yhy96aJ8oI5WA+nep87i1NSsFVP+
-	KQIc7pFnbfxzI4S56KnpK/hxB9nm/qNDTQD5KMM7gJwRN+kKZDglTLDFEYUYTSvgQCJ+CUANWH7
-	mEdQtyX7KEWZWD59pH2OJ0PmQFOx5SomnQuuazYvo3x/+W0Sn5qlSczeq8qOhuxEXB7UwOj9Ow5
-	ddfm2VeBESDDu/OZsuOKSZd8jv8Aj3z7qCpecHNgYfxRfAklm75xhRkQsa0SaZUokrwQxvL+2a5
-	7wwjB4DAZBDZi9Ap0YAcUwhSXaFxcMQouXLiPZRJMKkC5qNr0gmUFcR7+Uewh6ZAHWatCPxhN4F
-	YKvURNFWJCFkKednCI8LZKc9YvFItpElDGqmb/kjd66qnKWF+Vb3cDDDLx1s1m5o9ovSJ2H9TUU
-	grFxH/1QuuV77ljVxDcvKG+abnJByb5EwH4JOS8/K4HpE9Ep/eQG/m7yyv3ivrwV8K+aXvBqxMo
-	FpKjMViV+n9R7H0saMCbph8yPXbYcLn9rGZ9jZhp9ZpIxVemn6N1wEWoTX/kQ==
-X-Received: by 2002:a05:600c:6088:b0:4a0:1e9f:64f6 with SMTP id 5b1f17b1804b1-4a35aae2effmr133448675e9.0.1793039116855;
-        Mon, 26 Oct 2026 11:25:16 -0700 (PDT)
+        bh=as4dLySM74JHCwhJBoWvbRErIcyVkS/DDlAos+E9LjI=;
+        b=KFXQ12QQcSitVKjrVbCGjTB4cp1h/csMqchFuaoXCTHNflv7HYJ9pcHyQSDHuq5tDz
+         JEF2WQVGVVc2OQwIBZ4P6/WT8OjTr1C7/R4VCnKo8AKDks0ykrpC/AfNC/QG71P2f0ii
+         cS6+Kaak5r0hxF0ynmyYIrVbxTphJ7levc9zDodh2dBpUd6hdKAYmx0vgK1ywq4YEw0f
+         RhQAdIsGY4bRFpPyqC4s5omqCrdnYhW/acJNmecsGO6Q9Y8RvS64p55Yiu2gB4apDTjv
+         jy9mKLxpLiAuSCeRHiNfph1FAH6SJtkSOcmTHdMl2IAB14aD/f880zwl+ElkhHU7+DPy
+         MGNQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxFt57YmpIHwgm+GMBh4v4hCwyLjCluzZkmjmFEXWnYYZh2/6VwTnD44Yn/epRuU3/mtNf3P7xmYep989Y=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLVrF4jKU4/jVF9qITofooy9hXZiXt3nk5t2NcVOuOT27JFPuqf
+	KM884OIGXWuPDZ3erxcgcbqpqZ80f5RyZn0owvqKu2+YuPm96FCflFtk
+X-Gm-Gg: AYBFou2dTidV5q2J8HshLmxIVE6UQb/5aC+OQf+GXzcdYYQDybQxmCOMN9/ZWThvUPd
+	UOzpfoMYpy4A2u+sa2/CFk0FjzuwnKVprFwyW2MqGpMqT4BA9scBj3nahCl8RzaIGpHMDmM6E9W
+	X27P4ar7ZD1CdC3gW0V6ypglmIGz+IGUa+xcJ0jXXgL/V2+rTkg0tiZpqunhYo55oxaYCTZcULM
+	RDqL2+8bFGDuI4BjeiHdpZVoK6QPS93ADpQhp7jjslu3/9eQqXRSr89x3FHZFVBgy/O68I21+lB
+	l0cj+JQXpl6o+/wHRpMNcd7LShXRU1BSK/rMtGh2zKU6o8iRNG/kwC6oaQQaLgz1DPbZsExvS8N
+	uIkxqZpAgZcV1PcdDHppCbmd9YJFGctF2aispjsMAm98Rf1v59uZ4A6xmO6N+35+/ObonQ1E4ba
+	4flrGsuktm+pb/0A0DhFNvGBmMsPsHlI6oM7Z5kIMeEGMbQx7nCSL0ycuOBVqM08vhnr9r/H1DQ
+	GE0Iftlq3Ly9JujNfE2c098Eh3EpsZG6iLCaAcJXR0JbEodmt6r/aBopQYSOQ==
+X-Received: by 2002:a05:600c:a114:b0:4a0:1f9e:5f78 with SMTP id 5b1f17b1804b1-4a35aae5c22mr101769385e9.0.1793039124430;
+        Mon, 26 Oct 2026 11:25:24 -0700 (PDT)
 Received: from Termis-ROG-FLOW-Z13 ([2a09:bac5:521a:254b::3b7:76])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a30e22csm211673245e9.2.2026.10.26.11.25.14
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a30e22csm211673245e9.2.2026.10.26.11.25.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 11:25:16 -0700 (PDT)
+        Mon, 26 Oct 2026 11:25:24 -0700 (PDT)
 From: Seifelden Abdelmonem <saif.elden.hatim@gmail.com>
 To: Bin Du <bin.du@amd.com>,
 	Nirujogi Pratap <pratap.nirujogi@amd.com>
@@ -87,9 +87,9 @@ Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
 	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Seifelden Abdelmonem <saif.elden.hatim@gmail.com>
-Subject: [PATCH 1/2] media: amd: isp4: hold buf_list_lock while sending buffers at stream start
-Date: Mon, 26 Oct 2026 21:24:41 +0300
-Message-ID: <20261026182442.229869-2-saif.elden.hatim@gmail.com>
+Subject: [PATCH 2/2] media: amd: isp4: return capture buffers with V4L2_FIELD_NONE
+Date: Mon, 26 Oct 2026 21:24:42 +0300
+Message-ID: <20261026182442.229869-3-saif.elden.hatim@gmail.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261026182442.229869-1-saif.elden.hatim@gmail.com>
 References: <20261026182442.229869-1-saif.elden.hatim@gmail.com>
@@ -104,69 +104,42 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-isp4vid_qops_start_streaming() walks isp_vdev->buf_list without
-buf_list_lock and passes each buffer to isp4sd_ioc_send_img_buf().
-Every other access to buf_list holds that lock.
+isp4vid_handle_frame_done() marks every completed buffer as
+V4L2_FIELD_ANY. V4L2_FIELD_ANY is only valid as a request from the
+application; a dequeued buffer must report the field order of the
+image it contains. v4l2-compliance therefore fails the first MMAP
+streaming test:
 
-vb2 serialises the walk against buf_queue(), but not against the
-firmware response thread. Once ISP4SD_MIN_BUF_CNT_BEF_START_STREAM
-buffers have been sent, isp4sd_ioc_send_img_buf() also sends
-START_STREAM, so the firmware can complete buffers while the walk is
-still running. isp4vid_handle_frame_done() then list_del()s the
-completed buffer from buf_list. If that buffer is the current entry of
-the walk, list_for_each_entry() follows the poisoned next pointer:
+  fail: v4l2-test-buffers.cpp(419): g_field() == V4L2_FIELD_ANY
+  fail: v4l2-test-buffers.cpp(1280): buf.check(q, last_seq)
+  fail: v4l2-test-buffers.cpp(1735): captureBufs(...)
+  test MMAP (no poll, REQBUFS): FAIL
 
-  Oops: general protection fault, maybe for address 0xffff8e6944d97060
-  RIP: 0010:isp4if_alloc_buffer_node+0x37/0x50 [amd_isp4_capture]
-  RBX: dead0000000000b8 ... RSI: dead0000000000b8
-  Call Trace:
-   isp4sd_ioc_send_img_buf
-   isp4vid_qops_start_streaming
-   vb2_start_streaming
-   vb2_core_streamon
-
-The oopsing task holds the queue lock, so the video device can no
-longer be closed and the module cannot be unloaded until reboot.
-
-This was hit on a board that is not supported upstream yet, with an
-out-of-tree change that made one isp4sd_ioc_send_img_buf() call take
-over a second. With the stock driver the window is much shorter, but
-the list is still modified concurrently without the lock.
-
-Hold buf_list_lock across the walk. This adds the lock order
-buf_list_lock -> ops_mutex. No path takes them in the reverse order:
-isp4vid_handle_frame_done() runs in the response thread without
-ops_mutex. isp4sd_ioc_send_img_buf() only queues commands and does not
-wait for a firmware response, so the response thread is at most
-delayed until the initial buffers have been sent.
+The ISP only produces progressive frames, and the format ioctls already
+report V4L2_FIELD_NONE (isp4vid_fmt_default). Use V4L2_FIELD_NONE for
+the returned buffers as well. With this change that test passes.
 
 Fixes: 2ccf48af2270 ("media: platform: amd: isp4 video node and buffers handling added")
 Signed-off-by: Seifelden Abdelmonem <saif.elden.hatim@gmail.com>
 ---
 Testing and AI use: see the cover letter.
 
- drivers/media/platform/amd/isp4/isp4_video.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ drivers/media/platform/amd/isp4/isp4_video.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/media/platform/amd/isp4/isp4_video.c b/drivers/media/platform/amd/isp4/isp4_video.c
-index 856a2a0b4..58ea8d6ac 100644
+index 58ea8d6ac..b8af3c766 100644
 --- a/drivers/media/platform/amd/isp4/isp4_video.c
 +++ b/drivers/media/platform/amd/isp4/isp4_video.c
-@@ -567,9 +567,11 @@ static int isp4vid_qops_start_streaming(struct vb2_queue *vq,
- 		}
- 	}
+@@ -72,7 +72,7 @@ void isp4vid_handle_frame_done(struct isp4vid_dev *isp_vdev,
+ 	/* Fill the buffer */
+ 	isp4vid_buf->vb2.vb2_buf.timestamp = ktime_get_ns();
+ 	isp4vid_buf->vb2.sequence = isp_vdev->sequence++;
+-	isp4vid_buf->vb2.field = V4L2_FIELD_ANY;
++	isp4vid_buf->vb2.field = V4L2_FIELD_NONE;
  
--	list_for_each_entry(isp4vid_buf, &isp_vdev->buf_list, list)
--		isp4sd_ioc_send_img_buf(isp_vdev->isp_sdev,
--					&isp4vid_buf->img_buf);
-+	scoped_guard(mutex, &isp_vdev->buf_list_lock) {
-+		list_for_each_entry(isp4vid_buf, &isp_vdev->buf_list, list)
-+			isp4sd_ioc_send_img_buf(isp_vdev->isp_sdev,
-+						&isp4vid_buf->img_buf);
-+	}
- 
- 	isp_vdev->stream_started = true;
- 
+ 	vb2_set_plane_payload(&isp4vid_buf->vb2.vb2_buf,
+ 			      0, isp_vdev->format.sizeimage);
 -- 
 2.56.0
 
