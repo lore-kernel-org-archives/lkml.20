@@ -1,77 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793006685;
-	b=pm3lZl9jtzwAfQTQBTSzjOUtm4JdlfuOWKG+dhql4CVm1sOHwvdL3Nu8RwQyuAOoEsQ3
-	 SmJVLoSvDYv+Z8I1nQCl7mysg2UQXNBIjyYaMZDpisrjA3kHyyb5W9Z1vUs/Ih5L5hsFz
-	 geI54gsdzbjJT42QLI4523ONMZU5oEsPj6QB2H2t1dNnbsrBu4tr/9fowva+vpmVwppvB
-	 0ZAejEEyz0KqaKH9PvGfTauUNj/BXBB9HswujP3ObMnVCtEMIhISOp/qxqRSwMANVtQD9
-	 K1sFQG//NY0j5fhcdDYihWNDIWq5sOzcv8ytO22HmWbI3WjJiKadnwGkuMIobAl0nfw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793006685;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=XyY6QwI5d5wBdkJzT0g/k8F7w00iljyIPp+DEpMbmXU=;
-	b=UogqsuFU793T8kP26JwkYu//WB9bHacDytYv5B3AXSEDW96Fe7+bPbOPWNrUI1RIcE7V
-	 igO2hv1DFN7nDc5WhBOTWJgfauVbj29OkIaYh+EuxVLo+jK9yyJzmdCFzYWTHTbU+4nFw
-	 ZNVRFeWqjj0o/gnctG/FQMRJjQfUo0iZ7Gu/3qBnlLeXOdOB13ZWqjz4YMDxLJPgodF3M
-	 FdFCWKJC6K9JWiHkl5bXqvLsAXhYGtzpQi6kKWeDpuxD/eymqEWRrOVoaiV1NAJrlfG/k
-	 oYi2rklW6aLQcsfGLXmpx6aZadgxbmvLWkNmA/a7Q0QkV+8/kc/w7TCn1N54cspp28g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CxHPWCFP;
-	arc=none smtp.remote-ip=192.198.163.10
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793006691;
+	b=0Hk2eMGiyLcj7VPp1VgHWHVLoeMIEsVlbWNu+PLOfZ6/x7OLMELYhWkv+2aL6uufKxto
+	 0nm2EyrhK5q3nt0hPKumbqESeNTh9w+QpTUZ+Y+SHmXjcwqphzSC5Ytpug7erWT1i16+p
+	 pTNLvgSEGWGYkT5KX2G4zJ7DEkVUIoZIZglCgZIslIIK9QpR1JYtBKk5RGflGEjiwDEf8
+	 MjbcutRDhYAZKWzjUNQqAoP6p81Mnn4/+SJtdMtsAImF3vZfaNVoA5uoGv1IZjl0l/5BK
+	 QYo2iU8ljbpcEFtWjm0uvYZwAMh7hPb3wsBaMGTe0F4iHqtdKaQG3sNqS8/6HAuTh8g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793006691;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Date:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=Lg6XI+8K9pvkjnx+SeSWR/YM2/gsXFi7GaWG0PrJeu8=;
+	b=KKGoS9jiANwWFhxlqjEzTqdZT3op+4eK1n4ao0ZPik6ePU0CfHw6TG3j3UEWYD0syolZ
+	 yTEP8DnEVQmn4EtvbdOD1OfrDRCNWfrO9N9VMwwMH/5VTyi2UkwZEnhKORvLoOHXelTkZ
+	 pYfGOEjptYdDRBcBcx949hPTSHdhxXqTUP6w7w5J6F7fubS3gXZpxWX2FctljEIxh/SNB
+	 mnuHQkjVgPMLUAYRfzVj34qCT6lgQl0RBmtU2bIr+F1rPtnXl8tEJim+0dpo9outyM9Bs
+	 f3uTK7hOMqYsmSOyXyoWl/O52WMoVaehH6gxT2Xb6cBCeXfPWpUsjmG+ZCjCzvq1bOA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=PTLh80nx;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2F90606A336;
-	Mon, 26 Oct 2026 09:24:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2F90606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70BD7606A31D
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:24:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70BD7606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CxHPWCFP
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793006685; x=1824542685;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=nLVdTbTG3BOOg0NKFoId7DXu+3MHSWUcFw4OvEb/0iI=;
-  b=CxHPWCFPUb/ZL5e1sFsquhvWwEWNaZLl0e6mCh0votwKmf+B4qzPNrSb
-   nikiaM7Wp1aSLm4/sr9mi4ROaCFD8GjyAnFVGMLOBVuteccULsGap63yC
-   jePXfqTO2qZYLKbGwTu100lfwudj8nNDr6jGdBFzEEt+O4h1GJ/iaghdn
-   qXC7TQfEhZdtDKFWtvdkEOdR07P1ASLco3oSeHShhuLe/EU+AqMZ7ye9K
-   YMT0Z9PQse1bwR/Y/6pipkNRk2VpIs1Xn5aFvvoKRIYQKROE9F/xy99Du
-   GFW0jBkEyEra1HE8Xp3LwmgrpX0P90gtxPvuV+6ncLTdnH6W53b3tzvHl
-   A==;
-X-CSE-ConnectionGUID: dIRvxLb0R/mWEXTZtLb5ZA==
-X-CSE-MsgGUID: IYSQ9z8WTeCCuZ/5q9puMQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1567574"
-X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
-   d="scan'208";a="1567574"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 02:24:44 -0700
-X-CSE-ConnectionGUID: SWD2y8FzSO+MtT9Rg6GkFA==
-X-CSE-MsgGUID: vPTCfpkGTMOKogBsIiegLA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
-   d="scan'208";a="6044272"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.93])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 02:24:41 -0700
-Date: Mon, 26 Oct 2026 11:24:39 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: himanshu bakshi <himanshu.bakshi478@gmail.com>
-Cc: andy@kernel.org, gregkh@linuxfoundation.org, dennylin0707@gmail.com,
-	cenzhang@linux.microsoft.com, dri-devel@lists.freedesktop.org,
-	linux-fbdev@vger.kernel.org, linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org, dan.carpenter@linaro.org
-Subject: Re: [PATCH] staging: fbtft: Remove unused macro
-Message-ID: <at8cV1asiwO1FtQA@ashevche-desk.local>
-References: <20261026081832.60570-1-himanshu.bakshi478@gmail.com>
- <at8cAMm6psyWsqbe@ashevche-desk.local>
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=PTLh80nx
+Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
+	(Authenticated sender: pza@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id AC36D200B1D;
+	Mon, 26 Oct 2026 10:24:48 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793006688;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Lg6XI+8K9pvkjnx+SeSWR/YM2/gsXFi7GaWG0PrJeu8=;
+	b=PTLh80nxY1QPZi8wIcTrvP+syHbINljcxKLZStPzXXM18whry4sfkndumwMXgQ+2OmHxHm
+	6TZWA2pldjlceqCX59b1yqqPHBt9vLWs4aZOHH4XxABpDjHDDviLvzTjA7BMmO4KK25uVh
+	v+e9A4TuQ7Or7QM+riWz3wX+KTi6nFd57u/yseitxyvOC4yR7hRjelGuFfE1IiU3ePHTAV
+	qHkKrgSeVA0+ag3mHKtMVXKBfNShTUwUnGE/QFBmvc67TWa8qAI7xfpXi4Yq5MICaFeF7y
+	69XQaC/oNWIjRgcFmHaKUx6meifrA/nS5mR01p3CC1H4yOsJ4YULrbzQKQF0fg==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793006688; a=rsa-sha256;
+	cv=none;
+	b=QHpvNye/xZc1S07MueqTm+zFbt19KjSToLVucI6ZSJqftJpM3H9CoLWe8HA2hSG/NQC05W
+	7Jzq/RKG7JLzm1iUNtATFMISySQqCjyEqakt0p0ufaDoVwJtnG0IiWp42JuT4EMmYdmliY
+	O/UZFWJkxVlv45hEi8SYJzF9PRNb0KFnrwfA/T3+w6fOMjRRFOizuHekW1aFfDrmxQtXwj
+	dxQQQ/AjQxqE4IJDwwAfzXuuTXeyIZ4scjTQzI5r7j3W7xp3WbbVBWHR2uazwztm5ZeMzK
+	eVJL4FZOHwYjkCCMYoLYu2YWE3l/lm8VyADlUrt5kwVUGuCMC3gKWPUozYwzGQ==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793006688;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Lg6XI+8K9pvkjnx+SeSWR/YM2/gsXFi7GaWG0PrJeu8=;
+	b=fglCNAzwzIGoQmaZ5OhE7wo7hbAdo/qJSyh3+qPwkwiLMIMHgp2RnN8UutAL6BaK7lz702
+	AXUvk3flOnK853nrUYRYUYuviS/1T3U4ZI7heIt2Mi6/HsMNJXo28qY8+d5I9ekUCzxIt3
+	NknaX49NhP9NJtsaknb3zPmIwmph//HjaZ7K2gAuadZo8LLJWchcXvZAGo0FWc4d4dmuB4
+	pG7N0lQ1HE/bDefTWF5m9TPjDma+BEf4425KkVJf+SvAlJkxQKTOHHBWHhFraqBtsNNhYr
+	8zjhr2Fdz9YDb1yVPxGwBX/+o8ObIB2AOjQHMEqcDuzFx8sygD8V819v3lalOw==
+Message-ID: <9e181c3bf6a8292996c010904a0890d69910e6b9.camel@pengutronix.de>
+Subject: Re: [PATCH v4 2/2] reset: gpio: Set can_sleep for the shared reset
+ serialization
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: shengjiu.wang@oss.nxp.com, krzk@kernel.org, hansg@kernel.org, 
+	linux-kernel@vger.kernel.org, broonie@kernel.org, alvin.sipraga@analog.com
+Date: Mon, 26 Oct 2026 10:24:48 +0100
+In-Reply-To: <20261023071609.3795354-3-shengjiu.wang@oss.nxp.com>
+References: <20261023071609.3795354-1-shengjiu.wang@oss.nxp.com>
+	 <20261023071609.3795354-3-shengjiu.wang@oss.nxp.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,37 +93,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <at8cAMm6psyWsqbe@ashevche-desk.local>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, Oct 26, 2026 at 11:23:17AM +0200, Andy Shevchenko wrote:
-> On Mon, Oct 26, 2026 at 01:48:32PM +0530, himanshu bakshi wrote:
-> > 
-> > fbtft_init_dbg is not used in drivers/staging/fbtft directory and
-> 
-> We refer to the functions and semantically similar macros as
-> func() or macro() in the text and comments.
-> 
-> > since dev_dbg messages are good enough, fbtft_init_dbg should be
-> 
-> Ditto for both dev_dbg() and fbtft_init_dbg().
-> 
-> > removed. After compiling the driver, there are no undefined macro
-> > issues.
-> 
-> > Signed-off-by: Himanshu Bakshi <himanshu.bakshi478@gmail.com>
-> > ---
-> 
-> It doesn't say how you tested this, though.
+On Fr, 2026-10-23 at 15:16 +0800, shengjiu.wang@oss.nxp.com wrote:
+> From: Shengjiu Wang <shengjiu.wang@nxp.com>
+>=20
+> reset-gpio drives the line with gpiod_set_value_cansleep(), so its reset
+> ops may sleep. Set reset_controller_dev::can_sleep so the core serializes
+> the shared refcount update and the hardware op under its per-control mute=
+x,
+> preventing a concurrent consumer from returning before the op has finishe=
+d.
+>=20
+> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
 
-Ah, after reading Dan's email I noticed that the last sentence in the commit
-message actually should be located here, in the comment block.
+Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
 
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+regards
+Philipp
