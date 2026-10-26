@@ -1,54 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792982103;
-	b=4O281ucSvlKTFymDVMFV++fHfd/yiqKMO4XYmimI2qync/Z2yVzvaT8uArVETvv4iLyB
-	 ueNj5EFOEzvWveH+vzAyhFai5SZFdFLMZytWuo0Usib2xLQNFnMGTOzBOKcTX5Ib3MP9c
-	 fH40ViwwF6JzZ+bp+t3ZLUZZnKEMFUg06dlPiWrg/qrVi5WT/hx1iEEw9GBfuZbUpsPJf
-	 cSLn1ExpIayvWNrCTytZu8NR5eP/vjNEWrHKI0XHP7f5K1ORRZdfFRmCoLzFD53UfwtD5
-	 z2P609g2LeItNqFPdi+8PfYJeKYN/ZyyzvIB+9KDRvMcK8l2IzkZ6h1v/lyJtaNDf0Q==
+	t=1792982116;
+	b=n4Q3mY4QazKoTvQtjd/vltMSb3G7eoIIzKeoM1G/VdQtnokI1DE66BjyCtFKhkPs7kpr
+	 8j/iD48wP1Se7wHqtOh5Z36pztxC3cIm3Vh5QAVgWPxcRS6sb9GOQhhLmmMw7URt1MnB1
+	 1fW6Ytjvxg9sAQBnSnvFXUrHzEYTH7TCT3qpuUX96YFQRtRc4yEvG99UGwXC5A1Tt2YIx
+	 CRRVe/684TwthIM8WvTaOxa1rpPEh9xGTQbW5WRkIe1jdSxZYPUdm+7e1xkaZ1MibqjB6
+	 DGLpXIpnscHGfw0AtOP8+5BUOhWVD8INLT5jW3cbkvVisDtext4lRcLHtxT7DxV0e/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792982103;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=sZgDjBjjcjDlzjmzVPanm0Wn8aDaHp4RL12z7aHdHkA=;
-	b=WIYAhTwi6eKD5ZFJcfwSKBjmGS+vNRfAyJx+I+Bk6Wlrrn0WSy83sOZdEpygpAHbmTWO
-	 1VtNJ53CJMp+QGukJdYZ34s/1GljkXCjM86/9ZY+F7P10szDMVDUx+Cf8pCg60nIQrbQd
-	 Xkl4PMEBIhgOM6mG3P5U9eux568FBGgO+An74/hhVB1R2tJg4tBQKM8UnVdyIeuvPVARU
-	 50P203sXH0qsDQuy98bNTg3csHuyR4Z51ktnalNKohsiw7r50hz5ri1gm6rMgWq7LWzBi
-	 LaL8VZBkVuK0dKsdVaDzRyrL6oRwEOySe2d+Ywi6WfhgeNvgIBH6w+O4EEYPNK5DlTw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792982116;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=mWS6nWjGDo/ShzQtH2Z3nfuPDKs+D8p78VoAXukz7ZE=;
+	b=W7itgg0jneo+dCOTd30qHkITM1QX2Wckhd/lcMArC8tued8mfPHhl2CoeCOk5+g4MuuL
+	 yMBZ6DWhJL6dsL6E4ERdaDPZDTdX/ZGghSCCKUNjZgUG584fxeLwfKQX+/i6Ks/lP/U9S
+	 cBKhUj0F073xMH6Drn/hRnJZFHaY7fO2lQ74lhTB3hSoibnGgvu8g1ph9MurgtspeUCk+
+	 bCTxtnvK/Fy1TjlMXiAVgAlGUDIU+DlyyhSpg0OMtwyszHtI6k2xH870iWniNXAmCIfp4
+	 8PHNBeMnRnFfeWxnwX/Y8SNXvt6mp75tz1u2uQsewWzN+xo5/9IfdwCYsL21TrBIGWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=cBhBYaiM;
-	arc=none smtp.remote-ip=198.137.202.133
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=an6otOFp;
+	arc=none smtp.remote-ip=115.124.30.131
+Received: from out30-131.freemail.mail.aliyun.com (out30-131.freemail.mail.aliyun.com [115.124.30.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5B5F606A31A;
-	Mon, 26 Oct 2026 02:35:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5B5F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D58E1606A31B
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:35:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D58E1606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=cBhBYaiM
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=sZgDjBjjcjDlzjmzVPanm0Wn8aDaHp4RL12z7aHdHkA=; b=cBhBYaiMr7TExek/ovKY+GaADD
-	QQDhDBo0sg8tKCBVVoAgCcD4R6J9J7fMYq/ldvYgaoXdjfRTDChudW5zqR9GgRpxx2Ef8ICCqXQFk
-	5/f8gECNpJKEyABZBceFuOWzFRbV31lYAkG5HSMCMQh09W1EE0YMoqlYJufw5MHBvqZJFGBFdALN6
-	hjV+Bb15kZxcB60ULcCrnrKATGlXu2bQfmlUYg7E4jvHPgSArSx4ZBsBo3auH3QrTs5kEM2y4NBFh
-	ivRYvnR6e1XpoOPMTO1kBstzLDPMWCohStAeeKseHTiEiESncO60aJnY60ndZCLUpIxBB11w9rBER
-	OxWuB+3w==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xLAYA-00000001cVE-17bv;
-	Mon, 26 Oct 2026 02:35:02 +0000
-Message-ID: <194ba453-53eb-4e6b-a20b-ccf9158afd86@infradead.org>
-Date: Sun, 25 Oct 2026 19:35:01 -0700
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=an6otOFp
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1792982106; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=mWS6nWjGDo/ShzQtH2Z3nfuPDKs+D8p78VoAXukz7ZE=;
+	b=an6otOFpm9bkyCRM83PToZx2trfSF+F6lQfrSsV0M41SNZIGpwfhmtbUykmkmmZZ6kpq9BEHASMCRJxqvOADpg/a7kjtVrYny0xjqhltbFKbVngV/zGNNsSCeoAJA1mTHsVLnCjmhDLH2HHtsvzTGuIDL0Z3vQmkjcZPdne/KnE=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R201e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=20;SR=0;TI=SMTPD_---0XDRbIb._1792982104;
+Received: from 30.74.144.181(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XDRbIb._1792982104 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Mon, 26 Oct 2026 10:35:04 +0800
+Message-ID: <059bce48-c591-4bc7-9046-de03fb4df748@linux.alibaba.com>
+Date: Mon, 26 Oct 2026 10:35:04 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,48 +54,40 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/7] docs: ABI: power: rt9471: Fix mismatched quote
-To: Waqar Hameed <waqar.hameed@axis.com>, Sebastian Reichel <sre@kernel.org>,
- Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-Cc: kernel@axis.com, linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <cover.1792965060.git.waqar.hameed@axis.com>
- <174f866966dcd0b297e783fb2c44e7e35274b6f3.1792965060.git.waqar.hameed@axis.com>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <174f866966dcd0b297e783fb2c44e7e35274b6f3.1792965060.git.waqar.hameed@axis.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH v1 2/2] mm: multi-gen LRU: remove get_lruvec()
+To: Siddharth Chintamaneni <sidchintamaneni@gmail.com>,
+ akpm@linux-foundation.org, hannes@cmpxchg.org
+Cc: david@kernel.org, mhocko@kernel.org, qi.zheng@linux.dev,
+ shakeel.butt@linux.dev, ljs@kernel.org, kasong@tencent.com,
+ baohua@kernel.org, axelrasmussen@google.com, yuanchu@google.com,
+ weixugc@google.com, baoquan.he@linux.dev, yuzhao@google.com,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, apais@microsoft.com,
+ rlmenge@gmail.com, Hardik Garg <hargar@linux.microsoft.com>
+References: <20261021235606.89545-1-sidchintamaneni@gmail.com>
+ <20261021235606.89545-2-sidchintamaneni@gmail.com>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <20261021235606.89545-2-sidchintamaneni@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 
 
-On 10/25/26 3:05 PM, Waqar Hameed wrote:
-> Quotes should have matching characters. Fix this by replacing '"' with
-> '''.
+On 10/22/26 7:56 AM, Siddharth Chintamaneni wrote:
+> get_lruvec() was originally introduced in commit ec1c86b25f4b ("mm:
+> multi-gen LRU: groundwork") to guard against NULL NODE_DATA(nid) on
+> uninitialized NUMA nodes (`return pgdat ? &pgdat->__lruvec : NULL;`).
+> After commit 09f49dca570a ("mm: handle uninitialized numa nodes
+> gracefully") and commit 931b6a8b36a2 ("mm: multi-gen LRU: remove NULL
+> checks on NODE_DATA()"), that NULL check was removed, leaving
+> get_lruvec() as a thin wrapper around mem_cgroup_lruvec().
 > 
-> Reported-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-> Closes: https://lore.kernel.org/oe-kbuild-all/20261020101625.01874245@foz.lan/
-> Signed-off-by: Waqar Hameed <waqar.hameed@axis.com>
-
-Acked-by: Randy Dunlap <rdunlap@infradead.org>
-Thanks.
-
+> Remove get_lruvec() and call mem_cgroup_lruvec() directly at all call
+> sites.
+> 
+> Cc: Barry Song <baohua@kernel.org>
+> Signed-off-by: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
+> Signed-off-by: Hardik Garg <hargar@linux.microsoft.com>
 > ---
->  Documentation/ABI/testing/sysfs-class-power-rt9471 | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/ABI/testing/sysfs-class-power-rt9471 b/Documentation/ABI/testing/sysfs-class-power-rt9471
-> index c306e2ead6bb7..eced82ff43022 100644
-> --- a/Documentation/ABI/testing/sysfs-class-power-rt9471
-> +++ b/Documentation/ABI/testing/sysfs-class-power-rt9471
-> @@ -7,7 +7,7 @@ Description:
->  		If enabled and the input is removed, the internal battery FET is turned
->  		off to reduce the leakage from the BAT pin. See device datasheet for details.
->  		It's commonly used when the product enter shipping stage. After entering
-> -		shipping mode, only 'VBUS' or 'Power key" pressed can make it leave this
-> +		shipping mode, only 'VBUS' or 'Power' pressed can make it leave this
->  		mode. 'Disable' also can help to leave it, but it's more like to abort
->  		the action before the device really enter shipping mode.
->  
 
--- 
-~Randy
+LGTM.
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
