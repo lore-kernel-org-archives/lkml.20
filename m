@@ -1,72 +1,120 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.204
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.97
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793006897;
-	b=n6EMg0KSMuoQIRBwv/LT87/zjdU32w4g0mszc1MGoeL4Msw1EVIdNSaQSPXOXHwPMnuc
-	 ZxulmhV5cwn8RySrJgmcUXmLcPrtUdpsV7F8X2lg1/a8weqq1mHCcZ9LO4l2VvhDCmsw2
-	 tjBws5GY6OwONOBeT+mBhM+GiUhrqpnJvNpP98CyH6SKq156zdgoJETyRUzw1vTOIoeed
-	 KpZ7WqbgqVq5i/vkI70SlOhvdR6wrD+MNeSpz0bJJOY3xC3RTVm4zQ1enwXn+cuHzo3cp
-	 IsTNygfuFqhtaf7bC9glv/qPNFmFRLpXDOggXE3nwrK7CFOYVYBQsCvXqkXUjYE7ZSg==
+	t=1793006903;
+	b=MoNg69TTHTwfRc1zQ1CgV6cubMiWZaG/jZEpy+f/HFl9SduSp7sEAicOs2e/kUfQC8wz
+	 L1RLfu8N8IwSamqt2mMZNSMWzptUvTW8EpUCchP/SfdVaJxQFBDHmROYzMVZWUCZNgvMc
+	 D5DZco7Nr93tMVLEvY3koEiPZeQkZqVrO+W+4Fh+IXUY5rpI7TX1diFnCDW0fCX47wzdT
+	 gTPKVmQrJiqgPokK1Bey5Ym8bPfmNCXQO7k1lmLOJ0C+gduULWW4JAM+j79b8hghHi5Zy
+	 UotA0VrDDgf2vedrbSVgIeyqmF02zom84x2CQqoLmGNOIiNUEAjUUGOEP3tHfZ5o7+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793006897;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793006903;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
+	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=+AI0DYauqQPIFoBNmaP0YwjPn6fiYc/EIMHLhz9D4Mk=;
-	b=cR7lejtYnWKViZCSNi+r0fsZ+cKtYSaTlQXaVho6lfcMhsWWMEqt8Qn6MnG2DuhHRLuu
-	 5myKJ8VkYc/EkUV0qxMoZjSw2uGiEK/RhVo0lD4Mx9QQjBRYoPt0hAvKA3KU88onTm+Ck
-	 HFgQQAuC1NxY/XsyGuvs0MMd7IXj7hHa1MHH8nKP7Rhux1FZrWv/GKaJB694ZqZsus7Id
-	 fMnBPOIVzLPrEiAgqTKfsglpMO08uy+Wvj7qBLDHrVwXMA/Xs82CvYSgk95yhwDJXGYch
-	 oOUHFIGl1SHNilOrBQ3TiX0NTxzRg+xCXbm2zFiJCuj6SToJh9U1/cAhuhLy2INrJyQ==
+	 Content-Transfer-Encoding:X-DetectorID-Processed;
+	bh=1E2k1lqYpcgLA/U9AfcKbavuiY4YjaqtzjrZYfyvQVw=;
+	b=SM0cNRxoE3w/F2Wep2ohdSptHrvN4u6HsuO4g9IYoBlI0MT6PdCI0SEn2h61TZij7S5g
+	 CI550joHG4ieGIhrob1aHXrzP7mFGKvjMJDQJtsnRdncvPTym6ieeqHua9AsspK5v82oM
+	 W3xFJ4upDayFHairuGmXUtUMZ6Py1nzYiOqoJur1CaFdHdBV+wxuJmBb96lJ0f8EYQs6E
+	 5HBqa4DBhBJERWvyPTVZpwLs1mGiZcohLkFa9lb3W3G6xEe2+JK07O8SB0BgrzsgruE7p
+	 rb2VPSjSBK/f+w5L38p5cEbXPbYqPpTIFbXizqPlN71FkLChDZkMVa2vqvX7DEKf4Cg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	arc=none smtp.remote-ip=95.215.58.204
-Received: from mta1.migadu.com (out-204.mta1.migadu.com [95.215.58.204])
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=Oltz6a57;
+	arc=none smtp.remote-ip=209.85.216.97
+Received: from mail-pj1-f97.google.com (mail-pj1-f97.google.com [209.85.216.97])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3871606A321
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:28:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3871606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=WutytbD2CvrnwsDDfY3uXMPciA1D/8obpWjMW5XUgIs=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793006894; v=1; x=1793611694;
- b=QRj/tWCEnwMqqoeAcINf0LDm7v4NPB2elKgVX80jeaJBFzurbKQnFQi4W2vsas2UMOcL2Ruu
- h7WgCh6ezv66G8xF4svhqcjxu25krlNWQyIMnk/NKNzMHs4466WoMfaRAnTWJWjTy9OVDa4gXx5
- evuyPn/tBAnl9z71so+bEzwI=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c5e8a671613dede4;
-	Mon, 26 Oct 2026 09:28:11 +0000
-X-Mizu-Trace-ID: c5e8a671613dede4
-X-Migadu-Flow: FLOW_OUT
-From: Fuad Tabba <fuad.tabba@linux.dev>
-To: Oliver Upton <oupton@kernel.org>,
-	Marc Zyngier <maz@kernel.org>,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Cc: Joey Gouly <joey.gouly@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Andre Przywara <andre.przywara@arm.com>,
-	Eric Auger <eric.auger@redhat.com>,
-	Yuchao Zhang <ndaugoing@gmail.com>,
-	Fuad Tabba <tabba@google.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/2] KVM: arm64: vgic: Don't forward LPIs to a redistributor with LPIs disabled
-Date: Mon, 26 Oct 2026 09:28:01 +0000
-Message-ID: <20261026092802.2636798-2-fuad.tabba@linux.dev>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261026092802.2636798-1-fuad.tabba@linux.dev>
-References: <20261026092802.2636798-1-fuad.tabba@linux.dev>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7DE0606A328
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:28:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7DE0606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=Oltz6a57
+Received: by mail-pj1-f97.google.com with SMTP id 98e67ed59e1d1-3ac7842c17dso1485858a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:28:22 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793006902; x=1793611702;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1E2k1lqYpcgLA/U9AfcKbavuiY4YjaqtzjrZYfyvQVw=;
+        b=zjm7X+RARltLRqioisIXspOqIvLQYhCIMHRW4+u0YQXYE9r/ZrrkDoRwU7eOaEDcSl
+         OZaUHUjMate0PGj8QGCI9+4F6DKDQRgumb1sHYqp7lDxO3EG968UvZJs9ZuLsiRcvYKO
+         CXM13D82+IQBgmPfP2aXGQFH4hvLS3vq+I1hDc4b+2ysZBoeYeTgOUJVtfv0MlXVwGoC
+         ZhzOtjovN0v6Je5chzq2Th8qt/m/vQxz/Fl34k5ARCu42kZBQErFxwdC6SpVF+rxVON9
+         66/oglddxPvVQg9ebGR0joLM0crBYlcQBIgmVGuDSCZgVRVvTQOKvhE4AKorAiJIS5Yh
+         HQpQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx9OCYMV0jhQvybaMIdfDjw9SVkLFAIyc+gc+oLAI50Lh2wh4Tu++QqBjn7FeBApNPOqNXWJ7gMrD3GuhI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLEKIsxHktu/3gbBvHwtdJab4KV/xksY+VdKqnw/Rd1vuo+/BaS
+	cBKnDA/ScMBrJxTDQDN3KrcGxKVLAZcvmz8x+WgXkuDOYAtY9jPoOdQ/Kg9kdoo+hj1JL5vmjlR
+	H/Knvgfz/ev30VMEF0kl4G3Fm+qSCHjuqYB2UULmUfXT5R4FVb1y58p+R51tgKLREg+RAg+C1mf
+	PBKEFIJWQUVCbWVG74dU1r2vnIN/SWfDfaLuC4AHWU0xg25nQr5lznIP0/6+2NlCqTas8hWJIDv
+	fPTuV+8ivI6nejSnw==
+X-Gm-Gg: AYBFou2xIvZ9KfUcbeAOi+Zh6BiMkEJ/T8oCOQRiOsXbEWIxlBPQZ3s2Uzby1CDdQzc
+	wFSL8Z627XQgFg42XyQQ5Tjb6nCjbYf9MkR2n6FhKzG3OlpER1NszMPuMJYUr5bFqxM1sY5MuyH
+	YwvmNfN5UDElQ5ZYc3tORYB3rd3mdFD+/m4dACMfjoYvv2oVoUEQy/aN6gHDKHbOPklKdbx/Mh3
+	MVlrVfNuDDFU5r5lqwNKyH7CMehFZbNTCTah4iDVkihmkH2m81auBFxyoBHB+IlTkaNI2UFNkcI
+	VQegrMeqXKzY+/8pLDMRmmanh4w6llYBtLyIDfTWXxqbzRuVaQ7OWCCaF2UhxS9xdYfskIn7uY4
+	RgVgDCbWIrFMHplt8J+wE5n2ZbmMPrKd5GNMuNd5Ru7cfn4MDd5Fl6Nmm64mmS4EWXRWxHcxkZh
+	AFuypwf+F7UT31SOtTis3i6CUGdgp7qwttZveT
+X-Received: by 2002:a17:90b:2789:b0:3a7:d2b5:2e99 with SMTP id 98e67ed59e1d1-3adea9d6f7dmr4690148a91.20.1793006901750;
+        Mon, 26 Oct 2026 02:28:21 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-120.dlp.protect.broadcom.com. [144.49.247.120])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3adebd531f0sm6328167a91.4.2026.10.26.02.28.21
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 26 Oct 2026 02:28:21 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-3580c07911eso9280300eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:28:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1793006900; x=1793611700; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1E2k1lqYpcgLA/U9AfcKbavuiY4YjaqtzjrZYfyvQVw=;
+        b=Oltz6a57dm7Kxb/KgU07Wa+mM1qJ1PfTE8cvY9N/IHMfRVn5TLWaIGXuNnhdUPwu2Y
+         YLvDKo68fkwR+tJ9WbLMqFjlHipCpxv0gmlJQiunu7DLBLBApFG7as7jf82Pxau6X0QQ
+         09cDqV2ANy20UdKveCxJOk7d/XsGHynVPRgxA=
+X-Forwarded-Encrypted: i=1; AKwUvByvDC62VonXnzmsLB6AB/YZti6IxFXLbUj4HigFFROkCNOUCMIBNPaqss8lWHK7DFwrpDc5mTifNQ7rorg=@vger.kernel.org
+X-Received: by 2002:a05:693c:400c:b0:360:5f7e:2eb9 with SMTP id 5a478bee46e88-369e850d1e3mr9667053eec.32.1793006899690;
+        Mon, 26 Oct 2026 02:28:19 -0700 (PDT)
+X-Received: by 2002:a05:693c:400c:b0:360:5f7e:2eb9 with SMTP id 5a478bee46e88-369e850d1e3mr9667003eec.32.1793006898747;
+        Mon, 26 Oct 2026 02:28:18 -0700 (PDT)
+Received: from H5S1 ([192.19.203.250])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369f4164886sm16711294eec.7.2026.10.26.02.28.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 02:28:18 -0700 (PDT)
+From: Vikas Gupta <vikas.gupta@broadcom.com>
+To: davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	andrew+netdev@lunn.ch,
+	horms@kernel.org
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	bhargava.marreddy@broadcom.com,
+	rahul-rg.gupta@broadcom.com,
+	vsrama-krishna.nemani@broadcom.com,
+	rajashekar.hudumula@broadcom.com,
+	dharmender.garg@broadcom.com,
+	ajit.khaparde@broadcom.com,
+	Vikas Gupta <vikas.gupta@broadcom.com>
+Subject: [PATCH net v3 2/2] bnge: fix RSS table sizing for large RX ring counts
+Date: Mon, 26 Oct 2026 14:57:57 +0530
+Message-ID: <20261026092757.9168-3-vikas.gupta@broadcom.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20261026092757.9168-1-vikas.gupta@broadcom.com>
+References: <20261026092757.9168-1-vikas.gupta@broadcom.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,110 +125,58 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-Clearing GICR_CTLR.EnableLPIs retires the LPIs on the target vCPU's
-ap_list, then invalidates the ITS translation caches. However, an MSI
-that hits the translation cache can still queue an LPI to that vCPU
-after the retire, and so can an INVALL that enables an LPI already
-pending. vgic_target_oracle() only checks that the distributor is
-enabled, so the LPI goes on the ap_list and the vCPU takes it with
-EnableLPIs clear.
+From: Dharmender Garg <dharmender.garg@broadcom.com>
 
-Make the oracle also return NULL for an LPI whose redistributor has LPIs
-disabled. vgic_queue_irq_unlock() rechecks it under the ap_list lock,
-which the retire takes after clearing EnableLPIs, so either the retire
-finds the LPI or the queueing reads EnableLPIs clear. The disable path
-pauses the vCPU after clearing EnableLPIs, and with this change the
-prune on that vCPU's exit would take its pending LPIs off the ap_list
-before the retire walks it. Pause the vCPU before clearing EnableLPIs,
-so that the retire still clears their pending state.
+bnge_adjust_pow_two() adds one block before rounding up to a power of
+two only when the quotient is 0 or 1. A larger quotient that is
+already a power of two is returned unchanged, so 129-192 RX rings
+get a 128-entry RSS indirection table and 257-320 rings a 256-entry
+one. The rings above the table size never receive default RSS traffic.
+bnxt_calc_nr_ring_pages() always adds one, which is correct.
 
-Fixes: 0e4e82f154e38 ("KVM: arm64: vgic-its: Enable ITS emulation as a virtual MSI controller")
-Suggested-by: Oliver Upton <oupton@kernel.org>
-Link: https://lore.kernel.org/r/asf87i2RDh-WksL-@kernel.org
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+Make bnge_adjust_pow_two() always add one block before rounding up.
+
+bnge_adjust_pow_two() also sizes the RX, RX aggregation, TX and
+completion ring pages. For the default 511-entry rings their page
+counts do not change. The completion ring is sized from more than
+the default depth, so its page count changes where the old code
+dropped a partial page. With 8K ring pages, TPA off and the default
+rings, its budget is 1533 entries and the page count goes from 2 to 4.
+With 4K ring pages and TPA on, when the firmware reports a
+max_aggs_supported of 260 to 387, it goes from 16 to 32.
+In these cases the old completion ring held fewer entries than
+its budget.
+
+Fixes: 627c67f038d2 ("bng_en: Add resource management support")
+Signed-off-by: Dharmender Garg <dharmender.garg@broadcom.com>
+Reviewed-by: Vikas Gupta <vikas.gupta@broadcom.com>
 ---
- arch/arm64/kvm/vgic/vgic-mmio-v3.c | 31 ++++++++++++++++--------------
- arch/arm64/kvm/vgic/vgic.c         | 12 ++++++++----
- 2 files changed, 25 insertions(+), 18 deletions(-)
+ drivers/net/ethernet/broadcom/bnge/bnge_resc.h | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
 
-diff --git a/arch/arm64/kvm/vgic/vgic-mmio-v3.c b/arch/arm64/kvm/vgic/vgic-mmio-v3.c
-index f5bd29fbe3a90..9117cd85aa593 100644
---- a/arch/arm64/kvm/vgic/vgic-mmio-v3.c
-+++ b/arch/arm64/kvm/vgic/vgic-mmio-v3.c
-@@ -293,6 +293,18 @@ static void vgic_mmio_write_v3r_ctlr(struct kvm_vcpu *vcpu,
- 		return;
+diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_resc.h b/drivers/net/ethernet/broadcom/bnge/bnge_resc.h
+index b62a634669f6..c0b6992d7f82 100644
+--- a/drivers/net/ethernet/broadcom/bnge/bnge_resc.h
++++ b/drivers/net/ethernet/broadcom/bnge/bnge_resc.h
+@@ -81,13 +81,10 @@ bnge_adjust_pow_two(u32 total_ent, u16 ent_per_blk)
+ {
+ 	u32 blks = total_ent / ent_per_blk;
  
- 	if (!(val & GICR_CTLR_ENABLE_LPIS)) {
-+		/*
-+		 * Yes, disabling LPIs is painful, since it can be done from
-+		 * a *remote* vcpu! So let's not take any chance, and make
-+		 * sure that the target vCPU has written their LRs back to the
-+		 * irq structures, and release any reference they would have.
-+		 * Pause it before its LPIs read as disabled, so that the exit's
-+		 * prune leaves them for vgic_flush_pending_lpis() to retire.
-+		 *
-+		 * If it hurts, don't do it.
-+		 */
-+		kvm_pause_vcpu(vcpu);
-+
- 		/*
- 		 * Don't disable if RWP is set, as there already an
- 		 * ongoing disable. Funky guest...
-@@ -300,21 +312,12 @@ static void vgic_mmio_write_v3r_ctlr(struct kvm_vcpu *vcpu,
- 		ctlr = atomic_cmpxchg_acquire(&vgic_cpu->ctlr,
- 					      GICR_CTLR_ENABLE_LPIS,
- 					      GICR_CTLR_RWP);
--		if (ctlr != GICR_CTLR_ENABLE_LPIS)
--			return;
-+		if (ctlr == GICR_CTLR_ENABLE_LPIS) {
-+			vgic_flush_pending_lpis(vcpu);
-+			vgic_its_invalidate_all_caches(vcpu->kvm);
-+			atomic_set_release(&vgic_cpu->ctlr, 0);
-+		}
+-	if (blks == 0 || blks == 1)
+-		return ++blks;
++	if (!blks)
++		return 1;
  
--		/*
--		 * Yes, disabling LPIs is painful, since it can be done from
--		 * a *remote* vcpu! So let's not take any chance, and make
--		 * sure that the target vCPU has written their LRs back to the
--		 * irq structures, and release any reference they would have.
--		 *
--		 * If it hurts, don't do it.
--		 */
--		kvm_pause_vcpu(vcpu);
--		vgic_flush_pending_lpis(vcpu);
--		vgic_its_invalidate_all_caches(vcpu->kvm);
--		atomic_set_release(&vgic_cpu->ctlr, 0);
- 		kvm_resume_vcpu(vcpu);
- 	} else {
- 		ctlr = atomic_cmpxchg_acquire(&vgic_cpu->ctlr, 0,
-diff --git a/arch/arm64/kvm/vgic/vgic.c b/arch/arm64/kvm/vgic/vgic.c
-index 7061b4ab206c9..e1a6a5aa61a8e 100644
---- a/arch/arm64/kvm/vgic/vgic.c
-+++ b/arch/arm64/kvm/vgic/vgic.c
-@@ -273,14 +273,18 @@ struct kvm_vcpu *vgic_target_oracle(struct vgic_irq *irq)
- 	 * If the IRQ is not active but enabled and pending, we should direct
- 	 * it to its configured target VCPU.
- 	 * If the distributor is disabled, pending interrupts shouldn't be
--	 * forwarded.
-+	 * forwarded, nor should LPIs whose redistributor has them disabled.
- 	 */
- 	if (irq->enabled && irq_is_pending(irq)) {
--		if (unlikely(irq->target_vcpu &&
--			     !irq->target_vcpu->kvm->arch.vgic.enabled))
-+		struct kvm_vcpu *vcpu = irq->target_vcpu;
-+
-+		if (unlikely(vcpu && !vcpu->kvm->arch.vgic.enabled))
- 			return NULL;
+-	if (!is_power_of_2(blks))
+-		blks = roundup_pow_of_two(blks);
+-
+-	return blks;
++	return roundup_pow_of_two(blks + 1);
+ }
  
--		return irq->target_vcpu;
-+		if (unlikely(vcpu && irq_is_lpi(vcpu->kvm, irq->intid) && !vgic_lpis_enabled(vcpu)))
-+			return NULL;
-+
-+		return vcpu;
- 	}
- 
- 	/* If neither active nor pending and enabled, then this IRQ should not
+ #define BNGE_MAX_ROCE_MSIX		64
 -- 
-2.47.3
+2.52.0
 
