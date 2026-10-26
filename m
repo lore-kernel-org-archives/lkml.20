@@ -1,123 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793058815;
-	b=AIMl4cJr6gcF7kt17rKGXtCi2kDdZDiLyP8Y/iLUAOJoJvOgXscQ8x4Umz2sKij9HbWg
-	 /KDCkEU2SHhRX1yh1/x1SThrlrS9eHWPG6zqax/EEUySG5mhzm6zqiUiIdHlZ2nJjmQeq
-	 eC5EwsnCiIpv9fTP4/t7UR4VQg/2OYRjAmTlruClg7xkWw3l9EXnO/5YI0AxK72FwiCyx
-	 qRPodOAh7XSksWpp4O5RrxthOreRoRm2EVLLPJyFFaOzdGDAP44z6MyoZR/GQM3lo5xUL
-	 8rdW3VyAs6oDObbMQtL4niRrsJhPbnHxGH0RRkGOwMjwfB4OLf7DwlqVJwQwLwDOJtw==
+	t=1793058818;
+	b=lFqhCJX0DjTIdSJYXTC9EXHJIsnC6uGW8ijuCrTMZkFKQtQWfJmY6FNeuR+8a8dQsrN6
+	 E5MWkZDECqYLjfpmsApGm1qPbdhM+R7rdWcDITH3AyP1LHRvCWQ7NuJbVWoi4sKRUWPWm
+	 BYhn9D7lPaHE3qx32/3z5WMQMi9QDbidY0IcGbOcOoM2xda7tTPSpM4/Oi5agt4N0PhJa
+	 kJPnlg/lcdXSRqaod/iCBvUzUeKqbksCkj32bhc4Wm+71PNo3H7uIGisZxeFh6jiSCiYK
+	 dvtNLxT7PvtJjoncEQE7eAnxzvLF7Cf4puJKXL7eToku5cqxxUIrBmwZw0lUFcHVD5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793058815;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Mailer:X-Mutt-Fcc;
-	bh=aHUF1M+fidDDJ3+WmYV9zM0U4gJMDdswMRaltUWboIo=;
-	b=nBmyAiYWZrFjWTqMJ/3At3tIn0eTR3swACbBpAs2+ebXG49PJKlS2DqoBw+kGvtJEAgQ
-	 67SInm7si2aQUvDfPp+BsNavHHQfghAA5kWru9LZGQrTKADHDLmvHdBcVjI3Gbvft6Ayr
-	 QQkY4m4TtRgpQJ+js1ZAONiKDfnre5MD6a602mYXa/rdeEwgb+8hWdCM6+y+pxWnTGAa4
-	 xoRsgA4bkRPmo/z0zFIyT6x8QtVDUafJPRIwqKoBPMNxmx8PH+h6IiUJHEca2aJMSYbq/
-	 lEW/mB4fJf+E9l6v/ySBk2IGmTCqpaSleUo7L45At+itzBO6pUOqtX1vTTbDkp8gcPw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793058818;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=sFeDkC9zqMittCSgY8EWGhM+YGFJ67oEKhT0Sl3nYak=;
+	b=AeZ0kzZFjrLE5+ZWrjUXtwcBnUYmBw/HK78JmyLuSVov6XvV2yPa6jzisR6EplstexMb
+	 BklAKR+JcUB/z7z+raJxr9Nc4QpgIP4FfVvycS8q9K2fl+eIuTWGJj2t6cI/zDmA1B5Rz
+	 xtv6f1v07IkYmdCdq0WiA5rO051JWN1GJMfMpJGy9eh6OQAitCh3QTZQ7q1+Dzb940Udd
+	 9xWuaXZ3pMH91L4EifAh5qCvbqqGqKM7DeEtQCo16P+V7ITzvIrXuxalHH+p2mNgD1n0q
+	 QYkpn+BrEm/7IWF1KKFwvulJXFna5YSGYVXYRBF9K3QrIMtTp7t1INWWmpt+Rdx6IoQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Ce+9A87Z;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=N3u2ucHc;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="S7yYrGX/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BB52606A322
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 23:53:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3BB52606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D20FB606A324
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 23:53:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Ce+9A87Z;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=N3u2ucHc
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793058814;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=aHUF1M+fidDDJ3+WmYV9zM0U4gJMDdswMRaltUWboIo=;
-	b=Ce+9A87ZQec/LAkZ5NPrEhW1s2uSS8PMaK/pIH8wsF8HaRcQY1gfx0gZnc6hGWbZTfWZz+
-	+1sHDVajYpaM430o3I2qnEtF90Meji/Nl39t/KQW1o9Gxc+U1M4X7B5CnwbRy5DYFQNfeD
-	SJIYuPttO3ncalWJaFy+C5wNU3QtZCY=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-537-Ge9YScP4PzOvudI7PWJPsA-1; Mon, 26 Oct 2026 19:53:32 -0400
-X-MC-Unique: Ge9YScP4PzOvudI7PWJPsA-1
-X-Mimecast-MFC-AGG-ID: Ge9YScP4PzOvudI7PWJPsA_1793058812
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4a2065a2ef9so34159835e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 16:53:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793058812; x=1793663612; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=aHUF1M+fidDDJ3+WmYV9zM0U4gJMDdswMRaltUWboIo=;
-        b=N3u2ucHc0Te0LX55NFyt+YHyWPfRKVrzyAsfq4ZsPI9xn2Lg0q5oYDTFf53XXxaf+h
-         f8455UkCunKenH0o77asYgzCWRfO7zfmZXpZM4h5oghfDT/Ff4NZSNE7376MBeuFHY1d
-         W2nqMOhVpq6QhWEOLnMXcfNqdMpckG6Xpc9+2XuwE/tfGmKdoOjcGTxZ7ZkW/t7iVnLd
-         rew/KcQUue16bAvyPcgxmx3KCwoJMF4+2DUwfaFy7NZ8PSmlZfTQcWghEF5XQAJAoLLX
-         AW0dVxHrDrDuToGJlNpbSbUKZK4TRXUH/eJxgt8YmhQpwgVZDPW/pUZt7trj0pHwr1DP
-         8+Gw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793058812; x=1793663612;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aHUF1M+fidDDJ3+WmYV9zM0U4gJMDdswMRaltUWboIo=;
-        b=BumFWxt2M6E0ammSuuVzPlijW1RQte/mv47jsCTkc5o17sgvAqnDb8xBMNv90h3D4c
-         wqhxf4agn+SqX7io1PeuzKyEPLuMTbvO0zQmTo2VKpFk79iXxyoNJZMwhCmvAJznpXsZ
-         rrzVQV+auWebmhWf3tsWZ/3F8XJjWUQ89eirbljgAd5FP6i9fUJGw6PVeTJybSaQCPNM
-         DAa8Gnh43ZSJOqLUb2yTDcV9Z6ontIJG8y0qw4xhFYYGM0Aoj2GnSrUH+RN5u+cNZTTg
-         yZr4105AeWv2T6+QNDYJ6+PbJnRA0qqRpRZcqKc5XIg/qsMB03JEBgDTWwK4GXSPm/jp
-         CwBQ==
-X-Gm-Message-State: AFq9FYLB9DErPyL9kk8z1aC43VRtDD0u36y+faR2nTRckEd1+U0IUEsE
-	TiLLx64i+gGqnroGgVSIKw7SHfj3B6xKXNbof6FWEdEugTp8M3m0NvOycBFhWVZIYWDzXIMtEoN
-	IpNwaAW4y9PijUEdZQ6u/q4Ba4zdFAMjJYQq5kENOh6Mm30nPE++I6pY8ltnXYQN4tP3UXik59+
-	xRNWObYY6COu1OjUBxgU6VgoUQ5gy9fzuK2gpCzS4Fxtw=
-X-Gm-Gg: AYBFou3G0HCXiRIM1zViSEXDarSFeZrz121iVDofjK5Md+qHAwdSxFJLbdho8ShYXo0
-	ibx+S9bM3MGU4/Vc2FjbpaVrPmc+3XZHpe8Lv1X4xpn5nEg+8cNGsBkEmXWxMZSEDVlUaKSDVy7
-	a49TAjwofzK8qYd5Cxw3NJm6S5tdPlZEh3QS2TgsGidtJOZfd/5NcsWjb84eQuIc5cwWOvth40h
-	I4grg5KDd+1sdM8WpXM5GK4+2nbC9tH/diUmA686aqCDXRXN+BBWmAHbQextLKxMkhL0a6fNeAH
-	E4Rww0HjwN9VMyG8rCB8H2sqe2QJA812mIV2Y7/nxWj4AQdNmCNGaw9kcUt9Ab6RK34=
-X-Received: by 2002:a05:600c:3114:b0:4a3:5a55:f454 with SMTP id 5b1f17b1804b1-4a35acc772dmr152484485e9.19.1793058811565;
-        Mon, 26 Oct 2026 16:53:31 -0700 (PDT)
-X-Received: by 2002:a05:600c:3114:b0:4a3:5a55:f454 with SMTP id 5b1f17b1804b1-4a35acc772dmr152484055e9.19.1793058811049;
-        Mon, 26 Oct 2026 16:53:31 -0700 (PDT)
-Received: from redhat.com ([2a0d:6fc0:1536:fc00:b838:383:1c7:6e81])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a58a0e2sm280919645e9.13.2026.10.26.16.53.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 16:53:29 -0700 (PDT)
-Date: Mon, 26 Oct 2026 19:53:27 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: linux-kernel@vger.kernel.org
-Cc: Jason Wang <jasowang@redhat.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	Eugenio =?utf-8?B?UMOpcmV6?= <eperezma@redhat.com>,
-	virtualization@lists.linux.dev, Ruben Hakobyan <hruben@meta.com>,
-	Alexander Duyck <alexander.h.duyck@linux.intel.com>,
-	David Hildenbrand <david@kernel.org>,
-	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	rust-for-linux@vger.kernel.org
-Subject: [PATCH v2 2/2] virtio_balloon: submit reported pages as individual
- buffers
-Message-ID: <02257263433b001cd0a55a52486857df81dd4246.1793057483.git.mst@redhat.com>
-References: <32e21059adb6cb1fd08c3f4426a313c77cf450ec.1793057483.git.mst@redhat.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S7yYrGX/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65AED1F01828;
+	Mon, 26 Oct 2026 23:53:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793058817;
+	bh=sFeDkC9zqMittCSgY8EWGhM+YGFJ67oEKhT0Sl3nYak=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=S7yYrGX/h0IEwuHPwFco0u6cJlXg2PKopBlNQjCgrtxUZmbrkKSwymrIotMhDHqK0
+	 n2XBhabBqpUyipFjH3Nv6Qnyit3R+P+lQ8nnbgKNQ1uLwXIHCHdCusSelx84CJTp44
+	 oxwVI8DKhx0jEX+D60CCP3OpR6ta4ri+rK3qxVfOlXwbz4tQd5MyYT7PZ6bOnk1Ddb
+	 ZTdxIt0emLPidkQRU+VSYv7M0hdOKREB1Pfsz7wLHlvs/QVoRt2Q9blCda5EI0Cn0C
+	 1KGzc2jZ5HbEni33D+kD4Sdtmjtxw89D6/cVpj5qFrl1kk5BfOuMXqGgGvE8qspylo
+	 PKK4ZX4Z1r8Eg==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 0D1ABCE0C35; Mon, 26 Oct 2026 16:53:37 -0700 (PDT)
+Date: Mon, 26 Oct 2026 16:53:37 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Dave Hansen <dave.hansen@intel.com>
+Cc: Borislav Petkov <bp@alien8.de>, Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>, x86@kernel.org,
+	linux-kernel@vger.kernel.org, kernel-team@meta.com
+Subject: Re: [PATCH v2] x86/nmi: Enable panic() when NMI handler runs too long
+Message-ID: <abc1e11c-52b1-4069-9a9d-60d1efd69f04@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <53ff8d29-b7ce-4b3f-bdcf-9ac1f31f0a9f@paulmck-laptop>
+ <8b14bd35-8f7e-4e41-9aae-e085f9a536f6@paulmck-laptop>
+ <20261020045247.GEatbzn7VKvUfDTbR4@fat_crate.local>
+ <5182974b-500a-4076-b9a1-5c67dded8380@paulmck-laptop>
+ <d8a05f9e-42ac-4c19-8713-558e1f002bd0@intel.com>
+ <47884f06-820d-4a95-8036-4c75f45fbb6c@paulmck-laptop>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -127,139 +68,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <32e21059adb6cb1fd08c3f4426a313c77cf450ec.1793057483.git.mst@redhat.com>
-X-Mailer: git-send-email 2.51.2.2891.g4157995a80.dirty
-X-Mutt-Fcc: =sent
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <47884f06-820d-4a95-8036-4c75f45fbb6c@paulmck-laptop>
 
-The virtio_balloon driver reports a scatter-gather list of free pages
-to the VMM so it may discard unused pages.
+On Tue, Oct 20, 2026 at 11:27:00AM -0700, Paul E. McKenney wrote:
+> On Tue, Oct 20, 2026 at 09:45:48AM -0700, Dave Hansen wrote:
+> > On 10/20/26 09:15, Paul E. McKenney wrote:
+> > >>> +	toolong_nmi_panic= [X86]
+> > >>> +			Cause a panic upon return from an NMI handler
+> > >>> +			that took longer than the specified number
+> > >>> +			of milliseconds.  The default value of zero
+> > >>> +			suppresses these panics.
+> > >> Cause a panic after an NMI?!
+> > > When the NMI handler runs for more than ten seconds, life is hard anyway.
+> > > And no, these were not bugs in the several affected NMI handlers themselves.
+> > > 
+> > >> Oh boy, is this trying to solve a Meta fleet problem and you're thinking, why
+> > >> not upstream it too?
+> > >>
+> > >> Because I fail to use the usefulness of this...
+> > > I might be wrong, but I doubt that Meta's fleet is the only place where
+> > > such bugs appear.  😉
+> > 
+> > Yeah, I once upon a time had a bunch of problems with NMIs taking
+> > forever to run. In my case, it was some actually wonky firmware, but
+> > differentiating the broken firmware from NMI handlers just being slow is
+> > what motivated the existing "took too long to run" message next to which
+> > you added the nmi_panic().
+> 
+> I guess I am glad that it is not just us seeing this sort of thing.
+> 
+> The existing "took too long to run" message is a good thing, but in
+> our case we needed a global timeout and we needed it to be quite long,
+> as in multiple *seconds*.  I did not see a nice way to integrate what we
+> needed into the existing ->max_duration checks, perhaps due to a failure
+> of imagination on my part.
+> 
+> > That said, I'd much prefer something more generic than something
+> > NMI-specific.
+> > 
+> > Would the systems that set toolong_nmi_panic=1 also set panic_on_warn=1?
+> > Are there any other "extra" panics that these systems also find useful?
+> 
+> We do often also set panic_on_warn=1 on our fleet, so in theory we
+> could make this be a WARN_ON() instead of a direct call to nmi_panic().
+> In practice, we would need to do something like make check_panic_on_warn()
+> check in_nmi() and invoke nmi_panic() if so.  Other adjustments might
+> be needed, I don't claim to be familiar with this code.
 
-For an arm64 kernel with 64 KiB pages, the default reporting and
-allocation orders allow entries ranging from 2 MiB to 512 MiB. If the
-report contains a sufficient number of large entries, we will end up
-with a descriptor chain that represents over 4 GiB of memory. This
-violates virtio spec, which says:
-	Drivers MUST NOT add a descriptor chain longer than $2^{32}$ bytes in total;
+And following up on this one, setting panic_on_warn=1 everywhere we care
+about too-long NMI handlers is a no-go.
 
-Specifically, submitting $2^{32}$ or more breaks Rust-VMM.
+> Or is there a better way?
 
-Submit each reported page as a separate virtqueue buffer instead of one
-buffer with an sg list of all pages.  This also avoids indirect
-descriptor allocation (kmalloc in the reporting path).
+So unless I hear (or think of) a better way, I will forward-port what
+I have when -rc1 comes out.
 
-To avoid multiple buffers causing interrupt storms, keep callbacks
-disabled while we wait for an event.
+							Thanx, Paul
 
-TODO: as an alternative, keep using virtqueue_enable_cb_delayed
-but add buffers after there's space in the ring.
-
-Note: if the virtqueue is broken, wait_event on
-virtqueue_get_buf hangs.  This is a pre-existing issue:
-the old single-buffer code had the same hang.
-
-Reported-by: Ruben Hakobyan <hruben@meta.com>
-Cc: Ruben Hakobyan <hruben@meta.com>
-Fixes: b0c504f15471 ("virtio-balloon: add support for providing free page reports to host")
-Cc: Alexander Duyck <alexander.h.duyck@linux.intel.com>
-Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
----
-
-Notes (changelog):
-    changes since v1:
-        keep callbacks disabled while draining: get_buf re-arms the used
-        event for the next buffer, reintroducing an interrupt per page.
-        Disable the reporting vq callbacks at probe, and only arm the
-        delayed callback to wait.
-
- drivers/virtio/virtio_balloon.c | 59 +++++++++++++++++++++++++--------
- 1 file changed, 45 insertions(+), 14 deletions(-)
-
-diff --git a/drivers/virtio/virtio_balloon.c b/drivers/virtio/virtio_balloon.c
-index f6c2dff33f8a..b88b463488e0 100644
---- a/drivers/virtio/virtio_balloon.c
-+++ b/drivers/virtio/virtio_balloon.c
-@@ -202,25 +202,53 @@ static int virtballoon_free_page_report(struct page_reporting_dev_info *pr_dev_i
- 	struct virtio_balloon *vb =
- 		container_of(pr_dev_info, struct virtio_balloon, pr_dev_info);
- 	struct virtqueue *vq = vb->reporting_vq;
--	unsigned int unused, err;
-+	unsigned int i, err = 0;
- 
- 	/* We should always be able to add these buffers to an empty queue. */
--	err = virtqueue_add_inbuf(vq, sg, nents, vb, GFP_NOWAIT);
-+	for (i = 0; i < nents; i++) {
-+		struct scatterlist one;
- 
--	/*
--	 * In the extremely unlikely case that something has occurred and we
--	 * are able to trigger an error we will simply display a warning
--	 * and exit without actually processing the pages.
--	 */
--	if (WARN_ON_ONCE(err))
--		return err;
-+		sg_init_table(&one, 1);
-+		sg_set_page(&one, sg_page(&sg[i]), sg[i].length,
-+			    sg[i].offset);
-+		err = virtqueue_add_inbuf(vq, &one, 1, &sg[i], GFP_NOWAIT);
- 
--	virtqueue_kick(vq);
-+		/*
-+		 * In the extremely unlikely case that something has occurred
-+		 * and we are able to trigger an error we will simply display
-+		 * a warning and exit without actually processing the pages.
-+		 */
-+		if (WARN_ON_ONCE(err)) {
-+			nents = i;
-+			break;
-+		}
-+	}
- 
--	/* When host has read buffer, this completes via balloon_ack */
--	wait_event(vb->acked, virtqueue_get_buf(vq, &unused));
-+	if (nents) {
-+		unsigned int unused;
- 
--	return 0;
-+		virtqueue_kick(vq);
-+
-+		/* When host has read buffer, this completes via balloon_ack. */
-+		i = 0;
-+		wait_event(vb->acked, ({
-+			for (;;) {
-+				virtqueue_disable_cb(vq);
-+				while (virtqueue_get_buf(vq, &unused))
-+					i++;
-+
-+				/* Stop waiting if device used all that we added. */
-+				if (i >= nents)
-+					break;
-+
-+				if (virtqueue_enable_cb_delayed_max(vq))
-+					break;
-+			}
-+			i >= nents;
-+		}));
-+	}
-+
-+	return err;
- }
- 
- static void set_page_pfns(struct virtio_balloon *vb,
-@@ -635,8 +663,11 @@ static int init_vqs(struct virtio_balloon *vb)
- 	if (virtio_has_feature(vb->vdev, VIRTIO_BALLOON_F_FREE_PAGE_HINT))
- 		vb->free_page_vq = vqs[VIRTIO_BALLOON_VQ_FREE_PAGE];
- 
--	if (virtio_has_feature(vb->vdev, VIRTIO_BALLOON_F_REPORTING))
-+	if (virtio_has_feature(vb->vdev, VIRTIO_BALLOON_F_REPORTING)) {
- 		vb->reporting_vq = vqs[VIRTIO_BALLOON_VQ_REPORTING];
-+		/* We re-enable callbacks after add, when we want them. */
-+		virtqueue_disable_cb(vb->reporting_vq);
-+	}
- 
- 	return 0;
- }
--- 
-MST
-
+> > I'm kinda curious if, for instance:
+> > 
+> > 	hung_task_panic=1
+> > or
+> > 	softlockup_panic=1
+> > 
+> > would also panic() these systems.
+> 
+> They did not do so on our systems because the NMI handlers ran for "only"
+> a few tens of seconds, which is not long enough to trigger these panics.
+> We did get the occasional RCU CPU stall warning at 21 seconds in, but
+> these proved to be unhelpful in this case because the IPIs used by this
+> stall-warning code are deferred until exit from the NMI.
+> 
+> 							Thanx, Paul
