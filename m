@@ -1,58 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793053574;
-	b=uHsqBYMMIsrIFaKmeUjQU2AvTWoSNDGYdL/+KgC81i6jekrrcJ1+FrRpcyE9AqFKYROz
-	 zhEreK7wuq0szzKEd30fM01qwaimTGyl5YfB8oN3CZ9vmUViDujI7Rv2YeQMQBKxi1QNd
-	 g1LYQFvq1oOuj/V8zKli7uZdF+dG8cyPL0FCeWyb8kBWCgzo1KW5Qkw/r0rGP7ttmKAwO
-	 /fDdYfHsvuoWc321g/V/YnEDOmoX4/q8HQRPB5TVCUcQy9GBcUPiZVj+ItErGTPSjDDPB
-	 voKB18Lv8nj2p4QIo0vn9uThZgwS/ceWoibVxV4AHVSDR8B+f4LApbV8598ZcR1jVRw==
+	t=1793053603;
+	b=S6slzIxhZBfqMjbGG6L0QfdHL5Kah0pFwdxuz4Ty/ZWE8oLKXE9lniBJEBSQP+DlyTdM
+	 98XJINtZgfJ2glYrmT+Fu6Hy59JbggN9PUx0bY6tLyCUt+JEuanFpdWVc7fs2dDSlOwZx
+	 kaqtj1txai8JyTjcaNlV+HqoKcgyoXpjyeM7NDNQDblJKoRfYIJ/fIxW6FJ0aQHqQvfAf
+	 KG9xZVoElicGAo+u2FemSKd6wg7yh1BQYPqaSNeKjzqd94i2vyZ6vgsbhsH550sKcecYf
+	 n4p1k6aPCaEfGmSsbOBbKa9ROJEtDzzQPLa2+MiuA59bk6bZ7mKKyJLGzJmGgiITeZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793053574;
-	h=Received:DKIM-Signature:Received:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=501v5zGSSrJJbT553kHWUYIqeUlxgW8LfMQp2LR/cCc=;
-	b=0OldLSaCrijwttYxWR/LHg6mo6rwSkRw+6KW2eZrG96tc0tayk/cEG3+q3dWkBnhwzls
-	 56RKA30vvawUD8ASojQ2PN2EgqJz9lq6EYNHSiK4YBfO1dlyuiPKF2903osbfibNgpmy9
-	 +ZB2GjDOQJR9IPkgc7RRMrVbcYhLXtpcohHiSrBIYLlVKcGLQ6Xk8PJ8Q3ipXykMh+qEw
-	 3/+1NQLtgQErqw6nQ+u5qtuBzNQpGFnt5+l8E+JAJpjHzdyzDaYjV1Q0BI3DMqybeAxlf
-	 HTpALucQ/AwzUFaUJL8GOE5gh9KKrqlesZ2gwPEFPmYbcKazuWLLLrz5K7Z4XH2c57Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793053603;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=ULBxQsLKeig0T/FlmtJ8WLo+AdcFG7aZxo3nudNz58s=;
+	b=nuZL4YlyiIRsHlSrnj4Pu9Z/jOy+CEJqyNnzgw65zYqm64H31BwA0BxIUy4sQqr9+/2L
+	 LuxhZMHTv8iGkOprUCdYl6+ObNqAbv1eahyyYLe8pqk8v/BGqDHGhPlaLLeUhtAzUh5j3
+	 JHwR9YJFai4kiU4P+uyneTcZolKT9BASUi8s8QKdHypb8FHbTRsUD2fBtqvskJlQ7a85P
+	 zZzdh3LCyVy9Qg023FuCPaxoVFepX2UYkJWgQ6IXFqM7BNy2vC6OSOMEJyNtM3DIev1sL
+	 pCEM5TIP9V0rCEsy4nkoqjVll6RHi7vESvIChxo1S1l/V9YTepDmnrJjLsRa7cxz2Gg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NsxhbB4s;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XngLByOZ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 735AD606A32A;
-	Mon, 26 Oct 2026 22:26:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B78BA606A31A;
+	Mon, 26 Oct 2026 22:26:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NsxhbB4s
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E03951F031E3;
-	Mon, 26 Oct 2026 22:26:13 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XngLByOZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CC7E1F01825;
+	Mon, 26 Oct 2026 22:26:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793053574;
-	bh=501v5zGSSrJJbT553kHWUYIqeUlxgW8LfMQp2LR/cCc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NsxhbB4sWHH8yUJtHtbjhF7zspqyAv7f91r3TOLF5XcE41kbeU2RwD7cNzM38djVo
-	 ak0U5KoiA1CdbZtnBXkIRIbiG7iRmaayuTKQELxMzDzvJWL4Ir1m/8clmZS0KeixoV
-	 wj6vcpzPCSXwgoid3gzOZqvWoRX7L00Vw8PaTu+j3RH+nYPJ3b98r3f0/nrtl3Ehs2
-	 JRZTHJpcpyFvkt0dKm23wmRFNnzS5MvABMEJSXcKalXblbMbuetHlJZQr0ltFjT/0b
-	 RXGqt+TIHPAn3lyzsUGBSQKwNNjkrvFYDUuNuJ0Crgc8pO6QbJUn4zvdpm9yCNTucX
-	 THDqmqCx2tv4g==
-Received: by pali.im (Postfix)
-	id 937E0F86; Mon, 26 Oct 2026 23:26:10 +0100 (CET)
-From: =?UTF-8?q?Pali=20Roh=C3=A1r?= <pali@kernel.org>
-To: Paulo Alcantara <pc@manguebit.org>,
-	Namjae Jeon <linkinjeon@kernel.org>
-Cc: linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v7.3 6/9] cifs: Extend ->set_EA() callback to allow operate on reparse point
-Date: Mon, 26 Oct 2026 23:25:57 +0100
-Message-Id: <20261026222600.17323-7-pali@kernel.org>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20261026222600.17323-1-pali@kernel.org>
-References: <20261026222600.17323-1-pali@kernel.org>
+	s=k20260515; t=1793053602;
+	bh=ULBxQsLKeig0T/FlmtJ8WLo+AdcFG7aZxo3nudNz58s=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XngLByOZdbAcb8MjWL9wMjwsQQoczgpB+TuokEsPFJTSPxZuuhDxZ/ichLbZMEl/z
+	 KQTcu0Oz1/RHyDsgF+By3u5+a16GiJoW9o/cU4Yaxo6elhSTMddAU8brYzS7TH+YBV
+	 P7Qu3Uh52yBhmLplMsPtbz8ioh1pSSlqyXWqQHuCEYeqBGEURV2AB5Evvkw+17ne8E
+	 AdvAGmF8MuWsJLpm35wuQ0EsbYmXJw2l/S1ax4mh3UMv1qRbU+kJGOL9Xh6hzShXh0
+	 vHPQpbqBuNu27TCmc3mgAvXr6ZUO6vatukd27w5oMhJ+kdNLXCESF3pHYj7s6Qn0X5
+	 ipIs5+D9nTnRw==
+Date: Mon, 26 Oct 2026 17:26:39 -0500
+From: Rob Herring <robh@kernel.org>
+To: Marek Vasut <marek.vasut+renesas@mailbox.org>
+Cc: linux-pci@vger.kernel.org,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Koichiro Den <den@valinux.co.jp>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: PCI: rcar-gen4-pci-host: Replace sft_ce IRQ
+ with AER IRQ on R-Car Gen5
+Message-ID: <20261026222639.GA4182867-robh@kernel.org>
+References: <20261003215710.792518-1-marek.vasut+renesas@mailbox.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,131 +68,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261003215710.792518-1-marek.vasut+renesas@mailbox.org>
 
-Upcoming changes for setting EAs needs to operate on the reparse point
-iself. This change extend >set_EA() callback with a new boolean parameter
-to allow it.
+On Sat, Oct 03, 2026 at 11:57:04PM +0200, Marek Vasut wrote:
+> The R-Car Gen5 SoC PCIe4 controller does not have dedicated sft_ce IRQ.
+> Make that interrupt conditionally available only on R-Car Gen4 SoC PCIe
+> controller.
+> 
+> The R-Car Gen5 SoC PCIe4 controller does have dedicated AER interrupt,
+> include it from the beginning. R-Car Gen4 SoC PCIe controller also has
+> an AER interrupt, but to retain binding backward compatibility, this
+> interrupt is kept optional and added in a separate patchset.
+> 
+> Fixes: 5b555a496160 ("dt-bindings: PCI: rcar-gen4-pci-host: Add R-Car X5H PCIe4 compatible")
+> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+> ---
+> Cc: "Krzysztof Wilczyński" <kwilczynski@kernel.org>
+> Cc: Bjorn Helgaas <bhelgaas@google.com>
+> Cc: Conor Dooley <conor+dt@kernel.org>
+> Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+> Cc: Koichiro Den <den@valinux.co.jp>
+> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
+> Cc: Manivannan Sadhasivam <mani@kernel.org>
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
+> Cc: devicetree@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: linux-pci@vger.kernel.org
+> Cc: linux-renesas-soc@vger.kernel.org
+> ---
+> NOTE: Gen4 AER is added in https://lore.kernel.org/all/20260928165230.3397664-1-den@valinux.co.jp/
+> ---
+>  .../bindings/pci/rcar-gen4-pci-host.yaml      | 21 ++++++++++++-------
+>  1 file changed, 14 insertions(+), 7 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml b/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml
+> index 362c43a1a15d0..083b77d4de8f7 100644
+> --- a/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml
+> +++ b/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml
+> @@ -28,13 +28,6 @@ properties:
+>    interrupts:
+>      maxItems: 4
+>  
+> -  interrupt-names:
 
-Signed-off-by: Pali Rohár <pali@kernel.org>
----
- fs/smb/client/cifsglob.h  |  1 +
- fs/smb/client/cifssmb.c   | 20 +++++++++++++++++++-
- fs/smb/client/smb1proto.h |  3 ++-
- fs/smb/client/smb2ops.c   |  6 ++++--
- fs/smb/client/xattr.c     |  3 ++-
- 5 files changed, 28 insertions(+), 5 deletions(-)
+Keep with just 'maxItems: 4'.
 
-diff --git a/fs/smb/client/cifsglob.h b/fs/smb/client/cifsglob.h
-index 5c5b76a9e9fe..d5faef5f3a73 100644
---- a/fs/smb/client/cifsglob.h
-+++ b/fs/smb/client/cifsglob.h
-@@ -570,6 +570,7 @@ struct smb_version_operations {
- 			const unsigned char *, const unsigned char *, char *,
- 			size_t, struct cifs_sb_info *);
- 	int (*set_EA)(const unsigned int, struct cifs_tcon *, const char *,
-+			bool open_reparse_point,
- 			const char *, const void *, const __u16,
- 			const struct nls_table *, struct cifs_sb_info *);
- 	struct smb_ntsd * (*get_acl)(struct cifs_sb_info *cifssb, struct inode *ino,
-diff --git a/fs/smb/client/cifssmb.c b/fs/smb/client/cifssmb.c
-index 8bdd81af6d21..07c7d6fa97c4 100644
---- a/fs/smb/client/cifssmb.c
-+++ b/fs/smb/client/cifssmb.c
-@@ -3166,6 +3166,7 @@ struct inode *cifs_create_reparse_inode(struct cifs_open_info_data *data,
- 			rc = CIFSSMBSetEA(xid,
- 					  tcon,
- 					  full_path,
-+					  true /* open reparse point */,
- 					  &ea->ea_data[0],
- 					  &ea->ea_data[ea->ea_name_length+1],
- 					  le16_to_cpu(ea->ea_value_length),
-@@ -6322,7 +6323,8 @@ CIFSSMBQAllEAs(const unsigned int xid, struct cifs_tcon *tcon,
- 
- int
- CIFSSMBSetEA(const unsigned int xid, struct cifs_tcon *tcon,
--	     const char *fileName, const char *ea_name, const void *ea_value,
-+	     const char *fileName, bool open_reparse_point,
-+	     const char *ea_name, const void *ea_value,
- 	     const __u16 ea_value_len, const struct nls_table *nls_codepage,
- 	     struct cifs_sb_info *cifs_sb)
- {
-@@ -6338,6 +6340,22 @@ CIFSSMBSetEA(const unsigned int xid, struct cifs_tcon *tcon,
- 	int remap = cifs_remap(cifs_sb);
- 	unsigned int total_len;
- 
-+	/*
-+	 * On NT systems which supports reparse points, the TRANS2_SET_PATH_INFORMATION
-+	 * operates on the reparse point itself and not the path location where reparse
-+	 * point redirects. So the behavior of TRANS2_SET_PATH_INFORMATION is as if the
-+	 * path was opened with OPEN_REPARSE_POINT flag. Hence this SMB1 SetEA function
-+	 * implements only the behavior of "open_reparse_point=true" parameter.
-+	 *
-+	 * TODO: Implement "open_reparse_point=false" support for SMB1 SetEA. For this
-+	 * is needed to call NT OPEN without OPEN_REPARSE_POINT flag and then call
-+	 * TRANS2_SET_FILE_INFORMATION.
-+	 *
-+	 * On systems which do not support reparse points, the behavior of both
-+	 * "open_reparse_point=true" and "open_reparse_point=false" is same.
-+	 */
-+	(void)open_reparse_point;
-+
- 	cifs_dbg(FYI, "In SetEA\n");
- SetEARetry:
- 	rc = smb_init(SMB_COM_TRANSACTION2, 15, tcon, (void **) &pSMB,
-diff --git a/fs/smb/client/smb1proto.h b/fs/smb/client/smb1proto.h
-index f0350fa3f173..8a17350fee7c 100644
---- a/fs/smb/client/smb1proto.h
-+++ b/fs/smb/client/smb1proto.h
-@@ -209,7 +209,8 @@ ssize_t CIFSSMBQAllEAs(const unsigned int xid, struct cifs_tcon *tcon,
- 		       const unsigned char *ea_name, char *EAData,
- 		       size_t buf_size, struct cifs_sb_info *cifs_sb);
- int CIFSSMBSetEA(const unsigned int xid, struct cifs_tcon *tcon,
--		 const char *fileName, const char *ea_name,
-+		 const char *fileName, bool open_reparse_point,
-+		 const char *ea_name,
- 		 const void *ea_value, const __u16 ea_value_len,
- 		 const struct nls_table *nls_codepage,
- 		 struct cifs_sb_info *cifs_sb);
-diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
-index 583ab4c4d773..6de334e222f0 100644
---- a/fs/smb/client/smb2ops.c
-+++ b/fs/smb/client/smb2ops.c
-@@ -1188,7 +1188,8 @@ smb2_query_eas(const unsigned int xid, struct cifs_tcon *tcon,
- 
- static int
- smb2_set_ea(const unsigned int xid, struct cifs_tcon *tcon,
--	    const char *path, const char *ea_name, const void *ea_value,
-+	    const char *path, bool open_reparse_point,
-+	    const char *ea_name, const void *ea_value,
- 	    const __u16 ea_value_len, const struct nls_table *nls_codepage,
- 	    struct cifs_sb_info *cifs_sb)
- {
-@@ -1290,7 +1291,8 @@ smb2_set_ea(const unsigned int xid, struct cifs_tcon *tcon,
- 		.path = path,
- 		.desired_access = FILE_WRITE_EA,
- 		.disposition = FILE_OPEN,
--		.create_options = cifs_create_options(cifs_sb, 0),
-+		.create_options = cifs_create_options(cifs_sb,
-+				open_reparse_point ? OPEN_REPARSE_POINT : 0),
- 		.fid = &fid,
- 		.replay = !!(retries),
- 	};
-diff --git a/fs/smb/client/xattr.c b/fs/smb/client/xattr.c
-index 5091f6c0d7fe..93e4cc114d75 100644
---- a/fs/smb/client/xattr.c
-+++ b/fs/smb/client/xattr.c
-@@ -154,7 +154,8 @@ static int cifs_xattr_set(const struct xattr_handler *handler,
- 
- 		if (pTcon->ses->server->ops->set_EA) {
- 			rc = pTcon->ses->server->ops->set_EA(xid, pTcon,
--				full_path, name, value, (__u16)size,
-+				full_path, false /* open reparse point */,
-+				name, value, (__u16)size,
- 				cifs_sb->local_nls, cifs_sb);
- 			if (rc == 0)
- 				inode_set_ctime_current(inode);
--- 
-2.20.1
-
+> -    items:
+> -      - const: msi
+> -      - const: dma
+> -      - const: sft_ce
+> -      - const: app
+> -
