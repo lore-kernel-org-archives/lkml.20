@@ -1,93 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792974787;
-	b=A9PHApVvANtKUScezViYW2PHMWZ2YX8+EOeWSjDeaHDvXfyHXobSCmeJFQb2jam6uLE8
-	 rBW6jjYz2KwxzSesCmCdV4huUOxSwP4EPEww2czcaQ8wWjwbExlQAGlzVA3ooi8cwTwmG
-	 AKQB51rclfe7mR3C7LRL/5EBIE48O34y2KUNHWPvE0eHg0CPWTAdAmVluaBp5gOMaZfjy
-	 hxmJkR2xOOyypOx/m44akTyWYE6/5CUQhgFe9TMsLzmiVkAggB5x52YLVeOWqZuqwXZnW
-	 hWEABrJmOCfrvthtDJ0M6EaH8VItjpv7sdqUqn4hOVQjlG51W04usrb0rundhUf1p9g==
+	t=1792974812;
+	b=kmlyEBklo8b9lRKqp6iFFqvTYP7FSdu7mikNzCUly5wCNFmpjq0v9J4lUG7aPJ9k1yhs
+	 0o+TjBrjUCXyb7chbPUr7xRe1XlkcnEtHF7Rcm7+iQiVDewm9dYLvmZagaDi64kiRQ2es
+	 oEasEvEn2cRVtedgPPDbcy+P/lvQ8FDGeJv7sASLwjDtcBXxgbRYGvE2r/wTshTPpsEez
+	 K4/T1+mbWlNl9h7D8HVHYzBGg5zajKCB2XnbV/IE1k78tFvglH7VXuVSl5DYZpbE+5S2a
+	 Ik5ODqm9L7B3GHU7hwee/GlRVEwKTH9voG9Jr5/C+ON7CeY4HtNV5VL1f2kCU7IDxcw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792974787;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Sender:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=865z0yFfpUqJtRq3suZQ43e544tMOYS8XbQlQ9kez3E=;
-	b=sfCj1qbAmfkeSCzZTBnTCYspRPJyfQG20xBTn4GsbEo99EB2KyBLRXvLg4j1NuQ5a1U3
-	 E8rKheMnFj6O9JrzJtKYjPPu76C9hhpPoWK5T0SE4kQtf9Y5lS1QHV1rA5DmYsgm2TZCk
-	 rPKxf4q6Jxmdp3WmwadSmpvSeU+2J2sI6ca3nVOQ4eXBBv+jUj0LeQOx0iShBUuFwtAdn
-	 C7DdkLyYiYuKZr3YgyM13WCvmTIAyJ6D5efpG9n5J3mrcEvI6VNdgUZ0c5k906QKTcY05
-	 AQ2SHYhcA6/2ZuLEp8hjbe8lmw4xN2zQWkw6aXRp2SIjsnlhhXgknIzI3r6f+5VMomQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792974812;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=KGg0YaTfqauJu0vVxfgSJ3rCnmQ5A64hk6E/ER/6bh8=;
+	b=rsP2HwPHNcGcs2gprs8vd3E4OaXXiyP/ABjgFu07V9Yv/zIm8Uf3ARua8/ycEzM7ngSS
+	 oGw7DF2Y1EPoKFLH8FjC/cQkjVlbAkYgna6MT+6Xf6o0aKqYj086RO7RXMKfzHaAfIRiM
+	 ZASar/AIjetW/ao1lgn3KADaTfzmt5rRt5+BIkhSpbYXb17tSyp4jSZlf/mJtOcJ/7KrE
+	 tCg6ycH+G2M00mCdY1ac1gejdeGcmkmGTATDJlL3TT00LVYXDnyfFPT7XYERdvhjcfagf
+	 ecoVg1KPwFpfnWWWdg2/pak5dxUpqDExplQa/ba364yQINkOKjQBKwDbVYnwTiurGkg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=oHp4hYKx;
-	arc=none smtp.remote-ip=209.85.215.173
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=K6Sjmp4h;
+	arc=none smtp.remote-ip=198.175.65.15
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7729E606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 00:33:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7729E606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A73B606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 00:33:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A73B606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=oHp4hYKx
-Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-ccce6d9abfeso1554591a12.1
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 17:33:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792974787; x=1793579587; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=865z0yFfpUqJtRq3suZQ43e544tMOYS8XbQlQ9kez3E=;
-        b=oHp4hYKxkfhpYxLnC1QIblmjj3Z4Z68PhTWQv9nqcC2U3O6PM24iG34RPY/girk2qM
-         i9vAYPPdW1Fsi27o0Rf41lUbp4VGRtFQSwyoxut5/Iq307JN2cxT3EBD0JCQh4/Hc//Z
-         eYRwuomX9QoTlnOs/MqB2YObNrUEAhq52jhHBY/P5NbdUambApSCFCAuQqrDkor7eE6z
-         A1OlzdDVVWIngZbckYoMem0KVQRXlnlSvTH+NFmkQrh+674jvt5OInytB7EQ9lPo8MQh
-         fHKZBOzBZRMqSgqUQDImZCd/KE2ty3tlpEN7xdNCbAJwRGXTXoFDkssJv7gr99shRZ2f
-         ZdPA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792974787; x=1793579587;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=865z0yFfpUqJtRq3suZQ43e544tMOYS8XbQlQ9kez3E=;
-        b=l7+sNF0Xodr399/JrNJmm8BpeXlp596EsxrSgqQRslZmjNypEY6VrSMLLjE8idcHMo
-         1ExMoOMj8nRP+U4HrS3tD4SGIhYL2Guzn1Q6cBWxDgFcSR+jYh9L2+5mDrU+o8nOclSG
-         +IwC2qYSmuXCiGkMkLh7XFwIJv/ZTFUeBOmwgeYDJUq+LqbihUMZxX6tSlMKb5tMtCJO
-         +n5bSYKt+sS5ZV+5U3Dfms9LdWbuohWQMUUminx5I9YFt5UFrosaSQx+pib3bHk4zDNX
-         +wSI53p+AV7PYzMaL7AbGYIwVlpd0sDBcZ5amQQtPL1ytUCteyNYMKgeBS37zBMhmEHv
-         GfvA==
-X-Forwarded-Encrypted: i=1; AKwUvBxU8efwhrF08Iw4oMnHxaJNn3k69dbxpWq7V6rUoAu4f8GM9mdB8/vvPkH4Ozf2Tya8d9VrD8uqdZcDlAc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLrGFof2dqVp0JicUFPElFZ5U/Q6rA6GNBphEAqrMi82VAmqC7P
-	IlFCaJtlgriVdpFU0K4MsQrYS23J/b9Dh0fiA1o2oujEE5nQp5iAbXXODdIrjA==
-X-Gm-Gg: AYBFou3lcT/RvIqGq8GgXy/FPiVUUM8hDsxai/W5tge8CKT+9LAmlZ0FQoH01ej4OD4
-	itL0g7xFDN0tPHDNH589vs5MSzy+JMhX9uyxmxO3gxHsl57OO6SQMueohILZAs8Z2qmvPjJhtPn
-	73m3x6QloqKKkOTzWc/N+BoY85Qe9ecNeLq5TRiFVRIrKW8JDhn4DIhafPsmSbM9db7URzRK8Ru
-	RL5aGqEqFEfPRTzgxAE9EJOW6gROzZJBa2oY0KqCBAL0wo8Igh7dr9fj2uh8W4qqLxjwHbtJ0LV
-	n5SCnsE8Uq9IXlX0yS/I/3Ls8DwUW9Dg/GGN+QtcvwusxI3qhObJVWGIDuizC5mL9E0Wz6oO93V
-	aVOaEfzcWJeSu5v/Z2ouJP7SeNfPp2Au6jUlmLwJlm5YUnTW6XwH74V3bRUEr/tLrP3Mfyd5Mx6
-	T9E7RMmC5VjQyCbMajSBuicTOJZlz1VMvyvMl57t56ktVIfRwJXRhpGLbr///2A6Qlnj9cY7OLX
-	fPE3do94ZatyHSNTFDs/qdaRA2TD66RgFInsJOYRJCYBeWHP5URwekKtCh+qdhtea9a4w==
-X-Received: by 2002:a17:90b:3a08:b0:3ac:dd28:4621 with SMTP id 98e67ed59e1d1-3adeaf9b65cmr4564839a91.51.1792974786804;
-        Sun, 25 Oct 2026 17:33:06 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adebadfa96sm6123240a91.7.2026.10.25.17.33.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 17:33:06 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Sun, 25 Oct 2026 17:33:05 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: "Baek Kyu, Kim" <pocj8ur4in@gmail.com>
-Cc: mail@mariuszachmann.de, linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] hwmon: (corsair-cpro) Cache fan target only after a
- successful command
-Message-ID: <40aa68b7-5809-4d19-98da-a2ec101e11f3@roeck-us.net>
-References: <20261020160941.36787-1-pocj8ur4in@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=K6Sjmp4h
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792974811; x=1824510811;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=jDW3zNKTgRakGdHRX+x3xt4uVuBKJZYGYCw+1NVm+wQ=;
+  b=K6Sjmp4h5Npj1noKxllwhNQ+hhqyBfPxuf5/nmO6QIxFXFsNaBLaEh77
+   MD5FYUSiDyO27m4ifWcevxBkZSw3SQNx0MrciB4JIPNgL/m3056+wSmun
+   b4eh3lz5Wd+/mt4K9uz4AxR0ZKDYET8J8Uz+UjbVpSW3M6/8HZE3bCFKM
+   nm6cNqSEMQMO5/DabkwMj4kqQk11O2U8N8YU26pKS1meco/tNc8L05IUk
+   sdvDLPB6Y0sYpfrlcz1yaECrV4k5J4uGZb96WVhblGw4tOk6X3UwBHHXv
+   qQLtmnKtVBXDXa2CcAuH+WA5OliuvVqjELEOTrjpHkTa93ApXhyRqViHr
+   g==;
+X-CSE-ConnectionGUID: RYAPZchpRneYj49AaLL8Ow==
+X-CSE-MsgGUID: qfuwC09TRGi8Cj3oZz1oVQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1639359"
+X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
+   d="scan'208";a="1639359"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 17:33:30 -0700
+X-CSE-ConnectionGUID: UX4LKqlHRv2LF5v2Lge95Q==
+X-CSE-MsgGUID: EjUahS49R9W1XQmTwFuTVA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
+   d="scan'208";a="4080344"
+Received: from unknown (HELO [10.238.0.97]) ([10.238.0.97])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 17:33:24 -0700
+Message-ID: <023f3254-c368-4ef6-89b2-8bbacb42d89d@intel.com>
+Date: Mon, 26 Oct 2026 08:33:22 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,27 +72,154 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261020160941.36787-1-pocj8ur4in@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 02/15] x86/tdx: Add TDCM hypercall wrapper for TDX
+ Connect
+To: Zhenzhong Duan <zhenzhong.duan@intel.com>, x86@kernel.org,
+ linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org
+Cc: dave.hansen@linux.intel.com, tglx@kernel.org, mingo@redhat.com,
+ bp@alien8.de, hpa@zytor.com, dave.hansen@intel.com, kas@kernel.org,
+ rick.p.edgecombe@intel.com, jgg@nvidia.com, nicolinc@nvidia.com,
+ aik@amd.com, aneesh.kumar@kernel.org, seanjc@google.com,
+ pbonzini@redhat.com, yilun.xu@linux.intel.com, chao.gao@intel.com,
+ vishal.l.verma@intel.com, kevin.tian@intel.com, chao.p.peng@intel.com
+References: <20260924041032.1096569-1-zhenzhong.duan@intel.com>
+ <20260924041032.1096569-3-zhenzhong.duan@intel.com>
+Content-Language: en-US
+From: Xiaoyao Li <xiaoyao.li@intel.com>
+In-Reply-To: <20260924041032.1096569-3-zhenzhong.duan@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Oct 21, 2026 at 01:09:41AM +0900, Baek Kyu, Kim wrote:
-> set_target() updates the cached fan target before sending the command.
-> If the command fails, subsequent fanN_target reads report the failed
-> request instead of the previous value. For example, after successfully
-> setting 1200 RPM, a rejected request for 1800 RPM returns an error but
-> leaves fanN_target reporting 1800. A failed request also replaces
-> -ENODATA when no target has been successfully set.
+On 9/24/2026 12:10 PM, Zhenzhong Duan wrote:
+> TDX Connect is a TDX feature that enables secure device assignment,
+> allowing a TDX guest to directly interact with TEE-IO capable devices.
 > 
-> Update the target cache under the existing mutex only after
-> send_usb_cmd() succeeds, as set_pwm() already does when invalidating
-> the target. Preserve the previous cached value and return the original
-> error on failure.
+> The TEE-IO Device Control and Management (TDCM) hypercall
+> (TDG.VP.VMCALL<TDCM>, defined in TDX GHCI v2.0 specification) is the
+> primary interface through which a TDX guest issues device management
+> commands to the host. The host processes these commands and returns
+> responses via a shared memory buffer.
+
+Could we add some clarification of why this guest-host hypercall is necessary?
+i.e., explain that some device management operations can only be performed by
+the host VMM.
+
+> Abstract the underlying leaf call and pass the shared buffer physical
+> address as a decrypted mapping. Add a runtime page alignment check
+> for the buffer to enforce correct usage.
+
+This doesn't match the implementation. The code only WARNs instead of enforcing
+correct usage.
+
+> Place the implementation in a separate tdx_connect.c file to keep TDX
+> Connect specific code isolated from core tdx.c.
 > 
-> Fixes: 40c3a4454225 ("hwmon: add Corsair Commander Pro driver")
-> Signed-off-by: Baek Kyu, Kim <pocj8ur4in@gmail.com>
+> CONFIG_TDX_CONNECT_GUEST referenced in the header guard will be
+> introduced in a later patch in this series.
 
-Applied.
+I'm not sure why the CONFIG cannot be introduced in this patch...
 
-Thanks,
-Guenter
+> Signed-off-by: Zhenzhong Duan <zhenzhong.duan@intel.com>
+> ---
+>  arch/x86/coco/tdx/Makefile        |  2 ++
+>  arch/x86/coco/tdx/tdx_connect.c   | 32 +++++++++++++++++++++++++++++++
+>  arch/x86/include/asm/shared/tdx.h |  1 +
+>  arch/x86/include/asm/tdx.h        |  4 ++++
+>  4 files changed, 39 insertions(+)
+>  create mode 100644 arch/x86/coco/tdx/tdx_connect.c
+> 
+> diff --git a/arch/x86/coco/tdx/Makefile b/arch/x86/coco/tdx/Makefile
+> index b3c47d3700e2..2ab2dbbdd3d2 100644
+> --- a/arch/x86/coco/tdx/Makefile
+> +++ b/arch/x86/coco/tdx/Makefile
+> @@ -1,3 +1,5 @@
+>  # SPDX-License-Identifier: GPL-2.0
+>  
+>  obj-y += debug.o tdcall.o tdx.o tdx-shared.o
+> +
+> +obj-$(CONFIG_TDX_CONNECT_GUEST) += tdx_connect.o
+> diff --git a/arch/x86/coco/tdx/tdx_connect.c b/arch/x86/coco/tdx/tdx_connect.c
+> new file mode 100644
+> index 000000000000..0c6ca650771a
+> --- /dev/null
+> +++ b/arch/x86/coco/tdx/tdx_connect.c
+> @@ -0,0 +1,32 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/* Copyright (C) 2026 Intel Corporation */
+> +
+> +#undef pr_fmt
+> +#define pr_fmt(fmt)     "tdx_connect: " fmt
+
+I think this is file is only intended to hold guest stuff. Thus maybe call out
+"guest" as
+
+  #define pr_fmt(fmt)     "tdx_connect guest: " fmt
+
+though arch/x86/coco/tdx/tdx.c doesn't print "guest":
+
+  #define pr_fmt(fmt)     "tdx: " fmt
+
+So this is just my preference, feel free to ignore it.
+
+> +
+> +#include <linux/io.h>
+> +#include <asm/tdx.h>
+> +#include <linux/mm.h>
+> +
+> +/*
+> + * tdx_hcall_tdcm - Send a TDCM command to the host via TDG.VP.VMCALL<TDCM>.
+> + *
+> + * @devid:  Device identifier of the target TEE-IO device.
+> + * @buf:    Shared, directly mapped buffer containing the TDCM command on
+> + *          input and the host response on output.
+> + * @size:   Size of @buf in bytes.
+> + * @vector: Event notification interrupt vector, or 0 for synchronous operation.
+> + *
+
+"0 for synchronous operation" isn't correct.
+
+vector 0 means "no vector. TD polls the status for completion". If the command
+doesn't finish when TDG.VP.VMCALL<TDCM> returns. It's not a synchronous operation.
+
+> + * The buffer physical address is passed to the host with decrypted/shared
+> + * mark.
+> + *
+> + * Returns 0 on success or a TDX VMCALL status code on failure. See
+> + * TDG.VP.VMCALL<TDCM> in the TDX GHCI v2.0 specification for status codes.
+> + */
+> +u64 tdx_hcall_tdcm(u16 devid, void *buf, size_t size, u8 vector)
+> +{
+> +	WARN_ON_ONCE(!PAGE_ALIGNED(buf) || !PAGE_ALIGNED(size));
+> +
+> +	return _tdx_hypercall(TDVMCALL_TDCM, devid, cc_mkdec(virt_to_phys(buf)), size, vector);
+> +}
+> +EXPORT_SYMBOL_FOR_MODULES(tdx_hcall_tdcm, "tdx-guest");
+> diff --git a/arch/x86/include/asm/shared/tdx.h b/arch/x86/include/asm/shared/tdx.h
+> index f20e91d7ac35..f46a3171a512 100644
+> --- a/arch/x86/include/asm/shared/tdx.h
+> +++ b/arch/x86/include/asm/shared/tdx.h
+> @@ -74,6 +74,7 @@
+>  #define TDVMCALL_GET_QUOTE		0x10002
+>  #define TDVMCALL_REPORT_FATAL_ERROR	0x10003
+>  #define TDVMCALL_SETUP_EVENT_NOTIFY_INTERRUPT 0x10004ULL
+> +#define TDVMCALL_TDCM			0x10007
+>  
+>  /*
+>   * TDG.VP.VMCALL Status Codes (returned in R10)
+> diff --git a/arch/x86/include/asm/tdx.h b/arch/x86/include/asm/tdx.h
+> index 884bb8067521..df4496ef8a6a 100644
+> --- a/arch/x86/include/asm/tdx.h
+> +++ b/arch/x86/include/asm/tdx.h
+> @@ -85,6 +85,10 @@ int tdx_mcall_extend_rtmr(u8 index, u8 *data);
+>  
+>  u64 tdx_hcall_get_quote(u8 *buf, size_t size);
+>  
+> +#ifdef CONFIG_TDX_CONNECT_GUEST
+> +u64 tdx_hcall_tdcm(u16 devid, void *buf, size_t size, u8 vector);
+> +#endif
+> +
+>  void __init tdx_dump_attributes(u64 td_attr);
+>  void __init tdx_dump_td_ctls(u64 td_ctls);
+>  
+
