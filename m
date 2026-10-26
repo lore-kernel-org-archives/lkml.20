@@ -1,69 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=85.128.243.59
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793045950;
-	b=y/CSEoT5mpcWiGh0jr8uHxK9AWJjSF+lKLoHTT4qGRioWn/F/Wyzjpro5GFj6QB2C3Uz
-	 Xs2fu+BLnd1rcG0QiTeuTDdqQfORdLNP0WRbWw6vhNieTCoZQ0eRoNg8i3VT8hXvjvI2s
-	 tNHHSwxDdAKSc7CTotMGgh6QUD1zJl/lYc0qcn5u9RzoU87T8Pc7i3eZ3r1vw+f7q0aq/
-	 OElAJDVGF2khHkhhDpAtb/3FF4Xwo38JcLd6TsCmTGPbLDNIZG4MBmwflB4BKPPKl6lHR
-	 VmcXchnn0ax+zs/DI13atbpqYoBJZVu43U8hVlUx1fKX8B3qi3dpmkBkSr/CKlAOfgw==
+	t=1793045973;
+	b=ccCfWl+B+zkxRkNudjCJrGo6i4QnsxyVzlsnmrSfhBhNPGxoq0dEl0vVttjteDjd8jty
+	 Omr+mbZOYsUVQVuWwHQFUlQd6d6/Qz+3EFyt54y1BjgS/qFTOv9/k5xtjaQWHfyZCvUyA
+	 mnb1p8tc5RAb03p9JFVTz7Og3QV2c2Pfm7O0t1nuMqETF3F2ugIwDl7tKmggLj1WisE1Y
+	 wsR3NK1HjKFTquwL3A5bRS/xcEV4bf20d6/sgHOBH/b3OwlJb0s9eTfndfF86k1KPc1dO
+	 +ol/zhfSTN+cMnws8/lrM3vow53E+AP0KhoHga5mY6AYUykMNuDbx67vc2ir5yUBZOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793045950;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=iqkFxV8nP7M3bMS76DwvwvlKzwURwpGSoPVOPM1lQCo=;
-	b=0qPT0o1UoVJ7z39a3eNlcAHHd9i2T7Og5cq1FjEvD20X6dugN5XaxKNQHE/Ju3r2jHrC
-	 MLyHOBnEy4pbKjxzlfeUrSQT6pIXUqGDxXrsXfPjptiG8fEJl/GpGelS1HifpipPiGY7b
-	 0No+u24HJz9fHGS8v3EUdno8b9ohMQOJOFNM+6DgLv1tnJRxA55seqXOeJQRnhOb8tv5Q
-	 fl7sHRrg6BRgVAAsAs4DtoPdnWdWfrariKQipgbXO9RUGF28ky0xhmcD9cowY99eTE4NT
-	 UcVVGOcgzZo9mqo8v/c5CljwNarBNM06Z6uAjZOePgS9AIr6s/H9FQ0yWU4iuc9igiA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793045973;
+	h=DMARC-Filter:X-Virus-Scanned:X-Spam-Flag:X-Spam-Score:X-Spam-Level:
+	 X-Spam-Status:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=5QFfRB3gJstIBf93il+NE0bYEqnnk9cS2mY0kRa653Y=;
+	b=kS3yGoAaGXjeIhEiE2b7qe89hFfMzcUkYM+TYLAG6KZbdosN5YtuW6AoeDhw9KUwTIf5
+	 /xwmmSM+QKTvhuPrsBt30DiasJXXZwZgjleE+eu4CnLcTNrIKBc9nITOt3MvkqfpHWmlU
+	 d6tH0JwiArpFTW/cFg9hBdjYvMwnyJTrWmwvhS7dMXWq8KU6HbcOeKnd1lj2X1AiV7E/Q
+	 da7SgveHCN4QwV1sAniGiINxbI8182QSNdvCHJFHdw6DdCSMJ5SqJENDlrtWoNLrQBZH4
+	 B6W3q+aUBJtGCOktwV6gMQRLMxj5HzMybC/AOKdaCZtJFBKOmmfYjsoLX9lKffo6vAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=Jb96OtKf;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	dmarc=pass header.from=asmblr.net;
+	spf=pass smtp.mailfrom=asmblr.net;
+	dkim=pass header.d=asmblr.net header.i=@asmblr.net header.a=rsa-sha256 header.s=1706450368.internal header.b=HG64+uDc;
+	arc=none smtp.remote-ip=85.128.243.59
+Received: from shared-aoh59.rev.nazwa.pl (shared-aoh59.rev.nazwa.pl [85.128.243.59])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B437606A31A;
-	Mon, 26 Oct 2026 20:19:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B437606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC291606A31B;
+	Mon, 26 Oct 2026 20:19:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC291606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=asmblr.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asmblr.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=Jb96OtKf
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 9463E268;
-	Mon, 26 Oct 2026 21:16:55 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1793045815;
-	bh=L/9HwRDz85cCABU3qYtp39PE1AHoYvEdp7B/YfRsDvg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Jb96OtKf+PJCsGX/AzL77Y9mQMwv6hiCuJC6eGx9UhFdbYhSikGJjo46ytK2tR/iA
-	 eGBWaAOkjjJ1sbfC/QTovhQviY4wsLwDBdMrwKTIqhsllYorDQd+DOigDC4EKsD7/c
-	 tW8dMfAbEPJDpE4uCKAa3NhuFvCqNE4NOXZZ4FPM=
-Date: Mon, 26 Oct 2026 22:19:05 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
-	Eric Biggers <ebiggers@kernel.org>, linux-doc@vger.kernel.org,
-	workflows@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org,
-	Konstantin Ryabitsev <konstantin@linuxfoundation.org>
-Subject: Re: [PATCH] docs: submitting-patches: Require base tree information
-Message-ID: <20261026201905.GC2005298@killaraus.ideasonboard.com>
-References: <20261021063927.GA31908@sol>
- <d5d0801e-371c-4836-8b4a-26bff33df46f@kernel.org>
- <20261021064940.GC31908@sol>
- <aea2328d-4ea8-45bc-922e-9c1fed94083f@kernel.org>
- <20261021163242.GB325924@killaraus.ideasonboard.com>
- <73d01869-b536-4fcd-a139-6f9d0a043347@kernel.org>
- <20261026104056.GH15441@killaraus.ideasonboard.com>
- <CAMuHMdV7Mz0WgaNP_B8FG6OxLBqqnWwMqWJKNFBDkF2i=55fVQ@mail.gmail.com>
- <20261026145343.GC1001933@killaraus.ideasonboard.com>
- <CAMuHMdXdOAYifLgmeguqMwE4kkyJ8NDbA4niZkuEUMYBPxBBSw@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=asmblr.net header.i=@asmblr.net header.a=rsa-sha256 header.s=1706450368.internal header.b=HG64+uDc
+X-Virus-Scanned: by amavisd-new using ClamAV (18)
+X-Spam-Flag: NO
+X-Spam-Score: -0.625
+X-Spam-Level: 
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=asmblr.net;
+	s=1706450368.internal; t=1793045963;
+	bh=5QFfRB3gJstIBf93il+NE0bYEqnnk9cS2mY0kRa653Y=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=HG64+uDcOQ8Sp9dTIb8FSBAlNE7m0AEmZVdzvMGiCu1TdFg62C+GDBGE9CBJKgsf6
+	 LKSkIkA5kNi5qNBSroeMCPnb3gIHkwJgmO+TUWPEvZ5ezvUE/rwlF1DapjFIXA7l6q
+	 /nZIO9+osXfZegYE45BXrcf9mH19ko0KcBjPw3bOuT2I7X0JvsA9C6uuVz3aa+s7lI
+	 AhljHQ06u/Lya7e+cd3ufC8REy/vvdbuLSCRn/QrtU7wx2lvac/8kwtKV99jmp6t7r
+	 btnJgthny2B83G5s6fWp7znlDryFsmKG1EL4THEKCKOH1/NOktf5I5nkxHYYNVntht
+	 Syw9yE/0HEzjA==
+Received: from milkyway (91-150-221-36.dynamic.play.pl [91.150.221.36])
+	by server753313.nazwa.pl (Postfix) with ESMTP id 9DBCD1BDEE9;
+	Mon, 26 Oct 2026 21:19:23 +0100 (CET)
+From: =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?= <amade@asmblr.net>
+To: linux-sound@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	patches@opensource.cirrus.com,
+	linux-tegra@vger.kernel.org,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Sylwester Nawrocki <s.nawrocki@samsung.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	=?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?= <amade@asmblr.net>
+Subject: [PATCH 01/12] ASoC: codecs: wm8903: Implement set_jack callback
+Date: Mon, 26 Oct 2026 21:19:04 +0100
+Message-ID: <20261026201915.57184-2-amade@asmblr.net>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261026201915.57184-1-amade@asmblr.net>
+References: <20261026201915.57184-1-amade@asmblr.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,71 +79,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <CAMuHMdXdOAYifLgmeguqMwE4kkyJ8NDbA4niZkuEUMYBPxBBSw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 26, 2026 at 04:37:28PM +0100, Geert Uytterhoeven wrote:
-> On Mon, 26 Oct 2026 at 15:53, Laurent Pinchart wrote:
-> > On Mon, Oct 26, 2026 at 03:02:27PM +0100, Geert Uytterhoeven wrote:
-> > > On Mon, 26 Oct 2026 at 11:48, Laurent Pinchart wrote:
-> > > > On Thu, Oct 22, 2026 at 08:57:55AM +0200, Krzysztof Kozlowski wrote:
-> > > > > On 21/10/2026 18:32, Laurent Pinchart wrote:
-> > > > > > On Wed, Oct 21, 2026 at 01:55:37PM +0200, Krzysztof Kozlowski wrote:
-> > > > > >>> there's no base-commit?  Including any historical patch (from
-> > > > > >>> months/years ago), patches with dependencies, etc.
-> > > > > >>
-> > > > > >> Dependency is something else, but for every other patch:
-> > > > > >> 1. For testing/CI: you apply on top of next
-> > > > > >> 2. Every other case the maintainer knows where to apply it, because it
-> > > > > >> is his HEAD of next-branch.
-> > > > > >>
-> > > > > >> I am repeating myself, but I really had no single problem of lack of
-> > > > > >> knowledge where to apply a patch as a maintainer or reviewer of some
-> > > > > >> subsystem, thus maybe I do not understand the actual problem you are
-> > > > > >> experiencing.
-> > > > > >
-> > > > > > When I review patches, I often need to apply them to a tree, mainly to
-> > > > > > see the context, but sometimes also to test them. I have encountered
-> > > > > > many cases where the patch wouldn't apply on the current for-next branch
-> > > > > > of the relevant subsystem. That's often because the patch had
-> > > > > > dependencies. When I'm lucky they are listed manually in the cover
-> > > > > > letter with a link to a branch, but that's far from being the common
-> > > > > > case. I then have to ask the submitter to provide a branch, or enough
-> > > > > > information to recreate a branch. Having base information (base-commit,
-> > > > > > prerequisite-patch-id, and possibly base-tree) would save me quite some
-> > > > > > time.
-> > > > > >
-> > > > > > I understand your concern about maintainers cherry-picking and sometimes
-> > > > > > introducing issues as a result. In that case I also prefer asking the
-> > > > > > submitter to rebase, retest, and resubmit. That's not what I want to use
-> > > > > > base information for, in my case it helps with the review process.
-> > > > >
-> > > > > That's valid and for 95% (guessing the number...) of cases will be
-> > > > > solved by having linux-next as a base, thus requiring the base
-> > > > > information is redundant. It's just linux-next.
-> > > > >
-> > > > > When patchset does NOT apply on linux-next or maintainer tree is
-> > > > > non-obvious, the base should be provided, but that is only "if ->
-> > > > > should". I think the proposal here is a bit different.
-> > > >
-> > > > What's the downside though ? As git can easily provide the base
-> > > > information once configured to do so, what's the downside of asking
-> > > > contributors to include it ?
-> > >
-> > > My base is usually not in your or anyone else's tree...
-> >
-> > Hence the prerequisite-patch-id and base tree information. Or do you
-> > mean your base is not public at all, neither in the form of a branch
-> > pushed to a public tree, nor as prerequisite patches sent to a public
-> > list ?
-> 
-> Correct.
+Add set_jack callback to the component driver so machine drivers
+can use the standard snd_soc_component_set_jack() API instead of
+the driver-specific wm8903_mic_detect() helper.
 
-How am I supposed to review or apply something that depends on work that
-is not public ?
+Signed-off-by: Amadeusz Sławiński <amade@asmblr.net>
+---
+ sound/soc/codecs/wm8903.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
+diff --git a/sound/soc/codecs/wm8903.c b/sound/soc/codecs/wm8903.c
+index 553f8d68a546..25a488f589a7 100644
+--- a/sound/soc/codecs/wm8903.c
++++ b/sound/soc/codecs/wm8903.c
+@@ -1638,6 +1638,17 @@ int wm8903_mic_detect(struct snd_soc_component *component, struct snd_soc_jack *
+ }
+ EXPORT_SYMBOL_GPL(wm8903_mic_detect);
+ 
++static int wm8903_set_jack(struct snd_soc_component *component,
++			   struct snd_soc_jack *jack, void *data)
++{
++	int *shrt = data;
++
++	if (!jack)
++		return wm8903_mic_detect(component, NULL, 0, 0);
++
++	return wm8903_mic_detect(component, jack, SND_JACK_MICROPHONE, shrt ? *shrt : 0);
++}
++
+ static irqreturn_t wm8903_irq(int irq, void *data)
+ {
+ 	struct wm8903_priv *wm8903 = data;
+@@ -1902,6 +1913,7 @@ static void wm8903_free_gpio(struct wm8903_priv *wm8903)
+ static const struct snd_soc_component_driver soc_component_dev_wm8903 = {
+ 	.resume			= wm8903_resume,
+ 	.set_bias_level		= wm8903_set_bias_level,
++	.set_jack		= wm8903_set_jack,
+ 	.seq_notifier		= wm8903_seq_notifier,
+ 	.controls		= wm8903_snd_controls,
+ 	.num_controls		= ARRAY_SIZE(wm8903_snd_controls),
 -- 
-Regards,
+2.56.0
 
-Laurent Pinchart
