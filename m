@@ -1,116 +1,116 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.144
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793032012;
-	b=UmVSX8XzpBIbVh/9e6im1G2eNBeQhliSJCKwDxvzKcNx2wWi0WzunepGLmgc+F20gWv1
-	 tTY5tZ74W1lC4H8kzI37aWs8It76nY7Gxsj00dpvkJdgTfPZe1bOcOM1bMdafAeLW0qn5
-	 VhilWvLZRv88MtawTrWBP7z1ex/LYRLt6FUoMo7RaWnTs2R+u6TO4y9m5fghs6BJLFLu4
-	 HtmKbA7Vt5qG3Hei+zBs2nQmOvGYfcBNYnH0/ksVuh1fsuSaFm0BwXS/36bOgaxxXKaGs
-	 yowY4o7+veYhl/XiRd+pmAw0AuLhmaUWJWyQ4oGXvkQbfbEwAeYP4D9Xv7X035fzltg==
+	t=1793032015;
+	b=Y/RzO79BeBmCaOqBGYgO4N5P+m2/h7wUlWmTDYOBo7041CkwAU5kZ1GW5kL7rITYX3IC
+	 w42LXRqYTSts0ECYG3HOuN76dKBbzqxWMrP4eZVxYa+U71tnRdyG5fSdWsea5kqUYeJhR
+	 ykSFtUzwpPMMPxtVTUi8gfMMIGOY4MytPsQJLjdS1iQsH+MohdQhCI2o0IIGArEJLu6h/
+	 PFPEtIrgVeXJ2y4uOLMR+Pp7Nyx718WW2FIqC3DewQ7iURZyt40WUIFwhoRsndOxUaajV
+	 pfkcf4zgL1mBr32vVxSF15kIfAG6NVY3engMpQX7QDFvrow/DLo5h3gfXl+os6zgxQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793032012;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793032015;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
 	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
 	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=v5/eiN+AAmFMXx9+44dNMnlZYUhVAO9q0k9ZrZf2VVo=;
-	b=jDpEOaiQjzLCycjcK9Q+GTmjXsefCWZvxlroqJ2G4QMSrWb9qhg5tZG8CB5JNoOpDQe6
-	 k6BMWTw3Hfa8CJftKErVtdnX0/OQhio0RecEtK38OXx1AQaG4090RgY7BZolOWmct+CD/
-	 RIfYMIeaYfCDaEWWLzhcfjmiGUoUpC5sPgfHKXnWTTRtvyxKbYCLVELis+9/o4hPyOr1r
-	 hqtpTstxBVG3Z/uGingRWiGoAWQ3nu6Yz4buf9ovn30GmAFXSaMeQSh3xbuod4z7m2/Pl
-	 UjBfN4Y/JO1KqTKUREOZFLJ9q/z4ZL47UjZJFFtMcO764xaIc1GcfVEAmBcMlOSpk8A==
+	 Received:From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=9kcCIz8uI9hyAOMjyWYmAiZN2bIAPxSyBMWCQskBI00=;
+	b=5R9YCwOpMpLsETWdqRvjkVeaurZvpBH3Ba9i7sF2dg2huE4kKHBq27Fo2itrZRlPSqmL
+	 M85TLesrvEvPow1CrfQYW1PggonABPzXLQwT7314Q5IM2I6dZ+y/ZBUmRFTEPvZSPNzWB
+	 /P5iinVzcHb8XczVgkgY+XeEEYP7dc9Hcsw9Ho79HQtyi/Usnw5DWWZesmxQgmYSZTqBE
+	 HyCuhPGHFfU0Xy0merhABKkvkLD/M42g/KO8TB6BXFnZ8Jbj2Butb4QztWnRc359+AoHw
+	 GvUZjNReLzmjtFubwNEOQTVaakfayvQDGrDvPBUXB8Nv8Nyiz+niutZGNx0JV3djRow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=jannau.net;
 	spf=pass smtp.mailfrom=jannau.net;
-	dkim=pass header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b=ICxllQTw;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=lFNljEV5;
+	dkim=pass header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b=aaPSMivG;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=bAcjyt75;
 	arc=none smtp.remote-ip=103.168.172.144
 Received: from fout-a1-smtp.messagingengine.com (fout-a1-smtp.messagingengine.com [103.168.172.144])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A094A606A333
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 16:26:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A094A606A333
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D1CA606A323
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 16:26:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D1CA606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jannau.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b=ICxllQTw;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=lFNljEV5
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfout.phl.internal (Postfix) with ESMTP id D7861EC0AB2
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:26:50 -0400 (EDT)
+	dkim=pass (2048-bit key, unprotected) header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b=aaPSMivG;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=bAcjyt75
+Received: from phl-compute-07.internal (phl-compute-07.internal [10.202.2.47])
+	by mailfout.phl.internal (Postfix) with ESMTP id D2907EC0AAA
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:26:48 -0400 (EDT)
 Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-04.internal (MEProxy); Mon, 26 Oct 2026 12:26:50 -0400
+  by phl-compute-07.internal (MEProxy); Mon, 26 Oct 2026 12:26:48 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jannau.net; h=cc
 	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1793032010;
-	 x=1793118410; bh=v5/eiN+AAmFMXx9+44dNMnlZYUhVAO9q0k9ZrZf2VVo=; b=
-	ICxllQTwg9Lftgrt8ad9UCBEOjbQ2ENzWJr3GZtkCJomknEpg6pvnoal2HRATGMZ
-	uWMpuVVVEmXFg+aT+uPuI0OPb1Z2zMCpUqO3/q++hM0Qq6rw4/fTny/eoLYgCkyK
-	Q8bZO2VABbQ1x/m2PpJInExY51b7vksQKkWppX3ny4T9n3JmNgoKDc3jxBaxMK9P
-	erLNFLUV3BK786dYBmZznSiOWey4zJrLeF7sJBbnLNVEIV/jPxRjbn+D4X42aNqL
-	alqBJoQFPkRdXio56uSB4PPkbqfijTFpK0aBGxh2WQ+06u4RHZrzXgiR5H57xFqi
-	X1L1jtF07O6ym9pzEF5/ZQ==
+	:date:from:from:in-reply-to:message-id:mime-version:reply-to
+	:subject:subject:to:to; s=fm1; t=1793032008; x=1793118408; bh=9k
+	cCIz8uI9hyAOMjyWYmAiZN2bIAPxSyBMWCQskBI00=; b=aaPSMivGYACEEb8Ekw
+	qxtKy/2GN9ui8F7N+pDowQGFYJ/ZavKpc3P5GsE0vFaEmtILuh7++TphBlY1zLrs
+	FbFGkTw3F0Hoy/fpFzl/FjkQG8bILSivzS2bsACxuFswfytvXptIUKo79vJsi8+Q
+	pjQ+IYa3RPO57AX2RqQdxzizTavmDaEuTc567OZWoEjzY60xnEdDgKRSDN2955en
+	a6vNN6ymPDqwfg9Uq76MUEndgvycSuDGnemzJV/r421LxkALLGbewVDaAFRuVE1G
+	zHZtLsS7EUUJsfKLUKH4t4jrDwXmaMet3i+ZV3cWqTGInRvgUzIYA6S1PMpFCMEB
+	FxmQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793032010; x=
-	1793118410; bh=v5/eiN+AAmFMXx9+44dNMnlZYUhVAO9q0k9ZrZf2VVo=; b=l
-	FNljEV5LSwPtntZ23N/p1p6snlqZbsdfr7ax10zklHY+JPjJVhJQa9ScYimHk/+M
-	7y3Gpq856z/1gaxRu1o7twFsph7bGzuZHIzeHPP26li2r5GN4kgn+0MB4MCuJ9qP
-	pbp6OEc8eft4WgqXE1TZMePW3JGUP1zYDnJNi5FZi4WOjgk+ccrgk6V1ONhh0af7
-	bQwEoTfwesnGM6PBm9oXBpsFJiCwyw4BzB1UqlomKl4mbkFUhUJxJNgYHWm1OLvK
-	W634ivXdm8ugoTGZw5TO1DK4+t7Ter3Ukue3Kjv5IMojtZsoG1LuYE79I3pqQXu4
-	wf8N9QKFfx3K19OXPATcQ==
+	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm2; t=1793032008; x=1793118408; bh=9kcCIz8uI9hyAOMjyWYmAiZN2bIA
+	PxSyBMWCQskBI00=; b=bAcjyt75C0NuwonrobpMHm/kjym8IJM1G2DgNd2e+i69
+	h1bsazquTL179tHqu70DlaCXPr+zQJGLApL2Z95HrsSc0crlyrrnD5cDtlwq0JCi
+	rWkNGUCxoeXkXksdCbdP8B8rIGTpoXd6rT9nmwkm4yf1HC7XdP+S+aDU1p91g3bW
+	fHrRiDwiazjTjt3/Q0Wuupg4+Q51ttM3mF2KEuqWp4zy5vtVNQvSAqd7Iyw13fXt
+	tv/6CEyNkUzP1W0WD9uabw2vQ3/T1kNb1L2blkaAzGqWYoYKNqJH4gmDLW+orlfN
+	B4uHwr920qv3o7SHU8+sDonDzyxabqgNYTIftZIsEw==
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
 	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
 	action=sign d=jannau.net a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793032010; d=jannau.net;
+DKIM2-Signature: i=1; m=1; t=1793032008; d=jannau.net;
 	mf=PGpAamFubmF1Lm5ldD4=;
 	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:c5AY+DJBvAgG1cvimq/1ij0aZvQiiHl44c+abWD1r14DVGR
-	zz9rEgUZBCbZXt1nP9Ntl2eclyrgjZOEr29vJiatD4EmkRdmxbKshJvFwDUAsdTt
-	l1bqsxVTi/FpziFdgBNQQh1iuMjh/38oWSRSBFZKz9zzmueese0iGMrW9cNzGSri
-	HNg27CYsV5uxfuzkqBu5YYZyLxFP8bprzNFyU3jp0LUAkhX3dGUOx0s+SEaSpjxv
-	9QaKpFMIIQjZ0FQaNK87/qGe8isTQSjPToK+D8tv/oGg+C7QquLkRFXwnFFNr4zH
-	v524jopbTCCowrukYSCPaFg3A5MzgtUaIgQ8ueQ==;
+	s=fm1:rsa-sha256:Ku0mEofQT3t2V/amKRrCLFdnqBErqvRr2vacEn0tt/+Ctbn
+	3UOTqbn43Vc5aVjpsGZUeK9pEMDV7s1oX0HlJvEZw9aqKIjECNvMnYef2OgOZbx2
+	ZWN9GhOBbm1ygwnCJd9AP4LiSfi/n8LgN69hNust2cy5/NxhTlaB58aY9iI06gXR
+	yq79MMppfmXis+H/uDJfJNZGRmeO+E6x6JQmHPxcHXHux5RP/iiCRY5SpzvrhXSZ
+	nCwRp2X8jQzWJmGYx5QiS+j95nNj47YrTS1wHm1T+8K380bHZeRuQL7YAhuOWmfG
+	0C5gvw5JVXCTvWgbvCRbU7HIm7NXAawjB7GCE0Q==;
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
 	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=12;
+	action=mi-m=1; hc=10;
 	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:/2j+pl3CO4qCHP03Nf/eC0I7uDT2ya4oGbVgICYKoDU=:p4AsKPuSZJBHU8NIV3zR8KMmRkLRfKbGhEsWcEswygY=;
-X-ME-Sender: <xms:Sn_fanUJ5UHQqDvDyTAJreJ2cq5ulEQ6dcpkGrkSXVICs9SoPIHuhw>
-    <xme:Sn_falmc4tuRZnX5jCjeAicPPMePxFesDcgMSecB_wBe0a465kAE57120jYnPl-C8
-    xwYVeTuou_zHqFXq6wVPDSvdmtE6rGIpMEBmjlmSw06aW26ptPxMa1n>
-X-ME-Received: <xmr:Sn_fauPwwBthFpdWJioDgB-Ywi_aaW0VuE8GdKURWHUlMN_fCRqLp883SZBY1129kfmypD4rPoffmkiZtkeGQt1THmHJ6G-oWvI>
-X-ME-Proxy-Cause: dmFkZTEWkkLBT9rP3p1Wyz0X+m97kuBUnCDDnSBjZXGE+danOKcks90ZCL1x5kFWbQEwZQ
-    C/LOTGnj005YKhoS9HeAw+Erp63RPnpthbHBHREmt9p/MFMd+Md/bpiYc1niUxBlZqQhAK
-    59b6OQOTULM98lp1jRF041mVOgzZ4rG32mzoyxZ3yObBAyJagwqWtbE75lg1fpvOcZ5lbO
-    nDixwRUg+66OBd8I+jfqYKPPDFhGEMx/7qUc6gwNZAe7hEqt97Wi99Wzb46e8o3Kmh6jXZ
-    p7pCYaQY1WTE98lsHtyLyqqoeFi5HqK2hSD36I5k4XGS2xKmyAM1EHIH1fqMrzfu8JsVL8
-    KPdO0ObxybLmXkZrL5/0EWWEWHCL1lHeRr+0cL7RZXtCMTmbRoESELYWJmjiozGDAfNhWk
-    vnXJ3CI9Dj+mBFOVKfv6EoAm9ranFVAbNmw3DkcvxB81oO6eanzJ/i554q6ueNxkHmZr3V
-    2i/xsy/F+fqdNa4YmjPqWtZ6flartFZuohz2/vHvhkBB8IPg+rch/3xDGKbACf+ymuz0Dr
-    srgsRezdvrFbWLFeYGw9hBsJB06rpBHBf2DgNOwCiAKqV+QxrE+SLxVwKaIZrE3OV8SxYz
-    EXWbZpFg14uLC2d+FIMah901gzOyPFKxgN2XwqAmGgvQm6RUgoosrLIbM36g
-X-ME-Proxy: <xmx:Sn_falKTSNc5VI6S1ZCn1sM1RHDDed5jyaqS4M0nyFT4AWgCooIk6A>
-    <xmx:Sn_fag0oVVPK6ldoBbkSvVRIHGXOaZmAjmtAgutsmZmwKPB8eQxXog>
-    <xmx:Sn_fapVBspEE9dM4J03lBOY1-78a3x7x5x8dskP-04EiZPvN5iPNUw>
-    <xmx:Sn_faiMOfNJoujGtTqKiuMj-T4UaUV211jyS-yfQ1f3Y8gynoPuvNA>
-    <xmx:Sn_faqR_xzkK2my0GQf0wwxtLUzafA43Jm6FfD4LlhI2cgqSYIIjrFEO>
+	from,message-id,mime-version,subject,to;
+Message-Instance: m=1; h=sha256:87NNGZy3Vpy8C/WB/14Kpyf/iHKlI13Ee1/MdgmeDBg=:bvGCad+8AQBYIHE2Cxb/6mTFm3UuOddA3aWXWZSBzJA=;
+X-ME-Sender: <xms:SH_faunSw3SvD8664PPD52tVXbe8TwM-5I8JMKMjpPW9YrRLtwsd1A>
+    <xme:SH_far2arPy0L3HKQGwN2jAqik8zZEy8IdiKZxiWt-LvjawZiua5M6uKgFuK-mEf3
+    RMFOl5kF5zKGDDIRZ3IJz-IAhoy2c2uthyVMOYeSMioR3Gw3_YrDkRD>
+X-ME-Received: <xmr:SH_fancZgMgG9vEHUPpvUcbmkBugj_iIqn-6nxWhQ3VhDHr4FiJVM440kNq538B5qG811gYDk2RwWC3xuub7xd1-Yr1A5YIAvw4>
+X-ME-Proxy-Cause: dmFkZTG4APGyhz6R0v3h0o2cddQphOn9sEg7EFY/1upwb8ZMKMSqp0Z6UuPGn8mG825EqY
+    WnsB5mDkkAll9x61kkVm7r10hFurkgmrhkeyfUPqoctgLK8SXbUPuLJrszMl5Xw2C1yRqM
+    CCr7+zGG61uwG9E0/c6iLmCawCUhpY44K4U+7mAT/3R0b9umVrqZgN/ySk+FgD4z4uY+M2
+    +cRY1iemNWIBZ0meZicq9ghPplaVlOH1VKIGPxpFmPUBHkDtDz2LKEOqbNDdaexcNP77HX
+    9Rd2mM7tIJFZutjySyHpqIyadQ2MQ/Yd8Qj6+wCH3ZGGflxUZ9kaxLTKaeKAs66SgdIWt3
+    MbtvhDbUJ+apWxPa3xwhKk6Mi1hhD+rl0wXpEaC8r6ZVvWo7tv8pbmiBo6PSkBekoEDOcv
+    S+7zE9tlMj+eNfzo8tJpUMTh0/0/9QkCQKo5ZkB09QdYnIla/LkyR2hr3wnG/fULTlbqCH
+    iyafmEy0/H4L1ix+u/9z5CHlTiKAOAXKr+0MVJGwL3N/0L6xM6glJg1a7/l4CZ9Xwhyt9k
+    lQg9QEpjW50xxbf1IF3Cgn9WL1ITchyuf8YyeR9fT030GTKumKUquE4/f0246TmMkDoIDT
+    HDi7P+WSHLaVAA0xl0XRv+3jHRCRhN7DCBcl3rdykgZ7obOTpHchUSCnkvEA
+X-ME-Proxy: <xmx:SH_falbSkeOx1V9ox1Za7lJ2HMudu1kmjXtPwzvICKUsrOsj9h6x7g>
+    <xmx:SH_fasGU0uyhmLgY6CSVOmfUW6rCXYKXHXjnjcRtcz_37R43YI2DcA>
+    <xmx:SH_fajlCs-n5QFH0vqcOsqVGEdr-O3ec2jGuV5_z7arKt-U4OlKykA>
+    <xmx:SH_faverrADpCVn5oZhpPYRiYlWYB4C5xFFeBiiyg68zhiOyWcelKA>
+    <xmx:SH_falg_FW9gtguZGfX2L6q9YH9k6H-5JxZaLIAF7JbN8Yhj3X7c_r3x>
 Feedback-ID: i47b949f6:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 26 Oct 2026 12:26:49 -0400 (EDT)
+ 26 Oct 2026 12:26:47 -0400 (EDT)
 From: Janne Grunau <j@jannau.net>
-Date: Mon, 26 Oct 2026 17:26:39 +0100
-Subject: [PATCH 1/2] net: atlantic: AQC113: Fix hw_packet_filter_set for l2
- filter base index > 0
+Subject: [PATCH 0/2] net: atlantic: AQC113: Fix regression on Apple silicon
+ systems
+Date: Mon, 26 Oct 2026 17:26:38 +0100
+Message-Id: <20261026-net-atlantic-aq113-apple-l2-filter-slots-v1-0-d72e99b69583@jannau.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -122,9 +122,10 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261026-net-atlantic-aq113-apple-l2-filter-slots-v1-1-d72e99b69583@jannau.net>
-References: <20261026-net-atlantic-aq113-apple-l2-filter-slots-v1-0-d72e99b69583@jannau.net>
-In-Reply-To: <20261026-net-atlantic-aq113-apple-l2-filter-slots-v1-0-d72e99b69583@jannau.net>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2NQQoCMQwAv7LkbMC0dhG/Ih5CzWogdGtTFmHZv
+ 1s8zGEuMzu4NBWH27RDk01d1zKEThPkN5eXoD6HQziHmQZYpCN349I1I3+IInKtJmgBF7UuDd3
+ W7jjHS0iUcop0hZGrTRb9/lf3x3H8AEhoGbV6AAAA
+X-Change-ID: 20261026-net-atlantic-aq113-apple-l2-filter-slots-6342515c5318
 To: Sukhdeep Singh <sukhdeeps@marvell.com>, 
  Andrew Lunn <andrew+netdev@lunn.ch>, 
  "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
@@ -132,113 +133,52 @@ To: Sukhdeep Singh <sukhdeeps@marvell.com>,
 Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Janne Grunau <j@jannau.net>, stable@vger.kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4506; i=j@jannau.net;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1663; i=j@jannau.net;
  s=yk2025; h=from:subject:message-id;
- bh=p4AsKPuSZJBHU8NIV3zR8KMmRkLRfKbGhEsWcEswygY=;
- b=owGbwMvMwCW2UNrmdq9+ahrjabUkhqz79a5RGxbbn4oK2RLi3/hwiVVn0qan+rf3S5ZP8dAqn
- HqyJle/o5SFQYyLQVZMkSVJ+2UHw+oaxZjaB2Ewc1iZQIYwcHEKwEQOVDP8d7rvtXP/6v+6nP9m
- XAy2kkkM4M1Stk5OuRO/jkvvVk8JIyPDMj1JVvM1ep+rr3fx+zgpz1CMmno29lTGXoY1UX9PTK/
- hAwA=
+ bh=bvGCad+8AQBYIHE2Cxb/6mTFm3UuOddA3aWXWZSBzJA=;
+ b=owGbwMvMwCW2UNrmdq9+ahrjabUkhqz79a4dWrenbJm2qW3ZhGNuM/Zdi6hr/ci3yrJ5Bo9Z8
+ 1XWqbKWHaUsDGJcDLJiiixJ2i87GFbXKMbUPgiDmcPKBDKEgYtTACayiZ/hn/XM+cVqF8689jaa
+ zd/IrPupbqZOeU+n4eMzX0vWMvi2/GVkeKxlv/PlqrCb96bPVrtvvqjwCesuFkujz4lurwM1/ae
+ J8gEA
 X-Developer-Key: i=j@jannau.net; a=openpgp;
  fpr=8B336A6BE4E5695E89B8532B81E806F586338419
 
-hw_atl2_hw_packet_filter_set() wraps hw_atl_b0_hw_packet_filter_set()
-which has no concept of `l2_filters_base_index` and enables/disables
-filters from `HW_ATL_B0_MAC_MIN` (1) to `HW_ATL_B0_MAC_MAX` (33). After
-commit 6c1ca112a6e4 ("net: atlantic: fix AQC113 HW init: ART, L2 filter
-slot, MAC address") this may result in disabling filters set in
-hw_atl2.c including the l2 filter for the MAC address.
-The AQC113 adapters integrated in some Apple silicon desktop systems
-report 9 as l2_filters_base_index which results in broken network.
-The l2 filters set in hw_atl2.c are disabled after
-hw_packet_filter_set() calls.
-Pass the base location to hw_atl_b0_hw_packet_filter_set() to ensure it
-neither touches reserved firmware filters or disables filters configured
-in hw_atl2.c.
+Hej,
 
-Fixes: 6c1ca112a6e4 ("net: atlantic: fix AQC113 HW init: ART, L2 filter slot, MAC address")
-Cc: stable@vger.kernel.org
+commit 6c1ca112a6e4 ("net: atlantic: fix AQC113 HW init: ART, L2 filter
+slot, MAC address") broke data transmission on Apple silicon systems
+with integrated AQC113.
+A conflict about which L2 filter slots to use between hw_atl2 and
+hw_atl_b0_hw_packet_filter_set() called through
+hw_atl2_hw_packet_filter_set() is to blame for that.
+The firmware on these AQC113 chips report `l2_filters_base_index = 9`
+and `l2_filter_count = 29` while hw_atl_b0_hw_packet_filter_set() uses
+hardcoded L2 filter slots starting at HW_ATL_B0_MAC_MIN (1).
+A related issue is that the multicast address list might exceed the
+number of available L2 filter slots potentially resulting in writing out
+of bounds L2 filter slots.
+
+The fixes in this series restores ethernet data transmission on an Apple
+M1 Max Mac Studio and supercedes my previous "fix" in [1].
+
+Link:
+https://lore.kernel.org/r/20261024-net-atlantic-aq113-apple-regression-v1-1-b8305415a8b1@jannau.net [1]
+
 Signed-off-by: Janne Grunau <j@jannau.net>
 ---
+Janne Grunau (2):
+      net: atlantic: AQC113: Fix hw_packet_filter_set for l2 filter base index > 0
+      net: atlantic: AQC113: Limit multicast filters to avaiable slots
+
  drivers/net/ethernet/aquantia/atlantic/hw_atl/hw_atl_b0.c | 14 +++++++++++---
  drivers/net/ethernet/aquantia/atlantic/hw_atl/hw_atl_b0.h |  6 ++++--
- drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2.c  |  5 ++++-
- 3 files changed, 19 insertions(+), 6 deletions(-)
+ drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2.c  |  7 +++++--
+ 3 files changed, 20 insertions(+), 7 deletions(-)
+---
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+change-id: 20261026-net-atlantic-aq113-apple-l2-filter-slots-6342515c5318
 
-diff --git a/drivers/net/ethernet/aquantia/atlantic/hw_atl/hw_atl_b0.c b/drivers/net/ethernet/aquantia/atlantic/hw_atl/hw_atl_b0.c
-index 6c25ad264b19..5c67edf8030c 100644
---- a/drivers/net/ethernet/aquantia/atlantic/hw_atl/hw_atl_b0.c
-+++ b/drivers/net/ethernet/aquantia/atlantic/hw_atl/hw_atl_b0.c
-@@ -1038,8 +1038,9 @@ int hw_atl_b0_hw_irq_read(struct aq_hw_s *self, u64 *mask)
- 
- #define IS_FILTER_ENABLED(_F_) ((packet_filter & (_F_)) ? 1U : 0U)
- 
--int hw_atl_b0_hw_packet_filter_set(struct aq_hw_s *self,
--				   unsigned int packet_filter)
-+int hw_atl_b0_hw_packet_filter_set_int(struct aq_hw_s *self,
-+				       unsigned int base_location,
-+				       unsigned int packet_filter)
- {
- 	struct aq_nic_cfg_s *cfg = self->aq_nic_cfg;
- 	unsigned int i = 0U;
-@@ -1065,7 +1066,7 @@ int hw_atl_b0_hw_packet_filter_set(struct aq_hw_s *self,
- 	hw_atl_rpfl2broadcast_en_set(self, IS_FILTER_ENABLED(IFF_BROADCAST));
- 
- 
--	for (i = HW_ATL_B0_MAC_MIN; i < HW_ATL_B0_MAC_MAX; ++i)
-+	for (i = base_location; i < HW_ATL_B0_MAC_MAX; ++i)
- 		hw_atl_rpfl2_uc_flr_en_set(self,
- 					   (cfg->is_mc_list_enabled &&
- 					    (i <= cfg->mc_list_count)) ?
-@@ -1076,6 +1077,13 @@ int hw_atl_b0_hw_packet_filter_set(struct aq_hw_s *self,
- 
- #undef IS_FILTER_ENABLED
- 
-+static int hw_atl_b0_hw_packet_filter_set(struct aq_hw_s *self,
-+					  unsigned int packet_filter)
-+{
-+	return hw_atl_b0_hw_packet_filter_set_int(self, HW_ATL_B0_MAC_MIN,
-+						  packet_filter);
-+}
-+
- static int hw_atl_b0_hw_multicast_list_set(struct aq_hw_s *self,
- 					   u8 ar_mac
- 					   [AQ_HW_MULTICAST_ADDRESS_MAX]
-diff --git a/drivers/net/ethernet/aquantia/atlantic/hw_atl/hw_atl_b0.h b/drivers/net/ethernet/aquantia/atlantic/hw_atl/hw_atl_b0.h
-index 5298846dd9f7..9ea469d3330f 100644
---- a/drivers/net/ethernet/aquantia/atlantic/hw_atl/hw_atl_b0.h
-+++ b/drivers/net/ethernet/aquantia/atlantic/hw_atl/hw_atl_b0.h
-@@ -69,7 +69,9 @@ int hw_atl_b0_hw_irq_enable(struct aq_hw_s *self, u64 mask);
- int hw_atl_b0_hw_irq_disable(struct aq_hw_s *self, u64 mask);
- int hw_atl_b0_hw_irq_read(struct aq_hw_s *self, u64 *mask);
- 
--int hw_atl_b0_hw_packet_filter_set(struct aq_hw_s *self,
--				   unsigned int packet_filter);
-+int hw_atl_b0_hw_packet_filter_set_int(struct aq_hw_s *self,
-+				       unsigned int base_location,
-+				       unsigned int packet_filter);
-+
- 
- #endif /* HW_ATL_B0_H */
-diff --git a/drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2.c b/drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2.c
-index 25dd7150aaaf..82be3bb2e76d 100644
---- a/drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2.c
-+++ b/drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2.c
-@@ -759,9 +759,12 @@ static int hw_atl2_hw_ring_tx_init(struct aq_hw_s *self,
- static int hw_atl2_hw_packet_filter_set(struct aq_hw_s *self,
- 					unsigned int packet_filter)
- {
-+	struct hw_atl2_priv *priv = self->priv;
-+	u32 base_location = priv->l2_filters_base_index + 1;
- 	hw_atl2_hw_new_rx_filter_promisc(self, IS_FILTER_ENABLED(IFF_PROMISC));
- 
--	return hw_atl_b0_hw_packet_filter_set(self, packet_filter);
-+	return hw_atl_b0_hw_packet_filter_set_int(self, base_location,
-+						  packet_filter);
- }
- 
- #undef IS_FILTER_ENABLED
-
+Best regards,
 -- 
-2.56.0
+Janne Grunau <j@jannau.net>
 
