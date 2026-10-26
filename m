@@ -1,87 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793001530;
-	b=EJ4WBAlNJq14Xk/eR/CpNKhhF6AjWRWR+TbVyExChez0Iw3WVbIHhd1ingnAU+eaUOyv
-	 LoOnTeStApvxXUEE7tGrwpSSbxuwzxWhCQ2b9xxp0EvvJlIr9H8kXlo2W2Y1StucVbPKP
-	 /kiNJKJxnRfyTMTJ+SO47R11Hlsz/3cHG8V4pZpLKAH4HNpooDwEUSMrn7VJqrd6TeS23
-	 8HVuln07CZkrjtWceZ5lfKoX6huB7y1tieTmK2/8I4DQ5EQj6MSZvZ5QwNxp39Y5WWznE
-	 tW5aS+O4jbg++tuvGGfgYTNX8W3yrufA/48W+8zGrPKKclULO/mRq/JnhshggllGGQA==
+	t=1793001539;
+	b=k/ED073eUxdYN32gvpM5K0kAQ4VruvewdBUeuKN2XpTVnneqxK6oKQW7cflMIohDKQhs
+	 6cSF/txxuP98Wf7xbhSY5svOxMdriPeFvwPQ5ZTxs9dGYeLX5GnyZbGe9RMkbcjLofCPz
+	 YVGae+mb+pkcVWf+VgyaCG5+Yc/i+qGA7PHXBLxNngiHs7ERNh6BIB1EvUgEO6r5uLqVb
+	 3ykl/A0bEbnImhJuWX6BkiLu/U5Ihv28GaAJnX1hirwPo74PhbTazWU19w+y16uAhPdD/
+	 W4mYun7sQTzwVFPIcZagwekFT6wpRVjTKWXy1OmEfblvQ0Oe8Glr7aMwLwqzKSdAfYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793001530;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793001539;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Message-ID:Date:MIME-Version:User-Agent:Subject:Content-Language:To:
 	 Cc:References:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=Qy+l+P3/Ur6+HWnHNoQlQuqGZxsGTPMqagOFnx35yX4=;
-	b=0MtGTuQ++znmw50Xz/KCEXoJZbmYPgEsIqVoNJHMxcqeyKS+n2gqJOaU8eezyIuZXRRW
-	 RM5Zpwko2br2s4+ZAHPWkoDyTNySkFF0zAj1TUNXU2YPYQF+iiAxXxvF7ATTB5rv9utUR
-	 5NpWozFjl36bVuErGJMXPV7sEuZ+PF5RceC22qDmzEdqe3PjKtvdkdj3e4ResUmcL6U3T
-	 O6YjzYRBJhRuPuQl5LH31eT2jNK2+FHLathIna8Yh/aenaxzvL/scG3dsgBqtBgNHsfL4
-	 mC+ceKO3scWKndR8WRjQw4Gzq8+uO4K4j2RXQjvxx6FI7QacRSYEwilW5vX0MRDz6RQ==
+	bh=ENqpIp5OCMvGLbQfuRT56moz6XxyZs/DH9YB2R1VAX4=;
+	b=1OV4Ubqu5mX/clri630733fRMLLUHTB6TY/y7P6zylQGALJXTsrhNFl3daQ4qi0djbC4
+	 FiKzqnTB5/E4RCCiPlYLoVTultg20ABxIC1IPtJxNGutYde8jTU35ieBhEYl04wBQn91L
+	 Urxl72kysL0J8SpqhdYEFI4JXOF8WAfF/GSn8XSuT6ZmjyK83jETgLSAA428o1pTM4em2
+	 iHW5eIgpqqn8XMOQwDgdwtXR5HXE8nOC7IpP5Ml3Etkkx/sse+aSYexmRdK6Q1PLtwFVG
+	 KsbvQvAQOZ+ttZ1jYUrReKbrwZQAXE5/XttQRSRngyoc4CrBPwR1c/6AuwsmBWrmJ4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=blackwall.org;
 	spf=none smtp.mailfrom=blackwall.org;
-	dkim=pass header.d=blackwall.org header.i=@blackwall.org header.a=rsa-sha256 header.s=google header.b=JhBY4Kpu;
-	arc=none smtp.remote-ip=209.85.221.51
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	dkim=pass header.d=blackwall.org header.i=@blackwall.org header.a=rsa-sha256 header.s=google header.b=YIkiyv88;
+	arc=none smtp.remote-ip=209.85.221.44
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B682606A321
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 07:58:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B682606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0312A606A31D
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 07:58:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0312A606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=blackwall.org
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=blackwall.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=blackwall.org header.i=@blackwall.org header.a=rsa-sha256 header.s=google header.b=JhBY4Kpu
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48dfaa3fa12so2624247f8f.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 00:58:48 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=blackwall.org header.i=@blackwall.org header.a=rsa-sha256 header.s=google header.b=YIkiyv88
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48e20ed3b9dso2419595f8f.2
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 00:58:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=blackwall.org; s=google; t=1793001527; x=1793606327; darn=vger.kernel.org;
+        d=blackwall.org; s=google; t=1793001537; x=1793606337; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from:references
          :cc:to:content-language:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Qy+l+P3/Ur6+HWnHNoQlQuqGZxsGTPMqagOFnx35yX4=;
-        b=JhBY4KpuTb8AB7KiwzftXNeqirFzEIxFpxEZIiFZzWEFmfZSU94eBuSFZdmf9CZd8y
-         uddB/AFRX3Q67r5jexNNnB9kII4vlxzT0b4z8ZJdlPu8y9XP/DV9nItnKNymMYIpfeio
-         LlOeMmZyD0/JjjclK0290FZsTxObBB4+M7bKM9QLZHLCi/SMCzZ/bfoH2qKPZW+OY7va
-         HVDqA4INsP6zaexrA1AupraSc0OjBvSmM28yXQxOvZAUUTenVeOWgbaD4pm5gbJo6ACA
-         ll5pEg8Y/2GL1MzDv7RCmoKkhWP8yQh1vG4hxiYpg6XV4FGqbHnWb6QRSpTq2oLboQ9Q
-         NekQ==
+        bh=ENqpIp5OCMvGLbQfuRT56moz6XxyZs/DH9YB2R1VAX4=;
+        b=YIkiyv88wEEaX9fcSbw7nvWAWwnKoGCpr68rh8SmVrnPxrMcW6i9lXw/gEkPqfFhM2
+         Bi1bYj966tUFjI83HwGRD0kb1x4mwoQUdBo0tYT/3xHhIy0pancQ9TR5VXrmUoow3B8W
+         RlUhVzzYnLVHUS8XO7S7GNahgM08iD/hnciCfwkxkqAQBRcXVZfX7DvM1JNTgaCtnHir
+         fChs2UF2cPdCpY/nM39VMhXhDrQs6MSQRqKmhyLFukXx/c+rGEU13D2cXlwk4+aRI8Xt
+         0ElwE487d5xkJZg3S62lGaXygv/SZlDeZIhe3CosQ0+blDs69NwWZ4ywEHW1WjamGOxR
+         A37g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793001527; x=1793606327;
+        d=1e100.net; s=20260707; t=1793001537; x=1793606337;
         h=content-transfer-encoding:content-type:in-reply-to:from:references
          :cc:to:content-language:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Qy+l+P3/Ur6+HWnHNoQlQuqGZxsGTPMqagOFnx35yX4=;
-        b=rNrFuVBXydFSJsvSWQLj58WW+VDdij6/LsPQiWsReGggAxPMBZmCtUX1s0T/cYkTsH
-         jNJfBRPLSt8cXRZ2SLb3h4p6MaCtTxaIULNzzoR3omQPEZ78O0Zbbtib37uZ6dZ4Th8r
-         PYF8N4gYndRqt3yEm1dU+jqZlaZNutIRH/RgVJwIcg6fRPF2YYqKYkHpi8GGFmkWW8Xl
-         ug0L/ZMolsTwMGrjEIKrjZPlUj9SgkW312uULfJiWIifiPbJomgbtwe5dUmKk7XOTAI8
-         7K0+0qD3zG9DqBTe0C5fJFnD2LtKCCbhLrNCTTtZqBproGhZviRDUBCIG/PnSkG7RXg4
-         AHtw==
-X-Forwarded-Encrypted: i=1; AKwUvBwV9DZLdgv9jTEZ7a7dgvB4iH832Moj5y1qxQGsQhPjGUTdGgNX9A7LKjQWNdSkV/yVszeovwawfVMcODw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLc4Hwj+ksAVxtGpm400czFCPWlO2Gj/OFvcbl0gM1I3npFrJY2
-	A28wvXaicv+Q7yy9h1CmsNdjPAg6J50i19Mdh1GasD5o+Va0zLVlI8IwOsew2MMjq8M=
-X-Gm-Gg: AYBFou1XjzlO/1rCThtzVRw1GFwuBipKQ5lqV3Cn6eHZuLA5CMm3Tf7i3pvo1J427YN
-	966WcyRdxaXkMZcfWAup5/d+VJn+w0rxORs98wPO5ge7O3zL3aN0fxgQAZyRlhWaudTpnwLuY7z
-	q6P8AJGoLKTy40bHxk0RjOOtd7VCjZYZTL2oxaGp3C9Wteey4GNSp4En7YCLnX3VLwfoaEadRjb
-	7PUZxKrMHRQ4X+53LTCHYISG1trrchaEs3ku1YuQNLG3HvgnXfYtzGjnc4Lzk+ousO2Hsd0LdK1
-	1SrKnSOPgGBfArHUrJA4/iD4vsHpNHhz2l4I4wfWd+0rELIL17OLNjb8WlFNZoTAlSjUTcqvM/Y
-	VGcy+U+jIR53VuKWuFbPmeEncFeb6jpwzft5qLjlbzwJ7z34jQ/mYKQhlu8fk2yf+BsjuL+4QdD
-	vLrNpaBSWAVSce5DbcxU5KMOYyMgA+eYT1Q8CkDBA7B37TnP34osalfB2K3c8/+8YHnHXU2DwKg
-	udqlVz5iLH6UBY8C6LzdyOPQcgxQIx23p9jVRgbGIm0DbpuQOtGWX8WD9dYwNlG1hOy72FGoiiG
-	/XOKj6PqjLi6ygffBddmKD02QilYzws=
-X-Received: by 2002:a05:6000:3102:b0:48e:1ceb:e8a4 with SMTP id ffacd0b85a97d-48e3ed32b8fmr12097363f8f.17.1793001527070;
-        Mon, 26 Oct 2026 00:58:47 -0700 (PDT)
+        bh=ENqpIp5OCMvGLbQfuRT56moz6XxyZs/DH9YB2R1VAX4=;
+        b=Z5a4eAS6zMVESsCtuvu/GB4PhJ8pFNjCwD4iRbfxSuGMYipQqxBvDSKNrBSJyJuxyo
+         qzFaeTF4e0cQHcxYQAV0dsFA0B5eTj3ySYIfzg5QuFY11O6i30VA/lDldNrJThDaov6E
+         SOXuVCC7CfdS4iAilrdNjX7RyoZ/wyrIyNAvYhz9CirTL3OgIS+CiIsCxm26CMcXxmRp
+         o5qMK3fM4zyp66zTwEeaEWQzYebK3/X9y6f3KhkwJwPrrJ9XvlXGiuGeBm6GpmV3w8yK
+         +0y2UQk7177JEdCWEKX4umaDATmnOmV2lL1oEt9DberhMxenY1/4LxGOugI41U1DWCeK
+         J4Xw==
+X-Forwarded-Encrypted: i=1; AKwUvBxlfEF7uwGgonm9FZ8s4Ov3MJKW6zaKO9f/5Kb0x38SuHCJSDKjy0XZ3xm3HLdgGGfnuVkmR8q4KKhOGC8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLB7XZRqMKHIWXlLU/7YTcYI8M4QlE+I5QA58D1snR0vA4QGFwJ
+	jz/GqDD0isXMXLV3A0aoD13jAX9kTKEIshrPt3tiS77J+2HUvjXltrrgeZWJ8GynuQw=
+X-Gm-Gg: AYBFou0r8isLM/Cd4V1CpgolSdmAwJNFk3fa4JnOyVVcWL44PoHl5psRy1FMR0n6OhV
+	hgZ6syDZHAtb9MgOlonvk++WuFWhUxsPA26p+JwEyWFJlDC6zR7FeW59kcUwYmOiI6uV2b/3Mdp
+	if0LtJkyTr1fYREAjg6wsV0kbmz7W9ZxgUQp9248g1BFlsaq0owlHNkT0MsM8PaQinfhMEZM6Xv
+	2CYi66TzCLfEXo4imFWUxW6rpNMDH9rqkEemi3zXU7wA8exvJuLUyygpQPERqW6sf1WShJ6uRHJ
+	RHgorA1cuomO7O3qmD7IvYq/lohAFVEnkexx2TUEir5pXK+CFVI7/MRS+TEcQ4tm+xOgptcBYrj
+	l8rbIyFJKQ9v01dkvVduBK2Q6gJpGac9WFoRrUnSNM+lwUxTLkRPUL1YAT91r7iVB1v50wqUs3E
+	ZlWw8lYjegxAjoThKlkNR2ut9XyDYnN12vjA6MfYZRaq6NG+4L3RBTVA67/qtBHjch70Ty/1V53
+	TM8SrBY4RS3TEapFKTFX0Rm3mWIAg1ZMLtOPzGxHhHw+HRhRewhZBHp8oEpF6pm6+QQM0PSOxj4
+	y7/4KPiDag==
+X-Received: by 2002:a05:600d:c:b0:4a3:7344:13b5 with SMTP id 5b1f17b1804b1-4a373be2a9emr75329375e9.16.1793001537419;
+        Mon, 26 Oct 2026 00:58:57 -0700 (PDT)
 Received: from [192.168.0.161] (78-154-14-127.ip.btc-net.bg. [78.154.14.127])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecde7easm15095984f8f.52.2026.10.26.00.58.45
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a5697a7sm170954675e9.7.2026.10.26.00.58.56
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 26 Oct 2026 00:58:46 -0700 (PDT)
-Message-ID: <af8e4351-d8ac-43c7-939f-810adf35c760@blackwall.org>
-Date: Mon, 26 Oct 2026 09:58:45 +0200
+        Mon, 26 Oct 2026 00:58:56 -0700 (PDT)
+Message-ID: <c561b8e2-40f3-48d4-8f2f-85b46163466b@blackwall.org>
+Date: Mon, 26 Oct 2026 09:58:55 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,7 +92,8 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net 1/2] vxlan: keep reserved_bits across changelink
+Subject: Re: [PATCH net 2/2] selftests: forwarding: vxlan_reserved: add gbp
+ changelink test
 Content-Language: en-US, bg
 To: Hannes Laimer <h.laimer@proxmox.com>, Andrew Lunn
  <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
@@ -103,72 +104,55 @@ To: Hannes Laimer <h.laimer@proxmox.com>, Andrew Lunn
 Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-kselftest@vger.kernel.org
 References: <20261023-b4-vxlan-changelink-gbp-v1-0-f0d13951c09b@proxmox.com>
- <20261023-b4-vxlan-changelink-gbp-v1-1-f0d13951c09b@proxmox.com>
+ <20261023-b4-vxlan-changelink-gbp-v1-2-f0d13951c09b@proxmox.com>
 From: Nikolay Aleksandrov <razor@blackwall.org>
-In-Reply-To: <20261023-b4-vxlan-changelink-gbp-v1-1-f0d13951c09b@proxmox.com>
+In-Reply-To: <20261023-b4-vxlan-changelink-gbp-v1-2-f0d13951c09b@proxmox.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 On 23/10/2026 14:14, Hannes Laimer wrote:
-> vxlan_nl2conf() derives reserved_bits from the extension attributes
-> set in the netlink message if IFLA_VXLAN_RESERVED_BITS is absent. A
-> changelink having it set is rejected, so this means that every
-> changelink will reset all extension bits and reserve them again.
-> vxlan_nl2flag() rejects setting a flag on an attribute that is
-> create-only on changelink. So also setting an extension attribute will
-> fail before it can un-reserve its fields.
+> On a device created with gbp, run the reserved bit probes before and
+> after an unrelated changelink. Check that what the device accepts has
+> not changed.
 > 
-> The extension's header bits being reserved again then makes
-> vxlan_rcv() drop frames that have them set in their header as invalid.
-> The device still reports the extension as enabled, because only the
-> reserved_bits are rebuilt and the flags are just copied.
-> 
-> A simple reproducer is
-> 
->      ip link add vxgbp type vxlan id 1 dstport 4789 local 10.0.0.1 gbp
->      ip link set dev vxgbp type vxlan ageing 300
-> 
-> After setting the unrelated ageing, incoming packets with the GBP bit
-> set in the header start getting dropped.
-> 
-> Keeping the reserved_bits on changelink is safe because anything a
-> changelink accepts leaves the header bits enabled extensions use
-> unchanged.
-> 
-> Ran into this when adding support for the GBP flag in ifupdown2, see
-> link below. The device kept dropping packets after some time, it
-> turned out it always started after a changelink.
-> 
-> Tested this by changing ageing by hand on a vxlan device that was
-> created by ifupdown2 with the gbp flag, and checking the reserved bits
-> using
-> 
->      ip -d link show vxgbp | grep -o 'reserved_bits 0x[0-9a-f]*'
-> 
-> Without the fix I got 0xf7ffffff000000ff after the changelink, and
-> with the fix it stayed 0x77000000000000ff. The following patch
-> contains a selftest that fails without the fix and passes with it.
-> 
-> Fixes: e4f8647767cf ("vxlan: Track reserved bits explicitly as part of the configuration")
-> Link: https://lore.proxmox.com/pve-devel/20260828134708.692354-1-h.laimer@proxmox.com/
 > Signed-off-by: Hannes Laimer <h.laimer@proxmox.com>
 > ---
->   drivers/net/vxlan/vxlan_core.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
+>   tools/testing/selftests/net/forwarding/vxlan_reserved.sh | 15 +++++++++++++++
+>   1 file changed, 15 insertions(+)
 > 
-> diff --git a/drivers/net/vxlan/vxlan_core.c b/drivers/net/vxlan/vxlan_core.c
-> index 278d41f58d89..223539099778 100644
-> --- a/drivers/net/vxlan/vxlan_core.c
-> +++ b/drivers/net/vxlan/vxlan_core.c
-> @@ -4488,7 +4488,7 @@ static int vxlan_nl2conf(struct nlattr *tb[], struct nlattr *data[],
->   		}
+> diff --git a/tools/testing/selftests/net/forwarding/vxlan_reserved.sh b/tools/testing/selftests/net/forwarding/vxlan_reserved.sh
+> index 709845123727..0ce264cc57f8 100755
+> --- a/tools/testing/selftests/net/forwarding/vxlan_reserved.sh
+> +++ b/tools/testing/selftests/net/forwarding/vxlan_reserved.sh
+> @@ -40,6 +40,7 @@
+>   	reserved_31_test
+>   	reserved_56_test
+>   	reserved_63_test
+> +	gbp_changelink_test
+>       "}
 >   
->   		conf->reserved_bits = reserved_bits;
-> -	} else {
-> +	} else if (!changelink) {
->   		/* For backwards compatibility, only allow reserved fields to be
->   		 * used by VXLAN extensions if explicitly requested.
->   		 */
+>   NUM_NETIFS=4
+> @@ -338,6 +339,20 @@ reserved_63_test()
+>   	    reserved_test 63
+>   }
+>   
+> +gbp_changelink_test_do()
+> +{
+> +	vxlan_device_add gbp
+> +	__default_test_do 25 "gbp"
+> +	ip link set dev vx1 type vxlan ageing 300
+> +	__default_test_do 25 "gbp after changelink"
+> +}
+> +
+> +gbp_changelink_test()
+> +{
+> +	in_defer_scope \
+> +	    gbp_changelink_test_do
+> +}
+> +
+>   trap cleanup EXIT
+>   
+>   setup_prepare
 > 
 
 Reviewed-by: Nikolay Aleksandrov <razor@blackwall.org>
