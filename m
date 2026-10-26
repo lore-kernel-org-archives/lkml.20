@@ -1,134 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.142
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793034735;
-	b=vbrZkVP/7Hu3759LT8z/oXtv+bVV7LPg5Z8NlECtgK2vj/MRv8/F6kEcEsPK5Qr8XSRx
-	 FNn0zouAKkUTyWqAGnlHHlt20OWn6sCbK9EvtyAmVP3Otg1Lv5UnJhfg7N83v5+hYG39Q
-	 dUaqAEA55SOfr1dni0/oisSzXppz7r53mw72PWaqfpKKuUcUfrTIZxDHcSUG+iuJY6KU2
-	 O7zi5azkLHe2gd8T4mD8JR2DPBAuQ79rCbths8qgACa7CXTZbdenVZ0Rd9R/UfA7b0F98
-	 KGWX6PVZyOwRsvMYHMtrDXR4Kysxokx9z1/6KgoVmvii934mo4GzPqO1+TRi8r9nJGQ==
+	t=1793034744;
+	b=akE24SWVeaUErENsdfP2yyEH+VoOTfFUwHhZauspx4xE3Sh3ou8vUfLk0vz+nGZYXcxD
+	 ixBNpcjPsqGrV3PCY/bQVM74VnYKuNjfGxAM1q29yUsTC1R2rOrorGY1dV/3pxTFIQ1pc
+	 gl1qGqD3DWNq0zNMjx6Q+qaIP30MIBK5W0ytERif6CmWbNQRbDHtheyC2ekQX8RqdlNz0
+	 Sj76HKfoTkXyno8CzXeQeZ/LhRxnz0uPwRWF9ccF4wzyeHBPvL62AjayY9pGC5CcAtNTn
+	 vI89F7yI7oLYa1G7D47OapDJlyiTZs2YoRXCmoY06dina0Lo5VM3Xb7QNlOF/h2k7Ow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793034735;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=RZqGYNXG9Jy9oaDhM1F6gbcQnqTBe6d0+Qk2lQBEUtQ=;
-	b=aa0dGLChGi9DsJ6BaUzQrKkW475732EwGtCCNmUHi/3iBYrZRUEcknIlLwUic8J6wYnN
-	 qLp960LwlXFrpLSPZXrHwYFMKhHiTy284+2irgnyIKFCMfMcnNlfXMfBzimNkkX8UPUXQ
-	 wacQtv/mJREP25iKgKt5G7nvHE50hdjaTL2GijWaAturNu+0S+Cb5hL695W2LTP6Tl05m
-	 ITerSSPdIfkRCBeWcGhdII/fQsKofRJsknNnlxSk9dSFNwZxr8Fc4ErG26lrZsZvTFNKs
-	 2s5a63Hv6CEyodrt/RTab7WBBENj3J5G2psbxWGdIGEBDPDcuJnY3ZOd1bmEedSp2RQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793034744;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=b6QlKpdKBnOA1PZgABGSyhkzkddPIRKkAKkI08GA01o=;
+	b=ScKfrqPaWUh6c2kWW6YoxOQluzCHKPG+aPcFzPR+fnKCq6ZM1U4PBTAsrZ0siWrv3r+T
+	 rzCjU4lbU2ZsXbsvOoZTSiJZmg2w5DRVCRBsCBZVCs7lZOmJWILiFPvHN+U4W7njT6jA0
+	 iUnC5k+9+5uBGydZhFElOaXYM/icjNPkVj2tYrp4B0FCJohumCUtMise02lx1Gz6pHLp5
+	 bc9Hkv0x6idr+FM+n1hB8ZUF8fiX2nLBwmk+lr6YRdLviCShzG+drDPulHI8d4W9t36gC
+	 VNPgM0VMGDceFEl+BdgQrIHxQ/FgQzHOTGfyVeMAMEhomEXXFTeydyTuvrudwi30lOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=shutemov.name;
-	spf=pass smtp.mailfrom=shutemov.name;
-	dkim=pass header.d=shutemov.name header.i=@shutemov.name header.a=rsa-sha256 header.s=fm1 header.b=AbWyiBsH;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=m3cPI2hm;
-	arc=none smtp.remote-ip=103.168.172.142
-Received: from flow-a7-smtp.messagingengine.com (flow-a7-smtp.messagingengine.com [103.168.172.142])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qUreiEnW;
+	arc=none smtp.remote-ip=74.125.82.178
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 890E9606A321
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 17:12:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 890E9606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01EF8606A31D
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 17:12:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01EF8606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=shutemov.name header.i=@shutemov.name header.a=rsa-sha256 header.s=fm1 header.b=AbWyiBsH;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=m3cPI2hm
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailflow.phl.internal (Postfix) with ESMTP id BB4DF13802A9
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:12:13 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-03.internal (MEProxy); Mon, 26 Oct 2026 13:12:13 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
-	 h=cc:cc:content-transfer-encoding:content-type:content-type
-	:date:date:from:from:in-reply-to:in-reply-to:message-id
-	:mime-version:references:reply-to:subject:subject:to:to; s=fm1;
-	 t=1793034733; x=1793041933; bh=RZqGYNXG9Jy9oaDhM1F6gbcQnqTBe6d0
-	+Qk2lQBEUtQ=; b=AbWyiBsHJcOAxp78Gt4falXdJ/81IDqSJLWnhkR08Drjh0il
-	rRI3YNXUjvbhb2cf3tead8IQuqocZRovMqAiQWbMzdOMyv0Ipo1EgG2h+nQaIvkW
-	DYJxu8IaaEHigLR3MBC3dSruMXaU5GG5e8cZ1kWqiLNNb1R6iu6nNRuZmANYH7Cy
-	7H4Y/COcGaaFYj8DvBV/ymHEZJRsSwaWh+jONqTrghBnFfV3FqoKbvke+klVKPt7
-	IylY2026lfRWAKvngJYsz9PKemVYH5ViGSHWSV9EeSBFoLcZ64+YtglHDEUC7JqQ
-	mSWz20w0hZx0pw5bwPoiNw4E8lk5WBAiDX0v2w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793034733; x=
-	1793041933; bh=RZqGYNXG9Jy9oaDhM1F6gbcQnqTBe6d0+Qk2lQBEUtQ=; b=m
-	3cPI2hmhe5hC9lykGVQzMYBHrGuUtBaKBX3b3PDp5p+gcvgP1x9snj9bqSgRM60A
-	npnPx0faO2Nl+EPpUAS5vSOXXCEas6LUFCBn64NhUTO7uom48ZZfYftzLGnZCTAj
-	LtzUaq6dzH1iJJbl8qOR6Osp5N6ebo64RU1Z30eCgRvN8YXm39fe6INPBOD7geCb
-	MFy52sYavldvCCnTMEc4Ld85f1dZttLwcdqqumhqWEfGTdZjcrM+P19iBuNTVBiL
-	qOIGBRRb7O29niDiljAJe0MXjiY6T1zjmhgtKgAEe3mHF0nOr9neg8yISNGwCn1B
-	bGvglgPQ/spxAxFk2eeHA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=sign d=shutemov.name a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793034733; d=shutemov.name;
-	mf=PGtpcmlsbEBzaHV0ZW1vdi5uYW1lPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:wzZY4HsSDJI5tI9j/RI7Z3BXR/Z59BcDjSB8+ZzE2+Q6zqO
-	qz7Cv5eXD7UJ1SFwQCHJKjU2/vyvms8N6vI0z3tk1tuaP2mkFfswhoRrSQV9ahzu
-	K3X/rxZ8Hj/rHRnhRs0GKYRzhPe3qbhqe5k2YVKK8UWMo/FajENIJB8q6xxS3IyK
-	V4Da5D2WtMWJTf7oOCck3ktYVSGPT4sWMwuMffjKI19Av5niYjFBCjOTHV02T/SM
-	B8ytcfP8l92KWMnD4i8Z6zDpHDNTtmcanHntFb7ujOt/FRU98CbeRfL7khz8qVHG
-	qMZE+lDRTkPce1Vf2wL8dm+karfLGnH62LjMpwQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=13;
-	hn=cc,content-disposition,content-transfer-encoding,
-	content-type,date,feedback-id,from,in-reply-to,message-id,
-	mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:NjjF5I72RcwC2+4ccWoW5S+EHKEscCvEII6NdBABJgg=:Rd0QNiSVptMYykHMLxZ8QpMclorHmpkWRqBU7dC9M/g=;
-X-ME-Sender: <xms:64nfaqla3Y1_T0gGn6lOm1YQgBvqZstKIvz_kmKG8_kK0aQpVB0FeA>
-    <xme:64nfaojA_xesgJNSkuazJJSILp_fHjMzysAlADF7tSNvL2WCxu-LjVdLKajwpLwU9
-    dvfEd7a-wmmUNs11ZLnnm3tcnCKHriorz52g1fVorZBay8nqOAPuY8D>
-X-ME-Received: <xmr:64nfai34Cu5W37PFLt2lpW_MgC6hU0egX9yN3JXAW20U5KMizTslMQneuco>
-X-ME-Proxy-Cause: dmFkZTE8ZOKPwc5EzHtOWWinHBwzi2uf5XLjKi9jT0n+Q2/8hHEk/Az4FBy+BaF9zD4zXg
-    S7yOtBmoLCsSHpCAzmHJKhimZLJIJSfin8UFhO1xIVZuJgAH+H9RthWtcAyMIvL/aW7GrU
-    pfcDJY0Kg+JaM+oPKz/gLV+sFVN/Q+RPDyrZnPWdUhzuz7VIjsgAWzMw9d+YYXSRF+Ezpk
-    nhF75BvW1D4+YWIZ9mw8tSXJ8mFZjBRM83ZsHx3DhPKpANNDVd3JA4r4HzBG8WaAYbTKR0
-    t8crRv2FlN/UxXmh0hAeIgMh/lbKcb3kQMtWtQXbhkZGSy0F+zmf1rTixFGiyk4nwDf0bN
-    PQijd6ps8/hCEbxR/vj+M4pttglEEVnSfU/xua8Z7cGAk7tWqNfCbl+u8uOfTYlgRN5YpE
-    2Vrk8QzMLmRxH+oTmXMe1x+yTV/iWxw08D4CDORDP8fq7I1429eegPp1LN6wMPjWzwksUk
-    Qw1WNKg2rdZEB2oTUqg028qyv33q5076GUQzmqjhhbyqO+JJu+Z782tynz23o9x/2KFw4O
-    Pm12/RmGdNbvwuf7OOWICCT4MOlU79OLzzHgR8VaIpyBjThhbfkbDstz0Qdt5FfTvHDcsH
-    fR1iPr4h+QtJJ0lCnZNfRvd6dZ0laru5GMGUGqUR9V7ajCDZW4d0lVHDWFGg
-X-ME-Proxy: <xmx:64nfavM2JRyZebVj82zcOB8GMN_Vg8Ss00kKstbg8o8FeW5TvbbpJw>
-    <xmx:64nfaslAFKEu9BHWSiP2__QDHI202MX4gBWy5DimVV94YF1RZZ8Szg>
-    <xmx:64nfaij9W1EiG4T2OpidKyD07LJlqGeXReigCX2rg3AngGSn_l8mJw>
-    <xmx:64nfavEOKzypMUlFwlkEiigoQsQ-BZpooV48zHPnmhTH6lhMhpopxQ>
-    <xmx:7YnfanDN6h8UCSIsbhn_F7PAJD8llKYUhfVYkligy5QhEpsS1_az97hx>
-Feedback-ID: ie3994620:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 26 Oct 2026 13:12:10 -0400 (EDT)
-Date: Mon, 26 Oct 2026 17:12:09 +0000
-From: Kiryl Shutsemau <kirill@shutemov.name>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Gregory Price <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
-	Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Vladimir Davydov <vdavydov.dev@gmail.com>, 
-	Michal Hocko <mhocko@suse.com>, Hugh Dickins <hughd@google.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Lukas Czerner <lczerner@redhat.com>, 
-	Carlos Maiolino <cmaiolino@redhat.com>, Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
-	Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>, Muchun Song <muchun.song@linux.dev>, 
-	Oscar Salvador <osalvador@suse.de>, David Stevens <stevensd@chromium.org>, 
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>, William Kucharski <william.kucharski@oracle.com>, 
-	Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, Nhat Pham <nphamcs@gmail.com>, 
-	Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi <nao.horiguchi@gmail.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Chris Mason <mason@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH 09/16] mm/shmem: preserve data in clean folios when
- splitting fails
-Message-ID: <at-GrQNgF3V_tL3w@thinkstation>
-References: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
- <20261026-fixes_shmem-v1-9-703206d5fa0c@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qUreiEnW
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-35c76e9614aso5204231eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:12:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793034742; x=1793639542; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=b6QlKpdKBnOA1PZgABGSyhkzkddPIRKkAKkI08GA01o=;
+        b=qUreiEnW3h0QVdWTZGDUoNLLWrKTkTXRSfFaPfpqpznoSZGJz2itSE0XQa2Cq1ckbH
+         zbjUd3tvxT0LyGqX/J5hW9aNOPlccb+aw1XOawgcWIqPmFUJhtO9XaGJ1UldmdVpPyGu
+         o90CaGoqMomlJAsVJks60vRdEvrCpucNX0ru+nkcnJmjW3+N2GOpteIAB7oNLtfcPsaL
+         grO9HrZ96bMSvLXh62RRnaczwVUzLXZNFivP0YV0rWrXxePZ3Cyss39U3ezuGtrCXnI9
+         cb9yCaxZgTylWitHb87JGUztOgski5N15eEFgyWKTd6f1BYQoSa5TyQOgIAU72O5CxLA
+         aKcg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793034742; x=1793639542;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=b6QlKpdKBnOA1PZgABGSyhkzkddPIRKkAKkI08GA01o=;
+        b=AeNmB9p2dlxiQ2asLu+Cg5r5B2kyqVfjUHu6srWVxF2m8DKDrU8Z6UsGs3acnmmY5h
+         4u+GVIXPfjvxvM45460u2TOntWJX+hnu44NrjyVgheoYzCA4d/l7+24vta6M/6fBrkSs
+         ZqbFkfKJTqZTzNbJ0oUjJu66rhLZyirtjRI2Z2rkBKQLNblx7ArmiYE7aTzrGjftxJpC
+         LTyObpbbGyiXCi5M2WZ34Oy3hjqxYB65Xw9sqKZckkDuiKEY9X66H9hly3I8y80Ed0tq
+         CpPP8YRsQBfzOGIevjAS6JCttlfpvgwIbrPuWaOp7uPgz1xcCbaTIc8CVROtmPqDenzr
+         8Abg==
+X-Forwarded-Encrypted: i=1; AKwUvBxN+15DdA7HAdb12qfQ672gVubAy7ahbOCW7vKEq+rUhV4UtxMXB1DBLC0g2pOUJgmBOcBiUzSeVTbPWWM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKKbD6f+6eCHqQKukiij1YQ6ah9CIzJLNvn1pRPipQ0gf2f12ik
+	7fqvhckStF0uaQd+SL9p6WiD1+hINTr7u+JWiWRQFC/2f+cdDbNvxhdg
+X-Gm-Gg: AYBFou0ilwRiHDo0zfOnSw8s2lrk4D9x3C1gdc84yRwww2dxHQQIj64VLWDRoD/nCxN
+	eciOA1aJ3F7nRQEJx8S5g/bogH+hBWn7IX7minIFqR/fS8T3VJiw0MGkF7pnynjsHRc6MBx+S7H
+	aNoeaY9BiuJgxeneWUBSRVUb7pZQ4g1KGL/ejMvxUE8Qlfgj8wzkfXc4xOusYUmudXD0A9LDLga
+	ruAVx+0P9mpINNhsVDjOh9q2595H3tVxvbA9SshsewEjzbHg3WLGEtk++4yP95JxqGSHnwh6xsU
+	eSEyaLes17WEq7Jk6cUy8xSbS5gWMpPikw+hkho9Gj0bs1O+24QcCAFkMkjhJuUFoqv6SCZ/WvX
+	fMj59Zk9Ez7C8cZaiezbKRfb3xSVXTL2coHZkDysbNQErmn3XZsPCgiGiwiwyy3ltdiO13hG/Mm
+	nt9rhs/BxMD8/AMAlNZ7Xt4sNpocdgVcHrsNg3VKIJrWqmsyKk5QioSrmnlRzpSGd/oYE/tSNRS
+	JBPAnhGJ/WalNN1Fp4zyMQHiBqXkL6apuWYvUBzqjaQOgt97B5LgvYzMYfD6+Z77MoXMbgSDEES
+	oyUFMQ==
+X-Received: by 2002:a05:7300:8816:b0:369:e930:6bc4 with SMTP id 5a478bee46e88-369e9306c7emr9453497eec.30.1793034742388;
+        Mon, 26 Oct 2026 10:12:22 -0700 (PDT)
+Received: from eldorado (ip70-187-214-22.oc.oc.cox.net. [70.187.214.22])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369f27d5bf8sm24878750eec.4.2026.10.26.10.12.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 10:12:21 -0700 (PDT)
+From: Florian Fainelli <f.fainelli@gmail.com>
+To: netdev@vger.kernel.org
+Cc: Florian Fainelli <f.fainelli@gmail.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH net v2 1/2] net: dsa: mv88e6xxx: fix 6351 family statistics snapshot
+Date: Mon, 26 Oct 2026 09:47:32 -0700
+Message-ID: <20261026164733.737299-2-f.fainelli@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261026164733.737299-1-f.fainelli@gmail.com>
+References: <20261026164733.737299-1-f.fainelli@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -138,75 +104,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261026-fixes_shmem-v1-9-703206d5fa0c@kernel.org>
 
-On Mon, Oct 26, 2026 at 10:40:42AM +0100, David Hildenbrand (Arm) wrote:
-> From: Chris Mason <mason@kernel.org>
-> 
-> A shared writable mapping can have dirty PTEs while its shmem folio is
-> still clean. A read fault can install a writable PTE, and a later store
-> sets the PTE's dirty bit without marking the folio dirty.
-> 
-> After shmem_undo_range() has handled the boundary folios, a concurrent
-> read fault into a hole below the new EOF can allocate a large folio.
-> For example, on a tmpfs mount with huge=always, the fault's offset must
-> be within the file, but the allocated folio can extend beyond i_size.
-> The final scan then finds this folio and calls
-> truncate_inode_partial_folio() without marking it dirty.
+The 88E6171, 88E6175, 88E6350 and 88E6351 take the port number in the
+low bits of the statistics operation register. The 6320 snapshot helper
+instead encodes the port as (port + 1) << 5. On an EA4500 with an
+88E6171, this causes ethtool -S to return physical port 0's MIB counters
+for every user port. Traffic on other ports does not update their
+reported hardware counters.
 
-This is hard to follow. I asked LLM for a diagram. I think it would be
-helpful for the commit message:
+Before the snapshot operation was moved into the chip operations, only
+the 6320 and 6352 families used the shifted encoding. The refactoring
+incorrectly assigned that encoding to all four 6351 family chips.
 
-CPU0: ftruncate(fd, 3M)                CPU1: MAP_SHARED, tmpfs huge=always
-─────────────────────────────────────  ──────────────────────────────────
-i_size = 3M
-shmem_undo_range(3M, -1)
-  first pass: hole, nothing to do
-  boundary folio at 3M: hole, none
-                                       read fault at 2M+x (below EOF)
-                                         PMD folio [2M,4M), crosses EOF
-                                         writable PTE, folio clean
-                                       store to 2M+x
-                                         PTE dirty, folio still clean
-                                       vmsplice(2M+x)
-                                         extra folio reference
-  whole_folios: finds [2M,4M) folio
-  truncate_inode_partial_folio()
-    zero [3M,4M)
-    folio_split()
-      unmap_folio(): extra ref
-        → -EAGAIN, PTE dirty bit
-          never reaches the folio
-    folio clean
-      → truncate_inode_folio(whole)
-        [2M,3M) dropped
-                                       read 2M+x → refault → zeroes
+Use the unshifted snapshot helper for the entire 6351 family. This
+matches the Marvell DSDT statsCapture() implementation, which uses the
+raw port number for chips outside DEV_RMON_PORT_BITS, including these
+four chips.
 
+The original 88E6171 change was tested on an EA4500: pings through
+different switch ports updated only the corresponding port's hardware
+counters. The other three chips have not been hardware tested.
 
-> Splitting normally collects the PTE dirty bits when unmapping the
-> folio. An extra reference, for example from vmsplice(), can make it
-> fail before that step. The fallback unmapping on split failure excludes
-> shmem, so the helper still sees a clean folio and drops it, losing data
-> outside the range.
-> 
-> Mark large folios dirty before partial truncation in the final scan,
-> as the boundary handling already does. Exclude failed-fallocate
-> rollback, which must discard the folios it added.
-> 
-> Fix generated by an LLM and sent by Chris Mason in private.
-> 
-> Fixes: b9a8a4195c7d ("truncate,shmem: Handle truncates that split large folios")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Chris Mason <mason@kernel.org>
-> [ david: simplify descriptions, adjust comments ]
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Fixes: a605a0fe7115 ("net: dsa: mv88e6xxx: Abstract stats_snapshot into ops structure")
+Link: https://lore.kernel.org/all/404d5f2d-24a5-4edc-897b-b1b3c54a20e1@lunn.ch/
+Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
+---
+ drivers/net/dsa/mv88e6xxx/chip.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-The fix itself looks reasonable:
-
-Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-
+diff --git a/drivers/net/dsa/mv88e6xxx/chip.c b/drivers/net/dsa/mv88e6xxx/chip.c
+index 7f68a0c55802..675b82857754 100644
+--- a/drivers/net/dsa/mv88e6xxx/chip.c
++++ b/drivers/net/dsa/mv88e6xxx/chip.c
+@@ -4610,7 +4610,7 @@ static const struct mv88e6xxx_ops mv88e6171_ops = {
+ 	.port_disable_pri_override = mv88e6xxx_port_disable_pri_override,
+ 	.port_get_cmode = mv88e6352_port_get_cmode,
+ 	.port_setup_message_port = mv88e6xxx_setup_message_port,
+-	.stats_snapshot = mv88e6320_g1_stats_snapshot,
++	.stats_snapshot = mv88e6xxx_g1_stats_snapshot,
+ 	.stats_set_histogram = mv88e6095_g1_stats_set_histogram,
+ 	.stats_get_sset_count = mv88e6095_stats_get_sset_count,
+ 	.stats_get_strings = mv88e6095_stats_get_strings,
+@@ -4714,7 +4714,7 @@ static const struct mv88e6xxx_ops mv88e6175_ops = {
+ 	.port_disable_pri_override = mv88e6xxx_port_disable_pri_override,
+ 	.port_get_cmode = mv88e6352_port_get_cmode,
+ 	.port_setup_message_port = mv88e6xxx_setup_message_port,
+-	.stats_snapshot = mv88e6320_g1_stats_snapshot,
++	.stats_snapshot = mv88e6xxx_g1_stats_snapshot,
+ 	.stats_set_histogram = mv88e6095_g1_stats_set_histogram,
+ 	.stats_get_sset_count = mv88e6095_stats_get_sset_count,
+ 	.stats_get_strings = mv88e6095_stats_get_strings,
+@@ -5380,7 +5380,7 @@ static const struct mv88e6xxx_ops mv88e6350_ops = {
+ 	.port_disable_pri_override = mv88e6xxx_port_disable_pri_override,
+ 	.port_get_cmode = mv88e6352_port_get_cmode,
+ 	.port_setup_message_port = mv88e6xxx_setup_message_port,
+-	.stats_snapshot = mv88e6320_g1_stats_snapshot,
++	.stats_snapshot = mv88e6xxx_g1_stats_snapshot,
+ 	.stats_set_histogram = mv88e6095_g1_stats_set_histogram,
+ 	.stats_get_sset_count = mv88e6095_stats_get_sset_count,
+ 	.stats_get_strings = mv88e6095_stats_get_strings,
+@@ -5426,7 +5426,7 @@ static const struct mv88e6xxx_ops mv88e6351_ops = {
+ 	.port_disable_pri_override = mv88e6xxx_port_disable_pri_override,
+ 	.port_get_cmode = mv88e6352_port_get_cmode,
+ 	.port_setup_message_port = mv88e6xxx_setup_message_port,
+-	.stats_snapshot = mv88e6320_g1_stats_snapshot,
++	.stats_snapshot = mv88e6xxx_g1_stats_snapshot,
+ 	.stats_set_histogram = mv88e6095_g1_stats_set_histogram,
+ 	.stats_get_sset_count = mv88e6095_stats_get_sset_count,
+ 	.stats_get_strings = mv88e6095_stats_get_strings,
 -- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+2.53.0
+
