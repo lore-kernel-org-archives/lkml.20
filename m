@@ -1,66 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793014845;
-	b=19Uj3DqUbq4lhkwwP6vWmOezd1UYgKnxID0BmS+3NaRv/ZOt+0XtpVYgtF0hw4XsesB+
-	 BQxKUs2zTX4ejW5fM15yU/iC6Zjp6muMrMPEJKXfp6GbUdWxsO3OHGDWORQ5o9vPWIR8Z
-	 wK5LuPgzpZA5CDa+d20eiwVokDAPLJ1XYcEzHEaivHzBRvxrtdpvLz+Cov/3o0y+oR3q/
-	 WGWI1YajKgULsoEdNlvkfUCxkqxzLeY1NCKWLaK4JYQfxC7DA7+bknLQWzaL5qYCy85FY
-	 rkfp+eq5OTH6A0p/G0q/L84GTX2x+Ffu5Z5UAaxv3ABE3SmiLLdq67OiCj/aTiT6wYA==
+	t=1793014850;
+	b=osvOZeRhk7k+T6rFQ0HzrBv3X2a4k4eljyOXGFOF/sUtMfDqNY4Xt7VIJrQ5QcYyVZZj
+	 kpPixsQtlSZtUNnyRHAYjko6vJC8FEViPTm0B1mt6xWiMnCWrNpBbLvTU16JcAX3louzL
+	 3JkzHWdfaArnN1pIxkGIDSP+1a/H6LZQg1uqrtYiRoUMT7xDfpiBysgrkv+96MXHfG2g0
+	 SJe8eBQwVPjOID1bJ3rNuK6NDZp9s5jBV/gzyDnQg1yxOQ0O62pqsAClGiX6pi6AjcceZ
+	 2S77n2+ftfWkOFYjl+NhA4mb5Dz9AogiTvDORR0IBtznrW6EgZnIg/2frQnzHWJTx6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793014845;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=yPAdl72E+7xklG7nRDjs082FkacgxDewbsxvMJxomYI=;
-	b=hOFH/LhUoVekzhgD3rF2+k/q2ZeoGhwLKwW25Vh4Y1IkuOZK8JuGiKgXogLPaS2Yz9JJ
-	 krh2VQJvrCvqm88m1mVqVNyWqMzwtYNNxfMQq8dOPVVyfvdPUys1YvB1Vg7jBUNIn0UYM
-	 u+86zclYg871Cay9of5NrGQ6mQy+F8DYBopJ5sEnJk5mv9ROo9iHqHP26TbsTLXkkvG7Y
-	 YL+T0s6LdH67RMMw6GJAzbleMRt+bW4U5hJbJ7+DFhUcMFopmpIAv1OHI19+wS/gvf47t
-	 AD4b7au30WoDLNZh7mrng/z5gjlZeJCU6q+BbZXDmEjluyHuaWEMVfafrB1yyxUDdcQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793014850;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
+	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
+	bh=qX4Sg3R1nkSqFGgYK5wNxJVnpfGKv+MxM4+gM01GXBo=;
+	b=Bn5XnMg00M2y4fDPX8RwdTdhjZoxE75lEZgTZyNPqM7lgJHmvnQT0TxysWJUXOQVbS3X
+	 HOoqtLF948eTTeI1ehIlUKwkymuZqMuJjgQ2YAx5H6+PpxLwgBccZ1+ibzY+05VPVTgAC
+	 ZnR6dp0fVJ+Bdp9AgQW0D6Kaem+7H89zWyQWBJ3OxDHWdlRF2pCWEDaTTfedcH3+VJete
+	 sm4IDLxw7EbsOI4BeJ+xzeK+6B8IuPpqwDzXRayyo2Id6bhI5PEy5bT4G5wAG7cUPaf0S
+	 tJu244Ga7fmM+OQO20ZlgcBBjMNVXMfCfQ7/BzCE/PAuTTenlXjv+ZRrWuV/okI+T+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b="l23TYui/";
-	arc=none smtp.remote-ip=90.155.50.34
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jDhPd+ff;
+	arc=none smtp.remote-ip=198.175.65.14
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF107606A31B;
-	Mon, 26 Oct 2026 11:40:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF107606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E761606A325
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:40:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E761606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=l23TYui/
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=yPAdl72E+7xklG7nRDjs082FkacgxDewbsxvMJxomYI=; b=l23TYui/tT2VtnunGJt9l1x/dz
-	Urit897PyBh5STzFdbFbuP9rgPtLXueK6QjPZZPNVB4MnS1laeDfJMoc4BNlC+hkpscbCpTqMAiAM
-	sgaCGAWvdFgQ13klnf6wwSXKmjMkbqkT5lLp9KxAM0NwijA0e2/w1ISPHSJvYLkOBVwkgM6Qs5Oxv
-	An9nhAnTRGJOv7qzAsF4cjweEwUlYYCBN0O9Oocn8lV6nQUVePIxrl8K1tNQ1xW9SHM2LNA9LC85X
-	POcOY5+4fVcGIHQlMnWtzsVYmUok2mqUtzynwAuS9FB8d50ZiV0JxEtD7/330mGuZx6jiw5SdQV2o
-	40GGDHJQ==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xLJ4B-0000000217E-1iIm;
-	Mon, 26 Oct 2026 11:40:39 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 50A4C300DB9; Mon, 26 Oct 2026 12:40:38 +0100 (CET)
-Date: Mon, 26 Oct 2026 12:40:38 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: Yao Kai <yaokai34@huawei.com>
-Cc: Thomas Gleixner <tglx@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Ingo Molnar <mingo@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	linux-kernel@vger.kernel.org, liuyongqiang13@huawei.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] rseq: Prevent self-preemption when granting a time slice
- extension
-Message-ID: <20261026114038.GE2668200@noisy.programming.kicks-ass.net>
-References: <20261023040439.3829110-1-yaokai34@huawei.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jDhPd+ff
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793014849; x=1824550849;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=QCrBfYL2ew/XvubQXu1WHWV63HLKPad+FX6e7D+KUi8=;
+  b=jDhPd+ffyAFQItqMp+EXpCkTZWqt4WVOKlMPQErtTrsAw2K1M+OWHJRC
+   Bq8e+JOGmVIdngGO5xBPrsKX5ZgsXtZW9N7trzV9/bEhYEtsIkqT6FI+b
+   +kBLCOwu6UObltPj12R075B0zA/S6Lhj4ucjFGOLAgmn8CLkWAbua8ROW
+   XiT3NwLu4tStyrThXXoKMt6AVMg+BDbhZkevQG6jY6Qmn4pOb2LORvSdL
+   jmN30uynoY0b0oWCtp7idu6zqDJhO/oZvvhlWNKF5OQUbmELuerL5LPMI
+   2OBaxVBOogadlJxYMRtREQa7Qux/U/ktBghPoZGmAoW63Q2RIIJFGdpvu
+   w==;
+X-CSE-ConnectionGUID: 35a8h7M7Q+iN0xv5up2ZKQ==
+X-CSE-MsgGUID: z/Da6nYcSsy3xUdPsjfLeQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1552504"
+X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
+   d="scan'208";a="1552504"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 04:40:49 -0700
+X-CSE-ConnectionGUID: M2LNJxRlT9mTEhcZgkyb9g==
+X-CSE-MsgGUID: ebahKGvbQGqLdIm6xZtbYg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
+   d="scan'208";a="4325789"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.109])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 04:40:48 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Mon, 26 Oct 2026 13:40:43 +0200 (EET)
+To: Navon John Lukose <navonjohnlukose@gmail.com>
+cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+    Lee Jones <lee@kernel.org>, 
+    Mika Westerberg <mika.westerberg@linux.intel.com>, mfd@lists.linux.dev, 
+    LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v3] mfd: intel-lpss: Set d3hot_delay to 0
+In-Reply-To: <20261025193613.278610-1-navonjohnlukose@gmail.com>
+Message-ID: <cc731b9b-3161-994a-764c-39654137629a@linux.intel.com>
+References: <20261025193613.278610-1-navonjohnlukose@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,83 +80,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261023040439.3829110-1-yaokai34@huawei.com>
+Content-Type: multipart/mixed; boundary="8323328-163579755-1793014843=:1162"
 
-On Fri, Oct 23, 2026 at 12:04:39PM +0800, Yao Kai wrote:
-> __rseq_grant_slice_extension() makes the grant visible to user space and
-> then reads the clock to compute the expiry time before it clears the
-> pending reschedule request. This runs in the exit to user mode loop with
-> interrupts enabled.
-> 
-> Clocksource read functions are free to disable and enable preemption.
-> kvm_clock_read(), xen_clocksource_read() and the arm64 architected timer
-> counter accessors, which are used when a counter erratum workaround is
-> active, do so. With full or lazy preemption, when the request which
-> triggered the grant is a non-lazy TIF_NEED_RESCHED, e.g. a lazy request
-> upgraded by the scheduler tick, then preempt_enable_notrace() in the clock
-> read function schedules right away, e.g. in a KVM guest:
-> 
->   __schedule
->   preempt_schedule_notrace
->   preempt_schedule_notrace_thunk
->   kvm_clock_get_cycles
->   ktime_get_mono_fast_ns
->   irqentry_exit
->   asm_sysvec_apic_timer_interrupt
-> 
-> The task is preempted with the grant already handed out to user space,
-> i.e. in the middle of the critical section which the extension is supposed
-> to protect. The stale grant is cleaned up when the task goes back to user
-> space, so the damage is limited to the extension silently not working for
-> such preemptions on systems which use one of these clocksources.
-> 
-> Read the clock in the interrupt disabled section after the reschedule
-> request has been cleared.
-> 
-> Fixes: dfb630f548a7 ("rseq: Implement rseq_grant_slice_extension()")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yao Kai <yaokai34@huawei.com>
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323328-163579755-1793014843=:1162
+Content-Type: text/plain; charset=ISO-8859-15
+Content-Transfer-Encoding: QUOTED-PRINTABLE
+
+On Mon, 26 Oct 2026, Navon John Lukose wrote:
+
+> Every runtime resume of an LPSS controller waits the default 10 ms
+> d3hot_delay in pci_power_up() for the D3hot->D0 transition. Nothing
+> misbehaves, but the wait adds latency. On Arrow Lake-H (Lenovo Yoga Pro 7
+> 14IAH10) the touchpad's I2C controller autosuspends after 1 s idle, and
+> the i2c-hid interrupt handler for the first report afterwards takes
+> 12.6-14.4 ms.
+>=20
+> The PCI spec asks for those 10 ms, but Mika Westerberg pointed out that
+> the LPSS controllers are not really PCI-connected devices, so the delay
+> is likely not needed. intel-lpss-pci already clears d3cold_delay,
+> quirk_remove_d3hot_delay() drops d3hot_delay on several older Intel
+> chipsets, Cherry Trail among them, and commit 815b4448198f ("i3c:
+> mipi-i3c-hci-pci: Set d3hot_delay to 0 for Intel controllers") does the
+> same for the Intel I3C controllers.
+>=20
+> Set d3hot_delay to 0 as well. The handler above then takes 1.1-1.9 ms,
+> with no I2C errors. Only Arrow Lake-H was tested.
+
+The new text reads much better, thanks,
+
+Reviewed-by: Ilpo J=E4rvinen <ilpo.jarvinen@linux.intel.com>
+
+--
+ i.
+
+> Acked-by: Mika Westerberg <mika.westerberg@linux.intel.com>
+> Signed-off-by: Navon John Lukose <navonjohnlukose@gmail.com>
 > ---
->  include/linux/rseq_entry.h | 14 ++++++++++++--
->  1 file changed, 12 insertions(+), 2 deletions(-)
-> 
-> diff --git a/include/linux/rseq_entry.h b/include/linux/rseq_entry.h
-> index 31ce349ed42c..3e6a339175f8 100644
-> --- a/include/linux/rseq_entry.h
-> +++ b/include/linux/rseq_entry.h
-> @@ -174,8 +174,6 @@ static __always_inline bool __rseq_grant_slice_extension(bool work_pending)
->  	rseq_stat_inc(rseq_stats.s_granted);
->  
->  	curr->rseq.slice.state.granted = true;
-> -	/* Store expiry time for arming the timer on the way out */
-> -	curr->rseq.slice.expires = data_race(rseq_slice_ext_nsecs) + ktime_get_mono_fast_ns();
->  	/*
->  	 * This is racy against a remote CPU setting TIF_NEED_RESCHED in
->  	 * several ways:
-> @@ -222,6 +220,18 @@ static __always_inline bool __rseq_grant_slice_extension(bool work_pending)
->  	scoped_guard(irq) {
->  		clear_tsk_need_resched(curr);
->  		clear_preempt_need_resched();
-> +		/*
-> +		 * Store expiry time for arming the timer on the way out.
-> +		 *
-> +		 * Read the clock only after the reschedule request has been
-> +		 * cleared and with interrupts disabled. Clocksource read
-> +		 * functions, e.g. kvm_clock_read(), may disable and enable
-> +		 * preemption, which would otherwise schedule right here on a
-> +		 * pending request and void the grant which was just handed
-> +		 * out to user space.
-> +		 */
-> +		curr->rseq.slice.expires = data_race(rseq_slice_ext_nsecs) +
-> +					   ktime_get_mono_fast_ns();
->  	}
->  	return true;
-
-I am confused; even with this patch on, a tick that happens after
-unsafe_put_user() can cause things to get rescheduled 'instantly'. That
-preemption happens from irqentry_exit_cond_resched(), and needs no help
-from any preempt_enable() usage.
-
-
+>=20
+> Notes:
+>     Changes in v3:
+>     - Describe the delay first, then why it is not needed (Ilpo).
+>     - Give Mika's full name (Ilpo).
+>     - Add Mika's Acked-by.
+>    =20
+>     Changes in v2:
+>     - Drop RFC and add the review discussion to the changelog (Andy).
+>    =20
+>     v2: https://lore.kernel.org/r/20261022040453.45797-1-navonjohnlukose@=
+gmail.com
+>     RFC: https://lore.kernel.org/r/20261016114347.23633-1-navonjohnlukose=
+@gmail.com
+>=20
+>  drivers/mfd/intel-lpss-pci.c | 1 +
+>  1 file changed, 1 insertion(+)
+>=20
+> diff --git a/drivers/mfd/intel-lpss-pci.c b/drivers/mfd/intel-lpss-pci.c
+> index 63a3fb58566..5672f033e5c 100644
+> --- a/drivers/mfd/intel-lpss-pci.c
+> +++ b/drivers/mfd/intel-lpss-pci.c
+> @@ -70,6 +70,7 @@ static int intel_lpss_pci_probe(struct pci_dev *pdev,
+>  =09=09info->quirks =3D quirk_pci_info->driver_data;
+> =20
+>  =09pdev->d3cold_delay =3D 0;
+> +=09pdev->d3hot_delay =3D 0;
+> =20
+>  =09/* Probably it is enough to set this for iDMA capable devices only */
+>  =09pci_set_master(pdev);
+>=20
+--8323328-163579755-1793014843=:1162--
