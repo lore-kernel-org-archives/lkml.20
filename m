@@ -1,54 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792974238;
-	b=xdboFTqxPBs0EJ0Xto+JaT64Dh0d32UOYoD1WkF9CNPBlSP4c8sqdRMcbYOe+80N9KWC
-	 JdubUpRVQHgqD2Lzc7nwBgaTGDdF7CDFSJ8Lu0soIM6Mt10HIxsA0dBdDRvWNP5TWohgm
-	 UUF5dYoSQiZgU4LjPV4a0SVdzo5DLjwDqdE2mqrs69sLmnKQIn1lTAYjcb0d03vzBZGBe
-	 SlVWZr8Md54GDfNHMuZcunETpE/rd0yTkIVUdKaXFLADS20vNRCWwqxrkhWq8Tvhu0wUq
-	 mHKm0Ss8GeojCAkJl09+hH730qCKM6etJ7gcuwRT5ZlTKkEGNgrWq/f/CCvwy1JXxEw==
+	t=1792974239;
+	b=mQxGPD9E6XNLvREq7+V6MSz60SMqj18nPhjtBcsUllEsrL73tnZaNMi2IpQRRWt5ncS9
+	 C8em+uXnv1U1p8Ykk7xFzrCOB7UgFsha/JdbviNTaAqLfDEO6wEt8/zRdayPjsKQpr/d8
+	 8S5XqmoMprEMgkwuTDKEGP8FYZj13XZPxprjRlFQr/Eix3s20ambL/zSYnTpcb8+qIvFL
+	 RGmEnTIHbfzNGBn7j9qssydJOw/jAOk/AjnVs63JRPmJo+gMTQWJVcY7FqnBrkAmOfb1+
+	 Z1BeNxG2ug2vg/yt1grE5mMCx9hWyXXb17+Qv79s68zJc0HFuIIIPv0GUUOqULAVOag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792974238;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792974239;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=dqpn0VOvid0Ccj1QalYb9m3wlp9UzSVV8m4iQZQdUq4=;
-	b=4H01uICGmFIzoxH91f3b8uW6rfh3hsMQUOpeCWp3VH7uoy52NRPgvp38cU/cI1JmunrY
-	 PKQYkYafRMJpObkmwweg2CafCk7ICBZ2xMcHO7Jh2EpXyFAnpI97RuJHXIotmn4R+oUp9
-	 L3aDZmYoyjeEDDUsZyqviUcRTozEt2SWg14+Dq1lMoW6ymJwLxZXPBIfl1nqKC0Ygsjgd
-	 57w44bnfmYCF51H+mmvWQw6itgBRGKL5dlLsT1AagAE4dzDm268eTErEPaXMhHxE+apOH
-	 TFKCJ6yIt/lvuBwlpzfT44Y/rPj4HLcsT1SRciFxExqqvtipW3OMOigbCHPWVGGI0tQ==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=N7nzB2KLuRZYRlbVOXc3Qao54Dq78/8OeGxh0TxfAxY=;
+	b=hIbDq90x5eddFWjp/n6f99TMMkIdDDHZbo5c8M5K9r4j1begey3jYMiwllSci4K7HFYh
+	 iuRgONDMf3BsPS58AyOT3PM0KR7gJq21UOz3kAgWF82tQYm0EF1Hd+5+qRL1KiMqfTedv
+	 Akdbgkhq5G2M6ms9AcbelpHDHQsYvb0PnBwSUKXVgdrJKgSoXAlmItr2yoEZ6oF9JvW64
+	 C4qwsj5mz0iDFkpv83O1kq5SrsniDpP3eSgduQh0U0ZGGcG/jPuMCWqjeL/kw2BFtk3by
+	 T22GTwsYGI5lNdqSFkOiuRsCRlLq86wDL568TX/lgswvtbBRvD7GXv6z6KhN+VmEeqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ViDZsyXi;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jLjbuTlq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B29F1606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 00:23:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8712606A321
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 00:23:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ViDZsyXi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E11E1F031E4;
-	Mon, 26 Oct 2026 00:23:56 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jLjbuTlq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6E1E1F031E1;
+	Mon, 26 Oct 2026 00:23:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792974237;
-	bh=dqpn0VOvid0Ccj1QalYb9m3wlp9UzSVV8m4iQZQdUq4=;
-	h=From:To:Cc:Subject:Date;
-	b=ViDZsyXiu9itni2pmBDvfVFt2UQgOqOn0q/0SlyWyPyIAU/YKzMGQL0VZtxCUTH0r
-	 UtywuKmYkhq0PzMIfQcmWtnddwWL3t0xD1R+U6PqyJR0AFaWoBMjMajngAoucdjcl8
-	 ggqo+1I9QiAdqQhZWnRxl1astjjopA3pWp2BK6dTo8G82hW/RnUmKKcGG/6lWeujXF
-	 po+2oTSuANocL0h2e0SxQpZhZ/Z/hYuGYm6WNDPzPcDVMjh1lHytcPr7v7nY3LPLQT
-	 50zNORp8pwZuBj0upDXhaQdcSrl5I2B9L9266J+xno/hircS42lv/ODY+uDStCTvy1
-	 dFSN08jL74PSQ==
+	s=k20260515; t=1792974238;
+	bh=N7nzB2KLuRZYRlbVOXc3Qao54Dq78/8OeGxh0TxfAxY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=jLjbuTlqNsP8WS3AfJmvbRmkSbY3/bhF0hzrQsK3DCmMZqf+oFaoWO7PrdaabJTZI
+	 kJEuSi4EhUK2NYCS6epjZyapgZYQqMSQjLUG/8zHEwJMhwhimOS+x0Y2f5gRglkqb5
+	 M8yjujt6+dCjv+tWxYkGatMg/hibSiEuVj6xZ+vyzIDItJPGthnQilh7ThUraJp5ia
+	 M9JdSEPPSjTxLeXcKfjNa3ILqvFKYD/Fprp8/uBhel4DWh8+roTst9mgYcVPq3sVuv
+	 IGStQulby6QtVmjGfYIKKdICTo51AAyfeH4Nfokx1jVtSwHTHOPMeNXeC6u5X6QYTE
+	 cozOG2v5IMz1w==
 From: Chao Yu <chao@kernel.org>
 To: jaegeuk@kernel.org
 Cc: linux-f2fs-devel@lists.sourceforge.net,
 	linux-kernel@vger.kernel.org,
 	Chao Yu <chao@kernel.org>,
 	stable@kernel.org
-Subject: [PATCH v2 1/2] f2fs: fix to fetch ino via ino_of_node() under cache lock
-Date: Mon, 26 Oct 2026 08:23:49 +0800
-Message-ID: <20261026002350.1451587-1-chao@kernel.org>
+Subject: [PATCH v2 2/2] f2fs: fix to update superblock crc in sanity_check_area_boundary()
+Date: Mon, 26 Oct 2026 08:23:50 +0800
+Message-ID: <20261026002350.1451587-2-chao@kernel.org>
 X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
+In-Reply-To: <20261026002350.1451587-1-chao@kernel.org>
+References: <20261026002350.1451587-1-chao@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,40 +64,38 @@ Content-Transfer-Encoding: 8bit
 
 From: Chao Yu <chao@kernel.org>
 
-In f2fs_writeback_node_caches(), it's better to fetch ino via ino_of_node()
-under cache lock, otherwise, node cache content may become stale after cache
-is unlocked due to racing w/ truncation.
+This patch fixes the bug reported by Sashiko:
 
-Commit 493b9dc8b52c ("f2fs: cache: use node cache") fixes similar issue in
-f2fs_flush_inline_data() introduced in commit 34c061ad85a2 ("f2fs: Avoid double
-lock for cp_rwsem during checkpoint").
+We should update superblock crc along w/ raw_super->segment_count in
+sanity_check_area_boundary() if sb_checksum feature is enabled.
 
 Cc: stable@kernel.org
-Fixes: 2049d4fcb057 ("f2fs: avoid multiple node page writes due to inline_data")
+Fixes: d440c52d3151 ("f2fs: support superblock checksum")
 Signed-off-by: Chao Yu <chao@kernel.org>
 ---
 v2:
-- no changes
- fs/f2fs/node.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+- update crc directly in sanity_check_area_boundary rather than calling
+f2fs_commit_super() which will access NULL sbi->raw_super.
+ fs/f2fs/super.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
-index 424e95ca5878..44f94000d452 100644
---- a/fs/f2fs/node.c
-+++ b/fs/f2fs/node.c
-@@ -2195,9 +2195,11 @@ int f2fs_writeback_node_caches(struct f2fs_sb_info *sbi, long nr_to_write,
- 
- 			/* flush inline_data */
- 			if (f2fs_cache_test_inline(entry)) {
-+				nid_t ino = ino_of_node(sbi, entry);
+diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
+index b321b9cff351..37d208c6bb53 100644
+--- a/fs/f2fs/super.c
++++ b/fs/f2fs/super.c
+@@ -4084,6 +4084,12 @@ static inline bool sanity_check_area_boundary(struct f2fs_sb_info *sbi,
+ 		/* fix in-memory information all the time */
+ 		raw_super->segment_count = cpu_to_le32((main_end_blkaddr -
+ 				segment0_blkaddr) >> log_blocks_per_seg);
++		if (__F2FS_HAS_FEATURE(raw_super, F2FS_FEATURE_SB_CHKSUM)) {
++			__u32 crc = f2fs_crc32(raw_super,
++					offsetof(struct f2fs_super_block, crc));
 +
- 				f2fs_cache_clear_inline(entry);
- 				f2fs_unlock_cache(entry);
--				flush_inline_data(sbi, ino_of_node(sbi, entry));
-+				flush_inline_data(sbi, ino);
- 				goto lock_node;
- 			}
++			raw_super->crc = cpu_to_le32(crc);
++		}
  
+ 		if (f2fs_readonly(sb) || f2fs_hw_is_readonly(sbi)) {
+ 			set_sbi_flag(sbi, SBI_NEED_SB_WRITE);
 -- 
 2.49.0
 
