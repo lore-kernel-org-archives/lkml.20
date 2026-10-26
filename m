@@ -1,68 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793010371;
-	b=bOoJyDOtyiRoAp/LzpxCxt/xf9DMjYpgDymNjw/9ZM6PzvlGHfiKmcWYSQzUvlhk7ajY
-	 saET8Xup4Na5A81/Ubh5gLX9uMhe4UKHuj97lGPD0uwm3HKG/XXNc/pHbkCbERyrOM5FE
-	 Dxx3A5mj/vmCfQsxr/ARjVAlXhV1LX8iHohJpKcSR7/6I/1qZ2OA5/LKSONE8b3sRDY06
-	 H0fbGOTfzlVKKEkBmtv35kZSz9GLOoiAyx5Wqk6QFdK1JHdL/kG1qasfeSg5Ft7F9aLOi
-	 DLp4mKTCTjURQLlGPNwHFEzm5qwtzhL1pd10PzvORSBO3vhFdVqZK3wjAd+XW/3qw4A==
+	t=1793010394;
+	b=Yz+D6i2/eJRwsUzF49eCEneRwiXhqdrD75kxzLW1FVBGV/rFjxORf6cidfl+aXl4iqwv
+	 GBW5YlgmcdOJcY0cfcN3sKaTmbIVd18EqgHNHKZ0TqyRqEb9JWqI4ZZxLOlsBLIuSlTuX
+	 yBzH5cpZzycPpfeBDJgYUi0aXBVaLpD0bPmmVCcy9B4PCvKboTArKYW96lvs7utQtNy9c
+	 t6SgAW0hJtQBDXIVdBPhjGoINVqzO58zGmQcYWPE0e5i+Px4eUUeFgt+jy+xpwiSt0iGx
+	 Mq58w1t/QiHxNiAFJIsa4Il6l+mRCp8DxCHxQG8tQuW6hfy6WAjyQ6oBzeJImMwcQPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793010371;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=Y6oRwARljAebElUKFvK8H3t3ANwhHxuF/Ppq0WMLrq8=;
-	b=GMrYsWVX8CjTqnsTfN/FEMgy402/nx71oIXOj64NRZ/rQdfUh/NcWpjEIG6dXiShHDnO
-	 l0tULlnr4HYsAkUUleYcAcKMhlFyG7cU3JyHNdsif3IGc0WfQCdgb8MkdmW7dKynF6E04
-	 X4UrIxAJmMsevBucYOCSOvLs/owILCTaMjf71HXuvB8mHlFP5lYo8MJoYLGTcQerjeqdG
-	 Q6HvbBxJY3PyN0hO7x+FMfTOsyljj7iJMMnf1pk9JwdqJ5AHqMgT/4giLV+upHnBv9SJx
-	 qMS0SUuOof6PVOcACIaJr4zP5U4rhj2KdPZqCOl9VqfJlslxN6mvnou2LwLMdLn+CgQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793010394;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=eHcMPsGRbqJbXvtG9Us6VT3nO3822zW0WZWA0+by0e8=;
+	b=Q1iN9X/v9zlOouokHFEgc3Excq6zfmpzccC9ojPbC0jvfJjjmmW5zuAUrBzt4ODW8t/Y
+	 CJ9jFLx0gU26ReuKAWCWcrh8H5J0PIngqJ5emQaukNaJxNN5txaQ5BKy6CHocf7S6iiyj
+	 Xbqx7bi/a5U4uR24xIetzBLYzv/a+pkeJWumY2WnjMcdKv6VzgMN+l2bpsEajr+ci20sR
+	 lLbnW+zEDEVq1kotQ6LrtQTca9fEPmdEqZNj5cn3nhD5syw+x+ny/VW8AZUrXfGcyGCyt
+	 /meTOCmiB1dJKlg1oBfJKko9M9WAjsoBRkFXtO0cQr4UtL5dTPPs2PYPUn0mxIKOlkQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TCrIU93w;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="PRdQQT3/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B879F606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:26:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD796606A31A;
+	Mon, 26 Oct 2026 10:26:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TCrIU93w
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CF781F01828;
-	Mon, 26 Oct 2026 10:26:06 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PRdQQT3/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDB871F01825;
+	Mon, 26 Oct 2026 10:26:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793010370;
-	bh=Y6oRwARljAebElUKFvK8H3t3ANwhHxuF/Ppq0WMLrq8=;
-	h=From:To:Cc:Subject:Date;
-	b=TCrIU93w9IHx64zbHME5wnCOja5h5+idy8mXAZzOIJn62yXZ5CiDq4JKjUxL9oeoV
-	 svklRgsVSTOk6cwdO3SCpHUUUsyLy6XbUXAq1e3GXOgrzpQbyUi6/nryC0XHKSYPDT
-	 xuFeQYaHtFksLzQicEe6FVWCOV7zDcaJ8MYpq/m3Wdhp4JxW6d0VkpgWQLqX6gbkYJ
-	 Vqs4kGvZVOYuSIp42uXgSEf8j71pmmpU3kkFmaSaihvBYQnBnokduJTty788sN3ueU
-	 FYXlFevbdSUl0FlGtHdOpuXtBUK/3KTK7ZQQFFf0n64JGXQ+bc8i77vfqZLM6KqS3O
-	 AKfe8307sq18w==
-From: Arnd Bergmann <arnd@kernel.org>
-To: Matthew Brost <matthew.brost@intel.com>,
-	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Matt Roper <matthew.d.roper@intel.com>,
-	Lucas De Marchi <demarchi@kernel.org>,
-	Riana Tauro <riana.tauro@intel.com>
-Cc: Arnd Bergmann <arnd@arndb.de>,
-	Matthew Auld <matthew.auld@intel.com>,
-	Shuicheng Lin <shuicheng.lin@intel.com>,
-	Armin Wolf <W_Armin@gmx.de>,
-	Zhanjun Dong <zhanjun.dong@intel.com>,
-	Michal Wajdeczko <michal.wajdeczko@intel.com>,
-	=?UTF-8?q?Piotr=20Pi=C3=B3rkowski?= <piotr.piorkowski@intel.com>,
-	Tejas Upadhyay <tejas.upadhyay@intel.com>,
-	intel-xe@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] drm: xe: select configfs
-Date: Mon, 26 Oct 2026 11:25:50 +0100
-Message-ID: <20261026102603.2045493-1-arnd@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	s=k20260515; t=1793010393;
+	bh=eHcMPsGRbqJbXvtG9Us6VT3nO3822zW0WZWA0+by0e8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=PRdQQT3/otIPoJ1Uzl1HCJ637GIeKYnkt2E4sfRnx/b/i2a6QvXc7Uz+RwIxdFMtp
+	 t2tJE7O4V7Eh3GmQ8jkHdvhyfsea/dJW7Hp1/kvVIAhxez8DRovHsvMA3F6UCjHpLL
+	 OJjrA8XL2JaWCcxh8U9XQp4ajtJeSocMadD6FMu4KYXNai+mTfXARmAOrflEYPXEZ7
+	 I3zWelFh4WjVf8em2jf+8ZIZnLO4BrbojDbkhaMTS+aLcTjdlDSQ7++IUK/usut3vS
+	 jQeWTZceMwLrscW612/f+3BH8PGs24ywgzec+RR/b8KG73s6evD6nqQI7adD2lVAB6
+	 czsszmTjJu1eQ==
+Date: Mon, 26 Oct 2026 11:26:30 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Ishu Brar <patches@brar.si>
+Cc: Georgi Djakov <djakov@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org, Konrad Dybcio <konradybcio@kernel.org>, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: interconnect: qcom: Add SM7250 RPMh
+ NoC bindings
+Message-ID: <20261026-cherry-muskrat-of-piety-4911ee@quoll>
+References: <20261024-icc-sm7250-v2-0-0e755894b188@brar.si>
+ <20261024-icc-sm7250-v2-1-0e755894b188@brar.si>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,95 +60,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261024-icc-sm7250-v2-1-0e755894b188@brar.si>
 
-From: Arnd Bergmann <arnd@arndb.de>
+On Sat, Oct 24, 2026 at 08:40:53AM +0530, Ishu Brar wrote:
+> Document the Network-On-Chip interconnect providers of the Qualcomm
+> SM7250 SoC (Snapdragon 765/765G/768G), which are controlled through RPMh
+> Bus Clock Managers, and add the header with the node and slave IDs.
 
-The original addition of configfs to xe missed a compile-time dependency,
-which leads to a link failure when configfs is enabled as a loadable module:
+A nit, subject: drop second/last, redundant "bindings". The
+"dt-bindings" prefix is already stating that these are bindings.
+See also:
+https://elixir.bootlin.com/linux/v7.1-rc7/source/Documentation/devicetree/bindings/submitting-patches.rst#L23
 
-ld.lld-21: error: undefined symbol: xe_configfs_get_survivability_mode
->>> referenced by xe_survivability_mode.c:224
->>>               drivers/gpu/drm/xe/xe_survivability_mode.o:(xe_survivability_mode_is_requested) in archive vmlinux.a
+> 
+> Signed-off-by: Ishu Brar <patches@brar.si>
+> ---
+>  .../bindings/interconnect/qcom,sm7250-rpmh.yaml    |  95 +++++++++++++
+>  .../dt-bindings/interconnect/qcom,sm7250-rpmh.h    | 148 +++++++++++++++++++++
+>  2 files changed, 243 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/interconnect/qcom,sm7250-rpmh.yaml b/Documentation/devicetree/bindings/interconnect/qcom,sm7250-rpmh.yaml
+> new file mode 100644
+> index 000000000..f8891faa8
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/interconnect/qcom,sm7250-rpmh.yaml
+> @@ -0,0 +1,95 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/interconnect/qcom,sm7250-rpmh.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Qualcomm RPMh Network-On-Chip Interconnect on SM7250
+> +
+> +maintainers:
+> +  - Ishu Brar <patches@brar.si>
+> +
+> +description: |
+> +  RPMh interconnect providers support system bandwidth requirements through
+> +  RPMh hardware accelerators known as Bus Clock Manager (BCM). The provider is
+> +  able to communicate with the BCM through the Resource State Coordinator (RSC)
+> +  associated with each execution environment. Provider nodes must point to at
+> +  least one RPMh device child node pertaining to their RSC and each provider
+> +  can map to multiple RPMh resources.
+> +
+> +  See also: include/dt-bindings/interconnect/qcom,sm7250-rpmh.h
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - qcom,sm7250-aggre1-noc
+> +      - qcom,sm7250-aggre2-noc
+> +      - qcom,sm7250-config-noc
+> +      - qcom,sm7250-dc-noc
+> +      - qcom,sm7250-gem-noc
+> +      - qcom,sm7250-mmss-noc
+> +      - qcom,sm7250-npu-noc
+> +      - qcom,sm7250-system-noc
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +# Child node's properties
 
-A recent workaround added a 'IS_REACHABLE()' check around the calls into
-configfs, which makes it link in this configuration, but this is generally
-a bad idea because it makes the actual behavior inconsistent and confusing
-to users that expect configfs to work if both xe and configfs are enabled.
+Drop comment
 
-Use 'select CONFIGFS_FS' instead, like every other configfs user does,
-and remove the unnecessary stub functions. There is little practical
-difference here as anyone using XE graphics is likely to have a complex
-configuration that already selects configfs anyway, and the link error
-or the IS_REACHABLE() would only manifest during randconfig testing.
+> +patternProperties:
+> +  '^interconnect-[a-z0-9\-]+$':
 
-Fixes: 30499cbd7961 ("drm/xe: Fix build with DRM_XE=y and CONFIGFS_FS=m")
-Fixes: 16280ded45fb ("drm/xe: Add configfs to enable survivability mode")
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
----
- drivers/gpu/drm/xe/Kconfig       |  1 +
- drivers/gpu/drm/xe/xe_configfs.h | 30 ------------------------------
- 2 files changed, 1 insertion(+), 30 deletions(-)
+Why this has to be a pattern, not 'interconnect'? And anyway, pattern is
+'^interconnect-[0-9]+$' if you have multiple children.
 
-diff --git a/drivers/gpu/drm/xe/Kconfig b/drivers/gpu/drm/xe/Kconfig
-index 4fc8abdc5cb6..b52a8dc28f97 100644
---- a/drivers/gpu/drm/xe/Kconfig
-+++ b/drivers/gpu/drm/xe/Kconfig
-@@ -11,6 +11,7 @@ config DRM_XE
- 	# the shmem_readpage() which depends upon tmpfs
- 	select SHMEM
- 	select TMPFS
-+	select CONFIGFS_FS
- 	select DRM_BUDDY
- 	select DRM_CLIENT_SELECTION
- 	select DRM_KMS_HELPER
-diff --git a/drivers/gpu/drm/xe/xe_configfs.h b/drivers/gpu/drm/xe/xe_configfs.h
-index 327b648944ff..d726800de26a 100644
---- a/drivers/gpu/drm/xe/xe_configfs.h
-+++ b/drivers/gpu/drm/xe/xe_configfs.h
-@@ -14,7 +14,6 @@
- 
- struct pci_dev;
- 
--#if IS_REACHABLE(CONFIG_CONFIGFS_FS)
- int xe_configfs_init(void);
- void xe_configfs_exit(void);
- void xe_configfs_check_device(struct pci_dev *pdev);
-@@ -36,34 +35,5 @@ u32 xe_configfs_get_ctx_restore_post_bb(struct pci_dev *pdev,
- unsigned int xe_configfs_get_max_vfs(struct pci_dev *pdev);
- bool xe_configfs_admin_only_pf(struct pci_dev *pdev);
- #endif
--#else
--static inline int xe_configfs_init(void) { return 0; }
--static inline void xe_configfs_exit(void) { }
--static inline void xe_configfs_check_device(struct pci_dev *pdev) { }
--static inline bool xe_configfs_get_survivability_mode(struct pci_dev *pdev) { return false; }
--static inline bool xe_configfs_primary_gt_allowed(struct pci_dev *pdev) { return true; }
--static inline bool xe_configfs_media_gt_allowed(struct pci_dev *pdev) { return true; }
--static inline u64 xe_configfs_get_engines_allowed(struct pci_dev *pdev) { return U64_MAX; }
--static inline bool xe_configfs_get_psmi_enabled(struct pci_dev *pdev) { return false; }
--static inline bool xe_configfs_get_enable_multi_queue(struct pci_dev *pdev) { return true; }
--static inline u32 xe_configfs_get_migrate_ulls_period_ms(struct pci_dev *pdev) { return 5; }
--static inline bool xe_configfs_get_disable_vram_page_offline(struct pci_dev *pdev) { return false; }
--static inline u32 xe_configfs_get_ctx_restore_mid_bb(struct pci_dev *pdev,
--						     enum xe_engine_class class,
--						     const u32 **cs) { return 0; }
--static inline u32 xe_configfs_get_ctx_restore_post_bb(struct pci_dev *pdev,
--						      enum xe_engine_class class,
--						      const u32 **cs) { return 0; }
--#ifdef CONFIG_PCI_IOV
--static inline unsigned int xe_configfs_get_max_vfs(struct pci_dev *pdev)
--{
--	return xe_modparam.max_vfs;
--}
--static inline bool xe_configfs_admin_only_pf(struct pci_dev *pdev)
--{
--	return XE_DEFAULT_ADMIN_ONLY_PF;
--}
--#endif
--#endif
- 
- #endif
--- 
-2.53.0
+
+Best regards,
+Krzysztof
 
