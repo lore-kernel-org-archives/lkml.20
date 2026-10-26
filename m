@@ -1,71 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793005503;
-	b=L+uvAkEXfdgd5VEzHlaMQyeMEdRnnREBBzUYSc5LhP1mj6lPcCyJzy4U/FyZn/soxS91
-	 zC2UnxSQYIes1FwWhUPIClWlulW3qw6eGbyqBSJe4wStblaB+OREFFP4PHAGw+pCBngqH
-	 9itArw3rzVcdVvyJWCzlu2iAvPd7TIoHQ3nNpGzPzm3vq+91EKbr8sEVCf9iq/2p3Rp2+
-	 q8ILnP2rec4+pvdXWnp5K7QZZfB/GPxlAqqneufpEHomiX+JMQaKHfNAEzhnVBY3a5PQg
-	 KVVBKO1AL99uJt9e+Kx7GKMSi9uI9GuVmMFxwVDoHQKiFwXtQ2DQ8QQMa1N91b4x+bg==
+	t=1793005562;
+	b=ngvF+SgmHHZbbBG2SIwOt1KW8+XNmPuWg50CZ9GfCrUkp4888Rd6TmDyz42Cmcq/+icC
+	 D6m13SFeHS/0Ybe5YdYyktHpsRMPO6AOVAq3dUau3jyTsEIn2npDAbXo4IbIxQ3LI56tO
+	 61Dhog/mWYC/8qR6GyTSSTv6CjD7OmcbBdydV3i9Jol71Kj8OUkqdBsAJKLmLvmd3H6DO
+	 Dl385ycbdfqHfO1IKB3+GUMHYJjDBcRNkxRen320NP8MBuXQxFmEYmcmaytE8CFEnbdD3
+	 1NwC+a24jtaR3BLecpeE8zjinZktIOrQFCEdbcF2/2lxIrxRYFHDMjHinMxYH+iBLNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793005503;
-	h=Received:DKIM-Signature:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:X-SA-Exim-Mail-From:
-	 X-SA-Exim-Scanned;
-	bh=2aZQAb9b35wOHk5vXC8j1PTlTOhSerTxTS33wIhHbWs=;
-	b=L2ev58Vaj7bE4zSCwCe84Xh9EOzJrnssATyX4oi5L2u1OMD9Pz9oCovqw0EJqMWN/9gU
-	 gtNapjtBALu3gChZUCOswokM3RGCLL5USMfx2LsPK1544LxRKYT0gqYgm4nJMwc2yflYJ
-	 cms499DxGi3r1d+gFxleJeTVhiW0h/Xz2tt29L9BUB+disSoAU8GhdSon9lS2ekq9Xh1P
-	 roubU5Edf1+ZfU3OIrR0bEhCUPXKe+O0QXUV2iFlSqGztPWqVfQSJRaYkBog82Mri1kYa
-	 MmmiYkPQ09M5oR5AIodcaF3dphRmSgGhn7PexFQeNljGOKnvYyC8zBIzR/mYOTMlm3g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793005562;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=6rfumQaYpABxgWOFoid1PGociqatj2vsd6oLQZ3XZn0=;
+	b=38h6oKpPN3BMOxhwtQepCAs10rpu718K5NcosnsD5uh2/LxkFUEwdSOZprEmCtwdCpTr
+	 NfcW8k8BJdrmp7XIA+nC3v9KgtiaktvqwEwJd+CiiNwYHyAWIdUp2Q1h2FQB2VBtoCybH
+	 51wGnYBK1zpqeUtYKrpDYrCiJVOMinHuN7vkiCHCLRdXcAOr7/akJiWIVhKAhGu2KshF3
+	 tdmmeRInBt2Ejn+svT2B6xWQrq+5SMlD6y37KFunbXtPYMH/A/VSdi/XZKKKxp8ECL4t+
+	 L1kTlbGRtFT86xnXj9MHiyk/y/Vgf717yOCWryQfRJ+snjZkW5vid9kjX94adO972TA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lf0VyYVn;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZUyqw5Kc;
+	arc=none smtp.remote-ip=192.198.163.11
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50495606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:05:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 011A8606A31A;
+	Mon, 26 Oct 2026 09:06:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 011A8606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lf0VyYVn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC6221F01825;
-	Mon, 26 Oct 2026 09:05:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793005502;
-	bh=2aZQAb9b35wOHk5vXC8j1PTlTOhSerTxTS33wIhHbWs=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Lf0VyYVnAFTkLv4ZDT7e5V7Alx5II69sMEO3VoGqbaCxVmPvse+ZiYgyMqgIGTnKy
-	 YcNlVoPgiDUvPji1Y618fGb35FkCyvXBLf+u9EfuCp4sU8Ir2cUj/eFPbmN8ABiRes
-	 zWcrTK8WU/jiRb39RDKr9QygfB0i0yQZ7pAzxHLNfYI5PpUP730IoFWzwF13BPufiA
-	 gRXB3anc7GTHyIBy9ZnGEsKzC9y8O/qxpyesZ56Upi7KyrGHMflVKfgLbATVEJTRlO
-	 n5D/upAN1ZJR2WwwKbGUyaqJmtxfYOTeRgPHFo5rbdxj2yJ95XlpPaKu580F/10dJM
-	 kAndyV037Mthw==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xLGdY-00000007B2X-3PVx;
-	Mon, 26 Oct 2026 09:05:00 +0000
-Date: Mon, 26 Oct 2026 09:05:00 +0000
-Message-ID: <86zew0ygqr.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: zhangqiao22@huawei.com, Zhan Xusheng <zhanxusheng1024@gmail.com>
-Cc: 	tglx@linutronix.de,
-	jstultz@google.com,
-	sboyd@kernel.org,
-	peterz@infradead.org,
-	mark.rutland@arm.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	zhanxusheng@xiaomi.com
-Subject: Re: [QUESTION] sched/clock: Potential timestamp jump due to inter-CPU counter skew?
-In-Reply-To: <20261026082730.2117173-1-zhanxusheng1024@gmail.com>
-References: <cf7a043c-384c-0642-204c-8f207eff3d42@huawei.com>
-	<20261026082730.2117173-1-zhanxusheng1024@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZUyqw5Kc
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793005562; x=1824541562;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=IYmuIJpwOSwQUw1waf6LOAjny4OLysbFDIu56qrcZ+Y=;
+  b=ZUyqw5KcHSggmuDUcV/PAAbQz7jGhFOMFA/vK/44skTLlNOpt7Z2GtGy
+   IbiD1+inxOfJDk6E4DxzBOlKx4yAbFmkStSdqkCGxaFLDWrxeV4Bfk9P0
+   8CyX4f5xXILmDt9bEI5hl20UmgKoPb0StwBdA/hJK3ddRF+bQuL19uOwM
+   yBgW2Jaw3ZbWfG7oaluz1Kj5E3/CwaZFW9o7K36R3d07oLuM80Sk0/aNI
+   RHXSPFVVmq9JSMhktz0Kj9W6Odh29IzgZa00tv5P4PwRRJekQbl6D0Bxc
+   WrQij0/7GnbU/jMPb0vIK49bIT6bbFdVW7cD0wfqF7ezgVyV+rfya3gdj
+   w==;
+X-CSE-ConnectionGUID: Ui8d48fSTEqdOC9XCXQsvQ==
+X-CSE-MsgGUID: J1NgKjXYQzmI7cCiGWFyDw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1572970"
+X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
+   d="scan'208";a="1572970"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 02:06:01 -0700
+X-CSE-ConnectionGUID: UXkaq4sISqG3pbmLkJ04bg==
+X-CSE-MsgGUID: iVx9PH64Rqy4VwCN+JYzWw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
+   d="scan'208";a="4564737"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.93])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 02:05:57 -0700
+Date: Mon, 26 Oct 2026 11:05:55 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Rupesh Majhi <zoone.rupert@gmail.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Eddie James <eajames@linux.ibm.com>, Joel Stanley <joel@jms.id.au>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] iio: pressure: dps310: wait for a new sample after a
+ ratio change
+Message-ID: <at8X810dwa98w9iL@ashevche-desk.local>
+References: <20261019153328.80739-1-zoone.rupert@gmail.com>
+ <atZqSXI14WojGso5@ashevche-desk.local>
+ <20261026024605.3286702f@jic23-hlaptop>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,29 +85,53 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: zhangqiao22@huawei.com, zhanxusheng1024@gmail.com, tglx@linutronix.de, jstultz@google.com, sboyd@kernel.org, peterz@infradead.org, mark.rutland@arm.com, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, zhanxusheng@xiaomi.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261026024605.3286702f@jic23-hlaptop>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, 26 Oct 2026 08:27:30 +0000,
-Zhan Xusheng <zhanxusheng1024@gmail.com> wrote:
+On Mon, Oct 26, 2026 at 02:46:05AM +0000, Jonathan Cameron wrote:
+> On Mon, 19 Oct 2026 22:06:49 +0300
+> Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
+> > On Mon, Oct 19, 2026 at 06:33:28PM +0300, Rupesh Majhi wrote:
+
+...
+
+> > >  /* Make sure sleep time is <= 30ms for usleep_range */
+> > >  #define DPS310_POLL_SLEEP_US(t)		min(30000, (t) / 8)
+> > 
+> > Seems the use of USEC_PER_SEC below should be postponed to a regular cleanup.
+> > Because otherwise it will be inconsistent with the above where it would need
+> > to be 30 * USEC_PER_MSEC
+> Do we want to have the extra churn on the below?
+
+I would bother in case there is no clean up patch attached and we will be left
+with the good *temporary* inconsistency that lasts for years :-)
+
+If Rupesh is going to add the patch to clean up that (before or after this patch)
+I wouldn't be triggered.
+
+> I'm not that bothered by a temporary state of different styles.
+> Nice indeed to have a follow up tidying up other cases though!
 > 
-> On arm64 the system counter is meant to give all PEs a common view of
-> time, and keeping the copies on separate dies in step is the
-> implementation's job.  The kernel has no tolerance for skew.  The counter
-> errata handled in arm_arch_timer.c (Freescale A-008585, HiSilicon
-> 161010101, Cortex-A73 858921, Allwinner A64) are all reads on a single
-> CPU returning a wrong value, worked around by reading twice; none of them
-> is skew between CPUs.
+> There is quite a bit going on around this driver, so I'm going to pick this
+> one up for the testing branch of iio.git rather than the faster path.
 
-Indeed. If the implementation cannot give any two arbitrary CPUs
-anywhere in the system the exact same view of the counter, then this
-implementation is broken, and unsupported. No discussion.
+> > > -/* Silently handle error in rate value here */
+> > > -#define DPS310_POLL_TIMEOUT_US(rc)	((rc) <= 0 ? 1000000 : 1000000 / (rc))
+> > > +/* A period plus a measurement time; silently handle error in rate value */
+> > > +#define DPS310_POLL_TIMEOUT_US(rc)	(2 * USEC_PER_SEC / max(rc, 1))
 
-	M.
+My comment basically based on the existence of the no-multiplier style, and
+this patch *changes* it here, but not there. And it's *this* patch that brings
+inconsistency.
+
+However, this is quite a minor thingy, so up to you.
 
 -- 
-Without deviation from the norm, progress is not possible.
+With Best Regards,
+Andy Shevchenko
+
+
