@@ -1,111 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793007733;
-	b=Fu36Y602dGcQjWi/7V3QaOhnDicUdzU9popkmMDN0K7ruFghrwXqqcNw3UWln+dvWm1N
-	 jjmoYKlwnKcqiVZB3/4x16Lxrs7+VQg+VffgvRhZfXbs/AST1S3m/ZtvUkwXcjuwrKjUK
-	 wMW12/ypHF3993REEKCxd9aB+AgxaR9czuIWTsHOZ+qVFGUZvcyvn8bGCDW2jjpzBMP4m
-	 aUV99GjJPV8GbLGKOl/MfrnFg9K+iFez26vpxu4S6QfQXx15mU4hOFJZK8dQ6ZqLHciJl
-	 M4x13AFsQi0gxIQ4viT4OidCQF6q4ngyMcO3IOgz3OSRZcM+JAQFyRr6y8ALgtegIlw==
+	t=1793007735;
+	b=UfAfaUmFOAoAp33S/+A6jEfXsZXK3RZbDIoOULxBGAHsdSaxD9PV2CZpo30Fd5zegPSZ
+	 gbUwI3eRW7pPzuBGlbNkoZixoHEghoL11ICVgzbw0S9TJFTdkwf+OlPFIbqJqPg0LKvpg
+	 EDON805x0uZFOOx6/m1yrEu7jYH9T/egpbVlJwhDBVbQZ4ybTvfdITERlEw0c6dfLY+52
+	 KdZJmhKVO4jf6csz791Y4T65z55dP+lmhV83fqV3/y+2Mqng+rIFO1MVsCayLLhMdx7A3
+	 4YYJH05pmSV/E8S6FU4g+feo/U3L2mwzCDsL6yAYTeW+3GyE1JvizGQkMYHQFJ5EWjA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793007733;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=EPtH13VTn4R7Yb2sy+8OKOvdDZ5ZAvbReyMqod1w9Ds=;
-	b=a5o72BZVlVGsdoZY9PitKb+3mGQlcdDDIARa1LMNgjx8SYWt2ZHfVj5tVXqxnB/KZZRz
-	 9fRNGs8xyq/Ioybagr+2UTqaZbHam61v/8uhbrRcet7tL+s2K17iwh5++MoCwVMz2BnvI
-	 fjsQDcfamZXMbsVQ696MHfcqVNw7jSk3KFn6Ik6a7XJjqs6yeyDwa/iFzIx2yoeNxvNAi
-	 FVC1LP4eZvYF2KB3nnv846Xc5YEQOpfFsO1suaDmf+kM5n4SkKfUZErEMa9FezZqwgHlM
-	 OQc7gWNIMGUwGVs/RTI9c8mIAm8PzZ87BlduWKquf3v/T6uOn0ZS41M2nwcE8k6YFzQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793007735;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=L6C5eWK0lANuvr0EbYmUrr+WQ85r8KV1PLsSlbPppSE=;
+	b=YuZuCM6tFDEwbPP+FpY1mpK2ktVbSPCuzQgyJ2/bscskC673eXtLdn3blQ/eC/ZTan18
+	 1nziY5w4ObURnpmOOAhLZ5cMcXuteDz9VXJBBjKEHFuvQe+MPRMEthM9M6T2BlgyOngP0
+	 hwUOFhLtuaK+5ro94qfwYR81klOdaOfk/rwV5vD4ZD+zdhmsDCRbuRDZtCmoA9ufgkd4l
+	 IhfTW5Jws7diGc5B1QGnHMgywYXCd8piGFm22BGNf6ZSaNOPEjY5KI0jT27QvsuKWVqF3
+	 wmSzeRfpAIMrAh7A21KN68O6SiZeQpekYtKxYvN+J1uJA2bWzErbtO1swu5sPEeppQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=HVKefm99;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=L+xUAKHn;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d5qY2gz4;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 197E5606A328
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:42:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 197E5606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE3C260A2601;
+	Mon, 26 Oct 2026 09:42:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=HVKefm99;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=L+xUAKHn
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69Q4apCH3301671
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:42:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	EPtH13VTn4R7Yb2sy+8OKOvdDZ5ZAvbReyMqod1w9Ds=; b=HVKefm99672kmLwm
-	g95SEjJpFBWotCATx/LSN0mCzjCoZ+VneujD1PYIVRclmxKqeCKxKxalyWNzviNw
-	lp1b9NIRgsHsj4HoIVlZEh5oBwZ9gBLiGRBG7OfareMEZbODh8h0SM2BsqfJ78Ax
-	T488IxfRurhRCt1xDtJgmiBgwUsFKvQSWoQ+w55OtCctFYmKSCkNwRICrS6PNDxR
-	kdGV560SNtQazwYwYQk31E8ABO2bSLnWOVmYnz+HxlrWKbEY2AGmjsLP61yfJFh/
-	01DzUwpIGrmE8RatdkGUFnUQEpTJDxnAxvy3Vt1vkz6ghbmjdBieg6qUX85HaL6v
-	5cdEhQ==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hhshpss5b-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:42:07 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-536708d1a3eso11948871cf.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:42:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793007726; x=1793612526; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EPtH13VTn4R7Yb2sy+8OKOvdDZ5ZAvbReyMqod1w9Ds=;
-        b=L+xUAKHn3R/BL3TT5lE6i6COQBEGO8XFEhZ9K6ofM08qutO7MdmOK5DBArhUbHEO6w
-         tNDFD/Xa9Ql16sN09k0ykb86+sobr0vn232nbvowiVJ4Kx000Mq7vdOCM2pHPTfSk2qK
-         CExoV3S39H1Wzns7pqb0kTRBHC+/uZGJDdDDdn+pVR0WxXBxoeMrpqoMXclioumGJfYa
-         bIwC41yQ3Rmr+SD/kS+3yk4n0ou3cEPNv1P2bnIH/cIV2x6nwdilP3LV5z/C1hEcUkkf
-         lkQF1ncwGW5mv5Hx0AQBc3NkPlbx+pZ9rtY4NkeoAkRv/uhHF8STcsIKOOYIx5oi41rq
-         dKqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793007726; x=1793612526;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EPtH13VTn4R7Yb2sy+8OKOvdDZ5ZAvbReyMqod1w9Ds=;
-        b=RwkTWIMQjgeZOB608iAcBONhP7N14ltWdjXfLnJ5B89A7UNHAPYeOR0BIfQsYcHN90
-         JqxpyMxGilPKbTh4EPzAJLjwRK1WY8y4M1wjSHpF2TsmVEMYlBaNKhb/avDek6Y+bRRx
-         cXFG38Y0BLp2f1EvQeuhFV5JWbv/MhZ4uQXOeoWEmhSdP7B31li81j2HLjJT0rbtBVmM
-         LS+RRJVsN+w45dZHb4DAaH2kv5tYXrAAFnsW8+unqSpc/rz4HoKoRtvwU4f27lrSAL0s
-         m9uqkT4RkN9IprmRDp5yYytP1yij2v5tV7ncWZWA+dYrt9sFFrsRrNLUqDZx0Watgmhl
-         HGVw==
-X-Forwarded-Encrypted: i=1; AKwUvBxw5o8Vr+WGzZ6SFQ70wmIhQ64wxV+oFZwXOniRocO+eBNUFpXIsM0XF1j/b22JtfrPyqc4iWn8VIIjlkk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKcUvWj5g9VJQio/utlAR5MQDOFCzBfuQaLiiqm9MJN1Pgf3Rpk
-	V3r6U3RZw/PkTTcFlc4kdClRF/F/tNFG7/aaI4tbKmt7nnEbpMck+aKej0aSDq8iaS2xprJpiga
-	72BoGrMWm5QoE0TJSo8Iw3PLCQXSQ5vtBCa/kJTg2/61y55djrOEwmnFxf+7zGCw+org=
-X-Gm-Gg: AYBFou1UsO5qql9q+2wp7d32OIDRuHhdcUS5Q11yHkuMWTADqvuzL6yRQAreXW+coj4
-	jiJ7qhC/CmqF7bosapdjRy5DCR37rCG00LXe5EtIwltaDctXoH2DOZAdTr8Pgn31rSwh0VD/Xgc
-	uEvcOO9wB2bUdmPqiUOLgQJqg7dnzS/flOsZmlH98wXUnhwOi9emWRvW3I6FL3mzEgLrDdJhOBh
-	iiIoDG/NvHlAfyQNwVMM1GEPM+KcpnAH4QgJvcrf5mVNPJN+R+y/Aq9YXye5O8fEE6a6oqTIN/W
-	jYdYGdviKcAggDlSjpB0EqeTi5FVqHyMyCnaJrZWJR+c6SZEwyYoc+KjrU7LnLSGydmI2CJRmuX
-	qOYRUb/+yzmCTsE5Ym58haQ==
-X-Received: by 2002:a05:620a:4918:b0:93f:1fc5:f07b with SMTP id af79cd13be357-940ef7e9992mr977928185a.2.1793007726358;
-        Mon, 26 Oct 2026 02:42:06 -0700 (PDT)
-X-Received: by 2002:a05:620a:4918:b0:93f:1fc5:f07b with SMTP id af79cd13be357-940ef7e9992mr977924785a.2.1793007725804;
-        Mon, 26 Oct 2026 02:42:05 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd650890sm308924866b.51.2026.10.26.02.42.03
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 26 Oct 2026 02:42:04 -0700 (PDT)
-Message-ID: <8825300d-4ba5-4a42-a27f-1378132470d7@oss.qualcomm.com>
-Date: Mon, 26 Oct 2026 10:42:02 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d5qY2gz4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 548E31F01480;
+	Mon, 26 Oct 2026 09:42:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793007734;
+	bh=L6C5eWK0lANuvr0EbYmUrr+WQ85r8KV1PLsSlbPppSE=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=d5qY2gz4kf/qdhezW8wIdRJgyLiqOQPOwp4YDgPCnbHZN2q7+2ltPfhwWvtlCc74F
+	 SUWN+jcLGZqbmMx4mxIBGZLa7AfJgjoBmLGVFO16TA00qPlV+WN3klic45/9BBCBas
+	 LyyFH5A7Jex9QJFh1sK0GXbUoJKR627MxcTnjhZD8e+HXoygOdj5TzFyvwDskQ2svv
+	 3MPeuxPGmylLdLY4cKpa98sO/YvGu/uGiZbkW3sUQE2k6DbDO451Ne+CDWnXosDoSR
+	 +4HVN2AcpSmSsuxjLx5DWq16RsRfnNcXEEmcw/hQDIGQKKDKemCiO4YHfZ5WKFRB3o
+	 AsvqMCGU7rzGg==
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Date: Mon, 26 Oct 2026 10:40:45 +0100
+Subject: [PATCH 12/16] mm/shmem: fix truncate hang in large swap entry
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,79 +52,131 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 11/14] drm/msm/dpu: clean up the self-refresh helpers
- on teardown
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov
- <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20261024-msm-kms-destroy-fixes-v3-0-66a30120a5ea@oss.qualcomm.com>
- <20261024-msm-kms-destroy-fixes-v3-11-66a30120a5ea@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261024-msm-kms-destroy-fixes-v3-11-66a30120a5ea@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDAzOCBTYWx0ZWRfX+dBzv0EZ4FOX
- d5GJRZ8hx1LoW8RBWdIR2915UVg4dvMu71XCSkvkH1752wi4BQoG5+Ltihuk1MzLio/OdT11znv
- 4pyKl69Ilg8A5Kr46b0ZKjiORhKJOsQ=
-X-Proofpoint-GUID: NMURnD2EzxesQ4l3dyAUFa_ZzZB2P0su
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDAzOCBTYWx0ZWRfXykhap7NWL//2
- 1NLdM7i902vu7T39dWyqGist7Rl3eSqgkFLjEi/joYDvoh+XaSaid0+4hePFU7GNk0i/JNwGXXx
- JBhA36/btSss/kts+Wo2Gp0cF6n9sYiai2hip4VtnLjRSICNIRGT3/Pe53VFL0HkX9OJHVnCA6F
- OZRVE5l9jFJVE8TAMCcChM/qAzCnpDORFDgs8IX4o2+fYav+o1wBRATZNea4fMT3+48BPvki13T
- 9Xnwm4NGQXGMDVTgvjoQH2XZ7HDmJWuPJ+v96TZOCIMTEC4SNvy8IduPwkFYNeEXOPo/NtzqILP
- hBm3zsgEPw9eABx3HTqU4Ebfghs6nr2Ckvn3lr9mU9dNbg1eD+veCYtKhi6W42rbxGhHNyI+crG
- TIssQKewHMTDtc3IEIhvQZj5XEl2vJahsLinFbRohwXByZyjtRVZQWtZGnDJf9z+bS61fK9hlC/
- pieIDPExscyTJLnJ0Mg==
-X-Authority-Analysis: v=2.4 cv=HZWB3SE8 c=1 sm=1 tr=0 ts=6adf206f cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=_fTQ-MXv4NwHnn4YafAA:9 a=QEXdDO2ut3YA:10
- a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-ORIG-GUID: NMURnD2EzxesQ4l3dyAUFa_ZzZB2P0su
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-26_01,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 phishscore=0 clxscore=1015 adultscore=0 priorityscore=1501
- impostorscore=0 lowpriorityscore=0 bulkscore=0 suspectscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610260038
+Message-Id: <20261026-fixes_shmem-v1-12-703206d5fa0c@kernel.org>
+References: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
+In-Reply-To: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ Gregory Price <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Johannes Weiner <hannes@cmpxchg.org>, 
+ Vladimir Davydov <vdavydov.dev@gmail.com>, Michal Hocko <mhocko@suse.com>, 
+ Hugh Dickins <hughd@google.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Lukas Czerner <lczerner@redhat.com>, Carlos Maiolino <cmaiolino@redhat.com>, 
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+ Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ David Stevens <stevensd@chromium.org>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+ William Kucharski <william.kucharski@oracle.com>, 
+ Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Miaohe Lin <linmiaohe@huawei.com>, 
+ Naoya Horiguchi <nao.horiguchi@gmail.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ "David Hildenbrand (Arm)" <david@kernel.org>, stable@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3755; i=david@kernel.org;
+ h=from:subject:message-id; bh=M9M4ZQas3jhOKYrqmhXuc+90i9n2F8rbl9qLqL19hpc=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLLuK4iffzXvQ2D0Qx3vZIvqawxij52UcysvPb9g3FYl5
+ H6Xsai0o5SFQYyDQVZMkSUo+L7By5fraqvd+Jhh5rAygQxh4OIUgIlEfWb4ZxqlEvO6Knendur3
+ 8jf+vddVXUyXnp14RipFqVPHvnSWDsP/JIUHVzLer0uuMjs2+cvXLPbUzC4VxzV/HloYXQ7Nf6j
+ OBQA=
+X-Developer-Key: i=david@kernel.org; a=openpgp;
+ fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-On 10/24/26 1:19 AM, Dmitry Baryshkov wrote:
-> Unbinding the display driver on MSM8996 with DPU oopses about a second
-> later:
-> 
->   Unable to handle kernel NULL pointer dereference at virtual address 0000000000000870
->   pc : drm_atomic_commit_alloc+0x10/0x9c
->   lr : drm_self_refresh_helper_entry_work+0x5c/0x1dc
-> 
-> dpu_crtc_init() sets up the self-refresh helper for each CRTC, but
-> nothing ever calls drm_self_refresh_helper_cleanup(). Every modeset
-> commit, including the one which shuts the display down on unbind, queues
-> the delayed entry work of the helper, which then runs after the CRTC
-> and the DRM device have been freed, and its data is leaked.
-> 
-> Clean the helpers up when tearing down the DPU hardware, which cancels
-> the pending work while the KMS is still intact. Doing it from a managed
-> action instead would not be enough: the DRM device, and its managed
-> resources with it, outlives the unbind as long as userspace holds it
-> open.
-> 
-> Fixes: 1122697810e5 ("drm/msm/disp/dpu: add PSR support for eDP interface in dpu driver")
-> Assisted-by: LLM
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
+Truncating a tmpfs file or memfd to a page-aligned size inside a large
+swap entry can loop indefinitely in shmem_undo_range(). The task holds
+the inode lock and cannot be killed.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+A large swap entry represents a whole swapped-out folio. For example,
+truncate a file whose pages 0-7 share one swap entry to four pages:
 
-Konrad
+    [ 0  1  2  3 | 4  5  6  7 ]
+         keep    |   discard
+                 ^
+            new EOF, start = 4
+
+i_size has already been updated when boundary handling asks
+shmem_get_partial_folio() for page 4. Since it is swapped out, the helper
+calls shmem_get_folio() with SGP_READ. That rejects page 4 with -EINVAL
+because its starting offset equals i_size. Nothing is read back.
+
+The final scan cannot free the entry without losing pages 0-3. It skips
+it, restarts from start = 4, and finds it again indefinitely. An unaligned
+truncate avoids this particular failure because the requested page starts
+below i_size. Folios already in the page-cache cannot trigger it as the
+direct lookup will return them beyond EOF.
+
+Fix it by letting shmem_get_partial_folio() call shmem_swapin_folio()
+directly for swap entries. This bypasses the read path's i_size check,
+allowing the existing boundary handling to zero and split the folio. If
+swap-in returns a smaller folio, it also splits the swap entry so the final
+scan can free the entries beyond EOF. Retry the lookup if the entry
+changes during swap-in.
+
+Handling swap-in allocation failures remains broken and is unchanged by
+this commit. Even when shmem_swapin_folio() correctly returns -ENOMEM
+instead of -EEXIST, shmem_get_partial_folio() returns NULL and
+shmem_undo_range() skips boundary handling. If the large swap entry
+remains intact, truncation can still loop in the final scan, while hole
+punching can return without zeroing the boundary.
+
+This may read an entire large folio back from swap while holding
+i_rwsem, only to discard part of it. Avoiding that I/O would require
+splitting both the swap entry and any large folio still in the swap
+cache. That, however, is much bigger work.
+
+Original fix generated by LLM and sent by Chris Mason in private.
+
+Fixes: 8a1968bd997f ("mm/shmem, swap: fix race of truncate and swap entry split")
+Cc: stable@vger.kernel.org
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+---
+ mm/shmem.c | 15 +++++++--------
+ 1 file changed, 7 insertions(+), 8 deletions(-)
+
+diff --git a/mm/shmem.c b/mm/shmem.c
+index fcec40a2dd707..9e0034a424908 100644
+--- a/mm/shmem.c
++++ b/mm/shmem.c
+@@ -1298,12 +1298,10 @@ void shmem_unlock_mapping(struct address_space *mapping)
+ 
+ static struct folio *shmem_get_partial_folio(struct inode *inode, pgoff_t index)
+ {
++	const gfp_t gfp = mapping_gfp_mask(inode->i_mapping);
+ 	struct folio *folio;
+ 
+-	/*
+-	 * At first avoid shmem_get_folio(,,,SGP_READ): that fails
+-	 * beyond i_size, and reports fallocated folios as holes.
+-	 */
++retry:
+ 	folio = filemap_get_entry(inode->i_mapping, index);
+ 	if (!folio)
+ 		return folio;
+@@ -1314,13 +1312,14 @@ static struct folio *shmem_get_partial_folio(struct inode *inode, pgoff_t index)
+ 		/* The folio has been swapped out */
+ 		folio_unlock(folio);
+ 		folio_put(folio);
++		goto retry;
+ 	}
+ 	/*
+-	 * But read a folio back from swap if any of it is within i_size
+-	 * (although in some cases this is just a waste of time).
++	 * Truncation can look up a large swap entry at or beyond i_size.
++	 * Swap it in directly to bypass the size check in shmem_get_folio().
+ 	 */
+-	folio = NULL;
+-	shmem_get_folio(inode, index, 0, &folio, SGP_READ);
++	if (shmem_swapin_folio(inode, index, &folio, SGP_READ, gfp, NULL, NULL) == -EEXIST)
++		goto retry;
+ 	return folio;
+ }
+ 
+
+-- 
+2.43.0
+
