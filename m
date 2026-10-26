@@ -1,115 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.41
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793017860;
-	b=0+Z51zj5vl72XLgyhlK8XDKlCw/bjfk5KHuO4oRiVTA/FJMBF5trCRpC9237Yvjp0YU/
-	 ZuC+hQpI9diOaH4ti6Dc//Yo3R1dr+6yIShnN+/+TKTLlWWZ+Kqf2/7d782QLFk0DmJZ3
-	 t6gdMXdE88okCDfNs8srX+NQuWiSQz70b2QJe+wn1f6uhxdvCbVTm4+/LvGDJdzIhrnAn
-	 3GRqQf5l5GWNEYDhE7CEhmnDwZPh/hCCfrPGw5sVyMgPrM5w5vBAw/eIQHafWUXdQDIgI
-	 m5kncHvflA6KJLbKks+/vHICXRUHd+2IEMwtAhDKoLV1yxAPYAlDKcLrxwzbEo/L+QA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793017860;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=bmHZPjfmIc4enEGR6naj+q1z5ghYzD/WaoQyJfH0jN8=;
-	b=Oapb+qJ95JPsz+w/AMBNRql9mxMiDFpRmXyBpccKqgtb+ZtvgjTj10RmeTYHlsXm4gQv
-	 nloUkwfStqv5NNvH595MeUc3TrhonrJMeQAy0sINrV3slpY0fx/GSSFrfHD3eT5PJJgr8
-	 RWlW9oHf4Gy0G9+Ly7+B+UuChE8yqFvOdrjZuIccB84M+ra+h2HoyTZyLp3smnOPFE468
-	 UevqAGs8xCy0IDaBWdJzoh/MtpLq1kxVRzYdgR1f8AXjn8m8SZ+7rKe8qDsK6AaLFMDlh
-	 C9bCMQHQChGs+Io1lWszG8iWMs71g7+GMaeIAA6oyi9BApOkMBXxQ8A19QeYquBJJlA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=X1fGiw72;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.41
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011041.outbound.protection.outlook.com [52.101.57.41])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793017933;
+	b=HhowIGWhKd7/5UWU2XC2tbgn5OPCzu+/UAnnzOgeNmbFjEEkGT/q/Flwzp0uRwx+carn
+	 LS1O8iY5YiK2kLwib3WFQlA4zOEgSPnYHPus8Lb+lw3UYg3ffEKHiDV8B+Xv61S3+dFpq
+	 o1LBrIjlX6NpxDkkQjKDoaueisy+yALZGnBu3hUPvgy6OFvJ+MZ6I+tn7sVJ6pPtNz/+a
+	 l0CfSWQKX8oHFRzzMbW/VMJyh/XjO4CsalcTkxEjWIbSSA66H6IICjP2rm3G682vnvYSz
+	 FCJ8s7laoFFOTpP3dk7JPKzqiiEWQvBZp45LB3O+dWTqrFUHFm0CHaVp2nIjQiTB59Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793017933;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=ktUKdiKYfb7DoM5zhVHml/g4TQZHJlrIih9rFWqZVKQ=;
+	b=nzpvS/V9wfd6It8bIu7g3bNUVjZdxBJpaFr599zd7LS+7YPbmFSx8b9yc+tezE9v557t
+	 0BZiYN0cF59eJL+9DOukAjWryoGe9F0FC8NLYAtwXqeNYoTf4Y8fmPQThmsPL4bjhUs5X
+	 lZ8qMJDeykRduV0rO0THT8dx5cpaEClXwlDzL+a7gjVjt4sepeX07v0DlyyFJmy6bZUf1
+	 NTMhLh+RmO08NsI6GkpcbZmAdMPwpGK0avqV5myQayGZrTCRpfEEqPmSypZSmYSU5XuRy
+	 Fe/SRZY6HD1413pHmY3vxERLTCYxoUQmkBLLipdFCHbnnO64b2kPX4QsAsxbunu1LfQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mivMcba8;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E3D5606A31F;
-	Mon, 26 Oct 2026 12:31:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E3D5606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DDA4606A32C
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:32:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6DDA4606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=X1fGiw72
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hhKRIooOo0Q6sLoMhi+s0/ew6NpK5x+DZWhXnYMl0Nz6PYksiyOV3l8AN/c+FACjmK8ayTWFeNHMp6w+G9Z9eEWzqR8AOUduLj0YPM/LKFU3z73ShxipH2iotyJ1ZpCNtwmL5mBEiuRQ5Mf/hhtO9r/rXM9aiTqPiXAR1hocQw/8npF/xvt3NALcU6hfr5oWPTL7a+FFcO8jWwxyf5O4nfXxy8ntrJJzungxUxl23v0yC/RX5/6W5ypmHY5WK6JHGzF6kFGoM1JDH2qsuLmrhnX6Y0TaTSUYhomEv53YzZC7x4066c017i0et6GK/gKJeDM9rnb70DXeoRp2EtEh2Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bmHZPjfmIc4enEGR6naj+q1z5ghYzD/WaoQyJfH0jN8=;
- b=EA5qEcPQx19Kn0VunBF8gwRrsfExxGOR1nwbdC9E8M4mEVL2Kx4aeenjy5bV1DnHQOml7Cc6xZczuT+AykswyJHjAzmx0y0jBmPevjIUHDIolLfzdEXEHAY+miybsh5nEPPehrktrdQSd6L9x+V0WgyntVAuctW8+IN0KdmosD/etsf8berc0ChvwbQQfWIkx5qih6qziz+YJ35yqKu2fNFn46TlsYMuUGX2Xsjiy7fog6JRBGWnB9FjITqqWLMtzKcAjQBQJWzbXgIzMLsANn9Xvnek96dLlYQws/NPnXMHLDdmz+Y9kuiw5yGfTqi8D9XHSDQB86v1klYF0Joypw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bmHZPjfmIc4enEGR6naj+q1z5ghYzD/WaoQyJfH0jN8=;
- b=X1fGiw72ML9GP//wIW6gtHR1deSP4QP+730xCvaaqa8aySLyiVuZ+PF9+FHXczAA4MaXvdkv//gtcbVhL6nf2q9GUdnS9vNmQe/M4cqgXk1Aw7YjXLEjvr3EQx/hO4ThHX31itZUJcK+hw10gEblGgCUAUDScR7+XBokty/QBb0=
-Received: from CH0PR04CA0069.namprd04.prod.outlook.com (2603:10b6:610:74::14)
- by SA5PPFD8C5D7E64.namprd12.prod.outlook.com (2603:10b6:80f:fc04::8e3) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
- 2026 12:30:53 +0000
-Received: from CH2PEPF0000014A.namprd02.prod.outlook.com
- (2603:10b6:610:74:cafe::4a) by CH0PR04CA0069.outlook.office365.com
- (2603:10b6:610:74::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.22 via Frontend Transport; Mon,
- 26 Oct 2026 12:30:53 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CH2PEPF0000014A.mail.protection.outlook.com (10.167.244.107) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.569.4 via Frontend Transport; Mon, 26 Oct 2026 12:30:53 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 26 Oct
- 2026 07:30:41 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 26 Oct
- 2026 07:30:41 -0500
-Received: from xcbalexaust42x.xilinx.com (10.180.168.240) by
- satlexmb08.amd.com (10.181.42.217) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.53 via Frontend Transport; Mon, 26 Oct 2026 07:30:40 -0500
-From: Alex Austin <alex.austin@amd.com>
-To: Edward Cree <ecree.xilinx@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-CC: Richard Cochran <richardcochran@gmail.com>, Alejandro Lucero
-	<alucerop@amd.com>, Pieter Jansen van Vuuren
-	<pieter.jansen-van-vuuren@amd.com>, <netdev@vger.kernel.org>,
-	<linux-net-drivers@amd.com>, <linux-kernel@vger.kernel.org>, Alex Austin
-	<alex.austin@amd.com>
-Subject: [PATCH net v4 3/3] sfc: ptp: avoid racing PPS timestamp updates
-Date: Mon, 26 Oct 2026 12:30:23 +0000
-Message-ID: <20261026123023.3566549-4-alex.austin@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261026123023.3566549-1-alex.austin@amd.com>
-References: <20261026123023.3566549-1-alex.austin@amd.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mivMcba8
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a59100fa83so9683365e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 05:32:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793017932; x=1793622732; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ktUKdiKYfb7DoM5zhVHml/g4TQZHJlrIih9rFWqZVKQ=;
+        b=mivMcba8uYDlFfKaqTMPiPMpITmJGgJrVgHOAE8jYmLoBhYW45mBdXMQ02LqG2updu
+         9LeHTzDGRg5A4F89RhWaUFJZ5c+VI/1ilvjcrv5DlQxsAoj2wFryqCx3b/uPou7AXDeb
+         Wss9LdDOSh3+0Gu7kqjVfhjI8DS+Lu5UP/fenZyhi4gwhMFIDpqrbDyquPelPmXH+51y
+         m+m44LxpXGLxus7eX+O3txTAid5lu69y7VhycvS1snpdVZw/LgFjEanIemDgwrso3110
+         rirMGQoCitHWBLayc4HPMr+aanfRqUmn39o06PX8Oae+V0uea0+PN4brPriZTVyZxsuE
+         4C4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793017932; x=1793622732;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ktUKdiKYfb7DoM5zhVHml/g4TQZHJlrIih9rFWqZVKQ=;
+        b=RUL1N/F4Tu+x6P7tPYGZPwAfFh2MS5gZAdZ3uKgAqSiNsafsf9wWL2qMnD+qP6/p4r
+         FmyR2uyGMC8o9Buz2jOQIhlIerlXU8TiwRpIDxwVIE2seGvA2dYkygfgBkPsjSSmiD9A
+         ec5UH4PSJ2S4BOlqHj5keRl4VU3Wpsa8LvdLXBOSkIUw0q1H3ZGtS1xc4ZKNNxaWn9xe
+         05pzMg1Rjcz7a+9wZGyT9nebF5vNA7zDWUfnP5mixvrQYPuZRJ2rDad3ulz5KEN6uLRv
+         gx3qqzFt97LKyCqtsBlgPkygHR5jPqzxthXXrPv9pksT4I8LnsjCOeKFpgQBxEeS/0Kv
+         xPTw==
+X-Forwarded-Encrypted: i=1; AKwUvBw+rqhatxOJzXlveMcFIVtcXpBN6CaY6hbskBAkeXwBk5/LUubqhdDmpsIAspvLdjoGrhXNv6vMcBse6zM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLdpai1+6osn4EPOoENqJWOsudib4iUbbDyrtI5LEPucF+99Woc
+	aHyzyuEpWQ9QMQA2LPwbC72aSyP7HHdRfa8JY+7Kwk8CSk7nBAXzaV84
+X-Gm-Gg: AYBFou3wri567rOCOG55FbR7QQp2yA77F6Vrm13y5FROcSyyIPnfCWAh8qdHU74cSIP
+	EOk5r9R7jTtlTetjGdjQc1w7lf1RBdH1iuylrsDhc51vR77EQC7CffnlN75JcG1BmM1YndL1N/g
+	+SNM2HSXkG8BtrdPDws7KZOW/AK4LAMBGD0X7OTBNsyhyIhfkLDEPx8TJn5XV91uHXQ2in8gLZp
+	12iRI59guLS0r0cp2W/wqRcb7ezKxsQDYEbs5HlxUOtM6GrR4I0fQfA/9RgbJjjNS0dX9hEuk0m
+	OukRp/u4AjaxlxUMKPlqarvAuXivUeFUX+djKsnkXCOFao0o8O6mP7ywfo/1cg8tKIVghSsrWp7
+	kMlueyvnxTr+fBuYpLYxRmcXshR0UuYxXlvT2Pie6LQqs6lE0+mUQOnuL6i+AEJsU1FL147c34I
+	Cq1gp/MBzYZ8wOLj4AOemMrIqqJ/wYs/v1uwoCq1j3Ai15XFNmCRWmvVMBzy4bM1YeCBBGt86lD
+	TgLw4zjubV5X/3nSI1VtVnvNRjd+CQBstRedrF1JahhBKxLlgKDaLIlC1Gnn4CPOCNlH9Wdcy2C
+	mYb8WI30
+X-Received: by 2002:a05:600c:608e:b0:4a6:42cc:bf66 with SMTP id 5b1f17b1804b1-4a642ccc70emr45612025e9.11.1793017931500;
+        Mon, 26 Oct 2026 05:32:11 -0700 (PDT)
+Received: from localhost.localdomain ([188.190.249.216])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecdf9bdsm15684045f8f.55.2026.10.26.05.32.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 05:32:11 -0700 (PDT)
+From: Vladyslav Tymoshchuk <tvlad744@gmail.com>
+To: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+Cc: Vladyslav Tymoshchuk <tvlad744@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Kuen-Han Tsai <khtsai@google.com>,
+	Sonali Pradhan <sonalipradhan@google.com>,
+	Kees Cook <kees@kernel.org>,
+	Felipe Balbi <balbi@ti.com>,
+	Jim Baxter <jim_baxter@mentor.com>,
+	Francesco Lavra <flavra@baylibre.com>,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] usb: gadget: f_ncm: restart the TX timer if the TX freelist is empty
+Date: Mon, 26 Oct 2026 14:31:59 +0200
+Message-ID: <20261026123159.53234-1-tvlad744@gmail.com>
+X-Mailer: git-send-email 2.45.1.windows.1
+In-Reply-To: <20260817192638.437798-1-cosmin-gabriel.tanislav.xa@renesas.com>
+References: <20260817192638.437798-1-cosmin-gabriel.tanislav.xa@renesas.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -120,152 +107,26 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF0000014A:EE_|SA5PPFD8C5D7E64:EE_
-X-MS-Office365-Filtering-Correlation-Id: febe6a64-581e-4d1c-5de9-08df335cfa41
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|36860700016|82310400026|376014|1800799024|18002099003|22082099003|56012099006|11063799006|261021123027099003|10067099003|261009223027099003|261021135927099003|261021121427099003|261022105027099003;
-X-Microsoft-Antispam-Message-Info:
-	anNMXMv582xsLbdUm2+vZq+cWaDdbaviO3yRPsmRHMSGrvI/RnFG15IbVTdOQ+ZlbBmGTYW9vtABYZMEk5GPTeBBOWGzGG1oEu72gqSBdjcn2Jr5Q2V5ZmkqlsZzt9SMd1dIs/NAWTk+ZzYLdu1RRXI8UQF/beOJQJXAWlotJsgFMgLZ1aQDLj/hpsue0mDh+uMTKV5ZQk3Zib3TJerUr19NPvCTBYsttzGJ3m++81CG4dxeUM/XLZe8Yj+TNeNEcwNWh2zMr51aOTIzlPSzL8gwT0TktU6QAzVCRfw2gHNVcyKy/lMrzGCVzQXYXe1PDcTiTrnU0rLrb2v4GB7O4DtB8FDpz1pRNV+Qvhpv7IBreyJehlVecCm8D2aQ0SRsJSf0v6ts3JugzTN81lkAQJDqX9KgmXXqJCXXK7cji629f1WkQN2WJshycAMPt6oYIBtmh2VvTqMdzejOJmifrTOQfaJgmUlIuVs4Ea6hE2szfCSDnDFpqRhn+pNrVa3rY3CSGw+boVF8YdCezS7xjd45wxN2LeaZqQNCBvIYutGlwFAMMW8rI4u3aUsU7HjZa1NwJ0UUoZyj/tZwzdFTHkBYeTGJMcCKJA/doJtvrCVGHb7kFfBXNWhcO8z0qfurPsUpj4OP91mp/sOV2rbPHxHueibOJJsl6iPPQYam9w7t2cJdjaBb8mQStKNVOUpyEqUIrykvqarrrs+Qg5Avmw==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(82310400026)(376014)(1800799024)(18002099003)(22082099003)(56012099006)(11063799006)(261021123027099003)(10067099003)(261009223027099003)(261021135927099003)(261021121427099003)(261022105027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	T3p7RQ9LGS5mkljZ6GNoMiJPLK2POpX/uaJ8u13HAQQLRvzKMqA5OPsMDJnpfcgCdGj8pC6oHKlEaKpltWDr+iWyrulISW5qpn6MD0WsG30yb33v7NWKZajqeLOKd9GUyUz8GxoQqNIyWlvB128ShgB7WElwBbPzIoAEUS27Litaapg3QhK2qo1c1X/4BQ/ILl+EUyia8afKHK1YuGY4g770nAGYjoZTmCJX9F1VIPvIVaZjSNdW8vikrF/jfq/QbgwvI3IytF3MBmYbQUiLgL8GgM0tRblF0WuTDff2g/1wq42ZqUf+zsGoewXz4YsNjiHtMPku+fhTCzvsbB59wbBSozx2Cn9N3pFkyAIq9BVrkAHzATjXZCADKMEtVpAPVkp7jO1qCl6zRH3+xASv+Xxu2RGoNnNVkoMceH6yZ6InznaKutHeQZ52/5ABANRN
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 12:30:53.7915
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: febe6a64-581e-4d1c-5de9-08df335cfa41
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH2PEPF0000014A.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPFD8C5D7E64
 
-efx_ptp_pps_worker() can race with SIOCHWTSTAMP via
-efx_ptp_change_mode(). After the worker completes synchronization, the
-ioctl can start another synchronization and update host_time_pps while
-the worker copies it into the PPS event. This can report a partially
-updated timestamp. Serializing synchronization transactions alone does
-not protect this copy, which happens after phc_lock is released.
+On Mon, Aug 17, 2026 at 10:26:38PM +0300, Cosmin Tanislav wrote:
+> Under sustained TX saturation the request freelist is empty most of the
+> time. Since the timer is never restarted, small packets keep getting
+> accumulated into the NTB, until either TX_MAX_NUM_DPE packets are stored
+> or NTB_DEFAULT_IN_SIZE is reached, which is an unknown amount of time.
 
-Return the timestamp through the caller's own pps_event_time rather
-than the shared field in efx_ptp_data, so the worker reads storage no
-one else can write.
+I hit this on a OnePlus Pad 3 (SM8750, dwc3, high speed to a Windows 11
+host, qmult 5). Pulling 20 MB from the gadget over ssh stalled for 40 s
+or more in 2 of 24 runs, and most of the other runs took ~6 s instead of
+~1 s. During a stall the sender kept retransmitting, the qdisc backlog
+was empty, tx_packets did not move and the ep1in TRB ring had nothing
+owned by the controller, so the frames were sitting in the pending NTB.
 
-Fixes: 7c236c43b838 ("sfc: Add support for IEEE-1588 PTP")
-Signed-off-by: Alex Austin <alex.austin@amd.com>
-Reviewed-by: Alejandro Lucero <alucerop@amd.com>
-Reviewed-by: Pieter Jansen van Vuuren <pieter.jansen-van-vuuren@amd.com>
----
- drivers/net/ethernet/sfc/ptp.c | 26 ++++++++++++++++----------
- 1 file changed, 16 insertions(+), 10 deletions(-)
+With this patch on top of v7.3-rc5: 24 of 24 runs at ~0.9 s, no stalls.
+Host to gadget is unchanged.
 
-diff --git a/drivers/net/ethernet/sfc/ptp.c b/drivers/net/ethernet/sfc/ptp.c
-index eedab53..3c6a85b 100644
---- a/drivers/net/ethernet/sfc/ptp.c
-+++ b/drivers/net/ethernet/sfc/ptp.c
-@@ -268,7 +268,6 @@ struct efx_ptp_rxfilter {
-  * @evt_frag_idx: Current fragment number
-  * @evt_code: Last event code
-  * @start: Address at which MC indicates ready for synchronisation
-- * @host_time_pps: Host time at last PPS
-  * @adjfreq_ppb_shift: Shift required to convert scaled parts-per-billion
-  * frequency adjustment into a fixed point fractional nanosecond format.
-  * @current_adjfreq: Current ppb adjustment.
-@@ -330,7 +329,6 @@ struct efx_ptp_data {
- 	int evt_frag_idx;
- 	int evt_code;
- 	struct efx_buffer start;
--	struct pps_event_time host_time_pps;
- 	unsigned int adjfreq_ppb_shift;
- 	s64 current_adjfreq;
- 	struct ptp_clock *phc_clock;
-@@ -912,7 +910,8 @@ static void efx_ptp_read_timeset(MCDI_DECLARE_STRUCT_PTR(data),
- static int
- efx_ptp_process_times(struct efx_nic *efx, MCDI_DECLARE_STRUCT_PTR(synch_buf),
- 		      size_t response_length,
--		      const struct pps_event_time *last_time)
-+		      const struct pps_event_time *last_time,
-+		      struct pps_event_time *host_time_pps)
- {
- 	unsigned number_readings =
- 		MCDI_VAR_ARRAY_LEN(response_length,
-@@ -990,6 +989,10 @@ efx_ptp_process_times(struct efx_nic *efx, MCDI_DECLARE_STRUCT_PTR(synch_buf),
- 			   "PTP bad synchronisation seconds\n");
- 		return -EAGAIN;
- 	}
-+
-+	if (!host_time_pps)
-+		return 0;
-+
- 	delta.tv_sec = (last_sec - start_sec) & 1;
- 	delta.tv_nsec =
- 		last_time->ts_real.tv_nsec -
-@@ -1006,8 +1009,8 @@ efx_ptp_process_times(struct efx_nic *efx, MCDI_DECLARE_STRUCT_PTR(synch_buf),
- 	delta.tv_nsec += ktime_to_timespec64(mc_time).tv_nsec;
- 
- 	/* Set PPS timestamp to match NIC top of second */
--	ptp->host_time_pps = *last_time;
--	pps_sub_ts(&ptp->host_time_pps, delta);
-+	*host_time_pps = *last_time;
-+	pps_sub_ts(host_time_pps, delta);
- 
- 	return 0;
- }
-@@ -1020,7 +1023,8 @@ efx_ptp_process_times(struct efx_nic *efx, MCDI_DECLARE_STRUCT_PTR(synch_buf),
-  * the function that registered it, so a secondary function can capture here
-  * without serializing against the primary.
-  */
--static int efx_ptp_synchronize(struct efx_nic *efx, unsigned int num_readings)
-+static int efx_ptp_synchronize(struct efx_nic *efx, unsigned int num_readings,
-+			       struct pps_event_time *host_time_pps)
- {
- 	struct efx_ptp_data *ptp = efx->ptp_data;
- 	MCDI_DECLARE_BUF(synch_buf, MC_CMD_PTP_OUT_SYNCHRONIZE_LENMAX);
-@@ -1069,7 +1073,7 @@ static int efx_ptp_synchronize(struct efx_nic *efx, unsigned int num_readings)
- 				 &response_length);
- 	if (rc == 0) {
- 		rc = efx_ptp_process_times(efx, synch_buf, response_length,
--					   &last_time);
-+					   &last_time, host_time_pps);
- 		if (rc == 0)
- 			++ptp->good_syncs;
- 		else
-@@ -1501,14 +1505,15 @@ static void efx_ptp_pps_worker(struct work_struct *work)
- {
- 	struct efx_ptp_data *ptp =
- 		container_of(work, struct efx_ptp_data, pps_work);
-+	struct pps_event_time host_time_pps = {};
- 	struct efx_nic *efx = ptp->efx;
- 	struct ptp_clock_event ptp_evt;
- 
--	if (efx_ptp_synchronize(efx, PTP_SYNC_ATTEMPTS))
-+	if (efx_ptp_synchronize(efx, PTP_SYNC_ATTEMPTS, &host_time_pps))
- 		return;
- 
- 	ptp_evt.type = PTP_CLOCK_PPSUSR;
--	ptp_evt.pps_times = ptp->host_time_pps;
-+	ptp_evt.pps_times = host_time_pps;
- 	ptp_clock_event(ptp->phc_clock, &ptp_evt);
- }
- 
-@@ -1844,7 +1849,8 @@ int efx_ptp_change_mode(struct efx_nic *efx, bool enable_wanted,
- 				rc = efx_ptp_start(efx);
- 			if (rc == 0) {
- 				rc = efx_ptp_synchronize(efx,
--							 PTP_SYNC_ATTEMPTS * 2);
-+							 PTP_SYNC_ATTEMPTS * 2,
-+							 NULL);
- 				if (rc != 0)
- 					efx_ptp_stop(efx);
- 			}
--- 
-2.34.1
+Francesco Lavra posted the same fix in July [1], but without the
+hrtimer_forward_now(), so the timer would fire again right away.
 
+[1] https://lore.kernel.org/linux-usb/20260727165441.1969927-1-flavra@baylibre.com/
+
+Tested-by: Vladyslav Tymoshchuk <tvlad744@gmail.com>
