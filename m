@@ -1,79 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793005068;
-	b=1q+djcbwcDjrElrMCQEB6Jd7nElpYG48Vn5C80vgnsgwjlezsjEM2aBKGyRt5LqPu5nm
-	 NrasIkfy1YWmHouf9IahvkCw1JwZNq1ITYUvmjqHC65/veiW5YnfNbDmQRR+E/FO7ba7J
-	 CTMbQLX691k/UgHV8ooVVYwr0JQ5Qs5CwV+6V9lAD4kJ/eclh/zf2gU+JXio6ChqlqiGv
-	 YPVBIs7ROlz7fCItJX54fpAVz4KkiRw7Paag1GUFcz9ynOsQWQtoogbQlpvTr9Y4zYQXM
-	 AsA+m2v4BF/nrB/9NHHhBG0UKbRJbT6w94aJIbIK2+i77oXT4AHDNGw2SCEntIUT/Uw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793005068;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=L8OYXZDTkfKylz3TRUXz5F+Ddj4Z4GIihf/IE3L80po=;
-	b=rbXLKA9P/q8ZMYjWtgv/myZ/fC4nRakT3UHwQhOg85EEXbrOAqff0Q7YJRF+LnhXlLBy
-	 Yl/7KLMeO91/EzhsFGIHjrofxNfAT1TO3s9h0JkDsLPwseWSPUhBcdpHqf3cUZZQkiluk
-	 WvfXYO0rcK5fOuodznC+SFAIa0qGG3/59YJP3o5mSc5XuOqbB7r8PpKU6Ll7EN6cwzr6E
-	 h9VxfhTLw9vsYifObVmCsAh7SW6Y74gkkD7yb1YVK5HipDYVnz+oMDYp57MutG7lTWl3Z
-	 UciBlq15rpRO/iAxXrtzzX3TNPRyJaHpBzDD+6cEqf+b+81JCkwyWKPAUzKgmC9gkag==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TV51WMQA;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A48B4606A31B;
-	Mon, 26 Oct 2026 08:57:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TV51WMQA
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793005068;
-	b=a3RwC2ioAUqWM0GT7I89MWVB2YQNILz3cB0bw9/1xmKCP2vT3FX22XWZje8Xi5xykmV0
-	 PQ4+vjdVLr0+ycy1qcITXTuR/jZVizo072ElIUbrncy8ww6X4KnDZM47L0TNCQQa5dekK
-	 NSqtBYcvQLp631zcKJrkh2FPxYW3SEwL6fIQEACYGB387054AFIwO2a3v0lnY3qI1kVeu
-	 rLYbFyK9RWzaAbBMqzrAYpiytpgr68MSvt1YBDVBvT32Pr5bUUBaaROFfUntZEnh4wi6E
-	 cASjl+fOMrk4/OzhYnSGtc2bobbFULLxpr6LJelFG9t3rLBiT6Ajq9vwkIwLN2hAK3g==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793005068;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=L8OYXZDTkfKylz3TRUXz5F+Ddj4Z4GIihf/IE3L80po=;
-	b=GSvhdHmCM89/fC0I70NDd4saQT37K54DXN36RbshfRtp1+tdTdUue4pGhB0VnvOFv/cs
-	 +/NF3ENGLQa4Ws1xJlXWSaieUMn0o2+yFmBOt8htvX4Cs+ZfKS4/A8sh4z+Xwhn8ZfU4T
-	 KWFjjHaqIM2b8n3J0spUvllcZHyfx67MR81IcdCflVtw1FGbi+zj8A7ApggbgIwWxWjLT
-	 Jjp3UzrvTtqRuczLjL2hs86ANWijZC0Jd2J6TZKsXMi9FBXJnVXkw3N8Y06ACVB3ORqx3
-	 wOlXVNfctaQRsAhq+v1wDVH7hf91YupIHxydbIiUrXu59oOlS13jhUBdcXWuFouN9kA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793005188;
+	b=VjGFNLkIFH1v2Q3/mtoPMKXHzAA1Erce1lEkLcsDz1IYcUS8lJcNHpPHLoylsfQorMOo
+	 U33gAs0anBGpbcA4jowoNldF15jityff4tCs+Ruzss+qFBE/sKzKxV0rQ+1QfKgyHLJdS
+	 baIdghx3ysxWvcHa68Xf3FAiG62WLq2J7V98LHaCVoMLjehpaE1uXwer+4/Exwx+wscsd
+	 MtfRv2YVYKeKX9zfG5ZWrTJ9Uup61TbJe7boOi25taRhq0WVvhA+322FVqY5odKcx/315
+	 XjEhSJ3ARgozIv2DYcYO8tXzWoP7uvmsOignj35dVXThwmGW1JqfYQbFPen1Qwib3tw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793005188;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=49/7WOJdVSLVzoq5oWG2Xe+wRQoxoxRWiSnOqn8O/K4=;
+	b=nGJNyHjVJeyLsT64GIXq9IxWl7W9ON9BOgb2bfrwOeFUe4FFnKlXBSMCVux1MFaGRvSE
+	 F7LPnshPs7oxMYBwngo7LY9Sl0BXST9/DoXMGED5Uw28gNQpdkk2mIgc/v3hbbBxPJwbZ
+	 gkiHzjnQPfOwIqFdYG8DwfNDRwPsldrUAUQSgD86e61c5pzuy4oVkPLgPywUGG30bPWu+
+	 dhIZVnDFSUzcooBi/sNII32Wc1gQsKdvYeiqIJSuEduPB2OgqwwyZxX/TUcVgrNLbNjyO
+	 R0ndyVf7thBol6K8/8RuYHEvVBNXZFb8Fra7hmStEp3+EWncdkPApL6I2HCCFdlcBDg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=w0PcWQ7s;
+	arc=none smtp.remote-ip=74.125.82.178
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id A46F01F01829;
-	Mon, 26 Oct 2026 08:57:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793005068;
-	bh=L8OYXZDTkfKylz3TRUXz5F+Ddj4Z4GIihf/IE3L80po=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=TV51WMQAg7FcOPkwqdMKIcfzWuVRmM5NCjgBAf7yL/idfQqmzj08U47paWl8/GNxQ
-	 vUNWl5OmogQ9tr0bQ17d/o2AmM7pIm0rS1DdJ4sU0gCZzDafo5dOLD7jtPJmTCSEQJ
-	 JVJdG9yzDMGxv/hGivA1I0J2uTMH5eD5yWae3ZGOMPGLRyKuFAZ8RyrJQmlFItxQWh
-	 1IC75h3qleEMDNvsUa4vTiNt847IrsLvqndmgkO5lMziGWKecKOVcbCnIjAoJTPs/U
-	 UUa5RioJjpd4aSy83Xq6/zQPtC92j1jTCHmw+Z4vS8qbbxPdrA0eU/f5qlVrAyH8bZ
-	 YzxW16JOcsCcQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 0C73C44C7F;
-	Mon, 26 Oct 2026 08:57:47 +0000 (UTC)
-From: Remy Demangeot via B4 Relay <devnull+remy.demangeot.net@kernel.org>
-Date: Mon, 26 Oct 2026 09:57:35 +0100
-Subject: [PATCH 1/3] hwmon: (asus-ec-sensors) add EXT_Sensor temperatures
- for MAXIMUS IX EXTREME
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1F6E606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 08:59:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1F6E606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=w0PcWQ7s
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-33fb4680717so4956402eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 01:59:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1793005187; x=1793609987; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=49/7WOJdVSLVzoq5oWG2Xe+wRQoxoxRWiSnOqn8O/K4=;
+        b=w0PcWQ7s1jwKnNUWE5T/YOshA42iaUDUUhGpDVV/1vK6RT9R1FUequz5lDy708udX6
+         XQ2CnxkMcFfd0QMdOLg791j212YiRJl1MqaUIm9FYOP4i82jHT14cg9eWj/f3JIHdbFw
+         ozqjcvK9xbUHL8sC/Te9aw7gwRzSCJQSglC44zBUvT74xxDkm7Uahb8MTZffFSaJEk9B
+         Ziz4jO9I0BbWb5DvKCz3n9NN/51UaFAuvppNPSCMbEYMLJpXoQ3CQfZA/FjpEz+yNRz8
+         THOHu1MVSkPKmIcLqxws1SuWjsSkZ2CihN1soh5iSuzcYy1g9h2P1FMFfLFHXw6t9vvV
+         fkzw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793005187; x=1793609987;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=49/7WOJdVSLVzoq5oWG2Xe+wRQoxoxRWiSnOqn8O/K4=;
+        b=c5iIj94uVlW21LeFH62bUsWGVfv1IJJm8k5TwI13gf7FkrYI39bYOmZuPHfQzzLpRz
+         PcN7nUyWlBxh+LCHVNjF4Vh9Di4J87kj+pJWJzF/ihC6eUB72aYEc9Xj+kr0MZHe6wnv
+         W29YPKELrwTVdo5eAHez13jXpvD7+6dzbQgki40S7mK3IrcvYXN35n7pAI7yoSlXH0LR
+         dMlstyFpSGp4kLImpHA4404+RbO2kE5c67cKaNUO5ND5lf9RMOx0DGwzmVnKOs56ewoz
+         DDkkSrFd3fvhUi0mLjXct5SpDDHfyBoFmq30ajCWXvCq8mbX530mpdJGH1gxRLCKyyKd
+         C4Ww==
+X-Forwarded-Encrypted: i=1; AKwUvByuIMX6smqMWYUrg1lDFFeSkxFXLiw9kNEnYKxVI/BIDjSoK/fJZ4dAH3KDVGVj35nNLPGCYx+wr+nHIOg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIrhj2ooosSa7rkHMrzFMWO3vnmRwm90spojReM78gbog9hvue7
+	xgFfFTE8raKUFVg9drIGog9vKlUA5C4kEdqbLZiaj5NezEbw22Jff5sJI+szVeUSpYw=
+X-Gm-Gg: AYBFou3cY7/usoYoUO/KktP1BkD1oGVCXwPLobuK/p1A3cU1pA7+5cY1azuapTTTdky
+	mxq/1fCqEYpS3nKx3v+FfA6AoNrQWdy17aWVfyeOvT/jgoyW9M7NWDfN+XV6QGB4J++KFP7YngZ
+	WLblWjN05fRyywtKQfWXiXfLXd95vgcseBi4kJ2TfaYXg8PLWGud1c9naYVXQkCZJIrBx/0HgIJ
+	0wwkZUe9eYb82qBXEsk+/VEP/tV610ezgExinGZFf4hiIGCiaV0fP8FS///XlMxVVflAi3y7A/V
+	TyJlrSgRArxhS0wT5Z9dWljFc9H7lZ9IL1zLgU+FprxpJxPTlTNisPisfZyv0uFm2LCVNEbZB9k
+	f2AEeaBUluq5iZCdffvzDG9hduVgV+acIUAxr0m0pzvX8jANNqbdUuV9AehB7v5j2tEwvsUyETx
+	TdU7RSOiJ6lNbfrxEJBq81QagEGLhBx8IXMYyo+/WjCXBnLFsDuwj9cDoHcZtd/2HXAhRt+e3lx
+	yBtKog3h8reB3M3D4nDNvR5Fr4sCd7agTS3kEsXsi2iDutFw063SBht4g==
+X-Received: by 2002:a05:693c:6017:b0:369:21a:dcca with SMTP id 5a478bee46e88-369e848a2d5mr8835197eec.10.1793005186447;
+        Mon, 26 Oct 2026 01:59:46 -0700 (PDT)
+Received: from localhost ([122.172.82.240])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a03bea5d4sm4608834eec.6.2026.10.26.01.59.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 01:59:44 -0700 (PDT)
+Date: Mon, 26 Oct 2026 14:29:41 +0530
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: Jerome Brunet <jbrunet@baylibre.com>
+Cc: christian.koever-draxl@student.uibk.ac.at, neil.armstrong@linaro.org,
+	sboyd@kernel.org, bmasney+clk@redhat.com, khilman@baylibre.com,
+	martin.blumenstingl@googlemail.com, rafael@kernel.org,
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	linux-kernel@vger.kernel.org, linux-amlogic@lists.infradead.org,
+	linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
+	Christian Stefan =?iso-8859-1?Q?K=F6v=E9r-Draxl?= <ckoever@outlook.de>
+Subject: Re: [PATCH 4/4] cpufreq: add an Amlogic speed-bin driver
+Message-ID: <at8WfX_G0tfTlFrm@vireshk-B250M-D3H>
+References: <20261025192219.209137-1-christian.koever-draxl@student.uibk.ac.at>
+ <20261025192219.209137-5-christian.koever-draxl@student.uibk.ac.at>
+ <at7lXEqds7ukoR2V@vireshk-B250M-D3H>
+ <1jbj8gkff1.fsf@starbuckisacylon.baylibre.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,76 +105,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261026-b4-m9e-ext-sensors-v1-1-644d389b2de1@demangeot.net>
-References: <20261026-b4-m9e-ext-sensors-v1-0-644d389b2de1@demangeot.net>
-In-Reply-To: <20261026-b4-m9e-ext-sensors-v1-0-644d389b2de1@demangeot.net>
-To: Eugene Shalygin <eugene.shalygin@gmail.com>, 
- Guenter Roeck <linux@roeck-us.net>
-Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Remy Demangeot <remy@demangeot.net>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793005066; l=1995;
- i=remy@demangeot.net; s=20261015; h=from:subject:message-id;
- bh=WyQhdqkdM10QFFAO+QYVgb4wy5e8BEIj6Hxrc9XW7Nw=;
- b=IsS3JVtgVcHZt6LMRA58mLfSaGRk0OeMoYSUZ4jIBAxWs3CD3Qx7RVDcXd+TBTvWwhC+Zwoew
- F4byR4xKpaLDkoMthVlHNQ6XFLuQE2rXN7h4hHcdCuHwAMOcVJI4ZLa
-X-Developer-Key: i=remy@demangeot.net; a=ed25519;
- pk=h/s5N2ZlgZ0m+8FpMhSaCNJt0jvb9whRBAdJwpC+VAo=
-X-Endpoint-Received: by B4 Relay for remy@demangeot.net/20261015 with
- auth_id=1194
-X-Original-From: Remy Demangeot <remy@demangeot.net>
-Reply-To: remy@demangeot.net
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <1jbj8gkff1.fsf@starbuckisacylon.baylibre.com>
 
-From: Remy Demangeot <remy@demangeot.net>
+On 26-10-26, 09:57, Jerome Brunet wrote:
+> On lun. 26 oct. 2026 at 11:00, Viresh Kumar <viresh.kumar@linaro.org> wrote:
+> 
+> > On 25-10-26, 20:22, christian.koever-draxl@student.uibk.ac.at wrote:
+> >> From: Christian Stefan Kövér-Draxl <ckoever@outlook.de>
+> >> 
+> >> Every S4 speed bin runs the same CPU frequencies but needs its own
+> >> voltage curve, and the bin can only be read through the secure monitor.
+> >> 
+> >> Read the bin from the firmware, select the matching
+> >> "opp-microvolt-speed<bin>" property for all CPUs, then register
+> >> cpufreq-dt. Bins outside the known range fall back to bin 0, which
+> >> has the highest voltages. Like sun50i-cpufreq-nvmem, the driver binds
+> >> on the SoC compatible and needs no node of its own, and S4 is added to
+> >> the cpufreq-dt-platdev blocklist so cpufreq-dt is only created after
+> >> the bin has been applied.
+> >> 
+> >> Signed-off-by: Christian Stefan Kövér-Draxl <ckoever@outlook.de>
+> >> ---
+> >>  MAINTAINERS                          |   1 +
+> >>  drivers/cpufreq/Kconfig.arm          |  14 ++
+> >>  drivers/cpufreq/Makefile             |   1 +
+> >>  drivers/cpufreq/amlogic-cpufreq.c    | 184 +++++++++++++++++++++++++++
+> >>  drivers/cpufreq/cpufreq-dt-platdev.c |   2 +
+> >>  5 files changed, 202 insertions(+)
+> >>  create mode 100644 drivers/cpufreq/amlogic-cpufreq.c
+> >
+> > Is it safe to apply just this one ? I can take this via the PM tree then.
+> 
+> I would advise to wait a little for Amlogic to chime in.
 
-The MAXIMUS IX EXTREME supports three additional thermistor inputs,
-EXT_Sensor1-3, located on the optional ASUS fan extension card. The
-EC reports them at bank 0, registers 0x60-0x62, as signed degrees
-Celsius, with -60 when no probe is connected (already handled as a
-blank value).
-
-Add them to the Intel 200-series family as Extra_1-Extra_3 and enable
-them for the board.
-
-Readings match HWiNFO 8.54 on the same machine, and moving a probe
-from one header to another moves the reading accordingly.
-
-Signed-off-by: Remy Demangeot <remy@demangeot.net>
----
- drivers/hwmon/asus-ec-sensors.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/hwmon/asus-ec-sensors.c b/drivers/hwmon/asus-ec-sensors.c
-index 3c97ae09cc19acad54696bff9e65d6bc4f3ce835..8966053b58173592a19afbab42ccbe8e6e6d7042 100644
---- a/drivers/hwmon/asus-ec-sensors.c
-+++ b/drivers/hwmon/asus-ec-sensors.c
-@@ -359,6 +359,12 @@ static const struct ec_sensor_info sensors_family_intel_200[] = {
- 	[ec_sensor_temp_t_sensor] =
- 		EC_SENSOR("T_Sensor", hwmon_temp, 1, 0x00, 0x3d),
- 	[ec_sensor_temp_vrm] = EC_SENSOR("VRM", hwmon_temp, 1, 0x00, 0x3e),
-+	[ec_sensor_temp_sensor_extra_1] =
-+		EC_SENSOR("Extra_1", hwmon_temp, 1, 0x00, 0x60),
-+	[ec_sensor_temp_sensor_extra_2] =
-+		EC_SENSOR("Extra_2", hwmon_temp, 1, 0x00, 0x61),
-+	[ec_sensor_temp_sensor_extra_3] =
-+		EC_SENSOR("Extra_3", hwmon_temp, 1, 0x00, 0x62),
- 	[ec_sensor_fan_cpu_opt] =
- 		EC_SENSOR("CPU_Opt", hwmon_fan, 2, 0x00, 0xbc),
- };
-@@ -523,7 +529,8 @@ static const struct ec_board_info board_info_maximus_vi_hero = {
- 
- static const struct ec_board_info board_info_maximus_ix_extreme = {
- 	.sensors = SENSOR_TEMP_CHIPSET | SENSOR_TEMP_T_SENSOR |
--		SENSOR_TEMP_VRM,
-+		SENSOR_TEMP_VRM | SENSOR_TEMP_SENSOR_EXTRA_1 |
-+		SENSOR_TEMP_SENSOR_EXTRA_2 | SENSOR_TEMP_SENSOR_EXTRA_3,
- 	.mutex_path = ASUS_HW_ACCESS_MUTEX_SB_PCI0_LPCB_SIO1_MUT0,
- 	.family = family_intel_200_series,
- };
+Sure, I wasn't going to wait for the maintainers to respond anyway.
 
 -- 
-2.47.3
-
-
+viresh
