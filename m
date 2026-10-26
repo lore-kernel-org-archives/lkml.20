@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792986647;
-	b=NdZwtzzkhJFQ0P9Cx1Pud8uyqN10/hKtS+JhuNQwEfHRUNhLfIrvdCi26aYVbtBMAhyW
-	 G32YWztvueZXUeSDRRm6miR6ey+Lc1me/oVl3DAPj739SBzjjZITCxui/Ejt+AvLmMAq3
-	 9/9nfSMBqX6Xg7t0t+Fp+yquZTngWva2DxFWZ/ddPODeQK09l5MK/9qh9hgn4izXIc7p1
-	 ZfIXdzyamHxR50B16FxEN2zEMQycLDrB4C1hOTP3TRxQwZesDFj92sWQjatqn18/hIICM
-	 PdyCXFK8+ocPOksYovK/0pJ39WNocMpiTMEam+sDEH27w0QJoZQ/c3dEzjLfVEfr/HA==
+	t=1792986650;
+	b=1sMGz9Q35GnkEMlXhSl7fxDYKe6rd+AWA54qwBcwhaq54rMECFIC7Mg8QtwNuT5YQUoh
+	 3APvOgt07ljjh8cKERM8/mI7hXUOZkRbNyYTM0NJp+5c6rJyN6WHLyFmX36klY9jl3YQW
+	 NtHzsvZA5+A9CrVBP3s+Ylu4g92xJtRbA5QqScBs24KUPjEB2sy3AUHhsCkH5IHdymWqt
+	 4Jl1FK38Wpu/gESLvFYNkyyllfX6fpjuovXuagVJA3IMK6TWCBzK1xco1ypXcQ57kIiLW
+	 XIsBeSawenC0I1MuXd9lc1sICN5KnNtJZjYdMXQ69NjYyJ2QiyxHQ01OBExiZrcn5EA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792986647;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792986650;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=LyunzqwHw2ujd9p9tjO94L4AIVA1AivXZoC8iBdB2fw=;
-	b=nREsGQkqRjckwqeMA3MM3sItQTl/5Vlg/HXemhVQZ6SFkg7RhgGMA0y3WxcyCegfbYOy
-	 F/OWXR2+n1fHzizB2/9ZQxalQDthr0ut7lvH0uauhpkIHMCvva7PACUrUz8V4p+5Wacmq
-	 jyyLMShShE54xebwNco/cwwkpD4PQj20b30YmNwPQcvsRe+eLk0jwtpgH5immbZSmab/l
-	 LYxGJelQzHilwgy72KiMwlVvjiexmBCQKPLBqntzA3Bxa7vNNTpRTAXn5oOzbKvu/FDKR
-	 KkgGja8n2AMOBwUAxvNWWdZqXyCu6sKYW1yJEuuEduU1bLl3lXTvn0KXaw/Rg8E7tEA==
+	bh=eAg0//R+JFKzc4+1DiFBzmpR4/bk8838/6mb0ZYXxg4=;
+	b=fpbpYBSg/SmPw5XeEFupptGuGuvpZ/dD1jpltfFrWUUi7hYh38knmvz0IcYsP9L4kRR6
+	 Jeu5bJXueE6tk4W5zzlgQd3kXZDg/50HdWR2cFluLWLjoDzYrSOu3cJYEkV3VpvPhPPfm
+	 Nxu6EVbUWKe0NPnLFVoNFlhfbrXHNMomxLxH0gGYo3NwubCHI/1sUVZQjTi5I48p4iEtt
+	 1zoe8KBMr351Lb7DYJhG52G9b5CpoFAUqm7XbVb89ATsUdQRrL/oPUzsvBJq8amBic/mT
+	 VSCOP3EKJQifPQ556mBP3ElQjuEZMYq7o9SQKupGRRGOHUkMhIFa7eFk5ZmkRqLYuyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mYIvmp5w;
-	arc=none smtp.remote-ip=209.85.217.45
-Received: from mail-vs1-f45.google.com (mail-vs1-f45.google.com [209.85.217.45])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=X25zNZLk;
+	arc=none smtp.remote-ip=209.85.217.50
+Received: from mail-vs1-f50.google.com (mail-vs1-f50.google.com [209.85.217.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0EF0606A321
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 03:50:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0EF0606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E80E5606A32A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 03:50:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E80E5606A32A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mYIvmp5w
-Received: by mail-vs1-f45.google.com with SMTP id ada2fe7eead31-7ce78f9d6baso487457137.0
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 20:50:46 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=X25zNZLk
+Received: by mail-vs1-f50.google.com with SMTP id ada2fe7eead31-745497ac8fcso1071217137.0
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 20:50:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792986646; x=1793591446; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792986649; x=1793591449; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=LyunzqwHw2ujd9p9tjO94L4AIVA1AivXZoC8iBdB2fw=;
-        b=mYIvmp5wECYYvMDZf41j2R2/KfUaGiHZ0cJTaJ4SLSUJmeqMe0GZDgYXe2Ur0oJNT9
-         nOypD0wdgTfp5sFviC635S18S6MIP5w1gljJcgMZbZdCbMVdL5T9fVn59DmqqRC2Z3Jm
-         LYshMTCF2xqTM1H1gjEnm8AywpeaEKQwP/YBlZ+OgqU8+R2K8XlVcZFFo1g5tJCeAt2f
-         sVWIl3a53rXf2ELQmM3Ma3nXr7EZDF6PlwCX3AawAcO1SWH9HCoRu1QkWXOFAabaqpof
-         1RhV1BbRKTA1JLHNLzJSvs/DmV8CaW6Zl/JzfTbrW3Z8FXyVr3eh/gOaeJ6sQHoi4jTQ
-         6D4w==
+        bh=eAg0//R+JFKzc4+1DiFBzmpR4/bk8838/6mb0ZYXxg4=;
+        b=X25zNZLkzkO0D9wxAEoarApoKEn9Q4lyYtObhLzBGoJmUWHyEOiCAIA2obuIMfCIQN
+         7OLcs4z8nB8p9McHl/ab0OndQ4mlRLrkwWFOQvvg4aa3jEBP3nfzvVBlT/oQts7/h0Xz
+         7q+VIf5WiMtctE+KEz8RxXIEcjgyogsw8LIAYv7g5skigTzW4jI42yStq5l4KeOEB5Q8
+         oLM3quj/POKKOzmMggl2ImmV4xTPliBY7vDpIKjBSRQMRjNt/RlENxYaF4u4Dp1ax4q5
+         oih5S6yIEC1mDjof6DZOqt6KbhxI8+yIH6PF7rC/nNMv02io+RNqTk7/A91y6j/zQZmT
+         6OMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792986646; x=1793591446;
+        d=1e100.net; s=20260707; t=1792986649; x=1793591449;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LyunzqwHw2ujd9p9tjO94L4AIVA1AivXZoC8iBdB2fw=;
-        b=KBwEHzXpRi0LbTnUCGK6r2CyYkt38Oph2KEYSIvbQzGGCj2hy7srIYzpRdeDMTjOVO
-         A1CwNGjVzbSVZ2hE//oYTB7UToA42Julr20+4GoI/IbrZK4XP8NDkFkuApITst/4EpRQ
-         kjDaSBfMPEFvd2Z1rIp82chbd+z/AaNeuLqS4Oowcg6XD94I82e9YHwBwKeAjpAvyprI
-         4atH/bCG3a9J35xMSUSnUIQuipxpSnkRrmsNTt6VItV2J0hkAKcsjz75Oo+wGz4fe4NH
-         Hik6fZdym08WZvGtGQaxAiWxxx+nfUWDX7flLoXXJp8AIZc4dUYviGmwJK+Dsemy1Jkw
-         DnXQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx1FPIIcnYjo2RlewRo8XexPscoj9VoyUe1tIQbx1DlAmo1vrj7ZhaYSaniZtfFf1pdq/lTwsi19gAeuN4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKWMdl/rYoKzV93hxUjBInnbqe2pZ4rmfsS3l7cUy/SooXL5Z5L
-	+72AnK+yJ+YBZSfEnE6Q+9fhRPNLyb/7/75RmPWbaiFwXG6AaLR8VwhK
-X-Gm-Gg: AYBFou3GwMqS/snnE93xRaiUzpbN/wmYZXLPmR7kQ/mYM/PXAe/pWPf/HHIR40+o7Rm
-	u0bTu4SES7yQUiYy4jyXaQWG1HGJrLBQRerDpo2u3OZNsbs5Xsaay9W8Q0wUNns/0c7McWmYmGP
-	R2JTSWT5FiT4M+X2JD+2bwwCTYgTCv3fxwDWx6zMQdKFICWLAN8IEScdLPUYLZqBj75PfiwEUwJ
-	VDJJwVyE38/ywSz6JLqp+SKl4Bn1IW5Mogj73G8v2hGoUrUTK1QWrpuWpAsQ/6PJc83G1JwWEzs
-	dL65Qj6l/lJnULj9F5XNsGgmfJff+CgP8/+gw8iiDPpDtr0vxufqzdBGq0tCDO5lob/g/9a2Cpd
-	4qVZ1b3lm8xLJknl9V4b7RzqCYJFY6nTTBNc9oV2NDJmNpMPSe0IsuxM48qY0fjm5/9XKh+oRUM
-	utWcDpBD0cGCgolMTvSuTAnbhj3WVWz1jDDsOmYew5hHJg0XkmrB9FZzVSTb57CLfI086mTtJsP
-	ch26a8Jrvfbgt9cZb/HxMDwT8kQwPzjw37YlDpUyd3YNafJGIvVzmblOEORHHbCI+AJdUuPp5+2
-	G2/J0CFFFhGWVwZoJhad
-X-Received: by 2002:a05:6102:41a7:b0:7c3:874d:60bb with SMTP id ada2fe7eead31-7ce5d232f57mr1075228137.5.1792986645785;
-        Sun, 25 Oct 2026 20:50:45 -0700 (PDT)
+        bh=eAg0//R+JFKzc4+1DiFBzmpR4/bk8838/6mb0ZYXxg4=;
+        b=mZ7AI3Om8X6vygKgd+l3BIkpUlb1mXMyTYmMFixTbWsHJMX6oShjv4bL+Vd9thwhBs
+         /sLIucuiy9AZlBAUNzeAymOOcnXrh94ZzIWyM7B9E1oEFq6CxM5mmXKw6nYsjqMrLy52
+         MJyvzUN8pQI/tB+Bvb0YszprYl2vDyYZoXHiec4pLyl8SoZzpCBpgk2G9c5sESCzNqvq
+         5JrHMJRYX/zV9OGImLRANmmrV1Dd9bMgs5synWhv6HcKf99qgL0vP5X95gnwORa7jrLM
+         eRXakKYnRTrWGTu3FgoelUsuPwSjXg0+GGtgaunlxuKLX70sVxJbCwThqD0GWDOzQRjl
+         Uifw==
+X-Forwarded-Encrypted: i=1; AKwUvBxTqVSTm7kSh6iMzqcl+6FkZfxRQt233xA972ksi57MAeCdecyEVmEOghUZuJj1n3Czh46vKHfC7mk94fc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJp9b7f3fA6JECh4fh1IZE40+8MIoHEYokt/WU6frXIqQ3MaN4d
+	qECqFzKHYv/LPX6DezkXmUMfqfjC4tiFqlIPg1WNgZzHzARGPH3+0sv1
+X-Gm-Gg: AYBFou237u699we/XZz0213oCuPEkLuCuZQRvmYQwNN9cTYHGkwx7S9ZElYAITOfYeC
+	CGgvaVbm8Lwxj/erhyn7mHJ1cWKxhAAJnta+EIeIHI2gduiPAO4bVQ35910gAuxfLXdsf5SmgL8
+	X3ahyr+Xm4JAfidgLVCwwfxgeMUrxxiYz2x2Rv0IAy7Uh+HyN9iWnW9yZvCDYgXvz/2IG+tFD5M
+	OwmkahKh4y+HAx1guNsBY6G40Bputq1nQA+8gWAwUh6gN9GNnunWmM6tgErTh7HhMEcaU59RUiY
+	dlKnMRiXwR6AnMS6xf6iUKRKSZNuo83Yz0vAkVXe+fH9rJlgqnYPIiaS5y3o19j7guPFouUB9+s
+	OODvVEUhTCRbs75uZnHAuV4VY5rs54O5y8hcPLp/z1cLXIYavLInZlFHhYoLcpmXr++QNOKMmaq
+	Yh05naxCPJcpMbPo73+KHB3O2J6iuDmgzsNYnyfvzH542NWYSciNBewsYERcRfmnUHW7KmxyT/d
+	q2D8r2DYEh69RcfhJk8Fco3jnyrEXoFfmiUX8ZJA/DvO6+idk7UH2aCs2EmE4jVTbq/PAd3rwrk
+	OSw6rbvHRaA2pAyXbiIz
+X-Received: by 2002:a05:6102:50a6:b0:7cc:23e7:e743 with SMTP id ada2fe7eead31-7ce5ccc0438mr1404867137.15.1792986649075;
+        Sun, 25 Oct 2026 20:50:49 -0700 (PDT)
 Received: from archsung (187-126-110-245.user3p.vtal.net.br. [187.126.110.245])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7ce5e2baf56sm6140100137.11.2026.10.25.20.50.41
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7ce5e2baf56sm6140100137.11.2026.10.25.20.50.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 20:50:44 -0700 (PDT)
+        Sun, 25 Oct 2026 20:50:48 -0700 (PDT)
 From: Felipe Calliari <calliarifelipe@gmail.com>
 To: linux-media@vger.kernel.org
 Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
@@ -87,11 +87,10 @@ Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
 	Dan Scally <dan.scally@ideasonboard.com>,
 	Tomas Moro <tmorolias@gmail.com>,
 	linux-kernel@vger.kernel.org,
-	Felipe Calliari <calliarifelipe@gmail.com>,
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Subject: [PATCH v4 2/5] media: ov02c10: Implement get_selection
-Date: Mon, 26 Oct 2026 00:50:12 -0300
-Message-ID: <20261026035015.110903-3-calliarifelipe@gmail.com>
+	Felipe Calliari <calliarifelipe@gmail.com>
+Subject: [PATCH v4 3/5] media: ov02c10: Split the PLL registers off the mode tables
+Date: Mon, 26 Oct 2026 00:50:13 -0300
+Message-ID: <20261026035015.110903-4-calliarifelipe@gmail.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261026035015.110903-1-calliarifelipe@gmail.com>
 References: <20260923234100.318151-1-calliarifelipe@gmail.com>
@@ -107,94 +106,120 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The driver does not implement .get_selection, so userspace cannot query
-the sensor's native size or active crop rectangle. libcamera reports
-"Unable to get rectangle N on pad 0/0: Inappropriate ioctl for device"
-and "The sensor kernel driver needs to be fixed" (see libcamera's
-Documentation/sensor_driver_requirements.rst).
+Both per-lane tables end with the same "plls" block, which sets 0x0303,
+0x0305 and 0x0316 to 0x05, 0x90 and 0x90, overriding the 0x06 and 0xe0
+that the common mode table writes to 0x0303 and 0x0305.
 
-Implement .get_selection returning the fixed geometry of the sensor:
+These PLL settings determine the link frequency and the pixel rate, not
+the lane count. Move the block into a table of its own, and tie it to
+the link frequency through a new link_freq_configs[] array, indexed like
+link_freq_menu_items[]. Write the table right after the common table,
+so it still overrides 0x0303 and 0x0305, and before the per-lane table,
+so 0x3016 is still written after it.
 
- - V4L2_SEL_TGT_NATIVE_SIZE / V4L2_SEL_TGT_CROP_BOUNDS: the full
-   1928x1092 pixel array.
- - V4L2_SEL_TGT_CROP / V4L2_SEL_TGT_CROP_DEFAULT: the 1920x1080 active
-   area, centred in the 1928x1092 output size programmed in
-   sensor_1928x1092_30fps_setting[] (registers 0x3808-0x380b), i.e.
-   offset by (4, 6).
+This prepares for link frequencies obtained from other external clock
+rates than 19.2 MHz.
 
-The crop is fixed, so sd_state is not consulted.
+No functional change intended: the same values are written to the same
+registers, and the common table is left unchanged. Only the per-lane
+registers other than 0x3016 are now written after the PLL registers
+instead of before them.
 
 Signed-off-by: Felipe Calliari <calliarifelipe@gmail.com>
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Tested-by: Mars-Wave <tmorolias@gmail.com> # Samsung Galaxy Book3 Pro NP960XFG (github.com/MarsWave)
 ---
- drivers/media/i2c/ov02c10.c | 34 ++++++++++++++++++++++++++++++++++
- 1 file changed, 34 insertions(+)
+
+Notes:
+    Changes in v4:
+    - Tie the PLL table to the link frequency, through a link_freq_configs[]
+      array indexed like link_freq_menu_items[], instead of naming it after
+      the 19.2 MHz external clock (Sakari).
+    - Leave the common table alone, including its 0x0303 = 0x06 and
+      0x0305 = 0xe0 writes, and only move the "plls" block of the per-lane
+      tables, so every register write is kept (Sakari).
+    
+    Changes in v3:
+    - New patch, as asked by Sakari.
+
+ drivers/media/i2c/ov02c10.c | 35 +++++++++++++++++++++++++++++------
+ 1 file changed, 29 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/media/i2c/ov02c10.c b/drivers/media/i2c/ov02c10.c
-index 80edd025c..e24cd8705 100644
+index e24cd8705..62ea20dc5 100644
 --- a/drivers/media/i2c/ov02c10.c
 +++ b/drivers/media/i2c/ov02c10.c
-@@ -10,6 +10,7 @@
- #include <linux/pm_runtime.h>
- #include <linux/regmap.h>
- #include <media/v4l2-cci.h>
-+#include <media/v4l2-common.h>
- #include <media/v4l2-ctrls.h>
- #include <media/v4l2-device.h>
- #include <media/v4l2-fwnode.h>
-@@ -18,6 +19,13 @@
- #define OV02C10_MCLK			19200000
- #define OV02C10_RGB_DEPTH		10
- 
-+#define OV02C10_NATIVE_WIDTH		1928
-+#define OV02C10_NATIVE_HEIGHT		1092
-+#define OV02C10_ACTIVE_WIDTH		1920
-+#define OV02C10_ACTIVE_HEIGHT		1080
-+#define OV02C10_ACTIVE_LEFT		4
-+#define OV02C10_ACTIVE_TOP		6
-+
- #define OV02C10_REG_CHIP_ID		CCI_REG24(0x300a)
- #define OV02C10_CHIP_ID			0x560243
- 
-@@ -768,11 +776,37 @@ static const struct v4l2_subdev_video_ops ov02c10_video_ops = {
- 	.s_stream = v4l2_subdev_s_stream_helper,
+@@ -303,10 +303,6 @@ static const struct reg_sequence sensor_1928x1092_30fps_1lane_setting[] = {
+ 	{0x394e, 0x0b},
+ 	{0x4800, 0x24},
+ 	{0x5000, 0xf5},
+-	/* plls */
+-	{0x0303, 0x05},
+-	{0x0305, 0x90},
+-	{0x0316, 0x90},
+ 	{0x3016, 0x12},
  };
  
-+static int ov02c10_get_selection(struct v4l2_subdev *sd,
-+				 const struct v4l2_subdev_client_info *ci,
-+				 struct v4l2_subdev_state *sd_state,
-+				 struct v4l2_subdev_selection *sel)
-+{
-+	switch (sel->target) {
-+	case V4L2_SEL_TGT_NATIVE_SIZE:
-+	case V4L2_SEL_TGT_CROP_BOUNDS:
-+		sel->r.top = 0;
-+		sel->r.left = 0;
-+		sel->r.width = OV02C10_NATIVE_WIDTH;
-+		sel->r.height = OV02C10_NATIVE_HEIGHT;
-+		return 0;
-+	case V4L2_SEL_TGT_CROP:
-+	case V4L2_SEL_TGT_CROP_DEFAULT:
-+		sel->r.top = OV02C10_ACTIVE_TOP;
-+		sel->r.left = OV02C10_ACTIVE_LEFT;
-+		sel->r.width = OV02C10_ACTIVE_WIDTH;
-+		sel->r.height = OV02C10_ACTIVE_HEIGHT;
-+		return 0;
+@@ -330,11 +326,14 @@ static const struct reg_sequence sensor_1928x1092_30fps_2lane_setting[] = {
+ 	{0x4d0d, 0x00},
+ 	{0x5000, 0xfd},
+ 	{0x481f, 0x30},
+-	/* plls */
++	{0x3016, 0x32},
++};
++
++/* 400 MHz link frequency from a 19.2 MHz external clock */
++static const struct reg_sequence sensor_pll_400mhz_setting[] = {
+ 	{0x0303, 0x05},
+ 	{0x0305, 0x90},
+ 	{0x0316, 0x90},
+-	{0x3016, 0x32},
+ };
+ 
+ static const char * const ov02c10_test_pattern_menu[] = {
+@@ -349,6 +348,20 @@ static const s64 link_freq_menu_items[] = {
+ 	OV02C10_LINK_FREQ_400MHZ,
+ };
+ 
++struct ov02c10_link_freq_config {
++	/* PLL register settings, which set the link frequency */
++	const struct reg_sequence *pll_settings;
++	int pll_settings_length;
++};
++
++/* Indexed like link_freq_menu_items[] */
++static const struct ov02c10_link_freq_config link_freq_configs[] = {
++	{
++		.pll_settings = sensor_pll_400mhz_setting,
++		.pll_settings_length = ARRAY_SIZE(sensor_pll_400mhz_setting),
++	},
++};
++
+ static const struct ov02c10_mode supported_modes[] = {
+ 	{
+ 		.width = 1928,
+@@ -594,6 +607,8 @@ static int ov02c10_enable_streams(struct v4l2_subdev *sd,
+ {
+ 	const struct ov02c10_mode *mode = &supported_modes[0];
+ 	struct ov02c10 *ov02c10 = to_ov02c10(sd);
++	const struct ov02c10_link_freq_config *link_freq_config =
++		&link_freq_configs[ov02c10->link_freq_index];
+ 	const struct reg_sequence *reg_sequence;
+ 	int ret, sequence_length;
+ 
+@@ -610,6 +625,14 @@ static int ov02c10_enable_streams(struct v4l2_subdev *sd,
+ 		goto out;
+ 	}
+ 
++	ret = regmap_multi_reg_write(ov02c10->regmap,
++				     link_freq_config->pll_settings,
++				     link_freq_config->pll_settings_length);
++	if (ret) {
++		dev_err(ov02c10->dev, "failed to write PLL settings\n");
++		goto out;
 +	}
 +
-+	return -EINVAL;
-+}
-+
- static const struct v4l2_subdev_pad_ops ov02c10_pad_ops = {
- 	.set_fmt = ov02c10_set_format,
- 	.get_fmt = v4l2_subdev_get_fmt,
- 	.enum_mbus_code = ov02c10_enum_mbus_code,
- 	.enum_frame_size = ov02c10_enum_frame_size,
-+	.get_selection = ov02c10_get_selection,
- 	.enable_streams = ov02c10_enable_streams,
- 	.disable_streams = ov02c10_disable_streams,
- };
+ 	reg_sequence = mode->lane_settings[ov02c10->mipi_lanes - 1];
+ 	sequence_length = mode->lane_settings_length[ov02c10->mipi_lanes - 1];
+ 	ret = regmap_multi_reg_write(ov02c10->regmap,
 -- 
 2.56.0
 
