@@ -1,84 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793040078;
-	b=Ec9wwFidQ0H4FCMaAVrAUnDRmH5wLCEPLrAxklZQcIKb+zFUxYAn/3BuzAtnfov36AUs
-	 2oCGGQxGmOamrl+y9/e4Pn/X7omdeTyHQDEjWcY/MUA2Qd2MXtJfNYOPeIdv7vLu6tvia
-	 uy+iINqqN6e1THrGdrxsA/pagSonsEqHbWOVip2bjxKja7az2fVb12p6CRTfSMOE9YdmU
-	 dHcXKKxfkOHAHeJS14CZHksgC0GGfRcBhqiMzyMnmrazCxnN05Qe4o+TO3hQlGZWTNDbT
-	 k+zlj2LjTHFlov5dIq7QDHCUWSKK7v/xADHtKLcpQO9cJ473Z1HMRH8tGgW2TTJfKKw==
+	t=1793040157;
+	b=dRiS1SXhSpffbeffAUTHSnqOdJfq0d/5XKnwxWRkaVNkILa2rUlueEo3U/fINymj9ZqJ
+	 70OeaJGkCSmFZ69Aqyf4qbvxkz/tdP1AGd4Xkc7EFa4ibS92oj7whxi/88ZaPt7QvCVgJ
+	 jMJBhBGDmc8ZJ2Wug5KLHmshWwnBpOW80/0CIeiCl1LXDC86NAP0ckF729qtTE8tkvaCe
+	 tEvyMly/PjDWj3bf4A6YS/V23PEPyiVlman9BeCuNVHCjrO0WGSsO+9SQ5wo0C588X7sn
+	 O3Ng+sQ1TR30vljjN5M4VpmxQ2+LHcRQxElYgNIclJikYTwOlWUGLknCLlR7hYxIKAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793040078;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=g1SrbF6MexHYCEG2Z9HqDiWdRSH1K217RRXRSida3VI=;
-	b=ZfwKYpZkB6zSpfNclTzPWLuj+VsuK8waiBZnstS0A5eHvRDDwAJbu1x9++Onqz5FcjeK
-	 1+UsioFOZ4FhShqfXDIWkyctbhRu0Ytx7JpiuZ2+unbhjKgebaE6S7uMal2C15GNQ3l8Z
-	 hhYbZmjnTTn7jxT2UZC5aUWQ+X1qVAS09dJXwZF/xcFppgTJ7a7a8lWkmDEQ66kMeulih
-	 Y1AtOh/rpTbkiS3FdjEfmH4IyVMQDEM8ynX8ZZZB5oN9UjCQjCKsDXgNMx8jArA/7m4us
-	 nsEI4SpcyOfGnNZZlayyf4xYkAXr4dZ3TPD/i0x8sttswNi4V9oDSJ3YJhBlZPEGxEg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793040157;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=jHGQKwi3HPZqZ9VMWi33DPF8ighBiHYISSnr6zwG9Ks=;
+	b=aSVqFlv+cFLk+ZmHOMpI60V0D+sTxpNVxiWvsqrjQParX8/qafbqrcwcxdWBNNQAdbrx
+	 1nNjHLX5U/KfSZUKhieGNRAN9fmKUHh4UsHzC+WflLzYoOpSQWUXhbd70h/ZGLto2ELfX
+	 S95ru00Y3V6B0dFm9+mQfMpiFlmTVUeJy8+UtJLOka0Sz5nVugxnJpMMVfVbsmeg3/D6k
+	 aLSfTqaL1mKURt0VurQb0Fdqpt6AtEnwBiRazUMOGg8MDDkKyU+RYTm/sesrCxONL69Pr
+	 oZAi7+H3Kx3xXnEDi7lartwTtI5U0/cSdx6JbtSYf/3MumZHkAWFN/ozHD9LSUXLNIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linuxfoundation.org;
-	spf=pass smtp.mailfrom=linuxfoundation.org;
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=Gs72zGSW;
-	arc=none smtp.remote-ip=209.85.160.41
-Received: from mail-oa1-f41.google.com (mail-oa1-f41.google.com [209.85.160.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MPDbHy+5;
+	arc=none smtp.remote-ip=192.198.163.15
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98256606A325
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 18:41:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98256606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1F75606A31D;
+	Mon, 26 Oct 2026 18:42:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1F75606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=Gs72zGSW
-Received: by mail-oa1-f41.google.com with SMTP id 586e51a60fabf-4a822463a22so1855621fac.2
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:41:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1793040076; x=1793644876; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=g1SrbF6MexHYCEG2Z9HqDiWdRSH1K217RRXRSida3VI=;
-        b=Gs72zGSWLplhI4YGGyxTLX6F3MV/6q75OPBFoK0d54H4NG0ayR/xMgS29zw8VNY3Xx
-         En2PKwL712VHdJFpxx2QT5nnIGwiC9vm0iI0dS0RIyIz2df8TVlhj5IGP5x22qsUO6Ly
-         aKp2hSu2WqgpzhrIcswbCU5rZeYhJ7ma8F0U4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793040076; x=1793644876;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=g1SrbF6MexHYCEG2Z9HqDiWdRSH1K217RRXRSida3VI=;
-        b=N7v0XhdKgoPd32TW/743JOdAQHPZ0BeRyLeymMG7zyQM5wr8BeHPMGwKZkW2AD4bul
-         LuuPzvUldbFULR8EVaVX9dNLbTrOcgBy+zsloIy+dmRiaDQwYcvcmwJFt73CWO/lGwbD
-         g4G/kjeGOzYYY8Luj7gJ9ScRlhL+Y3QvTp+ZPQjOpcYSHlbmHoJEhsc8Hj332RmX3xoW
-         WGSnUZS+nFKdEF5g2kxo8xPlTUatvCmqEud6r6CLkhgMHttmHpK3uBrVtewxLp8t3kEy
-         sZXELHLsp9CjgKYnvo3p1oUIkglL7HdEbTSjxehPw71o+Zb3CVynG2b26FZq680QEv+B
-         NsQw==
-X-Forwarded-Encrypted: i=1; AKwUvBwSGEpv2xjGnVlPW0OKH2eZocZWPltQWHpYWzJL44RNJBblkPnZh2JnpeStoBkYLVxttMxQQMmTuWZyYRY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIiKRljvRnGQkvHHQK8U+tV338Z+QfEnQG7RMESCbbSrrNbhVBI
-	xR/j1Pe1h4pjnjMW8W1d3jE/Po4+nZFQe17IEmip/nRzKywJWLKO7PnCsMjL49WZ2vI=
-X-Gm-Gg: AYBFou2ItpRGk+kNoZz/C8E092mVASEv1sv7si/7KGTsWADpNooegpH/tn/qwmNRcnt
-	vesTcDvF8b/qhjjA3Oo47nhsVXnFvLRAlz21Hb8tZuHeNDgKdOihY8ZiwuwD9fRwFSVHQk0AN8b
-	Tckibbx8ej6oLD/xEuQ4J6fnYUtfhyfZrWwPx3fre9D0eYb3fE5l10QvgbdeBjEKH2/MjqfT5vT
-	Tv2Ft2+C11f9lGxqab1tL8zKRYL/s+zS0a+ujOKQRU16YsqNyjh7u0MeSDs6z4pyq12MQogbKML
-	dwRD32EbFiGQDaHTuPK555HFUHlRI9zaq76hyvq/HxVXsIFmmh52HKp6kwbWaRGU/mwtA5SzgIu
-	70ITqBsl9T1RpxZ2vwxVyr54J4ZzZeVysXbkKPsXnj+NMj/YwsAP8yN7Z0/43/ZLJ4uLyI/oEou
-	wqrtLsuM8GF4ccLZhljb0uqvTd3nOw5VIASswfYktbJUAIk6twfj9LbwYTouMCdFFO+V+2SJ9Uc
-	rqGJI6O7Sz/A0Lj9IUQ65d2xHCfdgp3417eTM7iGry95wbjyowFXmbiA08Syj9bIA==
-X-Received: by 2002:a05:6808:c40a:b0:4f5:c4b9:dbfa with SMTP id 5614622812f47-55c0030f23amr5326997b6e.48.1793040076466;
-        Mon, 26 Oct 2026 11:41:16 -0700 (PDT)
-Received: from [192.168.1.128] ([38.15.57.99])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-55c04074375sm6051582b6e.1.2026.10.26.11.41.10
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 26 Oct 2026 11:41:15 -0700 (PDT)
-Message-ID: <855636a8-36f3-412d-b4e6-d780fd1ff85c@linuxfoundation.org>
-Date: Mon, 26 Oct 2026 12:41:08 -0600
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MPDbHy+5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793040157; x=1824576157;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Pxkiu2dpipdFnT+u2/AE1L8SMSKwkt5e3B1Dige/WPs=;
+  b=MPDbHy+5cL9da7ZKt8tlTaiCd+WBbkP080itWj89uQg+xizcnYssCrVa
+   IV8F+McIyokaotHn3NVDB2H/M/8oMFFu0OHMcdAAQxbqY/T7kaefq8nmB
+   ZRHlb5/XZ7YYnoEbOm07BUS3gXvtQYumewxbMgD8RmPgviCX5IboGH5fM
+   hnjoBsBWHLyaHgnuSCXOGk+65xeVM2vidIdZr2zMKgB0beDs/okoOtMbL
+   fl6TZtmZ9Oh+62WmK50Y6xUqomv5ES2WkLS3UShipwj6If/4Lk5iE61Hf
+   yYTcMML+6psiaW57ZC3K/E6TxexeD/GAZTl8pQqnKWWjTzoUlSgItkZrt
+   A==;
+X-CSE-ConnectionGUID: zepA9MyYQeiCD2XU/U60sA==
+X-CSE-MsgGUID: WOLvbHtsT7yzXr/EMl0MvA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1731416"
+X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
+   d="scan'208";a="1731416"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 11:42:36 -0700
+X-CSE-ConnectionGUID: 7nm3nCWrREmdXpwFKMm4aQ==
+X-CSE-MsgGUID: yimnzbkvTE6NQb400VmwsQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
+   d="scan'208";a="4321598"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.93])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 11:42:33 -0700
+Date: Mon, 26 Oct 2026 20:42:31 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Brian Norris <briannorris@chromium.org>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Ulf Hansson <ulfh@kernel.org>, linux-pm@vger.kernel.org,
+	Andy Shevchenko <andy@kernel.org>,
+	David Lechner <dlechner@baylibre.com>, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 16/17] iio: light: tsl2583: Discard
+ pm_runtime_put_autosuspend() return values
+Message-ID: <at-fF6u6Oqq-CHbW@ashevche-desk.local>
+References: <20261021235818.3059519-1-briannorris@chromium.org>
+ <20261021165858.v2.16.Ic3775fd68cac415d959c0456c4d4c36e9e5b95e5@changeid>
+ <20261026005504.7482bf26@jic23-hlaptop>
+ <at-U7LvkoiNAJ6YM@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,38 +87,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.18 000/193] 6.18.59-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com,
- Shuah Khan <skhan@linuxfoundation.org>
-References: <20261023163714.201276352@linuxfoundation.org>
-Content-Language: en-US
-From: Shuah Khan <skhan@linuxfoundation.org>
-In-Reply-To: <20261023163714.201276352@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <at-U7LvkoiNAJ6YM@google.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 10/23/26 10:34, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.18.59 release.
-> There are 193 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+On Mon, Oct 26, 2026 at 10:59:08AM -0700, Brian Norris wrote:
+> On Mon, Oct 26, 2026 at 12:55:04AM +0000, Jonathan Cameron wrote:
+> > Note I'm putting these on my testing branch which I'll rebase
+> > after rc1 is out and then they should show up in linux-next.
 > 
-> Responses should be made by Sun, 25 Oct 2026 16:36:50 +0000.
-> Anything received after that time might be too late.
+> Thanks. I can't seem to find them on any 'testing' branch [1]. Just FYI,
+> in case you were intending to publish the intermediate result. If that's
+> intentionally a local branch, that's fine -- I'll check back in later.
+> 
+> I also see you're trying to partially rework/expand/add to some of them.
+> I'll try to review those, based on my local combination of my patches an
+> your patches.
+> 
+> Regards,
+> Brian
+> 
+> [1] In any of these:
+> 
+> $ git ls-remote -b git://git.kernel.org/pub/scm/linux/kernel/git/jic23/iio.git | grep testing | wc -l
+> 9
 
-Might be late but here it is.
-  
-Compiled and booted on my test system. No dmesg regressions.
+Yet another "useless use of grep" ;)
 
-Tested-by: Shuah Khan <skhan@linuxfoundation.org>
+$ git ls-remote -b git://git.kernel.org/pub/scm/linux/kernel/git/jic23/iio.git \*testing* | wc -l
 
-thanks,
--- Shuah
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
