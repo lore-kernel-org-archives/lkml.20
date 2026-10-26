@@ -1,47 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793007115;
-	b=rvyPU/x8SnrSpQYekfaQoh1BdpShjzVfr9E9bRCf94qErAdJQyT+dQyiKxazTxUw8xqM
-	 bxad0T7kb+PMEiIPQpEXEcVf1kXa92EAspynLfJK4ULaOw/M+g6t2o8SW0ZMMbQFg0xCH
-	 MEJ9Xa/jRpC+0wJRrpUtOyN+3mU9p3+djzjXPLfbkF0guD9Ve2icGdw1pADWNmLK1mUEV
-	 PdsLKXxCjS+OdeibaWMRjr9emvVRVvET+/5E5H7VFb+q0jFCgIVzqHBdxugxyoETvymRC
-	 OyzFqLm8UxxzRxS7kaM2+NSgaaI6/4ChEBO6en2MwtmpNEqtiKCCmjOEaudcLfe/Rog==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793007115;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:From:To:Cc:References:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=fTHiEsQJS5VYBz3EM1bA5RuDNtGEG5MQKrJP6RK0j7M=;
-	b=1Wp5EGRlIQOe6846KNlv/zl2hjEih7EDNkc7IGTDr6QH2sEIAoM418yxZZnl8eLHX5k3
-	 fw8kwUF3JKOVCGKceU0V7Y2Vkjw12TrS8/hKi9XqU9cWZQlzTLIsF3EH5+Nn+bXE1kII9
-	 z9uKFxuGe4ci6FTZTptQXUV4HqreXQxWCVjmukAmAewKSNoKJG7CaDICtO/LdxEic8h52
-	 GbEGBbzwxz6hmFyBDtBaDnf3HsYrg7eWK/+MpAkvDW/zLGuTyg9F9aR0eG1UGJqatHjsH
-	 XQ48Jl1FeNIENdb2eH8zCb/3dtq6294W3WVuNI5h0F9YZEyqcPd+vY0NZwBGv9ypleQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I2ITqUwV;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.46
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793007144;
+	b=sAkCa81jLpwUDSN6e6H1dlolMvmo53EoeShi3umth+9Lpwo5jqvso3HOsCdEXDjbXAJY
+	 JwA6gmx2LbEbwGLpm40wsmxhoJGUp2px7SiTKazvO3t9hjik50PSue+XtCSVz6PJ0X+GP
+	 vkU7410+jLfdqZvvYJinTt8jWr2F6G7yPRH73MQeuI0a6LOtDAz8ucj6V2CJuo4wCVEQt
+	 eY8VOQcazROIXcBKx26BIIPneU5Z9sLAOr8dumPPygOdSt4CsKubNNHeLzUyGs8bEt/H9
+	 tYCbGsK1pqavyWTHFfnx9KKt+2+Rpz9YY0P3JM7mn94wu2zLH+euuanQj3UZpuAsogQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793007144;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=ecBvG4CyxdXuobVHi4VrXk03Jx/FAmyBpo68trKAaEw=;
+	b=hbGYJXe0hlQBI7NJevJ/imN5/qB2QFpZQcqSsFuQGqfwNscbzaTgByv8fuTrj8PeoIgc
+	 EKbq/SewbfQu9yS2p0OC9XFyCtt8GxsRljgTloikzW+aHI5p4s0AE61ldtuNowEwrM0bj
+	 ADJEtCBmO7Rvh1eKUZ2oi4+F3cZaVui0MJUTkEGTAViDLysyFLetOqEOAyNv63R+BCl9Z
+	 hbBFqm4ZF0dwOoF/iiHcr5kQFE+5z0sqqjRydzpQfyl+kloCl7ZWVSPaSvF9XKGtEiN5X
+	 SrKlt+uypEULhfQB4KZteC5IFSqD7tzYJztmbg6sZCAsJoTFGxcffS8eYDi5KJ0xxag==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jJgZ1kRT;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.46
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 827DA606A31A;
-	Mon, 26 Oct 2026 09:31:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A701C606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:32:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A701C606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I2ITqUwV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 508B61F01825;
-	Mon, 26 Oct 2026 09:31:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793007115;
-	bh=fTHiEsQJS5VYBz3EM1bA5RuDNtGEG5MQKrJP6RK0j7M=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To;
-	b=I2ITqUwVfg8GjqCMCjq+3mJjbj6NU+OAQAJ83ZXHpa7YzCDT65BDCp21TR992rQyj
-	 D2+OZne55iCMA7Ors5Tvn5gOvYNstmlix+QT02y97seXNw9PDJrmM05nU7Od0MJ4QZ
-	 h/J3v2fSvYnenx1UCAFCm6mi2isfviv8RWe0dCkJJJlyYlrQclflkNvTI9l4SnoEO7
-	 7YdLQ0uVXzcpiZZbDuZPWR3p3im4ryzG4a+8IUaBi3aMAnqfzN8JqBzHi4sEdfiUHR
-	 yOjeYiwBk7T2ZW8F1Fc6SBTzSg1ksWs1EoCamm5aEKaQUISPCdmmHqkM0QMKS2gn8i
-	 WvRhfG0jn1rmg==
-Message-ID: <104e41a2-3451-4f7b-9723-3c05ceaa64af@kernel.org>
-Date: Mon, 26 Oct 2026 10:31:51 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jJgZ1kRT
+Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6b1f4d8e09aso4106229a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:32:23 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793007142; cv=none;
+        d=google.com; s=arc-20260327;
+        b=IrHshHAdMw6YuDsrLocY5w6NVYzT56l1GSHAUJv6ubnSBVYf3I7Ch7m01/KHFKPKVD
+         YrmJRLx5Sa5owiJAJABRYSYujXsUGnGxX5wTCSYQ9PCV29a7AbCeywFEvyZcOV+qNsp2
+         /2KdwXJCzxxBTXD5xvafuuUREa0wCuxGwQZZZCWaU4771jfO0Gk/6QxUdSvMJ9YnFSAM
+         G2oFpzcfDLpidZjRefvnY4uYQeMmDORddI6m3kf8Dc+8o2uNpscpLtuv85QNg8uSPAqa
+         xEfsmQ/jemba704Mbm2eH5MnvMILbak8y5G/zkdtl3f1OTRY4tyV4blGYuTKrR5x6MMk
+         UCOQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ecBvG4CyxdXuobVHi4VrXk03Jx/FAmyBpo68trKAaEw=;
+        fh=vLl5wnJl9eiLN5yTtFQ0ktEEr5cHBIYgpLR50SP5wsI=;
+        b=YjgHQHF54uKRSeJoPxNpZCPBpEg8ZzrbD05jFdd4nZQRgoe5OHAxjE7iVorLBp4ba/
+         YbTmzhkzqoSOwGREASQw2+b42ah+z+ghLBAuBPKKazRnu/gvQF4eGv33qSn3s/VuVDGW
+         8mrq+FmeyJ4O5jR3g6FVNtkou9XeN+O83+e7fbDgM1FrDROQqe3u7HMxMC7T/4z9UvoM
+         TtE1yEXnaPjJjUsxQgttfo74abGWO38OowsYMr+qTiE360ziTtNg6/eCGWU9d9MflcDt
+         Ls5DRwmbQKDai1re978+5IzUDvJZ3TNiHWYty0hnzT9hRN5XofJhJzk/qgcxAfqIgAig
+         lChw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793007142; x=1793611942; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ecBvG4CyxdXuobVHi4VrXk03Jx/FAmyBpo68trKAaEw=;
+        b=jJgZ1kRTnuHOfldZYkyTH7Q7gInsSNyGbuCrnkEaHqjGU+VEafB1g6eX0BhRsyA26h
+         k9t9loRX2tqzrB67q32zXLg2ywkofxQa2Ee3xXwnj8CAcr1J6eskhZ+H+zhsNQzP5Q5H
+         FyarA3x4ZYdySiwD1GinjcyzHt7LsXxfaYgLLKqX6iQxFx4lD9CcFYC5e7NAoEoCYaTT
+         mN2wjFzP7BNoREeHxvonn9fZeN0FPKjAPCTbFc46ZCt+/p03GLv1K1Hjzy4+DNvKBIl3
+         3hbaoGRy7A5EjdV2igBOGhFgsyTh3RfLOHjFt+QFFckflFF+d9TWjVow5YoWI+Hf3HNC
+         JPbA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793007142; x=1793611942;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ecBvG4CyxdXuobVHi4VrXk03Jx/FAmyBpo68trKAaEw=;
+        b=1bZRGkMQKMwOQLoYdfo6h61gLCKZBiKvDqAbmD3C311f5FT7gitu91fCwyFqdT2NBE
+         WToKerov4xq7ygwpBRxcI2nsVW/xhCouxodENBWBgUFJojB3nGNb/bEqn9wWNy6Nh6mi
+         oqoOMPB6UADN0C65eL4IEav6yABxE0bCz087dgW2RtLR6T2F7b6roSsnDq9LUavWW5xw
+         Yhhvetfk6atGDTGx0V52psQ9L4AZutWYsPwPq9hFPq3VSoQKeJdTUckHnY3Di5NpyYDr
+         gll/lXyQV/AB3BDzlA7Rd3ZhaLoz1eykVCRD+XH0QCphlcA7azYXBF8aEezK4q6H8+oC
+         n3QQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxKd6PT423LRuEea46DLXucXH/AFtY7ulrI8bm4qMOkq2LnFTr1xJBkjNY437xn8Jt2+Wsc10Tshs689FE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL4qBzjShzd+UBgXnZnZ0FRQXUJ1XyFfUa8g5hTcc4SzRbcAaix
+	75FYggPJF/yycn7E4IqohefyZ6411+yRuCs2CJ/7lfvFQA2YcQttKaP+oLVlh3Fd4DxC9OuYGMB
+	9P3zRUu2g4MJfk6jTD6Cs7FtHRUBP9WdinPKB
+X-Gm-Gg: AYBFou33aMyIrxzxTndlDFyxMvHBNVJmSJ9wsLeKKHUVLg7wEtGL+Gs5WxeYYcKL/Ea
+	U412ZQq621Cadw/FyVZWJRA1wUxjl2+irOZpsmN0KnxVKW8NyVYY3upaRSxjRNVzzoVJUlZT5t2
+	uvgo2MnY8XHlRjZnDP8xhwRiNRKBBiYyeg6B7aNGzodGb23RuAFaHThAe8ZbFAR6QekwsYwVvJl
+	T3fL/vAf6i58HzGUHjitI7HA5S8RI+8RuBnvxkj04shA6pbWjcLiSZrhwHyhGVXnJISaDEsB3Nk
+	VmW7LpET4EWkSa7jsi0MqbOxj0zi1Yr5OA9aaOsNHW5tIdBXIC9hecTheN8puNofV8vZR0zdtB1
+	+lLh7yt+L3jrVoMaKSqO3kjjBsyNuH29lxK7w+504oG995ea7lz6Gpc9Nm0RbZXpA3ocVGnToGB
+	xHsIzZO8vA3tm5eao=
+X-Received: by 2002:a05:6402:a515:10b0:6b4:2fc3:7d85 with SMTP id
+ 4fb4d7f45d1cf-6b442fe9a23mr5162442a12.26.1793007141857; Mon, 26 Oct 2026
+ 02:32:21 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,113 +105,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/7] dt-bindings: mfd: x-powers,axp152: Add the AXP2101
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Olivier Louvignes <olivier@mgcrea.io>
-Cc: Lee Jones <lee@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, mfd@lists.linux.dev,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261023100401.67592-1-olivier@mgcrea.io>
- <20261023100401.67592-2-olivier@mgcrea.io>
- <20261026-brawny-gleaming-grasshopper-813f7d@quoll>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261026-brawny-gleaming-grasshopper-813f7d@quoll>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20261025232251.58252-1-dennylin0707@gmail.com>
+In-Reply-To: <20261025232251.58252-1-dennylin0707@gmail.com>
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Mon, 26 Oct 2026 11:32:10 +0200
+X-Gm-Features: AclHuK9HrNxGfGq3Xk8d9bF60_YyoNgGHS0nIQi_8ycsJWClOpl0dBjTH6NbKO0
+Message-ID: <CAOQ4uxifE0G4r=cpevTB4mzq+HhGdVsNhddzFNuH=BN9YrD6Ag@mail.gmail.com>
+Subject: Re: [PATCH] inotify: do not coalesce events with different rename cookies
+To: Hungyu Lin <dennylin0707@gmail.com>
+Cc: Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 26/10/2026 10:30, Krzysztof Kozlowski wrote:
-> On Fri, Oct 23, 2026 at 12:03:55PM +0200, Olivier Louvignes wrote:
->> The AXP2101's interrupt line is optional, as for the AXP313A and the
->> AXP15060: the driver then registers only the regulators. It has no DCDC
->> frequency setting.
->>
->> Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
->> ---
->>  Documentation/devicetree/bindings/mfd/x-powers,axp152.yaml | 3 +++
->>  1 file changed, 3 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/mfd/x-powers,axp152.yaml b/Documentation/devicetree/bindings/mfd/x-powers,axp152.yaml
->> index 45f015d63df1..f5e2c8232581 100644
->> --- a/Documentation/devicetree/bindings/mfd/x-powers,axp152.yaml
->> +++ b/Documentation/devicetree/bindings/mfd/x-powers,axp152.yaml
->> @@ -68,6 +68,7 @@ allOf:
->>            compatible:
->>              contains:
->>                enum:
->> +                - x-powers,axp2101
-> 
-> Why breaking the order? Keep natural sorted.
-> 
->>                  - x-powers,axp15060
->>                  - x-powers,axp305
->>                  - x-powers,axp313a
->> @@ -84,6 +85,7 @@ allOf:
->>              enum:
->>                - x-powers,axp313a
->>                - x-powers,axp323
->> +              - x-powers,axp2101
-> 
-> Sorting is broken in original code but you placed it completely odd.
-> Neither keeping sorting of 3xx variants nor, between 15060 and 717.
-> What's the logic?
-> 
->>                - x-powers,axp15060
->>                - x-powers,axp717
->>  
->> @@ -108,6 +110,7 @@ properties:
->>            - x-powers,axp806
->>            - x-powers,axp809
->>            - x-powers,axp813
->> +          - x-powers,axp2101
-> 
-> Placement of these entries makes no sense.
+On Mon, Oct 26, 2026 at 1:23=E2=80=AFAM Hungyu Lin <dennylin0707@gmail.com>=
+ wrote:
+>
+> inotify compares the mask, watch descriptor and name when coalescing
+> adjacent unread events, but ignores their rename cookies. Distinct
+> renames can therefore lose an event even with IN_ALL_EVENTS.
 
-Ah, this one is actually sorted by natural sort.
+oops. Somehow I remembered that we never merge MOVE events.
+Maybe that's even a simpler check. IDK.
 
-Best regards,
-Krzysztof
+>
+> For example, prepare two files in an unwatched staging directory and
+> rename each onto the same pathname in a watched destination directory
+> before reading the events. Only the first IN_MOVED_TO event is retained,
+> although the two renames have different cookies.
+
+Thing is, the "wrong" rename TO cookie is meaningless without the FROM pair=
+.
+If the second source has a FROM, then the two TO won't merge.
+Could you really reproduce this case?
+
+> Similarly, coalescing
+> distinct IN_MOVED_FROM events can discard the cookie needed to match a
+> subsequent IN_MOVED_TO event.
+
+THIS looks like a case that can be reproduced.
+Can you provide an inotify LTP test for this case please.
+
+>
+> The original inotify implementation compared cookies before coalescing.
+> The fsnotify conversion lost this comparison. Compare sync_cookie as well
+> to preserve distinct rename events, while retaining coalescing for
+> ordinary events with zero cookies.
+>
+> Fixes: 63c882a05416 ("inotify: reimplement inotify using fsnotify")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+> ---
+>  fs/notify/inotify/inotify_fsnotify.c | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/fs/notify/inotify/inotify_fsnotify.c b/fs/notify/inotify/ino=
+tify_fsnotify.c
+> index 7c326ec2e8a8..6456d9c0e408 100644
+> --- a/fs/notify/inotify/inotify_fsnotify.c
+> +++ b/fs/notify/inotify/inotify_fsnotify.c
+> @@ -40,6 +40,7 @@ static bool event_compare(struct fsnotify_event *old_fs=
+n,
+>                 return false;
+>         if ((old->mask =3D=3D new->mask) &&
+>             (old->wd =3D=3D new->wd) &&
+> +           (old->sync_cookie =3D=3D new->sync_cookie) &&
+>             (old->name_len =3D=3D new->name_len) &&
+>             (!old->name_len || !strcmp(old->name, new->name)))
+>                 return true;
+> --
+> 2.43.0
+>
+
+Practically, this means that MOVED events can never be merged,
+so a slightly cheaper and simpler test would be
+if ((old->mask =3D=3D new->mask) && (old->mask & INOTIFY_MERGEABLE_EVENTS) =
+&& ...
+
+Thanks,
+Amir.
