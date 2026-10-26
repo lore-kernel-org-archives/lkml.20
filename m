@@ -1,64 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.157.188.9
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793038165;
-	b=R9xuprmvLSblr4AnA6ZjXrHAk1bsDnc3eFroKB9qpQacot4uRQwmu3HN4QiOP2ZFJ7tX
-	 6MNIs+OXw/9kw5Z4kSFYjMmgIpLbgTxHurnAlp0kKN+JOtbQCZluLGq4NT6kpl4BLUG7z
-	 giT4xEDlF4mP5eNBxERaZAAEJrpJe2MX0Odi7R86dPDkAFizVi02n4XMGHWKS1xwh0Ige
-	 zLYu6kA9bZ/yADbbx52Y38d8oTr1+QrqKZprmuwuq5t8GpTn04sah16Iln7Tsr8wVseoY
-	 fvvccmN1BQvJVB+DtSFmY1TlbHc2Wo62gJKqovYGyZOTucnBZYqU9DEfgOLUjucTSzw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793038165;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Feedback-ID:X-Infomaniak-Routing;
-	bh=ePgfAy3uzHAN/EkWHZ8Jng1TIwn/iiaFzzNrCetWo0g=;
-	b=aNtZ3OkwRF3x/BSR9eT4fsBU9MxEWnN0vTiMilHanZ5iuS2fbT9jhxYc3RH9+JgWr/8E
-	 SlHMUMH5qx6TZvmyadp8B8cSE5niL+KzqmqR4rhOSBikw5hPJim32RpnU1jmhSpJoyXiy
-	 VxvS8KhqDADbuNJZzqhcBqINlC6qvGPly1u6V5MpVGCQ0X41/WNa+UaOV9K0ybFJSsDNB
-	 GxF9Hm9b4XCpjg0MBjZTgjvr6QjzC7R7xBfvgVO3BwG+bSyaBOm/Rc6rF8ClDKYxuLTJp
-	 ctS6pmcIIwHK1WVxFu2Lhdslv82YDC34iQsleaNgCerUQEyCqUeZc8emM34IOyjaZww==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=etik.com;
-	spf=pass smtp.mailfrom=etik.com;
-	dkim=pass header.d=etik.com header.i=@etik.com header.a=rsa-sha256 header.s=20210927 header.b=wTqMTyv0;
-	arc=none smtp.remote-ip=45.157.188.9
-Received: from smtp-bc09.mail.infomaniak.ch (smtp-bc09.mail.infomaniak.ch [45.157.188.9])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793038190;
+	b=gIxvZqJR+17ZyZ1bFmdCU/siLs6q/aDCCEmIv+cKvNYBzbUc+GrQ/8yisT+21+xMKIAP
+	 LN7Jxi2zMd8LEhS2q6u/6Bv45UEhMng9jVezSWbzJkXpBi1ZBbq3l6zd1qRqc2WEz0i2c
+	 kBSufoIWN3NdjHCHvVBqBNv+tbG7S3ibSce6Gkh7km4HGEa7ZXKDUZ9wu6IzqRyQw6do4
+	 zkjJyOdMwcBeNHcxLQhMJtC9j4cluv/gOFJPedNQJybrkt+OY1oWAkh4i9gWU+oPy+LjP
+	 ukgMZ1QHLZxAp0KXAAAC3G0AxHkAkdtTuClL4sJ8wQ6W9Cxnu6A9Hb3ydkdDDuRRd1w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793038190;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=talHnQ7/cHb/VJ7cbEQ58lXn6pqWYigIkjRL331q6io=;
+	b=oq3Dvyxh+oou3hehfbHoS1wbB/8eRjGEyrRbqEWktVFojRn/YGVNwnHcfEo2pTULnb0Y
+	 FqwBYFmLni9T6Fl5jmV6oP2ps5GJ5DsJdWszkc1rmEfSfP00Fz2YKwM1Z1a0NVCoIKnR3
+	 Lob6xK/uPH2cKAXCTgFV8UwEbaqCct8MJXuVL4MmjTNgpV85aT4zlnGoMYn8kZf5mzV+Y
+	 EhqIvTt5rhouKuqWtIDvZBCvO4lXZ81EGVa6tsR8zApWXWxJOnMhL8HAZw2QhLYcnDzMS
+	 ZQlynNmrd+wNu5EhihJklA07nyBdMR07AkzEsFvRzytxSiHH/T+ei5tLBtFP/sXe7OQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SylhSQuH;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8390606A31D
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 18:09:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SylhSQuH
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793038189;
+	b=Kkw6rW7inbBRUfwsrxzQVt4jk0Gc8F6VoD5LRDH+BHSL8ID3tz+rTGkpuhle4Ttov0Ot
+	 4e17hIeL1pHe06uxc+9IX10w4lyRoOzh/ifulTLQzf6KZzfF/0lQKd5OkgWrHWJJOTC3B
+	 S7CRwcbFw11uiRzVmukaI+RZmac1wCs800dvPjrZdFZ+7aQ0QaozFJxBrXXjSB0dVH3kv
+	 SQ8FuRgBCfLGrI/jtF6XTBiHJ0ACmp4/h2G0Sa9qsGu/pH8ZBhEb3pRSC9KLs9DtaXrAJ
+	 e3seu/JwBdgwrNzqLO3UGPfSJTALkATCPhdfsccMrunsO9ZayPTXmY2/v9xpbp8nacQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793038189;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=talHnQ7/cHb/VJ7cbEQ58lXn6pqWYigIkjRL331q6io=;
+	b=bn7/gjoQwWRxGDq0vvx4c6/qHjRhY9hpMDQXT9cPjZDDLH1e7gTpqO/Dz8cT8djlloDs
+	 mDlGkHkIkl5Uv6KCeOSwbaTl4N0tu7XF8kaCd241xbQB46Jx1bY3F2/cVb7IU4Sr+5N2u
+	 5VInjBaUNDSulCKhZ7jXabibIpQBNi+SiI0VI1FqWITWBfZAXlhl5J477tA+O6JNkGpaM
+	 IlqBhLAsafmtsf8Q2m8hjGFYFkSzHV4L8oAo7TBu382Pzc2QyLabJXguFiAo4qk4FXHcn
+	 vy8CNw2jQUHCjoZlzFDAoHHGdPjfpZfVl3EofI8YRJ1gsG3KcwPlNGck0+OFLyGtMDg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1ED5606A31E
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 18:09:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1ED5606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=etik.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=etik.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=etik.com header.i=@etik.com header.a=rsa-sha256 header.s=20210927 header.b=wTqMTyv0
-Received: from smtp-4-0001.mail.infomaniak.ch (smtp-4-0001.mail.infomaniak.ch [10.7.10.108])
-	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jD1pt5NLqz1F2d;
-	Mon, 26 Oct 2026 19:09:10 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=etik.com;
-	s=20210927; t=1793038150;
-	bh=ePgfAy3uzHAN/EkWHZ8Jng1TIwn/iiaFzzNrCetWo0g=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=wTqMTyv0jprnEQTGDQYh/CbZDdAFRn7jdThjNhR7g6iNaU3bqOlAraT4/AAHq0Qi2
-	 E43P5sv3T9ZrTo5D61jYrShfckpPqPNnXWEKyeFomO/64vSnjrEiSZ3GfzknXQ2CgW
-	 dTZ49OR0j4kayABL9E8B1mwGPOfzJXK8fbtauwyY=
-Received: from unknown by smtp-4-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4jD1ps25P6zVbB;
-	Mon, 26 Oct 2026 19:09:09 +0100 (CET)
-From: David Vornholt <dv@etik.com>
-To: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Cc: gregkh@linuxfoundation.org,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	David Vornholt <david@vornholt.online>,
-	stable@vger.kernel.org,
-	Mark Pearson <mpearson-lenovo@squebb.ca>
-Subject: Re: [PATCH v2] usb: typec: ucsi: Stop a power level change notification storm
-Date: Mon, 26 Oct 2026 19:09:07 +0100
-Message-ID: <20261026180907.76867-1-dv@etik.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <at8kLPzAnJAfZRjF@black.igk.intel.com>
-References: <20261010183917.146821-1-dv@etik.com> <at8kLPzAnJAfZRjF@black.igk.intel.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id C2FBA1F01829;
+	Mon, 26 Oct 2026 18:09:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793038189;
+	bh=talHnQ7/cHb/VJ7cbEQ58lXn6pqWYigIkjRL331q6io=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=SylhSQuHI5Vb4l0uCxgaakqJTmUBtV3XmPFLf2ceBTMmoO/0kgGqkAgl1OmclBTNU
+	 MZRZlp8lRavwhrvxep9f5aFigQ+BlwoBCCfkZiEBgn6y3BQhVkSkc/dSe6eUSXCYAU
+	 pJF9+JFUgU8rnolivHn/C/zsoibsKKYfDt2uKF9naWQWO67ULYbakhSCVhZMdTuKAN
+	 1LO02g/qDdKDVSwfpGmfifzHXi8f3pqPlvRMFZERLTyKoYhsp5sx06tWJ0wzeL9vlf
+	 MljRh4mp3xgKJFN0Z8tSykxhMKsshIQ8QD9EGbmAwp9h8nBPXQsRsTSQDruAb3AsFv
+	 O3nt1xGqjuujQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 2790A44E20;
+	Mon, 26 Oct 2026 18:09:48 +0000 (UTC)
+From: Martin Belanger via B4 Relay <devnull+martin.nvme.dev.gmail.com@kernel.org>
+Subject: [PATCH 0/2] nvme-tcp: handle TLS control records at connect and on
+ receive errors
+Date: Mon, 26 Oct 2026 14:09:43 -0400
+Message-Id: <20261026-nvme-tcp-ctrlrec-fixes-v1-0-ebf6ff7eff34@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,78 +84,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Feedback-ID: :8e558a56fdab348:ham:123049f310c9d1d
-X-Infomaniak-Routing: alpha
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMwQrCUAwEf6XkbKCvWgV/RTy06VYj+izJswil/
+ 27Uwx6GZWYhhymcjtVChlldnzkgbSqSa5cvYB2CqambfYpxnh/gIhNLsbtBeNQ3nNsxydDu6sO
+ 27yjkyfA7wj2d/+yv/gYp3xqt6wdHTW6legAAAA==
+X-Change-ID: 20261026-nvme-tcp-ctrlrec-fixes-5f1cd54073ba
+To: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, 
+ Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, 
+ Hannes Reinecke <hare@kernel.org>
+Cc: linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Martin Belanger <martin.belanger@dell.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793038187; l=2128;
+ i=martin.nvme.dev@gmail.com; s=20261014; h=from:subject:message-id;
+ bh=3hTAzrQJfgElLUy2dxnWBPcmYnvUEDdOPYD2sRIU/0g=;
+ b=iQQCHjO1s/DBlbEGXiWuHp59XYALtBKQvAVw7ggCh/0qNPDM8zpPbc/a/fTIYvqg3xIIRnPzb
+ jCRWH4eV55OBPFaLPIlAQmq/P2cdng7mpRhoPu/NfTXIqDh3NZB81oM
+X-Developer-Key: i=martin.nvme.dev@gmail.com; a=ed25519;
+ pk=4K+XXetGK35w2LzRRddd/bbHawZU222BN+YZRuSpN+k=
+X-Endpoint-Received: by B4 Relay for martin.nvme.dev@gmail.com/20261014
+ with auth_id=1176
+X-Original-From: Martin Belanger <martin.nvme.dev@gmail.com>
+Reply-To: martin.nvme.dev@gmail.com
 
-Hi Heikki,
+A TLS 1.3 peer can send records that carry no application data, for
+example a NewSessionTicket right after the handshake. nvme-tcp does not
+handle them correctly. This series fixes two cases.
 
-On Mon, Oct 26, 2026 at 10:58:04AM +0100, Heikki Krogerus wrote:
-> On Sat, Oct 10, 2026 at 08:39:17PM +0200, David Vornholt wrote:
-> > On a Lenovo ThinkPad X1 Carbon Gen 13 (BIOS N4BET78W 1.48, EC N4BHT61W
-> > 1.41, UCSI 1.0) with an HP E273m monitor connected, the PPM keeps
-> > signaling a Negotiated Power Level Change although the power contract
-> > stays the same, and signals it again right after it has been
-> > acknowledged:
-> >
-> >   ucsi_connector_change: port1 status: change=0040, opmode=3,
-> >     connected=1, sourcing=0, partner_flags=2, partner_type=4,
-> >     request_data_obj=1304b12c, BC status=2
->
-> Okay, so the PPM really should not report the power level changes
-> since there are not power level changes, right? Have you reported this
-> to Lenovo?
+Patch 1: when read_sock() returns an error, nvme-tcp does not start
+error recovery. The queue stops receiving until a command times out.
+With a NewSessionTicket on a live queue, I/O stalls until the I/O
+timeout (30 seconds by default). With this patch, recovery starts at
+once. This also applies to plain TCP.
 
-Right. The connector status is the same every time, with the same RDO,
-and the Negotiated Power Level Change bit is the only one set in the
-change field.
+Patch 2: a NewSessionTicket that arrives before the ICResp fails the
+connection with "failed to receive icresp, error -104". A target that
+sends a ticket at once, such as an OpenSSL-based target, cannot be
+reached. With this patch, the ticket is discarded and the connection
+succeeds. An alert in place of the ICResp is now reported with its code,
+instead of as error -104.
 
-I haven't reported it to Lenovo yet, so I've added Mark to Cc. Mark,
-this is a ThinkPad X1 Carbon Gen 13 (21NT) with BIOS N4BET78W (1.48)
-and EC 1.41, which is still the latest firmware on LVFS. With an HP
-E273m connected over USB-C, the EC keeps signaling a Negotiated Power
-Level Change for an unchanged contract, about seven times a second,
-and GPE 0x6E fires about 680 times a second. Could you pass this on to
-the firmware team? The details are in the patch:
-https://lore.kernel.org/r/20261010183917.146821-1-dv@etik.com
+These patches replace patch 1/2 of Hannes's "nvme,tls: minimal handling
+for TLS records":
+https://lore.kernel.org/all/20260922133708.84522-1-hare@kernel.org/
 
-> This problem may only affect your system, so we really have to isolate
-> it somehow. I'm almost certain that like this there will be problems
-> on some other systems.
+Patch 2/2 of that series (the net/tls errno change) will be posted to
+netdev separately after 7.4-rc1. It will not change
+tls_sw_splice_read(), because that errno is visible to user space.
+After that, a follow-up nvme-tcp patch will read control records on a
+live queue, so a NewSessionTicket no longer causes a reconnect.
 
-OK. How about a quirk for this machine only? ucsi_acpi would match it
-by DMI (LENOVO, "ThinkPad X1 Carbon Gen 13") and set a new quirk flag,
-and ucsi_get_supported_notifications() would then leave
-UCSI_ENABLE_NTFY_PWR_LEVEL_CHANGE out of the mask. That replaces all of
-the detection logic in v2 and changes nothing on other systems.
+Tested with host and target in one VM, with a test-only change to
+net/tls that makes the target send a NewSessionTicket or an alert.
+Also tested on plain TCP, and built with CONFIG_NVME_TCP_TLS=n.
 
-I've tested the effect of that on this machine, with a test switch that
-kept the notification disabled from the start. With the monitor
-connected, the PPM signaled no connector changes at all, and GPE 0x6E
-dropped to about 5/s, from about 680/s with the stock driver. The cost
-is that on this machine the driver won't notice a real power level
-change until the PPM signals some other connector change. The EC
-handles charging on its own.
+Signed-off-by: Martin Belanger <martin.belanger@dell.com>
+---
+Martin Belanger (2):
+      nvme-tcp: start error recovery when read_sock fails
+      nvme-tcp: skip TLS control records while waiting for the ICResp
 
-> Something that I did not quite understand from the above is, if you
-> revert commit a0d4618788f2, do you still have a problem (I understand
-> that you still get the repeated notifications, but do they cause other
-> problems then)?
+ drivers/nvme/host/tcp.c | 173 +++++++++++++++++++++++++++++++++++++++++-------
+ 1 file changed, 150 insertions(+), 23 deletions(-)
+---
+base-commit: 6b4b543fa18757297ac756a6fe6e64f506b7844a
+change-id: 20261026-nvme-tcp-ctrlrec-fixes-5f1cd54073ba
 
-Yes, though only about half as bad. I didn't test a plain revert, but
-my first attempt did the same for these notifications: it skipped
-ucsi_pwr_opmode_change() when the RDO hadn't changed. That's where the
-"about 360 a second" in the commit message comes from. The PPM still
-signaled the next change right after each ACK, so the driver read the
-connector status and acknowledged it about nine times a second, back to
-back. At about 50 ms of EC transactions per command, the connector work
-and the EC were still busy almost all the time. Only disabling the
-notification stopped that.
+Best regards,
+--  
+Martin Belanger <martin.nvme.dev@gmail.com>
 
-I didn't measure CPU time or power draw with that version. If numbers
-for a plain revert would help, I can get them.
 
-If the quirk is OK with you, I'll send a v3 with it.
-
-Thanks,
-David
