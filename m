@@ -1,85 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793005699;
-	b=14CRlCv4hAruMIYndf9dzFpITWjFoIzCcKJJlMYCl9RSuMZGs4abU3qlwcJ9eaZ8SaMr
-	 U7kaMoCvOvm4ePVB+6ca3mRLOYWNrk0U5Cmd+BVpKXbndtTLWIjgHNTYZKLfurnoFyRMS
-	 YcnvvUInF115CrecK0JI7iIUwEHEWiEE1AL2wKSn6U4T4udy4MuE8mgY6S/uy0C9CpM16
-	 gxI2vUN1BcJOkgdS9giaqvkWfSYqI0JMIbi9RuZJx/nv8Q80CjtJ5WIsiI19xPxmOYyEb
-	 knrFVHtgKv8TKvwzE+b9cVwKMwyJJFy4Tn61x13fwhiDjqoTVg0gMjiHAokuG2YTQLQ==
+	t=1793005716;
+	b=DHJnJCRtkjbR12BW70A0F7ZrQwDHHPdjrFzOgx9Uf6iCf6DxW91iDkhdcmmsiJgF5emj
+	 LtWwhhDUKpETlNWYYRMLAAXldEwtkNZOPbsZEXs9tNhz8zhACQ4L6hn2pH/0rCI6x1SAG
+	 33Gios/pVZch9kyKCkewNlNgBys8x4BdoEsWe6JPwm61g1Ozw1ytLPauaVPc6S1xn4kAu
+	 xjzh7Lu3MLCI7uXdwZhlJhqHKwPT8iA5NY54b6TkCJ0uArA58LxAkgsWnLQMM21UgtFsN
+	 fbYh1Q5g0msIYRzc7Zq/c/T8KUgNe6Hw6MjsU6a5HFu3zpUQFY7Vkf3ta8AVJIcJKdQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793005699;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=v6eJIBhWX1USRCD2CgCyvJUw5bujIBHqBINSB1Ts9j0=;
-	b=DJ+e1qdoNKj9ejTAp6U0LZ1gynRyBqGYUEpyD83St4TA/5Mvzn+gOaud7C5bnIFRrHrN
-	 lilHYFz759x02qqh1lcD9ZfACFgLaxJPriSZsCe98jJVcvHyHeT017g0yFB0XTw6Idn9+
-	 m0LZUkUxH/x4V0qidSvYedN35uq0rTE+b0fdxNXrcob0gsvPXrARbuFLN7JtNesC0utJE
-	 tzXLCzekgmQOXbepZpAatc4QUCXlunAyfrIqw8Arombnp4AussvlCiXMDg5jD3hVakVRo
-	 OM0wJeQjtn2vO8Wic1t9nQrPMJ4hFWvMNKMljb3zXgEx24JGBNGL+c1PKWKD31K9k3Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793005716;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=E/PvYa+Hv8Cu19xIRMXvOaIkRSINoOuwkFEJjysia+Q=;
+	b=zl48dRQ2KCdV2/n+crt0igu5byEI0Xq+kvDCyGXc2wU0T7M4CAP61kXfe7MOWRH/w6YL
+	 2wUVubOe/Sm2cp9m+9j5E1gQ0p6KI/48gzJnn4K849usaC0FfR6i9BerQN8iu8hqug/rQ
+	 5r7Y8MiH1LVbxzqlgVE5GiTZBPo0wV6U3S5lBvFdcpkQugCBVQi/9wZTLm9t62IFF3qwy
+	 asGGKFGfmBz/RO9ndnrA8w/ApOGbcFpCWLKz9hZqmj6bRh0tRihpiaa0TRewsmPaXlxJS
+	 4PMhEqjtmwjIN/cnYSvya+LZ5S0noVaoNC1praUbkf4EvEbQ4vOA5uSCp9NyV6A8rpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Y4efgHo6;
-	arc=none smtp.remote-ip=209.85.221.53
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=pM958C3G;
+	arc=none smtp.remote-ip=91.218.175.19
+Received: from mta0.migadu.com (out-19.mta0.migadu.com [91.218.175.19])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DEA2606A31D
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:08:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DEA2606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BD51606A322
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:08:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4BD51606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Y4efgHo6
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48b001cd92bso1518621f8f.2
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:08:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793005696; x=1793610496; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=v6eJIBhWX1USRCD2CgCyvJUw5bujIBHqBINSB1Ts9j0=;
-        b=Y4efgHo6f2uQUfgBu6LlKapCdLVtJ/9Jq2r6veR7FmHxZW0Gk7M/8OXCpxpKXQhH/6
-         Hle3zjGBdLBEcSglhs5YSab0EaZ8o3SnJDDtUi1oieRfAVWv3oWJrrV+9foFwo85Upg3
-         Zx3M1PZRAv94CambI4tsHrJMj4YqZsRfhhTUsCOHNAMHxByhIxgSr5sEJb8T7dqRu7su
-         AEJyUzsY7YgDQt+yeRYNLZHmcuxVAdTeYj3ci0v6t+iqcTgaovEoCOTNUYbTm810n+0/
-         40lJIaS6oAn42zLYjtEy65RTllGTSYNG6SApOzNX5JhL+uGbKd2Eq2Fj/7kpbQyQqrQr
-         OmUw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793005696; x=1793610496;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=v6eJIBhWX1USRCD2CgCyvJUw5bujIBHqBINSB1Ts9j0=;
-        b=ABekw7v27VF1IJbfBv4w4ugBVrjiliQpaDHD58/Que8Vitqwdkvo77CYhu2RX9sbet
-         uxlvMqCt6p46phgAJ3MIfk0xAIq6Nhqpp6jYTkEmhlsE6Okt22REVuHGiaPPs8TloDw9
-         f4VQSVtg7jKRLfVLlXrtqLJQJJpEUFMpa6HseXUPWwlW+3D7SCPGCrC5ibpNql+nmtuF
-         LP3SlMdCbfYikxGyrshtHNTnlsk1jQbVJjKWY4RPvgjfTJuhv8dI2HUzZX/Hq8syj6f7
-         6GJ1K8ehDc5Sz3gnbU1HHkr3GlcHZ8hibGQIcTMVOZZryHXmOo8oLRZBRp/WcSQ4gVkP
-         6HWQ==
-X-Forwarded-Encrypted: i=1; AKwUvByJd2qqYHx0G9o3Txa1/x7e2VfN9fZZaHesc4jffP6CMbQJCYKmWeerLdaVydrnEVd9UcJ+x5JxdjbIUys=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK1E1IhLV1FQ6kgGydVLT7Pv/bwK4IJHth9OQZEU2RpvqvRm34x
-	iU76QfITkLyB3L3gYcsz9ErGeDFor3+iuEDDeSYHHCXXsx0c65Vbg+a6yjJsUjTI04M=
-X-Gm-Gg: AYBFou1Nz0zMNuOUjWIjmkrgko2dG1/BNp3ILdasUvj+6RJ0xH6rBdQR2cqoyFxJh/P
-	Hyn31nHf01lH4GPhHeruC6KcWxesjNPQeSEfaB3+XA6iOb3eVKTH/h88F72bcl7q/s6gJmwuGt8
-	tujFvY0AgRBSJSsvYFrI7ZfpsUgISOmRDJd7iT2JmMSfIAnxjHz35A/iSFF5N5F29Xvmb1Rq8/I
-	lmjws6J2W3o2tUuh+KcXQKQxWtKp6JxnQJpVnJ9vfeJl8PWs4axD+MmGnxgl/SApBvYVB+drqp/
-	El7O3CJtdHecMzoXA+d2J46eZ5YF+AP/Dl3lJ4YGB+Mx1+vlnpqLWqq3JjpBnoPiRsC6WJ0Cf7P
-	OJBaxvI7SmTdkAyzof24JF/Ykg7cAuvcRxE/OKQyNhBtLMOro6crsdqdpQQS1jaa/EqqmHDQwuR
-	dMmRRuTCTWZfGVfl1i7DG1SM4GjA8VtHtTwUd0848eDSJ0yUUOMQ2mFyp469RqvSsJ2xbpfsv6f
-	UwzwQfPJLD7N4YNvTvKN4nvYaTE4TJ3fLfwlhy7ibLnTdBSBXkLs/uzs0cGAn+MKzU=
-X-Received: by 2002:a05:6000:4b0b:b0:48e:3473:3c60 with SMTP id ffacd0b85a97d-48e3eba34a2mr10341811f8f.57.1793005696454;
-        Mon, 26 Oct 2026 02:08:16 -0700 (PDT)
-Received: from [192.168.0.167] ([64.43.151.16])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebd47basm16380307f8f.32.2026.10.26.02.08.15
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 26 Oct 2026 02:08:15 -0700 (PDT)
-Message-ID: <476b23ab-4a9b-4902-8d94-541ec539a9b8@linaro.org>
-Date: Mon, 26 Oct 2026 09:08:14 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=pM958C3G
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=kezgeJJuXjINaxpCoBFqIa5vpAZOYmHSJIb/3/2Rwts=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793005711; v=1; x=1793610511;
+ b=pM958C3GLd1327a2Yh/usQ3e1YaCSHs1yKt3BQrSMukk8yMmFr7hdby/vXVZ/5vadQbGugW+
+ ogW8qrsBS2VWNiR+4v+HO6tauANJKZhmqMMsyGFitCP7RNIdohxgQdqwRG810rC97hHkYCdahF+
+ 7s0dq/Gi/6tgPJMZ8/MD2wpM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id d2663e986784d090;
+	Mon, 26 Oct 2026 09:08:31 +0000
+X-Mizu-Trace-ID: d2663e986784d090
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <2eb44d83-b5ff-4a6e-94ae-956993da48ea@linux.dev>
+Date: Mon, 26 Oct 2026 17:08:18 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,38 +59,275 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/6] media: qcom: camss: clamp VFE clock rates to the
- highest level
-To: Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>,
- linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261024094027.3095475-1-atanas.filipov@oss.qualcomm.com>
- <D2XTuBJMTMPZaGrUZYisimpk5Xwm95Ms6ofRtgYOPmXT-xG-3Db5oAjBKeneMRsN9rp1OCl11piUQIlKIhsNzg==@protonmail.internalid>
- <20261024094027.3095475-3-atanas.filipov@oss.qualcomm.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <20261024094027.3095475-3-atanas.filipov@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH-next v3 10/11] cgroup/cpuset: Relocate
+ compute_*effective_cpumask() and compute_effective_nodemask()
+To: Waiman Long <longman@redhat.com>, Ridong Chen <ridong.chen@linux.dev>,
+ Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
+ Shuah Khan <shuah@kernel.org>
+Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org
+References: <20261025214449.310715-1-longman@redhat.com>
+ <20261025214449.310715-11-longman@redhat.com>
+Content-Language: en-US
+From: Guopeng Zhang <guopeng.zhang@linux.dev>
+In-Reply-To: <20261025214449.310715-11-longman@redhat.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 24/10/2026 10:40, Atanas Filipov wrote:
-> The VFE fails to power on when the pixel rate exceeds the highest rate
-> listed for any of its clocks. The rate tables of the VFE clocks are
-> independent and need not have the same number of levels, so a clock
-> with a lower top rate than the VFE core clock, such as the SC7280
-> camnoc_axi clock, makes the VFE reject pixel rates the core clock
-> still supports.
+
+
+在 2026/10/26 05:44, Waiman Long 写道:
+> Relocate compute_partition_effective_cpumask(),
+> compute_effective_cpumask(), and compute_effective_nodemask() together so
+> that compute_effective_cpumask() and compute_partition_effective_cpumask()
+> can be further integrated together. There is no functional change.
 > 
-> Clamp each clock to its highest listed rate instead, and warn that the
-> pixel rate exceeds it when the clock lists more than one rate. Take the
-> clamp into account when another line powers on an already running VFE,
-> so that a clock running at its highest rate does not reject the
-> request.
+> Signed-off-by: Waiman Long <longman@redhat.com>
+> ---
+>  kernel/cgroup/cpuset.c | 212 ++++++++++++++++++++---------------------
+>  1 file changed, 106 insertions(+), 106 deletions(-)
 > 
-> Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+> index 3daab2381f04..f37d929616a6 100644
+> --- a/kernel/cgroup/cpuset.c
+> +++ b/kernel/cgroup/cpuset.c
+> @@ -1135,43 +1135,6 @@ void cpuset_update_tasks_cpumask(struct cpuset *cs, struct cpumask *new_cpus)
+>  	css_task_iter_end(&it);
+>  }
+>  
+> -/**
+> - * compute_effective_cpumask - Compute the effective cpumask of the cpuset
+> - * @new_cpus: the temp variable for the new effective_cpus mask
+> - * @cs: the cpuset the need to recompute the new effective_cpus mask
+> - * @parent: the parent cpuset
+> - *
+> - * For v2, the parent's effective_cpus is inherited if cpumask is empty.
+> - * The result is valid only if the given cpuset isn't a partition root.
+> - */
+> -static void compute_effective_cpumask(struct cpumask *new_cpus,
+> -				      struct cpuset *cs, struct cpuset *parent)
+> -{
+> -	bool has_cpus;
+> -
+> -	has_cpus = cpumask_and(new_cpus, cs->cpus_allowed, parent->effective_cpus);
+> -	if (!has_cpus && is_in_v2_mode())
+> -		cpumask_copy(new_cpus, parent->effective_cpus);
+> -}
+> -
+> -/**
+> - * compute_effective_nodemask - Compute the effective nodemask of the cpuset
+> - * @new_mems: the temp variable for the new effective_mems mask
+> - * @cs: the cpuset the need to recompute the new effective_mems mask
+> - * @parent: the parent cpuset
+> - *
+> - * For v2, the parent's effective_mems is inherited if nodemask is empty.
+> - */
+> -static void compute_effective_nodemask(nodemask_t *new_mems,
+> -				       struct cpuset *cs, struct cpuset *parent)
+> -{
+> -	bool has_mems;
+> -
+> -	has_mems = nodes_and(*new_mems, cs->mems_allowed, parent->effective_mems);
+> -	if (!has_mems && is_in_v2_mode())
+> -		nodes_copy(*new_mems, parent->effective_mems);
+> -}
+> -
+>  /*
+>   * Commands for update_parent_effective_cpumask
+>   */
+> @@ -1622,6 +1585,112 @@ static int compute_trialcs_excpus(struct cpuset *trialcs, struct cpuset *cs)
+>  	return rm_siblings_excl_cpus(parent, cs, excpus);
+>  }
+>  
+> +/**
+> + * compute_partition_effective_cpumask - compute effective_cpus for partition
+> + * @cs: partition root cpuset
+> + * @new_ecpus: previously computed effective_cpus to be updated
+> + *
+> + * Compute the effective_cpus of a partition root by scanning effective_xcpus
+> + * of child partition roots and excluding their effective_xcpus.
+> + *
+> + * This has the side effect of invalidating valid child partition roots,
+> + * if necessary. Since it is called from either cpuset_hotplug_update_tasks()
+> + * or update_cpumasks_hier() where parent and children are modified
+> + * successively, we don't need to call update_parent_effective_cpumask()
+> + * and the child's effective_cpus will be updated in later iterations.
+> + */
+> +static void compute_partition_effective_cpumask(struct cpuset *cs,
+> +						struct cpumask *new_ecpus)
+> +{
+> +	struct cgroup_subsys_state *css;
+> +	struct cpuset *child;
+> +	bool populated = partition_is_populated(cs, NULL);
+> +
+> +	WARN_ON_ONCE(!is_partition_valid(cs));
+> +
+> +	/*
+> +	 * Check child partition roots to see if they should be invalidated
+> +	 * when all the effective_cpus will be used up and cs is populated.
+> +	 * It is better to sacrifice a child partition root than invalidating
+> +	 * the whole subtree.
+> +	 *
+> +	 * Return early if the effective_cpus is already empty.
+> +	 */
+> +	compute_excpus(cs, new_ecpus);
+> +	if (!cpumask_and(new_ecpus, new_ecpus, cpu_active_mask))
+> +		return;
+> +
+> +	rcu_read_lock();
+> +	cpuset_for_each_child(child, css, cs) {
+> +		if (!is_partition_valid(child))
+> +			continue;
+> +
+> +		/*
+> +		 * There shouldn't be a remote partition underneath another
+> +		 * partition root.
+> +		 */
+> +		WARN_ON_ONCE(is_remote_partition(child));
+> +		if (populated && cpumask_subset(new_ecpus, child->effective_xcpus)) {
+> +			int old_prs = child->partition_root_state;
+> +			int parent_prs = cs->partition_root_state;
+> +
+> +			/*
+> +			 * Invalidate child partition and update isolated_cpus
+> +			 * if necessary.
+> +			 */
+> +			spin_lock_irq(&callback_lock);
+> +			WRITE_ONCE(child->prs_err, PERR_NOCPUS);
+> +			if ((old_prs == PRS_ISOLATED) && (parent_prs == PRS_ROOT))
+> +				isolated_cpus_update(PRS_ISOLATED, PRS_ROOT,
+> +						     child->effective_xcpus);
+> +			child->partition_root_state = -old_prs;
+> +			spin_unlock_irq(&callback_lock);
+> +			notify_partition_change(child, old_prs);
+> +			continue;
+> +		}
+> +		cpumask_andnot(new_ecpus, new_ecpus,
+> +			       child->effective_xcpus);
+> +	}
+> +	rcu_read_unlock();
+> +}
+> +
+> +/**
+> + * compute_effective_cpumask - Compute the effective cpumask of the cpuset
+> + * @new_cpus: the temp variable for the new effective_cpus mask
+> + * @cs: the cpuset the need to recompute the new effective_cpus mask
+> + * @parent: the parent cpuset
+> + *
+> + * For v2, the parent's effective_cpus is inherited if cpumask is empty.
+> + * The result is valid only if the given cpuset isn't a partition root.
+> + */
+> +static void compute_effective_cpumask(struct cpumask *new_cpus,
+> +				      struct cpuset *cs, struct cpuset *parent)
+> +{
+> +	bool has_cpus;
+> +
+> +	has_cpus = cpumask_and(new_cpus, cs->cpus_allowed, parent->effective_cpus);
+> +	if (!has_cpus && is_in_v2_mode())
+> +		cpumask_copy(new_cpus, parent->effective_cpus);
+> +}
+> +
+> +/**
+> + * compute_effective_nodemask - Compute the effective nodemask of the cpuset
+> + * @new_mems: the temp variable for the new effective_mems mask
+> + * @cs: the cpuset the need to recompute the new effective_mems mask
+> + * @parent: the parent cpuset
+> + *
+> + * For v2, the parent's effective_mems is inherited if nodemask is empty.
+> + */
+> +static void compute_effective_nodemask(nodemask_t *new_mems,
+> +				       struct cpuset *cs, struct cpuset *parent)
+> +{
+> +	bool has_mems;
+> +
+> +	has_mems = nodes_and(*new_mems, cs->mems_allowed, parent->effective_mems);
+> +	if (!has_mems && is_in_v2_mode())
+> +		nodes_copy(*new_mems, parent->effective_mems);
+> +}
+> +
+>  /*
+>   * remote_partition_enable - Enable current cpuset as a remote partition root
+>   * @cs: the cpuset to update
+> @@ -2145,75 +2214,6 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
+>  	return 0;
+>  }
+>  
+> -/**
+> - * compute_partition_effective_cpumask - compute effective_cpus for partition
+> - * @cs: partition root cpuset
+> - * @new_ecpus: previously computed effective_cpus to be updated
+> - *
+> - * Compute the effective_cpus of a partition root by scanning effective_xcpus
+> - * of child partition roots and excluding their effective_xcpus.
+> - *
+> - * This has the side effect of invalidating valid child partition roots,
+> - * if necessary. Since it is called from either cpuset_hotplug_update_tasks()
+> - * or update_cpumasks_hier() where parent and children are modified
+> - * successively, we don't need to call update_parent_effective_cpumask()
+> - * and the child's effective_cpus will be updated in later iterations.
+> - */
+> -static void compute_partition_effective_cpumask(struct cpuset *cs,
+> -						struct cpumask *new_ecpus)
+> -{
+> -	struct cgroup_subsys_state *css;
+> -	struct cpuset *child;
+> -	bool populated = partition_is_populated(cs, NULL);
+> -
+> -	WARN_ON_ONCE(!is_partition_valid(cs));
+> -
+> -	/*
+> -	 * Check child partition roots to see if they should be invalidated
+> -	 * when all the effective_cpus will be used up and cs is populated.
+> -	 * It is better to sacrifice a child partition root than invalidating
+> -	 * the whole subtree.
+> -	 *
+> -	 * Return early if the effective_cpus is already empty.
+> -	 */
+> -	compute_excpus(cs, new_ecpus);
+> -	if (!cpumask_and(new_ecpus, new_ecpus, cpu_active_mask))
+> -		return;
+> -
+> -	rcu_read_lock();
+> -	cpuset_for_each_child(child, css, cs) {
+> -		if (!is_partition_valid(child))
+> -			continue;
+> -
+> -		/*
+> -		 * There shouldn't be a remote partition underneath another
+> -		 * partition root.
+> -		 */
+> -		WARN_ON_ONCE(is_remote_partition(child));
+> -		if (populated && cpumask_subset(new_ecpus, child->effective_xcpus)) {
+> -			int old_prs = child->partition_root_state;
+> -			int parent_prs = cs->partition_root_state;
+> -
+> -			/*
+> -			 * Invalidate child partition and update isolated_cpus
+> -			 * if necessary.
+> -			 */
+> -			spin_lock_irq(&callback_lock);
+> -			WRITE_ONCE(child->prs_err, PERR_NOCPUS);
+> -			if ((old_prs == PRS_ISOLATED) && (parent_prs == PRS_ROOT))
+> -				isolated_cpus_update(PRS_ISOLATED, PRS_ROOT,
+> -						     child->effective_xcpus);
+> -			child->partition_root_state = -old_prs;
+> -			spin_unlock_irq(&callback_lock);
+> -			notify_partition_change(child, old_prs);
+> -			continue;
+> -		}
+> -		cpumask_andnot(new_ecpus, new_ecpus,
+> -			       child->effective_xcpus);
+> -	}
+> -	rcu_read_unlock();
+> -}
+> -
+>  /*
+>   * update_cpumasks_hier - Update effective cpumasks and tasks in the subtree
+>   * @cs:  the cpuset to consider
+
+
+Acked-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
+
+Thanks,
+Guopeng
