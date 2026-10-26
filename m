@@ -1,60 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793002189;
-	b=WuTuUle2FaLorMrwTMaPtJ8urZa5U5D2SpWkKiHmZ2hHSLriYi46IFwVAkZC3NC05SXF
-	 Ir19X3/9OnX5sLMvlKP5bROb0TM2dMDlotSlskvRPRRPDN6xvPywp2yea970xlvkTCXoc
-	 IooFB7gb8m/Bzb1B3WWD5HShD0w+mPK0zVMWFN1MXzOW0xyjPJOe2fRgVPeTc+Qjcm7tV
-	 5BmkLl+XHYCe81i97OVsMxtECbRQcQkMBwGB+G4wFngVZLDv3O81cRd3/HnswRtUtQh7Q
-	 SRUjVCNypxGqQdUwPMrqc99fS8LmHNu75bdFD0kecS5w8m/k9q7Z7HCz1x0O65DUXGw==
+	t=1793002218;
+	b=AVLGHEVbFgiM8d5Vjbf5sFu6G2zXg+8LkFSEBITOlmUFAN7AhA1XquoGaNMLjp+nesJ2
+	 fyK9H48dunziFUNg1nQ83BB1bJPziEIplVwVTFJ0JxoslVdtTjKWEQHW7yW/SO3r19gKp
+	 QVLTvojBdMpYAo28+DFp+GNopayxPuJhG3Pqrw3gTbcC1ooIdWSq4yCkX2ldRtaTBarM6
+	 /hkHev4GmGSXvtIXSBglGBJdjNp6d3yN4C2SkAedXyA5vDbCtVnOw7eQiJwrjWwSu0x1V
+	 Vx3QPNIGEQg1auId4FbBPfYRrRat/qBCsR548QRPFDdr26HET1ecpx+OnKU27WqqL6Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793002189;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=IoIcS+gLnmzaBN1aXijYz+gNQYGjmdJtPr2Yly0VmrU=;
-	b=N8TPGVsYHj2UXFdMSqxAbZiiVMu32JXNLyyBjYK9AjuZuS0T9mwLJyhCRZlHXRJBHx83
-	 C43gMfy5KnVUjI8p+3EPqBEC8ORtLroqnutJUrgoeJymMqqAzHYEzkqm/Fnmuf0vIhoVP
-	 UQeJ0C6vo1145EF7np9CEvEGBnVJ4Nu7KUJFrYXrIGYv4MYPvrBuCoESc9/g2szawA0lG
-	 Bx7ucCX2ge5bdhuMmWYU6R6aUgmBp3DyPXIDeKuHLNX4gTYtlgZmDz9RRQlzFCnAxFQfJ
-	 IC38i/zYuhRuaYhgiVAPzhpdpRQGVGmDxdasJNxo8KK0mDAadOcx9w9MKcGAmAnk0IQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793002218;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=SU/p59HmrY1l63uWO1J6fBGj9iSaP1sfb4BVk3OH0dM=;
+	b=cbKqhFpkf5Q4DcH4ZP6moS83+KPxVCvQXdQ/zhUDLzU71aU943vuHnLfErOdGnNXQP+c
+	 CDoyTpZdENUo1IVpE+R2fqpSZHpTwwVb9Qq62YDvnk47mjilPLvI5rQUmPzJ8vW+a0RNL
+	 TJkaHrTgqDAKrX68THN/HncejKIIA5Lzn0jbKNw5wBLwyiBYkwKb4tVWC/urnC79KIWYZ
+	 faQajf7/4ida0TNLlsh+qzMzxnjAmCG9HrC6G9WP9TvAuOfRUmhPUo+D0F+3zZxLjAXH0
+	 6r92V+0bsVhI9oM2XdaoTitq5iTrSrix3+x4VnUvxwr+qiOQHkCeCYrXBwmBSiPfmNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=1g4.org;
-	spf=pass smtp.mailfrom=1g4.org;
-	dkim=pass header.d=1g4.org header.i=@1g4.org header.a=rsa-sha256 header.s=protonmail header.b=qwWnWELw;
-	arc=none smtp.remote-ip=185.70.43.20
-Received: from mail-4320.protonmail.ch (mail-4320.protonmail.ch [185.70.43.20])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=xo3+QzWz;
+	arc=none smtp.remote-ip=95.215.58.169
+Received: from mta1.migadu.com (out-169.mta1.migadu.com [95.215.58.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03911606A31D
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 08:09:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 03911606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=1g4.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=1g4.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91FE0606A31B
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 08:10:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91FE0606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=1g4.org header.i=@1g4.org header.a=rsa-sha256 header.s=protonmail header.b=qwWnWELw
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=1g4.org;
-	s=protonmail; t=1793002186; x=1793261386;
-	bh=IoIcS+gLnmzaBN1aXijYz+gNQYGjmdJtPr2Yly0VmrU=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=qwWnWELwy03SN6/MZB/0dV1L2d3FEoHBxaZIzLifsiqlyKdDdvJ/y7WHYDKc740Wj
-	 yhfIUFfm54tUwoBMZy8b6l253LzyHC9vmhQl7m5axdHwNBO00HZz3Tw+KJ6+uSNWZd
-	 t0hbJ+53lf3m4muCp0GMhGz6Oc8b+wpQPBxuF/9n1+rxaNxk1WjJto8WwAvXElWFQK
-	 N1xQ5oTZvTSer3/agHlinJ6Xjzo6+g/V0UcP2JFiruY35Dam/kViW4ynN/TU5Jcb6D
-	 Pi6FUUoDkpvLNaDMRajinaUngbFeJc7oC8Xa/JZjBtqFsCdRT+qzEz5EeDxhW40k5p
-	 pYUHtYXbFibLQ==
-Date: Mon, 26 Oct 2026 08:09:43 +0000
-To: netdev-bot+sashiko@kernel.org
-From: Paul Moses <p@1g4.org>
-Cc: anthony.l.nguyen@intel.com, przemyslaw.kitszel@intel.com, andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, ast@kernel.org, daniel@iogearbox.net, hawk@kernel.org, john.fastabend@gmail.com, sdf@fomichev.me, maciej.fijalkowski@intel.com, vedang.patel@intel.com, jithu.joseph@intel.com, andre.guedes@intel.com, intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org
-Subject: Re: [PATCH net] igc: track rx frame boundaries independent of skbs
-Message-ID: <1EvchnNc6hsP0rVtNzqvcHlIKZ0tWYrRL3c7XpesxOlmd_fe-H2ROdacFthmJCYNjVvWa7k4JxhfQBGebKyUbUsfI5FU6gsB0IOd7_znQoQ=@1g4.org>
-In-Reply-To: <179300059875.3134.14278423796840357371@kernel.org>
-References: <20261025065154.2037149-1-p@1g4.org> <179300059875.3134.14278423796840357371@kernel.org>
-Feedback-ID: 8253658:user:proton
-X-Pm-Message-ID: 617b83583d400fe265873a1b32e7c4248d7cd7b3
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=xo3+QzWz
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=SU/p59HmrY1l63uWO1J6fBGj9iSaP1sfb4BVk3OH0dM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793002215; v=1; x=1793607015;
+ b=xo3+QzWzJteLbNU3D1rBb0LpexN/nOrP7sDl+8i4KFfDJcU9wNZ2WIWFqwnFUoj1ib7qZThH
+ lFjHr0YLkJCsd/hWTefzgbNhW2rrkXKc8xl7pus2z5UaMUQyNPBW9xQ+ffavvCLLWI8xl+6ormc
+ 2wV70k43g48QzCeHXIBFAAug=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id a179fb6c550f64c2;
+	Mon, 26 Oct 2026 08:10:15 +0000
+X-Mizu-Trace-ID: a179fb6c550f64c2
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5bcbb378fc9so8558e87.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 01:10:10 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwLLA/5Ftd/y9EEdIGv3y8jQu/Fj5KNhpGNJEg9vssd61LemWkQLZltRkPR9uOMITLnsl0A1Hp14HQdQeo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKPyq3JrpFkK8ipeugHBQB6P6yB+tdtJsOhm4O8jiJWUc72XKyo
+	aq89yW3wqZ23gaIoS+Rqb70nnwl9pYcQh/So2sMDXS6E0a6RjuMSlUbJAQCRbLDkJGGGes/iLPf
+	AUqXI+YGK7WvII5t34K6xaT3Go0/5h9e4jBEgV54W
+X-Received: by 2002:a05:6512:3f03:b0:5bf:a28a:f2d9 with SMTP id
+ 2adb3069b0e04-5bfb79dafd3mr111700e87.4.1793002210084; Mon, 26 Oct 2026
+ 01:10:10 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,215 +66,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+References: <20261026012128.2270251-1-sashal@kernel.org>
+In-Reply-To: <20261026012128.2270251-1-sashal@kernel.org>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Mon, 26 Oct 2026 08:09:33 +0000
+X-Gmail-Original-Message-ID: <CA+EHjTzF5PsNt+riasW-SK-nhkLYh3kojMFyCEqs372-Mficnw@mail.gmail.com>
+X-Gm-Features: AclHuK9ieRbKRZ3vlLRpK7x9lOVSGw-njZY_CzO5qLbrpHOtyOHbR5m8v7LhEMQ
+Message-ID: <CA+EHjTzF5PsNt+riasW-SK-nhkLYh3kojMFyCEqs372-Mficnw@mail.gmail.com>
+Subject: Re: [PATCH v2] KVM: arm64: selftests: Skip unwritable ID fields in
+ the failed-run test
+To: Sasha Levin <sashal@kernel.org>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, Mark Brown <broonie@kernel.org>, 
+	Joey Gouly <joey.gouly@arm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
+	Zenghui Yu <yuzenghui@huawei.com>, Steffen Eiden <seiden@linux.ibm.com>, 
+	Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson <seanjc@google.com>, Shuah Khan <shuah@kernel.org>, 
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>, Itaru Kitayama <itaru.kitayama@fujitsu.com>, 
+	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
+	kvm@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Monday, October 26th, 2026 at 2:43 AM, netdev-bot+sashiko@kernel.org <ne=
-tdev-bot+sashiko@kernel.org> wrote:
+Hi Sasha,
 
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider.
->=20
-> Critical: 0 =C2=B7 High: 0 (2) =C2=B7 Medium: 1 =C2=B7 Low: 0
->=20
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwor=
-k
-> know by including "pw-bot: cr" as a separate line at the end of your repl=
-y
-> (one such reply per series is enough).
->=20
-> - [Medium] The new split-frame discard paths leave frames out of
->   rx_packets and rx_bytes, which contradicts the rtnl_link_stats64=
-=E2=80=A6
->=20
-> Pre-existing issues:
-> - [High] In igc_clean_rx_irq(), the FPE mPacket early exit leaks the RX
->   page and its DMA mapping.
-> - [High] igc_xdp_set_prog(), igc_xdp_enable_pool() and
->   igc_xdp_disable_pool() tear down and rebuild the RX ring while NAPI=
-=E2=80=A6
->=20
-> --
->=20
-> igc: track rx frame boundaries independent of skbs
->=20
-> The patch adds a per-ring rx_in_frame flag so the inline TSIP timestamp
-> header is stripped only from the first buffer of a frame. Split frames
-> that are not supported (XDP enabled, AF_XDP zero-copy) are rejected
-> before XDP runs, and their continuation descriptors are drained. The RX
-> poll functions now return a work_done count that includes discarded
-> descriptors, instead of total_packets.
->=20
-> > diff --git a/drivers/net/ethernet/intel/igc/igc_main.c b/drivers/net/et=
-hernet/intel/igc/igc_main.c
-> > index 1fb5f3cbe93c5..9ca5558c762c9 100644
-> > --- a/drivers/net/ethernet/intel/igc/igc_main.c
-> > +++ b/drivers/net/ethernet/intel/igc/igc_main.c
-> > @@ -474,6 +474,7 @@ static void igc_clean_rx_ring(struct igc_ring *ring=
-)
-> >  =09=09igc_clean_rx_ring_page_shared(ring);
-> >
-> >  =09clear_ring_uses_large_buffer(ring);
-> > +=09ring->rx_in_frame =3D false;
-> >
-> >  =09ring->next_to_alloc =3D 0;
-> >  =09ring->next_to_clean =3D 0;
-> > @@ -673,6 +674,7 @@ static void igc_configure_rx_ring(struct igc_adapte=
-r *adapter,
-> >  =09/* reset next-to- use/clean to place SW in sync with hardware */
-> >  =09ring->next_to_clean =3D 0;
-> >  =09ring->next_to_use =3D 0;
-> > +=09ring->rx_in_frame =3D false;
-> >
-> >  =09if (ring->xsk_pool)
-> >  =09=09buf_size =3D xsk_pool_get_rx_frame_size(ring->xsk_pool);
->=20
-> [Severity: High]
-> This isn't a bug introduced by this patch, but these new resets assume
-> NAPI is not polling the ring. Do the XDP reconfiguration paths actually
-> guarantee that?
->=20
-> igc_xdp_set_prog(), igc_xdp_enable_pool() and igc_xdp_disable_pool() all
-> clean the ring before they disable NAPI:
->=20
-> drivers/net/ethernet/intel/igc/igc_xdp.c:igc_xdp_set_prog() {
->     ...
-> =09=09for (i =3D 0; i < adapter->num_rx_queues; i++) {
-> =09=09=09igc_disable_rx_ring(adapter->rx_ring[i]);
-> =09=09=09igc_disable_tx_ring(adapter->tx_ring[i]);
-> =09=09=09napi_disable(&adapter->rx_ring[i]->q_vector->napi);
-> =09=09}
->     ...
-> =09=09=09napi_enable(&adapter->rx_ring[i]->q_vector->napi);
-> =09=09=09igc_enable_tx_ring(adapter->tx_ring[i]);
-> =09=09=09igc_enable_rx_ring(adapter->rx_ring[i]);
->     ...
-> }
->=20
-> igc_disable_rx_ring() does only an RXDCTL write before it calls
-> igc_clean_rx_ring(). Also, napi_enable() runs before
-> igc_enable_rx_ring()->igc_configure_rx_ring().
->=20
-> Suppose igc_clean_rx_irq() is running on another CPU while
-> igc_clean_rx_ring_page_shared() calls dev_kfree_skb(rx_ring->skb) and
-> drains the pages. Could the poll then call igc_add_rx_frag() on the freed
-> skb, or drop page references a second time through igc_put_rx_buffer()?
->=20
-> When the poll exits, it also writes rx_ring->skb, next_to_clean and
-> rx_in_frame back, after the reset. igc_configure_rx_ring() resets
-> rx_in_frame but not rx_ring->skb. A later poll could then see
-> first =3D=3D true with a stale non-NULL skb, and the new (!first && !skb)
-> check would not catch that.
->=20
-> Triggering this needs a CAP_NET_ADMIN user to attach or detach an XDP
-> program, or to bind or unbind an AF_XDP pool while XDP is loaded, while
-> RX traffic keeps a poll running on another CPU.
->=20
-> [ ... ]
->=20
-> > @@ -2635,21 +2635,34 @@ static int igc_clean_rx_irq(struct igc_q_vector=
- *q_vector, const int budget)
-> >  =09=09dma_rmb();
-> >
-> >  =09=09rx_buffer =3D igc_get_rx_buffer(rx_ring, size, &rx_buffer_pgcnt)=
-;
-> > +=09=09tsip =3D first && igc_test_staterr(rx_desc, IGC_RXDADV_STAT_TSIP=
-);
-> > +
-> > +=09=09if ((!first && !skb) ||
-> > +=09=09    (first && igc_xdp_is_enabled(adapter) &&
-> > +=09=09     !igc_test_staterr(rx_desc, IGC_RXD_STAT_EOP)) ||
-> > +=09=09    unlikely(tsip && size < IGC_TS_HDR_LEN)) {
-> > +=09=09=09if (first)
-> > +=09=09=09=09dev_core_stats_rx_dropped_inc(rx_ring->netdev);
-> > +=09=09=09xdp_res =3D IGC_XDP_CONSUMED;
-> > +=09=09=09goto xdp_done;
-> > +=09=09}
-> > +
->=20
-> [Severity: Medium]
-> Should the frames dropped here still count toward rx_packets and
-> rx_bytes?
->=20
-> include/uapi/linux/if_link.h describes rx_packets in rtnl_link_stats64
-> as including "packets which host had to drop at various stages of
-> processing (even in the driver)".
->=20
-> Take a hardware-good first descriptor that is dropped only because XDP is
-> enabled and EOP is not set. It jumps to xdp_done and skips the new
-> total_bytes/total_packets block, so only rx_dropped and work_done are
-> incremented. igc_clean_rx_irq_zc() does the same for !eop frames.
-> igc_update_stats() then exports the ring totals directly as
-> net_stats->rx_packets and rx_bytes.
->=20
-> Frames that the XDP program drops are still counted in the same function,
-> and before this patch every descriptor was counted. The commit message
-> says the exclusion is intentional ("without counting successful RX"), but
-> that doesn't match the documented semantics.
->=20
-> >  =09=09truesize =3D igc_get_rx_frame_truesize(rx_ring, size);
-> >
-> >  =09=09pktbuf =3D page_address(rx_buffer->page) + rx_buffer->page_offse=
-t;
->=20
-> [ ... ]
->=20
-> > -=09=09if (igc_fpe_is_pmac_enabled(adapter) &&
-> > +=09=09if (first && igc_fpe_is_pmac_enabled(adapter) &&
-> >  =09=09    igc_fpe_handle_mpacket(adapter, rx_desc, size, pktbuf + pkt_=
-offset)) {
-> >  =09=09=09/* Advance the ring next-to-clean */
-> >  =09=09=09igc_is_non_eop(rx_ring, rx_desc);
-> >  =09=09=09cleaned_count++;
-> > +=09=09=09work_done++;
-> >  =09=09=09continue;
-> >  =09=09}
->=20
-> [Severity: High]
-> This is a pre-existing issue, but this block is being modified here. Does
-> this early exit leak the RX page and its DMA mapping?
->=20
-> igc_get_rx_buffer() always decrements rx_buffer->pagecnt_bias. This path
-> advances next_to_clean and continues, but it never restores the bias and
-> never calls igc_put_rx_buffer(). That function is the only place that
-> recycles or unmaps the page and clears rx_buffer->page.
->=20
-> The slot still holds the page after next_to_clean has moved past it. If
-> igc_reuse_rx_page() later recycles a buffer into that slot, it overwrites
-> the page without checking:
->=20
-> drivers/net/ethernet/intel/igc/igc_main.c:igc_reuse_rx_page() {
->     ...
-> =09new_buff =3D &rx_ring->rx_buffer_info[nta];
->     ...
-> =09new_buff->page=09=09=3D old_buff->page;
->     ...
-> }
->=20
-> The old page and its mapping are then lost.
->=20
-> If igc_alloc_rx_buffers() reaches the slot first, igc_alloc_mapped_page()
-> reuses the page because bi->page is non-NULL, but the bias is one too
-> low. igc_can_reuse_rx_page() would then always see
-> (rx_buffer_pgcnt - pagecnt_bias) > 1, so the page is never freed.
->=20
-> igc_fpe_handle_mpacket() returns true for any SMD-V or SMD-R frame. With
-> pMAC enabled, the link partner can trigger this with every such frame it
-> sends.
->=20
-> The new drop path in this patch already releases the buffer correctly:
-> pagecnt_bias++ in the IGC_XDP_CONSUMED case, then igc_put_rx_buffer(),
-> cleaned_count++ and igc_is_non_eop(). Could the mPacket case release the
-> buffer the same way?
->=20
-> --
-> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
-set/20261025065154.2037149-1-p%401g4.org
->=20
+On Mon, 26 Oct 2026 01:21:28 +0000, Sasha Levin <sashal@kernel.org> wrote:
+> test_idreg_frozen_after_failed_run() checks that changing a feature ID
+> register after a failed first KVM_RUN is rejected with -EBUSY, and does
+> so for every field of every register in test_regs.
+[...]
 
-I'll review and correct accounting. The other two are out of scope
-unless I introduced regression.=20
+I tested v2 on the FVP AEM model configured with no AArch32 at any EL
+and with PMUv3, under nVHE: set_id_regs fails on ID_DFR0_EL1_PerfMon
+without this patch and passes with it. It also passes on QEMU (which
+supports AArch32 at EL0) under VHE, nVHE and pKVM.
 
-pw-bot: cr
+Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
+Tested-by: Fuad Tabba <fuad.tabba@linux.dev>
+
+Cheers,
+/fuad
