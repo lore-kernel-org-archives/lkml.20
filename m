@@ -1,90 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793046327;
-	b=dLpIQjNixf6Bm7guGdcaI8NrN75xTL4yZ95xTW5mDIfULzteU+QnuVTm1k3Cfrsu1Q6r
-	 nlzb2bmq+mMorYph7Vk7T2VY1NM+wL02B1vKXKx35fkEW9zKXsovGnv2Jhc1XewrGsJs5
-	 F3YYYX7QQzX7vyz65f70TetogSiyUkkaSJ72WZMUdGtSzuhN/p3ZeDLh2NAmTbiOFG9Lv
-	 5tNU5SWa5ZNd3rdt07b/DI59r2OQl84Nq+CaGFJfLPyNQMumgFIJKITA9Ld6qfb499BdV
-	 V2cf4lZhAMXQafd33auHkuI6KI2UKynREYJLMHr9BzT2eGEcui45TES3NsbsrmN8bVQ==
+	t=1793046325;
+	b=30fdEvYuojUC1LkU1sMbTfRJP6biX+YarncS5M019b5SqUakgbhR51LZjwaMFB+NqdB7
+	 lTJdliZJZaQqHZCKzhMqgpmX0M3tsW+vVOzB58eh8irYa4obFA8/J+VEXhcFLgZ2bCISX
+	 ikOhiMppY2zYyad1iB9+9WYSL+wdeqEsozXRhW1+qRZInNlr7bHea5uFhxGNVa03u7QwR
+	 kjPHBklV6Xz/WMC+BgVp9yhueZkyFCPIS5CSKRmHBfGPwirKgiQMYHOnfWPdCEbINrEe7
+	 y5c2klk8QirK7OtfPxqvrde19svxM5oYeZslQaBz8wuBSoEIBj6yOcS523oxzqWzY6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793046327;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793046325;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=aed4Rgnz6EIvDA20M5W9ZTUqmqT/8I65PlxJXFCzwH4=;
-	b=OwKtPwNNX4LzV5KWtRvsaszfQvFwC0Fzenwi7J/AaOXK349cXBXMPZUNxbga4EHegtmf
-	 TJoFSj7T2qfcXf+yWJaEskF3AxvLL68wFAD3bR8A9WOQ3dNkuiOWNsncHrUO7W2NTHy36
-	 Y/1rOI9Phy2zHgMBAlc8ULPXWYz3DFrkEMuJy1RMPG2HFFpnjlFXskHXVdvSorgoX3E2o
-	 OpMzSwoOX0KVLBgcjQts1oKV2g75A/KZlDNr1ajD3bfcEbCfJwwZ5V31AY+92SF1TlNzZ
-	 P2Lr2z/dRQ0r5wgDr62osLKIO0I8U5gVC0B0gaa0OVZSCMDUVcz59QsZ1fl+1NV+jPA==
+	bh=704mFSX16wC81X0dFjGpXon8/LqFUztOMihRtaFnr+I=;
+	b=hKKaUXQmEm3SlCfc0Bd+7tZRHQhSxZYmQCtXN6l+ptPvNYENdGV1FpqXdOVjANa6oMZu
+	 wZH1AS5rpAcIP6PMn1YJKDgjK0msWsASd/q8NXj5+vry9A6PT+z0rSJ58QFtUfqBnHm+R
+	 2gEjbBqkmtT/FWL4vJQ8cESgtmCCvKNfaEitZJsysUUdSx9kwRBMe2LF9DQ3M0xnwTzBc
+	 bO8m5G+lB/5vobkM45mkg7IhbybobeaIlqruwd/245ltlbqKCfWoAJ447kgZDUIJ8iDBF
+	 A+PVe6KAM4RXigclQKadu5VwlCrSxlZhhlF1vvNu7PqTB3h1x728j+neGJYD3JK6JGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DUDTcG4m;
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=acm.org;
+	spf=pass smtp.mailfrom=acm.org;
+	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=hqlBCLY1;
+	arc=none smtp.remote-ip=199.89.1.14
+Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEAE1606A322
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 20:25:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AEAE1606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFDDC606A31F;
+	Mon, 26 Oct 2026 20:25:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DFDDC606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DUDTcG4m
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a210470b49so28185755e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:25:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793046325; x=1793651125; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aed4Rgnz6EIvDA20M5W9ZTUqmqT/8I65PlxJXFCzwH4=;
-        b=DUDTcG4m01pngZDHRm0vtPFiOHAjvOKTNBrJy4qLEyCDaX/4FvhKwMnM/B4N4dICPY
-         ZN0PpluhYDZ5mz+D/aKGoBDrXZPuXdmjwcVarXDdeygPP8yCZctQduU40Y1H+kU644z6
-         czhYGUD9XX4B2g52+eUdXWkWWZT1Iwjg39rB2CBRkQ3kx5H14H2EOuoJIT06bkWlxR1V
-         zqOFf1kGIQnKdc2wwPUge9u5DKN2M7IXGfo+hSksdnHJRXaWCG/Ycy0L3syVwSF7fvWu
-         HHPKhE8Gp53Pc9pxLqdCA/JYg+wzU1pRAdidExi+kSNz6cMUaLEFjM2M6mMpDkb3TJ8U
-         4PxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793046325; x=1793651125;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aed4Rgnz6EIvDA20M5W9ZTUqmqT/8I65PlxJXFCzwH4=;
-        b=J3XlcaXJktKLmc061/6wl121dAaUGg625T+UYyYvLw6hUYTjgxVtUmmtZyIfwChbFc
-         viDkdxOm+dSH46xm+ZcougQzBCgPcFZoR8vOmw+AwIQCoFEaU09acwXzU40SN3Hhsfkf
-         nKKbL40mTsT57AyGsvBqSNMI7vXbFWhISHm+d8jQs3gBZhMH5bPcV8sARq6zMI7jqOM4
-         yn7A06klJ4anc+O0lzzWe/wEzh7u3LdgoIkaGpSfjo5PBm+sKDQgEco1VHnCqNghTNy8
-         RZGEAAgNch5xCQ0PrkzeCPhEJYLqjOXS1I9S3NVoDAyhoFomdZpRJP95e0j1H7rRNkmo
-         OUXQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwYlJ67CEdaEL6r6ZJcZhJMNqsr3g/37ShAsyXAhGYgNhu3DlDmYexD0s1BdbVktnc9emtfsa2i0xQcQSE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIeoUxlBK0OWrzFGJcealApYoQcUeCZUgFLFvtghjnx+t1azxyf
-	Snoqftp14RvryPLxsYhWb/vamk9bUHxGI2me9jCgvMejkDUm9zqe7Kys
-X-Gm-Gg: AYBFou2AJ8b6WgDsXaa9jhalBSsCu/iSydCTOiB4M23r10r84x9vVCifvNQfBk+a9p1
-	R1760bhiNsVgQT+YQ9gqGVOs1tpUJ73jGnRRPOr9qIIkwZGh2bDSoUlCWSBU/FX631/kf8tnZLz
-	XSGh4WzwMaLlQuuOTk/WfJIl0qzOYfzYrDOaRMv7lzfHJyTlHQFpEv2WhjWoZJBkt6AKdlpFp25
-	ryllUyc2koMpONUgi9fj9YqAqt1cXVyFmLWAQiHN9RshN0wigjHdKRjW4l1f4LzAxjquwXIqepS
-	siD07Q3LFlwO5zq4r+yOgCFt/a8YHF6Au3mzwV5LCj7sGS95tHF9gIezP5vrr+CNE+620xlBeWf
-	z5dBKXMyKYFSyYgR9APZ3DYy7Ox5yKkQM1l65Gr1Sa0Au7zoUeh87Z3kZCV59RUrj2eptLHFgQx
-	K7/N0lloRYHIO0vT1b76jjeq5HrGiHEZVGUtt4t2IvjEZEG/ndRT0srrfzmyfO9p3/hLF3kuWS1
-	kPsz+Xq98apVlGIlKPdazM5eXz5zJbVn/rrQBoXhl4n2kO+7BVFhI+Zdt6MU9F/nt0=
-X-Received: by 2002:a05:600c:3541:b0:4a1:fbf8:55c9 with SMTP id 5b1f17b1804b1-4a35acc6a2emr148103215e9.33.1793046325020;
-        Mon, 26 Oct 2026 13:25:25 -0700 (PDT)
-Received: from unicorn.lan.internal ([2a0d:3341:b894:4600:8f9a:af38:72d6:7c0e])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a046fefsm276685585e9.5.2026.10.26.13.25.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 13:25:24 -0700 (PDT)
-From: Giuseppe Piscitelli <ooonea@gmail.com>
-To: Damien Le Moal <dlemoal@kernel.org>,
-	Niklas Cassel <cassel@kernel.org>
-Cc: linux-ide@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] ata: libata-core: Check device support before querying power state
-Date: Mon, 26 Oct 2026 21:25:11 +0100
-Message-ID: <20261026202513.669084-1-ooonea@gmail.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=hqlBCLY1
+Received: from localhost (localhost [127.0.0.1])
+	by 011.lax.mailroute.net (Postfix) with ESMTP id 4jD4r42pSRz1XM30g;
+	Mon, 26 Oct 2026 20:25:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
+	content-transfer-encoding:content-type:content-type:in-reply-to
+	:from:from:content-language:references:subject:subject
+	:user-agent:mime-version:date:date:message-id:received:received;
+	 s=mr01; t=1793046321; x=1795638322; bh=704mFSX16wC81X0dFjGpXon8
+	/LqFUztOMihRtaFnr+I=; b=hqlBCLY16WH8063GIY/3fsNCiwGuwMkjUICRtXGM
+	pQN6oGgxQcWa0hiCvNdqpmzoJzhhIhbhFQoLitOAoXbJm+oi5fz7lRgNTq1KNx4/
+	uplc7/yufAfJ4z9/YxE4ZBlQR465VwTfkgyaCPjSCc/SC2m1ZOjDxFi+x5EC7U8/
+	NqOMR15vlOV+z1XuIfb6XFfMQ0MDJ3Nza93TuAIENsylaeYMUvgYb58LPIOUzxz2
+	Y4eFlE0V3S3AzXE+vAvE+zRx70JFU6TjHHGOH/eCIWv+9l6drBVoMCTfPq7lmFJO
+	ZCDOkcSuzPtJtJIF/6Bu3WYHoKSSte7Z+ZWji/LGW9wi2Q==
+X-Virus-Scanned: by MailRoute
+Received: from 011.lax.mailroute.net ([127.0.0.1])
+ by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
+ id hTa7JiA9mgOG; Mon, 26 Oct 2026 20:25:21 +0000 (UTC)
+Received: from [100.80.231.125] (unknown [104.135.182.41])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bvanassche@acm.org)
+	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4jD4r13m8Wz1XM4Tl;
+	Mon, 26 Oct 2026 20:25:21 +0000 (UTC)
+Message-ID: <1428d48c-eede-4140-ae02-6b73e5b10a1f@acm.org>
+Date: Mon, 26 Oct 2026 13:25:20 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,56 +70,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] can: softing: Fix locking in softing_card_shutdown()
+To: Marc Kleine-Budde <mkl@pengutronix.de>
+Cc: Vincent Mailhol <mailhol@kernel.org>,
+ Wolfgang Grandegger <wg@grandegger.com>,
+ Kurt Van Dijck <dev.kurt@vandijck-laurijssen.be>, linux-can@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <192450922df0eb9ce0cebccf381363680db65604.1793044027.git.bvanassche@acm.org>
+ <20261026-adorable-furry-wildcat-0d5bf2-mkl@pengutronix.de>
+Content-Language: en-US
+From: Bart Van Assche <bvanassche@acm.org>
+In-Reply-To: <20261026-adorable-furry-wildcat-0d5bf2-mkl@pengutronix.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The standby path queries the power state before checking whether the
-device accepts ATA power-management commands. This sends CHECK POWER MODE
-to ATAPI devices, including the QEMU DVD-ROM, which rejects it.
+On 10/26/26 1:14 PM, Marc Kleine-Budde wrote:
+> Are you actively using this driver? It's scheduled for removal in the
+> v7.15.
+I'm not using the driver. I'm working on fixing all locking bugs across
+the entire kernel tree. Removing this driver will also make the locking
+bug disappear :-)
 
-Run the existing taskfile initialization and device-class check first,
-as the active-power path already does.
+Thanks,
 
-Fixes: 9cec467d0502 ("ata: libata-core: Do not call ata_dev_power_set_standby() twice")
-Signed-off-by: Giuseppe Piscitelli <ooonea@gmail.com>
----
-OpenAI Codex investigated the QEMU DVD power-command failures and wrote
-this fix and its local validation.
-
-Earlier validation covered 1,536 source-body dispatch cases, a Linux 7.3
-build and two ordinary corrected QEMU DVD cycles. No exhaustive ATA/ATAPI
-hardware matrix was run. This base was checked for applicability; no new
-build or runtime test was run.
-
- drivers/ata/libata-core.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/ata/libata-core.c b/drivers/ata/libata-core.c
-index 92233fb..c644e2c 100644
---- a/drivers/ata/libata-core.c
-+++ b/drivers/ata/libata-core.c
-@@ -2047,6 +2047,10 @@ void ata_dev_power_set_standby(struct ata_device *dev)
- 	struct ata_taskfile tf;
- 	unsigned int err_mask;
- 
-+	/* Issue STANDBY IMMEDIATE command only if supported by the device */
-+	if (!ata_dev_power_init_tf(dev, &tf, false))
-+		return;
-+
- 	/* If the device is already sleeping or in standby, do nothing. */
- 	if ((dev->flags & ATA_DFLAG_SLEEPING) ||
- 	    !ata_dev_power_is_active(dev))
-@@ -2065,10 +2069,6 @@ void ata_dev_power_set_standby(struct ata_device *dev)
- 	    system_entering_hibernation())
- 		return;
- 
--	/* Issue STANDBY IMMEDIATE command only if supported by the device */
--	if (!ata_dev_power_init_tf(dev, &tf, false))
--		return;
--
- 	ata_dev_notice(dev, "Entering standby power mode\n");
- 
- 	err_mask = ata_exec_internal(dev, &tf, NULL, DMA_NONE, NULL, 0, 0);
-base-commit: 69be770908ae57354a41d7e1cc99ab46278d2e86
--- 
-2.54.0
-
+Bart.
