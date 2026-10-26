@@ -1,93 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792984816;
-	b=sf5ZfJHIhjQ729FEMANiYKYun2TUZcbh0LxQH0Uam95ximlfeQZ8l8OktPKxMauiZi4F
-	 vECk1PlK0Be69yuqsViqA/vrAsa2wJ7cM5wLZu0EUoCF+WhWC5SvgvV6bcBadeYKPC2ud
-	 qSZQCFSg67B5cfAbU+0yBuhTw49VNKm0nFHafBBZp0/w+emMpg/X/q9nOcB9ETtpwD90C
-	 J4eHmN8lbvXlk0quy7w9Anstzvy/brzvDfSxlVt07Zgmqk3f1GkiSmNliJ3b6jUO/fNOR
-	 9QnxH+4G+6BVbFOrQnibqOKh7w0/LSsep13E4X8ky1NdsNkhO5ze2P4XEBJWJbkE1Nw==
+	t=1792984830;
+	b=LC57PP2DTfqStAnByiODBXpXAQn8NOL9g9yShUuHKw0NFOp+C3DoBXjsQBG14/13KTG3
+	 5QRK38Q18jx/ymdm53d7ZI1sch3Vo/8LswbcSnLnN6Wu3qFZHxY3Y8nNcpgyV3gWmymjx
+	 P4HPC/X7EdGqjrH4ueM9qfWzFAYpquutJy8rAjbJuILcTKNZgMXwqeKELncWVDvEF8HtJ
+	 0DZ+WYIAex1oNGrdEWs387w21zJ+viF/fWFZa2Umvi1kD7swp+MhZtN9h0CxMDXOgpB5a
+	 X8AJTcwpYvlTL8og1ZEMblYf7qArhI0Wdyu3kvTZ9BgUftNEEZYnRTWDP8KdTn3Y5FQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792984816;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=WTKZttgdr/SAexmQekzblCSc0QECF1tZsnrq/gh32Uw=;
-	b=bhKxZ3Q3vCJ26ct/WBp1TTcAm9W9S+7kSM+9XKHcLwM0mQL1KHjzaYyfazSRjNLssRGV
-	 EB/dvujs+6mGaqhN5pRuKv6AXB+vFRU7ohONYt88x/zp+ieZsflAs98h8W/Tl3w4EQct1
-	 GKlQatOgQDtz/R8K4b82OkKoa0httTvzmjSYimQzRkXhek4uWABR577vMh+D6CIG2Iokq
-	 pEVrg9fbvIH4Vot3DTf3iJyXgkfo2jl5gyrIJJaRjIZsnEAJE026KPRJA71VfHawJVoBd
-	 e2rSP3bWLZZu+fBL3iAvGLeKJtR+lJVKxyRcOudtkm00ZSaZ/YOuu5FFYQiGptjN2Fg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792984830;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=2m1HlrAMX1k+0En8UXUb5+7RGqWl4A1YMYeD0fcDZJs=;
+	b=45+Z6kZ0wSxxKgf7eLJjFYNyK35XKD/FSshqWNHrfzq28lV1VIkCetPbMVT98x6GExQd
+	 85wJ/snM4WyR8985YhIg+9w52d9DCwCeyOZsKy4RK8FHbYEHc9MTL3gEVcadwEDeVJH7G
+	 cG+lWYZxirNNt6lzFI07tK/gsli7pOop7FobquMWCAjgWstMtjRfbcv3jT9W+1N6WvC68
+	 ZzuVRPHM5QXVGWURmyjuyhT3epDpPqxuSzFqsC8vuPyV7QsPyL4/jWU7meXCc51eJt5ab
+	 5C4xsmH5EoYlp6KwC1/NZiNdNZkwmC6b9mlMenlz5sVxhWY4N5hn5NXGskLNoGW0FGQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=asu.edu;
-	spf=pass smtp.mailfrom=asu.edu;
-	dkim=pass header.d=asu.edu header.i=@asu.edu header.a=rsa-sha256 header.s=google header.b=pRfCZdra;
-	arc=none smtp.remote-ip=74.125.82.175
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VgGC6Bah;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 453C8606A31D
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 03:20:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 453C8606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 08ACC606A31A;
+	Mon, 26 Oct 2026 03:20:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=asu.edu header.i=@asu.edu header.a=rsa-sha256 header.s=google header.b=pRfCZdra
-Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-35943f55c06so3500241eec.0
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 20:20:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=asu.edu; s=google; t=1792984814; x=1793589614; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WTKZttgdr/SAexmQekzblCSc0QECF1tZsnrq/gh32Uw=;
-        b=pRfCZdrauaWdHhmQ5/y43IX8CwxQleEIComGg3pM1J0MlvuUGTSfAR7Ye25+GfiwMU
-         QyCliSoH2vcSwaNsxwqJH34fT/7EXfA0geb4KYwpVO0QpFvW4GcEXvE+al4FpMLWcDRf
-         K98ZGWiG8Erw6GAk6qeIZZU6epmUrg7dP3s7GH9bUJQCbuBZGYtvFJDWDgm2LICUdHFf
-         yDK7rTLR3VWDjCPEPy3JpMRM/nOjF0gyxo2uTqBGkQOTa1kkOzU/ftSoid7SIdB218QQ
-         0WDU57+zYJK/NU4cbsK67lXplE/a15oBNFWOg2oqs13In8DwfxR3iBDMn/0swt5Igh3Q
-         O8+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792984814; x=1793589614;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WTKZttgdr/SAexmQekzblCSc0QECF1tZsnrq/gh32Uw=;
-        b=EvqClhUDme2TBc7SaXiz4ME/QVMAUPIlOZy1vpcTK350BV/+b+ld8aIVMeYFj6eKWr
-         bhQYT6zvWdr7kuWNWSqGsrlZOE2BT4Rx1XLDgTAFtxYZ/PjRSM3ptMFAYQly+ZfN6C6z
-         EZvOz/6NvISr2+6uNTQ4IvxyclVhQoEJeeWz+COyJ4bmB+7GznK1YRzL1RHPXOru+Pfb
-         YtJxefq838EJ/3aRIYZFq3GCOYmyRYM7zko5BZ+Gwzn2lfJGJIvGNupwLW00d6c1w2rF
-         pcFqk6CiMGP4Xy0GdES681qCl3CElWBKtkiAtjHalWpRw6CpXqE3euOoR8BlZ/u4hk+G
-         7Kng==
-X-Forwarded-Encrypted: i=1; AKwUvBxd6SbdKPZ0H5xzdu9siQooiUMh/s8Qra15eizJi9NdPtIV7z4UY3B+wCPJid8v6lYVFwusufIa/v2GhFk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLvfOBMGJV0HOQlUztWEaAECzUAZuzaOp5bWTmbPOiKzPdSHVZx
-	78/echD430qM7TgrYZaGvkaOO+IzPVl72y80qC+RgdGah7k7HaL0GKYDMtWjscJgSQ==
-X-Gm-Gg: AYBFou3mPkyN8KW5Z7UPisvL/gZIuIyJ0EpAJUCmoIXCfCWJ8o+2TFxfavHKauifYA5
-	jDNSLWDe9vdGJfxdr2/uzmt1le7UphT55P0dVCSYz8mY1yvw2Gi2rErGChVYlmr1LXIBBm3HAro
-	FfaQMwWwyvlrtJ6QJBhOGM1mnFO2Q/oy/XN/dbHH1WfUnnvdqiSSC/AKMfipNtwMSJaVwC/zdYM
-	ayuYxOrgtwHf0SA1c6A05VXc1eUKJMxbai0OA9P8PICa3hx7PbQDjvp//nrnLSeVfUbAudnLzmx
-	dGcekVDivdUxbPfOIjuKsD8gX72aiglTjbrU7o3A7HQKZRRNRbQWjpGngvm3QySSEMR8K4Bivnq
-	Cd9f4R5V83QzHLk2lIcnZccMG3imYtT5UrtZV11ktnPF3+FfVnSwj6L/uGLGRMVVNlLgGFzUe+B
-	NPV2MPWGUXUbft0KDA1RI9OJttAeB1sK49lU3JE7bQjDWO7VVtdOBbDg6Znw7vLNjB6FNkaLa1H
-	yotToKDS/nT0OWh82pNif0yKEHo7ZP9ITlhiG9LyORqR7RNQzJXWlY1b/xSPL1cg8C0uI8tKqFG
-	1ixlAsZhImns
-X-Received: by 2002:a05:693c:6093:b0:369:fe82:8d3f with SMTP id 5a478bee46e88-369fe828ebamr3830262eec.14.1792984814156;
-        Sun, 25 Oct 2026 20:20:14 -0700 (PDT)
-Received: from gio.localdomain (ip68-109-140-205.ph.ph.cox.net. [68.109.140.205])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8db7e73sm21439295eec.20.2026.10.25.20.20.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 20:20:13 -0700 (PDT)
-From: Giorgi Kobakhia <gkobakhi@asu.edu>
-To: Marek Szyprowski <m.szyprowski@samsung.com>
-Cc: iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Xiang Mei <xmei5@asu.edu>,
-	Giorgi Kobakhia <gkobakhi@asu.edu>,
-	stable@vger.kernel.org
-Subject: [PATCH] swiotlb: fix out-of-bounds read in swiotlb_release_slots()
-Date: Sun, 25 Oct 2026 20:20:07 -0700
-Message-ID: <20261026032007.1957949-1-gkobakhi@asu.edu>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VgGC6Bah
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 0AF241F01825;
+	Mon, 26 Oct 2026 03:20:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792984829;
+	bh=2m1HlrAMX1k+0En8UXUb5+7RGqWl4A1YMYeD0fcDZJs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=VgGC6BahiS/v5DPUFqNFVNGWpycU0gJUcyjIBh6RIzl1Dx4VrDTJPRFrz2McXu38a
+	 d5PEVICgfbzGkypO9VCtUQiA6FbCW9AQH2i8vWazkHbbfMdsMqmgKuNGx4jcJtHmsS
+	 qUEtSD9UcjtsQc1TKJGGuIe2yRylknuelEcTBBODx4CU3EvM48aiePYTSZqi5H2YJu
+	 Z3hVsPkLyb0iRGp732m7krEOUdHEmKEh737fwps2jZfSNAix91EOTmTfB7+cXHPxns
+	 1Oy+PHTBKqI0tTyMsIHMV79HYQDS0T1kOQoN06IULPARFSNZLtGO7hyoJDBFKCuDsO
+	 ZGBAoEG3PKhEA==
+Date: Mon, 26 Oct 2026 05:20:26 +0200
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: David Howells <dhowells@redhat.com>
+Cc: keyrings@vger.kernel.org, Eric Biggers <ebiggers@kernel.org>,
+	syzbot+c15de43f1e7fffbb7b9b@syzkaller.appspotmail.com,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	"open list:LIBRARY CODE" <linux-kernel@vger.kernel.org>,
+	"open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>
+Subject: Re: [PATCH] KEYS: dispatch key_gc_work to system_wq.
+Message-ID: <at7G-sfZmmqJfv2E@kernel.org>
+References: <20261026031219.2627968-1-jarkko@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,60 +61,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261026031219.2627968-1-jarkko@kernel.org>
 
-When buffer is freed, swiotlb_release_slots() tries to merge it with the
-following free space by reading the list value of the next slot.
+short summary: /system_wq/system_dfl_long_wq/, /\.//
 
-    if (index + nslots < ALIGN(index + 1, IO_TLB_SEGSIZE))
-        count = mem->slots[index + nslots].list;
-    else
-        count = 0;
+On Mon, Oct 26, 2026 at 05:12:18AM +0200, Jarkko Sakkinen wrote:
+> schedule_work() dispatches key_gc_work on the per-CPU system_wq, which can
+> choke the queue:
+> 
+> BUG: workqueue lockup - pool cpus=0 node=0 flags=0x2 nice=0 stuck for 30s!
+> 
+> Queue the work on system_dfl_long_wq instead, which is an unbounded wq for
+> long-running tasks i.e., it has the WQ_BOUND flag set and thus cannot hog
+> the CPU core.
+> 
+> Link: https://lore.kernel.org/keyrings/20261024042944.52493-1-hackerowskiy@gmail.com/
+> Reported-by: syzbot+c15de43f1e7fffbb7b9b@syzkaller.appspotmail.com
+> Closes: https://lore.kernel.org/all/6ad35b60.7952420f.283480.0360.GAE@google.com/T/
+> Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+> ---
+> I sanity checked with perf that scheduler latency improved clearly as it
+> should, and used large keyrings that I expired, as the test payload.
+> 
+> It was ad-hoc testing but I can scrape from transcripts a test script
+> if wanted.
+>  security/keys/gc.c  | 8 ++++----
+>  security/keys/key.c | 2 +-
+>  2 files changed, 5 insertions(+), 5 deletions(-)
+> 
+> diff --git a/security/keys/gc.c b/security/keys/gc.c
+> index eda445f815d4..2337d39722e4 100644
+> --- a/security/keys/gc.c
+> +++ b/security/keys/gc.c
+> @@ -57,7 +57,7 @@ void key_schedule_gc(time64_t gc_at)
+>  
+>  	if (gc_at <= now || test_bit(KEY_GC_REAP_KEYTYPE, &key_gc_flags)) {
+>  		kdebug("IMMEDIATE");
+> -		schedule_work(&key_gc_work);
+> +		queue_work(system_dfl_long_wq, &key_gc_work);
+>  	} else if (gc_at < key_gc_next_run) {
+>  		kdebug("DEFERRED");
+>  		key_gc_next_run = gc_at;
+> @@ -85,7 +85,7 @@ void key_set_expiry(struct key *key, time64_t expiry)
+>  void key_schedule_gc_links(void)
+>  {
+>  	set_bit(KEY_GC_KEY_EXPIRED, &key_gc_flags);
+> -	schedule_work(&key_gc_work);
+> +	queue_work(system_dfl_long_wq, &key_gc_work);
+>  }
+>  
+>  /*
+> @@ -119,7 +119,7 @@ void key_gc_keytype(struct key_type *ktype)
+>  	set_bit(KEY_GC_REAP_KEYTYPE, &key_gc_flags);
+>  
+>  	kdebug("schedule");
+> -	schedule_work(&key_gc_work);
+> +	queue_work(system_dfl_long_wq, &key_gc_work);
+>  
+>  	kdebug("sleep");
+>  	wait_on_bit(&key_gc_flags, KEY_GC_REAPING_KEYTYPE,
+> @@ -322,7 +322,7 @@ static void key_garbage_collector(struct work_struct *work)
+>  	}
+>  
+>  	if (gc_state & KEY_GC_REAP_AGAIN)
+> -		schedule_work(&key_gc_work);
+> +		queue_work(system_dfl_long_wq, &key_gc_work);
+>  	kleave(" [end %x]", gc_state);
+>  	return;
+>  
+> diff --git a/security/keys/key.c b/security/keys/key.c
+> index 6ebb8691551f..599626c897b2 100644
+> --- a/security/keys/key.c
+> +++ b/security/keys/key.c
+> @@ -668,7 +668,7 @@ void key_put(struct key *key)
+>  			}
+>  			/* Mark key as safe for GC after key->user done. */
+>  			clear_bit_unlock(KEY_FLAG_USER_ALIVE, &key->flags);
+> -			schedule_work(&key_gc_work);
+> +			queue_work(system_dfl_long_wq, &key_gc_work);
+>  		}
+>  	}
+>  }
+> -- 
+> 2.47.3
+> 
 
-If index is in the last segment of the pool and the pool size is not
-multiple of IO_TLB_SEGSIZE, index + nslots becomes equal to mem->nslabs
-leading to out of bound read.
-
- BUG: KASAN: slab-out-of-bounds in swiotlb_release_slots
- Read of size 2
-
- Call trace:
-  swiotlb_release_slots (kernel/dma/swiotlb.c:1653)
-  __swiotlb_tbl_unmap_single (kernel/dma/swiotlb.c:1734)
-  dma_unmap_phys (./include/linux/swiotlb.h:262 kernel/dma/direct.h:102
-                    kernel/dma/mapping.c:218)
-  dma_unmap_page_attrs (kernel/dma/mapping.c:236)
-
-The commit 0b84e4f8b793 ("swiotlb: Add restricted DMA pool
-initialization") makes it possible to initialize a pool with an
-arbitrary size. Before it nslabs was multiple of IO_TLB_SEGSIZE and no
-OOB occurred.
-
-Add overflow check.
-
-Fixes: 0b84e4f8b793 ("swiotlb: Add restricted DMA pool initialization")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Tested-by: Xiang Mei <xmei5@asu.edu>
-Signed-off-by: Giorgi Kobakhia <gkobakhi@asu.edu>
----
- kernel/dma/swiotlb.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
-index ded7016a46a7..1f18003be343 100644
---- a/kernel/dma/swiotlb.c
-+++ b/kernel/dma/swiotlb.c
-@@ -1649,7 +1649,8 @@ static void swiotlb_release_slots(struct device *dev, phys_addr_t tlb_addr,
- 	BUG_ON(aindex >= mem->nareas);
- 
- 	spin_lock_irqsave(&area->lock, flags);
--	if (index + nslots < ALIGN(index + 1, IO_TLB_SEGSIZE))
-+	if (index + nslots < ALIGN(index + 1, IO_TLB_SEGSIZE) &&
-+	    index + nslots < mem->nslabs)
- 		count = mem->slots[index + nslots].list;
- 	else
- 		count = 0;
--- 
-2.43.0
-
+Br, Jarkko
