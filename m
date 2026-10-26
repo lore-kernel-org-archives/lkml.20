@@ -1,71 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793022903;
-	b=rVDuAoVd9VLBjGvbwHBVPBt5XF+AQV2GuD+42Li7q6ciF0vJo4R7IIon2Ui6HUp4pITO
-	 ESnUSSblHOOsQfvhUETAlX/quJvxMj6QkNI6Sl+1mf7vaPDuCJFEgdcRXP0f06o7tKNMn
-	 aVYLV5y3P0MvxhvdezxUeaFp+UjbPwFkzOv+liRkCFv1hgkFLmBiyobQqoJY99R78Q0i/
-	 pSXto44XranIjMWDSIBC8i8VhgpS6hE1r7kyGTXbn+Ctrkkmr358NccaQXn0f3cUnDzPi
-	 IJnOPqBL1Ihkrn0Aa8R2aBcUQcoqlP2brYy97alQXxT6nPMzGq3GsR+sOQF8O1qpWHg==
+	t=1793022943;
+	b=iEXyh7vwAcVLCcDp9dkDTEMgC4eORB5QI+JP3RpbZC+1Cot/hAIxo6hiH0z+yuoKQpza
+	 xiBqFvpw3NZdA8rCvQO5X4gCLw1+TSNRcLwoRLRZ8eVvJqjNTFQFdR896OnC/j/wmlbfs
+	 KI7E291gBY5AYtz7qKAK+ef9t+7fV0B4kpuWQLDh9XGbOY2Vu9YcixyMUNfsKSh/StrQ9
+	 si4JmIbeNHjjw2F4VWdj70DtxQD2+lUv+PhSXQ7xsOYJrHc7PgHQDAy8ihymXjKEtcbVF
+	 kJyRPzSXEpm682WRabDIYcnxpwNiYjKupD4/fGhpyjqwG625rIjBoHsoAXOTSGpTSUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793022903;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=O+2hVlI/1nVF71Vt48KcKAd7sx36HdfOX4c46Tcd29Y=;
-	b=iwluLLLxoNw0SsVgVBeRshPlYJQJ8ZzQ1fyxgWB30TEHFQHIaIYkD+X3QOoZD2FaTqR1
-	 TSrpEtUmuUQzaHtROQzMF6MxmLMgaEnnFibddhFfvBkUk/bD3QKRsjZrnbLl23kkEo6/d
-	 zq7Q8hLQZt9DSBtQj0jytozXm7OylLmReKw0p9UqPzwkRmZ+eztOI06ZGbFjPyrjX0FP+
-	 GORN7uOhBocOiT4we0heOATXGWAxy2bx8NJ9S3dQZmlQeDYz7hqPyQMMTqAULoasnzDPE
-	 EP/btQWYXEGt81VBLnRi9qDUhub+Y4mZomjWNdQfp5m3fNOvpEzZzH5oUwj+ygt+euQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793022943;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition;
+	bh=RTUBs6WQJMgh6tr5gLsfaGKNyCFd/8RrDen3XTg/U2Q=;
+	b=IHhgq7j/rExBbj+CDiMu3incjVWDpstbsjomGEFswj7RPJWh58cJGeEWMPGv28SCaotG
+	 oNBXnRZD6lzi3yrUmUdJnElVq/ofl+s0UNGGtkfCuqDcjiKFBLYPW7RbPNjojJU50bSe+
+	 rr/tAlKKfOAQrmDSy3VSyV3fA5N2sC2y/WV+z9PTUR8OC4S7wyXTZXVVrcyd1ijXBg2aR
+	 NZ9A1Jvo/4AzOrwnsGvC1z/meO0lMhMfaxBgbbydmD72Bl/W5Pf5oI8Zbt9GAhbNe23AU
+	 6lxukglaIBC8/Ze8+upctGkZhCu5IVsutfkXSbQBCTGayx06vadt+S2Fl3q/5jfkXYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=NiBcvVfT;
-	arc=none smtp.remote-ip=117.135.210.2
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gR4eV88J;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6859606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:54:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6859606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE739606A31A;
+	Mon, 26 Oct 2026 13:55:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=NiBcvVfT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=O+
-	2hVlI/1nVF71Vt48KcKAd7sx36HdfOX4c46Tcd29Y=; b=NiBcvVfTYd/F1h8/ji
-	6yE4jUWB6A8C+96og1OvnhVJ4YOGDmqWrddRxoK8MIITd1sBhJr6ev6mdgLwBcQ0
-	aMcKh9A59rt0rJLnhyzdBnWuE+1wleu1naQ0dDxxh7qUvsS+rhjS5GdJXHo52T9r
-	3ZW0ATAPvrVgxIVouvxvkE+98=
-Received: from localhost.localdomain (unknown [])
-	by gzsmtp4 (Coremail) with SMTP id PygvCgDHaYhwW99qBxDSCA--.13806S2;
-	Mon, 26 Oct 2026 21:53:53 +0800 (CST)
-From: albin_yang@163.com
-To: kayracizmeci@gmail.com
-Cc: albin_yang@163.com,
-	albinwyang@tencent.com,
-	bsegall@google.com,
-	chen.yu@linux.dev,
-	dietmar.eggemann@arm.com,
-	jstultz@google.com,
-	juri.lelli@redhat.com,
-	kprateek.nayak@amd.com,
-	linux-kernel@vger.kernel.org,
-	mgorman@suse.de,
-	mingo@redhat.com,
-	peterz@infradead.org,
-	rostedt@goodmis.org,
-	vincent.guittot@linaro.org,
-	vschneid@redhat.com
-Subject: Re: [PATCH] sched/stats: Fix run_delay over-count for proxy-migrated blocked donors
-Date: Mon, 26 Oct 2026 21:53:51 +0800
-Message-ID: <20261026135352.4120064-1-albin_yang@163.com>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <at5JrmlnEXPQftDe@scheduler.schedules>
-References: <at5JrmlnEXPQftDe@scheduler.schedules>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gR4eV88J
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 387FA1F01828;
+	Mon, 26 Oct 2026 13:55:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793022942;
+	bh=RTUBs6WQJMgh6tr5gLsfaGKNyCFd/8RrDen3XTg/U2Q=;
+	h=Date:From:To:Cc:Subject;
+	b=gR4eV88JRIKarwq/Ak/fQx2vnx/wMVOeLxFiIVciUcde0MV1Ut8vn6/BKv40Tdo/G
+	 lfeZvZkyau5oFNrE5ya+NHOat1ccL/HtDd1F9V1w7mx6tr7OC+9Agk+ec7+5tqXz1j
+	 NlGL7qgjXn3Mp1cpGIKx5x2t3urVnyLvKWTEAk8diXmNUEj+C3rJ7cDQELmeH/ITCT
+	 mh0x2dGLPEc9+lZTyWorA0Bl5Tkbnz/x/5MxA6skYw6LG6KtpBp9rdGD+i5ynlg4+B
+	 grPR9/hs6aO15t9uw0CPg6326DTzwK7kMIyfuu+9K57+UryzLyXG0OhUBPD6i3EHGe
+	 3+L98DmvldnXw==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+	id F3C521AC5994; Mon, 26 Oct 2026 13:55:39 +0000 (GMT)
+Date: Mon, 26 Oct 2026 13:55:39 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Linux Next Mailing List <linux-next@vger.kernel.org>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Subject: linux-next: Tree for Oct 26
+Message-ID: <at9b26gopmjpqDjm@sirena.co.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,57 +56,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PygvCgDHaYhwW99qBxDSCA--.13806S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7Cr1xtFWDWrW5tFyfur4fGrg_yoW8CFyDpF
-	ZYgrWjkF4ktr4rZ3sF9r4xXFWFvw4rKF43Xan8Gry8Aay5Xry2vryqgr45Wr4a9rZ7tFy0
-	vF40ga9xCasrZr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0JUNIDwUUUUU=
-X-CM-SenderInfo: pdoex0xb1d0wi6rwjhhfrp/xtbCzRGFKGrfW3Ei8QAA39
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="XX8YVahulm1VwC9F"
+Content-Disposition: inline
 
-Hi Kayra,
 
-Thanks for your review.
+--XX8YVahulm1VwC9F
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-> ... sched_info_dequeue() ... Or Am I missing something?
+Hi all,
 
-No, you're right: the fake enqueue starts the counter at migration time, and
-the bill is settled later in sched_info_dequeue() on the proxy_needs_return()
-path (dequeue_block_task() with TASK_WAKING). The ~167 ms I measured is that
-delta. I had written sched_info_arrive() charging it directly, which is wrong -
-I'll fix the description.
+Changes since 20261023:
 
-> This should be a series instead of separate patches if this goes above.
+The ftrace tree acquired a conflict with the origin tree.
 
-Agreed - I'll resend as [PATCH v5 1/2] (DELAY_DEQUEUE fix) + [PATCH v5 2/2]
-(this one).
+The libata tree acquired a semantic conflict with the origin tree.
 
-> ... when B gets a kill signal B need to enqueue separately from A, so it
-> starts to wait. But blocked_on is set, so B's counter never starts.
+Non-merge commits (relative to Linus' tree): 3618
 
-A case I hadn't considered, and my sanity check does not cover it: I only
-verified that a donor waking normally and then contending for the CPU still
-accumulates run_delay. A waiter enqueuing separately from its owner does
-genuinely start waiting for a CPU.
 
-So let me ask first: in that path, is blocked_on really still set when B is
-enqueued separately? If yes, !task_is_blocked() would under-count B, and the
-options as I see them are:
+----------------------------------------------------------------------------
 
-  a) a predicate that is also cleared on that path,
-  b) clear blocked_on there (proxy-exec territory - for you/John/Peter),
-  c) hold this patch until John's series lands and re-evaluate then,
-  d) fix it at the source instead: give proxy_migrate_task() DEQUEUE_SAVE /
-     ENQUEUE_RESTORE so the migration never touches sched_info at all. That
-     sidesteps the blocked_on question entirely, but it also affects psi, rt,
-     dl and sched_ext, so I'd want your/John's input first.
+I have created today's linux-next tree at
+https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
+(patches at https://www.kernel.org/pub/linux/kernel/next/ ).  If you
+are tracking the linux-next tree using git, you should not use "git pull"
+to do so as that will try to merge the new linux-next release with the
+old one.  You should use "git fetch" and checkout or reset to the new
+master.
 
-Do you know whether blocked_on is still set there? If it is, I'd still prefer
-to take this now, since the under-count only shows up once John's series is in,
-and revisit (or adjust) then - unless you'd rather wait.
+You can see which trees have been included by looking in the Next/Trees
+file in the source.  There is also the merge.log file in the Next
+directory.  Between each merge, the tree was built with a defconfig
+for arm64, an allmodconfig for x86_64, a multi_v7_defconfig for arm,
+an arm64 build of various kselftests, a KUnit build and run on arm64,
+and a native build of tools/perf.  After the final fixups (if any), I do
+an x86_64 modules_install followed by builds for x86_64 allnoconfig,
+arm64 allyesconfig, powerpc allnoconfig (32 and 64 bit),
+ppc44x_defconfig and pseries_le_defconfig and i386, s390, sparc and
+sparc64 defconfig and htmldocs.
 
-Adding John to CC.
+Below is a summary of the state of the merge.
 
-Thanks,
-Wei Yang
+I am currently merging 434 trees (counting Linus' and 135 trees of bug
+fix patches pending for the current release).
 
+Stats about the size of the tree over time can be seen at
+http://neuling.org/linux-next-size.html .
+
+Thanks to Paul Gortmaker for triage and bug fixes.
+
+--XX8YVahulm1VwC9F
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCat9bzAAKCRAv73Ows9A4
+idKAAQCthoXMULrwadzV11JFNlkbau+68RTyZVg4+FAT2AGqnwEA7yt6Qb7sFf+v
+q1s0fKQb1LvrJH8lsVJGxEZChi/uvgI=
+=5vMJ
+-----END PGP SIGNATURE-----
+
+--XX8YVahulm1VwC9F--
