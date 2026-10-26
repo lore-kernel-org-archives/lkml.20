@@ -1,116 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.144
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=116.202.128.144
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793032014;
-	b=BVamuZa1HQWWk8hoBZ/aDjZW1PCUTZdhUOweUqLCOiT17eiU3Mpygz88IPNk4Q1/1gnd
-	 XAUY58HcGqcAgSM9swQclTAN2chBLvd2WC5rnZd0Qd9n4qVJnwiZF0dUDN9TIyDOicFwN
-	 6EsNwlZ+XZ7/r5zxBFrMnF6PuB5u/fTFal9+0B8A6LDByF+pw0XvmXmHvZRql4cwsX+cR
-	 pN7vtAGC4qs1b/88gtPurhPGxqWrCjWpsVR+HlFfMWSWCGKaOMo6SWXmYfDaa2GAvoIVH
-	 yvKkfXbrmAwaT4S4GJyAV8HhtTF78TxAhEgVi1JxPJjnzSm31ZpAoHc7x5e107G+I4w==
+	t=1793032028;
+	b=SDGCi8BJ43I3u2uOdG8cX4EFo6ag1ImLCWZfhfuYPoNhLitpR8mlfAFdGx6xgGndwHsY
+	 AtilXLY/QWfyRkrwS+zvru8Lo+YJ5HruQB25/OkoUZ5zQN02DoJV1Y97Kv3EbuZkEwxOG
+	 SiYU5OqKAcHWv60vHjWfV/pAXJAk1HNf0gBqbGCLVm7skQyh1VZFZnifDMIcCNvV7UWo4
+	 I0nPfdkCS3sVRk/eeyxeUciGJWHxXJzuaPgsIJT2Ow7/te875sV+R+O3d9jFJb+jUp4SQ
+	 0JKW5NCy2EMX7kXM1cab+31C1YJ5+NaXSlSyHH2fm8bfNa8LXDoXUB/zkFvRK5fqIgA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793032014;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=sEwMsukM+NGMDLoapPF1juXWPBPDoxNj9MJPHnWMM9E=;
-	b=HODTdEqTdve7J6kcrjM7Qc0G0iZsWM/YjUkwllakxw92eZEnIKyzjjjlXZnEnWzePXyg
-	 IXjWvjkQUGHpECpFfdFhPxLN9Q+d/vst50SPYP3YpzCPuQNcfgRLwy41yR+8ujZFYgt4C
-	 FXDYxn9fZqYy5U0QseTWT5fqspy4u1lUh/xPI8pPgM9xb98UfBFt7T9tyVXzq8zROzMSQ
-	 Y2ZjryJ4rJ8+T/7HC0M+KbyQNG+q72m56z3EddxaX1S5fHp0GboL8BaNG/0ni9aV4bkSb
-	 lNG0/krZWbgQCy1iJ+t9Glup4FIXMT1mts0qoK05LrUOi/+RtatOzBG6XiOAwcimxog==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793032028;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=ANAaz8c+22RJYJaWGVW0QrQPpeeNnCFIvngIi19CeD8=;
+	b=ajazW2NSvPuzTHtx6bl0hw5LJR29WZBGbxvMHCJWR+YioYP2ARGxkh6iQO8SLtgXgub5
+	 BRs6m1IFhbG6CfYoyB5WmDKHHmQ9HHwdfsS2ElJytq552Xc8MaoCBCGejmr0SOF7Uf6Z1
+	 8LePv/c2Z7qG9XQQ9gaVtUtrypl/RdWbfnlWcUQQRYtfSY1VKQD3Qyry/8B1fMBrRgHKO
+	 uY5xFaTaNZboMpt5m0vqIjUS9RLyELEsu6xmC0sNsS+I4+M8A8X9JgpoH4jb7q3QR1d/L
+	 4ONOb8deD3TQfx2VXtz8/2JBlE0VH7UhNo90XKGMz4+tnDSw/JDk0i66AjVFu2yhonQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=jannau.net;
-	spf=pass smtp.mailfrom=jannau.net;
-	dkim=pass header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b=DGexzQV4;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=mdArlIHU;
-	arc=none smtp.remote-ip=103.168.172.144
-Received: from fout-a1-smtp.messagingengine.com (fout-a1-smtp.messagingengine.com [103.168.172.144])
+	dmarc=pass header.from=freeshell.de;
+	spf=pass smtp.mailfrom=freeshell.de;
+	dkim=pass header.d=freeshell.de header.i=@freeshell.de header.a=rsa-sha256 header.s=s2025 header.b=V5N6cRfv;
+	arc=none smtp.remote-ip=116.202.128.144
+Received: from freeshell.de (freeshell.de [116.202.128.144])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08873606A332
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 16:26:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08873606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jannau.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E92A60A260E;
+	Mon, 26 Oct 2026 16:27:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E92A60A260E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=freeshell.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=freeshell.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b=DGexzQV4;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=mdArlIHU
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfout.phl.internal (Postfix) with ESMTP id 46E10EC0AA9
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:26:53 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-03.internal (MEProxy); Mon, 26 Oct 2026 12:26:53 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jannau.net; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1793032012;
-	 x=1793118412; bh=sEwMsukM+NGMDLoapPF1juXWPBPDoxNj9MJPHnWMM9E=; b=
-	DGexzQV4DFrtjWFBWFx57iRUNmk9EFmw70SUsJRpDQEwBpURHERzdaTNL/uPobD4
-	LVDaQSf5qGIrKESaifZJWYvXf33ZOfZJsI1+Qn/HpVaMvEO8+W24Cc12y2wVHEJu
-	edzdjuUMI6yaCfk/gOBqhrAiXmM/0AOROBQOw+Ut7Yp0aJcnqV710z7bfvschxw5
-	joPWaXUGiO/lcdnBc+QfYpQVtyw84VbHyQSbfLc1MWbWE5ZKmgJSJwKfimtEvzwg
-	76T1b+MiwLTsObzWft7wU/JsXq4P57WwY1DPEIwDKQZenkvrfX2y8BGx1AhhjvVi
-	ehwq7NfZnp/0wnuYbajZxA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793032012; x=
-	1793118412; bh=sEwMsukM+NGMDLoapPF1juXWPBPDoxNj9MJPHnWMM9E=; b=m
-	dArlIHUVeNb/eDaqLy096V+tX7xZVOtIzZmvnznmymY5ggYwizoXvEIs39s7dyqc
-	NvE6sHpxCbxZ19/Rxp9o4GLe1hlfv48Jk2QMdd9Zr0YPywhTJSR1POTPpRIGVLgG
-	cuLjbGN1kIJ4xGk4rc9D+G1BOpfZ7YbqRFvYr+OrRxi6Q0j9YhCdWU3KMgSuIHl4
-	yBNWesj6V6EOjH3EGhedaZzBmltfh8/OxzKMB5W6G8fJDwWVKuen920SL2yNHDzG
-	VNLdB26HHXivoN2moyYeNGaTgMHuhHbSNg4qTrvwTuynjlgZz+TuqvTO/2sr2TNp
-	vsyoarZIE5Y3QKwmbCJuw==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=sign d=jannau.net a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793032012; d=jannau.net;
-	mf=PGpAamFubmF1Lm5ldD4=;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:SpGshi3LhiiztdHPQCKkyf8rOIVzPwTDpJQN5j6Z+9zp3DZ
-	TjwA1oUeEZUsR2CnqwuWAM6wkg2noT9Eb6AiaVb2DLuv6h8Tr1fSorcWRuDH2Z3E
-	y72oiC5cow5JbiyipV/qOMytmkJun8GaYJ7TFriY51ahhLtUh7K309ykUYB+xlTP
-	UPuR4fLXxhPRgA1bWdL+HDBsJ31Fd9eVR2us61OXGr+c4Je1/YGNvPZ2bNlc0tsQ
-	ITFRUzBbUlFt9X9ZMKuo4v9RQdY2gMlLmkpfYq1Ro3nfCNoBW7vzYeyLBkOAH4iS
-	O60OX0U1Vv8rgF5IxgNkXbADPVb7ZwdoibLta8A==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:EgsGmdBzLGarRomk7+anGwgnA1vX1Unz7Rp07YmORnk=:5FPZliX/UHzTA0pASYAyzT9D3A0nrhVaBVcKamAcVfk=;
-X-ME-Sender: <xms:TH_falyLCD81VAUGjyrUAhnSKQ2Zsz6r3bj1aOonAk2D7HEh8p3aJA>
-    <xme:TH_faipnaFiNDOZp8RmDUtnjgqTNfCpKT03yIjGmiJDH6cDiHFwPQHX-COOchP23p
-    598-89QIlJoEjXxfoUP4vyKyl8ooo1frIP2L7AI4QYI06qF-7lGqIfOwg>
-X-ME-Received: <xmr:TH_fao25TbqgHy9F-dRzMaxej6AdVz65KlDMit7NQtYcOo-HJyf5X2Zy_th-ij36EXspn9btAU8oPbF0b0AWwXGyO0sbcstLgqo>
-X-ME-Proxy-Cause: dmFkZTEWkkLBT9rP3p1Wyz0X+m97kuBUnCDDnSBjZXGE+danOKcks90ZCL1x5kFWbQEwZQ
-    C/LOTGnj005YKhoS9HeAw+Erp63RPnpthbHBHREmt9p/MFMd+Md/bpiYc1niUxBlZqQhAK
-    59b6OQOTULM98lp1jRF041mVOgzZ4rG32mzoyxZ3yObBAyJagwqWtbE75lg1fpvOcZ5lbO
-    nDixwRUg+66OBd8I+jfqYKPPDFhGEMx/7qUc6gwNZAe7hEqt97Wi99Wzb46e8o3Kmh6jXZ
-    p7pCYaQY1WTE98lsHtyLyqqoeFi5HqK2hSD36I5k4XGS2xKmyAM1EHIH1fqMrzfu8JsVqM
-    TI7mogVM+X/Ywfr+CFT1XxBTDmY91qE93bSYSqQm2mEvMAPfqk9rWh6kpf5s9MaqD7lH1J
-    ct2ADenNUdSLNPcJNHtVPqAMyU/62a9TgCzFac6pQbVS1VVWET/mIE/WknUqDRS7dCUOwl
-    6/oSSTJ/xUOUQTlhL+h9aq3nX8bmVr37Yd69eDxTZWri9pyJ/avQ4JU/sKP5U0miRsTgMo
-    1W3ecmo9Hk5YvAHZb5QvHTl+VtzniUgwJwRqwc/MbbpCkz/PUnd+9i35C0UHAW/+OceXlL
-    o5gpIJbY2Yr8kpLeSY6wF8bni7eRyFSYgc8eR7Xczoh+KuIOTZzvHO2Rqvbw
-X-ME-Proxy: <xmx:TH_faixxQwX5p4TtFSnnw4RZ7wUaBhfuGDLGVgedQrXlpBIjo2HO_w>
-    <xmx:TH_fasg9bbR-axru02r8dm5gAfFbk9fxtciRDd0Bb6gjosIAH0JdQg>
-    <xmx:TH_fatpBs1N8VfShLTgV2qolhaK4hHZJAHUGjwXDW6lV87ob2U7JTA>
-    <xmx:TH_fari4WWjSUo-wBs3i5mB0JdkIlkZTkanjFWxFcHlSahYltNMLYQ>
-    <xmx:TH_faglEz7JB_CCpm01PPDZDuNc_EE7nXgpWOpLaRp2oLQ1uxDIT_Sus>
-Feedback-ID: i47b949f6:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 26 Oct 2026 12:26:52 -0400 (EDT)
-From: Janne Grunau <j@jannau.net>
-Date: Mon, 26 Oct 2026 17:26:40 +0100
-Subject: [PATCH 2/2] net: atlantic: AQC113: Limit multicast filters to
- avaiable slots
+	dkim=pass (2048-bit key, unprotected) header.d=freeshell.de header.i=@freeshell.de header.a=rsa-sha256 header.s=s2025 header.b=V5N6cRfv
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=freeshell.de;
+	s=s2025; t=1793031979;
+	bh=ANAaz8c+22RJYJaWGVW0QrQPpeeNnCFIvngIi19CeD8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=V5N6cRfvWRSdhIqboQ7GDT+fSljzlIXWXYotD1A8/OEosA2wkR53uLSdlji/kL07F
+	 ole4JYQwWQTcApIMmvdJvbmpYD4zU7IGSnMTTnt9K5W2+NvBSWS1CjqpsmK+gKWOWV
+	 kD3TPDxoWLPTqy/UYLm3VFi8vOw2X4QoU9qsTFWl0F00993IOF6oVoZnlk483x9/72
+	 DVOkA75LfGV7/XRK84cXpY449WEc20rbc5UdhqH3uW179qVDMEjQe0POvSHa8s3jDU
+	 Yr3aSTfI30B5lsLt4YfJ+XOzcyn9zfydDQZ2/SZJs7dijYpkV+TPiel8NAeOY/slhc
+	 RvpAwiEvHzXbg==
+Received: from [IPV6:2605:59ca:364f:d400:1b91:6b30:22c2:fffc] (unknown [IPv6:2605:59ca:364f:d400:1b91:6b30:22c2:fffc])
+	(Authenticated sender: e)
+	by freeshell.de (Postfix) with ESMTPSA id E6365B2272DB;
+	Mon, 26 Oct 2026 17:26:16 +0100 (CET)
+Message-ID: <a678fbd3-10cc-4a31-a847-81a6c0e21c39@freeshell.de>
+Date: Mon, 26 Oct 2026 09:26:14 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -120,56 +58,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/2] riscv: dts: spacemit: mark K1 boot nodes
+ bootph-pre-ram
+To: Hung-Chun Tseng <alan.tseng.cs@gmail.com>
+Cc: dlan@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, pjw@kernel.org, palmer@dabbelt.com,
+ aou@eecs.berkeley.edu, alex@ghiti.fr, devicetree@vger.kernel.org,
+ linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20261024092558.143621-1-alan.tseng.cs@gmail.com>
+ <813d3f4a-66a9-48df-b9de-6a46b9388d0a@freeshell.de>
+ <20261026033813.432250-1-alan.tseng.cs@gmail.com>
+Content-Language: en-US
+From: E Shattow <e@freeshell.de>
+In-Reply-To: <20261026033813.432250-1-alan.tseng.cs@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261026-net-atlantic-aq113-apple-l2-filter-slots-v1-2-d72e99b69583@jannau.net>
-References: <20261026-net-atlantic-aq113-apple-l2-filter-slots-v1-0-d72e99b69583@jannau.net>
-In-Reply-To: <20261026-net-atlantic-aq113-apple-l2-filter-slots-v1-0-d72e99b69583@jannau.net>
-To: Sukhdeep Singh <sukhdeeps@marvell.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Janne Grunau <j@jannau.net>, stable@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1307; i=j@jannau.net;
- s=yk2025; h=from:subject:message-id;
- bh=5FPZliX/UHzTA0pASYAyzT9D3A0nrhVaBVcKamAcVfk=;
- b=owGbwMvMwCW2UNrmdq9+ahrjabUkhqz79a73eT5656Uy19kcmTtX7MFehYYPatv6/9YrOAXWh
- QUKhW3sKGVhEONikBVTZEnSftnBsLpGMab2QRjMHFYmkCEMXJwCMJHMOob/9au/f1A8lFzeUVLa
- niVSGW7JtDLreMq8K3OEU3Nu+D74wMhwvN8quDU3q0xCaWH9h8uR/1YoPvFatevPFR7XyfVSn64
- xAAA=
-X-Developer-Key: i=j@jannau.net; a=openpgp;
- fpr=8B336A6BE4E5695E89B8532B81E806F586338419
 
-Since commit 6c1ca112a6e4 ("net: atlantic: fix AQC113 HW init: ART,
-L2 filter slot, MAC address") hw_atl2_hw_multicast_list_set() uses L2
-filter slot above the firmware-assigned L2 filter slot for the MAC
-address. The count is still limited by (HW_ATL2_MAC_MAX -
-HW_ATL2_MAC_MIN) which could in setting out of bounds filter slots.
-Limit the count instead against the firmware supplied `l2_filter_count`.
+On 10/25/26 20:38, Hung-Chun Tseng wrote:
+> Hi E,
+> 
+> On 10/24/26 07:45, E Shattow wrote:
+>> Split the patches in this series so we have a clearly defined initial
+>> changeset that does "Extend the BootROM configured peripherals to device
+>> tree bootph-pre-ram hints for any SPL loaded by that BootROM in SD,
+>> eMMC, and SPI NOR boot modes".
+> 
+> Thanks, that makes sense. For v4 I plan this split:
+> 
+> 1. BootROM: the fixed clocks, the clock and reset controllers, uart0,
+>    sdhci0, emmc and qspi in k1.dtsi, and the SPI NOR flash@0 in the
+>    board files.
+> 
+> 2. DRAM setup, as an add-on for Yixun to take or leave: i2c2 and i2c8
+>    in k1.dtsi, and the EEPROM, the PMIC and its buck1, buck3 and aldo1
+>    in the board files.
+> 
+>> Capture all the BootROM SPL loader flows
+>> that we can understand (USB missing currently? please add this)
+> 
+> USB download mode goes through the OTG port (FDL button, then
+> "fastboot stage"), but mainline has no node for the USB2 OTG
+> controller behind it yet. The DWC3 is a different controller. So there
+> is nothing to tag for USB today, and I'd add it once that node lands.
 
-Fixes: 6c1ca112a6e4 ("net: atlantic: fix AQC113 HW init: ART, L2 filter slot, MAC address")
-Cc: stable@vger.kernel.org
-Signed-off-by: Janne Grunau <j@jannau.net>
----
- drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Is "[PATCH v4 0/8] Add SpacemiT K1 USB2.0 controllers support" what you
+refer to?:
 
-diff --git a/drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2.c b/drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2.c
-index 82be3bb2e76d..41c653c14e5a 100644
---- a/drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2.c
-+++ b/drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2.c
-@@ -780,7 +780,7 @@ static int hw_atl2_hw_multicast_list_set(struct aq_hw_s *self,
- 	struct aq_nic_cfg_s *cfg = self->aq_nic_cfg;
- 	int err = 0;
- 
--	if (count > (HW_ATL2_MAC_MAX - HW_ATL2_MAC_MIN)) {
-+	if (count > (priv->l2_filter_count - 1)) {
- 		err = -EBADRQC;
- 		goto err_exit;
- 	}
+https://lore.kernel.org/lkml/20261009-b4-spacemit-k1-usb2-v4-0-2d98e5324d9a@linux.spacemit.com/
 
--- 
-2.56.0
+"The SpacemiT K1 SoC has two USB2.0 controllers, one has Dual-Role
+support, but the hardware has no internal OTG registers, the other is
+Host only. These controllers are compatible with Chipidea USB2 driver
+with some flags set and reset control support."
 
+Looking briefly at the design guide section 1.4.1 "USB 2.0"
+
+https://cdn-resource.spacemit.com/file/chip/K1/K1_Hardware_Design_Guide_en.pdf
+
+quote "USB2.0-0 serves as the Download interface." and "A self-powered
+USB device/hub is needed to test the host function of the dual-role
+controller on Banana Pi F3, a MINI-PCIe USB2.0 module (a cellular module
+e.g.) is needed to test the host only controller."
+
+That looks to me like the target to hint. You could ask for the hints to
+be added on that (USB 2.0) series, or note as a dependency for this
+series and do so here.
+
+Note also "[PATCH] riscv: dts: spacemit: enable USB2.0 controllers on
+Milk-V Jupiter"
+https://lore.kernel.org/all/20261009-jupiter-usb2-v1-1-ab84a00d3b64@redhat.com/
+
+"On Milk-V Jupiter boards, usb2_0 is connected to a Type-C connector
+which cannot act as a power source."
+
+More of the same, I think, adding bootph-pre-ram hints to phy@c0940000
+and usb@c0900000 or by label references per-board whatever shape of that
+is best. Per-board is more useful to potential users of this at SPL
+phase but may introduce inaccuracies (as it pertains to describing
+hardware) as the decisions to default to "host" mode and not "otg" are
+common sense things that are (looking at history of these decisions)
+permissible to be different than default hardware state after possible
+BootROM configuration. I do wonder if the SPL environment directly
+following BootROM is something we should perhaps be describing in Linux
+devicetree as its own distinct thing. Well, don't forget about USB
+anyway I think there's an actionable there and it's just a coordination
+issue which series should take that change.
+
+> 
+> Yixun, could you confirm that the BootROM uses that OTG controller for
+> USB download, and that it does not touch the DWC3?
+> 
+
+...
+
+> Does this split look right to you? I'll send v4 after the merge window.>
+> Thanks,
+> Hung-Chun
+
+Yes, thank you -E
