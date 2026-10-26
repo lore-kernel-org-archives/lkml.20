@@ -1,111 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793005197;
-	b=0Q/Wc30IVoibVlwBR76PbLIGBPTCjhOOUF+LVXECT1tlbVYAA4S19PgqxscmlpsgynVH
-	 mvesRnYC0Z6iiS5yLCFmHUV+Hj5qZ15ijidrXt2gqI7j6z22EbMIYlNg/A2Wo3CmeDfmI
-	 4e+JdHWz6dVjvDdKOmYXCUOvLRizgbVVbh4DImNFj66ulWF/kTEeGtmXf4XNVH4/XOvUH
-	 Dx2SfCgyq80ieWfDX0ak2pIdv7sOCCUvuXPo1DHDPRTXnkjrUNdZ1AEiC60JdfAU/6QqH
-	 P/KqtnMW1DaHKmkdbQ+z9fNCNY7XX5YpcItyVGCG6fhvrB0QWfM7O7pRFgt6FLAWmoA==
+	t=1793005205;
+	b=JII9VrgRVBgED77elq6Q8kupuih9uagb+CTmAb/+qI+TRLfQoqrZxEjNXsx+1tKsChn3
+	 Rgdi8gzMF19S1FKwjfIfzAYlyu65YjJiw5SOq3g8WdZFCCn4lDlfN0u4SEz2JCnDwRYhf
+	 8jdOJ6rBTgenXyCvGUrVwdpBM80Db7ft5DKdflHrANvDlBRCf2hz7ORp+7O3WSqUhtzYi
+	 JNLyG+FPJKCl9g5Onqo7ccQxtN1qXrSYTOeGkTS3kDT3Yu4sW0e4Q1nyjCVUeAROnhdD0
+	 FBnTiCqxyARbl9xx0eXh99zHSlMdII2Osi3fXEVfpApLtJnmehuOc6us6gkDamKKWbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793005197;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=EITttCplPBszuYmRY3XITt4UQcQyLGgPfNuHXF+5Hgk=;
-	b=hIRBiKpn6Ll9VMSoV982htNifHhDTr8JXw+tF8a2+2M3z+Y05Y4PzTM/Q+5RsDKjIMQY
-	 jT4x7ZyTLlraCEoS5RLx4uj25bl8Y0zCUFfFH9bEKejwFpyLRQ4MdFAGKCdB3SOLYNizh
-	 wMe6I/HNYCZ3VplxTnDzPuyT4E4eXHlfcA/ggWMmI5ryeWG4AQbZlm7XoH6R474aCRu1s
-	 hlB1j36CkqL6ofj4CQRBIwPFsOyxbL63bmI+QDQf6JyTQcvFTgWsy48Rv9MrC2GikoVhK
-	 QrgqwXxvsZRm8dNU1LHKc3/uHPKnvrDzyV/7GsfSyiDVcr/9ULgvddjuiy7jF5y/dFQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793005205;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:From:Reply-To:Subject:To:Cc:
+	 References:Content-Language:Autocrypt:Organization:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=pQgPzMtG93EgFqIKN+g+Ioi2l+YOrsAj4oztf0+jNvg=;
+	b=ieys6b55luRYZwmYR5YnIQ82kmHpOl3yhT6QsAyM4EtipCsp00CRrnpsar9Ea3bw6MzA
+	 3K8HI2pn9kjV2DC9fh/37EzzypKhYAJKa7Oei2+LW0XKBXdObOLGrFhAaHuGSfQkKZtE8
+	 RDlnv7jqXyiCR4dJPTzIesAVXk4riJGdC/Azx185cgqGEEgOQLj3emIhFiy0yHQ8s+iKL
+	 9cSjs9/ye0VUOSQ5xpDIC6bugQESjY3Fj8YXuhUky1ZfSvAkURb8jPUd3O/r5HENpVU7Z
+	 QhRGDz8tKg32dYXQgupAuDiD58xsOjyKx0258UiIXyZejwDkEFuG9wY2MqqRLTeHaWg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=UFlPsP6N;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=hMHJQPWp;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=u6KM09xC;
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3EB0606A31B
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 08:59:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3EB0606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC10F606A31D
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:00:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC10F606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=UFlPsP6N;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=hMHJQPWp
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69Q4b9dE2728036
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 08:59:55 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	EITttCplPBszuYmRY3XITt4UQcQyLGgPfNuHXF+5Hgk=; b=UFlPsP6Ni/9BBo8w
-	bsRJcpKJmfnq3F/TPwop48kefP1i+H/QqCheh0KVa3P+uejNFwzIxLwT26hltKF+
-	2jfLLZjYsEi7NFvvoj8ojZQ6/KQuSdDPHMD/7o139NLK7xP9l+hhnHVgYcMZsk8L
-	ZQ5wpqL8fXckWanU3awtl8nmxk0P17qWRYFjAGcweH1OZD49SZPrU1raE1b6Z15S
-	XSzUUdkQf7D3rW8T/CJ/xNRDE3XcirAPbXBkbKt+jXGzmXaNd9fsAw60+7vYpmu0
-	1ms5Y7AOf4NvWPrzV8h5OrvYy47895KXSIHwaJvQaZwqmGSA0dZ6gNVL1uAvgqst
-	MTXx5g==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hgkp6nqjp-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 08:59:55 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-53635fe2335so2807871cf.3
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 01:59:55 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=u6KM09xC
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a2000d5fb1so17175705e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:00:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793005195; x=1793609995; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EITttCplPBszuYmRY3XITt4UQcQyLGgPfNuHXF+5Hgk=;
-        b=hMHJQPWpMIdzWQgpQb32wEzEd77qcQ/Hpd6jnBk3H7XsyWcTkG8w1hYDDCtOa+hhB7
-         7SmGrQBRcGzpjqZl5misnqnRfbw/BLHV5iceFcn6z/QCe478yv2tiNsoakFqDLlYJD/f
-         2F2Qt6zLAL7Wfr+wf+hBDfYAb4CqTu/BjJKxji7fZlqRgIRokKgskGss6SF+aKVk99m2
-         +lob1YnGZr1yBM+KjMjQ0+VBwjxM3ilcxthSezQcMAW5azCDjillSKaeMP9VIlC3qZzV
-         H7Jd+1EJodH4CG1UQfi1ciFf/2JS2PXKLJwucrjmkVWyFaWEDRSgAH41BgBJAPfM+VLm
-         Xinw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793005195; x=1793609995;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=linaro.org; s=google; t=1793005203; x=1793610003; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=EITttCplPBszuYmRY3XITt4UQcQyLGgPfNuHXF+5Hgk=;
-        b=RD/ijL8Vxuh7DbSbyX4iKqKaOkZ+VBGI7bKiLl1/A568yQZ1bb4D9jGjihBrDmBzdP
-         YhGGRCYSQ9d6b4HjK6RLQwIVPFfpC5iUNa5CnhHF8gSBPg4Jw0hZa1LJTLgqkXUsjdtS
-         c/v6BqL6KcuvGXgOBB0aN4x5OKLI6h8l9BfrcSc5542708MySeKRr9Z0NhdK4Prqm+nz
-         hqpoZ+mBfcNEW6dWD83s7wy3lZncq+PY+s9c3mFO8PfBuKW81/rop1whT8bTobstuHio
-         34HpzimXrk0VC8I7DanVKEm7rjfeK5Ta/XGeHHxJmWdqIVBLNDssetMLAdopyyIvy3x9
-         deBw==
-X-Forwarded-Encrypted: i=1; AKwUvBxLgDOLp2Qb2bEJ0gKs4wMFjyS952E9M/2b4Y6RddkZKVnVzHg+LR/lVtnB/bpkih3i/nR8LnvtnG3GLs4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKcZpIuDvSVgFc3IWRfEYrqsLsoyLF+EXHORClkDYoRu5AcjURn
-	sB8IH8qexfPuLJ67l3VJussTUsHufZRTVegVQrZv/G0BY7GesKlCkBmwb1b5LK1h4ALLWfwIdJL
-	04YYcDR2EHSNUw35uXMHJagL+K8esnv4oDewXXtb0A1YLUEvXvpDjnD9L+fqjgyx405I=
-X-Gm-Gg: AYBFou131lmQiBO24p9Z/UnzJwMhujl5yWqzNlpbis3tLHpqYQY/bAc8V4esYsj20qk
-	Vh6B6iTleqvZwT/Obt2jSNZJnIpJL30Dr15sqK7OO/iCd0LVa/BAs16M5KC4f1pHryEOcmpSARD
-	rMEaqcIjFwoGBUe70omWoGzySO9Yl4TRCBaZOre7lHVnrqRLgJ80Erf1VHCJoOEclnxckB2gH1n
-	1MADJNiRKyQogrvADukSI2gVS18YmuaBGCK1ZqbaR2qnTjZqzt8bmQUAKm/rP1OyS4G6d39mH3H
-	RmnW7UE8CD9iC4/riJKohGdIox0bDUOHqw3FgITeOYGb9GjSKJellvP7ZMLxNdfhvjrz/S9xRFm
-	dMcMXzw+O7tSJU15jq64/cg==
-X-Received: by 2002:a05:620a:8703:20b0:93f:a34:d9fa with SMTP id af79cd13be357-940ef7d5676mr940738385a.1.1793005195103;
-        Mon, 26 Oct 2026 01:59:55 -0700 (PDT)
-X-Received: by 2002:a05:620a:8703:20b0:93f:a34:d9fa with SMTP id af79cd13be357-940ef7d5676mr940736685a.1.1793005194699;
-        Mon, 26 Oct 2026 01:59:54 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b445984c99sm3437518a12.28.2026.10.26.01.59.51
+        bh=pQgPzMtG93EgFqIKN+g+Ioi2l+YOrsAj4oztf0+jNvg=;
+        b=u6KM09xCqYJ8JXVzXTUiFQILmdo+65ZgWXoyzsVfvN1EZTv+Aexm7+OMZgSYI8gmNo
+         3cOhAcZEXlqppWqtQuejkeAWdltWe4/Wf2QoxrOht5Tc5GF1wywqMmrKE1zibdtjdNn0
+         OjRYHiMdLLnRvIUfwWkB6RCHCeK6xY4Uno7rj6iiAsjJ0lshXTncY1Rh2b4+n46xShZt
+         tqyfGKhjlg4HrEMD7Uq+PtwNOGpX3HFc82YpMZ7zmBV4pIUyaB1eqaz3BQgE0O6ntsUO
+         gUMy/lLCA4j8yJ2Ix5PbYqyF7raWJWoTmtw0cLLWPtoUH4YEXo4q5i+kmssr4ReZfiWW
+         nghA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793005203; x=1793610003;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pQgPzMtG93EgFqIKN+g+Ioi2l+YOrsAj4oztf0+jNvg=;
+        b=sHyyWbcvPv8MZmYb2XXb9o1SjUeeXjXEp91t7X4MMes4EHz9exeGtILhkpk3ojcw7I
+         Aedof8GeZZr90/72afDV+DuZ7N6RlFeKcRjOk+4r3ghhFXGry/VWuAajsYqjOIj5bb0Z
+         2c0d8tMmC3C6+L6h8Gdej37aiRC3puuUD4E+MfCN4b2RO8k1GK5H7L1NZRb6fUT+HSDz
+         H30Cg+7t/GNkeCL90jMtw3WRCbdUKa3iKgxZhqpBMK7+qYjIfkYkW/J6IPwWcgKB67Qa
+         b80mhuClYAPRLY99d5S+wqmzOn/g6PoGgBLTLZUE+HUBHkeVNTkdxdpGJ6SH17ZG5L+8
+         EusA==
+X-Forwarded-Encrypted: i=1; AKwUvByW90spOnrYYKxHjBO33oD+Vr8LiPNAJD02FaD/MbvNT96H5uaHttoGBsvl2pkXBTorfZS4U0P3iwSI0E0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJaTYgCIiG7YtDDCUKFgBh95V0Et9mEbgRv2XKtTfKKCVhxPdpj
+	6mPW/i1sJwcrY9wXJgPxsTdPHjTKY6WrKdM90w4zI5I/aIEpQVH/JUwVXwru6zI76sc=
+X-Gm-Gg: AYBFou0dNVdHUAeKRIwcGb3Sr2/0q0k8fNjFX7T70Q2oMyvhy/lQved+Pu68RaAjQIA
+	IcMLihBa6vpxGcOYNfU7ERFoqkq85nTgZdZxxyS3k/pC1QHBPhTeZWoOaiEkAw7x1HlEP49sADg
+	ggHugeBQiEKsbImesCvq6tGDPUXZpxrRb7AjDnNU+c+pbveaiT/viMYCzgo1NeHbml9NbTvskWk
+	h95GxDNti0sb+01D8zinVvnq+A2nr+G747CQiDqOI2DJ202mUKywkxZqw4/ws/B6zjp93+M4QAa
+	r/aM0XSE7rRJ/h3bey7C2PZSilTetfLvuFzTQuklshW/aryVotMs3Vnv6TzbVKFp27MUXhZjUBp
+	Qtkry4sK4LLdVA/Qy4fB4DPtXuV3LRSoBGNPFNMR5H7slo+JFQ/yd7eDFjj/sFS5UinIgfLU4Xd
+	+qxDledzfvlZtoF+tw0f7Cr7CpkoRG+EPqBpBpVSukQ1OeAJFfWvfwMxD+j9mimhUp5MmuaSOzw
+	qz6J/Ncz5vyB2Pf8RPiqK9yPxC+q4AzAX4IRKjedfey+8ZP6NHcNdaiFZYONcnZ9Z7CTQ5KeW+R
+	fL6bMSw5Qf+8xh2u0McfnHx+t1ltzVX008Vm
+X-Received: by 2002:a05:600c:3e1a:b0:4a1:e250:b191 with SMTP id 5b1f17b1804b1-4a35aca6ae2mr113669665e9.17.1793005202672;
+        Mon, 26 Oct 2026 02:00:02 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:d07e:c128:5c21:78f2? ([2a01:e0a:106d:1080:d07e:c128:5c21:78f2])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a029332sm159395045e9.4.2026.10.26.02.00.01
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 26 Oct 2026 01:59:53 -0700 (PDT)
-Message-ID: <109df222-efc8-4298-9bc4-937ef9edb59f@oss.qualcomm.com>
-Date: Mon, 26 Oct 2026 09:59:50 +0100
+        Mon, 26 Oct 2026 02:00:02 -0700 (PDT)
+Message-ID: <7f04940f-df1c-41e0-ad51-d9dd9e6974c3@linaro.org>
+Date: Mon, 26 Oct 2026 10:00:01 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,117 +93,72 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 02/10] drm/msm: fix framebuffer pin refcount leak on
- prepare failure
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov
- <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Antonino Maniscalco <antomani103@gmail.com>,
-        Kalyan Thota <quic_kalyant@quicinc.com>,
-        Federico Amedeo Izzo <federico@izzo.pro>,
-        Helen Koike <helen.fornazier@gmail.com>,
-        Vignesh Raman <vignesh.raman@collabora.com>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20261024-fd-kms-fix-smmu-v5-0-a5b0b284aead@oss.qualcomm.com>
- <20261024-fd-kms-fix-smmu-v5-2-a5b0b284aead@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261024-fd-kms-fix-smmu-v5-2-a5b0b284aead@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH 0/5] arm64: dts: qcom: allow SM[456]50 HDK/QRD boards to
+ play audio via DisplayPort
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261022-topic-sm8x50-upstream-dp-altmode-playback-v1-0-8a189c71938c@linaro.org>
+ <5a7wc4hqox6gbpdkttgbtwkk4rfohe23lajlnydk3sl3f756ax@ywultzk2f5xq>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <5a7wc4hqox6gbpdkttgbtwkk4rfohe23lajlnydk3sl3f756ax@ywultzk2f5xq>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: OMoDaT9mp3TIB7wXsTkkY2Q40LkSzdFg
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDAzNSBTYWx0ZWRfX6t5TE2A3Wqkq
- vJrxddJvVfmfJRfzJOSR+h4W/Gb5ShaSPrbEVaUq88HOJZlyzJD3ccYjkgIfrRu4mp+QBkjNo6e
- o4GGlkzqOOhXL3haudigmUebftyA4jE=
-X-Proofpoint-GUID: OMoDaT9mp3TIB7wXsTkkY2Q40LkSzdFg
-X-Authority-Analysis: v=2.4 cv=bq/Zl0ai c=1 sm=1 tr=0 ts=6adf168b cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=Mfa03keUj_DI804JYAIA:9 a=QEXdDO2ut3YA:10
- a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDAzNSBTYWx0ZWRfX9MTQpYb7mQxo
- tF955m/HsM4oVeIrg+hA403HJZK29jSm7sR3MpiIxabNhTDZVq7UDKRc7ng4l708ZB+DbC6rr8R
- q8e6sKMrs2mEmvkdMxEa2mFBV2/zzPnvb7YrSCwDsqSXC3HCUM3h46aKIQX3RsjxZ19bYvqzu8+
- JTqDEjfIzDdIoR6x1gNSLi8DtSEfaFiT/hwZYrUkT729fji+KUItSqWQq5DHgrwDP72hGG4ItuC
- YnkEnvZ0wVhM0VgxolH0kZkWqqXdgKUZAsv4Wfjj66ux2aN7cD13WiwkPA6kG2x/kIqndBLzdO7
- NzfaFntxdzdqFu047+q0pq2qQiRSHIJiiKyj6dxD95Jd8Evebz5ti05UjltO9Hna2h/4DvpeMnf
- mQADSL7ZYH9CxZFrQHCzrCgZojQWl0+/DEgVivRhpQdjNdHNpnZw1QjwM32s+503ecubhMGjtJB
- +9Lve8I52akd6SJLJWQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-26_01,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 malwarescore=0 bulkscore=0 impostorscore=0 spamscore=0
- suspectscore=0 clxscore=1015 lowpriorityscore=0 priorityscore=1501
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610260035
 
-On 10/24/26 1:25 AM, Dmitry Baryshkov wrote:
-> msm_framebuffer_prepare() bumps prepare_count before pinning, but returns
-> straight out of the pin loop on error, leaking the count, the
-> msm_gem_vma_get() reference and any planes already pinned.
-> drm_atomic_helper_prepare_planes() does not call cleanup_fb() for the
-> plane whose prepare_fb() failed, so nothing ever drops it.
+On 10/22/26 12:34, Dmitry Baryshkov wrote:
+> On Thu, Oct 22, 2026 at 11:36:20AM +0200, Neil Armstrong wrote:
+>> Add the DAI link needed to enable audio playback over the DisplayPort altmode
+>> outputs for the SM8450/SM8550/SM8650 HDK & QRD boards.
 > 
-> Since commit 8ac37c88f991 ("drm/msm: Refcount framebuffer pins") a
-> prepare which finds the count already non-zero returns early, assuming
-> iova[] is populated.  With the count stuck, every later prepare of that
-> framebuffer reports success while iova[] is still zero, and DPU scans out
-> from a NULL base address:
+> Does this need an update of the AudioReach topology?
+
+Already done in https://github.com/linux-msm/audioreach-topology/commit/6040c950021b88c6db287cfffa17abbf917f56cf
+
+Need to add it to the SM8450-HDK
+
+When this is merged I'll update the topology in linux-firmware.
+
+Neil
+
 > 
->   arm-smmu 15000000.iommu: Unhandled context fault: fsr=0x402,
->       iova=0x00000100, fsynr=0x3e0023, cbfrsynra=0x1c00, cb=11
+>> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+>> ---
+>> Neil Armstrong (5):
+>>        arm64: dts: qcom: sm8450-hdk: add DisplayPort audio playback support
+>>        arm64: dts: qcom: sm8550-hdk: add DisplayPort audio playback support
+>>        arm64: dts: qcom: sm8550-qrd: add DisplayPort audio playback support
+>>        arm64: dts: qcom: sm8650-hdk: add DisplayPort audio playback support
+>>        arm64: dts: qcom: sm8650-qrd: add DisplayPort audio playback support
+>>
 > 
-> Unwind properly on failure instead.
-> 
-> Fixes: 8ac37c88f991 ("drm/msm: Refcount framebuffer pins")
-> Assisted-by: LLM
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
 
-LLM:
-
-Regression: writeback path double-decrements prepare_count
-
-DPU writeback swallows the prepare error, so cleanup still runs for
-a count that the error unwind has already dropped:
-
-1. dpu_wb_conn_prepare_job() (dpu_writeback.c) calls
-   dpu_encoder_prepare_wb_job(), which returns void, then always
-   returns 0.
-2. dpu_encoder_phys_wb_prepare_wb_job() calls
-   msm_framebuffer_prepare(). On failure it logs and returns, so the
-   error is lost.
-3. drm_writeback_prepare_job() therefore sets job->prepared = true.
-4. drm_writeback_cleanup_job() (drm_writeback.c:501) calls
-   dpu_encoder_phys_wb_cleanup_wb_job(), which calls
-   msm_framebuffer_cleanup().
-
-With patch 2, the failed prepare has already dropped prepare_count
-from 1 to 0. Cleanup decrements it again. Because prepare_count is
-unsigned (patch 1), it wraps to UINT_MAX and never reaches zero, so
-the planes are not unpinned. The next prepare of that framebuffer
-does prepare_count++, sees a nonzero old value, and returns success
-with iova[] still zero: the original NULL-base-address fault.
-
-Before patch 2 the same path left the count at 1 and cleanup brought
-it back to 0, so it was consistent.
-
-
-Konrad:
-
-I had a hunch to suggest using refcount_t in patch 1 and I think
-we can go forward with that
-
-Konrad
