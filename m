@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793048906;
-	b=kHQUpEcgwemfIxo1D8gWjR0CLfMRhxwKI3MfSjqiqCvizY7K3K2LToT82Ub+54lT71cZ
-	 +4v+wdN92Ls0YllxWtdCx+JyEK3FraPZW8bO9GwwD3jY8mTPwPa7ZB52k9nRh+as2CEUQ
-	 pmxRQ5jf37TRj4bBnaUwFf0af1/GzqDEOX0bQXTyL1PLW1rnQuKrcCTeAK5ZaOiDxA6O0
-	 vvjEM5/zadUK7ce9Nkamo4zD6XgEp7FATE1xHs3g7yvczsoE5sdRwgjYdmGXA2CLk3zuh
-	 8bxXtPQyax/xcH0NiBM+j59Z1AE1R9hWQJ8zT+XZukZDucahdahREzDNZxEP7hSxOnw==
+	t=1793048909;
+	b=m+SEvswsvhI6VhhMYreBLLlr5fU7MZ7eEtt5at0pgK0e9f2WDyKMx1S1gArrnCvu7F9B
+	 I9l6d8Mg5Sgmo8KJAoaNDmPb40+h5DajpMk+PHRPUkRngAVOI6YAk7c+UDnWWHrZNvm3c
+	 pJhituZGxW0PyoFHv6D5zxQGtnlYYRaNDkDzJiE54YJgkSMKrK6LoSbMvsRHJrAP4j2C7
+	 YBcG4WfagXpX8KPdBpmkyEdGTTbk5tIXte2K7SrDkmkfr5g05pqvkuENOGjhtLsajy23H
+	 Bi41eMDO1ByoODnM3BvBkOVCsXXmc2EFZfnl55BlpdBkvitAuSL7I2O4mBn05daYKgw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793048906;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793048909;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=PC1CXbiHzhQLku5W1cl0FjvjhWJ5KEZGUIcph1ecHwY=;
-	b=Kx0O2T9Tqsgt7o2tcTdXzSREf4NBivUdHcRbwYot96sF5v6r+AsEC1yHzG/D8aOv9Zw6
-	 WQhpAb0tKgF3obb/iaxUZXRNgzcb/wvwsm08BlmnBbpDVRN5DjF61fsc8LZSQplqT+JIr
-	 GcM3Abw/aEoqHS6N6rmuectM8kL8bDGnVGeyCG3cdmj5S9imhMBepu40z6MWl/7Z5noBl
-	 iWlXo9ciOOCSmg89ghuu3li1yOuO+FYt4F/s5pECSLpCF+hKBJ6xJrfSt4/Dnc+G8sIgE
-	 623q8NmvvPtrgf+H3ZFaOf9UBmmxpQDkruUlkFqRt3BL1erKnGgU0fH2dCgoZQwKL8w==
+	bh=aZY6emueEsceME7nXNq6gUfKhqrQcT2cFezDIABkUGw=;
+	b=xODoqTUr3/OUb5DaLnAJnSao6m2Zb+T3LoH0kUXvvOJipi6O+MCJa22Hsp1+A3tO3LlB
+	 qO8IQ+pjqM94IyVyziMPHTnPQM3KRBkbZNeVh6Wq2OP13fygrLaKqervJXxPwWIwdriaZ
+	 6Fzus9Wbstfm5xf3V984UOfXKp1zK0ClT2BP0FbGGG9cDgkeQ3eYUKSz8Se2riljuvrCa
+	 ZMYaLboIqL9j+u/jBbXB1waOEoUZbCpEjG7hHWGQXtzBTVnN9GIbcajNSyBHdAkkge07R
+	 0fdJ+7gYi52qVwp6GIsagW2Cc9uhpK0eh1/25XkGmGFgwUFaSVy54WIUct/hbR9EbBQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CQuxmZUJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hwhsj8kN;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A2E1606A31B;
-	Mon, 26 Oct 2026 21:08:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D763606A31E;
+	Mon, 26 Oct 2026 21:08:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CQuxmZUJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCCDF1F01825;
-	Mon, 26 Oct 2026 21:08:18 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hwhsj8kN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B4DF1F01828;
+	Mon, 26 Oct 2026 21:08:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793048905;
-	bh=PC1CXbiHzhQLku5W1cl0FjvjhWJ5KEZGUIcph1ecHwY=;
+	s=k20260515; t=1793048908;
+	bh=aZY6emueEsceME7nXNq6gUfKhqrQcT2cFezDIABkUGw=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=CQuxmZUJFoHe/jVdB/Td1vVaISzkT31yz4kuoP+9Yf6XgCaMbl6F5B4zTdm8amOx6
-	 Z2zDvTa7sws8ye+cXb9w90RQJ1xrpGccTMU/inaNNbT9EOS+7YKzBDHxrl8TVHJpKi
-	 jQVOUH5FOREAqLhZHRorelHQKb4HpsMDpXypnX13JNXddnVaAyripGFIM3k/BAYi3t
-	 qhee9qBa0Muu2zQtovUANgP48Gz45LaFAzSypGrjypZDV75SDXJOWSKQO9cLhgq8IV
-	 aahuPEKJro72FUipgua8rXcW+Tz43i0i+D+bXeiJ5dnHRDltvwZPwpMrkGuVDew2YA
-	 VT7p4t6xKB7Qw==
-Message-ID: <ebc7bde1-f52e-4da8-b16f-822d6c0a4d74@kernel.org>
-Date: Mon, 26 Oct 2026 18:45:48 +0100
+	b=Hwhsj8kNM/003xoVUCIY6kkGhTMwCG7vilt/Dph6Rs2EcwYc9BgMFYtM3gSdCLUv4
+	 I+tMEzKtq5KAbamFFvZx7+ti1rXjRJsMZjvz0qerVCMxXjC93hhuyyMUiLAmtzc1/W
+	 LR4Z/+Pq0jLyAo39zmyDSxqVjNIeiDuZTxpYCVfdxa8mhWwNuCyhOz1ppbvUAknygE
+	 3GYifpJYvEc3MVOEyQZ5/oL5Xo0WCWkoroRzPUaoRpTDIFj7D2vLbekCufU0BWV8ka
+	 oeA1q6H6o0L+DLOpROZC2NULQUuPdxHZ3YYT75nxwHQAPF+Dr37k+z7MxY7tkjCqzh
+	 wc8fUODq2yO1Q==
+Message-ID: <5d441cff-ef78-4bdf-b727-9eb697ca7478@kernel.org>
+Date: Mon, 26 Oct 2026 22:08:16 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,24 +52,14 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCHv7 13/18] mm: Drop fake head checks
-To: "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
+Subject: Re: [PATCH] hugetlbfs: enforce F_SEAL_EXEC on chmod
+To: Samiullah Khawaja <skhawaja@google.com>,
  Andrew Morton <akpm@linux-foundation.org>,
- Muchun Song <muchun.song@linux.dev>, Matthew Wilcox <willy@infradead.org>,
- Usama Arif <usamaarif642@gmail.com>, Frank van der Linden <fvdl@google.com>
-Cc: Oscar Salvador <osalvador@suse.de>, Mike Rapoport <rppt@kernel.org>,
- Vlastimil Babka <vbabka@suse.cz>,
- Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, Zi Yan <ziy@nvidia.com>,
- Baoquan He <bhe@redhat.com>, Michal Hocko <mhocko@suse.com>,
- Johannes Weiner <hannes@cmpxchg.org>, Jonathan Corbet <corbet@lwn.net>,
- Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>,
- Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley
- <paul.walmsley@sifive.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Alexandre Ghiti <alex@ghiti.fr>, kernel-team@meta.com, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- loongarch@lists.linux.dev, linux-riscv@lists.infradead.org
-References: <20260227194302.274384-1-kas@kernel.org>
- <20260227194302.274384-14-kas@kernel.org>
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>
+Cc: Jeff Xu <jeffxu@google.com>, Daniel Verkamp <dverkamp@chromium.org>,
+ David Matlack <dmatlack@google.com>, Pasha Tatashin <tatashin@google.com>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261026205555.2918396-1-skhawaja@google.com>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -116,53 +106,56 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20260227194302.274384-14-kas@kernel.org>
+In-Reply-To: <20261026205555.2918396-1-skhawaja@google.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 2/27/26 20:42, Kiryl Shutsemau (Meta) wrote:
-> From: Kiryl Shutsemau <kas@kernel.org>
+On 10/26/26 21:55, Samiullah Khawaja wrote:
+> F_SEAL_EXEC prevents the exec bits of a memfd from being changed once
+> the seal has been set. F_SEAL_EXEC is included in F_ALL_SEALS, so
+> userspace can set it with F_ADD_SEALS on hugetlbfs memfds just like on
+> shmem memfds, and F_GET_SEALS then reports it as set. However, the check
+> that rejects the mode change was only added to shmem_setattr().
+> hugetlbfs_setattr() never looks at the seal, so the owner of a sealed
+> hugetlbfs memfd can still make it executable with chmod(). For the same
+> reason, MFD_NOEXEC_SEAL provides no guarantee when it is combined with
+> MFD_HUGETLB.
 > 
-> With fake head pages eliminated in the previous commit, remove the
-> supporting infrastructure:
+> The memfd selftest already covers this, but only the shmem run passes.
+> When run as "memfd_test hugetlbfs", the test aborts in SEAL-EXEC because
+> fchmod() succeeds on a sealed file, and none of the remaining tests are
+> executed.
 > 
->   - page_fixed_fake_head(): no longer needed to detect fake heads;
->   - page_is_fake_head(): no longer needed;
->   - page_count_writable(): no longer needed for RCU protection;
->   - RCU read_lock in page_ref_add_unless(): no longer needed;
+> Add the same check to hugetlbfs_setattr() that shmem_setattr() has, so
+> that a mode change touching the exec bits fails with -EPERM while
+> F_SEAL_EXEC is set.
+> 
+> Fixes: 6fd7353829ca ("mm/memfd: add F_SEAL_EXEC")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
+> ---
+>  fs/hugetlbfs/inode.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/fs/hugetlbfs/inode.c b/fs/hugetlbfs/inode.c
+> index 01c4d6f44ebe..56e0588d295d 100644
+> --- a/fs/hugetlbfs/inode.c
+> +++ b/fs/hugetlbfs/inode.c
+> @@ -842,6 +842,10 @@ static int hugetlbfs_setattr(const struct mnt_idmap *idmap,
+>  
+>  	trace_hugetlbfs_setattr(inode, dentry, attr);
+>  
+> +	if ((info->seals & F_SEAL_EXEC) && (ia_valid & ATTR_MODE) &&
+> +	    ((inode->i_mode ^ attr->ia_mode) & 0111))
+> +		return -EPERM;
+> +
+>  	if (ia_valid & ATTR_SIZE) {
+>  		loff_t oldsize = inode->i_size;
+>  		loff_t newsize = attr->ia_size;
+> 
+> base-commit: f1ac44c32cba88ad65dcecd4a279661d14e93651
 
-I have an AI report that removing RCU read-lock was wrong.
-
-The sequence is trivial:
-
-1) read() -> .... page_ref_add_unless_zero() -> atomic_add_unless()
-
-	int c = raw_atomic_read(v);
-
-	do {
-		if (unlikely(c == u))
-			break;
-
-We pass that check. Then we sleep (rescheduled, vcpu rescheduled etc)
-
-2) Page gets freed
-
-3) Huge page gets allocated and HVO makes the struct page read-only.
-
-4) 1) continues
-
-	} while (!raw_atomic_try_cmpxchg(v, &c, c + a));
-
-
-Then we try to write to a memmap that has been optimized by HVO and is read-only.
-
-Apparently easy to reproduce by adding a delay before the cmpxchg().
-
-
-The AI fix I received alongside the report is obviously complete garbage (as it
-causes severe overhead on all fronts) and I am going to spare you from it.
-
-Can you look into it?
+https://lore.kernel.org/r/20261026-fixes_shmem-v1-5-703206d5fa0c@kernel.org
 
 -- 
 Cheers,
