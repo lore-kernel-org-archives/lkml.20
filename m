@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793056029;
-	b=I+V+W6og6xImcVMUVkTqTy1/hXB9/+h2B+9Ux3a3erXdTPcvadpjaOVUUELgOvcyh73v
-	 SQLEskhoi3xUOn7NUHXrEJX5/a7WKZcQ4ST80fi//cFqWMN/14aDvBCIUXyDgTBf63EEu
-	 j36BkkundyhU27M+gBz9exSSRRb+IFooLOkph0Wc6GFJsMU+de+thhvWHwEfpMiaMA433
-	 emLCIDef2Y0awpCX4m/hjU2qM0qyxFdpVa7e95f959lKPOb2airIyfYf1Ak+tQW+WbS0g
-	 C1P4TbVv4h0+qfCZ1qcg+cU29Ks6+cIT5tp2ZOsQRsZD5e99XmokTo2GULIQt43OYnQ==
+	t=1793056025;
+	b=BkOhwIML2gtr+jVXOXlw2EBQbweCOCcro29k+g37TkCimP8BUWu1x4qYsw88Wr+c4z+h
+	 /PGhpLwt6ylUPOUAkb2dGWLNEnZsezYivFy1qXzijP/xwx/f1VVfOZt9Kz7unKRNu01vi
+	 gD4N2uAgt2HUgc3//PShcciHScUwj6bAMNHU9CftmN4K/oBPBnseQQTLl05NuLYizWAOL
+	 L3CK3/a86nrskj7ClKNzMwJAEjNb8P06zPQtjDwLFoTDS8p1Yz9Hm4KCWLVQ2jTzJh2RI
+	 GpOIwmMrxL9TV+7HzvsTFOPKdt+tNyxgqwobr0Cb9XEWr+B5oUYDEM3S+RshNGXe2lQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793056029;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793056025;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=V+H0UeILhgx+FzPqIGM1ayP/WqlqIwGNT6ggr7OtvKo=;
-	b=p90Y+uckga36FG4zNj3olxgDPmItfXm+A7ukLSLAGwFP3WVCmIBLLN81jitdlgVSypaZ
-	 gGafcJk7/ebvbkDkbTjlrryDAEJkojiLfRvVzUz+Q4sNKYfmqUm1zI3iEhwGYpGKdbTuh
-	 UYqTS1NxoI6VOODvPOSy53RUTTop8sC7I9tVoWsXdiSkPXRC2GJNxsuImB5UeLbCF1xN0
-	 fiyMk3BPNzGQQu3oIzS0Ub/yMJ1rGmf4qJdY8mfhtEy3v10be0rQHKCrmtj2rkRjN5Vhu
-	 NxZHVtk4w3KuQI5o8VMykPvrFsEviGQV2Suy057nFmxDayzzfbLhWw/zUBhWzqfm7GA==
+	bh=oPD5SqKlTZOC0NnEMGcHJVShraHtb9hDhDLXr3wErmU=;
+	b=NXX9K45gaCahflBMIQXrGXSVx4UG2IW0YZsdnsnEveYK6p7YxjeWvWedWVmaM3qkJPWy
+	 2cQ4lC/G7Cqa5KaNhS7wdbIq4rWXZibr7qdmdskEPgIU4Q51gT7Y/K1KELkEHD1Gm9TeZ
+	 +ahkjBqTjkq5oNhpXR3SN67htT+8GXxuQ7e53yuIX0uAozGb0eQj7zYQfSlKUapP2CVca
+	 sgQQjjyy7uE0brDguj8F4PFTFwCU8iE2yyeAvG0viy+hbmuNqo4rmyQlsCLrA2ExuBX6F
+	 mnZeGg8c4BabWa+mO9mtN707vogmcF7ki3bKM166uZcAqPzmsztCVntrjc7kt97j4Kw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ICnadLoG;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="mz/ypiZT";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17CF0606A324;
-	Mon, 26 Oct 2026 23:07:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72E43606A322;
+	Mon, 26 Oct 2026 23:07:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ICnadLoG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03E2F1F031E1;
-	Mon, 26 Oct 2026 23:07:07 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mz/ypiZT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 787EB1F031E1;
+	Mon, 26 Oct 2026 23:07:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793056028;
-	bh=V+H0UeILhgx+FzPqIGM1ayP/WqlqIwGNT6ggr7OtvKo=;
+	s=k20260515; t=1793056025;
+	bh=oPD5SqKlTZOC0NnEMGcHJVShraHtb9hDhDLXr3wErmU=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=ICnadLoG14ZCmYuBvXwz6QpKR2QsKMo/GbEC83FNh4Nzh7X3g9sTVuQU5TVQen8p5
-	 TD3VILq+UMJg1WeF6Tge4BPRGHl4+QyMqIyRncryAYevCMBt0567q7blYmybHCewhU
-	 viN1ihwPJXAgXK5nmKv0D0A4uOJzYeF5TI1i5jgYZ/DXp30eVoo93ZJAv+us2qwBPp
-	 fOtLchB+wBC3+OsC8eDgpqSz+qYYX/iJzM9hvPTgWMGzctGSHRaWjPCPalmyqx6jzG
-	 e7l9nj6eXf1E7ctDVdZEf0z/S7qeh4EIwUGfAftdCzKIxeVqUOWLtAhNntBDnAmgFt
-	 4AnIUCcl8I13Q==
-Subject:
- Re: [PATCH net v2 4/4] net: phy: as21xxx: handle odd firmware on loading
+	b=mz/ypiZTINTy1u8SRMIn/2UCfkCCeTs6Ki6fA97t4Vz0KTe9Z1aEIG84Ad2KXwE5f
+	 E3wQ3P4IhKoNZzN1ZMgEZvLboEHEvDJ07CS2JsRv+DYQfcUwNB9vEEbA7lPu8eqiD+
+	 XRXVLLKO6v80TFKmIOYGhh6yziDTJrHi/AKVlrjUca8e/i9VcL7pObgzeT3O0nCKGs
+	 aCBSSH/hPhtAluQvlFpqTowdQTD00w6FKu9UJsAlgLD1TWF3nR1eSn6MhF6rifc6oo
+	 4Z6kPmcKrVcI/fB16MsNfVcyzCp3Z1Ecs4jFylLR60cd+X5sNwmophUjGufEe1nXEZ
+	 O9U/pQlmAm51g==
+Subject: Re: [PATCH net v2 1/4] net: phy: as21xxx: handle corner case with
+ link and autoneg complete
 From: netdev-bot+sashiko@kernel.org
 To: ansuelsmth@gmail.com
 Cc: andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
  davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
  netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Mon, 26 Oct 2026 23:07:07 +0000
-Message-ID: <179305602759.3134.6990761386999914981@kernel.org>
-In-Reply-To: <20261022222955.698722-4-ansuelsmth@gmail.com>
-References: <20261022222955.698722-4-ansuelsmth@gmail.com>
+Date: Mon, 26 Oct 2026 23:07:04 +0000
+Message-ID: <179305602406.3134.12536030010913078225@kernel.org>
+In-Reply-To: <20261022222955.698722-1-ansuelsmth@gmail.com>
+References: <20261022222955.698722-1-ansuelsmth@gmail.com>
 X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -70,53 +70,62 @@ you want to address the nit picks below when you respin.
 
 Low priority / nit picks for your consideration:
 
-- [Low] In aeon_firmware_boot() (drivers/net/phy/as21xxx.c), the comment
-  directly above the firmware upload loop still reads "/* Firmware is…
+- [Low] The commit message for "net: phy: as21xxx: handle corner case
+  with link and autoneg complete" describes the wrong condition.
 
 --
 
-net: phy: as21xxx: handle odd firmware on loading
+net: phy: as21xxx: handle corner case with link and autoneg complete
 
-This commit changes the firmware upload loop in aeon_firmware_boot() so it
-checks the index before reading data[i + 1]. If the firmware image has an
-odd size, the last byte is now sent to the PHY mailbox as a zero-padded
-16-bit word.
+This commit makes as21xxx_read_link() store the autoneg complete bit
+from MDIO_STAT1 in phydev->autoneg_complete. When autoneg is enabled
+but has not completed, it reports the link as down. This is the same
+approach genphy_update_link() takes.
 
-> diff --git a/drivers/net/phy/as21xxx.c b/drivers/net/phy/as21xxx.c
-> index e2988cb10c047..db1a7cd68cef1 100644
-> --- a/drivers/net/phy/as21xxx.c
-> +++ b/drivers/net/phy/as21xxx.c
-> @@ -325,7 +325,9 @@ static int aeon_firmware_boot(struct phy_device *phydev, const u8 *data,
->  
->  	/* Firmware is always aligned to u16 */
->  	for (i = 0; i < size; i += 2) {
-> -		val = data[i + 1] << 8 | data[i];
-> +		val = data[i];
-> +		if (i + 1 < size)
-> +			val |= data[i + 1] << 8;
+> Add missing case in custom read_link, when autoneg is started, autoneg
+> complete bit is reset but link is still not up.
 
 [Severity: Low]
-This isn't a bug, but should the comment above the loop be updated too?
+Is this the condition the new code actually handles?
 
-It still says "Firmware is always aligned to u16". The new i + 1 < size
-check exists only because size can be odd. The commit message also says
-"we can't assume this will be the same forever".
+If the link is not up, MDIO_STAT1_LSTATUS is already clear. That means
+phydev->link is already 0 before the new check runs:
 
-Nothing enforces an even size either. aeon_firmware_load() passes the
-size from request_firmware() straight through:
+	phydev->link = !!(status & MDIO_STAT1_LSTATUS);
+	phydev->autoneg_complete = !!(status & MDIO_AN_STAT1_COMPLETE);
+	...
+	if (phydev->autoneg == AUTONEG_ENABLE && !phydev->autoneg_complete)
+		phydev->link = 0;
 
-    ret = aeon_firmware_boot(phydev, fw->data, fw->size);
+The check only changes anything when MDIO_STAT1_LSTATUS is still set
+and MDIO_AN_STAT1_COMPLETE has already been cleared. The in-code
+comment, copied from genphy_update_link(), describes it that way:
 
-Someone who trusts the comment later could remove the guard as redundant.
-That would bring back the out-of-bounds read of data[size] that this
-patch fixes.
+	/* Consider the case that autoneg was started and "aneg complete"
+	 * bit has been reset, but "link up" bit not yet.
+	 */
 
-Maybe the comment could say something like "Firmware should be u16
-aligned, zero-pad a trailing odd byte"?
+Could the commit message be reworded to match? The case being handled
+is that the link up bit has not been reset yet, not that the link is
+not up.
 
->  
->  		ret = phy_write_mmd(phydev, MDIO_MMD_VEND1,
->  				    VEND1_GLB_REG_MDIO_INDIRECT_LOAD, val);
+It could also help stable backporters to state the user-visible effect.
+Without this check, as21xxx_read_status() can move from link down to
+link up while genphy_c45_read_lpa() is taking its
+!MDIO_AN_STAT1_COMPLETE branch:
+
+	if (!(val & MDIO_AN_STAT1_COMPLETE)) {
+		linkmode_clear_bit(ETHTOOL_LINK_MODE_Autoneg_BIT,
+				   phydev->lp_advertising);
+		mii_10gbt_stat_mod_linkmode_lpa_t(phydev->lp_advertising, 0);
+		mii_adv_mod_linkmode_adv_t(phydev->lp_advertising, 0);
+		...
+		return 0;
+	}
+
+In that case phy_resolve_aneg_linkmode() resolves speed and duplex
+after the base page and 10G link partner bits have been cleared. The
+link can then be reported up with an unknown or stale speed.
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261022222955.698722-1-ansuelsmth%40gmail.com
