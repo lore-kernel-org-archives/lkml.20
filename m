@@ -1,89 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.45
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793006691;
-	b=0Hk2eMGiyLcj7VPp1VgHWHVLoeMIEsVlbWNu+PLOfZ6/x7OLMELYhWkv+2aL6uufKxto
-	 0nm2EyrhK5q3nt0hPKumbqESeNTh9w+QpTUZ+Y+SHmXjcwqphzSC5Ytpug7erWT1i16+p
-	 pTNLvgSEGWGYkT5KX2G4zJ7DEkVUIoZIZglCgZIslIIK9QpR1JYtBKk5RGflGEjiwDEf8
-	 MjbcutRDhYAZKWzjUNQqAoP6p81Mnn4/+SJtdMtsAImF3vZfaNVoA5uoGv1IZjl0l/5BK
-	 QYo2iU8ljbpcEFtWjm0uvYZwAMh7hPb3wsBaMGTe0F4iHqtdKaQG3sNqS8/6HAuTh8g==
+	t=1793006700;
+	b=nFqDeYSFDx2ETy3PpJF6ScGHKljEnRsNsWb1JZoL276IWHabPi4jA8yy17MvdoUW035i
+	 CUi66i0nJbzpRUxG4aljOnFxnTL+Fqo9T9pHsF8mnYWleDAqo3IeN7OfZKoknmi444wDX
+	 dgFdKe4YEh3SLS7edA8L+zLaMiBht3UqFY5wsOBgaQJHq1+9xjjX5Yc+Juk1B8zYvP6OP
+	 YniNF0/8X1SL7HzdIYwLy1/MvvBN8Vq1VrszX/plcxQ0xtNNmy3f5YQCyukRkIbXVzBo+
+	 oVYnMGU2eHbxbdTHE3uAvFTlSrGGUEeRG34vz9Zy0lw3ka/GnThB3Qz+3my5SY5DeDA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793006691;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Date:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=Lg6XI+8K9pvkjnx+SeSWR/YM2/gsXFi7GaWG0PrJeu8=;
-	b=KKGoS9jiANwWFhxlqjEzTqdZT3op+4eK1n4ao0ZPik6ePU0CfHw6TG3j3UEWYD0syolZ
-	 yTEP8DnEVQmn4EtvbdOD1OfrDRCNWfrO9N9VMwwMH/5VTyi2UkwZEnhKORvLoOHXelTkZ
-	 pYfGOEjptYdDRBcBcx949hPTSHdhxXqTUP6w7w5J6F7fubS3gXZpxWX2FctljEIxh/SNB
-	 mnuHQkjVgPMLUAYRfzVj34qCT6lgQl0RBmtU2bIr+F1rPtnXl8tEJim+0dpo9outyM9Bs
-	 f3uTK7hOMqYsmSOyXyoWl/O52WMoVaehH6gxT2Xb6cBCeXfPWpUsjmG+ZCjCzvq1bOA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793006700;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=iH7cQ2YJ8diUnJspTVTMz6UMogpLRPO/6WHl7KC9WGw=;
+	b=oJte2aFIR7pTs/jiO6hPsGQ8F/f5g3x8ZqgOkZRI+o7S/nXE6/WBUhGQEjx51X3w2GXH
+	 Y6PihDMSCFIWRNxW8HipL9aDrLmDbOQcV3CVx8LBlpzfmQASf7SzgOJKLGMWNotAdQRbq
+	 txd0G88XaqciCC7amYXP2qLjvr2e1ddkmqWkyLf3UrYAGI5Q4q0gfKPunyvwtVdhASxDR
+	 uUBn4zXpOALeszksJsQGu1cwvtQzqzKg8KvhmwMl8WDURNK7rCU7Dl0bBBeo7spDU7lYK
+	 DhsyS58lV8Jjkvhw/ByrPgz7XOveNfzySdTpAb7KyabQgu+KG8arSOkoU2xTASCZjDA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=PTLh80nx;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=npI9svaZ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.45
+Received: from mail-ot1-f45.google.com (mail-ot1-f45.google.com [209.85.210.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70BD7606A31D
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:24:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70BD7606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 750A0606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:25:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 750A0606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=PTLh80nx
-Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
-	(Authenticated sender: pza@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id AC36D200B1D;
-	Mon, 26 Oct 2026 10:24:48 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793006688;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Lg6XI+8K9pvkjnx+SeSWR/YM2/gsXFi7GaWG0PrJeu8=;
-	b=PTLh80nxY1QPZi8wIcTrvP+syHbINljcxKLZStPzXXM18whry4sfkndumwMXgQ+2OmHxHm
-	6TZWA2pldjlceqCX59b1yqqPHBt9vLWs4aZOHH4XxABpDjHDDviLvzTjA7BMmO4KK25uVh
-	v+e9A4TuQ7Or7QM+riWz3wX+KTi6nFd57u/yseitxyvOC4yR7hRjelGuFfE1IiU3ePHTAV
-	qHkKrgSeVA0+ag3mHKtMVXKBfNShTUwUnGE/QFBmvc67TWa8qAI7xfpXi4Yq5MICaFeF7y
-	69XQaC/oNWIjRgcFmHaKUx6meifrA/nS5mR01p3CC1H4yOsJ4YULrbzQKQF0fg==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793006688; a=rsa-sha256;
-	cv=none;
-	b=QHpvNye/xZc1S07MueqTm+zFbt19KjSToLVucI6ZSJqftJpM3H9CoLWe8HA2hSG/NQC05W
-	7Jzq/RKG7JLzm1iUNtATFMISySQqCjyEqakt0p0ufaDoVwJtnG0IiWp42JuT4EMmYdmliY
-	O/UZFWJkxVlv45hEi8SYJzF9PRNb0KFnrwfA/T3+w6fOMjRRFOizuHekW1aFfDrmxQtXwj
-	dxQQQ/AjQxqE4IJDwwAfzXuuTXeyIZ4scjTQzI5r7j3W7xp3WbbVBWHR2uazwztm5ZeMzK
-	eVJL4FZOHwYjkCCMYoLYu2YWE3l/lm8VyADlUrt5kwVUGuCMC3gKWPUozYwzGQ==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793006688;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Lg6XI+8K9pvkjnx+SeSWR/YM2/gsXFi7GaWG0PrJeu8=;
-	b=fglCNAzwzIGoQmaZ5OhE7wo7hbAdo/qJSyh3+qPwkwiLMIMHgp2RnN8UutAL6BaK7lz702
-	AXUvk3flOnK853nrUYRYUYuviS/1T3U4ZI7heIt2Mi6/HsMNJXo28qY8+d5I9ekUCzxIt3
-	NknaX49NhP9NJtsaknb3zPmIwmph//HjaZ7K2gAuadZo8LLJWchcXvZAGo0FWc4d4dmuB4
-	pG7N0lQ1HE/bDefTWF5m9TPjDma+BEf4425KkVJf+SvAlJkxQKTOHHBWHhFraqBtsNNhYr
-	8zjhr2Fdz9YDb1yVPxGwBX/+o8ObIB2AOjQHMEqcDuzFx8sygD8V819v3lalOw==
-Message-ID: <9e181c3bf6a8292996c010904a0890d69910e6b9.camel@pengutronix.de>
-Subject: Re: [PATCH v4 2/2] reset: gpio: Set can_sleep for the shared reset
- serialization
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: shengjiu.wang@oss.nxp.com, krzk@kernel.org, hansg@kernel.org, 
-	linux-kernel@vger.kernel.org, broonie@kernel.org, alvin.sipraga@analog.com
-Date: Mon, 26 Oct 2026 10:24:48 +0100
-In-Reply-To: <20261023071609.3795354-3-shengjiu.wang@oss.nxp.com>
-References: <20261023071609.3795354-1-shengjiu.wang@oss.nxp.com>
-	 <20261023071609.3795354-3-shengjiu.wang@oss.nxp.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=npI9svaZ
+Received: by mail-ot1-f45.google.com with SMTP id 46e09a7af769-833e671ee9fso2544171a34.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:25:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793006699; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ld3DwFVgpIHveFLwhiLN7tc3lCmMlcThwTqHzao+o4gNV2q6wZ79V1IuD99RVGi01X
+         DLKnIqbQLVRyuZskwprFV8oUv1W9apQ5CLp3KXEEEYawuWngsJAbo0kl+E/LM9uIXhL6
+         g/0KpDzg+Z924XVzEFnioygLtL7Be8fMjfPV65X3nkJ2Un7c/5NIKZppnnOIUyZCp1Xc
+         xT6upcqMVmsR7Lw6qqBpMU0jj9UQ9NmkrOxC3JFey2FUWl2YtJHdvSvgvQe9MDlnrh60
+         JBbV80mKBZ1s1utkpzbswAPiUH+mgRMZuBwrlc/H+SYATJtlnccfhT8AXL3lPuRUOfQy
+         B7uw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=iH7cQ2YJ8diUnJspTVTMz6UMogpLRPO/6WHl7KC9WGw=;
+        fh=PNLiUyMMtaq/iHhG5v34eE0HXUaScVvmnIEI0sLZRiA=;
+        b=OVeFDeCvYKhMjGCEMDmZ2rjJjgqGwIc9Zl+KCymsdJXZKEytRn28qi0/MzTuqcZIcN
+         rTQLmXvxOr/cKJvbM9LFbscTYupY6WEeD7XNTLoaX64bH4WQCAv0LVJ6DFMjJQ0mlx4n
+         a1rwrlF7b1XT2infZv1Vu5DaniCGY4cQhrHfG9efMypHwuVn+21Ihjl3vcbImLun68N3
+         I7N/NtDNfZmFT7VqrUbTWvLDGYWBZ4OSRu0mZwAHzq/eGCQPMiOpbT76bXdmYfr/WKI9
+         4PrJUQN74xMzSr3Z/MNXd9VuTTJ1NU+0YbkQETZI+gO5wcu0bGhe5GbHcI6PDMpCIjTC
+         33hw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793006699; x=1793611499; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=iH7cQ2YJ8diUnJspTVTMz6UMogpLRPO/6WHl7KC9WGw=;
+        b=npI9svaZBA6Q/fnfV8DcOEJhjM9ZLDS7VKmClWBDff5edZZiF6kchNGvifgPa1EOZd
+         AeVbItT7ET3ew8/gY4XKFNZIgp3QInHg8Atm2aMpQYuGE2lDS8j4Ik7d70Nh4SaZ4PvN
+         l7GdMvWvPCwYQzqgikQQHAV/HNGacsVxOHYaiMYK1V86tSfTxFuGjrmAFw/HXRc5qCw/
+         vjDNT4a7X1v2QFgwiBxa/4Xs7AxgS7nD5gqWba2iwXTCO8zzp+mhd7kHZt1TnlFEJEvV
+         SbdIv1kthQ0diCNhkVe+TB2b7HCMB2gfbD8m5PMKjcE50+qjjAzlI5i1Rc5GPxgeNnPo
+         d9sg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793006699; x=1793611499;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=iH7cQ2YJ8diUnJspTVTMz6UMogpLRPO/6WHl7KC9WGw=;
+        b=WRjwVqGR3a5nKwpfz5wP/0zVbFm8sMDhnTUwiWk/NF7yrxKiyI1ubTS79BPBy9xZvH
+         nZTjnnLIi+JL5zZXMugp4WL+plRYkZLo5qSxFsvo2HNgeMmY15OUkFyAT2EOYnHiL+c2
+         mgI0Ji7ao1zvTxr9uRYvRJWrCcDDIMzvK634jKC7d6RUCZvY+TVI/+PQxbgZArf4bAdf
+         1UuhA2c3ksNuLQdGbHJ52EBGoXrOy28pmwO8syWaIdAphnYe0JSIaWme+d6h3Jev6/jc
+         wcqIpATIInXxplK7a5t1ObP7Hvcfpolfw9v1cMbYyf/lTg8M9Pi8SUPpFb7vRNQV1pgw
+         YeUg==
+X-Forwarded-Encrypted: i=1; AKwUvBz2j/fqDRxV+rCdQcDjQwBnqOuqURlwQ0U4j4Pwwa9HdQHhDXdhwkHFs1RkhARMWTfDkbksUQlvo6tKsl8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJk8y5EoWiJbzJB1UZGuH0Qs+wVsyBTf29H6Yy1Ye/K7V+7Ehwm
+	hNKorandftDSR1wmGvfy9ZjcSkhctJGKilU0wLu09+nODaAbd1FXx2YPiSPUq3LFUfcck4Q1S6I
+	ocLEVs2vwLwB4qOwBIn9CVE2uJItR9sg=
+X-Gm-Gg: AYBFou2/Uj+kHbnjIIw4gwqGjffcJje/9+t+Aq3328Hcjh7uobNqvgN5cuFIuA23KkI
+	ym2wWgJ9yGctKwH0bU8zshdxIg4ondH73SXEZhAWFwj4qE1C/ajRsVWzDnFFVX3EavnPJBa5ujM
+	hmyNarA1et+JKPC6isL+mT64U3fmteE1ngGf0712A6LWu+gwNBgfTqsKzBGOjlUEbAAToZrrP13
+	RmfYZUDuCkvwpJmfMM+yCSMhmAxJJz5JLajisY7vtJ+E98OGwL6KJSoKbdLVCRq/xE1Kkw/+K64
+	vaSX+CiD8HdIRb/yhKZe+4vJjXHLKhJbci/AURpOFNkwalI8h8Z33Bbj94E+9AdAip4v/JCkqmz
+	IiFJ3XmEO8aZE3+TGDw/c3QZRJopirFsbEDRxQkXK1gn2Z/aC06aRk/VTWpn/MMQD6E3Yg9U=
+X-Received: by 2002:a05:6820:6fc7:b0:704:d59f:2a2f with SMTP id
+ 006d021491bc7-70ba1004bfdmr2405887eaf.86.1793006699407; Mon, 26 Oct 2026
+ 02:24:59 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,20 +104,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <20261026081832.60570-1-himanshu.bakshi478@gmail.com> <at8UoLDzrO9ypMeR@stanley.mountain>
+In-Reply-To: <at8UoLDzrO9ypMeR@stanley.mountain>
+From: Himanshu Bakshi <himanshu.bakshi478@gmail.com>
+Date: Mon, 26 Oct 2026 14:54:47 +0530
+X-Gm-Features: AclHuK9P_GrPtY5hmmGoqr94XfczFIROopEnJs5pAYehQGelpuKw7iWG8V9_J8c
+Message-ID: <CAGLmz9JD3UQ+4cAV4nigm8U4Jtb47=oBGi06miQWuetenszoYw@mail.gmail.com>
+Subject: Re: [PATCH] staging: fbtft: Remove unused macro
+To: Dan Carpenter <error27@gmail.com>
+Cc: andy@kernel.org, gregkh@linuxfoundation.org, dennylin0707@gmail.com, 
+	cenzhang@linux.microsoft.com, dri-devel@lists.freedesktop.org, 
+	linux-fbdev@vger.kernel.org, linux-staging@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, dan.carpenter@linaro.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fr, 2026-10-23 at 15:16 +0800, shengjiu.wang@oss.nxp.com wrote:
-> From: Shengjiu Wang <shengjiu.wang@nxp.com>
->=20
-> reset-gpio drives the line with gpiod_set_value_cansleep(), so its reset
-> ops may sleep. Set reset_controller_dev::can_sleep so the core serializes
-> the shared refcount update and the hardware op under its per-control mute=
-x,
-> preventing a concurrent consumer from returning before the op has finishe=
-d.
->=20
-> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+On Mon, Oct 26, 2026 at 2:21=E2=80=AFPM Dan Carpenter <error27@gmail.com> w=
+rote:
+> This commit message is sort of acceptable but a better commit message
+> would be:
+>
+> "The fbtft_init_dbg() macro is not used, so delete it."
+>
+> 1. () after the macro name to show it works as a function.
+> 2. We care about the whole kernel not just drivers/staging/fbtft.
+> 3. No need to discuss dev_dbg().  That is unrelated.
+> 4. No need to discuss compiling the driver since that is assumed.
+>
+> Otherwise it looks fine.
+>
+> Reviewed-by: Dan Carpenter <error27@gmail.com>
+>
+> regards,
+> dan carpenter
 
-Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
+Hi Dan,
 
-regards
-Philipp
+Thank you so much for the review. I cannot find any call site for this
+macro in the overall kernel anywhere and hence it is safe to remove
+it.  I have sent over the PATCH v2 with all the changes that you
+suggested and will be glad if you take a look at it.
+
+Thanks and regards,
+Himanshu Bakshi
