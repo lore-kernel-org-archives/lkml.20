@@ -1,96 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793002731;
-	b=SwvRiFCtq23Adit0ql2/eMBCqVP4rKmYPHsJbwdtNh9GQe4tlCtjz1fgzXTYgjW+MLo7
-	 dWltow5yPUgdbfzQCNtblYeTBbNqTa8TkOTaOBlgesZVjOhAxlXQE1cAasSGdWYu3MdVs
-	 TzMmKnGFP2qIrmWdvhaPxAVgjbEJgcGYH6Hy8up7nxF/jRposcdHR0ipNWZaIk+K+sqER
-	 GOzUm4ifUeCARvIVKz+edn/Jkba0rbRuZTm3wKd3DMsGMtgOTQuYroyvZ93jIviVNy37U
-	 H3+fZqfP2HD1uqZrNSA2Qy6dJYqukziBYUSVdl3ahnZi45UwxBztI67R+BF6/CwfWCw==
+	t=1793002797;
+	b=OU51OjrYfVKfrOn+Ep4moJQrMTi9/+ebK+AlPwJbycoRIlNFhLGamqkJ/XSENOIkZ1W3
+	 RZiXfbf8tRiT+9EsQKZ7CE9R0ie+bwfMrGdc7Zqk0CCE8jXBu0+G9A0YT3JitoAzzjD9r
+	 CXeLTIPqbVE3W4lzQxaUGqEbF4YQtxwxmgUhWEV39MzQA2Sgl/sSKVHl1J5pJhU8wTtWp
+	 aMtVuYgj7f8ZGw/VOtiLFlJIkzh/ssJGOCYEAfQITYErUCFRrSY6dlaJFd5I2QiSzhoJJ
+	 uS7KztN+xXt6Oy9MnBgCKqYQtFE+xING7CsW6T92+2QUp4HJMTrRUBJ5v1DF4Yj+ICg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793002731;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=E6zA7UN4800aROAky49ikegUFLsqpLG7wSuvYuvN3r8=;
-	b=p/c+X9GlEh4f6FkLfasV2Cr5yhGjr+9xJbtuRTCXKS4J0xKtHBidnH26Wox1VamBZAil
-	 jGe20L4MJu1MBzShsdIy8m6D7tKjEsngD8g/BnfrcLehLr5BQeD4HAnDttPkZEj29HueC
-	 hPqi9YeF16IZrsuJCxHvIoXz/O8VcmmERoeca/F0Jb+owxI2jKmTOFuKvJkDtQIMwUlXa
-	 4/StG+G6SyMDbMJ9C+eyPgigoYGLvK8qAThAF0E766VV/wQrYycLxZ86TaUKmOaGXjq6C
-	 2qAorK97R2bkHHEptwzDf0SRUVVlYOUGh1FzNqHaS+2Ozg5XJiE9z+FJABxvcSMVgCA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793002797;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 X-Developer-Signature:X-Developer-Key:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=IDp3KuAS1tro98BIfEQGyxBAwx1zOi6kq5PMpMaxJjg=;
+	b=exaKtq8UHdTVf+MjL2RhCSh9irltUTUZY5NPiZXDiC8OcBbEb8Wl+Ia9WPK32Zi1TDl6
+	 3F7GSScD6gNx5EgYzKB8keglkiziug0rIgBHUtcSOSzlzvzbLb96OYmUzvr7GGgrlIE6M
+	 zPffAUaLucDl/X9JFtLZBOdCOWXW5KH4GjOwnVcnQLpaVGY1f7Lmu6IUOp9G8LtyZa3Oy
+	 UdDd7luseFZzERDxXyH+nP2NCP/Az0g5GQuj7P/X69pfViGHRkIcg2eNbGyIFtROKzP64
+	 YjknCJH5k232c7mJ/tpjchJCyQNjtEZ+GbI6moG4Anh3rPM+zc8AE6gwZIDQOruN+uw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jmUx5Z36;
-	arc=none smtp.remote-ip=74.125.82.52
-Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O9VHz9Jt;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B772E606A31D
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 08:18:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B772E606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10E61606A323;
+	Mon, 26 Oct 2026 08:19:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jmUx5Z36
-Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-15ea896ddc8so4661114c88.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 01:18:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793002730; x=1793607530; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=E6zA7UN4800aROAky49ikegUFLsqpLG7wSuvYuvN3r8=;
-        b=jmUx5Z36CjBsOtktD8QEtKJbCNVk0kURGGGr2ey4/b5gt/gYuSenOFTb4OXuIYjw0N
-         skQIa+dn08YlsBymAFXtgjH6Ro9DK8y2nuqyah6auruVw8asJzPheR/bRog7JgOioPzA
-         SsJtU2T+e0L3KWMLVh9YqPlhBonbXOPsPwOJFdy4OxJ8tqj2pdJYJxuoaiW2attsatGU
-         nwpQ45Z4PEiPCNJJ00jikpYFb7uuWF35HV29wrfZaFkPdsyBNXrSmfb8L5MYTU73f8LY
-         6udnIbn5p42+IWm8t+kNrPQxqaKnTjTmEulUaywm8ypq3ymZBYEN29HOeYEHjYVpIr3Z
-         VCTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793002730; x=1793607530;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=E6zA7UN4800aROAky49ikegUFLsqpLG7wSuvYuvN3r8=;
-        b=sSf9Lat9Tagj68ZDXtiXh5LB4b09lL+jQ1m5Zsp2xwaAsh+5GNe2Toq9ZlofV4vmTt
-         FL6HQGvfrf+YOW32R8F48bXSJExlXVis5FNWQezzusyaRrKTVyZukB0EjOeCKtxAWSAx
-         Olf0OiG2Ni7kSp4ga4ftiB7FzG0Db0+SBm+zcuLgkuMeA87OXQ8QiKpK3tQaYPCxhkgK
-         la85JxHF5I4Ey0dWeFKu24/+EhioZI0XoM6466sU7t0BGSfQsFiA1xfN50edtx6m7DAw
-         uYcC1PeWA6xyWXvYn6resmzvCqbgp/JmFZLxQGa65R80S3MLTMvltMWHAZ6Xv8uJLfCp
-         jVCg==
-X-Forwarded-Encrypted: i=1; AKwUvBz09ZgSbBgFak51zeE/ij3kqFeFKV2v3nG81SMrwTja7LLzFA7446rJjmhfJsvu0/C1lD2sS0kfgtJoJgE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJJWqgMYzZPgX+hdF94evBsHY4bDWfuaOXEmEBpKPg90KCk7FOd
-	+TtWb150H9RxbBJu/PHUJWS4W3sv9BoFPRqH8UqZ3QIxc32C0c3JDehqN/y7ZfdC
-X-Gm-Gg: AYBFou23beyU9egBor3QJ1VebSHeT7mVRBVITLP4k+SFM25ErWg7Bp1jrRfPQ6Q6jfB
-	oZVInc3Ex59KctDsLH9DpDVrj1lXxJG73FJX7oqh7fe7B+t3xTnXvQH2/VH3/cAwpmSfRv6Z5AH
-	Fc51svbnZvuLCtfLdbWIvvGxROFmiSJxL8PUe3LQhKcr9pD+kLuA/5NJunRXoAEPivjDVQzkzLS
-	Ud0UwEHszcNnT9DiYfo7OWqz3jRCIEvNxYKJmz/gIe+yOP6Veo+TclnqXtt6y8RC8Jj/9jDJ2Sb
-	QrGZ99ppPdi+epqMxr6/qUdB4kF/cN0aFiY62xumV78jkOFm945d1SnWVOIK9nN/u1y2QIa7f6L
-	c7C98USTPkHFRSwRxkcBgFVBiUc/7Y9MdteF5/z3WN3Gv5wjT/daI/kA7YGIOvcY7cWHT6+xxq0
-	AejyR+hw8baqwBuTRWtXH67Jfscnw92joB+I6Tl0cYyjSK6Lu3kkgIGaPbAxobE6eV2TlDWVmIS
-	r2wfu58NY+qXjL3ds1E/Siq0ZJ8fzGxnZtcoYYQ6z8AFzym8o4Rfg5lMGtb5Vws8JLDscoxiSI=
-X-Received: by 2002:a05:7022:7e0a:b0:195:9228:50a0 with SMTP id a92af1059eb24-1993686f4a1mr10019388c88.42.1793002729532;
-        Mon, 26 Oct 2026 01:18:49 -0700 (PDT)
-Received: from himanshubakshi ([2401:4900:1c9b:1c1b:d646:355d:1105:8655])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8ec865esm21698270eec.26.2026.10.26.01.18.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 01:18:48 -0700 (PDT)
-From: himanshu bakshi <himanshu.bakshi478@gmail.com>
-To: andy@kernel.org,
-	gregkh@linuxfoundation.org
-Cc: dennylin0707@gmail.com,
-	cenzhang@linux.microsoft.com,
-	dri-devel@lists.freedesktop.org,
-	linux-fbdev@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	dan.carpenter@linaro.org,
-	Himanshu Bakshi <himanshu.bakshi478@gmail.com>
-Subject: [PATCH] staging: fbtft: Remove unused macro
-Date: Mon, 26 Oct 2026 13:48:32 +0530
-Message-ID: <20261026081832.60570-1-himanshu.bakshi478@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O9VHz9Jt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7A841F01825;
+	Mon, 26 Oct 2026 08:19:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793002796;
+	bh=IDp3KuAS1tro98BIfEQGyxBAwx1zOi6kq5PMpMaxJjg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=O9VHz9JtYo98sgJWsBa8YuuwzTFvQS7xl8hvVKP4mprLg/Mkx8tnP0ZZ9mmqkUIu8
+	 SQ+/J4/iNCUEPx+cSsEkQLGcDX2FtpN9cIgLrDUEkITF2X0h4opy/iLo0+t2QLAh0H
+	 Q6AYwB//FEDbUgEHGo3ecm9NWxnw3m8bqFzJKnblD686i3ADKPr3mqc8M9zf3T9Skc
+	 +hZjk1dKf5eab8JHzVFEYGa3yKg8lTtXL00V/m6uEzic35JKAbMi8sESURXbFqCDne
+	 dvqAkQgCLMarAW1jyTBz64FnQ6DrurShCpc2hay0T5d5aTHaEG8x81gPMICA4JjAZ/
+	 FtugDkyI+BZHQ==
+Date: Mon, 26 Oct 2026 09:19:53 +0100
+From: Christian Brauner <brauner@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [GIT PULL for v7.4] vfs keyring
+Message-ID: <20261026-bauordnung-gestiegen-buden-b22e45a2c1c3@brauner>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3635; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=c8YDQuzod5d24jCN1aOg9riFbzVfK5JShO72FagV3Gc=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWTd55rv/XJ6PqPGk/vtNUfEBDlj3kms62+pUwmOerwlj
+ 2fO5M7pHaUsDGJcDLJiiiwO7Sbhcst5KjYbZWrAzGFlAhnCwMUpABMROcDIsE/ny8Z1BakV5dM4
+ p0xZvvzlrt0nzDO8dNUuX4qVPb3pyWpGhkmiSo+yRfZ8O7e6MUnY3NNo5ne1yV9ibMo/1l/77Mi
+ /nAEA
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+References: <20261016-vfs-v74-41eaf6c4712c@brauner>
+ <20261024-vfs-7.4-rc1.keyring-db88a8f3b5b1@brauner>
+ <CAHk-=wh0gCvsC7A9z_H7her218kSCmd16dqtd9uMfO5ZrSvxLw@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,38 +66,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <CAHk-=wh0gCvsC7A9z_H7her218kSCmd16dqtd9uMfO5ZrSvxLw@mail.gmail.com>
 
-From: Himanshu Bakshi <himanshu.bakshi478@gmail.com>
+On Sun, Oct 25, 2026 at 04:35:56PM -1000, Linus Torvalds wrote:
+> This explanation reads *very* oddly. It doesn't actually explain at
+> all what the patches do or why they do it.
 
-fbtft_init_dbg is not used in drivers/staging/fbtft directory and
-since dev_dbg messages are good enough, fbtft_init_dbg should be
-removed. After compiling the driver, there are no undefined macro
-issues.
+Ok, sorry about that.
 
-Signed-off-by: Himanshu Bakshi <himanshu.bakshi478@gmail.com>
+> The only explanations about what the patches actually do are complete
+> and utter nonsense. They claim it adds some kind of "well-known key
+> IDs". That's complete BS. There is absolutely nothing "well known"
+> about any of that: they are completely new random key IDs that nobody
+> has ever heard of before, but that are meant to be used as fixed known
+> key IDs.
+
+I meant "well-known" in the sense of "fixed ids" that userspace can rely
+on them being fixed. Certainly wasn't meant to mislead. Ok, here's my
+rephrased proposal:
+
 ---
- drivers/staging/fbtft/fbtft.h | 7 -------
- 1 file changed, 7 deletions(-)
 
-diff --git a/drivers/staging/fbtft/fbtft.h b/drivers/staging/fbtft/fbtft.h
-index 40a7567df1eb..16459e4e0ba0 100644
---- a/drivers/staging/fbtft/fbtft.h
-+++ b/drivers/staging/fbtft/fbtft.h
-@@ -420,13 +420,6 @@ module_spi_driver(fbtft_driver_spi_driver);
- #define DEBUG_REQUEST_GPIOS_MATCH   BIT(30)
- #define DEBUG_VERIFY_GPIOS          BIT(31)
- 
--#define fbtft_init_dbg(dev, format, arg...)                  \
--do {                                                         \
--	if (unlikely((dev)->platform_data &&                 \
--	    (((struct fbtft_platform_data *)(dev)->platform_data)->display.debug & DEBUG_DRIVER_INIT_FUNCTIONS))) \
--		dev_info(dev, format, ##arg);                \
--} while (0)
--
- #define fbtft_par_dbg(level, par, format, arg...)            \
- do {                                                         \
- 	if (unlikely((par)->debug & (level)))                    \
+The kernel has two keyrings that userspace fills with X.509 certificates
+at boot: .fs-verity for fs-verity built-in signatures and .dm-verity for
+dm-verity root hash signatures.
+
+Neither is linked into any process keyring. Hence, request_key() and
+KEYCTL_SEARCH can't find them. The only way for userspace to identify
+them is to read their serial number out of /proc/keys. That is not just
+a large file often the names can also be reused and appear multiple
+times which allows forging these keyrings.
+
+This adds two fixed special key ids, KEY_SPEC_DM_VERITY_KEYRING and
+KEY_SPEC_FS_VERITY_KEYRING next to KEY_SPEC_BPF_KEYRING. The latter went
+in through bpf-next this merge window.
+
+lookup_user_key() resolves the fixed key ids to the two keyrings. So
+userspace can add a certificate with
+
+    keyctl padd asymmetric "" -10 < cert.der
+
+and seal the keyring with
+
+    keyctl restrict_keyring <keyring-id>
+
+without looking anything up first.
+
+The following changes since commit 1b7415bf70be95b9a1e7e87d544867881065613f:
+
+  Merge git://git.kernel.org/pub/scm/linux/kernel/git/bpf/bpf 7.3-rc2 (2026-09-06 16:17:40 -0700)
+
+are available in the Git repository at:
+
+  git@gitolite.kernel.org:pub/scm/linux/kernel/git/vfs/vfs tags/vfs-7.4-rc1.keyring
+
+for you to fetch changes up to 503b65da9a7e5447d91222f62399522f2f62a0fa:
+
+  Merge patch series "keys: Add well known IDs for fs-verity/dm-verity keys" (2026-10-12 23:37:42 +0200)
+
+----------------------------------------------------------------
+vfs-7.4-rc1.keyring
+
+Please consider pulling these changes from the signed vfs-7.4-rc1.keyring tag.
+
+Thanks!
+Christian
+
+----------------------------------------------------------------
+Andrew Halaney (3):
+      keys: add KEY_SPEC_DM_VERITY_KEYRING
+      keys: add KEY_SPEC_FS_VERITY_KEYRING
+      Documentation: keys: document IDs added since KEY_SPEC_REQKEY_AUTH_KEY
+
+Christian Brauner (2):
+      Merge bpf keyring work from of git://git.kernel.org/pub/scm/linux/kernel/git/bpf/bpf-next
+      Merge patch series "keys: Add well known IDs for fs-verity/dm-verity keys"
+
+ Documentation/security/keys/core.rst | 13 ++++++++
+ drivers/md/dm-verity-verify-sig.c    |  3 ++
+ fs/verity/signature.c                |  2 ++
+ include/linux/key.h                  |  2 ++
+ include/uapi/linux/keyctl.h          |  2 ++
+ security/keys/process_keys.c         | 58 ++++++++++++++++++++++++++++++++++++
+ 6 files changed, 80 insertions(+)
+
 -- 
-2.56.0
-
