@@ -1,128 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.35
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793055593;
-	b=gHz1qF1qvHuGhp9h2HnLXERAFyYEbx/ic7OVHHztGD8aX+5EZW68dvDwI5ATan6Pqvfx
-	 8MVk7+4DVbkTDc9H1WT8wbfZALvz0YCaGT12LfjdNAmtWXv6fAX5ufRHM65ATz4Y/X+7u
-	 LghKjXMTkDNbHcLlloH+WeEsQm2+GBvY1fleKoubJsrD3tcAqhomnyY0AQZ5qzC6sla87
-	 c9iviB+/YpmINEXRZAqRCAR0UN8/UKUvf6zZgSXy7gF/4NJvE6Q3uQTQ4/MD6tW/w8/0R
-	 lloK+ZV+8u114mEoxGhSRxx0Fvs1bLcUPsbiDghMd73+hV45GNTcjt6WkyNU5W14ERA==
+	t=1793055660;
+	b=q+Aie5l9UGgAqje2FdJs81PEdbSgERFgURwOY2H7+tUkTa+lTeJV+KIAVwN+PD/HpPPt
+	 Wvhitolq18ckprKcMRvbYyQSyVX0aneGoxSRk+7A2/rgPbZQmNHl9CCDRncGqmX60Od9E
+	 +yp0S5G8dgyy+NpZjD4F6cZUdFMFgMIns9P/CRFS5qCjvvKfxEKxYbaB3Epve9bj6tc8B
+	 JsYFNWI+eRobD02XHjoGmMnSEAXlmDp8Cp+lvsy3V31ao6Rmi2LD5Jhv48tgkptI5qeD1
+	 DPr/x0nVqi+USflQM6N618acnu8HdT8mTBItmJNnk9X/PrtY6pibgaCEG4talWuurbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793055593;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793055660;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
 	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=xYFlSdYSBy4efBRscq6PIWjy+kL+seLzZByRLeIBFMw=;
-	b=dkPipy5z2WSFOy9HpnNwrJvaFb98Vusn+bA8S265OULzTg6NCU1qlH6BY759yyeTOnKo
-	 t6Tm1SxxjkyvGKVw4ysCQF+9n5tBZoNlg70m976AXu+034YJ/ygYZUq2galRgF+l/M21f
-	 6z5bPELkGhyQRbkbgTMldzQY646CfZueUIye61O6SbGXPcm5bGJ16Q5O06CHhuruIbk1S
-	 eBPzst5rg0noGHpSmsjVX5eclqJDmuMApllqWHOKJAagL34qPRNhO2HOSqPHOaVSIzzjY
-	 r4Xw0sgEJIB4wBklU+9gDEuKhOyTlHkPwoquE8egYeqcCjMO9eyVGlacd2BAvco+SQw==
+	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
+	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
+	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
+	 X-Local-Domain:X-CMAE-Envelope;
+	bh=ZS1PHJd/1kfglLt+YTBZHOFCcwN5pAQrZFvDsEPdmWI=;
+	b=05oMTgGdjRKkYNVojNqoPJfsnIlLZNnPjhIrg00bXX2egCUJg4Zjdl9k5GNWv9C0Xf2z
+	 n2Hki9f4mw/vrgvj+RXBZHKy6w27HvhmTIRfBGiNEiD0XNseRjGoT6jWJeMuFYj6WLpv6
+	 NlikWZGJR6mpLoOkGWkPBB+Zwx9YkadDiF8Xku5O1cQC2bPKdxY4HwBNk4tUalRX7De4/
+	 cJ/DjHzARqnc4f3oBqotsGiANNZi6093JU4NSkcf98zEUuT9mPkjygsKAypXxHdeyUCms
+	 Q6AthxpfO746XAtgWGtKZs7907C7+kju89YCPokwFyR1srPbnTFHRa8OgKlDqLEhMiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=ziepe.ca;
-	spf=pass smtp.mailfrom=ziepe.ca;
-	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=JtgX6t4H;
-	arc=none smtp.remote-ip=209.85.160.179
-Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=2jM83HXB;
+	arc=none smtp.remote-ip=35.89.44.35
+Received: from omta36.uswest2.a.cloudfilter.net (omta36.uswest2.a.cloudfilter.net [35.89.44.35])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C20A606A31E
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 22:59:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C20A606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62E28606A31D
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 23:01:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62E28606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=JtgX6t4H
-Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-53394bffe0fso3905921cf.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 15:59:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1793055592; x=1793660392; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xYFlSdYSBy4efBRscq6PIWjy+kL+seLzZByRLeIBFMw=;
-        b=JtgX6t4HkHHesY7n2JQPJyp+pm6/msV+LFkLCJeK62zQwbPs2o0eO3GuMpiwLyNqUP
-         WdbCdxG4OXTrmFVlJcvkBmXQ9YK0s18xT86CS06J9aePaF02lGMjkyV+i9+s8AUyZYEo
-         sVBYaHLO/lJaW0Nf3fxwP9S6DP4jpS3e3B7HPfWGx8noGECoZeSPzRqN8XrpE4+O7Hd6
-         nE+g5KgftytnmNVxGTrNW812PMJZKe7xsMJRVS1IsYJ+7VcaMIV2Aq2Mx2fYBPvmFlNB
-         KVI3wubDsUSR0XMK4VovCsCi/Ayb1GFD6RmHsKOHAd50F1EKGy7VTJQkptwcIKutBLP3
-         4sVA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793055592; x=1793660392;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=xYFlSdYSBy4efBRscq6PIWjy+kL+seLzZByRLeIBFMw=;
-        b=KFuLkz5C/xcglBobe/0Y9+jcY142QBCUnng4dJpPIU9QDxlzEJ+m7VFE6lXSPowBkE
-         vEACitANf3cK0Ggtrg2HkWWf17IjXLtGcNuWbtw/+JmXID37Aj3YLXH5BLml7RQ//8OS
-         Ki03212mfZ2HVnBJnF8ocBXsBu1QvhuKMsQs0+Ks9IwWTFvf29/w7BQbtb9lGYyNJAHd
-         X5eADcxI8TdsxO6VuK1AoAVBG4ByvbjSyzqDasKrUbtINM3GO27rlH7LqhmXNcsxoBOc
-         iG7iUu3eQc1Kbe5K9aDAFICydbWkxrF8e88XvE+j1IXWOFK7c25lDrCPf/ZxN1CdKQ9/
-         0LSw==
-X-Forwarded-Encrypted: i=1; AKwUvByUHtoe8iwGWHDoUjdaaEuHmtjSJ+Lps5EPtZRPUJr/XdQDPN05YrmMDI/F9DUlzyXaN6DyA4K4i4sm2Qs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLMtdH3oZXRgxbV1rtxwFQHT8HwS7lLToz5QRzFZk/yXxw0uSUl
-	3vl6vpBW76qg5oWoBKiDLp1/gQcx2wlgisnERljri8rlg7Vt+/I6Y7Q9PgqYqHoCp5U=
-X-Gm-Gg: AYBFou24I+JxAlcRr29UW+qWx3OGj9PVuf3XJnsmBDkwYJcC3DrdUZ/nkCnOHBensNh
-	uUB0NXk7e9FUw+aKvfQcwvQTjoh1yaY9ABGp9qHbi8MxFhZVWAvsES0VBzdIKKIgiWZOWTrOjM1
-	TZ9SL0zk7Aavbo9ZgJtIBR7Bm3Nv0MkO7ZSBNz9s1bI3jJ4NYijWpME1+9TNsZmdY0hkTYunFI6
-	CMW1JD7wZz1lV0YdgOxoEYRFElNTdNAZnN0IakYFCCmKx8Faq8eBmaTF7J1A964jH8WGRp09SzP
-	XK4mWaIO4RcetcdFJWHhc7jnqwOCvYBrOWrGLg/ODFoWLe3mWhco1whlYQxBwc2n0HpCvbaHxFw
-	O0gTUDVZ5emtZ9cEEZQNQy7Iw+qI5qRXP6c2nTiJK6o22wAWxJ9ln146tmGpshwqfkVE7JaMnIr
-	hWD6IDc2DkkMKfzcw/M7RAGgiYm/nP3e6ESGtkpRY/3d7IdupjbPwQw1cHnYR/NriV0+aqWBPay
-	Aiki4LIbv2kstgCy7R6Q0ZhmZaMo3n0vqt1ukXUA3lvhGUsLj+BRq/Q6XVexDl44AY/kRvESVEa
-	InW/bmSyRBbFE/J++Ghd+M9Y+td0jqd4DuxXJQ==
-X-Received: by 2002:a05:622a:5c06:b0:536:60a0:5515 with SMTP id d75a77b69052e-53e3f95510fmr21198101cf.17.1793055592065;
-        Mon, 26 Oct 2026 15:59:52 -0700 (PDT)
-Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5383970ac84sm65824991cf.20.2026.10.26.15.59.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 15:59:51 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1xLTfS-000000089Kh-2dEv;
-	Mon, 26 Oct 2026 19:59:50 -0300
-Date: Mon, 26 Oct 2026 19:59:50 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Alex Williamson <alex@shazbot.org>, Armin Wolf <W_Armin@gmx.de>,
-	David Lechner <dlechner@baylibre.com>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Luis Chamberlain <mcgrof@kernel.org>,
-	Petr Pavlu <petr.pavlu@suse.com>,
-	Daniel Gomez <da.gomez@kernel.org>,
-	Sami Tolvanen <samitolvanen@google.com>,
-	Aaron Tomlin <atomlin@atomlin.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Bradley Morgan <brads@mainlining.org>,
-	Aleksandr Nogikh <nogikh@google.com>, linux-modules@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-usb@vger.kernel.org, driver-core@lists.linux.dev,
-	linux-trace-kernel@vger.kernel.org, Johan Hovold <johan@kernel.org>,
-	Richard Weinberger <richard@nod.at>,
-	Thierry Reding <thierry.reding@kernel.org>
-Subject: Re: [PATCH v4 0/3] driver core: add TAINT_FORCED_BIND for when
- userspace manually messes with devices and drivers
-Message-ID: <20261026225950.GD1685504@ziepe.ca>
-References: <DLIL9H50MALI.3JROXYEEUM3KU@kernel.org>
- <arIvG0nx4LXG9nlW@monoceros>
- <defb3953-7516-437e-b70b-d57de55b91bf@baylibre.com>
- <9bd3a34b-5e98-4038-80d6-da2c3b1948dd@gmx.de>
- <2026092321-province-yearly-44aa@gregkh>
- <arOfHEsGGglNse7T@monoceros>
- <2026092348-victory-erased-0e5a@gregkh>
- <20261023181326.0dc2f7ed@shazbot.org>
- <2026102437-vista-unsoiled-b089@gregkh>
- <at34UOuYv3NtX36R@monoceros>
+	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=2jM83HXB
+Received: from eig-obgw-5004b.ext.cloudfilter.net ([10.0.29.208])
+	by cmsmtp with ESMTPS
+	id LSjfxkxwIusRSLTgZxwEWr; Mon, 26 Oct 2026 23:01:00 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id LTgZxj2l8oYFCLTgZx9RGM; Mon, 26 Oct 2026 23:00:59 +0000
+X-Authority-Analysis: v=2.4 cv=b4Cy4sGx c=1 sm=1 tr=0 ts=6adfdbab
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=M0FbrtG7MMAA:10 a=VwQbUJbxAAAA:8
+ a=pGLkceISAAAA:8 a=Sy_gwa-xmTSU6y4k134A:9 a=CjuIK1q_8ugA:10
+ a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
+	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
+	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=ZS1PHJd/1kfglLt+YTBZHOFCcwN5pAQrZFvDsEPdmWI=; b=2jM83HXB819/h3xM9KjgljF/9n
+	vL2UCLcg9ZQhTotDPoROs33v2zgPEpqR1FAuAaPhl8HH7Vvn45Q2NGKWthn3/S8ttfDtgv95ZRfHo
+	MnxjXy41RHg59ViklqyAaS6yWuVN3PaW+dnjBnHBmg3feGGI/dkm/epTXwfPjZ1X9SkVi+Bziyb/S
+	XlBAWZoTUzdxdvMII3DZNMTU5WQnv7bPWUL7Ev+x1qA+BqIpcfPH/LwMCOoQ4GkWaRKU1sjH/i+/2
+	JcZybELE0P9vbERM3XUdgFrvuWq5vGR6e/13oHONEYwUU9b8bRv30nUZuTxDZScL7IBav5kctQVgB
+	1sIcCFAA==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:48364 helo=server.roeck-us.net)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xLTgY-00000004JNJ-3Igt;
+	Tue, 27 Oct 2026 04:30:58 +0530
+Date: Mon, 26 Oct 2026 16:00:57 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Artem Shimko <a.shimko.dev@gmail.com>
+Cc: p.zabel@pengutronix.de, Sergey.Semin@baikalelectronics.ru,
+	mika.westerberg@linux.intel.com, andi.shyti@kernel.org, iav@iav.lv,
+	tzungbi@kernel.org, wim@linux-watchdog.org,
+	linux-watchdog@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 1/2] watchdog: dw_wdt: use
+ devm_reset_control_get_optional_shared_deasserted
+Message-ID: <ae899e5f-dc86-4fcd-a706-b096ef766c38@roeck-us.net>
+References: <20261024140854.25664-1-a.shimko.dev@gmail.com>
+ <20261024140854.25664-2-a.shimko.dev@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -132,38 +86,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <at34UOuYv3NtX36R@monoceros>
+In-Reply-To: <20261024140854.25664-2-a.shimko.dev@gmail.com>
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xLTgY-00000004JNJ-3Igt
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:48364
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 1
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfIWavC/Rr8crCpzTUgEnnMB/BiqR980DUardfeoezFo2zXqT2c8VNFf4jZpaV8IrHn2rIJ75kPRUYYIO8GNfHYrNJwWu9BtNYPdM/KhHlYZFuMhR9es2
+ qG6cDL/8z2LquOr9mFnAAIdhQgV5ZJGh5pZm0fniD1R7+EXE+4epSlmFJwwflnk2VPQ0b+hDGCjQ5K7nrJRiSmEQz7L7r9COYAi7ggOlx7JujLFrUhEVxv3e
 
-On Sun, Oct 25, 2026 at 01:48:04PM +0100, Uwe Kleine-König wrote:
+On Sat, Oct 24, 2026 at 05:08:50PM +0300, Artem Shimko wrote:
+> Replace devm_reset_control_get_optional_shared() with
+> devm_reset_control_get_optional_shared_deasserted() to let the
+> device-managed API handle reset line deassertion and assertion
+> automatically.
+> 
+> The driver currently manages the reset control manually: it calls
+> reset_control_deassert() during probe and reset_control_assert() in
+> error paths and remove. This is error-prone and requires explicit
+> cleanup in multiple places.
+> 
+> Switching to the _deasserted variant deasserts the reset line on
+> acquisition and asserts it again when the device is removed, which
+> allows removing the out_assert_rst label along with the related
+> assertions in the probe error paths and in dw_wdt_drv_remove().
+> 
+> Tested-by: Igor Velkov <iav@iav.lv>
+> Reviewed-by: Tzung-Bi Shih <tzungbi@kernel.org>
+> Signed-off-by: Artem Shimko <a.shimko.dev@gmail.com>
 
-> The more I think about this taint, the more I believe the commit should
-> be reverted and replaced by a some stop gaps for driver_override. (Be it
-> a taint or better yet
-> https://lore.kernel.org/all/0f7446324f6a0c8f0153d6532d92a6eeecd6a308.1790612298.git.u.kleine-koenig@baylibre.com/
-> .)
+Applied.
 
-I also think this patch is way too broad and should be reverted until
-something better is designed.
-
-To me this is very similar to the filesystem issue with syzkaller
-fuzzing the block device and crashing filesystems. They said
-filesystems touching untrusted block devices is out of scope.
-
-Same here, kernel drivers touching untrusted HW are out of scope, we
-have never supported that.
-
-I think a taint from force binding outside a match entry and using
-new_id are probably about as far as this idea should go.
-
-Even this would still regress most common VFIO instructions though, so
-some kind of disable for VFIO would be needed. I don't agree with the
-assertion 'servers are already always tainted' that doesn't match my
-experience at all.
-
-unbind should not taint, we support hotplug, and manually binding an
-authentic match'd driver should not taint.
-
-Jason
+Thanks,
+Guenter
