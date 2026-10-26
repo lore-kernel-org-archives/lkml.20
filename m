@@ -1,100 +1,44 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.128.54
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1792980152;
-	b=KhSRxNe84zZXHFDDCYmC8KU8iQSk0nGAZrTmeQId1VlJ3ewUYbltLpREsv6WH/tKD450
-	 9Lrttx91gnvSTbEX72yNzZB2oaDmSFQy/JQH74lVmoAMgeQ34r41ZFSaqPZle6sPYIZtp
-	 b3ZLS+rPFm3OKD7UOuk3dx0br8UpDe93eCuEHRYky9AnH8m3bhz9F8v7lKMnKGON6manU
-	 rj8bhY1FDajniTo64KoPUOJF2+6//2v3nlRZ98D1D3wO7l5LoLcYnxBzG0tubKM29Y+6G
-	 8zj2EwVhsnHY+1dcnFPLc3uSKrEotee1DVZxvawvbunacAREurqydLsSpQPLGjUm2UA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792980152;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=t0CJXdu2WvJswBCkzhrCpBJfhXZWXSL2ZyWgfmtZNMk=;
-	b=Q0pxYnccOJf9qS5U697WXG8T2/vUHNWxWDXx08peTa3HgFb+DZRoN91d19vP78z4ni0U
-	 IhDM2PHoqizvUNpssdYXiMrM4T/FHY9qmnqv0gjMLKgG5jV3brwKoxlfGpWSbrqJSAMu2
-	 AVRs7QH8/gxRUJLpaCkP+gb8pK6x6pKtLorgBUFmz2Oa8oKlAn6n2HAMCEin4XqW6BYKK
-	 KRZfDAm3SdQI5/j8RbmwxnGyv9xu3NGAPB3gIuTm0CKbhSaSnftVGI68nHIJu7115+77z
-	 F8r87zsXFVjG+h+UxMCkwrZQv+K/N/xdkICXSZNZvmSX1PbbGbxG1HhBm1uTqKe/FwQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=BU2bBXlM;
-	arc=fail smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.131.191.25
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792980142;
+	b=a+ynOahc/jjKUT1UorGwoWuxSRLNSCs+LfeVvTcdGeMag8MZt4PwuQQytlCHirddLo5s
+	 lb53JFq+Skmpd+9atbJuYHTDJR8jh7+HMjy1semhUYmgztaU3OLKccY5cclo8W31pN1ga
+	 Cnnqd8XX96q6FBJ80PdWUaoI2k2Z1zbIpSBdnoTarhNFND7q0h1EelfOFpevRbnlIX7NM
+	 STREODexTgFQu5HHc/tvPSvbZqbzhvkLTvF1JALrFL1OFWPPlz5JFIJ0HhCAJxlvAUUpo
+	 BC/tRDZnzKLdczK2F09FXsNmMGgX7p6tDZD00nZR71a7VF32eXaD7/TXuYYXMJux7rw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792980142;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:Cc:
+	 Subject:To:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:X-HM-Spam-Status:
+	 DKIM-Signature;
+	bh=XViPhepzIh5kjbiv0wX5ZgC1O2zAOqQBDGI8L4h/5H4=;
+	b=OJNX8UjkzT9lfrkG7/uMoSIr6nAI5H5IULQxDAViUCMssuV9jAvItGS5oi/X7+evDXfX
+	 fq+4/qxZ5FtX6fYR06d+qgusEzX/NAigzKROvnolAcpYW/j+Y3YwU6+iC8+X2ME5M9o5C
+	 7Knr5hnQTbl03AkbCZb296cr8FwcJwv/xWHGny1zlwm9lkZNBcu5ZrlsWG5H6b1g+6vgG
+	 cMdVwAWJxt4ftcY4KRYd86LmJKc2lq9kHX48uwjqiRJa8cIzb4w8AzVwcZyW8aua6t0QJ
+	 hR8MPVQxXivhfIyD2iFaxGZcxlhXBkLyunPeFy8rzvbJeol3+YFUqtp5fjWEv5hTDZA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=rock-chips.com;
+	spf=pass smtp.mailfrom=rock-chips.com;
+	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=Nw26fTFO;
+	arc=none smtp.remote-ip=103.131.191.25
+Received: from mail-m10313119125.xmail.ntesmail.com (mail-m10313119125.xmail.ntesmail.com [103.131.191.25])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E01C6606A31F
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:02:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E01C6606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E42F606A31A;
+	Mon, 26 Oct 2026 02:02:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E42F606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=BU2bBXlM
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a207b02a2cso15652215e9.1
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 19:02:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792980150; cv=none;
-        d=google.com; s=arc-20260327;
-        b=L3zNmV4c7FzP1J5eSc1a7vJVo75qgxFnxDutjleei/aua2xo0IncjFO9i+YOYo0sbN
-         tK2Bhm26+Gos1tBfD3T3h5GakBHM50NVONeTyTG3N38cYImsKzKEGmLnTfMXGDr85JSj
-         Q5laYIQxSkJar5GfnnnamsxhJDMfES4pvHU6gnAEcDknHThtPFYpJGFdb81HROyWry5J
-         6xIlDSQEvKTeupDCzfhrF+ybyoAlWtBlr5Ds4uTe6LctRMsjNzK7kM1vAOxFq05oyIJf
-         93zhAuTYNDVOVwJxpN8MQZUjNwwB+W9XnZpsgccQBgJSH4ptLKAWlqBbfZS/UzY8SREo
-         qbPA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=t0CJXdu2WvJswBCkzhrCpBJfhXZWXSL2ZyWgfmtZNMk=;
-        fh=7ghU0Zo8m2LH+4pefrzUYOrmtffAG0L8Z55YMVybDK8=;
-        b=TB0s0IbRJxh3qQEAjA5lVEr9UQ3lA8HjF17QYWCbNeI1LDXQToI9fZAG7AxMkJSbaE
-         57D0sYbX8u0ZnBAm1Rz+RRIWoL7yy0RC1xfdbplFD9KJ+iukshXCnCek1+avY+Ng8Dbd
-         4ZJePGezG71MWCC03Axg1Qg1/65+SCldJ8ZuwVVRqV4KbUqXqLXfe1SvEIqvoXJ+51rL
-         82z7ho/rrWxm4iGNYD9QZMbIw/pQRSQmUWFsX+3O8rwN51iV5wKegmEYDXrqRP70WJid
-         bwFQWP+1D4pymGopncMwfDQyQZ9TgBCX0M5BESNRaBikPNv5DubPZ4/BE5t3KkM2OZLS
-         cnOA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792980150; x=1793584950; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=t0CJXdu2WvJswBCkzhrCpBJfhXZWXSL2ZyWgfmtZNMk=;
-        b=BU2bBXlMIMOBsdtITAutKT4CP7ymX2MVgduiijANnolzYH20SxfRwfbhKIiIaDMO7e
-         0TEmRSfGLW5FdcnNVcay1bmqqh+Lou/SfByA/GSIFW1nJeCnAfzGDPRUsZiV1TpgloAc
-         CY/lzNgZhXjGmfiym427FflSMhE5Wwf2GyJ58tUMbR8YXJ2NFfzsciIgY4YFer+xVC9B
-         qrPueRmFxtS4axzOGFCOXnBk90OJ7oT/6aG20j5QK6EpfRc7I5vn4TJFW5hi1zCFJsET
-         s4VKU6sE+B6K1tlIgh3T3MOj0OLgyC2AkfkEf5/Palf9PuSPsxV8pi3//zqMNS2TUxe2
-         0cPw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792980150; x=1793584950;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=t0CJXdu2WvJswBCkzhrCpBJfhXZWXSL2ZyWgfmtZNMk=;
-        b=cReXMHMxVxoAcdf4hCFvBMs20S/EmXhkoosr5C0sT18AWn7FJxcDmwIyyovElw36T4
-         nP0UUJ+YYp3rSTAxML5W+73G4u9+WelW0NM6cOGYf7a8Hof2FHZ+gaX32y4OSFqmNAjK
-         TNvdmKvMO0+QqjY66lvFh+NY2e0tHMq50vjIssDu5eI1U5ucDMLFicsDL73JlQ+i7WVY
-         Qs/Ccms7MKksY79R1lJRBofsPMsAtfHMvUHRKt8xJ0VVg/xRbwStFpZYjry+QTVmJZRo
-         3T3OxgwEMFC4AUrsxDRURINJqL+rXkkP1b5slmjXekaThKj+sY03Wx1M/4NAoJdblm3u
-         80Rw==
-X-Forwarded-Encrypted: i=1; AKwUvBxtwoP+LnP3sG2em19S3QNiAS2AfNP0lz/GSuW26S7Sxk4eJTcahY7QAodXpo0mR8VFz2/HjjcR20X7KnY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIqtpw193JZmLJ2bPQi4n9wg0wSKz7AwvUc6Kt1DHlOSHVt+G6R
-	dEMHriTfsUQMomyVa5GDTQC14nj+KBTKMFIzQUALLlif3lsSsQnk1eXZGKAXx3Az8RO35TIqkuB
-	Fn3qgNZyz4Puo5PX4OUh4SpWNPObrdSY=
-X-Gm-Gg: AYBFou2/ew1MJ31lJfLHlhH/JkxuWZxUWiD3V/3NceuvlmR8xTRZ7Zfh8o67cFFqP2T
-	+/Se02BoOD89UV/29J4yPvFeSgXcnPHCqbH/z3PDNzSadWUwFqzFKQEsk2OiY9TPApfGfU8K1gi
-	9qcH2JadyRVj54vSZ0aSHh3vnteUijIQUzD76MiVWRzQIyqIjMIHjMhuHCW2n7u/dAKaNZ15MsQ
-	i5Mp9wJovhce8HETHfD+A/kXgzWntB0+ya4GCDTYdLuiv2To2DmqG9CHBYRHz5eusPpENh+oRT7
-	kks5j0Kwsgm4hHTCYrodYFxB1bY3+zvepk8qUFjfpJ4fLWVZS266pktYU3V4Fz1ykoLFCXmm0Oo
-	NuwVdL+k3zGXbkgpOlCGN0RGytKHZH8QQsSlTz9qtHftAb32Ekbs1Fua0gmy8v+2+Dpfg0g==
-X-Received: by 2002:a05:600c:198e:b0:4a2:84c:52f3 with SMTP id
- 5b1f17b1804b1-4a35ac9d1c2mr108316275e9.6.1792980149797; Sun, 25 Oct 2026
- 19:02:29 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=Nw26fTFO
+Received: from [172.16.12.48] (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 524b64229;
+	Mon, 26 Oct 2026 10:02:06 +0800 (GMT+08:00)
+Message-ID: <46a26683-9d8e-451b-bc98-505b1c13b09f@rock-chips.com>
+Date: Mon, 26 Oct 2026 10:02:06 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,89 +48,120 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261023101841.2910719-1-kunwu.chan@gmail.com>
- <20261023101841.2910719-2-kunwu.chan@gmail.com> <ee221d82-c064-4db8-bf85-3acc2e70b983@paulmck-laptop>
-In-Reply-To: <ee221d82-c064-4db8-bf85-3acc2e70b983@paulmck-laptop>
-From: KunWu Chan <kunwu.chan@gmail.com>
-Date: Mon, 26 Oct 2026 10:02:18 +0800
-X-Gm-Features: AclHuK_r8Qh5VqYW8mGbk1vYXEbW83hcBOqPAIwNMkxZsLHjr4eexVTG0QM4lCc
-Message-ID: <CAN_Opa-qWaG6aminLu6k2Wn2iCBc_fLKFRmY=dpHEX3XuUwwyg@mail.gmail.com>
-Subject: Re: [PATCH 1/9] srcu: Record callback registration stack for KASAN
-To: paulmck@kernel.org
-Cc: jiangshanlai@gmail.com, josh@joshtriplett.org, work@onurozkan.dev, 
-	frederic@kernel.org, neeraj.upadhyay@kernel.org, joelagnelf@nvidia.com, 
-	boqun@kernel.org, urezki@gmail.com, rostedt@goodmis.org, 
-	mathieu.desnoyers@efficios.com, qiang.zhang@linux.dev, rcu@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Kunwu Chan <chentao@kylinos.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Cc: shawn.lin@rock-chips.com, linux-mmc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Jensen Huang <jensenhuang@friendlyarm.com>,
+ llj@rock-chips.com
+Subject: Re: [PATCH 2/2] mmc: core: sdio: skip CMD11 if signalling is already
+ 1.8V
+To: Deomid rojer Ryabkov <rojer@rojer.me>, Ulf Hansson <ulfh@kernel.org>
+References: <20261023232813.2983368-1-rojer@rojer.me>
+ <20261023232813.2983368-3-rojer@rojer.me>
+ <4e8bbb32-e062-40fe-8ee4-363e83a68f2b@rock-chips.com>
+From: Shawn Lin <shawn.lin@rock-chips.com>
+In-Reply-To: <4e8bbb32-e062-40fe-8ee4-363e83a68f2b@rock-chips.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa175f18c7703a4kunm16d623a93d3d0f
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZSEpIVh9MTkxPSB0aTE0fQlYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+	9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=Nw26fTFO6BOWTqN54PHNFZFGnZvlKjDxJtN8aSirjzYWdkGBuQPOJHvyghhqdEoV9jaFo+uCGE8F4yuW0LdG08PMHejDZU4+5vpx1fMP9Jd5Nw8MOdgY7gY5K2V/rbBJqMR67d9+rvL+RqHjPgGWQzQqIpMfm7w1S+jBxPNHvp4=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=XViPhepzIh5kjbiv0wX5ZgC1O2zAOqQBDGI8L4h/5H4=;
+	h=date:mime-version:subject:message-id:from;
 
-On Sat, Oct 24, 2026 at 3:41=E2=80=AFAM Paul E. McKenney <paulmck@kernel.or=
-g> wrote:
->
-> On Fri, Oct 23, 2026 at 06:18:33PM +0800, Kunwu Chan wrote:
-> > Record the callback registration stack in __call_srcu()
-> > for KASAN diagnostics involving SRCU callbacks.
-> >
-> > Suggested-by: Zqiang <qiang.zhang@linux.dev>
-> > Signed-off-by: Kunwu Chan <chentao@kylinos.cn>
->
-> For 1/9-3/9, looks good if there is a kasan_print_aux_stacks() called
-> somewhere from 7/9-9/9.  I am not seeing it, but then again, I do not
-> claim to be a KASAN expert.
->
+Cc: Longjian
 
-Thanks Paul.
-kasan_print_aux_stacks() is called by the existing KASAN report path
-in mm/kasan/report.c (describe_object_stacks), not by the RCU patches.
-Patches 1-3 record the aux stack with kasan_record_aux_stack(),
-and KASAN prints it when reporting a use-after-free.
+在 2026/10/24 星期六 10:24, Shawn Lin 写道:
+> 
+> 
+> 在 2026/10/24 星期六 7:28, Deomid rojer Ryabkov 写道:
+>> Per the SDIO Simplified Specification Version 3.00, section 3.1.2, a card
+>> whose signalling is already at 1.8V must report S18A = 0 in the R4
+>> response, and the core relies on that: it only sends CMD11
+>> (SD_SWITCH_VOLTAGE) when S18A is set.
+>>
+>> Some cards don't follow this. The Realtek RTL8822CS (as fitted on the
+>> FriendlyElec NanoPi R2S Plus, where the M.2 SDIO bus is wired to a fixed
+>> 1.8V vqmmc) answers CMD5 with S18A = 1 even though the bus is already at
+>> 1.8V. CMD11 then times out:
+>>
+>>    dwmmc_rockchip ff5f0000.mmc: Unexpected CMD11 timeout
+>>    mmc_host mmc2: Timeout sending command (cmd 0x10202000 arg 0x0 
+>> status 0x90202000)
+>>    mmc2: new high speed SDIO card at address 0001
+>>
 
-I verified this under QEMU with CONFIG_KASAN_GENERIC=3Dy.
-The KASAN report included:
+Longjian is working on the SWT6621S, which misbehaves exactly the same 
+way as the RTL8822CS does. Hope he could have a test.
 
-Last potentially related work creation:
- kasan_save_stack+0x33/0x60
- kasan_record_aux_stack+0x8c/0xa0
- call_srcu+0xb2/0x390
- test_init+0x71/0xff0 [kasan_aux_stack_test]
 
-Thanks,
-Kunwu
+>> and the card ends up in 50 MHz high-speed mode instead of SDR104.
+>>
+>> When vqmmc can't do 3.3V, mmc_set_initial_signal_voltage() has already
+>> fallen back to 1.8V by the time CMD5 is sent, so the host knows there is
+>> nothing to switch. Skip CMD11 in that case. ocr keeps R4_18V_PRESENT, so
+>> mmc_sdio_init_uhs_card() still runs and the card is tuned to SDR104:
+>>
+>>    dwmmc_rockchip ff5f0000.mmc: Successfully tuned phase to 64
+>>    mmc2: new ultra high speed SDR104 SDIO card at address 0001
+>>
+>> Hosts that start at 3.3V are not affected, nor are compliant cards that
+>> report S18A = 0 at 1.8V. A non-compliant card that does need CMD11
+>> before entering UHS at 1.8V would now fail UHS init; with the previous
+>> patch it falls back to high-speed mode and keeps working.
+>>
+>> FriendlyElec's BSP for this board works around this with a card
+>> quirk, MMC_QUIRK_BROKEN_ROCR_S18A[1], matched on the "realtek,rtl8822cs"
+>> compatible, which drops the switch request whenever this chip is
+> 
+> 
+> Thanks for this series.
+> 
+> I knew some vendor's SDIO cards misbehave it on Rockchip's bug trace
+> system, including this one. This patch matches what I suggested there
+> instead of the alternative one. FWIW,
+> 
+> Reviewed-by: Shawn Lin <shawn.lin@rock-chips.com>
+> 
+>> present. The misreported S18A is the card's fault, but ignoring it is
+>> only correct when the bus is already at 1.8V: on a board with a
+>> switchable vqmmc the same chip would then be run in UHS at 3.3V. A card
+>> quirk would need knowledge of the board's supply that it doesn't have.
+>> The core does know the current signal voltage, so handle it there, which
+>> also takes care of any other card that turns out to behave the same way.
+>>
+>> [1] https://github.com/friendlyarm/kernel-rockchip/commit/ 
+>> aee62cf7ae16b5ede6c6d92a8ee20e796482754e
+>> Cc: Jensen Huang <jensenhuang@friendlyarm.com>
+>> Signed-off-by: Deomid rojer Ryabkov <rojer@rojer.me>
+>> ---
+>>   drivers/mmc/core/sdio.c | 6 ++++--
+>>   1 file changed, 4 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/mmc/core/sdio.c b/drivers/mmc/core/sdio.c
+>> index 6787fdf1c5..a986ee04ba 100644
+>> --- a/drivers/mmc/core/sdio.c
+>> +++ b/drivers/mmc/core/sdio.c
+>> @@ -737,9 +737,11 @@ static int mmc_sdio_init_card(struct mmc_host 
+>> *host, u32 ocr,
+>>        * 1.8v, the card sets S18A to 0 in the R4 response. So it will
+>>        * fails to check rocr & R4_18V_PRESENT,  but we still need to
+>>        * try to init uhs card. sdio_read_cccr will take over this task
+>> -     * to make sure which speed mode should work.
+>> +     * to make sure which speed mode should work. Some cards (RTL8822CS)
+>> +     * set S18A regardless, so don't send CMD11 if we are already at 
+>> 1.8V.
+>>        */
+>> -    if (rocr & ocr & R4_18V_PRESENT) {
+>> +    if ((rocr & ocr & R4_18V_PRESENT) &&
+>> +        host->ios.signal_voltage != MMC_SIGNAL_VOLTAGE_180) {
+>>           err = mmc_set_uhs_voltage(host, ocr_card);
+>>           if (err == -EAGAIN) {
+>>               mmc_sdio_pre_init(host, ocr_card, card);
+> 
+> 
 
->                                                         Thanx, Paul
->
-> > ---
-> >  kernel/rcu/srcutree.c | 5 +++++
-> >  1 file changed, 5 insertions(+)
-> >
-> > diff --git a/kernel/rcu/srcutree.c b/kernel/rcu/srcutree.c
-> > index 2b0e2b2d2c18..46fe2f0cef85 100644
-> > --- a/kernel/rcu/srcutree.c
-> > +++ b/kernel/rcu/srcutree.c
-> > @@ -20,6 +20,7 @@
-> >  #include <linux/percpu.h>
-> >  #include <linux/preempt.h>
-> >  #include <linux/irq_work.h>
-> > +#include <linux/kasan.h>
-> >  #include <linux/llist.h>
-> >  #include <linux/rcupdate_wait.h>
-> >  #include <linux/sched.h>
-> > @@ -1530,6 +1531,10 @@ static void __call_srcu(struct srcu_struct *ssp,=
- struct rcu_head *rhp,
-> >  {
-> >       if (WARN_ON_ONCE(ssp->srcu_reader_flavor =3D=3D SRCU_READ_FLAVOR_=
-ATOMIC))
-> >               return; // Leak the callback rather than corrupt SRCU sta=
-te.
-> > +
-> > +     /* Record the caller: the irq_work's stack says nothing about it.=
- */
-> > +     kasan_record_aux_stack(rhp);
-> > +
-> >       if (should_rcu_defer()) {
-> >               struct srcu_defer *sndp =3D this_cpu_ptr(&srcu_defer);
-> >               struct srcu_data *sdp;
-> > --
-> > 2.43.0
-> >
