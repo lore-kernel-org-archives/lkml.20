@@ -1,65 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793013549;
-	b=LyF7EO7vECn48mft5ostJRb+EuVsmDOeJEPAVFVxyAxbSyL1OB7Jly6DZJyEBxOfgyD/
-	 AP2yG6qBM/srS4QYQo9wk7wvtzsvhW9bHkjcZv76q4L4Fb5OSu9ykl+gzhgAuHdlAJ4m3
-	 d5WMbLaisKT7Nar6PZxpbRR1DkjRB/1A5Wu/xyr5ZdWKy2KEcexS8cHoSjFc+42KETqL5
-	 4a7kGz0EGpTq2cXR6ZHutCr1aZ8fAA6jwz65zoxTW53/4bTP+gthx3acsceD7UiJ0esm/
-	 sqOWEET/LY42qsdV6mrnP4O/oUliWogB4jRiS/MFKQhVVipyvDfITOWRnuIL0XWakmg==
+	b=FQtdzGhEBIddScG+TpuOukSoYEtiSOmysfH8WY4m+7gZph76B//ZSMCAJxF995vP8ySq
+	 kOnNYk/9uEcurWrNAkl4XQEm1zgjg2uZHy33s1DEFyJ5qEs7toXL5NPV93onWIbheWk3K
+	 0oLvhDoCYBxWfGBKTONnE+3A9PKY6Cs6d9gXBjI1h7ooXqaJ7wnYVovN8aG1TY38UFPFU
+	 mIK9xLYnD7d/zb10kdG0qhh0nnguPMQGr4SZoURGJ2/Vukj48Y/XUMCplSQweOY2vOIRK
+	 KJ9gvYnlBVyRf7y9BstoDM7zT0+xU2HI9yArMeDjfzkxwF4jHfp7JaRDWCUU00o886Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793013549;
 	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
 	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
 	 Message-ID:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-Scanned-By;
-	bh=NvY4ae/ED+MtOy03cyKJMlG3Ts44d9nHIMF7xjvLS74=;
-	b=QgLBHKzN8VdmXEKJ1+ARoz/DBxRfXn/UXfLCnPnv/HW+PP//dDRGS0su465cUPBYeRp2
-	 6QeiNdEOBq1GZCaCYZc031GBmk0yy7vJUPQogQbRRAkxBQr/ea3+MhSS7RJcLg0PFtLaj
-	 Ig4eWFOzQ4QaN70SBN6BRo1cnqMJioblAaFd8/+ybBnxkV2J5zMoOaCjh31ieWjv12l3r
-	 Pw43G0VafrKh8OBQvM5l6K9+9Pv3kzqQD+rwsDnGNpuefk9nz5Sams+1EXMeI/43Z9iY3
-	 nLucLbIM+JB8gAiQsMdTSSKZBQfGp7L004aDeg4IB+W4ebBSsx587qdbDkuK7iHuFYQ==
+	bh=J0H/xxIbCIwLmHjLOcIQ75jlbiqruovqTlxwP/qTOlU=;
+	b=gPormPqKgTjqiI+4xx7ZqTXS2EjdldG7lVN1BNG/UwChgtGMoGE/i2tngPuRxtFL8Vja
+	 sGkeXxnbJqDHMb0QVF78DLJ0gseWpugHOq4wzibnkNp2BKy3EArCOhNuGH8KinveOrjeO
+	 qcGLgeBXtcEVePFq7fwvMlDds8EVubK/Gga6+8X5695a62TU9TCIb/lt89qucBrwYET5Q
+	 lyWg8GqmxaTZc1ckFmEmqCrh1CYcYBgg79dDKl9hClS5qMX4L8WDtde0LVH1bUYNlNL60
+	 SwkLeEf/9hluqIEEHLNdFTnWNJNSSnnQj1xZwbDhT1cknGhMV8z/yCQQ3MVEStd/pPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=redhat.com;
 	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=fRM6y72M;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=SzJ9VCcC;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F257F606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:19:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F257F606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18432606A31F
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:19:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18432606A31F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=fRM6y72M
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=SzJ9VCcC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	s=mimecast20190719; t=1793013548;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=NvY4ae/ED+MtOy03cyKJMlG3Ts44d9nHIMF7xjvLS74=;
-	b=fRM6y72MqaWz7poxe3Y0iGUnUx37rPywQs2FHiIXAKi5nYAEV6M31zrbzmLAhKdW6VtVuz
-	8EHKaPbb29GNFSCkw9NoKuqRyQsKCnoc72ZBKbTSGk4bezTWPWwrRFaU+p4fCluaEXV2Xj
-	ZOmc4DU5WvlOdTjGL42yAQ7nOsc64RY=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+	bh=J0H/xxIbCIwLmHjLOcIQ75jlbiqruovqTlxwP/qTOlU=;
+	b=SzJ9VCcC1O417alNOocX5DMa5tPPlklt1fKzFKHwiDh/Co18M8El0aXiKaFF3hmZNfG4BY
+	sp/WOXWk00IBCcJXr09D7SMxc3XY47LgLX+FKyvyL2GJrOYS/Ehwi0kqmLO8JIgg0FTrBB
+	KYqBE00IAFhPIKQBdbry1CZ4tvb95Oc=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-519-8T1mK9NyPHKuQWwejArigw-1; Mon,
- 26 Oct 2026 07:19:03 -0400
-X-MC-Unique: 8T1mK9NyPHKuQWwejArigw-1
-X-Mimecast-MFC-AGG-ID: 8T1mK9NyPHKuQWwejArigw_1793013541
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-594-bMNloqC3PyWcCfI9gS9TKQ-1; Mon,
+ 26 Oct 2026 07:18:58 -0400
+X-MC-Unique: bMNloqC3PyWcCfI9gS9TKQ-1
+X-Mimecast-MFC-AGG-ID: bMNloqC3PyWcCfI9gS9TKQ_1793013536
 Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id DB69D1955F19;
-	Mon, 26 Oct 2026 11:19:00 +0000 (UTC)
-Received: from jmarchan-thinkpadx1carbongen9.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id A52BA1956087;
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 4904D195604A;
 	Mon, 26 Oct 2026 11:18:55 +0000 (UTC)
+Received: from jmarchan-thinkpadx1carbongen9.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 5E458195608A;
+	Mon, 26 Oct 2026 11:18:49 +0000 (UTC)
 From: Jerome Marchand <jmarchan@redhat.com>
 To: Richard Henderson <richard.henderson@linaro.org>,
 	Matt Turner <mattst88@gmail.com>,
@@ -84,9 +84,9 @@ Cc: linux-alpha@vger.kernel.org,
 	linuxppc-dev@lists.ozlabs.org,
 	linux-arch@vger.kernel.org,
 	Jerome Marchand <jmarchan@redhat.com>
-Subject: [PATCH 5/7] x86: Remove the unused non-atomic local_t functions
-Date: Mon, 26 Oct 2026 12:18:20 +0100
-Message-ID: <20261026111822.458404-6-jmarchan@redhat.com>
+Subject: [PATCH 4/7] powerpc: Remove the unused non-atomic local_t functions
+Date: Mon, 26 Oct 2026 12:18:19 +0100
+Message-ID: <20261026111822.458404-5-jmarchan@redhat.com>
 In-Reply-To: <20261026111822.458404-1-jmarchan@redhat.com>
 References: <20261026111822.458404-1-jmarchan@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -112,27 +112,30 @@ Anyway, they're not used now, so remove them.
 
 Signed-off-by: Jerome Marchand <jmarchan@redhat.com>
 ---
- arch/x86/include/asm/local.h | 9 ---------
- 1 file changed, 9 deletions(-)
+ arch/powerpc/include/asm/local.h | 10 ----------
+ 1 file changed, 10 deletions(-)
 
-diff --git a/arch/x86/include/asm/local.h b/arch/x86/include/asm/local.h
-index 68af7b74450af..6d0bca91915cd 100644
---- a/arch/x86/include/asm/local.h
-+++ b/arch/x86/include/asm/local.h
-@@ -170,13 +170,4 @@ local_add_unless(local_t *l, long a, long u)
+diff --git a/arch/powerpc/include/asm/local.h b/arch/powerpc/include/asm/local.h
+index 4c033526bfb0d..24ac534cf809a 100644
+--- a/arch/powerpc/include/asm/local.h
++++ b/arch/powerpc/include/asm/local.h
+@@ -140,16 +140,6 @@ static __inline__ bool local_add_unless(local_t *l, long a, long u)
  
- #define local_inc_not_zero(l) local_add_unless((l), 1, 0)
+ #define local_inc_not_zero(l)		local_add_unless((l), 1, 0)
  
--/* On x86_32, these are no better than the atomic variants.
-- * On x86-64 these are better than the atomic variants on SMP kernels
-- * because they dont use a lock prefix.
+-/* Use these for per-cpu local_t variables: on some archs they are
+- * much more efficient than these naive implementations.  Note they take
+- * a variable, not an address.
 - */
--#define __local_inc(l)		local_inc(l)
--#define __local_dec(l)		local_dec(l)
--#define __local_add(i, l)	local_add((i), (l))
--#define __local_sub(i, l)	local_sub((i), (l))
 -
- #endif /* _ASM_X86_LOCAL_H */
+-#define __local_inc(l)		((l)->v++)
+-#define __local_dec(l)		((l)->v++)
+-#define __local_add(i,l)	((l)->v+=(i))
+-#define __local_sub(i,l)	((l)->v-=(i))
+-
+ #else /* CONFIG_PPC64 */
+ 
+ #include <asm-generic/local.h>
 -- 
 2.56.0
 
