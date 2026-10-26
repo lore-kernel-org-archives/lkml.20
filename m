@@ -1,104 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793049820;
-	b=KmGgGLQOFy/m6cKI1JEc/KaF1c9Kfc11xIqL2d0g+r0EbmQHwC5ksUOWMMSQj5RWkomH
-	 zrN7ZT0GypzXq3KqdnTUqETcZsk1L+fpGGyejeAzFe+9LbhzFFIQ4XxI1pIFgZXlB+CBN
-	 BR0EAl5Us1S+xKdzhHHuBbt8jHKYD6M4FaL9ScdwLmstm98tHaKuRxDdCqL2mH1Wai0g4
-	 l9Xi68VVcVkXuFxqFkCuupN0nx/ZtN217t3H8inM3AZaFB+iBe2Ui7A2+9QvwlJ8sJCy7
-	 YV1YFcLYCdCa3hXZ0SEbf9rEPHtcofihGfZTgDNWhKZzBnmGBqg7oDp7XmjnS8T9vMw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793049820;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
-	 Organization;
-	bh=mO8z9Tk1LUkxK1SfW+Zfd2chYfk05ZgjYdVW4ius1x4=;
-	b=OnzODtKQau9xd+QDyfuFkoRPsf1Xrq0/G+DO3S1lfjzsux4Zh87crpEHCMzRG3d8Zl9O
-	 +EFXDmd7udUwrTzK2akwNw8qq5CMU4OtkkyEjQ+Pg6R5XqpHLpfEnBPorxN5moT5nrndi
-	 mVvLaekKCKwd3gf0ethljfbR2jiRusJbB/HRNM+xOpEO/FF35RITHxcdjCYi3P5P5XoWQ
-	 VBoQT1OkLaEFZXquYRazYvZ99Ge641JUY0Lx5aohRPiR1eyFglh/s2X9PS2heHxIys5eM
-	 ZULeACXExrMku2TDzdP6QJfGoFboGTq5dnT0F8Pcl5iN44yj4OQj5ClAhJ1zrFZhpFg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eGADlttm;
-	arc=none smtp.remote-ip=198.175.65.17
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.178
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793049848;
+	b=mkryh7b+JiEd/VOE8fceUwDsp2x1blj9EckSirWhemX+qLlqiPCyWJPeK2+a717HUz/l
+	 7aOrdDzYY5TOfcENqrNza7AZC5bV//bw9/CoU6fCjDbS0q6HU9LCQUNHEEF0h0YRCEi4d
+	 eQWJ4q+yXUOTcrAY6RE7f5y9Vh0amblUD0j55IP7ZG9U7v5nNKLwKA78kte75L0BrRxPa
+	 K4YYjnxnhZpAhim+Ij6phe3ouQev9fQtB1d3X+YYVno+ZWXkNShKRAHP/fUZXi8KyopaN
+	 huaamUFDiFXaaagnbBYi5CezfffT7wA39k0Q9zHywlBvC4JQZOAYGv9j3YBPbSfgydw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793049848;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=GKPa9M5PoAhtNnZV69xKXcRKiwNy/DZc5TLsis+amX4=;
+	b=GABPrO4JAHAc4elApXtJU1f8iB54cTB8mvKjTcURNfB3GgB/4mjwQ3MLFQzxA96bfpYL
+	 Tz+8UEy5hQQ6eYKInLmKKzw6MVj7RZuZeEBVhh9KDgHm1gI29SDxg8RKbuPn+v6pR99Fh
+	 UwjHuUyVrltctp72etXumab5O2PF3kHUAivpIXHWM95z1eIFed1Yq2FYbK8qldvGhzpp0
+	 ArWhiXqscbKkJEzQ0FgoAyYk8Q/SNj0dW2qK2g96lQp/o0nIgYDabw7E37+8bDGEntzOo
+	 vXHx7FR59o67J6LRBBhYPc8CV7FiMhZMFXNwHkWip3yk2YqcmXR7Kp9EN6HrFVKbfRw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JvW9vDSK;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.178
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96181606A31A;
-	Mon, 26 Oct 2026 21:23:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96181606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5773606A324
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 21:24:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5773606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eGADlttm
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793049820; x=1824585820;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=N88Z46/9ztkXkJPZVADk+jnnVNHd4Cz5qKxwO4LyFUo=;
-  b=eGADlttmVdaQtl1/ExOBrnko+xSUWsU0+GGYfKmoigjDvMNpvuMg7giT
-   UawiuBWcS17ywTdi1f+ZcvjH9qVnrxb3tGfTM/Kn0vA2hYSFtMudnr/7w
-   G60kti9jcUM7DYFiPqlPNq8+XG4leCDCHXnkarCyx44QwwBnx9F1iCPrG
-   XniSbXZCJZzbiG9UEKoVnub2Dcd7tvhjq/sH3Nc0JZqAe4DGLRiCx7ebv
-   uHSlkmSwCducDE95tiOmDgzM7y0Gn5ljoiR/U98tLeRpAPFRpBwyAyRTD
-   JMb9IJMbOmUEeSPWs+bnsznqfJHOd+otuEaX0HmBCFzrvtNlbXNmBGkEJ
-   w==;
-X-CSE-ConnectionGUID: fTtxpReXT+W4gL0bvHsqIQ==
-X-CSE-MsgGUID: HqbyRsTJRfC3WtB1MunhqA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1750932"
-X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
-   d="scan'208";a="1750932"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 14:23:39 -0700
-X-CSE-ConnectionGUID: pGRmoMDKS5a2N1YN8eSJCw==
-X-CSE-MsgGUID: A8Mzj4/7QuuLmc+SWALM6A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
-   d="scan'208";a="4325371"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.93])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 14:23:32 -0700
-Date: Mon, 26 Oct 2026 23:23:29 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: "Maciej W. Rozycki" <macro@orcam.me.uk>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Raul E Rangel <rrangel@chromium.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Tony Lindgren <tony@atomide.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Richard Genoud <richard.genoud@bootlin.com>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Jacky Huang <ychuang3@nuvoton.com>,
-	Shan-Chun Hung <schung@nuvoton.com>,
-	Pali =?iso-8859-1?Q?Roh=E1r?= <pali@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Timur Tabi <timur@kernel.org>,
-	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev,
-	linuxppc-dev@lists.ozlabs.org
-Subject: Re: [PATCH v5 2/5] serial: serialize asynchronous write wakeups with
- the port lock
-Message-ID: <at_E0UbhG8MlkIQS@ashevche-desk.local>
-References: <at5qKehogAjTa-fA@ashevche-desk.local>
- <CADvTj4qSgE6Rc--mWuqAcc8HTqN9EFOS_JM8Hp8e_=ka_ZLa6w@mail.gmail.com>
- <at8eDFj2WNaXDaot@ashevche-desk.local>
- <CADvTj4oNz-bnSZP+kfau-7wBSWLjLTP5jrr6nLfdCHNPo3pS6w@mail.gmail.com>
- <at-vyZ1sDhYPu0W5@ashevche-desk.local>
- <CADvTj4o_CENc3i92OQEZudOErSKPUptT4t2CCqDaGbseuK0QcQ@mail.gmail.com>
- <2026102631-stove-preview-b534@gregkh>
- <CADvTj4pCnnzx4B28H_1BuY4gm2fh_8HYL9jLpsAoJcWfiUXOHw@mail.gmail.com>
- <2026102657-tubby-tragedy-5f1b@gregkh>
- <CADvTj4oFBznFO9ZxL_8wZtcPaweSSt-a_brVkmQKzqJsBX2P5w@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JvW9vDSK
+Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-89f639ba307so1257290b3a.3
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:24:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793049847; cv=none;
+        d=google.com; s=arc-20260327;
+        b=rpYkMEb9zP68KWFqDAdhL7O+iI+WZeKDNmmU0NYL7FUa3MGZHAiTjcwHzxc+4j5rTj
+         5evjJUOtJp/Hq94M6FIpIjXhoXIiJTZVN8+jfkpzu+wCqrfO1InhPF7u+AmutwlageGI
+         zBS5nmRbYPohrmMVWDYUqlqcnJ84iIQIXYoVayxMKODjnD2cSA+4/o6ITyT2ExakjN78
+         wIWl7mZllTuKv4JmGHOBGTlreHdlz+qvJMVzLomkgW3blO8v1tVAN8Iuu/8XYn6J/hwt
+         3Zot69LSsMHmhXOmokv8Re26eJhC7OcPuu2YD8slwQ1FSZBZ9amSJSv04bKznhlqyv/N
+         qWnA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=GKPa9M5PoAhtNnZV69xKXcRKiwNy/DZc5TLsis+amX4=;
+        fh=Orl7ZQNM0fOFyNylmicCA7KTijWGTKQbtiZFa6vZqaU=;
+        b=cOVpCEfI6MZ/atMPa/tUD1CHCboyzCj0oe89wMZ4Z1/BN+87bam4ND6ILZumChYxVv
+         /jMSawDgPhVr1yLzijvFhVEOEFsXdJRcTKth3gyzb75xfu2gfCqF8nANfw9ghGX67n76
+         QjWsarfhfgBGwixTZ/RkZ0za0uaVQE6MjSTv+ZOEX3Xae4aOtXfev+9SgxwjNmiMeVgq
+         pNR6DE1PgghWS5XwSVUNBJNNUcmAo1riE1QrYR7AapyJeuFO9ex0MriZLIN9+aRvOCGv
+         9yHlY3Py4qXqvSQCm5vH5xMsNGU8B03kAUw5BGiEEoc/NR/6ObWv+YtQDWWdYZRC/VXU
+         CuKw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793049847; x=1793654647; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=GKPa9M5PoAhtNnZV69xKXcRKiwNy/DZc5TLsis+amX4=;
+        b=JvW9vDSKDQCQ/Iv5gH7W5O3cS0g69FgaSrzXh+G3mKOnwtx1dD5k2+/f8z9S5LGEJp
+         qhfC119t2DQCRsdUB4RiBMCgW9qeU+bxBSK401Bk+wzfGwWxnoFATTv6HCNP19AxhKn5
+         4q8CfdqkdshtIy14X3UgKdFIgmQ8I8OYThvgeWi6M5mHA5jj/IEmz5LzhYukJ5xRd7Iu
+         69idP10I+bJCRRgR++AoP9HgxnDUUM1isC1kbmQG8h/snlHwe8L53Xc5dXrxDDUYZ3dW
+         ov5as3DD2BB9Qd+hgBkonsm2UFAu+VwMBLKG3UrP+36q9N8IuBaXClaE+/WlNYJ877aL
+         GaaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793049847; x=1793654647;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GKPa9M5PoAhtNnZV69xKXcRKiwNy/DZc5TLsis+amX4=;
+        b=Uig0iZTr2kelZ+lrIA1Z/Nito0v8qk3chVX+YRwTphwphLkcSsIN3bIpqmNfXLQNqb
+         PVjCt7bt59HA2d5U7mS3we/g+pMfJYzaptItOgr9PwRmLIFpYIh3WoTkjamhPRu8lr+6
+         zZvSzHhxndrlO/LX5Xl4WGvOZaVxVQaUdfpUOHB+e2mqYJ2Y7XBZp77cxQ0J/Yp2nupc
+         f4I/jFNU8K5wMkFIfZIq0Fxw7wqEw1yb5+4GekZjVhBr0Wxwvdte/mdQudSzgMchCx5h
+         4M4zbuLbCcY1pFjUs1bRgHvgsEMq7gz+/tyrQDNuHrOEK3lnX0Q8VdfsWlcpgMKCatwa
+         uiMQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw4CkJyCLjia5Eb7tM5fc7eoKICG06wQq+IaEXwkuUXbGZ6T6gDM/liO+/KImP0KkRBgKXOKlvfdTpVdUU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLwVmYk0b2AZdbc0eR4maqnto6p3X7qx8K6BqczryLj9d1xG0S7
+	vrzV3VsUFz3chxEG5KQ9ntxx9Qd+b1s95h4EMYWyd2SYjbpZceVnDxOHCr1+jy3vgX8wfXXefa0
+	56a0FaJ9UDrPtEDyz7w3JP+vsbdWA8ww=
+X-Gm-Gg: AYBFou1Bjg+AbAnJIyIblXXKZWrXpj2jLICTaSF3cyfgRFovLi8G1TLvK+w0g2lgnol
+	zWmtqlUCape6NlYYaHR7Vr31VI92BbZTSRmsN/MC+fpgmtZPusSdW/3qq+cVHwjpDiY3GcCg+5t
+	A2qdpkonJsWymELvEt5fCtHZQO/+CFTV295u+wEnSCqDlDRJog33nrL1kTaWzc/n4YaGNrPYskR
+	L57PGmDcERzlnwoGMzOf9wxVJpqJ1jToTROQw8Ejp1M//rA1ADs+5txbJXfUT5k5NqkM5iCKthA
+	UjZAXR1V5o4LrFVkvEtvl8nQA63i0ztjBnMzcuCvCREcKpZbJl4fAKRQUqcZ6crBufT1Q1jtCs+
+	h1JnNBQEMsp0DPeWQr498q1gs7FmlxQPLEhw1sbS3G6ZWvFGGgfktQHTV9hNjzBNlyMnuh++BYB
+	pwQ2UdoyYEWuTAKobannQ1PVC1V4Kjv3/Y4w==
+X-Received: by 2002:a05:6a00:12d6:b0:89e:3742:3e16 with SMTP id
+ d2e1a72fcca58-8a3666af17cmr6585603b3a.18.1793049847178; Mon, 26 Oct 2026
+ 14:24:07 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,100 +105,165 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CADvTj4oFBznFO9ZxL_8wZtcPaweSSt-a_brVkmQKzqJsBX2P5w@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+References: <20261024120627.837568-2-tim.budding@gmail.com>
+ <179293012722.3134.13316596865856977030@kernel.org> <20261026052706.187296-1-tim.budding@gmail.com>
+In-Reply-To: <20261026052706.187296-1-tim.budding@gmail.com>
+From: Xin Long <lucien.xin@gmail.com>
+Date: Mon, 26 Oct 2026 17:23:55 -0400
+X-Gm-Features: AclHuK_mrIu1EVf0x2dV3mIZYP2JHGyJuazQowznGXy4YPuBCm1N0ChSU-JmIKI
+Message-ID: <CADvbK_du=-oT19kKBKYSjFKYscnQSH1mekRKMXgmLPMXTEH_=w@mail.gmail.com>
+Subject: Re: [PATCH net 1/4] sctp: purge abandoned I-DATA fragments by stream
+ and MID, not by TSN
+To: Tim Budding <tim.budding@gmail.com>
+Cc: netdev-bot+sashiko@kernel.org, netdev@vger.kernel.org, 
+	linux-sctp@vger.kernel.org, marcelo.leitner@gmail.com, davem@davemloft.net, 
+	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
+	shuah@kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Oct 26, 2026 at 02:49:24PM -0600, James Hilliard wrote:
-> On Mon, Oct 26, 2026 at 2:40 PM Greg Kroah-Hartman
-> <gregkh@linuxfoundation.org> wrote:
-> > On Mon, Oct 26, 2026 at 02:24:58PM -0600, James Hilliard wrote:
-> > > On Mon, Oct 26, 2026 at 2:17 PM Greg Kroah-Hartman
-> > > <gregkh@linuxfoundation.org> wrote:
-> > > > On Mon, Oct 26, 2026 at 01:59:06PM -0600, James Hilliard wrote:
-> > > > > On Mon, Oct 26, 2026 at 1:53 PM Andy Shevchenko
-> > > > > <andriy.shevchenko@linux.intel.com> wrote:
-> > > > > > On Mon, Oct 26, 2026 at 10:45:54AM -0600, James Hilliard wrote:
-> > > > > > > On Mon, Oct 26, 2026 at 3:33 AM Andy Shevchenko
-> > > > > > > <andriy.shevchenko@linux.intel.com> wrote:
-> > > > > > > > On Sun, Oct 25, 2026 at 04:11:08PM -0600, James Hilliard wrote:
-> > > > > > > > > On Sun, Oct 25, 2026 at 2:44 PM Andy Shevchenko
-> > > > > > > > > <andriy.shevchenko@linux.intel.com> wrote:
-> > > > > > > > > > On Sun, Oct 25, 2026 at 02:25:46PM -0600, James Hilliard wrote:
-
-...
-
-> > > > > > > > > > Some people might want to test the stuff. And sending too often you actually
-> > > > > > > > > > will get the opposite results, people will be tired to even start reviewing
-> > > > > > > > > > and/or testing your code as it's changed way too quickly.
-> > > > > > > > >
-> > > > > > > > > My thought process was that people wouldn't want to be testing code that
-> > > > > > > > > had known bugs flagged in Sashiko reviews.
-> > > > > > > >
-> > > > > > > > Sashiko reviews are not visible in my or any other mailbox. To see them I have
-> > > > > > > > to go to some URL and so on, meaning to waste time to see why on the earth the
-> > > > > > > > new version has been sent.
-> > > > > > >
-> > > > > > > Maybe the Sashiko reviews are getting caught in spam filtering or something?
-> > > > > > > They are showing up for me and on the mailing list[0] so I'm a bit confused why
-> > > > > > > you aren't seeing them. You shouldn't have to go to the web interface[1] to look
-> > > > > > > up the reviews.
-> > > > > > >
-> > > > > > > [0] https://lore.kernel.org/all/sashiko-outbox-183574@kernel.org/
-> > > > > > >
-> > > > > > > [1] https://sashiko.dev/
-> > > > > > >
-> > > > > > > > It's better before addressing Sashiko comments,
-> > > > > > > > reply to all people involved and to Sashiko's original email, so it will be
-> > > > > > > > visible in the previous version why you issued (actually about to issue) the
-> > > > > > > > next version.
-> > > > > > >
-> > > > > > > Hmm, maybe it makes sense to enable recipients in the reply_to config[2]?
-> > > > > >
-> > > > > > It's up to the list owners / subsystem maintainers.
-> > > > > >
-> > > > > > > [2] https://github.com/sashiko-dev/sashiko/blob/v.0.6.3/projects/linux/mailing_lists.toml#L290
-> > > > > > >
-> > > > > > > > And before even issuing it, wait for a while, people might
-> > > > > > > > disagree with Sashiko judgement or your replies on how to address that.
-> > > > > > >
-> > > > > > > I was assuming everyone was seeing the Sashiko reviews getting posted to
-> > > > > > > the mailing list already. The are ending up in lore so unless someone isn't
-> > > > > > > subscribed to the list I'm not sure why they wouldn't be seeing those reviews
-> > > > > > > already.
-> > > > > >
-> > > > > > I assume you already answered your Q. mailing list in this sense doesn't mean
-> > > > > > recipients. I think it simply goes to the mailing list without forwarding.
-> > > > >
-> > > > > Do we want those reviews going to recipients as well as the mailing list?
-> > > >
-> > > > For serial patches, we decided to only have it go to the submitter and
-> > > > the list.
-> > >
-> > > When it goes to the list is it supposed to go to list subscribers as
-> > > well or only to lore?
+On Mon, Oct 26, 2026 at 1:27=E2=80=AFAM Tim Budding <tim.budding@gmail.com>=
+ wrote:
+>
+> On Sun, 25 Oct 2026 12:08:47 +0000, netdev-bot+sashiko@kernel.org wrote:
+> > > +           if (event->stream < sid)
+> > > +                   continue;
 > >
-> > All list subscribers as well, I've watched your interactions just fine
-> > :)
-> 
-> Andy, are you subscribed to the linux-serial list?
+> > [Severity: Low]
+> > Each call to sctp_intl_reasm_flush_mid() starts at the head of the queu=
+e.
+>
+> [...]
+>
+> Agreed. Walking each queue once per I-FORWARD-TSN would be a separate
+> change. I could send that to net-next.
+>
+> > > -   /* purge the fragmentation queue */
+> > > -   sctp_intl_reasm_flushtsn(ulpq, ftsn);
+> >
+> > [Severity: Medium]
+> > With the TSN-based purge removed, what frees an unordered fragment of a=
+n
+> > abandoned message that arrives after the I-FORWARD-TSN naming that
+> > message has been processed?
+>
+> [...]
+>
+> > Should the commit message also mention the lost rwnd and receive buffer
+> > space? Alternatively, could these fragments be dropped when they arrive=
+,
+> > or when the cumulative TSN moves past them?
+>
+> Correct, and the commit message is wrong to say such fragments stay
+> until the association is freed. An unordered fragment of an abandoned
+> message that first arrives after the last I-FORWARD-TSN naming that
+> message, with a TSN above the cumulative TSN, can't be reassembled. It
+> keeps its rwnd and receive buffer charge until a later unordered skip
+> on that stream with the same or a higher MID, a reset, or teardown. At
+> the tail of reasm_uo it also stops reneging, as any fragment below the
+> cumulative TSN already can.
+>
+> One late fragment is enough if nothing after it has arrived: the
+> receiver then delays its SACK for the I-FORWARD-TSN, the fragment fills
+> the gap within that delay, and the sender never names the message
+> again. With the last fragment of an abandoned three-fragment message
+> arriving in that window, that fragment stays queued (RX_QUEUE 1232). A
+> duplicate can't do it, as the TSN map drops the second copy.
+>
+> Before this patch a later I-FORWARD-TSN covering its TSN would have
+> freed it, so if another message is abandoned later, this patch keeps
+> it longer. Without such a later I-FORWARD-TSN, this patch frees more
+> than before: in the same test, the TSN-based purge leaves the
+> message's received fragments above the New Cumulative TSN queued
+> (RX_QUEUE 2464 without the delay), and this patch frees all but the
+> late one.
+>
+> For an ordered message the same late fragment aborts the association
+> instead: its MID is below the next expected one, so
+> sctp_validate_idata() fails. That happens on net today as well. I
+> could look at it separately.
+>
+> Freeing fragments once the cumulative TSN moves past them doesn't work
+> with interleaving: a live unordered message can have fragments below
+> the cumulative TSN, and freeing those is the loss this patch fixes.
+> Dropping late fragments on arrival needs new per-stream state, the
+> highest skipped unordered MID, which must be cleared on resets and must
+> not go stale when MIDs wrap. I'd rather do that in a separate patch
+> than grow this fix (question at the end). Either way, v2 will spell out
+> the cost in the commit message.
+>
+> > >     /* abort only when it's for all data */
+> > >     if (ftsn =3D=3D sctp_tsnmap_get_max_tsn_seen(&ulpq->asoc->peer.ts=
+n_map))
+> > >             sctp_intl_abort_pd(ulpq, GFP_ATOMIC);
+> >
+> > [Severity: High]
+> > Can this branch still flush the whole ulpq for an ordinary I-FORWARD-TS=
+N?
+>
+> [...]
+>
+> > A later patch in this series, "sctp: don't treat an I-FORWARD-TSN as an
+> > association reset", seems to address this. It drops the max_tsn_seen
+> > check from sctp_report_iftsn() and makes the stream reset paths call
+> > si->abort_pd() directly. This patch is tagged for stable on its own.
+> > Should that change be folded in here, or should the two be backported
+> > together?
+>
+> Yes. At this commit an I-FORWARD-TSN whose New Cumulative TSN is at or
+> above the highest TSN received still takes that branch, and
+> sctp_intl_abort_pd() frees every queued fragment, including those of a
+> message still being received on another stream: the same loss this
+> patch fixes below the leading edge. If that message is ordered and in
+> partial delivery, its MID is also skipped, and the association is
+> aborted when its next fragment arrives. With this patch alone the
+> ordered and unordered tests pass and leading_edge fails. The later
+> patch fixes it. v2 adds a leading_edge case without partial delivery,
+> which shows the loss directly.
+>
+> I kept the two apart because they are different mistakes in
+> sctp_report_iftsn(): the TSN-based purge, and treating ftsn =3D=3D
+> max_tsn_seen as a reset. But they share the Fixes: tag and the
+> symptom, so folding them is reasonable too. The later patch needs
+> patch 2 and the new pdapi_seq patch (see the reply to 3/4), and
+> neither of those needs this one, so folding would mean those two
+> first, then this patch and the later one as a single patch (question
+> at the end). If they stay separate, this commit message will say in v2
+> that the leading-edge case is only fixed by "sctp: don't treat an
+> I-FORWARD-TSN as an association reset". All three fixes are Cc: stable
+> and apply cleanly, in order, to the v5.10 through v6.18 release tags.
+>
+> > >                     sctp_intl_stream_abort_pd(ulpq, sid, mid, 0x1,
+> > >                                               GFP_ATOMIC);
+> > >             }
+> > > +           sctp_intl_reasm_flush_mid(&ulpq->reasm_uo, sid, mid);
+> >
+> > [Severity: Medium]
+> > This is a pre-existing issue, not one introduced by this patch. Does th=
+e
+> > new flush leave unordered partial delivery stuck when the skipped MID i=
+s
+> > the message currently being partially delivered?
+>
+> Yes, and that is the next patch in this series, "sctp: abort unordered
+> partial delivery when its message is skipped". At this commit no abort
+> notification is sent and the next unordered message on the stream is
+> delivered as the rest of the skipped one. The uo_pd test fails at this
+> commit and passes from the next patch on.
+>
+> Xin, Marcelo, two questions for v2:
+>
+> 1. Fold "sctp: don't treat an I-FORWARD-TSN as an association reset"
+>    into this patch, or keep it separate?
+> 2. Should dropping late unordered fragments be part of this series, or
+>    a follow-up to net?
+>
+Please try to fold it into this patch, and leave the drop to a follow-up.
 
-I think I don't. That may explain why I don't get Sashiko in my mailbox.
+Thanks.
 
-> I'm wondering if some mail is getting dropped, in this particular thread I never
-> actually received the review from Maciej W. Rozycki <macro@orcam.me.uk> at
-> all and had to manually import the email from lore. I think that's the
-> only review
-> email that I saw go missing myself.
-> 
-> That one getting dropped seems especially strange since it had a
-> direct reply to me.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+> Unless you prefer otherwise, v2 keeps them separate and leaves the drop
+> to a follow-up.
+>
+> pw-bot: cr
