@@ -1,84 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793039926;
-	b=IPmRvuSpiorPKiYw1nJm9T3UIGMZsOM/4NeiCJQb4OW/e+vF5w/XiVZTBZj9sR2mkEw7
-	 E3gyZZ/E7hA5wnFzQicWl0Xb0skGX91GRAuCeZGNqMuni5PEWWLAC60Obk+JW6aQA3Rk7
-	 qzW3MKhHzYtpvnJ43JWpYT/xKHUBT0rWH1cpNpueyArmmCiYHeoTRwtQNbCpXPgvvm9kM
-	 66sb638da+AApayo957FSYoLWDrqkKXPJRLT0XyMS0mrNxH0yqr0Js3DUt3P5eHdTLImr
-	 9X89ne56gfPmLouc2iAYJeT6SPpnWzmOfDJle6d0RYrK7S1RC4Ir25NiXCfRnYKPfDg==
+	t=1793039927;
+	b=3S+qDSBqK3waOmTFFhJC9lCY5tLL3+Lwl6yn2oiB3O76VlmA6/+qySeUkN0dErMkxVbU
+	 fEgBuTEyYk6t586linGykmPsoefEEOUBMkPuXkm1CMYNt5xmQwM2Vfn8vThr9PzGrqqOK
+	 mkCen/wgi3vOVQCOdKe0YNPZhLPzRo6FoIrht5N+flFZzeb51DTGJiIuBIPR40xWUHXgw
+	 twE0pW9L3XTuVa8CfHBNnux+3i87RuGo9PxkKITVbBw2Ffyb85lFtp1Y3uAeEy8uTruzI
+	 vHaPWRO4LZsvK/3fQk9RCX0UBYLs7TsjEoU1xps6NoXU2Ls0AGviO24MOBm6LYmW3ng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793039926;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=qtkfCa1ACFlx/Umc0D+/jZFN6SiMdUN5vaZm0FGpPXQ=;
-	b=d22AA0bKHU2Ga8J5SrgtBopFFxCB65TC49gbNswODLUfAjUhMO4A9XT2ADZXmedEZ8Is
-	 EAbm45/MsXP/28pOu/85b6F+tq+6Ys+Za/Ibgc50GO7CyqwYeAGri2zx4v+f4/opQ8sbl
-	 O8yXHO1ly48/PvNWhFWdI7pnlu/sKw713eHaB650En4+24PDYaYCqEMJHIF/0hjOAfKtX
-	 2HfOsxCIVLhZ9+dVag243M0JMt4Kwg9l3xc7wzG5Niok47XkI/mac2TpVPiInc3ZPeQl6
-	 6KFeBLa9S0pCMsoJ42o7vfLqcABsGOa79VeauDBHRbfbK5g/+oG5koV2T/WY2OVotsw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793039927;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:From:To:Cc:Subject:In-Reply-To:References:Date:
+	 Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=DIo0VfjwZn3AOCG0zh4j2BunB4Fnna+uUykWKTKe0fQ=;
+	b=DLCYTL731+REN1GkW4Q8UYXn3eTrSKLl8zhEb+F3eJwMDE1sXIzbIOz8qGrpZectetAl
+	 zN1U2z2jQ9OZG4AsKrc6IwED8njurrJear38aLUaKhOBjnO1URIt+UBg+mll0qfXF0G5f
+	 d3fQlHZNNJtF8ABftSKpOvc3V7RR/gp6dcJCF+N4gw0jKQHUT1iO0xlP/exVVQLkzvjj2
+	 GmYnzLB0Ob94w7l6aBj/30VcewA5D/1D0GwlvEnmDn5BDqUT0/bHYCI4c9xGvN9+8awYh
+	 HoRuZyGLbI1tcoYUNA7PrlAp3Rde0/5eYPKceOaUtZ+J+AVtP1++8lnJ2XUPWVnrKpA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linuxfoundation.org;
-	spf=pass smtp.mailfrom=linuxfoundation.org;
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=gbqFxgya;
-	arc=none smtp.remote-ip=209.85.210.52
-Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com [209.85.210.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=JdAVFcJQ;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=pEPejcmM;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33D37606A31E
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 18:38:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33D37606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA0A8606A322
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 18:38:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA0A8606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=gbqFxgya
-Received: by mail-ot1-f52.google.com with SMTP id 46e09a7af769-8241a56cd70so2160351a34.3
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:38:44 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=JdAVFcJQ;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=pEPejcmM
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793039925;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DIo0VfjwZn3AOCG0zh4j2BunB4Fnna+uUykWKTKe0fQ=;
+	b=JdAVFcJQF2ZBAciSdFcQkOT9J6m6JJ5eM0i2adn3AOMQlpgdSoPho47x1pSkwtPHUlEhap
+	gjl6smvFjnfU3xEGaIqOfpc1RZSX7f4z5CScyjcCOIBEoD65OMU+lbrwf0QFlsZqQG14d3
+	0F76i1ozaBBcyB0XmhUta4xRCKK42hQ=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-410-za6xXsxkMVeDplxOylRCpQ-1; Mon, 26 Oct 2026 14:38:38 -0400
+X-MC-Unique: za6xXsxkMVeDplxOylRCpQ-1
+X-Mimecast-MFC-AGG-ID: za6xXsxkMVeDplxOylRCpQ_1793039917
+Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-48c4445512dso2892332f8f.2
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:38:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1793039924; x=1793644724; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qtkfCa1ACFlx/Umc0D+/jZFN6SiMdUN5vaZm0FGpPXQ=;
-        b=gbqFxgyaSJpwnPMXEHEl8DRMN0FH5f+eZmyf7f2x5yINhWDC0h+TI9fLbmGVXrriTb
-         IVX2UKfZbpWhTHtZSiooDsuNCBRCnMLM30hT6S3h50adSBK7Pw2Deh6iFyu8CBclN/z4
-         9C4rCb+Un3r64IpzDxakAemSIEHFSiRml0wqY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793039924; x=1793644724;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=redhat.com; s=google; t=1793039917; x=1793644717; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=qtkfCa1ACFlx/Umc0D+/jZFN6SiMdUN5vaZm0FGpPXQ=;
-        b=mPF+tBnZWIUed9+DlA+UoHujdHSEU14v749xQUUe4WonZRWQnFJ0H7dd6z++PrPPVp
-         BcwnWhLDyAuxBIGQeAMw9rxCQjMBGEleicBObX01cNBgXtihH73hSUTz73yGJ1OqPNYr
-         shO6+AE8qAkosXCczzUovq8mC8fsjg32P1NFBhkP4c7ARtV8pgslpSCnumVbeQHEORZe
-         sdTM41SykPLkFo63iXq6p4YkQO1z+ghZjfPEbc6NGbQaC3pxHmy4JSLByDbH2HGpt6po
-         s9xsqJKk7F6xI2u8XG2VEA8SxIAGRtfCX3t+UIs6TCy4IVmsxFAD3HAd7Oj5JMd5DZAB
-         iU3Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxVOTXp4cPejHFCu3PVbRZKCelE7HV5CKnFFGI//knUjmT6QUfmGVtoTjyBYlLCFpkmtE65jSuHxvUHQnY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKFfHPZAlWs/NPI+ap6a8GrBrj2X50UDwiUp5/a8EK+vD6udtsQ
-	v4lY1lxTHs+j63l5bplPj7nDygYWxw3FxxmF2yUhfDwg//mK03vTCRBIKK7KgkKyxVQ=
-X-Gm-Gg: AYBFou29Y8LpCw48EqNR+i61nSrd2P+O1ykcwdHh1v7TAIPzuvSdbfvAhGrSNRkaUEd
-	tD+iTnHDw50mLB2Hc336iJB66j7u/txJQUxpd8Tgk/o38qPRIyG6orYW1rSpPWI9p0Q+4xveJPu
-	9NT1zdsaEQfQLUUYDGyo26ygBglTwBR6QPCOmXsDic13XzwxxLJgVukVtLkmvpbFELlc+wHS9N8
-	vDXExw5nH2Dt0H9JAIP7FMJmZk8Ko8DMGTBLSVUTlMkmqrA99YZu5wbG9k9E8ZpXJ9kFxR/h1L6
-	jn/sKwcdfjTjqeyD/2Gfm25QmLPYT9Uf1oWa+JfoQRCuSC/crI9DF5q1K05lD2ih80HgkxqM36K
-	setpynyIvnFqnFA3gWg8suiuCnYAmC7kFmyMR3+G1JMzZe2KZvY5UfxaTnGQuhox91lPVK5f4Y7
-	iKuU0Vy77/g3tvMJ+czbAlvK8TGCGhhuuYsoVtZwjqOIF+GbusRSDLPTcb9zKpPiUSsj0wxRjGl
-	EMaVoCKA7bM9GfczpGxDyDMDIGQl1aINof5pVmRe1hxZAezLPodKzdn3CnP5avUVR4=
-X-Received: by 2002:a05:6830:2b11:b0:834:b015:aed2 with SMTP id 46e09a7af769-850fda467b9mr5329495a34.6.1793039924057;
-        Mon, 26 Oct 2026 11:38:44 -0700 (PDT)
-Received: from [192.168.1.128] ([38.15.57.99])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-850fa99bd35sm8395712a34.8.2026.10.26.11.38.40
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 26 Oct 2026 11:38:43 -0700 (PDT)
-Message-ID: <a072b675-62ef-4076-b3fe-7a344516e992@linuxfoundation.org>
-Date: Mon, 26 Oct 2026 12:38:38 -0600
+        bh=DIo0VfjwZn3AOCG0zh4j2BunB4Fnna+uUykWKTKe0fQ=;
+        b=pEPejcmMAzYpBQAMPa9aCPQcnPmng5cqgox1cUHYQxasK+jSOlmwLUChtXsFp9N8ad
+         b2gHOQgLYEDwNV6l4EKm+vKGxhOtDB+jwVQQy3rbq5oimMruH/Fj3qpu0HnpBbywR2ze
+         eQDFysTa7yPARXYBJ6ZiF+sCIpQu3HCroKObqJTv+uWhoYLE8CJf6JUb5D6HiH87hamJ
+         sWKTBGdJVSimVEXsFcRgPSCgncBZL5ilfyD+YsC9ivMn6r7mRdfuIKhM8uXpjc1jFuIj
+         XWusVS41Suhaw1H8sg7mraGTP4AAInqvoalqETkQoliwrYrSmH8lD+h/BJiA3VtN/gZ6
+         VHyg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793039917; x=1793644717;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :references:in-reply-to:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DIo0VfjwZn3AOCG0zh4j2BunB4Fnna+uUykWKTKe0fQ=;
+        b=wEy2kSNnWsux/c7gYvahGC1FrY4Vdt07VghdOnQYfnO9vqIYj0pPX79tfroGHpj87V
+         CWHhCJ6isq+soQZzoqyxkaW1uekT9sWExuTEJKBAs/8bBcWIrGuJDiK74Eod/Gp4ADIa
+         qRGRAamVNThZ/PciAY00b5fxaM+B+2lMe6PZVYMF24iH8RJUbMeQ5+KcaNyZy+wAhEO1
+         3dvVEXrmndNRkeIhP6+UpbI6Wdp/0iG6QejAbEbJ3Hc7GHkzBPMP8DBiJsOLqXVvFgMo
+         t65i7OG/sMbYOKmiqz7YA7JO/HhEpwar0hNpSXeSZC+NUjxQiDQm0bOmsSDIbNVXrPpq
+         FzXg==
+X-Forwarded-Encrypted: i=1; AKwUvBzNXT8WMQyiX330mr8LlHfAaQOI3is7joBI7W8Uv4OOVZ1Uf558DgukXMdNK5MLfqDqCdFc5IHEKOSYRbU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIT1D9IuZ9P40n9wBmBOBRdBQxC1R5R6I1UbSkGOH2PlR4tR8CC
+	jLxoHMj15642OehmmnRGh92TwY83TL7taomQienp80rhXpQpyCM7VstPyV4fEl7ieBJ4OA0adO5
+	nDiRfsk9P1UuwER6U9pqGwUu1ao2jLr21wJZZ/5MV7OqfnQb73+W1/0QydIUQU/Km8g==
+X-Gm-Gg: AYBFou2JkdTbXD4tG59OKjuCzrF1I0IuUYAONARkbpgAnkYEbkPwfmw33U9PXD6JoQb
+	vIfSQSQX5ongNY79ZlluPug2D+lCEmbNkE3MV1d0d3d04LSFfULM83ufaKSPMqPN+mQ6CI9/kra
+	6vemwNdB25EpnHf5ODxmC/UBndCmQv7KbfYWtGUvFOIAs5pm//HQeDrhQeWPyshXpGBfY9vvNQI
+	pgcoyv4hnX/tEw3LC0zFJ0ln/aI8ZHgog3tQSVJHIFEClupTJjIn8z8iCn05SPivyhILBrTPwvk
+	w5t/1nNa2osQg6IyA8uoaQNRpiIrC9lqc3fOU/InPUpe9cqnT8Dhsvl6LPkXjTJpxnOhHlP4tpn
+	0xylcpM3qUuBppFMCVENlRF1k1XBWQIOMJl6d
+X-Received: by 2002:adf:fe8b:0:b0:489:bc38:9438 with SMTP id ffacd0b85a97d-48e3eb6f908mr11308915f8f.29.1793039917064;
+        Mon, 26 Oct 2026 11:38:37 -0700 (PDT)
+X-Received: by 2002:adf:fe8b:0:b0:489:bc38:9438 with SMTP id ffacd0b85a97d-48e3eb6f908mr11308891f8f.29.1793039916659;
+        Mon, 26 Oct 2026 11:38:36 -0700 (PDT)
+Received: from vkuznets-thinkpadx1carbongen12.rmtcz.csb ([193.32.29.227])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecdfb8esm17981151f8f.54.2026.10.26.11.38.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 11:38:36 -0700 (PDT)
+From: Vitaly Kuznetsov <vkuznets@redhat.com>
+To: Yosry Ahmed <yosry@kernel.org>, Sean Christopherson <seanjc@google.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Stefan Teodorescu <fane@google.com>
+Subject: Re: [PATCH 0/2] KVM: x86: Convert all runtime WARNs to ONCE
+In-Reply-To: <CAO9r8zPAvi0vCENtj+7+gVrojB2nOHEoYfyhgdgxpmiUA2kWgQ@mail.gmail.com>
+References: <20261022215541.631694-1-seanjc@google.com>
+ <CAO9r8zPFEwUVYSTePWN-FurHLzGN6cY8bd-BOj3sjRmjj4xQbA@mail.gmail.com>
+ <at-Pfgjt__PJl55M@google.com>
+ <CAO9r8zPAvi0vCENtj+7+gVrojB2nOHEoYfyhgdgxpmiUA2kWgQ@mail.gmail.com>
+Date: Mon, 26 Oct 2026 19:38:35 +0100
+Message-ID: <kupecdcwbmc.fsf@vkuznets-thinkpadx1carbongen12.rmtcz.csb>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,47 +119,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.2 000/231] 7.2.13-rc3 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com,
- Shuah Khan <skhan@linuxfoundation.org>
-References: <20261025125805.309934791@linuxfoundation.org>
-Content-Language: en-US
-From: Shuah Khan <skhan@linuxfoundation.org>
-In-Reply-To: <20261025125805.309934791@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 10/25/26 06:58, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.2.13 release.
-> There are 231 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Tue, 27 Oct 2026 12:57:40 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.13-rc3.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
-> 
+Yosry Ahmed <yosry@kernel.org> writes:
 
-Compiled and booted on my test system. No dmesg regressions.
+> On Mon, Oct 26, 2026 at 10:36=E2=80=AFAM Sean Christopherson <seanjc@goog=
+le.com> wrote:
+>>
+>> On Fri, Oct 23, 2026, Yosry Ahmed wrote:
+>> > On Thu, Oct 22, 2026 at 2:55=E2=80=AFPM Sean Christopherson <seanjc@go=
+ogle.com> wrote:
+>> > >
+>> > > Convert all bare WARN() and WARN_ON() runtime usage, i.e. WARNs that=
+ aren't
+>> > > strictly scoped to module init/exit, or similar, to ONCE() variants =
+for what
+>> > > should be fairly obvious reasons at this point.
+>> >
+>> > Do you wanna CC stable?
+>>
+>> Not really?  Maybe?  I worry that this will generate an absurd number of=
+ conflicts
+>> and also have "misses" in older kernels, to the point where it oculd do =
+more harm
+>> than good.
+>>
+>> I could be convinced this should be tagged for stable@, though honestly =
+it might
+>> be better to omit the automatic backport trigger and just rely on someon=
+e to
+>> "manually" provide equivalent patches.
+>
+> I can just see this ultimately preventing a DoS and if it lands on any
+> stable kernel it should be a win, but yeah probably manual backports
+> are needed :/
 
-Tested-by: Shuah Khan <skhan@linuxfoundation.org>
+With my backporter's hat on, it would help significantly if we split the
+patch per-area (hyperv, [l]apic, posted_intr, vmx, svm,...). It would
+also help those who want to analyze whether the particular WARN_ON() is
+actually guest triggerable and open the corresponding CVEs.
 
-thanks,
--- Shuah
+--=20
+Vitaly
+
