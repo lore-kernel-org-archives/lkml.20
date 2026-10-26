@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.71
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793051575;
-	b=M/u1kDAOmfavYgTrHr4SAr75zs4pI/swSK0rTU/XiERVO+BYwpNIkERWXyjW3RuSJpGk
-	 44QD+qcyAh86tivsxIarOkJcg9mTocxkMdBxOu+H1+8aBSr2dtCw+0dUmRQEO3iDLw3mE
-	 int4kpxCW0B/AAgQVh52/fN/lJFkNq1o+eSrkCbzZikHWAUUODHqTxd5+VDSpQtp1KeB3
-	 qj+nFZq2s85k73Wc0NojHCV9Bv0L/+Zg3gpDpl3lXChvHklkOEQSx4nX+JK7W7fLTzP6t
-	 c/UncP9N94c6ZM/EppwYnK9Q7jTeul2M49ucSUW82H4fHay2ff0wkaL3Q4kOXbXezJA==
+	t=1793051577;
+	b=ZjhqcVbHUDpSbxE0UopzUGeRo4zv9PVWgbpo/p2jPf1mEZfRuASIXfloZJKIuS2O4YFq
+	 gWxLczxjPUzpBAt4MUNRVoKParRIBI60ww25+2xacJbSxu+ht6S+Kq+U+82c0wCPKtflA
+	 mj96+BkM10q/j3kvhF3Id5NzRUewjqzVtGYuG3XHTiWOKTQZ4IHFi3J/eYlmwY5bc3h0V
+	 XlB4pxj10e8sR8c9RhAXFI3/FWSyQNA102wrJWBvUs9/z5fnJV6dwJpl5ThVmyC+PeZMm
+	 7Musb2i30uY/c93Axa5phZfWrxokPt6Hla19folqKAlEeAv18JZ1niNe6e9gxOndI0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793051575;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793051577;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=UPD1DyegWTB9pcC/MXMtMDXG2VZzMQeq5nacp4T1bXw=;
-	b=LAAEx2AA5amltCaojNB1aL7fembuaihgYYd10vf4OKzlIOSzrtGnn/RKnRa/8SDUwmN0
-	 BWA1XBrUOcSrCQwj64ghL1NwcDSZJhYXj0GltUGYno9fPJU4anBKGQik4/htZ60k1tqaV
-	 sBjQTuXpczsYcVC6qqqfFG/+wq+U5ImDC01o3jA2XbKVAn6nwxcUCnaRoPcpOgca4XAPv
-	 Lfa043OCB9MdSUe/VrsLRbyTV6sKC28+I7j97uV85a5YonLsNy47fTEH93fnaZkCBvGds
-	 /jvjL11PmGCeDR/tEPVTrnSBIVDtl54lZ3FFgv24J6a4ZAzLH0yiQYgj7HrmHXiHABQ==
+	bh=0zQfCS+xbNCI3ecGYMw9q9f4jA1EzYR8/pz81vPbgxA=;
+	b=YL3m0VJwg4epuIG2U5uWShmQIGLETQ2Fh8K9upH2vrspEHt2V3/aaYKJnm1I/XYcv21R
+	 rymSYqHlT/lI+6HhdoTZ8Rx++7eUYn2jZsrOsNvM5xQifDqyePFLwnpETwwMkAK0Qcx6C
+	 A6OhkVPEIEHTvj5TAeDGqjMEGSfO0r3TEuKTn4uw1COxCZ0UEmyynld/u1AMyPXWYgU0g
+	 t6uC6lUu1z6Cg+3u4mfIpWEgIlwwvCQ/wfFJsXOc64WsQlHiLPy3987e7U93ByT1SVAae
+	 sYmcTgwQk8n+RiKyvy/7aS9eufA150Nmqs1yzgaV21I59VIxvPNnz7EHmrNiBE2ETzQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--jthoughton.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b="rIaWZp/G";
-	arc=none smtp.remote-ip=209.85.216.71
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=Kqiy+Ob4;
+	arc=none smtp.remote-ip=209.85.210.200
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2DC760A6F63
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 21:52:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2DC760A6F63
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 272CB606B4D6
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 21:52:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 272CB606B4D6
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jthoughton.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=rIaWZp/G
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3adf71ee6a5so3483909a91.2
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:52:54 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=Kqiy+Ob4
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8a01e2962a1so3748353b3a.2
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:52:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1793051574; x=1793656374; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1793051571; x=1793656371; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=UPD1DyegWTB9pcC/MXMtMDXG2VZzMQeq5nacp4T1bXw=;
-        b=rIaWZp/GdR9oaew/m3Hzd8eSd5saoP8GWO0K4K0joO8XQTv842j2gsBeHsxwEdM/8M
-         MFM6vhduv3Y3n3hCqiAUqsnfRPKP9yOwLSHx/clGiyqH9Rxk0fMKXZZ7stPFt1zjCupR
-         xRNu/7MegW08r0ydYWSIUj+FAUa3Ae6wfRzfeoO5pFfoBcMeRGz13T6mBB5UdlXqWjMq
-         KF0ceJ1w9rr7iREcUm2HrRNiOXTB+r76yUWxKyQJbGshWQiGe6+nr3XF10eZqmjVMTie
-         XjqLxoc2jQjq3WGmj9HfzvPA3b7EhbSB0eKWlpooXrtzhqxcQ9G3H1+HZnwFZsc4Q9d0
-         dwdg==
+        bh=0zQfCS+xbNCI3ecGYMw9q9f4jA1EzYR8/pz81vPbgxA=;
+        b=Kqiy+Ob4bSiepbdF/N+HCw9a9Ypov8HtKYAWKHLmMbdMoQ6/AQK8N+3/9GSPszOCs/
+         1wDw9g6G84lPjg+5wnqK7GtKOgVXqBV6g60MSjrdYOR6qiIDrhmWrnkvTapXpk3t5+aT
+         hq8wJ5b/uxQvjGqh0YiMIwILe8l+czxItEMT+zJ4ZtkENFNlAT9HnocU0M1kD6x4BmQb
+         r6bsNPbldLhR8EOtCoFFvhafOcZ8Ol+iWaiupqeMir9Atbgnv2A2OMD0tKsJD9WbmYwb
+         osWTHPRSBSi+yCRc08AKi5oB3BSbsJN6aXIdfxr7eCzW6nmLWMpzC3ngMIalK5Ey9Fgw
+         7pHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793051574; x=1793656374;
+        d=1e100.net; s=20260707; t=1793051571; x=1793656371;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=UPD1DyegWTB9pcC/MXMtMDXG2VZzMQeq5nacp4T1bXw=;
-        b=USxhNme1In3gklbcp9KSw/NC9fEWnMg/rusS25HUgnAzAKmj7l47JQp0+YpT67OX7A
-         SrURws6NodR76pFwWJL3CHNT/zvC0HOOoltKMQGqL14eNe6lmtsKdnfWY7TOpmrhFFW2
-         Li0ZAvFFJ8EGKXzQyIDqnent0dXOfvbXUv0jn3s9ewQ46+igm15/a3m+zLUZy9U+Sh60
-         pdMf/LGttvsDFc11q7xNYrOuhwq6mX2wA3JzzvjqetEmnBa8Qaqs9h2T3aZQGiycAm/V
-         IP1yzYmKvcCXRV8Q4bMBpP8K8UbzoUS0z9tWMR500hGrSVmMGmA2eph1Y8mKkCImNWgn
-         i9aA==
-X-Forwarded-Encrypted: i=1; AKwUvBx7ZKOvpLaGs4smXHvEdzTkcKZOI7LoS441LUYAhldAJjld5mlAYyMq5SviinptLnPeQytLoSHawwDlQhg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKvn0jyoAs/VkCcYrQftCQsNRTP3f54XQ+R9mu7ph+XI2LhOmKI
-	NrC5lL6GWqTpI59fIXGTpkx22wPj0I1nWTzRPjDT5G7tOnNHG7DV1FIcJcJMbjRDUXZQq86z07+
-	wgEdSGyGBej7hJlc7JzaMFw==
-X-Received: from pjyp7.prod.google.com ([2002:a17:90a:e707:b0:3ab:c373:bf62])
+        bh=0zQfCS+xbNCI3ecGYMw9q9f4jA1EzYR8/pz81vPbgxA=;
+        b=bISNoAKlcvBBWBAmwcKfNjxs0iKMXR3uLy0L5XpezQubwiZsqQ4qD9+7IIAyLuemvV
+         IaBFBKuEfkSeUJZWjIgHK3KCEcZrQNux+65CwCqSiSWwTp9baqps4zQQqM3NgvKy27FM
+         e6LX/VhVLnjB0sBSwNexaqrTSe90YxFvBtOxDGCRHgadSa774MumN0cWrU2cRXCFXeHx
+         xAwM6sjNVMpLZm5FEsc9btzxImQhUCbDu6G/KXR/sTtrjEM4pzRVMMZyqA+z3nFRYM6f
+         KHKAk/VXCK6YH9XwfGjx/W6F0wqq4ZWrOaylxRmlZ6bPfHDX+S6PYm/g/ZHwdKtpH+6f
+         3B0Q==
+X-Forwarded-Encrypted: i=1; AKwUvBw2XqYVPcblIai3lC+UuULg39rAH29CqiwlpDFy7LdTyAecFxKwXl7YhbWlQbxEcMNPAt7bMDGREcBaaAc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKJ1btbGjfXR4fxci8EDf3hEbP9E2Gs3UPO5VAaphdYP/fv52+k
+	6Eu2jWSFAqnK5Q7buYdiBLQW031RLF2y1OFUI9Z8fcRUs2o2qc0D/j2BNUR5t/I3GC2CJdlSFzc
+	GRG7C1HZxZfAOmYs35qwgVg==
+X-Received: from pfbho14.prod.google.com ([2002:a05:6a00:880e:b0:8a0:6a08:e927])
  (user=jthoughton job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:90b:3e4d:b0:3ac:403d:6232 with SMTP id 98e67ed59e1d1-3adeb120167mr6870324a91.55.1793051573802;
- Mon, 26 Oct 2026 14:52:53 -0700 (PDT)
-Date: Mon, 26 Oct 2026 21:52:23 +0000
+ 2002:a05:6a00:bd81:b0:87c:e44e:5694 with SMTP id d2e1a72fcca58-8a366b88ce9mr5902881b3a.21.1793051571129;
+ Mon, 26 Oct 2026 14:52:51 -0700 (PDT)
+Date: Mon, 26 Oct 2026 21:52:20 +0000
 In-Reply-To: <20261026215226.3713941-1-jthoughton@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,9 +81,8 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261026215226.3713941-1-jthoughton@google.com>
 X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
-Message-ID: <20261026215226.3713941-8-jthoughton@google.com>
-Subject: [RFC PATCH 07/10] uaccess: Fail user nofault helpers quietly when
- current->mm is NULL
+Message-ID: <20261026215226.3713941-5-jthoughton@google.com>
+Subject: [RFC PATCH 04/10] stacktrace: Don't unwind the user stack without an mm
 From: James Houghton <jthoughton@google.com>
 To: Andrew Morton <akpm@linux-foundation.org>, Alexander Viro <viro@zeniv.linux.org.uk>
 Cc: Thomas Gleixner <tglx@kernel.org>, Peter Zijlstra <peterz@infradead.org>, Kees Cook <kees@kernel.org>, 
@@ -106,96 +105,55 @@ Cc: Thomas Gleixner <tglx@kernel.org>, Peter Zijlstra <peterz@infradead.org>, Ke
 	linux-kernel@vger.kernel.org, James Houghton <jthoughton@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-The user nofault helpers (copy_{from,to}_user_nofault(),
-strncpy_from_user_nofault() and strnlen_user_nofault()) are meant to be
-callable from any context, e.g. from BPF programs, kprobes or perf, which
-may run on behalf of a kernel thread or of a task that has already gone
-through exit_mm(). In such a context, there is no user memory to access,
-and the right answer is simply to fail.
+stack_trace_save_user() only refuses to unwind the user stack of tasks
+with PF_KTHREAD set. That doesn't cover all tasks without an mm:
 
-Since the previous commit, the uaccess helpers they use warn when
-current->mm is NULL, e.g. bpf_probe_read_user_str() from a BPF program
-attached to a function called by a kernel thread would now trip the
-WARN_ON_ONCE() in strncpy_from_user().
+ - A user task that has already gone through exit_mm(), e.g. when an
+   event fires from exit_files(), exit_task_work() or the final context
+   switch in do_exit().
+ - PID 1 before it execs init, and usermode helper children before they
+   exec, which are created with user_mode_thread() and don't have
+   PF_KTHREAD set. E.g. booting with trace_options=userstacktrace and
+   an event enabled with trace_event= unwinds PID 1's "user stack"
+   during initcalls.
 
-Check for a NULL current->mm up front in these helpers, and fail without
-warning and without attempting the access.
+With the ftrace userstacktrace option enabled, the architecture
+unwinders then read the user stack without an mm. That access does not
+reliably fail: the user half of the address space belongs to whatever
+mm happens to be lazily loaded, if any, so the unwinder may read
+another task's memory.
 
-On x86, copy_from_user_nofault() was already refusing such accesses, as
-nmi_uaccess_okay() returns false when current->mm is not the loaded mm.
+Use is_user_task() instead, which also checks current->mm, as perf
+already does for the same reason since commit 76ed27608f7d ("perf:
+sched: Fix perf crash with new is_user_task() helper"). This also stops
+unwinding the user stack of PF_USER_WORKER threads, which never run in
+user space, matching perf.
 
-For the same reason, make copy_to_user_iter_nofault() use
-should_fail_usercopy() directly, leaving the NULL mm check to
-copy_to_user_nofault().
-
+Fixes: 214d8ca6ee85 ("stacktrace: Provide common infrastructure")
 Signed-off-by: James Houghton <jthoughton@google.com>
 ---
- lib/iov_iter.c |  2 +-
- mm/maccess.c   | 17 +++++++++++++++++
- 2 files changed, 18 insertions(+), 1 deletion(-)
+ kernel/stacktrace.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/lib/iov_iter.c b/lib/iov_iter.c
-index 3d6ecb50d778..21e2ccf1e8f2 100644
---- a/lib/iov_iter.c
-+++ b/lib/iov_iter.c
-@@ -33,7 +33,7 @@ size_t copy_to_user_iter_nofault(void __user *iter_to, size_t progress,
- {
- 	ssize_t res;
+diff --git a/kernel/stacktrace.c b/kernel/stacktrace.c
+index afb3c116da91..f96a5ec12f6c 100644
+--- a/kernel/stacktrace.c
++++ b/kernel/stacktrace.c
+@@ -228,8 +228,12 @@ unsigned int stack_trace_save_user(unsigned long *store, unsigned int size)
+ 		.size	= size,
+ 	};
  
--	if (uaccess_should_fail())
-+	if (should_fail_usercopy())
- 		return len;
- 
- 	from += progress;
-diff --git a/mm/maccess.c b/mm/maccess.c
-index 486559d68858..678bb6165b39 100644
---- a/mm/maccess.c
-+++ b/mm/maccess.c
-@@ -121,6 +121,14 @@ long copy_from_user_nofault(void *dst, const void __user *src, size_t size)
- {
- 	long ret = -EFAULT;
- 
+-	/* Trace user stack if not a kernel thread */
+-	if (current->flags & PF_KTHREAD)
 +	/*
-+	 * The user nofault helpers may be called from any context, including
-+	 * from tasks that have no user memory to access (e.g. kernel threads).
-+	 * Fail quietly instead of tripping the warning in the uaccess helpers.
++	 * Trace user stack only if this is a user task that still has an mm,
++	 * i.e. not a kernel thread or user worker, and not a task that has
++	 * already gone through exit_mm().
 +	 */
-+	if (!current->mm)
-+		return ret;
-+
- 	if (!__access_ok(src, size))
- 		return ret;
- 
-@@ -150,6 +158,9 @@ long copy_to_user_nofault(void __user *dst, const void *src, size_t size)
- {
- 	long ret = -EFAULT;
- 
-+	if (!current->mm)
-+		return ret;
-+
- 	if (access_ok(dst, size)) {
- 		pagefault_disable();
- 		ret = __copy_to_user_inatomic(dst, src, size);
-@@ -188,6 +199,9 @@ long strncpy_from_user_nofault(char *dst, const void __user *unsafe_addr,
- 	if (unlikely(count <= 0))
++	if (!is_user_task(current))
  		return 0;
  
-+	if (!current->mm)
-+		return -EFAULT;
-+
- 	pagefault_disable();
- 	ret = strncpy_from_user(dst, unsafe_addr, count);
- 	pagefault_enable();
-@@ -222,6 +236,9 @@ long strnlen_user_nofault(const void __user *unsafe_addr, long count)
- {
- 	int ret;
- 
-+	if (!current->mm)
-+		return 0;
-+
- 	pagefault_disable();
- 	ret = strnlen_user(unsafe_addr, count);
- 	pagefault_enable();
+ 	arch_stack_walk_user(consume_entry, &c, task_pt_regs(current));
 -- 
 2.56.0.307.g5fe7bd680c-goog
 
