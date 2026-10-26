@@ -1,76 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793029062;
-	b=vK1iYDtpmJmJUWFM+M6Y3bDuTgA8Z3QA2sFMXPjvrFPGPxYD4JoNpj1sj9Vir7CWV2An
-	 IYWLz+87mS1Nh/y9ztE/mfFivNazv8NHtaa4RXs9kEDPXI7mUtRIuCnSuAjIfZPAFHuWs
-	 QM+mLVrQwyiwg3bbl10qmgbRVFv8y/g/msZ1XE3prPD3K1/xFK7PETBndnZSS7FbRMwOG
-	 8a2MiUFhlHgouj2FTZZMg31Zlm26DwmV7lrubWPz+eds9Tstip3B6Y2talTkeQh/513/U
-	 7lcZ8hh/uRU1oDUmbqnuByYbnJhF43YLPAvRQg63+nJwkHngotsmNx6qaa78x3Eeapw==
+	t=1793029071;
+	b=mQt8pWjpLFXnjUfj5TK7a89wY4gTucKnaLZUFjBo6vYAaV9kGM3GW+tsufUIP575ciNX
+	 +jEfd98eQKLbYzh1NF5IunsT7P6+lTEq5QfM1VOHy+EaaCowlChjI4EZffwtkXvEmpDxM
+	 iha5LM5NtL/ymUjxtDAxYvp45vWb3oraFRI2KZ5kJIWgDtA6l2VeMaMwKjy93W6acB4YU
+	 zB0HVjCAKSOBS4HZ6wqK6CAMdYv3n1xIXEc+vk4ubLsQcivVmTSQrKf/fFBcz+Qv6k7lv
+	 Vb7YDnoaVu5JYGuiEYnxpZuiOlg/R5clNSX6lVk3eDh+i9o/8Geo/pMbydHyxsxvjUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793029062;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=/PEvxgbJJKZEuYVwcskTn7V7+CdtxzeB5F8EsgIEQd8=;
-	b=BtqGrtKwJ1G3k3gAm4ite7uJWxyppiEsDR2EhCsjAagBgMzwizaMFP882ToEy8lxnIkZ
-	 UUV7lE0bYvEMC2BFYso+Zh7V88K6vPHFoaLj7EkUejzzL5GIbVcde3DPA6zrw93JbS+RE
-	 dLcRS3QhPRzsQfzU4TiQHA0FX+qYg2y1i/OnPYDr+k8Rm0iFS+L34skh4ZZ3B/tMxTzbY
-	 suS6yub4C0PfB5+4M0Fp+1lzhzn1M6ymNCSD7NxUmS1Ayb/V3rMRTErReQDkQyk6tv3RO
-	 0pJKT+fuvT+EDgIfDj0C2W0D1QhsZSOOtPl5OKA1N+gQPcP4XFWdAa74WvrF1JprvNw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793029071;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=AlEfw0KnnnKeOGuKhIjsydPMLj3rMy80oPafK21417A=;
+	b=GNZx3+76KOrpp7gpDGjCCFMKF9rQgqduL/axHeOSysXreKjrBzXSTCCtzBdbq9O82bJ+
+	 FtMjtpAEL3mIP3YGZ5M9CbjGLCs+EoaRLUwkBif+cuFwbSNXJOFp9g0seXeAwFxMXhgVf
+	 3JuN0BvGtVWTVJeR5MtdGu+XOy3F5K0XWFfsInlfOXyi4MmDvxSr1f2vacL0ICf2OrSKS
+	 oe824LaArMbT2Uq/1NBGEIUc6gUAXauEvNmtju7jm8wGdrSo5kO2eyuJAAKixJIZ7Zok8
+	 J2yMG58jxdd+nMIrP5HN78P8bvbYJ8t8gWog4FpmXKnfSH1Hs64kVq95D3BqZulKX8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-m68k.org;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.221.177
-Received: from mail-vk1-f177.google.com (mail-vk1-f177.google.com [209.85.221.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aRYEkbzI;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9FD5606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 15:37:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9FD5606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f177.google.com with SMTP id 71dfb90a1353d-5eafaeb8684so1092479e0c.3
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 08:37:41 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793029061; x=1793633861;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=/PEvxgbJJKZEuYVwcskTn7V7+CdtxzeB5F8EsgIEQd8=;
-        b=dvv1sj1pavIF3VCpRj9N8ewPi+TlOEQUiM5rNB2ENW8raptWmdmOQP0JSObptcR4oL
-         PtfHti9zGwS9w+8GHWqSRLZrKH5/uyfXcGPgvqpNMNUo1Fv38/Y1uBqrnxR66sVkqqqt
-         47sGdILkEbsVaq91iNxAj+fcE0Qqvl5erYxjKID7mK+hE/3hCOvJU5QRLMSH9qFxM/Tj
-         V2oKDlWJTJEubE0nVRzaQXzW+BfnnWdwqn1k008LKNywuNKC1DksqROqwG+mYIBrtf9J
-         QpYnnS5HJL23mGEQO2RmHX61ejLVYUPGV9X7Ylig2HICto7bWf/XgmjwCUrhea+GXv9b
-         clGg==
-X-Forwarded-Encrypted: i=1; AKwUvBzWlJ2dP8RGOx3sFneHPD3wlLmQXZy04jbwyGXcR4N8XE7JMsoVsnp7AoYQ1OhDyv6wSrUAhrduqb/7Dp4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJC72P8cisC7jmTwR9KRONMiGgAnofKtT2x7FI7Wfo5p+03WWD+
-	TvXA8J4wvt9+F1vnOuXTJYBPMxlLv8cKUT75ARUBfiyLB8BVqmamHQpDnoS4yiF19+I=
-X-Gm-Gg: AYBFou0mfCLOKjk5JewbuNIkny8G07jKlPIcuG7WPw0bQa1WHvJowzmfJG1ek5g/XZz
-	FaAaFsBRdMxhQxujlUeRy06FE6eAU9o4FiGR3EdWv8nBX/jXgoc8mAui0wcd4V7eMvtr+eyOpFG
-	uqylbYmCldRGXLASm1xxcyYkx9p928K6uwYLspFBhbdbWlsxOIf1xBMlvxh75b3WPPctWPoVOoT
-	cNpNjXIXMCoQiy+c6bRkWkuElY9RxrkoGxtNr5ibo2+wImb+I9pEZWPgUxgXlc12EkBAah0v2BY
-	TZO5GTP/XIAhz8/xm/+j7Zi9qCo40xIuEkaIHOXc4L0AzIQHd6jSm0AaIr0CcZxhuuxiQXUfoDV
-	SQLVbv8RlS+GAxCVw0o8LHA6iX3hGKnjtukmXw2WUijOf6RB+LJKFKdKATJuro26li+oEpW7yBV
-	0GddeNQ6q77yCPYscxugfDAUXbsIhI1dnlTaBfRMGsKbYyXCQ6OICboMqWo+uikncFRM1TiOKFK
-	GBQ1MHD/0epVuaMhu2FMq8Zp9LDpykZl4b/gFDgvJDBv05QU3IbZG+CB+O04tjmDhBz5mXNYCUy
-	L+CSKvXwwafs/j88vg==
-X-Received: by 2002:a05:6122:1d86:b0:5c9:a60b:e5d8 with SMTP id 71dfb90a1353d-5ec233214a6mr2901798e0c.18.1793029060766;
-        Mon, 26 Oct 2026 08:37:40 -0700 (PDT)
-Received: from mail-vs1-f43.google.com (mail-vs1-f43.google.com. [209.85.217.43])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ec23427e92sm8711293e0c.9.2026.10.26.08.37.40
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 26 Oct 2026 08:37:40 -0700 (PDT)
-Received: by mail-vs1-f43.google.com with SMTP id ada2fe7eead31-77bf892b496so997895137.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 08:37:40 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBygYQEAaucykHWfEqD6fJ1JBVq1nDAJ8xuXpohbmW4pyycLwNRBMlh4v0/lazE0LAuKSrdNnDniPRaUxjI=@vger.kernel.org
-X-Received: by 2002:a05:6102:f86:b0:7b4:bdf5:9307 with SMTP id
- ada2fe7eead31-7ce5ce24986mr1893457137.30.1793029060367; Mon, 26 Oct 2026
- 08:37:40 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CABE606A31A;
+	Mon, 26 Oct 2026 15:37:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aRYEkbzI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A561B1F031E7;
+	Mon, 26 Oct 2026 15:37:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793029070;
+	bh=AlEfw0KnnnKeOGuKhIjsydPMLj3rMy80oPafK21417A=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=aRYEkbzIjC0hd1TndRRHR4lM7VbZ0Q5QCANjMJ6oBgumR1bl6mxOap6fZ9YpmiY9n
+	 7y7CCepF5dqMevsqA4fkpg4QPPNkyB1zSjUZR2m1voxHlUsOrRbeH0rtwg4pdKLVxm
+	 4y24uEBW7z8v1gHxNrCX2NJU5k/AxP2qOOUMEXF2s/tqyfF/nc34j9v2jtPhEI9kbx
+	 X/PilGZ6HUaUWcDOPcDZCFwqn2wjxZnYYLht2T25tYDeVPiLdPIBvGZjGuXaqauY5M
+	 35xqztCmdKIoVZZ1olBPWOtUB/ljeqSXaAcC4NnRrgPxumJ+YqkdaSxMxtbXrThZI4
+	 vCKG9/hbAmTuQ==
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: Shuah Khan <shuah@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH 01/10] tracing/filters: Fix MATCH_END_ONLY regex matching for fixed-size strings
+Date: Tue, 27 Oct 2026 00:37:47 +0900
+Message-ID: <undine-1793029067840938152-7968d068467a5db1@undined.local>
+X-Mailer: UndineD 0.1
+In-Reply-To: <20261026095441.6a1a7357@gandalf.local.home>
+References: <179285912318.466249.7425922682086130057.stgit@devnote2> <179285913336.466249.16045710288666912574.stgit@devnote2> <20261026095441.6a1a7357@gandalf.local.home>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,93 +58,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261020212235.1143086-1-ebiggers@kernel.org> <363b228a-7e96-481a-b70f-195ba55d025e@kernel.org>
- <20261021063927.GA31908@sol> <d5d0801e-371c-4836-8b4a-26bff33df46f@kernel.org>
- <20261021064940.GC31908@sol> <aea2328d-4ea8-45bc-922e-9c1fed94083f@kernel.org>
- <20261021163242.GB325924@killaraus.ideasonboard.com> <73d01869-b536-4fcd-a139-6f9d0a043347@kernel.org>
- <20261026104056.GH15441@killaraus.ideasonboard.com> <CAMuHMdV7Mz0WgaNP_B8FG6OxLBqqnWwMqWJKNFBDkF2i=55fVQ@mail.gmail.com>
- <20261026145343.GC1001933@killaraus.ideasonboard.com>
-In-Reply-To: <20261026145343.GC1001933@killaraus.ideasonboard.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 26 Oct 2026 16:37:28 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdXdOAYifLgmeguqMwE4kkyJ8NDbA4niZkuEUMYBPxBBSw@mail.gmail.com>
-X-Gm-Features: AclHuK9NkUp6rJz4jccHSR8LbKSfbJD7mhN8jXTqeuqbOAgqsCvTqyecvNO-blg
-Message-ID: <CAMuHMdXdOAYifLgmeguqMwE4kkyJ8NDbA4niZkuEUMYBPxBBSw@mail.gmail.com>
-Subject: Re: [PATCH] docs: submitting-patches: Require base tree information
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, Eric Biggers <ebiggers@kernel.org>, linux-doc@vger.kernel.org, 
-	workflows@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	linux-kernel@vger.kernel.org, 
-	Konstantin Ryabitsev <konstantin@linuxfoundation.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-Hi Laurent,
+On Mon, 26 Oct 2026 09:54:41 -0400, Steven Rostedt <rostedt@goodmis.org> wrote:
+> On Sun, 25 Oct 2026 01:25:33 +0900
+> "Masami Hiramatsu (Google)" <mhiramat@kernel.org> wrote:
+> 
+> > From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+> > 
+> > regex_match_end() calculated string length as "len - 1", assuming @len is
+> > the string length including trailing '\0'. However, for fixed-size string
+> > fields, filter_pred_string() passes field->size as @len, and for "comm",
+> > filter_pred_comm() passes TASK_COMM_LEN as @len.
+> > 
+> > Because @len in these cases represents the buffer capacity rather than the
+> > actual length of the string, regex_match_end() tests against the tail of
+> > the buffer (typically trailing '\0' padding) rather than the end of the
+> > string. Furthermore, if @len is 0 (denoting a dynamic string ending with
+> > '\0'), "len - 1" underflows to -1 and never matches.
+> > 
+> > Compute the actual string length using strnlen(str, len) when @len is
+> > non-zero, and strlen(str) when @len is zero.
+> > 
+> > Fixes: a3291c14ecf0 ("tracing/filters: Fix MATCH_END_ONLY filter matching")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+> > ---
+> >  kernel/trace/trace_events_filter.c |    6 +++---
+> >  1 file changed, 3 insertions(+), 3 deletions(-)
+> > 
+> > diff --git a/kernel/trace/trace_events_filter.c b/kernel/trace/trace_events_filter.c
+> > index 5e74d2dae40a..18ce3ec00d34 100644
+> > --- a/kernel/trace/trace_events_filter.c
+> > +++ b/kernel/trace/trace_events_filter.c
+> > @@ -1075,10 +1075,10 @@ static int regex_match_middle(char *str, struct regex *r, int len)
+> >  
+> >  static int regex_match_end(char *str, struct regex *r, int len)
+> >  {
+> > -	int strlen = len - 1;
+> > +	int slen = len ? strnlen(str, len) : strlen(str);
+> >  
+> > -	if (strlen >= r->len &&
+> > -	    memcmp(str + strlen - r->len, r->pattern, r->len) == 0)
+> > +	if (slen >= r->len &&
+> > +	    memcmp(str + slen - r->len, r->pattern, r->len) == 0)
+> >  		return 1;
+> 
+> This slows down the code as it adds more strlen() calculations (it could
+> have already been done.
 
-On Mon, 26 Oct 2026 at 15:53, Laurent Pinchart
-<laurent.pinchart@ideasonboard.com> wrote:
-> On Mon, Oct 26, 2026 at 03:02:27PM +0100, Geert Uytterhoeven wrote:
-> > On Mon, 26 Oct 2026 at 11:48, Laurent Pinchart wrote:
-> > > On Thu, Oct 22, 2026 at 08:57:55AM +0200, Krzysztof Kozlowski wrote:
-> > > > On 21/10/2026 18:32, Laurent Pinchart wrote:
-> > > > > On Wed, Oct 21, 2026 at 01:55:37PM +0200, Krzysztof Kozlowski wrote:
-> > > > >>> there's no base-commit?  Including any historical patch (from
-> > > > >>> months/years ago), patches with dependencies, etc.
-> > > > >>
-> > > > >> Dependency is something else, but for every other patch:
-> > > > >> 1. For testing/CI: you apply on top of next
-> > > > >> 2. Every other case the maintainer knows where to apply it, because it
-> > > > >> is his HEAD of next-branch.
-> > > > >>
-> > > > >> I am repeating myself, but I really had no single problem of lack of
-> > > > >> knowledge where to apply a patch as a maintainer or reviewer of some
-> > > > >> subsystem, thus maybe I do not understand the actual problem you are
-> > > > >> experiencing.
-> > > > >
-> > > > > When I review patches, I often need to apply them to a tree, mainly to
-> > > > > see the context, but sometimes also to test them. I have encountered
-> > > > > many cases where the patch wouldn't apply on the current for-next branch
-> > > > > of the relevant subsystem. That's often because the patch had
-> > > > > dependencies. When I'm lucky they are listed manually in the cover
-> > > > > letter with a link to a branch, but that's far from being the common
-> > > > > case. I then have to ask the submitter to provide a branch, or enough
-> > > > > information to recreate a branch. Having base information (base-commit,
-> > > > > prerequisite-patch-id, and possibly base-tree) would save me quite some
-> > > > > time.
-> > > > >
-> > > > > I understand your concern about maintainers cherry-picking and sometimes
-> > > > > introducing issues as a result. In that case I also prefer asking the
-> > > > > submitter to rebase, retest, and resubmit. That's not what I want to use
-> > > > > base information for, in my case it helps with the review process.
-> > > >
-> > > > That's valid and for 95% (guessing the number...) of cases will be
-> > > > solved by having linux-next as a base, thus requiring the base
-> > > > information is redundant. It's just linux-next.
-> > > >
-> > > > When patchset does NOT apply on linux-next or maintainer tree is
-> > > > non-obvious, the base should be provided, but that is only "if ->
-> > > > should". I think the proposal here is a bit different.
-> > >
-> > > What's the downside though ? As git can easily provide the base
-> > > information once configured to do so, what's the downside of asking
-> > > contributors to include it ?
-> >
-> > My base is usually not in your or anyone else's tree...
->
-> Hence the prerequisite-patch-id and base tree information. Or do you
-> mean your base is not public at all, neither in the form of a branch
-> pushed to a public tree, nor as prerequisite patches sent to a public
-> list ?
+I sent v2 already, which is slightly lighter (but still using strnlen)
 
-Correct.
+https://lore.kernel.org/all/179291743946.492959.9624495647021680807.stgit@devnote2/
 
-Gr{oetje,eeting}s,
+(anyway, 3/10 is already fixed as Sashiko mentioned.)
 
-                        Geert
+> 
+> Let's fix the callers instead and have them pass in the real length.
+
+OK, let me check it.
+
+Thanks,
 
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Masami Hiramatsu (Google) <mhiramat@kernel.org>
