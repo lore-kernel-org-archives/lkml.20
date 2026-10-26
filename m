@@ -1,49 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.126
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793015180;
-	b=DGLjKe3c6sCAZ1PMMXH30Uw1IwKa/p+Dj95DibmfieLonqTV8KWf1BQVGI12ie0u+fRd
-	 noHNAGQ58rLfH7nMizxkSa3gmifM9nkF8LiUOnfoE+zvOvXaAEPjpaTlOA9hJnZwoCO0v
-	 rWT4s8V4SiiOQm5NL8QJBKr/aCAssgH+bzEdkBp3j50nBW3jhkYCidNb/kAX0ZunkgBn4
-	 eNGVSJfpXnvI2BHkv6JWvgCPB198JEqqxfG+djDA7wGYkpLc74Q+i6l1r6vxDby+IDeR7
-	 wyCENbH12F08GvYrSjGo3RjnHV8Mo29cgXQSxzWBmoGLpA37YqajFSepgNN7+v+QFFg==
+	t=1793015210;
+	b=qZ0S2k4a0sE3ldjzuzZEKcvkDL/uBDzUeZ5XBTLiSkka5uMWM1I8QzWsL+FCV87pTB9z
+	 a0C2NEQN/yChlVm48QmtEpvSMc0bdPVBTBHEly5t+s8d+NnTmV0SWksEAESEeaXIVqsWr
+	 iAXLzBXM/Swt66OnnVwibegRZl+dsxwccjXg6LWtglvwkxUG4TTaIxlRAmB0dQEnUxEmA
+	 iQO5E+lu6Ehwasdmv2OhIba4wGE8jdkuhXAoQsnd+DYYeKzhnN4yg3qmHKcxf5vvTR5ZT
+	 Wbo7u3ocPDHgY6e94+FBtUPnuHItSWJog6wPa6hlKMVEkJFKtZQRn+gs9WdAHOHif/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793015180;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:References:Content-Language:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=waEbYX6KJPSoRNadiwOCD4LDKbTYoW2me5cQNSodTwI=;
-	b=1B3ggsoIOLgeta/jlMu6gIoDKOG3twjbM6aY/FIJh10147eFfb9i0efSkeAf38hxSWiU
-	 ZO6e+sfzckk+FueyUdesw0VEk8pvEaaDUEhq5V85JrIlzuTKTscs57xrSQ01cSQXncZ/g
-	 nZ6XHz5K4W4U1XNP4FsnX5EZGadYwCMTQ3G2NJWW7GMEzkRnihzp0J6kvtFhZ9LqANNOU
-	 MAQef3yTdJheVRpoow+Xdq/r+BgumXOcEmA2lEYmi2mvHcOVQrIf4yud9w+1JD7Yo6tK7
-	 JZZwLR75SnI2fybq/L8EzaW/9Vi8DbiwYn3fGbRI6Pi3j6Iny/7dTxg/o9Np1U+sPSw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793015210;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Message-ID:In-Reply-To:
+	 References:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Correlation-ID;
+	bh=aA+RABdiaQH3eDPzAi8KDo+ifW5jkwRRbEaeVSZdO2o=;
+	b=tnKBboU5ZQkVEY0OjYq+1TPvrjYykjp+OAHVcblIRv7jpSNdompOY+OKMgwm7oT8TfjB
+	 QR0kdFcGzj8J5wkw/OrD/pFa/G1yjLY5XSKe9rFEXcK53gESLZBlKxbD5p9OUxqiyIQ0V
+	 H4fceSeDz3n3j6tcm/r+DPQK6VEEd8JN84+i3hqpndm+DRwZ5VsX5jVCVxwCtZXf7689F
+	 vu/fosY51JEzu+jRua3ndIew/GFRG3o/7En3TVjOlSmxVPVSUkGl8VWU4WSI1IEHhclh8
+	 97gc3OiIArrVsTWYQrMWhqaPpyPFun8cJYp3Ovvqel0sZ5tftx9Otfw7BY2GkjmW3iw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=mzuqJlL7;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8D706606A31A;
-	Mon, 26 Oct 2026 11:46:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D706606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=iGIlgk1A;
+	arc=none smtp.remote-ip=95.215.58.126
+Received: from mta1.migadu.com (out-126.mta1.migadu.com [95.215.58.126])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19797606A31D
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:46:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19797606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=mzuqJlL7
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4DFA61684;
-	Mon, 26 Oct 2026 04:46:14 -0700 (PDT)
-Received: from [10.2.212.8] (e134344.arm.com [10.2.212.8])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1AE3D3F59E;
-	Mon, 26 Oct 2026 04:46:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793015177; bh=fG1932O5DnRLeWO28TC5OCEzVFgP3pBcePlqgLQmTiM=;
-	h=Date:Subject:To:References:From:In-Reply-To:From;
-	b=mzuqJlL7w1VogY9w2u92PK52BKlIVq3WC5uykPM1cXLMVMUZa12omeT08El7Nu7u2
-	 mTjSVSp6lM91xzRHWsVcz4qdAEmAk4SvhgfsWe7O/IoiOLWEk2aY1y3J/uchKTbOMX
-	 10s26HxS0natqMBJ/41T+1s1GqRrmEweoeRBvLJc=
-Message-ID: <c1e80268-3981-48bb-b251-dcd2218fc9d5@arm.com>
-Date: Mon, 26 Oct 2026 11:46:13 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=iGIlgk1A
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=aA+RABdiaQH3eDPzAi8KDo+ifW5jkwRRbEaeVSZdO2o=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793015206; v=1; x=1793620006;
+ b=iGIlgk1Apfxec717PTeu5qTQ0No/XM1AwL20j0qOYYpL2UtrJ13UaVH0mpgg25aFTPlAw9lA
+ 4J3PuCbM21FIioloSUJqyrUyAKph7wynxIixa5yHTh9sXs2RIMhL+3HKdHmQ5KsTbzVgmKmCMZQ
+ uOcvIhw97h7pXfsjX8YzDWrQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 7e4d008dd8e6585e;
+	Mon, 26 Oct 2026 11:46:46 +0000
+X-Mizu-Trace-ID: 7e4d008dd8e6585e
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 26 Oct 2026 12:46:44 +0100
+From: Denis Benato <denis.benato@linux.dev>
+To: Sakari Ailus <sakari.ailus@iki.fi>
+Cc: linux-kernel@vger.kernel.org, linux-input@vger.kernel.org,
+	Benjamin Tissoires <bentiss@kernel.org>,
+	Jiri Kosina <jikos@kernel.org>, "Luke D . Jones" <luke@ljones.dev>,
+	Mateusz Schyboll <dragonn@op.pl>,
+	Denis Benato <benato.denis96@gmail.com>,
+	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Message-ID: <9556d920-a04c-4919-8c16-c346fbd0bf75@linux.dev>
+In-Reply-To: <at86T3plbYCnXRAl@valkosipuli.retiisi.eu>
+References: <20260216175539.12415-1-denis.benato@linux.dev> <20260216175539.12415-2-denis.benato@linux.dev> <at8jnW4RaMPJItUK@valkosipuli.retiisi.eu> <6b5fd961-245f-4b19-9007-03af59170ca3@linux.dev> <at86T3plbYCnXRAl@valkosipuli.retiisi.eu>
+Subject: Re: [PATCH 2/2] hid: asus: always fully initialize devices
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,87 +69,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 0/7] arm_mpam: Add L2 cache monitors
-To: Jinjie Ruan <ruanjinjie@huawei.com>, catalin.marinas@arm.com,
- will@kernel.org, mark.rutland@arm.com, corbet@lwn.net,
- skhan@linuxfoundation.org, rdunlap@infradead.org, james.morse@arm.com,
- reinette.chatre@intel.com, fenghuay@nvidia.com, tony.luck@intel.com,
- Dave.Martin@arm.com, babu.moger@amd.com, x86@kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261022084821.4014873-1-ruanjinjie@huawei.com>
-Content-Language: en-US
-From: Ben Horgan <ben.horgan@arm.com>
-In-Reply-To: <20261022084821.4014873-1-ruanjinjie@huawei.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
+X-Correlation-ID: <9556d920-a04c-4919-8c16-c346fbd0bf75@linux.dev>
 
-Hi Jinjie,
+26 ott 2026 12:39:44 Sakari Ailus <sakari.ailus@iki.fi>:
 
-On 22/10/2026 09:48, Jinjie Ruan wrote:
-> MPAM resource monitors hang off a partitionable resource in an MSC, not
-> off a particular cache level. resctrl only knows about the L3 scope, so
-> the L2 cache monitors that MPAM platforms implement are discovered by
-> the driver but never show up in resctrl.
+> Hi Denis,
+>
+> Thanks for your reply.
+>
+> On Mon, Oct 26, 2026 at 11:00:52AM +0100, Denis Benato wrote:
+>> 26 ott 2026 10:55:55 Sakari Ailus <sakari.ailus@iki.fi>:
+>>
+>>> Hi Benato,
+>>>
+>>> On Mon, Feb 16, 2026 at 06:55:39PM +0100, Denis Benato wrote:
+>>>> ASUS has more devices other than laptop keyboards which needs
+>>>> to be initializated: the init sequence is the same as keyboards.
+>>>>
+>>>> ID1 and ID2 are USB report IDs that are correctly enumerated:
+>>>> send init commands to all devices that supports those reports IDs.
+>>>>
+>>>> Signed-off-by: Denis Benato <denis.benato@linux.dev>
+>>>
+>>> This patch appears to break input devices on Asus T100TA. With the patc=
+h
+>>> applied, I'm getting a steady flow of:
+>>>
+>>> [=C2=A0 256.358075] usb 1-3: USB disconnect, device number 120
+>>> [=C2=A0 257.034324] usb 1-3: new full-speed USB device number 121 using=
+ xhci_hcd
+>>> [=C2=A0 257.175003] usb 1-3: New USB device found, idVendor=3D0b05, idP=
+roduct=3D17e0, bcdDevice=3D 2.49
+>>> [=C2=A0 257.175050] usb 1-3: New USB device strings: Mfr=3D1, Product=
+=3D2, SerialNumber=3D0
+>>> [=C2=A0 257.175073] usb 1-3: Product: ASUS Base Station(T100)
+>>> [=C2=A0 257.175091] usb 1-3: Manufacturer: ASUSTek COMPUTER INC.
+>>> [=C2=A0 257.180978] input: ASUSTek COMPUTER INC. ASUS Base Station(T100=
+) as /devices/pci0000:00/0000:00:14.0/usb1/1-3/1-3:1.0/0003:0B05:17E0.02DB/=
+input/input749
+>>> [=C2=A0 257.266585] asus 0003:0B05:17E0.02DB: input,hidraw1: USB HID v1=
+.11 Keyboard [ASUSTek COMPUTER INC. ASUS Base Station(T100)] on usb-0000:00=
+:14.0-3/input0
+>>> [=C2=A0 257.270711] asus 0003:0B05:17E0.02DC: Fixing up Asus T100 keyb =
+report descriptor
+>>> [=C2=A0 257.272302] input: ASUSTek COMPUTER INC. ASUS Base Station(T100=
+) as /devices/pci0000:00/0000:00:14.0/usb1/1-3/1-3:1.1/0003:0B05:17E0.02DC/=
+input/input750
+>>> [=C2=A0 257.327059] asus 0003:0B05:17E0.02DC: input,hiddev0,hidraw2: US=
+B HID v1.11 Device [ASUSTek COMPUTER INC. ASUS Base Station(T100)] on usb-0=
+000:00:14.0-3/input1
+>>> [=C2=A0 257.332642] input: ASUSTek COMPUTER INC. ASUS Base Station(T100=
+) as /devices/pci0000:00/0000:00:14.0/usb1/1-3/1-3:1.2/0003:0B05:17E0.02DD/=
+input/input751
+>>> [=C2=A0 257.334115] asus 0003:0B05:17E0.02DD: input,hiddev1,hidraw3: US=
+B HID v1.11 Mouse [ASUSTek COMPUTER INC. ASUS Base Station(T100)] on usb-00=
+00:00:14.0-3/input2
+>>> [=C2=A0 257.336098] asus 0003:0B05:17E0.02DD: Asus handshake 5d failed =
+to send: -71
+>>> [=C2=A0 257.336263] asus 0003:0B05:17E0.02DD: Failed to initialize 0x5d=
+: -71.
+>>> [=C2=A0 257.336605] asus 0003:0B05:17E0.02DD: Asus failed to start mult=
+itouch: -71
+>>> [=C2=A0 257.367022] asus 0003:0B05:17E0.02DD: probe with driver asus fa=
+iled with error -71
+>>> [=C2=A0 257.367917] usb 1-3: USB disconnect, device number 121
+>>>
+>>> I haven't tried to debug this yet so just FYI.
+>>>
+>>
+>> Hi Sakari,
+>>
+>> Thanks for testing this! Is that device of yours a touchpad? This commit=
+ has been bugfixed before and the issue is related to report sizes being se=
+nt as 64 bytes (and also additional unsupported messages in the case of tou=
+chpads).
+>>
+>> Can you try linux-next please? That has all bugfixes for already known p=
+roblems.
+>
+> I can confirm the issue has been fixed in next.
+>
 
-Yes, it would be good to add support for more monitoring scopes. This is not just relevant for MPAM.
-RISC-V can also have monitors at many places in the system and we should coordinate so we have a
-uniform solution across architectures.
+Splendid! Thanks for testing!
 
-> 
-> An L2 MSC has the same CSU and MBWU counters as an L3 MSC; the cache
-> level comes from the ACPI MPAM table's cache locator. So this is mostly
-> a resctrl scope problem, not a hardware one.
-> 
-> Extend resctrl's monitor scope to L2: register the L2 occupancy and
-> bandwidth events against the L2 resource, pick the L2 classes for them,
-> and borrow a CSU/MBWU monitor for the duration of a read. With CDP the
+A few hours ago I sent the v11 of the ally patchset that also detects the r=
+eport size from the hid device so these things doesn't happen anymore, coul=
+d you try it please?
 
-Borrowing an MBWU monitor doesn't sound right. The MBWU monitor needs to be configured while the
-traffic is happening so that it can keep count of bytes. The CSU is different as it can measure the
-occupancy without having to keep any state.
+It would be very good to know that no more regressions are being introduced=
+.
 
-Thanks,
-
-Ben
-
-> two PARTIDs need separate accumulating monitors, so the borrowed-monitor
-> context becomes one monitor per PARTID.
-> 
-> Patches:
-> 
->   1-2  Generalise the per-domain read path, add l2c_occupancy and
->        mbm_core_bytes, update the documentation.
-> 
->   3    Split the borrowed-monitor context into data and code entries.
-> 
->   4    Do the CDP num_rmid halving for every mon_capable resource.
-> 
->   5-7  Pick the L2 classes, describe the events with the L2 resource,
->        add the read paths.
-> 
-> Tested on QEMU with an L2/L3/memory-controller MSC topology. The L2_MON
-> files show up and are readable; l2c_occupancy reports the modelled
-> occupancy, and mbm_core_bytes reports the modelled bandwidth.
-> 
-> QEMU branch: https://github.com/ruanjinjie-eng/qemu/tree/mpam
-> Test cases: https://github.com/ruanjinjie-eng/mpam_testcase
-> 
-> Jinjie Ruan (7):
->   fs/resctrl: Generalize __l3_mon_event_count for non-L3 resources
->   fs/resctrl: Add the L2 monitor events
->   arm_mpam: resctrl: Split monitor context for code/data
->   arm_mpam: resctrl: Halve num_rmid for every mon_capable resource on
->     CDP
->   arm_mpam: resctrl: Describe the L2 monitor events with the L2 resource
->   arm_mpam: resctrl: Pick L2 classes for the L2 monitor events
->   arm_mpam: resctrl: Add the L2 monitor read paths
-> 
->  Documentation/arch/arm64/mpam.rst |  23 +--
->  drivers/resctrl/mpam_resctrl.c    | 236 +++++++++++++++++++++++-------
->  fs/resctrl/monitor.c              |  15 +-
->  include/linux/resctrl_types.h     |  13 +-
->  4 files changed, 222 insertions(+), 65 deletions(-)
-> 
+> --
+> Kind regards,
+>
+> Sakari Ailus
 
