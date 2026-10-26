@@ -1,55 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793018586;
-	b=A/avOkOnXjUMigZDpvJGFxXFlC/3ePbmcXsemC8UPbOuXmSgQvvN79a+rOCCu1L0yxHj
-	 qpws6I65dmk9VvqA/QXFh2IOQSigUr5EsNAp4G+nQ7aYEcVDntexc9+6H6cv03ACVyjeE
-	 j+5dJKPUdrjmHVoBt82n8diTn2FFNhgkcvfZcZ/i0VJxgacfH1GbZbE58vxPxbbmIKjKO
-	 RFsFTVsg2oZncwMSqt7SsRHPYvFygN8WkHRgXPdQeVYqJniiTvUq9PUzsHWIPULOmI3iJ
-	 mKCqju6Dp3arF88slNe1imj4okomEhwpXx/EPlNoY2XOauZn1+axsdF5bZJMfuOV1lg==
+	t=1793018618;
+	b=B6Uop3GP7GGG6otdDU5rIdAXaPlOviv1KHRExCOiGqHuxsOUwmMhetn2yttlM4/mZiQg
+	 OcIOAIyTS2tGgilGEhqBb7xAZpQbLCter1Ebpl5Okri5q14za9f6G5LkDIH844ohUKNlP
+	 OuaEx7m+JVbSMqNTx8qioo4xz2CziiPaHulbQ/ZFJMUOAJfC64OlBWFSTsj3NWDjYWHtJ
+	 55d1qyvPhj0T+YxMmulaBRKBuDHQzB6U1qOxQIcjtm6Mz0HB7zHNgpJJtD37dMCLWJjde
+	 z81CaDt7TFOVK+x0LW2MmyHPuBQezrSOfH1GWgJUeNeWD0Ssd0r6cgZpuiJvrlFGBUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793018586;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=BggR3LMQ5B2H+14O+KbzWRM+OZcQ6ED+Q1RPs+JGDuY=;
-	b=5L1ol2Wz83DIWPRMPUcvlVUDCe8mGughv6f3TlaYupSo3oRo1NYFzAX28L6JFuGOCmIo
-	 IkqIykVp/mxFdaj0hllTZkPhe/A3qYeH6rw+VrHJUpwkeI/L84Ar9dU5y0k3lkI5uwbYZ
-	 LChcBSGUINptkU1AGo8wkJGvTkGlp48hls4JqI24N+hHDSQ69o1DIC8iuon64jGKiyMrx
-	 bFUnA7dhIANDjIYHhhtcmCphHDdML3EO9cjeox6t/mzDztjpU3aO00lP4bqzPMA/Xb5+O
-	 EIyV2fM/6qB9jPVEEQuDwN5PxN+ORKTSzHR+EC9VfDD5BVNe9Xy6odtGAxd2Vgb498w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793018618;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:MIME-Version:Date:Content-Type:
+	 Content-Transfer-Encoding:From:Message-ID:TLS-Required:Subject:To:Cc:
+	 In-Reply-To:References;
+	bh=x98ue6edYcJSRLvXIUfs73a6xLz9MbtvdfK+VXF01fw=;
+	b=BqhJ8hO52LVvPqpcP8GA+pFk+FBk8kQVmmcAX0b/guhasnDV1XQbdk4bv2+Busb+YLMa
+	 N3ALPkkUbACHXVaLajL9pimVjtBNxaf+NZruozrS2WCNaBgf30Up/jiO4Z2nVaaeml625
+	 9j4SI9gVbAvj6V0BGhHR1UDOst87tPlKpYt2+UgJcX5QX3fPZ6AFDr7rxdTeOUioDBARW
+	 VI4zt+1xmL8Wtcvu5sdq/dDASYpBUSgmR/S4/MYxA8qnnci44UdAPVDupcnuMDxIgeykY
+	 Q1ApdjTP9eNJiV4m3UPboXM4FQi9JqKUwIsZzgF5hjtUE6VCDdchd6XmEqwVM/DView==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n7HIePDC;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=NazLLNnL;
+	arc=none smtp.remote-ip=95.215.58.118
+Received: from mta1.migadu.com (out-118.mta1.migadu.com [95.215.58.118])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6267606A31A;
-	Mon, 26 Oct 2026 12:43:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 685AB606A31E
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:43:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 685AB606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n7HIePDC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C2C81F01825;
-	Mon, 26 Oct 2026 12:43:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793018585;
-	bh=BggR3LMQ5B2H+14O+KbzWRM+OZcQ6ED+Q1RPs+JGDuY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=n7HIePDCNGLATxlHDR1D9kUVrxyjfPbo/kID5m5uw8cgHUVfiMhV1h4JNWf+9h66L
-	 zVztPXZFqx4sYrLWoJpmgOWiVzYWUERxW2R4qK8BKCHoiKdStuuTfqmj0IGum51zm1
-	 zjsF+34ZND5llQyoiRQnxTeghGRhi4Rc0Wnqzpplod6ZBYqwnmqHXRXa8nHYG1GJCQ
-	 u/5ta9WGGFySjI63tHc0V8Xgl7NYJngZwPm2v4QW3c5Whq7erEajlyS4jmVkJv/aW9
-	 /nRrW3O0/vjgDmST+QgAEycPin230DJEDsyDawQbLigGG+DXLMvqQrWQjINtE3wHz7
-	 gcPRCVlbqwsjg==
-Date: Mon, 26 Oct 2026 13:43:01 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Patrick Tudor <ptudor@ptudor.net>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Olivia Mackall <olivia@selenic.com>, Herbert Xu <herbert@gondor.apana.org.au>, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: trivial-devices: add Microchip RNG90
-Message-ID: <20261026-determined-elephant-of-brotherhood-0a3c86@quoll>
-References: <20261024-rng90-submit-v1-v1-0-e265cfabc9af@ptudor.net>
- <20261024-rng90-submit-v1-v1-1-e265cfabc9af@ptudor.net>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=NazLLNnL
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=nzH/f4GJg9wr8FRWhRIYnnTP3YVJewQQsdvAvpslUiM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793018614; v=1; x=1793623414;
+ b=NazLLNnLwbBMGC2WbW/8HmE4Wn+9br1Pdx2NkiYKwQg418koQP4WHpRgWXgflUXbJLLZTg4l
+ 6mjNYsx6mdupmGj7lq3p1/L6uMtOg6Q32T6yi3EBUIKHcBmKE9pnZMJKzvwX3mKDw2TqF9j5UGl
+ Kd528nDgqAoD51zxcN6FdhNQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ecc5c76a2f6b2875;
+	Mon, 26 Oct 2026 12:43:34 +0000
+X-Mizu-Trace-ID: ecc5c76a2f6b2875
+X-Migadu-Flow: FLOW_OUT
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,22 +56,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261024-rng90-submit-v1-v1-1-e265cfabc9af@ptudor.net>
+Date: Mon, 26 Oct 2026 12:43:34 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+From: "Luka Gejak" <luka.gejak@linux.dev>
+Message-ID: <c8bc5affa75d7519b424ea98c07c1d6b65942347@linux.dev>
+TLS-Required: No
+Subject: Re: [PATCH wireless] wifi: mac80211: abort chanswitch when leaving
+ an IBSS
+To: "Mehmet Fide" <mehmet.fide@gmail.com>, "Johannes Berg"
+ <johannes@sipsolutions.net>
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+ mehmet.fide@screeningeagle.com
+In-Reply-To: <20261025193615.1123718-1-mehmet.fide@gmail.com>
+References: <20261025193615.1123718-1-mehmet.fide@gmail.com>
 
-On Sat, Oct 24, 2026 at 08:18:22PM +0000, Patrick Tudor wrote:
-> Document the Microchip RNG90 I2C cryptographic random number generator.
-> The device needs only a compatible string and reg property, so the
-> trivial-devices schema is sufficient.
-> 
-> Signed-off-by: Patrick Tudor <ptudor@ptudor.net>
-> ---
->  Documentation/devicetree/bindings/trivial-devices.yaml | 2 ++
->  1 file changed, 2 insertions(+)
+Hi Mehmet,
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Thanks for picking this up. One comment below.
+
+October 25, 2026 at 8:36 PM, "Mehmet Fide" <mehmet.fide@gmail.com> wrote:
+
+> diff --git a/net/mac80211/ibss.c b/net/mac80211/ibss.c
+> index d74b66426349..b9ab4ceb0332 100644
+> --- a/net/mac80211/ibss.c
+> +++ b/net/mac80211/ibss.c
+> @@ -669,6 +669,10 @@ static void ieee80211_ibss_disconnect(struct ieee8=
+0211_sub_if_data *sdata)
+>       ifibss->state =3D IEEE80211_IBSS_MLME_SEARCH;
+>
+>       netif_carrier_off(sdata->dev);
+> +
+> +     sdata->vif.bss_conf.csa_active =3D false;
+> +     ieee80211_vif_unblock_queues_csa(sdata);
+> +
+
+As far as I can see, the driver never finds out that the switch was
+dropped here. ath9k_htc only clears priv->csa_vif once the countdown
+completes with csa_active still set, or when the interface goes away.
+
+So if I read it right, after leaving mid countdown and joining again, the
+next switch with a countdown now gets past mac80211 and runs into this in
+ath9k_htc_channel_switch_beacon():
+
+        if (WARN_ON(priv->csa_vif))
+                return;
+
+Before this patch mac80211 stopped it earlier, so this couldn't happen in
+IBSS. AP mode seems to have the same problem already after
+ieee80211_stop_ap(), so I think it is better fixed in ath9k_htc, maybe by
+dropping csa_vif when beaconing stops.
+
+Since you have worked on ath9k already, would you be willing to send a
+fix for that too?
 
 Best regards,
-Krzysztof
-
+Luka Gejak
