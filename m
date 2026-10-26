@@ -1,94 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793032188;
-	b=FSLwadnIrFodGcVXgEYLPcUy4S3VeB1eNcUFVe8RoY5UmH5wGm9sO5gXTOHwyXgi+y8P
-	 H4ksZ3Gwyq225xI567VpUtT4UyPoF7obN11QxrEAwf3+hxPs8yWB0u7Z4mOy/6eKmoK2L
-	 1HMJ6XbY5K+VWQ32qh6CdjzG1TA1RE2uEwMDi6Umv9VIvC5ocU/2BfdPmlGxkxrb4ep/P
-	 tPsMIN/QnwQ2xdNHRKgbAbIKDkcZk8t85LQAyVW8dUmzPmGSW3Yq8XGCE1W1rV0CfYrBW
-	 lzO0n3KWaVQNSYqlYec8S7/vs3uKRP2Tdae4ErB+5UDWFonJLAwbdP6IHcM77gsMJhA==
+	t=1793032178;
+	b=anoZ5L7IZ0bFI8KmwqFXh1F0e24jtuSDyiz1h/UPEt6TUT6W4eRUvGHupXfmVIt81+bE
+	 GASHGMPuKRArWAdi6MomId0msdw/M0Kla0C9+9n6oqKmO8scg8MP+HAPd8PVnVkFEPWgf
+	 LIrN65JLt2mRySYDDP1psq/beKrRoDaW6niuRpEU1jQw1AlOeEnxUjfVIz6xGgFb0QAMW
+	 vrnxvA7FwviTyqcpCyJGEnAOnfPQITSP2yVwWMtQa8ZNh669iD17F5JlIAQnkgZi5z+hI
+	 7GxwuHRo0Iyna8xn05XQgh9q00G4JIlbX8htb0PcS0wnIrEUTl0ZKPHzz8UmSqsOj/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793032188;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793032178;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Type:X-Developer-Signature:X-Developer-Key:
 	 Content-Transfer-Encoding;
-	bh=RKcXzPxvin5lwIxGObv+nbNRfrLQyO7ePF6o4zMOL8k=;
-	b=A3/GL6hyWqmbQRRZtfLJuRnKLsGWwsXsxVNaSHt/ZMRe4sxBze4di08Uu293SAdVcfMq
-	 /6qE9S7ohjN+0YymkQaPy5I11t3gsl+WqkC4X8mMOxklywqSYmvp0dqhOmsV85w92em7S
-	 bICIplbppkS6vehrknwgei6ucNcpjX2cdwxUPJlobNyh961zhzhtd0kiDmQbL9DSdhC86
-	 43lBmEGuBInG9felu3mlsQf25x+OWF6QZA3U7KIAv8riI55xaarbjkzz4Hb6foNeBCXQ6
-	 dhp0hmPnUuB1oi/i4eFRNf/IpIqKBEyq2V/3DHhkYtamnAuo1tiHVXp4TJd8BY9S5XA==
+	bh=DufeBrqyUbSnmQ8skjhQG6l+F7Ults2Rkyo8mZPpFPY=;
+	b=bbOawUeB+cubc3mKnWC+Eeg0WhXBt8GXDkKgHL3i9R0MVb2bU9L6wU+UQ2W+MTCf4vy6
+	 ydF8Qv0IFSU7aUmuSuiAx+5AyBOQ4lCwPf5OLJLl4Fp3zzLQTSSufXFp7DawmUBeTLdGR
+	 60HJRC7IuFQCYB7U5groEeEF48GAq/ITJtgyvw8+yrq7Lhi+LiVJUBr0IelB/E8lPvTWL
+	 +DoR3QhS4PIsY0NZz+LqshoLMDXr4XmCEyS+4sNeKR5LM4BmYbyucxddnk7goFHPD1bq0
+	 bJPX9WQFZbijwqOInpJ+SqqnuW9NIjwsABK4lMAJS2z3NlRcj3xerCX9OZjWbWpUVaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=baylibre.com;
 	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=Hbro5VuG;
-	arc=none smtp.remote-ip=209.85.221.41
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=PYnX8AoJ;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0F92606A335
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 16:29:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0F92606A335
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3031606A326
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 16:29:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3031606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=Hbro5VuG
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48b042c0759so1808859f8f.2
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:29:47 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=PYnX8AoJ
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a35ac4475dso15978755e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:29:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1793032186; x=1793636986; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1793032176; x=1793636976; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=RKcXzPxvin5lwIxGObv+nbNRfrLQyO7ePF6o4zMOL8k=;
-        b=Hbro5VuGgSR36QNwiREnMP4TJ/+1in3seAXuchxuGPpFx+aWPV73L7wySNGlwKsBpH
-         mXUtIOq+SRl+q+s2jUBtTx/wA0Oj1cdITvV4FZLErDOpbemsqXJiokC4NhmkZZWyTMb6
-         0zp48x0efFpYfd9CbKWEJ2v28VOkY7G7meLf+NsMxGkjl9HVRasTpH66j2tWnJVsVand
-         zQlYw0V3//7NvXROz2NDWMINfzdU39+i87kQy4oMvTtQ41wljivZXB+8WkABT1GXJBJn
-         oZDKnImufZ+UCxb8dfeqGo1BO9qcag5bwlVGCh7bceXUJ868k1QzFP0g+GjiJDW6Onzm
-         hxFg==
+        bh=DufeBrqyUbSnmQ8skjhQG6l+F7Ults2Rkyo8mZPpFPY=;
+        b=PYnX8AoJBp/EPdaPAmaDOiu3H57VwLmwaOQUV5W3sgX4kJjOkFEeFCVImeI07D4EVe
+         7acb6XlKclznwA/HL0h6WvfQk544az6Z3tls79dQ/h6oZFaUKyoqdsqNhDtIvmxCuX4y
+         4hkh03fwvRkCNUlugIj4akmoJ8NU3cDTQ15imXGfZu7lWTMPej7dgh21d2CYHukpMmQX
+         O6Smen/nerGOQKFi187wgZaL89SKjojLaVSaQgVguY7vO1MK2SmYP/qL2u4Ii3th7lch
+         Qe/T5HKt7WNPcyH5sPkD0FPkDPVDZs4iMC4ymMlDYAtnKRyOldim4VdV2CSi+/e8NvIr
+         cz3Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793032186; x=1793636986;
+        d=1e100.net; s=20260707; t=1793032176; x=1793636976;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=RKcXzPxvin5lwIxGObv+nbNRfrLQyO7ePF6o4zMOL8k=;
-        b=CWL6cKi0wSef6Uq2UPH8ux/XsPOJxUpb6fGKVUSMKSGF/avWH2n/H1tqRoy4jjqN7f
-         x6aC3l4n3qu8Gbqf9wN7Jtt8WIZ88eKJDYmGs/qNUITlazK89L7grb4a9wUCA/Dx3Gs0
-         57oFYMvlgpcYpm3cOltiDchyb1MEZIxs+0bPQTXLGFi5HpRV8p2kER2rI+FhcXIWS99z
-         /8nDPNpTdLAr+ddAWPSwMlQuSvezHp4p6yBdGNzSbr1r/UqUh9qXHNnoAznuSFX4PnW8
-         U9FxdUcALPT52Q6wEIJemf2kk4tqYFC5XyveD7Xgy0Ir5sN4/5vrPfpk27eiVAu04Lhe
-         /yew==
-X-Forwarded-Encrypted: i=1; AKwUvBw6Yni+LmWRtAX/W29dnXbV5UF0mfZ3YjOo7higLb8KuuPdtqhjQVepfA/FFy28GwVP0XdqwY0JGnfluDE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKms6wPUkxTp2rPrgM2f/h4JCNmmOXkmb8l/j8wvB2u+v/qt0Al
-	1EoW/t19qNgAgR9dpxQBwtH0yk6JwAcpDc553rMsMUwb9NtvETQi8bnMBWTL0lDkxXs=
-X-Gm-Gg: AYBFou0wV9AUGGNISi/TXPeOOssCKzTevaJUjnZ9R7760zdUnm5bj6+kII+DUoH9IUt
-	Y9R1puKNtU7IQomUy16pIL/oh/qctl9eg03FIaufm7AvHF/hMalN3dh47DpDN0cl3cxv6eTcvSk
-	aGT9GHFXjx6JezfyBosi2NzWPchpRRHLxmK+3IOIvWyU+LGU6GntL8pQYKdC96iEA4kKYOENnu/
-	H1pVX7HL12XoUIBfr3DkJwoK45RdfaxoGfBtppI4nzhAjI1Nb6DTtyaOb2FbBDpYiS5uP3Gys3H
-	b18Lgj2RjGZCeaobGX6QIMoPFNK7eNUPTdmTzmlvExrI8QznwpOdmXsYI0LYr/MRs16GpGwOW1s
-	KwufHPjSCsqRW9mC9BZC9Fb9+IOrvIH4Y6Rm0+PjQKp+ZlQZnwWMMR338F4IvBRV9jE63wyafh9
-	N9DRV5CzdAohwXPxq0vCPhAXWaEFXoktqQLCn/sPYLj9cWbhj7lHFkYIYvOcy+kRyjg+5yksRYx
-	xLCh00gyPlKE0grR929rETD7LdomXEcZbZE//moylL60lf7sNMYgfzdM9vgqlzUTmu1zBRXH1xa
-	ogTkp7MZiz++/WeBJl/iGiNgvanjDfRSgbt0UGjclvg=
-X-Received: by 2002:a05:6000:46d3:b0:48d:f9dd:e3de with SMTP id ffacd0b85a97d-48e3eba4619mr8542409f8f.45.1793032186149;
-        Mon, 26 Oct 2026 09:29:46 -0700 (PDT)
+        bh=DufeBrqyUbSnmQ8skjhQG6l+F7Ults2Rkyo8mZPpFPY=;
+        b=Y9NhIUw8yzCctFqu6LL9WwJdRDwOaaTgcp4galAudyZqqMcrBJe7cYZsfIynDMapfn
+         cHdTEchnLMao983XExSnU4Z8FUKYBe7fjilrhWIq+JQWt/CliluGL9Ubmf1b7ppfB+YF
+         FC+ilQTVTt0puE2/15K2Ql4/v5qz53OSgjZ3PxyOr6QN5HeyNJPiO4RV9Eg0Zdo6daoo
+         uQ+gw+WSW8IO8L1Ftx8e02nbRL7mTc/OX5ZMAXbzJ1DR/ftbzX74zQ6zXE3oislKACDb
+         ZL9taTgLpdhKIcY/7nRUDZqlcQysvt85rlZxLQ796YMWiFB4Dlp2V3KdD0vfLugluaEf
+         rQLg==
+X-Forwarded-Encrypted: i=1; AKwUvBxtZ8amm8zdJq0INJawmv8DyglUGYHBVWlVXzPfwsT91G8RlRNy1A4hXwTuB/OyeQPtABFX+6jBrRMhiqk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIohOhyX19SNBsJgcZIglQZLZlPH4azpoahvxoOhUKIG5kcYPv9
+	dEBFBFkV1Kr+MqC7O3G11/kz3dO6SrKhJyg/OJj94aKmq15J5hRofpkWY4TYohciQjE=
+X-Gm-Gg: AYBFou2ynXSR573/Mt2XDnaeQxtcpBS+kiAMvZdOU9W4BF11yxlIw/Hgby0NsWBaVm1
+	qLF1HvPWQDLzqMPoa4SdgyKUx2T8KbOKX5PLH7XhzLJ7g53wm2rV2JyT60ZlorcHRRIxltKuOlS
+	fk0xUsky7RvylX5xnZHQv+QAYGuQj+YiReRHgpMc1k4isxLk38l16PzCDQs1Qpaa4ByNO20SYZs
+	weCTn5f7fDRdHRJNaeW7hPXUJF9FI8u57EC6Fkp12LzPHbQvsCyuIxrmU7J04j7+/4bc14D3px4
+	HgfbXzI18k/Jy5QcEIFCcFazLVv007oKxRX+w9S3RDO5feu2rebsXTV5QPHQTT3C5jbGCjxNAZq
+	k1kyPxAY5ddMvBfPExH1jmDg5qwiG+iXDZ2di1LxJZv81sfe/EaG8UXyWcc6HirIsw6413arwVS
+	Rb32OcAwtrOvwEzNkmLOyMhRzC45VZASBNZo3h7Ya29aAgiVmRzfRoy8BUVpqZhNG84yxOgqgMU
+	POytPlnXpfGle8PxTIQkkbTYKuLDakH9fRexbwxRHAHg6gPumQRDDWUMzDPNPEWOm5180p0bVs/
+	4gT548Jc7w1ZAAvdoIel276X/mBK57bT70nT728ydG4=
+X-Received: by 2002:a05:600c:3e8c:b0:4a1:d2b5:38e0 with SMTP id 5b1f17b1804b1-4a35acbcc9cmr119400055e9.25.1793032176435;
+        Mon, 26 Oct 2026 09:29:36 -0700 (PDT)
 Received: from localhost (p200300f65f19a904cbccaa7a4d73ac15.dip0.t-ipconnect.de. [2003:f6:5f19:a904:cbcc:aa7a:4d73:ac15])
-        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-48e3eb8f248sm16845333f8f.6.2026.10.26.09.29.44
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4a35a03654fsm101933995e9.2.2026.10.26.09.29.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 09:29:45 -0700 (PDT)
+        Mon, 26 Oct 2026 09:29:35 -0700 (PDT)
 From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>
 To: Linus Walleij <linusw@kernel.org>,
 	Bartosz Golaszewski <brgl@kernel.org>
 Cc: Andy Shevchenko <andy@kernel.org>,
 	linux-gpio@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 11/22] gpio: pl061: Use empty initializer for amba_id terminator
-Date: Mon, 26 Oct 2026 17:28:22 +0100
-Message-ID:  <362df5096512d5c88b6f8636bda210ea439ad24b.1793030820.git.u.kleine-koenig@baylibre.com>
+Subject: [PATCH v3 07/22] gpio: xgene: Add missing ACPI module annotation
+Date: Mon, 26 Oct 2026 17:28:18 +0100
+Message-ID:  <cfd62d95bdeeff03197d772e311a7d88c838bd6a.1793030820.git.u.kleine-koenig@baylibre.com>
 X-Mailer: git-send-email 2.56.0.rc1
 In-Reply-To: <cover.1793030820.git.u.kleine-koenig@baylibre.com>
 References: <cover.1793030820.git.u.kleine-koenig@baylibre.com>
@@ -102,37 +102,31 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=891; i=u.kleine-koenig@baylibre.com; h=from:subject:message-id; bh=F0NDFiED5fE2YvaHL9r7KOPlatK3tsaZ/Ub3SUOTuFA=; b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBq33+3GslnJo0vs1RP8G1Jr06MrudZvfQdNTA3a YveLTPHoTyJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCat9/twAKCRCPgPtYfRL+ TotYCACkVWrecmBkqXdQmh7g9WsedfgMJ4EdWmP295ebCc3pO9CHBflnXyXkK9C0gASBAln16ql LE53XIRI7LOe7pcW6nzrWMn8D9T7t2lCzVXlDnHLT2DYvchwtwt7us+K3FcuK07pOi5rIF3pf0X nXgRElzH1axdUmW9lBj5SKwZ6p6sHvDU9BCefOAcGV1cx0WTRQ1W93EJsk5sXV9/Z3mer3Fwj8U xLPxwjxDpWV9Eqiq1wZTitPS8wctxHg42zH2n8+3QKZG6X0NG7xTs0nMPnaJYwGXdp7dBBdrDL5 H4X3QoUJwkWLNukAm133/T7G0l/38nvNzAVFLib+tcQUyY3I
+X-Developer-Signature: v=1; a=openpgp-sha256; l=781; i=u.kleine-koenig@baylibre.com; h=from:subject:message-id; bh=xq5mEKXuCDf/ep4/z+js4VuJ0kfEYf1RuGm8A0Z4zms=; b=kA0DAAoBj4D7WH0S/k4ByyZiAGrff62iv6nAXYPQVhP+hTiQDr9MoVev4MMt/WvduocvAV11K okBMwQAAQoAHRYhBD+BrGk6eh5Zia3+04+A+1h9Ev5OBQJq33+tAAoJEI+A+1h9Ev5O/HQIAKxB 4Fek+ZzgGDE7Gm6NtkogRCQEEs5u/HGw2/us5twb5jC06z/ItbG9XAAL2TVWb1fz5+mipXzDeAS muBlbpN2a5XG6YCSsoVfHeLQLW5nemlCoUuDuDt8/tfbyXX2MfMUrjYvWlM34+Q9gxfqFOOmAHX CdxqLGGxR5zAp/GQrh4brInDYAYwf4tEPHLxASlU2rJz6G3OD/EUHDcb5Nvr8LcCIj04THvDFv+ 49od8IDyffC7CqPEgnbjdVzBUSFIKCCkOpCnBj4ka33l3ZO+uqDl93S0v8B6i30aTB6umTdg5FS ZQVU7uuLcK59vd6Nlp/SBevXrTBaf1NpGRJS+Is=
 X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp; fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
 Content-Transfer-Encoding: 8bit
 
-A device-id list terminator has to be completely zeroed. Most such
-terminators (also for other device ids than amba_id) use an empty
-initializer for that and let the compiler care for zeroing the entry.
-
-While touching this entry, drop the trailing comma.
-
-There are no changes to the compiled driver, only the source looks
-nicer.
+A driver module matching devices using an ACPI device id table is
+supposed to declare that in the module's metadata. Add this information
+for the xgene gpio driver that failed to declare this.
 
 Signed-off-by: Uwe Kleine-König (The Capable Hub) <u.kleine-koenig@baylibre.com>
 ---
- drivers/gpio/gpio-pl061.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpio/gpio-xgene.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpio/gpio-pl061.c b/drivers/gpio/gpio-pl061.c
-index fcd44e34f65e..f180e5f4493c 100644
---- a/drivers/gpio/gpio-pl061.c
-+++ b/drivers/gpio/gpio-pl061.c
-@@ -412,7 +412,7 @@ static const struct amba_id pl061_ids[] = {
- 		.id	= 0x00041061,
- 		.mask	= 0x000fffff,
- 	},
--	{ 0, 0 },
-+	{ }
+diff --git a/drivers/gpio/gpio-xgene.c b/drivers/gpio/gpio-xgene.c
+index 22d22962963b..ad0f1551c271 100644
+--- a/drivers/gpio/gpio-xgene.c
++++ b/drivers/gpio/gpio-xgene.c
+@@ -197,6 +197,7 @@ static const struct acpi_device_id xgene_gpio_acpi_match[] = {
+ 	{ "APMC0D14" },
+ 	{ },
  };
- MODULE_DEVICE_TABLE(amba, pl061_ids);
++MODULE_DEVICE_TABLE(acpi, xgene_gpio_acpi_match);
+ #endif
  
+ static struct platform_driver xgene_gpio_driver = {
 -- 
 2.56.0.rc1
 
