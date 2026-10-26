@@ -1,99 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.142
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793028479;
-	b=VkbLTthnVebuCJ5uEQyYa6C+KkNv4LjoGcgsnanbS+ms1ujZifOoLgT3bf9VnFLNUusv
-	 S0lhtPUMNSVGOkgajf62TrDmB+AXQIQhM8FU1jB8yv+blXEdKVjqftq2uM63+aVjbYqzW
-	 49kGI0Sqvg/fnArRCVAIhpvsKq8owl9MSzjXLTxGV0hYWSg+FhBfD3nhg0bBzLE/+wWsi
-	 6CF862zou/y5lP3LXa745IkXWoMbLBZ/3w/NQ/1cHEL7O1g21zCjh+B8OjJTGV3dsCQXg
-	 9MyFWu9yfLRh/hVCu34hqvoGv8/FYWL2c6v9BM1zYOoTxIeuXxmTFDWi6ep4vr2wM7Q==
+	t=1793028513;
+	b=w3G/78RU1Tbt/p4JJPAlCdvFxRDT1e1MhsKuZKrDabzg1CyISUVw7U10e2dP4ZyyLbTs
+	 M6/hdppR19KChDboFkQi8S3ZEHcImTIzURSjrUokcgGbSdxrsdKGvYL4Q13Bp4R3CncBt
+	 kUltLmFghOKFTKbm6T4DNxODw/NfGahS4q+3DLKvlhHIDc/2rsH6hItbKvA1p50fh4f+S
+	 0M1V0PVLlyr39zbdzVTpBocjyTceSYVxMrcpROgBk7T4fMU6Vw5/75fsbk36I9cwhub0n
+	 pZJ2BbLyf1NY1GWs0O9yYrMZpKjEGEWY5RMLKHiA6fZhpUzopmosk0Of0cWpPVxzAiA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793028479;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=4YP/4sMLmMrBNwv0rmr3CgPfxwdrbgn3B1FIYdO1TaM=;
-	b=wGt1CvqoUIZGMK6ccu5MYvGlKMK7VJ+tFAFXxtyO5Rq98A3YlEvGsVgORC+Jq+Aojf/Y
-	 4t9Evr8fB6DuTJiQxnK2rboVYaIEffW1wwrsd9GeXKxy8tH+Lgu4QyPX4QzWB0PEUdxOq
-	 pFexT5xznh6VIxZO7Rd410c6t6wHXL3Wgw34dhOs+9kEfc27lLrW276yptjp8MCMKXTfy
-	 VZpXm966IAd++X2a/l2F8uGocf4ViyQGdL7AjpJ1+QUxz4QAFEmYv51des+mVwGnIkFOL
-	 2fgVtELHAWIe3Va4U/gopgRGsnhCIa2wCMMP+K6Y0mG11JdNZLjsuhYWLrKMWwZg/lQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793028513;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=hXcHUx7gta3QYy8zKukEnpiFjOMOzlxILH6yhsvVS3k=;
+	b=QxrYLedM5sMl6X8tFlkMYA3odiy0P/uCdIclqoHG99VfIGXGVWJUSP19rOypM9cBZbgi
+	 HTuHQliJxMmFo1c5eG+36glI8CJFvObLW0qy5/IEhuzf/YVlUZUYRu+6GnTZ6t6quPyNV
+	 8FwRsTv+yXrXqc3HT4SlUpuO6eEYcRCbQN38vdHyD1bfmRU+xneCm2qp+BQ/ZK9wY1Ler
+	 aPdV9ZODzEKxlPvaDdON86YU5UqHEFxRJpU4NpdXhAyh8x/S06dAFB8eIB/Ms005h7saX
+	 F8I+qhZGyjNgGAXxNfEYwSct41VvkdLgY03rwg4x2hzoIKryRAbGc82f1xcQj6UqNEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=C35Jq0pf;
-	arc=none smtp.remote-ip=95.215.58.142
-Received: from mta1.migadu.com (out-142.mta1.migadu.com [95.215.58.142])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=MnoYhO3H;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=fk21S328;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CB55606A31B
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 15:27:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0CB55606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DFBB606A31B
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 15:28:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5DFBB606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=C35Jq0pf
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=BD5GR4twj1Y0cxe10dqIpaa4/qJ/AH8RfmV9ehRX730=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793028476; v=1; x=1793633276;
- b=C35Jq0pfAi43X24zs7+pws0mYLmITR+OUzEveCg0XkZvazu8n4wJD73zrHK7x5S+fEpLQuLX
- P49c8d0YGrGpUtVW23hk8Og+UipwHF8cebaDl0rHVHYY/y46DZkmAf4UXIXMFQh48UVakZafxcK
- AZ370RiZGW/kNAJoqjyubAWo=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id b2b5afc969dd0a08;
-	Mon, 26 Oct 2026 15:27:56 +0000
-X-Mizu-Trace-ID: b2b5afc969dd0a08
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: alex@ghiti.fr,
-	palmer@dabbelt.com,
-	pjw@kernel.org,
-	aou@eecs.berkeley.edu
-Cc: akpm@linux-foundation.org,
-	zhangchunyan@iscas.ac.cn,
-	rppt@kernel.org,
-	kas@kernel.org,
-	david@kernel.org,
-	andrew+kernel@donnellan.id.au,
-	rmclure@linux.ibm.com,
-	debug@rivosinc.com,
-	baolin.wang@linux.alibaba.com,
-	usama.arif@linux.dev,
-	wangruikang@iscas.ac.cn,
-	namcao@linutronix.de,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	alexghiti@rivosinc.com,
-	viro@zeniv.linux.org.uk,
-	ajones@ventanamicro.com,
-	arnd@arndb.de,
-	axelrasmussen@google.com,
-	brauner@kernel.org,
-	conor.dooley@microchip.com,
-	conor@kernel.org,
-	jack@suse.cz,
-	liam@infradead.org,
-	ljs@kernel.org,
-	mhocko@suse.com,
-	paul.walmsley@sifive.com,
-	peterx@redhat.com,
-	robh@kernel.org,
-	surenb@google.com,
-	vbabka@kernel.org,
-	yuanchu@google.com,
-	stable@vger.kernel.org,
-	pasha.tatashin@soleen.com,
-	linux-mm@kvack.org,
-	me@ziyao.cc
-Subject: Re: [PATCH 1/1] riscv/mm: fix soft-dirty migration PMDs being treated as present
-Date: Mon, 26 Oct 2026 23:27:45 +0800
-Message-ID: <20261026152745.11239-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20261004030312.90163-1-lance.yang@linux.dev>
-References: <20261004030312.90163-1-lance.yang@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=MnoYhO3H;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=fk21S328
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69QEwBe23074924
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 15:28:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	hXcHUx7gta3QYy8zKukEnpiFjOMOzlxILH6yhsvVS3k=; b=MnoYhO3Hq9ye7d3n
+	I70bVPkJMUXaLd4BchJS6wdZIeo5uumbSB7Ayb2MbMTuWjBKETyLP0iTxmEuvQs3
+	FUe9MEZHyQT6ySivib1zo5jcl/hpYCLLs5JpY2KLPXp3zsE7Zo2M1Tw/z/6ygo+b
+	RjuRgGr9HhstP9vEPnuVuXn4xG6FEZAsc6ALW/Bh2hQkDSRQDc0JfN/Fxbm/Tf7e
+	LXVAw9sjVBDhAjcy+gDYi84cpec+dvIe3fljak7hGhoyghbdMIEj1DAtaQxDbbVL
+	+tN5EnQNrdk86SG8RCYEU+14qxO2mUo/w6XmoBAGYPDbhjGRz9B2Oq0oFwydo2hg
+	d7+Bfw==
+Received: from mail-ua1-f69.google.com (mail-ua1-f69.google.com [209.85.222.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hhsjdb3uq-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 15:28:32 +0000 (GMT)
+Received: by mail-ua1-f69.google.com with SMTP id a1e0cc1a2514c-988b7a28291so48368241.3
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 08:28:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793028511; x=1793633311; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hXcHUx7gta3QYy8zKukEnpiFjOMOzlxILH6yhsvVS3k=;
+        b=fk21S328HViUZqIffDGbZjQ54kRTT/OM/R4uX9wXY6oTeE9si3orwptS2C7Qhq90gG
+         SU1y/IREdSnmJnmccxb9WZzrOOz6iTmgIbXSF+NnFbTEcX/vwpgQLSnyBzHeEQjw85PV
+         LDrwUPvoN37dNbo8BctMcFb5NTlrbzbxG9eIF6rfNHKVr+9YFwJr0Uh0Acuj32vBgZ6/
+         sA2ODRFc/a7+EbLiGxNTYAoatKcqoLKSP3KkrTo8luqDaQM0gpq/G3LY5xu/dYnGLKcd
+         6hdyzb0GC5q9dFjKm3J2ozBnpr80E4R0lcxjU+HBRPjuvJo2YkyPYPe7RGLel9HZDfZ8
+         Sbjw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793028511; x=1793633311;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hXcHUx7gta3QYy8zKukEnpiFjOMOzlxILH6yhsvVS3k=;
+        b=DBZsqFiHz7eZ5C5qxOic0qZ234LpYrb0f/LNS4sIZc2UC3pi0aGbec9yQKcnmU0EKh
+         UBIRqRDRE6xBLwqrURsHvMaF/Fw4pprgRA3mLQ1Pl723XiCHZQeskX8P1IueAxrJD8PE
+         N+BinpPFQ5ZU1qR/97LHcjqYnvaQlmMJWE/NU7q+gQVqypONItViJr84KwQSD3Wuoh9h
+         VXzZwMiKExrU9tOcazKlfyEgns6sBY4ndxtF40kAt7mpwWujPVoccV2dkbcjzP20Rfhz
+         TbJ5xKkcEtMRZfVfWMBTiCF8uAhruF2s4//6UxMHGBcjj/RQQR6IAaVeGW5GOMG8MRR3
+         xuiA==
+X-Forwarded-Encrypted: i=1; AKwUvBxcX75H+4uK1LaTUfDNVclPBhhEyHsjq7LlQqTDLn+qhDk/jwTFeXfWmwqGpGpJwDc4bhiSM6EG03IS5iU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLnPq1oxvta4/U2VMgxWnKq78cACkVTRqe+9xgjOkS3VU3J4R8A
+	OeLlsqms/KMC+5caFIB3HneLC8Fw6DZj7TelUzoMHez4A8zfnNDTH1cHxC+Qt1bd4m7JphZ54sL
+	ep57R23S/FIkMYIfEimf3F6OgKNKMDN6Id+VaBiJTyl/rEWUPDJ8EwpABOky9d4qViww=
+X-Gm-Gg: AYBFou0RHgoC3BqGkZ5AKngGdFKZK5iNqHyYB6vDzVFvHhF8AGIxg9wYY77ktSfenho
+	vj3Geh++v6b2teMPijDisvUEJxprm1p9l7XISFMJbgnAiYlygYshCZndHs+wIj3cSg1/CsjHr3y
+	F2X8P+IK7ROSsy8NZiGFjTsco1mJvFtqob/RAOUMWU8Fk6lpOzHIfEd7njvIPZiZM+/01JvnyrQ
+	uQ5yv0ATYD38T0og2/U0dDUYeVT4/ef3O4oODOT91zTHsPL8YCEfAl1POSHi9p5uKmGnUaePioG
+	pnjU5bjIzNR+01SvbaIEj6jjTyK7T4NbAb1z+SfvBpIvNPhWDYUyFVztvRT/6wiKT8FP8Lherjh
+	OcKptFhugafglqj1GHfJVbA==
+X-Received: by 2002:a05:6123:593:20b0:5ca:7731:d376 with SMTP id 71dfb90a1353d-5ec2332bf58mr2107157e0c.5.1793028511413;
+        Mon, 26 Oct 2026 08:28:31 -0700 (PDT)
+X-Received: by 2002:a05:6123:593:20b0:5ca:7731:d376 with SMTP id 71dfb90a1353d-5ec2332bf58mr2107120e0c.5.1793028510938;
+        Mon, 26 Oct 2026 08:28:30 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd4e9968sm334450866b.17.2026.10.26.08.28.28
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 26 Oct 2026 08:28:29 -0700 (PDT)
+Message-ID: <652f45a3-8af3-4460-a081-30f67bee400a@oss.qualcomm.com>
+Date: Mon, 26 Oct 2026 16:28:27 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,96 +115,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] arm64: dts: qcom: sm6125-xiaomi-laurel-sprout: enlarge
+ reserved_mem1
+To: Roman Linev <admin@mswin.me>, andersson@kernel.org, konradybcio@kernel.org
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+        barnabas.czeman@mainlining.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260821032541.1856299-1-admin@mswin.me>
+ <20260824155535.335494-1-admin@mswin.me>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260824155535.335494-1-admin@mswin.me>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: YtHTspmSOBE5alBwusRASGDKGaFif58m
+X-Proofpoint-GUID: YtHTspmSOBE5alBwusRASGDKGaFif58m
+X-Authority-Analysis: v=2.4 cv=a4elZkSF c=1 sm=1 tr=0 ts=6adf71a0 cx=c_pps
+ a=UbhLPJ621ZpgOD2l3yZY1w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=p94XzNcQMd10UbPFJ04A:9 a=QEXdDO2ut3YA:10 a=TOPH6uDL9cOC6tEoww4z:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA2MSBTYWx0ZWRfX5yIfbpgRHEnh
+ 7Jt8e+5gWn0Wd/s2mN5IvAm51m+tgKzNEaxr+Fm6WVUfBYfkceBvCmLsHNOMJB+IQAF04keDCxX
+ xRcTAyiO194PUc7Gf77GfsQMw95RvtQ=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA2MSBTYWx0ZWRfXzIRW2S+i+tn2
+ 5QkyIQVkbPjKqi2Oqk35Yimax/iEHqS5i2SD0ZtbrI/ZDmva2bOQZxKvtuo3raKr4ECDXu4TNsK
+ pKm3QubhJ0EtBzXD+ueLkh5rWS+NTPjpz2Rt/LzNwKs8njO1YktqfZswVoi3dfdXP082fBQ730M
+ ZzcmEyV1aTsHWa2IZRKQj53kdKUv55nqgJShuoZ0XbhFqmSXCjO+xUT4pN2kImxWuJbTgO670NQ
+ PT36V3VmXp/DT5gw9nygpqBzWZyJj14fW08Haf03qKywlWX0AsunfzgiIL5yZiYbcCt/zircylP
+ L4omN+yNO35ewEUkgiERIRI/gC9BxlCeIIdi440ZMxvnkePMx7Oo/vMYQogAQVR+j1vLa6HO22d
+ j5k5LakhmjNnlg0+iTfWrpqtmSmtIRamYOUn1GbXmtdw33xaLacevHH6pwQmVQVB0OCxWyLpQtU
+ nVjvq9//A5ay1ylTguQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-26_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 malwarescore=0 adultscore=0 lowpriorityscore=0 bulkscore=0
+ priorityscore=1501 impostorscore=0 spamscore=0 clxscore=1015 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610260061
 
-Gently ping ... Hi RISC-V folks, any thoughts on the proposed fix?
+On 8/24/26 5:55 PM, Roman Linev wrote:
+> sm6125.dtsi sizes reserved_mem1@46200000 at 0x2d00000 (45 MiB), so it
+> ends at 0x48f00000. On laurel-sprout the firmware owns more than that:
+> the downstream device tree describes the same base as
 
-On Sun, Oct 04, 2026 at 11:03:12AM +0800, Lance Yang wrote:
->RISC-V uses _PAGE_EXEC for swap soft-dirty tracking when
->CONFIG_MEM_SOFT_DIRTY is enabled and Svrsw60t59b is available. That's
->a problem for PMD migration entries, since pmd_present() also checks
->_PAGE_LEAF (R/W/X) to recognize THPs with _PAGE_PRESENT temporarily
->cleared during splitting.
->
->When a soft-dirty THP is migrated, set_pmd_migration_entry() preserves
->soft-dirty with pmd_swp_mksoft_dirty(), setting the X bit in the
->migration PMD. Even with _PAGE_PRESENT clear, we end up treating a
->migration PMD as a present THP! The fault handler skips
->pmd_migration_entry_wait(), and a write fault can end up in
->do_huge_pmd_wp_page(), where pmd_page() decodes the migration entry
->as a mapped PFN.
->
->Move the swap soft-dirty bit to bit 12 and start the swap offset at
->bit 13 when CONFIG_MEM_SOFT_DIRTY is enabled. This keeps R/W/X clear
->in migration PMDs and lets us keep the existing pmd_present() check
->for invalidated THPs. Leave the offset at bit 12 when soft-dirty
->tracking is disabled.
->
->Fixes: 2a3ebad4db63 ("riscv: mm: add soft-dirty page tracking support")
->Cc: stable@vger.kernel.org
->Signed-off-by: Lance Yang <lance.yang@linux.dev>
->---
->I found this while reviewing Usama's PMD-level swap entries series [1]
->and comparing the swap flag bits with the PMD presence checks across
->architectures.
->
->[1] https://lore.kernel.org/all/20261002095503.3585565-1-usama.arif@linux.dev/
->
-> arch/riscv/include/asm/pgtable-bits.h |  6 +++---
-> arch/riscv/include/asm/pgtable.h      | 10 ++++++----
-> 2 files changed, 9 insertions(+), 7 deletions(-)
->
->diff --git a/arch/riscv/include/asm/pgtable-bits.h b/arch/riscv/include/asm/pgtable-bits.h
->index d5a86b4df3ce6..d84b459e010c1 100644
->--- a/arch/riscv/include/asm/pgtable-bits.h
->+++ b/arch/riscv/include/asm/pgtable-bits.h
->@@ -27,12 +27,12 @@
-> 	((riscv_has_extension_unlikely(RISCV_ISA_EXT_SVRSW60T59B)) ?	\
-> 	 (1UL << 59) : 0)
-> /*
->- * Bit 3 is always zero for swap entry computation, so we
->- * can borrow it for swap page soft-dirty tracking.
->+ * Bit 12 is reserved for swap soft-dirty tracking. The swap offset
->+ * starts at bit 13 when CONFIG_MEM_SOFT_DIRTY is enabled.
->  */
-> #define _PAGE_SWP_SOFT_DIRTY						\
-> 	((riscv_has_extension_unlikely(RISCV_ISA_EXT_SVRSW60T59B)) ?	\
->-	 _PAGE_EXEC : 0)
->+	 (1UL << 12) : 0)
-> #else
-> #define _PAGE_SOFT_DIRTY	0
-> #define _PAGE_SWP_SOFT_DIRTY	0
->diff --git a/arch/riscv/include/asm/pgtable.h b/arch/riscv/include/asm/pgtable.h
->index b644db16bda94..acaf6d3b54d04 100644
->--- a/arch/riscv/include/asm/pgtable.h
->+++ b/arch/riscv/include/asm/pgtable.h
->@@ -1178,18 +1178,20 @@ static inline pud_t pud_modify(pud_t pud, pgprot_t newprot)
->  *
->  * Format of swap PTE:
->  *	bit            0:	_PAGE_PRESENT (zero)
->- *	bit       1 to 2:	(zero)
->- *	bit            3:	_PAGE_SWP_SOFT_DIRTY
->+ *	bit       1 to 3:	_PAGE_LEAF (zero)
->  *	bit            4:	_PAGE_SWP_UFFD
->  *	bit            5:	_PAGE_PROT_NONE (zero)
->  *	bit            6:	exclusive marker
->  *	bits      7 to 11:	swap type
->- *	bits 12 to XLEN-1:	swap offset
->+ *	bit           12:	_PAGE_SWP_SOFT_DIRTY (CONFIG_MEM_SOFT_DIRTY)
->+ *	bits 12/13 to XLEN-1:	swap offset (without/with CONFIG_MEM_SOFT_DIRTY)
->  */
-> #define __SWP_TYPE_SHIFT	7
-> #define __SWP_TYPE_BITS		5
-> #define __SWP_TYPE_MASK		((1UL << __SWP_TYPE_BITS) - 1)
->-#define __SWP_OFFSET_SHIFT	(__SWP_TYPE_BITS + __SWP_TYPE_SHIFT)
->+#define __SWP_OFFSET_SHIFT \
->+	(__SWP_TYPE_BITS + __SWP_TYPE_SHIFT + \
->+	 IS_ENABLED(CONFIG_MEM_SOFT_DIRTY))
-> 
-> #define MAX_SWAPFILES_CHECK()	\
-> 	BUILD_BUG_ON(MAX_SWAPFILES_SHIFT > __SWP_TYPE_BITS)
->-- 
->2.49.0
->
->
+[...]
+
+> +/*
+> + * The firmware carveout at this base is larger on this device than the
+> + * SoC dtsi assumes: downstream laurel_sprout describes it as
+> + * removed_region@46200000 with a size of 0x4900000, ending exactly where
+> + * camera_mem begins. The 28 MiB past the dtsi's 0x2d00000 is not the
+> + * kernel's to allocate, and handing it to the buddy allocator wedges the
+> + * machine under memory pressure.
+> + */
+> +&reserved_mem1 {
+> +	reg = <0x0 0x46200000 0x0 0x4900000>;
+> +};
+
+Please update the common DTSI, it matches the reference fw map
+and I'm very surprised the sony phone didn't crash without
+that reservation
+
+Konrad
