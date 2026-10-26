@@ -1,73 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.69
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.228
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793036544;
-	b=DSsQP+QDacs0V3SYyA8cvpliCOn8esx1hkQ+MQZ1pEVGIihJiGkFnA5V+3lLwrvuo7zq
-	 2mlAlPdTFNreOmNmcGBOxjulkH77L3+7M7ur3EbizK622ld/sgxP29dnT6z8tuy0oiJfB
-	 fVunlNU3r69W7evLbI8MZlLYzgc5F63Au/Pek6dUwjetMFaAJrefQxkrhncfVl/6DEgqX
-	 ykGhScDqaqZb0xUFAbrueGjd4E9wb5Aicie5sYMwKJ9RIoOkxtYKiU51pSN+1OsbHdkSJ
-	 13cAYEg1+Pne1PVPMk7nUvgR6zdj/W9HYDYCJPwtgs9kIcZVECuUQOyDayPSawcYNUw==
+	t=1793036597;
+	b=grh+45cKYHbHbwp+vxTkqT7BsCYbXHHl7mnBnsPChaBvECGdW/WyuTYagWi2nNl5966n
+	 CFELWoH3moUqKzLbNNNGzGAw6QAQgyAcOV9QGGOy4aLcAM7rJVrrojmT2UaKQjwv8/dja
+	 P5WmL11+T5P9rjRrrEvOmYFEWD4c8NSGUMaeEMUz+YfS4r/1HE1qxw3rJgLanpWp41GX/
+	 7EYu2QhVE5RTbLZ74kBA/QJ3+54ojkWz7WguCtwddCSTidfZ7CIm82Ysiw0mIK+NOcjLW
+	 2bTtOMBnlD/6RX5HHQunzTFZaD4vaGfXHOSRNd8yNCymRShXHczFmhxDQSHbGJuNigQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793036544;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Received:Date:In-Reply-To:Mime-Version:
-	 References:X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=3G8QhvNEpQ3sy+r1BDzvVBq/AXAxP3+qa6H4bl6GlDI=;
-	b=labWBJeddmBv8UHzQr1+TZSb5ARaR4VyeebN1AUDpelCGjs1Z4w6lUX0//y8nnmHOobf
-	 6UCU6FsLu6H6jUSRJPkJbTvUOuwl7wz1iUSb4tKZ7WgwPLz1nvC36fEYdL4LQ366r6HEC
-	 UzQU4IZQ+ZARC0YA6XLj/WYO3XkZSVtrazt4JR/hPR9xPqp1dCd8GrwH3c3xbzVhZdMXU
-	 uhuQbxT/Bkl+FKsrCM9kqzy/6jbNNkcDYgONOd4/DM9mV12PPniJ8HOauogX0i06YRhGW
-	 C+xFB5ql8XEcc/bTp0jD4k8PAaxGUCRLFh+quF/0gRH5hXuRvCwb+z1A2GG789YYDQw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793036597;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
+	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-DetectorID-Processed;
+	bh=OHaZUdtVvLIKZuLrM7Y3bA4uX2LmsUBAZgFw/YFZnmg=;
+	b=xpx3VuzxOtlrc/pEXAuvx2woxG0SgAXQCaGO2+hyWYmfMJ+2Hb0FtHe9ia/K42dPvz2O
+	 SdyiXuMQtOtw0Mbmfb6RifFwDz9hKIJ2gXB67ZBpTTCYQLlIs9hS0LdaIg7x7+Mc2uyXS
+	 GcwxTdjIFf7sV/oJXGTGHSJ8W0ZcNSDeYAAY7ZVa7x6VY3bhCO7SmmU3dRbMr+ujAhGpt
+	 Hi8IXmTszVLcS71AkNsHDe8VlUN0VbdmHTFC/9bv9QdU/ewMM86Ig5Key1pIuGjklY4Pn
+	 TgahYW3V5fT3xISaFgU3EOL6Fe3ksMLeJ2+MiPVNGhlGVp9uxqk1+3lbROyO3q6Hugw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=Quor47Oo;
-	arc=none smtp.remote-ip=209.85.218.69
-Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com [209.85.218.69])
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=hx8hYDUD;
+	arc=none smtp.remote-ip=209.85.215.228
+Received: from mail-pg1-f228.google.com (mail-pg1-f228.google.com [209.85.215.228])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63FA7606A321
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 17:42:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63FA7606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CEC5606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 17:43:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5CEC5606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=Quor47Oo
-Received: by mail-ej1-f69.google.com with SMTP id a640c23a62f3a-c4322d31021so359603766b.3
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:42:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1793036543; x=1793641343; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3G8QhvNEpQ3sy+r1BDzvVBq/AXAxP3+qa6H4bl6GlDI=;
-        b=Quor47OoHs4we93mMmQWIgaEgjR6kyEJpJmZO0dfWBwFVp5oKOxLTdy6gXD8Sy+hff
-         g90sNo1kpGvDaxFE6LtP5pbzVWKhr9F+lcR3EVJjC1o2lKVse/COTh5o3CYeD2bOFAWq
-         y5EBg0xOBZaCICtWBoWo5E8VI/ci1QK0hrzBX3fRuYwgMAAEAxH2d1OjycJucG3AtzZI
-         +uySj805zF3ftWVodGdsUXGMPIrDvv23zSP5VumdrKeM/3JoLcragmvZRns89fP4E2FP
-         fYE3wCDTkRdtiJJzD3Z6Eq1+arzEjx5EXHbQfeBc1SG2CnYydphArOuJfmi69PHjQVpS
-         1YUA==
+	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=hx8hYDUD
+Received: by mail-pg1-f228.google.com with SMTP id 41be03b00d2f7-cc1bc88a20eso1958088a12.3
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:43:17 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793036543; x=1793641343;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3G8QhvNEpQ3sy+r1BDzvVBq/AXAxP3+qa6H4bl6GlDI=;
-        b=xmzecWQ7D+DOlz+VK+z6X2LUzXDkyALXqMWLVn/FR5lB8FHAvuGCywabL+kgXMQ9IT
-         tvyVDADx1VOi9Q0DW/neMuYXHaUokK2duTJgTEVmp1p7+xl6bF3ugMRT9ovHmR6qLTsa
-         6ajJZxYfWEUD4O6ecTTNeEmdRHQFk+Bc9lBldI2cSaVYFYDzVHpMX2GgUaecEfUl/1rP
-         aItCqt+5/fielDxgGMdYfS2jRhJwDUaNBk6S5oPoAlsBxfpJnFGTOlTaxCjckk3rDJ9t
-         LO7dzE9UGFY5z3RNQ86Fiey3QRfSCFXM/lQVzWlKqe7ZNl2bZOJHxxbDQiE5VbJ6WcI2
-         poQA==
-X-Gm-Message-State: AFq9FYLc46ErjfuogNiyW4T2h/yRpT+Mop0z7iw67nmJCKT4fBcYdYf9
-	AW6aWlelODT0f9M4jrKk4IqIgS/nV+eT0h6MCXAn1+vvwy7hZhTokFGMwSWCiJQABZqB7JoiDU2
-	5HJwdUF3l25PjE9dsyQ==
-X-Received: from ejaw11.prod.google.com ([2002:a17:906:33cb:b0:c35:60c7:1880])
- (user=tarunsahu job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:907:d18:b0:c3f:c856:fb7a with SMTP id a640c23a62f3a-c46bdaf85d7mr817347766b.3.1793036540600;
- Mon, 26 Oct 2026 10:42:20 -0700 (PDT)
-Date: Mon, 26 Oct 2026 17:42:14 +0000
-In-Reply-To: <20261026174217.603114-1-tarunsahu@google.com>
+        d=1e100.net; s=20260707; t=1793036597; x=1793641397;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=OHaZUdtVvLIKZuLrM7Y3bA4uX2LmsUBAZgFw/YFZnmg=;
+        b=MhdK8lAsNtLkpsmYrhVtihX/e0OdyDZghLkdGaBvd6Eenw2COAQ75iBx6epoN4ERI9
+         VDILvPdgPVki/ilcgR1xdogu11zbEemLw4rzUSnYcKFhT0QMeQnIQxwWr/TQ7htuScVx
+         +Fpj4y2DQf2k426M954FRVgNF9SWxBqfAbrmJPduQy3kiuGxYm/jvP6MgfU3mRWuY/Ec
+         KVd6jZfYEzoC0YS+pm61Zi7VroUiKXuwWhqm2NiFkBc/ppG2Bbj3cdKtz3cio9ssU09q
+         jaiqv+jCDK0rrdUx5xtiuhfDAWT/dyeuP+fg3CLTSgeNexenbkmcHUwy75gQOtGrmaCz
+         ZLiA==
+X-Forwarded-Encrypted: i=1; AKwUvBzkaD3OuALBoh/JzO5VFcgP/vOX+ShCBJHXhemvLW5mEokxglEuhfyOhrMCtRnvXs8md33xjA2dEwBS6HU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIWHAFisrwMoccCkAM5whorAMlHd05cd2416tZka0WFrULaCZtJ
+	JJNpWJGLVwXDFlATQqydflSF0+Q9vYi9MZWtxbArse3gQ58aub4fiFEVOIG3Ban57JDyscykwzm
+	3gX2/MKrrt/EJeKW3OBD79iIP8lRzrHaxs2j3tFHEq3hKZsj6eENUVbxKridMPa2wIHLZxwnk5Z
+	hMKGpqobNKNCMptYon2Zbk+kE4yV/pD9dZDCJhNIYG3SETvTygcF6hVzKDHYzq3b04uMi6b2tcT
+	flboj2tyi9/jHKSAGR1b1+Oxto=
+X-Gm-Gg: AYBFou1BYigOEM4DYR8t3SFOSawMaBKNVeJM7c3CP7cBkASvRIlGTcLpm3yGb6rTP2G
+	Ojfja75IylXSAqAAho1P0J2GA0LPjeLmEMaOpEiJe8EfEaSDnCyJTJ7PRPRleF2IsYEvNSj1jUM
+	Nn++z8TQ+tmZP85EDPQ+XmXO8bQ+XjMNab9vQ9ZkWB2IS3GcbLHhjarprGyGzIcIM29KG16EOM3
+	GBLP9diCWb8N17Sc2RJxIQD//ynB6GHcXLm7wkIDA0Fte8laeA09V/XDAAybJaPMIluXRM3SdSx
+	AR3Z2ZzGfAeaVm7l6XMArgTTrKHCzS//ffrWfeMFfyv3yAEmkjRtEPhkmpAobBddZC4vzYfF9Uf
+	MOiw9u/z7lL2mhEzxHuIbjB4qLOxMtzNgBOCJEtnjNPxqFGclikOYfZhl47ammeY6jibT0MCycv
+	P14uUf/dEwkqV/LZS3TEo8VY9mmuJcMGHN/vk2V7u5
+X-Received: by 2002:a17:90b:3bcf:b0:3ac:9d83:885e with SMTP id 98e67ed59e1d1-3adeafc1f3bmr6203827a91.52.1793036596600;
+        Mon, 26 Oct 2026 10:43:16 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-28.dlp.protect.broadcom.com. [144.49.247.28])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3ae4063da67sm172982a91.8.2026.10.26.10.43.16
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 26 Oct 2026 10:43:16 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-18eb2616974so11545972c88.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:43:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1793036595; x=1793641395; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=OHaZUdtVvLIKZuLrM7Y3bA4uX2LmsUBAZgFw/YFZnmg=;
+        b=hx8hYDUDbQMdB8zJJ2Kt6OX/aAqU7rftvA8CylS6alcMHNsLWc/Bj9AMhtuGlobUOM
+         tHdeu+g2MpeiC5JpCK+RCVjvmNhAksiO0An16kqnRAUSUPNyR9+k/sOyKzKB4At4TwJj
+         XkWU/heWdT7sgARWOuprPTyHWDrJSUv0VNUaM=
+X-Forwarded-Encrypted: i=1; AKwUvBxR/lel6LghD/EtEEnLXzSFW/GNtKv40b3DvwK97zwB6AzkoPLes587YmuOz4y2lKgdY9m7vRDO1BASAUo=@vger.kernel.org
+X-Received: by 2002:a05:7022:5f1b:b0:144:eb46:c3f with SMTP id a92af1059eb24-199298b3805mr10923553c88.2.1793036594752;
+        Mon, 26 Oct 2026 10:43:14 -0700 (PDT)
+X-Received: by 2002:a05:7022:5f1b:b0:144:eb46:c3f with SMTP id a92af1059eb24-199298b3805mr10923522c88.2.1793036594027;
+        Mon, 26 Oct 2026 10:43:14 -0700 (PDT)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a2a5937dsm25813540c88.20.2026.10.26.10.43.12
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 26 Oct 2026 10:43:13 -0700 (PDT)
+Message-ID: <beeb31de-3820-4276-a322-277b9952485c@broadcom.com>
+Date: Mon, 26 Oct 2026 10:43:11 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,159 +105,81 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261026174217.603114-1-tarunsahu@google.com>
-X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
-Message-ID: <20261026174217.603114-2-tarunsahu@google.com>
-Subject: [RFC PATCH v3 1/4] liveupdate: Remove __packed from LUO and memfd ABI structures
-From: Tarun Sahu <tarunsahu@google.com>
-To: loganodell@google.com, alex@shazbot.org, dwmw2@infradead.org, 
-	seanjc@google.com, Mike Rapoport <rppt@kernel.org>, will@kernel.org, pbonzini@redhat.com, 
-	jgg@nvidia.com, Pasha Tatashin <pasha.tatashin@soleen.com>, arnd@arndb.de, 
-	linux-mm@kvack.org, Andrew Morton <akpm@linux-foundation.org>, oupton@kernel.org, 
-	baolu.lu@linux.intel.com, David Matlack <dmatlack@google.com>, robin.murphy@arm.com, 
-	maz@kernel.org, Alexander Graf <graf@amazon.com>, joro@8bytes.org, 
-	Bjorn Helgaas <bhelgaas@google.com>, kevin.tian@intel.com, 
-	Pratyush Yadav <pratyush@kernel.org>
-Cc: linux-kernel@vger.kernel.org, kexec@lists.infradead.org, 
-	Tarun Sahu <tarunsahu@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] net: dsa: b53: Enable IGMP and MLD control packet CPU
+ copies
+To: netdev-bot+sinfo@kernel.org,
+ Florian Fainelli <florian.fainelli@broadcom.com>
+Cc: netdev@vger.kernel.org, Jonas Gorski <jonas.gorski@gmail.com>,
+ Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Vivien Didelot <vivien.didelot@gmail.com>, linux-kernel@vger.kernel.org
+References: <20261026172453.3152951-1-florian.fainelli@broadcom.com>
+ <179303585627.3327.17394761075603736161@kernel.org>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <florian.fainelli@broadcom.com>
+Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
+ xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
+ M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
+ JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
+ PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
+ KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
+ AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
+ IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
+ ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
+ bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
+ Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
+ tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
+ TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
+ zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
+ WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
+ IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
+ U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
+ 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
+ pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
+ MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
+ IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
+ gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
+ obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
+ N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
+ CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
+ C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
+ wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
+ EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
+ fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
+ MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
+ 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
+ 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
+In-Reply-To: <179303585627.3327.17394761075603736161@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-All structures in include/linux/kho/abi/luo.h (struct luo_ser, struct
-luo_file_ser, struct luo_file_set_ser, struct luo_session_ser, struct
-luo_flb_header_ser, struct luo_flb_ser) and include/linux/kho/abi/memfd.h
-(struct memfd_luo_folio_ser, struct memfd_luo_ser) have naturally aligned
-fields on 64-bit architectures, with no padding holes between fields or
-tail padding. Any future unaligned field addition should come with
-reserved field to keep the structure aligned.
+On 10/26/26 10:30, netdev-bot+sinfo@kernel.org wrote:
+> Hi!
+> 
+> This is an automated message. This series looks like a fix, but its
+> commit messages seem to be missing some information:
+> 
+>   - How the issue was discovered, e.g. hit in production, hit during
+>     development, syzbot report, manual code inspection, LLM or static
+>     analysis tool scan.
+> 
+> Please do not repost the series just to address the above. Instead,
+> reply to this email with the missing information, so that reviewers
+> can take it into account. If the series needs another revision for
+> other reasons, please include the information in the commit messages
+> then.
+> 
+> The evaluation is done by an LLM so it may be wrong, if you think
+> that is the case please reply and explain.
+> 
 
-Signed-off-by: Tarun Sahu <tarunsahu@google.com>
----
- include/linux/kho/abi/luo.h   | 25 +++++++++++++++++++------
- include/linux/kho/abi/memfd.h | 11 ++++++++---
- 2 files changed, 27 insertions(+), 9 deletions(-)
-
-diff --git a/include/linux/kho/abi/luo.h b/include/linux/kho/abi/luo.h
-index 288076de6d4a..899943877e41 100644
---- a/include/linux/kho/abi/luo.h
-+++ b/include/linux/kho/abi/luo.h
-@@ -58,6 +58,7 @@
- #define _LINUX_KHO_ABI_LUO_H
- 
- #include <linux/align.h>
-+#include <linux/build_bug.h>
- #include <linux/kho/abi/block.h>
- #include <uapi/linux/liveupdate.h>
- 
-@@ -82,7 +83,9 @@ struct luo_ser {
- 	u64 liveupdate_num;
- 	u64 sessions_pa;
- 	u64 flbs_pa;
--} __packed;
-+};
-+
-+static_assert(sizeof(struct luo_ser) == 32);
- 
- #define LIVEUPDATE_HNDL_COMPAT_LENGTH	48
- 
-@@ -98,7 +101,9 @@ struct luo_file_ser {
- 	char compatible[LIVEUPDATE_HNDL_COMPAT_LENGTH];
- 	u64 data;
- 	u64 token;
--} __packed;
-+};
-+
-+static_assert(sizeof(struct luo_file_ser) == 64);
- 
- /**
-  * struct luo_file_set_ser - Represents the serialized metadata for file set
-@@ -113,7 +118,9 @@ struct luo_file_ser {
- struct luo_file_set_ser {
- 	u64 files;
- 	u64 count;
--} __packed;
-+};
-+
-+static_assert(sizeof(struct luo_file_set_ser) == 16);
- 
- /**
-  * struct luo_session_ser - Represents the serialized metadata for a LUO session.
-@@ -131,7 +138,9 @@ struct luo_file_set_ser {
- struct luo_session_ser {
- 	char name[LIVEUPDATE_SESSION_NAME_LENGTH];
- 	struct luo_file_set_ser file_set_ser;
--} __packed;
-+};
-+
-+static_assert(sizeof(struct luo_session_ser) == 80);
- 
- /* The max size is set so it can be reliably used during in serialization */
- #define LIVEUPDATE_FLB_COMPAT_LENGTH	48
-@@ -152,7 +161,9 @@ struct luo_session_ser {
- struct luo_flb_header_ser {
- 	u64 pgcnt;
- 	u64 count;
--} __packed;
-+};
-+
-+static_assert(sizeof(struct luo_flb_header_ser) == 16);
- 
- /**
-  * struct luo_flb_ser - Represents the serialized state of a single FLB object.
-@@ -175,7 +186,9 @@ struct luo_flb_ser {
- 	char name[LIVEUPDATE_FLB_COMPAT_LENGTH];
- 	u64 data;
- 	u64 count;
--} __packed;
-+};
-+
-+static_assert(sizeof(struct luo_flb_ser) == 64);
- 
- /* Kernel Live Update Test ABI */
- #ifdef CONFIG_LIVEUPDATE_TEST
-diff --git a/include/linux/kho/abi/memfd.h b/include/linux/kho/abi/memfd.h
-index 08b10fea2afc..7115a8a77cfd 100644
---- a/include/linux/kho/abi/memfd.h
-+++ b/include/linux/kho/abi/memfd.h
-@@ -11,6 +11,7 @@
- #ifndef _LINUX_KHO_ABI_MEMFD_H
- #define _LINUX_KHO_ABI_MEMFD_H
- 
-+#include <linux/build_bug.h>
- #include <linux/types.h>
- #include <linux/kho/abi/kexec_handover.h>
- 
-@@ -20,7 +21,7 @@
-  * memfd uses the ABI defined below for preserving its state across a kexec
-  * reboot using the LUO.
-  *
-- * The state is serialized into a packed structure `struct memfd_luo_ser`
-+ * The state is serialized into `struct memfd_luo_ser`
-  * which is handed over to the next kernel via the KHO mechanism.
-  *
-  * This interface is a contract. Any modification to the structure layout
-@@ -54,7 +55,9 @@ struct memfd_luo_folio_ser {
- 	u64 pfn:52;
- 	u64 flags:12;
- 	u64 index;
--} __packed;
-+};
-+
-+static_assert(sizeof(struct memfd_luo_folio_ser) == 16);
- 
- /*
-  * The set of seals this version supports preserving. If support for any new
-@@ -85,7 +88,9 @@ struct memfd_luo_ser {
- 	u32 flags;
- 	u64 nr_folios;
- 	struct kho_vmalloc folios;
--} __packed;
-+};
-+
-+static_assert(sizeof(struct memfd_luo_ser) == 48);
- 
- /* The compatibility string for memfd file handler */
- #define MEMFD_LUO_FH_COMPATIBLE	"memfd-v2"
+This issue was found by using a modified version of Andrew Lunn's 
+dsa-tests against local board test (BCM4708/BCM5301X with integrated 
+switches, applicable to all b53 support switches).
 -- 
-2.56.0.307.g5fe7bd680c-goog
+Florian
 
