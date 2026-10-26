@@ -1,94 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792984182;
-	b=tJWKplyVI6EI4Qg+obJlG3P3NKOJKuW+0e0ej4aerIP8qoPN2CZrSKrRTt4ZexKvgF0G
-	 sRXt/gc1X9gBnp2OMNKOjjgrmXe8axQUGWhU0czRZF6R6QOXvphPzarbW8dc+hMQaxAci
-	 Gb0WGGTv6rZuRrbSZ4U7mgwAzcuoZSCy169d6iwoy11KcqJccWft9KUCWHTv2NzPVx3d/
-	 gYiNogSm050GWQWGWVq4YcQNvFkJQ+vuCm9rKcDxBhoIp2c7vB6rIlGoGH5PCpuWJMjaD
-	 i5addUHIjGP/+WQpzW0v+rYCMyiaFvyWz1qr5BpSzF2zNvlvPfFxur3xu4AWjv3YbRQ==
+	t=1792984181;
+	b=X+r3MQCoWQtosE071RU6/9mnNK/kTqgm3h6IZ36lkRPnkq+RfgvnJq9gSsTV08Q/jPP6
+	 U58jW2XTUrdyUR+PVjtoM4Elda0Qv2nEowSIijxmFsIoJ0aGtc2ma0AAC66Gf6SnhEUP3
+	 McirIy8lCjyrhqxecaQ0L2AQYPssBSr0/AbY8y4fO8/gJosiws/YII8QPt/VHaaHcGMUK
+	 f5yBJAfRqB8/ALj0uHXW07F2by7qtdjrwRLeHsdgfUyftPjIwZ5uvZM1gctPaH3Bta2vQ
+	 o8dQV9wTenb34HK1FhsdtS4sWgYGMphqpJyuTxZiKamWH4jowqMYUjNkwLdQpJVWpxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792984182;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792984181;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=z+4adjsji42YunpnXzr153PsIW3465KG5I6YOnRXsyQ=;
-	b=zh8GfjdieYTMRp6NPYOEKsP+ZoN1KlXaSrl5/UE3CLfPTcFT/AVKyu0bJr4dHpKWIWVW
-	 NHQ4U4iDjODtQm245lyP8IS2CtRD0Sx5TEm/nMd7ZeoFFFs42UKRyFIkjPYzck1VAjuwv
-	 VbPdObk6i4kK+oZ00TJrno3iWsdDsFAzz4ccPTAeKAo5VNSf532S8u02wDBiiv+yMd8ye
-	 nBMHO/FnpYE0AWDidX7FWIJj+iWbTm0TZ1YaF1v73HNKE9vdN8b1tgS1HxIupCyraQMSA
-	 N3ziw9yNEKu+A6tYfUJqaV4jZkYxE2p+gxdSJ6pJIxVfPiJPyMPIIIYVy2RcotrTi8Q==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=cTXVJUOKRughwuSMYrqOOlwP+3rFl6wn/3gsJxxcBAs=;
+	b=zVI4muX2cUW2acr7IZ54K+fFYoeMrWEEU/dxJWoAL1ZxgJN3SgLzuCsP2E3erdL4X/0I
+	 R0dyRLeXcqP3W6hordbMRjoRd1BTx7YkEDuQDfEJvfmLO6Swlz05bK4+s9u7RGcrEflRG
+	 BZeazoDg88m5qYqjoeASFPHuwtDwKgkGlgKTA1cfv9xaKmzjP8TOJTY/mZv4r+zpteAqK
+	 MEIg/wSmeL9mT8jxIGuTZXZKp8lvVRSjCGfHjrLhGt4cgpMv4rsH0kVXcYenJ/Vhef5na
+	 DAHHw1JXMdaGq37ayghhcqpf7oI+Oy+yCCSiAaOjVN7EsPhv69EGE5FCj4X7yVqfBNg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=fFETq0jP;
-	arc=none smtp.remote-ip=74.125.82.177
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=a9vwO6vH;
+	arc=none smtp.remote-ip=74.125.231.133
+Received: from mail-oo2-f5.google.com (mail-oo2-f5.google.com [74.125.231.133])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E738606A321
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 03:09:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E738606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4D7C606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 03:09:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4D7C606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=fFETq0jP
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-33fb4680717so4510285eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 20:09:42 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=a9vwO6vH
+Received: by mail-oo2-f5.google.com with SMTP id 46e09a7af769-8458555b6a8so757521a34.0
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 20:09:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1792984181; x=1793588981; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=z+4adjsji42YunpnXzr153PsIW3465KG5I6YOnRXsyQ=;
-        b=fFETq0jPG6sQ9wiL42ku236U241G4j1Kd8IqsCybUJpzUdGray+Dl/X4p4SlX1WzID
-         tzatSkKdSr6jG4SqhFB9YvxZ53PReNOYl84lku+DAcBWcuo9wPZQrxqeWa1G8aiU46BQ
-         CVdLpCPJhKcsJFTXheLehfg1WqxtkgNKUHPlY=
+        d=gmail.com; s=20251104; t=1792984180; x=1793588980; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cTXVJUOKRughwuSMYrqOOlwP+3rFl6wn/3gsJxxcBAs=;
+        b=a9vwO6vHViR2IX71zNqDPxMmiKNbdhMXQsJDsyOC6Dc3KyPpmggtN6/HcRB5LPL0KS
+         KrflVexMxIHJZLnl58zHgz5pcVGamHHVCcmTuNfYJgqysLIwKYAbIlCHDPvYlmaHkkDe
+         gCXTvxAwVxiCPNHi858NcbI0SrwXK8X7W79fsLHMkjnAcMP0QkL/YwdM1x9VR0nBOPSO
+         hdUomy6/i/ehZc7jXvjfYuNb4u0GtYx2YhFtPJtKIh5DDPKY1p1AiDmzMJCs87hiSaUj
+         lQz17fXmF0n1CqTa5jVcRQwpY5LnyBYEzZJ43foTCPO5bC7XApYEuTkLfamggna2TUgB
+         c7zg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792984181; x=1793588981;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=z+4adjsji42YunpnXzr153PsIW3465KG5I6YOnRXsyQ=;
-        b=vlIBvs70evBLEpc198X+Gtj8F45bGiAZ9c4jps3pTFlhL261VJxeNpOj62xbTG7YDG
-         DfVSStxhgNxHadgMeqkDawDGW0BIM42NqB6SOCeQRXyurEfuwdMJPaHVPBv9LNZfS4BV
-         iZJezHXGSl0rqpI2LrPaJfn0BN7TVfBSJBNWIMTXVvrYzFrihp7PpI2RWv+eBcNRbhkc
-         v4cQHnK+1onZpF8fM+o7LGiCMniOJucKJBS6VjFFdNKbrzJzuYT5k2MYPiO3aCRxM0U8
-         8NDXFr5YqNaTV6AKCX9f9lud2r4X0CKLCO9G8OByOnp9mYWes3sto1iC4NTV5QTlvkMZ
-         WRBg==
-X-Forwarded-Encrypted: i=1; AKwUvBxOAPBfvWdFH1Ba9iBdRcgwFuIUKPbIzmKSsF8ZjXxsRYtihlzVGFrCDSynlp+mZEl2u/7A4BwKkD9FPnU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIdlZA/0iO5ZxZgy5lHFSesSkVIh0Ctf5787VEmEiamKnt+lNh6
-	eCc5oEVXteELwzFMJWteAvjSQruANR5tzRmfWgRwfhCUY1KiJwd8zNLA+ZBuJPpqgg==
-X-Gm-Gg: AYBFou07PvFzGxpchW5EjBbqfcIAgCGnNCbsN5ebAsGWPtT4RjDCoVuTbZ0XNtZ8wjM
-	pbBIgsGhkIv3d1I5o+XllNfkODUFlyi0YaxgHPYTV9tQEfqIzWijtZx6PptaPRIMOIGqmuHuvUH
-	iOObHTyhvkZqUA9Fk5g//K+NV5a/NyRjn4PKsqbqnEjyyiKNWtA3By6AkUKZPulL8Z6Gtyfgsy8
-	iuK1YhhKgYSKOhzXfb75bNZS/S+mVTdwA/acWRgn2F8c+yiUCNhAHunX7UudBmx0yqpZl6jy7gH
-	dgnN79DbZ7MTXoRQlVURz+OqZnNtkOOisQ3cSU3KfUK8I+XU15HXX3hauifbkd7VUwGzKtIZLgE
-	03cIEnBwzoqEl0qh5lZBy4AEuJuXp3cV/niAZjn/Z8J4lNfOYCLCnG7AciA/Ys7oSaVaWrOhjgT
-	K8pGx0ZSJ4YfQ3i6FnDOowozW8q83IKcvNYFV1cfDBu/Ol9NOjgkRFS1X1mu2qlS9bWsPj3/kXO
-	r9eilzhuGQg4zjp6kPrQxPTpwSa4nFcjM7uAzLqgdROHkuLAJYxfYDz+i5kGP0LQSZu6JPKgoBS
-	Eo7EdhhaxWHBvwqVKQ==
-X-Received: by 2002:a05:7300:3d13:b0:361:39c0:c393 with SMTP id 5a478bee46e88-369e848a6dcmr9746177eec.13.1792984181239;
-        Sun, 25 Oct 2026 20:09:41 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2031:6:4346:aa6:8d90:326])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369f4164886sm13681062eec.7.2026.10.25.20.09.34
+        d=1e100.net; s=20260707; t=1792984180; x=1793588980;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cTXVJUOKRughwuSMYrqOOlwP+3rFl6wn/3gsJxxcBAs=;
+        b=jOj9IVby4Zzj3XscwBTBwt4JGICdVcHxbuhSwoMt459kHmzsAbrQpWoX00XXN7FkOI
+         31c4zT7kUfuiPCIUlpPTfjU0aTkGKzVg+hLqH91SAX1LlTm+6N+ztWnwZqnbiBIrgmJC
+         FRM90WMV0+HppTwLwj1chloxfQbdpS0uWcTpmj0Y+8y+4GfkROqnfzWfZ0JmnLdcLKss
+         fDvz0O9aOMaJHJhn6FMvTpM9eBVEePmJnmzu/Zu3CAIdhSYj4ysX820N6zjtr3kjxmXy
+         2XnPTuEzL0fDZSLLZPH0B/roYNVLl6v3B6cLkTN51ry4UNwDAZlrad7m8L/HFKektWLj
+         fjxA==
+X-Forwarded-Encrypted: i=1; AKwUvBz/zjioIPLlmouH4habUoXJUFB1j12D9dxXP1/GEvm/elQr9VBcuSjwdK/PL4yRX2Kyon96HcHiVoNwdkA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL8kqc+eV5ycFbmEz9rg0ekEHNNHOFsPMROfoy5HJ0z858r2SOf
+	24A3gZQ/3iDLpjcJu9zI0tKw7SqJh3/Bo+7SmgSq7+LWIWiqHfQu+4ut
+X-Gm-Gg: AYBFou3iImBKGKzHL58h3a6wF5kyZ3j5lYf51y4bCn2O+Q14P6dgRr2L+h9tyW/suJa
+	hwpdVievVeq7JUVs80HeHDrCHoK5tZyg6/6zMn17qbG1Ud6k/c3kVPjI/9g+Z4ESDO7MWo17gdx
+	6Av4U836ipvqIwh0lFaKM4gKSKnE14bcOp/RGpUnoYZ/+qtgftadC5N7w88Ir4WrHx81RHBtsif
+	hnYPDdStV2GxvYYRs1AXdIF6zxlWaLW+SDdoc0/GuEgqwMoCC+99/dbHjbRSl7C0YCsGqc51RJE
+	38yGcmGrXpkLKXick/ScvcHKA6cQ4PALSoPkZMw18AqPyhwWASGvZFapyMMpTSPLoR+3seAwcdC
+	hGxJvd4yUsd9l7zD573EzIhy9OsLKJUREgRT8GRaj5u/+KKXDYonIQOhnqYkSpt6KD+spwFpddn
+	d6l2+5dKu0lYa6YEV2iyjxuE06zMtDbOhilYn1yWbNpi6Do2yIkz2FNCIjgZXx9HOr0m7yjHzji
+	fZ6Sk7sisoKUHEu7l5Fb2XC1i1TUZVRJXrjJhu71VzQ2FythwOUMDvFOshNJODrpGGXSVVLj5pC
+	gh0WLo52mVeTsfl5yGYBrCNfY4yWzQFVTGRD5ouX1A==
+X-Received: by 2002:a05:6820:440c:b0:6cd:3fdc:a936 with SMTP id 006d021491bc7-70ba0f81592mr2345843eaf.83.1792984179731;
+        Sun, 25 Oct 2026 20:09:39 -0700 (PDT)
+Received: from localhost.localdomain ([14.116.239.40])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-70b9e04aa58sm6421308eaf.7.2026.10.25.20.09.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 20:09:40 -0700 (PDT)
-Date: Mon, 26 Oct 2026 12:09:32 +0900
-From: Sergey Senozhatsky <senozhatsky@chromium.org>
-To: Brian Geffon <bgeffon@google.com>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Barry Song <baohua@kernel.org>, Bo Zhang <zhangbo0325@gmail.com>, 
-	Minchan Kim <minchan@kernel.org>, Richard Chang <richardycc@google.com>, 
-	linux-kernel@vger.kernel.org, linux-block@vger.kernel.org, linux-mm@kvack.org
-Subject: Re: [PATCH v6 09/13] zram: split zcomp into separate R/W streams
-Message-ID: <at7ECnijIur1XOAG@google.com>
-References: <20261021024236.1787884-1-senozhatsky@chromium.org>
- <20261021024236.1787884-10-senozhatsky@chromium.org>
- <CADyq12xeONu-+YRP79KaH4XCsSrNK5DdoKw6T5YSEyW7Acxh7w@mail.gmail.com>
+        Sun, 25 Oct 2026 20:09:38 -0700 (PDT)
+From: Henry Martin <bsdhenrymartin@gmail.com>
+To: Eric Dumazet <edumazet@kernel.org>,
+	"David S . Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Nicolas Dichtel <nicolas.dichtel@6wind.com>,
+	Kees Cook <kees@kernel.org>,
+	Ilya Maximets <i.maximets@ovn.org>,
+	Breno Leitao <leitao@debian.org>,
+	Jeff Layton <jlayton@kernel.org>,
+	Kexin Sun <kexinsun@smail.nju.edu.cn>
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Henry Martin <bsdhenrymartin@gmail.com>
+Subject: [PATCH net v4] netlink: fix out-of-bounds bitmap access clearing stale mc groups
+Date: Mon, 26 Oct 2026 11:09:28 +0800
+Message-ID: <20261026030928.719276-1-bsdhenrymartin@gmail.com>
+X-Mailer: git-send-email 2.43.7
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,53 +105,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CADyq12xeONu-+YRP79KaH4XCsSrNK5DdoKw6T5YSEyW7Acxh7w@mail.gmail.com>
 
-On (26/10/23 13:05), Brian Geffon wrote:
-> On Tue, Oct 20, 2026 at 10:43 PM Sergey Senozhatsky
-> <senozhatsky@chromium.org> wrote:
-> >
-> > Split struct zcomp_strm into separate compression (Write zcomp_cstrm)
-> > and decompression (Read zcomp_dstrm) streams, and split zcomp_ops
-> > context creation/destruction into create_cctx/destroy_cctx and
-> > optional create_dctx/destroy_dctx callbacks.
-> >
-> > This decouples Read (decompression) and Write (compression) paths so
-> > they no longer contend on the same per-CPU stream mutex (Writer vs
-> > Reader priority inversion).  Currently, a (low priority) Writer that
-> > holds the stream mutex can be preempted by a (higher priority) Reader
-> > on the same CPU, which then blocks on that mutex until the Writer gets
-> > to run again and releases it, which can take a long time when there
-> > are other runnable tasks on that CPU.  The good news is that Read and
-> > Write contexts are completely independent - compression uses its own
-> > scratch buffer that decompression never touches, and decompression
-> > uses its own local buffer (for spanning zsmalloc objects) that
-> > compression never touches, so the Read/Write context split doesn't
-> > noticeably increase memory usage.  In addition many S/W backends have
-> > stateless decompression contexts.
-> >
-> > A quick synthetic fio test for Writer vs Reader inversion on 24 CPUs
-> > (preempt=full, zstd, 48 low priority (nice 19) writers, 24 normal
-> > priority (nice 0) CPU hogs and 24 high priority (nice -19) readers):
-> >
-> >   Metric           Base               Patched
-> >   ----------------------------------------------------------
-> >   Read IOPS        207k               1,150k        (+5.6x)
-> >   Read clat avg    101.50 us          7.76 us       (-13.1x)
-> >   Read clat stdev  5,615.90 us        30.78 us      (-182x)
-> >   Read clat p99.99 258,998 us         111.10 us     (-2331x)
-> >   Read clat max    1,342,600 us       11,217 us     (-120x)
-> 
-> These results are awesome and thanks for exploring other options. I
-> agree this sounds like a great path forward.
-> 
-> >
-> > Suggested-by: Barry Song <baohua@kernel.org>
-> > Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
-> 
-> Acked-by: Brian Geffon <bgeffon@google.com>
+netlink_realloc_groups() sizes nlk->groups to the number of groups
+that exist at bind/ADD_MEMBERSHIP time.  When more multicast groups
+are registered later (e.g. a new genl family), existing sockets keep
+their smaller bitmap.
 
-Thank you, sir!
+When clearing a multicast group of a departing family,
+__netlink_clear_multicast_users() runs netlink_update_socket_mc() on
+each socket on mc_list, which does test_bit()/__assign_bit() on
+group - 1 with no regard to nlk->ngroups.  Skip sockets whose bitmap
+predates the group: such a socket can never have joined it.
+
+The overflow windows differ per architecture, both needing privileged
+module (un)loading.  On 32-bit kernels the ~54 dynamically allocated
+genl groups already exceed the initial 32-bit bitmap, so the table
+can grow there directly.  On 64-bit kernels the same in-tree set fits
+the initial 64-bit bitmap only while allocation stays contiguous:
+genl_allocate_reserve_groups() takes the first free contiguous range
+and unregister does not compact, so an unload/reload sequence can
+fragment the ~59 free IDs until no fitting range remains, forcing
+the table past 64 bits and reaching the same stale-bitmap overflow on
+the next family teardown.
+
+This issue was discovered by Tencent CodeBuddy Security.
+
+Fixes: 84659eb529b3 ("[NETLIKN]: Allow removing multicast groups.")
+Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
+---
+
+v4: Skip stale-bitmap sockets in __netlink_clear_multicast_users()
+    itself instead of guarding inside netlink_update_socket_mc(), so
+    the guard cannot silently swallow a future
+    netlink_update_socket_mc(..., 1) caller (suggested by Eric
+    Dumazet).
+
+v3: Correct the reachability again (sashiko review): 64-bit is also
+    reachable - group IDs are allocated in contiguous ranges without
+    compaction, so fragmentation from an unload/reload sequence can
+    force the table past the initial 64-bit bitmap too.
+
+v2: Correct the Fixes tag (the clear path was added by 84659eb529b3,
+    not by the dynamic bitmap commit), drop Cc: stable and describe
+    the actual reachability (32-bit kernels with in-tree families)
+    instead of implying generic heap corruption.
+
+ net/netlink/af_netlink.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/net/netlink/af_netlink.c b/net/netlink/af_netlink.c
+index 9fdf964224ab4..ee0a6df6eb5d6 100644
+--- a/net/netlink/af_netlink.c
++++ b/net/netlink/af_netlink.c
+@@ -2156,8 +2156,12 @@ void __netlink_clear_multicast_users(struct sock *ksk, unsigned int group)
+ 	struct netlink_table *tbl = &nl_table[ksk->sk_protocol];
+ 	struct hlist_node *tmp;
+ 
+-	sk_for_each_bound_safe(sk, tmp, &tbl->mc_list)
++	sk_for_each_bound_safe(sk, tmp, &tbl->mc_list) {
++		/* bitmap predates the group, can't be a member */
++		if (group - 1 >= nlk_sk(sk)->ngroups)
++			continue;
+ 		netlink_update_socket_mc(nlk_sk(sk), group, 0);
++	}
+ }
+ 
+ struct nlmsghdr *
+-- 
+2.43.7
