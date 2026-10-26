@@ -1,100 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.48
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792977449;
-	b=VpDmCSMHFUMGPgpIQkyrJFwiQD4v2GJaAGY61MCeKP39wQ79CWlHboxzR3pSZ6hcecXT
-	 NUzfb+oW6Zm9fz5PVFDx0JlRI2d6V/iHrvPACpDosf/wkMCCp1E0V8NkBbGlkagtettDi
-	 Ata0SLOPnIZ1x/1u4iJ6bZPdmhxfsrb9F9bGYy0JhR3dD02JVvg22kjnIl1Su/kaYotFR
-	 0GvItfOJVFqGIaSUjdvOqrfQ6nKCDRdL5AwBY+lbc3ErFf5VjxTDWg8hH5ztF0xPE0b6Z
-	 dLUF+ys/EBX34joR4Yh/KjR5u9xvMVLbbmhC8rfBlAnxOV2TkDKv9H0NhEbvdVVZNMQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792977449;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=3JHKNZG3E5vHMpYqgouUpuv8xtxZ/WRsL+FJ8mE54ZM=;
-	b=ZLCc9xhIxWioUCKbA5JlmznfFCqEnkD8zolv58w9QpeeIyvTyhcVO8TZ+0Yf4Q8tAGZo
-	 bR7vay5mVFvxyf0a20XGe1McKXmv3wwmrtgYcCSffYla3I6ZVJKuA/dR5niakwGrMvHmG
-	 +RRrlOdF0eZ3RAfr6uAJ51ux5JlKPtCayGGk88c0g9uDEQdo5mJf9/wvGRocErN5AzP/u
-	 EAcwNbtUU7/lp5l3L0/rRQYWmkcGDBwVGT3GHbrEvpxxiV9+fMoVvJs51ZwSQmjo2w4CG
-	 qTMn3vCG8Vf841FjGaDBcHVEyL1YBW7D6f03O6RdHNNw3lt0TEd2FQ+MAKWcjBPPMIQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=soleen.com;
-	spf=pass smtp.mailfrom=soleen.com;
-	dkim=pass header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=BQy1fTrT;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.48
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792977692;
+	b=PwswJvr0NhJIeIn/vz/KranZoLwZZbuXsZjGSwvnSrGw7I7uFhMkapR1+ZuOvLzH3vab
+	 KKjcafat5HdC2vaZX4GWcYPFDNo57etrrH5ULxsEekJDBrpSGCA4f2Zt5XEwrzQfArr4v
+	 lzqz4bUWw2kD7bgNV1qSkuPfAPLvWsGrOHR+r/h93uVqsG6jpC6adh9A84y2UR8k7R54O
+	 qigoKNSw4FmeFyhte20ATmER+eefOZO89FNllsibAi04vsMfna1w1YvKtGTEsujMh7YK5
+	 I2HQq3oszfooFVEGjA8N5l89ekle7uC/RPb5fp0idl0UdjrBu5jbch5OEAhHCWIkXEA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792977692;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=C5ioxP7uY30s85vV8DwHkSdiepRHIKFRzyzh0pLyvrQ=;
+	b=xMaC5EGF1JkvdEufvnl86L8uj5WzFTyhsj/cDQE2NlRMiMNQjry/vzHnZWsPIzatHcX6
+	 ph01Vj8eK/dq24mTqH5SKzFfVs0uChLrzyEfseQa/BHYMc2+Ck4PzXPzBC4Ql42taGLJ9
+	 i3Ix346Gh+RWWxmvZzUe1ybOLvJJHq1R6bseaXGp6uL3YxpEIV1KKkQTwMJabxD+vOChS
+	 Vv5+hNAxCLb01afXfXtR2klEehOqOrR4bmRbqKc6Dsk7aq/g0BATZLKCmR3FSPTjGLZMx
+	 fzde7eXtwO2fyGCgzZdfEjdODab+TMpJBmU6/+xYeGMJk9vQeLNFQNOAkqSPog294vw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V1DqB3pb;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9915606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 01:17:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9915606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soleen.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1860D606A31A;
+	Mon, 26 Oct 2026 01:21:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=BQy1fTrT
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6b2232d8ef5so4224027a12.3
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 18:17:28 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792977447; cv=none;
-        d=google.com; s=arc-20260327;
-        b=WX/UGl4LVJo0mAgftSlRo48tE51vSkNgJn63kZVhmqz1mKE4ik+H3rNXdlbeHRACjB
-         3pYIXnlhq+D4+Uu7dT9lHAicrTCGeIOnJjKZ2oKGe9qVEcrSlHCLEdMDwJhXB00atAd+
-         dCuvzSQQjOWRjXEaxOB0SXh84R5KHLy2tPtdoP/YbHjl75JAvBklH6lkujZ6NGbuGSiE
-         OhDQuvAMgRAVxyKngi3unS65l2+sbnukHv8KUEjZ4mU9S7lCsw9UU53vP8Rmvxx3fM9/
-         0zsBXihbYVCwc6q3u5RjSBKniEUL402B+V19FDZMJMyKx9Wc3heCHzMYf/aDbatYfA9C
-         Z9gQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=3JHKNZG3E5vHMpYqgouUpuv8xtxZ/WRsL+FJ8mE54ZM=;
-        fh=hhjVT3yjVIKykEz0sjWtWkLAh6SdSBTikpCJ7YMPDj0=;
-        b=noYKLyn+iaSZGtfAm7MsUcpL34Holy9qjJfmJaxDYRy+lblx09dn0CDOt1X/adQ30L
-         A55ppoDvAfjCUic5LscAQGk/sSYmOJVLVQtWdObZuXWv+s6sSUzMhbLdtwgvuuF9crrd
-         fK6JgymvlRAm7ql94fLMg246erWU6zOPZP2r1juU0tYoRMxHLjotgmxonsq5TkM6rKQo
-         /uviDGWrhECzum0/8HIXfIEh3vdCMbOGfis/X9Ac5jazkgIGqK04N4OqD7dmKVmiZGY3
-         QdH4BN8DV3PnwlJnMyrGwR8/2s64uR3HwYY3EvsRSGsJ8oiSx+JD4mYDK0Mspm0F5tbr
-         y07g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=soleen.com; s=google; t=1792977447; x=1793582247; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=3JHKNZG3E5vHMpYqgouUpuv8xtxZ/WRsL+FJ8mE54ZM=;
-        b=BQy1fTrTJ2nFZ2mZPKWUnmKNciPcXdHliwxaU3A+xn+79lW5SUCZk+0xpyi6S2ZW+v
-         amstcN1WQI5TZwT2t22w4cxM7a5K2qfU9UzvWyFV93IRpdE026go4TRj5Npvggxwms6K
-         WMfItGr7lhebDSt3APxTpQP3THpxyXoR6nqb7UjIUoguYLiBi0eDTCVTNRnBmj49eUlu
-         6rYo7fRFMAuFjhyIVixzBbe34XVo+Mf1bZ4yqRAjkFcb0EzTpOfhhV6D/BT4oLE5aSPE
-         XRvNCaALYWZxLj4hDOb6LFtIK4iUvdS+asR8hBQ0i6VLg0B2Z2yC1mP2hg7Wk0RmCGnt
-         3F0A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792977447; x=1793582247;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3JHKNZG3E5vHMpYqgouUpuv8xtxZ/WRsL+FJ8mE54ZM=;
-        b=vo3Ibg735fprpf5pMZgVOxZulFXilewhVVfty6EBrsu9MEQkx6zcZgWiU3NY1Hb8/P
-         d36u7OjokIeNkDppf94NJSqIBsB0ITWWBmwrSz3KXPmGergUBTUjbLV2LP5O4Y73qMvF
-         TqWWCoYNLLP70WIj4a8rrB+fFD2rzNsoM2Odoe7Ci0PCdDSPQEVZaw7+uRTV/Ihp4T8T
-         3KJeJ4t11HOVU9Ai4evouDyBGeNhAsMDuE68c/W5QumyigG07Y08njhFX6tw9pCzGP25
-         NiO4Do69jR4LXbzRAy8llReVREpODPGwv3FSRfD8y+xQ3jzfkQgYXqkA7Sy5Zk+WmQ17
-         V8UQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxKsDn+0pBXmhTVnKvDTW+oiBW5aW5ux2l2ZCp1uXI0o05lIyqTQjZXpLsm0R4RpwE1yqGcvIkatVt7UTA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI68/U0xVt+lzhHTUuo6SW60Tv4MQPrDCBu1J+RrUEmPxmq/0vm
-	g/u+9hnAvr2mdnpyZG9D+brSss05j++331LeTmHF6F/graCtexFOQaQWtkEMWVkhGk3jJ74VfrE
-	f6s/JyONX7CG7ub7GW6gDbag6qKB7Q8tT5ly674LfPA==
-X-Gm-Gg: AYBFou0D4QY+e/J8izd9n0qgsluj08SUh3POCWkT/5e+hrMFi+Sras0aSOyLWQspmc4
-	2TEq3sZdElrXC5CRzSiel07eVLqPGQGtpbZxqDTUncLYd5V9Af3Bhfm2e9+euvMRhaAk6fzhXlS
-	3QnYfwO1XA1PqySW9Eaa/PxtIuJCWH0zfj6/gOt5FsTqNJPvFrNqOGZkch0rtpccjoBxS6b7OCr
-	g9J9RRNGB8CRfvZa4FLeT+03Hi8cpMI6zcJnDQMLsZ7jyy0enjbmKBZf8OIWfKQnpMT2G4Thtge
-	FAmBd6dRv+vRVxQQTEcVWNm5IfxMENU5Z/QIyN2RUrDLia6pwLlVG5vl2PjkHCAwoy3B0AJBEF1
-	LlT7uajgpKWD3UGYU+NiGUKB3mXScy3tjdwwrAld7HPOj20rsm8UrxvTF1hUvwl0L1vLs
-X-Received: by 2002:a05:6402:234e:b0:6b4:31c5:bb2b with SMTP id
- 4fb4d7f45d1cf-6b4430016b5mr6666492a12.41.1792977447040; Sun, 25 Oct 2026
- 18:17:27 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V1DqB3pb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6BEC1F01825;
+	Mon, 26 Oct 2026 01:21:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792977691;
+	bh=C5ioxP7uY30s85vV8DwHkSdiepRHIKFRzyzh0pLyvrQ=;
+	h=From:To:Cc:Subject:Date;
+	b=V1DqB3pbxP7rI9SN1R43pBQWTS3C67zUkKSoznsjQEqKyNtm8D6VseVMV4dlPp+Yj
+	 vUfWs8GRNk8VeYo1YsHqRQb/2GPMcudOZ/dSNZw7amrf+fH7BeRNCYHSmgbGXMfawP
+	 N2BBF1UKzjie0mK5a3YE7Wc1wUe3aLXW1ArWK9O4MAKNaqX4o3XUbCPiZ/6NVVainY
+	 2ZqMA2i5RDZOCzcWFB6DhMgVp9FjqoQBzYu0jUuQYzuHEYDYGRcicx7C2vXRn8lpST
+	 4RO/SjJB9dhvFteWGILoKpABngLxeW43OkAEphOc7N6fnhgx3l9heeD2DCL2ikPWsN
+	 q0ZeSD33q5Sdg==
+From: Sasha Levin <sashal@kernel.org>
+To: Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>
+Cc: Fuad Tabba <fuad.tabba@linux.dev>,
+	Mark Brown <broonie@kernel.org>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Shuah Khan <shuah@kernel.org>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Itaru Kitayama <itaru.kitayama@fujitsu.com>,
+	linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
+	kvm@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] KVM: arm64: selftests: Skip unwritable ID fields in the failed-run test
+Date: Sun, 25 Oct 2026 21:21:28 -0400
+Message-ID: <20261026012128.2270251-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,56 +71,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261020144710.4154339-1-pasha.tatashin@soleen.com>
- <20261020144710.4154339-3-pasha.tatashin@soleen.com> <atsM_WTjuZNl1EGG@kernel.org>
-In-Reply-To: <atsM_WTjuZNl1EGG@kernel.org>
-From: Pasha Tatashin <pasha.tatashin@soleen.com>
-Date: Sun, 25 Oct 2026 21:16:50 -0400
-X-Gm-Features: AclHuK98Gj1W6ZSJdFU1t2f67xVGq0_oZ919Xy4QT-Ox4HmUEuoqqii467TmLm8
-Message-ID: <CA+CK2bBXCPBiZ+ek3+PiOHR_8obXkpJmJ=iqcXC4kxO23b8yuA@mail.gmail.com>
-Subject: Re: [PATCH v2 2/2] selftests: liveupdate: Add tests for LIVEUPDATE_SESSION_FREEZE
-To: Mike Rapoport <rppt@kernel.org>
-Cc: linux-kselftest@vger.kernel.org, shuah@kernel.org, 
-	akpm@linux-foundation.org, linux-mm@kvack.org, vipinsh@google.com, 
-	linux-kernel@vger.kernel.org, dmatlack@google.com, kexec@lists.infradead.org, 
-	pratyush@kernel.org, graf@amazon.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 23, 2026 at 3:30=E2=80=AFAM Mike Rapoport <rppt@kernel.org> wro=
-te:
->
-> On Tue, Oct 20, 2026 at 10:47:04AM -0400, Pasha Tatashin wrote:
-> > Provide luo_session_freeze() in the liveupdate test library and add uni=
-t
-> > tests in liveupdate.c covering the LIVEUPDATE_SESSION_FREEZE ioctl. The
-> > tests verify that non-zero reserved bits are rejected with -EINVAL, an
-> > outgoing session with preserved files can be frozen early, freezing an
-> > already frozen session returns -EBUSY, and attempting to preserve an
-> > additional file descriptor into a frozen session fails with -EBUSY.
->
-> Please teach your LLM to use shorter paragraphs :)
+test_idreg_frozen_after_failed_run() checks that changing a feature ID
+register after a failed first KVM_RUN is rejected with -EBUSY, and does
+so for every field of every register in test_regs.
 
-For selftests, I usually let it express itself :-)))
+On a host without AArch32 support at EL0, KVM treats the AArch32 ID
+registers as RAZ/WI: aa32_id_visibility() returns REG_RAZ | REG_USER_WI,
+and kvm_sys_reg_set_user() ignores the write and returns 0 before
+set_id_reg() checks whether the ID registers are final. The test then
+fails on the first such register:
 
->
-> Do we need the entire list of what the test checks in the changelog?
+  arm64/set_id_regs.c:870: r < 0 && errno == EBUSY
+  ID_DFR0_EL1_PerfMon write after failed first run: r=0 errno=16
 
-Will fix.
+KernelCI hits this on every run on an AArch64 only GB300 host.
 
->
-> > Also freeze the test session early in luo_kexec_simple.c to exercise
-> > LIVEUPDATE_SESSION_FREEZE across a kexec reboot, and verify that
-> > attempting to freeze a retrieved incoming session returns -EINVAL.
-> >
-> > Signed-off-by: Pasha Tatashin <pasha.tatashin@soleen.com>
-> > ---
-> >  .../liveupdate/lib/include/libliveupdate.h    |  1 +
-> >  .../selftests/liveupdate/lib/lu_utils.c       | 10 ++++
-> >  .../testing/selftests/liveupdate/liveupdate.c | 49 +++++++++++++++++++
-> >  .../selftests/liveupdate/luo_kexec_simple.c   |  8 +++
-> >  4 files changed, 68 insertions(+)
->
-> --
-> Sincerely yours,
-> Mike.
+Only a field that userspace can change can be frozen, and KVM reports
+these registers as not writable in KVM_ARM_GET_REG_WRITABLE_MASKS. Skip
+the fields that the writable mask does not cover. test_vm_ftr_id_regs()
+already requires the mask to cover every other field in test_regs, so
+this only drops the fields KVM never lets userspace change. Whether KVM
+accepts writes to fields it reports as not writable is a separate
+question from finalization.
+
+Fixes: 00e309933879 ("KVM: arm64: selftests: Check ID regs are immutable after a failed run")
+Link: https://d.kernelci.org/test/maestro:6adcad0c55fda50760800a00
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+Changes in v2:
+- Skip every field that KVM_ARM_GET_REG_WRITABLE_MASKS does not report as
+  writable, instead of special casing the AArch32 ID registers (Mark Brown).
+
+v1: https://lore.kernel.org/all/20261024161118.1007472-1-sashal@kernel.org/
+
+ tools/testing/selftests/kvm/arm64/set_id_regs.c | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
+
+diff --git a/tools/testing/selftests/kvm/arm64/set_id_regs.c b/tools/testing/selftests/kvm/arm64/set_id_regs.c
+index 10849d21c0dd2..1d2cc25cb3f4c 100644
+--- a/tools/testing/selftests/kvm/arm64/set_id_regs.c
++++ b/tools/testing/selftests/kvm/arm64/set_id_regs.c
+@@ -815,6 +815,10 @@ static void test_idreg_frozen_after_failed_run(void)
+ 		SYS_REVIDR_EL1,
+ 		SYS_AIDR_EL1,
+ 	};
++	u64 masks[KVM_ARM_FEATURE_ID_RANGE_SIZE];
++	struct reg_mask_range range = {
++		.addr = (__u64)masks,
++	};
+ 	struct kvm_vcpu_init init;
+ 	struct kvm_vcpu *vcpu;
+ 	struct kvm_vm *vm;
+@@ -831,6 +835,7 @@ static void test_idreg_frozen_after_failed_run(void)
+ 
+ 	vm = vm_create(1);
+ 	vm_enable_cap(vm, KVM_CAP_ARM_WRITABLE_IMP_ID_REGS, 0);
++	vm_ioctl(vm, KVM_ARM_GET_REG_WRITABLE_MASKS, &range);
+ 	kvm_get_default_vcpu_target(vm, &init);
+ 	init.features[0] |= (1 << KVM_ARM_VCPU_PMU_V3);
+ 	vcpu = aarch64_vcpu_add(vm, 0, &init, guest_code);
+@@ -852,7 +857,9 @@ static void test_idreg_frozen_after_failed_run(void)
+ 	 */
+ 	for (int i = 0; i < ARRAY_SIZE(test_regs); i++) {
+ 		const struct reg_ftr_bits *ftr_bits = test_regs[i].ftr_bits;
+-		u64 reg = KVM_ARM64_SYS_REG(test_regs[i].reg);
++		u32 reg_id = test_regs[i].reg;
++		u64 reg = KVM_ARM64_SYS_REG(reg_id);
++		u64 mask = masks[encoding_to_range_idx(reg_id)];
+ 		u64 val = vcpu_get_reg(vcpu, reg);
+ 
+ 		for (int j = 0; ftr_bits[j].type != FTR_END; j++) {
+@@ -860,6 +867,10 @@ static void test_idreg_frozen_after_failed_run(void)
+ 			u64 safe = get_safe_value(&ftr_bits[j], ftr);
+ 			u64 new_val;
+ 
++			/* Only a field userspace could change can be frozen. */
++			if ((mask & ftr_bits[j].mask) != ftr_bits[j].mask)
++				continue;
++
+ 			if (safe == ftr)
+ 				continue;
+ 
+
+base-commit: 21a7f44fd0765fcc5194130b28767786eba1d1e7
+-- 
+2.53.0
+
