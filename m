@@ -1,80 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793042239;
-	b=oSCBgN4I/kVGgmvYtmPB3YU9bDznegpx3lUZoWE2TPijoAUQ4bZOv5jQ8iBzsqup0BgI
-	 qOYa0MTyqbrOSo+UKovYi5Niuo9MtmkaYiil/77YbngI9rqkhGHeSZyRlduxixT/HbSsi
-	 kBZKkgye4dkov2Gs0lzHtmaOWvoagOe1UsRp7T7UF+ZJ3X7jNOTovXptl9NIxhUTYEBam
-	 51uNePE988KzKb8xfW22Ecy8MmCz3t867HYCcjc2OBQtpOrJk13v0RGVWauJdKWz0yM4Z
-	 1sBRO1cHHtB7EingyPbiogecOsg+2OgdCJ4j435D8yJJqSUmS2VfXq1iMc8nTHA6oFw==
+	t=1793042241;
+	b=WJbQybgrmFDW9xZVXAHZVcQuN8QrEPA1WoX3hbsPYmolWHacztcz5eGkLyUaQlKxw/wJ
+	 j4zG4u9N1z+TIJWkd6lInGjNSs3cHpHElEjd+NwFwZL+19guFB+CK1MBM7LlKM6rWEEHq
+	 oSSoXsV5ySIrfCNJM0iLEpZ5rmgQ7UtRxILvV+DheYhq+sKf3We6xVAon9W2vrZ/HBbkZ
+	 7dQPG3yzGiSTvqt6O0fT8W7w5rXKsoJjn8p1ErjW/EdHwYPrphQ0I1vauPjHpPIr16EIc
+	 pf8oQMifYTnpvaULKCb2xVX4y0qphceTu/T/bCpLwjNOuY0P+fggbx+sJmlJYcv4R8Q==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793042239;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=BFNR2zEuFWUHNEKMapOFEv7Vd6aMGzRgK3IoZeYR9FQ=;
-	b=hcP4JQhkoPnLD1PthdSIFeSa4Zk9I1xEhhRojkNn4T83Sc6Y1ytLY11l6D2r3C//Nlzj
-	 ma9TtUqF1miRheaXZbeMYAJGj+7AtnjpcDYz1a5RVYZFnV3wE4pRPuPLhiU3XbYP6EcgA
-	 lWqmJ6V9n16XxU/aTGTHfjHhGzfbrZaj+n0nEYgEQ2FiRgGojWvdFfVv0OJVjQcKcIS7I
-	 Cq5fGZ94Mf3zxutGhZdYJNjB4zr52cN9QTX2DvibwKjli8ky+OJqyUij6Ymx9Xv7HF/VR
-	 FpQJBvDmAuEGOXkoMtBRlQSsit1z+phuas6iNt8TauEOWQPPbjZcBas097G13P68h4Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793042241;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=bUzni0iK/C+PhtxdHk9zeTrgmQXy4renjbgo9cCUJ7I=;
+	b=lGD8R8MXhqNC0akA92grtYdbjBf3tvZ+nMoeqaNxSGL/g4RBFKmKHA2a4dV3lNZKDEKW
+	 aa+CP0h9X9eEXNS7+s4Mwonbgzc2fNIvOjsA3gHAfi7vop3GOp9hMdwstihP8Hza3pBBT
+	 IHEzujrEr+z1buc48fYby3P6cmB5Ra7Zsi3DGg9favr+kZ4pGbRlrkgtl+Q5Cf5AvdRwl
+	 uhwE9kTfBjF4Z7Db2u3DatcilkRgm2dNVJleYVyDfq0k3YHBIqof6+RVNsSfcMPlAIWnG
+	 cT2sAB+FCf7c7RdkUgzCJ6ZtX5LP+1+21DEIBRQZugWLM8Y5JZFbWxFjhDDlv8mGU2Q==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AXNr++7J;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Us+cBCcJ;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9252160A2604;
-	Mon, 26 Oct 2026 19:17:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1A2C60A260E;
+	Mon, 26 Oct 2026 19:17:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AXNr++7J
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Us+cBCcJ
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793042238;
-	b=nBFqff44Ud0ivssFb1irMIOBJrKzVc5S2IBJSZX9NFYTRBaKYMteUN/9YTbnkug8mIak
-	 MgsbiRIK48i4v5XF8OSwLBsxyIH5/ckZsGhf9axlegSS83u+myZeXBzayjNGJ4cvLt9tl
-	 Kltdc6Vj/FNMHZJyv3ZFw1HclxQLfnETFWGdnATgYCiV/EkI5Ziw44etVIf1CWAfZByEX
-	 59SkwmjZe8qL0/PQdm2je84M4EcH+9vBAH8aaIdq6jKmcxx+HLcdKi99R3w/lwLcuYWIx
-	 2esxIQh1c75KsY1snCTFGLhhj8jLKhwSzPr5Jc5VFhYk4C6N5RAfAbT5QtJLh0j4R9g==
+	t=1793042240;
+	b=cabIcGffNexV246wSdv72au5KVzUY/fixq6wBplUpJGslPnvFpSNsoJMXwl0kxTQbcVD
+	 LnS0lkRh3+H1iIGLXufiriskGtsvm3mWeP9mFjD2MMAwe4QJt+4M8Y/F0c2LBXgFC73Tt
+	 1Rgj+6vKp8eT5nLs7DwKV87ELKdyqeeKX6l4d2Rg6bw+lb2AM9RBpZ1YWZqlwXWuc8Ey2
+	 ZjSgL6GiS35yEIq0X1alanin4sqCqa2R7EKm8im/ew0GLG6uQGk1cSiVuPtyNr/iNItY7
+	 M31bKP6eVrfEuu9ICPruszl7u3tXmWovsekhZDEQZWysZWTjpF8SxKIV5Mjn8gGjCjQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793042238;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=BFNR2zEuFWUHNEKMapOFEv7Vd6aMGzRgK3IoZeYR9FQ=;
-	b=XA690yw6qSlefLE2K3Ti04z81ai/OoOibgkJBGOWWNq8uVbbDjDXsrFXnJTyzt1P5Hzl
-	 ib9+RGTB8oqyCOBPWgPUo2hsHeeTxep12lyFqfAXFA010lIsaeBcf447CQ8h8ovjJeNBg
-	 tgDfciSgAo2T9GyglECU0cJ5IqtixgS5tuAiuo1B373+ChtsVU3S9EdoImNhleYT+Hk23
-	 UYGN9+zo0aqxcEeNHM/SeH2POG/NyiOV1kRjVLW96edTf38S419Dg0B6n7VZGyTgqKQ2P
-	 F+5kA5o4Kp3zfxbySMZS6wPo/pCpXdJSD05XJbV4QS9v15U1xN+r6epQkE3FJ78sRyQ==
+	c=relaxed/relaxed; t=1793042240;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=bUzni0iK/C+PhtxdHk9zeTrgmQXy4renjbgo9cCUJ7I=;
+	b=lRtvmNtjfrWDbl3LKNTIf6qqUfL5FEE6AyTe1BzW2uzMeW/h/jgLMlgRlnRUWPH/JrKc
+	 kENEXMU5awypCIAO08ZanevO4xyqD7yrseu0BpExIk7FDGR7KJxs0pnfLrbFffuBjiXoe
+	 5Vm84kA03cTato/OWl8Jx+UnyYbK6JTsZcuLxDQ//dfZy6oYPItVsHOqNOpUuxGMFf5Ii
+	 K9xVX6eNm8gosOCZFwGP/LqM2HIaH5Ncr5veN+l84g9MdoI4IEmiFfIjCliTbwhWstK82
+	 +1Y0iaYqpCbyNhA2BG1/kdjC8Pa1DMg02Wsi3QfbS/nLQPxDLWp3YOmPRZDMA7ict3A==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 413451F031E2;
-	Mon, 26 Oct 2026 19:17:17 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id D47FE1F01828;
+	Mon, 26 Oct 2026 19:17:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793042238;
-	bh=BFNR2zEuFWUHNEKMapOFEv7Vd6aMGzRgK3IoZeYR9FQ=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=AXNr++7JYkoaLWBp9wdez6fAE+uzxmg77AU/HRPB7Z09SZ+stJrt5jMruZcdDejoc
-	 P5Tl1mjJCh+lKJ4z94EmugZ2Zh9NhENgZ4zlc3Gx0Za1Ie3jYEhamh/7esw4aczC4w
-	 xiW+xXs06UXeQyWetnbXweCoXvXZfJKOgO1f+rC5EU+P+3lLvuTFRnOnI0xkJzfyC/
-	 KvwqafcXQlp6G6OQiiMQe7+E8c/t4KwqM0dB+Yx1Mp+8beySkT+b0bnndWSPKNuIY8
-	 8bRSKsyXZVY4EEED+UK9RjdqNoJu6SCeQCL5hWzUUNFS8xpQcjg0QzHxpzyKz0VKO/
-	 Cc8Kzy0PuO+Kw==
+	s=k20260515; t=1793042240;
+	bh=bUzni0iK/C+PhtxdHk9zeTrgmQXy4renjbgo9cCUJ7I=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=Us+cBCcJbAn3Q+yLcgwyQHQby9XUeGr9p7f2jxnJtte0O8MWoiPXsC+CCZ5JJQi8a
+	 n9INEvY2OVVr2ou2zlexFanoHDSYr2dV6S/exHzjV36wg3mIgJgT7Tt0L0DU0/mVqa
+	 /TpoIoZoLUHIaFABITbzpojIp6VNOH63AJFU9Zfz4+1kR5+rD4lgg5gnKFacZAlv/T
+	 cXOVZBYuYg1wFBpESzY2R9/ZErYuQqQfYU1nFJBi0L7Ks1+C+yhJvXlDXq44FmBDhS
+	 Af4flbgvyHkU6mQBQ5FeeDasVr2tdzQ7VHyPvlv5tk8DVyGHpjwMk5eyXus2Y+ZlSI
+	 pc3BLUBDBSOgA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 95F3144E44;
+	by lkml.kernel.org (Postfix) with ESMTP id E7F2A44E5C;
 	Mon, 26 Oct 2026 19:17:16 +0000 (UTC)
 From: Xi Zhang via B4 Relay <devnull+xz.ca.cn.gmail.com@kernel.org>
-Subject: [PATCH 0/8] drm/msm/dpu: various dpu resource allocation/release
- mismatch fix
-Date: Mon, 26 Oct 2026 16:16:48 -0300
-Message-Id: <20261026-msm-dpu-res-clean-v1-0-f46130a8a717@gmail.com>
+Date: Mon, 26 Oct 2026 16:16:55 -0300
+Subject: [PATCH 7/8] drm/msm: force mode_changed on color_mgmt_changed, not
+ just ctm
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,11 +84,9 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDINbNLc7VTSko1S1KLdZNzklNzNNNMzQ3MDE0MDMxNU5TAuorKEpNy6w
- AmxkdC+EXlyZlpSaXgAxSqq0FANyDXEd1AAAA
-X-Change-ID: 20261026-msm-dpu-res-clean-f1704106453f
+Message-Id: <20261026-msm-dpu-res-clean-v1-7-f46130a8a717@gmail.com>
+References: <20261026-msm-dpu-res-clean-v1-0-f46130a8a717@gmail.com>
+In-Reply-To: <20261026-msm-dpu-res-clean-v1-0-f46130a8a717@gmail.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>, 
  Dmitry Baryshkov <lumag@kernel.org>, 
  Abhinav Kumar <abhinav.kumar@linux.dev>, 
@@ -100,74 +97,54 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Xi Zhang <xz.ca.cn@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793042236; l=2550;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793042236; l=1219;
  i=xz.ca.cn@gmail.com; s=20261026; h=from:subject:message-id;
- bh=2/d8EjRzSoHnBXV69zMC8k8JvAq0euVt9rPufF4ekUk=;
- b=tvvfgQt/49+WodVm0S42JjyPwwc8dvflO44G5lU42tTV1BsYKYjcRhW818+MdktdvZlgpqz5g
- baRO9hlmGxHBs6CTqblKd9jO76mCXw/oCXrD1pca4RImCz0tYtDleHD
+ bh=Wo3tEP0RL/iVZrlVbjqizqGErC2YhsS/kVeKWgJ1UBY=;
+ b=Ka8elEcmKvRmXT6MxV7shh8QtW1BUM34m8jO69Pppxv34hT1WkBIwW/du7byZGl5q+mivl9sR
+ dI2mCiPGOpqDqqYH8xMs8i3CNw8qaTypCBy8azN6b6SYsV6VTBNx13P
 X-Developer-Key: i=xz.ca.cn@gmail.com; a=ed25519;
  pk=aRUll5L3eJbwG8Y4BO9uySKGzm+Uy+Ccei9prnRVZRs=
 X-Endpoint-Received: by B4 Relay for xz.ca.cn@gmail.com/20261026 with
  auth_id=1328
 X-Original-From: Xi Zhang <xz.ca.cn@gmail.com>
 Reply-To: xz.ca.cn@gmail.com
+Content-Transfer-Encoding: 7bit
 
-This series fixes various resource de-allocation issues in DPU
-resource cleanup code. Aim is more reliable mode set, in particular
-when multiple displays/encoders are connected, to avoid blue screen
-or snowy dsc displays.
+From: Xi Zhang <xz.ca.cn@gmail.com>
 
-Tested with v7.3 + msm-next, on Ayaneo Pocket DS (SM8550 Kalama).
-Changes are not device/chip specific.
+dpu_crtc_atomic_check calls dpu_crtc_assign_resources when
+color_mgmt_changed is set, which is unsafe outside of full modeset.
 
-Some of the changes has lived in ROCKNIX distro for a few months.
-https://github.com/ROCKNIX/distribution/pull/2716
+Set allow_modeset and mode_changed when color_mgmt_changed is set,
+not just when ctm is changed.
 
-Note: The first patch in that PR was problematic: uninitialized pointer
-variable field access (since fixed), and I did not understand drm
-atomic state tracking, so it wasn't doing anything at all and
-is not included in this series.
+Also would fix
+commit 42f62cd79578 ("drm/msm/dpu: try reserving the DSPP-less LM first")
+which was reverted.
 
-The third patch linked above has more changes than what's included in
-this series. The extra change did not do anything that's needed.
-
-The following 2 commits are new and are not in ROCKNIX:
-
-[Patch 6/8] ("drm/msm/dpu: workaround res re-assignment issues by pairing enc/crtc")
-[Patch 7/8] ("drm/msm: force mode_changed on color_mgmt_changed, not just ctm")
-
-[Patch 7/8] would fix, from my testing:
-https://lore.kernel.org/all/33424a9d-10a6-4479-bba6-12f8ce60da1a@packett.cool/
-See original report by Stephan Gerhold:
-https://gitlab.freedesktop.org/drm/msm/-/work_items/102
-
-Note: I'm not part of the ROCKNIX team, just contributed a few patches
-there.
+Closes: https://gitlab.freedesktop.org/drm/msm/-/work_items/102
 
 Signed-off-by: Xi Zhang <xz.ca.cn@gmail.com>
 ---
-Xi Zhang (8):
-      drm/msm/dpu: reset unassigned resource slots to NULL on topology update
-      drm/msm/dpu: save LMs in encoder mode_set for cleanup use later
-      drm/msm/dpu: use common helper cleanup function in cmd mode disable
-      drm/msm/dpu: Match setup_dither cleanup to the way it was set up
-      drm/msm/dpu: use cached PINGPONGs from mode set in cwb setup
-      drm/msm/dpu: workaround res re-assignment issues by pairing enc/crtc
-      drm/msm: force mode_changed on color_mgmt_changed, not just ctm
-      drm/msm/dpu: reset DSC_CMN_MAIN_CNF in dsc disable
+ drivers/gpu/drm/msm/msm_atomic.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c        | 115 ++++++++++-----------
- .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c   |  10 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc_1_2.c     |   1 +
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |  15 ++-
- drivers/gpu/drm/msm/msm_atomic.c                   |   3 +-
- 5 files changed, 70 insertions(+), 74 deletions(-)
----
-base-commit: d024361c631b3f020a26c07d683e5103404b0fbf
-change-id: 20261026-msm-dpu-res-clean-f1704106453f
+diff --git a/drivers/gpu/drm/msm/msm_atomic.c b/drivers/gpu/drm/msm/msm_atomic.c
+index a8babf1dbe0d..6f0f30b0728a 100644
+--- a/drivers/gpu/drm/msm/msm_atomic.c
++++ b/drivers/gpu/drm/msm/msm_atomic.c
+@@ -195,8 +195,7 @@ int msm_atomic_check(struct drm_device *dev, struct drm_atomic_commit *state)
+ 	 */
+ 	for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state,
+ 				      new_crtc_state, i) {
+-		if ((old_crtc_state->ctm && !new_crtc_state->ctm) ||
+-		    (!old_crtc_state->ctm && new_crtc_state->ctm)) {
++		if (new_crtc_state->color_mgmt_changed) {
+ 			new_crtc_state->mode_changed = true;
+ 			state->allow_modeset = true;
+ 		}
 
-Best regards,
---  
-Xi Zhang <xz.ca.cn@gmail.com>
+-- 
+2.55.0
 
 
