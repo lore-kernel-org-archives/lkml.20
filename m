@@ -1,79 +1,80 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793042238;
-	b=m9S4esq+gF0lTV8NzMtJOKEwxWu2ZZ/Q1TxSRqgMRgh1+VVL9l5V5Ujn7/NFW76INpEP
-	 fK/xS3gZ1EUwAeTK9aBYlv4D1XOMV95j37Nq2w1cSKs/b31OhnK+UCI1JmWP1p6nyLrwP
-	 iK5boiXW59JYx2/xGaT9ZnOBzJjpYrTgXMplg0gLLKG4TFvCdeXZEDlGj0J5CQZnrA2o4
-	 ZLJjHFJB5YJQmHwmP/Y+zGQGfA+QGlzI95DRf/WROcmbLowh+loBmnU63pMQWjQLjD9lA
-	 oOqPnOKqfZKZ3ddiPhOoIxCa7e+7FTlpZLa9UFbf+dxJ/B4NRN60irPaFD7ZolJooPw==
+	t=1793042239;
+	b=oSCBgN4I/kVGgmvYtmPB3YU9bDznegpx3lUZoWE2TPijoAUQ4bZOv5jQ8iBzsqup0BgI
+	 qOYa0MTyqbrOSo+UKovYi5Niuo9MtmkaYiil/77YbngI9rqkhGHeSZyRlduxixT/HbSsi
+	 kBZKkgye4dkov2Gs0lzHtmaOWvoagOe1UsRp7T7UF+ZJ3X7jNOTovXptl9NIxhUTYEBam
+	 51uNePE988KzKb8xfW22Ecy8MmCz3t867HYCcjc2OBQtpOrJk13v0RGVWauJdKWz0yM4Z
+	 1sBRO1cHHtB7EingyPbiogecOsg+2OgdCJ4j435D8yJJqSUmS2VfXq1iMc8nTHA6oFw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793042238;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=imHYWeksaXBeFcKIQhEzRRVpKwqiW8IhQO4lvWkfRAQ=;
-	b=SC2JBKpdTWi56davbCKqcFJvRdMwfOQntgwGdwh0n3jgOxXyRqeOl/u1DYd+r8pRtckn
-	 GGWvbIMqRgRS7/6gj2zsS9YJti2eZZgqVSCXBxK6JG6l+F+SRgJS+U0ERxkxo8QL53A/S
-	 7nj4M8h/NFVNSiIcq88iKXxMFhUD36E0DzeBjwfpMQN0t5rb2D2tPhVYJo1bYWgdmq25C
-	 aDDhexRvXvfpnqMIjenTgrplxz4S9zj0CyJY8WjW2nN359hXiXRx5Rz7iRo0tNI20pPEO
-	 0dqKu9/WCcoUUm6znGUGweSYXvWyqgQeXxciIgS3npQcfhOBRTFot067SGJK11kPWYw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793042239;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=BFNR2zEuFWUHNEKMapOFEv7Vd6aMGzRgK3IoZeYR9FQ=;
+	b=hcP4JQhkoPnLD1PthdSIFeSa4Zk9I1xEhhRojkNn4T83Sc6Y1ytLY11l6D2r3C//Nlzj
+	 ma9TtUqF1miRheaXZbeMYAJGj+7AtnjpcDYz1a5RVYZFnV3wE4pRPuPLhiU3XbYP6EcgA
+	 lWqmJ6V9n16XxU/aTGTHfjHhGzfbrZaj+n0nEYgEQ2FiRgGojWvdFfVv0OJVjQcKcIS7I
+	 Cq5fGZ94Mf3zxutGhZdYJNjB4zr52cN9QTX2DvibwKjli8ky+OJqyUij6Ymx9Xv7HF/VR
+	 FpQJBvDmAuEGOXkoMtBRlQSsit1z+phuas6iNt8TauEOWQPPbjZcBas097G13P68h4Q==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ImQUjrQW;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AXNr++7J;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 924C160A2602;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9252160A2604;
 	Mon, 26 Oct 2026 19:17:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ImQUjrQW
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AXNr++7J
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1793042238;
-	b=JTRLRJIk7z2fCldhJD4Uogypc9O1KXNKtw4iCHe7ueUZ1V2w8XU9A0J/103In5lpDZEy
-	 OOZL/U9IbrYYO8Tdz5SqmOyJdLGZFV6O6RmoMWAMPSAw+oDr3j9PcnBEm26DSH1CZP2MU
-	 KWI4O2wNEFppWAvkr3NclhTCkdFDcN+mfuLssx58nilg9nYPRpbHBFVG0Y/RBN8x99g8B
-	 rIrA9vVJiTDr9jxLpJRoNhNHBn5Eyyapo7PySFArojssGdvdiu/YZXMFPMsLaHraGc++O
-	 +zrgsMgq97Zw+QBU+qwG97yAbCa9ynLnkVx6rKeQBFoLF9El8rgtpIOAOPKbwYtSwVQ==
+	b=nBFqff44Ud0ivssFb1irMIOBJrKzVc5S2IBJSZX9NFYTRBaKYMteUN/9YTbnkug8mIak
+	 MgsbiRIK48i4v5XF8OSwLBsxyIH5/ckZsGhf9axlegSS83u+myZeXBzayjNGJ4cvLt9tl
+	 Kltdc6Vj/FNMHZJyv3ZFw1HclxQLfnETFWGdnATgYCiV/EkI5Ziw44etVIf1CWAfZByEX
+	 59SkwmjZe8qL0/PQdm2je84M4EcH+9vBAH8aaIdq6jKmcxx+HLcdKi99R3w/lwLcuYWIx
+	 2esxIQh1c75KsY1snCTFGLhhj8jLKhwSzPr5Jc5VFhYk4C6N5RAfAbT5QtJLh0j4R9g==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1793042238;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=imHYWeksaXBeFcKIQhEzRRVpKwqiW8IhQO4lvWkfRAQ=;
-	b=S0Ptqa1fu8k+j94Fp6USwXt3U11wUFAsM+bXrLZSmp803jTyjfPoRTZbCHIODZd9HWpf
-	 f7Cs9sicJH6JqVeKwlTh5CXWnruI9jm+M5Jn+8xQJpd1t5hoQR7rQxXjkfS1UN791d0lT
-	 XYJS6zbQowDF5Vz80VbUKEYkbqspBQ+UqMGZPlpw0INtgEgMiyKjykpNbt6QGE+z+Vr2c
-	 vo6dKKkSTUZKvBJLXAB/VwUximuXGICzat67dKG6W6zZUfnmmHHNnCd50jzZc9hXgkfQR
-	 ZXG+ANwd7atjyFVcWlXRSAp5qU2LiOfo+ASJaEXZlQJS/Ps71qLh2g5xZqbJg8qRXYw==
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=BFNR2zEuFWUHNEKMapOFEv7Vd6aMGzRgK3IoZeYR9FQ=;
+	b=XA690yw6qSlefLE2K3Ti04z81ai/OoOibgkJBGOWWNq8uVbbDjDXsrFXnJTyzt1P5Hzl
+	 ib9+RGTB8oqyCOBPWgPUo2hsHeeTxep12lyFqfAXFA010lIsaeBcf447CQ8h8ovjJeNBg
+	 tgDfciSgAo2T9GyglECU0cJ5IqtixgS5tuAiuo1B373+ChtsVU3S9EdoImNhleYT+Hk23
+	 UYGN9+zo0aqxcEeNHM/SeH2POG/NyiOV1kRjVLW96edTf38S419Dg0B6n7VZGyTgqKQ2P
+	 F+5kA5o4Kp3zfxbySMZS6wPo/pCpXdJSD05XJbV4QS9v15U1xN+r6epQkE3FJ78sRyQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 473EB1F031E5;
+	by smtp.kernel.org (Postfix) with ESMTPS id 413451F031E2;
 	Mon, 26 Oct 2026 19:17:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1793042238;
-	bh=imHYWeksaXBeFcKIQhEzRRVpKwqiW8IhQO4lvWkfRAQ=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=ImQUjrQWIT5yxySQ9F6i4rgRybDcEGn+Yf2njEH846y1rZ+b0EBPY0t/rwD5qABct
-	 BLLoaE7K5zYNvG1k3bYNLdcyuCDRjDeZJM9GdVZfVGsLU1pGoJDq6a2dG+P1rB1QCN
-	 l4b0jIAJV3kDD3Ic8vUj+g2GMSToy6I/+3UbYH/4bTCg0WPye1DRe9B3PPLiM9yrnP
-	 ub+4K51q6rd6yflZN/SMCgVYfq43w2zzGPH0ymYbqGKw9H5fO+5oaAjXbZv8C3cc4Y
-	 uQaHRmZT9S146LwimJ998iLamfxsRkB327tQxVjgK78voOi8Ke0HhZAetGr6y49Ty/
-	 F6QV6yBK+xvhA==
+	bh=BFNR2zEuFWUHNEKMapOFEv7Vd6aMGzRgK3IoZeYR9FQ=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=AXNr++7JYkoaLWBp9wdez6fAE+uzxmg77AU/HRPB7Z09SZ+stJrt5jMruZcdDejoc
+	 P5Tl1mjJCh+lKJ4z94EmugZ2Zh9NhENgZ4zlc3Gx0Za1Ie3jYEhamh/7esw4aczC4w
+	 xiW+xXs06UXeQyWetnbXweCoXvXZfJKOgO1f+rC5EU+P+3lLvuTFRnOnI0xkJzfyC/
+	 KvwqafcXQlp6G6OQiiMQe7+E8c/t4KwqM0dB+Yx1Mp+8beySkT+b0bnndWSPKNuIY8
+	 8bRSKsyXZVY4EEED+UK9RjdqNoJu6SCeQCL5hWzUUNFS8xpQcjg0QzHxpzyKz0VKO/
+	 Cc8Kzy0PuO+Kw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id C503744E50;
+	by lkml.kernel.org (Postfix) with ESMTP id 95F3144E44;
 	Mon, 26 Oct 2026 19:17:16 +0000 (UTC)
 From: Xi Zhang via B4 Relay <devnull+xz.ca.cn.gmail.com@kernel.org>
-Date: Mon, 26 Oct 2026 16:16:52 -0300
-Subject: [PATCH 4/8] drm/msm/dpu: Match setup_dither cleanup to the way it
- was set up
+Subject: [PATCH 0/8] drm/msm/dpu: various dpu resource allocation/release
+ mismatch fix
+Date: Mon, 26 Oct 2026 16:16:48 -0300
+Message-Id: <20261026-msm-dpu-res-clean-v1-0-f46130a8a717@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,9 +85,11 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261026-msm-dpu-res-clean-v1-4-f46130a8a717@gmail.com>
-References: <20261026-msm-dpu-res-clean-v1-0-f46130a8a717@gmail.com>
-In-Reply-To: <20261026-msm-dpu-res-clean-v1-0-f46130a8a717@gmail.com>
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDINbNLc7VTSko1S1KLdZNzklNzNNNMzQ3MDE0MDMxNU5TAuorKEpNy6w
+ AmxkdC+EXlyZlpSaXgAxSqq0FANyDXEd1AAAA
+X-Change-ID: 20261026-msm-dpu-res-clean-f1704106453f
 To: Rob Clark <robin.clark@oss.qualcomm.com>, 
  Dmitry Baryshkov <lumag@kernel.org>, 
  Abhinav Kumar <abhinav.kumar@linux.dev>, 
@@ -97,57 +100,74 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Xi Zhang <xz.ca.cn@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793042236; l=1544;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793042236; l=2550;
  i=xz.ca.cn@gmail.com; s=20261026; h=from:subject:message-id;
- bh=1MTlWjU8pVgLZ2rHuiYomfqUUR1f16R7qSP8TFUAGH4=;
- b=c2qs/hJFZZl9PaH5Ju7lHaFTIqtDMA0PCv6Gctd3IRZemFZK4sX92/W2tsMZk59NdnPHi5pVs
- zNe817nnNZcCqzQrJo5bvdiv2SU7B6zFb6i/PI83h0WQ3BPW6ccAiBz
+ bh=2/d8EjRzSoHnBXV69zMC8k8JvAq0euVt9rPufF4ekUk=;
+ b=tvvfgQt/49+WodVm0S42JjyPwwc8dvflO44G5lU42tTV1BsYKYjcRhW818+MdktdvZlgpqz5g
+ baRO9hlmGxHBs6CTqblKd9jO76mCXw/oCXrD1pca4RImCz0tYtDleHD
 X-Developer-Key: i=xz.ca.cn@gmail.com; a=ed25519;
  pk=aRUll5L3eJbwG8Y4BO9uySKGzm+Uy+Ccei9prnRVZRs=
 X-Endpoint-Received: by B4 Relay for xz.ca.cn@gmail.com/20261026 with
  auth_id=1328
 X-Original-From: Xi Zhang <xz.ca.cn@gmail.com>
 Reply-To: xz.ca.cn@gmail.com
-Content-Transfer-Encoding: 7bit
 
-From: Xi Zhang <xz.ca.cn@gmail.com>
+This series fixes various resource de-allocation issues in DPU
+resource cleanup code. Aim is more reliable mode set, in particular
+when multiple displays/encoders are connected, to avoid blue screen
+or snowy dsc displays.
 
-Cleanup hw_pp->ops.setup_dither with NULL for all PINGPONGs,
-matching the way it was setup during enable.
+Tested with v7.3 + msm-next, on Ayaneo Pocket DS (SM8550 Kalama).
+Changes are not device/chip specific.
+
+Some of the changes has lived in ROCKNIX distro for a few months.
+https://github.com/ROCKNIX/distribution/pull/2716
+
+Note: The first patch in that PR was problematic: uninitialized pointer
+variable field access (since fixed), and I did not understand drm
+atomic state tracking, so it wasn't doing anything at all and
+is not included in this series.
+
+The third patch linked above has more changes than what's included in
+this series. The extra change did not do anything that's needed.
+
+The following 2 commits are new and are not in ROCKNIX:
+
+[Patch 6/8] ("drm/msm/dpu: workaround res re-assignment issues by pairing enc/crtc")
+[Patch 7/8] ("drm/msm: force mode_changed on color_mgmt_changed, not just ctm")
+
+[Patch 7/8] would fix, from my testing:
+https://lore.kernel.org/all/33424a9d-10a6-4479-bba6-12f8ce60da1a@packett.cool/
+See original report by Stephan Gerhold:
+https://gitlab.freedesktop.org/drm/msm/-/work_items/102
+
+Note: I'm not part of the ROCKNIX team, just contributed a few patches
+there.
 
 Signed-off-by: Xi Zhang <xz.ca.cn@gmail.com>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+Xi Zhang (8):
+      drm/msm/dpu: reset unassigned resource slots to NULL on topology update
+      drm/msm/dpu: save LMs in encoder mode_set for cleanup use later
+      drm/msm/dpu: use common helper cleanup function in cmd mode disable
+      drm/msm/dpu: Match setup_dither cleanup to the way it was set up
+      drm/msm/dpu: use cached PINGPONGs from mode set in cwb setup
+      drm/msm/dpu: workaround res re-assignment issues by pairing enc/crtc
+      drm/msm: force mode_changed on color_mgmt_changed, not just ctm
+      drm/msm/dpu: reset DSC_CMN_MAIN_CNF in dsc disable
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index 0ab151369c99..7d092398fc99 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -1320,7 +1320,7 @@ static void _dpu_encoder_virt_enable_helper(struct drm_encoder *drm_enc)
- 	if (dpu_enc->disp_info.intf_type == INTF_DSI &&
- 			!WARN_ON(dpu_enc->num_phys_encs == 0)) {
- 		unsigned bpc = dpu_enc->connector->display_info.bpc;
--		for (i = 0; i < MAX_CHANNELS_PER_ENC; i++) {
-+		for (i = 0; i < ARRAY_SIZE(dpu_enc->hw_pp); i++) {
- 			if (!dpu_enc->hw_pp[i])
- 				continue;
- 			_dpu_encoder_setup_dither(dpu_enc->hw_pp[i], bpc);
-@@ -2303,8 +2303,10 @@ void dpu_encoder_helper_phys_cleanup(struct dpu_encoder_phys *phys_enc)
- 		}
- 	}
- 
--	if (phys_enc->hw_pp && phys_enc->hw_pp->ops.setup_dither)
--		phys_enc->hw_pp->ops.setup_dither(phys_enc->hw_pp, NULL);
-+	if (dpu_enc->disp_info.intf_type == INTF_DSI)
-+		for (i = 0; i < ARRAY_SIZE(dpu_enc->hw_pp); i++)
-+			if (dpu_enc->hw_pp[i] && dpu_enc->hw_pp[i]->ops.setup_dither)
-+				dpu_enc->hw_pp[i]->ops.setup_dither(dpu_enc->hw_pp[i], NULL);
- 
- 	if (dpu_enc->cwb_mask)
- 		dpu_encoder_helper_phys_setup_cwb(phys_enc, false);
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c        | 115 ++++++++++-----------
+ .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c   |  10 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc_1_2.c     |   1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |  15 ++-
+ drivers/gpu/drm/msm/msm_atomic.c                   |   3 +-
+ 5 files changed, 70 insertions(+), 74 deletions(-)
+---
+base-commit: d024361c631b3f020a26c07d683e5103404b0fbf
+change-id: 20261026-msm-dpu-res-clean-f1704106453f
 
--- 
-2.55.0
+Best regards,
+--  
+Xi Zhang <xz.ca.cn@gmail.com>
 
 
