@@ -1,57 +1,41 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.92.39.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793006847;
-	b=if96/F9bx3KHIgoUUl/Mxq19N3Qf1QbYxGBifbEV4jJq3XOCRFcc9AkGHyIadNbr3238
-	 UR3m3bvPDQPWmTocmMyiQ8te94JUDjelwh7LVr6Y+flTi1b+YW43RBAivp3Nl9rSoC/bw
-	 Lk0iR93ExsbRtG1qB5nOQJezjxqK4ZRUt/7rEWNkG8uEVX2B231jX6f4UwBpztSLWmqf+
-	 Qg6ceF5HhMZBONdttl8RW/I/n3NULrbLPDg8lB+M2+GalCKlebtbE8muDa0q5uA7ZcqNT
-	 jK0Z9qX12R8tQ56Cqv/ASpdXQN8sT8AMKkyxnVMBebtWXsWZmeD70P5G2oX6Yq5Jb9w==
+	t=1793006880;
+	b=z3JIwa6OfJV2Lg45QX8g2gohruIE+C1efoQwFFLhik+DQPLfbJoH1y9lQbENHiUVRkUl
+	 5ZEIO3hmtM92ieTDUZ+tQ2Fl8fcdPY7OriHnWYIPVJHcZftm+Nfi+wpXCllLM2Dy7VXlP
+	 V7M+8xOuHaT7olmPlnYcBT9ZIMRHe7k5ab8LATrRjqx9Y6UO0nCJ+0sD8RnpbeTSauhOJ
+	 rC9N4Hu6dIrb8xl9N1jgwlGhWjSp6JI8zIjnnmUr06ICRi6QX9CUmFuYlC5PaFHHuYwtT
+	 iMuGtUO4Jsi3ZyuBfvq2jwIXiZVlNxnPeUUp8Qa1W+mAccnydI9adAgOJJ+qWykNzdw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793006847;
-	h=DMARC-Filter:X-QQ-mid:X-QQ-Originating-IP:Received:X-QQ-SSF:
-	 X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:
-	 X-QQ-RECHKSPAM;
-	bh=UOjH/KZrJevJUFQC3mjbJKqPCVBhF0Dx/9N1xhVblbk=;
-	b=JGTkT1HXuaSryQgsEA2f8MlaORdieuMUcjMaf00RGbFBvoZNZhBeAdZPCyrrREgZl/Dt
-	 VMOK7g3uZGE+cuYU+hblKo8GsMUF34duAJzx6bD28Sqyysrj9afbjhuiCSnCNA2+0wHLs
-	 Mjl+zqcqP6scQ4rKq+dAlQ7Tk5vIiE528PoJPUlhtQkST7myB0we/ybLJctrxJKxEd+/K
-	 vr7MGSHqL+zb8HeK1w/YAblAmJGd/GmTdJJ2nHnj5koQ2Ukh1rfpBsRR3yLb9wcqRNb4V
-	 miT+95UwDFifOadx/VGt8PfzA+M96p1dOnSpY9q+yglQOCifi+j+7Aik6ySWq31EIMw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793006880;
+	h=DMARC-Filter:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:X-CM-SenderInfo:
+	 X-Coremail-Antispam;
+	bh=qywe0Yi/+oq++LNMQYKiGg4TEZMBeNNx2BnHrKwc8Sg=;
+	b=qCyVuQwExLEN5kWz1oULO/LgEo1dBm2x7od+eH9l+EezNgVl1SVhgHB6stJd9JGrOVpz
+	 Ni2Kxq9jC8mA9JkeUy3EUJ6EG0G8UlqgaObRCMb3G3UyLwEG3SSv6rlQphi54hC9GQvOJ
+	 /GyrXE3NwDnNtZjMKnDq4x8Julbbo6egrx2uCZCwwT6elN9B8ejbeRg/6depAIUXTWVNj
+	 k1pXoOq017rxk5bqKsrnJ5zUeGbPjA+Nm6e4GxP8dYDKjoR0nMqUhzWhFRDbjPNsZ+kg5
+	 3zEl2J5UFtTsBS+oyo/L0Z90vuaww1ViSnF3FHd98covMnEHBtBHXabuaGtUtAOlBNg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=mucse.com;
-	spf=pass smtp.mailfrom=mucse.com;
-	arc=none smtp.remote-ip=54.92.39.34
-Received: from smtpbgjp3.qq.com (smtpbgjp3.qq.com [54.92.39.34])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27C03606A31D;
-	Mon, 26 Oct 2026 09:27:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27C03606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mucse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mucse.com
-X-QQ-mid: zesmtpsz9t1793006777t9d6df4ad
-X-QQ-Originating-IP: h+ap49Kv0RfW/vllUVPU9/sQGgdKAP75oz8+M9g7oj0=
-Received: from localhost ( [203.174.112.180])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Mon, 26 Oct 2026 17:26:15 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 10730358307232006467
-EX-QQ-RecipientCnt: 10
-Date: Mon, 26 Oct 2026 17:26:15 +0800
-From: Yibo Dong <dong100@mucse.com>
-To: netdev-bot+sinfo@kernel.org
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
-	kuba@kernel.org, pabeni@redhat.com, vadim.fedorenko@linux.dev,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	yaojun@mucse.com
-Subject: Re: [PATCH net] net: rnpgbe: Accept link-down events without speed
- magic
-Message-ID: <5A927C9600407C98+20261026092615.GA933559@nic-Precision-5820-Tower>
-References: <C2DFBBF04F1DCFD2+20261026075445.920572-1-dong100@mucse.com>
- <179300162296.3327.8577140950893281339@kernel.org>
+	dmarc=none header.from=loongson.cn;
+	spf=pass smtp.mailfrom=loongson.cn;
+	arc=none smtp.remote-ip=114.242.206.163
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4888E606A31E;
+	Mon, 26 Oct 2026 09:27:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4888E606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [10.20.42.102])
+	by gateway (Coremail) with SMTP id _____8DxOvAcHd9qwW0ZAA--.8631S3;
+	Mon, 26 Oct 2026 17:27:56 +0800 (CST)
+Received: from [127.0.0.1] (unknown [127.0.0.1])
+	by front1 (Coremail) with SMTP id qMiowJCxf88ZHd9qI0wwAA--.37303S2;
+	Mon, 26 Oct 2026 17:27:55 +0800 (CST)
+Message-ID: <f2857967-ccec-4ea7-b46b-bfa3d3b7d805@loongson.cn>
+Date: Mon, 26 Oct 2026 17:25:08 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,73 +45,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <179300162296.3327.8577140950893281339@kernel.org>
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:mucse.com:qybglogicsvrgz:qybglogicsvrgz3a-1
-X-QQ-XMAILINFO: OTaQrRjuGKLtxOvFOOK7L+T3iiOch2ydc8sfENvqMAnF3LoslTUJeSMi
-	8mNKcpgPJ+MAKtIDpkdAbf2apxk3ly5z4O6fAlxXI6tZo51VNFhYpUCqB8VsOL9OOfcCz5d
-	NW6LWFfrFffArtjVzgMDfhAlyyFxmhebYmTELdFIzk7Rq+W0385UfHoIOjro0ZRZq3uXtT+
-	b9W/A939WqplwdVpkXCCJuI1ZiL1zld3nWSVhSLSTttSicpnmWqWDLMTQd2aCql0IjhE34Q
-	yfYaUo/BSTQdoXHcFlDbjBGIH6nPCAmE/UWIlbuyO5NDj8py+hRTVxUEXr1QM9AIdSMTBdb
-	6Le+zrHtMwkD5758kkuwFOxjX6fgfKZOJZoMBi8DKWYiWdg8lOL8rT/kPCnMqEpqeI8K1jM
-	Xh24Re4dthAVllcqWdI8xHXblzuwsMJLy+QO0IX4mJ5EmbKpqTIYyz6iH9EwAWRtQJ5krKc
-	tO1/iOoq/e2ivlxml7nSz1BIz9g8DzcmQlRJ3gLwBQWUD5fyq1/dZRu27PLhAylnFeWHH3h
-	DhhMDcScrbBwWqaKsSnd3AdWzxCeJgwl/D/nfgNSNU5gMY3KnyQjs0VfapsLNTWPGXSVMNp
-	EIWDNY2OCpcS3+ZOUqEtBNy+mHeE4Fr3fCdzOzFSQgPxQa9J2GsUj7v3BzK8A0cZGuW4pyW
-	6J6KHsCPBWwHpijnlexj9VOPZQAHCfFZXU0WjZaHzhn7hCK2e/KTVIGBNxd+uvaN25dXT6t
-	EvTFxgthj3lZueomjOXYK/iqa9Bik3tIgmSKbYBWSDMPzoXL0QkGngiJ2ZJmusZRYC5MFIC
-	BljKFOcMhBtfQhkVnOqnoRQrVKhpyGtEh0kwLC9n+Wtn4zefd+ItD00Vjufi5OlyQKsj69A
-	GgzMMBKAGh2Ih27B+bwe53p3Q6l6eHwcuFKt5DoEP9+rumUsRiEm60U7d3axXdj1g95+qr8
-	WSAD4HOAYPNYMhNtvgTCnZNI2PjnCJ3U8EQutyFyUhXObVrnZ3U5mxMDyKJP7KsZiQmYHAK
-	6Ue805myjeBCteyGozinUkMmzjcok=
-X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
-X-QQ-RECHKSPAM: 0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 15/28] mfd: loongson-se: Check return value of
+ dma_set_mask_and_coherent()
+To: Lee Jones <lee@kernel.org>
+Cc: stable@vger.kernel.org, Yinggang Gu <guyinggang@loongson.cn>,
+ Huacai Chen <chenhuacai@kernel.org>, linux-crypto@vger.kernel.org,
+ mfd@lists.linux.dev, linux-kernel@vger.kernel.org
+References: <20261021121245.3111563-1-lee@kernel.org>
+ <20261021121245.3111563-15-lee@kernel.org>
+Content-Language: en-US
+From: Qunqin Zhao <zhaoqunqin@loongson.cn>
+In-Reply-To: <20261021121245.3111563-15-lee@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJCxf88ZHd9qI0wwAA--.37303S2
+X-CM-SenderInfo: 52kd01pxqtx0o6or00hjvr0hdfq/
+X-Coremail-Antispam: 1Uk129KBj9xXoWrKrWxuw4xGr4xXFyDAryfXwc_yoWxZFX_Ca
+	42934kWrykWr4qya4jgrn3CrZaqa4UW34fu3W5JF4Sga45AFsYv3WfGayUtw47XrZ5Ar1Y
+	9w1DWr9Y9r1rZosvyTuYvTs0mTUanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUj1kv1TuYvT
+	s0mT0YCTnIWjqI5I8CrVACY4xI64kE6c02F40Ex7xfYxn0WfASr-VFAUDa7-sFnT9fnUUI
+	cSsGvfJTRUUUb78YFVCjjxCrM7AC8VAFwI0_Jr0_Gr1l1xkIjI8I6I8E6xAIw20EY4v20x
+	vaj40_Wr0E3s1l1IIY67AEw4v_Jrv_JF1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxS
+	w2x7M28EF7xvwVC0I7IYx2IY67AKxVWUJVWUCwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxV
+	WUJVW8JwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
+	6r4UJVWxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF0cIa020Ex4CE44I27w
+	Aqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE
+	14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwCF04k20xvY0x0EwI
+	xGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480
+	Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7
+	IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k2
+	6cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxV
+	AFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7IU8j-e5UUUUU==
 
-On Mon, Oct 26, 2026 at 08:00:22AM +0000, netdev-bot+sinfo@kernel.org wrote:
-> Hi!
-> 
-> This is an automated message. This series looks like a fix, but its
-> commit messages seem to be missing some information:
-> 
->  - How the issue was discovered, e.g. hit in production, hit during
->    development, syzbot report, manual code inspection, LLM or static
->    analysis tool scan.
-> 
->  - What hardware the change was tested on. For driver fixes please
->    mention the device (and if relevant firmware version) used for
->    testing, or say that the change was not tested on real hardware.
-> 
-> Please do not repost the series just to address the above. Instead,
-> reply to this email with the missing information, so that reviewers
-> can take it into account. If the series needs another revision for
-> other reasons, please include the information in the commit messages
-> then.
-> 
-> The evaluation is done by an LLM so it may be wrong, if you think
-> that is the case please reply and explain.
-> 
-Hi,
 
-The issue was encountered during rnpgbe development and hardware
-regression testing.
+在 2026/10/21 20:09, Lee Jones 写道:
+> loongson_se_probe() ignores the return value of
+> dma_set_mask_and_coherent() when requesting a 64-bit DMA mask before
+> allocating coherent DMA memory.  Check the return value and abort probe
+> if the platform cannot satisfy the 64-bit DMA mask requirement.
+>
+> Fixes: e551fa3159e3 ("mfd: Add support for Loongson Security Engine chip controller")
+> Closes: https://sashiko.dev/#/bug/linux-6685ee0c-b7ed-4f21-8800-cc705cec449b
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Lee Jones <lee@kernel.org>
 
-The fix was tested on MUCSE N210 and N500 adapters with firmware
-1.1.8.0, using PCI passthrough to a VM. Physical N500 is used as
-link partners.
+Reviewed-by: Qunqin Zhao <zhaoqunqin@loongson.cn>
 
-With the unpatched driver, administratively bringing down the link
-partner left the VM interface reporting carrier up throughout a
-seven-second observation period. With the patch applied, the VM
-interface correctly reported carrier down.
+Thanks for fixing this!
 
-The comparison was repeated three times per adapter for both driver
-versions. After bringing the link partner back up, bidirectional
-ping passed in every case.
 
-If another revision is needed, I will include this information in
-the commit message.
+Best Regards,
 
-Thanks,
-Dong Yibo
+Qunqin.
+
