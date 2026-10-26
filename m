@@ -1,89 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793046420;
-	b=GkaA37UkzY5H35+KczybPQyYQ6Mr0C1kFw5kw2TCRfd6ZBeisi1R2g8OiuSj4VOW85pa
-	 4WAYiQUuQOqYTkHYOqwMTqJQO/RYwUugME7njE29/GnZU6WoFsGYbrOYa7jwtroukz5yb
-	 xqsCbhaVBgsBAZHp+sUQiPTVcDSnDJZjPi2O4fN2Viw4l5/xDddG5nN2frl6/xW4976sO
-	 p0ITnxgvYJV7fSKW1+6qUMXL48NoHBCtwZ/PCjWJxsjVrbGbyuwno7MV28n3cIxFzRMuu
-	 XOslDyOuGmiXX/kDaZwT/IJ5s3A83DNmkG6VLuKLsFW8yi9UJ/gt4OysxmoMSHLqXdQ==
+	t=1793046421;
+	b=ArM4IYN9eKskfLPb1ENkY5vWnjxD85ujvbAmGyTt/vqy82WoFaFKzQ8XZgh55kRVdg0A
+	 ib9n2/WUi8Fw3R+2JFjRCfy40BL+EY5MpeGtDkFVEOttT8ygZlULS9JGZ04p2kn5+2mU5
+	 sTlCPWTjhEtngy06LmkjqQm1jv6BfJ/75fpdwtNon2QIRM8gBd8FMncLLHWfhr2Zg61v1
+	 +9FPpf7aCw2Drz0Xyn2DbGjsCAE95MloK0klkdok5npmRkhTKvjxuHdN3ihOi5wdgNXF9
+	 U++A2jjhsBnhayYDW9lPrq6f8k34h0cCECwgsaSjjxGFcqiA8lVSZNvWKfg8AXQd3hg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793046420;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793046421;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=xVGU6u8I9I81Dy5biX5l7sqw5Y6L3E/3yFeQDovPiro=;
-	b=w0g2H0H8zK0b4TicrUOmdCGDCjMFIcL4vPHXaSSMVXNF/vtlhWJjrlxSHdTctCs1pGrs
-	 Atn04e19hOrJmCji7JVo0ZenM6Q1JjtnMkssyWdMKJ13zh+hSfZYb06bTcB3tl75lmhxp
-	 osN99FiVCTIcQnpYl7Hfv7Nl4DQ+0/+8cGoGvyUm71lG8HkmHzi8HJR1NQ/hwz+KmRo4q
-	 pytpE6EsmwpuKqSIDjnWXBSqUZNE7NJ9KgkxEEn4y4e3k/a4x9r8kvhsBsfqMVh1ptotX
-	 lkAXJKbZ54yBGLxoeF34nyNyq1l6ePMpKojSwfHmyhMV5Ysq7KSlnzfpZLF/O/scnQw==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=gci4HjhmuUam9CppAlJdjHIOy42WtCn64qZovch60/I=;
+	b=azkkOvki4P1tZ75TbAZ8UCLP8s4NzMJE+eSsm4SD4a+W8w5c5xgVbxgdl3i1VhzTL/X9
+	 zL6sST9EbtUfO714CUFmwr5u8BG9IYLMpyiGFIQJM06RawNWRhO2BDTjmT/vjQopGGylj
+	 yFH992XrD4qj7dnwFdJkD2dyc2RPKqTmFfmF65CI5JSQ56zE1gFXNoPau8VOStpyo8R/f
+	 kr3MIOe3l7xO14ESHq4B2A1M0BJxxH4ZZ6U52QhTm6zsN5Ad5lNokotAfEClmzbWeG5fo
+	 XE7K1NZ9+w2s7pfqUrql9tvlbEvcAAs2DWLhJvHwaCgSOCTSfpYjf9/XfPtdB/RD7vQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=TdhsmT4a;
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	dmarc=pass header.from=tenstorrent.com;
+	spf=pass smtp.mailfrom=tenstorrent.com;
+	dkim=pass header.d=tenstorrent.com header.i=@tenstorrent.com header.a=rsa-sha256 header.s=google header.b="V6Jnvs/U";
+	arc=none smtp.remote-ip=209.85.128.181
+Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com [209.85.128.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1567606A31B
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 20:26:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1567606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2CD0606A325
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 20:27:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2CD0606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=tenstorrent.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tenstorrent.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=TdhsmT4a
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a20bde60a0so29562135e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:26:59 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=tenstorrent.com header.i=@tenstorrent.com header.a=rsa-sha256 header.s=google header.b=V6Jnvs/U
+Received: by mail-yw1-f181.google.com with SMTP id 00721157ae682-8b0f59a5fdeso28157497b3.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:27:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793046418; x=1793651218; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xVGU6u8I9I81Dy5biX5l7sqw5Y6L3E/3yFeQDovPiro=;
-        b=TdhsmT4a/cUqCmC9KIOY0x2L+L1Wh18an084AV/M2PnU9akY2yRJ5npaGhKFyi3hJO
-         xXW8A1v5DdrqYmVYGk4j5lo9BfS/T4OnNHbqi/MyJQod9E1xdE9iuJVuVzEIfuS9tVYH
-         pgiL3p5Ni/1e8ZgGJ1jVgUZfG7Jj2hbfLWzuknejeAiT6C0qzRQR00sqwSiANN1hfHi0
-         Y22OkxNW5RoD+5culXs+pW67soIdYQ0EsinF4zh+bsNPCFFZWVG149HEwbl30Cz0xFxa
-         iCmwuFBZWCfZa9djaQD8J3NPG2sgmJzLwXXhSFE4pqep3VXQhIFBfED+TGEMfxGcPlpd
-         FO3w==
+        d=tenstorrent.com; s=google; t=1793046420; x=1793651220; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=gci4HjhmuUam9CppAlJdjHIOy42WtCn64qZovch60/I=;
+        b=V6Jnvs/UtwB+HANezs2qBYZlab6wPp8+1quo1vFYC55Y4uY1TxJ6MU/72pdSDbcWZl
+         OPmyiN1nPMjx+MAUXEWHsMnSPvG9w/mNBCiOpR/JFModLf5E5XIBniUkbXzSPQbWzHeV
+         CiywYHdNVtBTJDJHfujcXZqESbDjmN3QVMBALiGFln6qTld3NlvdB7nLqoL3kmrgj9YN
+         6qQzcSvy8ifU6O5oRUp+lynWH6fsECcVwgMVEWLh74WD8g3Jsn4OSqbYLtu+WVxmTvHZ
+         czwPuy0mg0ECQl9x3ljXNuF2Bt3ZY5imi4JpGBSQzhaZFfgQwLjsnQN053iGB/pNXpX7
+         Yorw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793046418; x=1793651218;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xVGU6u8I9I81Dy5biX5l7sqw5Y6L3E/3yFeQDovPiro=;
-        b=h4XA+5hxAo+9OMDWAJCh9Llv1yEnjMdmwRxFIg3Y+iQZ9n0EILRz/i88PPf6HPv4UR
-         J8vQ5tchs2ZWlOv68Gql04ET1DjYm+2+zoCJQcHQfOj6mu4ei0dOl0N0mEpCJDbz3w7y
-         Q+MRFkQAmoCLcW0Mbn+agtgbN5Yt6sDcE47ngDk3uU5GskefV+jYtEJ4zNGGCiaFzbAf
-         AQZwk2jGVsLBV6isMIHyzr/y9vpcppBxH/82JVnBJYwYyI2HeQ7LZJl4OD52uiSg1fal
-         opXe/N1Da2xiDKr3/ANJkrSVy3HLOW907ASVtwK8krh3HrnVGR8WX/87pKmzb11NqYQc
-         Uoww==
-X-Forwarded-Encrypted: i=1; AKwUvBxGJsN8ZK5eGACMDAYZvzcs521dT7iHYdbzpVTEH6vmdSsrquALAsIf9vNQ/BdK4V5FTAdYf3pQo3j9mKc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIgd11zXf0bU7saFEW67cduxStQWhE9j7wn3CYkAwPlms8k7H9r
-	Vosg5WH809VCmuKJUPv4PSs0qXK1+cCx3VRLqterOUEPWDS41PlSIBSb4YxQFniI
-X-Gm-Gg: AYBFou39HnmV33FFZTwMpH94RyQ5HdUMkGdMH2a9y1kG4Nk2GGCL072UPOBgidmOOpB
-	JcHjZSMQV4UJft1rm9+NoeLYUNpaGo+z8l1gB1AxtYQ0Mcv+9yuSzdtLxoJhNoc4uXgrukcKhDC
-	4d+NRjNkmkjygMaCuvH2wOH2E116XAkwrMgeXC05c7Bkl6Lj7kPACxjgagzbAWAjWOkQbSwh5Qt
-	2qEZLA5Bn3yTXYSTOsz/TydKITpkqQGcDHrznrL/rhXnRdiubMGvi3eCBxQWmPztTQole0PhS2E
-	EmSMg7uuM6uRypR3P6I4m8RKVeEP+2dlm6b+8Oxc2xEDp0not7W8Lda26AWkC3JfjR1ZzJRRwMk
-	0oYnhCV7a7NBmgFfeWeld5X7hHAo0Z2tbGUKgl+gmR7HNuylbJTBQR8AQ3ahq0IVqPkocSHHtss
-	YAaTHMe89DrOdUwKt3KbfMXPubaAzauxs9Q3rijGm5sT7aWhU8MDvLOa6O4uOERQPlqiAfr5f3x
-	rMfWsSZznudQOrm4051dz+iRm7o830aYNdWao3iMfpMkzZ5dxJeEvR8Bfa8oSmS56o=
-X-Received: by 2002:a05:600c:a012:b0:4a2:1398:dd05 with SMTP id 5b1f17b1804b1-4a35ac95b2dmr135170795e9.16.1793046418191;
-        Mon, 26 Oct 2026 13:26:58 -0700 (PDT)
-Received: from unicorn.lan.internal ([2a0d:3341:b894:4600:8f9a:af38:72d6:7c0e])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a046fefsm276775665e9.5.2026.10.26.13.26.57
+        d=1e100.net; s=20260707; t=1793046420; x=1793651220;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=gci4HjhmuUam9CppAlJdjHIOy42WtCn64qZovch60/I=;
+        b=mBGCxHHhBaXH5uVRKOWhAsHzpLu3eQ86mJRw/QDbzC0ALQvnxkQkUYfetvxdXcmidI
+         +wxtUTQVZjYdyLCSYVnxsToKVjzebk3aEdR9aCy7Lp4okn4OMX+I0jmfD1bNCzVeU5h5
+         0y9G+IvtHuGoB47aBDZyNVLSoehF9IP6ETuOmlXdHB1gm0RDCKVdbU6hv0ixOHEDJdHz
+         88POzyE04SrYesywHH0vR5OQTSzqge70UUHGhhPNMfqNz7LFshRnxejPh08jn+SqMXW0
+         ExFaXz9Qy0PCGA/kQIbaIjJJcIRqFLuXO0xCaIkOckqq3YaYEHzvtiOKbmhNEyGM1yKT
+         FzIg==
+X-Forwarded-Encrypted: i=1; AKwUvBwg8sYJOV3/xyock4w93g5gPOHSJ5xvlc0f/rR9To3IPHkVzMS8/14GS9irRP8yx0GoC7yu1n1FLzK5Yb4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJe5ybKe7RbVXq0za84tXSrWwo4fc8qsLKPHryqeq4H+BTR13Kf
+	XUiP/eVa0NygSDpQF0ZVmH3FV/rRwmjGfObvNsupb9kMtjA0VWOmUAOg3CpqIcLD4Bj3XQISZyG
+	Qb7dhN8X79A==
+X-Gm-Gg: AYBFou3xeSBHeIS4mu3VBlWlKe3kLVMbXeCcS6NGCxRoKzBjx8CKd+HDn5Bd5sSS7OV
+	Zfg67htSf5MuJiCL0BFv1sUt1k8uQI/TDRagLxAcQf7QX51VMfc1J7pW3jBoCUMlZ6CNoSamQHG
+	u/T8WlskSzypskfKfZUvO+X9D2iz8RMurZ9V0eebTa6Lpw8YLHulW1q68AQ7ETPWKsD+DdiSpg+
+	j5g2lvD+6IvBMmEBzrTa7Vwj5Pi+mxo+Fd02qO9ql580v9hBOO/Es2w4WosvEHXcBmq67qJfGnA
+	8gMyjIgFu4SHQ8TtEvKQKifw3l/jaUwIS8h6An2NgU+r/P9NwBdRHBnpHWMD9WbOZ1dSpZvVftN
+	hJ5jWhmoFoSQJilCd/0qd/4wKScDscQdXerYPPqHIzMckHOtBujA2HkgqIcZ8xHLhNRAKAeewb0
+	UBNY7HtHE+L1ba15VhvjyS9BwSt1bKJRtCAmLcxgKF1gDapuMnpvh/iSOQMWvqe/iZpZRZb41K7
+	7SddiD8KY9jNFMtSSZo3au0qNxeChUIDQAjO6OvXgq7VD1Q61CWI0Nva0azyf46Oz4=
+X-Received: by 2002:a05:690c:fc2:b0:81f:e7c5:f420 with SMTP id 00721157ae682-8b166b92716mr58087467b3.20.1793046419789;
+        Mon, 26 Oct 2026 13:26:59 -0700 (PDT)
+Received: from localhost ([12.55.13.134])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b19e656162sm1512807b3.44.2026.10.26.13.26.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 13:26:57 -0700 (PDT)
-From: Giuseppe Piscitelli <ooonea@gmail.com>
-To: Bjorn Helgaas <bhelgaas@google.com>
-Cc: linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] PCI/PM: Serialize PMCSR updates against PME handling
-Date: Mon, 26 Oct 2026 21:26:45 +0100
-Message-ID: <20261026202647.669817-1-ooonea@gmail.com>
-X-Mailer: git-send-email 2.54.0
+        Mon, 26 Oct 2026 13:26:59 -0700 (PDT)
+Date: Mon, 26 Oct 2026 15:26:58 -0500
+From: Andy Chiu <tchiu@tenstorrent.com>
+To: yunhui cui <cuiyunhui@bytedance.com>
+Cc: pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu,
+	alex@ghiti.fr, zong.li@sifive.com, wangruikang@iscas.ac.cn,
+	debug@rivosinc.com, qirui.001@bytedance.com, guoziyi114@gmail.com,
+	samuel.holland@sifive.com, ben.dooks@codethink.co.uk,
+	cyrilbur@tenstorrent.com, linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re:  riscv: Fix SR_SUM leakage across context switches
+Message-ID: <at-3kvwKj9m02P7J@Tao-Chiu's-Mac>
+References: <20261022083212.84721-1-cuiyunhui@bytedance.com>
+ <atqL1ScMLUg2bM_E@Tao-Chiu's-Mac>
+ <CAEEQ3wkS2niNwzS25jhvT55fSDWF_anYkLW5PZS0MsvUOq2vBQ@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,147 +103,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAEEQ3wkS2niNwzS25jhvT55fSDWF_anYkLW5PZS0MsvUOq2vBQ@mail.gmail.com>
 
-PME handling and native power transitions independently read and update
-PMCSR. Config access locking protects individual transactions, so a PME
-worker can read D0, another CPU can request D3hot, and the worker can write
-its stale D0 state back while acknowledging PME status. This was observed
-during normal runtime PM of an NVIDIA UCSI controller, followed by a
-D0-to-D3hot refusal message.
+On Fri, Oct 23, 2026 at 10:50:45PM +0800, yunhui cui wrote:
+> Hi Andy,
+> 
+> On Fri, Oct 23, 2026 at 6:19 AM Andy Chiu <tchiu@tenstorrent.com> wrote:
+> >
+> > Hi Yunhui,
+> >
+> > On Thu, Oct 22, 2026 at 04:32:12PM +0800, Yunhui Cui wrote:
+> > > __switch_to() saves the sstatus value of prev and restores the SR_SUM bit
+> > > of next with csrs. However, csrs only sets bits. If prev has SR_SUM set
+> > > and next has SR_SUM clear in its saved state, the old SR_SUM bit remains
+> > > set in sstatus.
+> > >
+> > > This lets next run with user memory access enabled even though its saved
+> > > SR_SUM state is clear.
+> > >
+> > > Use csrrc to save the sstatus value of prev and clear SR_SUM from the
+> > > live CSR before restoring the saved SR_SUM state of next. This keeps
+> > > prev's SR_SUM state intact, while preventing it from leaking to next.
+> >
+> > Do you have a way to trigger this bug on existing code or is it the cae
+> > where the bug could happen but we never experienced it in real life?
+> >
+> > If I understand correctly, this can only happen when the user access
+> > routing volutarily makes a schedule() call mid-flight, or a code fogets
+> > to turn off SR_SUM right after an user access and has a live SR_SUM when
+> > calling schedule some time after. Both case should be a bug as SR_SUM
+> > shouldn't live in the kernel code that is not doing user access.
+> >
+> > A trap-introduced context switch would interrupt a code that have SR_SUM
+> > set. However, since the bit is cleared at every exception entry, the
+> > context switch code would not see a live SR_SUM. Seeing the bit set in
+> > this case means something is not turning SR_SUM off properly.
+> >
+> > I aggree that this is the better way to handle SR_SUM in a context switch
+> > but attaching a call trace or stating that "We have not caught this in
+> > real world due to ..." in the commit message would be appreciated.
+> >
+> 
+> I don't think we need a "better way" to justify this. This is a bug in
+> __switch_to(). One possible path to hit it is
+> user_write_access_begin() ... local_bh_enable().
+> 
 
-Serialize native PCI-core PMCSR writers with the existing capability
-lock, releasing it before transition delays and readiness waits.
-State-only updates write zero to the RW1C PME_Status bit to preserve
-pending wakeups. Read fresh PMCSR for each PM-reset transition instead of
-keeping a stale word across the cooldown. Keep the literal-zero power-up
-write.
+Thanks for pointing this out Yunhui. I've looked into the code and this
+reveals a bigger problem: calling local_bh_enable() while having a live
+SR_SUM is not safe. local_bh_enable() can call softirq inline, which
+calls into usercopy in perf and BPF. Since the later copy assumes being
+called with SR_SUM disabled, it then flips the bit and returns with1
+SR_SUM silently turned off.
 
-Fixes: 58ff463396ad ("PCI PM: Add function for checking PME status of devices")
-Signed-off-by: Giuseppe Piscitelli <ooonea@gmail.com>
----
-OpenAI Codex analyzed the passive trace and wrote this fix and its local
-tests without changing the running system.
+The unsafe_copy_{to,from}_user() with size >= 768 can take this path and
+calls local_bh_enable() with SR_SUM enabled under kernel_vector_begin()
 
-Earlier validation used a source-derived RW1C model and four KUnit tests
-on Linux 7.2.11 in QEMU with lockdep. The tests use a fake PCI bus; no
-physical hardware, PREEMPT_RT or other architectures were runtime-tested.
-This base was checked for applicability; no new build or runtime test
-was run.
+I am going to send a patch that prevent calling local_bh_enable() in
+kernel_vector_begin(). the get_cpu_vector_cotext() is actually too strong
+for the requirement. Otherwise, we should consider gating vectorized
+ucopy from unsafe_* path.
 
- drivers/pci/pci.c | 44 +++++++++++++++++++++++++++++---------------
- 1 file changed, 29 insertions(+), 15 deletions(-)
+As for this patch:
 
-diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-index d79d2ee..3628886 100644
---- a/drivers/pci/pci.c
-+++ b/drivers/pci/pci.c
-@@ -1315,6 +1315,22 @@ static int pci_dev_wait(struct pci_dev *dev, char *reset_type, int timeout)
- 	return 0;
- }
- 
-+static int pci_pm_set_state(struct pci_dev *dev, pci_power_t state)
-+{
-+	u16 pmcsr;
-+
-+	guard(spinlock_irqsave)(&dev->pcie_cap_lock);
-+	pci_read_config_word(dev, dev->pm_cap + PCI_PM_CTRL, &pmcsr);
-+	if (PCI_POSSIBLE_ERROR(pmcsr))
-+		return -EIO;
-+
-+	/* PME_Status is RW1C; leave pending wakeups for PME handling. */
-+	pmcsr &= ~(PCI_PM_CTRL_STATE_MASK | PCI_PM_CTRL_PME_STATUS);
-+	pmcsr |= state;
-+	pci_write_config_word(dev, dev->pm_cap + PCI_PM_CTRL, pmcsr);
-+	return 0;
-+}
-+
- /**
-  * pci_power_up - Put the given device into D0
-  * @dev: PCI device to power up
-@@ -1380,7 +1396,8 @@ int pci_power_up(struct pci_dev *dev)
- 	 * Force the entire word to 0. This doesn't affect PME_Status, disables
- 	 * PME_En, and sets PowerState to 0.
- 	 */
--	pci_write_config_word(dev, dev->pm_cap + PCI_PM_CTRL, 0);
-+	scoped_guard(spinlock_irqsave, &dev->pcie_cap_lock)
-+		pci_write_config_word(dev, dev->pm_cap + PCI_PM_CTRL, 0);
- 
- 	/* Mandatory transition delays; see PCI PM 1.2. */
- 	if (state == PCI_D3hot) {
-@@ -1537,8 +1554,7 @@ static int pci_set_low_power_state(struct pci_dev *dev, pci_power_t state, bool
- 	if (dev->current_state == state)
- 		return 0;
- 
--	pci_read_config_word(dev, dev->pm_cap + PCI_PM_CTRL, &pmcsr);
--	if (PCI_POSSIBLE_ERROR(pmcsr)) {
-+	if (pci_pm_set_state(dev, state)) {
- 		pci_err(dev, "Unable to change power state from %s to %s, device inaccessible\n",
- 			pci_power_name(dev->current_state),
- 			pci_power_name(state));
-@@ -1546,12 +1562,6 @@ static int pci_set_low_power_state(struct pci_dev *dev, pci_power_t state, bool
- 		return -EIO;
- 	}
- 
--	pmcsr &= ~PCI_PM_CTRL_STATE_MASK;
--	pmcsr |= state;
--
--	/* Enter specified state */
--	pci_write_config_word(dev, dev->pm_cap + PCI_PM_CTRL, pmcsr);
--
- 	/* Mandatory power management transition delays; see PCI PM 1.2. */
- 	if (state == PCI_D3hot)
- 		pci_dev_d3_sleep(dev);
-@@ -2311,6 +2321,7 @@ bool pci_check_pme_status(struct pci_dev *dev)
- 	if (!dev->pm_cap)
- 		return false;
- 
-+	guard(spinlock_irqsave)(&dev->pcie_cap_lock);
- 	pmcsr_pos = dev->pm_cap + PCI_PM_CTRL;
- 	pci_read_config_word(dev, pmcsr_pos, &pmcsr);
- 	if (!(pmcsr & PCI_PM_CTRL_PME_STATUS))
-@@ -2433,6 +2444,7 @@ static void __pci_pme_active(struct pci_dev *dev, bool enable)
- 	if (!dev->pme_support)
- 		return;
- 
-+	guard(spinlock_irqsave)(&dev->pcie_cap_lock);
- 	pci_read_config_word(dev, dev->pm_cap + PCI_PM_CTRL, &pmcsr);
- 	/* Clear PME_Status by writing 1 to it and enable PME# */
- 	pmcsr |= PCI_PM_CTRL_PME_STATUS | PCI_PM_CTRL_PME_ENABLE;
-@@ -2453,6 +2465,7 @@ void pci_pme_restore(struct pci_dev *dev)
- 	if (!dev->pme_support)
- 		return;
- 
-+	guard(spinlock_irqsave)(&dev->pcie_cap_lock);
- 	pci_read_config_word(dev, dev->pm_cap + PCI_PM_CTRL, &pmcsr);
- 	if (dev->wakeup_prepared) {
- 		pmcsr |= PCI_PM_CTRL_PME_ENABLE;
-@@ -4564,17 +4577,18 @@ static int pci_pm_reset(struct pci_dev *dev, bool probe)
- 		return ret;
- 	}
- 
--	csr &= ~PCI_PM_CTRL_STATE_MASK;
--	csr |= PCI_D3hot;
--	pci_write_config_word(dev, dev->pm_cap + PCI_PM_CTRL, csr);
-+	ret = pci_pm_set_state(dev, PCI_D3hot);
-+	if (ret)
-+		goto out_iommu;
- 	pci_dev_d3_sleep(dev);
- 
--	csr &= ~PCI_PM_CTRL_STATE_MASK;
--	csr |= PCI_D0;
--	pci_write_config_word(dev, dev->pm_cap + PCI_PM_CTRL, csr);
-+	ret = pci_pm_set_state(dev, PCI_D0);
-+	if (ret)
-+		goto out_iommu;
- 	pci_dev_d3_sleep(dev);
- 
- 	ret = pci_dev_wait(dev, "PM D3hot->D0", PCIE_RESET_READY_POLL_MS);
-+out_iommu:
- 	pci_dev_reset_iommu_done(dev);
- 	return ret;
- }
-base-commit: f4319f548f7d8cb595ac1c91bfd459876399eeb3
--- 
-2.54.0
-
+Reviewed-by: Andy Chiu <tchiu@tenstorrent.com>
