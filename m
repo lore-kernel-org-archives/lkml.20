@@ -1,67 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.108.3.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793054610;
-	b=t65xIXy0QLIeJHBUeN0ie7Vu9YyTsEdhkgzSa7g4F4c9sXY4uKuiYdNJWjo/Ifm8ODL+
-	 BmnUJoBy3QHtXsTcrFXaYG9c8fJfvMnxWzDZEgBIO90N5+QjZCnPjfywkE1Bnf2iNvhFn
-	 MOugbw9LbuJ6xazzFM9yp1NAids8ZShSoIbk4sSPIrCuzLL1B4N6cUsWlSz6dyDGQmzBr
-	 cgnACAJNSEXwLc/Ey7/lkQtu+3WDpNhRrURnwnyUG9n04GJKtjoyFOTvdGB4Q/DxJBnCF
-	 XnFl3K1b+lsQWaUpZksFpa0hmtKIdJYhBNPpwMUzgOEWA5d/+rYEOiQsaToM81+vC/Q==
+	t=1793054695;
+	b=rG5YgQrocnZjCHrmzwHQ1OFDhPq4EMPEMJTk1UF4URPq9ISeUdrEezKfo2UT2D8VM/YY
+	 jVrjN6l8oUoSYYDTG6S+d36UQy5OPiByJif4W66DJTmbsG7QVZCN8+xVb/XrNCgBHAfs6
+	 tbqVJxrydf2JlNslf5TsVA8oDG/sbBWCTel0OdDnDIf8UYTUDAKKWesmxu5MI5k/MB9vV
+	 YwdodpZdzRze96jJNUvkthgdHW3jwcMeyB1W2ZNmLkQ5Gs0uO8Jz2OFi7tyb4W0QA65x6
+	 FA+PJpQ+0H4xsN+JDcfNSpQe/EGAOu4VLvsDIl5Dw1CarFKuXyezXG/9yzWO21jUm1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793054610;
-	h=DMARC-Filter:DKIM-Signature:X-SMAIL-HELO:Received:X-Sender:X-Auth-ID:
-	 X-SMAIL-MID:X-SMAIL-UIID:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=f7aSe4Sxv65Zsds/L7MRmIHr8Y4rpVrFO6R+RPKzJVQ=;
-	b=tRkCINt3ODy5hrycAILB2+K2r8/U0uRIDD3dT2mnnwQo81Cd0drLp1jpTOlK8K3BolEB
-	 HBIVp/dYe05l9DXnzoeGPbLq0/2nSEJdm09aQKB4PlKaWItXLHpFPzODKj2H/qOfHnPk3
-	 1GafJTXJqG18qUX7OHaTPv4tK2+56+ngiBMjnCj6X5w2lRpj9kMm6MFspZwsVi5ZSN72h
-	 9Et9a3nfKXuYAjUao0VBI2wIpg+Q3m6OALgpN3ddJ0RIZYNRl9LDuGhXyuWqBwJi2FX32
-	 e96oLyu8bIqm1dHNEhVGtDirW9XdSfw1nu3fO15mwzSvjHYQ4x4gyfzhbjszSfDo0NA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793054695;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-MBO-RS-META:X-MBO-RS-ID;
+	bh=TKjJU59VLbmz80enyrK6d4yqjtodvToxUdatHuFmmbA=;
+	b=nG5sl/mTEUjPiJe79lN5O3e0sF9GcgeW3TxrbJSlVJDsKD8JkanVjFeXP8vtSFreXLxD
+	 Zr55AHgX5/Q5ji3AqODnhWG7TvFmDNczI/j7mxW8CfMXcijuavgYoGpl74DMiv4PTnV5M
+	 ow6bIglA0ahLVrzGEUrrMtBIs/KvVsal8Uc9lU1OldNB2lXQB9m8wuKrA7Mc6QU+dKcv3
+	 M4yYgArThN/LapcI2WS5HfC1kNR/l/HLsNw+N0tjlTaat+mzymD1sPqhja30gNSu7tOrG
+	 qkLPdQOZtrRFt0vCqgoxZbb4xkZPSMRGvYwkURWFPyTtEaE8h9U7su41uTAugUiux9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sina.com;
-	spf=pass smtp.mailfrom=sina.com;
-	dkim=pass header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=eHQ+wtSR;
-	arc=none smtp.remote-ip=202.108.3.20
-Received: from r3-20.sinamail.sina.com.cn (r3-20.sinamail.sina.com.cn [202.108.3.20])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=mailbox.org;
+	spf=pass smtp.mailfrom=mailbox.org;
+	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=GZFq9CT5;
+	arc=none smtp.remote-ip=80.241.56.172
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C4BF606A325
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 22:43:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C4BF606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3C92606A31A;
+	Mon, 26 Oct 2026 22:44:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3C92606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=eHQ+wtSR
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1793054608;
-	bh=f7aSe4Sxv65Zsds/L7MRmIHr8Y4rpVrFO6R+RPKzJVQ=;
-	h=From:Subject:Date:Message-ID;
-	b=eHQ+wtSRVQu3+YbMr9rJqJWbaHC50Yt9dpf5yw99L1pubwIkgkq+Z/t4/v6xSd/Hg
-	 mrjSZCwQS+AgTgftTN/ifTt/aHQq/YQ+9sA9gO0sz7+Mkp7wZQj1ThiYpI234PJsiV
-	 FQCN3nkNSykG4TwCeu1A+kjnLIiwSbSfcqW4c0mU=
-X-SMAIL-HELO: localhost.localdomain
-Received: from unknown (HELO localhost.localdomain)([221.216.116.161])
-	by sina.com (10.54.253.32) with ESMTP
-	id 6ADFD782000022EE; Mon, 27 Oct 2026 06:43:18 +0800 (CST)
-X-Sender: hdanton@sina.com
-X-Auth-ID: hdanton@sina.com
-Authentication-Results: sina.com;
-	 spf=none smtp.mailfrom=hdanton@sina.com;
-	 dkim=none header.i=none;
-	 dmarc=none action=none header.from=hdanton@sina.com
-X-SMAIL-MID: 7175894456982
-X-SMAIL-UIID: F2260DAA33A64767990FCE80BCC0D11E-20261027-064318-1
-From: Hillf Danton <hdanton@sina.com>
-To: Boqun Feng <boqun@kernel.org>
-Cc: syzbot <syzbot+f11512d1e5878ba5e60e@syzkaller.appspotmail.com>,
-	kvm@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=GZFq9CT5
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4jD7wx63dHzMld1;
+	Mon, 26 Oct 2026 23:44:49 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1793054689;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=TKjJU59VLbmz80enyrK6d4yqjtodvToxUdatHuFmmbA=;
+	b=GZFq9CT5khfVXp2+X0DtbBXWPvNN00rkEaAe1sxFe0is1i4htgJk38Px79v+RPYFCt2Ie+
+	AbaUB2RHnH4/aiHMShPvSVc5zENjuGzCJtgCSuWoLZ8j8+62lhUehZuCSPUgmHqbxS7ddj
+	1cOzm4Y+ZLSDbHo86MP1pgLOgsuh2uyhThJJSVA4GTXZOBFYATYo4yox3dH+GvQDLvnphw
+	C0yRB2Cw3lIyms6XvOG9ZGdbhZF362U0fNVwSw/UWPBVuncdr6pBKg7A9eyDMAYFvNGK3l
+	7e9S8NAjVZAuGSHPq9Tj0sIKAiQPVlc0rS/I6QHr6qYWqN8aEvELi+COdXE0+Q==
+From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+To: linux-pci@vger.kernel.org
+Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Koichiro Den <den@valinux.co.jp>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>,
-	syzkaller-bugs@googlegroups.com
-Subject: Re: [syzbot] [kvm?] WARNING: locking bug in __refill_objects_node
-Date: Tue, 27 Oct 2026 06:43:03 +0800
-Message-ID: <20261026224305.1254-1-hdanton@sina.com>
-In-Reply-To: <6adf2939.67317f00.38c4bc.00ae.GAE@google.com>
-References: 
+	linux-renesas-soc@vger.kernel.org
+Subject: [PATCH v2] dt-bindings: PCI: rcar-gen4-pci-host: Replace sft_ce IRQ with AER IRQ on R-Car Gen5
+Date: Mon, 26 Oct 2026 23:44:18 +0100
+Message-ID: <20261026224447.606715-1-marek.vasut+renesas@mailbox.org>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,99 +79,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: 46x5mk985r4hwchc73p6xt3xwtiouxpw
+X-MBO-RS-ID: 0818fc22b777170631e
 
-Ask the locking people to shed light on the warning.
+The R-Car Gen5 SoC PCIe4 controller does not have dedicated sft_ce IRQ.
+Make that interrupt conditionally available only on R-Car Gen4 SoC PCIe
+controller.
 
-> Date: Mon, 26 Oct 2026 03:19:37 -0700	[thread overview]
-> Hello,
-> 
-> syzbot found the following issue on:
-> 
-> HEAD commit:    c03c1a14507d Linux 7.3
-> git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-> console output: https://syzkaller.appspot.com/x/log.txt?x=128d8ca5580000
-> kernel config:  https://syzkaller.appspot.com/x/.config?x=129d675874dbf896
-> dashboard link: https://syzkaller.appspot.com/bug?extid=f11512d1e5878ba5e60e
-> compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=168d8ca5580000
-> 
-> IMPORTANT: if you fix the issue, please add the following tag to the commit:
-> Reported-by: syzbot+f11512d1e5878ba5e60e@syzkaller.appspotmail.com
-> 
-> =============================
-> [ BUG: Invalid wait context ]
-> syzkaller #0 Tainted: G S                 
-> -----------------------------
-> syz-executor177/6041 is trying to lock:
-> ffff88801d040618 (&n->list_lock){-.-.}-{3:3}, at: get_partial_node_bulk mm/slub.c:3831 [inline]
-> ffff88801d040618 (&n->list_lock){-.-.}-{3:3}, at: __refill_objects_node+0x104/0xab0 mm/slub.c:7279
-> other info that might help us debug this:
-> context-{2:2}
-> locks held by syz-executor177/6041: 1, last CPU#1:
->  #0: ffffffff9090b438 (tomoyo_ss){.+.+}-{0:0}, at: srcu_lock_acquire include/linux/srcu.h:198 [inline]
->  #0: ffffffff9090b438 (tomoyo_ss){.+.+}-{0:0}, at: srcu_read_lock include/linux/srcu.h:305 [inline]
->  #0: ffffffff9090b438 (tomoyo_ss){.+.+}-{0:0}, at: tomoyo_read_lock security/tomoyo/common.h:1112 [inline]
->  #0: ffffffff9090b438 (tomoyo_ss){.+.+}-{0:0}, at: tomoyo_check_open_permission+0x169/0x3c0 security/tomoyo/file.c:772
-> stack backtrace:
-> CPU: 1 UID: 0 PID: 6041 Comm: syz-executor177 Tainted: G S                  syzkaller #0 PREEMPT(full) 
-> Tainted: [S]=CPU_OUT_OF_SPEC
-> Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-> Call Trace:
->  <IRQ>
->  __dump_stack lib/dump_stack.c:94 [inline]
->  dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
->  print_lock_invalid_wait_context kernel/locking/lockdep.c:4874 [inline]
->  check_wait_context kernel/locking/lockdep.c:4946 [inline]
->  __lock_acquire+0xfcc/0x1f40 kernel/locking/lockdep.c:5238
->  lock_acquire kernel/locking/lockdep.c:5942 [inline]
->  lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
->  __raw_spin_lock_irqsave include/linux/spinlock_api_smp.h:155 [inline]
->  _raw_spin_lock_irqsave+0x3a/0x60 kernel/locking/spinlock.c:181
->  get_partial_node_bulk mm/slub.c:3831 [inline]
->  __refill_objects_node+0x104/0xab0 mm/slub.c:7279
->  refill_objects+0x58/0x410 mm/slub.c:7405
->  refill_sheaf mm/slub.c:2885 [inline]
->  __pcs_replace_empty_main+0x35e/0x650 mm/slub.c:4774
->  alloc_from_pcs mm/slub.c:4850 [inline]
->  slab_alloc_node mm/slub.c:4984 [inline]
->  __kmalloc_cache_noprof+0x4f4/0x6d0 mm/slub.c:5559
->  _kmalloc_noprof include/linux/slab.h:991 [inline]
->  _kzalloc_noprof include/linux/slab.h:1312 [inline]
->  kvm_async_pf_task_wake arch/x86/kernel/kvm.c:224 [inline]
->  __sysvec_kvm_asyncpf_interrupt+0x334/0x610 arch/x86/kernel/kvm.c:338
->  instr_sysvec_kvm_asyncpf_interrupt arch/x86/kernel/kvm.c:327 [inline]
->  sysvec_kvm_asyncpf_interrupt+0x9e/0xc0 arch/x86/kernel/kvm.c:327
->  </IRQ>
->  <TASK>
->  asm_sysvec_kvm_asyncpf_interrupt+0x1a/0x20 arch/x86/include/asm/idtentry.h:753
-> RIP: 0010:memcmp+0x156/0x1d0 lib/string.c:665
-> Code: 0f 86 fb fe ff ff 48 89 d8 48 89 de 48 c1 e8 03 83 e6 07 42 0f b6 14 28 48 8d 43 07 48 89 c1 48 c1 e9 03 40 38 f2 40 0f 9e c6 <84> d2 42 0f b6 0c 29 0f 95 c2 40 84 d6 0f 84 45 ff ff ff be 08 00
-> RSP: 0018:ffffc90003ab7538 EFLAGS: 00000297
-> RAX: ffff8880220be413 RBX: ffff8880220be40c RCX: 1ffff11004417c82
-> RDX: 0000000000000000 RSI: 0000000000000001 RDI: ffff8880220be40c
-> RBP: ffffffff8c58a940 R08: 0000000000000001 R09: 0000000000000066
-> R10: 0000000000000066 R11: 0000000000000001 R12: 0000000000000012
-> R13: dffffc0000000000 R14: dffffc0000000000 R15: 0000000000000000
->  strstr+0x109/0x170 lib/string.c:743
->  tomoyo_add_entry security/tomoyo/common.c:2157 [inline]
->  tomoyo_supervisor+0xf47/0x1340 security/tomoyo/common.c:2238
->  tomoyo_audit_path_log security/tomoyo/file.c:169 [inline]
->  tomoyo_path_permission security/tomoyo/file.c:592 [inline]
->  tomoyo_path_permission+0x270/0x3b0 security/tomoyo/file.c:577
->  tomoyo_check_open_permission+0x37f/0x3c0 security/tomoyo/file.c:782
->  tomoyo_file_open+0x6b/0x90 security/tomoyo/tomoyo.c:334
->  security_file_open+0xb5/0x1e0 security/security.c:2739
->  do_dentry_open+0x588/0x14d0 fs/open.c:973
->  vfs_open+0x82/0x3f0 fs/open.c:1101
->  do_open fs/namei.c:4836 [inline]
->  path_openat+0x1a23/0x2450 fs/namei.c:4999
->  do_file_open+0x20e/0x430 fs/namei.c:5028
->  do_sys_openat2+0x10f/0x1e0 fs/open.c:1417
->  do_sys_open fs/open.c:1423 [inline]
->  __do_sys_openat fs/open.c:1439 [inline]
->  __se_sys_openat fs/open.c:1434 [inline]
->  __x64_sys_openat+0x12d/0x210 fs/open.c:1434
->  do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
->  do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
->  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+The R-Car Gen5 SoC PCIe4 controller does have dedicated AER interrupt,
+include it from the beginning. R-Car Gen4 SoC PCIe controller also has
+an AER interrupt, but to retain binding backward compatibility, this
+interrupt is kept optional and added in a separate patchset.
+
+Fixes: 5b555a496160 ("dt-bindings: PCI: rcar-gen4-pci-host: Add R-Car X5H PCIe4 compatible")
+Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+---
+Cc: "Krzysztof Wilczyński" <kwilczynski@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Koichiro Den <den@valinux.co.jp>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
+Cc: Manivannan Sadhasivam <mani@kernel.org>
+Cc: Rob Herring <robh@kernel.org>
+Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-pci@vger.kernel.org
+Cc: linux-renesas-soc@vger.kernel.org
+---
+NOTE: Gen4 AER is added in https://lore.kernel.org/all/20260928165230.3397664-1-den@valinux.co.jp/
+---
+V2: Keep interrupt-names with maxItems: 4
+---
+ .../bindings/pci/rcar-gen4-pci-host.yaml      | 20 ++++++++++++++-----
+ 1 file changed, 15 insertions(+), 5 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml b/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml
+index 362c43a1a15d0..a79780185d116 100644
+--- a/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml
++++ b/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml
+@@ -29,11 +29,7 @@ properties:
+     maxItems: 4
+ 
+   interrupt-names:
+-    items:
+-      - const: msi
+-      - const: dma
+-      - const: sft_ce
+-      - const: app
++    maxItems: 4
+ 
+   clocks:
+     maxItems: 2
+@@ -98,6 +94,13 @@ allOf:
+             - const: app
+             - const: phy
+             - const: config
++
++        interrupt-names:
++          items:
++            - const: msi
++            - const: dma
++            - const: sft_ce
++            - const: app
+   - if:
+       properties:
+         compatible:
+@@ -117,6 +120,13 @@ allOf:
+             - const: app
+             - const: config
+ 
++        interrupt-names:
++          items:
++            - const: msi
++            - const: dma
++            - const: app
++            - const: aer
++
+ unevaluatedProperties: false
+ 
+ examples:
+-- 
+2.53.0
+
