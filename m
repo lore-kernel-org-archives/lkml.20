@@ -1,123 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793028395;
-	b=1Dbf7sVrXTbS7BZeKsrxU92oLH0U4yXGb1Dk0RxGyuXbBgjiZrGFnmktSXTN5eQgnPFv
-	 jIJE/6vCWBjYdWHWISBgMGygD0yBvVL7wex3hE7ks3KLv6w+8AjsQNv/XQghXz8zJtRWH
-	 2ivrMFZh06+BJFZKfvA2+9cL8ZJGHKyLUNmXHNW7B9aZpTG8DGnk5bBEgMezvCgyLgBdc
-	 3uZCVIVKKPvEp1v+OMN22qNNSZword5pYln7FLHiRA3cUDm9rMmSNHsU62d5wCYM/TunW
-	 FEyKPtmaS/quGD51sIlbCGecprANtTHKbruw9qKxYdY+MuX1H7C2cdRJ4TNC1YwLx1g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793028395;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
-	 References:In-Reply-To:Reply-To:From:Date:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=ZSbSdfxGzCD7LDy75RT+TlWivDjhKh11W0IRGV9azFo=;
-	b=DU2HEZ3P4tNybH9U5uLKRkA2v+ne+SGQ5ITukTAaPK0sR7HQvtkHoeBVfWqIVR1THwvq
-	 CsCiUYA5AHyeR4GOmcp9TpYfYjTJBxqkzmLGNvy0lX4cXdjwfmF//xW7xaZo2L4BOm+58
-	 wRGekZgy6FDSzseZn+LMHT/AEnEJpSgYLE9cz/Oh3fMFIRAqHO+yWJCWEg2WGs1HS13+M
-	 k30s0u+o6kcQPu9Ydti6ddy/uuSb6aA2VMqeEU94Erhlx3XWolnqXUuWA+JST9lbQkys1
-	 pN03r2382n1i521S/ZweoWfJ/TDPOt187oMJh2A1SjCloaAMHSqqwxjX3LUXpRAms0Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=R9+wKlxq;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=NvEsTX1n;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.196
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793028404;
+	b=QKLFr3MjO0crcPyu9qGFz6oQnq8Ufs4hVMg0CTvDIkXjFh6NG2g1NtMI65MhzGYPGdJX
+	 3zUDgP7+IkIDqDXEH+8tejpParCceoOabWlicXiP+C1easrNcCkVsFUK1e2eBvTpuZAP5
+	 VTppoA6/47wiaVyTSP20qMAyUXRF9gAKG7TmAY5WRjFYJwSMTwv8hTIWHlf1wRgj2DkmB
+	 Zm+N+tnHLvAC+Dr5a8OSS/0iqTxTmxebn1cgJu/IncVXdGDA/E5g+Ou8OUIoVugKyirUt
+	 zovGWcM9qNYyQ9P8xj7X+4zyicSnUnzbXa6+divJxcUPwUfDhLLuw43Nzsips9modeQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793028404;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=6sX1ckCkCo0C9crGPLuXV3itI4WluLyfMysqHfXOIc8=;
+	b=3qUbc/ENeGh/HhKqOFJT16daSNXX7aD3lbEb4gu0i+6zVP5Gbik0eKFHYKSFGGonJVkV
+	 e94HuZptWi/xWXGxtEnPKgQYavujJFbk/yXJtzXoUlvnQM+wp9IFNExE4pYlWPnRLV+5+
+	 gR2j3Cf9fcNmbCI1GDCiyZK08nQYiQphj4/Y4Gbi7T3bHRB6/5E3rmJKUwEJWR5lYiGXR
+	 txj5PyXXmdGpfXQ490DbTsMpCcab+bIo1r3FYGVUZMtEksvwvzV80dbpfRd/9CztNW4zu
+	 jnCqsq0HwYqR4meYXw/md2CbZ0g6uLt/I1k7VxvP8D2+QMgLm5JsZrovqcZefDy+LdQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Yug95bfy;
+	arc=none smtp.remote-ip=91.218.175.196
+Received: from mta0.migadu.com (out-196.mta0.migadu.com [91.218.175.196])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED6B9606A31E
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 15:26:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED6B9606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A46F606A31B
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 15:26:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A46F606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=R9+wKlxq;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=NvEsTX1n
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69QEvYVt470708
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 15:26:34 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:to; s=
-	qcppdkim1; bh=ZSbSdfxGzCD7LDy75RT+TlWivDjhKh11W0IRGV9azFo=; b=R9
-	+wKlxqx3yyUK3kge6txMns4lng7slia9jyzR7MvqQ5adescsYwshaCf/NhQXUTUe
-	J7SMCF7IrtTXaJMOw+/nkZLiNvErwVJAbpV9VgW4B293i8H25W9Kvt5T4pNBZ48Y
-	tMvKNKVE9abMTGIB1ho9T/hLvhisuHH5BIHFlcERLu74BTJrJbnyBG/d/w94tg6+
-	D1fdPSGQ2ykGGOFfe+aofq0Z7Uyk/71SPfEzv/chPqh4xj0Doa1TVD8LZhdMfpvm
-	bHaR+AC1OPQ9ExDOQ5gp/tZtMk4yqCoou1FCAyEIEy9LqQtPvJC3UASMMGYdUZN7
-	JZaWoei2CoaJNPx/DLNw==
-Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com [209.85.161.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hj53q140e-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 15:26:34 +0000 (GMT)
-Received: by mail-oo1-f70.google.com with SMTP id 006d021491bc7-7026e2e80f0so3695350eaf.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 08:26:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793028393; cv=none;
-        d=google.com; s=arc-20260327;
-        b=fCkx0ktRx+dDJbNhDlDw+Ep86/EJzOA5nrQ8KMtlJEZWF8oIBY2DjnTuFawlRT2fFm
-         urWxKccjCM04IS3Q4WIhn70C+NtyG9x1GXaogYKTOc9tmrANuanBXBQOmTLSDSU/dde1
-         R0A2g1/ASL50PtGhLllCmgEC40xRTwh+PqYvq4+ZWHqIRAf1aBJCo9NqkYTRjK2E42e1
-         YTOpoxWVy3Ih1Q2FJpS0yla5rbA4mEoZ0a7u1uV77iqsxuwP/NVN6lIVSb1PrNW0tzor
-         5Vc0CTV0btTvwI5greYmD609KHiaYAM8ncEBq0Xi2A7F/23T3mgdejgWh4BaAEC/5ndO
-         vyXQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :reply-to:in-reply-to:references:mime-version:dkim-signature;
-        bh=ZSbSdfxGzCD7LDy75RT+TlWivDjhKh11W0IRGV9azFo=;
-        fh=urcDHtqI0KHxPlxoLIOk9wtUgR1upBG2yguhylD6SfA=;
-        b=F0QPEkxE0PH0rdZcWaeNX6R7pcGSs9RypYStlCCAZZS+ntKAHJ6xdJEj51pS2L/D08
-         UuzwuCKmWtZX+dYoRc1rZ36h0PQ/h4SCrQ/f9OxdhYOGP9y9dSP9PszCtWqY4ecHGTPn
-         6wynxYDb4BVZbQscwg+GFzdYtiAMR1IejpNHNyFUxPrwOUy763rWjGDiEqQwzC2fFM6b
-         hzEQUMkUkCYpff+v6NUl3jSX2M0D30GSzKT2L0s3Si4C3mj4MgIWCTcOefLcxzoZWMk5
-         ArQp7djlmIl92IoMwp2dcKI920Wr0PNKpbxy2HbCYi9vFFrbNAg/J0gg3B+75rgznip3
-         nHGA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793028393; x=1793633193; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:reply-to:in-reply-to:references:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ZSbSdfxGzCD7LDy75RT+TlWivDjhKh11W0IRGV9azFo=;
-        b=NvEsTX1n9TgbSMaoCM3HfL+tWiws5mG0aqcjkF9LWUoe0qgFwYIIms9XrnMWixc70T
-         UFjWMJYiCIyIQsvzgfPd/7Kp0Y0Zph6Bus5ino8BgFZhCwepHACKXWdLjHMRJOkgLGJJ
-         YATsjesxIA1MJ1WhZz2EndrWV4Y3214OsDE0lSlKVHzHwZ6n7v2g+IKtZ69o8/f2w9Nl
-         kkeH0mde8ly/SJzwmlLe4TLHxbiim5/sjRO9ieRF1hu5kaDag7309uTd2ubJTxUsGsv3
-         2+IpSQY6ToEFN+e0Yh1LmczeWzVbtmnhYkw0qefq5Y/ybgl/OaMSD0EPUrVvWHoRkwCG
-         /SLg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793028393; x=1793633193;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZSbSdfxGzCD7LDy75RT+TlWivDjhKh11W0IRGV9azFo=;
-        b=Dqrk+sfkKMyj3PcqLJ8jbJ9/rDbUeN27TXOeBfzZKekk1E5ZMwLrnd1rw5t07aKSgO
-         sixIfYHsdn7WFk1eoqJ2w4nfuog48mQimWBC1vlb2elin/FmeGVTN5GcB1NysYQ1weuK
-         8gO7EpjLinzClKuhM376TGGnhEoO2r0CzJyFEI8TwYnvwBrMNGj/NBmqffCpvBeApYld
-         vFEz7I+CBm+8wo5p/bVfOq67NX7jSBnIWFM6WHpKg4i9DYkDmg2pbLj9043y6paUFdLu
-         tBg8iWra7IUWgbFtjqw79EAIF1/Tbjd+esWGnnZn6g9aiQgXNPI6VVGs23P4wQsGXUuK
-         cBKg==
-X-Forwarded-Encrypted: i=1; AKwUvByHs3ePgXQ/2cMyADUKHcd6eOeQLphrU6pCxxkAYnDWuhwfxsUV86wiKjKc0wRGwfKBeZrPtkfKkilDVpo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJtAJ7Pw/DGt25U6fTHRyK5Qg3TTUxW6Xv6wOYXvbF/Z3vBZD8k
-	jzhm5l/j0esgAwdgHSlBvAHMyvYdtyHFx6CB8GjpoeG0UKQbNWhHNrtoqqi6ZQJUoPmnr4YSuse
-	6NEloBURhysqWOLKj7JrHeKL7eol6Btdq+auX3UeeV2FoOvV/h9ubwESTLruvYXYOhC0rdfnEJC
-	1m/e5fPs/iKuZyE/7hjbdWt6uYWOJyae4Zem66wiDy2g==
-X-Gm-Gg: AYBFou32nYLSPvvgK4GVgzqpFh9Q099rLYAKqhcfF+8puP5WOzubotIPe29oJ13GThF
-	eHgpGQ6dXbw6LhSxDSGZ/pMlW2V+ljM6JXSFqJMB4ncg5on+h+jniHeOOc5c0IVO0C0YAQA7IPc
-	ey1iyIbLFVc4tensyiniIYkSoHmlBC/jfWsGg+G6JB/qc7CYseHM+P6+CAeQ==
-X-Received: by 2002:a05:6820:f025:b0:70c:b3c9:e426 with SMTP id 006d021491bc7-70cb3c9e70emr2392467eaf.17.1793028393172;
-        Mon, 26 Oct 2026 08:26:33 -0700 (PDT)
-X-Received: by 2002:a05:6820:f025:b0:70c:b3c9:e426 with SMTP id
- 006d021491bc7-70cb3c9e70emr2392424eaf.17.1793028392529; Mon, 26 Oct 2026
- 08:26:32 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Yug95bfy
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=s46YFljZH4peYcKfdSw0ukYEvKh0IVavDFv9NTBlyqg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793028402; v=1; x=1793633202;
+ b=Yug95bfyhInIBBLxd8u3eOeUaRUZqKDFTlAV245v9MCfpVidsG9MXF15Tx24oWy50Mg1BJkh
+ V0TMFYqROCTeGQCVJ3V0OBA0bbduJ0VkrglxqpiOGhozxi1/5kfGZmon83H6SE8PJdBGObF1qqY
+ 1cJJ1un2J85n79Im7RnTVi8s=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id c79fc02862921bcd;
+	Mon, 26 Oct 2026 15:26:42 +0000
+X-Mizu-Trace-ID: c79fc02862921bcd
+X-Migadu-Flow: FLOW_OUT
+From: Fuad Tabba <fuad.tabba@linux.dev>
+To: Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>
+Cc: Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Raghavendra Rao Ananta <rananta@google.com>,
+	Eric Auger <eric.auger@redhat.com>,
+	Will Deacon <will@kernel.org>,
+	Fuad Tabba <tabba@google.com>,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/2] KVM: arm64: vgic-v4: Don't allocate vPEs that a VM can't use
+Date: Mon, 26 Oct 2026 15:26:37 +0000
+Message-ID: <20261026152639.3926498-1-fuad.tabba@linux.dev>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -127,494 +73,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261026-topic-vm_bind_rs-v1-1-6581465f2428@oss.qualcomm.com>
-In-Reply-To: <20261026-topic-vm_bind_rs-v1-1-6581465f2428@oss.qualcomm.com>
-Reply-To: rob.clark@oss.qualcomm.com
-From: Rob Clark <rob.clark@oss.qualcomm.com>
-Date: Mon, 26 Oct 2026 08:26:21 -0700
-X-Gm-Features: AclHuK9xjFfobxYMIbqsUtosZXmXjpwnpF60fd4rFY6glZ9mMn0xxUjVmWKugR8
-Message-ID: <CACSVV03M_MzamPN5X=+bmbqOkET2QOJk8O_vQyhnjDGbSTvN2g@mail.gmail.com>
-Subject: Re: [PATCH RFC] drm/msm: move VM_BIND op validation to Rust
-To: Konrad Dybcio <konradybcio@kernel.org>
-Cc: Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
-        Gary Guo <gary@garyguo.net>,
-        =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
-        Benno Lossin <lossin@kernel.org>,
-        Andreas Hindborg <a.hindborg@kernel.org>,
-        Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
-        Danilo Krummrich <dakr@kernel.org>,
-        Daniel Almeida <daniel.almeida@collabora.com>,
-        Tamir Duberstein <tamird@kernel.org>,
-        Alexandre Courbot <acourbot@nvidia.com>,
-        =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
-        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-        rust-for-linux@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA2MSBTYWx0ZWRfX4KGQXAmw7VpY
- MbEoGlTgazja3JWvXPA6YpXGiNsFdUZKz4zUvKKIVXGMw6nR9jD75q1+RWpMkcbAEYRBC81RpVj
- vtvoWDb7kloL0zjjkwY4s3BZJQcL/ms=
-X-Proofpoint-ORIG-GUID: rZt19kXFmEOSFgrgU8TYNyELiAO0Y191
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA2MSBTYWx0ZWRfX4lI6F7aPkTTg
- p7Ll59zdR2EkZsZfFyB7ijN54054VWVIFxQ3daIu4x3PEWNWMcUMiUZq7fK+nV5ChIveE/BNnRk
- Oq06C+YnGHSvWivG9lh9qnflkaMAp3l9M7iUGcR7FzyAtra8BszGzY8flJuqYFf+VY/sJzs2jeY
- 4Th73kQOL0Qp0QrNFurYWhgEMeRielppXH1q7fptNI0qI6wB3XXY9bJtcBoVTNYk9UeYxwsCKLz
- vvSsi01HCL5E7OGo7LMpeEL7+ayFvtGRL1FtAIKJVv+Uy0PduezqqKnvYcFoAsivFmZx2gW8JgH
- AKrBwOLviePrF83NFDr5yG0A7RGSBm1sz4Ls5mCuia2539ImV9KJ/mQdb6sUXLgHcQ0rYjmZd5z
- yIUv3QkucNGbQ8izN0bx55ErEqzjEKCR686hch0HsFZJW8QAOixmg983+QQusYU/HgHqEn62Xzt
- o+B9gunfAWoAVQrvFnQ==
-X-Authority-Analysis: v=2.4 cv=D93SufRj c=1 sm=1 tr=0 ts=6adf712a cx=c_pps
- a=lkkFf9KBb43tY3aOjL++dA==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=Um2Pa8k9VHT-vaBCBUpS:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
- a=IotmcVCifouJJa9mDPAA:9 a=QEXdDO2ut3YA:10 a=k4UEASGLJojhI9HsvVT1:22
-X-Proofpoint-GUID: rZt19kXFmEOSFgrgU8TYNyELiAO0Y191
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-26_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 spamscore=0 adultscore=0 lowpriorityscore=0 impostorscore=0
- phishscore=0 suspectscore=0 malwarescore=0 priorityscore=1501 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610260061
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 26, 2026 at 4:40=E2=80=AFAM Konrad Dybcio <konradybcio@kernel.o=
-rg> wrote:
->
-> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
->
-> Much of the VM handling code is a headache to read and maintain.
-> There's a soup of mixed-signedness/size types which need to be compared
-> and added and getting that wrong in C is very easy.
->
-> The "(range + obj_offset) > obj->size" check could wrap for a large
-> obj_offset, which let an out-of-range map be accepted and then mapped
-> as nothing. Oxidize it and use checked_add() to fix that.
->
-> This commit is a "get the foot in the door" type change to make sure
-> that folks building kernels for Qualcomm SoCs have their Rust setup
-> ready. It may/should be extended to the wider mm code once the
-> appropriate abstractions are finalized.
->
-> Worth noting, the C UERR() macro expands to dev_dbg() and the Rust
-> implementation for that currently doesn't support dynamic_debug.
->
-> The DRM_BRIDGE dependency is dropped because including RUST exposed
-> some spaghetti dependencies ending at DEBUGFS and it's enabled anyway.
->
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> ---
-> (if this is rejected we may just patch the C code).
->
-> Notably, this will regress some ancient configurations:
-> -- arch/arm/Kconfig
->     select HAVE_RUST if CPU_LITTLE_ENDIAN && CPU_32v7 && !KASAN
+Hi folks,
 
-Side note, I'm ok w/ drm/msm (or at least the gpu part) depending on
-CPU_LITTLE_ENDIAN.  The combination of BE CPU and LE GPU would be a
-mess.  I'll actively ignore bug reports, patches, etc related to BE.
-So please, no BE!
+Two fixes for vgic_its_create() allocating vPEs for a VM that never
+uses them. Nothing frees them when the VM is destroyed, and each
+doorbell handler stays registered with a freed vCPU.
 
-The !KASAN bit is more worrying.  But AFAIK the intersection between
-things that can support VM_BIND and armv7 is the empty set.
+The first is for a GICv2 VM, which KVM can run on a GICv4.0 host whose
+CPU interface supports legacy operation. The second is for a GICv3 VM
+whose VMM cleared nASSGIcap on a GICv4.1 host with vSGIs.
 
-BR,
--R
+Tested on AEM FVP, with has-gicv4.1=0 for the GICv2 case and =1 for the
+other. With my reproducer (clear nASSGIcap for the second case,
+initialise the vgic, create an ITS, destroy the VM), the kernel without
+the fix leaves four "vcpu" doorbells in /proc/interrupts in each case,
+and the fixed one doesn't leave any.
 
->
-> Smoke-tested on Glymur
-> ---
->  drivers/gpu/drm/msm/Kconfig        |   2 +-
->  drivers/gpu/drm/msm/Makefile       |   1 +
->  drivers/gpu/drm/msm/msm_gem_vma.c  |  66 +++------------
->  drivers/gpu/drm/msm/msm_vm_bind.h  |  16 ++++
->  drivers/gpu/drm/msm/msm_vm_bind.rs | 160 +++++++++++++++++++++++++++++++=
-++++++
->  rust/uapi/uapi_helper.h            |   1 +
->  6 files changed, 188 insertions(+), 58 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/Kconfig b/drivers/gpu/drm/msm/Kconfig
-> index ed1c4775d1e9..f5c4749f8e95 100644
-> --- a/drivers/gpu/drm/msm/Kconfig
-> +++ b/drivers/gpu/drm/msm/Kconfig
-> @@ -3,6 +3,7 @@
->  config DRM_MSM
->         tristate "MSM DRM"
->         depends on DRM
-> +       depends on RUST
->         depends on ARCH_QCOM || SOC_IMX5 || COMPILE_TEST
->         depends on COMMON_CLK
->         depends on IOMMU_SUPPORT
-> @@ -63,7 +64,6 @@ config DRM_MSM_VALIDATE_XML
->  config DRM_MSM_KMS
->         def_bool n
->         depends on DRM_MSM
-> -       select DRM_BRIDGE
->         select DRM_BRIDGE_CONNECTOR
->         select DRM_CLIENT_SELECTION
->         select DRM_DISPLAY_HELPER
-> diff --git a/drivers/gpu/drm/msm/Makefile b/drivers/gpu/drm/msm/Makefile
-> index 1e246616f83f..826759a820a0 100644
-> --- a/drivers/gpu/drm/msm/Makefile
-> +++ b/drivers/gpu/drm/msm/Makefile
-> @@ -129,6 +129,7 @@ msm-y +=3D \
->         msm_ringbuffer.o \
->         msm_submitqueue.o \
->         msm_syncobj.o \
-> +       msm_vm_bind.o \
->         msm_gpu_tracepoints.o \
->
->  msm-$(CONFIG_DRM_MSM_KMS) +=3D \
-> diff --git a/drivers/gpu/drm/msm/msm_gem_vma.c b/drivers/gpu/drm/msm/msm_=
-gem_vma.c
-> index f687a629629d..3c453b034e8f 100644
-> --- a/drivers/gpu/drm/msm/msm_gem_vma.c
-> +++ b/drivers/gpu/drm/msm/msm_gem_vma.c
-> @@ -14,6 +14,7 @@
->  #include "msm_gpu.h"
->  #include "msm_mmu.h"
->  #include "msm_syncobj.h"
-> +#include "msm_vm_bind.h"
->
->  #define vm_dbg(fmt, ...) pr_debug("%s:%d: "fmt"\n", __func__, __LINE__, =
-##__VA_ARGS__)
->
-> @@ -981,23 +982,12 @@ vm_bind_job_create(struct drm_device *dev, struct d=
-rm_file *file, struct drm_gpu
->         return job;
->  }
->
-> -static bool invalid_alignment(uint64_t addr)
-> -{
-> -       /*
-> -        * Technically this is about GPU alignment, not CPU alignment.  B=
-ut
-> -        * I've not seen any qcom SoC where the SMMU does not support the
-> -        * CPU's smallest page size.
-> -        */
-> -       return !PAGE_ALIGNED(addr);
-> -}
-> -
->  static int
->  lookup_op(struct msm_vm_bind_job *job, const struct drm_msm_vm_bind_op *=
-op)
->  {
->         struct drm_device *dev =3D job->vm->drm;
->         struct msm_drm_private *priv =3D dev->dev_private;
->         int i =3D job->nr_ops++;
-> -       int ret =3D 0;
->
->         job->ops[i].op =3D op->op;
->         job->ops[i].handle =3D op->handle;
-> @@ -1006,48 +996,11 @@ lookup_op(struct msm_vm_bind_job *job, const struc=
-t drm_msm_vm_bind_op *op)
->         job->ops[i].range =3D op->range;
->         job->ops[i].flags =3D op->flags;
->
-> -       if (op->flags & ~MSM_VM_BIND_OP_FLAGS)
-> -               ret =3D UERR(EINVAL, dev, "invalid flags: %x\n", op->flag=
-s);
-> -
-> -       if (invalid_alignment(op->iova))
-> -               ret =3D UERR(EINVAL, dev, "invalid address: %016llx\n", o=
-p->iova);
-> -
-> -       if (invalid_alignment(op->obj_offset))
-> -               ret =3D UERR(EINVAL, dev, "invalid bo_offset: %016llx\n",=
- op->obj_offset);
-> -
-> -       if (invalid_alignment(op->range))
-> -               ret =3D UERR(EINVAL, dev, "invalid range: %016llx\n", op-=
->range);
-> -
-> -       if (!drm_gpuvm_range_valid(job->vm, op->iova, op->range))
-> -               ret =3D UERR(EINVAL, dev, "invalid range: %016llx, %016ll=
-x\n", op->iova, op->range);
-> -
-> -       /*
-> -        * MAP must specify a valid handle.  But the handle MBZ for
-> -        * UNMAP or MAP_NULL.
-> -        */
-> -       if (op->op =3D=3D MSM_VM_BIND_OP_MAP) {
-> -               if (!op->handle)
-> -                       ret =3D UERR(EINVAL, dev, "invalid handle\n");
-> -       } else if (op->handle) {
-> -               ret =3D UERR(EINVAL, dev, "handle must be zero\n");
-> -       }
-> -
-> -       switch (op->op) {
-> -       case MSM_VM_BIND_OP_MAP:
-> -       case MSM_VM_BIND_OP_MAP_NULL:
-> -       case MSM_VM_BIND_OP_UNMAP:
-> -               break;
-> -       default:
-> -               ret =3D UERR(EINVAL, dev, "invalid op: %u\n", op->op);
-> -               break;
-> -       }
-> -
-> -       if ((op->op =3D=3D MSM_VM_BIND_OP_MAP_NULL) &&
-> -           !adreno_smmu_has_prr(priv->gpu)) {
-> -               ret =3D UERR(EINVAL, dev, "PRR not supported\n");
-> -       }
-> -
-> -       return ret;
-> +       return msm_vm_bind_check_op(dev->dev, op->op, op->handle, op->obj=
-_offset,
-> +                                   op->iova, op->range, op->flags, PAGE_=
-SIZE,
-> +                                   drm_gpuvm_range_valid(job->vm, op->io=
-va, op->range),
-> +                                   op->op =3D=3D MSM_VM_BIND_OP_MAP_NULL=
- &&
-> +                                   adreno_smmu_has_prr(priv->gpu));
->  }
->
->  /*
-> @@ -1118,11 +1071,10 @@ vm_bind_job_lookup_ops(struct msm_vm_bind_job *jo=
-b, struct drm_msm_vm_bind *args
->                 op->obj =3D obj;
->                 cnt++;
->
-> -               if ((op->range + op->obj_offset) > obj->size) {
-> -                       ret =3D UERR(EINVAL, dev, "invalid range: %016llx=
- + %016llx > %016zx\n",
-> -                                  op->range, op->obj_offset, obj->size);
-> +               ret =3D msm_vm_bind_check_bo_range(dev->dev, op->obj_offs=
-et, op->range,
-> +                                                obj->size);
-> +               if (ret)
->                         goto out_unlock;
-> -               }
->         }
->
->         *nr_bos =3D cnt;
-> diff --git a/drivers/gpu/drm/msm/msm_vm_bind.h b/drivers/gpu/drm/msm/msm_=
-vm_bind.h
-> new file mode 100644
-> index 000000000000..e8aa6adb9181
-> --- /dev/null
-> +++ b/drivers/gpu/drm/msm/msm_vm_bind.h
-> @@ -0,0 +1,16 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +
-> +#ifndef __MSM_VM_BIND_H__
-> +#define __MSM_VM_BIND_H__
-> +
-> +#include <linux/types.h>
-> +
-> +struct device;
-> +
-> +int msm_vm_bind_check_op(struct device *dev, u32 op, u32 handle,
-> +                        u64 obj_offset, u64 iova, u64 range, u32 flags,
-> +                        u64 page_size, bool range_valid, bool prr_suppor=
-ted);
-> +int msm_vm_bind_check_bo_range(struct device *dev, u64 obj_offset, u64 r=
-ange,
-> +                              u64 obj_size);
-> +
-> +#endif /* __MSM_VM_BIND_H__ */
-> diff --git a/drivers/gpu/drm/msm/msm_vm_bind.rs b/drivers/gpu/drm/msm/msm=
-_vm_bind.rs
-> new file mode 100644
-> index 000000000000..164208e0a1b4
-> --- /dev/null
-> +++ b/drivers/gpu/drm/msm/msm_vm_bind.rs
-> @@ -0,0 +1,160 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +//! VM_BIND operation validation for the MSM driver.
-> +
-> +use kernel::{
-> +    bindings,
-> +    device::Device,
-> +    error::code::EINVAL,
-> +    prelude::*,
-> +    uapi, //
-> +};
-> +
-> +/// Validates a single VM_BIND operation.
-> +///
-> +/// Returns 0 if the operation is valid. Otherwise logs the reason and r=
-eturns
-> +/// `-EINVAL`.
-> +///
-> +/// `page_size` is the granularity that `iova`, `obj_offset` and `range`=
- must be
-> +/// aligned to. It is the GPU's alignment rather than the CPU's, but no =
-known qcom
-> +/// SMMU lacks support for the CPU's smallest page size.
-> +/// `range_valid` is the result of `drm_gpuvm_range_valid()` for this op=
-eration.
-> +/// `prr_supported` is only consulted for `MSM_VM_BIND_OP_MAP_NULL`.
-> +///
-> +/// # Safety
-> +///
-> +/// `dev` must point to a live `struct device`.
-> +#[no_mangle]
-> +pub unsafe extern "C" fn msm_vm_bind_check_op(
-> +    dev: *mut bindings::device,
-> +    op: u32,
-> +    handle: u32,
-> +    obj_offset: u64,
-> +    iova: u64,
-> +    range: u64,
-> +    flags: u32,
-> +    page_size: u64,
-> +    range_valid: bool,
-> +    prr_supported: bool,
-> +) -> c_int {
-> +    // SAFETY: The caller guarantees that `dev` is a live `struct device=
-`.
-> +    let dev: &Device =3D unsafe { Device::from_raw(dev) };
-> +
-> +    match check_op(
-> +        dev,
-> +        op,
-> +        handle,
-> +        obj_offset,
-> +        iova,
-> +        range,
-> +        flags,
-> +        page_size,
-> +        range_valid,
-> +        prr_supported,
-> +    ) {
-> +        Ok(()) =3D> 0,
-> +        Err(e) =3D> e.to_errno(),
-> +    }
-> +}
-> +
-> +fn check_op(
-> +    dev: &Device,
-> +    op: u32,
-> +    handle: u32,
-> +    obj_offset: u64,
-> +    iova: u64,
-> +    range: u64,
-> +    flags: u32,
-> +    page_size: u64,
-> +    range_valid: bool,
-> +    prr_supported: bool,
-> +) -> Result {
-> +    let aligned =3D |addr: u64| page_size.is_power_of_two() && (addr & (=
-page_size - 1)) =3D=3D 0;
-> +
-> +    if flags & !uapi::MSM_VM_BIND_OP_FLAGS !=3D 0 {
-> +        dev_dbg!(dev, "invalid flags: {:x}\n", flags);
-> +        return Err(EINVAL);
-> +    }
-> +
-> +    if !aligned(iova) {
-> +        dev_dbg!(dev, "invalid address: {:016x}\n", iova);
-> +        return Err(EINVAL);
-> +    }
-> +
-> +    if !aligned(obj_offset) {
-> +        dev_dbg!(dev, "invalid bo_offset: {:016x}\n", obj_offset);
-> +        return Err(EINVAL);
-> +    }
-> +
-> +    if !aligned(range) {
-> +        dev_dbg!(dev, "invalid range: {:016x}\n", range);
-> +        return Err(EINVAL);
-> +    }
-> +
-> +    if !range_valid {
-> +        dev_dbg!(dev, "invalid range: {:016x}, {:016x}\n", iova, range);
-> +        return Err(EINVAL);
-> +    }
-> +
-> +    // MAP must name a handle; UNMAP and MAP_NULL must not.
-> +    match op {
-> +        uapi::MSM_VM_BIND_OP_MAP =3D> {
-> +            if handle =3D=3D 0 {
-> +                dev_dbg!(dev, "invalid handle\n");
-> +                return Err(EINVAL);
-> +            }
-> +        }
-> +        uapi::MSM_VM_BIND_OP_UNMAP | uapi::MSM_VM_BIND_OP_MAP_NULL =3D> =
-{
-> +            if handle !=3D 0 {
-> +                dev_dbg!(dev, "handle must be zero\n");
-> +                return Err(EINVAL);
-> +            }
-> +        }
-> +        _ =3D> {
-> +            dev_dbg!(dev, "invalid op: {}\n", op);
-> +            return Err(EINVAL);
-> +        }
-> +    }
-> +
-> +    if op =3D=3D uapi::MSM_VM_BIND_OP_MAP_NULL && !prr_supported {
-> +        dev_dbg!(dev, "PRR not supported\n");
-> +        return Err(EINVAL);
-> +    }
-> +
-> +    Ok(())
-> +}
-> +
-> +/// Checks that `[obj_offset, obj_offset + range)` lies within an object=
- of
-> +/// `obj_size` bytes.
-> +///
-> +/// Returns 0 if it does. Otherwise logs the reason and returns `-EINVAL=
-`.
-> +///
-> +/// # Safety
-> +///
-> +/// `dev` must point to a live `struct device`.
-> +#[no_mangle]
-> +pub unsafe extern "C" fn msm_vm_bind_check_bo_range(
-> +    dev: *mut bindings::device,
-> +    obj_offset: u64,
-> +    range: u64,
-> +    obj_size: u64,
-> +) -> c_int {
-> +    // SAFETY: The caller guarantees that `dev` is a live `struct device=
-`.
-> +    let dev: &Device =3D unsafe { Device::from_raw(dev) };
-> +
-> +    let fits =3D obj_offset
-> +        .checked_add(range)
-> +        .is_some_and(|end| end <=3D obj_size);
-> +
-> +    if fits {
-> +        return 0;
-> +    }
-> +
-> +    dev_dbg!(
-> +        dev,
-> +        "invalid range: {:016x} + {:016x} > {:016x}\n",
-> +        range,
-> +        obj_offset,
-> +        obj_size
-> +    );
-> +    EINVAL.to_errno()
-> +}
-> diff --git a/rust/uapi/uapi_helper.h b/rust/uapi/uapi_helper.h
-> index 489748ef642c..38741220270a 100644
-> --- a/rust/uapi/uapi_helper.h
-> +++ b/rust/uapi/uapi_helper.h
-> @@ -7,6 +7,7 @@
->   */
->
->  #include <uapi/drm/drm.h>
-> +#include <uapi/drm/msm_drm.h>
->  #include <uapi/drm/nova_drm.h>
->  #include <uapi/drm/panthor_drm.h>
->  #include <uapi/linux/android/binder.h>
->
-> ---
-> base-commit: 20a33c6b6cbe7e4805dfb6cd68816937443aa148
-> change-id: 20261026-topic-vm_bind_rs-5551b8014396
->
-> Best regards,
-> --
-> Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
->
+It doesn't conflict with my vgic init error-path series [1].
+
+Based on Linux 7.3-rc3 (fd73f4a665989; also applies to kvmarm-7.4).
+
+Cheers,
+/fuad
+
+[1] https://lore.kernel.org/all/20260921072958.2918477-1-fuad.tabba@linux.dev/
+
+Fuad Tabba (2):
+  KVM: arm64: vgic-v4: Don't allocate vPEs for a GICv2 VM
+  KVM: arm64: vgic-v4: Don't allocate vPEs when userspace clears
+    nASSGIcap
+
+ arch/arm64/kvm/vgic/vgic-v4.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+
+base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
+-- 
+2.47.3
+
