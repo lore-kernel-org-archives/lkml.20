@@ -1,97 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793017585;
-	b=Ihs5OejcoA8WRcz8+IvdH7ZVcvVSMvgG6QA0o2ZcHfvVX18mggRFJCpbmyIIsBhxpnYX
-	 L3DbP6cBvCPNifW/89LL/unlucHHdrfJuNaj4nkquRBafHcc4mYPvAu+VdG8k2N0sqV97
-	 gKArbJ7VuaUquQ1yU2902fHNLWl/qd9TOhf5x5h7D7YdXfwkUjhwV472BfHbihpiuDvh5
-	 3BPGgwBTyAKpl0J9ZxF8NaWBqWoIQZ+u0R5BPlN049UqzpMu5MX97E2hDCtHVK7arp8iA
-	 X2BYCr2l19/aQCb4U1cvEuXIxhFwC0tQGua3ivCgvfa4xQXq5M4XCk/JjWQcO26vuVg==
+	t=1793017612;
+	b=SEXxyx2BlbdGwNXss3y2e+FWt8w5fruqoah1YN5PZ2bIDSlCpxFYrM8cTJS220jjjl2A
+	 W9l7kfBtm9L2lF+6PA9wFkrFUWLvWmWAz5P9jdSc+vDWkS5OWScsTpk8RtjS8EsIyZknX
+	 61j60AViWRqo5x61bMh5X2fKGpKn2AORj4opYa9DKxmD2lW1R9BYJe5IxbmnG6ldaOtQ0
+	 4mKRJr4ssoRqH24rzNgbU3bGGepfckVY5pYY960qeWp+9xUnw/o0DzQcT92S7r6cBHswi
+	 DBKvEcwwpbjPhrEdOEjzLbrM4UAmOfX6vBOYQUPw3WZLAC0r1vRADEWHAYP9t4k7OYQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793017585;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793017612;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=mXaPzB2LTZSPLIrdOOZClzIPyJgWgWO8rm/whSLIkPM=;
-	b=KrpSA7ONd2gu9WwSD4jZpkusW7pZlDfLcqZ/8nxbzldoD1N9AdimHvffEQkk/kHlpd60
-	 JNeCE/p7CIuGhJt2UtTcenoD1Bii3ZUjF6qaP6RKD5Zi9twg7TqJmayixkBDSKfUbTJw0
-	 rpm3H+Xu92Zu+oB5L+vKMOTvIOVhOdYceoWD9mkZjfvzFroOFXAD93QbYwGBayiipw9gy
-	 ARc+nshXxsQPw6xk6VYy3enEZLUI+vgL2cRGfI7LNsIyAQgh7hV5FcC/baTMOL9HrEqZ3
-	 IRQhjZtnMvFYQWOixLmNTLXytC13Hm7IhL0v9FeGg5cOuyKhbwWdRa4f1FZgsTvSEwA==
+	bh=gL3nVuT0zGnPNm3LgLYm/ivg3jkt+ECKsIhuLzMhEdI=;
+	b=BJgXYr2KRSj8qb9JeEW/Nfhds59qQqXAPYPIRkI9aoAyS7I3v7YX7u4G2fnwkuol0RMe
+	 O5nGxz/dSy81Iydv2SkcjrkHc4Ps/kCdXsMjVA87TCcJnsqliKGB/zYibsntN2aO6aSRD
+	 VaVAJMkj/IrC53r+rOlSnCknDeyf2RSFInaSWAvvM9FiJb22kgADNO483Ni8xruHqTdB8
+	 iEy4lKL6CuFBi7nCCFUhcCJ9rdtDluZ88O1r+P/Ge97+FJZmirkhYCtglE0ExoEKUWubn
+	 Qg8dDE8/cL7P+zfjIepaTQ7K0ZIC+VkIz5GqniopZUTVnf5sH3sq7CGGUVrQJr6mQOw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=J7RUKdBm;
-	arc=none smtp.remote-ip=209.85.216.45
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jYqzmHUa;
+	arc=none smtp.remote-ip=209.85.221.41
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60D92606A31F
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:26:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60D92606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3989606A31B
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:26:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3989606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=J7RUKdBm
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3ac77270fbfso1461747a91.2
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 05:26:25 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jYqzmHUa
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48c45111bebso1311370f8f.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 05:26:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793017585; x=1793622385; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1793017610; x=1793622410; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mXaPzB2LTZSPLIrdOOZClzIPyJgWgWO8rm/whSLIkPM=;
-        b=J7RUKdBmFWCFYf7Jm5iuhyIacJuMljP4DULL6+tfAbY8VnPD5NPIWoyJzDLqhCOK8F
-         PniBYrHIfIa2L1Fl8LV7ahoG1/HQP3n8pi5GBdaqyYwFuOmJnh35QV/ZHqatgA+le6HO
-         HNAulxRUnjbWO05GSaogpGkqryhZSuLSsqOYXzljsrH9vveEqXa5sSKco6lilfpvmoBw
-         +F2ugaUMD9M21S6iqpDuSg4jHDaEpwwd31Elh7UOxn2KqC7k8/UAei9qMxhU52eVKsYg
-         UhrZ8KtR/n3mMPgG+f74DQQi20v/K9j/xk3m5XfS0E6yz2xztPD1K6EWJldKHSIKfbsr
-         kFAQ==
+        bh=gL3nVuT0zGnPNm3LgLYm/ivg3jkt+ECKsIhuLzMhEdI=;
+        b=jYqzmHUaTFidnQiGDd6GJ1yixEBci6XwVVdLrqIAwd5UOY+zTVzpopZn8FaDhjOBah
+         Sr6XpXo4W3blbckA7f7bz3q/qODbAauETj2KMMlH7ViHImpVwZMx3GX6/TQWuJZuqHDN
+         h8xnY5BOgwmBpiaWkZ4o5ZzcSzsAFqxDcsmnwcHVFb73bw7m38RMnzrOPtQNjRDX70g+
+         csUxqxgpnh8K778nAClqRWpRGimp3YKyp5pVlaRqGPi+4/IBpbk5hkOGmAijCgALHUZ5
+         lYMREsZPzO0gzyx4cN49URVuj1wtay7obE+b77bLRWU1nIv7Ma191X5flNLsRnbRKee1
+         aukQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793017585; x=1793622385;
+        d=1e100.net; s=20260707; t=1793017610; x=1793622410;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=mXaPzB2LTZSPLIrdOOZClzIPyJgWgWO8rm/whSLIkPM=;
-        b=t7C4wiFkUDumJmPJZ7eErDnzCXFrZI+xHXlnvRSa/qYCtPO4XJQ1tkA4UQcKBYa1Pp
-         YQtK7TOnTjokvFkqIQMaUQn4AalhHWe70M57RLA+cYu3U/8bYn2VNltXhs9Mt/abrxqu
-         HUW1JAGgS2dyRUaigSGOspBiITcinUyVOggfMuGvvLTM1R/OtnPswYPsOAbMQVeuNkuX
-         ZLJlcrYxrdd8DjjjZwvdzgHZCqt08UCteZlG7WexVQYDQIECOXaY0eUFin1iNY0z2Cay
-         nyzVqLlzmCh2PZeQQutTT/MHewX/11YuE/pO1u/TbHsUL8XpQ8SijZHlYpnNQVVp3qxE
-         WFYw==
-X-Forwarded-Encrypted: i=1; AKwUvByF8/R6V7IllhyFHdmLBUkADyspVHiff0M06czDMeqsbGcCQdF95OvV4zKOn0j7XImJqal+PVbF6ojF+Uo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKQbSzDCof3dhoXYXRarI4UcoGEG32KXt/7r/agNkc+6WyCWW/0
-	atxsMYJ6B3w48ldXaZgnzD/MAfd8aoELDl65aMT/AwhVSEOl9TfqNuk6
-X-Gm-Gg: AYBFou3WdxmhtZ8+QvuX50ZsR/hb8Yz7ck1QN9vkhdSXuIyhKdde6EQZy1J2OJJhAv1
-	RIbgzkU98NdmWTtTjcuViaFvkJqaSRcx+xxXO/dr0fPawYXkSm1krb6zite4gRU8N5Sm9WuEfko
-	FUnF/XiXdM+yt2Lhrh8+d6bCXXKy5ubUxvY8SaqIOjruWWpdWoaN7vtNYC/wp1blZdwmBpL36Ly
-	C6AdJtVLNzSb12DD+Y+EQfSXAl9EqUG1PjGg9tEAdlo7MA36AlQq4bHmP8CD413OW1yOaq0wtun
-	ghkXraIvdHOI9T/mhGjMdWOV9DyitxVXapPGkjLT8SdBeTBOO9lK9xZC+rGx2LB8aDB95/knSAJ
-	KAJsNMdg9eGFtrLmiXY2J72UVcaex92JGG+PuVzwf5DFvZuw6jDY6j9qwMsnMZlY/KYkT3uPXFQ
-	WATFEn9Nu6M+3AuV0wUiJUeCxXc8QklxZ+LeMOrJXJq+aTuTqEpSdDC83TILrfxhCMrDszxhh+d
-	XnQLUeJEq+yRNsC+6WrdhTGWVUKsL8DWr/YoiI64OT9RqXMOQG9xOznQix3M9QuBichVPhZo6A=
-X-Received: by 2002:a17:90b:5105:b0:3ab:752f:5f9c with SMTP id 98e67ed59e1d1-3adeafad11emr5076749a91.31.1793017584676;
-        Mon, 26 Oct 2026 05:26:24 -0700 (PDT)
-Received: from lgs.. ([101.76.249.61])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adeba32e38sm8894148a91.2.2026.10.26.05.26.20
+        bh=gL3nVuT0zGnPNm3LgLYm/ivg3jkt+ECKsIhuLzMhEdI=;
+        b=Nv/saPRvQLRNoWk7Ms0P5QIxCUQF1mh3ZQCouSzkLcnNj4HglcY+3II/jqmHnsK9S7
+         Fi8OvZv8rfK7U6qvEagnuyyH1zJwQTA3/TJp99G4XYI8RB7IZO6EKyKiyGYQOYD1trjK
+         mcu8QaOdNck7d3vL2JwF2ztJrCUwRMCm05yosjgfdXLYSkS/jKVvGMC7D8cdtkM4LrE3
+         zqlQfZGydV45K4W+LekfTzM75yq1gj9bfwybs7++mUAu71YdaliaNQecyDcj8HBA5kj8
+         Fvh4/Y3ixxHe5wV6BBARQeJKodTaD7zB6E1vGFceeWypk6viyCrLfb2uesif36V5Fcgm
+         m4Tg==
+X-Forwarded-Encrypted: i=1; AKwUvByJt2E5oPn1geU327rnq7bKzrQIf7TLYU2UuCouzqpolM3TMYsPzfjAMS0KrAqjY0gcWd5tZNYTMq4c75w=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIIZU9HUGrRT6yMZhu0R6AdNIrryttkgU3azLABN+QxCLnqdvPV
+	sfRNfjY4zXJkfoGj6nYcIdcyuym3+VlP5Ate+yGQsftYj6l5G/aLT/uC
+X-Gm-Gg: AYBFou1A8G9KtrBwR+kwET/AGpjmvZpgMqBnvtMEvY7RNgh+zqGhEFbX4L9zlgzT+Pl
+	40WVp40yCkpTGb5H3PzdWwhpzrhSOWNnetn70B0f/rD2xVMcm/pZyuUODp484KcnvjoS6anocAb
+	GWIXNGMz2rvIm15zoWeaZFAzpDriYmfJrgMSnv7bsPRc9p6cfvuLkc0gVqfceI8YIqO0cD84Vh9
+	0RteV6Z8BH4wVaC9v/+ab8D5f4DuVY3cVrVxUcxg8+oS2zmHyu2opDxu6XaIyh4qiDg6mzkprWm
+	Be/IdChxHtQPde5ZCKFGXdyh+Xn5qPf3zpbnO5b3UqDADmFdQXqtd54ZcenLp1eF2PGbqmW65kM
+	AvPGBdN8b7xTOG+23uwo+blM6fLdIkvF8j7KabW32rtkUd/6/teM4/NSQCV3AEIjkYqZXkihOV2
+	M5a16zVI/T3DOkKhcqH70UBBwEVISw4LrCGbft53aTFHTTCLx2P/RusmSLuQen5BYWmjnVRVp4G
+	amnoRAqMYNjwbAo5dGfELv1jaTDV6HEAbGf9NaZ+JYliapYBr3KHc6lKgJ+8zr5Q1pakth3
+X-Received: by 2002:a05:6000:24c5:b0:48c:69bd:e971 with SMTP id ffacd0b85a97d-48e3eb859dcmr12177313f8f.16.1793017609862;
+        Mon, 26 Oct 2026 05:26:49 -0700 (PDT)
+Received: from localhost.localdomain ([2a06:c701:4778:c500:4409:7786:c809:2fc3])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3eb8f25fsm15792342f8f.2.2026.10.26.05.26.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 05:26:24 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Gerhard Uttenthaler <uttenthaler@ems-wuensche.com>,
-	support@ems-wuensche.com,
-	Marc Kleine-Budde <mkl@pengutronix.de>,
-	Vincent Mailhol <mailhol@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Sebastian Haas <haas@ems-wuensche.com>,
-	Markus Plessing <plessing@ems-wuensche.com>,
-	Wolfgang Grandegger <wg@grandegger.com>,
-	linux-can@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] can: sja1000: ems_pci: fix UAF in channel cleanup
-Date: Mon, 26 Oct 2026 20:26:15 +0800
-Message-ID: <20261026122616.97845-1-lgs201920130244@gmail.com>
+        Mon, 26 Oct 2026 05:26:49 -0700 (PDT)
+From: Avi Weiss <thnkslprpt@gmail.com>
+To: Anup Patel <anup@brainfault.org>,
+	Thomas Gleixner <tglx@kernel.org>
+Cc: Radu Rendec <radu@rendec.net>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Bjorn Topel <bjorn@rivosinc.com>,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Avi Weiss <thnkslprpt@gmail.com>
+Subject: [PATCH] irqchip/riscv-imsic: Report successful hardware retrigger
+Date: Mon, 26 Oct 2026 14:26:42 +0200
+Message-ID: <20261026122641.3292904-2-thnkslprpt@gmail.com>
 X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -104,59 +103,34 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When a CAN channel is absent or register_sja1000dev() fails, the
-driver frees the network device but leaves its pointer in the
-card->net_dev array.
+imsic_irq_retrigger() writes to the IMSIC MSI register to retrigger
+an interrupt, but returns 0. The IRQ core treats zero as failure and
+may schedule a software resend despite the hardware retrigger.
 
-The cleanup path iterates over card->channels, which counts only
-successfully registered channels, while the array is indexed by
-physical channel number. This mismatch can cause the cleanup path
-to access an already-freed network device and skip registered
-devices at higher array indices.
+Return 1 after the MSI write to report successful hardware
+retriggering and prevent the unnecessary software resend.
 
-Set the array entries to NULL after freeing their devices and
-iterate over the entire array during cleanup. This prevents
-use-after-free and ensures that all registered channels are
-properly released.
-
-This issue was found by our static analysis tool under development.
-
-Fixes: a61a8423c71d ("can: SJA1000 driver for EMS PCI cards")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+Fixes: 027e125acdba ("irqchip/riscv-imsic: Add device MSI domain support for platform devices")
+Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
 ---
- drivers/net/can/sja1000/ems_pci.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/irqchip/irq-riscv-imsic-platform.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/net/can/sja1000/ems_pci.c b/drivers/net/can/sja1000/ems_pci.c
-index 986fc8786fac..ff680486a299 100644
---- a/drivers/net/can/sja1000/ems_pci.c
-+++ b/drivers/net/can/sja1000/ems_pci.c
-@@ -213,7 +213,7 @@ static void ems_pci_del_card(struct pci_dev *pdev)
- 	struct net_device *dev;
- 	int i = 0;
+diff --git a/drivers/irqchip/irq-riscv-imsic-platform.c b/drivers/irqchip/irq-riscv-imsic-platform.c
+index 95ff76e63a69..5f72b2a80887 100644
+--- a/drivers/irqchip/irq-riscv-imsic-platform.c
++++ b/drivers/irqchip/irq-riscv-imsic-platform.c
+@@ -61,7 +61,7 @@ static int imsic_irq_retrigger(struct irq_data *d)
  
--	for (i = 0; i < card->channels; i++) {
-+	for (i = 0; i < ARRAY_SIZE(card->net_dev); i++) {
- 		dev = card->net_dev[i];
+ 	local = per_cpu_ptr(imsic->global.local, vec->cpu);
+ 	writel_relaxed(vec->local_id, local->msi_va);
+-	return 0;
++	return 1;
+ }
  
- 		if (!dev)
-@@ -399,6 +399,7 @@ static int ems_pci_add_card(struct pci_dev *pdev,
- 					"Registering device failed: %pe\n",
- 					ERR_PTR(err));
- 				free_sja1000dev(dev);
-+				card->net_dev[i] = NULL;
- 				goto failure_cleanup;
- 			}
- 
-@@ -408,6 +409,7 @@ static int ems_pci_add_card(struct pci_dev *pdev,
- 				 i + 1, priv->reg_base, dev->irq);
- 		} else {
- 			free_sja1000dev(dev);
-+			card->net_dev[i] = NULL;
- 		}
- 	}
- 
+ static void imsic_irq_ack(struct irq_data *d)
+
+base-commit: 6b4b543fa18757297ac756a6fe6e64f506b7844a
 -- 
 2.43.0
 
