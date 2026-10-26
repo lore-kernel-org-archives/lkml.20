@@ -1,102 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792990778;
-	b=RPA4UV1UGg82gRJEvMlzlAxSuDRwd9rXmig2psekgyOzghna/lia52y2Hu88ouLU4P9p
-	 gzlASrX9ih3K6SJYVvzk/2uRWZZIH6FbIRoPSvYnHuxovaEWrciMO42vckebigdecIyJW
-	 w/o+zQDEMRR+teQss3fZm/L0boLiZYPokmz9sdzZySt5A8IOfLPCBR/LfnS3ZPzpqUjFC
-	 GF8ss1Ovdnft6LJl626C99C+SIPFTC/465b4gT1zDJ41Dg0PT1mGLoB+/El9Uy8rTZiOZ
-	 xe9/BXqM3gk6r7qnEfa9AO1YVhxQaZItx7iZUV23F24Dw32l2WWOA4aEcp0v7z+logA==
+	t=1792990789;
+	b=Q7qq63hNK6OrdFl3Ln9CiBcwAy8/4jV73Sw+6nqEzWyhp6TdljSlq742gBb0ttyNbEm4
+	 WA1XIXqDDjo8Tgb35svIGh4OK0Tunm3jYOHZPMnBUHMRcyRuce+Lo1SNJtHWHzKCzSLp8
+	 7Pu5OFzbQ21s9mSuZ9b/9rxFlwOUlpF9homUCVBHxJ83YoSe3jlK3UsngLM7G+qCKj7mt
+	 yN8n2xViR9PPIW57Qpe9xUVPtNfH14NqBGkQbqXqV5B+5uZpiBbMowYDKC9p63FNRzh19
+	 yw/F4ieY27z4GTPkOA+dDKg0Og6icAKYV8qRxmwnEOYaYlApN7IfwlGYMUhmjtB4SfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792990778;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 Reply-To:MIME-Version:Content-Transfer-Encoding;
-	bh=rnxb0emsuzKPUVtKXnONUYm9Ci9jmjg5zBuCIdCmp90=;
-	b=tKMbybW+b+IVQc1LPHZYisOgAneLl651r3QHQHYLwqPQFJbH1G4TL2fa2IKdh7Yq/exG
-	 h4SqZZ+JvEyAUvMSaIoB/xRjSmNfJwYYBiVlquBU0Yf/VCrv0btbO0j9ZbsntkY2qt3Y7
-	 46H/dy60Uf5mzEBmu6OF8M3B5soPWYGXHSbsUbT/Mt916RHnDg1V7Nb6mAMKp9e4MzYJh
-	 Qe83lx+g3d9qhFR1xo/w4eMn8yUqq4FpvZ3Z9atymAIcY+pdtHJV7KeZ1NB9Qr/AtAdpB
-	 alU4Q/qIM6MNWMWZ5ANY+nhfAtWjjMNiHuhs4ZxQepGnT2Fq3Z6kF7oC/ux23Ntc/qg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792990789;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=NLmt/AZKtREcaDKgDQ5NlYZMhl4LgJCsucH6I4F3Shw=;
+	b=5TB5XkZW/IsHFpOFxaW6f6201+syrJGpm0F188PjfPsnyJ6mngCNGAQeoKEY9WompBza
+	 0UTXQ7HWKjgPDdALuaEmlz2OoKfhZWnBpe77lR6CzNQs1EdBLz/7XEfkiI8dApDlWbpS4
+	 ZwNQ8/kQdokX5+tpl5TMLWkJg5Vfkcuh7idbQ6wvLvOtj9UhQ+R6EK0lOFtkJKUTPgmSE
+	 diJWpxDgKUbANe/keN1DOy0qPAr0I5oj2uxEEWeYc3Evop7cCwg81e7pei+RamtoY9g/Z
+	 dsn18SnN7DeguC1o/uRIJ3JTIE86AjEZGOTS9ZmzSkmbpwvEaCtU5xvb8OYED4iB0Xw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=aP+DKjzN;
-	arc=none smtp.remote-ip=209.85.210.172
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EWdb2xS9;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12B88606A31D
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 04:59:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12B88606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 483C4606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 04:59:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=aP+DKjzN
-Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-89d6bd67045so1121245b3a.0
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 21:59:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792990777; x=1793595577; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:reply-to:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rnxb0emsuzKPUVtKXnONUYm9Ci9jmjg5zBuCIdCmp90=;
-        b=aP+DKjzNC9am1uaTAc7FntOPgUW18Zh7b3sk9ox1ilPKWNNFAKAsoWK2bWkqUOk75+
-         yNM5Njar0EyPhzPhCewpqHGj5kU3MdK/9qBa/1nSfKqlqLAv8pSwidXs54aWJ1ZxiWdc
-         UfBwFIkKddOWhJspSPdk0ccnISAbPqJ7KUzpDlxPEIun3E2+gcALWRpOy0McPG3z0jVQ
-         Y/uKBAu/15gGyj6LvkEqBsLE3v63aVTHm9LngBR/ZTuS2dj0iy0M7Fb2nzM1fVISa308
-         siWQYM2l6HWgG8Fq7bVp7rLy+Ty9d4C/2phDM876WDDg7So1HfdIG00fHEbMvfZDWD06
-         ohDA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792990777; x=1793595577;
-        h=content-transfer-encoding:mime-version:reply-to:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rnxb0emsuzKPUVtKXnONUYm9Ci9jmjg5zBuCIdCmp90=;
-        b=2t3BJ5Sr/2bPSCIM0fWvkwcnrYC68JfEb6CohU7T2NjlFMF8+drHXZK6WuEymeTdPA
-         M7iM2hAeSy6mFOlffBS1C5+49ZUiW0KE84imuFdye5zVtPPpNAtYbD2uy+Dt3fpbDbCh
-         BKnoVlwb9Dn3uKiUZU47ucFXIhPE2xQLlqSawKuIxgIXb26+iNga9mV5Ry6iN5DTziN0
-         kJeRf51mKLLuz065ED1Mi4xwRN5Z3Vy5gNjbwTrqgXxNxEu2bHLpk2EWozCjcPwymDpl
-         OCqwOz/W22O0aU4qtmZHgRVcNofohLsoEZCb4+s2+b5jSUQo6aaVPPkGpJRF8bEjb2Ud
-         fJGw==
-X-Forwarded-Encrypted: i=1; AKwUvBw1fGeNrTPMsXrhJgwr2frhbRj0g0ZaGTwEGBlJhcc5jOUp1UdoAIcHPjh90Wf8BWevPjHZYTo6SOQqBO4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKnrXA05tq6hbmkx9n6L6s+9ZIBNLkOiT6XGPMWBSXI2QcUJdV3
-	tycDCla2SdW/XpqcJPauIQqVP51ZDRE/ZeSHwgzRKqvkycXGTuJPZqFe
-X-Gm-Gg: AYBFou3JanmRS+unE+98MsHh3nT6oVgCAsdq9Y4Kf0kAqZe8eNhGyDOtYXyTMlkxKf6
-	PTccC4NsVpAx91KcX+3dKXwxXImAhLqeOkSHRvjueMqtiQwctPYqTPv9X0iH+1VhdLMunzqHGws
-	iz9lVO98dOFlcaPjBjGbjsL+h3pDiq/R2L9itlQuL1vi7qZppFgoIe9QCyJ7O/9pOMiWBBsNB/7
-	uOitwgBNwXSS/1rCHLhsUsD6f7x2OplHiOzDHec8fbdYEBtQCt4AaHOzO7O1XW/gqXD647UwoSu
-	U8qRzq+4eCDdXAZJgJ4dNV65P+mCU/Zcyrxvm3mjGRc5+eDxJ+EOq2CKtsE+cEwgWhNdRek4Lmm
-	EfAKfl4EjxoW1d2t4lhuAMDmt5PpK87J5i4Zq2Shocy3DaFfMHfXMG31NIWRr6GPul0euXqxm6S
-	BWZz+cr56XUhgGXekfMyQ6DMRu/nCrvMfBid3Qeq4QXBPB3bWX/JaoD/bLr2Sn+yV/1AtelF8dl
-	xeGWn1JVsQufjRPeC/bJJ5FqbObLkd62mztl+/d09NHIMi/TQ7JeFSOOLgUhdcwhaz77opPzRDx
-	ZYLvY5+Hz3GKfLBtZZe1gudCaJSVwPM7ngox1G+lIjfIsAjps9adcawrnQSerGjZEziXUBiV2ZN
-	7DKMu
-X-Received: by 2002:a05:6a00:27ac:b0:89f:f166:e221 with SMTP id d2e1a72fcca58-8a36763330emr3659907b3a.46.1792990777000;
-        Sun, 25 Oct 2026 21:59:37 -0700 (PDT)
-Received: from localhost.localdomain (c-174-165-208-10.hsd1.wa.comcast.net. [174.165.208.10])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a36b372539sm881798b3a.29.2026.10.25.21.59.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 21:59:36 -0700 (PDT)
-From: Michael Kelley <mhkelley58@gmail.com>
-X-Google-Original-From: Michael Kelley <mhklinux@outlook.com>
-To: haiyangz@microsoft.com,
-	wei.liu@kernel.org,
-	decui@microsoft.com,
-	lpieralisi@kernel.org,
-	kwilczynski@kernel.org,
-	mani@kernel.org,
-	robh@kernel.org,
-	bhelgaas@google.com
-Cc: linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-hyperv@vger.kernel.org
-Subject: [PATCH v2 1/1] PCI: hv: Spread load across CPUs when selecting effective affinity CPU
-Date: Sun, 25 Oct 2026 21:59:30 -0700
-Message-Id: <20261026045930.129874-1-mhklinux@outlook.com>
-X-Mailer: git-send-email 2.25.1
-Reply-To: mhklinux@outlook.com
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EWdb2xS9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18F761F031F1
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 04:59:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792990789;
+	bh=NLmt/AZKtREcaDKgDQ5NlYZMhl4LgJCsucH6I4F3Shw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=EWdb2xS9oApBjg6p4ixceDJP4tSn2ThGDTvC15VYpUt6HTPFG9HSua/JRoRQNf4Ad
+	 3my1oSTlvTDcqr8JI93hLcbdXxMRWE9BIrWViKyhR5jfvH3eK1uxm+DrsxvIg4HXkg
+	 aezUSpZffI7eKg/WRfU3ofk156e7lKFohlPpmyJWGacg2TvhjZj4Kn1kun4EOXQRa6
+	 d4NTypTpEM6qYx6WL2BqtZkS/yB5mVfbSCS1lyXlaQ4ZBIutquqh7yJ67GmiSGPPGM
+	 htxDsN03VPFt1kvtZfqd21a5ruB8iMryMsqBBOQ8UAfN+haQfbeBbc+ttWkmCeEaKp
+	 UTv5C+Omv/Kzg==
+Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6acb9c018ffso3697029a12.1
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 21:59:48 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzuuW+xGa+ox2CQmGxRUm8fGOgaGgh2KVSenGuajLMSEoQcBgSfPfhFtTAu/ORywOwU64Y7U83+Jksw73k=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKFvPaLyu+4g1wap4+OWLixkZsf3pQAD7wTxdfVGOXlWm/2xpsT
+	nz9yU7qnLRN3mIRHMLDdefCvLBVc1HueLbc55a0A+WwYIrgJRPuiGLqI7RMYVIx4ZiEFOM8BkvM
+	a6cqxSdKaXRtWluL4vdl52b5nBNcP39k=
+X-Received: by 2002:a05:6402:e08:b0:6b4:1eed:b9f2 with SMTP id
+ 4fb4d7f45d1cf-6b443a2fee7mr6790635a12.10.1792990787933; Sun, 25 Oct 2026
+ 21:59:47 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,293 +59,148 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261020-fw-devlink-nexus-ready-v3-0-fd6f1c17e16d@toradex.com>
+In-Reply-To: <20261020-fw-devlink-nexus-ready-v3-0-fd6f1c17e16d@toradex.com>
+From: Saravana Kannan <saravanak@kernel.org>
+Date: Sun, 25 Oct 2026 21:59:36 -0700
+X-Gmail-Original-Message-ID: <CACRMN=cR0P0ETKLKkM2k67Kuv5oe4+gz8vY8DhhuZGZ6LiCGhQ@mail.gmail.com>
+X-Gm-Features: AclHuK9u7vjAQCLxUR5sEBpiJHi39rWIfcPdQhFAQgsEzk2KJz-ZGO2-0-6Y7xs
+Message-ID: <CACRMN=cR0P0ETKLKkM2k67Kuv5oe4+gz8vY8DhhuZGZ6LiCGhQ@mail.gmail.com>
+Subject: Re: [PATCH v3 0/8] of: property: Make fw_devlink follow GPIO, PWM and
+ clock nexus maps
+To: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
+	"Miquel Raynal (Schneider Electric)" <miquel.raynal@bootlin.com>, Frank Li <Frank.li@oss.nxp.com>, 
+	Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney@redhat.com>, Linus Walleij <linusw@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <ukleinek@kernel.org>, 
+	Herve Codina <herve.codina@bootlin.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>, Leonardo Costa <leonardo.costa@toradex.com>, 
+	Frieder Schrempf <frieder.schrempf@kontron.de>, devicetree@vger.kernel.org, 
+	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-pwm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>, 
+	=?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
+	stable@vger.kernel.org, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-In a system with multiple devices with the same configuration (such as
-NVMe controllers), the affinity masks are the same for all such devices.
-Linux typicaly must select a single CPU from each mask to be the effective
-affinity. If a fixed algorithm is used, such as picking the first CPU
-in the mask, interrupts from multiple devices are assigned to the same
-CPUs, while other CPUs are not assigned any interrupts, producing an
-interrupt load imbalance.
+On Tue, Oct 20, 2026 at 6:00=E2=80=AFAM Ernest Van Hoecke
+<ernestvanhoecke@gmail.com> wrote:
+>
+> This series fixes an fw_devlink supplier-resolution problem reported by
+> Leonardo Costa while using a Devicetree nexus to describe GPIO and PWM
+> resources routed through an LVDS connector. Consumers referencing the
+> nexus could remain deferred because fw_devlink linked them to the nexus
+> rather than to the providers selected by gpio-map and pwm-map. [1]
+>
+> GPIO, PWM and clock consumer APIs use of_parse_phandle_with_args_map()
+> to resolve specifiers through gpio-map, pwm-map and clock-map
+> properties. The corresponding fw_devlink parsers use direct phandle
+> parsing instead. Given a consumer which references a nexus, the consumer
+> API and fw_devlink therefore resolve the reference to different nodes:
+>
+>   consumer API:  consumer -> nexus -> mapped provider
+>   fw_devlink:    consumer -> nexus
+>
+> A nexus is a translation node rather than the resource provider and need
+> not have a driver. The link to it can consequently remain unresolved and
+> defer the consumer even though the mapped provider is available.
+>
+> Make the fw_devlink GPIO, PWM and clock parsers use the same map-aware
+> resolver as their consumer APIs. The resolver also handles valid direct
+> references by returning the original provider when no map is present.
+> Use dedicated exact-name and suffix declaration macros to opt these
+> bindings into map-aware parsing without changing unrelated property
+> parsers. Retain GPIO's existing exclusions and compatibility handling.
+>
+> Since fw_devlink runs the resolver for every consumer when its device is
+> created, patch 1 first fixes a stack buffer overflow in the resolver
+> when the provider referenced by the consumer has more than
+> MAX_PHANDLE_ARGS cells.
+>
+> The regression tests call the OF add_links operation and verify that a
+> mapped reference creates exactly one link to the provider selected by
+> the referenced map entry, not to the nexus. They also cover valid direct
+> references. The GPIO tests exercise all property spellings recognized by
+> fw_devlink, including the deprecated singular and unprefixed forms.
+>
+> The clock patch fixes aacc54c67869 ("clk: Add support for clock nexus dt
+> bindings"), which has been in clk-next and linux-next with the same hash
+> since next-20260907. There is no build-time dependency on it, but the
+> clock patch should not reach mainline before it. The series applies to
+> next-20261014.
+>
+> Tested with:
+>   - The CONFIG_OF_UNITTEST cases under QEMU/x86_64: all passed. With the
+>     fw_devlink parser changes reverted, exactly the six mapped consumer
+>     cases fail.
+>   - W=3D1 builds of each patch on arm64, including the OF unittest data
+>   - Toradex Verdin iMX8M Plus hardware using a connector nexus for the
+>     display GPIO and PWM resources (v2, same fw_devlink changes): the
+>     display probes successfully
+>
+> [1] https://lore.kernel.org/all/juuc4af7ndbajcl7gzf4tg5qz2q2j5tt3rvql4jba=
+uradujrre@gc5nbdhhixaf/
 
-On x86, the "APIC" IRQ chip avoids this problem by spreading the
-interrupts across the CPUs in an affinity mask. It tracks the number
-of IRQs assigned to each CPU, and chooses the CPU in the mask that
-has the fewest assignments. Because Hyper-V vPCI device IRQs eventually
-parent to APIC, the spreading done by APIC accrues to Hyper-V vPCI
-devices, so all is good in x86 systems.
+Thanks for the patch series to keep this updated! Took a close look at
+all the patches and they mostly look good.
 
-On arm64, the "ITS" IRQ chip for the GICv3+ITS does the same kind of
-spreading for LPI interrupts. But Hyper-V provides guest VMs only with
-a virtual GICv3, not including an ITS or LPI support. IRQs for vPCI
-devices on arm64 are mapped to SPIs and parented to the "GICv3" IRQ
-chip. The GICv3 IRQ chip always chooses the first CPU in the affinity
-mask as the effective affinity, producing an interrupt load imbalance
-for Hyper-V vPCI devices in arm64 systems.
+Left some minor comments. Should be easy to address/clarify.
 
-The Hyper-V vPCI driver already has an arm64-specific IRQ chip to
-allocate and managed SPIs for use by vPCI devices. Solve the imbalance
-problem by extending this IRQ chip to implement a "set affinity"
-function that tracks SPIs assigned to each CPU, and chooses the
-least-loaded CPU as the effective affinity. Then invoke the parent
-IRQ chip (GICv3) to actually set that single CPU as the effective
-affinity in the virtual GICv3 hardware. As a result, IRQs are spread
-across CPUs like on x86 and interrupt load imbalances are avoided.
+When they are addressed:
+Reviewed-by: Saravana Kannan <saravanak@kernel.org>
 
-Signed-off-by: Michael Kelley <mhklinux@outlook.com>
----
-As an alternative, this spreading functionality could be implemented
-for SPIs directly in the GICv3 IRQ chip, similar to what the ITS IRQ
-chip already has for LPIs. While Hyper-V's scheme of using SPIs for
-vPCI interrupts is allowed by the arm64 architecture, it's atypical.
-So the original decision was for the Hyper-V vPCI driver to handle
-the allocation and management of SPIs for this purpose rather than do
-it in generic GIC code. That led of the introduction of the "MSI" IRQ
-chip in the Hyper-V vPCI driver. This implementation of the spreading
-functionality follows that original decision by extending the "MSI"
-IRQ chip. If reviewers have reasons to prefer enhancing the GICv3 IRQ
-chip driver instead, I'm open to doing that.
+Thanks,
+Saravana
 
-I have not added any documentation to Documentation/virt/hyperv/vpci.rst.
-That documentation needs an entirely new section on the IRQ domains
-and chips, and their hierarchy differences on x86 and arm64. I'm
-working on a separate patch to add that documentation. But I don't
-want to hold up this improvement for that larger documentation task.
-
-Changes in v2:
-* Added call to irqd_set_affinity_no_activate() so cpu_spi_count is
-  not corrupted by affinity changes to inactive IRQs [Sashiko]
-* Added comment for hv_pci_vec_irq_domain_activate about why it's
-  OK for always choose the initial CPU even though that biases
-  the spreading algorithm against that CPU [Sashiko]
-* In hv_pci_arm64_set_affinity(), updates to the SPI counts and the
-  selection of a new CPU are made atomic via a raw spin lock, like the
-  x86 "VECTOR" IRQ chip (though not the arm64 "ITS" IRQ chip). As a
-  result, struct cpu_spi_count no longer needs atomic_t. [Naman Jain]
-* Changed back to using cpu_present_mask instead of cpu_online_mask
-  in hv_pci_vec_irq_domain_activate() since the change wasn't
-  necessary. [Naman Jain]
-* Minor formatting changes to meet checkpatch --strict requirements.
-  [Naman Jain]
-
- drivers/pci/controller/pci-hyperv.c | 169 +++++++++++++++++++++++++++-
- 1 file changed, 166 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/pci/controller/pci-hyperv.c b/drivers/pci/controller/pci-hyperv.c
-index 824cf27e85e6..0e11f2e8d174 100644
---- a/drivers/pci/controller/pci-hyperv.c
-+++ b/drivers/pci/controller/pci-hyperv.c
-@@ -743,10 +743,142 @@ struct hv_pci_chip_data {
- /* Hyper-V vPCI MSI GIC IRQ domain */
- static struct irq_domain *hv_msi_gic_irq_domain;
- 
-+/*
-+ * Data structures and helper functions for spreading the CPU in the
-+ * affinity mask that is picked for the effective affinity. Such
-+ * spreading is done by the "APIC" IRQ chip on x86 and by the
-+ * "ITS" chip for LPIs with GICv3+ITS on arm64. But Hyper-V provides
-+ * only a GICv3 with SPIs (no ITS or LPIs) to arm64 guests. For SPIs
-+ * the "GICv3" IRQ chip always picks the first CPU in the affinity mask,
-+ * which can overload that CPU and reduce parallelism in processing
-+ * interrupts.
-+ *
-+ * While the Hyper-V configuration is architecturally allowed, it's not
-+ * typical, so the spreading is done here in pci-hyperv.c with the "MSI"
-+ * IRQ chip parented to "GICv3". Track how many SPIs have been assigned
-+ * to each CPU, and use that data to spread the IRQ load evenly across
-+ * the CPUs instead of just picking the first CPU. The code follows a
-+ * pattern similar to the spreading logic for the "ITS" IRQ chip.
-+ */
-+
-+struct cpu_spi_count {
-+	/* Index 0 is unmanaged. Index 1 is managed. */
-+	unsigned int	count[2];
-+};
-+
-+static DEFINE_PER_CPU(struct cpu_spi_count, cpu_spi_count);
-+static DEFINE_RAW_SPINLOCK(cpu_spi_count_lock);
-+
-+static void hv_pci_inc_spi_count(struct irq_data *d, int cpu)
-+{
-+	int idx = irqd_affinity_is_managed(d);
-+
-+	per_cpu_ptr(&cpu_spi_count, cpu)->count[idx]++;
-+}
-+
-+static void hv_pci_dec_spi_count(struct irq_data *d, int cpu)
-+{
-+	int idx = irqd_affinity_is_managed(d);
-+
-+	per_cpu_ptr(&cpu_spi_count, cpu)->count[idx]--;
-+}
-+
-+static unsigned int
-+hv_pci_arm64_get_min_load_and(struct irq_data *d,
-+			      const struct cpumask *cpu_mask1,
-+			      const struct cpumask *cpu_mask2)
-+{
-+	unsigned int cpu = nr_cpu_ids, tmp;
-+	int count = S32_MAX, this_count;
-+	int idx = irqd_affinity_is_managed(d);
-+
-+	for_each_cpu_and(tmp, cpu_mask1, cpu_mask2) {
-+		this_count = per_cpu_ptr(&cpu_spi_count, tmp)->count[idx];
-+		if (this_count < count) {
-+			cpu = tmp;
-+			count = this_count;
-+		}
-+	}
-+
-+	return cpu;
-+}
-+
-+static unsigned int hv_pci_arm64_get_min_load(struct irq_data *d,
-+					      const struct cpumask *cpu_mask)
-+{
-+	return hv_pci_arm64_get_min_load_and(d, cpu_mask, cpu_possible_mask);
-+}
-+
-+static int hv_pci_arm64_select_cpu(struct irq_data *d,
-+				   const struct cpumask *aff_mask)
-+{
-+	int cpu;
-+
-+	if (irqd_affinity_is_managed(d))
-+		cpu = hv_pci_arm64_get_min_load(d, aff_mask);
-+
-+	else if (cpumask_intersects(aff_mask, cpu_online_mask))
-+		/* Try the intersection of the affinity and online masks */
-+		cpu = hv_pci_arm64_get_min_load_and(d, aff_mask, cpu_online_mask);
-+
-+	else
-+		/* If that doesn't fly, the online mask is the last resort */
-+		cpu = hv_pci_arm64_get_min_load(d, cpu_online_mask);
-+
-+	pr_debug("IRQ%d -> %*pbl CPU%d\n", d->irq, cpumask_pr_args(aff_mask), cpu);
-+
-+	return cpu;
-+}
-+
-+/*
-+ * Track the count of SPIs assigned to each CPU. Pick a single CPU from the
-+ * affinity mask based on the SPI loading data, and have the parent IRQ
-+ * chip (should be "GICv3") set the effective affinity to that single CPU.
-+ */
-+static int hv_pci_arm64_set_affinity(struct irq_data *d,
-+				     const struct cpumask *mask_val,
-+				     bool force)
-+{
-+	unsigned int cpu, prev_cpu;
-+	int ret;
-+
-+	prev_cpu = cpumask_first(irq_data_get_effective_affinity_mask(d));
-+
-+	scoped_guard(raw_spinlock_irqsave, &cpu_spi_count_lock) {
-+		if (prev_cpu < nr_cpu_ids)
-+			hv_pci_dec_spi_count(d, prev_cpu);
-+
-+		if (force)
-+			cpu = hv_pci_arm64_get_min_load(d, mask_val);
-+		else
-+			cpu = hv_pci_arm64_select_cpu(d, mask_val);
-+
-+		if (cpu >= nr_cpu_ids) {
-+			if (prev_cpu < nr_cpu_ids)
-+				hv_pci_inc_spi_count(d, prev_cpu);
-+			return -EINVAL;
-+		}
-+
-+		hv_pci_inc_spi_count(d, cpu);
-+	}
-+
-+	ret = irq_chip_set_affinity_parent(d, cpumask_of(cpu), force);
-+	if (ret < 0) {
-+		guard(raw_spinlock_irqsave)(&cpu_spi_count_lock);
-+
-+		if (prev_cpu < nr_cpu_ids)
-+			hv_pci_inc_spi_count(d, prev_cpu);
-+		if (cpu < nr_cpu_ids)
-+			hv_pci_dec_spi_count(d, cpu);
-+	}
-+
-+	return ret;
-+}
-+
- /* Hyper-V PCI MSI IRQ chip */
- static struct irq_chip hv_arm64_msi_irq_chip = {
- 	.name = "MSI",
--	.irq_set_affinity = irq_chip_set_affinity_parent,
-+	.irq_set_affinity = hv_pci_arm64_set_affinity,
- 	.irq_eoi = irq_chip_eoi_parent,
- 	.irq_mask = irq_chip_mask_parent,
- 	.irq_unmask = irq_chip_unmask_parent
-@@ -874,6 +1006,12 @@ static int hv_pci_vec_irq_domain_alloc(struct irq_domain *domain,
- 					      hwirq + i,
- 					      &hv_arm64_msi_irq_chip,
- 					      domain->host_data);
-+		/*
-+		 * Defer affinity changes on inactive IRQs so the cpu_spi_count
-+		 * can be maintained for spreading purposes.
-+		 */
-+		irqd_set_affinity_on_activate(irq_get_irq_data(virq + i));
-+
- 		pr_debug("pID:%d vID:%u\n", (int)(hwirq + i), virq + i);
- 	}
- 
-@@ -881,25 +1019,50 @@ static int hv_pci_vec_irq_domain_alloc(struct irq_domain *domain,
- }
- 
- /*
-- * Pick the first cpu as the irq affinity that can be temporarily used for
-+ * Pick the first CPU as the irq affinity that can be temporarily used for
-  * composing MSI from the hypervisor. GIC will eventually set the right
-  * affinity for the irq and the 'unmask' will retarget the interrupt to that
-- * cpu.
-+ * CPU.
-+ *
-+ * The first CPU is always used for initial activation because spreading the
-+ * initial CPU would have to be done without information about affinity groups
-+ * that may exist. The resulting assignments would pollute the "least loaded"
-+ * data for making the final assignments. Everything would still work, but the
-+ * spreading would be less even than it could be. This approach typically
-+ * produces a large count on the initial CPU until the final affinity
-+ * assignments are made, and hence biases the spreading against that initial
-+ * CPU. But that's OK because that initial CPU is used for interrupts not
-+ * tracked here, such as VMBus slow-speed devices and the PL011 console UART.
-  */
- static int hv_pci_vec_irq_domain_activate(struct irq_domain *domain,
- 					  struct irq_data *irqd, bool reserve)
- {
- 	int cpu = cpumask_first(cpu_present_mask);
- 
-+	scoped_guard(raw_spinlock_irqsave, &cpu_spi_count_lock)
-+		hv_pci_inc_spi_count(irqd, cpu);
- 	irq_data_update_effective_affinity(irqd, cpumask_of(cpu));
- 
- 	return 0;
- }
- 
-+static void hv_pci_vec_irq_domain_deactivate(struct irq_domain *domain,
-+					     struct irq_data *irqd)
-+{
-+	int cpu;
-+
-+	cpu = cpumask_first(irq_data_get_effective_affinity_mask(irqd));
-+	if (cpu < nr_cpu_ids) {
-+		scoped_guard(raw_spinlock_irqsave, &cpu_spi_count_lock)
-+			hv_pci_dec_spi_count(irqd, cpu);
-+	}
-+}
-+
- static const struct irq_domain_ops hv_pci_domain_ops = {
- 	.alloc	= hv_pci_vec_irq_domain_alloc,
- 	.free	= hv_pci_vec_irq_domain_free,
- 	.activate = hv_pci_vec_irq_domain_activate,
-+	.deactivate = hv_pci_vec_irq_domain_deactivate,
- };
- 
- #ifdef CONFIG_OF
--- 
-2.25.1
-
+>
+> Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+>
+> ---
+> Changes in v3:
+> - New patch 1 fixing a stack overflow in
+>   of_parse_phandle_with_args_map() (Uwe)
+> - Tests: route map entries to different providers and reference a
+>   non-first entry with non-zero cells (Herve)
+> - Collected R-b tags
+> - Rebased onto next-20261014
+> - Link to v2: https://lore.kernel.org/r/20260910-fw-devlink-nexus-ready-v=
+2-0-17ac82dbe226@toradex.com
+>
+> Changes in v2:
+> - Split the unit tests into per-resource follow-up commits
+> - Added clock nexus as well because the clock nexus series was merged:
+>   https://lore.kernel.org/all/20260807-schneider-v7-2-rc1-eip201-upstream=
+-v5-0-8785f9531cf0@bootlin.com/
+> - Link to v1: https://lore.kernel.org/r/20260902-fw-devlink-nexus-ready-v=
+1-0-68fe1996e78a@toradex.com
+>
+> ---
+> Ernest Van Hoecke (8):
+>       of: base: Fix stack overflow in of_parse_phandle_with_args_map()
+>       of: property: fw_devlink: Follow GPIO nexus maps
+>       of: property: fw_devlink: Report unsupported supplier linking
+>       of: unittest: Test fw_devlink with GPIO nexus maps
+>       of: property: fw_devlink: Follow PWM nexus maps
+>       of: unittest: Test fw_devlink with PWM nexus maps
+>       of: property: fw_devlink: Follow clock nexus maps
+>       of: unittest: Test fw_devlink with clock nexus maps
+>
+>  drivers/of/base.c                           |  5 ++
+>  drivers/of/property.c                       | 53 ++++++++++++++-----
+>  drivers/of/unittest-data/tests-phandle.dtsi | 81 +++++++++++++++++++++++=
+++++++
+>  drivers/of/unittest.c                       | 79 +++++++++++++++++++++++=
++++++
+>  4 files changed, 205 insertions(+), 13 deletions(-)
+> ---
+> base-commit: d419d682257d813f6cb7a28e42b35d0edf4ad038
+> change-id: 20260901-fw-devlink-nexus-ready-c859706b019d
+>
+> Best regards,
+> --
+> Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+>
