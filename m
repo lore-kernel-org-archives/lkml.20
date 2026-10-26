@@ -1,97 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.43.12
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792989172;
-	b=xtiJpcjeCGrmTbL+Af2oNOY7xsTGFAuKQjbs9eRGlzZRmYzBm7XfP4w1kCPWnBL6DxdS
-	 tW/VcefeZ3LOU6isfNIDELxqyotH3Iqc2rnvcEJGn3HZTl24Kb+VFBtdCHK31+dULw/o3
-	 WHvt712/hP7BKAH/UnBe5sjU59UwwdBp4nZa/Hfqr08PpxoUg9jEziM/nlBT0ouiD2mYU
-	 QXpCon2G+Rv8E6bm/yDS773ZMWxLIpsIrrEMKiWGOooMcEou5dd6h3G2FAv+P9WgXesW+
-	 7wFieUWtGuIRoJWH4+PkSVzW3VZ9ivGxa/ssleQyi4jzJNAKoqgjBky69xE4hEQuwSQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792989172;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:CC:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=D0iVvlHuB74XoEalrxtkGWN5XONv+72FbHhrKEXQZsU=;
-	b=YZQKrMLdKs9QNOcm2cRBJBG/7WATr0LlJHJaFphdRTUDVN8LYtUaWU5HlqeWq2iwkMFl
-	 0eBEuFm6tKi7gl66xVIbtcBFIHMZsRAW6azDmYLFgR1EI73dUVPdo0d5rSLCbJodxt0Ip
-	 ym92j+NT/X7NL0hq9c13TXFW48+I1QNgOA9sBHBrtbaT8QFHi43RsCwgL4Q6avfE4Vcrj
-	 z+4wsumfcFYJj02soYos2P5pUcy6hI51EEgzm6yEEDRGmknl9Yt/5wjhtXOL9F052Hn4s
-	 RHdZRZD1JpYm02Wr+6/pz9Bfbo9D1OX1T3JJLXmdxnQshdaGN8b+BlrnXWi4BkEhZUg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Pm692X4C;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.43.12
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012012.outbound.protection.outlook.com [52.101.43.12])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792989234;
+	b=QZK4xXu0zcNyVFgyjpTAL28WXDECy3FSG5Qwq+1Vun189R/pNLIshzLb/NQHwPWUgvSB
+	 f+cBl3phio0WTcSJIYaMWK5m/V7nqrsaueuVZgnY5jkMCn0N0f/gjDfrvLb5iF1PvLkPJ
+	 nsTXySkoSo4bKZVn7jHMziAqtkpieoR7yaZRvFvkLOK3qoMgl4c2zwHPwndSDwmzTtY7+
+	 9mz1fkP9Z9B4Gy69FQ8XiWDdsGtuTQgsZfxnmmoOVTyX0JzceBuXCh8pMUe8q/Ov0bVZ8
+	 R3KYbw+9KGr4xEwmculnz8slYic6ThaLLVqYR6ll9hG0f8C0vTavLOLSb6a53d+d8rw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792989234;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=zp+JxXwgQx3uq+loHTFsBZclGNcJgzZQrarebs928zE=;
+	b=w3H2lUcQJjfULgo6jqgOfhzooX9JDr01k88VXAv4gkSiZNsyxSDJUX79QpPkupkFIZcW
+	 YfUchaqC6W/LDxbiBtEaCllbuGo+dPWiLZLTOlyJjK24unVQiWJfWSAKyET1t1XUYLgHx
+	 gHVfOHpOEJGMGw3E5phY4hkOzoYvuSxolNmCc8vjp7Ew/FfMzh6RuEv4f+RbwDagSN6JJ
+	 XV5nWqsb/4cx45X4181xTMzuJdPypwGS+PAQcIstPJ4VZWGv/xC82bjcNP9Mj+ZwQjhY+
+	 +azQJrVKsZY8JfxIzxS7gw1baz/2IGeprF43XvMUrR+zCaS8EjN8SFEDeMWwxMlubZg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VoahMzMk;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4575606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 04:32:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4575606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1F39606A31A;
+	Mon, 26 Oct 2026 04:33:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Pm692X4C
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cnnkf/YOFGuyqMT/ygi4kvMEkNVWKSNsio9tQ/C3yaU6kVT0pj2P7dLyjkPStcmhp2pb44zWCvzUPtdaw3rZIQPdYIy+rtPn0ctSppGVq95chqVynYyoaen3v3xCQlURbCN8Rd2YjqM7izfw8Oi+CXXjJlOyLycJpOj3OQopFayeBEDFCnzFm6iRVqhJPVVqN5s5dLmWmwxOhKO2b/lFLGic1TF0xIIH7VqJpZpAkjw5+sdPIczbvCtkpuZONBp/du2Iqp1l5zifRCdNtF6bTcSNGIzR0TUsl0meD0wAgIQvKVhofcTWK7YEOY5wJnGg6/gsLGNnKWvxHlsr0GufpQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=D0iVvlHuB74XoEalrxtkGWN5XONv+72FbHhrKEXQZsU=;
- b=F+jYYVmwrRV1zwEPXCi2RXDME2ZWoNVxc0Ra57FpxnVa4iJ++wwZmEZDpGW2VUCFo1wrTRNGu8kN5qKoFb+VVB/SoGf7xUiG4OFOS2kj4z9SsDRffh61TK1hKEgv6/CuEAkTx13RZigSA7Fjv1AgTYMm7kWfk8lQvTszFIBC2L4djckedBtcYLIh461kg3V/vco1POjrISG4vb337OILJaCzEACoHSGrNzeRheuDFx0wdnR0k7giZQLk6NIATb8sUbjKgvugll+fr3SGxVEI7IZyLlKj1hqbYE2n0kzzRIno10jb6iFOnNMeoLoR12g5p5mN7wQ1WeU4AhEb9w7Wdg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=google.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=D0iVvlHuB74XoEalrxtkGWN5XONv+72FbHhrKEXQZsU=;
- b=Pm692X4Cm85QBpAlMEXaC4QVERoaOlNx5YrNvNF6mwRJ5HfHeoJTcktB/fqIF7w7Ve+CpnefHWZUu7xpohhug8WTsxGdbbWdKMPo34zVPi2c6DbyKvJ2nXOd0s6+HLSZ1hv1L3iiRpG0VXX3AplG4pppoQovDMSjaUZrh2dsI78=
-Received: from MW4PR04CA0063.namprd04.prod.outlook.com (2603:10b6:303:6b::8)
- by CH3PR12MB9100.namprd12.prod.outlook.com (2603:10b6:610:1a8::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
- 2026 04:32:44 +0000
-Received: from MWH0EPF000C6191.namprd02.prod.outlook.com
- (2603:10b6:303:6b:cafe::6) by MW4PR04CA0063.outlook.office365.com
- (2603:10b6:303:6b::8) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.22 via Frontend Transport; Mon,
- 26 Oct 2026 04:32:43 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- MWH0EPF000C6191.mail.protection.outlook.com (10.167.249.106) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.569.4 via Frontend Transport; Mon, 26 Oct 2026 04:32:43 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Sun, 25 Oct
- 2026 23:32:42 -0500
-Received: from [10.136.43.232] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Sun, 25 Oct 2026 23:32:34 -0500
-Message-ID: <327337ed-6a9b-4ec5-ad5e-bacaaccb1553@amd.com>
-Date: Mon, 26 Oct 2026 10:02:28 +0530
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VoahMzMk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 906C01F01825;
+	Mon, 26 Oct 2026 04:33:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792989233;
+	bh=zp+JxXwgQx3uq+loHTFsBZclGNcJgzZQrarebs928zE=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=VoahMzMkvtdPbsD3uSmbKUJQqC5mf52O/YL/1w1xNSNqbIunhBSWoIVGr2d2DIAG/
+	 1RvJrSiH3lJ7v6EESg0qLGws2oATxslZQG3E5qJb9pQwmuhf+AWcPN8umgfBmpMNlo
+	 xmAv/yeAZ4czaj2Ge+2/gVK055CRKO7jXTggNvz55lKUVECagb6aUAVqAt05nt7u6k
+	 grgZRXCW6SasKmRSo2Y51Bw4poS9LMXJQewIi61XNQcpMEbg2OVUdF0g348amJkdfs
+	 y5hK0pLMVf1mMd4N0UcKwTDI5GIwcCFtoXnvv/8Swn+lOs304Fjw5JSUF9m9aJ8S5q
+	 zup1RDlEGSmwQ==
+Subject:
+ Re: [PATCH] net/smc: fix possible recursive locking in __smc_lgr_terminate()
+From: netdev-bot+sashiko@kernel.org
+To: anferneemelokc5@gmail.com
+Cc: alibuda@linux.alibaba.com, dust.li@linux.alibaba.com,
+ sidraya@linux.ibm.com, mjambigi@linux.ibm.com, tonylu@linux.alibaba.com,
+ guwen@linux.alibaba.com, linux-rdma@vger.kernel.org,
+ linux-s390@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, kuba@kernel.org
+Date: Mon, 26 Oct 2026 04:33:52 +0000
+Message-ID: <179298923209.3134.328428879251012130@kernel.org>
+In-Reply-To: <179290097759.51540.15412712294727302463@gmail.com>
+References: <179290097759.51540.15412712294727302463@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,109 +65,185 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v33 1/7] sched/psi: Preserve sleep-persistent PSI flags on
- off-CPU sleeping dequeues
-To: John Stultz <jstultz@google.com>, LKML <linux-kernel@vger.kernel.org>
-CC: David Stevens <stevensd@google.com>, Peter Zijlstra
-	<peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, Thomas Gleixner
-	<tglx@linutronix.de>, Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot
-	<vincent.guittot@linaro.org>, Valentin Schneider <vschneid@redhat.com>,
-	Suleiman Souhlal <suleiman@google.com>, Andrea Righi <arighi@nvidia.com>,
-	Metin Kaya <Metin.Kaya@arm.com>, Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>, Zimuzo Ezeozue <zezeozue@google.com>,
-	Waiman Long <longman@redhat.com>, Boqun Feng <boqun.feng@gmail.com>, "Paul E.
- McKenney" <paulmck@kernel.org>, Joel Fernandes <joelagnelf@nvidia.com>, Qais
- Yousef <qyousef@layalina.io>, Xuewen Yan <xuewen.yan94@gmail.com>, kuyo chang
-	<kuyo.chang@mediatek.com>, hupu <hupu.gm@gmail.com>, Zhan Xusheng
-	<zhanxusheng@xiaomi.com>, "zhidao su (Xiaomi)" <soolaugust@gmail.com>, Hui Su
-	<sh_def@163.com>, "Shubhang Kaushik (Ampere)" <sh@gentwo.org>,
-	<kernel-team@android.com>
-References: <20261023220431.1106611-1-jstultz@google.com>
- <20261023220431.1106611-2-jstultz@google.com>
-Content-Language: en-US
-From: K Prateek Nayak <kprateek.nayak@amd.com>
-In-Reply-To: <20261023220431.1106611-2-jstultz@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000C6191:EE_|CH3PR12MB9100:EE_
-X-MS-Office365-Filtering-Correlation-Id: eb06453f-a67e-46e3-065c-08df331a2dc0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|23010399003|376014|7416014|1800799024|82310400026|4143699003|11063799006|5023799004|56012099006|261021121427099003|261021123027099003|261022105027099003|10067099003|18002099003|22082099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	uTLKrdkPG//DNtnFNqncPm5y2HL2Bo22SqrFZkooQEX7yz2GJvIt6EsTIsWtwdqyT+e/bm/EELL3yCUO5d184biz+G6DS1Lk87AaFglUppNSlJhHgZ0IcWUtmICcFOP/cDxKYX9O/b86hwQSkGbhHrELaMdr+QrnLaS2GyFF4XE3FYItnv1t3b2PHRnlEoIFgEZD7LQTo1KwWLclMtfwWS3i4DWnTqZAeElCFzWyRAcE0sZ8OGHQEQgxClTI6J4DSyrqC3Wgbu20Nynqf+j7+sfsEbdpiNxz3ZDmImMQeG+qV2QUu4NjH8y3Tw89zSJ3vdgg+8ULulrBwXdNIm1dM+h9RIiNEyiA9NBkxfbhs0Bmyxl5utljJcz0FfCBYHZHjbAABJq3OYuwMMA/qCjtl7o40tvgc8ASKj0fmWAA2RCyaOvD69S8sY1Bq34EF3tLxNJhPpzpHy87CF/vDh7bCzDmSs/GSvMymDcF6eNQ0LTQ/IIFYhCqx8cE1tXy9RQIy9lUVQjibwz2ZbxgyG0bpBlnmvENafWil7gKVQiRjI+aWTApl5Tnwtl9K1X18CywbyfyBQp5VrI8wAdbPaNZFciDpw6H/9zrK5gzJq3F1QaLK7L3PXJfgVl+7iWHDvBDvoykaZpARcyscvyWmcLtwBz7QzcFqIp/naKv2BE/xFdIR4lzWyW8F5HOgEo8P+WoOU2WjgHU8kojK0QI2Zi5lA==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(376014)(7416014)(1800799024)(82310400026)(4143699003)(11063799006)(5023799004)(56012099006)(261021121427099003)(261021123027099003)(261022105027099003)(10067099003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	sxGE4HSS8xZktM08/c6gGAlLqxqKN5xGV/iLpv5tWHk/9IcVJ79n0iOmXGNX5Bp+N87ADJyGAgBrTF9S5Z1/wHEhydg4vxIGl48YolIMwwc0F51PQ2m9O/fBJzwwoO24WGRT+fV+VERhvNSVmsc4oaI/+SMPdNVrpftcFqoI293zdI66wWD2MBhtheU8l7N5yscHCyXFjmea23WXMmGpCNOC6DAiLRDzuBwhd9KlXevjEzyjn0uDscY11PabDb9EQ3BQXwUOv6mOYMjqI3b5s1zhOBmkoDifLHuYHP0B6QlHo9SsIghuDJb33KdTivhVzEyKeIq+r1LaYEheP19xGLN52vs74mmOATnwM61WYNWfhZRriu2EN+YvD6R62JPldensD+A8oom0ZD8JzJZB7bU8P1PBAbr2QbrSPKmc5nIV+wW9BdhD2hAs8aKlP9g3
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 04:32:43.8317
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: eb06453f-a67e-46e3-065c-08df331a2dc0
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MWH0EPF000C6191.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9100
 
-Hello John,
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-On 10/24/2026 3:34 AM, John Stultz wrote:
-> diff --git a/kernel/sched/stats.h b/kernel/sched/stats.h
-> index ebe0a7765f98e..20820fe1021a1 100644
-> --- a/kernel/sched/stats.h
-> +++ b/kernel/sched/stats.h
-> @@ -175,12 +175,28 @@ static inline void psi_dequeue(struct task_struct *p, int flags)
->  	 * Do nothing here.
->  	 *
->  	 * In the SCHED_PROXY_EXECUTION case we may do sleeping
-> -	 * dequeues that are not followed by a task switch, so check
-> -	 * TSK_ONCPU is set to ensure the task switch is imminent.
-> -	 * Otherwise clear the flags as usual.
-> +	 * dequeues that are not followed by a task switch. If TSK_ONCPU
-> +	 * is not set (meaning we already switched away while the task
-> +	 * stayed on the rq as a blocked donor), handle the sleeping
-> +	 * state transition here so sleep-persistent states (TSK_MEMSTALL,
-> +	 * TSK_IOWAIT) are preserved.
->  	 */
-> -	if ((flags & DEQUEUE_SLEEP) && (p->psi_flags & TSK_ONCPU))
-> +	if (flags & DEQUEUE_SLEEP) {
-> +		int clear = TSK_RUNNING, set = 0;
+Critical: 0 · High: 3 · Medium: 0 · Low: 0
 
-nit. You can declare these on top with clear set to p->psi_flags
-and override them accordingly here ...
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-> +
-> +		if (p->psi_flags & TSK_ONCPU)
-> +			return;
-> +		if (p->se.sched_delayed)
-> +			return;
-> +
-> +		if (p->in_memstall)
-> +			clear |= TSK_MEMSTALL_RUNNING;
-> +		if (p->in_iowait)
-> +			set |= TSK_IOWAIT;
-> +
-> +		psi_task_change(p, clear, set);
+- [High] The commit message says smc_conn_free() always unregisters
+  new_smc from lgr->conns_all before early cleanup, so…
+- [High] The new annotation in __smc_lgr_terminate()
+  (net/smc/smc_core.c:1582) creates the lockdep dependency sk_lock-…
+- [High] The new nesting annotation covers only the first acquisition of
+  the per-connection socket in __smc_lgr_terminate()…
 
-That way, we can have a single psi_task_change(p, clear, set)
-at the end instead of calling it here and doing an early
-return.
+--
 
->  		return;
-> +	}
->  
->  	/*
->  	 * When migrating a task to another CPU, clear all psi
+net/smc: fix possible recursive locking in __smc_lgr_terminate()
+
+The patch switches the per-connection lock_sock() in __smc_lgr_terminate()
+to lock_sock_nested(..., SINGLE_DEPTH_NESTING). The goal is to silence a
+syzbot lockdep "possible recursive locking" report in the SMC listen path.
+The commit message argues that the socket locked there is always a
+different instance from the one the caller already holds.
+
+> diff --git a/net/smc/smc_core.c b/net/smc/smc_core.c
+> index 6021322253e93..64c5ee592e641 100644
+> --- a/net/smc/smc_core.c
+> +++ b/net/smc/smc_core.c
+> @@ -1579,7 +1579,7 @@ static void __smc_lgr_terminate(struct smc_link_group *lgr, bool soft)
+>  		smc = container_of(conn, struct smc_sock, conn);
+>  		sock_hold(&smc->sk); /* sock_put below */
+>  		read_unlock_bh(&lgr->conns_lock);
+> -		lock_sock(&smc->sk);
+> +		lock_sock_nested(&smc->sk, SINGLE_DEPTH_NESTING);
+
+[Severity: High]
+The commit message says:
+
+  smc_conn_free() unregisters new_smc from lgr->conns_all before the
+  early cleanup, so __smc_lgr_terminate() walks the remaining
+  connections and locks another socket, not the one already held.
+
+Is that always true? smc_conn_free() only unregisters the conn while
+lgr->list is still non-empty:
+
+net/smc/smc_core.c:smc_conn_free() {
+    ...
+	if (!list_empty(&lgr->list)) {
+		smc_buf_unuse(conn, lgr); /* allow buffer reuse */
+		smc_lgr_unregister_conn(conn);
+	}
+    ...
+}
+
+Suppose the peer answers ACCEPT with a CLC DECLINE that has
+SMC_FIRST_CONTACT_MASK set. That arrives while smc_listen_work() is
+waiting for CONFIRM and still holding new_smc->sk:
+
+smc_listen_work()
+  lock_sock(&new_smc->sk)
+  smc_clc_wait_msg()
+    smc_lgr_terminate_sched(smc->conn.lgr)
+      list_del_init(&lgr->list);
+      lgr->freeing = 1;
+      schedule_work(&lgr->terminate_work);
+  smc_listen_decline()
+    smc_conn_abort()
+      smc_conn_free()        <- lgr->list empty, conn stays in conns_all
+      smc_lgr_cleanup_early()
+        __smc_lgr_terminate()
+          lock_sock_nested(&new_smc->sk, SINGLE_DEPTH_NESTING)
+
+smc_lgr_terminate_sched() does not set lgr->terminating. If
+terminate_work has not run yet, __smc_lgr_terminate() gets past its
+terminating check, and rb_first(&lgr->conns_all) can return new_smc's own
+conn.
+
+smc_conn_abort() computes lgr_valid before it calls smc_conn_free(), so
+the early cleanup still runs on this path.
+
+Wouldn't the kworker then sleep forever in __lock_sock(), waiting for a
+socket lock it already owns?
+
+lock_sock() is just lock_sock_nested(sk, 0), so this change doesn't
+alter runtime behavior. It only changes the lockdep subclass, which hides
+the self-recursion report in this case.
+
+Would the fix need to make sure the caller's own conn is unregistered, or
+skipped in __smc_lgr_terminate(), rather than annotating the lock?
+
+[Severity: High]
+Can this annotation create a lockdep ordering inversion against
+smc_release()?
+
+With this patch, the listen and connect paths record
+sk_lock-AF_SMC -> sk_lock-AF_SMC/1:
+
+smc_listen_work()
+  lock_sock(&new_smc->sk)                              subclass 0
+  smc_listen_decline()->smc_conn_abort()->smc_lgr_cleanup_early()
+    __smc_lgr_terminate()
+      lock_sock_nested(&smc->sk, SINGLE_DEPTH_NESTING) subclass 1
+
+smc_release() already records the opposite order when it closes a
+listener that still has non-accepted children:
+
+net/smc/af_smc.c:smc_release() {
+    ...
+	if (sk->sk_state == SMC_LISTEN)
+		/* smc_close_non_accepted() is called and acquires
+		 * sock lock for child sockets again
+		 */
+		lock_sock_nested(sk, SINGLE_DEPTH_NESTING);
+    ...
+}
+
+smc_release()
+  lock_sock_nested(sk, SINGLE_DEPTH_NESTING)           listener, subclass 1
+  __smc_release()->smc_close_active()->smc_close_cleanup_listen()
+    smc_close_non_accepted()
+      lock_sock(sk)                                    child, subclass 0
+
+Lockdep keeps these dependencies for the whole boot. Once both orders
+have been seen, wouldn't it report a possible circular locking dependency
+between sk_lock-AF_SMC and sk_lock-AF_SMC/1, triggered by the same syzbot
+scenario?
+
+The sockets involved are different instances, so this may not be a real
+deadlock. The splat would still fire, though, and lockdep would turn
+itself off afterwards.
+
+[Severity: High]
+Does the nested annotation cover the whole time this socket lock is held?
+
+smc_conn_kill() calls smc_close_active_abort(). For SMC_ACTIVE,
+SMC_APPCLOSEWAIT1/2, SMC_PEERCLOSEWAIT1/2, SMC_PEERFINCLOSEWAIT,
+SMC_PROCESSABORT and SMC_APPFINCLOSEWAIT, that goes through
+smc_close_cancel_work():
+
+net/smc/smc_close.c:smc_close_cancel_work() {
+	release_sock(sk);
+	if (cancel_work_sync(&smc->conn.close_work))
+		sock_put(sk);
+	if (cancel_delayed_work_sync(&smc->conn.tx_work))
+		sock_put(sk);
+	lock_sock(sk);
+}
+
+The release_clcsock branch at the end of smc_close_active_abort() also
+takes the lock again with a plain lock_sock(sk).
+
+Both of these take the conn socket again at subclass 0, while
+smc_listen_work() still holds new_smc at subclass 0. Wouldn't lockdep
+then report the same "possible recursive locking detected", this time
+from smc_close_cancel_work()?
+
+This looks reachable for SMC-D, because smc_listen_work() drops
+smc_server_lgr_pending right after sending ACCEPT:
+
+	/* SMC-D does not need this lock any more */
+	if (ini->is_smcd)
+		mutex_unlock(&smc_server_lgr_pending);
+
+Another connection can then join the first-contact lgr and become
+SMC_ACTIVE. If this handshake later fails, for example on a CONFIRM
+timeout, a failed smc_clc_v2x_features_confirm_check() or a failed
+smcd_buf_attach(), this path kills the SMC_ACTIVE conn:
+
+smc_listen_decline()->smc_conn_abort()->smc_lgr_cleanup_early()
+  ->__smc_lgr_terminate()
+
+>  		smc_conn_kill(conn, soft);
+>  		release_sock(&smc->sk);
+>  		sock_put(&smc->sk); /* sock_hold above */
 
 -- 
-Thanks and Regards,
-Prateek
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/179290097759.51540.15412712294727302463%40gmail.com
