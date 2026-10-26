@@ -1,113 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793025024;
-	b=3gXFS22zHUNZOWFmvAX1P4/09J8MREbEzrzTEnE04NRqaonPkFwHMs+Z72xQSXB/EYVn
-	 M4gSC1OrL4rzx7qEbTsyL0NyJl7q93cG8YZM+K3INj8SIFHvHHNqfrkFmntlgyOdntNlJ
-	 ugb/c/fDMislDVO/50fLDfJ6zOlAMOAfca0pyh7d6+NE5mLbbJutjncfWJTShfekDyBvK
-	 bpGf4UYfCzRYF44c3vHP+a0iTPTRFyklLpF1Odrhx1FhVgI72Q30zv7qQJBD234nv5CWz
-	 YAy0HdiHLsGXRdT5qSxuDYwHoOwyGQ1kAWRLwAihQPhsy9xISn3bBEA3CBT2U2vkK4g==
+	t=1793025068;
+	b=uzfnSARKpAIundLO6TevrdDg/jt3Xvt9yYmhlQ0ShR5R1LNnVmDQvFDOXCDJ2vqEz/ip
+	 OZPLt/tfL++Svnz7QiY39Wx8KyrUa0G7pJLI5r0uVZ5qOcr/5qPf+GCx08joeq1LlWibD
+	 CtLK91uR8NRomzYTjG8hwhOaCF5N7hyjrYERLhulPQ99pCqU4At3r38jsJ8sJukJk4Apc
+	 pqHbgF8kb1TyvQvKampF1Z8o0GZz0Z7EmcEAGFDUEwGYqCY68k0aRMWpAuoGoOTtjxP8h
+	 pCSmXM5wz4IwsluuQCnTW24If7guNxl5yy3uTyTVc8m8qHBp7UyyI0OdPCuSIhyht7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793025024;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=3X/et2VMx7NqD+upBr88LG7gROvWjrGp1J/8ySaQ3hI=;
-	b=WfdhhNUuIum2el+50ptOlMNlktEnxwLXByvjhPi+jTmtslnsZt4+GTQhAkTXQmeiyyFC
-	 zzr+GxQkMOnQjLmIKtYaaNAwTPm/DsOD6persyTO+PGvLeqqsLcjDQDX3Cya39yo4LneS
-	 94tu+rLNNQP2U3vepV82/BcyA4LTMzbcXJotDMNJY2Ej+o2c2UHr8u6kkwTsiX2GneAXx
-	 8JxtXocAH+t7omG2sGMdYa5SB5aHzvKtZUwv4WYc3/eaWjSrjU9PGGprY8WE/iL8BU271
-	 BKEb1Q6pCqQwhTZpbmLyeX6inZyBS18T16EqOzXyAsQEHa49EemoWYiToBlbBYWsihw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793025068;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:User-Agent;
+	bh=S2aF/nJPcL1L7k4kule6+RDBiZtzu5J4Md55u9FTmQA=;
+	b=4tGYWuUAZnU2yZSCApy4cPJwCIpTnw4NWH0hf7rO2pvlb73byTYx6o/YSMDBGC3nCVLQ
+	 twvsYFT5eUwapLRTGNUbr1h1JEml34gpisf9XNfqvqkoCtR+mSoj6RtSNcj/O/4l5lvvU
+	 g0e6JSf+3kLi3rGswJrEnLTIdM23rbZxINu5S02G97wdVtWS1vrD3JXs0twOTe6wcXrHD
+	 FE5Lkswyw90XV20lp9BpVjkFncK/ODCYUA3dy0O4p4inpASuyoiEDn9Xora1V+XPfR8TZ
+	 Md7W9/NZr8L4Yb1OocoSv2N9w8USLxBCqUA6cUaA0GrlnEi6jYts+VtKaHMinN82uUQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=I0TBdP5q;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=qDbm1fIP;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=chrisdown.name;
+	spf=pass smtp.mailfrom=chrisdown.name;
+	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b="stEoNO/V";
+	arc=none smtp.remote-ip=209.85.214.174
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE3BE606A31E
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:30:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE3BE606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB789606A31E
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:31:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB789606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=I0TBdP5q;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=qDbm1fIP
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793025022;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3X/et2VMx7NqD+upBr88LG7gROvWjrGp1J/8ySaQ3hI=;
-	b=I0TBdP5qkhqVm1sY/eMQv+cV/fDsvuYKNHiniotE7/ziEw9Q8HIXHZ9KpZn+KrPvrMZLe2
-	Np5vlpj6C7LldvCsUauM6dCjI2asulJgzmTlv7Z6CYVXqfOmewiYx96RNqeC9vEHJShoxr
-	77zjSM0fHlF72wJyu9KbNcO4ZfauVXI=
-Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com
- [74.125.82.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-638-ZmlIN1joPEOO4YppfSKRbA-1; Mon, 26 Oct 2026 10:30:21 -0400
-X-MC-Unique: ZmlIN1joPEOO4YppfSKRbA-1
-X-Mimecast-MFC-AGG-ID: ZmlIN1joPEOO4YppfSKRbA_1793025020
-Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-1383723dfddso5592941c88.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 07:30:21 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=stEoNO/V
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2ea7190aea1so13817875ad.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 07:31:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793025020; x=1793629820; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=3X/et2VMx7NqD+upBr88LG7gROvWjrGp1J/8ySaQ3hI=;
-        b=qDbm1fIP5t/u/ATU1SXAkby45+GhUqp8VUVuvUJs3j+kmY2ivkPmXpVO2lpUXrhgRy
-         V3r3VpQwrGDv0BvsIaGveBY3I+gAbmag0fW5J/2/ff3AwqV/CaqpebD87jrg3J6dNfft
-         unvVGxlMZ4fqZzR2slz7N0F9NuQi5MwnO1iDYnNzNlmtN1KvMmcfBxSRTmMRSo/WcjMm
-         rRcfjlYNIdvfGj3KxRXelWbu7pj8CJ2p2ofHbUlI6ShECd4pEw+ZIzsUjs78tEvMB1e0
-         T/KCcGwbYY6ku3YWHSGLmqaRLVuYREZLm8cZdczIpjvU8c1LVBG2vmomxOUj3rg5Qwoo
-         lJuQ==
+        d=chrisdown.name; s=google; t=1793025067; x=1793629867; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=S2aF/nJPcL1L7k4kule6+RDBiZtzu5J4Md55u9FTmQA=;
+        b=stEoNO/Va7L3S2ug5FpXuRDzuQUh59NNi4tR/hLipjRU84Gt+KKsacKw/1TengoaIN
+         voRuuIUTWcrDERER+gkc13GEdwXpTJKMGjBjmUVDMUW25QH1h+qQxKRtx0OebRFrN/fR
+         kOweUfA6WqwAfiPFHG59LdUiiEW/t00efjNag=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793025020; x=1793629820;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1793025067; x=1793629867;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=3X/et2VMx7NqD+upBr88LG7gROvWjrGp1J/8ySaQ3hI=;
-        b=230pPw8YtgAjvnzcQIGOceWhZwERjBqHoworEHnLuVy//sHxydJS70o5JzrnaiesgV
-         2eD9WZjPPN+PKCqKfYTf7cJT3bfEh8oH3KBaCGq3e9P6efzCWSDP4mWNGnyLnhbaP+ia
-         wtatPGHgQSLmjyXLCKBmPfeniKE7kBsc63dl2NyQAimRT1J0iGZMUD7ubws+3hgUfGM1
-         MF175k3wYByJ6ECuT+8QhUDZPGfgLNda2xwb5XxAcriGpRxNLcSZOz2VLtilvxPa3k3b
-         UabmxMLWvN5FRk6gA8U6aGR7Gz8kDPJ34azYkywgUrT/rNiGM53Rt1cNFqyVavzi+eqc
-         okUg==
-X-Gm-Message-State: AFq9FYL8M2vPi2UXYD6hWll+JdN1XDgz+W8NPUo/OB8ljeOadve+WMLw
-	QQQeHOLUgKhlU82DvISwgJnh8YfNvYtW47Y20F8/y3/xmCCyD+awu4hbP5jiHH1vH94jt3Hny1T
-	bREleV+2gNx61ADptlNQZLT6+yvVc/Znmd4qW5hkJm71qMryXl7gVrJiHBGDCj0JiVZowPGQx1Q
-	==
-X-Gm-Gg: AYBFou37qoio767nTqDjqJ+HXB+c2RpoH5zVRtWuZEePHwffrZQYQXHQZ7FXvycJ1eq
-	FhLW7zUczes6S+LkrmmOgvFzBjN7rGHY7uoo7JLLGhC9RimOU0W7Lq+MEwJH4hZ2ZvUBRPBkExA
-	7deQ6h3gLzFcLVxfzKzf4oHoz79I955l+lCIf43QRWlQxMqiOdNSiFau1m3fsXwAXh21ooICfy9
-	vXG8DJlsa8U1OaPvIEwBwrC5u+X4Hi7/AyrRq9XJs9RJE+db0/T5VIiVL237xXnbAuo5pFcno4l
-	ylUubOIPa8sPwFEtB4pIV1WxEe+D+h7w1nZ7pVnWz6733UZLgJTxSFZ37BwxxDCLAw==
-X-Received: by 2002:a05:7022:2229:b0:149:1feb:6dae with SMTP id a92af1059eb24-19937abcc34mr16272754c88.39.1793025020173;
-        Mon, 26 Oct 2026 07:30:20 -0700 (PDT)
-X-Received: by 2002:a05:7022:2229:b0:149:1feb:6dae with SMTP id a92af1059eb24-19937abcc34mr16272666c88.39.1793025019336;
-        Mon, 26 Oct 2026 07:30:19 -0700 (PDT)
-Received: from fedora ([49.47.195.13])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a0f81ea9sm29706896c88.11.2026.10.26.07.30.15
+        bh=S2aF/nJPcL1L7k4kule6+RDBiZtzu5J4Md55u9FTmQA=;
+        b=XSxtwosgWAoHKhB9FvgXeLCIIu3iSG9exGefP4wHzFSjvotGb2GODd1/rzANvafg4x
+         VuETjyFCPkXxHSUuyx/Ztw+FOnYclk8oQNw1d3uahWluPDUCoNkRfMK0cPWI076QaQFo
+         fdD9h4SeKgZc87PoQAjDnuTq7g2UeueUlrVblGjAqGoeprAIM+F8Jw4+4LN0SHlrXzVO
+         z2E2zFOwaxZIi0e+JLJILT8L3sqhun8FFfczPAOLhWpgu56i5o33PdU+A1wjOm83YzNI
+         s+J9zsDnGWRN7TF5HfqXegfLaoLcOYUymiVdtnPQ3PbrsFDsCRrsCDjCSeWfZ0ZFRZRX
+         3eVQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwoM3HrZ8in/E7k0cchCq6wzKU+EF1KequKwJEMj73TklR+rlYfWS9LBaZvdtJOedKuIJeOlY794B7CZck=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJvm5QsAEYQAw3VZrjvV6RleJrujTE4jNCUBPo/fL4ifcJeusdi
+	tcW/1JKvOH2ibnMM3ZZC3oo+5y2EEULeFCsCiYdLkZRwAVm2Osa0HfeTcvhYNYnF7Jg=
+X-Gm-Gg: AYBFou1P4GJMiixteFboCGY9EPP3E9HL+itrqU+ZqYEyVfwSJYx5TiJTjXqZQNZ08R+
+	8ci5UK9fT04noGRVseh+ultWyoO7NN9usUH2cYeUTXGH5qkwbZdHFNibYV9JfwxAHDMWdIM859p
+	hJEiaTIOLTrQZ0i2/wUXB2/zZDTR1Detz3fJd/QMThYoQm35bpmPKLLy2jaek5HLFCRxUauR1mF
+	iIbKAvBWbuCkKL2X85el4qECONibp0zT5mkOYmWjMyhaSf3fedOWUkznFO+omwSkbd8CEemKlg9
+	wHz7NoXnDcg6jLMmm+x4qs9DZ37hHJTharznPtCL8DKEfAAB/feJF+66VQotqzQe3qEd8u0inrl
+	OOtkaRIBUc5TOwTST8aZsI91RpXv0X9ol5LnRzCe7XdIflK3o9t3avik1Yigd2BlJ359IaCRVg4
+	fBje5sm0yLXSiCp61PvlA+HKD0nsylARa5nseKcYjCGANiMxyd+cMBcpLHWjTIBoJ4Ln/6QKuB8
+	LkhNoMlrp6v5YYlSPX3nifAAt9oU61G3fQEGKp0xsXTmRQyGYNfizC8O5rS0ch336s2DI/E9mD4
+	+40gG/d8SSLp/rVyyvXw7E21nXgbYFm4K6VfDDxCoVYkQjkWGhJYhuZaI59Jt4p1zaUXGYJ4Rl3
+	0csU1/YvrZ4rQ4+yqdrqDUEc=
+X-Received: by 2002:a17:902:e947:b0:2e9:4f21:91ef with SMTP id d9443c01a7336-2ea9c876333mr51977345ad.36.1793025066909;
+        Mon, 26 Oct 2026 07:31:06 -0700 (PDT)
+Received: from localhost ([116.86.153.182])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea9af332d9sm17635845ad.11.2026.10.26.07.31.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 07:30:17 -0700 (PDT)
-Date: Mon, 26 Oct 2026 20:00:10 +0530
-From: Arun Menon <armenon@redhat.com>
-To: Jarkko Sakkinen <jarkko@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-integrity@vger.kernel.org,
-	Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>
-Subject: Re: [PATCH v4 5/6] tpm: Increase TPM_BUFSIZE to 8kB for chunking
- support
-Message-ID: <at9j8iDp2ozx9y5z@fedora>
-References: <20261025201859.221991-1-armenon@redhat.com>
- <20261025201859.221991-6-armenon@redhat.com>
- <at5tmTYX7ZjO_Q2m@kernel.org>
- <at5t-u3h1sHGJFmk@kernel.org>
+        Mon, 26 Oct 2026 07:31:06 -0700 (PDT)
+Date: Mon, 26 Oct 2026 22:31:03 +0800
+From: Chris Down <chris@chrisdown.name>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Vineeth Pillai <vineeth@bitbyteword.org>,
+	Hugh Dickins <hughd@google.com>, Chris Li <chrisl@kernel.org>,
+	Kairui Song <kasong@tencent.com>, Nhat Pham <nphamcs@gmail.com>,
+	Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
+	Youngjun Park <youngjun.park@lge.com>,
+	Ying Huang <huang.ying.caritas@gmail.com>,
+	Kelley Nielsen <kelleynnn@gmail.com>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+	kernel-team@meta.com, stable@vger.kernel.org
+Subject: [PATCH v2] mm: Make swapoff interruptible when unusing mms/shmem
+Message-ID: <at9kJwdGkHPsWwgG@chrisdown.name>
+References: <ar2YlFYjYUZ49ZA5@chrisdown.name>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -119,62 +105,106 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <at5t-u3h1sHGJFmk@kernel.org>
+In-Reply-To: <ar2YlFYjYUZ49ZA5@chrisdown.name>
+User-Agent: Mutt/2.3.3 (9073d26d) (2026-06-12)
 
-Hi Jarkko,
-Thank you for the review.
+try_to_unuse() only checks for a pending signal between mms, and
+shmem_unuse() doesn't check at all. That means that once swapoff gets to
+a process or a shmem file with a lot swapped out, nothing can interrupt
+it until every last page of it has been read back in.
 
-On Sun, Oct 25, 2026 at 11:00:42PM +0200, Jarkko Sakkinen wrote:
-> On Sun, Oct 25, 2026 at 10:59:09PM +0200, Jarkko Sakkinen wrote:
-> > On Mon, Oct 26, 2026 at 01:48:57AM +0530, Arun Menon wrote:
-> > > From: Arun Menon <armenon@redhat.com>
-> > > 
-> > > The size of the command is checked against TPM_BUFSIZE early on before
-> > > even sending it to the backend. We therefore need to increase the
-> > > TPM_BUFSIZE to allow support for larger commands.
-> > > 
-> > > For now, 8KB seems sufficient for ML-KEM and ML-DSA algorithms and it is
-> > > also order-1 safe.
-> > > 
-> > > Signed-off-by: Arun Menon <armenon@redhat.com>
-> > 
-> > In what timeline? Or is it out of spectrum timeline?
-> 
-> "For now" part concerns me and I'm not educated enough on topic to
-> know better.
-> 
+Just as one example of where this can concretely show up, freezing tasks
+for suspend or hibernation has to wait for swapoff to notice the
+freezer's fake signal, and gives up after freeze_timeout_msecs (20
+seconds by default).
 
-TPM_BUFSIZE needs to hold the largest command the stack will ever
-build. TPM 2.0 Library Part 3: Commands, v185, adds ML-DSA key
-objects and the ML-KEM TPM2_Encapsulate()/TPM2_Decapsulate() commands
-(sections 14.10, 14.11) [1].
+Here's a facetious example where one swaps out 2GiB of one process to a
+swap file on ext4, starts swapoff, and half a second later tries to
+freeze with pm_test=freezer. Writing to /sys/power/state then fails with
+EBUSY and this in dmesg:
 
-NIST FIPS 204, Table 2, gives the sizes for each ML-DSA parameter
-set; the largest, ML-DSA-87, has a 4896-byte private key and a
-2592-byte public key [2]. Loading an ML-DSA-87 key pair carries both
-(4896 + 2592 bytes); add the command header, a handle and a session,
-and this comes to roughly 7.7KB. 8192 covers that with headroom and
-keeps the kzalloc(TPM_BUFSIZE, ...) calls in the TPM stack at an
-order-1 page allocation - something I figured after sashiko review.
+    Freezing user space processes failed after 20.003 seconds (1 tasks refusing to freeze, wq_busy=0):
+    task:swapoff         state:D stack:0     pid:3175  tgid:3175  ppid:2955   task_flags:0x400100 flags:0x00000419
+    Call trace:
+     [...]
+     io_schedule+0x44/0x70
+     folio_wait_bit_common+0x1ec/0x3d0
+     __folio_lock+0x24/0x40
+     unuse_pte_range+0x2d0/0x348
+     unuse_vma+0x158/0x248
+     unuse_mm+0xfc/0x150
+     try_to_unuse+0x104/0x3f8
+     __do_sys_swapoff+0x220/0x5d8
+     [...]
 
-This is sized to the largest parameter set defined today, not a
-timeline, and there's no guarantee it stays sufficient. For example,
-FIPS 205 (SLH-DSA), Table 2, already defines a 49856-byte signature for
-SLH-DSA-SHA2-256f -- six times the current buffer. If a future
-algorithm or parameter set needs more than 8192 bytes, this will need
-revisiting again [3].
+The same goes for anything else that wants swapoff to stop, like an
+admin hitting ^C in a panic, of course.
 
-I will add this detail in the commit message.
+Prior to commit b56a2d8af914 ("mm: rid swapoff of quadratic complexity")
+try_to_unuse() was driven by find_next_to_unuse() which checks for a
+signal before every entry, so let's restore that behaviour.
 
-[1] https://medias.cdn.trustedcomputinggroup.org/production/Trusted_Platform_Module_2_0_Library_Part_3_Commands_Version_185_pub_87a5c10230.pdf
-[2] https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.204.pdf
-[3] https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.205.pdf
+Just as an example of the improvements, here's how long freezing takes
+in the same test while swapoff is happening on my computer:
 
+                      before                  after
+    400MiB anon       8.925s                  0.028s
+    400MiB shmem      1.639s                  0.003s
+    2GiB anon         failed after 20.003s    0.011s
 
-> Br, Jarkko
-> 
+Fixes: b56a2d8af914 ("mm: rid swapoff of quadratic complexity")
+Cc: stable@vger.kernel.org
+Acked-by: Vineeth Pillai (Google) <vineeth@bitbyteword.org>
+Signed-off-by: Chris Down <chris@chrisdown.name>
+---
+Changes in v2:
+- Return -ERESTARTSYS at both new signal checks and at the existing
+  try_to_unuse() signal exit (Baolin).
+- Request stable backporting with Cc: stable@vger.kernel.org (Andrew).
 
+ mm/shmem.c    | 4 ++++
+ mm/swapfile.c | 4 +++-
+ 2 files changed, 7 insertions(+), 1 deletion(-)
 
-Regards,
-Arun Menon
+diff --git a/mm/shmem.c b/mm/shmem.c
+index fadf23f9e21e..13e0786436cd 100644
+--- a/mm/shmem.c
++++ b/mm/shmem.c
+@@ -1742,6 +1742,10 @@ static int shmem_unuse_inode(struct inode *inode, unsigned int type)
+ 		if (ret < 0)
+ 			break;
+ 
++		if (signal_pending(current)) {
++			ret = -ERESTARTSYS;
++			break;
++		}
+ 		start = indices[folio_batch_count(&fbatch) - 1];
+ 	} while (true);
+ 
+diff --git a/mm/swapfile.c b/mm/swapfile.c
+index 254ce86fa923..0f72a5b23a3a 100644
+--- a/mm/swapfile.c
++++ b/mm/swapfile.c
+@@ -2689,6 +2689,8 @@ static inline int unuse_pmd_range(struct vm_area_struct *vma, pud_t *pud,
+ 	pmd = pmd_offset(pud, addr);
+ 	do {
+ 		cond_resched();
++		if (signal_pending(current))
++			return -ERESTARTSYS;
+ 		next = pmd_addr_end(addr, end);
+ 		ret = unuse_pte_range(vma, pmd, addr, next, type);
+ 		if (ret)
+@@ -2922,7 +2924,7 @@ static int try_to_unuse(unsigned int type)
+ 	if (swap_usage_in_pages(si)) {
+ 		if (!signal_pending(current))
+ 			goto retry;
+-		return -EINTR;
++		return -ERESTARTSYS;
+ 	}
+ 
+ success:
+
+base-commit: 0c06cb3fccd831787a8e46c929d6c5bf6ea22652
+-- 
+2.54.0
 
