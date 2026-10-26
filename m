@@ -1,61 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.25
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792989234;
-	b=QZK4xXu0zcNyVFgyjpTAL28WXDECy3FSG5Qwq+1Vun189R/pNLIshzLb/NQHwPWUgvSB
-	 f+cBl3phio0WTcSJIYaMWK5m/V7nqrsaueuVZgnY5jkMCn0N0f/gjDfrvLb5iF1PvLkPJ
-	 nsTXySkoSo4bKZVn7jHMziAqtkpieoR7yaZRvFvkLOK3qoMgl4c2zwHPwndSDwmzTtY7+
-	 9mz1fkP9Z9B4Gy69FQ8XiWDdsGtuTQgsZfxnmmoOVTyX0JzceBuXCh8pMUe8q/Ov0bVZ8
-	 R3KYbw+9KGr4xEwmculnz8slYic6ThaLLVqYR6ll9hG0f8C0vTavLOLSb6a53d+d8rw==
+	t=1792989346;
+	b=weTDFpv5Yyk683eUndQWE70d/0Z1+4enXmAxEY6qKQHN3uUfKIinWLb16JoLJpTEcyVV
+	 oDSFUL/w7gOaPm8QZYqF3yoTSDXwsnvdw2KpS0rzVqZ9a525zZ718+kWDluQ9xRosQTb4
+	 OXIBLo42uXEXhiKsW7KAULdJFa7VQ1HdxjPPmoiqJBNjBPy7gSmaaczUzauMqaJ+Kp/hQ
+	 HCQ5pit7G00A1rxJQ8jLl5K8zsFJUgfaK6IRivz5HYmfGwn1+9y/BFDCsEPYWIDNlo+U8
+	 CWiHDiZz5ODYokQfJwsBZj5Lce/q53CWegrTx6MTpvKFWS6IiGPqfygBgc/7kiFX+/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792989234;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=zp+JxXwgQx3uq+loHTFsBZclGNcJgzZQrarebs928zE=;
-	b=w3H2lUcQJjfULgo6jqgOfhzooX9JDr01k88VXAv4gkSiZNsyxSDJUX79QpPkupkFIZcW
-	 YfUchaqC6W/LDxbiBtEaCllbuGo+dPWiLZLTOlyJjK24unVQiWJfWSAKyET1t1XUYLgHx
-	 gHVfOHpOEJGMGw3E5phY4hkOzoYvuSxolNmCc8vjp7Ew/FfMzh6RuEv4f+RbwDagSN6JJ
-	 XV5nWqsb/4cx45X4181xTMzuJdPypwGS+PAQcIstPJ4VZWGv/xC82bjcNP9Mj+ZwQjhY+
-	 +azQJrVKsZY8JfxIzxS7gw1baz/2IGeprF43XvMUrR+zCaS8EjN8SFEDeMWwxMlubZg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792989346;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Mime-Version:Subject:Reply-To:Sender:From:To:CC:X-Priority:
+	 X-Content-Kind-Code:X-CPGS-Detection:X-Drm-Type:X-Msg-Generator:
+	 X-Msg-Type:X-Reply-Demand:Message-ID:Date:X-CMS-MailID:
+	 Content-Transfer-Encoding:Content-Type:X-Sendblock-Type:CMS-TYPE:
+	 X-CPGSPASS:X-CPGSPASS:cpgsPolicy:X-CFilter-Loop:X-CMS-RootMailID:
+	 References;
+	bh=wciXDY2CuZyeYwB6TARdL3Pugw7udMIoxXsDqRW7dYE=;
+	b=OhO/L+q14btXmAiX9BHdmafFZ/UZcbipoiYeTSJzQuxnqfdI5AqDBBLqG387jckd8G7x
+	 bxXe+cE2E+1qpR50pywWg/F4EDA71O/5etxW165HWEWHfgjCQgt/tysxeJb8KxK0xxcwQ
+	 +oJ70z/ELYElofx1KVW+Vr3RiCIOt7HO+17fDWmXxVGCfnCOs8BU1N76yiVN4PzMrcTUM
+	 Ud0iFHmu53yZ3Ax/K1W4COSMgTyGNX1GWwI/X4Yn/19GDU50H1GmPcI21hMbVoiAVFW1p
+	 sNTmfuER0N7aTz+l3uxBsttb2u8Zffc3Z0AOWUnYwlEAxQzXvw9MnyCYopm11o5v9+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VoahMzMk;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=g7LoO8CD;
+	arc=none smtp.remote-ip=203.254.224.25
+Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1F39606A31A;
-	Mon, 26 Oct 2026 04:33:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B04EF606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 04:35:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B04EF606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VoahMzMk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 906C01F01825;
-	Mon, 26 Oct 2026 04:33:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792989233;
-	bh=zp+JxXwgQx3uq+loHTFsBZclGNcJgzZQrarebs928zE=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=VoahMzMkvtdPbsD3uSmbKUJQqC5mf52O/YL/1w1xNSNqbIunhBSWoIVGr2d2DIAG/
-	 1RvJrSiH3lJ7v6EESg0qLGws2oATxslZQG3E5qJb9pQwmuhf+AWcPN8umgfBmpMNlo
-	 xmAv/yeAZ4czaj2Ge+2/gVK055CRKO7jXTggNvz55lKUVECagb6aUAVqAt05nt7u6k
-	 grgZRXCW6SasKmRSo2Y51Bw4poS9LMXJQewIi61XNQcpMEbg2OVUdF0g348amJkdfs
-	 y5hK0pLMVf1mMd4N0UcKwTDI5GIwcCFtoXnvv/8Swn+lOs304Fjw5JSUF9m9aJ8S5q
-	 zup1RDlEGSmwQ==
-Subject:
- Re: [PATCH] net/smc: fix possible recursive locking in __smc_lgr_terminate()
-From: netdev-bot+sashiko@kernel.org
-To: anferneemelokc5@gmail.com
-Cc: alibuda@linux.alibaba.com, dust.li@linux.alibaba.com,
- sidraya@linux.ibm.com, mjambigi@linux.ibm.com, tonylu@linux.alibaba.com,
- guwen@linux.alibaba.com, linux-rdma@vger.kernel.org,
- linux-s390@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, kuba@kernel.org
-Date: Mon, 26 Oct 2026 04:33:52 +0000
-Message-ID: <179298923209.3134.328428879251012130@kernel.org>
-In-Reply-To: <179290097759.51540.15412712294727302463@gmail.com>
-References: <179290097759.51540.15412712294727302463@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=g7LoO8CD
+Received: from epcas2p2.samsung.com (unknown [182.195.41.54])
+	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20261026043536epoutp02d34e175fbd8a7f25563d05bf1fef97e2~h_k1J-kC61842218422epoutp028
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 04:35:36 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20261026043536epoutp02d34e175fbd8a7f25563d05bf1fef97e2~h_k1J-kC61842218422epoutp028
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1792989336;
+	bh=wciXDY2CuZyeYwB6TARdL3Pugw7udMIoxXsDqRW7dYE=;
+	h=Subject:Reply-To:From:To:CC:Date:References:From;
+	b=g7LoO8CDLFTpM4nRRN+J//wrV5OLR4uuVkhqyLbF2ft5N3QyOarWsldEtG7DAHOiJ
+	 L1f4wpxILLOTQPG3w+XZeEccEKH+l1YxD2FyNzfNqa/jf6K1MI+QPMLJQ2J7da0lPp
+	 phN018xx9lwR1IuZfmwd48lhN/HK6jE0xmby4LJI=
+Received: from epsnrtp02.localdomain (unknown [182.195.42.154]) by
+	epcas2p2.samsung.com (KnoxPortal) with ESMTPS id
+	20261026043536epcas2p2a6babd8b853d46104f6fa2ea18bc5b59~h_k0vSpcl0992609926epcas2p28;
+	Mon, 26 Oct 2026 04:35:36 +0000 (GMT)
+Received: from epcas2p2.samsung.com (unknown [182.195.38.200]) by
+	epsnrtp02.localdomain (Postfix) with ESMTP id 4jCgm7675Lz2SSKb; Mon, 26 Oct
+	2026 04:35:35 +0000 (GMT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,186 +62,173 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
+Mime-Version: 1.0
+Subject: [PATCH] f2fs: fix to keep m_last_pblk across direct write mappings
+Reply-To: keosung.park@samsung.com
+Sender: Keoseong Park <keosung.park@samsung.com>
+From: Keoseong Park <keosung.park@samsung.com>
+To: "jaegeuk@kernel.org" <jaegeuk@kernel.org>, "chao@kernel.org"
+	<chao@kernel.org>
+CC: "linux-f2fs-devel@lists.sourceforge.net"
+	<linux-f2fs-devel@lists.sourceforge.net>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, Jinyoung Choi <j-young.choi@samsung.com>
+X-Priority: 3
+X-Content-Kind-Code: NORMAL
+X-CPGS-Detection: blocking_info_exchange
+X-Drm-Type: N,general
+X-Msg-Generator: Mail
+X-Msg-Type: PERSONAL
+X-Reply-Demand: N
+Message-ID: <20261026043535epcms2p875f882afc533a2d9a450cdd567f197c6@epcms2p8>
+Date: Mon, 26 Oct 2026 13:35:35 +0900
+X-CMS-MailID: 20261026043535epcms2p875f882afc533a2d9a450cdd567f197c6
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+X-Sendblock-Type: AUTO_CONFIDENTIAL
+CMS-TYPE: 102P
+X-CPGSPASS: Y
+X-CPGSPASS: Y
+cpgsPolicy: CPGSC10-223,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261026043535epcms2p875f882afc533a2d9a450cdd567f197c6
+References: <CGME20261026043535epcms2p875f882afc533a2d9a450cdd567f197c6@epcms2p8>
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+Since commit f0a7adfedcc8 ("f2fs: don't break allocation when crossing
+contiguous sections"), a direct write in LFS mode that allocates a
+block which is not contiguous with the current mapping ends the mapping
+and remembers the block in m_last_pblk, so that the next mapping starts
+with it instead of allocating again.
 
-Critical: 0 · High: 3 · Medium: 0 · Low: 0
+The value is carried over in iomap->private, but iomap clears the iomap
+between two mappings, so the next call never sees it. It allocates a
+second block and the first one is left unwritten in the log.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Keep the value in the private data of the iterator instead, which
+lives as long as the write.
 
-- [High] The commit message says smc_conn_free() always unregisters
-  new_smc from lgr->conns_all before early cleanup, so…
-- [High] The new annotation in __smc_lgr_terminate()
-  (net/smc/smc_core.c:1582) creates the lockdep dependency sk_lock-…
-- [High] The new nesting annotation covers only the first acquisition of
-  the per-connection socket in __smc_lgr_terminate()…
+alloc_mode=reuse below is only used to get a non-contiguous section
+with a single writer on a fresh filesystem. Concurrent direct writers
+lose blocks the same way with any alloc_mode.
 
---
+Testcase:
+- mkfs.f2fs -f /dev/vda
+- mount -o mode=lfs,alloc_mode=reuse /dev/vda /mnt/f2fs
+- for i in 0 1 2 3 4 5 6 7 8 9; do
+      dd if=/dev/zero of=/mnt/f2fs/k$i bs=2M count=1 conv=fsync; done
+- rm /mnt/f2fs/k1 /mnt/f2fs/k3 /mnt/f2fs/k5 /mnt/f2fs/k7; sync
+- echo 1 > /sys/kernel/tracing/events/f2fs/f2fs_map_blocks/enable
+- dd if=/dev/zero of=/mnt/f2fs/dio bs=8M count=1 oflag=direct; sync
+- cat /sys/kernel/tracing/trace
+- cat /sys/fs/f2fs/vda/dirty_segments
 
-net/smc: fix possible recursive locking in __smc_lgr_terminate()
+Before, the f2fs_map_blocks trace events of the direct write show that
+the first block of each section it moves on to is lost, and
+dirty_segments reads 3:
+  file offset = 512,  start blkaddr = 0x1c01, len = 0x1ff
+  file offset = 1023, start blkaddr = 0x2001, len = 0x1ff
+  file offset = 1534, start blkaddr = 0x2401, len = 0x1ff
 
-The patch switches the per-connection lock_sock() in __smc_lgr_terminate()
-to lock_sock_nested(..., SINGLE_DEPTH_NESTING). The goal is to silence a
-syzbot lockdep "possible recursive locking" report in the SMC listen path.
-The commit message argues that the socket locked there is always a
-different instance from the one the caller already holds.
+After, no block is lost and dirty_segments reads 0:
+  file offset = 512,  start blkaddr = 0x1c00, len = 0x200
+  file offset = 1024, start blkaddr = 0x2000, len = 0x200
+  file offset = 1536, start blkaddr = 0x2400, len = 0x200
 
-> diff --git a/net/smc/smc_core.c b/net/smc/smc_core.c
-> index 6021322253e93..64c5ee592e641 100644
-> --- a/net/smc/smc_core.c
-> +++ b/net/smc/smc_core.c
-> @@ -1579,7 +1579,7 @@ static void __smc_lgr_terminate(struct smc_link_group *lgr, bool soft)
->  		smc = container_of(conn, struct smc_sock, conn);
->  		sock_hold(&smc->sk); /* sock_put below */
->  		read_unlock_bh(&lgr->conns_lock);
-> -		lock_sock(&smc->sk);
-> +		lock_sock_nested(&smc->sk, SINGLE_DEPTH_NESTING);
+Fixes: f0a7adfedcc8 ("f2fs: don't break allocation when crossing contiguous sections")
+Signed-off-by: Keoseong Park <keosung.park@samsung.com>
+---
+ fs/f2fs/data.c | 14 +++++++++-----
+ fs/f2fs/f2fs.h |  5 +++++
+ fs/f2fs/file.c |  6 ++++--
+ 3 files changed, 18 insertions(+), 7 deletions(-)
 
-[Severity: High]
-The commit message says:
-
-  smc_conn_free() unregisters new_smc from lgr->conns_all before the
-  early cleanup, so __smc_lgr_terminate() walks the remaining
-  connections and locks another socket, not the one already held.
-
-Is that always true? smc_conn_free() only unregisters the conn while
-lgr->list is still non-empty:
-
-net/smc/smc_core.c:smc_conn_free() {
-    ...
-	if (!list_empty(&lgr->list)) {
-		smc_buf_unuse(conn, lgr); /* allow buffer reuse */
-		smc_lgr_unregister_conn(conn);
-	}
-    ...
-}
-
-Suppose the peer answers ACCEPT with a CLC DECLINE that has
-SMC_FIRST_CONTACT_MASK set. That arrives while smc_listen_work() is
-waiting for CONFIRM and still holding new_smc->sk:
-
-smc_listen_work()
-  lock_sock(&new_smc->sk)
-  smc_clc_wait_msg()
-    smc_lgr_terminate_sched(smc->conn.lgr)
-      list_del_init(&lgr->list);
-      lgr->freeing = 1;
-      schedule_work(&lgr->terminate_work);
-  smc_listen_decline()
-    smc_conn_abort()
-      smc_conn_free()        <- lgr->list empty, conn stays in conns_all
-      smc_lgr_cleanup_early()
-        __smc_lgr_terminate()
-          lock_sock_nested(&new_smc->sk, SINGLE_DEPTH_NESTING)
-
-smc_lgr_terminate_sched() does not set lgr->terminating. If
-terminate_work has not run yet, __smc_lgr_terminate() gets past its
-terminating check, and rb_first(&lgr->conns_all) can return new_smc's own
-conn.
-
-smc_conn_abort() computes lgr_valid before it calls smc_conn_free(), so
-the early cleanup still runs on this path.
-
-Wouldn't the kworker then sleep forever in __lock_sock(), waiting for a
-socket lock it already owns?
-
-lock_sock() is just lock_sock_nested(sk, 0), so this change doesn't
-alter runtime behavior. It only changes the lockdep subclass, which hides
-the self-recursion report in this case.
-
-Would the fix need to make sure the caller's own conn is unregistered, or
-skipped in __smc_lgr_terminate(), rather than annotating the lock?
-
-[Severity: High]
-Can this annotation create a lockdep ordering inversion against
-smc_release()?
-
-With this patch, the listen and connect paths record
-sk_lock-AF_SMC -> sk_lock-AF_SMC/1:
-
-smc_listen_work()
-  lock_sock(&new_smc->sk)                              subclass 0
-  smc_listen_decline()->smc_conn_abort()->smc_lgr_cleanup_early()
-    __smc_lgr_terminate()
-      lock_sock_nested(&smc->sk, SINGLE_DEPTH_NESTING) subclass 1
-
-smc_release() already records the opposite order when it closes a
-listener that still has non-accepted children:
-
-net/smc/af_smc.c:smc_release() {
-    ...
-	if (sk->sk_state == SMC_LISTEN)
-		/* smc_close_non_accepted() is called and acquires
-		 * sock lock for child sockets again
-		 */
-		lock_sock_nested(sk, SINGLE_DEPTH_NESTING);
-    ...
-}
-
-smc_release()
-  lock_sock_nested(sk, SINGLE_DEPTH_NESTING)           listener, subclass 1
-  __smc_release()->smc_close_active()->smc_close_cleanup_listen()
-    smc_close_non_accepted()
-      lock_sock(sk)                                    child, subclass 0
-
-Lockdep keeps these dependencies for the whole boot. Once both orders
-have been seen, wouldn't it report a possible circular locking dependency
-between sk_lock-AF_SMC and sk_lock-AF_SMC/1, triggered by the same syzbot
-scenario?
-
-The sockets involved are different instances, so this may not be a real
-deadlock. The splat would still fire, though, and lockdep would turn
-itself off afterwards.
-
-[Severity: High]
-Does the nested annotation cover the whole time this socket lock is held?
-
-smc_conn_kill() calls smc_close_active_abort(). For SMC_ACTIVE,
-SMC_APPCLOSEWAIT1/2, SMC_PEERCLOSEWAIT1/2, SMC_PEERFINCLOSEWAIT,
-SMC_PROCESSABORT and SMC_APPFINCLOSEWAIT, that goes through
-smc_close_cancel_work():
-
-net/smc/smc_close.c:smc_close_cancel_work() {
-	release_sock(sk);
-	if (cancel_work_sync(&smc->conn.close_work))
-		sock_put(sk);
-	if (cancel_delayed_work_sync(&smc->conn.tx_work))
-		sock_put(sk);
-	lock_sock(sk);
-}
-
-The release_clcsock branch at the end of smc_close_active_abort() also
-takes the lock again with a plain lock_sock(sk).
-
-Both of these take the conn socket again at subclass 0, while
-smc_listen_work() still holds new_smc at subclass 0. Wouldn't lockdep
-then report the same "possible recursive locking detected", this time
-from smc_close_cancel_work()?
-
-This looks reachable for SMC-D, because smc_listen_work() drops
-smc_server_lgr_pending right after sending ACCEPT:
-
-	/* SMC-D does not need this lock any more */
-	if (ini->is_smcd)
-		mutex_unlock(&smc_server_lgr_pending);
-
-Another connection can then join the first-contact lgr and become
-SMC_ACTIVE. If this handshake later fails, for example on a CONFIRM
-timeout, a failed smc_clc_v2x_features_confirm_check() or a failed
-smcd_buf_attach(), this path kills the SMC_ACTIVE conn:
-
-smc_listen_decline()->smc_conn_abort()->smc_lgr_cleanup_early()
-  ->__smc_lgr_terminate()
-
->  		smc_conn_kill(conn, soft);
->  		release_sock(&smc->sk);
->  		sock_put(&smc->sk); /* sock_hold above */
-
+diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+index 6d4ba5e7790..5c32a77f2d0 100644
+--- a/fs/f2fs/data.c
++++ b/fs/f2fs/data.c
+@@ -4756,18 +4756,22 @@ static int f2fs_iomap_begin(struct inode *inode, loff_t offset, loff_t length,
+ {
+ 	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
+ 	struct f2fs_map_blocks map = { NULL, };
++	struct f2fs_dio_write *dio_write = NULL;
+ 	pgoff_t next_pgofs = 0;
+ 	int err;
+ 
++	if (flags & IOMAP_WRITE)
++		dio_write = container_of(iomap, struct iomap_iter, iomap)->private;
++
+ 	map.m_lblk = F2FS_BYTES_TO_BLK(sbi, offset);
+ 	map.m_len = F2FS_BYTES_TO_BLK(sbi, offset + length - 1) -
+ 							map.m_lblk + 1;
+ 	map.m_next_pgofs = &next_pgofs;
+ 	map.m_seg_type = f2fs_rw_hint_to_seg_type(F2FS_I_SB(inode),
+ 						inode->i_write_hint);
+-	if (flags & IOMAP_WRITE && iomap->private) {
+-		map.m_last_pblk = (unsigned long)iomap->private;
+-		iomap->private = NULL;
++	if (dio_write) {
++		map.m_last_pblk = dio_write->last_pblk;
++		dio_write->last_pblk = NULL_ADDR;
+ 	}
+ 
+ 	/*
+@@ -4808,8 +4812,8 @@ static int f2fs_iomap_begin(struct inode *inode, loff_t offset, loff_t length,
+ 		iomap->bdev = map.m_bdev;
+ 		iomap->addr = F2FS_BLK_TO_BYTES(sbi, map.m_pblk);
+ 
+-		if (flags & IOMAP_WRITE && map.m_last_pblk)
+-			iomap->private = (void *)map.m_last_pblk;
++		if (dio_write)
++			dio_write->last_pblk = map.m_last_pblk;
+ 	} else {
+ 		if (flags & IOMAP_WRITE)
+ 			return -ENOTBLK;
+diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
+index 089a62c054e..2a11b14f473 100644
+--- a/fs/f2fs/f2fs.h
++++ b/fs/f2fs/f2fs.h
+@@ -829,6 +829,11 @@ struct extent_tree_info {
+ #define F2FS_MAP_FLAGS		(F2FS_MAP_NEW | F2FS_MAP_MAPPED |\
+ 				F2FS_MAP_DELALLOC)
+ 
++struct f2fs_dio_write {
++	struct kiocb *iocb;
++	block_t last_pblk;	/* block allocated ahead for the next mapping */
++};
++
+ struct f2fs_map_blocks {
+ 	struct block_device *m_bdev;	/* for multi-device dio */
+ 	block_t m_pblk;
+diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
+index ef4d218e694..86bd1692011 100644
+--- a/fs/f2fs/file.c
++++ b/fs/f2fs/file.c
+@@ -5488,7 +5488,8 @@ static void f2fs_dio_write_submit_io(const struct iomap_iter *iter,
+ {
+ 	struct inode *inode = iter->inode;
+ 	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
+-	struct kiocb *iocb = iter->private;
++	struct f2fs_dio_write *dio_write = iter->private;
++	struct kiocb *iocb = dio_write->iocb;
+ 	enum log_type type = f2fs_rw_hint_to_seg_type(sbi, inode->i_write_hint);
+ 	enum temp_type temp = f2fs_get_segment_temp(sbi, type);
+ 
+@@ -5526,6 +5527,7 @@ static ssize_t f2fs_dio_write_iter(struct kiocb *iocb, struct iov_iter *from,
+ 	struct f2fs_inode_info *fi = F2FS_I(inode);
+ 	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
+ 	const bool do_opu = f2fs_lfs_mode(sbi);
++	struct f2fs_dio_write dio_write = { .iocb = iocb };
+ 	const loff_t pos = iocb->ki_pos;
+ 	const ssize_t count = iov_iter_count(from);
+ 	unsigned int dio_flags;
+@@ -5576,7 +5578,7 @@ static ssize_t f2fs_dio_write_iter(struct kiocb *iocb, struct iov_iter *from,
+ 	if (pos + count > inode->i_size)
+ 		dio_flags |= IOMAP_DIO_FORCE_WAIT;
+ 	dio = __iomap_dio_rw(iocb, from, &f2fs_iomap_ops,
+-			     &f2fs_iomap_dio_write_ops, dio_flags, iocb, 0);
++			     &f2fs_iomap_dio_write_ops, dio_flags, &dio_write, 0);
+ 	if (IS_ERR_OR_NULL(dio)) {
+ 		ret = PTR_ERR_OR_ZERO(dio);
+ 		if (ret == -ENOTBLK)
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/179290097759.51540.15412712294727302463%40gmail.com
+2.43.0
+
