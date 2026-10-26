@@ -1,113 +1,44 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.200.60
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793004460;
-	b=qrlh7psffMXtTq9DYh++wAegjMfXgdDNqIG3zHIQ4KK2cR81kJk1+jT113BARo7P7/HI
-	 yJeI3jgiZTErjBy8ahrPXNrLcPW3ZlzwhmiGKV6LrS9bUCSKsgTkEQnuCfTpbOD0gaPiw
-	 HX2c1Pkb+ZzWckqnu2CX25Y01EqnqTx1Z9roI7+yl7Te8AXfEYd8/9BJ5t4YtA115yv7/
-	 E1eVYpAvyzFh4ioOyPIc26lfV7U+Qw/BURIaEsnR3BWMuNrhbIcoUBOWqDV3uNhtCnGu+
-	 8sIf/6OPPnqAkP3Z+ZiAnIaQ1UbeOqQNczO1hXSBnzQTfXur/5nF1MTXcSwKp3Ixcgw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793004460;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:
-	 X-NV-OnPremToCloud:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=UzjUjW3g/uf7bMl7PbDDoGSNW6ZrLHMGUJoyDNZ9p3E=;
-	b=pMDOjXmEV0BY6OfTCJSZ21y07VfdDGi2Fh6+KrSt1xAkElL+c+0qKdWX59bZfxMW/P8k
-	 H1G0mbpzG5SV4FVGoUQTCrcAt2MOKA6xzO6/kr07CJws0V/KDrL0fddXDqUMiODnkCyhf
-	 jy7OgyI7p2GVmZVwYFBm2VhxDTREiH6GrQ7SQloiTcOxdIoMvBpJAV96i3A6TYh9ywvyb
-	 ucBWkiDfmEmioYLscNoxnMTnKO1WkgZOCXbvqvrK+a2OAv4wmEDMitQcU19n0ZUgy/vuO
-	 4yNirribmb6R6lF1JS4IlQ+D72/smt9FGp7uncCxQvSxM/NiNaOxDIQ6uuhnEFG18EA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=t7NJLDLP;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.200.60
-Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012060.outbound.protection.outlook.com [40.107.200.60])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.79.60.57
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793004491;
+	b=K7EQJHRH+BW4Sb/XI56iqLhmFIqilgbb6+GPQiNbQFrSa3IJfRBZ8i2OJ+ugyZqH3nQE
+	 mM3U7Z/HvpMehTC6r8+wdsOwvj41KClImCbH5vxeauh5usHy88ZA8P8M3w/YEk2vGMyXR
+	 9JTsH79W3zufmXLQqXiWNx9QRj3Hj3Q2A9Hu773aCyxU3D/0mAGjzGtzC1R1pgfsM3NT3
+	 VA2K1/cMa20yi73BOeyZ28ewiTiQ2VVOeZbPFF6J3aQYUrmlrGwaJhfoxaR8KMBnmQyMX
+	 QAN2P1CZmuWGoBy8Xzxzir5W0YBDHdmzLjIDsn31dWHKFVV+doL+O9OtFDDS8YbuAEQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793004491;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:X-HM-Spam-Status:
+	 DKIM-Signature;
+	bh=Rc75mWNoh4/ikQeoP/aZBFrVmEoDDuW/XtnlrEJEkYE=;
+	b=obBwYqqlnchqRpHHNhiouUNk32OUn0+3UaFx2ZEl9uQQWT8KJAaka/JDy1uwyacY0t8b
+	 KlyJLNtUjzpZlu8J+eZNHeLul7Ii/UEiX86OVm7Hfo6Gqyoa3iNj8K7cBlSC70+H5EPxg
+	 cRIspzb8f6eaKzTM0CSaE1X6U6GP3UZD3KhUg7NnNUTLhF1L6J9QnFgcQKn9/YnzcQVMO
+	 6lrfgpX7V6NvJpiZ4PNkaLUT1Roi9QSr4xYnidIehxgtQA9wymfyXjN1PSaHBjzuzD6cq
+	 sU5tvZmghBmQsRCLFBLlLdCUZFvga2Ng5VJp/G8i8AoWWr+t0SZZo7MVSqqNKgeIVhQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=rock-chips.com;
+	spf=pass smtp.mailfrom=rock-chips.com;
+	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=IB74DxcY;
+	arc=none smtp.remote-ip=210.79.60.57
+Received: from mail-m6057.netease.com (mail-m6057.netease.com [210.79.60.57])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E482A606A31A;
-	Mon, 26 Oct 2026 08:47:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E482A606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F340F606A31B;
+	Mon, 26 Oct 2026 08:48:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F340F606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=t7NJLDLP
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ppy18kymhJdiwcJUUfOgNcfcpDyMJs/eyuNCLl78DcbiT6CKJ4KNG7AogheUsremm+dLDaBSuvjRaI/sLe53Nm7styR2OH+E/SWun1nptqco77r1oLkdbVDd41aQlHsRsj4odCQlhqypan0USprtKQEiq6V4//0h3xjxw+vRqeb0EiEWIZO8qqDDvZq9KlHfcFuNTObdSExdjcojJ0+PKo5q4Tb/Yh+PrfpM3B6sv+ckOBSwaa8WRA820tEoDWp53UEfwiJuIUUcSvKwKYuIIUIDr+LZJ9xP93PMgGnLNrRvf2IOsALNyyMmSVo8kxdKSe/rW6kudKEPrFNH1m8aQA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UzjUjW3g/uf7bMl7PbDDoGSNW6ZrLHMGUJoyDNZ9p3E=;
- b=dpYRIJ4pyoPre5Im67yOVf63A1Xxh7Igk3YHwL3Ba5xf/3sCzGRMwd+Aejw8eehWLJppJcyokprlC/3aELGGD6NhM84EKpJ4bhjrQ11Ax+qP/WjK6bKZ/b/Jy1r0tKZ+0E2Op7brPc6VkghZfrZvTOqo+b+f0CqAqEqaW77HxqSyewVUR7AUJelU/imgBLJWAlvJ4VoVuwYb+hOk1GOYpVViNjl3z4oYGoom49E3YjSl3jQB3aHnn/5wnjRa7gmJCjnDjDEdD98f4K6oyM9GLJLuCjSdqSZL/Q/MGjiHWXnndhK4i2WpFofGbQQ7rLDSMNX2s1GZvnhbQ9WBLXSITQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=lunn.ch smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UzjUjW3g/uf7bMl7PbDDoGSNW6ZrLHMGUJoyDNZ9p3E=;
- b=t7NJLDLPrMHpEyBTfs/+yer8kjV3ahhHDbTQp4yGordP9vwISUvh8HrbO7FJwMxTmCjT0nyTrzaENyLh49Zg8bfgnp+0BmKzNqmydHtEvVqoUpfxSugtp7m29CdUy+2U1iPYxB5xT/TjLRuy8fJeijFNAYCJ8B4uHkF6+w8t3HGkO7oRlSp5rOVIAnnRljc+D655MYbRntyY3W0lUPjr9rs+BmPW/GiLtrGq7ZWPXQ4iNYIZp7uMhbulNXIhGIOkY/9ildmOl+uqkd9SBmX5qS9Ner/CiLgjc3G0YxIefavHeXlrOUPeGTtlhGz5oSI+5ja3cte4YJGegpztVbnYWw==
-Received: from CH0P220CA0002.NAMP220.PROD.OUTLOOK.COM (2603:10b6:610:ef::14)
- by EAYPR12MB999157.namprd12.prod.outlook.com (2603:10b6:303:2bf::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
- 2026 08:45:35 +0000
-Received: from CH2PEPF000166BF.namprd04.prod.outlook.com
- (2603:10b6:610:ef:cafe::29) by CH0P220CA0002.outlook.office365.com
- (2603:10b6:610:ef::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.19 via Frontend Transport; Mon,
- 26 Oct 2026 08:45:34 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- CH2PEPF000166BF.mail.protection.outlook.com (10.167.252.9) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.569.4 via Frontend Transport; Mon, 26 Oct 2026 08:45:34 +0000
-Received: from rnnvmail204.nvidia.com (10.129.68.6) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Mon, 26 Oct
- 2026 01:45:22 -0700
-Received: from rnnvmail202.nvidia.com (10.129.68.7) by rnnvmail204.nvidia.com
- (10.129.68.6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Mon, 26 Oct
- 2026 01:45:22 -0700
-Received: from vdi.nvidia.com (10.127.8.10) by mail.nvidia.com (10.129.68.7)
- with Microsoft SMTP Server id 15.2.2562.56 via Frontend Transport; Mon, 26
- Oct 2026 01:45:18 -0700
-From: Tariq Toukan <tariqt@nvidia.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
-	<davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
-	<kuba@kernel.org>, <netdev@vger.kernel.org>, Paolo Abeni <pabeni@redhat.com>
-CC: Cosmin Ratiu <cratiu@nvidia.com>, Dragos Tatulea <dtatulea@nvidia.com>,
-	Gal Pressman <gal@nvidia.com>, Leon Romanovsky <leon@kernel.org>, open list
-	<linux-kernel@vger.kernel.org>, <linux-rdma@vger.kernel.org>, Mark Bloch
-	<mbloch@nvidia.com>, Saeed Mahameed <saeedm@nvidia.com>, Simon Horman
-	<horms@kernel.org>, Tariq Toukan <tariqt@nvidia.com>
-Subject: [PATCH net] net/mlx5: Only set num_doorbells on a fully initialized SF
-Date: Mon, 26 Oct 2026 10:45:03 +0200
-Message-ID: <20261026084503.4122732-1-tariqt@nvidia.com>
-X-Mailer: git-send-email 2.44.0
+	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=IB74DxcY
+Received: from [172.16.12.11] (gyproxy-mailtls3-entmail-gy2-virt38.gy.ntes [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 525ab11e6;
+	Mon, 26 Oct 2026 16:47:53 +0800 (GMT+08:00)
+Message-ID: <18fcfe7a-e25a-4516-810f-d787b779914d@rock-chips.com>
+Date: Mon, 26 Oct 2026 16:47:52 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,71 +48,472 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/2] pmdomain: rockchip: Add RK3572 boot peripheral
+ domains
+To: 1579567540@qq.com, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Elaine Zhang <zhangqing@rock-chips.com>, Ulf Hansson <ulfh@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-pm@vger.kernel.org
+References: <20261026-add-board-ok3572-c-pmdomain-v3-0-70d614d3d921@qq.com>
+ <20261026-add-board-ok3572-c-pmdomain-v3-2-70d614d3d921@qq.com>
+From: Finley Xiao <finley.xiao@rock-chips.com>
+In-Reply-To: <20261026-add-board-ok3572-c-pmdomain-v3-2-70d614d3d921@qq.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF000166BF:EE_|EAYPR12MB999157:EE_
-X-MS-Office365-Filtering-Correlation-Id: 71980d51-e1f1-4227-f1cd-08df333d8022
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|7416014|23010399003|376014|82310400026|1800799024|261009223027099003|261021121427099003|10067099003|56012099006|6133799003|18002099003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	8Xh7ZLU+TnVtPXc8wgXsYzSdhHhkZEO78nbTVUHTPRExOniJcEmZIkK3J+PPbSv1+bC60olIe+EF+gEZ2i7u5rFkDeKd0Mh+fxdpIIIhOBwRsJcHdutsSaO4l6F1Wh/g1tD5Chz42IVjiBgW4izqny5xmqwNZ/J1OvK2PuALi3uQm3GJFXI87K7f98t5+oI3Nks6yyiBhFOz2ICS9xH8/DFzEOZgE0NBIYhqUYfQPAVSv4jJhvG78Y8Vl1/X5WU6gP6FYdUjJUjEehAZBE6N73rDPmkq7V/bdiho37L5yOo8LHdCExLfLqTmJoFL2isNZFEl6T4pxIlMNZ/x6S4BxWidLg6jpkyZjAMKJY16IgUDotVeO1mq66rMCWcCxFOBH9pSjmOsassm+t/HXB0S+NnC0QW8VzSw96gPF/FGWOtuaGJ9E3HSXqippAH15MXtkO1Wv3ntyxiNXjyyGPTOpFNof7NHRK4rH1GicBUf6x2mKVGVO84DHJMKGVVK1ynVCPehPcUmYrwmoD+Sz4pTTvV92hKVZMFjN4reSspE6lLqx1TyB78OPn33Nu+cgAMqKpYGbiVNp9ntXt09gP88kwq57F408gDcXbcf4GFSfzCJAlgCxjRlUHItuug4fFc2nUWjRfQnSFiXEZnDisqQFYE0EQDLWyodvin6oxOXpysDBDKiNskXm8dBRaS+TCGtjDlI8uuHAe3TxwcJsptgcQ==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(7416014)(23010399003)(376014)(82310400026)(1800799024)(261009223027099003)(261021121427099003)(10067099003)(56012099006)(6133799003)(18002099003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	i1wySUNGlllemNQD5Y2YEORxeFnt5JGb0NaU7LnPKZVmHRkKSbKr8dnO+VfRnDZy8K4Xtz/DsKXEG1zcE04uLBepcIc+KW89RXVSpaE7DAmSnj+ezKzblmtZwRWVkT4JR6Fhmh5+F8KZsqZnTqCvuo+0ONNmp19MY5l55I9mV0e+cwA2zvioa4lycpZeKZ/I5fPda/YQ3iZCU9hVqBj6sl/0EzXvvdJLjpz15rLp52JVdCF0hCs8YcU1tP+9vvxXuODBkBGSzz9cfsabD5MbIxbQ1FSIbUbhptB8zONimrJ/N57QXCTjuzDlKqbH2sgn+Cg99qzFjBW/CDcVdNchRgqfdkbujdX1Dwjr2NnGEOob/OE5lGPhzos+0GxyZE3Qx0AxC3ccJU+PSR0CvYtpJJj/PGKH6Q4FszfXAB4EL/ykwT9yCdmQPJavS2eYRJgt
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 08:45:34.4055
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 71980d51-e1f1-4227-f1cd-08df333d8022
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH2PEPF000166BF.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: EAYPR12MB999157
+X-HM-Tid: 0aa177650afa09dakunmad631c7433abf8
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCQk5CVkxLSkhOQh5OSh5IHVYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+	9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=IB74DxcY8kXVnzuMzMLd2lGxKXUkcWs1SfoaTHTS9WYZ+OeJ4nRlarimnRIu5CjJhZi3nc2k30HWUbjviiTIpZHFrGVTVRJC0+rcQGFyvuqYMNtI7Zw0mdw4nsUq5/vKIjWvP7rl0HUVluSGXDS0zT16x1OWFrBxJVSmVfvhnbM=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
+	bh=Rc75mWNoh4/ikQeoP/aZBFrVmEoDDuW/XtnlrEJEkYE=;
+	h=date:mime-version:subject:message-id:from;
 
-From: Cosmin Ratiu <cratiu@nvidia.com>
 
-The validation for the num_doorbells devlink param rejects values
-greater than num_channels. For lightweight SFs, this ends up accessing
-a NULL priv->eq_table, leading to a crash.
+在 2026/10/26 11:21, Cunhao Lu via B4 Relay 写道:
+> From: Finley Xiao <finley.xiao@rock-chips.com>
+>
+> Add support for the RK3572 NVM0, NVM1, PHP, and VOP power domains.
+>
+> Signed-off-by: Finley Xiao <finley.xiao@rock-chips.com>
+>
+> - Returned firmware shift-ready wait errors to callers.
+> - Kept the domain pending after a firmware shift-ready wait failure.
+> - Retried power-on without repeating completed memory resets.
+> - Recorded low-level power-on and restoration stages before hardware
+>    operations so retries complete unfinished low-level work.
+> - Kept memory resets pending across failures, including when memory is off.
+> - Preserved QoS snapshots after a failed power-on and cleared progress
+>    after successful power-on or shutdown.
+> - Tracked incomplete shutdowns to preserve QoS and complete firmware updates.
+> - Preserved pending memory resets across shutdown and cancelled unfinished
+>    power-on requests.
+> - Attempt to restore the domain after power-off errors, while preserving
+>    the original error returned to genpd.
+>
+> Co-developed-by: Cunhao Lu <1579567540@qq.com>
+> Signed-off-by: Cunhao Lu <1579567540@qq.com>
+> ---
+> Changes in v3:
+> - Track incomplete shutdowns to preserve QoS and complete firmware updates.
+> - Preserve pending memory resets across shutdown and cancel unfinished
+>    power-on requests.
+> - Attempt to restore the domain after power-off errors, while preserving
+>    the original error returned to genpd.
+>
+> Changes in v2:
+> - Record low-level power-on and restoration stages before hardware
+>    operations, so a retry cannot skip unfinished low-level work.
+> - Retain pending memory resets even if memory is off on retry, and
+>    avoid repeating completed resets during restoration.
+> - Preserve QoS snapshots across failed power-on and shutdown; clear
+>    progress after successful power-on or shutdown.
+> ---
+>   drivers/pmdomain/rockchip/pm-domains.c | 187 +++++++++++++++++++++++++++++----
+>   1 file changed, 167 insertions(+), 20 deletions(-)
+>
+> diff --git a/drivers/pmdomain/rockchip/pm-domains.c b/drivers/pmdomain/rockchip/pm-domains.c
+> index e193f978d5f3..668d208dea55 100644
+> --- a/drivers/pmdomain/rockchip/pm-domains.c
+> +++ b/drivers/pmdomain/rockchip/pm-domains.c
+> @@ -39,6 +39,7 @@
+>   #include <dt-bindings/power/rockchip,rk3528-power.h>
+>   #include <dt-bindings/power/rockchip,rk3562-power.h>
+>   #include <dt-bindings/power/rk3568-power.h>
+> +#include <dt-bindings/power/rockchip,rk3572-power-controller.h>
+>   #include <dt-bindings/power/rockchip,rk3576-power.h>
+>   #include <dt-bindings/power/rk3588-power.h>
+>   
+> @@ -59,6 +60,9 @@ struct rockchip_domain_info {
+>   	u32 pwr_offset;
+>   	u32 mem_offset;
+>   	u32 req_offset;
+> +	u32 status_offset;
+> +	u32 firewall_mask;
+> +	u32 clk_ungate_offset;
+>   };
+>   
+>   struct rockchip_pmu_info {
+> @@ -72,6 +76,8 @@ struct rockchip_pmu_info {
+>   	u32 mem_status_offset;
+>   	u32 repair_status_offset;
+>   	u32 clk_ungate_offset;
+> +	u32 firewall_status_offset;
+> +	bool chain_status_inverted;
+>   
+please keep the abbreviation consistent with the other struct
+members and use fw_mask / fw_status_offset instead of firewall_mask /
+firewall_status_offset.
+>   	u32 core_pwrcnt_offset;
+>   	u32 gpu_pwrcnt_offset;
+> @@ -90,6 +96,13 @@ struct rockchip_pmu_info {
+>   #define QOS_SATURATION		0x14
+>   #define QOS_EXTCONTROL		0x18
+>   
+> +enum rockchip_pd_power_state {
+> +	ROCKCHIP_PD_IDLE,
+> +	ROCKCHIP_PD_ON_HW,
+> +	ROCKCHIP_PD_ON_RESTORE,
+> +	ROCKCHIP_PD_OFF,
+> +};
+> +
+>   struct rockchip_pm_domain {
+>   	struct generic_pm_domain genpd;
+>   	const struct rockchip_domain_info *info;
+> @@ -101,11 +114,14 @@ struct rockchip_pm_domain {
+>   	struct clk_bulk_data *clks;
+>   	struct device_node *node;
+>   	struct regulator *supply;
+> +	enum rockchip_pd_power_state power_state;
+> +	bool mem_reset_pending;
+>   };
+>   
+>   struct rockchip_pmu {
+>   	struct device *dev;
+>   	struct regmap *regmap;
+> +	struct regmap *grf;
+>   	const struct rockchip_pmu_info *info;
+>   	struct mutex mutex; /* mutex lock for pmu */
+>   	struct genpd_onecell_data genpd_data;
+> @@ -373,15 +389,16 @@ static bool rockchip_pmu_domain_is_idle(struct rockchip_pm_domain *pd)
+>   	const struct rockchip_domain_info *pd_info = pd->info;
+>   	unsigned int val;
+>   
+> -	regmap_read(pmu->regmap, pmu->info->idle_offset, &val);
+> +	regmap_read(pmu->regmap, pmu->info->idle_offset + pd_info->status_offset, &val);
+>   	return (val & pd_info->idle_mask) == pd_info->idle_mask;
+>   }
+>   
+> -static unsigned int rockchip_pmu_read_ack(struct rockchip_pmu *pmu)
+> +static unsigned int rockchip_pmu_read_ack(struct rockchip_pm_domain *pd)
+>   {
+> +	struct rockchip_pmu *pmu = pd->pmu;
+>   	unsigned int val;
+>   
+> -	regmap_read(pmu->regmap, pmu->info->ack_offset, &val);
+> +	regmap_read(pmu->regmap, pmu->info->ack_offset + pd->info->status_offset, &val);
+>   	return val;
+>   }
+>   
+> @@ -400,7 +417,8 @@ static int rockchip_pmu_ungate_clk(struct rockchip_pm_domain *pd, bool ungate)
+>   
+>   	val = ungate ? (pd_info->clk_ungate_mask | clk_ungate_w_mask) :
+>   			clk_ungate_w_mask;
+> -	regmap_write(pmu->regmap, pmu->info->clk_ungate_offset, val);
+> +	regmap_write(pmu->regmap, pmu->info->clk_ungate_offset +
+> +		     pd_info->clk_ungate_offset, val);
+>   
+>   	return 0;
+>   }
+> @@ -431,7 +449,7 @@ static int rockchip_pmu_set_idle_request(struct rockchip_pm_domain *pd,
+>   
+>   	/* Wait util idle_ack = 1 */
+>   	target_ack = idle ? pd_info->ack_mask : 0;
+> -	ret = readx_poll_timeout_atomic(rockchip_pmu_read_ack, pmu, val,
+> +	ret = readx_poll_timeout_atomic(rockchip_pmu_read_ack, pd, val,
+>   					(val & pd_info->ack_mask) == target_ack,
+>   					0, 10000);
+>   	if (ret) {
+> @@ -543,6 +561,9 @@ static bool rockchip_pmu_domain_is_chain_on(struct rockchip_pm_domain *pd)
+>   	regmap_read(pmu->regmap,
+>   		    pmu->info->chain_status_offset + pd->info->mem_offset, &val);
+>   
+> +	if (pmu->info->chain_status_inverted)
+> +		return !(val & pd->info->mem_status_mask);
+> +
+>   	/* 1'b1: power on, 1'b0: power off */
+>   	return val & pd->info->mem_status_mask;
+>   }
+> @@ -600,16 +621,13 @@ static int rockchip_do_pmu_set_power_domain(struct rockchip_pm_domain *pd,
+>   	struct rockchip_pmu *pmu = pd->pmu;
+>   	struct generic_pm_domain *genpd = &pd->genpd;
+>   	u32 pd_pwr_offset = pd->info->pwr_offset;
+> -	bool is_on, is_mem_on = false;
+> +	bool is_on;
+>   	struct arm_smccc_res res;
+>   	int ret;
+>   
+>   	if (pd->info->pwr_mask == 0)
+>   		return 0;
+>   
+> -	if (on && pd->info->mem_status_mask)
+> -		is_mem_on = rockchip_pmu_domain_is_mem_on(pd);
+> -
+>   	if (pd->info->pwr_w_mask)
+>   		regmap_write(pmu->regmap, pmu->info->pwr_offset + pd_pwr_offset,
+>   			     on ? pd->info->pwr_w_mask :
+> @@ -620,13 +638,13 @@ static int rockchip_do_pmu_set_power_domain(struct rockchip_pm_domain *pd,
+>   
+>   	wmb();
+>   
+> -	if (is_mem_on) {
+> +	if (on && pd->mem_reset_pending) {
+>   		ret = rockchip_pmu_domain_mem_reset(pd);
+>   		if (ret)
+>   			return ret;
+> +		pd->mem_reset_pending = false;
+>   	}
+>   
+> -
+>   	ret = readx_poll_timeout_atomic(rockchip_pmu_domain_is_on, pd, is_on,
+>   					is_on == on, 0, 10000);
+>   	if (ret) {
+> @@ -644,14 +662,29 @@ static int rockchip_do_pmu_set_power_domain(struct rockchip_pm_domain *pd,
+>   	return 0;
+>   }
+>   
+> +static int rockchip_pmu_wait_firewall(struct rockchip_pm_domain *pd)
+> +{
+> +	struct rockchip_pmu *pmu = pd->pmu;
+> +	u32 mask = pd->info->firewall_mask;
+> +	u32 val;
+> +
+> +	if (!mask)
+> +		return 0;
+> +
+> +	return regmap_read_poll_timeout(pmu->grf, pmu->info->firewall_status_offset,
+> +				       val, (val & mask) == mask, 0, 10000);
+> +}
+> +
+>   static int rockchip_pd_power(struct rockchip_pm_domain *pd, bool power_on)
+>   {
+>   	struct rockchip_pmu *pmu = pd->pmu;
+> +	bool is_on;
+>   	int ret;
+>   
+>   	guard(mutex)(&pmu->mutex);
+>   
+> -	if (rockchip_pmu_domain_is_on(pd) == power_on)
+> +	is_on = rockchip_pmu_domain_is_on(pd);
+> +	if (is_on == power_on && pd->power_state == ROCKCHIP_PD_IDLE)
+>   		return 0;
+>   
+>   	ret = clk_bulk_enable(pd->num_clks, pd->clks);
+> @@ -662,18 +695,38 @@ static int rockchip_pd_power(struct rockchip_pm_domain *pd, bool power_on)
+>   
+>   	rockchip_pmu_ungate_clk(pd, true);
+>   
+> -	if (!power_on) {
+> -		rockchip_pmu_save_qos(pd);
+> +	if (power_on) {
+> +		if (pd->power_state == ROCKCHIP_PD_IDLE ||
+> +		    pd->power_state == ROCKCHIP_PD_OFF ||
+> +		    (pd->power_state == ROCKCHIP_PD_ON_RESTORE && !is_on)) {
+> +			/* A failed reset may still be forcing memory off. */
+> +			pd->mem_reset_pending |= pd->info->mem_status_mask &&
+> +				rockchip_pmu_domain_is_mem_on(pd);
+> +			pd->power_state = ROCKCHIP_PD_ON_HW;
+> +		}
+> +
+> +		/* A status bit alone does not prove the low-level sequence finished. */
+> +		if (pd->power_state == ROCKCHIP_PD_ON_HW) {
+> +			ret = rockchip_do_pmu_set_power_domain(pd, true);
+> +			if (ret < 0)
+> +				goto out;
+> +			pd->power_state = ROCKCHIP_PD_ON_RESTORE;
+> +		}
+> +	} else {
+> +		if (pd->power_state == ROCKCHIP_PD_IDLE)
+> +			rockchip_pmu_save_qos(pd);
+> +		pd->power_state = ROCKCHIP_PD_OFF;
+>   
+>   		/* if powering down, idle request to NIU first */
+>   		ret = rockchip_pmu_set_idle_request(pd, true);
+>   		if (ret < 0)
+>   			goto out;
+> -	}
+>   
+> -	ret = rockchip_do_pmu_set_power_domain(pd, power_on);
+> -	if (ret < 0)
+> -		goto out;
+> +		/* Cancel a pending power-on even if its status is still off. */
+> +		ret = rockchip_do_pmu_set_power_domain(pd, false);
+> +		if (ret < 0)
+> +			goto out;
+> +	}
+>   
+>   	if (power_on) {
+>   		/* if powering up, leave idle mode */
+> @@ -681,8 +734,14 @@ static int rockchip_pd_power(struct rockchip_pm_domain *pd, bool power_on)
+>   		if (ret < 0)
+>   			goto out;
+>   
+> +		ret = rockchip_pmu_wait_firewall(pd);
+> +		if (ret)
+> +			goto out;
+> +
+>   		rockchip_pmu_restore_qos(pd);
+> +		pd->mem_reset_pending = false;
+>   	}
+> +	pd->power_state = ROCKCHIP_PD_IDLE;
+>   
+>   out:
+>   	rockchip_pmu_ungate_clk(pd, false);
+> @@ -733,11 +792,18 @@ static int rockchip_pd_power_on(struct generic_pm_domain *domain)
+>   static int rockchip_pd_power_off(struct generic_pm_domain *domain)
+>   {
+>   	struct rockchip_pm_domain *pd = to_rockchip_pd(domain);
+> -	int ret;
+> +	int ret, err;
+>   
+>   	ret = rockchip_pd_power(pd, false);
+> -	if (ret)
+> +	if (ret) {
+> +		/* genpd still considers the domain on after a failed power-off. */
+> +		err = rockchip_pd_power(pd, true);
+> +		if (err)
+> +			dev_err(pd->pmu->dev,
+> +				"failed to restore domain '%s' after power-off failure: %d\n",
+> +				domain->name, err);
+>   		return ret;
+> +	}
 
-Fix that by rejecting setting num_doorbells on uninitialized SFs.
+The changes to rockchip_pd_power()/rockchip_pd_power_off() (the
+power_state state machine, mem_reset_pending, and the restore after
+a failed power-off) are generic rework of the shared power path;
+they are not required for basic RK3572 support and they affect all
+the other SoCs. Please split them out of this series.
 
-Fixes: 11bbcfb7668c ("net/mlx5e: Use the 'num_doorbells' devlink param")
-Signed-off-by: Cosmin Ratiu <cratiu@nvidia.com>
-Reviewed-by: Dragos Tatulea <dtatulea@nvidia.com>
-Signed-off-by: Tariq Toukan <tariqt@nvidia.com>
----
- drivers/net/ethernet/mellanox/mlx5/core/devlink.c | 6 ++++++
- 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/devlink.c b/drivers/net/ethernet/mellanox/mlx5/core/devlink.c
-index b9026cc64383..30a97e48dda7 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/devlink.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/devlink.c
-@@ -542,6 +542,12 @@ static int mlx5_devlink_num_doorbells_validate(struct devlink *devlink, u32 id,
- 	u32 val32 = val->vu32;
- 	u32 max_num_channels;
- 
-+	if (mlx5_dev_is_lightweight(mdev)) {
-+		NL_SET_ERR_MSG_MOD(extack,
-+				   "Setting num_doorbells requires full device initialization; reload the device first");
-+		return -EOPNOTSUPP;
-+	}
-+
- 	max_num_channels = mlx5e_get_max_num_channels(mdev);
- 	if (val32 > max_num_channels) {
- 		NL_SET_ERR_MSG_FMT_MOD(extack,
+>   
+>   	rockchip_pd_regulator_disable(pd);
+>   	return ret;
+> @@ -1064,6 +1130,11 @@ static int rockchip_pm_domain_probe(struct platform_device *pdev)
+>   	mutex_init(&pmu->mutex);
+>   
+>   	pmu->info = pmu_info;
+> +	if (pmu_info->firewall_status_offset) {
+> +		pmu->grf = syscon_regmap_lookup_by_phandle(np, "rockchip,grf");
+> +		if (IS_ERR(pmu->grf))
+> +			return dev_err_probe(dev, PTR_ERR(pmu->grf), "failed to get system GRF\n");
+> +	}
+>   
+>   	pmu->genpd_data.domains = pmu->domains;
+>   	pmu->genpd_data.num_domains = pmu_info->num_domains;
+> @@ -1313,6 +1384,62 @@ static const struct rockchip_domain_info rk3568_pm_domains[] = {
+>   	[RK3568_PD_PIPE]	= DOMAIN_RK3568("pipe", BIT(8), BIT(11), false, false),
+>   };
+>   
+> +static const struct rockchip_domain_info rk3572_pm_domains[] = {
+> +	[RK3572_PD_NVM1] = {
+> +		.name = "nvm1",
+> +		.pwr_mask = BIT(4),
+> +		.pwr_w_mask = BIT(20),
+> +		.mem_status_mask = BIT(4),
+> +		.repair_status_mask = BIT(3),
+> +		.req_mask = BIT(6),
+> +		.req_w_mask = BIT(22),
+> +		.idle_mask = BIT(6),
+> +		.ack_mask = BIT(6),
+> +		.clk_ungate_mask = BIT(6),
+> +	},
+> +	[RK3572_PD_PHP] = {
+> +		.name = "php",
+> +		.pwr_mask = BIT(7),
+> +		.pwr_w_mask = BIT(23),
+> +		.mem_status_mask = BIT(7),
+> +		.repair_status_mask = BIT(5),
+> +		.req_mask = BIT(9),
+> +		.req_w_mask = BIT(25),
+> +		.idle_mask = BIT(9),
+> +		.ack_mask = BIT(9),
+> +		.clk_ungate_mask = BIT(9),
+> +		.firewall_mask = BIT(28),
+> +	},
+> +	[RK3572_PD_VOP] = {
+> +		.name = "vop",
+> +		.pwr_mask = BIT(12),
+> +		.pwr_w_mask = BIT(28),
+> +		.mem_status_mask = BIT(12),
+> +		.repair_status_mask = BIT(10),
+> +		.req_mask = BIT(14),
+> +		.req_w_mask = BIT(30),
+> +		.idle_mask = BIT(14),
+> +		.ack_mask = BIT(14),
+> +		.clk_ungate_mask = BIT(14),
+> +		.firewall_mask = BIT(23),
+> +	},
+> +	[RK3572_PD_NVM0] = {
+> +		.name = "nvm0",
+> +		.pwr_mask = BIT(15),
+> +		.pwr_w_mask = BIT(31),
+> +		.mem_status_mask = BIT(15),
+> +		.repair_status_mask = BIT(13),
+> +		.req_mask = BIT(0),
+> +		.req_w_mask = BIT(16),
+> +		.idle_mask = BIT(0),
+> +		.ack_mask = BIT(0),
+> +		.clk_ungate_mask = BIT(0),
+> +		.req_offset = 4,
+> +		.status_offset = 4,
+> +		.clk_ungate_offset = 4,
+> +	},
+> +};
+1. Only 4 of the 14 domains are added here. The internal implementation
+    covers npu, gpu, nvm0, nvm1, dsmc, php, audio, img, vdec, vi, venc,
+    vo, vop and vop_pre. Please add the remaining domains.
 
-base-commit: f4377bf85887f57b59abb5479f7660a81ffe4449
+    Note that the npu domain also needs the voltage-domain handshake from
+    the internal code (vd_offset = 0x220, per-domain vd_en and a
+    rockchip_pmu_vd_on() call before powering on the domain), so either
+    include that support as well, or leave out npu until it is ready.
+
+2. Please use a DOMAIN_RK3572 macro like the other SoCs in this
+    driver (see DOMAIN_RK3576).
+> +
+>   static const struct rockchip_domain_info rk3576_pm_domains[] = {
+>   	[RK3576_PD_NPU]		= DOMAIN_RK3576("npu",    0x0, BIT(0),  BIT(0), 0,       0x0, 0,       0,       0,       false),
+>   	[RK3576_PD_NVM]		= DOMAIN_RK3576("nvm",    0x0, BIT(6),  0,      BIT(6),  0x4, BIT(2),  BIT(18), BIT(2),  false),
+> @@ -1536,6 +1663,23 @@ static const struct rockchip_pmu_info rk3568_pmu = {
+>   	.domain_info = rk3568_pm_domains,
+>   };
+>   
+> +static const struct rockchip_pmu_info rk3572_pmu = {
+> +	.pwr_offset = 0x210,
+> +	.status_offset = 0x230,
+> +	.chain_status_offset = 0x250,
+> +	.chain_status_inverted = true,
+> +	.mem_status_offset = 0x260,
+> +	.mem_pwr_offset = 0x300,
+> +	.req_offset = 0x110,
+> +	.idle_offset = 0x130,
+> +	.ack_offset = 0x120,
+> +	.repair_status_offset = 0x570,
+> +	.clk_ungate_offset = 0x150,
+> +	.firewall_status_offset = 0x140,
+> +	.num_domains = ARRAY_SIZE(rk3572_pm_domains),
+> +	.domain_info = rk3572_pm_domains,
+> +};
+> +
+>   static const struct rockchip_pmu_info rk3576_pmu = {
+>   	.pwr_offset = 0x210,
+>   	.status_offset = 0x230,
+> @@ -1648,6 +1792,9 @@ static const struct of_device_id rockchip_pm_domain_dt_match[] = {
+>   		.data = (void *)&rk3568_pmu,
+>   	},
+>   	{
+> +		.compatible = "rockchip,rk3572-power-controller",
+> +		.data = &rk3572_pmu,
+> +	}, {
+>   		.compatible = "rockchip,rk3576-power-controller",
+>   		.data = (void *)&rk3576_pmu,
+>   	},
+>
 -- 
-2.44.0
+Best regards,
+
+底层平台中心 肖锋（Finley Xiao）
+************************************************************************************
+瑞芯微电子股份有限公司
+Rockchip Electronics Co., Ltd.
+福建省福州市铜盘路软件大道89号软件园A区21号楼 350003
+No.21 Building, A District, Fuzhou Software Park, Fuzhou, Fujian 350003, P.R. China
+Tel: 0591-83991906-8602 Mobile: 18506057603
+************************************************************************************
 
