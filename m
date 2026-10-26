@@ -1,54 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.236
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792993605;
-	b=XyATgsQ5NoJLASM5UpCAOFWTiZOv+o66X29k6WjA5VLYKqvF+o/N2iuhb+Cwalk3LTAh
-	 DMXeDd6kbE6TqeXqhuEVlNZ666nbDMjdiOEZmXBincgbeqoi9nj3TwDg/xacEUlv+/JzC
-	 K/MDtwNUV59PGz7flFCr61Hbs1Hi5olc8Md6mAyKn+OLFsNUOcZZVbBkFvqISbv76Np8e
-	 KQHpJxDITWMy1zl/C5MpkEb/qcChRf7GvFIXwYWNW7lVQIUQqe9Doht8OF2xFuvEG9Guw
-	 LQ5qowtqNMAC73iveGeJa4A2TC9ma8c6NFfXA6gLU1dfYlyy5XXFjdzO3vl8xb722hw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792993605;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=uQLlasw/IxJ+4pKyXG1ZY91FKtsq+8znejKtb+FOn8Y=;
-	b=aWqgAeJ/7mqqkC428zN9JXfkRC+Kp7R2wUY0IRXyAL7ilcU1pL78DZMGjySlfSanJcGu
-	 BcVWukd2hfdsYQ4gw5MQ2ZRuO32POvClvd0G/ZwGVs4onygTIUw7bdl2dpIhikq5RheP5
-	 wOwuvz1szTrmzHx5uIJyz7EFF2K52n8c96KHXtuQzo/W34g7hBJ85AStrspay1l0vmAnO
-	 EsuyC3pqb56flegQw7mAbBaioEG9V+OiIZalH+UooZRaDtrkQoc/npYhA3yTzcXicq1ul
-	 CkhieHtT0vimUoguT20ShsHp2Gqu/Gg6skLMV2s3SqUwRyFSLEkMJfH6FSsOOvotGLQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=nonwGZ5U;
-	arc=none smtp.remote-ip=91.218.175.236
-Received: from mta0.migadu.com (out-236.mta0.migadu.com [91.218.175.236])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.70
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792993717;
+	b=QkTLlbWLGejBqlTBT1QE5dw45r2h0Jps/2eKdWt1iv5FMmuGJSQRKOhBcKTLo+LdhA0Z
+	 KYiW1IlScX1ixnPbqJt45gsSNbft8ITNzF6c4YHpuKNEFcVfeMI408d85TL4IMWafadr5
+	 AKxOuRtwysO3AitFVQJDBADIJeiM1aG6dX0g5tNApTqS3GRi3F3yHIJPl6yzvtDHNIiP+
+	 tP0qmwbTiu67b9TBc/D6snZtgNPHPaV59nmGj1Pq8zIWMjFqLwyKC7Bn/1Hj1E19NCMjJ
+	 YUa6+BRlBFBwaj7Q/INQ+PrXW7pYg7MvyoeqR327Wc6o8Odq/vq3JnCWlp8I20tK+lA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792993717;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:CC:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=oZL2AR5kMu0scth3p0aT7lNXsGE5c9H5H4j2nFTOP6g=;
+	b=s2ALb+Nyp4JwbygKSz1f0cmv8w3sCUgI/IvHq9ky644S1YQ9s62N5nupOQXKS5SFFUi1
+	 yWztFLZk/bBa7QW/FUUG531XjgU+dJqfiKMFzVSGmR7cKlbPTafjPtOaYQ8se/yEMSGK9
+	 5kt1lmGgVNdM0xKKqIlxrvI7LBUCeZY6SnV+R/zAH4jEkSNRyahH1OdsG66JqgrDxc/Zq
+	 lG5aynaH9zwEW70FZb/Ts6qpsHywrkqyUTmy05fnDIasQwEtXGYoTKUZoNgDuQQCUXr8T
+	 /iUQ55lJznB9PRYcSc/+dABpSYgKmSzdBLNcYCr4O2Sy5Twppzf2p97OtSGL/mc7Lmg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=OyoflYsR;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.70
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012070.outbound.protection.outlook.com [52.101.48.70])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5015F606A324
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 05:46:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5015F606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86609606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 05:48:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86609606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=nonwGZ5U
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=hu/DyBoO3+WUq6/3FILwmjguLln6byz8HGIo9SgKR7s=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792993602; v=1; x=1793598402;
- b=nonwGZ5UnOoM1ju14GBwGwKx5rfLK+IMs5458HfJv/MzSJyIWckVG1Jfy101j4k6F69cFHmH
- zliub99k3+o5LDamIAL9AACQjVO0/DxNmWGrI2+Z2kGbqIyimIbMHJGcedvX/2LvVcSDXWy7vAn
- x9A6CCflT/P/bWoEEF4ahIwc=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 8956af835298cb35;
-	Mon, 26 Oct 2026 05:46:42 +0000
-X-Mizu-Trace-ID: 8956af835298cb35
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <485c2661-cf99-406f-8881-094ab28795cf@linux.dev>
-Date: Mon, 26 Oct 2026 13:46:37 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=OyoflYsR
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=idElrGnuMUYFR5ClITKXjRZ0A0MfogkxliwI64sX/lVCyWsiylqxDBNn4GpYCSvAMp/esxixj7FAPQC0r44OhuAVnAVgpVvjEoGSijwV8rQMG2kCGJQowyXeln7j/5Fxj4QAmvnBWOXL5KGeduBHbc+YbbX9SbMIkvXYUSX4Cga4n5euchoSmpMbYhX7WyCdqjz+gu04I6xinKor3mTuEdlwBKzTYNLcdICofpWjzeaS3oBTCbDwArsqfW3vmEFOgnzoUHJQ5NiGi9KXUAKHcNUEa59E35VON0EqxFgbfmEP9W6yD//fBO4wRN1uMIahRSGldXn+LBXJwLiJWqmc5Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=oZL2AR5kMu0scth3p0aT7lNXsGE5c9H5H4j2nFTOP6g=;
+ b=uRROKXofy5V+8NT1YCShbGlPxPoL3d0byeBYXu3BzOwiH/9MM1gKRQtZxTUeUo2d3pht8JW9iXVWzvGBfW1iAFqacyD2e7yFpw1EHBVn6pCgGoRgznST8LRze8K1iF4SxQtJl3/DmZ9/MOC7wLLWSSElZfJy/aQ28V6uKcKnZjyaKQFP7/E2jTReZPvMf3lFlftyMTA46TuwoOnwYBEsE/TPlCySlvJWAhgjxJg/lFwtl2FHcvpaEfT6MYmxXFL9moNp0HsiiX5IxlUeQhMZdZta2CULAA5PpXvGsGCBDkVNaLkGCMarx1UJX2Jol+j9bnhfVBEovQXOLgBpb+HfBA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=163.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=oZL2AR5kMu0scth3p0aT7lNXsGE5c9H5H4j2nFTOP6g=;
+ b=OyoflYsRHnft6APxArg3k0zdtZMTrIqmGfkb9sV1P0/6/lMyTbrXb3+Q2KqruBK3tN/K5vmCPe75kN82qsKb5QL3qp6FftThjCRsVN2AUlehu7/XfHAPMa7m5KpBO4umYfzWab9ttdl89wmLbPitOCznoSQIeM0qjDioS7hrF+s=
+Received: from BY3PR05CA0037.namprd05.prod.outlook.com (2603:10b6:a03:39b::12)
+ by IA4PR12MB9809.namprd12.prod.outlook.com (2603:10b6:208:54f::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
+ 2026 05:46:32 +0000
+Received: from SJ5PEPF000001D5.namprd05.prod.outlook.com
+ (2603:10b6:a03:39b:cafe::1a) by BY3PR05CA0037.outlook.office365.com
+ (2603:10b6:a03:39b::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.7 via Frontend Transport; Mon, 26
+ Oct 2026 05:46:31 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SJ5PEPF000001D5.mail.protection.outlook.com (10.167.242.57) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.569.4 via Frontend Transport; Mon, 26 Oct 2026 05:46:31 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 26 Oct
+ 2026 00:46:31 -0500
+Received: from [10.136.43.232] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Mon, 26 Oct 2026 00:46:27 -0500
+Message-ID: <72a6eb77-0461-477b-a0e9-c06a486e3e0e@amd.com>
+Date: Mon, 26 Oct 2026 11:16:26 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,99 +102,134 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH-next 2/6] cgroup/cpuset: Properly compute effective xcpus
- in update_parent_effective_cpumask()
-To: Waiman Long <longman@redhat.com>, Ridong Chen <ridong.chen@linux.dev>,
- Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
- =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
- Shuah Khan <shuah@kernel.org>
-Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org
-References: <20261022031643.1351877-1-longman@redhat.com>
- <20261022031643.1351877-3-longman@redhat.com>
- <c65208d9-aba6-4e9a-affa-4f7cd8794a0c@linux.dev>
- <a3caf0f6-da89-4b5c-b80f-3baf6c82a2c4@redhat.com>
- <776306f8-2200-486b-8c43-2b5fd9b5eeb5@linux.dev>
- <8c8f27eb-26af-406e-9766-537dbe9c173a@redhat.com>
+Subject: Re: [PATCH] sched/stats: Fix run_delay over-count for proxy-migrated
+ blocked donors
+To: <albin_yang@163.com>, <peterz@infradead.org>, <mingo@redhat.com>,
+	<juri.lelli@redhat.com>, <vincent.guittot@linaro.org>
+CC: <dietmar.eggemann@arm.com>, <rostedt@goodmis.org>, <bsegall@google.com>,
+	<mgorman@suse.de>, <vschneid@redhat.com>, <chen.yu@linux.dev>,
+	<kayracizmeci@gmail.com>, <linux-kernel@vger.kernel.org>,
+	<albinwyang@tencent.com>
+References: <20261025130740.3324391-1-albin_yang@163.com>
 Content-Language: en-US
-From: Guopeng Zhang <guopeng.zhang@linux.dev>
-In-Reply-To: <8c8f27eb-26af-406e-9766-537dbe9c173a@redhat.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From: K Prateek Nayak <kprateek.nayak@amd.com>
+In-Reply-To: <20261025130740.3324391-1-albin_yang@163.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D5:EE_|IA4PR12MB9809:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6f508d15-3250-4f22-6929-08df33247cfb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|82310400026|23010399003|7416014|376014|1800799024|18002099003|22082099003|56012099006|11063799006|261021121427099003|10067099003|261022105027099003|261022075727099003|261021123027099003;
+X-Microsoft-Antispam-Message-Info:
+	vlcVNpFYxD5ptSMwNy2wuPwxMFOJONadYTkIuytquO047reqJJ7NLoeMe/l025QR3KO/wAPf5hKI9qe/lkfVjDlKPsId6vxP9B0OGjIk4/GKYb1HYFUQyIRx2dICXlhAFbT+OZNynLLiQ8PiKfDJzHSOK2rN3urgg2iSF+s+Eyjq52IyHufQShcK2EA3Xs76+nPBiXiD8HQxvP5qoODieo20nIyN9XQ7SzdXGd2ZV3mSyuwDCsndmQO6+YKMT/wy8ObXRUaNc6qIH4oCuCjmp+10v3+4kSFyaIGOpW8xlLgCFVdmYbsYCQ7LXuN/Or3tRIF7Syw3pkAszJTOFiXW685/oV0cB5UMv6b7atTBoDkJRA9Bo9Tevl+wPoell1CYLYjvtfPVdKpcxThiU9w2ALXd57ePJNct+Zdm73rFWWxuW7N8FV8QGqTDCXowfIKAM/QtU1vcpMiApqgTqa17tLlqDrsrs+3CIrRvRaniyWjiK9PFAf9IV5VeEVh3N2kD+mnXlsfU6072PaqgoDJ/Kdk/FyeyuMT8zCXKEA8WL8OR+KD26VINeVPTpHUaVkQLOpHaBqJPc8eb++0sAMY4w4/XXTAG8cnZVRD0pftB0tWafRJ+YQT6k+BQMTiVyLemxtRgfFlW29Q3hFsfODK/2jomWk8uSInyUjoA9yZkD/DNzt+13Nh9jWANXaEkkWaxnIdIdcgbs57vdJ8V7c6ecQ==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(23010399003)(7416014)(376014)(1800799024)(18002099003)(22082099003)(56012099006)(11063799006)(261021121427099003)(10067099003)(261022105027099003)(261022075727099003)(261021123027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	EkRQV3I9BbO4owJDdeItcrXjoal4oqUxQE9jem6P1AQfREY6xeF0LCBiWfCi9qVr48p0lu9oIUe5/gALANZo+0J/ZD1esZw0dcjjiD6MN+WC8nVldsXbb3Is0qRhhfo84oX65N0sRWOoBrxWQTODvkbuSWUP4j9i3JwCnOpM06QGDX1hdqsl5q6uyFvRvWiP+KUfjJPHDF5sslXjqCgNI5cS/silZ6RX06uNfND2+UcIMvYEAE2nwQH5xKHAczhZU4+iseJWIjAXuky9i1SXYf959XvWLrSFs8FNBGmJ1QCGl8HwMWHYgm8hipwTcziUnhOgnBWVx6MGXv9LU9ZPUKPgbJIvzh2h4fYLY8b9f6irEAuotFr8upnCaizf93qZllNEm/GmHJ8x0HP82W1pT4MRWv5BUrTaZg0x5AXpJ8MafZTx6zJyleus0i3nVTT/
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 05:46:31.7569
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6f508d15-3250-4f22-6929-08df33247cfb
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ5PEPF000001D5.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA4PR12MB9809
 
+On 10/25/2026 6:37 PM, albin_yang@163.com wrote:
+> diff --git a/kernel/sched/stats.h b/kernel/sched/stats.h
+> index dc626f99ffd9..ef52fbe86bba 100644
+> --- a/kernel/sched/stats.h
+> +++ b/kernel/sched/stats.h
+> @@ -290,7 +290,7 @@ static void sched_info_arrive(struct rq *rq, struct task_struct *t)
+>   */
+>  static inline void sched_info_enqueue(struct rq *rq, struct task_struct *t)
+>  {
+> -	if (!t->sched_info.last_queued && !t->se.sched_delayed)
+> +	if (!t->sched_info.last_queued && !t->se.sched_delayed && !task_is_blocked(t))
 
+I think the sched info bits should be adapted to use the p->is_blocked
+indicator instead of adding these endless exceptions.
 
-在 2026/10/24 04:45, Waiman Long 写道:
-> On 10/22/26 9:53 PM, Guopeng Zhang wrote:
->>
->> 在 2026/10/22 23:00, Waiman Long 写道:
->>> On 10/22/26 9:45 AM, Guopeng Zhang wrote:
->>>> Hi Longman,
->>>>
->>>> 在 2026/10/22 11:16, Waiman Long 写道:
->>>>> Since the introduction of cpuset.cpus.exclusive in commit
->>>>> e2ffe502ba45 ("cgroup/cpuset: Add cpuset.cpus.exclusive for v2"), a
->>>>> compute_effective_exclusive_cpumask() helper which is later renamed to
->>>>> compute_excpus() is added to compute the effective xcpus of a partition
->>>>> root. However update_parent_effective_cpumask() is not updated in all
->>>>> proper places to use the new helper to check if a given cpuset should
->>>>> remain a valid partition root. This can cause a cpuset to incorrectly
->>>>> remain a valid partition root even if no effective xcpus is left.
->>>>>
->>>>> Fix that problem by using compute_excpus() to compute the effective xcpus
->>>>> into delmask in all cases except partcmd_disable and partcmd_invalidate
->>>>> and use it for tasks_nocpu_error() check as well as checking its
->>>>> emptiness. This enables us to catch invalid partition root more
->>>>> accurately in update_parent_effective_cpumask().
->>>>>
->>>> I re-tested the repro from the link below on top of this series
->>>> (applied on cgroup/for-7.4-fixes), and it still fails:
->>>>
->>>>     https://lore.kernel.org/all/20261010075947.333549-3-guopeng.zhang@linux.dev/
->>>>
->>>>     cd /sys/fs/cgroup
->>>>     echo +cpuset > cgroup.subtree_control
->>>>     mkdir A
->>>>     echo 0-7 > A/cpuset.cpus
->>>>     echo 0-7 > A/cpuset.cpus.exclusive
->>>>     echo root > A/cpuset.cpus.partition
->>>>     cat A/cpuset.cpus.partition
->>>>     echo 1 > A/cpuset.cpus.exclusive
->>>>     cat A/cpuset.cpus.partition
->>>>
->>>> The last command still shows "root invalid (Parent unable to distribute
->>>> cpu downstream)".
->>>>
->>>> In this case compute_excpus() returns the stale user mask unchanged.
->>>> user_xcpus() is gone from update_parent_effective_cpumask(), but the
->>>> dependency just moved one level down: the new code calls
->>>> compute_excpus(cs, tmp->delmask), and its first line is
->>>>
->>>>     cpumask_and(excpus, user_xcpus(cs), parent->effective_xcpus)
->>>>
->>>> Here user_xcpus(cs) is cs->exclusive_cpus, which still holds the old
->>>> 0-7 when compute_excpus() runs: update_exclusive_cpumask() publishes
->>>> cs->exclusive_cpus only after partition_cpus_change(). Nothing corrects
->>>> it either - the sibling trim is skipped as exclusive_cpus is non-empty,
->>>> and for a direct child of the root cpuset the intersection with
->>>> parent->effective_xcpus is a no-op. So the stale 0-7 mask still reaches
->>>> tasks_nocpu_error() and PERR_NOCPUS is set again. Please point it out
->>>> if I got the analysis wrong.
->>>>
->>>> I have rebased my fix on top of this series and the partition recovers
->>>> correctly with it applied. Should the fix be folded into this patch,
->>>> or is there a better way to fix it? Happy to hear your thoughts.
->>> You are right. My patch series won't fix this particular issue. However, converting an invalid partition back to a valid one is done on a best effort basis. There is no guarantee that it will always happen. Just echo "root" to "cpuset.cpus.partition" again will make it valid again. So it is not a real bug from my point of view. It is just a nice to have feature.
->>>
->> Thanks for the explanation. This helps me better understand the
->> intended behavior of partition recovery.
-> 
-> I did find the reason why your test case isn't working. I have made some adjustment in patch 2 which should make your test case work now with the v2 series.
-> 
+Could you see if something like below works:
 
-Thanks for looking into this issue again.
+  (Only build tested; Prepared on top of sched-core-2026-10-18)
 
-Cheers,
-Guopeng
+diff --git a/kernel/sched/stats.h b/kernel/sched/stats.h
+index ebe0a7765f98..bd8c5cdfd12a 100644
+--- a/kernel/sched/stats.h
++++ b/kernel/sched/stats.h
+@@ -233,16 +233,13 @@ static inline void psi_account_irqtime(struct rq *rq, struct task_struct *curr,
+ /*
+  * We are interested in knowing how long it was from the *first* time a
+  * task was queued to the time that it finally hit a CPU, we call this routine
+- * from dequeue_task() to account for possible rq->clock skew across CPUs. The
+- * delta taken on each CPU would annul the skew.
++ * from dequeue_task() / __schedule() to account for possible rq->clock skew
++ * across CPUs. The delta taken on each CPU would annul the skew.
+  */
+-static inline void sched_info_dequeue(struct rq *rq, struct task_struct *t)
++static inline void __sched_info_dequeue(struct rq *rq, struct task_struct *t)
+ {
+ 	unsigned long long delta = 0;
+ 
+-	if (!t->sched_info.last_queued)
+-		return;
+-
+ 	delta = rq_clock(rq) - t->sched_info.last_queued;
+ 	t->sched_info.last_queued = 0;
+ 	t->sched_info.run_delay += delta;
+@@ -255,6 +252,15 @@ static inline void sched_info_dequeue(struct rq *rq, struct task_struct *t)
+ 	rq_sched_info_dequeue(rq, delta);
+ }
+ 
++static inline void sched_info_dequeue(struct rq *rq, struct task_struct *t)
++{
++	/* blocked tasks are handled at sched_info_depart() */
++	if (t->is_blocked)
++		return;
++
++	__sched_info_dequeue(rq, t);
++}
++
+ /*
+  * Called when a task finally hits the CPU.  We can now calculate how
+  * long it was waiting to run.  We also note when it began so that we
+@@ -290,7 +296,7 @@ static void sched_info_arrive(struct rq *rq, struct task_struct *t)
+  */
+ static inline void sched_info_enqueue(struct rq *rq, struct task_struct *t)
+ {
+-	if (!t->sched_info.last_queued)
++	if (t->is_blocked)
+ 		t->sched_info.last_queued = rq_clock(rq);
+ }
+ 
+@@ -310,6 +316,9 @@ static inline void sched_info_depart(struct rq *rq, struct task_struct *t)
+ 
+ 	if (task_is_running(t))
+ 		sched_info_enqueue(rq, t);
++
++	if (t->is_blocked)
++		__sched_info_dequeue(rq, t);
+ }
+ 
+ /*
+---
 
+It is similar to how we handle PSI signals.
+
+>  		t->sched_info.last_queued = rq_clock(rq);
+>  }
+>  
+
+-- 
+Thanks and Regards,
+Prateek
 
