@@ -1,102 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.36
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793009106;
-	b=zwwjkI9dDAzYqbpL+ILxhuNGOtbQResNq27XZBkur+dD5Qbt2uDpsZ5h23552HyIRiX7
-	 92RAil0840lS2rHKVJCscJcnd9Ty6OsM6NOny3ZV9YFKPBfNM4gXSccRkK+hszhqIMI3x
-	 81a8gMetbOYmyh7RuBtN7DXBXjT7OcYAx6HtqqFQvxMFq3ItDWhIN3SjQU1ttENwGiZxZ
-	 vfTOszgcBQVTj0yvzz3LJ/BeqYkY2kcahGuB8VaECQ0L86PLEqM6l4zYS966aBqeSz8BB
-	 h4IT+aSNshwZkc3WF2AG/FvGQGXNpoDWbNaeH3i+LyBJM1AvWWroekFNTMS0MN22pUg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793009106;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Thy+JEcuYCvau3raZT9C66yUHQRSG4HUVU1BtxFtetE=;
-	b=2fj91vvb0oz+eViX151BisHJLZNdPUNqzXK5dAnNiY6UzWOcuFuSiu0l8rfHl4iq5YB6
-	 jpaBSvF5670RmKE5+kCMEsSLoMyG4E6xeCdv6mWk3bsYcFM1s76hGrhsJ6NMQ+NenLpWL
-	 ZEPp1lF/P2LqRiVZbbPlpOYjzyhHZw1qd6yk+MZHIhVnKPDbhXXz77pYCMGNmWR3zG7OF
-	 mQcJmY6P8Jk8uKiL6kuteclITPUISL3VSWuRs6742sEKAJqm4YRbbTHS/DlJ6qdaMNFqX
-	 2kOuHKv2QkevX3KVSu2j95/2jnnYaMZKmlnZ8zR4yjfJ+M8APHRm3kBZczw4azkn1eQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nxp.com;
-	spf=pass smtp.mailfrom=nxp.com;
-	dkim=pass header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=EiyUdIw7;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.36
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013036.outbound.protection.outlook.com [40.107.162.36])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793009101;
+	b=Y2EMQywaPWU4va71jP6qjzkSwBH0wNAGEVWarrRM9vnXfXd31Bjc9okNXs6LSGzHJ/KI
+	 VPff4dd7a2FjL5hDNlRCnbrQuw3lAy5gA3jwtNSQSJ5jAsOByyv+oGH6FQgSapNBMf3Pa
+	 anzbv3OlbNf760OptG3rCffISrVGfowH1c13++mbLh5j2gOG1vTLI0VGoEExHSlD8pD5H
+	 /SRXB2AsNLtV0qiccONAujd2iKZtdt5wgzHLbmy8St5G182IWxBtrDH7onvle5k91kDla
+	 tPoqhNfka25qE4KIHGBk05rxo0DGUQ2LTepTJ7YlCR5ddRfLQcjk1ehRk5Aq0rqdP9g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793009101;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=GmPoTm80w1aA6jNGqFN5qwBH3dTXLvg28noXFFNUWug=;
+	b=ZQ8XanxUls6h3rbhe11te/rwJ9UozHB+8qgDloJUjnkCpJQ8hUa7ho6Odp+U5VPMIw2A
+	 SLFqhjx5bG53mzWwBY1eaH1Nf9WS6e1WuefLg/51sKIFG2/wj69S7v4bmmDOwCh5/Vp0m
+	 9+0ddhqQIYti+/WXxQ1qA/YQ5lTc5ehicqBHiN2P/hsBaVyYVuh63LiB0qMlCpTdwv+Sw
+	 dslM/2cQU6ij1a0gISZI5wMkF9fchPGHTOIPZ7gA+KJ4/XT/GZ3B3AxagUXpJ3Lu3cYjM
+	 cj5WGA4cX3nqVDMZPLu1pD+07XbDBBWjbF9Me2teaMhwyqwwNlqMqRzNCCUYTt0HblA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Uu+CGVoV;
+	arc=none smtp.remote-ip=74.125.82.169
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B10D60A3826;
-	Mon, 26 Oct 2026 10:05:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B10D60A3826
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0AC460A2612
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:05:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0AC460A2612
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=EiyUdIw7
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=f103ESHB5674rfqObSx2Ra+5vhsy9a7G9M2zkBKtzX2XqbpLF1o3PoqjpqOPQC2UFGKOALkXoiKgXvfCCZXjCkJlMOvkZFY6lMgUs28Nt+TwRa/w1tFWECodH+yQJul5UgY3kUHJrffTsJNiEVs/yNjBIdrFFjlSJk1QDG1/QnTGC3E6hKXmjrOpVyudAPAR9LGkw7GDlzZDG6AKJld+tcvpPKTehymaq2GtmG8WaACG8pXGhK6BpMMPmMW5iWwbF7ULWxBFnU7ljKcwHV21Uor4fJ8zkJ9bofR680iVmB6EHnjjTDT7ieEOWen0VtHZ0WYoB4dTVTItm8F9skSr3g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Thy+JEcuYCvau3raZT9C66yUHQRSG4HUVU1BtxFtetE=;
- b=ZUCUFMQBNieTma99E+4XxuZhRvXztbkiVd0MFvOnmGf94dYCAKAUuTomljZ4Jd2nKhKmVX5qL+Q2XqGAvxmAFOOBnZl/ITiA5rlu/bBAcWRBoJ0uW4iadQdQR4RNEGYsUe0AinfzuvxvqcG82YsxGEcck5MYWYVcWVJBe4J94ybXb0ZsflTKtciV9Xva9atZy1C+ow3ni1/KRqQko46Cv9r9G/+ucvPiZnvbDUPxaULm41oowHy036pimNcgutd++ofg5rKOo3e4gwmsAUmtZ3LNbD7Av8YYb78MzjZRuxjwfGgvEu1I8zRHS0K682HxdLZ+dfEmOj4/+EYCQ5Owjg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Thy+JEcuYCvau3raZT9C66yUHQRSG4HUVU1BtxFtetE=;
- b=EiyUdIw7vNYM32BJWeoVBcTuEFF2OKOQ+mdAZR/6Rl5symxtaMpekljuLqxJR/XkKcLl5AVlqo1PR7tISqPeCkDd2ilC7cSAhoq1N9niJ/HDNHUNTUzYjHrZNdvJWMbLIQuXW4TOHgV4zh8bGMkMLZxUhiJG7lfuZlCIiesiLTln2PM1ax9MUy2SDY5cDqr0/m5s0wq2JzSfdoKFEri0tr8g6Z7w7H0HssNOLkVxNwCzdKozGZ/1py2WqTmITxQXJnSVLYmB2jFX/EvGXuuFa58sSKrXPy6BWGW8kknhEhklgJSULG5rdEWEQVkNNScPmDxSqiGo4AIvQqx94/XL9A==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from MI9PR04MB350878.eurprd04.prod.outlook.com (2603:10a6:290:c0::7)
- by GVXPR04MB11500.eurprd04.prod.outlook.com (2603:10a6:150:288::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
- 2026 10:04:48 +0000
-Received: from MI9PR04MB350878.eurprd04.prod.outlook.com
- ([fe80::8537:1cdd:6c49:6151]) by MI9PR04MB350878.eurprd04.prod.outlook.com
- ([fe80::8537:1cdd:6c49:6151%6]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
- 10:04:48 +0000
-From: Liu Ying <victor.liu@nxp.com>
-Date: Mon, 26 Oct 2026 18:05:17 +0800
-Subject: [PATCH v7 12/15] drm/imx: dc-ed: Drop initial source selection
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261026-imx8-dc-prefetch-v7-12-a0b50cc4fc65@nxp.com>
-References: <20261026-imx8-dc-prefetch-v7-0-a0b50cc4fc65@nxp.com>
-In-Reply-To: <20261026-imx8-dc-prefetch-v7-0-a0b50cc4fc65@nxp.com>
-To: Philipp Zabel <p.zabel@pengutronix.de>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Dmitry Baryshkov <lumag@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Marek Vasut <marek.vasut@mailbox.org>, 
- Alexander Stein <alexander.stein@ew.tq-group.com>, 
- Liu Ying <victor.liu@nxp.com>, Frank Li <Frank.Li@nxp.com>
-X-Mailer: b4 0.15.2
-X-ClientProxiedBy: SI2PR02CA0014.apcprd02.prod.outlook.com
- (2603:1096:4:194::19) To MI9PR04MB350878.eurprd04.prod.outlook.com
- (2603:10a6:290:c0::7)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Uu+CGVoV
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-3514b90bb89so6654152eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 03:05:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793009100; x=1793613900; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GmPoTm80w1aA6jNGqFN5qwBH3dTXLvg28noXFFNUWug=;
+        b=Uu+CGVoVGuppEhU23WpAU8OKLtB7yHnTsm5kGbBiaOepEuS5LZmXuA7RPG85nTrTcj
+         cJAy4LXdYDSbK6n7VysQDu9nC+galbukDwt6O/ylWyhD4zPrXwsLzZURj5PCk6PDmIZ9
+         2IfC2EqmhCnsu2xqGxqtS87hXkyD/tJrH18C/LGJfWXzrHbMvRk0teXXUdy5AfYw4BUg
+         D+4HaXKQz2woTld0uGJWNpILmHk2fT1WVPuNh1Mh0vYoeXXI8mMllgkYRdGIyjZOhGYo
+         jsTHrGYhGHJzkvCJCCYQjB9oHwEJU4IrpsSJ8iUo10Fq62TBboJz07fsHlr7FeLYac4L
+         +HBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793009100; x=1793613900;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GmPoTm80w1aA6jNGqFN5qwBH3dTXLvg28noXFFNUWug=;
+        b=tFNJmse44KfPRs++UpZF3mNXMHJ2ShQdzID5+fok1S5IB0JDHRewM/iwQr3/hW50im
+         tYE8H3TMr8KUNiS3YRr5BIFL1IwENveafAurJhiKHnYaLdt0sMI4ft2tpLmg9lQGNXSQ
+         DOii2M8d+XceC0G/w+RhuPRutYxpyTz0uphOD08BEPeNj1wPlALgO97OL937/9sWOQIT
+         cbwacFgi397i1fRGJyfAZ4LLAV+9MsBPZF4TMVM5LoAkeSV1vMf04wjm8JD/kloEXLAx
+         gTBKvIjql/jciw5N6PBnxOK2kgVF7PFA0jJpxRJmG6o14mXe/1bGBBdBjJZ7t9ZgE992
+         DSRw==
+X-Forwarded-Encrypted: i=1; AKwUvBwVP5ZNaoC65IpZKc4qkSH/kK5SWfBGVHC1fftRMQ4XYTyBK35DaGBHVneKdpylHfP3DlyJkOT/0mx3VD4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKU2dk+Ikl/QIClTmGdZN4ZBarUBzkcmaZrxke/P8ws8v6t0UTk
+	Cb6VHQvHWd40Hv1+w7nwxQm4nkpJtTCkGhADoE5cqk6MP/nMkZ4lFsbk
+X-Gm-Gg: AYBFou3iPqeEjHGsZIAfpf77pvV34YcjMf4dAg8M/W957v+hi8rEntVvZYj5j3f8Scq
+	5jF3Wp0s6+4uSh8/zVRvZUJdyn5GO6N3mFwNyZ/Fx/s1AxNdDeLoRd1+13yKEBhOi9gdap8ECiC
+	eaG4dVj/di4xgfEfpVa0gc06xRybLlYRNMvmvP2RIjQdmijBKXiKKrROZv8m0BTbtwO8+0MKH/n
+	u7CXjrEqEDnQ050Wa4OjUrF3G1e9KlA9XaStQqJGRe/h1ewhqkQwV2bU/Q5YTHs141/0BZ5ttmd
+	Fhj7WqIaGGadiWWebEKe/7GS3X9XQDEtkt3P1ZIO3Y7G/GGtXB9w/hgchkwU86PHZgzeIITUHlf
+	LIhtnP2WsOMm2QXZ83MTuyjLDIbQ56T0wr2QOf7I+okovrDexIzpY4B5LhDd7kn9Uw8lj6AbyF2
+	M0ev9ndiMjdZSGxhm+mQIV9+amc395b0lJ+ff7m/X8P9dBwDZnAQ1IPMV+Jk44mLgTdD6B6/Htf
+	NqY+xkW4yvrejptDq84nQ/DWMiQpz4kaWZXcEtoSLmNEMEeYiJ/G/3eZ+YCGWDZiQSNXjiKxFze
+	DGxaSLDqxkn2V2nm2Hmu0eAQpG4c8kuNn8quf7jH1YfII8aMM8RzWOckzNcsICtDRvTxT2QPrf0
+	Y7DO1TLXULzwkOsi8vI0/ZKyiafaNvxTl
+X-Received: by 2002:a05:693c:41c5:10b0:35c:e696:2d4a with SMTP id 5a478bee46e88-369f83ae704mr5296092eec.24.1793009099693;
+        Mon, 26 Oct 2026 03:04:59 -0700 (PDT)
+Received: from kapoor.iiserb.ac.in ([203.18.51.239])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8daa3a8sm29726211eec.16.2026.10.26.03.04.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 03:04:58 -0700 (PDT)
+From: Arnav Kapoor <kapoorarnav43@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	Gwendal Grignou <gwendal@chromium.org>,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Arnav Kapoor <kapoorarnav43@gmail.com>
+Subject: [PATCH] iio: proximity: sx9360: keep the IRQ balanced across suspend and resume
+Date: Mon, 26 Oct 2026 15:34:47 +0530
+Message-ID: <20261026100450.17023-1-kapoorarnav43@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,101 +101,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI9PR04MB350878:EE_|GVXPR04MB11500:EE_
-X-MS-Office365-Filtering-Correlation-Id: f58c2d29-d442-41df-e525-08df33489171
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|19092799006|366016|23010399003|1800799024|921020|11063799006|56012099006|261021123027099003|261009223027099003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	djoeXSTQoYubCGUlNvvwRTy8+Clhqym67NwE2t7uhJ9JhswT65lTH3mQKrbnc/CxG1c3Z56DJZmDk3NtIiprn1BNp0QdUIJ3Lv9MpC2zFdE/VWHwjkk/+KMxHCF3zfUdX6cXbv5llXiQy/n4tE4irRkoCzGAa+90icHN2UkOJ3QSZ4zRw0fMNcYkFH6ewyc6A7WUZan0KHBYRYlwC64BcMUy3USaPv2VCqiuc7S9xD/CryS7C1AZtp5rY8Q9NQkC6F181LYf99FxsItqqh/9QX7sVBYEiY+8o0qMMdKmZl7zTlNU93oLsrZzvWezeTEvjIYOMUFcDxlEVsSiGO4luayYcdLV4vVWQDpbHBRUuKtC1u+E3/u+Vqu7kjCX9UVeyUBXcIDYgMvX/6/lK/Zyame5/Gz7SOB17xDl/eX2o47WZlYwOdYU8UxCElV947+5smjm3CIgfsQCyZJoM77fElYHhGySzVnLHVIoVcutQbK7AI17FCrf0kzksxqvjjnnfwASifhwnntO8cAVJRx2dGWYYLQ0QG5ilobvm/gXNztavCpZ4vr1VuENrrxkVhI4iQwqsuCljuHhJywQYA8QLYOcTHSzPcao6758xudYHqEpkPVuOw9tt9i1t5cPkJfxOeh6CrmscZ+lS6M0QeVnSMjeonbbjnUeEcBNBMKefZeuANjZEu/zOOg9gagOf0taVNKpWjV/NpXCsdZEfYkveQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI9PR04MB350878.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(19092799006)(366016)(23010399003)(1800799024)(921020)(11063799006)(56012099006)(261021123027099003)(261009223027099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?aVg3K3pHeUVsb1JGYlg5cXptRzhDUkkvRW5wdkxydnhWYU9ESHRacHpmeERW?=
- =?utf-8?B?M2dKdlc1QjhyRUdCT3JUZ1hXdm9wUThETUU1SlNhTVFBN2Vua2d3YjQ4d29x?=
- =?utf-8?B?N2NST1Y4eFFNZ0ZuZFBaZU9sTS9hV1YrRW4xUmlXMTZES1duMjhlMEZISGh5?=
- =?utf-8?B?M0o4L3R5VnM4TFpVV0VDQVF6UWd3d3dTN0VsTWN5bW1uTXNZbWRaOGpBQ0g1?=
- =?utf-8?B?emplZU82RlhqRExEZjhRSWl0bG93Nk5OeTFmUHNBTkk5aGo0U0d1eExnaU82?=
- =?utf-8?B?bWdxK2Y4TVByOWorNU5QVi9Hek1haU9TckNOS2o0SjFFVDJoUXBLZzNKYWo5?=
- =?utf-8?B?SU43V3c0RVU5R0NudkhEVlpkWGNlQ2RNTFB2cEo0V0ZHbmowMFhMS2FjN3c0?=
- =?utf-8?B?WHc1OHFxQkxtaXhLZWtOTDhia1doYXo2OENSRDEwbFJSWkR0NzRCdUZPeThI?=
- =?utf-8?B?c3hSMGpzUVVEQ05ZY2QrMkpUK3ZnOUszUjVlRXUzaXU1MkdyWTlXcjBML1Ur?=
- =?utf-8?B?WTMvSE1sUW5iZUdNVFNRSk9JYlZBSmIxYUdOVWFqUHR2RUd5TzUxZFZuVkdS?=
- =?utf-8?B?Q1g3MTRiMnQwT09uSE1IOTIyU3NKamNRSkxDU1haRzJsVWc1VU9VVkZUQ3dk?=
- =?utf-8?B?YTk2RTlicGRMbXBDTU5HNmlYbGdRbHcwN2VEcE1GVnpHampHODNMbFpXMlhK?=
- =?utf-8?B?dTh4R2IzQW9Fdy9mVThIZU5SYXNxSG1sbHNlRFdUUEhBQzJnT2FxWEFoWmNZ?=
- =?utf-8?B?dnR1S2xTWFR1NENUQ2hiL3FySjJQMkVlQy8zWUFWdHpCcXBtNjgxbDkyV3VO?=
- =?utf-8?B?bU1VbjFwRSswZXBWZVBFQVF1bUQ3N0RBKzIxbHI4N201RG42M0hQU0xybDBo?=
- =?utf-8?B?UjRramhrR3h3UkRDNUZZOGFWM2plMG9RUmZEODRXb0dTTXdNbW5IVktzZHYv?=
- =?utf-8?B?bmZFWUczeWk3VFF5eGUycnNXc3dicU5QVnYyRVdEWm9MT3MzZGtBdmNZTVdL?=
- =?utf-8?B?cStvSlhEb3Joa0V3Q1dlWGZveWFWZzUwZ00wcjZSQ2ltVjVJVzdNWDVDUys4?=
- =?utf-8?B?blBteHFhTllpZGxTZWhnTDFrVVNXcTY0REJwZ09sdWhpQUQyd1VtVWhES0Jz?=
- =?utf-8?B?SHdGUS9naHJOamw0TUkxOWN3aHYzQzZnV283VVJUT0pCbU5FeTRuaXVVQmdl?=
- =?utf-8?B?VDM0WGpIc0xlS3JaNFJpZEs2ZkwxN3hleTJNemZzSHIvWVA4aXRPRmpCM2V3?=
- =?utf-8?B?dlRZNU1Kbnp6UzdCZGdXcHA0bEVQMFprVUh5dVZLWkYyQXdWYnZpd2hkS0ZI?=
- =?utf-8?B?WGd1Q1NHRVNuRnRGU1FBcVRoUVBUZW1YKzJ5VnkzNms0WEJKTUhBRjFCVmtG?=
- =?utf-8?B?ZXlNSnM4TzJ4dDhUQkZ5VmNCcWpLYmVsSTdYV0xtMm52bWt0N3B5SW9oYkps?=
- =?utf-8?B?WHd3MHgrUXZQVzFqUmExazlIT1h0ZGNQZzEwNEF0eXB2UnFTRE51Ykp6N2dU?=
- =?utf-8?B?dlR3SGJqMzN1SU9ZY21TcWVoQ2ZNK1E5UnB1RFk3eGRGd3RLSUVVOHNONWtj?=
- =?utf-8?B?OWJZMlhxbDEzSEJtbksxV3g1bjBiWjAwZlVZWDFMUkdPS2pXdHlNUnZIUENo?=
- =?utf-8?B?Sk9URGZZam9IYU1HZ2g2dExqRWwrK1M1b3ozYzAzZGlqM0RTWU11a20rTWtI?=
- =?utf-8?B?anVMRkVaV1Q0UUpHRGMrZ1dwZndxUGVzdktVMTRGd1cwcmVSR3loc2Jlek5P?=
- =?utf-8?B?S2owNGdndVh1TjdCSHBzZVdMRVRLLzJwdkhrWlFWL3hpaXVqS2djZmNzR28z?=
- =?utf-8?B?NGpEeXR1ai8wYlZ5SjRVdGZldnVjcWJ0dXlWNTFMMDFuSW9qLzBXd1dRb3JZ?=
- =?utf-8?B?UVk0enBSaWVDUnZLUmdncWdScTYxMlcvcldHQzJvRXZRS0FHZmJZSkM4Q2tW?=
- =?utf-8?B?MVoyU3NQWXFPSm5RQ2E5dVRvRTNTSHN4ZCtSL0NLUjBmZm5xZk5XL3U1WVZt?=
- =?utf-8?B?c1dTMVJNWExOUlZoRUhFYjhwNThnWGFma2NNR2Vpam56dExaZWQrUmJ1MHRG?=
- =?utf-8?B?VXVhNS9jWUUySXdyM1oraldvS1h4Y0VmZW9ZQVhSUGR1dThJUUVoUTRKdUFa?=
- =?utf-8?B?TVZvTzRzSUFoMmw1OElHTEMzMnFVTjNBSjN1T09JZ29mR1FiQy93VnVhU2hS?=
- =?utf-8?B?bUxDTTVtb2hqanFPSHFhaEM3YTBvb3dZcUtEUkFTSU5rTVozUFNoeGQ5ZmNo?=
- =?utf-8?B?UWo2dnlxWTdyMUZwdnJ1QThXdHdDVlByR2Y3cm4xWkdaK1VIRWQza2p2R2pk?=
- =?utf-8?B?K3E5cGRnMUdSaXlpMTdoUktjMitzaHFRMFNuWkRnbW1vZXpwcjNFdz09?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f58c2d29-d442-41df-e525-08df33489171
-X-MS-Exchange-CrossTenant-AuthSource: MI9PR04MB350878.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 10:04:48.1319
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3eZnS9JC6JzK1udwpxjJHzHY7PdryQHQh9u6CszRj90swTXDF3HxSG4xX2dP1A5QaxEQcuH2RCiNcGb8o42+VQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB11500
+Content-Transfer-Encoding: 8bit
 
-It's unnecessary to set initial ExtDst source selection because KMS
-driver would do that when doing atomic commits.  Drop the selection.
-This is needed as a preparation for reading ExtDst source selection
-when trying to disable CRTC at boot in an upcoming commit.
+sx9360_suspend() disables the interrupt first and returns with it still
+disabled if a register access fails. Resume isn't called after a failed
+suspend, so the interrupt is never enabled again. sx9360_resume() also
+returns without enabling it on error. Without an interrupt line,
+client->irq is 0 and both callbacks act on IRQ 0, which the driver
+doesn't own.
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Acked-by: Maxime Ripard <mripard@kernel.org>
-Signed-off-by: Liu Ying <victor.liu@nxp.com>
---
-v7:
-- Collect Maxime's A-b tag.
+Disable the interrupt only once the device is asleep, always enable it
+in resume, and skip both when there is no interrupt.
 
-v2:
-- Collect Frank's R-b tag.
+Fixes: 1cdb4c47f7f5 ("iio:proximity:sx9360: Add sx9360 support")
+Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
 ---
- drivers/gpu/drm/imx/dc/dc-ed.c | 1 -
- 1 file changed, 1 deletion(-)
+I'm sending the same fix for sx9310, sx9324 and sx9360 as separate
+patches, as the Fixes tags differ.
 
-diff --git a/drivers/gpu/drm/imx/dc/dc-ed.c b/drivers/gpu/drm/imx/dc/dc-ed.c
-index 67163dca1363..2f8d8c94e2d9 100644
---- a/drivers/gpu/drm/imx/dc/dc-ed.c
-+++ b/drivers/gpu/drm/imx/dc/dc-ed.c
-@@ -205,7 +205,6 @@ static inline void dc_ed_disable_gamma_apply(struct dc_ed *ed)
+Compile-tested only (W=1); I don't have SX9360 hardware and haven't
+reproduced a failing suspend.
+
+ drivers/iio/proximity/sx9360.c | 33 ++++++++++++++++++++-------------
+ 1 file changed, 20 insertions(+), 13 deletions(-)
+
+diff --git a/drivers/iio/proximity/sx9360.c b/drivers/iio/proximity/sx9360.c
+index ed83d809ecf5..85b83d86a433 100644
+--- a/drivers/iio/proximity/sx9360.c
++++ b/drivers/iio/proximity/sx9360.c
+@@ -797,8 +797,6 @@ static int sx9360_suspend(struct device *dev)
+ 	unsigned int regval;
+ 	int ret;
  
- void dc_ed_init(struct dc_ed *ed)
+-	disable_irq_nosync(data->client->irq);
+-
+ 	guard(mutex)(&data->mutex);
+ 	ret = regmap_read(data->regmap, SX9360_REG_GNRL_CTRL0, &regval);
+ 	if (ret < 0)
+@@ -809,23 +807,32 @@ static int sx9360_suspend(struct device *dev)
+ 
+ 
+ 	/* Disable all phases, send the device to sleep. */
+-	return regmap_write(data->regmap, SX9360_REG_GNRL_CTRL0, 0);
++	ret = regmap_write(data->regmap, SX9360_REG_GNRL_CTRL0, 0);
++	if (ret)
++		return ret;
++
++	/* Only once nothing can fail, as resume isn't called on failure. */
++	if (data->client->irq)
++		disable_irq_nosync(data->client->irq);
++
++	return 0;
+ }
+ 
+ static int sx9360_resume(struct device *dev)
  {
--	dc_ed_pec_src_sel(ed, LINK_ID_NONE);
- 	dc_ed_pec_enable_shden(ed);
- 	dc_ed_pec_poweron(ed);
- 	dc_ed_pec_sync_mode_single(ed);
+ 	struct sx_common_data *data = iio_priv(dev_get_drvdata(dev));
++	int ret;
+ 
+-	scoped_guard(mutex, &data->mutex) {
+-		int ret = regmap_update_bits(data->regmap,
+-					     SX9360_REG_GNRL_CTRL0,
+-					     SX9360_REG_GNRL_CTRL0_PHEN_MASK,
+-					     data->suspend_ctrl);
+-		if (ret)
+-			return ret;
+-	}
+-	enable_irq(data->client->irq);
+-	return 0;
++	scoped_guard(mutex, &data->mutex)
++		ret = regmap_update_bits(data->regmap, SX9360_REG_GNRL_CTRL0,
++					 SX9360_REG_GNRL_CTRL0_PHEN_MASK,
++					 data->suspend_ctrl);
++
++	/* Balance the suspend even if the device couldn't be woken up. */
++	if (data->client->irq)
++		enable_irq(data->client->irq);
++
++	return ret;
+ }
+ 
+ static DEFINE_SIMPLE_DEV_PM_OPS(sx9360_pm_ops, sx9360_suspend, sx9360_resume);
 
+base-commit: 2ef6f5c4ee56e90c237c5f7687f09e635f7d30a9
 -- 
-2.43.0
+2.53.0
 
