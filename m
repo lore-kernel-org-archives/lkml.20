@@ -1,112 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793013024;
-	b=LSKQ7sRXFgPBZc1dVPsSuk4ssdDgmfT+5xdeGAaPp1jO9rFonhoZqoaju7/jaV6lhYbx
-	 hN7yOfWmPn1CGphOBuC1sw5hvJpyloDS2/8lwfQ3o305xnb2gIX+rbQbGUZ5ADO7Lng5x
-	 DwOuNmVcyWJEKqLiUHGdL4I+R/EznpyA4ouBp1ylc1Qcpm8ItLXqVSf0UqxWsCBD171g4
-	 bfeBjOTFA/JzI+Zj50Yx+cFIX8PRhkVO2PrzeOOyMjwfVXUFFBVX8Bl035Ss5hvScyzlx
-	 lnyRSuVM7cSeaXxaPStsCmdLyGOfgsfJwdGCv5EmkSxLXW1As6mM7r59emPhCivvQzg==
+	t=1793013041;
+	b=C/iq7w/c5rkGT3solvy+5aIpt0rRW4BfrQ8V9R3sV6/jruUQ3Y2EqnHKHCU1cLVmtHFm
+	 IlfbWZqKw6YwbBPs6HivVjSzgK84uXoi+vxE8ShrrGXqJ5/Zzlt0yItiOoJ1y/sK4Opo3
+	 E/1iSovEFlhUQmot4fY4EpITH58giIaTs3Pz7YcabnkrCEddITXo0ChgOyXc9eATD7PJE
+	 hs33bp+SbnuoAgdM6QLXKOx+0e3HhlPwG2SdPwrGARrPf5+XI2hxrbxPcbs6tiFLVnxGt
+	 P7uwri4Jvoy1atQ4/a+smZyAFWAfaxOUS+byOuVXIXa/+eWeqsIDT4ChIWmaD7N+KRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793013024;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=M2Z0RCPtboYFZ+IjaCc+zjd7qHKNjhm/LRlubdPohDY=;
-	b=xaL7mUqh4LJ+QTb2D/w7ltvVjlmRb7D0z+QiyWKUXSlo5+5ix7ED1XH8HSTsucHAfHri
-	 YbtrI4LumCJD/2uG2jGJLnQmRQG3/ONKlczYHYZTeoK+Xj/Aq7JnNfoQ1u3l7pLWeMfw5
-	 6rL/HMjIFEPvC1B1u+J3hqS70DI/A2RKWK7az6yrj7A4HILyTQKaQYq0mihZpH/5M1zLM
-	 /ggKXp7sWljUaHkdf/PizvK612ifJwbBjusM290zIxAwQaSgxIEKVi+ZZR0I+iN1m1zKs
-	 PjpP2Kq8CJMu2rJ3MQ3Cmngsv81S8jMi4W+99BytnCErbpnSN1wjEQp6G7r0i2yqPEw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793013041;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=nPvZd6ipcHhyyKgSYRp44a/mOJGJPLjA8+pqMRT1rUc=;
+	b=qlidtFJni0JScGGKTvlNxv0afWY20rEREiLtxj8zt/fRjmBOeF3X+bVxG95V1UvdFYcI
+	 e9GnkSNdroyrzhg7lLkDSbOSjCgP3+GzLujwVf7KJBhqoAaPoAvJycOdi1yQtPglZi0o7
+	 VP3VXTLq00p5E6ulGRyJsZJ/BljYeB/6NIWcYAZL4xxoBQngQF3A9ArCLNcRdjevAJSCb
+	 Ug1i+4EywG0dCPBKkNX0CLT+2lC3rCZM/pTpUVojbxHHiF8APovMYXwqwzygeIiGf6pG5
+	 uOmFady+YntVrxaDFhG+CYXSR9YdMe2bXdpUawsITUcVhCYbpaOEl2NzOOK2Huu9Mfg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=I+rhtZ0u;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=QDeQDjjq;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=NFrt4eiV;
+	arc=none smtp.remote-ip=209.85.210.178
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92158606A338
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:10:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92158606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D73160A5BEB
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:10:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D73160A5BEB
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=I+rhtZ0u;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=QDeQDjjq
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69QAtXT41547948
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:10:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	M2Z0RCPtboYFZ+IjaCc+zjd7qHKNjhm/LRlubdPohDY=; b=I+rhtZ0uENob/eM6
-	rPFxa/Lxq/hRo634DX6rAq2ZBsVROCaRhUBCwfOpvUSidtqm1pMdnTIICnBeAQJ6
-	9lCqPVosXfFpkxSUDqnfjw/1DbtEOM+eMbulvKMRIU2/KwtfqROsWmSPi9d/h8NW
-	gFjnc5H22kumYOcEUALN5IlhQScuSpHqbEqkXTeQbRHcPwZrVhAFISMnVvHi2ZBz
-	XyI07fF0J3xyiSqoyWSz9EeaN+D6vYmludcMOjXHOYJ488n6Y9RinkEAOf8/WdTf
-	v4EmQKlNrvvXX5CmHQRK5V6ByNyIpkC3n8Ki4C++uqyCOH5Rdix9JEzciaYHIaSu
-	EbLNSg==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hhsgst5cb-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:10:22 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93f26dd2165so719866285a.3
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 04:10:22 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=NFrt4eiV
+Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-8a091e4eea2so126794b3a.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 04:10:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793013021; x=1793617821; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1793013040; x=1793617840; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=M2Z0RCPtboYFZ+IjaCc+zjd7qHKNjhm/LRlubdPohDY=;
-        b=QDeQDjjquwWKZWvG6+ayjxYO+SWbT01sNs9jsHnF94onUTw8lFyqiYIfZZeMzwZZrI
-         kzXH7ANJSJOjCdpy/bbFihvVhaytQochNgd/UfVNVSvtcgG0P21WZgQZhGZK3HPg9Bf6
-         bnW86R4NR1wu595mpSSCSPFy+dvD1INlzyJEUp5KBKxmNN7z+b8Chf8TDfPJ25H/dkA1
-         jgIeszOWjyvBFa6pEEdutJJ64tfoHpWFlG4uZqWr42PKctKXelnPLERKtxLeIA/GD11p
-         yR/O6agp6tCskKhfbAQI0V3aeN3KUAU6A6nTEOjwf823SOa+PCBa1i4yqeCUiHfeysf3
-         l5bg==
+        bh=nPvZd6ipcHhyyKgSYRp44a/mOJGJPLjA8+pqMRT1rUc=;
+        b=NFrt4eiVbq4Mp8B0y4o25ojFp+FFa+4f66uMwJtHoVi/woM9GOFpLAcZWlD8iPQMSV
+         s4eoGDF/diHSBsKR/tsnpoY7RrRmG20QTZe5kqKT7s2fYLf301xS5hunbFVxI9gR9T4A
+         CjFVGigZlaPXSYWVSZ64dZMArV19RYkeO02mm6MWuMvpRbxdFqXuDTrloQPz8eXMtyZ4
+         5+tz5yEDhOTfPLYDXvKgvClHmd/AoBm5hig71DxXYHskC02+iPVBWKVJTS6EJAXsSx4c
+         lZFEg+Bf4wA1B0szWc/6Zmx0DNhbtRiN8q+GMGbsYOIJe8+xVAAy6354QW73xycIxW9t
+         edPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793013021; x=1793617821;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=M2Z0RCPtboYFZ+IjaCc+zjd7qHKNjhm/LRlubdPohDY=;
-        b=KxSBjN671NnHa+TK3oBU9VNQhLqLbAlqOCm44UN/JWx5UtlBArlVQ6AUTFS10OPvGo
-         0LW0oNk8uKTrxK2qaWM5P6Is9cW3QW/lR7dSqouA8wHSOlCarN12+6jfmo9Bqih3Vl+x
-         D7l/w4HyO9y305eg7ZS4ehO5dd2AeV6NJLnUp2esvAn+KOZlV5UNyMjDoSx+/JQ1m4TS
-         LdulPWS+FRS0k3L9bfwPyhBk6H7wlnDAH60B8I/js5DZGnO/CubRVir1Iv/bdMOVJitC
-         3Vm+r7/RsotUepNHhktls688W1ivmi5bXmC286djhuAndhZvO6FK48MZfffcC1e6cH5g
-         Y4Sw==
-X-Forwarded-Encrypted: i=1; AKwUvByeekMZkU23REGXQuVyuAMoM9nb+6eEbXhtWAI1O0D9ZxtjyTJoJ2dX1d+AJCMKR0dG6rZQ4mgNeimJhG0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKfoSwA8se/GKakuI38fGOBJSKD4pbEQgaCjLhnq5pUTyoevoQt
-	0ppqvwbUOGFFDJuR4J4cY3NaAWw6biPvcXJ4kv6HwG4BD1GvkmrOTdnsIJBJiSuGRxmgW47QZKI
-	FnMW0leKRfcVlXGhyQE09M5g4U6goBzDMutI4oEdYyhiI4EE4jOvajMIM+A2NRzn95z4=
-X-Gm-Gg: AYBFou2P1BfQJUeAeCl/BwbeQPOp05PL5zDKXE0QJa+OmQJYSkCQR+AUmb2Y71RVaqz
-	Yxa0QluiAd1s8txhcyMayufXQ8wXMdf7ifJAF4N0lh0OKd7zwjX4ap/qTsDkjffOui763urikx7
-	wySUvyUcBu3tm6j3Wqhi+P27R1AGIHUOEEHHBduj7hfViWXgRPMgpLnIhTYy3D53pAQBNaKeNz8
-	5qdh5n3gZPuaMWYnnLBfVDkX++NcRVFBG3GP6ay7JLoT+0ZjoBsK9FBsHI2o4sGDy6JlaZSbowX
-	+SGkGnAwltVsAUnyFM0cDGUcL2yMIpp9qJpwtJDsDGQxIO5/RDUHbTD70GvwFC2E7TOQ7iZxXqk
-	gT1U5SX4QnBxyGkxVIfnwsHSuE+ES7s/kwjV6Aq9LqeEMMZLFOBUU5bd1D61IYfmA6ORWbE1jJb
-	1t7iUdJc6GsIxe
-X-Received: by 2002:a05:620a:4515:b0:93f:22c4:e92f with SMTP id af79cd13be357-940ef90f7dfmr883918585a.54.1793013021157;
-        Mon, 26 Oct 2026 04:10:21 -0700 (PDT)
-X-Received: by 2002:a05:620a:4515:b0:93f:22c4:e92f with SMTP id af79cd13be357-940ef90f7dfmr883910785a.54.1793013020579;
-        Mon, 26 Oct 2026 04:10:20 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfb7a950a3sm1455459e87.68.2026.10.26.04.10.18
+        d=1e100.net; s=20260707; t=1793013040; x=1793617840;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nPvZd6ipcHhyyKgSYRp44a/mOJGJPLjA8+pqMRT1rUc=;
+        b=dUNeUWwa5UIvBYimH2WqMYtzMVVXgjWH55zr1TLZbr9kKtMxnf9c+iqN61tNiNCSdx
+         O80lKQKwLuv8rBj7yNjP4XuiLmrxClGLfgDBkZyRWIAwHQi38EK/J5o5iAUI3wPOxLpt
+         v1ZG/wyPM3pjNlVIK8aolYXL2K34d2ZCWscqkSe0u0zawUvCEc2xZraz9astRTqv5L1B
+         YHSdzrBQu54f3fcolrKH64cy+1u+UHwNM8eVdqxZW58f46VlFtcKMhS/Lzx98IjKPJK8
+         jLG1Ul0mtkrCemNPQSAwA55+1HWw51fDH8Cux3dH10R7Gg73VQftwFRLMbkUr+z3knRS
+         gFnw==
+X-Forwarded-Encrypted: i=1; AKwUvBzOlG3qv3FVQTuR6EnCXSagr2C3qdkSYvCa40mX4owBCobTuDPSWG2QFfEy/zaXD8xcyEzj1Bf/XnXr4A8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKi1FZGrfEYlxEd3VoP9fHJ/ntzmx2zv88fK47S87Q/sn1AqGw9
+	HRGDJuTWQCSN/T/YCk9feG7R0XR5j4ONfRHnA5IYbq6tACAC6jVOTfE4
+X-Gm-Gg: AYBFou2kKU8rCOaSHsQ+/RuaHoB3Vb7vk1219Fk0u4laXQBQGI80p23gPBvuSLPFnzQ
+	KI7L7L/qOfC5r1SyX9LXO2pyp8CbRcH+n8DII/ECWEhgk6PFh1qkgEhRvn2J/3BpZ1c33iX2vJr
+	EpPqkQkKaSzDggI9ncnhwSWmuH3BQIcsGHlq05ZmR3jIRnm3KNPOOdfyPg64J9/FAwIh5kkurZE
+	xpEvhMsM+BGF/sLUAmUk0lpoQmNg4yMN9otQUKK0DYKHc/Dlbi38axNOUYYR4IS8vn7WfRo2Bwa
+	qd36DFWg9MYP5ZfNWa9g0Vs/w/WGXJV+PHUklRDLliwDn+bSq/GTPc98PW8vMUC6ilI/OKY19MZ
+	/OlRswgz7g+Q5dLVcWEJ1ws86XnFqqJrMqkzSEGxd0opmoEvmBuCs/5uGZPXuk2KP67jn2VK5Ib
+	wQStfnf9/EUGN4gGZuMmiye2+P6I0ErCluWWUXP9BcCZ3bgaSede4GDiV4Sad7Y8Mw+hgZ74Rlg
+	lvCkI7oEqPDKaDAmG9/kxHEC0aRShQS6JgXDVLpA7zUxZWJh4nTfuNbx69pR2YQxs/1G4D8ZA7S
+	MAVjQtmUqNI4Ex4lDQLQbz02DoxMVAa6gG51ZovgtuR0U7RM9XqtPjttcQj1KIdDim+9AUyrY/h
+	I7sQpHjSKxkp5fHFel6XZslmcM6cA4t+sIKgCuUkM0Zpu7Q==
+X-Received: by 2002:a17:90b:524d:b0:3a6:e1d1:e511 with SMTP id 98e67ed59e1d1-3adeafddb1bmr8922396a91.4.1793013039674;
+        Mon, 26 Oct 2026 04:10:39 -0700 (PDT)
+Received: from esteban.tail1178e6.ts.net (132.20.31.150.dy.iij4u.or.jp. [150.31.20.132])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adebadfa82sm8023593a91.8.2026.10.26.04.10.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 04:10:19 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Mon, 26 Oct 2026 13:09:50 +0200
-Subject: [PATCH 01/35] drm/panel: remove the get_timings() callback
+        Mon, 26 Oct 2026 04:10:39 -0700 (PDT)
+From: Antoine Pichot <antoine.pichot@gmail.com>
+To: linux-media@vger.kernel.org
+Cc: sakari.ailus@linux.intel.com,
+	mchehab@kernel.org,
+	djrscally@gmail.com,
+	dan.scally@ideasonboard.com,
+	hansg@kernel.org,
+	andriy.shevchenko@linux.intel.com,
+	linux-kernel@vger.kernel.org,
+	Antoine Pichot <antoine.pichot@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/7] media: i2c: ov7251: Fix link frequency index
+Date: Mon, 26 Oct 2026 20:10:26 +0900
+Message-ID: <20261026111032.88355-2-antoine.pichot@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261026111032.88355-1-antoine.pichot@gmail.com>
+References: <20261026111032.88355-1-antoine.pichot@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,282 +105,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261026-drm-panel-funcs-v1-1-5e3070a3478f@oss.qualcomm.com>
-References: <20261026-drm-panel-funcs-v1-0-5e3070a3478f@oss.qualcomm.com>
-In-Reply-To: <20261026-drm-panel-funcs-v1-0-5e3070a3478f@oss.qualcomm.com>
-To: Douglas Anderson <dianders@chromium.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Jyri Sarha <jyri.sarha@iki.fi>,
-        Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-        Andrzej Hajda <andrzej.hajda@intel.com>,
-        Robert Foss <rfoss@kernel.org>,
-        Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-        Jonas Karlman <jonas@kwiboo.se>,
-        Jernej Skrabec <jernej.skrabec@gmail.com>,
-        Luca Ceresoli <luca.ceresoli@bootlin.com>,
-        Paul Cercueil <paul@crapouillou.net>, Marek Vasut <marex@denx.de>,
-        Stefan Agner <stefan@agner.ch>, Frank Li <Frank.Li@nxp.com>,
-        Sascha Hauer <s.hauer@pengutronix.de>,
-        Pengutronix Kernel Team <kernel@pengutronix.de>,
-        Fabio Estevam <festevam@gmail.com>,
-        Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
-        Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
-        Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
-        Geert Uytterhoeven <geert+renesas@glider.be>,
-        Magnus Damm <magnus.damm@gmail.com>,
-        Biju Das <biju.das.jz@bp.renesas.com>,
-        Linus Walleij <linusw@kernel.org>, Sandy Huang <hjc@rock-chips.com>,
-        =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
-        Andy Yan <andy.yan@rock-chips.com>, Jonathan Corbet <corbet@lwn.net>,
-        Shuah Khan <skhan@linuxfoundation.org>,
-        Randy Dunlap <rdunlap@infradead.org>, Inki Dae <inki.dae@samsung.com>,
-        Seung-Woo Kim <sw0312.kim@samsung.com>,
-        Kyungmin Park <kyungmin.park@samsung.com>,
-        Krzysztof Kozlowski <krzk@kernel.org>,
-        Peter Griffin <peter.griffin@linaro.org>,
-        Alim Akhtar <alim.akhtar@samsung.com>,
-        Alison Wang <alison.wang@nxp.com>,
-        Paul Kocialkowski <paulk@sys-base.io>,
-        Yannick Fertre <yannick.fertre@foss.st.com>,
-        Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
-        Philippe Cornu <philippe.cornu@foss.st.com>,
-        Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-        Alexandre Torgue <alexandre.torgue@foss.st.com>,
-        Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>,
-        Thierry Reding <thierry.reding@kernel.org>,
-        Mikko Perttunen <mperttunen@nvidia.com>,
-        Jonathan Hunter <jonathanh@nvidia.com>,
-        Jagan Teki <jagan@amarulasolutions.com>, Ondrej Jirman <megi@xff.cz>,
-        Javier Martinez Canillas <javierm@redhat.com>,
-        Igor Reznichenko <igor@reznichenko.net>,
-        Michael Walle <mwalle@kernel.org>,
-        Dario Binacchi <dario.binacchi@amarulasolutions.com>,
-        Jagan Teki <jagan@edgeble.ai>, Jianhua Lu <lujianhua000@gmail.com>,
-        =?utf-8?q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>,
-        Purism Kernel Team <kernel@puri.sm>,
-        Jerry Han <hanxu5@huaqin.corp-partner.google.com>,
-        Joel Selvaraj <jo@jsfamily.in>, Icenowy Zheng <icenowy@aosc.io>,
-        Michael Trimarchi <michael@amarulasolutions.com>,
-        Sumit Semwal <sumit.semwal@linaro.org>,
-        Casey Connolly <casey.connolly@linaro.org>,
-        Michael Tretter <m.tretter@pengutronix.de>,
-        Cristian Cozzolino <cristian_ci@protonmail.com>,
-        Junjie Cao <junjie.cao@linux.dev>, Ryan Brue <ryanbrue.dev@gmail.com>,
-        Nickolay Goppen <setotau@mainlining.org>,
-        Stefan Mavrodiev <stefan@olimex.com>,
-        Florian Fainelli <florian.fainelli@broadcom.com>,
-        Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-        Robert Chiras <robert.chiras@nxp.com>,
-        Alexander Koskovich <akoskovich@pm.me>,
-        Markuss Broks <markuss.broks@gmail.com>,
-        Artur Weber <aweber.kernel@gmail.com>,
-        David Heidelberg <david@ixit.cz>,
-        Dzmitry Sankouski <dsankouski@gmail.com>,
-        Yedaya Katsman <yedaya.ka@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
-        linux-mips@vger.kernel.org, imx@lists.linux.dev,
-        linux-arm-kernel@lists.infradead.org,
-        linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
-        linux-doc@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
-        linux-stm32@st-md-mailman.stormreply.com, linux-sunxi@lists.linux.dev,
-        linux-tegra@vger.kernel.org, linux-rpi-kernel@lists.infradead.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4897;
- i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=QyWrgkY6ZnjVq5h1vZAiS6oNrgNf9gieSUM/aLO7szw=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBq3zUFn2LL/a3hpHcwUKprTutBJKRl30JANmhZI
- 0sNo9qgoQGJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCat81BQAKCRCLPIo+Aiko
- 1QZ7CACHPPW5AOWGSWzAkI4CS6eiI6km5J70phewHDz5Me8KZKsKWKw1PhMGtKDYABWXJwZXprM
- w1Mwd9MLWmGKuMjvgeaX4BeaBWHIE9lqWcZAtAP4hPjvlewyNVCHzjfVPcHKj2bonTPYAZjLyY/
- Kdm+x/ZpB27J3/76XA9ckLf29X3++gUnrIeLIWML9atz39KUXpQjHWpkY7+9hWVMrSjbh9ThgFM
- cL5NwHUlDYhgA7cwESIzgVIe+Nd3mxrmtqtqcgMUM/W3YqRnhngxGcvEyfeJXucilRevgZN2w9p
- 9t/l3xlE2Eo7+p7jGCAPfnMTN331Xx7JQWECasKBfom/i3JO
-X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA0NCBTYWx0ZWRfX2lPv2A7h+EAX
- D38GL/U6Y4tPTGXv+bz6aad/2D1a8HXfYiEpwkK7/edi1f/y9BD0vu7OnP52Ow4NtbDCk834MJd
- MqQl0opeFrAEaS8wZGX8Ph7+zECGMME=
-X-Proofpoint-GUID: w32qN5sxd9tmJulvEnfXVRpLlIV2r_Sf
-X-Authority-Analysis: v=2.4 cv=c+8+0h9l c=1 sm=1 tr=0 ts=6adf351e cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
- a=6bBJhzG1MskExv8IbyMA:9 a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-ORIG-GUID: w32qN5sxd9tmJulvEnfXVRpLlIV2r_Sf
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA0NCBTYWx0ZWRfX06I8uMweCpTV
- JARn3h9ybA6OHvrUMNoKRaVkWUXIk57RmVXHPQDYMuiYRZEEhEN2Lro3Jda7CK5fDFMpj5tPM6v
- uTYnmDC0WZqSBGsOtrOTt24HrezmdimWdY6UQxM/sP6r0pzAgT5RMD6IiLHvHSZClU+0NuWc757
- 7d7TTsfEyI9HaOrsBwy1YINwCruUh3lNWZqKSzyCZtXdsNMae+WmXFswr6buFaitSrRr+CX6IHi
- JZqE9qMyjfRTky8ISTMxzk0d+eCQJACnY+pWN8ho5Xn9RcPHJxeqQ5UW4iBJOvhO0V3BhRCzJDH
- 36qpnlWQMr7PX6xjxR3bLlCKDKP8dnj/Md45NKAlG3SfYUyhA0QPxtKkZssUyuBGuaQf68vSuJS
- 7n6EwqiKICiu3R+Dmk+EK3S2IPpO5w1pIZY35etXLQuicjqsFQTiIFFSAxucWGKyB5JEUFaXYT5
- ys7sucBfnCYlikJ5skQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-26_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 lowpriorityscore=0 clxscore=1015 priorityscore=1501
- suspectscore=0 adultscore=0 phishscore=0 impostorscore=0 spamscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610260044
+Content-Transfer-Encoding: 8bit
 
-Nothing has ever called get_timings() since it was introduced in commit
-2938931f3732 ("drm/panel: Add display timing support"). Remove it
-together with its three implementations.
+ov7251_check_hwcfg() stores i, the index into the firmware's
+link_frequencies array, in link_freq_idx, which the driver then uses to
+index its own link_freq[], pixel_rates[] and pll1[] tables. The matching
+driver entry is j. Store j.
 
-Assisted-by: LLM
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Observed on a Surface Book 2, where ipu-bridge lists one link frequency,
+319.2 MHz, which is link_freq[1]: V4L2_CID_LINK_FREQ reads 240000000,
+and the pixel rate and PLL registers are off the same way.
+
+Fixes: cc125aaa5a78 ("media: i2c: Provide ov7251_check_hwcfg()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Antoine Pichot <antoine.pichot@gmail.com>
 ---
- drivers/gpu/drm/panel/panel-edp.c           | 18 ------------------
- drivers/gpu/drm/panel/panel-seiko-43wvf1g.c | 18 ------------------
- drivers/gpu/drm/panel/panel-simple.c        | 18 ------------------
- include/drm/drm_panel.h                     | 12 ------------
- 4 files changed, 66 deletions(-)
+ drivers/media/i2c/ov7251.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/panel-edp.c
-index 94bc54c3833a..d3a4cf9b1760 100644
---- a/drivers/gpu/drm/panel/panel-edp.c
-+++ b/drivers/gpu/drm/panel/panel-edp.c
-@@ -646,23 +646,6 @@ static int panel_edp_get_modes(struct drm_panel *panel,
- 	return num;
- }
+diff --git a/drivers/media/i2c/ov7251.c b/drivers/media/i2c/ov7251.c
+index fce6344b51..1413f1856e 100644
+--- a/drivers/media/i2c/ov7251.c
++++ b/drivers/media/i2c/ov7251.c
+@@ -1523,7 +1523,7 @@ static int ov7251_check_hwcfg(struct ov7251 *ov7251)
+ 		goto out_free_bus_cfg;
+ 	}
  
--static int panel_edp_get_timings(struct drm_panel *panel,
--				 unsigned int num_timings,
--				 struct display_timing *timings)
--{
--	struct panel_edp *p = to_panel_edp(panel);
--	unsigned int i;
--
--	if (p->desc->num_timings < num_timings)
--		num_timings = p->desc->num_timings;
--
--	if (timings)
--		for (i = 0; i < num_timings; i++)
--			timings[i] = p->desc->timings[i];
--
--	return p->desc->num_timings;
--}
--
- static enum drm_panel_orientation panel_edp_get_orientation(struct drm_panel *panel)
- {
- 	struct panel_edp *p = to_panel_edp(panel);
-@@ -699,7 +682,6 @@ static const struct drm_panel_funcs panel_edp_funcs = {
- 	.enable = panel_edp_enable,
- 	.get_modes = panel_edp_get_modes,
- 	.get_orientation = panel_edp_get_orientation,
--	.get_timings = panel_edp_get_timings,
- 	.debugfs_init = panel_edp_debugfs_init,
- };
+-	ov7251->link_freq_idx = i;
++	ov7251->link_freq_idx = j;
  
-diff --git a/drivers/gpu/drm/panel/panel-seiko-43wvf1g.c b/drivers/gpu/drm/panel/panel-seiko-43wvf1g.c
-index 0935d83ee2db..99b3895a1b28 100644
---- a/drivers/gpu/drm/panel/panel-seiko-43wvf1g.c
-+++ b/drivers/gpu/drm/panel/panel-seiko-43wvf1g.c
-@@ -174,28 +174,10 @@ static int seiko_panel_get_modes(struct drm_panel *panel,
- 	return seiko_panel_get_fixed_modes(p, connector);
- }
- 
--static int seiko_panel_get_timings(struct drm_panel *panel,
--				    unsigned int num_timings,
--				    struct display_timing *timings)
--{
--	struct seiko_panel *p = to_seiko_panel(panel);
--	unsigned int i;
--
--	if (p->desc->num_timings < num_timings)
--		num_timings = p->desc->num_timings;
--
--	if (timings)
--		for (i = 0; i < num_timings; i++)
--			timings[i] = p->desc->timings[i];
--
--	return p->desc->num_timings;
--}
--
- static const struct drm_panel_funcs seiko_panel_funcs = {
- 	.unprepare = seiko_panel_unprepare,
- 	.prepare = seiko_panel_prepare,
- 	.get_modes = seiko_panel_get_modes,
--	.get_timings = seiko_panel_get_timings,
- };
- 
- static int seiko_panel_probe(struct device *dev,
-diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
-index a944c34642dc..e4629428b1b2 100644
---- a/drivers/gpu/drm/panel/panel-simple.c
-+++ b/drivers/gpu/drm/panel/panel-simple.c
-@@ -405,23 +405,6 @@ static int panel_simple_get_modes(struct drm_panel *panel,
- 	return num;
- }
- 
--static int panel_simple_get_timings(struct drm_panel *panel,
--				    unsigned int num_timings,
--				    struct display_timing *timings)
--{
--	struct panel_simple *p = to_panel_simple(panel);
--	unsigned int i;
--
--	if (p->desc->num_timings < num_timings)
--		num_timings = p->desc->num_timings;
--
--	if (timings)
--		for (i = 0; i < num_timings; i++)
--			timings[i] = p->desc->timings[i];
--
--	return p->desc->num_timings;
--}
--
- static enum drm_panel_orientation panel_simple_get_orientation(struct drm_panel *panel)
- {
- 	struct panel_simple *p = to_panel_simple(panel);
-@@ -436,7 +419,6 @@ static const struct drm_panel_funcs panel_simple_funcs = {
- 	.enable = panel_simple_enable,
- 	.get_modes = panel_simple_get_modes,
- 	.get_orientation = panel_simple_get_orientation,
--	.get_timings = panel_simple_get_timings,
- };
- 
- static struct panel_desc *panel_dpi_probe(struct device *dev)
-diff --git a/include/drm/drm_panel.h b/include/drm/drm_panel.h
-index 58113ea7d63a..deae4753a594 100644
---- a/include/drm/drm_panel.h
-+++ b/include/drm/drm_panel.h
-@@ -40,7 +40,6 @@ struct drm_connector;
- struct drm_device;
- struct drm_panel_follower;
- struct drm_panel;
--struct display_timing;
- 
- enum drm_panel_orientation;
- 
-@@ -131,17 +130,6 @@ struct drm_panel_funcs {
- 	 */
- 	enum drm_panel_orientation (*get_orientation)(struct drm_panel *panel);
- 
--	/**
--	 * @get_timings:
--	 *
--	 * Copy display timings into the provided array and return
--	 * the number of display timings available.
--	 *
--	 * This function is optional.
--	 */
--	int (*get_timings)(struct drm_panel *panel, unsigned int num_timings,
--			   struct display_timing *timings);
--
- 	/**
- 	 * @debugfs_init:
- 	 *
-
+ out_free_bus_cfg:
+ 	v4l2_fwnode_endpoint_free(&bus_cfg);
 -- 
-2.47.3
+2.53.0
 
