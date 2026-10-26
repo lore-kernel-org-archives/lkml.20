@@ -1,86 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793020519;
-	b=2BPU6UfYiAhqb+19Tcb6VRlFVJsgphrFw1e++/T7bD/pNXeTTucA/yErz2cnMz9qeB8W
-	 ositQ6b7C4WzP6HM6bp5j/dMmBKl4rp3+3tiCrXY1CNmS9AWKt6mDxRau8nRmR9b2GwYh
-	 WA+uRa4r1Oo1qW/yk6XbgR4fS+Z0rvhPAY4EWlctl6/n/JuBEouwFlwvoKoR16qSdooMc
-	 8QS2nZ0qAhvhzI8Q5u2Tz2T7prwHewdn5eRFXfJhu4Em8tpkKf2zq+uoalO9bYOIU79oE
-	 X+o3ImCa4vs6LzCxWlOfxGA07oJTwv5EtMTOtpaTW0p5MYysODgbirmDMRBwoCoD6Xg==
+	t=1793020545;
+	b=OhLjsED0ALW6gG5/mff/zXV0quh1Obn+DP3BsEI3vxpKHsM6v7oCSZ3XEhcKxxT/bs2U
+	 Lp1Pe0yK1FA4x0vapRVfZyVd15Fh65HLGJd0+Ob69aDC1Jxasklc3UWkS+ufrUfCHlurF
+	 SqCuCFG7gTwuqzc7xWhJ74asFxdw8q9I5xJzQgq1s+ukmWIeSzq/7YTWYyFowLbHWfxZ/
+	 ul6fXSBxoYZsgDjUhZpf7LQek44aMkHD6RCtVCRRka1XZ6KDLQZ0KyJuVQ3b13ZX/uwMT
+	 WQLWUayo1I5DAyFXlvsnM3/JvH54wQ/2qlMy9sYntzZv5FOp/SBiWbqw/rYa29QUXdw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793020519;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=Cy4rxcI3ce6TYxyPahXPnRjErY3UMtGKV16tpWTXyE0=;
-	b=dvSoADQ2FEsuF5I908yYDrGZxwOAeKtoJPyYwiAWPlTDwS5tm3z4hpaJjHFkal9nsfQ7
-	 lxv77WzM0/CHL9xIvTyLhJl02EcO53bnqYg+cbEWvLASFzgnYtDK/CW/rTOSzH8d9TZlF
-	 POqIUdFf1mjEuSMHnM/5Vqn37QZdk8Pwm3TUX/cSh4TX9XKO6uTNDrSmY/6VWcu+pp7YP
-	 pqkwVUKne9uctJH1U6/c3O95vbYzMYseOaY56ptA3ML/IJryII7D0fys45MhkjCOm4Yrq
-	 JWfbKiOqLQkTMAf0SHBxvAwCkMaM9/wdpVZSZg0R/ShJYIoRnd75HJtR7eV8P2vadLw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793020545;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=RGNe2EMyxsnvsEaTX+Pjtf2oiHahHN9mOAFjtweH/sQ=;
+	b=AgEcDKYiJvOzayMkkRuNUd1BeXDJ4RbNO9OQFH4xVvlfdUgW2yji7wshNWbEcRWu5hW6
+	 5f957429RegneIfS/y1mJln5xJSUj6lze0/V4FcUpqrvLdHKas67QHP7c21RRi5lRFenI
+	 /S35qIpBqHPKokQcrKWB/PXzCKy3ebjKPO/TF8ZbGsFNkv9f8Xe6WFzWhzz2QVApZhD2U
+	 lnys3BTYFXcqJW9zE6CTXjhqoALkCVfKBjDmLifAscpLD8Y9xcNHkYn9EwiGt5v28sLrg
+	 9C7m3IBXzcZ9w2Xh7DEofyGkb4iWdVyR4Fz3gYb92GxZkzFIX4/4A5c4Vh+Myyq2bUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=d0sUY5HH;
-	arc=none smtp.remote-ip=192.198.163.12
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lmveuHIB;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF607606A31B;
-	Mon, 26 Oct 2026 13:15:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF607606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B989E606A31B;
+	Mon, 26 Oct 2026 13:15:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=d0sUY5HH
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793020519; x=1824556519;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=y/LGAg2OQl5w/RWFI88m5T3EUelTRryBw3WFdvToFLc=;
-  b=d0sUY5HHl1XEe1eNMIPuKsi2TaBGK/q1mtujHzZiAZ+t5+JBeHTfILSM
-   LdLkfTJysvJluFIjTn1F4kIYrUq655DwH86q5XD5IueJ/5jF3hve5nx/W
-   agTWO9eNfF6BtOl5kRlolLRVSG+ym+bNv4DeLQvr5pD+tUcUG5D6gID7C
-   c2icolQMTXnwnDXocXARJjY4BTVBueU2M7WfTWqR89FrKDWkD0bi2S9nl
-   qC1oX+Gyr/NcCwYqzD0AacYZJSzl37E1z0bWs+/4TuJz84V4VyKTKtvDG
-   C22HEafb2te01k7HOFuSNpGzxre92pUIlKMJ2NMbSo+4I3qCsT0/LkEs/
-   w==;
-X-CSE-ConnectionGUID: +O8EPGy/RbqOB8Xl3m01BQ==
-X-CSE-MsgGUID: gmif1QHKTOaZw2YdmQXydw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1589843"
-X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
-   d="scan'208";a="1589843"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 06:15:18 -0700
-X-CSE-ConnectionGUID: 79JJIpZrTNukNZhmbXQ0jA==
-X-CSE-MsgGUID: 3Gv8fKKSSnOnYsIOVDl8ew==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
-   d="scan'208";a="4137237"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by orviesa008.jf.intel.com with ESMTP; 26 Oct 2026 06:15:15 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id 8CFA999; Mon, 26 Oct 2026 14:15:14 +0100 (CET)
-Date: Mon, 26 Oct 2026 14:15:14 +0100
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Val Packett <val@packett.cool>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Luca Weiss <luca.weiss@fairphone.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] usb: typec: fsa4480: Report switch & mux events
- to codec
-Message-ID: <at9SYmvQtGAYaYYn@black.igk.intel.com>
-References: <20261020162101.1527014-1-val@packett.cool>
- <20261020162101.1527014-3-val@packett.cool>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lmveuHIB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBB9B1F01825;
+	Mon, 26 Oct 2026 13:15:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793020544;
+	bh=RGNe2EMyxsnvsEaTX+Pjtf2oiHahHN9mOAFjtweH/sQ=;
+	h=From:To:Cc:Subject:Date;
+	b=lmveuHIBw3NzrRNioS45fPA/x/ZEmPqKziYwNbCbHiOvmGNjQ7FxiTZyofXGlCFnM
+	 wsCBgUiUgjOEA8N7/nWJfzxnTG4nCJ5tPrLBTbaV+lomDOdF1qwA40bH2Iym0QjyxN
+	 VvxHH5dRf0N+Y1b4v1OfpPAlqCiGlz191dR2NqOuzqrvkwWHlpMdTgiBFBgcpYMfCj
+	 evLwks/k7Ya3+GgoRDX9XFwz99W1Wo5HePxA2OvoOTEGWf0+7zNEGeuiiuMX6qBfRf
+	 CVq86qBnnVc8E+b5RLn0KtiQPOmqzoQ1XpDPsxjNwWKDqiNmEu60b4mPYMQ9dZfzF+
+	 J+sbmTUMICQ6Q==
+From: Imre Kaloz <kaloz@kernel.org>
+To: Hannes Reinecke <hare@suse.com>,
+	James.Bottomley@HansenPartnership.com,
+	"Martin K . Petersen" <mkp@kernel.org>,
+	linux-scsi@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] scsi: aic7xxx: Use default settings on the SGI O2 onboard controllers
+Date: Mon, 26 Oct 2026 14:14:32 +0100
+Message-ID: <20261026131432.26065-1-kaloz@kernel.org>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,153 +59,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261020162101.1527014-3-val@packett.cool>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 20, 2026 at 01:20:31PM -0300, Val Packett wrote:
-> From: Luca Weiss <luca.weiss@fairphone.com>
-> 
-> In the Type-C graph, the FSA4480 switch is in between the USB-C connector
-> and the audio codec, but the audio codec also needs to receive the
-> switch and mux events from the FSA4480.
-> 
-> Update the driver to get an Type-C mux on the next endpoint and
-> broadcast the recevied mux & switch state to it.
-> 
-> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
-> [val: enable the SENSE/MIC bits; put the refs in fsa4480_remove]
-> Signed-off-by: Val Packett <val@packett.cool>
+The SGI O2 firmware runs its onboard aic7880s without the Adaptec BIOS,
+so scratch RAM holds no settings. The left over BIOS path reads
+uninitialised bytes, and bad parity panics the boot.
 
-Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Use the defaults there with host ID 0. ahc_init() keeps the default host
+ID ahc_pci_config() chose, 7 on other PCI controllers, so only the O2
+changes.
 
-> ---
->  drivers/usb/typec/mux/fsa4480.c | 57 +++++++++++++++++++++++++++++----
->  1 file changed, 50 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/usb/typec/mux/fsa4480.c b/drivers/usb/typec/mux/fsa4480.c
-> index bea0c1deec94..3c12d17a25a2 100644
-> --- a/drivers/usb/typec/mux/fsa4480.c
-> +++ b/drivers/usb/typec/mux/fsa4480.c
-> @@ -60,6 +60,9 @@ struct fsa4480 {
->  
->  	struct regmap *regmap;
->  
-> +	struct typec_mux *codec;
-> +	struct typec_switch *codec_switch;
-> +
->  	enum typec_orientation orientation;
->  	unsigned long mode;
->  	unsigned int svid;
-> @@ -115,7 +118,8 @@ static int fsa4480_set(struct fsa4480 *fsa)
->  		}
->  	} else if (fsa->mode == TYPEC_MODE_AUDIO) {
->  		/* Audio Accessory Mode, setup to auto Jack Detection */
-> -		enable |= FSA4480_ENABLE_USB | FSA4480_ENABLE_AGND;
-> +		enable |= FSA4480_ENABLE_USB | FSA4480_ENABLE_AGND |
-> +			 FSA4480_ENABLE_SENSE | FSA4480_ENABLE_MIC;
->  	} else
->  		return -EOPNOTSUPP;
->  
-> @@ -162,7 +166,11 @@ static int fsa4480_switch_set(struct typec_switch_dev *sw,
->  
->  	mutex_unlock(&fsa->lock);
->  
-> -	return ret;
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Report orientation to codec after switch has been done */
-> +	return typec_switch_set(fsa->codec_switch, orientation);
->  }
->  
->  static int fsa4480_mux_set(struct typec_mux_dev *mux, struct typec_mux_state *state)
-> @@ -185,7 +193,11 @@ static int fsa4480_mux_set(struct typec_mux_dev *mux, struct typec_mux_state *st
->  
->  	mutex_unlock(&fsa->lock);
->  
-> -	return ret;
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Report event to codec after switch has been done */
-> +	return typec_mux_set(fsa->codec, state);
->  }
->  
->  enum {
-> @@ -287,6 +299,19 @@ static int fsa4480_probe(struct i2c_client *client)
->  		FIELD_GET(FSA4480_DEVICE_ID_REV_ID, val),
->  		FIELD_GET(FSA4480_DEVICE_ID_VENDOR_ID, val));
->  
-> +	/* Get Codec's MUX & Switch devices */
-> +	fsa->codec = fwnode_typec_mux_get(dev->fwnode);
-> +	if (IS_ERR(fsa->codec))
-> +		return dev_err_probe(dev, PTR_ERR(fsa->codec),
-> +				     "failed to acquire codec mode-switch\n");
-> +
-> +	fsa->codec_switch = fwnode_typec_switch_get(dev->fwnode);
-> +	if (IS_ERR(fsa->codec_switch)) {
-> +		ret = dev_err_probe(dev, PTR_ERR(fsa->codec_switch),
-> +				    "failed to acquire codec orientation-switch\n");
-> +		goto err_put_mux;
-> +	}
-> +
->  	/* Safe mode */
->  	fsa->cur_enable = FSA4480_ENABLE_DEVICE | FSA4480_ENABLE_USB;
->  	fsa->mode = TYPEC_STATE_SAFE;
-> @@ -310,8 +335,11 @@ static int fsa4480_probe(struct i2c_client *client)
->  	sw_desc.set = fsa4480_switch_set;
->  
->  	fsa->sw = typec_switch_register(dev, &sw_desc);
-> -	if (IS_ERR(fsa->sw))
-> -		return dev_err_probe(dev, PTR_ERR(fsa->sw), "failed to register typec switch\n");
-> +	if (IS_ERR(fsa->sw)) {
-> +		ret = dev_err_probe(dev, PTR_ERR(fsa->sw),
-> +				    "failed to register typec switch\n");
-> +		goto err_put_switch;
-> +	}
->  
->  	mux_desc.drvdata = fsa;
->  	mux_desc.fwnode = dev_fwnode(dev);
-> @@ -319,12 +347,24 @@ static int fsa4480_probe(struct i2c_client *client)
->  
->  	fsa->mux = typec_mux_register(dev, &mux_desc);
->  	if (IS_ERR(fsa->mux)) {
-> -		typec_switch_unregister(fsa->sw);
-> -		return dev_err_probe(dev, PTR_ERR(fsa->mux), "failed to register typec mux\n");
-> +		ret = dev_err_probe(dev, PTR_ERR(fsa->mux),
-> +				    "failed to register typec mux\n");
-> +		goto err_unregister_switch;
->  	}
->  
->  	i2c_set_clientdata(client, fsa);
->  	return 0;
-> +
-> +err_unregister_switch:
-> +	typec_switch_unregister(fsa->sw);
-> +
-> +err_put_switch:
-> +	typec_switch_put(fsa->codec_switch);
-> +
-> +err_put_mux:
-> +	typec_mux_put(fsa->codec);
-> +
-> +	return ret;
->  }
->  
->  static void fsa4480_remove(struct i2c_client *client)
-> @@ -333,6 +373,9 @@ static void fsa4480_remove(struct i2c_client *client)
->  
->  	typec_mux_unregister(fsa->mux);
->  	typec_switch_unregister(fsa->sw);
-> +
-> +	typec_mux_put(fsa->codec);
-> +	typec_switch_put(fsa->codec_switch);
->  }
->  
->  static const struct i2c_device_id fsa4480_table[] = {
-> -- 
-> 2.55.0
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Imre Kaloz <kaloz@kernel.org>
+---
+ drivers/scsi/aic7xxx/aic7xxx_core.c |  8 ++++++--
+ drivers/scsi/aic7xxx/aic7xxx_pci.c  | 20 +++++++++++++++++++-
+ 2 files changed, 25 insertions(+), 3 deletions(-)
 
+diff --git a/drivers/scsi/aic7xxx/aic7xxx_core.c b/drivers/scsi/aic7xxx/aic7xxx_core.c
+index b9761f9f0bbc..8ad82171e925 100644
+--- a/drivers/scsi/aic7xxx/aic7xxx_core.c
++++ b/drivers/scsi/aic7xxx/aic7xxx_core.c
+@@ -5266,9 +5266,13 @@ ahc_init(struct ahc_softc *ahc)
+ 
+ 	/*
+ 	 * Assume we have a board at this stage and it has been reset.
++	 * PCI controllers keep the host ID ahc_pci_config() chose.
+ 	 */
+-	if ((ahc->flags & AHC_USEDEFAULTS) != 0)
+-		ahc->our_id = ahc->our_id_b = 7;
++	if ((ahc->flags & AHC_USEDEFAULTS) != 0) {
++		if ((ahc->chip & AHC_PCI) == 0)
++			ahc->our_id = 7;
++		ahc->our_id_b = 7;
++	}
+ 
+ 	/*
+ 	 * Default to allowing initiator operations.
+diff --git a/drivers/scsi/aic7xxx/aic7xxx_pci.c b/drivers/scsi/aic7xxx/aic7xxx_pci.c
+index 2d4c85426dc3..5a04c7d55e4b 100644
+--- a/drivers/scsi/aic7xxx/aic7xxx_pci.c
++++ b/drivers/scsi/aic7xxx/aic7xxx_pci.c
+@@ -701,6 +701,21 @@ ahc_find_pci_device(ahc_dev_softc_t pci)
+ 	return (NULL);
+ }
+ 
++/*
++ * The SGI O2 firmware runs its onboard controllers, in slots 1 and 2 of the
++ * root bus, without the Adaptec BIOS and at host ID 0.  It leaves no settings
++ * in scratch RAM, which may still hold power-on contents with bad parity.
++ */
++static bool
++ahc_pci_sgi_o2_onboard(struct ahc_softc *ahc)
++{
++	int slot = ahc_get_pci_slot(ahc->dev_softc);
++
++	return IS_ENABLED(CONFIG_SGI_IP32) &&
++	       ahc_get_pci_bus(ahc->dev_softc) == 0 &&
++	       (slot == 1 || slot == 2);
++}
++
+ int
+ ahc_pci_config(struct ahc_softc *ahc, const struct ahc_pci_identity *entry)
+ {
+@@ -782,6 +797,9 @@ ahc_pci_config(struct ahc_softc *ahc, const struct ahc_pci_identity *entry)
+ 	ahc->bus_intr = ahc_pci_intr;
+ 	ahc->bus_chip_init = ahc_pci_chip_init;
+ 
++	if (ahc_pci_sgi_o2_onboard(ahc))
++		ahc->flags |= AHC_NO_BIOS_INIT;
++
+ 	/* Remember how the card was setup in case there is no SEEPROM */
+ 	if ((ahc_inb(ahc, HCNTRL) & POWRDN) == 0) {
+ 		ahc_pause(ahc);
+@@ -898,7 +916,7 @@ ahc_pci_config(struct ahc_softc *ahc, const struct ahc_pci_identity *entry)
+ 			 * Assume only one connector and always turn
+ 			 * on termination.
+ 			 */
+- 			our_id = 0x07;
++			our_id = ahc_pci_sgi_o2_onboard(ahc) ? 0 : 0x07;
+ 			sxfrctl1 = STPWEN;
+ 		}
+ 		ahc_outb(ahc, SCSICONF, our_id|ENSPCHK|RESET_SCSI);
 -- 
-heikki
+2.47.3
+
