@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793058127;
-	b=p4/rx0h3B9/kVCCGwwp4Wo6Cz3cV9ukVNxtCjbk1HKsoYHRxbYfn6oPYeQzJuwzK8uu9
-	 1rqpc5dcqQ5Jvtmi0PjQVHN3WgU0ByNIpQ2k4oL/4wyajXdNLYwDPmMYgAqaKqs1INdRi
-	 Nb8MydPp7WxABJzOzFkDUb/iK1mSlGUxoF1kFOnfj8OU0/f1fppU2BgNsQBq0IXPpNImt
-	 AVyGv+zR5I6/L4uOlDnhbSEwwdOXREjfqJt56XJnWUcwbAXTZ18/z/4qrTvCuVH/L1N6y
-	 IVu4oS2CbH3PFa/WyydUJ7YVygJy8t7Ij4t+tyy39vuL/VgTJjLukv192eSFGs0E74Q==
+	t=1793058295;
+	b=NPcB0kNNNOYw8L/8jC0g/2yjQtHM5NUVQHOPuW0MR0YCpfUgxekpKMPHaD/Mu4hbTy0K
+	 6mRu++gnEebrGwDB4f7rPpTJqYvg4Axv8IMgP1RZB0vgfdP4Njqk6RYRFnOfF0ptHDbJt
+	 R0zExdh6GuvjR0qm3xSSXMDqGhvxIsOtB0Epm7eL0n2YnP/eavH9aeGk4Xm4zQhTLJyvj
+	 sxnQSHIt3oXDSeHyYGWghMeQxtMoOYJEADakA5kDfm+KXg4aK+pmO4uTMJCt9ZBFH5g6V
+	 DXT+P4a2+Ayqdq8tabO9nR7EhVzm52OFsigl5qwEdPhPIiNCOHMvRJszy7uJ+dyftnQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793058127;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=0Cref69zut0vAJQTI6AWgS5EX/rrz0wMNXR0pFiATGE=;
-	b=phW5KpG+G/lF3x3ReP6rw2rXa4FGoKuutgjp6qrEmKFW93svVjpaj0p9KhpFhpy70fRE
-	 zeb4v/Ywvdx2sjI3WWLuScZJGZ/u0zp9JT+GToJustuj4rcbnt7BewXsVkiQQL3ZOD58R
-	 w93CyXJdhpx2hl/J88/nk5W5oGfh4/k7dBGPiUYdCSi6ePRrZUXVZ9XM3/tdP5ez7/C6U
-	 j34YTH2rXB6vdF1zPhPInNcD11xCVYnDcJrXWXxF8qhLT3/WrbMj1PndnxupkSMyGuwy7
-	 lZwVVWwPw4CI1PUiMrJ4+/3nxcW1YQrCl60PVkYVJcuv82nRkQ2XK6tIIkpRRfEZIoQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793058295;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=INeusVMHi5EuzPtcL0c8vERxPE/Pg6yXjA24YmpWnJI=;
+	b=nzvDwLg/jTN4PFslDxZ1hjAuk/RPdKxZ2DP8paVCaaJl8Zl6uvXP2c4o8Nf2pWz620u+
+	 2nlt3AM5MrZviLeCNNtMTlGIQvk4bye2wmEfxbIK1X7yLTHrU+jFHJKKRCD2o6JymkbF7
+	 9cmMtnvxfonCCJMSGewwEmAwmqgmSymdzgG7SLSPGm4Q6l8ts4GAQPDdkxIuDqp4QGJGa
+	 pHCtvuDSgI/ObpcNxxQhMJGAhKCLiHDbM4RyHixkkHcI+kwLBPGGIDx84/Lho/1Z60i/5
+	 Pdjdz+n4nncNY6rqC8NTzjW6qyROBGrGeOHuExtC5yD4VkpJOVPCQMy3vmmNm9XGspw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SSAuadB4;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i9invOsJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id F159C606A31A;
-	Mon, 26 Oct 2026 23:42:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D86C606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 23:44:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SSAuadB4
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 00CC51F031E0;
-	Mon, 26 Oct 2026 23:42:05 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i9invOsJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35FBB1F01825;
+	Mon, 26 Oct 2026 23:44:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793058126;
-	bh=0Cref69zut0vAJQTI6AWgS5EX/rrz0wMNXR0pFiATGE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SSAuadB4/9et8dEpA6/NAMYUtFypD4j9oXg7GK8MupjPL30ISwdusmm2o8IcOlCTr
-	 nPx5Sk/asToergzCU3p/g0Ed/g3Tt1h9PZmqq8fM8qJ7lSr13bDzdZZczYTy6bcpPa
-	 4BYvXN8Ouih5Xbqsmt8EN0sW5/nqw0xQvgyFQOn/YfLe7jPHKnFmYwwazHE3a1bg2R
-	 fzNe3isTIZGVKJLk0XeTSftCsjNv9VlC4Cv/zoRU2fwKqBZcXa2l/pKOwwnHRaqTMu
-	 Za6aJw9j5maLhsW/Fw4uwDW3sMG9ttOAw/K/h+wr9mOOjCTzyJj4fQchcx92fOFS6n
-	 ogr0AIJ2TSJXg==
-Date: Tue, 27 Oct 2026 01:42:02 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Hillf Danton <hdanton@sina.com>
-Cc: David Howells <dhowells@redhat.com>, keyrings@vger.kernel.org,
-	Eric Biggers <ebiggers@kernel.org>,
-	syzbot+c15de43f1e7fffbb7b9b@syzkaller.appspotmail.com,
-	linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org
-Subject: Re: [PATCH] KEYS: dispatch key_gc_work to system_wq.
-Message-ID: <at_lSoqp4-2Var4S@kernel.org>
-References: <at-LgXM3BjyfF21u@kernel.org>
- <20261026222207.1237-1-hdanton@sina.com>
+	s=k20260515; t=1793058294;
+	bh=INeusVMHi5EuzPtcL0c8vERxPE/Pg6yXjA24YmpWnJI=;
+	h=From:To:Cc:Subject:Date;
+	b=i9invOsJSoHBhPqz3D2ybgGspFPUxMYI0UV+qbcVzAu5fAxKkR0+4ZcNNBQ7DMCm0
+	 geHUB3fhkXLTwLUx5o7CLeVosj6bfmasxbuNRfm8plNpWcAnTsnvMvNtfh2ChLIrAY
+	 FM53oq7K/F4iKxf+q4DLbbl+qJWehgTNrGIUC8RZeTzxucLy8k4molPU4UpSAZQKfE
+	 sp2CeoB86g20Go4vsHzvwpYJsfoA3zUGZsUbr2nCXmRm34NvdFeTqYvA+nNGzvQjYw
+	 AoJPmvMJtBY3p7Ioys/PDkboKm0fN5DX/W1cWxjIYPs//hsVrGYAVjj8kJOzrbYG7c
+	 SA9X4dl7aQZsQ==
+From: Sasha Levin <sashal@kernel.org>
+To: Dinh Nguyen <dinguyen@kernel.org>,
+	Simon Schuster <schuster.simon@siemens-energy.com>
+Cc: =?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>,
+	Arnd Bergmann <arnd@arndb.de>,
+	linux-kernel@vger.kernel.org,
+	kernel test robot <lkp@intel.com>
+Subject: [PATCH] nios2: ksyms: Export __divsi3_table
+Date: Mon, 26 Oct 2026 19:44:52 -0400
+Message-ID: <20261026234452.1086974-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,63 +59,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261026222207.1237-1-hdanton@sina.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 27, 2026 at 06:21:52AM +0800, Hillf Danton wrote:
-> On Mon, 26 Oct 2026 19:18:57 +0200 Jarkko Sakkinen wrote:
-> >On Mon, Oct 26, 2026 at 06:57:22PM +0200, Jarkko Sakkinen wrote:
-> >> > --- x/security/keys/gc.c
-> >> > +++ y/security/keys/gc.c
-> >> > @@ -270,9 +270,8 @@ contended:
-> >> >  
-> >> >  maybe_resched:
-> >> >  	if (cursor) {
-> >> > -		cond_resched();
-> >> > -		spin_lock(&key_serial_lock);
-> >> > -		goto continue_scanning;
-> >> > +		schedule_work(&key_gc_work);
-> >> > +		return;
-> >> >  	}
-> >
-> >I guess I'll to elaborate my fix and this proposal as you gave feedback
-> >of neither.
-> >
-> >What you wanted to respond to my patch other than nitpicking is probably
-> >this sequence:
-> >
-> Nope because synchronize_rcu() has nothing to do with workqueue lockup.
-> 
-> >  key_garbage_collector()
-> >    synchronize_rcu()
-> >      synchronize_rcu_normal()
-> >        wait_for_completion()
-> >          schedule_timeout()
-> >            schedule()
-> >
-> >I should have put this to the commit message, and missed also this
-> >detail.
-> >
-> >So the way I saw this, which could be wrong, is that the workqueue
-> >lockup would could happen less often as also other threads are scheduled
-> >preemptively in unbounded queue outside critical sections.
-> >
-> The unbound queue could also suffer lockup.
-> 
-> >What you are doing with early return is at least not right as it 
-> >corrupts the state. So you should supplement that with something
-> 
-> How?
->
-> >that carries it.
-> >
-> Feel free to post a diff?
+lib/lz4 is built with -O3, and at -O3 GCC enables -mfast-sw-div, which
+expands divisions by small numbers using __divsi3_table, a lookup table
+in libgcc. Without CONFIG_NIOS2_HW_DIV_SUPPORT that leaves
+lz4_compress.ko with a reference modpost cannot resolve:
 
-Actually I choose not to answer to your questions as your only
-argument is "show the diff" or providing a diff without making
-your case. I'm sorry but I don't get anything from this.
+  ERROR: modpost: lib/lz4/lz4_compress.ko: symbol '__divsi3_table' undefined!
 
-If you want to help, be helpful.
+libgcc is linked into vmlinux, so built-in code finds the table, but it
+is not exported to modules. Export it next to __divsi3.
 
-Br, Jarkko
+The error predates commit 2180d11e06fb ("nios2: ksyms: Declare __mulsi3
+export"), which only made it visible: before that commit, modpost used
+up its ten unresolved symbol reports on __mulsi3 and suppressed the rest.
+
+Fixes: 2fc8483fdcde ("nios2: Build infrastructure")
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202610270503.NGox5O6j-lkp@intel.com/
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ arch/nios2/kernel/nios2_ksyms.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/arch/nios2/kernel/nios2_ksyms.c b/arch/nios2/kernel/nios2_ksyms.c
+index e8710a269b398..b7152258430a6 100644
+--- a/arch/nios2/kernel/nios2_ksyms.c
++++ b/arch/nios2/kernel/nios2_ksyms.c
+@@ -31,6 +31,7 @@ EXPORT_SYMBOL(flush_icache_range);
+ 
+ DECLARE_EXPORT(__gcc_bcmp);
+ DECLARE_EXPORT(__divsi3);
++DECLARE_EXPORT(__divsi3_table);
+ DECLARE_EXPORT(__moddi3);
+ DECLARE_EXPORT(__modsi3);
+ DECLARE_EXPORT(__udivmoddi4);
+
+base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
+-- 
+2.53.0
+
