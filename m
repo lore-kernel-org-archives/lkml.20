@@ -1,78 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793015748;
-	b=ww3vDS34mDAfLgS3+PQCy8ON1BiThV2AivxufGwfC22mo1QZYXlnL5LjwHEb5bsjdbGI
-	 3FFyuN4ZUM6lXJ7RSzxwFf375q/iCm6QrPpEn/tvTkStEqmprLD8jWlzLPvT08EfoZeN4
-	 s/P7RfoG/WXsRdf+Ed0TSZqeFRzBYACjNXBP1K8viZKxWsevNawVkSEw+V15pBGVswW6E
-	 UMx9Solsyj7dYYkK2S6gWsC6YxK3TlSqpP+3wsC710KWOLXbgb2qL7qiTxB6eTgDT2rdA
-	 zOwQ+OrdK6V3Gzp8uZ1RK7njRJhjQ9cDQelh4GLd4NXf0+rVX83ljvoxsPeh+kVyCuA==
+	t=1793015791;
+	b=Am60Aw45PC8/hlYE+VOkZvs4+VbvqVvNb/iBEdb8Abqx0xTOJgbP/3r6KT6lXSNfpAzr
+	 BTnKLCazzIfvDDk/RebH11xgrqelurw/6lSN1mzY9fz11ckGK6MjeXsZuy7qzfK9dJnvS
+	 4zINW2lx0zAwjJusFYBxoZGJJPB3cU3QBtaug9B6geHK0uO8t6DyO8QYtxjTK5oWdxV03
+	 e4KuCYbBxQKlenBLhM9sqOlEvJQ98h2nKCi885Jv3CNUPHA/Qqx64WZHlZ253wl2YrFjh
+	 zEccN0LQih1ENV6ixqyJsUgbvo7a3FdyNPDy97q8aBcwsPqU+nYhBA3zK/B6yWbXUIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793015748;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=VuwNovxBeheUNEyf0xe0FOSw7zw//LLQy0q3ztYt6Fs=;
-	b=zmQbtsxQyrQJOsP3XsGNp//3A2W/HXadAoBfTGi0UinkqlcFwRzacux3Wr1vIwR9MjBy
-	 oHCNhiHcsHexRUXJqRvONog+4g0QOc5sSWmwyjaK4nTKQy1TajnsLTg4NNF8hdH8YLYG1
-	 TB8LC4dOpFH93+/5yjhFPSOqOpe8cjqVi7/fIj7zwPqy7toLxfnWTlYvVfGvwhjc+HTg8
-	 sEPOGsRv0jDLUpWJ/wApEOIT6EpgY/EVzapWLlTrJBQvmyJhfns74TT/8mpqgucPApwqQ
-	 D0mSfzEhiD6oslswjCvbqY8Gaaw5YSa6lepjrmaCTUvU3Rh5mPRHgC2JN9mpWAz56Dg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793015791;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
+	 Cc:Subject:Message-ID:In-Reply-To:References:Organization:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=HFiOrM97HwRVCFpE4g+Fj9tumKj4KLeVGsM2WR0PuTs=;
+	b=lFrHhvnxmYK7zL6GT2XzXy6y2BwK3CQr7rY3ksQpibh99fkmOnxwVgSZqM8YTikPdyj7
+	 BUc865Yghjwx8NjT6VatDsKURYONfAiYCJ8GEQnZhV2YkB8e4IBA6+vD+qxlqx8lElPFm
+	 dfqtVW+D+aJq5Stv7tBz14zzp0VCXspP2pr5n9Fi3h12ydrjQyiZvu2d2/PCQx5N+0JeM
+	 wQhy5cTy1M00hKYMvSTmxa/uI/OfiWV5S13JpZ0WuNNVGzqx0LgqyEVIgFoq+bxY+JYwO
+	 YypPM32hTTfTcaE1drgjfnaXWA44xYvwhsTFjmkChXctXfiPEucP8rs2lERa+KrAIhg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E5XPZm7e;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b="b1E5jA8/";
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E11E606A31A;
-	Mon, 26 Oct 2026 11:55:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A85F3606A31D
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:56:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A85F3606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E5XPZm7e
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59AAF1F01825;
-	Mon, 26 Oct 2026 11:55:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793015747;
-	bh=VuwNovxBeheUNEyf0xe0FOSw7zw//LLQy0q3ztYt6Fs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=E5XPZm7eHlS0DKixSiYZJgVnH5UJkdCH55tiz9U+upA85dAD1bUVFuCt9CNnBQ/r/
-	 ImVLj8peT4KPCPqzSyWR6WfZeCmy9JIC6D77eqyuKsO5zscEO0u11QGXXpgvT5bypE
-	 2b0ox3cbOibQCtTNnMixUiek7oaMhIlVW1Rj+dxe5veE9RxFulRhw3jRJu3apk6ESK
-	 bRY8WFjQWei8cNM16ZQO0k648SFyIN7+S9DZFVd7eShILfn1heqaX91frGBdlQEdJl
-	 +vSacG5b5bvnPnhO9t2XcEMue/Kn6rIb8RiyBLpxlkxWpu9dlnJNvDuF3BwdD3E4ug
-	 F2E1hwyb/1Kfg==
-Date: Mon, 26 Oct 2026 12:55:39 +0100
-From: Lorenzo Pieralisi <lpieralisi@kernel.org>
-To: Sunil V L <sunilvl@oss.qualcomm.com>
-Cc: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Mark Rutland <mark.rutland@arm.com>, Marc Zyngier <maz@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Hanjun Guo <guohanjun@huawei.com>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>, linux-acpi@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	driver-core@lists.linux.dev, linux-watchdog@vger.kernel.org,
-	Grant Likely <grant.likely@arm.com>
-Subject: Re: [PATCH RFC 02/11] ACPI: Introduce irq_get() for static fwnodes
-Message-ID: <at8_u-BCVD8Bpudp@red-moon>
-References: <CAJZ5v0hVLSJs1j8J1TV3yJ8Psyaf=B_0UfHsYSMtM5xTup0B_Q@mail.gmail.com>
- <atXyIadz1TEKSodg@red-moon>
- <CAJZ5v0joJBZg==DWPsNviPfL7Jo=qupRhb6GinqOLoHXGnvevg@mail.gmail.com>
- <ateI-JcExDyfXKrs@red-moon>
- <athimRqtDvQu1ZzA@ashevche-desk.local>
- <atiAmZSPiRNBAO5O@red-moon>
- <7f077fd3-9c67-409a-b46f-7f28a55c180b@arm.com>
- <atmwo3Bpi62kB8_n@red-moon>
- <CAJZ5v0g56LP+EQc6MQ1H_5XnQALEn3CV9Q9HGCoiuMvpkK+N+A@mail.gmail.com>
- <CAB19ukGr39DrSXdR9Gy=YxVSXfPgYB0oqqjggQNBfedMjVtAwA@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=b1E5jA8/
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id CAD1DC79AA4;
+	Mon, 26 Oct 2026 11:57:27 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 9E34760740;
+	Mon, 26 Oct 2026 11:56:26 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E7B911032900F;
+	Mon, 26 Oct 2026 12:56:17 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793015785; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=HFiOrM97HwRVCFpE4g+Fj9tumKj4KLeVGsM2WR0PuTs=;
+	b=b1E5jA8/ZqtYxSc98+8jPuYdYPFjTSSMTlkPp1JnTNBnioXheY5yefHR+XNUwbigBCOif6
+	xLm6HTWZrlfQVe/a+Wf9pzEY1unE2L6ZdXTiy9pso78RWFnZ+2CWFW92hYIcxHmQqmfcyV
+	EMoMuhP8CnqwP1tUuCuXUzng2jMpBoYmU/OGz48Dr9wb9tAB/1TfpzkRcRhwU5NasOgcOl
+	TeOp7/UzoKHs4eD5/zwAK67JVukr77unFhgVcdehfIOmeHoZ74pS0nwY8htQY2Td8+O6nu
+	XWr/wkfCFpaiEuoAiJe/nUFQhJ68k7tJUTsD/yektuKce7bYpqwwnfmtFPtqyA==
+Date: Mon, 26 Oct 2026 12:56:15 +0100
+From: Herve Codina <herve.codina@bootlin.com>
+To: David Gibson <david@gibson.dropbear.id.au>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
+ <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
+ Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
+ <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
+ <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: Re: [RFC PATCH v2 08/74] livetree: Improve get_node_by_phandle()
+Message-ID: <20261026125615.055e7214@bootlin.com>
+In-Reply-To: <at6t-l9XYYFfS48T@gractus.seuss>
+References: <20260826094950.1088288-1-herve.codina@bootlin.com>
+	<20260826094950.1088288-9-herve.codina@bootlin.com>
+	<atrTn_I_8O6q9QUW@gractus.seuss>
+	<20261023181533.0c44a57f@bootlin.com>
+	<at6t-l9XYYFfS48T@gractus.seuss>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,129 +82,311 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAB19ukGr39DrSXdR9Gy=YxVSXfPgYB0oqqjggQNBfedMjVtAwA@mail.gmail.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Mon, Oct 26, 2026 at 10:20:37AM +0530, Sunil V L wrote:
-> On Thu, Oct 22, 2026 at 4:18 PM Rafael J. Wysocki (Intel)
-> <rafael@kernel.org> wrote:
-> >
-> > On Thu, Oct 22, 2026 at 8:43 AM Lorenzo Pieralisi <lpieralisi@kernel.org> wrote:
-> > >
-> > > On Wed, Oct 21, 2026 at 12:18:39PM +0100, Robin Murphy wrote:
-> > > > On 2026-10-21 10:06 am, Lorenzo Pieralisi wrote:
-> > > > > On Wed, Oct 21, 2026 at 09:58:33AM +0300, Andy Shevchenko wrote:
-> > > > > > On Tue, Oct 20, 2026 at 05:30:00PM +0200, Lorenzo Pieralisi wrote:
-> > > > > > > On Mon, Oct 19, 2026 at 08:05:50PM +0200, Rafael J. Wysocki (Intel) wrote:
-> > > > > > > > On Mon, Oct 19, 2026 at 12:34 PM Lorenzo Pieralisi
-> > > > > > > > <lpieralisi@kernel.org> wrote:
-> > > > > >
-> > > > > > [...]
-> > > > > >
-> > > > > > > > Basically, yes, the idea is to defer the creation of the platform
-> > > > > > > > device until the dependency is met.
-> > > > > > > >
-> > > > > > > > > till the dependencies are cleared but then, without a _CRS, where will
-> > > > > > > > > the consumer driver find the platform device resources ?
-> > > > > > > >
-> > > > > > > > Well, good question.
-> > > > > > > >
-> > > > > > > > > There are multiple facets in this issue and possibly some of them have
-> > > > > > > > > been already solved but I need to pull them together.
-> > > > > > > > >
-> > > > > > > > > > Note that the dependencies can be added to acpi_dep_list after
-> > > > > > > > > > creating a struct acpi_device with acpi_add_single_object() and
-> > > > > > > > > > acpi_scan_add_dep() is not really suitable for that, but it should be
-> > > > > > > > > > doable if the dependencies can be found.
-> > > > > > > > > >
-> > > > > > > > > > > I need to have a deeper look into this next week but I wanted to ask first
-> > > > > > > > > > > whether there was something I missed - most likely.
-> > > > > > > > > >
-> > > > > > > > > > Well, it is not really straightforward.
-> > > > > > > > >
-> > > > > > > > > Yes it is getting messy. This RFC, with all its flaws, does not transparently
-> > > > > > > > > prevents enumeration but rather relies on -EPROBE_DEFER to sort out
-> > > > > > > > > dependencies - though it does so by adding more stuff into ACPI static fwnode
-> > > > > > > > > that to be honest I'd rather see gone.
-> > > > > > > >
-> > > > > > > > I think what you need is a notification mechanism that will trigger
-> > > > > > > > when a specific device (enumerated via the ACPI Namespace) becomes
-> > > > > > > > operational.  It doesn't look like any of the existing ones (platform
-> > > > > > > > device probe deferral or ACPI device dependencies tracking) is really
-> > > > > > > > suitable for your use case.
-> > > > > > >
-> > > > > > > Yes. It might just be a notification from ACPI core to say "the driver for
-> > > > > > > this ACPI device probed, go create platform devices that depends on it".
-> > > > > > >
-> > > > > > > We can check and track the dependency in code that does create those
-> > > > > > > devices today.
-> > > > > > >
-> > > > > > > I will think about this to see how bad this might look like.
-> > > > > >
-> > > > > > Don't we do something similar in drivers/acpi/x86/lpss.c?
-> > > > >
-> > > > > I suppose I can add a notifier that checks whether the device whose
-> > > > > companion represents the ACPI device a given platform device IRQ depends
-> > > > > on was bound to its driver and then map the IRQ and add the platform device
-> > > > > _then_ - after all that's what acpi_dev_clear_dependencies() does (similar
-> > > > > at least).
-> > > > >
-> > > > > There is still the question - where the GSI number, flags should be
-> > > > > stashed so that the notifier can grab them in a uniform way. We
-> > > > > could simply attach platform data storing those values to a pdev, either on
-> > > > > a per static table basis or generalize the data so that a single notifier
-> > > > > would be able to deal with it.
-> > > > >
-> > > > > That or I can just piggyback on acpi_dev_clear_dependencies() and add
-> > > > > a separate dep mechanism to acpi_dep_data that instead of being acpi_handle
-> > > > > based the consumer is fwnode based (something Rafael mentioned before).
-> > > > >
-> > > > > I will have a stab at this and see what's the least bad solution I can
-> > > > > come up with.
-> > > > >
-> > > > > I suppose we are scrapping the -EPROBE_DEFER solution (ie this set),
-> > > > > what we are talking about above won't need to defer anything other
-> > > > > than the time when platform devices are added.
-> > > >
-> > > > I dunno, that seems pretty drastic for some use-cases - the fact that a GSI
-> > > > is described in a table doesn't necessarily mean it is critical to device
-> > > > operation. If we don't even create the device until all possible resources
-> > > > are available, then its driver never has any chance to decide whether it's
-> > > > happy to ignore the deferral and just use MSIs or polling instead...
-> > >
-> > > I agree with you (but that's what we do for ACPI autodep and AFAICS OF
-> > > devlinks - though there there might be opt-outs).
-> > >
-> > > To make -EPROBE_DEFER work I have to pursue the approach undertaken in this
-> > > set and apply requested changes - I don't see any other way.
-> > >
-> > > Are we willing to accept the approach taken in this patchset (I can remove
-> > > software nodes and make the whole thing ACPI static nodes self-contained) ?
-> > >
-> > > One way or another this ought to be sorted, please all let me know your
-> > > take on this.
-> >
-> > Please make it as simple as reasonably possible. :-)
-> >
-> For this use case, where platform devices are created from static ACPI
-> tables, I think adding fw_devlink support to ACPI is a much simpler
-> approach. I proposed this in [1] as a generic solution, but we later
-> realized that it doesn't work well for cases where dependencies need
-> to be established very early (_DEP/autodep worked better for such use
-> cases). That limitation should not apply to this particular use case,
-> though. So I wonder if a combination of autodep and fw_devlink will be
-> a better solution?
+Hi David,
+
+On Mon, 26 Oct 2026 12:33:51 +1100
+David Gibson <david@gibson.dropbear.id.au> wrote:
+
+> On Fri, Oct 23, 2026 at 06:15:33PM +0200, Herve Codina wrote:
+> > Hi David,
+> > 
+> > On Fri, 23 Oct 2026 14:25:29 +1100
+> > David Gibson <david@gibson.dropbear.id.au> wrote:
+> >   
+> > > On Wed, Aug 26, 2026 at 11:48:37AM +0200, Herve Codina wrote:  
+> > > > get_node_by_phandle() allows to get a node based on its phandle value.
+> > > > It checks the phandle value against value available in internal node
+> > > > structure.
+> > > > 
+> > > > This internal phandle value is updated during process_check() and so,
+> > > > get_node_by_phandle() cannot give correct results before the
+> > > > process_check() call.
+> > > > 
+> > > > Improve get_node_by_phandle() to look at node phandle properties when
+> > > > the internal phandle value is not valid.
+> > > > 
+> > > > This allows to return a correct matching node even if process_check()
+> > > > was not called yet.    
+> > > 
+> > > The idea is sound - it's always been kind of clunky that we need the
+> > > process_checks() pass to fill the phandles before we can use them.
+> > > But, there's at least one significant catch:
+> > > 
+> > > [Aside: you might notice the way it's done violates the principle I
+> > >  stated elsewhere of avoiding structures where you must know where you
+> > >  are in the flow to know which parts are populated.  My type
+> > >  discipline has improved since I first wrote this code :)]
+> > > 
+> > > We need to gracefully handle the case of malformed phandle /
+> > > linux,phandle properties; that's actually the reason for the weird
+> > > placement of this in checks.c.  By treating it as a "check" we handle
+> > > this case by failing the check.  Other checks that rely on phandles
+> > > then have the 'explicit_phandles' check as a prereq so they don't need
+> > > to verify this again.  We can still report errors for other checks
+> > > that don't rely on that (which is the whole point of the checks
+> > > mechanism).
+> > > 
+> > > That's not the only way to do it, of course, but we need something to
+> > > check for that error case.  Further notes on the code.
+> > >   
+> > > > With the recently introduced FDT_PROPDATA_HANDLE dtb tag, this will be
+> > > > needed to update internal phandle references before the call to
+> > > > process_check(). Indeed, this tag allows to identify phandles and
+> > > > internal references need to be updated based on the phandle value before
+> > > > the process_check() call.
+> > > > 
+> > > > Signed-off-by: Herve Codina <herve.codina@bootlin.com>
+> > > > ---
+> > > >  livetree.c | 21 ++++++++++++++++++++-
+> > > >  1 file changed, 20 insertions(+), 1 deletion(-)
+> > > > 
+> > > > diff --git a/livetree.c b/livetree.c
+> > > > index abe73de1..a9f8c5d2 100644
+> > > > --- a/livetree.c
+> > > > +++ b/livetree.c
+> > > > @@ -628,16 +628,35 @@ struct node *get_node_by_label(struct node *tree, const char *label)
+> > > >  	return NULL;
+> > > >  }
+> > > >  
+> > > > +static cell_t get_node_phandle_existing(struct node *node)
+> > > > +{
+> > > > +	struct property *prop;
+> > > > +
+> > > > +	if (phandle_is_valid(node->phandle))
+> > > > +		return node->phandle;
+> > > > +
+> > > > +	prop = get_property(node, "phandle");
+> > > > +	if (!prop) {
+> > > > +		prop = get_property(node, "linux,phandle");
+> > > > +		if (!prop)
+> > > > +			return 0;
+> > > > +	}
+> > > > +
+> > > > +	return propval_cell(prop);    
+> > > 
+> > > In the case of a malformed property, this could SEGV.  
+> > 
+> > Ok, will update to
+> > --- 8< ---
+> > 	if (prop->val.len != sizeof(cell_t))
+> > 		return 0;
+> > 
+> > 	return propval_cell(prop)
+> > --- 8< ---
+> >   
+> > >   
+> > > > +}
+> > > > +
+> > > >  struct node *get_node_by_phandle(struct node *tree, cell_t phandle)
+> > > >  {
+> > > >  	struct node *child, *node;
+> > > > +	cell_t tree_phandle;
+> > > >  
+> > > >  	if (!phandle_is_valid(phandle)) {
+> > > >  		assert(generate_fixups);
+> > > >  		return NULL;
+> > > >  	}
+> > > >  
+> > > > -	if (tree->phandle == phandle) {
+> > > > +	tree_phandle = get_node_phandle_existing(tree);    
+> > > 
+> > > This means that every time we search for a phandle, for every node
+> > > scanned before the destination with no phandle, we do a full property
+> > > scan to check that no, it still doesn't have a phandle.
+> > > 
+> > > I don't care that much about dtc performance, but that's still a bit
+> > > much to swallow.  I think we need to cache negative lookups to avoid
+> > > that.  Happily, since there are two invalid phandle values this
+> > > shouldn't be too hard.  We could, say, use tree->phandle == 0 to mean
+> > > we don't know if there's a phandle, and tree->phandle == -1 to mean
+> > > we've scanned the properties and we know there isn't one.
+> > > 
+> > > In fact, caching property lookups might be the better way to do this.
+> > > Rather than having an explicit pass where tree->phandle is populated,
+> > > we could have get_node_by_phandle() cache its property scan (success
+> > > or failure) in tree->phandle.
+> > > 
+> > > I think that's a more elegant approach than the current one, but we do
+> > > still need to handle the malformed property case.  
+> > 
+> > Well, get_node_phandle_existing() can be improved:
+> > ---- 8< ----
+> > static cell_t get_node_phandle_existing(struct node *node)
+> > {
+> > 	cell_t phandle1, phandle2;
+> > 	struct property *prop1, *prop2;
+> > 
+> > 	if (phandle_is_valid(node->phandle))
+> > 		return node->phandle;
+> > 	if (node->phandle == ~0UL) {
+> > 		/*
+> > 		 * We've already looked at existing properties and no valid
+> > 		 * phandle value were present. Avoid looking at them again
+> > 		 * and just return the invalid phandle value.
+> > 		 */
+> > 		return 0;
+> > 	}
+> > 
+> > 	/* Try to get it from the 'phandle' property */
+> > 	phandle1 = 0; /* Assume invalid */
+> > 	prop1 = get_property(node, "phandle");
+> > 	if (prop1) {
+> > 		if (prop1->val.len == sizeof(cell_t))
+> > 			phandle1 = propval_cell(prop1); /* Well formed -> Get it */
+> > 	}
+> > 
+> > 	/* Try to get it from the 'linux,phandle' property */
+> > 	phandle2 = 0; /* Assume invalid */
+> > 	prop2 = get_property(node, "linux,phandle");
+> > 	if (prop2) {
+> > 		if (prop2->val.len == sizeof(cell_t))
+> > 			phandle2 = propval_cell(prop2); /* Well formed -> Get it */
+> > 	}
+> > 
+> > 	if (prop1 && prop2) {
+> > 		/*
+> > 		 * Both property are present. They values must be the same
+> > 		 * and valid.
+> > 		 */
+> > 		if (phandle1 == phandle2) && phandle_is_valid(phandle1)) {
+> > 			/* Ok, Cache this correct phandle value and return it */
+> > 			node->phandle = phandle1;
+> > 			return phandle1;
+> > 		}
+> > 	} else if (prop1) {
+> > 		/*
+> > 		 * Only the 'phandle' property is present.
+> > 		 * Check its value validity
+> > 		 */
+> > 		if (phandle_is_valid(phandle1)) {
+> > 			/* Ok, Cache this correct phandle value and return it */
+> > 			node->phandle = phandle1;
+> > 			return phandle1;
+> > 		}
+> > 	} else if (prop2) {
+> > 		/*
+> > 		 * Only the 'linux,phandle' property is present.
+> > 		 * Check its value validity
+> > 		 */
+> > 		if (phandle_is_valid(phandle2)) {
+> > 			/* Ok, Cache this correct phandle value and return it */
+> > 			node->phandle = phandle2;
+> > 			return phandle2;
+> > 		}
+> > 	}
+> > 
+> > 	/*
+> > 	 * No valid phandle value were found. Cache this information and return
+> > 	 * the invalid phandle value.
+> > 	 */
+> > 	node->phandle == ~0UL;
+> > 	return 0;
+> > }
+> > --- 8< ---
 > 
-> [1] - https://lists.infradead.org/pipermail/linux-riscv/2023-December/046146.html
+> That looks good to me.  But the "existing" in the name no longer says
+> anything useful - this can be the standard way to get a node's
+> phandle.  In fact it might be worth changing the name of the
+> node->phandle field to make sure we don't have any stale users rather
+> than going through the get_phandle() function.
 
-Not sure and actually the point here is about opting in for using
--EPROBE_DEFER in consumer drivers (so that they have a choice on probe
-deferral rather than being deferred behind their back).
+Ok, I will rename node->phandle to node->phandle_ and add a comment saying
+that phandle_ field must not be accessed directly.
 
-I implemented devlink supports for these platform devices but I don't
-think it is best way forward - given this discussion.
+Related to existing users, I can see check_explicit_phandles() available
+in the checks.c file.
 
-Thanks,
-Lorenzo
+check_explicit_phandles() could use the new get_node_phandle_exising() with
+the caching feature. The only problematic part will be
+--- 8< ---
+	if (linux_phandle && phandle && (phandle != linux_phandle))
+		FAIL(c, dti, node, "mismatching 'phandle' and 'linux,phandle'"
+		     " properties");
+--- 8< ---
+
+Indeed, this check is done in get_node_phandle_existing() and the function
+returns 0 (invalid phandle) when both properties are set with a different
+value. A value other than 0 should be returned by get_node_phandle_existing()
+to identify that mismatching properties values.
+
+This should not be a big deal if we introduced a new invalid phandle value:
+  - 0:
+    Invalid value. Can be returned by get_node_phandle_existing().
+
+  - ~0:
+    Unresolved value (phandle value in properties) or value cached in 
+    phandle->node_ for "mismatch 'phandle' and 'linux,phandle' properties
+    values". Can be returned by get_node_phandle_existing().
+
+  - (~0)-1:
+    Invalid value in properties and or value cached in phandle->node_ for Invalid value.
+    Will not be returned by get_node_phandle_existing().
+    When this cached value is found, 0 will be returned.
+
+In phandle_is_valid(), those 3 values will be checked to determine if the phandle
+value is valid or not.
+
+Now last point, renaming get_node_phandle_existing().
+
+get_node_phandle() already exist. It get a phandle but also if the node doesn't
+have a phandle, it allocate a new phandle value and set node "phandle" or
+"linux, phandle" property to this allocated value.
+
+IHMO, get_node_phandle() should be renamed to set_node_phandle() and
+get_node_phandle_existing() should be renamed to get_node_phandle().
+
+Does all of these make sense?
+
+I so, I will try to implement that and maybe I will see other issue I might
+have missed.
+
+Worth noting that if you're ok to rename get_node_phandle() to
+set_node_phandle(), I will do it in a dedicated patch. Indeed, this will
+ensure that get_node_phandle() has been renamed everywhere (compilation
+without failure) and so I can safely rename get_node_phandle_existing() to
+get_node_phandle() in a next patch.
+
+> 
+> > In get_node_by_phandle(), no change compared to my proposition and so the
+> > full function is:
+> > --- 8< ---
+> > struct node *get_node_by_phandle(struct node *tree, cell_t phandle)
+> > {
+> >         struct node *child, *node;
+> >         cell_t tree_phandle;
+> > 
+> >         if (!phandle_is_valid(phandle)) {
+> >                 assert(generate_fixups);
+> >                 return NULL;
+> >         }
+> > 
+> >         tree_phandle = get_node_phandle_existing(tree);
+> >         if (phandle_is_valid(tree_phandle) && tree_phandle == phandle) {
+> >                 if (tree->deleted)
+> >                         return NULL;
+> >                 return tree;
+> >         }
+> > 
+> >         for_each_child(tree, child) {
+> >                 node = get_node_by_phandle(child, phandle);
+> >                 if (node)
+> >                         return node;
+> >         }
+> > 
+> >         return NULL;
+> > }
+> > --- 8< ---
+> > 
+> > Caching should work correctly without any other modification.
+> > 
+> > I let you double-check on your side. Let me know about your opinion.  
+> 
+> Yes, I think that should work.
+> 
+
+Best regards,
+Hervé
