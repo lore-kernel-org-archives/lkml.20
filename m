@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793046366;
-	b=tN6HviuVnndI4pCDBF+uiBo0CK8h5uzeKe4d3CNRJ25IsuzkrJ/OMYb6+NlVrNrzltF0
-	 Jj+wjO7rt+UQiJY8RQmWhFtqXXQLLnjTdMbqdLP+pCbnrfswkxBt7y7UEB5skR58RTy+2
-	 NNkCN23ecXyairMM3M+w3cw14gLTYSHDG8icJxiUfnsXJshX3Yn0UWC3oaFqYCtAV+oEF
-	 kj2Ipal3Rdw6ipWzrbkdmtmUth2JDQ04Ngw/3FNl/QzYGdrNG5OVsf/KjsJAhWLVGSFzZ
-	 uWZZoHRVH5fEHEFacOIX2RnBk1qw3sdIfDjPXKmmQ7vpySLcy6PrbsKvEkry8hy6pHA==
+	t=1793046367;
+	b=ue9iQiKut5VLQys5D3A5GALzGHzVCjkaVAeG6DtpGttnm6OIB0ZRWxYo8K/M1qLHN+UN
+	 TrjpvQyHFoIEzUs/UWxtX9N2bpIviI9/SMj/s1zwyml6o5YyOiwZQbRprMbDxS4CWMLUo
+	 BdGJtGdACWUZ8+12m6LbTLUr6zom++oTGVMB8iIW6sOdQS8AfqJsrLaIocrcgqYmuqBUl
+	 VNIJZotMnnY+XU7ux/4mj+HIm7Ukt9RReiAjNBi5zBFWReYgBIRjOVYrPEuPS0EfeJvTc
+	 v75C+5t4cutnWizLULhEUBmP8JzD24ocZBH/8trnBrb9XeJ5wALOvKzNgkqv4j5wRAQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793046366;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793046367;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=9kV3mpo9IDcWJzdmAM3TrfjqAu96cGtkJuIv3p/bUaE=;
-	b=oFzzTUfJxk7xEToEQadBfUdmHAh8BS8/4dKl4vLaf/+6UurgcQ3pLmF23jU14WjVxJD4
-	 dtycKqSUNtASrBCsG6yNj2kG28MZ0y4G/WPD3vybMTrzuYxtlRrL5trIzAWakAcctTtXC
-	 unv2EuiEzdA/o2jQbUmNCnnDEQQKxgxLZcTh3iJ0fEddGd6/Z45+P4YDmH0DPQvA6Vmq2
-	 IVn/FNunZi2qlnBTIYZSXZVMlrRp3SD3GjPlJenz5MTRzH7gmF2U7FEW6721yLFu5B6tb
-	 ld25HD9oE5ojbrvlrMoWNzNU7yWBB9OuSRc5LqS12s8Oxx5MhQ6YPoF+l2MSUQV0DJw==
+	bh=JRjSAAuR7hRAdwbUXH9UJHGrVoF/0JplyAOZ6D7TEAE=;
+	b=H4zYCXfAX8fRUncVooAe868PxBSUstqAzKGDCTWlQWEt/YmoiCEDnsN0f/aTe+ZjaI0k
+	 gxuCaC+a8WCqy5mPWYnm5FiwikQfF5hOUD1ss83uDCesqGW7gkBIzwDQm39XbLpG3Y/WR
+	 ChlJRDaV1TzUC0LGCYqFRoDa3GtePO/WzVDa+tT8CjM+W4z3fnD9HiAgDIuBvDoL02Uxc
+	 IscRI1/NJbLptV7s1FipkEYCSfhOCjuF5d1MYkprpfE2v+LKNtqTbsgwixqXKoqQr2uEh
+	 WCznKCiqGEfw+0dwC2jP0FLTBW1gPknYAZ2UjG2HpHM2i2sQhHvjoQcvN95W91ZPQ5w==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HVZlARwq;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C0eW8vF7;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A22C606A31A;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF7C9606A31E;
 	Mon, 26 Oct 2026 20:26:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HVZlARwq
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C0eW8vF7
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793046365;
-	b=LaswMTUwtPHZuz3YAX2905GQ99iuhDIXPyZontZxeN8B3o4rPfqj7jgmbN73mqj6PkYg
-	 chsH1tzqQ9pHCcRCCUXSMRq70h6iiaKOixFOry3gsyjb6ePJmqLf3Ewsza1u9y4bbtLHH
-	 RAMY77pPMhXqT7u/eMsxgtRjwcLIJAHdpp+g0cfjVpwJQLWVAsjWdb9kmsSGnmsLv172u
-	 52vUHRcyna1YM2BHftq+FPHIfYfZy/WpVjaIcsKKu6cPuQh5me+KoglYBo22wxJYsywWj
-	 A/khg4Wr6mvwXFcCdLD2PgMgz2m4kZyNyiJ4bRGFmNqVLwqkbdlgpAk7MPc7d5HA8vg==
+	t=1793046366;
+	b=itxv7IKT/UcVflnv00AVbLQvo4453jPr6M3z7zc8Tc1OIAuxMePpG+l/rYsLnei/e5gl
+	 cwVsBqDKHQbU3IvYnPalOvrAtqGvICA0X8+nAHchTnXYDccbrQM2s1WVWOlsXmWCYagAc
+	 plWoqs3OiAi4sw1cJ2FfwCouG6pejHfEMajx6/+UjIdrXq/oyG6kXW54CwcX7m7z1TBSd
+	 Sz9CYTejvPDZ3KJgkhhb+UP/2VWZpZW7tn89YRnr2RerRgD4eGHYGx9sN926YIOE5IpKq
+	 /4snYr7UiiTF1xko7eaMdRfJoXRZ8wkjOwY1GO711atiX2xwz0wppUcPql4Egolmiqw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793046365;
+	c=relaxed/relaxed; t=1793046366;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=9kV3mpo9IDcWJzdmAM3TrfjqAu96cGtkJuIv3p/bUaE=;
-	b=wHe0WVf7WbbPI2psYJFE2H+NWKgUlooUg5cPWFMPKefTdzVbVucQIKLfpD8TV+F5iDbH
-	 1ur/zvErtIQdogxoExuNSSsdNcuuNIt5ghu+UXO3eBLG2BhWBmKnRD2d/7a0fdzMnvsV5
-	 a21RxM3J3q+yNWe1epRIb7C4TjamOF2OLmgBmaLGyhWKPiuMi43JsmUGfQWtVTVDco/Nh
-	 0cNtoTWm5z3+ZbX+ReskNxHoRQv3ZmlFJnhIp8AuACl66PQN/2Ww7plChEpYEHtx5y5m6
-	 t4OfSN8E0OKqLOqA0QKPaCTRCJibthVToJYhwoptwBKe0LZGOYVHGElw7Km6nUhkoCA==
+	bh=JRjSAAuR7hRAdwbUXH9UJHGrVoF/0JplyAOZ6D7TEAE=;
+	b=2qI4Vrjdh902evixlHeHW6G4hRN5Kso4DG4hl37ynteVXwoCDnJbaLPkxc3DBxlSjP3f
+	 UU2FALkRwsQI/OxDCUegz45K/2q+RN8Q+LrBj3Z9vAZUFKPmBFU5JY9hNn+4jNwGNJsk+
+	 7Sbm5C5UeircFgnCAUCkbfz/1lTvbl1aLZmG8h3TryK4kBo+vAnvtPUvJwyUdQVJsGpfv
+	 8h7/8LoRH3szOJZV/VZlKn7xibwTO622Bnb1ezdLIz4yOVQXJtEjDoYEYqdpdwqTbt3oV
+	 O8UaXvLYj0cTsHljSMy8t0/nxeUzdnU6O6CdVOUt1YmusLW9hCehBSRYvO9bXZeTNtg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 67F6F1F01825;
+	by smtp.kernel.org (Postfix) with ESMTPS id 6C1521F031E0;
 	Mon, 26 Oct 2026 20:26:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793046365;
-	bh=9kV3mpo9IDcWJzdmAM3TrfjqAu96cGtkJuIv3p/bUaE=;
+	s=k20260515; t=1793046366;
+	bh=JRjSAAuR7hRAdwbUXH9UJHGrVoF/0JplyAOZ6D7TEAE=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=HVZlARwqmxS83q6l7ZbRUfFbZtjYy5PeP39XMVOS4eUF0TB/VQTba+iwiqlMSs5LH
-	 Q3DLKeYxtD/SZHphJK5mhv+3XPXpy4rGflgAPJY7CqLNwAe8I6dogeweRTCTxg8VDH
-	 VuW1mdmd5yJYM7tdE9ucemUgrSJbu1M10mmkGH3np4gF4HhJKjkKrfFoVoeGJ/QJT4
-	 cy0xccoQ9bhiNwzo2K6NpBbwbG6tqKfyw4ZJzv883j2t3sc9TMNthc44iKdQvadFjb
-	 UPvD1bzd3EqnpxbaOVE4lrcbdgP17zIVLWS1YKAMtou1dHK7fB7gc4aNaaweDqZfMG
-	 A1kdBrpOUwwWA==
+	b=C0eW8vF7gH8itK7kNwszXIsozuRuoy0cXg7bS9yn8BucYHdJYquQCENT2l0ks24pp
+	 uSqExJvWUssV2o18NDV2EJbuoCemEpHVKyfTGzOaG6KF030uCZ7k3M57CQPHIFhLXB
+	 znXZIq5OksjTY2PxA7mjxqMql+hH9hKQ/U6DrcjH/zh9iJyO36m4hvC6V6admKwrxH
+	 MayvP6R7kPsJk1rQGxuFaGWij4t07oLVsw4wChzACxtVkAQNJmlK7mWWER7FHNu4Iq
+	 VuOR90DHUHeI73XdzsosAPPx/NOsz1OW53bTtNL3t23qj4VXgwqK4mzlZ9nv2Kx9d6
+	 EpeIN0Kv4pw7g==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id C401A44E8A;
+	by lkml.kernel.org (Postfix) with ESMTP id D14B044E91;
 	Mon, 26 Oct 2026 20:26:04 +0000 (UTC)
 From: Xi Zhang via B4 Relay <devnull+xz.ca.cn.gmail.com@kernel.org>
-Date: Mon, 26 Oct 2026 17:25:42 -0300
-Subject: [PATCH v2 1/6] drm/msm/dpu: reset unassigned resource slots to
- NULL on topology update
+Date: Mon, 26 Oct 2026 17:25:43 -0300
+Subject: [PATCH v2 2/6] drm/msm/dpu: save LMs in encoder mode_set for
+ cleanup use later
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261026-msm-dpu-res-clean-v2-1-3d864435186e@gmail.com>
+Message-Id: <20261026-msm-dpu-res-clean-v2-2-3d864435186e@gmail.com>
 References: <20261026-msm-dpu-res-clean-v2-0-3d864435186e@gmail.com>
 In-Reply-To: <20261026-msm-dpu-res-clean-v2-0-3d864435186e@gmail.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>, 
@@ -97,11 +97,11 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Xi Zhang <xz.ca.cn@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793046364; l=2413;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793046364; l=5310;
  i=xz.ca.cn@gmail.com; s=20261026; h=from:subject:message-id;
- bh=XV5yIGRicisWHnZm/blBrd+eV6OtBhD/12tGnVobzAE=;
- b=PC8rCKcVBdPqI+8YugF/JK3f2ZJoK/+mL56ZMTYea2y7srn3rB74fUnnoW9F8vEyXVAqrCM8q
- VE1DcpN1W9pDxN4Xt9VuTInL1zi5OYgy7EqvaOEC6pTnu6kDrmKZzJQ
+ bh=8PB6tAtHyoeBMCu0fLO2+0ATMltRJRVeHPZqWTJn5Yg=;
+ b=iBv0391PMeix+fnawpXmmHtKjJOc3TB+UeksvQ9BJXQqpuJGpTaUATRuwe5KrHBF5U5i9iIS7
+ rMwO0sB2KQ0BAuPP8uDgaPmlL079F2SfNauhc+TW43FPDc3tjv5qwL4
 X-Developer-Key: i=xz.ca.cn@gmail.com; a=ed25519;
  pk=aRUll5L3eJbwG8Y4BO9uySKGzm+Uy+Ccei9prnRVZRs=
 X-Endpoint-Received: by B4 Relay for xz.ca.cn@gmail.com/20261026 with
@@ -112,68 +112,132 @@ Content-Transfer-Encoding: 7bit
 
 From: Xi Zhang <xz.ca.cn@gmail.com>
 
-While this is not currently the case, it may be possible that topology
-for cwb and dsc resource requirements change between mode set in the
-future.
+dpu_encoder_helper_reset_mixers, which is called during atomic_commit
+disable phase, previously called
+dpu_kms_get_existing_global_state, which returns the global_state
+after the state swap. So the cleanup was performed on the newly
+allocated resources instead of the ones that actually need reset.
 
-e.g. when dsc support is added to DisplayPort, dsc may be optionally
-enabled and disabled between different modes due to
-bandwidth requirements.
-
-Set unassigned resource slots to NULL on topology update to avoid
-issues in the future. It's good practice to do so anyway.
+Cache LMs in dpu_enc similar to other resources during mode set, and
+perform the cleanup on cached LMs instead.
 
 Signed-off-by: Xi Zhang <xz.ca.cn@gmail.com>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 22 +++++++++++++++-------
- 1 file changed, 15 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 58 ++++++++++++++++-------------
+ 1 file changed, 32 insertions(+), 26 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index 0a6be69a3e83..8d2b4d2726f2 100644
+index 8d2b4d2726f2..81b983ecffbb 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -1205,9 +1205,13 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
- 						       ARRAY_SIZE(hw_pp));
- 	}
+@@ -133,6 +133,7 @@ enum dpu_enc_rc_states {
+  * @cur_master:		Pointer to the current master in this mode. Optimization
+  *			Only valid after enable. Cleared as disable.
+  * @cur_slave:		As above but for the slave encoder.
++ * @hw_mixer:		Handle to the layer mixers used for the display.
+  * @hw_pp:		Handle to the pingpong blocks used for the display. No.
+  *			pingpong blocks can be different than num_phys_encs.
+  * @hw_cwb:		Handle to the CWB muxes used for concurrent writeback
+@@ -182,6 +183,7 @@ struct dpu_encoder_virt {
+ 	struct dpu_encoder_phys *phys_encs[MAX_PHYS_ENCODERS_PER_VIRTUAL];
+ 	struct dpu_encoder_phys *cur_master;
+ 	struct dpu_encoder_phys *cur_slave;
++	struct dpu_hw_mixer *hw_mixer[MAX_CHANNELS_PER_ENC];
+ 	struct dpu_hw_pingpong *hw_pp[MAX_CHANNELS_PER_ENC];
+ 	struct dpu_hw_cwb *hw_cwb[MAX_CWB_PER_ENC];
+ 	struct dpu_hw_dsc *hw_dsc[MAX_CHANNELS_PER_ENC];
+@@ -1156,11 +1158,12 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
+ 	struct msm_drm_private *priv;
+ 	struct dpu_kms *dpu_kms;
+ 	struct dpu_global_state *global_state;
++	struct dpu_hw_blk *hw_lm[MAX_CHANNELS_PER_ENC];
+ 	struct dpu_hw_blk *hw_pp[MAX_CHANNELS_PER_ENC];
+ 	struct dpu_hw_blk *hw_ctl[MAX_CHANNELS_PER_ENC];
+ 	struct dpu_hw_blk *hw_dsc[MAX_CHANNELS_PER_ENC];
+ 	struct dpu_hw_blk *hw_cwb[MAX_CHANNELS_PER_ENC];
+-	int num_ctl, num_pp, num_dsc, num_pp_per_intf;
++	int num_ctl, num_lm, num_pp, num_dsc, num_pp_per_intf;
+ 	int num_cwb = 0;
+ 	bool is_cwb_encoder;
+ 	unsigned int dsc_mask = 0;
+@@ -1189,6 +1192,14 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
+ 	trace_dpu_enc_mode_set(DRMID(drm_enc));
  
--	for (i = 0; i < num_cwb; i++) {
--		dpu_enc->hw_cwb[i] = to_dpu_hw_cwb(hw_cwb[i]);
--		cwb_mask |= BIT(dpu_enc->hw_cwb[i]->idx - CWB_0);
-+	for (i = 0; i < ARRAY_SIZE(dpu_enc->hw_cwb); i++) {
-+		if (i < num_cwb) {
-+			dpu_enc->hw_cwb[i] = to_dpu_hw_cwb(hw_cwb[i]);
-+			cwb_mask |= BIT(dpu_enc->hw_cwb[i]->idx - CWB_0);
-+		} else {
-+			dpu_enc->hw_cwb[i] = NULL;
+ 	/* Query resource that have been reserved in atomic check step. */
++
++	num_lm = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
++		drm_enc->crtc, DPU_HW_BLK_LM, hw_lm, ARRAY_SIZE(hw_lm));
++
++	for (i = 0; i < ARRAY_SIZE(dpu_enc->hw_mixer); i++)
++		dpu_enc->hw_mixer[i] = i < num_lm ? to_dpu_hw_mixer(hw_lm[i])
++						: NULL;
++
+ 	if (is_cwb_encoder) {
+ 		num_pp = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
+ 						       drm_enc->crtc,
+@@ -2183,42 +2194,37 @@ void dpu_encoder_kickoff(struct drm_encoder *drm_enc)
+ 
+ static void dpu_encoder_helper_reset_mixers(struct dpu_encoder_phys *phys_enc)
+ {
+-	int i, num_lm;
+-	struct dpu_global_state *global_state;
+-	struct dpu_hw_blk *hw_lm[2];
+-	struct dpu_hw_mixer *hw_mixer[2];
++	int i;
+ 	struct dpu_hw_ctl *ctl = phys_enc->hw_ctl;
++	struct dpu_encoder_virt *dpu_enc = to_dpu_encoder_virt(phys_enc->parent);
+ 
+ 	/* reset all mixers for this encoder */
+ 	if (ctl->ops.clear_all_blendstages)
+ 		ctl->ops.clear_all_blendstages(ctl);
+ 
+-	global_state = dpu_kms_get_existing_global_state(phys_enc->dpu_kms);
+-
+-	num_lm = dpu_rm_get_assigned_resources(&phys_enc->dpu_kms->rm, global_state,
+-		phys_enc->parent->crtc, DPU_HW_BLK_LM, hw_lm, ARRAY_SIZE(hw_lm));
+-
+-	for (i = 0; i < num_lm; i++) {
+-		hw_mixer[i] = to_dpu_hw_mixer(hw_lm[i]);
+-		if (ctl->ops.update_pending_flush_mixer)
+-			ctl->ops.update_pending_flush_mixer(ctl, hw_mixer[i]->idx);
++	for (i = 0; i < ARRAY_SIZE(dpu_enc->hw_mixer); i++) {
++		if (dpu_enc->hw_mixer[i]) {
++			if (ctl->ops.update_pending_flush_mixer)
++				ctl->ops.update_pending_flush_mixer(ctl, dpu_enc->hw_mixer[i]->idx);
+ 
+-		/* clear all blendstages */
+-		if (ctl->ops.setup_blendstage)
+-			ctl->ops.setup_blendstage(ctl, hw_mixer[i]->idx, NULL);
++			/* clear all blendstages */
++			if (ctl->ops.setup_blendstage)
++				ctl->ops.setup_blendstage(ctl, dpu_enc->hw_mixer[i]->idx, NULL);
+ 
+-		if (hw_mixer[i]->ops.clear_all_blendstages)
+-			hw_mixer[i]->ops.clear_all_blendstages(hw_mixer[i]);
++			if (dpu_enc->hw_mixer[i]->ops.clear_all_blendstages)
++				dpu_enc->hw_mixer[i]->ops.clear_all_blendstages(
++					dpu_enc->hw_mixer[i]);
 +		}
- 	}
++	}
  
- 	dpu_enc->cwb_mask = cwb_mask;
-@@ -1215,16 +1219,20 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
- 	num_ctl = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
- 		drm_enc->crtc, DPU_HW_BLK_CTL, hw_ctl, ARRAY_SIZE(hw_ctl));
+-		if (ctl->ops.set_active_lms)
+-			ctl->ops.set_active_lms(ctl, NULL);
++	if (ctl->ops.set_active_lms)
++		ctl->ops.set_active_lms(ctl, NULL);
  
--	for (i = 0; i < MAX_CHANNELS_PER_ENC; i++)
-+	for (i = 0; i < ARRAY_SIZE(dpu_enc->hw_pp); i++)
- 		dpu_enc->hw_pp[i] = i < num_pp ? to_dpu_hw_pingpong(hw_pp[i])
- 						: NULL;
+-		if (ctl->ops.set_active_fetch_pipes)
+-			ctl->ops.set_active_fetch_pipes(ctl, NULL);
++	if (ctl->ops.set_active_fetch_pipes)
++		ctl->ops.set_active_fetch_pipes(ctl, NULL);
  
- 	num_dsc = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
- 						drm_enc->crtc, DPU_HW_BLK_DSC,
- 						hw_dsc, ARRAY_SIZE(hw_dsc));
--	for (i = 0; i < num_dsc; i++) {
--		dpu_enc->hw_dsc[i] = to_dpu_hw_dsc(hw_dsc[i]);
--		dsc_mask |= BIT(dpu_enc->hw_dsc[i]->idx - DSC_0);
-+	for (i = 0; i < ARRAY_SIZE(dpu_enc->hw_dsc); i++) {
-+		if (i < num_dsc) {
-+			dpu_enc->hw_dsc[i] = to_dpu_hw_dsc(hw_dsc[i]);
-+			dsc_mask |= BIT(dpu_enc->hw_dsc[i]->idx - DSC_0);
-+		} else {
-+			dpu_enc->hw_dsc[i] = NULL;
-+		}
- 	}
+-		if (ctl->ops.set_active_pipes)
+-			ctl->ops.set_active_pipes(ctl, NULL);
+-	}
++	if (ctl->ops.set_active_pipes)
++		ctl->ops.set_active_pipes(ctl, NULL);
+ }
  
- 	dpu_enc->dsc_mask = dsc_mask;
+ static void dpu_encoder_dsc_pipe_clr(struct dpu_hw_ctl *ctl,
 
 -- 
 2.55.0
