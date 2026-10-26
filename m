@@ -1,49 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793025617;
-	b=KyJjp8cqhDCsjDHRRDiYsI18vZ9JfKr7doWTEVDb9r2xCuLcmm4buh8OwCMZIPt/KowR
-	 YusJQig9kkqP1jS/criJOwWdjIsBJMuzUiQNjsc21QncIZAO3dYAzfFza6+IVe0RG0LoH
-	 sFrPVVL4+MqoU/sh08zFaQi/XoN0wWNKPHBrvsFBFNAMa+h7Zm+B/nHwQdZAtkI+gA5FI
-	 CrRMjYuG5kbLu07kR9IqWy9JrC2IboQ5sDQwCCTYu0YWFs4Awkjpy8PXTEn0Q3RY06aYl
-	 WT7SxPqclfwVJIz/Tc9UXkCXA4Gdnbthh7aP95qaFVX1JqZaaXaCBRZCgSmxF7yTGZQ==
+	t=1793025614;
+	b=FZSbtGVbfCuCpHcQlnGpi0es8CBsEUM4X40dxEUpzApiGlTTJ1ioZb7fWC+0KnLNnxlZ
+	 eSav1ij2TajJAIj6j0fq1x/18gd8NBc7gmr/7veftAN6VT3dOkZehOzvZiN5zrfVXbGbH
+	 OYinwo4JPbjX/96cAWFQmpiET2kjSBBTK8DoVqQAqlufMfT11iXrTtg3a3fdTKITSKzKJ
+	 KJZP0FMtZrhy7o8v9yfoYrm0jeuV9WNWd5Ka0NYgtC+kaVEBYqUwZ/d/SAN8FuZDcTKhg
+	 RfkDPRMuzL10TMjRlfuzjUzuUBllbsnSqxuI+SXJFO7DYtrph+wCZuVty0ueniUyYBA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793025617;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:References:Content-Language:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=ykRfXkH6cJmLTmHpPvaF/REchQME/dZi6i2ouOecx9Q=;
-	b=YDz46zU6Ttw/CIQLOFj7ex1bjP31FedRFac2uoKEcShsp0V1V00lj/JTCk/e1Oo6SjwQ
-	 GcxZqWqIJmbV25tMolUAHFCS5GU5V1Ce0L5YZBlBsrHhnsgph882+oQWnY3JcjTmB6uLM
-	 wn87Tdzt7tFrDySI9ITo/qZw68DYn2aEDthOFSL4Ht99wfOkFcalbJo0ga5GR3ODYPsTT
-	 S+u2vd4iZCd8Ck2mwOiHA17NXTbzfpMwXjr1T9L+jWdQ+8acFpJSfwCqL7+WqhmYNh4Qk
-	 ECO8PEiK5Ug07BzJJ3R4NJ34gUWTmkOPEZKKLvXpvt4vWk8H7rHxelSKjRa8XKnS8tw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793025614;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Sender:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=CJx6Jk3q7Zj0vUF24ySNqADHQgrgfTJxl3ukIMikbSg=;
+	b=E/bA9XrlMvZH49ytsNbLCCmnmJGZM10vhOmvO6uTAMIYQbJok6MrjltXVoqe7pTNlSIX
+	 AbH2m7S2K2Iqh7u5DqJDnSPpgXpQp8yzxg5Ux97oNmjZ9zLBFO1XnZBocBuvvqgv/zb2K
+	 MoUF2Oj8ngNMJqBJ2woAqw+Aqn3Ghu3dQwh1P5FuzpA5u3902ypyLh2x9B6TFMjOQuYiB
+	 VFtJHhNFfkQkG/Q2qUbS9ySmxERoc3oOu4LOn89H6fMz1PjoCcRmC5OneHeR+w59R/VZp
+	 ZKPZByMEoC9sz4WELBR6SDNvV3fDAbVIoMx9rKAfyjAkeMIrKQJaKj0KTwh45aW3EmQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=puyL+T5V;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CC70D606A31D
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:40:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC70D606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=none header.from=roeck-us.net;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="AnBU3FC/";
+	arc=none smtp.remote-ip=209.85.214.172
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF983606A31B
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:40:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF983606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=puyL+T5V
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E1B7315A1;
-	Mon, 26 Oct 2026 07:40:12 -0700 (PDT)
-Received: from [10.2.212.8] (e134344.arm.com [10.2.212.8])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CD6943F7B4;
-	Mon, 26 Oct 2026 07:40:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793025616; bh=PdifPg312y5PvYuc4Xf4GG9TzVq4AqraeMh1xZ/Yeuc=;
-	h=Date:Subject:To:References:From:In-Reply-To:From;
-	b=puyL+T5V7eyYwEjIbrmCvuo098AiKubUI3TpqNXW2y9h/IP7DjG1Z+YUMr0ka9LgP
-	 xaF5EWC/3q/GhEYlNQ1v7PlL0h53mQHIhMIfb5rhpg5uaudAURIBUWMftlZdwWrvzs
-	 juxaGqD6dMvBG3ajtN3rMVZfhjK8EqEMkehoHvyo=
-Message-ID: <19a84290-d0a8-4900-bb2a-ecd525eeff57@arm.com>
-Date: Mon, 26 Oct 2026 14:40:12 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=AnBU3FC/
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2e9ae391a05so21508035ad.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 07:40:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793025613; x=1793630413; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=CJx6Jk3q7Zj0vUF24ySNqADHQgrgfTJxl3ukIMikbSg=;
+        b=AnBU3FC/k9/7NJPQaCbz+jpM4h9DbPEzea+pAhsWWMEqU7at8UDWkFlWrJGLeXEFIe
+         jEJ3nTIQghMOvFuiH34NiTVKliL6GYYD6lB71lOYvesKdRjuTv/cd9RpIr4DXvxfCbcz
+         e/IIdiBdO4cyN3u0Gohp/avUemciBsVq3s28wWFWjTJ7xtqO5OKf6sTdHYxIvFO2jdtg
+         nqWdCRAX89Ll74HR+pGAgGrnepeIqx5rMuc/rf9PM2A5X0RScXPrHvJbe8quGTHaHxYH
+         A51ep3anRYIWMswa81ank8FGaaE42stZW63XTaOCqCWBnQFvHNlQNx1RyvP/DyvFM/a1
+         Qa7w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793025613; x=1793630413;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CJx6Jk3q7Zj0vUF24ySNqADHQgrgfTJxl3ukIMikbSg=;
+        b=zakFRAG1r/BTcT/hEc4S25JU7QPrMsi90dp5d8NsJUgw0vVKImdqNSqnUlslJIYJ0j
+         RF5kVCHathNcJRrWeGScl12h3huzjBCGssvIuZgzrtnzTRQtBfK7h2GkwySuw3nyUJdr
+         BKRi5f1CQVfrCaCX1HhOdNDVHEC31jai+UptPkJmpe0KAuZOLubwAqX4vtKRysnp8mzW
+         Yx71UbbG956PnYOm+dnjXl0fN1xuZMU31HkCLMUTg4sFPF44HdxIGJoiSCfo0AkvWk8x
+         h7DDU6hoD20ZLbQcd384RQ6GFbuBcCmfrJ9uTafrmOwOednIdgE2snMLucqjybjEat6P
+         WfBw==
+X-Forwarded-Encrypted: i=1; AKwUvByhgt5MPAX5qW7wsind7xVYNu/dMS/fmZBhWJDysB3DmpJKRAzogUNOAFbc6WQt6cvNDbOz7b+qg1WMayE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKtJn5vkVptDISWPWBhJ8YQlkk7qoqrhf0rWjIRVhC/1GMvJpXX
+	M+D0GvKTz3koN0akc77pFWXMaaYvf79tot2HUqvx07/H4pFMEHOmJMWH
+X-Gm-Gg: AYBFou27mH6vytK2ZtIHVOCiTY71P511F5xzh8CFI1ulY5ZolcUBmulTPcyNThsJvil
+	yezg31dYZLxT5M+jhqJYg65FOEvXJL5Lo6mMFJzdUIcU0sGFn2ekuRD0uWshW94mXSKKv9DeTQR
+	Uq2qd5k1ePeZiVI+SoSbHVKylzqKbpGXhV90jJjzq9vS/76o6DufB6dj8IGuuGWEHIiAdrLJmhx
+	+68XI1kyZwk7LAIjeRFoNMpKCaTuV1VR/rJADnxGSA/DYT1lxO6agtQwcUM90l1kJhOgAbm0qwB
+	b4ok1j9zv8bHks9vwvHbur27pJKzSIk/J+a0J+1vI25V1nWj61EcSWf1X+y83R2vlesTVeJTfup
+	fjPa84F6AcW31kiphc974t50Q6ZBUh5HBwLX2WGcUWws93+HbpzQUTNY3GLsNaRQRsFP6oQFEAI
+	2V5q8S3QE6L5ex2w1+CAvWKqqejvTevaV3yhNgC6F1uj/ORdlAV5ndB+3gLejQFlHO1PdI6IUw4
+	9R/trvPVbdPyvSb7LRdcEk0LR1gUYoah8WfLxHa3ONZ66VvyB36iiZjHpFXs7gSNXyDzQ==
+X-Received: by 2002:a17:903:3204:b0:2df:b004:df28 with SMTP id d9443c01a7336-2ea9cc685bcmr40841475ad.35.1793025613080;
+        Mon, 26 Oct 2026 07:40:13 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea9b121651sm18814625ad.18.2026.10.26.07.40.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 07:40:12 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Mon, 26 Oct 2026 07:40:11 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Vincent Jardin <vjardin@free.fr>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jean Delvare <jdelvare@suse.com>, linux-hwmon@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v2] dt-bindings: hwmon: jedec,jc42: add
+ #thermal-sensor-cells
+Message-ID: <3a279e6f-5c51-4786-a322-2c56667faff2@roeck-us.net>
+References: <20261001-for-upstream-dt-jc42-thermal-sensor-cells-v2-1-6edd30b082f3@free.fr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,74 +100,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 RESEND 03/15] arm_mpam: Fix error return in
- resctrl_arch_mon_ctx_alloc()
-To: Jinjie Ruan <ruanjinjie@huawei.com>, tony.luck@intel.com,
- reinette.chatre@intel.com, Dave.Martin@arm.com, james.morse@arm.com,
- babu.moger@amd.com, tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
- dave.hansen@linux.intel.com, hpa@zytor.com, fenghuay@nvidia.com,
- tan.shaopeng@fujitsu.com, zengheng4@huawei.com, jic23@kernel.org,
- gshan@redhat.com, catalin.marinas@arm.com, x86@kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261020134239.3921377-1-ruanjinjie@huawei.com>
- <20261020134239.3921377-4-ruanjinjie@huawei.com>
-Content-Language: en-US
-From: Ben Horgan <ben.horgan@arm.com>
-In-Reply-To: <20261020134239.3921377-4-ruanjinjie@huawei.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261001-for-upstream-dt-jc42-thermal-sensor-cells-v2-1-6edd30b082f3@free.fr>
 
-Hi Jinjie,
-
-On 20/10/2026 14:42, Jinjie Ruan wrote:
-> resctrl_arch_mon_ctx_alloc() stores the allocation result in a
-> heap-allocated int and returns the pointer unconditionally. When
-> allocation fails with anything other than a retryable -ENOSPC (e.g.
-> -EINVAL, -EOPNOTSUPP, or -ENOSPC with a pending signal), the caller
-> receives a valid heap pointer that IS_ERR() does not detect.
+On Thu, Oct 01, 2026 at 11:58:14PM +0200, Vincent Jardin wrote:
+> From: Vincent Jardin <vjardin@free.fr>
 > 
-> The caller then treats the error code as a monitor index: hardware
-> reads use an out-of-range index, and resctrl_arch_mon_ctx_free() hands
-> it to ida_free(), corrupting the allocator state.
+> Since commit 032c1623c9de ("hwmon: (jc42) add HWMON_C_TZ_REGISTER") the
+> driver sets HWMON_C_REGISTER_TZ, so the hwmon core calls
+> devm_thermal_of_zone_register() for its temperature channel and the
+> device can be referenced as a thermal sensor.
 > 
-> Return ERR_PTR() when the allocation failed.
-
-Is this just theoretical? What state do we have to be in for resctrl_arch_mon_ctx_alloc_no_wait() to
-fail? I see that the same fix has already been posted by Sang-Hoon.
-
-https://lore.kernel.org/lkml/179075213853.3.16001626385793291460.idr-bug-33@gmail.com/
-
-Thanks,
-
-Ben
-
+> The chip has a single temperature channel, registered as sensor 0, so
+> no cell is needed.
 > 
-> Fixes: 2a3c79c61539 ("arm_mpam: resctrl: Allow resctrl to allocate monitors")
-> Cc: James Morse <james.morse@arm.com>
-> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
-> ---
->  drivers/resctrl/mpam_resctrl.c | 7 +++++++
->  1 file changed, 7 insertions(+)
-> 
-> diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
-> index edd8da460fd7..23a8771ef148 100644
-> --- a/drivers/resctrl/mpam_resctrl.c
-> +++ b/drivers/resctrl/mpam_resctrl.c
-> @@ -413,6 +413,13 @@ void *resctrl_arch_mon_ctx_alloc(struct rdt_resource *r,
->  	} while (*ret == -ENOSPC && !signal_pending(current));
->  	finish_wait(&resctrl_mon_ctx_waiters, &wait);
->  
-> +	if (*ret < 0) {
-> +		int err = *ret;
-> +
-> +		kfree(ret);
-> +		return ERR_PTR(err);
-> +	}
-> +
->  	return ret;
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Signed-off-by: Vincent Jardin <vjardin@free.fr>
 
+Applied, and queued for v7.5.
 
->  }
->  
-
+Guenter
