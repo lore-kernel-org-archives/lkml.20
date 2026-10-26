@@ -1,123 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=198.175.65.17
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1792986168;
-	b=w2fCHXWHRsFcANoJEr/wYrJA4V2TrHYRi1OAsqGdX2z0xqjvuQBZqz2GBPDLMjAufszQ
-	 0egkPA6GiBajxkMEyT2dcnKFANXnhi3SUcbOOQfIXwOO+BDwmrIB632z4Rnwd1NU5z5de
-	 k/wodxrOw/ao6O5QGRu0rnmKdUVeLKo0GacGNgz+p0AKk27j2iI6yg+VKB4krfODi9pH0
-	 d+c/ZXxahY4jiBlwjTqd62SSz5KZYHYca0UgVMQLSCxoCneit8Yzdzl+3rQRT8x+KZXO6
-	 gmmpONRTg6jVpUo0Sv5LUNeBqnWRjwADN2nNRKMW3l2HrXrX9gsOMjQgmXNiqM5nbxg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792986168;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:Date:From:To:CC:Subject:Message-ID:
-	 Content-Type:Content-Disposition:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=0DSc06Tvrs1REh/+hfnS2Kl87LtwK1fGP6QP9k8T3dk=;
-	b=N4xee5z/PVrkUvgaSPZihao7P0tDG1TW7hsU56VeFFKJ3WJi67yYv9Lyr/Ko5WRd+xEo
-	 wHOKvyeBxH9gxZ7l58KQfgZ4vghbW/v5M4ipbJl3ZODWTlNo4PiREzQo/UOa2XdyWotCg
-	 f+NHCYKt/JlyOyB8zRPU2k3Uqv4TnGyPaIcz69m1QgN0igwhgTXN+YfO6H8TVhKn6G4il
-	 Qn6r3lWzRPy28vU+kymVqPrLxi3D6fuCBZN8XBtH5NDxeJ/QcTWuYNjgN61q+upXwO+EJ
-	 z3U/m7GoWaF1SZDoB86N4/ItM2GZ5Ef12vO2gqEGWGhrPV1jqHX30rQtPVPvyIMFn3Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AzGIjYXh;
-	arc=fail smtp.remote-ip=198.175.65.17
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.169
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792986271;
+	b=ME/4/3dNorjMzLXiVjQGhszLh4WcYcBUrLEz8Nej9Xg6gLnEOPoUK6Zt8jwUkVE2DkWu
+	 GTgBGIJ1V2eR7u52VNnccZqeFPNY8XSQA541m3fVhSPSHfjFEtx7v61F5y/j7Pvxda5dx
+	 bKdvkk+ke0gtqNqE5pHLVJ0XqKy45S9oxCAXhHAsfaHfNo5XlhfSuvws5Uj+wy1Q75VPz
+	 nXtMS6j8/xJjpG8bwbyveKknKMt2reAG0m1UzBKk2xA2LAWWLJZAwivICI8vz9vpdKQyN
+	 6dyLU/+zoG2mjWNFkAsdOenHJwbE9g9CIDRrBDla6KjWgJsQHudkVs6JTEV/DCYWvqA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792986271;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=FuZU9Bm4L1tjpR5OE6ZUvzPtHgo0PRLa1bH4/fzLGaA=;
+	b=P6zLCCWwHxAFdCdk0/9/UPJKT/rMv5VczHL6U08Frmq+SAYWMlTAH5/W6sH3koKhTNKn
+	 RDt+9/eIGrEEOM7ml+Rb1rWAMuYERqCPsm5xRXBV0Nh5yOO0KQb2QHQQL6uQ/OJChzef+
+	 AhRKyHnkIi2WSD3Jz1/w1GrkSuWRdtzRCvurbIKkrsbxIapzoS4l/urWZkZ97LQDmocS4
+	 EUrEkk4A0tMvqbDU9Bg+TlJ+m4JjhTmnOhuoUd7viOctK3QJ8smvRUo0nLatz1eNHeK0J
+	 bA4w9TvuIFKmN7D6UrRbeLkeSwoCp8asf6flkszSMN6CoZiTUX2j15khxPBlRVxoAqw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=XFeqDJ3a;
+	arc=none smtp.remote-ip=209.85.160.169
+Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com [209.85.160.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C981606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 03:42:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C981606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AF22606A31B
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 03:44:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8AF22606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AzGIjYXh
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792986165; x=1824522165;
-  h=date:from:to:cc:subject:message-id:mime-version;
-  bh=XmbFLNvNu6w2K0TrV3YpsXKWQY1eD+bXtFJ6vGK79rM=;
-  b=AzGIjYXhaZMPXMaSA+1LL3pcL3s9ArQj0OFabdzMud6Y5cqh+EEVwIle
-   C9aDDkUkLhUX/nYOkl7oHhkDhhkhoik/Kd8q5J7cSSda11s7dpauqSotA
-   EzkaPAc3JEYZCvdMFvlKHKs/xSpx5N+toS1nsCbWM6D2/a/z5LVmMQCzH
-   tHWsaEdVvLzl5Lx2QLT+IMgG3g7qAR8E7+IvIVp22ncDyyvnTUGXAG5Pz
-   ylNi1LuO3y71dysjjcvtPNJbAzSqzsOR3ppJVlbecIk/FnsD2/RU5dAga
-   VNjeYCqviFTafP9C0mv2ec/34VqPJ8Da1cvxZAF4JFZarqO8PvA4DA0lg
-   g==;
-X-CSE-ConnectionGUID: al4WmASRS8qhVLqJBS56kw==
-X-CSE-MsgGUID: nXrMF4YrTsSnQN11a0tMqA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1656956"
-X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
-   d="scan'208";a="1656956"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 20:42:44 -0700
-X-CSE-ConnectionGUID: DxA5EruVR7SzTn4hGPrZBQ==
-X-CSE-MsgGUID: Ua5usMe6QFKeQFnNN2cvUA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
-   d="scan'208";a="4211570"
-Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
-  by orviesa009.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 20:42:44 -0700
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Sun, 25 Oct 2026 20:42:43 -0700
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Sun, 25 Oct 2026 20:42:43 -0700
-Received: from DM5PR21CU001.outbound.protection.outlook.com (52.101.62.47) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Sun, 25 Oct 2026 20:42:43 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kj0SzohT1hdvvvbNW/8dckwcxdNBi+efY4mUP7+BCqZ8thJJvHGubplX4akTCB6Xk+oKZyS4dbb9uYKiwzaG36HAa3WOm1rEFuHzcBt42rnSPjzorKMUabT4PKNGKluiOmh65cQekf61I/9hcZ4zkM8lkiTcecqZnpZmgrENI+m7PKFtkLYdVhO1GpW4lwWFu2KufvO8oeu634q652Zo9INV1bkyR3iNm6nhu6eDxWzwaelP/I5NHRIA6yvPkVKdtjHnsvAGtdKKpTbJSj+oBUTgMSknPiWyRd70le8v4UzLMM/4rlJq8A+HERpLjXmJkmm9YjCnC1LEOvn1hMYbSA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0DSc06Tvrs1REh/+hfnS2Kl87LtwK1fGP6QP9k8T3dk=;
- b=w6yoXlwnyhRlU4Rh1f7I+d+CmYmMpRB1h93/eRbYmcBawZp065l5WHYIXiyVl9s2qnRZ6a5GwTlEM3H/usOCDSRVhPwyjKtFaj9uTLn/+0I7cDzb0tARMEBY9WoYbO+zWRG6VYd8EAuGRbrdYMqbqAC/yLU2U/O27tolitiTsyVw6t36LrKZO5lg+5gVwYjzTYXMbtJKmOx8SfGU7P2ntLaazjnVyBYCucs3KJJXrnCQG7vpdsv2/Xs2MjraKeqvywa54LeGFl3mkRTXDH5lOhWYNseUNjjx+Ly508t+7Gb7BHIKH42ay+hkzexmNzOxaaT3V2cHM9SkSFfA4pdtSw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS4PPF0BAC23327.namprd11.prod.outlook.com (2603:10b6:f:fc02::9)
- by CO1PR11MB5011.namprd11.prod.outlook.com (2603:10b6:303:6d::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
- 2026 03:42:11 +0000
-Received: from DS4PPF0BAC23327.namprd11.prod.outlook.com
- ([fe80::6fbf:c112:d0a8:f1a8]) by DS4PPF0BAC23327.namprd11.prod.outlook.com
- ([fe80::6fbf:c112:d0a8:f1a8%5]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
- 03:42:11 +0000
-Date: Sun, 25 Oct 2026 20:42:01 -0700
-From: Alison Schofield <alison.schofield@intel.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-CC: <dave.jiang@intel.com>, <linux-kernel@vger.kernel.org>,
-	<nvdimm@lists.linux.dev>, <vishal.l.verma@intel.com>
-Subject: [GIT PULL] NVDIMM and DAX for 7.4
-Message-ID: <at7MCT6uhsn0B4ER@aschofie-mobl2.lan>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-X-ClientProxiedBy: MW4PR04CA0261.namprd04.prod.outlook.com
- (2603:10b6:303:88::26) To DS4PPF0BAC23327.namprd11.prod.outlook.com
- (2603:10b6:f:fc02::9)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=XFeqDJ3a
+Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-53bb57f1310so7981651cf.2
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 20:44:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792986270; x=1793591070; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=FuZU9Bm4L1tjpR5OE6ZUvzPtHgo0PRLa1bH4/fzLGaA=;
+        b=XFeqDJ3aqCLfK8rrrOUKshScqKQbmpP2YKgSEkoMcDpM1IGtiD9AxmIQ4pb97xtnzW
+         wF8WVlBAxgPHE13QC9fwkToonYBTQroVIa+N8zTzWLWUbJ1A2o5s8mArhBb2AqPnMlX0
+         edRMOh3Wr01dtJsTWl1AClAKCJRFUFd2Pi6xti/P+EstLXMOF45iDByRyEzccHlViIip
+         ShHDZX/cm+8UcpgoRtTkDKRgMGmfr/R9uv41GxiiQnRbfB8drvGTaS4dH3IvurK80yPR
+         2L68p1pDbKpFdrgJ+qe4UeLMbASOFKO5aw9B6fFKliCmVCKOj69P7JY8ct9ivfFCSAz7
+         qaTQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792986270; x=1793591070;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FuZU9Bm4L1tjpR5OE6ZUvzPtHgo0PRLa1bH4/fzLGaA=;
+        b=FInT8zM8/8XZsDxFPQsefmRAw+hcRkIxSIuotFwQVqw3t6t+MYEe+bysmsNoF18L1N
+         klCGwJldZtVEZCwFMG/nGRBFKdSb2XapQ2StlOSAd/p6iExfjYZ1H0a02U0ihFjJrOZ6
+         aNYEJajIwtXZdzzWCqFfuGY70NQ+5ixpvByx7CVFLU4N4lpeYVzJW/ASgheZjg4C1vcD
+         Z/sPcySNA5Ox6p0rJQ+w2hAaw00itrmid62W91b3+BC09dGu25TaQpP0hIAI8crE1sqi
+         AIdlOtSIAEn8+KjQaDjF2Aax040snt1S1b+huhJoBN6uTEf9ZyzGzUY9+rpGh+Zxh5HW
+         v5qA==
+X-Forwarded-Encrypted: i=1; AKwUvBxhJZQACi0aubcqQXO6uv82l62fVj36tNNVE3KbIVeoczeHuurYNozmqJGG6KfTuH2T++O7CzM7eZzXz4M=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJGacFrhX5o6O2JhHKk3YmVNzLvsv0FzxU50OWw4p4f+83XzoFC
+	LblFQqKGON09TgEl7igJG1LY2wQU2xkazW0A6BnOI2YQ7aSvj7Ym35vw
+X-Gm-Gg: AYBFou085n/K4FV/HDKok9exWN3xA9a5lazfFYy3zs1zdGy23ApeQ5oYE89io8VPphF
+	tIgNKF8Yssg1rHn82JJaqxZWiW62aGZJ8DfSGD4727Mji93iKqRsyHTHEjBCnCcENGguLzq3Y7H
+	0eVdUNw1EPTPfUW1QcLbtTDPz9KNoSlGqcYUQmKkDkD0MFWPzeAgNdOCCQ7203869iOMfN1k8Ka
+	R/3Va2VokDnrxySGEEiVDcm8wFqKFGPTfMfR9LDv49LCXbClje1IadyatIbCFCVasw4zWQSEMfx
+	Rhk6fZ9E9EtU9QDvW52B8O+sJbFygF/mwU+GHqoPOIlx7XGdxl0vkQ/GgKlm8fmTwuNnOYGitnA
+	+oX7qgHsiV0XFf3GoxQXuulwxjcnpG9qLzsMgBU32MvonEA9U2G/ztDksGH28aNPN6KbUW6xaM7
+	EluU0H1sk2QrvdohXYOpUaZ4IcBzD3ADxfAWrZUlyRlYM/weYXsMLCXQPgBlELgFfWXQujtxdtM
+	OyU6EBMhpUnuYjHttgqFCsgPhF3caLXVSBU4v/OXFdzZGtgVqZoQTjFAv19E2s95absVTSYSOeq
+	JWRAmyOaL2kpHSBf0Oioo1HdjLbWZW22FCwKbU9mkfvnQGpGztVRfjlSeBa0
+X-Received: by 2002:ac8:6546:0:b0:536:699d:9a1c with SMTP id d75a77b69052e-5383b3509cdmr79585421cf.2.1792986270529;
+        Sun, 25 Oct 2026 20:44:30 -0700 (PDT)
+Received: from paul-white-HP-Pavilion-Laptop-15-cs1xxx.mynetworksettings.com ([2600:4040:ad65:1c00:4cc4:d0be:4ab6:9a0b])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-538394c5273sm46202121cf.9.2026.10.25.20.44.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 25 Oct 2026 20:44:30 -0700 (PDT)
+From: Paul White <paul.white.kernel@gmail.com>
+To: anup@brainfault.org,
+	atish.patra@linux.dev,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu,
+	alex@ghiti.fr
+Cc: kvm@vger.kernel.org,
+	kvm-riscv@lists.infradead.org,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Paul White <paul.white.kernel@gmail.com>
+Subject: [PATCH 0/2] KVM: riscv: Unify and optimize FP register loops
+Date: Sun, 25 Oct 2026 23:41:25 -0400
+Message-ID: <cover.1792982932.git.paul.white.kernel@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -127,118 +102,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS4PPF0BAC23327:EE_|CO1PR11MB5011:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4fb40ba8-1cf8-4aec-8a07-08df33131e37
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|261021123027099003|11063799006|56012099006|261009223027099003|261022075727099003|261022105027099003|261021121427099003|10067099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info: Q08hfdI6YW7AJjcaiYdbhAHKSB+m3oLnfPm1AGEDMpPkIwZUp9I8kvzmcF7WjxP2TSCUdZ7NPMcNJfoc5XM4IisHzez7A4hsQyxwF66cLdYzZ6YAIQPGyz+nuCOdmK+0YNfyUx1XDskJXZelmBwQKsivtP/uXtenNGLGPEFZ9GqyZtJjNjB4UPjjwRcoly8Cntrz9yH5CYaFWp1/E1zy7UB84p7FIIgfWrec+va6g9e618VNm+W7G+cCVP8YrdJyA1x9M5wdjKSrecizHIxyYDsVt7gNjo+EAYlNVnFQJEOVYKMT1JCO1ouK6Gg86IYWGIrVUeE0+jFSRkBp1K7Aw0PHlpoLQYurBlzW2qP3du52trqifZoPaR1dHz7GWz6Tn2Vfh8W4o4vWvaTmv9WjTfHe/aBR8l/BzZq6IXfa1oQfqMP2h5t/xCfzrdXtnsJE7iL4FKMtGO4PQtfwsvuhcsRXh02HnpssbnAK18Fc+XFkirbY6WJkKJBNMLill7L9WMcz8tjLeehHu1onxZ9LXBctSyKmjj76njhQaYtOoOQer5qXDpn7cCTsgYt+OhsVcLlFVx/o7v1G+KCn+0SOOsV1xof6dbLuHK6fMcTC5lrSLB0fbNCIU50YnSgxJsWhQ/wpE7YrW5NqwHRGfoWuJZygdKcL2I5rGkdWITvdt0E=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS4PPF0BAC23327.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(261021123027099003)(11063799006)(56012099006)(261009223027099003)(261022075727099003)(261022105027099003)(261021121427099003)(10067099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?eLjdIGYf0Nnv8Snp53BaBAR+YG+NHtepqjawWIzcpWEyi9KEVz6I0zucjN7p?=
- =?us-ascii?Q?z7iCiyf9npl7EPPMmytzGwpUrYIYFsAdCxcaQxG1mXzkIFQstcgE11NVOSRM?=
- =?us-ascii?Q?ksLB8m5Da+k36Nq/Q90fZIZXT9+V1seNX76Rxp76mx03h8BTkmIUzJveMTw1?=
- =?us-ascii?Q?LAOfMeDFE+wELwcxAOFqLmjzQ6IhyVG8JM32/niVBC9uC+lcfOvY0XmhfVOt?=
- =?us-ascii?Q?NJK0GsjWOedx4RaH2Y32Fs9Lu1wYOlC07C8QZqKJihR4ulb2Deuqy2JoHoVz?=
- =?us-ascii?Q?WnmD4QsRFXNCgWGIgSWRQbXz2pJCUmwWpZ1E1okwlpjZhDr9R/95lNJYpVCy?=
- =?us-ascii?Q?epaJzKgYJf8OeJwzgd3hDUVzCyG4FqVhILGm3KwOPSm7LohbnmaqcWQ7nefu?=
- =?us-ascii?Q?WANDDfQspY1o1qCruXvXEd7hh6a2ax3SQ0Aca7nmBDeGC+EAIuPFnEhwwTIo?=
- =?us-ascii?Q?3OTOEYqnMs8gRAhMtRC1ZTY258ObnONZQhrfNCmgIh9W2I5aDXrVckedCXAb?=
- =?us-ascii?Q?+9YB1o72RRR3XVu6jI6q/tjhIhNgbzqggY+LzZ6WZgslDSDjXneawgH77U15?=
- =?us-ascii?Q?e6OOMPb/mEw4TNexa7RSOLSNLmPlWL8gLVe6526yFa4CfR88tQVMP4RR2ndO?=
- =?us-ascii?Q?GwYIJIADbB/C/EkVtVNkpjY+BJ4LtcaPu3SJbql/66q+DKBh3sVwvgi2DQbk?=
- =?us-ascii?Q?F/zGGIjVPXvu5BKDEvmPm6mVGZenUzBSUfpqzh9918LiNzplGQsWHlznTKtw?=
- =?us-ascii?Q?oWDq5qzfK3/XxZ6FtZLlOBj5FD8DkfJIFfzhykvItEfxhk47kxddKql5EZhk?=
- =?us-ascii?Q?PPDilobXdU3Q5JExegudG6wDL7l9YtIHPVSXEqtqNwATIwEI8XDJT0tOl3iU?=
- =?us-ascii?Q?85HjZn32vDzZGUHlodGVGeh9xbPiKDRbzhGTgJS/R2qbNDMLoUIKcXSJcrH2?=
- =?us-ascii?Q?pKwjpUol0uLSKRyTiURit4yRV++q+m87ZpyRKEW0zYdBriBaWat2nOpB2Ube?=
- =?us-ascii?Q?/E8ALu1HqJCo0sds5tfU4bRKLwWggDv5BpHuYJ+w6pmDM0p6MGTXM3NZsQrX?=
- =?us-ascii?Q?+ATRC5xd7M4bij+oAytHeMsaMR4w93asL/IxSFRrZWg0v5Jib8x/WQsCNHg4?=
- =?us-ascii?Q?qezIicyZ3VtiRvjHGixNf3S/Rkn0NogMLBGnzbpHLT1tt8EaTFBmXvCa09Ui?=
- =?us-ascii?Q?rZE0AmHJWo2UpS/4Iy7UDDatokYs76sRb66I+jrF5CqlM4z27KGjJZzSbVPL?=
- =?us-ascii?Q?O3V0tKZ/sFPMHM2s0vPterGRnDJurIzyTVqy40qRdkmV12RMWavSJHkXlRfY?=
- =?us-ascii?Q?V6Rq4PfnGz2nmdSKDS9e1ky8p9AI4BosQYydUz9hGk84686D6AeWJQrPFfHE?=
- =?us-ascii?Q?04OhtbqyIXHnTDH61V19CmmmvvihzQZvfSAS02Y7w7uW5qNyltXSJUUJJ5pg?=
- =?us-ascii?Q?wttvXnzhdWx23+WrJynC+Is8kEMaQ/HSrHZdbWJPi50Rhsw0zMdglAB1DTSK?=
- =?us-ascii?Q?ANA2ZXCSwvsW7flpUvaO9k9wmOHTtrx1VsTXbz2vES+qw6N62Zq/EsTNbPSC?=
- =?us-ascii?Q?mdit22X1L8zjzCcGjoGoY7umzPnROV/QnUYM4wHI/AbwvzpawQrFtwkvZrBA?=
- =?us-ascii?Q?y3wo+o4/iZgchF78weF+fiEv/D2QX4QA9dcdAztkY2qeAzQXmFQlKjFqc6gk?=
- =?us-ascii?Q?IyF+7AK0+TgiDWgHz0pjJDziDgZ75fsj3z8yll6f4MEjIt0Os8XXmWbRF8An?=
- =?us-ascii?Q?7Fxc+KboF6pE6J/Fw3NpMJHWzJVKYQs=3D?=
-X-Exchange-RoutingPolicyChecked: CP77TVVjiJTWodiiVt5mAnqPgc5qSt7oHkczNffeMt8W1bizrajceeIYJ1KVVtGCP2gRehw00+008z7hJheE/QOVLL/A1JeuJJOiQi4XzBpV8fqfCak3vpoCq9vwm+qao8aoZr7tmqv2xLq4SzAYpdo4KknXOG1DwnXZVPO3KVcXiYomt1HONKobpj2+uboAFqdG69vfViDV+4zuO093ou6NBXatgvRbiXxkpETwhLjwyD7iLw5C+AblMkFeql0LmkmWU4Hnfk88pCyc1D3NcFoyPQrJY4c5HbHq3ruQS4FKyRKmqIh113kyXVIThANvrzV0MIoVN6QpGvDGC2GqGA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4fb40ba8-1cf8-4aec-8a07-08df33131e37
-X-MS-Exchange-CrossTenant-AuthSource: DS4PPF0BAC23327.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 03:42:11.6202
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: owK3eH7Cnq0rSX2wb87tQOsfYnRtC/hDcz5FKhyB5EIg8WGWncaiuRR6rVr0Azo3pcEHnfLqzn++026hy9+yWqqt+HGnm5JvPT0Yakw30v4=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO1PR11MB5011
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
 
-Hi Linus,
+The change to both patches in this series is a 
+structural/architectural one. Both functions set_reg and get_reg use 
+identical code to locate the register the application specified in the 
+token even though they do different things with that location 
+information: the set_reg function adds data the application requested 
+to send to that identified location  (in the copy_from_user function) 
+while the get_reg function retrieves what data is at that identified 
+location and sends it to the application (using the copy_to_user 
+function). Everything else is the same. That is the only difference 
+between the code. 
 
-Please pull to receive NVDIMM and DAX changes for 7.4:
+Therefore I was able to apply the same solution to both of the 
+function's finding-the-requested-register parts (which is everything 
+up until the final if statement) which were filled with redundancy. 
+The solution I came up with is to create local variables for the 
+entire function for all the variables of the original code that would 
+be different, depending on the floating point type. Then once I ask 
+whether it is a double floating point or single floating point mode, I 
+assign the aforementioned variables to the values they should have for 
+that mode so that when I go through the if statements that ask whether 
+the requested register number is a status control register or data 
+register, I only have to go through it once because the respective 
+floating point values/addresses would have been assigned to the 
+aforementioned local variables, so the whole code kind of changes or 
+is tailored to the floating point type. 
 
-    git://git.kernel.org/pub/scm/linux/kernel/git/nvdimm/nvdimm.git tags/libnvdimm-for-7.4
+This architectural change/solution will make the cpu execute the code 
+faster (as the cpu will have less decisions to make and the bare-metal 
+math used to figure out the address of the register is executed faster 
+by the cpu than looking up object properties and array indexes), is 
+more maintainable, and is more readable.
 
-This is a small set of fixes: error handling corrections in the DAX
-core and bus code, a fix to the DAX file range comparison helpers, and
-two libnvdimm/pmem fixes for error and probe failure paths.
+Paul White (2):
+  KVM: riscv: Eliminate redundancy in get_reg function via pointers
+  KVM: riscv: Eliminate redundancy in set_reg function via pointers
 
-These have all appeared in -next for at least 6 days.
+ arch/riscv/kvm/vcpu_fp.c | 128 +++++++++++++++++++++++----------------
+ 1 file changed, 76 insertions(+), 52 deletions(-)
 
-Thank-you,
-Alison
+-- 
+2.53.0
 
----
-
-The following changes since commit 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e:
-
-  Linux 7.3-rc5 (2026-09-27 13:55:01 -0700)
-
-are available in the Git repository at:
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/nvdimm/nvdimm.git tags/libnvdimm-for-7.4
-
-for you to fetch changes up to 9b036546a02c6c9a5133f9c1e93503896595c6ba:
-
-  dax: fix wrong error code returned from dax_dedupe_file_range_compare() (2026-10-19 09:43:01 -0700)
-
-----------------------------------------------------------------
-NVDIMM and DAX for v7.4
-
-DAX fixes:
-dax: fix wrong error code returned from dax_dedupe_file_range_compare()
-dax: fix dax_range_compare_iter() to use correct size and address offset
-dax: Return errors from dax_core_init()
-dax/bus: Return errors for invalid mapping targets
-
-NVDIMM fixes:
-libnvdimm: Handle negative return from nvdimm_clear_poison() in nsio_rw_bytes()
-nvdimm/pmem: Release gendisk on probe failure
-
-----------------------------------------------------------------
-Hemanth Selam (1):
-      nvdimm/pmem: Release gendisk on probe failure
-
-Jianyun Gao (3):
-      dax: Return errors from dax_core_init()
-      dax: fix dax_range_compare_iter() to use correct size and address offset
-      dax: fix wrong error code returned from dax_dedupe_file_range_compare()
-
-Muchun Song (1):
-      dax/bus: Return errors for invalid mapping targets
-
-Serhat Kumral (1):
-      libnvdimm: Handle negative return from nvdimm_clear_poison() in nsio_rw_bytes()
-
- drivers/dax/bus.c      |  8 ++++++--
- drivers/dax/super.c    |  2 +-
- drivers/nvdimm/claim.c |  2 +-
- drivers/nvdimm/pmem.c  |  6 ++++--
- fs/dax.c               | 14 ++++++++------
- 5 files changed, 20 insertions(+), 12 deletions(-)
