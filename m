@@ -1,71 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=150.107.74.76
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792990316;
-	b=aJ/rBMCusHBW6JiIp6jgF5Ay1YwZQmazZFLaYebQXGfsPkGmpOTlfi60Ryd/BOf9gXZ6
-	 pBOQhN1t9o2Shi/rd/Hdy4W7Gn7BHdLzYND9mhqbFFCgFEmq4xqPwWHcHYYm9LLOYLAyp
-	 Ttqz4OPNczL38NbVn6lgcEt4BNIIrpSXV3Mj3c4mfx16tX10fn4Abp6MwR0uPUUozxu+u
-	 aNl6514/4p6ePjefjGQeDmf1z2B1w437bmPBao5liDDJYAM+TGkAXIlw1/TtPOLIEh8gM
-	 Dp0IZ/zJ8fr9gTmXW+XmYcK+UMZTPV4vuuqqKrpHTCBTBhYlvBfLOnGP8ew8MkLIkMw==
+	t=1792990367;
+	b=dUdQ5RcLCJmYKNwVpafdVEiHB5wgAriMnpziT3I2FLPY2k2jCTtT7tnUJlqzSLVWK+CK
+	 bwudV0cscIfcLRBnc7vvN+4AT50eOb+hMxQALsAtapNEXFu2F5YV9/IjjYDUVkGscYA9P
+	 BO1g8brZNRubmXuTyrgNFFvsJ/RxMfDNiDiRy1teoa9ppjLxMMVyK7Yk5TDl0MWsdEvod
+	 J4c+Veqo7VEGdKEDjdU1CNzgF0mFcpwYnU4zaTS+H70zN78UyY5myYVj8gPs4eXtQ9/b3
+	 bT7GRvniGHUpuidM3/8WCGLcOfo7gzP8FRRgtOLtUFOAJl1BSzkPvwg3LNlQoQlMbOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792990316;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=CHthpTQQZ9sGbZv3eMYNrP/2BiwvzD4xW9hS+MDiu4E=;
-	b=NH6zL0YqpfcRmqgPJlr6UOdm9SzDK7Hbjj1705ZqBaK1SItqtYF5qUY8KbKU8Mbw/XXp
-	 f1dQSiPmak8Q2Yffnr/Wvf1fCuwD2uJB8LXE/q29uuQBKNgfzBuwU+9ByFIovyf1Xsn7t
-	 fRybP0xzca63BORCcpqBiCbkuf8b7bRarZ5jMUShBrj0Hdq/urkDKKeaKhRUEG2ALZCbI
-	 bK7ey3hET6PFIqygHaQr6G0K0Zvhhvr0VmvJoxQsaM9qMAObooa6gV4eB3g9C1w+9XXdb
-	 QJ+yC/hVMPiL0fIxRSow5gL47xidsjYhykjCBfEm9Qd6wQMbfD8v4dE9HCMpHhLpdCw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792990367;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=wBTt6MDoP0oWCk5YcX06KXZMQu4SU2+/GpSjq8u/XPI=;
+	b=uQJqbdIz/DBSpH3U3X7MVlUk7BPf9ZiShvzAjvvzIVRa5mk76HfksasIb7TEuYm8V0Mz
+	 Ym4kLPRZhQCISh8mzD5cmmkWptQ/3Yq/nigsD3vu0ed6imBqhECfN/fNJZPeEePF+8UXP
+	 S/koUCeCLdf+Uc+rU0Ms/whbhtQrw1n+9odywlRkMtlY6RDLMWRhhPCi8GrE6Y7VYVL0H
+	 zEwBlciuE9Cg+ofrxAjHaDBrFUGv4Na3Dr7lN03Bm+UBl18wwMIkDVysOujcgSNnwIm3e
+	 b7G1Zf9QWxYi48yOs65rbTBXgZ/ND++IvA7n7wkePbz2DB4ec+0kavQp+CEIvVX2TFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gibson.dropbear.id.au;
-	spf=pass smtp.mailfrom=gandalf.ozlabs.org;
-	dkim=pass header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=nqcQH6qO;
-	arc=none smtp.remote-ip=150.107.74.76
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hQvr4fMu;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 287A4606A320;
-	Mon, 26 Oct 2026 04:51:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 287A4606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 424D0606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 04:52:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=nqcQH6qO
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=gibson.dropbear.id.au; s=202610; t=1792990301;
-	bh=CHthpTQQZ9sGbZv3eMYNrP/2BiwvzD4xW9hS+MDiu4E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=nqcQH6qOHu80jttG8Gxn8wYoMCh+xxT1PzhNjXc+0GaPX6w6HWo9LoPcE0O/YXarS
-	 l6LQID6yIc8feO+6wUBvb1wfv9ZF9WrZEls/UKzSWDo6cx7rJMCyUZr6XMWGQRgb19
-	 FF9bXOFxhGSXreA2ZVm2W2uF8s2Etuu72wbq4pMXGsbeIOUkK+IZZ4++jOrv4eC3WL
-	 51rEjqAOC2lSBYdUfTKQ2WHD0la0uwGi0M/m1vZFZ/rUDgNF3us20iQAxgiUrCKzk6
-	 SVRCvmFA8CVh5rAC0PI9tgkv/bjReo4LfeEkKari0fwJ8+M3CSe3kMYw0f5p4J0BrY
-	 HOOTk8h/0d3bQ==
-Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
-	id 4jCh6j3hQKz4wCC; Mon, 26 Oct 2026 15:51:41 +1100 (AEDT)
-Date: Mon, 26 Oct 2026 12:33:51 +1100
-From: David Gibson <david@gibson.dropbear.id.au>
-To: Herve Codina <herve.codina@bootlin.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Ayush Singh <ayush@beagleboard.org>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org,
-	Hui Pu <hui.pu@gehealthcare.com>,
-	Ian Ray <ian.ray@gehealthcare.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [RFC PATCH v2 08/74] livetree: Improve get_node_by_phandle()
-Message-ID: <at6t-l9XYYFfS48T@gractus.seuss>
-References: <20260826094950.1088288-1-herve.codina@bootlin.com>
- <20260826094950.1088288-9-herve.codina@bootlin.com>
- <atrTn_I_8O6q9QUW@gractus.seuss>
- <20261023181533.0c44a57f@bootlin.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hQvr4fMu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCB321F031E5
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 04:52:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792990366;
+	bh=wBTt6MDoP0oWCk5YcX06KXZMQu4SU2+/GpSjq8u/XPI=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=hQvr4fMuzl0diruADxjlXwpzYFn1Oc8BjJqOFIs/NNF6GXbmOFnc+Qs9zuaTLm2cU
+	 +k/H8dkVBTue0J9zL8FPMtklx+PEkQJf1iGmExjA9StqYCOf7j1MP7zeal9RgW1fV/
+	 2be3dzLsDypHyO+mLtt6ykD69HnJwv9HWwn4S4Ga82mKWwmCr0LrUjy5THI8Zb8FvM
+	 +Z0S7gMP7JUbd85ld2RZPSV1B3NNpsk+TcLFAeye2uFoukxP9hEQMwbU1ab2s1GRy1
+	 FhXSlBB7bC0LkBwcfkoU0vLXBEKGlH7J0WiHKAF+ufxWGXY9VW9/HpoqBTCJHRN/9K
+	 Pp+pvS2ANhAuw==
+Received: by mail-qv1-f47.google.com with SMTP id 6a1803df08f44-91791ec1b83so20478326d6.1
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 21:52:46 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByZAuPJQl8QcrtkzEvurCu/bgvGQFfue+aCsbOc2MNMvF9gzKCGXaxL0BCtQJXcRcZCEKKUYY1r0uJCppg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIOEesvfp7B+01pfiOxP7Dt1nRXDEaL3zVOxZDdE+0bJMxkE5zL
+	p0ixsPuiGy+oqZZB1GDWJPbBqdiSyI8/eK4fFKqPiNgqiZqj0wRemgAozrUKdHM1XihiCACqekh
+	xp69iHgcxUMfNn6OipzCsJ3XK2i8ojJo=
+X-Received: by 2002:a05:620a:2603:b0:93f:565f:e46 with SMTP id
+ af79cd13be357-940ef97fb6emr813826385a.52.1792990366068; Sun, 25 Oct 2026
+ 21:52:46 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,283 +59,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="U416GTGFp8OvSBTQ"
-Content-Disposition: inline
-In-Reply-To: <20261023181533.0c44a57f@bootlin.com>
-
---U416GTGFp8OvSBTQ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+References: <20261025-b4-ksm_fixv2-v2-0-8b61ad0491f1@linux.dev>
+ <20261025-b4-ksm_fixv2-v2-1-8b61ad0491f1@linux.dev> <CAGsJ_4zUVpBJazRxc1CzN6u5XvpUaGnaf-_7JMz-rGK_ZTYMtw@mail.gmail.com>
+ <e865f7f0-087c-4fe5-b729-6e6946cd20f6@linux.dev>
+In-Reply-To: <e865f7f0-087c-4fe5-b729-6e6946cd20f6@linux.dev>
+From: Barry Song <baohua@kernel.org>
+Date: Mon, 26 Oct 2026 12:52:35 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4wp_jCtCeMx39nW0Z1Jm5pja7_V6XNwLB6p7zTan0c3VA@mail.gmail.com>
+X-Gm-Features: AclHuK-BfQrdt1kOWUG-wz67A8OjcZGoLUsTLJeHszoeBANLz_PBEAvc05UFngk
+Message-ID: <CAGsJ_4wp_jCtCeMx39nW0Z1Jm5pja7_V6XNwLB6p7zTan0c3VA@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] mm/huge_memory.c: skip zero-page remapping when
+ underused THP shrinker is disabled
+To: Nico Pache <nico.pache@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+	Kiryl Shutsemau <kas@kernel.org>, Yu Zhao <yuzhao@google.com>, Xu Xin <xu.xin@linux.dev>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Matthew Brost <matthew.brost@intel.com>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
+	Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
+	Alistair Popple <apopple@nvidia.com>, Usama Arif <usamaarif642@gmail.com>, aarcange@redhat.com
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Oct 23, 2026 at 06:15:33PM +0200, Herve Codina wrote:
-> Hi David,
->=20
-> On Fri, 23 Oct 2026 14:25:29 +1100
-> David Gibson <david@gibson.dropbear.id.au> wrote:
->=20
-> > On Wed, Aug 26, 2026 at 11:48:37AM +0200, Herve Codina wrote:
-> > > get_node_by_phandle() allows to get a node based on its phandle value.
-> > > It checks the phandle value against value available in internal node
-> > > structure.
-> > >=20
-> > > This internal phandle value is updated during process_check() and so,
-> > > get_node_by_phandle() cannot give correct results before the
-> > > process_check() call.
-> > >=20
-> > > Improve get_node_by_phandle() to look at node phandle properties when
-> > > the internal phandle value is not valid.
-> > >=20
-> > > This allows to return a correct matching node even if process_check()
-> > > was not called yet. =20
-> >=20
-> > The idea is sound - it's always been kind of clunky that we need the
-> > process_checks() pass to fill the phandles before we can use them.
-> > But, there's at least one significant catch:
-> >=20
-> > [Aside: you might notice the way it's done violates the principle I
-> >  stated elsewhere of avoiding structures where you must know where you
-> >  are in the flow to know which parts are populated.  My type
-> >  discipline has improved since I first wrote this code :)]
-> >=20
-> > We need to gracefully handle the case of malformed phandle /
-> > linux,phandle properties; that's actually the reason for the weird
-> > placement of this in checks.c.  By treating it as a "check" we handle
-> > this case by failing the check.  Other checks that rely on phandles
-> > then have the 'explicit_phandles' check as a prereq so they don't need
-> > to verify this again.  We can still report errors for other checks
-> > that don't rely on that (which is the whole point of the checks
-> > mechanism).
-> >=20
-> > That's not the only way to do it, of course, but we need something to
-> > check for that error case.  Further notes on the code.
-> >=20
-> > > With the recently introduced FDT_PROPDATA_HANDLE dtb tag, this will be
-> > > needed to update internal phandle references before the call to
-> > > process_check(). Indeed, this tag allows to identify phandles and
-> > > internal references need to be updated based on the phandle value bef=
-ore
-> > > the process_check() call.
-> > >=20
-> > > Signed-off-by: Herve Codina <herve.codina@bootlin.com>
-> > > ---
-> > >  livetree.c | 21 ++++++++++++++++++++-
-> > >  1 file changed, 20 insertions(+), 1 deletion(-)
-> > >=20
-> > > diff --git a/livetree.c b/livetree.c
-> > > index abe73de1..a9f8c5d2 100644
-> > > --- a/livetree.c
-> > > +++ b/livetree.c
-> > > @@ -628,16 +628,35 @@ struct node *get_node_by_label(struct node *tre=
-e, const char *label)
-> > >  	return NULL;
-> > >  }
-> > > =20
-> > > +static cell_t get_node_phandle_existing(struct node *node)
-> > > +{
-> > > +	struct property *prop;
-> > > +
-> > > +	if (phandle_is_valid(node->phandle))
-> > > +		return node->phandle;
-> > > +
-> > > +	prop =3D get_property(node, "phandle");
-> > > +	if (!prop) {
-> > > +		prop =3D get_property(node, "linux,phandle");
-> > > +		if (!prop)
-> > > +			return 0;
-> > > +	}
-> > > +
-> > > +	return propval_cell(prop); =20
-> >=20
-> > In the case of a malformed property, this could SEGV.
->=20
-> Ok, will update to
-> --- 8< ---
-> 	if (prop->val.len !=3D sizeof(cell_t))
-> 		return 0;
->=20
-> 	return propval_cell(prop)
-> --- 8< ---
->=20
-> >=20
-> > > +}
-> > > +
-> > >  struct node *get_node_by_phandle(struct node *tree, cell_t phandle)
-> > >  {
-> > >  	struct node *child, *node;
-> > > +	cell_t tree_phandle;
-> > > =20
-> > >  	if (!phandle_is_valid(phandle)) {
-> > >  		assert(generate_fixups);
-> > >  		return NULL;
-> > >  	}
-> > > =20
-> > > -	if (tree->phandle =3D=3D phandle) {
-> > > +	tree_phandle =3D get_node_phandle_existing(tree); =20
-> >=20
-> > This means that every time we search for a phandle, for every node
-> > scanned before the destination with no phandle, we do a full property
-> > scan to check that no, it still doesn't have a phandle.
-> >=20
-> > I don't care that much about dtc performance, but that's still a bit
-> > much to swallow.  I think we need to cache negative lookups to avoid
-> > that.  Happily, since there are two invalid phandle values this
-> > shouldn't be too hard.  We could, say, use tree->phandle =3D=3D 0 to me=
-an
-> > we don't know if there's a phandle, and tree->phandle =3D=3D -1 to mean
-> > we've scanned the properties and we know there isn't one.
-> >=20
-> > In fact, caching property lookups might be the better way to do this.
-> > Rather than having an explicit pass where tree->phandle is populated,
-> > we could have get_node_by_phandle() cache its property scan (success
-> > or failure) in tree->phandle.
-> >=20
-> > I think that's a more elegant approach than the current one, but we do
-> > still need to handle the malformed property case.
->=20
-> Well, get_node_phandle_existing() can be improved:
-> ---- 8< ----
-> static cell_t get_node_phandle_existing(struct node *node)
-> {
-> 	cell_t phandle1, phandle2;
-> 	struct property *prop1, *prop2;
->=20
-> 	if (phandle_is_valid(node->phandle))
-> 		return node->phandle;
-> 	if (node->phandle =3D=3D ~0UL) {
-> 		/*
-> 		 * We've already looked at existing properties and no valid
-> 		 * phandle value were present. Avoid looking at them again
-> 		 * and just return the invalid phandle value.
-> 		 */
-> 		return 0;
-> 	}
->=20
-> 	/* Try to get it from the 'phandle' property */
-> 	phandle1 =3D 0; /* Assume invalid */
-> 	prop1 =3D get_property(node, "phandle");
-> 	if (prop1) {
-> 		if (prop1->val.len =3D=3D sizeof(cell_t))
-> 			phandle1 =3D propval_cell(prop1); /* Well formed -> Get it */
-> 	}
->=20
-> 	/* Try to get it from the 'linux,phandle' property */
-> 	phandle2 =3D 0; /* Assume invalid */
-> 	prop2 =3D get_property(node, "linux,phandle");
-> 	if (prop2) {
-> 		if (prop2->val.len =3D=3D sizeof(cell_t))
-> 			phandle2 =3D propval_cell(prop2); /* Well formed -> Get it */
-> 	}
->=20
-> 	if (prop1 && prop2) {
-> 		/*
-> 		 * Both property are present. They values must be the same
-> 		 * and valid.
-> 		 */
-> 		if (phandle1 =3D=3D phandle2) && phandle_is_valid(phandle1)) {
-> 			/* Ok, Cache this correct phandle value and return it */
-> 			node->phandle =3D phandle1;
-> 			return phandle1;
-> 		}
-> 	} else if (prop1) {
-> 		/*
-> 		 * Only the 'phandle' property is present.
-> 		 * Check its value validity
-> 		 */
-> 		if (phandle_is_valid(phandle1)) {
-> 			/* Ok, Cache this correct phandle value and return it */
-> 			node->phandle =3D phandle1;
-> 			return phandle1;
-> 		}
-> 	} else if (prop2) {
-> 		/*
-> 		 * Only the 'linux,phandle' property is present.
-> 		 * Check its value validity
-> 		 */
-> 		if (phandle_is_valid(phandle2)) {
-> 			/* Ok, Cache this correct phandle value and return it */
-> 			node->phandle =3D phandle2;
-> 			return phandle2;
-> 		}
-> 	}
->=20
-> 	/*
-> 	 * No valid phandle value were found. Cache this information and return
-> 	 * the invalid phandle value.
-> 	 */
-> 	node->phandle =3D=3D ~0UL;
-> 	return 0;
-> }
-> --- 8< ---
+On Mon, Oct 26, 2026 at 5:48=E2=80=AFAM Nico Pache <nico.pache@linux.dev> w=
+rote:
+>
+>
+>
+> On 10/25/26 2:28 PM, Barry Song wrote:
+> > On Mon, Oct 26, 2026 at 1:40=E2=80=AFAM Nico Pache (Red Hat)
+> > <nico.pache@linux.dev> wrote:
+> >>
+> >> The zero-page remapping in __folio_split() was added to support the
+> >> underused THP shrinker. When the shrinker is disabled via
+> >> shrink_underused, gate TTU_USE_SHARED_ZEROPAGE on split_underused_thp
+> >> to avoid scanning subpages for zero content unnecessarily.
+> >>
+> >> Suggested-by: David Hildenbrand <david@kernel.org>
+> >> Fixes: b1f202060afe ("mm: remap unused subpages to shared zeropage whe=
+n splitting isolated thp")
+> >> Signed-off-by: Nico Pache <nico.pache@linux.dev>
+> >
+> > is b1f202060afe a correct fixes tag? as
+> > commit b1f202060afe has no even "split_underused_thp" there.
+>
+> I believe so. IIUC these two series were merged together. While
+> 81d3ff3c6f7 introduces the toggle, b1f202060afe is where the behavior
+> started.
+>
+> I guess you could argue that the Fixes should include both?
+>
+> Not entirely sure!
 
-That looks good to me.  But the "existing" in the name no longer says
-anything useful - this can be the standard way to get a node's
-phandle.  In fact it might be worth changing the name of the
-node->phandle field to make sure we don't have any stale users rather
-than going through the get_phandle() function.
+Thanks for the clarification. I guess it's fine.
 
-> In get_node_by_phandle(), no change compared to my proposition and so the
-> full function is:
-> --- 8< ---
-> struct node *get_node_by_phandle(struct node *tree, cell_t phandle)
-> {
->         struct node *child, *node;
->         cell_t tree_phandle;
->=20
->         if (!phandle_is_valid(phandle)) {
->                 assert(generate_fixups);
->                 return NULL;
->         }
->=20
->         tree_phandle =3D get_node_phandle_existing(tree);
->         if (phandle_is_valid(tree_phandle) && tree_phandle =3D=3D phandle=
-) {
->                 if (tree->deleted)
->                         return NULL;
->                 return tree;
->         }
->=20
->         for_each_child(tree, child) {
->                 node =3D get_node_by_phandle(child, phandle);
->                 if (node)
->                         return node;
->         }
->=20
->         return NULL;
-> }
-> --- 8< ---
->=20
-> Caching should work correctly without any other modification.
->=20
-> I let you double-check on your side. Let me know about your opinion.
+BTW, with the code below, we no longer add fully mapped
+folios to deferred_split_folio. So the scanning code only
+handles partially mapped folios to set up zero-page mappings
+for their subpages.
 
-Yes, I think that should work.
+I'm still not quite sure whether this is really harmful, though.
+Am I missing something, or was there some discussion I missed?
 
---=20
-David Gibson (he or they)	| I'll have my music baroque, and my code
-david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
-				| around.
-http://www.ozlabs.org/~dgibson
+void deferred_split_folio(struct folio *folio, bool partially_mapped)
+{
+        ...
+        /*
+         * Order 1 folios have no space for a deferred list, but we also
+         * won't waste much memory by not adding them to the deferred list.
+         */
+        if (folio_order(folio) <=3D 1)
+                return;
 
---U416GTGFp8OvSBTQ
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmrerfoACgkQzQJF27ox
-2GeSww//Z5180hHqKm0lTbB2rhPEhdSbrpF47kP1k1uvc9ho+/fHRlZXHYrRIkDz
-fNAZ/rZKHf4O8mqNCwIDtU9etV2kqv0Q5gUFPid+mSRx8DbJcWjI7E/S8Z8NpCfB
-C5ZQ2Z05kLrVBrGhnJ8DsZGfAXfK4Uvq6BmBDAqZYJMnkALwLZN/1H3OSAYsR5wk
-Rnf22NuIY5oTYHLkneJHc4089wDpGybMUggdiz4rAkJ3e7vnl1EddxAIIb8cWl7i
-cLhNrENAAR2RmNY6+Tw6roqNnbjF5O0ruglWTI9thOdiI9xxovabv/4XRGvbb+Bq
-A0ACFVz0vE/QZuf8glt2eUJmbHoscOP3HnjAlyvqKyyvGK+sDRz2GfBEN+vwmqyj
-Xh5jyuGDDXTLD+x9gZ7PXBa2xi8Y5XWW3lvveBo/vfRmr2D4LUmLMWQWPSQl5dCa
-WhU9EOqUKKZcFjOzxGRF44lwHDNNfF+2W9YR7nmIb5KZPC0uxV7MujAa8VSR8OVw
-vHjYGqKXxzuK5RnnDdz8LUfcEYFOrYz0K7aeBgJZqmr47kuXCgUK/Io9S/VvjncJ
-jRKkQI6QYkeuk8CYGgj4tKTOIV0ZEaEo9/wuQ2oIpS0LI0AunesN81tWSc67lsuF
-7FmZwWSx1rreoss1u7qDj6qN7ahE2nJPRjlhdmgCiA48ncQGsSY=
-=BrSe
------END PGP SIGNATURE-----
-
---U416GTGFp8OvSBTQ--
+        if (!partially_mapped && !split_underused_thp)
+                return;
+}
