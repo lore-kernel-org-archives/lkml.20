@@ -1,58 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793043199;
-	b=SzsisnHp16SWu3iLEr0jYqHaboqh8p841QzDASWf5Api/JhpRheqd+Cg8f4Hb1PkY9fn
-	 Vu3EXyJzcIHe7+HfmQ+bGwMNFj7vhnnlztK8EPIv8PfDXqFjTw98S2chOAtg5pPP0KvxI
-	 1lb0ZeCgPG0m7sx10uLQg++kLgGEdA8N7a2WoFl6/oGaycbWZbNuZU8O+Cy/N/aXGT0GU
-	 ZrGxYt30xwZCyV8pjZaTkM8ji7BYNXCyo7tfD154HotbelsSaATgI4oKC36EGPuFM0K9S
-	 rUjiHGO+5hsVfk0mumdV/JGk9yea9LpX2IQ1G/2YlSMyRNULv0oUvg35eY1sX3CEiFg==
+	t=1793043238;
+	b=aH8B4JUq/sOPtKnTq+p8yJ/8tdc2ysCRDE1wWfWlCns5DvS0x9vsQ++V0hjiRoslb1mC
+	 BcHzJMNIIRA3Ds3jxyFyg4FRJxI9yB7RhZAR/HBXojBusIBoFeJwueTP2NabGtVrvHcWa
+	 a4ucKru2uGdfjB9dRtwKG1tS4vtiFG2u/iXtNf6TIbZd0TSsT9LUtmrH4PeYjTRxX4ZNJ
+	 aTrfUAII3Xi7ns4mU9NqWJ9G8eUK5EXI0tFqeFE65+MrMAdsYH2bZstgGW1exViKYeWIk
+	 x53VFbO5ttmEIh4UG0aHj/LACCWvRABnos7dQQ5a+f8NLEDfWnANPMHsCR7Di106DdQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793043199;
-	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Stat-Signature:X-Rspamd-Server:
-	 X-Rspamd-Queue-Id:X-Spam-Status:X-Session-Marker:X-Session-ID:
-	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
-	bh=7FroyQfmGccRo/6Ojp1n1yG7KvHfRDE9iUS1JPBi4tA=;
-	b=LmWySa6llty0NeHGDhUkZq5E1yupmA15MBIYh2sukPCBAY5jOB/RhEtPwNjJTGkBEBGo
-	 ByaYYUxtUWs1VCRo4UxeLdMfkR+jQQjKYiZtc/BCNDMX83UHgBcVxG0BUizGNqA4yX+K0
-	 Mmg9yNiBUqQVWrd1jvV5NoSPDEKT8nxV1JgBhpojyIbK2hlUSV9XfoSJ0LwD06O4/9XMi
-	 49mnSbcJXgVrDOAJnmgYomxPj669Jwmm2/SZeFHX9jjmHzD6QTpH/dI3EJT1XOGLwSUKW
-	 f1gR6yorS1e10ZUFz7zhQyjaETYd7HqPEuFaNMsHJ5epU6rl3s54HTUevr54gha+T9A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793043238;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Sender:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=omRFy0cHyVLNWnAUCIu2kHA+eYvWta9ISAt1zEqsNXU=;
+	b=iETzKKNEcaSLClCoOkcJPCOkTx6FnzK+QgIshvj6hdPaciY3pjgt/oiyWvbEck4sC782
+	 vKny02i0BDyS1gq/xQpJR4cljnxpkxEFYkdlRqCxTbeIfts+ySginiziS/u5WOEemluoX
+	 7ujKZuF+ZIZZOmPoS2uI4jr+FViyUWYYh7IUmAZ4Yfcodvtx4tqQTvvCe6Q3Bck0No7cQ
+	 qcXP99dJbomuNjKUKQRCiFj7axils9BcUR20QpF1snVcNvtvJT+agqlpQ3SKQpEM/0TNx
+	 ft47vj+ePPLzZXBT/eoKgNcMyXs4cCw7UwSYnJJdOdmNtBoFPeiOX/f1XBCy5nQK96w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goodmis.org;
-	spf=pass smtp.mailfrom=goodmis.org;
-	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=o3qhcDEp;
-	arc=none smtp.remote-ip=216.40.44.16
-Received: from relay.hostedemail.com (smtprelay0016.hostedemail.com [216.40.44.16])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=roeck-us.net;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=P+zg+FTZ;
+	arc=none smtp.remote-ip=74.125.82.178
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9099606A31A;
-	Mon, 26 Oct 2026 19:33:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9099606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F5D5606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 19:33:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F5D5606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=o3qhcDEp
-Received: from omf07.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay10.hostedemail.com (Postfix) with ESMTP id 67014C082C;
-	Mon, 26 Oct 2026 19:33:10 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf07.hostedemail.com (Postfix) with ESMTPA id 7DFC72002D;
-	Mon, 26 Oct 2026 19:33:08 +0000 (UTC)
-Date: Mon, 26 Oct 2026 15:33:07 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-Cc: Shuah Khan <shuah@kernel.org>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH 02/10] tracing/filters: Fix false success return in
- process_system_preds()
-Message-ID: <20261026153258.5259323d@gandalf.local.home>
-In-Reply-To: <179285914279.466249.18363232291728825688.stgit@devnote2>
-References: <179285912318.466249.7425922682086130057.stgit@devnote2>
-	<179285914279.466249.18363232291728825688.stgit@devnote2>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=P+zg+FTZ
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-369f33df08eso3682183eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:33:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793043237; x=1793648037; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=omRFy0cHyVLNWnAUCIu2kHA+eYvWta9ISAt1zEqsNXU=;
+        b=P+zg+FTZaPnoLv3sNo3Rbrq7MdxQMEVlG4sFYf65DZsur9eCwQNFm5khndSy6mesI5
+         vskp7JWhmWSdXu3gbApqryLbJFOioha7qtwWilDIkY7409gVpaFofUaAtcpXpnoOzOt2
+         N5GOI+HL/QJCkiw6Quy34+PL7Hsoo+RKYsGV1JnXNr5W0DWXuMtVlJmTkGkO9BpychpK
+         Zjzt9++Gtj1IlwNRP/demXiZN2n58CGFdCNg/xdeRqcSyz8L3MUfc7Bus54MuuxVfru5
+         PxXIpegtD0koifEN0dhnGv/3kdisRxax7+ytQd7hfb28hOR7nfCLH9BVEei4X3yhWA3+
+         ZG2A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793043237; x=1793648037;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=omRFy0cHyVLNWnAUCIu2kHA+eYvWta9ISAt1zEqsNXU=;
+        b=OeNEQ4JV9PhexQxpu+Z9dclCZg1jAr2fszokaKH4rQvIy0GEjR2lkviVyOyC/Nk/L9
+         79neNbJDe88ECeQz8Im3SCSWwpkVwc/nbzMsmOQ3XXKq9kQT+rbvYlSyntAZZhmji06B
+         9ZkEiFRUEwRCFRWhvKHHybiri6hF9ImBqIrVFCy/2+EVKu0W+h9okXLqAFi07hbCRIsb
+         zdbydfjjtYmPos5v/AVagLjPEiwX1WSOFj8dEw8bYGovjZqzFivCtKdGuNFjY8KSWWoq
+         WdBEhShzxHZm/xR/BLZV88/lH4xJ+gY9h0SSjP34aBhY99mgJKUDabTtQHJviboPF2Fz
+         hmgw==
+X-Forwarded-Encrypted: i=1; AKwUvBy0LK0I2MNIBAOQjoNk+UI4TniOJLFPvN4wl3njhAnqd9GcxEEp70xHWCzjSPw1umuVvx605ZP+lhjexlQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ/JiuNQJTB2457MJBpn5hg8FBkh+d9uPFGVK+X3oNrM8oLh0Et
+	2eWZMVTKWsMZAJ53WKUK0bjUt/CQdhQI0uxe+5Hj5EE1pXqsPTiQVrvtHx7blQ==
+X-Gm-Gg: AYBFou034RB5rMqTz9u+8r/i+zNNHU8Ylrv5h+W3F+F+8UAB04N8cEXYknHjXjINbwU
+	WYg14wWBJ1NyQsPq+5k1XQCSagmHPBbhLO7y10S/hJQiUwCn/v4PIDIHvNEL0bxjMTdndHAhAsh
+	+94NcQ/B3NuRK1C5hJGhTOLGZZw+kxWgms7EKSksK9rmVMysZYzQ/KC/nMncuoj5PvEacKmq++b
+	90g3cZtU6rhToqzjEpq4PepbG26QB6VPznpP1GnfZGzrdAVMRBX3W2eQaFPygOlLBjsedqy+YVf
+	aFbKvBwJ9yyq1oXsWhkFlkDmudNkMe/7vJv0OefPEyve/P41FFzOHJlNzEDLygFQbC+sPhCS7hp
+	3gpbPg20fzgezHYCcFgZNsc1SO/DcC3OSoTLlsSMNC428RsdYV5UQgfihbqaVTP5m+W81FVOrnE
+	lw8cgDUKJeP2cxMuqM6bKCH+uL9UPXyF80rLcvkl1aEpGd3WWHk57IPpf9MjgFe/NDlSj5TwTuI
+	5jQ13awUJIoO+PA80yDF1gzan+MtLgeBTaJdofiI0mROXDyivti5KP/8l1WfKv1YFgsRXkMnDW9
+	gXUmN3CHC+p/D3PXZnTwA7BtBH0omYgGGYQBX4Fv7qo=
+X-Received: by 2002:a05:693c:60c9:b0:369:f72d:1010 with SMTP id 5a478bee46e88-369f72d12e9mr8594937eec.18.1793043237086;
+        Mon, 26 Oct 2026 12:33:57 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8d93663sm31461352eec.13.2026.10.26.12.33.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 12:33:56 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Mon, 26 Oct 2026 12:33:55 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Remy Demangeot <remy@demangeot.net>
+Cc: Eugene Shalygin <eugene.shalygin@gmail.com>,
+	linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/3] hwmon: (asus-ec-sensors) add fan extension card fans
+ for MAXIMUS IX EXTREME
+Message-ID: <98ee6ef3-5e5d-46eb-9a51-e732ebee540b@roeck-us.net>
+References: <20261026-b4-m9e-ext-sensors-v1-0-644d389b2de1@demangeot.net>
+ <20261026-b4-m9e-ext-sensors-v1-2-644d389b2de1@demangeot.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,143 +99,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Stat-Signature: thwpb7popeprf8q1p8e567zoydgbqdnt
-X-Rspamd-Server: rspamout01
-X-Rspamd-Queue-Id: 7DFC72002D
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX19n6zJjGGG/dMguuPm3g8hioVpXwuAfxOs=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=7FroyQfmGccRo/6Ojp1n1yG7KvHfRDE9iUS1JPBi4tA=; b=o3qhcDEp6ZUw/1N6aAxNUGtgb0fM+WpVyS99Cgl/CBI2IbqYO4OZ48KFBlPVpPEp6i1sqzPEYLoqX55s2NLvwEdiQv5TNTyB762AAQCg5i+RlQBt0OG9KNeRmW2RSBTLIBIiy3DDGuxvMJPwlD+FTqiBkd4zOoQU2Y44TDIrMEM=
-X-HE-Tag: 1793043188-40761
-X-HE-Meta: U2FsdGVkX1+p/N4uQdBG2PVX04ya0aV9sLJPfjmDhd/YgbvjOHbNuT11ylfKbF2M6+0ioHko+Mls50AYzyt8Ttm038TUHDa6DARfBPFpUv6tex9dNkD2o1zJFl4jV/zQHJdeeal5qpDbStpupDp+UDtBK59hZ+n4ijjoA6upTzpfbygXOy8l2Qe4I1qcM9fCyewrsaQ3L/845Mbh9LLqdiKvgM2V5yC95F1X/ErlBBm8UATiOL6wSf4hbofCxfjJa9MUD3e6Im4MarEQcLd2609ZAklmQvtrtZa1jE1E1WTWYhzbCm4IFN08clsECE/cw5jFCc9UAKwBPD1bxrKd1VPynDbcCj5g
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261026-b4-m9e-ext-sensors-v1-2-644d389b2de1@demangeot.net>
 
-On Sun, 25 Oct 2026 01:25:42 +0900
-"Masami Hiramatsu (Google)" <mhiramat@kernel.org> wrote:
-
-> Fixes: 80765597bc58 ("tracing: Rewrite filter logic to be simpler and faster")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-> ---
->  kernel/trace/trace_events_filter.c |   15 +++++++++------
->  1 file changed, 9 insertions(+), 6 deletions(-)
+On Mon, Oct 26, 2026 at 09:57:36AM +0100, Remy Demangeot wrote:
+> From: Remy Demangeot <remy@demangeot.net>
 > 
-> diff --git a/kernel/trace/trace_events_filter.c b/kernel/trace/trace_events_filter.c
-> index 18ce3ec00d34..c2c35b4de85e 100644
-> --- a/kernel/trace/trace_events_filter.c
-> +++ b/kernel/trace/trace_events_filter.c
-> @@ -2332,8 +2332,10 @@ static int process_system_preds(struct trace_subsystem_dir *dir,
->  			filter_disable(file);
->  			parse_error(pe, FILT_ERR_BAD_SUBSYS_FILTER, 0);
->  			append_filter_err(tr, pe, filter);
-> -		} else
-> +		} else {
->  			event_set_filtered_flag(file);
-> +			fail = false;
-> +		}
->  
->  
->  		filter_item = kzalloc_obj(*filter_item);
-> @@ -2348,8 +2350,6 @@ static int process_system_preds(struct trace_subsystem_dir *dir,
->  		filter_item->filter = event_filter(file);
->  		event_set_filter(file, filter);
->  		filter = NULL;
-> -
-> -		fail = false;
->  	}
->  
->  	if (fail)
-> @@ -2364,14 +2364,17 @@ static int process_system_preds(struct trace_subsystem_dir *dir,
->  	return 0;
->   fail:
->  	/* No call succeeded */
-> -	free_filter_list(filter_list);
-> +	if (!list_empty(&filter_list->list))
-> +		delay_free_filter(filter_list);
-> +	else
-> +		free_filter_list(filter_list);
->  	parse_error(pe, FILT_ERR_BAD_SUBSYS_FILTER, 0);
->  	return -EINVAL;
->   fail_mem:
->  	__free_filter(filter);
->  
-> -	/* If any call succeeded, we still need to sync */
-> -	if (!fail)
-> +	/* If any filter was replaced, we still need to sync */
-> +	if (!list_empty(&filter_list->list))
->  		delay_free_filter(filter_list);
->  	else
->  		free_filter_list(filter_list);
+> On the MAXIMUS IX EXTREME, the speeds of the three fans on the
+> optional ASUS fan extension card (EXT_FAN1-3) are not at fixed EC
+> addresses. Bank 0 register 0x43 selects which fan a group of registers
+> describes: after writing 0x0a, 0x0b or 0x0c to it, registers 0x57:0x58
+> hold the RPM of EXT_FAN1, EXT_FAN2 or EXT_FAN3 (big-endian).
+> 
+> Allow a sensor definition to carry a selector value, using the unused
+> byte of sensor_address. When reading such a register, the driver
+> writes the selector first and restores the previous selector value
+> once the bank has been read. Sensors without a selector are read as
+> before.
+> 
+> Readings match HWiNFO 8.54 on the same machine, and follow the fan
+> speed when the fan duty is changed.
+> 
+> Signed-off-by: Remy Demangeot <remy@demangeot.net>
 
-Hmm, I think this can be cleaned up a bit better.
+Applied.
 
- 1) remove the fail boolean
- 2) consolidate the if (!list_empty()) logic.
-
-Like this:
-
-diff --git a/kernel/trace/trace_events_filter.c b/kernel/trace/trace_events_filter.c
-index 5e74d2dae40a..4d763c55bb7b 100644
---- a/kernel/trace/trace_events_filter.c
-+++ b/kernel/trace/trace_events_filter.c
-@@ -2305,7 +2305,7 @@ static int process_system_preds(struct trace_subsystem_dir *dir,
- 	struct filter_list *filter_item;
- 	struct event_filter *filter = NULL;
- 	struct filter_head *filter_list;
--	bool fail = true;
-+	int ret = -ENOMEM;
- 	int err;
- 
- 	filter_list = kmalloc_obj(*filter_list);
-@@ -2332,8 +2332,10 @@ static int process_system_preds(struct trace_subsystem_dir *dir,
- 			filter_disable(file);
- 			parse_error(pe, FILT_ERR_BAD_SUBSYS_FILTER, 0);
- 			append_filter_err(tr, pe, filter);
--		} else
-+		} else {
- 			event_set_filtered_flag(file);
-+			ret = 0;
-+		}
- 
- 
- 		filter_item = kzalloc_obj(*filter_item);
-@@ -2348,11 +2350,9 @@ static int process_system_preds(struct trace_subsystem_dir *dir,
- 		filter_item->filter = event_filter(file);
- 		event_set_filter(file, filter);
- 		filter = NULL;
--
--		fail = false;
- 	}
- 
--	if (fail)
-+	if (ret)
- 		goto fail;
- 
- 	/*
-@@ -2364,19 +2364,18 @@ static int process_system_preds(struct trace_subsystem_dir *dir,
- 	return 0;
-  fail:
- 	/* No call succeeded */
--	free_filter_list(filter_list);
- 	parse_error(pe, FILT_ERR_BAD_SUBSYS_FILTER, 0);
--	return -EINVAL;
-+	ret = -EINVAL;
-  fail_mem:
- 	__free_filter(filter);
- 
--	/* If any call succeeded, we still need to sync */
--	if (!fail)
-+	/* If any filter was replaced, we still need to sync */
-+	if (!list_empty(&filter_list->list))
- 		delay_free_filter(filter_list);
- 	else
- 		free_filter_list(filter_list);
- 
--	return -ENOMEM;
-+	return ret;
- }
- 
- static int create_filter_start(char *filter_string, bool set_str,
-
-
--- Steve
+Thanks,
+Guenter
