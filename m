@@ -1,124 +1,120 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793021860;
-	b=fseMYdWPmLL4vsB4hN15bXLbzLAAS1EDJ4oy0ArVSDH/WmXqi8OlouSDAKxZRJFHudgm
-	 I/kxr9/7bAHRzJiOM3CQTau9VnWKl8pkkxadGbAhUFvhPpkc+yf6uMWdjW1pN5GSQAoma
-	 2JorMMay8ZXUBBxo1sbXNyfg5hLhPB4ZbhUsXfBMvOLDVJ9f3nBeL/94fMuTAkI2NHd8I
-	 4BBDimxI+YZxjdboauiLOzwOrcXsB22vwnbOkPU0InyDrWnehTi/HjBkZF3WDoL8VsAV+
-	 dMOez5dDuqJbD3hi69vgCUr/VUks89Q7r/izckEBkR9KvsObOpJyr7mX1p4h+0k6EBg==
+	t=1793021865;
+	b=0w4ejgsOjbFFo23/XyyWu6sNuXCHviCsmjkPBdHZ7UJd08C4O+bXCyL3/r8UVjNVGOUG
+	 MCSvRtyXkqkvWVtoEBwVJYGYoG0nGYFuyum0LhhqnWL7USXeR0ewuZTVRfusIF3hP+2vT
+	 CMqUQXK7WrCW+1gO0nwXzHhW8iUVlIaa3OyybqaIrlWr8w8RtGo5Wfu4XLc323nXIqE2M
+	 ho4MpaUR3L5qlrbHlBp/LJYLXnYpJ8d1T6aZRm1kFatJDtgSGlsKyABC1odEUbuPsHYHX
+	 RayANMbG8vDPVlffC8LwmlirPGPa6BACDp09z69nF6QTuU5M386jOktr+AXqwjlm+Iw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793021860;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To:X-Rspamd-Queue-Id:X-Spam-Level:
-	 X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:X-Spamd-Result:
-	 X-Spam-Score;
-	bh=TxJaVovbBuzNcz8Fy84RB6HU15y4oYzEhr8Gynqfeyo=;
-	b=ztDOds+scrHtRBiYEwQDuqE54Tt8vmes2SR0ExPI22UBPQ2+eskAGAvEjvqG+FgqXd9c
-	 K37Y/iGdsYSLYGKq2FOrV4kaNZV60IvB6Ch9JKQhpQVMJNg7JGSrHBBHt2L3uiQE59uFA
-	 zLJQ2i4cCcXenkpSC4WqZxzrjzofJyI3HQlv4jgkrAUNS8Zgibj/djNgNLhvlt1MlkMO0
-	 Lj+ymcj9VeF6bOeN+cnTKCBTNAogdTlb87xSh/mVZY6sFOq9gtZaLA0mEaSB4wwpy0qC5
-	 LDKmKd5u7Rrh5beolvSHE9DNOuox/AJVh/FojDKucNGWAzPGiS8DNP573DIRGL6RULw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793021865;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=8NVtysIHAb2aw6KysRyb98OnPA6mo3D+Nkw0IkOczVk=;
+	b=2xbyWVjwte0Rcnhc5AF1pZRwsmIbXeO2s7I1H5dCTqNlFNqXZb+IWaEB+nFCgjty9wxj
+	 OYKCn0FN0aCuC3fecZg08DKmPcjbiEue4TarUM9L02uFeHqKYaTETfrK9wlE39cXGTVpo
+	 15jePdYeDYt+0e5SxzSAULD4wpc+CGQGz/TnG+R8tYFDNeoQ9XSTR2AQXn3uqNvzBFtvY
+	 fBbr9SHcfRGTH2PwsQXol3V8GElPWmLydDR5/yAnyBON6E6nD31bdnbw+/fYHJtGkDXqE
+	 SuH2Gyxru71sPA9bHcDQqFwwIXTNva8MchhtLZTfT55Tl69K/9Kv63IUSbkHUnHpN2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=MN6mgPWu;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=05B7c4jh;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=MN6mgPWu;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=05B7c4jh;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=To+5xErF;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=bSAnt6cM;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F001760A6F4B;
-	Mon, 26 Oct 2026 13:37:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F001760A6F4B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9802360A6F71
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:37:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9802360A6F71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=MN6mgPWu;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=05B7c4jh;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=MN6mgPWu;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=05B7c4jh
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id F1CE51F43B;
-	Mon, 26 Oct 2026 13:37:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793021858; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TxJaVovbBuzNcz8Fy84RB6HU15y4oYzEhr8Gynqfeyo=;
-	b=MN6mgPWuP1dMIU3f6uNvt8/Zwy+Ji5bunevTMshqSLbx/zh7eOuT5DUVnLPIA5R8lA96xG
-	obX9p/vOG6s2PCw2eLLOS/m91dwZCMm/coZmYjeUFVtlFNuYP0NpKdMocUAQ0cZuuepKxF
-	/WUC6xGuccVuIWM+eBYLAzrnsWfDaNI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793021858;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TxJaVovbBuzNcz8Fy84RB6HU15y4oYzEhr8Gynqfeyo=;
-	b=05B7c4jhEIx+f0zNUnBKAC8V0BIWFbQHS1oOY3GwthoQn9LNvy9JCMPjHuZKtN16WgIctE
-	3h0TmcLgdHqKQwBw==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=MN6mgPWu;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=05B7c4jh
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793021858; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TxJaVovbBuzNcz8Fy84RB6HU15y4oYzEhr8Gynqfeyo=;
-	b=MN6mgPWuP1dMIU3f6uNvt8/Zwy+Ji5bunevTMshqSLbx/zh7eOuT5DUVnLPIA5R8lA96xG
-	obX9p/vOG6s2PCw2eLLOS/m91dwZCMm/coZmYjeUFVtlFNuYP0NpKdMocUAQ0cZuuepKxF
-	/WUC6xGuccVuIWM+eBYLAzrnsWfDaNI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793021858;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TxJaVovbBuzNcz8Fy84RB6HU15y4oYzEhr8Gynqfeyo=;
-	b=05B7c4jhEIx+f0zNUnBKAC8V0BIWFbQHS1oOY3GwthoQn9LNvy9JCMPjHuZKtN16WgIctE
-	3h0TmcLgdHqKQwBw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C196C13408;
-	Mon, 26 Oct 2026 13:37:37 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id aWmlJqFX32rQfwAAD6G6ig
-	(envelope-from <jack@suse.cz>); Mon, 26 Oct 2026 13:37:37 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 4E306A1419; Mon, 26 Oct 2026 14:37:33 +0100 (CET)
-Date: Mon, 26 Oct 2026 14:37:33 +0100
-From: Jan Kara <jack@suse.cz>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Gregory Price <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
-	Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Vladimir Davydov <vdavydov.dev@gmail.com>, 
-	Michal Hocko <mhocko@suse.com>, Hugh Dickins <hughd@google.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Lukas Czerner <lczerner@redhat.com>, 
-	Carlos Maiolino <cmaiolino@redhat.com>, Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
-	Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>, Muchun Song <muchun.song@linux.dev>, 
-	Oscar Salvador <osalvador@suse.de>, David Stevens <stevensd@chromium.org>, 
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>, William Kucharski <william.kucharski@oracle.com>, 
-	Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, Nhat Pham <nphamcs@gmail.com>, 
-	Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi <nao.horiguchi@gmail.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org
-Subject: Re: [PATCH 03/16] tmpfs: preserve explicitly disabled quota limits
-Message-ID: <ohklmfrgb2zpi3xm5nmlqmtum2wwoo33zd6cyjy7vq2t5r5rbl@qdhtgbfr67yt>
-References: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
- <20261026-fixes_shmem-v1-3-703206d5fa0c@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=To+5xErF;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=bSAnt6cM
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69QAt4oV4132054
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:37:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=8NVtysIHAb2
+	aw6KysRyb98OnPA6mo3D+Nkw0IkOczVk=; b=To+5xErFOlemyI2j53B+tCU3jyT
+	Xq1t0PR/Ydkznmzbri8snC6h7Kr/QRuHhjjSs+9ZRutlIzgDtjgqW/wPDNDEZUz9
+	Xey+tQQIRvNgbenmUND4vvLkRj3H8rIFKpN5w5bje3xZkE4bP4DXl51iokpcwGZE
+	WS7os9MM7kn0pjoELYs5DKmc/mkR4oRqppe7pIG72cxHsT2GHwCN7x+yXyJ3fvxp
+	X1HmZrKEG1tnpEbU6gVY39YngJcI9R0P6nUDmh1JGxmdAcI6i22fPFVALTqAchhc
+	ARQDsv9a+jyunGkiAMWGgAgonoTRz8K80UeuYv6JoSCeuzVH5YvtDCcQ7dw==
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com [209.85.219.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hj53q0nsp-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:37:43 +0000 (GMT)
+Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-91c046843f1so53135326d6.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 06:37:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793021863; x=1793626663; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8NVtysIHAb2aw6KysRyb98OnPA6mo3D+Nkw0IkOczVk=;
+        b=bSAnt6cMZW7KcRLSIeJAzPv2oCaHlcXgaQgkn0WN2UemwkTlyQ+vXzlPr25Wq6GryN
+         ZJyuQX8mTu0Aq9zAR48+56nweMAdOqPpyPK0dmcLJMpaeFem6NYOn71uMeVKvHenXais
+         yPAnlHFBrPILCKf4FnzJy+xdy/aQtt3s/wKlLiZ/5akqMF+PZeIv1NdsY5LdEMIflC9T
+         HgM4R/TP6q4G4lmOHOUfLIDRlY2G5TKMjJqkjOmD+FY3RX+H5NNnYOA6VjgNFOHrC9oR
+         qpZ7BT2vfI3yo4l3/0eN2fdh3NAe4uxXpYZyrmWL4XunPpPrLQEdEfJon+Wl/g59o2//
+         IK1w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793021863; x=1793626663;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8NVtysIHAb2aw6KysRyb98OnPA6mo3D+Nkw0IkOczVk=;
+        b=eTax6CxyxnJuoUFzyKNtYYTTmnUSCoBx9qGZDC23QnIU7oE+oldZhRoDPKbte1Bzz8
+         gq0fdAC/ilFpwVZ8O8ofWFFAYPzO1HNsuJRWKMObYFlAr6PlCRFfDOXoC3Iu5eA5+5/A
+         usnSjFC5nCHxEBLfYzfz21Q3LqxhvpH9lOReuXozdH10oLLM+Ru5SX4ZTiZhkG+MS0ud
+         MwxCEj+QuGYpW7SXJyLRtEjDJrr1JqZlfCy5+z9JvwGxAB7pEooI2a2cjbtWcUcBjFBC
+         VyyD9CYxX00nRXxxxaCHMZoYuSxcpeuv0sO8q5L7qAlPS8aTTm1YzJ9ldbimYvcIGFLO
+         H9dQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxbUed7zteRuva7LyZrVN+WMpdxyxHP65l1pofCxRjmr+ckY1RKTN05v2TZZLod9hZiyn/7LJlWK5Wb1xo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLuPJnMoqpWmmEJkPTLv4sdnCPLO0lzFrBF6sAR9szsG/Gzyqs+
+	RjIQecKm1d7V1PWi19c9wk712Ng1x9TNcGbjovq9FAHGNK5UqjePv/dGobug9N8VsLYIhWzKB+Q
+	nC2YkZESvUgL1AytfneIi94R0yB2k5V1Q/ZMemSbOniNW+BSO3aUSAah36QzwfGglCqk=
+X-Gm-Gg: AYBFou3+WFRMvdopShf8xYNt8KfaU6phSBjDxOFKcEgTqxGwECDc0JMWGBLcDSjD5Zk
+	jJ+HlE9ZbAfeZbIoiwxdeer2D+L5I24eYAnoOaGM1wfHcYwgEz1xJTBRpjMa2oc681sN3oyHGi4
+	VFpj6CaCpmMX/kfWB0APd3R5AUQdUo9uDdKP37b1izE/GxxsvzpZt1InkbEyr3jEPm7MSVXq85C
+	w8VO0bo1Y1wHGeNwqu85r9SRZ4byUgt26GLwYwdMNeTF1nEt6waJ0eUNf8jxi/Jb/0Y+53m0rf3
+	D3QtBZEmSzHtddL3j1rhFePRjBJjT0bx2ya344kzyVFcIXIHCwBLkp5A4a5EtE/hRFNskBayDjD
+	5NLtjQTl4cvMg8JUa6rJ9VVVF
+X-Received: by 2002:a05:620a:294a:b0:93e:c12c:f13d with SMTP id af79cd13be357-940ef93d216mr1021019585a.71.1793021862815;
+        Mon, 26 Oct 2026 06:37:42 -0700 (PDT)
+X-Received: by 2002:a05:620a:294a:b0:93e:c12c:f13d with SMTP id af79cd13be357-940ef93d216mr1021014585a.71.1793021862215;
+        Mon, 26 Oct 2026 06:37:42 -0700 (PDT)
+Received: from lin-0772.qualcomm.com ([212.136.9.4])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3eb8f305sm15376512f8f.3.2026.10.26.06.37.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 06:37:41 -0700 (PDT)
+From: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: atanas.filipov@oss.qualcomm.com,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>,
+        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: [PATCH v3 6/6] media: qcom: camss: sm8250: set the camera NoC AXI rate from the VFE
+Date: Mon, 26 Oct 2026 15:37:26 +0200
+Message-Id: <20261026133726.3249235-7-atanas.filipov@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261026133726.3249235-1-atanas.filipov@oss.qualcomm.com>
+References: <20261026133726.3249235-1-atanas.filipov@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -128,159 +124,124 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261026-fixes_shmem-v1-3-703206d5fa0c@kernel.org>
-X-Rspamd-Queue-Id: F1CE51F43B
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-11.51 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	RCPT_COUNT_TWELVE(0.00)[32];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	URIBL_BLOCKED(0.00)[suse.com:email,toxicpanda.com:email,suse.cz:dkim,suse.cz:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	FREEMAIL_CC(0.00)[linux-foundation.org,gourry.net,nvidia.com,gmail.com,sk.com,linux.alibaba.com,cmpxchg.org,suse.com,google.com,redhat.com,kernel.org,suse.cz,chromium.org,linux.dev,suse.de,infradead.org,oracle.com,tencent.com,huawei.com,kvack.org,vger.kernel.org,toxicpanda.com];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	R_RATELIMIT(0.00)[to_ip_from(RLrfp3ibjutskb9r7un874bfh3)];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.cz:dkim,suse.cz:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -11.51
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA1NCBTYWx0ZWRfX2TIga8KgjrS9
+ UL+Urp/T4zFhQltSTvOapPBkfZOsP14cImAPvwrwet0zd9dN+JQoRcdRomWuMLsEkbHaufjzn97
+ QoYNkdWLUrn8inz1OFlHNmGGFh7bQrI=
+X-Proofpoint-ORIG-GUID: -wRxdCQ9XKGRvl3pWDhf5tZZqALwt5XH
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA1NCBTYWx0ZWRfX9nENhW6aODd9
+ sr196FAgwNbSx503d/KlrSjqXyJYKN2I3maT5WQVMWos/9qbULvkawmun/BxRbI1ISQfeB7Bezo
+ Zb1nuKSWpA8+BkpZenbYEXvNOYUaI6ivLqhQU+1wTC5Y2MYIPiYQjjzL3KxJGyHuOSggK7y7Akm
+ iqdLwpCMXYJd3orV8d009k94gE6sydYjDUO5OnYkUAiKNAQO3anN3y5XZH8mrSryxjlauKRoS9q
+ Fm39dQqU/6p5s/SlWZAjhVPVs5weN6haaq1pjRR6X58RQmIr5cJk40VOjgVmGlOPkwceTfL5mfF
+ 5S79BbOvx7/MLl2i4KNeGjryz41lTvfUC/Qvg/2ggzPldF1qhAqwkU8p5E3DUpRv6jB4J3z2Gf2
+ 96cf6WRrQcBo9QjJy6KlogR/6bqR5dbIDBp8UfX4eNyvQ3vxDFmBZeqnaC40snC0xDfkleLFzoa
+ 96NLAA+y9XFqNdi6iow==
+X-Authority-Analysis: v=2.4 cv=D93SufRj c=1 sm=1 tr=0 ts=6adf57a8 cx=c_pps
+ a=UgVkIMxJMSkC9lv97toC5g==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8
+ a=FiRPRoyJa4ALD98OXUAA:9 a=1HOtulTD9v-eNWfpl4qZ:22
+X-Proofpoint-GUID: -wRxdCQ9XKGRvl3pWDhf5tZZqALwt5XH
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-26_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 spamscore=0 adultscore=0 lowpriorityscore=0 impostorscore=0
+ phishscore=0 suspectscore=0 malwarescore=0 priorityscore=1501 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610260054
 
-On Mon 26-10-26 10:40:36, David Hildenbrand (Arm) wrote:
-> From: Josef Bacik <josef@toxicpanda.com>
-> 
-> An administrator’s decision to disable a user’s or group’s quota
-> limits can be silently lost when tmpfs restores the mount defaults
-> after releasing and reacquiring the quota record. This can cause
-> later file creation or writes to fail with EDQUOT, even though the
-> administrator has explicitly disabled quota limits for the user or
-> group.
-> 
-> do_set_dqblk() sets DQ_FAKE_B when all block and inode limits are zero.
-> This means quota enforcement is disabled for that user or group.
-> shmem_is_empty_dquot() treats the flag as a reason to discard the entry
-> from the mount's quota tree. The next shmem_acquire_dquot() finds no
-> saved entry and recreates it with the mount's default hard limits.
-> 
-> If the cached dquot is reused, DQ_FAKE_B remains set: Q_GETQUOTA reports
-> the restored defaults, but enforcement is still disabled. Once that
-> dquot has been reclaimed, a new dquot enforces the restored defaults.
-> 
-> Remove the DQ_FAKE_B test. Only discard entries with zero usage, zero
-> soft limits and hard limits equal to the mount defaults. Explicitly
-> disabled limits are then preserved whenever the mount defaults are
-> nonzero.
-> 
-> Explicitly disabled limits now retain a quota-tree entry, just like other
-> limits that differ from the mount defaults.
-> 
-> Rename shmem_is_empty_dquot() to shmem_is_default_dquot() to describe
-> the check for default values.
-> 
-> Fix generated by an LLM and sent by Josef Bacik in private.
-> 
-> Fixes: de4c0e7ca8b5 ("shmem: Add default quota limit mount options")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> [ david: code cleanups; rewrite description ]
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+The SM8250 VFE resources list both the camera NoC AXI RCG,
+camnoc_axi_src, and its camnoc_axi branch. The camnoc_axi_src levels
+are never applied, since vfe_match_clock_names() does not match that
+name, and they list 480 MHz, which the RCG does not support. The
+camnoc_axi branch has no rates, so the camera NoC runs from XO and two
+concurrent streams stall.
 
-Good catch. Feel free to add:
+Drop camnoc_axi_src, as the camnoc_axi branch keeps it enabled through
+its parent, and list the 300 and 400 MHz camera NoC AXI rates for the
+camnoc_axi branch, whose rate the VFE sets through the parent. The four
+VFEs share the camnoc_axi clock, so it runs at the highest rate
+requested by the running VFEs.
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+---
+ drivers/media/platform/qcom/camss/camss.c | 28 ++++++++++-------------
+ 1 file changed, 12 insertions(+), 16 deletions(-)
 
-								Honza
-
-> ---
->  mm/shmem_quota.c | 30 +++++++++++++++---------------
->  1 file changed, 15 insertions(+), 15 deletions(-)
-> 
-> diff --git a/mm/shmem_quota.c b/mm/shmem_quota.c
-> index 43d3b4fd6cb1b..d191ebda3f00e 100644
-> --- a/mm/shmem_quota.c
-> +++ b/mm/shmem_quota.c
-> @@ -239,7 +239,7 @@ static int shmem_acquire_dquot(struct dquot *dquot)
->  	return ret;
->  }
->  
-> -static bool shmem_is_empty_dquot(struct dquot *dquot)
-> +static bool shmem_is_default_dquot(struct dquot *dquot)
->  {
->  	struct shmem_sb_info *sbinfo = dquot->dq_sb->s_fs_info;
->  	qsize_t bhardlimit;
-> @@ -253,21 +253,21 @@ static bool shmem_is_empty_dquot(struct dquot *dquot)
->  		ihardlimit = sbinfo->qlimits.grpquota_ihardlimit;
->  	}
->  
-> -	if (test_bit(DQ_FAKE_B, &dquot->dq_flags) ||
-> -		(dquot->dq_dqb.dqb_curspace == 0 &&
-> -		 dquot->dq_dqb.dqb_curinodes == 0 &&
-> -		 dquot->dq_dqb.dqb_bsoftlimit == 0 &&
-> -		 dquot->dq_dqb.dqb_isoftlimit == 0 &&
-> -		 dquot->dq_dqb.dqb_bhardlimit == bhardlimit &&
-> -		 dquot->dq_dqb.dqb_ihardlimit == ihardlimit))
-> -		return true;
-> -
-> -	return false;
-> +	/*
-> +	 * Defaults are zero usage and soft limits, and the mount's hard limits.
-> +	 * DQ_FAKE_B only means that *all* limits are zero, which need not match
-> +	 * the mount defaults.
-> +	 */
-> +	return dquot->dq_dqb.dqb_curspace == 0 &&
-> +	       dquot->dq_dqb.dqb_curinodes == 0 &&
-> +	       dquot->dq_dqb.dqb_bsoftlimit == 0 &&
-> +	       dquot->dq_dqb.dqb_isoftlimit == 0 &&
-> +	       dquot->dq_dqb.dqb_bhardlimit == bhardlimit &&
-> +	       dquot->dq_dqb.dqb_ihardlimit == ihardlimit;
->  }
->  /*
-> - * Store limits from dquot in the tree unless it's fake. If it is fake
-> - * remove the id from the tree since there is no useful information in
-> - * there.
-> + * Remove the ID from the tree if it has no usage and its limits match
-> + * the mount defaults. Otherwise, save its limits for the next acquire.
->   */
->  static int shmem_release_dquot(struct dquot *dquot)
->  {
-> @@ -302,7 +302,7 @@ static int shmem_release_dquot(struct dquot *dquot)
->  	return -ENOENT;
->  
->  found:
-> -	if (shmem_is_empty_dquot(dquot)) {
-> +	if (shmem_is_default_dquot(dquot)) {
->  		/* Remove entry from the tree */
->  		rb_erase(&entry->node, info->dqi_priv);
->  		kfree(entry);
-> 
-> -- 
-> 2.43.0
-> 
+diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
+index 911ceb7202ab..8ffe02d97dbb 100644
+--- a/drivers/media/platform/qcom/camss/camss.c
++++ b/drivers/media/platform/qcom/camss/camss.c
+@@ -2120,13 +2120,12 @@ static const struct camss_subdev_resources vfe_res_8250[] = {
+ 	/* VFE0 */
+ 	{
+ 		.regulators = {},
+-		.clock = { "camnoc_axi_src", "slow_ahb_src", "cpas_ahb",
++		.clock = { "slow_ahb_src", "cpas_ahb",
+ 			   "camnoc_axi", "vfe0_ahb", "vfe0_areg", "vfe0",
+ 			   "vfe0_axi", "cam_hf_axi" },
+-		.clock_rate = { { 19200000, 300000000, 400000000, 480000000 },
+-				{ 19200000, 80000000 },
++		.clock_rate = { { 19200000, 80000000 },
+ 				{ 19200000 },
+-				{ 0 },
++				{ 300000000, 400000000 },
+ 				{ 0 },
+ 				{ 400000000 },
+ 				{ 350000000, 475000000, 576000000, 720000000 },
+@@ -2146,13 +2145,12 @@ static const struct camss_subdev_resources vfe_res_8250[] = {
+ 	/* VFE1 */
+ 	{
+ 		.regulators = {},
+-		.clock = { "camnoc_axi_src", "slow_ahb_src", "cpas_ahb",
++		.clock = { "slow_ahb_src", "cpas_ahb",
+ 			   "camnoc_axi", "vfe1_ahb", "vfe1_areg", "vfe1",
+ 			   "vfe1_axi", "cam_hf_axi" },
+-		.clock_rate = { { 19200000, 300000000, 400000000, 480000000 },
+-				{ 19200000, 80000000 },
++		.clock_rate = { { 19200000, 80000000 },
+ 				{ 19200000 },
+-				{ 0 },
++				{ 300000000, 400000000 },
+ 				{ 0 },
+ 				{ 400000000 },
+ 				{ 350000000, 475000000, 576000000, 720000000 },
+@@ -2172,13 +2170,12 @@ static const struct camss_subdev_resources vfe_res_8250[] = {
+ 	/* VFE2 (lite) */
+ 	{
+ 		.regulators = {},
+-		.clock = { "camnoc_axi_src", "slow_ahb_src", "cpas_ahb",
++		.clock = { "slow_ahb_src", "cpas_ahb",
+ 			   "camnoc_axi", "vfe_lite_ahb", "vfe_lite_axi",
+ 			   "vfe_lite", "cam_hf_axi" },
+-		.clock_rate = { { 19200000, 300000000, 400000000, 480000000 },
+-				{ 19200000, 80000000 },
++		.clock_rate = { { 19200000, 80000000 },
+ 				{ 19200000 },
+-				{ 0 },
++				{ 300000000, 400000000 },
+ 				{ 0 },
+ 				{ 0 },
+ 				{ 400000000, 480000000 },
+@@ -2196,13 +2193,12 @@ static const struct camss_subdev_resources vfe_res_8250[] = {
+ 	/* VFE3 (lite) */
+ 	{
+ 		.regulators = {},
+-		.clock = { "camnoc_axi_src", "slow_ahb_src", "cpas_ahb",
++		.clock = { "slow_ahb_src", "cpas_ahb",
+ 			   "camnoc_axi", "vfe_lite_ahb", "vfe_lite_axi",
+ 			   "vfe_lite", "cam_hf_axi" },
+-		.clock_rate = { { 19200000, 300000000, 400000000, 480000000 },
+-				{ 19200000, 80000000 },
++		.clock_rate = { { 19200000, 80000000 },
+ 				{ 19200000 },
+-				{ 0 },
++				{ 300000000, 400000000 },
+ 				{ 0 },
+ 				{ 0 },
+ 				{ 400000000, 480000000 },
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+2.34.1
+
