@@ -1,91 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793045769;
-	b=s+orHWXxNaiZEMMqzLY0GrE+TZXoE26v3TQtGqknInPQ+tCYXtFSkdAxbyOIZTDfrdkv
-	 lcWZUL33Y4hTv/vjILRfOMfRl8k+YTWqSLBZlKiKnOq6i1zCkGTQREq8YWcJjItum5nYa
-	 +TIZSjDEOrmd24+Fh6VQA1c7c/iFRbTnTQv2TAnRoMRJTJJK4tu/aQrBLuQL4LfHyeipG
-	 e86C7+d1evpPFY9kk5QL4wR7KqDtEuYIBZuGCzsJ1ItCQYzHBwMQVZUJ3YND4oqs7YC3D
-	 xRuJLR8YRlGaRYCjrHzdU9HzUA9JDEV1tOgtS69wNBRwM4XvPTlFole++N2zFnA4MHg==
+	t=1793045838;
+	b=yUxWqlr/tbrYxwM1nElqmZkahwSHAy4Y7lENeUfAaXbQ4vl+3NKYKlxyWITqFGMwU7AR
+	 Btao6iyGCZP8EjRVefwkd6LmD5cpVN6C+QpxK5LYS1mC8VeogIW7u7WF2YGBD4wO5CrfL
+	 ictAa5ZELQFUNjkh8raAinsWZ/j6YUx15Z7Z/AV91yF03na3UPDWOAbrjUGzUdIcIhUxl
+	 Mq3LR0nEgtdL7XVEW2vmM4w+XQPelC0WAcLpTymJMlYrscnu/CmmWGCsMCMw2zBfGTy+m
+	 Z0nBkIbwwa+EeNqT5l5JeGVNECz5rgn82pNmY7Tt8RT5Ips0vJ93PtZlWV2XxsqGnnQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793045769;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=G8ZkJMjWlhMk4Veu++rAUd1hw9BdTfvoHNAmC3I1U9k=;
-	b=jIny8oPgn/XkPvVEHE8KOmLyzMwk2plaQ/NpfvmEDpxABN5oGOk0cEr+QVEyJRamMGSx
-	 tf20kTZlkneR/ovyD6xnemdidN73T+aCyjSHCmIBby+dM1pc/Mfx6+qmgzppYNOoxIMOc
-	 R0O0D2J3G1H7iEv+X80blfJXZjBe5IlzU4H8TLH7Equ8JFcgXUAhk8hXhZu0Jg0SfCI3H
-	 9GEzmkTZ+lNGWMVw90Zxtuu97TB/JCCPKeO7b4Enbr9Uz9q+2S0a+PT3ZtItf7UmcPtAr
-	 x/SURTfQWTJ6NF0QOayQgPc9b19DzqW7IkXTwiheIquBbjECQawJ4YAtF2kgce5lYTg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793045838;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=J0N9NmVqOkZJBbEdvHDt17avMBsn3Sr2xkgzJhmnDaw=;
+	b=jDx2gfQtN6fPkFnAkeBkPi9Q5clF8P9MfQP6lDIngd8hgcTRPJ+nUZ6fVi6hnl1ooJxk
+	 GTXgD5CPsdPel0dul/hp4fyz0GegN1mWv/r1RqzrxdpHMhYgxo5KYf4+amtNZ4yilKInA
+	 PnUWLERW7PE+PWkkGm/VK6DdLZxLSJEOfU0f9PVYmHZjvbu453FZMnWOgFFqQk03/ID/n
+	 x+MUc/StVhwFgzJxgI4fu1hJuymK9f77mG79XReDE2qtRrUl9LThsLStg5K6jh9TgiHOI
+	 CIpEXST8Jw+h3qY/0AuTWAJNEnCJmKaYEc/A1v4qxkVvUOhYSUZkep/VfN8FzY8jF/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ODZHIYQz;
-	arc=none smtp.remote-ip=74.125.82.176
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PkxjSuMw;
+	arc=none smtp.remote-ip=198.175.65.14
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99C35606A31B
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 20:16:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99C35606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C47D606A31B;
+	Mon, 26 Oct 2026 20:17:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C47D606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ODZHIYQz
-Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-35829219da8so371188eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:16:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793045768; x=1793650568; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=G8ZkJMjWlhMk4Veu++rAUd1hw9BdTfvoHNAmC3I1U9k=;
-        b=ODZHIYQz2E+WESqPCtOXOANaKxkx9uHuqZabDw6NrL3jIxjHezvUw9FbLNvlcDZh4d
-         M1fr63jjIywiS90B9wE9SoJtxO87Le26YCPrB4prfAS9gLZvdMFzB2sPAf7I+dIJ1Hk+
-         /E9067A/HcX/HQreZUCMoK0F1y3bUNrfZRBc6zwwBo1rnbSqAFVoFuxYVB1oIT/P8Cv0
-         Qwi6GmbZstmMbmtlOrfb99CmhwWsaqIoWTlPl/9yx/LAwMMuWQHCyiQ7cjQZjHNnBR7K
-         7FIg2JSwUVp2N6nF964g/SzpbykzH3NRcFVwfp2+lrLKTQkVoLH5Pv5pZHtESg5tmokA
-         hCPw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793045768; x=1793650568;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=G8ZkJMjWlhMk4Veu++rAUd1hw9BdTfvoHNAmC3I1U9k=;
-        b=fs8nKVZ/hLErZYycft0bc3aSzJLBfMU2u9DuZhY6G9ViE6SuxO0rDTfmGScuAGO9M6
-         +VRmbFK6DmYpTPZYTo6EaSG89QXFbjADpMSnvpZoc1af8Uyg9FgETOIYytTcY0t14gy5
-         eOoGJsiaNNwXOWuaQKw0c8v2N15HEIrNYPxX5lr18Da2G/FKhrWA+VcYscWxyVBWCisZ
-         oGCJtqxzldD3vysoIB4S8bQMwGqd9ffjHte6U7fGyr9rU+Rj/hrZtOtWBS5sRjAQBH98
-         XfquS9Rxla2m6Tb0IpYSX+shiFPVAmV/FEaQ2LFJ9ufbQRb09J76It+C0gKDbuHXULOm
-         TXIw==
-X-Gm-Message-State: AFq9FYKJaihL1vPp9Q/zDd2dUB5K932Nm0AGwT7tSYJg1+27m8sRL4Yj
-	prTNHc3T44c5ISHiL25RJWQCK4WSYEqUUBGe2mVmfAVdx0WWmFXk/T74
-X-Gm-Gg: AYBFou355ftTzvTOojIRMLsjrFOoDEtwGuO4PrcAmGsB1wYl4hRrT+QEmFeqUc9Gjca
-	WSecUKRWTKqU/8hKAJDdI7wncc2PEQZQYpvjlWDRT9LGFNIUcpFAo4pHsDfgkWAMRqSDfTzDN9z
-	h6BHPLMtbGL6sZD0iQyTISGJc3SomSffjAyqBnQST2rMXZT0iFPutkGkHvLiMQUZu2nAWd8poLZ
-	S+V9gt97D/fPAloSgWat1PFWvHeclzc6SGxmfKOJuL+r0dFKTTWhacY6vYbnTGo2zJLJg5Mkxob
-	LGw1OkTzIKuhEydPuaUlWNnTlVpoZUaUPf3YtXXOiRYnD8/zoVueYXKNKh8g92KoNKTyEdqQ/CI
-	PnVrIoS5dF/jnRX7XnafhXcCD+bPzokx3/4BPnoigef5xV73DOcEf3xW6pbCLhtv+lae3ahddRG
-	U5P/kVQRdGUDkVVi0/3laduNA2igB2QkAtmp+VnbgrPi0eNQtbYThHTqtdqFJZCuwlWUdWZdLry
-	F3uB6BLagMeZPHJXwJCFQldlU51XlD9jTpT0va3sdafCE3ZU0ZeE1a+ApqBeKzepsyOk4U/UulD
-X-Received: by 2002:a05:701b:455c:20b0:143:1bb1:3305 with SMTP id a92af1059eb24-1a3c9cc2353mr731661c88.22.1793045767511;
-        Mon, 26 Oct 2026 13:16:07 -0700 (PDT)
-Received: from ZephyrLabServer.internal ([165.162.64.148])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a01fa4c58sm25994089eec.21.2026.10.26.13.16.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 13:16:06 -0700 (PDT)
-From: John Macias <dencity7@gmail.com>
-To: johannes@sipsolutions.net,
-	linux-wireless@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Subject: Re: [PATCH wireless] wifi: mac80211: use HT CCFS2 when computing the AP's HE and lower bandwidth
-Date: Mon, 26 Oct 2026 13:15:29 -0700
-Message-ID: <20261026201529.3471565-1-dencity7@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <116e1f238e2d78817a2ac5b42b00e0faeabf16bc.camel@sipsolutions.net>
-References: <20261026040148.2633920-1-dencity7@gmail.com> <116e1f238e2d78817a2ac5b42b00e0faeabf16bc.camel@sipsolutions.net>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PkxjSuMw
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793045838; x=1824581838;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=T1VoGZ2A9VThoWAioNExjXzltcbVbIW5zOl8ZXpGbew=;
+  b=PkxjSuMwBfWmRz+jbCxiKsnB4ccLWD9ZBiVaHPjNsrnMFgVpseg+2u7+
+   SiQgFI4VFbwr8pLBbwkjk2cOW9TMU9dZlBPUa9HO5Gd55Sh7Q0d+7fjih
+   OEVrTJas6VkKvEV1sICAH4zUq97wbhl0zUmANYYip8EJoNT8xyy80FvB4
+   y0Hpp7ZAUxWqPSNZLhM/kBpWPaF2BP5zeoj18k5fi5KZD5gFlNPyUOZDH
+   qboaVZkXUDeLHoCnq9ghY3J7TghDCRZXUeJZuIMKb8NqUcJbBGeh2ar1w
+   Ot1NK2t3MLRxKrowv6vSn152jyMGIgGlJxuKmGQMY0xqQAQfcVMG5a2JE
+   w==;
+X-CSE-ConnectionGUID: Qgx+SGbPRTuzkYfJLDWp9A==
+X-CSE-MsgGUID: ECjlqMu1SHmFAiY9LnnONQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1605780"
+X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
+   d="scan'208";a="1605780"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 13:17:17 -0700
+X-CSE-ConnectionGUID: lo8dlkFWTdioD/qd/zxOlw==
+X-CSE-MsgGUID: iyHpbceWQ46Y0X9njCZutw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
+   d="scan'208";a="4427416"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.93])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 13:17:15 -0700
+Date: Mon, 26 Oct 2026 22:17:12 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Victor Chernyakin <chernyakin.victor.j@outlook.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/4] iio: prepare iio_format_value to handle
+ higher-precision IIO_VAL_DECIMAL64_* formats
+Message-ID: <at-1SGe6xnObPqPG@ashevche-desk.local>
+References: <SN1PR12MB252882C0E885BF3368E036E5A5612@SN1PR12MB2528.namprd12.prod.outlook.com>
+ <SN1PR12MB2528906BE220765FAF201080A5612@SN1PR12MB2528.namprd12.prod.outlook.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,85 +83,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <SN1PR12MB2528906BE220765FAF201080A5612@SN1PR12MB2528.namprd12.prod.outlook.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, 2026-10-26 at 12:07 +0100, Johannes Berg wrote:
-> This, by itself, is wrong.
+On Mon, Oct 26, 2026 at 11:51:11AM -0500, Victor Chernyakin wrote:
+> Prepare iio_format_value for an upcoming patch that adds formats up
+> to IIO_VAL_DECIMAL64_YOCTO (a scale of 24 digits) by avoiding
+> computing 10^scale when doing so would overflow, and by avoiding
+> undefined behavior due to abs(LLONG_MIN) (which couldn't happen
+> previously).
 
-Thanks. I think I see why: CCFS2 only applies to a STA that can
-interpret Extended NSS BW, and my patch applied it to every station.
-Please drop it.
+...
 
-I looked further and may have found the actual cause, but I'm not
-certain. Below I've separated what I measured from what I concluded
-by reading code. Corrections are very welcome.
+> +#define GREATEST_POWER_OF_10_THAT_FITS_IN_S64 18
 
-Setup: IPQ8074 (Netgear RAX120v1), ath11k, firmware
-WLAN.HK.2.0-01792, HE160 BSS on channel 36. Clients: MT7925 and AX200.
+It's an interesting name for log10(2^63).
 
-What I measured:
+This, along with log10(2^64 - 1) should be added as definitions at least
+IIO-wide. There is a series that wanted similar for u64.
 
-- Before any change, "iw phy" on the AP reports VHT Capabilities
-  0x738f09fa, prints the Supported Channel Width as "(reserved)", and
-  shows "VHT extended NSS: not supported".
+-- 
+With Best Regards,
+Andy Shevchenko
 
-- In the beacon I captured for the original patch, the VHT Operation
-  element has Channel Width 1 and CCFS1 0, and the 160 MHz centre is
-  in the HT Operation CCFS2 field.
 
-- Both clients report a 160 MHz link. On the AP side the peers were
-  set up as 11ax-he80 and the AP's transmit rate to them stayed at
-  80 MHz (MT7925 download about 810 Mb/s).
-
-- With the change described below, "iw phy" prints "160 MHz, 80+80
-  MHz" and still "VHT extended NSS: not supported". The AP then
-  transmits to both clients at 160 MHz HE-MCS 11, with unmodified
-  mac80211 and without my earlier patch.
-
-What I concluded from the code, without confirming every step on the
-device:
-
-1. My reading of 0x738f09fa is Supported Channel Width Set 2 with
-   Extended NSS BW Support 1. As I read Table 9-272, that combination
-   isn't defined, which would fit iw printing "reserved".
-   ath11k_create_vht_cap() copies the firmware's value unchanged.
-
-2. ath11k sets SUPPORTS_VHT_EXT_NSS_BW and
-   IEEE80211_VHT_EXT_NSS_BW_CAPABLE only when the firmware reports an
-   NSS ratio. "extended NSS: not supported" suggests this firmware
-   doesn't. I didn't print nss_ratio_enabled itself.
-
-3. hostapd_eid_vht_operation() moves the 160 MHz centre to CCFS2 when
-   the driver's capabilities include Extended NSS BW Support. That
-   would explain the beacon above. I didn't capture a beacon after the
-   change, so I'm assuming it now uses CCFS1 because the AP transmits
-   at 160 MHz.
-
-4. ieee80211_calc_ap_he_and_lower() reads only CCFS1, so the AP limits
-   every station to 80 MHz. Since the hardware doesn't claim extended
-   NSS support, this looks correct to me, and my patch was the wrong
-   fix.
-
-The change I tested clears IEEE80211_VHT_CAP_EXT_NSS_BW_MASK in
-ath11k_create_vht_cap() when the firmware gives no NSS ratio.
-
-Questions where I may still be wrong:
-
-- Is ath11k the right place for this? Or should mac80211 or hostapd
-  ignore Extended NSS BW Support in the capabilities when the driver
-  doesn't set SUPPORTS_VHT_EXT_NSS_BW?
-
-- I also tried applying CCFS2 per station (only for STAs that set
-  Extended NSS BW Capable). On this hardware it changed nothing: both
-  clients stayed at 80 MHz. As far as I can tell, that's because
-  mac80211 clears that bit for every station when the driver lacks
-  SUPPORTS_VHT_EXT_NSS_BW. On hardware that does support it, an AP
-  that signals 160 MHz through CCFS2 would still be limited to 80 MHz
-  by ieee80211_calc_ap_he_and_lower(). Is that expected, or is it
-  handled somewhere I missed?
-
-If the ath11k change looks right to you, I'll send it to the ath11k
-list. I can also capture the beacon after the change, or print the
-firmware's NSS ratio, if that would help.
-
-John
