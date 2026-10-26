@@ -1,45 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792981724;
-	b=Ps+jJeQmhl7x9/eQpJAw4CkcwdsS6fjuUFpY0hGICxevBCiU9F/wa0STFQOMPQtqPP1D
-	 L16H5yJEozm2X+jVi1bw25C2RHoXSBAVIMkAFYf8+pSWOqLoyPDftZIuCkk907SmLbYML
-	 Ij/9yOsx8DMiFM4fo4DR0tqNfcA3tnHyPLyuffLCz8qupCp47ZqM5C6iEKX3xk1TDF5dm
-	 vMQk6m32HXbYED5EaDIsleSRFZAyCKEvULGGcBgf/Arq26UBtcEPF/5kb0YHH6u6798TB
-	 04YKvdYWZ3oqRTilfV3ojA/w9iJsUt0cSAbxdj22O4RyWnomSa/AGfbFB9sZ5ol4Jcg==
+	t=1792981751;
+	b=rTLV2s52ycZ9ZMsrHqKrOvN3chGXnP6d1Yku/k+BkTF7T40a8WjazK4NAR4fvSFq0PwY
+	 HnaNLSyanCIcPPDK8NLcVb6Am6Fd7iZGaWnQpKGG8aSMDPEt1kiKiVOrmRG6KnqdEMfxE
+	 Nt/+7gTNG2v+ZK4dir6tT+3KGaFMpFSyzUiQu2Mv/aqg86oiWFDgvy2m2GvzObvwlkONU
+	 lkSzdUFW+Z1WxUXIsliqo4GEldy1fblUa8Z71UpxEFH7rxadi5w1Byy94Y5Kyg5hjfmq4
+	 +50VrM1ZfU/bXj72OPGR1M+qYjlKVZ0qMb5YYvq/nbh/0f/dS6RblmfkvOji1cRRZRQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792981724;
-	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
-	 In-Reply-To:References:Subject:From:To:Cc:Date;
-	bh=xSqbF++GIOusajRju8i0O/lyZHXvPt4g7pSYlheLAJc=;
-	b=qg+GEkoTUb41EnJYUo36zURxnUUt7IQrY2vuMFgP9BFfaMv4PGDuxPHuoeRXp5KV5Vvk
-	 USnj0G5J6ATAIpeZEpe+6ZEQx8pPQEG9gXv5A4R5lQlOlJPUSy1KheyFf1BxP6vN3vxJ9
-	 qm7T6zDGOS8reAy23Cji7Owa4JNRWSFnD0Q9bQpScQS9YMJ2vNOVcQU7BR44+aLtXlTO6
-	 hatvmZZMvON8gAOfHYhwETtPOhDvgPjTvlDCe64kRaQFZPDGCI+z9PqDOZq9Db9Z1kleI
-	 GRynY16MMNTtTEOOM3Nzg0/JNEIMAvUB84gGK47luDL5hi6MbngRIiL/hMp+bPXqf9g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792981751;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=8GIlngdOYpkCQ54tZek2AbzCBUnRS2yxF8KYowfA6jI=;
+	b=Yi65X78UK2nb03NyJbTuAGTDARcicoYT5HWvQMyiBREfqL/GkV/MXS9F0cijo0ELBTgz
+	 GYArv9e1cLbk3sVe1ASKMl0jPjNXK3D2/DOZnK5++GbOcz3yWWQ/iULjjVAIPQrhmM7nY
+	 HWLzDJyaKWAVhfC9jU3kySvKENa1i5xmYc3e7bXTVKAAI0wRMYBl5DVO8t8KUaNNHV2pi
+	 NSmt9ENuMkOzFMsAKr73VlCXsbzcgR0WDvIFJ6qy02FmT+obaCnw8LrBQ87fU9ftymXBF
+	 Cctgr/n0tw7ozSwrxAw+P4SdAJNInwp9IbbcAUDYm51Y8a6WiEPUkVRg9M7ntoAmJgA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fvj8BrY6;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=Rsi9bLEP;
+	arc=none smtp.remote-ip=198.137.202.133
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E480606A31A;
-	Mon, 26 Oct 2026 02:28:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AA94606A31A;
+	Mon, 26 Oct 2026 02:29:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6AA94606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fvj8BrY6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E7271F01825;
-	Mon, 26 Oct 2026 02:28:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792981724;
-	bh=xSqbF++GIOusajRju8i0O/lyZHXvPt4g7pSYlheLAJc=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=Fvj8BrY6QWX6OjTYDUq92r9jHZMFHGihHPbQt8mBEQhuTkD5os0/9QJjIJdkL6iU6
-	 7GleS5R2MzG9NQhjabVwKOpmOjeXNqJ6Me/alSLC6gDA6i/rfRZyYi+6pXCxHBHsB/
-	 VYYQm+uZPZpcoPVoH1J/RURlR40V0tp3xOxMTklFmFZ4J58mNQBzdDEydESKc4jTcI
-	 FISNnyCnmnTF95Z/hd76HHoSGDbwuL7fBAfzOBZcTo0k8EQenCgnLZpna3OHzZR925
-	 /QqcaS+fbbN/HsXrc2aoKJAAL4WrHOXO0sQW0We6eXuXZOlYE5zrZqq+z1qOIMc7aP
-	 lLxG77zeVPcMg==
-Content-Type: multipart/mixed; boundary="===============2872749516240892361=="
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=Rsi9bLEP
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=8GIlngdOYpkCQ54tZek2AbzCBUnRS2yxF8KYowfA6jI=; b=Rsi9bLEPT9QcmcMuVKL+INM0Gb
+	ERZYX6HpIZW41rvQ6sx9SuljDCsEURqHn+UM47HjkYdZqSOCplvmqOxwmMqfvf1pfCaLdhyXaWLq5
+	sxpcPl0d0MOUceTBsoAILqBXrTUo84muj4xPWUVL5X7heAnlBJ/msTD+/Bes9HN7IcVl4uNogTWQP
+	B/5pjJe+K2leVymeDy6WKplbhO0rQfJMhP4NcHq7X7HyfciIlp+1+P0LNDVfbiqUUmovE8cdHy8qh
+	YL7IvMVd6UmytpRwZLZdKsbL6VDjEtyDPNtVLvX+6AuCJZp1R63XIHltzeOU7piz3jt0Sn9ldKRDr
+	IgYaU8OA==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xLASS-00000001cMK-3KeW;
+	Mon, 26 Oct 2026 02:29:08 +0000
+Message-ID: <45832309-7569-4a9c-b24a-f7838407caa1@infradead.org>
+Date: Sun, 25 Oct 2026 19:29:08 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,87 +58,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-Id: <b8aa48beaa95c94849ca2ed564ac9bc8b63720f8708525a668d1e9248725339b@mail.kernel.org>
-In-Reply-To: <20261026015250.1674676-2-bestswngs@gmail.com>
-References: <20261026015250.1674676-2-bestswngs@gmail.com>
-Subject: Re: [PATCH bpf v3 2/2] selftests/bpf: Test missing and callback stack arguments
-From: bot+bpf-ci@kernel.org
-To: bestswngs@gmail.com,ast@kernel.org,daniel@iogearbox.net,john.fastabend@gmail.com,andrii@kernel.org,martin.lau@linux.dev,eddyz87@gmail.com,memxor@gmail.com,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,shuah@kernel.org
-Cc: bpf@vger.kernel.org,linux-kselftest@vger.kernel.org,linux-kernel@vger.kernel.org,co+eada64ce90ecebce@bugs.sh,xmei5@asu.edu,bestswngs@gmail.com,alexei.starovoitov@gmail.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Mon, 26 Oct 2026 02:28:43 +0000 (UTC)
-
---===============2872749516240892361==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/7] docs: ABI: power: rt9471: Add newline for paragraphs
+To: Waqar Hameed <waqar.hameed@axis.com>, Sebastian Reichel <sre@kernel.org>,
+ Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Cc: kernel@axis.com, linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <cover.1792965060.git.waqar.hameed@axis.com>
+ <eb8f0f6be0386b0f114c3d7cf2be1594d062d94b.1792965060.git.waqar.hameed@axis.com>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <eb8f0f6be0386b0f114c3d7cf2be1594d062d94b.1792965060.git.waqar.hameed@axis.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-> selftests/bpf: Test missing and callback stack arguments
+Hi,
 
-TL;DR: Commit message only: the stated reason for the r11 stores before helper
-calls in the callback selftests looks inaccurate; the tests themselves look
-correct. Asks for the real reason.
+On 10/25/26 3:05 PM, Waqar Hameed wrote:
+> To split paragraphs in reStructuredText, an empty line is needed.
+> Otherwise the output will be:
+> 
+>   Access: Read, Write Valid values: - 1: enabled - 0: disabled
+> 
+> Add a newline in order to properly format it as intended:
+> 
+> Reported-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+> Closes: https://lore.kernel.org/oe-kbuild-all/20261020101625.01874245@foz.lan/
+> Signed-off-by: Waqar Hameed <waqar.hameed@axis.com>
+> ---
+>  Documentation/ABI/testing/sysfs-class-power-rt9471 | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/Documentation/ABI/testing/sysfs-class-power-rt9471 b/Documentation/ABI/testing/sysfs-class-power-rt9471
+> index 04a771cd23512..c306e2ead6bb7 100644
+> --- a/Documentation/ABI/testing/sysfs-class-power-rt9471
+> +++ b/Documentation/ABI/testing/sysfs-class-power-rt9471
+> @@ -12,6 +12,7 @@ Description:
+>  		the action before the device really enter shipping mode.
+>  
+>  		Access: Read, Write
+> +
+>  		Valid values:
 
->     selftests/bpf: Test missing and callback stack arguments
->
->     Exercise the path where a static seven-argument subprogram has unreliable
->     BTF and is called through a bridge with only one initialized outgoing stack
->     argument. The callee expects two stack arguments, but the unreliable-BTF
->     path skips check_outgoing_stack_args(). Expect the verifier to reject the
->     second r11 load at offset 16.
->
->     Also exercise synchronous and asynchronous callbacks whose BTF prototypes
->     declare a sixth argument. Initialize the outgoing slot at each helper call
->     site so the programs reach the callback-specific rejection. Keep a valid
->     six-argument direct call in each program so bpf_fixup_call_args() records
->     the stack-argument requirement and cannot become an unrelated rejection
->     fallback.
->
->     The fix also rejects the existing uninitialized-stack-argument test before
->     the later unreadable-register check. Update that test's expected diagnostic
->     accordingly.
->
->     Suggested-by: Alexei Starovoitov <alexei.starovoitov@gmail.com>
->     Assisted-by: LLM
->     Signed-off-by: Weiming Shi <bestswngs@gmail.com>
+It would look nicer to add a blank line here (and below) so that the 2
+following lines are processed as bullet items.
+(as Mauro suggested)
 
-This isn't a bug, but is the stated reason for the r11 stores before the
-helper calls accurate?  The commit message says:
+Same for patch 5/7.
 
-    Initialize the outgoing slot at each helper call site so the programs
-    reach the callback-specific rejection.
+>  		- 1: enabled
+>  		- 0: disabled
+> @@ -27,6 +28,7 @@ Description:
+>  		datasheet for details. Normally controlled when TypeC/USBPD port integrated.
+>  
+>  		Access: Read, Write
+> +
+>  		Valid values:
+>  		- 1: enabled
+>  		- 0: disabled
 
-push_callback_call() calls btf_check_subprog_call() ->
-btf_check_func_arg_match() before the new "callback subprog cannot have stack
-args" check.  callback_6args() is static and its cached arg_slot_cnt is 6, so
-btf_check_func_arg_match() first runs:
+-- 
+~Randy
 
-    for (i = 0; i < min_t(u32, sub->arg_slot_cnt, MAX_BPF_FUNC_REG_ARGS); i++)
-        if (caller->regs[BPF_REG_1 + i].type == NOT_INIT)
-            return -EINVAL;
-
-and returns -EINVAL before check_func_args() -> check_outgoing_stack_args()
-gets a chance to return -EFAULT.
-
-In stack_arg_sync_callback(), r5 is never written before "call %[bpf_loop]".
-In stack_arg_async_callback(), r3-r5 are cleared by the earlier
-bpf_map_lookup_elem() call.
-
-push_callback_call() ignores that -EINVAL (only -EFAULT is fatal) and goes on
-to reject on bpf_in_stack_arg_cnt(), with or without the stores.
-
-The stores only change what an unfixed kernel does.  In the sync case they
-keep caller->stack_arg_regs non-NULL, so the old check_stack_arg_read() reads
-a real slot.  In the async case they change nothing, because the old code
-reads frame[curframe - 1] with curframe == 0.
-
-The tests themselves look correct, and the expected messages match the fixed
-verifier on every explored path.  Could the changelog give the real reason for
-the stores, or are they needed on some path not covered here?
-
-
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/40257528533
---===============2872749516240892361==--
