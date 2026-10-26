@@ -1,103 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=121.127.44.66
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793044438;
-	b=Mnffk9w4FbEcaIUpI91d/CYrK5R5NZ/Nc0pxVBaj1J9vLqYd9RO0gDgjaApiAreSvjE7
-	 bZ+G17NAHtUVgSq4W4n5OzqXVagmz7A5E4bU6JS4mCRAKUuOwVde/kzs9aZAv1FsMWrSJ
-	 gey+bZj+aar8Mwiqq9KNm0uknq0YAQbgouj5HgK2oVB177H/xq4960hBymR/5LSB/2cNJ
-	 HUTnnFrNZlmiTXCGmdfbCI4QPo3iUTKUMisfsySwsUGiKyPw+WTZlq/hhN7BOS+q35V+B
-	 nzSxDJrsVUh+ObQG9pzE59e0lI7D2GFfsF7/kDwetc4eYeizLx83wyDlFkEEICmmgsQ==
+	t=1793044446;
+	b=RwYxJqA84Pu+OtLhraMsJAZnwKKYV1/30cwZ+Lq5fL5GANTWrC+RwJCffKm7p5MevHSq
+	 ouotfUzxH+I2KuvUH7MqVuxEdFGeB2s5Yh+X2zC97ly7MX8rV79mv7eWGxsrhMuML+2YX
+	 bpYzueAqNB22yY5uevRo3kj+MqV0WmBNa3zd/rP42C8IJ27viGjKD79+MNo3wyJwdpn13
+	 HZw5KEGUQK/EIcb7r/BQBXVgI7PI/AC1yyFcR8LypH/n5TLeFJVAJc8v15VBToqFYsxAa
+	 Tb5vxtNQQ0LxQNQLyFZMQmw4uhCbM/O20uY/EwTyhPe0yM1jjbIugkImlg/pB33TVpQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793044438;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
-	 Organization;
-	bh=i+NDmw4lwf3hRzODAHlKBNdsDK4Mb0dC93HrLNynbZA=;
-	b=za1at7GWuVz08DgyKYEgr9M6aSB5lL3NxenOZ5UsL4MCGUisRzs6ywDVGy8F0SBDtJwx
-	 fs0Eq4f7PoujLVUqBrrmSNoKplPEprLsn8UHJd6K6pM4LhREzGBjOv/vOOGGbOPs18gvI
-	 homU4tPHeC4scgg62FUyujG6BfXCvXx1hgYRdKX8kefEfh8kRbpl+cdxmKtHWRhAsbogu
-	 iAIicqQj0y4bya7mRmfVEWDJyravYubxS0q0Cwf3Vp/GnCvrpmaaMHx0CuGLVbB7KUYfX
-	 IJdafv4+MCWLMJbtyNDRI81ZT9LBLm/tprOnLK5KJgLucF5jBw+Wh8yH4WYFcvBj6Sw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793044446;
+	h=DMARC-Filter:DKIM-Signature:X-Forward-Email-ID:
+	 X-Forward-Email-Sender:X-Forward-Email-Version:
+	 X-Forward-Email-Website:X-Complaints-To:X-Report-Abuse:
+	 X-Report-Abuse-To:Mime-Version:Content-Transfer-Encoding:Content-Type:
+	 Date:Message-Id:Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
+	bh=t2WP/1MRq2fCK/I0ZlIcVsv6v5NGgJ3Jv9z6l/Veweg=;
+	b=dDWGHP3eVZHgrLiuIM39YJACWt33yfK6iwkW01ODGsd89hbdb5W/BFMsnOwTYMW3v2fU
+	 U3e9dYExpE9qArkmotT46w6YpEkg5qbsDU6F5oYIyAVrxunRF8vDnkoiiDsWTdm/17zNx
+	 sx23zG9Y4oKYRAtcZ1I77eKH82SrlRIZKRasdMIfg9hqSI2wXzm8B5fD/dYeOfBPSCWpq
+	 yu8JJv15WT3Ts6EtRWQIYp6Re16vAlBQdt4tf9M8bznCHm4NZauRRgLTv0mZG3WoKp3/4
+	 ohF2HwVE7TAwpdXKlCoAyp4p3IIwhH/ZSKKnC3Od0lxQSCZNJb/+IyILNxloHETQ5/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BV8ccHbR;
-	arc=none smtp.remote-ip=198.175.65.11
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=ubuntu.com;
+	spf=pass smtp.mailfrom=fe-bounces.ubuntu.com;
+	dkim=pass header.d=ubuntu.com header.i=@ubuntu.com header.a=rsa-sha256 header.s=fe-953a8a3ca9 header.b=a8hPXE+G;
+	arc=none smtp.remote-ip=121.127.44.66
+Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.66])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06538606A31A;
-	Mon, 26 Oct 2026 19:53:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06538606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AC2B606A31E
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 19:54:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3AC2B606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ubuntu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.ubuntu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BV8ccHbR
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793044438; x=1824580438;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=FV51n/PiZWx6bvBfOkBqCKkoCYD8qfwCN0puYCkV0os=;
-  b=BV8ccHbRqwgaFyUocxyvAjpqzZrPmEwHD6I8Z6RBt6JY0DIN0HLvIfCJ
-   Yjn4p8WOFrvTGSLMLPGdSHt2QtOzFdxsFoiPLyU8SKwXj578RwvCaLH76
-   sILx7HHDKEOw1DZ42U56csEnXiT/zJw8YNON5m9Vy1ZcyAAoxd2OH3poG
-   a7grcUPyIKGBEsRTnJT6eBLYL3hjMNbFKUBuepp5zkNZnFd+gPeWDgLH1
-   kN4E+ARRmCkHwTATrussERPCtcmmPxVyHm7IzY38KTrNIHlsDc17uwdiu
-   ylfFUkJxlUsh5iaTFMSxsSVrku5XKWSbdk+WAgHmrPwysCTFNY4S1H+PZ
-   Q==;
-X-CSE-ConnectionGUID: BQmHi8vgSDqF/dyYjIwy6w==
-X-CSE-MsgGUID: xP+kcgw7TuKodOBYNYu3Vw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1615437"
-X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
-   d="scan'208";a="1615437"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 12:53:55 -0700
-X-CSE-ConnectionGUID: Dj09to7/Sbe2r8g4P5Lwuw==
-X-CSE-MsgGUID: qCd0O6T5QDOWwhS++gg2Xg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
-   d="scan'208";a="4710651"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.93])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 12:53:48 -0700
-Date: Mon, 26 Oct 2026 21:53:45 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: "Maciej W. Rozycki" <macro@orcam.me.uk>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Raul E Rangel <rrangel@chromium.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Tony Lindgren <tony@atomide.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Richard Genoud <richard.genoud@bootlin.com>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Jacky Huang <ychuang3@nuvoton.com>,
-	Shan-Chun Hung <schung@nuvoton.com>,
-	Pali =?iso-8859-1?Q?Roh=E1r?= <pali@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Timur Tabi <timur@kernel.org>,
-	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev,
-	linuxppc-dev@lists.ozlabs.org
-Subject: Re: [PATCH v5 2/5] serial: serialize asynchronous write wakeups with
- the port lock
-Message-ID: <at-vyZ1sDhYPu0W5@ashevche-desk.local>
-References: <20261024-submit-serial-8250-dma-cancel-v1-v5-0-9e52968928d2@gmail.com>
- <20261024-submit-serial-8250-dma-cancel-v1-v5-2-9e52968928d2@gmail.com>
- <alpine.DEB.2.21.2610250459200.42255@angie.orcam.me.uk>
- <at4bw-G8czG-G7Wl@ashevche-desk.local>
- <CADvTj4psJcY2T1PG9H8_hJWjz62R7unj3PPgv3FrVquUMFVhGg@mail.gmail.com>
- <at5qKehogAjTa-fA@ashevche-desk.local>
- <CADvTj4qSgE6Rc--mWuqAcc8HTqN9EFOS_JM8Hp8e_=ka_ZLa6w@mail.gmail.com>
- <at8eDFj2WNaXDaot@ashevche-desk.local>
- <CADvTj4oNz-bnSZP+kfau-7wBSWLjLTP5jrr6nLfdCHNPo3pS6w@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=ubuntu.com header.i=@ubuntu.com header.a=rsa-sha256 header.s=fe-953a8a3ca9 header.b=a8hPXE+G
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ubuntu.com;
+ h=In-Reply-To: References: To: From: Subject: Cc: Message-Id: Date:
+ Content-Type: Content-Transfer-Encoding: Mime-Version; q=dns/txt;
+ s=fe-953a8a3ca9; t=1793044439;
+ bh=t2WP/1MRq2fCK/I0ZlIcVsv6v5NGgJ3Jv9z6l/Veweg=;
+ b=a8hPXE+G7/e1JT8Ycfcnev6V7KCkTEi5sQZ2AdMNstNaRkfEKGcg3tGoeiZplAVKE9nI/wLCs
+ 5TZVqkhjWR9Iaeul5Xr7FDHLJ9iQJxElhLQRVQkNcvoKwjHKObmZo4Ym8aFyfShlLlGay3vNm6L
+ KNjPb6axtTgKE6/Z2J2fBBCc4bL6Z1zhsQfoX4/eKgX5LjAxhp1gNdJaJvz9eRXZK6Cre+NytJN
+ OMLfeSxsiXL1+K1va9CZsNI7DTGpPBgLUWFHn4h8hm8EG7pWkPaFfehJhaaYn9XOnVN1BnqxKF5
+ RzxhQWFSLzqULxXlcHg6SGkHxIEhfdNnFJXW4LatdUSw==
+X-Forward-Email-ID: 6adfafcfd8313e3592e45e13
+X-Forward-Email-Sender: rfc822; jpeisach@ubuntu.com, smtp.forwardemail.net,
+ 121.127.44.66
+X-Forward-Email-Version: 2.18.11
+X-Forward-Email-Website: https://forwardemail.net
+X-Complaints-To: abuse@forwardemail.net
+X-Report-Abuse: abuse@forwardemail.net
+X-Report-Abuse-To: abuse@forwardemail.net
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,93 +61,105 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CADvTj4oNz-bnSZP+kfau-7wBSWLjLTP5jrr6nLfdCHNPo3pS6w@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8; format=Flowed
+Date: Mon, 26 Oct 2026 15:53:48 -0400
+Message-Id: <DMF17B2ZLUVC.3FQPOG5TPIX@ubuntu.com>
+Cc: "Troy Benjegerdes" <hozer@hozed.org>, "Theodore Tso" <tytso@mit.edu>,
+ "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, "Laurent Pinchart"
+ <laurent.pinchart@ideasonboard.com>, "Krzysztof Kozlowski"
+ <krzk@kernel.org>, "Sasha Levin" <sashal@kernel.org>, <corbet@lwn.net>,
+ <skhan@linuxfoundation.org>, <rdunlap@infradead.org>,
+ <federico.vaga@vaga.pv.it>, <apw@canonical.com>, <joe@perches.com>,
+ <workflows@vger.kernel.org>, <linux-doc@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, "Greg Kroah-Hartman"
+ <gregkh@linuxfoundation.org>, "Justin Stitt" <justinstitt@google.com>,
+ "Carlos Maiolino" <cem@kernel.org>, "Jakub Kicinski" <kuba@kernel.org>,
+ "Jori Koolstra" <jkoolstra@xs4all.nl>, "Brian Foster" <bfoster@redhat.com>,
+ "Christoph Hellwig" <hch@infradead.org>, "David Disseldorp"
+ <ddiss@suse.de>, "Mark Brown" <broonie@kernel.org>, "Jani Nikula"
+ <jani.nikula@intel.com>, "Jens Axboe" <axboe@kernel.dk>, "David Hildenbrand
+ (Arm)" <david@kernel.org>, "Vlastimil Babka" <vbabka@kernel.org>,
+ "Christian Brauner (Amutable)" <brauner@kernel.org>
+Subject: Re: [PATCH] docs: remove Assisted-by references
+From: "Joshua Peisach" <jpeisach@ubuntu.com>
+To: "Linus Torvalds" <torvalds@linux-foundation.org>, <lyude@redhat.com>
+X-Mailer: aerc 0.21.0
+References: <20261009083137.3-1-sashal@kernel.org>
+ <0914a106-bacf-4d95-854a-bfeefbff62a4@kernel.org>
+ <asz9AeFe3CutP73z@gremlin>
+ <20261013123132.GC4214@killaraus.ideasonboard.com>
+ <as4pAEnLd4H68W4W@gremlin>
+ <20261013131243.GM56180@killaraus.ideasonboard.com>
+ <as4xMnT8a75pIw9v@gremlin> <as7uqZn9rQ52USwy@mit.edu>
+ <4a2c667b14fafad7acef96af2585e41f158fdac0.camel@redhat.com>
+ <atjjQ0oupQ4pmKHB@false>
+ <00636bea8791e75b3b16afef2dc5ee7f2cb8bc0d.camel@redhat.com>
+ <CAHk-=wgm4tZBd68PxaQiGeComxa9Us-SC5P2s6UG1Dwu8n_38Q@mail.gmail.com>
+In-Reply-To: <CAHk-=wgm4tZBd68PxaQiGeComxa9Us-SC5P2s6UG1Dwu8n_38Q@mail.gmail.com>
 
-On Mon, Oct 26, 2026 at 10:45:54AM -0600, James Hilliard wrote:
-> On Mon, Oct 26, 2026 at 3:33 AM Andy Shevchenko
-> <andriy.shevchenko@linux.intel.com> wrote:
-> > On Sun, Oct 25, 2026 at 04:11:08PM -0600, James Hilliard wrote:
-> > > On Sun, Oct 25, 2026 at 2:44 PM Andy Shevchenko
-> > > <andriy.shevchenko@linux.intel.com> wrote:
-> > > > On Sun, Oct 25, 2026 at 02:25:46PM -0600, James Hilliard wrote:
+On Mon Oct 26, 2026 at 3:39 PM EDT, Linus Torvalds wrote:
+> On Mon, 26 Oct 2026 at 09:04, <lyude@redhat.com> wrote:
+>>
+>> On Wed, 2026-10-21 at 16:07 +0000, Troy Benjegerdes wrote:
+>> >
+>> > It *is* possible to make a deterministic LLM, and this is why I think
+>> > it
+>> > is critical to my personal future to have an LLM that can actually be
+>> > understood by a human instead of a random number generator casino
+>> > that
+>> > sometimes puts "4" in your private key.
+>>
+>> I hate to break it to you but that is literally not how large language
+>> models work.
+>
+> More importantly than that - the whole "deterministic" part is a total
+> red herring.
+>
+> We shouldn't even reply to that idiotic argument.
+>
+It's not idiotic. Would it be considered non-deterministic for a human
+to intentionally add a line of code causing a kernel panic for no
+reason at all? Or an LLM telling me to jump off a bridge?
 
-...
+When it comes to human development, people *know* what they are putting
+in. An LLM does not think about the words it is spitting out.
+> Why? Nobody is arguing that we should stop take human patches because
+> "they aren't deterministic".
+>
 
-> > > > Some people might want to test the stuff. And sending too often you actually
-> > > > will get the opposite results, people will be tired to even start reviewing
-> > > > and/or testing your code as it's changed way too quickly.
-> > >
-> > > My thought process was that people wouldn't want to be testing code that
-> > > had known bugs flagged in Sashiko reviews.
-> >
-> > Sashiko reviews are not visible in my or any other mailbox. To see them I have
-> > to go to some URL and so on, meaning to waste time to see why on the earth the
-> > new version has been sent.
-> 
-> Maybe the Sashiko reviews are getting caught in spam filtering or something?
-> They are showing up for me and on the mailing list[0] so I'm a bit confused why
-> you aren't seeing them. You shouldn't have to go to the web interface[1] to look
-> up the reviews.
-> 
-> [0] https://lore.kernel.org/all/sashiko-outbox-183574@kernel.org/
-> 
-> [1] https://sashiko.dev/
-> 
-> > It's better before addressing Sashiko comments,
-> > reply to all people involved and to Sashiko's original email, so it will be
-> > visible in the previous version why you issued (actually about to issue) the
-> > next version.
-> 
-> Hmm, maybe it makes sense to enable recipients in the reply_to config[2]?
+Except humans want to actually contribute to the kernel, not make their
+slavemaster happy.
 
-It's up to the list owners / subsystem maintainers.
+> So anybody who thinks we shouldn't use LLM as tools because of that
+> reason is just being dishonest. It's just a disguise for "I don't like
+> AI". It's not an argument, it's a complete strawman.
+>
+> We have had non-deterministic tools in the past. One trivial example
+> of that is just different compiler versions that have slightly
+> different instruction weights or just different rules. Even when they
+> are individually deterministic the end result is effectively that
+> different people will get different results.
+>
+> And not all tools have even been individually deterministic - actual
+> real non-deterministic behavior exists in non-LLM tools either becasue
+> they have timing issues or are explicitly using random numbers as a
+> way to get their results: Monte Carlo simulations is a very real
+> thing.
+>
+> And yes, non-determinism adds a wrinkle to things and it's something
+> that needs to be taken into account (and people often add things like
+> explicit seeds to avoid it when they need explicit determinism from
+> otherwise non-deterministic algorithms). So non-determinism is
+> something that should be weighed as a factor against what else the
+> tools brings you.
+>
+> But it's not actually an argument against LLM's.
+>
+>               Linus
 
-> [2] https://github.com/sashiko-dev/sashiko/blob/v.0.6.3/projects/linux/mailing_lists.toml#L290
-> 
-> > And before even issuing it, wait for a while, people might
-> > disagree with Sashiko judgement or your replies on how to address that.
-> 
-> I was assuming everyone was seeing the Sashiko reviews getting posted to
-> the mailing list already. The are ending up in lore so unless someone isn't
-> subscribed to the list I'm not sure why they wouldn't be seeing those reviews
-> already.
+Well said. But also, we won't be able to "submit bug reports to LLMs"
+like for years people have submitted bug reports to compilers.
 
-I assume you already answered your Q. mailing list in this sense doesn't mean
-recipients. I think it simply goes to the mailing list without forwarding.
-
-You can ask at helpdesk@ how this is configured on the kernel.org side.
-
-> > TL;DR: this mailing list is *not* a playground with you and Sashiko, the whole
-> > community is behind it.
-
-> > > > Settle down first
-> > > > with something, put on the cover letter the answer why not all Sashiko's
-> > > > comments are being addressed (for example, due to amount of patches or the
-> > > > series being focused on a certain issue).
-> > >
-> > > So, in general I've been always attempting to resolve known Sashiko issues
-> > > in every subsequent re-spin, so that would be a bit tricky since I wouldn't be
-> > > aware of the Sashiko issues until after the series has already been sent.
-> > >
-> > > Usually the subsequent issues that get flagged are new issues only discovered
-> > > after each new re-spin.
-> > >
-> > > I do have a bunch of UART/DMA related patches that don't have flagged Sashiko
-> > > issues so it probably makes sense to try and review those first while the larger
-> > > series that have Sashiko flagged issues are still stabilizing.
-> >
-> > Yes.
-> >
-> > > > > [0] https://github.com/sashiko-dev/sashiko/pull/389
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+-Josh
