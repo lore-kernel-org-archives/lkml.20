@@ -1,69 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793041893;
-	b=YCPKHxxe7h3UvJSbGgukChGtoh4Fdm0cI2ELlmSl01BxKMB8FAgsQAtG8ahmnxGlmwU7
-	 BeZl1Fqjehyi2bUBsdJkQz3pdkQUj85hO9QID7LsKo1m5Z6yVJjlQRPCvibKksfoz56UG
-	 qXQJvP+56EK109dh7Am9yEnDPOF+8IQwSljunCwqyoql9m9GgLUlsOC4oMErRz1k1hrSs
-	 gCVkUxgu69vEeRtXwsWrGgpSITKYULCo8WICmx1XRNGde+4abMhMebxJKQs6ykl4k2Ckj
-	 CdlXZNRK/BRE8zv6fX8KdiU9+ylksJ/ok2WhXVYvyrbH/WE/C+LeJ3SfP4LsQs5+8yA==
+	t=1793041931;
+	b=f+3Sc1JzMxXbP6HKWiluiDNcD9kxxVDi8N079Juqp5UNbhswlx5dHCHgtiw+11e5jX2V
+	 Qk5impoHUi9cqOVGAfJ4IYDfxVRR7i81TsAJtIZZbYA/aLdClLg1kIWjIoazJQ7slf2yv
+	 D4tsUX/SAnTNsLtUxwf+KrQ7IaUy96M3tkG6lhkrExGFgeSx6/TptXT5eh6g7/FtfYLrD
+	 GInIyFmnuD24y7Kz5OKIw1vijEwe6Ke4isoND62kw/Jl+5iSdvv9Xt6/S7SonvQ8S82mH
+	 BuKl9JQIH4M+jza318kQ49kYUOcopUEJUy7SvSdze2BXlcTCvlfJ74e22WCgaZxPLtQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793041893;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=s/blq41Vx47KQQHMBVWDCS4GUGvH4dkNTdKaeGxRU44=;
-	b=IBDXaNHhiS3ikjpUJsKkW4AweKnz0Vu8VdVk95wxkNuOGaUbbkjWdYZilvrP+bH7I1Kl
-	 TfgJA0s4Ut8Jo85o0z4qufk9ru5rndfk13EW0tm1yMBuKqNGxnuDxKBho6sxXNvb3hEJp
-	 3VOxIfMaxH2W523iy7fFX0KyHT0Au8tu3gAhrksrwYJdacBTIR5rGyyPFM5xWXjVgqgZJ
-	 aiGUuSM3UTy20r/XigsTcPoonuKWFIktWxDqIhEyiMA9Gj85yvnE+y/v33FCmmsvUogri
-	 6HEHhaY5P9JxgbKoYuy7oUqPlHAFu0pFXax9Jk4esCgK5qZijvWARl8KMSKaj/rTJAQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793041931;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=ESeb32clViSSBCfxyL4C/fFgJaSiqIpJxyga8RHrWCU=;
+	b=A0NRv/LK3TwRG5mtY/48F5jR8yOj4Yra8w+SBHge/X7NUU+H9YzRku5pQV/M7NrNLKvm
+	 ajYVyYJI6doFnBAznIkxt/Ajjv7dY3uyFzsiBe1gkP6WMD8arHWVF/3/fuTfs1f5Pe5KD
+	 zhNKQaJcISShTnaKQ2hoI9pRFDTksjI0rRSsQT0E3RlIUx4VwmwhUU6AGcLOAEfV3rjby
+	 Ci8oIfNVpHL3rvGvPve+oXoQI/NKi0YpJJLVwTk4VAwmF4IIq8sPbosW958gulyLdNTNd
+	 0v9i8PkA5adlIRrxOcvL766RojJKksQ2o+r3l/zrfbqByhTfj6BFRCLzHnyfD0lThNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=hthgjYyB;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lB5VmfAS;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4FC8606A31D;
-	Mon, 26 Oct 2026 19:11:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4FC8606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54893606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 19:12:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=hthgjYyB
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
-	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
-	In-Reply-To:References; bh=s/blq41Vx47KQQHMBVWDCS4GUGvH4dkNTdKaeGxRU44=; b=ht
-	hgjYyBpMtM4Eaj7r0AUQ016jUppx6Z/sQlm/35QxGvTp2NXnjarDYPtZF55UpRlsdW8xCZJXwDrWb
-	AZCqKVR4vrALyWNJHiHW/Ygkd9PyC+3EIxPcKtTmGJrcNDSsh0mBsCCc26JSVM0Fr34W3jMSETBvL
-	dMUTi/8ocGdgEfg=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xLQ6H-00CphE-Jc; Mon, 26 Oct 2026 20:11:17 +0100
-Date: Mon, 26 Oct 2026 20:11:17 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Florian Fainelli <florian.fainelli@broadcom.com>
-Cc: Jonas Gorski <jonas.gorski@gmail.com>, netdev@vger.kernel.org,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	=?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Arnd Bergmann <arnd@arndb.de>,
-	open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH net v2 2/2] net: dsa: b53: restore the NSP IMP port 2
- Gbps mode
-Message-ID: <bab723f0-742a-429b-a22d-bd086ef35389@lunn.ch>
-References: <20261022211104.2091128-1-florian.fainelli@broadcom.com>
- <20261022211104.2091128-3-florian.fainelli@broadcom.com>
- <CAOiHx=nXKnzqB+-BvYg7rgxpLq9p2JP2xk8JchK-3+fqzpG7nw@mail.gmail.com>
- <47511aa5-3032-4bd1-bf8d-bcb1a2280367@broadcom.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lB5VmfAS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D1E81F031E0
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 19:12:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793041931;
+	bh=ESeb32clViSSBCfxyL4C/fFgJaSiqIpJxyga8RHrWCU=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=lB5VmfASl7uMKDqj0SBUorNNC2e4XfuV4f4czrhdh2lGpVX47PQc9tPNuaZ/o5LmL
+	 zbJlavEAiJv2mqAyWmnxP0/zlByoP1muBPUD+iCjpBbQj0Zr/ebWlt/ytK8EiGSv1D
+	 /83qu0Ezp2M/cA+fphU8aAnRT47XOrudn8TGC1PbFC8QywVnvqDKeZkDH5JwJrOG2T
+	 TDxolm0E/iUvyncLqj81YBrO6Z0Hamg9s4+y3Ttb2TdYsnFfh3OyitFgrruopTT2Fo
+	 j83jx5pGsYWyBnet4UXqn5tv/DPD081NmfKCMNVgL2WVxpE3xp8J1q+7cAd61ctZ5w
+	 JYJsOiOdwVHHA==
+Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5ba3ac592faso1610164e87.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:12:11 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBw1jMnvRIq+mYzkWX1eWc2J3toiOR5h2BINkzIVxlnid21PU3TBGlXvmVwR5jYmR73os2ZqGX+MTbUy9CA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIlfjXkWI21O0/NJDZzgVXyEImK8Vc8hBZk0+e2oW6XQXeQlUf3
+	7ezkdylubj+ZSvMl7Fgfedm1na0gwsfhvkNORSpEdf8E/gqQ4cvJjm1MiZhtFOP5qxXxBYmAFqW
+	LWNtoYi8c9Sgo44c9HvkVGk6o08jGGwk=
+X-Received: by 2002:a05:6512:239f:b0:5bc:b23c:f7dc with SMTP id
+ 2adb3069b0e04-5bfb716dce8mr2548379e87.9.1793041929627; Mon, 26 Oct 2026
+ 12:12:09 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,35 +59,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <47511aa5-3032-4bd1-bf8d-bcb1a2280367@broadcom.com>
+References: <20261010100148.297720-1-xiongyining1480@phytium.com.cn>
+In-Reply-To: <20261010100148.297720-1-xiongyining1480@phytium.com.cn>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Mon, 26 Oct 2026 20:11:56 +0100
+X-Gmail-Original-Message-ID: <CAJZ5v0iO00WGo=Op6YCz2t2f5WQUK0OPae8R7jD_ZzLFYoqrWQ@mail.gmail.com>
+X-Gm-Features: AclHuK-ZxMmLsw196GQVo3yjC5ZsB3uG1TZ7Et-SYP0Lg46qun1CpNhsaanIZEw
+Message-ID: <CAJZ5v0iO00WGo=Op6YCz2t2f5WQUK0OPae8R7jD_ZzLFYoqrWQ@mail.gmail.com>
+Subject: Re: [PATCH] selftests: cpufreq: stop CPU hotplug loop after cpufreq
+ update test
+To: xiong yining <xiongyining1480@phytium.com.cn>
+Cc: "Rafael J . Wysocki" <rafael@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>, 
+	Shuah Khan <shuah@kernel.org>, linux-pm@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	chenbaozi@phytium.com.cn
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Oct 26, 2026 at 11:34:36AM -0700, Florian Fainelli wrote:
-> On 10/26/26 11:31, Jonas Gorski wrote:
-> > Hi,
-> > 
-> > On Thu, Oct 22, 2026 at 11:11 PM Florian Fainelli
-> > <florian.fainelli@broadcom.com> wrote:
-> > > 
-> > > The Northstar Plus IMP port uses the switch's proprietary 2 Gbps mode for
-> > > its internal link to the AMAC.  Its fixed-link description reports 1 Gbps,
-> > > so applying that speed clears PORT_OVERRIDE_SPEED_2000M and leaves the two
-> > > ends of the internal link configured at different speeds.
-> > 
-> > Sounds like the devicetrees are wrong. Shouldn't that fixed-link
-> > description be updated to be 2 Gbps then? ;p
-> 
-> That's a fair ask, however that would require introducing 2Gbits/sec all
-> over the place, and it's not like we really have a good way to report that
-> even through emulated PHY registers. This would not be a bug fix however,
-> which this patch set is targeting.
+On Sat, Oct 10, 2026 at 12:02=E2=80=AFPM xiong yining
+<xiongyining1480@phytium.com.cn> wrote:
+>
+> Original test uses a fixed 5000 iteration loop to trigger CPU hotplug
+> for verifying cpufreq synchronization between CPU hotplug and sysfs
+> writes.
+>
+> Two issues exist:
+> 1. Background hotplug task keeps running after test completes, causing
+> redundant CPU on/offline operations.
+> 2. When cpufreq frequency setup is slow, the hotplug loop may exit
+> before frequency updates finish, which breaks test purpose.
+>
+> Introduce a file-based stop flag to control the infinite hotplug loop.
+> After all cpufreq updates complete, create the stop flag file and
+> wait for the hotplug task to exit.
+>
+> This makes hotplug run only during cpufreq sysfs write test,
+> align with test objective.
+>
+> Signed-off-by: xiong yining <xiongyining1480@phytium.com.cn>
+> ---
+>  tools/testing/selftests/cpufreq/special-tests.sh | 12 +++++++++++-
+>  1 file changed, 11 insertions(+), 1 deletion(-)
+>
+> diff --git a/tools/testing/selftests/cpufreq/special-tests.sh b/tools/tes=
+ting/selftests/cpufreq/special-tests.sh
+> index e87ed7c8e5e5..14530c1b8d25 100755
+> --- a/tools/testing/selftests/cpufreq/special-tests.sh
+> +++ b/tools/testing/selftests/cpufreq/special-tests.sh
+> @@ -97,14 +97,20 @@ governor_race()
+>  hotplug_with_updates_cpu()
+>  {
+>         local filepath=3D"$CPUROOT/$1/cpufreq"
+> +       local stop_flag=3D"/tmp/stop_hotplug_$1"
+> +       rm -f "$stop_flag"
+>
+>         # switch to ondemand
+>         __switch_governor_for_cpu $1 "ondemand"
+>
+> -       for i in `seq 1 5000`
+> +       while true
+>         do
+> +               if [ -f "$stop_flag" ]; then
+> +                       break
+> +               fi
+>                 reboot_cpu $1
+>         done &
+> +       local hotplug_pid=3D$!
+>
+>         local freqs=3D$(cat $filepath/scaling_available_frequencies)
+>         local oldfreq=3D$(cat $filepath/scaling_min_freq)
+> @@ -117,6 +123,10 @@ hotplug_with_updates_cpu()
+>                 done
+>         done
+>
+> +       touch "$stop_flag"
+> +       wait $hotplug_pid
+> +       rm -f "$stop_flag"
+> +
+>         # restore old freq
+>         echo $oldfreq > $filepath/scaling_min_freq
+>  }
+>
+> base-commit: 28924df2a08f440c73991b83028032c901de2ae4
+> --
 
-Hi Florian
+Please see Sashiko's feedback on this patch:
 
-As far as i know phylink fixed-link does not care what the speed is,
-and it does not try to emulate it in the PHY. So it probably just
-works. Assuming the DSA driver is using phylink.
+https://sashiko.dev/#/patchset/20261010100148.297720-1-xiongyining1480%40ph=
+ytium.com.cn
 
-       Andrew
+and tell me what you think about it.
+
+Thanks!
