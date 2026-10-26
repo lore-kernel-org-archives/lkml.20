@@ -1,60 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.12
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793007359;
-	b=e+k6PromMw2ySElwztaNT4qH+GgOgj3KIuepfrqtzAc48CDVLMbja5/LHtT7gYHwYP6I
-	 lx7fhFzyFe5D2uTOMlJJOcNfO1ddVtKnLIx9aYiWAKHzvSji01POa8K5Ga3xtCgJQ2yE1
-	 hHobSN+GZ3ONLP8ERJhA4DMCj8/EeofPLwl1eLU1mc/zOpd5J+ixmgRWC6ar1UVU+qHhp
-	 JdBrbFUFVP0uzFXbGsQEwij/iRv+Gi2yOj/zCq4ifnhtLanRN6DOk4oiKKRytd/hbgyQJ
-	 nTRDo8JR/l2inYS/gLf2neReWc3Sh7I20rcPeqi7e465YPgnxq48wHu53c4MqKcpm1Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793007359;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
-	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
-	 X-CMS-RootMailID:References;
-	bh=VFODzkL0uZKqAQNJlwuJ0urPIasvytjg0AYOEPZU5zo=;
-	b=hzHA0C+Hflp6nikaS7Egz9X66pHm/E6VjjELiSdM8dbH0Ov2MgIUPdZ/DRfXr8OWnhnt
-	 Ui4v7Q9vHHexsfRaWKTBHuN0kMNiINIvsUGYRlbXlCKWcbz1RV5YPz9UVPkPcCvn5BSdy
-	 gxiglASMksOtnz9Qp/fGzfG/ansC7tUpXkXDx6isZ6vXaSGMjwtNKje2IEnL/vEMJxaL9
-	 ++/sjmqNeJmbfA71MX+fnovsC3nYGDAow10/WHIYkXRJL/efsm1inaj2giTj9FZpPz7YP
-	 kKyFq0uQS13ili73VouhKAxRxcJy5bg1MYFBHuwvbTGi96Vj3Ri7bfaYkpWJtH6ZXPA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=RqW5HTEa;
-	arc=none smtp.remote-ip=210.118.77.12
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.22
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793007376;
+	b=mCFf2udwZypObV4vr33/PEd+ecGxsffafXfyTdVVcmkreTe71FvDtBcu561jRrD3XcbB
+	 pQgaaeWwfSxqEgL9IIjQVH9yIHmm8HRI5dbXYQl0c7IZQBn47yEJgy/II+IspbOrhWM+V
+	 BUgX+l7mRrke7h4lgxHjlX/VfLJ/Q+M5QxD4Aj9wrHNThhuHnzDCkhCbd5HIeVBSZB+en
+	 a5JscspfTQJCRvgP/FTkcx+lytLG8e2BKyb9TCbKsyC7rItn70wZcI5KMVevUx94Thg1L
+	 rQ0ex1WKUgARE1XElIAvGnkNmj0BoPrTxPjvAaP2E4AsJY0Rt001Br8vo45FyKXr3/w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793007376;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=9crnHvk+Msuoo1SOz47Zy5HKLqjz1md5BXrkLxW8pwQ=;
+	b=lGp7Ouvj/l54Ofz+nHwtC8cMNez4upgGdn3erUM7+Vp9sFmUl3CluL3zn7Z2sraR3osw
+	 4a4+TS/2Z2QFS96Qw8A8TPU+Arlgb9CZM/5yfcOfQkcmVrHoiZ4QI11/fTDSk8IY1sUtv
+	 GCCRIeWtXE+9vvgD0P6IjS3UP7c7QOFcT1f9eFL3/LRFbzkw/NKvtz2s0BPozmvyfyA1K
+	 M9R3QqGktsUBBvL6Fpz/4oNOOGOqMrfGVyDbKv1eGPyU2uvhOX2plkRLF5JOT6AqI2Sjr
+	 8QL09FQqD9SOgnTBdN83y+PXNfzvh13Pt63uQRLUHP/pyw8MVbf8bx46uAhRvUID9ZQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nxp.com;
+	spf=pass smtp.mailfrom=nxp.com;
+	dkim=pass header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=S3mffKzx;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.22
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011022.outbound.protection.outlook.com [52.101.70.22])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52955606A330;
-	Mon, 26 Oct 2026 09:35:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52955606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FAD8606A31A;
+	Mon, 26 Oct 2026 09:36:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6FAD8606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=RqW5HTEa
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
-	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261026093555euoutp02a4f8ef91b3aa86db8377679f1fea21f3~iCrCSbcTY2220622206euoutp02z;
-	Mon, 26 Oct 2026 09:35:55 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261026093555euoutp02a4f8ef91b3aa86db8377679f1fea21f3~iCrCSbcTY2220622206euoutp02z
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1793007355;
-	bh=VFODzkL0uZKqAQNJlwuJ0urPIasvytjg0AYOEPZU5zo=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=RqW5HTEaNhWXEMVANk/YHAMMX8/dwCZWph+Ca2yKfPmYIy8BFS4/U4C9twdIr+UeX
-	 QQj7izTKUN4zPTGhk2FSTcJXvoitoLuZSmFW4i2VhBoIqOo++UzmfaAXt+zaWlDO3D
-	 8dN0UXbMVG/fgniVdQCdj/JaK1o4NscJjHJA/erI=
-Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
-	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
-	20261026093554eucas1p27ee3526a6b2fdb9f2c6c35e69ac09fe9~iCrBitmg73152231522eucas1p2n;
-	Mon, 26 Oct 2026 09:35:54 +0000 (GMT)
-Received: from [192.168.1.44] (unknown [106.210.136.40]) by
-	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20261026093552eusmtip250daa3502a30759f756704eb1d885faf~iCq-4FCDh0127501275eusmtip2b;
-	Mon, 26 Oct 2026 09:35:52 +0000 (GMT)
-Message-ID: <3aee23e0-1a9e-4649-b9ac-72012f9feaa6@samsung.com>
-Date: Mon, 26 Oct 2026 10:35:52 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=S3mffKzx
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nUwDlbIz9kloYIDcidggRyK0ceBjV/Zlg/mCPxcbpxurLDjlUl8J5mqZdujoNUzRrHatFHPyuZILjVMb6J0Hy+VOxS476JrPbsH8bTCFngf6O7Ag4iWeyDYoPwoSg7FV8tjLfqbhIdIPc4UdbUH1HeEilAKPMBxQUJgixxd0FKRaPY+pMvxPQ7i1MSSDg8Hz7a+glQPcCimJU1zntiYvM/2OMS2N/wDTOLnVh7OMgMFqLEMROBaI1/iOq1gmCHBDlMqjmKQi2z51PaIefQpAhsBTWV8vRu92Qe4er1bTVOUMNxbc6qQfyYMmnJK62xD0JyiRLaZeXk1/E15S8NtOqw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9crnHvk+Msuoo1SOz47Zy5HKLqjz1md5BXrkLxW8pwQ=;
+ b=GpN/tBZ3yFArOY29fPPZStEjG4maUBpYsL7c7uiMCpjfwibnJn8Bn4RvHs/yFQ9O/ndBLd2PuMCPjPGslJOKHq3uj1nZL2ywFZazmGyb5QgKlISCQRwiTJuHsByc259aNlItZ9F4mKknoG8OIeHqVoZAhzIC3IxjrjZaZ7m0WExqCYJ3/w82CstjLA1hpUoLKqeON0lzNrXCkGW1St2uBeTZVgjoSATo2XLwIZrRFM9fcF7dkY1P0UTbGiFMEWk+CJYrsaluaQvdfOad/+ZUepDoCPVgdG4wR0CY472k/7hkyP9VZ17Xz9LsCVSJLmHxf58mGgcOdMCLqivocnvwDw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9crnHvk+Msuoo1SOz47Zy5HKLqjz1md5BXrkLxW8pwQ=;
+ b=S3mffKzxdlhkLO6xZY5Jxjjy7+Zr4zSW/j1QC4X8U1sk6vfR740qucrqFFs/l21w2lus5dw1Z9NFaxne0qcyH0lfGaHfKC/5aSp5p7Bu2Te1k0dzCd8kFnlbmt2e0jH6ElcKVK+qMVsLFC0tSNpe3Eo8RyyZ3uCTaBzZSdacZU1Xnu9q2us7Oas9Xv8LWacZyDSU36iOEXOCgwkgg+7yIVurjlnfjcqe+PUabZmvznd1ZRyzNobRgdkXlX2GhXEteQRoYjA1HID460h3jpVRE1Ku0NSHr/OiB9VDMrYCQI8/gNrf6CATHBu/rJS2XY9pGv00oZmdIv9kUwb9jX6ltg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from MI9PR04MB350878.eurprd04.prod.outlook.com (2603:10a6:290:c0::7)
+ by PAWPR04MB11707.eurprd04.prod.outlook.com (2603:10a6:102:509::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
+ 2026 09:36:12 +0000
+Received: from MI9PR04MB350878.eurprd04.prod.outlook.com
+ ([fe80::8537:1cdd:6c49:6151]) by MI9PR04MB350878.eurprd04.prod.outlook.com
+ ([fe80::8537:1cdd:6c49:6151%6]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
+ 09:36:11 +0000
+Date: Mon, 26 Oct 2026 17:37:45 +0800
+From: Liu Ying <victor.liu@nxp.com>
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Philipp Zabel <p.zabel@pengutronix.de>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Dmitry Baryshkov <lumag@kernel.org>,
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, Marek Vasut <marek.vasut@mailbox.org>,
+	Frank Li <Frank.Li@nxp.com>
+Subject: Re: [PATCH v6 07/13] drm/imx: dc: Use TCON operation mode
+Message-ID: <at8faVUk6GOXVjmX@raspi>
+References: <20260904-imx8-dc-prefetch-v6-0-26643e3f6cb7@nxp.com>
+ <20260904-imx8-dc-prefetch-v6-7-26643e3f6cb7@nxp.com>
+ <apqBoxjblzSIuG36@houat>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <apqBoxjblzSIuG36@houat>
+X-ClientProxiedBy: SI2PR01CA0026.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:192::16) To MI9PR04MB350878.eurprd04.prod.outlook.com
+ (2603:10a6:290:c0::7)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,134 +109,106 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 19/21] phy: starfive: Add jh7110-inno-hdmi-phy driver
-To: Vinod Koul <vkoul@kernel.org>
-Cc: Manivannan Sadhasivam <mani@kernel.org>, Neil Armstrong
-	<neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof
-	Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Andrzej
-	Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, Laurent
-	Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
-	<jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
-	<luca.ceresoli@bootlin.com>, Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>, Andy Yan <andy.yan@rock-chips.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>, Emil Renner Berthing
-	<kernel@esmil.dk>, Hal Feng <hal.feng@starfivetech.com>, Michael Turquette
-	<mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Heiko Stuebner
-	<heiko@sntech.de>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt
-	<palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti
-	<alex@ghiti.fr>, Dominique Belhachemi <db@domibel.de>, Brian Masney
-	<bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>,
-	linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org, Marek
-	Szyprowski <m.szyprowski@samsung.com>, Maud Spierings
-	<maud_spierings@murena.io>, Graham Markall <hello@big-grey.co.uk>, Icenowy
-	Zheng <zhengxingda@iscas.ac.cn>, Chaoyi Chen <chaoyi.chen@rock-chips.com>,
-	Joshua Peisach <jpeisach@ubuntu.com>, =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?=
-	<u.kleine-koenig@baylibre.com>
-Content-Language: en-US
-From: Michal Wilczynski <m.wilczynski@samsung.com>
-In-Reply-To: <asEQPf-oKbt_DSp3@parshuram>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20261026093554eucas1p27ee3526a6b2fdb9f2c6c35e69ac09fe9
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260929103245eucas1p1349d00810646fbf0149f1361534c23ac
-X-EPHeader: CA
-X-CMS-RootMailID: 20260929103245eucas1p1349d00810646fbf0149f1361534c23ac
-References: <20260929-jh7110-clean-send-v5-0-82b4d8e3c6c7@samsung.com>
-	<CGME20260929103245eucas1p1349d00810646fbf0149f1361534c23ac@eucas1p1.samsung.com>
-	<20260929-jh7110-clean-send-v5-19-82b4d8e3c6c7@samsung.com>
-	<asEQPf-oKbt_DSp3@parshuram>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI9PR04MB350878:EE_|PAWPR04MB11707:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5cc04cd6-f047-4cfb-d82b-08df3344927b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|7416014|366016|19092799006|1800799024|261009223027099003|261022075727099003|261022105027099003|261021121427099003|10067099003|56012099006|6133799003|22082099003|18002099003|18092099006|4143699003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	jhdPx4+J6kwpx4hw8B8+l3qKQU2rHD0XwVyaLH0YdTHTqDYBSUixd5lTfAQeS2+00xlfLmYsspeuheWHOa5OYSkD18RwsDU2rgztuVJO4eVjnSx1CtKkwl0yYGKAq7K8C8x094ULHGM8CX4bhdH3DLRAhI66hE4rFm7jPVMaAIkvFvXaAfUqHAvgzkgAh7fvBWXznIuedE2apwB9Dm2XaWeV20CzrNOLnnBHrisKabgvWaMCmnsEQBmLjF7j04AmCNQRDodNh0CdIoy6DQBjqqB/TruGnegay0yTsYDx+rHH1fkv8UcCxpS8oa3U9FhDexs09O1q+gR5DX5kQfCs/J0O2UQoGQzl1GvKh11+HGg/LOV1r5Jk7CrSIRUREhFhTZoC5Bnv/ov/P+msdawdD1AXdyO9JU+A5sVJ5rA87IDFZsfb1vMgmWx8gdSxRa10QHAMHzObZ+tdjCLTHozz2DzUktw7NsSdykr/gVz2y8QZtrZ22uimUW1gbsqV1uDj44uGa2TCBq9jKa0jEJhBokR7Y630xpLcR20+yEdsUB/Ii03IA3TsF+X6DOk4pF5j7VEOZ9dlcHAJTCePsc3ZgUbwi5YSUGXWSgoY++7kreNJUFDpBK2mu184UkMywMMdabb4erCBA4EFPYwmVqzNsdd0M/9M8pTt3LK9fSX/ffY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI9PR04MB350878.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(366016)(19092799006)(1800799024)(261009223027099003)(261022075727099003)(261022105027099003)(261021121427099003)(10067099003)(56012099006)(6133799003)(22082099003)(18002099003)(18092099006)(4143699003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?sHSvqQTBXw61k9KCfXmcQb1Y52vHWoGwiSjkhqGbk9IRRq/cudKtQSix+C2u?=
+ =?us-ascii?Q?mdEaq0nI/P9wkEv3tpxgI2sF1oxbTzcm74uu4dK7YnF8mYIBksWQJ7srVffh?=
+ =?us-ascii?Q?xp6bSXp3IxmQbKPslBsrhB6U0WjJA5uvqL/ogjMLjzOHWzCEYuzP10LeedwJ?=
+ =?us-ascii?Q?//qrF26U1uVirMtpjSWK3PgpEQqfLsBfSvCMr/sh8dAPZsYyp5QpDIM3NLd9?=
+ =?us-ascii?Q?g9zB5jxONLyKhblNGEzfBq+cg5SDKo5YX6mGDINSip0Cnac95TA5cQZWU1O5?=
+ =?us-ascii?Q?tceLDeofEMDfHGB2N28iKMDK/7G2fUdeoYNVIdNG813ZItTzxP+xkkAsaqU4?=
+ =?us-ascii?Q?vg+Ge6bqhpwSZg3UEO4K62PF4725ycwwQEsZwIpUJJ/YBCOXadaDgIiOaSif?=
+ =?us-ascii?Q?POLZqdUJ/8/kyoIOnNFGt50oQvMk7aZgIBELimLFAFBy42SSCvVBd703eNuA?=
+ =?us-ascii?Q?i1ourmU4thCaZEMoV3ebS6ZExgKFPs3+BBJvdcdvx355TBxEp6aEdz5ShvbT?=
+ =?us-ascii?Q?0zesX0jXhdYHnK8T33kGjM/O6sbKQaQysVZAIKTx0KVO2Mf3W3SWwQNfwXug?=
+ =?us-ascii?Q?fGYJGh41kTmUNCmMjYar/A8dpv9zLUXp08bqYlR67afU9/sWZIE/sutr52Nz?=
+ =?us-ascii?Q?1VeyWZQ4ozEwmE4GgjUlBY+oi93IHgKdlZ5DtdCg9a9gqPv9QQbsj4Q6BrXC?=
+ =?us-ascii?Q?v1IVO/rWWWXKSIQOYRhnpWyJ+g1/IZXhDgas5g55NdB2uxRixrZxrlT5RoU5?=
+ =?us-ascii?Q?2E5suAxSdBJPnWTZ3lOqd0Cq2fexvh3WztwvQf5CXhBSEwiamckhI4Py6QG6?=
+ =?us-ascii?Q?/NY01VVNREdjq8S2oaB1f5Pha45fCv0TTGH+9NyEzeezZfxf1hY650CckEGC?=
+ =?us-ascii?Q?V95s43QvbeeZSXDiUbk7ldtDld7aoqdYj4XX7610MsFQOvd4gQf+58CxH2fG?=
+ =?us-ascii?Q?rjuloyVmaHA/GPyBHkStL0EMzkeV5fdG7Ca0/OUokcjuI8OzlWxHj8nxxiQB?=
+ =?us-ascii?Q?dIbLeMtA/AbDb4ANajv17XpWIMX3TJvvHNz6hJ2xFn/artw0xdnNahdrqLc7?=
+ =?us-ascii?Q?CeROGQ8q5AtxS/GIqmTxSsoGGFr/VZd84OZ2VbH/MdA3dd+muMMmKJHGETkm?=
+ =?us-ascii?Q?+PT05LNsWHbU6fQTRYnDKOiXS1R0sCd9wEanQpykVPDhWenwzur+VsJeFrDo?=
+ =?us-ascii?Q?9+U7a8Quj4pPF/JqngSkM7PVpXmIN+zaR3ihgYjVUb4RjHZlxF/esJ6ssAnd?=
+ =?us-ascii?Q?wCkRBHw0ghrJoHb9PgaSeqHcgoXbkN5AnrSZi125GWHMTQSlscUhKneuDhAa?=
+ =?us-ascii?Q?XFdHXh3zGTQXVlwhPI8VIF3L3c8qUr6lv1B4/+X4VGkjd6paQ0pMpa1RGPWJ?=
+ =?us-ascii?Q?w2eUGRD0RtOlq/HgEQqF3l8BSKHHKBF1XSnnflIQpH5R74ckAXm5T79vBeau?=
+ =?us-ascii?Q?COEXKiscpGoWxnJe17PpbJd9vo0AGCCqFjjJ/4BWN1VEe0ENI/Yki9s4AHYh?=
+ =?us-ascii?Q?vmH9ABc0mEqDOiuJ5ntMXB4uVVTlzoMm/7TqD95OVMeaaYcyRI9q21tvQmzK?=
+ =?us-ascii?Q?IMUuqhtcuBZzwRkgke6qwuQbfn59O68QKAa6TIk/EwYWuw1mI/x4zcLMJlAK?=
+ =?us-ascii?Q?QUPBqebqZw1uOUcDUvDpmYa5WTawkeANDz/eX2SEHR56CcQ0U0bKWhjIzPWQ?=
+ =?us-ascii?Q?SkWNe0Xs8oqIBFKxZ4jsaUx8HIBo8/1Ou54v0AP+wgTUm0/NGHMHiZ+naGDR?=
+ =?us-ascii?Q?vcDw4twzOw=3D=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5cc04cd6-f047-4cfb-d82b-08df3344927b
+X-MS-Exchange-CrossTenant-AuthSource: MI9PR04MB350878.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 09:36:11.8996
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0aDYRvr/mVyI78ygSbbYLMN2z3rhY3OitwyQQliJU7QMf9/56q6rs/fKyspykTFgDto8w1e0EjSt042hY+uRrQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR04MB11707
 
+On Fri, Sep 04, 2026 at 10:32:35AM +0200, Maxime Ripard wrote:
+> Hi,
 
+Hi,
 
-On 10/3/26 16:25, Vinod Koul wrote:
-> On 29-09-26, 12:31, Michal Wilczynski wrote:
->> Add the HDMI PHY driver for the StarFive JH7110.
->>
->> This driver binds to the starfive,jh7110-inno-hdmi-phy node and
->> gets its regmap from the parent. It has no dependencies on voutcrg, only
->> on its reference oscillator (xin24m), which breaks the probe-time
->> circular dependency.
->>
->> This driver provides two main functions:
->>  - Clock Provider: It registers clk_ops to provide the variable pixel
->>    clock. The .set_rate operation configures the Pre-PLL registers
->>    (0x1a0+) based on the requested rate.
->>
->>  - PHY Provider: It registers phy_ops for the controller. The .power_on
->>    op configures and enables the Post-PLL and other analog blocks (BIAS,
->>    LDO, Serializer, etc.).
->>
->> The clock ops reach registers in the window shared with the HDMI
->> controller, and access to that window is gated by the controller's
->> system clock, which only the sibling controller driver holds. The clock
->> framework walks every registered clock regardless of which drivers have
->> bound, so deliberately do not implement .is_prepared, which lets the
->> framework fall back to the software prepare count, and return the cached
->> rate from .recalc_rate whenever the clock is not prepared. Without this,
->> clk_disable_unused() reads a PHY register with that clock gated and the
->> resulting stalled bus transaction wedges the CPU hard enough that it
->> stops responding to NMIs. It is reproducible by building the bridge
->> driver as a module so that the controller has not bound by then.
->>
->> The JH7110 instantiates the same Innosilicon IP as the Rockchip RK3328,
->> with the PHY register block shifted by 0x100 because it sits behind the
->> HDMI controller in the shared register space. The pre-PLL programming
->> therefore comes from the common Innosilicon helpers; this driver adds
->> the JH7110 pixel clock table, the post-PLL and the analog configuration.
->>
->> Co-developed-by: Dominique Belhachemi <db@domibel.de>
->> Signed-off-by: Dominique Belhachemi <db@domibel.de>
->> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
->> ---
->>  drivers/phy/starfive/Kconfig                |  20 +
->>  drivers/phy/starfive/Makefile               |   1 +
->>  drivers/phy/starfive/phy-jh7110-inno-hdmi.c | 582 ++++++++++++++++++++++++++++
->>  3 files changed, 603 insertions(+)
->>
->> +						 STF_INNO_TMDS_D1_DRIVER_EN | \
->> +						 STF_INNO_TMDS_D0_DRIVER_EN)
->> +
->> +/* REG: 0x1b4 */
->> +#define STF_INNO_LDO_CONTROL			0x1b4
->> +#define STF_INNO_LDO_ENABLE			(BIT(2) | BIT(1) | BIT(0))
->> +
->> +/* REG: 0x1be */
->> +#define STF_INNO_SERIALIER_CONTROL		0x1be
->> +#define STF_INNO_SERIALIER_ENABLE		(BIT(6) | BIT(5) | BIT(4) | BIT(0))
->> +
->> +/* REG: 0x1cc */
->> +#define STF_INNO_RX_CONTROL			0x1cc
->> +#define STF_INNO_RX_ENABLE			(BIT(3) | BIT(2) | BIT(1) | BIT(0))
->> +
->> +/*
->> + * These tables are copied from the monolithic driver.
->> + * They match the Rockchip PHY driver tables.
->> + */
->> +
->> +struct post_pll_config {
->> +	unsigned long tmdsclock;
->> +	u8 prediv;
->> +	u16 fbdiv;
->> +	u8 postdiv;
->> +	u8 post_div_en;
->> +};
->> +
->> +static const struct inno_hdmi_phy_pre_pll_config pre_pll_cfg_table[] = {
->> +	{ 25175000, 25175000, 1, 100, 2, 3, 3, 12, 3, 3, 4, 0, 0xF55555 },
-> 
-> lower case hex values, here and everywhere else please
-
-
-Sure will fix this.
+Sorry for the late reply.
 
 > 
+> On Fri, Sep 04, 2026 at 03:54:57PM +0800, Liu Ying wrote:
+> > @@ -273,7 +285,22 @@ dc_crtc_atomic_enable(struct drm_crtc *crtc, struct drm_atomic_commit *state)
+> >  	dc_ed_pec_sync_trigger(dc_crtc->ed_cont);
+> >  	dc_ed_pec_sync_trigger(dc_crtc->ed_safe);
+> >  	dc_fg_shdtokgen(dc_crtc->fg);
+> > +
+> > +	/* Don't relinquish CPU until TCON is set to operation mode. */
+> > +	local_irq_save(flags);
+> > +	preempt_disable();
+> > +
+> >  	dc_fg_enable(dc_crtc->fg);
+> > +	/*
+> > +	 * Turn TCON into operation mode as soon as the first dumb
+> > +	 * frame is generated by DC(we don't relinquish CPU to ensure
+> > +	 * this).  This makes DPR/PRG be able to evade the frame.
+> > +	 */
+> > +	DC_CRTC_WAIT_FOR_FRAMEGEN_FRAME_INDEX_MOVING(dc_crtc->fg);
+> > +	dc_tc_set_operation_mode(dc_crtc->tc);
+> > +
+> > +	local_irq_restore(flags);
+> > +	preempt_enable();
+> 
+> That's really not great... Can you expand on why you need this, and is
+> there really no other way to do it?
 
-Best regards,
+This is a sequence instructed by NXP/Freescale IP designer to ensure
+that the prefetch engine(DPRC + PRG) can be enabled reliably - TCON must
+be switched to operation mode from bypass mode as soon as FrameGen finishes
+generating the first frame(frame index moves).  This is the only way to
+do that, AFAIK.
+
+I'll address Sashiko AI bot's comments about local irq disablement in
+next version.
+
+> 
+> Maxime
+
 -- 
-Michal Wilczynski <m.wilczynski@samsung.com>
+Regards,
+Liu Ying
