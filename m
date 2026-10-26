@@ -1,79 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.99
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793045838;
-	b=yUxWqlr/tbrYxwM1nElqmZkahwSHAy4Y7lENeUfAaXbQ4vl+3NKYKlxyWITqFGMwU7AR
-	 Btao6iyGCZP8EjRVefwkd6LmD5cpVN6C+QpxK5LYS1mC8VeogIW7u7WF2YGBD4wO5CrfL
-	 ictAa5ZELQFUNjkh8raAinsWZ/j6YUx15Z7Z/AV91yF03na3UPDWOAbrjUGzUdIcIhUxl
-	 Mq3LR0nEgtdL7XVEW2vmM4w+XQPelC0WAcLpTymJMlYrscnu/CmmWGCsMCMw2zBfGTy+m
-	 Z0nBkIbwwa+EeNqT5l5JeGVNECz5rgn82pNmY7Tt8RT5Ips0vJ93PtZlWV2XxsqGnnQ==
+	t=1793045856;
+	b=34VcXXHWQEXsoz1kpoxaH3JVQul4mVpwD1nSVeYstZ/7TejvpLo2gYQ9GEpF8rpovnDc
+	 aRdGmhkK00vD16wwD3auaNW1/5bc+L0u1NjAFnD1nw/duUrbeMBAiqiRgT2ylamsfSV3C
+	 IsRzf0hI56xhVxuBzSuW24VZ3hrrevdJf+5jP7chnEdu6RZyIX4vH/qPCSOVgFfL80sG+
+	 wLu6C89mbHKtawfK2W0Gv6TVuTbIhu6/oSOCNQNfTf3ypYCtWWtG5JMtEIBocd5MdEMWR
+	 6cgWbtBWnBw1il6IyZjEh67IyRKzO+VJl9klCTZ690zbpPmtJIe3iUBG95P3CBhVWkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793045838;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=J0N9NmVqOkZJBbEdvHDt17avMBsn3Sr2xkgzJhmnDaw=;
-	b=jDx2gfQtN6fPkFnAkeBkPi9Q5clF8P9MfQP6lDIngd8hgcTRPJ+nUZ6fVi6hnl1ooJxk
-	 GTXgD5CPsdPel0dul/hp4fyz0GegN1mWv/r1RqzrxdpHMhYgxo5KYf4+amtNZ4yilKInA
-	 PnUWLERW7PE+PWkkGm/VK6DdLZxLSJEOfU0f9PVYmHZjvbu453FZMnWOgFFqQk03/ID/n
-	 x+MUc/StVhwFgzJxgI4fu1hJuymK9f77mG79XReDE2qtRrUl9LThsLStg5K6jh9TgiHOI
-	 CIpEXST8Jw+h3qY/0AuTWAJNEnCJmKaYEc/A1v4qxkVvUOhYSUZkep/VfN8FzY8jF/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793045856;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type;
+	bh=sVSjN/XqWDLZDr7IXQQnJDQT7Ga3u1tyb5UkYEWZhRk=;
+	b=wePaPRFRj5uA4YQlJw1dDVbj+iLUYSONl6OHOrtzfPjms3FHNJ1qmtb6rPFxh3pRMuGn
+	 /9sODUcNBd0o1Y9hQEIUBpZfKHfXpWa3u/lTOTWW2iqO/SRPUDyosNZ9yxv97oh3h8ZgT
+	 9JOY5t0mFFXFHBm0NAYQ/1ptk/uMpV4xymOJERCH5eECsuQr3mplcmoZGnkE91VqiFB6C
+	 QwIhkxbUU4KF/rUUH1ngH63vBYYcy2wbuRosZtYw/xfnFCystrV8a+kio3XrJFLP3U61M
+	 z4UsFB4996oOxbGx6x+S0FptNt/IOICu5Wg2ZQ1GSMadDudH2XFEicGWF8mCJ+L55vA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PkxjSuMw;
-	arc=none smtp.remote-ip=198.175.65.14
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=proton.me;
+	spf=pass smtp.mailfrom=proton.me;
+	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=yvlmz5wuurh5rfsoiol3dfcmfy.protonmail2 header.b=zU2lBZAR;
+	arc=none smtp.remote-ip=79.135.106.99
+Received: from mail-10699.protonmail.ch (mail-10699.protonmail.ch [79.135.106.99])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C47D606A31B;
-	Mon, 26 Oct 2026 20:17:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C47D606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9CEE606A31B;
+	Mon, 26 Oct 2026 20:17:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9CEE606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PkxjSuMw
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793045838; x=1824581838;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=T1VoGZ2A9VThoWAioNExjXzltcbVbIW5zOl8ZXpGbew=;
-  b=PkxjSuMwBfWmRz+jbCxiKsnB4ccLWD9ZBiVaHPjNsrnMFgVpseg+2u7+
-   SiQgFI4VFbwr8pLBbwkjk2cOW9TMU9dZlBPUa9HO5Gd55Sh7Q0d+7fjih
-   OEVrTJas6VkKvEV1sICAH4zUq97wbhl0zUmANYYip8EJoNT8xyy80FvB4
-   y0Hpp7ZAUxWqPSNZLhM/kBpWPaF2BP5zeoj18k5fi5KZD5gFlNPyUOZDH
-   qboaVZkXUDeLHoCnq9ghY3J7TghDCRZXUeJZuIMKb8NqUcJbBGeh2ar1w
-   Ot1NK2t3MLRxKrowv6vSn152jyMGIgGlJxuKmGQMY0xqQAQfcVMG5a2JE
-   w==;
-X-CSE-ConnectionGUID: Qgx+SGbPRTuzkYfJLDWp9A==
-X-CSE-MsgGUID: ECjlqMu1SHmFAiY9LnnONQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1605780"
-X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
-   d="scan'208";a="1605780"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 13:17:17 -0700
-X-CSE-ConnectionGUID: lo8dlkFWTdioD/qd/zxOlw==
-X-CSE-MsgGUID: iyHpbceWQ46Y0X9njCZutw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
-   d="scan'208";a="4427416"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.93])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 13:17:15 -0700
-Date: Mon, 26 Oct 2026 22:17:12 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Victor Chernyakin <chernyakin.victor.j@outlook.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/4] iio: prepare iio_format_value to handle
- higher-precision IIO_VAL_DECIMAL64_* formats
-Message-ID: <at-1SGe6xnObPqPG@ashevche-desk.local>
-References: <SN1PR12MB252882C0E885BF3368E036E5A5612@SN1PR12MB2528.namprd12.prod.outlook.com>
- <SN1PR12MB2528906BE220765FAF201080A5612@SN1PR12MB2528.namprd12.prod.outlook.com>
+	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=yvlmz5wuurh5rfsoiol3dfcmfy.protonmail2 header.b=zU2lBZAR
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=yvlmz5wuurh5rfsoiol3dfcmfy.protonmail2; t=1793045853;
+	x=1793305053; bh=sVSjN/XqWDLZDr7IXQQnJDQT7Ga3u1tyb5UkYEWZhRk=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=zU2lBZAR2+tXbDzRvPC8eEgaPslt5ccH5CgJ6w6DgGQIWCDYiaWlrkAc90YdsVG0H
+	 iMeWt3zEBBBZwAF01E+bVRJYqKV6oPWPndut+foblGBxfiG8SXEUiLEIlLly/x94nr
+	 TQ8tFAiYAf2rJBwCoEx0POuwvDgGv9xXvOwQLMHabQVY4/4h8O21RIPM3zdREbOqOs
+	 DIhPCcoXZRa2ylzG2mRWwlKunEdsbcOescd62Pk7phVGhshd3wDWMvJovMYgAs6oZ4
+	 5pxZdgru7l4ckNfqzdsR+ZiqdQ8WNqZ6vc1HEPMD6uNrfqyQ0ZHLf8nb6sgvW2R1J1
+	 eIfaJvPymTZtg==
+Date: Mon, 26 Oct 2026 20:17:26 +0000
+To: "brauner@kernel.org" <brauner@kernel.org>, "kees@kernel.org" <kees@kernel.org>, "rostedt@goodmis.org" <rostedt@goodmis.org>
+From: BoxStrikesTeam <BoxStrikesTeam@proton.me>
+Cc: "viro@zeniv.linux.org.uk" <viro@zeniv.linux.org.uk>, "jack@suse.cz" <jack@suse.cz>, "mhiramat@kernel.org" <mhiramat@kernel.org>, "mathieu.desnoyers@efficios.com" <mathieu.desnoyers@efficios.com>, "jkoolstra@xs4all.nl" <jkoolstra@xs4all.nl>, "farid.m.zakaria@gmail.com" <farid.m.zakaria@gmail.com>, "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>, "linux-trace-kernel@vger.kernel.org" <linux-trace-kernel@vger.kernel.org>, "linux-mm@kvack.org" <linux-mm@kvack.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "bpf@vger.kernel.org" <bpf@vger.kernel.org>
+Subject: [RFC PATCH] binfmt_misc: add binfmt_misc_select tracepoint
+Message-ID: <cmtfuzYFZMj7WozUoEjFs3RxYWe9UgdY5rK3ZGT7CPwO1mpemvEwNhG4v5ucoKBgUHMqFa7kSzOvLjFcVcxAybfmKdURZ4h-qoKX1lHXlAA=@proton.me>
+Feedback-ID: 205449183:user:proton
+X-Pm-Message-ID: c38ae376d3bc2a6c337eca8d28b04e53faf2a787
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,30 +60,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <SN1PR12MB2528906BE220765FAF201080A5612@SN1PR12MB2528.namprd12.prod.outlook.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: multipart/mixed;
+ boundary="b1=_kzBFLx7iHgjUHNurMWuTQCh250lsH2OVRDJ5zxSdQ4M"
 
-On Mon, Oct 26, 2026 at 11:51:11AM -0500, Victor Chernyakin wrote:
-> Prepare iio_format_value for an upcoming patch that adds formats up
-> to IIO_VAL_DECIMAL64_YOCTO (a scale of 24 digits) by avoiding
-> computing 10^scale when doing so would overflow, and by avoiding
-> undefined behavior due to abs(LLONG_MIN) (which couldn't happen
-> previously).
+--b1=_kzBFLx7iHgjUHNurMWuTQCh250lsH2OVRDJ5zxSdQ4M
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-...
+Hi,
 
-> +#define GREATEST_POWER_OF_10_THAT_FITS_IN_S64 18
+This is an RFC patch for a binfmt_misc_select tracepoint. The patch
+was tested on v7.3-rc7, but I currently have limited computer access
+and no usable SMTP setup, so I could not send it with git send-email.
+I know patches should be inline; the patch is attached as
+0001-binfmt_misc-select-tracepoint.patch, and I can resend it inline
+once I have access to a suitable environment.
+--b1=_kzBFLx7iHgjUHNurMWuTQCh250lsH2OVRDJ5zxSdQ4M
+Content-Type: text/x-diff; name=0001-binfmt_misc-select-tracepoint.patch
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename=0001-binfmt_misc-select-tracepoint.patch
 
-It's an interesting name for log10(2^63).
+RnJvbTogRW5lc2hhbiBFcmRvxJ9hbiBLYXJhY2EgPEJveFN0cmlrZXNUZWFtQHByb3Rvbi5tZT4K
+U3ViamVjdDogW1JGQyBQQVRDSF0gYmluZm10X21pc2M6IGFkZCBiaW5mbXRfbWlzY19zZWxlY3Qg
+dHJhY2Vwb2ludAoKQSBiaW5mbXRfbWlzYyBlbnRyeSBjYW4gc2VsZWN0IGFuIGludGVycHJldGVy
+IGZvciBhbiBleGVjLiAgV2l0aCBhIEJQRgonQicgaGFuZGxlciwgdGhhdCBzZWxlY3Rpb24gY2Fu
+IGJlIG1hZGUgYnkgYSBCUEYgc3RydWN0X29wcyBwcm9ncmFtLgpUaGUga2VybmVsIGNvbW1pdHMg
+dGhlIGRlY2lzaW9uIGluIGJwcm0tPmludGVycCBhbmQgYnBybS0+ZmxhZ3MsIGJ1dCBpdApkb2Vz
+IG5vdCBlbWl0IGFuIGV2ZW50IGF0IHRoZSBzZWxlY3Rpb24gcG9pbnQuCgpFeGlzdGluZyBvYnNl
+cnZlcnMgaGF2ZSB0byByZWNvbnN0cnVjdCB0aGUgZGVjaXNpb24gZnJvbQovcHJvYy9QSUQvZXhl
+LCBBVF9FWEVDRkQsIEFUX0ZMQUdTLCBvciAvcHJvYy9QSUQvbWFwcy4gIFRoZXNlIHNvdXJjZXMK
+YXJlIG1vZGUtZGVwZW5kZW50OiBhIHRyYW5zcGFyZW50IGRpc3BhdGNoIHN0aWxsIHJlcG9ydHMg
+dGhlIG9yaWdpbmFsCmJpbmFyeSBpbiAvcHJvYy9QSUQvZXhlLCBhbmQgYSBzaG9ydC1saXZlZCBw
+cm9jZXNzIGNhbiBleGl0IGJlZm9yZSB0aGUKb2JzZXJ2ZXIgcmVhZHMgaXQuICBBIGNsYXNzaWMg
+ZGlzcGF0Y2ggcmVwb3J0cyB0aGUgaW50ZXJwcmV0ZXIsIGJ1dApub3Qgd2hpY2ggaGFuZGxlciBz
+ZWxlY3RlZCBpdCBvciB3aGljaCBpbnZvY2F0aW9uIGZsYWdzIHdlcmUgdXNlZC4KCkFkZCBhIHRy
+YWNlcG9pbnQgYWZ0ZXIgdGhlIGludGVycHJldGVyIGFuZCB0aGUgaW52b2NhdGlvbiBmbGFncyBh
+cmUKc2VsZWN0ZWQuICBJdCByZXBvcnRzIHRoZSBiaW5hcnkgZmlsZW5hbWUsIHRoZSBzZWxlY3Rl
+ZCBpbnRlcnByZXRlciwKdGhlIGhhbmRsZXIgbmFtZSAoZm9yIEJQRiBoYW5kbGVycyksIHRoZSBp
+bnZvY2F0aW9uIGZsYWdzLCBhbmQgdGhlCnBpZC4gIFRoZSBmbGFncyBhcmUgbWFza2VkIHdpdGgg
+TUlTQ19GTVRfSU5WT0NBVElPTl9GTEFHUyBzbyB0aGF0CnN0YXRpYyBlbnRyeSBzdGF0ZSBkb2Vz
+IG5vdCBsZWFrIGludG8gdGhlIGV2ZW50LgoKVGhlIHRyYWNlcG9pbnQgaXMgb2JzZXJ2YWJpbGl0
+eSBvbmx5OyBpdCBkb2VzIG5vdCBjaGFuZ2UgZXhlYwpiZWhhdmlvci4KCkFzc2lzdGVkLWJ5OiBM
+TE0KU2lnbmVkLW9mZi1ieTogRW5lc2hhbiBFcmRvxJ9hbiBLYXJhY2EgPEJveFN0cmlrZXNUZWFt
+QHByb3Rvbi5tZT4KLS0tCgpUaGlzIGlzIGFuIFJGQy4gIEEgc21hbGwgUG9DIGFuZCBzaG9ydCBB
+L0IgcmVzdWx0cyBhcmUgYXZhaWxhYmxlIGZvcgpjb250ZXh0OyB0aGV5IGFyZSBub3QgbmVlZGVk
+IHRvIHJldmlldyB0aGUgcGF0Y2guCgogZnMvYmluZm10X21pc2MuYyAgICAgICAgICAgICAgICAg
+IHwgIDggKysrKysrKysKIGluY2x1ZGUvdHJhY2UvZXZlbnRzL2JpbmZtdF9taXNjLmggfCA1MiAr
+KysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKwogMiBmaWxlcyBjaGFuZ2VkLCA2
+MCBpbnNlcnRpb25zKCspCgpkaWZmIC0tZ2l0IGEvZnMvYmluZm10X21pc2MuYyBiL2ZzL2JpbmZt
+dF9taXNjLmMKLS0tIGEvZnMvYmluZm10X21pc2MuYworKysgYi9mcy9iaW5mbXRfbWlzYy5jCkBA
+IC00MSw2ICs0MSw5IEBACiAKICNpbmNsdWRlICJpbnRlcm5hbC5oIgogCisjZGVmaW5lIENSRUFU
+RV9UUkFDRV9QT0lOVFMKKyNpbmNsdWRlIDx0cmFjZS9ldmVudHMvYmluZm10X21pc2MuaD4KKwog
+LyogRW50cnkgc3RhdHVzIGFuZCBtYXRjaCB0eXBlIGJpdCBudW1iZXJzLiAqLwogZW51bSBiaW5m
+bXRfbWlzY19lbnRyeV9iaXRzIHsKIAlNSVNDX0ZNVF9FTkFCTEVEX0JJVAk9IDAsCkBAIC02NDQs
+NiArNjQ3LDExIEBACiAKIAlmbGFncyA9IGVudHJ5X2ludm9jYXRpb25fZmxhZ3MoZm10LCBicHJt
+KTsKIAorCXRyYWNlX2JpbmZtdF9taXNjX3NlbGVjdChicHJtLCBpbnRlcnByZXRlciwKKwkJCQkg
+dGVzdF9iaXQoTUlTQ19GTVRfQlBGX0JJVCwgJmZtdC0+ZmxhZ3MpID8KKwkJCQkgZm10LT5icGZf
+b3BzLT5uYW1lIDogIiIsCisJCQkJIGZsYWdzICYgTUlTQ19GTVRfSU5WT0NBVElPTl9GTEFHUyk7
+CisKIAkvKiBObyBhcmd2IGlzIGJ1aWx0IGZvciBhIHN0YWdlZCBhcmd1bWVudCB0byBsYW5kIGlu
+LiAqLwogCWlmICgoZmxhZ3MgJiAoTUlTQ19GTVRfTE9BREVSIHwgTUlTQ19GTVRfVFJBTlNQQVJF
+TlQpKSAmJgogCSAgICBicHJtLT5icGZfaW50ZXJwX2FyZykKCmRpZmYgLS1naXQgYS9pbmNsdWRl
+L3RyYWNlL2V2ZW50cy9iaW5mbXRfbWlzYy5oIGIvaW5jbHVkZS90cmFjZS9ldmVudHMvYmluZm10
+X21pc2MuaApuZXcgZmlsZSBtb2RlIDEwMDY0NAotLS0gL2Rldi9udWxsCisrKyBiL2luY2x1ZGUv
+dHJhY2UvZXZlbnRzL2JpbmZtdF9taXNjLmgKQEAgLTAsMCArMSw1MiBAQAorLyogU1BEWC1MaWNl
+bnNlLUlkZW50aWZpZXI6IEdQTC0yLjAgKi8KKy8qCisgKiBUcmFjZXBvaW50IGZvciBiaW5mbXRf
+bWlzYyBiaW5hcnkgdHlwZSBoYW5kbGVyIGRpc3BhdGNoLgorICoKKyAqIEZpcmVzIG9uY2UgZm9y
+IGV2ZXJ5IGV4ZWMgYSBiaW5mbXRfbWlzYyBlbnRyeSBtYXRjaGVzLCBhZnRlciB0aGUKKyAqIGlu
+dGVycHJldGVyIGFuZCB0aGUgaW52b2NhdGlvbiBmbGFncyBoYXZlIGJlZW4gc2VsZWN0ZWQuIFVu
+bGlrZQorICogc2NoZWRfcHJvY2Vzc19leGVjICh3aGljaCByZXBvcnRzIGJwcm0tPmZpbGVuYW1l
+KSBhbmQgL3Byb2MvUElEL2V4ZQorICogKHdoaWNoIGEgdHJhbnNwYXJlbnQgZGlzcGF0Y2ggc2V0
+cyB0byB0aGUgYmluYXJ5KSwgdGhpcyByZXBvcnRzIHRoZQorICogaW50ZXJwcmV0ZXIgdGhhdCBh
+Y3R1YWxseSBydW5zLCBzbyBvYnNlcnZlcnMgY2FuIHNlZSB0aHJvdWdoIGEKKyAqIHRyYW5zcGFy
+ZW50IGRpc3BhdGNoLgorICovCisjdW5kZWYgVFJBQ0VfU1lTVEVNCisjZGVmaW5lIFRSQUNFX1NZ
+U1RFTSBiaW5mbXRfbWlzYworCisjaWYgIWRlZmluZWQoX1RSQUNFX0JJTkZNVF9NSVNDX0gpIHx8
+IGRlZmluZWQoVFJBQ0VfSEVBREVSX01VTFRJX1JFQUQpCisjZGVmaW5lIF9UUkFDRV9CSU5GTVRf
+TUlTQ19ICisKKyNpbmNsdWRlIDxsaW51eC90cmFjZXBvaW50Lmg+CisjaW5jbHVkZSA8bGludXgv
+YmluZm10cy5oPgorCitUUkFDRV9FVkVOVChiaW5mbXRfbWlzY19zZWxlY3QsCisKKwlUUF9QUk9U
+TyhzdHJ1Y3QgbGludXhfYmlucHJtICpicHJtLCBjb25zdCBjaGFyICppbnRlcnAsCisJCSBjb25z
+dCBjaGFyICpoYW5kbGVyLCB1bnNpZ25lZCBsb25nIGZsYWdzKSwKKworCVRQX0FSR1MoYnBybSwg
+aW50ZXJwLCBoYW5kbGVyLCBmbGFncyksCisKKwlUUF9TVFJVQ1RfX2VudHJ5KAorCQlfX3N0cmlu
+ZyhmaWxlbmFtZSwJYnBybS0+ZmlsZW5hbWUpCisJCV9fc3RyaW5nKGludGVycCwJaW50ZXJwKQor
+CQlfX3N0cmluZyhoYW5kbGVyLAloYW5kbGVyKQorCQlfX2ZpZWxkKHVuc2lnbmVkIGxvbmcsCWZs
+YWdzKQorCQlfX2ZpZWxkKHBpZF90LAkJcGlkKQorCSksCisKKwlUUF9mYXN0X2Fzc2lnbigKKwkJ
+X19hc3NpZ25fc3RyKGZpbGVuYW1lKTsKKwkJX19hc3NpZ25fc3RyKGludGVycCk7CisJCV9fYXNz
+aWduX3N0cihoYW5kbGVyKTsKKwkJX19lbnRyeS0+ZmxhZ3MgPSBmbGFnczsKKwkJX19lbnRyeS0+
+cGlkID0gY3VycmVudC0+cGlkOworCSksCisKKwlUUF9wcmludGsoInBpZD0lZCBmaWxlbmFtZT0l
+cyBpbnRlcnA9JXMgaGFuZGxlcj0lcyBmbGFncz0lI2x4IiwKKwkJICBfX2VudHJ5LT5waWQsIF9f
+Z2V0X3N0cihmaWxlbmFtZSksIF9fZ2V0X3N0cihpbnRlcnApLAorCQkgIF9fZ2V0X3N0cihoYW5k
+bGVyKSwgX19lbnRyeS0+ZmxhZ3MpCispOworCisjZW5kaWYgLyogX1RSQUNFX0JJTkZNVF9NSVND
+X0ggKi8KKworLyogVGhpcyBwYXJ0IG11c3QgYmUgb3V0c2lkZSBwcm90ZWN0aW9uICovCisjaW5j
+bHVkZSA8dHJhY2UvZGVmaW5lX3RyYWNlLmg+Cg==
 
-This, along with log10(2^64 - 1) should be added as definitions at least
-IIO-wide. There is a series that wanted similar for u64.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+--b1=_kzBFLx7iHgjUHNurMWuTQCh250lsH2OVRDJ5zxSdQ4M--
 
