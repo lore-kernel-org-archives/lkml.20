@@ -1,102 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793017340;
-	b=bzqAIMrt6gPtQ1TFfWZK4QIP4T6bqiEKKMgt/7kkDs/yOrizqwmeg9ZXIrkqWqzOWQv5
-	 Ef6LXMFpVoewAzBbggFRmB3EaP/lKbE5uq3ntBqsOYufTGG5fWYYfgUVEjDvZ+3U8PH1C
-	 25nG0oyhMnC78TC46kV1qGHH/Ezq/0pDK72NdFxpsPMoKymOi2ridUsmu+Sn/Y3kb4F9H
-	 bUvMhBDTxCKTm7aoHSoMRldGpwO59VMU/0+Ki5Xs9kiBhqefTgl/RFVUxOTkCWKs3VgtH
-	 hMdmN+N7gAvzTnMXBZkZlvOSClTTiSIqpGDGtCTJg+W7mfzC7iRo1j1r2BDD6uzZOCw==
+	t=1793017367;
+	b=kkPfD9XWE4KX8J5FF9ZirKPHoE52gORcnt9Ierv9j1L6y845hBsEUAvpyzC/phIqIt7X
+	 mpaoybLSC3jbNAPNwWCG0iO6zU7OacjS+eSMIurhLxF/wlFHuDRW7o6XMozJY5dXZjBgk
+	 2FOze8UP/S74s82lWWxybxPAfTwcUubQMAkaUvIguYUOi75wfzpDXCR3eDK6BP8hHovxg
+	 W/5h++LcdmerbCTSJEtz8oaaZ1I5Lqulc2F/PCMq64Jpv9ffXgvMVAHMVYBdBhoV+YQQt
+	 geQkqW7JdVg3X6YoPPD/mBJUiEjyN+2fxjQh2YNYOPt9h/u4MDL0wT+7GxtKkXztdkg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793017340;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=PJP1r5/GuQZwv1AbNOj2FluY2esrMbEg2unT6FQO/Lk=;
-	b=QnxkIamzR8jc3ToAhUcQgQbULoMuu6Onctxw0uOkTqAkIiLDuqyRgXKW6EzDtPmU3O+e
-	 y5LKZW0c3bYbFQ1fnQh5l95ieAQhvCiOgPZ0miTFYzXsDcjCYYcOhjUrKWczcK4/xomis
-	 jwM7zSJsQAjj9bCV6v4qO+iukLOpYXOk/ptyeS6NIPSCCb5djyaMzCMcRyynTZOtbh+wn
-	 rGzVqB0oxJBE3ms8YDtsNtTFKsdRVVY5V20YWSL0bIDbvBNuymivoCf01KbFIXAHNRPAP
-	 mHbqT25A3DXQcAmmpLXX74931KQwj8aH/DRLSRrFWZpfvMYIpNa+Cn99y6WUKyViRPQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793017367;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=RRJWtqm2l0xH+h0URe8qzmm/igRf8rcF8bV+QoG3lFA=;
+	b=Evm2a/W1yT+PfN9tKB8CXkxlQMVP9Uxk2wKoIWgT8KmwlY7fJiT8M/1R+6FUgm9GX5MN
+	 depqnf8JEZXgbWhM9disyKvYwlb1L1Z5qyH112OZxdVYtxAPYgMdpwjwULVofiCYFwCuM
+	 oSaB52BJDLXECLz5MDbrKi5slb6cR0v451zQxiWR0HIn74BrFdE/qaKTCXxNIlY6bvyCH
+	 giLGXCILau5DreXXIovlRy7ccFGcVEbcbMTIjiHi6k1sHccaG4Qhrzv9xfUF4k5dVuVRA
+	 A4CU2BUv9tVLqTRhh/IBrVP5yVcBROSF3z2EcLaMMy5OZErjvcA3dy54L08iLt4Bleg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=hCGtBGqE;
-	arc=none smtp.remote-ip=209.85.222.53
-Received: from mail-ua1-f53.google.com (mail-ua1-f53.google.com [209.85.222.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="K3yXPm5/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAFAF606A31B
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:22:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AAFAF606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6415A606A31A;
+	Mon, 26 Oct 2026 12:22:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=hCGtBGqE
-Received: by mail-ua1-f53.google.com with SMTP id a1e0cc1a2514c-9907fa1d2d1so495069241.3
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 05:22:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793017339; x=1793622139; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=PJP1r5/GuQZwv1AbNOj2FluY2esrMbEg2unT6FQO/Lk=;
-        b=hCGtBGqErUXyKcyFDWAEr7zieuwbCnJOQBfQ+KEuf/wRvp5C3X/kvgufga2Fus3+TI
-         JGvipk6tTyEbL/E5aW73SSvEe46Cc5fwK25STI3XHB76CJ7oVUTx4+k+QlICIwJ7xR4B
-         9wtDDFaj95vZWxTPnw2fPHJ9456MDK/plNxng2ACXpQia0w0tHr7Ygh8eKvqL7VtB6s+
-         itlo2eDi5isgYaTFl9gNq3whanasFKQCtSv3c4BQ+XIyKxh7oyon+Pv2QcDti2TLC4Wf
-         yoFC96+84vfjDF2noO/psLKp5R1CVDzqO0xTrGJ5Hid6J0eL74xYmmKahcui4IMSqr7a
-         oeRw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793017339; x=1793622139;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PJP1r5/GuQZwv1AbNOj2FluY2esrMbEg2unT6FQO/Lk=;
-        b=yH2mb9c+4zEwH4K5F1k7/i9zvjQwOK6029iLT/cJ8UH1eQamHXlcMbGBFhIDZShd0r
-         7k9xUMcNnr2wmA9n11DEhYbDooQo5t8j7UUN/fuYHBGFlNm7IlVa/QB0BWxkSCDF+L9H
-         oHXBLbCQjZGsvw4KXoF5cCC60IvgC+um4bPwEVaZQjTFglAB+tfEneez4p4dI2pT71/3
-         L/ktWB5kItRNTUGmaEs8vBldWU2Hcus8NrrslZ1DKyWwUAeiF+IaQ2kIlXBAjgQehbwI
-         OoIEjuHTmRlcguCv7X3+hfa+GDUDdcjRsRWkjwb8/0o1vQpCZYDE+/FfnxQGv1Vxz38x
-         tgOQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwwOYo5MT/GSMdPpg3Ack7Q5CdYoGl8DHTNyGDbSP3caTbjESwmUeFCY2f4fTsoSkEH713FiAr2fapn12Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJijnAJWqOvgHEjILVhjrjLqPDB/es22dW4ZCNvyM1jkNS1guh0
-	0nd7riTNIRho5xq5uBatOrO1J2+8qdYzNdTJCHAhMNoiOxTqd/jZK/wI
-X-Gm-Gg: AYBFou2ryQ9F3RzHdTzga2zBdLaew0SkQiy7QqLDfrTM3gQ7tEhPl+sBmhQfgANWevJ
-	yG05qTHNJ3EflAsWY4kEENrgoR3UVmza91DxxAbJw3EORdhSUD4HHIU/nAgYwHDo/FQMHJ3mgUN
-	OoDIgiSCFip+uintiqcY5Okwa9+izAQpNLWxSJeLBDN5vLOc0Hgc+ds0xpnZUNlh07+00Qiz0aP
-	2od5hxpYeiaLzkYa2NgfiDsidNDfh4Sb0fR65lAhwwHMeGiMLZIZhN/A/2MNuYaF1tYFeNvWwMC
-	MPQIqCAXvj5LKbYe+W0rsIAlDIRQjBVDXYsd4ISEiLR8FPVij7Y1W/7Pxc1wp+4/aCRnDQx3ALJ
-	Q9KcHQrafxFWJKNdbQIz0EQjEfh92ZwQFqElqYVcnP6KH0Tb66UbX5qFSKvrJ7rTbrEpsb4y3E6
-	ldUDQm4jBQALE+gW6xX90hi7jW+n87cw944K+ZpZ4H2Yanops0R14wwTXGyEDTvGqLMcHFSqTVM
-	t6YAbdx+umrrfc1ZvcnajNilLcqrZl071Nxh3FzU4Uy+KOr2K/oJzANjcDQ1pRbtsWTt0HeIMhB
-	HJnJsxnQSgzXNssCz7osuKbjxBT85/rGj6G79ZbZ5souUEdTmNvNTOBtuE0da+W6TAQeryAs5MW
-	1akNIOeN5sYB/jlAkbmH9FNpQc8y3OzG8mDPTohFzGFa6r2lf8AfPyH/dEvDywoU=
-X-Received: by 2002:a05:6102:14a3:b0:7cc:28a6:ee1c with SMTP id ada2fe7eead31-7ce5ca1e4bbmr1974187137.2.1793017338558;
-        Mon, 26 Oct 2026 05:22:18 -0700 (PDT)
-Received: from c.1.0.f.7.a.5.f.d.4.6.5.7.e.5.4.d.7.3.9.0.c.2.a.3.b.1.0.4.0.8.2.ip6.arpa ([2804:1b3:a2c0:937d:e94c:8101:376c:4b55])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9910e6cfb52sm8155548241.2.2026.10.26.05.22.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 05:22:18 -0700 (PDT)
-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
-To: Jeremy Kerr <jk@codeconstruct.com.au>
-Cc: Matt Johnston <matt@codeconstruct.com.au>,
- Guikun Yang <yangguikun19@qq.com>, David S. Miller <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject:
- Re: [PATCH net] net: mctp: free reassembly head skb when key_add fails on SOM
-Date: Mon, 26 Oct 2026 09:22:13 -0300
-Message-ID: <179301733329.91976.14585535037608378942@gmail.com>
-In-Reply-To:
- <426ef7428413b8d05b6cc3ac22e24b1927ab5aca.camel@codeconstruct.com.au>
-References: <179287946888.17431.11219154409333681184@gmail.com>
- <426ef7428413b8d05b6cc3ac22e24b1927ab5aca.camel@codeconstruct.com.au>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K3yXPm5/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A02BC1F01825;
+	Mon, 26 Oct 2026 12:22:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793017367;
+	bh=RRJWtqm2l0xH+h0URe8qzmm/igRf8rcF8bV+QoG3lFA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=K3yXPm5/DJsinKjwvvO6bf0LOL2vawqwdDpyXD5tqG3eAJIITX5pEtXtJbUtP5+WX
+	 xXh1A/TDK4nH/Q1pDQq/DNce6qXrlAYHe4N8nPLlEivekLR6UATMxXpJUbIMa1QpDM
+	 AnyWEMamA94AFT8VZwY+LsGvuoXyH/+6bgmCJGsSXbhGQ5ZTgJx38YYqHOsQ9JwsoQ
+	 cAe1ZZEH2oEsOzVVg/2ci6ifrzU7LcTutv+jvLwgDCQF+vB2yAZf8UbgGsH6Sjd7JW
+	 lhd5QZoYxiEqD5jXgquQMduw2hebHpim4jcIlzmnUatVDKIlLoCLvBTva/RMFt/kbA
+	 qWVEfHxpOmLzQ==
+Date: Mon, 26 Oct 2026 14:22:43 +0200
+From: Leon Romanovsky <leon@kernel.org>
+To: Alex Williamson <alex@shazbot.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
+	Armin Wolf <W_Armin@gmx.de>, David Lechner <dlechner@baylibre.com>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Luis Chamberlain <mcgrof@kernel.org>,
+	Petr Pavlu <petr.pavlu@suse.com>,
+	Daniel Gomez <da.gomez@kernel.org>,
+	Sami Tolvanen <samitolvanen@google.com>,
+	Aaron Tomlin <atomlin@atomlin.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Bradley Morgan <brads@mainlining.org>,
+	Aleksandr Nogikh <nogikh@google.com>, linux-modules@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-usb@vger.kernel.org, driver-core@lists.linux.dev,
+	linux-trace-kernel@vger.kernel.org, Johan Hovold <johan@kernel.org>,
+	Richard Weinberger <richard@nod.at>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jason Gunthorpe <jgg@ziepe.ca>, Bjorn Helgaas <helgaas@kernel.org>,
+	linux-pci@vger.kernel.org
+Subject: Re: [PATCH v4 0/3] driver core: add TAINT_FORCED_BIND for when
+ userspace manually messes with devices and drivers
+Message-ID: <20261026122243.GA28851@unreal>
+References: <20260914-bind_taint-v4-0-eadf8a090903@linuxfoundation.org>
+ <DLIL9H50MALI.3JROXYEEUM3KU@kernel.org>
+ <arIvG0nx4LXG9nlW@monoceros>
+ <defb3953-7516-437e-b70b-d57de55b91bf@baylibre.com>
+ <9bd3a34b-5e98-4038-80d6-da2c3b1948dd@gmx.de>
+ <2026092321-province-yearly-44aa@gregkh>
+ <arOfHEsGGglNse7T@monoceros>
+ <2026092348-victory-erased-0e5a@gregkh>
+ <20261023181326.0dc2f7ed@shazbot.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,34 +89,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261023181326.0dc2f7ed@shazbot.org>
 
-Hi Jeremy,
+On Fri, Oct 23, 2026 at 06:13:26PM -0600, Alex Williamson wrote:
+> On Wed, 23 Sep 2026 12:29:56 +0200
+> Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
+> 
+> > On Wed, Sep 23, 2026 at 11:54:50AM +0200, Uwe Kleine-König wrote:
+> > > > No, drivers should NOT have to do that in their .probe() function,
+> > > > that's what we moved away from decades ago!  The match function should
+> > > > handle all of that for you, otherwise it's contant duplication
+> > > > everywhere that is unneeded.  
+> > > 
+> > > Well then you have to accept that root can provoke a null pointer
+> > > exception (e.g. by forcing the pwm-tegra driver on a device) because at
+> > > least with today's platform bus match function such a match is ok.  
+> > 
+> > Agreed, yes, root can cause a crash and can do tons of horrible things
+> > much worse than this, that's not the issue.
+> > 
+> > That's why this taint is there, to make it obvious that this is not a
+> > "real" bug at all.
+> > 
+> > > > Please, learn from our history, don't make the same mistakes.
+> > > > 
+> > > > Now I might be convinced that driver_override is the way to go here, but
+> > > > it still feels really odd as again, bind/unbind was created as a driver
+> > > > debugging option only, it should NOT be a normal operation that any user
+> > > > should rely on.  The driver should "just work" properly instead, without
+> > > > requiring manual bind work, as that's not a good model at all.  
+> > > 
+> > > I agree in principle, but (in my case wifi) drivers are buggy sometimes
+> > > (due to missing documentation and/or engineering effort) and being able
+> > > to rebind the driver instead of rebooting to get a working device again
+> > > is very useful.  
+> > 
+> > Fine, use it!  Just don't expect that to be "normal".
+> > 
+> > > So yes, theoretically bind/unbind isn't needed, but theory and practise
+> > > differ in practise.  
+> > 
+> > Agreed, but again, don't rely on this as a "real" solution fo ranything.
+> 
+> Sorry, late to the party, but this isn't a few user scripts that rely
+> on this behavior.  Effectively every use case of vfio relies on this
+> behavior.  We rely on unbinding the default driver from the device
+> before using driver_override and drivers_probe.  That means every
+> hypervisor with device assignment and every userspace driver use case
+> now experiences a tainted kernel. That seems like a significant
+> regression.
 
-> [merging two threads here; Guikin reported the same issue, around 12
-> hours earlier]
+Sorry, I was on vacation and missed this change earlier. This change will
+affect SR-IOV deployments around the world, which *rely* on being able to
+bind a driver manually *after* virtual functions are created but before
+they are used.
 
-Thanks, I hadn't seen Guikun's report. If a v2 is wanted I'll add:
+This is needed for two reasons: to save hardware and software resources
+when creating a large number of VFs, and to allow the PCI config space to
+be configured *before* the driver starts using it.
 
-Reported-by: Guikun Yang <yangguikun19@qq.com>
-Closes: https://lore.kernel.org/all/tencent_43A65D51143E18518EA968DF9323694EFD08@qq.com/
+There is no in-kernel alternative.
 
-> We could just defer setting skb to NULL until the mctp_key_add() has
-> succeeded; there's already the common error path that cleans up any
-> remaining skb.
-
-I think that one needs care. For the first fragment, mctp_frag_queue()
-stores skb_unclone_full(skb) in key->reasm_head, and if skb is a clone,
-skb_unclone_full() frees it and returns a copy. The kfree_skb(skb) at
-out: would then free the original a second time, and the copy in
-reasm_head would still leak. Taking skb back from key->reasm_head on
-failure would work, but the explicit free looked simpler to me.
-
-> Alternatively, we could change the semantics mctp_key_unref() to also
-> free any pending reassembly, but I'm okay with the current approach of
-> being explicit about the state handling.
-
-Then I'll keep it as is. Let me know if you want a v2 with the tags
-above.
-
-Thanks,
-Joas
+Thanks
