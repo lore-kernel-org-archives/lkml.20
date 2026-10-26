@@ -1,90 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.51
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793024292;
-	b=aePXPMtbbmx9VYFBle7mzjXXGV1MGrBQ4arQtqvGEkCeKkVm7nYu67rWGlvrQy/XfMuh
-	 NlFJRpRYG0fSUk3jUdWbxl28ELnw3k45XawLSzDSKU5KOyQBsnbGfAV4dNyJJXnKqiFgT
-	 75+FN1tDp1ys1tvUJZGpqyF7OvQyebi4E7AnLdQPdnmAAy3TqgPJjn2QX3I27/9gMJPHv
-	 U2Z2j5qG3V51X9VWtVSZC9T4Wt3oOATUUItqY4xrUIgYTP0PmiiUswlomPRas3i7MOxx+
-	 dxmHZAFT8C2jFg3Vchm1YY4plawsMIcS2RdtZUwdxXt8Yy+fdvL3nEIufNZrsKL37fg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793024292;
-	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
-	 Received:Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
-	bh=N3edpSA7ySWIQbLtFKdR2LcNzow3X8EUsLtkx2rpILw=;
-	b=NBHxvPX0FC3f4aydkEXfRV3kTw3ZPnK1DF2YlCpzTi4KwZ8hPk79ttWauGcO27CLiklF
-	 OLQTAkMCvZRViAyQ27qNPwA2EAmU3ipbdk8pcLfo3UoDDH9rH7pkgQErnVVKQnEwSYcwa
-	 iy+qR+0wwqL++6WiO5FB7+xzWrDCHEkZjQPJlYbimsol/wHQOXZsCbhB3/P8ljUmhBByu
-	 xeaNfN1Cvh97QGMUfGAz0wHcZxRypIHb7jntpJRG7cN4W741bAT3liukW+KEYO9i9v/pr
-	 JGgPhk5EWF4WoffOzEJJ8ApUuCO6oRd8kbo694vzqGsAnkRtk20lsbyn3z8NG/Bt1oQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goldelico.com;
-	spf=pass smtp.mailfrom=goldelico.com;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=PRYQRpDE;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=tCpwcUEk;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.51
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.51])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793024388;
+	b=0NC0AxHMq1gFsEBwrLoVKiMvmcVZOu2z6MzGrvg9XcHh6d6yK7ao6bbA06CiI2l2Zo9d
+	 qLKjcqN+WI6N3j7AWe1ptLniQozM/pOJsiyoCBrcM1Mbx4WTMv3zdrZoV5QRIAp5H4gfo
+	 S0U/4JTqVpyO3EYnEG6byn5HTC2TaymBNpqaV7zJeunb4ag2f/rsIzm9wpB2igL7KENTa
+	 /H2nsbq03NUHi4SfThlzKNRKqyDg4nwZIh2BuioB/6oxaISkdaR94jY54vgP7oe6jj96P
+	 /PqrzMkPipfEdfJq5wC9xKfR+qHCec5btPPNiiUCAFmqf7H7lRL2cvucbzObFSPme/Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793024388;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-TM-AS-GCONF:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=7S8NrrFO+UcOoRR9G69+5Hxw1mUIhcdGNj6WbI3avqw=;
+	b=nBLey0RC8fZwgldW1eBhZ8tgvnSu2boeYbG5C0BtGVhLG+yzwRBB87h4MP++/04hUj4r
+	 rwjzLGNYbGctgJWv3sfsNbC0G0LjSQaCqXp5TpEWT8nyolkcpsA05v0QIFPVRKCTPzdmY
+	 3SGhcz+sQUrQOczOKHO27Lccv5iei06fBOIo/qpD34jKAW3NquuhC3BZghWaB3hKkzYyQ
+	 MRBTE7mzEAugbw01ogcN64jP85/GfGLY1Rd0ELGCX+lybba47GLMm2JLhhkER1cXa/p9g
+	 122s94JHxOz7pjoa9CDAkej7gKWqnT/Yd09S2OGHsvBTCcChC9kIfqUTlSs2oZsZNEQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=Hs7snhHz;
+	arc=none smtp.remote-ip=148.163.156.1
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 041FB606A31A;
-	Mon, 26 Oct 2026 14:18:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 041FB606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B36E3606A31A;
+	Mon, 26 Oct 2026 14:19:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B36E3606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=PRYQRpDE;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=tCpwcUEk
-ARC-Seal: i=1; a=rsa-sha256; t=1793024270; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=hGp9mh23HEGuXtxC/BYxow6/izwgp6zajao0s5YE1thCklRmEmmMgEUSQgKKgK+g7h
-    oXulEdqf9B4wPUh7SpXo4N68ZlnV7Hrd8alJT6gS9yOI/l4EBOUILcgzIUiLS7gx4BOZ
-    SM5ZFoJI1H9y2YYCAaBPPtlOIl2sJNQ4I3NM/XbDQ0o6p6CzU9O+dU2MxhsExsnWN67I
-    f5pRbNCbuR6o2QZAituocsW+2sTdEgBBro/gptuDgvvPkujEH8g3pIJ3oY7UiMdc1Hxc
-    +a6xTYhW2v3a4hFv9HIg1BeeLfmqYOvN/j4QGtOP+P/GyJseXEniaJiLFZTU/mrU5IcH
-    drcA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1793024270;
-    s=strato-dkim-0002; d=strato.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=N3edpSA7ySWIQbLtFKdR2LcNzow3X8EUsLtkx2rpILw=;
-    b=JPlXKmfxF1mMl20hYDwAXMf4lvix7/rP6y1pkjQh2bqSreDHeqSrA3rV2UiZCTOnxt
-    ZgWhpVJY2CJLOtmpyetTrWNxdAsa1g9aMTQI8wspnEtUZXsC0ambNP862T3+v4KxNlD0
-    uCxAVLpLqaukkMu7QqadfmFcKE5UyWuKvem0Le3Th2FdUIcIRImghx4j+E9rUIX3D2Xw
-    ohBS+TnWJD83X9LS8nni5r/6Q9MvBxFiupt1K/5OnzqdmlJxw+Ms+Ps1Atc2ExJ2hmdK
-    eoSqO3k/w7Rb28OEce+P9Y3Wp9aNKnlR/jV8uScs0bp5Gm0C87IriiWFciIbSa0cVJbx
-    5o5A==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1793024270;
-    s=strato-dkim-0002; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=N3edpSA7ySWIQbLtFKdR2LcNzow3X8EUsLtkx2rpILw=;
-    b=PRYQRpDEUQ2CB3frxP9ntrh7Zhn1BYrH8gLi5KDhAnjxX7hEJGOhvjsZ2Z1Cv1Y0iv
-    Wii3JWX2Vk0P4qC0c+oup9M6UWlmaQGyLBlhWc1wDRXkzkJ4JRURyqNsCFMm5nvel7iR
-    hY+NUxck8e03QtzLrYU/df4n5uXrQYTcBn0ZQv8wuHITHjFjGWZYUEQGyq11z9QgS3Al
-    tG/MrBhnyAWUBv9eWXYVfkDxobELinXVyasyuUb2ThHzG0FLUhLvfjkKXBybqjZTLfuv
-    zqOg/9z40Vveqo62Q6SW6GrmeQIHi66MVNB6FX9BFt0QHb6Qdr6sLXBjvpqEZTZSobpk
-    /ixA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1793024270;
-    s=strato-dkim-0003; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=N3edpSA7ySWIQbLtFKdR2LcNzow3X8EUsLtkx2rpILw=;
-    b=tCpwcUEknd/BQMAdiLLFfLOErE+dlBYlnmtrN7T+X9Hq4rs5xmE+0Oy9Hel1KDa+Xg
-    DjNb+qeiMd1o66KyIyDg==
-X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrSipoGzMiNKtQhqZFV7uZXF4WZrMfjk54is0Ge"
-Received: from smtpclient.apple
-    by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id Qb56a229QEHo30Y
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
-	(Client did not present a certificate);
-    Mon, 26 Oct 2026 15:17:50 +0100 (CET)
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=Hs7snhHz
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69QBEXAl3336377;
+	Mon, 26 Oct 2026 14:19:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=7S8NrrFO+UcOoRR9G69+5Hxw1mUIhc
+	dGNj6WbI3avqw=; b=Hs7snhHzGSKJW5eeAVrQLMKqzJGz4rkvt19mPqi6xfMdR5
+	CzAIpbcKM1OTV1/9ouxf9C3I+6r8IEgB/vYgiI1301PHy+ed1RhA5ATvp5e84F5H
+	86FLL76CDsZDkpQvee/hjwrDp/h69gm1zYWJeUD5ni1wGlDwLVVhD9BsdE6E9GOn
+	jgXPdpnKgd4Ja0UmSIWpW4rQAL7pJuYiOIs8/5wvOMtc6JgyJCHJFA1pcgjNrUv0
+	0WHRWEeY0M0ii3CQc/J8d02ml6Md1FIi/VrSP0XGjsQtyz763j23G3OOQp98HJlZ
+	7f8NKLoM4Ai0unL/Wut4n7LyG1il6jTftxjRUTPQ==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hgmd6tdfe-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 26 Oct 2026 14:19:46 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69QB51rl2397576;
+	Mon, 26 Oct 2026 14:19:45 GMT
+Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hh80je9n6-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 26 Oct 2026 14:19:45 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
+	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69QEJfZF36045226
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 26 Oct 2026 14:19:41 GMT
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id A43202004F;
+	Mon, 26 Oct 2026 14:19:41 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 56B432004D;
+	Mon, 26 Oct 2026 14:19:41 +0000 (GMT)
+Received: from osiris (unknown [9.111.54.64])
+	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Mon, 26 Oct 2026 14:19:41 +0000 (GMT)
+Date: Mon, 26 Oct 2026 15:19:40 +0100
+From: Heiko Carstens <hca@linux.ibm.com>
+To: Ilya Leoshkevich <iii@linux.ibm.com>
+Cc: Alexander Gordeev <agordeev@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org
+Subject: Re: [PATCH 4/4] s390/maccess: Remove spinlock from
+ __s390_kernel_write()
+Message-ID: <20261026141940.23278A26-hca@linux.ibm.com>
+References: <20261026120329.1792436-1-hca@linux.ibm.com>
+ <20261026120329.1792436-5-hca@linux.ibm.com>
+ <b27e1bb4-9112-4df0-9595-90b5419acafa@linux.ibm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,72 +94,88 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.10\))
-Subject: Re: [PATCH 1/6] MIPS: Ingenic: Fix inverted MIPS_NO_APPENDED_DTB
- logic in Kconfig
-From: "H. Nikolaus Schaller" <hns@goldelico.com>
-In-Reply-To: <089587a1ac49395ef5d15b59c5ff5c9bf8ab68f6.camel@crapouillou.net>
-Date: Mon, 26 Oct 2026 15:17:19 +0100
-Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- Paul Burton <paulburton@kernel.org>,
- "Maciej W. Rozycki" <macro@orcam.me.uk>,
- linux-mips@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- letux-kernel@openphoenux.org,
- kernel@pyra-handheld.com
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <669B446E-0567-472B-B15F-ECF1EA49413D@goldelico.com>
-References: <cover.1792956055.git.hns@goldelico.com>
- <7733ca05b6a245e5a9ad414cc754ccc9ece6dc85.1792956055.git.hns@goldelico.com>
- <089587a1ac49395ef5d15b59c5ff5c9bf8ab68f6.camel@crapouillou.net>
-To: Paul Cercueil <paul@crapouillou.net>
-X-Mailer: Apple Mail (2.3826.700.81.1.10)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <b27e1bb4-9112-4df0-9595-90b5419acafa@linux.ibm.com>
+X-TM-AS-GCONF: 00
+X-Authority-Analysis: v=2.4 cv=ZYOIpcVA c=1 sm=1 tr=0 ts=6adf6182 cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=TeQbl-Lp8jTY6H95fDwA:9
+ a=CjuIK1q_8ugA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA1NiBTYWx0ZWRfXzwv62KGbtYPz
+ aCyzgA9lO36PIiRPuMHQ4iNY0oRp1YhdNDXVv8Lgf2nEC2RNYnxj8ZfdnEp9NtHggBs+W5A2fSN
+ JoJgxgdpW3sZmXYktegFi3rxWdnZnGfU9vnhR/I+iZhc+H2wqXQFpSG3gO1XU3z3dM6QC9kW7EJ
+ 2VkUPs2w4c6KzarPLPzZJlY+xAyIIGooo+GUnvKpJPMqMlAGfZNmrhfNrYcvappwZcYDMohzljn
+ rg7DSZEWDYoJDZDKoyZX2BCZIJn/zVKPNICByLpT044yUy7hbp3RFDNFjLJ+YzxykyWocGVVfrC
+ PzmCPCWPd4pOoeNg66xLnssxOkJilM6L7ScJ1k3Okiavf2aKQLJP6XyxjWmjn0508sqVtWTXIS0
+ BGKfKnEyeAqN3RuYKKvPUtF74oK59zWFPWtxg0b1sHCIj8sWGCLzKZHbiBc+TWpzd4qP/rph+IV
+ yTtjK79AW0sRxajpzFg==
+X-Proofpoint-GUID: bygq6PpUqhuJ7q5ug-0wX7pVSyDoS53j
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA1NiBTYWx0ZWRfXx7F7wKbYik0O
+ /esmZv+ieJuCYHlpYndnSMqxBVI2xZNu4Mucq0eDxirITlBmJwb8dJgAlKgMKhA0VwCVZtRBZzk
+ A6yqTL2j57JL+g20POWnFODyH8eFtzo=
+X-Proofpoint-ORIG-GUID: bygq6PpUqhuJ7q5ug-0wX7pVSyDoS53j
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-26_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 priorityscore=1501 suspectscore=0 phishscore=0 clxscore=1015
+ bulkscore=0 malwarescore=0 lowpriorityscore=0 spamscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610260056
 
-Hi Paul,
+On Mon, Oct 26, 2026 at 02:04:02PM +0100, Ilya Leoshkevich wrote:
+> On 10/26/26 13:03, Heiko Carstens wrote:
+> > The spinlock in __s390_kernel_write() was introduced to serialize the
+> > read-modify-write sequence against concurrent callers. Now that all
+> > relevant runtime callers of s390_kernel_write() hold the text_mutex, the
+> > spinlock is not required anymore.
+> 
+> Do we want to enforce this with __must_hold?
 
-> Am 26.10.2026 um 00:41 schrieb Paul Cercueil <paul@crapouillou.net>:
->=20
-> The original code is not an 'unintended behaviour', it works as it was
-> designed to work: if the kernel is not configured for an appended DTB,
-> then a DTB should be built-in. This is because on Ingenic SoCs at
-> least, at the time this code was written no bootloader was passing the
-> DTB to the kernel.
->=20
-> I understand your usecase (which is very reasonnable) but this fix as-
-> is only fixes things for you, while breaking every other board.
->=20
-> I'd suggest to fix it by adding a proper description to BUILTIN_DTB =
-(so
-> that it can be selected from the UI or a defconfig), then update all
-> arch/mips/configs/ for Ingenic based boards to enable
-> CONFIG_BUILTIN_DTB=3Dy unless they rely on the appended DTB
-> functionality. Then this "select BUILTIN_DTB if MIPS_NO_APPENDED_DTB"
-> Kconfig dependency can be retired.
+Initially I thought that wouldn't be necessary, since "I know what I'm doing"
+:) But Sashiko already complained that this might not be safe. So I'm going to
+had the mutex to all callers of s390_kernel_write(), and add __must_hold too,
+like you propose.
 
-Thank you for the detailed feedback and for explaining the historical
-background. That makes perfect sense.
+> > -	spin_unlock_irqrestore(&s390_kernel_write_lock, flags);
+> > +	sync_core();
+> > +	preempt_enable();
+> >   	return dst;
+> >   }
+> 
+> I've been looking at sync_core() and started thinking about the safety
+> of this interface w.r.t. CPUs concurrently executing the code being
+> patched, since locking protects only against concurrent readers and
+> writers, but not executors.
+> 
+> If there is only one active CPU, for example, during ftrace
+> initialization, then everything is fine.
+> 
+> If there are other active CPUs and we make modifications within a single
+> aligned u64, then sync_core() is required, because even though
+> text_poke_sync() nominally takes care of this, it may sync our core
+> last. However, I wonder, what would it take to make it always sync the
+> current core first?
 
-I will follow your suggestion and add split this in a V2 patch series so =
-that:
-- Adds a proper prompt/description to BUILTIN_DTB so it becomes =
-user-selectable
-- Update the existing Ingenic defconfigs to explicitly enable =
-CONFIG_BUILTIN_DTB=3Dy
-  where needed (I think there are just 4 cases)
-- Remove the automatic select BUILTIN_DTB if MIPS_NO_APPENDED_DTB from =
-MACH_INGENIC.
+Maybe I don't understand your point, but I added the preempt_disable() /
+preempt_enable() pair exactly for this reason: make sure that the writer syncs
+first - only calling text_poke_sync() afterward does not guarantee anything
+due to preemption (well, that's not true since there are many implicit
+synchronizations before the next CPU runs, but the point of this was to make
+everything explicit, and not "hope" that things work).
 
-This should cleanly support my (and likely other's) use case of a
-bootloader-provided DTB without breaking any existing board.
+> Finally, and most importantly, if there are other active CPUs and we
+> patch multiple u64s, then we are broken, since the other CPUs may see
+> partial instructions. I'm not sure if it's worth bothering with, but
+> maybe consider adding a WARN_ONCE() to guard against this?
 
-BTW: we have this working with U-Boot on CI20 as well. So a generic =
-ingenic
-kernel and all board specific cases in the DTB.
+Initial alternatives patching might indeed patch multiple instructions in a
+row, and that's a valid use case, since the code is guaranteed to be not
+executed anywhere...
+So a WARN_ONCE() would at least find one false positive :)
 
-I'll update and also consider the feedback from Sashiko-bot and others =
-for
-the other patches in this series.
-
-BR and thanks,
-Nikolaus
-
+I don't think we should go this route (when is it valid to patch more than one
+instruction, when not). As of now no code is doing that.
