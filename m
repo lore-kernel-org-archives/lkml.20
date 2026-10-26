@@ -1,49 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.111
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793008807;
-	b=XT/yHqYFNtB0eblqutp8v6Gqu2GqrOI/dqZYG8tWLbKqP6EpefkM3jgVNMCGhEZ0Rwyf
-	 io3AqMrd8wncwaON9eA8vbMaVcZIz9/25NRHt1VAQag3DqjFj6y2AyyE0ViFeHB8xRQn+
-	 HCIpCY+2AKkKE2dN2qoWUhL1/WMD1vZY/EwQ8P8CsFQDUr9ESMGf/B1o5gLLvONZ7AQ6B
-	 vASAySKU8vTGDcAoWX/NFlWOe04jPCBT11UmTacksZAXnzMP6xr+dFC9dBFFlCYC/rVk4
-	 BFIiN9mpXuonE9PA1kEmOWy0dz+HZGV1YohBfLr5+m3tvvH7+o/zgrbG2f6tcDnHY7g==
+	t=1793008813;
+	b=1xf7Ez3FBpF5WJjPxpIaaHQaaW5d/tTe4DdmeyhTGiNN9gX4ORQn8gy4TujoEMnoHhwP
+	 uVWwaz+nVLQiiRiRDxSV9NBblwP5l5xaWRJwJkBqSZki7DzBFepT7RZYtIJu8KYuXH3c1
+	 6AS/sEqNtLBUx+JOKoYJtWYCrT1sgKSF+pweCMBukD6W37CBiThKsAys8WVOthwXjFz9T
+	 UeDmMsxkzGpt/MF3ELLUoJTw7LMEijbETWAgFgFw2HJf9MbN1hhNDENdEMvfBL0BQnP5X
+	 Vbz547DcLtkBNS+WmM/S7hJqlSuc5cCpLD6YwEoDb22lnPAZKarLDJiHgMNfPT6Uofw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793008807;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=F/pa/uFhSJPFHIEewk36wTKJdJWq4rFHLThxtYs5ePs=;
-	b=Nx0jLcGNNGjfEJ8RLn/n8BKkZ/Qw4kL6WSdBcwcHv5zkV8x88z43NETpzn16hdeFcG9p
-	 rJVHrUXtjhgWT40xHVg/768Dk7Rds3aXKbPRdrW0jze//i4TbzlkLAN5HRDZIWMF8WoY0
-	 exrg9XcQJQlnyowDr5hxE7vClz3xWmhl1aqyggjcJzWRb+L7MS9KeDGToLFT6I3Q4YnHN
-	 6aWjH7Wtbjxb9SXDy9JbP1AX7ftUOsMnw3Z2mM7TQ8meeaQuAF5gatZiQ7loovKm62Xvk
-	 qFrWPznWvj1GycOrLuLr0vZFYM/zvrNY1QDmV2StoD/d8un1sPqENESnU8unnGkDiOw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793008813;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=JxMaWVtUV0uwXPkwo9Mu+D6xSwARN7kCHxKOQvkbv58=;
+	b=2oYgcaOGjMvwqNmVpqWsnZdbW1IMEZ9dEaQh2u9HLC6vSjsiXTAs4H6AAbOzfL3uNdxh
+	 RzTzpDXqAtW9++/KV1ctu0sxXzrX5gorokwvBTPoQreS08tqCB/cv2UYvor7Srp2D47vP
+	 wpMjNkBuBKg/sEr+V1UjLqqDqSlyZXkYhtmdb27AFOaPBw/mc610r3stAmePh1AlGovGr
+	 E/id1Woko/nNS7YXvItmMmeq42H3hcVvZs7cYlsH4tyIWF3gaRmaRtOMh3KtZDv0TnlLd
+	 g9MjjoFFrVwdCh0IssCqydcZNkNSAZYY6nKqutOVKKSfKZAXfvUrRRxrgOY8QFDvrqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=dwlM3Jda;
-	arc=none smtp.remote-ip=115.124.30.111
-Received: from out30-111.freemail.mail.aliyun.com (out30-111.freemail.mail.aliyun.com [115.124.30.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="rO9H/JJi";
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6634606B454;
-	Mon, 26 Oct 2026 10:00:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6634606B454
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD915606B468
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:00:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD915606B468
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=dwlM3Jda
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1793008802; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=F/pa/uFhSJPFHIEewk36wTKJdJWq4rFHLThxtYs5ePs=;
-	b=dwlM3JdaG5OIPj4Hpwv6O+JHHTOsMIur4AduK7yfy1WQtq1WlssMpBZ5KPIcbYRGK5R55/izikwaCtLpgnIuI8lQL9f1TE4LBmScw+3iSCX5mqBiJKDafwC+KvB29VhQsgTcT7+EmuneBwXusMiwx/ZH/K9JdowyBgALjAu4Tmc=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R141e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=9;SR=0;TI=SMTPD_---0XDW4SKg_1793008801;
-Received: from 30.221.130.82(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XDW4SKg_1793008801 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Mon, 26 Oct 2026 18:00:01 +0800
-Message-ID: <87a005a4-c61f-4525-a0d1-89bfc6a8f75d@linux.alibaba.com>
-Date: Mon, 26 Oct 2026 17:59:59 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rO9H/JJi
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a208d93758so32041655e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 03:00:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793008811; x=1793613611; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=JxMaWVtUV0uwXPkwo9Mu+D6xSwARN7kCHxKOQvkbv58=;
+        b=rO9H/JJiNVMoiSub6cjqmC2tT3lU2Gip1qc+hCn0V192ZnRtIPYPHh6ywTdpoL67dx
+         u0E7cWwXQA4Ww74WYuBC0SfnqVTzEJ/B0co6Fl6RmJkg9VK36ePgDIKRuio70j+Kniwj
+         9WtODl4KfhStM1ILHf8rjV8fU5A4nVmr3T+itpLquLk/w7elg/qrpM255BdimiA3QwTq
+         u7mjNK/St9prrUNO6Z8YLgWR7PUBI5gbq1c+4L6Gv5QI3VPRBcdpc1nd3ENyFsQhtl+G
+         I7hSH5iUvaEl3Nl2u1zHrqlSOxmu0mqhcre13RDT2dxEFypZ1EKvE7wbxXIStUPHvWYq
+         0mnQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793008811; x=1793613611;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JxMaWVtUV0uwXPkwo9Mu+D6xSwARN7kCHxKOQvkbv58=;
+        b=UktXfeIQU+ltc1hamVt0JHhthzcs9cQFpsCsnXg5Psku+nM1S/HxoYIURfevQ6aAcg
+         UkQkeGkMk0UU3wy5n3JwJzcvWZrXOiq+aFdVr0ffNHLS/h/7P0FbUAdPFAk5vp9T6my9
+         9EjT3fL88vMnRNPKAJ1z2E1ga2gogYnLXPXmNNEKf5ar2PLqVkpUsWHA+rJeyGSsFyIq
+         hRGKt1cNUelKI5vhTOKPYE/Xsc4nzcX8p+IZVAIRrpb+jYM/Cz9Ei2KKKlQKa8fhohe3
+         F8C9fR+ISyEupORWii8gabywmhGYehhiCWbYXcDxavhNmFVtoIgpwfvWiai/lwscqgT7
+         LMjg==
+X-Forwarded-Encrypted: i=1; AKwUvBzHXgRbIwyUiHFjt2wz1EfFCN8PSl5BRuZmC35q0FeW2/XQ1zI4PYgG1ldUJO4S7xHfkQ0cCv5/tR8fzwU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJopiaxp/ciAG2TKPpCdoyw3HmmpjUTiGzboAG0MA/hmwU6J2Ao
+	KHkCEbfUZMbmdW6iW44rF2dKEZUbxPApweXogXhFp8ZjqxPR+8Fuf65P
+X-Gm-Gg: AYBFou0IpngkIZLeR4hRnX8e2bIXcki/33WHGW1XACwe7IBBw4Q5Zalm9/fnlOkCZQi
+	laQWJonueFza4BGty6Z1/LhrwNKWRwX4iEKWuvN4uU6c7qVy71siT//g81tu5EvmbDr0R4iZgUb
+	CvEClmfQML+Ozv094XjrvHpiSFbHDu7iWCPuoobtXFqWdBTJK1wMqCcxibYbYKRBiwfSjYZRcyE
+	xeAAs4uG1N2mebXGhQyPJes81dA4iZAw2BwHqaSIt5/hrVpwHDi/r78eS+G+uJZVqBOGKCkx2V6
+	4UesWesNPe4/z5cVm7pCacHb6ikMOs/9eCbGzLxBjy7fyfg+4NEcObD4wj4odnk8LIZNo3+eH+h
+	AukQOLR9FYvhGUMOSqflLtOmw1PGr8lIb9jCgExuILJSVG8s+VEMOPrB7dcBuB+zNBHc8skkNLr
+	Xy8Or//0Z17BrvaoRZ0x4t6r4BymHXbiBzmPEItuK3ptkwqZfpD9ZxUzZVzVNCl/feYankSRQHI
+	ycTV2BVsFTsJe11F9JPgw95XwCZJlo/1SwJ7CZ4kTbK9TmsGoCIvNtqVk/qmEGmhje26lpnRAfN
+	AFYPc7QhwYFbtTJPoDHiMYOfdLzsWLwL1eZ/oeXCgPN0FmRiBMZAJ4/XU2UfIM/Q3VCm8YbJ6cU
+	oF8BETqGh27SyF3jHlRJDBuEcftZewwPM2Lg6mpySTIRCqK0uvqBo1zkVr1NZFlZvPwYBwSuthv
+	imgwsLbKzDPiTk7XQGKtrRop3cQgxGQU4QYLqbB6tHzloWHUo9eAJYIIZJ7hDQdw==
+X-Received: by 2002:a05:600c:3d8d:b0:4a1:f377:5c75 with SMTP id 5b1f17b1804b1-4a35acc2edbmr93717435e9.33.1793008810377;
+        Mon, 26 Oct 2026 03:00:10 -0700 (PDT)
+Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a359fbc718sm154241835e9.2.2026.10.26.03.00.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 03:00:10 -0700 (PDT)
+Date: Mon, 26 Oct 2026 11:00:08 +0100
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: Olivier Louvignes <olivier@mgcrea.io>
+Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Paul
+ Cercueil <paul@crapouillou.net>, "H . Nikolaus Schaller"
+ <hns@goldelico.com>, linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] iio: adc: Add a driver for the Ingenic X1600 ADC
+Message-ID: <20261026110008.00005296@gmail.com>
+In-Reply-To: <20261026083631.48406-3-olivier@mgcrea.io>
+References: <20261026083631.48406-1-olivier@mgcrea.io>
+	<20261026083631.48406-3-olivier@mgcrea.io>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,194 +106,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] ocfs2: validate move extents against a stable EOF
-To: Cen Zhang <zzzccc427@gmail.com>
-Cc: mark@fasheh.com, jlbec@evilplan.org, heming.zhao@suse.com,
- ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, baijiaju1990@gmail.com, jjzuming@gmail.com
-References: <pm-ocfs2-move-extents-isize-rrw-v4-d4b80ed0748f84dc3f8e@gmail.com>
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-In-Reply-To: <pm-ocfs2-move-extents-isize-rrw-v4-d4b80ed0748f84dc3f8e@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
+On Mon, 26 Oct 2026 09:36:31 +0100
+Olivier Louvignes <olivier@mgcrea.io> wrote:
 
-
-On 10/25/26 12:20 AM, Cen Zhang wrote:
-> The move-extents range must be bounded by the inode size used for extent
-> movement. ocfs2_ioctl_move_extents() checks and clamps the request before
-> taking the local inode and cluster locks in ocfs2_move_extents(). It also
-> uses separate i_size_read() calls for the range check and subtraction.
+> The X1600's SAR ADC has four auxiliary channels, each with its own start
+> bit, interrupt flag and 12-bit result, and none of the touchscreen or
+> battery engines of the JZ47xx ADCs that ingenic-adc drives. Add a small
+> driver that exposes the four channels as voltages against the 3.3 V
+> reference.
 > 
-> A concurrent truncate can invalidate the first check and make the later
-> unsigned subtraction underflow:
+> The registers are in chapter 19 of the X1600 programming manual. The
+> ADC clock divider is even, as the manual has it (an odd value divides
+> by one less); the vendor kernel writes the divider minus one, which
+> gives a slightly faster clock than it asks for.
 > 
->   Move-extents ioctl                  Truncate
->   ------------------                  --------
->   check me_start <= i_size
->                                       take inode and cluster locks
->                                       shrink EOF below me_start
->                                       release locks
->   compare me_start + me_len with EOF
->   set me_len = EOF - me_start
->     [unsigned underflow]
->   acquire inode and cluster locks
->   select extents using the bad range
+> Tested on a HiBy R1, whose play/pause and volume keys sit on channel 0
+> behind adc-keys: all three read and report correctly.
 > 
-> A truncate after clamping can also leave the range extending beyond EOF.
-> Conversely, the cached size may be smaller than the size refreshed when
-> the cluster inode lock is acquired. Early validation can then reject a
-> valid start or permanently shorten the requested length and threshold.
-> The me_start + me_len comparison can also wrap for a large input length.
-> 
-> Validate and adjust the original request once, after inode_lock(), the
-> exclusive rw lock and ocfs2_inode_lock() have stabilized and refreshed
-> the size. Read EOF once, reject a start beyond it, and bound the length
-> by EOF minus start. Normalize the threshold using the same EOF snapshot.
-> This keeps zero as the default-threshold sentinel until validation uses
-> the size that will govern extent movement.
-> 
-> Move goal validation after range adjustment as well. Its allocation-group
-> capacity check uses me_len and must see the EOF-clamped length. Both
-> validation failures use the existing inode-lock unwind path before any
-> extent movement or transaction starts.
-> 
-> Fixes: 53069d4e7695 ("Ocfs2/move_extents: move/defrag extents within a certain range.")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+> Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
 > ---
-> Changes in v2:
-> - Validate and normalize the original range only once, after inode and
->   cluster locking have stabilized and refreshed EOF.
-> - Move goal validation after range adjustment because its allocation-group
->   capacity check depends on me_len.
-> 
-> Link to v1: https://lore.kernel.org/r/pm-ocfs2-move-extents-isize-rrw-v3-b2a7508c41108cc2d00b@gmail.com
-> 
->  fs/ocfs2/move_extents.c | 68 ++++++++++++++++++++++-------------------
->  1 file changed, 37 insertions(+), 31 deletions(-)
-> 
-> diff --git a/fs/ocfs2/move_extents.c b/fs/ocfs2/move_extents.c
-> index ad1678ee7cc4..f2682ef6bf2b 100644
-> --- a/fs/ocfs2/move_extents.c
-> +++ b/fs/ocfs2/move_extents.c
-> @@ -907,6 +907,30 @@ out:
->  	return ret;
->  }
->  
-> +static int ocfs2_validate_and_adjust_move_range(struct inode *inode,
-> +						struct ocfs2_move_extents *range)
-> +{
-> +	u64 i_size = i_size_read(inode);
-> +
-> +	if (range->me_start > i_size)
-> +		return -EINVAL;
-> +
-> +	if (range->me_len > i_size - range->me_start)
-> +		range->me_len = i_size - range->me_start;
-> +
-> +	/*
-> +	 * The default threshold for defragmentation is 1 MiB, which
-> +	 * matches the maximum OCFS2 cluster size.
-> +	 */
-> +	if (!range->me_threshold)
-> +		range->me_threshold = 1024 * 1024;
-> +
-> +	if (range->me_threshold > i_size)
-> +		range->me_threshold = i_size;
-> +
-> +	return 0;
-> +}
-> +
->  static int ocfs2_move_extents(struct ocfs2_move_extents_context *context)
->  {
->  	int status;
-> @@ -936,6 +960,19 @@ static int ocfs2_move_extents(struct ocfs2_move_extents_context *context)
->  		goto out_rw_unlock;
->  	}
->  
-> +	status = ocfs2_validate_and_adjust_move_range(inode, context->range);
-> +	if (status) {
-> +		mlog_errno(status);
-> +		goto out_inode_unlock;
-> +	}
-> +
-> +	/* The goal check depends on the adjusted range length. */
-> +	if (!context->auto_defrag) {
-> +		status = ocfs2_validate_and_adjust_move_goal(inode, context->range);
-> +		if (status)
-> +			goto out_inode_unlock;
 
-Seems we'd better log the failure like ocfs2_validate_and_adjust_move_range().
+The driver looks good to me now!
 
-> +	}
-> +
->  	/*
->  	 * remember ip_xattr_sem also needs to be held if necessary
->  	 */
-> @@ -1028,27 +1065,8 @@ int ocfs2_ioctl_move_extents(struct file *filp, void __user *argp)
->  		goto out_free;
->  	}
->  
-> -	if (range.me_start > i_size_read(inode)) {
-> -		status = -EINVAL;
-> -		goto out_free;
-> -	}
+Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
 
-This seems changes the return value. It returned -EINVAL without touching
-the caller's buffer. It now unwinds through out_inode_unlock and falls into
-the copy back and returns -EFAULT instead of -EINVAL.
-
-Seems not a bug since the goal validation failure already behaved this way,
-but worth a line in the commit log.
-
-Thanks,
-Joseph
-
-> -
-> -	if (range.me_start + range.me_len > i_size_read(inode))
-> -			range.me_len = i_size_read(inode) - range.me_start;
-> -
->  	context->range = &range;
->  
-> -	/*
-> -	 * ok, the default threshold for the defragmentation
-> -	 * is 1M, since our maximum clustersize was 1M also.
-> -	 * any thought?
-> -	 */
-> -	if (!range.me_threshold)
-> -		range.me_threshold = 1024 * 1024;
-> -
-> -	if (range.me_threshold > i_size_read(inode))
-> -		range.me_threshold = i_size_read(inode);
-> -
->  	if (range.me_flags & ~(OCFS2_MOVE_EXT_FL_AUTO_DEFRAG |
->  			       OCFS2_MOVE_EXT_FL_PART_DEFRAG)) {
->  		status = -EINVAL;
-> @@ -1060,23 +1078,11 @@ int ocfs2_ioctl_move_extents(struct file *filp, void __user *argp)
->  
->  		if (range.me_flags & OCFS2_MOVE_EXT_FL_PART_DEFRAG)
->  			context->partial = 1;
-> -	} else {
-> -		/*
-> -		 * first best-effort attempt to validate and adjust the goal
-> -		 * (physical address in block), while it can't guarantee later
-> -		 * operation can succeed all the time since global_bitmap may
-> -		 * change a bit over time.
-> -		 */
-> -
-> -		status = ocfs2_validate_and_adjust_move_goal(inode, &range);
-> -		if (status)
-> -			goto out_copy;
->  	}
->  
->  	status = ocfs2_move_extents(context);
->  	if (status)
->  		mlog_errno(status);
-> -out_copy:
->  	/*
->  	 * movement/defragmentation may end up being partially completed,
->  	 * that's the reason why we need to return userspace the finished
-
+-- 
+Kind regards,
+Joshua Crofts
