@@ -1,85 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.225.138
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.80
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793054952;
-	b=TmqC7akPnM94WJsmNA5a+nKEF6G+yaJ5MHRDj729crFPWM7bNQFd8hslnxcCKVXd3JjF
-	 9wTKhZZwxQuFUdabqMSSxV2g+/IxrRsAS4+OxNUEywvRLqBPtvZny71fNeW4+U5BcN78N
-	 x1NtffWhkq67Ysiwjz5q0IRHQtHMnW9oPNzyIdMuhpnV0F8oo25fIUgtezY7hbRbiyZ3D
-	 TJixFDhrZduw4GwdbPJ1zxo/LDcOwUCzurn/llTMkzEUFYMr5b5UP6Iqjsr80bJ2rzEK8
-	 r1It7XgpBoJmyi8vHcIfRDr56M1G3dvr/F+bGmoBxN9fkQ2hkNMfXRgnf08dRMgWz7g==
+	t=1793055157;
+	b=PZvQoi/TMxPGCyjthuAmiFeUVMKTR9X5zZQFIIPVNSfofYWZFx3fAHnVLR4/PkwceAuS
+	 kmTZnlIy6BC4HvmaM5xp5w/3KyQL+l2/2YAGMTrboF4rjT35Vx8XyjahbS7TYzcbF8dTv
+	 BQ09e4VLZsQrl4MuvQ7vhu/ezzI1JbTcrtJudxhEXxkWECYencpgpU3yKMiBDuHhN8zm1
+	 WLyTCglMqgvGDBfjabKgud3MppDZWdebCVT8khSrcmVKh/JqXPWJ99FhsIkvF+CZ/MW6l
+	 ISjP8DeBMZJjIujGsGcLfB5vtOHmeK22+K194czK8cTFdD4kjdp5MrOkW1IC9xXXtDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793054952;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Content-Language:To:Cc:From:
-	 Subject:Content-Type:Content-Transfer-Encoding;
-	bh=kKstMhy7XYdWlOxfLVVB+n9yotypUq8kAPAlGnHm/EA=;
-	b=Zeq/x6DnHPLRTUxnrxVeh4ZkfCk1yjRhGwFxJ4w2M21N8Hewy03LMywhtuwq6yVyXtsN
-	 VPL/2Dl2ZB8cRkhUyjkmjaqskrcAA6Z8x2uLb4XL2jMDnnsr8k54X9RhyCtG15/oL+R8O
-	 C7uJI1c3afojFAxKkeU5EuN9Vhf2A9KLPFOnxJMRW0zdgDV0pIK4gPRoF0qrTJGo8pXXu
-	 CmOQ+x316ThuE01uQy5TEr4v6glm6sv96yaaqGFskLj2T2J9RWT7NdXjPhjQhw8JH5OaI
-	 3Oyr8IuqIz6OL9VYLy3ViirwAbHTZiRmttTAznrFlZrlc/u+gg62PP/oyPOu6CekGXg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793055157;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=zKAIbj4E71O6v5DHc3HNYXOZPG7g4zgY8frqPiT/8xg=;
+	b=sX/dIs7S2M3io+phYXkrtfr8+zPUmqzSkTNJ+xetEKg6ASfcmSNqxzvPOTjsiPt5yOLc
+	 TCn+49zOx6J62Pv5C7kjAnRQcM/2qg664Znl9IkW41KFJt00WTo5z9h19g3LozLyeps0Y
+	 3LBOT2gaLkU4IwXmhWCTcqZAykGfGk3e0g6P9XUxcjovfZGD5x9CRQCXbxfYvJsQWGsDi
+	 eDBT+rFQnFWjo8x0qrWryltTxRTAIIgCV50D2gO72SMlZlOdbUeM2RDGdF/y1TNC3z2CT
+	 s5ua76ULmHeDnaz7E7vMqx2bwuWaWqP3vQlhs0MRpEMnysbSup2hZqH2ccdkEoakegw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JUl54lfZ;
-	arc=none smtp.remote-ip=74.125.225.138
-Received: from mail-wm2-f10.google.com (mail-wm2-f10.google.com [74.125.225.138])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=gUrpU0Eo;
+	arc=none smtp.remote-ip=95.215.58.80
+Received: from mta1.migadu.com (out-80.mta1.migadu.com [95.215.58.80])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFA7F606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 22:49:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFA7F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68122606A31B
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 22:52:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68122606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JUl54lfZ
-Received: by mail-wm2-f10.google.com with SMTP id 5b1f17b1804b1-4a16dfb8fa6so17660565e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 15:49:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793054950; x=1793659750; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=kKstMhy7XYdWlOxfLVVB+n9yotypUq8kAPAlGnHm/EA=;
-        b=JUl54lfZ03do/o1WzYrXyfyxFPeY12CZBdH1hUhFEEhVPMVzDT6uQ7Iggpx8MCgYuC
-         uEhF5Vk4QcNuHWXw4c1EgrUkFNTwx86LwsDp0VkNXYIyfCQjwcY4iNyIF2N4ciW6iCLQ
-         b1kX2s/MRvU9PO+GiGw7yKipZrdQyxOltpo+N7MRSlaJxvAowcCS/ko5e9HxIbKfCpMr
-         n9HFcCQoOcwmsX/WZX/ETMbAoe/J8rFcAxOa/xUteWjQhXr/S3baKh32TjDv+4/lTc1B
-         ztjXun+5S7SuFGDwE+uvPSJC+ykF10v5+RqFVpohp7NlzAkRkAo/eE2Q3FcYjA64ie7x
-         zVnA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793054950; x=1793659750;
-        h=content-transfer-encoding:content-type:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kKstMhy7XYdWlOxfLVVB+n9yotypUq8kAPAlGnHm/EA=;
-        b=MRK1LC6sDjwSCTMnB+nXtINGc3LZVTG1NTfOXgEyUeBiwg1qSNYZDydh47amc/UE8W
-         URZ/WmUz6DOEC82k07DtrObqTDlnhGSSMzBesSVGa2V0d4YeQrwrlfvJCk/wooJuIDU8
-         qGdWhmzBmsCpOKn6L06fN6GZS/gcM/Nd7TLvn3LREzLCLWiMXhHY9Spf1syWnUS4usMM
-         IIl76fI8gtpBkKtX1xz3P1Job2yGnNthiykM70kc7UVK3jTFDdRJ9hSAxRDBZMY6rRRE
-         5gjDWdAOrtv0aPElmtf/SUkAFnME4ZZiFHLWqRVUs2c7WX2WwyVfdrS5togTbTvoQDKY
-         nnwA==
-X-Forwarded-Encrypted: i=1; AKwUvBykk2YKvEJIE5sbdWxZ/iRga/lAaSwVBs8xj+Gp5bo4eHq7s1p0YfasNN7jFlGHembJdVjnNyBApnoTRNU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJT0xYbhhygr2JuKgfpepftoiEKdINGULRENcEaHhN5szQTLeEw
-	8Q5RYsprTz8g7+PUQ52aCGtEjPH/7Q1rAoN20KHeOS+sbMZDTP6Ab68K
-X-Gm-Gg: AYBFou1ZNkfAmwIseO05kMe1fS9oXYt2CJ1HgChbaxOtVvRZGM3qiUpwzhXaZRRTYIn
-	Ui14duBQPA0NnSM45FPUuFcynK8R4GJFLfDIfiIpADLCYvbGBsHVDkhONOcUTfp8VGkuX/p+oYH
-	qxbppxoip4ttTyEmnmbkRp7P0JJzMfQMMzLS7ZU6q6UDBVtjYI3uZjaYvWUp30YVTU3fQ0o1scq
-	ZzbVAA71o6fDP7KKHFRthb2vKuC+U53KUGeEkV1YEQIWSKjMEXBbd0i9BUMf7f3cdvm1rQ/NYGd
-	K+jpPP/UhgKaoQmkXlWyd7ldMYQYCKZ6wfwm5cXfRUDdPV+csogiBvZSZ1JBaG9gRLkjrEvaSBO
-	C4uOTYJ4eLRkqjUGbwYdKUr+fKez5nFRhHs9s/iq7h//xyp9OQweuiVItUMSWPCJxqVASY4Qieh
-	cl3u15mddiOxq6wiM+ZZZB9eBYWJeqsK9vC8hrCbLbNuNniUqJUrwua7emYi6xEnYBFLNa2cfE8
-	RRcS2l4kCaoSs1Lg8/XPWkWJSCGeWeLJ7fNOixH7ngyG0oe
-X-Received: by 2002:a05:600c:8114:b0:4a1:dec1:4e1 with SMTP id 5b1f17b1804b1-4a35aca4ab5mr129489045e9.22.1793054950146;
-        Mon, 26 Oct 2026 15:49:10 -0700 (PDT)
-Received: from [192.168.1.12] ([31.94.68.191])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a04ad39sm587066755e9.1.2026.10.26.15.49.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 26 Oct 2026 15:49:09 -0700 (PDT)
-Message-ID: <3ff4ef96-9c59-4e8d-a0da-92a1ac6f5ba1@gmail.com>
-Date: Mon, 26 Oct 2026 22:49:08 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=gUrpU0Eo
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Z8funXGuTqu+er/8n1etAxsCUdLvAe+wEnAdyvy1xIQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793055153; v=1; x=1793659953;
+ b=gUrpU0Eorbs3yADq20OuUJ7ELWR1tyFJ+LDvKwMuyQpFrqTSU6y/Ga3rr2eRJExL112ljoBK
+ CBDS18LKpncnGqrL17DH+Rt/TZFhErtsCsIDHiZxBsUl+EyNZidCBF4VGY4K8KRPnDeJMnJ73gh
+ S56GBVe9pUh+oJxrFhd2MMI0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 76e094ffeec065c5;
+	Mon, 26 Oct 2026 22:52:33 +0000
+X-Mizu-Trace-ID: 76e094ffeec065c5
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <66f1317a-4107-4e31-a3cb-6378fc63d07d@linux.dev>
+Date: Mon, 26 Oct 2026 15:52:24 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,65 +59,131 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH bpf-next v3 03/12] bpf: Prepare linked scalars for
+ relations narrower than 64 bits
+To: bot+bpf-ci@kernel.org, ast@kernel.org, daniel@iogearbox.net,
+ andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com
+Cc: martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev,
+ jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev,
+ john.fastabend@gmail.com, shuah@kernel.org, bpf@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ martin.lau@kernel.org, mason@kernel.org
+References: <20261020161907.2115379-4-vineet.gupta@linux.dev>
+ <443e1351eed4f46cf6c202e5f1130b189e9c5eb09cfcffd24d752c6ec73d450c@mail.kernel.org>
+From: Vineet Gupta <vineet.gupta@linux.dev>
 Content-Language: en-US
-To: amd-gfx@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Richard Lane <richardlanedev@gmail.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-From: Richard Lane <richardlanedev@gmail.com>
-Subject: [PATCH 3/3] drm/amd/display: report synced Apple 5K tiles to
- PowerPlay for MCLK switch
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+In-Reply-To: <443e1351eed4f46cf6c202e5f1130b189e9c5eb09cfcffd24d752c6ec73d450c@mail.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-When driving both 2560x2880 tiles of an Apple 5K iMac panel, Display
-Core's program_timing_sync() already aligns both CRTCs in hardware
-during dc_commit_streams() because the two streams share identical
-timings.
+On 10/20/26 10:08 AM, bot+bpf-ci@kernel.org wrote:
+>> bpf: Prepare linked scalars for relations narrower than 64 bits
+> TL;DR: Commit message only: regs_exact() now also rejects states whose linked
+> scalars share a base id in old but not in cur, a stricter infinite-loop check
+> the changelog doesn't mention.
+>
+>> bpf: Prepare linked scalars for relations narrower than 64 bits
+>>
+>> Two scalars sharing an ->id are always related by full 64-bit equality
+>> today: reg == base + delta over all 64 bits (this is true for
+>> BPF_ADD_CONST32 as well, which implies upper bits to be all zero).
+>> Sign-extension needs a genuinely low32 equal only relationship kind
+>> with bit 31 supplying upper 32-bits.
+>>
+>> Today the following 2 relationships exist
+>>
+>>    #define BPF_ADD_CONST64 (1U << 31)
+>>    #define BPF_ADD_CONST32 (1U << 30)
+>>
+>> Model them differently as
+>>
+>>    enum bpf_reg_link_kind { BPF_REG_LINK_NONE, BPF_REG_LINK_FULL,
+>>                             BPF_REG_LINK_ZEXT, BPF_REG_LINK_SEXT };
+>>
+>> So BPF_ADD_CONST64 becomes BPF_REG_LINK_FULL and BPF_ADD_CONST32 becomes
+>> BPF_REG_LINK_ZEXT with the exact same semantics as today. But this paves
+>> the way for a future BPF_REG_LINK_SEXT in the same framework.
+>>
+>> The implementation needs to change as well. Today the above 2 bits are
+>> shoe-horned into ->id, needing masking and OR'ing to get ->id and kind
+>> bits: with more types and bits needed, move them out into an enum
+>> bitfield of its own. To avoid growing the storage (and stay within the
+>> 1K allocator bucket), borrow 2 bits out of ->map_uid, 31 -> 29, which is
+>> still far more ids than a program can generate.
+>>
+>> ->id becomes a plain identifier, so check_scalar_ids() loses its "compare
+>> the compound id, then the base id" dance in favour of one check_ids().
+>>
+>> With the kind out of ->id it also leaves the idmap key, so regs_exact()
+>> and regsafe()'s explore_alu_limits arm have to compare it explicitly.
+>>
+>> One case changes behaviour -- old {r2.id=A+delta32} against
+>> cur {r2.id=B+delta64} was accepted and is now rejected, correctly, since
+>> alu32 and alu64 deltas diverge in sync_linked_regs().
+>>
+>> Clearing a link is no longer just ->id = 0: any stale ->link_kind needs
+>> to be cleared out as well. And given this needs to be done in the newly
+>> added kernel/bpf/scev.c, it is moved into bpf_verifier.h as
+>> bpf_clear_scalar_id().
+>>
+>> The helper also zeroes ->delta, which the open-coded clear left behind.
+>> Unlike ->id that field is inside the memcmp() prefix state comparison
+>> uses, so a leftover value could keep two otherwise-identical states
+>> apart; clearing it can only help pruning.
+>>
+>> Suggested-by: Eduard Zingerman <eddyz87@gmail.com>
+>> Signed-off-by: Vineet Gupta <vineet.gupta@linux.dev>
+> The changelog lists only the delta32/delta64 mismatch as a case that changes
+> behaviour.  Is that the only one?
+>
+> regs_exact() also changes.  It used to run check_ids() on the compound id,
+> so old {r2.id=A, r3.id=A|BPF_ADD_CONST64} against cur {r2.id=B,
+> r3.id=C|BPF_ADD_CONST64} built two independent idmap entries (A->B and
+> A|flag->C|flag) and was accepted as exact.
+>
+> With the kind moved out of ->id, the same pair now maps A->B and then A->C,
+> and check_ids() rejects it:
+>
+>      return memcmp(rold, rcur, offsetof(struct bpf_reg_state, id)) == 0 &&
+>             rold->link_kind == rcur->link_kind &&
+>             check_ids(rold->id, rcur->id, idmap) && ...
+>
+> regs_exact() is reached through regsafe(..., EXACT) from the infinite loop
+> check in bpf_is_state_visited():
+>
+>      states_equal(env, &sl->state, cur, EXACT)
+>
+> so this is a stricter comparison than before.
+>
+> Could the changelog also say that regs_exact() now enforces base-id
+> consistency for linked scalars, which the old compound-id idmap key did not?
 
-However, on DCE < 12 (iMac15,1 through Polaris-based iMac19,1), Display
-Core leaves pp_display_cfg.all_displays_in_sync unset. Because PowerPlay
-is not informed that the two streams have synchronized vertical blanking
-intervals, SMU7 prevents MCLK switching at idle or causes modeset
-underflows.
+Right. The example you mention is new.
 
-Report all_displays_in_sync = true to PowerPlay after committing both
-tiled streams so SMU7 knows the tiles blank simultaneously and can
-safely downclock MCLK at idle.
+Basically v2 had a patch of its own on this topic and it listed two cases
 
-Signed-off-by: Richard Lane <richardlanedev@gmail.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+     old {r1.id=A, r2.id=A+delta}  vs cur {r1.id=B, r2.id=B}
+     old {r2.id=A+delta32}         vs cur {r2.id=B+delta64}
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 548f975c7324..384a81371f80 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -4788,6 +4788,19 @@ static void amdgpu_dm_commit_streams(struct drm_atomic_commit *state,
- 	mutex_lock(&dm->dc_lock);
- 	dc_exit_ips_for_hw_access(dm->dc);
- 	WARN_ON(!dc_commit_streams(dm->dc, &params));
-+	/*
-+	 * DCE < 12 leaves all_displays_in_sync unset; report synchronized
-+	 * Apple 5K tiles to PowerPlay after commit so SMU7 can downclock MCLK
-+	 * at idle without modeset underflows.
-+	 */
-+	if (params.stream_count == 2 &&
-+	    params.streams[0]->link->tiled_peer == params.streams[1]->link) {
-+		struct dm_pp_display_configuration *pp_cfg =
-+			&dm->dc->current_state->pp_display_cfg;
-+
-+		pp_cfg->all_displays_in_sync = true;
-+		dm_pp_apply_display_requirements(dm->dc->ctx, pp_cfg);
-+	}
- 
- 	bool frl_stream_found = false;
- 
--- 
-2.55.0
+Both were same category: one register whose kind differs between old and 
+cur, caught by the new
+rold->link_kind == rcur->link_kind line.
+
+What you mention here is a different scenario:
+
+     old {r2.id=A, r3.id=A|BPF_ADD_CONST64}
+     cur {r2.id=B, r3.id=C|BPF_ADD_CONST64}
+
+kinds match but it is still rejected, by check_ids().
+
+v4 mentions both mechanisms.
+
+Thx,
+-Vineet
+
+> --
+> AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+> See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+>
+> CI run summary: https://github.com/kernel-patches/bpf/actions/runs/39458500836
+
