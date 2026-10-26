@@ -1,52 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793033576;
-	b=zjDWBW4x/7pgAtA0WznpMWLOrirOKYSB/jh9MFeJxW21zrK/ESxr09zVVSVLlqSqbC+c
-	 De5aAUkMt6rhXgwCUO8PTEr2PQ5q2V0FY0Xme8kLdIUryku3HQw82oZlcxaGNIraSV5y3
-	 rBwlHdV2aPsllOG8n8KTXbaqWNW9+9JGganJd7bWnk4p1FLIK5Y8NkXJfHpd00BlVbHg2
-	 pgBKVztEZ90deoXhK1CANIdkwk4XhHkqzXv106/C4mTDdX0XKbArxmKmh7qetkBKoZ+Mo
-	 I8BLTnKL4RPv3Hsfh+r6zahje5h5v6Bt6L4t3/7/M4DYUAwmyzi2gG4ghGN1lbw5dnw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793033576;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition;
-	bh=V8PvGXZ7VCsMB0ruiPuEvtUOu6j7X/roxqJhe5mrWAM=;
-	b=RvvZAWF47ZUNtpr36xrGGArRreIta4RFxB2HsVBRU+zPnve94xYRUapKkk8sPQp1izk5
-	 8/BJxBI/cWYfdkWSW1m1g0s68A4lpvZmpMWTb6dl5VitvB8ZKOBgCxMHCKglqdqAfTjaU
-	 f/zjDt8SN8pmOAchJdkQz9n8my1lO7RbIykI9z4Tb1DacTf/cHdecYB70x3uhonaG5Ujm
-	 NzjPpevWYTvbqVa8temwz4RxANbhkSvo6a5YmhV2hbINnVh0hDqxzyXVtkXS+SofNO2aF
-	 EE5b/QU/LAMMrUIy4vgEf8vBVSvVSLIBWOzpTyYuUAXOP2P2JtungBXwu115gHQF4Rw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WL4CmMux;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.9
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793033638;
+	b=UdfIGlg7zLHtQEP2qVekVEg2Vl3/DbL+LON2JB2HGdgVOe5B6429op9RZ1y0tWQg/MAN
+	 eyAxoMxqbUdWbxSVKPkuBDi3v5J30iipXPQm6uk3FQGWoAdbKGoY191SBkJG9wTtk9VZH
+	 WZPBdimtmMgDRCpYHW4XZLs0bjk7R2WkorZER8eregH9HsQASuEWOQ63mKuWFPab7d3x6
+	 iAe+IjGvviIenWLmtX8ZkHRlF0zQKeQx2ecvIsVJ17MPBak9Px8ACBcdj1I2ftfDiSQyv
+	 vtP4F/93+L6mukcxzZMEID4E/bGSTjOMaQPlZYyQzBiZKDT+nYmzIFf6t6vkgbuebdA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793033638;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=ekUON47Apr9jxYQ+WLZB2ycXKC9CFYI5hF004CfWqlk=;
+	b=TKXRBC0NV6i+pmBLwL7yaHGhwhRxy47N4TmgI4qXs+rnp2vQglkMgnJkcX9XxzvwHLTB
+	 Y619CGxy4NuytsTA11PRJxgFB7ftAdWVC2PzFksDAEVRQoDQLdn+LBhVWmWoGbnL6M2Sq
+	 lblyX+mYBa4bqQFkCieokeqN1Oiek4+2FikF5ZoC3aWepbwhUhbCVTOfmU8YjP9jVXUQF
+	 zCUhR6JsJbFfGASTkXP5KeJJjzfBDxMOOsRWCBajHuyT80cWLoB2p48A7pz4Ny5zvFazn
+	 S8Hbm7vYRtMccRSMed3yENPLz6ifQkQfCKfIIeXkCHNbQpqk1qtVXcXCzCIdiO8CoJg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=OermcisV;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.9
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011009.outbound.protection.outlook.com [40.107.130.9])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4179C606A31A;
-	Mon, 26 Oct 2026 16:52:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E68B606A31A;
+	Mon, 26 Oct 2026 16:53:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E68B606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WL4CmMux
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 955B01F01825;
-	Mon, 26 Oct 2026 16:52:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793033575;
-	bh=V8PvGXZ7VCsMB0ruiPuEvtUOu6j7X/roxqJhe5mrWAM=;
-	h=Date:From:To:Cc:Subject;
-	b=WL4CmMuxAg/ZGy1bOfU+tg5BTB9JnMCnrkHeqRyBoXqp7WSDJdXJFfDDroRm6k81Y
-	 PQRhCuvVFoTJeIMmE4UaFhoYty5CzTeUyKuncx1eQtLFLRUS4nDEUhYTnRFyuZeXi+
-	 TtOb/YQWAcVYlLJ6jme7uBfPlpMdWWgy7d29JhpfDURIQ3aDI5tpqvH7xpW6vlHfYD
-	 RG/BkAN7fWEpAFXx5FaMyGZpkxqZlzcfh73uHn1sv82ZiC06eDqHKaePjNW9dxn5F+
-	 TV0ai87s9Bg+FbIU609n9yL8V418U0iRQo1d5KFWpw60QXU5NsWaw87mWhc9EfN/XH
-	 Vm52pdlURzuww==
-Received: by venus (Postfix, from userid 1000)
-	id 821BC1806C8; Mon, 26 Oct 2026 17:52:53 +0100 (CET)
-Date: Mon, 26 Oct 2026 17:52:53 +0100
-From: Sebastian Reichel <sre@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org
-Subject: [GIT PULL] power-supply changes for 7.4
-Message-ID: <at-FRLALI5DhW7Lh@venus>
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=OermcisV
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kbq9jGF2DL2ImORPIngeIT7gSk39Re8g+bAoqZD1c5ibOgP1YxlRvZ9RW+6GFVE3PnD/925kMv1FVPchTRf15bfx8yTHLsHyNktzBYk5OlvT6G/wPbjsiybUfQqvk0LXM5Cz8j6qok4jVriSciaCEXD610571PTZb8e7d/bn+2+v8w8TS2Wda6CE1qQCO4/BEcC99DZ4WP4ZN086rSbg/orNKnrc8TK/+xcc3BrzHpXrcocJL6cbNMU3fnr9kI9giYhBnIy9twxK0rX3EwvLtInVGAA7gzmHs9K8qlEku7z/JA+igZ5LMDOFRiIeiqT7mqWoG1GYffZF7r1gqVYphQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ekUON47Apr9jxYQ+WLZB2ycXKC9CFYI5hF004CfWqlk=;
+ b=I721VGM36k5oaAWdG58RyXnwOPFhZKAtU5/VhaUJjqE4SrJqvJYDQ3MzHe3Hs6886TRJVYTpTVH46/Qg5uz2gvHqJ3cy+W58PQDU1xkglcWgxTRDNscY65O7A8Po3wD+TpqtlRCcfAOa/nwlzf2WWMLpK7NQdMMgZt283U/Ivte5eOJM5tuQw3Fr3vO96dgDw8OO5orEP2/UCLVDMpGo5zsvon7wedvT3EgRYI9ENN3YxZ57xUxvjpE9dqFvbxh2TKPMACaIfH/TE4nI7/4D+NBlXRBWQKeGkgk98uBARA290loadBlc1sYgQh/GI5GbsiS0Un/7aAUyccd4feCQXQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ekUON47Apr9jxYQ+WLZB2ycXKC9CFYI5hF004CfWqlk=;
+ b=OermcisVbtycZIOmlE7JjqF6sqT9CDgrSle/FjZG35Z4fqhUazkEDk6vkMpmYFroUgmmeLgT4IX8WcML+dM71RgxXR0xR1cj11nfaJOHokCVQh243uI0yl7dk56QOzJIKIyoCOF4xREPOqr44qgffn+TigIs2pjLfW60dFPpC6AucGA4/kNpEKQwSfzdHgN2OXEfXEab/cvs0XI9ZLi84qphW8BUXtaLqu+BgQVpyTVxpnE5WZ3ZZCNfjFZSlweFOi4b6iM5XV/ztl8JoikqNw8xDjCRWXEd5WomSe5ZU91F00b958A0yp3f764qjOfZkwxuo4+ZpgreMoBr2L6rfg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by DU4PR04MB10340.eurprd04.prod.outlook.com (2603:10a6:10:564::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
+ 2026 16:53:55 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
+ 16:53:54 +0000
+Date: Mon, 26 Oct 2026 11:53:46 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Cc: Xianwei Zhao <xianwei.zhao@amlogic.com>, Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>, linux-kernel@vger.kernel.org,
+	kernel-janitors@vger.kernel.org, linux-amlogic@lists.infradead.org,
+	dmaengine@vger.kernel.org
+Subject: Re: [PATCH v2] dmaengine: amlogic: Fix missing destroy_workqueue()
+ at error path in aml_dma_probe()
+Message-ID: <at-FmthARu1uVlHQ@SMW015318>
+References: <13a835b1770e360af7991bb4c91ce52a8d01e331.1792785154.git.christophe.jaillet@wanadoo.fr>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <13a835b1770e360af7991bb4c91ce52a8d01e331.1792785154.git.christophe.jaillet@wanadoo.fr>
+X-ClientProxiedBy: PH5P222CA0008.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:510:34b::10) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,296 +98,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="bw5hswutkyqd2qag"
-Content-Disposition: inline
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|DU4PR04MB10340:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6986124c-fea4-49a6-a141-08df3381b852
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|376014|19092799006|366016|261026140227099003|260925022911599003|260925021311599003|260925021911599003|11063799006|56012099006|261009223027099003|261021123027099003|261022105027099003|261021121427099003|10067099003|261026121527099003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	s+v/7NSu2phB/zHaAMTvEO63lL9lEl7b5vXbJde4kYVrlYoTMuhUVEKZyRvmacp0UHkF90FHWx/lQNQo5JGvKQkOH5AJX2C8D88B7FeWuqvdHFZx7RpcyHglvJgDrEzJ4cLqdgfq7ccNMUGUnmT2c4tGQQw8pSNp384Hxdu7iRCidRInkuu7mO3OdRpxNPBzWAfDksrbZMtCO8uSUPnBihJpxvfCjkNu55Jeuvd9g5A7J/VNf0ToAntHa08PSE6yqQBXHBR9qnSwqWmjXBhzrDbgWt9QYTuzIgfsgMgNkwZjqzlvmsIzShAb5wRgtA+yBm0VTefuL5V/m1QYvWLnb1jhnwT5es6mVhA1EYLKQIxcF8gAUSSAydn9vBGizR5whi3v2N9V+0buXKjFxqBY1tO3dJlrfgiKmCAdmhQHkqMlvMeysHnrhraj+iGx87+CU8bPv043GIeyMCYu8XalEZ94/WPdxJhck84H7t/YgrmC69B+/YRLGdyEMZ3d1RQH1EORgfKGVUEWHqJkmxUMT7cJTdPCbymC/nPrx4sXoKvRQfcUjlDzaCGv8o4zYTyumESbmhNX0t2PYgSsDvPBq1nf76pr0d7SruVBjqs3fbH0mdGZLo95sD7Ee9k802ok
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(19092799006)(366016)(261026140227099003)(260925022911599003)(260925021311599003)(260925021911599003)(11063799006)(56012099006)(261009223027099003)(261021123027099003)(261022105027099003)(261021121427099003)(10067099003)(261026121527099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?Cp1vKrHWmvFmZ6oRBMpnkhdUSeuCpKoPBCooLu1Xh7EztnbSBdAvtT2L8NKU?=
+ =?us-ascii?Q?F27CK2Aw5IchoPOkeOp1v4q/NGfcpYzzPBN1SRezOGrHPRT7qBmkjxf7Lsjk?=
+ =?us-ascii?Q?EPum0VqY/lehk11/zBWsdADygX980dFesX6QclkS2cmfhKU1G+iMAHXNwsRc?=
+ =?us-ascii?Q?aRAC+5l2vtvimXJmz8v8JICCkZHgdHR/L8d0ImkNkZbvIBNE/I6LqimWENxT?=
+ =?us-ascii?Q?HQKlKmnct9E6a5VkP4mR70EU9A2WCRy4Ltw048HL/uAjwhH7VncpqqOcNnmm?=
+ =?us-ascii?Q?KwOKVyTRs+u3yLCsPZYQ+oV0DVen5vdAIb0MLsIM+/noLwbqB/LlWxXdfkIA?=
+ =?us-ascii?Q?WqA3GalZhOXZbtT9pCOYW3ehU+FtxMxriVWNOmDLk8UGp8MLyDTYzEfh1eaM?=
+ =?us-ascii?Q?ni/P+NwtrSXXPTyExHiJj8FzrgeHiQfXJpBDbw0cEb57wGLgOtmoHk/bFpxY?=
+ =?us-ascii?Q?gmH0w5ZAJ00tasY9DiT5hooi61Ir4HFF9uHe9afjaFlrP3ya9nWWgNvEy2TZ?=
+ =?us-ascii?Q?75vcdbMUQgnQq0TCd5g3kFyT9N/L/rqRoTpcPB/0YjFbxwEi/NY20zyvJhLO?=
+ =?us-ascii?Q?pDND75lvHT4LDBdH9fW9IBzWXoHhImRUxJ6gWnjk84EPxvE2IAPhV4iwHFiy?=
+ =?us-ascii?Q?EdU2XjA1rVsoK5rePIubMDlIqqqk0x4GyVkjO5si8IkD2cPP+jptQ/kYTg5+?=
+ =?us-ascii?Q?ZyOYAgAOxEOYsVHibjxPvD0BIC4HxAb9kOg3O0OmvDJ3l0gGfgd6XYza5wd6?=
+ =?us-ascii?Q?jkWxGl6Yy9F4HWH7qIV2mFVuSbT/b+ecO2NmKIIBgJ8zSjmX+vqw3mqzGWlq?=
+ =?us-ascii?Q?dNZN4UMOvi6m0vLDSaUTGlGfZCxigTp0RosdCUlL1p1OpVkwoaJLIpHO7GWc?=
+ =?us-ascii?Q?wD/LqX1LMAcm2+/WSDGGB+Og2dCy99xqRa0RFioG4O/p2s4bC3XOhpArmiw6?=
+ =?us-ascii?Q?iTn2cZfPSnLJ3Rsn55nJ4hv5Qy7ThtEZqVX+QQI0LnOU5UKiTUjBs3qsH7dt?=
+ =?us-ascii?Q?MGF7X5l5B1sTNqcZnji8L7Py8LSPaOCdgKnkJgn9kM5NoheVb5T6khGx4av6?=
+ =?us-ascii?Q?CUAsBcjdtRn9OEXtUCWGh9mQCYTx2HF2PlS3oYmVVz/KOrBwwwNvVeokJDA2?=
+ =?us-ascii?Q?mho9U0dY81Pyd3ucGVzA/kfNYMRrU0V+/czqR7oyZanMDYhBjTe34oGu7lzi?=
+ =?us-ascii?Q?VTu+sn2KuyQK9zKHtQhIhWYuakVvVH+fa/Vu6UMknwJuBFR+LnCe0tAwJPGk?=
+ =?us-ascii?Q?ax3zB7KQ8QEe+8DXG9E6PxhEl1Zte2HXf8AbotV4JoAooMa4K3pssi0x6y1l?=
+ =?us-ascii?Q?cREyULs91Sql+0DWoYAm4Dd5FTWNA/0QLwP9eb9hp9Iq1T2a9/ryUX/mvF90?=
+ =?us-ascii?Q?TlFvs6PgHKseYqSsO5/wlovCySS8JXFyyWhygkplAjd/xhBkVvjxdVW02Jk4?=
+ =?us-ascii?Q?X5wAD/RsHIEHDEUaqr8paml8AaQAlfmOSFdXNnGpIx1wOW6JSytHEsSpcptY?=
+ =?us-ascii?Q?KncO6s5ojRgoDDNDrsvuqa9FQQm9fdfewn9r8KISNvrBYvw+cY4ercey8cH5?=
+ =?us-ascii?Q?BOKalIeS7CaGtr6dfvo/MB1rnU8eGc2djQjAZU6epBkxCRCzOWQ2mmbDJhok?=
+ =?us-ascii?Q?ufAs9A30u5wdg5uALB6wGj/xtFroeRNIk1WmPt8Hp2yMNQU/0OSs0Er2OG4X?=
+ =?us-ascii?Q?hYJrPSc6zHy/JLO+aFvvrobPGWrUSExyEsB7YkkAXqaTgxGKFRHbSFTYS1H9?=
+ =?us-ascii?Q?xhpOsmmx+M4ciBsskSiJV3lYBSdGT/gL0WvdY/Biew/xV47IFRyk?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6986124c-fea4-49a6-a141-08df3381b852
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 16:53:54.8197
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +4ZorFKPcNwtaxy5pZOXQ2E6c0HMH1+Lx/dAcJXnnCLoAjTXdP4b+fu6gFVa2XabeMxdIhLlTMAnQIkS2+kF+h4YLD+D+vTPbspPiBnC2aTOap59gJ+FMHBLY27ZzG0/
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR04MB10340
 
+On Sat, Oct 24, 2026 at 11:05:13AM +0200, Christophe JAILLET wrote:
+> If an error occurs after the alloc_ordered_workqueue() call, the
+> corresponding memory is never released.
+>
+> Use the managed version instead, as already done by most functions in the
+> probe and simplify the remove function accordingly.
+>
+> This avoids the leak.
+>
+> Fixes: b84b5197e344 ("dmaengine: amlogic: Add general DMA driver for A9")
+> Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+> ---
 
---bw5hswutkyqd2qag
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: [GIT PULL] power-supply changes for 7.4
-MIME-Version: 1.0
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
-Hi Linus,
-
-The following changes since commit 5b4bd13e0552926648a46c2c9a12a24dfaee3715:
-
-  power: supply: core: prevent unregistering a power supply while a callbac=
-k runs (2026-10-04 18:49:02 +0200)
-
-are available in the Git repository at:
-
-  https://git.kernel.org/pub/scm/linux/kernel/git/sre/linux-power-supply.gi=
-t tags/for-v7.4
-
-for you to fetch changes up to f0f400459bf6a037e70768de623fff3f8920b8bb:
-
-  power: supply: gpio-charger: Report discharging without input power (2026=
--10-18 12:21:00 +0200)
-
-----------------------------------------------------------------
-power supply and reset changes for the 7.4 series
-
- * power-supply core
-  - introduce LOAD_SWITCH property
-  - pack power_supply_desc to optimize memory
-  - prevent power-supply device unregistration while callback runs
-  - drop last CONFIG_OF build-time dependencies from the core
-  - documentation fixes
- * power-supply drivers
-  - bq27xxx: add support for bq27z746, bq28z620
-  - ab8500: add AB8505 support
-  - bq257xx: fix probe time configuration race condition
-  - multiple: convert drivers with custom LOAD_SWITCH properties to the
-    new standard one
-  - cros_charge-control: restore EC state on resume
-  - qcom_battmgr: fix USB type reporting, notify charger online state,
-    report full batteries and correct capacity on X1E
-  - gpio-charger: always report as discharging if input power is missing
-  - bq24190_charger: don't reset registers across system suspend
-  - qcom_smbx: a lot of independent fixes
-  - lots of error and module removal path fixes
-  - misc. fixes
- * reset drivers
-  - misc. fixes
-
-----------------------------------------------------------------
-Alexey Charkov (5):
-      dt-bindings: power: supply: bq27xxx: add BQ28Z620
-      power: supply: bq27xxx: add support for BQ28Z620
-      power: supply: bq257xx: Use psy directly instead of driver data
-      power: supply: bq257xx: Convert parameters setup to the new .init cal=
-lback
-      power: supply: bq257xx: Describe the dev field in the driver data str=
-ucture
-
-Andrew Pam (1):
-      power: supply: cros_charge-control: restore EC state on resume
-
-Babanpreet Singh (1):
-      power: supply: max17042_battery: Make the fractional macros safe
-
-Bjorn Andersson (1):
-      power: supply: qcom_battmgr: report full batteries
-
-Brandon Williams (1):
-      power: supply: qcom_battmgr: Notify charger supplies of online changes
-
-Daniel Lezcano (1):
-      power: supply: Fix power limit documentation
-
-Derek J. Clark (1):
-      Documentation: sysfs-class-power: Update Long_Life description
-
-Fabricio Akio (1):
-      power: supply: qcom_smbx: set the charge enable after software control
-
-Fan Wu (1):
-      power: supply: bq27xxx: Ensure poll work is cancelled on remove
-
-Hang Nan (1):
-      power_supply: serialize property access with unregister
-
-Hemanth Selam (2):
-      power: reset: keystone: fix missing space in error message
-      power: supply: fix typos in comments
-
-Henrik Grimler (3):
-      dt-bindings: power: bq27xxx: bq27z561: allow interrupts property
-      dt-bindings: power: bq27xxx: document bq27z746
-      power: supply: bq27xxx: add support for bq27z746
-
-Igor Velkov (1):
-      power: supply: gpio-charger: Report discharging without input power
-
-Iv=E1n Ezequiel Rodriguez (4):
-      power: supply: return -ENOMEM on OCV table alloc failure
-      power: supply: restore hwmon if extension update fails
-      docs: power: supply: fix power_supply_class.rst status, health and ti=
-me_to
-      power: supply: use tabs in power_supply_get_property_direct
-
-Joonhoe Kim (1):
-      power: supply: qcom_battmgr: report the USB type from USB_ADAP_TYPE
-
-Karl Mehltretter (1):
-      power: supply: mp2629: Use the full batt_impedance_compensation name =
-in the ABI document
-
-Kees Cook (1):
-      power: supply: qcom_smbx: Remove const from desc allocation type
-
-Linmao Li (1):
-      power: supply: bq2515x: Propagate charge-enable read errors
-
-Linus Walleij (16):
-      dt-bindings: power: supply: ab8500: Add AB8505 charger
-      power: supply: ab8500_fg: Accept status from supplied power
-      power: supply: ab8500_fg: Report sub-percent charge changes
-      power: supply: ab8500: Correct register definitions
-      power: supply: ab8500_fg: Drop nonexistent AB8505 controls
-      power: supply: ab8500_btemp: Fix event temperature reporting
-      power: supply: ab8500: Preserve battery termination current
-      power: supply: ab8500_charger: Fix AC charger re-enable
-      power: supply: ab8500_charger: Decode AB8505 USB status
-      power: supply: ab8500_charger: Respect AB8505 register layout
-      power: supply: ab8500_charger: Handle detection errors
-      power: supply: ab8500_charger: Skip absent AB8505 main charger
-      power: supply: ab8500_charger: Retry AB8505 USB detection
-      power: supply: ab8500_charger: Recover inactive AB8505 charger
-      power: supply: ab8500_fg: Finalize current measurements
-      power: supply: ab8500_fg: Avoid reserved AB8505 CCConf bit
-
-Liviu Nicoara (1):
-      power: supply: qcom_battmgr: Report capacity on X1E80100
-
-Matt DeVillier (1):
-      power: supply: cros_charge-control: adopt EC charge state on probe
-
-Maurizio Casciano (1):
-      power: supply: core: Honor supplied-from with CONFIG_OF=3Dy
-
-Myeonghun Pak (2):
-      power: supply: pf1550: drain IRQ work before unregistering supplies
-      power: supply: sbs-battery: disable polling before supply teardown
-
-Reza Kurniawan (1):
-      power: supply: bq256xx: Expose VBUS state through extcon
-
-Robert Killick (1):
-      power: supply: sysfs: Ratelimit "unavailable enum value" warning
-
-Robin Snyders (5):
-      power: supply: qcom_smbx: include base when petting watchdog
-      power: supply: qcom_smbx: test battery health status bits
-      power: supply: qcom_smbx: fix float voltage selector
-      power: supply: qcom_smbx: validate battery float voltage
-      power: supply: qcom_smbx: notify battery overvoltage recovery
-
-Ryan Brue (3):
-      power: supply: bq24190_charger: use the wake irq API
-      power: supply: bq24190_charger: don't reset registers across system s=
-uspend
-      dt-bindings: power: supply: battery: allow 101 ocv-capacity points
-
-Sebastian Reichel (1):
-      Merge power-supply fixes branch
-
-Shengzhuo Wei (1):
-      power: supply: bq27xxx: synchronize work cancellation on suspend
-
-Sumeet Pawnikar (1):
-      power: Use %pe to print error pointers symbolically
-
-Tim Douglas (1):
-      power: supply: generic-adc-battery: fix status with no supplier
-
-Uwe Kleine-K=F6nig (3):
-      power: supply: axp20x*: Drop check for disabled devices
-      power: supply: axp20x_usb: Introduce a helper variable for &pdev->dev
-      power: supply: axp20x_usb: Improve probe error reporting
-
-Waqar Hameed (8):
-      power: supply: Pack power_supply_desc to eliminate holes
-      power: supply: Add sysfs entry for system load control
-      power: supply: ltc4162-l: Use POWER_SUPPLY_PROP_LOAD_SWITCH
-      power: supply: rt9471: Use POWER_SUPPLY_PROP_LOAD_SWITCH
-      power: supply: rt9467: Use POWER_SUPPLY_PROP_LOAD_SWITCH
-      power: supply: bq24257: Use POWER_SUPPLY_PROP_LOAD_SWITCH
-      power: supply: bq24190: Use POWER_SUPPLY_PROP_LOAD_SWITCH
-      power: supply: bq25630: Add support for BATFET control
-
-Wentao Liang (1):
-      power: supply: ltc2941: Fix of_node reference leak in ltc294x_i2c_pro=
-be()
-
-Zongmin Zhou (1):
-      power: supply: s2mu005-battery: return errors from dev_err_probe() in=
- probe
-
-bui duc phuc (1):
-      power: supply: generic-adc-battery: Propagate charged GPIO errors
-
-hpp.iscas (1):
-      power: supply: mm8013: Publish the OF module alias
-
- Documentation/ABI/testing/sysfs-class-power        |  49 ++-
- .../ABI/testing/sysfs-class-power-ltc4162l         |   2 +
- Documentation/ABI/testing/sysfs-class-power-mp2629 |   2 +-
- Documentation/ABI/testing/sysfs-class-power-rt9467 |   2 +
- Documentation/ABI/testing/sysfs-class-power-rt9471 |   2 +
- .../devicetree/bindings/power/supply/battery.yaml  |   3 +-
- .../devicetree/bindings/power/supply/bq27xxx.yaml  |   4 +-
- .../power/supply/stericsson,ab8500-charger.yaml    |  76 +++-
- Documentation/power/power_supply_class.rst         |  23 +-
- drivers/power/reset/keystone-reset.c               |   3 +-
- drivers/power/reset/macsmc-reboot.c                |   4 +-
- drivers/power/supply/Kconfig                       |   1 +
- drivers/power/supply/ab8500-bm.h                   |   8 +-
- drivers/power/supply/ab8500_bmdata.c               |   3 +-
- drivers/power/supply/ab8500_btemp.c                |  30 +-
- drivers/power/supply/ab8500_chargalg.c             |   9 +-
- drivers/power/supply/ab8500_charger.c              | 406 +++++++++++++++++=
-+---
- drivers/power/supply/ab8500_fg.c                   | 181 +++------
- drivers/power/supply/axp20x_ac_power.c             |   3 -
- drivers/power/supply/axp20x_battery.c              |   3 -
- drivers/power/supply/axp20x_usb_power.c            |  50 +--
- drivers/power/supply/bq24190_charger.c             | 101 +++--
- drivers/power/supply/bq24257_charger.c             |  43 ++-
- drivers/power/supply/bq2515x_charger.c             |  15 +-
- drivers/power/supply/bq25630_charger.c             |  84 +++++
- drivers/power/supply/bq256xx_charger.c             |  96 ++++-
- drivers/power/supply/bq257xx_charger.c             | 125 +++----
- drivers/power/supply/bq25890_charger.c             |   2 +-
- drivers/power/supply/bq27xxx_battery.c             |  24 +-
- drivers/power/supply/bq27xxx_battery_i2c.c         |   4 +
- drivers/power/supply/charger-manager.c             |   2 +-
- drivers/power/supply/cpcap-charger.c               |   4 +-
- drivers/power/supply/cros_charge-control.c         | 186 +++++++++-
- drivers/power/supply/da9030_battery.c              |   2 +-
- drivers/power/supply/generic-adc-battery.c         |   5 +-
- drivers/power/supply/gpio-charger.c                |   5 +-
- drivers/power/supply/intel_dc_ti_battery.c         |   2 +-
- drivers/power/supply/ltc2941-battery-gauge.c       |   6 +-
- drivers/power/supply/ltc4162-l-charger.c           |  56 ++-
- drivers/power/supply/max17042_battery.c            |  28 +-
- drivers/power/supply/mm8013.c                      |   1 +
- drivers/power/supply/pf1550-charger.c              |  32 +-
- drivers/power/supply/power_supply_core.c           | 110 +++---
- drivers/power/supply/power_supply_sysfs.c          |  20 +-
- drivers/power/supply/qcom_battmgr.c                |  53 ++-
- drivers/power/supply/qcom_smbx.c                   | 113 ++++--
- drivers/power/supply/rt9467-charger.c              |  54 ++-
- drivers/power/supply/rt9471.c                      |  54 ++-
- drivers/power/supply/s2mu005-battery.c             |   4 +-
- drivers/power/supply/sbs-battery.c                 |  11 +
- drivers/power/supply/sbs-charger.c                 |   4 +-
- drivers/power/supply/smb347-charger.c              |   4 +-
- include/linux/power/bq27xxx_battery.h              |   2 +
- include/linux/power_supply.h                       |  18 +-
- 54 files changed, 1566 insertions(+), 568 deletions(-)
-
---bw5hswutkyqd2qag
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmrfhV0ACgkQ2O7X88g7
-+pqsJA/+IyBcvqAxPLwmWikOcPItSgyJan8EeZei/qous06suzUOVIIUdRhstuno
-kLR86W5Cj02qN8V72/eTCZSwxvOZ6Y3b/WZYBgxi/bOlNMjN4BZqshPVqntplfxc
-N2eklVBVbHEAqUGxveyCcsT6zd0K7YZHPURjCrNL59KUDbm3/GwLOIOvN40TD6uW
-t+W0ukQGkof+QHBRLF9hHgOtigrLOYm85Ax0gX1c+hEXmZ5WijVCQuiYmjaPnjdm
-VyWGbCIWvDr34/+vz/MnkLjbJ8QXDSX6I5In8/qrRC0Z3K25NYaMQBPSP6J4dZpX
-Mn92+hY3ZjfJXhFclTJ0vxC/Vqay0SxhLPb2b1eXUZ4X4gp43C0TzzySQQseGMoz
-DjHvtz6JQGweYIiPQ1zfW7TWHMkZoKrQjV51ECBcRjrlVjWxnR+3baeo0bqXN9Wk
-LQ3Egq3I1XiLw9vS4Y13/sENwGXpgt11YM2WS9CUp+bLUeOag61CMr0t034iLSRI
-yyXYhALq1kGUFw3wN3iY3+hTGnM9pvS2xBxMrAmj6akqQ+K1PnM7bs8fVNI2yzeQ
-TJv+X/9mFxK+AgCfry+ZoMZ8untJJISXRtLK3zkG/SDtjzsD9yby6m/MloWXC3CT
-2TFrKfZSgzwHp7sfe1yv5ayyRnElZBndZ1xyYJj5yxtxi4Zy7V8=
-=0mhb
------END PGP SIGNATURE-----
-
---bw5hswutkyqd2qag--
+> Compile tested only.
+>
+> Changes in v2:
+>   - update the subject   [Franck Li]
+>
+> v1: https://lore.kernel.org/lkml/93183551770e260aff993bb4cf1ce5ba8dc1e732.1792785154.git.christophe.jaillet@wanadoo.fr/
+> ---
+>  drivers/dma/amlogic-dma.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
+>
+> diff --git a/drivers/dma/amlogic-dma.c b/drivers/dma/amlogic-dma.c
+> index 684121d13fca..791bd82743d3 100644
+> --- a/drivers/dma/amlogic-dma.c
+> +++ b/drivers/dma/amlogic-dma.c
+> @@ -620,7 +620,7 @@ static int aml_dma_probe(struct platform_device *pdev)
+>  	if (!aml_dma)
+>  		return -ENOMEM;
+>
+> -	aml_dma->free_wq = alloc_ordered_workqueue("aml_dma_free", 0);
+> +	aml_dma->free_wq = devm_alloc_ordered_workqueue(&pdev->dev, "aml_dma_free", 0);
+>  	if (!aml_dma->free_wq)
+>  		return -ENOMEM;
+>
+> @@ -712,7 +712,6 @@ static void aml_dma_remove(struct platform_device *pdev)
+>  		if (aml_chan)
+>  			tasklet_kill(&aml_chan->vchan.task);
+>  	}
+> -	destroy_workqueue(aml_dma->free_wq);
+>  }
+>
+>  static const struct of_device_id aml_dma_ids[] = {
+> --
+> 2.56.0
+>
