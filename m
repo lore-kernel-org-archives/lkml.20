@@ -1,94 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.54
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793008555;
-	b=JL+a3NKU/LTPCBjrBrimz+QeeZq37EX0qUPt9QYEFPYzZhkgXfedDW927NE2Nqhuq9aw
-	 nDHRYqG9jghAgKJ8/RCQGGRVK6GnQPhDvO4+8AvbIvj0Q3v3rEhLenPv8uB0YvdLiRPf/
-	 rUSuFROBuTrweJvizd5ti+nut+jzBB4TgaavPc1mYSLDs2Y3Smk8AiTvpeTBUgLZfHB2w
-	 FmeKZiLH/rExdPiZAELPHyPLJcLb3pXXfEkZzx5OLS4i6DLel+a4n9PosgW/o6aLG+LCr
-	 T0VbqpWad/K6JZzguC2fWy03daXznl/tptdIWnelzWeFc+b1AXf4AH3A1DXU5miTBuw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793008555;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=JWuIyGvj7TDVl2tZ8CiehJr07EFLO+I5wb0zx/hsUqc=;
-	b=htB1XLH53hron47b7P53pnsmfNcm8EFb8CIwMo5Y/gKizNUz7FJvoS+jgBN9sjQrB1zh
-	 p0XdNRbrE+UEK+h6jJ+9eIW6Ca6cviOjZ1zv8G5k3HGqU5Qw+bLF2pvBc3m9QF3+vZBdR
-	 EFUnSN0yBR4MDcol7puk5SsmWmKRAFatuQ9ajb5qFrLw9DJ469ay1ycm6i9U51fm6XBZB
-	 0SMMqxeOauI1GJN8txc8mS+66lm2/qZ0MU/lZd5kLjp4wsan3TY84wgkPg02JqAYth1mH
-	 yl/QGJGf7uZ/6Bprw4eLM1b2WA6Bvz/u3IGxnCy6+hky/KkvKhPOoOJYBjRtoij5WPg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JfYekKcy;
-	arc=none smtp.remote-ip=74.125.82.54
-Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.185.170.37
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793008558;
+	b=k0PvhgdouC0MQeQcIC5mUTXl2n+iLy4IRrCNQqWDtoSw2WbjzcaBVGdf05MVkI2WzL2c
+	 hSnd0reEiYVaD3uNAh3M8pgAjbBRx0QtxCxWrzDVNJms1VnwzRuJzIbXcFRR5vL8eZ0Pt
+	 NxA3Ijg5ZUyfDDznaoUpRErwTtZaryF+w33tvm2LQCNTbVgv7AAOoNJX8V1RaBUw5eqFO
+	 4d/wz/iV/C9gaWsJBfCpPYj5LmVsyMmBbkwVZAE+XTVwsSEaKL633v1DbEwmdniTUHOJh
+	 5XnhTtXOeNiFIS0U7RyrzDkhsy1+/bzoBzsp0Fll1pq8L9yDI9RCT3q45dAQCV14QzQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793008558;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=SXPNAY8BSpBE8W0KP7BX69lYI7ILVN9z/tYUg7mD3/I=;
+	b=cqcf6fblThCHH/I4TBGOL667xvfWtEW0zFZI7jcXDydbg6RQzI5nmkwSXMfYCEp2tNgw
+	 DZyQSXmoaoNAOXUgpvn1jgDjWjTUn+qxJzsg2IB2ZQVw7q4G9Zs7hVjrb+ZYkr7xjcFYu
+	 r/P7mXCpI8+Jksv8FYpdfaq5ByPyrN2CMYrFXUHew9/u+6Rl+8HNpyAqOK7i5t2seBwAC
+	 OapQ7ddVWD6XV3SFrKZIg9rkSLTgAjgMbRHS9NCZ3LC4qo4VdJL/1QMlXXy5gk5hEZuUg
+	 Rr5NLOQNYCdBE63dcU4H1dRL06r9OrqU/dIsVkS3wK4+878bXj91lJ/VEE0rpL2hXAg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=iki.fi;
+	spf=pass smtp.mailfrom=iki.fi;
+	dkim=pass header.d=iki.fi header.i=@iki.fi header.a=rsa-sha256 header.s=lahtoruutu header.b="a/C2+aNA";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.185.170.37
+Received: from lahtoruutu.iki.fi (lahtoruutu.iki.fi [185.185.170.37])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5CFE606A31B
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:55:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5CFE606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85F01606A32C;
+	Mon, 26 Oct 2026 09:55:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85F01606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JfYekKcy
-Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-15ea896ddc8so4789139c88.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:55:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793008549; x=1793613349; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JWuIyGvj7TDVl2tZ8CiehJr07EFLO+I5wb0zx/hsUqc=;
-        b=JfYekKcyEXEhRe3UbjCP2v+C7MNjmDKf1Hd8xIZUCFapCV5iyNp0E5TPgM+8QNXqU5
-         44LkajcDhwmnD6g1/JI6GRPZ4WaNxL9qsUpopxcKZscmnIvi9aOJg+RVUKzEiIYMgr5M
-         bU6Y6VAwbpVOUIalzzrkhiZ3GlNju0apElrJDJdDJlnyCGFUhHvJOSJQWQVRJRzuHI2y
-         FPcne9W7yxcNQPvjwyHNF9dzQqCMYPJ1vZNhSfO7AYv8BEwKEInEll1ZeUNIaZ65Gxa5
-         Rq8PG3ynOgqyNAEG/2VAaGOI6/yEFMeRK6xRN4yz3UpzMIJ64YvvwhEEZ83BBtHwXt2N
-         BZzw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793008549; x=1793613349;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JWuIyGvj7TDVl2tZ8CiehJr07EFLO+I5wb0zx/hsUqc=;
-        b=029bqTdImxkZsQ/YR4HVH+U+GX1yOfo3PJKfwMw/z62ZJfrEp2U1sxX0OgbcRdM4Jq
-         MRAal5ETiD9gPB4rz5VipAAUeNMR69Gecxnth1LjujtjxMM3LTeal3DZUJC447dqnQyc
-         IqXy3neMJe4t7U+4dfahtRSczVS4fyU3WJiBiaH0SfVi6PF3PGMIuUuY/Rrk5zKZapRF
-         MtWiOU6BrLpzMuQOJ3by4HNTElM2ObBukOU9iSCXvcRI77joFmBuhfMAAGCB1ZU0nr54
-         xAk1M8iEFAfBbrETsdLDeh3b30YudRGwBq8yxRjdr1LFP2VGEQuWEX4F2lblCGFdcrpa
-         HCPw==
-X-Forwarded-Encrypted: i=1; AKwUvBxZ4p986uqXtxoQagMfc9rEwjjpeENMOPXcgyGlo8kNlgh3C5HGgMg7EsbUMdpLlZxCiZGuMp6x5aufjSA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI2SOPIfUjTMbME+fQ29PAl5bj3RNlHUT2G+FZQazSQY5nTo+OE
-	tY2yeOaQJ20t5Zupkpme8VuV4/AP2mWnDlB3Ra/Jmy7U0FwExh0NBJ+s
-X-Gm-Gg: AYBFou1OA8eNqGzNfc8zAiTVEsowmTt6esyiJKgageEBzklFR7j+nZ5ot70jvNQManY
-	y6wGaHx2dsnLb7k2Fn9z1WU+2HOn/HTl83fmwtirBV8mcE0G5+C8ur4oyLX3woeGnCW5wdThssG
-	Au3JejF+GXvEbljSaPH+hAyMXvGKlsRNQrzmC493WPzxArRo0Dx2Iy+1GoFy77TzOu7Eg2yMdsy
-	njJMIvEYkL1p1IUQUdm/gVpNTn/7QmgToGrz/AppSbk/N3XIlpgBQBq/0SF6QgyWgBxD24iFIid
-	g6NuFw2guv+kVb4PVGRqKzgmWFKrRm5P0d6XY5t3zJEOMH8efzPcT60gkv5yJ/pES4pesYWl2cZ
-	F8EBspnfb98ULJKuxrum+KzsiE44GAKIn7mh6A27JUWgd3gp8v4YS2dfodR0LnNZO0W7y/D07vU
-	E8r+SwWyrx4qEOdW03s+5EZkBaUzbbYrEMqX7YIFX0v/nHPIzzwuQxWzvvsNN5LubKUjOhYM/ZO
-	b6DbKYHosY/VD+oZIOAjOS3onamQfUiuo1wf8VQrbqYG8u8MnKK8P3THN5Q3DyIOKvJNOHjctIE
-	amOQ
-X-Received: by 2002:a05:7023:88d:b0:192:fd91:c569 with SMTP id a92af1059eb24-19933e10ad1mr11647724c88.11.1793008548510;
-        Mon, 26 Oct 2026 02:55:48 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a1bfaf25sm23720535c88.14.2026.10.26.02.55.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 02:55:47 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Thierry Reding <thierry.reding@kernel.org>
-Cc: Jonathan Hunter <jonathanh@nvidia.com>,
-	linux-tegra@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] soc: fix typos in comments
-Date: Mon, 26 Oct 2026 15:25:43 +0530
-Message-ID: <20261026095543.2729446-1-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <ar9qxmyIZEP2IlMp@orome>
-References: <20260907062107.6859-1-hemanth.selam@gmail.com> <ar9qxmyIZEP2IlMp@orome>
+	dkim=pass (2048-bit key, unprotected) header.d=iki.fi header.i=@iki.fi header.a=rsa-sha256 header.s=lahtoruutu header.b=a/C2+aNA
+Received: from hillosipuli.retiisi.eu (n18ws8cotq5gnfn8-1.v6.elisa-laajakaista.fi [IPv6:2001:99a:0:19f:4ce7:0:938c:d2f4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: sailus)
+	by lahtoruutu.iki.fi (Postfix) with ESMTPSA id 4jCpsT69WPz49PyT;
+	Mon, 26 Oct 2026 11:55:41 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=lahtoruutu;
+	t=1793008544;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SXPNAY8BSpBE8W0KP7BX69lYI7ILVN9z/tYUg7mD3/I=;
+	b=a/C2+aNAJrW2T5Bs5DLkevetIeUQyTeGae/1pMTnZBJhsw8iAjkRUUxRJmmNvoExvBsSCS
+	frJTpwITPW9Q80CUt07/DtkPAVXuNpDQFx6ngk3Sn5zgEEM6gFC1/uYjehoZJFguk2cj53
+	4i2hsZXVNJcfmFJx+Qe2OktuL4HRLk1fuOj81fnOFHpYGNH4WxHswVSZYk89EfaBFUcIHG
+	6Zl0r32F9BbJ/2gwI3+WhA5egzAADvcFuOQVj5Cf4tvsc2Jk9ke/yNRtb4SWbwznXYh3yr
+	DaUOHJL/zsGIZ2kSTo3W/5dt2n0O71jzEkB5rfcxFiQeddM4VTwxAwfYl4FHpw==
+ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=lahtoruutu; cv=none; t=1793008544;
+	b=POIc3HgcX0pvYdu9LaOiyOoZ6JFPzY2sVQDsXQo6eGOJ3jJY+IunoTBsPbnYhjgRAOqJiv
+	/dPsWdN1+RE/ZfIr/qaldEtVnVy8Oy4NOv+cZjEXosxlqqrzrTBBUZHDtNaiePxv7pwt87
+	vxEqNjWU7gdTW2R9Hua9X7JUvODK6hqbYx1wjFukG6g2t0e5PROw4GbIWQa4o0TLsXGXg3
+	k5KDNjASAjmTzOzACVLnORvQtuuuuQfCHPbiGoFhOjxZhvj5AK58lb3HKRXbQLBlBXRUPp
+	LAXviSuDb9h/QDovJ9XHXZwnzIwO2BSIC/hqCDq+hWbYDZH7rGUVsuFv+g1cHQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
+	s=lahtoruutu; t=1793008544;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SXPNAY8BSpBE8W0KP7BX69lYI7ILVN9z/tYUg7mD3/I=;
+	b=hUU6l60GhOADfQUl0tgp4uxVB5WdVriwf+gVcM+dMtDoy3ZddZSp7/nvBcBQNlBbDLmtE/
+	r5IOuzp5ZymkT6atJdYDjpFt/oE7+nJ82kXpEy19p656wO4pT5bciXqnZLGCmDXokzJwSL
+	1+o+/djnxsAQEJ5EycPcz70MNk4XIFC3JUyk84iDY4dsQZRQypkYg1j7DxX7Nalo4Pm8zO
+	fWoofYCj6vBhORZJX01Q/F5XaAxkfuSMoNQtNTdcLspP9pfpAS1NN+BQIodTyXZdFDz+7e
+	Vh+tmnN3YczJXTwBiPVUWz+yTyx/NaqZ2oQbfgPjFDpO4PBBkzGR6nGK4LROLg==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=sailus smtp.mailfrom=sakari.ailus@iki.fi
+Received: from valkosipuli.retiisi.eu (valkosipuli.local [192.168.4.2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by hillosipuli.retiisi.eu (Postfix) with ESMTPS id 18CAA634C4E;
+	Mon, 26 Oct 2026 11:55:41 +0200 (EET)
+Date: Mon, 26 Oct 2026 11:55:41 +0200
+From: Sakari Ailus <sakari.ailus@iki.fi>
+To: Denis Benato <denis.benato@linux.dev>
+Cc: linux-kernel@vger.kernel.org, linux-input@vger.kernel.org,
+	Benjamin Tissoires <bentiss@kernel.org>,
+	Jiri Kosina <jikos@kernel.org>, "Luke D . Jones" <luke@ljones.dev>,
+	Mateusz Schyboll <dragonn@op.pl>,
+	Denis Benato <benato.denis96@gmail.com>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Subject: Re: [PATCH 2/2] hid: asus: always fully initialize devices
+Message-ID: <at8jnW4RaMPJItUK@valkosipuli.retiisi.eu>
+References: <20260216175539.12415-1-denis.benato@linux.dev>
+ <20260216175539.12415-2-denis.benato@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,57 +99,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260216175539.12415-2-denis.benato@linux.dev>
 
-On Fri, Oct 02, 2026 at 10:40:50AM +0200, Thierry Reding wrote:
-> For some reason I can't seem to get checkpatch.pl report these spelling
-> mistakes, so maybe that's part of the reason why these are not flagged
-> before they get merged?
+Hi Benato,
 
-That is exactly it, and there are three separate reasons it stays quiet.
+On Mon, Feb 16, 2026 at 06:55:39PM +0100, Denis Benato wrote:
+> ASUS has more devices other than laptop keyboards which needs
+> to be initializated: the init sequence is the same as keyboards.
+> 
+> ID1 and ID2 are USB report IDs that are correctly enumerated:
+> send init commands to all devices that supports those reports IDs.
+> 
+> Signed-off-by: Denis Benato <denis.benato@linux.dev>
 
-The spelling check only looks at the commit log and at lines beginning
-with '+':
+This patch appears to break input devices on Asus T100TA. With the patch
+applied, I'm getting a steady flow of:
 
-	if (defined($misspellings) &&
-	    ($in_commit_log || $line =~ /^(?:\+|Subject:)/i)) {
+[  256.358075] usb 1-3: USB disconnect, device number 120
+[  257.034324] usb 1-3: new full-speed USB device number 121 using xhci_hcd
+[  257.175003] usb 1-3: New USB device found, idVendor=0b05, idProduct=17e0, bcdDevice= 2.49
+[  257.175050] usb 1-3: New USB device strings: Mfr=1, Product=2, SerialNumber=0
+[  257.175073] usb 1-3: Product: ASUS Base Station(T100)
+[  257.175091] usb 1-3: Manufacturer: ASUSTek COMPUTER INC.
+[  257.180978] input: ASUSTek COMPUTER INC. ASUS Base Station(T100) as /devices/pci0000:00/0000:00:14.0/usb1/1-3/1-3:1.0/0003:0B05:17E0.02DB/input/input749
+[  257.266585] asus 0003:0B05:17E0.02DB: input,hidraw1: USB HID v1.11 Keyboard [ASUSTek COMPUTER INC. ASUS Base Station(T100)] on usb-0000:00:14.0-3/input0
+[  257.270711] asus 0003:0B05:17E0.02DC: Fixing up Asus T100 keyb report descriptor
+[  257.272302] input: ASUSTek COMPUTER INC. ASUS Base Station(T100) as /devices/pci0000:00/0000:00:14.0/usb1/1-3/1-3:1.1/0003:0B05:17E0.02DC/input/input750
+[  257.327059] asus 0003:0B05:17E0.02DC: input,hiddev0,hidraw2: USB HID v1.11 Device [ASUSTek COMPUTER INC. ASUS Base Station(T100)] on usb-0000:00:14.0-3/input1
+[  257.332642] input: ASUSTek COMPUTER INC. ASUS Base Station(T100) as /devices/pci0000:00/0000:00:14.0/usb1/1-3/1-3:1.2/0003:0B05:17E0.02DD/input/input751
+[  257.334115] asus 0003:0B05:17E0.02DD: input,hiddev1,hidraw3: USB HID v1.11 Mouse [ASUSTek COMPUTER INC. ASUS Base Station(T100)] on usb-0000:00:14.0-3/input2
+[  257.336098] asus 0003:0B05:17E0.02DD: Asus handshake 5d failed to send: -71
+[  257.336263] asus 0003:0B05:17E0.02DD: Failed to initialize 0x5d: -71.
+[  257.336605] asus 0003:0B05:17E0.02DD: Asus failed to start multitouch: -71
+[  257.367022] asus 0003:0B05:17E0.02DD: probe with driver asus failed with error -71
+[  257.367917] usb 1-3: USB disconnect, device number 121
 
-so on a normal patch it reads what you are adding and nothing else.  A
-typo already in the file is never examined, even when it is sitting in
-the context lines of the very same hunk.  Nothing that is already in the
-tree can be found this way, which is why none of these were caught when
-the code went in.
+I haven't tried to debug this yet so just FYI.
 
-Scanning a whole file needs -f, but in file mode the finding is demoted
-from WARN to CHK, and CHK only prints under --strict.  So:
+-- 
+Kind regards,
 
-	$ scripts/checkpatch.pl -f drivers/mtd/ubi/wl.c
-	(says nothing about it)
-
-	$ scripts/checkpatch.pl -f --strict drivers/mtd/ubi/wl.c
-	CHECK: 'occured' may be misspelled - perhaps 'occurred'?
-
-That is probably the run you were missing.
-
-The third reason is the word list.  scripts/spelling.txt has to contain
-the misspelling or it does not exist as far as checkpatch is concerned,
-and it is much smaller than people expect.  "inclue" in
-drivers/nfc/fdp/i2c.c:270 is a plain typo that no invocation of
-checkpatch will report, because the word is not in the file.
---codespell swaps in codespell's dictionary, which is where most of
-these actually come from.
-
-> Maybe a better use of LLM tokens would be to have it write a script
-> that can be merged and that will automatically run a spellcheck on the
-> tree.
-
-Agreed, and codespell is the right engine for it rather than
-spelling.txt.  The awkward part is the false positives: codespell on the
-kernel produces a lot of them, mostly identifiers, hex, and abbreviations
-in comments, so something mergeable needs a tuned ignore list more than
-it needs a wrapper.  I will see how far I get and send it separately
-rather than hold up anything here.
-
-Thanks for picking the patch up.
-
-Hemanth
+Sakari Ailus
