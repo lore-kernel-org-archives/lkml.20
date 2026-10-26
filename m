@@ -1,92 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.73.12
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793027906;
-	b=HND+TtBF3d9gh411zk9Vs+txGRXof6tcqo3agtwHy6GcAUHWucZSAYFM+V7/DuWGUzfC
-	 dHUlf+FIlsz9OleJNJO437f4vUQF/ebvqTObh7JdaQx0ZY3LiuO2ndWpkPXMvk7vNLhmk
-	 pAwVKAvFa4UM+qGztT1fL1WHeFfpby4wqQVP3CsTeA1fMN/nZZEc3P23C4QFxGyoRqpH8
-	 FMHbcfHvdCeN4hLBkN5iOHD5JLJWC5TbDUWItkZrvMil1zVFDFqj2/nMsW/Fcr7xXvWaK
-	 xO6rm9KYIgCMItV3+r8vxZ7ZTrYtJ+eIxoGAKo7xmejQKr1taTuVPwclzSHwJrtcWyA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793027906;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:Content-Transfer-Encoding:Content-Type:
-	 X-ClientProxiedBy:X-Microsoft-Original-Message-ID:MIME-Version:
-	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=VZtah0zu2iPUv2aKxwyhjfeqtcL2Tg9nyuB4RQZF9EE=;
-	b=vD17/r9eWTTqmztqcnkORaAw4XhyZbi7AcdUVNgwBbCPqHC6gja+9rUplmO3m1gnF8Vt
-	 NqVhEu0MR7j0QMiOnC+67HhGfgvmefdOMjnPuejYw3IcCV5jTs0+O+mlTRfPy7DywbMDk
-	 eJXwJKLoj1ous04r3G7uiRNBEmNiB64ElSLn9Gku94X7JyGxSkQyFNi59yD+fuN7n4o5Z
-	 +A1Y7lzKDUG3FwxHk5wmvsCx17QJP4ra3Rwc3MQKj2Vvs63sMH7CgIpOvGSxo7IE1qkqD
-	 mDRzgZpFMSRJ1jUlI7/WfuF956LLqX5CLqBs/7UBSPYbInvx6oxoWRIvpJ0gBhwnWtg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=outlook.com;
-	spf=pass smtp.mailfrom=outlook.com;
-	dkim=pass header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=bRJV7mDb;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.73.12
-Received: from MEUPR01CU001.outbound.protection.outlook.com (mail-australiasoutheastazolkn19010012.outbound.protection.outlook.com [52.103.73.12])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793027949;
+	b=txPqrZoAeM6qRRxl2kLScWpXlCEQ+oF9hG+LnryaPAWiYsSdGcf8ZZ20AP3NiAIBg4Q6
+	 iPCZjWvL+pO0Qyky/LcyWMyK7LiYKj1/+nLZsx5RlOPURJ9cdcO2FLDDlHD3L7Ns0fFiW
+	 I+A0zwvsiBDEnsYmKrggOriN0oTrB+ecT3D+HhUR7HE3E7ZkjvKZK9IDME8k7PyCztt7y
+	 xS2F7+8CWCEg0D+GNKbowDssG8xeJsNyqtQWUQ7Y63Gba6y5PDU+3gg07BdAa8t0hRemt
+	 vzdyg1/E6SWmqWxH6n4c06VM1RIJoV9836nbpuKbK5qiiFUlM3aOxwvRl9hcSwq5U2w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793027949;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition;
+	bh=f9cbJ1Zb6DjFnYHAT7yLFvbVSqoznPWlK4ODWL5CHR4=;
+	b=mJpEWAATNgVXuQIeRZNQP8vAFogQpecs5OhR6DddqyKyjzxm/a7vA1AT0rpROXicXR/t
+	 U1z7hF5+p9lBmKBc6hwxSEXzja9p00ggtzVJxLb+ZI4NH0z4M5o0CmSnrG7kYZEzJTfgB
+	 mf/khQdUKDZpzfnPVRNlW0kfG8URjQXiTGV+0XFQkiKb2n/PDvyEGkH/h6tSbYIj/sAeD
+	 T6cgnWfrjcrhk7wMQXXZatETwNKbz38Ajv5yq+vzXCMM9H72ZVrtkFK/4e4uZk3azg5CZ
+	 R/uMe3AsE/vV+QniWai2dQ2qDma6Ez1PJibzOVc8LQSfq8S+/NbBhakNwktiekdo3AA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Uag3AGXk;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32330606A31B;
-	Mon, 26 Oct 2026 15:18:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32330606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F233606A31B
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 15:19:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=bRJV7mDb
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wMmsjwv0+IuMn8dINEPyUrIbNhYI7vifS4l2c8TtbOCSJQDln7F/fuxLy+28jzamD9UHem8aDxSCatIxujlRvz1Wnu9No9H26wGPOCzWlHBKvTK3pumeIrwfof8aEk4EqIbpVOGgnViksboTQ5bn6UntyzEFkP+p5i3HA1jf+hoauo/TyrwEAv3fd8qLf5xEow9xEOKCMvD40DDmIRRi+N8fXnyNB7VkJBFr1HNCCc8KMWFl6NfEgjZ8MZNKtQ8ovhREstyi2wFZnEaSi1CcTkHq4PQmBA+7JhEEgPF26+ZD8Yfnig093OtP7CG7al1YxcAgd6v+Tn2V1FuZd8p57g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VZtah0zu2iPUv2aKxwyhjfeqtcL2Tg9nyuB4RQZF9EE=;
- b=dHbLxMWtPGATCErJLKSLyopaV0/YcOp2A98esD8SxmmpbTEjT9ZcbgYCWNIkMISUoYzxrLRu4+TX2bRLzDwPO4RbigOMs2Y551qdFOZEaY/8UwnKtAZdOdQsmhZCSvdWRH75mFp3g9LKzG6w5LUgiNudOPdEFRhkVtcyKwmscIWCXTRtzZlBCXBQ829fizoK4uAsAtguDHdy0ACqvOjBuY6Py+gXbKClUiqg25AzrAZTwLsNS5oyOzH3dsuKD2yhhDEQDpIbywfohMHZIYjTnTodsXfbHGV2KyMXlrqkD+48lV0K+UWrvcNW3wj8ucrJQlDYSin7FFW7lmRYq1DmOQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VZtah0zu2iPUv2aKxwyhjfeqtcL2Tg9nyuB4RQZF9EE=;
- b=bRJV7mDbgd8bFJIAQwTshITlCYefFZxu1b5Dpm+HOpWM9wfGF0mCMPBeZ6Of2dZtgc0cgTXRUw75+Q7ZzFg8747D4USwd3pDiq9Ar5x66vYQoB58VpQQu3/ty03zFV6nCz1rQQdHaRM8ks+h8Fse5x4sM4eYt+XPqgJIaEd1RFZ5e/75wyf6QHySXHy+pFeaZ6VdgzU8wgAZndGUGeo+MBwdpnoNl6zIpatCoSs/f6cAdkGaDoGFYF0ApAJp0rnaeuAKgGIIKjAzH4PB+/boUOXj4ctqonr909DQfATM1nUtFghX9xGda1ARoASvMNlTuErGC1PF6+4k9zBDd7e2PA==
-Received: from SY8PR01MB9299.ausprd01.prod.outlook.com (2603:10c6:10:22e::6)
- by ME3PR01MB5816.ausprd01.prod.outlook.com (2603:10c6:220:e4::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
- 2026 15:18:19 +0000
-Received: from SY8PR01MB9299.ausprd01.prod.outlook.com
- ([fe80::eef8:27e8:2765:92d3]) by SY8PR01MB9299.ausprd01.prod.outlook.com
- ([fe80::eef8:27e8:2765:92d3%4]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
- 15:18:19 +0000
-From: Du Yijie <nathandu@outlook.com>
-To: Roderick Colenbrander <roderick.colenbrander@sony.com>,
-	linux-input@vger.kernel.org,
-	Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>
-Cc: Du Yijie <nathandu@outlook.com>,
-	=?UTF-8?q?Barnab=C3=A1s=20P=C5=91cze?= <pobrn@protonmail.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] HID: playstation: ignore DualSense Bluetooth microphone reports
-Date: Mon, 26 Oct 2026 23:16:40 +0800
-Message-ID:
- <SY8PR01MB9299F0BA16B832F89BC6A4EDD1612@SY8PR01MB9299.ausprd01.prod.outlook.com>
-X-Mailer: git-send-email 2.56.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SE2P216CA0059.KORP216.PROD.OUTLOOK.COM
- (2603:1096:101:115::10) To SY8PR01MB9299.ausprd01.prod.outlook.com
- (2603:10c6:10:22e::6)
-X-Microsoft-Original-Message-ID: <20261026151640.6744-2-nathandu@outlook.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Uag3AGXk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4A021F01825;
+	Mon, 26 Oct 2026 15:19:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793027948;
+	bh=f9cbJ1Zb6DjFnYHAT7yLFvbVSqoznPWlK4ODWL5CHR4=;
+	h=Date:From:To:Cc:Subject;
+	b=Uag3AGXkK3ZAKyOwVmGewCJKzlsqhEb3XnNMaDwIjMPyVTmCEsTm6UFnQ0SFI5Mhr
+	 YMfvM2LyH1SD7qIy7NcFJr8v+tFQwky2ftWub6WFHx0vfitSFGT4MFiCdXFCbVkpyq
+	 4ZhkO9u4qDDS20OJhEtfMZf2hPY9w736MX56kd8x4TZBST1hcY1B5DQqiDEP8tr4+w
+	 N6iJYXyTv6RGNQTFetLjr0wuRNlAJ6Sdo6jTkGw+IhzS9J0Pi0WQal+zwwirxpX7zB
+	 8Eigt+VwIuJA7qILbYNTXvxZKfmXzdCFRjIhcrqxlMqKz+RBz00ejqoxoL8Bwr9g7Q
+	 U/jm8CHF20byg==
+Date: Mon, 26 Oct 2026 15:19:04 +0000
+From: Lee Jones <lee@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Subject: [GIT PULL] MFD for v7.4
+Message-ID: <20261026151904.GC2195460@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,191 +54,400 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SY8PR01MB9299:EE_|ME3PR01MB5816:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6d6a0393-7029-4a04-35c8-08df33745de4
-X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|22141099003|41001999006|12121999013|25010399006|260925184616899003|4140399003|19110799012|8060799015|37011999003|5072599009|23021999003|24021099003|15080799012|39105399006|5062599005|40105399003|10035399007|3412199025|440099028|26104999009|1710799026;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?JpUa7VorOZrX0GiLPCuDvUkAgWMVs5NCdMNCBCzdylqha3t29PYe89sgJQHz?=
- =?us-ascii?Q?yx3YWVPmLLddEOz95wZ2dmbzKnP1QBG/hQkrOOh1nuZz5wYzQS+gDMyoWwZO?=
- =?us-ascii?Q?/Xxm4g58UR9ZP+yoIeJH8dW7e7a8miuVMr+Gr8s/pyJXFFXWn0dwMFDYIo7G?=
- =?us-ascii?Q?FKyQi5cSpVwu8untfo1CEshf947h80jaeRwbEhm2cv0QEYiiySZ8cliz6Zoo?=
- =?us-ascii?Q?w+9CjWG/vCD6dMDp5Tsfyd1jyvkU8GcNqnHjxvXHrZFFlUBnPcwU7hF4L8Eg?=
- =?us-ascii?Q?2BqtPm2RjDsf5QFleBKIP4JGsFpyt/mIN4zBLkUp50BzeANi13UWGWgmDiQR?=
- =?us-ascii?Q?SMW5cSj/WkOXoyyQdEECl2+D+SUVo1dJM4/ORDGVVX5mhaU0WQM6tSELnvEE?=
- =?us-ascii?Q?xz6oA426MqexY8Jfttr74sE1HMj3cw4h0iDKYd7BJ8xEl4FqC1hRNswd61jm?=
- =?us-ascii?Q?c2uBfZ/kepMkm0oMA575bAbKHiSXGSRyyhE54fsVuAVxN08OG+NNc27KRDXm?=
- =?us-ascii?Q?AMM2QPKEUQ4hXN3fuhNdfQyNP3yRqkOZ+a9YxaJHqto3VrkP4tQ0hjqogBdD?=
- =?us-ascii?Q?7NwqSLbcPDmoSnjeWBCnBKeBjbJVQHKWMIHlF7Wsixr9CIOvEcaIJnJ+SO1/?=
- =?us-ascii?Q?w5Of+EVGacxYxyBXlWCCwQVU67OYW1xyFuwt6fowlgIeCWWeF0ymOaII+YoG?=
- =?us-ascii?Q?HbdIpH2NEqoLxPXRSFAJVCtTivph5OA8chi/9bdXiHQSsyPAQ/KJs3CP8RQz?=
- =?us-ascii?Q?RTzE+H+jr1OKSJHFPbj20ynC7PykJ9uMhSegBBE5GjLZ/RZsR6IcSUfRLGvz?=
- =?us-ascii?Q?lKKJUXjeeLyS+0PGP0qSf/FXURhobE0SdgF+2DnzGHVRqMe0pZufQqZIxAQU?=
- =?us-ascii?Q?PhFAMJhPFeGbRyD0kBH86ZnRNw75uJ9/F9wUF/fOPC30wPIsDxurInPKiyl7?=
- =?us-ascii?Q?fO12fNPo3D3EH5k5oKoj8nt3GgWo6WmiWgCpNo48Q52owc3uLZLkdbM/a/J1?=
- =?us-ascii?Q?CHVv5vltkXj0il8iByCUJ3XodW97Kx95Fe3uLPv/4vTyc3NPUWHQD7ZAw1LB?=
- =?us-ascii?Q?FU358ptIL25T+mrcItuqD9a7GxXI/pCB6eArLj3vo/s+jicI+SQ=3D?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?sOG/0bAXvS8Enqe02oK9BBS6cQPUPdnAHdPu9NUwqTfSKjElAztHsf4dD5aB?=
- =?us-ascii?Q?zHw3BOkGKTRDTiGJx/CEyO0EVMr6uRZo+nbsuw+Lq5e1Iju45WZT1eNqJXjg?=
- =?us-ascii?Q?qG0rv+CJoKdpaKAmozPeAu6t7a7ZOwF7sOXPodWvutdPVCLYAsnKYtVATdVY?=
- =?us-ascii?Q?kEYBYmcCgQWrEzpbZAsgDWzBYLnO5/Lgdm6PS8tQqYoahycckhA2bZB+sVdO?=
- =?us-ascii?Q?yrlzkXZrPere1ieLJOuaPrMWLr2jTM5QPelejLPf0/sGLji4jmbSD+yf/N3I?=
- =?us-ascii?Q?CkQZXZGclLlW1CuadR46kb52ulk7Tr3r35n6ZBRrwy7BuIdLbTg9gO+6/IKR?=
- =?us-ascii?Q?5HlZUg+qxfXzjI476nO9FWUgnR7YnlbmBOMQtxc0YoPqjNVC7/HdDWrfS2I0?=
- =?us-ascii?Q?bq5X8LrR4yqaCYeUKMUdOSYM56RutUd5EN2gWK1aZDgjz9EZRLwUV+HKkwsx?=
- =?us-ascii?Q?BUHde7zQmpsbb7Bh8xrzTuT7gwV1eGQko1ObbBxxTcxHN2blYuxl17IbbH6G?=
- =?us-ascii?Q?O7BciturXNAqxCABhg0MpiTRX45glWsMvZWIRegK3ffNVibNzz9fj22kl4ap?=
- =?us-ascii?Q?tlET7l6w8oGVSOkh/azHawnYkjxYnOUo3hvRO9rr8GxII/heHnavD7KCpm2C?=
- =?us-ascii?Q?C6IYv1YD8E5KyVxoBgqAxy4EosLY3TeZMi8++sk/TftDJ3GrzuQtzOxoQcw+?=
- =?us-ascii?Q?gd8JmVlH2ukpZAcajLF3puIin0LB8zmG2XwhfOjm5uzT8anlH8kM9jk/kNre?=
- =?us-ascii?Q?W56tz4pEWagHmjEMAJUWkKO3CSS6Y3jzfWXfJeTOPFpdEKu7oJS/YIrItmab?=
- =?us-ascii?Q?wboq+g0tGat3c6TeLxFvU9+xgfu2cNiHNf2J+Gy9+In09atrObUNXIGZE/yn?=
- =?us-ascii?Q?WqCBocW6rpJx+qX8hdqzt2ug/pxKJCqx1u/2R7WjR9j7MV+T6RE6kTSA+g6O?=
- =?us-ascii?Q?8FXZ2G4cOVt71xq/PoJIfk5sBOSci0TLJWE9jk8wezAhtErF273GKfdteW/1?=
- =?us-ascii?Q?+hBawNZLFSvVpW9ccfxOy3ETRVjmFhM2Hpa04MpucyMQnrsUiXag2UNxAmdC?=
- =?us-ascii?Q?sO53S9Tw0ZRV862BptCU7vsHova4ALwYH/qg5Xh4krnet9DxU3s/YYBF94VF?=
- =?us-ascii?Q?NroJioZx6NZzPKQldwbNDeyNK0ZRl8FwEdGbgqbRJcXb3meMw1w5M7JIfwKY?=
- =?us-ascii?Q?fY1Vm5Cl5pABkuFSUwEio63o4sQ0y3ML066vlhfrsW8G9kCr8bV1Z7t77hF7?=
- =?us-ascii?Q?vabLMmNM8ECBQV7PzsOF425QUV/Ohif3oPcSByGG0ajMTAGZSoT/qxG2qIpy?=
- =?us-ascii?Q?6isXlqOrSX3+on6EuUK711oYIN1vpE9NqQWIiONIJBh37dEysdmqAi3LDzgy?=
- =?us-ascii?Q?UR5IV6Cms8TKWidx/xPo5RkOOEi71UPT3BlliZZHN8Q/VZebR1/EDDjzujLW?=
- =?us-ascii?Q?mHjXKpAgy61UJR70TZnF9rcWf5dBY02u?=
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6d6a0393-7029-4a04-35c8-08df33745de4
-X-MS-Exchange-CrossTenant-AuthSource: SY8PR01MB9299.ausprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 15:18:19.6727
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ME3PR01MB5816
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-If userspace enables microphone reports from a DualSense connected
-via Bluetooth, by sending a specific output report through hidraw,
-hid-playstation will misinterpret the microphone data as regular
-input reports, resulting in spurious events.
+Good afternoon Linus,
 
-Check the byte after report ID, which contains information necessary
-to distinguish the typical HID input report from other stuff like mic
-data, before parsing. If the byte indicates anything other than the
-typical HID input report, do not parse it. If the report looks like
-mic data, silently ignore it, otherwise report an error.
+The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
 
-Link: https://bugzilla.redhat.com/attachment.cgi?id=2161437
-Closes: https://bugzilla.redhat.com/show_bug.cgi?id=2554570
-Fixes: 799b2b533a29 ("HID: playstation: add DualSense Bluetooth support.")
-Tested-by: Du Yijie <nathandu@outlook.com>
-Signed-off-by: Du Yijie <nathandu@outlook.com>
----
- drivers/hid/hid-playstation.c | 51 ++++++++++++++++++++++++++++++-----
- 1 file changed, 44 insertions(+), 7 deletions(-)
+  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
 
-diff --git a/drivers/hid/hid-playstation.c b/drivers/hid/hid-playstation.c
-index f9dc9378cf77..8bad1a9dae54 100644
---- a/drivers/hid/hid-playstation.c
-+++ b/drivers/hid/hid-playstation.c
-@@ -94,6 +94,13 @@ struct ps_led_info {
- #define DS_FEATURE_REPORT_FIRMWARE_INFO		0x20
- #define DS_FEATURE_REPORT_FIRMWARE_INFO_SIZE	64
- 
-+/* Metadata of Bluetooth input report. */
-+#define DS_INPUT_SEQ_TAG	GENMASK(3, 0)
-+#define DS_INPUT_SEQ_NO		GENMASK(7, 4)
-+
-+#define DS_INPUT_SEQ_TAG_INPUT_REPORT	1
-+#define DS_INPUT_SEQ_TAG_MIC_REPORT	2
-+
- /* Button masks for DualSense input report. */
- #define DS_BUTTONS0_HAT_SWITCH	GENMASK(3, 0)
- #define DS_BUTTONS0_SQUARE	BIT(4)
-@@ -242,7 +249,7 @@ struct dualsense_touch_point {
- static_assert(sizeof(struct dualsense_touch_point) == 4);
- 
- /* Main DualSense input report excluding any BT/USB specific headers. */
--struct dualsense_input_report {
-+struct dualsense_input_report_common {
- 	u8 x, y;
- 	u8 rx, ry;
- 	u8 z, rz;
-@@ -264,7 +271,22 @@ struct dualsense_input_report {
- 	u8 reserved4[8];
- } __packed;
- /* Common input report size shared equals the size of the USB report minus 1 byte for ReportID. */
--static_assert(sizeof(struct dualsense_input_report) == DS_INPUT_REPORT_USB_SIZE - 1);
-+static_assert(sizeof(struct dualsense_input_report_common) == DS_INPUT_REPORT_USB_SIZE - 1);
-+
-+struct dualsense_input_report_usb {
-+	u8 report_id; /* 0x01 */
-+	struct dualsense_input_report_common common;
-+} __packed;
-+static_assert(sizeof(struct dualsense_input_report_usb) == DS_INPUT_REPORT_USB_SIZE);
-+
-+struct dualsense_input_report_bt {
-+	u8 report_id; /* 0x31 */
-+	u8 seq_tag;
-+	struct dualsense_input_report_common common;
-+	u8 reserved[9];
-+	__le32 crc32;
-+} __packed;
-+static_assert(sizeof(struct dualsense_input_report_bt) == DS_INPUT_REPORT_BT_SIZE);
- 
- /* Common data between DualSense BT/USB main output report. */
- struct dualsense_output_report_common {
-@@ -1438,7 +1460,9 @@ static int dualsense_parse_report(struct ps_device *ps_dev, struct hid_report *r
- {
- 	struct hid_device *hdev = ps_dev->hdev;
- 	struct dualsense *ds = container_of(ps_dev, struct dualsense, base);
--	struct dualsense_input_report *ds_report;
-+	struct dualsense_input_report_common *ds_report;
-+	struct dualsense_input_report_bt *ds_report_bt;
-+	struct dualsense_input_report_usb *ds_report_usb;
- 	u8 battery_data, battery_capacity, charging_status, value;
- 	int battery_status;
- 	u32 sensor_timestamp;
-@@ -1452,18 +1476,31 @@ static int dualsense_parse_report(struct ps_device *ps_dev, struct hid_report *r
- 	 */
- 	if (hdev->bus == BUS_USB && report->id == DS_INPUT_REPORT_USB &&
- 	    size == DS_INPUT_REPORT_USB_SIZE) {
--		ds_report = (struct dualsense_input_report *)&data[1];
-+		ds_report_usb = (struct dualsense_input_report_usb *)data;
-+		ds_report = &ds_report_usb->common;
- 	} else if (hdev->bus == BUS_BLUETOOTH && report->id == DS_INPUT_REPORT_BT &&
- 		   size == DS_INPUT_REPORT_BT_SIZE) {
--		/* Last 4 bytes of input report contain crc32 */
--		u32 report_crc = get_unaligned_le32(&data[size - 4]);
-+		ds_report_bt = (struct dualsense_input_report_bt *)data;
-+		u32 report_crc = le32_to_cpu(ds_report_bt->crc32);
- 
- 		if (!ps_check_crc32(PS_INPUT_CRC32_SEED, data, size - 4, report_crc)) {
- 			hid_err(hdev, "DualSense input CRC's check failed\n");
- 			return -EILSEQ;
- 		}
- 
--		ds_report = (struct dualsense_input_report *)&data[2];
-+		unsigned int seq_tag = FIELD_GET(DS_INPUT_SEQ_TAG, ds_report_bt->seq_tag);
-+
-+		if (seq_tag == DS_INPUT_SEQ_TAG_MIC_REPORT) {
-+			/* Microphone reports are silently ignored. */
-+			return 0;
-+		}
-+
-+		if (seq_tag != DS_INPUT_SEQ_TAG_INPUT_REPORT) {
-+			hid_err(hdev, "Unknown seq_tag=%d\n", seq_tag);
-+			return -1;
-+		}
-+
-+		ds_report = &ds_report_bt->common;
- 	} else {
- 		hid_err(hdev, "Unhandled reportID=%d\n", report->id);
- 		return -1;
+are available in the Git repository at:
 
-base-commit: 2c2fe95ab19b09bef7391e3e5cdf8146d09792b6
+  git://git.kernel.org/pub/scm/linux/kernel/git/lee/mfd.git mfd-next-7.4
+
+for you to fetch changes up to c8132247fe4df52e9982d74c986bb199d792b85b:
+
+  dt-bindings: mfd: db8500-prcmu: Deprecate EPOD regulators (2026-10-19 17:19:49 +0100)
+
+----------------------------------------------------------------
+MFD for v7.4
+
+- New Support & Features
+  - Cirrus Logic CS42L43: Add support for the CS42L44 variant
+  - Khadas MCU: Add support for the VIM4 MCU variant along with per-variant fan duty-cycle
+    levels and optional fan supply regulator support
+  - Maxim MAX77705: Add support for the PASS2 hardware revision
+  - MediaTek MT6397: Add AUXADC sub-device support for MT6397
+  - Motorola CPCAP: Support per-board sub-device compositions and add the Tegra20 Mot
+    composition
+  - ROHM BD73800: Add support for the BD73800 PMIC core, regulator, RTC, clock gate, and
+    GPIO sub-devices
+  - TI LM3533: Add VIN regulator supply support, configure initial backlight mapping mode
+    from Device Tree, and implement the `backlight_scale` property
+  - X-Powers AC200: Add support for the AC200 I2C mixed-signal companion IC
+
+- Improvements & Fixes
+  - Cirrus Logic CS42L43: Synchronize SoundWire enumeration work in `remove()` before
+    devres cleanup begins
+  - Dialog DA903x: Manage IRQ work cancellation and sub-device removal via devres to
+    prevent use-after-free during teardown
+  - Dialog DA9150: Balance `enable_irq_wake()` with `disable_irq_wake()` during probe
+    failure and driver removal
+  - Intel LPSS: Add DMI quirks for Dell Latitude 5285 and 7275 to ignore ACPI resource
+    conflicts on the I2C4 controller
+  - Intel Quark I2C/GPIO: Manage the fixed-rate clock and its clkdev lookup with devres to
+    fix a resource leak on unbind
+  - Maxim MAX77705: Select `REGMAP_I2C` and `REGMAP_IRQ` in Kconfig to fix build errors
+  - Qualcomm WCD934x: Initialize the parent DMA mask to suppress "DMA mask not set"
+    warnings on child devices
+  - Qualcomm WCD934x: Pass the valid device pointer to `dev_err_probe()` on IRQ lookup
+    failure to avoid a NULL pointer dereference
+  - Rockchip RK8xx: Register the poweroff handler in the atomic `SYS_OFF_MODE_POWER_OFF`
+    phase so polling I2C transfers complete during shutdown
+  - ST-Ericsson AB8500: Use `devm_mfd_add_devices()` to prevent leaking child devices on
+    probe failure
+  - TI BQ257xx: Mark self-modifying BQ25792 configuration registers as volatile
+  - TI LM3533: Set `coherent_dma_mask` to zero to suppress "DMA mask not set" warnings
+  - TI TPS65217: Check for errors during IRQ initialization and masking, and manage IRQ
+    domain and wake teardown with devres
+  - TI TWL: Unregister the auxiliary platform device via a devres action on probe failure
+    and driver unbind
+
+- Cleanups & Refactoring
+  - Core: Convert drivers from deprecated `SIMPLE_DEV_PM_OPS()` to
+    `DEFINE_SIMPLE_DEV_PM_OPS()` and `pm_sleep_ptr()`
+  - Core: Fix spelling mistakes in comments across various MFD drivers and headers
+  - Maintainers: Add ROHM BD73800 PMIC files under the ROHM PMIC entry
+  - Maintainers: Specify the `for-mfd-next` branch for the MFD and Syscon git trees
+  - Dialog DA9062: Use `DEFINE_RES_IRQ_NAMED()` for IRQ resource definitions
+  - Intel LPSS: Simplify DebugFS handling by dropping redundant error checks and
+    intermediate dentry variables, using octal permissions, and switching to
+    `debugfs_remove()`
+  - Khadas MCU: Convert MFD cell arrays to `const` and use `MFD_CELL_NAME()`
+  - ST-Ericsson AB8500: Fix a spelling typo in a comment
+  - TI LM3533: Convert from platform data to Device Tree bindings and pass only regmap and
+    light sensor presence to child devices
+  - TI LM3533: Remove driver-specific regmap wrappers, redundant pdata helpers, and
+    unnecessary `extern` qualifiers, and use `dev_groups` for sysfs attributes
+  - Wolfson WM831x: Fix a spelling typo in a comment
+
+- Device Tree Binding Updates
+  - HiSilicon Hi6421 SPMI: Fix the compatible string to match `hisilicon,hi6421-spmi`
+  - MediaTek MT6357: Allow an `adc` child node
+  - MediaTek MT6360: Allow two-cell interrupt specifiers with trigger flags
+  - MediaTek MT6397: Document the `#sound-dai-cells` property
+  - MediaTek MT6397: Document the battery-backed NVMEM layout under the RTC child node
+  - MediaTek MT6397: Document the MT6323 PMIC EFUSE child node
+  - Motorola CPCAP: Convert MFD and power button bindings to DT schema and document the
+    Mapphone and Mot compositions
+  - Qualcomm SPMI PMIC: Document the PM4125 audio codec compatible
+  - Qualcomm SPMI PMIC: Document the PMAU0102 PMIC compatible
+  - Qualcomm TCSR: Document the MSM8952 TCSR compatible
+  - Rockchip RK805: Fold the pin controller binding into the RK805 PMIC DT schema
+  - ROHM BD73800: Document the BD73800 PMIC and its regulators
+  - ROHM PMIC: Factor out common pin properties into `rohm,pmic-pins.yaml` and reference
+    them across BD71815, BD71828, and BD72720 bindings
+  - ST-Ericsson AB8500: Document AB8500 and AB8505 buck converter regulators
+  - ST-Ericsson AB8500: Document codec audio graph ports, sound DAI cells, and analog
+    microphone wiring properties
+  - ST-Ericsson DB8500 PRCMU: Deprecate the `db8500-prcmu-regulators` child node and make
+    it optional
+  - Syscon: Document the Ambarella CV75 secure scratchpad compatible
+  - TI BQ25703A: Add the BQ25798 compatible with fallback to BQ25792
+  - TI Keystone: Convert Device State Control bindings to DT schema
+  - TI LM3533: Document the LM3533 LED controller, backlight, and indicator LED bindings
+  - TI LP3943: Convert MFD and PWM bindings to DT schema
+  - TI TPS61050: Convert bindings to DT schema
+  - TI TPS65086: Make the `regulators` child node optional
+  - TI TPS65910: Document `wakeup-source` and GPIO hog child nodes
+  - TI TWL6040: Convert bindings to DT schema and align property names with the driver
+  - X-Powers AC200: Document the AC200 mixed-signal companion IC
+
+----------------------------------------------------------------
+Alexey Charkov (2):
+      dt-bindings: mfd: ti,bq25703a: Expand to include BQ25798
+      mfd: bq257xx: Mark self-modifying BQ25792 registers volatile
+
+Bhargav Joshi (2):
+      dt-bindings: mfd: ti,keystone-devctrl: Convert to DT schema
+      dt-bindings: mfd: ti,tps65910: Add wakeup-source and GPIO hogs
+
+Chaosheng Qu (1):
+      dt-bindings: mfd: Convert lp3943 to DT schema
+
+Charles Keepax (2):
+      mfd: cs42l43: Add support for new cs42l44 variant
+      mfd: cs42l43: Move cancel_work_sync() into remove
+
+D. Manresa (1):
+      mfd: intel-lpss: Add Dell Latitude 7275 to the resource conflict quirk
+
+David Heidelberg (3):
+      mfd: Fix MAX77705 dependency on regmap
+      mfd: wcd934x: set DMA mask on parent to silence "DMA mask not set"
+      mfd: wcd934x: Fix NULL pointer dereference on IRQ probe deferral
+
+Denys Romaniuk (1):
+      mfd: max77705: Mark PASS2 revision as supported
+
+Dhruvin Rajpura (1):
+      dt-bindings: mfd: qcom,spmi-pmic: Document PMAU0102
+
+Eduard Bostina (2):
+      dt-bindings: mfd: Convert TPS61050 to DT schema
+      dt-bindings: mfd: Convert TI TWL6040 to DT schema
+
+Eric Anderson (1):
+      mfd: rk8xx: Register poweroff handler in atomic phase
+
+Guangshuo Li (1):
+      mfd: ab8500: Fix child device leaks on probe failure
+
+Hemanth Selam (3):
+      mfd: wm831x: Fix typo "convertor" in comment
+      mfd: ab8500: Fix typo "interupts" in comment
+      mfd: Fix a bunch of typos in comments
+
+Hiroki Nakajima (1):
+      mfd: da9062: Use DEFINE_RES_IRQ_NAMED()
+
+Hongyan Xu (1):
+      mfd: da903x: Cancel IRQ work during teardown
+
+James Hilliard (2):
+      dt-bindings: mfd: x-powers: Add AC200
+      mfd: ac200: Add X-Powers AC200 support
+
+Lee Jones (1):
+      Merge branches 'ib-mfd-thermal-7.4', 'ib-mfd-clk-gpio-regulator-rtc-7.4' and 'ib-mfd-backlight-iio-leds-7.4' into ibs-for-mfd-merged
+
+Linus Walleij (3):
+      mfd: dt-bindings: ab8500: Describe codec graph and microphone wiring
+      dt-bindings: mfd: ab8500: Add regulators
+      dt-bindings: mfd: db8500-prcmu: Deprecate EPOD regulators
+
+Long Zhao (1):
+      dt-bindings: mfd: syscon: Add Ambarella CV75 secure scratchpad
+
+Maria Lisina (4):
+      mfd: intel-lpss: Remove redundant DebugFS error check
+      mfd: intel-lpss: Use plain octal values for file permissions
+      mfd: intel-lpss: Remove extra DebugFS dentry
+      mfd: intel-lpss: Switch to debugfs_remove()
+
+Matthias Goergens (1):
+      MAINTAINERS: Name the lee/mfd for-mfd-next branch
+
+Matti Vaittinen (10):
+      dt-bindings: mfd: Common ROHM PMIC properties
+      dt-bindings: rohm,bd*: Ref common ROHM bindings
+      dt-bindings: regulator: ROHM BD73800 regulators
+      dt-bindings: mfd: ROHM BD73800 PMIC
+      mfd: Support for ROHM BD73800 PMIC core
+      rtc: bd70528: Support RTC on ROHM BD73800
+      regulator: bd71828: Support ROHM BD73800
+      clk: bd718x7: Support ROHM BD73800
+      gpio: bd73800: Support ROHM BD73800 PMIC GPIOs
+      MAINTAINERS: Add ROHM BD73800 PMIC files
+
+Muzaffer Kadir (1):
+      dt-bindings: mfd: qcom,tcsr: Add compatible for MSM8952
+
+Myeonghun Pak (3):
+      mfd: intel_quark_i2c_gpio: Manage the fixed-rate clock
+      mfd: twl-core: Unregister the auxiliary platform device on unbind
+      mfd: da9150: Balance IRQ wake on teardown
+
+Quchaosheng (1):
+      dt-bindings: mfd: rockchip,rk805: Convert pinctrl to DT schema
+
+Radiy Zhambakiev (3):
+      mfd: tps65217: Fix NULL pointer dereference on IRQ init failure
+      mfd: tps65217: Check return value when masking interrupt sources
+      mfd: tps65217: Use devres for IRQ domain and wake teardown
+
+Rob Herring (Arm) (5):
+      dt-bindings: mfd: ti,tps65086: Make regulators optional
+      dt-bindings: mfd: mediatek: Allow MT6357 ADC
+      dt-bindings: mfd: Allow MT6360 interrupt flags
+      dt-bindings: mfd: hisilicon: Fix Hi6421 SPMI compatible
+      dt-bindings: mfd: Add MT6397 sound DAI cells
+
+Roman Vivchar (1):
+      dt-bindings: mfd: mediatek: mt6397: Add mt6323 PMIC EFUSE
+
+Ronald Claveau (4):
+      mfd: khadas-mcu: Add per-variant configuration infrastructure and VIM4 support
+      mfd: khadas-mcu: Use MFD_CELL_* macros for cell declarations
+      mfd: khadas-mcu: Add support for VIM4 MCU variant
+      thermal: khadas-mcu-fan: Add fan config from platform data Add regulator support
+
+Ryan Brue (2):
+      mfd: mt6397-core: Add mt6397 AUXADC support
+      dt-bindings: mfd: mediatek: mt6397: describe the RTC's nvmem layout
+
+Srinivas Kandagatla (1):
+      dt-bindings: mfd: qcom,spmi-pmic: Add compatibles for pm4125-codec
+
+Svyatoslav Ryhel (18):
+      dt-bindings: leds: Document TI LM3533 LED controller
+      mfd: lm3533: Remove driver specific regmap wrappers
+      mfd: lm3533: Remove extern from shared functions in the header
+      mfd: lm3533: Pass only regmap and light sensor presence to child devices
+      iio: light: lm3533-als: Remove redundant pdata helpers
+      mfd: lm3533-core: Remove redundant pdata helpers
+      mfd: lm3533: Use dev_groups in struct device_driver
+      mfd: lm3533: Convert to use OF bindings
+      mfd: lm3533: Add support for VIN power supply
+      mfd: lm3533: Set DMA mask
+      video: backlight: lm3533_bl: Improve logic of sysfs functions
+      video: backlight: lm3533_bl: Set initial mapping mode from DT
+      video: backlight: lm3533_bl: Implement backlight_scale property
+      dt-bindings: input: cpcap-pwrbutton: Convert to DT schema
+      dt-bindings: mfd: motorola-cpcap: Convert to DT schema
+      dt-bindings: mfd: motorola-cpcap: Document Mapphone and Mot CPCAP
+      mfd: motorola-cpcap: Diverge configuration per-board
+      mfd: motorola-cpcap: Add support for Mot CPCAP composition
+
+Thierry Chatard (1):
+      mfd: intel-lpss: Add resource conflict quirk for Dell Latitude 5285
+
+Triet Hoang (1):
+      mfd: Convert to DEFINE_SIMPLE_DEV_PM_OPS()
+
+ .../devicetree/bindings/input/cpcap-pwrbutton.txt  |  20 -
+ .../bindings/input/motorola,cpcap-pwrbutton.yaml   |  32 ++
+ .../leds/backlight/ti,lm3533-backlight.yaml        |  69 +++
+ .../devicetree/bindings/leds/ti,lm3533-leds.yaml   |  67 +++
+ .../devicetree/bindings/leds/ti,lm3533.yaml        | 169 +++++++
+ .../bindings/mfd/hisilicon,hi6421-spmi-pmic.yaml   |   4 +-
+ Documentation/devicetree/bindings/mfd/lp3943.txt   |  33 --
+ .../devicetree/bindings/mfd/mediatek,mt6357.yaml   |   7 +
+ .../devicetree/bindings/mfd/mediatek,mt6360.yaml   |   5 +-
+ .../devicetree/bindings/mfd/mediatek,mt6397.yaml   |  33 ++
+ .../devicetree/bindings/mfd/motorola,cpcap.yaml    | 408 +++++++++++++++
+ .../devicetree/bindings/mfd/motorola-cpcap.txt     |  78 ---
+ .../devicetree/bindings/mfd/qcom,spmi-pmic.yaml    |   5 +-
+ .../devicetree/bindings/mfd/qcom,tcsr.yaml         |   1 +
+ .../devicetree/bindings/mfd/rockchip,rk805.yaml    |  60 ++-
+ .../devicetree/bindings/mfd/rohm,bd71815-pmic.yaml |   9 +-
+ .../devicetree/bindings/mfd/rohm,bd71828-pmic.yaml |   9 +-
+ .../devicetree/bindings/mfd/rohm,bd72720-pmic.yaml |  29 +-
+ .../devicetree/bindings/mfd/rohm,bd73800-pmic.yaml | 218 ++++++++
+ .../devicetree/bindings/mfd/rohm,pmic-pins.yaml    |  72 +++
+ .../devicetree/bindings/mfd/stericsson,ab8500.yaml | 150 +++++-
+ .../bindings/mfd/stericsson,db8500-prcmu.yaml      |  22 +-
+ Documentation/devicetree/bindings/mfd/syscon.yaml  |   1 +
+ .../devicetree/bindings/mfd/ti,bq25703a.yaml       |  14 +-
+ .../bindings/mfd/ti,keystone-devctrl.yaml          |  90 ++++
+ .../devicetree/bindings/mfd/ti,lp3943.yaml         |  64 +++
+ .../devicetree/bindings/mfd/ti,tps61050.yaml       |  92 ++++
+ .../devicetree/bindings/mfd/ti,tps65086.yaml       |   1 -
+ .../devicetree/bindings/mfd/ti,tps65910.yaml       |   8 +
+ .../devicetree/bindings/mfd/ti,twl6040.yaml        | 156 ++++++
+ .../bindings/mfd/ti-keystone-devctrl.txt           |  19 -
+ Documentation/devicetree/bindings/mfd/tps6105x.txt |  62 ---
+ Documentation/devicetree/bindings/mfd/twl6040.txt  |  67 ---
+ .../devicetree/bindings/mfd/x-powers,ac200.yaml    | 168 +++++++
+ .../devicetree/bindings/pinctrl/pinctrl-rk805.txt  |  63 ---
+ .../devicetree/bindings/pwm/pwm-lp3943.txt         |  58 ---
+ .../devicetree/bindings/pwm/pwm-lp3943.yaml        |  80 +++
+ .../bindings/regulator/rohm,bd73800-regulator.yaml |  99 ++++
+ MAINTAINERS                                        |  14 +-
+ drivers/clk/clk-bd718x7.c                          |   8 +
+ drivers/gpio/Kconfig                               |  12 +
+ drivers/gpio/Makefile                              |   1 +
+ drivers/gpio/gpio-bd73800.c                        | 209 ++++++++
+ drivers/iio/light/lm3533-als.c                     | 185 +++----
+ drivers/leds/leds-lm3533.c                         | 121 ++---
+ drivers/mfd/88pm800.c                              |   4 +-
+ drivers/mfd/Kconfig                                |  31 +-
+ drivers/mfd/Makefile                               |   1 +
+ drivers/mfd/ab8500-core.c                          |  46 +-
+ drivers/mfd/ac200.c                                | 222 ++++++++
+ drivers/mfd/bq257xx.c                              |  10 +
+ drivers/mfd/cs42l43-i2c.c                          |  10 +
+ drivers/mfd/cs42l43-sdw.c                          |   9 +
+ drivers/mfd/cs42l43.c                              |  30 +-
+ drivers/mfd/cs42l43.h                              |   1 +
+ drivers/mfd/da903x.c                               |  34 +-
+ drivers/mfd/da9062-core.c                          |  24 +-
+ drivers/mfd/da9150-core.c                          |   8 +-
+ drivers/mfd/intel-lpss-acpi.c                      |  38 ++
+ drivers/mfd/intel-lpss.c                           |  24 +-
+ drivers/mfd/intel_quark_i2c_gpio.c                 |  52 +-
+ drivers/mfd/iqs62x.c                               |   8 +-
+ drivers/mfd/kempld-core.c                          |   2 +-
+ drivers/mfd/khadas-mcu.c                           | 104 +++-
+ drivers/mfd/lm3533-core.c                          | 386 ++++++--------
+ drivers/mfd/lm3533-ctrlbank.c                      |  33 +-
+ drivers/mfd/max77705.c                             |   2 +-
+ drivers/mfd/max77843.c                             |   8 +-
+ drivers/mfd/max8998.c                              |   2 +-
+ drivers/mfd/motorola-cpcap.c                       | 143 +++---
+ drivers/mfd/mt6360-core.c                          |   8 +-
+ drivers/mfd/mt6397-core.c                          |   3 +
+ drivers/mfd/rave-sp.c                              |   6 +-
+ drivers/mfd/rk8xx-core.c                           |   2 +-
+ drivers/mfd/rk8xx-i2c.c                            |   4 +-
+ drivers/mfd/rn5t618.c                              |   8 +-
+ drivers/mfd/rohm-bd71828.c                         | 147 +++++-
+ drivers/mfd/si476x-i2c.c                           |   2 +-
+ drivers/mfd/ti_am335x_tscadc.c                     |   8 +-
+ drivers/mfd/tps65217.c                             |  69 ++-
+ drivers/mfd/tps6586x.c                             |   8 +-
+ drivers/mfd/twl-core.c                             |  31 +-
+ drivers/mfd/wcd934x.c                              |   8 +-
+ drivers/mfd/wm831x-auxadc.c                        |   2 +-
+ drivers/regulator/Kconfig                          |   4 +-
+ drivers/regulator/bd71828-regulator.c              | 558 ++++++++++++++++++++-
+ drivers/rtc/rtc-bd70528.c                          |   8 +
+ drivers/thermal/khadas_mcu_fan.c                   | 108 +++-
+ drivers/video/backlight/lm3533_bl.c                | 188 +++----
+ include/linux/mfd/cs42l43-regs.h                   |   1 +
+ include/linux/mfd/da9063/registers.h               |   2 +-
+ include/linux/mfd/da9150/core.h                    |   1 +
+ include/linux/mfd/db8500-prcmu.h                   |  32 +-
+ include/linux/mfd/khadas-mcu.h                     |  19 +-
+ include/linux/mfd/lm3533.h                         |  77 +--
+ include/linux/mfd/lp8788.h                         |   2 +-
+ include/linux/mfd/max8998.h                        |   2 +-
+ include/linux/mfd/motorola-cpcap.h                 |   7 +
+ include/linux/mfd/palmas.h                         |   2 +-
+ include/linux/mfd/rohm-bd71828.h                   |   2 +-
+ include/linux/mfd/rohm-bd73800.h                   | 306 +++++++++++
+ include/linux/mfd/rohm-generic.h                   |   1 +
+ include/linux/mfd/samsung/core.h                   |   2 +-
+ include/linux/mfd/si476x-core.h                    |   4 +-
+ include/linux/mfd/twl.h                            |   2 +-
+ 105 files changed, 4582 insertions(+), 1376 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/input/cpcap-pwrbutton.txt
+ create mode 100644 Documentation/devicetree/bindings/input/motorola,cpcap-pwrbutton.yaml
+ create mode 100644 Documentation/devicetree/bindings/leds/backlight/ti,lm3533-backlight.yaml
+ create mode 100644 Documentation/devicetree/bindings/leds/ti,lm3533-leds.yaml
+ create mode 100644 Documentation/devicetree/bindings/leds/ti,lm3533.yaml
+ delete mode 100644 Documentation/devicetree/bindings/mfd/lp3943.txt
+ create mode 100644 Documentation/devicetree/bindings/mfd/motorola,cpcap.yaml
+ delete mode 100644 Documentation/devicetree/bindings/mfd/motorola-cpcap.txt
+ create mode 100644 Documentation/devicetree/bindings/mfd/rohm,bd73800-pmic.yaml
+ create mode 100644 Documentation/devicetree/bindings/mfd/rohm,pmic-pins.yaml
+ create mode 100644 Documentation/devicetree/bindings/mfd/ti,keystone-devctrl.yaml
+ create mode 100644 Documentation/devicetree/bindings/mfd/ti,lp3943.yaml
+ create mode 100644 Documentation/devicetree/bindings/mfd/ti,tps61050.yaml
+ create mode 100644 Documentation/devicetree/bindings/mfd/ti,twl6040.yaml
+ delete mode 100644 Documentation/devicetree/bindings/mfd/ti-keystone-devctrl.txt
+ delete mode 100644 Documentation/devicetree/bindings/mfd/tps6105x.txt
+ delete mode 100644 Documentation/devicetree/bindings/mfd/twl6040.txt
+ create mode 100644 Documentation/devicetree/bindings/mfd/x-powers,ac200.yaml
+ delete mode 100644 Documentation/devicetree/bindings/pinctrl/pinctrl-rk805.txt
+ delete mode 100644 Documentation/devicetree/bindings/pwm/pwm-lp3943.txt
+ create mode 100644 Documentation/devicetree/bindings/pwm/pwm-lp3943.yaml
+ create mode 100644 Documentation/devicetree/bindings/regulator/rohm,bd73800-regulator.yaml
+ create mode 100644 drivers/gpio/gpio-bd73800.c
+ create mode 100644 drivers/mfd/ac200.c
+ create mode 100644 include/linux/mfd/rohm-bd73800.h
+
 -- 
-2.56.0
-
+Lee Jones
