@@ -1,55 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.227
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.69
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793015401;
-	b=gHHEVuv/O1NhxtiAQxFGhrK5HxoWwssxUJ9CLBqEQd0FzjEpAlHF4Sr6B0pBtb6wDBpw
-	 S4r/t+Y+XzvdVVfN590irImWW8UquG+0LkHF+tYSRMXDh2pf9Gjz6q/ZJ3r+85wzeSq5x
-	 zFNcye9zO5Z3gpFKgsOk4qKg1YDrMOHGC+LqL43cdtPr/vClx5f2VGhyrkwTLerj0R4k+
-	 ptLMJFISEtiWnVOKP5Ca/hcR2WCrFaH8stFlCtsAgNjI+NRSoRB0kmNPRklzh0J3p/cwS
-	 luFfotfc3QG2xUC9bTmOEjVmJ8hiSMOojsylYxlVwNtpGxTDL/uK6KCRj6zW82gad0g==
+	t=1793015412;
+	b=1f0doBavAE2RGHE+2D75L0Z/5OeSfm+aURaHQAYPA8Ar6365cic54h9WO08m12TrkXmS
+	 Dq0vJsIqmesTTNyJfHbbtQjKCYzykmBC9ySigaf/EEgkpGMDxeRuEMBHiC/gz3hfH43q7
+	 0fPIJoGhzUmLRehLU1hM4fUsJqnX6gTlkiz4kIjMvoED7gw72UM/OMLffSs7Qqtnz9RL/
+	 EdNEctxQEWL62E8YsWHHOxs6NLeT+Z4OcMXlj1eu8qpwD9idu4GuD2ePfdYTRRWoYnFji
+	 4XJmBbTu/TP7IsWKFb10GntvABwmBE9/4Ahf//sBCZs2tn5e7K8GwRiVWk42m6U3k1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793015401;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=rk1WovkF3sv2NFNM8sIBXD2tHrqmbxPVkrmVTLJoFiI=;
-	b=dzVJROiZGpMyAcfSfZ1PB3CETNWTNLwC+wV3AEUn3ijHclCMkrGtIC3ElmtB1la1O8cF
-	 trkql3Uddn07QbOr5bAxkTA4y4MsUizdyMYBoTGfFf6TJ+ko+1J3ikeuOomkhP21Mtd6E
-	 5WhzNHKRoEae1ipU9C+OXD0Um9ixNz7sYMkyceK0qXpIsbaFqHfHU4xjHi5BforNRL+iM
-	 pcUA82/MuP63gur39k886sU3rC8jHqJNPG8hHY3tZlbFHF0+Rlc/4CPBwVTWqJBRf9xef
-	 Dq66c/PUETR2zSJBsBuKgHanVSmyLHHZbQTyGV0nHzGD8tuvX8FEE78z8fvU5ZvNPfA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793015412;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=E6ehAr+5O7aPeLIKo6+S6CS8cvliVvtVKcymE8BrUws=;
+	b=a3JtkI8v8vimWqymi6ivyGDzRk87w1HMmS5le3aLyLcg/Qr9A5+fMkbNJvmZzjgOXggn
+	 gegRNCqCUwhvVlpFvLSUkwUpffZ1ViLl114+Jh0oCBL9Szih56y0RCRN1Xjx4J0BRG4BS
+	 TXlko0gfbK7JNblgFYRWVgHzG+qAtATk59R9kpSgaAwGWHJSVV4CrmdvDFb8mxuEQocRk
+	 gXR/idm70nsgy8Rq0QdEeZpkxcvKAYc9K1YQLTnbXQJNMksptqMRIgoVxqThtFjOkZ27i
+	 jEBSwrvX1OAp5LbXqAa0xcpmTZ/rpMGPb74oZUPOrK41yDTT1g+FWk2kzvrykR9a+7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	arc=none smtp.remote-ip=113.46.200.227
-Received: from canpmsgout12.his.huawei.com (canpmsgout12.his.huawei.com [113.46.200.227])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=XAsGlQ44;
+	arc=none smtp.remote-ip=209.85.208.69
+Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com [209.85.208.69])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5D8D606A31D
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:49:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5D8D606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=rk1WovkF3sv2NFNM8sIBXD2tHrqmbxPVkrmVTLJoFiI=;
-	b=Ty2+RCmY/RhVyQkMoz9C1ddh1eeYM1p12Gzkyw/vKNxwCvrqGE/ZPfYOoraE9D+zGfZGDP7+9
-	igKkwKwvAjrQ4CejsEyMZ4l48+2g9zlhWLPL+9kFnqd1vmTp2/DSvk55zmucXBXoEX5348j9dv7
-	ErWyc58JnYjn0ienpcX1WW0=
-Received: from mail.maildlp.com (unknown [172.19.162.92])
-	by canpmsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4jCsPH0qycznV09;
-	Mon, 26 Oct 2026 19:49:55 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 7D99640565;
-	Mon, 26 Oct 2026 19:49:50 +0800 (CST)
-Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 26 Oct
- 2026 19:49:49 +0800
-Message-ID: <eefd031c-68bf-422f-a855-c5f4f2b542d8@huawei.com>
-Date: Mon, 26 Oct 2026 19:49:49 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DA9E606A31F
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:50:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8DA9E606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=XAsGlQ44
+Received: by mail-ed1-f69.google.com with SMTP id 4fb4d7f45d1cf-6b1d818b501so3599354a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 04:50:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1793015411; x=1793620211; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=E6ehAr+5O7aPeLIKo6+S6CS8cvliVvtVKcymE8BrUws=;
+        b=XAsGlQ44QhxLbX3s/vWrWR1fEjhFGkT5IlmfbZ+lkLP9Oe85SXpiAn1GeRLEL1H2XO
+         yQc+jA06Xl9daZwtD/YhVCQBe4QhPG4Wx6MdjOZ4iJEgGnKFU/FYUV7xzaqZQKLsA0aN
+         R/0o43MCYXNrmiuXKNSZMqL9QRoabLxkTEN4RZcoISWY2W4N5MHoElGvLxv39SyWGeoh
+         S2qHKVenxm/vznKTPaQvnAwIq1AJacG92itDoKu8OCiHjWi2HDS+a0fN0ni6jgV3kLpO
+         SlxEHMWkwZPDCPxARUPnqJ5+CJrAkhzChQ6p6s68BDHOT5BDv1rKIoQIexS1xnBLr1l6
+         sTEg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793015411; x=1793620211;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=E6ehAr+5O7aPeLIKo6+S6CS8cvliVvtVKcymE8BrUws=;
+        b=F2xmhix2ROVP8bt94p+j4c53aSAQ14G9yuDWDrXz6xZ4/wuifn203dHa2kkBRsi8bz
+         H3eM61/pQw8H7dIvC2UBe2hVdHPfjxETHT5P7yNcnDxhxiWeV29MVPOC3aq6tBFpwt1a
+         aWRhzSgyBBXqucqFcnummkWVvt0YAqhekIlRSnO9DB1SL7Wu9oJ6wGra06wilo5/zMmp
+         80OfjRgYQUHhK8E4Vd0CWap/V/iNAF9tX78Nt+69c3M8+N9JL7WO3Qr81E3SK3pciWeW
+         0+45KQ49oXlu9LxE92FoqO/oAAPqha6xvtsYcrPopi1egioN2ieYQP/U799nEOobFJ+w
+         D06w==
+X-Forwarded-Encrypted: i=1; AKwUvByZULf6Okw+fW2HtIwUCXUZa4wA/LYFvub301DpU7e0o5E3H8VSiRIkJtFupE3OvXnfWWfWmaKOcn6YST8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJHKfjoeiFkXs1WnIJx4NKOn6RaSbBMO1ewcOJqIVal1JRrc95T
+	RHvCD7rSHzxtg351w8sTbE0VAvYaxBWW/JU83vdcMSLnikfAsneuzZ9JMY052ndyZi3sqfSuvmE
+	QvmCXu9bBLmFGLwSQ8A==
+X-Received: from edrd16.prod.google.com ([2002:aa7:d690:0:b0:6b3:8448:41c6])
+ (user=tarunsahu job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6402:249e:b0:6b1:c7d9:b622 with SMTP id 4fb4d7f45d1cf-6b442fffef3mr7891637a12.26.1793015410774;
+ Mon, 26 Oct 2026 04:50:10 -0700 (PDT)
+Date: Mon, 26 Oct 2026 11:50:10 +0000
+In-Reply-To: <CALzav=f00C4yOAseNunW8GgQTDUGWT927Qy=TLm-3-J0TEDH8Q@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,212 +79,165 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v2 04/10] arm_mpam: resctrl: Split control and
- monitoring domain setup into helpers
-To: Reinette Chatre <reinette.chatre@intel.com>, <ben.horgan@arm.com>,
-	<james.morse@arm.com>, <Dave.Martin@arm.com>, <fenghuay@nvidia.com>
-CC: <tony.luck@intel.com>, <yu.c.chen@intel.com>, <babu.moger@amd.com>,
-	<fustini@kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, <patches@lists.linux.dev>
-References: <cover.1792443633.git.reinette.chatre@intel.com>
- <20621c28067916be2709fc4437473f1ccad7e334.1792443633.git.reinette.chatre@intel.com>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <20621c28067916be2709fc4437473f1ccad7e334.1792443633.git.reinette.chatre@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+Mime-Version: 1.0
+References: <20261021152527.375070-1-tarunsahu@google.com> <20261021152527.375070-4-tarunsahu@google.com>
+ <atlQ_Er0Ig7CCSxv@google.com> <CALzav=f00C4yOAseNunW8GgQTDUGWT927Qy=TLm-3-J0TEDH8Q@mail.gmail.com>
+Message-ID: <9huzzew0el59.fsf@tarunix.c.googlers.com>
+Subject: Re: [RFC PATCH v2 3/4] liveupdate: Replace compatibility string with
+ a 2-bit pair feature header
+From: tarunsahu@google.com
+To: David Matlack <dmatlack@google.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, joro@8bytes.org, 
+	Mike Rapoport <rppt@kernel.org>, Pratyush Yadav <pratyush@kernel.org>, maz@kernel.org, arnd@arndb.de, 
+	jgg@nvidia.com, robin.murphy@arm.com, loganodell@google.com, 
+	oupton@kernel.org, kevin.tian@intel.com, alex@shazbot.org, 
+	dwmw2@infradead.org, pbonzini@redhat.com, seanjc@google.com, will@kernel.org, 
+	Pasha Tatashin <pasha.tatashin@soleen.com>, Alexander Graf <graf@amazon.com>, 
+	Bjorn Helgaas <bhelgaas@google.com>, baolu.lu@linux.intel.com, 
+	linux-arm-kernel@lists.infradead.org, linux-arch@vger.kernel.org, 
+	sagis@google.com, linux-mm@kvack.org, kvmarm@lists.linux.dev, 
+	iommu@lists.linux.dev, linux-pci@vger.kernel.org, kexec@lists.infradead.org, 
+	skhawaja@google.com, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+David Matlack <dmatlack@google.com> writes:
+
+> On Wed, Oct 21, 2026 at 4:55=E2=80=AFPM David Matlack <dmatlack@google.co=
+m> wrote:
+>>
+>> On 2026-10-21 03:25 PM, Tarun Sahu wrote:
+>> > LUO and its file handlers validate handed-over state with monolithic
+>> > compatibility strings ("luo-v5", "memfd-v2"). Any change to a serializ=
+ed
+>> > structure, even an optional additive one, must bump the string, which
+>> > breaks live update between adjacent kernels. Replace the string in
+>> > struct luo_ser with a feature header, so that the target kernel can
+>> > accept or reject the source kernel state per feature.
+>> >
+>> > struct luo_feature_hdr is a fixed 128-byte header: the serialized
+>> > structure size from the source kernel followed by 15 chained u64 featu=
+re
+>> > flags entries. The fixed size keeps payload field offsets identical in
+>> > every kernel, regardless of how many flags entries a source kernel use=
+s.
+>> >
+>> > Each feature has a 2-bit pair (req, active) state (enum luo_feat_state=
+:
+>> > LUO_FEAT_DISABLED, LUO_FEAT_OPTIONAL, LUO_FEAT_REQUIRED). A flags entr=
+y
+>> > holds 31 features, and bits [63:62] =3D 0b11 chain to the next entry (=
+465
+>> > features in total). Each subsystem defines its feature states as a
+>> > static const u8 array indexed by its feature enum, which
+>> > luo_feature_hdr_init() packs into 64-bit flags entries with
+>> > LUO_FEAT_EXT_MASK chain bits. The target kernel validates the header f=
+rom
+>> > the source kernel against its own feature array via
+>> > luo_feature_hdr_validate() according to the per-feature (req, active)
+>> > truth table:
+>> >
+>> >   Source Target Action
+>> >   (1,0)  (x,x)  Reject -EINVAL: invalid source kernel (req without act=
+ive)
+>> >   (x,x)  (1,0)  Reject -EINVAL + WARN_ON_ONCE: invalid target kernel
+>> >   (0,0)  (0,0)  Accept: feature absent
+>> >   (0,0)  (0,1)  Accept: feature absent
+>> >   (0,0)  (1,1)  Reject -EOPNOTSUPP: target kernel requires the feature
+>> >   (0,1)  (0,0)  Accept: ignore payload data
+>> >   (1,1)  (0,0)  Reject -EOPNOTSUPP: source kernel requires the feature
+>> >   (x,1)  (x,1)  Accept: use payload data
+>>
+>> I think we have different definitions of "required".
+>>
+>> In the PCI series [1], required and optional flags describe the _data_
+>> the previous kernel handed over, not the kernel itself. A required bit
+>> means "this preserved state depends on feature X; a kernel that does
+>> not understand X must not take it over". An optional bit means "the
+>> data for X is here, but you can safely ignore it". The source kernel
+>> only sets a bit when the preserved state actually uses the feature.
+>>
+>> It's up to the FLB/FH retrieve how to handle the scenario where a
+>> required bit is set that the target kernel does not understand. For the
+>> PCI FLB we panic since failing to adopt the PCI state could lead to
+>> memory corruption as preserved devices can be doing DMA.
+>>
+>> The target kernel never requires anything from the source. If a
+>> feature is absent, the target kernel must handle that, e.g. by
+>> falling back to default behavior. If it can't, that is a compatibility
+>> break and should be handled by the compatible string.
+>>
+>> In this patch each kernel has a single static feature array that is used
+>> both to generate the header and to validate the incoming header.  So if
+>> kernel N marks a new feature X as required (so that older kernels reject
+>> data they cannot understand), then kernel N will also reject every
+>> kernel that does not have X, because of the (0,0) -> (1,1) row in the
+>> truth table. That breaks forward updates from N-1 to N, and rollbacks
+>> from N to N-1 even when **nothing being preserved uses X**. Therefore,
+>> every new required feature becomes a compatible string bump.
+>>
+
+Right, Required bit should be source kernel payload property to tell
+target kernel that the payload must be handled to correctly deserialize
+the data. It should be source kernel (userspace) responsiblity to make
+sure it understand the target kernel before doing liveupdate.
+
+Saying this, During deserialization, target kernel's required bit is not
+necessary. So I propose the following truth table.
+
+Source hdr  Target supported[i]  Action
+----------  -------------------  ----------------------------------
+00          0 or 1               Accept: feature absent in payload
+01          0                    Accept: ignore the feature data
+01          1                    Accept: use the feature data
+11          0                    Reject: -EOPNOTSUPP
+11          1                    Accept: use the feature data
+10          0 or 1               Reject: -EINVAL (invalid encoding)
+
+Where Supported bit is extra bit information used by target kernel to
+deserialize the data. Which is static information of target kernel and
+will never be used in serialization payload.
+
+Like,
+
+static bool memfd_feat_supported[MEMFD_NR_FEATUERS]{
+       [MEMFD_CORE_FEATURE] =3D true
+}
+
+This makes every kernel 3 bit information.
+
+required+active: used by source kernel and embedded in serialized hdr
+supported: used by target kernel to deserialize the data if it supports.
+
+~Tarun
 
 
 
-在 2026/10/20 6:07, Reinette Chatre 写道:
-> mpam_resctrl_alloc_domain() allocates one structure that holds both the
-> control domain and the monitoring domain of a resource. It sets up
-> whichever of the two domains the resource supports, with the setup of
-> both open coded in the function, and undoes the control domain if
-> setting up the monitoring domain fails.
-> 
-> Apart from the code that manages domains, every user of the structure
-> accesses only one of its two domains, so the monitoring domain can be
-> given a structure of its own. Doing so starts with separating its setup
-> from that of the control domain.
-> 
-> Move the setup of each domain into its own helper in preparation for
-> giving the monitoring domain its own structure as part of supporting
-> multiple controls per resource. Keep the allocation and the error
-> handling in mpam_resctrl_alloc_domain() so that a failure to set up the
-> monitoring domain still undoes the control domain.
-> 
-> No functional change intended.
-> 
-> Signed-off-by: Reinette Chatre <reinette.chatre@intel.com>
-> ---
->  drivers/resctrl/mpam_resctrl.c | 116 ++++++++++++++++++++-------------
->  1 file changed, 70 insertions(+), 46 deletions(-)
-> 
-> diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
-> index dc442851fd7e..246560247a28 100644
-> --- a/drivers/resctrl/mpam_resctrl.c
-> +++ b/drivers/resctrl/mpam_resctrl.c
-> @@ -1615,13 +1615,77 @@ static struct mpam_component *find_component(struct mpam_class *class, int cpu)
->  	return NULL;
->  }
->  
-> +static int mpam_resctrl_setup_ctrl_domain(unsigned int cpu,
-> +					  struct rdt_resource *r,
-> +					  struct mpam_component *comp,
-> +					  struct mpam_resctrl_dom *dom)
-> +{
-> +	struct rdt_ctrl_domain *ctrl_d = &dom->resctrl_ctrl_dom;
-> +	int err;
-> +
-> +	dom->ctrl_comp = comp;
-> +
-> +	mpam_resctrl_domain_hdr_init(cpu, comp, r->rid, &ctrl_d->hdr);
-> +	ctrl_d->hdr.type = RESCTRL_CTRL_DOMAIN;
-> +	err = resctrl_online_ctrl_domain(r, ctrl_d);
-> +	if (err)
-> +		return err;
-> +
-> +	mpam_resctrl_domain_insert(&r->ctrl_domains, &ctrl_d->hdr);
-> +
-> +	return 0;
-> +}
-> +
-> +static int mpam_resctrl_setup_mon_domain(unsigned int cpu,
-> +					 struct rdt_resource *r,
-> +					 struct mpam_resctrl_dom *dom)
-> +{
-> +	struct rdt_l3_mon_domain *mon_d = &dom->resctrl_mon_dom;
-> +	struct mpam_component *any_mon_comp = NULL;
-> +	enum resctrl_event_id eventid;
-> +	struct mpam_resctrl_mon *mon;
-> +	int err;
-> +
-> +	/*
-> +	 * Even if the monitor domain is backed by a different
-> +	 * component, the L3 component IDs need to be used... only
-> +	 * there may be no ctrl_comp for the L3.
-> +	 * Search each event's class list for a component with
-> +	 * overlapping CPUs and set up the dom->mon_comp array.
-> +	 */
-> +
-> +	for_each_mpam_resctrl_mon(mon, eventid) {
-> +		struct mpam_component *mon_comp;
-> +
-> +		if (!mon->class)
-> +			continue;       // dummy resource
-> +
-> +		mon_comp = find_component(mon->class, cpu);
-> +		dom->mon_comp[eventid] = mon_comp;
-> +		if (mon_comp)
-> +			any_mon_comp = mon_comp;
-> +	}
-> +	if (!any_mon_comp) {
-> +		WARN_ON_ONCE(0);
-> +		return -EFAULT;
-> +	}
-> +
-> +	mpam_resctrl_domain_hdr_init(cpu, any_mon_comp, r->rid, &mon_d->hdr);
-> +	mon_d->hdr.type = RESCTRL_MON_DOMAIN;
-> +	err = resctrl_online_mon_domain(r, &mon_d->hdr);
-> +	if (err)
-> +		return err;
-> +
-> +	mpam_resctrl_domain_insert(&r->mon_domains, &mon_d->hdr);
-> +
-> +	return 0;
-> +}
-> +
->  static void mpam_resctrl_alloc_domain(unsigned int cpu,
->  				      struct mpam_resctrl_res *res)
->  {
->  	int err;
->  	struct mpam_resctrl_dom *dom;
-> -	struct rdt_l3_mon_domain *mon_d;
-> -	struct rdt_ctrl_domain *ctrl_d;
->  	struct mpam_class *class = res->class;
->  	struct mpam_component *comp;
->  	struct rdt_resource *r = &res->resctrl_res;
-> @@ -1638,57 +1702,17 @@ static void mpam_resctrl_alloc_domain(unsigned int cpu,
->  		return;
->  
->  	if (r->alloc_capable) {
-> -		dom->ctrl_comp = comp;
-> -
-> -		ctrl_d = &dom->resctrl_ctrl_dom;
-> -		mpam_resctrl_domain_hdr_init(cpu, comp, r->rid, &ctrl_d->hdr);
-> -		ctrl_d->hdr.type = RESCTRL_CTRL_DOMAIN;
-> -		err = resctrl_online_ctrl_domain(r, ctrl_d);
-> +		err = mpam_resctrl_setup_ctrl_domain(cpu, r, comp, dom);
->  		if (err)
->  			goto free_domain;
+>> I would drop the target-side required state entirely and let the source
+>> kernel decide which flags to set for each Live Update based on what is
+>> _actually_ preserved. Accessing a field added after the original struct
+>> then always requires checking its flag.
+>>
+>> At the end of the day it is up to userspace to never start using a
+>> required feature while they can still rollback to a kernel that does not
+>> support it. Cloud Providers know how to do this since Live Migration has
+>> the same problem. This also means we must be very careful when adding
+>> new required features, as they need some way for userspace to explicitly
+>> opt-into them. I do _not_ think we should try to have some generic LUO
+>> opt-in for required features. That is up to the File Handlers and FLBs,
+>> as they have their own uAPI.
+>>
+>> [1] https://lore.kernel.org/linux-pci/20261013162529.1928093-1-dmatlack@=
+google.com/
+>
+> Oh and please see the follow-up PCI series to preserve BARs and bridge
+> windows for some examples of using optional_flags to extend struct
+> pci_ser with additional data without breaking backwards compatibility.
+> e.g. https://lore.kernel.org/linux-pci/20261019213054.3157159-5-dmatlack@=
+google.com/
+>
+> I don't yet have a use-case for a required_flag.
 
-LGTM
-Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
 
-> -
-> -		mpam_resctrl_domain_insert(&r->ctrl_domains, &ctrl_d->hdr);
->  	} else {
->  		pr_debug("Skipped control domain online - no controls\n");
->  	}
->  
->  	if (r->mon_capable) {
-> -		struct mpam_component *any_mon_comp = NULL;
-> -		struct mpam_resctrl_mon *mon;
-> -		enum resctrl_event_id eventid;
-> -
-> -		/*
-> -		 * Even if the monitor domain is backed by a different
-> -		 * component, the L3 component IDs need to be used... only
-> -		 * there may be no ctrl_comp for the L3.
-> -		 * Search each event's class list for a component with
-> -		 * overlapping CPUs and set up the dom->mon_comp array.
-> -		 */
-> -
-> -		for_each_mpam_resctrl_mon(mon, eventid) {
-> -			struct mpam_component *mon_comp;
-> -
-> -			if (!mon->class)
-> -				continue;       // dummy resource
-> -
-> -			mon_comp = find_component(mon->class, cpu);
-> -			dom->mon_comp[eventid] = mon_comp;
-> -			if (mon_comp)
-> -				any_mon_comp = mon_comp;
-> -		}
-> -		if (!any_mon_comp) {
-> -			WARN_ON_ONCE(0);
-> -			goto offline_ctrl_domain;
-> -		}
-> -
-> -		mon_d = &dom->resctrl_mon_dom;
-> -		mpam_resctrl_domain_hdr_init(cpu, any_mon_comp, r->rid, &mon_d->hdr);
-> -		mon_d->hdr.type = RESCTRL_MON_DOMAIN;
-> -		err = resctrl_online_mon_domain(r, &mon_d->hdr);
-> +		err = mpam_resctrl_setup_mon_domain(cpu, r, dom);
->  		if (err)
->  			goto offline_ctrl_domain;
-> -
-> -		mpam_resctrl_domain_insert(&r->mon_domains, &mon_d->hdr);
->  	} else {
->  		pr_debug("Skipped monitor domain online - no monitors\n");
->  	}
-> @@ -1697,8 +1721,8 @@ static void mpam_resctrl_alloc_domain(unsigned int cpu,
->  
->  offline_ctrl_domain:
->  	if (r->alloc_capable) {
-> -		mpam_resctrl_offline_domain_hdr(cpu, &ctrl_d->hdr);
-> -		resctrl_offline_ctrl_domain(r, ctrl_d);
-> +		mpam_resctrl_offline_domain_hdr(cpu, &dom->resctrl_ctrl_dom.hdr);
-> +		resctrl_offline_ctrl_domain(r, &dom->resctrl_ctrl_dom);
->  	}
->  free_domain:
->  	kfree(dom);
 
--- 
-Best regards,
-Jinjie
 
