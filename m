@@ -1,70 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793025885;
-	b=VMrUggvxbbmPmQqVeRNiMR585181nglUp8wVzb7LV6jfW8jnPDr8AbvxUFZxhulNh+1Q
-	 XTQvs4faVpkiwO9J92SjjBonIh+jjHtcz5Js/lVQPP/f6ezD06mdRAGaHT3zpDtFITgqM
-	 0fugZyf0xtTQ9bewQUjqEu2wP29edyaZy+NGZh0Bq65hnFX/6W4o2CZbLPSx9c+Xbqgcf
-	 PcgXH5COP/gFjVe6BeXigtIFxmp5aMJ8klJkdkJ96vq9ts3/xoO2xSlLwNQz+68ZidSgE
-	 rEP/UewUxC/alRcNQh+N56iwASRhhv1c9lrclCS+Y8lhDmRzuZ6EJeYLLX+H2CdsACA==
+	t=1793025904;
+	b=CWTvbct38PwoM9Pld8cy2zB5bHxAxcWAdo7Y3MqSabTiLYnFp31ZpfG85+BLGbV8jBoc
+	 uX8z9/bKKQMYIbm/YV6bnYR6bBnJ67AJESyxZnmbBw27aUkSOQLBtZdWZfMXKqaaXCD9I
+	 p6H8sbMOlusOLsOUgnxWkWKNwRYOM7a4wB6IT9PUQK/MyT1l6F2i0h4gfz881L6Uqz1Eq
+	 yg4EVEFU/Dq/NlpjqwHkPwuk+XoLJfAHBdWanTapt3CuLKIYgzh9i3l5MIJCLCDeqTDLH
+	 bKOIA+9RlffinA6VTRgwpPR5dD3qFHW8oKLSmZnxZTrxe4A4GUELxU84lVKXHIUSdWw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793025885;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
-	bh=GSEN1e/y0bwGfJJMQ9Hg+c2qcQyTslgLVny4UlJpg1o=;
-	b=FE5yvtW01h1ElDPf7T55v+j5J5pe1+wcB7EbsOpjl1fD14vfHxQAci8AUKkc+6fi8TL8
-	 ZW5/smDPe3fn47M3P6b/E2xXI4i4OSoVU3X5k2d3IO6nGkX3SOQX6G6ucFTYcm5mi0Oo3
-	 WT2ko32KrUQDWsk3r2lu9IZCpnSKixzC3v/aPqALnMVWOqqp5jRhFC8RKSMeoXO1sMB1S
-	 V0qqrto/6p4nnLFc0ztrL84ckeZ00XrNCzkg6o3+tTD/jM20rcpw4kslRuu+31i72Ml6E
-	 g300TOppEcmaHfblbhRF+ONWPdeAgdx/FKEfEopuWW2fJIxPMgSQJPMiXhG1cVPJdXw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793025904;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=FT1RdVZKFn+emuIq4wyVAsdeeZxKAtKJ3BuQVSeNiXM=;
+	b=1EZml10EK/Ahy7lmeAI8wvnWhUKyXyYhb2DnB0gwSXhxo75/pwDkMdPa/BNY62RMWaTT
+	 fF0K9P7rnGwv86oGBRn8TGKdjyxuEFXzMJ+z+XzIv8ZQTQ2bXisgjv7UqPcjamDrpWp6c
+	 Bl50oSCz01gXizfXWKR9v5bbQM8eBnpD9hfEEPi7vhPWqcbMvtzadi0jijl1TNFAsAsjH
+	 mv/SbuTRUdMrF6ydmkxc5s7Ae3Umn/y7HJXEPRgzSVT43Z7emRfWmqktGKm/uawxFKeSE
+	 f5L6RgviK5zBQTvZskU3cTUtynrYP95G3VElR//89qU1SXBAqcjEcPOLOyOPKbfR+Uw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=tc2dGiQf;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A374B606A325
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:44:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A374B606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VKutAHz3;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 008DA606A31D;
+	Mon, 26 Oct 2026 14:45:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=tc2dGiQf
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B2BDC2720;
-	Mon, 26 Oct 2026 07:44:40 -0700 (PDT)
-Received: from LeoBrasDK.cambridge.arm.com (LeoBrasDK.cambridge.arm.com [10.2.212.21])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DD66B3F7B4;
-	Mon, 26 Oct 2026 07:44:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793025883; bh=lqK7uGIZ/jkYXTWUZmtWT+d67C2f5jU7aALBqK7r/3M=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=tc2dGiQfjBvRRqB83xDgLfT7zZBGGXCOJ/y/RYJCTy0uzkUQD6qVBVtFxLC4QFy0P
-	 QMrVMRfz9N6Tu4NyMPmo9maOMAYfFWxIMFkCTSiuBjeLbF1mhFwY1juF6ZmQIItpJq
-	 tEwHexZYWuH2RcdnrBz20PdT3yRc/HTIUBk41W2U=
-From: Leonardo Bras <leo.bras@arm.com>
-To: Oliver Upton <oupton@kernel.org>,
-	Marc Zyngier <maz@kernel.org>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Leonardo Bras <leo.bras@arm.com>,
-	Raghavendra Rao Ananta <rananta@google.com>,
-	Tian Zheng <zhengtian10@huawei.com>
-Cc: linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VKutAHz3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 344B31F01829;
+	Mon, 26 Oct 2026 14:45:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793025903;
+	bh=FT1RdVZKFn+emuIq4wyVAsdeeZxKAtKJ3BuQVSeNiXM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=VKutAHz3mI7cYrCfwND0ANbGs1pVOCiHmR1hqXLQ8nqksJZqgRcOL5Iesy9WQ5C+q
+	 ri1OfR+RVSMTC8uY4CxZmbCaWqINlZJZ7LTg5r94rRde0PBEStAxV96r2oVCvzDhcC
+	 +5pW9w02Uh9QI4HgkPy9ufqM6+jC1JcsjswnufEtI3HmhT6hkGvxQBj6tXGB81GA4T
+	 vEPVVuHMS+5kDWYWsKhjhgw+2hILYm43edDkdTCvNid1Fyp+p7U5bOjSUtaMOaahy2
+	 6fv6utu6SXRQpiFABFMsYycZ/hFSwmXTPgySiwEDS86x5od+1cK7TOwHq/ctKPAGHt
+	 nkPdwHkZfhQoA==
+From: SJ Park <sj@kernel.org>
+To: Manuel Ebner <manuelebnerli@mailbox.org>
+Cc: SJ Park <sj@kernel.org>,
+	Aveline Noir <jm5905938@gmail.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH v2 1/3] KVM: arm64: pgtables: Set DBM attribute on writable Stage-2 PTEs
-Date: Mon, 26 Oct 2026 14:44:07 +0000
-Message-ID: <20261026144413.441566-2-leo.bras@arm.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261026144413.441566-1-leo.bras@arm.com>
-References: <20261026144413.441566-1-leo.bras@arm.com>
+Subject: Re: [PATCH 4/8] Docs/admin-guide/mm/damon/lru_sort: fix remaining grammar
+Date: Mon, 26 Oct 2026 07:44:50 -0700
+Message-ID: <20261026144451.150560-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <d054b7a2653a2ff3d419b689a50a53290c2cafbb.camel@mailbox.org>
+References: 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,92 +66,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3059; i=leo.bras@arm.com; h=from:subject; bh=lqK7uGIZ/jkYXTWUZmtWT+d67C2f5jU7aALBqK7r/3M=; b=owGbwMvMwCX2pizjszvTwvWMp9WSGLLup5u3z2By3Ri9qyTVOL/ze8XX5j+3r3DXf9jx7tzrd S86Vge/7ihlYRDjYpAVU2SRfTR/Fc/3KRlHrvxYADOHlQlkCAMXpwBMxLaWkeHF7OOelhsb3O52 xp20aLMsf1ic4ltp/X76thmVUZ+qODYyMtzMubvoaMYU0d3TzL5kXngj45Lzab/2Ln22Rc5PuM5 ObmUFAA==
-X-Developer-Key: i=leo.bras@arm.com; a=openpgp; fpr=36E6C95AE0F111CC5B6F4D2E688C33F8A0C5B0C5
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-As a preparation to the introduction of HAFDBS-based features, set the DBM
-bit (along with S2AP[1]) to all writable PTEs. Also unset DBM and S2AP[1]
-when a PTE is made read-only again.
+On Mon, 26 Oct 2026 13:57:49 +0100 Manuel Ebner <manuelebnerli@mailbox.org> wrote:
 
-DBM bit works as following:
-- If HAFDBS is disabled, DBM bit is ignored.
-- If HAFDBS is enabled, and DBM bit is set, a write to non-writable page
-  can promote it's PTE to writable (S2AP[1]=1) without taking a fault.
+> Hi again,
+> 
+> On Mon, 2026-10-26 at 22:14 +1100, Aveline Noir wrote:
+> > Manuel's recent grammar fix for this file, now in damon/next, covered a
+> > good part of it.  This should take care of the few mistakes that are
+> > left, like "should automatically activated" and "Make DAMON_LRU_SORT
+> > reads".  Rewrap where the lines got too long.
+> > 
+> > Signed-off-by: Aveline Noir <jm5905938@gmail.com>
+> > ---
+> >  .../admin-guide/mm/damon/lru_sort.rst         | 45 ++++++++++---------
+> >  1 file changed, 23 insertions(+), 22 deletions(-)
+> > 
+> > diff --git a/Documentation/admin-guide/mm/damon/lru_sort.rst b/Documentation/admin-guide/mm/damon/lru_sort.rst
+> > index aa4cc90ca57c..c628e3f6e587 100644
+> > --- a/Documentation/admin-guide/mm/damon/lru_sort.rst
+> > +++ b/Documentation/admin-guide/mm/damon/lru_sort.rst
+> > @@ -35,7 +35,7 @@ deprioritizing cold pages on their LRU-lists.  To avoid it consuming too much
+> >  CPU for the prioritizations, a CPU time usage limit can be configured.  Under
+> >  the limit, it prioritizes and deprioritizes more hot and cold pages first,
+> >  respectively.  System administrators can also configure under what situation
+> > -this scheme should automatically activated and deactivated with three memory
+> > +this scheme should be automatically activated and deactivated with three memory
+> 
+> Yours isn't wrong but I would make it:
+> +this scheme should automatically be activated and deactivated with three memory
+> 
+> Choose as you like.
+> 
+> >  pressure watermarks.
+> >  
+> >  Its default parameters for hotness/coldness thresholds and CPU quota limit are
+> > @@ -55,7 +55,7 @@ DAMON_LRU_SORT utilizes module parameters.  That is, you can put
+> >  ``damon_lru_sort.<parameter>=<value>`` on the kernel boot command line or write
+> >  proper values to ``/sys/module/damon_lru_sort/parameters/<parameter>`` files.
+> >  
+> > -Below are the description of each parameter.
+> > +Below is the description of each parameter.
+> 
+> My choice : 
+> +Below are the descriptions of each parameter.
+> 
+> 
+> >  ...
+> Looks good to me.
+> 
+> > 
+> >  --------------------
+> > @@ -310,7 +311,7 @@ Total bytes of hot memory regions that were successfully LRU-sorted.
+> >  nr_hot_quota_exceeds
+> >  --------------------
+> >  
+> > -Number of times that the time quota limit for hot regions have exceeded.
+> > +Number of times that the time quota limit for hot regions has been exceeded.
+> 
+> I would go for this, but I'm not sure:
+> +Number of times that the time quota limit for hot regions have been exceeded.
+> 
+> Number of times that ... have been exceeded.
 
-Since it's being set on writable and unset on read-only, it should cause no
-functional change.
+I have no strong opinion.  Aveline, let me know if you have some.
 
-Signed-off-by: Leonardo Bras <leo.bras@arm.com>
----
- arch/arm64/include/asm/kvm_pgtable.h | 3 +++
- arch/arm64/kvm/hyp/pgtable.c         | 5 +++--
- 2 files changed, 6 insertions(+), 2 deletions(-)
+> 
+> Thanks,
+> Reviewed-by: Manuel Ebner <manuelebnerli@mailbox.org>
 
-diff --git a/arch/arm64/include/asm/kvm_pgtable.h b/arch/arm64/include/asm/kvm_pgtable.h
-index 41a8687938eb..37baa86d6fd8 100644
---- a/arch/arm64/include/asm/kvm_pgtable.h
-+++ b/arch/arm64/include/asm/kvm_pgtable.h
-@@ -91,14 +91,17 @@ typedef u64 kvm_pte_t;
- #define KVM_PTE_LEAF_ATTR_HI_S1_UXN	BIT(54)
- #define KVM_PTE_LEAF_ATTR_HI_S1_PXN	BIT(53)
- 
- #define KVM_PTE_LEAF_ATTR_HI_S2_XN	GENMASK(54, 53)
- 
-+#define KVM_PTE_LEAF_ATTR_HI_S2_DBM	BIT(51)
-+
- #define KVM_PTE_LEAF_ATTR_HI_S1_GP	BIT(50)
- 
- #define KVM_PTE_LEAF_ATTR_S2_PERMS	(KVM_PTE_LEAF_ATTR_LO_S2_S2AP_R | \
- 					 KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W | \
-+					 KVM_PTE_LEAF_ATTR_HI_S2_DBM | \
- 					 KVM_PTE_LEAF_ATTR_HI_S2_XN)
- 
- /* pKVM invalid pte encodings */
- #define KVM_INVALID_PTE_TYPE_MASK	GENMASK(63, 60)
- #define KVM_INVALID_PTE_ANNOT_MASK	~(KVM_PTE_VALID | \
-diff --git a/arch/arm64/kvm/hyp/pgtable.c b/arch/arm64/kvm/hyp/pgtable.c
-index b74dd5ce1efd..8c2320c6a7f1 100644
---- a/arch/arm64/kvm/hyp/pgtable.c
-+++ b/arch/arm64/kvm/hyp/pgtable.c
-@@ -730,11 +730,11 @@ static int stage2_set_prot_attr(struct kvm_pgtable *pgt, enum kvm_pgtable_prot p
- 
- 	if (prot & KVM_PGTABLE_PROT_R)
- 		attr |= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_R;
- 
- 	if (prot & KVM_PGTABLE_PROT_W)
--		attr |= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
-+		attr |= KVM_PTE_LEAF_ATTR_HI_S2_DBM | KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
- 
- 	if (!kvm_lpa2_is_enabled())
- 		attr |= FIELD_PREP(KVM_PTE_LEAF_ATTR_LO_S2_SH, sh);
- 
- 	attr |= KVM_PTE_LEAF_ATTR_LO_S2_AF;
-@@ -1286,10 +1286,11 @@ static int stage2_update_leaf_attrs(struct kvm_pgtable *pgt, u64 addr,
- }
- 
- int kvm_pgtable_stage2_wrprotect(struct kvm_pgtable *pgt, u64 addr, u64 size)
- {
- 	return stage2_update_leaf_attrs(pgt, addr, size, 0,
-+					KVM_PTE_LEAF_ATTR_HI_S2_DBM |
- 					KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W,
- 					NULL, NULL,
- 					KVM_PGTABLE_WALK_IGNORE_EAGAIN);
- }
- 
-@@ -1366,11 +1367,11 @@ int kvm_pgtable_stage2_relax_perms(struct kvm_pgtable *pgt, u64 addr,
- 
- 	if (prot & KVM_PGTABLE_PROT_R)
- 		set |= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_R;
- 
- 	if (prot & KVM_PGTABLE_PROT_W)
--		set |= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
-+		set |= KVM_PTE_LEAF_ATTR_HI_S2_DBM | KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
- 
- 	if (prot & KVM_PGTABLE_PROT_X) {
- 		ret = stage2_set_xn_attr(prot, &xn);
- 		if (ret)
- 			return ret;
--- 
-2.56.0
+Thank you for review, Manuel.
 
+
+Thanks,
+SJ
+
+[...]
