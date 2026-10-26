@@ -1,64 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.98
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793013675;
-	b=KJT48LQ1BkqM3MFly3CzkuerG2tTQjNq5Bp/Tg1F15/toXZd++AJs3SKLv+Xuxc6Ecw8
-	 GDEFfD3sR0Cqt5H/l3EZM3BAHQch1kF85UialLBZN3MHj9YsjqmBQbenTQpVC909Sms05
-	 UOfKhr/rYw0bshb4i8xS5Tz/O4hGEQ5eGBhjZi+OWLiwZ/nAxt7o0dRzSYBU0IpeI4MV1
-	 QV8HeViZ7Y2wtGvY/RicRG8/V1j847ArUhfG9xBfvrN8H8o7zdJ1xlqVOs3U5kLoD37zS
-	 zsQ4W1VGeOdXevfzvstHIUHBiEzHKi1503wA8L+GZcgLqT4m2Zdyl88uZnEZdqDWSFQ==
+	t=1793013684;
+	b=gk5bs9TqkIihD/KZD5B5vPv5gPljKmL+E1bRvz3TJZlr0OMQJfbTrr6fzOcpDRzPl/Wq
+	 RFKHSXeLkYS64kOJ22IP6m/bEJhD6YPp5YC10n+BZB+DamJZExvTFzUUfF82RPoXqsrXN
+	 4jwgBU44D4Igo3ZCg5n9pMOZEoTIEhFmK9luIPi6OcDYWiPYYl9NqXXxr6ziL+VTN4ZX0
+	 ikKUEMv6JMG/q8lbX4C6io9LqwHZq9mFyW9nraNTQsozQ6Tu5rJ4q4GJlsWz8dMBm8uK8
+	 MEm/eq0a1SoSFuxR+kMtSjooT5fMozhsXBMwb3BOBU0rIquikzEPqUaSbFvNKsDzZ+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793013675;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:In-Reply-To:References:Date:Message-ID:User-Agent:
-	 MIME-Version:Content-Type;
-	bh=N8+NqHaT8WqMId4+zcLiP9/gsTgp5OXdEZ3QcQaKSLw=;
-	b=VkV0kqZpH3cFjUQ3AJD74BJuuDKZwc9n3OxcWJm59JPk8cMDvTgOkufAqPT/NexLrJ8Q
-	 uJ/gB2s3kWL+f9IBujW7iewEChT39fZE2wZuxh0Bd5GJskhdfUDmpz7eqTJ7pW2+b6K/G
-	 9SJzyYOcBrFKa4qsCidp/9S1nUNoD6xXlLgohQOHjMn5pA6XtP/84U6kR7iYn2l7RDA5g
-	 E4xFlPBsBrr8V74sykmsL9NpO6cGoxso60DBs0VlO0Rg9+1VhQ8n5JOWVFwTMBV9fWKam
-	 1ZPTjs+Sx5oXq9fsmpGTzJN6ICYskK9AKV/3lZ1q/0Y9w85ggLKqJgGxfgVE5z0uRYA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793013684;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Date:Message-ID:In-Reply-To:References;
+	bh=YaPrNf7Cus6idRIRbovGwqOwkJFSxRQnPSz6SCMl2RU=;
+	b=so8iB6HkAYWWM5ljVQveUNEKUfZ057d8nTdbMD0HnCaoYRPYIQlKdKQarAPl5vT+pPmM
+	 PpYHatdxGfn0qCeSA59LIJ/XuLAafQGvLm2PZ7c12RAzD/jJadPNzl5xlqpDcDTfdPl0S
+	 lIwYto3nH7qFCjxfq0ERZmF+hqvihRZCTMuSg1/Une8PG8gnpjCoggyv2OyrzroXFVa3j
+	 rs3gQ2+NMs0PTyN946rDg/Z/4mp2CjPqJxmW3Rm/ppvf3P1lTygRh5d/jPa5jLi4N5l6O
+	 Rdmfv1gEQRB1aWmJesp+qpaLUFxlqDBg/Cerynp1BUxMQWKRXWLYKJUXIUZ2KGCvTlw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=O83ZnCHr;
-	arc=none smtp.remote-ip=115.124.30.98
-Received: from out30-98.freemail.mail.aliyun.com (out30-98.freemail.mail.aliyun.com [115.124.30.98])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=W5Ef6rX8;
+	arc=none smtp.remote-ip=74.125.227.131
+Received: from mail-pj2-f3.google.com (mail-pj2-f3.google.com [74.125.227.131])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D3F4606A31B
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:21:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D3F4606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0073606A31D
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:21:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0073606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=O83ZnCHr
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1793013671; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type;
-	bh=N8+NqHaT8WqMId4+zcLiP9/gsTgp5OXdEZ3QcQaKSLw=;
-	b=O83ZnCHrddyGz98UqCxNvSCIA5apbBJIXJqX34ZAia41nhsmvVUKWRTOUHygOX+i0uGe8LDpek77QnO9r9ps1zGXFMCBOOM6bDDzOqyqwF9tIXChUOGmAi8qgBAmUxfZA8QHCDxuaybY3AY4JFBtsnfxajz4+IT9Ei25PnCdaJ0=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R291e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=ying.huang@linux.alibaba.com;NM=1;PH=DS;RN=20;SR=0;TI=SMTPD_---0XDXPkV2_1793013663;
-Received: from DESKTOP-5N7EMDA(mailfrom:ying.huang@linux.alibaba.com fp:SMTPD_---0XDXPkV2_1793013663 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Mon, 26 Oct 2026 19:21:09 +0800
-From: "Huang, Ying" <ying.huang@linux.alibaba.com>
-To: Yuanhe Shu <xiangzao@linux.alibaba.com>
-Cc: akpm@linux-foundation.org,  david@kernel.org,  Kaitao Cheng
- <kaitao.cheng@linux.dev>,  vbabka@kernel.org,  ljs@kernel.org,
-  liam@infradead.org,  rppt@kernel.org,  surenb@google.com,
-  mhocko@suse.com,  linmiaohe@huawei.com,  nao.horiguchi@gmail.com,
-  ziy@nvidia.com,  wangkefeng.wang@huawei.com,  tujinjiang@huawei.com,
-  mgorman@techsingularity.net,  chengkaitao@kylinos.cn,
-  muchun.song@linux.dev,  linux-mm@kvack.org,  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm/highmem: refuse to copy hwpoisoned folios in the
- !copy_mc fallbacks
-In-Reply-To: <20261026025724.1430747-1-xiangzao@linux.alibaba.com> (Yuanhe
-	Shu's message of "Mon, 26 Oct 2026 10:57:24 +0800")
-References: <20261026025724.1430747-1-xiangzao@linux.alibaba.com>
-Date: Mon, 26 Oct 2026 19:21:02 +0800
-Message-ID: <87pkww7lnl.fsf@DESKTOP-5N7EMDA>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=W5Ef6rX8
+Received: by mail-pj2-f3.google.com with SMTP id 98e67ed59e1d1-3adc0ac3564so506464a91.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 04:21:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793013683; x=1793618483; darn=vger.kernel.org;
+        h=references:in-reply-to:message-id:date:content-transfer-encoding
+         :content-type:mime-version:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=YaPrNf7Cus6idRIRbovGwqOwkJFSxRQnPSz6SCMl2RU=;
+        b=W5Ef6rX8PruyPsFWXwK3d70zR8dmTZT1VVdP2UmoPlih3dyMJ9xT0XyjEzgpuUDTj7
+         CHr2flhEVLbB5z/S8xxFDdDzHl5zV/XFnDi7RRultjDmJWMYdPNf+lk6JnF06WSwjOpi
+         xMGO5YhzWtxdFSXRva+BsY9xBVrxMj6lin6OM+PvX/ZlJQ/m31Sw2+Jx24xWATZQVzl5
+         ZuKCuipbctIJ50g/CKsnNeKxy4Y4E/1+FBBGZlPOy4v4VKyC6KgE6sZPrCEXKLQU9y5U
+         4T9UaTjXQ2Wj4CZPrtFo6KtaFhPB3f+oM44kleHiFTsTaCdseinYhm8RxD6rmjImfWle
+         Z1lw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793013683; x=1793618483;
+        h=references:in-reply-to:message-id:date:content-transfer-encoding
+         :content-type:mime-version:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YaPrNf7Cus6idRIRbovGwqOwkJFSxRQnPSz6SCMl2RU=;
+        b=R0NTdfgz4XodMOueXm7WvYFbSQJEKhxggTYEvAL6/QAhJeNBPCW1Yop1vVeZ4dMejw
+         kFMPxVeDEH3/+Xi4LT2B74VgBY5UlO2/2ExU4gPZLTUCGEPCkxyrrI4sfvft2veuLBg1
+         0c0tif8aWRMowUDyNj1aCNlmjyw64i92hq055WmMxosS7l3ZTy4AhRimvFUAHTa+nIfK
+         g1Dt6vmqMSMpFwQQKGBJ0Io0cCkCm4JNeiRoxKUD27HbDSPupaWR59/uxreFW7Tkn0+2
+         P66Zhhyo58V178xkjCOY399na2sjp9+H5y++wP3C84q6vh6W+4E3jzz87UTD8HowDg/H
+         H6Yg==
+X-Forwarded-Encrypted: i=1; AKwUvBxU83GLcMAAghR+5+Q+03KGPqTgTtuTNQClFAgkS0ZW4VDkTd/AzV5qGHq6JXDmfkvGtGVnWz996GXw3wM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLC6W2/JvLZikOVXh3Gpxk2xJOiJ1TPFzcNM33JyZxq687m5Vj8
+	sj1gb7Z/NDfMXcmIwWOnz2DAM8AbX8V6apkIGQH1mw8RUfUCoQm0eknU
+X-Gm-Gg: AYBFou3ykR+Ywf494JjJRbF0ok90HO83VuND/znyPG07jcBOnPxIWMkn/v6Qmtbky6v
+	QvCWyXHiYKrx2XMMoHCC6gzPE1n4LVYAVBYHbxPLFGzNfHqTRr7QGIupmEjz+Heiv9Ajx7SOobu
+	n9RdQj7aYHBdp/fBAowoCiBPvCid1fR994JYqNna6AgWFDI668bypB8v1rQW9xeZoahBiUHa0Cj
+	QYfAEGtHZeLQthxo5dTvbODNhoClrJ9MtfsGb/yoXako2s0AjBWfzLv/n0W8kNQEr3wi7JorURd
+	dLM8yaHG1e+/T2UMjGt1f8tznUSqTl+sqx6IwKVpJuOz5fBXLx+TcARchmkFRNYAzqqghUyHyBl
+	l2mcLoRRuol7wnJyRZ4fUHiR8J2IAR481VrWqqQEWxutekJv3nU/70Q/Q8Z7BeiSZ0qg8QfjYcw
+	CR7JO6h0l2QUKjZMfobw4Nb674BfM93d5E54hy2XykOj1z/C6FNI2wVNJMZ+/ejTgVMWUWXWL4u
+	DL7I1mLe3xKVDkaoJiz5udkROwsekpxRMFv1FpaQaeqagbOrszzY4Ig0/1QabZMjGvwj8opO9fv
+	LJorH6l2h49yuiS+1nhl/IHuuzDhfxG4o2G7j41fBX+AOVLcUGwFEg==
+X-Received: by 2002:a17:90b:564d:b0:3ac:7f4c:a690 with SMTP id 98e67ed59e1d1-3adeafb0449mr4836978a91.35.1793013682850;
+        Mon, 26 Oct 2026 04:21:22 -0700 (PDT)
+Received: from localhost (n106-71-19-159.sun21.vic.optusnet.com.au. [106.71.19.159])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adebe6af24sm7907912a91.6.2026.10.26.04.21.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 04:21:22 -0700 (PDT)
+From: Aveline Noir <jm5905938@gmail.com>
+To: SJ Park <sj@kernel.org>
+Cc: Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Manuel Ebner <manuelebnerli@mailbox.org>,
+ damon@lists.linux.dev,
+ linux-mm@kvack.org,
+ linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH 4/8] Docs/admin-guide/mm/damon/lru_sort: fix remaining grammar
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,91 +99,153 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ascii
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Date: Mon, 26 Oct 2026 22:14:36 +1100
+Message-ID: <179301327249.2.16817896016779044743.damon-docs-grammar-4@gmail.com>
+In-Reply-To: <179301327249.2.4690198998605536207.damon-docs-grammar-0@gmail.com>
+References: <179301327249.2.4690198998605536207.damon-docs-grammar-0@gmail.com>
 
-Yuanhe Shu <xiangzao@linux.alibaba.com> writes:
+Manuel's recent grammar fix for this file, now in damon/next, covered a
+good part of it.  This should take care of the few mistakes that are
+left, like "should automatically activated" and "Make DAMON_LRU_SORT
+reads".  Rewrap where the lines got too long.
 
-> Where copy_mc_to_kernel is defined, copy_mc_user_highpage() and
-> copy_mc_highpage() stop at a hardware error during the copy, report
-> the not-copied bytes and queue the source page for memory_failure().
-> The !copy_mc fallbacks return 0 after a plain copy instead.  With
-> PG_hwpoison set while the data stays readable - software-injected
-> poison (MADV_HWPOISON, the debugfs corrupt-pfn injector) or a
-> transient hardware error - there is no fault to recover from: the
-> copy completes, the destination folio carries no poison marker, and
-> the poison is consumed silently, the same poison consumption
-> commit 841a8bfcbad9 ("mm: prevent poison consumption when splitting
-> THP") refused to risk on the split path.
-
-As far as I know, software-injected poison is used for debugging only ,
-so I don't think it's that important.  Hardware poison state in DDR is
-sticky; that is, even a transient hardware error will cause a permanent
-hardware poison state until a reset.
-
-Therefore, the primary value of this patch should be to reduce machine
-checks (and panics) during memory copies.  If so, we should place the
-check code before copying.
-
-> Check the source folio with folio_contain_hwpoisoned_page() in both
-> fallbacks and return PAGE_SIZE, the not-copied-bytes convention of
-> the real copy_mc paths, so the callers take their existing error
-> paths: the COW and fork paths fail with -EHWPOISON, KSM and
-> khugepaged abort, and folio_mc_copy() propagates to the migration
-> core, where this composes with the separate migration-side checks.
-> On archs with copy_mc this code does not compile.
->
-> The check runs after the copy: a check before it would leave open
-> the window between itself and the copy.  A flag set before or during
-> the copy is caught, whatever state the data is in.  A late software
-> injection cannot have corrupted the completed copy, and a synchronous
-> hardware error takes an arch without copy_mc down at the access; the
-> residue no flag check, before or after, can catch is corruption whose
-> hardware report lands after the last check.  Closing that would need
-> architecture support, as discussed.
->
-> The fallbacks do not queue memory_failure() on refusal: the flag is
-> already set, and memory failure either knows about the page or has
-> abandoned it.
->
-> Suggested-by: "Huang, Ying" <ying.huang@linux.alibaba.com>
-> Suggested-by: Kaitao Cheng <kaitao.cheng@linux.dev>
-> Assisted-by: LLM
-> Signed-off-by: Yuanhe Shu <xiangzao@linux.alibaba.com>
-> Link: https://lore.kernel.org/r/877bjowf9i.fsf@DESKTOP-5N7EMDA/
-> ---
->  include/linux/highmem.h | 9 +++++++++
->  1 file changed, 9 insertions(+)
->
-> diff --git a/include/linux/highmem.h b/include/linux/highmem.h
-> index d7aac9de1c8a..f90f0c6204a4 100644
-> --- a/include/linux/highmem.h
-> +++ b/include/linux/highmem.h
-> @@ -474,12 +474,21 @@ static inline int copy_mc_user_highpage(struct page *to, struct page *from,
->  					unsigned long vaddr, struct vm_area_struct *vma)
->  {
->  	copy_user_highpage(to, from, vaddr, vma);
-> +	/*
-> +	 * The flag can be set while the copy runs, so check after it;
-> +	 * a flag landing later can no longer have corrupted this copy.
-> +	 */
-> +	if (folio_contain_hwpoisoned_page(page_folio(from)))
-> +		return PAGE_SIZE;
-
-Why not just use PageHWPoison()?
-
->  	return 0;
->  }
->  
->  static inline int copy_mc_highpage(struct page *to, struct page *from)
->  {
->  	copy_highpage(to, from);
-> +	/* Same reasoning as in copy_mc_user_highpage(). */
-> +	if (folio_contain_hwpoisoned_page(page_folio(from)))
-> +		return PAGE_SIZE;
->  	return 0;
->  }
->  #endif
-
+Signed-off-by: Aveline Noir <jm5905938@gmail.com>
 ---
-Best Regards,
-Huang, Ying
+ .../admin-guide/mm/damon/lru_sort.rst         | 45 ++++++++++---------
+ 1 file changed, 23 insertions(+), 22 deletions(-)
+
+diff --git a/Documentation/admin-guide/mm/damon/lru_sort.rst b/Documentation/admin-guide/mm/damon/lru_sort.rst
+index aa4cc90ca57c..c628e3f6e587 100644
+--- a/Documentation/admin-guide/mm/damon/lru_sort.rst
++++ b/Documentation/admin-guide/mm/damon/lru_sort.rst
+@@ -35,7 +35,7 @@ deprioritizing cold pages on their LRU-lists.  To avoid it consuming too much
+ CPU for the prioritizations, a CPU time usage limit can be configured.  Under
+ the limit, it prioritizes and deprioritizes more hot and cold pages first,
+ respectively.  System administrators can also configure under what situation
+-this scheme should automatically activated and deactivated with three memory
++this scheme should be automatically activated and deactivated with three memory
+ pressure watermarks.
+ 
+ Its default parameters for hotness/coldness thresholds and CPU quota limit are
+@@ -55,7 +55,7 @@ DAMON_LRU_SORT utilizes module parameters.  That is, you can put
+ ``damon_lru_sort.<parameter>=<value>`` on the kernel boot command line or write
+ proper values to ``/sys/module/damon_lru_sort/parameters/<parameter>`` files.
+ 
+-Below are the description of each parameter.
++Below is the description of each parameter.
+ 
+ enabled
+ -------
+@@ -70,12 +70,12 @@ condition.  Refer to below descriptions of the watermarks parameter for this.
+ commit_inputs
+ -------------
+ 
+-Make DAMON_LRU_SORT reads the input parameters again, except ``enabled``.
++Make DAMON_LRU_SORT read the input parameters again, except ``enabled``.
+ 
+-Input parameters that updated while DAMON_LRU_SORT is running are not applied
+-by default.  Once this parameter is set to ``Y``, DAMON_LRU_SORT reads values
+-of parameters except ``enabled`` again.  Once the re-reading is done, this
+-parameter is set to ``N``.  If invalid parameters are found while the
++Input parameters that are updated while DAMON_LRU_SORT is running are not
++applied by default.  Once this parameter is set to ``Y``, DAMON_LRU_SORT reads
++values of parameters except ``enabled`` again.  Once the re-reading is done,
++this parameter is set to ``N``.  If invalid parameters are found while the
+ re-reading, DAMON_LRU_SORT will be disabled.
+ 
+ Once ``Y`` is written to this parameter, the user must not write to any
+@@ -87,10 +87,11 @@ active_mem_bp
+ 
+ Desired active to (in)active memory ratio in bp (1/10,000).
+ 
+-While keeping the caps that set by other quotas, DAMON_LRU_SORT automatically
+-increases and decreases the effective level of the quota aiming the LRU
+-(de)prioritizations of the hot and cold memory resulting in this active to
+-(in)active memory ratio.  Value zero means disabling this auto-tuning feature.
++While keeping the caps that are set by other quotas, DAMON_LRU_SORT
++automatically increases and decreases the effective level of the quota aiming
++the LRU (de)prioritizations of the hot and cold memory resulting in this active
++to (in)active memory ratio.  Value zero means disabling this auto-tuning
++feature.
+ 
+ Disabled by default.
+ 
+@@ -112,8 +113,8 @@ Filter (non-)young pages accordingly for LRU (de)prioritizations.
+ 
+ If this is set, check page level access (youngness) once again before each
+ LRU (de)prioritization operation.  LRU prioritization operation is skipped
+-if the page has not accessed since the last check (not young).  LRU
+-deprioritization operation is skipped if the page has accessed since the
++if the page has not been accessed since the last check (not young).  LRU
++deprioritization operation is skipped if the page has been accessed since the
+ last check (young).  The feature is enabled or disabled if this parameter is
+ set to ``Y`` or ``N``, respectively.
+ 
+@@ -125,7 +126,7 @@ hot_thres_access_freq
+ Access frequency threshold for hot memory regions identification in permil.
+ 
+ If a memory region is accessed in frequency of this or higher, DAMON_LRU_SORT
+-identifies the region as hot, and mark it as accessed on the LRU list, so that
++identifies the region as hot, and marks it as accessed on the LRU list, so that
+ it could not be reclaimed under memory pressure.  50% by default.
+ 
+ cold_min_age
+@@ -134,7 +135,7 @@ cold_min_age
+ Time threshold for cold memory regions identification in microseconds.
+ 
+ If a memory region is not accessed for this or longer time, DAMON_LRU_SORT
+-identifies the region as cold, and mark it as unaccessed on the LRU list, so
++identifies the region as cold, and marks it as unaccessed on the LRU list, so
+ that it could be reclaimed first under memory pressure.  120 seconds by
+ default.
+ 
+@@ -237,7 +238,7 @@ The maximum number of monitoring regions of DAMON for the cold memory
+ monitoring.  This can be used to set the upper-bound of the monitoring overhead.
+ However, setting this too low could result in bad monitoring quality.  Please
+ refer to the DAMON documentation (:doc:`usage`) for more detail.  1000 by
+-defaults.
++default.
+ 
+ monitor_region_start
+ --------------------
+@@ -310,7 +311,7 @@ Total bytes of hot memory regions that were successfully LRU-sorted.
+ nr_hot_quota_exceeds
+ --------------------
+ 
+-Number of times that the time quota limit for hot regions have exceeded.
++Number of times that the time quota limit for hot regions has been exceeded.
+ 
+ nr_lru_sort_tried_cold_regions
+ ------------------------------
+@@ -325,24 +326,24 @@ Total bytes of cold memory regions that tried to be LRU-sorted.
+ nr_lru_sorted_cold_regions
+ --------------------------
+ 
+-Number of cold memory regions that successfully be LRU-sorted.
++Number of cold memory regions that were successfully LRU-sorted.
+ 
+ bytes_lru_sorted_cold_regions
+ -----------------------------
+ 
+-Total bytes of cold memory regions that successfully be LRU-sorted.
++Total bytes of cold memory regions that were successfully LRU-sorted.
+ 
+ nr_cold_quota_exceeds
+ ---------------------
+ 
+-Number of times that the time quota limit for cold regions have exceeded.
++Number of times that the time quota limit for cold regions has been exceeded.
+ 
+ Example
+ =======
+ 
+-Below runtime example commands make DAMON_LRU_SORT to find memory regions
++Below runtime example commands make DAMON_LRU_SORT find memory regions
+ having >=50% access frequency and LRU-prioritize while LRU-deprioritizing
+-memory regions that not accessed for 120 seconds.  The prioritization and
++memory regions that are not accessed for 120 seconds.  The prioritization and
+ deprioritization is limited to be done using only up to 1% CPU time to avoid
+ DAMON_LRU_SORT consuming too much CPU time for the (de)prioritization.  It also
+ asks DAMON_LRU_SORT to do nothing if the system's free memory rate is more than
