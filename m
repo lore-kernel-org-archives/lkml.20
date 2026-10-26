@@ -1,50 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=188.68.32.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792975461;
-	b=0Wg8Rr5LN2Mm5E8Sj8jZ1sEG6hAQrrJq0W2Hn81LjK6QXoQya3BOV9tTDSaIZUGI7iVI
-	 CxsUpgm/HilYfdhoY2hFUvtt/pird0bYN11ZUsSliMGbS/Grx7cITjGI5PL8w0He8rUq0
-	 MPYj7mfQN3CEugsMi15JeMNJm2sPcXs84EaJdRBESHzOYhaMaisyIZI2/MmjZy/QNaLdf
-	 z1cl4SS2qOlOFJ14GasVVSQb4+E1EqIhLlkzvAx6GaL/cfFzYTiEfu67VqqflD5VcCLJa
-	 lEN0KxL0TFgFkKyPxQ4dqJRY4SuBx09q1Plt8oahQtist2/t2jv5Sbs6sxIsshxFfoA==
+	t=1792975472;
+	b=DcwuSsFW3tBcDr6nZa2+6YMzs0qSnk6cPgHaSmHWRXdDW/v0e2K6CfzCxXW0EOX+kXAO
+	 RtWaCQPbbLliDhHDAUiygZSYPXfBN7QzzcNPWs+qYgpdEUVdNp0FywXS9FOOpbtLTuN+x
+	 +13RRGOH1J9wFrJJKF099sP6cj+DnQC1r5+eU4m5xFJb12w3NFUzAjedjqA4e3cX4pCYw
+	 kIzwRUz+Mdn+9DaKZ7o0f63+rzTNY2Jj1i53kQFVwARN43Q+cjWaW9dpMP5JKzCFXMfmS
+	 sXPFHLwoYILJbTxOU2eGwJRNCdZFh4vZRZUDG3aAeOolw+3GYe5vohZLf4H4IHUNGfw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792975461;
-	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Operating-System:X-gpg-fingerprint:X-gpg-key:X-Echelon-Enable:
-	 X-TKUeV:X-message-flag;
-	bh=5V/5TAB96ndPwiAAKCMcB/cnjrnPTc++uezTCortw4s=;
-	b=ubXnskYDrPrBisjTrmljcjaAGRsxef+wT6qrBpeJj2T/+NzK2fkIDuHqALCh2/YBcHyx
-	 TOPIZ35jtLAplcY416MdFesiQVto0fnGFNDwEqH+xffmBe16Qf8RIe7lg4P8eBFH7tSCW
-	 GTycQLWHH37vTsY8+T2y11GYW2aSxRBTjIcUhNiTEYxXFHg9CiSF1Io87mVzA18I3ljvB
-	 8ofMiax0U9NztO0A/wE15TfPfjNErihNyD/hQwVMKPOuGFo02ukSiY6BgVdE4WyEAk7u8
-	 ZSrypAHIpoKIBDFIfj5ybgCtqWazBCxa0xfF4DqJJA6jWwayjT/G0cv0ZS6YKxZrw6A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792975472;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=C4d5uod477JW8uzzMO+XVqs+CNMjzXHMSj+ysCPSvoc=;
+	b=fraLFYC7wT4+FPFj/BraOhMJtqG0AkY4vsTzAmluNt9QLCNHnJMLzXhTm8QSeIIKITW/
+	 7nNJgFgfVUHqf2utXOhbhbGpdOifvaZOyoEI8IB5Wijr7o7qE320kBkvf0CBnUQQ/hF0/
+	 X0mFYZ7I+WGiRBRulYaJW58WuEuSV+IfxvGUjnPdK0z5Hyj8N1a+nRyPF+uItOR5xvfKJ
+	 AEb0snx+lwNAuHpSZ4FRxlVLVW/eID5e3x22S0I0wMIUaN4MP+WYytvjezacZtTO2zVZh
+	 7wW5GPFHcznCrwyUnCvRqAw/yJX+gvtuJXYYBZUYsV7SGkn/uebNIDknz3q0GkW30zA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=lug-owl.de;
-	spf=pass smtp.mailfrom=lug-owl.de;
-	arc=none smtp.remote-ip=188.68.32.151
-Received: from lug-owl.de (lug-owl.de [188.68.32.151])
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=UHeYH+Hx;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0ECB606A31A;
-	Mon, 26 Oct 2026 00:44:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0ECB606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lug-owl.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lug-owl.de
-Received: by lug-owl.de (Postfix, from userid 1001)
-	id E4950422D6; Mon, 26 Oct 2026 01:44:11 +0100 (CET)
-Date: Mon, 26 Oct 2026 01:44:11 +0100
-From: Jan-Benedict Glaw <jbglaw@lug-owl.de>
-To: Matt Turner <mattst88@gmail.com>
-Cc: Richard Henderson <richard.henderson@linaro.org>,
-	Magnus Lindholm <linmag7@gmail.com>, linux-alpha@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-perf-users@vger.kernel.org, Ian Rogers <irogers@google.com>
-Subject: Re: [PATCH v3 4/5] alpha: add HAVE_PERF_REGS and
- HAVE_PERF_USER_STACK_DUMP support
-Message-ID: <at6iW11clMShlGCq@lug-owl.de>
-References: <20261018-alpha-perf-regs-v3-v3-0-52be85332c57@gmail.com>
- <20261018-alpha-perf-regs-v3-v3-4-52be85332c57@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8EC9606A31A;
+	Mon, 26 Oct 2026 00:44:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8EC9606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=UHeYH+Hx
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=C4d5uod477JW8uzzMO+XVqs+CNMjzXHMSj+ysCPSvoc=; b=UHeYH+Hxy/9F9h6RDFNENjdE8w
+	zla9/yNV9vzRnL+GSdbRpUirHUwhjm1nTpqU7whEuZ44C8XkUdokuvntNTJWKXtgqnYFQWCYL9gQr
+	ZnVRBl90ELm+khLYHClY2iuMobOBB37jz0q8SeuoeuJupUS+KV3wOgI97jcNoqsGko1E=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xL8p6-00CjRq-29; Mon, 26 Oct 2026 01:44:24 +0100
+Date: Mon, 26 Oct 2026 01:44:24 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: David Yang <mmyangfl@gmail.com>
+Cc: netdev@vger.kernel.org, Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] net: dsa: motorcomm: Report error when FDB fails to
+ add
+Message-ID: <d841a56b-1ec4-4095-9040-cc67f4f91956@lunn.ch>
+References: <20261025024114.1955782-1-mmyangfl@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,114 +65,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="mslrvrPhqrcBcnNc"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261018-alpha-perf-regs-v3-v3-4-52be85332c57@gmail.com>
-X-Operating-System: Linux chamaeleon 6.12.113+deb13-amd64 
-X-gpg-fingerprint: 250D 3BCF 7127 0D8C A444  A961 1DBD 5E75 8399 E1BB
-X-gpg-key: wwwkeys.de.pgp.net
-X-Echelon-Enable: howto poison arsenous mail psychological biological nuclear
- warfare test the bombastical terror of flooding the spy listeners explosion
- sex drugs and rock'n'roll
-X-TKUeV: howto poison arsenous mail psychological biological nuclear warfare
- test the bombastical terror of flooding the spy listeners explosion sex
- drugs and rock'n'roll
-X-message-flag: Please send plain text messages only. Do not send HTML
- emails. Thank you. 
+In-Reply-To: <20261025024114.1955782-1-mmyangfl@gmail.com>
 
+On Sun, Oct 25, 2026 at 10:41:11AM +0800, David Yang wrote:
+> fdb_add() ignored any errors returned by the hardware (for example,
+> table is full). Return error for that case.
+> 
+> Fixes: 186623f4aa72 ("net: dsa: yt921x: Add support for Motorcomm YT921x")
+> Signed-off-by: David Yang <mmyangfl@gmail.com>
 
---mslrvrPhqrcBcnNc
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+I'm not sure this deserves a Fixes tag. How many entries does the
+table take before it is full? Typical home networks have what, 10, 20
+devices maximum. A small business network may have a couple of
+hundred?
 
-Hi,
+What happens if it is full, and you don't return ENOSPC?
 
-On Sun, 2026-10-18 10:22:04 -0400, Matt Turner <mattst88@gmail.com> wrote:
-> Let perf sample registers and dump the user stack, which is what the
-> perf tool needs for --call-graph dwarf.
-
-After this patch series, it conflicts with previous upstream changes:
-
-[=E2=80=A6]
-> diff --git a/arch/alpha/kernel/perf_regs.c b/arch/alpha/kernel/perf_regs.c
-> new file mode 100644
-> index 000000000000..33ea2e831ba0
-> --- /dev/null
-> +++ b/arch/alpha/kernel/perf_regs.c
-> @@ -0,0 +1,64 @@
-[=E2=80=A6]
-> +int perf_reg_validate(u64 mask)
-> +{
-> +	if (!mask || mask & REG_RESERVED)
-> +		return -EINVAL;
-> +
-> +	return 0;
-> +}
-[=E2=80=A6]
-
-# CC      arch/alpha/kernel/perf_regs.o
-  alpha-linux-gcc -Wp,-MMD,arch/alpha/kernel/.perf_regs.o.d -nostdinc -I./a=
-rch/alpha/include -I./arch/alpha/include/generated -I./include -I./include =
--I./arch/alpha/include/uapi -I./arch/alpha/include/generated/uapi -I./inclu=
-de/uapi -I./include/generated/uapi -include ./include/linux/compiler-versio=
-n.h -include ./include/linux/kconfig.h -include ./include/linux/compiler_ty=
-pes.h -D__KERNEL__ -fshort-wchar -funsigned-char -fno-common -fno-PIE -fno-=
-strict-aliasing -std=3Dgnu11 -fms-extensions -pipe -mno-fp-regs -ffixed-8 -=
-fno-jump-tables -mcpu=3Dev56 -mtune=3Dev6 -Wa,-mev6 -fno-delete-null-pointe=
-r-checks -O2 -fno-allow-store-data-races -fno-stack-protector -fno-omit-fra=
-me-pointer -fno-optimize-sibling-calls -ftrivial-auto-var-init=3Dzero -fzer=
-o-init-padding-bits=3Dall -fno-stack-clash-protection -fdiagnostics-show-co=
-ntext=3D2 -fstrict-flex-arrays=3D3 -fno-strict-overflow -fno-stack-check -f=
-conserve-stack -fno-builtin-wcslen -Wall -Wextra -Wundef -Werror=3Dimplicit=
--function-declaration -Werror=3Dimplicit-int -Werror=3Dreturn-type -Werror=
-=3Dstrict-prototypes -Wno-format-security -Wno-trigraphs -Wno-frame-address=
- -Wno-address-of-packed-member -Wmissing-declarations -Wmissing-prototypes =
--Wframe-larger-than=3D2048 -Wno-main -Wno-type-limits -Wno-dangling-pointer=
- -Wvla-larger-than=3D1 -Wno-pointer-sign -Wcast-function-type -Wno-untermin=
-ated-string-initialization -Wno-array-bounds -Wno-stringop-overflow -Wno-al=
-loc-size-larger-than -Wimplicit-fallthrough=3D5 -Werror=3Ddate-time -Werror=
-=3Dincompatible-pointer-types -Werror=3Ddesignated-init -Wenum-conversion -=
-Wunused -Wno-unused-but-set-variable -Wno-unused-const-variable -Wno-packed=
--not-aligned -Wno-format-overflow -Wno-format-truncation -Wno-stringop-trun=
-cation -Wno-override-init -Wno-missing-field-initializers -Wno-shift-negati=
-ve-value -Wno-maybe-uninitialized -Wno-sign-compare -Wno-unused-parameter -=
-g -Wno-sign-compare    -DKBUILD_MODFILE=3D'"arch/alpha/kernel/perf_regs"' -=
-DKBUILD_BASENAME=3D'"perf_regs"' -DKBUILD_MODNAME=3D'"perf_regs"' -D__KBUIL=
-D_MODNAME=3Dperf_regs -c -o arch/alpha/kernel/perf_regs.o arch/alpha/kernel=
-/perf_regs.c =20
-arch/alpha/kernel/perf_regs.c:46:5: error: conflicting types for 'perf_reg_=
-validate'; have 'int(u64)' {aka 'int(long long unsigned int)'}
-   46 | int perf_reg_validate(u64 mask)
-      |     ^~~~~~~~~~~~~~~~~
-In file included from ./include/linux/perf_event.h:50,
-                 from arch/alpha/kernel/perf_regs.c:4:
-=2E/include/linux/perf_regs.h:13:5: note: previous declaration of 'perf_reg=
-_validate' with type 'int(u64,  bool)' {aka 'int(long long unsigned int,  _=
-Bool)'}
-   13 | int perf_reg_validate(u64 mask, bool simd_enabled);
-      |     ^~~~~~~~~~~~~~~~~
-make[4]: *** [scripts/Makefile.build:290: arch/alpha/kernel/perf_regs.o] Er=
-ror 1
-make[3]: *** [scripts/Makefile.build:551: arch/alpha/kernel] Error 2
-make[2]: *** [scripts/Makefile.build:551: arch/alpha] Error 2
-make[1]: *** [/home/jenkins/workspace/linux-alpha-alpha-defconfig___3/linux=
-/Makefile:2229: .] Error 2
-make: *** [Makefile:248: __sub-make] Error 2
-
-MfG, JBG
-
---=20
-
---mslrvrPhqrcBcnNc
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iF0EABECAB0WIQQlDTvPcScNjKREqWEdvV51g5nhuwUCat6iWQAKCRAdvV51g5nh
-u/SNAJ9Mzo+AZmCGsEYWRkTnjDMxXtk7BQCfUU0klDfb7QJLLGqqt3J0mncTHNY=
-=eZNK
------END PGP SIGNATURE-----
-
---mslrvrPhqrcBcnNc--
+      Andrew
