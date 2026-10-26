@@ -1,67 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.111
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.35
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793052631;
-	b=2kkljdfBtLv4KRLPjZbjWncYBCJljIX5z5WBIle7LBgww4GaKxMvdBsCP1ZOGmBXy992
-	 PpKfTbxBC/tPx783Dqp+h7coQLCWZARJfvOblxSUJeJ3pvY5sII1L4UE89xAVb/+1leUs
-	 E6gq777LVh2FE2yuvJMn6CJpOV4fWkTVQE6kmAPkxQiZY7arx6oIrUf2f0o35TJXdAWK2
-	 lklz1Jow7nparjHanau1mhZ2E/1i1j0ZbnNhL/pa4wEK8ap2CIBLlFvjpNhoeVLJBlxv1
-	 RiDRcC+BJLF93uLcu7b531wqQcHr9sKAUYXAecfwfMg0zF53zYEzHi1ST31Mb+1zZ3Q==
+	t=1793052743;
+	b=ByKmFZg1WM7dVa5tJxL7zi5D9KJYN33dW/UZR1DABArcbCfAiGrbAxr4IMFy89tgK6YT
+	 RG+YFHt6qQNd1RS6+psu6ZoYWvRwAulfxiP+/BFO2OJRkmecYP63zFs7sik9jiM5Nkztp
+	 vWsMSKMGu45wLxth9003G69K4X7h+JV46OUpGLXe6P7x/lVjmtNoR4snR6gXhoRl548mW
+	 6+ADYqN6r2WxRU1gDm5Z9eZ8/6qmk6cqaavnFIyfrY6whN45bd1y9z1vP/4W23/E/NMYB
+	 lYWrBP3eHn4y/8bhabLkMS6MaMt6KT+ak+Zz3giXBH/sDfUd3g7KCtxat49ThgBuTfw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793052631;
-	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:To:Cc:Date:
-	 Subject:Message-ID:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=ABoVPvvrFqOEH2gV0M6izYCHk+pREbqv5zj4Hi7+l34=;
-	b=yj6aS/vQbbUMvSg+k9ex6lE9BWzoCvAcN6QCwMMVDB+gm9LAzoxpad9ye9GfglBspujB
-	 ZXHZuytNhk5FRhef33aA652QdrIx9MW66zw6Eg76QPjgtkRJzgzxRwirtecgzGJXRPK/k
-	 O/a4okN6ht29tyIkzslEtb4HwxP0FsvMTBflEyAsQTQIBdZsD0uraOgn1Upl5581k2di0
-	 5P2xNlXpYvfJvUifctdOpk3C8W/7CUINcxlplp/jkikM4ab/2fP+aNcechSEjkPz4LUUU
-	 PLeT/wdtLAXv3Ucs/7cyqVejs58n6mHkAHGf5bhOCOm3tBUD1vVx37eSZZCD7kkve3g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793052743;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
+	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
+	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
+	 X-Local-Domain:X-CMAE-Envelope;
+	bh=qyij59D23rRpsqpbbijzYQGBvjbJY80qp035umD4osM=;
+	b=Of8eGJPcjrtUZdvszL9PYtLHzZjnMQZ/JrZHlyAtFL08Cc4YF1oYKTynttxlFWTONH/X
+	 ozJVAIJ1TZYmD4oVqgUUdqupXXu8GhcAK4IgL/PcFThNcypxMCq2Abl1ORpnrpfChpOPs
+	 ImtNUb0pT+dDzP5CFECpOzk9ToDI16MwZakImX1MwPQuI7qZuyPQBdyoYrKmXruXrCN77
+	 JwWqX2XsF/d0lDIXmgBdLIL4oi1Ai0KzTUXJE/6ztm0mmLR4Py//s5PtwpAvoyglp8FT6
+	 JTIe++D7c5cmqS7cd8lfTwV/00InTxEYkv6mBEthyl6J7CzLrIkwcMSkLRw9jEoibJA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=michaelmcallister.org;
-	spf=pass smtp.mailfrom=michaelmcallister.org;
-	dkim=pass header.d=michaelmcallister.org header.i=@michaelmcallister.org header.a=rsa-sha256 header.s=protonmail2 header.b=OQ6H+wJa;
-	arc=none smtp.remote-ip=79.135.106.111
-Received: from mail-106111.protonmail.ch (mail-106111.protonmail.ch [79.135.106.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=tmvF0bUQ;
+	arc=none smtp.remote-ip=35.89.44.35
+Received: from omta36.uswest2.a.cloudfilter.net (omta36.uswest2.a.cloudfilter.net [35.89.44.35])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 575CC606A323
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 22:10:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 575CC606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=michaelmcallister.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=michaelmcallister.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 434A3606A31E
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 22:12:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 434A3606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=michaelmcallister.org header.i=@michaelmcallister.org header.a=rsa-sha256 header.s=protonmail2 header.b=OQ6H+wJa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=michaelmcallister.org; s=protonmail2; t=1793052628; x=1793311828;
-	bh=ABoVPvvrFqOEH2gV0M6izYCHk+pREbqv5zj4Hi7+l34=;
-	h=From:To:Cc:Date:Subject:Message-ID:In-Reply-To:References:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=OQ6H+wJaLSNK8+HBG0bpkjufB3xFVT04k2YOBlVurBKTeXhSiAYWWaBCkd03OcNtE
-	 Gp2HavLSPTfRNuQlf460YAy29DvnQ9WfBT7BYoYnvWjO6SQMAYpj6aNBY5wgWR/PQu
-	 gi6vs18p/76Gx2RE6+U1uPhUBr7zfnWfqu9qDLrk2ZVgco6L3Wo8KsQKjgco04D2Yd
-	 fBP7eFl+76IyH57TS6fFZdcswNF4LU5k8R7Z0BV4hhZFed0FipZs6RvNGjdvjQRk7J
-	 eP9JqnVVHAH6wHyqCNjl7KQrdZj59Ju2mhBE09HpznmIKlSazDiJ2b9NNUAHTba2d3
-	 tydIqBmtulTaQ==
-X-Pm-Submission-Id: 4jD79F21fvz2ScXH
-From: Michael McAllister <me@michaelmcallister.org>
-To: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Mon, 26 Oct 2026 22:10:16 +0000
-Subject: [PATCH v3 1/3] arm64: dts: qcom: sm6115: Correct cluster idle state
- parameters
-Message-ID:
- <179305261663.94591.234076861502971834.capri-dts-v3-1@michaelmcallister.org>
-In-Reply-To:
- <179305261663.94591.5491359960257085739.capri-dts-v3-0@michaelmcallister.org>
-References: <cover.1792840208.git.me@michaelmcallister.org>
- <179305261663.94591.5491359960257085739.capri-dts-v3-0@michaelmcallister.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=tmvF0bUQ
+Received: from eig-obgw-5002b.ext.cloudfilter.net ([10.0.29.226])
+	by cmsmtp with ESMTPS
+	id LSojxkzLLusRSLSvWxvwjt; Mon, 26 Oct 2026 22:12:22 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id LSvWxjYH4GzgJLSvWxtx3o; Mon, 26 Oct 2026 22:12:22 +0000
+X-Authority-Analysis: v=2.4 cv=ZNDXmW7b c=1 sm=1 tr=0 ts=6adfd046
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=M0FbrtG7MMAA:10
+ a=bQEBGsHSoSxMFjxss8EA:9 a=CjuIK1q_8ugA:10 a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
+	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
+	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=qyij59D23rRpsqpbbijzYQGBvjbJY80qp035umD4osM=; b=tmvF0bUQNQ3Z1mS+t3lIGd42ok
+	H+px1EmKWq1+kgzYMqOA+lg9mWN9jXXhd5I8AvDUY3ZHDcy8rWBi7QqtAt4+vtht4SVyv9MTfuGZm
+	i1cY35xYeVbG69DiJ2KZoZWm1KUpI2ty3/W806rH2GV1vvWwLH0sTboqotCGXyxGlRK5fyHRM2kEo
+	FRSHFIH7bVV1GecfeMt/kijklXmOYd031uGKiLxqSBGuEicaqVlCDBD2pAHgtVXCHcz1ob0TlpasN
+	YYtjCHLf2M08FyO95zi6y3uAcBpaMQ3IZGyafRg/YNqpaOz2t0KRBo3mlKupXx0I7qNeRYE3u268y
+	sACZsK2w==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:56594 helo=server.roeck-us.net)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xLSvV-00000003u3J-3xfi;
+	Tue, 27 Oct 2026 03:42:22 +0530
+Date: Mon, 26 Oct 2026 15:12:21 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Carl Smith <carl.smith@alliedtelesis.co.nz>
+Cc: wim@linux-watchdog.org, linux-watchdog@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] watchdog: octeon-wdt: Add a panic_on_timeout parameter
+Message-ID: <eac15dac-6061-403a-a9e6-5074185a0243@roeck-us.net>
+References: <20261023191530.327734-1-carl.smith@alliedtelesis.co.nz>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,73 +81,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261023191530.327734-1-carl.smith@alliedtelesis.co.nz>
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xLSvV-00000003u3J-3xfi
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:56594
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 65
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfHn2UeC2TvguLejn0MliuxwDs513Ekc16oD80fVOeaLG4uwjvS0/uv4Ob76CjB09JnS3b/YnuvZuuvcEJoHYB7YCsaW4LqVoxY+XA6Taj6KDdbSM4OBv
+ D3dasmpj3Q5T+ElnezRa3t/zWLAEDvmTbRYbCDIwaFzu0MI+qiFNvThFM8Oa/eA/TMC0lR2DjBZ7WWVd1gHnlRY9svA0cZm6diCitMHBM/wecVrQTRYVYLkG
 
-The cluster state IDs encode unsupported CPU modes: the GDHS entries
-request CPU mode 2 and the power-collapse entries request CPU mode 4.
-The CPU power-collapse state is mode 3, as already used by the CPU
-idle-state nodes. The GDHS entries also omit the cluster affinity level,
-and cluster 1 requests cluster power collapse instead of GDHS.
+On Sat, Oct 24, 2026 at 08:15:30AM +1300, Carl Smith wrote:
+> The hardware watchdog period is only a few seconds, so the driver counts
+> the heartbeat in software and stops poking the hardware when it expires.
+> The resulting reset leaves no record for crash loggers such as mtdoops.
+> 
+> Add a panic_on_timeout module parameter, off by default like softdog's
+> soft_panic, that panics when the heartbeat expires. The panic is logged,
+> and the hardware watchdog still resets the board.
+> 
+> Tested on a CN7130 board with mtdoops.
+> 
+> Signed-off-by: Carl Smith <carl.smith@alliedtelesis.co.nz>
 
-The downstream Bengal power description [1] defines CPU power collapse
-as mode 3, cluster GDHS as mode 2 and cluster power collapse as mode 4,
-with cluster mode shifted by four bits. Its idle driver [2] combines
-these with bit 30 for CPU reset and bits 25:24 for the affinity level.
-For either cluster this yields 0x41000023 for GDHS and 0x41000043 for
-power collapse. The Motorola SM4250 tree uses the same power description,
-byte-for-byte, as the Xiaomi SM6115 release cited here.
+Applied.
 
-[1]
-https://github.com/MiCode/Xiaomi_Kernel_OpenSource/blob/02ca1a919564a9b176a79cce09c40977f833e9ac/arch/arm64/boot/dts/vendor/qcom/bengal-pm.dtsi
-[2]
-https://github.com/MiCode/Xiaomi_Kernel_OpenSource/blob/02ca1a919564a9b176a79cce09c40977f833e9ac/drivers/cpuidle/lpm-levels.c
-
-Signed-off-by: Michael McAllister <me@michaelmcallister.org>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
----
-Changes in v3:
-- Remove the final commit-message paragraph.
-- Add the received Reviewed-by tag.
-
- arch/arm64/boot/dts/qcom/sm6115.dtsi | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/qcom/sm6115.dtsi b/arch/arm64/boot/dts/qcom/sm6115.dtsi
-index 0f2af8aba..79ca73bfc 100644
---- a/arch/arm64/boot/dts/qcom/sm6115.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm6115.dtsi
-@@ -232,7 +232,7 @@ domain-idle-states {
- 			cluster_0_sleep_0: cluster-sleep-0-0 {
- 				/* GDHS */
- 				compatible = "domain-idle-state";
--				arm,psci-suspend-param = <0x40000022>;
-+				arm,psci-suspend-param = <0x41000023>;
- 				entry-latency-us = <360>;
- 				exit-latency-us = <421>;
- 				min-residency-us = <782>;
-@@ -241,7 +241,7 @@ cluster_0_sleep_0: cluster-sleep-0-0 {
- 			cluster_0_sleep_1: cluster-sleep-0-1 {
- 				/* Power Collapse */
- 				compatible = "domain-idle-state";
--				arm,psci-suspend-param = <0x41000044>;
-+				arm,psci-suspend-param = <0x41000043>;
- 				entry-latency-us = <800>;
- 				exit-latency-us = <2118>;
- 				min-residency-us = <7376>;
-@@ -250,7 +250,7 @@ cluster_0_sleep_1: cluster-sleep-0-1 {
- 			cluster_1_sleep_0: cluster-sleep-1-0 {
- 				/* GDHS */
- 				compatible = "domain-idle-state";
--				arm,psci-suspend-param = <0x40000042>;
-+				arm,psci-suspend-param = <0x41000023>;
- 				entry-latency-us = <314>;
- 				exit-latency-us = <345>;
- 				min-residency-us = <660>;
-@@ -259,7 +259,7 @@ cluster_1_sleep_0: cluster-sleep-1-0 {
- 			cluster_1_sleep_1: cluster-sleep-1-1 {
- 				/* Power Collapse */
- 				compatible = "domain-idle-state";
--				arm,psci-suspend-param = <0x41000044>;
-+				arm,psci-suspend-param = <0x41000043>;
- 				entry-latency-us = <640>;
- 				exit-latency-us = <1654>;
- 				min-residency-us = <8094>;
+Thanks,
+Guenter
