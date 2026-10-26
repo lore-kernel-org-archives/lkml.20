@@ -1,67 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793016063;
-	b=Y74QjrYNHM2bTn91GAoINJ3CW+Wl8LTX0nvb++u2quTcdL6F6Ey3CkyR+b4JVlWtwJ2F
-	 TtSGv+8DifVtuxQ1ynacWtmeqdWFwH8Vv+SirXUekFAIGY1+g15tJxnwr2lpcDRkZucDi
-	 Pu8SkOTVpGteOU/NF3x6orVh0jPSKPPlPRULAMpoSFQVcz3CfeavvEEiz5eu7GfjoPeak
-	 IhzkwDW6fyGQk0JPXPAs7rEKcJVlp1Te1FpQqVCs0jeHlDKnV0FiB4+a8Z2zSG2CMNBk3
-	 Z7BJLjLwd4pdZYT+ReGk+9tNqxYrBol87mrGOz4tFbdEazeJmfzpqhgw8pftHnYFXEg==
+	t=1793016080;
+	b=T3Fx8hAAd6VY37TGjhAtUS263s1NhM46ssa4yOZmZ8d/udHEY1T1/Rp0+K4ja79FC6+A
+	 tg84YEfZprNSF52HbOsgr2RpRFYlYx23X0UU5JqGQpJFjou5i3tlrNr3+yNnd3gIU1uF3
+	 iVp3bkZTUdo3B5n2+s5Z3sNx13I5nm9MHQBj4nKfWaFWR2SIHrbwbOX3Kdd22ygiEu5Hu
+	 zwGv+NZp8M5Y2gV+LMf+dPuOaI/AJHNE+dmdYg8q2Qn21TTBIFGUNWifC4vyBv+pYlhwe
+	 aJo0ODCpX8CFPJ4S3uSJAGOlIhbyFW/2T0un778J2LVsU6nefjMEKHkaSm0d9ZCobBQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793016063;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:
-	 Cc:Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
-	 X-CMS-MailID:X-Msg-Generator:Content-Type:CMS-TYPE:cpgsPolicy:
-	 X-CFilter-Loop:X-CMS-RootMailID:References;
-	bh=Eooql/PWw9JrcOSkmPC1JhQXpt0yj7tFL/LJ7TTte3w=;
-	b=VfGbJ0MlXDF/EyIBoqLBxscB0EIw+Qfh7PBE0fNtTgX4dlywAK2jVysgSMeT7KBpicUl
-	 VcYfWD+uKrPz7oCrupWeCSyVV2okklWPEp03qgnftnO4OlCe1zQqFsHMtlHRCEJSxf/BY
-	 JtZYbknylyVaF27iC7GsNCkDl+nnTNHvqyiTAWX2nYskWLI8pqHjinRDDXMXnQ/dqtzRQ
-	 4I9sZBeSdO/tc8R+OJuCsz/feIUIT8txIOU5b2viCxrm+P0OKjoi9H6LHt3mamCt6N/bt
-	 ZZmikBswt1d6H2UvkPKM8RZrjWU2ywtYHyxVpdFccOXfI8KbP7prIEaZa2/DBABmXZg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793016080;
+	h=Received:DKIM-Signature:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:
+	 X-SA-Exim-Mail-From:X-SA-Exim-Scanned;
+	bh=wlK4J5+u27LNMsvRQXEEEMIC66E4N0DC/9wfhCw0BeY=;
+	b=lF4vBdwH7cgMyyihdToMbMf70aMEovpK8fsVg9yYA20iBHDBBEgUXDTb66jSk+BGdt/n
+	 wMRFLcqBVNjGYcj2ESO9QEKZjGxOtaXsqw6mWjkFLiPmvdP2PshOWO0mygVrI4NTfdCT6
+	 fW6m0Wyk9YVB20cfw9MpQGPQCNsiDkJcZJhA1agmMAeN4lZvNXFxWLxzm5YXzkv7T29F3
+	 F/4pjDpCMQ2kqsvz105x9dZd1fOJbzRj73hqg1i5wbxEpZJF5KlnwzJvpYSVa3ev/GGcd
+	 9bh0zI8xVgQ82UeMG4rRRbwaxOMJ5jCcsV7kNVigd1EcTsC9mJvgDclBpnacpLc72gg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=l3Ic3VYd;
-	arc=none smtp.remote-ip=203.254.224.34
-Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jbyzkPZe;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 702B9606A31B
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:01:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 702B9606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2453606A33B;
+	Mon, 26 Oct 2026 12:01:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=l3Ic3VYd
-Received: from epcas5p1.samsung.com (unknown [182.195.41.39])
-	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20261026120100epoutp04aba761582b1808cf71f5d6f35c29bd56~iEpt37UQw2072220722epoutp04L
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:01:00 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20261026120100epoutp04aba761582b1808cf71f5d6f35c29bd56~iEpt37UQw2072220722epoutp04L
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1793016060;
-	bh=Eooql/PWw9JrcOSkmPC1JhQXpt0yj7tFL/LJ7TTte3w=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=l3Ic3VYd+gMtyXg1JgRhU7okFwCOEiwEoqoWQDb8N1n2G+hoj2eoZZjWy6BNeiazL
-	 2DLAFM7Juqu38NPweXOp6vDulsFjwTCue8tgAufNaF3R6CYajbtnN7XuldaVgfYdFk
-	 vbHCxmFrIiDGFXUvx/j/FTwNZV5RKJvAZVG2sES0=
-Received: from epsnrtp04.localdomain (unknown [182.195.42.156]) by
-	epcas5p1.samsung.com (KnoxPortal) with ESMTPS id
-	20261026120059epcas5p1bdaf5a44a5c532174e91bbfd3d5400a6~iEptUuaTR0298902989epcas5p1a;
-	Mon, 26 Oct 2026 12:00:59 +0000 (GMT)
-Received: from epcas5p2.samsung.com (unknown [182.195.38.90]) by
-	epsnrtp04.localdomain (Postfix) with ESMTP id 4jCsf26vfDz6B9m5; Mon, 26 Oct
-	2026 12:00:58 +0000 (GMT)
-Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
-	epcas5p3.samsung.com (KnoxPortal) with ESMTPA id
-	20261026120058epcas5p32b10714e9c7e86c757b03baf88c6b40b~iEpr3-hd61524215242epcas5p3M;
-	Mon, 26 Oct 2026 12:00:58 +0000 (GMT)
-Received: from [107.122.5.126] (unknown [107.122.5.126]) by
-	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20261026120055epsmtip160f476325e622f7e86ea621ffb4427f6~iEppABK6U1282912829epsmtip1P;
-	Mon, 26 Oct 2026 12:00:55 +0000 (GMT)
-Message-ID: <c09bd0c9-5173-4cb8-a2c0-2b5008b63712@samsung.com>
-Date: Mon, 26 Oct 2026 17:30:54 +0530
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jbyzkPZe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C70501F01828;
+	Mon, 26 Oct 2026 12:01:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793016079;
+	bh=wlK4J5+u27LNMsvRQXEEEMIC66E4N0DC/9wfhCw0BeY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=jbyzkPZe6foy50XtTP9CpXx4hvabTiJl7PmzZzs0+hz/Vw0IYK/3YaR4jznmU4gE6
+	 owoMZot7uL5NWe8yELeqdFDQjlxc0uUAm0TvfYszXhYnYCUpeXba8jiRRIwLb9yWiJ
+	 s1TasvE9jh1C6EmxBzBlX3swxc+3anPAy3marb64KvJOm4UhvlRb1zHyR+oJsVjiUe
+	 r7ecFk678xweiS/cW0IqMNtwxIcpV/jBszlAEZjT78prDnnhg4rebyVRH1C0GXDORm
+	 CJumswHuuCm1ozrecgRDPAt4WpDRF+aTyL9St/PaBKOI1Uu7qmNlYJyYTbrp/eGlq9
+	 zX6Ba+OQNZerg==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=valley-girl.lan)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1xLJOA-00000007Fr6-0Y6d;
+	Mon, 26 Oct 2026 12:01:18 +0000
+From: Marc Zyngier <maz@kernel.org>
+To: Oliver Upton <oupton@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Cc: Fuad Tabba <fuad.tabba@linux.dev>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Vincent Donnefort <vdonnefort@google.com>,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] KVM: arm64: Take a protected vCPU's TWI and TWE only at vCPU load
+Date: Mon, 26 Oct 2026 12:01:07 +0000
+Message-ID: <179301587188.2527370.14948250574472478110.b4-ty@b4>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261017165204.3343275-1-sashal@kernel.org>
+References: <20261017165204.3343275-1-sashal@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,57 +78,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] dt-bindings: usb: Add Samsung Exynos8855 DWC3
- controller binding
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: gregkh@linuxfoundation.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, peter.griffin@linaro.org, alim.akhtar@samsung.com,
-	Thinh.Nguyen@synopsys.com, linux-usb@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	jh0801.jung@samsung.com, h10.kim@samsung.com, dh10.jung@samsung.com,
-	akash.m5@samsung.com, hongpooh.kim@samsung.com, eomji.oh@samsung.com,
-	shijie.cai@samsung.com, muhammed.ali@samsung.com, thiagu.r@samsung.com
-Content-Language: en-US
-From: Selvarasu Ganesan <selvarasu.g@samsung.com>
-In-Reply-To: <20261026-attractive-puma-of-merriment-0dfbe4@quoll>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20261026120058epcas5p32b10714e9c7e86c757b03baf88c6b40b
-X-Msg-Generator: CA
 Content-Type: text/plain; charset="utf-8"
-CMS-TYPE: 105P
-cpgsPolicy: CPGSC10-542,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261023131545epcas5p1eff195129ccfb0fb476d3c78e6a507bc
-References: <20261023131501.3157463-1-selvarasu.g@samsung.com>
-	<CGME20261023131545epcas5p1eff195129ccfb0fb476d3c78e6a507bc@epcas5p1.samsung.com>
-	<20261023131501.3157463-2-selvarasu.g@samsung.com>
-	<20261026-attractive-puma-of-merriment-0dfbe4@quoll>
+Content-Transfer-Encoding: 8bit
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: oupton@kernel.org, sashal@kernel.org, fuad.tabba@linux.dev, pbonzini@redhat.com, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, vdonnefort@google.com, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+
+On Sat, 17 Oct 2026 12:52:04 -0400, Sasha Levin wrote:
+> Commit 06499de8f998 ("KVM: arm64: Skip fixed-feature state flush for
+> protected vCPUs") moved the copy of the host's TWI and TWE in
+> flush_hyp_vcpu() into the non-protected branch: a protected vCPU takes
+> them in __pkvm_vcpu_load() instead, and only VSE comes from the host on
+> each entry.
+> 
+> Commit 04447b95c62b ("KVM: arm64: Use the host's HCR_EL2 for
+> non-protected VMs in pKVM") was written against the old code, where
+> both VM types took TWI, TWE and VSE on each entry, and kept that for a
+> protected VM as PKVM_HCR_EL2_HOST_PVM. The merge of the two applies
+> PKVM_HCR_EL2_HOST_PVM in the common path, so a protected vCPU takes TWI
+> and TWE from the host's vCPU on every entry again.
+> 
+> [...]
+
+Applied to fixes, thanks!
+
+[1/1] KVM: arm64: Take a protected vCPU's TWI and TWE only at vCPU load
+      commit: 5b34f0b4adbf983174e53721f68b617113376f2f
+
+Cheers,
+
+	M.
+-- 
+Without deviation from the norm, progress is not possible.
 
 
-On 10/26/2026 3:14 PM, Krzysztof Kozlowski wrote:
-> On Fri, Oct 23, 2026 at 06:45:00PM +0530, Selvarasu Ganesan wrote:
->> Add the Samsung Exynos8855 DWC3 binding using a flattened node
->> representation, where the DWC3 controller is directly addressable
->> rather than nested as a child node of a glue layer.
->>
->> This is the first Samsung Exynos binding using the flattened
->> representation.
-> Ah and:
-> A nit, subject: drop second/last, redundant "binding". The
-> "dt-bindings" prefix is already stating that these are bindings.
-> See also:
-> https://protect2.fireeye.com/v1/url?k=f1571c7b-aecc251e-f1569734-000babff32e3-08400c25edf5bcfb&q=1&e=549cd4c8-34f1-4b98-afc6-3f62b054ef3c&u=https%3A%2F%2Felixir.bootlin.com%2Flinux%2Fv7.1-rc7%2Fsource%2FDocumentation%2Fdevicetree%2Fbindings%2Fsubmitting-patches.rst%23L23
->
-> Best regards,
-> Krzysztof
-
-
-Hi Krzysztof,
-
-Thanks for pointing this out. Sure, will drop the redundant "binding" in 
-the next version.
-
-Thanks,
-Selva
