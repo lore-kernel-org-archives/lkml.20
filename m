@@ -1,42 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.73.89.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793008134;
-	b=rTNQjuFPryPROlLjx6ehONURkNFNot8+R0QMC4kEfZFGuHrwTI4nd/brharoE9sxf1L4
-	 uIbgQ3+/nJi3dB/TbPZlehlridj0/b/Db8gosIZE9Cbi/6h/W57VEg3pjxajzrHw2bEZV
-	 ACj9AZZ14bhygeNMPgSyHI+W4oMh1C3F8iF1tjlN8rs1U6rdl1p6k5O2zQWdc68rKi6SB
-	 6xttOjY9+etESbpLhwPrC+SRWhPNt8vd8lsaE2i9cwha9t15KykyORQoZkhEqwfGbsh+Y
-	 pob1btT7Ek3z/zYf/TELfjzBnI4BRFHN1QHiE4MDVuSTMc3E02BT0aK008hHb5YqEQg==
+	t=1793008137;
+	b=YRCOP9YVCjGTEXJXvqoQedxGqM+8pXQJuQ5hq/oh9LxKbru/wJ9GH1TLoN+/m8UBKRcj
+	 ZbNgKdZUsNal/mer+9e4cEQwm/+yAlKX3MnMA5GA5dISyLkm4Dvz6pCzml8nhJgxBKfb1
+	 oIlQAfSdCqZXHrmRd0C20lTjbawmeLNc0CWp3ivYp7DUosUiQCQQNjCwWkLlfZ3kQ2uFy
+	 0EcmZ3YUYNlyX8sfQCWEqDcJpP81Av9vFqyilJz6zy1Wt5urzT3zul9IW30jBFdW3EJo2
+	 2f6/rCvdW5u/CAk0YUZi6YMaeUpxKlX95KzHdMUVs/V0ex1GXVUeMSnlj0XvuGdM1Ng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793008134;
-	h=DMARC-Filter:Received:Received:From:Content-Type:
-	 Content-Transfer-Encoding:Mime-Version:Subject:Message-Id:Date:Cc:To:
-	 X-Mailer;
-	bh=OCVdNorY0OsJ7v1lsiMsDR0YfUPn6Z1slksp3tJmLYs=;
-	b=GSAePJl+dwquPgiDRZ0u+uCaSw1DuycprJrYwLua+ysYjEMjaZwwrQxHci5s8gxTC05C
-	 4LCkii7wrdTt6GcSd2JvcK1XY4uv0XDSEuR4Da/27VKo2nFvtPYCq6DtGzs2a5K2aTYBm
-	 uPv4pLOqHhAGQmDXmO3wKG/hpIC5YJWta0SMOe9gjrIKxRCqfGf4vOe9Yc+SXUdml1dCi
-	 LG9adUgq0JwtTzJZAoKKzXF07YdybRcuvHax7movGbwRrd+6trnRCGKJIsNhwv1wz0fUo
-	 yog7xnUDOLJlXxuQcHDnxneOSQhmGlek1Sh0YqCMnm1LWVx74mS+/cWAFoWtZuc4nsA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793008137;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=Ut5cOuwAwWWbw+hIJ5YB12u8I1Xh3pMKEfgeNTBtJqc=;
+	b=ZGow3/1qGdRIIdJq/6PaAWIdldhrwhMjXpWmh0XLdusE0UvSg855zuKSrtqkGC1gtfEv
+	 G1MSWxuIA9cmlN8kD9cD1GaFueubTyvM9PNLbqz+yBkOxb1GDg9qFKRPsjHxmb93sS/Kw
+	 UFQWqhNTxDp1GMVCjviTLnl4XFiWXYciZYJoX8SaTPCKtO6X5d9f3Xo6WxBZ0UvKSoK1h
+	 gTUguq4oBsDKt1Me3oil6DUawUEnTZPTC2JYpaJTHvYLCPr0E29lbBfO249ICPQ2mjrSX
+	 mHlnQH7HG05dubKcc/dF1AggG5MfjFRgYvP6p7eJ3M7SIpUIzel2ZGcYLrDV4HAqtVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=h3q.com;
-	spf=pass smtp.mailfrom=h3q.com;
-	arc=none smtp.remote-ip=213.73.89.199
-Received: from mail.h3q.com (mail.h3q.com [213.73.89.199])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oNMBzXia;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00A7E606A31F
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:48:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00A7E606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=h3q.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=h3q.com
-Received: (qmail 23817 invoked from network); 26 Oct 2026 09:48:44 -0000
-Received: from mail.h3q.com (HELO mail.h3q.com) (mail.h3q.com)
-  by mail.h3q.com with ESMTPS (ECDHE-RSA-AES256-GCM-SHA384 encrypted); 26 Oct 2026 09:48:44 -0000
-From: Denis Ahrens <denis@h3q.com>
-Content-Type: text/plain;
-	charset=us-ascii
-Content-Transfer-Encoding: quoted-printable
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D736606A31F;
+	Mon, 26 Oct 2026 09:48:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oNMBzXia
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED6AC1F01825;
+	Mon, 26 Oct 2026 09:48:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793008137;
+	bh=Ut5cOuwAwWWbw+hIJ5YB12u8I1Xh3pMKEfgeNTBtJqc=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=oNMBzXiaKeZF3qShUTtc8iYhVDhW4laMBXVkpWCIzwn4dj2FVcar6PqFFklifK8/U
+	 /7dFi0ne7iAoaYwuAfgadnnJipxdnYiMp+aF2opLMFIAHbeaoEybqFdmnejNWtHj+v
+	 GBTGMVBLxLVWZUVbjcw5X0YCNTXM33MwsWcKnxzvY0ltDxD3H+LlZdhkdNlmU2rGQ4
+	 7NhxbBrMJ8eELCy6kO1dCemZCCf3QpB0bM7nwLzn3rdw9eEskcIJdbd6r8XgRQLLJ0
+	 OUIhJ/udMTgob0gApY7LEU/Z5xuAAtSS0rMVwTY9E03mxvrmDn7FC0zaZYLBGiCpgG
+	 dIMNJ0c7WTFKQ==
+Subject: Re: [PATCH net-next v4 1/2] net: phy: aquantia: restore EEE discovery
+ in get_features callbacks
+From: netdev-bot+sashiko@kernel.org
+To: hongmei.xu@oss.qualcomm.com
+Cc: andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Mon, 26 Oct 2026 09:48:56 +0000
+Message-ID: <179300813648.3134.9297051486113517048@kernel.org>
+In-Reply-To: =?utf-8?q?=3C20261022-net-phy-aqr113c-fix-pma-capability-v4-1-9?=
+ =?utf-8?q?5a17f75dd7a=40oss=2Equalcomm=2Ecom=3E?=
+References: =?utf-8?q?=3C20261022-net-phy-aqr113c-fix-pma-capability-v4-1-95?=
+ =?utf-8?q?a17f75dd7a=40oss=2Equalcomm=2Ecom=3E?=
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -45,91 +64,153 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
-Subject: [PATCH] m68k: mvme16x: lower min_low_pfn to make RAM DMA-able
-Message-Id: <C718B642-57B9-48F3-8C0C-87DCB31A8495@h3q.com>
-Date: Mon, 26 Oct 2026 10:48:34 +0100
-Cc: linux-m68k@lists.linux-m68k.org,
- linux-kernel@vger.kernel.org
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-X-Mailer: Apple Mail (2.3901.100.1.1.12)
+MIME-Version: 1.0
 
-paging_init() sets min_low_pfn to availmem, i.e. the first free page
-after the kernel image, so that nothing allocates DMA buffers into the
-image.  But free_initmem() later returns the freed .init pages of that
-same area to the page allocator without touching min_low_pfn, and
-dma_capable() in dma-direct keeps refusing to map any RAM below it.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-With the ~8 MiB kernel image the MVME177 needs, kmalloc() hands out
-buffers well below min_low_pfn, so the on-board NCR53c710 SCSI adapter
-fails to map its command blocks and the SCSI disk stops working.
+Critical: 0 · High: 0 · Medium: 1 · Low: 1
 
-All bus master devices on the MVME16x boards address RAM with plain
-physical addresses, so lower min_low_pfn to the bottom of the first
-memory block from board-specific code, and leave mm/ and dma-direct
-alone.  This mirrors what arch/m68k/virt/platform.c already does for its
-goldfish/virtio devices.  The min_low_pfn check only applies when
-dma_addr_t is 32 bits, which is the case on m68k.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-The mvme16x SCSI and i82596 Ethernet drivers are platform devices
-registered by their own module_init(), i.e. after this arch_initcall, so
-min_low_pfn is already lowered before the first DMA mapping happens.
+- [Medium] net: phy: aquantia: premature and unmasked EEE read in
+  aqr115c_get_features()
+- [Low] aqr115c_get_features()
+  (drivers/net/phy/aquantia/aquantia_main.c:1082) now ends with `return…
 
-Fixes: b12d66278dd6 ("dma-direct: check for overflows on 32 bit DMA =
-addresses")
-Tested-by: Denis Ahrens <denis@h3q.com> # MVME177, 53c710 rev 2, =
-ZuluSCSI
-Signed-off-by: Denis Ahrens <denis@h3q.com>
----
- arch/m68k/mvme16x/config.c | 24 ++++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+--
 
-diff --git a/arch/m68k/mvme16x/config.c b/arch/m68k/mvme16x/config.c
-index 99768fe8da73..56e29e43c5bb 100644
---- a/arch/m68k/mvme16x/config.c
-+++ b/arch/m68k/mvme16x/config.c
-@@ -23,6 +23,7 @@
- #include <linux/major.h>
- #include <linux/interrupt.h>
- #include <linux/module.h>
-+#include <linux/memblock.h>
- #include <linux/platform_device.h>
- #include <linux/rtc/m48t59.h>
-=20
-@@ -328,6 +329,29 @@ static int __init mvme16x_platform_init(void)
-=20
- arch_initcall(mvme16x_platform_init);
-=20
-+/*
-+ * paging_init() sets min_low_pfn to the first free page after the =
-kernel
-+ * image, but free_initmem() later returns the .init section of that =
-same
-+ * image to the page allocator.  All bus master devices on the MVME16x
-+ * boards address RAM with plain physical addresses, so mark all of RAM
-+ * DMA-able by lowering min_low_pfn to the bottom of the first memory
-+ * block.  This mirrors what arch/m68k/virt/platform.c does.
-+ */
-+static int __init mvme16x_init_dma_pfn_limit(void)
-+{
-+       unsigned long pfn =3D m68k_memory[0].addr >> PAGE_SHIFT;
-+
-+       if (pfn >=3D min_low_pfn)
-+               return 0;
-+
-+       pr_info("MVME16x: lowering min_low_pfn 0x%lx -> 0x%lx\n",
-+               min_low_pfn, pfn);
-+       min_low_pfn =3D pfn;
-+
-+       return 0;
-+}
-+arch_initcall(mvme16x_init_dma_pfn_limit);
-+
- static irqreturn_t mvme16x_abort_int (int irq, void *dev_id)
- {
-        unsigned long *new =3D (unsigned long *)vectors;
+net: phy: aquantia: restore EEE discovery in get_features callbacks
 
-base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
---=20
-2.43.0
+This patch makes aqr115c_get_features() call
+genphy_c45_read_eee_abilities() after it builds the supported mask, so
+supported_eee gets filled in for AQR111, AQR111B0, AQR114C, AQR115,
+AQCS109 and AQR115C. It also makes aqr111_get_features() pass on the
+return value of aqr115c_get_features().
 
+> diff --git a/drivers/net/phy/aquantia/aquantia_main.c b/drivers/net/phy/aquantia/aquantia_main.c
+> index e95d391a6dc2..099ee919de94 100644
+> --- a/drivers/net/phy/aquantia/aquantia_main.c
+> +++ b/drivers/net/phy/aquantia/aquantia_main.c
+> @@ -1079,15 +1079,17 @@ static int aqr115c_get_features(struct phy_device *phydev)
+>  	linkmode_or(supported, supported, phy_gbit_features);
+>  	linkmode_set_bit(ETHTOOL_LINK_MODE_2500baseT_Full_BIT, supported);
+>  
+> -	return 0;
+> +	return genphy_c45_read_eee_abilities(phydev);
+>  }
+>  
+>  static int aqr111_get_features(struct phy_device *phydev)
+>  {
+> -	/* PHY supports speeds up to 5G with autoneg. PMA capabilities
+> -	 * are not useful.
+> -	 */
+> -	aqr115c_get_features(phydev);
+> +	int ret;
+> +
+> +	ret = aqr115c_get_features(phydev);
+> +	if (ret)
+> +		return ret;
+
+[Severity: Medium]
+Two related problems here. The 2.5G-only parts can end up with
+supported_eee out of sync with supported. In aqr111_get_features(),
+the EEE read also runs before the final supported mask is built.
+
+genphy_c45_read_eee_abilities() reads 3.20 via
+genphy_c45_read_eee_cap1(). That function masks the result against
+supported:
+
+	linkmode_and(phydev->supported_eee, phydev->supported_eee,
+		     phydev->supported);
+
+It then reads 3.21 via genphy_c45_read_eee_cap2(), which only does:
+
+	mii_eee_cap2_mod_linkmode_sup_t(phydev->supported_eee, val);
+
+That helper sets 2500baseT_Full and 5000baseT_Full straight from
+MDIO_EEE_2_5GT and MDIO_EEE_5GT. Nothing masks that result against
+supported afterwards, either here or in phy_probe().
+
+For AQR115C, AQR115 and AQCS109, supported stops at 2500baseT_Full.
+The commit message itself says these PHYs misreport their
+capabilities. If 3.21 also reports 5GT on them, supported_eee ends
+up with 5000baseT_Full on a 2.5G PHY. phy_probe() only intersects
+advertising_eee with supported_eee, so a 5G EEE advertisement can
+survive into advertising_eee. ethtool --show-eee would then list
+5000baseT/Full on a PHY that cannot link at 5G.
+
+The ordering in aqr111_get_features() does not match the commit
+message, which says the EEE read happens after the final supported
+mask is built. Here aqr115c_get_features(), and with it the EEE
+read, runs before 5000baseT_Full is added to supported. For 5G this
+only works because cap2 is unmasked.
+
+For cap1 modes it breaks. Patch 2/2 has the AQR113C get_features()
+chain onto aqr111_get_features() before it sets 10000baseT_Full. So
+the linkmode_and() in genphy_c45_read_eee_cap1() strips
+10000baseT_Full from supported_eee while 10G is not yet in
+supported, and it never comes back.
+
+Could the EEE read be done once per driver, after that driver's
+supported mask is complete? For example, keep the mask building in a
+shared helper and call genphy_c45_read_eee_abilities() last in each
+get_features(). A linkmode_and() of supported_eee against supported
+after that would keep 3.21 from adding modes the PHY lacks. Or do
+you think genphy_c45_read_eee_cap2() should apply the same mask that
+cap1 already does?
+
+[Severity: Low]
+Should the result of genphy_c45_read_eee_abilities() be passed back as
+the ->get_features() result here?
+
+With this change, if reading the optional EEE ability registers (3.20
+MDIO_PCS_EEE_ABLE or 3.21 MDIO_PCS_EEE_ABLE2) fails, aqr115c_get_features()
+fails, and so does aqr111_get_features(). phy_probe() then aborts:
+
+drivers/net/phy/phy_device.c:phy_probe() {
+    ...
+	else if (phydrv->get_features)
+		err = phydrv->get_features(phydev);
+    ...
+}
+
+The phylib core ignores the return value of this helper on purpose at
+all three of its call sites. genphy_c45_pma_read_abilities() and
+genphy_read_abilities() both have:
+
+	/* This is optional functionality. If not supported, we may get an error
+	 * which should be ignored.
+	 */
+	genphy_c45_read_eee_abilities(phydev);
+
+The phydrv->features branch of phy_probe() also ignores it:
+
+	if (phydrv->features) {
+		linkmode_copy(phydev->supported, phydrv->features);
+		genphy_c45_read_eee_abilities(phydev);
+	}
+
+The commit message says it restores EEE discovery. The code path it
+restores, genphy_c45_pma_read_abilities() as used before 17cbfcdd85f6
+and 8f61d73306c6, never failed probe because of EEE discovery.
+
+In practice this is hard to hit. aqr107_probe() already reads VEND1
+registers in aqr_wait_reset_complete() and fails probe on read errors.
+That mostly leaves a transient MDIO bus error during this exact read as
+the newly fatal case.
+
+Would it match the core better to call genphy_c45_read_eee_abilities()
+without passing its result back, and keep return 0?
+
+> +
+>  	linkmode_set_bit(ETHTOOL_LINK_MODE_5000baseT_Full_BIT,
+>  			 phydev->supported);
+>
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261022-net-phy-aqr113c-fix-pma-capability-v4-0-95a17f75dd7a%40oss.qualcomm.com
