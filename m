@@ -1,100 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.227
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793015399;
-	b=dKtP4KSoeg/GYtCRjwgRbhnIuaxfARQQQtuxbLCT7NbjsGhtZKt+AoN6WewWG53OmLNG
-	 qp8IAM50/hFuh7FzlKEQ1ZJ+9DCt/2ND4QuWGu0NJMHJpLIR8WxGyOAoDULnEuRiQtMJe
-	 Bg76QH09N0aF6eEILgXJZZ5AV6KDW8K1bO/ZPn5MM/1WuYGc1sTox+c7heqnJ5NAq1kAU
-	 1irjjlvPf++th4A0lGOIs/SHcRkP+K5PxddG2Zc664yRkC3OIsTMXOIZyiOxcxSVO1c/9
-	 1HUQw0+GTyX3biYVSOkAbRHbPS95vh4uUCmAXBbLf9H+b8D8IvQKmEYInz3JllPwKEA==
+	t=1793015401;
+	b=gHHEVuv/O1NhxtiAQxFGhrK5HxoWwssxUJ9CLBqEQd0FzjEpAlHF4Sr6B0pBtb6wDBpw
+	 S4r/t+Y+XzvdVVfN590irImWW8UquG+0LkHF+tYSRMXDh2pf9Gjz6q/ZJ3r+85wzeSq5x
+	 zFNcye9zO5Z3gpFKgsOk4qKg1YDrMOHGC+LqL43cdtPr/vClx5f2VGhyrkwTLerj0R4k+
+	 ptLMJFISEtiWnVOKP5Ca/hcR2WCrFaH8stFlCtsAgNjI+NRSoRB0kmNPRklzh0J3p/cwS
+	 luFfotfc3QG2xUC9bTmOEjVmJ8hiSMOojsylYxlVwNtpGxTDL/uK6KCRj6zW82gad0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793015399;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=VISLXd9A6kVIeHStuLPHvX3dA8WAZRLfoTFh4XJxWjc=;
-	b=dPfvc4gdlIhGMR3qneOPf87QpDYOgIUX/cic5N9vm4bzRrpB+wLk5qEaOJctFQW6FfL4
-	 VtVXFb0Vb6jyLcbiECRXG6lBStDF3P/3JWyV60gVBhJmH0wUhJfLLJkfefj6SLSVAMMxu
-	 5Lipw1Dff9fAw8pgyGEOqzEPwakRKDF2NEgJOT2Z7NS/11QVbcFHXhpUEjvKNEk3DONkP
-	 Sbd4BQ1AD//LeTReI7V3n+YRlDpqwngiSNoFNPrfhvxas+NCaDZUPbZlulNHZCN/SxxA+
-	 2K7a0Le/6ORfb/MK2EqLSKhH2lSck6cWD4Q4f0pk2+rY3lwnrMA2VzbFiHj05eLy3/w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793015401;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=rk1WovkF3sv2NFNM8sIBXD2tHrqmbxPVkrmVTLJoFiI=;
+	b=dzVJROiZGpMyAcfSfZ1PB3CETNWTNLwC+wV3AEUn3ijHclCMkrGtIC3ElmtB1la1O8cF
+	 trkql3Uddn07QbOr5bAxkTA4y4MsUizdyMYBoTGfFf6TJ+ko+1J3ikeuOomkhP21Mtd6E
+	 5WhzNHKRoEae1ipU9C+OXD0Um9ixNz7sYMkyceK0qXpIsbaFqHfHU4xjHi5BforNRL+iM
+	 pcUA82/MuP63gur39k886sU3rC8jHqJNPG8hHY3tZlbFHF0+Rlc/4CPBwVTWqJBRf9xef
+	 Dq66c/PUETR2zSJBsBuKgHanVSmyLHHZbQTyGV0nHzGD8tuvX8FEE78z8fvU5ZvNPfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=ziepe.ca;
-	spf=pass smtp.mailfrom=ziepe.ca;
-	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b="hK/O+qNX";
-	arc=none smtp.remote-ip=209.85.222.179
-Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com [209.85.222.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	arc=none smtp.remote-ip=113.46.200.227
+Received: from canpmsgout12.his.huawei.com (canpmsgout12.his.huawei.com [113.46.200.227])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17AA7606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:49:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17AA7606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=hK/O+qNX
-Received: by mail-qk1-f179.google.com with SMTP id af79cd13be357-93f3c895a0eso225604685a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 04:49:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1793015397; x=1793620197; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VISLXd9A6kVIeHStuLPHvX3dA8WAZRLfoTFh4XJxWjc=;
-        b=hK/O+qNXeJhM5LwnoL5qBYJ78C39bcD2ABnxRxe/3llRlU4tp9cMOVGl+LwFqsqq+Y
-         FG9IHBVTzbFW3jDQG4byXq8q2I7TZpddzAGui/B2iAs3677YpjhMOfYlC2gIbJ2q5QwO
-         SNBWmUWaUk3J/2BY5DHpWRCIwha1AWKbTVP97/ODeSGeCT1cquJIYXuAB8l639TfhmCo
-         KASeJfnVvxLs6Ljxqxm5ewDzEy7Lt0W966BDSOTQD3QYsHQU3JYhlTClAq4I6D8k2bh7
-         62kHDec50pnNXKFn9o9MNyTuE9jgqK024AnDUd6cU29tmoDcGaMzmADf8cgCCW57cT3I
-         N54Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793015397; x=1793620197;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VISLXd9A6kVIeHStuLPHvX3dA8WAZRLfoTFh4XJxWjc=;
-        b=X5tmwuPmXAq0794UhDInp6Drg7ztPu5fle1yIzsL4GItdUo+yk97/q1D0VFkkuxNJV
-         hHsj+y6hoiz5o4caWsoABf1avZ4zgAmMmtPF4vySUEDFN0dktZ1UjXdB9Uy8LjrtelnF
-         6VuYI+55+M5RFfUF/LtKG34/GXfJIGHasb2lOTljtrlPaMtxVyMJgTcgCobwXs6Bl9lz
-         DUUQ9Seok1aM6oiM8qeApAECquTQUVTntRJ0761r6nb3ddSsfz8wU3zqypzO0E+aqRw3
-         QdKggH4vY77QozUI0+vpEwxQRvvBoEm3Dsp3DX0L3yU96YCPWfAw+tAhdd316oXXxUUK
-         5nVg==
-X-Forwarded-Encrypted: i=1; AKwUvBzVq/tOhWy/dazlqdoL3ZjA3T/xnFxx3oajA1y0yiuLPQzeYvHPpJeBKcKVRtYBPo6kC2wH/OD/aP8dgKk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIb1TVNZbB3m+LBxVwaGSDteGllbvICgJrzcAzrTlueagSgOggi
-	JBeUytWAbE7WbMB3JEvI5+kUz+QwyBUy4J4xnZkF1EKS1zhoPhsU1Vde3kafvk6jD+g=
-X-Gm-Gg: AYBFou3G3VHRvWlLBj+xg5UA9R6nMF4uGqmh/2c8Rr+iGCQ5Smqjo4zteC2qbU/bEtM
-	W6el4eeFCI95vqjz0+wwttpC0ifJYBhUOjVQ//LQG7a9tJ0lCfEGi0w6j74bJg51fHQzZJB1dwd
-	On0TdzcMsEq47aqNLvt2gvdS3XZ4iJaGzINnlN91fBTSFgF1EOwsxZR/mihuZ7G/gBbDPqA6Wqq
-	1tD+qoGvvJb433A2riqgv5jv4WzqPVMpbc3bTiP2Tkfm670a4OeJpeyTcG14JdEAfqe5IehcA66
-	zxTFj0gq4fX0mBhmW7Dub8qg+mvImTavkdzXVu2jSd73WMbnvbtK6jA7dMu6tpeTUtV2v76DX+D
-	yDXR0D24j4kadS7DItjz0IseMnFjcpzzrcPxEceSXxBurHrCyJvwi3sleCZsGXn2kbVgR+JI5xL
-	FdaKDlsWu+HysbcKsMiEIQ47vWG8OxKQ0C6QKRyKMiJT5tIeMFuV7y0f5cQaC4LuqwDyKRs8G4m
-	kvoC3cFpeOLf9MwexDDlIxG0JKbYq8654jMdOPc4TKU/crVkFdBmsjqO0I1D4AB4U7VQydOIU8v
-	M3XzhG22q9B0waoKJMjqa5pzG1bb53YGVRrrwRB98nlp3JesVucmS9wgCkY=
-X-Received: by 2002:a05:620a:4482:b0:93e:c12c:43f9 with SMTP id af79cd13be357-940ef9bcb84mr927155285a.70.1793015396920;
-        Mon, 26 Oct 2026 04:49:56 -0700 (PDT)
-Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-940f06690c0sm666997585a.11.2026.10.26.04.49.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 04:49:56 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1xLJD9-00000006ir2-3FkQ;
-	Mon, 26 Oct 2026 08:49:55 -0300
-Date: Mon, 26 Oct 2026 08:49:55 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Zi Yan <ziy@nvidia.com>
-Cc: Leon Romanovsky <leon@kernel.org>, linux-mm@kvack.org,
-	Lorenzo Stoakes <ljs@kernel.org>, Lance Yang <lance.yang@linux.dev>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] RDMA/uverbs: Don't return the shared zero page from
- rdma_umap_fault()
-Message-ID: <20261026114955.GP3977851@ziepe.ca>
-References: <20261025-fix-rdma_umap_fault-zero-page-v1-1-186255624f1f@nvidia.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5D8D606A31D
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:49:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5D8D606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=rk1WovkF3sv2NFNM8sIBXD2tHrqmbxPVkrmVTLJoFiI=;
+	b=Ty2+RCmY/RhVyQkMoz9C1ddh1eeYM1p12Gzkyw/vKNxwCvrqGE/ZPfYOoraE9D+zGfZGDP7+9
+	igKkwKwvAjrQ4CejsEyMZ4l48+2g9zlhWLPL+9kFnqd1vmTp2/DSvk55zmucXBXoEX5348j9dv7
+	ErWyc58JnYjn0ienpcX1WW0=
+Received: from mail.maildlp.com (unknown [172.19.162.92])
+	by canpmsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4jCsPH0qycznV09;
+	Mon, 26 Oct 2026 19:49:55 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 7D99640565;
+	Mon, 26 Oct 2026 19:49:50 +0800 (CST)
+Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 26 Oct
+ 2026 19:49:49 +0800
+Message-ID: <eefd031c-68bf-422f-a855-c5f4f2b542d8@huawei.com>
+Date: Mon, 26 Oct 2026 19:49:49 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,81 +59,211 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261025-fix-rdma_umap_fault-zero-page-v1-1-186255624f1f@nvidia.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v2 04/10] arm_mpam: resctrl: Split control and
+ monitoring domain setup into helpers
+To: Reinette Chatre <reinette.chatre@intel.com>, <ben.horgan@arm.com>,
+	<james.morse@arm.com>, <Dave.Martin@arm.com>, <fenghuay@nvidia.com>
+CC: <tony.luck@intel.com>, <yu.c.chen@intel.com>, <babu.moger@amd.com>,
+	<fustini@kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>, <patches@lists.linux.dev>
+References: <cover.1792443633.git.reinette.chatre@intel.com>
+ <20621c28067916be2709fc4437473f1ccad7e334.1792443633.git.reinette.chatre@intel.com>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <20621c28067916be2709fc4437473f1ccad7e334.1792443633.git.reinette.chatre@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-On Sun, Oct 25, 2026 at 10:04:42PM -0400, Zi Yan wrote:
-> After disassociation, rdma_umap_fault() returns the shared zero page from
-> ->fault for VMAs without VM_WRITE and VM_MAYWRITE. Such VMAs come from
-> rdma_user_mmap_io() in drivers that clear VM_MAYWRITE and they are shared
-> VM_PFNMAP. A page returned from ->fault is mapped as a normal page and goes
-> through rmap code. Two issues:
+
+
+在 2026/10/20 6:07, Reinette Chatre 写道:
+> mpam_resctrl_alloc_domain() allocates one structure that holds both the
+> control domain and the monitoring domain of a resource. It sets up
+> whichever of the two domains the resource supports, with the setup of
+> both open coded in the function, and undoes the control domain if
+> setting up the monitoring domain fails.
 > 
-> 1. shared zero page causes VM_WARN_ONs in rmap code,
+> Apart from the code that manages domains, every user of the structure
+> accesses only one of its two domains, so the monitoring domain can be
+> given a structure of its own. Doing so starts with separating its setup
+> from that of the control domain.
 > 
-> 2. normal pages in shared VM_PFNMAP VMAs cause accounting leak on arch
->    without pte_special(), namely the page refcount, mapcount, and vm stats
->    are never dropped.
+> Move the setup of each domain into its own helper in preparation for
+> giving the monitoring domain its own structure as part of supporting
+> multiple controls per resource. Keep the allocation and the error
+> handling in mpam_resctrl_alloc_domain() so that a failure to set up the
+> monitoring domain still undoes the control domain.
 > 
-> Map ufile->disassociate_page for VMAs without VM_WRITE and VM_MAYWRITE,
-> with vmf_insert_pfn(). The page lives until ib_uverbs_release_file(), which
-> cannot run while a VMA holds a reference to the file.
+> No functional change intended.
 > 
-> Writable VMAs keep returning disassociate_page in vmf->page, thus its
-> accounting leak on arch without pte_special() needs a separate fix.
-> 
-> Userspace can see two differences after the patch. A mapping without
-> VM_WRITE and VM_MAYWRITE now reads what was written through writable
-> mappings of the same uverbs file instead of zeroes; after disassociation
-> both are dummy data. The first fault now allocates the page and fails with
-> VM_FAULT_SIGBUS if the allocation fails, as a write fault already does.
-> 
-> Fixes: 67f269b37f9b ("RDMA/ucontext: Fix regression with disassociate")
-> Signed-off-by: Zi Yan <ziy@nvidia.com>
+> Signed-off-by: Reinette Chatre <reinette.chatre@intel.com>
 > ---
-> The issue was discovered during PG_folio development when making sure only
-> rmappable folios can enter rmap code path.
+>  drivers/resctrl/mpam_resctrl.c | 116 ++++++++++++++++++++-------------
+>  1 file changed, 70 insertions(+), 46 deletions(-)
 > 
-> Alternative: map the zero page with vmf_insert_pfn_prot()
-> ===
-> 
-> Read-only mappings could keep reading zeroes if rdma_umap_fault()
-> installed the zero page itself as a special PTE:
-> 
-> return vmf_insert_pfn_prot(vmf->vma, vmf->address, zero_pfn(vmf->address));
-> 
-> It does not work today. Commit 7b466529307be ("mm: disallow raw PFN
-> mappings of huge/shared zeropage") makes vmf_insert_pfn_prot() return
-> VM_FAULT_SIGBUS for the zero pfn. vmf_insert_mixed() does not support
-> VM_PFNMAP, since vm_mixed_zeropage_allowed() warns on VM_PFNMAP.
-> 
-> The first version of that patch [1] did not change vmf_insert_pfn_prot().
-> Due to no in-kernel user at that time and complication it can cause,
-> vmf_insert_pfn_prot() rejects zero pages now.
-> 
-> Fix to writable VMA path
-> ===
-> A new vmf_insert_pfn_mkwrite() is needed, since vmf_insert_pfn() has a
-> narrow failing scenario. When a process mapping the disassociated page has
-> soft-dirty tracking enabled, vm_page_prot becomes read-only;
-> vmf_insert_pfn() then uses a read-only PTE instead of a writable one;
-> fixup_user_fault() is used to write to the page (e.g., KVM with the uverbs
-> mapping as guest memory) and fails, because it does not take the second
-> fault to upgrade the read-only PTE to a writable one.
-> 
-> LLM was used for investigation and code development.
+> diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
+> index dc442851fd7e..246560247a28 100644
+> --- a/drivers/resctrl/mpam_resctrl.c
+> +++ b/drivers/resctrl/mpam_resctrl.c
+> @@ -1615,13 +1615,77 @@ static struct mpam_component *find_component(struct mpam_class *class, int cpu)
+>  	return NULL;
+>  }
+>  
+> +static int mpam_resctrl_setup_ctrl_domain(unsigned int cpu,
+> +					  struct rdt_resource *r,
+> +					  struct mpam_component *comp,
+> +					  struct mpam_resctrl_dom *dom)
+> +{
+> +	struct rdt_ctrl_domain *ctrl_d = &dom->resctrl_ctrl_dom;
+> +	int err;
+> +
+> +	dom->ctrl_comp = comp;
+> +
+> +	mpam_resctrl_domain_hdr_init(cpu, comp, r->rid, &ctrl_d->hdr);
+> +	ctrl_d->hdr.type = RESCTRL_CTRL_DOMAIN;
+> +	err = resctrl_online_ctrl_domain(r, ctrl_d);
+> +	if (err)
+> +		return err;
+> +
+> +	mpam_resctrl_domain_insert(&r->ctrl_domains, &ctrl_d->hdr);
+> +
+> +	return 0;
+> +}
+> +
+> +static int mpam_resctrl_setup_mon_domain(unsigned int cpu,
+> +					 struct rdt_resource *r,
+> +					 struct mpam_resctrl_dom *dom)
+> +{
+> +	struct rdt_l3_mon_domain *mon_d = &dom->resctrl_mon_dom;
+> +	struct mpam_component *any_mon_comp = NULL;
+> +	enum resctrl_event_id eventid;
+> +	struct mpam_resctrl_mon *mon;
+> +	int err;
+> +
+> +	/*
+> +	 * Even if the monitor domain is backed by a different
+> +	 * component, the L3 component IDs need to be used... only
+> +	 * there may be no ctrl_comp for the L3.
+> +	 * Search each event's class list for a component with
+> +	 * overlapping CPUs and set up the dom->mon_comp array.
+> +	 */
+> +
+> +	for_each_mpam_resctrl_mon(mon, eventid) {
+> +		struct mpam_component *mon_comp;
+> +
+> +		if (!mon->class)
+> +			continue;       // dummy resource
+> +
+> +		mon_comp = find_component(mon->class, cpu);
+> +		dom->mon_comp[eventid] = mon_comp;
+> +		if (mon_comp)
+> +			any_mon_comp = mon_comp;
+> +	}
+> +	if (!any_mon_comp) {
+> +		WARN_ON_ONCE(0);
+> +		return -EFAULT;
+> +	}
+> +
+> +	mpam_resctrl_domain_hdr_init(cpu, any_mon_comp, r->rid, &mon_d->hdr);
+> +	mon_d->hdr.type = RESCTRL_MON_DOMAIN;
+> +	err = resctrl_online_mon_domain(r, &mon_d->hdr);
+> +	if (err)
+> +		return err;
+> +
+> +	mpam_resctrl_domain_insert(&r->mon_domains, &mon_d->hdr);
+> +
+> +	return 0;
+> +}
+> +
+>  static void mpam_resctrl_alloc_domain(unsigned int cpu,
+>  				      struct mpam_resctrl_res *res)
+>  {
+>  	int err;
+>  	struct mpam_resctrl_dom *dom;
+> -	struct rdt_l3_mon_domain *mon_d;
+> -	struct rdt_ctrl_domain *ctrl_d;
+>  	struct mpam_class *class = res->class;
+>  	struct mpam_component *comp;
+>  	struct rdt_resource *r = &res->resctrl_res;
+> @@ -1638,57 +1702,17 @@ static void mpam_resctrl_alloc_domain(unsigned int cpu,
+>  		return;
+>  
+>  	if (r->alloc_capable) {
+> -		dom->ctrl_comp = comp;
+> -
+> -		ctrl_d = &dom->resctrl_ctrl_dom;
+> -		mpam_resctrl_domain_hdr_init(cpu, comp, r->rid, &ctrl_d->hdr);
+> -		ctrl_d->hdr.type = RESCTRL_CTRL_DOMAIN;
+> -		err = resctrl_online_ctrl_domain(r, ctrl_d);
+> +		err = mpam_resctrl_setup_ctrl_domain(cpu, r, comp, dom);
+>  		if (err)
+>  			goto free_domain;
 
-Is that why all of the above was so hard to read?
+LGTM
+Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
 
-The zero page was used because things like the clock page really need
-to be zero. Reflecting back random things from the disassociate page
-is not going to work out.
+> -
+> -		mpam_resctrl_domain_insert(&r->ctrl_domains, &ctrl_d->hdr);
+>  	} else {
+>  		pr_debug("Skipped control domain online - no controls\n");
+>  	}
+>  
+>  	if (r->mon_capable) {
+> -		struct mpam_component *any_mon_comp = NULL;
+> -		struct mpam_resctrl_mon *mon;
+> -		enum resctrl_event_id eventid;
+> -
+> -		/*
+> -		 * Even if the monitor domain is backed by a different
+> -		 * component, the L3 component IDs need to be used... only
+> -		 * there may be no ctrl_comp for the L3.
+> -		 * Search each event's class list for a component with
+> -		 * overlapping CPUs and set up the dom->mon_comp array.
+> -		 */
+> -
+> -		for_each_mpam_resctrl_mon(mon, eventid) {
+> -			struct mpam_component *mon_comp;
+> -
+> -			if (!mon->class)
+> -				continue;       // dummy resource
+> -
+> -			mon_comp = find_component(mon->class, cpu);
+> -			dom->mon_comp[eventid] = mon_comp;
+> -			if (mon_comp)
+> -				any_mon_comp = mon_comp;
+> -		}
+> -		if (!any_mon_comp) {
+> -			WARN_ON_ONCE(0);
+> -			goto offline_ctrl_domain;
+> -		}
+> -
+> -		mon_d = &dom->resctrl_mon_dom;
+> -		mpam_resctrl_domain_hdr_init(cpu, any_mon_comp, r->rid, &mon_d->hdr);
+> -		mon_d->hdr.type = RESCTRL_MON_DOMAIN;
+> -		err = resctrl_online_mon_domain(r, &mon_d->hdr);
+> +		err = mpam_resctrl_setup_mon_domain(cpu, r, dom);
+>  		if (err)
+>  			goto offline_ctrl_domain;
+> -
+> -		mpam_resctrl_domain_insert(&r->mon_domains, &mon_d->hdr);
+>  	} else {
+>  		pr_debug("Skipped monitor domain online - no monitors\n");
+>  	}
+> @@ -1697,8 +1721,8 @@ static void mpam_resctrl_alloc_domain(unsigned int cpu,
+>  
+>  offline_ctrl_domain:
+>  	if (r->alloc_capable) {
+> -		mpam_resctrl_offline_domain_hdr(cpu, &ctrl_d->hdr);
+> -		resctrl_offline_ctrl_domain(r, ctrl_d);
+> +		mpam_resctrl_offline_domain_hdr(cpu, &dom->resctrl_ctrl_dom.hdr);
+> +		resctrl_offline_ctrl_domain(r, &dom->resctrl_ctrl_dom);
+>  	}
+>  free_domain:
+>  	kfree(dom);
 
-I don't think rdma supports any architectures without the special bit
-so I'm not sure this is a real issue in practice.
+-- 
+Best regards,
+Jinjie
 
-I guess using vmf_insert_pfn_prot() consistently is the right answer
-since these VMAs are not supposed to be mixed maps.
-
-Jason
