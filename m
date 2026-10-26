@@ -1,57 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793007880;
-	b=5kYTFvbfKJw50AaQKTBxeEQE24Fj7MDP4Nwfbi2JbuhtS189wFAgi2jubM4WXOLvfImH
-	 MUE1WXzJtmO13XK3vEfdcFSsLialD3J9Qtz5sehuITCvgalt6hQ4OKWqhSGVuVpGMCrV1
-	 oGHM8ApFMGxF0wg3CpCRYgluPyeSR6sBjkPdu3ewWNoV8vOl7jVLPevJp2AzF0QWTXNW9
-	 Gb845PfIKjlRl3QO4bz9+1qHR0ohIxsW+/PiqE3HU7N2tki+AclBKCcLMpG+898o2PMtv
-	 bBZ31DKp6MCSb+TAj4dnJSUn6zPG0MU0t24h7mjA55QqIzB0R6JVfkgIQxuZx9sovYA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793007880;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=ouH7elD+tXB8LAqogI+xevrlgTvhoMe5/2JANL6xi8Q=;
-	b=MCVDwv2jJK0YvwlO19psaVXwpxY2oHByYAWGAbqiuvrLsLdfX46oBMUew+hPn/vNkPDv
-	 qw9esUHa91kIBiWmunaEvS/iriy/lFWlH4jSOoyQmkZDcs3QmLxwruAKhTDB7pvdBMOnv
-	 RZDql9juPDhKNKihrKtwHXeW06jljggMipi3U744TWc2IqgWJ/JBQWgNvK8GWPfp05IWd
-	 Sj3Sq66z76eF+/KbsWM5YAHAkmpgY/oxjksUG/q4Uchrc8r4zeLnWyimVRPQoWiwypmNR
-	 Oa/jRUK8JfyOIJvbJaMt7DiSyyMynz46Z5jIZYEnexQjcQ6WzJqkHEZmQRelb0Jbb6A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NdGgZToe;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.53
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793007900;
+	b=jdR6eclbDAHEAhNwZim9YCCrbU1S0fygG8Xbv4SI4DLXvgyq4RSm+L2mqcZ+YzDTFq89
+	 Wx5bYYp4rQ6sJ4OIGHawiMEkj9nucFTC1ZV50E6G2PJBqbUIyGfa7dMpWS3Qwsmo61nHo
+	 Re4mH6dFCdo5SfKG6e6W/WEDXLbjI0uVYEYjhN/FkwA1VNbSLosZKqFbvc82LTO0avAeL
+	 pHGM62aWxMZr+kkZeEh2W3a4zgCHzeyO1mLbly3w7jKn3D/fWO2QsbmcBQh4JPZ4D1XN9
+	 zmnAWobdsvumulxCozWL6rD2MIqJSOpeomggHH7ir49peaMphuWlUUyTeFrEhq7E0TQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793007900;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=YySXXUFBOHmytywvVTLMkHqN01ZYut8GdXtuh1QQB84=;
+	b=JuGLTBRjVgiAIp6gv1UpxW0OedwywscOIyCned4LLEOBjo3mCcgM+x/X4em/ACZfrmW7
+	 89q3xAlJNLz6TQ7yhFo/1mBN8J6gDqsBERD7KQIbTlQ57ZBVwjQGFTihW0xGJk35Q1Ka+
+	 UnZ5JVyX8LVOFuLCmqrYQK4p4rU9jUwzEduHeU5/5ab1ELDt+YIWoaG0RG/w8562T/UoG
+	 fMz1hUjfyuuI+b8aanA82TxFZmG2s278ldrw64qGbV6NQ/YtPWFdK4iMuDXDbfFvh/cNO
+	 1u24R6hWOglGO53QoOjsbQ44ZCRALDTIumcgDTMa5+UVoXMqQh+ZRSpBEI94GPABF6w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=NUZUoxMK;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.53
+Received: from mail-oo1-f53.google.com (mail-oo1-f53.google.com [209.85.161.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E2FA60A2606;
-	Mon, 26 Oct 2026 09:44:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF631606A321
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:44:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF631606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NdGgZToe
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A67F81F031E6;
-	Mon, 26 Oct 2026 09:44:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793007879;
-	bh=ouH7elD+tXB8LAqogI+xevrlgTvhoMe5/2JANL6xi8Q=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=NdGgZToeK6jIg8FTtLUHtsV1/8m7bIMzE2XnbrvtFgiJ08Or5XCLYkeNci5Bv4ztU
-	 pzK1APGZT+TXXwJ9Qlgn820ROna4M2tCOxQW4L9JIdCkPv8zCY6cdO/UQ4wwyx5JvK
-	 j7I56hTR5+0aSmdk9UpcVcs2rrhYlZaqj5B5LNuNwFsskTv10UNzSinbZqMNTZeNzu
-	 kkvWE9Bx09gWbP96QB+GbeeFWYAdORVkDqzqhHty6yJO4BEa/PABU9ks10UiuZSVVy
-	 W+Z6kjLOndlMzZTVjvgB9o20yKW1BFbWTgIK3DLCgUDT2/4lSiGSMqmnwqGO7MWbF7
-	 mKsjfFKeLQtOQ==
-Message-ID: <sashiko-outbox-184830@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] clocksource/drivers/nxp-stm: Fix missed comparator
- match in set_next_event
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Enric Balletbo i Serra" <eballetb@redhat.com>
-Cc: linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org
-In-Reply-To: <20261026-nxp-stm-fixes-v1-2-20a64a4ea454@redhat.com>
-References: <20261026-nxp-stm-fixes-v1-0-20a64a4ea454@redhat.com>
- <20261026-nxp-stm-fixes-v1-2-20a64a4ea454@redhat.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 26 Oct 2026 09:44:39 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=NUZUoxMK
+Received: by mail-oo1-f53.google.com with SMTP id 006d021491bc7-6dde81a6820so2177270eaf.2
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:44:59 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793007899; cv=none;
+        d=google.com; s=arc-20260327;
+        b=NhFTskuY/TQPQobiZZJMJmzkhnGedXnUqL8FbHui/e/AAnLuU7fqmaJXLkG5zGkAIK
+         kDQUOXCvYRCHbmjW+EW/Bkh0IVeYh4Ga0UOCvCYv/gHjo8yy9AsISYqGkUd40uD3O6ry
+         TML6iMs8xDRiGuCZtjg4gn4ewAyJDvM5QVXUPikJBPxcy2AF4vHfuM5ehW3YIA2lw4j6
+         Yd3wUlvODT8BpH0YWkh/ARvWKMqEbAoSNE2REFqqP6a+ZuAqu2AV3so7Qeq8/Rj+JRaC
+         Sndf0InHbg+nQvSFQYlara2gG5iTMFkEqACMtw/2rDMc8ojnJBrX/aROFa4+KWYP4Oi7
+         UIHA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=YySXXUFBOHmytywvVTLMkHqN01ZYut8GdXtuh1QQB84=;
+        fh=it3/sEpJiEjmV/7sFY/C8RL4MzcZjMVS9KOA/FoV7x8=;
+        b=Nt8wNEfRiob0TD/nBDUFgbQoauvtFLO6tNW+yKgzx0/Vk6kxJc+pycWFEVzGn/jOY9
+         g2M2M993pEKlZUgVzZHEaZcOdE/veipiFS2PqhY05iWdFoy6KOyuC5+gF3Wzun2IFSfx
+         a/cIeLWa449sATYL4IegW1ZG0ZFAlDnt0ddyXSwptb8DctBmChgHMEth+7OaxPTIv5/N
+         9Vasp9HwXlbMvxx0sG65sDAXhxgI8O/x7Co5aiE8WYa35Kmn1ltQYFCdjiu+sfwegjkg
+         MQiIy+qT61BNQSoyQWsGQ7stSJMQ0mVWesz382Zejb93gzcSkUDs1PR00LqswUsCIjVt
+         A12A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793007899; x=1793612699; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=YySXXUFBOHmytywvVTLMkHqN01ZYut8GdXtuh1QQB84=;
+        b=NUZUoxMKd/nYmtJjraqzUOqRFLTCG2q2gNuxUIv6FD4SNV1axuZFNIlO+6+e9Os261
+         chW0akAj9m5q2STjwcFa2UZsQWbj0EYRBh96NHHhwQs4Tgksv7c7rPNHx1jPGMsNShqs
+         X7Jx9XFVJJb210Lhbb1ehdpCmtIuuViK0AAvG20wjnSVhOdtPy0e5UgP5eJmUK2oGwB2
+         bs4pwW23sMIHnbMMT3tCBeaSoj8IOUBtLCANoYosdLYt7VKV4umpGyulyybFgS44Cyvx
+         68KTVojaNcd11gOWCbmxVMSmQGq1JFxHSRsUDslDhCArN/IbIvHqsxBQdNZH5zRAuW0J
+         C7Mw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793007899; x=1793612699;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YySXXUFBOHmytywvVTLMkHqN01ZYut8GdXtuh1QQB84=;
+        b=pkrUtLNvxFT+YhIfDQoa5SS33///Ba63Xx6eiPeWGTFOdCw2bvWra4wr3WfFeb1UHV
+         9I9lHDqq0SLyUbAm74Rwd3Q6w/rkr1SG8qU+sGoEyF36nA2t8UkPBpr7wf741dlkjaDM
+         Ve590sHYCG31sqJh59W58xGVbn8ghFBfbTRZu1jUvfvAU8igVKHR+hSO09f03Anj2q2Q
+         km715wgNFCO0i+M9pFeV0InTJGMfz/b8gFhMLU9hIL5Cib3kTyYD5V0aYj94Ymi9LNGn
+         NrKYSdRcaoa4McA4ya8jGu/449HcLhy06McgLuEq2IGz1nDzCFmqpIG4/DllwHaww6m/
+         ddHQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzHP1PCxq4UHvJjvQsE/dIg4xpE53GOWw7XloapCmogZi/0XQwMVXfG+yvRMGLagDUtEv+JO3ADRteckSg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKPg/WxfYGMVpt5J0rdll5cyf3mxzfASXdozoqjrimPn/i0A8tg
+	nDwBtpWXCqzbkBq+zvhUDPFnZYPK75Kz1KXnMPPJ0k7z0vSEGUgm4sFFw61prTie5H4I+0mgni4
+	jusx3qvnn+aOCwV9X7xxC8FjslSsOfBE=
+X-Gm-Gg: AYBFou0oWZFzFh5KM5u/kTdzm1ElxcbRou7XRtO6mGqqWzqV4gvaVkwwjmTyTWq8VLz
+	/PIiCEA8SoUbePTsEn3fs2M/xZUSq9S3HSY30F5PfPASL2itz+BoIGr1xkcogFDamPp+peT9bcK
+	hRXZUzx83tAk3jjCzW/+2pIPta4AyBkFxZ9ZScYbzI6fyzQUcFL2u12rXvoitIJ9UvM4gLrSFY2
+	/CaswoYy7sd3OLyE1VykzS66dy2T67h9YkjFY+d7FBkkjJHvqcMoapwa6P7hQ7R5gJgCrvwDVa2
+	HtAXJRIN7rT+NNP7C9aoWpv+EQbR/qLnnYq3l2VS2gXAHrEcOipuW+KFO2rDWMQUvYadHsAII2R
+	cdLSheS7rKorUX7DKgmutxFD7CNf1wckNgUec55TXmvNV7e1UQbFfFngpNAb2/qSOiL5xZ7xpBt
+	+z5Ln38NU9CJPHtoHk
+X-Received: by 2002:a05:6820:7089:20b0:70e:2096:8098 with SMTP id
+ 006d021491bc7-70e20968319mr679857eaf.83.1793007898903; Mon, 26 Oct 2026
+ 02:44:58 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,89 +104,67 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+References: <20261026092423.66168-1-himanshu.bakshi478@gmail.com>
+In-Reply-To: <20261026092423.66168-1-himanshu.bakshi478@gmail.com>
+From: Himanshu Bakshi <himanshu.bakshi478@gmail.com>
+Date: Mon, 26 Oct 2026 15:14:47 +0530
+X-Gm-Features: AclHuK8g_L7SXnsINc9C_3whJRkCHOJJj2ujrSiDjnaE7GbNryakHGpTdm_klP4
+Message-ID: <CAGLmz9KsGrVEFRO-dQv559ArJRKs7yOiR5wY4T_aFAeuvNhg=Q@mail.gmail.com>
+Subject: Re: [PATCH v2] staging: fbtft: Remove unused fbtft_init_dbg()
+To: andy@kernel.org, gregkh@linuxfoundation.org
+Cc: dennylin0707@gmail.com, cenzhang@linux.microsoft.com, 
+	dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org, 
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	error27@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] clocksource: nxp-stm: overshoot race in nxp_stm_clockevent_set_nex=
-t_event()
---
+On Mon, Oct 26, 2026 at 2:54=E2=80=AFPM himanshu bakshi
+<himanshu.bakshi478@gmail.com> wrote:
+>
+> From: Himanshu Bakshi <himanshu.bakshi478@gmail.com>
+>
+> The fbtft_init_dbg() macro is not being used, so delete it.
+>
+> Reviewed-by: Dan Carpenter error27@gmail.com
+>
+> Signed-off-by: Himanshu Bakshi <himanshu.bakshi478@gmail.com>
+> ---
+>  drivers/staging/fbtft/fbtft.h | 7 -------
+>  1 file changed, 7 deletions(-)
+>
+> diff --git a/drivers/staging/fbtft/fbtft.h b/drivers/staging/fbtft/fbtft.=
+h
+> index 40a7567df1eb..16459e4e0ba0 100644
+> --- a/drivers/staging/fbtft/fbtft.h
+> +++ b/drivers/staging/fbtft/fbtft.h
+> @@ -420,13 +420,6 @@ module_spi_driver(fbtft_driver_spi_driver);
+>  #define DEBUG_REQUEST_GPIOS_MATCH   BIT(30)
+>  #define DEBUG_VERIFY_GPIOS          BIT(31)
+>
+> -#define fbtft_init_dbg(dev, format, arg...)                  \
+> -do {                                                         \
+> -       if (unlikely((dev)->platform_data &&                 \
+> -           (((struct fbtft_platform_data *)(dev)->platform_data)->displa=
+y.debug & DEBUG_DRIVER_INIT_FUNCTIONS))) \
+> -               dev_info(dev, format, ##arg);                \
+> -} while (0)
+> -
+>  #define fbtft_par_dbg(level, par, format, arg...)            \
+>  do {                                                         \
+>         if (unlikely((par)->debug & (level)))                    \
+> --
+> 2.56.0
+>
 
-commit 45f273b782a28cec6ef30880d738a9cb690edce9
-Author: Enric Balletbo i Serra <eballetb@redhat.com>
+Hi Andy,
 
-clocksource/drivers/nxp-stm: Fix missed comparator match in set_next_event
+For testing, I have compiled the driver successfully and
+verified that  fbtft_init_dbg() has no call sites in the kernel
+tree.
 
-This patch fixes the overshoot check in nxp_stm_clockevent_set_next_event()
-by using a signed comparison between the target comparator value and the
-current counter value to avoid missed matches and 32-bit wraparound stalls.
+Thank you for the review.
 
-> diff --git a/drivers/clocksource/timer-nxp-stm.c b/drivers/clocksource/ti=
-mer-nxp-stm.c
-> index ee249fed1b918..ed7662a4e2bc4 100644
-> --- a/drivers/clocksource/timer-nxp-stm.c
-> +++ b/drivers/clocksource/timer-nxp-stm.c
-> @@ -247,7 +247,7 @@ static int nxp_stm_clockevent_shutdown(struct clock_e=
-vent_device *ced)
->  static int nxp_stm_clockevent_set_next_event(unsigned long delta, struct=
- clock_event_device *ced)
->  {
->  	struct stm_timer *stm_timer =3D ced_to_stm(ced);
-> -	u32 val;
-> +	u32 val, now;
-> =20
->  	nxp_stm_clockevent_disable(stm_timer);
-> =20
-> @@ -258,16 +258,12 @@ static int nxp_stm_clockevent_set_next_event(unsign=
-ed long delta, struct clock_e
->  	writel(val, STM_CMP0(stm_timer->base));
-> =20
->  	/*
-> -	 * The counter is shared across the channels and can not be
-> -	 * stopped while we are setting the next event. If the delta
-> -	 * is very small it is possible the counter increases above
-> -	 * the computed 'val'. The min_delta value specified when
-> -	 * registering the clockevent will prevent that. The second
-> -	 * case is if the counter wraps while we compute the 'val' and
-> -	 * before writing the comparator register. We read the counter,
-> -	 * check if we are back in time and abort the timer with -ETIME.
-> +	 * If the counter reached or passed 'val' during or before the
-> +	 * write to the comparator, the hardware match will be missed,
-> +	 * resulting in a full 32-bit (32.2s) wraparound lockup.
->  	 */
-> -	if (val > nxp_stm_clockevent_read_counter(stm_timer) + delta)
-> +	now =3D nxp_stm_clockevent_read_counter(stm_timer);
-> +	if ((int)(val - now) <=3D 0)
->  		return -ETIME;
-> =20
->  	nxp_stm_clockevent_enable(stm_timer);
-
-[Severity: High]
-Can the counter still advance past val before nxp_stm_clockevent_enable()
-arms the channel comparator in drivers/clocksource/timer-nxp-stm.c?
-
-At the beginning of nxp_stm_clockevent_set_next_event(), channel 0 is
-disabled before programming STM_CMP0:
-
-	nxp_stm_clockevent_disable(stm_timer);
-	...
-	val =3D nxp_stm_clockevent_read_counter(stm_timer) + delta;
-	writel(val, STM_CMP0(stm_timer->base));
-
-Unlike timer-imx-gpt where the compare interrupt remains enabled while
-writing TCMP, writing STM_CMP0 in the NXP STM does not arm the comparator
-until nxp_stm_clockevent_enable() writes STM_CCR_CEN to STM_CCR0.
-
-Because now is read from STM_CNT before nxp_stm_clockevent_enable() is
-called, if now is sampled just below val (so (int)(val - now) <=3D 0 is fal=
-se)
-and STM_CNT reaches or passes val before the subsequent write to STM_CCR0
-takes effect in hardware, the match occurs while channel 0 is still disabled
-and is missed.
-
-Should nxp_stm_clockevent_enable(stm_timer) be called before reading now for
-the overshoot check, with nxp_stm_clockevent_disable(stm_timer) called on
-the -ETIME path?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261026-nxp-stm-fi=
-xes-v1-0-20a64a4ea454@redhat.com?part=3D2
+Thanks and Regards,
+Himanshu Bakshi
