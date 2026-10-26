@@ -1,94 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793048232;
-	b=NlbIMNVu+Ab7YXDcT5UIf0UblS0iuEN+XBdCfADkRXSaW9ExzRmiNPb49S9jaQdCYTHw
-	 KqFHxQSpHDDrwwBdj0GRjEciLgMQxvCyBDZ2GnpArr4YpxHGY+M6ZKuQwAPJA44haDxVL
-	 GFqwH7j5u8HahrA5WcWu+6UHbcatW+pXf+1FRb4g6RSSTHtjoLzrgQyAuCZpsilwpDhdh
-	 EbS8/8IhPHNDXqm/CZgy6NwRoSICCldPv4diyRg+huLPKFY9DVnquWPNOwRWmY4OnP6C2
-	 MA1HLFMuvgrGM9U366Rd5hx5wEK6AiwdLG5/EUq9lZI/UC6+vj7FURehkV+Wpuxwmog==
+	t=1793048231;
+	b=5mBVOZ0lXVR/pTJ05cd4WXWN8Q1+iwtlbaa4Wy0JSQ7O0SJozfmGOUR8Po9SaWrosm6h
+	 /xRaw+jctfZQW7e4QIxPTVQHeHaoD6yy+LNUBSJClba1s6CsDXgjY/e22yvuzOFpJOQcD
+	 Uyx4uUPdfwSLyrrPG3qfGaTPQR5PNTfMwEiLp9q6yqBk+YA7AiHOEiskL/2OcV/5OSZR8
+	 DGa2uH0j+p9Vkt4Xg7vFwI5NJp5YhgFfHPrUPfO3x+2O/IEV6ZsUta/MfFfBU/vtDkwCa
+	 6ySg5kZrdP5e60OWw2BN5Kvjn3T7u3gvbsAJytKZwega+x11Pn+WV5bUFDgSktjGzcQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793048232;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793048231;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=s299POfyzmrQX1i/IaTXeUG1mmAHpsaqzKPXCh90kkQ=;
-	b=DQFrRHhgmqex22tpzMcdo8Omq5NuMxOuvHe7p5FzkbXIKgQT2tB1b7cB6IcB8pLiH6Qa
-	 6jzjW+WjSYfdvnledRizL0tnfh4vlyMHeO8GPWz9WmPWvSDdessqRILUsV6fojUYvXGlR
-	 jYtp64ZekI6QBk6eOM3vxal5RRVq+VKV4smxxCo+WJBAIuseUgpYefKA6GAJootDVxhtU
-	 csV2MpsgcBIZVdTrbl7IDq0KwczvkdzhcHP+AA0Y1giSWIgo343+wG8Uig2v+ni5189g2
-	 iww1VVwqE0ocet8upJNfiH8LnledtMot3QBUVuWaZOy7gl1khcGt0XgPAwYnEuVyFkA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=V67+FxKk3y5OO2gy++J87FLYTX6VlhstikqZH6vOo0g=;
+	b=uBnbe1gGgb5KZ/h3cX1quG/nN/kaQifLfY51xDqOKJeGP1dn2Tc5/ow6NyjVRKkTZUOB
+	 fpPkIsSFkzd7LDbNHNh/VerfqZDrsIxdL7VB7JIwt/dtnTdcySn1ip4HmfAiesu1s/SRt
+	 /GoP5UtPbhpCJ7NNnqnCpfAx4KJcul63uq70LZknQ94JlZvS8YcyJD7qwHJ2jJlvYlTPo
+	 CDV63IvkHIxCwWuWsnKK2BV0rOSJICgtP9KxR9oAxs9GfkxyOo6t1LVxwbuiHoDGi2pEi
+	 STknWXLtZ1Z4ZlbIt0krmuRsSJGFAha+Gz9Il2mUMtG2oD/X/eGayCFeAl1lrkG7t8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=iRGTPN0k;
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=HIfeYggq;
+	arc=none smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F10C606A325
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 20:57:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F10C606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC06C606A31D
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 20:57:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC06C606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=iRGTPN0k
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a2d6d01ecbso17014265e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:57:12 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=HIfeYggq
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a7992e2f7dso4799825e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:57:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793048231; x=1793653031; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=s299POfyzmrQX1i/IaTXeUG1mmAHpsaqzKPXCh90kkQ=;
-        b=iRGTPN0ksHCtDg0lyoI6ZsqiqCLjOCO7/A2bb7q+DMMr+00o89Ncs8lDd0QAsJ6Cq1
-         SbKGhZU4Dc05Z4zbE2yAnKHp7JyGPXMiGbTdMy0pSsaeHeRGZI/ZA0QwNg+Q0AnxdCOz
-         ivxphwFwhGFqVnIvs/K9LqOZskCaFkIyWDE5YmUHFM7KWkuazY2xhfkV8SdT8/oQoDcW
-         nR6WSzrNktQ+6sukE/Bh3KmILIDBeU3M6tpR7wMqUpjYJTGKs4iRfVph1CxzUa+0KZHu
-         gE00b07FjrhEJBGkSVAuNpB9j7b3H2ZW9rE55ezIqGGwaGQnXs8zxA7ITqhDtAbaCK82
-         1u/A==
+        d=gmail.com; s=20251104; t=1793048229; x=1793653029; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=V67+FxKk3y5OO2gy++J87FLYTX6VlhstikqZH6vOo0g=;
+        b=HIfeYggqWa9GaYp9u12rT5ntmit6gR3K1jGdqHreVjrrkTQsvg/HME13ej2a2rUg5q
+         cdvBAJ6OBv5YWCmNxeFsTgeXZcpDcbLYNaxyLMTHRHsOIcDfpjaPI3dyKk6ZZhe0Ik7H
+         vApMy3kp+RD5r1qDeV7jZWJT7X6xsUBlWQhRFfhIegE/evn7pBqQZmBVJKBmyTpeEuXI
+         Pk7aj9BApm6C+I2n1b5FbeAhn5kExruzUegnOSNzfDwNM1bdyYYQBPiBkb7+uVKqRsBq
+         L8Sv64PeXHZlNSdtVkDCcrikzxisatvah+mGXu5ZqaO3mHmxzGUXPr5EkL9CjbP83+Rl
+         3B0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793048231; x=1793653031;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=s299POfyzmrQX1i/IaTXeUG1mmAHpsaqzKPXCh90kkQ=;
-        b=JPWQFqP/F2CGYmESb+joOcS7Rg+qxeonvG/N+ZlXuctn0qGJ+zJKK6HQzIcymPTFks
-         4BTotWNuHy3H0gIeYduNlTY8luLVuK03eA9Rto/TIe2Hr7FXfI7BgQEA60Pr90KB/qmL
-         2tXyxMz+ig0I2S/5l/qNv2Ba8kQBUOQfHGjaAaRw5NzWsSI0NExYStZ6YhqTfWtbS7S0
-         XCT5coT3V6zekjj3sbwdqqjEQ9C7xWcacjOcJbxlgmZCvTyflWH0JmXlwPEJRt/j4VgQ
-         UrJUET1Nyuqr+oFZ5qHummhfTHJC4DQSuguGnIX/u9MC+ZRS9otO9QrqI3MHOhkQhR9i
-         g7YA==
-X-Forwarded-Encrypted: i=1; AKwUvBygnNXOgFhhbPqaV418+hVspYbmCK3HojX6V5pEpufrP9PG2aeTzauVL+Z+OF+VRJxB44Z8tP//RwrOHCo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJuiqqkrCGRE1fDLVGtbBfbLxifwqnvXB4sXF7bWi6ixFceHeju
-	uOX6UwNADVQHFXkowGhd2zOgdO+lgPVcgqDEhNJbcLQe8SkAzOQvCLrb
-X-Gm-Gg: AYBFou1LdwkkuINqa+F82pR4kCYD73lmm7eXOr+pXTIkKFk7qhwCN4TeUZMMrAgr4r1
-	PPTHfmxU7nRQil1XqmE+w/5hFFftalc2wpAuzoKqekYf4zbytO+EghAgpAiog2cI+kbiX5BOF/l
-	jZPcp0XzQwdNjH/nSvR2VzTE7CuEbwYrXZEVRBnRvfWHnxutGWu0ResifFvXZBrhz///xt/+nIh
-	PrIAF8tIfRuWu6lz2EBuvbvvnhHQsau+54qXaKQd6rvUY3ckbIoT/FaP3eJShUq6g1xqhQoqUUw
-	5kXeFOqE8Q3ENNvNGoaylfTw6PMGICZb8ljbXFsI8HS5/gzrVCU3fh8rpevEtEnKpLCrT3s4H9p
-	VwrVEbpNNAlMljfOxHQbOEP7lbRTSzydGoFnqSx1ObOU9IHXYHRuJhTuZldreefHR0vVco2R3KA
-	E0l7syvib3sI8W6kMegeRW/bDAiZ+OuVB+1K0j7rccYsWBqLyBk0yH08t4B0VAMTAYqqMN1lDHn
-	Xa/EK3is9jmDkce05YyWWJMXFhupNj1u+bSycZdl48LyGgY/WVwix0g
-X-Received: by 2002:a05:600c:8518:b0:4a1:a49e:a925 with SMTP id 5b1f17b1804b1-4a35acebf0bmr155156235e9.35.1793048230602;
-        Mon, 26 Oct 2026 13:57:10 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1793048229; x=1793653029;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=V67+FxKk3y5OO2gy++J87FLYTX6VlhstikqZH6vOo0g=;
+        b=qHTIDFjECsKyw0n8xpKGYa+M2as6gcKSX9/zie/40z5rwC566Jo6zz9iGck7xZ1sFy
+         MJeeP4O71221NnWZNc8dx2lEAVCPmSfHS2h1OABV63ukrgISgryVsxaZC+1WbYo0ADx9
+         lDQX/b/qdzOwzP7Xfh4SwXUI1wgqZTKyWWyvfTUpXZiejssNE3PXovCtxegiRInXiVLu
+         OjLzfK22PxtLpOYOHJriFhkl8tygJlrdhnu44CaaAExJfuW7yszCk3DMB/WxUHOpQheG
+         W/YwI3sStnPA4Wx6TFRd8A1/I9Flmbb6kKDNvQuj74mJi5DugDA6gvIKXLa/oosEm4gt
+         sJLQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzws5bh7kMB2uoWEBf9No5RydM3rsD49GE8JmIX1ms3Y+0pR0XpLPI7ovMilR5PeZMsyem9hRgE+NEJ/38=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKtoIeHHs6ZcqwVYMVUUUZnNwP4FyP4r2pJXya9UuZLOQLSwDcT
+	2PVZdIJg8dKwo6GXabHkeW51Ee9peERVhi3IQ6YPGJ2qO1kjVm234mPC
+X-Gm-Gg: AYBFou24K86SucT2xB3/+XvD0cQscuitcnmrsBQjJXfSzd/pWjpGKX6Tahj7D3JW/nM
+	/RvQ/4HVFbLRgDeSR8eRftRXx2v/dsq+kf4jBWehIGMMOMlL+wq6UH7bw39HaDJ9pmcVwTfwLPm
+	A4es1wFZ0hMoPC8MIeRexBFZMGJ9V6wZu8D4ZsATDhlL2MtAVqSyGQWBZ/CWFTtSidKkkxayq3L
+	nx53hn8k6kBG3RicCPHRGYTWJdWA2DBfTECgULYIf6sbqcH1yLRprqJeqnPU0sYJ/PscpvVGOMW
+	b1fEB9eiSDHPTJbUOZJxhKi2qD6DBQalU3whn3tSPu8an+7/T2taC7MoUfSV8hcZ3FG70MBT+mM
+	kCuym76S1ZAVn+YLTQV66cN7oFqI2G4Lif5A8a4Y4zMXLXPRcFQisBAmW138zsyX3UU2SjHQ7BK
+	ALBYYXuU95yBAmyMQj3qA65QNG8beVXIO4PtDFmUpK6yB3iKfPSxW2EmsQb6nNODkIPX/TEAM6I
+	CzQewXCsetve+22yERSMWANgGDySFqIBRszHmYPiYTq1JeuFnC8V9HR9axjol1bmtmsQtB9go6+
+	mA==
+X-Received: by 2002:a05:600c:4e87:b0:4a2:1867:10e8 with SMTP id 5b1f17b1804b1-4a35aca7643mr165038545e9.25.1793048229307;
+        Mon, 26 Oct 2026 13:57:09 -0700 (PDT)
 Received: from pop-os.. ([87.248.177.225])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a029332sm193725085e9.4.2026.10.26.13.57.09
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a029332sm193725085e9.4.2026.10.26.13.57.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 13:57:10 -0700 (PDT)
+        Mon, 26 Oct 2026 13:57:08 -0700 (PDT)
 From: Albu Victor-Marian <albu.victor.m@gmail.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Cc: linux-staging@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>,
 	Albu Victor-Marian <albu.victor.m@gmail.com>
-Subject: [PATCH 1/3] staging: rtl8723bs: convert rate and mode check macros to inline
-Date: Mon, 26 Oct 2026 22:56:57 +0200
-Message-ID: <20261026205659.181065-2-albu.victor.m@gmail.com>
+Subject: [PATCH 0/3] staging: rtl8723bs: checkpatch cleanup in ieee80211 files
+Date: Mon, 26 Oct 2026 22:56:56 +0200
+Message-ID: <20261026205659.181065-1-albu.victor.m@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261026205659.181065-1-albu.victor.m@gmail.com>
-References: <20261026205659.181065-1-albu.victor.m@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,58 +98,25 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Convert IS_HT_RATE(), IS_CCK_RATE(), IS_OFDM_RATE() and is_legacy_only()
-to static inline functions.
+This series cleans up style issues identified by checkpatch.pl in
+rtw_ieee80211.c and ieee80211.h.
 
-No functional change intended.
+Patch 1 converts some rate and mode check macros to static inline functions.
+Patch 2 uses BIT() macro where checkpatch requests for it.
+Patch 3 fixes line length, alignment and a CamelCase name.
 
-Compile tested only.
+No functional change is intended.
+Compile tested only. 
 
-Signed-off-by: Albu Victor-Marian <albu.victor.m@gmail.com>
----
- drivers/staging/rtl8723bs/include/ieee80211.h | 21 +++++++++++++++----
- 1 file changed, 17 insertions(+), 4 deletions(-)
+Albu Victor-Marian (3):
+  staging: rtl8723bs: convert rate and mode check macros to inline
+  staging: rtl8723bs: use BIT() macro for bit definitions
+  staging: rtl8723bs: fix spacing and line length in ieee80211 files
 
-diff --git a/drivers/staging/rtl8723bs/include/ieee80211.h b/drivers/staging/rtl8723bs/include/ieee80211.h
-index 9767013887af..9741daef3b87 100644
---- a/drivers/staging/rtl8723bs/include/ieee80211.h
-+++ b/drivers/staging/rtl8723bs/include/ieee80211.h
-@@ -152,7 +152,10 @@ enum network_type {
- 
- #define SUPPORTED_24G_NETTYPE_MSK (WIRELESS_11B | WIRELESS_11G | WIRELESS_11_24N)
- 
--#define is_legacy_only(net_type)  ((net_type) == ((net_type) & (WIRELESS_11BG)))
-+static inline bool is_legacy_only(uint net_type)
-+{
-+	return net_type == (net_type & WIRELESS_11BG);
-+}
- 
- #define is_supported_24g(net_type) ((net_type) & SUPPORTED_24G_NETTYPE_MSK ? true : false)
- 
-@@ -392,10 +395,20 @@ enum {
- 	MGN_UNKNOWN
- };
- 
--#define IS_HT_RATE(_rate)				(_rate >= MGN_MCS0 && _rate <= MGN_MCS31)
--#define IS_CCK_RATE(_rate)				(_rate == MGN_1M || _rate == MGN_2M || _rate == MGN_5_5M || _rate == MGN_11M)
--#define IS_OFDM_RATE(_rate)				(_rate >= MGN_6M && _rate <= MGN_54M  && _rate != MGN_11M)
-+static inline bool IS_HT_RATE(uint rate)
-+{
-+	return rate >= MGN_MCS0 && rate <= MGN_MCS7;
-+}
- 
-+static inline bool IS_CCK_RATE(uint rate)
-+{
-+	return rate == MGN_1M || rate == MGN_2M || rate == MGN_5_5M || rate == MGN_11M;
-+}
-+
-+static inline bool IS_OFDM_RATE(uint rate)
-+{
-+	return rate >= MGN_6M && rate <= MGN_54M  && rate != MGN_11M;
-+}
- 
- /* NOTE: This data is for statistical purposes; not all hardware provides this
-  *       information for frames received.  Not setting these will not cause
+ .../staging/rtl8723bs/core/rtw_ieee80211.c    |  92 ++++++-----
+ drivers/staging/rtl8723bs/include/ieee80211.h | 147 ++++++++++--------
+ 2 files changed, 132 insertions(+), 107 deletions(-)
+
 -- 
 2.43.0
 
