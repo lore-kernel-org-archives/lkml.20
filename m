@@ -1,54 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.149.156.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793058830;
-	b=03vpQKx6Za9SOvx0VCmdigXsZ+fXPOyO3vc0FjTjBpySI6v4mR7EhV+J7gRZDtN8ycKz
-	 KywNJuV9S2uwsstWRYiW4EDSBMxRSmJX369uTOVgE0AMb0lggoharWmallMEUDeLztwkv
-	 KcMcu98TrpoajlES41+CVOkWfVCgGXTKEY6DAJyqH0ALKPpz8mq9m7XlUbdTdFqDd/qqR
-	 iV+PLXuxG0XBi3WbF81I9cPw69nNwE7DgtYhSI+03I/DMvS8YSrd1UzosHrr1vvFyTksF
-	 4xXPwnenIrsYcNpBOz3RzSHWEkBJhbwYqCyKrL2oRS1peCi1eoMfEvEGUPJIGwiXZcw==
+	t=1793058838;
+	b=zP/I0v7vhOshzpHizKx3pzc0+IDR6JoxVuaMrMQNUH/+QdsQf6gW7ctOVGBHl/pygty5
+	 lN4r6RSzSbmzJU3p4IbftXGfFNToGYhHjVyd8jki0Zbsg9jYFiWXTHuPHH6rRYRtdwPF9
+	 Nk7MxeXWAmk8uXH13xFYDen8K2GfzhRaRd4GhnHGCd1uSdgwkTaf8YyhgU9BKPG2bcxs3
+	 oFZ+t+BZUS9AJrthYosaC1yMBxhchJI5yEulJyJw9ofID5dRA1pvd2+Y6O0QI4b3FddgV
+	 GDWZQsYil7ILyuEmGC95Mh4dYdBwOSzCW6UxN0uiTyMBUHTy0k1ULBNcvANfaRJMiZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793058830;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=PmF4pFDTWVfRk9VwnvwOLzqp+cbYioNIQEmFKh6Wsbo=;
-	b=Af9o/DMPXjCAQE+rJxpRYSTTCvKlCYVYHTSE/HCVea5p1mDB1C9rLjF/fFEaBPz/BpOS
-	 7AzcyUm9zenD+C8bHO48aQPO583688NnX33g75zl9wKXwAYL+4iwhe8Y24mBY6F9mS+R6
-	 LtvlRvlvRke8+vVtZuwisnSPPLUx4rI1Bh5RfHNEt6AJ3yfJDZVqexKbgHqwHCJkuJTDG
-	 65l6Twgk8IoS90rnttfk+hsqUSA8lpTm1Asc2vvuHXWHz80IfDe6QF/fQHa6hllMwJmsf
-	 3gWzJkr+gNub8plw8sLZsJTj3crKWPgJJ5rCBEhji2LmEfjyp7BfWNSjfskYuHULodg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793058838;
+	h=DMARC-Filter:Received:DKIM-Signature:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-CMAE-Envelope;
+	bh=DbLagvg0jRmrztO9r4kvqZ5QLfCw4O2QtXbNUxwpg50=;
+	b=wAO9knhpDMJ/+466hLNgiDdYDMvTiiGY/ul72QINNK8FSUqiNa5a/8pa3ykNk5jmAof3
+	 UBuuncuM9YBWlBZJPuW7X7+GcnmPxev1UtWdsdRvXCL97tsQwTgvFLLQyF0usFI8ytuN9
+	 X1X4dq3DKOnrOFNgmRQqtf+MhDEXEftvPanqqqALyOxaMNQYu+p+qoNUxGwHZVu10vah/
+	 nXBNZ1JRAufKgFhHPAecln0bKc+aSSH4oR9YdIFmHIEwPao3+sPWkhQDS52jb0tZP4+Z5
+	 /Bm+zIFNT0iYF980gtEc5XOtVBxw7DHp3GCs5ScujPpKiTdpPk2RZ29oP30xpSAIRQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mjSgjfpX;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=mythread.it;
+	spf=pass smtp.mailfrom=mythread.it;
+	dkim=pass header.d=mythread.it header.i=@mythread.it header.a=rsa-sha256 header.s=a1 header.b=R45Ekib9;
+	arc=none smtp.remote-ip=62.149.156.101
+Received: from smtpcmd10101.aruba.it (smtpcmd10101.aruba.it [62.149.156.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3EF4606A31A;
-	Mon, 26 Oct 2026 23:53:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28CD3606A322
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 23:53:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28CD3606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mythread.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mythread.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mjSgjfpX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 347811F01825;
-	Mon, 26 Oct 2026 23:53:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793058829;
-	bh=PmF4pFDTWVfRk9VwnvwOLzqp+cbYioNIQEmFKh6Wsbo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mjSgjfpX+iKdI+lEz2Meif1r6g/wl979HYK4oNQihAFrb8aYon4Pp3E8i6m0agPgH
-	 Vg9v8ZbXDx0WLrulvHPUYAeCnVW2aRDMT1F1wGIW8I0n1DxRfZj27KAP0OS7DV6DoA
-	 3z5uofYerhtYC5Iyprmx4g1Ytn8haQpO0iGjOiTjJklJCoUQe1ojIWBd/rJFHM69QO
-	 ZZOsM01E4DIRqDO2e5K3azbenG60+4odEolGlkxtWOhSHBpZlEWfYdCUvDp8FdiTwa
-	 JnVFfw4Tlnx9NMjdfwcGfgQxsDkZ8M/BzXS3zTBBsc9MvSNBK5f8ZOOcx7POvAamw0
-	 7ne8/mLfgmMKg==
-From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: Shuah Khan <shuah@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH v2 8/9] tracing/filters: Terminate filter string at first newline
-Date: Tue, 27 Oct 2026 08:53:46 +0900
-Message-ID: <undine-1793058826691817022-492dfd11556f9184@undined.local>
-X-Mailer: UndineD 0.1
-In-Reply-To: <20261026164957.0e498c52@gandalf.local.home>
-References: <179291742944.492959.11659339795290028998.stgit@devnote2> <179291750264.492959.17808238344327959450.stgit@devnote2> <20261026164957.0e498c52@gandalf.local.home>
+	dkim=pass (2048-bit key, unprotected) header.d=mythread.it header.i=@mythread.it header.a=rsa-sha256 header.s=a1 header.b=R45Ekib9
+Received: from [127.0.0.1] ([79.43.52.162])
+	by Aruba SMTP with ESMTPSA
+	id LUVexsCYFW41bLUVgxjBdj; Tue, 27 Oct 2026 00:53:48 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mythread.it; s=a1;
+	t=1793058828; bh=mWbqmlXCyS4JkdDtJqjhI9Ulp/HmHGa+a5cO3F0/UfA=;
+	h=From:Subject:Date:MIME-Version:Content-Type:To;
+	b=R45Ekib9IYcjD36qyxAD2FDRSkM2Rttok8c4AyZeAcx/QmMtKBt5Ud2BDddRqQRFv
+	 ffezA/u3qcd4EmWO6woaD62E9yq/dq5T2Hl4n4uLx2yG0nDIqjYKaV+cjh08ii9jQJ
+	 gsSgnxo/I89tIo+svJRVmq/jXutucMCSaaGz6svg5XtveWdb+KvOTbhO+34L8VKZqk
+	 saxPVoxJqUiJ5nqPOBU4++mPtFyeH+c9+cq1zKXvXGHXrIjEKXTuYNbOvxwFsZn90O
+	 M2+qqfiK3vVME9r0Ku5VO7RdWGxtqFnAthWxv94XtKRRqCOM8Pfpj6dqWVAB5ryrXl
+	 3L66XKx5z26fA==
+From: Alessio Ferri <alessio.ferri@mythread.it>
+Subject: [PATCH wireless-next v2 0/8] bcma-ac-rev1: support 4352/4360 rev3
+ chips
+Date: Tue, 27 Oct 2026 00:53:43 +0100
+Message-Id: <20261027-bcma-ac-rev1-v2-0-b69b61c31920@mythread.it>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,107 +59,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAfo32oC/22NQQ6CMBBFr0JmbU1bEakr72FclHaQMQKmUxFCu
+ LsFtyaz+Zn/3p+BMRAynLMZAg7E1Hcp6F0GrrHdHQX5lEFLXSipclG51grrRCor4W1pcpXrk5E
+ 1JOQVsKZx013hQwGfyCw6HCPcfm9+Vw90cVWuQEMc+zBt84PasP9L6aSoClmiMf5QH4tLO8Umo
+ PV7SvJlWb56GzVvywAAAA==
+X-Change-ID: 20261014-bcma-ac-rev1-da894142790f
+To: =?utf-8?q?Rafa=C5=82_Mi=C5=82ecki?= <zajec5@gmail.com>, 
+ Michael Buesch <m@bues.ch>, vit9696 <vit9696@protonmail.com>
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-mips@vger.kernel.org, Alessio Ferri <alessio.ferri@mythread.it>
+X-Mailer: b4 0.15.2
+X-CMAE-Envelope: MS4xfOP1m5cBT0mHWlN8umXGisWkEp9/jgvHoBa7uIoBF1B+yIlT9XDT3/9JKUGr6e3p78sFPjhFb9GXxU/vDEOfN0utpqE6e70Lc67e6Dqp41D61uSKYxMs
+ EpQn5B532ks7fjLqa6EYlb8sLi8IqGH0QYntpb7dyRq2S+zGmXppoe6e3+X+G8maAiIPrHBaXKhtHkspY90+lHg+SjcPYqZy7k3QI9JZ4MGg0MgV+Le7JBm8
+ CIvo3Xe+Le3oqi9DSL7CPINhRx1MqkcWj7UDIcujgNSpLFRRcVMQl/WYV7GSh4HjuTgiac/6gG8REsrmiZ/WVI0SqUsSUfvlzcxQejDKye4m2ym+jy7uD90k
+ 3MmkKopY7n1KVxz9wmyunHSTEkQEHgTtxq1IOrTABKqY4GjpJW4=
 
-On Mon, 26 Oct 2026 16:49:57 -0400, Steven Rostedt <rostedt@goodmis.org> wrote:
-> On Sun, 25 Oct 2026 17:38:22 +0900
-> "Masami Hiramatsu (Google)" <mhiramat@kernel.org> wrote:
-> 
-> > From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-> > 
-> > Each trace event or subsystem only holds a single filter, and
-> > append_filter_err() / tracing_log_err() caret placement assumes a
-> > single-line filter string. However, apply_event_filter() and
-> > apply_subsystem_event_filter() only call strstrip(), which strips
-> > trailing newlines but leaves embedded newlines intact.
-> > 
-> > An embedded newline in a filter string (for example inside 'CPUS{0\n"}')
-> > causes cpulist_parse() / bitmap_parselist() to treat '\n' as the end of
-> > the cpulist and ignore trailing characters before '}', desynchronizing
-> > quote tracking between calc_stack() and parse_pred() and misaligning
-> > error_log caret reporting.
-> > 
-> > Terminate filter_string at the first '\n' in apply_event_filter(),
-> > apply_subsystem_event_filter(), and create_filter_start() so only the
-> > first line is parsed.
-> 
-> How about also checking if there's any non white space after the newline,
-> and if so, fail the filter outright with -EINVAL?
+Preparatory work in the bring up of AC family rev1 chips, in particular,
+the bcm4352 rev3 and bcm4360 rev3. I don't own nor I can find any mmio 
+captures for other revs, so everything is gated on rev3 of the two chips
+ except for the CORECTL_ASYNCGPIO taht is gated on cc rev >= 21.
 
-Hm, indeed. That sounds good to me, because user gave a wrong input.
+Initialize the PMU, the PCIe2 core and chipcommon of the BCM4352/BCM4360
+family on chip rev 3, parse SPROM revision 11, read the NVRAM variables
+the family's boards set on top of the SPROM, and bind bcma-pci-bridge to
+the BCM4352.
 
-Thanks!
+Signed-off-by: Alessio Ferri <alessio.ferri@mythread.it>
+---
+Changes in v2:
+- gated chipcommon behaviour on its own revision instead of chip rev as
+  pointed out by Vitaly
+- Link to v1: https://patch.msgid.link/20261014-bcma-ac-rev1-v1-0-b608e99d3f56@mythread.it
 
-> 
-> -- Steve
-> 
-> 
-> > 
-> > Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-> > ---
-> >  kernel/trace/trace_events_filter.c |   15 +++++++++++++++
-> >  1 file changed, 15 insertions(+)
-> > 
-> > diff --git a/kernel/trace/trace_events_filter.c b/kernel/trace/trace_events_filter.c
-> > index 8d7fb6e9d7f8..14afcca7a444 100644
-> > --- a/kernel/trace/trace_events_filter.c
-> > +++ b/kernel/trace/trace_events_filter.c
-> > @@ -2426,10 +2426,15 @@ static int create_filter_start(char *filter_string, bool set_str,
-> >  	struct event_filter *filter;
-> >  	struct filter_parse_error *pe = NULL;
-> >  	int err = 0;
-> > +	char *p;
-> >  
-> >  	if (WARN_ON_ONCE(*pse || *filterp))
-> >  		return -EINVAL;
-> >  
-> > +	p = strchr(filter_string, '\n');
-> > +	if (p)
-> > +		*p = '\0';
-> > +
-> >  	filter = kzalloc_obj(*filter);
-> >  	if (filter && set_str) {
-> >  		filter->filter_string = kstrdup(filter_string, GFP_KERNEL);
-> > @@ -2543,11 +2548,16 @@ int apply_event_filter(struct trace_event_file *file, char *filter_string)
-> >  {
-> >  	struct trace_event_call *call = file->event_call;
-> >  	struct event_filter *filter = NULL;
-> > +	char *p;
-> >  	int err;
-> >  
-> >  	if (file->flags & EVENT_FILE_FL_FREED)
-> >  		return -ENODEV;
-> >  
-> > +	p = strchr(filter_string, '\n');
-> > +	if (p)
-> > +		*p = '\0';
-> > +
-> >  	if (!strcmp(strstrip(filter_string), "0")) {
-> >  		filter_disable(file);
-> >  		filter = event_filter(file);
-> > @@ -2595,6 +2605,7 @@ int apply_subsystem_event_filter(struct trace_subsystem_dir *dir,
-> >  	struct trace_array *tr = dir->tr;
-> >  	struct event_filter *filter = NULL;
-> >  	int err = 0;
-> > +	char *p;
-> >  
-> >  	guard(mutex)(&event_mutex);
-> >  
-> > @@ -2602,6 +2613,10 @@ int apply_subsystem_event_filter(struct trace_subsystem_dir *dir,
-> >  	if (!dir->nr_events)
-> >  		return -ENODEV;
-> >  
-> > +	p = strchr(filter_string, '\n');
-> > +	if (p)
-> > +		*p = '\0';
-> > +
-> >  	if (!strcmp(strstrip(filter_string), "0")) {
-> >  		filter_free_subsystem_preds(dir, tr);
-> >  		remove_filter_string(system->filter);
-> 
-> 
->
+To: Rafał Miłecki <zajec5@gmail.com>
+To: Michael Buesch <m@bues.ch>
+Cc: linux-wireless@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-mips@vger.kernel.org
 
--- 
-Masami Hiramatsu (Google) <mhiramat@kernel.org>
+---
+Alessio Ferri (8):
+      bcma: core: clear only FORCEHT for BCMA_CLKMODE_DYNAMIC
+      bcma: pmu: init PLL and resources on BCM4352/BCM4360
+      bcma: pcie2: request HT on BCM4352/BCM4360
+      bcma: chipcommon: enable asynchronous GPIO interrupts
+      bcma: extract SPROM revision 11
+      firmware: bcm47xx_sprom: read ledbh4..ledbh15 from NVRAM
+      firmware: bcm47xx_sprom: read boardflags3 and AvVmid_c0..2 from NVRAM
+      bcma: add the BCM4352 PCI ID
+
+ drivers/bcma/core.c                         |   2 +-
+ drivers/bcma/driver_chipcommon.c            |   3 +
+ drivers/bcma/driver_chipcommon_pmu.c        |  41 ++++++
+ drivers/bcma/driver_pcie2.c                 |   3 +
+ drivers/bcma/host_pci.c                     |   1 +
+ drivers/bcma/sprom.c                        | 204 +++++++++++++++++++++++++++-
+ drivers/firmware/broadcom/bcm47xx_sprom.c   | 118 +++++++++++++---
+ include/linux/bcm47xx_sprom.h               |  15 ++
+ include/linux/bcma/bcma_driver_chipcommon.h |   5 +
+ include/linux/ssb/ssb.h                     |  62 +++++++++
+ include/linux/ssb/ssb_regs.h                |  94 +++++++++++++
+ 11 files changed, 524 insertions(+), 24 deletions(-)
+---
+base-commit: 0fcb05b72344f40806cbe810de8872f1698bf053
+change-id: 20261014-bcma-ac-rev1-da894142790f
+
+Best regards,
+--  
+Alessio Ferri <alessio.ferri@mythread.it>
+
