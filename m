@@ -1,80 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793013970;
-	b=yLosVgalLWPbQg6s9WY6d6xHlAaZFcbEMwtsquj9nJnGLDTunV7OaU017+EgR24wWCGw
-	 1NdrLX5mJvCKNKMG5/0U2yX+3ciVCvL8/WNcdzdpBYn4dr0s9wudcKcBjNTn6118XhJRH
-	 OB9ziJrPXUtWAB6hNTTA0O0OnU9pm1bnjkh6CXk3oQaeRoVwU1dl05Iru/16C+jdJXWmL
-	 YwDV+dqnTIRUO9JkQ6Ub3dF3hy1eLijNCGDP1Ok7GIbwxAhziNAHF+wflgxyPQ+HqXugW
-	 UOeg1pKLDdmIYdVyoRaKwJ9sxX8d1/8swP7j3uPsin27mVv6zrV0+oyc35AYIxAT8nQ==
+	t=1793013982;
+	b=1L3XANhhkql8Ne+Oht6V7p/k8vuU0rr087F5jjWEKp9AAW5HyDFVJBKslPg4DSghIRyE
+	 wb+5ZKeObTysjtHetfkCkuh2OH01Q0hyI/CKyrU+gsQrX/7weDy9wVM9wh5diAMteTWXQ
+	 9ueCWDqzGq97UfJIlrZt80DgO9ZLZLnEGUEhG6uabDuehAgfqrDqAKQVuzpqXlcuHVDuj
+	 0fXLrcpUhW6b5XCLKVu+GLwVmLoq5gMMLTFWqxlxNkCyfqfA893qXG7N3RmEgEW/amwkN
+	 aixqZJtdmLjunPcCd7apIUIypGEcJUhs+I3cPhRcYRqVAi4i65PFv6XoMPa/0zyp8/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793013970;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 MIME-Version;
-	bh=uOaURFmZY0XyV5YwXDbVEHdbFFNaws2NAdEXPOTyh6A=;
-	b=BJ3+T2h4EomV2EwdY+BpDsKJkCtICOkULwENIhvu5yWfCjxACFCF/magoF8Xm7XNXtis
-	 wK1jRpQbYYLZxH971l34v46ZdDJhKyVZU3yi1xsmnvQ7+NgycY4A8kWxJX/uA6PiJOME+
-	 NjvjZ0jqWz1pXKqIFmu1ffhkZEZj+Sj1secE95aRAolbbda+2B6flQ3qpLzqXBSZutbou
-	 SBsNbPk3zV+bAdkSkYpZimrVdq/+EcHmt5xpUxTSOxtgEt9dxritZEa3hBIImo3F41QFe
-	 46ka4XiHyo1tZ47zsSQ3s1XqMCVRJ362jAYHVDaUQccTrP768lhmJdyffkyN05bV6Zw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793013982;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=00NRVCjpBr/GQbeNssIlABrei+k7HVVzsoFigaJcfqg=;
+	b=IzHLQAmSj8YB2I9aUGM003TlXDPY4TNLXUy+LCA8Tm4caAPF4tKFRhq6uGasMAtUgN7+
+	 3FhnTXrZXhu+PHVm/DJRDeEtYHNNJZzgYrpLj8wJGEqc6iXKFC3HrEXlD43S/8KKcIZAM
+	 dSQXKau3YeY6nlOWkUvjuUYcQuh5XjzLas1UzsmurAbkvdhfFQp9cpx2V3H5qD85kJffM
+	 T0/9123Ik94i3MiXkBN/STKMGFyQf67LIqoBDgQE8PxJwuMJownbuCZQ3MKWojEUyWCei
+	 qi1/QW3d3K3O4/3ap737X0secZoPRJyVwrR4Id009gkrvYmDT3TrKztC/zSVNsiApVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=foxmail.com;
-	spf=pass smtp.mailfrom=foxmail.com;
-	dkim=pass header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=AoJJKUeK;
-	arc=none smtp.remote-ip=162.62.57.64
-Received: from out162-62-57-64.mail.qq.com (out162-62-57-64.mail.qq.com [162.62.57.64])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEE66606A31A;
-	Mon, 26 Oct 2026 11:26:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AEE66606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foxmail.com
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b="HbTM/tPk";
+	arc=none smtp.remote-ip=111.22.67.137
+Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9E871606A31B;
+	Mon, 26 Oct 2026 11:26:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E871606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=AoJJKUeK
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
-	s=s201512; t=1793013963;
-	bh=uOaURFmZY0XyV5YwXDbVEHdbFFNaws2NAdEXPOTyh6A=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AoJJKUeKTSlVKHamUAWhSKzrbgZYCI2LK/ceLBJF0Xbp94qHDWdjyBZq5FrhxiO9L
-	 XjLNECkg+tUQKzt+bayQkuz+2ATmHSIHBEqUDl7/nXDzLHh0J+lV3/zVPISbflfxSX
-	 rh9CI9q/ZcpWWV7P2dTRJrVb7S/xvUefTHJKSClo=
-Received: from [127.0.1.1] ([223.66.54.214])
-	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
-	id 680AD89A; Mon, 26 Oct 2026 19:26:00 +0800
-X-QQ-mid: xmsmtpt1793013960t669rs50j
-Message-ID: <tencent_8D20C52D31F04EA8CEDCB3B1A80A8451A707@qq.com>
-X-QQ-XMAILINFO: OaUQ/Dm85kfN4rI7hmeeoT7K2H4gNfCwwIubMTJSqjDYTGsc6QAdImXom+jk4i
-	 ldG/0T93+58Yg3wYwrLXxyVvgMGVdIq1buarBNBlqdt7/5KgVSwYtOi7iGun+Bkg71xRpq6+jKns
-	 SbMyUAjjp1+0qCizYoP2TDANnvov4VNeNYrhEeXvPhhBQWYwToyutZtvh3DMN+R+TrMH3R4LVt9P
-	 Zft0Kpv/XtN16EwDHcUs+phD5ujssTN0PkV9j7H1JJl00IxTpya6P3yUP6Lif1GP5FJPC/TXiywk
-	 GVQ4ULFBAsg6CycX8SFXmqfb0cYeQyeHpkfvU3gcGA1oS0v8opygmszt0satPvbaDuHVN/nXXart
-	 KJzH3+vbhFzp9ULpSzajCMxYC/iUF3BMr4gRKLMzVSiRwKirrlPRPn8rZowKlye1wwshpAs1Mt3m
-	 +aKIDwk5Z0V819UI49supeTl9PsaUU9NoMHZamH0bPqWrP7w8fxH0rZSFQTg5rELc9g9GxazdufF
-	 sWZZ9qETQZ9dtL5/uvhvwTUNvLxP2iari56UYOXLBYODmg9hon2tLaVMFyaCoItsJBlxbCidR2GP
-	 yaxSD6mbV5mJerkeHVxqywevV/HuTQpvpojbdnuOcujoo6p36tOxLgeDKD0Tnx8W8DHOknLnaXZG
-	 Ky5zX/ObEPnXHXnHnnjNmcqTTz6XkYStuFAn+DM+jK+SV5Vvv5MW0Bg0a05lBD4LI7EhXIWVHGxF
-	 GFelFhqtG+Rz2/WO+wLeAp8oZzRpLvVXkshV5zGkGqEVQEKBbgLb4/pjB+rPdquBP7Og7J8kNzWR
-	 JWOLD0NWbfZapZeXK/zqvqoImMdqxKqQWOVdHk54TnDEEGmg5HWfKGafpqX5wjJqPzNx1UvgTgLW
-	 uzbeNZb7fAnP8N7kMh2LY8DvuWMZY3nE4/1m+u/W8VczB1Jy+Q+7xICY511/yevw/0oiiEFJCw/J
-	 2RywmuGP46aWZ+z2+GrVNZ8jqHBEcgzy48a5vnr33A8O6U7jvK65008rp1qj/TET2rwgU8EHx1+i
-	 YRkC/tNVFCkSk/0MmMAIIESMmq1//2x1E08kgJtl6UcTOJ0z2JR3RyDelxa5Q=
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-From: Wu Zhipeng <zepwu@foxmail.com>
-To: Alex Yeo <alexyeo362@gmail.com>
-Cc: platform-driver-x86@vger.kernel.org, linux-acpi@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Ilpo =?utf-8?q?J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Hans de Goede <hansg@kernel.org>, Kenneth Chan <kenneth.t.chan@gmail.com>
-Subject: Re: [RFC PATCH v4] platform/x86: panasonic-laptop: Add
- platform_profile support
-Date: Mon, 26 Oct 2026 19:26:00 +0800
-X-OQ-MSGID: <179301396052.9675.2367290265121810364@foxmail.com>
-In-Reply-To: <20261025191300.1259541-1-alexyeo362@gmail.com>
-References: <20261025191300.1259541-1-alexyeo362@gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=HbTM/tPk
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=HbTM/tPk1ukSNOGklNtWQp+Au48uO6yaJH6xxvmAmpU3t30ZK/5YJJUYngnL3u76U1PvT+rySbAQx
+	 u+pYigXEmNanb8WoTBJsjuq6cklcRxn0w0JQ6nsycsJ2mGIlgrb8CO1tjeTjfet++E4lpRPsCP2/DB
+	 I7gagOsq+rUwTRUQ=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app08-12008 (RichMail) with SMTP id 2ee86adf38cdeed-ee43f;
+	Mon, 26 Oct 2026 19:26:10 +0800 (CST)
+X-RM-TRANSID:2ee86adf38cdeed-ee43f
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from FHA-W6400298 (unknown[10.55.1.71])
+	by rmsmtp-syy-appsvr01-12001 (RichMail) with SMTP id 2ee16adf38d00d3-b1450;
+	Mon, 26 Oct 2026 19:26:10 +0800 (CST)
+X-RM-TRANSID:2ee16adf38d00d3-b1450
+From: Tang Bin <tangbin@cmss.chinamobile.com>
+To: andi.shyti@kernel.org
+Cc: linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	tangbin@cmss.chinamobile.com
+Subject: [PATCH] i2c: hix5hd2: check clk_prepare_enable in runtime resume
+Date: Mon, 26 Oct 2026 19:26:08 +0800
+Message-ID: <20261026112608.2767-1-tangbin@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.52.0.windows.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,45 +68,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi Alex,
+hix5hd2_i2c_runtime_resume() ignored the return value of
+clk_prepare_enable(priv->clk), then ran hix5hd2_i2c_init() (register
+access) and returned 0. On clock enable failure the hardware is accessed
+with the clock disabled (bus hang) and the matching runtime_suspend()
+clk_disable_unprepare() unbalances the clock count. Propagate the error.
 
-Thanks for v4 and for settling the mapping =E2=80=94 cool/quiet/performance i=
-t is.
+Fixes: 9242e72aaea0 ("i2c: use dev_get_drvdata() to get private data in suspend/resume hooks")
+Signed-off-by: Tang Bin <tangbin@cmss.chinamobile.com>
+---
+ drivers/i2c/busses/i2c-hix5hd2.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-I applied this v4 to the v7.3 driver source and built it out-of-tree against
-Debian's 7.2.9 headers (the unit currently runs 7.2.9, not 7.3; the driver
-code is v4 verbatim). The 8-line CF-SV1-2 DMI entry is applied on top;
-without it the profile device does not bind on this model. BIOS V2.00L24,
-i5-1145G7.
+diff --git a/drivers/i2c/busses/i2c-hix5hd2.c b/drivers/i2c/busses/i2c-hix5hd2.c
+index 95ab910b8..90d38c478 100644
+--- a/drivers/i2c/busses/i2c-hix5hd2.c
++++ b/drivers/i2c/busses/i2c-hix5hd2.c
+@@ -486,8 +486,12 @@ static int hix5hd2_i2c_runtime_suspend(struct device *dev)
+ static int hix5hd2_i2c_runtime_resume(struct device *dev)
+ {
+ 	struct hix5hd2_i2c_priv *priv = dev_get_drvdata(dev);
++	int ret;
++
++	ret = clk_prepare_enable(priv->clk);
++	if (ret)
++		return ret;
+ 
+-	clk_prepare_enable(priv->clk);
+ 	hix5hd2_i2c_init(priv);
+ 
+ 	return 0;
+-- 
+2.52.0.windows.1
 
-  $ cat /sys/firmware/acpi/platform_profile_choices
-  cool quiet performance
 
-  target        CEFM   EPLE   read back
-  cool          0x0    0x1    cool
-  quiet         0x1    0x1    quiet
-  performance   0x0    0x0    performance
-
-The passive+unlocked combination (SEFM 1 + SEPL 0, written straight to the
-EC) reads back as custom; the ABI itself rejects custom (EINVAL) and
-max-power (EOPNOTSUPP). The values are the same through the legacy
-/sys/firmware/acpi/... interface and the class device, and writing through
-either frontend works.
-
-Suspend/resume: this unit only offers s2idle (no deep S3). quiet and cool
-both survived an s2idle cycle with CEFM/EPLE unchanged, and a profile write
-after resume still reached the EC. No errors in dmesg on load or on profile
-changes.
-
-Evidence (choices, round-trip, custom, resume logs):
-https://github.com/numuly/cf-sv1-2-platform-profile-evidence/tree/v4-test-202=
-61026/driver
-
-Tested-by: Wu Zhipeng <zepwu@foxmail.com>
-
-The CF-SV1-2 DMI entry follows as a separate patch, as you suggested.
-
-Thanks,
-Wu
 
