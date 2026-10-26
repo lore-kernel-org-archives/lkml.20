@@ -1,100 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.46
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792982115;
-	b=KmKHIqt35M3bIEo6fuC0Km7MP1Vqb7Gdd0s7SOCcqBluN1jh5WeoTcuuWnqFywyhqgX6
-	 ELZnRIfof65FHX/Bn71X9DVhkVJ7nZ/ncDRE/d6J7+Ao65VnK7hiMG4GP7uOo8ELYi/wO
-	 tG8X67qkaWM65y6qdIyrWJH3ooyEmOZZLpKzzHZSNBe/yGd9gGnkzl2dbO+srIiIsMG0x
-	 rnRbE44fV550+FY1CTZkRICD7stVGR1lINknKE3XPtVsKCLh7a3NXMZ+7tUoiv5A66tK2
-	 Z1ryefMjV56JkWC640VG9laeEH8yRYpl0FgWX/4pyITFsiRpXTc4et3tEJpplTBQQpg==
+	t=1792982176;
+	b=ZDQacYZix6NIeabeTeY85aDK6jZF2c6KbwNV0heOch1FsUUIjAaJZWD4F6amC10KxY1M
+	 0uPPgLa/WTLj3o608NQqsXSW30sIM9jDeJ6DcetBf3g7sa8AoVgoape4Y/G4fFzA7pVSX
+	 1/C4eSfUZHpnpFMqQObNDl1eM3McYtM31iB7mvBCJyMfJrcK3sM+T9zL5+NSs4nrXpPg6
+	 H8jMWCelz8yQHnY1VzYiceCBax3vpQ30PwCvKHgdMhRFTFWVT9MsZBHzWlDlmQ1iatg68
+	 g2tUSxiwhg4bFVsLeUxuD+DroNGatOEQJl2IWdmGW8BMCIY1mwUtbkBG62Yo+yxQ1kw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792982115;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792982176;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=SVVTsCxlO9RTIRg4DXefXj5kmUOCXBODmILe7eWM7i0=;
-	b=XXI2WFo77z/8uRmpcSgnznOL0EXdgNn1QIsUPHoUQS6ozUroVXIdkchMe+htn64ZEpUf
-	 06EPdV08rARY7/HzfZpM6Fqfk3M7H08/yNBzOcydutwEfLf291FUA1n4wjzUdA1tskVLL
-	 p6Hd1gVn5YnmKWz+EqmmUJbCbvzZkFgQNh2ARt+yZodN3E8B2XoPVh1x+Gz2Ma341fYNC
-	 FVXB9rJ2m7zeABt+KB+ibcNL/N1gaT1Sb3vHNtRh9pjKRFShpkFRyXgse403Xu1mV3VKz
-	 v0aaE92KByrxRwKVVqEpBjNU/upvCPOfhnk4h07RB/qVft1VuvrFLM7flcbE2KA4I7Q==
+	bh=iAk23gi97Bh3E2+QZ3E4niRePEWiOsVcJhq4RJVVZpc=;
+	b=vowRnpG3u+SwlF8bUQKPjKpfGr4VXkw/SBGAqdhiuWWoe+gOnbi+FxtycTVnUweXSOKF
+	 tb92ic2emYkAsyBoDu1Oa1pVicMDxE7piXgm57xs2nAsm1nAHHhvSmyEtUWyf7St5D+wE
+	 vjfik3+Ux3aZXMXxvY+Yl4BFVxIFBn8R+n3yDBc3JPzXQTm9nG6uZ/hjbGC415DA8VXaQ
+	 5EqaMjm0rrUdvbBb2L5V6/csi0eXYOCtX7Xj7BpwTCoCGAH0JyXt/UwTAvMBbNwh/ayzB
+	 4bjLJOLJXpfufrPyydKhvgAZqQBeD/iG5xYAn3jl3o9fOxi5LfRPyfXMcBWS9tCTfIg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="K2phesg/";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ofwUcJCk;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19614606A31D
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:35:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19614606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DBFD606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:36:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0DBFD606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=K2phesg/
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a214af2076so16885035e9.0
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 19:35:14 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792982113; cv=none;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ofwUcJCk
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-49d0da752ffso22020045e9.3
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 19:36:15 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792982174; cv=none;
         d=google.com; s=arc-20260327;
-        b=YB57gqQYQrbe3Z5n23zfORtXCZ/X1QKx05ONv00Y7JOOkslmLjkKlEfJqgZ+8fJPWT
-         e4za+Gimv+DJYCxOGvv7SFFQ3RKTji6/S1AsKvZw5M55gJ7mcmhr4lgrZgukBaP1Zx7X
-         bsQQWuSNNYorX0p+Nt76Qbx5UHQQmrYu7oc+vuwnPwTIRIUoqbHUmqBT3NsD5EFEHfYd
-         o9jUfc+jicORGV+tGgpLazPc0HHvOSd/r1rRRg4O+504jnVEtchqleaDrOt/ElkM9d4n
-         o1sK6k4aajmniEAZMwA4ChPEtxWRrI9KTcnV0QWfzzhcEbZAsLKoN9BlRY8igkqvav+g
-         54Lw==
+        b=G1djIu+9V4mvvewu6lDf9YcsjYhb4mfuR6JFxMzsokVqTRn3Q+SO/32gQN6aMDCqpF
+         gsCvT944u1YFtWLUfqUM0dDdcvpDHysJZ+9TqJkeSGCp7iNo7Gt/PRYwnQAdaKTYqiQO
+         Uzyf7H3CqNN2/AeIuGsv8HaL1DfTwzJSiC7WvLcl90jJLLmarjy0WyEjF1SQFEpa4SUO
+         /9+/ZNCKZe6MU/z+UiD7daHG0lzq8YCIfPHDELkn6hrwau4GM1foAKCsd/+xKqH6INn0
+         iHty8Qvhpn0EWBdX6aWab/42it09539OnpZKYXcDm3mqifYniwwBMeWkVYouBN5fMmzU
+         8mYw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=SVVTsCxlO9RTIRg4DXefXj5kmUOCXBODmILe7eWM7i0=;
-        fh=8R+GGyQkCTrYO5DTuaG2D+TWEZoO55FUozECLpZefig=;
-        b=ehl7FLUkQTniI289NV1ld885hHrWGHWZsle+9e+gXQjwZxL6wSa40hyKoKIjX9Bvtq
-         1mzQkRTpH3ec3NLj2ecLUfblGdgpkrbOLDNjyFHECtF3PCvNS9XOhxhJrHwlSOiCJVbp
-         tqamNnB1vMSrSACAgx6iYY6PTlG7e5uSwxf5rVedQzmxJM50WszpN3ceCWrHnyMYZKJW
-         Xc6Np8mpsTwfNTXIxu6V3xntGiIWTUVfRisE2CB/D3SDaW7dWGyQfOIaLn8t/7/u88Mj
-         ZaHOYPBVz8STI2bMOxL6aUNtx/YKdjRLRtedLp8aCikxjnGbO+Z3bof9PjaYGjmcbhl9
-         jfaA==;
+        bh=iAk23gi97Bh3E2+QZ3E4niRePEWiOsVcJhq4RJVVZpc=;
+        fh=TtginRXxUcSpR4fcsj+gg8paY8JCtsmBbUibaUSdarY=;
+        b=Gnidq980MXwtD85Se0YSQGtySK3Ok5PAKzEBStDwmHY4RZjcCXlG4xiG4y3+fIVNnV
+         1k3bK675sgoUiM2FdDER6DuPCm1MxQYnHzyCuEtr03GZl07F+eQ86SjiZ7zNImZSXY6D
+         aVw8gf5PZ5iDRD7Dqf+Cqny503Lw5OFB80IH64Zrdt3jqzGBEof7LWG5eRJ7VQfL4O7L
+         c+rDvQvVUUR46yXiH0jvGulp9nO7FTznGjQZUCw/e2mlI7wdUrBX2n1T7Ojuz3U13u6p
+         pIHfwuaCTi9UyuvimrfMOgl7SYxEfQftKo9MyMROUzK1GjAurbAxoe8OOFhBr91sSBLQ
+         /CDg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792982113; x=1793586913; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792982174; x=1793586974; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=SVVTsCxlO9RTIRg4DXefXj5kmUOCXBODmILe7eWM7i0=;
-        b=K2phesg/sIZN0vhIj2yBJgZ5baiYagV0AXyQr8gt3yKJjDeRGPKYPTWbkakh6U1u5O
-         7qZi8PQZpyg/YkRWfJ98dIUpWt8Fji/QBHBE06Pr46OyUEOaIpvOL25vbTjc+huLB2yT
-         N1fronMppT4dscAAZ2RCVymeRF4U+UnlFidG3lFGkNOxWPAKxJUnpK1QhHOSwzKf5wgL
-         NjACE1cPoZt4mC950Pkf2t+5jSXBkFWrOhxqJtLofW6mWTk1eqf+pKWupTXkGO3gHVex
-         oyO0QY+kTsDnuS1SPUxX++xDPUOtnftHvYsD+JNe8fNxACrGw50tDHAL7o7GZKWvFSfy
-         +f2w==
+        bh=iAk23gi97Bh3E2+QZ3E4niRePEWiOsVcJhq4RJVVZpc=;
+        b=ofwUcJCkVBq+dP5gJkQOnwrdg5TYbPF/qPRb0A8VwtIB5at85L1RSTwNh5W0mqDBzh
+         J94jvIwEphAGegNFqLajeAgELfmfnL/u4rzpxl2pTpINfNXVGoPhuYQwwuO2w7/sgrP1
+         OOFAoWhsonuX++lHhd4eE35U9sFcM4Pwj+1+4UcLMOGtTxmhwOM2cwOWF7ZQsyGLznPj
+         hE6d9vGLJvsrL2ZKiA+fPYsaRqnypf7MCIxWkrwR+yN1m799tfxv8lE+VOI6UH1w/BuP
+         E5pqNbTpdkCZXiiQ0PwI+o1ukeby31z5a3LOzc3OcwLMPasfHbtWc6F00stjh5oongXp
+         rVqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792982113; x=1793586913;
+        d=1e100.net; s=20260707; t=1792982174; x=1793586974;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=SVVTsCxlO9RTIRg4DXefXj5kmUOCXBODmILe7eWM7i0=;
-        b=DAxmvh4SOzrKdKFhey/OmpYz+uDgBgQKjS1ZVI/hwY4yqHk9iuyhhcTGITci2ep1yM
-         /Gh0u9jRZsPsC7zqPi0aT0eBC9tEI2A648Zqaz18z8ElCa9pjXP1K3B/FdxfxsVq19Lb
-         VPL+fvoPZfEM/XJGjjuW0N1Mbnt/1YlaaQBSEKM5/iD5KlQSeF5a90i9MeGQey0Nm2b7
-         t1pqnUq1GXvMTFf/ByxAL6oZ3Dyxu3sBo2r4ZVYfltg0Ka6Ymu7l7Rn00J687a0FPZMt
-         Q68wSrQB1wEfrB3+F1OKYbx89+eClwvYKQ0Ea7FXpFzZQFQ2IF77h8iCex8/Zr5IIf/h
-         BT1A==
-X-Forwarded-Encrypted: i=1; AKwUvBw7EMI7EoerKEyTTQDsuI51zHgCkz/Jb58oGu38y6210+w3pwwukjwZH8gSVS/qdFq/r4Q1Vnyeyog1q8o=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI8xR7dS84xTQRwBZHDxBf0TOubn02uo7yi+Vs6izDbC5Dylz+M
-	OSbHhpDqp7O10r3+sYoqgxrcmqjfM18GMcn2dogmVyFkI07oLjmLBJzixkjR03YmBwPQzm/AeHx
-	44RjenXxnHQuutk6YkcjJl6QX1BHMc00=
-X-Gm-Gg: AYBFou2j1A1IGDiPE6ONI3Qm8aIT2pWuPw98/shIxDyDLU2//KHouyK2AG46Aq3ImuB
-	rHma74WWrsA3hdCrd+Zd0bGTWlL41BSQhB1NAJ7qXIZiN6/vioziAN2tjgSmqJlvFh6bWDyOxfB
-	WAzH3Qw0yJIpQ5TcGFPCVJDFxNRG6nk+x9MsGhqDXVeM2gc66gq7iV6BG2vFHNH2lkw6ZyJJqdI
-	BOwgbPt+G9woHfWy8PLcsOn/o5RrvLedqK/HVgJO8xXNPeG1YSYvgprNP5CgkFWV4Ap9AAbrrH5
-	zsZtZG+gGcekmWLVLI40zUjntJSWtOS0v/NXRpMb2pn2eo87l1rJSub+MjS1C/uoI42KQFpGpZ7
-	Jtd3rdWCYOJgzjdyyUI4et6bL8OBx3lsVevLGwNcEZzirlh1BkO6rDauKxB3gSVfMWyZFcQ==
-X-Received: by 2002:a05:600c:4746:b0:4a3:59c9:a744 with SMTP id
- 5b1f17b1804b1-4a35ac8bb3fmr104333465e9.7.1792982113228; Sun, 25 Oct 2026
- 19:35:13 -0700 (PDT)
+        bh=iAk23gi97Bh3E2+QZ3E4niRePEWiOsVcJhq4RJVVZpc=;
+        b=DwoQNjFjH+5TS7oSUK4Ld3CL/i70CtCnEP4XhDEjxfyn6112AmgJA2ggf34bU4wFGo
+         O2YFAuRBH/YsGi1QNWyTnDbx+GMLn1eUWo74D+D2YgAdG1aHb9XiWBCBfDWo/+F+uJh/
+         GBfPyY18mA2XIFj2sT61GD7rnaZm59aqfZbEGouDsnHjwT2e25r5RHnrfqtRs2CjE1Iu
+         XsV67yps4yBdLPASEnGarxVSYfbSsV7RlQVWNRUQRKvPbtsx6Jw+TnsSColxmBmr/6U9
+         p2dpPx4FuqSaPm6NlYIKeS22Xc8qGY+B34+3mT4Ea+KYi12oLNQIkmzcpcIh4u/9tvDZ
+         FbMA==
+X-Forwarded-Encrypted: i=1; AKwUvBw3YFHZSXOL9e26SFRJUKPHtRHIpv+yIk+aXtMtdvTBhzd4qw5Bky9bDrBaTgLmnsF9itYF1ExfGyhc58w=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLfyAGOHCRyXbaqKDnnWJwyGmkeX88EjuV0bVmd8Xsju9688vav
+	TXxhZUlnmQYD2Fmpc15pntBnGqGxiJ1Ois3coKSz0w/4egjmLVvCDk/B9f22nxNBZI60jiQQNv2
+	oKO9lw3RcY+rIo/MOEMBjuQ4+TzPXLqs=
+X-Gm-Gg: AYBFou3icezjP4cgxFVzbF/wN8KvnPiQhCL4hQF0AQNEP1zcZi0lVciyfCKbMzSi8c1
+	E4F9sjWOTeJnNXZZNWTO10KXe315P4effIC4iVTVrG+/l6sKCmw4Lcf5JwY2qrCNb8kVH+WwXO7
+	ns0/7EK2cF7KYI5HMuIWjWQcMAvjLTIVj1Uw3pG3Mfuzp5j2KrjzdwLjY/fMWE4gFgE+7wZww3q
+	8/cgcCgjMmfx1McmUpbyBQ0fJwD5yrhha39ONktp3rI78s8Jv4f2nSJBr/bgOoHTaKlfUZ1pn6U
+	dKbQsm8shfDbRw4Q9b+HSHG12TCkeKPigqPgv5kILjamU5xMIcAtBCSNeoQ0jeRgtbFjUeBpPba
+	KxPdpqxA5t/wIEKr91XIa+DzvwTawpxsGPMX88bsEQHk/DuyXNCCKSR0TBTWP+oIV2Pm8MHEj
+X-Received: by 2002:a05:600c:3e86:b0:4a2:cbe:bebc with SMTP id
+ 5b1f17b1804b1-4a35aca5f94mr95517015e9.23.1792982174353; Sun, 25 Oct 2026
+ 19:36:14 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,14 +105,13 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 References: <20261023101841.2910719-1-kunwu.chan@gmail.com>
- <20261023101841.2910719-8-kunwu.chan@gmail.com> <60e6148e-b7e1-4f2f-a665-24567305956f@paulmck-laptop>
- <b5c84b27-5e66-44f1-b95a-d7c1655df69d@paulmck-laptop>
-In-Reply-To: <b5c84b27-5e66-44f1-b95a-d7c1655df69d@paulmck-laptop>
+ <20261023101841.2910719-10-kunwu.chan@gmail.com> <cdd3f35d-9e9a-4b87-bea7-59ff3e1a7390@paulmck-laptop>
+In-Reply-To: <cdd3f35d-9e9a-4b87-bea7-59ff3e1a7390@paulmck-laptop>
 From: KunWu Chan <kunwu.chan@gmail.com>
-Date: Mon, 26 Oct 2026 10:35:02 +0800
-X-Gm-Features: AclHuK9c9zrzG9Nt-ZVNvTMCRDudA2gvPQD-2SIBWE5m7zqo9uzPr4bzScrDxIY
-Message-ID: <CAN_Opa9MvTvLemY5DYNHu-yXy9xZvJJiLXigknP-qM=bK0Xw7w@mail.gmail.com>
-Subject: Re: [PATCH 7/9] srcu: Detect duplicate callback enqueue at registration
+Date: Mon, 26 Oct 2026 10:36:02 +0800
+X-Gm-Features: AclHuK-dNDX8dRPchF6C9mpMkMHM9t09-8qvMf53mQYiOJQpdnXUdDfEsPaIb0s
+Message-ID: <CAN_Opa_eWF27jfz_HfXjUEw_raQb-j8Q1TMHLr9cx0P=N2-s6Q@mail.gmail.com>
+Subject: Re: [PATCH 9/9] rcu-tasks: Detect duplicate callback enqueue
 To: paulmck@kernel.org
 Cc: jiangshanlai@gmail.com, josh@joshtriplett.org, work@onurozkan.dev, 
 	frederic@kernel.org, neeraj.upadhyay@kernel.org, joelagnelf@nvidia.com, 
@@ -122,137 +121,86 @@ Cc: jiangshanlai@gmail.com, josh@joshtriplett.org, work@onurozkan.dev,
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Thanks Paul for the detailed review.
-
-On Sat, Oct 24, 2026 at 3:38=E2=80=AFAM Paul E. McKenney <paulmck@kernel.or=
+On Sat, Oct 24, 2026 at 3:31=E2=80=AFAM Paul E. McKenney <paulmck@kernel.or=
 g> wrote:
 >
-> On Fri, Oct 23, 2026 at 12:30:57PM -0700, Paul E. McKenney wrote:
-> > On Fri, Oct 23, 2026 at 06:18:39PM +0800, Kunwu Chan wrote:
-> > > Move the duplicate-callback check from srcu_do_enqueue() to
-> > > __call_srcu() entry so that detected duplicate registrations
-> > > are rejected before they reach the deferred-list enqueue path.
-> > > Report the callback address, function symbol, and object
-> > > information, rate-limited to the first three occurrences.
-> > >
-> > > Signed-off-by: Kunwu Chan <chentao@kylinos.cn>
+> On Fri, Oct 23, 2026 at 06:18:41PM +0800, Kunwu Chan wrote:
+> > Detect duplicate callback enqueue attempts in the generic
+> > RCU Tasks callback registration path.
 > >
-> > Getting the stackof the call_srcu() once double-enqueue is detected
-> > would be a very good thing!
-> >
-
-I'm also working on the rcutorture support and will send it out separately.
-
-> > One question below.
-> >
-> > > ---
-> > >  kernel/rcu/srcutree.c | 20 ++++++++++++++------
-> > >  1 file changed, 14 insertions(+), 6 deletions(-)
-> > >
-> > > diff --git a/kernel/rcu/srcutree.c b/kernel/rcu/srcutree.c
-> > > index 1993ddbdb828..3838d9fdf532 100644
-> > > --- a/kernel/rcu/srcutree.c
-> > > +++ b/kernel/rcu/srcutree.c
-> > > @@ -27,6 +27,7 @@
-> > >  #include <linux/smp.h>
-> > >  #include <linux/delay.h>
-> > >  #include <linux/module.h>
-> > > +#include <linux/mm.h>
-> > >  #include <linux/slab.h>
-> > >  #include <linux/srcu.h>
-> > >
-> > > @@ -1511,12 +1512,6 @@ static unsigned long srcu_gp_start_if_needed(s=
-truct srcu_struct *ssp,
-> > >  static void srcu_do_enqueue(struct srcu_struct *ssp, struct rcu_head=
- *rhp,
-> > >                         rcu_callback_t func, bool do_norm)
-> > >  {
-> > > -   if (debug_rcu_head_queue(rhp)) {
-> > > -           /* Probable double call_srcu(), so leak the callback. */
-> > > -           WRITE_ONCE(rhp->func, srcu_leak_callback);
-> > > -           WARN_ONCE(1, "call_srcu(): Leaked duplicate callback\n");
-> > > -           return;
-> > > -   }
-> > >     rhp->func =3D func;
-> > >     (void)srcu_gp_start_if_needed(ssp, rhp, do_norm);
-> > >  }
-> > > @@ -1529,6 +1524,8 @@ static void srcu_do_enqueue(struct srcu_struct =
-*ssp, struct rcu_head *rhp,
-> > >  static void __call_srcu(struct srcu_struct *ssp, struct rcu_head *rh=
-p,
-> > >                     rcu_callback_t func, bool do_norm)
-> > >  {
-> > > +   static atomic_t doublefrees;
-> > > +
-> > >     /* Misaligned rcu_head! */
-> > >     WARN_ON_ONCE((unsigned long)rhp & (sizeof(void *) - 1));
-> > >
-> > > @@ -1539,6 +1536,16 @@ static void __call_srcu(struct srcu_struct *ss=
-p, struct rcu_head *rhp,
-> > >     if (WARN_ON_ONCE(ssp->srcu_reader_flavor =3D=3D SRCU_READ_FLAVOR_=
-ATOMIC))
-> > >             return; // Leak the callback rather than corrupt SRCU sta=
-te.
-> > >
-> > > +   if (debug_rcu_head_queue(rhp)) {
-> > > +           if (atomic_inc_return(&doublefrees) < 4) {
-> >
-> > Why this hard-coded 4?  Why not 3 or 5?  Should this be adjustable via
-> > Kconfig or kernel boot parameter?  Or, alternatively, should the below
-> > pr_err() instead be pr_err_ratelimited()?
-
-Regarding the hard-coded limit, I followed the existing code in tree.c when
-choosing 4. Thanks for pointing this out. I'll switch to pr_err_ratelimited=
-()
-in v2 and make the same change in tree.c as well, so the two paths are
-consistent.
-> >
-> > > +                   pr_err("%s(): Duplicate call_srcu() CB %p->%pS()\=
-n",
-> > > +                          __func__, rhp, rhp->func);
-> > > +                   mem_dump_obj(rhp);
-> >
-> > Does any of this automatically dump out the stack that was recorded
-> > in earlier patches in this series?
+> > Signed-off-by: Kunwu Chan <chentao@kylinos.cn>
 >
+> And the same questions for this patch as well.  ;-)
 
-I'll also add dump_stack() to all three duplicate-enqueue patches
-to capture the current stack when a duplicate is detected.
-
-> As in shouldn't there be a kasan_print_aux_stacks() in there somewhere?
-> I did not see an call from mem_dump_obj(), but I could easily have
-> missed it.
->
-
-As for kasan_print_aux_stacks(), as mentioned in my reply to patch 1,
-it is called by the existing KASAN report path, which prints the auxiliary
-stack recorded by patches 1-3. It does not need to be called directly
-from these patches.
+Same changes applied: pr_err_ratelimited() and dump_stack.
 
 Thanks,
 Kunwu
 
+>
 >                                                         Thanx, Paul
 >
-> > > +           }
-> > > +           WRITE_ONCE(rhp->func, srcu_leak_callback);
-> > > +           return;
-> > > +   }
-> > > +
-> > >     /* Record the caller: the irq_work's stack says nothing about it.=
- */
-> > >     kasan_record_aux_stack(rhp);
-> > >
-> > > @@ -1554,6 +1561,7 @@ static void __call_srcu(struct srcu_struct *ssp=
-, struct rcu_head *rhp,
-> > >             if (READ_ONCE(sndp->draining) && !in_nmi()) {
-> > >                     WARN_ONCE(IS_ENABLED(CONFIG_PROVE_RCU),
-> > >                               "call_srcu() re-entered during callback=
- drain; leaking callback\n");
-> > > +                   debug_rcu_head_unqueue(rhp);
-> > >                     return;
-> > >             }
-> > >             sdp =3D this_cpu_ptr(ssp->sda);
-> > > --
-> > > 2.43.0
-> > >
+> > ---
+> >  kernel/rcu/tasks.h | 15 +++++++++++++++
+> >  1 file changed, 15 insertions(+)
+> >
+> > diff --git a/kernel/rcu/tasks.h b/kernel/rcu/tasks.h
+> > index 5d7f234795b4..49b716feb31d 100644
+> > --- a/kernel/rcu/tasks.h
+> > +++ b/kernel/rcu/tasks.h
+> > @@ -6,6 +6,7 @@
+> >   */
+> >
+> >  #ifdef CONFIG_TASKS_RCU_GENERIC
+> > +#include <linux/mm.h>
+> >  #include "rcu_segcblist.h"
+> >
+> >  //////////////////////////////////////////////////////////////////////=
+//
+> > @@ -339,9 +340,12 @@ static void call_rcu_tasks_iw_wakeup(struct irq_wo=
+rk *iwp)
+> >  }
+> >
+> >  // Enqueue a callback for the specified flavor of Tasks RCU.
+> > +static void rcu_tasks_leak_callback(struct rcu_head *rhp) { }
+> > +
+> >  static void call_rcu_tasks_generic(struct rcu_head *rhp, rcu_callback_=
+t func,
+> >                                  struct rcu_tasks *rtp)
+> >  {
+> > +     static atomic_t doublefrees;
+> >       int chosen_cpu;
+> >       unsigned long flags;
+> >       bool havekthread =3D smp_load_acquire(&rtp->kthread_ptr);
+> > @@ -358,6 +362,16 @@ static void call_rcu_tasks_generic(struct rcu_head=
+ *rhp, rcu_callback_t func,
+> >       if (WARN_ON_ONCE(!func))
+> >               return;
+> >
+> > +     if (debug_rcu_head_queue(rhp)) {
+> > +             if (atomic_inc_return(&doublefrees) < 4) {
+> > +                     pr_err("%s(): Duplicate call_rcu_%s() CB %p->%pS(=
+)\n",
+> > +                            __func__, rtp->name, rhp, rhp->func);
+> > +                     mem_dump_obj(rhp);
+> > +             }
+> > +             WRITE_ONCE(rhp->func, rcu_tasks_leak_callback);
+> > +             return;
+> > +     }
+> > +
+> >       rhp->next =3D NULL;
+> >       rhp->func =3D func;
+> >       local_irq_save(flags);
+> > @@ -586,6 +600,7 @@ static void rcu_tasks_invoke_cbs(struct rcu_tasks *=
+rtp, struct rcu_tasks_percpu
+> >       raw_spin_unlock_irqrestore_rcu_node(rtpcp, flags);
+> >       len =3D rcl.len;
+> >       for (rhp =3D rcu_cblist_dequeue(&rcl); rhp; rhp =3D rcu_cblist_de=
+queue(&rcl)) {
+> > +             debug_rcu_head_unqueue(rhp);
+> >               debug_rcu_head_callback(rhp);
+> >               local_bh_disable();
+> >               rhp->func(rhp);
+> > --
+> > 2.43.0
+> >
