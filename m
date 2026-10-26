@@ -1,90 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793000409;
-	b=PUnTRdtOcWU4s4S6D6t7tLFhJ9i4umrb1jK57fQkmkfOMJfZPJnyf22T8NsLRyzACPbn
-	 aNNrMrA8rfykL7fZV6IZl/UtbZM39mKwOXkzGrCQKtlz77s9Zip/p6TTWsXWc4dZ8ZWxj
-	 6rAE0jWgwi++o6aF0YxgnwjJvMGqqpYh1CypH2HsKVxd239vpe+OnT+rqLQNonTqWqY5V
-	 vjWNHINuLYyPCmefvNfBqxrKckA8T1EJ0Xreys46vQVdvsBIYPtBN5Cs881Ya5torG8FT
-	 cDau8oH9pTRqAB8IqM2TGeBzTgAodWOpG+q3C56mTDVLOmqMtNWKuf4Cpc1FR2JYYEw==
+	t=1793000425;
+	b=B9+8pj7s/rfssdBZG8awK7Fsbath2oL1f2+rCgI265RGpxrXBq5OeC7bu5EsKro2iDQe
+	 50pO6RfB8gynZfL0+QITvoRAptKH1DldcmLdePrLoq9HYvi/Pgy+CosW6+P+zJb3X+lUb
+	 iG29KbbMtKABu1VSporIBn88zL+HRc86VLJ5Lvf26NnH3sBYvCKPatHT4u72M1J8Xe15N
+	 Vvo0FMXVDwSuA+jue83DJmsRmNL+ZW3wSOTbMNP7No1XZIqf1FCamt25XfR5m2T+jVNdO
+	 mPpty1brmmZaTNqGMrrrDGme5P6iqzeR956OezmusQxQ2WoJMD/wgch9TTAanRQow3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793000409;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=ii4dJpXYne4C2QVhe7tUkpX1jXXey1W0Pmp0/lKBrNY=;
-	b=O2XhpVGe4dDE3ed2dYQLOQRoz2QKW0met6Hfe415l149dR+rlfn2xiZzCvXNXHQZ09NU
-	 TysH2N6II/6kMsUlkOA/D4DGnKm5PGG2FYuLx48siZn2A9yiHLCiKz9RpJ9PN1jAHdJ6P
-	 GasheM0r3z/uoN8xFuo0e374eQ6kbKXNEPlLFEWpW12A0Nm+F3QULUIJKCWaVrTobue8/
-	 SuvlntXwv3Qm22agRIJzeINSvRtTmhODVgw2P7trspv8KqoFhmsBlTctc3K220Cxs1eAi
-	 V2lhU91pu7ch6haCHx3k1DOLlrQwrDpPOPLyTCVsXeEVH8hfJjw2AQ8qqB5cUT4+eYg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793000425;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=8T10hJCk/kOeswwpJvKXMYFyC3jypKOiaTvB8IF5Fd0=;
+	b=Ts0RDjAsNbgW1K1Wzxs2ibsVSgEzqBpEuyyPH0J+8IVQERT3c4lYx0S9ZHsQ8/4EWmvo
+	 K6vel86Jjz/xSJh44pVpTNbw6BN3INHa32GteeOg9uDFWZJKN32yxhcPeQeqs+BckLDAY
+	 We+6V5PsUz8JyPfc9ZbGwnVQSKmhjoR/u8OAmzcBwWIZR/wmJJqwfJIVnnQ81STaEfGgr
+	 9q7twF56oYH44S8XF+NoX6oPGF2L7bg1rmWFGYt58jtpse7URXdoFDT4PPtnBaRJPiuQz
+	 ncHPXAqK8diBXA69H99osv1faeuCuc6XsN9w0pQ5qeU9b+ZBRw4sh4VmB38YkFJvdtw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=tLP+lhRN;
-	arc=none smtp.remote-ip=209.85.128.50
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nnbEAEi9;
+	arc=none smtp.remote-ip=198.175.65.19
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5869606A31B
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 07:40:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5869606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55F7E606A31F
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 07:40:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55F7E606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=tLP+lhRN
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a5b2be99a8so5817935e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 00:40:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793000407; x=1793605207; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ii4dJpXYne4C2QVhe7tUkpX1jXXey1W0Pmp0/lKBrNY=;
-        b=tLP+lhRNLkDTOXo2paHqdLLRFvGlrnIePJnkhSxHWoMNGbkJ6iTI32WKYZbLGkHNvY
-         oyaOGy7MqoGWa9Aov1dMT7M4e6aXNSbSk8JWMk4uY3wUaxYZh9lRwdU0tm0rKHcUGHwq
-         55BNpKu5Nzr6qKexNGplRMa/7LYH+yx0Ed61UCPm1m4QJQ6dB9Rlvc0lPl1iCmpoLiYv
-         S3pfjL4yw3NHi44HO3nOvv1b0N9HD6WHhRK4hYx6O+Zsiw2Fb1yhY8JlXWnVUY/UvAZD
-         GkndLv4JQQQuiw9v75k4aOy0QPx+7Xuj11osBNuVu3Hl78kwxmVg2ElcHSqYLoKbEU1n
-         jHyA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793000407; x=1793605207;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ii4dJpXYne4C2QVhe7tUkpX1jXXey1W0Pmp0/lKBrNY=;
-        b=dVDRkHFatprqCPeAnFwdyeo9tur2WlE2Ge0zFlK4VUaggpRGXl1oQ7fFgcHToL8Kkg
-         gJ7KolghjQZ9cSB4JlkGvZ1jO+gQ5g3Ft87Wf3smzYEg9xLbFjXJguUvjFN2n6Am+9q+
-         UEuWFVSDbFM9FXYkkz7/SRUyNMIQVoob4ozYDBZMzzxBtbCynBGhbjyu6TTmNT67zVmu
-         qBsiAHYT+EwlBlWPhOMIsKUck+tOs5jV/OUSfk2BZzvBSpujh6T2tmF3PlAqiWglNgaP
-         l41aSivbMYu1J2pF/CqmyWfjrfDJT+4di679P1Yr7A+xV4sIQe0KA7luE07ku5Zsw4uh
-         A7DQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwbLSxA8f7dNNoSR4avmJ3Ww+neh4xYMK6cVmg7bVBQaH7c3ZwAuZ7FDdtCkVwipK/1hodhBfaUPKq2wYk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKvP+2fB7/kWXL6/74x84TI+P8WVgWoFTncD9P4REwgJ3SDVIF4
-	O1WerUovvYMCm01nGw1vOLAIEmDbffiLQcJedyG6iqXc+C6y+Z+Z1vz0
-X-Gm-Gg: AYBFou0GwarvR7xTaXtxiJx3Jar19y4r8f5dCxQW6aeqPiDg3D+bCUaD33IH5ndrkyZ
-	xv3rhYYqb7Ck+kuQA/op4UisPkhTzh5nDmWInGe/0Ms1DZXxFZmii04K0iCiqUw2DBDtrik4+8I
-	IHNVuCv2bxBxYV5hCJ6CzQ4evn2ISkkdOIzTJx0pkrmdw7fwEyelg1w1dQxqvNOVb2iXHvaGYZk
-	WwRXDYPiyDeZuF7AiVcaPfFMm4TpO9jpzmIG8nuYSQmqXoeIQ20ufob+nOz3c6C1I0O1fhNpU51
-	MrasperwvOamURPwn9YcsnSY+5wCNuKQ5YTRU6wjygYS+kcc27oHV3WGmqUnB4INDzAaeH0afDA
-	Wy14NqeGq5AiBdVLYQ2uLT3t50O2Prv9juBWiUeYLhzIEVoBdm89z63dBOpp4y/W/xQGLDCiJMn
-	hWHjPRoV9IXjVvQb711eWNtOJAqg0V5Cz5XlgorcFDfj/7tQqv/OReC9FhnML+eFWZWBQI1oFOD
-	ifqrcwlZfo5wTny1dq4tQnB55XS5cJ4yj2+qvMdYtBhCpF4fVzP/hkQTIPunuqRxbLxZAFG
-X-Received: by 2002:a05:600c:8591:b0:4a5:26b8:4507 with SMTP id 5b1f17b1804b1-4a526b84dc3mr46077005e9.21.1793000406964;
-        Mon, 26 Oct 2026 00:40:06 -0700 (PDT)
-Received: from localhost.localdomain ([2a06:c701:4778:c500:4409:7786:c809:2fc3])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebcb902sm15319939f8f.24.2026.10.26.00.40.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 00:40:06 -0700 (PDT)
-From: Avi Weiss <thnkslprpt@gmail.com>
-To: Thomas Gleixner <tglx@kernel.org>
-Cc: Radu Rendec <radu@rendec.net>,
-	Sebastian Andrzej Siewior <sebastian@breakpoint.cc>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] genirq/spurious: Recognize handled IRQs with threaded wakeups
-Date: Mon, 26 Oct 2026 09:40:04 +0200
-Message-ID: <20261026074003.2805797-2-thnkslprpt@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nnbEAEi9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793000423; x=1824536423;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=FF+d8a+jtwAMDOrVTY9A6IFopNqIDLwibtD5Fx43VvI=;
+  b=nnbEAEi9Inq56yugrWuqaObVZIhR6pGyACiWoT5EAgK5QC3kc2G5SyH4
+   vgWvKiA4E1hWAcyVvaPXgC7VZCnyratx2d+FtC0gxbentZg4KuyKgpQ+V
+   xwE3gw5ez//jJ9VS9duunTrXBW2m9y+M39zMEn1BzrpYvgcbW5bEpV3TI
+   qNPRT96otXfOBF8ZBSt99tajJt65E+WR6PArrayVzWnGIUdZWuWQSeZMk
+   8zFIT3ye26JEfWVWwbBItzOc9K5NQYWngwXvgmXVW6mhkPcQq6UBa1n62
+   FVPAJgkM3dr+K9US1OqCYNcwiqKjk3kQRI21kv+7H3ih9FvPeCsAAtokF
+   g==;
+X-CSE-ConnectionGUID: hG7R1pUGQGahpjvxEZllHA==
+X-CSE-MsgGUID: 3RxcdryvQJ+S2n8TUfs/ow==
+X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1688872"
+X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
+   d="scan'208";a="1688872"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 00:40:01 -0700
+X-CSE-ConnectionGUID: DjBsxKTBQXO/9JG9HEZ0+w==
+X-CSE-MsgGUID: 6Yc3T8mTSw2tB+o/Hk3RNg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
+   d="scan'208";a="4579501"
+Received: from unknown (HELO [10.238.0.97]) ([10.238.0.97])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 00:39:57 -0700
+Message-ID: <bc2fc3a1-b2e0-4262-bced-40211db5f0df@intel.com>
+Date: Mon, 26 Oct 2026 15:39:53 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,48 +72,105 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 14/15] x86/tdx: Add TDG.DMAR.ACCEPT module call
+ wrapper for TDX Connect
+To: Zhenzhong Duan <zhenzhong.duan@intel.com>, x86@kernel.org,
+ linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org
+Cc: dave.hansen@linux.intel.com, tglx@kernel.org, mingo@redhat.com,
+ bp@alien8.de, hpa@zytor.com, dave.hansen@intel.com, kas@kernel.org,
+ rick.p.edgecombe@intel.com, jgg@nvidia.com, nicolinc@nvidia.com,
+ aik@amd.com, aneesh.kumar@kernel.org, seanjc@google.com,
+ pbonzini@redhat.com, yilun.xu@linux.intel.com, chao.gao@intel.com,
+ vishal.l.verma@intel.com, kevin.tian@intel.com, chao.p.peng@intel.com
+References: <20260924041032.1096569-1-zhenzhong.duan@intel.com>
+ <20260924041032.1096569-15-zhenzhong.duan@intel.com>
+Content-Language: en-US
+From: Xiaoyao Li <xiaoyao.li@intel.com>
+In-Reply-To: <20260924041032.1096569-15-zhenzhong.duan@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-try_one_irq() compares the result of handle_irq_event() with IRQ_HANDLED.
-For shared IRQs, one handler may return IRQ_HANDLED while another
-returns IRQ_WAKE_THREAD. The combined result fails the equality check,
-so misrouted IRQ recovery does not credit an interrupt that was handled.
+On 9/24/2026 12:10 PM, Zhenzhong Duan wrote:
+> TDG.DMAR.ACCEPT updates the PASID table entry of the TDI as present to
+> allow DMA access to the TD private memory.
+> 
+> For TDG.DMAR.ACCEPT, the R8-R15 input registers are reserved and must
+> be zero. Use a zero-initialized argument structure with __tdcall_saved()
+> so the complete TDCALL input register set is loaded with the required
+> values.
+> 
+> Translate TDX module return codes into Linux errno values.
+> 
+> Signed-off-by: Zhenzhong Duan <zhenzhong.duan@intel.com>
+> ---
+>  arch/x86/coco/tdx/tdx_connect.c   | 28 ++++++++++++++++++++++++++++
+>  arch/x86/include/asm/shared/tdx.h |  1 +
+>  arch/x86/include/asm/tdx.h        |  1 +
+>  3 files changed, 30 insertions(+)
+> 
+> diff --git a/arch/x86/coco/tdx/tdx_connect.c b/arch/x86/coco/tdx/tdx_connect.c
+> index 3ef10b1df401..a03b1da9a52a 100644
+> --- a/arch/x86/coco/tdx/tdx_connect.c
+> +++ b/arch/x86/coco/tdx/tdx_connect.c
+> @@ -136,3 +136,31 @@ int tdx_mcall_tdi_start(u64 func_id, u64 exp_bind_session)
+>  	return tdx_mcall_tdi_to_errno(ret);
+>  }
+>  EXPORT_SYMBOL_FOR_MODULES(tdx_mcall_tdi_start, "tdx-guest");
+> +
+> +/**
+> + * tdx_mcall_dmar_accept() - Accept PASID table entry of a TDI instance
+> + * @func_id: Function identifier specifying the TDI instance
+> + * @target: DMAR target, 0 for non-partitioned TD or L1, 1-3 for L2 VM1-VM3,
+> + *          other value reserved
+> + *
 
-Check the IRQ_HANDLED bit instead. Leave IRQ_WAKE_THREAD-only results
-unchanged.
+Linux doesn't support TD partition and the next patch just hard codes it to 0.
+We can drop it entirely for simplicity.
 
-Fixes: 3a43e05f4d06 ("irq: Handle spurios irq detection for threaded irqs")
-Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
-
----
-Tested with simulated shared IRQ handlers under QEMU using
-irqfixup=1 on Linux 7.3.0-rc5+.
-
-The unhandled counts for IRQ_NONE, IRQ_HANDLED, IRQ_WAKE_THREAD,
-and the combined result were 1/0/1/1 before the fix and
-1/0/1/0 afterward (as expected).
-
-Both primary handlers and the IRQ thread executed in the mixed
-case before and after the patch.
-
- kernel/irq/spurious.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/kernel/irq/spurious.c b/kernel/irq/spurious.c
-index 73280ccb74b08..48d3ef35e763f 100644
---- a/kernel/irq/spurious.c
-+++ b/kernel/irq/spurious.c
-@@ -68,7 +68,7 @@ static bool try_one_irq(struct irq_desc *desc, bool force)
- 	/* Mark it poll in progress */
- 	desc->istate |= IRQS_POLL_INPROGRESS;
- 	do {
--		if (handle_irq_event(desc) == IRQ_HANDLED)
-+		if (handle_irq_event(desc) & IRQ_HANDLED)
- 			ret = true;
- 		/* Make sure that there is still a valid action */
- 		action = desc->action;
-
-base-commit: e74798f2f8e1562f2bbd2fed8d81929eeef39ffc
--- 
-2.43.0
+> + * Update the PASID table entry of the TDI to mark the DMA Remapping (DMAR)
+> + * state as present, allowing DMA access to the TD private memory.
+> + *
+> + * Return 0 on success, -ENXIO for invalid operands, -EBUSY for busy operation,
+> + * -ENODEV for TDI not present or invalid metadata, or -EIO on other TDCALL failures.
+> + */
+> +int tdx_mcall_dmar_accept(u64 func_id, u64 target)
+> +{
+> +	struct tdx_module_args args = {
+> +		.rcx = func_id,
+> +		.rdx = target,
+> +	};
+> +	u64 ret;
+> +
+> +	ret = __tdcall_saved(TDG_DMAR_ACCEPT, &args);
+> +	if (!ret)
+> +		return 0;
+> +
+> +	return tdx_mcall_tdi_to_errno(ret);
+> +}
+> +EXPORT_SYMBOL_FOR_MODULES(tdx_mcall_dmar_accept, "tdx-guest");
+> diff --git a/arch/x86/include/asm/shared/tdx.h b/arch/x86/include/asm/shared/tdx.h
+> index 90f2842f4253..01387f6b24b3 100644
+> --- a/arch/x86/include/asm/shared/tdx.h
+> +++ b/arch/x86/include/asm/shared/tdx.h
+> @@ -22,6 +22,7 @@
+>  #define TDG_VM_WR			8
+>  #define TDG_TDI_READ			67
+>  #define TDG_TDI_START			68
+> +#define TDG_DMAR_ACCEPT			70
+>  #define TDG_MMIO_ACCEPT			71
+>  
+>  /* TDX TD attributes */
+> diff --git a/arch/x86/include/asm/tdx.h b/arch/x86/include/asm/tdx.h
+> index 787b3039ef5a..118cc58cc909 100644
+> --- a/arch/x86/include/asm/tdx.h
+> +++ b/arch/x86/include/asm/tdx.h
+> @@ -157,6 +157,7 @@ u64 tdx_hcall_tdcm(u16 devid, void *buf, size_t size, u8 vector);
+>  int tdx_mcall_tdi_read(u64 func_id, u64 field, u64 *value);
+>  int tdx_mcall_mmio_accept(u64 func_id, u64 index, u32 pg_offset, u32 page_cnt, phys_addr_t gpa);
+>  int tdx_mcall_tdi_start(u64 func_id, u64 exp_bind_session);
+> +int tdx_mcall_dmar_accept(u64 func_id, u64 target);
+>  #endif
+>  
+>  void __init tdx_dump_attributes(u64 td_attr);
 
