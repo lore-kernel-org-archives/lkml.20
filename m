@@ -1,102 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.217.53
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793050952;
-	b=It7fUqjB5+UOyio2Kp3gN7+tJCDW4uH+m+GYp1mihPVhqwhWHQcVCT/IhJ4YQOtG48aV
-	 iOuMSh8MsLc2goFFUCowBOp4/cfFk60pQwVDSSy1ITd2+e+NUZJ0dNoweUbyYUJ6TSiIV
-	 NrPFU0EghDxmM8sAm59EeU0pqlkNteky2G6SHJTpwB3DNM9ZDL/SmfkMSlfeFXXcNZft5
-	 UBNyfA+sA3EBv81ru4Jl9DWvvXbHg2zpE67gM5XL4N6PblCOrSwi1yoAT7EDx2YBaWofa
-	 pZpn8UQaXvu4r4rVYZj30FktmFcphEoOcQmxaHRWvTa/F5kWa16MSLuPtrRVqQ9RN7Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793050952;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=ZjI2lcwuDm0dzr2macE/psmDs5xURkLGTFGCf/yYSiE=;
-	b=gGcaK/rm6RCZp/KDiMHr0KoHsiSDwue9dcv4SPiyWwj2GQb7haxH5EHJ66BnLzxUkoF8
-	 G+nasGHK4SYXP7qepEQZI5X8oLUIbJBvOPiZJSLrEL2kZjqokcy1zlzljmN4WgGX0Jx9X
-	 FOIuzCQVJo3wcJd/+2HXocUIuMH7Z+s3vSldQ1YtNhd6FeCQJzXzsoDq4+LpR1OCw9Rif
-	 noa49GoG5i2mBPx0J2oP6LbrKeS8NchTLyzHgKCHorZ/Hn+8H5RufJdnKjNNgSL770rQj
-	 pjW1NCYceNKDc1/H6tGQUNcmspIskNrZrv42mt3CWNbfDadix7E7Vzd5ckm+da4fMDg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ha59ykEu;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.217.53
-Received: from mail-vs1-f53.google.com (mail-vs1-f53.google.com [209.85.217.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.139.117
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793050996;
+	b=seFQNpc6GylUq7oPq7HEMv9jmtAAQ0UCJus4pIAx+O0teidgTtJYwn1LoHs9Pe/Abuna
+	 ge/diJWM7vbcP0M6cNGsI0+5ed21e9/VCUctrYDpxQou+3l022Hwz47RBgp9q2bv5Jt2f
+	 F0sk6DCCtH7ea+p4tk3qTL4tE27dgbrlvzMODOVAjKb1bnXagnlokqEUptgS8ENnbBeOX
+	 NdPa7hrRuKNe3uIRZ0WdTp9wkloqJcbJHReQqpnNh2U47LpBi7yo96V081Fp5264zyLgi
+	 Oq2OxCrxfi078f99qGDWtp0VBNGhaoVMMiz6un1yPLj8sO2YbOqYzv5cu0lsIceZXWA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793050996;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:Received:Received:Received:Date:
+	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=0Lq4a/V8mDm6FCGgdk05nU9bT6DX1rNy3nB4AjBmimk=;
+	b=qWamf3eZGgS0qxVw1ExzmXq5bBSNQTWyJZfHAmZk7n/+jA+8AxshuebnRxUFAm9BPk0C
+	 2wrsTIhn/xgY2gjq9hIjSVb5wKehxliMEBn4Ho7VQoeNTvR04i2TpvMMGuE0bScDOivXD
+	 X34ScF7XShuU0UJn0aIqtDkJTLRQ05+NNg50sEX7cgRmB49zY+f9FLbkHj39vqcit5x8X
+	 8Y7OPCV+O5+A/fOWpqjdDVASMNnbJqWPnUujZTVvIBU7Ia9BnCm1v7dijdoxExvFnTEGX
+	 ej/DV1SRVpgFpWTSrHrzrsYnoqoRch1ffx1VX6KSY439166i2adpkyw37mULxUKkffQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=fujitsu.com;
+	spf=pass smtp.mailfrom=fujitsu.com;
+	dkim=pass header.d=fujitsu.com header.i=@fujitsu.com header.a=rsa-sha256 header.s=fj2 header.b=fFqDVruR;
+	arc=none smtp.remote-ip=68.232.139.117
+Received: from esa4.hc1455-7.c3s2.iphmx.com (esa4.hc1455-7.c3s2.iphmx.com [68.232.139.117])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7EEE606A31D
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 21:42:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7EEE606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C4A0606A31B;
+	Mon, 26 Oct 2026 21:43:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C4A0606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fujitsu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ha59ykEu
-Received: by mail-vs1-f53.google.com with SMTP id ada2fe7eead31-7cc3eb09dd2so654636137.2
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:42:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793050951; cv=none;
-        d=google.com; s=arc-20260327;
-        b=DO/Mf9JWaI/NerSZ9OdFKNI1/RxGDHj5De29FpA4DyQxdxom/gEnOceGFGAnlVj3zR
-         FNhRfzJEWCIaGwDF58MES4XMzn/8mebSXwocCsGIbha4SGBJC6Yr09zQeI4VfgtlIbB8
-         zXSABNq5+kcM0Jy/MOzKG7HPpPS/UQzDV/H0fNIQ1x78Pgkii89B+8SSzalBRaVaFpaI
-         sGrc2L552cuLt/RGqEQv5OXconThKuUK1HeZdsJfPusw06Fk1aNUYEBGlbHpHa01AwEg
-         N2z4QhgfcuVJNuogHueyT++PN+cN6WBRm/IWWlntgQOmqo1XvYmXxloVbPaiqVYaKUXP
-         YdEA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ZjI2lcwuDm0dzr2macE/psmDs5xURkLGTFGCf/yYSiE=;
-        fh=DDJaY2vucZ9Cu/CssZyElBpTgmqpnErfb1MSilJfqCs=;
-        b=rVov0N96cAFqWb7Nzf2gECuvBgsjKP8oFkV5DRRD9j1xbkhF5QsFgUw1YbpZerT6m+
-         NMJg3PuAiNtBYye6v4tPdtV0v9ZrDysio9AcjtCltxXMvxbz4JQmkZL3fz+HWtz3ozrZ
-         i+fJnT2XlrTT8wX5LPrsb7rvpHUMbGPL8c6YNmT8xBQJHhAkENVBlBxtg80FClnfOeW2
-         FPB5eHvW3PqjlWuilRs0JwJViA89dp4oZi8n0ww4Tr9VA8Itp6cYPYKNv8QVolAolx+4
-         /yF1j3GieEnJ21DBKzEeu67N+9Z8vfwai+rgD0Pp6g4Jg946YbNDUJ9n+1A+IxCAmAB7
-         ChdA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793050951; x=1793655751; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ZjI2lcwuDm0dzr2macE/psmDs5xURkLGTFGCf/yYSiE=;
-        b=ha59ykEuNF74RycQCH+a6TH+JXppw03Ay8QNH8f+HyULAAlsYp8791/wEZzrxJxatt
-         5ZiI7qqTvsOyAh2FDHJ2X91oxmRdrtSsizD0W8ulG/Ve2ZzrTq8Wk7k+2DD+OqO/8K18
-         4c/1kviuQklb1CmuHvygn7cenFVpqOlqjJQFBmDljgXQT0cQRWusN7f49DbXfZOODr1B
-         ttpZxmtmmwyy3jkdaK8HftT8WjFeuqIe1BvVA6EBZv3RPr5aiThF9ZI0j9fji9b3WJph
-         0f0Jzp9b8upilo8HaQeBnynk6mlHrmyK/mPJwf3LnwqY7oFLWAl/Lgs5zduizroCNdBY
-         33dg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793050951; x=1793655751;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZjI2lcwuDm0dzr2macE/psmDs5xURkLGTFGCf/yYSiE=;
-        b=YIJbgaSmbfcyi4Ga/Dce+XC13HggjVyTAYwGexsXqtxVjYuk24hBP7uYU2pvlpU5AS
-         shcGlNRPDnxa4M3CIM2Ucb5VDSF5ocyHZHdK7bxH1vd1M/OM6ej1iQ42rqaqEkiE3+9f
-         y5vqCorFejiIzCTkrEE7lgyAt955occucYB4dF+lhR2vUiH8Jmfz/WQPNuvJe+aGj4Ek
-         AQ4+XOGbo8GP7QYqXNbHUZpxnnssegRndmaEc8mAYM7Ux9FrzxllgeB23KKUmDxePUmU
-         fzPRJKwXCZFQFKXJOO3TD0YBec87hF8aL4a69Q0+xrjtwZmZiD0YQFIwY6h02nXwKR9r
-         /oEQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzuljRvOdviQmgKZBggyGcvof+ZCB7GlSmC5WOa4cwaaoAaPKycffn+ZJL5SP+YRrss98ydrGL3u09NypI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKMYt+JD4LUalP9IegIl6RbqEmW8Mlg73nrYIo6jHxEvvKG/VKu
-	UI3HvfjWpav1WWkXgIBWd01sFARSnLiZjJXOCp1Bp04q/lUpMrzVnO56Al1QvfK3XpiLZ+ecD0f
-	e0xDbJuCK0An31l4dxiBsHZKug0Iop1I=
-X-Gm-Gg: AYBFou2YoW6yVGBhJ/1F6RAS1SRPv2ov3XqpYZA8HB+IkBTSyFaH2eT/yPl/XvNdTWu
-	++mCm/XNp++LPYfnGxXy7BOxUA8EG/MfosOEnAyPiwNAeUC5dMy21anKlf0kz1uTyflUhZmSWxH
-	IgE3MPpe8ivca5LnVelrpp70yi2algocJe6yWGFiQg66WP21mu0dApH05ZEzwDbtjT/HsmYF1Fp
-	CrLcKiJboO1YZf5wEH0ZizqrFPxyb4bcdDp4DdtLKp43WwlhFedCibQU1HSrOVnCWeqwQIVdBVx
-	4AqV/XgwiUJ8K1fq58l429y+F8LMVzVPPxUP2djaCQczbHRGdsoQkDdlA/ln6MMoAyGwKxmLEwm
-	caDG7rbY0LqZ/0IIPbR4KDUp9tm0BeTw+5qcTtTevjzHuWC9zTOEcnZkjvslX3DJLB2ZqjrIgdg
-	tm/Ga/pgDD2Li/KTsHI7V5O/tGQKD1y5Y1Wwz/gWlGHWfhMyLrCMg3WKf5XSmBcHeafsxGC9iyi
-	MStfKT3wSOKyNLrbqgA7qVabAYxTA==
-X-Received: by 2002:a05:6102:334b:b0:7cc:33c9:b3d2 with SMTP id
- ada2fe7eead31-7ce5cdcaeecmr2526579137.25.1793050950510; Mon, 26 Oct 2026
- 14:42:30 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=fujitsu.com header.i=@fujitsu.com header.a=rsa-sha256 header.s=fj2 header.b=fFqDVruR
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj2;
+  t=1793051002; x=1824587002;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=K8Tw0xjvYKK5C3EMr77Wx4LoUSWiFby6WDQXp/hFglg=;
+  b=fFqDVruRMWH3WtvV1cI0fpT6D4dw8oHupgTBadNcrcuXGG5/3E8nDHGt
+   PTmUQlP45QK30et00rkJN3kh4BksMY4b9/xrCXDPWjQu4rbfJbMbwzWLJ
+   RZe1WB5i+9tN8yNy1FwyQBwOez1wkG/nqpK8ABzQDAPPKssQe+MP8DqU9
+   3HPPS+oknEkywUON7cKyZEJ2/940haOTnz+jcI8t2MUnCdKc5Y7Sv2f00
+   km8U65dF/CpxQ8K9TZw1Kf9K8KN/GyfozcmyfJeHr4tgyCjARSCv6pceO
+   KftkOnP9ily+FFMOeeu9lnMYzjgQ05Gm+AMNK/C3fvYutQVvFF0TyTwNS
+   A==;
+X-CSE-ConnectionGUID: v4N2/SSOQ7OWG0uKTUeBrA==
+X-CSE-MsgGUID: r69fHcvGSjiOax1fSVtqVA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="259043794"
+X-IronPort-AV: E=Sophos;i="6.27,180,1786978800"; 
+   d="scan'208";a="259043794"
+Received: from gmgwnl01.global.fujitsu.com ([52.143.17.124])
+  by esa4.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 06:43:20 +0900
+Received: from az2nlsmgm1.o.css.fujitsu.com (unknown [10.150.26.203])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by gmgwnl01.global.fujitsu.com (Postfix) with ESMTPS id C29121C000D5;
+	Mon, 26 Oct 2026 21:43:13 +0000 (UTC)
+Received: from az2uksmom4.o.css.fujitsu.com (unknown [10.151.22.204])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by az2nlsmgm1.o.css.fujitsu.com (Postfix) with ESMTPS id 7387CC00FDD;
+	Mon, 26 Oct 2026 21:43:13 +0000 (UTC)
+Received: from sm-arm-grace07 (unknown [10.124.178.20])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by az2uksmom4.o.css.fujitsu.com (Postfix) with ESMTPS id 36B3A405E32;
+	Mon, 26 Oct 2026 21:43:07 +0000 (UTC)
+Date: Tue, 27 Oct 2026 06:43:05 +0900
+From: Itaru Kitayama <itaru.kitayama@fujitsu.com>
+To: Marc Zyngier <maz@kernel.org>
+Cc: Paolo Bonzini <pbonzini@redhat.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Shuah Khan <shuah@kernel.org>, Oliver Upton <oupton@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>, Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>, linux-kernel@vger.kernel.org,
+	kvm@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev
+Subject: Re: [PATCH v3] KVM: arm64: selftests: Test VNCR translation
+ invalidation
+Message-ID: <at_JaV29gVqxueSK@sm-arm-grace07>
+References: <20261026-b4-vncr-mapping-test-v3-1-7c094a00d46e@fujitsu.com>
+ <861p9czwxc.wl-maz@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,311 +97,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261023-submit-sun6i-dma-lifetime-next-v1-v3-0-ef1acb0be768@gmail.com>
- <20261023-submit-sun6i-dma-lifetime-next-v1-v3-4-ef1acb0be768@gmail.com> <at_CpZrmQ986UEqv@SMW015318>
-In-Reply-To: <at_CpZrmQ986UEqv@SMW015318>
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Mon, 26 Oct 2026 15:42:18 -0600
-X-Gm-Features: AclHuK-4-WgnFSyD4HMuuPSJHkf08GLM_LN-zKGiCU3BeJkAlzKME5OQQIP7X_g
-Message-ID: <CADvTj4ptPZeNsjrdB9Lr2aJe9FKJ+w1m0ATfwXhO=zEo0APtvA@mail.gmail.com>
-Subject: Re: [PATCH v3 4/9] dmaengine: sun6i: serialize physical channel ownership
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
-	Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Samuel Holland <samuel@sholland.org>, Arnd Bergmann <arnd@arndb.de>, Maxime Ripard <mripard@kernel.org>, 
-	Jens Kuske <jenskuske@gmail.com>, Jean-Francois Moine <moinejf@free.fr>, 
-	Hongling Zeng <zenghongling@kylinos.cn>, Chengfeng Ye <cyeaa@connect.ust.hk>, 
-	Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog>, dmaengine@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <861p9czwxc.wl-maz@kernel.org>
 
-On Mon, Oct 26, 2026 at 3:14=E2=80=AFPM Frank Li <Frank.li@oss.nxp.com> wro=
-te:
->
-> On Fri, Oct 23, 2026 at 05:38:23PM -0600, James Hilliard wrote:
-> > The allocator changes vchan->phy and pchan->vchan under sdev->lock, but
-> > termination reads the physical channel before taking either lock. The I=
-RQ
-> > handler also takes an unprotected owner snapshot. Termination can miss =
-a
-> > new assignment or detach an owner while an interrupt is about to comple=
-te
-> > its descriptor. A sampled IRQ can also be applied after reassignment.
-> >
-> > Protect physical-channel ownership with sdev->lock across allocation,
-> > interrupt handling, pause, termination and residue queries. Read and
-> > acknowledge IRQ status under that lock, and allocate and start each pen=
-ding
-> > channel in the same critical section. This also serializes updates to t=
-he
-> > shared interrupt-enable registers.
-> >
-> > Nest vc.lock inside the device lock when accessing descriptor lists or
-> > updating cookies, including cyclic notifications. virt-dma takes vc.loc=
-k
-> > independently when preparing, submitting and completing descriptors, so
-> > the device lock does not replace it. Client callbacks run outside both
-> > locks in the virtual-channel tasklet.
-> >
-> > Fixes: 555859308723 ("dmaengine: sun6i: Add driver for the Allwinner A3=
-1 DMA controller")
-> > Reported-by: Sashiko <sashiko-bot@kernel.org>
-> > Closes: https://lore.kernel.org/r/20260706065650.34B131F00A3A@smtp.kern=
-el.org
-> > Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
-> > ---
-> >  drivers/dma/sun6i-dma.c | 67 ++++++++++++++++++++++++-----------------=
---------
-> >  1 file changed, 33 insertions(+), 34 deletions(-)
-> >
-> > diff --git a/drivers/dma/sun6i-dma.c b/drivers/dma/sun6i-dma.c
-> > index 435d7daa1c0f..d3a63c866645 100644
-> > --- a/drivers/dma/sun6i-dma.c
-> > +++ b/drivers/dma/sun6i-dma.c
-> > @@ -217,6 +217,10 @@ struct sun6i_dma_dev {
-> >       struct clk              *clk;
-> >       struct clk              *clk_mbus;
-> >       int                     irq;
-> > +     /*
-> > +      * Physical channels, pending list and registers; nests outside v=
-c.lock.
-> > +      * virt-dma also takes vc.lock independently for its lists and co=
-okies.
-> > +      */
-> >       spinlock_t              lock;
-> >       struct reset_control    *rstc;
-> >       struct tasklet_struct   task;
-> > @@ -524,11 +528,11 @@ static void sun6i_dma_tasklet(struct tasklet_stru=
-ct *t)
-> >       struct sun6i_dma_dev *sdev =3D from_tasklet(sdev, t, task);
-> >       struct sun6i_vchan *vchan;
-> >       struct sun6i_pchan *pchan;
-> > -     unsigned int pchan_alloc =3D 0;
-> >       unsigned int pchan_idx;
-> >
-> > +     spin_lock_irq(&sdev->lock);
-> >       list_for_each_entry(vchan, &sdev->slave.channels, vc.chan.device_=
-node) {
-> > -             spin_lock_irq(&vchan->vc.lock);
-> > +             spin_lock(&vchan->vc.lock);
-> >
-> >               pchan =3D vchan->phy;
-> >
-> > @@ -545,10 +549,9 @@ static void sun6i_dma_tasklet(struct tasklet_struc=
-t *t)
-> >                               pchan->vchan =3D NULL;
-> >                       }
-> >               }
-> > -             spin_unlock_irq(&vchan->vc.lock);
-> > +             spin_unlock(&vchan->vc.lock);
-> >       }
-> >
-> > -     spin_lock_irq(&sdev->lock);
-> >       for (pchan_idx =3D 0; pchan_idx < sdev->num_pchans; pchan_idx++) =
-{
-> >               pchan =3D &sdev->pchans[pchan_idx];
-> >
-> > @@ -557,31 +560,20 @@ static void sun6i_dma_tasklet(struct tasklet_stru=
-ct *t)
-> >
-> >               vchan =3D list_first_entry(&sdev->pending,
-> >                                        struct sun6i_vchan, node);
-> > +             spin_lock(&vchan->vc.lock);
-> >
-> >               /* Remove from pending channels */
-> >               list_del_init(&vchan->node);
-> > -             pchan_alloc |=3D BIT(pchan_idx);
-> >
-> >               /* Mark this channel allocated */
-> >               pchan->vchan =3D vchan;
-> >               vchan->phy =3D pchan;
-> >               dev_dbg(sdev->slave.dev, "pchan %u: alloc vchan %p\n",
-> >                       pchan->idx, &vchan->vc);
-> > +             sun6i_dma_start_desc(vchan);
-> > +             spin_unlock(&vchan->vc.lock);
-> >       }
-> >       spin_unlock_irq(&sdev->lock);
-> > -
-> > -     for (pchan_idx =3D 0; pchan_idx < sdev->num_pchans; pchan_idx++) =
-{
-> > -             if (!(pchan_alloc & BIT(pchan_idx)))
-> > -                     continue;
-> > -
-> > -             pchan =3D sdev->pchans + pchan_idx;
-> > -             vchan =3D pchan->vchan;
-> > -             if (vchan) {
-> > -                     spin_lock_irq(&vchan->vc.lock);
-> > -                     sun6i_dma_start_desc(vchan);
-> > -                     spin_unlock_irq(&vchan->vc.lock);
-> > -             }
-> > -     }
-> >  }
-> >
-> >  static irqreturn_t sun6i_dma_interrupt(int irq, void *dev_id)
-> > @@ -590,9 +582,11 @@ static irqreturn_t sun6i_dma_interrupt(int irq, vo=
-id *dev_id)
-> >       u32 channels_per_reg =3D sdev->cfg->num_channels_per_reg;
-> >       struct sun6i_vchan *vchan;
-> >       struct sun6i_pchan *pchan;
-> > +     unsigned long flags;
-> >       int i, j, ret =3D IRQ_NONE;
-> >       u32 status;
-> >
-> > +     spin_lock_irqsave(&sdev->lock, flags);
-> >       for (i =3D 0; i < DIV_ROUND_UP(sdev->num_pchans, channels_per_reg=
-); i++) {
-> >               status =3D sun6i_read_irq_stat(sdev, i);
-> >               if (!status)
-> > @@ -608,14 +602,14 @@ static irqreturn_t sun6i_dma_interrupt(int irq, v=
-oid *dev_id)
-> >                       pchan =3D sdev->pchans + i * channels_per_reg + j=
-;
-> >                       vchan =3D pchan->vchan;
-> >                       if (vchan && (status & vchan->irq_type)) {
-> > +                             spin_lock(&vchan->vc.lock);
-> >                               if (vchan->cyclic) {
-> >                                       vchan_cyclic_callback(&pchan->des=
-c->vd);
-> >                               } else {
-> > -                                     spin_lock(&vchan->vc.lock);
-> >                                       vchan_cookie_complete(&pchan->des=
-c->vd);
-> >                                       pchan->done =3D pchan->desc;
-> > -                                     spin_unlock(&vchan->vc.lock);
-> >                               }
-> > +                             spin_unlock(&vchan->vc.lock);
-> >                       }
-> >
-> >                       status =3D status >> DMA_IRQ_CHAN_WIDTH;
-> > @@ -625,6 +619,7 @@ static irqreturn_t sun6i_dma_interrupt(int irq, voi=
-d *dev_id)
-> >                       tasklet_schedule(&sdev->task);
-> >               ret =3D IRQ_HANDLED;
-> >       }
-> > +     spin_unlock_irqrestore(&sdev->lock, flags);
-> >
-> >       return ret;
-> >  }
-> > @@ -931,19 +926,20 @@ static int sun6i_dma_pause(struct dma_chan *chan)
-> >  {
-> >       struct sun6i_dma_dev *sdev =3D to_sun6i_dma_dev(chan->device);
-> >       struct sun6i_vchan *vchan =3D to_sun6i_vchan(chan);
-> > -     struct sun6i_pchan *pchan =3D vchan->phy;
-> > +     struct sun6i_pchan *pchan;
-> >       unsigned long flags;
-> >
-> >       dev_dbg(dmaengine_chan_dev(chan), "vchan %p: pause\n", &vchan->vc=
-);
-> >
-> > +     spin_lock_irqsave(&sdev->lock, flags);
-> > +     pchan =3D vchan->phy;
-> >       if (pchan) {
-> >               writel(DMA_CHAN_PAUSE_PAUSE,
-> >                      pchan->base + DMA_CHAN_PAUSE);
-> >       } else {
-> > -             spin_lock_irqsave(&sdev->lock, flags);
-> >               list_del_init(&vchan->node);
->
-> suppose need vchan lock here?
+On Mon, Oct 26, 2026 at 08:30:07AM +0000, Marc Zyngier wrote:
+> On Mon, 26 Oct 2026 03:10:10 +0000,
+> Itaru Kitayama <itaru.kitayama@fujitsu.com> wrote:
+> > 
+> > Add a standalone KVM selftest that checks VNCR accesses after L1
+> > updates its stage-1 mapping and issues a TLBI. This guards against
+> > stale VNCR translations, as KVM caches L1's translation of
+> > VNCR_EL2 and must drop it when L1 invalidates the mapping in
+> > kvm_handle_s1e2_tlbi().
+> > 
+> > Keep VNCR_EL2 unchanged while remapping its backing page A to B then
+> > again to A. At each step, L2 reads and writes TPIDR_EL2, and L1
+> > verifies that the accesses reach the selected page while leaving the
+> > other page unchanged.
+> 
+> If you were tracking cross vcpu invalidation and exercising all the
+> architecture corner cases (such as permission changes and co), that
+> would be helpful.
+> 
+> But as it is, it doesn't help much as a validation tool. Its scope is
+> way too narrow.
 
-vchan->node links the channel into sdev->pending; it is separate from
-virt-dma's descriptor-list nodes. All runtime accesses to that pending
-list are protected by sdev->lock.
+Thank you for your comments. I will try to incorporate the suggested
+test scenarios.
 
-The same lock protects vchan->phy, so it also keeps the physical-channel
-assignment stable while pause() checks it and either pauses the hardware
-or removes the channel from the pending list.
+Thanks,
+Itaru.
 
-resume() additionally needs vc.lock because it inspects vc.desc_issued,
-and issue_pending() needs it to move descriptors between virt-dma lists.
-pause() does not access those lists or cookies, so taking vc.lock here
-would not protect any additional state.
-
->
-> Frank
-> > -             spin_unlock_irqrestore(&sdev->lock, flags);
-> >       }
-> > +     spin_unlock_irqrestore(&sdev->lock, flags);
-> >
-> >       return 0;
-> >  }
-> > @@ -978,15 +974,14 @@ static int sun6i_dma_terminate_all(struct dma_cha=
-n *chan)
-> >  {
-> >       struct sun6i_dma_dev *sdev =3D to_sun6i_dma_dev(chan->device);
-> >       struct sun6i_vchan *vchan =3D to_sun6i_vchan(chan);
-> > -     struct sun6i_pchan *pchan =3D vchan->phy;
-> > +     struct sun6i_pchan *pchan;
-> >       unsigned long flags;
-> >       LIST_HEAD(head);
-> >
-> >       spin_lock_irqsave(&sdev->lock, flags);
-> > +     spin_lock(&vchan->vc.lock);
-> > +     pchan =3D vchan->phy;
-> >       list_del_init(&vchan->node);
-> > -     spin_unlock_irqrestore(&sdev->lock, flags);
-> > -
-> > -     spin_lock_irqsave(&vchan->vc.lock, flags);
-> >
-> >       if (pchan && pchan->desc && pchan->desc !=3D pchan->done) {
-> >               struct virt_dma_desc *vd =3D &pchan->desc->vd;
-> > @@ -1007,7 +1002,8 @@ static int sun6i_dma_terminate_all(struct dma_cha=
-n *chan)
-> >               pchan->done =3D NULL;
-> >       }
-> >
-> > -     spin_unlock_irqrestore(&vchan->vc.lock, flags);
-> > +     spin_unlock(&vchan->vc.lock);
-> > +     spin_unlock_irqrestore(&sdev->lock, flags);
-> >
-> >       vchan_dma_desc_free_list(&vchan->vc, &head);
-> >
-> > @@ -1018,8 +1014,9 @@ static enum dma_status sun6i_dma_tx_status(struct=
- dma_chan *chan,
-> >                                          dma_cookie_t cookie,
-> >                                          struct dma_tx_state *state)
-> >  {
-> > +     struct sun6i_dma_dev *sdev =3D to_sun6i_dma_dev(chan->device);
-> >       struct sun6i_vchan *vchan =3D to_sun6i_vchan(chan);
-> > -     struct sun6i_pchan *pchan =3D vchan->phy;
-> > +     struct sun6i_pchan *pchan;
-> >       struct sun6i_dma_lli *lli;
-> >       struct virt_dma_desc *vd;
-> >       struct sun6i_desc *txd;
-> > @@ -1027,11 +1024,12 @@ static enum dma_status sun6i_dma_tx_status(stru=
-ct dma_chan *chan,
-> >       unsigned long flags;
-> >       size_t bytes =3D 0;
-> >
-> > +     spin_lock_irqsave(&sdev->lock, flags);
-> > +     spin_lock(&vchan->vc.lock);
-> >       ret =3D dma_cookie_status(chan, cookie, state);
-> >       if (ret =3D=3D DMA_COMPLETE || !state)
-> > -             return ret;
-> > -
-> > -     spin_lock_irqsave(&vchan->vc.lock, flags);
-> > +             goto out;
-> > +     pchan =3D vchan->phy;
-> >
-> >       vd =3D vchan_find_desc(&vchan->vc, cookie);
-> >       txd =3D to_sun6i_desc(&vd->tx);
-> > @@ -1045,9 +1043,10 @@ static enum dma_status sun6i_dma_tx_status(struc=
-t dma_chan *chan,
-> >               bytes =3D sun6i_get_chan_size(pchan);
-> >       }
-> >
-> > -     spin_unlock_irqrestore(&vchan->vc.lock, flags);
-> > -
-> >       dma_set_residue(state, bytes);
-> > +out:
-> > +     spin_unlock(&vchan->vc.lock);
-> > +     spin_unlock_irqrestore(&sdev->lock, flags);
-> >
-> >       return ret;
-> >  }
-> >
-> > --
-> > 2.53.0
-> >
+> 
+> 	M.
+> 
+> -- 
+> Without deviation from the norm, progress is not possible.
+> 
