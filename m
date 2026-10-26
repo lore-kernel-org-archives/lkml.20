@@ -1,56 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.216
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.217
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793001185;
-	b=N1VCKCnYJeFzqAZo09a0IcwNFwk0N5MOsYZqttec/AMB31zapobWnYyoS5r/JmPaFaYo
-	 SjE7Q9ggJVniwAPy8XHOP50HHGJf20DuUxpPb4zAsa/v2MWwgSnHRTA8pzLzVAWadVo48
-	 z5AGF2keWX3Ksu3+jkeAMtCv0yxS7lC6iLHDWNV01f+pvjFpl3fj1z7VnvytnY+AytLjj
-	 6sIuEGOXiecmOBDxUnl/P0Z7pZI3VO8zAby3uWieBFy0lgSWRPc4mvmMuInv6YqA1RySc
-	 r6CSKebk800MpDL/cUYTslhodHR18s3heLYKYZYA3pmQhRIgO+zmazqRUx0qwuZM//g==
+	t=1793001186;
+	b=xH2wpXAOaavCREnWaT+99pNgH4CJ3G0nJdFiXgpyuptnjYZn7Q0eM4GsErIVtN+nlU5r
+	 GCbfF0o+ovaym7VqURnQUzNnY8DIAUIE5/e4p/rwedCVeoWA2mjvA8OZqBumsNAjYhClo
+	 dxrG+00A5kyYTaZKgtFlnH53vSk3NlWOlmLvkmlX6qnjWvuOe9WB+6NuCiOnKGcMwy4F9
+	 ma699FGi155vOMDptoE418qdhFJmU/xzJSK1YVoKRjZJDCVgHGw5RyxnI1hrNilGKp+rX
+	 4xnacLRr3oK2S4ZrWOldRH5Bq4xtGcP6beYZJArN1gmH3jsPVXZfvX2R+nrz5Jz47FQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793001185;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793001186;
 	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
 	 X-ClientProxiedBy;
-	bh=zXnStd3RUENrUNXK75DqxF/nRrh4yXstLfuIj9T8Ge4=;
-	b=y4KnPizkY0cKTc6k5zE2BKNRhZ1HW8trBoWoFp8hAZHLKU2+/zzN+KkwxJzVvY9YBrUB
-	 lYIDBhicKdqHLvu9k9Ebs6+4n5G6S/Ghn8edhiuur7Sx2TBtCdk3lLOesVrdjHlFH8kF7
-	 dasTSiJIWPFI/gVdXXJwMi83KtDxUVDCeDHcQiqMX6QbNjWOdB4ufuoNBWyEFbnEFCDtF
-	 nahB/AQL+3TJjMBjibuVqWKBMUKgcnpwLzA1xeeyecT62dTdQtFP+PgmhJmYkDlYWuc/i
-	 GzXvhMG9roxTBmnnmpv39rkLNnvXFVJ2tSmEYZrw93Qxv7DeNZPr2IcAL3fZP+Zagrw==
+	bh=qw2K6Vzt5YqE23MaU4ygfGnUQ1iM0Wvvk6X29IlIT0Y=;
+	b=3Tav7K1yIs+KC+gR5dFHAWHtKY3VvZYJkIQKhXcZmce3UrujU+MYdVvw5kA6JI2cZMSF
+	 ESdxMZ7ASIfiohq8/Rtm9xJQi1P2AhsKvW1nQWGOc/E2hb6LoSr6/efXgASL1kw3XrpCF
+	 sJmYbnZvrFtK/VPVM9jF1ONYiZn5PyPuF1pIXoroj3vq7IX6bRnXOo8AaHps5fwo81ukQ
+	 LPUuXNg19EMISO29p9acKx+4zFRDF5E6qFQ8hUw52ZBoSi8o2GVFgNqEl/4/f92xIZMnX
+	 Pi3IoeJ40dLgvVZilaxoIymkXsTmw7DjeSMtU0nasaHGCmwbkQqQY0+IUdgHBPHna7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=huawei.com;
 	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=EmN5Y3m+;
-	arc=none smtp.remote-ip=113.46.200.216
-Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=ApEa5JUG;
+	arc=none smtp.remote-ip=113.46.200.217
+Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com [113.46.200.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37860606A321
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 07:53:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37860606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F659606A324
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 07:53:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F659606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=EmN5Y3m+
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=ApEa5JUG
 dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
 	c=relaxed/relaxed; q=dns/txt;
 	h=From;
-	bh=zXnStd3RUENrUNXK75DqxF/nRrh4yXstLfuIj9T8Ge4=;
-	b=EmN5Y3m+8L8TB9rlGQojOZ1+kwebRNg5GHiRjJZ+7P52pxXrcbLCZ77HJnAoYDTiuRsDAgqGE
-	OMi+tNR8dxXL7GFP9tqELWk/pXsMjYHhcIY9wWBH20W650Enc4Jnxl7V8NaI14K6ViMeefhxgc1
-	IiPn5BkZIfkwDKusm1GbOJQ=
-Received: from mail.maildlp.com (unknown [172.19.162.140])
-	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4jCm7j1rhGz1T4MR;
-	Mon, 26 Oct 2026 15:52:49 +0800 (CST)
+	bh=qw2K6Vzt5YqE23MaU4ygfGnUQ1iM0Wvvk6X29IlIT0Y=;
+	b=ApEa5JUGfhrr9q3nuEX3q9iTC5ZnvPjVIXhddgt/jD+41CHgtx4NdPjHinbA46Dv0aklobgDf
+	hrwpQ/Iic60NRfmL4h2otrzfIQEMF2kilmAEUUVk2XA1Z/65K8WhZF3qB20JtrdvwaLdLki1RFW
+	Tkiy/mbe5UnSSq78RrBy5bM=
+Received: from mail.maildlp.com (unknown [172.19.163.104])
+	by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4jCm7l4MMFzcb08;
+	Mon, 26 Oct 2026 15:52:51 +0800 (CST)
 Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 0051E202E6;
-	Mon, 26 Oct 2026 15:52:56 +0800 (CST)
+	by mail.maildlp.com (Postfix) with ESMTPS id 986354056E;
+	Mon, 26 Oct 2026 15:53:01 +0800 (CST)
 Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
  (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 26 Oct
- 2026 15:52:54 +0800
+ 2026 15:53:00 +0800
 From: Jinjie Ruan <ruanjinjie@huawei.com>
 To: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
 	<chenhuacai@kernel.org>, <kernel@xen0n.name>, <maddy@linux.ibm.com>,
@@ -73,9 +73,9 @@ To: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
 	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
 	<loongarch@lists.linux.dev>, <linuxppc-dev@lists.ozlabs.org>,
 	<linux-riscv@lists.infradead.org>, <kexec@lists.infradead.org>
-Subject: [PATCH v7 03/15] arm64: kexec_file: Fix CMA page leaks in segment placement retry loops
-Date: Mon, 26 Oct 2026 15:51:49 +0800
-Message-ID: <20261026075201.699550-4-ruanjinjie@huawei.com>
+Subject: [PATCH v7 07/15] LoongArch: kexec_file: Fix a modified_cmdline leak
+Date: Mon, 26 Oct 2026 15:51:53 +0800
+Message-ID: <20261026075201.699550-8-ruanjinjie@huawei.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261026075201.699550-1-ruanjinjie@huawei.com>
 References: <20261026075201.699550-1-ruanjinjie@huawei.com>
@@ -93,60 +93,43 @@ Content-Type: text/plain
 X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
  kwepemk200008.china.huawei.com (7.202.194.74)
 
-The retry loop drops nr_segments, leaking the CMA pages of the failed
-segments.  Release them first, and disable CMA for the retry: it
-ignores buf_min and would hand out the same region forever.
+machine_kexec_prepare() copies it to KEXEC_CMDLINE_ADDR and overwrites
+the pointer, so free the heap buffer after the copy.
 
-Cc: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Will Deacon <will@kernel.org>
-Cc: Breno Leitao <leitao@debian.org>
-Cc: Pratyush Yadav <pratyush@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Cc: Yeoreum Yun <yeoreum.yun@arm.com>
-Cc: Baoquan He <bhe@redhat.com>
+Cc: Huacai Chen <chenhuacai@kernel.org>
+Cc: WANG Xuerui <kernel@xen0n.name>
+Cc: Kexin Liu <liukexin@kylinos.cn>
+Cc: Youling Tang <tangyouling@kylinos.cn>
+Cc: Qiang Ma <maqianga@uniontech.com>
+Cc: Tianyang Zhang <zhangtianyang@loongson.cn>
+Cc: George Guo <guodongtai@kylinos.cn>
 Cc: stable@vger.kernel.org
-Fixes: 07d24902977e ("kexec: enable CMA based contiguous allocation")
+Fixes: d162feec6b6e ("LoongArch: Add preparatory infrastructure for kexec_file")
 Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
 ---
- arch/arm64/kernel/kexec_image.c        | 8 ++++++++
- arch/arm64/kernel/machine_kexec_file.c | 5 ++++-
- 2 files changed, 12 insertions(+), 1 deletion(-)
+ arch/loongarch/kernel/machine_kexec.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/arch/arm64/kernel/kexec_image.c b/arch/arm64/kernel/kexec_image.c
-index 74d24c8aa2fa..6ed1991e3142 100644
---- a/arch/arm64/kernel/kexec_image.c
-+++ b/arch/arm64/kernel/kexec_image.c
-@@ -111,6 +111,14 @@ static void *image_load(struct kimage *image,
- 		 * We couldn't find space for the other segments; erase the
- 		 * kernel segment and try the next available hole.
- 		 */
-+		/*
-+		 * kexec_alloc_contig() ignores buf_min, so disable CMA to
-+		 * let the retry make progress.
-+		 */
-+		if (image->segment_cma[kernel_segment_number])
-+			image->no_cma = true;
-+
-+		kexec_free_segment_cma(image, kernel_segment_number);
- 		image->nr_segments -= 1;
- 		kbuf.buf_min = kernel_segment->mem + kernel_segment->memsz;
- 		kbuf.mem = KEXEC_BUF_MEM_UNKNOWN;
-diff --git a/arch/arm64/kernel/machine_kexec_file.c b/arch/arm64/kernel/machine_kexec_file.c
-index 854d872dfd0f..e48f29167b38 100644
---- a/arch/arm64/kernel/machine_kexec_file.c
-+++ b/arch/arm64/kernel/machine_kexec_file.c
-@@ -179,7 +179,10 @@ int load_other_segments(struct kimage *image,
- 	return 0;
+diff --git a/arch/loongarch/kernel/machine_kexec.c b/arch/loongarch/kernel/machine_kexec.c
+index 1883cae93bc3..19ccc91b6f2a 100644
+--- a/arch/loongarch/kernel/machine_kexec.c
++++ b/arch/loongarch/kernel/machine_kexec.c
+@@ -14,6 +14,7 @@
+ #include <linux/mm.h>
+ #include <linux/of_fdt.h>
+ #include <linux/reboot.h>
++#include <linux/slab.h>
+ #include <linux/sched.h>
+ #include <linux/sched/task_stack.h>
  
- out_err:
--	image->nr_segments = orig_segments;
-+	while (image->nr_segments > orig_segments) {
-+		kexec_free_segment_cma(image, image->nr_segments - 1);
-+		image->nr_segments--;
-+	}
- 	kvfree(dtb);
- 	return ret;
- }
+@@ -56,6 +57,7 @@ int machine_kexec_prepare(struct kimage *kimage)
+ 		 */
+ 		memcpy((void *)KEXEC_CMDLINE_ADDR, (void *)kimage->arch.cmdline_ptr,
+ 					strlen((char *)kimage->arch.cmdline_ptr) + 1);
++		kfree((void *)kimage->arch.cmdline_ptr);
+ 		kimage->arch.cmdline_ptr = (unsigned long)KEXEC_CMDLINE_ADDR;
+ 	} else {
+ 		/* Find the command line */
 -- 
 2.34.1
 
