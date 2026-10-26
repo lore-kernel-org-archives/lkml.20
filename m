@@ -1,98 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.47
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792992046;
-	b=01ggkNqP2sTmGx8lBxtCwHwsFNf6Xw0CE/Ci/1CvAwATrnnGjm5TSWG9WDFt3/U9LzaW
-	 smJ+cItvvGU+RLUeRQX5P2+fox/Bxv7KI7yDd2FeBQlREB3T40JKDHx0oC7qE+7lr/yIE
-	 cX5FJQ3isX37ydfjZzmR4FyqcOUZxxXtAQ4BvT1rUq7SABrnogloZEP849Z4xv6+r2eLV
-	 kpq3tbPNMXmQ+GBbLBespJLBPXSWgqQOAyH71HcDRLJHBI32n0fVZHyITtndo+c3IK53R
-	 tXUPdnVoJafuxMu9CjCWmfckd7NvrGk+rfxTDkOhAghHM1EAfznbKSzzbyctgWpM37A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792992046;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.49
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792992124;
+	b=sawQbcWdmaWFRL3n2OQSkOM8oTY2C+SVXJKSnvakr2Tibg4iFZjTRb3LAuPC/BUaLrAx
+	 q+kg9YK7n/P0N9PqBGlXzIt6zAiDzzcmeU2i1ltN52dKjmIGph9vwufJk+ndUvPV625eL
+	 wwNScTjOrc8Gcu4B//frqM5dB3Di9YD/sG8Mn4ieF36d5WH5pXk5Scs9NAI8jyWF6bZ6m
+	 3M2t0VjbadNNs0vtku5NGkAHAwj2ro+0V5uL/4zJlyz3XBa4CTbTq/VWbiKIK4inswDJ/
+	 mQPUrYUHo8vId9TecdFoie7HbniltkIFkrEhf/zHIo4q+z9/duSI8dGEQz9HxWLBbXA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792992124;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=XvlIgy8HAuD18Pu9SXVycEWxWyGIpi2gLi2fcEDWRe8=;
-	b=qpZZu2A4+W7Sgc5A0iE4KZskesTt8c1//Bc8/nqUNDGE8sbJ5GCMvQoPWYvHTuiSTkVy
-	 PC70c3FzTQFJ8ggS16oK/qfh3evzyewpLm8m968fvukugHnOcTrVYnv/s3UAi4LeiKJ29
-	 /LS/M2DGJEpwYJaTOdqMHvwl1GHIH4By3hYpQqIDlLxoH63fLkYfdDjnTkkZ5KteFP796
-	 wsLJBsM7HkLpicjqoLiG0EP2WG1SALCNWgZDZHLwh2I/P6+zuoBxtOOVqxCJnb+8BTcpd
-	 DB6AW6PKd+NM8LvDneLK4K6Re7vsA2OGFT/BDb64r8BEDh/OkcT711pjHDrutN7lROA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=isslab.korea.ac.kr;
-	spf=none smtp.mailfrom=isslab.korea.ac.kr;
-	dkim=pass header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=Cdr4P81v;
-	arc=none smtp.remote-ip=74.125.82.47
-Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=l+o7YHaaQtyvRVJCVlFIVIOOyJjpcMnJTZEtbdzMaE4=;
+	b=rUUmiYPWMeFtaFe9OezJ9LkaPnNXVbIdx+/of41HsEe0QlTKUhYDI7kxTNNjbNy/1YDx
+	 Y2q4x554J54u6pU5h/E6Dy25he40hNyzmGpx+Sp/fNpyMCYt4U/o8lkwzcOqSLMpkgWkw
+	 JcV8Pjczah8BOCONFEqEMS7NAgP/PaZTekqEASUtKf9GMLyOGBich0o929ciQhYbE0hl2
+	 X9jgVI6wBfmBowPnfb7WV0+B5lDdVxRf3Dfy/GFpeFkSvb8qIxVOdgU+/PdGFZe2BZWcJ
+	 5Xkq46Rl5zk1soyKcrQKMzlAW4X/mxBmGUr8kffHAXfw9aJXnn33hitydSbLYPMvvYA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=bc5WQdyH;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.49
+Received: from mail-ua1-f49.google.com (mail-ua1-f49.google.com [209.85.222.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71CEC606A32A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 05:20:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71CEC606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96246606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 05:22:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96246606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=Cdr4P81v
-Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-157fe9d771bso3094282c88.0
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 22:20:45 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=bc5WQdyH
+Received: by mail-ua1-f49.google.com with SMTP id a1e0cc1a2514c-988bb309c2bso1476062241.1
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 22:22:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792992122; cv=none;
+        d=google.com; s=arc-20260327;
+        b=sd639dXOiAB/EevdzXxsof3AhVARsEeZ+2HRlgIt5aXcD/g/bD4dIZ0CkJWPaX1G5B
+         F0cvrZeup9Pc/r0xq9Q7+pkJFBHCwT8X7uNHvut8y3x8kVV3dGp1PgrX/Ru3xWEpEdE4
+         rl1Q1W8j9Aojao/e/CCDYgx7FRjUxUuz8aJB2QEUI0JAmuc9Iu24y0alefBRODrOHOOt
+         wOV5kXLpjJ4xkAbHkyE8ux3G5F/x1cpRSyCyNjhmpu5+sJMzWt2yd7MvQagyuX0Z2vFq
+         u5XWCMjIW++2w7u9qkoFMyKoHsvNOhJsqECks8dpH1D+hCiqzb+Ma5zKcvTBJ5nE3ioC
+         o27Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=l+o7YHaaQtyvRVJCVlFIVIOOyJjpcMnJTZEtbdzMaE4=;
+        fh=P4TDotP8gsw4PPYlbw1oo5tgTsJwlJRxjA+x0I8Td6g=;
+        b=frmw5VoZToz1bdX0jOQ/0Y4Jo9OUQKW6rzzoM5Pl6nHQCLUC0redCo5epZtJf0aeDP
+         QJ8xvNcjxyriznj3iK7M78OOn0zxJWh58Aay0y3Q48zt+2xIaMVzcCV0ay/dDlncMGwz
+         TQ4dxuaBTGvRhMh0TMDH4KqVv9qopK2ZYRh7AerzePw+rPShfvhFXXKQyfFVgX57qIJr
+         j2Cwml79aEOePDHw1+heg15kmMtXsZsXWkIUMtYrW2WOWu8Fr6IEijN2LCFIukomHn7F
+         8KsnP0+mDba9LgcJADUbpCvPugqtv7UdUoL6sycLD2vdNBjexfmiwpA+EqYXk+ztR+He
+         8THw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792992044; x=1793596844; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XvlIgy8HAuD18Pu9SXVycEWxWyGIpi2gLi2fcEDWRe8=;
-        b=Cdr4P81vE2Fl0scL/6optiq2L6r4udH2U3nQi0SdgL7UdUZsuzbeWvrJ6jjzdk7tKD
-         XYO9r8WCjaeTf9LnYOIKcP5LdO6EzuqYuBK82Je2HBRGM1wcSTLf/a+ZkfGto02++wvc
-         Ntbi5hm8DyqIAD3EBzIcJzHLP2oF2uACm3zEO0XGLp0Sx9tMpng1bDvChbRfWScYrndq
-         8HTPy7ytBoeT1XKYOOmsvg1wtlCpQtCk/6+FWYnaDU2F3zSk3c+2eEIcK+xhb0+0bROD
-         mNJSvNMlZbwOaOWR6qs6I1E7Ca8JkCzPcPCpeBXRoUcLJL5fFTYsxErpVUPuvaJWWAEg
-         Xsdw==
+        d=gmail.com; s=20251104; t=1792992122; x=1793596922; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=l+o7YHaaQtyvRVJCVlFIVIOOyJjpcMnJTZEtbdzMaE4=;
+        b=bc5WQdyHexz4RjeU1UmexokrezFYsyEkH7XDhWDE5Rekp300eoYEGKUzutj/Abz+Ap
+         130hK1mybqk7/RYOiVz8rO4pjETDiCOdb1mbjh1EfkFp/J2uG+nvzN1twhPzvtAuMlvm
+         7oTO8r2Yw+xnDVtYkOTPf9WAdlWQgsZNl8Z3RXEZxlptLx2xtZP1CyHAXl4QyWqWs7Q6
+         RYLfGTPLvRxdQC7LIXe9lJ2FkLXVRl/JGannVzJDRVhjHwRi1LVrZKSKwijcxPjxGOHj
+         HretMb9Z/JRAoCuvsqLwPKDsAbjl6ySjY+pMjkmqbiySJ/Y5AQVN0Z7b5Zgh+6sLS1td
+         NkuQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792992044; x=1793596844;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XvlIgy8HAuD18Pu9SXVycEWxWyGIpi2gLi2fcEDWRe8=;
-        b=UzaF1ZCGwZ/24wZpuoDw1yonaGmVwz3Dt/hKJS7LUbT6Jzr7dWUUmFH0k8bTuf2YdX
-         /4K9yXD4qXEK3A5DqFUeC0mzGMioK7UNfNWXd+avgdSM2zXHnD7BieqIgZNuQk3nnTka
-         1QXk8PFqKLbRlm/iieOJcHYBRSqIInT9y/KbZyNJHVAuj0fcsQzMV3AafJ0NSJH70SKx
-         mHdm6ojbIrQk3Qrj27GdWXMkZnZZPYVjNnPWKH4OjFDBdhyKvhXBGIciHYzJta9TvQsQ
-         lpo07ixOmR86HW2bDipRm4r4gK6OStlEjRHE48YrW+L9ekdv5yQz5btxPw7SQ5FdR/pv
-         JtEg==
-X-Forwarded-Encrypted: i=1; AKwUvBzLztBzlGTu6ASN276OBAJVRN2OWFxWX1QvNcXSlQy8AiKlGAHRiEYwXDjIj0PbSUm3zM8uFI99bn6xeVE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLIwBxGPtp4rYd+U/xWKBHVcL+AbeLDQZiY/r+aRHJ4NL+F25eo
-	UhtWUJD/3WeEI5Sn/5t4Utrq68uEkXAwXXe2YTQV3pcuFR2853xMpxZXj+/dECLmojw=
-X-Gm-Gg: AYBFou3/kkHATJCHdrtlXzUIN/sojGiSbnmVSvyAs7b4aXhy/EuGf2aFhQ+elFd3OTa
-	M1DH2KtKlvwxvhPWTfzP/t73Jpin46Bn44R+bgRFalKXZ1lznW5mJaLTnWtFxNdUSNuD+cyD3bl
-	+n1QHzvcMrPwufzpprpm28GIXEDRAZxh7G81gFX95BV+UZk9kVse2NGQvtYKwkTOgg7l+J+SWus
-	mILyF448hU46uHKDGGHQIIyibI5QxXZx7aSO9N9s3uP3k1c4kt6FIlnXmwC0NNgL1VJtHNEh2mu
-	LMOWXS9wRcbVYCQQa7hY/bEDZz2lpfEMOdVs0Owa7HfuoquCtYUn/mGwtHXQ1xfLEtRIYqNoeuX
-	noixBZpXC9NFYPqJ5aIJBix70IJCas52xdLO9RxLlBUPTJMEcA2s56ejjGA6xtpavM08Ahurch4
-	ZU4RHDj5UPv6I+f4G+OUzXFIFbAnj3RrSKAppiUE6jEobwGfeCeVwXIEFvM/gAPEZNXkZHzW4q3
-	c9IB1uLzP5cAakvKWVYOemaX2z3xLC+2WCNxwYxQoXIVrB9GIpoSO+dVCmKQvesJ88y0JWksOGv
-	jV0bnevyefs0W3cTAXtxa/c1SqC0X48zxVXJD4p7vowu7NXOLzzoMggLAc+X7YGGelgPCQ==
-X-Received: by 2002:a05:701b:2311:b0:16a:8ffd:4977 with SMTP id a92af1059eb24-199363a356emr7729321c88.17.1792992044011;
-        Sun, 25 Oct 2026 22:20:44 -0700 (PDT)
-Received: from yhlee-960QFG.. ([125.131.91.97])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a0f83cedsm26765774c88.13.2026.10.25.22.20.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 22:20:43 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: Bart Van Assche <bvanassche@acm.org>
-Cc: Leon Romanovsky <leon@kernel.org>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	yhlee@isslab.korea.ac.kr
-Subject: [PATCH v2 1/2] RDMA/srp: refuse a target that cannot receive an SRP_RSP
-Date: Mon, 26 Oct 2026 14:20:28 +0900
-Message-ID: <20261026052030.296361-2-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261026052030.296361-1-yhlee@isslab.korea.ac.kr>
-References: <20261025114155.4007867-1-yhlee@isslab.korea.ac.kr>
- <20261026052030.296361-1-yhlee@isslab.korea.ac.kr>
+        d=1e100.net; s=20260707; t=1792992122; x=1793596922;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=l+o7YHaaQtyvRVJCVlFIVIOOyJjpcMnJTZEtbdzMaE4=;
+        b=XjAWtwI8ETF7P+x48Sk0zb1BsBeo247ZDjzgw4S5zkzNNAaOnhBvzvOUkjtvZTmHRr
+         DEX3NPcU5aFTTzVQHVCQ4/bcI9+CL1JyodGfQqJsIA/QT5uSm3MUlSslWSJ/tCcolnKw
+         Jsa29IIWpVxU6Ep3f4VHXKjSI9VYhwy2xPQJF3bnQNBRXNaosUClO9UBomqyCUouORQT
+         /5+oECmp/uwQb1equCSx3oJvAGZwFm4tu2PC/VQv1K+9xfKKnlczJAC821aibE7fHSG/
+         YFMfvEUR3Z274q2J6vESRbdo2Xn4SevTg/D/XoxFAESluch0OtYnF6c8oF+fF4A3+JVN
+         Hacg==
+X-Forwarded-Encrypted: i=1; AKwUvBzV0EGuYbMbUFBBrXENV0IqLldJBhvoF/NmqcWlSbcZVaKfuYSyoR4VWzCWxC1e2CBXDwERIjdc7PxwT1A=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIKofuPS7uKF+CWWS2sLUrlHcx58rppMK91tUVWskbUG44O3ro+
+	b1xI7PWTaIqyIMy8hhI1NfalDReN7fNaj4iHJLRNEtE5BRzZsvmxMqEYewazZO8U8MMfnc9KS9q
+	6ynUtTSHAUO6TAJlXR/fRTiz17i1SlHo=
+X-Gm-Gg: AYBFou1rN63jXVG0RnJNCI9vvS2hoEyTtPPfKum+T4PyXp2wHVAG9IN9ZWKe4sGbeeb
+	Y6eal1WZJQRSuvUJc/Xod19GGhRGJNnLPrjrSnSQXDDe8asoq5BYV0iQ2ZiDjxWn8emv8WpJej8
+	atVxYqtZ8Ujbvu1ZLDr9lTElHnLb5Zu78b/qh2Yf2LxaBVmswPdvZ7KjkeEU6HNceBkk7jjXCLz
+	pY7kBm9fWzkIDrkwtKFZskMzdQ0k3SvTimw1hxfVYBSinpVOyvyX65dHG+LtgVMTjImzWx0MR8Y
+	J2+6fDhqjYpJ06cMKtjBuh5ubfZlRiYvkQJhkMzjht2Bj/wnCxkbIVm4LDnI0uiCMXTZ4K34UZu
+	8bnO5eo3fnvvNOSmGg/1FklqkNfxktREeLuT9RnW6IX8Gz0woNQZ8NNcpp7AnJ6WBSRbsUQGSy9
+	JLhp4Cl1czcknTZMdCeisOXg==
+X-Received: by 2002:a05:6102:2c85:b0:7c1:9f20:36ad with SMTP id
+ ada2fe7eead31-7ce5ca07ad7mr2086245137.2.1792992122575; Sun, 25 Oct 2026
+ 22:22:02 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,105 +105,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261024172641.19424-1-meatuni001@gmail.com> <at5d__q_RzGad7zt@ashevche-desk.local>
+ <CADqcGBmOxJ1ns87pNmaSNVfCc-LNsTsf6YgnnZ5i+x4+dH+AMA@mail.gmail.com>
+In-Reply-To: <CADqcGBmOxJ1ns87pNmaSNVfCc-LNsTsf6YgnnZ5i+x4+dH+AMA@mail.gmail.com>
+From: Muhammad Bilal <meatuni001@gmail.com>
+Date: Mon, 26 Oct 2026 10:21:48 +0500
+X-Gm-Features: AclHuK8vkB7NkckOpl2d0PlrXPWMHOQGPhx797u89umaHfztF2B1Jpqb3Rkh5mc
+Message-ID: <CADqcGB=ok=Mr=EkhqjEspqMGOrE_ZSj4v8PkoKosR_=8wfUxjw@mail.gmail.com>
+Subject: Re: [PATCH v7] platform/x86: hp-bioscfg: fix heap OOB in hp_enforce_single_line_input()
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: jorge.lopez2@hp.com, hansg@kernel.org, ilpo.jarvinen@linux.intel.com, 
+	linux@weissschuh.net, platform-driver-x86@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-srp_cm_rep_handler() takes max_ti_iu_len straight from the target's
-SRP_LOGIN_RSP and srp_alloc_iu_bufs() then sizes every receive IU with it,
-so the target alone decides how large the initiator's receive buffers are.
-Nothing enforces a lower bound.
+Hi,
 
-The initiator parses a 36 byte header out of those buffers. A target that
-reports a smaller max_ti_iu_len gets undersized buffers, and the header
-reads in srp_process_rsp() then run past the allocation. A report of zero
-is worse, because kzalloc() answers it with ZERO_SIZE_PTR, and on a
-transport that maps addresses virtually ib_dma_map_single() returns that
-pointer without looking at the length and ib_dma_mapping_error() reports
-success, so the buffer reaches srp_recv_done() and the read of the opcode
-is already out of bounds.
+Thanks for the review.
 
-  BUG: KASAN: slab-out-of-bounds in srp_process_rsp+0x757/0xbe0
-  Read of size 4 at addr ffff88800243f120 by task kunit_try_catch/42
+Link v8: https://lore.kernel.org/all/20261026051740.88791-1-meatuni001@gmai=
+l.com/
 
-  CPU: 0 UID: 0 PID: 42 Comm: kunit_try_catch Tainted: G                 N   7.3.0-13249-gcea86339412a-dirty #2 PREEMPT(lazy)
-  Tainted: [N]=TEST
-  Call Trace:
-   <TASK>
-   dump_stack_lvl+0x3f/0x50
-   print_report+0xcd/0x620
-   ? vprintk_emit+0x21d/0x380
-   ? srp_process_rsp+0x757/0xbe0
-   kasan_report+0xde/0x110
-   ? srp_process_rsp+0x757/0xbe0
-   srp_process_rsp+0x757/0xbe0
-   srp_oob33_test+0x305/0x700
-   ? __pfx_srp_oob33_test+0x10/0x10
-   ? __set_cpus_allowed_ptr+0x181/0x240
-   ? __pfx_read_tsc+0x10/0x10
-   ? ktime_get_ts64+0x192/0x250
-   kunit_try_run_case+0x1ca/0x4b0
-   ? __pfx_kunit_try_run_case+0x10/0x10
-   ? kthread_affine_node+0x24b/0x370
-   ? __pfx_kthread_affine_node+0x10/0x10
-   ? __pfx_kunit_try_run_case+0x10/0x10
-   ? __pfx_kunit_generic_run_threadfn_adapter+0x10/0x10
-   kunit_generic_run_threadfn_adapter+0x7b/0xe0
-   kthread+0x36e/0x500
-   ? __pfx_kthread+0x10/0x10
-   ret_from_fork+0x34d/0x620
-   ? __pfx_ret_from_fork+0x10/0x10
-   ? __switch_to+0x22/0xdd0
-   ? __pfx_kthread+0x10/0x10
-   ret_from_fork_asm+0x19/0x30
-   </TASK>
+Thanks
+Muhammad
 
-  Allocated by task 42:
-   kasan_save_stack+0x33/0x60
-   kasan_save_track+0x14/0x30
-   __kasan_kmalloc+0x8f/0xa0
-   __kmalloc_noprof+0x179/0x3b0
-   srp_alloc_iu.constprop.0+0x69/0x5c0
-   srp_cm_rep_handler+0xc2e/0x1bb0
-   srp_test_login+0xc8/0x630
-   srp_oob33_test+0xaa/0x700
-   kunit_try_run_case+0x1ca/0x4b0
-   kunit_generic_run_threadfn_adapter+0x7b/0xe0
-   kthread+0x36e/0x500
-   ret_from_fork+0x34d/0x620
-   ret_from_fork_asm+0x19/0x30
-
-  The buggy address belongs to the object at ffff88800243f100
-   which belongs to the cache kmalloc-64 of size 64
-  The buggy address is located 32 bytes inside of
-   allocated 33-byte region [ffff88800243f100, ffff88800243f121)
-
-The KUnit harness that forces this is not part of this patch.
-
-Refuse the login instead. Both the largest messages the initiator parses,
-SRP_RSP and SRP_AER_REQ, are 36 bytes, and a target that cannot send one
-cannot speak the protocol, so nothing that works today is turned away.
-
-Fixes: aef9ec39c47f ("IB: Add SCSI RDMA Protocol (SRP) initiator")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
----
- drivers/infiniband/ulp/srp/ib_srp.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/drivers/infiniband/ulp/srp/ib_srp.c b/drivers/infiniband/ulp/srp/ib_srp.c
-index 5811f02df9805..a85d28b95306a 100644
---- a/drivers/infiniband/ulp/srp/ib_srp.c
-+++ b/drivers/infiniband/ulp/srp/ib_srp.c
-@@ -2379,6 +2379,13 @@ static void srp_cm_rep_handler(struct ib_cm_id *cm_id,
- 
- 	if (lrsp->opcode == SRP_LOGIN_RSP) {
- 		ch->max_ti_iu_len = be32_to_cpu(lrsp->max_ti_iu_len);
-+		if (ch->max_ti_iu_len < sizeof(struct srp_rsp)) {
-+			shost_printk(KERN_ERR, target->scsi_host, PFX
-+				     "Target reported max_ti_iu_len %u, too small for a %zu byte SRP_RSP\n",
-+				     ch->max_ti_iu_len, sizeof(struct srp_rsp));
-+			ret = -ECONNRESET;
-+			goto error;
-+		}
- 		ch->req_lim       = be32_to_cpu(lrsp->req_lim_delta);
- 		ch->use_imm_data  = srp_use_imm_data &&
- 			(lrsp->rsp_flags & SRP_LOGIN_RSP_IMMED_SUPP);
+On Mon, Oct 26, 2026 at 10:16=E2=80=AFAM Muhammad Bilal <meatuni001@gmail.c=
+om> wrote:
+>
+> Hi Andy,
+>
+> No particular reason. I removed them while trimming the diff, but
+> you're right that both comments are still useful. I'll restore them in
+> the next revision.
+>
+> Thanks,
+> Muhammad
+>
+> On Mon, Oct 26, 2026 at 12:52=E2=80=AFAM Andy Shevchenko
+> <andriy.shevchenko@linux.intel.com> wrote:
+> >
+> > On Sat, Oct 24, 2026 at 10:26:41PM +0500, Muhammad Bilal wrote:
+> > > The input is copied with kstrdup(), which stops at the first NUL, but
+> > > the full write size is passed to hp_enforce_single_line_input(). With
+> > > an embedded NUL the helper reads, and can write one byte, past the
+> > > copy. Use strnchrnul() so the scan stops at the first NUL, and return
+> > > -EINVAL for a NUL or newline before the last byte.
+> > >
+> > > Tested on HP EliteBook 840 G2 (Fedora 44, Linux 7.2.8): writing "A\0"
+> > > followed by 4093 bytes of "B" to current_password 100 times returns
+> > > -EINVAL every time, without reading into the heap.
+> >
+> > ...
+> >
+> > >  - Drop the trailing comments
+> >
+> > Why? At least The first one has the same meaning as before, what's wron=
+g with
+> > the second one?
+> >
+> > --
+> > With Best Regards,
+> > Andy Shevchenko
+> >
+> >
