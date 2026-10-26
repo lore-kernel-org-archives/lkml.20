@@ -1,92 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.52
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793038400;
-	b=ktLYs/fV4a0BSIlyPSL6pYzwAkHKYfcJn01nSSPqaJuMsZluwotaFr/lcef1bPSDBZP1
-	 CFbq6Pj5PxBFMHEr6Yb+Cmo/f8FvKdpIkpFdAEMEp9NuwGiwJWZsQUL/tOpif3cnqsV5l
-	 NnKlcoSpZfwEQzYFC51/6Qj+G0a+aLnaM4ys2umekDvDLj86VT2c1mbdNdgAYtsNhdTEL
-	 A246Tlg58jf0e3gU1GsBDn8jG3AnSyn8gcl2UzdwNXPmXsp5ute0KMsTI14oO/tSJF5im
-	 dkC5WZusbHc3QWKUBC63QCJ1LtrIDvLxVhZL1l9+/eTxIy1lrpSdvUFjRBracJNt/0Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793038400;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.52
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793038418;
+	b=uUjwuX1iWbKCgEccn58/Sc3AgoXRpfJbTxiSBuHqiz0ms0r1V/QiET1QUfAlkCQhJyW7
+	 ntSYh7W1snY50arY1JOdmcmPT0DcT4L4FiRdbxn5jLEeQ9tekUY1bvfQHCBdIiKgRoy82
+	 DENkadfvepN2BnHyCl7ootdcrxRCriRbXki4etlMCZnzPs0xVQY2tjwOJNosZIon4JRdF
+	 cOVuMcdwY08AcG6t91vx7Sy0bsR5Ysr65hyhwP7r50EygSyDSlZSN8TLSPGctqYQv/si6
+	 MR8xk5FatMil7UnzC+z5jQ5SgZAwbjufMP4zYEptXvG4/NGNBBhGjyZVH0Po2kMa7NQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793038418;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:In-Reply-To:
-	 References:Subject:Message-Id:Date:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Mailer;
-	bh=5chOq6U6GTtF4NKx2As2omT6eU7uon7QFz+o6vw3QJ0=;
-	b=Dbs/15sCC1PxPy7vcxoSfAW3fpg9OBbNY9kDpHxr5QdlOEGItW4NguOUL15eKwZQQF98
-	 gAPVhlJTkCwE1xpLAqQ/6oXtwpGen3UzP8+v9JnZp/DDpTA+qF5BYz10pVaiQGQ2AD8Sj
-	 G4fzQ4w1d+hGZdzTscHx0vjS8v8C6OYTmss+jfA7xDpYZQ+/Zr2VqGGBgwNXVGoG0Cp+9
-	 hVLMrpXzkhC5nyDKeSqQsV6AqevMbmTuTMvGV/fYQMerAJONVJJCQWW3hvbsrhPu9kvNR
-	 GL/zzlDGx310i/nfDQr7p4QMSNGxK6lanPRHS4eVu8dLwAZPqr39JqHrOGipoFhwvbA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kernel.dk;
-	spf=pass smtp.mailfrom=kernel.dk;
-	dkim=pass header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=mlVKKmkk;
-	arc=none smtp.remote-ip=74.125.82.52
-Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=9AjMwR7Z8B2oTWOzAAhJ00jw1hl54hnoREOaiO4tzI0=;
+	b=E0gExgZcQnGsOTxUAc6+SHUn6JqyJFsrU6l4Mug/hdaouvnl1/9Jpa+2QEpXmHo61uJN
+	 PKZPTFoaJzQCVI6CC33TQRv1vZFmISaA4zrUisARWOmejokwU/qdg/IVE5CF+U63NzPMD
+	 DyfuVU5q2ipLNzBYTNz/pvVxdc5vPlW4GULoyWGYv06DYQOlB7zrTEsduWeQiLrC8arRF
+	 5b5Vx31Kr6ZAkhr16gMyIM86kbFEvqo20osf8weUdYFiO1oCACKoP9+19IGPbrkpONWr6
+	 AAhCD3sNDig+7DywT1/Odvy8OPHRRXlfoKl4tWvm9HGTDDWjgao9dUzcAnvNkGUwIfA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=raspberrypi.com;
+	spf=pass smtp.mailfrom=raspberrypi.com;
+	dkim=pass header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=EC1Nb7oC;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.52
+Received: from mail-oo1-f52.google.com (mail-oo1-f52.google.com [209.85.161.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97364606A328
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 18:13:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97364606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58C40606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 18:13:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58C40606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=mlVKKmkk
-Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-1931ff67a29so1465421c88.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:13:19 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=EC1Nb7oC
+Received: by mail-oo1-f52.google.com with SMTP id 006d021491bc7-6df5e315bd1so2309460eaf.2
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:13:37 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793038416; cv=none;
+        d=google.com; s=arc-20260327;
+        b=PgdBFduLyHfxwOVhnGrAzUCVZcXhCpChehhyqBRDB+iRWLC4YlNUUz3QYoaxgma6CW
+         KEwb6Gmb7xx8P3SA10AbEQlUAyG+Y4ba2HCAgXuOVfw9hFzj4TaI3lfewkNVC1zcvWkm
+         C3BlHH+yB2B+W3O0YgZi2C9U0lM2oMtWWyehEDDRf62cRLSrPNtZHE8Kg7KUvSRCOyXh
+         RQ2bJsQ/2MAuLkeaM++hwUI+sUQ6XQ37ORM9SK8h5vSNCiiLie0XzZb7wj8yQtxOdLUo
+         RxXBpF/TjusOCrdR73Dswv4nCKgDtU8n1h0IfxwLKwkXrjZh/s5moTrIQXOC6jg4A5gN
+         yDEg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=9AjMwR7Z8B2oTWOzAAhJ00jw1hl54hnoREOaiO4tzI0=;
+        fh=9uBISsu+nP99Nnfg5bfn2HrrSgF3DrlpHm1ymDhmaRw=;
+        b=Eud9uNFaubZz+TzvIDHfBasqiSaQTfskMxgaaa/4wZYCFkb4FPLWb3SF02Y6hgwXv9
+         rHeisKVz0SkevcZ/Rvc20ONtHfn8sE+/e8V28iVjrCoFS9JpiIqX8w1OIwFNJmoFJYj1
+         VHfs4Kqi+zacoA5HcQoWLdwo8/kvAcIklI1J7Hb1bFrv3rLM8oJ8FaggK0iDeFIqze/n
+         8XMMreyktUJ6hMorR8YOGEUOZXMHPyWyZRuHR7U/j44pQ0e3/g/9Cn42NXdK3rOZuVmD
+         cmUzmvq48mK1UNc+qme6CgNXBDPKn2M6096tSeYpSAjU7ppWqelKge8J1ZAqrzX7glYY
+         T1Cw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1793038399; x=1793643199; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5chOq6U6GTtF4NKx2As2omT6eU7uon7QFz+o6vw3QJ0=;
-        b=mlVKKmkk19RI0K3j73BG4MWLjg1vVMDB8Od3VPnrZUUyIwKJUQnUTL6pNA4sdn4onX
-         ZMVDPT0s2FRij0qyjgkgEyYFQ7g5IpHXbdmlDhsJD6g5D4pXv7pmQ6X591+FdmTM2Mnq
-         uHZ3SYxoV9L2QG+pysopFAi7/0jjaMB+RKDzThBzLFRwCmvPl2L8wL9V9x4TDMOoXO92
-         iFO2i984iq3pj/dwC4vQ5y06DU5j2vgcm2ECWhgv9VqNZhsVcl/U0T/psSLrDsrOvtyC
-         4Bm5PFSGHE/3eaKvPCi+XFsaFEVTjw9ngSpDxW7q8c8nQaVBn7qW5gLfqvyZUIcNnodP
-         Eg4A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793038399; x=1793643199;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=raspberrypi.com; s=google; t=1793038416; x=1793643216; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=5chOq6U6GTtF4NKx2As2omT6eU7uon7QFz+o6vw3QJ0=;
-        b=uqrA7HxbS6DN0DKdooNfh/QuQTFfvWSaexMv8fW33R+ygXuuqcaD61AIF6aIEVeePG
-         rMwnxS0ibyB8R3RnRidBQHwrIiLnVA1P9vVy/R13jlMu2xgu/G3dQqVMa+rTcLDgV3y2
-         WhSW6Gah0pnYW8BCGgfIe3+XQj38BOsiRV7lwsIiMYxBHNicSRYTVtIc/j3caYCfTfb3
-         V/wq26NlTYw45RbjrR9Uo7GbC3UiQQdLVkNa5Dvg5GC5GCsqD6BhJ1+TcZtOc+zOdFOn
-         ZyHRvt2O0ezai9lQ7ERgh9jV9naUxQI2pBg/tuAS/tE7scLFTeSU6mORN5m8WhclqUKD
-         S4Sg==
-X-Gm-Message-State: AFq9FYLiFRvSUMWjkE9jHTWoCJmwuIg4snQ/iusUtvfpVqh9+SPwIIf1
-	gF96BaGO0y1gjFZrhxW9cxZi2Tx6/ChEE41tcWNeWLFAR0J0wz67ZNQRo37/bcwHaKw=
-X-Gm-Gg: AYBFou2rSI1hL2pmMXxeqyDXLRIXIOySsJ5XJvaUL3uEq/gMglcL8EgKcNx0jRgbbjq
-	DQlFYexaRXPU4mBV67J8wfv6PscfdAaCNZ0ebCIoe8Dg4xBpJbwZnLa/1Ap9KIsPmH7OGxsOmRK
-	N1QZ3DAV+fQj4zNF3aqbJaP9c2gacYlKMuRjcMwGVNVE3P40m8KrDgIVXTw/ToOmpJgT8hpXH8Q
-	gMXWYGv+7zywUyw72hop9UDEmR1V28oGX1tuPv59zpKTmt726OZbrqlp+pDZ9QU9ptmAhIu8Kde
-	7FSmZ/yRwNQK38pGzEvUtETR/FHu9ikJIaIb4VLMZlJ1r+WSP09toG8w2RTdlu/L2FHtfx/wZwI
-	k391BhCFD1dJ8gHJ+ISwzE/vWcZyxZqW/6nLckqUKzXaUJfvJG4SI/LQ1mJ7cu66PeRBg7S6er1
-	HRpzReYgjBnEKsD+/kPKyHGvGBZElGW0ebdha+/wXhn25wF/DjPzu1KN9WYAFJGKKUNdTO6IBYt
-	5aF3+VhBe5YJp8IcIKubpaAfnfFFTt6Q0ZaSc1K8s9h9oVsbynxOnK2GKFDnVCzNlqf0KVcS+gb
-	ocSwErhnO+ynuvCF6bQ4fUzS8HFoe8R6+HlVj1FhJbgjIYNZ8GEXzfRQKcco
-X-Received: by 2002:a05:7022:7f12:b0:180:15be:1f9c with SMTP id a92af1059eb24-199361b4ecbmr10447007c88.30.1793038398534;
-        Mon, 26 Oct 2026 11:13:18 -0700 (PDT)
-Received: from [192.168.1.106] ([198.8.77.135])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1989ff2ee5asm23576455c88.8.2026.10.26.11.13.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 11:13:17 -0700 (PDT)
-From: Jens Axboe <axboe@kernel.dk>
-To: io-uring@vger.kernel.org, Yichong Chen <chenyichong@uniontech.com>
-Cc: linux-kernel@vger.kernel.org, Stefan Metzmacher <metze@samba.org>
-In-Reply-To: <20261023112209.87979-1-chenyichong@uniontech.com>
-References: <20261023112209.87979-1-chenyichong@uniontech.com>
-Subject: Re: [PATCH] io_uring/net: keep recvmsg buffer select length within
- MAX_RW_COUNT
-Message-Id: <179303839763.792754.8466602423442934526.b4-ty@b4>
-Date: Mon, 26 Oct 2026 12:13:17 -0600
+        bh=9AjMwR7Z8B2oTWOzAAhJ00jw1hl54hnoREOaiO4tzI0=;
+        b=EC1Nb7oCNe7kzmpPJ1zR5a/UVo+lb6hzi+ulbb0uVa0KI4tRtwFFEzkt/pLq+/vyS3
+         UhCrBK/3o7RfSDPVgAjWuBr8v3oy7Bxsij8gqdFh//s1XnC/SfcaamBsGZitpAteiYda
+         hi/X+CNRSvBoduofiaINF8rg/LwFZStp9v7YK82e9FPUcB5n/R1ew8mWc/Qo7nWZ9Lbd
+         +/keNNBK8v6hVxqm7FQmSQJHo1pUSHv4XiF+7BXKXegCkaCy+KVl/Oly25titq9wnVZp
+         EkAnQwzIWDKMHKBJtIMFKxPS1NFlaXTs4VFvF3RLiBsHuYE2VojNi7A10bnGptNLoAVO
+         7NHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793038416; x=1793643216;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=9AjMwR7Z8B2oTWOzAAhJ00jw1hl54hnoREOaiO4tzI0=;
+        b=qPPKMpZoZWrnElUCMneIu5QfPGwmPiDPJihyF4S8/qhCybY8drqGDxgfLMkumWd0Bt
+         b4SU/pU6oIToXTqWZQ7JdL4qu7StnY+pHksFV52Ys8ir3KRyJ9Bq2wBvE0atnmYDR5TL
+         oml5vdJb+t5HrtKo1RgocqLgP8KsLgGkuFtTzEF+4j5fgIgfOl+Phw7yxZIDOIbvmcn+
+         ZUCzXmoKdd5NwBxA0oFKeMp3uSMak0KwQqWlV42A2ARY3idWi/gu9NC+M9cwQYE+2Oad
+         K/aaWzDbeesT4otiS2bj1FbuJLFNa3OgOi6b+t3J+1+RLIV6WzYNV8MGqpGoSJivn6U2
+         1vZg==
+X-Forwarded-Encrypted: i=1; AKwUvBwWtqt73qCYkkUl1/SyOM+uP8wrfDqk+anbH0RR6Es+FmZs3ba2Z6GJs6V5Zk4p6L9++zEsFTSZBj0jgzA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIsizi5DatOg43V3EFtsGunvAF2xXEU8M4FDofIid7dCgCk7Gu0
+	k0uV5G8vjbRpine7baCm2S8Xsf4p582ISts7z9htsyr303qzMBf2KFkKSVxJwi364dw78UhlD5D
+	os3aTuofMRdtDMWdKd2K8BMD0qZlbXiBk//dj6BfLBA==
+X-Gm-Gg: AYBFou2apFoKQc6vcy6FpjkWhjEe/baJfsB6jDJCRY9JJZ196BLbHVQoz42BYj7nW6A
+	7oUQVEtweU7JOjuRtZ0pix4HIbHIr1KDkRnxKC2oDLBllwqmHaMZ7xhzrrqyfEy7mtvB5AGmBWg
+	D4xZ1eawYNus27uA3Ao71xErRhfiYC0CP/pKP8O2sF+lVAsDPy40d8o5S1LAc+aY+6tDqFZez8W
+	sTJ/7dBKX0pdYverPKxV+6BlEFj2cYKjizy4PI1mwe84a9OybbQ7dG2k0mUq4osPS0lqrw/Q+oY
+	VcGvKBMYJS4VKqxeP+SKqO029/jIbTDjYWaBf/W9+RFrEFqdp0NliaklF2AZU79q1C2uyFz+Mu4
+	3xpmE1BeDAuBLARPI4CPfFEf2gqqjKe1Q+GtHKgjlFv6lMDyPEVRobLDaTokqHV6dhWKJtf4j2Y
+	V2yk4p01UNHhwSkpbPrSfEiGSmmqrmbHSLQzS1+AU/sw8J7aDhRlezyg==
+X-Received: by 2002:a05:6820:80f:b0:70d:1692:14fa with SMTP id
+ 006d021491bc7-70d169217b8mr2519101eaf.13.1793038416125; Mon, 26 Oct 2026
+ 11:13:36 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,29 +104,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.2
+References: <20261019174930.7237-1-henryzhang62@gmail.com> <20261019174930.7237-2-henryzhang62@gmail.com>
+In-Reply-To: <20261019174930.7237-2-henryzhang62@gmail.com>
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Date: Mon, 26 Oct 2026 18:13:19 +0000
+X-Gm-Features: AclHuK_KlFEnUlqXLwNDSuqARQFNNPqFsCBg53fZhcmuBv7einI3hP8qmGSxzCM
+Message-ID: <CAPY8ntAhuJ2cvoTjDoZoMe9c+43sD4muATtRSq-cFnQRk14-=g@mail.gmail.com>
+Subject: Re: [PATCH v2 1/3] drm/vc4: dsi: Don't return error reports as read data
+To: Henry Zhang <henryzhang62@gmail.com>
+Cc: Maxime Ripard <mripard@kernel.org>, =?UTF-8?B?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>, 
+	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+Hi Henry
 
-On Fri, 23 Oct 2026 19:22:09 +0800, Yichong Chen wrote:
-> io_recvmsg() takes the transfer length from the ring provided buffer when
-> sqe->len is 0, and such a buffer can be up to 4G. min_ret is an int, so 2G
-> or more makes it negative and the (ret < min_ret) block is skipped, and the
-> oversized length reaches the socket layer unchanged: an empty socket then
-> completes with 0 instead of arming poll, and a short read is reported as
-> complete. Clamp the length to MAX_RW_COUNT, as io_recv() does.
-> 
-> [...]
+On Mon, 19 Oct 2026 at 18:54, Henry Zhang <henryzhang62@gmail.com> wrote:
+>
+> When a DSI peripheral detects an error, for example contention during
+> the bus turnaround, it may answer a read request with an Acknowledge
+> and Error Report short packet instead of the read response.
+>
+> vc4_dsi_host_transfer() does not check the type of the received packet
+> (there is a FINISHME for it). It copies the two bytes of the error
+> report into the caller's buffer and returns success, so the caller
+> gets the error bits as if they were register contents. Packets
+> received with a checksum error, an uncorrectable ECC error or
+> incomplete are passed on the same way.
+>
+> Return -EIO in these cases so that callers can tell a failed read from
+> data, and retry if they want to.
+>
+> Signed-off-by: Henry Zhang <henryzhang62@gmail.com>
 
-Applied, thanks!
+Thanks for the patch.
 
-[1/1] io_uring/net: keep recvmsg buffer select length within MAX_RW_COUNT
-      commit: 18d3f56eb6e6500a65d81cf265f0fe74fd9ecab6
+Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
 
-Best regards,
--- 
-Jens Axboe
-
-
-
+> ---
+>
+> Notes:
+>     v2: no changes.
+>
+>  drivers/gpu/drm/vc4/vc4_dsi.c | 22 ++++++++++++++++++++--
+>  1 file changed, 20 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/vc4/vc4_dsi.c b/drivers/gpu/drm/vc4/vc4_dsi.c
+> index 5ed3c35..5452b72 100644
+> --- a/drivers/gpu/drm/vc4/vc4_dsi.c
+> +++ b/drivers/gpu/drm/vc4/vc4_dsi.c
+> @@ -39,6 +39,8 @@
+>  #include <drm/drm_print.h>
+>  #include <drm/drm_probe_helper.h>
+>
+> +#include <video/mipi_display.h>
+> +
+>  #include "vc4_drv.h"
+>  #include "vc4_regs.h"
+>
+> @@ -1299,6 +1301,24 @@ static ssize_t vc4_dsi_host_transfer(struct mipi_dsi_host *host,
+>                 u32 rxpkt1h = DSI_PORT_READ(RXPKT1H);
+>                 u8 *msg_rx = msg->rx_buf;
+>
+> +               /*
+> +                * A peripheral that detected an error, e.g. contention during
+> +                * the bus turnaround, may answer with an Acknowledge and Error
+> +                * Report instead of the read response. Don't hand that, or a
+> +                * packet received with errors, to the caller as read data.
+> +                * Bits 7:6 of the Data ID are the virtual channel.
+> +                */
+> +               if ((rxpkt1h & (DSI_RXPKT1H_CRC_ERR | DSI_RXPKT1H_DET_ERR |
+> +                               DSI_RXPKT1H_INCOMP_PKT)) ||
+> +                   (!(rxpkt1h & DSI_RXPKT1H_PKT_TYPE_LONG) &&
+> +                    (VC4_GET_FIELD(rxpkt1h, DSI_RXPKT1H_DT_LP_CMD) & 0x3f) ==
+> +                    MIPI_DSI_RX_ACKNOWLEDGE_AND_ERROR_REPORT)) {
+> +                       drm_dbg_driver(drm, "DSI read rejected, RXPKT1H 0x%08x\n",
+> +                                      rxpkt1h);
+> +                       ret = -EIO;
+> +                       goto reset_fifo_and_return;
+> +               }
+> +
+>                 if (rxpkt1h & DSI_RXPKT1H_PKT_TYPE_LONG) {
+>                         u32 rxlen = VC4_GET_FIELD(rxpkt1h,
+>                                                   DSI_RXPKT1H_BC_PARAM);
+> @@ -1313,8 +1333,6 @@ static ssize_t vc4_dsi_host_transfer(struct mipi_dsi_host *host,
+>                         for (i = 0; i < msg->rx_len; i++)
+>                                 msg_rx[i] = DSI_READ(DSI1_RXPKT_FIFO);
+>                 } else {
+> -                       /* FINISHME: Handle AWER */
+> -
+>                         msg_rx[0] = VC4_GET_FIELD(rxpkt1h,
+>                                                   DSI_RXPKT1H_SHORT_0);
+>                         if (msg->rx_len > 1) {
+> --
+> 2.47.3
+>
