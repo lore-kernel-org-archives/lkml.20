@@ -1,72 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793056223;
-	b=ncVsrraSqcK7mxIqeSLUThZ6npnRfBZCE6mUj68eur/bbRCAgjx/O0PGTVqIQgt7fL5e
-	 BmUciAi6iLVMS+0rRdx/a2R7ZpyCsEt2w3PT7nyx8fiMtEavYlY8yeklTQIbYp9vrF0AJ
-	 UgnG2YIn3sIbGRp4V51IfdbPl4EkxAxeVoKWGrJkM6r7VVhhP+7CVvcqGKiRY1iHJK9Mg
-	 D1jPFdOqTZuZGdsl0rcpSfQnWAvaNXsTqZeEWD4hpZMzj9FSFwR62S68a5VmzVZ8V5Mv4
-	 8NIBjgfv6qvF+P9dtZd0UkZXoKij1Hl1UPeZoqpt9WnhstCZSJVL0uXorDw8AYorT6w==
+	t=1793056285;
+	b=F2yG/DjeT/kI6gzs5AxMZ6pbBwUSks0J/8JQ4RMODqB/sO7bBSpG1o4HIutf9ezi253+
+	 jDfZZ+UFTL9wcu+0qDexuiJv8f+8XSexiKC3fJTEv8oPjKTA2csWcigzEEffWhCtWMyf5
+	 MGEEIuCutMdSUcw/dTtsFZNFOLhm1IJ4qEQuGA7mKp74aq8n8ZbsIY1A6eDmY0r0PKQkv
+	 zGX0c/hBtCTej5/DYTQvr+mnmGLgla4dYY9dzan9Q040LD+ECzwSyAHt2vXgvXEG1Nrro
+	 df9E2zkyqArlRi2mH3imHByAysNb7SHKNASWVSrFo2jHJQx3snmH6G21PCjEVlQiQ4g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793056223;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:In-Reply-To:References:Organization:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-Spam-Status:
-	 X-Spam-Checker-Version;
-	bh=vAGCvmTxy6ZtJGt5CSWzyoyAFqmQYDKuR0TIL8Beruw=;
-	b=Ic5Zac+Wn+x5HM/W/CmpxCtLTt6EUjXismTTTSB/noSaNpYwMuclaDnJrXrtrH4tTOeE
-	 63RLOyCgBNEjmPziiD2TUAZuCJJrsWU9h00jjPR3yDjRn4PtlrXjl3vEXUNqpXJSq7Sbv
-	 Vpf4jnVH7Gyoj5hP3A930wbh3ervI7o0hD6Lt3XGVSLYMd5rRSjaymELBc83KO2ujim+z
-	 NctxOxElOKZD+e6hvmjMNqR9sFNw+iWnB60r+sogSGGMHgvECRDs4N/UyNf4qsLowdtZl
-	 GYNjxMQY1HoGG60v9W3ZsG4q0svN1MQBSdIZPEVd7QizXwGNmXR74EVFoZlC8G6DdQQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793056285;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Sq8U6qRkxAVCxLJVMdW3PdUBR2QnCqOWhnBaz9IJe/k=;
+	b=kVDFXlEKxjK2kTNGdKWbrBqqdV4qhilqMqiK8T+39OrYAyJ+ZDQBDUMH5VsM8syhMR/H
+	 Yku/0yhByWs+O06OVHUpcUhipt+mGO618gI7HN7iZiczYkC3dlTkG0La+znf43jb3zeh3
+	 Umz5kSTgi1EmsnMsgbyj5/uIlPU97JawTWOuqKp4G/oZDiPqZN2kXe/cEXJf+DWNVr728
+	 V3eHp1FcH+Vz43l40SYLTgWmDFZ/3gSZ8fV/FwopaIdE2zI/ggAtfZ2GprjR7m7SB/cQf
+	 1+NvhsiyVtOmDJgNQ9Wm/l84+Lb++qBcGNDjmANR4HAvER5bxWukTpMY/dGuiaMkrLw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.microsoft.com;
-	spf=pass smtp.mailfrom=linux.microsoft.com;
-	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=PVDMz7B0;
-	arc=none smtp.remote-ip=13.77.154.182
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3C33A606A31B;
-	Mon, 26 Oct 2026 23:10:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C33A606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jhCj6au1;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7914B606A31A;
+	Mon, 26 Oct 2026 23:11:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=PVDMz7B0
-Received: from localhost (unknown [52.172.102.253])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 0D73620B7166;
-	Mon, 26 Oct 2026 16:09:58 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 0D73620B7166
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1793056210;
-	bh=vAGCvmTxy6ZtJGt5CSWzyoyAFqmQYDKuR0TIL8Beruw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=PVDMz7B0B4a18dyvgGY3eNUXdDo+pa0ROA5K1YlbuS11AmFFTVQ8CFHU/xby58w2M
-	 RE/O+ag02r/o5RZXrQ8sy4FjeQV3vJd2zb/5bchD3HDWL0ioOhN0mxdawBGcmmhMoP
-	 09eGcAPAWkN6VNvU4g3vuUsiRpefrI4WZamVd3JQ=
-Date: Mon, 26 Oct 2026 16:10:03 -0700
-From: Jacob Pan <jacob.pan@linux.microsoft.com>
-To: Mostafa Saleh <smostafa@google.com>
-Cc: iommu@lists.linux.dev, Jason Gunthorpe <jgg@ziepe.ca>, Nicolin Chen
- <nicolinc@nvidia.com>, Kevin Tian <kevin.tian@intel.com>, Will Deacon
- <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, Wei Liu
- <wei.liu@kernel.org>, "K . Y . Srinivasan" <kys@microsoft.com>, Haiyang
- Zhang <haiyangz@microsoft.com>, Dexuan Cui <decui@microsoft.com>, Long Li
- <longli@microsoft.com>, linux-hyperv@vger.kernel.org, Joerg Roedel
- <joro@8bytes.org>, Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
- Vasant Hegde <vasant.hegde@amd.com>, Arnd Bergmann <arnd@arndb.de>,
- linux-arch@vger.kernel.org, linux-kernel@vger.kernel.org, "Aneesh Kumar K .
- V" <aneesh.kumar@kernel.org>, Mukesh Rathor <mukeshrathor@microsoft.com>,
- John Starks <John.Starks@microsoft.com>, Souradeep Chakrabarti
- <schakrabarti@microsoft.com>, Yu Zhang <zhangyu1@linux.microsoft.com>,
- Easwar Hariharan <eahariha@linux.microsoft.com>, Alex Williamson
- <alex@shazbot.org>, jacob.pan@linux.microsoft.com
-Subject: Re: [PATCH RFC 1/9] iommu: Introduce external attach domain type
-Message-ID: <20261026161003.00003b71@linux.microsoft.com>
-In-Reply-To: <atiakDqtuED2cTM5@google.com>
-References: <20260925190742.1575380-1-jacob.pan@linux.microsoft.com>
-	<20260925190742.1575380-2-jacob.pan@linux.microsoft.com>
-	<atiakDqtuED2cTM5@google.com>
-Organization: LSG
-X-Mailer: Claws Mail 3.21.0 (GTK+ 2.24.33; x86_64-w64-mingw32)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jhCj6au1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D223F1F01825;
+	Mon, 26 Oct 2026 23:11:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793056285;
+	bh=Sq8U6qRkxAVCxLJVMdW3PdUBR2QnCqOWhnBaz9IJe/k=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=jhCj6au1k5AOhOtgclDmE+QL9AVzh5MUBFxg00YqaxsnCigg+6Kn9VbFM7CG08sHs
+	 Gny7d7kNGKTfG/VZCLtihttNO48vi1iNnTWXrE9HFY9ww1zwAXbYGe9V1Gfs0NvZiG
+	 sejWtQqWvIn8YadQqIHsqE43iS5VBbw4/rm691IxxmQLxvkakhWat/jSG624n1ZjmV
+	 6zbC+BsZB6oQ+jhQE9yKqUrp6xJ+8Vwf0vdZFoa7l1dRu+d4UHf38BiQpWL6tf/Dbp
+	 Mk2U1n8yQM0/6xhRwUiStuZt3bqAy2yBqiERoCNTTmC+cJryvPvjo3DHU9sQ9GMv50
+	 8l8JUan1ZDktA==
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+To: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+Cc: Steven Rostedt <rostedt@goodmis.org>, Shuah Khan <shuah@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH v2 1/9] tracing/filters: Fix MATCH_END_ONLY regex matching for fixed-size strings
+Date: Tue, 27 Oct 2026 08:11:22 +0900
+Message-ID: <undine-1793056282077825155-5234c76709b60359@undined.local>
+X-Mailer: UndineD 0.1
+In-Reply-To: <179291743946.492959.9624495647021680807.stgit@devnote2>
+References: <179291742944.492959.11659339795290028998.stgit@devnote2> <179291743946.492959.9624495647021680807.stgit@devnote2>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,122 +58,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-Hi Mostafa,
-
-On Wed, 21 Oct 2026 10:57:20 +0000
-Mostafa Saleh <smostafa@google.com> wrote:
-
-> On Fri, Sep 25, 2026 at 12:07:34PM -0700, Jacob Pan wrote:
-> > Add IOMMU_DOMAIN_EXTERNAL for externally managed domains that move
-> > or attach devices to another VM address space provisioned by an
-> > external owner, such as a type 1 hypervisor.
-> > 
-> > This is not a paging domain and is not sysfs-selectable as a default
-> > domain type. It requires external owner context, such as a vIOMMU.
-> >   
+On Sun, 25 Oct 2026 17:37:19 +0900, Masami Hiramatsu (Google) <mhiramat@kernel.org> wrote:
+> From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
 > 
-> Can't we use a IOMMU_DOMAIN_BLOCKED domain for that, AFAIU, the host
-> never inserts any mapping?
-Right, the host does not own or install any mappings.
-
-The external domain type is nevertheless useful for two reasons:
-
-1. It allows the pvIOMMU driver's domain ops to do the MSHV & Xen attach
-and detach hypercalls 
-2. It allows an externally managed device to leverage the normal IOMMUFD
-device-to-HWPT attachment interface: VFIO_DEVICE_ATTACH_IOMMUFD_PT
-No new ioctls.
-
-It also makes the lifetime and ownership clear for IOMMUFD and
-hypervisor, the device can be returned back to host iommufd owned
-domains once detached.
-
-In pKVM case, my understanding is that you have a emulated root SMMU
-which does not do hypercalls obviously. Then the external attach
-is done via an "out of tree uAPI through KVM/VFIO bridge IOCTLs that
-proxies those hypercalls."
-
-Therefore, if we were to park the device in blocking domain while doing
-external attach (as you suggested), this requires a new PV only uAPI
-that must support pkvm, MSHV, and Xen. So it does not fit in the flow
-supported by PV IOMMU root driver.
-
-I don't have a better solution for both pv and emulated root IOMMU
-drivers. Perhaps others do?
-
-> Thanks,
-> Mostafa
+> regex_match_end() calculated string length as "len - 1", assuming @len is
+> the string length including trailing '\0'. However, for fixed-size string
+> fields, filter_pred_string() passes field->size as @len, and for "comm",
+> filter_pred_comm() passes TASK_COMM_LEN as @len.
 > 
-> > PV IOMMU drivers are expected to use it when moving a device to a
-> > guest VM with an already-created S2 IOPT.
-> > 
-> > Assisted-by: GPT-5.6 Sol
-> > Signed-off-by: Jacob Pan <jacob.pan@linux.microsoft.com>
-> > ---
-> >  drivers/iommu/iommu.c | 2 ++
-> >  include/linux/iommu.h | 9 +++++++++
-> >  2 files changed, 11 insertions(+)
-> > 
-> > diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
-> > index cd1bca7ede9a..d0bd3ef00379 100644
-> > --- a/drivers/iommu/iommu.c
-> > +++ b/drivers/iommu/iommu.c
-> > @@ -220,6 +220,8 @@ static const char
-> > *iommu_domain_type_str(unsigned int t) return "Translated";
-> >  	case IOMMU_DOMAIN_PLATFORM:
-> >  		return "Platform";
-> > +	case IOMMU_DOMAIN_EXTERNAL:
-> > +		return "External";
-> >  	default:
-> >  		return "Unknown";
-> >  	}
-> > diff --git a/include/linux/iommu.h b/include/linux/iommu.h
-> > index ac43b8b93f14..ede77b90f0fd 100644
-> > --- a/include/linux/iommu.h
-> > +++ b/include/linux/iommu.h
-> > @@ -188,6 +188,7 @@ enum iommu_domain_cookie_type {
-> >  
-> >  #define __IOMMU_DOMAIN_NESTED	(1U << 6)  /* User-managed
-> > address space nested on a stage-2 translation        */
-> > +#define __IOMMU_DOMAIN_EXTERNAL	(1U << 7)  /* Externally
-> > managed translation */ 
-> >  #define IOMMU_DOMAIN_ALLOC_FLAGS ~__IOMMU_DOMAIN_DMA_FQ
-> >  /*
-> > @@ -207,6 +208,13 @@ enum iommu_domain_cookie_type {
-> >   *				  represented by mm_struct's.
-> >   *	IOMMU_DOMAIN_PLATFORM	- Legacy domain for drivers
-> > that do their own
-> >   *				  dma_api stuff. Do not use in
-> > new drivers.
-> > + *	IOMMU_DOMAIN_EXTERNAL	- Externally managed domain
-> > for moving/attaching
-> > + *				  devices to another VM address
-> > space
-> > + *				  provisioned by the external
-> > owner, such as
-> > + *				  a type 1 hypervisor. This is
-> > not a
-> > + *				  sysfs-selectable default
-> > domain type; it
-> > + *				  requires external owner
-> > context such as a
-> > + *				  vIOMMU.
-> >   */
-> >  #define IOMMU_DOMAIN_BLOCKED	(0U)
-> >  #define IOMMU_DOMAIN_IDENTITY	(__IOMMU_DOMAIN_PT)
-> > @@ -219,6 +227,7 @@ enum iommu_domain_cookie_type {
-> >  #define IOMMU_DOMAIN_SVA	(__IOMMU_DOMAIN_SVA)
-> >  #define IOMMU_DOMAIN_PLATFORM	(__IOMMU_DOMAIN_PLATFORM)
-> >  #define IOMMU_DOMAIN_NESTED	(__IOMMU_DOMAIN_NESTED)
-> > +#define IOMMU_DOMAIN_EXTERNAL	(__IOMMU_DOMAIN_EXTERNAL)
-> >  
-> >  struct iommu_domain {
-> >  	unsigned type;
-> > -- 
-> > 2.43.0
-> > 
-> >   
+> Because @len in these cases represents the buffer capacity rather than the
+> actual length of the string, regex_match_end() tests against the tail of
+> the buffer (typically trailing '\0' padding) rather than the end of the
+> string. Furthermore, if @len is 0 (denoting an empty dynamic array without
+> trailing '\0'), "len - 1" underflows to -1.
+> 
+> First check "len < r->len" and return 0, which safely rejects negative
+> lengths and cases where the buffer capacity is smaller than the pattern.
+> Then compute the actual string length using strnlen(str, len), which
+> bounds the scan by @len (stopping at the first '\0') without dereferencing
+> past the buffer.
+> 
+> Fixes: a3291c14ecf0 ("tracing/filters: Fix MATCH_END_ONLY filter matching")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+> ---
+> Changes in v2:
+>  - Check "len < r->len" to guard against negative lengths and avoid
+>    calling strnlen() when the buffer capacity is smaller than the pattern.
+>  - Use strnlen(str, len) directly instead of calling strlen(str) when
+>    len is 0, avoiding an out-of-bounds read on 0-length dynamic arrays.
+> ---
+>  kernel/trace/trace_events_filter.c |   10 +++++++---
+>  1 file changed, 7 insertions(+), 3 deletions(-)
+> 
+> diff --git a/kernel/trace/trace_events_filter.c b/kernel/trace/trace_events_filter.c
+> index 5e74d2dae40a..fac51a2953dd 100644
+> --- a/kernel/trace/trace_events_filter.c
+> +++ b/kernel/trace/trace_events_filter.c
+> @@ -1075,10 +1075,14 @@ static int regex_match_middle(char *str, struct regex *r, int len)
+>  
+>  static int regex_match_end(char *str, struct regex *r, int len)
+>  {
+> -	int strlen = len - 1;
+> +	int slen;
+>  
+> -	if (strlen >= r->len &&
+> -	    memcmp(str + strlen - r->len, r->pattern, r->len) == 0)
+> +	if (len < r->len)
+> +		return 0;
+> +
+> +	slen = strnlen(str, len);
 
+Hmm, this fixes 2 different issues. One is out-of-bound access issue (len == 0 case)
+and MATCH_END_ONLY for COMM/STATIC_STRING issue. For example, FILTER_COMM will pass
+the TASK_COMM_LEN as @len, thus "str + (len - 1)" points the end of comm array.
+Thus in most cases, the filter checks only the zero padding area.
+
+OK, let me split this into 2 patches.
+
+Thanks,
+
+> +	if (slen >= r->len &&
+> +	    memcmp(str + slen - r->len, r->pattern, r->len) == 0)
+>  		return 1;
+>  	return 0;
+>  }
+> 
+>
+
+-- 
+Masami Hiramatsu (Google) <mhiramat@kernel.org>
