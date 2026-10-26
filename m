@@ -1,94 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.113
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792974585;
-	b=yBIQyYZQNjFbhyleJhmo+OuM4W1TKhkAusp01CI46HG8VnF/mnzi4RFpKziiTikKpO3r
-	 ue1CKhrI0ggPgeR57bq6pIC2s73cNBh291TcXv6Yqv8/1asdlTxpewWLeuaT5R1vyMPyk
-	 JuOMtGxXhZDHyKpVgWjmOSWPLrTjnYEPCqIiL9rd5e588PuJd6mVKfl6H+3t5QG2AgwC0
-	 7Chc0f6tGSSl5s8diT9t4+HMhU94T6EKmFOk/O0lnMu3Pab4HmUkRhfByNK8GyHMGQqGg
-	 EN2zOEMbgH3YgI+tNHhKoZNbok+8do4YGyxHUWR4AF+dSmze3MSbInRAzB4ThAXjLTw==
+	t=1792974602;
+	b=rl95PDiP1DBVFtc5gQXOw3BCZPOIkhUvgNiohw7IdP4LaxeSRrRocMP+ZINFhANo7WuM
+	 PB+bfBSHF50TjbzS2dfoEY3Uq/mdg+CChgdzJidhaL+OdO1kslavM5AUkStkaeayzHjh0
+	 SOxKZWLjOmUXpbKj04h32XkvE4WpCKOpI9B7my/esCqZfxI9venOm+L7LTEAfa2kUdbNG
+	 S3ep+6lDVOcXjapWUZMKGrQzoxHynUot8Pjv3HA+2xGUZLMGGNK/AP3xh6bxQlJXqtGi3
+	 BEq0aGZXNxh8bq24tnr6fzNfsHUkBPqJ2OLOBtO78QRq34jK6mgbStCPvVsNc5/F+fA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792974585;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Sender:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=Daa/iIwitpiz7Co6ECQKt9tYfMt18cT1MFoMvMMMOIk=;
-	b=X5ioTy0S0ervGMqgyb0FTz1odv0WLUfH+VrCqWH6y0/QlaaRq657FCdGzyO8SDmEwP04
-	 8BImFwtU+7Nmf9zcFW+eGzsAcpRRPX/V4PwHSXy4jbYlIzFACdTvLmYV5PeDIZORaYl6f
-	 /N6ULZkNHJ+PtHT5YVCrKiiZEQDJzb/6vX3u5iY1hbfo4nVaETTkNFKo0hHBgb7P4fqeY
-	 p9Jw4eWwWvESP+oUpOjc/FxWJCaXsMP5EsAJUoLDyjOxfMU3+z2Km+bbIpI42G8M0gj2z
-	 nlnOBOfvvNspRrEKtPTwovlF1/ttXE4Ks5g9j0XpxbAAHFn3jYlzM/Oo/xa5PSG4h5w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792974602;
+	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=grEo01kQo66WHaUjHFxx2avn8S9t3Pe9iGjv32r3wtc=;
+	b=lCR7trDD2sgsEA5bDDBF+nXWFAMkCrv6GZZIO7n62NopWwu31SDkgK99FCMy+qUq9XH0
+	 CZESx5Op2hgGjjmitGGu1UFVo5TILTLOpMk8M8Y/g4kyfVWnU1bHpBdgnLabRsRKTGkor
+	 t0h4AXiJziiIV+7GMrY1zC7p337HEfcMZeOxFh69tJsibELfYmL/Ev9YDuSwE6WOR5DdE
+	 +3/o2hbOLTN+hQWKY7FUdnc25ObNY0NxAzxXdQ04WL+FzcngQTbsfZQgqh5uS76ZE2THF
+	 /db3weQoET7OtHDqS7AZZisuDTPV8SfwYalVkf0y9bw7S4vanABrBql/3WK2p/iq/6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Y4Iy1scq;
-	arc=none smtp.remote-ip=209.85.214.173
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=vinarskis.com;
+	spf=pass smtp.mailfrom=vinarskis.com;
+	dkim=pass header.d=vinarskis.com header.i=@vinarskis.com header.a=rsa-sha256 header.s=protonmail3 header.b=e7lb6UIK;
+	arc=none smtp.remote-ip=79.135.106.113
+Received: from mail-106113.protonmail.ch (mail-106113.protonmail.ch [79.135.106.113])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03664606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 00:29:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 03664606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B318606A32D;
+	Mon, 26 Oct 2026 00:30:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B318606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=vinarskis.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vinarskis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Y4Iy1scq
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2e98798cbddso8734845ad.0
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 17:29:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792974584; x=1793579384; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Daa/iIwitpiz7Co6ECQKt9tYfMt18cT1MFoMvMMMOIk=;
-        b=Y4Iy1scqew3iKckDBJkT6E19Cf8YuHJdeW8u17Wbh8V1nQ2/4UVohE1SZjkZFtM+4+
-         oIsLW82hgZqVwZZ1/EZsvjE/hKb5oV3gZpmlr/Cn6OTJsw+fjQHf5b25wfgIv3RiZAk+
-         uQG9raDyemA+/7NFKhnZ0v4HB1Lugd1I2gtMJN2isRkPymohut27gP83mwwWOEomR2hg
-         Bpw6JBuThz4qjfjls6Ce36CWMYYrWfqN/8ANbnxhMDvkaXj/KQ9udpk4Jv9g6PIoixbn
-         pU2TxVNOQGQjTHjsG5ur5ASQyK1DvvKLpXe4cQpLRjJmYP5l/1vXbyjNsMsY3XGU23bc
-         jG6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792974584; x=1793579384;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Daa/iIwitpiz7Co6ECQKt9tYfMt18cT1MFoMvMMMOIk=;
-        b=UuFZdCeouRT9/GjxXy6cQfpKGTkBGW4GAIfRs9133SsEjY2XaqDxC6v+aZYGnG+Pg8
-         Zi8VPOpFkcQZMYbOIdv04ptx0uU7VpEhrc4HscgmJ0Vy5Kh8DupQttDB3ITuwjiy7d0Q
-         XfJ98UO4MAeVbAipKVgvd/RBMhDIb+6G8WSDu3RslBNZf0t3wAq5E+vxuENHqfTcz8Bp
-         BYfytWDDg9+NscjOinOCPHQ6V7NG4YqbG7Vx6cfiTcsR5+09L2RliouMaqwlMgIa+u2x
-         GstRoDOVc5EsJ0hgLzlZyUt4XuQTebEpGk/IFAeHyQv94I3UdleoLRsVnwssy1GmpA1k
-         qK6g==
-X-Forwarded-Encrypted: i=1; AKwUvBx1dVDD4a/JC7OBaCitUISz0YLND0vS0BJVo6d4j+bvxKrfWlIcbuFq52iDHD23DSjSUtPHADD8y/oKKGo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIi0EhfaJrLpC8LaaIKPR98+foUd9y688KOLcBAIpeDyLlxJELv
-	7zZwM4HDnBoaC7wf1lIRSsBRfE2yvkmfqwmXL5yKqYt6yYhQTGbtwEfT
-X-Gm-Gg: AYBFou0FAOGeqIhixmNHqqWx/SP77yCQgTwKfIl6s29MFGHasSvjtKYHfUxXsopWwLC
-	OVH4pu70vbEyKvMjgDXr65HFZnLhx9QI5SmpZkDE9S/6POh/ipkjLETIlIsA1WvUJFmxl2bWgJh
-	XI7J2LVDXBUuklFFfOvm6BOh9tcuyiubr4QuhUUKTUu9mhcO422uo1Tpk4ho8BvKHH17aNbgBIi
-	x/U3AFVIWnmynQYRUJg3StGTRMy9ZgqrkpAnYog2CCvlS/XRrKQeF9NZ/5yybskviEklxEUHjTj
-	OzgrWiooKnX/0XtaA5UEkndLrwuz98lX4Xasy7FNewnDpvf1sykFWa8KVUY9iawrDc2w0NEzJnX
-	a6U/IlJGHLA5NzeCcKvF4T1bA/FDVSpuy0KOhsvAxDcgw8025fvFQ0qSuK2JsPr0tYke381EvDN
-	nPtCzGHazRc+SV9hxCtyWQS9BaHTMIHinygj+MEaDfpeFp0xioZBSCx7UwF3RZcc2YWs2vFq3Dy
-	HvMAi1mt3IrovVJ9XIMmNnE1lLfRratd3mn80yWd5UdmZQXZJVeu2vfNwruGlCk3KfhXjHVTHmg
-	icloR45+i+a5msU=
-X-Received: by 2002:a17:902:fd88:b0:2e9:734c:5027 with SMTP id d9443c01a7336-2ea9c697125mr44525615ad.15.1792974584380;
-        Sun, 25 Oct 2026 17:29:44 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eac205bb63sm2057115ad.48.2026.10.25.17.29.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 17:29:43 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Sun, 25 Oct 2026 17:29:43 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Asaf Nuri =?utf-8?Q?Bertizlio=C4=9Flu?= <ycistak@gmail.com>
-Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] hwmon: (nct6775) Add ASUS PRIME B760M-K
-Message-ID: <02aa6c87-7098-4a4c-8d84-197323abb3d1@roeck-us.net>
-References: <20261018202934.1111462-1-ycistak@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=vinarskis.com header.i=@vinarskis.com header.a=rsa-sha256 header.s=protonmail3 header.b=e7lb6UIK
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vinarskis.com;
+	s=protonmail3; t=1792974597; x=1793233797;
+	bh=grEo01kQo66WHaUjHFxx2avn8S9t3Pe9iGjv32r3wtc=;
+	h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=e7lb6UIKD9dLsflH3N6v4erb+AIFCS/8QFU0nPsv+YuKuUni0wKb0ZZH0wWhOcsyJ
+	 ztH3X4X/wNLIz2RvifmKa1KRVTFEUyv7vGxQMfG7uHp8RFrCW19bOniGIaxYhaafqR
+	 /STWZkF7FpdxddmY8/wL/mgHDwBEqfOanlExZ1YDaXp/8Bu7uDMVmPHsrv2egySzpu
+	 VyW1wVInNgwNtd55kd7GfD6p0v2giCxLVsw/mxnq5tqRVnujxW1WKvcdvFNKjvFB6S
+	 j1FVbb715FNIBjLEItSbqzh9NagHIg16FgZROzsfd3MPmu52XTmeJwAT6TzP+RhPRH
+	 X8zoa1VYlth6Q==
+X-Pm-Submission-Id: 4jCZJd63CTz1DFSj
+From: Aleksandrs Vinarskis <alex@vinarskis.com>
+Date: Mon, 26 Oct 2026 01:29:40 +0100
+Subject: [PATCH v8 1/3] dt-bindings: platform: introduce EC for Dell XPS 13
+ 9345
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,32 +59,161 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261018202934.1111462-1-ycistak@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261026-dell-xps-9345-ec-v8-1-251c2cbfbc6c@vinarskis.com>
+References: <20261026-dell-xps-9345-ec-v8-0-251c2cbfbc6c@vinarskis.com>
+In-Reply-To: <20261026-dell-xps-9345-ec-v8-0-251c2cbfbc6c@vinarskis.com>
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Kees Cook <kees@kernel.org>, 
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+ Abel Vesa <abelvesa@kernel.org>
+Cc: Liviu Nicoara <lnicoara@thinkoid.org>, linux-arm-msm@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ platform-driver-x86@vger.kernel.org, Abel Vesa <abel.vesa@oss.qualcomm.com>, 
+ Tobias Heider <tobias.heider@canonical.com>, Val Packett <val@packett.cool>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Stephan Gerhold <stephan.gerhold@linaro.org>, 
+ linux-hardening@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4342; i=alex@vinarskis.com;
+ h=from:subject:message-id; bh=mv5nMGhQJ4HJU+dLxlctLnk3H+irsCgi2Dl4/EuzfiE=;
+ b=owGbwMvMwCX2dl3hIv4AZgHG02pJDFn35jOIyOrd/Xv29Ke/O+7ZLjjB/pVx4rnX730Nf6+6u
+ HrTk7yV/R2lLAxiXAyyYoos3X++pnUtmruW4brGN5g5rEwgQxi4OAVgImemMzLMWsix9nubTRTX
+ rFO6jsxqyqcK8pvVHxreKmRcNmPB9oIiRoYexwsWk3/dMA0xfSH8oXL3rLL2+QHp+usPPDO7+P3
+ zTxZOAA==
+X-Developer-Key: i=alex@vinarskis.com; a=openpgp;
+ fpr=8E21FAE2D2967BB123303E8C684FD4BA28133815
 
-On Sun, Oct 18, 2026 at 11:29:34PM +0300, Asaf Nuri Bertizlioğlu wrote:
-> The ASUS PRIME B760M-K (DDR5 variant) is missing from asus_msi_boards[],
-> while its DDR4 sibling, the PRIME B760M-K D4, is already listed. Without
-> the entry, the driver does not use the AsusMbSwInterface ACPI method to
-> access the Super I/O chip, and no fan, voltage or board temperature
-> sensors are available on this board.
-> 
-> With the board added, the chip is detected:
-> 
->   nct6775: Found NCT6798D or compatible chip at 0x2e:0x290
-> 
-> and fan speeds, voltages and the SYSTIN, CPUTIN and AUXTIN temperatures
-> are reported (BIOS version 1838).
-> 
-> The missing entry was found with the help of an LLM, and the change was
-> tested on the board above.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Asaf Nuri Bertizlioğlu <ycistak@gmail.com>
+Add bindings for Embedded Controller (EC) in Dell XPS 13 9345 (platform
+codename 'tributo'). It may be partially or fully compatible with EC
+found in Snapdragon-based Dell Latitude, Inspiron ('thena').
 
-Applied.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Aleksandrs Vinarskis <alex@vinarskis.com>
+---
+ .../embedded-controller/dell,xps13-9345-ec.yaml    | 90 ++++++++++++++++++++++
+ MAINTAINERS                                        |  5 ++
+ 2 files changed, 95 insertions(+)
 
-Thanks,
-Guenter
+diff --git a/Documentation/devicetree/bindings/embedded-controller/dell,xps13-9345-ec.yaml b/Documentation/devicetree/bindings/embedded-controller/dell,xps13-9345-ec.yaml
+new file mode 100644
+index 000000000000..33d59ad52f96
+--- /dev/null
++++ b/Documentation/devicetree/bindings/embedded-controller/dell,xps13-9345-ec.yaml
+@@ -0,0 +1,90 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/embedded-controller/dell,xps13-9345-ec.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Dell XPS 13 9345 Embedded Controller
++
++maintainers:
++  - Aleksandrs Vinarskis <alex@vinarskis.com>
++
++description:
++  The Dell XPS 13 9345 has an Embedded Controller (EC) which handles thermal
++  and power management. It is communicating with SoC over multiple i2c busses.
++  Among other things, it handles fan speed control, thermal shutdown, peripheral
++  power supply including trackpad, touch-row, display. For these functions, it
++  requires frequently updated thermal readings from onboard thermistors.
++
++properties:
++  compatible:
++    const: dell,xps13-9345-ec
++
++  reg:
++    const: 0x3b
++
++  interrupts:
++    maxItems: 1
++
++  io-channels:
++    description:
++      ADC channels connected to the 7 onboard thermistors on PMK8550.
++      EC requires frequent thermal readings of these channels to perform
++      automated fan speed control.
++    items:
++      - description: ADC channel for sys_therm1
++      - description: ADC channel for sys_therm2
++      - description: ADC channel for sys_therm3
++      - description: ADC channel for sys_therm4
++      - description: ADC channel for sys_therm5
++      - description: ADC channel for sys_therm6
++      - description: ADC channel for sys_therm7
++
++  io-channel-names:
++    items:
++      - const: sys_therm1
++      - const: sys_therm2
++      - const: sys_therm3
++      - const: sys_therm4
++      - const: sys_therm5
++      - const: sys_therm6
++      - const: sys_therm7
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - io-channels
++  - io-channel-names
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/irq.h>
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        embedded-controller@3b {
++            compatible = "dell,xps13-9345-ec";
++            reg = <0x3b>;
++            interrupts-extended = <&tlmm 66 IRQ_TYPE_LEVEL_LOW>;
++
++            io-channels = <&pmk8550_vadc 0x14a>,
++                          <&pmk8550_vadc 0x14b>,
++                          <&pmk8550_vadc 0x144>,
++                          <&pmk8550_vadc 0x145>,
++                          <&pmk8550_vadc 0x146>,
++                          <&pmk8550_vadc 0x147>,
++                          <&pmk8550_vadc 0x148>;
++            io-channel-names = "sys_therm1",
++                               "sys_therm2",
++                               "sys_therm3",
++                               "sys_therm4",
++                               "sys_therm5",
++                               "sys_therm6",
++                               "sys_therm7";
++        };
++    };
++...
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 1e0d90fe2220..f20bb171e5ee 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -7537,6 +7537,11 @@ S:	Maintained
+ F:	Documentation/ABI/testing/sysfs-class-firmware-attributes
+ F:	drivers/platform/x86/dell/dell-wmi-sysman/
+ 
++DELL XPS EMBEDDED CONTROLLER DRIVER
++M:	Aleksandrs Vinarskis <alex@vinarskis.com>
++S:	Maintained
++F:	Documentation/devicetree/bindings/embedded-controller/dell,xps13-9345-ec.yaml
++
+ DELTA AHE-50DC FAN CONTROL MODULE DRIVER
+ M:	Zev Weiss <zev@bewilderbeest.net>
+ L:	linux-hwmon@vger.kernel.org
+
+-- 
+2.54.0
+
