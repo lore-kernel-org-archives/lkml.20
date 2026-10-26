@@ -1,97 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.70
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792993717;
-	b=QkTLlbWLGejBqlTBT1QE5dw45r2h0Jps/2eKdWt1iv5FMmuGJSQRKOhBcKTLo+LdhA0Z
-	 KYiW1IlScX1ixnPbqJt45gsSNbft8ITNzF6c4YHpuKNEFcVfeMI408d85TL4IMWafadr5
-	 AKxOuRtwysO3AitFVQJDBADIJeiM1aG6dX0g5tNApTqS3GRi3F3yHIJPl6yzvtDHNIiP+
-	 tP0qmwbTiu67b9TBc/D6snZtgNPHPaV59nmGj1Pq8zIWMjFqLwyKC7Bn/1Hj1E19NCMjJ
-	 YUa6+BRlBFBwaj7Q/INQ+PrXW7pYg7MvyoeqR327Wc6o8Odq/vq3JnCWlp8I20tK+lA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792993717;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:CC:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=oZL2AR5kMu0scth3p0aT7lNXsGE5c9H5H4j2nFTOP6g=;
-	b=s2ALb+Nyp4JwbygKSz1f0cmv8w3sCUgI/IvHq9ky644S1YQ9s62N5nupOQXKS5SFFUi1
-	 yWztFLZk/bBa7QW/FUUG531XjgU+dJqfiKMFzVSGmR7cKlbPTafjPtOaYQ8se/yEMSGK9
-	 5kt1lmGgVNdM0xKKqIlxrvI7LBUCeZY6SnV+R/zAH4jEkSNRyahH1OdsG66JqgrDxc/Zq
-	 lG5aynaH9zwEW70FZb/Ts6qpsHywrkqyUTmy05fnDIasQwEtXGYoTKUZoNgDuQQCUXr8T
-	 /iUQ55lJznB9PRYcSc/+dABpSYgKmSzdBLNcYCr4O2Sy5Twppzf2p97OtSGL/mc7Lmg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=OyoflYsR;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.70
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012070.outbound.protection.outlook.com [52.101.48.70])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.153.30
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792993733;
+	b=Go1867zz9pXJff+oyQ6ypXu0y0wEjb6alVPUzDiD2TwifgmOpGfxrcFqHsher+3cBd3N
+	 ePeDTt0N7aypxe1i2gP2ZN9So8YEEsSq7/kId3lHxYxb6Q7qck5vJHABw4Zl0jVYrb/bh
+	 aNLdSFnGJ00xmcx8Jmkfq43IE9F0o+GPaRR0iqD8TxaI17P1LMjOBLSkel93r4pu+o75z
+	 mIYCTJ0SWkmCkSBIq+rw1z7pG15Dyx1zCYp4TeaYfTadWT9SJxWDxLyjiOyk9NTVMv/fK
+	 fwQs7+QJXShxmoVVJZY2srqWv0z2unu/QgmjlUpLMTPCPsvyzwjAhMi+N4rAXaOq+8g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792993733;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Virus-Version;
+	bh=V+HvE9QnqA10mngcxh5K4uhaL32+pv8FcAiS3KEQuaU=;
+	b=ss+VUMHrA3znhNFF2dzeXLeHJc60P4aOe3GRtXFFgWjaxtuOk7bKVi7OEszsL3vzAp99
+	 ofVtR1dw4QYcZP/v5sREadHtUw26Uyk932Tl3c8XUXFolZDeubpI4lXSnSVdNXGkbtcTe
+	 RXjasthN6uzY5SmVCjiA71BuMiqZkaI57oNWKoYP/Eht/NI0q5yyyRzRIie3gCx+fSZfv
+	 1qlTUt0NHjEhV/rSwOKfGoH65aPqt9wjVcEgKXTrxhgcR+d9R9NxNeYwyE3DPNXfroRxz
+	 Yk4z5dkap9sFXYA2caZy/gVrXZqJynMkCp6wXOJgU6wfROA0Pi99MXIDaQGC9AgkvkQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=fb.com;
+	spf=pass smtp.mailfrom=meta.com;
+	dkim=pass header.d=fb.com header.i=@fb.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=JrbiJLBV;
+	arc=none smtp.remote-ip=67.231.153.30
+Received: from mx0a-00082601.pphosted.com (mx0b-00082601.pphosted.com [67.231.153.30])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86609606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 05:48:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86609606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72D5D606A325;
+	Mon, 26 Oct 2026 05:48:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72D5D606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fb.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=OyoflYsR
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=idElrGnuMUYFR5ClITKXjRZ0A0MfogkxliwI64sX/lVCyWsiylqxDBNn4GpYCSvAMp/esxixj7FAPQC0r44OhuAVnAVgpVvjEoGSijwV8rQMG2kCGJQowyXeln7j/5Fxj4QAmvnBWOXL5KGeduBHbc+YbbX9SbMIkvXYUSX4Cga4n5euchoSmpMbYhX7WyCdqjz+gu04I6xinKor3mTuEdlwBKzTYNLcdICofpWjzeaS3oBTCbDwArsqfW3vmEFOgnzoUHJQ5NiGi9KXUAKHcNUEa59E35VON0EqxFgbfmEP9W6yD//fBO4wRN1uMIahRSGldXn+LBXJwLiJWqmc5Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oZL2AR5kMu0scth3p0aT7lNXsGE5c9H5H4j2nFTOP6g=;
- b=uRROKXofy5V+8NT1YCShbGlPxPoL3d0byeBYXu3BzOwiH/9MM1gKRQtZxTUeUo2d3pht8JW9iXVWzvGBfW1iAFqacyD2e7yFpw1EHBVn6pCgGoRgznST8LRze8K1iF4SxQtJl3/DmZ9/MOC7wLLWSSElZfJy/aQ28V6uKcKnZjyaKQFP7/E2jTReZPvMf3lFlftyMTA46TuwoOnwYBEsE/TPlCySlvJWAhgjxJg/lFwtl2FHcvpaEfT6MYmxXFL9moNp0HsiiX5IxlUeQhMZdZta2CULAA5PpXvGsGCBDkVNaLkGCMarx1UJX2Jol+j9bnhfVBEovQXOLgBpb+HfBA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=163.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oZL2AR5kMu0scth3p0aT7lNXsGE5c9H5H4j2nFTOP6g=;
- b=OyoflYsRHnft6APxArg3k0zdtZMTrIqmGfkb9sV1P0/6/lMyTbrXb3+Q2KqruBK3tN/K5vmCPe75kN82qsKb5QL3qp6FftThjCRsVN2AUlehu7/XfHAPMa7m5KpBO4umYfzWab9ttdl89wmLbPitOCznoSQIeM0qjDioS7hrF+s=
-Received: from BY3PR05CA0037.namprd05.prod.outlook.com (2603:10b6:a03:39b::12)
- by IA4PR12MB9809.namprd12.prod.outlook.com (2603:10b6:208:54f::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
- 2026 05:46:32 +0000
-Received: from SJ5PEPF000001D5.namprd05.prod.outlook.com
- (2603:10b6:a03:39b:cafe::1a) by BY3PR05CA0037.outlook.office365.com
- (2603:10b6:a03:39b::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.7 via Frontend Transport; Mon, 26
- Oct 2026 05:46:31 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SJ5PEPF000001D5.mail.protection.outlook.com (10.167.242.57) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.569.4 via Frontend Transport; Mon, 26 Oct 2026 05:46:31 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 26 Oct
- 2026 00:46:31 -0500
-Received: from [10.136.43.232] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Mon, 26 Oct 2026 00:46:27 -0500
-Message-ID: <72a6eb77-0461-477b-a0e9-c06a486e3e0e@amd.com>
-Date: Mon, 26 Oct 2026 11:16:26 +0530
+	dkim=pass (2048-bit key, unprotected) header.d=fb.com header.i=@fb.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=JrbiJLBV
+Received: from pps.filterd (m0001303.ppops.net [127.0.0.1])
+	by m0001303.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 69Q38YlM934645;
+	Sun, 25 Oct 2026 22:48:34 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	pps82601-s2048-2026-q3; bh=V+HvE9QnqA10mngcxh5K4uhaL32+pv8FcAiS3
+	KEQuaU=; b=JrbiJLBVKJkkQ5Ao9603lTx52demKVp7Ojoo28tarmJ1RYfl4EloO
+	FKDucvUCuHA3la9H/Rqq1HI0BEP6NYNsuMJRok/gDzgDxg/sth8PWReLz3JF17M0
+	y7wJaXAdohbbGVv2qrYaX8SRuTgW29T8D1t3m1I+JNodK0WnYWJbvYsoKexqGTMf
+	CQrPN05BcGBtrP9lvchv8Ky1SkcqGjZqsFepEhPFFcO0yJsqZ8/GDslyaLVSA5o+
+	bed3QzWpuO/3yipNbojIDwjZvb6EFPsTkcz699pKvQ3Rju2N4kogpcZcpdwfSfIa
+	QebYNtukENCzQhQ5Em7RVqXV0QgzydkWw==
+Received: from mail.thefacebook.com ([163.114.134.16])
+	by m0001303.ppops.net (PPS) with ESMTPS id 4hgrbbya4m-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+	Sun, 25 Oct 2026 22:48:33 -0700 (PDT)
+Received: from localhost (2620:10d:c085:108::4) by mail.thefacebook.com
+ (2620:10d:c08b:78::2ac9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.56; Mon, 26 Oct
+ 2026 05:48:32 +0000
+From: Amir Ayupov <aaupov@fb.com>
+To: James Clark <james.clark@linaro.org>, Leo Yan <leo.yan@arm.com>,
+        Suzuki K
+ Poulose <suzuki.poulose@arm.com>,
+        Mike Leach <mike.leach@arm.com>,
+        Alexander
+ Shishkin <alexander.shishkin@linux.intel.com>
+CC: Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+        Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Jonathan Corbet <corbet@lwn.net>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Randy Dunlap
+	<rdunlap@infradead.org>,
+        Shuah Khan <skhan@linuxfoundation.org>,
+        Daniel
+ Pereira <danielmaraboo@gmail.com>,
+        <coresight@lists.linaro.org>, <linux-arm-kernel@lists.infradead.org>,
+        <linux-perf-users@vger.kernel.org>, <linux-doc@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>
+Subject: [PATCH v4 3/7] coresight: syscfg: Match feature capabilities separately from device class
+Date: Sun, 25 Oct 2026 22:48:23 -0700
+Message-ID: <6fd94860b3c13c0ddc1a5184d5d9331edc27d9f0.1792989860.git.aaupov@fb.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <cover.1792989860.git.aaupov@fb.com>
+References: <cover.1792907332.git.aaupov@fb.com> <cover.1792989860.git.aaupov@fb.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,135 +92,146 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] sched/stats: Fix run_delay over-count for proxy-migrated
- blocked donors
-To: <albin_yang@163.com>, <peterz@infradead.org>, <mingo@redhat.com>,
-	<juri.lelli@redhat.com>, <vincent.guittot@linaro.org>
-CC: <dietmar.eggemann@arm.com>, <rostedt@goodmis.org>, <bsegall@google.com>,
-	<mgorman@suse.de>, <vschneid@redhat.com>, <chen.yu@linux.dev>,
-	<kayracizmeci@gmail.com>, <linux-kernel@vger.kernel.org>,
-	<albinwyang@tencent.com>
-References: <20261025130740.3324391-1-albin_yang@163.com>
-Content-Language: en-US
-From: K Prateek Nayak <kprateek.nayak@amd.com>
-In-Reply-To: <20261025130740.3324391-1-albin_yang@163.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D5:EE_|IA4PR12MB9809:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6f508d15-3250-4f22-6929-08df33247cfb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|82310400026|23010399003|7416014|376014|1800799024|18002099003|22082099003|56012099006|11063799006|261021121427099003|10067099003|261022105027099003|261022075727099003|261021123027099003;
-X-Microsoft-Antispam-Message-Info:
-	vlcVNpFYxD5ptSMwNy2wuPwxMFOJONadYTkIuytquO047reqJJ7NLoeMe/l025QR3KO/wAPf5hKI9qe/lkfVjDlKPsId6vxP9B0OGjIk4/GKYb1HYFUQyIRx2dICXlhAFbT+OZNynLLiQ8PiKfDJzHSOK2rN3urgg2iSF+s+Eyjq52IyHufQShcK2EA3Xs76+nPBiXiD8HQxvP5qoODieo20nIyN9XQ7SzdXGd2ZV3mSyuwDCsndmQO6+YKMT/wy8ObXRUaNc6qIH4oCuCjmp+10v3+4kSFyaIGOpW8xlLgCFVdmYbsYCQ7LXuN/Or3tRIF7Syw3pkAszJTOFiXW685/oV0cB5UMv6b7atTBoDkJRA9Bo9Tevl+wPoell1CYLYjvtfPVdKpcxThiU9w2ALXd57ePJNct+Zdm73rFWWxuW7N8FV8QGqTDCXowfIKAM/QtU1vcpMiApqgTqa17tLlqDrsrs+3CIrRvRaniyWjiK9PFAf9IV5VeEVh3N2kD+mnXlsfU6072PaqgoDJ/Kdk/FyeyuMT8zCXKEA8WL8OR+KD26VINeVPTpHUaVkQLOpHaBqJPc8eb++0sAMY4w4/XXTAG8cnZVRD0pftB0tWafRJ+YQT6k+BQMTiVyLemxtRgfFlW29Q3hFsfODK/2jomWk8uSInyUjoA9yZkD/DNzt+13Nh9jWANXaEkkWaxnIdIdcgbs57vdJ8V7c6ecQ==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(23010399003)(7416014)(376014)(1800799024)(18002099003)(22082099003)(56012099006)(11063799006)(261021121427099003)(10067099003)(261022105027099003)(261022075727099003)(261021123027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	EkRQV3I9BbO4owJDdeItcrXjoal4oqUxQE9jem6P1AQfREY6xeF0LCBiWfCi9qVr48p0lu9oIUe5/gALANZo+0J/ZD1esZw0dcjjiD6MN+WC8nVldsXbb3Is0qRhhfo84oX65N0sRWOoBrxWQTODvkbuSWUP4j9i3JwCnOpM06QGDX1hdqsl5q6uyFvRvWiP+KUfjJPHDF5sslXjqCgNI5cS/silZ6RX06uNfND2+UcIMvYEAE2nwQH5xKHAczhZU4+iseJWIjAXuky9i1SXYf959XvWLrSFs8FNBGmJ1QCGl8HwMWHYgm8hipwTcziUnhOgnBWVx6MGXv9LU9ZPUKPgbJIvzh2h4fYLY8b9f6irEAuotFr8upnCaizf93qZllNEm/GmHJ8x0HP82W1pT4MRWv5BUrTaZg0x5AXpJ8MafZTx6zJyleus0i3nVTT/
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 05:46:31.7569
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6f508d15-3250-4f22-6929-08df33247cfb
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF000001D5.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA4PR12MB9809
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-ORIG-GUID: bQwmj7zWjwGfSQVogxvhW5d_aPvqKpfS
+X-Proofpoint-GUID: bQwmj7zWjwGfSQVogxvhW5d_aPvqKpfS
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDAyMiBTYWx0ZWRfX/whWNXK10H1R
+ 54hQlKlgZBO7Dij0uYZkBGLNpZLJvRFepfkVV5Pca8+ZGEKMwynLyEScRejTn0s3YTxC+1kr/10
+ MD73OPHVC+CUhl884Nxhp4/nbrNFQ6A=
+X-Authority-Analysis: v=2.4 cv=R6GWitRX c=1 sm=1 tr=0 ts=6adee9b1 cx=c_pps
+ a=CB4LiSf2rd0gKozIdrpkBw==:117 a=CB4LiSf2rd0gKozIdrpkBw==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
+ a=_78whYxrdx1mplLwxq1U:22 a=FOH2dFAWAAAA:8 a=mif2P4nyd6mfzKxTjdEA:9
+ a=+jEqtf1s3R9VXZ0wqowq2kgwd+I=:19
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDAyMiBTYWx0ZWRfXxWqezGMmkXje
+ 8ARic7ZAZ4DQejvysrehxs1xkFGDcLzgYp9wXBUUzm2x2G4wtBfVaXLOyjce7EJvaywtmm2d9o2
+ i3S7RYMU+V71Upej/qXOQRn/Eyv+zdELZh76bSNOxBR/NAuhvcai+S31qXA7qp1rW8lSLgj7sRz
+ Rwxavfd7XpAD889zgwy2eIDFIboUV3XS0zkt6/GWAj3QGywaHLCE1ECmkfjC5N3xfTpIvuhuuD0
+ OCsF7PpPY9TkfeA5k2YrEmRpFrg3CXRem5Nvz429wolUT2+tTzKih1QnjqNL+STqPltwD9+pD2x
+ Hi+G47wLgI/RzsLvdtqZOR7HHw7LteHXECABPdIcEFZ5DdICYNMTTfcwyM9mL7WqmPQ/GIorDoN
+ ZY5s7CAGgiTc/JmbIifKqXvFRR29uWz6ulyJwYPTEiBk+hyz5MbiSoiOS73/mVjm2wABP0u9kXq
+ NJkFhL1d3Qekk438M7w==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-26_01,2026-10-21_02,2025-10-01_01
 
-On 10/25/2026 6:37 PM, albin_yang@163.com wrote:
-> diff --git a/kernel/sched/stats.h b/kernel/sched/stats.h
-> index dc626f99ffd9..ef52fbe86bba 100644
-> --- a/kernel/sched/stats.h
-> +++ b/kernel/sched/stats.h
-> @@ -290,7 +290,7 @@ static void sched_info_arrive(struct rq *rq, struct task_struct *t)
->   */
->  static inline void sched_info_enqueue(struct rq *rq, struct task_struct *t)
->  {
-> -	if (!t->sched_info.last_queued && !t->se.sched_delayed)
-> +	if (!t->sched_info.last_queued && !t->se.sched_delayed && !task_is_blocked(t))
+A feature loads on a device when the two share any match flag. That works
+for device classes, where a feature wants any one of them, but not for
+capabilities a device may or may not have: a feature that sets a class
+and a capability would still load on a device of that class without the
+capability.
 
-I think the sched info bits should be adapted to use the p->is_blocked
-indicator instead of adding these endless exceptions.
+Split the match flags into CS_CFG_MATCH_CLASS_MASK for device classes and
+CS_CFG_MATCH_CAP_MASK for capabilities. A feature now loads on a device
+that shares one of its classes and has all of its capabilities. Check
+this once in cscfg_load_feat_csdev(), which both the feature and the
+device registration paths call. No capability flags are defined yet, so
+matching is unchanged.
 
-Could you see if something like below works:
+Assisted-by: Devmate:Opus-5.5
+Signed-off-by: Amir Ayupov <aaupov@fb.com>
+---
+ .../hwtracing/coresight/coresight-config.h    |  8 ++++
+ .../hwtracing/coresight/coresight-syscfg.c    | 37 +++++++++++++------
+ 2 files changed, 34 insertions(+), 11 deletions(-)
 
-  (Only build tested; Prepared on top of sched-core-2026-10-18)
-
-diff --git a/kernel/sched/stats.h b/kernel/sched/stats.h
-index ebe0a7765f98..bd8c5cdfd12a 100644
---- a/kernel/sched/stats.h
-+++ b/kernel/sched/stats.h
-@@ -233,16 +233,13 @@ static inline void psi_account_irqtime(struct rq *rq, struct task_struct *curr,
- /*
-  * We are interested in knowing how long it was from the *first* time a
-  * task was queued to the time that it finally hit a CPU, we call this routine
-- * from dequeue_task() to account for possible rq->clock skew across CPUs. The
-- * delta taken on each CPU would annul the skew.
-+ * from dequeue_task() / __schedule() to account for possible rq->clock skew
-+ * across CPUs. The delta taken on each CPU would annul the skew.
-  */
--static inline void sched_info_dequeue(struct rq *rq, struct task_struct *t)
-+static inline void __sched_info_dequeue(struct rq *rq, struct task_struct *t)
- {
- 	unsigned long long delta = 0;
+diff --git a/drivers/hwtracing/coresight/coresight-config.h b/drivers/hwtracing/coresight/coresight-config.h
+index ae6295e308131..f04e73b91d9a6 100644
+--- a/drivers/hwtracing/coresight/coresight-config.h
++++ b/drivers/hwtracing/coresight/coresight-config.h
+@@ -7,6 +7,7 @@
+ #ifndef _CORESIGHT_CORESIGHT_CONFIG_H
+ #define _CORESIGHT_CORESIGHT_CONFIG_H
  
--	if (!t->sched_info.last_queued)
--		return;
--
- 	delta = rq_clock(rq) - t->sched_info.last_queued;
- 	t->sched_info.last_queued = 0;
- 	t->sched_info.run_delay += delta;
-@@ -255,6 +252,15 @@ static inline void sched_info_dequeue(struct rq *rq, struct task_struct *t)
- 	rq_sched_info_dequeue(rq, delta);
++#include <linux/bits.h>
+ #include <linux/cleanup.h>
+ #include <linux/coresight.h>
+ #include <linux/types.h>
+@@ -30,6 +31,13 @@
+  */
+ #define CS_CFG_MATCH_CLASS_SRC_ALL	0x0001	/* match any source */
+ #define CS_CFG_MATCH_CLASS_SRC_ETM4	0x0002	/* match any ETMv4 device */
++#define CS_CFG_MATCH_CLASS_MASK		GENMASK_U32(7, 0)
++
++/*
++ * flags defining device capabilities a feature can require. A feature loads on
++ * a device that matches one of its classes and has all of its capabilities.
++ */
++#define CS_CFG_MATCH_CAP_MASK		GENMASK_U32(15, 8)
+ 
+ /* flags defining device instance matching - used in config match desc data. */
+ #define CS_CFG_MATCH_INST_ANY		0x80000000 /* any instance of a class */
+diff --git a/drivers/hwtracing/coresight/coresight-syscfg.c b/drivers/hwtracing/coresight/coresight-syscfg.c
+index a816c22c87bc8..3ee104e94a4cd 100644
+--- a/drivers/hwtracing/coresight/coresight-syscfg.c
++++ b/drivers/hwtracing/coresight/coresight-syscfg.c
+@@ -171,8 +171,22 @@ cscfg_alloc_csdev_feat(struct coresight_device *csdev, struct cscfg_feature_desc
+ 	return feat_csdev;
  }
  
-+static inline void sched_info_dequeue(struct rq *rq, struct task_struct *t)
+-/* load one feature into one coresight device */
++static bool cscfg_match_feat_csdev(u32 feat_flags, u32 csdev_flags)
 +{
-+	/* blocked tasks are handled at sched_info_depart() */
-+	if (t->is_blocked)
-+		return;
++	/* The device must be in one of the feature's classes */
++	if (!(feat_flags & csdev_flags & CS_CFG_MATCH_CLASS_MASK))
++		return false;
 +
-+	__sched_info_dequeue(rq, t);
++	/* The device must have every capability the feature requires */
++	if (feat_flags & ~csdev_flags & CS_CFG_MATCH_CAP_MASK)
++		return false;
++
++	return true;
 +}
 +
- /*
-  * Called when a task finally hits the CPU.  We can now calculate how
-  * long it was waiting to run.  We also note when it began so that we
-@@ -290,7 +296,7 @@ static void sched_info_arrive(struct rq *rq, struct task_struct *t)
-  */
- static inline void sched_info_enqueue(struct rq *rq, struct task_struct *t)
++/* Load the feature into the device if it matches, otherwise skip it. */
+ static int cscfg_load_feat_csdev(struct coresight_device *csdev,
++				 u32 match_flags,
+ 				 struct cscfg_feature_desc *feat_desc,
+ 				 struct cscfg_csdev_feat_ops *ops)
  {
--	if (!t->sched_info.last_queued)
-+	if (t->is_blocked)
- 		t->sched_info.last_queued = rq_clock(rq);
- }
+@@ -183,6 +197,9 @@ static int cscfg_load_feat_csdev(struct coresight_device *csdev,
+ 	if (!ops->load_feat)
+ 		return -EINVAL;
  
-@@ -310,6 +316,9 @@ static inline void sched_info_depart(struct rq *rq, struct task_struct *t)
- 
- 	if (task_is_running(t))
- 		sched_info_enqueue(rq, t);
++	if (!cscfg_match_feat_csdev(feat_desc->match_flags, match_flags))
++		return 0;
 +
-+	if (t->is_blocked)
-+		__sched_info_dequeue(rq, t);
- }
+ 	feat_csdev = cscfg_alloc_csdev_feat(csdev, feat_desc);
+ 	if (!feat_csdev)
+ 		return -ENOMEM;
+@@ -212,11 +229,11 @@ static int cscfg_add_feat_to_csdevs(struct cscfg_feature_desc *feat_desc)
+ 	int err;
  
- /*
----
-
-It is similar to how we handle PSI signals.
-
->  		t->sched_info.last_queued = rq_clock(rq);
->  }
->  
-
+ 	list_for_each_entry(csdev_item, &cscfg_mgr->csdev_desc_list, item) {
+-		if (csdev_item->match_flags & feat_desc->match_flags) {
+-			err = cscfg_load_feat_csdev(csdev_item->csdev, feat_desc, &csdev_item->ops);
+-			if (err)
+-				return err;
+-		}
++		err = cscfg_load_feat_csdev(csdev_item->csdev,
++					    csdev_item->match_flags, feat_desc,
++					    &csdev_item->ops);
++		if (err)
++			return err;
+ 	}
+ 	return 0;
+ }
+@@ -739,11 +756,9 @@ static int cscfg_add_feats_csdev(struct coresight_device *csdev,
+ 		return -EINVAL;
+ 
+ 	list_for_each_entry(feat_desc, &cscfg_mgr->feat_desc_list, item) {
+-		if (feat_desc->match_flags & match_flags) {
+-			err = cscfg_load_feat_csdev(csdev, feat_desc, ops);
+-			if (err)
+-				break;
+-		}
++		err = cscfg_load_feat_csdev(csdev, match_flags, feat_desc, ops);
++		if (err)
++			break;
+ 	}
+ 	return err;
+ }
 -- 
-Thanks and Regards,
-Prateek
+2.52.0
 
