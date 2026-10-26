@@ -1,122 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793041029;
-	b=XwjS+CH+fiXkbxBUbGBiILOQJiGEy7+x0HbLoFkBwxIOx/sDBB14nBLJ0Fh1AeOu7CME
-	 PheCPlGn0t78kZfNTW0+B8pK6XoIpWvNf+heRbRG9W1VarRQuJSGbUfUd0k+Z0/tw4fjV
-	 naM1qNrjokT4dHvFqbzv/hWXT12GyHD8BqfXbwLQUJpKAQGFZxpK8YE4K4gAWA7b5hV+7
-	 +bSSY+2vRRZQpDU6a7tAUTggSoJ2dxL3F0OG4r4TJekm8dfy7sztF0XNdUqJzKkcrFEoT
-	 4819tCGno6DvWKpadJZnToBgTADwkvcJPpsgkgVQ5c+/sHHQzB3OVdqxQJziOcSCtUA==
+	t=1793041130;
+	b=Mwtr7KzhlT7rVLJzDBZTDtOMW6F5MQlCM/9b14ViHnwZfIr4I57wjDg7PQkqkHyCl3Ua
+	 xftKXi2SZlKFUUz2oJsxZ7i1TwveK0HrcwT7gJHYZUmm7RtSQS8NsZIKHkDgcolfRQW7n
+	 HhOYiDupRy3Ta20mkxGnnfTqnAl5A6H9EcfGN3y65YH2yMb4oacBl8pn1Xuw9bSmIp+nP
+	 +KebRiymC0QoNeAZdKlLfS9LqPum7NeEKhV7zO9298vGWdGAmzXwRoAnKV/6iqe6u2+Qz
+	 pADfUbf4hAjv2AwzHFYgClSR3EPFXUK90+SqSZPFJ/C0bUtUzh8dD+I+Eix4d//teqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793041029;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
-	 References:Content-Type:Content-Transfer-Encoding:User-Agent:
-	 MIME-Version;
-	bh=bWlVFKk/hA3IhLifvlVvVb0OqBSStw22ybdS81uZBv0=;
-	b=O3L0E0bsbAyfOtTmO2qHdAAI702NieZ7BaNjMsVeTk5gvdw8jPsefbmQ2YGNBvkQk3Lj
-	 e41YCUQU63VbQYg/1u4UbpIv6CnlhggrobObWtoN9i5fwRKPRjYqgiClWtIw1WVrTkgj2
-	 EUOt5dU5w160H4iLnBiwqfOpgd+75SBq/yIMe4e4sY5ZT9PSc4LqgfkCBF7c8rV8Q4gjX
-	 k+EVPoRkZkAbmj6BLrrmnKh9w/14fFmzte7Kp5mHLDR9vKgiW549kn6DzWS/yi834brm/
-	 GtDEUQUeBHWQoUaVHalaVq3BjBKvtOr80WD+QMM7HImEYI2n3K8qu7cV3yqh/5mgXtA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793041130;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Received:Date:In-Reply-To:Mime-Version:
+	 References:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=uO/W/z94g5X81Ln9+3SsNcj1ZpjaM4tumvmhkUCPgU4=;
+	b=SWqV38jFOTJEkiEbLmeWJKwoX0ODmfvQXIArKaMNncslBZq/EZZIoqiVOM7yePTNxJwc
+	 fri87xgKZOvstpPwHiof0SfXy0KWy6U3uVG2mE5IEWqiY/rrnkZWMX9YA46p/GIWPiezd
+	 hmeHkvUABvkYD6AccBz6icyOB5ZrBl+YCsv06kPJODps+Ha3EtV391VxjKX7PuDlO8IaF
+	 BoognT66NfvQ76vjUyhtQ4pJSS0lm6P8oFR1YIS11kTBGfpPjEpUZa41CN12t8w63M5oJ
+	 RPbCucsFYDvEIKdX/1xw9uKG7++uhpf5FzvVaaNwlRORgsQnAcNptSRkMe/KA1JsnaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=XCffbO5I;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=GJRgb3Q0;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=JKjjoCuI;
+	arc=none smtp.remote-ip=209.85.218.70
+Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com [209.85.218.70])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 904AA606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 18:57:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 904AA606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C9C4606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 18:58:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C9C4606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=XCffbO5I;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=GJRgb3Q0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793041027;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bWlVFKk/hA3IhLifvlVvVb0OqBSStw22ybdS81uZBv0=;
-	b=XCffbO5ILWrUuFHAx5NVFERneuSB/cFwFRSPzIUpZ7Ya9OUY/Ue1budbUAXDjUNhjfUeow
-	M6GQn/DGtlWLrY2zEpe+QlRnoKkKXKVkNOFA2MvihLu58PBqKou6eOJqnY6gHZNJx+YzR1
-	W2XGvMeKxkzKmmRoxb0X4rMv+SLgLyk=
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-681-YZXUL_tUNLi8YiNn_o9PXw-1; Mon, 26 Oct 2026 14:57:06 -0400
-X-MC-Unique: YZXUL_tUNLi8YiNn_o9PXw-1
-X-Mimecast-MFC-AGG-ID: YZXUL_tUNLi8YiNn_o9PXw_1793041026
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93f1f2fafeaso458283685a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:57:06 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=JKjjoCuI
+Received: by mail-ej1-f70.google.com with SMTP id a640c23a62f3a-c40aa03ded8so352188666b.2
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:58:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793041025; x=1793645825; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=bWlVFKk/hA3IhLifvlVvVb0OqBSStw22ybdS81uZBv0=;
-        b=GJRgb3Q0GRMk4Si5qpQXLAgyEK7gVzHKWHmW9f2kCI+drvziXdKEYFox1Nb4OOhv2P
-         KhTOhO4djcGY3J6GBOOv5VGCyCVUrul5DNzesJEZK/S+/iBqJp/zWsgwGvm6b5RxBJUR
-         eihsD8UxWZUazd8gK6uGTN8359Dzkgu0hr3FmISgYNegLQqLJENs0YnTieSqnRLpNkoz
-         3w0e26ToZfZ/cr/vCIuj2S/4+2OBEIiw21ltRA140exh+7bIZsl3YTTiVzeFdPrtwUxi
-         O6PbvCmCoYkqf5dGbNtp9XF/2qZ+gaJCNYS8XHx0lO2rLhbH/psT0vBfmoRqr/hFtlGW
-         tUew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793041025; x=1793645825;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1793041128; x=1793645928; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=bWlVFKk/hA3IhLifvlVvVb0OqBSStw22ybdS81uZBv0=;
-        b=kHGr19VFWCwxEcHqt97XuzwkuxPxOZArw/80QdQNMW7dDdtSztXLpSNOGzPFSYi4Jv
-         CG+ei4dj0ILQZCQQNcGTQgj1W+fHp8AWdVNFa+i3pZP3FAlWGxNUTavLQdWe+URnwVXg
-         1Zz1uHmq3SKUamL462BpVhdkov3aZL1HtxEBx7rHv0z7+8XXq1Q/2BY3wgvgdwNaLR4K
-         2pBK0TLUS6OUf4Hd6apUWdXh2hDYlLKoFoYvQEtgpn6IIcCsQpv87tkIOpmFk4U1ctVh
-         aJuXWvRcwRyZfgQ7NzDEF81j9WZLMC3IEAYqdXVpnTHMmEPowUnzX8LC1ADnupe1huns
-         MGbQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx8vXJ7KudCPNbhzvow2jOvo4wV4mErtETsYRyWMFSKvIOYXazktdJvCc/7bZzLln32C12uzkdkFaV9rXM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIJnA3eVBY39XDoGkBc63JKiSzSXLvC/lMjeVTm0taeO8eEkBgO
-	CD9brnVEYv7tC7X8zHPVPsYhzN7d16hS2eDn2s0KsUHrLc/mpBwXpy3znUrezbs3ItHvg8Fof3n
-	kkcrK544fbpInHvtfd9ceDfhqBhJ5kUBR7A6BD2AbVqQMEDXOJ56et/tI6zjDosFl0g==
-X-Gm-Gg: AYBFou3kOZa8F1TyUJ+XDordNSP/2C+8nClc2yMPUcRq66RW5Knav6ftjzhE5kY4E6u
-	PA0ZoEhS6c7dXfx26xuu14OsZR4YEgaFCoqt2wbxEnKbfUq/Nk+F47kY5kQApOOuhdGkUNAmnMe
-	ksGKP3Ct+gi5nBKr3aYac0EOrfke40GR7Ta1dxc4xuq0TT3D06ZOPQZ8BpZSVBtLL9PmgyO1+CN
-	lIGi92f15LXb7ebkxBwDjqpLjQJg0zxS3h1s6AugWvqCfpdks48myt/e5z3h1EdJtTbaMgtmExF
-	qAQ1M0sQsp1JtegBHZZFH2diUw+9Ucr1jsO3+WbdXwiaF5Rjg8LoVnq7L/menGBqbXrTvA0tjWj
-	HcFLDZTQn4q9VV1suZh92zz1boRb6idz7g9Qp9dhnr7txtLjRnv7T4Xba5QJV0KmiCXI65L8Xwz
-	bpkSVrcH8jYh/quXGwvFqnJA==
-X-Received: by 2002:a05:620a:3714:b0:93f:c3d:7bf6 with SMTP id af79cd13be357-940ef7d3964mr1197183985a.6.1793041025569;
-        Mon, 26 Oct 2026 11:57:05 -0700 (PDT)
-X-Received: by 2002:a05:620a:3714:b0:93f:c3d:7bf6 with SMTP id af79cd13be357-940ef7d3964mr1197179785a.6.1793041025086;
-        Mon, 26 Oct 2026 11:57:05 -0700 (PDT)
-Received: from loberman-thinkpadp16gen3.rmtusma.csb ([2600:6c65:2440:d8c:aa2b:ddff:fe88:da74])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-940f0a9720csm765520485a.42.2026.10.26.11.57.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 11:57:04 -0700 (PDT)
-Message-ID: <698f6e4ff260d9480316c68ea30a63af05c936f5.camel@redhat.com>
-Subject: Re: [PATCH v4 0/3] scsi: target: iscsi: fix stalled and doubly
- completed aborted WRITEs
-From: Laurence Oberman <loberman@redhat.com>
-To: Bart Van Assche <bvanassche@acm.org>, mkp@kernel.org
-Cc: linux-scsi@vger.kernel.org, target-devel@vger.kernel.org, 
-	mlombard@redhat.com, michael.christie@oracle.com,
- linux-kernel@vger.kernel.org
-Date: Mon, 26 Oct 2026 14:57:03 -0400
-In-Reply-To: <ea77fa74-3290-4685-b1d7-24c45ca1286c@acm.org>
-References: <20261026150710.1063511-1-loberman@redhat.com>
-	 <79480408-8403-4a93-a2dc-c5f01864a20c@acm.org>
-	 <8d705915480f6cbe6a1b37c2cd06eb98727b3207.camel@redhat.com>
-	 <ea77fa74-3290-4685-b1d7-24c45ca1286c@acm.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+        bh=uO/W/z94g5X81Ln9+3SsNcj1ZpjaM4tumvmhkUCPgU4=;
+        b=JKjjoCuIbh02ARsgvrK0Ol5dDb2+nWtUMqToc9T+8ozlgQZ/Dgm8a7ApYJpJZ8a9Qz
+         D4u6VnpJ2NeSYianLaTYcirwtSxRoQLznFchjOGCTQaMjjNtTQkYQDhzMMFI1/aR7t+W
+         6GzKMV3fWoajRwlhMYho/AR32BGL9T08zSze4PgMRvY22rssC3uF4RKbkFPer9V2Xvs+
+         woNpVD9ZkhjMXqPKnkebxShirYiCHfC7yYUChvd77PP8wta40d+o4uhEyj5GxskB2tAA
+         W5U8UbcHbEud2hPjnFnrqUPEM8/VkcqYOs3RzrvaoYiKZSlNwcoKEG+G7zk7V15QhBi8
+         ya1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793041128; x=1793645928;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uO/W/z94g5X81Ln9+3SsNcj1ZpjaM4tumvmhkUCPgU4=;
+        b=WIPOciP6gzrDPyeCd5px4FQd+rk2XzJRdlLRkqTze3SvwI8tyN5j9l+ITmnTWsUipa
+         +GumETUE6MQRG+al/+VX3j5r8eLcU3L3Kv1kpb0mNvTzZep2a5T/x+rizJ2+Y3T7X+uS
+         Vzqm8XySX7uJzP8j0W53lQ6JKppHdeJ+0nirxWo4ksKgFw0BCRiSZxMF9E+NYp0Yvepw
+         Hn+loUnT2jihdCjPFz5o25HTtL7pWsk2C1CK/lF3f2cIJKbGWzZF1zErPJb/iInEet/i
+         qSDEyMFNMSPxdZD8y65GNrapr934dB4REGlH6bHMYNQQF0i92gYTrrzLoF9TwF67+Ps4
+         pIsw==
+X-Gm-Message-State: AFq9FYKsjovp2SJBZr7lFCYpAfJXuWZKeZ3/++4j/hdJnd3HfGIW1NXU
+	Cs7ygJfVc3ls0kQFPIskww/Ng6tvU7xN58ocyyu+sas9WlXyUqjOJLhY8AjoZtW3UurFL44M9yh
+	KaT0O4aMjQ6z2DzzclA==
+X-Received: from ejzi19.prod.google.com ([2002:a17:906:a293:b0:c40:732:2996])
+ (user=tarunsahu job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:906:9f88:b0:c46:7462:6332 with SMTP id a640c23a62f3a-c46bdebd370mr947991366b.37.1793041128327;
+ Mon, 26 Oct 2026 11:58:48 -0700 (PDT)
+Date: Mon, 26 Oct 2026 18:58:47 +0000
+In-Reply-To: <20261026174217.603114-1-tarunsahu@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -125,98 +76,136 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
+Mime-Version: 1.0
+References: <20261026174217.603114-1-tarunsahu@google.com>
+Message-ID: <9huz8q3k9tlk.fsf@tarunix.c.googlers.com>
+Subject: Re: [RFC PATCH v3 0/4] liveupdate: Add feature header for
+ fine-grained ABI compatibility
+From: tarunsahu@google.com
+To: loganodell@google.com, alex@shazbot.org, dwmw2@infradead.org, 
+	seanjc@google.com, Mike Rapoport <rppt@kernel.org>, will@kernel.org, pbonzini@redhat.com, 
+	jgg@nvidia.com, Pasha Tatashin <pasha.tatashin@soleen.com>, arnd@arndb.de, 
+	linux-mm@kvack.org, Andrew Morton <akpm@linux-foundation.org>, oupton@kernel.org, 
+	baolu.lu@linux.intel.com, David Matlack <dmatlack@google.com>, robin.murphy@arm.com, 
+	maz@kernel.org, Alexander Graf <graf@amazon.com>, joro@8bytes.org, 
+	Bjorn Helgaas <bhelgaas@google.com>, kevin.tian@intel.com, 
+	Pratyush Yadav <pratyush@kernel.org>
+Cc: linux-kernel@vger.kernel.org, kexec@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, 2026-10-26 at 09:47 -0700, Bart Van Assche wrote:
-> On 10/26/26 9:12 AM, Laurence Oberman wrote:
-> =C2=A0> If the guard is one-shot across both, a second call that would
-> have
-> =C2=A0> taken the CMD_T_STOP branch is suppressed too, and I am not sure
-> that
-> =C2=A0> is safe -- a suppressed complete_all() could leave a waiter in
-> =C2=A0> transport_wait_for_tasks() stuck. Should the guard cover only the
-> =C2=A0> CMD_T_ABORTED branch, or do you see a reason it is safe across
-> both?
->=20
-> Please limit the guard to the CMD_T_ABORTED branch. The only things
-> in
-> target_cmd_interrupted() that must not run twice are in that branch:
-> INIT_WORK() + queue_work() on cmd->work, and the
-> transport_complete_callback() call. For COMPARE AND WRITE the latter
-> releases dev->caw_sem in compare_and_write_callback(), so calling it
-> twice would release that semaphore twice.
->=20
-> The CMD_T_STOP branch doesn't need a guard. complete_all() is
-> idempotent and t_transport_stop_comp is initialized only once, in
-> __target_init_cmd(). Suppressing a repeated complete_all() wouldn't
-> strand a waiter either, since the completion stays done. However, a
-> guard shared by both branches would be wrong for another reason: if
-> the first call takes the CMD_T_STOP branch and CMD_T_ABORTED is set
-> afterwards, a shared guard would suppress queueing target_abort_work
-> and we would be back to the target_put_cmd_and_wait() hang.
->=20
-> Something like this (untested):
->=20
-> 	static bool target_cmd_interrupted(struct se_cmd *cmd)
-> 	{
-> 		bool queue_abort =3D false, stop =3D false;
-> 		unsigned long flags;
-> 		int post_ret;
->=20
-> 		spin_lock_irqsave(&cmd->t_state_lock, flags);
-> 		if (cmd->transport_state & CMD_T_ABORTED) {
-> 			if (cmd->transport_state &
-> CMD_T_ABORT_QUEUED) {
-> 				spin_unlock_irqrestore(&cmd-
-> >t_state_lock,
-> 						=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 flags);
-> 				return true;
-> 			}
-> 			cmd->transport_state |=3D CMD_T_ABORT_QUEUED;
-> 			queue_abort =3D true;
-> 		} else if (cmd->transport_state & CMD_T_STOP) {
-> 			stop =3D true;
-> 		}
-> 		spin_unlock_irqrestore(&cmd->t_state_lock, flags);
->=20
-> 		if (!queue_abort && !stop)
-> 			return false;
-> 		if (cmd->transport_complete_callback)
-> 			cmd->transport_complete_callback(cmd, false,
-> 							 &post_ret);
-> 		if (queue_abort) {
-> 			INIT_WORK(&cmd->work, target_abort_work);
-> 			queue_work(target_completion_wq, &cmd-
-> >work);
-> 		} else {
-> 			complete_all(&cmd->t_transport_stop_comp);
-> 		}
-> 		return true;
-> 	}
->=20
-> Notes:
-> - Please use spin_lock_irqsave(): target_complete_cmd() may be called
-> by
-> =C2=A0=C2=A0 backend drivers from interrupt context.
-> - Call the callback and queue_work() after unlocking t_state_lock,
-> =C2=A0=C2=A0 like the current code does.
-> - A repeated call in the aborted case must still return true so that
-> =C2=A0=C2=A0 callers don't proceed with normal completion.
-> - Please describe in the patch description that the second call is a
-> =C2=A0=C2=A0 no-op by design and that fabrics that complete once are
-> unaffected.
->=20
-> Thanks,
->=20
-> Bart.
 
-Hello Bart,=20
-You always take the time to help me and I appreciate it very much.
-I am following up shortly with a V5 that I think addresses your
-concerns and also limits this to only two patches.=20
-I am back-porting to RHEL9 and will get it tested the same way there
-too but I expect it will be fine.
+Withdrawing this version because of the following reasons.
 
-Thank you
-Laurence
+1. KHO also has versioning which can also share the same concept of the
+feature flags, And the header can be shared amongst KHO and LUO. In next
+version, I will include this.
 
+2. If there are any open threads in the V2, Can be settled based on this V3
+reference. This V3 has included the suggestion from V2, like updated
+truth table, nr_features based flags array, ABI wrapper MACRO etc.
+
+~Tarun
+
+
+Tarun Sahu <tarunsahu@google.com> writes:
+
+> Changes since RFC v2 [1]:
+> - Dropped the file handler compatible rename and per-FD handler
+>   selection patches.
+> - Replaced the fixed 128-byte header with an expandable struct
+>   luo_ser_hdr (size, nr_features, flags[]), kept separate from the
+>   payload structure. The header is 8 bytes with no features and 16 bytes
+>   for 1 to 32 features.
+> - Each subsystem declares its wrapper once with DECLARE_LUO_SER_WRAP(),
+>   passing its feature enum MAX; the macro sizes the flags entries and
+>   generates name##_wrap_init(), so callers never pass sizes or counts.
+>   The target kernel reaches the payload with luo_ser_payload().
+> - Feature bits describe only what each preserved object uses. The target
+>   kernel checks them against its own boolean supported table, and the
+>   header is trusted as the source of truth: validation only rejects a
+>   required feature the target kernel does not support. 0b10 is reserved.
+> - Moved the __packed removal into its own patch (1/4) and added a KUnit
+>   test (4/4).
+>
+> Changes since RFC v1 [2]:
+> - Replaced the 3-mask (supp, req, active) design with a header of 2-bit
+>   feature states.
+>
+> [1] https://lore.kernel.org/all/20261021152527.375070-1-tarunsahu@google.com/
+> [2] https://lore.kernel.org/all/20260903023452.721732-1-loganodell@google.com/
+>
+> ==========COVER LETTER==============
+>
+> LUO and its file handlers rely only on coarse-grained compatibility
+> strings (such as luo-v5 and memfd-v2) to validate handed-over state
+> across kexec. Any change to a serialized structure, even an optional
+> additive field, requires bumping the string and breaks live update
+> between adjacent kernels.
+>
+> This series adds a feature header (struct luo_ser_hdr) ahead of
+> serialized LUO structures so subsystems can evolve their serialized state
+> per feature. Each subsystem groups its serialized fields under feature
+> indices, with index 0 for the base fields. New capabilities append fields
+> at the end of the payload under a new feature index, and retired fields
+> stay in place so offsets never shift. Only a change that feature flags
+> cannot express needs a new handler with a bumped compatibility string.
+>
+> Each feature has a 2-bit state set by the source kernel:
+> - LUO_FEAT_ABSENT (0b00): not in the payload; a target kernel that
+>   supports it can use default values.
+> - LUO_FEAT_OPTIONAL (0b01): in the payload; a target kernel that does not
+>   support it ignores the data.
+> - LUO_FEAT_REQUIRED (0b11): in the payload; a target kernel that does not
+>   support it rejects the state with -EOPNOTSUPP.
+> - LUO_FEAT_RESERVED (0b10): reserved, not checked by the target kernel.
+>
+> The target kernel checks the header against its own boolean supported
+> table:
+>
+>   Source hdr  Target supported[i]  Action
+>   ----------  -------------------  ----------------------------------
+>   00          0 or 1               Accept: feature absent in payload
+>   01          0                    Accept: ignore the feature data
+>   01          1                    Accept: use the feature data
+>   11          0                    Reject: -EOPNOTSUPP
+>   11          1                    Accept: use the feature data
+>   10          0 or 1               Reserved: not checked by target
+>
+> struct luo_ser_hdr holds the total size of the serialized structure
+> (u32), the number of features (u32 nr_features), and 64-bit flags
+> entries with 32 features each. With no features the header is 8 bytes;
+> with 1 to 32 features it is 16 bytes.
+>
+> On the source side, a subsystem declares its wrapper once with
+> DECLARE_LUO_SER_WRAP(name, expected_size, nr_features), passing its
+> feature enum MAX, then calls name##_wrap_init(), marks the features the
+> preserved object uses with luo_ser_set_feat(), and fills wrap->ser. On
+> the target side, incoming state is never cast to the wrapper, since the
+> source kernel may use a different number of flags entries. The target
+> kernel calls luo_ser_hdr_validate(), finds the payload with
+> luo_ser_payload(), and reads the fields of a feature only after
+> luo_ser_get_feat() shows it present.
+>
+> Patch 1 removes __packed from the LUO and memfd ABI structures. Patch 2
+> adds the header and converts struct luo_ser. Patch 3 converts memfd and
+> bumps its compatibility string to memfd-v3. Patch 4 adds KUnit tests.
+>
+> Tarun Sahu (4):
+>   liveupdate: Remove __packed from LUO and memfd ABI structures
+>   liveupdate: Add feature header for fine-grained ABI compatibility
+>   mm: memfd_luo: Add the feature header
+>   liveupdate: Add KUnit test for the feature header helpers
+>
+>  MAINTAINERS                          |   1 +
+>  include/linux/kho/abi/luo.h          | 359 ++++++++++++++++++++++++---
+>  include/linux/kho/abi/memfd.h        |  43 +++-
+>  kernel/liveupdate/luo_core.c         |  62 +++--
+>  lib/Kconfig.debug                    |  16 ++
+>  lib/tests/Makefile                   |   1 +
+>  lib/tests/liveupdate_feature_kunit.c | 118 +++++++++
+>  mm/memfd_luo.c                       |  68 +++--
+>  8 files changed, 577 insertions(+), 91 deletions(-)
+>  create mode 100644 lib/tests/liveupdate_feature_kunit.c
+>
+> -- 
+> 2.56.0.307.g5fe7bd680c-goog
