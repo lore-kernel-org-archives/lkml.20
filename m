@@ -1,61 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793052357;
-	b=2UA9Tg4SG/MGSlmV37KJDUvZwYmnqDtwwru7As/FJBVZblLXe2Gvme4p+so9rExFGT7w
-	 Sp66d5Nn+dMMgHtB0TExueCjAPX84xrcz3ab7P7s3IFDI+6JHJpelh2w/9ukhkPmnKlkK
-	 vIdU+K7bXod3MTFrbdI8kPj83auPzgaVEY+jl5I19XuJNXqKSdezv1T3vnQ5+0/TjhBDg
-	 NdU38YoIH/XwunwqefDcbo/wYskMVcomR9n19XrmUotk7D21EWF/GSDcNoX095n6MkZ+r
-	 UQAp1v7VRncOs3qUT5mbkpp7m5D9pzpAvES28SIl1xFYkvhExzZ2XlHyYkOn0i1enXw==
+	t=1793052393;
+	b=j3QMoM/qSbsjVpQQ/5vUONXHyAcRlD3j4PRcsl6jnfQYn464rW41wyAz5CYYxFMpXIXw
+	 cFrtHociqS6GNO2UvdY/8RnSuNx5qSr1NyyTRL4pRLSOiFwZrXM2Mop5OpwSRN9xAotk7
+	 z3kUww2iq2Bm+Oas5RaSoyQsrWVItx9KeKWUdNo+29LQF/rPLhZzOm5/xBEqi+He/HVF8
+	 jdIb453sXYqDnd5EgLrvmxKjDh92Q/NoA+u8NOrST4uHFztAvVrul5KOsihQLIzeyEECL
+	 4eAeUCNj96qAgrvdwt7zZv/4KKHvFeWK2FtLQH7RtdeczUnCx/UKc9gkQge/0xubApw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793052357;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=I1Z/UEBMkZ2eyWGttef85G5kGG91dwTk/1RV8AnX9Hw=;
-	b=a846F/GACrno8VVrvykMjKFsfO90dbiWx0XXCNkzNM0rbAYFsbvaeiAUVE86uXC5JtEP
-	 BzGFA9lLQ857AkoOTVXlFlIqJEKz3dJUWz1thPXheXk+Sow9UsVPiO8CCk6+pqXwrrtSG
-	 b+rhRXuJ2sHbnP1z9R8f9hjmppp1+Rlc/BE4o30K4JQ0bpqnFR6ggHhCw+zmQbez9WCll
-	 FWpYRhp4qOfJ5r0brxYOQGHSuHpWHQ8oUq1+a36AeZBKFJoeuC6II7zVr2aGlKvRAHMWT
-	 QU9F77dCowvSO9FKqTF97X9fv8G/H71caZpkfT3NeimvsnL+SqZAngnITU/y3i6VWxg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793052393;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=JbeI020SnpugISxSyc+z9N6JHGvPCZP0HYKr/jk1BYM=;
+	b=hgPvwZAD5NbPOkNfpDiX6cUCoS8oD3TPVoA6WhI3jzhwq7yCb3+tUG8XGARsEFrzJ9zT
+	 RQ5szR7JKQJtzGvWi2G+9oJM+5fYrlCfLpwM7FoMYUH5IATnsQqXKxQMGQQJHVoQXQ+6u
+	 kAm2iX2z4V+l19cjnNk3wPRM1rwc77e4Omqv5yr/0crCZLo22aVO8l9rA1ZuJvSMxpgrn
+	 bfVF7v6AU9cgIWaHTGejWAZLtqW4ewqWLxxcGjkbKgq6hvVjDQ4y7af1pj7438Xzq+Qnh
+	 YmE8JSRmCBVuHnE4xV9S+YUvcBbth6IKBd4KbdWZrSAfRVuBjbX2t30COOIDW4ZsTaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RSb2K1rl;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--skhawaja.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=TPbFrQyD;
+	arc=none smtp.remote-ip=209.85.210.200
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7D32606A325;
-	Mon, 26 Oct 2026 22:05:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E68A4606A334
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 22:06:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E68A4606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--skhawaja.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RSb2K1rl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51A631F01828;
-	Mon, 26 Oct 2026 22:05:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793052356;
-	bh=I1Z/UEBMkZ2eyWGttef85G5kGG91dwTk/1RV8AnX9Hw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RSb2K1rl2D/iiCOieLGIP5QjaYD0QT2vv84q0R5Tm9eP6wZC6gVhHBjFDpFMCjUXE
-	 sZMuI+u9XTrEAFZaNj1JhZtCtSgu94jXq8qdDCb3VZ86U61Gudmqwd2kiFhBspd4Td
-	 6tFbYaUkNytXXi8AIwNY45J3f1LelTIeY3q5+wVRWAmbJt7xET4QSpyv8c4m/R+CRc
-	 fsLtrngJjKN5WgFL70YTb1WuGjDQjknPN6pYbh7+quHr8Rz4hukQI1pw/ygAU647RJ
-	 2ZTzXbetdWfA01W3+4cNC4WA1VRqeZlwSFeaGSy0DfoRMhnQ6LMeRzw8inGT9nehq+
-	 u84tDA/URpBRw==
-Date: Mon, 26 Oct 2026 17:05:52 -0500
-From: Rob Herring <robh@kernel.org>
-To: Francesco Valla <francesco@valla.it>
-Cc: "Michael S. Tsirkin" <mst@redhat.com>, Mark Brown <broonie@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Haixu Cui <quic_haixcui@quicinc.com>,
-	Jason Wang <jasowangio@gmail.com>,
-	Viresh Kumar <viresh.kumar@linaro.org>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
-	linux-spi@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, virtualization@lists.linux.dev
-Subject: Re: [PATCH 1/2] dt-bindings: spi: add bindings for spi-virtio
-Message-ID: <20261026220552.GA3933778-robh@kernel.org>
-References: <20260929-spi-virtio-bindings-v1-0-6a0eef3213b3@valla.it>
- <20260929-spi-virtio-bindings-v1-1-6a0eef3213b3@valla.it>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=TPbFrQyD
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-88c768885b4so6047063b3a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 15:06:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1793052392; x=1793657192; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JbeI020SnpugISxSyc+z9N6JHGvPCZP0HYKr/jk1BYM=;
+        b=TPbFrQyDnQ3X2ODTkC5Ghf3QJey5ayVfOW9a6h/mIXdaI4wS7Zuy7Lm3Ye14m2RZIr
+         W/ysoFKbYw6B010/w/3MTtieRdYsfbDLUbTd9sRVoRySVf9nuhXNUMjL8VyUSGhNyDUt
+         FxdLBk6fq4BekRTUR170BUsK1G0XLlrtqliDoAu7JTbzUnCWYKSQs9hDza91b+0AEGH0
+         cz76REwf49YYA/LjIZ1GnRJA0+6lAEKCfmbxkUsBNzCEkD4TcOdoVp4T4lhhR6Q6RNpl
+         ++GYdo0/v+KIeLNVAQzc6JOcJ8EiAyTL7xBr3qGRdPVjSvpu9FAoqpr5seFlRHyosc7m
+         sFow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793052392; x=1793657192;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JbeI020SnpugISxSyc+z9N6JHGvPCZP0HYKr/jk1BYM=;
+        b=FyOpmyzyy1uBI4cREDdLbU0dXTxyXmn5PQfi40IqUQzgz2VlHZbeQpRgs9Fsm0UN47
+         JRK9HDMZisMEUm3p0lYw8ClS0e2BCETslj5BA0h2lrg4EL0desQ82wMhZm/scYH7IZRW
+         pf4vEswhgcmeHn/CIDWe8tdnQH54u3ejr6FpfT1CuygKVue4b5MX3dwU6v6ZC1N2GW6O
+         zmEZA/AlnKRqXtVwyMb1+Jm1CASJIg5drrmZtpZoxWBgzdXHSbNXS8X+hGQBz6Rfgf5M
+         G6ktUuHdNuLXJGi5UBjHH+20PD6N8qfbBGxzTjLqoQHBpd0/JgyCLdad6kiOme97fr0j
+         iylg==
+X-Forwarded-Encrypted: i=1; AKwUvBxLFzRWlub2HjdXOSB7RdF469XfQyc5EVFYrErmBMcKM1a5jz4sqvehgq6L3MmkvCYFlJ3a+xPxYtpoqt8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJxeGJnDgoxeINloHz0yV62wH/afy40dP9zHGhmOAmlioLRillx
+	jRYCslJU9qP1HGs+OdbKAAl/P8OsVFwV+Z7QWlOSOJw71mgSZNGIqloNG3o0U5iwzXZBZTnriWJ
+	HsvVAgnjwp+ndGg==
+X-Received: from pgdo1-n2.prod.google.com ([2002:a05:6a02:6201:20b0:cd6:b08a:e7cb])
+ (user=skhawaja job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6a21:4e0b:b0:3e1:8890:8400 with SMTP id adf61e73a8af0-3e7bfbdb8dcmr6859849637.15.1793052392197;
+ Mon, 26 Oct 2026 15:06:32 -0700 (PDT)
+Date: Mon, 26 Oct 2026 22:05:46 +0000
+In-Reply-To: <20261026220546.3114241-1-skhawaja@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,58 +78,205 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260929-spi-virtio-bindings-v1-1-6a0eef3213b3@valla.it>
+Mime-Version: 1.0
+References: <20261026220546.3114241-1-skhawaja@google.com>
+X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
+Message-ID: <20261026220546.3114241-3-skhawaja@google.com>
+Subject: [PATCH 2/2] selftests/memfd: add F_SEAL_PUNCH_HOLE tests
+From: Samiullah Khawaja <skhawaja@google.com>
+To: Andrew Morton <akpm@linux-foundation.org>, Hugh Dickins <hughd@google.com>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>, David Hildenbrand <david@kernel.org>, 
+	Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+	Jeff Layton <jlayton@kernel.org>, Chuck Lever <cel@kernel.org>, 
+	Alexander Aring <alex.aring@gmail.com>, Shuah Khan <shuah@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	Gerd Hoffmann <kraxel@redhat.com>, Vivek Kasireddy <vivek.kasireddy@intel.com>, 
+	Jeff Xu <jeffxu@google.com>, David Matlack <dmatlack@google.com>, 
+	Pasha Tatashin <tatashin@google.com>, linux-mm@kvack.org, linux-api@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Samiullah Khawaja <skhawaja@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Sep 29, 2026 at 06:41:55PM +0200, Francesco Valla wrote:
-> Add bindings for spi-virtio based on virtio-device, reflecting what
-> already exists for gpio-virtio and i2c-virtio. A node using the bindings
-> is not used to instantiate the device, which is registered by the
-> transport (e.g.: virtio-mmio), but to define its properties and
-> establish dependencies with other nodes.
-> 
-> Add the new bindings inside the MAINTAINERS file.
-> 
-> Signed-off-by: Francesco Valla <francesco@valla.it>
-> ---
->  .../devicetree/bindings/spi/spi-virtio.yaml        | 53 ++++++++++++++++++++++
->  MAINTAINERS                                        |  1 +
->  2 files changed, 54 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/spi/spi-virtio.yaml b/Documentation/devicetree/bindings/spi/spi-virtio.yaml
-> new file mode 100644
-> index 000000000000..5b8639dd2e1f
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/spi/spi-virtio.yaml
-> @@ -0,0 +1,53 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/spi/spi-virtio.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Virtio SPI controller device
-> +
-> +maintainers:
-> +  - Francesco Valla <francesco@valla.it>
-> +
-> +allOf:
-> +  - $ref: /schemas/spi/spi-controller.yaml#
-> +  - $ref: /schemas/virtio/virtio-device.yaml#
-> +
-> +description:
-> +  Virtio SPI controller device, see /schemas/virtio/virtio-device.yaml for
-> +  more details.
+Add tests for the new F_SEAL_PUNCH_HOLE seal. Like the rest of
+memfd_test, they run on shmem memfds by default and on hugetlbfs memfds
+when memfd_test is invoked with the "hugetlbfs" argument.
 
-Drop. This just repeats the title and $ref.
+mfd_assert_write() checks that the file can be written, and then also
+checks that a hole can be punched into it. The second check no longer
+holds once F_SEAL_PUNCH_HOLE is set. Move the write checks into
+__mfd_assert_write() and the punch check into mfd_assert_punch_hole(),
+and have mfd_assert_write() call both, so the existing tests keep doing
+exactly what they did before.
 
-> +
-> +properties:
-> +  $nodename:
-> +    const: spi
+Add mfd_fail_punch_hole(), which checks that both
+fallocate(FALLOC_FL_PUNCH_HOLE) and madvise(MADV_REMOVE) fail with
+EPERM, and use it in two new tests. SEAL-PUNCH-HOLE sets only the new
+seal and checks that punching a hole fails, while writing, shrinking and
+growing the file still work. SEAL-PUNCH-HOLE-SHRINK adds F_SEAL_SHRINK
+as well and checks that the file can neither have holes punched into it
+nor be shrunk, while it can still grow.
 
-Drop. spi-controller.yaml already defines this.
+Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
+---
+ tools/testing/selftests/memfd/memfd_test.c | 111 ++++++++++++++++++++-
+ 1 file changed, 110 insertions(+), 1 deletion(-)
 
-Rob
+diff --git a/tools/testing/selftests/memfd/memfd_test.c b/tools/testing/selftests/memfd/memfd_test.c
+index cdab3a837624..095c5eb255af 100644
+--- a/tools/testing/selftests/memfd/memfd_test.c
++++ b/tools/testing/selftests/memfd/memfd_test.c
+@@ -35,6 +35,10 @@
+ 
+ #define F_SEAL_EXEC	0x0020
+ 
++#ifndef F_SEAL_PUNCH_HOLE
++#define F_SEAL_PUNCH_HOLE	0x0040
++#endif
++
+ #define F_WX_SEALS (F_SEAL_SHRINK | \
+ 		    F_SEAL_GROW | \
+ 		    F_SEAL_WRITE | \
+@@ -455,7 +459,7 @@ static void mfd_assert_fork_private_write(int fd)
+ 	munmap(p, mfd_def_size);
+ }
+ 
+-static void mfd_assert_write(int fd)
++static void __mfd_assert_write(int fd)
+ {
+ 	ssize_t l;
+ 	void *p;
+@@ -523,6 +527,11 @@ static void mfd_assert_write(int fd)
+ 
+ 	*(char *)p = 0;
+ 	munmap(p, mfd_def_size);
++}
++
++static void mfd_assert_punch_hole(int fd)
++{
++	int r;
+ 
+ 	/* verify PUNCH_HOLE works */
+ 	r = fallocate(fd,
+@@ -535,6 +544,49 @@ static void mfd_assert_write(int fd)
+ 	}
+ }
+ 
++static void mfd_fail_punch_hole(int fd)
++{
++	void *p;
++	int r;
++
++	/* verify PUNCH_HOLE fails */
++	r = fallocate(fd,
++		      FALLOC_FL_PUNCH_HOLE | FALLOC_FL_KEEP_SIZE,
++		      0,
++		      mfd_def_size);
++	if (r >= 0 || errno != EPERM) {
++		printf("expected EPERM on fallocate(PUNCH_HOLE), but got %d: %m\n",
++		       r);
++		abort();
++	}
++
++	/* verify MADV_REMOVE fails, it punches a hole as well */
++	p = mmap(NULL,
++		 mfd_def_size,
++		 PROT_READ | PROT_WRITE,
++		 MAP_SHARED,
++		 fd,
++		 0);
++	if (p == MAP_FAILED) {
++		printf("mmap() failed: %m\n");
++		abort();
++	}
++
++	r = madvise(p, mfd_def_size, MADV_REMOVE);
++	if (r >= 0 || errno != EPERM) {
++		printf("expected EPERM on madvise(MADV_REMOVE), but got %d: %m\n",
++		       r);
++		abort();
++	}
++	munmap(p, mfd_def_size);
++}
++
++static void mfd_assert_write(int fd)
++{
++	__mfd_assert_write(fd);
++	mfd_assert_punch_hole(fd);
++}
++
+ static void mfd_fail_write(int fd)
+ {
+ 	ssize_t l;
+@@ -1117,6 +1169,61 @@ static void test_seal_resize(void)
+ 	close(fd);
+ }
+ 
++/*
++ * Test SEAL_PUNCH_HOLE
++ * Test whether SEAL_PUNCH_HOLE actually prevents punching holes, but still
++ * allows writing and resizing
++ */
++static void test_seal_punch_hole(void)
++{
++	int fd;
++
++	printf("%s SEAL-PUNCH-HOLE\n", memfd_str);
++
++	fd = mfd_assert_new("kern_memfd_seal_punch_hole",
++			    mfd_def_size,
++			    MFD_CLOEXEC | MFD_ALLOW_SEALING);
++	mfd_assert_has_seals(fd, 0);
++	mfd_assert_add_seals(fd, F_SEAL_PUNCH_HOLE);
++	mfd_assert_has_seals(fd, F_SEAL_PUNCH_HOLE);
++
++	mfd_assert_read(fd);
++	__mfd_assert_write(fd);
++	mfd_fail_punch_hole(fd);
++	mfd_assert_shrink(fd);
++	mfd_assert_grow(fd);
++	mfd_assert_grow_write(fd);
++
++	close(fd);
++}
++
++/*
++ * Test SEAL_PUNCH_HOLE | SEAL_SHRINK
++ * Test whether SEAL_PUNCH_HOLE | SEAL_SHRINK prevents removing pages from
++ * the file
++ */
++static void test_seal_punch_hole_shrink(void)
++{
++	int fd;
++
++	printf("%s SEAL-PUNCH-HOLE-SHRINK\n", memfd_str);
++
++	fd = mfd_assert_new("kern_memfd_seal_punch_hole_shrink",
++			    mfd_def_size,
++			    MFD_CLOEXEC | MFD_ALLOW_SEALING);
++	mfd_assert_has_seals(fd, 0);
++	mfd_assert_add_seals(fd, F_SEAL_PUNCH_HOLE | F_SEAL_SHRINK);
++	mfd_assert_has_seals(fd, F_SEAL_PUNCH_HOLE | F_SEAL_SHRINK);
++
++	mfd_assert_read(fd);
++	__mfd_assert_write(fd);
++	mfd_fail_punch_hole(fd);
++	mfd_fail_shrink(fd);
++	mfd_assert_grow(fd);
++
++	close(fd);
++}
++
+ /*
+  * Test SEAL_EXEC
+  * Test fd is created with exec and allow sealing.
+@@ -1736,6 +1843,8 @@ int main(int argc, char **argv)
+ 	test_seal_shrink();
+ 	test_seal_grow();
+ 	test_seal_resize();
++	test_seal_punch_hole();
++	test_seal_punch_hole_shrink();
+ 
+ 	if (pid_ns_supported()) {
+ 		test_sysctl_simple();
+-- 
+2.56.0.307.g5fe7bd680c-goog
+
