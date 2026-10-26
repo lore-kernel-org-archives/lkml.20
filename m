@@ -1,85 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792991781;
-	b=SOmgBbTnETJFoHZPIReHv1KrzsP0248snprtJVM3tQ+QBxGruF6Dq2zc3aggHMVXKbLX
-	 9w45bgQ1nheDvultohZd9WRxkvD5gE1N28yWys616BBNNjfH2LHlYlf8FuBnbJZTBWIrz
-	 MZM+dSxg16yb+7WoRtnx3Au/yj0uiSp7MPsjs6oDaiywgT2ofLkANL24/gywE21viIYNa
-	 rLqZHWsbwwYy/IiKJJ9n/aWrPnsZYbz+fRcuPqP9YCAoZMUjKU+6cal/NTfxClLPqKwTA
-	 LyubX78ErtH4/+7glKhRNxuhgiJW7wDC3HcjNhyEGqgY3gI9aix/it2r/niThKj5BJg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792991781;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=FPY7uMWS3gJRnZSftZqSTXUGgjttMjmwRr8ba5P+Pyo=;
-	b=VEzUgIjuRLhDePJqGOML7bGaJVG6q++svvedpZTEtSJqTxfYtdn6N0xH49oTYqRkUU+7
-	 5x2j6ZFX5w0AocZ88GWO3/53Dvnia2AjB2jyp7tTzB3F6wl7KzHnqEO5S07ihcPaERKm6
-	 oFLny6e35mI9tWzxlVPET07gxvgFGXzPfK/bCwa6zuCiI0yl3e76Vad5FBU59aAmFCjnw
-	 rTlhjRh2ILDpqdZq1JDVU91cgZ7gvk5rRfhEWLYWTRMjLIPH8t8ZWscOj59p60APKZEJb
-	 tN2WeNOmVUG0iL1IEeZY0n01IXYVCwenJLju3EKK+H3uEOJxQO0eT5kVFAwBrugv2+w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KqWUxK4t;
-	arc=none smtp.remote-ip=198.175.65.16
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.44
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792991784;
+	b=wiBUarEfwTUu8ekfRxaa889ukkUb6vdl/zsbryV+2CAINck30FRtvM/EqaE3PC7jgSP7
+	 6s5A3JBr1hPPtswiD8fp1DTKT9FFcEhNFyX3XPq08N6j7dKLzX/Y/WRcXDisrW4xSYiTp
+	 IR19Ynp7xjTUCjSiOXRRPp/MJMwctSHlwY3mdeguawRSjorG8pUe5iQ4jS2o7JHcP0IfP
+	 vCFHMA5Y/bbTLX0nJfnUi2T6OTfY6wVJ1xZyMfP0E1UTraL+6tg9PGGqladTo653s2YIT
+	 U181a7cxdeBBhJaoqIMnrUyigiEgWFoa7JLhP0F1VweN0Dx7rnJLlmnlc18EVNlbLHQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792991784;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=ahOsVudUc7c7Un9O3y9zKqIgbSxfkYu+yvHVouvLUFk=;
+	b=dVMre2F0MBUdeql6YwbHDuJWUkw5WyjkdSYnVr8Pojrb/yw6zx4widgTpU1APgwL3Bfh
+	 loxy0iYKgDPLp3UdG+Bnk/uSvS3jVIPdKD4Q/YYjvoVTe7dVf4SNI3x411aA2S0nbee+7
+	 XlUCEkvnkCIneDaHUlwqQR4k7soOaL6CpBHnqEJ6v2z+oM8RU8en2HDUHseVwq67KkLMb
+	 XZQRkQk1RL6LV0DmZ4y5vpQsQmzpPJYNG5+KV5Qz14lXGW2tv9bzXS1dDF1Oz/LrtL7PK
+	 U61cMWAWiPgeNOiLax8Lzxp+UpJtSBbsOuCFiSgCaM0r0Wal8zN/pnJzZYNBV31i63w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PQ2SpM7u;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.44
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E502606A322;
-	Mon, 26 Oct 2026 05:16:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E502606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C81F4606A324
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 05:16:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C81F4606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KqWUxK4t
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792991780; x=1824527780;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=VZBsH9Gc3d1uFr3N5f5EManr9WtzzyQSEkjdd32MNUk=;
-  b=KqWUxK4t/OIr8W5yFS5LWQpBBi7Oi8wbT8FgGoaYzbYMd7eoGuBCAL/u
-   omTe79FayAvHjg9Yy6PMtGbQLS2JBCE26mKutW9dvM1dAlcl6iwj/W1mX
-   /O5Ep3ONBr6LJ2+MjrcN5xUKl2vNNeDnsJpnKwYquiD27krlHHJ+U+REY
-   SKcsrhJoTKkXVYnnvk7MUeQu1x3WvAUnNdaekmCdv4sI0Ug1ko3tJK4CJ
-   XqreaHKyDHoJKcelh2z5Hf71PtPCNqfmj34ioveu+BwXvH8sDXdj1e03/
-   S4cB8wLhilQz40k46U5NJPbvpldo73lVVY+qoYpaCdhMwqqLdfKo5j++j
-   w==;
-X-CSE-ConnectionGUID: KdFBApJZSVCt9X0pr6jZAg==
-X-CSE-MsgGUID: DLxSn58GRfaKM27y/bOPNw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1637575"
-X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
-   d="scan'208";a="1637575"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 22:16:20 -0700
-X-CSE-ConnectionGUID: EwpBZi60RGGHAkyP7SVYGg==
-X-CSE-MsgGUID: 6TVeHbr+SneqFZFQgwE5JA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
-   d="scan'208";a="5925800"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa012.fm.intel.com with ESMTP; 25 Oct 2026 22:16:17 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xLD4A-00000000VTW-0AiY;
-	Mon, 26 Oct 2026 05:16:14 +0000
-Date: Mon, 26 Oct 2026 13:15:22 +0800
-From: kernel test robot <lkp@intel.com>
-To: "H. Nikolaus Schaller" <hns@goldelico.com>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Paul Cercueil <paul@crapouillou.net>,
-	Paul Burton <paulburton@kernel.org>,
-	"Maciej W. Rozycki" <macro@orcam.me.uk>
-Cc: oe-kbuild-all@lists.linux.dev, linux-mips@vger.kernel.org,
-	linux-kernel@vger.kernel.org, letux-kernel@openphoenux.org,
-	kernel@pyra-handheld.com,
-	"H. Nikolaus Schaller" <hns@goldelico.com>
-Subject: Re: [PATCH 3/6] MIPS: Ingenic: Add cpu-probe setup for XBurst and
- XBurst II R2
-Message-ID: <202610261320.3AF5hDGi-lkp@intel.com>
-References: <1658997f198411f20bc5a489e9488800e4597e19.1792956055.git.hns@goldelico.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PQ2SpM7u
+Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c434376dbebso472944466b.1
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 22:16:23 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792991782; cv=none;
+        d=google.com; s=arc-20260327;
+        b=K5pfHlyHZwl9Zf89jA7lIRAahJHvYMVmWzk9U8IiSBVMAv5EadwYDB9EHJquVu0i5l
+         i2CZULNktjAO6+ejXdMknMRMDV7t4s/dhRuNXSY/x0faI22L9dx0ck3pMdFr4jg9EpAM
+         hRACKETyveIvM2IO8Dur4FUVlexy3T9DxdWvSXdRofft9ggVpiNwdHO+9xZJb7RSztJZ
+         KPEeezMkkWm5UheFSbKwd8MQltWVzbJT2Uww5l94dCBIW1XdCYV67DB0DqNM2g4Ohelg
+         53kpkeLw0YmgQ3muU5LgfYjRhKr4vpxdrZOY6YUzVMcdOZqzUPJJx0fGwxccqg7K0HaS
+         BO9g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ahOsVudUc7c7Un9O3y9zKqIgbSxfkYu+yvHVouvLUFk=;
+        fh=+9qQ7xbqqq0Pgdn7wlUFMcbsqEabJoX3HSBJ8wePqX4=;
+        b=rS+6psNbB31V9up6dAeXCynUI4H7Bb5W3G+pquI9yl4AO/52d0I2H8TzMqSfCMDSgY
+         cfpntMq5L/oXyOPMKDuti8UFKLj+MrUio+4O/xca3t4aKyfubM7aV3J3bSs4YsFVdRVI
+         wdhBXJDr49JLPBzxUlkbU74jH4HEaR1dCO4wYAad7hBndKYWUAEmmBOrDvRd2MtlETmv
+         aezLakvGnQO13ssZCBW4Yyy0ubsG16QE5ML486g9VjrLC1z3XmyYU4x2R7An6C5hNFAO
+         wnR949Ac8wtoKhtYz8HaQwYDtQm/Vr1Pe7RoGV9I52S87sr/I7aIGqiEQ1wa+BJ7WVvm
+         zRvA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792991782; x=1793596582; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ahOsVudUc7c7Un9O3y9zKqIgbSxfkYu+yvHVouvLUFk=;
+        b=PQ2SpM7uqS9WHlEZYY7Xf+ANwxpo6Pdajhn2HOJ1DdtJm/nPGeq4afxXIMr1/D0MP1
+         ZqEBE0YbnLXvvUOl5gxOUHjMwRYdV2O++fEWWPEwHF8pP20adYQjiRoJXhB8FjLAJbr4
+         vIaCRcfHDK7mwKQdbDPFb+sVbhQzcjXA8oa65NvU3BNMqIAUP518xme/iTq6wXy7j6eQ
+         xS+BVtRr9zQmDq/N+LW+aaRMQ5826kw+BNnfZmCmZsefZTh+Ld7rFEKIL0ghsEpd7fU4
+         nQH+HKmVJthRcrKvvp+55A01lX8R+i8OYuFfufFg/8xCne27EwX2KXB0eUOYkQdXtmzj
+         HKGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792991782; x=1793596582;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ahOsVudUc7c7Un9O3y9zKqIgbSxfkYu+yvHVouvLUFk=;
+        b=166yvF+azKgRxbg3GQb/uxKMQSm/tW/xAdZPGDxyVef+XTDFbozdSy51502im8Go+A
+         SMXZNgsfuwsNFcgicUX4A0BIWSvGowfMd5UuQP/ZuJ1sWiw5HGm7XAkruuMKuUgFsmOj
+         OjJIGb8CQf3VaSQ/+ay67cFKqI68oTbi/KSKCBZHyz8zU2JB0MdXT9ojUl5eaeBxxS7X
+         hEhciLAGHUPm9Vo/F+mogqG+weeX7q3QEzwJxvUiz78gN+98H3K1EK8Gd63jQDbEcjmV
+         uFifESKcr40uMGhdSCIhPiTWHGpW6oDdp60kpuKPJeqX6ANtyNiRwvNovxoraOXt3Fns
+         Kbpg==
+X-Forwarded-Encrypted: i=1; AKwUvBwbkBAJ4t5HSZOAZZ0o0F7PQh6GrNxkZLVC4tSMn4tAOfe6rO1zkIGTEaX+Qu5Z79hnBceQE0zcoOc3cxo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI7BKu3146vMBm+OXSUDjWDXTu8+ZG1V9Y8If1oBBnKZC/awJCN
+	u/rukH0gTbVRR4ux/08oajdqThwcIvbjHzagzDcsCTPthkyGsZIKCnChTK8yy2hEw864hc0BBkM
+	FyGIwL75tzSp1oXjdKKbsj0GqRkO7bho=
+X-Gm-Gg: AYBFou1VCxpwnW5nE8scQO2+k48YTmvT4cbr6aFrfzyJS9njQCooJ0hpPApb7Iiw5eh
+	DvAnkNFMuxKHlSk9ITZJnH7OuNIPsSBlagqvalHVanGg3ZjDIlMbNYwY2w/L23r89/pXLtphkBn
+	FEOpBWAtrNnTujmAgyRGKo6X81jr3OtkrOYYEymY4hDFolh32GU90kx/wl7EAU131uPJFPfyInO
+	XPmc6pjHjfZCE7uDY8le1IddpuxTOT6Q1eGYq2KJr7QgKLys4ckXVWZ8pSDS0ysLC1Ng3qFXJo5
+	lXIZsaOP8d9TfeTMshC8ycHYn9xwYRNrD/5JcWIO+M3td+Ocs5AV3xu7ldDdJg2zsFSwAub3DDb
+	uF0mbTp6jGWpvx8d2L7qZ3E5WmDo8KYgqFnMKNAK4BrGY1dImuHZ4wGXdf+MSWwhrscr2BBK/Xb
+	fN6l8ns1+TuWWzh0pQPjH8+qAGlQ/MXN7mDbA2VoxFfRlH
+X-Received: by 2002:a17:907:f48b:b0:c42:bc58:f21 with SMTP id
+ a640c23a62f3a-c46be5bfa80mr612811866b.15.1792991782008; Sun, 25 Oct 2026
+ 22:16:22 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,147 +105,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <1658997f198411f20bc5a489e9488800e4597e19.1792956055.git.hns@goldelico.com>
+References: <20261024172641.19424-1-meatuni001@gmail.com> <at5d__q_RzGad7zt@ashevche-desk.local>
+In-Reply-To: <at5d__q_RzGad7zt@ashevche-desk.local>
+From: Muhammad Bilal <meatuni001@gmail.com>
+Date: Mon, 26 Oct 2026 10:16:10 +0500
+X-Gm-Features: AclHuK_gXUAQAd7y9XjGt8VKlv2KxyzU6RO9-KdAgpiiPwDIUw-cWtN014mbLq4
+Message-ID: <CADqcGBmOxJ1ns87pNmaSNVfCc-LNsTsf6YgnnZ5i+x4+dH+AMA@mail.gmail.com>
+Subject: Re: [PATCH v7] platform/x86: hp-bioscfg: fix heap OOB in hp_enforce_single_line_input()
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: jorge.lopez2@hp.com, hansg@kernel.org, ilpo.jarvinen@linux.intel.com, 
+	linux@weissschuh.net, platform-driver-x86@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Nikolaus,
+Hi Andy,
 
-kernel test robot noticed the following build errors:
+No particular reason. I removed them while trimming the diff, but
+you're right that both comments are still useful. I'll restore them in
+the next revision.
 
-[auto build test ERROR on linus/master]
-[also build test ERROR on v7.3 next-20261023]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Thanks,
+Muhammad
 
-url:    https://github.com/intel-lab-lkp/linux/commits/H-Nikolaus-Schaller/MIPS-Ingenic-Fix-inverted-MIPS_NO_APPENDED_DTB-logic-in-Kconfig/20261025-202050
-base:   linus/master
-patch link:    https://lore.kernel.org/r/1658997f198411f20bc5a489e9488800e4597e19.1792956055.git.hns%40goldelico.com
-patch subject: [PATCH 3/6] MIPS: Ingenic: Add cpu-probe setup for XBurst and XBurst II R2
-config: mips-allnoconfig (https://download.01.org/0day-ci/archive/20261026/202610261320.3AF5hDGi-lkp@intel.com/config)
-compiler: mips-linux-gcc (GCC) 16.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261026/202610261320.3AF5hDGi-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610261320.3AF5hDGi-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   arch/mips/kernel/cpu-probe.c: In function 'cpu_probe_ingenic':
->> arch/mips/kernel/cpu-probe.c:1840:30: error: 'CPU_XBURST2' undeclared (first use in this function); did you mean 'CPU_XBURST'?
-    1840 |                 c->cputype = CPU_XBURST2;
-         |                              ^~~~~~~~~~~
-         |                              CPU_XBURST
-   arch/mips/kernel/cpu-probe.c:1840:30: note: each undeclared identifier is reported only once for each function it appears in
-
-
-vim +1840 arch/mips/kernel/cpu-probe.c
-
-  1751	
-  1752	static inline void cpu_probe_ingenic(struct cpuinfo_mips *c, unsigned int cpu)
-  1753	{
-  1754		decode_configs(c);
-  1755	
-  1756		/*
-  1757		 * XBurst misses a config2 register, so config3 decode was skipped in
-  1758		 * decode_configs().
-  1759		 */
-  1760		decode_config3(c);
-  1761	
-  1762		/* XBurst does not implement the CP0 counter. */
-  1763		c->options &= ~MIPS_CPU_COUNTER;
-  1764		BUG_ON(__builtin_constant_p(cpu_has_counter) && cpu_has_counter);
-  1765	
-  1766		/* XBurst has virtually tagged icache */
-  1767		c->icache.flags |= MIPS_CACHE_VTAG;
-  1768	
-  1769		switch (c->processor_id & PRID_IMP_MASK) {
-  1770	
-  1771		/* XBurst®1 with ISA */
-  1772		case PRID_IMP_XBURST:
-  1773			c->cputype = CPU_XBURST;
-  1774			c->writecombine = _CACHE_UNCACHED_ACCELERATED;
-  1775			__cpu_name[cpu] = "Ingenic XBurst";
-  1776			break;
-  1777	
-  1778		/* XBurst®1 with MXU1.0/MXU1.1 SIMD ISA */
-  1779		case PRID_IMP_XBURST_REV1:
-  1780	
-  1781			/*
-  1782			 * The XBurst core by default attempts to avoid branch target
-  1783			 * buffer lookups by detecting & special casing loops. This
-  1784			 * feature will cause BogoMIPS and lpj calculate in error.
-  1785			 * Set cp0 config7 bit 4 to disable this feature.
-  1786			 */
-  1787			set_c0_config7(MIPS_CONF7_BTB_LOOP_EN);
-  1788	
-  1789			switch (c->processor_id & PRID_COMP_MASK) {
-  1790	
-  1791			/*
-  1792			 * The config0 register in the XBurst CPUs with a processor ID of
-  1793			 * PRID_COMP_INGENIC_D0 report themselves as MIPS32r2 compatible,
-  1794			 * but they don't actually support this ISA.
-  1795			 */
-  1796			case PRID_COMP_INGENIC_D0:
-  1797				c->isa_level &= ~MIPS_CPU_ISA_M32R2;
-  1798	
-  1799				/* FPU is not properly detected on JZ4760(B). */
-  1800				if (c->processor_id == 0x2ed0024f)
-  1801					c->options |= MIPS_CPU_FPU;
-  1802	
-  1803				fallthrough;
-  1804	
-  1805			/*
-  1806			 * The config0 register in the XBurst CPUs with a processor ID of
-  1807			 * PRID_COMP_INGENIC_D0 or PRID_COMP_INGENIC_D1 has an abandoned
-  1808			 * huge page tlb mode, this mode is not compatible with the MIPS
-  1809			 * standard, it will cause tlbmiss and into an infinite loop
-  1810			 * (line 21 in the tlb-funcs.S) when starting the init process.
-  1811			 * After chip reset, the default is HPTLB mode, Write 0xa9000000
-  1812			 * to cp0 register 5 sel 4 to switch back to VTLB mode to prevent
-  1813			 * getting stuck.
-  1814			 */
-  1815			case PRID_COMP_INGENIC_D1:
-  1816				write_c0_page_ctrl(XBURST_PAGECTRL_HPTLB_DIS);
-  1817				break;
-  1818	
-  1819			default:
-  1820				break;
-  1821			}
-  1822			fallthrough;
-  1823	
-  1824		/* XBurst®1 with MXU2.0 SIMD ISA */
-  1825		case PRID_IMP_XBURST_REV2:
-  1826			/* Ingenic uses the WA bit to achieve write-combine memory writes */
-  1827			c->writecombine = _CACHE_CACHABLE_WA;
-  1828			c->cputype = CPU_XBURST;
-  1829			__cpu_name[cpu] = "Ingenic XBurst";
-  1830			break;
-  1831	
-  1832		/* XBurst®2 with MXU2.1 SIMD ISA */
-  1833		case PRID_IMP_XBURST2:
-  1834			c->cputype = CPU_XBURST;
-  1835			__cpu_name[cpu] = "Ingenic XBurst II";
-  1836			break;
-  1837	
-  1838		/* XBurst®2 with MXU3.0 SIMD ISA */
-  1839		case PRID_IMP_XBURST2_R2:
-> 1840			c->cputype = CPU_XBURST2;
-  1841			c->writecombine = _CACHE_UNCACHED_ACCELERATED;
-  1842			__cpu_name[cpu] = "Ingenic XBurst II R2";
-  1843			break;
-  1844	
-  1845		default:
-  1846			panic("Unknown Ingenic Processor ID!");
-  1847			break;
-  1848		}
-  1849	}
-  1850	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+On Mon, Oct 26, 2026 at 12:52=E2=80=AFAM Andy Shevchenko
+<andriy.shevchenko@linux.intel.com> wrote:
+>
+> On Sat, Oct 24, 2026 at 10:26:41PM +0500, Muhammad Bilal wrote:
+> > The input is copied with kstrdup(), which stops at the first NUL, but
+> > the full write size is passed to hp_enforce_single_line_input(). With
+> > an embedded NUL the helper reads, and can write one byte, past the
+> > copy. Use strnchrnul() so the scan stops at the first NUL, and return
+> > -EINVAL for a NUL or newline before the last byte.
+> >
+> > Tested on HP EliteBook 840 G2 (Fedora 44, Linux 7.2.8): writing "A\0"
+> > followed by 4093 bytes of "B" to current_password 100 times returns
+> > -EINVAL every time, without reading into the heap.
+>
+> ...
+>
+> >  - Drop the trailing comments
+>
+> Why? At least The first one has the same meaning as before, what's wrong =
+with
+> the second one?
+>
+> --
+> With Best Regards,
+> Andy Shevchenko
+>
+>
