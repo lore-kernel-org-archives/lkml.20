@@ -1,105 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793024296;
-	b=o6jYOMVPnYARSRpRdeIjueftTSXxiijdpYELanEYR0/lfN4dkPxE5D/AEczA87J0qC5X
-	 ErKCYnpNQgRSlbx1oiNK2fN+6dIRziHhN0Wbnm0kvgnuelV17rZ+iha0gfI7FYlSPelO/
-	 kMl9/3LfX7+20ntY5HISz1QA5UpcZt/LKHaxKuPobtSOgz87BXToZDa1Ha3gWX/jF+PE9
-	 oTDFEzX7e+WclVhS1vdkViQjvZO64ooZ0c6jQFoUllCXVAukQsviAqDS8a7mg5EWkf7w5
-	 vkwELk2dZBljJXhsconC/UHYhK+8cbi6eFvv/5G4mkoEvj7pUtwzmIr79ZGnmFkL8lA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793024296;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=ifM+PXldux5sH2cm3CGnH/RRo/Iq9tlkwFAZTBnx4+Q=;
-	b=oHCOZ3aaOyCQzjk8vZVYccnDERJBsklnmZpKHOAOjiuJrm3Wag/Kns8qhZqe5skXUv8U
-	 CvYZjm5kxVVrnETY0QeXASn45KRImQEsWcLPY06Od0SVSnN+QFr232nDqBvYkFwMTjpDz
-	 IICdQdTT9DTlUFKvSzKJOdzUTyOHfXwgH9Nk7EuqM8koMdZwRdH3lvKFqMNua7QNvwk8l
-	 FCxDlJXqiREeHB+MCdkK6WDFQz7l13tQdQxwYzRgaimw+icXcJY1K5pQ2HG2X2IRyj4ls
-	 PkBkHqoGChrGo6hXXgFre0oE2sKuLKK6fJerxjNUj8EdR68524V1xjvYTjZQeLmtlhw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=arAe2ryG;
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.51
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793024292;
+	b=aePXPMtbbmx9VYFBle7mzjXXGV1MGrBQ4arQtqvGEkCeKkVm7nYu67rWGlvrQy/XfMuh
+	 NlFJRpRYG0fSUk3jUdWbxl28ELnw3k45XawLSzDSKU5KOyQBsnbGfAV4dNyJJXnKqiFgT
+	 75+FN1tDp1ys1tvUJZGpqyF7OvQyebi4E7AnLdQPdnmAAy3TqgPJjn2QX3I27/9gMJPHv
+	 U2Z2j5qG3V51X9VWtVSZC9T4Wt3oOATUUItqY4xrUIgYTP0PmiiUswlomPRas3i7MOxx+
+	 dxmHZAFT8C2jFg3Vchm1YY4plawsMIcS2RdtZUwdxXt8Yy+fdvL3nEIufNZrsKL37fg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793024292;
+	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
+	 Received:Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
+	bh=N3edpSA7ySWIQbLtFKdR2LcNzow3X8EUsLtkx2rpILw=;
+	b=NBHxvPX0FC3f4aydkEXfRV3kTw3ZPnK1DF2YlCpzTi4KwZ8hPk79ttWauGcO27CLiklF
+	 OLQTAkMCvZRViAyQ27qNPwA2EAmU3ipbdk8pcLfo3UoDDH9rH7pkgQErnVVKQnEwSYcwa
+	 iy+qR+0wwqL++6WiO5FB7+xzWrDCHEkZjQPJlYbimsol/wHQOXZsCbhB3/P8ljUmhBByu
+	 xeaNfN1Cvh97QGMUfGAz0wHcZxRypIHb7jntpJRG7cN4W741bAT3liukW+KEYO9i9v/pr
+	 JGgPhk5EWF4WoffOzEJJ8ApUuCO6oRd8kbo694vzqGsAnkRtk20lsbyn3z8NG/Bt1oQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=goldelico.com;
+	spf=pass smtp.mailfrom=goldelico.com;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=PRYQRpDE;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=tCpwcUEk;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.51
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.51])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B46C9606A323
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:18:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B46C9606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 041FB606A31A;
+	Mon, 26 Oct 2026 14:18:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 041FB606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=arAe2ryG
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a60f9474c4so11480725e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 07:18:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793024294; x=1793629094; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ifM+PXldux5sH2cm3CGnH/RRo/Iq9tlkwFAZTBnx4+Q=;
-        b=arAe2ryGITQNaEOL6zbSb3LMwQmpaYIjaYHVlzJt+RwVkXz+ibO9s+qLO7YT1Dexse
-         wjEb/ve7fTopNBXX3YVni2GCZ+uWleeRmGhQOxUpH0OpM9W+4VuvjPijH+D66GQeaCKl
-         trLGCt7AqToC4FKcJ5oXvR4QIrkTuGShxtajFOcIIVcNVL0KlAw3RsgRa20lHE7EMgA+
-         pDpSpHcxEMQvzDhCfFJDZ5IP45budIblqKHrLqt9Fj8lrT/GY0hw7SfxT1pBYhc+6BRk
-         wZ1KYLk53bpOQLyS3knUrpi7z2H9z66bVOjWZg97H07dhGu531lOyOGQ571VIaKoWRSY
-         ImOw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793024294; x=1793629094;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ifM+PXldux5sH2cm3CGnH/RRo/Iq9tlkwFAZTBnx4+Q=;
-        b=2atDMmBWTUF0hN+ygTrhi7sdQMz3Wq5roc0snNSlld+lY4vWpHtxJZkcfDERfOseNX
-         r1nfo6V2reUyVsdmugIeY6ZyvXxBGazOwNxPuAXAQcAs6zcwEKpw6m2OLeV09xze7a7J
-         vG2SpDRXQj8qYBMNfBfpOPQWhu5POyExI2kxxy4rwZ+5yewY8tHoZLwOjwC8FM+6pudm
-         IgvOxpC+z8vQhXaw/NDraxg7MYSmNUPbUOx4ubpnda4ZgZAw6xX/minakZZh8GXhKh0c
-         rRxogNRutM+j8zhIPELGp+n7zafqTf1A/pfzMJebAzBdFF56vt/OWXxM34f61rNdzdkD
-         Sbdg==
-X-Forwarded-Encrypted: i=1; AKwUvBwW/JHRyb+Pl6UR4cwQKeyv1nJXi5TwL6Csgxuiqmp+FPxn0vnTNKiO9n0ybQhyzKZLLjzDJ2JiOBxgJSI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ9TS8uPPqEq4DvaUjYbsgeQD3xsMd/E8JK0tQMr5WLxSGfNgiM
-	BmlASrh+IhdIWOusgkY58URzkn/TGSN6bZAqpDrdGH7/CSwgivNqnuJH
-X-Gm-Gg: AYBFou0YKrqeHVrbkH18OEC9GHFEUbz9RkMxQRWeyp+gX1ZKprjzJaPiv1RiNNVKoP0
-	GcyQfS4fi6Pu7E4a3o6YxcuQMHRW1+3CgZAsQ90j+D8sKnuNDHuUqRNfUXFStdnnHeBqwvGu1fL
-	gqA5tajatktpYhiP9TzY25lxNROqhLZsC0EJRceox/4W/HZHh7vUqLvxobEoNJe3yKU2KqteuIE
-	GvOYnDGWXOwX7T5TsqGxALce/7wx90noYr6Hi212lUQQVSujZ+ZhJcEZx19btRpd0+zEQZQGRuN
-	uSmMqS6Xy9iWp0u3hgLTsz35PLfcLYSqutJ/jiQLqUfkp8vCVYVGCGu673AaqNdRDCBOjXtResk
-	7jsyo5+d4R8kbQxJ/BtOcksjxsKrO9v5prycJWy7AWUS3jPbF58x/nBBV8+pjLSnrTfE1JF3Wzv
-	6E3Q+WFV2pNHNitp+igvAv9mhLfQF52cU4bYzc7UgMyUa/kCzLnCS17mmRnBGw0/Iu+DjltoQpD
-	+P9399eL0MMT1MuinLmzIMTEmBpyS9X7QGtwZnNDpTkKpLIokkUopfrWLyti/sAth3m08DBp9Vn
-	rogYd/kdewSqIH7wggyH0yGuvq7Goi7de+HZaZXCgNASeNgiRhy6rJDmMEnwSkdoKM5BIg2XGqA
-	TjBD7LUgoS3AG6p8fbcm1D+xtLic3f0FWOiOCJfiLSfL9qp0/M6gDkNFkBJa0zYeJSGaiJ0gkx/
-	jFdxPhv+EIst28KhIHlV1R7HVDH163vUCnyzc9W26JG6r9JgbsQswY4zbK2W3UwG2+uV2w3889k
-	cmpkHcDK4c=
-X-Received: by 2002:a05:600c:a318:b0:4a3:5aee:2c25 with SMTP id 5b1f17b1804b1-4a35aee2cfdmr95663085e9.31.1793024293964;
-        Mon, 26 Oct 2026 07:18:13 -0700 (PDT)
-Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a58a0e2sm246428935e9.13.2026.10.26.07.18.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 07:18:13 -0700 (PDT)
-Date: Mon, 26 Oct 2026 15:18:11 +0100
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Olivier Louvignes <olivier@mgcrea.io>, Jonathan Cameron
- <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, Nuno
- =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>, Andy Shevchenko
- <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Paul Cercueil
- <paul@crapouillou.net>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-mips@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: iio: adc: Add the Ingenic X1600 ADC
-Message-ID: <20261026151811.00002233@gmail.com>
-In-Reply-To: <20261026-hungry-masked-anaconda-7fadb6@quoll>
-References: <20261024041357.34346-1-olivier@mgcrea.io>
-	<20261024083809.000026e5@gmail.com>
-	<20261026-hungry-masked-anaconda-7fadb6@quoll>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	dkim=pass (2048-bit key, unprotected) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=PRYQRpDE;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=tCpwcUEk
+ARC-Seal: i=1; a=rsa-sha256; t=1793024270; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=hGp9mh23HEGuXtxC/BYxow6/izwgp6zajao0s5YE1thCklRmEmmMgEUSQgKKgK+g7h
+    oXulEdqf9B4wPUh7SpXo4N68ZlnV7Hrd8alJT6gS9yOI/l4EBOUILcgzIUiLS7gx4BOZ
+    SM5ZFoJI1H9y2YYCAaBPPtlOIl2sJNQ4I3NM/XbDQ0o6p6CzU9O+dU2MxhsExsnWN67I
+    f5pRbNCbuR6o2QZAituocsW+2sTdEgBBro/gptuDgvvPkujEH8g3pIJ3oY7UiMdc1Hxc
+    +a6xTYhW2v3a4hFv9HIg1BeeLfmqYOvN/j4QGtOP+P/GyJseXEniaJiLFZTU/mrU5IcH
+    drcA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1793024270;
+    s=strato-dkim-0002; d=strato.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=N3edpSA7ySWIQbLtFKdR2LcNzow3X8EUsLtkx2rpILw=;
+    b=JPlXKmfxF1mMl20hYDwAXMf4lvix7/rP6y1pkjQh2bqSreDHeqSrA3rV2UiZCTOnxt
+    ZgWhpVJY2CJLOtmpyetTrWNxdAsa1g9aMTQI8wspnEtUZXsC0ambNP862T3+v4KxNlD0
+    uCxAVLpLqaukkMu7QqadfmFcKE5UyWuKvem0Le3Th2FdUIcIRImghx4j+E9rUIX3D2Xw
+    ohBS+TnWJD83X9LS8nni5r/6Q9MvBxFiupt1K/5OnzqdmlJxw+Ms+Ps1Atc2ExJ2hmdK
+    eoSqO3k/w7Rb28OEce+P9Y3Wp9aNKnlR/jV8uScs0bp5Gm0C87IriiWFciIbSa0cVJbx
+    5o5A==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1793024270;
+    s=strato-dkim-0002; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=N3edpSA7ySWIQbLtFKdR2LcNzow3X8EUsLtkx2rpILw=;
+    b=PRYQRpDEUQ2CB3frxP9ntrh7Zhn1BYrH8gLi5KDhAnjxX7hEJGOhvjsZ2Z1Cv1Y0iv
+    Wii3JWX2Vk0P4qC0c+oup9M6UWlmaQGyLBlhWc1wDRXkzkJ4JRURyqNsCFMm5nvel7iR
+    hY+NUxck8e03QtzLrYU/df4n5uXrQYTcBn0ZQv8wuHITHjFjGWZYUEQGyq11z9QgS3Al
+    tG/MrBhnyAWUBv9eWXYVfkDxobELinXVyasyuUb2ThHzG0FLUhLvfjkKXBybqjZTLfuv
+    zqOg/9z40Vveqo62Q6SW6GrmeQIHi66MVNB6FX9BFt0QHb6Qdr6sLXBjvpqEZTZSobpk
+    /ixA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1793024270;
+    s=strato-dkim-0003; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=N3edpSA7ySWIQbLtFKdR2LcNzow3X8EUsLtkx2rpILw=;
+    b=tCpwcUEknd/BQMAdiLLFfLOErE+dlBYlnmtrN7T+X9Hq4rs5xmE+0Oy9Hel1KDa+Xg
+    DjNb+qeiMd1o66KyIyDg==
+X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrSipoGzMiNKtQhqZFV7uZXF4WZrMfjk54is0Ge"
+Received: from smtpclient.apple
+    by smtp.strato.de (RZmta 55.6.3 AUTH)
+    with ESMTPSA id Qb56a229QEHo30Y
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
+	(Client did not present a certificate);
+    Mon, 26 Oct 2026 15:17:50 +0100 (CET)
+Content-Type: text/plain;
+	charset=us-ascii
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,34 +93,72 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.10\))
+Subject: Re: [PATCH 1/6] MIPS: Ingenic: Fix inverted MIPS_NO_APPENDED_DTB
+ logic in Kconfig
+From: "H. Nikolaus Schaller" <hns@goldelico.com>
+In-Reply-To: <089587a1ac49395ef5d15b59c5ff5c9bf8ab68f6.camel@crapouillou.net>
+Date: Mon, 26 Oct 2026 15:17:19 +0100
+Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ Paul Burton <paulburton@kernel.org>,
+ "Maciej W. Rozycki" <macro@orcam.me.uk>,
+ linux-mips@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ letux-kernel@openphoenux.org,
+ kernel@pyra-handheld.com
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <669B446E-0567-472B-B15F-ECF1EA49413D@goldelico.com>
+References: <cover.1792956055.git.hns@goldelico.com>
+ <7733ca05b6a245e5a9ad414cc754ccc9ece6dc85.1792956055.git.hns@goldelico.com>
+ <089587a1ac49395ef5d15b59c5ff5c9bf8ab68f6.camel@crapouillou.net>
+To: Paul Cercueil <paul@crapouillou.net>
+X-Mailer: Apple Mail (2.3826.700.81.1.10)
 
-On Mon, 26 Oct 2026 11:50:44 +0100
-Krzysztof Kozlowski <krzk@kernel.org> wrote:
+Hi Paul,
 
-> On Sat, Oct 24, 2026 at 08:38:09AM +0200, Joshua Crofts wrote:
-> > On Sat, 24 Oct 2026 06:13:56 +0200
-> > Olivier Louvignes <olivier@mgcrea.io> wrote:
-> >   
-> > > The X1600's SAR ADC has four auxiliary channels and none of the
-> > > touchscreen or battery engines of the JZ47xx ADCs in
-> > > ingenic,adc.yaml, so it gets a binding of its own.
-> > > 
-> > > Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
-> > > ---  
-> > 
-> > Please use a cover letter when submitting a patch series.  
-> 
-> It's fine for two patch series. Please do not make it more difficult,
-> than necessary.
+> Am 26.10.2026 um 00:41 schrieb Paul Cercueil <paul@crapouillou.net>:
+>=20
+> The original code is not an 'unintended behaviour', it works as it was
+> designed to work: if the kernel is not configured for an appended DTB,
+> then a DTB should be built-in. This is because on Ingenic SoCs at
+> least, at the time this code was written no bootloader was passing the
+> DTB to the kernel.
+>=20
+> I understand your usecase (which is very reasonnable) but this fix as-
+> is only fixes things for you, while breaking every other board.
+>=20
+> I'd suggest to fix it by adding a proper description to BUILTIN_DTB =
+(so
+> that it can be selected from the UI or a defconfig), then update all
+> arch/mips/configs/ for Ingenic based boards to enable
+> CONFIG_BUILTIN_DTB=3Dy unless they rely on the appended DTB
+> functionality. Then this "select BUILTIN_DTB if MIPS_NO_APPENDED_DTB"
+> Kconfig dependency can be retired.
 
-I'm not trying to make it difficult. The cover is usually a good place
-where to describe your motivations for a new driver, plus with a cover
-it's easier to pull via b4 and Sashiko will treat the two patches as
-part of one series, not separately.
+Thank you for the detailed feedback and for explaining the historical
+background. That makes perfect sense.
 
--- 
-Kind regards,
-Joshua Crofts
+I will follow your suggestion and add split this in a V2 patch series so =
+that:
+- Adds a proper prompt/description to BUILTIN_DTB so it becomes =
+user-selectable
+- Update the existing Ingenic defconfigs to explicitly enable =
+CONFIG_BUILTIN_DTB=3Dy
+  where needed (I think there are just 4 cases)
+- Remove the automatic select BUILTIN_DTB if MIPS_NO_APPENDED_DTB from =
+MACH_INGENIC.
+
+This should cleanly support my (and likely other's) use case of a
+bootloader-provided DTB without breaking any existing board.
+
+BTW: we have this working with U-Boot on CI20 as well. So a generic =
+ingenic
+kernel and all board specific cases in the DTB.
+
+I'll update and also consider the feedback from Sashiko-bot and others =
+for
+the other patches in this series.
+
+BR and thanks,
+Nikolaus
+
