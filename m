@@ -1,72 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.2
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793025651;
-	b=m4GPp8cHYBc7UQNmNlWhn8345VhJ7ncGtAkmkGlXrDwPoKONDwOoxugYAZwI2jxZPd9h
-	 rLzwe4KEzoiiEVdsvHwWYpg2NVcWNrRA1NuTwKaCHbgya23o39OiH79m0xxF+4iiwoiVO
-	 by/v3lUF7agyjalLhTgRx3Bq2EhLC0GwPtQ4xQy/uwMt6+tlDRjwrkGX2AKjYq/MgQV3D
-	 DrTDbB/v+W6PAxPTZ384sSxpHTki1g4qZNHDa9+3gtMMmViYfjaqf4W/PzVvio0Rx0bCp
-	 UQtx7+r72p5Pp738PVEEehyWM7tWK9g1ZV3cKH+3X8jIp8otE64ekJDP8spZgl8YqfA==
+	t=1793025713;
+	b=SK7VMmZAxic2e8/ePqbTM2p5/QboGFl2OXnpBQJcbJYk1ISQhttQPQ36+ue8scBeZbV5
+	 jxqzoutP2mhqjC1Qlw+osqDFclDlUT/WYJG0L/rQdzXWVlMnyJuaRpxAu7JCJcMYWf2OM
+	 I3Xnr4J+JNhTcrkc53ksWoo7yqN1ZVfsBLLpuoyDkAPHtIrsYopI+wqdRyU+8zrZq1Wgf
+	 0i6OMMe3gW/KL67NqnV/CPuf7DEtAULuIfI4c3ARRXs4gIPWSPiT5+9mEjzIYGw1rgq1d
+	 Uv0vC7CxWo2+8rWfxOjb5TM1917BVck4s9UC71Xhe9SpNTxlWCqbiJWSJiF3d7ErifA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793025651;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=8Kll1iF/QT91YErkwJEoScaiXhixs9z1aNQZhsSbLyI=;
-	b=rHsx/PFaxXPvgAl8CbVjPwGRmPglsc8wcFmHwGicxp808mvelM4cW47ccGxfr3J7gQLz
-	 cVhoAXzDdiJVuUJdkabndgcunAqjJx6hdnr4SU8pkzscTaMPRYOkpbzhvZPMDEOWn87Ag
-	 Y6tqQJxU37ntXsgphAjRMQnfkWcmzxqcQsWs+y+CX8UXracffKeTvptYpTXzaHVUI6a5k
-	 CmOBRERL0SJ48TpyY5SYx4UuZN5n9SVYF/uuepPkBjThwEo6/q0CycvqYvQICy0KXhXCZ
-	 Z7KvFtgAIVEu2H3598kMAhcvah0C1/WqglirykKhjLlpJhuvjJJ+7xoDzsuEch9APVA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793025713;
+	h=DMARC-Filter:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=ztGkvnKx9b6NJdGw48tpWlBfewbZxe0B7yDbowRvvsE=;
+	b=Q6Y+QGHVG6v2pEvhJ6pF6blLzilKjs5Dge1MMFl1R3Wx3qjoPuuvX4ViQXrbnxnZkE25
+	 1v4XuvYLw9yUAfU/5WAz76Yj5qONNhOdpdCdael1pjMmCtkf+H9Yh/8VZI0ltJQ8fO/tP
+	 Z4Lk/YvDxEXF8HAh7CPJpJTU2lthJWdGkCf2prZBSrXll6zuSm0bzRrU1Sn2Eh2Y+FGel
+	 cG96xMtv2ZqCWQW7jLp090tJELsKnL6ct6KiB8Qjn/VTxUnBAE7JrTyX2nLI+aSdmv6IZ
+	 tiUPOXky92y4M2RK0ggujU2RzdamSqx/4po1fn1dU+FfSS5AXd7tCo0OZQhSxPZVXyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--starchang.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=pmQnzjNm;
-	arc=none smtp.remote-ip=209.85.215.199
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b="QG37E/tN";
+	arc=none smtp.remote-ip=220.197.31.2
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 026DC606A31B
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:40:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 026DC606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--starchang.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73745606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:41:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73745606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=pmQnzjNm
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc7e0321ec1so4110761a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 07:40:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1793025650; x=1793630450; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8Kll1iF/QT91YErkwJEoScaiXhixs9z1aNQZhsSbLyI=;
-        b=pmQnzjNmSkFRFPDCyIkvlEdyjgJNNIq2cNF8/Wxm+gHU+CgXs5sKZtGIFtmlU+ioeA
-         LwOPD2YbJ188JbL6zVXDA603WzrzvkQnYcnlmjgdEnmOE3NvwZBtLHzmF3ZjFlsjtxfz
-         vNMfFDbM3OAv67a7OEcFvjMqfW8W400BQVNPbFyaTi7TmkUWf5GojlXOdLZ7tqVohXQD
-         D/d8qDEkwcgKQsfei26OOOWGbnkijg2t9MLoucP/we45obWsekt3sEaMH6tIET/+ux9S
-         QOfsITDYlVIKFyWTsGT9K00vOs5f3BX8i8g74gl2OIAB5UDgHswJOKFUf81sid8WX4cz
-         ZwAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793025650; x=1793630450;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8Kll1iF/QT91YErkwJEoScaiXhixs9z1aNQZhsSbLyI=;
-        b=aIlRM2g7w5pjnjrPKy2NQqSHrV/607r582vsGSKTDu3MIklce+oQC8WcHVueJxuwvn
-         4JPwrOzI6jkhFHqR24hVz40uDRYIZQbV0yDP/k8sbwYzvSWLY4JLlshYYSWTYlDblWK1
-         ktNCF2dTv5/HD5ILh/O9ALR6FdIJ67dpG6cNk9Aw5aJYbt/T3faTLFCOR1xFgslEkHIm
-         2sOs/GDEsxUqH++vx9Ohu+ZlKiLhhd6EwUv98rJs9tz43J8+1UVaWUEqFzT4nLL+Jcq4
-         UP6YiJfHPt6UxzrJtIFUAy4G1p5p/chbiR096zWjQR0P/JBq6tlhibUFVtKwAaape2ka
-         lIfg==
-X-Forwarded-Encrypted: i=1; AKwUvBzz+L1dd5fNKLiYIkZofwNUdazDVpiZwlOoMbF8Q1iwn/pS2OVSLS14CTfBmLEX8XoaZbhSEGrnROj3BW4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI82vzHUnwSTe1u/tckOaml1eYAHOn4/X0H7ypf3WY68NlH9gFX
-	5RCitKYnw3zW90dT+f8kK/QQka52W87C4UX/lsfYDka9GgiFpmB54wbUEnYF4Hp5+PrKLawpwMb
-	/4OtSjPHF82lUPcDgFA==
-X-Received: from pfh4.prod.google.com ([2002:a05:6a00:12c4:b0:89f:6242:b2d2])
- (user=starchang job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a21:200a:b0:3e1:d13f:5fa9 with SMTP id adf61e73a8af0-3e7cd641742mr4292671637.73.1793025650060;
- Mon, 26 Oct 2026 07:40:50 -0700 (PDT)
-Date: Mon, 26 Oct 2026 14:40:32 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=QG37E/tN
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=ztGkvnKx9b6NJdGw48tpWlBfewbZxe0B7yDbowRvvsE=;
+	b=QG37E/tNZjLHTO02byxSbrEzytXJShMKXlql8TZhK8WlcWcx3G8oVr4x8x3U3s
+	9GALkalnBaFBlZWBmE2adcTCqhuUw8hRLkj4MiplFvTJSErfX3fQ+HjAqbEYFRIE
+	Ma+l784b8shJP4H05wWMb4hDxqX77WNFiTzDo/d9TGQvA=
+Message-ID: <760eb7f6-8ec7-46a8-b4e7-b3f8685912eb@163.com>
+Date: Mon, 26 Oct 2026 22:41:02 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,157 +50,61 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.257.gf7497c7d27-goog
-Message-ID: <20261026144032.1338614-1-starchang@google.com>
-Subject: [PATCH net v2] net: Fix Hole-196 vulnerability by dropping unicast
- ARP/IP in L2 BMC
-From: Star Chang <starchang@google.com>
-To: netdev@vger.kernel.org
-Cc: dsahern@kernel.org, edumazet@google.com, kuba@kernel.org, 
-	pabeni@redhat.com, davem@davemloft.net, linux-kernel@vger.kernel.org, 
-	Star Chang <starchang@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] exfat: drain dirty pages after forced shutdown
+To: Namjae Jeon <linkinjeon@kernel.org>
+Cc: linux-kernel@vger.kernel.org, exfat@lists.linux.dev,
+ Sungjong Seo <sj1557.seo@samsung.com>, Yuezhang Mo <yuezhang.mo@sony.com>,
+ Chi Zhiling <chizhiling@kylinos.cn>
+References: <20261026091542.1031813-1-chizhiling@163.com>
+ <CAKYAXd8YmzQJuT=afcCSEYLbAqEwC1A9B1phuKibtODdJqqEFQ@mail.gmail.com>
+From: Chi Zhiling <chizhiling@163.com>
+In-Reply-To: <CAKYAXd8YmzQJuT=afcCSEYLbAqEwC1A9B1phuKibtODdJqqEFQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:PygvCgCX95p+Zt9q5GXYCA--.14986S2
+X-Coremail-Antispam: 1Uf129KBjvdXoWrKw48ZFykCr15CrW8KF15Arb_yoWDKFg_Ww
+	s2kw18AFs0y3WrAanxZ34YyrsrtFZ5uFWktrWSk34Yqa1DJFn7Zrn5ZrnayF40q3s7Krs8
+	urZ2vr48J3WkJjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUbjYLPUUUUU==
+X-CM-SenderInfo: hfkl6xxlol0wi6rwjhhfrp/xtbC+B9L6GrfZn9OBwAA3h
 
-Wi-Fi 802.11 to 802.3 frame translation allows attackers to inject
-unicast L3 packets or ARP payloads inside GTK-encrypted L2 broadcast
-and multicast (BMC) frames (the "Hole-196" vulnerability).
+On 10/26/26 6:59 PM, Namjae Jeon wrote:
+>> @@ -283,9 +283,6 @@ static int exfat_writepages(struct address_space *mapping,
+>>                  .ops            = &exfat_writeback_ops,
+>>          };
+>>
+>> -       if (unlikely(exfat_forced_shutdown(mapping->host->i_sb)))
+>> -               return -EIO;
+> Please move this check to exfat_writeback_range(). Returning -EIO
+> there lets iomap clear dirty state without writing data after
+> shutdown.
 
-While the `drop_unicast_in_l2_multicast` sysctl was introduced to drop
-unicast IPv4/IPv6 packets received over L2 BMC, it had several gaps:
+Okay,
 
-1. ARP packets were not checked in `net/ipv4/arp.c`, allowing attackers
-   to perform ARP poisoning via L2 BMC frames (`group-arp-unicast`).
-2. Enforcement lacked DHCP client (UDP port 68) exemption, which could
-   discard legitimate DHCP server responses sent via L2 broadcast.
-3. Dropped packets were silently discarded without warnings or MIB stats.
+> 
+>> -
+>>          return iomap_writepages(&wpc);
+>>   }
+>>
+>> diff --git a/fs/exfat/iomap.c b/fs/exfat/iomap.c
+>> index e50ecbfbfbe0..6383739f5700 100644
+>> --- a/fs/exfat/iomap.c
+>> +++ b/fs/exfat/iomap.c
+>> @@ -165,6 +165,9 @@ static int exfat_write_iomap_begin(struct inode *inode, loff_t offset, loff_t le
+>>          loff_t end;
+>>          int err;
+>>
+>> +       if (exfat_forced_shutdown(inode->i_sb))
+>> +               return -EIO;
+> This check is not needed for this hang fix. exfat_file_write_iter()
+> already checks new writes after shutdown.
+> It also misses existing mmap writes, which use exfat_iomap_ops. We
+> need to add a shutdown check to exfat_page_mkwrite() also.
 
-The issue was identified via manual code inspection and protocol security
-analysis of cross-station frame injection in 802.11 shared-key (GTK)
-networks. In laboratory testing, crafted 802.11 broadcast frames containing
-unicast ARP payloads (e.g. ARPOP_REQUEST / ARPOP_REPLY with tha set to a
-victim's unicast MAC) bypassed the existing sysctl, poisoning the victim's
-ARP cache. Furthermore, per RFC 2131 inspection, unconditionally dropping
-L2 broadcast frames carrying unicast IP addresses discards standard DHCP
-server responses (DHCPOFFER/DHCPACK) destined for UDP port 68 during lease
-negotiation.
+Okay,
 
-Enhance `drop_unicast_in_l2_multicast` sysctl enforcement:
-- Extend sysctl checks to `net/ipv4/arp.c` (`arp_process()`) to drop
-  unsolicited ARP Replies and ARP Requests with a non-zero unicast
-  Target Hardware Address (tha) received over L2 BMC.
-- Exempt Gratuitous ARP (GARP) and RFC 5227 Address Announcements
-  (`sip == tip`) from L2 BMC unicast drop logic so they defer to the
-  `DROP_GRATUITOUS_ARP` sysctl, preserving VRRP/HSRP router failover.
-- Exempt non-fragmented DHCP client traffic (UDP dest port 68) in
-  `net/ipv4/ip_input.c` and safely reload `ip_hdr(skb)` after
-  `pskb_may_pull()` to prevent dangling pointer access.
-- Log rate-limited warnings (`pr_warn_ratelimited`) and increment MIB
-  error counters (`IPSTATS_MIB_INHDRERRORS`) for dropped frames.
+Thanks.
 
-Signed-off-by: Star Chang <starchang@google.com>
----
-v1 -> v2:
-  - Clarified discovery method (manual code inspection and protocol analysis)
-    and triggering context in commit message per netdev-bot automated feedback.
- net/ipv4/arp.c       | 29 +++++++++++++++++++++++++++++
- net/ipv4/ip_input.c  | 27 +++++++++++++++++++++++++--
- net/ipv6/ip6_input.c |  2 ++
- 3 files changed, 56 insertions(+), 2 deletions(-)
-
-diff --git a/net/ipv4/arp.c b/net/ipv4/arp.c
-index d409f606aec0..ad23db2e2f59 100644
---- a/net/ipv4/arp.c
-+++ b/net/ipv4/arp.c
-@@ -791,6 +791,35 @@ static int arp_process(struct net *net, struct sock *sk, struct sk_buff *skb)
- 	    (!IN_DEV_ROUTE_LOCALNET(in_dev) && ipv4_is_loopback(tip)))
- 		goto out_free_skb;
- 
-+/*
-+ * Hole-196 defense for ARP:
-+ * If drop_unicast_in_l2_multicast sysctl is enabled on this interface,
-+ * drop ARP Replies in L2 BMC frames, and ARP Requests in L2 BMC frames
-+ * that specify a non-zero unicast Target Hardware Address (tha).
-+ *
-+ * Legitimate Gratuitous ARP (GARP) and RFC 5227 Address Announcements
-+ * require (sip == tip) and tha matching sha (tha == sha). Only valid
-+ * GARP frames are exempted so they defer to DROP_GRATUITOUS_ARP below.
-+ */
-+	if ((skb->pkt_type == PACKET_BROADCAST ||
-+	     skb->pkt_type == PACKET_MULTICAST) &&
-+	    IN_DEV_ORCONF(in_dev, DROP_UNICAST_IN_L2_MULTICAST)) {
-+		bool is_valid_garp = (sip == tip) && tha &&
-+				     !memcmp(tha, sha, dev->addr_len);
-+
-+		if (arp->ar_op == htons(ARPOP_REPLY) && !is_valid_garp) {
-+			net_warn_ratelimited("Drop ARP Reply in L2 BMC on %s\n",
-+					     dev->name);
-+			goto out_free_skb;
-+		}
-+		if (dev->addr_len == ETH_ALEN && tha &&
-+		    is_valid_ether_addr(tha) && !is_valid_garp) {
-+			net_warn_ratelimited("Drop unicast THA ARP Req in L2 BMC on %s\n",
-+					     dev->name);
-+			goto out_free_skb;
-+		}
-+	}
-+
-  /*
-   *	For some 802.11 wireless deployments (and possibly other networks),
-   *	there will be an ARP proxy and gratuitous ARP frames are attacks
-diff --git a/net/ipv4/ip_input.c b/net/ipv4/ip_input.c
-index 9860178752b8..f863aa293020 100644
---- a/net/ipv4/ip_input.c
-+++ b/net/ipv4/ip_input.c
-@@ -456,10 +456,33 @@ static int ip_rcv_finish_core(struct net *net,
- 		 * this is 802.11 protecting against cross-station spoofing (the
- 		 * so-called "hole-196" attack) so do it for both.
- 		 */
-+		/* Hole-196 defense:
-+		 * Drop unicast IP packets received over L2 BMC frames.
-+		 * Exempt DHCP client responses (UDP port 68).
-+		 */
- 		if (in_dev &&
- 		    IN_DEV_ORCONF(in_dev, DROP_UNICAST_IN_L2_MULTICAST)) {
--			drop_reason = SKB_DROP_REASON_UNICAST_IN_L2_MULTICAST;
--			goto drop;
-+			bool is_dhcp_resp = false;
-+
-+			iph = ip_hdr(skb);
-+			if (iph->protocol == IPPROTO_UDP && !ip_is_fragment(iph) &&
-+			    pskb_may_pull(skb, iph->ihl * 4 + sizeof(struct udphdr))) {
-+				const struct udphdr *uh;
-+
-+				iph = ip_hdr(skb);
-+				uh = (const struct udphdr *)(skb_network_header(skb) +
-+							    iph->ihl * 4);
-+				if (uh->dest == htons(68))
-+					is_dhcp_resp = true;
-+			}
-+
-+			if (!is_dhcp_resp) {
-+				net_warn_ratelimited("Drop unicast IP %pI4 in L2 BMC on %s\n",
-+						     &iph->daddr, dev->name);
-+				__IP_INC_STATS(net, IPSTATS_MIB_INHDRERRORS);
-+				drop_reason = SKB_DROP_REASON_UNICAST_IN_L2_MULTICAST;
-+				goto drop;
-+			}
- 		}
- 	}
- 
-diff --git a/net/ipv6/ip6_input.c b/net/ipv6/ip6_input.c
-index 8972863c93ee..caf9811f6352 100644
---- a/net/ipv6/ip6_input.c
-+++ b/net/ipv6/ip6_input.c
-@@ -278,6 +278,8 @@ static struct sk_buff *ip6_rcv_core(struct sk_buff *skb, struct net_device *dev,
- 	    (skb->pkt_type == PACKET_BROADCAST ||
- 	     skb->pkt_type == PACKET_MULTICAST) &&
- 	    READ_ONCE(idev->cnf.drop_unicast_in_l2_multicast)) {
-+		net_warn_ratelimited("IPv6: Drop unicast IP %pI6c in L2 BMC on %s\n",
-+				     &hdr->daddr, dev->name);
- 		SKB_DR_SET(reason, UNICAST_IN_L2_MULTICAST);
- 		goto err;
- 	}
--- 
-2.56.0.257.gf7497c7d27-goog
 
