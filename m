@@ -1,85 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793038726;
-	b=h1//Wf8CGYgDbvaZ0i8d1tmap0XmEMdJYGf0Eunw7+eP4Y2R4JqrE0vH+YN6oG9K1t2m
-	 R/HJyZk9G7IfRAkNNL12aNRJP5s0p1hb2FPsPXlVeVxaJhdV6A08P0xejskc1zuVsvUIa
-	 4GMWCaQbaPXgG/OWJ5Igs0agmL8piOs9bhWXG8XBh9LC+sO3q8PklnO1tlACcPX0JgbFa
-	 DulkFHM+32oKs9tjAjBPdMM3LVGMfX5KYTDRPNMyUpfQwZ29SeUd1m5mVY+DwfJ5QDJxs
-	 HAI4AveCGosUThoQiIWk7WyPqV1Vc3YtCfAJizRy9VaZauydjk0la8Nn/VcVGOsRU1w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793038726;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=hF6zy/Y0w18f+U5+lO+T+mBpU9y/36ue5olFOfJt/uo=;
-	b=H8zxJl7RQR5VEAfJQUfR/jYtZnt64i6S6C0efn7x+Wx2Sr9SWJSk09HTIUkpm5vhzIO8
-	 m43sCkCCz1Z2Z7O93dw0j/oGx/ZxR8grWHo6dmPjYVuEQ8wPKTMg4n9UXzXmkhlgef7Rz
-	 dM8UvVX/V5jxzJzxG+FacOAq5lTRb2HVg5hDJJBnejfSMLZ+NhqWQ8pB3mTemYbUGnadG
-	 DObvRAM6+boixtZ+Bv39XGthzbqHPS2YeqMIHnsIntA8K/pTSH/g8SR/XVXD6oztluwCA
-	 32b8tmfDTmqvIXxrGGjiCmihLTma4YABb31RS4+5PGzrLxm0Ajw4Ve/5gbaHMN9EqLA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W9GnUFoc;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793038748;
+	b=MjsaxaGuwAuXfffUCO97J/wSVAXQTOHTumaJBiNRpakBcLR7oyC+DiVOWXIdjUlqU4qF
+	 SX5GNjaUGZDqv5HbUpGuv997nbKshzkGmD9MRdFTVJZb23+6wuoCr++Yhh7liRama9DVv
+	 p6HBECVZnCja46GHHrxEdNbek7BQNZBajefavA3LqOJo0mkdZD/Rf1HTpC45OTegI14O1
+	 HhWm3BBofhZWtlmca6gNKi4yAKmSzPCBdTpceBv+SLUPON+haBxnWLL968SxxDsEJO7+d
+	 4Q6s7hktNv37lxr15kEyF808JiXrmY5qAViBB9u6ccbRcZViblCt4yhvIaMZxnXlG4A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793038748;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=m08PXGyn7U8s1ZQtlfTCv0P39/uk4oenXTU+aUpG6AY=;
+	b=ReaEzpQd8GQCC+59Yk97R3mdCM6g5iBVm5qhYKqNY6uQkHNC5BpxZV80cAmSaowadCfH
+	 GFn7+l455pGTtimw9jjRaB1pNL2LG13QAKGdPvbsyTlBzPfzcLk5OwxgaBKlM4wCME6NU
+	 7uy1HY0cevgi3HmGH6hrpIxKnaSI8uwLOyy3k5m8W0QT0e+BZ+FWdfPL44zLGcUVXCQz+
+	 Zby7KwpuvAiRJPfJDsW3d8kcEb0HGK1TzRN62MgW+oTvoHfOsX0hdY8hy+QOAFb+mgGqq
+	 l7820zTWjOA7yMa4w2PLnQLN+PFiwmspsEW5EMW/8w/W18qeSrlCf1uolx3lg1G8Nmw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YEBkeUXZ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B88E4606A31D
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 18:18:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BE0A606A31D;
+	Mon, 26 Oct 2026 18:19:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W9GnUFoc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E77361F01825;
-	Mon, 26 Oct 2026 18:18:44 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YEBkeUXZ
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793038748;
+	b=TMuu3Xhc2O8glIct9ox3xNTZlNStQF3ryCGDrEnPzA5jmG/3LOotmSZmpdSxxxwsJhod
+	 vEHBGRJd/kdiDWZiul/A1444Q1S1GXXB1ZQZdxJTAooPBYLLEn3mOSNd4b3sufpwPZMnt
+	 3pTa2Wwxjs7UQNMuMEoQnj9rEiq4TSSO9XQ63c+NyRPFqs9xI2ZRLREpUw2jayLCQAqMM
+	 fF44LMMMRpUk9jThqZbODvT0P87WQ4ka5uxqn2It8p0nB05UlL5gVqzBSmkr6uKLWkpCJ
+	 vPh+CwiD+IWEiLSLCSpygfD2NZhN1NXD6dTeZ1/STY7PB5OMCU/JJWRn7MqdRO22b5w==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793038748;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=m08PXGyn7U8s1ZQtlfTCv0P39/uk4oenXTU+aUpG6AY=;
+	b=cLQ7PMmWgQlmeXn2D5t93yyN1PXsESd+iX8mgCP/XgS1FB6V79BnQCFrD6M8efhb6rO/
+	 9evONDJMSVm8DXlM+bxVEXoEbh7GTmvmAANNyTR2y6FIl85TZmsoEyeEfRRCUjSkatXxj
+	 ZkcHX2ziW+dyek2vJ5muH3VbiKYHQI5We2LBvPNRAC9XxG6V/FQQ1OVxjMV9Gttl8x8BR
+	 moSPJL/EBNELL2mrSXh/LlJkml6jg5ksbzI9jgn5wp113846glEO6oHTgnb0ljYi8yLVK
+	 njARkApwGoVQ40ThhrPVgawg+KsUILroKV2D0wt5RPJyrTa9qM+bPA5CWlRZ5Jv9kAA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 9562E1F01825;
+	Mon, 26 Oct 2026 18:19:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793038725;
-	bh=hF6zy/Y0w18f+U5+lO+T+mBpU9y/36ue5olFOfJt/uo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=W9GnUFocgwsxd9FmECRmMuS13L+i3z/j/5i+ff/vMPfHNfN5P2uwHVuqthdn9HP/L
-	 fIyKKWJNGHCuksVDuMKvwwh9vUpBY0N1KbHC9Y2dt0Uh+ozXHlEHfnfMfjCEyAFzux
-	 6bthXZXG1RnQonjMEcs/M/RDrYaLHejEdIDVJZNyo+BEucPqzeVeAZtmGgyDlYKupD
-	 RJh2XcDQoY69BxDkPtnQX22voeppBJSHfwJSFYB5WLPbUuuFQDMtl0ct0tcswfYgHK
-	 S1gmjO6TA8izLPdb34wJRY+2HnHo3sarTOikw0TWEKi1BFk20HbtTFdB97nb5ji2Ks
-	 rmZ0TffR5xwZw==
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 9A5FC198003A;
-	Mon, 26 Oct 2026 14:18:41 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-01.internal (MEProxy); Mon, 26 Oct 2026 14:18:43 -0400
-X-ME-Sender: <xms:gZnfajZ-BHts4MBHXWFnW-gFp81JJN1vpJiEKvdsdfrbKSJhN8knDg>
-    <xme:gZnfamWIQGYuHM68Kd6jnmjPguLYksU5g4Jw_AddnVo2gcvKZ_0da_c7maXj23Hof
-    _T8rAAC1UhevvlnBddDZKe3O1kxHrTrd4SMmYPOc2HfZ9Ew74LqzJnbcA>
-X-ME-Received: <xmr:gZnfaucQ3h9h4FkGosoq6ov7rhDK0QujE015HThBnfJxyGvlZYeJK4tt-sA>
-X-ME-Proxy-Cause: dmFkZTEC6jaU8WSvdlYj4erYp5aRUyJbFL4tgzgG/uQqFE4vkk2Ztkn6i+N1Ul3PwjXj5u
-    D20bYcJ5jjhuGT8nryltaojXVsoT+8ZOnEMBt9S/7aS1YRSG7dsokqX+kHK4DEBIg4c5Eo
-    5xlUdcBx/qw2dml5xc1tuTg/O+U3f6ne+q9J03Y2b95iSFa8NrzvpAM47RG8hhktz73InX
-    SFDDxM0RUNrTg8iD0m2U31nVOYGD5BcF18/dItqb/iD5FcOTNFNOOeEgPKogiCBuWIZfgV
-    iI1kRdoA4bLUgQZcqKXElpW7HW7jbsF9gaHt8mu/7Ht6wXzutN6KcNIZflodDM92pgq5e6
-    CLBddXVbonCCpdm9uNlwGyShwzs1vPdX853BI882TVLTvRSFRDEjJyE/oZEeo89hKoY6Ut
-    sRPvR0dpJ+IZx6OBXXpX/u99FYSgbXkvjNzjC7a3sq7f3ATNFPFo22uZZqB3nmQWJC0oHf
-    dUpW1W+mUrrtc7GaGQUQJxeFY/+0Mo6LEObWdXzJ6bOm9LLFMjGJq1YmfF5flTd0iuaJku
-    fLLV0X8YfRAppyG4sYKpGui02bQvVMr8lCIOBecMZVZTmW8q1HDHnIdD6nME48ZsPCN2Dx
-    3kGIVDkAlPbzvruiVEZcky8DfF/YWgAoeauu8l/u2z/YFRtQh9ishjxf3Pjg
-X-ME-Proxy: <xmx:gZnfajPNjG2RbHJxB75I-_r715n7cKOjptqf11wBj9HCFJW9PnwwiA>
-    <xmx:gZnfamKDG1lQgXhV-HyfW2-wrvQnTb8NGhOkgAakKn6hIvmKN05Nwg>
-    <xmx:gZnfapkOYsIM1ZxSuCF8K8UHrW4QN15-y51cOf1JB4A5lBr2FhqhCQ>
-    <xmx:gZnfalbT2k_iMvQpQnfHXYxI2Um8QTaZNros-SDUE7Kl1JVTGxzFrg>
-    <xmx:gZnfaohu9Vkucs2pLBN8yypcdtfw3NWKeOnFysRWS4miLEyctDXIPwEj>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 26 Oct 2026 14:18:40 -0400 (EDT)
-Date: Mon, 26 Oct 2026 18:18:39 +0000
-From: Kiryl Shutsemau <kas@kernel.org>
-To: Jan Kara <jack@suse.cz>
-Cc: Hungyu Lin <dennylin0707@gmail.com>, willy@infradead.org, 
-	hughd@google.com, baolin.wang@linux.alibaba.com, akpm@linux-foundation.org, 
-	dave.hansen@linux.intel.com, linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] shmem: do not extend i_size when no data was copied
-Message-ID: <at-XtWBQg3jv3H8Z@thinkstation>
-References: <20261025164619.89992-1-dennylin0707@gmail.com>
- <at9xXRhD2xZhszEj@thinkstation>
- <xmp7ni65vbinfj4j2baisrhp6xzro3asbepuq7xp3mvx6maptn@r4dnoj63uw4t>
+	s=k20260515; t=1793038748;
+	bh=m08PXGyn7U8s1ZQtlfTCv0P39/uk4oenXTU+aUpG6AY=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=YEBkeUXZadQDXk7iriQYF75B+lX0bA8c8LVij+9l78XRwZ77m3v5UqMvOVohd/i5h
+	 SnxhAtHoxDeht8LOWwyC9Oz2fp0ScEEPYjyDZCzd3Uu1wMQQctfqx4q9jxu/e/ueyx
+	 YbjlfPN0fBXcHbiSoV5WPBD7fB1kO3/zQeQJ3IOjSlJeDEInulcB4IWvTTOJk6Wuig
+	 iAFOXGeQe5hoQj9atoP458izSMH/ZB5DBe142kKR7LnbHIMU2cYIXuhW0meystprBE
+	 OVaQdus3HNjD8S88qhvDgB5X9x2g1SN090+V2piOOP8tXXYvFzWNdoUz8a+1qhfh9R
+	 DJFgh4JFcQlcA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 2666C44E1F;
+	Mon, 26 Oct 2026 18:19:07 +0000 (UTC)
+From: Filippo Falezza via B4 Relay <devnull+effeffe99.gmail.com@kernel.org>
+Date: Mon, 26 Oct 2026 18:19:07 +0000
+Subject: [PATCH] remoteproc: qcom: pas: Print auth error code
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,53 +82,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <xmp7ni65vbinfj4j2baisrhp6xzro3asbepuq7xp3mvx6maptn@r4dnoj63uw4t>
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261026-pas-auth-error-v1-1-1569e83358e5@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQqDMBCE4VeRPbuQiBTaVykeYhyb7SHKroogv
+ ntTPczhO8x/kEEFRq/qIMUmJlMu8HVFMYX8ActQTI1rHr6M52Ac1iUxVCdltLF9un7w0YHKaVa
+ Msl/Bd3fb1v6LuPwrdJ4/s+C2enIAAAA=
+X-Change-ID: 20261026-pas-auth-error-e4c490bd1c0e
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Mathieu Poirier <mathieu.poirier@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Filippo Falezza <effeffe99@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793038746; l=2798;
+ i=effeffe99@gmail.com; s=20261022; h=from:subject:message-id;
+ bh=+UAPMP0mpA/2AP1Feq4iEAd04j9ngTHwcofPyCUE/Rw=;
+ b=/A113p09qt5dybuOuaIFcfMOHoKqEPwur5s2OMpFXC4z7zJipTjl/hbYB7nEIOxAIUAuYW7Yh
+ LamNBz+gD6bAmKVdj1qtMzrew4KsdCHGMtU6w61Kx9mlSpAZyYEyV+u
+X-Developer-Key: i=effeffe99@gmail.com; a=ed25519;
+ pk=7PPwl4QILojrh+ATB5QOpvXVmmoxaxyLQhrLRLWEL0I=
+X-Endpoint-Received: by B4 Relay for effeffe99@gmail.com/20261022 with
+ auth_id=1327
+X-Original-From: Filippo Falezza <effeffe99@gmail.com>
+Reply-To: effeffe99@gmail.com
+Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 26, 2026 at 04:48:58PM +0100, Jan Kara wrote:
-> On Mon 26-10-26 15:34:08, Kiryl Shutsemau wrote:
-> > On Sun, Oct 25, 2026 at 04:46:19PM +0000, Hungyu Lin wrote:
-> > > shmem_write_end() advances i_size to pos + copied even when copied is
-> > > zero. A buffered write past EOF can therefore extend a tmpfs file
-> > > without writing any data.
-> > 
-> > + willy, jack, fsdevel.
-> > 
-> > This doesn't seem to be tmpfs-specific, right? I see the same with ext4.
-> > 
-> > simple_write_end() and generic_write_end() check pos + copied the same
-> > way, so filesystems that use them through generic_perform_write() are
-> > affected too.
-> > 
-> > It makes me think maybe generic_perform_write() is the right place to
-> > fix it. Hm?
-> 
-> Well, that would be nice. But how'd you like to do that? i_size update is
-> the responsibility of ->write_end and we have to call ->write_end if copied
-> == 0 so that is undoes what ->write_begin has prepared.
+From: Filippo Falezza <effeffe99@gmail.com>
 
-Hm.
+When a subsystem fails to start, qcom_pas_start() logs "failed to
+authenticate image and release reset", but drops the error returned by
+qcom_pas_prepare_and_auth_reset(). That code tells the failures apart:
+a negative errno is either a clock, interconnect or SHM bridge failure
+on the Linux side or the SCM call's own status, remapped by
+qcom_scm_call(); a positive value is the status the PIL service
+returned for the request. Without it, finding out which one happened
+means adding a print and rebuilding the kernel.
 
-A zero-length copy only moves i_size if the write starts beyond EOF.
-So we can bring the prefault back just for that case, before
-->write_begin():
+Print the error code, for the DTB image as well as the main one.
 
-        if (unlikely(pos > i_size_read(mapping->host)) &&
-            fault_in_iov_iter_readable(i, bytes) == bytes) {
-                status = -EFAULT;
-                break;
-        }
+Signed-off-by: Filippo Falezza <effeffe99@gmail.com>
+---
+Hello there,
 
-Overwrites and appends keep skipping the prefault. It is racy against
-a concurrent munmap(), as it was before 665575cff098, but that is
-userspace racing with itself.
+this is a small one: when a remote processor fails to authenticate,
+qcom_pas_start() says so but drops the error code, and that code is
+what tells a TrustZone refusal apart from a problem on the Linux side.
+The patch adds it to both messages, the main image and the DTB one.
 
-The per-filesystem alternative is a 'copied &&' in every ->write_end.
+I ran into this bringing up the Motorola Moto G 5G Plus (nairo,
+SM7250), where the compute DSP will not start. With the patch it
+reports "failed to authenticate image and release reset: -22", which
+pointed at TrustZone refusing the call rather than at the image. The
+ADSP and the modem still start as before. I could not test the DTB
+path, as SM7250 has no DTB images.
 
-And generic_write_end() cannot take it as is: generic_cont_expand_simple()
-relies on a zero-length ->write_end() extending i_size. So we need some
-replacement.
+It builds without warnings with W=1 (arm64 defconfig), checkpatch
+--strict is clean, and it applies to rproc-next (82d0bbd67c42). The
+change and the changelog were written with Claude Opus 5.5 in Claude
+Code during that bring-up; I tested it on the phone and reviewed it
+before sending.
 
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+Thanks,
+Filippo
+---
+ drivers/remoteproc/qcom_q6v5_pas.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom_q6v5_pas.c
+index abc59c0c29f0..ea3eb8e293c2 100644
+--- a/drivers/remoteproc/qcom_q6v5_pas.c
++++ b/drivers/remoteproc/qcom_q6v5_pas.c
+@@ -346,7 +346,8 @@ static int qcom_pas_start(struct rproc *rproc)
+ 		ret = qcom_pas_prepare_and_auth_reset(pas->dtb_pas_ctx);
+ 		if (ret) {
+ 			dev_err(pas->dev,
+-				"failed to authenticate dtb image and release reset\n");
++				"failed to authenticate dtb image and release reset: %d\n",
++				ret);
+ 			goto unmap_dtb_carveout;
+ 		}
+ 	}
+@@ -365,7 +366,7 @@ static int qcom_pas_start(struct rproc *rproc)
+ 	ret = qcom_pas_prepare_and_auth_reset(pas->pas_ctx);
+ 	if (ret) {
+ 		dev_err(pas->dev,
+-			"failed to authenticate image and release reset\n");
++			"failed to authenticate image and release reset: %d\n", ret);
+ 		goto unmap_carveout;
+ 	}
+ 
+
+---
+base-commit: 82d0bbd67c42a44f0e18b0b7b0da0f3ace0c9527
+change-id: 20261026-pas-auth-error-e4c490bd1c0e
+
+Best regards,
+--  
+Filippo Falezza <effeffe99@gmail.com>
+
+
