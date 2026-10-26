@@ -1,86 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.156.173
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792986734;
-	b=KiOjkCZy9fFT0bJG0ZMef+o7IFdnC8fc54Amp4HiUL2bWU3U/jKNcwn9WVRnb6aMStYr
-	 vu0x2LCIWUMEfBYea0ANI8smgd4qUYvCzR+sMO45CgZvZ9tL8Vdq8iFELz7guBIlkOGsw
-	 ADvmySZ/C2IgEiKiib4BgfEJfHGbiMYUh/wYB1mkgpaWn8SWzxkhxkcwXggntWCvH5AYa
-	 +1Vv7LzF+rXu9kI2Ompte8iSmY2i3NIxrcavT4HfeQ+78ZqSB+rjsuD5+udD9hjNol86Q
-	 jHYJvd/NKbLDBCafP7YwWIUtSAdZMIx/5S+6CM/ZdL+R+Yz4/RcciRhi+anuq98lutA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792986734;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version;
-	bh=HoeyBWH1te1eTCZ2bZ28xJlfnxSGCqJ9pUcy5XqPRyw=;
-	b=p01oVlUgsNOEOLbEVjLMNXZGQRnW3NAeZGS7NJ0eudzoA2+OaiNv7fAOTWKvHvRI3N28
-	 8vMNz3UrRR20gBJ4miBo80kA/phfSmKccDckvIzKe7hNUuuPNzrb438enxddBZRoHjq0b
-	 DVs8aL/5a5IUs570P7QJLeiXtJRAEmCbESYxVlXZPm0OqhnGIBhHVZERk8Q1TA+HaKcjP
-	 nsLUzev1nj+guMmvaQd8R3ezPnxxofOlIoVA+dQ85o3Nqmgmjbf2sDxguG0f4wI5TGd5D
-	 5stxa14sZjdyV6QfOHXuE+ssrQp05hI1IHO6Lqw7Qcb9vM8JsM1LOI7Gsjm6d3TbuNw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=marvell.com;
-	spf=pass smtp.mailfrom=marvell.com;
-	dkim=pass header.d=marvell.com header.i=@marvell.com header.a=rsa-sha256 header.s=pfpt0220 header.b=jN4dJgSC;
-	arc=none smtp.remote-ip=67.231.156.173
-Received: from mx0b-0016f401.pphosted.com (mx0b-0016f401.pphosted.com [67.231.156.173])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792986918;
+	b=uxHWzjN/xZfJAt0iS96qEyzAE3kueMvSGRk0vzlBgxV6ZLdZCHM2U6CgPYWniFK6pUcV
+	 LADBPtA/3WThbDaAmuCujqYy4Fd2TLbbUpE1Uw4d4gyBzp481o7Uk7dB7fcWKAyFe3/9I
+	 BY3zNXrPswv3y1bHDJStJseXKOR5zNBqn3pW/Xa6ayeDEI0+6DF53A8Awg0Wh0q025DoD
+	 9pZ/5WiZjdr459JG+kkFjsWNrl9YGCWdK4UNEd33YMjcxb0JjbpV34itlhikZ7gFimo92
+	 +YEHuRyMfHdr259fw72ignkuENi0WmcBylsI9E4O84wl9LpGGBdH4dJpKsFT0qAtCgQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792986918;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:
+	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=RsByG2zwyvZaa6B5lYBzhO2JuewYlfocVhtYm18KEd4=;
+	b=rVwieMTHtiCD/sKNvrqcQrbwqHAoSRKGQKJ9WlCDb7ZA1hYMmZDRx+7k0CcWJMbvMp/c
+	 uWl18F7rCpPpTB32ICiJWS2P5AcLBdL6/zx65i4Z3+b1aQzveL64lv+pVXQ20jVx8nRO2
+	 mRpsQ69cThA4Ft5gB60xzCDscDv2GZvEuPIeBpRuAOJkcTU3SogCEuCL85bp8vDBATDIQ
+	 f27c5YEAKT1I326c0M8MCq/If8/KrJEn2ilcpvx7aP/5IfEamLk1KVAT8T854bFOhMMIs
+	 7HQKFO7zFaCEH7PdfO19MAjR+HM2zfTBlLyLqEE7byN2JKXdxDXviTC6s3TJg3LzgTQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b="GRW1/i0U";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.18
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012018.outbound.protection.outlook.com [40.93.195.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50791606A31A;
-	Mon, 26 Oct 2026 03:52:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50791606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE83A606A31A;
+	Mon, 26 Oct 2026 03:55:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE83A606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=marvell.com header.i=@marvell.com header.a=rsa-sha256 header.s=pfpt0220 header.b=jN4dJgSC
-Received: from pps.filterd (m0431383.ppops.net [127.0.0.1])
-	by mx0b-0016f401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69Q2NTA31869800;
-	Sun, 25 Oct 2026 20:51:53 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=pfpt0220; bh=HoeyBWH1te1eTCZ2bZ28xJl
-	fnxSGCqJ9pUcy5XqPRyw=; b=jN4dJgSCbJS7JBXn0jTH1UCesOWXlCDPB2tofxX
-	5FMMZHfHcw1PgtJPqQlnXji8varWQoB9qTB7F6vNuWSKYbODmuJJC0mZHXDd6QnJ
-	ZfdGqFjT2MPoH/yh43xYFarBFIOGiG2BFtu7w0/uOcZt/YOvmvKh5FAIuIAhMRYb
-	o0/kRQr/a3mh/1FfP0yoVLkEFFo+VuKTCkYlsK42F7M6rOvygTBpzimf1oAyZeaN
-	cb268hrTHlY8C0TuXL8En8s3kY3GtANtgcY4wVufGCMSSNFiDeit6kg1b9O1/0Mr
-	lHXtkOXVhFQOd6KUHOluMKZYYsTlev0LW5hLcXmxmBF3LoQ==
-Received: from dc5-exch05.marvell.com ([199.233.59.128])
-	by mx0b-0016f401.pphosted.com (PPS) with ESMTPS id 4hhde826jf-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Sun, 25 Oct 2026 20:51:53 -0700 (PDT)
-Received: from DC5-EXCH05.marvell.com (10.69.176.209) by
- DC5-EXCH05.marvell.com (10.69.176.209) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.25; Sun, 25 Oct 2026 20:51:52 -0700
-Received: from maili.marvell.com (10.69.176.80) by DC5-EXCH05.marvell.com
- (10.69.176.209) with Microsoft SMTP Server id 15.2.1544.25 via Frontend
- Transport; Sun, 25 Oct 2026 20:51:52 -0700
-Received: from localhost.localdomain (unknown [10.110.24.192])
-	by maili.marvell.com (Postfix) with ESMTP id D799E3F70C9;
-	Sun, 25 Oct 2026 20:51:51 -0700 (PDT)
-From: vmukunda <vmukunda@marvell.com>
-To: <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-CC: Sunil Goutham <sgoutham@marvell.com>,
-        Ratheesh Kannoth
-	<rkannoth@marvell.com>,
-        Geetha sowjanya <gakula@marvell.com>,
-        "Subbaraya
- Sundeep" <sbhatta@marvell.com>,
-        Andrew Lunn <andrew+netdev@lunn.ch>,
-        "David S
- . Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@kernel.org>,
-        "Jakub
- Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-        vmukunda
-	<vmukunda@marvell.com>
-Subject: [PATCH 1/1] octeontx2-af: Fix npc_delete_flow counter read for cn20k
-Date: Mon, 26 Oct 2026 03:51:40 +0000
-Message-ID: <20261026035140.666684-1-vmukunda@marvell.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=GRW1/i0U
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Gb3yMQTQt1TvFeXLUBCceYNZSjf9jgwz9Tca1BWPRj3Wa8LHBDiHO68Yb9AcBrqvCEUjEtFAZICYAxUUuEWz9kfVsTYwJ/LPWDBX+CUERrj7eVJYRR+qdQ62F8s0yKyHiWwX2/UvX+oTtoKVvB7yD97ixbUrUmYjuqWiOeKEki1UikuPuYYxAvhsszhsvjZ/C5yXI+VjQ/XemB93UC3YIxJfSTdEiFdADcpLucwmHJSPW4uh4y4RJSm619XYNAknF4TMMZACdHh07Yc7Z7Lywd0xtvO8crXwzblAu1PmTiMCTidWEwYb+N5YYgpkqk+M+OTsHVslUQH891PMwuyQfg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RsByG2zwyvZaa6B5lYBzhO2JuewYlfocVhtYm18KEd4=;
+ b=G9uKoD4qnRyJ1rAZMOFYThBAbO6VB7L4Zj9befcUp0ifidfQr+q53C8M5vKnEQdLe8JXh67P48GkrW6qKbrCDlui+YQZcvjVgjEw2T2NHkg+ZJvqOeb60qQ4Bfmx3hX2AWeAe8yhTjzZIxYCUuFvfTNGLIzlLPz50guzBJMYzKKCioOdjksJl66Qs/Kgvb2I4TY6zwot7wBvZCfmbMBTmeUd/FAxQMr1Op0EU3Ph7GN/e7iVSEU0Im0/AWYYYTKj1Rt72GxO68fB3KNVJFprRVdXTmUywrtzBcgHaRszVjDRMrZN9HY7kDg0HiB/X8Jp8a8SszyTK+YHJgEp6qcceQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RsByG2zwyvZaa6B5lYBzhO2JuewYlfocVhtYm18KEd4=;
+ b=GRW1/i0UVB0VHnMqAKVYS4BPnXvAfcocKC/db1VTtgu9olnrT6b2u2re/PsUKm5c9svC1/uLJZJJEBFLckVYJ8BhH2kwP1U/pVjsPsdjAypJHLPB1bGq5rsBrvSDwrCR9TKFgi6apRt7ycxbqkF3SejcYjewHuO2BOCBrMkRrAN20svER/gL/WBZTd/50bmt98eOH2pL6CDx6Gb/taRwvKDA/ohiKlSX893Namoji036XbgpQe1lshnKaYPaGvhdRDkAegkJ5ugo+cOkhNWht1lOZM2DknZcKcclaxEOGOebg7l7loTrjWk5sT8kGOMndS9CG2Nl408OoGsVqGUcNA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
+ CH3PR12MB8233.namprd12.prod.outlook.com (2603:10b6:610:129::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
+ 2026 03:55:13 +0000
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0546.016; Mon, 26 Oct 2026
+ 03:55:13 +0000
+From: Eliot Courtney <ecourtney@nvidia.com>
+Date: Mon, 26 Oct 2026 12:53:20 +0900
+Subject: [PATCH] rust: io: fix unused Flags::from_raw warning without
+ CONFIG_PCI
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261026-pci-fix-v1-1-a6a69ee584d4@nvidia.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDINYtSM7UTcus0DVNTLZIsUwzMzFKNlcCqi4oSgUKg02KjoXwi0uTslK
+ TS0DalWprAaQbEO9rAAAA
+X-Change-ID: 20261026-pci-fix-5ac8d9f642c7
+To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
+Cc: John Hubbard <jhubbard@nvidia.com>, 
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
+ Alexandre Courbot <acourbot@nvidia.com>, driver-core@lists.linux.dev, 
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ kernel test robot <lkp@intel.com>, Eliot Courtney <ecourtney@nvidia.com>
+X-Mailer: b4 0.15.2
+X-ClientProxiedBy: TY4P286CA0024.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:2b0::8) To DS0PR12MB6413.namprd12.prod.outlook.com
+ (2603:10b6:8:ce::10)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,57 +110,112 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-GUID: orTrNDOk8T5fd7b1a7rZ-EpaLARH8_fn
-X-Proofpoint-ORIG-GUID: orTrNDOk8T5fd7b1a7rZ-EpaLARH8_fn
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDAxNCBTYWx0ZWRfX/DdcPoqiqGhB
- 3HkjfvakP1EW4XaGf1jY9Emq6jJXvx2rM8L1efYGcNQnJYmCBGDyGvRVNtcK2njBvauAuGmmXNe
- +BXk/4Hhd/HVr6Er0ObP7tVLA2IDXhI=
-X-Authority-Analysis: v=2.4 cv=Vdlir1p9 c=1 sm=1 tr=0 ts=6adece59 cx=c_pps
- a=rEv8fa4AjpPjGxpoe8rlIQ==:117 a=rEv8fa4AjpPjGxpoe8rlIQ==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=l0iWHRpgs5sLHlkKQ1IR:22
- a=qit2iCtTFQkLgVSMPQTB:22 a=M5GUcnROAAAA:8 a=j3AFsqOYKst2VyhahHcA:9
- a=OBjm3rFKGHvpk9ecZwUJ:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDAxNCBTYWx0ZWRfX568lv6P59+ko
- V2IwejkjjCoTo16tkvmGDIJHJOKq5jKKnur7OjfUOPedHerRd+KdsVAEB9wfYTzpgyc0Tnhl12+
- dRRIlV4qCL1jMhoDoUGjimvyHtWESJAodrXyRYgMrUXOov1408YVWWArQtbaV8D0Hpj8TyWVCAP
- 8b3BJws0hmyAsAt3p4g4y0dMMNp+g7NPo5GdM1haC+FJ+/H1B2PfwhCeql1NHSz+ajLNO/USw/P
- gldoX9ZquexF9oSDvewJT6BznS39zJrBhFzPojFvj1YzBUxtprD6T7DFJab00OnVD6BA1jYWQUF
- By7FFhsFZWuAFv7V6uKeKhhJZ5CT+HHKc6FaLbijOuYph99Z76QD1D/DXCmEmoHqDztUAcYRyPZ
- LSSw9y+ZXKrtKS0v1e1ol+zjVqowNAogEbLFwNxtrOkijWtivd+ZkE70+SlIxL97gLitwNt49Or
- aWJ+EHiU3ehG8V9S/oA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-26_01,2026-10-21_02,2025-10-01_01
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|CH3PR12MB8233:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1923b827-3f84-483c-2e62-08df3314eff7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|376014|10070799003|7416014|1800799024|6133799003|18002099003|921020|56012099006|11063799006|261021121427099003|10067099003|261009223027099003|261021123027099003;
+X-Microsoft-Antispam-Message-Info:
+	ApQEJSeV437jjxnRn9YRGxmHcR4mWYbmBVvCYIfu1k4A01TNg/GstIqbIlTkfbW6/Yaakc90kOUjI/bpRg/4Rx20ledHlE+230o2rzd19xyem5VsZyEicr588S5FW9M4Z4Ah27KTMOkdZlxn3RWs/n3lIZ2zElcpsXOMHpgOtlTUJKd0DMci7l+9VBxlFPJbbpSChI3LXKvcT4hJHcoRAN1Cp/ZQ6enmLHB8IvYvlsAEG0qpwYvl6g/x+6dXFPolmK1JC+nvNat8yF9EapJhK7LmmAc8GE/I6cqjbIQeJrkyE6Paca8rtAx0udWw4XuqE3qYPOQubE/xIVMZZ/ByQOzkNHqh2BQupsAQJITD99sjPPa3LFJDQQig6+ikOyvu2QQoF2zKymogcF6haaGOJ8+H01icOI1JLfMMAVTkfsd3Ivepoxrg5xFTE/l8V9Oawqnku8b5WIr6t1BZEewuxPSszAPtERA3QwDjon1fA8lOCustB2/mIh+uYmBFi8dAXZGVzAwfI3J+R0/hwW6jRdMm9GwMw2j4Xvqzs7uhLhMBp5Mf3Bb2U/pXShso9lhbTyFiavnUPpK62ZwDYamSD5+DLmzMxA1/fX8S0zZIDlDqGj/X0zUENUleB2t56/jf4GwG8fFUI93YYeXgS7W06FimOfCdeN3oL6uMlW6GQreAWoksSdAAOu0sqCLW5ErMydakOG5XDHg00f4Innc79A==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(10070799003)(7416014)(1800799024)(6133799003)(18002099003)(921020)(56012099006)(11063799006)(261021121427099003)(10067099003)(261009223027099003)(261021123027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?eWk1TEhhalRpS1FIdkRFVUZhZEdDa1g1eUZ4SDI1MGFXcU42TGRBWVpXNFlz?=
+ =?utf-8?B?SVJIT0dNK0RDZjYwcmRTcEFqeXh2Zy84V1gvSmViZ3U4aEV0bDdRalF4ODFa?=
+ =?utf-8?B?bU1wVmhPYnAxQ2F2b3lCY1hYem1tQlg5UWdJdENvNE0yVnJUeWNhQ0F2Zmll?=
+ =?utf-8?B?RlhPM2pMKzZraENEYmRxQkZsUFhBYVlTS2pybUhXMWlqN3d3c1d4b0RMY0dl?=
+ =?utf-8?B?L2Z2aDc4VDl2c1BFQm9tQUN5WXB6TWhtMjVTUU1QTU5McTdHTnJMWWR2Q3BI?=
+ =?utf-8?B?eEZmbms1SzNJcWlTMDgvTUtMRFR1NVZlY1cwaGJKQWNiTkhScmpRYWNwM3Rk?=
+ =?utf-8?B?eit0a0FOQ0IxcDJlaEk3MDFaSUVkNHN6dThDRHZJQXVITy9TVWQzNjdxZ3Zh?=
+ =?utf-8?B?N3krTEh6VTVjSzI0S290NWF5UkVJTlQ4NXMwTU5rYUhHMEE3ZXhpM1kwVlFZ?=
+ =?utf-8?B?bmdxcUJldldsck1sVlBLa3ZhejVJWHZXQVRjMWhORlhzdDFBc2NKZWdPNFgy?=
+ =?utf-8?B?OUNFQS84eGR5MGxUek9FQmhnT2doN1pjaVlTRXA4d2R4a2JrWmtJRG13Q2da?=
+ =?utf-8?B?WUdsWFlQR1FKK3liQmNlZXZVWTlxMG80VklrcEVWZXY1RWx4LzlKRXdhOGRS?=
+ =?utf-8?B?eUFMdjRVQUJGYmtDN2ljbWc5SExGc0t2VEFvVDlIMDVRTEh3Um4rVS8vbzlm?=
+ =?utf-8?B?RTlzUTRnN05CTEJDWGphT1FFZ3g2Q0tHamU2QkE0SlE0UjFyMTJTVnp5NDcr?=
+ =?utf-8?B?WCt3cmYwSC9wRWFkV3lKaVRzVGMwM0pYUE5oeFJ3M3EvK0VqVHVxcjlzaFYv?=
+ =?utf-8?B?bXNqS1JOY3prRVZKblpHODNrUXN2T1dzSkFyU1BKWnpkWXptTU9HTmdVZmw3?=
+ =?utf-8?B?ZXdJazFGNHdLdjE2Y3UxZVkvdzlFSnBPdUxud1dzemNSRGd3a3lKYUcyWCs4?=
+ =?utf-8?B?cU4ySEJRejFqM2hkd3JoNWhIQVlYU3lHSDRWZFJtWERFNnhmUVVQdWR3T1Yz?=
+ =?utf-8?B?cnQzRnJSMFgxUmU4RUVSVUozVDgwNWUvVEJkbGROU21BaUsvTkQrajY0bTBP?=
+ =?utf-8?B?bURDVS85cG9ZdnJ4SVBxOEtUUzhYSG9qK0o0WjVFbFhVRThxVmpVWmdsaEg3?=
+ =?utf-8?B?NThqRXhCNmczb095TEFNYyt0cW1vV2JURkxUVmlod083MUFTQXZXKzFKK1Ey?=
+ =?utf-8?B?UmxQd29vSmxpZ1NZeTZtT0tLSGxFTktuZTRzUWo1OWVHUXAxeEZCQ05PMG1N?=
+ =?utf-8?B?UGFnM1lOVHR6WDZ6cHlLYlFFMzRPY0gxNzd1S2pTa3paZFZlbUR5VTIwbDZr?=
+ =?utf-8?B?SXA5aXFqUElTdllSRk9xcVg4RnJUM241RE5kekh3NmJPaXpkUmNWQ2tKU0pM?=
+ =?utf-8?B?MkhIaUhaZ0xicXc3T20zVlBWMXhCSlV1S2REK2xJWURwOFZQN0lUWFZKVWlp?=
+ =?utf-8?B?OGttSVhKOUhVa2lHUERScFdFemlSaElBNkNuQnMvTjkrS0ZESW1lM2ZzSVpu?=
+ =?utf-8?B?MGt0UG82bXh4ZE5XZXR0RzZwbEd1QUhPaUxiNzVuVlpHcUE5bHlxNmVuRXVE?=
+ =?utf-8?B?czY0cWlBVjQ5dmtaYUVLTUlnVE02TGlsMnE3M3ZOa0gyUnp1N2Z1ZWJCSkcv?=
+ =?utf-8?B?RDNBM3ZIMUtyUnM5WSt5VUE4aFNqNHRuSUk1c2RjbkZDNUZ5UjFvZTJRTHVR?=
+ =?utf-8?B?cmsyYUtVWVhMUTZRbmpqVXRqZ1pQMEhITWMwZ0Y5dlN5MTFXanV1a2NobUti?=
+ =?utf-8?B?Q3kyeGt1Y2xJNjdZaktCTTRqa1ZVTHVkS3M1V1BmT0ljMHNaRlpraEpZbHk5?=
+ =?utf-8?B?R01HVDl0K1VPczYwR0E3WVFTd0x5TXNYa1dsTzhkOGJXR1JKZFZGZDVoMElI?=
+ =?utf-8?B?VDhKdkE5QVoxTW5JYkhSWWc4UnlORmt5QmljYlVjM2JqK2x4elZRdk1qcU5r?=
+ =?utf-8?B?ZUdqU1M4WTZSSEpQREdmQVhZR1hsUnoxKzRaTGVHUWNDemV3S1V1blRaRG0r?=
+ =?utf-8?B?SEZzTGdVSHZndlNCSVNaMXU0SkRTUXhVSTNEdjVCWTNtZFh6cVVyMXZ2WkFn?=
+ =?utf-8?B?RndwT0dxcDlyUFlsbmNMRGt6aCtHQjByYkFqQXhmQzc1dStZZ0hpNG4zOStB?=
+ =?utf-8?B?L1UrRy9scnJ4bU1peVkrL0VtcnI5K1VnMnBNL2RoWEZpUGlIMjhRVGRlcFNi?=
+ =?utf-8?B?UDJ1cHFIa01vNTRxa2wzZWoxbFphdmZNZ256MW4rL2RDZ0xjcW9uTDdONGcz?=
+ =?utf-8?B?ZDVqeGxySlhMRWhCenJJdDFRcW9wUFVVN2hDRWgrZEtXQzBrWWlRK3F3L3BF?=
+ =?utf-8?B?YjBjcVZZbG9RWC9CMVJKM0tmeVVzVVJ6cG5aOVFDUXpsOFptck4xSkVPNC9K?=
+ =?utf-8?Q?0sFa4ffHcdsRQ5miMwt4EdlYswNEvFPOmR0wDdQl/seTw?=
+X-MS-Exchange-AntiSpam-MessageData-1: BEd827OZs5zfUQ==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1923b827-3f84-483c-2e62-08df3314eff7
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 03:55:12.9428
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: hSMP3R5Ed8Hv6GEHcXVYB4E3FP1qNsFr8+o4VDFFYVPeYnE++7x7mnkNZD4bRNdKmG20n1WRMrsFWuPvxwL7IQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8233
 
-From: Subbaraya Sundeep <sbhatta@marvell.com>
+Currently, `Flags::from_raw()` is only used by
+`pci::Device::resource_flags()`, so rustc errors (with CONFIG_WERROR)
+saying that it is never used when `CONFIG_PCI` is disabled.
 
-On cn20k, the MCAM match counter cannot be read from
-NPC_AF_MATCH_STATX. Skip reading the counter value in
-npc_delete_flow on cn20k. Counter support for cn20k is TBD.
+    error: associated function `from_raw` is never used
+       --> rust/kernel/io/resource.rs:240:25
 
-Fixes: 5f83b4729440 ("octeontx2-af: Do not access match stats for cn20k")
-Signed-off-by: Subbaraya Sundeep <sbhatta@marvell.com>
-Signed-off-by: vmukunda <vmukunda@marvell.com>
+`Resource::flags()` also converts the raw `flags` field to `Flags` and is
+built in every config, so the easiest way to get rid of this error is
+to just use it there too.
+
+Fixes: 3f1e12fce16f ("rust: pci: add resource_flags accessor")
+Reported-by: Miguel Ojeda <ojeda@kernel.org>
+Closes: https://lore.kernel.org/all/20261023154005.95904-1-ojeda@kernel.org/
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202610241133.L9VWoFcD-lkp@intel.com/
+Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
 ---
----
- drivers/net/ethernet/marvell/octeontx2/af/rvu_npc_fs.c | 2 +-
+ rust/kernel/io/resource.rs | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/marvell/octeontx2/af/rvu_npc_fs.c b/drivers/net/ethernet/marvell/octeontx2/af/rvu_npc_fs.c
-index ea5d462a66ee..f3b0b082443b 100644
---- a/drivers/net/ethernet/marvell/octeontx2/af/rvu_npc_fs.c
-+++ b/drivers/net/ethernet/marvell/octeontx2/af/rvu_npc_fs.c
-@@ -1960,7 +1960,7 @@ int rvu_mbox_handler_npc_delete_flow(struct rvu *rvu,
- 			/* single rule */
- 			} else if (req->entry == iter->entry) {
- 				blkaddr = rvu_get_blkaddr(rvu, BLKTYPE_NPC, 0);
--				if (blkaddr)
-+				if (blkaddr && !is_cn20k(rvu->pdev))
- 					rsp->cntr_val = rvu_read64(rvu, blkaddr,
- 								   NPC_AF_MATCH_STATX(iter->cntr));
- 				list_move_tail(&iter->list, &del_list);
--- 
-2.25.1
+diff --git a/rust/kernel/io/resource.rs b/rust/kernel/io/resource.rs
+index 758ce62b3cce..29771355cfce 100644
+--- a/rust/kernel/io/resource.rs
++++ b/rust/kernel/io/resource.rs
+@@ -164,7 +164,7 @@ pub fn flags(&self) -> Flags {
+         // SAFETY: Safe as per the invariants of `Resource`.
+         let flags = unsafe { (*inner).flags };
+ 
+-        Flags(flags)
++        Flags::from_raw(flags)
+     }
+ }
+ 
+
+---
+base-commit: 21a7f44fd0765fcc5194130b28767786eba1d1e7
+change-id: 20261026-pci-fix-5ac8d9f642c7
+
+Best regards,
+--  
+Eliot Courtney <ecourtney@nvidia.com>
 
