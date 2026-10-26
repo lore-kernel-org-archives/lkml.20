@@ -1,41 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792989393;
-	b=CZS9dxw7Jj3oDMkWQqpGckAxJxS0FRsy1Hb4YROB7ND14BXn3DPgvFGpBWkKI9Q7zt2I
-	 SugOqDadbGE6GcISvBvICX7DO19jJv9QSaXsdeQkiJ0kl3ZUNXPWkEDVRB6N4xdrJPhGk
-	 azF0GEYiIqZ72nW74W8HtiuRZPOWgfSE3EUCg/C9mtY7kOBGD3Ojs+ljfC9sBKGFop2XW
-	 mnS8KMlkvUV6V9eVephB6ObpqYPFJNRJ8NpVmKhGVc53TLgUDrC5Uk//1WGrtbp9FKUh3
-	 I8ysiLpiaVzTR5SjxPceAU8tiMccyMaytj1V/OlHVQfkDVxYncWl2g2LB90pIRLm4bA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792989393;
-	h=DMARC-Filter:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-CM-SenderInfo:
-	 X-Coremail-Antispam;
-	bh=fkjASHhjHD9dtcL2FTJk6qqQRP9PpHcbiVA7YApl7Ho=;
-	b=nMGYb5j5ZhG+/Ygv9lEtcWsKuwj60Hn1KWRfVSk69BIQ6lwEdi5Uhds3ka0d5bHwO4tT
-	 FppvWfTDN9AkgeOhvZz1rAke9B5YiFv94NsJJVOZPDdH5rCmkknEamAVTmCU0WKm3SEKQ
-	 2EwT3zA8VAH/XfuA+B3Lof9meRL+Dzn+KXEO9kK/mhH6/SVKfRDpQDMnrcx6u9A93YjFI
-	 97DoIsZ3lYNhxwfXi3xiuU+u/WY4YNxtqSgHeidG409IGxC8u7T1HptxUF2euwClZlmoD
-	 cZfFWc8vuaY5V/kUvYRnneh+rLkqecxePjsZwmwh4/rs/tcmrOar75cJJELupdARL6g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=loongson.cn;
-	spf=pass smtp.mailfrom=loongson.cn;
-	arc=none smtp.remote-ip=114.242.206.163
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 656C2606A31B
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 04:36:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 656C2606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [223.64.69.17])
-	by gateway (Coremail) with SMTP id _____8Bx79LO2N5qHV4ZAA--.8731S3;
-	Mon, 26 Oct 2026 12:36:30 +0800 (CST)
-Received: from [127.0.0.1] (unknown [223.64.69.17])
-	by front1 (Coremail) with SMTP id qMiowJCx9czM2N5qODkwAA--.7944S2;
-	Mon, 26 Oct 2026 12:36:29 +0800 (CST)
-Message-ID: <b5044747-0f3a-4a63-9446-829379f3915f@loongson.cn>
-Date: Mon, 26 Oct 2026 12:36:28 +0800
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792989421;
+	b=LbJbpRhdS8SjX+qDUkFx92JqZU4AEvD0jQa9wIvHD6v+OZbkhZn2KtenOKkkSK4w7eZQ
+	 y7ty8WOW1lWR4MyvSoimbORUfLmuaQAqcvTb3FHYycRcVzaC6LIFD6WveHGNAeas7d9ZB
+	 2CJ7EVklGnPA/VWMwkI48+UIHQ4cmWTERO2KjjHEYLU8nDu0ozns1OHGux172ZFDCsjPr
+	 p/g8l0smc0kNIhOdHf3q9scBsa2AQ9IwnBubbxefOWOEsGjt3uen2C3qO6B2HUzhERO1O
+	 gAVtKbeFJLnL7NdBUZ8D85XNj5IuShak/+eXkiaLEQ4t20U95IymwCgFdGhd6D2CziQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792989421;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=N9wqBNwFeUJDyujtnIyKOyjh4O7kEuJC5I05KW0Mx10=;
+	b=J5MnlflQvysEAegpgsRMe9Fct/Uf4cvRgji7baJ3qtZ5N7feEBenULj+yi+MVH3iUG7R
+	 2Z4TQYfzBTP/WZf6QJpxyN3r/xqtbwGgxcuuI5HwncwW5vGEXak68jW5BrJWx46Y4mCzp
+	 Z24B25AkDNFcU9a7Oi7sFzSpMJO3WXm5s9xczrVrreKaP5p4ZoEqdKIlJdxzKqVMrg9mY
+	 WDzdwmBgTRBCW9iFhGoU4wx/YgpxSEBuSMthAiAI3WoLwXwug2P+SAJEWnJ4AaHI3VGzI
+	 DYOP8V2+kaWVXW9avwRsYN1vfj4j1lHP8U4Rui2uExiUAE3IgVhn5tHCLJMgOjiJKxA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=AkzC4rpU;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B47C606A31B
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 04:37:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B47C606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=AkzC4rpU
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b1bfa1c11bso322957a12.2
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 21:37:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792989420; cv=none;
+        d=google.com; s=arc-20260327;
+        b=pFaW9MknJzQpr3eAYhAK5eUMnyEMkqU7xs+OmcdCLdt+Z+LgUoZLOa80OsTx6+DT+R
+         G1ux1iY4WrgRkeYFBaJgvSNIZu+0AWfk/UBRE76sdVlVIX4kFUEASrEVjJ9MIRDQLUjD
+         p22dCTM1Bs/QVXkCZQIpmDMLwLRmVveak58HWS833xbWeb6Daz9O6ZIpno4h+dDFX1r/
+         hHgp1sqesrQKfwoWUDkzGqPgjWvB2/EL7qkFFIYCNOALgPyJ2563utLnuYktt+aKDjWT
+         ucdOrfLILUNsLiXDrB52CBSRV74YmIT7Jnb9y8SNvX8Gx4bhXWygdh7AdFhcWGim14VT
+         241Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=N9wqBNwFeUJDyujtnIyKOyjh4O7kEuJC5I05KW0Mx10=;
+        fh=C7A6SAzQJLv97D87k4v/XlOnPnXm7nA4agDOeDplgeM=;
+        b=h9+qJGU//ENEJ/M5mXX2MQfFVq4P12rwRhOVRpUB7Hmnce7sDFaLaxb9zx1oJNV61Y
+         ONJp4tX3iZS8zKzFseNlgQdmuDht38uAWzay1Q0oSDgxdApD8q3anAEyoocbR+FhR9Uk
+         mtCzhqHrDbpFvBPvWnRdAPmzVfMjh0megBWPo7KDWHdkQBdUpPJSjfnuvLcvXvKJbrFo
+         qUDjMZaYQgCVbLk2qlliOB5Dbt1E4t9XhqAQqqNpFj+plb2ofwfE7QjBQU+CvPpU24jT
+         3IL/es2zahIIXDViomHCuMoUmB96gpYgDJxL4ngOE8W1g/gUNh9hGO3td5hG8Nhy9oMD
+         5ixQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792989420; x=1793594220; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=N9wqBNwFeUJDyujtnIyKOyjh4O7kEuJC5I05KW0Mx10=;
+        b=AkzC4rpUK3bYUZwJzVPhKqqrxL2zGqsAS8wRIrKEPZKO1wEZE8tk3kBYgfLw/u17zS
+         lHV2RvOEg1Q3ZCXERQPJjk19KgjJuiT7/oKdueeGVyF4uN4CZ1o5OFRhThBeRjwM4z4C
+         0YlmTlnWX64ZFMrstWYTl3JFqzM6+I5Z1PB2XYpZWWaN9KbFHtysFz4SyFawM06se4im
+         cA/v0zx8StaXlJxxcbjJH+Pte4EEvh4h6DtvgCVgN7U/MrxC/AIyXQUILYtB+/kdRzs6
+         7TBT7ZLETqzhcBtjWCZWlKML7+DPgyuWxlzEwxxq7P4/c+YOhNMt7FxQY4yQTX5SDr8d
+         DBjw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792989420; x=1793594220;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=N9wqBNwFeUJDyujtnIyKOyjh4O7kEuJC5I05KW0Mx10=;
+        b=MqIcqIJ4ouzgvFzL0pjgOf2dmXkgEYzkVt8F2GXFrdImHGdgPZM7La1K/EzFyZIvS6
+         zolM7vWNNWvBLteTd51eF8zUH/yurSfTV0NmpuM/9egErkFsRYvBqL5xF8BWD2aGytsb
+         CT0vruzPC/3SYAgdp/wyNZpY48nFlZSULZVIY+vVvz4aH7TSkLmDrV3yw5t9cLM8h9LX
+         7AjTdtsPLXHbHdIIldq2yZXJ5AUvzfvG3o2NzNYplWbz7zIgk6UeWjjZtf1S6x3eVXlC
+         4yTs3aD+BtV/th86/xi+RXWcT4v5BYRxCTnfCIpTpzSi+sAdYegOpZHHjk4wcLWxoILI
+         Vfhg==
+X-Forwarded-Encrypted: i=1; AKwUvBzpGfy8lw/YaOVIDTxc6l6JUdQnLPvECHmjR1bEc0fwIcDEgPgdU+02G1c0vA0o11k9B6QEndDLGITE1JU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL2KGQ0jP6Z5d8PONKYqh/EbO1zu9t4MCFMnndHr1sksQRppCai
+	GJTZfQjMxodGnIIKJVju6e9L6T6A1GYp7ApJwpoNTCMdrU1hE3QdedYDBZNw2MayIpcGXxCetso
+	opvvp/qLOS0+Onb+MzNXpfSDZMD5x/Jc=
+X-Gm-Gg: AYBFou2pK9cSN21H/iUGQ8xvm2C68WN800fJBCA2oKTx8bZNOmzGQxdwrrWy4AO+NF8
+	fqFzFlxLoPkeCpklMfiOLpoJInu+oDxV4SkcY2B6P9Hf2NQ/ZrCR2MKYILWCb8Mf3mALDp54K3L
+	8GQoXOUC45wwROniQnfhUBX7ER8nCFSQY06p1zAINv7MjQWd46pWmCFMGMMY1IuJTzDyXbjmZ9K
+	6P7gjjSofdE2Pu8S5bFt48Qc/jZqqPk8+R30izR0AONNjUsSr/HuYF6QMeTpkfc/EpvP//6aHa8
+	/IwfMfOqmCpdrgWrf/XlctrhNSiKZuaHzAvuE9rNXrUI0kkBENxzqTOwKA81TqIWKc2sEn7xo51
+	Tf75gC1i6kZ2iBrLwb+TOtqq+1oJ9kLf94N2d
+X-Received: by 2002:a17:906:100a:20b0:c25:3ec4:9e43 with SMTP id
+ a640c23a62f3a-c46bd90669emr681750866b.0.1792989419265; Sun, 25 Oct 2026
+ 21:36:59 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -45,95 +103,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 04/28] mfd: ls2kbmc: Allocate simplefb platform_data on
- the heap
-To: Lee Jones <lee@kernel.org>, Chong Qiao <qiaochong@loongson.cn>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, mfd@lists.linux.dev,
- linux-kernel@vger.kernel.org
-References: <20261021121245.3111563-1-lee@kernel.org>
- <20261021121245.3111563-4-lee@kernel.org>
-From: Binbin Zhou <zhoubinbin@loongson.cn>
-In-Reply-To: <20261021121245.3111563-4-lee@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:qMiowJCx9czM2N5qODkwAA--.7944S2
-X-CM-SenderInfo: p2kr3uplqex0o6or00hjvr0hdfq/1tbiAgEMCGrexPwvHwAAs7
-X-Coremail-Antispam: 1Uk129KBj93XoW7KFy5CFWDJF1rJF4kCr1rGrX_yoW8tryDpF
-	ykCa43AFs5KFy29a47Gr1kuryYkwsFv340gF93Xa4S93s8J348KFWrKFy8uas3trykJ3W7
-	Xr1DtF45uFZ8ZFcCm3ZEXasCq-sJn29KB7ZKAUJUUUUr529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9Sb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E
-	14v26r4UJVWxJr1ln4kS14v26r1Y6r17M2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6x
-	kI12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v2
-	6rWY6Fy7McIj6I8E87Iv67AKxVWxJVW8Jr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcV
-	AKI48JMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMxCIbckI1I0E14v2
-	6r1Y6r17MI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17
-	CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26F1j6w1UMIIF
-	0xvE2Ix0cI8IcVCY1x0267AKxVW8Jr0_Cr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCw
-	CI42IY6I8E87Iv67AKxVWxJVW8Jr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBI
-	daVFxhVjvjDU0xZFpf9x07jxSdgUUUUU=
+References: <20261016-dcphy-rx-v1-v5-0-e63b49eabe2d@gmail.com>
+ <20261016-dcphy-rx-v1-v5-3-e63b49eabe2d@gmail.com> <f9b60989-e58b-4ac1-81ca-f0d37d4143b4@linaro.org>
+In-Reply-To: <f9b60989-e58b-4ac1-81ca-f0d37d4143b4@linaro.org>
+From: =?UTF-8?B?5qWK5pm65oiQ?= <jason98166@gmail.com>
+Date: Mon, 26 Oct 2026 12:38:40 +0800
+X-Gm-Features: AclHuK8vZ0KWZhabRgBdGgKek8QAVY3LLhkkHh4HIG41oJjGA-gl75AkOIcoHmw
+Message-ID: <CAPwA33LZRPs4O7ihinyorahAQiWY69C1pxWnhVE-gTUA556MYQ@mail.gmail.com>
+Subject: Re: [PATCH v5 3/8] phy: rockchip-samsung-dcphy: Move block-level
+ setup to runtime resume
+To: "Bryan O'Donoghue" <bryan.odonoghue@linaro.org>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, Guochun Huang <hero.huang@rock-chips.com>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Michael Riesch <michael.riesch@collabora.com>, 
+	Sebastian Reichel <sebastian.reichel@collabora.com>, linux-phy@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+Hi Bryan,
 
+Sorry, I missed this one.
 
-On 2026/10/21 20:09, Lee Jones wrote:
-> ls2k_bmc_probe() declares struct simplefb_platform_data on the stack and
-> assigns its address to the display MFD cell.  Although mfd_add_device()
-> deep-copies platform_data via platform_device_add_data() before
-> ls2k_bmc_probe() returns, the shallow mfd_cell copy attached to the
-> child platform device retains a stale pointer to the expired stack
-> frame.
-> 
-> Allocate the simplefb_platform_data structure on the heap via
-> devm_kzalloc() prior to devm_mfd_add_devices() so the pointer remains
-> valid for the lifetime of the child platform device.
-> 
-> Closes: https://sashiko.dev/#/bug/linux-4e2dd9cb-310b-4bba-b305-ffacc738285c
-> Signed-off-by: Lee Jones <lee@kernel.org>
+> Would you not be better off scheduling a work job when you know both
+> blocks are out of suspend ?
+>
+> That way you always have a known sequence out of reset ?
 
-Acked-by: Binbin Zhou <zhoubinbin@loongson.cn>
-> ---
->   drivers/mfd/ls2k-bmc-core.c | 12 ++++++++----
->   1 file changed, 8 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/mfd/ls2k-bmc-core.c b/drivers/mfd/ls2k-bmc-core.c
-> index e245bdee8226..3e3bc835262e 100644
-> --- a/drivers/mfd/ls2k-bmc-core.c
-> +++ b/drivers/mfd/ls2k-bmc-core.c
-> @@ -470,7 +470,7 @@ static int ls2k_bmc_parse_mode(struct pci_dev *pdev, struct simplefb_platform_da
->   
->   static int ls2k_bmc_probe(struct pci_dev *dev, const struct pci_device_id *id)
->   {
-> -	struct simplefb_platform_data pd;
-> +	struct simplefb_platform_data *pd;
->   	struct ls2k_bmc_ddata *ddata;
->   	resource_size_t base;
->   	int ret;
-> @@ -489,12 +489,16 @@ static int ls2k_bmc_probe(struct pci_dev *dev, const struct pci_device_id *id)
->   	if (ret)
->   		return ret;
->   
-> -	ret = ls2k_bmc_parse_mode(dev, &pd);
-> +	pd = devm_kzalloc(&dev->dev, sizeof(*pd), GFP_KERNEL);
-> +	if (!pd)
-> +		return -ENOMEM;
-> +
-> +	ret = ls2k_bmc_parse_mode(dev, pd);
->   	if (ret)
->   		return ret;
->   
-> -	ls2k_bmc_cells[LS2K_BMC_DISPLAY].platform_data = &pd;
-> -	ls2k_bmc_cells[LS2K_BMC_DISPLAY].pdata_size = sizeof(pd);
-> +	ls2k_bmc_cells[LS2K_BMC_DISPLAY].platform_data = pd;
-> +	ls2k_bmc_cells[LS2K_BMC_DISPLAY].pdata_size = sizeof(*pd);
->   	base = pci_resource_start(dev, 0) + LS2K_DISPLAY_RES_START;
->   
->   	/* Remove conflicting efifb device */
+The two PHYs share the BIAS block, but each can be used on its own.
+For example, while DSI is running, CSI can start and stop streaming at
+any time, so we cannot know when, or whether, both will be in use.
 
--- 
-Thanks.
-Binbin
+So the block-level setup is done in runtime resume. The runtime PM usage
+count makes it run only when the first user comes up, and a second PHY
+coming up does not reset the one that is already running. And in this way,
+I don't need to maintain a refcount in the driver.
 
+The order is also fixed: the phy core resumes the device before
+calling init or power_on of either PHY, so the block-level setup always
+runs before any per-PHY setup.
+
+Best regards,
+Jason
