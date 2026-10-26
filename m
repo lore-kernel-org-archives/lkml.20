@@ -1,60 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793024450;
-	b=G2kVcej2pfR/jCGaGetkYYIWJfA+uQOocg0nWVGrOP8srCdvUjOEuM/xc+6F7hx26lSe
-	 lS0+01Tah80+mi/hTCLJ42NvBMPZ8BdoWb5xZINmQv3PnYPMhTpuLC3JRtJcAjIU6YLNi
-	 0iNGIXzyfpruIZR74x0QDmeOYz5E7cmuhf06UYSH52AiO1IqRSrd4vK3xvLhoOfHKWI6/
-	 Tjz12bytsNZPiMjnZ12zR1NN7phaPLfJpK75DRr8VEf4ZOHPFMY9NDdgJ5LssPPjaye4X
-	 GtxWwsWT9fSYvL/qjgqQeMSEC1O8R7T6S3LalyZ/GvektCgEy8TnGjGzyHLmnEfanng==
+	t=1793024452;
+	b=0PAOHFiCV8QqMk/Jmk9rZ/YfzptsbusZvmJ8XgH0IhWouOMfWxMpGPTytxFhF8EL0NDq
+	 lHm1/J8500iIfHRUR2/62/05U1J84pW0a8BSDPa7eLGw1YJrxta+kvNpq59/mxKHrCbWK
+	 cwlIf1vDpgUj/LH6fRAawVlh/SkY9Oy1AfyhqGR/NbXg5QnN2Zf9Sy8hgK37pUNAIehXi
+	 JyuaaeZ/phB+0Q2P/N1xYRKp9yjw5P7Fj61tDCqShxK6vjqJM9597wiOmloelQkRskix/
+	 OSwRLSr5ezH50RFbrVsR1pScw/tQ4MV304+8b5oo0QebZoDbOO5JfZ2KkmMud9KzcEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793024450;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=C2HHrlRp9L/SfQGFTahAQ/ZmI7daYrPt8M6w3ijLAkg=;
-	b=T9aaaNaOJEk0/Ta87JfLaMnFkQTGYt2L+f5wUYaKJjJjFR462fku7mdFT5oPjbzRITgS
-	 Fs3qql97QnsVK14a7fUXQ/EQGSWG9vDrra7kebELeudMdzxmzXkXq3P+bnYDQDdkAAW01
-	 HQLqFPybiZfLCagzBjXPQUV9qlvAXAf0RV24oKySt4tICCt9EYezp+yS8ruo+8wWsh9dm
-	 Fn7qApEHcZ/WJFPoG87PZG5wTPElebMhR8vS7uck2lZZVmlZ8eyg+MW59jrgzIlAKMyJs
-	 gYKTPGHXoR6gnwx6LqGXr6LWn/sk9La+ophVE6v5TfxhgUyMSJFL4Q9oA37wdVIr6TQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793024452;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=AmlF0+0aAM2fRJ2RV4wjFXkBSJJqDWyBurX+4vn392I=;
+	b=mIYbaw08QOWFrM3q3L54UkVjIfnui8fpH+3l7aq3rYHMWV7NPL8kaPNBSMm8jrVOS/pG
+	 GaAhu/y4nB2irP76wpNePO8/Vc8ca0T5YF7QX+NO9RR/AdcIojYwXUarfVuEmHGKyyVyN
+	 4VHAoeh17lVIbOJQxfIwGWvSDogLWIe83O9jpKPZ/wnQh6oSkSwfZqAtuxcctYDRecar6
+	 RMp4aRkfJBTHhOxt4SwdL05cMvpP7qMAXkh3m5UkuRHJTZSy3ulME182as3DzwQwH6YZQ
+	 VF9DO3G1n8wLDY7erWB+4N7RCA+I/W7BbJ7BYOCtgl1lvrySdNC1Dyowc95ikKP7SMw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MIai2ghn;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PwrHKO5q;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2C36606A33C;
-	Mon, 26 Oct 2026 14:20:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7F2E606A322
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:20:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MIai2ghn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF0351F01825;
-	Mon, 26 Oct 2026 14:20:46 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PwrHKO5q
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73B2C1F031E1
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:20:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793024449;
-	bh=C2HHrlRp9L/SfQGFTahAQ/ZmI7daYrPt8M6w3ijLAkg=;
-	h=From:To:Cc:Subject:Date;
-	b=MIai2ghnQdq34w5JBGVmeA6HhT7WYKC2zTuRfrCr4hC3H5ilmncWdsuMjAlIKj6fg
-	 VK7eWvK3pNRV5D/dplNhdij1KsElKKc+1YFXMe/4g7HafD5Xc/T5UweTYgCPt3MvYA
-	 nt4m5TZ9BUJvZIUvNSwEkEo4sFIKwUTsu6LbQngDtYMyri/as6WWFdUTOoFkEVphxa
-	 nJBcNBkAbrNBEJ4md25m1wAmGIUsivgioHSQ7N2VzqV58iXURCJ4F+YffJL9C1OAHn
-	 u6Y4cwZVLiO7YgC3l5aACoghco4Ivvkd4//JMbpq9/UtHAqz56/59JMSCOYbxWpUVT
-	 NrF/ikM0bdlWA==
-From: Philipp Stanner <phasta@kernel.org>
-To: Felix Kuehling <Felix.Kuehling@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Sumit Semwal <sumit.semwal@linaro.org>
-Cc: amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	Philipp Stanner <phasta@kernel.org>
-Subject: [PATCH] drm/amdgpu: Harden against potential deadlock
-Date: Mon, 26 Oct 2026 15:15:42 +0100
-Message-ID: <20261026141541.469727-2-phasta@kernel.org>
-X-Mailer: git-send-email 2.56.0
+	s=k20260515; t=1793024446;
+	bh=AmlF0+0aAM2fRJ2RV4wjFXkBSJJqDWyBurX+4vn392I=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=PwrHKO5qtJxFxRGL1vGL4JNW8fYL9264QY5VABTbch1W/dcwzLpgjUqGj/urzbo9E
+	 0e2w6D5H9unmPYvIpHrm+qvIJW6BgV9qch9v/TWQ/uMoqRtPul6ao+kJRwJUGmNb10
+	 GpX+/RfBNqRdOAxcFdo8ik4GWr089+Exfk9OHK3PquqEf19qG47JwzBLmA7gjzm+ie
+	 HnRJNoBVVzGjl5I44Gd1rLthKrXjSL9DTz47XF/SdhbfV1Md5hQTV/K2GqxH3nOCqP
+	 1SGaAQ87/uKKBq4FBrOujGqClneAKphm67ZhBntCtdKtN5loSvSMSvv0qMJ79FRDsI
+	 fZPhLhUz80/iw==
+Received: by mail-oa1-f49.google.com with SMTP id 586e51a60fabf-48eee44b908so1827859fac.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 07:20:46 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzvBEtnRNcqvECz7lNFnM/nqkGUgL43M9sHJw1cWG0xe6Sr6j4AC29htgz5KCg19DhuiGfImT+O1ViKdPQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYItWhGFLDdbj0tpjZYaa5vzUStttcpC1U9DMIYE+zzpoBPs1FGT
+	XMwVFmmHtqiKeTUyYi1DIgKAJObjzZBwYsZrASk2XFfI1hQoww15puhTsYri+VUNlyZvmtt9vCW
+	zfI1Waq05YVs/0kIloeySCYtC3ogBEq0=
+X-Received: by 2002:a05:6871:419b:b0:49d:c9ed:21f2 with SMTP id
+ 586e51a60fabf-4a83f42e1c8mr3861088fac.18.1793024445749; Mon, 26 Oct 2026
+ 07:20:45 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,55 +59,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <179278529389.3327.1530536500905686255@kernel.org>
+ <20261025222222.1064464-1-tristan@talencesecurity.com> <20261026150541.a5a34642db9d1523f839f644@uniroma2.it>
+In-Reply-To: <20261026150541.a5a34642db9d1523f839f644@uniroma2.it>
+From: Eric Dumazet <edumazet@kernel.org>
+Date: Mon, 26 Oct 2026 15:20:34 +0100
+X-Gmail-Original-Message-ID: <CAL4WiirtzVke8V8f6LJEWdOCDNevGxdQCFhXxEGiEMq-TNbsVA@mail.gmail.com>
+X-Gm-Features: AclHuK8L92wlrbdXy0m1rYg5r51z1Kquhpb4YkZm0AcuyqBb82vwpDIOASY1obs
+Message-ID: <CAL4WiirtzVke8V8f6LJEWdOCDNevGxdQCFhXxEGiEMq-TNbsVA@mail.gmail.com>
+Subject: Re: [PATCH net] seg6: fix tun_src RCU lifetime on namespace teardown
+To: Andrea Mayer <andrea.mayer@uniroma2.it>
+Cc: Tristan Madani <tristmd@gmail.com>, netdev-bot+sinfo@kernel.org, davem@davemloft.net, 
+	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
+	tristan@talencesecurity.com, david.lebrun@uclouvain.be, 
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org, stable@vger.kernel.org, 
+	stefano.salsano@uniroma2.it
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-amdgpu's KFD eviction fence's dma_fence ops->enable_signaling() contains
-a dma_fence_is_signaled() check.
+Le lun. 26 oct. 2026 =C3=A0 15:05, Andrea Mayer <andrea.mayer@uniroma2.it> =
+a =C3=A9crit :
+>
+> On Sun, 25 Oct 2026 22:22:22 +0000
+> Tristan Madani <tristmd@gmail.com> wrote:
+>
+> > Found by manual code inspection while auditing RCU lifetime
+> > patterns in the seg6 subsystem.  The issue is theoretical --
+> > found by reading the source, not triggered in production.
+>
+> Hi Tristan,
+> thanks for the info.
+>
+> The pre_exit in this patch introduces a NULL deref. It sets tun_src to
+> NULL before the netns devices are removed, while set_tun_src() can
+> still read it.
+>
+> I ran a stress test on net with KASAN. A userspace program sends UDP
+> packets in a loop from init_net through a veth into a test netns, where
+> a seg6 encap route without a per-route tunsrc forwards them. Meanwhile,
+> the test netns is created and deleted repeatedly.
+>
+> With this patch applied, KASAN reported a null-ptr-deref in
+> set_tun_src() and the kernel panicked:
+>
+>  BUG: KASAN: null-ptr-deref in set_tun_src+0xd1/0x240
+>  Read of size 8 at addr 0000000000000000 by task udp_flood_user/379
+>  Call Trace:
+>   <IRQ>
+>   set_tun_src+0xd1/0x240
+>   __seg6_do_srh_encap+0x410/0x710
+>   seg6_do_srh+0x65e/0x6a0
+>   seg6_input_core+0x87/0x4c0
+>   lwtunnel_input+0x18d/0x420
+>   ipv6_rcv+0x44f/0x460
+>   __netif_receive_skb_one_core+0xd6/0x130
+>   process_backlog+0x2cc/0xa00
+>   __napi_poll.constprop.0+0x56/0x270
+>   net_rx_action+0x327/0x730
+>   handle_softirqs+0x15a/0x6c0
+>   do_softirq+0xb4/0xf0
+>   </IRQ>
+>   <TASK>
+>   __local_bh_enable_ip+0xdd/0x100
+>   __dev_queue_xmit+0x538/0x1030
+>   ip6_finish_output+0x280/0x640
+>   ip6_output+0x118/0x380
+>   ip6_send_skb+0x99/0x210
+>   udp_v6_send_skb+0x397/0x760
+>   udpv6_sendmsg+0x1100/0x14d0
+>   __sys_sendto+0x219/0x2d0
+>   ...
+>  Kernel panic - not syncing: Fatal exception in interrupt
+>
+> Without this patch, I ran the same test with 1000 netns deletions and
+> KASAN reported nothing.
+>
+> Ciao,
+> Andrea
 
-ops->enable_signaling() is currently consistently being called with the
-dma_fence lock held. dma_fence_is_signaled() might try to take this lock
-in its dma_fence_signal() call.
+Right, and there is no bug to fix in the first place.
 
-This deadlock can currently not occur because the amdkfd_fence_ops do
-not implement ops->signaled. Should that ever be added, however,
-deadlocks might occur occasionally once the fastpath check in
-dma_fence_is_signaled() is skipped.
+ip6_segments_ops is a pernet subsys, so seg6_net_exit() runs after
+all netns devices have been unregistered (default_device_exit_batch()
+and the RCU grace periods in netdev_run_todo()). At that point no
+packet can reach set_tun_src() for this netns, and no socket can
+issue SEG6_CMD_GET_TUNSRC either.
 
-Replace dma_fence_is_signaled() with dma_fence_is_signaled_locked().
+pre_exit runs before devices are dismantled, hence the crash Andrea
+reported.
 
-Signed-off-by: Philipp Stanner <phasta@kernel.org>
----
-As detailed in my recent discussions with Christian [1], I also think
-that drivers should be very tightly constrained as to what they do in
-the fence_ops. I think at the very least they shouldn't use any
-dma_fence functions there.
-
-So we could also remove this check here completely;
-__dma_fence_enable_signaling() already checks the signaled-flag, after
-all, but I'm not sure whether that might break amdgpu.
-
-
-P.
-
-[1] https://lore.kernel.org/dri-devel/320b6e7c75da6f05c015e89df0e2c7d11f20d70a.camel@mailbox.org/
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c
-index 9b10d015671c..61621eebb2b0 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c
-@@ -123,7 +123,8 @@ static bool amdkfd_fence_enable_signaling(struct dma_fence *f)
- 	if (!fence)
- 		return false;
- 
--	if (dma_fence_is_signaled(f))
-+	/* The enable_signaling() ops is called under lock protection. */
-+	if (dma_fence_is_signaled_locked(f))
- 		return true;
- 
- 	if (!kgd2kfd_schedule_evict_and_restore_process(fence->mm, fence->context_id, f))
--- 
-2.56.0
-
+pw-bot: rejected
