@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793016739;
-	b=N633eDRHeFK+PrdqCA1+MOFTpKpi3+5XqNtQayLOk31nOjScel3NdNZKRvvzuaId2AC6
-	 91fePYLv3gEA/yglVYiUZ1KdwH57Uv+xQrQbJ1jWNamI/Kxa4IUtGKE1D1yJoNWK6QhCa
-	 OUHfOz+Vo1e28Lomp5+mPRDAVyOayKJso7iJWhTxR1dXGnbTqLzu3BPdy17pMa9q34SRX
-	 jJqmG23qQ72pHeFHeWoq/DbRfuC8l9xOjTQYbgin8I3d0Q2b/Nz7WoVjKAMPgN7ujXvnq
-	 EhPAEg8e6tYLKpRPN+uqpbgDWifkMcQhIoWvTQlHLoQLsiBDIQo0aqf4BNI0hEqW9wQ==
+	t=1793016746;
+	b=Hbivr9gI9ixscIgZZjzVU8ZBz7OqmOrdFmUBYqn11R6SPSjBtIo3FH3iWjYEAYmUC5F3
+	 Uo8mGdFQr8RHYCZrzPcAkuya56w0RCU/apVwAz+mZSkM1n/yTGZ+v+tMLYuRBtK11fOwN
+	 5XCzSFVCW+HegqzRDAzY7g4QOkeF/A68E+D+mdqD5Co5WAKbqgo+ORwu1xtKsPo8uIah1
+	 8klf/9omJIoeRd7uZ6RFaQXrxQE4vlxbSk7w1NU8wfrnOeFP0z0q6sCy3DSYjxSMVbj6I
+	 GRPq/UaCNigmHoFEHW03RguPrkoXQP1/nQi36i2AChXVCttLkKETlRc8+c4URChiyLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793016739;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793016746;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=EKPDpnDsxP95BvhQy6gMrx0mg3B9bgjTY7R3pORfF0o=;
-	b=pqphRWTUFF//tXLanc4SXj8LlIcvoDdBfdsD/CRBHOV3lrJ+KmvRtcaaQQ6hfYcsEblH
-	 FTLflBHzKvMx6xp8589iioXpfubCt8mMA/B5WtIDI1dyqsjxJudFY+4/LWJR55eLOSdL1
-	 qEJDIME3JmaVOaBYgMvascInbG7YfjkxV9WjBjfy19+y1pCa/QwucqpqqwPpCkqXr9x5t
-	 49XjcteoGcMcmFwa18Za+te+wQG4xGC8iDVY0eps5gEYoWLFP+9nCaNhn7uaNK2THT2vw
-	 5Zts0zXk1cKKGfrOLL2hWAVPvUHlwzaRhK0TZs87AlxJdaeHb6U4AkDPYY4Q1UySjfQ==
+	bh=6qj8m8z1wbRyIk6+/HP994xBD+OWRY6Idbk7+z+pqbQ=;
+	b=3Z/0RpqhbV2CoN0Z42vuFz8ituELd2FEblg4d+NVRigrGrRpDMJ3KF6KGEbJl64gfHaP
+	 xHECkOlxn3BuaITSwubVSlR/U2ath9oHZ8XbUNDYGCUAkB+4++n3Ntf+hNPNkd+zUk6fN
+	 Gk/86TQOo9PRi3fED8a+6psfggGdoXkBgU6TWFs9QIlWkz1wzUUYYVSWTFKFWyP6x3vAg
+	 9nIRBBy5HUneLNSggSXqSoysmpY2YHOq0SPavkojGpzxeffR9y+lIdrT932ihITwjvNKb
+	 dl/Dm6z4eEKAw7Qr/RVrPMXdIcTLm0Oy5jt7LLn0ycxOn+RBRwQFPqbP5EkIgWdOGOw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iBw406SW;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="AbFmM/nq";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5765B606A322;
-	Mon, 26 Oct 2026 12:12:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0455F606A32A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:12:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iBw406SW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3F041F031E1;
-	Mon, 26 Oct 2026 12:12:15 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AbFmM/nq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6CFA1F031E3;
+	Mon, 26 Oct 2026 12:12:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793016739;
-	bh=EKPDpnDsxP95BvhQy6gMrx0mg3B9bgjTY7R3pORfF0o=;
+	s=k20260515; t=1793016745;
+	bh=6qj8m8z1wbRyIk6+/HP994xBD+OWRY6Idbk7+z+pqbQ=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=iBw406SWNAyN0iypY6z9eMu7GvnlQWgx71O//+605r5yzwZ0nPS5QYtL2h4pXli4b
-	 jQ/8nviFCI0Ni4rjvPmue0JD1nP7zd9iiL+Vbr+PT5RwYMUo5U4P8srFZooN8q67/O
-	 OS5ASw439ShiiovDUOTFVjawzHGh8ZT0ZO79ney7YB8LWOCivypf9hPnO/TLbgVZ9Z
-	 zwJMbwJIGNsuKg5xVyu63tT+4rAywuC2G/YzpOPeoC4QIpXEd80c0uIVBCaSr+jdfu
-	 3MZtaCRlaL6j16jSTIDbjNvxRDP896Db8tLalPtJcZ7P+R43IhNMGOKbYVg7PygMDo
-	 Lfd9/xbqy5Jqw==
-Message-ID: <e3a1ae72-9370-4c3c-8935-6a410a74377b@kernel.org>
-Date: Mon, 26 Oct 2026 12:19:21 +0100
+	b=AbFmM/nqEku80UT+Aw7V4iA4reTs6onG88eMdzcmBom8o9iffpHF/sioYmaT8MFxS
+	 LtxEjSXM4LrFlC9dmF1WxtG5wWM5ScaShfstE/EfTPFnEroTAzaqvaVB/nvIHa3+AH
+	 4zDgcBgJtT+PVaa/K+cc2GU+45UEeNZmfpm9XFddPWcMaaxD0yOcaxDjMtqh2b4rkZ
+	 RJYozXPKbhWQCK5W3LEtL7Q4isI94VLRu+djE6ouv7LG3VcAcRDhr61UVV7ozu24bo
+	 i7U7SJrXOA+NSjKiHxDwQk6QodHCsJc1KAfo8LO/Kpw2Ya3dK0XfB/CrLALFZbMXy6
+	 R3tK7qaGprDsg==
+Message-ID: <3be96a1c-7cfb-4cd0-a4fb-16209494d041@kernel.org>
+Date: Mon, 26 Oct 2026 12:26:39 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,14 +52,24 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/mempolicy: recompute automatic interleave weights on
- memory hotplug
-To: "Gregory Price (Meta)" <gourry@gourry.net>, linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com,
- akpm@linux-foundation.org, ziy@nvidia.com, joshua.hahnjy@gmail.com,
- rakie.kim@sk.com, ying.huang@linux.alibaba.com, honggyu.kim@sk.com,
- stable@vger.kernel.org
-References: <20261024170415.4121901-1-gourry@gourry.net>
+Subject: Re: [PATCH v3 1/1] khugepaged: fix readahead lock inversion in
+ collapse_file()
+To: Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Lance Yang <lance.yang@linux.dev>, Pedro Falcato <pfalcato@suse.de>
+Cc: akpm@linux-foundation.org, ziy@nvidia.com, liam@infradead.org,
+ nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com,
+ baohua@kernel.org, usama.arif@linux.dev, kas@kernel.org, jack@suse.cz,
+ djwong@kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ hch@lst.de, syzbot+16bf7cd0ebeb1de93aa5@syzkaller.appspotmail.com,
+ ngocthang2710.1999@gmail.com, willy@infradead.org, rppt@kernel.org,
+ ljs@kernel.org
+References: <20261016065920.4153-1-lance.yang@linux.dev>
+ <27e5aadc-2d68-428f-a958-308e4a75c058@linux.alibaba.com>
+ <atICp2NL8j2z7UFM@pedro-suse.tail5790ac.ts.net>
+ <atIiR1NWNssDvgt6@pedro-suse.tail5790ac.ts.net>
+ <6a005d89-df5b-4524-a4b9-c637cb15f1ee@linux.alibaba.com>
+ <cd6637db-7b30-4cbc-b07f-c2a2b32480fa@linux.dev>
+ <b1b3d8d7-7201-4b75-a0f0-af383d854279@linux.alibaba.com>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -106,106 +116,43 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20261024170415.4121901-1-gourry@gourry.net>
+In-Reply-To: <b1b3d8d7-7201-4b75-a0f0-af383d854279@linux.alibaba.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 10/24/26 19:04, Gregory Price (Meta) wrote:
-> In auto mode, weighted interleave derives each node's weight from its
-> bandwidth, reduced over the nodes in N_MEMORY. HMAT and CXL report a
-> node's bandwidth once, when the node first gains memory, and nothing
-> else on the hotplug path recomputes the weights.
+On 10/18/26 04:47, Baolin Wang wrote:
 > 
-> When a node loses its memory, the other nodes keep weights computed
-> with its bandwidth until another node reports. If one does while the
-> node is away, the reduction skips the node and resets its weight to 1,
-> which it keeps once its memory returns.
 > 
-> With HMAT bandwidths of 100G for nodes 0-3, and 50G and 25G for kmem
-> nodes 4 and 5, weighted_interleave/nodeN reads:
+> On 10/17/26 3:41 PM, Lance Yang wrote:
+>>
+>>
+>> On 2026/10/17 13:43, Baolin Wang wrote:
+>>>
+>>>
+>>>
+>>> OK.
+>>>
+>>>
+>>> Sounds good.
+>>>
+>>>
+>>> But why not add RA logic in collapse_pmd(), as we do for
+>>> SCAN_PAGE_DIRTY_OR_WRITEBACK? There's already retry logic there, and this
+>>> would also simplify the long collapse_file().
+>>
+>> That would be cleaner, yeah. Some older stable trees don't have that
+>> outer retry loop, though ... I'd prefer to get the fix backported first,
+>> then move the RA/retry logic out in a follow-up, wdyt?
 > 
->   event             node 0-3   node 4   node 5
->   node 4 online         7         3        -
->   node 4 removed        7         -        -
->   node 5 online         7         -        1
->   node 4 back           7         1        1
+> IIRC, the approach to bug fixes is to fix bugs properly and cleanly for
+> upstream, without being constrained by backporting requirements.
 > 
-> Toggling weighted_interleave/auto to 0 and back to 1 gives the correct
-> 6, 3 and 1.
-> 
-> Recompute the weights from the recorded bandwidth whenever a node gains
-> its first memory or loses its last.
-> 
-> mempolicy_set_node_perf() now only records the bandwidth and calls the
-> same helper, so the bandwidth is kept even if allocating the new weights
-> fails. wi_state_lock is dropped between the two steps, which should be
-> safe because the helper reads node_bw_table and the mode under the lock,
-> so a racing writer only makes it work from newer state.
-> 
-> With this patch, weighted_interleave/nodeN reads 6, 3 and 1 as soon as
-> node 4 is back.
-> 
-> Fixes: e341f9c3c841 ("mm/mempolicy: Weighted Interleave Auto-tuning")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
-> ---
->  mm/mempolicy.c | 66 +++++++++++++++++++++++++++++---------------------
->  1 file changed, 38 insertions(+), 28 deletions(-)
-> 
-> diff --git a/mm/mempolicy.c b/mm/mempolicy.c
-> index 0884c629670d..ffb293a4cc56 100644
-> --- a/mm/mempolicy.c
-> +++ b/mm/mempolicy.c
-> @@ -238,27 +238,45 @@ static void reduce_interleave_weights(unsigned int *bw, u8 *new_iw)
->  		new_iw[nid] /= iw_gcd;
->  }
->  
-> +/* Recompute the weights from node_bw_table, unless they were set manually */
-> +static int wi_state_refresh(void)
-> +{
-> +	struct weighted_interleave_state *new_wi_state, *old_wi_state;
-> +	int i;
-> +
-> +	new_wi_state = kmalloc_flex(*new_wi_state, iw_table, nr_node_ids);
-> +	if (!new_wi_state)
-> +		return -ENOMEM;
-> +	new_wi_state->mode_auto = true;
-> +	for (i = 0; i < nr_node_ids; i++)
-> +		new_wi_state->iw_table[i] = 1;
-> +
-> +	mutex_lock(&wi_state_lock);
-> +	old_wi_state = rcu_dereference_protected(wi_state,
-> +					lockdep_is_held(&wi_state_lock));
-> +	/* NULL wi_state assumes auto=true */
-> +	if (!node_bw_table || (old_wi_state && !old_wi_state->mode_auto)) {
+> Anyway, I don't have a strong opinion on this. Let's also see what David prefers.
 
+Let's get this fixed in a acceptable way in a reasonable timeframe; it's been
+broken for too long. ... and follow up with bigger cleanups later.
 
-I was confused about the node_bw_table check at first. Maybe
-
-/*
- * We can get hotplug events before any BW data was recorded.
- * ...
- */
-
->  
->  /**
-> @@ -3900,8 +3903,15 @@ static int wi_node_notifier(struct notifier_block *nb,
->  	case NODE_REMOVED_LAST_MEMORY:
->  		sysfs_wi_node_delete(nid);
->  		break;
-> +	default:
-> +		return NOTIFY_OK;
->  	}
->  
-> +	/*
-> +	 * HMAT and CXL report a node's bandwidth only when it first gains
-> +	 * memory, so recompute the weights whenever N_MEMORY changes.
-> +	 */
-> +	wi_state_refresh();
-
-If the function fails, should we at least pr_warn_once() ?
-
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+@Lance is this version good to review for that purpose or are you planning a resend?
 
 -- 
 Cheers,
