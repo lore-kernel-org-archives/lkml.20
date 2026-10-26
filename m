@@ -1,47 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793016746;
-	b=Hbivr9gI9ixscIgZZjzVU8ZBz7OqmOrdFmUBYqn11R6SPSjBtIo3FH3iWjYEAYmUC5F3
-	 Uo8mGdFQr8RHYCZrzPcAkuya56w0RCU/apVwAz+mZSkM1n/yTGZ+v+tMLYuRBtK11fOwN
-	 5XCzSFVCW+HegqzRDAzY7g4QOkeF/A68E+D+mdqD5Co5WAKbqgo+ORwu1xtKsPo8uIah1
-	 8klf/9omJIoeRd7uZ6RFaQXrxQE4vlxbSk7w1NU8wfrnOeFP0z0q6sCy3DSYjxSMVbj6I
-	 GRPq/UaCNigmHoFEHW03RguPrkoXQP1/nQi36i2AChXVCttLkKETlRc8+c4URChiyLw==
+	t=1793016753;
+	b=2tS6Waiizg0ayYOxifkNP635ZxW8fSls0s6qBJGTJ9qVMred1qTSZ+61fLLCgovyFuGF
+	 NdvNF0GM+M4HVqFT9UcQiXwmhbbMFpqzFzcNoNGknlyRJW07RG5U2zyyr/c7cOAPsKO/C
+	 7QBA0/bSs+C8V6y8bQNXbDZEYcwLBOzdNA0znIyKvJDlly2mYDEymJlmpF2NQrsODMJ2C
+	 p667jg49fwrCUX6BQc1iJqxBCildDKwVeBFr3QbUjhjA2vHwZLZN5PuZPSLSMHZxVkNNN
+	 oWJ3aiiMhJCCotug9oMhG2dac1UGhN0sowTzbcGtotezuPd+nGFENpNyxDD65FVenUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793016746;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=6qj8m8z1wbRyIk6+/HP994xBD+OWRY6Idbk7+z+pqbQ=;
-	b=3Z/0RpqhbV2CoN0Z42vuFz8ituELd2FEblg4d+NVRigrGrRpDMJ3KF6KGEbJl64gfHaP
-	 xHECkOlxn3BuaITSwubVSlR/U2ath9oHZ8XbUNDYGCUAkB+4++n3Ntf+hNPNkd+zUk6fN
-	 Gk/86TQOo9PRi3fED8a+6psfggGdoXkBgU6TWFs9QIlWkz1wzUUYYVSWTFKFWyP6x3vAg
-	 9nIRBBy5HUneLNSggSXqSoysmpY2YHOq0SPavkojGpzxeffR9y+lIdrT932ihITwjvNKb
-	 dl/Dm6z4eEKAw7Qr/RVrPMXdIcTLm0Oy5jt7LLn0ycxOn+RBRwQFPqbP5EkIgWdOGOw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793016753;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:References:Content-Language:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=EzTl/Iwzub8g+OSp476+y0U6G7ZfkqfC1mYo2gEuXZM=;
+	b=o7/DHHRfKlkaBIle6AeKV4ZbBVNSxMJqnJnf5xcZnS7uy6VR0Lte4rQ51Cncugl3k6ed
+	 hJKGc6J16XZl9BwjqeFVJQ7jOIDCLxRxqgKLPngu7f3GLWCpiua3twGEqR+wv0DR7RBqL
+	 dPce6VNjL38bQ5YKGqMZrnWfu/Wh6AT5wR8eVE4xdpOfuKVSMIYj9aJwR5gXczNDCgzR0
+	 xoVI7dtNqX3R3Y+9dvscNyV/NfBOpGo8PWL4/tOhYjQpuix1VLbXr39TRqz8bTlf4ufbp
+	 9kA3BMZ9vhEBPH+Msu1Nq9h17DUFeDKj5EVU5haRNqPMGVXfgmFxOJw3As1ABW8CKCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="AbFmM/nq";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0455F606A32A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:12:25 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=kxlp3InA;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6DA61606A325
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:12:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6DA61606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AbFmM/nq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6CFA1F031E3;
-	Mon, 26 Oct 2026 12:12:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793016745;
-	bh=6qj8m8z1wbRyIk6+/HP994xBD+OWRY6Idbk7+z+pqbQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=AbFmM/nqEku80UT+Aw7V4iA4reTs6onG88eMdzcmBom8o9iffpHF/sioYmaT8MFxS
-	 LtxEjSXM4LrFlC9dmF1WxtG5wWM5ScaShfstE/EfTPFnEroTAzaqvaVB/nvIHa3+AH
-	 4zDgcBgJtT+PVaa/K+cc2GU+45UEeNZmfpm9XFddPWcMaaxD0yOcaxDjMtqh2b4rkZ
-	 RJYozXPKbhWQCK5W3LEtL7Q4isI94VLRu+djE6ouv7LG3VcAcRDhr61UVV7ozu24bo
-	 i7U7SJrXOA+NSjKiHxDwQk6QodHCsJc1KAfo8LO/Kpw2Ya3dK0XfB/CrLALFZbMXy6
-	 R3tK7qaGprDsg==
-Message-ID: <3be96a1c-7cfb-4cd0-a4fb-16209494d041@kernel.org>
-Date: Mon, 26 Oct 2026 12:26:39 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=kxlp3InA
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 98CE725DF;
+	Mon, 26 Oct 2026 05:12:28 -0700 (PDT)
+Received: from [10.2.212.8] (e134344.arm.com [10.2.212.8])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 19DCA3F7B4;
+	Mon, 26 Oct 2026 05:12:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793016751; bh=dtCopbSEnM/TXx3YrtqlcHEwy51qAVoDD0psDCQxxXY=;
+	h=Date:Subject:To:References:From:In-Reply-To:From;
+	b=kxlp3InAIzByvKtGQnuVKuFbF8S7k/TohS5Sc/lHL0Mpr+AVSzt/Sz/vuRrOTRMt3
+	 9nK2hr+rOEbyAoVLV2ZVC8V6ftd1FVpnuglvPsHcwQkKFx3KQ7W7Q5YAES8jorQO+3
+	 LGth6ZqmS7W5gEmOWdh6kOibfswh2JXA7O4Ean78=
+Message-ID: <4a20a2c8-579f-4234-a03a-079a0225e2b9@arm.com>
+Date: Mon, 26 Oct 2026 12:12:28 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,109 +54,142 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/1] khugepaged: fix readahead lock inversion in
- collapse_file()
-To: Baolin Wang <baolin.wang@linux.alibaba.com>,
- Lance Yang <lance.yang@linux.dev>, Pedro Falcato <pfalcato@suse.de>
-Cc: akpm@linux-foundation.org, ziy@nvidia.com, liam@infradead.org,
- nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com,
- baohua@kernel.org, usama.arif@linux.dev, kas@kernel.org, jack@suse.cz,
- djwong@kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- hch@lst.de, syzbot+16bf7cd0ebeb1de93aa5@syzkaller.appspotmail.com,
- ngocthang2710.1999@gmail.com, willy@infradead.org, rppt@kernel.org,
- ljs@kernel.org
-References: <20261016065920.4153-1-lance.yang@linux.dev>
- <27e5aadc-2d68-428f-a958-308e4a75c058@linux.alibaba.com>
- <atICp2NL8j2z7UFM@pedro-suse.tail5790ac.ts.net>
- <atIiR1NWNssDvgt6@pedro-suse.tail5790ac.ts.net>
- <6a005d89-df5b-4524-a4b9-c637cb15f1ee@linux.alibaba.com>
- <cd6637db-7b30-4cbc-b07f-c2a2b32480fa@linux.dev>
- <b1b3d8d7-7201-4b75-a0f0-af383d854279@linux.alibaba.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+Subject: Re: [PATCH v9 2/9] fs/resctrl: Add resctrl_arch_rmid_idx_match()
+ helper
+To: Jinjie Ruan <ruanjinjie@huawei.com>, tony.luck@intel.com,
+ reinette.chatre@intel.com, Dave.Martin@arm.com, james.morse@arm.com,
+ babu.moger@amd.com, tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
+ dave.hansen@linux.intel.com, hpa@zytor.com, fenghuay@nvidia.com,
+ x86@kernel.org, linux-kernel@vger.kernel.org
+References: <20261012082337.822258-1-ruanjinjie@huawei.com>
+ <20261012082337.822258-3-ruanjinjie@huawei.com>
 Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <b1b3d8d7-7201-4b75-a0f0-af383d854279@linux.alibaba.com>
+From: Ben Horgan <ben.horgan@arm.com>
+In-Reply-To: <20261012082337.822258-3-ruanjinjie@huawei.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 10/18/26 04:47, Baolin Wang wrote:
-> 
-> 
-> On 10/17/26 3:41 PM, Lance Yang wrote:
->>
->>
->> On 2026/10/17 13:43, Baolin Wang wrote:
->>>
->>>
->>>
->>> OK.
->>>
->>>
->>> Sounds good.
->>>
->>>
->>> But why not add RA logic in collapse_pmd(), as we do for
->>> SCAN_PAGE_DIRTY_OR_WRITEBACK? There's already retry logic there, and this
->>> would also simplify the long collapse_file().
->>
->> That would be cleaner, yeah. Some older stable trees don't have that
->> outer retry loop, though ... I'd prefer to get the fix backported first,
->> then move the RA/retry logic out in a follow-up, wdyt?
-> 
-> IIRC, the approach to bug fixes is to fix bugs properly and cleanly for
-> upstream, without being constrained by backporting requirements.
-> 
-> Anyway, I don't have a strong opinion on this. Let's also see what David prefers.
+Hi Jinjie,
 
-Let's get this fixed in a acceptable way in a reasonable timeframe; it's been
-broken for too long. ... and follow up with bigger cleanups later.
+On 12/10/2026 09:23, Jinjie Ruan wrote:
+> The current RMID allocator assumes that RMID and CLOSID are entirely
+> independent or follow a rigid 2D encoding. This prevents architectures
+> where an RMID is bound to a specific CLOSID from properly filtering
+> free RMIDs.
 
-@Lance is this version good to review for that purpose or are you planning a resend?
+Is this patch required for the PARTID narrowing usage in this series? The static mapping is still a
+2D encoding.
 
--- 
-Cheers,
+Thanks,
 
-David
+Ben
+
+> 
+> Introduce resctrl_arch_rmid_idx_match() to allow architectures to define
+> their own compatibility rules between a target CLOSID and an allocated
+> RMID's CLOSID.
+> 
+> No functional change.
+
+
+
+> 
+> Cc: Reinette Chatre <reinette.chatre@intel.com>
+> Cc: Dave Martin <Dave.Martin@arm.com>
+> Cc: James Morse <james.morse@arm.com>
+> Cc: Babu Moger <babu.moger@amd.com>
+> Cc: Thomas Gleixner <tglx@kernel.org>
+> Cc: Ingo Molnar <mingo@redhat.com>
+> Cc: Borislav Petkov <bp@alien8.de>
+> Cc: Dave Hansen <dave.hansen@linux.intel.com>
+> Cc: "H. Peter Anvin" <hpa@zytor.com>
+> Cc: Ben Horgan <ben.horgan@arm.com>
+> Cc: Fenghua Yu <fenghuay@nvidia.com>
+> Suggested-by: James Morse <james.morse@arm.com>
+> Signed-off-by: Zeng Heng <zengheng4@huawei.com>
+> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+> ---
+>  arch/x86/include/asm/resctrl.h |  6 ++++++
+>  drivers/resctrl/mpam_resctrl.c |  6 ++++++
+>  fs/resctrl/monitor.c           | 13 +++----------
+>  include/linux/arm_mpam.h       |  1 +
+>  4 files changed, 16 insertions(+), 10 deletions(-)
+> 
+> diff --git a/arch/x86/include/asm/resctrl.h b/arch/x86/include/asm/resctrl.h
+> index 8f6edcdcfd87..7bb297a0ab6e 100644
+> --- a/arch/x86/include/asm/resctrl.h
+> +++ b/arch/x86/include/asm/resctrl.h
+> @@ -181,6 +181,12 @@ static inline u32 resctrl_arch_rmid_idx_encode(u32 ignored, u32 rmid)
+>  	return rmid;
+>  }
+>  
+> +/* x86 RMIDs are independent; any RMID can be used with any CLOSID. */
+> +static inline bool resctrl_arch_rmid_idx_match(u32 closid, u32 rmid_closid)
+> +{
+> +	return true;
+> +}
+> +
+>  /* x86 can always read an rmid, nothing needs allocating */
+>  struct rdt_resource;
+>  static inline void *resctrl_arch_mon_ctx_alloc(struct rdt_resource *r,
+> diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
+> index 9d223057953a..385c745787f2 100644
+> --- a/drivers/resctrl/mpam_resctrl.c
+> +++ b/drivers/resctrl/mpam_resctrl.c
+> @@ -279,6 +279,12 @@ u32 resctrl_arch_rmid_idx_encode(u32 closid, u32 rmid)
+>  	return closid * (mpam_pmg_max + 1) + rmid;
+>  }
+>  
+> +/* Check if the RMID's associated closid matches the target CLOSID. */
+> +bool resctrl_arch_rmid_idx_match(u32 closid, u32 rmid_closid)
+> +{
+> +	return closid == rmid_closid;
+> +}
+> +
+>  void resctrl_arch_rmid_idx_decode(u32 idx, u32 *closid, u32 *rmid)
+>  {
+>  	*closid = idx / (mpam_pmg_max + 1);
+> diff --git a/fs/resctrl/monitor.c b/fs/resctrl/monitor.c
+> index 73413cb128ea..39908f67dea4 100644
+> --- a/fs/resctrl/monitor.c
+> +++ b/fs/resctrl/monitor.c
+> @@ -205,23 +205,16 @@ bool has_busy_rmid(struct rdt_l3_mon_domain *d)
+>  static struct rmid_entry *resctrl_find_free_rmid(u32 closid)
+>  {
+>  	struct rmid_entry *itr;
+> -	u32 itr_idx, cmp_idx;
+>  
+>  	if (list_empty(&rmid_free_lru))
+>  		return rmid_limbo_count ? ERR_PTR(-EBUSY) : ERR_PTR(-ENOSPC);
+>  
+>  	list_for_each_entry(itr, &rmid_free_lru, list) {
+>  		/*
+> -		 * Get the index of this free RMID, and the index it would need
+> -		 * to be if it were used with this CLOSID.
+> -		 * If the CLOSID is irrelevant on this architecture, the two
+> -		 * index values are always the same on every entry and thus the
+> -		 * very first entry will be returned.
+> +		 * Check if the free RMID matches the target CLOSID.
+> +		 * Architecture-specific rules apply.
+>  		 */
+> -		itr_idx = resctrl_arch_rmid_idx_encode(itr->closid, itr->rmid);
+> -		cmp_idx = resctrl_arch_rmid_idx_encode(closid, itr->rmid);
+> -
+> -		if (itr_idx == cmp_idx)
+> +		if (resctrl_arch_rmid_idx_match(closid, itr->closid))
+>  			return itr;
+>  	}
+>  
+> diff --git a/include/linux/arm_mpam.h b/include/linux/arm_mpam.h
+> index f92a36187a52..0bc8049a3733 100644
+> --- a/include/linux/arm_mpam.h
+> +++ b/include/linux/arm_mpam.h
+> @@ -60,6 +60,7 @@ void resctrl_arch_sched_in(struct task_struct *tsk);
+>  bool resctrl_arch_match_closid(struct task_struct *tsk, u32 closid);
+>  bool resctrl_arch_match_rmid(struct task_struct *tsk, u32 closid, u32 rmid);
+>  u32 resctrl_arch_rmid_idx_encode(u32 closid, u32 rmid);
+> +bool resctrl_arch_rmid_idx_match(u32 closid, u32 rmid_closid);
+>  void resctrl_arch_rmid_idx_decode(u32 idx, u32 *closid, u32 *rmid);
+>  u32 resctrl_arch_system_num_rmid_idx(void);
+>  
+
