@@ -1,94 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.43
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793009078;
-	b=yD40EbH/DqepNCPM+5PmniIe2CEZTOiXFvhgHkWQQs6uqvy9JLM2qnZhjmEHxs04e/2U
-	 q7Q4OMvByxjyWSusIp6WZoP2BUgx4B/9/Dwh7HG5hzRU50Q0UxwA8zx/iwYyY55SvJSnE
-	 QIejW+fsk7ObdAisIBTYcX2mos0IRN0dd7sHzvertkBLtMbjTBrXAxq0Sl9Rruv2+dlje
-	 k+za1QKqrzpxfRalpPje/7Oo/HDs+S9JDZUEGWlCJ2CxSI26DwYqrcQ/UXSjYFMWK3BCE
-	 NZKkZF9c3hPfhzG5K6SBOkxL6J34kDt0k9aQKP9vJ98IYYiOpmNVd+BhcKiJjJWtatA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793009078;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=rDp7+2O7MU6X785H/wA9kb/1vBQL6oD+1K7g8ImgNt4=;
-	b=XAJs7R3pUnnLBsK38/HoZ8ghEEwfq7IuuuLcxZRRtfE8v6m6Vl5dwjri03RVANDd1yNn
-	 QbeP49IXk4Irwj4rl7rHroXIBxIySxJMkuXKev7v9bSjg5H1sZiUVycYpHYlPPK743wfA
-	 meSactgeYuipdj1zI2T3GCwp4b4Zn7xE7VaK0G/z//eZELUFZIDrg1rtf/XPtiBE7CTJS
-	 i4gcsjm4XHH+jV3z7YilpOrl21+2VehTCGPPvaK3u7p87oglA36i+lgk3QDYId5Z5cl05
-	 k98DpHtp9qJXwxGaizF+HS6XfR7A1VefjZD+kOQCBPOGIGp4wEfKA1oKQ9tsy9iiDbA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="UI/H7fym";
-	arc=none smtp.remote-ip=209.85.216.43
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.2
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793009079;
+	b=eTPaBlfZBYEcPi3SuSjRR/YgrkFe9dODj5CfCtwV7FyfaCt7E6HcVkvQuApA66UHKy3K
+	 Bq0BGktmAebDFDwynU6N59yaDC0L7bsMxqbI75D5PVqmYoQQFe/ierUSTGCFruG8ToFK6
+	 LMx4RfJM4ctEn0xDafJcWLKm6o1sN+BFwdh9tbZdTzk8j07mrdCgQUA7YS8+x/t1dpDcS
+	 YeVmZWrJbUj/FBaLmQTER440GrLuxfQNell2XTKQ7kuUKyDq7bjMhp6P8JxETOED7604x
+	 6zaw2XD89eQMVV1PRGZTnF0+j0wN3O3NVdudx/zeIJA0bp5LgXx8YHkrJ1oP0wqkEfw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793009079;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=NBFWcvZ/FwH7x2oZJnqtnRgbxqk78saubX2JmqUU2L8=;
+	b=5rsQIfhrgM0KkEdkP59pbk6Y3gOUx4hfVcEXbd5GnzFYymTuWUcjZLn1wLIbgh0/gSCg
+	 1ABAPxJ4wJf6D+w8LOWc+ePIMtwhwj7DTJ+QJcvMJRGxcnP6mUaZ65eTdm6GDp1cGPuZX
+	 EsD8mTPLe0ulaI4uEEWvdk3moKDeL7XBKwruaBaHu3J3kYPeeNNSIhobt8yHOirkDIVj1
+	 zZJKG//lDCjqOT/6pACMT+ZA0SfeyThRhnlH/KqmvutQbQYHcXrlaWfTZMp3QuiN+dtOB
+	 dtOCNkVOkkAIccfA337o4zfoaqnwQC6fkame8kHOmI06CLuDGnvE+TZYxQz7v20a46g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nxp.com;
+	spf=pass smtp.mailfrom=nxp.com;
+	dkim=pass header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=I3MxlfGq;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.2
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011002.outbound.protection.outlook.com [52.101.65.2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB28A606A329
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:04:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB28A606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06443606A32C;
+	Mon, 26 Oct 2026 10:04:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06443606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=UI/H7fym
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3ad41b47541so1953117a91.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 03:04:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793009077; x=1793613877; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rDp7+2O7MU6X785H/wA9kb/1vBQL6oD+1K7g8ImgNt4=;
-        b=UI/H7fymCCV5R8hXtpI07lGH3/oPJ2lwNaDRFtBfJ2Z98WNqgB7BIhhNR5neQc+sBC
-         3iXk3PsFzag2MjYDv0EDhjpGZzt3CyIa1WiUO+EpXrjVAgEltLNFy5lE71bluKr8Hbq+
-         4xbrzmUYbRrihK6YHm6FZUTZLrCDfh49FpFjYlpA42yU8QmoUrHEDCfMu2qwaPuJ66sv
-         qXKUcSu4j9N7ZTUZK7xMA7IPIesrntAfupirllGS5Krn3vDBELoAzBValbjdnSBotsYF
-         Dl7WY9NeVBWjP0eP7ROQJYqD4jfFXAEyey686yMiA/LXm4elu3hwqyuz7+U8v6L8ESMJ
-         +cSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793009077; x=1793613877;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rDp7+2O7MU6X785H/wA9kb/1vBQL6oD+1K7g8ImgNt4=;
-        b=UJ803yerXukjBOALF/dbvmN8abXY8J+snsL/K/faUO2jFKuV+Ke501sYdo1j83kqHk
-         2ANw986RyhP4koiWM9bZuCgOq7sjvrbRR1VUpHBP0SBuNTRNWSo5y8SZ96nEcqA9T/aY
-         5oI883rXwvceQFJsq0COeoZAbWFt4hV3joaPZMc5Qj046BOEVb8yISEQGGO27RFT5RkJ
-         K4bq9mO694EAXjtL/Oi1aGpdrTT1ikselJNdsG0wwDn7HvOj2nXiJny63aFfzo/NzqH1
-         /cI9XXjyeQQwUa7V8OrZ6q9eQOWeJh/8IZd8cXaOEYVcmhj+dvS43AY3W5kVPmFrB1+S
-         x92A==
-X-Forwarded-Encrypted: i=1; AKwUvBx77QBxC5aZADhRKNSTL+xmK4P8oZ5Zxla6RhGxycjHjXQyh4zHSmnFy9jkMp0vp1vqjyFeYtxOS2XxnWw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYILGrSKqJdXBJ6fzQkHnmDdJuSvTzxH/4i+5j+i3hupDvY8Byxh
-	TuW8LiGYiWKFjJRukk+P/tqD6W4MAIsbyP6Wb9dbD61ngKgxWS9C5eQMlMUfdCLSKn0=
-X-Gm-Gg: AYBFou27h6Bp17v3f+dl+/TEYaCy4siHbmMV2nMTutrYPH/xdSr4uEproBH0XOd+Ukx
-	FMIj4qmCOQ/UTRaXhUVWTQEP+5eXfSRqfYRVUXdaqBj4ikodWl7qSU552vC+tVQFE8DeW1b2qwP
-	dv0drpa/X8Nv/JPcOoW10RxFILXiqk5LWmpEPX6qZIip+eqq3Zs0F1XzkBrkN37CoysTWdi/+D4
-	e1PFCvBwnRZoBWr3DnNKY7LqZXqZjsEveCnqzWfjchauuN9iU/mdzDenMoAd6T1g7L+b1DN3Rgr
-	Sx2s4Mk/CmSgm03Emu6XZJoP4FfkHnfg8/b0IxPKDt8xo/PZegv7p8M8xdxqPTH+YoA8SWamZsK
-	jpNy4gZsvnUM3wT/D6zgI83O/iMiWgM8unmC4XhWvJgnZotnobS1hMdlAJaDI0Fc6FD07WGNnE1
-	lJydUmfsOILge8zLuAz/CsgzV6LakEC7cPxEYJ1cwmZPR2YmWJ7PwrJr5yZYSrE4HxQBHb9KwYQ
-	Eg5oJ/L6txsawqjOjj32DU/kOMpGUJi7bHit7XW+KADjL7FWU1qfdiJdm5gRiu4wxFMsy2Ebv5S
-	vfTHsj4pTJqIDhfHDXNIn3bEKcOasmEotTjIH85UadVt2Ap/4qiixB9+BnQT2rMSqRJe57pCUjV
-	3sf8u+9QIhPJryzHM/y1SXOEctDSq
-X-Received: by 2002:a17:90b:2d86:b0:3ad:ce18:50ad with SMTP id 98e67ed59e1d1-3adead57bfbmr5784240a91.22.1793009077115;
-        Mon, 26 Oct 2026 03:04:37 -0700 (PDT)
-Received: from EAIT-H54D9Q2FJQ.eait.uq.edu.au ([130.102.10.17])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adebac408asm7912647a91.0.2026.10.26.03.04.30
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 26 Oct 2026 03:04:36 -0700 (PDT)
-From: Yu Zhang <yuz08559@gmail.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>
-Cc: linux-remoteproc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Yu Zhang <yuz08559@gmail.com>
-Subject: [PATCH] rpmsg: char: take ept_lock in the SET_INCOMING_FLOWCONTROL ioctl
-Date: Mon, 26 Oct 2026 20:03:06 +1000
-Message-ID: <20261026100306.68019-1-yuz08559@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key, unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=I3MxlfGq
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LRUxZWJ15bzN3OcY/pTDhNNwEktsGeievUERiLUHrIWX97lxVng2TaFyGo/2LHyb92+r/mP+J4sSzVGTmgwN313iwNTtGXGUNkjwmEONbysIOlkUAIe6jlXmLgc192fCxihGBU8m7wYdSsTuCNkFK2Lv/3CpUMHQCdjdMFiGEOp8GJ/jIxOrFuhkpQBgII+mfo43qFEXSzCWA0BVkwGs04OeO+WKdd2D5uGDuC9QVhvOj8fGF4wsaUWGa2pDx9fUk3rs5ycKgfeUrWDhmdFlc+08bgfMImw8h5qBsZxe6XnPgG4HGtEagpoOlUC6uOZl26+r62nEwL9OusCVqcAGKA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=NBFWcvZ/FwH7x2oZJnqtnRgbxqk78saubX2JmqUU2L8=;
+ b=M4cL9jfrM6WwSgc0crhK7i7a513UVJTM+Yvt8dGKYXuYWyyMMSADKmHb+tKZXS5hKR1Zr9uhX6/isdcpn/+B9aV82Ah05A8pP5yOas5pGXcLyZGO00YFHNNTrly5n58zZJDCfsO1HEFQ2fUR/B2ptwi2DOmwHar4omeXXZXFwQi3AMBsjgoKllNb2KU27U+zFGhne5rQHbd9yLMpHmjz6dh9ZZ+mObaJH83A9TTpt/uYkGiRZpJekHJ92U/PgVcLD3Mu7lSwsfeZQJyzCX8uxNLMxTD6yWYCy8hGKrJ7iOjuzlNVpNaMukzb6PAln7lf76379APJg5UJsbg0jXtc6w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=NBFWcvZ/FwH7x2oZJnqtnRgbxqk78saubX2JmqUU2L8=;
+ b=I3MxlfGqrJgZ9+50NrFLZULJYNVs9eJ2CaPWKgfiK/lM1N/0lGkscTJj775w7rY/CMjvwx4VCFhGbkctgonutKROM7CSSu6FSs3NL6ByQYL9ie5Ixkd0h2pP+DR01TSOq9KsMvPWlVSVCIQ+Uz/2Mxai6paU98keSQPE2GMEJF0ilRSsIcRS8qDMIoyQc5tw0EyBYLkobOdI65SOcpDJzgGjFxb6WO1IvyYSj5Ww69N5iC3D43dkofGZXuoi6stkIB0Ro4sejtreRCpYWvLKmsJ3C+zGtEm2j11XP84aBdKn9DHvOEpWbGT3O43Tgnk/0BWPc+Jh1w8SVUI3Eevtlg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from MI9PR04MB350878.eurprd04.prod.outlook.com (2603:10a6:290:c0::7)
+ by GVXPR04MB11500.eurprd04.prod.outlook.com (2603:10a6:150:288::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
+ 2026 10:04:13 +0000
+Received: from MI9PR04MB350878.eurprd04.prod.outlook.com
+ ([fe80::8537:1cdd:6c49:6151]) by MI9PR04MB350878.eurprd04.prod.outlook.com
+ ([fe80::8537:1cdd:6c49:6151%6]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
+ 10:04:09 +0000
+From: Liu Ying <victor.liu@nxp.com>
+Date: Mon, 26 Oct 2026 18:05:11 +0800
+Subject: [PATCH v7 06/15] drm/imx: dc-crtc: Disable at boot
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261026-imx8-dc-prefetch-v7-6-a0b50cc4fc65@nxp.com>
+References: <20261026-imx8-dc-prefetch-v7-0-a0b50cc4fc65@nxp.com>
+In-Reply-To: <20261026-imx8-dc-prefetch-v7-0-a0b50cc4fc65@nxp.com>
+To: Philipp Zabel <p.zabel@pengutronix.de>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Dmitry Baryshkov <lumag@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Marek Vasut <marek.vasut@mailbox.org>, 
+ Alexander Stein <alexander.stein@ew.tq-group.com>, 
+ Liu Ying <victor.liu@nxp.com>, Frank Li <Frank.Li@nxp.com>
+X-Mailer: b4 0.15.2
+X-ClientProxiedBy: SI3PR03CA0013.apcprd03.prod.outlook.com
+ (2603:1096:4:297::19) To MI9PR04MB350878.eurprd04.prod.outlook.com
+ (2603:10a6:290:c0::7)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,62 +106,266 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI9PR04MB350878:EE_|GVXPR04MB11500:EE_
+X-MS-Office365-Filtering-Correlation-Id: a4aed128-0319-43c7-4d3c-08df33487a81
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|19092799006|366016|23010399003|1800799024|921020|11063799006|56012099006|261021121427099003|261022105027099003|261022075727099003|261021123027099003|261009223027099003|261009221727099003|261009221227099003|261009220027099003|261009223327099003|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	yKCVKl248Pj3jK4FiU9bQXK0G2ccE7AJwfZkRNr1joZ8ZsWWBNghD+B9MZ2TtdNkxmaoN11hXiBIT2/DTzcUoWGNEiNFV5D6mhpZU4e/euke/zDJBFB87o9qCTciXfdiyP9SJUe9XQqNw0kRgxBL+hsQmnrXptg6IcjKoeD/3C5pnnH/45ogMZ0h9q1zLxVFwGkeqC+9xeE6MJwpZS83OaxEdYVkVERVuBEbOhkCWAp4p2mqWK4WXmRGfJCzwpV6gt7H2JBp6OR+BeJZvnL/eVP6XUVYUIihsqs2xzopw/3+iCtrWdkSu2DIKZVhRNjNjbOjyUy0hKzR3MmUh7mbWXWDl0WkWWJjpXHJHbjPg3i6DDNwEmsSCL99pDCPnW0Cidk6Z8hzIYIZ+GCNTjpyFQlHZOWesN0TahBxXro8bh478SHiV5BZobHSGp5pKkB/AW9pt+BZOu7J7nVSJ1ZrRnGs894pKDAeIXXQICHHDKSpa6d4cLgxdbDFKxBb7Rk6utCg2Xyk3FcvaczI5VNioMUPr11nae0SUh9xgzGRMqlakl+hdD/E1pWyguGH2UJxnWcOSMIwttPd/tguesIkZUW6Vw8WQmj227zFvTcsYwyZNeUBB06r5B20jRmrx7dgZ6yRvycjbwndOdAjzHEGFSYl89cK9zTX07AUf5O7RT6S5RZSCRo4HQVVJoJgpiHJeS7sujbNxjeBTrkmBp59jw==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI9PR04MB350878.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(19092799006)(366016)(23010399003)(1800799024)(921020)(11063799006)(56012099006)(261021121427099003)(261022105027099003)(261022075727099003)(261021123027099003)(261009223027099003)(261009221727099003)(261009221227099003)(261009220027099003)(261009223327099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?V3lyNzJsNFhzclVhSmY1c3FseUFlZUNZbmFBRHBpTkZJYlRkWmdQWEVWZk5w?=
+ =?utf-8?B?UGpHWXJ5N2Z2L2w5MlRRRHFqejdPbEhFZ3ROWWxwM0pOOGp0MXRCSGtkYlpt?=
+ =?utf-8?B?TVVCQkZnRnRTTGR5MExRNVZBSVNmY2I3STIwcDl3MnRmdm9vODlCNGU4SENU?=
+ =?utf-8?B?RnhuOG54dUg1MmcrWVZUU2FOTERDeEpteWp4elFYSjFnN0J1VTBxVGNURGpU?=
+ =?utf-8?B?RGROVGNQZm9RemNpcFdXcXA1cW9PeW5yT2RHNy9lajdFbWI4WUJuZlZUdXpt?=
+ =?utf-8?B?K2MrZzhPMTRTM1N1cWtBbWs2MnNnQXZ1QUZ2cHNtMDFzSkppOVNJZmpwMjF2?=
+ =?utf-8?B?VnRkeGc1NG50YUlrZGVucGN3V2ZscE9MS3J1dW9LWEVwZG5uVFJma3hRL2o5?=
+ =?utf-8?B?dS84dFhXUW9MTmlwc09udkp5NlNiL1ovaytsbWVNendLRFc0RTl2ZEJTelR4?=
+ =?utf-8?B?d2p1ZURKcnNFTktNZlFYZm1lbzVLUkdkcDU3YzBkcUpMek54dE9seFpBcHpJ?=
+ =?utf-8?B?VDY3LzZYbDhMWmxwWjVlY1JZaVpkR2t1RWFMQytOaGxYWE9qMlh2MFU5disy?=
+ =?utf-8?B?cWxBdU1yZDBZbnNqUHJRbUlzaGdPWE4rTmsvSjdtUVlrNEZrd09pdCtOcXNt?=
+ =?utf-8?B?elNRVWFBdTgvM0piT3NIcE1hZloyeXpvSXVKR0RLbE5Zd2NwZ0JPa3NTUWhR?=
+ =?utf-8?B?RTBUTmtOU2J5NTMzOWJ1S1JUNzQxZXppOXVPVmlYM21RUUpDRDZBVEo0YTZH?=
+ =?utf-8?B?eUR3SEFtRmNRK1NyTm84dGdKNTJpREFmeFdDdlhyYUZva3dWOGlHcWM4ejFa?=
+ =?utf-8?B?NHhrZEVPYzlDcmkvUkV0QmdBZCsyQy9xNjFQSFZyalJ0U1kzcFZ0ZGNpbEk4?=
+ =?utf-8?B?czNFcndUZjhLVm5GZ1FQUHgwWno2a0NFRmk4T1ZzSmd2MzVtNlNUcUN0NDdS?=
+ =?utf-8?B?UVUyWU5XbmNhRWszZUpuV3BLd1Z2WWUrbFF5SEp0OUtvVHBrTW1xS1J3NlVx?=
+ =?utf-8?B?ZWorcnNNdjdTbDhNTXp4TUxnRGQ3amN4eWxTbENLTXJIVGpPYXJsVTdDLzAv?=
+ =?utf-8?B?VVptMmpLVlpVQVpNUkcxS2ZYRDdHd2dOV1ZvT2lCamh5WjNCU3IwTjgwbDlM?=
+ =?utf-8?B?SGs5QkRxYVJha3NuaVpiaFFUQkdjOFdQOU40M2tFZm1WUVdkaHZzZXZpdDhl?=
+ =?utf-8?B?eGo0MTNNWXQ4QkdLbExIb1l2V0NmdWpIZ05aQlZWWWlmQ3FHcy8vMHVieUZq?=
+ =?utf-8?B?RjFIVG9RUzlCZWxHYVF1aDd0N0I1V1hDeWxndENIU0FFaENmcER3cDZIajFQ?=
+ =?utf-8?B?R0pEYmlOQ3FvZi9vVVhIZVFRbjhScDhabHlleFg3Z1puTDNzZ0o2a1hKZnAw?=
+ =?utf-8?B?S1JadXBxUzFlK2EycGhIRXZoSjR4Z3NHOEsyajJ2VTJTZ2I4MXM4b3lORC9j?=
+ =?utf-8?B?QlhCOGwrRXQvQ0x3WlFzK0pRRnR0eDY2L3IzOHZ1UlhJaTZoOW1VeGczMHNZ?=
+ =?utf-8?B?aUU0cXhLY3VaMk92bTd4cytFVVB5QldvY3NNZjQrbEtWbGlrYm5ZTUh3Ulha?=
+ =?utf-8?B?ZmRIUGZCeWZFNUVFLzZUMWlEdTJiVFFCcEplRDFjWjFiUUsrQVdjZFhyYU1G?=
+ =?utf-8?B?d0U4Vi94Tno2ekJaTGtsa2FXNlFXSk9sNXlUMkJWcWQybXBNVktra01tcU5X?=
+ =?utf-8?B?UjlRd1RBSkdNdGFvOWI2NlFiUWZvTmtxbW43MHJiVlR6NG12d2JGNGpMQXNk?=
+ =?utf-8?B?d0FicE5wWlY0MHNZRnRLMmh1dXpRSTY3RXREbThjRlJWM3pxZXBHYzB0Y2Ew?=
+ =?utf-8?B?ZDU4cXRVRjJOcFVsdDBQZUduOUZpOURWVlFnSnZiaHc3NmhEZjdoM3poTC9o?=
+ =?utf-8?B?ZDcvNm5TVkNSTDdOL0ZjVmUzbVZPYWM0MzIvaFZMUG9reGUrQjRjaFVqd2FP?=
+ =?utf-8?B?L254S0lhUldoaHh5VHJTbFQvazV6NHhyVzVzVk9YZzJHaTVVako4WEpkSStP?=
+ =?utf-8?B?K01uUEhuSTNJMUYvR1l3WVUxVDlLTDNCbFd4VHJORTduNjBxMjlUVFl4YitP?=
+ =?utf-8?B?b1VSUzBLektMZGIwZXlpUVZNRnVhazhzYUZlNWRBQlRFaGZtcWlkSlE3d0FM?=
+ =?utf-8?B?bWVmMXY4ZjY3ZTh1dW5lbDRyN1dFR2pGMlBxSFdVU2N6QXgrU0NDT0ZiRURF?=
+ =?utf-8?B?TndiOFFVOTBMQXg1VVVndnEzaGlZTk1nYXpHKzVaTG8vcGFscTFzb2Q2Mncv?=
+ =?utf-8?B?WWxtendZOGZ2R2xnbHZkbWQveWt1N2NRdlM0WUp5WDdhdm1rNzk2Vnc5TjJp?=
+ =?utf-8?B?YkZtTUV6eW9iZU5ZeWJrdnRrdFNWU3RXd0dHbzY4VXdpMnRrdnBUZz09?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a4aed128-0319-43c7-4d3c-08df33487a81
+X-MS-Exchange-CrossTenant-AuthSource: MI9PR04MB350878.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 10:04:09.7836
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3eBb8fm7rc8sFXHRzBlagKeXvz2tbGpFwfaZZKd8cDLZyNxlJAQ3Wjk+l8l66tmMSqHwkszKVkGnIBCz2IRpUA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB11500
 
-rpmsg_eptdev_ioctl() handles RPMSG_SET_INCOMING_FLOWCONTROL by calling
-rpmsg_set_flow_control(eptdev->ept, ...) without holding eptdev->ept_lock
-and without checking eptdev->ept for NULL. rpmsg_set_flow_control()
-dereferences ept->ops, so this is the only eptdev->ept user that does not
-honour the ept_lock discipline.
+CRTC(s) could still be running after the DRM device is unplugged by
+calling drm_dev_unplug(), because the CRTC disablement logic is
+protected and bypassed by the drm_dev_enter()/drm_dev_exit() pair.
+Hence, Pixel Engine's AXI clock use count(managed by Pixel Engine
+driver's runtime PM) and pixel clock use count could be inbalanced
+after removing and re-installing the driver module.  To fix this,
+add a helper dc_crtc_disable_at_boot() and call it to properly
+disable all CRTCs before advertising DRM device to user-space by
+calling drm_dev_register().
 
-eptdev->ept is torn down under ept_lock: rpmsg_chrdev_eptdev_destroy()
-(reached via RPMSG_DESTROY_EPT_IOCTL on a second fd, or when the rpmsg
-device is removed) and rpmsg_eptdev_release() both do
+Fixes: 711a3b878366 ("drm/imx: Add i.MX8qxp Display Controller KMS")
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Signed-off-by: Liu Ying <victor.liu@nxp.com>
+--
+v7:
+- Check CRTC status to ensure that clocks were enabled by a previous boot
+  before disabling them in dc_crtc_disable_at_boot().  (Sashiko AI bot)
+- Modify debug message in dc_crtc_disable_at_boot().
 
-	mutex_lock(&eptdev->ept_lock);
-	rpmsg_destroy_ept(eptdev->ept);
-	eptdev->ept = NULL;
-	mutex_unlock(&eptdev->ept_lock);
+v6:
+- Rebase onto the latest drm-misc-next and resolve conflicts.
 
-and rpmsg_destroy_ept() drops the endpoint's last reference and frees it.
-A SET_INCOMING_FLOWCONTROL ioctl running concurrently can therefore read
-eptdev->ept just as it is freed and dereference ept->ops -> use-after-free
-(or a NULL dereference once ept has been cleared).
-
-The other eptdev->ept users get this right: rpmsg_eptdev_write_iter() and
-rpmsg_eptdev_poll() take ept_lock and re-check eptdev->ept before use. Do
-the same in the ioctl. Lock only this case: RPMSG_DESTROY_EPT_IOCTL calls
-rpmsg_chrdev_eptdev_destroy(), which takes ept_lock itself, so the switch
-as a whole must not hold it.
-
-Fixes: 5550201c0fe2 ("rpmsg: char: Add RPMSG GET/SET FLOWCONTROL IOCTL support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yu Zhang <yuz08559@gmail.com>
+v3:
+- Collect Frank's R-b tag.
 ---
- drivers/rpmsg/rpmsg_char.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/imx/dc/dc-crtc.c | 67 ++++++++++++++++++++++++++++++++++------
+ drivers/gpu/drm/imx/dc/dc-drv.c  |  5 +++
+ drivers/gpu/drm/imx/dc/dc-drv.h  |  3 ++
+ 3 files changed, 65 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/rpmsg/rpmsg_char.c b/drivers/rpmsg/rpmsg_char.c
-index 550fda2..49c0784 100644
---- a/drivers/rpmsg/rpmsg_char.c
-+++ b/drivers/rpmsg/rpmsg_char.c
-@@ -343,7 +343,15 @@ static long rpmsg_eptdev_ioctl(struct file *fp, unsigned int cmd,
- 			break;
- 		}
- 		set = !!arg;
--		ret = rpmsg_set_flow_control(eptdev->ept, set, eptdev->chinfo.dst);
-+		ret = mutex_lock_interruptible(&eptdev->ept_lock);
-+		if (ret)
-+			break;
-+		if (eptdev->ept)
-+			ret = rpmsg_set_flow_control(eptdev->ept, set,
-+						     eptdev->chinfo.dst);
-+		else
-+			ret = -EPIPE;
-+		mutex_unlock(&eptdev->ept_lock);
- 		break;
- 	case RPMSG_DESTROY_EPT_IOCTL:
- 		/* Don't allow to destroy a default endpoint. */
+diff --git a/drivers/gpu/drm/imx/dc/dc-crtc.c b/drivers/gpu/drm/imx/dc/dc-crtc.c
+index 0d64186a9901..c7dbe5f500b4 100644
+--- a/drivers/gpu/drm/imx/dc/dc-crtc.c
++++ b/drivers/gpu/drm/imx/dc/dc-crtc.c
+@@ -227,6 +227,7 @@ dc_crtc_atomic_enable(struct drm_crtc *crtc, struct drm_atomic_commit *state)
+ 	struct drm_crtc_state *new_crtc_state =
+ 				drm_atomic_get_new_crtc_state(state, crtc);
+ 	struct drm_display_mode *adj = &new_crtc_state->adjusted_mode;
++	struct dc_drm_device *dc_drm = to_dc_drm_device(crtc->dev);
+ 	struct dc_crtc *dc_crtc = to_dc_crtc(crtc);
+ 	enum dc_link_id cf_link;
+ 	int idx, ret;
+@@ -287,29 +288,37 @@ dc_crtc_atomic_enable(struct drm_crtc *crtc, struct drm_atomic_commit *state)
+ 
+ 	DC_CRTC_CHECK_FRAMEGEN_FIFO(dc_crtc->fg);
+ 
++	dc_drv_set_crtc_enable(dc_drm, drm_crtc_index(crtc));
++
+ 	drm_dev_exit(idx);
+ 
+ out:
+ 	dc_crtc_queue_state_event(new_crtc_state);
+ }
+ 
+-static void
+-dc_crtc_atomic_disable(struct drm_crtc *crtc, struct drm_atomic_commit *state)
++static inline void __dc_crtc_disable_fg(struct drm_crtc *crtc)
+ {
+-	struct drm_crtc_state *new_crtc_state =
+-				drm_atomic_get_new_crtc_state(state, crtc);
+-	struct dc_drm_device *dc_drm = to_dc_drm_device(crtc->dev);
+ 	struct dc_crtc *dc_crtc = to_dc_crtc(crtc);
+-	int idx;
+-
+-	if (!drm_dev_enter(crtc->dev, &idx))
+-		goto out;
+ 
+ 	enable_irq(dc_crtc->irq_dec_seqcomplete);
+ 	dc_fg_disable(dc_crtc->fg);
+ 	DC_CRTC_WAIT_FOR_COMPLETION_TIMEOUT(dec_seqcomplete_done);
+ 	disable_irq(dc_crtc->irq_dec_seqcomplete);
++}
+ 
++static void
++dc_crtc_atomic_disable(struct drm_crtc *crtc, struct drm_atomic_commit *state)
++{
++	struct drm_crtc_state *new_crtc_state =
++				drm_atomic_get_new_crtc_state(state, crtc);
++	struct dc_drm_device *dc_drm = to_dc_drm_device(crtc->dev);
++	struct dc_crtc *dc_crtc = to_dc_crtc(crtc);
++	int idx;
++
++	if (!drm_dev_enter(crtc->dev, &idx))
++		goto out;
++
++	__dc_crtc_disable_fg(crtc);
+ 	dc_fg_disable_clock(dc_crtc->fg);
+ 
+ 	/* request pixel engine power-off as plane is off too */
+@@ -318,8 +327,9 @@ dc_crtc_atomic_disable(struct drm_crtc *crtc, struct drm_atomic_commit *state)
+ 	/* request display engine power-off when CRTC is disabled */
+ 	pm_runtime_put(dc_crtc->de->dev);
+ 
+-	drm_dev_exit(idx);
++	dc_drv_set_crtc_disable(dc_drm, drm_crtc_index(crtc));
+ 
++	drm_dev_exit(idx);
+ out:
+ 	drm_crtc_vblank_off(crtc);
+ 
+@@ -331,6 +341,43 @@ dc_crtc_atomic_disable(struct drm_crtc *crtc, struct drm_atomic_commit *state)
+ 	spin_unlock_irq(&crtc->dev->event_lock);
+ }
+ 
++void dc_crtc_disable_at_boot(struct drm_crtc *crtc)
++{
++	struct dc_drm_device *dc_drm = to_dc_drm_device(crtc->dev);
++	struct dc_crtc *dc_crtc = to_dc_crtc(crtc);
++	int ret;
++
++	ret = pm_runtime_resume_and_get(dc_crtc->de->dev);
++	if (ret < 0) {
++		dc_crtc_err(crtc, "failed to get DC display engine RPM: %d\n",
++			    ret);
++		return;
++	}
++
++	if (!dc_fg_wait_for_frame_index_moving(dc_crtc->fg)) {
++		dc_crtc_dbg(crtc, "FrameGen frame index isn't moving\n");
++		goto out;
++	}
++
++	dc_crtc_dbg(crtc, "disabling FrameGen at boot\n");
++	__dc_crtc_disable_fg(crtc);
++
++	if (!dc_drv_crtc_was_enabled(dc_drm, drm_crtc_index(crtc)))
++		goto out;
++
++	dc_crtc_dbg(crtc, "disabling clocks at boot\n");
++
++	dc_fg_disable_clock(dc_crtc->fg);
++
++	if (!dc_drm->pe_clk_axi_disabled) {
++		clk_disable_unprepare(dc_drm->pe->clk_axi);
++		dc_drm->pe_clk_axi_disabled = true;
++	}
++
++out:
++	pm_runtime_put(dc_crtc->de->dev);
++}
++
+ static bool dc_crtc_get_scanout_position(struct drm_crtc *crtc,
+ 					 bool in_vblank_irq,
+ 					 int *vpos, int *hpos,
+diff --git a/drivers/gpu/drm/imx/dc/dc-drv.c b/drivers/gpu/drm/imx/dc/dc-drv.c
+index ac1321adf1c8..09387d62cc0b 100644
+--- a/drivers/gpu/drm/imx/dc/dc-drv.c
++++ b/drivers/gpu/drm/imx/dc/dc-drv.c
+@@ -17,6 +17,7 @@
+ 
+ #include <drm/clients/drm_client_setup.h>
+ #include <drm/drm_atomic_helper.h>
++#include <drm/drm_crtc.h>
+ #include <drm/drm_drv.h>
+ #include <drm/drm_fbdev_dma.h>
+ #include <drm/drm_fourcc.h>
+@@ -108,6 +109,7 @@ static int dc_drm_bind(struct device *dev)
+ 	struct dc_priv *priv = dev_get_drvdata(dev);
+ 	struct dc_drm_device *dc_drm;
+ 	struct drm_device *drm;
++	struct drm_crtc *crtc;
+ 	int ret;
+ 
+ 	dc_drm = devm_drm_dev_alloc(dev, &dc_drm_driver, struct dc_drm_device,
+@@ -130,6 +132,9 @@ static int dc_drm_bind(struct device *dev)
+ 	if (ret)
+ 		return ret;
+ 
++	drm_for_each_crtc(crtc, drm)
++		dc_crtc_disable_at_boot(crtc);
++
+ 	ret = drm_dev_register(drm, 0);
+ 	if (ret) {
+ 		dev_err(dev, "failed to register drm device: %d\n", ret);
+diff --git a/drivers/gpu/drm/imx/dc/dc-drv.h b/drivers/gpu/drm/imx/dc/dc-drv.h
+index dd1302382ab0..1ec9304329eb 100644
+--- a/drivers/gpu/drm/imx/dc/dc-drv.h
++++ b/drivers/gpu/drm/imx/dc/dc-drv.h
+@@ -50,6 +50,8 @@ struct dc_drm_device {
+ 	struct dc_pe *pe;
+ 	/** @tc: tcon list */
+ 	struct dc_tc *tc[DC_DISPLAYS];
++	/** @pe_clk_axi_disabled: disablement flag at boot */
++	bool pe_clk_axi_disabled;
+ };
+ 
+ struct dc_subdev_info {
+@@ -96,6 +98,7 @@ static inline int dc_subdev_get_id(const struct dc_subdev_info *info,
+ 	return -EINVAL;
+ }
+ 
++void dc_crtc_disable_at_boot(struct drm_crtc *crtc);
+ void dc_de_post_bind(struct dc_drm_device *dc_drm);
+ void dc_pe_post_bind(struct dc_drm_device *dc_drm);
+ 
+
 -- 
 2.43.0
 
