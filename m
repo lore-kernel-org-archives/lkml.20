@@ -1,82 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793018616;
-	b=ksHblVb/UYIbzoQCobiMM520EapQc0FU/h5a3idiDQzd400VGyBgChJq9N9W+1UjI0uI
-	 Tof5lml+YASM6ah6gOF/zcs0Hegil8qSn6krW6B9qOu7oz4uT3sncy0eWfm8so//R3u45
-	 s3l1EobK5TBaHzluC6ZdcUL1mKdHmzjsDetbRLvPEK/jZzXSMBbHIZxEg9TY3+RQT4Btc
-	 /XmmfhXztAPoOoplDFfDeut3dYqA6bYaZ/sBbmd/k8DXAn1mXN8EZx7lIwj3mXaOgTrEu
-	 8+taQSTdEdo7DUTPvrZ2da9RXR4wmD9a8JsFk/VNCbrqdHidZdjAkJhVRHI9FUjjpAQ==
+	t=1793018633;
+	b=eXeiTpJ0hL1X/ZHcH2Qvsr8iTDPjbB++F6XxbQ7ZXnYLMG30FIWVdamHNlRoEUuMsL1c
+	 hXteeBhZTWoMEKEezoaSljKfsYiykXzA82mC7jMLMypl8jGmJRroN0WyHL31akV/Uifmu
+	 LyrMDvMY9oHCAosgjVyMiKsErBtkJKw7EprKD8ReCJMH1acQ+RQgLQyWIp5PltJ9daPYp
+	 sYPzmbTfr7nNgA0ATDRsnEsLhoOzl7W4SDPsgazkafGNHaDYfzyIBFHmbgv0cJK4/6bZV
+	 clvm4hENnr1mRT524b+dbGp4CWcUbtEgvOrsDDCo5lGTLdWN3Mk063n5YWm5Cb34cyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793018616;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=8Jq41rEZlW8dpYSa9haaT2V6LwzTgLLlt9p+Cr4IhUw=;
-	b=uPXiewQWiywy5huY3VHAQBGcE+hqCK+dzu66wwGe+tv4lM6xmY4wsVaSCuLMlAimoY3q
-	 cwQ9wXNKd3EzRkohjW1bxOQ5+qbhbYs3icEsovY7KMtQV7hOlSvNnDH/ks88geyrfYfMW
-	 v73MCuXQdexm8ASHVcjYMgj0VEpRAihacJFCIFewBbnZM3QzwF9tazmwS83CUtx1iYSRj
-	 vryBdINamy6McdXshojLnZ9oicCIHoiUcJ3FVoaJIF6JCqDTF4ekpTvLu42j4I4yS+aNS
-	 Bdq1V964lB8vv3+9hkx/ZM1Ml2xfVEDjo5IIpdwKvfSW2nWfyPbryvw7DCqR8P0FJgA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793018633;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:MIME-Version:Content-Transfer-Encoding:X-Scanned-By;
+	bh=mzy07ucNeXfFwJeLxVmpRnJ2m6GWAM0gZOL1HyveZDw=;
+	b=G4tJ0iimTVou30Lil+tUEyHwrx5Nr+yIAAo+gYIWmMSVjDsJw04x1Lfn8NBlBuW0Q6pK
+	 n5ioEVZcD0kolPI6JMocfMSq7vwkgounX959SK4HSsSB9aHWN93Ppqp7jWyJ75KuvXNXT
+	 F7Ll54NCYY6VMECt0q1liodE7jVsXcCDWZ1UWDAZHYf45Bv/uLjyLFM5aMb5I/sWaqiw2
+	 hSqDtUhYSK9MxE+F7BLno8gTlgbzK7io5L47NYR6ulqOx83b6KNJb/8iUL2mmmcw/bdBk
+	 4/Xsr2napfiKAeOhm55FOXc+k8p6NLdfUoIV4y5a4g44X19PuLUAsJnytiDqadTAQ3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=dolcini.it;
-	spf=pass smtp.mailfrom=dolcini.it;
-	dkim=pass header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=c0j25kco;
-	arc=none smtp.remote-ip=217.194.8.81
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=PL5prTVz;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CF4E606A31B;
-	Mon, 26 Oct 2026 12:43:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6CF4E606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57A73606A31D
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:43:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57A73606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=c0j25kco
-Received: from francesco-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch [83.173.201.248])
-	by mail11.truemail.it (Postfix) with ESMTPA id C19941F973;
-	Mon, 26 Oct 2026 13:43:31 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1793018612;
-	bh=8Jq41rEZlW8dpYSa9haaT2V6LwzTgLLlt9p+Cr4IhUw=; h=From:To:Subject;
-	b=c0j25kcozqWxHZK8k4lBZiOqMKsEnvOVVj0qHrqrR5JU1hPOJdPXOnBp59eFFHruV
-	 7xPUxXwmDCu4kK4gP0UOBk0fNhZop+bAQKW6xBjFmAsIWAXfguyWbP/hYY9cKcb/oA
-	 jo6AqaoPi3wOtfZh2E9jY4j6/jBdwqEEAjBHhW07kuoP5L2zA2Jr2bCN6pbpmvv/8V
-	 vzt0BgOaUCSuqefPmlAOG/DIhcDrqoM27vAJecaG4SjGUW8EhswlMYUVhfHY+48mys
-	 yylU3vezcoKyrdCeUbqQ6Z6NeLulsM+7faYDOB4wt0RZffywk8+1CYXGilqIJQV2GB
-	 T4scWNfIGgZGA==
-Date: Mon, 26 Oct 2026 13:43:28 +0100
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Leonardo Costa <leoreis.costa@gmail.com>
-Cc: Frank Li <Frank.li@oss.nxp.com>,
-	Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	Leonardo Costa <leonardo.costa@toradex.com>
-Subject: Re: [PATCH v2 3/3] ARM: dts: imx6q-apalis: Add VGA overlay
-Message-ID: <20261026124328.GA82443@francesco-nb>
-References: <20261019-v2-apalis-imx6-enable-vga-v2-0-ef6a3a780472@toradex.com>
- <20261019-v2-apalis-imx6-enable-vga-v2-3-ef6a3a780472@toradex.com>
- <atZxhWaUWthEHkti@SMW015318>
- <lozimedmt3h7v6odvp4svvmatvk7726a4ztn3j7ft44oto7p5p@dmrudrmzyz3s>
- <ateQWqoTtXSBSBvm@SMW015318>
- <wancrsxcem5uep5oy5pnw5prewefqah7drmhiu5wrq3ctykltl@akwvtqbebblb>
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=PL5prTVz
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793018632;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=mzy07ucNeXfFwJeLxVmpRnJ2m6GWAM0gZOL1HyveZDw=;
+	b=PL5prTVzetWR+FizRY5xz0Y91vXPYCQHxG8ylaaKQzpeaFb0B/jcpSzRZFcQplWOZB/sSM
+	4ZiebCtrqwexmdIVDQctqEUNlBWp+pCbnAqXzC7DWVXR0PT5JAj93OIZsULfghkteSTe/9
+	H3ux9HDka2xXxQcwESVZo0gXG9o1CGw=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-169-ppTONbovOsGiHyiq-zSmQQ-1; Mon,
+ 26 Oct 2026 08:43:50 -0400
+X-MC-Unique: ppTONbovOsGiHyiq-zSmQQ-1
+X-Mimecast-MFC-AGG-ID: ppTONbovOsGiHyiq-zSmQQ_1793018629
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 9F5AB1802573;
+	Mon, 26 Oct 2026 12:43:49 +0000 (UTC)
+Received: from loberman-thinkpadp16gen3.redhat.corp (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 8062A1956088;
+	Mon, 26 Oct 2026 12:43:48 +0000 (UTC)
+From: Laurence Oberman <loberman@redhat.com>
+To: mkp@kernel.org
+Cc: linux-scsi@vger.kernel.org,
+	target-devel@vger.kernel.org,
+	mlombard@redhat.com,
+	michael.christie@oracle.com,
+	bvanassche@acm.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 0/4] scsi: target: iscsi: fix stalled and doubly completed aborted WRITEs
+Date: Mon, 26 Oct 2026 08:43:40 -0400
+Message-ID: <20261026124344.745124-1-loberman@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,67 +78,148 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <wancrsxcem5uep5oy5pnw5prewefqah7drmhiu5wrq3ctykltl@akwvtqbebblb>
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-On Mon, Oct 26, 2026 at 09:25:20AM -0300, Leonardo Costa wrote:
-> Hi Frank,
-> 
-> On Tue, Oct 20, 2026 at 11:01:30AM -0500, Frank Li wrote:
-> > On Tue, Oct 20, 2026 at 07:33:10AM -0300, Leonardo Costa wrote:
-> > > On Mon, Oct 19, 2026 at 02:37:41PM -0500, Frank Li wrote:
-> > > > On Mon, Oct 19, 2026 at 07:17:16AM -0300, Leonardo Costa wrote:
-> > > > > From: Leonardo Costa <leonardo.costa@toradex.com>
-> > > > >
-> > > > > Add a device tree overlay for the VGA output available on the Apalis
-> > > > > Evaluation Board, which is driven from a parallel RGB interface passing
-> > > > > through a non-programmable video DAC to a VGA connector, without VESA
-> > > > > DDC I2C signals.
-> > > > >
-> > > > > The non-programmable video DAC consists of a simple resistor ladder that
-> > > > > converts the digital 16-bit RGB signal to VGA. The VGA output is gated by
-> > > > > an active-low data-enable signal.
-> > > > >
-> > > > > The overlay is also combined with the various Apalis Evaluation Board
-> > > > > device trees to provide ready-to-use DTBs.
-> > > > >
-> > > > > Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
-> > > > > ---
-> > > > >  arch/arm/boot/dts/nxp/imx/Makefile                 | 21 ++++++
-> > > > >  .../boot/dts/nxp/imx/imx6q-apalis-eval-vga.dtso    | 80 ++++++++++++++++++++++
-> > > >
-> > > > what's difference with
-> > > >
-> > > > https://lore.kernel.org/imx/20261019-colibri-imx6-overlays-v1-5-e4d028727382@toradex.com/T/#u
-> > > >
-> > > > Is it possible share one dtso also?
-> > > >
-> > > > Frank
-> > >
-> > > Hi Frank,
-> > >
-> > > The Apalis iMX6 one needs to set up the connection between the IPU the
-> > > LCD interface (endpoints ipu2_di0_disp0 and vga_display_in), and the
-> > > Colibri iMX6 one uses a DVI connector instead of a VGA one. Most of all,
-> > > the bridge on the Colibri iMX6 doesn't have any control signals, while
-> > > this one on the Apalis iMX6 has an active-low data-enable signal
-> > 
-> > This make sense to use difference dtso to cover it. Is it use name
-> > imx6q-ipu-di0-vga.dtso, because this dtso have not boards specific part,
-> > which can reuse for other similar hardware? Or we can rename it when reuse
-> > happen.
-> 
-> I think the overlay should be kept as imx6q-apalis-eval-vga.dtso. As it
-> currently is, it's easy to identify the hardware it may be used with. If
-> another board is added which uses the same interface in this same way,
-> we can evaluate if it's adequate to change names for reusability.
+These four patches apply on top of commit d5869dae5080 ("scsi: target: iscsi: Fix hang for aborted WRITE_PENDING commands").
 
-2 more cents. There is no such other board in the toradex portfolio and
-it's very unlikely we are going to build any new board with an old VGA
-interface.
+A WRITE command that is still in TRANSPORT_WRITE_PENDING has never been
+passed to the backend, so when a TMR aborts it the iSCSI fabric is the one
+that has to complete it. That commit fixed the case where the final
+DataOut PDU for an already-issued R2T arrives after the abort. Three more
+paths can leave such a command with nothing to complete it, or let it be
+completed twice:
 
-Francesco
+ - Patch 1 is the hang this work started from. A WRITE that arrives with
+   immediate data, aborted after that data has been received but before
+   the first R2T is built, is never completed by anything: no R2T has been
+   sent so the initiator cannot send more data, and no DataOut timer is
+   armed so the ERL=0 timeout cannot fire either. core_tmr_lun_reset()
+   then blocks for as long as the connection stays up.
 
+ - Patch 2 closes the equivalent window where a new R2T would have been
+   sent for an already-aborted command.
 
+ - Patches 3 and 4 fix two existing sites that complete an aborted
+   WRITE_PENDING command without recording that they have done so, and
+   which connection teardown can therefore complete a second time.
+
+Patch 1 also adds a one-shot completion claim. target_complete_cmd() on a
+command that already has CMD_T_ABORTED set goes into
+target_cmd_interrupted(), which queues target_abort_work and returns
+without setting CMD_T_COMPLETE and without changing t_state, so target
+core records nothing that would stop a second completion. The command
+stays in TRANSPORT_WRITE_PENDING and on conn_cmd_list until
+target_abort_work reaches iscsit_aborted_task(), and
+iscsit_release_commands_from_conn() completes anything it finds in
+TRANSPORT_WRITE_PENDING. The claim is what makes exactly one site
+complete the command.
+
+Changes since v2:
+ - New patch 3 routes the completion added by that commit through the
+   claim, with Fixes: and Cc: stable. Raised in the review of v2, and by
+   the Sashiko bot against both v1 and v2.
+ - New patch 4 does the same for the DATAOUT_SEND_TO_TRANSPORT path into
+   target_execute_cmd(), which has the same shape and is older.
+ - Patch 1: reworded the completion_claimed comment. It said the flag is
+   set once target_complete_cmd() has been called; it is set before the
+   call, by whichever site takes the claim.
+ - Patch 2: moved the "never observed in the field" paragraph below the
+   --- line. Code unchanged.
+ - Patches 1 and 2 are otherwise identical to v2.
+
+v2: https://lore.kernel.org/linux-scsi/20261016175351.126373-1-loberman@redhat.com/
+v1: https://lore.kernel.org/linux-scsi/20261014143932.39453-1-loberman@redhat.com/
+
+Two corrections to things I said during the v2 review:
+
+I wrote that if the outstanding_r2ts read in patch 2 is stale low, "the
+later completion in __iscsit_check_dataout_hdr() becomes a no-op". That
+was wrong. In v2 that site calls target_complete_cmd() directly and never
+looks at the claim, so the claim cannot make it a no-op. What actually
+prevents a second completion there is that outstanding_r2ts is a u32, so
+--cmd->outstanding_r2ts on a counter already at zero wraps to 0xffffffff
+and fails the < 1 test. That is an accident of the existing code rather
+than a guarantee, and it leaves the counter corrupted. Patch 3 removes
+the need to rely on it. I have not tried to fix the underflow itself
+here; say the word if you would like a patch for it.
+
+I also said the pre-existing sites were best left to a follow-up. For the
+record on the other half of that exchange, that commit is not confined
+to 7.3/scsi-staging: it is in mainline, it carries CVE-2026-97951, and it
+has been backported to 5.10.y, 5.15.y, 6.1.y, 6.6.y, 6.12.y, 6.18.y and
+7.2.y. That is the reason patch 3 has Cc: stable -- and also a reason it
+may be better taken as a standalone fix for those branches than as part
+of this series, since none of them carry patch 1's helper. I will send
+whichever form you prefer.
+
+On fixing this in target core instead:
+
+The root cause is that target_cmd_interrupted() queues target_abort_work
+and records nothing under t_state_lock, so a test-and-set there would
+cover every fabric rather than iSCSI alone, and would make the
+completion_claimed field in this series unnecessary. I think that is the
+better end state and I am willing to do it. I did not do it here for two
+reasons. It changes the path that every fabric completes through, and I
+have no way to test iSER, FC or SRP. And the field evidence behind this
+series is evidence for an iSCSI-local change, not for a core one. I would
+rather land the narrow fix for a hang that is being hit in production and
+then propose the core cleanup on its own merits, in front of the people
+who own that code.
+
+How this was found and tested:
+
+The hang was reported against an Oracle RAC cluster on two-session iSCSI
+LIO targets, where one node's LUN_RESET aborts WRITEs belonging to the
+other node's session. It was not reproducible in a lab, so the diagnosis
+came from instrumented kernels in the reporter's environment, logging
+every site that completes or waits on an aborted command.
+
+Across two hosts every stall had the identical signature given in patch 1,
+and the stall only ever ended when the initiator gave up and dropped the
+connection. 217 of 222 LUN_RESET drains completed in under a second; the
+rest took 46 to 54 seconds, which is where the hung-task panics came from.
+One 53.7 second stall recovered on its own and the host ran for a further
+19 hours.
+
+An earlier attempt at this fix completed the command from
+core_tmr_drain_state_list() instead. That is not safe: at that point the
+initiator may still be sending DataOut for the command, and the result was
+a double completion -- re-queued se_cmd->work, list_del corruption and a
+refcount underflow. Mentioning it in case the same idea comes up in
+review.
+
+What is and is not tested:
+
+Patches 1 and 2, backported to a 5.14-based distro kernel, have run 300
+LUN_RESET cycles with no hang, in two independent runs: one instrumented
+and one with the tracing removed. The same reproducer previously failed at
+95 and 196 cycles.
+
+Only patch 1's window was ever observed. The instrumented kernels recorded
+no completions at patch 2's site in either run, and patches 3 and 4 are
+closed by inspection. The reporter's environment is a production cluster
+and is the only place this has ever reproduced, so I cannot offer an
+upstream -rc run or a MaxOutstandingR2T > 1 run from there. If that is a
+blocker for patches 2 to 4, I would rather you took patch 1 on its own
+than held the series.
+
+Laurence Oberman (4):
+  scsi: target: iscsi: Complete an aborted WRITE stuck before the first
+    R2T
+  scsi: target: iscsi: Complete an aborted WRITE when a new R2T would be
+    sent
+  scsi: target: iscsi: Claim the completion in
+    __iscsit_check_dataout_hdr()
+  scsi: target: iscsi: Claim the completion on the DataOut submit path
+
+ drivers/target/iscsi/iscsi_target.c      | 44 +++++++++++++++++++----
+ drivers/target/iscsi/iscsi_target_erl1.c | 10 +++++-
+ drivers/target/iscsi/iscsi_target_util.c | 46 ++++++++++++++++++++++++
+ drivers/target/iscsi/iscsi_target_util.h |  2 ++
+ include/target/iscsi/iscsi_target_core.h |  6 ++++
+ 5 files changed, 101 insertions(+), 7 deletions(-)
+
+-- 
+2.43.0
 
