@@ -1,63 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793004565;
-	b=Vjl7U49vQKeZZ5cHbRwKXG59jUKU+ESTmUkzwD4d/B6HgLpjOYHzzTXu0mPs8Sj3aVD6
-	 aKLevIuVkhsitwFKddPMtjGszjxBpPo3ZJb59PsvtWBbbyhI6LH57D018S4e/+A6Y0Gsa
-	 26L5txr1SdpY8SeBPlN/BznbKUCX+Q9x+hQWhyazlIdbiy4B2IO/Y+1+8cwBlAhm9BAim
-	 YkYhVSo6lDk/l6R0olWlHZbiVRiZvrKE6TRMWGuwFWTUgUF0ZpLf+Em6Be1bCL6ayvHX9
-	 2QfBmr9Rj7pzAveOW8vWWDsjCCQef7AhSqLUEpXMs505ePtFWCkhI3Q4C/ag+BIlSVQ==
+	t=1793004594;
+	b=26wnemoJ1HcVQtTjReY7hFZUJ5LXuGNwL57fHZofGyTkRsl6dVYevYSiej/n59oKKXat
+	 QUyQv6HIiEiAkRbiXo7eQMltXukBrAHyXHHFBxMaK7V1DzIEcQ0IXNRI/mLlFmscdluLI
+	 KMMIElgbhXgd/fJB09D8RKkDnZiXp9SVy4IrTk4GmnuB35g5X/6iiHx5i3idykOJAHiJZ
+	 DJogYfUSDKbXTf+twcoRPOIbwFM0bLh2PMBRi3r3/tE1C/Wd8lgR9bqe+Wy7W4p1f4J8E
+	 5Q4bUEGX5g1FNBo4+U0o/oNGmaur12CjCelUjM6kSJ1KrQiAKdoEsyQagxvIMQwfGgA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793004565;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 Mail-Followup-To:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=LizEjFCJdKeMefdED2BcpHWLU6j6r3nsMZtDur3gTtc=;
-	b=e24JUufrdg8cqW5CJ0Zm+whtqn7keozYAgwuA8hJo+ZQU9QEzzb0MylIFe1XLvn5rzEZ
-	 +MWdCbQlDsjoEC10uILsQnrWyk00d+n54n3nAVurxXibRRD15d65yELfuvlnLtzxFq+Ea
-	 zllANMC1hCxcyddA+6T69OLyscyir6ndSnKyLKH0hIgYJKozAIyMCJSHjvDbe3usg5ia+
-	 Fzn31btwsR02/bkynRnWWU3zEhSFV7EOiO3MiGQQpvR3xToOea6lRP4G7eL9kBoJgkmVJ
-	 xhYr6rL7zYnmwy29drR/lUbkc8yRIRXeTqbtppeKpEgkjggsiucrHcSXfdp65xttqWQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793004594;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=rszKDmeyYp+Dq9ttmtnC0+XaYnbTJ3v9qyyrMyWHQC8=;
+	b=ptbkWmTIKm8MMjNLpn+0f6KNqcXLEuBsJEJa0rhZGC9Q2qvWACZ5bp4GOzUHc0rzqtxe
+	 Sg+4jwOHY7+RrH9zj8j2/FBZSenuSLIFstqfrlQ8QKul6xV62Zk70x9t5jgmgVH5TzkQX
+	 rxS6mNF/32vL0tM3Ny5UkgZFO8qdm0dGSSxOCgXfaYsK2bYEnE5CcWg1K0QVEVNUX3wfL
+	 SouD3aOEGIyN/JloIXKJ1mA4afXRez2/sAgbzsvMkstThlM2/G/XyCvMx/oFax2bqfJJp
+	 ltQELNY7McBXRbkSGSmyBy2pWVqt+C4yAYhTx04MncGQBed8f9QGyDc0X5C4Dl7hWgw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GMtoT7WA;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=WN3jBsmL;
+	arc=none smtp.remote-ip=209.85.128.43
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8276606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 08:49:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AC9B606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 08:49:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1AC9B606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GMtoT7WA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 775751F01825;
-	Mon, 26 Oct 2026 08:49:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793004564;
-	bh=LizEjFCJdKeMefdED2BcpHWLU6j6r3nsMZtDur3gTtc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GMtoT7WA0VI2aRx3RSWdTPDMssTiugbINS+ZVvEm7JzvPEc6/KiaoxF09CbnzOdBt
-	 IUlee+A4yr6WVB7T/mEhKTY2kHvT4PG6tsPFJD2LhKretqSZxh5dQrb8naD4FijljT
-	 FiPapaTw9AA3EiUQWIUSLoFeqvJTnVBh0BPoQKWr2OZcmqtlmGCAeWZX8DquyBEvPq
-	 U5tVf5KDpCGkshQjdSZNkCbDuDuacp8wR1O/3dcQ5avu0eJar0PVcUwwl+6ldeDy4x
-	 Yt3pduRlUKoTF4aeCARBh4+ByM7jtUGFFPq9jFjeIJ6E7Jf7pqJ3VBV/7xEkltJZg7
-	 +hU5sqY7jHD9Q==
-Date: Mon, 26 Oct 2026 09:49:15 +0100
-From: Gao Xiang <xiang@kernel.org>
-To: Zhan Xusheng <zhanxusheng1024@gmail.com>
-Cc: Gao Xiang <xiang@kernel.org>, Chao Yu <chao@kernel.org>,
-	Giuseppe Scrivano <giuseppe@scrivano.org>,
-	Yue Hu <zbestahu@gmail.com>, Jeffle Xu <jefflexu@linux.alibaba.com>,
-	Sandeep Dhavale <dhavale@google.com>, linux-erofs@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org, Zhan Xusheng <zhanxusheng@xiaomi.com>
-Subject: Re: [PATCH] erofs: don't reuse a superblock for a mount that passes
- device=
-Message-ID: <at8UCyjlHgxxBAaf@MacBookPro>
-Mail-Followup-To: Zhan Xusheng <zhanxusheng1024@gmail.com>,
-	Gao Xiang <xiang@kernel.org>, Chao Yu <chao@kernel.org>,
-	Giuseppe Scrivano <giuseppe@scrivano.org>,
-	Yue Hu <zbestahu@gmail.com>, Jeffle Xu <jefflexu@linux.alibaba.com>,
-	Sandeep Dhavale <dhavale@google.com>, linux-erofs@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org, Zhan Xusheng <zhanxusheng@xiaomi.com>
-References: <20261021083826.1870937-1-zhanxusheng1024@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=WN3jBsmL
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a35db1f202so10968925e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 01:49:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793004592; x=1793609392; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rszKDmeyYp+Dq9ttmtnC0+XaYnbTJ3v9qyyrMyWHQC8=;
+        b=WN3jBsmL7FlQYVtU6AifMJhW6p22tkBHgzicNq/NXnuCQWWrgjl9qcZFAOqgxlWSXN
+         1KJKdrNaLpjQWFD/RIBwiD9LOwCUpiZ1RpuIdYhD11if1nRGtUpqXK7dYQbWshfK6plY
+         HBZ+M2aaFpx5s30SrsGv27oWpH66rvwE1GfQDDsvSXCSuZIjQ17y8HjMJlfD5i9xczKQ
+         QSj4Of5FFmP78Ffu2dSRmU+9JRLHsKZ7PHkTmoE68RA2Y3urV341oqu/1j2fB/7Vr8wL
+         ETjfyRKyj6mZCGgJEF2JVIn7FAljyVHjRcKFbe5Ps31z5oGODA6stcmlZXDyFEJFhV9L
+         WDeQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793004592; x=1793609392;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rszKDmeyYp+Dq9ttmtnC0+XaYnbTJ3v9qyyrMyWHQC8=;
+        b=k4cFmk5ll8wW06CuCY6MHFUwj4QeU9RovfZ4mnHj8UHwE2tRi5NPKAyHLg9TDhX3Mt
+         bw18sCb2s1qTwWvRI7CF5Zpb3ZgCOGFmqel2hvq6BtTkFbTdUYoJktGjzacFcm9wqvOT
+         eBlckADOnycbh3Go1T3ircZYp9lqbtqPfNGdJMf4racO/2NjmZ7a/Qn9n/guALvXhfVm
+         qzMxn19q3SDSIeZtQXmomgWvmTTPSw7MEtyD1tC2inZgEwoKnKJFzQfHzBtr0unt5aeE
+         znBu7Z0CNhssbRWY1Gvu0b+Yy69fFN2gBkr5nesZjWASG1fNn21imE7MZqCM4XwQtf/b
+         ev3g==
+X-Forwarded-Encrypted: i=1; AKwUvBxWkH67e9um8XaBOSA9pZdAQ2spkmZqweTf5xOA1s8I9vMExdSo0hbqSuvDLf7dzqL0/fSdRXAMtG27KxY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJt6GWUEpoD2Z8t4ekh/0YyhEPfeXUF45ibuRuXx75NsVBLs8rf
+	THWpQHE4e17inm7HPoBPlFZGMUsOZy7V0bMQt+Kg4K2dowNnexdHfjxQ
+X-Gm-Gg: AYBFou36tULaBWot0rlhgRkOWrwpAvZc8z8qkZUQAa0SS0j74lJkTvxBxLbGORPtI20
+	BUKxR91RaPlR2gw3L2aby66MzuL031sb+rwn89OPFnTA6Ceviv/EgMUgZuD6DzZmHqiVM14ZDjm
+	5yp6wmwxI7WY2Hqg5Oh9LfVFVTYkDNGtL2cIth+o0atHTk0amc1VFm169+g+h9qk+EObh26qqkL
+	mw1Wotcdhrj2z/ZS41FgtheZ2d4/G+iwjB2W9twtb1+xDLWP/rOwGYd2WHDRX8uBduPWkhbbXNg
+	S6MKYEf6+32bgJU83NP9p9r9i32a5MCTMCSqnSU7GWSD2pMQ0tVFFnM267sne+KYIKs4HdhNtXk
+	5NAORhfSscgIb/+zARBopn6hhSYMR01kflQf5RF5ixbjpi8MZrzrslUYwWrMuqNvAwSlJ+qrzzT
+	p1lHFcqOntvThWzimXMJq8StnIe/OqAX6k+Q7Ylj+06sUij0fpVTKXyqRpKADP0oZbhKVW69QgT
+	qSCiSBUjWq9VflR6uAkutm5yRohwMXF4EDMFvHzT1dz/sJ0jixO8UjVer36ftV3n804
+X-Received: by 2002:a05:600c:1c06:b0:4a1:e7ce:107b with SMTP id 5b1f17b1804b1-4a35ac407fdmr149623005e9.2.1793004592159;
+        Mon, 26 Oct 2026 01:49:52 -0700 (PDT)
+Received: from fra-x8664.wind3.hub ([151.16.244.30])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a30e22csm179923445e9.2.2026.10.26.01.49.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 01:49:51 -0700 (PDT)
+From: Francesco Magazzu <postadelmaga@gmail.com>
+To: Lyude Paul <lyude@redhat.com>
+Cc: Danilo Krummrich <dakr@kernel.org>,
+	dri-devel@lists.freedesktop.org,
+	nouveau@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Karol Herbst <kherbst@redhat.com>
+Subject: Re: [PATCH 1/2] drm/nouveau/clk: don't ignore RAM clock programming errors in nvkm_pstate_prog
+Date: Mon, 26 Oct 2026 09:49:49 +0100
+Message-ID: <20261026084949.256678-1-postadelmaga@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20260727152821.128432-1-postadelmaga@gmail.com>
+References: <20260727152821.128432-1-postadelmaga@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,83 +99,19 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261021083826.1870937-1-zhanxusheng1024@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Xusheng,
+Hi Lyude,
 
-On Wed, Oct 21, 2026 at 04:38:26PM +0800, Zhan Xusheng wrote:
-> From: Zhan Xusheng <zhanxusheng@xiaomi.com>
-> 
-> superblock_share together with device= is rejected in
-> erofs_fc_fill_super():
-> 
-> 	if (test_opt(&sbi->opt, SUPERBLOCK_SHARE) &&
-> 	    sbi->devs->extra_devices)
-> 		return -EINVAL;
-> 
-> but extra_devices is kept in sbi->devs, not in sbi->opt, and
-> erofs_sb_share_test_super() compares only the backing inode, the
-> fsoffset and sbi->opt.  So once the image is mounted with
-> superblock_share, a second mount with superblock_share,device= matches
-> that superblock and get_tree_super() reuses it without calling
-> fill_super() at all.
-> 
-> The same command line therefore either fails with -EINVAL or succeeds
-> with device= quietly dropped, depending on whether a compatible mount
-> already exists.
-> 
-> Refuse to match a context that brought device= options, so that it gets
-> a superblock of its own and fill_super() decides as it does today.
-> 
-> Only the incoming context can be tested: a shared superblock may have
-> extra_devices set itself, because erofs_scan_devices() fills the device
-> table from the image when no device= was given.
-> 
-> Fixes: cd4108319bb3 ("erofs: reuse superblock for file-backed mounts")
-> Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
-> ---
->  fs/erofs/super.c | 7 +++++++
->  1 file changed, 7 insertions(+)
-> 
-> diff --git a/fs/erofs/super.c b/fs/erofs/super.c
-> index 16fa3b853f1b6..bc9ab5a6234a0 100644
-> --- a/fs/erofs/super.c
-> +++ b/fs/erofs/super.c
-> @@ -825,6 +825,13 @@ static int erofs_sb_share_test_super(struct super_block *sb,
->  		return 0;
->  	if (!sbi->dif0.file || !new_sbi->dif0.file)
->  		return 0;
-> +	/*
-> +	 * extra_devices is not part of sbi->opt, so the memcmp below cannot
-> +	 * see device= options.  @sb may have extra_devices set from the
-> +	 * on-disk device table, so only the incoming context is tested.
-> +	 */
-> +	if (new_sbi->devs->extra_devices)
-> +		return 0;
+Gentle ping on these two.  The v3 of the cursor series is in v7.3 now,
+thanks for picking it up - but these two don't show up in mainline or in
+drm-misc-next, so I suspect they got lost after your review.
 
-Yes, it's indeed an issue, but the comment message here is useless
-since erofs_fc_fill_super() doesn't explicitly support `device=`.
-
-
->  	return file_inode(sbi->dif0.file) == file_inode(new_sbi->dif0.file) &&
->  	       sbi->dif0.fsoff == new_sbi->dif0.fsoff &&
->  	       !memcmp(&sbi->opt, &new_sbi->opt, sizeof(sbi->opt));
-
-		&& !new_sbi->devs->extra_devices;
-
-I think you should just add a line here.
-
-Could you please send another version as soon as possible so I can
-apply.
+Both still apply on current mainline (one line of offset).  On
+drm-misc-next 2/2 needs the v3 series to be there first, since its
+context comes from "drm/nouveau/clk: don't use the pstate cursor after
+the loop" - so either after the next backmerge, or I can rebase and
+resend, whichever is less work for you.
 
 Thanks,
-Gao Xiang
-
-> 
-> base-commit: 1137aa577a35e2684e8046c3e53f920e79c7cc60
-> -- 
-> 2.43.0
-> 
-> 
+Francesco
