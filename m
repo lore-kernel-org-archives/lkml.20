@@ -1,76 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793023404;
-	b=BPGeoDXt3tgAhplyCK9xdLrFV64xcwpUudGI+hbGHOO38UEyHgy2ZO85Rn87eY0uxPOm
-	 r6+q/aROR3WWLjF3bfeekY4AkfOrkmJA8jCr/Thmx0aLGuFblePKZPh/LJABj9quEkb+f
-	 wXCULubB2gLEZ7vyauOnjC6kWwbqINb8JlTRvMmly9Xt+78GnJ2+RQuDTCQ/xDH4VBv28
-	 8UGsryUNwek7p5U0GYk9CUrSLPDEuiqeYRpLJg40fTLJ91qBmRPmYRVwbNnhnHEjCOtoe
-	 +yyHm+4APhUGBZS6BCpRb8uMW+sx0cPIDLsPaoPMdrokTFEzMx0DHGPKoBxV7wYjJCw==
+	t=1793023408;
+	b=3f+6InqAwkkTcAQM9umW2h5ERM+eFRuGji5obYVGEqskKG2E9avQP5eEFqJlyq5GgH10
+	 vioVBmVFUP0IsWKxZjXGm4xVt/t+FxnAGUROrbKQcR6WkRrMrVBig3TJ5KhWvN66p0Vvy
+	 6QEcuIN0gDH+0fxXVwHbeS6iotvQnCImeDXr/9hqjWvylUmjJkGdU+FbRWFcNvuEOb/3G
+	 tibLFATy3iMFDNP52OfM+ZU1xfH2qxMsRmxKhUuI8YqedI+X/YVNE6Ahc9U6fqpSx3nLG
+	 rsrz1h3OTHzmoN4wEpGhCj5nlWwZN4oMGXjfrXF1SxcxuXDWhzEuowPy/M/2e3AdjZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793023404;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=DMhcNiE7UFYB2cSErcXu0ACNivDw3qmsy4U7nmgAHio=;
-	b=EUQg9iRqBZw/qq75U4GTDVIUIoRlwJQwcNP1G07vMApAUsO7fM0J0BmvHvUGGucvIRs5
-	 LMMDLd/mHf4Gr7z7Da+7ipCH242SWr1ZddKPNOOZPJyBx9tguGVs6LQ9JKuwyFQgXz/hM
-	 JBuQQ4f2+Qfs13Mj8vwB8rvbby3otKoNthN6D+TN+N90ODaYMJ47lffxajTRsRrvzWmRq
-	 NDjkuGcvXpyGGhz+Htl3bF+SlQeM52eOCHnTbIk+GtLYRtqDzvfMp5NWz6Jp3hztHTtPZ
-	 lasY5rWFQ8nKa9aqLAbiDpI4CUEvpLpaSh70Cn3Z+LXE2em2ZhnsyHQ4CfBcR7EFYIA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793023408;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=YhILP7rHDWnLkp7QI8ndd/GW3m0K/hNub+wtq6q4zB4=;
+	b=AS48HCn4wglR1qsWgBctuV1cgPnX42sYLaU6uAv9YdweDB8OqbMEaVmIA4RVWQq6DoTS
+	 E0Ck24xY0pe31KutJK73YY88pWmDRfQwpOmBVsZoVVSMaOl8N62ZzzPTUqYQ386usQHP7
+	 zEdelkuEAh5ye3d8eTpgdlIFSp9hjX83703guW9OHqTlv4p8gABXRNUDWzrO2v1XoNuTq
+	 FqDz5pjZwyAO2eNbfyEQQHAVJ/36WJ4tFGx1ixKW5aMlbvHRwHrcQ88WA8ryp3G/EYLix
+	 qWVKU40ck1Ii5+OAiNlJcu8Doo/AvYTpVTDfn7yqVtMS3iejC+ldVSDwNdrVh7ymtmA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-m68k.org;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.218.49
-Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oPvwCuzv;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA1DA606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:03:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA1DA606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c2e8c710847so363486466b.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 07:03:23 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793023402; x=1793628202;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=DMhcNiE7UFYB2cSErcXu0ACNivDw3qmsy4U7nmgAHio=;
-        b=Gfm6KNxwDKbQ5/4TljUdRh9avfw9DRQCLmREQLw/i/EzJms6VRciU2o9eEnc+xuuEq
-         6pTMJOptycj8HaK0u6ek9/L25BZ+x2nq4wUJhMJutteVDHD3HFYoT8wPUqOYVqz0GHKw
-         65gvfsxjecWTpXAlKPSBqBEwaT8GFYgEaG4iwhB+IOGYQXvrjP5KsOOm2Dxzxx39SdJa
-         7v91GChZTJITa3LRTjaUDRc8bNWvmUknaddtSELZI+rKCUvVwcq1apZESICrCBNOw3XL
-         pVXwjcgajnKq9A4a7Xq+FWaMvpKEVZCa4XjwmicDfOpY8xv25dEcmatylG+G4xtqf8gH
-         G/cg==
-X-Forwarded-Encrypted: i=1; AKwUvBzumo7QzIv4QzEiUDqdQvKQy81LTiih1v/bgWR7kXVDpTrx2EVgqpxhuQx06WZxopHOR6zDixpZ0sD5Gu4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL9Cejxr5vhc0YufTsN0/fitJTWTScr7Soei4IqbDtkTGvxyw1q
-	V5Gowe766K8K+SZMGs28q/PQZvh9gIWtL2dBQXWBXk+MUZH09NECdGgEE9TSUSfnYkw=
-X-Gm-Gg: AYBFou3IhUBZLlqeojh7mlGfzvM/VRB2P8tCnXlcVC0OUI7TdEXMn9X9diosJkjldxh
-	8fjzTJsCfE1W+DGFrCGRCYQnf+8Rus6k9ZN12h7Q/421qaXa2ljjZvndu2ldkTw2VpOy5OGShFR
-	PpZQuH/C3GHF4XOd6dNGoXRQE4PoBpLBd/Zd8eqwPT+zhwIJVbR5u/QBScf1niGmnipzjTN72wu
-	iTIBOwEHzYfCJBiYZ2yq1eNuBVdCJ7SltLKEnPN6bKCfQgoB+r5o6Ud9g4tTPnWAGJ1W4QeGD0T
-	WDEDDvHEHT6W6QsxsKxZNws4n0rxR0PbDUc6YdQRotdda2BT/jv10qGb5vWULe0yu5QLS81I6/g
-	Z0iugA4pOmfvFBJZvqd+xAWV4dZgtBvC+2GGGw/ZqtNlJrwlxJ7Kr9MDljIoyeJYym0uR7tevZN
-	cov78PXF+V/Bd41g0KsEtldOZBHPf54jcvDtfQ/1G/dhkK6kMNnETRpkq/qxdjn0LiKUE1HvGBb
-	Up13GUhf7hC4i3DJQbXE9tbSmqAVRmhySQGBO7MdUiwF23pxINsvlyrCJB4Dzqb5befOdCUhGJy
-	iNsPcqPxZDPX8ya74pQ6ksBZu082QM7rTmGyFSM=
-X-Received: by 2002:a17:907:9446:b0:c2d:d408:5d9c with SMTP id a640c23a62f3a-c46bdedb453mr675524266b.48.1793023367417;
-        Mon, 26 Oct 2026 07:02:47 -0700 (PDT)
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com. [209.85.218.52])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd524266sm335398366b.38.2026.10.26.07.02.42
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 26 Oct 2026 07:02:45 -0700 (PDT)
-Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c4697404c2bso386578566b.2
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 07:02:42 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBydKE44gs63jjMECqx6gFLeOx5InldYUPDKZbQM4sQT1ZS34pT36kJxGlE4Uq6k9+jihtb6rQzHMSkQyc4=@vger.kernel.org
-X-Received: by 2002:a17:907:6ea5:b0:c40:5ee3:8698 with SMTP id
- a640c23a62f3a-c46bde6b2f6mr794454566b.31.1793023362379; Mon, 26 Oct 2026
- 07:02:42 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49A87606A31A;
+	Mon, 26 Oct 2026 14:03:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oPvwCuzv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A58931F01829;
+	Mon, 26 Oct 2026 14:03:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793023407;
+	bh=YhILP7rHDWnLkp7QI8ndd/GW3m0K/hNub+wtq6q4zB4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=oPvwCuzvFa0BFA5ALCmiyl6ULUHdWNydDikVxAUcmudRy8OlSWuP0Ee2ZjjIxNtRT
+	 DPd4bokvdOkV9yuV91+HC1eS3Go8cqQJhTXlqzIq0nT9/eb5mMz+dGYNnARVHF4xDi
+	 ES03ssHpPbBRmhZRT4jdzZkSKY6yguH8dc8qUMme1/Oa1vMogNSJLM7S9HwO6ppJBK
+	 MpbmpaIXGnyb1cEFL2wINZR7wGaVn4WCeFKp9mEfhw8Vla449FGDa2FQ07EJ5lGTPw
+	 PAjd9VmBSf1IM4CWXxyJsr+UQ/jA/MPElac+R1ZSObFXo8W4BIxxbV5vR6mHwxx2gU
+	 uEEuKSVq46QlQ==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+	id AF9E71AC5994; Mon, 26 Oct 2026 14:03:24 +0000 (GMT)
+Date: Mon, 26 Oct 2026 14:03:24 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Mike Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>
+Cc: linux-kernel@vger.kernel.org, linux-next@vger.kernel.org
+Subject: Re: Missing signoff in the clk tree
+Message-ID: <at9drMPrv1IvPovj@sirena.co.uk>
+References: <ar_0GFOb5hZfhHHx@sirena.co.uk>
+ <asOdxWlcjSP0DrB0@sirena.co.uk>
+ <6ef47587-5d3d-4561-b0be-f906fe48c8e2@sirena.org.uk>
+ <atZqw7pdZjMwahdf@sirena.co.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,84 +62,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261020212235.1143086-1-ebiggers@kernel.org> <363b228a-7e96-481a-b70f-195ba55d025e@kernel.org>
- <20261021063927.GA31908@sol> <d5d0801e-371c-4836-8b4a-26bff33df46f@kernel.org>
- <20261021064940.GC31908@sol> <aea2328d-4ea8-45bc-922e-9c1fed94083f@kernel.org>
- <20261021163242.GB325924@killaraus.ideasonboard.com> <73d01869-b536-4fcd-a139-6f9d0a043347@kernel.org>
- <20261026104056.GH15441@killaraus.ideasonboard.com>
-In-Reply-To: <20261026104056.GH15441@killaraus.ideasonboard.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 26 Oct 2026 15:02:27 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdV7Mz0WgaNP_B8FG6OxLBqqnWwMqWJKNFBDkF2i=55fVQ@mail.gmail.com>
-X-Gm-Features: AclHuK_QORKnSpnPhJrLo9VkZNodz3Epw-au-jT1DhXUiuoeiO-TMI6o_74xEFM
-Message-ID: <CAMuHMdV7Mz0WgaNP_B8FG6OxLBqqnWwMqWJKNFBDkF2i=55fVQ@mail.gmail.com>
-Subject: Re: [PATCH] docs: submitting-patches: Require base tree information
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, Eric Biggers <ebiggers@kernel.org>, linux-doc@vger.kernel.org, 
-	workflows@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	linux-kernel@vger.kernel.org, 
-	Konstantin Ryabitsev <konstantin@linuxfoundation.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="7LTfCSOg4+A54S6r"
+Content-Disposition: inline
+In-Reply-To: <atZqw7pdZjMwahdf@sirena.co.uk>
+X-Cookie: Don't let your status become too quo!
 
-Hi Laurent,
 
-On Mon, 26 Oct 2026 at 11:48, Laurent Pinchart
-<laurent.pinchart@ideasonboard.com> wrote:
-> On Thu, Oct 22, 2026 at 08:57:55AM +0200, Krzysztof Kozlowski wrote:
-> > On 21/10/2026 18:32, Laurent Pinchart wrote:
-> > > On Wed, Oct 21, 2026 at 01:55:37PM +0200, Krzysztof Kozlowski wrote:
-> > >>
-> > >>> there's no base-commit?  Including any historical patch (from
-> > >>> months/years ago), patches with dependencies, etc.
-> > >>
-> > >> Dependency is something else, but for every other patch:
-> > >> 1. For testing/CI: you apply on top of next
-> > >> 2. Every other case the maintainer knows where to apply it, because it
-> > >> is his HEAD of next-branch.
-> > >>
-> > >> I am repeating myself, but I really had no single problem of lack of
-> > >> knowledge where to apply a patch as a maintainer or reviewer of some
-> > >> subsystem, thus maybe I do not understand the actual problem you are
-> > >> experiencing.
-> > >
-> > > When I review patches, I often need to apply them to a tree, mainly to
-> > > see the context, but sometimes also to test them. I have encountered
-> > > many cases where the patch wouldn't apply on the current for-next branch
-> > > of the relevant subsystem. That's often because the patch had
-> > > dependencies. When I'm lucky they are listed manually in the cover
-> > > letter with a link to a branch, but that's far from being the common
-> > > case. I then have to ask the submitter to provide a branch, or enough
-> > > information to recreate a branch. Having base information (base-commit,
-> > > prerequisite-patch-id, and possibly base-tree) would save me quite some
-> > > time.
-> > >
-> > > I understand your concern about maintainers cherry-picking and sometimes
-> > > introducing issues as a result. In that case I also prefer asking the
-> > > submitter to rebase, retest, and resubmit. That's not what I want to use
-> > > base information for, in my case it helps with the review process.
-> >
-> > That's valid and for 95% (guessing the number...) of cases will be
-> > solved by having linux-next as a base, thus requiring the base
-> > information is redundant. It's just linux-next.
-> >
-> > When patchset does NOT apply on linux-next or maintainer tree is
-> > non-obvious, the base should be provided, but that is only "if ->
-> > should". I think the proposal here is a bit different.
->
-> What's the downside though ? As git can easily provide the base
-> information once configured to do so, what's the downside of asking
-> contributors to include it ?
+--7LTfCSOg4+A54S6r
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-My base is usually not in your or anyone else's tree...
+On Mon, Oct 19, 2026 at 08:08:51PM +0100, Mark Brown wrote:
+> On Mon, Oct 12, 2026 at 08:01:34PM +0100, Mark Brown wrote:
+> > On Mon, Oct 05, 2026 at 02:53:25PM +0200, Mark Brown wrote:
+> > > On Fri, Oct 02, 2026 at 07:12:40PM +0100, Mark Brown wrote:
+> > > > Commits
+> > > >=20
+> > > >   d31b7d87d1b28 ("clk: nuvoton: ma35d1: Add missing WDT/WWDT parent=
+ clocks")
+> > > >   488d2cfdf3c99 ("dt-bindings: clock: ma35d1: Add missing WDT/WWDT =
+parent clocks")
+> > > >   9546425453234 ("dt-bindings: clock: ma35d1: Drop CLK_MAX_IDX defi=
+ne")
+> > > >   ea2ee01da5555 ("dt-bindings: clock: ma35d1: Document the missing =
+crystal inputs")
+> > > >   35ba0118dac01 ("clk: nuvoton: ma35d1: Keep the clock count in the=
+ driver")
+> > > >   e92291a009f7c ("clk: clk-gpio: do not blame the DT property on pr=
+obe deferral")
+> > > >=20
+> > > > are missing a Signed-off-by from their committers
+> > >=20
+> > > This issue is still present today.
+> >=20
+> > And today.
+>=20
+> And today.
 
-Gr{oetje,eeting}s,
+And today.  I see the commits were actually done by Brian (CCed), who
+also appears to be a new maintainer for the clock tree - I guess the
+contacts for the tree need updating to include him?
 
-                        Geert
+--7LTfCSOg4+A54S6r
+Content-Type: application/pgp-signature; name="signature.asc"
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+-----BEGIN PGP SIGNATURE-----
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCat9drAAKCRAv73Ows9A4
+iZArAQDWTVKyxLldGDc/jBtJEySFbzGzSi/x6DOUxq0O8zTkLwEA5/90FDlVl/x4
+83HghkvqRE4Bmr2cBkXOB0OP9IhXWQM=
+=RFrq
+-----END PGP SIGNATURE-----
+
+--7LTfCSOg4+A54S6r--
