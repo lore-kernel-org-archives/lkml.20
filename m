@@ -1,77 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.58.211
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792995321;
-	b=F2CDwp/SkRmdtylwo8VOgsBmR1jORJCNwXjFdxyRm61ldqwh55/tegBF28ridsqZ30uB
-	 ChfmPSkoIF63HWUPlFAnWFOkfHYfGmreqUCXC1+epgf+wx3b89pRNt1rewfDs5C4ZzHPQ
-	 w0wWCT9Aj2kj/DWnOSMoHmVt1c5Vr7vF7p9TTvKQqbD0rQv7972uuFaGUcbokTq9NiJoT
-	 N/smUyVSyib6qIdglmbzmfDAIqUSQVDwiXNeLN4aSvyNJXbryGMol2T9WJnxFLBa0YlBG
-	 EEfO2LanqTduKOdJOqVKgY5qQ8I/fey9nn+OWFnfVzDzPhf/XdEqg7uckaffQh2jGnQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792995321;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=z0TjN5X96/3TSYg1Kkre8QbeVo/rVvC6E1ckkOX4t0Q=;
-	b=wN4yjQVduVq3WlfV6SgaOc8WLRrdP/+zbDabhvnTsobhkaZQ8V6g3fSIIDrVEanyuHDS
-	 kJZN/257lkznzaUvXWR4DQIR9Hmh9cnAZT45FmMFYbStsVrT/4Z0HBuMBnRf0qqpAuwaK
-	 X7dZEtOlYP9KMLIeqbOjnngNj1NGXCiuTxTpZwoNlRXaa3pVFeC9TtZRx6+92WR0NGlGj
-	 EpEpfc5CGl/xhrMNKbR9g5tBQYsk5etxGGvbnCsmwbV0U+ZLVvCXxMezicRby0UIGlbMD
-	 jPFA4QKQ+JrqbZaW++f8fnDVu5OVQmTpVCbUhHZdUeKdPhS1lzdyMh9xj9996kmj/+w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=Rwrnr2fe;
-	arc=none smtp.remote-ip=162.62.58.211
-Received: from out162-62-58-211.mail.qq.com (out162-62-58-211.mail.qq.com [162.62.58.211])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.46
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792995421;
+	b=FVm2Iy0JbKOHTYuf4qh029WwYNowCzKrrpk8CfA2+klUqOr8TRFrg1GdfDhKyD/2nb5Q
+	 ya9cKUq2izxQOHcooRqGM+x+s40BTDHxYlTQOQSw1+4/U60v6HzrEwhx+Pig9NnQQjDZ5
+	 DkR/BzRWLSy+yH1PIEksnWWpXIJnb8Bu3EjNoSbbOtxxOUA38SeJgx7ZmKS0mMTAO0xrz
+	 qzj8D2p8tegfVV6Zg6YUxcBFcUraGbPwjQ62H3pZcTxYtjgUJ/euJ+5rjwdDLM/aQnxLJ
+	 qziFtphSqzX7DT11gjS1vMw5oxzaWVjC/hCT6A+cofoXUomBBlnEI1SU7iNzcZ374qA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792995421;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=CR207ipMmlY7BwQvStdyeXJZUxi3TPn4ECTm9b7xJwk=;
+	b=yemvp9DKViyrvdyOZf9RnoiokzQQsNc9UzMBWu2gAnNsqL+gQq9YW1XiEMTfP+MbnaGT
+	 k7q38jAXKMdKZWFhq6JnmvcydhASWtc29BufR7o4bCyfQRA9/qQVwRuGI7bNg2fvvlO8s
+	 MFvkTm27nCo0NRNnd3d8guN56Cdi7XLzaWxu+bj9QmB2QeomHuvmgxwHeybQzlzAb7UoL
+	 SGStYcSrowAiy6ewL1FkKg9x4K/gOXvpnyOkO0pZFNV0YbLAU2CVOoHev0IgNVcaaBnm4
+	 bI4HO1xpAQE8iZeqsNwneamKYE/J+5bk/GHVxp201WB6Jo/f8NBV8d1e3XmDtfpsv4A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=FrLUGRNX;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.46
+Received: from mail-oo1-f46.google.com (mail-oo1-f46.google.com [209.85.161.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DE13606A31D;
-	Mon, 26 Oct 2026 06:15:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0DE13606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B861E606A31E
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 06:17:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B861E606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=Rwrnr2fe
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1792995314; bh=z0TjN5X96/3TSYg1Kkre8QbeVo/rVvC6E1ckkOX4t0Q=;
-	h=From:To:Cc:Subject:Date;
-	b=Rwrnr2feItYmg5VbqmvFZLddhZm9CEuAFI0cOqkwDfgTS9SFOZV7Jt/Hzkg56bb7O
-	 nhBghf/rYeHY32ADnw1CNUyrkEJNc7PC9JdtvK76RcUYvYebJ76h9ZTnJ1qbYmI0XU
-	 gpFq4rVeJiuchaqPyw0KCjMe3wew3eUTxns2o4wA=
-Received: from shuai-VMware-Virtual-Platform.. ([117.158.156.198])
-	by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
-	id 3CC94AE4; Mon, 26 Oct 2026 14:15:12 +0800
-X-QQ-mid: xmsmtpt1792995312trs5vrkd8
-Message-ID: <tencent_58EE6FD2C02C00F2884D18B81C620B130508@qq.com>
-X-QQ-XMAILINFO: MVhBsdG5jI6h6FndQ4mnwtZUrH4dQN3iA6uZOu42+mrr0Tq6La0fEJB8h4QMvC
-	 lU1ctN/d+yXwgDngu4cK8+FcaP2NNxSzmpCDtsAnB+OK5kEUkwuL0nCQQhSkpB4BX228v6kpJ21Z
-	 UBWpO/eDjt3Vl8kbekEF3uy6c87yien2SIt9rEW9CPNYP/YtljstHkhVyugCGmqZ2AbyrYooM3sJ
-	 y1f0rIFO3fIoRWS/cgUYmfLwiaZ7aewOt9V/KasZy/tuw2daEWwB0WENCLeK5CGFrknOgJexGPij
-	 oon+xDA+Z7KxuepAb9Cr/xiWZgn3GxkFGnCp+FmqxOfNASu89mBmBmRf6oFu/NWQEKHcqhZ2lwux
-	 goHWSAW4M40FNUNNou6T9U5OezBZ99e82freWeYF2cpEH53SOQNIN1O8qC8WkwEhwM/1NZNpAfFV
-	 zzNXmZEbyh8a8XUwISrqBUEk2r8vkTdnkDteOKCMG9btPtwheUrpAB/k0hmJ8RacKU5QqcNVc7JO
-	 5jMGzX4BdRZPZ6omRA0SZF7AUEXVfGW4DAlzGEun2RC4D1xpQdwJ/h5YNQC2RwQZ/GewPdXfzCsd
-	 OeZurPZBe/a/Xrl39FecGDolH4/cChQgUS3td2sEub2Cwk+IuQCgMyDnEVux6jtwcpHk1fDtHMle
-	 ksRcoNoqU+Uq06A1AeOItlBrEI1gWfVanwQ3YlCiJ+TF7Mnui23SStII9jFY9w/6suQ39Hb1+e8d
-	 JwVJolZknhVZ05dXO2UaYrOm/Ff8WqZ6Yd/z9K+3iRnPVr99mHks4gNULkQFVEhMhnP/xpaW0drn
-	 KhEI3nihDCXE3Oh7/Vt43iF/dZexcBjG/6b73Wb5yrHyFJge3DBga1F86XPPZ25Y/ZhJ6euuQ30d
-	 MRixqe4ZQVWlWCd5eMtlw0il34oMzEdN5w8CdvX4OXcdgbFuED3Lrmph/phf6Wouh6TTqhvlrapK
-	 Us6SX8iR1b3NELhjbshfnP3ZAx4JSNlbLssQiQXruzi1oLnrUdWbeYKeBDB3uMvpm8DvuspxHzdc
-	 lG/M2vmtGQveaksle/zd7cmMLQDJnopzo8rnz5UrD2pZI08fqxmPhn1zGbeztw3QJepQjGRgWeTn
-	 8eAtfR
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
-From: Shuai Liu <847807867@qq.com>
-To: spi-devel-general@vger.kernel.org,
-	rust-for-linux@vger.kernel.org
-Cc: broonie@kernel.org,
-	ojeda@kernel.org,
-	dakr@kernel.org,
-	linux-kernel@vger.kernel.org,
-	Shuai Liu <847807867@qq.com>
-Subject: [PATCH 0/3] Rust abstractions for the SPI driver subsystem
-Date: Mon, 26 Oct 2026 14:15:09 +0800
-X-OQ-MSGID: <20261026061512.4180202-1-847807867@qq.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=FrLUGRNX
+Received: by mail-oo1-f46.google.com with SMTP id 006d021491bc7-706113e92f9so1578132eaf.2
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 23:17:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792995419; cv=none;
+        d=google.com; s=arc-20260327;
+        b=PwXlVNb+1nZH5Yv6jCyopplY5Bj4xkpjDZnYvlBfSyj1bZ11ZLDXRnHjPbwPHqm+su
+         exY86AXFLY8RLWKriicx3lxEKXAeXAC1TToBTR3AKk0K2zlj7sWXyCE/mvgA5FokK8bW
+         +CL3Ki9R428mX8NVXLMbG9tk997NVgzzP4g5spT/8CjOxNQOmEjkWrMmzWAf/Ni21O6Y
+         WM7+FsWSydAp+VZ9MYBEvkmxHs0LS8R+QxvoBaGVo2vgrXUf9M0GJ2UDkeehsETtjoB+
+         TR7AvSlrOrblJhZ2RjubC+4pfM5rujybAi1i5+Za8KDAi25b6yRoh00paKROCyGSUDrY
+         K0Uw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=CR207ipMmlY7BwQvStdyeXJZUxi3TPn4ECTm9b7xJwk=;
+        fh=Pe6sh94u/bUmuFrT0KluQEUAiDlHJy2tRNMYZg/Echk=;
+        b=ZkNcAv0MxZKvIl2OEhtMiiNElsuPiLTG+WxcoUvnN6WdlYA/RMqG8iHCgfG1krV+Q0
+         IC2DU6S+16QnCZpwg9UYjUA3eZpihy0XN/woaf1+j8Vj++xIwXe83EV9wVB8Jcfsd3Df
+         t181v6zxkG6KYBjEIGndW1cWBcZQw0iuDsrjwD6cmQxKZLLM0w8QBGCccyt2txbYKx+I
+         M237jLgD1eUWbb5aiDNshgmEDccxIPgyCeBscr0Ft6Vy95uqTloKik/Errc9NIhDWHyJ
+         MP3iX9ewK81L8gcp1SW9waWnLbmvh8jyzXeff9fW4gvE6TzEcl1PNTAMVVjPBMULEqYA
+         uIpQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792995419; x=1793600219; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=CR207ipMmlY7BwQvStdyeXJZUxi3TPn4ECTm9b7xJwk=;
+        b=FrLUGRNXuTeJ6EaEvAgPijQZNLDICaGs+ELAY9/e04MsT++f5cj0FXUl6Jig4cjgY0
+         4UPZjN98Jl8lXFRQnooWa9nfsQ+LMt6EHiwp3FjXOtnDWwU5FCCww/tN1BY4zatClJ0t
+         L4q2+OvMxD+/CVwoWLidMCtpQm7sV897/drH5Jplz5gHFbetXGg8gInHZj3DYOBrlzLd
+         6E0pa2h22j4gIVw3q1dUFTY8CHEAkYJkFLO3TSq0UKXwaq3IKuVn3oOBgoPzGOEo0AkA
+         HMEy5rCxXfp7M21TIC/oyUCxf6Mz3QxnLjaNw0wTWly7o0IdqoQisaXNMqyVp9Phtc8S
+         GPZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792995419; x=1793600219;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CR207ipMmlY7BwQvStdyeXJZUxi3TPn4ECTm9b7xJwk=;
+        b=N5Xt6TULOXTHHBq7j+s3E4kauo+mzXz4oth7mBypQVnsZXxX9ZKhKjkWdikCuYs2a8
+         guUbLmCHvZRb86PbUlaY6KWKMSGnX8+68hP04WwVTiSGQ/28u7rj270NAchr0Sp2cNDV
+         RYgckZH14xWNBCQvGLyf+AmV6Pht+aBVjgWX/aOhK9T8NCBUSTUfogAcbMYFbRjUcpkO
+         ELnmrKDJSttSqdjI5n6SGe+6WZkPc5wp4XAus+NuvWO8Dg9A7vKevGZdZRD/EheXB2T3
+         bTyAV4LkM/kKayt8AwChTyATgti4en/kZGVRk/QJBeLOYAFjWA7WXbC6X7U+1s8BeYKW
+         xTAQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzU3tocYFG+1zdm2Dmo9vcm61ON98Jtz80NZKfxYLMKcYQINBrK7wFV7ajtnHY7Z20izY8C25QO28n3JW0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJDMmU9iryJt1VFolAEbc2zIiRRRbnaSOXTU29l2SiSaTyr16gv
+	luGebed3nFPudnzswiLqUQK9gg8jtNn8jchBvZFdSQZbi6abX4PWNeISUQ/gpopQjG58z1xaxv4
+	SQJ32iqjAr/ujqTFk0NhNOAxjOEBxj7g=
+X-Gm-Gg: AYBFou1AsFRsoju4RjoQT5mcS+qLs79sxTfPgr6GoSG0cSRfVoGIizP+XsBDU2W8sG8
+	GSmZ5JhYNBuS3UquWxhyH7G+qONYmYZ/pc3xSer3suQ20fzX9V33DazEsZ5eItlLXKD0v+Asnnj
+	h6VU1aElh7IHi3kXYWWD5oeopah15sFgZq6Efu+JVMRAznnlebES8gVokqIR+HV+zJn/JCgtDyV
+	bZrG5o6azm9uxWuwi5YMF3W9mIj1m01CSx/EVrB7tDbr02QTL5cl+8fNF4s2N613C+rqgpA9rWu
+	SOFKXfdo2+w3odTgHVLDdXGYSIjBBshsqiQ4lm1mXnqGIQpTAObr//KPcPu5pxjtv5uQgoVSaZs
+	fKD2GK8emrt8TLfjZLp/4YH+YGD/JQaeRAhue6zF4Jyd7ONxW9H/i5HU1cgrSPQCKVbaeR2k=
+X-Received: by 2002:a05:6820:340d:20b0:6b7:46fc:1d8 with SMTP id
+ 006d021491bc7-70ba0ef0690mr1914182eaf.55.1792995419601; Sun, 25 Oct 2026
+ 23:16:59 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,56 +104,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261025164003.143864-1-himanshu.bakshi478@gmail.com>
+ <at7pu4hldDTgZtXy@stanley.mountain> <CAGLmz9JaXM8s4BHQ2Cn5QQdBZpzDXmHyb-GQ_jXtj4Rz6SJOJQ@mail.gmail.com>
+ <at7s7We7bxdmmmSM@stanley.mountain>
+In-Reply-To: <at7s7We7bxdmmmSM@stanley.mountain>
+From: Himanshu Bakshi <himanshu.bakshi478@gmail.com>
+Date: Mon, 26 Oct 2026 11:46:48 +0530
+X-Gm-Features: AclHuK_st-Xa8oKg66mPkm3FdUxLxM8NWdOA-cYaAmfiphj913FwW3RJaID5D5c
+Message-ID: <CAGLmz9+R5Wsd3i+7kLZXL-KP2bqdEmNUJTSKtZph_NSP92Jung@mail.gmail.com>
+Subject: Re: [PATCH v2] staging: fbtft: Fix line length warning
+To: Dan Carpenter <error27@gmail.com>
+Cc: andy@kernel.org, gregkh@linuxfoundation.org, 
+	dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org, 
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The Rust abstractions for several buses are already present in the
-kernel (PCI, platform, I2C, USB, serdev, ...), but the SPI driver
-subsystem is still missing such abstractions. This series adds them,
-along with a sample driver demonstrating their usage.
+Hi Dan and Andy,
 
-To my knowledge, nobody is currently working on Rust SPI abstractions;
-if someone already has work in progress, please let me know and I will
-happily drop or rebase this series.
+I have not found any call site for fbtft_init_dbg and just assumed
+that it might be useful later on as the driver develops. If you are
+considering removal of the macro, please let me know, I can send
+over a separate removal patch of the same.
 
-The abstractions follow the same layout as the existing I2C and serdev
-abstractions: a `Driver` trait for drivers to implement, an `Adapter`
-for driver registration, and a `SpiDevice` wrapping `struct spi_device`.
-This first installment provides synchronous `read`, `write` and
-`write_then_read` operations; message-based transfers (`spi_message` /
-`spi_transfer`) can be added on top in a follow-up series.
+I have also noticed that other helper macro just after this one
+like fbtft_par_dbg and fbtft_par_dbg_hex have some minor style
+issues too. If you want me to correct its style issue too, just let me
+know.
 
-One deviation from the I2C abstractions: `spi_match_id()` is not
-exported to modules, so device id matching by modalias uses the
-exported `spi_get_device_id()` instead, falling back to the OF and ACPI
-tables.
+Also, regarding the confusion of threads, I had sent over the patch
+with a revised commit message as PATCH v2, which matches this
+discussion's subject. (which I apologize for). And also sent over
+the reply that I meant here in the original PATCH v1 email.
 
-The series is based on the current mainline tree (7.4 merge window) and
-has been build-tested with CONFIG_RUST=y, including the KUnit tests and
-doctests for the new abstractions. I do not have access to real SPI
-hardware to run-test this series, but the included sample driver can be
-used for that purpose.
+I hope you will forgive my incompetence,
 
-Signed-off-by: Shuai Liu <847807867@qq.com>
+Thanks and regards,
+Himanshu Bakshi
 
-Shuai Liu (3):
-  rust: helpers: add SPI helpers
-  rust: spi: add SPI driver abstractions
-  samples: rust: add SPI driver sample
-
- rust/bindings/bindings_helper.h |   1 +
- rust/helpers/helpers.c          |   1 +
- rust/helpers/spi.c              |  21 ++
- rust/kernel/Kconfig.test        |  11 +
- rust/kernel/lib.rs              |   1 +
- rust/kernel/spi.rs              | 529 ++++++++++++++++++++++++++++++++
- samples/rust/Kconfig            |  11 +
- samples/rust/Makefile           |   1 +
- samples/rust/rust_driver_spi.rs |  66 ++++
- 9 files changed, 642 insertions(+)
- create mode 100644 rust/helpers/spi.c
- create mode 100644 rust/kernel/spi.rs
- create mode 100644 samples/rust/rust_driver_spi.rs
-
--- 
-2.43.0
-
+On Mon, Oct 26, 2026 at 11:32=E2=80=AFAM Dan Carpenter <error27@gmail.com> =
+wrote:
+>
+> On Mon, Oct 26, 2026 at 11:23:21AM +0530, Himanshu Bakshi wrote:
+> > Hi Dan and Andy,
+> >
+> > I have sent over the comment on the v1 message chain and
+> > also sent over the revised patch separately as v2, I will be glad
+> > if you will go through it.
+>
+> The subject here says we are already discussing v2 so I'm confused.
+> You can go through my response and decide what still applies I guess...
+>
+> regards,
+> dan carpenter
+>
