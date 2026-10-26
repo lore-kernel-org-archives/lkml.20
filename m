@@ -1,77 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.25
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.181.231.80
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792989706;
-	b=cr/9hRyJy9dA3Vk76pM0TB4+RWTP/9kRmyEkBKWCL2yNGEynN4WhxX10OOMVI3csZTTq
-	 DExKorUPANpmRPlXxh6fjErC78POy03M3ua8v1H2ml78E2CWjqPGwPAhpdx2yd+tGNrtF
-	 uFTZnQ7NRDa649r0DR3RSNcIlxpQjlsWuN2fLSuU/3UfvbXELQOsgVpiwSvStUGjS6Hfq
-	 sEuYxInxJzpLERxAv4chCHswKN/r/Hy+x4QWVVr8w6XYtYpjAiEic7RRYQeKKAYXwNZ8+
-	 RxTUCIXY+CfW3lSBQPAPpQHE7t01ElAsrKhnSFzjqgrsnPkh3HS6GVPAC1wxCyAPkQQ==
+	t=1792989781;
+	b=IxAThlfzDVjoLUKBAITMZnLOYwBlB+vpGoPQsPS2pybqNpwaNWxYFWxjYaYqk8KabnpQ
+	 F8r+jZhlMtSQDUDPkFSmw9NTszakAy2JF+14D5oLZVOmq4cblvVnAIHuTYQOPQIlzEreg
+	 v8Bb5zJPcoly1XKd1HFigziE0Qm+wKDrE9PnOC4oN+Ilw+pRFyQbrFGX95bnsQQNWgPib
+	 67QR7wbzh6wUpZdpeNLPZXW9SxNebpUsXkHY+M3eERantcg4Bvo/XFTh4NNVRwk/TUS+n
+	 6gP3+a/sYwLaQpkP/LYjtUb8UPacjN/lQ4MK1N/MuMwgLjEKzalDjZUAwN0Vm1oEVCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792989706;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Received:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 In-Reply-To:MIME-Version:Content-Transfer-Encoding:X-CMS-MailID:
-	 X-Msg-Generator:Content-Type:X-Sendblock-Type:CMS-TYPE:X-CPGSPASS:
-	 cpgsPolicy:X-CFilter-Loop:X-CMS-RootMailID:References;
-	bh=fMk4REBh2xnlyfRTAlZZe/9at8WMGk5t4jrouM3C5pI=;
-	b=QDrtdXxqPNXhbBZMGr5Dtlt9BupOQA+szWsm9iI9vtxM6B7xYV+I1+zRg8+6w1TwSLJb
-	 RJ8vmCgtzCC+XWHEr+KGROuV0aMVovhNlBIEsaeaT8aG6/ZTh8vF9XXt2ZQqLm3wbPecg
-	 MNSyWhvZ3L/6SvK2YK9zcwr69bCyzVc5aS3Y7a5xRw7V7D8q6Hab4lTfSWWBbWnA6B0zS
-	 ri9y8wZ/rde2RaHUHwCHgJPFhBUu6Tth1gsR4O2Svl9Eafm8T9CRbDZQQZYToLh682N3m
-	 1pM6SppAVMWQMJko0cK1iFGM1/AetAzIf1DpPs4rBt6hCMzaPVbipqmUcPDuaK1YqUQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792989781;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=0mBZXCvcPmcyrgoCvx1EODCbOp+rR6onLvjINz5UMPE=;
+	b=pgpn3sNX4c53dI8yqF2CCvWPHf7bZpNa1ECngjgCZkoa7U4dPhyyVoPLl/zZjTXqRQHB
+	 PKZzZBxQTeS738Q8B7bdPusvDRK3poN3Rz3ISZjq7RVbh+fqea0WM11r34TI9ZtHTSLFH
+	 aCK66Z5JHBU9xMwRvcaBYZexb2fuYZfXGShiXOEurJeuHcA9MwP6gxVMZjseeQqWiAVHM
+	 kAZkZJBBILh2d13296PCPtz/RnMqLZ2mQIjH2zBCsY70wrh8HVBG0tZ6z8FoYvXZq0i/9
+	 W/4uXhVe4HXrP9Tcw6LMECgp4Bwg8QVeHQJ3n1Ge7H2vBcdlV8iq9a85iKVuZq3Qd9A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=TqRtT29Q;
-	arc=none smtp.remote-ip=203.254.224.25
-Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gondor.apana.org.au;
+	spf=pass smtp.mailfrom=gondor.apana.org.au;
+	dkim=pass header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=jkETFqNd;
+	arc=none smtp.remote-ip=180.181.231.80
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12B68606A328
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 04:41:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12B68606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B9A8606A31A;
+	Mon, 26 Oct 2026 04:42:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B9A8606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=TqRtT29Q
-Received: from epcas2p2.samsung.com (unknown [182.195.41.54])
-	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20261026044143epoutp024a1b93c67e61fd14a253285b0a4af94b~h_qK3q5mO2391223912epoutp02J
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 04:41:43 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20261026044143epoutp024a1b93c67e61fd14a253285b0a4af94b~h_qK3q5mO2391223912epoutp02J
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1792989703;
-	bh=fMk4REBh2xnlyfRTAlZZe/9at8WMGk5t4jrouM3C5pI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=TqRtT29Qq9upQuz7KdEwVgcFhc6lKSuFI6BKmpCvu/eWOTstA76L/pUKFsFLonXvD
-	 ClbekGjTbmoKkhHqtSSVw5SUgmrfH/XaJCNDVf8a2FVsVWOMjVdG+rsq9KFVajD7TV
-	 7v+WhO8QDtIef4yB8wrcawHKvtVsqKLtQ5M78F4M=
-Received: from epsnrtp02.localdomain (unknown [182.195.42.154]) by
-	epcas2p2.samsung.com (KnoxPortal) with ESMTPS id
-	20261026044141epcas2p20ef9b9d633b3c36fa4f5700f2b1f79f7~h_qJbJh561708417084epcas2p22;
-	Mon, 26 Oct 2026 04:41:41 +0000 (GMT)
-Received: from epcas2p3.samsung.com (unknown [182.195.38.211]) by
-	epsnrtp02.localdomain (Postfix) with ESMTP id 4jCgv94LYvz2SSKh; Mon, 26 Oct
-	2026 04:41:41 +0000 (GMT)
-Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
-	epcas2p3.samsung.com (KnoxPortal) with ESMTPA id
-	20261026044140epcas2p3e83872a5701a30853937a40e16511e49~h_qIjdlr-1810118101epcas2p3I;
-	Mon, 26 Oct 2026 04:41:40 +0000 (GMT)
-Received: from ubuntu.dsn.sec.samsung.com (unknown [12.81.221.204]) by
-	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20261026044140epsmtip1098365324e86f6a4d30cedae51cd2d91~h_qIeo4KG2136321363epsmtip1L;
-	Mon, 26 Oct 2026 04:41:40 +0000 (GMT)
-From: HOYOUNG SEO <hy50.seo@samsung.com>
-To: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
-	alim.akhtar@samsung.com, avri.altman@wdc.com, jejb@linux.ibm.com,
-	martin.petersen@oracle.com, bvanassche@acm.org, kwangwon.min@samsung.com,
-	kwmad.kim@samsung.com, cpgs@samsung.com, h10.kim@samsung.com
-Cc: HOYOUNG SEO <hy50.seo@samsung.com>
-Subject: [PATCH v3 2/2] scsi: ufs: core: add is_sys_suspended state before
- recovery
-Date: Mon, 26 Oct 2026 13:37:21 +0900
-Message-Id: <f21bbc546949a60332bda5b144c95a6b379eb2cb.1792989286.git.hy50.seo@samsung.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1792989286.git.hy50.seo@samsung.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=jkETFqNd
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=0mBZXCvcPmcyrgoCvx1EODCbOp+rR6onLvjINz5UMPE=; 
+	b=jkETFqNd3BsogIR/i2e0kI2yIByq1bv4TtgCrjIgIOPJCjC93bvZEJLG8tj84xjsWEtLwL6YqY3
+	4ahGxE3HvfNyifD4+9P0iTs+BpM5IM6CbCPuwk+JiidHBiLEik+UPJB3APtX9zvTZy7HIh14b5hH1
+	8w5bxgbQRIIr7Y8jQRi8iZRo9wGGWoRDg0qB0bvrMLG/n3rhDcWNL9FyTtbQUkop/UnBhdQy3oIzt
+	zUE7on2ziDfTvhUASQGxcpGASk/hnDO2/B2roBG2dx3yUYCEy8hPPJv9KbsvU8tle32tj5hRq0pv7
+	/fs+62xhLpFLbv5IvXFy/H5iAQi1Nu+epwXQ==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1xLCXm-00000007Xbc-0NqX;
+	Mon, 26 Oct 2026 12:42:47 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Mon, 26 Oct 2026 12:42:46 +0800
+Date: Mon, 26 Oct 2026 12:42:46 +0800
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: =?iso-8859-1?B?Suly6W15?= Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+Cc: Horia =?utf-8?Q?Geant=C4=83?= <horia.geanta@nxp.com>,
+	Pankaj Gupta <pankaj.gupta@nxp.com>,
+	Sahil Malhotra <sahil.malhotra@nxp.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [REPOST PATCH] crypto: caam - reject overlong RSA CRT parameters
+Message-ID: <at7aRrDPsroWZtuA@gondor.apana.org.au>
+References: <20261008093553.384608-2-Jeremy.Jean@oss.cyber.gouv.fr>
+ <atCc0iL0RrDLwHHX@gondor.apana.org.au>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,73 +69,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20261026044140epcas2p3e83872a5701a30853937a40e16511e49
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-Sendblock-Type: AUTO_CONFIDENTIAL
-CMS-TYPE: 102P
-X-CPGSPASS: Y
-cpgsPolicy: CPGSC10-234,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261026044140epcas2p3e83872a5701a30853937a40e16511e49
-References: <cover.1792989286.git.hy50.seo@samsung.com>
-	<CGME20261026044140epcas2p3e83872a5701a30853937a40e16511e49@epcas2p3.samsung.com>
+In-Reply-To: <atCc0iL0RrDLwHHX@gondor.apana.org.au>
 
-If a LINERESET is reported and the hibern8 exit fails in
-__ufshcd_wl_resume() during system resume, the link is recovered twice:
+On Thu, Oct 15, 2026 at 08:28:50PM +1100, Herbert Xu wrote:
+> On Thu, Oct 08, 2026 at 09:35:53AM +0000, Jérémy Jean wrote:
+> > caam_read_rsa_crt() right-aligns dP, dQ, and qInv in buffers sized
+> > from the corresponding prime. rsa_parse_priv_key() only bounds these
+> > integers against n, so a malformed key can provide, for example, a
+> > two-byte dP with a one-byte p. dstlen - nbytes then underflows and
+> > memcpy() writes outside the allocation during set_priv_key(). KASAN
+> > reports a slab-out-of-bounds write in caam_read_rsa_crt().
+> > 
+> > Reject empty or overlong CRT parameters after stripping leading zeros.
+> > qInv is consumed by CAAM as a p-sized value, so size it from p rather
+> > than q to match the DMA mapping in set_rsa_priv_f3_pdb(). Let the
+> > top-level key cleanup handle partial form-3 allocations and return the
+> > specific error to the caller.
+> > 
+> > Also test nbytes before dereferencing it while stripping zeros, so an
+> > all-zero integer does not read one byte beyond its input.
+> > 
+> > Fixes: 4a651b122adb ("crypto: caam - add support for RSA key form 3")
+> > Cc: stable@vger.kernel.org
+> > Assisted-by: LLM
+> > Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+> > ---
+> >  drivers/crypto/caam/caampkc.c | 69 +++++++++++++++--------------------
+> >  1 file changed, 30 insertions(+), 39 deletions(-)
+> 
+> Sahil, could you please review this patch?
 
-  - the UIC error interrupt schedules eh_work, and ufshcd_err_handler()
-    calls ufshcd_link_recovery() because hba->pm_op_in_progress is set;
-  - __ufshcd_wl_resume() calls ufshcd_link_recovery() itself after the
-    hibern8 exit failure.
+Hi Sahil:
 
-Since the early recovery path in ufshcd_err_handler() does not take
-hba->host_sem, the two recoveries are not serialized and may reset the
-host and the device concurrently.
+It's been two weeks and you've provided no feedback.
 
-During system resume, hba->host_sem is held from ufshcd_wl_suspend()
-until ufshcd_wl_resume() returns, so the error handler can simply wait
-for it. Skip the early link recovery when hba->is_sys_suspended is set.
+If there isn't going to be timely feedback to patches on this
+driver then it will be removed.
 
-Once host_sem is released, ufshcd_err_handler() decides as usual with
-ufshcd_err_handling_should_stop(). With the previous patch, the errors
-already recovered by the resume path are cleared, so it stops unless new
-errors occurred. If the resume failed before any recovery was done, the
-pending errors are still set and it runs the regular error handling. If
-the recovery in the resume path failed, the HBA is in
-UFSHCD_STATE_ERROR and the error handler does not retry.
-
-The early link recovery added by commit f966e02ae521 ("scsi: ufs: core:
-Fix runtime suspend error deadlock") is kept for runtime PM, where
-host_sem is not held and the error handler cannot wait for the PM
-operation to finish.
-
-Signed-off-by: HOYOUNG SEO <hy50.seo@samsung.com>
----
- drivers/ufs/core/ufshcd.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
-index 74dfbb98129e..d085d394858f 100644
---- a/drivers/ufs/core/ufshcd.c
-+++ b/drivers/ufs/core/ufshcd.c
-@@ -7053,9 +7053,14 @@ static void ufshcd_err_handler(struct work_struct *work)
- 		 * runtime resume. This avoids potential deadlocks that could
- 		 * happen if we tried to resume the device while a PM operation
- 		 * is already in progress.
-+		 *
-+		 * During system resume, host_sem is held from
-+		 * ufshcd_wl_suspend() until ufshcd_wl_resume() returns, so wait
-+		 * for it below instead of recovering the link concurrently with
-+		 * the resume path.
- 		 */
- 		ufshcd_rpm_get_noresume(hba);
--		if (hba->pm_op_in_progress) {
-+		if (hba->pm_op_in_progress && !hba->is_sys_suspended) {
- 			ufshcd_link_recovery(hba);
- 			ufshcd_rpm_put(hba);
- 			return;
+Thanks,
 -- 
-2.34.1
-
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
