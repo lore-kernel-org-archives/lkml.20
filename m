@@ -1,110 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.185.170.37
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793039276;
-	b=y1QAaJbcbURfK+9uWsB10d/VqAIG9rVx6QDQ3MP2cE0jmcYMqgQyvZhMnOOWOHJpo92l
-	 XtDORSdmoGKHRruO+yaEKs07m6Nl+j3YmFKtlpoBJPeflTJCTlQKUGcuN524nz7SV18JA
-	 v8OcgZMBi5MXZ/Sqsnlfayd6Iv47kQFLngdEN1H91ZiO4qqnaD15PzbuLZHCiPSNWHNdb
-	 fbCXPZ39aqVDlGzZVyb0gYl8UAsi8FecmT1N0Z+dwvd+gmdNWOR2txTUNH0J9fXJ4iIF6
-	 SLLYaiaQoS7epHf+FW7ZLPvutn8cf+5R1qx36W2Xz3wuaqHWx1U8rOneTdx57xbnoDQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793039276;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=BBul2vfrhQZO13559zXI+nU0OldkKMALm3TltgUUqyo=;
-	b=iup0Y3wwvcOLY7Z2NQNzD6H53i5d+YmKXzCMDuY6tBjGE+8J0sR76UNjRfLL7JoWr/C4
-	 u0JGTCq9rPPOh9Rh+oOWPWr0aEk4/VFBuEreZreY4e5btyY92HYzVBxip/XgyemjgqdQm
-	 dkgj/dT3MBLm9xbPgN4Wf90CLNmgnjyqEKEiSTS0h3vw8isgIAH84m5dbd6RZZRB4Qoek
-	 TRvm37DtPSq7TRByMRBOk5gtnZj71Hr1hokRg9erh9u1w/CV1PcnxJQrHnwlI3BlVIhvH
-	 Q1a2nzjkrOZrOCjyyL36vBDYJDrl4Y489iubCqX18FztGH9IiQIXg6NvshUa4W4PLZg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iki.fi;
-	spf=pass smtp.mailfrom=iki.fi;
-	dkim=pass header.d=iki.fi header.i=@iki.fi header.a=rsa-sha256 header.s=lahtoruutu header.b=hNoKH0LG;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.185.170.37
-Received: from lahtoruutu.iki.fi (lahtoruutu.iki.fi [185.185.170.37])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793039347;
+	b=r2mFtfrjxvnIydvyeU77KKleylvTryPx6+d49GDTCI+9SBMStfLkHHShfBxKdGHNI6k6
+	 GOjS9Fkkfpk3POc1CzMRgGXb6OEZ1zRj9VHzrn0rDMj8niYdFhE4y/ahlq0eLUHdg99pQ
+	 59Rjl2I1vNcExRvrVi76PaqpEGdzEH8Qbxp0c89eDLv25WD6pi2XftI8pCw62RiAMl484
+	 +QhqQshk2o07W/EHe8Vx6P0F/suenXc0rX8WDRqlh9TG2ahU+Vp7XEHb3kU1kC/AsLomq
+	 Daa6Tn1GwynbfTvvMjtC4zA9BS+2SHTJYppYSM96Uxadfpfuit7JvwC3RXg+Cp0gDkQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793039347;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=0NI9RLlWYIDJdLe+KSbe1fNuqdLrRNfJQlntLDLstp0=;
+	b=FlptPeKm49/A8CI+U8N+lR/k6ptNe/2FjgnvYufzBMng6p9hKwd8GOMZCa6r3bbCF5GD
+	 IMOzOhzdoWXHCVknuWeNJv7Ilx4MGDJ7q6OJsFsn8pnk/WNW3Lx3rN8tx5CMsiaPxZPgG
+	 /xVjrC/FlEId1ib59vSXyCJn3JN/2OLh2d/Isi/bBJYW0kdrgq4gD6ItVOlsLfjG639tl
+	 OPNBlHR66QkBV4Gx/WFHm96g65K47lZByLeN+sktETVmqQdzwWd2ZDZ5Q5EBjnzxfpZ1v
+	 0zRnpbz4jy1iq509ieGPnw1j96sNkjknshr+FKTUdY4dBdD5ZUZ76eb9n7A3mIwM6HA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YhmCh4L3;
+	arc=none smtp.remote-ip=198.175.65.9
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52A79606A31F;
-	Mon, 26 Oct 2026 18:27:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52A79606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 194BE606A320;
+	Mon, 26 Oct 2026 18:29:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 194BE606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=iki.fi header.i=@iki.fi header.a=rsa-sha256 header.s=lahtoruutu header.b=hNoKH0LG
-Received: from hillosipuli.retiisi.eu (n18ws8cotq5gnfn8-1.v6.elisa-laajakaista.fi [IPv6:2001:99a:0:19f:4ce7:0:938c:d2f4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: sailus)
-	by lahtoruutu.iki.fi (Postfix) with ESMTPSA id 4jD2DM5nSBz49Q3t;
-	Mon, 26 Oct 2026 20:27:47 +0200 (EET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=lahtoruutu;
-	t=1793039268;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=BBul2vfrhQZO13559zXI+nU0OldkKMALm3TltgUUqyo=;
-	b=hNoKH0LGisklu5ADzk3bdmXT8nh/v0M1z51mHAq74AE8f2UQFf9wPfAfYo5OE2VWGcbOAY
-	XtiS3VGXm3dhkAErEdW6ZEb9IW56DsaaK7N6Di1+p4H+dH5tk7+a0Jck6hNTsWkLAcnO+4
-	cbxK8tvtSR7R1ASct02uf2X+x3N6IZG4T6Tkiq9cRMxjT6aUhIJQirAhebg4+jZfU2GyXk
-	mDxy4szFf5mwUVB1voCcQyKsm84cTuqSBPSSIQB+ncNODocxcWSrBFGVPsFIJbqNGpv2Jh
-	eyUi+C0b3aFYGsMJqTVR6D5X3V5ye9b3MaN7oZzykkjn+FwfCCdBXh2esK7VvQ==
-ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=lahtoruutu; cv=none; t=1793039268;
-	b=C553BT3aWaWWkSVGH0H/rUH6T1Qpw1JeaF7ubmjG9j0focuB7yuZbWYfvQpYu1KJhMkAPo
-	UT1dwfcNzxfjee5znLO6oGfCObzRcqMfcFR1H9JklQMbp0y/HWSDGtUvAZhBUSC5lAGWii
-	r/lX+53+xzhEclc3fKTWgag96SnyVmCNavaMYjax7jjIQRA4mPw6vaYRT8mCIljKSqDH0j
-	eexz6vl6FZNPjJq6VZNae1V+d/5SpMEc59pZrLtAomdB2h6LQNaM+d1OUUOCHx9elIr/x4
-	Ycx+VW9LeRWgU2jrNDBYLMrrY90AShuCuozNmjHRYeJ2hqS5ncNnc12l4bSN6g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
-	s=lahtoruutu; t=1793039268;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=BBul2vfrhQZO13559zXI+nU0OldkKMALm3TltgUUqyo=;
-	b=t12HGNMVoK2iH6571tnm7GOhfH9w0LdKPp9sk/eYbzDigGfWE7yj+2+u8bN1VVLeTU7M6U
-	XoPEx0Gn9ZHFAjRS2m5h0pJuOkdoWMfgUgWq7aubXjRv+XfPszw3i1AxSGuf0kaNiy0RTN
-	MLCxGKT6gGncKVOyEy+0onJRQDEYFYlpUgEcromC+PX/uIx5oJa/iLPEY0y1HDd01+qpB2
-	aKGdKX3vl//HXxBFyKr9fZ7JjbkWpWhbw1sladzQaJ3HFdnNhBJEAMudYpRjMMQ/GcQDkq
-	epZjTYYg5A46FLoc/Ke9vf/FrfGqW0WQ83lIc0Jy6GtUtlwRTgTwGZkMuMl99g==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=sailus smtp.mailfrom=sakari.ailus@iki.fi
-Received: from valkosipuli.retiisi.eu (valkosipuli.local [192.168.4.2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by hillosipuli.retiisi.eu (Postfix) with ESMTPS id 2C777634C4E;
-	Mon, 26 Oct 2026 20:27:46 +0200 (EET)
-Date: Mon, 26 Oct 2026 20:27:46 +0200
-From: Sakari Ailus <sakari.ailus@iki.fi>
-To: Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Denis Benato <denis.benato@linux.dev>,
-	LKML <linux-kernel@vger.kernel.org>,
-	platform-driver-x86@vger.kernel.org, linux-input@vger.kernel.org,
-	kernel@lists.opengamingcollective.org,
-	Benjamin Tissoires <bentiss@kernel.org>,
-	Jiri Kosina <jikos@kernel.org>, "Luke D . Jones" <luke@ljones.dev>,
-	Mateusz Schwartz <matthew.schwartz@linux.dev>,
-	Denis Benato <benato.denis96@gmail.com>,
-	Jonathan LoBue <jlobue10@gmail.com>,
-	Khamunetri Clark <khamunetriclark@gmail.com>,
-	"Derek J. Clark" <derekjohn.clark@gmail.com>,
-	Joshua Leivenzon <hacker1024@users.sourceforge.net>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Rebecca Mara =?iso-8859-1?Q?M=FCller?= <rebecca.mara@posteo.de>,
-	Ivan Levchenko <me@livan.pro>,
-	Corentin Chary <corentin.chary@gmail.com>,
-	Hans de Goede <hansg@kernel.org>
-Subject: Re: [PATCH v11 08/18] HID: asus: add support to force feedback
-Message-ID: <at-bouHWm0fRkA-c@valkosipuli.retiisi.eu>
-References: <20261025235232.129945-1-denis.benato@linux.dev>
- <20261025235232.129945-9-denis.benato@linux.dev>
- <at9JNgMf8EZdCHEh@valkosipuli.retiisi.eu>
- <1c017f49-bc69-fc68-20f8-0c66a2c85719@linux.intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YhmCh4L3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793039348; x=1824575348;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=wK0dBj7SJKraA3sG/2JxBtdzXhiGQ0NAg+PD9/zCtXM=;
+  b=YhmCh4L3dR2QxhTm4Scvc5Twhfgt4wD01Y+BXjmeoafEpC7DKmuPysBA
+   TUSzWThBxWN8zEaoMApOMrE6Uo1gsMmqyJROL2qCrSB6d6ezlSRdW5D9Y
+   n2p71rr9L20lSbxE/mPbBfue/MN8BXE/umIc8fSPi8j/5wvJm/FQXaEED
+   Dhl58IB+7mmNlbE9ASuRDODN/gxuw8DLjUHIgvkEIv9sTEM1U+HzbX7bV
+   YqjWcyo2c++R5hWi7XVDZvtOOXIFdpd0fEaQ5RT9MlnrlgGXCKN9yy1Ll
+   sGUzyM4y1ny/gopwod6fs17HyoNS692K/x1+pqbJbFcPfcbVwGQ0pmStc
+   A==;
+X-CSE-ConnectionGUID: gOmvlcioToOtVVtyVY2/Ig==
+X-CSE-MsgGUID: /eJRtFzaTHSaPqBLiCTtlg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1601001"
+X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
+   d="scan'208";a="1601001"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 11:29:07 -0700
+X-CSE-ConnectionGUID: uty7sdDRQ+e4s0FMpNdDxQ==
+X-CSE-MsgGUID: h1W0OpwgQiOrKy2QF3nEsg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
+   d="scan'208";a="4720087"
+Received: from ubuntu.igk.intel.com ([10.102.114.174])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 11:29:05 -0700
+From: Szymon Durawa <szymon.durawa@linux.intel.com>
+To: nirmal.patel@linux.intel.com,
+	bhelgaas@google.com,
+	robh@kernel.org,
+	mani@kernel.org,
+	kwilczynski@kernel.org,
+	lpieralisi@kernel.org,
+	asutosh.pathak@linux.intel.com,
+	szymon.durawa@linux.intel.com
+Cc: linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v9 1/7] PCI: vmd: Add vmd_bus_enumeration() helper function
+Date: Mon, 26 Oct 2026 20:54:54 +0000
+Message-ID: <20261026205502.3502574-2-szymon.durawa@linux.intel.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261026205502.3502574-1-szymon.durawa@linux.intel.com>
+References: <20261026205502.3502574-1-szymon.durawa@linux.intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,33 +87,133 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <1c017f49-bc69-fc68-20f8-0c66a2c85719@linux.intel.com>
 
-Hi Ilpo,
+Move the vmd bus enumeration code to a new helper vmd_bus_enumeration().
+No functional changes.
 
-On Mon, Oct 26, 2026 at 08:21:54PM +0200, Ilpo Järvinen wrote:
-> > > +	u8 *dmabuf __free(kfree) = kmemdup(buf, len, GFP_KERNEL);
-> > 
-> > It's not very nice to assign variables and then check for errors. I'd thus
-> > separate the declaration and the assignment.
-> 
-> I actually thought the same thing first.
-> 
-> But then stopped and realized, it's mid-function declaration of a cleanup 
-> variable exactly following the guidelines (the long comment in cleanup.h).
-> 
-> So this function doesn't really have variable declaration block at all, 
-> making the mid-function variable declaration look like one. I understand 
-> it looks confusing when encountering this for the first time, it was for 
-> me as well.
+Suggested-by: Nirmal Patel <nirmal.patel@linux.intel.com>
+Reviewed-by: Asutosh Pathak <asutosh.pathak@linux.intel.com>
+Signed-off-by: Szymon Durawa <szymon.durawa@linux.intel.com>
+---
+ drivers/pci/controller/vmd.c | 89 ++++++++++++++++++++----------------
+ 1 file changed, 49 insertions(+), 40 deletions(-)
 
-Indeed. I missed __free() there -- one shouldn't review patches too early
-in the morning!
-
+diff --git a/drivers/pci/controller/vmd.c b/drivers/pci/controller/vmd.c
+index 241023ecf677..57d5e917dc45 100644
+--- a/drivers/pci/controller/vmd.c
++++ b/drivers/pci/controller/vmd.c
+@@ -905,6 +905,54 @@ static int vmd_pm_enable_quirk(struct pci_dev *pdev, void *userdata)
+ 	return 0;
+ }
+ 
++static void vmd_bus_enumeration(struct pci_bus *bus, unsigned long features)
++{
++	struct pci_bus *child;
++	struct pci_dev *dev;
++	int ret;
++
++	vmd_acpi_begin();
++
++	pci_scan_child_bus(bus);
++	vmd_domain_reset(vmd_from_bus(bus));
++
++	/*
++	 * When Intel VMD is enabled, the OS does not discover the Root Ports
++	 * owned by Intel VMD within the MMCFG space. pci_reset_bus() applies
++	 * a reset to the parent of the PCI device supplied as argument. This
++	 * is why we pass a child device, so the reset can be triggered at
++	 * the Intel bridge level and propagated to all the children in the
++	 * hierarchy.
++	 */
++	list_for_each_entry(child, &bus->children, node) {
++		if (!list_empty(&child->devices)) {
++			dev = list_first_entry(&child->devices, struct pci_dev,
++					       bus_list);
++			ret = pci_reset_bus(dev);
++			if (ret)
++				pci_warn(dev, "can't reset device: %d\n", ret);
++
++			break;
++		}
++	}
++
++	pci_assign_unassigned_bus_resources(bus);
++
++	pci_walk_bus(bus, vmd_pm_enable_quirk, &features);
++
++	/*
++	 * VMD root buses are virtual and don't return true on pci_is_pcie()
++	 * and will fail pcie_bus_configure_settings() early. It can instead be
++	 * run on each of the real root ports.
++	 */
++	list_for_each_entry(child, &bus->children, node)
++		pcie_bus_configure_settings(child);
++
++	pci_bus_add_devices(bus);
++
++	vmd_acpi_end();
++}
++
+ static int vmd_enable_domain(struct vmd_dev *vmd, unsigned long features)
+ {
+ 	struct pci_sysdata *sd = &vmd->sysdata;
+@@ -915,8 +963,6 @@ static int vmd_enable_domain(struct vmd_dev *vmd, unsigned long features)
+ 	resource_size_t offset[2] = {0};
+ 	resource_size_t membar2_offset = 0x2000;
+ 	resource_size_t busn_end;
+-	struct pci_bus *child;
+-	struct pci_dev *dev;
+ 	bool vmd_in_guest;
+ 	int ret;
+ 
+@@ -1047,45 +1093,8 @@ static int vmd_enable_domain(struct vmd_dev *vmd, unsigned long features)
+ 	WARN(sysfs_create_link(&vmd->dev->dev.kobj, &vmd->bus->dev.kobj,
+ 			       "domain"), "Can't create symlink to domain\n");
+ 
+-	vmd_acpi_begin();
+-
+-	pci_scan_child_bus(vmd->bus);
+-	vmd_domain_reset(vmd);
++	vmd_bus_enumeration(vmd->bus, features);
+ 
+-	/* When Intel VMD is enabled, the OS does not discover the Root Ports
+-	 * owned by Intel VMD within the MMCFG space. pci_reset_bus() applies
+-	 * a reset to the parent of the PCI device supplied as argument. This
+-	 * is why we pass a child device, so the reset can be triggered at
+-	 * the Intel bridge level and propagated to all the children in the
+-	 * hierarchy.
+-	 */
+-	list_for_each_entry(child, &vmd->bus->children, node) {
+-		if (!list_empty(&child->devices)) {
+-			dev = list_first_entry(&child->devices,
+-					       struct pci_dev, bus_list);
+-			ret = pci_reset_bus(dev);
+-			if (ret)
+-				pci_warn(dev, "can't reset device: %d\n", ret);
+-
+-			break;
+-		}
+-	}
+-
+-	pci_assign_unassigned_bus_resources(vmd->bus);
+-
+-	pci_walk_bus(vmd->bus, vmd_pm_enable_quirk, &features);
+-
+-	/*
+-	 * VMD root buses are virtual and don't return true on pci_is_pcie()
+-	 * and will fail pcie_bus_configure_settings() early. It can instead be
+-	 * run on each of the real root ports.
+-	 */
+-	list_for_each_entry(child, &vmd->bus->children, node)
+-		pcie_bus_configure_settings(child);
+-
+-	pci_bus_add_devices(vmd->bus);
+-
+-	vmd_acpi_end();
+ 	return 0;
+ }
+ 
 -- 
-Regards,
+2.43.0
 
-Sakari Ailus
