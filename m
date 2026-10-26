@@ -1,109 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793017331;
-	b=jQFZkpwVBJBSBmC7NPTZdBTd5PquLSI8diCq+C64az8DIw23uPacSu+P8URIh+oIESkZ
-	 6va/7/psJutXUKOyj3smZwowf3jY9CKnK4ExrDgpl5700WT7uf4PLqi0Hx8SFqmRLFV9O
-	 axqlStLgfoPLUbszH628X5RE6srb4GPhRCKJVwYNZRbb+RbEf784t3N2m0jLuEg0mq5Xj
-	 KKI+ndy+x206aRV4CRmec4Umhn0hfXjf7ihCEZ8kO6jnq8gxP6YvNk1f2cQbCFO3z6EQV
-	 eTXL6bxyUN8Mhqr0wPn4HxZBlEVE26nmm/zvleLd9NIBu5rFEGipickdBosHR8QyHjw==
+	t=1793017340;
+	b=bzqAIMrt6gPtQ1TFfWZK4QIP4T6bqiEKKMgt/7kkDs/yOrizqwmeg9ZXIrkqWqzOWQv5
+	 Ef6LXMFpVoewAzBbggFRmB3EaP/lKbE5uq3ntBqsOYufTGG5fWYYfgUVEjDvZ+3U8PH1C
+	 25nG0oyhMnC78TC46kV1qGHH/Ezq/0pDK72NdFxpsPMoKymOi2ridUsmu+Sn/Y3kb4F9H
+	 bUvMhBDTxCKTm7aoHSoMRldGpwO59VMU/0+Ki5Xs9kiBhqefTgl/RFVUxOTkCWKs3VgtH
+	 hMdmN+N7gAvzTnMXBZkZlvOSClTTiSIqpGDGtCTJg+W7mfzC7iRo1j1r2BDD6uzZOCw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793017331;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
-	 X-Received:X-Received:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=7qLl5/5viFxEYIRHoiFrY+7Gr6BdKzbzbBWkJ49w5PE=;
-	b=DLmp9LGgnnh2bFYClAsxSsnBdZBX03NpNGlQI4/IRZf/j05psGQsig3JeVS0Tv5RilB6
-	 VSvs0CL07SGO92E8y9P9vYQp35J3T9lp01WoJyYHiEfv42e7Xsj8ZuQBaSjtAOlhkANWd
-	 9QmpdnKyG9Nhj3nTQkc8MZFujVXNX5FIOo7SxpH5LvGS2gOx40GtNus/afq5GzdAIp5iQ
-	 /5BizEQArJt/SB8O/0COhxVTCKlKCT0jGr65tJ1HJpLND58G0l2tVDbyicHB1KM48etDE
-	 UUEWeMMHh1n4qN1SnZaP52juKkWCNUzsxAJu2+BZMaV/XwBrWgl50+otpsgYA5eaicg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793017340;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=PJP1r5/GuQZwv1AbNOj2FluY2esrMbEg2unT6FQO/Lk=;
+	b=QnxkIamzR8jc3ToAhUcQgQbULoMuu6Onctxw0uOkTqAkIiLDuqyRgXKW6EzDtPmU3O+e
+	 y5LKZW0c3bYbFQ1fnQh5l95ieAQhvCiOgPZ0miTFYzXsDcjCYYcOhjUrKWczcK4/xomis
+	 jwM7zSJsQAjj9bCV6v4qO+iukLOpYXOk/ptyeS6NIPSCCb5djyaMzCMcRyynTZOtbh+wn
+	 rGzVqB0oxJBE3ms8YDtsNtTFKsdRVVY5V20YWSL0bIDbvBNuymivoCf01KbFIXAHNRPAP
+	 mHbqT25A3DXQcAmmpLXX74931KQwj8aH/DRLSRrFWZpfvMYIpNa+Cn99y6WUKyViRPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=A0FqK9IX;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=AsyULzmp;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=hCGtBGqE;
+	arc=none smtp.remote-ip=209.85.222.53
+Received: from mail-ua1-f53.google.com (mail-ua1-f53.google.com [209.85.222.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5EBA606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:22:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5EBA606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAFAF606A31B
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:22:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AAFAF606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=A0FqK9IX;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=AsyULzmp
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69QAtMRK2009940
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:22:10 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=7qLl5/5viFxEYIRHoiFrY+
-	7Gr6BdKzbzbBWkJ49w5PE=; b=A0FqK9IXSCbn+6OS0VxpMn+yCoBTDqfG0mMfUy
-	iem7rThdrA0XyyA/RveUBfujsuqXFBcUNLQ2840WfGrvmBcj32yzkmJQ7rP6Zns3
-	QCEZ1rhzxImmy03wa47JXo0SvWVGl0GFVxAYuJc5cjAffVSNG5rAfMVy6QTgafWY
-	iujaTunDh1QSr75G1jFwH1vmgpAxjgo7ee9JkAt0Gl2bqWFIP8o0NkvVOCoOLqlY
-	uOTzEpYsQAyl/nhAtZK4prIK9mIDHnhm9Iq15yHnVL4KsLHTdwj5u1ckpIrL+hl9
-	pVHHzlyJs7QeNsWLxvVhpbGfPw7R2QVWoilPgpQ6ntW9JoNA==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hgn27xb0n-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:22:09 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93ecdc701a2so375157985a.3
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 05:22:09 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=hCGtBGqE
+Received: by mail-ua1-f53.google.com with SMTP id a1e0cc1a2514c-9907fa1d2d1so495069241.3
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 05:22:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793017329; x=1793622129; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=7qLl5/5viFxEYIRHoiFrY+7Gr6BdKzbzbBWkJ49w5PE=;
-        b=AsyULzmpZoB24LBjPN/4IG+FAGUv2fHqQQjKvQ4ECS77/LICmwyYey4gi758E2QhVb
-         h/9gLwLUFg7G8KuImXBNc7vXacGRN0zGc7rNoCFSbZKGTETnj4RIwYZGWwb7hy1WVDYB
-         QekjSoB9/xaiK+7xAT8VFOYeQA/ccZ2uz8/yI7vxW6UMozU0X0HRahp4coadbEwlBUE8
-         mlQE3/yg//I42C0OVl6uW93bbkNdKqF54HXMS6feS/gtIV/0jeors1qX8YS4vmF4MEfe
-         bujTITgVi6u5Am4sWiD6nBopF+Xnb6/Rcf4Zt/0dch7m0ythqbF/unyB9ce9cPQI0OoT
-         4I/w==
+        d=gmail.com; s=20251104; t=1793017339; x=1793622139; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=PJP1r5/GuQZwv1AbNOj2FluY2esrMbEg2unT6FQO/Lk=;
+        b=hCGtBGqErUXyKcyFDWAEr7zieuwbCnJOQBfQ+KEuf/wRvp5C3X/kvgufga2Fus3+TI
+         JGvipk6tTyEbL/E5aW73SSvEe46Cc5fwK25STI3XHB76CJ7oVUTx4+k+QlICIwJ7xR4B
+         9wtDDFaj95vZWxTPnw2fPHJ9456MDK/plNxng2ACXpQia0w0tHr7Ygh8eKvqL7VtB6s+
+         itlo2eDi5isgYaTFl9gNq3whanasFKQCtSv3c4BQ+XIyKxh7oyon+Pv2QcDti2TLC4Wf
+         yoFC96+84vfjDF2noO/psLKp5R1CVDzqO0xTrGJ5Hid6J0eL74xYmmKahcui4IMSqr7a
+         oeRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793017329; x=1793622129;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=7qLl5/5viFxEYIRHoiFrY+7Gr6BdKzbzbBWkJ49w5PE=;
-        b=syrtWX/YSPPvUIocDO3FoJG26s/UiLv5SXo91/6Qn0NJdMRnmPJ+/LJatuciLHEOVn
-         2M4sQbH7CuYEgAhsoVnp/aY0sYYMWfshtn1XCRXIbYQ7pXWpD7rPZWuJME9VzsuqzPwS
-         eukhuXnslga+1Igmlh+JcV+oWxsudZ+8ml7nCrUgZmd+t9OBktoezkCpuuN2oHvS8UAw
-         D1shHfn9j8r3ANEHQ3r7Ih7kuI9auRLfzQfIPgClIuRjM+5nhWmuOSPvYb5LlWE+l56W
-         VRJf9GOmUpFXhXIlcECBvc2Z7qibbOLTQTRoZulQ+BsMI1m03onBfisd2TuJuSMhmLoa
-         H34A==
-X-Gm-Message-State: AFq9FYJPMEVL19klqzrRz51CuyI/NqAqCDuY+Ja+ZybSDxvN93zkUY57
-	RIig4E10LqpdPwwbxQNGi2VQC8+WquCCeaEk8JlWIJuzi0VrL8DKgYiTfYOZUegBBGMmejEwZTf
-	85rXSSfULm8u2WMLCtYZxJ+Np2xnXPgd1I7FADVaUxeLvAXAE0BuaZq8ivJpACAcu0dvGwAIJY9
-	M=
-X-Gm-Gg: AYBFou0JkHlVciKJiYsDsTZ+SBJKyxutDU8YC3mWr6zMvyLglYq4gfFC2lmiqNNM4Mc
-	4kxnvqvhP0E3d094WF0eZWKoxwKnlR+nMMJIsjZk1xhJdGdsJTlxeeOUCnIejNF+mTNfx5pHD17
-	ssZ6V+4KohpGv5hAAuUJL/l5X8DbKVZc1ZM1IVC03YYH5lxisFUA8U2FsKSfYrSVwvGxIxeCodj
-	i1jDdvyL1v4qTbWF4Ee44YkJpdRNpHeafRtTBGjfct3mKMFaeBfdO6+aAob9WubafkEl1Nqlbfm
-	xkZmElqV1oRYT912l54II42TzjegLHvUR4uug3Uie6BtjsmV6WoFUQrGyJ5mG8dj/ptJBgyeIcb
-	nPuTxmgYbbw==
-X-Received: by 2002:a05:620a:688f:b0:93f:47fa:b72d with SMTP id af79cd13be357-940ef940013mr909290885a.35.1793017328728;
-        Mon, 26 Oct 2026 05:22:08 -0700 (PDT)
-X-Received: by 2002:a05:620a:688f:b0:93f:47fa:b72d with SMTP id af79cd13be357-940ef940013mr909283985a.35.1793017327944;
-        Mon, 26 Oct 2026 05:22:07 -0700 (PDT)
-Received: from [127.0.1.1] ([188.27.161.187])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecd8ddasm17909131f8f.48.2026.10.26.05.22.06
+        d=1e100.net; s=20260707; t=1793017339; x=1793622139;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PJP1r5/GuQZwv1AbNOj2FluY2esrMbEg2unT6FQO/Lk=;
+        b=yH2mb9c+4zEwH4K5F1k7/i9zvjQwOK6029iLT/cJ8UH1eQamHXlcMbGBFhIDZShd0r
+         7k9xUMcNnr2wmA9n11DEhYbDooQo5t8j7UUN/fuYHBGFlNm7IlVa/QB0BWxkSCDF+L9H
+         oHXBLbCQjZGsvw4KXoF5cCC60IvgC+um4bPwEVaZQjTFglAB+tfEneez4p4dI2pT71/3
+         L/ktWB5kItRNTUGmaEs8vBldWU2Hcus8NrrslZ1DKyWwUAeiF+IaQ2kIlXBAjgQehbwI
+         OoIEjuHTmRlcguCv7X3+hfa+GDUDdcjRsRWkjwb8/0o1vQpCZYDE+/FfnxQGv1Vxz38x
+         tgOQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwwOYo5MT/GSMdPpg3Ack7Q5CdYoGl8DHTNyGDbSP3caTbjESwmUeFCY2f4fTsoSkEH713FiAr2fapn12Y=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJijnAJWqOvgHEjILVhjrjLqPDB/es22dW4ZCNvyM1jkNS1guh0
+	0nd7riTNIRho5xq5uBatOrO1J2+8qdYzNdTJCHAhMNoiOxTqd/jZK/wI
+X-Gm-Gg: AYBFou2ryQ9F3RzHdTzga2zBdLaew0SkQiy7QqLDfrTM3gQ7tEhPl+sBmhQfgANWevJ
+	yG05qTHNJ3EflAsWY4kEENrgoR3UVmza91DxxAbJw3EORdhSUD4HHIU/nAgYwHDo/FQMHJ3mgUN
+	OoDIgiSCFip+uintiqcY5Okwa9+izAQpNLWxSJeLBDN5vLOc0Hgc+ds0xpnZUNlh07+00Qiz0aP
+	2od5hxpYeiaLzkYa2NgfiDsidNDfh4Sb0fR65lAhwwHMeGiMLZIZhN/A/2MNuYaF1tYFeNvWwMC
+	MPQIqCAXvj5LKbYe+W0rsIAlDIRQjBVDXYsd4ISEiLR8FPVij7Y1W/7Pxc1wp+4/aCRnDQx3ALJ
+	Q9KcHQrafxFWJKNdbQIz0EQjEfh92ZwQFqElqYVcnP6KH0Tb66UbX5qFSKvrJ7rTbrEpsb4y3E6
+	ldUDQm4jBQALE+gW6xX90hi7jW+n87cw944K+ZpZ4H2Yanops0R14wwTXGyEDTvGqLMcHFSqTVM
+	t6YAbdx+umrrfc1ZvcnajNilLcqrZl071Nxh3FzU4Uy+KOr2K/oJzANjcDQ1pRbtsWTt0HeIMhB
+	HJnJsxnQSgzXNssCz7osuKbjxBT85/rGj6G79ZbZ5souUEdTmNvNTOBtuE0da+W6TAQeryAs5MW
+	1akNIOeN5sYB/jlAkbmH9FNpQc8y3OzG8mDPTohFzGFa6r2lf8AfPyH/dEvDywoU=
+X-Received: by 2002:a05:6102:14a3:b0:7cc:28a6:ee1c with SMTP id ada2fe7eead31-7ce5ca1e4bbmr1974187137.2.1793017338558;
+        Mon, 26 Oct 2026 05:22:18 -0700 (PDT)
+Received: from c.1.0.f.7.a.5.f.d.4.6.5.7.e.5.4.d.7.3.9.0.c.2.a.3.b.1.0.4.0.8.2.ip6.arpa ([2804:1b3:a2c0:937d:e94c:8101:376c:4b55])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9910e6cfb52sm8155548241.2.2026.10.26.05.22.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 05:22:07 -0700 (PDT)
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Date: Mon, 26 Oct 2026 14:21:55 +0200
-Subject: [PATCH] reset: gpio: Parent the reset-gpio device to the GPIO
- controller
+        Mon, 26 Oct 2026 05:22:18 -0700 (PDT)
+From: Joas Antonio dos Santos <joasantonio108@gmail.com>
+To: Jeremy Kerr <jk@codeconstruct.com.au>
+Cc: Matt Johnston <matt@codeconstruct.com.au>,
+ Guikun Yang <yangguikun19@qq.com>, David S. Miller <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject:
+ Re: [PATCH net] net: mctp: free reassembly head skb when key_add fails on SOM
+Date: Mon, 26 Oct 2026 09:22:13 -0300
+Message-ID: <179301733329.91976.14585535037608378942@gmail.com>
+In-Reply-To:
+ <426ef7428413b8d05b6cc3ac22e24b1927ab5aca.camel@codeconstruct.com.au>
+References: <179287946888.17431.11219154409333681184@gmail.com>
+ <426ef7428413b8d05b6cc3ac22e24b1927ab5aca.camel@codeconstruct.com.au>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,120 +106,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261026-b4-reset-gpio-parent-to-gpio-controller-v1-1-11549e6ea930@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAOJF32oC/yXNQQrDIBBA0auEWXdArQTpVUoXRifplKAy2lIIu
- Xttsnyb/zeoJEwVbsMGQh+unFOHvgwQnj4thBy7wSgzamWuOFkUqtRwKZyxeKHUsOWTIacmeV1
- JcLRKW+eiUz5CrxWhmb/H6f44Xd/Ti0L752Hff5PdhFWLAAAA
-X-Change-ID: 20261023-b4-reset-gpio-parent-to-gpio-controller-6401488d80ad
-To: Philipp Zabel <p.zabel@pengutronix.de>
-Cc: linux-kernel@vger.kernel.org, Abel Vesa <abel.vesa@oss.qualcomm.com>
-X-Mailer: b4 0.15.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2352;
- i=abel.vesa@oss.qualcomm.com; h=from:subject:message-id;
- bh=AaXLAy4MUVXLygO8SVh+4kVYO+RCcf8vtfnn23BPTaE=;
- b=owEBbQKS/ZANAwAKARtfRMkAlRVWAcsmYgBq30XtFZy5ZDTniY6aPPcMjWgiqvQfi2rg+b/pc
- K4c8eP+qnmJAjMEAAEKAB0WIQRO8+4RTnqPKsqn0bgbX0TJAJUVVgUCat9F7QAKCRAbX0TJAJUV
- Vp/eEACayw1hpGOFFlZWGbMj99BklBzML15yhBDJRK5G8KNU4VwBE3OroZReFooqRdmVu9sWKlJ
- XtNlPuU/OhT4rYt/4c4RRwRwnlgCITZ8f8EZoGO/FMnDb/z+XUsd81YQk82bvY8BPDJa0Jhypvd
- 9QWYLA1xRulD2awRQJYP63C8k7k7i5ln1xvlhZgdnVbrHVvcLcx4iEsa/wzUmBnHSng85wg7sBR
- ukG2q/1boHEqjkdWjRMBR4iqicB5gU2tP4miUPYGl7d7Pi8STO8trnfGvdNmJsoMlva99hg39FN
- 7e4EbkR7iCs5781H+i1YeUzOTX6FKOnRpev3SNk99M5l3wdWWKvgEFn0RvR/QC0S6f0ZJyCyjo/
- YQAr29ne3Kkzv7ERaZV0XHZo+dgJQzyajF4ru17K7NDVZichOdSFpS+EmlLW1MsoP827F/b8+ff
- xA+cI8hMQJ5lx3gVbmUVxnBOJBB2DGsRSSp9Jlpf/toGkAXkMt8yecFc2BD9z+fIsTUCtfh/oL1
- jOaFbBj3sgC+25tuu3Wz1Tj8a0wwuruv4ud1m8UpZaNdIPHzlTpLCAhW52+lx1bw3+7u8OmLcrf
- LDSq2GqSjqPH/2dK0+LAG/QImbbBKqxG+7c0xG4oD7MksvUXdscO6/SbhQUZYqoTbI+OK5hkT91
- 68X1ipblz9qtybg==
-X-Developer-Key: i=abel.vesa@oss.qualcomm.com; a=openpgp;
- fpr=6AFF162D57F4223A8770EF5AF7BF214136F41FAE
-X-Authority-Analysis: v=2.4 cv=G7GJgNk5 c=1 sm=1 tr=0 ts=6adf45f1 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=Qvngrl3H0rQgGg+94q4QgA==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=ptHPqsTFC9mP6BrMpTwA:9 a=QEXdDO2ut3YA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-ORIG-GUID: b6Pgkjoa_1EnrzqszS1tjbWL8WdT4stG
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA0OSBTYWx0ZWRfX0Z+SWEUntkJp
- STyqRmIkdTeLplKPvzxa7T26GemzWLYm4V8y4nCIG7NKZ3jkCmfdXrR5HWuazoK1M7sDB0b+uOz
- wBQ9wPK67waERpqThZqfzPdz11woy2I=
-X-Proofpoint-GUID: b6Pgkjoa_1EnrzqszS1tjbWL8WdT4stG
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA0OSBTYWx0ZWRfX753nuvmid0ZV
- vyJl+GezAiXyBPMQmHKF1guKFei7ptEy+GcJzNgzne5wquDeLWTSO5ydltsa/T3aN/7JFhzgjWa
- psXKCE7j2/2yA1pa3LIL2BXprwNWqGkOfK1dP/twboIp3OQxnszYr6NMnczwzgW0nXj7gzNRYZi
- 0LSRg9nn1fY2kwlSUCiRgJOb+UPcdJZ8wNTDCG6YJkq7PnxdmtqoM3nJ0PCzb0zKXlTgt1qH6o9
- 3YVXu79RI7nMN5VFHEea1HqApsV9AKc8geXHcm7OMLUFp1BY3oo9Xl7PcnySBN3cz7KtuKVs7jq
- 9BJ0hUIKt6hrjd9SLUibM8LAu37rrhh0EoI/bmiO9m406H485WLnOibBSh1QHkEoJ5vkgKpHzUB
- PrVRzCLpqhGWVB3J1WsqLjjlWLJmryYJDR8l4XHUD9VRzdbFToot9PLUt4LQTiwbHruSmGsUO1i
- CtkaJvR7HF1y4S914Ww==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-26_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 lowpriorityscore=0 clxscore=1015 adultscore=0
- priorityscore=1501 suspectscore=0 bulkscore=0 phishscore=0 spamscore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610260049
 
-The reset-gpio auxiliary device is a child of the GPIO device providing
-the reset line. That GPIO device is unregistered when its controller is
-unbound, which removes the sysfs directory of the reset-gpio device with
-it, while the reset-gpio device itself stays registered. When the
-controller is bound again, probing the reset-gpio device fails:
+Hi Jeremy,
 
-  reset_gpio reset.gpio.0: really_probe: driver_sysfs_add failed
+> [merging two threads here; Guikin reported the same issue, around 12
+> hours earlier]
 
-and so do the consumers of its reset line. This happens for example with
-the LPASS LPI pin controller, which goes away together with the ADSP.
+Thanks, I hadn't seen Guikun's report. If a v2 is wanted I'll add:
 
-Make the controller the parent instead, which stays registered while it
-is unbound and gets a new GPIO device when it is bound again. Keep using
-the GPIO device if it has no parent.
+Reported-by: Guikun Yang <yangguikun19@qq.com>
+Closes: https://lore.kernel.org/all/tencent_43A65D51143E18518EA968DF9323694EFD08@qq.com/
 
-Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
----
-Prepared with help from an LLM-based assistant.
----
- drivers/reset/core.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
+> We could just defer setting skb to NULL until the mctp_key_add() has
+> succeeded; there's already the common error path that cleans up any
+> remaining skb.
 
-diff --git a/drivers/reset/core.c b/drivers/reset/core.c
-index 38e189d04d09..a1b82e093915 100644
---- a/drivers/reset/core.c
-+++ b/drivers/reset/core.c
-@@ -1015,7 +1015,7 @@ static int __reset_add_reset_gpio_device(struct fwnode_handle *fwnode,
- 	struct property_entry properties[3] = { };
- 	unsigned int offset, flags, lflags;
- 	struct reset_gpio_lookup *rgpio_dev;
--	struct device *parent;
-+	struct device *parent, *aux_parent;
- 	int ret, prop = 0;
- 
- 	/*
-@@ -1093,7 +1093,15 @@ static int __reset_add_reset_gpio_device(struct fwnode_handle *fwnode,
- 		goto err_put_fwnode;
- 	}
- 
--	ret = reset_create_gpio_aux_device(rgpio_dev, parent);
-+	/*
-+	 * The GPIO device goes away when its controller is unbound, which would
-+	 * leave the reset-gpio device without a place in sysfs. Hang it off the
-+	 * controller instead, which stays around and gets a new GPIO device
-+	 * when it is bound again. gpiolib parents the GPIO device to the chip's
-+	 * parent device, if any; otherwise fall back to the GPIO device itself.
-+	 */
-+	aux_parent = parent->parent ?: parent;
-+	ret = reset_create_gpio_aux_device(rgpio_dev, aux_parent);
- 	if (ret)
- 		goto err_del_swnode;
- 
+I think that one needs care. For the first fragment, mctp_frag_queue()
+stores skb_unclone_full(skb) in key->reasm_head, and if skb is a clone,
+skb_unclone_full() frees it and returns a copy. The kfree_skb(skb) at
+out: would then free the original a second time, and the copy in
+reasm_head would still leak. Taking skb back from key->reasm_head on
+failure would work, but the explicit free looked simpler to me.
 
----
-base-commit: bd1ecbb61afefc6a8b876ccbc31e9228b44e9eab
-change-id: 20261023-b4-reset-gpio-parent-to-gpio-controller-6401488d80ad
+> Alternatively, we could change the semantics mctp_key_unref() to also
+> free any pending reassembly, but I'm okay with the current approach of
+> being explicit about the state handling.
 
-Best regards,
---  
-Abel Vesa <abel.vesa@oss.qualcomm.com>
+Then I'll keep it as is. Let me know if you want a v2 with the tags
+above.
 
+Thanks,
+Joas
