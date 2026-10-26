@@ -1,62 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793015006;
-	b=4AdgxaHr2GNBV1b6AVFbTdPpFHaPpp2lkgC/3qsJsUeBMfhfHPX6Lv33glUAQkBuAqDB
-	 /aeXrFjFHnqX1fAYlns16VYclkOcprQ3cZ8MuSjY2e4df9c1tjW0F4wDgIeyZlZLx6+9b
-	 G3vSXbYkpp2byFJiMrmk7uHcSWS3t4xfjtWIWfi/5oIVZlqRjePo1xxEslidGVNGVvKvK
-	 /nXn9oYMgDhIFldQr3zM20r0OFWb5NfdMbc85o02Mg0lP88GIr8yEKzbwQ3NbjLIc5V3w
-	 UShNo2Q2L1gqzIwHr93fKpZ2DfSQCbWrsQ98yy8/xAs7OhU3GwunQtYCARXlO7c+b+A==
+	t=1793015038;
+	b=p4TM65M/xXXr4uqelcyiXglndrj7IjbcelcmHGI8cL5KwTXEXl0PEcMZ1W1+4Usce26r
+	 x8UjkN9Ws0SWStGPQjQrTyRZWRIXMPt3Th2g3XxcGwLhbGlzt8G9fbEvlKyJaglaSNZYf
+	 lUZmZKYgcbJUtjxym6eUg77tlqB8dy9RRVManAaKl7NSTfHWS+/GfJXf+abjql92OTbaZ
+	 JC0AURcrP598ugHJRrqturNkYFPEBC5d+3753Dt8iyGp/eOd2KX2x3R5UayBtfjVaV2C2
+	 24JMyIBKOBL+kMXGCe32asF0y+GxuFo3/IIxQC3/WQoVJ9IeVox7BqtPTDV9jU6GqQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793015006;
-	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type;
-	bh=TB6sn/UOQnuPOej6SF5d8mgi4GN0S1GI9A7uaPPzJd0=;
-	b=0crfrTt2I0v96VtP4d6oRs4ESSlVPA4LVnIt/rqjvB89U9Gk9DjOPopokb7vNsJiguzQ
-	 sKCgqfy16ZHvEwLK71vthfaX1YQHP9igWGZcKMTROPJRhO7FhrUa+NL2fN7KwZJz4BTs6
-	 ou+YFnQGOwaz3VYQQB3TTYWx3m9W1z5XU4uP1qOdxYv1PYQXIb6DKwMpOnt68qfa7kiBM
-	 OA0u5hRcHrbkpdOeD31WJmQ0OjhKX0ZhzxTSCPzSVtPXTm6z6RsIW1URsL50JxqpFKe92
-	 IWECNuR6FxGBZftH2dEGsklbt0QsGVrIfWIjPmEsaXdksxrj/kff+Kua90KY3cyiNvw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793015038;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
+	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=uFtKzCeT2bVTLtaD9jARml6D6/kIz7lhfPHqwW2GK6s=;
+	b=e2ypxynAMMN79D2N5XiTm9p9HQMm+vQsyPaPHs8A4SSNXpVqYTp8bC0wAA2Pfa7WFkKD
+	 6wbifonnkxwdAh6npVDI+Bvy/7UaiDOxfwFgg+i6RiEGE1hcRvLG2JC1eVuCMiD5qJlCu
+	 g1Q7VvPBLy8o80feN7zdvVrindgTQSbtdN4//IazR8SDI+k1+iSo9aZXn8sKPYuA6mC11
+	 k1RcA77BuQsYIenua8OyZAo2iaQtYmP55ks3valoictFN5T3SH/JZqPJAPvAJ7/GCht1a
+	 kMDQXT0fvMm88WZDbqkMSbpvYtSWJct+s+tqlLiauG8UjCsHtCk4O7w3pK6O/UDm/AQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sntech.de;
-	spf=pass smtp.mailfrom=sntech.de;
-	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=ZZxz8X7m;
-	arc=none smtp.remote-ip=185.11.138.130
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=T7wk65f7;
+	arc=none smtp.remote-ip=192.198.163.15
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5479F606A31B;
-	Mon, 26 Oct 2026 11:43:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5479F606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43FD8606A320;
+	Mon, 26 Oct 2026 11:43:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43FD8606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=ZZxz8X7m
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=TB6sn/UOQnuPOej6SF5d8mgi4GN0S1GI9A7uaPPzJd0=; b=ZZxz8X7mWMciMHa4hyHB52VP/p
-	c7Z2OE3CazrXaOpP3QXj4JYBeDF9Aj3nBpgoTPFqI8La/mnJUfTTO2m3pJ3nUukBWjOR5WBwZyK9A
-	8nTkwpWzyHViZVhL7klpnuNq5ioBiyugDndsBriPlzPOWUBbMGw8NGM6CxZzDllbhA79EPPFawVt1
-	OU3M/+S4n1pNyIZFCe+uxV5Hu5UHkeRy0Gv5k6D6N8Vm2ihWdBV7Y+DTIIqbFZPQ51W23byZEhVuf
-	cDwrSKNSCI3sTvc6g4C9QOdX4J72++KS7Lnt+NlJr4KpPwZckGP5qtHCG2ASkK9tSNVrLI9nG530q
-	kRCdbvGg==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: krzk@kernel.org, Jianfeng Liu <liujianfeng1994@gmail.com>
-Cc: HystericalDragons@proton.me, amadeus@jmu.edu.cn, conor+dt@kernel.org,
- devicetree@vger.kernel.org, hrushirajg23@gmail.com, krzk+dt@kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-rockchip@lists.infradead.org, liujianfeng1994@gmail.com,
- macromorgan@hotmail.com, michael.opdenacker@rootcommit.com, naoki@radxa.com,
- robh@kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: arm: rockchip: Add ArmSoM Sige7s
-Date: Mon, 26 Oct 2026 12:43:10 +0100
-Message-ID: <5520293.6fTUFtlzNn@phil>
-In-Reply-To: <20261026075915.203854-1-liujianfeng1994@gmail.com>
-References:
- <20261026-luminous-traditional-gazelle-0e3bb3@quoll>
- <20261026075915.203854-1-liujianfeng1994@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=T7wk65f7
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793015038; x=1824551038;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=YfdeoGrsN+l5K9lwjQegKiX7qvP3brOk6K7xFCMXpdg=;
+  b=T7wk65f7gXv8TcRbkZsfi3N5q4YSfqYBYMJaa805F8RiuT1DmZdc2l02
+   9AIWmfU2ZhfQSxcqExmt/yW+5XEHClL74m7wS8IADcwQhzCJiXqk0dac3
+   +FAXFPSDhHUmnID1Q0iNoc6CzXMx4hA5KXbi9XPdVT+sWvS1cVJ9OYKja
+   +rtDyvcU5YQyzyEA0MN4rqJEiIOuJvuu/Pib3d+AQ8kU7gQeRfLtvTZ1A
+   0F8VQ2JLKYei+MUSczE41HxCCH4Ot8fQGIT8mNhBhbyItMRSsNtgNZo67
+   ulDxs3aI2LbMSu2LZZ1L7h5LLJPzoAIMTq4UeM8ecIv6iA4tGuPY7blzv
+   w==;
+X-CSE-ConnectionGUID: XetdQWqRR8at7ZsgcFGH9g==
+X-CSE-MsgGUID: wYECRADqRvGolZhPnDhKPQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1689268"
+X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
+   d="scan'208";a="1689268"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 04:43:51 -0700
+X-CSE-ConnectionGUID: c8KG+NJ+RpmrJbxeeVNewA==
+X-CSE-MsgGUID: GRv9rrRaT+GSGqYuwX57wQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
+   d="scan'208";a="4148444"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.73])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 04:43:50 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 28433121CBF;
+	Mon, 26 Oct 2026 13:43:52 +0200 (EET)
+Date: Mon, 26 Oct 2026 13:43:52 +0200
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Simon Kruse <simon0x+git@proton.me>
+Cc: Daniel Scally <dan.scally@ideasonboard.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] media: i2c: ov5693: Support control events
+Message-ID: <at88-MnXMFopRLl-@kekkonen.localdomain>
+References: <20261010142042.23253-1-simon0x+git@proton.me>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,34 +83,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261010142042.23253-1-simon0x+git@proton.me>
 
-Am Montag, 26. Oktober 2026, 08:59:14 Mitteleurop=C3=A4ische Normalzeit sch=
-rieb Jianfeng Liu:
-> Hi Krzysztof,
->=20
-> On 2026-10-26  7:08 UTC, Krzysztof Kozlowski wrote:
-> >> The ArmSoM Sige7s is an RK3588S-based single-board computer which
-> >> shares its hardware design with the CoolPi 4B.
-> >
-> >How different devices from different vendors can share design?
-> >
-> >
-> >What is exactly is shared and how did you verify that?
->=20
-> I confirmed this with ArmSoM. They purchased the original CoolPi 4B
-> hardware design from CoolPi and confirmed that no hardware design
-> modifications were made for the Sige7s.
->=20
-> So the Sige7s uses the same hardware design as the CoolPi 4B, rather
-> than being independently designed.
+Hi Simon,
 
-if it's the completely same board, just with a different print on
-the board, why does it need an empty devicetree. When it's completely
-unchanged, what's speaking against just re-using the original one?
+On Sat, Oct 10, 2026 at 02:20:54PM +0000, Simon Kruse wrote:
+> The sensor subdev exposes controls but does not implement the control
+> event operations, so VIDIOC_SUBSCRIBE_EVENT fails and v4l2-compliance
+> reports:
+> 
+>   fail: v4l2-test-controls.cpp(1128): subscribe event for control 'User Controls' failed
+>   test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: FAIL
+> 
+> Add the standard control event subdev operations and set
+> V4L2_SUBDEV_FL_HAS_EVENTS.
+> 
+> Signed-off-by: Simon Kruse <simon0x+git@proton.me>
 
+Could you instead move the driver to use sub-device state? See an example
+in commit e8a5b1df000e1a23c04dadbe99621441e0889f88 . You'll get control
+events as a bonus. :-)
 
-Heiko
+-- 
+Regards,
 
-
+Sakari Ailus
