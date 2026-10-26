@@ -1,102 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793038398;
-	b=2CAHC5YeU1BDZZM8leTlh8VpMFMPrVW/KxGHpYAWNVszXz1fGJZ19HOgxJvJMjVwaEEe
-	 bfRGpv6Ww1g+jNhUHxve9u5iqanYXV0j7mF4T+nIACFe22eqQwe+0TdLby+1NjLyL4kWW
-	 ypsZff5ZMy8RHBsL+4+HqjQ3Twn2ASN43YqPMdeWmKTMMdhUNvgiWo0nMY39SnRzGosb2
-	 oW0Fm9HoCzviDa9q9aQg9CcGTx4hsTVGcN8rTVWr1ecx8jVY/peKfoZqjWSQQkCdjDW3G
-	 02Qr/EEfJl3m+9/Z6lKLLN6QbbUgBRNk0QR/tsYE6RGXhgsTBH6Fl+hBgWWNpcuIu4w==
+	t=1793038404;
+	b=3OVF4wjEU4gI9OjtJY/vvv77vZN5yq/anBnft3bAHGYUqbHjbxruYTBlUaa6hSKetOPN
+	 7tZ60+xZ6Snswp0jj+Xfv0jcX3k590NHFfCV1YI8ihTUWjuVu3LwRNAa4l0Z0VLJZQIIx
+	 2OEkof+JEn8GNaJpNk2cwM3GiQpZ+N/ye5Fx8Pgwkona1cgSdf8jW9gwQ+poen8sXSKSn
+	 /YkW96+KbzL2/tP6x5OufZNaNC+J4Z6tej6xsMkKTvjIDgberV0UpAOOeYLQ0eyfZ8crI
+	 SpnZ/zXZ9SLKH22eyH8//ArmYEEeEMCsX4YTqHNqUVv6VEsD+rtJL1Sq7Ly4c9CL8Sg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793038398;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793038404;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=qAFL7hRrfh2T1p4el/pmqxH+76hF6+dSXVrIs9e4ngE=;
-	b=eemThp/boWStwlrqss5+2sg9hKMGys65O6Vqp9gxVuRwrXXONMpBDDdecivZTY6iIsfl
-	 4Y5w2adVdJhJztTPdDrfIKHa5fuIKw/oLF8Pa1XHacTh6hFLrZQF0aDZMtynfoQ+jdUnq
-	 a/N63WVzvIlwqQmxSfEIg2TALjSnqpQCQ1DQd2cplyWx8flMGZW0O3Bod8c44THzvOer4
-	 RRdIYpHqjRuXPe6jUwv+SIHS5zOE+Zk58NA5PApb6oJpCv31+jUnnfUNW/3WSj6yuvRIe
-	 YvciLE5Yw78TN2B0QtpTgrcCkXxEP/dJeNx09moTfa7Fhwe4h2Z5rYQy1b29mOaQxUw==
+	 From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-Mailer;
+	bh=j/PGXyV6/Wt6qi/8E7+ZLUzJWYcL7XXDLU8lYYkrrcM=;
+	b=umbhj0ZN/+hiNshN/C3cU1TQY1nRDe7G1PH5/63QywCLtglRFcy1aoCF+a3xl1PtT4l+
+	 DCKG7XeA5n7l+MkM8JXnjHWna6jxxFzcrHVe2Xb+SrzM0FTP0C2Qja5kxUkdGvWe5Csit
+	 UwNtW6wQW0YC3BgjuztmA8+1Lr0Qq+W67LPDNzLbSVnW5vaj8tFBsv+GI5jCUQWH2Y6Wo
+	 kcEYlfOBy8gsGaMLzVPCIglToH0WdGiJ9GwrrloWOxNdbZB0hqu2UnBTgbm5cu6SPluJE
+	 ilGSPQG88avtSQAD2fAJudbNmoEXzcQbE2qJy5XmqySWWvcVNzGHBjVU1+TvXR4q72g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=lMZWSF+C;
-	arc=none smtp.remote-ip=74.125.224.44
-Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com [74.125.224.44])
+	dmarc=none header.from=kernel.dk;
+	spf=pass smtp.mailfrom=kernel.dk;
+	dkim=pass header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=OXZAXbFm;
+	arc=none smtp.remote-ip=74.125.82.47
+Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9334B606A31E
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 18:13:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9334B606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 895AE606A321
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 18:13:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 895AE606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=lMZWSF+C
-Received: by mail-yx1-f44.google.com with SMTP id 956f58d0204a3-675676afc3cso3891863d50.3
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:13:18 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=OXZAXbFm
+Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-18cdcfc05ffso3993380c88.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:13:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793038397; x=1793643197; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1793038402; x=1793643202; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=qAFL7hRrfh2T1p4el/pmqxH+76hF6+dSXVrIs9e4ngE=;
-        b=lMZWSF+C5IL2Rtf5sQGHhvwUnkGjzgAxu2Cfs+QpPvdHgT/S07RIoqkQ2n+1OgWE08
-         rQBo9Fbd/BNIgP4+yJBXe6mhrrrEHPE9Ga8yOkXfNAF3ZNkSA5xtfECIysJEJTX7n3F7
-         OvsLVuJufJQSlCu4mZjDixSMekvm+K4kY0/EZBcWVQx/fvH12I94gsA+ZbHvXgmy/lAy
-         EDYDqAN64XzBVhcmOu40Iol4qjWLsRkQE8Xuvf5jtWf6VAW5moeENnwibUtp+KXgfV1t
-         laSt1EqGhuDMrQDB8z4oJQMwDH0WIAQMTuxsv23lnPfyTS0NOpAllpzkQZUbzcm4Yz3Q
-         Dkgw==
+        bh=j/PGXyV6/Wt6qi/8E7+ZLUzJWYcL7XXDLU8lYYkrrcM=;
+        b=OXZAXbFmxu5N5tro2yRXp1EQltbtiVnGSO8vBdyCYgKSdgLXFmmaXw9j7eahoJEJYA
+         dMwqGL80wIUv7bsjDO6wLee9Yvn7ZiqrFZROKvKeIRzd6ymmHBsRcPVsP/PhcrFcjknJ
+         UWdfIv2ri1QY7PgLz7f9h5EmdMIZY4jHYRX7LJ/owzSYJvKGk7Su5hSq+eUs4k2vmZeL
+         jVm3HuQuEodE5LCh6pqEInivyw9t6apxMVTiWWd7W9L1q5LaMqBtQjcJ6yDRkl4+BAMp
+         OtC10QTQlyP1zdGZeT9M+4tphQhERT0Onu8ZpzfM+Jq4T82429meKUuFbUeAMZu+TEfg
+         1Vgg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793038397; x=1793643197;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qAFL7hRrfh2T1p4el/pmqxH+76hF6+dSXVrIs9e4ngE=;
-        b=yn3t4IfnoEzCAf3vebY5JjksMKD1ikKrO9szTH/8CIC+ip6VYLt0MZNnPN6u5o3O1B
-         njY93+r0Qlc4d2A8WnTmt2qmvDe4qbo0jsXQLcC96MzAC2ePDBMdjaSobktJ9nt93XFc
-         wAjs0FaDwj2COhtRj9NdJN15M5UHUdSiz9iXTk9o8ijZM/OKTFKE9687erWtnL3cMyec
-         K0zaujwXmROXptw0k/t4R3MplPU05KzTEVc2WijvtgOM3lF+7FBZ8NAYoHe4PvTOh+4Z
-         NxpKVyYM6VyHcgw/l3/6GGK6UNWega5w+eJ7AFfqfkcq1F7R43uPi5eqNWyxRc9IxUMH
-         97nw==
-X-Forwarded-Encrypted: i=1; AKwUvBywA/70r0Za8ylycPJmR5mxh90g/LhuXegPPzYEQwka8VfQJ2yn5MJ+7pv0sU1wTn8YBMGylCj4SyYILYc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJoS9cuKcRihzqEj6576aALPipgoE83Q0JhdmSZQ0CFROvzDHbj
-	XbmwPJFdylfjxecVS7PQO202sdmJ0tZjb6FVuH8qhNnYKj8XD2BI5gOj
-X-Gm-Gg: AYBFou2VQplH8tnJJt4NzkrOb71KS/7wobKfK0EU2xGL1aA+ZsCTY+oBGB6ZKQkcLFC
-	BZSx2oksNO7zoXLTegMklDg6knmxiKkpIG8lvuPUaYFQffxosVZpIfRPGIFuYjdjVWrBEZY1Qw3
-	HEDXG78+8csdCmu0Z/qSzQtt+mrLChsNnEKaCzX27y8vRqUMmN0UTPzFzRZTRMpLwmHl/oLlear
-	9aGeLdTge4La0SSqkVIplfYWjv7ccD88pwBJZVVbDExeVRejEDp/jDOBN46elckfllHYz/Fkl1o
-	5U/z4xHWGiz0AK0ZRbxGCyEMvVL3veUemYpfVPD7XLlmFkZB6sdq5Ottgngl6CEKJ5QJP4EM3KY
-	jI6hYqVXoTFcPcRr7y/K+pYIGRt3jmz1ZS16cOT9ymbvzqcMC8fotfmr3BFmMqQmiBVRkSt/7mG
-	7oVqi0m7vVU/NjhK2ucwNFhg0xfBxdNpzNqwA7UVvHYiVdXjEm2NvThLp3gscDWnyPWjZZ9DWUu
-	KbaMI51yWe5ieHzzbTYKfWrgiC17xrqdQy2QW3oCNpUeBeUciVlOdMhyBWzCBtV6XWXDzmP1T5H
-	1F6y8/AlA4w=
-X-Received: by 2002:a05:690e:441c:b0:679:935e:3551 with SMTP id 956f58d0204a3-67a45460185mr4398920d50.68.1793038397593;
-        Mon, 26 Oct 2026 11:13:17 -0700 (PDT)
-Received: from localhost ([2a03:2880:10ff:58::])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67a461f0a4bsm3816964d50.11.2026.10.26.11.13.17
+        d=1e100.net; s=20260707; t=1793038402; x=1793643202;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=j/PGXyV6/Wt6qi/8E7+ZLUzJWYcL7XXDLU8lYYkrrcM=;
+        b=wcqod4brqrTGBhJQZW6n9HzOAu6rxcO+2f1/+C+LPa0aOVb5gTYPV9H9CjPB2DxjDp
+         MyppN415W5cS6lucjRqSu+46qfx2tv3PkER9qkrXikEFRAgdvPi+y8Fhalh9bFDb6Vl9
+         b4NoKkD6vy4TtwaAmz/q7m+dTs/3fkdk7QNFJriNiAy0iluiozSkLucQKixg9Cqc/CrK
+         EwrYwLyimSLDOvdgEnYU2fohNaAXy8e2WujxSD8bbykvSx8myV8/Ob0j5sbKryrQgjik
+         LUWpCMoE04NuDieund0SkGl2Y0A8pIJK9WA4r1nWKbu5Fatf7EPw2r46CAc4jpYD6G+z
+         oGQg==
+X-Forwarded-Encrypted: i=1; AKwUvBwj0yl7iQ2fJfCGbVsQvs8zDa0seBOgsT4ag59mf4gqN9GXmY38XD2LwS2iUDR7OQ8OhBlwFeXwfXmDjy8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLHIP5qhEE6o9+BV/buM9v9LqQRohlphzGYFs+fk7kQ/p0cFi8x
+	+zvjPy5YAqkLWMTnChGOmUf/v0t1U9WS8sLQYPYg6RgC80A/0gR1I3GylWLY/g7ax1s=
+X-Gm-Gg: AYBFou38xFS3TCc4os12Yautihv2TsrMxXYmEPnAPG1yf1BMqC761M8Ue0W0bvsuQ1X
+	BArWGEuBOoYKmGG+fhpeEFhZSN4/mkErCAHYTQE8C+skOd02ZIjlSMuyJIdyjA3m71SND37iFET
+	WfC/0yHtetiJt/EvraHufEYqOQzG+0g+mV5kLQ/J0KRX4JaXgBbKuyYk+/D64xptD/xxLXPZ5eh
+	LteO8p2JvPUxOfewW/zuYeBPjom/J87aDt0M47uUf8dlPGxLHp5jv3C5ibfR1v8JVelsoWtpRvE
+	L01Y6qc2tu9fwAn3mnxUWwsBav3YIYpChI1HIczg8hwiV7VtO+bGefFoJnhR8xXBswcrRDFDhD+
+	plWKmIr4hDuE+QvQ6Xb/62OeOXI5hlii9FCoakmW1gZlOPfUWvno5gwAMV/tokU+csAExjoyKA6
+	hd2nSuiW529aTo94tzXCn1Evq7ivGTdECTsikH5jOwQwBDlq3IScnKsyrC1pVNQckCPzADwYkDK
+	5wJ5m0nifnqKcbal2shvT4jvQMH2SV6IkqNZq01i7mZ7IXINwD0cxTBcGzxOaflgWKxaSWoGLsd
+	jZO25NpRPnRPVoZcFYBfIOB7gpFtrakjkDuZND8=
+X-Received: by 2002:a05:701a:ca07:b0:176:a225:e364 with SMTP id a92af1059eb24-199374f3d28mr11671343c88.35.1793038402460;
+        Mon, 26 Oct 2026 11:13:22 -0700 (PDT)
+Received: from [192.168.1.106] ([198.8.77.135])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1989ff2ee5asm23576455c88.8.2026.10.26.11.13.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 11:13:17 -0700 (PDT)
-From: Joshua Hahn <joshua.hahnjy@gmail.com>
-To: "Gregory Price (Meta)" <gourry@gourry.net>
-Cc: linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	kernel-team@meta.com,
-	akpm@linux-foundation.org,
-	david@kernel.org,
-	ziy@nvidia.com,
-	joshua.hahnjy@gmail.com,
-	rakie.kim@sk.com,
-	ying.huang@linux.alibaba.com,
-	honggyu.kim@sk.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] mm/mempolicy: recompute automatic interleave weights on memory hotplug
-Date: Mon, 26 Oct 2026 11:13:15 -0700
-Message-ID: <20261026181315.3799696-1-joshua.hahnjy@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261024170415.4121901-1-gourry@gourry.net>
-References: 
+        Mon, 26 Oct 2026 11:13:21 -0700 (PDT)
+From: Jens Axboe <axboe@kernel.dk>
+To: TJ Adams <tadamsjr@google.com>
+Cc: "Christian A . Ehrhardt" <lk@c--e.de>, Christoph Hellwig <hch@lst.de>, 
+ linux-block@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260929160813.1599129-1-tadamsjr@google.com>
+References: <20260929160813.1599129-1-tadamsjr@google.com>
+Subject: Re: [PATCH] block: advance iterator after copy-in for
+ SG_DXFER_TO_FROM_DEV
+Message-Id: <179303840146.792754.17618533917461283198.b4-ty@b4>
+Date: Mon, 26 Oct 2026 12:13:21 -0600
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,177 +98,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.2
 
-On Sat, 24 Oct 2026 13:04:15 -0400 "Gregory Price (Meta)" <gourry@gourry.net> wrote:
 
-> In auto mode, weighted interleave derives each node's weight from its
-> bandwidth, reduced over the nodes in N_MEMORY. HMAT and CXL report a
-> node's bandwidth once, when the node first gains memory, and nothing
-> else on the hotplug path recomputes the weights.
+On Tue, 29 Sep 2026 09:08:13 -0700, TJ Adams wrote:
+> When a passthrough request uses transfer direction SG_DXFER_TO_FROM_DEV,
+> bio_copy_user_iov() sets up a temporary iterator iter2 with
+> data_source = ITER_SOURCE to copy user data into the bio pages before
+> execution.
 > 
-> When a node loses its memory, the other nodes keep weights computed
-> with its bandwidth until another node reports. If one does while the
-> node is away, the reduction skips the node and resets its weight to 1,
-> which it keeps once its memory returns.
+> bio_copy_from_iter(bio, &iter2) copies the data and advances iter2, but
+> the original iter is never advanced. Consequently, iov_iter_count(&i)
+> remains non-zero in the caller loop in blk_rq_map_user_iov():
 > 
-> With HMAT bandwidths of 100G for nodes 0-3, and 50G and 25G for kmem
-> nodes 4 and 5, weighted_interleave/nodeN reads:
-> 
->   event             node 0-3   node 4   node 5
->   node 4 online         7         3        -
->   node 4 removed        7         -        -
->   node 5 online         7         -        1
->   node 4 back           7         1        1
-> 
-> Toggling weighted_interleave/auto to 0 and back to 1 gives the correct
-> 6, 3 and 1.
-> 
-> Recompute the weights from the recorded bandwidth whenever a node gains
-> its first memory or loses its last.
-> 
-> mempolicy_set_node_perf() now only records the bandwidth and calls the
-> same helper, so the bandwidth is kept even if allocating the new weights
-> fails. wi_state_lock is dropped between the two steps, which should be
-> safe because the helper reads node_bw_table and the mode under the lock,
-> so a racing writer only makes it work from newer state.
-> 
-> With this patch, weighted_interleave/nodeN reads 6, 3 and 1 as soon as
-> node 4 is back.
+> [...]
 
-Ouch, thanks for finding this fix Gregory. In addition to making the
-code correct, I think it's a nice simplification to
-mempolicy_set_node_perf() since we no longer have the nested rollbacks.
+Applied, thanks!
 
-> Fixes: e341f9c3c841 ("mm/mempolicy: Weighted Interleave Auto-tuning")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
-> ---
->  mm/mempolicy.c | 66 +++++++++++++++++++++++++++++---------------------
->  1 file changed, 38 insertions(+), 28 deletions(-)
-> 
-> diff --git a/mm/mempolicy.c b/mm/mempolicy.c
-> index 0884c629670d..ffb293a4cc56 100644
-> --- a/mm/mempolicy.c
-> +++ b/mm/mempolicy.c
-> @@ -238,27 +238,45 @@ static void reduce_interleave_weights(unsigned int *bw, u8 *new_iw)
->  		new_iw[nid] /= iw_gcd;
->  }
->  
-> +/* Recompute the weights from node_bw_table, unless they were set manually */
-> +static int wi_state_refresh(void)
-> +{
-> +	struct weighted_interleave_state *new_wi_state, *old_wi_state;
-> +	int i;
-> +
-> +	new_wi_state = kmalloc_flex(*new_wi_state, iw_table, nr_node_ids);
-> +	if (!new_wi_state)
-> +		return -ENOMEM;
-> +	new_wi_state->mode_auto = true;
-> +	for (i = 0; i < nr_node_ids; i++)
-> +		new_wi_state->iw_table[i] = 1;
-> +
-> +	mutex_lock(&wi_state_lock);
-> +	old_wi_state = rcu_dereference_protected(wi_state,
-> +					lockdep_is_held(&wi_state_lock));
-> +	/* NULL wi_state assumes auto=true */
-> +	if (!node_bw_table || (old_wi_state && !old_wi_state->mode_auto)) {
+[1/1] block: advance iterator after copy-in for SG_DXFER_TO_FROM_DEV
+      commit: 82e72ea18d0af724914c31a1f274c1aef452aad0
 
-I was also a bit confused by this because at first I thought it was a
-simple code move, but this seems to be a new condition.
+Best regards,
+-- 
+Jens Axboe
 
-I traced the path in mempolicy_set_node_perf because I think 
-node_bw_table must actually always be non-NULL here......
 
-Aha! But it can indeed be NULL at the new callsite.
 
-Thanks! This looks good to me. With or without David's suggested
-pr_warn_once(), I think the change looks good to me : -) so please feel
-free to add:
-
-Reviewed-by: Joshua Hahn <joshua.hahnjy@gmail.com>
-
-Thanks a lot Gregory, have a great day!
-Joshua
-
-> +		mutex_unlock(&wi_state_lock);
-> +		kfree(new_wi_state);
-> +		return 0;
-> +	}
-> +	reduce_interleave_weights(node_bw_table, new_wi_state->iw_table);
-> +	rcu_assign_pointer(wi_state, new_wi_state);
-> +	mutex_unlock(&wi_state_lock);
-> +	wi_state_retire(old_wi_state);
-> +	return 0;
-> +}
-> +
->  int mempolicy_set_node_perf(unsigned int node, struct access_coordinate *coords)
->  {
-> -	struct weighted_interleave_state *new_wi_state, *old_wi_state = NULL;
->  	unsigned int *old_bw, *new_bw;
->  	unsigned int bw_val;
-> -	int i;
->  
->  	bw_val = min(coords->read_bandwidth, coords->write_bandwidth);
->  	new_bw = kcalloc(nr_node_ids, sizeof(unsigned int), GFP_KERNEL);
->  	if (!new_bw)
->  		return -ENOMEM;
->  
-> -	new_wi_state = kmalloc_flex(*new_wi_state, iw_table, nr_node_ids);
-> -	if (!new_wi_state) {
-> -		kfree(new_bw);
-> -		return -ENOMEM;
-> -	}
-> -	new_wi_state->mode_auto = true;
-> -	for (i = 0; i < nr_node_ids; i++)
-> -		new_wi_state->iw_table[i] = 1;
-> -
->  	/*
->  	 * Update bandwidth info, even in manual mode. That way, when switching
->  	 * to auto mode in the future, iw_table can be overwritten using
-> @@ -271,25 +289,10 @@ int mempolicy_set_node_perf(unsigned int node, struct access_coordinate *coords)
->  		memcpy(new_bw, old_bw, nr_node_ids * sizeof(*old_bw));
->  	new_bw[node] = bw_val;
->  	node_bw_table = new_bw;
-> -
-> -	old_wi_state = rcu_dereference_protected(wi_state,
-> -					lockdep_is_held(&wi_state_lock));
-> -	if (old_wi_state && !old_wi_state->mode_auto) {
-> -		/* Manual mode; skip reducing weights and updating wi_state */
-> -		mutex_unlock(&wi_state_lock);
-> -		kfree(new_wi_state);
-> -		goto out;
-> -	}
-> -
-> -	/* NULL wi_state assumes auto=true; reduce weights and update wi_state*/
-> -	reduce_interleave_weights(new_bw, new_wi_state->iw_table);
-> -	rcu_assign_pointer(wi_state, new_wi_state);
-> -
->  	mutex_unlock(&wi_state_lock);
-> -	wi_state_retire(old_wi_state);
-> -out:
-> +
->  	kfree(old_bw);
-> -	return 0;
-> +	return wi_state_refresh();
->  }
->  
->  /**
-> @@ -3900,8 +3903,15 @@ static int wi_node_notifier(struct notifier_block *nb,
->  	case NODE_REMOVED_LAST_MEMORY:
->  		sysfs_wi_node_delete(nid);
->  		break;
-> +	default:
-> +		return NOTIFY_OK;
->  	}
->  
-> +	/*
-> +	 * HMAT and CXL report a node's bandwidth only when it first gains
-> +	 * memory, so recompute the weights whenever N_MEMORY changes.
-> +	 */
-> +	wi_state_refresh();
->  	return NOTIFY_OK;
->  }
->  
-> -- 
-> 2.56.0
