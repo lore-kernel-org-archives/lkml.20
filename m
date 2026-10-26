@@ -1,64 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793041788;
-	b=ExhRIoG0B6/eTw2cNLIiCLqIXXhQmh/N/Fvd3D0Y56/mwtCkQGKk2ln6wp0yT61w80DV
-	 AoKm0c9hXSD8aMGyxkPfTSMMb8StLmufVSpKUcpgSHu9zQfrex719N+m70BOEFV9Y3PhL
-	 a/MEfQfDYvy0rEU3vKq7OLvx8YMY88IgPv+VrF0eiMGWJniqVSHDTx52WuXT04mY2Goue
-	 zYWEtvN8fOA5wREvZho+HyLdcMoOpMeJRDkcOnrMS2qTovntYe31HulqIimY3MeeAd7d9
-	 rx7pW0CkK0VqDqBWvhXNPGZMJ0eDU6nkhFZ/ktrz60FeiE3Jan8fC5LgUxuVZXIOg8g==
+	t=1793041835;
+	b=se98PeMkh9LVn3lG9JhRi90zkOHAYQMi/KrlySY+y2RS3lTZnyIWhQTfBkd7Nq3c+fcg
+	 zE/sAocND5AZ2k3oB46h2qnVpud9CdSvp3D1jLGharRT+N9AeZzZZ4Ybfq0VyeB96aNXh
+	 pUVnfReL+Zij9OjEgYine4cG6385aYpfcRoqREpEijXrdTa2PBOzJWJJjaT+eEOdZT46g
+	 F3lppqEeqHr7Cx6GhK7gPzmZR6dW7wYC1Ozl7ef2jU4y1asOaQ16Dq5jaDnMQVDcgj4WG
+	 TqTZ2rQluUojDYL1p9lBKq1ua9pH6WhUfjf2pFSwXDOFwrSUifLmba6eNid0LDcNmrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793041788;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Message-ID:In-Reply-To:
-	 References:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Correlation-ID;
-	bh=d0/9qWWid7eSh4s2p7uR1bCkkdTfC4hPw3dFG/jWyRI=;
-	b=oeT8qDYu0YOXrT4UlZMVQM7XIPvuodQLwsW/tyDBE7HDmVm6VrjKhfuUTw+DBWNitrTO
-	 ihpelUTC3c478rijrCzev/UonFb2c3Ko2WhWhMissLAJD08MTZUrGLymjC7wuZrPWfdCT
-	 StWo32h6G3o1vl1NfLIcoynC0d6Ma0M/HQnpD37y4tW7i4uBF4XJncCHSpX1ODYixcv6/
-	 uGViMDmcRb4Om5/ljitSjy/30w2x5Qc+zRX6zgeMepXSzVG7ne0hkfj+a6VUt2a2bjPaI
-	 /Q7U6NCuO6NKa8ofHh3z+7deI85SsUnm8BhmjPSZpeZpOvYA6mj5HtOSnvEqvSqI+Hw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793041835;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:
+	 X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type;
+	bh=bIE3He9LeKSpIs1Rd+jCIaq8Jt5h1E3mzpq41bLxV0Y=;
+	b=p53kRVnfSp04fJAwNgs+KXj5FHdkNmdXQEwOxzW5phe6+bXIc2vr/uTQEINvmA0RY8yj
+	 6nm+SME+4oaHApSfnBWPiI4yKFIYbpUhPbAjsHAxTdCGuefIobf0JmfcaStCIvQzCP8zR
+	 t9NtQy2UhxKLcyU9iU4LzC0Cu3imqjb/RMov/r9fRNjR3IGTsam2tN7TfN5ZCe7EZaWr7
+	 nbCX3hzjnjKwkmTmWwnvJEn0IOUP4mmzCRyHW03NXKFGDpLiGmFC0o+VCyCuOf1Esshtm
+	 CggNXOQIM9NNO72D1etU0nl3VFzQkfR6QxV7MVk3oFhZuv+ves8QJed2TAXCsuf5H/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="mOxdfz/J";
-	arc=none smtp.remote-ip=91.218.175.2
-Received: from mta0.migadu.com (out-2.mta0.migadu.com [91.218.175.2])
+	dmarc=none header.from=linux-foundation.org;
+	spf=pass smtp.mailfrom=linuxfoundation.org;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=EkTmKzjk;
+	arc=none smtp.remote-ip=209.85.218.48
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9C7B606A31F
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 19:09:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9C7B606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CE76606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 19:10:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5CE76606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=mOxdfz/J
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=d0/9qWWid7eSh4s2p7uR1bCkkdTfC4hPw3dFG/jWyRI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793041779; v=1; x=1793646579;
- b=mOxdfz/JW9dk9ctPky4ltgnXSJBfYxEIh3TexWocXMVW3Hc3jSnw09yIzM/GGnD1xHlX5DAg
- ITBRa4QJyPHgL0rPtaZum/1QofKAcyWOjHlOh3z+6pizSvWNjMPoPDipJD69rs9abO+1VAu53KN
- qVHaSK0sp3dQRyTYevOfXAp8=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 600b06249a500df1;
-	Mon, 26 Oct 2026 19:09:39 +0000
-X-Mizu-Trace-ID: 600b06249a500df1
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 26 Oct 2026 20:09:34 +0100
-From: Denis Benato <denis.benato@linux.dev>
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: linux-pci@vger.kernel.org, bhelgaas@google.com,
-	linux-wireless@vger.kernel.org, miriam.rachel.korenblit@intel.com,
-	emmanuel.grumbach@intel.com, linux-kernel@vger.kernel.org,
-	kernel@lists.opengamingcollective.org
-Message-ID: <76481816-6b21-4f45-8949-144342faf39e@linux.dev>
-In-Reply-To: <20261026184813.GA342157@bhelgaas>
-References: <20261026184813.GA342157@bhelgaas>
-Subject: Re: [PATCH 1/1] PCI: Disable D3cold for Killer BE200-family WiFi on
- MSI Claw A1M
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=EkTmKzjk
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c40e02b2ebaso520310766b.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:10:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linux-foundation.org; s=google; t=1793041833; x=1793646633; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bIE3He9LeKSpIs1Rd+jCIaq8Jt5h1E3mzpq41bLxV0Y=;
+        b=EkTmKzjk4oSAaXC5Zevyy7xdB0cSdeQteFYiT5ukDqD09UAxJQ+Shug7+oJb6BoM/r
+         dKSvsJJWptmaMbM4hcLp5O//K6waT55PMNmK5PCFEfwCJJdXJ6Pwl5PCfSfD72tjiyyJ
+         0if2DVcoArKDx3ruWBQNfxNbVcQQ8qgn2E9kc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793041833; x=1793646633;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=bIE3He9LeKSpIs1Rd+jCIaq8Jt5h1E3mzpq41bLxV0Y=;
+        b=Ld0fN7Fea51zoWP2ynY3Bl7ImyW2QjBcv32F+buEX5Wnt2SG2FKwUKjtVmY31wA7x7
+         6+tVUUVKpY+z+ALkNbx8EOclt+EePLAOJjCbX2BWulPoap/3EDuXUIVVbc32UsCI2K/S
+         bk1FhIUq8WmmIEnHHB1v0IAzZrpOWANMFzygiVFaJvxBqT3petbP7gmvlJj2HwWAMCSO
+         mRlSQFPDXJdfintp4BrfMr/yEUWcwA6AZvcScm0Xqw+RohA0aNT9nuBlJFtnzE8ieWgk
+         Z65w5sJm5ykyAtfqE0z/V5APR7OrXv14ZSslVod1vzwp8RgcSNcBCnnD4kEdoFnrrNtX
+         BW4w==
+X-Gm-Message-State: AFq9FYI514W/t3bP7SwktNhf0O2bvKQImktK9ZKYRXox9F6s+8oipx5V
+	mK4EpwHF1yOQ/0DUPn5/rinzdMnMMZ1k2HvvvyZGb3r1iJL+BWQuefGtwFX9OeSr/atXVXVRDlP
+	j0JIIlkE=
+X-Gm-Gg: AYBFou1XBKFGJwu6+OGV0BwVN/1RruIZFKKVddrCYCPDgnLt1AsbanjuTQC7VJq8McT
+	sG9qQTr/lMdZ57ryq9PgZfsIzCvizorTzagI3BuhHO93tzBXZxjPJvpDqD7/rP87Tb0d3jo39N1
+	0aHbhPBiYJakjUnIGWmuwuHyez282MKTX9N9HY/pDyDHyC5EeRsGWmm41TP2Fivzo8JCjColhkF
+	8aCC9JphVNIOMksR1Sdl9Yvn8/u7gcEqBW9e7JXjsUnCK4h26/tGeoIPlzo/gpRw1d6JzpeEi3U
+	rIjHAb4QD9HB1WqNGdMnXG/osqDCR9ymsso1XpPTgYHzwLifcXZH7hm0CW8q+R9pQwXyPyHSsLy
+	E5juefnVzsLd1/Mah7HNb6nAb3JR8gvdMizl46ncqSqtNT2b9dwvm2LVSGKcphWkFlbBaYI7Yhc
+	Yhz+EW2Ife66EZe3XMvC6MNX8OPBEsdybrD2+VomPAuCLNWPfRH+mPvtlV4fpma3f4wSYAbeo1Y
+	Dzq8AVqMEzQoLsqc0y3UlCOgFsupcmTWsCLACY+O5uT6OnMEDDqWE2OOIgdFHepb0XGYV2MS8dA
+	z28LgIAjZpdAoaES0/Y8oBGP5xtB9g==
+X-Received: by 2002:a17:907:a909:b0:c41:44f2:f7d2 with SMTP id a640c23a62f3a-c46bde5469bmr871633466b.24.1793041832544;
+        Mon, 26 Oct 2026 12:10:32 -0700 (PDT)
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com. [209.85.218.51])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd79eb05sm350573966b.79.2026.10.26.12.10.32
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 26 Oct 2026 12:10:32 -0700 (PDT)
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c3f8d72d7ceso520529566b.3
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:10:32 -0700 (PDT)
+X-Received: by 2002:a17:907:3e08:b0:c41:64c1:cc2e with SMTP id
+ a640c23a62f3a-c46bdfdd37fmr907356766b.46.1793041831784; Mon, 26 Oct 2026
+ 12:10:31 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,105 +91,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Correlation-ID: <76481816-6b21-4f45-8949-144342faf39e@linux.dev>
+References: <20261026152012.GD2195460@google.com>
+In-Reply-To: <20261026152012.GD2195460@google.com>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Mon, 26 Oct 2026 09:10:15 -1000
+X-Gmail-Original-Message-ID: <CAHk-=wgdJOTies4qhrDKFERAYdGS_=6SiGu_onr19qftqKvfrg@mail.gmail.com>
+X-Gm-Features: AclHuK_CTE7Xq7Ts6pbcNQ_EPNlLZ7rTpxUFYXs94rFqYikAWFfPNBdyVuUb14w
+Message-ID: <CAHk-=wgdJOTies4qhrDKFERAYdGS_=6SiGu_onr19qftqKvfrg@mail.gmail.com>
+Subject: Re: [GIT PULL] LEDs for v7.4
+To: Lee Jones <lee@kernel.org>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, Pavel Machek <pavel@ucw.cz>
+Content-Type: text/plain; charset="UTF-8"
 
-26 ott 2026 19:48:16 Bjorn Helgaas <helgaas@kernel.org>:
-
-> On Sun, Oct 25, 2026 at 11:18:13PM +0000, Denis Benato wrote:
->> During s2idle the platform removes power from the WiFi slot (D3cold).
->> The Killer BE1750 (Intel BE200, 8086:272b) installed in the MSI Claw A1M
->> fails to resume from that state: the PCIe link does not retrain
->> ("pcieport 0000:00:1c.0: Data Link Layer Link Active not set in
->> 100 msec") and every device register reads back as 0xffffffff, so the
->> card disappears from the bus and the machine must be power-cycled.
->>
->> Keeping the device in D3hot with the link in L1.2 during system sleep
->> makes suspend and resume work reliably: the package still reaches >99%
->> S0ix residency and the card survives every cycle (verified over multiple
->> suspend/resume tests with an RTC-timed wake).
->>
->> Disable D3cold for the BE200-family device on this board. This mirrors
->> the udev-level workaround distributions already ship for the AX200/AX210
->> (8086:2725), which suffers from the same class of problem, and moves it
->> into the kernel where it belongs.
+On Mon, 26 Oct 2026 at 05:20, Lee Jones <lee@kernel.org> wrote:
 >
-> If 2725 has the same problem, should we make the quirk apply to it
-> also?
+> Good afternoon Linus,
+
+Lee,
+ your pull requests are already fairly unreadable because they aren't
+exactly summaries, they are long lists of details.
+
+But darn it to heck, that is *not* made better by then repeating the
+same long list of details *twice* for no apparent reason.
+
+> LEDs for v7.4
 >
+> - New Support & Features
+>   - Core: Add `led_trigger_notify_hw_control_changed()` to allow drivers to notify the
+>     core of autonomous hardware control transitions
+>   - Core: Add the `hw_offloaded()` trigger callback and [...]
+[...]
+> - New Support & Features
+>   - Core: Add `led_trigger_notify_hw_control_changed()` to allow drivers to notify the
+>     core of autonomous hardware control transitions
+>   - Core: Add the `hw_offloaded()` trigger callback and [...]
 
-Hi Bjorn,
+Please try to make your pull requests more readable. Make them
+explanations of what the pull brings in - highlighting important parts
+but at the same time *summarizing* thg contents, not just listign
+every single detail. Much less twice.
 
-Probably yes, but I don't own that hardware, only saw gaming distros are sh=
-ipping an udev rule to do just that.
+The goal of the pull request message should be to explain why I should
+pull it, but also act as documentation for what has been going on.
 
-> I suppose this is a firmware problem with whatever is supposed to turn
-> the power back on?=C2=A0 Are there any firmware updates available?
->
+The *details* are in the individual commits. Nobody wants the details
+repeated, people want the highlevel "what's up, what's interesting,
+what is this bringing to the kernel".
 
-Not that I know of. I have updated my bios (only update available) but the =
-issue is still there.
+And the merge message is there as documentation for others to read, to
+get an overview of what is going on - both if things work well, but
+also if some merge ends up causing problems. That's when people look
+at merge messages - for people do a "git bisect --first-parent" to do
+a rough "which merge caused this problem", but also for people who
+aren't experts on some particular subsystem but still want to get an
+idea of what has happened.
 
->> Closes: https://bugzilla.kernel.org/show_bug.cgi?id=3D220223
->> Signed-off-by: Denis Benato <denis.benato@linux.dev>
->> ---
->> drivers/pci/quirks.c | 21 +++++++++++++++++++++
->> 1 file changed, 21 insertions(+)
->>
->> diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
->> index 7572b358b50f..60156e6c3e49 100644
->> --- a/drivers/pci/quirks.c
->> +++ b/drivers/pci/quirks.c
->> @@ -6593,3 +6593,24 @@ static void pci_mask_replay_timer_timeout(struct =
-pci_dev *pdev)
->> DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_GLI, 0x9750, pci_mask_replay_timer=
-_timeout);
->> DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_GLI, 0x9755, pci_mask_replay_timer=
-_timeout);
->> #endif
->> +
->> +/*
->> + * MSI Claw A1M: during s2idle the platform removes power from the WiFi=
- slot
->> + * (D3cold). The Killer BE1750 (Intel BE200, 8086:272b) fails to resume=
- from
->> + * that state: the PCIe link does not retrain ("Data Link Layer Link Ac=
-tive
->> + * not set in 100 msec") and every device register reads back as 0xffff=
-ffff,
->> + * so the card disappears from the bus and the machine must be power-cy=
-cled.
->> + *
->> + * Keeping the device in D3hot with the link in L1.2 during system slee=
-p makes
->> + * suspend and resume work reliably: the package still reaches >99% S0i=
-x
->> + * residency and the card survives.
->
-> From just this patch, I don't think we can assert the L1.2 link state,
-> can we?=C2=A0 AFAICS, this patch just prevents the use of D3cold.
+A suggestion I've given other maintainers is to treat the pull request
+not just as a "let Linus know", but also think of it as the thing that
+sites like linuxnewbies and phoronix woudl be able to use to then let
+people know about what is going on in new kernel versions. So yes, the
+email is for me to know what I'm merging, but it's *also* for those
+kinds of third parties (the third parties may be kernel developers
+too, who just are working on other parts of the kernel but want to see
+what is going on elsewhere - again, not interested in individual
+commits, but in the "big picture")
 
-From this patch no, but that is the description of what happens on my msi c=
-law when I enter sleep with this patch, checked via s0ixselftest tool.
+And yes, when an already not very easily readable version then shows
+up twice, that is just annoying.
 
-This is surely better than the previous work around of detaching the driver=
- and re-attaching it leaving the device in d0.
-
->
->> + */
->> +static void quirk_msi_claw_be200_d3cold(struct pci_dev *pdev)
->> +{
->> +=C2=A0=C2=A0 if (!dmi_match(DMI_BOARD_NAME, "MS-1T41"))
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return;
->> +
->> +=C2=A0=C2=A0 pci_d3cold_disable(pdev);
->> +=C2=A0=C2=A0 pci_info(pdev, "disabling D3cold: slot power removal durin=
-g s2idle prevents resume on this system");
->> +}
->> +DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_INTEL, 0x272b, quirk_msi_claw_be2=
-00_d3cold);
->> --
->> 2.55.0
->>
-
+                Linus
