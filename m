@@ -1,94 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792974011;
-	b=KpnzzPapGqyBftTyQKHyq0oOtiEVqu6oWykfzAaw7RGadaQWB+m1lYkvzc8hB7xG7zh4
-	 +8a5IIk2E9VuTUOuRw+nn05lQjH49+84LXbh7yl3c95N24Z/KvxSbzEFhTQNtBucveIh2
-	 s3GcWGsJKVWZPU6Sma+4vZ2grkC/8j7WurLCVldiY4EWapBVzd3LscZbt4PULkxA2rCmn
-	 i1NqLLD0kmsSQlsYwz2c20og8xsklvxz/RQ1y7+2jiH9Z0NX19O/4nTEDW9xIOe4YNkZO
-	 wCy1e8dOtSyqYCZaLFLBhoKBW3/21q4hk4JP5pchETjtyLb5uicej8w7Vfu4BPWkxKQ==
+	t=1792974071;
+	b=LNF+wlhNvuuREZMvvfV+eFcft2Z9AiRwnmXaDM5UHIkIKZn2tw1t6fDhIQZ3VZA0o4Fb
+	 qk5OU2jBSAaA53nhS5LKqxyVUsFzXaTUzP6cmcqtdACX3HANnPaU0KISitWdHmGApsamg
+	 uAZr5Z3+vlijZRC0C6knO9ZhagDGCNHdrDcl3bcOONporr1gmpJqwGuItpy8oJCaUz128
+	 doF+oY3jEDSA55e4ZChAB8qzZPMrUn0HmL8Ik9u+lLxrtoVf3jZ35iL4gddK9ctd7WibA
+	 eyTV/5pmXN1/39f/l+rUH9GIpMF/IeZ4Guql9JoMT+z1H1izDa2SCn019HTYOWDrHWw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792974011;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792974071;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Sender:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
 	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=lJk5MOLydIzjQOgGx/lqDh+M3wd1cLnQSwja/ynaVP4=;
-	b=vyXuiZdVd+O5ukucw7l1UMGNzCvl6K1pLMcbT6Z3ySlq12GMJUvYO2D8vBo8as5c37Be
-	 6XeDb7XkZxP4qAq/RsJtGJVffOZ0UbEMC0XsfGR+73Dd2BghIsnkaQJIAj5MzvNzj2Avi
-	 Tu56QybR4TvGst9Q40r39Atdc0u0C4Ao1CJH32BBh1MsDN99Jpyx4L2yKqLT2S9x/7iJX
-	 JCcN7XrYNB8h2inyrIiIWlhQyFdlyrqIoSlEOwbAtt8035rzyeAhapAQkOjRc/Z9uouem
-	 rQMIqOKezyWuizvP1pzrVkPIbLBluXvY1sTT8Eh+1aBgTWmUR+c/bHdaunKFK+MA4ig==
+	bh=E5UQIZrsUjY0M8HBvkzofYrI4Utc73LHtISdy+Zvk0s=;
+	b=aqxx8MofHhsTWAaKYdWkJ49Pvd5mybGn7ElHvVyREQ68vCLHkZu5V3IXGa5F0OYV2nia
+	 hfy9d4NaP7Gouj9ZwYmNShhklktMoiRj1EwEX9Bgo5gvveAtVEiKcJtvjmVJnAyLcQwqD
+	 9MIb8DwdgXMC06XsLxQg5f/GXte5DeGGIRiuNKJ08gwaKlWwJwgPDbJSacxNvvIPoZJZm
+	 a/l8Cx3E81S7A5bIVXk1XDAnaRIE5qPmQvWL3M/lX485nBoDooMHDjfZRQQsubQgQXQ+M
+	 NBLsqr+/ulDhooPpzFZLrLhuXDFTc/nJenyZ+YA/dtmK06tcesEDsKegaVehHqc53cw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=roeck-us.net;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=eRnUr89E;
-	arc=none smtp.remote-ip=209.85.214.171
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=lewLJdSS;
+	arc=none smtp.remote-ip=209.85.216.45
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33300606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 00:20:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33300606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52F07606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 00:21:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52F07606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=eRnUr89E
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2e8b20a899fso14041065ad.1
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 17:20:08 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=lewLJdSS
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3adac5b29ebso1465677a91.2
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 17:21:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792974007; x=1793578807; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792974071; x=1793578871; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:sender:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=lJk5MOLydIzjQOgGx/lqDh+M3wd1cLnQSwja/ynaVP4=;
-        b=eRnUr89E1tjfR/LxuxtyoX6EFK+rxjHZZCw2kLZGz5iagVOG6gW+YvNGCGXIJAdtKz
-         t/eXz5W0ycDlTBW7cZBAzaZinhd2JZaXnPngzlrpxtrVlRSxJGjBDEo7meg8+G7sUPHE
-         Kol9/EPzWK2nH9EzfWhyaS/aVzZoMU/MVbyGCxPPR9OW83HjGIrEA5FQzlb/gE+M68yz
-         5Jbc0I3JwymjeHupPEqPxrzNjb1wN1hY2jyCJIFpbQVsZ+Ba39y0bi+sx4ZqNleczN/5
-         lRhQfNIoe47QlT24yVsJ1ELBXCnpZ4IYAHKsI3c+VPvaU8/kWPHzycVBUokpDho5QkOv
-         heMA==
+        bh=E5UQIZrsUjY0M8HBvkzofYrI4Utc73LHtISdy+Zvk0s=;
+        b=lewLJdSSPjEPcv2HMEZBJkaENtQqv6hgCWl9ZeCBJhkMQbdq3AEyopJrdBPgiVhkMI
+         iSS9VI99Pp5a9R8/9v+yHAwrDFxVhH1eDv51PboYzZT5D0JliUYuXWXdKqAqBlqE/IxJ
+         6LPbDn5UbmPgQdPUzDwfgEl+q+FewgzwjypRp9zmJzzWW+i2+b4TamOKPWIXpqTQDZwH
+         pO8bAS8ru47TViuC3fY2qZVTwTqyHtdzJFuiiN7oJUcdY1lUMVDJU9pNG9el+aqrbw1x
+         7LBenTPDiHwnDZ1KbDUNAu/hzPPP2v146U7huSrULqS0OPt0aV5BwF0Vr9aVoVRHbT9n
+         jpZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792974007; x=1793578807;
+        d=1e100.net; s=20260707; t=1792974071; x=1793578871;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=lJk5MOLydIzjQOgGx/lqDh+M3wd1cLnQSwja/ynaVP4=;
-        b=dSaUOwdk8t9p2R6O7U8bBq+3/FQGOJbZlVkYs4HnWYb/QeVkmb7F0NgRJzC9es1DJo
-         TsXitq73ufnR0HAdPof1+gy7L5e9n61dGrRwx8dCZaQIbXC5Ckct205qiKs0OFanAdfI
-         SS+WxS0raBqX2/p0J2paBar8216nkoFEWr5+guC4S0BXolZEmnGsJrRF6uSNpn2W9O0a
-         8v2Vqv15DJOkHAQZW8Zvwi7Qlj4VtCxbH8Fbn8WiKOCqXyuyZe/KBvMdB77AByLekuBF
-         L9NbfKiz2pCJfuknlmGQinq32qO5oNeB2SXHICtwl5VP42Rnp3WKZrrRdmup1oTS2D/S
-         S3og==
-X-Forwarded-Encrypted: i=1; AKwUvBxiBkympKMbaPFGPc9IGvU48NEWB1rjTcUfTUqr8lzMAYbx5MOdZExSD5vpK/jkaDCYgzWRuRHERF+v+tA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLmOrGUiK9krX43jkKUyFqS6+Lj+uEFWDDHPMePC2ja9l6ccBI/
-	fR6Zo/FcDbZjcGCxh7GSiWSLsyuUiuNpLarmiFfItPWFISLg2dGWokGgQTz0Kw==
-X-Gm-Gg: AYBFou277vpZjQdRVIA8dSNyLlNROuzhGFZw9De0XYILycm/Jb7DVE5lUftTA515mzk
-	QpmaVNljCzxRUpnEhpPT353ZRJLth7FZJ/YkM7ToAwRUoguh1vKQT8QxaRU9V8OY1ss9eXtqEhA
-	bdB5CPWy+ZhWb9PNPbvK0gYee5EAYiKNkvERJDllT9mFRLGlnuVWFd2H4Mi+E6/dXnv1O8y3zIw
-	cnPgv6JDjEo7lpu3+JgGOm5eM9tRjyjai9IC0lBnit1KLmeO0WK2+kF4QnEkaRNymqmsnzVfNpM
-	lMGKTN/3Dcx+xAaojw5leQ8BGKs5eNIMeJbew/DVdHKT1bWH9+HJFWwEQK+Edn6/yYnD5lAJu9+
-	Ldwx25sWtcoeP27JE2JK5dKk1xSke1ou3C6HcZygoP4BqKBJkFAwy7r4gW2oAEa26Fopt+RoWoD
-	3HQdolDe5+jhcskI//j3y2IhUwqXRNznOGfn/mbw4SOJq2vnKGecK3hRVRwOctSMBzaZPyCp8Mh
-	m9ftLx8E71TOF9TfG0+RVEW/59R6YfyL4hNk79RBWhVpbqivPS1v794mRdrIrDqMTGHPG5gSwGq
-	f8kMyo+EetmeZMU=
-X-Received: by 2002:a17:902:d486:b0:2e3:1776:278f with SMTP id d9443c01a7336-2ea9c876327mr45145265ad.42.1792974007573;
-        Sun, 25 Oct 2026 17:20:07 -0700 (PDT)
+        bh=E5UQIZrsUjY0M8HBvkzofYrI4Utc73LHtISdy+Zvk0s=;
+        b=tScCme7aZfiFUvn4X5zeH8lqbPH2OQzw+l9QjQI7zu8/U5hfsoEKKtynys+Ej1CPJ1
+         vhzxqPge+UDYKXZbX4rK0yBDRt2zW7PHm98QcwvzJsll+QCsX0TfEuZFgFFyhea7cRLE
+         hK7TEqvRQro6yqoIqM1wu6GvDMc2yMNaxCuRTb5ZDF1Y7G9vp90RTYia8vRfm743k01D
+         my1w+fiOiedbmBus/OIRfZOzkBO21yrb2raaYgcV89thwYSwooVBglXBkSiyNMrW7zX7
+         bq+M336XBf51H3eUigDmSBl0Tem3mhH/a733T1BjRNQgKViwCrfQAGrtvqoRnv5uus2D
+         +P9Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxDLfcU+aPaXr0Bz87LU03bsVrzKwOnwwrMGXYbC2kcjG7MbP0Tqg6m3ALJEHSN83IDT2oSatFt2K6YkfQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJz0Zndre4Xpbobd+OSErSxBOhZv691j3/GtiizmXnciCacOxoo
+	dt+L2bWEpSkHnnvYFOjZjXNisbOATbS8+PuXss5XG58Utyz3E+/aGZNuppDrSQ==
+X-Gm-Gg: AYBFou0qEYST7iDcWInm43n7swdTVHaTz4zoAdC+RGw4wP7DLqRtMm1f0C8ErtwMWKJ
+	tEVDCSl5gT9jT1+mFqlamjZ+IYhreY07veYOm1rqjKjS6nCAzP5WAXKPOKWesoIDG4oLE+4v1V8
+	saykt6v/V5xD/Fph66x2rzX2KMS1Q0yLgf551c4R8e6StyGLGA2iBsz7OOaGMj6sH5uQiRnJ9tk
+	QGcoD+lOZNNHIkf2+3aCcFYcX2j6yVM7LfJUeXXOXzzdqyWK0wQK/qK7nfqEATG1uzMmiHXBfTA
+	KywiRLMq2jnHkKCEIPRK8UByrW2YSm0bMyk/mssHYGcsWxL0bgaQhDsZwm7pyuk1vLgzJWhw33c
+	+t22MyhHOoiNx98YEla4T8aHJOKxbC1iypIbs1d2ooSkf6ymYgxl2M1m/2GqJiHe9WuTmwUrgF9
+	IBmRj/WiWjDITN3/OpKLkpO09Vn1vA1InfID6oJJJLO6TNd5N91yE5GRYmrWek1GBKWgGsEIOAq
+	ElQ+7BSa70J4vvAXlaiBZ7qZ84iBqspWcuzSj+tnr21xILrtz9aKY0q+0baM2iQ6e83U2w=
+X-Received: by 2002:a17:90b:3bc7:b0:3a4:ca46:8d44 with SMTP id 98e67ed59e1d1-3adead5841amr4344724a91.18.1792974070632;
+        Sun, 25 Oct 2026 17:21:10 -0700 (PDT)
 Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea9b121725sm9686325ad.14.2026.10.25.17.20.06
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adebacc885sm6073592a91.5.2026.10.25.17.21.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 17:20:07 -0700 (PDT)
+        Sun, 25 Oct 2026 17:21:10 -0700 (PDT)
 Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Sun, 25 Oct 2026 17:20:05 -0700
+Date: Sun, 25 Oct 2026 17:21:09 -0700
 From: Guenter Roeck <linux@roeck-us.net>
-To: Myeonghun Pak <mhun512@gmail.com>
-Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Ijae Kim <ae878000@gmail.com>
-Subject: Re: [PATCH v3] hwmon: (sht15) Stop deferred work before releasing
- its resources
-Message-ID: <4b1e8242-bb8c-4f4b-9813-c835f705a258@roeck-us.net>
-References: <20261024014044.27853-1-mhun512@gmail.com>
+To: hsyemail2@gmail.com
+Cc: linux-hwmon@vger.kernel.org, Sheng-Yuan Huang <syhuang3@nuvoton.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jean Delvare <jdelvare@suse.com>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 1/2] dt-bindings: hwmon: lm75: Add Nuvoton NCT7715
+Message-ID: <c7532675-6cec-4613-a3a7-4cda31bf16df@roeck-us.net>
+References: <20260918084042.19541-1-syhuang3@nuvoton.com>
+ <20260918084042.19541-2-syhuang3@nuvoton.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,23 +103,18 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261024014044.27853-1-mhun512@gmail.com>
+In-Reply-To: <20260918084042.19541-2-syhuang3@nuvoton.com>
 
-On Fri, Oct 23, 2026 at 09:40:44PM -0400, Myeonghun Pak wrote:
-> The IRQ handler and regulator notifier can leave work pending after a
-> measurement or notification completes. Neither work item is drained before
-> its resources are released on removal or probe failure.
+On Fri, Sep 18, 2026 at 04:40:40PM +0800, hsyemail2@gmail.com wrote:
+> From: Sheng-Yuan Huang <syhuang3@nuvoton.com>
 > 
-> Disable read_work before freeing the IRQ, since the worker can re-enable
-> it. Use request_irq()/free_irq() for explicit teardown. Unregister the
-> regulator notifier before cancelling update_supply_work and disabling the
-> regulator. Apply the same ordering to probe failures.
+> Add the Nuvoton NCT7715 compatible to the LM75 hwmon binding.
 > 
-> Fixes: 251eb40f5ccd ("hwmon: sht15 humidity sensor driver")
-> Assisted-by: LLM
-> Co-developed-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+> The NCT7715 supports an ALERT output, so permit the optional
+> interrupts property for this compatible.
+> 
+> Signed-off-by: Sheng-Yuan Huang <syhuang3@nuvoton.com>
+> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
 Applied.
 
