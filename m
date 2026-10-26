@@ -1,59 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792999474;
-	b=KGRqYZtaWqNQATDDj5bxP33mUqUKh9pJwq6oeDg92JQgMCkim1D0RctA3lEKSzsJRSIa
-	 Gi8+XUiisfN3UmG3c9Zv24ASfe13k4fK7p+0R3i51uSoMBIpIKB3jANgGm6nbnGsnMVO+
-	 KjIeciS864jda20xpjG5yfrNhZU2wBULCr8oDAnnVP4gv3qlsdj8DYzalxiOmO9+H5QOB
-	 958jVZmM57StF/+c8ufqtaXv0PL4eaDDfS35BQ02X+WmjVk5nX57zkvFTqNk0zUasbPgP
-	 1nMuC2xmzTZW7I1PmdwtOaY6rVNPUv4eMKEiTtvQb1IPzZExIkr6dzvSMjEkF/SUmzQ==
+	t=1792999475;
+	b=y1p/BvmzVrjke2WLWGEXIul/UiY/LuRLLwy6IiBMcl6rPucEtWAyelIeY3WQrmSNqOjk
+	 0hNoEOXowM5B3tivTtEarM7pghoE8qyqjPuE3UkZ6MJMaUowwNG8tbZLvcqFP9QeT+7rq
+	 lSNbALlbeZfXKGkNVrYy1jdXZrtFYcY2R4gI3gfViXgvHc3IrQK+5LQTAvOkX5tLvcRne
+	 KknxV6DDLLqgou7xtM6dO5XWQYiYFGiEkbFy2z+51Z3zVG5118ozwoZH0+wqpOiXtxcNy
+	 j8KHZoVMFOEZPxaWPeRRfkS1zHjbrfiYMNcj/9vEVlssRyCNBdCqYsDHYKvj6P+Utnw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792999474;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=RZGpFzKZl+KjUUy06+TwAJ42tacxdNOCCa1aBYxsIy8=;
-	b=wow9VDpriHZTPSnhK0+0dd64Z/Nar681eiEhfXVpnZrU6nEZbMgbHwcvDU1aUE6kRT3e
-	 9PRF4u+pIGhWkoUL12skxGhJxGOOk9VuVznmMJrvjjchz9p0PfR5LgiOcFCzppT0+d53n
-	 HHNBsM97skfYuRwKcRlFuS0LTTYFescD2XOoiYKK1LaIpysKqgqwGoiPD3TAUYj2OYbB1
-	 H/IIy82gEmi7YW38HxqnGSnUmbz+vFN/RSIUYu8AM8kSAqayTENE8nWTb9fLgh01hWWC+
-	 FEF2/YbUMqhfUSaJ45o2hH1madeiK72G0D7L2PfsuCKAXp1ENBfrsZpZ/nI0ZcC7nLQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792999475;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:From:To:Cc:References:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=DNtf8N62TZAs0/m8oPs56srsuiRIll36IGkpT7NfcBc=;
+	b=Gq9c5Le139P9Fce4SK7NWY4gPsb9Mcoitv8DPuzd4ztG2vuj0zVIEeQPhct6tNj5uqte
+	 ZIbZRh3+AWsPrjL7g7SaVNtcwe+I6qs/pszi+PX8x/+nOR5PvKql8qJhpebVRcof7lEUu
+	 HB/b6ON84ASD18WWqDQ6xUgEc6vup53vJ8vBNN36qtKRjW+Mv+J+kzwpkO8dcJNPBHmMX
+	 hxxQINxNNLyIIHlBxhKNkSaIW7T6muqhelMDyfWri5SrM6BC6MkCekDlu3dAxUgYAr7n3
+	 Zw9jColqwdIFSwXnNwydPmwDpw99w5FYCpXEvlAtx4bf+ucDtxmWfOBZBGhL8W5IcAg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CvV8R9CB;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JFdSkP2i;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37DCB606A31B;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0E64606A329;
 	Mon, 26 Oct 2026 07:24:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CvV8R9CB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8689F1F01825;
-	Mon, 26 Oct 2026 07:24:33 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JFdSkP2i
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5771D1F01828;
+	Mon, 26 Oct 2026 07:24:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1792999474;
-	bh=RZGpFzKZl+KjUUy06+TwAJ42tacxdNOCCa1aBYxsIy8=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=CvV8R9CBR1eYI+aWr6Qp6lof4Wke04swz3qvCZ7iSvAEGD6f68s313+uMhuAciwek
-	 a1HO2DPG8IsRpfVHxEyBXyTBTSFSNkjwNVh87klHXBVWq7eWFX33s+OQtheKLeXZcx
-	 l+KnDFUL/24gSdLYZnNJ9enW+ZTedg20nm3NoYJdSikiIQ1L3Zs/DwnomXZDptKaH8
-	 7rS8tJyp6Z+tLYagPakbex259rUfXm9IB31fH3R08ea1q0RsP5ubYj6fawjosKBWQo
-	 F6RpRRd8ntWmRmBW3teWLHW/59Zs4/GAmjpoiYqlZDRCF5E/D5LwM7htoqRHU9KzzA
-	 PuXiTDxJKUUWQ==
-Subject:
- Re: [PATCH net] net: dsa: clear the conduit RX queue on user port receive
-From: netdev-bot+sashiko@kernel.org
-To: dencity7@gmail.com
-Cc: netdev@vger.kernel.org, andrew@lunn.ch, olteanv@gmail.com,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, linux-kernel@vger.kernel.org
-Date: Mon, 26 Oct 2026 07:24:33 +0000
-Message-ID: <179299947310.3134.16517017879498438401@kernel.org>
-In-Reply-To: <20261025072203.1519561-1-dencity7@gmail.com>
-References: <20261025072203.1519561-1-dencity7@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	bh=DNtf8N62TZAs0/m8oPs56srsuiRIll36IGkpT7NfcBc=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To;
+	b=JFdSkP2iJW1pKifnLD+AH6i+fYSVMDcxRgQAM6vb2VRjR1fVJm/h49dYoc4CAho3m
+	 +6hS00ne+kGCLB5y8Q2Ic0jIzEgsWDG+87nZFJVq+8Cu+VYbTLjFxsS1ZXFC3I+d5D
+	 WdrQUgUKgBK7rw9t0eZB4uuFyM9CidllWJbKC+XUHqDTRab2Gel7BLawvm99eBh9xT
+	 3l5ySg7QNGuK9KG0nnffjAFs+3hO+JhjLlkATId7f5FsBZDbZVVMZgeHqqpst0+0WZ
+	 J4tEp+aT/meZ2z0PTxrrpeLBoE7suYdH4iwJ4IYRuj5efaS8VO17lB2oWaZvoixjD5
+	 hJJO1XxPHCysA==
+Message-ID: <e123e765-fdf7-418c-b8cf-e814a80c2488@kernel.org>
+Date: Mon, 26 Oct 2026 08:24:26 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,144 +51,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] drm/sitronix/st7571-spi: Add support for ST75156
+ controller
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Lars Rask <lars.rask@axis.com>
+Cc: Marcus Folkesson <marcus.folkesson@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, kernel@axis.com
+References: <20261022-add_st75156_support-v1-0-582525a39a39@axis.com>
+ <20261022-add_st75156_support-v1-1-582525a39a39@axis.com>
+ <20261026-dancing-beneficial-tuatara-d70263@quoll>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261026-dancing-beneficial-tuatara-d70263@quoll>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On 26/10/2026 08:23, Krzysztof Kozlowski wrote:
+> On Thu, Oct 22, 2026 at 05:31:05PM +0200, Lars Rask wrote:
+>> +
+>>  static int st7571_spi_probe(struct spi_device *spi)
+>>  {
+>>  	struct st7571_device *st7571;
+>>  	struct regmap *regmap;
+>> +	struct spi_device_data *spi_data;
+>> +
+>> +	spi_data = devm_kzalloc(&spi->dev, sizeof(*spi_data), GFP_KERNEL);
+>> +	if (IS_ERR(spi_data))
+>> +		return dev_err_probe(&spi->dev, PTR_ERR(regmap),
+>> +				     "Failed to initialize spi data\n");
+> 
+> I do not see how you initialize spi data here, so this is just incorrect
+> error message. Regardless, driver NEVER prints error messages for
+> allocation.
+> 
 
-Critical: 0 · High: 0 · Medium: 2 · Low: 0
+... and you have there obvious build warning. Don't copy-paste code.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] The commit message says "TX queue selection is unaffected: the
-  user port's own netdev_pick_tx() sets queue_mapping again before the…
-- [Medium] The fix is incomplete because one delivery path in
-  dsa_switch_rcv() skips it.
-
---
-
-net: dsa: clear the conduit RX queue on user port receive
-
-This commit resets skb->queue_mapping to 0 in dsa_switch_rcv() before the
-skb is handed to the user port. Without the reset, the RX queue index
-recorded by a multi-queue conduit makes get_rps_cpu() skip RPS on the
-single-RX-queue user port.
-
-> Clear the queue mapping when the skb is handed to the user port. TX
-> queue selection is unaffected: the user port's own netdev_pick_tx() sets
-> queue_mapping again before the conduit transmits.
-
-[Severity: Medium]
-Does this hold for skbs that arrive on a user port and are then forwarded
-by a software bridge or by routing?
-
-skb_set_queue_mapping(skb, 0) marks the skb as having no recorded RX
-queue. That is not the same as skb_record_rx_queue(skb, 0).
-
-On the egress device, netdev_pick_tx() falls back to skb_tx_hash() when
-there is no socket queue and no XPS choice. skb_tx_hash() uses the
-recorded RX queue when there is one:
-
-net/core/dev.c:skb_tx_hash() {
-    ...
-	if (skb_rx_queue_recorded(skb)) {
-		DEBUG_NET_WARN_ON_ONCE(qcount == 0);
-		hash = skb_get_rx_queue(skb);
-		...
-		return hash + qoffset;
-	}
-
-	return (u16) reciprocal_scale(skb_get_hash(skb), qcount) + qoffset;
-}
-
-dsa_user_create() allocates user ports with ds->num_tx_queues TX queues,
-and user ports have no ndo_select_queue. So forwarded flows now pick their
-egress TX queue by flow hash, not by the conduit RX ring.
-
-Several taggers write skb_get_queue_mapping() into the switch tag:
-tag_brcm, tag_ksz, tag_sja1105, tag_ocelot_8021q, tag_netc and
-tag_vsc73xx_8021q. For those, the switch egress queue changes too.
-
-Socket RX queue tracking also looks affected. With
-CONFIG_SOCK_RX_QUEUE_MAPPING, __sk_rx_queue_set() only updates
-sk_rx_queue_mapping when an RX queue is recorded:
-
-include/net/sock.h:__sk_rx_queue_set() {
-	if (skb_rx_queue_recorded(skb)) {
-		u16 rx_queue = skb_get_rx_queue(skb);
-	...
-}
-
-After this change, sockets fed by user ports never get an RX queue
-recorded. That includes traffic from conduit queue 0, which used to record
-rxq 0, and it changes XPS rxqs selection.
-
-The new behaviour may well be better. Since the patch has a Fixes: tag and
-will probably be backported, could the changelog describe these side
-effects? Could it also say why "not recorded" was chosen over recording
-queue 0?
-
-> diff --git a/net/dsa/tag.c b/net/dsa/tag.c
-> index 6a5aa7fc331c3..ecd4d86696acc 100644
-> --- a/net/dsa/tag.c
-> +++ b/net/dsa/tag.c
-> @@ -115,6 +115,12 @@ static int dsa_switch_rcv(struct sk_buff *skb, struct net_device *dev,
->  		skb = nskb;
->  	}
->  
-> +	/* The conduit's RX queue index means nothing on the user port, which
-> +	 * has a single RX queue, and get_rps_cpu() skips RPS when the index
-> +	 * is out of range.
-> +	 */
-> +	skb_set_queue_mapping(skb, 0);
-
-[Severity: Medium]
-Is the case where skb->dev is not a DSA user port missed here? Earlier in
-dsa_switch_rcv(), this branch returns before the reset is reached:
-
-	if (unlikely(!dsa_user_dev_check(skb->dev))) {
-		/* Packet is to be injected directly on an upper
-		 * device, e.g. a team/bond, so skip all DSA-port
-		 * specific actions.
-		 */
-		netif_rx(skb);
-		return 0;
-	}
-
-For trunk-tagged frames, dsa_rcv_ll() in net/dsa/tag_dsa.c sets skb->dev
-straight to the LAG netdev:
-
-		lag = dsa_lag_by_id(cpu_dp->dst, source_port + 1);
-		skb->dev = lag ? lag->dev : NULL;
-
-Take a multi-queue conduit such as fec, which calls
-skb_record_rx_queue(skb, rxq->bd.qid) in fec_enet_rx_queue(). The skb
-reaches netif_rx() on the bond/team with the conduit's RX queue index
-still set.
-
-get_rps_cpu() then compares that index against the bond/team's
-real_num_rx_queues. That value is set separately (numrxqueues, default
-16) and has nothing to do with the conduit.
-
-There are three possible outcomes:
-
-- RPS is skipped silently, the same symptom this patch fixes for user
-  ports.
-- If the bond has more than one RX queue but fewer than the conduit ring
-  index, the WARN_ONCE in get_rps_cpu() fires.
-- Otherwise, the RPS map of whichever bond/team rx-N queue matches the
-  conduit ring number gets used.
-
-Would moving the reset to right after skb = nskb, before the
-dsa_user_dev_check() branch, cover both paths?
-
-> +
->  	dev_sw_netstats_rx_add(skb->dev, skb->len + ETH_HLEN);
->  
->  	if (dsa_skb_defer_rx_timestamp(p, skb))
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261025072203.1519561-1-dencity7%40gmail.com
+Best regards,
+Krzysztof
