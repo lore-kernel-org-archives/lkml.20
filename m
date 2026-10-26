@@ -1,96 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.21
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793010704;
-	b=ERQBJFxx/uJVvlQmdJHNfYL0J2SY3A0lIZzYlUIUUGKQgLOPmwUYsuceVimT57QSK8ud
-	 Dx2jq2mlBP4nAeXdRJ1thVqEkyf9Z4TGwCby4UiPDD+7yHcf0Tq5IMAssLeq3XhCmrFMp
-	 Y2FKmePeh1GJVryFicIr/bhyK0ct0mOkAuUvD0DrLvciro+vvVWJ5vVdTgODqzk8PAUn9
-	 FXYZgIQCf06E+0lHlaFuCKux1RCa8MP/ZIXP8uCFELoQBALi0seeGtzalSF2z+EqZgHiW
-	 Mqe8Z9i8yHgV+nmB9vdtUgkSC55N/qOOxZlatam8Bq1eRaLepnvZ2T85lLnWMUmTEEg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793010704;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-ID:References:In-Reply-To:To:CC:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Originating-IP:
-	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=UWtIHgV8oRRs59cjVLpBEKyZq42axVGiiW/nSZnEpVo=;
-	b=WJl5hramdL7r9qQk7iZaOV1boUbMqer0sgplUz6v5rgrt+p9LZ5jGLo6i/uH3sFPa07R
-	 bkurvACiwfJzRMjmeTzinwmNXX+D1HluUZW1InfAqLtmpbnIIHOpxMJmdO284xuNpdE6r
-	 Cn50VX4DArlI5SmgbRIVmRyqoq2TCOLX6XhQ0M7SsV1h9oMeceiFn0TMckQszTEBRi9aG
-	 Qlihs2tul9vYY2HCQBjT31pQ9GVyS5QuypImADfz2NeedyyxRGSPeXW5e6zO4Ax9qJ5t1
-	 CXzg/1UmxfxinEgE8rOU2BHaPWgQpPXCepn3WcosxFzW453UjsmiA4taXORozZBlmLA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=zLFPITZU;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.21
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012021.outbound.protection.outlook.com [40.93.195.21])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793010716;
+	b=UMnzRqNxkC6AYGvk2hmxNw75q0Hm0FSazjL73/+ODswi7ylHfujLwqgQD3QqFCNJT670
+	 vy29xgIokVASDX+IY7EnxYHh6MJdOohgGwtJ85lqWnu4o714c0Qj0hZesDX1DpkXK1SvD
+	 J+2T7uE6mYyhYL+uMoGKeJivvlzXi9WNV87fzJOoU6951jUquOwGvP0+eFT88BB3iR3/w
+	 1NDOeC7of35bauWumcjiilSMl2SIWQh4/xyr42UhRG3yk0GimZX565yl8LeH2ZbrFA+Yr
+	 4xkxyqNy3gfC8ffjDpUfBzB9Mmu7r8cgByY6qZlafne4pGi1QepjN4CkNXtSH9rUNKA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793010716;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=/HIhGXqA4xP0tvnc3uf9hmSWe+5xRVAu9Rr9DT23f/0=;
+	b=y92RVkMAq8apZHkGIOpRCYwHltEkHXLbDMYdeiK6M60YlvYjZOv8j1GPZ5vbTVk7xmhl
+	 Qmcde+03JUR4joqZnttLF9rJmBH8sN0OXHxUnjZCpUckn73SLGvXOXPpqV1SJX7zKUYro
+	 ag1zbsjF6l+TquFaig3D665HGrmEQ8qWLHcHGBqGTlGKGxly4n/8FWUrVTwVY54qgztkh
+	 uFfAKwdJ03OuMSZI9vZhvQB6vY5c8Ef+DDrZtgeVA6rWrF41woWwNBwj3v8q8knRlOr0u
+	 rvb7hyVBh/MTLi/Fd1Zf7RHyWRtn461MfrogCXJeTrep1K4sWoqddodnMem0KiyvMtg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iFwI0wcZ;
+	arc=none smtp.remote-ip=198.175.65.17
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0626606A31A;
-	Mon, 26 Oct 2026 10:31:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0626606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AE37606A31A;
+	Mon, 26 Oct 2026 10:31:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6AE37606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=zLFPITZU
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=N91+Cg0Goh5ltjuBSgJv3r1QSLcXJlCJkFY9UbXi9PlfX7F3zkJcBlYaubE40KOXBMQ0mlFcF5b/ul2d5jm+uYVtgbh2MVivmBpL6b4KRzPB2w8xCri/sAiKG3lUeVlBgCemD3a7wsRr9oyrARxbglzJHozvPq9zubl74s6OHPKJ9C6jQKHz7nSpRIz3wOjoFH++MftPe0XYbU+s8RY+rw+WmKg6Rgz030yFhoA2COg1t3aPtRKS8vFt8pcn0p9EN/0QfxnmTxzAIxd1kh6p9FYceEEJieuufBtj+Us7SDyPPdixR12ImRISdPdyHN6RhLVPhx5xRhjbmqslqB+6hQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UWtIHgV8oRRs59cjVLpBEKyZq42axVGiiW/nSZnEpVo=;
- b=gYA4K6JQNXPCpZ8g6z8qrYCPyI6ICttom2XUODERT+vuwyiQQO9FmZZwsXnDUPhV3ZJ2WQXAGBdB8fV6p/PPmgKH8B09f8o7S3sqxdqla/s0t6yKZlMkQRjM40VIFRB/UPDp36mKZgcNU+CDDNU6T18XQBoW2YjdrxKy8xEcT1QozJXZfPNdoTI7n1N3xeud2b+w67SagkwWv7hcD0aijO/hbySmGhw6fz2+kiGA7niqmIhXu6f1MSicoSC33yvC98zwJ0Q1oLuHnSiBbj1wOqCTxtHR7CpMUnpWHnhahx2mTUjaUUPA304C7XqE5XxbQcLJOcZhMR+jiQofjj0VPw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=infradead.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UWtIHgV8oRRs59cjVLpBEKyZq42axVGiiW/nSZnEpVo=;
- b=zLFPITZU/4GNh4TFlBDN7Fu/RIslJiJICnHsed+1wtv+GHkuY101yMx8GUPDLtbyCqD6C46m+VD6gI4idHNX8DHN2lnJId0rtN3fuzzEvSMXCgXBEsKnG9xCd1gIg13UXqvfXbHsRfPgZn4war9Q8zgstR/ASf6y2QoQW0PN4fU=
-Received: from CH0PR13CA0018.namprd13.prod.outlook.com (2603:10b6:610:b1::23)
- by MN0PR12MB6125.namprd12.prod.outlook.com (2603:10b6:208:3c7::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
- 2026 10:31:39 +0000
-Received: from BL6PEPF0006C3E1.namprd02.prod.outlook.com
- (2603:10b6:610:b1:cafe::93) by CH0PR13CA0018.outlook.office365.com
- (2603:10b6:610:b1::23) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.7 via Frontend Transport; Mon, 26
- Oct 2026 10:31:39 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BL6PEPF0006C3E1.mail.protection.outlook.com (10.167.249.231) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.569.4 via Frontend Transport; Mon, 26 Oct 2026 10:31:39 +0000
-Received: from [127.0.1.1] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 26 Oct
- 2026 05:31:27 -0500
-From: Shivank Garg <shivankg@amd.com>
-Date: Mon, 26 Oct 2026 10:30:30 +0000
-Subject: [PATCH 2/8] mm: remove unused folio refcount helpers
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iFwI0wcZ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793010716; x=1824546716;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=1C5aiI1j1KZosMcIZTJUzOc6KzOLatfEvtaQlkoXwmA=;
+  b=iFwI0wcZb5LeHydO+IVO1QDMOZQNVpYF+TQA5eyitvWksfKzQmCUu5TY
+   +VEk0ovtZvh+LHfF6SjVL54tqpvmW+QIhALUfmuhuC01RB30pOzMROBNm
+   m+Sj4tlOox1ajFf/jhddisgNrWcDPjufiTE12SDO+yAmx139kpfBny86/
+   pGsul+nh5HT83JxbN6rrbvDpvKZTQFjB01psbHTmpqL8t/VltgjCA4+y6
+   Wtc30ocdWfhO0pqAMzpv9e0LUYzffvnKsx7qS3Kn7gLL5bIjuNtwpxcAz
+   Mc1Aj7nSCxCUtIppDw+6GHtajU5Mn5IzlfIZ7CukkmzLBX5ImLzDhCKQq
+   A==;
+X-CSE-ConnectionGUID: lFCqhDoESceBkIJEN7eh3w==
+X-CSE-MsgGUID: DZLvHfopQCqDehXqVHBKrg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1686329"
+X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
+   d="scan'208";a="1686329"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 03:31:55 -0700
+X-CSE-ConnectionGUID: wdgDOIzoQRavQaKAgncGkw==
+X-CSE-MsgGUID: NuIN92+jR3a4UmobLJdD7Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
+   d="scan'208";a="6087780"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.93])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 03:31:51 -0700
+Date: Mon, 26 Oct 2026 12:31:49 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Olivier Louvignes <olivier@mgcrea.io>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Paul Cercueil <paul@crapouillou.net>,
+	"H . Nikolaus Schaller" <hns@goldelico.com>,
+	Joshua Crofts <joshua.crofts1@gmail.com>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-mips@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] iio: adc: Add a driver for the Ingenic X1600 ADC
+Message-ID: <at8sFe3BzYNTT1DL@ashevche-desk.local>
+References: <20261026083631.48406-1-olivier@mgcrea.io>
+ <20261026083631.48406-3-olivier@mgcrea.io>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,141 +88,138 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261026-unused-sym-v1-2-82ca2dceabe1@amd.com>
-References: <20261026-unused-sym-v1-0-82ca2dceabe1@amd.com>
-In-Reply-To: <20261026-unused-sym-v1-0-82ca2dceabe1@amd.com>
-To: Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand
-	<david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett"
-	<liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport
-	<rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal Hocko
-	<mhocko@suse.com>, Kairui Song <kasong@tencent.com>, Qi Zheng
-	<qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, Barry Song
-	<baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie
-	<yuanchu@google.com>, Wei Xu <weixugc@google.com>, Baoquan He
-	<baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, "Matthew
- Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Hugh Dickins
-	<hughd@google.com>, Rik van Riel <riel@surriel.com>, Harry Yoo
-	<harry@kernel.org>, Jann Horn <jannh@google.com>, Lance Yang
-	<lance.yang@linux.dev>, Chris Li <chrisl@kernel.org>, Kemeng Shi
-	<shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, Youngjun Park
-	<youngjun.park@lge.com>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
-	<skhan@linuxfoundation.org>, Johannes Weiner <hannes@cmpxchg.org>, "Michal
- Hocko" <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>,
-	"Muchun Song" <muchun.song@linux.dev>, Uladzislau Rezki <urezki@gmail.com>,
-	SJ Park <sj@kernel.org>, Minchan Kim <minchan@kernel.org>, Sergey Senozhatsky
-	<senozhatsky@chromium.org>, Alexander Potapenko <glider@google.com>, "Marco
- Elver" <elver@google.com>, Dmitry Vyukov <dvyukov@google.com>, Pedro Falcato
-	<pfalcato@suse.de>, Bharata B Rao <bharata@amd.com>
-CC: <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>,
-	<linux-fsdevel@vger.kernel.org>, <cgroups@vger.kernel.org>,
-	<bpf@vger.kernel.org>, <damon@lists.linux.dev>, <kasan-dev@googlegroups.com>,
-	Shivank Garg <shivankg@amd.com>
-X-Mailer: b4 0.15-dev-47d62
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793010663; l=2085;
- i=shivankg@amd.com; s=20260518; h=from:subject:message-id;
- bh=nwtYqIbL8/V5b7bzA76rWHGJPJ4cfMktwdPFXwAmZsU=;
- b=HuGR1CXwcRCIYVj4ot01O+Dd2qcoWuk86b4aprMQdLX2dMVqQy7LW9Y5zmSkU/vPtZTWFRGtR
- 7N+4dtTHBZVD7HubXiofQ4LNk69WwGuF72vuFs+BdWzN+6rE7ffFqZR
-X-Developer-Key: i=shivankg@amd.com; a=ed25519;
- pk=2l2QGTeXuGkZTtfmx0nPQU8iFZfjYmX/ymMojitevx4=
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0006C3E1:EE_|MN0PR12MB6125:EE_
-X-MS-Office365-Filtering-Correlation-Id: d14e641b-4c2d-4fd0-d1fc-08df334c51ba
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|23010399003|7416014|376014|1800799024|18002099003|22082099003|921020|56012099006|11063799006|261021123027099003|10067099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	EvOWZUnEBfSaixjhkMSAiUJ/vzBtZb2JWfvusyKn1/m/KVmnx3DgDDqEKX5aWFwUHhCKgupyutGc0/lrFC0bO1QGsAB5qogt0+E/BNdw0hBi/VTRjoLgdbOUoMF7IGw8x42AskRYoSbq9dzbgMH+tQqkeqwXYooP8LJK3w644++7ZCRfZJCppGBBcHuV7sD92PlfI/+fLnXgHtTO7ofUhzc9fT4Bh9iqTcPKFzB9ZbUHrhyvTYz9VHeczx74zSO6rhs6C3Jc8M5x00VK4fgv1x2KAScQ8tzyDxHTkIlEie0uRKcqF0hShu3UO4G6MrHTksAooltnhYWb72TPeJIblraxLOUxsD7ipLiFqCK5rvodvD2B7O9dSc/VFHa+a67VTyhyS3gvWrHUjGlmP4kvk4MItUzXF+UtjBORnNN35g+Vl46DBv8FnyRw/A4ad0r32K5DOCqG1YsSGZRqSfpZFyHfcjELVr6j2tqUKF3TrvM9Unejn7hGaT+/Uaowh9l1O4DGA7ijpkZxoxNKFziRJh/hCXUl/aUskiNLjnEx2CWL+9gcL+Y1hF1O8c9vwoUeJ27kX7KTgRGWoYKQS3jpk/ZQQ28PixuOnp+HWFV72wu7DeOjN5HcLJovbaop/n1bSxst2quh0M+NZCl4bsTKeAzwtwwlior+wnsZI/nfvQVC5rHrcf/U84Y6IYEVOS/IJgTL//5PMufhTXWPyvdBzSrQNNFHdxB/Ez6YM2lvqKM+7e0/SsoPVAuXuJpa3fWN
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(23010399003)(7416014)(376014)(1800799024)(18002099003)(22082099003)(921020)(56012099006)(11063799006)(261021123027099003)(10067099003)(261009223027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	qraevKmG1gm2VJEGjpdSq4GVAU9j5svjccsI1hEG4hsBl7jHVztl8MeAc5dB0WzaE1mU7X+offE16iXGdaGm3E0DqzKZ8VN6uYuK2+YrgSGyQrCONsb90SsnE1DUz3hpjBXPReBX1/fC2Cs5P0KAfYDZZqTNUBaamFxs/ao4JefWI8CYMCGJJazDRg4UPPTpzN3guCgS4k8RJBhGJv4QN0g6lJh7Whuhs5nZXmN7ByznY8a72ye40WCrjJ+pN0EggvLlabXuq1WtW+APIiKGSjGWikZPG9vTdnHc5HTMynt7mSUQWlSWD2HJZfVOd9WhMGd5Sj9wJYPnZ03Gjv4UnZRCR4P+hyTgQszVfcX0uxJ9vR6fhbXftg2z6JLLrg249JPWGA6pGoYUTzv2DOUGSOhqniuh7b7gNIE8dBUoCaZx/qXMGsmaaDMq8T2t+Fpj
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 10:31:39.1198
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d14e641b-4c2d-4fd0-d1fc-08df334c51ba
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL6PEPF0006C3E1.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6125
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261026083631.48406-3-olivier@mgcrea.io>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-folio_ref_sub_return(), folio_ref_inc_return(), folio_ref_dec_and_test()
-and folio_ref_dec_return() have no callers.  The last
-folio_ref_sub_return() user was removed in commit 38607c62b34b
-("fs/dax: properly refcount fs dax pages").
+On Mon, Oct 26, 2026 at 09:36:31AM +0100, Olivier Louvignes wrote:
+> The X1600's SAR ADC has four auxiliary channels, each with its own start
+> bit, interrupt flag and 12-bit result, and none of the touchscreen or
+> battery engines of the JZ47xx ADCs that ingenic-adc drives. Add a small
+> driver that exposes the four channels as voltages against the 3.3 V
+> reference.
+> 
+> The registers are in chapter 19 of the X1600 programming manual. The
+> ADC clock divider is even, as the manual has it (an odd value divides
+> by one less); the vendor kernel writes the divider minus one, which
+> gives a slightly faster clock than it asks for.
+> 
+> Tested on a HiBy R1, whose play/pause and volume keys sit on channel 0
+> behind adc-keys: all three read and report correctly.
 
-Signed-off-by: Shivank Garg <shivankg@amd.com>
----
- include/linux/page_ref.h | 24 ------------------------
- 1 file changed, 24 deletions(-)
+...
 
-diff --git a/include/linux/page_ref.h b/include/linux/page_ref.h
-index 9f5c75d06f76..6fc20a49fa84 100644
---- a/include/linux/page_ref.h
-+++ b/include/linux/page_ref.h
-@@ -157,15 +157,6 @@ static inline void folio_ref_sub(struct folio *folio, int nr)
- 	page_ref_sub(&folio->page, nr);
- }
- 
--static inline int folio_ref_sub_return(struct folio *folio, int nr)
--{
--	int ret = atomic_sub_return(nr, &folio->_refcount);
--
--	if (page_ref_tracepoint_active(page_ref_mod_and_return))
--		__page_ref_mod_and_return(&folio->page, -nr, ret);
--	return ret;
--}
--
- static inline void page_ref_inc(struct page *page)
- {
- 	atomic_inc(&page->_refcount);
-@@ -213,11 +204,6 @@ static inline int page_ref_inc_return(struct page *page)
- 	return ret;
- }
- 
--static inline int folio_ref_inc_return(struct folio *folio)
--{
--	return page_ref_inc_return(&folio->page);
--}
--
- static inline int page_ref_dec_and_test(struct page *page)
- {
- 	int ret = atomic_dec_and_test(&page->_refcount);
-@@ -227,11 +213,6 @@ static inline int page_ref_dec_and_test(struct page *page)
- 	return ret;
- }
- 
--static inline int folio_ref_dec_and_test(struct folio *folio)
--{
--	return page_ref_dec_and_test(&folio->page);
--}
--
- static inline int page_ref_dec_return(struct page *page)
- {
- 	int ret = atomic_dec_return(&page->_refcount);
-@@ -241,11 +222,6 @@ static inline int page_ref_dec_return(struct page *page)
- 	return ret;
- }
- 
--static inline int folio_ref_dec_return(struct folio *folio)
--{
--	return page_ref_dec_return(&folio->page);
--}
--
- static inline bool page_ref_add_unless_zero(struct page *page, int nr)
- {
- 	bool ret = atomic_add_unless(&page->_refcount, nr, 0);
+> +config INGENIC_X1600_ADC
+> +	tristate "Ingenic X1600 ADC driver"
+
+Make this text...
+
+> +	depends on MIPS || COMPILE_TEST
+> +	help
+> +	  Say yes here to build support for the SAR ADC of the Ingenic X1600
+> +	  SoC and its four auxiliary channels.
+
+...
+
+> +/*
+> + * ADC driver for the Ingenic X1600 SoC
+
+...and this comment along with the MODULE_DESCRIPTION() be the same.
+
+> + * Copyright (c) 2026 Olivier Louvignes <olivier@mgcrea.io>
+> + *
+> + * The X1600's SAR ADC has four auxiliary channels, each with its own start
+> + * bit, interrupt and 12-bit result (X1600 programming manual, chapter 19).
+> + */
+
+...
+
+> +#define X1600_ADC_REG_DATA(ch)		(0x10 + ((ch) / 2) * 4)
+
+> +#define X1600_ADC_DATA_MASK(ch)		(GENMASK(11, 0) << ((ch) % 2 * 16))
+
+Drop /2 and %2 here, see below why. This probably need to have ch be renamed to
+something else as it's like bank and shift.
+
+...
+
+> +#define X1600_ADC_CLK_RATE		1166667
+
+Is this in Hz?
+
+...
+
+> +static int x1600_adc_read_raw_channel(struct x1600_adc *adc, unsigned int ch, int *val)
+> +{
+> +	int ret = 0;
+> +	u32 data;
+> +
+> +	guard(mutex)(&adc->lock);
+> +
+> +	reinit_completion(&adc->done);
+> +	writel(BIT(ch), adc->base + X1600_ADC_REG_STATUS);
+> +	writel(readl(adc->base + X1600_ADC_REG_ENABLE) | BIT(ch),
+> +	       adc->base + X1600_ADC_REG_ENABLE);
+> +
+> +	if (!wait_for_completion_timeout(&adc->done,
+> +					 msecs_to_jiffies(X1600_ADC_TIMEOUT_MS)))
+> +		ret = -ETIMEDOUT;
+> +
+> +	writel(readl(adc->base + X1600_ADC_REG_ENABLE) & ~BIT(ch),
+> +	       adc->base + X1600_ADC_REG_ENABLE);
+> +	if (ret)
+> +		return ret;
+
+> +	data = readl(adc->base + X1600_ADC_REG_DATA(ch));
+> +	*val = field_get(X1600_ADC_DATA_MASK(ch), data);
+
+This is the only case when these two macros are being used. While  / 2 and % 2
+are power-of-2 based calculations, it's still make sense to have temporary
+variable for both of them (see the proposed naming above) and use in a form
+
+	bank = ch / 2;
+	shift = ch % 2;
+
+this can be optimised on some architectures to a single assembly instruction
+(yes, both calculations). The problem is that they should be tighten to each
+other so compiler sees it. In the current code they are go via macros and
+compiler most likely can't deduce that.
+
+All the above is based on the real life example, see 9b3cd5c7099f ("regmap:
+place foo / 8 and foo % 8 closer to each other") for that.
+
+> +	return 0;
+> +}
+
+...
+
+> +	writel(X1600_ADC_CHANNELS_MASK, adc->base + X1600_ADC_REG_CTRL);
+
+It makes sense to have read and write wrappers that will add adc->base.
+
+static inline u32 void x1600_read(adc, unsigned int offset)
+{
+	return readl(adc->base + offset);
+}
+
+static inline void x1600_write(adc, unsigned int offset, u32 value)
+{
+	writel(value, adc->base + offset);
+}
+
+Also you may consider using regmap MMIO.
+
+...
+
+> +	rate = clk_get_rate(adc->clk);
+> +	div = clamp(round_up(DIV_ROUND_UP(rate, X1600_ADC_CLK_RATE), 2), 2UL, 254UL);
+
+Wouldn't it be better to clamp the rate first and then divide with rounding up?
 
 -- 
-2.53.0
+With Best Regards,
+Andy Shevchenko
+
 
