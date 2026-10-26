@@ -1,63 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793057494;
-	b=Ou8xlfLXh4yb9HlZqhfoN8P5hPvYNcUN0LEAh3HALBrjPEx0hClDUevbOK00zgJvIluV
-	 pApKvegq1lnPRZa9GEphY1E8URyBzienPU1BQNzbq3bkFpKEPy8caWqy5zPenprBFySd6
-	 5AtYlQxc+I/yooeHH6rYcxxXfacTtcCNHDTzvGIf1HOwsqZ1ubwpzZZZJt7AwSqs5/YkJ
-	 xul9h8onT0aXINojgU0YnMEQlxLWABSnBULDx2c/p78xmkeT4SufGXmIJjKZ3pF8FSbBn
-	 jwTX18E1QZwF2mCwsXYnfceIgCgEsN2UsxD/SocXlW+QtUxOLfle9ibGEtyqhC2Grrw==
+	t=1793057508;
+	b=N2q+AN5D6G2vEOqEUYsuVEzt255yh+KEAUaxOGsXAfjg6ns2aTShy4Qnk60aMoWIaE+F
+	 cKHX4GARBOYq8jQ0FtSBzWtt7P9CcF1fXjfadEtDUAIerXRvwISGaZPNimZg1k3krGkK6
+	 TlapFylBCDB0MCp0a9QzJt79hV9xCX1TGtJsrqEQ7LJESiRulv7E+bdLyPG0E/ofmPftQ
+	 teJa/F0zShAVvwxkR4YzA8VT/xnhi+P4ANcPyzrvC5fT8OxmGNLHTWASrPNzlG/ucSUHG
+	 PpirE+DgWckUmNT+ZmXoMDJPgUPgGQgqz8464BweqUt9J//Fe31mLthC++ZiqxmFakQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793057494;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=MvmshXKsgvlL7yA7pYzz7rQMYWGPWsd1FbsLikdog2M=;
-	b=yCytJBfX9/Qq36JIGvXbjDYT2ay+8s08zK+DfV4sTJlvvq1mj6dloEzuHKR0mcBDrfva
-	 wuW2u3kBExr/ytz2nDrTVgrFiDqKxjvXTazYAwQvr91V9Y+9GKX1hzJigKx881nW62ZiK
-	 2lc9YoWa5MGUvuPtEWmNGe9BrGjxY5iX+Uyq2okjVe77cwrPoRZiVo79VKmgsjzFMPo83
-	 33e4vJnlgVr4HeYByBdtyKFXs+32fhXNqzNWjMlZ/cnbFWd+I1aOUH7KfxJTi98WYR6ap
-	 rlosR+QbevB9FGCvJnQXp/H6dIIM2r9/duiU++5hwd/wk9sHFtTZ4qPXIcUaKO7Wt3w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793057508;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:MIME-Version:Content-Type:Content-Disposition;
+	bh=1kNsOBjiPepCZlQXn6dnkeUyVbnTvzLZsjEF/ZOxFpA=;
+	b=a8btda849Zgl7Jr2ojHjVjP7oUhNah+gqmtTVFXlGZW/6/vKBQYN2ooy11IDJdzWplu4
+	 ZlK3kd36fMPIYgcrUfK8PuCZEcmQYqcB1PpVJQzyZYhFjX6or/9UZ+W+3Pvm/pw84yq+n
+	 SE1ItNgHvGszUijSyBMsmwWmeDNgp62S8HdHR/ou32PQ+0/HBOAZO4OrCe3jI8ewJ0Q4d
+	 Cfk6+gsdDroZS0KcDxbwSR0A+Z3t/IEtSngosvWBC/96dy99acmxKuH+wt7ioUQ3xes2G
+	 KZJbVIME2HPnFPTLmBgHs3npH4fk2DXqxdCWipjl/pnN5fXqSwaAv+9Qfhww/L8oZAw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZDSLj8Yf;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=multikernel.io;
+	spf=pass smtp.mailfrom=multikernel.io;
+	dkim=pass header.d=multikernel-io.20251104.gappssmtp.com header.i=@multikernel-io.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=rvmlXMcP;
+	arc=none smtp.remote-ip=209.85.216.41
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26EA3606A31E;
-	Mon, 26 Oct 2026 23:31:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B4AD606A31E
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 23:31:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B4AD606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=multikernel.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=multikernel.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZDSLj8Yf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3C501F01828;
-	Mon, 26 Oct 2026 23:31:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793057493;
-	bh=MvmshXKsgvlL7yA7pYzz7rQMYWGPWsd1FbsLikdog2M=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=ZDSLj8Yf+Ge+XCP/KMRmBx6M8o0oZuPjSB/2+1unK6AeHelFmU2kMvWnLveQ202UL
-	 ANqzxZ6hKwMExJsiv8YSXsZ6UxjC6Col7lK8ZNj1jkvSaJCiNVTBLkCGsM+Jy1qKZc
-	 I1EIM/QVGiTcpPj63M1ehXEnOowwGfs0z2gp9ENeh7RYb4ZPri4+OGd+9QEwMf8TrX
-	 7TGWsoOtU4FCUIrq9CPmFF0yOSD2VYCiDpNj/qzGYIDI7gq3lj7QTDfPD11vIcffy2
-	 WAnrl67T47k6PL8Od6wEOmeF79sQNfBxzP9sa4MHSbKG+aIB3kyp33f7yJ2UAyfDlD
-	 RhSTmZmcpGaZQ==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 87CCACE0C35; Mon, 26 Oct 2026 16:31:33 -0700 (PDT)
-Date: Mon, 26 Oct 2026 16:31:33 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: KunWu Chan <kunwu.chan@gmail.com>
-Cc: jiangshanlai@gmail.com, josh@joshtriplett.org, work@onurozkan.dev,
-	frederic@kernel.org, neeraj.upadhyay@kernel.org,
-	joelagnelf@nvidia.com, boqun@kernel.org, urezki@gmail.com,
-	rostedt@goodmis.org, mathieu.desnoyers@efficios.com,
-	qiang.zhang@linux.dev, rcu@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Kunwu Chan <chentao@kylinos.cn>
-Subject: Re: [PATCH 9/9] rcu-tasks: Detect duplicate callback enqueue
-Message-ID: <004be859-71a2-42f9-af3d-958ad70f38f5@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20261023101841.2910719-1-kunwu.chan@gmail.com>
- <20261023101841.2910719-10-kunwu.chan@gmail.com>
- <cdd3f35d-9e9a-4b87-bea7-59ff3e1a7390@paulmck-laptop>
- <CAN_Opa_eWF27jfz_HfXjUEw_raQb-j8Q1TMHLr9cx0P=N2-s6Q@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=multikernel-io.20251104.gappssmtp.com header.i=@multikernel-io.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=rvmlXMcP
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3ad2b3b1c02so1762125a91.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 16:31:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=multikernel-io.20251104.gappssmtp.com; s=20251104; t=1793057507; x=1793662307; darn=vger.kernel.org;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1kNsOBjiPepCZlQXn6dnkeUyVbnTvzLZsjEF/ZOxFpA=;
+        b=rvmlXMcP2IY+cbSgLxGGqlP6Ugw4/wNPiD+nwUdilbb93tD2SOSof4ValBnSM5QRss
+         Yd1RGoiqDAgpZECRmEa9oHz+1SwJ923EDedcNJRlKbjSAj6sQmWZZ2tp+puDQprU6IDk
+         9g/B2DwUbdyCrGtaXtWQjWAwHGZA2XWl7m0L+55GVNXaXQSLDk8jn7+pF3oOXwFXm2pf
+         otfVWsRb0xmbtYKJ29J/9zhoW3pMEM5QOTfJeaF2cWASGq0tzzsvAKj/YdgWkZlxFl3I
+         vfHHFDFQT6WLG0UZ753E+R4l1GY37zuce2WtqVNyzoqAKw4cxkE4IsZJY3F2Y+tvWmWi
+         sSpg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793057507; x=1793662307;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1kNsOBjiPepCZlQXn6dnkeUyVbnTvzLZsjEF/ZOxFpA=;
+        b=fSLO58ZJcZIymITql54Ell9NLeeyztgdsEn1H7i8sxciidyuwtipKaJk3vHPYJJDmi
+         BzEvRyJ9zjA+FI4uH/7cZvJg7O0D43Qmtes4vsgWkdLZquw4P6acm3tfDxQe+1HFcAQ3
+         YrrJgRtzoC7sAI2Xm2oVqV+lu+qp51p9anmkQAXPa8akZRDT2Nl4MRInMLax1Vln+Tf1
+         y6gR31osPj9GLTW4nfsjKqb52vmOZKcYJGYiJSFSrtJ1HiC77AyDtvdn6DY9JpaJ2pF5
+         zTJXcbusZfE7Ee36DHs48n0fSZ9NrYB2Qm28b9ourImoC71y0/I1rdHDR2vJAN4GYIei
+         R6Sg==
+X-Gm-Message-State: AFq9FYLA+RQjqcVojlP9iWSSswmleekTa/LA2YmIjiBXat+bt4gALNz9
+	E42yDzU1/HLEEZvhVFrIf/Q+hNlEBnWGDUZ9fU1No/DuasnkuwdV3/QxojNp/uEAgu7McZD0GAW
+	W4QV8/c8=
+X-Gm-Gg: AYBFou0gKc8IGMCN8K8IEm/6022+Dj3dDzGEhCwUEoote1QIzN5+mgt/83gVwwPZW+V
+	rghAdguH99hgieV9ftOKvKdb0Wk78SoNAsPY0TQCNKahVnKaX5dJLQUaRx0culm3jwiVIl+plYe
+	/bBuv954wAhkFjh60nSsGvRm/HyNWa8ahEj+fRMIvXzIPNfSC67E76igQGF7OAtkIXa2P+abWIo
+	MvwlrFcc2q09jsnWUSDGK5MOMrSBdBBlv89OnQojEQ8pfEhxjg8wNeHDU4hR1+L0FMtmRePRIEK
+	7hJhnacXeXTRCZSnH0IBGuBldvYfInSPx/Hr6wOIENt+rq2Urj97ec/kJYy9iwWwapQIvrd8W6W
+	djTzmTdcar9YkTjegkDNwz93GqOpPCBrg0SCVCPnpXTdQ6sZUs3d5Qo4uyHGg/CmXpA8ohIfUXp
+	pwSOaq/2Wa6YYX1Pkqi45mDSc9ao7y5pIkBY7j/AP/fVOVjsXNFgjXHjwM/0nX5qV47xhxf3bq6
+	AFQICKfV4ZDCpaCls9QTXuWZjEtksTBB07Tuj3IcP9WV4uJ4xdiqM9eAxFVJyHiL2Y5U0i+cJ7r
+	fg+/3Hf3n5cY
+X-Received: by 2002:a17:90a:d2c6:b0:3a0:abc3:afb5 with SMTP id 98e67ed59e1d1-3adeabde84emr7276945a91.34.1793057506638;
+        Mon, 26 Oct 2026 16:31:46 -0700 (PDT)
+Received: from localhost ([2601:647:4084:777d:f4e4:ea6:4ca0:ca08])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae40455eb5sm1154323a91.12.2026.10.26.16.31.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 16:31:46 -0700 (PDT)
+Date: Mon, 26 Oct 2026 16:31:45 -0700
+From: Cong Wang <cwang@multikernel.io>
+To: linux-kernel@vger.kernel.org
+Cc: multikernel@lists.linux.dev
+Subject: [ANNOUNCE] mklinux v7.0-mk4 and kerf 0.4.0
+Message-ID: <at_i4aR2Jd6GcHhZ@pop-os.localdomain>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,88 +92,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAN_Opa_eWF27jfz_HfXjUEw_raQb-j8Q1TMHLr9cx0P=N2-s6Q@mail.gmail.com>
 
-On Mon, Oct 26, 2026 at 10:36:02AM +0800, KunWu Chan wrote:
-> On Sat, Oct 24, 2026 at 3:31 AM Paul E. McKenney <paulmck@kernel.org> wrote:
-> >
-> > On Fri, Oct 23, 2026 at 06:18:41PM +0800, Kunwu Chan wrote:
-> > > Detect duplicate callback enqueue attempts in the generic
-> > > RCU Tasks callback registration path.
-> > >
-> > > Signed-off-by: Kunwu Chan <chentao@kylinos.cn>
-> >
-> > And the same questions for this patch as well.  ;-)
-> 
-> Same changes applied: pr_err_ratelimited() and dump_stack.
+Hi all,
 
-Very good, thank you!
+mklinux v7.0-mk4 is out. mklinux is the tree carrying the multikernel
+work: several Linux kernels running side by side on one machine, each
+owning its own CPUs, memory and devices, with no hypervisor underneath.
+A host kernel spawns the others through kexec_file_load() and they talk
+over shared-memory message rings and IPIs.
 
-							Thanx, Paul
+This release is 41 patches on top of v7.0-mk3.
 
-> Thanks,
-> Kunwu
-> 
-> >
-> >                                                         Thanx, Paul
-> >
-> > > ---
-> > >  kernel/rcu/tasks.h | 15 +++++++++++++++
-> > >  1 file changed, 15 insertions(+)
-> > >
-> > > diff --git a/kernel/rcu/tasks.h b/kernel/rcu/tasks.h
-> > > index 5d7f234795b4..49b716feb31d 100644
-> > > --- a/kernel/rcu/tasks.h
-> > > +++ b/kernel/rcu/tasks.h
-> > > @@ -6,6 +6,7 @@
-> > >   */
-> > >
-> > >  #ifdef CONFIG_TASKS_RCU_GENERIC
-> > > +#include <linux/mm.h>
-> > >  #include "rcu_segcblist.h"
-> > >
-> > >  ////////////////////////////////////////////////////////////////////////
-> > > @@ -339,9 +340,12 @@ static void call_rcu_tasks_iw_wakeup(struct irq_work *iwp)
-> > >  }
-> > >
-> > >  // Enqueue a callback for the specified flavor of Tasks RCU.
-> > > +static void rcu_tasks_leak_callback(struct rcu_head *rhp) { }
-> > > +
-> > >  static void call_rcu_tasks_generic(struct rcu_head *rhp, rcu_callback_t func,
-> > >                                  struct rcu_tasks *rtp)
-> > >  {
-> > > +     static atomic_t doublefrees;
-> > >       int chosen_cpu;
-> > >       unsigned long flags;
-> > >       bool havekthread = smp_load_acquire(&rtp->kthread_ptr);
-> > > @@ -358,6 +362,16 @@ static void call_rcu_tasks_generic(struct rcu_head *rhp, rcu_callback_t func,
-> > >       if (WARN_ON_ONCE(!func))
-> > >               return;
-> > >
-> > > +     if (debug_rcu_head_queue(rhp)) {
-> > > +             if (atomic_inc_return(&doublefrees) < 4) {
-> > > +                     pr_err("%s(): Duplicate call_rcu_%s() CB %p->%pS()\n",
-> > > +                            __func__, rtp->name, rhp, rhp->func);
-> > > +                     mem_dump_obj(rhp);
-> > > +             }
-> > > +             WRITE_ONCE(rhp->func, rcu_tasks_leak_callback);
-> > > +             return;
-> > > +     }
-> > > +
-> > >       rhp->next = NULL;
-> > >       rhp->func = func;
-> > >       local_irq_save(flags);
-> > > @@ -586,6 +600,7 @@ static void rcu_tasks_invoke_cbs(struct rcu_tasks *rtp, struct rcu_tasks_percpu
-> > >       raw_spin_unlock_irqrestore_rcu_node(rtpcp, flags);
-> > >       len = rcl.len;
-> > >       for (rhp = rcu_cblist_dequeue(&rcl); rhp; rhp = rcu_cblist_dequeue(&rcl)) {
-> > > +             debug_rcu_head_unqueue(rhp);
-> > >               debug_rcu_head_callback(rhp);
-> > >               local_bh_disable();
-> > >               rhp->func(rhp);
-> > > --
-> > > 2.43.0
-> > >
+Git:
+
+  https://github.com/multikernel/linux.git  tag v7.0-mk4
+
+Release page, with x86_64 .deb and .rpm packages built from the tag:
+
+  https://github.com/multikernel/linux/releases/tag/v7.0-mk4
+
+Use it together with kerf 0.4.0, the user-space tool that creates and
+manages instances, released alongside it:
+
+  https://github.com/multikernel/kerf/releases/tag/v0.4.0
+
+PCI config space: a spawn no longer generates config cycles itself. The
+kernel that lent its functions answers for their config space over the
+message ring, the way xen-pciback answers pcifront, and filters writes
+so an instance can neither move a BAR nor enable SR-IOV. The ring gains
+synchronous requests that wait for their answer with interrupts off, so
+the accessors work under the PCI core's lock. Each bus holding a device
+of an instance is described as a root bus of its own, so the spawn never
+enumerates the host's bridges. A running spawn can take a function it
+did not boot with, a lone function of a slot (00:1f.2 without 00:1f.0)
+is found, functions without MSI-X are lent, and a function taken back
+from an instance is reset, or has bus mastering cleared, before it is
+handed out again.
+
+Takeover: a backup is told about every PCI bus of its host. Once the
+fence confirms the host parked, config space switches to each bus's ECAM
+window, filtered to the spawn's own functions, and a spawn can adopt a
+function of its fenced host. A CPU that panicked with the NMI watchdog
+running is now parked by a force halt instead of perf claiming the NMI.
+
+Memory: pool memory is hot-removed from the host's direct map, so a
+stray host write can no longer reach a spawn, and instance memory is no
+longer claimed as host System RAM. Memory hotplug can remove and add
+back parts of memory blocks in subsections, so pool chunks and instance
+memory moves need only be multiples of 4M on x86 rather than whole
+blocks; the granule is published in the device tree. A partly removed 1G
+direct mapping is split first. Each instance region is exactly one chunk
+of its instance pool, fixing a genalloc BUG and leaked memory on resize,
+and a memory-add claims the range the kernel actually adds.
+
+kexec: multikernel images load only through kexec_file_load(), are
+published only once loaded, and fix error-path leaks, double frees and a
+stale -EBUSY. The manifest page and IPI ring live in the instance. ELF
+vmlinux spawn kernels can carry an appended signature, so KEXEC_SIG and
+lockdown work. Starting an instance moved out of kexec into the instance
+code.
+
+x86: spawns get no host RSDP, keep ACPI off against acpi=force, reserve
+no RAM buffers past their E820 regions, and never use IPI shorthands,
+which had broadcast host IPIs into spawns and the other way round.
+
+Fixes: the host doorbell is rung on the host's real boot CPU rather than
+physical CPU 0, released mk_transport vsock sockets are unhashed (exec
+failed after 512 runs), the spawn console starts with standard terminal
+modes, and a device-add binds only where the bus would.
+
+The binary packages are a convenience for trying the tree. They use an
+Ubuntu-based config with CONFIG_MULTIKERNEL=y, modules are signed with a
+per-build key, and the kernel is not Secure Boot signed.
+
+Feedback, testing reports and review are very welcome.
+
+Thanks,
+Cong
