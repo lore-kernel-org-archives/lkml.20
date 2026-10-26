@@ -1,62 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793024848;
-	b=rKNNmv6/MOtaPpaQa2LOQ0WeLFev+S6dE0ly/kpIUU+B0cNyWQHKttMIeDtSn8hxXhSH
-	 xCqmdJsaaqzqmq40StyrhwKtiblC9SsHUjoKGjTXX66dFMEXV7CetR06mfLT6lx/Xy5iW
-	 L1gb9eodbQ3RA2C4xeK4xvpCOrjxqtkGM1QNXVqDxApeNtremadjb4SXoAujulrZLlNjW
-	 6tfd+oziUnTwLg2VUe4iSsGhYE5xGS8S5I5vUMmwFHNE3w8HZxIRTQ9FVwc4oxNXOiyJX
-	 GnPOQ9NdRmeMJadJylhgab/PGdPaRffT3m7W62caKnZbY9OsKHCD7VL5rGX6GBHbHrA==
+	t=1793024867;
+	b=FBxUG3kGR2x9ARWVN8oJNUQs9vjA5U0xF8QwjB3DuV6LRzZkYmrfqnoaTlfbViuTAQCq
+	 /DpdFZQRm+/1qw6ydc3VfUbtvjiaxzCn3NnXTYq4MdPxM/D21za2TJJsoW/hicMcIffoY
+	 Mfi2wFBTA2mQ6GM5syaN0x76vCq5J8Mxgkgywlu20NNv/vyMIIjQW0bJwW/AyWYHtjHuo
+	 rzJLSmqFSjPYqM81PWmHV3121i7lDsJK6JABzyT0ZyRCCjuiVESSGGxMwO6n0pk1MIuon
+	 j6IEeHx3SBIryGIsacF/sL1tUrqew6H5GGB47ck/RPId1vCRQj0dlNASZWMYZl91L/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793024848;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=6gmCDvdn2nsesgNhAh+epn0sztNU7HD2eJkAnfX6dkM=;
-	b=sE8nHaHuViYVYe+hFVJg0INVk9dSqgyFt9KWfRry9PKqtnSljDH7gbFeZzUZpZ8AGDHF
-	 Co+kTt9pTjyCz1r5aO7yXarRbKmKmUGr9B90X23ED53vGQoqEHEySOSMOyT1P29oPyfdp
-	 1Wq8Q3SJQImoJ87hs1PI1aq7aW9bLiy6Re0t9J/eJBV+q/YAbNgUvZLS//0JuxMC4bCWw
-	 g2NxenrhDtjKnu1UNSbKYQLwm6lnVRF4bqEPIek21P+w1C+lhUvIyXPilSxIolN1yYZ2D
-	 4L0Xqeo633DnlWbFERXK/lcPz0SsDQGO9+GbAHbrZvoWIVu9YZ6VtUMaZUbkInu/5Xg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793024867;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Spam-Flag:X-Spam-Level:
+	 X-Spamd-Result:X-Spam-Score;
+	bh=pFeiZWUlKA17A5iSBKX4rHu8B6bfw4tdUPbBkbANNOg=;
+	b=rE1ZjY4uHHNVCWCRXfRmqvVj0IukyZeJMGR21WUr7dzUQrNPMEXSYgx3F9yHDH/FQGrw
+	 2Ho8l4HQsCsboZK+wWpkxB1ZQHNgw/o0BA58Fgnv4tIyEhEOQjZdS0YyK2CLPT6wgiYXM
+	 5ULHq3RJqslo3lU50G9KCbKmlE9e7TPMGRbXwtFXLLgtqwsCQZhLVZP98fsIOydFhQtqX
+	 FEZGbgF/p6PcZHx8ADELh+IR221Sp0PHjvYxEfvMaalcx7dLJATOTZTQ35BQtogdkOC+q
+	 4eYpGkehen3gp+Rhz65BCk8XN7PnpgJr7ze+iogDqxa/m2KXglQxAqbr19AgI6Atp/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="IxP+N3i/";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=kt+hROst;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Pg+rUfTq;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=kt+hROst;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Pg+rUfTq;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F169B606A31A;
-	Mon, 26 Oct 2026 14:27:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F341D606A31A;
+	Mon, 26 Oct 2026 14:27:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F341D606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IxP+N3i/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15B491F01825;
-	Mon, 26 Oct 2026 14:27:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793024847;
-	bh=6gmCDvdn2nsesgNhAh+epn0sztNU7HD2eJkAnfX6dkM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IxP+N3i/n2LONGGX+afxhWlsWhOTpuuACZjEFunZuKXhHM/2qN4hqqU64faaUXtI2
-	 b92CvQVadIqScamGEi3o9eCIrTfxGrFzZlCrrDKgiAtx3T5/tzM1rR5eMIeW2po5Pa
-	 urKkl72EYR0eQoR0RdsG8tBvJ4Ol1kKz+lj5Dtmb6mncXA0dTNhWibCCxMDWCYHhEm
-	 JjcPAXaw3eOLZGJ+tQaXLV+RTDRlHI3bdmuftngAJbZneOyCTJ7Qf7FQ5aTrFkvkd/
-	 ctTKXd5FH7EQpXUMrcra1UQ+oWmBwBaVAaQqPbqfNg2IdzzJuTG8DG5krtiJ1R7e/r
-	 RmLfgQDjpJKJg==
-Date: Mon, 26 Oct 2026 14:27:16 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Lance Yang <lance.yang@linux.dev>
-Cc: akpm@linux-foundation.org, david@kernel.org, xu.xin@linux.dev, 
-	chengming.zhou@linux.dev, liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, 
-	surenb@google.com, mhocko@suse.com, jglisse@redhat.com, aarcange@redhat.com, 
-	peterx@redhat.com, kas@kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	bobbypowers@gmail.com, bgeffon@google.com, dplotnikov@virtuozzo.com, 
-	dgilbert@redhat.com, hughd@google.com, hannes@cmpxchg.org, kirill@shutemov.name, 
-	cracauer@cons.org, mcfadden8@llnl.gov, gokhale2@llnl.gov, mgorman@suse.de, 
-	mike.kravetz@oracle.com, rppt@linux.vnet.ibm.com, xemul@openvz.org, riel@redhat.com, 
-	shli@fb.com, jthoughton@google.com, corbet@lwn.net, pbonzini@redhat.com, 
-	seanjc@google.com, sj@kernel.org, ziy@nvidia.com, stable@vger.kernel.org, 
-	samarth.colleges@gmail.com, med08elkadiri@gmail.com
-Subject: Re: [PATCH] mm/ksm: fix userfaultfd protection during merge and
- unmerge
-Message-ID: <at9d4XJUIM8SgBDs@gremlin>
-References: <20261026130054.91461-1-lance.yang@linux.dev>
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=kt+hROst;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Pg+rUfTq;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=kt+hROst;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Pg+rUfTq
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 27DFD220F1;
+	Mon, 26 Oct 2026 14:27:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793024865; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=pFeiZWUlKA17A5iSBKX4rHu8B6bfw4tdUPbBkbANNOg=;
+	b=kt+hROsteMp4x9NabCiCembg/pzy6uxvQxiktgywWNRvs00G1brlIA1cIjzGglFeHA3ucg
+	tSJljyvuy/Esx2QpRG7BSr8VrUBRJWB6CI3BH68+JHVdzfOUSXYVgA8Cy8bKQKCtvamP9o
+	raek+kJT6/VkyWTx668zrMZx0EmMv44=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793024865;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=pFeiZWUlKA17A5iSBKX4rHu8B6bfw4tdUPbBkbANNOg=;
+	b=Pg+rUfTqZewOk36tggGl5vyPTHJctzK/XBFO6/egU1UP+DZwF+MYliZSgHn/XyGS6UJSal
+	rWYmFFFAlBjbwFDA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793024865; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=pFeiZWUlKA17A5iSBKX4rHu8B6bfw4tdUPbBkbANNOg=;
+	b=kt+hROsteMp4x9NabCiCembg/pzy6uxvQxiktgywWNRvs00G1brlIA1cIjzGglFeHA3ucg
+	tSJljyvuy/Esx2QpRG7BSr8VrUBRJWB6CI3BH68+JHVdzfOUSXYVgA8Cy8bKQKCtvamP9o
+	raek+kJT6/VkyWTx668zrMZx0EmMv44=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793024865;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=pFeiZWUlKA17A5iSBKX4rHu8B6bfw4tdUPbBkbANNOg=;
+	b=Pg+rUfTqZewOk36tggGl5vyPTHJctzK/XBFO6/egU1UP+DZwF+MYliZSgHn/XyGS6UJSal
+	rWYmFFFAlBjbwFDA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 83EFA13319;
+	Mon, 26 Oct 2026 14:27:44 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 9FfaFGBj32oCNwAAD6G6ig
+	(envelope-from <fmancera@suse.de>); Mon, 26 Oct 2026 14:27:44 +0000
+Message-ID: <2888b742-9d02-466a-bd16-33296a686d7c@suse.de>
+Date: Mon, 26 Oct 2026 15:26:38 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,135 +106,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261026130054.91461-1-lance.yang@linux.dev>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH nf v2] netfilter: nf_conntrack_sip: fix OOB read in
+ ct_sip_parse_transport()
+To: Joas Antonio dos Santos <joasantonio108@gmail.com>,
+ Pablo Neira Ayuso <pablo@netfilter.org>, Florian Westphal <fw@strlen.de>
+Cc: Phil Sutter <phil@nwl.cc>, Duc Anh Luu <luuducanh05051995@gmail.com>,
+ netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <179286139765.93379.986858959213810476@gmail.com>
+Content-Language: en-US
+From: Fernando Fernandez Mancera <fmancera@suse.de>
+In-Reply-To: <179286139765.93379.986858959213810476@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-13.29 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	XM_UA_NO_VERSION(0.01)[];
+	FREEMAIL_TO(0.00)[gmail.com,netfilter.org,strlen.de];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[nwl.cc,gmail.com,vger.kernel.org,netfilter.org];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	URIBL_BLOCKED(0.00)[suse.de:email,imap1.dmz-prg2.suse.org:helo];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -13.29
 
-On Mon, Oct 26, 2026 at 09:00:54PM +0800, Lance Yang wrote:
-> KSM loses userfaultfd protection when replace_page() builds a new PTE
-> from vma->vm_page_prot. Dropping its uffd bit lets a subsequent write go
-> through ordinary COW instead of userfaultfd write protection handling. For
-> RWP, a merged page also becomes readable without faulting.
+On 10/24/26 7:03 PM, Joas Antonio dos Santos wrote:
+> ct_sip_parse_transport() compares the value of the "transport=" header
+> parameter against "TCP"/"UDP" with strncasecmp(..., 3), but it never
+> checks that the parsed value is at least 3 bytes long.
+> 
+> ct_sip_parse_param() returns matchlen = end - start, where end is the
+> next ';' or, when there is no ';', the end of the payload buffer
+> (limit = dptr + datalen).  If the "transport=" value is only 1 or 2
+> bytes long and runs exactly to the end of the payload (e.g. a REGISTER
+> request whose Contact header ends in ";transport=T" with no trailing
+> CRLF), matchlen is less than 3 while strncasecmp() still reads up to 3
+> bytes, reading 1-2 bytes past the end of the linearized skb data.
+> 
+> Add a matchlen check before the comparison, mirroring the
+> sdp_media_type() pattern a few lines below, so short values cannot reach
+> strncasecmp().
+> 
+> The bug was found by LLM-assisted manual review of the SIP helper's
+> parsers and confirmed with a userspace ASan harness built from the
+> verbatim parser functions, which reports a heap-buffer-overflow read of
+> size 2 in strncasecmp() called from ct_sip_parse_transport().
+> 
+> Fixes: ea45f12a2766d ("[NETFILTER]: nf_conntrack_sip: parse SIP headers properly")
+> Link: https://lore.kernel.org/netfilter-devel/20260815133104.50369-1-joasantonio108@gmail.com/
+> Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
+> Assisted-by: Claude:claude-opus-5-5
 
-I feel we probably shouldn't have allowed an extension to UFFD while it's still
-fundamentally a broken feature :))
+Reviewed-by: Fernando Fernandez Mancera <fmancera@suse.de>
 
-Which is evidenced by the SLEW of AI bug reports, and human-reported bug
-reports, and endless history of bug reports and it infecting the rest of mm,
-etc. etc. /rant
-
->
-> Keeping the uffd bit and restoring PAGE_NONE fixes merging, but we also
-> have to handle unmerging. An existing KSM page can be protected with RWP
-> before MADV_UNMERGEABLE, so unmerging already needs fixing independently
-> of preserving RWP during merging.
->
-> Unsharing replaces a shared page with a private one and should leave
-> userfaultfd protection in place, as do_wp_page() already does for write
-> protection. Currently, an unshare fault reaches do_uffd_rwp() before it
-> can proceed to do_wp_page().
->
-> - With synchronous RWP, handle_userfault() returns VM_FAULT_SIGBUS.
->   break_ksm() then reports success with a KSM page still merged.
->
-> - With asynchronous RWP, protection is cleared before unsharing.
->
-> Preserve the uffd bit when merging, and restore PAGE_NONE for RWP. Let
-> FAULT_FLAG_UNSHARE skip RWP fault handling and keep PAGE_NONE on each
-> private copy as well. Unsharing can then complete with RWP still armed
-> for a subsequent access.
->
-> Fixes: 63b2d4174c4a ("userfaultfd: wp: add the writeprotect API to userfaultfd ioctl")
-> Fixes: 2d427bb01639 ("mm/userfaultfd: add RWP fault delivery and expose UFFDIO_REGISTER_MODE_RWP")
-> Link: https://lore.kernel.org/all/20261019010934.697895-1-samarth.colleges@gmail.com/
-> Link: https://lore.kernel.org/all/20261020055518.36087-1-lance.yang@linux.dev/
-> Cc: stable@vger.kernel.org
-> Co-developed-by: Samarth Narang <samarth.colleges@gmail.com>
-> Signed-off-by: Samarth Narang <samarth.colleges@gmail.com>
-> Signed-off-by: Lance Yang <lance.yang@linux.dev>
-
-Looks sensible to me so:
-
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-
-> ---
->  mm/ksm.c    |  8 +++++++-
->  mm/memory.c | 14 ++++++++++----
->  2 files changed, 17 insertions(+), 5 deletions(-)
->
-> diff --git a/mm/ksm.c b/mm/ksm.c
-> index 910a1307ac9f..d6f736a1aa2f 100644
-> --- a/mm/ksm.c
-> +++ b/mm/ksm.c
-> @@ -34,6 +34,7 @@
->  #include <linux/memory.h>
->  #include <linux/mmu_notifier.h>
->  #include <linux/swap.h>
-> +#include <linux/userfaultfd_k.h>
->  #include <linux/ksm.h>
->  #include <linux/hashtable.h>
->  #include <linux/freezer.h>
-> @@ -1463,9 +1464,14 @@ static int replace_page(struct vm_area_struct *vma, struct page *page,
->  		dec_mm_counter(mm, MM_ANONPAGES);
->  	}
->
-> -	/* Preserve soft-dirty when replacing the page. */
-> +	/* Preserve soft-dirty and uffd protection when replacing the page. */
->  	if (pte_soft_dirty(orig_pte))
->  		newpte = pte_mksoft_dirty(newpte);
-> +	if (pte_uffd(orig_pte)) {
-> +		newpte = pte_mkuffd(newpte);
-> +		if (userfaultfd_rwp(vma))
-> +			newpte = pte_modify(newpte, PAGE_NONE);
-
-OK, so by definition, RWP pages are protnone, and this resets it correctly.
-
-> +	}
->
->  	flush_cache_page(vma, addr, pte_pfn(ptep_get(ptep)));
->  	/*
-> diff --git a/mm/memory.c b/mm/memory.c
-> index 6a93b7fa48b2..99439a7afa63 100644
-> --- a/mm/memory.c
-> +++ b/mm/memory.c
-> @@ -4122,8 +4122,11 @@ static vm_fault_t wp_page_copy(struct vm_fault *vmf)
->  		if (unlikely(unshare)) {
->  			if (pte_soft_dirty(vmf->orig_pte))
->  				entry = pte_mksoft_dirty(entry);
-> -			if (pte_uffd(vmf->orig_pte))
-> +			if (pte_uffd(vmf->orig_pte)) {
->  				entry = pte_mkuffd(entry);
-> +				if (userfaultfd_rwp(vma))
-> +					entry = pte_modify(entry, PAGE_NONE);
-> +			}
-
-Could this be abstracted? You're doing the same pattern here, which also exists
-in copy_present_page() and presumably many other places.
-
-But maybe that's one for a follow up?
-
->  		} else {
->  			entry = maybe_mkwrite(pte_mkdirty(entry), vma);
->  		}
-> @@ -6659,9 +6662,12 @@ static vm_fault_t handle_pte_fault(struct vm_fault *vmf)
->  		 * VM_UFFD_RWP VMA, a protnone PTE without the uffd bit is
->  		 * NUMA hinting and must still fall through to do_numa_page().
->  		 */
-> -		if (userfaultfd_pte_rwp(vmf->vma, vmf->orig_pte))
-> -			return do_uffd_rwp(vmf);
-> -		return do_numa_page(vmf);
-> +		if (userfaultfd_pte_rwp(vmf->vma, vmf->orig_pte)) {
-> +			if (!(vmf->flags & FAULT_FLAG_UNSHARE))
-> +				return do_uffd_rwp(vmf);
-> +		} else {
-> +			return do_numa_page(vmf);
-> +		}
->  	}
->
->  	spin_lock(vmf->ptl);
-> --
-> 2.49.0
->
-
---
-Cheers, Lorenzo
+Thanks!
