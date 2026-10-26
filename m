@@ -1,111 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793051131;
-	b=R+liuXCQBF9pmEhASpIGv1fDgDmCSvG3WGQvO+RwRiUUOoJowISQomJTq30BoSB1mefQ
-	 jXj6YUCKBKkOvD1JwvQADdfwWF0btzA4qOoNsHRQVNHIpsk0abMpqBa5DqvaBOQQX/a5G
-	 c43AL1d1AM1smzwr77WZdArg9rbi+zuh2S9FzMyrjZJw/jW4oJJuU97I6hiX4E5DCVqFs
-	 +tc5EP7j4fXs7dGJT1RJNOcD+k+dvyg8SYfcuvDwJS61hQVMxMhksolCyCdbVEMaSQw35
-	 6azn0EOuEeZ8+3+O7OyAbhz+SgRvvO9Ptjp4PgHG7VrU6OD4xgbrcXs0C2IEkjJJrew==
+	t=1793051141;
+	b=tiWPRN/tNixQywQxxH/OeJ3R66J4TmZnOYlbQMoqR5xxE5TeVjVJuoY85UAeO0Lsppuo
+	 aqea1xh+HMvLUSpcBxbswZge/m9d19HqlWXqZthBLXMl3qSeVhq4tdCulrobHX/316Gai
+	 Pj5J2WWE8e0A0str1/vnh9N29hK+H3HYq7DGRvSdASf0jMj0qwLBlnqRVC3uQjgCnlUsp
+	 hCnPecXRj44eCqJp2WJ2toWN+CwQWJfitkHiXHbu6aA/2nkol2Air3fwtL8b/h7Y3b+E7
+	 zwBmtK8mJAN2a4sVjMd0B5v5NQLe2UmMI2Dh70WNDwf1ZSyRZbEppJiyFxdq44y13aA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793051131;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=RxRxbLBQ5S84nbJ2Z24j8qYmciKanlUFlKBok3xXqSM=;
-	b=RSyMKP/qq78kJom8ldQPefa8YBkv/swFkMr/OTiHxNUs9zuz4E/pxYKSyohiTHAoXx4W
-	 YraTAe81gRZ4pYw6lhYJ5fWi7zrpMN2T9LSDCDgBuL3vU9b02bF391AgA29i/25UX9UL5
-	 /JkaRhNWkE1LkSOkhExHsk4CkZDD4OHOpouZ4GCcL0FDyH85OChEgql2Cd32nNZKFqcod
-	 rjBjPLn73v8DRcS7RsvL0v53HxVUs3CZfCstWsUK/W0UMmktRnW3gcVL8p3Zp5nWLF9O9
-	 3P7ignUyvUQ1pMv2SCbFFIIs2bAcojxTTMCRXiiK2skx7MBz8qeSuk28+1s6CHtYU4A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793051141;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=UwH8yfiM951SajpzWNYhn0hNl3yG1fmgU03jiAwGEyk=;
+	b=43BwZDGojHqtH7PEzNU1b5HJDMXclBRI22DEKN24ThzdjXDVUdweij50aqXSaxXjHoiY
+	 sKQhovxZsgobcJZxrQKfeA4hF8aXco/sRQmeHBgr41QWXmnjQLAR2F/g4rx2el1RJEWyq
+	 NKcpQm7/nlj8dmC1aOBz4dHjXtxRgQrKSenAUs10oz10/LUAKwqUL0OeXtZSL0gxouLDo
+	 Ie9fNKtS7u02UMcp2m9fAN5mkEzha7GUeSQLMfWAtKeZL+OENafJt2Wf/NpSYFpoK18c0
+	 D2rhi43s/SGszh8Jpn4mUbFa5frCjLsl3iQ7OTBZwI7eqE3wt809uga9Jx+iCHp1T9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=M3BEGRGA;
-	arc=none smtp.remote-ip=74.125.82.174
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MAlKTwif;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9435160A261C
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 21:45:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9435160A261C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4841606A31A;
+	Mon, 26 Oct 2026 21:45:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=M3BEGRGA
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-35cd4e8bdbdso5692556eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:45:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793051130; x=1793655930; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=RxRxbLBQ5S84nbJ2Z24j8qYmciKanlUFlKBok3xXqSM=;
-        b=M3BEGRGAH/Vn2SxAJ2DzND9XWJaEthgW/2MXtbTOVBhxXeA9DgmqzFakwsDvTIr4Nm
-         7cB3fF0bUrpubPo+WWG22t5+1qoyUQRWDdijeDyKfjB/xcFfTQSWEy42gLuAnCIwTIE0
-         PBlq477/agmjQqRSYYXMAKswTErSit3gwmpSc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793051130; x=1793655930;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RxRxbLBQ5S84nbJ2Z24j8qYmciKanlUFlKBok3xXqSM=;
-        b=t5mwwKTY/4TOwitGXGmUzCTW6P55S8fNNxoAIX968bzOmPnqlVBiEqYYjrm4hcMFAH
-         g1kHvn/qAEmSwMNXb7x0szpKcigkAqnJpiifON0BsqMw9AQ97tSAazO9kmQN7nD12N6o
-         itu4GgrX00GVDydftWayDycc2Mm6EcTjRXFslhEdxDpYqlT9kLsGlkWSUygRKcp/3alr
-         0x/nVPaZL/4MRjEdghyKAxobghrT30Ic+w3LYHfjum10XKXqUj4w0icBSUqr8ouVNMcn
-         pJFfP73/1HnEYKnbqoY9yftRy/hNNueWQkIknZFxerJVsQJzv7y7mLnQbZp/B83tkXZT
-         NIPg==
-X-Forwarded-Encrypted: i=1; AKwUvBw/WrlCsuDKr6CJgAMXFVCmWNUG9rekRCLOUxK91+NALWh8F6HIN1HeifmImq+0dMHa60pkzIudPk0AEVo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLxVxITXvjBPAOJdapLCRjEJvvviipn/pY0MrrXTiPQLBjhO5Lo
-	kI+ltfERZ060Vo4d/1g+gV7Od/iq1iq2UcxdtV0KMrYubvTjFe7ub3EgA6Vp6+UPGA==
-X-Gm-Gg: AYBFou14LqX3rFMTr4cV+k0TlWuD38Je8F1TrdABn73T7uNYWS9zrJyIsL0j0WnA9VH
-	lMVyeK2EgxCTc+5oaVKOGize7shpWHdgOFDM1RRGZsi52M/zExhtB5beDjtrf66Xp3RLlOhxmOi
-	W9H7GfWrtKNHmQnzaVYZfRAySSiv8zZ7Il0GKMcoq2c+Y3F9T7QmthgUGJD2Nti9nLDZXanAEUS
-	b0Ud3EpLveFhJBQ/tF8TbKk9MqyZjtablVZ6t48H+r69C5/0j7FVjAwCEa7zhUr7Q9++3poXdBy
-	P4nfaKeoY0b+kQV8e8CTNOZk8FL3m6Fn5sc12M2JdQ5ktutc+YmPSQ57jb2IssMBTLdVa76ZQq0
-	ZD7SsFvMgZIxr08kHUz7XDaQcBt4U56PXM8WX7v2XlNXMhNg/gKEfeZe4OwnjP1UlXBb5Pj7K9M
-	T20eoi6bVn9Tw1gcGqy/kNOaNxL+c/1PVnh0Zb6AKEeeShkqzZAjnZk/xoQd8JdBsCeZeOcUMmP
-	okw9peCHUyqrpYwZAa412DlIL6xt5htobRtQdqMFqW1lNXIXXjsxJDw/rAYlpu935WoLoW6Sw7I
-	1IIp6N3yNypK4itMbDk=
-X-Received: by 2002:a05:7022:eb57:10b0:165:55e2:2d69 with SMTP id a92af1059eb24-199377d8c73mr12569336c88.46.1793051129456;
-        Mon, 26 Oct 2026 14:45:29 -0700 (PDT)
-Received: from localhost ([2a00:79e0:2e7c:8:79c5:9cd3:db14:7468])
-        by smtp.gmail.com with UTF8SMTPSA id a92af1059eb24-198a0f81ea9sm32064575c88.11.2026.10.26.14.45.27
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 26 Oct 2026 14:45:28 -0700 (PDT)
-From: Brian Norris <briannorris@chromium.org>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ulf Hansson <ulfh@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Peter Griffin <peter.griffin@linaro.org>,
-	devicetree@vger.kernel.org,
-	Tudor Ambarus <tudor.ambarus@linaro.org>,
-	=?UTF-8?q?Andr=C3=A9=20Draszik?= <andre.draszik@linaro.org>,
-	linux-samsung-soc@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Radu Rendec <radu@rendec.net>,
-	linux-arm-kernel@lists.infradead.org,
-	Mariano Marciello <mmarciello@google.com>,
-	Douglas Anderson <dianders@chromium.org>,
-	linux-clk@vger.kernel.org,
-	=?UTF-8?q?Jakub=20G=C5=82owacki?= <jglow@google.com>,
-	Brian Norris <briannorris@chromium.org>
-Subject: [PATCH 9/9] MAINTAINERS: Add entries for CPM drivers used on Tensor SoCs
-Date: Mon, 26 Oct 2026 14:43:47 -0700
-Message-ID: <20261026144346.9.Ibb4a0adecf127291198c372da631ff62b483a795@changeid>
-X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
-In-Reply-To: <20261026214359.3122870-1-briannorris@chromium.org>
-References: <20261026214359.3122870-1-briannorris@chromium.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MAlKTwif
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8D4F1F01280;
+	Mon, 26 Oct 2026 21:45:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793051140;
+	bh=UwH8yfiM951SajpzWNYhn0hNl3yG1fmgU03jiAwGEyk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=MAlKTwifKmmrkSQ8dBhDfH/RzsUBrjYu6aDNsQWa/jqLPxWie7qbRvzIMG8y0M06+
+	 WgjPdeVXinGfaU3WKxeBojFs4p20370SxW3jKKv2CgjcwfBXADuiDLZJZZkdIy5cXZ
+	 pnZaGYHOroV7mO6AWfQSiA+DXkXh7H2wkL3aZhA9rLkfyqChijbFWFmjbQs5m55DsD
+	 u5pnp2N6vlhJbpf5Htvg6l4mloC6L0xk6nwyoUNd19CnNeooQ89TzaRauouw1VWFIt
+	 SD81E2RkGRzE7JQY2f9wLRpgA+ZkRoYC9OzE8oSQF2n792CH9gyerorMgasnHjGvTq
+	 0aANobeZNrHLA==
+Date: Mon, 26 Oct 2026 14:45:36 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: Jan Kara <jack@suse.cz>
+Cc: Jan Kara <jack@suse.com>, Marco Elver <elver@google.com>,
+	Timothy Day <timday@thelustrecollective.com>,
+	linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org,
+	llvm@lists.linux.dev
+Subject: Re: [PATCH v2] ext2: Make sbi an proper alias for EXT2_SB(sb) in
+ ext2_fill_super()
+Message-ID: <20261026214536.GC1330439@ax162>
+References: <20261023-ext2-fix-context-analysis-clang-24-v2-1-a33961453899@kernel.org>
+ <l5r3w2wshrbhcxx4jamjufxdodmkb75zvitxcrll3uipih5cfq@plrdwt7fy5xz>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,55 +60,16 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <l5r3w2wshrbhcxx4jamjufxdodmkb75zvitxcrll3uipih5cfq@plrdwt7fy5xz>
 
-The Google Tensor SoC known as Laguna introduces a variety of new
-drivers, with Google-designed IP. Add entries to the GOOGLE TENSOR SoC
-SUPPORT entry to cover the new drivers that interface with the Central
-Power Manager (CPM).
+On Mon, Oct 26, 2026 at 01:32:34PM +0100, Jan Kara wrote:
+> OK, if this helps you :). Added to my tree, I plan to push it to Linus for
+> rc2.
 
-Signed-off-by: Brian Norris <briannorris@chromium.org>
----
+Great, that would help a lot, thanks!
 
- MAINTAINERS | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 20bd4e03bb54..c997d23e377d 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -11424,18 +11424,28 @@ C:	irc://irc.oftc.net/pixel6-kernel-dev
- F:	Documentation/devicetree/bindings/clock/google,gs101-clock.yaml
- F:	Documentation/devicetree/bindings/mailbox/google,lga-mailbox-array.yaml
- F:	Documentation/devicetree/bindings/phy/google,lga-usb-phy.yaml
--F:	Documentation/devicetree/bindings/soc/google/google,gs101-pmu-intr-gen.yaml
-+F:	Documentation/devicetree/bindings/soc/google/
- F:	Documentation/devicetree/bindings/usb/google,lga-dwc3.yaml
- F:	arch/arm64/boot/dts/exynos/google/
- F:	arch/arm64/boot/dts/google/
-+F:	drivers/clk/google/
- F:	drivers/clk/samsung/clk-gs101.c
-+F:	drivers/irqchip/irq-google-*
- F:	drivers/mailbox/goog-mba*
- F:	drivers/phy/phy-google-usb.c
-+F:	drivers/pmdomain/google/
-+F:	drivers/reset/google/
-+F:	drivers/soc/google/
- F:	drivers/soc/samsung/gs101-pmu.c
- F:	drivers/phy/samsung/phy-gs101-ufs.c
- F:	drivers/usb/dwc3/dwc3-google.c
--F:	include/dt-bindings/clock/google,gs101*
-+F:	include/dt-bindings/clock/google,*
-+F:	include/dt-bindings/interrupt-controller/irq-cpm-google.h
-+F:	include/dt-bindings/power/google,*
-+F:	include/dt-bindings/reset/google,*
-+F:	include/dt-bindings/soc/google,*
- F:	include/linux/mailbox/goog-mba-message.h
-+F:	include/soc/google/
- K:	[gG]oogle.?[tT]ensor
- 
- GPD FAN DRIVER
 -- 
-2.56.0.307.g5fe7bd680c-goog
-
+Cheers,
+Nathan
