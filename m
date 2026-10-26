@@ -1,94 +1,144 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.49
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793035241;
-	b=QZRQU2F0UwgBRpcfDVe7VBD4uoP4Tf5T2Z+jolU1XH09CzZNsKbsirm+zgqjxcYpEObV
-	 iBGPSLNGZJCIHYBtCCaTzlNqsfiK82ck4YxciDD3joWzqmxWgck1wZuCLnSXpakRHxFVc
-	 DkGs/B/+kTA8/hkZollwPznc4Ut7Z33GjSJ0THsQOCkqatrbPYvsAdnybQ768+XtjXAhn
-	 k7kWU0gZ8TwVAgWPir5w7wDxiQu7qAhf9mNdMIXQFJxEYjDG/FMMS27RSxpwqvfaqrm+Z
-	 qp+ha/DRiHo1wSLXlVjtzkO7ERo/VXhOI/vE97cn17nEhnpdmjqrBSfsDZQAR3Ji+xw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793035241;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=ZT0Bj1ansxkDq0zLewi3OJq5Bnf4fsSjPUxb7R/HFtk=;
-	b=rGMYU1jV4QStfh4zeRIfESpzQMH36QKcKOI8luhyEHVXieFAGxdr95K56YuCbmPOeRAS
-	 ueUqT0krXypVhIqKi8nHr/iX1O6CWwf6ADz1dXp3zmjrGzqlIv0PGLQapn4X8/PA4sH6O
-	 U4lJfgp/u2lzGqlL4weM2cVSttHMuUFRqjajKiTD84ne9AK7xDp0Ei7JQRaEP+s18JMzO
-	 EjYtH/IADdW6XGAcHjUUoM2YhGNB+0PcOc4cmV4jqyA4x0xbedAiHX9C+O9IxW4VvUd/S
-	 Tw8EJ+uyBUhhYQKKvJxY6gVD9d3ahLuZ8U/RytXrYQlPGDb76Lhc8UrJTysEpgXQaEw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Yvl1+sVl;
-	arc=none smtp.remote-ip=74.125.82.49
-Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=198.175.65.14
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793035360;
+	b=TK0z5tR+oslEQhPgDIu+67rlC33+DXQZOmgmDPiqzg+uBHmHdRrXsyeOgMUq+gZBmDNI
+	 D7dTwGoFZay5yWTFO6rz6+2d79HMhhLmxeZpnwNK5FNvsTUCiG99AfPNFkAPWaLaA3xeN
+	 SlAwYRYOh3v8aJw+GkVKmmb7zMJy5gMWPybjPgs3Uc5/ua0ZGrJDvoQ0WNTyxo/xD5qnr
+	 J29yJo7YQer/XDWiPEdM4CFXOgTjkent3dpP04VH7oAChiDaKIanwBoQ4JeqH1oY5Eynf
+	 NPfPQYbZpjnxSXDjXFBBbeHqmSrQnF+ev0h/uKgmoG15bgg8cU1+kCJla36fsuMplsQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793035360;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:Message-ID:Date:User-Agent:Subject:
+	 Content-Language:To:CC:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=cZfphz98mjFnRxKTIEi2WexHYD/q2JBBG2Juk5fQ0JA=;
+	b=eoYeiQLmmmm5WgdugL2m0TBWX9b38HIoq00QsKXdLMJbJbx5F0/mdBKECt9U3hfdLfFT
+	 67ILBYR9g8okvt32ZVYvLhb1qtIrdlyMfDF7in7lRMncZTfbMqbDSlz7WJvM50pK9DbEg
+	 wRZr1UaQim8Htcfuj4+j+Lw8HtlPJ7bjCc+SIzU3SWR4Of0TGh5Hkc8HnL9zFraaaU9wE
+	 el5qHh1MOVosStfYQPgLQtqcXL8Uv+x7JFfB2T0Lrk5D16CPlW3C1Zf54I6niOjRbxqcm
+	 hv7FYcT8ooOPxiYbHju68dt57owTvrfaGInH/7+Lvi1Ea2iZaF1eqJR3XsS4ToJqlig==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Iai1drqO;
+	arc=fail smtp.remote-ip=198.175.65.14
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADFAC606A31E
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 17:20:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ADFAC606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39495606A31D;
+	Mon, 26 Oct 2026 17:22:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39495606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Yvl1+sVl
-Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-19305bcb72cso2359946c88.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:20:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793035240; x=1793640040; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZT0Bj1ansxkDq0zLewi3OJq5Bnf4fsSjPUxb7R/HFtk=;
-        b=Yvl1+sVlXWOY4zHIL9Pd2ML74mADDJTA4cOLOsZswMBwHnN+ZqqIAcyKjvMccycPce
-         rCWcmwSsnwNGpQV4nkf9bG45iBmqPxmUnrko9yJ2Q23tOXWMp1/R02s0Dyu2HdeGl1OU
-         Yk9uA6RNWqpfRf3HmL6Zin4N6vk4z9w6dOgERrod30f53YIjgSaVzZg3CPwBiQ3lrm0C
-         w209u0Q8voCWS2NG/wCtgJIuwixpZ0gBbVC3IIFRdG/6qoa9XwyvXddp7ZarKheCVNR9
-         VffChYl4Hqea8KNBFKZKfiFHIqEYxvnaR1r/vWP6+uguQ6IHtDdt5X+d8A3imix0hBfE
-         rMIA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793035240; x=1793640040;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZT0Bj1ansxkDq0zLewi3OJq5Bnf4fsSjPUxb7R/HFtk=;
-        b=Gg8FI+cMxHqfr3hPA9wzhq2RR4CmnHvjcMRDu2K791nkOzATyPZZhc01YEq3KIG64X
-         G5kS2LtWPsN434MCTxOIgZXkhJs3N8TeMcTibynrqbJ3yLA1Uvc1vP3z6HP+VOPfcqQJ
-         cBhpOWzI78lDYwr6dbbUQrqp4J597TmqhAjXy1Poou+rJZyFL8k7JjTw+7WMnpDq3j/P
-         0WjUekwXJ3G9pPiHBvm34gib4yH4+7wGDfCyQlbsUO0+yinTjn/q+BQ3f6rks54RFI/B
-         7kpJwwyGFNETkOHawifW33tIk4TMfKkoYcDw8uyLIeQImE/BSTwqhBK52WzwBDjsFVN3
-         m2uQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxVVTN5Jfz7yFpov7IvFkPg6Nxm+V3xBvY9fZvXV8p6VhCq2fjSkfE1wr6y2icx8HguLzA1FaicTQGC1sk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKHPDKsPT+fQVxJkUeR8AoH5qmxRpImqvSiQFSiRH3vWXLgueOT
-	JMeWTDznsmG7LnyM6HBoN7AggrTxAUtDSMTf392voN7wQ867q3y378Tt
-X-Gm-Gg: AYBFou2xf4divpMMoBVTrqOLEdrFKwTpvl6Xr3VpZXnI4fAq/i11mSHqd5D0mFy4r9n
-	ZhkmZgWm5jofIu4pHAEss2qq0UEHp/gvFDNnFjIelP/lagVl7eWoNoKccbkLR94kgrZsT8hsAzp
-	6/U4napQ49RfzpkW8RLSXyyxjKIc3Cb1YHiF5RFL0p7J6yF82FBkFopJL/1E1jtNgb44bitBhHG
-	ljPAGi/XKe+ks3Z2sccaLF7GnlW44uZbkV8+shw2SGokbTWz/7xBOxR6dDPkHVOd5nDs/OFYyT4
-	0RbC1UKni8mGvXtYzeoQrCk7LDqxLSN+Y54m5QsGIF+P/TmQEDhOxonRHbdFYHmOOGyFDx5qOme
-	hJLTT/x4HHQ0v5U8QBtfdeW6CKcOm2eREZHPYAdyW7mJLLY7MbVwBf3gWJ2YI5hqI2mvNWar7Ou
-	/od+0Folhxgj02UBu361UUL717gqI683SfIfWy1hcZF+AK+uvswewXKrpEU8xnLmYg7IG5p/y8s
-	cmn0WL7YZPpuc0ImyLyK8CySOh98Ocr63NHcKwOkDNv2KHuIZeodFwVwjw906H5zH1YpIzI5KYk
-	5EEzvMKRfYjR4wk=
-X-Received: by 2002:a05:701b:420d:10b0:166:29a2:f83f with SMTP id a92af1059eb24-19928f14c49mr11062758c88.5.1793035239469;
-        Mon, 26 Oct 2026 10:20:39 -0700 (PDT)
-Received: from Alienware-m16.lan ([45.153.102.184])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a2e32479sm23622813c88.21.2026.10.26.10.20.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 10:20:38 -0700 (PDT)
-From: Andrew Luebke <andrew.luebke@gmail.com>
-To: Hannes Reinecke <hare@suse.com>
-Cc: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
-	"Martin K. Petersen" <mkp@kernel.org>,
-	linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Andrew Luebke <andrew.luebke@gmail.com>,
-	Hannes Reinecke <hare@kernel.org>
-Subject: [PATCH v3] scsi: aic79xx: Fix NULL pointer dereference in device reset
-Date: Mon, 26 Oct 2026 10:20:32 -0700
-Message-ID: <20261026172032.749756-1-andrew.luebke@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Iai1drqO
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793035358; x=1824571358;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=yyvhOnW6YNBE2oQIWTZNdixOXuhPD5NOYAPbpK/7OPA=;
+  b=Iai1drqO1oHmZhezrylEpKWJUmBMrLHowr8vITjrbRg303XRae5FWV/t
+   IkJ2vF2uW+3HubndEq9NWyha2crJ4j5cNc+0iJEL4Ktu8uwOh760nxkOZ
+   HuxATz2Siba87h04HfmyDZXmfy2LtfbIaPNfL9Ta/baw5OxPGQIj6e2DH
+   SUCEDtFLwkFyYzxn7gOGpdRYQbUI+297f+5F1glHT2WXboVHaMyfk2VS7
+   NjEuzsRoNfG4gSYSFTRxPdAAN2tce6kspP1LBDosdRM8+vqn3skiV3Iyk
+   sLkPj8u3vcb1/fhuPiutul0mO3ZKkMUEuR7lHu1yyE9d8fhiq8FNusuUZ
+   g==;
+X-CSE-ConnectionGUID: xvXWwOimQWWSTk1EQBFnug==
+X-CSE-MsgGUID: nfQpnAFJS76H/gvkUcQ/aA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1588538"
+X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
+   d="scan'208";a="1588538"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 10:22:37 -0700
+X-CSE-ConnectionGUID: 9RNxHy+2RjmczuuZYbfaEQ==
+X-CSE-MsgGUID: Ji0WwAXSS56aedBZ5QLbvQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
+   d="scan'208";a="6138971"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+  by fmviesa013.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 10:22:36 -0700
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Mon, 26 Oct 2026 10:22:35 -0700
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Mon, 26 Oct 2026 10:22:35 -0700
+Received: from CO1PR03CU002.outbound.protection.outlook.com (52.101.46.6) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Mon, 26 Oct 2026 10:22:35 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=VfTCxsAoADV93Loa27IfsNpUDMju2vSBFzvOpZdt1vJ437n5KlrinSOSi5XZmkJTKAvWjj/3EJzOFYmsA+xcIzuenPwV4f76o68tGpIh3ykQPdsP7haBZzJI9mzER9XqrvxvEjr1II8k/OHdaRvKWyjFxiO80bYfX8hy9PGy4zPkHZ+yN3QoJ840G0/R00+DZt3mv39suWlbv3grSWuAHYD8TcAJcy8q3G+Cy9mE6E6skLDHqZ5dZMHT2QCpiDWri2Mct88N0PHcLKUHsZLI0hw2b7NTp8dSLWNqvKFf3uHHkaIOmsumOHdmfvZfkHOem8Gho+5rUBcc88qzk/sXIw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cZfphz98mjFnRxKTIEi2WexHYD/q2JBBG2Juk5fQ0JA=;
+ b=xoBMMKI7eWYJ4v8FV1H5vJ1GLGhSKv+vc1yBBYBfTKsYd56mwZUapbb4RfdkjxxwGrAhTohnh2tCQvWm7PvQPBA2vza7Y8LrxyfbT1N2tvmu76E4pwFaJ6BheOEkb5gnLQwnZFgIVOv51asnKFyXX87A8b/xl9tDkZAmstQyxT0KKtQsWuSovxAvq5ovHycIQwRq5Co1vQ2paXDxP0HSa+3eUqLKm52O2ASBEKB6FgcJ3Vgwk6SKeA4G3amjrD/jrZeQnLwxpFGJn49WdAO8eC86YVPpmlhirUsF7F3JKAksoFj20oOf29HQCT69Jk4a6173wA6fjzYL3xtuFrPnpw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from CY8PR11MB7846.namprd11.prod.outlook.com (2603:10b6:930:79::14)
+ by SA0PR11MB4544.namprd11.prod.outlook.com (2603:10b6:806:92::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.20; Mon, 26 Oct
+ 2026 17:22:33 +0000
+Received: from CY8PR11MB7846.namprd11.prod.outlook.com
+ ([fe80::cae0:d05c:b2fc:c395]) by CY8PR11MB7846.namprd11.prod.outlook.com
+ ([fe80::cae0:d05c:b2fc:c395%5]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
+ 17:22:33 +0000
+Message-ID: <20d0feae-9aa0-43cf-8357-fcdf617a5a97@intel.com>
+Date: Mon, 26 Oct 2026 10:22:30 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 00/28] KVM: Enable FRED support with KVM VMX
+Content-Language: en-US
+To: Sean Christopherson <seanjc@google.com>, "H. Peter Anvin" <hpa@zytor.com>
+CC: Xin Li <xin@zytor.com>, <kvm@vger.kernel.org>, <x86@kernel.org>, "Paolo
+ Bonzini" <pbonzini@redhat.com>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
+	<skhan@linuxfoundation.org>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar
+	<mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave Hansen
+	<dave.hansen@linux.intel.com>, Andy Lutomirski <luto@kernel.org>, "Peter
+ Zijlstra" <peterz@infradead.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	Tom Lendacky <thomas.lendacky@amd.com>, Nikunj A Dadhania <nikunj@amd.com>,
+	Shivansh Dhiman <shivansh.dhiman@amd.com>, David Woodhouse
+	<dwmw@amazon.co.uk>, Chao Gao <chao.gao@intel.com>, Binbin Wu
+	<binbin.wu@linux.intel.com>, Zhao Liu <zhao1.liu@intel.com>, Yosry Ahmed
+	<yosry@kernel.org>, David Matlack <dmatlack@google.com>,
+	<linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-kselftest@vger.kernel.org>
+References: <20260911213659.2025974-1-sohil.mehta@intel.com>
+ <E7D55C5F-91DF-45AC-BCC8-BD2759CEE0C4@zytor.com>
+ <9467c7b6-d797-4462-bee1-1406bb8469cd@zytor.com>
+ <at96Aex_dl8-yUk6@google.com>
+From: Sohil Mehta <sohil.mehta@intel.com>
+In-Reply-To: <at96Aex_dl8-yUk6@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SJ0PR13CA0076.namprd13.prod.outlook.com
+ (2603:10b6:a03:2c4::21) To CY8PR11MB7846.namprd11.prod.outlook.com
+ (2603:10b6:930:79::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,170 +148,111 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY8PR11MB7846:EE_|SA0PR11MB4544:EE_
+X-MS-Office365-Filtering-Correlation-Id: 35be7fe1-cffa-4960-ba48-08df3385b8b0
+X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|7416014|261026140227099003|11063799006|4143699003|56012099006|261022105027099003|261022075727099003|261021123027099003|18002099003|22082099003|10067099003;
+X-Microsoft-Antispam-Message-Info: ZwbAgZPw6x1ueZmcM0nl13Eyr9Bp0Z7sBsbxARTRPsXpzVb5Ab8PCcZpK/bcl2zlUhsQAbhVgvrcjBxzQU0ERd9Xv+APyysussCAprEMyjAaCZXqbb9UYaFF+LB6Katn/Vf2HoL6LbJu1Tw8X0ao5uvGuicMTI/J7Oh2WxhswmryY/QdoWbMxRoIWm5OfsT4sQWbVEsWBplBoymoHcTNZnKXi5ldjGaKJ9SljJSGBW+3JCjFuvUFJI1R/ndso79WO5sPuDAtE1fsr7PzcGu44SS6B0Zk4fEVLztyJk5Jh86BQsRodJnL+pInaZq0LovzlfL1WFeyLWU5KwL4Vc77uMzSAyJrbGwXmtFd3Ib4P8pbK3hrvZnhNbObZLNTXdvrDF9eo1OGm6trHBOag8shm62QlyWyCXPlPEGd8FtOqlUDakUUyTAhtUjxpJL1GMBAtFT6bCljdc6eAJ+tnP3igP2azPoQbgCul9mnUfmglWvL1nycCLUTcOzPheQgWYxNeDKtTVPfnWJ027iWK6k/TY1V0TacxJ98HVcRaLW3fFSavoGAJRrhdjEK5C6Yscp4mXOtaUwWdgZAkwJxDOjIn8l24DJRq6lb5aavH+EdNngoCAvxeonN8CfnS7j7bsYudNnU84YxCGt0POXAZqFbPw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY8PR11MB7846.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(7416014)(261026140227099003)(11063799006)(4143699003)(56012099006)(261022105027099003)(261022075727099003)(261021123027099003)(18002099003)(22082099003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?V2d3T2MyNXpEcXZXY1h4MWUwdzNIeG9RckxzSFdDSFpZTUk4b3ZMOXNja2xG?=
+ =?utf-8?B?dzdEVm9keUppU29uZXNodFBWbUVXTWIyYk91WVk5YTBSSHFVMFJsTEk4YzFz?=
+ =?utf-8?B?dnRvNFFpZVhHb25pZCtydFFuczRSMG4vZXlLd0kxL2NrdFg5T1VmTW96YVN6?=
+ =?utf-8?B?U1Y0VUlzanJ5dnZVVWJBMFpTV1gyWUZ4WW41L0M3TjRzU1F3Q1VBcSt4bDZ5?=
+ =?utf-8?B?TEo0SVNXTHhkd1BNaFJUVnFCbDVvSE5vS0wyNUlJV0thd3VCWmlqaW5YSk1Q?=
+ =?utf-8?B?MjNmQUdaMk1Cb0F6L0NWcCtuaGRkeEt5TzZvV2Uxb1B0ejBORXZpZVpLd2Ja?=
+ =?utf-8?B?cDczVnZ1WHEvNUJXM2dnb2NkM3hmbWJQZEVJSHM0ZGMvUEt5Y2dKalFPWVR1?=
+ =?utf-8?B?YVdZcFd5M0JYbzF6UWFPZVk3NnFkdmNEd0RTMnRhcHVMaEVaSVJzR29CUkVZ?=
+ =?utf-8?B?SzR0L1JBc3JaZXhtRCtXemlJWjNpV3ljWnR0RkU0cG5rMWNjNXZxUDdOS0I3?=
+ =?utf-8?B?ZjJWbDd0NHFmcDY1TnVQR0E2WDdOcjl3eW5hUGIrQUM4NS84ZjRLdFlxRndO?=
+ =?utf-8?B?aUJxWXUyeTk0N0Nhbit1a1gxaHpDMFBMcmtzMC9yMm5paWNnbU5ZTzBZc1ZG?=
+ =?utf-8?B?NW9RWjUzdkdoMVdJRDEzRFFOM1hocTl5eDhNZit4QU1XK05WTGpESlZSdURU?=
+ =?utf-8?B?MFZEL3l5N2hHUHM5bGtCc3hpRG9HbUxBbFptbFJxU0dqTU5VNEFDRUJQa3BK?=
+ =?utf-8?B?REMzMW5pWTBweFIvcEszYzV0TTdxWkdLWXd6Qm5mMnJLYkxBRG82alpVaTdO?=
+ =?utf-8?B?dFlrTytsV0U2VEhSYmVsdjFjR1RERjVMVzVnangwYmRkVE9iVmNmcnRSdmlr?=
+ =?utf-8?B?SGdCYzlXRGxNZHBFTUZJaTZZUVl6QWh0MXlEYXRTT0hEbnhNSVVaOEllQzYw?=
+ =?utf-8?B?RUJWV1BvZDRlVElJb0NkSzVvY29aVnN0aWlIYUQ1UUF6MVhFdkpZcmV6T0oz?=
+ =?utf-8?B?N1pqVWt2a1lxTkFONUJQNFhnWmNwS3VLdWtJR2RLNWJxTmN5WlZ1VXY4aFJQ?=
+ =?utf-8?B?Y1lPWU9lNGhLbEZSQ2hsd0o2bmc3V2IwK1kreE5wZlIxZ2RGeUg4ZDVwM1pZ?=
+ =?utf-8?B?cERSbGJicXJDblB2VWdHbzhPLzczR3hSSm51ZW93Y0MxcEJJS2R6b1AzdmpC?=
+ =?utf-8?B?TnlvQmczZ01wdmhHTllMYW5Ic25zNEJnM2ZRZ3U0K3I5WWl3eTRuSllQWkhh?=
+ =?utf-8?B?UHlkaW8yS1p5b25PS3RQdzRLZnNvVGJpYWp0NnBGRUpFaDB5c05yRFdQdFhI?=
+ =?utf-8?B?WHJTU0wrbGh1eHNDOGNZTFh5bDJVN21YTDBtb1RwempibGVLb2xzL3dqRFVi?=
+ =?utf-8?B?aEUxcFZwK2lrMDhoUmkybGxxMCtVNDlkbEdLQXFESUlXV2JDdm0ya3hJcHAv?=
+ =?utf-8?B?TzRWUzMyTitVaEFSNDd2ck81c3NhRldNaFAwQmNpRnEyRXVUaXNPNnZpZytj?=
+ =?utf-8?B?aUUrL01BQk5xbVMxdzlIaldJdWpnbHMrMUVTYVRXNjkrTHZBYWdGV0ppUUhv?=
+ =?utf-8?B?a0xleVhGSGtvVGd4akI4TWtONEt1N3hUNHBMUEpjckFVN1FtaWtjTFRtdjkz?=
+ =?utf-8?B?SU1mT2lDcmUramFTcHJYL3daWTRyMUg3OTVOSmZPd1hZY0VsTUpQcnBua1Av?=
+ =?utf-8?B?Vm1ra0RuUUJHczIwaldHQmZqR0FNSzc0Y254NzUydkpKSzk0TTBlOWRFUVg2?=
+ =?utf-8?B?RkNVY1IrdUd5akx3YWMzNERFL09kUmIzelBEdUtOSTZ6cldWNjMxUC9YT3kv?=
+ =?utf-8?B?V2szZS9nTzNyMUJJbFBHbVFlNEJ1cEtORkpxYnBPWU9PQzBkaXlSVnZkRldT?=
+ =?utf-8?B?SDFPWFVOQVdkUzBBUWE0eHdOc3Q5alJVTlhSSnVCak9oWGdmMmxIOEFWNkhW?=
+ =?utf-8?B?Qzk0Q1ExR1RJS1VsamVKWUo1WDFJeittWVpYVzQ2YWROSFc2UEZPUDdjaTRs?=
+ =?utf-8?B?ZGhpd2RVSDNoMVpYcVVld2NkaGpsVFRpcUtORkEzNEFIeWNhaG9KMS9nZ1pq?=
+ =?utf-8?B?VHNXUktGZUNvNXBnTXpsWU5EOVRHRnBlVmZ3Z0hyWjZjcmVJaG84dElsMEFh?=
+ =?utf-8?B?TjlkQzlOOEtIMjBPMlJ0T0ZURVRMbGtXWm51ZXVjSlZTRTAwa09mUm12Z0E5?=
+ =?utf-8?B?UFBmSE85Y2VYTnROUzN3UityYjVFWnprS2JUMzNURFZSMG50aDhnT1NxbWR4?=
+ =?utf-8?B?NEViQmJTMHBZUEFvUERhbFRTS3h3Z1JJVFc5cUpsRXBQblFUeDZ1elk1R3ZX?=
+ =?utf-8?B?YkxCRkdKMGdLK2lkTHR0QU9GcHBFNTJjeW9vMXR0UHNHS3hSUmQrUT09?=
+X-Exchange-RoutingPolicyChecked: XcSsG+x1L/LpVqOGeDZdfEIE7UaH8jo94DqdCoImwvwVPK7M/yz2pDOlGZbb1idCOIuOB1SgIjwtnevG45F+zNJkeFskqQAVQc7HZgv2XpYzDv8ljl/aIWjjVb38ctuTYRa92I7rrqM6ArcR61++KiU7yEF8NtXT4K1k6SQPqpZUdAY/9FCJ8iOVveL94/wDDywzXnONoxnO7uf45TnQk9TXFVDXCT2psVxlvgyXNlKEMImfGJjL18nrA60+vrbeWp1O/zMVJ+SXqbkk7bSmnEP17Jy9x8vx4LIvk/pBGjzhdaH9QdPWihsZQWONEvzwjAUDOgVeiKvUOKYT5cd1gQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 35be7fe1-cffa-4960-ba48-08df3385b8b0
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR11MB7846.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 17:22:33.3273
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6Ai3nQwW/p+K7qts6sqbeCUGhvsP6VZBpJrvzaKqzcOPx8oEcesxkATSkmV/Pv2OVKGajSgSL/1wyOEP6mIHCA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR11MB4544
+X-OriginatorOrg: intel.com
 
-Since commit c67e63800446 ("scsi: aic79xx: Do not reference SCSI command
-when resetting device") the device reset SCB has no SCSI command, but
-ahd_linux_dev_reset() still sets its residual, and ahd_abort_scbs(),
-which completes it, sets its status. Seen on an AIC-7902 when a failing
-disk triggered a device reset, which killed the SCSI error handler:
+On 10/26/2026 9:04 AM, Sean Christopherson wrote:
 
-  BUG: kernel NULL pointer dereference, address: 0000009c
-  EIP: ahd_linux_dev_reset.cold+0xee/0x26e
+> And we'd want to keep the optimizations to elide writes when vCPUs are using the
+> same value(s).  So, compile tested only...
+> 
 
-Add NULL command checks to the accessors in aic79xx_osm.h. Also skip
-autosense for an SCB without a command and complete it with ahd_done()
-right away: the REQUEST SENSE path can clear SCB_DEVICE_RESET, after
-which ahd_done() would dereference the missing command.
+Will test this out on real hardware with the MSR_STAR change below.
 
-Fixes: c67e63800446 ("scsi: aic79xx: Do not reference SCSI command when resetting device")
-Cc: stable@vger.kernel.org
-Reviewed-by: Hannes Reinecke <hare@kernel.org>
-Signed-off-by: Andrew Luebke <andrew.luebke@gmail.com>
-Assisted-by: LLM
----
+>  
+> +static bool kvm_is_msr_used_in_host(u32 msr)
+> +{
+> +	if (!cpu_feature_enabled(X86_FEATURE_FRED))
+> +		return true;
+> +
+> +	switch (msr) {
+> +	case MSR_STAR:
 
-Notes:
-    v3:
-     - Complete an SCB that ahd_perform_autosense() declines with ahd_done().
-       v2 left it on the pending list until a bus reset, which does not come
-       with SG_SCSI_RESET_NO_ESCALATE (Sashiko AI review of v2). Such a reset
-       now returns SUCCESS, as one answered with any other status does; in v2
-       it timed out and returned FAILED. This is the only code change, so I
-       kept Hannes's Reviewed-by.
-     - Much shorter commit message (Hannes). Sorry for the overlong
-       descriptions in v1 and v2.
-    v2: https://patchwork.kernel.org/project/linux-scsi/patch/20261023170330.269844-1-andrew.luebke@gmail.com/
-     - Put the NULL checks into the ahd_cmd_*() helpers where one exists, and
-       keep the now safe ahd_set_residual() call in ahd_linux_dev_reset()
-       (Hannes).
-     - Skip autosense for an SCB without a command (Sashiko AI review of v1).
-    v1: https://patchwork.kernel.org/project/linux-scsi/patch/20261020221530.2606178-1-andrew.luebke@gmail.com/
-    
-    Tested on an AIC-7902 (SE7501WV2S, i686, v7.2.11, not packetized) with
-    the v2 code: device resets idle and under I/O, a device reset of the
-    failing disk, and a bus reset. The new ahd_done() call is reached only
-    by a reset answered with CHECK CONDITION, which these disks do not do.
-    Build-tested with W=1 for x86_64 and i386, no new warnings.
-    
-    Prepared with LLM assistance (Claude Opus 5.5; v3 also reviewed by
-    Grok); I reviewed it and ran the tests.
+AFAIU, MSR_STAR is still used with FRED so it shouldn't be included
+here. The Spec says in section 4.4:
 
- drivers/scsi/aic7xxx/aic79xx_core.c |  4 +++-
- drivers/scsi/aic7xxx/aic79xx_osm.h  | 26 +++++++++++++++++++++-----
- 2 files changed, 24 insertions(+), 6 deletions(-)
+IA32_STAR:
+- Existing use: this MSR is used by the existing operation of SYSCALL
+and SYSRET.
+- FRED use: FRED event delivery loads the CS and SS selectors with
+values derived from IA32_STAR[47:32] (see Section 5.3). ERETU uses the
+value of IA32_STAR[63:48] to determine how to load the CS and SS
+registers (see Section 6.2.1).
 
-diff --git a/drivers/scsi/aic7xxx/aic79xx_core.c b/drivers/scsi/aic7xxx/aic79xx_core.c
-index 3602a1fc4..4abc79481 100644
---- a/drivers/scsi/aic7xxx/aic79xx_core.c
-+++ b/drivers/scsi/aic7xxx/aic79xx_core.c
-@@ -8942,8 +8942,10 @@ ahd_handle_scsi_status(struct ahd_softc *ahd, struct scb *scb)
- 		}
- #endif
- 
--		if (ahd_perform_autosense(scb) == 0)
-+		if (ahd_perform_autosense(scb) == 0) {
-+			ahd_done(ahd, scb);
- 			break;
-+		}
- 
- 		ahd_compile_devinfo(&devinfo, SCB_GET_OUR_ID(scb),
- 				    SCB_GET_TARGET(ahd, scb),
-diff --git a/drivers/scsi/aic7xxx/aic79xx_osm.h b/drivers/scsi/aic7xxx/aic79xx_osm.h
-index c6eb2b97e..1facfd238 100644
---- a/drivers/scsi/aic7xxx/aic79xx_osm.h
-+++ b/drivers/scsi/aic7xxx/aic79xx_osm.h
-@@ -501,6 +501,8 @@ int	ahd_linux_show_info(struct seq_file *,struct Scsi_Host *);
- static inline
- void ahd_cmd_set_transaction_status(struct scsi_cmnd *cmd, uint32_t status)
- {
-+	if (!cmd)
-+		return;
- 	cmd->result &= ~(CAM_STATUS_MASK << 16);
- 	cmd->result |= status << 16;
- }
-@@ -514,6 +516,8 @@ void ahd_set_transaction_status(struct scb *scb, uint32_t status)
- static inline
- void ahd_cmd_set_scsi_status(struct scsi_cmnd *cmd, uint32_t status)
- {
-+	if (!cmd)
-+		return;
- 	cmd->result &= ~0xFFFF;
- 	cmd->result |= status;
- }
-@@ -527,6 +531,8 @@ void ahd_set_scsi_status(struct scb *scb, uint32_t status)
- static inline
- uint32_t ahd_cmd_get_transaction_status(struct scsi_cmnd *cmd)
- {
-+	if (!cmd)
-+		return CAM_REQ_INPROG;
- 	return ((cmd->result >> 16) & CAM_STATUS_MASK);
- }
- 
-@@ -539,6 +545,8 @@ uint32_t ahd_get_transaction_status(struct scb *scb)
- static inline
- uint32_t ahd_cmd_get_scsi_status(struct scsi_cmnd *cmd)
- {
-+	if (!cmd)
-+		return SAM_STAT_GOOD;
- 	return (cmd->result & 0xFFFF);
- }
- 
-@@ -566,13 +574,16 @@ u_long ahd_get_transfer_length(struct scb *scb)
- static inline
- int ahd_get_transfer_dir(struct scb *scb)
- {
-+	if (!scb->io_ctx)
-+		return DMA_NONE;
- 	return (scb->io_ctx->sc_data_direction);
- }
- 
- static inline
- void ahd_set_residual(struct scb *scb, u_long resid)
- {
--	scsi_set_resid(scb->io_ctx, resid);
-+	if (scb->io_ctx)
-+		scsi_set_resid(scb->io_ctx, resid);
- }
- 
- static inline
-@@ -584,6 +595,8 @@ void ahd_set_sense_residual(struct scb *scb, u_long resid)
- static inline
- u_long ahd_get_residual(struct scb *scb)
- {
-+	if (!scb->io_ctx)
-+		return 0;
- 	return scsi_get_resid(scb->io_ctx);
- }
- 
-@@ -597,11 +610,12 @@ static inline
- int ahd_perform_autosense(struct scb *scb)
- {
- 	/*
--	 * We always perform autosense in Linux.
--	 * On other platforms this is set on a
--	 * per-transaction basis.
-+	 * We always perform autosense in Linux, except for the device
-+	 * reset SCB, which has no command to return sense data to.
- 	 */
--	return (1);
-+	if (!scb->io_ctx)
-+		return 0;
-+	return 1;
- }
- 
- static inline uint32_t
-@@ -631,6 +645,8 @@ void	ahd_platform_freeze_devq(struct ahd_softc *ahd, struct scb *scb);
- static inline void
- ahd_freeze_scb(struct scb *scb)
- {
-+	if (!scb->io_ctx)
-+		return;
- 	if ((scb->io_ctx->result & (CAM_DEV_QFRZN << 16)) == 0) {
- 		scb->io_ctx->result |= CAM_DEV_QFRZN << 16;
- 		scb->platform_data->dev->qfrozen++;
+It is expected that operating systems will set IA32_STAR[33:32] to 00B
+and IA32_STAR[49:48] to 11B.
 
-base-commit: db8b4d2bf2d3e02b4ff78bbf69d00e11795840de
--- 
-2.47.3
+Likewise, the kernel also writes to MSR_STAR during syscall_init() and
+it has a comment saying: "Except the IA32_STAR MSR, there is NO need to
+setup SYSCALL and SYSENTER MSRs for FRED, .."
 
+
+> +	case MSR_LSTAR:
+> +	case MSR_CSTAR:
+> +	case MSR_SYSCALL_MASK:
+> +		return false;
+> +	default:
+> +		break;
+> +	}
+> +	return true;
+> +}
+> +
