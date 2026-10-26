@@ -1,62 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793016784;
-	b=w1dykw5kbPmQiYWipeFaZFUanzlZxgPgbCwLf/P4KxYfFba6JCGAGH1CuH/XQCNlhLkm
-	 cGlkUsqq1nrwWwRJZEzR+FvzJykxAw7FJad1hhTwRR/f74/nKCt7s3oLB151FfDKin3a/
-	 /irD433lC4rJMJ/P2J2OxNVh1Anx0Z3IMAmcSpXTaYyAY2yAEWS0Hu6BXvEurfSC3wR3M
-	 Ia18QTOy0SDpKN7ppBK8NSUdAwSz+8wreSxToappLmfC1Mu1bY4AxOCaBtZcxrFvGBXf0
-	 irBqT79lelvMVAPREPes5ENaZ8+Ao2ut7F3OtdzqhtaeXe2is1Tt5v721cNt5utlp6w==
+	t=1793016803;
+	b=WCeSFthgHPCFAT/74tw4SI7hL46Q4bGRHiqM4v97VavUsfdRUFjE0rLC+DwxOA/f6DW6
+	 Hl6sbbor9o9Idk6cD/xeNx3cN2w+OKiPdyJjte0b5+ZQOeWoYva+bjGkyAQHLKjkJcOEi
+	 S4OjvGLOjIfL9MySFhKNU9CROE+PHCxAtqPeFQ5L0RE873JBhJRR4X3S0+TnsSP2tI0oh
+	 hhg6SpwoLrrrP5A83RtYKqwQe9+P+Q8i1BnQTZOu9ax8oRqRJpVht93hkhmznm9rzfo8L
+	 U8RwotaZpA8pnDsJk0wyZOHHkszPejFx3mW8KKqS5ghrW3vt0lqjreDKLq8XbQPmdOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793016784;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Date:From:To:CC:Subject:
-	 In-Reply-To:References:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=CF2MDwqlAkaO/EWxSuxXkXx6KM2nWeZeopTX1lZlDgA=;
-	b=CJ+KHT0AZqTBuWyKIKRtK9uFmzi1xqAyQPXY39x/GQAt5jD3KAAARDVMGDkRU+tLiVTo
-	 ZMyrqtA0yzrRmTaaEqTZYfmrMwcZ34dqyH1a50YoqLWUxsTjNrfr+Ec0UsjIrlum35hda
-	 OOKh6QczSCl7+wc2taHvZX2Yd5fWT9YfL2EhHhakdEhFa9PO8Y85SLFR2a/kNAlwGX2la
-	 x3IJQksxaEKc/7tNLyOOIbPqhoQyZS9eufmkOne/FbId6/LClEiEuzus5842CAGdQ9StD
-	 UColG04rE0og6cxDDC+fXNSVd4j6bBmgKoLToCLYcwPdNJph1fUB81bzHLMMEt8DKlQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793016803;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=5kpg6tu3jJ87t2WAsg/Cx15iwbLBaiT8eGmLfTt2JdM=;
+	b=q/VYhVm0JvwXwvYh22LZzlsiBxrKbOT/Jxds+dRnVANW09iWPqD9/PbxJkJ/UKMXobNC
+	 Vi7UCBAXXbwBZ40oxtByGSf7EQjXUd0ug07vNiQ2ZOFsgVS/c4XBzjhWJ6dgKjTHVX43B
+	 zowOPdC4cAAQICsVW7xxHqmL3kld2yA1q1h9WSuXQZBz8628k8EJ7Ka/zEYxuwKRcYn64
+	 NIGkV+z+SAFCr2aBI0jHIgiPs1Z/IdpZ7yRtoMwu17xfYZ3Aj5fgvMonslCkGM16QTZbQ
+	 8ZeOVH/Xh+UBF4p47OPBldbUg38nz54IBh4xnwNEKGHoiSkO32r0+mFHHYnTqN6shVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mainlining.org;
-	spf=pass smtp.mailfrom=mainlining.org;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=LBNQXKGN;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=ZjeGTjA0;
-	arc=none smtp.remote-ip=5.75.144.95
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zrrh1Cnk;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12272606A31A;
-	Mon, 26 Oct 2026 12:13:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12272606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38D13606A31F;
+	Mon, 26 Oct 2026 12:13:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=LBNQXKGN;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=ZjeGTjA0
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1793016700; bh=CF2MDwqlAkaO/EWxSuxXkXx
-	6KM2nWeZeopTX1lZlDgA=; b=LBNQXKGNnBtOra4yyvzCwqsu1fiSj23F0390nED6If9CTaLkgk
-	WDkcT1dYuQnxULVksvGuczIpRADXYSc1nfU8apcaaa5A+7rrhb4PeSfGvHu6l3ZLX5M8NWQwrc/
-	W7oV8IGo7krlPmU9oTajQ7/clAZsMvhac1luKU1rRFy64I/v1kJWgjHJeQlFUWkvqVNQKyHjfhf
-	p3OiPvwpDPPSZTC7bVskClAIzkEkq+Wx6qyfdb4eeYuEHihLw1cIuqhmDk68rxpr+3655xlVfOh
-	iw8i6D5iooL10tjnAjmmHtpv9qlA7ChFs6gAalls1YUU4LzFRdTttKF72gaKeSIv/Sg==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1793016700; bh=CF2MDwqlAkaO/EWxSuxXkXx
-	6KM2nWeZeopTX1lZlDgA=; b=ZjeGTjA0NTEvxc1mUPOMfRSZIkijYuq/EIgnXRATtTNgSkz11E
-	03IGd5jCCLkqcz6d2Trpcq1be17acDO/t+Cw==;
-Date: Mon, 26 Oct 2026 12:11:40 +0000
-From: Bradley Morgan <brads@mainlining.org>
-To: Kai Ma <kai.ma1@huawei.com>, paulmck@kernel.org
-CC: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- linux-kernel@vger.kernel.org, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>, rcu@vger.kernel.org, lkmm@lists.linux.dev,
- Lian Wang <lianux.mm@gmail.com>, Kunwu Chan <kunwu.chan@gmail.com>
-Subject: Re: [PATCH hazptr v3 0/4] Hazard pointer updates
-In-Reply-To: <87cxsw4qnl.fsf@huawei.com>
-References: <20261011194902.97364-1-mathieu.desnoyers@efficios.com> <2cf703a6-7828-4735-98af-1a6fe93abd3f@paulmck-laptop> <87cxsw4qnl.fsf@huawei.com>
-Message-ID: <AA9A7911-ED16-4B2B-8C73-D6353D95A817@mainlining.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zrrh1Cnk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 519AC1F01828;
+	Mon, 26 Oct 2026 12:13:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793016802;
+	bh=5kpg6tu3jJ87t2WAsg/Cx15iwbLBaiT8eGmLfTt2JdM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Zrrh1Cnkh1X9Zp52CwB31ogBR+JH0zOj1Dqf6y0qLMU28HWa0BU0nc9Hh7DR6xWLZ
+	 mdIGGyALyrVrAOhiP/QU5RHrankJTrUEZ+xN+cOaf6oKSvFVjxff0ZkBw3xVWij9L8
+	 ZoEbAJivrJo0FACBLttHT3OC0nJG36nL2m3sRfcwuQncjpXm84IRenPRlHGzqMMcOi
+	 fmdIVeyKdW/hAX5aIZqzjMrIG4+ubepfKK7UjGi1liYiXPVfrH4BZA/h3iy7hSG1hj
+	 fuJoKeYCWZyP/I0m7DTt1vU9JS92rVcCMOX0pbJjWPTZ/ZcyofUhwefzgc3bQsTOVJ
+	 T+1/3eb1aFyyQ==
+Date: Mon, 26 Oct 2026 17:43:05 +0530
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+	Wei Deng <wei.deng@oss.qualcomm.com>, andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, linux-bluetooth@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	quic_chezhou@quicinc.com, cheng.jiang@oss.qualcomm.com, shuai.zhang@oss.qualcomm.com, 
+	jinwang.li@oss.qualcomm.com, xiuzhuo.shang@oss.qualcomm.com, mengshi.wu@oss.qualcomm.com
+Subject: Re: [PATCH 2/2] arm64: dts: qcom: monaco-evk: Describe the PCIe M.2
+ Key E connector
+Message-ID: <at9Dn2N-PmLOPaeq@debian>
+References: <0303224f-4c2c-46ec-9866-5ea1fd0fb4a3@oss.qualcomm.com>
+ <20260825092715.5794-1-wei.deng@oss.qualcomm.com>
+ <isbrpaztfrgwfcleujrn4w26cshbi2mgn57tbh5bubvsegn6lc@jh3ab6htvd24>
+ <83b67ab2-ab68-427a-94aa-881454f457ba@oss.qualcomm.com>
+ <CAFEp6-2KDxDrfTZLN7KPRg=aavj8nqQr7ftna23n9C1Cpbwwbg@mail.gmail.com>
+ <e26f0360-aaed-4e40-b1b2-956c92d34db5@oss.qualcomm.com>
+ <CAFEp6-0b15kV6ehMN4Pv24UmMo7xFYr=H396dvdD1Teh7h+K+w@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,99 +68,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAFEp6-0b15kV6ehMN4Pv24UmMo7xFYr=H396dvdD1Teh7h+K+w@mail.gmail.com>
 
-On 26 October 2026 12:01:18 GMT, Kai Ma <kai.ma1@huawei.com> wrote:
->"Paul E. McKenney" <paulmck@kernel.org> writes:
->
->> On Sun, Oct 11, 2026 at 03:48:46PM -0400, Mathieu Desnoyers wrote:
->>> Hi Paul,
->>> 
->>> This series applies on top of "hazptr: handle NULL address in
->>> hazptr_detach" you have in your rcu dev tree.
->>> 
->>> This first patch addresses a race identified by Boqun Feng in the
->>> two-phase wildcard scheme. (no change since the last series)
->>> 
->>> Patches 2-3 are prerequisites for using ptr_eq() in the 4th patch.
->>> Those were discussed at length in a prior version of hazard pointer
->>> patches.
->>> 
->>> Since the last series, I have renamed ptreq.h to ptr_eq.h, addressing
->>> the feedback received from Boqun and Gary.
->>> 
->>> Patch 4 introduces a "try acquire" helper to allow the fast path
->>> to not rely on wildcards, while keeping the wildcard forward
->>> progress guarantees in the acquire slow path, used on fast path
->>> failure.
->>
->> I have pulled this in for additional review and testing, thank you!
->> (With Bradley's Reviewed-by on 4/4.)  Still subject to rebase, which
->means
->> that I can easily replace it with an updated series from you, if you
->> wish.
->
->Hi Paul, Mathieu, and everyone,
->
->I've been following the hazard pointer work and have done some testing
->on earlier versions. I'd be interested in getting more involved,
->particularly in concurrency correctness testing.
->
->If there are WIP patches or early design discussions where additional
->review or testing would be useful, could you please CC me? I'd
->appreciate the opportunity to get involved earlier and help identify
->potential concurrency issues.
+On Thu, Oct 22, 2026 at 03:08:44PM +0200, Loic Poulain wrote:
+> On Thu, Oct 22, 2026 at 11:34 AM Konrad Dybcio
+> <konrad.dybcio@oss.qualcomm.com> wrote:
+> >
+> > On 10/13/26 10:13 AM, Loic Poulain wrote:
+> > > Hi Folks,
+> > >
+> > > On Mon, Sep 21, 2026 at 2:38 PM Konrad Dybcio
+> > > <konrad.dybcio@oss.qualcomm.com> wrote:
+> >
+> > [...]
+> >
+> > >>>> We are adding M.2 Key E connector support for monaco-evk [2]. Konrad
+> > >>>> suggested moving the port/endpoint anchor nodes to the SoC DTSI
+> > >>>> (monaco.dtsi) for clean DTS layering, so that board files only need to
+> > >>>> fill in remote-endpoint for boards that actually have an M.2 connector.
+> > >>>>
+> > >>>
+> > >>> This means, the dummy port/endpoint node will always be present even when the
+> > >>> M.2 connector is not used. I don't see a compelling reason to do so.
+> > >>
+> > >> I don't really see a compelling reason to defer re-defining them to each
+> > >> device DT either..
+> > >
+> > > Adding an empty port/endpoint at the SoC level is problematic for
+> > > uart, port is not always expected, this depends if the uart is exposed
+> > > through a connector or to an onboard device. So we may end with an
+> > > unconnected endpoint but still have a bluetooth subnode, which can be
+> > > a bit confusing... Also why adding a port/endpoint only for a specific
+> > > uart in the dts, and not for the others? This is a board/SoC level
+> > > choice to use a specific uart for M2 or not.
+> >
+> > From my perspective it's removing boilerplate. Currently all USB and
+> > PCIe hosts already define their ports and endpoints in the SoC DTSI
+> > and if they're unconnected, then simply nothing happens.
+> >
+> > Both 'ports' and 'endpoints' are an abstract property that signify
+> > 'X can be related to Y' and I don't see how that's a problem here given
+> > UART is very much expected to be connected "somewhere" (with the
+> > "somewhere" perhaps being external/a pin header)
+> 
+> Yes, but in the UART case, where the connection can be represented in
+> different ways, we can end up with devices being described as both
+> unconnected (no remote endpoint) and connected (via a child device).
+> We can probably live with that, but if we go in this direction, we
+> should consider adding a port/endpoint definition for every UART
+> instance in the DTSI for consistency. The same would apply to I2C once
+> endpoint support is available there as well.
+> 
 
-Thanks for taking this job up, what you could do, is make Linus happy, if
-that makes sense.
+Yeah, that's also one of the thing I really hate. For getting rid of
+boilerplate, we will be just introducing dead nodes :/
 
-https://lore.kernel.org/all/CAHk-=wjyniJy-CX1muCrsZp-i-sLGRYeRYEPN7sw9orRZUCwag@mail.gmail.com/
+- Mani
 
->
->Thanks,
->Kai
->
->> But in the meantime, some additional testing.  ;-)
->>
->> 							Thanx, Paul
->>
->>> Thanks,
->>> 
->>> Mathieu
->>> 
->>> Mathieu Desnoyers (4):
->>>   hazptr: Fix two-phase hazptr_synchronize race with detach
->>>   ptr_eq.h: Introduce ptr_eq() to preserve address dependency
->>>   Documentation: RCU: Refer to ptr_eq()
->>>   hazptr: Introduce "try acquire" fast path, fallback to overflow list
->>> 
->>> Cc: Paul E. McKenney <paulmck@kernel.org>
->>> Cc: Boqun Feng <boqun@kernel.org>
->>> Cc: Bradley Morgan <brads@mainlining.org>
->>> Cc: Gary Guo <gary@garyguo.net>
->>> Cc: <rcu@vger.kernel.org>
->>> Cc: <lkmm@lists.linux.dev>
->>> Cc: Lian Wang <lianux.mm@gmail.com>
->>> Cc: Kunwu Chan <kunwu.chan@gmail.com>
->>> 
->>>  Documentation/RCU/rcu_dereference.rst |  38 +++++++-
->>>  arch/x86/include/asm/ptr_eq.h         |  16 +++
->>>  include/asm-generic/Kbuild            |   1 +
->>>  include/asm-generic/ptr_eq.h          |  16 +++
->>>  include/linux/hazptr.h                |  48 +++++----
->>>  include/linux/ptr_eq.h                |  63 ++++++++++++
->>>  kernel/hazptr.c                       | 135 +++++++++++++++-----------
->>>  7 files changed, 237 insertions(+), 80 deletions(-)
->>>  create mode 100644 arch/x86/include/asm/ptr_eq.h
->>>  create mode 100644 include/asm-generic/ptr_eq.h
->>>  create mode 100644 include/linux/ptr_eq.h
->>> 
->>> -- 
->>> 2.43.0
->>> 
->
->
-
---- Thanks!
+-- 
+மணிவண்ணன் சதாசிவம்
