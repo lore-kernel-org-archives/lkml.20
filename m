@@ -1,102 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.132.183.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793000034;
-	b=KQ4nafnZRJs1wZ4EA3uNJ92rlsh5jVhY6NXfo07nQC1wPE2gZeLVNQ+2+A0VWxbHae8a
-	 uLcK1gVYUjZthwhxUCv1CDeGJk6u1o5MV6VEWDryDuerD5YSvu15DzJKRHEDUr5qE6feM
-	 6me/ClPfiEyLr3Dep/YkFQbdCppKONTbyHKja86MWpAhtZaHulc/kuwFcWo3L9WdmgTLu
-	 zDw049kdEB68FmRfCKrASSv30GCVLJPB2qpo3AaxM1abJuOK49Jx+gg63YkQmCdIQ6sby
-	 grEx104O6NFnjs84Pm5Kc2ZX6bn0E5rL9b79/gIPpOfjZlyG9BpQfI1fl/usBsACwHw==
+	t=1793000035;
+	b=sEW9CCV5nW/mV5Wa2xji29H7Fi6EOoat5caADhVD/gfP7LPItcLQojutsbVKWY4lm971
+	 hgAMTLe4DJhS3P/k9UvPC7g4IVk7W0tO5Ru6CxfoL+6fnoRi7EfVAP6oAYD8Um7wFHoAn
+	 UbEZTfTOm6MfB/6n/IcR+y/My1pYIsvBE/NoeW/Y+6RduloYFzJvjiAeCwfXKtJo79c2F
+	 dbNrnPCIKLRDPeLWsqMCSasCzoLCDrTotZlU0qdw5akhAMVLhSxHfoT0tI7wygm17MIwC
+	 /oLKyJ84VeAuNcW7vP7uzTo7M010N4D6Z/p1HrwK7hpd4s98Z8XCWqo+EfVAfoywkVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793000034;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=F8U0LKvHGA5PLMBRYsbuaSBNWEEM8e/eqX0yoWLbYmU=;
-	b=J1k6Xeq+ORW+EYIqBt8oE3d1UeeIblX5+Ro4QiCHhW0PJEBJETryUgEj9we5yj7ef4Vy
-	 ficsPJZW0a53WuFxhf/Waz1Yt74r3XB1EVbvIFv5RtbCijAEK3mELAZ9v5uZj7BsRJ2HW
-	 qtElnxA62sFxwWbOzwHTw6IuKQ7it2f3tSKGgt8M4TQShynfiwSDwEU7NLawWFqDjB9kU
-	 B9zpe89S9m7R+oKGGYX2XU8s46IQZ0TjSXEtvLK3DIOurPKzASRk0HXuxxRWrXM7wdzWZ
-	 IE313DVrDTpqZaYw3GLwPTzjmLhVQZzueI2ymync16Rhvdxmb08tOgLMLTGvwPdk5EA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793000035;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:
+	 Cc:References:Content-Language:From:Organization:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-Reinject:
+	 X-Sony-BusinessRelay-GUID:X-Proofpoint-Virus-Version:
+	 X-Sony-EdgeRelay-GUID:X-Proofpoint-Virus-Version:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Sony-Outbound-GUID:
+	 X-Proofpoint-Virus-Version;
+	bh=0t8QYVucYShVvSMATvqL8jL5FxWeDDywI03ePp12CeQ=;
+	b=UX+ibuLZrPU7Ny0Hq54+MfhUeLBSGwH6bA8sgu82nORgiyphQ4ED+JFE3pNPONm2AqIP
+	 nBNdpwjF39E/mq9An3paUJk9LyXAnjGBlJV3RkFD7K0GXpPpEA7Flth9q9m95dUliV+tq
+	 BSZiKUYqYMe3VHod+eb4FkRKwygFn3AwRwuk8p2mf7FtQapmd4U2jH75Li2cTyidaFzyN
+	 svIHNYoa1nrxxNWcjFTfjc6anH8/nEicqIVzD6CZKp4rONS8PhMdBp5873DGJvOnRE2CJ
+	 HwX+TQn0bb2hGH1OMX/n1TCVYDqoy+kymqmGDmUtMq0eYa3UUfBo5rf4CfOQuw10ntw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Iv7Jv4BW;
-	arc=none smtp.remote-ip=209.85.208.170
-Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com [209.85.208.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=sony.com;
+	spf=pass smtp.mailfrom=sony.com;
+	dkim=pass header.d=sony.com header.i=@sony.com header.a=rsa-sha256 header.s=p1 header.b=RZ3T5Pzl;
+	arc=none smtp.remote-ip=185.132.183.11
+Received: from mx07-001d1705.pphosted.com (mx07-001d1705.pphosted.com [185.132.183.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4121C606A31B
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 07:33:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4121C606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C10F4606A31A;
+	Mon, 26 Oct 2026 07:33:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C10F4606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sony.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sony.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Iv7Jv4BW
-Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-3ab28f3e4dcso30277211fa.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 00:33:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793000032; x=1793604832; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=F8U0LKvHGA5PLMBRYsbuaSBNWEEM8e/eqX0yoWLbYmU=;
-        b=Iv7Jv4BWEjH3RCZxW59xap37rB2DpPqWMaBupTktmbSB457Ye6EljU6meZDw9BgwLX
-         sNQ4QXuCJGIMDYCuHWOe/up3oHvsvmZp60g3XpEEgRtQf3ecGpSjdxqo04VYhaw1O9xg
-         nD9ZYEwMAIvTJu9OJzvZXZ74l5hWSo5K1zcCgYfP4IF0Qfgsh6B20bGmX9aXk+tkurVh
-         gZUR/glYKjTLgHVPZ5W3POEn1TMoKVSQgFOv0P6LsBOugdnNaJG7SwawOW/ieEDd90O2
-         z4MbNFAlEZUARLqcKIkN6tKCMBwUJTxW+KE5MEDok7TLmOIoIVf70OLlPRKNdCK+3OcK
-         aDQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793000032; x=1793604832;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=F8U0LKvHGA5PLMBRYsbuaSBNWEEM8e/eqX0yoWLbYmU=;
-        b=equgzVK1k1rnbILoiAGcz1U2FvIuZ+E/CI/uWKQQyTUvCROH0zQ5nVrWyAtvWg4vGi
-         G+QCXCtA6K90TIshSScdwlr3Aaa5M8cudp8yl/2wCN1j3sfaEBdGQMV8dc8YXGaeOb/O
-         7MW8+SqT3/c3EUxIDOCuMQqhfW93+mXWHqqGUVFjdJcw8oyIVrlOi9BxHwVh/D6KQ8/G
-         MZ5aZv3SRVYIyJT+S2cV5b/ucLKKMPgj1JVbsLThUZXp9piWg0JoMuPUM8ZmGIGqji4c
-         LaXCpFk5ORkZtttG5flANtfI8Uyuzg/2jmK/xYZN1gCZ5tVQTukyjIDEGTckqEBl2e+0
-         +Bsw==
-X-Forwarded-Encrypted: i=1; AKwUvByWS6VcMORD59zyp2PCbCsm4qaBne+ZDmQvG0mHk02w4C+Kt34RuYSR+wm9Px7cG9o+UZSPPiG7CWY16fg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKuFAqYYq+NY66JK8ZAnBKRSo0Un+5caHlGo/BX/2HCH11+hpTB
-	S+R3R9aK81PeEX7+3BxEr+ncrnPr24pMQ2gHOBI1f36ZjYRowyN5hgNT
-X-Gm-Gg: AYBFou1KVpdUupqkHGlw/hTvfhb22ia2dJ1pDZfUGAST4WKR0B9BfzFzqJRc3sEMIuC
-	P+C/Rg/akot2UFqdBfA8AYMuMLGz4lCBIiiTdYdNEv7xmhZ8V0J+cKFocbEJKDiNRL1LsFqwdGk
-	Z8zZiwnsO3mivI/SAa/A96wc4EPYeEL+Jdv2ttrGVq8luCzmSLbJlkfiWgg1moUFbOVczZe3jMr
-	HG8zmUQ5qjdGPkgvZhRSdrRGXvpXNGK9mbK+fKK8GfRUiowl1lWYhgj7k7fUZfeXv6TwaXjHhrO
-	gAB/1g/Ibsi1vY21p3y4ZjsY6pM1Ykp5x75Vn2eDk8JzyPYcHutGnXDDgD16jqrlXxlU6kZbeZg
-	eRFKJD9CEmXaY92XfSZH6izzihAEd1QFgJ1HCypltiOhm6xCHvWgDh/5zLgYsHR++9HbFg6OV5N
-	CHaWXdB/4jc38gbBkByqPScsrgH+nrAQXFK5GUpSV5moeXBHu/PEiedlgtVIzqTH8X9NCXWokFK
-	ZdIYLcGB1+QTbnqpOoVnR2lSN/FGa9eCB/pIwLXsD+gKn/eEw3OJI+Wp3vIZ5ca8CaFxtx/4SS5
-	pQErbw/0ROONEUY87MTXP06g1c38VZWkWxk/HyjdkbkOPhd7tGM9pw==
-X-Received: by 2002:a05:6512:3c9a:b0:5bc:f296:a12b with SMTP id 2adb3069b0e04-5bfb7449714mr1568356e87.26.1793000032116;
-        Mon, 26 Oct 2026 00:33:52 -0700 (PDT)
-Received: from localhost ([178.214.243.78])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfc085a3d2sm236852e87.10.2026.10.26.00.33.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 00:33:50 -0700 (PDT)
-From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-To: Harry Wentland <harry.wentland@amd.com>,
-	Leo Li <sunpeng.li@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>
-Cc: Alex Hung <alex.hung@amd.com>,
-	Alvin Lee <Alvin.Lee2@amd.com>,
-	Jun Lei <Jun.Lei@amd.com>,
-	Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>,
-	Fangzhi Zuo <jerry.zuo@amd.com>,
-	Rodrigo Siqueira <siqueira@igalia.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
-	Josh Kasten <jkasten@gmail.com>
-Subject: [PATCH v2] drm/amd/display: set allow_freesync before validating a new stream
-Date: Mon, 26 Oct 2026 12:33:45 +0500
-Message-ID: <20261026073345.297491-1-mikhail.v.gavrilov@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=sony.com header.i=@sony.com header.a=rsa-sha256 header.s=p1 header.b=RZ3T5Pzl
+Received: from pps.filterd (m0209327.ppops.net [127.0.0.1])
+	by mx08-001d1705.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69Q6kJVi3575471;
+	Mon, 26 Oct 2026 07:33:43 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sony.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=p1; bh=0t8QYVu
+	cYShVvSMATvqL8jL5FxWeDDywI03ePp12CeQ=; b=RZ3T5Pzlnms3PAjXIizUi54
+	CBkmAJdIB8ua1wXlB0098/f/3h7xGXKAglKORFRU8NcvLedb/F25N47zajtdP5lY
+	B9pfMh+8t1dUWAMx19e3/idONf0Xonde9dk8WJEJvvsS4SL8L1MudkzKJKwF11t+
+	x0RdWGeZ6z6WWbXrQlSIjErYtbYrA4Uiym4ZzRVP+4ENDRVfde8v4VzFcKykx7Nc
+	fX0GF8pH7oe0EeDjFcqh6P6RYvZ7xureuij1195KQZZIj48XLE7tGo/FDqmmKZL+
+	lAuQ/4dx5PS3rHdv66B2Wt81Bq+mPw22ltOeqbkzv5MNJx8yUpdEFf/h99Kw3fg=
+	=
+Received: from usculxsnt03v.am.sony.com ([160.33.194.235])
+	by mx08-001d1705.pphosted.com (PPS) with ESMTPS id 4hgkhxj7a3-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+	Mon, 26 Oct 2026 07:33:43 +0000 (GMT)
+Received: from pps.filterd (usculxsnt03v.am.sony.com [127.0.0.1])
+	by usculxsnt03v.am.sony.com (8.18.1.11/8.18.1.11) with ESMTP id 69Q6NN6P1003600;
+	Mon, 26 Oct 2026 00:33:42 -0700
+Received: from sgppsbm01v.s.gdce.sony.com.sg ([146.215.113.217])
+	by usculxsnt03v.am.sony.com (PPS) with ESMTPS id 4hhe88pk2k-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 26 Oct 2026 00:33:41 -0700 (PDT)
+Received: from pps.filterd (SGPPSBM01v.s.gdce.sony.com.sg [127.0.0.1])
+	by SGPPSBM01v.s.gdce.sony.com.sg (8.18.1.11/8.18.1.11) with ESMTP id 69Q6o9E01047713;
+	Mon, 26 Oct 2026 07:33:39 GMT
+Received: from [43.3.250.71] ([146.215.113.251])
+	by SGPPSBM01v.s.gdce.sony.com.sg (PPS) with ESMTPS id 4hgnrjqbg6-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT);
+	Mon, 26 Oct 2026 07:33:39 +0000 (GMT)
+Message-ID: <0f953415-aa5b-4de2-a040-80238b55b7d4@sony.com>
+Date: Mon, 26 Oct 2026 16:33:37 +0900
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,74 +81,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 2/2] media: i2c: Add Sony IMX908 image sensor driver
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+        Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: mchehab@kernel.org, hverkuil+cisco@kernel.org, linux-media@vger.kernel.org,
+        devicetree@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+        conor+dt@kernel.org, kieran.bingham@ideasonboard.com,
+        jai.luthra@ideasonboard.com, Ryuichi.Tadano@sony.com,
+        Kengo.Hayasaka@sony.com, Tim.Bird2@sony.com, Kazumi.A.Sato@sony.com,
+        Yuji.John.Takahashi@sony.com, linux-kernel@vger.kernel.org,
+        Dave Stevenson <dave.stevenson@raspberrypi.com>
+References: <20261019014720.2635-1-lachlan.michael@sony.com>
+ <20261019014720.2635-3-lachlan.michael@sony.com>
+ <atdGr8S2sf1kZFUw@kekkonen.localdomain>
+ <20261020125630.GA158670@killaraus.ideasonboard.com>
+Content-Language: en-US
+From: Lachlan Michael <Lachlan.Michael@sony.com>
+Organization: Sony Semiconductor Solutions Corporation
+In-Reply-To: <20261020125630.GA158670@killaraus.ideasonboard.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Sony-BusinessRelay-GUID: sK06nng5iL2eyB8Kw4CCf0xFnEe3CGDh
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-26_01,2026-10-21_02,2025-10-01_01
+X-Sony-EdgeRelay-GUID: 0M8f_NdwfFeo7oUVDJPNdrmplkxUzG59
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-26_01,2026-10-21_02,2025-10-01_01
+X-Authority-Analysis: v=2.4 cv=H6ROUOYi c=1 sm=1 tr=0 ts=6adf0257 cx=c_pps
+ a=Ycsf2/9e4zkPkE23zi987Q==:117 a=Ycsf2/9e4zkPkE23zi987Q==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=KAb5x4SsHD3PzxGk7EmX:22 a=b20fedWF67CaGdYoUt4Y:22 a=VwQbUJbxAAAA:8
+ a=yAT16FBiRIoZr8f1NH4A:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDAyOSBTYWx0ZWRfX6Xe1O3EkVzGE
+ O+S0HPYvy2Z7S0DlUHQ5bf+apAgTJ2Z/ovmwMiWlCbuXHxTcBv+D2w205+9PUmpG2g82V7P8jq6
+ rQPzdlPNYnPy/OKCzoqFz42DbZuweQdsgc8hXLDNPYOx3kXsGXOn
+X-Proofpoint-ORIG-GUID: hONqMJyhNQbV8sZ319oIfhJ2c22k0BPQ
+X-Proofpoint-GUID: hONqMJyhNQbV8sZ319oIfhJ2c22k0BPQ
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDAyOSBTYWx0ZWRfX0LLP14a5HrEx
+ tm1RVCJUeGOJJ3AZ35LYtdB0J5zLA7RHIRStByBKjEQU08nlhu49ZRFngDriZAamvgVAHYKcRMb
+ Wp31XSMEkTEsCWA/WA3WzgbV2SMijr2j2Ua2mtjXbnaKwkY6s8V8obTChRFlLE332vQ6+bHr6Nc
+ aoLTL6qgGGJqkEm09C1gLme+kTVJRTOTMblwi0vljps+Ec9QYWqvgNVW++DGViMnDFMwFAdGY0N
+ clh3VBOdreIcW1LE0ZqAV7YpRmvndqNPXPbe8JwV9g+9xBZ186+lebKx0RjxEocyCFDZddyuHIC
+ FTDu06Z+3zT/FTojCBWBh4QGcQn25I6wW8vRQyfsVG5a3Bai4WJFwIiSGkGlQYlRKQX7qU0JEBV
+ uUhY5wmvXNYgSTVatUe/ZhuZBBcWPX4kX8fA8s7+sOiK2NumNFPk5IneHND7K51ilRaZp1FJHpa
+ v39X99prZXxp5mo0tyQ==
+X-Sony-Outbound-GUID: hONqMJyhNQbV8sZ319oIfhJ2c22k0BPQ
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-26_01,2026-10-21_02,2025-10-01_01
 
-After resume from S3, DC enables SubVP on a single FreeSync display at
-a high refresh rate, although dcn32_allow_subvp_high_refresh_rate() is
-meant to keep SubVP off that configuration ("For single display cases,
-freesync must be disabled").  On an RX 7900 XTX driving a FreeSync TV
-at 3840x2160@120, amdgpu_dm_capabilities reports sub-viewport disabled
-after boot and enabled after "rtcwake -m mem", and the memory clock
-starts switching.  It stays that way until a later commit re-validates
-the state; a CRTC gamma change (toggling Night Light) turns SubVP off
-again.
+Laurent, Sakari,
 
-The policy reads dc_stream_state::allow_freesync while the new state
-is validated, but amdgpu_dm sets that field only in
-amdgpu_dm_update_freesync_state_on_stream(), on the first flip after
-the commit.  A stream created by a modeset is therefore validated as
-if FreeSync were off.  On resume, dm_destroy_cached_state() drops the
-streams and forces a modeset, so the resumed state is validated
-without FreeSync.
+On 10/20/2026 9:56 PM, Laurent Pinchart wrote:
+> Hello Sakari,
+> 
+> On Tue, Oct 20, 2026 at 01:47:11PM +0300, Sakari Ailus wrote:
+>> On Mon, Oct 19, 2026 at 10:47:20AM +0900, Lachlan Michael wrote:
+>>> The IMX908 is an 8.39 MP (3856x2176) CMOS image sensor with a MIPI CSI-2
+>>> output interface. The driver supports RAW10 and RAW12 output formats,
+>>> exposure and analogue gain controls, image flipping, blanking controls
+>>> and test pattern generation.
+>>
+>> The imx908 appears to be a Starvis 3 sensor. How close is it to the Starvis
+>> 2, for which Dave (Cc'd) is working on a driver (see
+>> <URL:https://lore.kernel.org/linux-media/atdAsDGw_jvhaydM@kekkonen.localdomain/T/#m0c50ea017ef9ae0d3d76a36b840db9b6f7ac296c>)?
+>> The register defines in the two drivers appear to be quite well aligned.
+> 
+> The current version of the driver implements very few features of the
+> IMX908 sensor, as crop support has been removed pending the raw camera
+> sensor model, and Clear HDR3 is being developed. I expect more
+> differences to appear when those features will be merged, so I believe
+> it makes sense to have a separate driver here.
+> 
+> In the future, I expect the raw camera sensor model to open the door to
+> more code sharing and more drivers supporting a wider variety of
+> devices. We can decide then if the imx908 should stay a standalone
+> driver, support other sensors as well, possibly across the Starvis 2 and
+> 3 families. I'm willing to help with the refactoring at that point if
+> needed, the maintenance burden won't be on you (and I'm sure that
+> Lachlan and his team will of course maintain the code base).
 
-Set allow_freesync in amdgpu_dm_get_freesync_config_for_crtc(), which
-atomic check calls for every active CRTC and which already writes
-ignore_msa_timing_param to the stream.  It uses vrr_supported, the
-condition the flip-time value is derived from.  With this change the
-same TV keeps SubVP disabled across "rtcwake -m mem".
+Just to add our official comment that we absolutely intend to support 
+the agreed direction of the community and will refactor, patch and 
+maintain as necessary to support the imx908 and other future contributions.
 
-On this machine SubVP is also what exposes the single-frame scanout
-corruption reported in the thread linked below, so the FreeSync
-setting stopped working as a workaround after every suspend.
+Best Regards,
 
-Fixes: 87f0c16e0eeb ("drm/amd/display: Enable SubVP for high refresh rate displays")
-Link: https://lore.kernel.org/all/20260829010525.29935-1-mikhail.v.gavrilov@gmail.com/
-Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/5714#note_3736349
-Tested-by: Josh Kasten <jkasten@gmail.com>
-Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
----
-v2:
- - Rebased onto amd-staging-drm-next, where vrr_supported also depends
-   on vrr_timing_valid, so v1 no longer applied there.  No functional
-   change.
- - Added Tested-by from Josh Kasten, who ran v2 on next-20261023 (the
-   file is the same there as in amd-staging-drm-next) and saw SubVP
-   stay disabled across rtcwake with FreeSync enabled.
- 
-v1: https://lore.kernel.org/all/20261018221726.27259-1-mikhail.v.gavrilov@gmail.com/
-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c    | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
-index 386ba88c57c6..936a899aef00 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
-@@ -170,6 +170,14 @@ void amdgpu_dm_get_freesync_config_for_crtc(
- 					vrefresh <= aconnector->max_vfreq &&
- 					vrr_timing_valid;
- 
-+	/*
-+	 * DC reads allow_freesync while validating the new state, for example
-+	 * to keep SubVP off a single FreeSync display, but it is otherwise set
-+	 * only on the first flip after the commit.  Set it here, so that a
-+	 * stream created by this commit is not validated without it.
-+	 */
-+	new_crtc_state->stream->allow_freesync = new_crtc_state->vrr_supported;
-+
- 	if (new_crtc_state->vrr_supported) {
- 		new_crtc_state->stream->ignore_msa_timing_param = true;
- 		fs_vid_mode = new_crtc_state->freesync_config.state == VRR_STATE_ACTIVE_FIXED;
--- 
-2.56.0
+Lachlan
 
