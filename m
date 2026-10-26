@@ -1,56 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793022468;
-	b=hW3wWKdlasX6NE2orefOV35zdJjWZyBxbdLacMWLoBEBdKuWGIIKynTh5hK5JU6KvxZx
-	 FaI+9gYe+rd70JJdasueJiXjeoG4wP44+HzHa3U/H7IOiD+XgV5vt9QHdKiZMHjgSBWnM
-	 Z//2YngWEges8xxtMxYDEDtkxd5Zw8DjYCDmI3oMSUMSejZS4geBv4SYrqOGKKoiyL007
-	 v0ag0Y0Yo/RFOCZZMXBx4BTER5PF9KB/HHR+RIdc9MzAhZubnsx4mt0VmhvLhbzzIWTl9
-	 PQFilFhVjCHqOo6IZOuxi1M6KvEZ28/gQgP97o6wAYrXFQ+AMlqedc+Ph+h58RbNX6w==
+	t=1793022506;
+	b=Ln/5ZrIMoNAlLap7MGQsl6IbLE5xZM1WGjg8LJckesz5ee5iuuJsN2M+TvO0bFj3B8l4
+	 IGBy8FuAX6bxbaFDbm4u6lEMN0CULaRpskZQu9Rfps+q6VrPdAE5MiYezzxrHBaPtblCE
+	 QAvzbeHl2Jswo2z9C3oK1rHJp8pZ/tQrvWEWj8uxog4W7v0mNJxwBLexyAEDJTSvZyBtY
+	 PbABLYKtUoYEVTVLiYn2ogle8xD7TITcREy2mIyCsemOnOKrmwmwyJXli2JNOTiXlmodC
+	 uUBRBta68job0kUx6elkTA9A0HrMKgd63G57N7UichnJrdl806CN5THx9ZI+O+78v7w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793022468;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=aXB9q+SjCodJprte8ZqvjzyulFgl828dew1/IFtc6cc=;
-	b=G2i77zt+SGDGmp3uNwISOIYKKiCT49g57trnX7ozVQAq3sTo1MCRkYHA4jj6eseXWZIi
-	 L2p2XMVxBhnppsB334RQyOcRf+2Sb+DV3+pFGuFwxovH/fV6mcEu7ZpaOfUxBuc3K+/tl
-	 u2ysrUllbO4JinzzgCg75fCxdrRH/kZCCDRbGx+X3wm6DLk8QdcHDFW/fZqV1pt7T0VDa
-	 F1g6Y75vSNqrP8LpKaIoCsDNXMN4m714mlwjGzs563kJnjRdHtVX3f+t7hufw3yBF8PLX
-	 Yt4dqWzZPeL1cGkXSWYNRGUfuCYfCR1SyIe5+cE2auSct+6J8DpIev1/EMbfRxGzazQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793022506;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=eeiDIzKBgXHTvIB/FzTge64uqO1p8vq38QKemD1zDpA=;
+	b=SCNPlxTKNhe48UipP8P7SfwXdZJZWYH9f3gby7Uj+OOpvxX2KxvXijaYXGhpqTwwOXRu
+	 WE4W1qzMcMVgVanjvm2hS+orn23MQ5/PPcL6mkQDPEWwZJoNzzC8ynM3NoCTMeMNT6ixu
+	 gJMXQGuRT828pwiJ6+DtfpvryNsyF2sXbpNn1K7erIIRkgqmTsZxVDQ+8q0B3xqpOZdKf
+	 EFbMjSuTTvhEWGxVV8XNTH2Wrz8moGPVOtHysEQAtCSQVLQEOlEoQomXjyYhPUauoCvm/
+	 pD4PYp4TvyqZ58xciOozRxjopD2OA4ZBcyTU41vJovEovqIv0zbzq2oCG8qJZA7vLlw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FuknI81y;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=resnulli.us;
+	spf=pass smtp.mailfrom=resnulli.us;
+	arc=none smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91272606A31A;
-	Mon, 26 Oct 2026 13:47:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FuknI81y
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E19021F01825;
-	Mon, 26 Oct 2026 13:47:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793022468;
-	bh=aXB9q+SjCodJprte8ZqvjzyulFgl828dew1/IFtc6cc=;
-	h=From:To:Cc:Subject:Date;
-	b=FuknI81ysijUZpiN3I8AI1drSsxf4I4W+69dTEHZKpuflQISUwVDqE39PD3fIJYCw
-	 lhJUtaM9OZMr4yWHWyglUOxl003BdzsrZFGsMysr63GezpUhcuCEdMmGkkyLI/luFq
-	 OakdRhMcb/Fo2hOJeqL6PNUgBaj1IPUQX6IUmZ2LlU09PqoAPms4rObvneHX3GY8zH
-	 VETwiEnGGb++JIFUc5a6iKPBjfqnUWKPmpnun4abliYzyJk5A3Sy3LNBMKHuSRz3U2
-	 HfTOIQRGc1e1n5T0cz1tSraKe9M6VEgAOX2K9DetLQzZjHp0l4qHJqm4/zyZtbVImM
-	 Gb6ezA3sehgfw==
-From: SJ Park <sj@kernel.org>
-To: 
-Cc: SJ Park <sj@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	stable@vger.kernel.org
-Subject: [RFC PATCH 6.18.y v2] mm/damon/core: error damos_commit_quota_goal() for zero target_value
-Date: Mon, 26 Oct 2026 06:47:39 -0700
-Message-ID: <20261026134740.149027-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF3A2606A31E
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:48:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF3A2606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=resnulli.us
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=resnulli.us
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a215e64962so22087625e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 06:48:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=resnulli.us; s=google; t=1793022494; x=1793627294; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=eeiDIzKBgXHTvIB/FzTge64uqO1p8vq38QKemD1zDpA=;
+        b=VM8IYrnCNNqs45DDC5LE9lQowRMEKYE5Y/KZ57bV4yet/aoDBGlAsxJOmTRykOk8dn
+         FshcS/W8j64dt0Mh5C8VdYgUtcsCto+ScQaOEpF+I1g+GJr3PKhwYJY8a9G++KZq2rIk
+         fciASrl2LvGXd8pYXvHkATr9UTdfoqHxMbXc79S2QEtkqqFElfTeqUk4ffn+ZNgaeGe/
+         nm24iy1xia1O5G3DOANrqIMherXJogHmuD48d2u+nc2vCUxcd8XNkN3ljWXSZqr8HlaX
+         Y9o5gWTDf6GO67jT9mY+jbYN5IM9+ZXATUXh+KiGk5uTlXn1ZnpDB+tpDMpOFgjZMwAW
+         Jg2g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793022494; x=1793627294;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=eeiDIzKBgXHTvIB/FzTge64uqO1p8vq38QKemD1zDpA=;
+        b=CMudcFAuE4i6aMWWuwHcxAoeMWMNWKY6mftUHNjoRmrbKolYSkzZBRRxFR3EoWNmtg
+         6yRg0vqo5DNgVZbcPC5Gg3RhNM/uvlmHxdLWaUubQJFfb1hXRZsbltDgqAO7nCTAcX4m
+         cjQf2wVFEf1QVVvE5qygKBpoxL3FTNirBH1HMhWFOQbGn+vqytf2Mc9163rn+1H0gT1J
+         bpb1KLXCE25a87MJKoFo6UQCAoVwO5dL6b8fnUWVlNVe4gzFXRSZgWpj8oRdep2xHmyi
+         hKQQhUO1rDGWSJGqVGt+7idzXDdJL38bJbp4k1HTBoHe3K6Pl8Wkp002pYPgpeX1hi0T
+         7btg==
+X-Forwarded-Encrypted: i=1; AKwUvBxUJ6/KHV3xPPNqSiEmNj2h+tmikU2smLba9wtMN7SK00So/lxXMt6kJYGuvpE2/zMmpreKucSjEb21Ag4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI5sgst6JCd8Mk+ADox0D9vzbz29unB0IwcUZhT4xg1LhGej5Ic
+	bpDcgH9IcPQB8NZMeHmcP/EhNl8g4GqVPQ8UNNw0CxhKKIyvS8h3CYrbfXk+G5CIReU=
+X-Gm-Gg: AYBFou0MQZ9rSGQxiorbT59PlQIjcmYcxPkpSz6XxDAXZovPrhkQCWSXagJrdl/ubOi
+	g7htDOfoKa22Kf5V1S4D00vLjoCldz5L1KtwAQG2jhIPIDYnQe5uCDgiaeaT72nMXwyFtWM0gse
+	ijxP0tl50pbJUYTiHl+VzCYnU8VfeKQ/CJQmrdRYK8vJe6dhpN9jbnvL3YWsvzP9rwF5ErPn7N3
+	KY6Z6WDHTOy6aBOheuD1URear5RXA/538y1rC9fFUvz8SwMniTYsbPYXDR02dXG5hQDNl7CeRLD
+	TYg0PEH1zfOoK7BA7rx7YnkA+3XOFrFIHZOIWI3b/xSqXrDT2V2EKsHpzokE+DH0h/62i0hL6rK
+	vSMAPKb4pxrzQakpXORxc4mPwqruMjHxo99EkExX/nkUXecNBxfCA7Wi5Qo2A8rKieeyW8q13hL
+	Z2vEXMiS3N/BY7WRnKXBBg+bKoEL8arG9vv4bfTOdT2NdjsW3ypePOqfhPMf67m41F89Bv7u3Tu
+	1Jq4oyaDAhSiewodsX84uXGCxBo8ThY0WDq1Lo+8r5bxwmx7i66UPmI78hOqbkI
+X-Received: by 2002:a05:600c:3d8d:b0:4a1:f377:5c75 with SMTP id 5b1f17b1804b1-4a35acc2edbmr104469535e9.33.1793022493724;
+        Mon, 26 Oct 2026 06:48:13 -0700 (PDT)
+Received: from localhost ([208.127.45.13])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a5ea0df763sm107133535e9.3.2026.10.26.06.48.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 06:48:13 -0700 (PDT)
+Date: Mon, 26 Oct 2026 14:48:09 +0100
+From: Jiri Pirko <jiri@resnulli.us>
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Jonathan Cameron <jic23@kernel.org>, linux-coco@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org, 
+	linux-doc@vger.kernel.org, david.quigley@intel.com, lukas@wunner.de, ksinyuk@kernel.org, 
+	rodrigo.vivi@intel.com, cedric.xing@intel.com, sameo@meta.com, drdeeglaze@gmail.com, 
+	James.Bottomley@hansenpartnership.com, aik@amd.com, jpiotrowski@nvidia.com, qinkun@google.com, 
+	pgonda@google.com, alistair.francis@wdc.com, ankita@nvidia.com, 
+	suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com, 
+	elena.reshetova@intel.com, dave.hansen@linux.intel.com, 
+	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com
+Subject: Re: [PATCH RFC 12/20] ctlv: Add device and operation dispatch
+Message-ID: <at9ZEDZl89V0jaJB@FV6GYCPJ69>
+References: <20261015145053.3664509-1-jiri@resnulli.us>
+ <20261015145053.3664509-13-jiri@resnulli.us>
+ <20261021022505.6fe1b1bb@jic23-hlaptop>
+ <20261022184313.GD3381610@ziepe.ca>
+ <attZl_0TNMDLgi4U@FV6GYCPJ69>
+ <20261023142633.GF3977851@ziepe.ca>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,172 +104,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261023142633.GF3977851@ziepe.ca>
 
-Patch series "mm/damon: move zero damos quota target_value handling to the
-core layer".
+Fri, Oct 23, 2026 at 04:26:33PM +0200, jgg@ziepe.ca wrote:
+>On Fri, Oct 23, 2026 at 02:58:33PM +0200, Jiri Pirko wrote:
+>> >> Jason did some nice handling in the fwctl stuff for
+>> >> device alloc and hand over after device_initialize()
+>> >> (I've copied it into a few places recently :)
+>> >> 
+>> >> I'd like to see something similar here as it made
+>> >> it easier to follow lifetimes etc.
+>> >
+>> >This is really at the wrong layer.. Attestation subsystem is the lead
+>> >subsystem, it should be allocating the struct device memory and the
+>> >driver should see the typical
+>> >
+>> >  struct attestation_dev *adev;
+>> >
+>> >  adev = attestation_alloc()
+>> >  [..]
+>> >  attestation_register(adev)
+>> 
+>> Er, the driver would call attestation_create() which will be a wrapper
+>> of ctvl_create. The reason is inheritance chain and each parent being
+>> passed info to and doing its own init()
+>
+>We really want it to look like the above so we get proper container_of
+>stuff.
+>
+>struct driver_attestion_dev {
+>   struct attestaion_dev adev;
+>}
+>
+>driver_adev = attestaion_alloc(..)
+>
+>Don't want "create" to allocate the memory, it is upside down. The
+>fixed memory ctvl needs should be buried in the attestaion_Dev
+>
+>struct attestation_dev {
+>   struct device dev;    // sysfs dev inside class attestation
+>   struct ctlv_XX ctlv;  // ctlv instance
+>   struct cdev cdev;
+>
+>   const struct attestation_ops *ops;
+>}
+>
+>That's the essential skeleton of what a subsystem should look like in
+>linux, ctvl shouldn't co-opt it, it should embed like cdev does.
+>
+>Look at fwctl for reference
 
-Having zero DAMOS quota target value can cause division by zero.  DAMON
-API callers are checking the target value parameters to avoid that.  It is
-easy to make mistakes in some of the multiple API callers.  Move that to
-the core layer.
-
-Patch 1 adds the corner case handling into the core layer DAMON parameters
-validation logic.  Patches 2 and 3 remove no more needed DAMON API callers
-side handling of the corner case in DAMON_LRU_SORT and DMON_SAMPLIE_MTIER,
-respectively.
-
-This patch (of 3):
-
-If a DAMOS scheme has a damos_quota_goal of zero target_value,
-damos_quota_goal() could trigger division-by-zero error.  Hence each DAMON
-API callers should do the zero target_value validation.  It is easy to
-make mistakes.  Actually such bugs in DAMON_LRU_SORT and
-DAMON_SAMPLE_MTIER were found and fixed [1].
-
-It is better to handle the corner case only once in the core layer,
-instead of multiple places in all DAMON API callers.  One straightforward
-option is using an alternative denominator for the corner case in the
-damos_quota_goal().  However, the zero target_value is meaningless.  In
-this case, the quota goal is always evaluated as achieved or
-over-achieved.  The quota will only keep being reduced.
-
-Simply avoid using zero target_value by adding a check in the core layer
-DAMOS quota goal parameters validation/commit path,
-damos_commit_quota_goal().  Update it to return an error in the case.
-Also update its caller to propagate the error.
-
-Notes for stable kernel porting.  The upstream commit doesn't have
-Fixes: and therefore not ported to stable kernels.  It turned out it
-fixes commit 8b549a4fd3c5 ("mm/damon/sysfs-schemes: commit damos quota
-goals user input to DAMOS") which was merged into v6.8.  The user impact
-is a race condition that can result in divide-by-zero.  Hence backport.
-Reproducing the issue requires sysfs write permission, certain DAMON ABI
-usages that are supposed to be uncommon, and a rare race timing, though.
-The issue was discovered [2] by Sashiko as a part [3] of its bug report.
-
-Also, the upstream commit on this stable kernel can fix the issue for
-parameters commit paths but DAMON start path.  That's because DAMON
-start path does not invoke damon_commit_quota_goals().  To fix the path
-with minimum change, add a new small validation of quota goal target
-value before damon_start() call.
-
-[2] https://sashiko.dev/#/bug/linux-7f814c9a-986f-4103-a55a-ef9537dcf62b
-[3] https://lore.kernel.org/20261021005234.94107-1-sj@kernel.org
-
-Link: https://lore.kernel.org/20260903010722.94244-1-sj@kernel.org
-Link: https://lore.kernel.org/20260903010722.94244-2-sj@kernel.org
-Link: https://lore.kernel.org/20260803134034.15217-1-sj@kernel.org [1]
-Signed-off-by: SJ Park <sj@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-(cherry picked from commit 610c4438fb66e06d9e693c0ad3b2c1be54c0d61f)
-Signed-off-by: SJ Park <sj@kernel.org>
----
-Changes from RFC
-- RFC: https://lore.kernel.org/20261025172712.164385-1-sj@kernel.org
-- Add a validation for damon_start() path.
-
- mm/damon/core.c  | 22 ++++++++++++++++------
- mm/damon/sysfs.c | 19 +++++++++++++++++++
- 2 files changed, 35 insertions(+), 6 deletions(-)
-
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index 4e6e3d7d0a5c0..8fa788b0d709c 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -807,15 +807,18 @@ static void damos_commit_quota_goal_union(
- 	}
- }
- 
--static void damos_commit_quota_goal(
-+static int damos_commit_quota_goal(
- 		struct damos_quota_goal *dst, struct damos_quota_goal *src)
- {
-+	if (!src->target_value)
-+		return  -EINVAL;
- 	dst->metric = src->metric;
- 	dst->target_value = src->target_value;
- 	if (dst->metric == DAMOS_QUOTA_USER_INPUT)
- 		dst->current_value = src->current_value;
- 	/* keep last_psi_total as is, since it will be updated in next cycle */
- 	damos_commit_quota_goal_union(dst, src);
-+	return 0;
- }
- 
- /**
-@@ -833,14 +836,17 @@ static void damos_commit_quota_goal(
- int damos_commit_quota_goals(struct damos_quota *dst, struct damos_quota *src)
- {
- 	struct damos_quota_goal *dst_goal, *next, *src_goal, *new_goal;
--	int i = 0, j = 0;
-+	int i = 0, j = 0, err;
- 
- 	damos_for_each_quota_goal_safe(dst_goal, next, dst) {
- 		src_goal = damos_nth_quota_goal(i++, src);
--		if (src_goal)
--			damos_commit_quota_goal(dst_goal, src_goal);
--		else
-+		if (src_goal) {
-+			err = damos_commit_quota_goal(dst_goal, src_goal);
-+			if (err)
-+				return err;
-+		} else {
- 			damos_destroy_quota_goal(dst_goal);
-+		}
- 	}
- 	damos_for_each_quota_goal_safe(src_goal, next, src) {
- 		if (j++ < i)
-@@ -849,7 +855,11 @@ int damos_commit_quota_goals(struct damos_quota *dst, struct damos_quota *src)
- 				src_goal->metric, src_goal->target_value);
- 		if (!new_goal)
- 			return -ENOMEM;
--		damos_commit_quota_goal(new_goal, src_goal);
-+		err = damos_commit_quota_goal(new_goal, src_goal);
-+		if (err) {
-+			damos_free_quota_goal(new_goal);
-+			return err;
-+		}
- 		damos_add_quota_goal(dst, new_goal);
- 	}
- 	return 0;
-diff --git a/mm/damon/sysfs.c b/mm/damon/sysfs.c
-index 7f52470be36e3..3a79d8c89b5bb 100644
---- a/mm/damon/sysfs.c
-+++ b/mm/damon/sysfs.c
-@@ -1592,6 +1592,20 @@ static int damon_sysfs_repeat_call_fn(void *data)
- 	return 0;
- }
- 
-+static bool damon_sysfs_valid_start_ctx(struct damon_ctx *ctx)
-+{
-+	struct damos *s;
-+	struct damos_quota_goal *g;
-+
-+	damon_for_each_scheme(s, ctx) {
-+		damos_for_each_quota_goal(g, (&s->quota)) {
-+			if (!g->target_value)
-+				return false;
-+		}
-+	}
-+	return true;
-+}
-+
- static int damon_sysfs_turn_damon_on(struct damon_sysfs_kdamond *kdamond)
- {
- 	struct damon_ctx *ctx;
-@@ -1618,6 +1632,11 @@ static int damon_sysfs_turn_damon_on(struct damon_sysfs_kdamond *kdamond)
- 		kfree(repeat_call_control);
- 		return PTR_ERR(ctx);
- 	}
-+	if (!damon_sysfs_valid_start_ctx(ctx)) {
-+		kfree(repeat_call_control);
-+		damon_destroy_ctx(ctx);
-+		return -EINVAL;
-+	}
- 	err = damon_start(&ctx, 1, false);
- 	if (err) {
- 		kfree(repeat_call_control);
-
-base-commit: 2926d88bb7fc4608fd942453d929c39e4e5ec006
--- 
-2.47.3
+Yeah, I understand the typical flow. I just wanted to benefit from the
+fact the ctlv has the inheritance chain to reuse it for init/fini flows
+alongside the private structures allocations. It saves a lot of
+boilerplate code and hides it inside CTLV. I admit, it makes things a
+bit obfuscated for end user (driver/subsystem). I'm working on
+conversion to what you suggest.
