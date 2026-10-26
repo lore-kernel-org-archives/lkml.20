@@ -1,57 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.22
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793007663;
-	b=N7Esp4m275cyjDXdUhm1Vya6kwogTtGdEpuIzXXBgn+MiD0ORtH76f4T4SnWI7TgsfO9
-	 Ewfhv0XlooAFe7RCuaSb4Phr/vMkaFqrtaHqJFpPXwU9Q5fMUeRYS4XzOBYuMOHcjN5FS
-	 BE0sFQ2988jf+/c4tpzg51rkfuWdFoP1hdfWDpgQWS202WNS5iesWDXVyLOs1aBIoVsSe
-	 4dx7RnnBt4vBjBqwOC2urMzEySCec8jmNlZQZqBPBlNtuYG2sGLh2ps7yKhjvjcAjV1to
-	 7S4SHubdMrfRBR+I3weBXOVpuhIz2//8j0Im3PiFG4DwHR4etT1LOgpuHS1EjhvdHbA==
+	t=1793007679;
+	b=07JbsXEo4/It6oI25pYQUhE2kC41FzBWwZujPNmieLKNtWFyBIhEXshv2JIl9lze1ozV
+	 yajHZAyWYmaL6AyspF/uGSsPbYMW6Lvx79a98yDUXeqGPaZhIjjO33BlxFMkZRp0LlSvx
+	 pl70BBTYYSNMZI6aC5dqchHUzfzZRFrZA5dtvabIP0HTwRKrWV/T1ZWWCufN+QukgJ2Fe
+	 iDbJuoCTEr9MHMmZbCF9BjbwAgvtvGu+AJLyQwB4Rnb+1nw/5ZrZB8pSFmjHFfzrwe3yr
+	 2F+gtcxwAOFgHD3clU/01V4Ufs6y9TrZGIx7CqNDKrwrMRmCsx/LYa2XcqvJ+FCTZXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793007663;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=/nWOBQ3UDQ/W3CXsSI8TJZhVNJdyXVEnyxKpoZ3u7HQ=;
-	b=Nr7HxftQ+TD2acjor8iDOEhGnniRNufs+Na0g4ITshJ3zOsQ6kXkI27n9SYHHTQXT5iy
-	 MnG6JgRKsEnrPLjqd/yjCGvzeRiuh4QIX9DeAvCse1i7uqDfWJV2D9bb47CNwxu0X0kwj
-	 +StQCdPD1vc7hay3HENuLOWferrFHTLUy8SKBpTHhOsn8mSVuwNTEgQYI6KNLUKVSMRdN
-	 d16gC8eRG1AhNKImTkBx5RBf70jvaiOkDxzQ+8GdiILBM5bCFWn+JM/Kp/lkpkDBd1Em2
-	 2mYB4woJEoOyqVr/alNHwyhMFgUN26n8kSGuLnSuxFJ48MhHZogaQhRtVWSK25GQCeA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793007679;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=BxRlcgnZgnkhi6+O0aTsbz1x8Tq983dT+cO3SyC2Rpk=;
+	b=5SlvK4f1YHM96u92xH7SQAluSUtJrt3CXURrsZjdIdGIChiP+kSEimU4i477l4s0DfJF
+	 iQulBD7L+32wQ8QQXyEZ0uI0cqHyIZ/tL8gX+MPIEir2FK0QmsZVauFmoos9Qqav17u47
+	 XVuQuj4kFK6D2PDLhfW42b4/wYQgW6tlZa9yxn35PcCA4teVb5jqFLpIwvTrRhJ9DiKDq
+	 XCJ7MY/RCWcaChDr4Sf9gRf6pvJJ158VM0C9wJQaMVRuUxV2kqE2vO3ve86vlxixNttSC
+	 gVKP/7dKewzsNzdJcA31KDA/MMNJIgCofblfjFFNBFKiDcVqz95UXUq9eTowvPOonzQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=1g4.org;
-	spf=pass smtp.mailfrom=1g4.org;
-	arc=none smtp.remote-ip=109.224.244.22
-Received: from mail-24422.protonmail.ch (mail-24422.protonmail.ch [109.224.244.22])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LLWJfIRf;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98C71606A31F
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:41:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98C71606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=1g4.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=1g4.org
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=1g4.org;
-	s=protonmail; t=1793007659; x=1793266859;
-	bh=/nWOBQ3UDQ/W3CXsSI8TJZhVNJdyXVEnyxKpoZ3u7HQ=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=TeJjs6IOIwZpClCo4meJBUSSPrqDvTiJ8nX/MjDosrh2Y+p7rdfzxkjr45DaZ8whY
-	 mkUbj+d3/sj3ab6ahDzSVZHAVhpLMMpEynczxJp1cfCDQQz8BS/9z+v7dbsG2g1wnB
-	 uNCYcjom3hKmMhG2GH4pPIT8KeeGUNocZ2OaaytvkP7PC+fYBBPN0aKmSmR9in7XYI
-	 SrLhYTaILK66LLHj134udSfhgNakF2pByv9cy7+yHD3FDVlTs71yfLXWXo6eGajf/3
-	 w310BVKdRcPHvfeWN7oXygdnDIQdhHzgoMg9m9hGoviKvvzLZUM/Mja0aZpvzCkeIQ
-	 8DFi2H/OEmHSQ==
-Date: Mon, 26 Oct 2026 09:40:53 +0000
-To: netdev-bot+sinfo@kernel.org
-From: Paul Moses <p@1g4.org>
-Cc: anthony.l.nguyen@intel.com, przemyslaw.kitszel@intel.com, intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, aleksandr.loktionov@intel.com, chwee.lin.choong@intel.com, faizal.abdul.rahim@linux.intel.com, horms@kernel.org, vinicius.gomes@intel.com, sasha.neftin@intel.com, matthew.vick@intel.com, aduyck@mirantis.com
-Subject: Re: [PATCH net 1/3] igc: pad preemptible packets before reserving TX timestamps
-Message-ID: <Gpz1_ooVsWcYe5XIAt4D2Ci9b7genCxdtNHc0zJLEkcIZiTFzBA07YuMtFwb0V-VGIaVsM8EsE8qV9pvqkVnoD-sjMhSTcWUD0LuWCb_LGY=@1g4.org>
-In-Reply-To: <179300642756.3327.8776904148998915275@kernel.org>
-References: <20261026091549.605810-1-p@1g4.org> <179300642756.3327.8776904148998915275@kernel.org>
-Feedback-ID: 8253658:user:proton
-X-Pm-Message-ID: 0e7f36d84194ab5ae11f27d107ee9c4340588d66
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08B7460A260E;
+	Mon, 26 Oct 2026 09:41:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LLWJfIRf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B28E1F01828;
+	Mon, 26 Oct 2026 09:41:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793007678;
+	bh=BxRlcgnZgnkhi6+O0aTsbz1x8Tq983dT+cO3SyC2Rpk=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=LLWJfIRfqQ9yw9zN8w+tiThnDWMyYGvn4LuqFmaS/+sKhD0RYXGM6ekuLbp5pwye0
+	 GlAFStgMZ4bpa74f1YXxkncoHCET/UQGIsZMpznOcVE3Xmzy+UQDI+uXyspDicU48a
+	 RwH9olooA8JB2RwulISypqfyfEg2BuWxr9jC0KFeW6gkQcEvmtEnultg/qf45+imgv
+	 xOP2nH//hSvDA7H4Rya9klWucPxS630yCdhbc/J0QCPYiQ7ztrPc2vWIote2d2lKzq
+	 n28H/ZOeHflhVLZO1TbpQ0jpRnv49HxVS6FYn+bLcMj+oniKTOECFaDwVDwQK06mDn
+	 Q3tzYXHhxZhCg==
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Date: Mon, 26 Oct 2026 10:40:37 +0100
+Subject: [PATCH 04/16] mm/shmem: honour F_SEAL_EXEC when an ACL is set
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,111 +52,156 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261026-fixes_shmem-v1-4-703206d5fa0c@kernel.org>
+References: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
+In-Reply-To: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ Gregory Price <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Johannes Weiner <hannes@cmpxchg.org>, 
+ Vladimir Davydov <vdavydov.dev@gmail.com>, Michal Hocko <mhocko@suse.com>, 
+ Hugh Dickins <hughd@google.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Lukas Czerner <lczerner@redhat.com>, Carlos Maiolino <cmaiolino@redhat.com>, 
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+ Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ David Stevens <stevensd@chromium.org>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+ William Kucharski <william.kucharski@oracle.com>, 
+ Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Miaohe Lin <linmiaohe@huawei.com>, 
+ Naoya Horiguchi <nao.horiguchi@gmail.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ "David Hildenbrand (Arm)" <david@kernel.org>, 
+ Chris Mason <mason@kernel.org>, stable@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3607; i=david@kernel.org;
+ h=from:subject:message-id; bh=MTJYg0b2CsxJrcKABZR2LY1h7dDRQY+5hOZR0M8LIUo=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLLuK4jVT3O8UbFoGtvb8E/hKj+m79twwzyz9KL69Zhz0
+ XPUIrbu6ChlYRDjYJAVU2QJCr5v8PLlutpqNz5mmDmsTCBDGLg4BWAih3MY/ocumabo41Zs8b81
+ 98X2SZ2fZJuSGX7/ZC5IXXy4c8ncH/oM/11F0stiO/pbry90a6pbmJ955bLoRzPhPf7JQsqlB4v
+ 6uAE=
+X-Developer-Key: i=david@kernel.org; a=openpgp;
+ fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
+From: Chris Mason <mason@kernel.org>
 
+The owner of a memfd sealed with F_SEAL_EXEC can still change its
+execute bits by setting a POSIX access ACL. With CONFIG_TMPFS_POSIX_ACL,
+this lets an unprivileged owner make a non-executable memfd executable,
+bypassing vm.memfd_noexec=2.
 
+simple_set_acl() updates i_mode directly, bypassing the seal check in
+shmem_setattr(). Add shmem_set_acl() to check the resulting mode. Share
+the F_SEAL_EXEC check with shmem_setattr() using memfd_check_seals_mode()
+in include/linux/memfd.h.
 
+Fix generated by an LLM and sent by Chris Mason in private.
 
-On Monday, October 26th, 2026 at 4:20 AM, netdev-bot+sinfo@kernel.org <netd=
-ev-bot+sinfo@kernel.org> wrote:
+Fixes: 6fd7353829ca ("mm/memfd: add F_SEAL_EXEC")
+Cc: stable@vger.kernel.org
+Signed-off-by: Chris Mason <mason@kernel.org>
+[ david: use common helper; simplify description ]
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+---
+ include/linux/memfd.h |  9 +++++++++
+ mm/shmem.c            | 35 ++++++++++++++++++++++++++++++-----
+ 2 files changed, 39 insertions(+), 5 deletions(-)
 
-> Hi!
->=20
-> This is an automated message. This series looks like a fix, but its
-> commit messages seem to be missing some information:
->=20
->  - How the issue was discovered, e.g. hit in production, hit during
->    development, syzbot report, manual code inspection, LLM or static
->    analysis tool scan.
->=20
->  - Whether the issue was actually triggered, or is only theoretical
->    (e.g. found by code inspection). If it was triggered please include
->    the symptoms, like the stack trace or error messages.
->=20
->  - What hardware the change was tested on. For driver fixes please
->    mention the device (and if relevant firmware version) used for
->    testing, or say that the change was not tested on real hardware.
->=20
-> Please do not repost the series just to address the above. Instead,
-> reply to this email with the missing information, so that reviewers
-> can take it into account. If the series needs another revision for
-> other reasons, please include the information in the commit messages
-> then.
->=20
-> The evaluation is done by an LLM so it may be wrong, if you think
-> that is the case please reply and explain.
->=20
+diff --git a/include/linux/memfd.h b/include/linux/memfd.h
+index c159e40e3f34a..272479317cf10 100644
+--- a/include/linux/memfd.h
++++ b/include/linux/memfd.h
+@@ -2,10 +2,19 @@
+ #ifndef __LINUX_MEMFD_H
+ #define __LINUX_MEMFD_H
+ 
++#include <linux/fcntl.h>
+ #include <linux/file.h>
+ 
+ #define MEMFD_ANON_NAME "[memfd]"
+ 
++static inline int memfd_check_seals_mode(unsigned int seals, umode_t old_mode,
++		umode_t new_mode)
++{
++	if ((seals & F_SEAL_EXEC) && ((old_mode ^ new_mode) & 0111))
++		return -EPERM;
++	return 0;
++}
++
+ #ifdef CONFIG_MEMFD_CREATE
+ extern long memfd_fcntl(struct file *file, unsigned int cmd, unsigned int arg);
+ struct folio *memfd_alloc_folio(struct file *memfd, pgoff_t idx);
+diff --git a/mm/shmem.c b/mm/shmem.c
+index d97fc32e7c942..86b9d19f26c7e 100644
+--- a/mm/shmem.c
++++ b/mm/shmem.c
+@@ -77,6 +77,7 @@ static struct vfsmount *shm_mnt __ro_after_init;
+ #include <linux/magic.h>
+ #include <linux/syscalls.h>
+ #include <linux/fcntl.h>
++#include <linux/memfd.h>
+ #include <uapi/linux/memfd.h>
+ #include <linux/rmap.h>
+ #include <linux/uuid.h>
+@@ -1549,10 +1550,11 @@ static int shmem_setattr(const struct mnt_idmap *idmap,
+ 	if (error)
+ 		return error;
+ 
+-	if ((info->seals & F_SEAL_EXEC) && (attr->ia_valid & ATTR_MODE)) {
+-		if ((inode->i_mode ^ attr->ia_mode) & 0111) {
+-			return -EPERM;
+-		}
++	if (attr->ia_valid & ATTR_MODE) {
++		error = memfd_check_seals_mode(info->seals, inode->i_mode,
++					       attr->ia_mode);
++		if (error)
++			return error;
+ 	}
+ 
+ 	if (S_ISREG(inode->i_mode) && (attr->ia_valid & ATTR_SIZE)) {
+@@ -5400,12 +5402,35 @@ static const struct file_operations shmem_file_operations = {
+ #endif
+ };
+ 
++#ifdef CONFIG_TMPFS_POSIX_ACL
++static int shmem_set_acl(const struct mnt_idmap *idmap, struct dentry *dentry,
++		struct posix_acl *acl, int type)
++{
++	struct inode *inode = d_inode(dentry);
++	umode_t mode = inode->i_mode;
++	int error;
++
++	if (type == ACL_TYPE_ACCESS) {
++		error = posix_acl_equiv_mode(acl, &mode);
++		if (error < 0)
++			return error;
++		error = memfd_check_seals_mode(SHMEM_I(inode)->seals,
++					       inode->i_mode, mode);
++		if (error)
++			return error;
++	}
++	return simple_set_acl(idmap, dentry, acl, type);
++}
++#else
++#define shmem_set_acl NULL
++#endif
++
+ static const struct inode_operations shmem_inode_operations = {
+ 	.getattr	= shmem_getattr,
+ 	.setattr	= shmem_setattr,
+ #ifdef CONFIG_TMPFS_XATTR
+ 	.listxattr	= shmem_listxattr,
+-	.set_acl	= simple_set_acl,
++	.set_acl	= shmem_set_acl,
+ 	.fileattr_get	= shmem_fileattr_get,
+ 	.fileattr_set	= shmem_fileattr_set,
+ #endif
 
-Originally found during igc development.
+-- 
+2.43.0
 
-[11865.112180] kernel BUG at pskb_expand_head+0x3f3/0x400 [verbose debug in=
-fo unavailable]
-[11865.112206] Oops: invalid opcode: 0000 [#1] SMP NOPTI
-[11865.324662] CPU: 7 UID: 0 PID: 91702 Comm: t Not tainted 7.3.0-rc6-nokas=
-an+ #5 PREEMPT
-[11865.429202] RIP: 0010:pskb_expand_head+0x3f3/0x400
-[11865.486782] Code: 00 48 83 c7 08 e8 dd da ab ff e9 d2 fd ff ff 4c 8b ab =
-c0 00 00 00 44 8b b3 bc 00 00 00 43 0f b6 44 35 00 e9 89 fd ff ff 0f 0b <0f=
-> 0b 66 66 2e 0f 1f 84 00 00 00 00 00 90 90 90 90 90 90 90 90 90
-[11865.712331] RSP: 0018:ffffaaf3029077e8 EFLAGS: 00010202
-[11865.775131] RAX: 0000000000000002 RBX: ffff9e3260c92920 RCX: 00000000000=
-00820
-[11865.860902] RDX: 00000000ffffffc6 RSI: 0000000000000000 RDI: ffff9e3260c=
-92920
-[11865.946667] RBP: 0000000000000001 R08: 0000000000000003 R09: 00000000000=
-00001
-[11866.032435] R10: 0000000000000000 R11: ffffffffc060c8e0 R12: ffff9e3260c=
-92994
-[11866.118206] R13: 0000000000000140 R14: 0000000000000005 R15: 00000000000=
-0003c
-[11866.203979] FS:  00007860e5343e78(0000) GS:ffff9e3770bd5000(0000) knlGS:=
-0000000000000000
-[11866.301224] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[11866.370293] CR2: 00007860e531ac90 CR3: 00000005a7e60002 CR4: 0000000000f=
-70ef0
-[11866.456051] PKRU: 55555554
-[11866.488599] Call Trace:
-[11866.518015]  <TASK>
-[11866.543266]  __skb_pad+0xbf/0x130
-[11866.583116]  igc_xmit_frame+0x428/0xec0 [igc]
-[11866.635491]  ? netif_skb_features+0x230/0x330
-[11866.687859]  dev_hard_start_xmit+0x9e/0x1b0
-[11866.738142]  sch_direct_xmit+0xde/0x260
-[11866.784249]  ? __dev_queue_xmit+0x99/0xf20
-[11866.833495]  __dev_queue_xmit+0x77d/0xf20
-[11866.881698]  ip_finish_output2+0x310/0x390
-[11866.930951]  ip_output+0x64/0x100
-[11866.970811]  __ip_queue_xmit+0x485/0x4a0
-[11867.017973]  ? __skb_clone+0x2a/0x120
-[11867.062009]  __tcp_transmit_skb+0xa79/0xc80
-[11867.112299]  tcp_write_xmit+0x849/0x1090
-[11867.159463]  __tcp_push_pending_frames+0x32/0xc0
-[11867.214967]  tcp_sendmsg_locked+0xeb3/0x1110
-[11867.266312]  tcp_sendmsg+0x2c/0x50
-[11867.307211]  __sock_sendmsg+0x67/0x90
-[11867.351251]  __sys_sendto+0x242/0x290
-[11867.395277]  __x64_sys_sendto+0x26/0x30
-[11867.441393]  do_syscall_64+0xdb/0x310
-[11867.485420]  ? do_syscall_64+0x42/0x310
-[11867.531533]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
-[11867.592248] RIP: 0033:0x7860e532f19d
-[11867.635231] Code: c0 0f 85 24 00 00 00 49 89 fb 48 89 f0 48 89 d7 48 89 =
-ce 4c 89 c2 4d 89 ca 4c 8b 44 24 08 4c 8b 4c 24 10 4c 89 5c 24 08 0f 05 <c3=
-> e9 1d bb ff ff cc cc cc cc cc cc cc cc cc cc cc cc cc 41 56 53
-[11867.860798] RSP: 002b:00007ffdb9a150e8 EFLAGS: 00000246 ORIG_RAX: 000000=
-000000002c
-[11867.951782] RAX: ffffffffffffffda RBX: 000000000000002c RCX: 00007860e53=
-2f19d
-[11868.037552] RDX: 0000000000000001 RSI: 00007ffdb9a1514f RDI: 00000000000=
-00003
-[11868.123327] RBP: 0000000000000000 R08: 0000000000000000 R09: 00000000000=
-00000
-[11868.209105] R10: 0000000000000000 R11: 0000000000000246 R12: 00007860e53=
-43e78
-[11868.294873] R13: 00007ffdb9a151c0 R14: 0000000000000000 R15: 00007860e53=
-43eb4
-[11868.380648]  </TASK>
-
-Tested on I210 and I225-V
