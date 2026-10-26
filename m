@@ -1,81 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793045108;
-	b=F0Ip3MryqY85Vdq/dOP9DxjlIfS3PAt2YtPUS+i0lrIzAb9IXmnfn5/OXJJK9GBQs2Ft
-	 gYP/h3I35ljYQN8q1di/K0hvv+2zV4O8IP+jB9tQbMybw1srL18PaOaHLZQIXkSR6Todk
-	 ewRvV/DZc9BBErVK0+Ki8VlsmmR/Zc+v9AIn7BgjWPktOTR0Uwar03M1z6fmX3Kac6g4t
-	 X7kTzPOGJPsUjelo0PU3NLsUVRP7WIrrE+ndBtxGKT3dtLun/WH9Y03URlDL7wMaLK9Fk
-	 EPVnhcF3VlbmVQ8L+WMAb3M7pNWbGR1k6FTggD5ks4nKZES3FC3w2cdE8aEXgJdt0iw==
+	t=1793045225;
+	b=eHavKa3JhveHk10m7T8nDrQAFzYZBSzp4S2IEbGgXyhMeUCUmVu7R/38KWOy3OK8408T
+	 Lmtg+bOhjRZJQtnjCkogXo/91zR0boIQLgAA0ghh4oerjNEMLv+PxdtdY87G7qEU5vNbU
+	 GA/TaS2KrZ8Vm00UqQE4YuA21LwyQvdMgMoVDve5Qg5q6994BaCfjCSXB/FyIVbAxmAMU
+	 PIIJpTH+8el7uLxfQIsxtv8AIZEhCPS3/A/GtbPp9YPjj/DEzjnjdv0zJg8LO2aB5lTd8
+	 dogCWYtDJV2Ewq9gqSVb/J2R9s4eqf8RNrL8sc9JOviOaVXZE3Ed25qiKJY0MBeCryw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793045108;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793045225;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=BawehOGx+swDNz30BXtD0rUayjwrRWdohfXeiD3Nwuc=;
-	b=rxd/TfUd8nEkr+Bhk134tT+Avsdhy0ugVOzSOk2nX0w0aX2B0atn/IoIOEr2rwIY26d7
-	 ga1q3AjO5GecHsaWBRcMhyFpR50ROnhOxa9VBnB7huH0LvCshEuMgL0Ab4uGpUocQh8C4
-	 pT2Ht/LTW/f89mqFKXVpOlovhOHXrVwEJoXMSjl6+nquGF0tVu6xBZwV1vMQans8JTRdP
-	 IGUrAVtCDqC8YHsJmxJDzGlPSVybnX2/R9ZsMpwDjPMziIxP0pjxs/kCpFckCMxl62qkJ
-	 bS16L3cvVoho4AEHVyMAgYyMFDz01V5NNfPpPTFQPC2YutztW1LJcoqGrnZl1GyL69A==
+	bh=RjBLPOGTEWRDtuKEh9DSi8M9p5Qd1C/92HwHxjqIScY=;
+	b=PxGX3CXkmYEbXEUGMgiNmFpdLepSwv7hJNw26D5j+zTlgLBwJ+is8BvmfUqK+RRJxcbz
+	 21rs+313dfvZ0uDm/R1A6Brg7oJjo0NoJfwfVjUynAhmK+sAlfx73CoHxDo+fwZjfM166
+	 jvMzPPcNwJzlUJyvpl9Ljg6epXsGf8qHp3zP8gkAUR/D0vYHO27ne5FZqGzcRx6uHNs8V
+	 l0r6iqKNq1iA8RZKX9ssDrtnI7FecnCatjSucxIWBVA9fko4/I9JGnkNLT85OwONj00cS
+	 W9ZOGIbf0MyaWupFNmbb4NTKgRHkC0BzFqrD3o447h8tthyc3R4lDbPmVLA03Vkqt4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=uqkQoFM5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WT52gwbh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0B8C606A31A;
-	Mon, 26 Oct 2026 20:05:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27A7D606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 20:07:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=uqkQoFM5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFCD41F01825;
-	Mon, 26 Oct 2026 20:05:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793045107;
-	bh=BawehOGx+swDNz30BXtD0rUayjwrRWdohfXeiD3Nwuc=;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WT52gwbh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D77651F01825;
+	Mon, 26 Oct 2026 20:07:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793045224;
+	bh=RjBLPOGTEWRDtuKEh9DSi8M9p5Qd1C/92HwHxjqIScY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=uqkQoFM52klwzT7RGNaUFA6Qga4FuWuGaYyefzROIzukjBhIFqREK+pqTr4hriVoK
-	 PDd/0ELiJmI8EHpbo0nbvO9gLFbi48BLIx5y9dL4ZVWfdn+SY805AGZXuJumJAO/Tm
-	 19C/ca7D7sF/slrGjQ3K2AJ2vFy+qN+CzA+phAus=
-Date: Mon, 26 Oct 2026 21:05:06 +0100
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Leon Romanovsky <leon@kernel.org>, Alex Williamson <alex@shazbot.org>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
-	Armin Wolf <W_Armin@gmx.de>, David Lechner <dlechner@baylibre.com>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Luis Chamberlain <mcgrof@kernel.org>,
-	Petr Pavlu <petr.pavlu@suse.com>,
-	Daniel Gomez <da.gomez@kernel.org>,
-	Sami Tolvanen <samitolvanen@google.com>,
-	Aaron Tomlin <atomlin@atomlin.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Bradley Morgan <brads@mainlining.org>,
-	Aleksandr Nogikh <nogikh@google.com>, linux-modules@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-usb@vger.kernel.org, driver-core@lists.linux.dev,
-	linux-trace-kernel@vger.kernel.org, Johan Hovold <johan@kernel.org>,
-	Richard Weinberger <richard@nod.at>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Bjorn Helgaas <helgaas@kernel.org>, linux-pci@vger.kernel.org
-Subject: Re: [PATCH v4 0/3] driver core: add TAINT_FORCED_BIND for when
- userspace manually messes with devices and drivers
-Message-ID: <2026102604-tint-catcall-433e@gregkh>
-References: <DLIL9H50MALI.3JROXYEEUM3KU@kernel.org>
- <arIvG0nx4LXG9nlW@monoceros>
- <defb3953-7516-437e-b70b-d57de55b91bf@baylibre.com>
- <9bd3a34b-5e98-4038-80d6-da2c3b1948dd@gmx.de>
- <2026092321-province-yearly-44aa@gregkh>
- <arOfHEsGGglNse7T@monoceros>
- <2026092348-victory-erased-0e5a@gregkh>
- <20261023181326.0dc2f7ed@shazbot.org>
- <20261026122243.GA28851@unreal>
- <20261026184312.GA1685504@ziepe.ca>
+	b=WT52gwbhOQN1Ks/BJhhPcavJSBeijjaD87P+pc4Sq6oMWWqaGzadpVcwEPiDW6LPo
+	 6qdeXlXiT+gt5WdxnlucVI2ckVSbrjX3hr9IIevTPcic9N6VBxEtziod1o4djsWyVl
+	 TcVJ6qUHRpltBisqhGeGYheS7Jx8lZciTlgpAindPTqc8MWY3J9rk92V2Buys2doKF
+	 LL0Qy8OQ0oe6Yvh6O7HCGiC7tw0qtd5xqsc+nQ6UhDks++eif1Fiw87FF/9LiZFYi3
+	 i11HXMqcH8OvlyZY+NQfrAsTFtics89iLWdTi71RKyVia8Smv4W6YaZ62r3tppe+Fa
+	 6KBumkvd7Ek0A==
+Date: Mon, 26 Oct 2026 20:07:01 +0000
+From: Lee Jones <lee@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Pavel Machek <pavel@ucw.cz>
+Subject: Re: [GIT PULL] LEDs for v7.4
+Message-ID: <20261026200701.GG2195460@google.com>
+References: <20261026152012.GD2195460@google.com>
+ <CAHk-=wgdJOTies4qhrDKFERAYdGS_=6SiGu_onr19qftqKvfrg@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,37 +59,69 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261026184312.GA1685504@ziepe.ca>
+In-Reply-To: <CAHk-=wgdJOTies4qhrDKFERAYdGS_=6SiGu_onr19qftqKvfrg@mail.gmail.com>
 
-On Mon, Oct 26, 2026 at 03:43:12PM -0300, Jason Gunthorpe wrote:
-> On Mon, Oct 26, 2026 at 02:22:43PM +0200, Leon Romanovsky wrote:
+On Mon, 26 Oct 2026, Linus Torvalds wrote:
+
+> On Mon, 26 Oct 2026 at 05:20, Lee Jones <lee@kernel.org> wrote:
+> >
+> > Good afternoon Linus,
 > 
-> > This is needed for two reasons: to save hardware and software resources
-> > when creating a large number of VFs, and to allow the PCI config space to
-> > be configured *before* the driver starts using it.
-> > 
-> > There is no in-kernel alternative.
+> Lee,
+>  your pull requests are already fairly unreadable because they aren't
+> exactly summaries, they are long lists of details.
 > 
-> Having userspace involved in driver binding has also always been the
-> plan for confidential computing needs. We cannot have a device driver
-> bound across some of the HW transitions like TDISP shared/private, so
-> there has always been an expectation of bind/unbind.
+> But darn it to heck, that is *not* made better by then repeating the
+> same long list of details *twice* for no apparent reason.
+> 
+> > LEDs for v7.4
+> >
+> > - New Support & Features
+> >   - Core: Add `led_trigger_notify_hw_control_changed()` to allow drivers to notify the
+> >     core of autonomous hardware control transitions
+> >   - Core: Add the `hw_offloaded()` trigger callback and [...]
+> [...]
+> > - New Support & Features
+> >   - Core: Add `led_trigger_notify_hw_control_changed()` to allow drivers to notify the
+> >     core of autonomous hardware control transitions
+> >   - Core: Add the `hw_offloaded()` trigger callback and [...]
+> 
+> Please try to make your pull requests more readable. Make them
+> explanations of what the pull brings in - highlighting important parts
+> but at the same time *summarizing* thg contents, not just listign
+> every single detail. Much less twice.
+> 
+> The goal of the pull request message should be to explain why I should
+> pull it, but also act as documentation for what has been going on.
+> 
+> The *details* are in the individual commits. Nobody wants the details
+> repeated, people want the highlevel "what's up, what's interesting,
+> what is this bringing to the kernel".
+> 
+> And the merge message is there as documentation for others to read, to
+> get an overview of what is going on - both if things work well, but
+> also if some merge ends up causing problems. That's when people look
+> at merge messages - for people do a "git bisect --first-parent" to do
+> a rough "which merge caused this problem", but also for people who
+> aren't experts on some particular subsystem but still want to get an
+> idea of what has happened.
+> 
+> A suggestion I've given other maintainers is to treat the pull request
+> not just as a "let Linus know", but also think of it as the thing that
+> sites like linuxnewbies and phoronix woudl be able to use to then let
+> people know about what is going on in new kernel versions. So yes, the
+> email is for me to know what I'm merging, but it's *also* for those
+> kinds of third parties (the third parties may be kernel developers
+> too, who just are working on other parts of the kernel but want to see
+> what is going on elsewhere - again, not interested in individual
+> commits, but in the "big picture")
+> 
+> And yes, when an already not very easily readable version then shows
+> up twice, that is just annoying.
 
-What, why?  What forces that decision?  What's wrong with the proper
-driver for the hardware being bound automatically to the device?
+Sorry Linus, this was a <copy>-<paste>-<paste> error during tagging.
 
-> For this case the existing sysf drivers_probe is good enough for bind,
-> but we must have taint-free unbind for PCI devices too.
+Also, noted on the verbosity.  I'll summarise more in the future.
 
-Why?
-
-> I think this patch should be reverted ASAP, it is a pretty major
-> regression for a lot of users.
-
-But this use case hasn't even happened yet, so what would regress?
-
-I'm not talking about the vfio thing, that's different here...
-
-thanks,
-
-greg k-h
+-- 
+Lee Jones
