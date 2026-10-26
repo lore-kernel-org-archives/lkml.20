@@ -1,72 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.109
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793028410;
-	b=aqwpGxfj9MB6WdM3U21E5TVPiJqUibr+/OsO0oxodkbTENohDOuHiudhYQ2JDZd43Nk8
-	 k3wfIqwb4rl8ZkH35hQehwDAjv5L0xsu6f8v5yUbh3uVgoECwrR9pB9vM4oeGCY3WEG4J
-	 oDUOQ6Aj2W0zEkcVYSk4rE26XI/Pj1Y/VAY7mqCjJ1RrEmuK6I/CekF+pebn3W9bJGuwX
-	 d97750wSg4joLPtAQd2UIONZHkciK558AGTcRxYRvXFEMOL/Sz4sgmivSYwrrHM47FrmJ
-	 dZFbh0phYsVTHzT3453u8BQzGE7hDlPMOEnVyTLf+wxOZHP8N7+oX83Sk2vRTV1tiBA==
+	t=1793028412;
+	b=Sb2RpT/hvMIxgC8gHKIS3+vq2L5rpS/AJ1C4zOa9gNHhDRhPM7Re3s8Ro2V/ZaY1QCAr
+	 pX1G6Zv8LyPx0xx7KIeUDjn/YgSP3J5bXxHz48MvfpSngUyPXdM0504zJAPCG1Ml4n/so
+	 KDav1J23UbkegRNbDhaUyG3OY3RK/TdWO93d8HyGYYFRt8zNyckzVcBnp/wp3HfqmOhbz
+	 MyMYKz5iNGYS+P5rR+t0+XE4OvcsqtexbGjBKNFYscX8u1QzJPmuHXXnijq44pRQifiE4
+	 FclyKY6h1J/6JSoNEmIZyDUfzlQhUPEILlCxSEo3MYVfdNOKIaiVOeaHsVw8kLNkXCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793028410;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=dAFgr5GFVCUFPSyhlg3DUaZpfnARnQey3lMyxNdSf/I=;
-	b=GU41JOMCGhLwWzyck603lBf9iobYInxQt2N5gCmmqnoo9Qqpru4RMRGJFGQXY6wsQfW2
-	 wpebAMj6iDc2VQ6IjWLlmornBxG8h56MmReGewxcHHYZ9llNQjZj+UUnCtn+PyNofMFpf
-	 I+xdi+M866t9ITCQlg9TYnsfqZx+XKzLQw2CoRnoeixC7NeRUBKo0O1Lc8Id61WsATMmG
-	 knardQFh9ahjZUWBgesBPFDPvic9ew9MJHLiKTcC8DO3xDSxUhBvLzDL83wd09h2JYNtR
-	 uQXE0zs7x6Ro4nSddZHP01oVw+JewxaCuPdsWdeCd+dQscAvV7xHf+aBve0V3Bby6lw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793028412;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=4BbM1F2A3eE/3huE6mUBSIoTTEogwRsBIuQxP9URyvE=;
+	b=Lap+UJnahp80psVafagUJIdoM602Zd/d9G29aVjUUzM0aB30usjN3Jrgl1XFelp2nQ3G
+	 ZlAj8WTlllfwr3fFC9W1RIaWfAthqNHjDYBeZ0giweKaimvmEMNq/IMaJgZl9xfCvohlz
+	 dhV/AZKM0NHDtcdJSvB5365hmMV3xOKhl4XnHDZneCt51iLALLMUryDJ7dYSo+mlPE+in
+	 14v0CTJg6Yx1NMDmkhdQbX1H5UtAP3t2p8YDGDB1eywlplZBnQO76fElSrYIvmCGbadnK
+	 PdX1a8PG7jmXtS0N6KV8UHOMk3F0sreZkYacE8yqs8baBUX0Y0Lu1iK7g+Ncj5QsrGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=lfvq+ASi;
-	arc=none smtp.remote-ip=95.215.58.109
-Received: from mta1.migadu.com (out-109.mta1.migadu.com [95.215.58.109])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bMR3b6IX;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 907C1606A31E
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 15:26:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 907C1606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BD5B606A326;
+	Mon, 26 Oct 2026 15:26:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=lfvq+ASi
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Gpfg/CtXJGh5QbnPt7iVXc/Il3CyiL4OHB1+vx17vOU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793028407; v=1; x=1793633207;
- b=lfvq+ASiumxv1EPzTQfGbflJ5htPolqDQumFs20FyCg5RYvXBgDs4KRLcmAI9kRLsgulaSNb
- i36nGDemw02DdXpl7Tcs4S53ofD0IlYjpRnUmu32/BkKvGiWGXpqBdosR3BLHgNUpai5oIIkFGV
- qlz1fuO37/fI1/eesQp8H6Ms=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 8be23b0417c64883;
-	Mon, 26 Oct 2026 15:26:47 +0000
-X-Mizu-Trace-ID: 8be23b0417c64883
-X-Migadu-Flow: FLOW_OUT
-From: Fuad Tabba <fuad.tabba@linux.dev>
-To: Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>
-Cc: Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Raghavendra Rao Ananta <rananta@google.com>,
-	Eric Auger <eric.auger@redhat.com>,
-	Will Deacon <will@kernel.org>,
-	Fuad Tabba <tabba@google.com>,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/2] KVM: arm64: vgic-v4: Don't allocate vPEs for a GICv2 VM
-Date: Mon, 26 Oct 2026 15:26:38 +0000
-Message-ID: <20261026152639.3926498-2-fuad.tabba@linux.dev>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261026152639.3926498-1-fuad.tabba@linux.dev>
-References: <20261026152639.3926498-1-fuad.tabba@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bMR3b6IX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EFD81F01828;
+	Mon, 26 Oct 2026 15:26:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793028412;
+	bh=4BbM1F2A3eE/3huE6mUBSIoTTEogwRsBIuQxP9URyvE=;
+	h=From:To:Cc:Subject:Date;
+	b=bMR3b6IXJMDHxS+HwvpeSWkqJM9tKZwR/yyzNhUVzEyqI3jKFgJvQNZYBk14PXEsO
+	 j6FbwckHwrRt1zl3rytWud9MBf9/QXULd61nyUn0NJtxFQFo8GN1h7jwhEGLavNku8
+	 ujKFsK2TnZOYJKNg53j4bbg434mK+0K63TjDQeXC1p09BdSOvvby3/Awd9qqxQ40yJ
+	 9UzeXl+3rbSHy89NkbSH6RdBJyxbXWnZhFka7d6RKrYgSqIaE48raf3+T3QeuoQs7e
+	 QwEVmbnIhB5DVz9+zUpKPKD4IPmDzDBKQPRtz70pbhdEpPQdBMzHk2WL/IAzFwWTw8
+	 /0txNbSJiPPpg==
+From: Sasha Levin <sashal@kernel.org>
+To: Miklos Szeredi <miklos@szeredi.hu>
+Cc: fuse-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	kernel test robot <lkp@intel.com>
+Subject: [PATCH] fuse: fix link error with CONFIG_FUSE_PASSTHROUGH=n
+Date: Mon, 26 Oct 2026 11:26:50 -0400
+Message-ID: <20261026152650.102745-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,37 +59,77 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-KVM can run a GICv2 VM on a GICv4.0 host whose CPU interface supports
-legacy operation. Such a VM has no LPIs and never uses vPEs, so
-vgic_supports_direct_irqs() is false for it and kvm_vgic_dist_destroy()
-never tears them down. However, userspace can still create an ITS for
-it. Once the vgic is initialised, vgic_its_create() calls
-vgic_v4_init(), which allocates the vPEs and requests a doorbell IRQ for
-each vCPU. They're then never freed, and each doorbell handler stays
-registered with a vCPU that's freed with the VM.
+Commit 2f19d54c055d ("fuse: support 64 bit, server allocated backing ID")
+moved the CONFIG_FUSE_PASSTHROUGH check out of the backing ioctl handlers
+and into fuse_get_conn_for_passthrough(). The calls from the handlers
+into backing.c, which is only built with CONFIG_FUSE_PASSTHROUGH, are now
+only removed if the compiler inlines that helper. It does not have to,
+and with gcc 11 and CONFIG_CC_OPTIMIZE_FOR_SIZE it doesn't:
 
-Only allocate vPEs for a GICv3 VM.
+  dev.c:(.text+0x355c): undefined reference to `fuse_backing_open'
+  nios2-linux-ld: dev.c:(.text+0x3594): undefined reference to `fuse_backing_open_64'
+  nios2-linux-ld: dev.c:(.text+0x35d0): undefined reference to `fuse_backing_close'
 
-Fixes: 74fe55dc9ab77 ("KVM: arm/arm64: GICv4: Add init/teardown of the per-VM vPE irq domain")
-Cc: stable@vger.kernel.org
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+Check CONFIG_FUSE_PASSTHROUGH in each handler again, as
+fuse_notify_backing_remove() does. The check still comes after the
+fuse_get_dev() and -ENOTCONN checks, so the errors userspace sees do not
+change.
+
+Fixes: 2f19d54c055d ("fuse: support 64 bit, server allocated backing ID")
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202610171310.uqRzJkIx-lkp@intel.com/
+Closes: https://lore.kernel.org/oe-kbuild-all/202610260719.sj08mXBr-lkp@intel.com/
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/arm64/kvm/vgic/vgic-v4.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/fuse/dev.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
-diff --git a/arch/arm64/kvm/vgic/vgic-v4.c b/arch/arm64/kvm/vgic/vgic-v4.c
-index ed236f083f0d7..a01de4de608a6 100644
---- a/arch/arm64/kvm/vgic/vgic-v4.c
-+++ b/arch/arm64/kvm/vgic/vgic-v4.c
-@@ -248,7 +248,7 @@ int vgic_v4_init(struct kvm *kvm)
+diff --git a/fs/fuse/dev.c b/fs/fuse/dev.c
+index 1a40b60afb986..3641abb90d6bb 100644
+--- a/fs/fuse/dev.c
++++ b/fs/fuse/dev.c
+@@ -2334,9 +2334,6 @@ static struct fuse_conn *fuse_get_conn_for_passthrough(struct file *file)
+ 	if (!smp_load_acquire(&fud->chan->initialized))
+ 		return ERR_PTR(-ENOTCONN);
  
- 	lockdep_assert_held(&kvm->arch.config_lock);
+-	if (!IS_ENABLED(CONFIG_FUSE_PASSTHROUGH))
+-		return ERR_PTR(-EOPNOTSUPP);
+-
+ 	return fud->chan->conn;
+ }
  
--	if (!kvm_vgic_global_state.has_gicv4)
-+	if (!kvm_vgic_global_state.has_gicv4 || dist->vgic_model != KVM_DEV_TYPE_ARM_VGIC_V3)
- 		return 0; /* Nothing to see here... move along. */
+@@ -2349,6 +2346,9 @@ static long fuse_dev_ioctl_backing_open(struct file *file,
+ 	if (IS_ERR(fc))
+ 		return PTR_ERR(fc);
  
- 	if (dist->its_vm.vpes)
++	if (!IS_ENABLED(CONFIG_FUSE_PASSTHROUGH))
++		return -EOPNOTSUPP;
++
+ 	if (copy_from_user(&map, argp, sizeof(map)))
+ 		return -EFAULT;
+ 
+@@ -2364,6 +2364,9 @@ static long fuse_dev_ioctl_backing_create(struct file *file,
+ 	if (IS_ERR(fc))
+ 		return PTR_ERR(fc);
+ 
++	if (!IS_ENABLED(CONFIG_FUSE_PASSTHROUGH))
++		return -EOPNOTSUPP;
++
+ 	if (copy_from_user(&map, argp, sizeof(map)))
+ 		return -EFAULT;
+ 
+@@ -2378,6 +2381,9 @@ static long fuse_dev_ioctl_backing_close(struct file *file, __u32 __user *argp)
+ 	if (IS_ERR(fc))
+ 		return PTR_ERR(fc);
+ 
++	if (!IS_ENABLED(CONFIG_FUSE_PASSTHROUGH))
++		return -EOPNOTSUPP;
++
+ 	if (get_user(backing_id, argp))
+ 		return -EFAULT;
+ 
+
+base-commit: 9b1da7b4a4e197072e630c3b85d4100a399752ff
 -- 
-2.47.3
+2.53.0
 
