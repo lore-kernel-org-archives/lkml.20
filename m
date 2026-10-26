@@ -1,61 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.37
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793031714;
-	b=LVd7Cg7jrGk87wrowE3vphSmsitjuuYskuAJV4aibIjrw/sIaG68o/iFZzaJynInA22M
-	 w6FYmS0itxp9ZRNdsfD0HLiVIMEd0jvuwR41x+rZLtP+77nmjXD4Hcp3X7iiYBNSyRENu
-	 rGoiRr0VUBZypnL7uWKL4SI2P8t6OExHd9okjIG1mGiez5kVPNhJ63ZjfJUydxJSTnrxr
-	 xYJkw/M4DifnSWH+Jwtu6xSr1KWM7lEZBZW2Jmad5xEWmsZlVWbk776rLyMWAgBWSUFJa
-	 WsHKiMeDcc/wxXe3nIFlwraNiWTX9HUTOnAcZMAYf3SL5FAK49MNVUsSDoYsXllJDng==
+	t=1793031865;
+	b=J4j7PvIo1Ca1Fp0lzccvwfdLq1uEU1U7qehERjxraU8mqZtkeo75nkCqcEgSRa5U028J
+	 ps3qegAOaUKIqQP4elBhskmQHVFamg8to68AIx8pMexchEkvdgP58Y2Zf/VChKdg+pwDa
+	 dZrMTyM8M0renG78zZPyOeZVc/c7EcAUIcaZVP8ISTXhdKwYPmqBSg2axJkZrsVvkNCxG
+	 kF6O6fKJyxq2zV+30mOEGxAzE5ttb0tXdb4pD3W+XJ9lItzpANxPq9SvzhzooMzBl9/bH
+	 kjKmwB1h6Z61OS9K5tIOqotfTJAIjcAmUOplFd9k35jJktQHw8ce6rEGAyGXaXpw3ZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793031714;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=vFJvSTUDUI+jot4qzzEf7rMhildAD64LDwSLK2QFNKk=;
-	b=g7bW8uXud3tAIHfJj7Q52xe6w6ePNFAWXAlOc1sW8093pN8ngHUb+eHMLcy42OUYKWv4
-	 xFpBvtOQkHMkthiaESHQewaK5TouO2+ghCm6JkQqwxzlzMgFtMRZiuXj0qjD7L+Zny4gi
-	 IWZB9FzHeobaunnjFb1RniiFBhPaQkmfNVoeQQdqkcFUHTT1M3Cr5dRGQj9/qfbG9C0l/
-	 Q0AG6L26XYDLHJZBrVLOpfU2/YRokZGZI1CYY4p9HHzTPn6weonOA40JsT5zxdspb7K8J
-	 CxiVhf/3ZUlpGWSyUjU4A9j0LZZnYmovDKXLkqbOnplQGAzXw7LcL84NpN0hx02tcWQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793031865;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:
+	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
+	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
+	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
+	bh=DajPTuRGlwcD4J4PQkOl0tYDfpyADr1jZ7qC3/V/b3M=;
+	b=HrpGh8QnJZTA1P/pL81ilddZWr65AmrNC/qFJNByPGH2+FmgeLVf8Pl9jHaX4GH8hk/8
+	 SxIAMq+GWov5s+XEeNYjaya5NR/AwLncN3Yo0E0WCd3iKUnzoyZq3Q4crcAGQFux/x5L0
+	 LPvniO0jQlO+cbVLOYqM1to5U3P/VBGpYAVXS2aYabsqCrGD38bgWu9iHFAKsvB85P/+8
+	 sc3uiv5At65pKVFMT70A/3yUeB61CIPnc1Cnsb8n+2OGmi8Lw+a69BnFZ2cLLAXugSiwG
+	 moVwXXsP6hO4/aSPLkCN3vxN+D3enTgN82LheYwla3aqWWiiqy9ffzDixk7oqm+8t6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ZnDX5/NU";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=lsNrZREB;
+	arc=none smtp.remote-ip=35.89.44.37
+Received: from omta38.uswest2.a.cloudfilter.net (omta38.uswest2.a.cloudfilter.net [35.89.44.37])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11D7C606A31A;
-	Mon, 26 Oct 2026 16:21:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5F9E606A31E
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 16:24:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5F9E606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZnDX5/NU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D56A21F01825;
-	Mon, 26 Oct 2026 16:21:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793031713;
-	bh=vFJvSTUDUI+jot4qzzEf7rMhildAD64LDwSLK2QFNKk=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=ZnDX5/NUB/Yw2H2bYzCKezL16HGsJsa94oypBA6W1FgmppfufYwKhhlTdJmAMzAPS
-	 HGxV/A8x1hpp8Y+mHY4dIiHTBpjphUF0UdN8xpBVyThbdHy6g/iGUZ9t/lBSSpFk2Y
-	 nZvS+QyNWfmPTYAyWzq5t2RmjFJPElKQqe4+D7+tJAsoYSTCEwPKFvzA7lU5/Yy5gN
-	 kztzERck2uzND2XtmPvpBeXn4DH1lMY7v1ZEUZPOw67xMahZaOsZjTF6g0fsna/cn4
-	 gOErYJ5290bD0XdxEMh4SKhUA+94VmLGSUJVx9QHKa7NnTkKrqyx5qKs3ebAo9hBlA
-	 t2gg8pfCiRoJA==
-Subject:
- Re: [PATCH net v7] net: dsa: qca8k: preserve port state across MTU changes
-From: netdev-bot+sashiko@kernel.org
-To: yongzhao.derek@gmail.com
-Cc: netdev@vger.kernel.org, ansuelsmth@gmail.com, andrew@lunn.ch,
- olteanv@gmail.com, davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, linux@armlinux.org.uk,
- florian.fainelli@broadcom.com, linux-kernel@vger.kernel.org,
- hzyitc@outlook.com
-Date: Mon, 26 Oct 2026 16:21:52 +0000
-Message-ID: <179303171241.3134.15019965307136674652@kernel.org>
-In-Reply-To: <20261022155837.760-1-yongzhao.derek@gmail.com>
-References: <20261022155837.760-1-yongzhao.derek@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=lsNrZREB
+Received: from eig-obgw-6007b.ext.cloudfilter.net ([10.0.30.166])
+	by cmsmtp with ESMTPS
+	id LKqZxsdv5v0ndLNUmxBFSu; Mon, 26 Oct 2026 16:24:24 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id LNUlxM0Mx9VGYLNUmxuMBA; Mon, 26 Oct 2026 16:24:24 +0000
+X-Authority-Analysis: v=2.4 cv=VrYjA/2n c=1 sm=1 tr=0 ts=6adf7eb8
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=M0FbrtG7MMAA:10 a=VwQbUJbxAAAA:8
+ a=iox4zFpeAAAA:8 a=tt6zo4tp7eAlrjPKee4A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=WzC6qhA0u3u7Ye7llzcV:22 a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:From:References:To:Subject:MIME-Version:Date:Message-ID:Sender:
+	Reply-To:Cc:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
+	List-Archive; bh=DajPTuRGlwcD4J4PQkOl0tYDfpyADr1jZ7qC3/V/b3M=; b=lsNrZREBaNyV
+	34I/2MbZZFS63thif2qT+LwMsLC5dLGoqiCLbUJia0eyD7/PVaTnwaZHHWBpIRHUpZ+kP/A9qlsnH
+	LqSVDEQc4PwHDdqZElYdGktKtpvwrnoiWjROMvd4FIMmyEezANBlLwMHzae7YjSJjqa2NJ5umz4wc
+	+NYwr866ZOiDKLpxuf7nDfNXJm6ykgXrQNvHi5lixAMBJC6/MC9cpSZc1vt4cFDy7cGaWf7O/RPLN
+	UDkdRAa2PNjqUHhh3tLciDF5bwZZUKJjwIEzW3utdUXbkZoSkLtEUaSrtcIUnP+M2iPZOOkdGWCNC
+	LOnjiQRDB+ichCBDvYCJDA==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:55640)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xLNUh-00000000J3G-11yk;
+	Mon, 26 Oct 2026 21:54:19 +0530
+Message-ID: <7df58d42-517c-4936-88b0-9d044d30882c@roeck-us.net>
+Date: Mon, 26 Oct 2026 09:24:16 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,144 +76,192 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 0/4] hwmon: Add fan tachometer support for Raspberry
+ Pi RP1
+To: Andrea della Porta <andrea.porta@suse.com>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?=
+ <ukleinek@kernel.org>, Ray Jui <rjui@broadcom.com>,
+ Scott Branden <sbranden@broadcom.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Gregor Herburger <gregor.herburger@linutronix.de>,
+ Stanimir Varbanov <svarbanov@suse.de>, linux-hwmon@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-pwm@vger.kernel.org,
+ Gary Guo <gary@garyguo.net>,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+References: <cover.1792748690.git.andrea.porta@suse.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <cover.1792748690.git.andrea.porta@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xLNUh-00000000J3G-11yk
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:55640
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 17
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfOYLIe0VVykCKt8uJpe7+h5FLf4B50MZjMMmpJLmfS19AFueV4pI9UISvxOFkc/8ifLFbBjjHFBH0GH+j6/A599ViNoZZ/mDDSaGS/A8l36j0xfI8EAD
+ h4xEyI2CTI5gxXhHCijnwQKFt/1n5kYxohzsHwf+IFGp7G6wGNbgYIl9whVY9WibPV4KNq3k1ovymOg/vqZxN85AWEKFO1bdXGIbNMVOeR7WIr4iKi9DeoQL
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+On 10/23/26 03:15, Andrea della Porta wrote:
+> Hi,
+> 
+> This patch series adds fan tachometer / RPM monitoring support for the
+> Raspberry Pi RP1 southbridge found on the Raspberry Pi 5.
+> Please note that the patchset in [1] is a prerequisite for this one.
+> 
+> On the Raspberry Pi RP1, the active cooling fan speed is controlled via
+> the RP1 PWM controller. In addition to generating PWM signals, the RP1
+> monitors fan tachometer pulses. The pulse measurement and RPM calculation
+> are performed autonomously by the RP1's onboard Cortex-M microcontroller
+> core, which periodically writes the computed RPM value directly into
+> dedicated MMIO registers located within the RP1 PWM hardware block.
+> 
+> During earlier discussions, Uwe Kleine-König explicitly indicated a
+> preference to keep the core PWM controller driver (drivers/pwm/pwm-rp1.c)
+> focused strictly on PWM duties, rather than bloating it by registering an
+> hwmon device directly from within the PWM driver (see [2]).
+> 
+> Because the Linux PWM subsystem currently lacks a generic framework or
+> consumer API for reporting hardware-calculated tachometer readings, this
+> series implements a standalone hwmon driver (rp1-fan) using the following
+> structure:
+> 
+> -  The PWM driver exposes and exports rp1_pwm_read_tachometer() within a
+>     dedicated symbol namespace ('RP1_PWM') to read the RPM value from
+>     the MMIO block.
+> -  A companion DT binding (raspberrypi,rp1-fan.yaml) introduces a vendor
+>     property, 'raspberrypi,pwm-tachometer', to link the fan node to the
+>     PWM controller node without overloading or abusing the standard 'pwms'
+>     property.
+> -  The rp1-fan hwmon driver parses this phandle, establishes a device link
+>     for proper runtime and unbind dependency management, and registers the
+>     standard hwmon 'fan1_input' sysfs attribute.
+> 
+> An alternative architectural approach to the DT phandle + exported helper
+> method would be to model the tachometer as a child device using the
+> auxiliary bus framework (drivers/base/auxiliary.c). In that model, the RP1
+> PWM driver would instantiate an auxiliary device for the tachometer, and
+> the hwmon driver would bind to that auxiliary bus device without requiring
+> a separate DT node.
+> 
+> However, adopting the auxiliary bus would require a more significant
+> rework and refactoring of the existing RP1 PWM driver.
+> 
+> I'd appreciate any feedback on whether the current companion driver with
+> a dedicated DT property is acceptable, or if an auxiliary bus-based
+> refactoring of the PWM driver is the preferred upstream path.
+> 
+> Patch Breakdown
+> ---------------
+> Patch 1: pwm: rp1: Export helper to read fan tachometer RPM
+> Patch 2: dt-bindings: hwmon: Add Raspberry Pi RP1 fan binding
+> Patch 3: hwmon: Add driver for Raspberry Pi RP1 fan tachometer
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+This seems conceptually wrong.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Have you considered implementing the hwmon driver as auxiliary driver
+and accessing the register in question through regmap ?
 
-- [Medium] In qca8k_port_change_mtu()
-  (drivers/net/dsa/qca/qca8k-common.c), the decision to pause a CPU MAC…
+> Patch 4: arm64: dts: broadcom: bcm2712-rpi-5-b: Add RP1 fan tachometer node
+> 
+> Thanks,
+> Andrea
+> 
+> 
+> LINKS:
+> [1] - https://lore.kernel.org/all/cover.1790686331.git.andrea.porta@suse.com/
+> [2] - https://lore.kernel.org/all/adLTwOTbkJ0VQXy6@monoceros/
+> 
+> Andrea della Porta (4):
+>    pwm: rp1: Export helper to read fan tachometer RPM
+>    dt-bindings: hwmon: Add Raspberry Pi RP1 fan binding
+>    hwmon: Add driver for Raspberry Pi RP1 fan tachometer
+>    arm64: dts: broadcom: bcm2712-rpi-5-b: Add RP1 fan tachometer node
+> 
+>   .../bindings/hwmon/raspberrypi,rp1-fan.yaml   |  39 +++++
+>   Documentation/hwmon/index.rst                 |   1 +
+>   Documentation/hwmon/rp1-fan.rst               |  41 ++++++
+>   MAINTAINERS                                   |   1 +
+>   .../boot/dts/broadcom/bcm2712-rpi-5-b.dts     |   5 +
+>   drivers/hwmon/Kconfig                         |  11 ++
+>   drivers/hwmon/Makefile                        |   1 +
+>   drivers/hwmon/rp1-hwmon.c                     | 136 ++++++++++++++++++
+>   drivers/pwm/pwm-rp1.c                         |  27 ++++
 
---
+Either case, there is no such driver in mainline or linux-next.
 
-net: dsa: qca8k: preserve port state across MTU changes
+Guenter
 
-This patch adds a dedicated mutex that serializes the MTU update with all
-PORT_STATUS writers. During the update, the MAC bits of the enabled CPU
-ports are saved and restored instead of being forced back on afterwards.
-Failed status writes are recorded and retried from a delayed work, and the
-committed MAX_FRAME_SIZE is tracked so a duplicate call for the same value
-returns early.
+>   include/soc/bcm2835/raspberrypi-pwm-rp1.h     |  10 ++
+>   10 files changed, 272 insertions(+)
+>   create mode 100644 Documentation/devicetree/bindings/hwmon/raspberrypi,rp1-fan.yaml
+>   create mode 100644 Documentation/hwmon/rp1-fan.rst
+>   create mode 100644 drivers/hwmon/rp1-hwmon.c
+>   create mode 100644 include/soc/bcm2835/raspberrypi-pwm-rp1.h
+> 
 
-> diff --git a/drivers/net/dsa/qca/qca8k-common.c b/drivers/net/dsa/qca/qca8k-common.c
-> index 13005f10edb7d..d9db5e57928ee 100644
-> --- a/drivers/net/dsa/qca/qca8k-common.c
-> +++ b/drivers/net/dsa/qca/qca8k-common.c
-
-[ ... ]
-
-> @@ -782,27 +856,59 @@ int qca8k_port_change_mtu(struct dsa_switch *ds, int port, int new_mtu)
->  	if (!dsa_is_cpu_port(ds, port))
->  		return 0;
->  
-> -	/* To change the MAX_FRAME_SIZE the cpu ports must be off or
-> -	 * the switch panics.
-> -	 * Turn off both cpu ports before applying the new value to prevent
-> -	 * this.
-> +	/* To change MAX_FRAME_SIZE, pause enabled ports 0 and 6.
-> +	 * Serialize with phylink and restore the saved MAC state.
->  	 */
-> -	if (priv->port_enabled_map & BIT(0))
-> -		qca8k_port_set_status(priv, 0, 0);
-> +	mutex_lock(&priv->port_status_lock);
-
-[ ... ]
-
-> +	ports &= priv->port_enabled_map;
-> +	for_each_set_bit(i, &ports, QCA8K_NUM_PORTS) {
-> +		ret = regmap_read(priv->regmap, QCA8K_REG_PORT_STATUS(i),
-> +				  &status[i]);
-> +		if (ret)
-> +			goto unlock;
-> +	}
-> +
-> +	for_each_set_bit(i, &ports, QCA8K_NUM_PORTS) {
-> +		u32 mask = qca8k_port_status_mask(i);
-> +
-> +		if (!(status[i] & mask))
-> +			continue;
-
-[Severity: Medium]
-Can a concurrent register reader corrupt the status[] snapshot here and
-make this skip the pause?
-
-qca8k_regmap_config in qca8k-8xxx.c has:
-
-    .disable_locking = true, /* Locking is handled by qca8k read/write */
-
-So regmap_read() goes through _regmap_bus_read() and takes no regmap lock.
-The register address is formatted into the shared map->work_buf, and
-qca8k_bulk_read() reads it back from there:
-
-    u32 reg = *(u16 *)reg_buf;
-
-The value is parsed from the shared work_val only after the transport has
-released mdio_lock:
-
-drivers/base/regmap/regmap.c:_regmap_bus_read() {
-    ...
-    ret = _regmap_raw_read(map, reg, work_val, map->format.val_bytes, false);
-    if (ret == 0)
-        *val = map->format.parse_val(work_val);
-    ...
-}
-
-port_status_lock does not cover readers such as qca8k_pcs_get_state().
-Phylink calls it from its resolve worker without RTNL, and it is polled
-because qca8k_setup_pcs() sets pcs.poll = true. The LED hw_control_get
-path is another reader that takes no lock.
-
-For example, with port 0 enabled and port 6 in in-band mode after a
-link_down:
-
-CPU1 (RTNL held)
-qca8k_port_change_mtu()
-  regmap_read(QCA8K_REG_PORT_STATUS(0))
-
-CPU2
-phylink_resolve()
-  qca8k_pcs_get_state(port 6)
-    qca8k_read(priv, QCA8K_REG_PORT_STATUS(port), &reg)
-
-Suppose port 6's address or value lands in work_buf before port 0's value
-is parsed. Then status[0] would have no TXMAC/RXMAC bits, the continue
-above would skip port 0, and this write would run with the port 0 MAC
-still enabled:
-
-> +		__set_bit(i, &stopped);
-> +		ret = regmap_clear_bits(priv->regmap, QCA8K_REG_PORT_STATUS(i),
-> +					mask);
-> +		if (ret)
-> +			goto restore;
-> +	}
->  
-> -	if (priv->port_enabled_map & BIT(0))
-> -		qca8k_port_set_status(priv, 0, 1);
-> +	ret = qca8k_write(priv, QCA8K_MAX_FRAME_SIZE, frame_size);
-
-Commit 386228c694bf says this state stops the switch from sending packets
-until reset.
-
-The shared work_buf race itself predates this patch. However, the old pause
-was an unconditional regmap_clear_bits(), which goes through
-qca8k_regmap_update_bits() and does not use work_buf. So it could not be
-skipped this way.
-
-The window is small, but should the pause avoid depending on this unlocked
-read? One option would be to clear the MAC bits of the enabled CPU ports
-unconditionally, as before.
-
-> +	if (!ret)
-> +		priv->max_frame_size = frame_size;
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261022155837.760-1-yongzhao.derek%40gmail.com
