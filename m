@@ -1,105 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793032834;
-	b=QNGjipPUrDu1iQpMVk6tLCEpXcyOzTLQNoZMYbnSw/69wWAxIAXKBCK0LqkMfdfIMP7Y
-	 Wh+j5dXpozC7IMG/2moSs8DuxoyzuHE1SsNb+YSv+HuxvbAUYoyeqI9jT1nO1HUDlRNe4
-	 suqptUmxSbRvlDHv0t9FEQpQuCm0vMdFjeqRAsGTTRL4pDrajJzjBcbFWBBo4sfIlUNcS
-	 854XDpsWc3NnFysnVYO7NjZ1WqeodtGJpoN8EEid62fG+i4dbRyyudhdr81nCCI4rQ4kp
-	 etzBsqktsbSrFnkDYthTJZghkFp2Wxma7WqDZDNbfKKkyma3/LpKRj/pG170igMzsUg==
+	t=1793032935;
+	b=rU4K4BrYZSPufY3AWDVzZL8dcYAz6jxyYKbDhMPD+gfhnnQz9Mr5ZEoHePkTB7optSJ9
+	 p/7/tdAOzyjeKcjMWdyO0q1Sm43Q4qv1Vj+FlqWKWz0ZxXTASCkzeBhEu0Zuy2dB57clJ
+	 uwKFW+Jv0M3211IPdo/6F9c9E7dEOv6l2hH6pTraR8xczgQ1F9D5hTioFSCFkSmXPdDnu
+	 /ddoBc0natTSX/PsMoAynV9f3NleyzMGZPmz1/mEQwXoDMQQthQFe/gwhvVUWyAmsF1QY
+	 jk6Fe60j4txZ8RNRHUMmTOu2Yu+Mw+AzH2i2BFrntRO7tlIgw+erHkehVaSLCjztQgA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793032834;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793032935;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=oG0OCrqpe0XEV+bay86LwUo+wIO5sgYnrEJ8HAsyUYo=;
-	b=FRQ1cYDAqCVMiYslK9LYsUGYDKl6ZTq9n6ScS077xjan/dH4lu/OJfZ3/o2sxq0xs0Ob
-	 RQw8sIIUXVkZ3IaALIBwlFFwK0zQQ/5weYn5HEg90uGEdbfn8NXKUm1yyP0UzdNBRAtb6
-	 2A3JYtAf+SmasBNmvc0WqMDBzGvmdBU9q0cI/s+gfyY//qEVIKPAE+T1KYffo77/9tlk5
-	 KmrLDrSDNua8XSbovIMzht7KTgE01eW3Nvk00oVUPYSiX6zFfkI8Artm5x2iHYkiBU8ez
-	 2Xmy/zsP4nUisNGCrm5FoSX+y7nHpJxcu85IjcZnr1LyoIrOyemsan2HkFGBAaWd72g==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=IZdnB36TYkFpUyJUmp0mF4p0xDjkPFbcHCtRdEkoFgk=;
+	b=pBRib3VyzTl1ACAe5sX+NkBpoYzoibBoVAgG3Vrx7xWgyIFw8upRL2NLaLU0D4JAshbR
+	 yNOJXegFdeLsMEr93rbEduysNMwzE0cXNipcPRSqBB4hDRbmZKeVmSvsqB3VBjXFbSDAJ
+	 rWFCkxUEWCGm9lveN1FvHPTu7jNE9c4bkH0Fa2dT1BPud2Tjr3p2rdvIybtSUzCP69n7I
+	 q6qOWjnhFbztKVjFLfKTs0D2xmt6S2HR+ogiEB91FUPELxt2D+x/i+g1P97I5HB4MRFOZ
+	 3Tzk2Vrq+KyruUbQLWSikwMXpjCFq649nfbsJuZs2ILkklJhMbDjOHA9CrQerVfacIw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=neat.no;
-	spf=pass smtp.mailfrom=neat.no;
-	dkim=pass header.d=neat.no header.i=@neat.no header.a=rsa-sha256 header.s=google header.b=gWDcGF5y;
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=kvxhfPHE;
+	arc=none smtp.remote-ip=209.85.221.50
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD27C606A32A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 16:40:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD27C606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=neat.no
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=neat.no
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95BEB606A31E
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 16:42:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95BEB606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=neat.no header.i=@neat.no header.a=rsa-sha256 header.s=google header.b=gWDcGF5y
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a7992e2f7dso2527965e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:40:33 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=kvxhfPHE
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48dfc0421d9so2806393f8f.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:42:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=neat.no; s=google; t=1793032832; x=1793637632; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1793032933; x=1793637733; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=oG0OCrqpe0XEV+bay86LwUo+wIO5sgYnrEJ8HAsyUYo=;
-        b=gWDcGF5yTCl+ltUDUmx/EnIgMcv9cYZ45OAt4KEzCH/FGL+HfkLw8Jzw+f2sewUcB2
-         y17Je6QGxvKQmyjWvFqT8ILCHIpgVBOezjYEN3CeDh4Zx27yJwhvZZXlG2N/+iHKM+b3
-         Rja7q+PXBGGrt0tQBtM4CCeDn3z9fwALWTHLNXLOCU0TpzuhCxd4leFmfUzf0pQnYyDm
-         fY/tltoI0TpdBu7oKcsU2yD9zaYFLPHINo0GyfW7TDMBBLTKFSrbcmX25mNU+giaPqyi
-         C5H/kl+d0wv4mguweDiPc0Z41rGa5aaIbs3mqUEopLkaUy8Idw+Tn2/DTVANbu5qrPNV
-         onOA==
+        bh=IZdnB36TYkFpUyJUmp0mF4p0xDjkPFbcHCtRdEkoFgk=;
+        b=kvxhfPHE820gI1UUM7RXsrnNDxX4JrU74bUFOfmSep4/3gAeNvshA/8Bq03VHIFLED
+         B2DnvrQ5EKlS4kyfFqCYZK+i9/+z3Qq7dxQiuOrBW9QxNjrZLaJhKr/bk3lnGctZaVPN
+         giZlBVnKR53ravR3lGTnElS6al/3sOTSa1FX+Dqj5LGsLENIFYq2lu+Z8h447XRywzz/
+         9RmD79V+yeHq+iId1UD1Aw8nBTCX/JwaE22BV2w8BSZo0zZl/OQ8LmdA+zl8f9THLcwS
+         0fEL0p/HYeQjUUiY4wpLyMmaAt5eace+ZnHI1Ypp3WStbBPcIo5blod+7a8tOh85t51Z
+         MxNg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793032832; x=1793637632;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1793032933; x=1793637733;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=oG0OCrqpe0XEV+bay86LwUo+wIO5sgYnrEJ8HAsyUYo=;
-        b=Cdf+Q62aLW76Yq8UDaOxegG2/8ejtPABWuA8OvUtU1qCIQ75dCBeKgof0ktWytHxp3
-         vvWPZJ7kNuWxMMD8sGsPdb3gJwmQnD+oFasuYVtVZB03eVX7zrJSxl/ADUZpF+bJIpg3
-         icOWRp7I05AGbxKQop1xieogm2X4odSBKR39hSJ0uXt9oeO8A1eHwuPRbpTqlBA6Skg7
-         6MGVXKANQDpfbu919OpfZfW1eCpqg0Js2qFl/l1OXN5rp0kudMkQ/qb8NC/AusWxHpaL
-         VqpfkHqR5gN7v2QSsY5JOWCeUVDyg2oQOOtqwMeOqvvEBOXWJJotK4ApJpS25eHHnRYF
-         0N0A==
-X-Forwarded-Encrypted: i=1; AKwUvByH+M/WLyC8ZbnXuk5kQvXYaJCpEwb5Q1/5d1y7aLDbiKdl+tnvPcRZTOmU0MHTxNb+hG1GyG1s8+sLBuI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ9p59cZPM+YIaTIp3fJoDUfZKFrlxIDChRfuh9ZdayDYhqjc+E
-	/m3j7dH2ON2oqBhaDDSFp87/OBE7+WEeVboekGgtiIGKwRbY1F7MNKw/NtTbZQeVvFWKb78nJlQ
-	N4pSAV2RUeCTb6cYpJE+gSkwFu6MOsvSrF+3FmBnWWbZcAVWh1imtvesiN+h1bYeUXY9y/zlNPr
-	1ylwwD4GlLp/lsY+eSXYmkC2pnZEucUtGf5aDrJ15m+hdfEG/DathI4RaLJvWO8xvTIrAml+rEt
-	WTUKvJdGcFrBYQDEjY=
-X-Gm-Gg: AYBFou0tnai3GoF447Z0AgQdLOEMKNU6XbdQnf/lt+pGQ6hvyRne0xDEmgGJpqzAfeu
-	DDoY5k3fnuYsChmaLL/juEYXDnL1W55RbGCSleLE6qcvJgXUa9AlwpS8OKcaRJ1PHe/TIaIDt7j
-	nEmO4p6i7N4mxiEMPdatldH4A+jRtDuJA/nrMB3ZgoX9S5o6lhD/UQizRof58FhtY6uhIp7+O8u
-	mxSZIvnq0PWEI27fd6XufdZwXyPvJB4hqWPk0Ms8wTpdd/0CPRk9kHY6VoCCgfyW2TFNbaXGpvp
-	6vJBgQ8IE/Awp70M+UckOo17rNAN5vg00WwNj5LGRFcK+IgwOsnxnGZCC4YvpGq7nIv/GxOPzTM
-	utt+vVBeuXwrrpBck/UzKCyQmPS0Xq1bn2xl+HyLbeXp+lTyScy2KF+8uRkLlguXMgedlbkcPfO
-	H/fqMkNl/bVYd9eibS3VFabE/cuO9+LJ3TC1DIDKTnobiV1qe7l2spwqRgdlwm1V0WYlKdziibJ
-	wFbC3wqyWmflYZ7CAoldVVI+ft+PqkTb24g5PbXrfy4bG9t9q9pCOrqmfqKnWhT
-X-Received: by 2002:a05:600c:19d4:b0:4a1:fa33:441a with SMTP id 5b1f17b1804b1-4a35ac3f123mr144774155e9.2.1793032832124;
-        Mon, 26 Oct 2026 09:40:32 -0700 (PDT)
-Received: from threads.localdomain ([81.79.62.202])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a30e22csm205961655e9.2.2026.10.26.09.40.31
+        bh=IZdnB36TYkFpUyJUmp0mF4p0xDjkPFbcHCtRdEkoFgk=;
+        b=r5aiJvoOh+ZqgyYMA5xqv2Lor2oxbKKd25XnMOhWB45L171r6uEVvOSWIK6jhml9Q/
+         sS9HnRwO82CPEiVjjyd90/fe8jtPA6td1Hv3PEQMjrcPvqOv7HBrE04rlLdTtKYI05XL
+         hKLwUTEC4e0Ctk9k6+v17Ax+ThGNQyg7qOz1iDkhOksSFF94tkYlZf+q0fSgE8FYeC4T
+         Je1Tpri4IfqRWqXhEr8w+vl+q2vfZ2WMUnyUTcQIEljdvYvauAVgzzHjqPgRYp0Lscm5
+         R0Fj5DBXYsdJAY4rDIru6qWcD1BGNUPMPyZUok1gPpfMeoZOo1iAr2hbwfsgmUL8QK53
+         UkPg==
+X-Forwarded-Encrypted: i=1; AKwUvBw6Nj1Jtb0VqfSCq/GdHD2+1kRDESttNQQJorMOgZr+R0yh/Tzh200n/qIRyKwMeaTla3JYLtxo1Sxz+GY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ22000lS9VpcXSOCZCBJkygOvzdSlXTauBFtswGqrPUnMElepl
+	NE7nhi/oACyMDqycKpF7+igCJoYO4clvvyIep+CnUd5kN1PsnUD7GynL
+X-Gm-Gg: AYBFou0xCx6N+SqSWMmlaVFXiDsDyPvbtyQyOE6eTABpnz33aNdXAcZaXZvjhz86H+w
+	2t8KrvPm1OlTst4txiiU4h+vCbB7JEmtDf/zB6pqRU1sAwBkevotcB7Bm8BumBuqLc0nru74eDL
+	ih8qNsYLFZrsjogY59473LB6jk79BAWxBQrkBasT/vdcKksbiZkibCoYwVWsm4cQ84eZDVK4zF0
+	DtOVc150b0VIub+jLHDirX6QtdMPYgelR7WOi5BEDpyvgMrJld+ZlGAhSjVxo0/+7hvh3L42LtQ
+	xcVWDDYovICkLsMOsnb/yiHXSP4rQv/xqFfX2wb7YWFf0HjlcP3i4gRk5yel3Xyu+XsFrsIoV+z
+	bn7ustWKTc05LS5XV0Advv9H7v2CPVl39Ih2jQEIDhYRr6V0WAGPuMYOXLMXjvgK94egnixHGMU
+	HU8ratDLRhaRjuAC2439tFSazJhLXUJMY9MmnT0W44d0OJ6hr9+1W2rnSEzaNs4znBMBTOhLsb1
+	+5A0OYqIlmXqQUmpm3hRsjhIEWHu/lArIFN3KTQ5480SAE5HCJG
+X-Received: by 2002:a05:6000:24c8:b0:48d:f831:2681 with SMTP id ffacd0b85a97d-48e3eb922a2mr13567728f8f.38.1793032932768;
+        Mon, 26 Oct 2026 09:42:12 -0700 (PDT)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ece14a1sm17879800f8f.57.2026.10.26.09.42.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 09:40:31 -0700 (PDT)
-From: Lucas Tanure <lucas.tanure@neat.no>
-To: Maxime Ripard <mripard@kernel.org>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: Dom Cobley <popcornmix@gmail.com>,
-	=?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
-	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	dri-devel@lists.freedesktop.org,
-	stable@vger.kernel.org,
+        Mon, 26 Oct 2026 09:42:11 -0700 (PDT)
+Date: Mon, 26 Oct 2026 19:42:07 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Abdullah Mohammd Sifat <sifat.yt.2.0c@gmail.com>
+Cc: hansg@kernel.org, mchehab@kernel.org, gregkh@linuxfoundation.org,
+	linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 3/3] drm/vc4: hdmi: enable scrambling before the TMDS clock starts
-Date: Mon, 26 Oct 2026 16:40:28 +0000
-Message-ID: <20261026164028.78792-4-lucas.tanure@neat.no>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261026164028.78792-1-lucas.tanure@neat.no>
-References: <20261026164028.78792-1-lucas.tanure@neat.no>
+Subject: Re: [PATCH] drivers/staging/media/atomisp: Initialize curr_rules in
+ atomisp_freq_scaling
+Message-ID: <at-C33IuUEms74EL@stanley.mountain>
+References: <20261026161058.25031-1-sifat.yt.2.0c@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,76 +97,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261026161058.25031-1-sifat.yt.2.0c@gmail.com>
 
-HDMI 2.0 requires a source to suspend the TMDS clock, write the
-TMDS_Bit_Clock_Ratio bit in the sink's SCDC registers, wait at least
-1 ms and only then resume the clock. vc4 does the opposite: the PHY
-starts at the new rate first, and the SCDC bits are written tens of
-milliseconds later, at the very end of the enable sequence, together
-with the source side scrambler. On disable the bits are cleared while
-the clock is still running.
+On Mon, Oct 26, 2026 at 04:10:58PM +0000, Abdullah Mohammd Sifat wrote:
+> The local structure 'curr_rules' is declared on the stack but is
+> not initialized. Initialize it to zero using empty brackets '{}'
+> to prevent potential information leakage of stack garbage values.
+> 
+> Signed-off-by: Abdullah Mohammd Sifat <sifat.yt.2.0c@gmail.com>
 
-Some sinks sample the bit only when the clock appears. One HDMI 2.0
-sink we tested then sets up its receiver for a 1/10 clock and never
-recovers: a Raspberry Pi 5 at 3840x2160@60 shows no picture, while
-1080p60 and 4K30 work and other sources work at 4K60 on the same sink.
-Writing the bit by hand before enabling the output makes the same mode
-lock every time.
+The commit message says it fixes a bug but there is no fixes tag.
 
-Enable scrambling, on the sink and in the controller, before the PHY is
-started, and disable it only after the PHY has been stopped. The SCDC
-helper already waits the required time after writing the ratio bit.
+> ---
+>  drivers/staging/media/atomisp/pci/atomisp_cmd.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/staging/media/atomisp/pci/atomisp_cmd.c b/drivers/staging/media/atomisp/pci/atomisp_cmd.c
+> index e66a7d1c7a0e..d4de2bd9a0a5 100644
+> --- a/drivers/staging/media/atomisp/pci/atomisp_cmd.c
+> +++ b/drivers/staging/media/atomisp/pci/atomisp_cmd.c
+> @@ -170,7 +170,6 @@ static int write_target_freq_to_hw(struct atomisp_device *isp,
+>  		dev_err(isp->dev, "DFS target freq is rejected by HW.\n");
+>  		return -EINVAL;
+>  	}
+> -
 
-Fixes: c85695a2016e ("drm/vc4: hdmi: Enable the scrambler")
-Link: https://github.com/raspberrypi/linux/issues/7693
-Assisted-by: LLM
-Signed-off-by: Lucas Tanure <lucas.tanure@neat.no>
-Reviewed-by: Maíra Canal <mcanal@igalia.com>
----
- drivers/gpu/drm/vc4/vc4_hdmi.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+Deleting this blank line is unrelated and wrong.
 
-diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdmi.c
-index 4a386e053d3f..e57fc33af6b3 100644
---- a/drivers/gpu/drm/vc4/vc4_hdmi.c
-+++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
-@@ -918,8 +918,6 @@ static void vc4_hdmi_encoder_post_crtc_disable(struct drm_encoder *encoder,
- 		spin_unlock_irqrestore(&vc4_hdmi->hw_lock, flags);
- 	}
- 
--	vc4_hdmi_disable_scrambling(encoder);
--
- 	drm_dev_exit(idx);
- 
- out:
-@@ -947,6 +945,8 @@ static void vc4_hdmi_encoder_post_crtc_powerdown(struct drm_encoder *encoder,
- 	if (vc4_hdmi->variant->phy_disable)
- 		vc4_hdmi->variant->phy_disable(vc4_hdmi);
- 
-+	vc4_hdmi_disable_scrambling(encoder);
-+
- 	clk_disable_unprepare(vc4_hdmi->pixel_bvb_clock);
- 	clk_disable_unprepare(vc4_hdmi->pixel_clock);
- 
-@@ -1554,6 +1554,8 @@ static void vc4_hdmi_encoder_pre_crtc_configure(struct drm_encoder *encoder,
- 		goto err_disable_pixel_clock;
- 	}
- 
-+	vc4_hdmi_enable_scrambling(encoder);
-+
- 	if (vc4_hdmi->variant->phy_init)
- 		vc4_hdmi->variant->phy_init(vc4_hdmi, conn_state);
- 
-@@ -1688,7 +1690,6 @@ static void vc4_hdmi_encoder_post_crtc_enable(struct drm_encoder *encoder,
- 	}
- 
- 	vc4_hdmi_recenter_fifo(vc4_hdmi);
--	vc4_hdmi_enable_scrambling(encoder);
- 
- 	drm_dev_exit(idx);
- 
--- 
-2.56.0
+>  	return 0;
+>  }
+>  
+> @@ -180,7 +179,8 @@ int atomisp_freq_scaling(struct atomisp_device *isp,
+>  {
+>  	const struct atomisp_dfs_config *dfs;
+>  	unsigned int new_freq;
+> -	struct atomisp_freq_scaling_rule curr_rules;
+> +	struct atomisp_freq_scaling_rule curr_rules = {};
 
+I reviewed this and the original code is fine.
+
+.isp_freq is never initialized but also never used so that might be
+the confusion?
+
+regards,
+dan carpenter
+
+> +
+>  	int i, ret;
+>  	unsigned short fps = 0;
+>  
+> -- 
+> 2.53.0
+> 
