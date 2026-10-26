@@ -1,98 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793021878;
-	b=TIv1zWCpWvPgZNVzxVpPdQxeIa4DDo7b52gilgApt6Aj88y8jSuVNf5AobWQI1xOe/BZ
-	 jBdltjKkL0CqGytgHvlaYn6Eg5JJrFlxfaTaKAeHniNqgp/erRtEH3e21/A87/1JXW4Rc
-	 5cKdZOiCrU4zVxrEd3vRpv9xRi3hFN4drZATPOL/4SlYT7Vx/v75oz7tZwNJWRcb88cfZ
-	 5gdOH+GZulvfpbBLSq5wVWCsY8aoMzKF8YeeUs5iVqVGN9jTrld5wnKHHb4SYxoUBlBox
-	 M7ocYV9zeqLo97+aaR2eFgUH2ESKNpRQIyq0Z9g7Ib7MeT8fD/yvG++lKlzMCJejFRw==
+	t=1793021916;
+	b=sch6A8dv4vwTYHP5tDDqBxI/V6oeVE8oq+6S6cyYvu7P62lm7NxXDpCMtv3lI3/YPW0K
+	 Is2gXEEPiyjm+Say+dg/IoRDR/qXd/E3T1rdNA7wmvIOh6xE2kVfsH77F6GwVzeFaUYxX
+	 tNrpPosNR+ZMysAtiZUzcG78Bwp13okNo5sef+cOoSxHe8fpWyk+mbMU8daAUi1acsFhe
+	 fgQfqDUtEL7yOLSahZSEgog3l1Saqn9ohHui+j6MgOOzXZA3GHopZojSvPiigCaIm2mwt
+	 YFSdK+KhyuzAsgpaest94pTgoqEYIkCz8vAAXNnGvC2c0TQ9Rc/hWIAfBGfPPq/qZiw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793021878;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=YHhQhHw8tFklUCKn4leq9BujpwTXXeaWsKyJ0rbw2Lk=;
-	b=tmcpN6qR1bIogJhX8hwfKo50+AvtGdqbelkB7rS+FlY0mn168KumyHJdhnZElbzKmZ/k
-	 W3caoayq4/59/QCoxGephD8EV0+4x3yaIau2Segr9m+Vg52UFDnnId5yhOA0+041am/2i
-	 EecKDPsOCGwDM129mq7xzz5y9suPPOTdLR78/4JtvAKtyV2qQhqs+hcl9UagfleZyIyrJ
-	 EHlOBhY6TbHj2WWOETZieFEooBjY1JsOmH2kw/526JqTwiaOKgntuS5BceSt6mTMPlaUY
-	 R7VHELjcJ6bNOOSoD4i838Plv980I4SHmhrAVbwMzZU8ebVKyBJwKtwUP4s4oJzBkjQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793021916;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:
+	 X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
+	bh=eHOfMK6o0REgr2trRNcLayc/qQKn8qWFAKOukLvltc4=;
+	b=ItmLg7uBYzcTlGZlvEx/UpCC/lPuz05RS6doJXEDZYZxzzu+wZ/MHf3sZiJEP8tMG/HY
+	 tTzpGWcTIbx62p0M6YSOkX7YfyZ5eOlzvX11ug4o418FSvTJHnPxhyLdr8awCYuYg4V9V
+	 JBXi6DLMrjjBLOyv5Rd7U9EwYc6Ccfcg6QHqln+6IBZYFYeiVczJsO0ulJ0/oAe9ja8xW
+	 0CXE2eJeq+LQtV3i2WE3wYfVF/knSudhLekZqUGOrvEmDDLJFnBAXZ6c4zTi97MRHTsOA
+	 EcZihyVqM5X3eeG52bpj9ouLoOQSZ8ueN1RX0T5W29LfGMPWhCg7BPyMW/xFRsgh56Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="M+hS/6Yh";
-	arc=none smtp.remote-ip=209.85.214.176
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=mtpkOCsm;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="/4Ip0aOS";
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=i5TtyA21;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Wpg2m4gK;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A95860A3823
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:37:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A95860A3823
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86AE5606A31E;
+	Mon, 26 Oct 2026 13:38:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86AE5606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=M+hS/6Yh
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2e8fe8e343fso17488645ad.2
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 06:37:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793021877; x=1793626677; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YHhQhHw8tFklUCKn4leq9BujpwTXXeaWsKyJ0rbw2Lk=;
-        b=M+hS/6Yh7eMMnYttgzpMOs3fY5AEUoPRzxD0vZDu1UOA2jndQG+Kd+kXqeDBnzVXJk
-         2ct2E3lH5fJ01TV9e+oHuqa2pJPewPb8Nh9Z2ACGha03Fq+o0f7O+eWdHmJTuJL2v0ix
-         u/2xmpX9H8Gx8v4BjUPMn1XQC/XSdnHbtInVDnjqokxEwGPqKrHwUOFmLMm7D6YqjFel
-         hTSGC7toB7B1R/LUP7IDtxi0c6mXW8AeIL/Gim1UvnMlzGI9//QXustPH7B0Rk7xkiXN
-         gccW7ArUREssg3Fe0RaS0LTRDJ8kZJUIjQykMUT5yJRzeNRKp7Kn0BMo5G5h7sJ4Ob4L
-         nsrQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793021877; x=1793626677;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YHhQhHw8tFklUCKn4leq9BujpwTXXeaWsKyJ0rbw2Lk=;
-        b=jf6HbKVOKuIIiYPr35Lj+OVmf6LQGiUKXeLsuEvGjvVvKHZ3NFnAwh/FZv4PpXgwX+
-         sScJifhRwUtG/1ek/92MOfRrIPCpq2eFTI3ZzaYowleqr/Nt+dsduCSq3FBPSaVYENFt
-         TCwmOky8Ps/gNii14GKz/pgFPnGSy9BBrJoYZCDNWomlWhclYHu0NgrPnp/+at6fZG/T
-         TZn3FQz3juiRtPN1nw9ZMRVhCi2Dpk5+kKeJrWoOO3XQ4zlBQHiIPvuOm0B+68rhgnB1
-         9ZPZ/BpBBqCCynZmMfZ0D3NTdUSzWSUZNR2hmmvwEqU+li2VQQ+A/7CNPikpDsQmD6CW
-         Omuw==
-X-Forwarded-Encrypted: i=1; AKwUvBzpm2ERBA7/a6IqXgrpnBsTFC9pxleHV/ziSf5I6cRQb538SgKUgKzpIg+KnUCQbGIoVEHa0BBWzPaZbso=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKRWwOvSqNHBI8RJT/crAKwjS+5rdHg5uuCCb9bR7vWsFcGHTJf
-	nonMmyKM4WwbLHjlJcxGap9zGgGT0B6I2RyFPxoTJ2x9hQVpf7g7gvus
-X-Gm-Gg: AYBFou0h/Pn2GROlqCUhV3HZOiiyLeTQbJhVgiu59ivrc7gsdAFZnhyjrzRRaBOUSSf
-	DG54PePG+eCgpRGTbLDDqEzq5dZSYYld8D2Bj0+rXkJOefN0AeSZ3pkYY7PnThB/EPRnvj/gted
-	WpD8VkSm181QoJkNxXiXd1qd5073ZwKihIYwl2jBskVZ3MAIQ9GXkOc9+v1VpsdtylyQHZT3nBG
-	aLVbdtxOhCx6GPJ9t8p3S8sMy3vT94nRgQKAtLAl7duJnixWpR7qzrC/tT2CxZ244nG2+R5CpaN
-	18EjhtRk0q2ZjuXwRVmmz6eacue2I4xAquhH+haVO7/tBsYWLul2VENre9igAlHo6VQspIzeBKx
-	GdB/Yd6vcfokMMyaXcyaqJgcr8zbFYoCaCX5mwDk1OPrtKLUs3aYHBYtg6cOnt9na/52Q8G2PK1
-	Nbjmgogh1DKA+p4a6BwsyzXuhl6w9K+nitX6xMYEhJWYcyhlbvjZlZHqWQ9qZOzgY4om0AEsk4t
-	Sx/cA7ziC89LlxkbTNtYoROiRqNNvY7xlq66LkmbRXgCpivxZpM6y1P4wh7KvFFrkcqb7i9l6L6
-	zi9Tu1n0JvuQc3ISz1iSC8twqfv0rdEcgy7T7g==
-X-Received: by 2002:a17:902:e945:b0:2e9:9a19:c54 with SMTP id d9443c01a7336-2ea9c8d0e35mr48908055ad.50.1793021876911;
-        Mon, 26 Oct 2026 06:37:56 -0700 (PDT)
-Received: from yafangs-Air ([240e:46d:2600:484d:51ee:4f49:b5a8:aabd])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea9b1a5cf0sm17447055ad.52.2026.10.26.06.37.53
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 26 Oct 2026 06:37:56 -0700 (PDT)
-From: Yafang Shao <laoar.shao@gmail.com>
-To: jpoimboe@kernel.org,
-	mbenes@suse.cz,
-	pmladek@suse.com,
-	joe.lawrence@redhat.com,
-	song@kernel.org
-Cc: live-patching@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yafang Shao <laoar.shao@gmail.com>
-Subject: [PATCH v13 9/9] selftests/livepatch: Add function test for provides/obsoletes
-Date: Mon, 26 Oct 2026 21:36:51 +0800
-Message-ID: <20261026133651.40061-10-laoar.shao@gmail.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20261026133651.40061-1-laoar.shao@gmail.com>
-References: <20261026133651.40061-1-laoar.shao@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=mtpkOCsm;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=/4Ip0aOS;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=i5TtyA21;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Wpg2m4gK
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 54A4A21F41;
+	Mon, 26 Oct 2026 13:38:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793021913; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=eHOfMK6o0REgr2trRNcLayc/qQKn8qWFAKOukLvltc4=;
+	b=mtpkOCsmwAXbiazzrR1CFdXNTZYGEz/SUFNqSTR3pNt4KU1t8KIzue00dXFwHt9ZIQGIwb
+	XwbAaec/EUNJZbChTNfEBGBYGWp6eJoeA5/z8bujYtcQ8MaA+mU92yN9umEF0oeWog4jXv
+	rmXMLcaoCePGtwKNW+/AF+BGVd7J9UY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793021913;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=eHOfMK6o0REgr2trRNcLayc/qQKn8qWFAKOukLvltc4=;
+	b=/4Ip0aOSk7E6q1axaw4mW2+dftZKtsE8r506BdNl396EIwFf+2NX13FL/vg0ax8sOjOkBR
+	UW720kjJ/iiLB+CQ==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=i5TtyA21;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=Wpg2m4gK
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793021912; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=eHOfMK6o0REgr2trRNcLayc/qQKn8qWFAKOukLvltc4=;
+	b=i5TtyA21TyYPJlFKAbbXh+MNccFtuAtwvxiyCEykCdA9PhrvYXQtbIh/y3ayuZyiRIR+4T
+	4PjZlflkY94/USpwF4qlj7+e/KEeM/vOVL3RN/M4EE0anDToaTT2vkjzclUaijat5vB5NF
+	XyK/pSjS6/nv0GTAiKoVZibCSoogVfc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793021912;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=eHOfMK6o0REgr2trRNcLayc/qQKn8qWFAKOukLvltc4=;
+	b=Wpg2m4gKgi82+Hz9UfGO5qcYFVTkjvzpUnQGWNG5VydJ0L7RgRk9WDrXEpUVzVLzrDhJ9z
+	cl+GCxJZwOCynmAw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 02F5C13408;
+	Mon, 26 Oct 2026 13:38:31 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id /Oj1L9dX32rRAQAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 26 Oct 2026 13:38:31 +0000
+Date: Mon, 26 Oct 2026 14:38:31 +0100
+Message-ID: <875wyo60q0.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: x8svc <enscrpt@pm.me>
+Cc: Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Clemens Ladisch <clemens@ladisch.de>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/2] ALSA: usb-audio, ua101: oversized packet copies overrun PCM ring buffers
+In-Reply-To: <20261026122855.283-1-enscrpt@pm.me>
+References: <20261026001003.1067-1-enscrpt@pm.me>
+	<87tsm86fzy.wl-tiwai@suse.de>
+	<20261026122855.283-1-enscrpt@pm.me>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,254 +115,64 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Rspamd-Queue-Id: 54A4A21F41
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-12.51 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCVD_TLS_ALL(0.00)[];
+	ARC_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[pm.me:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim];
+	URIBL_BLOCKED(0.00)[suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,pm.me:email];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Score: -12.51
 
-Livepatches with different provides ids must not modify the same
-function, unless they share the same provides id or the second
-livepatch obsoletes the first one.
+On Mon, 26 Oct 2026 13:30:07 +0100,
+x8svc wrote:
+> 
+> Takashi,
+> 
+> Thanks for the review.
+> 
+> x8svc is my standing identity, not a name picked for this one patch. The same
+> name signs every commit I push and is the account behind my public GitHub
+> work; I expect to keep using it for any future kernel submissions too.
 
-Add test scenarios that verify this rule on the combination of
-patched functions and provides ids.
+Honestly speaking, I don't care about github activity at all.  The
+only question is the activity in the kernel community, and I don't see
+any of such until now?
 
-These tests are skipped on kernels that still support the legacy
-"replace" attribute.
+> Both patches already carry matching From and Signed-off-by lines
+> (x8svc <enscrpt@pm.me>), so unless there's something more specific you need
+> to treat it as a known identity, I'd rather not resubmit for no reason. Let
+> me know if that's enough, or what else you need.
 
-Suggested-by: Petr Mladek <pmladek@suse.com>
-Signed-off-by: Yafang Shao <laoar.shao@gmail.com>
-Reviewed-by: Petr Mladek <pmladek@suse.com>
-Tested-by: Petr Mladek <pmladek@suse.com>
----
- .../selftests/livepatch/test-provides-obsoletes.sh | 188 +++++++++++++++++++++
- .../selftests/livepatch/test_modules/Makefile      |   1 +
- .../livepatch/test_modules/test_klp_meminfo_lp2.c  |   2 +
- 3 files changed, 191 insertions(+)
- create mode 100644 tools/testing/selftests/livepatch/test_modules/test_klp_meminfo_lp2.c
+The Signed-off-by is the only concern.
 
-diff --git a/tools/testing/selftests/livepatch/test-provides-obsoletes.sh b/tools/testing/selftests/livepatch/test-provides-obsoletes.sh
-index b92188f..fce421a 100755
---- a/tools/testing/selftests/livepatch/test-provides-obsoletes.sh
-+++ b/tools/testing/selftests/livepatch/test-provides-obsoletes.sh
-@@ -5,6 +5,7 @@
- . $(dirname $0)/functions.sh
- 
- MOD_MEMINFO=test_klp_meminfo_lp
-+MOD_MEMINFO2=test_klp_meminfo_lp2
- MOD_CMDLINE=test_klp_cmdline_lp
- MOD_STATE=test_klp_state
- MOD_STATE2=test_klp_state2
-@@ -465,4 +466,191 @@ $MOD_STATE: free_loglevel_state: freeing space for the stored console_loglevel
- livepatch: '$MOD_STATE': unpatching complete
- % rmmod $MOD_STATE"
- 
-+
-+# - load two livepatches that modify the same function
-+#   (meminfo_proc_show), both with provides=1. The second livepatch
-+#   replaces the first one because of the same provides id, even
-+#   though they share the patched function.
-+# - verify that the first livepatch is gone from sysfs (replaced)
-+#   and that the second one is enabled
-+# - unload the replacing livepatch, then the replaced one
-+
-+start_test "same function, replaced by provides"
-+
-+load_lp $MOD_MEMINFO provides=1
-+
-+grep 'live patched' /proc/meminfo > /dev/kmsg
-+
-+load_lp $MOD_MEMINFO2 provides=1
-+
-+loop_until '[[ ! -e "$SYSFS_KLP_DIR/$MOD_MEMINFO" ]]' ||
-+	die "failed to replace $MOD_MEMINFO"
-+
-+grep 'live patched' /proc/meminfo > /dev/kmsg
-+
-+check_sysfs_value "$MOD_MEMINFO2" "provides" "1"
-+
-+disable_lp $MOD_MEMINFO2
-+unload_lp $MOD_MEMINFO2
-+
-+grep 'live patched' /proc/meminfo > /dev/kmsg
-+
-+unload_lp $MOD_MEMINFO
-+
-+check_result "% insmod test_modules/$MOD_MEMINFO.ko provides=1
-+livepatch: enabling patch '$MOD_MEMINFO'
-+livepatch: '$MOD_MEMINFO': initializing patching transition
-+livepatch: '$MOD_MEMINFO': starting patching transition
-+livepatch: '$MOD_MEMINFO': completing patching transition
-+livepatch: '$MOD_MEMINFO': patching complete
-+$MOD_MEMINFO: this has been live patched
-+% insmod test_modules/$MOD_MEMINFO2.ko provides=1
-+livepatch: enabling patch '$MOD_MEMINFO2'
-+livepatch: '$MOD_MEMINFO2': initializing patching transition
-+livepatch: '$MOD_MEMINFO2': starting patching transition
-+livepatch: '$MOD_MEMINFO2': completing patching transition
-+livepatch: '$MOD_MEMINFO2': patching complete
-+$MOD_MEMINFO2: this has been live patched
-+% echo 0 > $SYSFS_KLP_DIR/$MOD_MEMINFO2/enabled
-+livepatch: '$MOD_MEMINFO2': initializing unpatching transition
-+livepatch: '$MOD_MEMINFO2': starting unpatching transition
-+livepatch: '$MOD_MEMINFO2': completing unpatching transition
-+livepatch: '$MOD_MEMINFO2': unpatching complete
-+% rmmod $MOD_MEMINFO2
-+% rmmod $MOD_MEMINFO"
-+
-+
-+# - load a livepatch that modifies meminfo_proc_show with provides=1,
-+#   then try to load another livepatch that modifies the same
-+#   function with a different provides id (provides=2).
-+# - since the provides ids differ, the second livepatch would not
-+#   replace the first one; the same function can not be handled by
-+#   two different provides groups in parallel, so the load must fail.
-+# - unload the first livepatch
-+
-+start_test "same function, can't be loaded in parallel"
-+
-+load_lp $MOD_MEMINFO provides=1
-+load_failing_mod $MOD_MEMINFO2 provides=2
-+
-+disable_lp $MOD_MEMINFO
-+unload_lp $MOD_MEMINFO
-+
-+check_result "% insmod test_modules/$MOD_MEMINFO.ko provides=1
-+livepatch: enabling patch '$MOD_MEMINFO'
-+livepatch: '$MOD_MEMINFO': initializing patching transition
-+livepatch: '$MOD_MEMINFO': starting patching transition
-+livepatch: '$MOD_MEMINFO': completing patching transition
-+livepatch: '$MOD_MEMINFO': patching complete
-+% insmod test_modules/$MOD_MEMINFO2.ko provides=2
-+livepatch: Livepatch patch ($MOD_MEMINFO2) is not compatible with the already installed livepatches.
-+insmod: ERROR: could not insert module test_modules/$MOD_MEMINFO2.ko: Invalid parameters
-+% echo 0 > $SYSFS_KLP_DIR/$MOD_MEMINFO/enabled
-+livepatch: '$MOD_MEMINFO': initializing unpatching transition
-+livepatch: '$MOD_MEMINFO': starting unpatching transition
-+livepatch: '$MOD_MEMINFO': completing unpatching transition
-+livepatch: '$MOD_MEMINFO': unpatching complete
-+% rmmod $MOD_MEMINFO"
-+
-+
-+# - load a livepatch that modifies meminfo_proc_show with provides=1,
-+#   then another livepatch with provides=1 that modifies a different
-+#   function (cmdline_proc_show). The second one replaces the first
-+#   one because of the same provides id.
-+# - since the patched functions differ, the replacement does not need
-+#   to restore the old function body; the transition only switches
-+#   the ftrace nops, i.e. the atomic replace (nops) path.
-+# - after the replacement /proc/meminfo is no longer patched, while
-+#   /proc/cmdline is patched
-+# - unload the replacing livepatch, then the replaced one
-+
-+start_test "different functions, atomic replace works (nops)"
-+
-+load_lp $MOD_MEMINFO provides=1
-+
-+grep 'live patched' /proc/meminfo > /dev/kmsg
-+
-+load_lp $MOD_CMDLINE provides=1
-+
-+grep 'live patched' /proc/meminfo > /dev/kmsg
-+grep 'live patched' /proc/cmdline > /dev/kmsg
-+
-+disable_lp $MOD_CMDLINE
-+unload_lp $MOD_CMDLINE
-+unload_lp $MOD_MEMINFO
-+
-+check_result "% insmod test_modules/$MOD_MEMINFO.ko provides=1
-+livepatch: enabling patch '$MOD_MEMINFO'
-+livepatch: '$MOD_MEMINFO': initializing patching transition
-+livepatch: '$MOD_MEMINFO': starting patching transition
-+livepatch: '$MOD_MEMINFO': completing patching transition
-+livepatch: '$MOD_MEMINFO': patching complete
-+$MOD_MEMINFO: this has been live patched
-+% insmod test_modules/$MOD_CMDLINE.ko provides=1
-+livepatch: enabling patch '$MOD_CMDLINE'
-+livepatch: '$MOD_CMDLINE': initializing patching transition
-+livepatch: '$MOD_CMDLINE': starting patching transition
-+livepatch: '$MOD_CMDLINE': completing patching transition
-+livepatch: '$MOD_CMDLINE': patching complete
-+$MOD_CMDLINE: this has been live patched
-+% echo 0 > $SYSFS_KLP_DIR/$MOD_CMDLINE/enabled
-+livepatch: '$MOD_CMDLINE': initializing unpatching transition
-+livepatch: '$MOD_CMDLINE': starting unpatching transition
-+livepatch: '$MOD_CMDLINE': completing unpatching transition
-+livepatch: '$MOD_CMDLINE': unpatching complete
-+% rmmod $MOD_CMDLINE
-+% rmmod $MOD_MEMINFO"
-+
-+
-+# - load two livepatches with different provides ids (1 and 2) that
-+#   modify different functions (meminfo_proc_show and
-+#   cmdline_proc_show). Neither of them replaces the other, so both
-+#   livepatches must coexist.
-+# - verify that both /proc/meminfo and /proc/cmdline are patched
-+# - disable and unload both livepatches
-+
-+start_test "different functions, install in parallel"
-+
-+load_lp $MOD_MEMINFO provides=1
-+
-+grep 'live patched' /proc/meminfo > /dev/kmsg
-+
-+load_lp $MOD_CMDLINE provides=2
-+
-+grep 'live patched' /proc/meminfo > /dev/kmsg
-+grep 'live patched' /proc/cmdline > /dev/kmsg
-+
-+disable_lp $MOD_MEMINFO
-+unload_lp $MOD_MEMINFO
-+disable_lp $MOD_CMDLINE
-+unload_lp $MOD_CMDLINE
-+
-+check_result "% insmod test_modules/$MOD_MEMINFO.ko provides=1
-+livepatch: enabling patch '$MOD_MEMINFO'
-+livepatch: '$MOD_MEMINFO': initializing patching transition
-+livepatch: '$MOD_MEMINFO': starting patching transition
-+livepatch: '$MOD_MEMINFO': completing patching transition
-+livepatch: '$MOD_MEMINFO': patching complete
-+$MOD_MEMINFO: this has been live patched
-+% insmod test_modules/$MOD_CMDLINE.ko provides=2
-+livepatch: enabling patch '$MOD_CMDLINE'
-+livepatch: '$MOD_CMDLINE': initializing patching transition
-+livepatch: '$MOD_CMDLINE': starting patching transition
-+livepatch: '$MOD_CMDLINE': completing patching transition
-+livepatch: '$MOD_CMDLINE': patching complete
-+$MOD_MEMINFO: this has been live patched
-+$MOD_CMDLINE: this has been live patched
-+% echo 0 > $SYSFS_KLP_DIR/$MOD_MEMINFO/enabled
-+livepatch: '$MOD_MEMINFO': initializing unpatching transition
-+livepatch: '$MOD_MEMINFO': starting unpatching transition
-+livepatch: '$MOD_MEMINFO': completing unpatching transition
-+livepatch: '$MOD_MEMINFO': unpatching complete
-+% rmmod $MOD_MEMINFO
-+% echo 0 > $SYSFS_KLP_DIR/$MOD_CMDLINE/enabled
-+livepatch: '$MOD_CMDLINE': initializing unpatching transition
-+livepatch: '$MOD_CMDLINE': starting unpatching transition
-+livepatch: '$MOD_CMDLINE': completing unpatching transition
-+livepatch: '$MOD_CMDLINE': unpatching complete
-+% rmmod $MOD_CMDLINE"
-+
- exit 0
-diff --git a/tools/testing/selftests/livepatch/test_modules/Makefile b/tools/testing/selftests/livepatch/test_modules/Makefile
-index 732e000..0c17754 100644
---- a/tools/testing/selftests/livepatch/test_modules/Makefile
-+++ b/tools/testing/selftests/livepatch/test_modules/Makefile
-@@ -2,6 +2,7 @@ TESTMODS_DIR := $(realpath $(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
- KDIR ?= /lib/modules/$(shell uname -r)/build
- 
- obj-m += test_klp_meminfo_lp.o \
-+	test_klp_meminfo_lp2.o \
- 	test_klp_callbacks_busy.o \
- 	test_klp_callbacks_demo.o \
- 	test_klp_callbacks_demo2.o \
-diff --git a/tools/testing/selftests/livepatch/test_modules/test_klp_meminfo_lp2.c b/tools/testing/selftests/livepatch/test_modules/test_klp_meminfo_lp2.c
-new file mode 100644
-index 0000000..2b93c96
---- /dev/null
-+++ b/tools/testing/selftests/livepatch/test_modules/test_klp_meminfo_lp2.c
-@@ -0,0 +1,2 @@
-+// SPDX-License-Identifier: GPL-2.0
-+#include "test_klp_meminfo_lp.c"
--- 
-1.8.3.1
 
+thanks,
+
+Takashi
