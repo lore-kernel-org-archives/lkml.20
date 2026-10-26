@@ -1,95 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793029741;
-	b=4o6X5MKyP/SUCiqjf82URtKKBxStlz0HRBc+3e1DWSfqqWGxBEgH5zUccXm+VDAFihbp
-	 5GKpY4ZsdiQMZPiA7af1QHY9wkKZz9cSerpa1wY9E4UuT52hG9xcPxqNK3BNM+Bin1m+r
-	 sOHHW5iHXhxsZo7EiPWldGLrQLIajZC5UmiAGNZhGlMUEFDWR/NnCD8mQsONxECWwN/gF
-	 iOM2w/GO2VK9Tq8sy2wvV5/OtRrxkmMwLgTl40RgwEzwKSjQiY3oSDBJEgpFrj4JgJxQh
-	 2mH3hZrvYyL+VFEv1NnTXa7Nk+4G3t0+buAjXe4SGEbkhWvyRk3sT45d4Pjmx7XQVBA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793029741;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=HsJcoE+tcg++lXHusmJ7l3VcG6mAANy+njpMsw2MDrY=;
-	b=v8UYCT3nGfxq+ZkW9CY4lnEBb6MBtKPxrmg7u4CsOOqSDz/+0n6kL6WCgty0/L1swUgw
-	 OU2I/OhPmeRueXBaFeYflBVHkB9NUHGaHNswmfXqZKOAAiDyK+pkkSsxygC6VHxyy/221
-	 oFFOrgglHdmshJmBj7A4USERZQeOOFUD9RHOYuxoBgMSDKV+HYn71ZzO+hSSmyaRiRXSU
-	 RVSDQzyP/SpUHH4f3hjg2c0XQ2em0w+ZliE648KMu6i6qZp77FmaRkGt6T7IfRFAxzwrn
-	 NpFqN6G7qaCr2AU6Au1XvKOxPLRCVNmOnGLM2XQFS2+cSpBnSSRu+6GG541/Khvx8wA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="R/7VtgIM";
-	arc=none smtp.remote-ip=74.125.82.172
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.58
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793029744;
+	b=SlrIezfNAsvxbvDUH1KN29DdYAe1zn0Yl89afRiz6abP8a7nF6iE25lUEpUgYUoWS76D
+	 DrY6/gPBGpm5UBA3pAxGcBGlDt6ouUEopUNpt/LFFI05AVNzPBPCuei/B++slVrHtgoRy
+	 GpIohyDftiFLZOt50vfBsUMPJxa1VgTg0iRvjczfezbrJciasve8ugW1STJZN5TBz3ecD
+	 hVEOU2fmcSbxUkXWyJKb5j/vES5WX/cmGbA0mVCLKcP0hGtoaLB/WMsvJk/9NuxCb3WoM
+	 k+XiFUHuP29ELhc94uWqUy3Si+PuC9fX1DPQNCT0CwM/tZUcDMKoh5uaeu7fgjtdomw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793029744;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-ID:References:In-Reply-To:To:CC:X-Mailer:X-Originating-IP:
+	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=5zZecloCTSpg37x6b5RH9F2IkJlaCw2rwn33pgqJ0CU=;
+	b=UAb0tJcoqNJLiTfpPiNTLnsuDJPEAu0j9PZo+AkSfnr9x8q3lwd68Ho7BNimo513T//4
+	 a+f0MwYf1zIEioue9+7jXznajxgwpn/FFp3EzYiJ8yb1MJxPoH8LDrFmjYgOqFS2v/YZb
+	 P7OLrVXl/xE5I1HO/zjpBU9FuYQLBrjvotEio9qwHLe8j9p7IJ7Xd0WQFFitdrGgYBaXh
+	 yNVYkMAErcqv1UQ/ZJoG0pY9GXw100m8ZxLs1BBbSePm+iziHgCluDbw/mnwJiU886dr+
+	 WtmeqV0GUbZt9vFVRErz+jn0mPcAi4FEe0ky/2UN0FV+bPzQ7knZbYf+5o2/fBxRfXw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=shaSTnvu;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.58
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010058.outbound.protection.outlook.com [52.101.201.58])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91637606A31B
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 15:49:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91637606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A0D1606A333;
+	Mon, 26 Oct 2026 15:49:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A0D1606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=R/7VtgIM
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-36661f953e4so5924996eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 08:49:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793029741; x=1793634541; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HsJcoE+tcg++lXHusmJ7l3VcG6mAANy+njpMsw2MDrY=;
-        b=R/7VtgIMVUPjS3JNQbeOlGQ1HwUljc1QN/3FRshRpSijhV4BIopmB7prNof/3ppYEM
-         J93Eiq75HlvCBMK1nH7ibCTOoXhq42H3kjKrt/ogOanLUSp2ug9qdj6amvozq54QT2Nd
-         UX7OlbfPTz7npVbIW8wzVhmDEkIywkba6ZPxFb+aNY5gq4gtq9TgZ7eSmKHSNek9sKkW
-         ZeMoLFf3F5+zKz9YJuSjd7RAH76U+cYx5rKK7zVg+zINSmK7oUzkrzd2uSlXHMhs2bAk
-         VgwzpXP+uhkZoVqA6Y9SVVMwSHWd4r+9GstoXSEQL/eh2zgin76BnAV4YUL4GsgQDF82
-         b12A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793029741; x=1793634541;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HsJcoE+tcg++lXHusmJ7l3VcG6mAANy+njpMsw2MDrY=;
-        b=xaLzbtfXYyIZV3hDKQ/jwyeTG/yYbdrGIGeQzbx8TgDWZOYuqxjvP0GSNNr7K8/S9S
-         J2qV2TDFFeNmuEXJ3nAIuLczAcNyfm/6RBl2Srd9z0qLFVvwogtpF6+L1uILxKl+n+eL
-         +kFrHBsBordMmqMOf/8mrETQVLklYjtAw4Y2RWDqksM5nJIw2DgGNmzgE6zUwbENfTHd
-         OcE1+0trm5YrFg+Pxzfl50JVJDPQsAeqNXwdTRUIq6yhRsUZr3nTUzeycZJh9++OLC90
-         /U58FZtFtaaPn79W7X+7MDYtbFz2bqlqwUfKtGns73mYjvQl42R+U8wnd5EmS0rTjEUO
-         PCWQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxnlhFO1/WYkrgBI819Q3P/zu0l+rj6pZyWpq7bvevVozSJCzUQf50Y6rI33JWyORSWX3biPAIE2+0FRm0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKb44CcFvYJyojh5PHWurlzwa/NVLmq5muUX81dTJj9Y/3aDGF0
-	Xhy3C7mdx95AVzH71CuhM/xcoFpOT2Xw3Mnr+wS0rVrsBkcvER/f1y7b
-X-Gm-Gg: AYBFou02nOIwU8rBRUBbNFmejNzNSTY8CjguBCks5xaMcFUX4oCSgDsg0iN7DN9ZGjh
-	tgWeW7ViWYtg9HgtoeUS0t1+AKSRLVeCiZNZ00lvD01SMu1DHT/xDRMwnq9Li93RuubZtk3iLUZ
-	S65RZlGwnnva858v391ynmT6pl7SD98ZgBAquF3B1bFTDICwLHBlswSDWBBD2yQ0ldBlQsuAnwV
-	mXqsJcEEleQCnOxnelB3kA6FKLVm0EjFqWeBGYWZnurvprn9mQy1MfMi6OCu6OFCwjfmbfl6Sar
-	m5MI7WkxiuH7YmLaF8AVHe9rwAF46sdGTNlXomQv8ywzTOIArpHrabdjJhYNJ3Vw95NB/toF/Il
-	7lzC2047soXe7ICltgn8brgrr22jjHDybP9HGm4L8zgBSNX/uSHe6vZ1mRMaARg4mHI2kQ9kT77
-	40d3Y+8kCcTOvmADWCAOd9RwWHOw5na4viDBdTaSqTbLjgTwAfzZ8Zkx9LHs9+BJ1zED9cEVAKL
-	fUaNoSQoUE7bnrx6yJDqwqfLOLBhXZMcHREBq4gLVui/7mtJtDGD8dSXkIgRD4ACOCAjXNn+RSk
-	7FLgqoqd+eJmzLZNz5TNcJz50606
-X-Received: by 2002:a05:7301:514a:b0:359:3460:bc1c with SMTP id 5a478bee46e88-369e8492c25mr10432744eec.12.1793029740452;
-        Mon, 26 Oct 2026 08:49:00 -0700 (PDT)
-Received: from Terra.tail0ac356.ts.net ([198.176.50.208])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369f44bd644sm18151012eec.15.2026.10.26.08.48.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 08:48:59 -0700 (PDT)
-From: Weiming Shi <bestswngs@gmail.com>
-To: Helge Deller <deller@gmx.de>
-Cc: linux-fbdev@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	co+b0df61d49532b2ee@bugs.sh,
-	Xiang Mei <xmei5@asu.edu>,
-	Weiming Shi <bestswngs@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] fbdev: vfb: Validate framebuffer geometry and memory size
-Date: Mon, 26 Oct 2026 08:46:05 -0700
-Message-ID: <20261026154604.579823-2-bestswngs@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=shaSTnvu
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=QKd0Iim2574UeKN4oYEhS7K4T6OuwTARjwli9WJzQeNE8TXfraQHIGVwuL362qw3H08ZfuNz4QWjOiZ0edp7mf0/GtW0wcUWnyHWD9QFKQVrVIo6KZoVoHjgviLWdOVVlkiQWDsdWq61Ga2EMELrIS4Yc2VLivbAOFsWOOYFK6GIzTzVF1+dBRMVd9CTs/Qeb9AY63pkTe1oVwqKMC0TjAwjDVVKJQym+Tm2sZ2b5p5iKTMyM/D2WWt0EJUgxuWIkyLaiJKY5FBtMUI6WwEuq+OaCHRsZMMl9fuJOO98P3zfShNDWhYuRshtoB4F5VlqXbTAlyHMTLWO6fXpbewPLw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5zZecloCTSpg37x6b5RH9F2IkJlaCw2rwn33pgqJ0CU=;
+ b=KSEDfrUIBznRKgtHzadkA6GNT4ssC92Lj/q5H41+ddczrVhquTRYiJ2FBKZdkdlA1qHO4EaHj9dTC0UqIxzHpXDFYvpBpA1p1UTqfQRxMCdCADavKbxweOa9f8tUq4jW74rTPHA9Eyd5nSSZDExwK+gGPXIpdMGMjsFg8+hFDY6YjpdjaL5wOX/3orXRFFP1aR/Is/ZtpPv3L+edHAG67C9bGsOIo7CwzxHQ5/NAkRIyCQuhaqPUQJxPrKbHRJ0NkQ8L+SN2c6GVTgO9wWRzsMNgV7hWnA9YdrBme0P8Keeaxgxltmq03T6k/8rl/GjF/7KEqYscpwi3hZjRwYWsLA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5zZecloCTSpg37x6b5RH9F2IkJlaCw2rwn33pgqJ0CU=;
+ b=shaSTnvug0rqhiYHXRFCDV+nzrEB9UbPY5o2daOPwnUg8s+bZEg98bL2EbduuUQYq+YGcpqKpLoDItrd4HF7ZQ6aflRYQCUJcMK+m2Y0ILxJc52uxJA7B2tDWmKASLIqYFqmlUJvp6/m986BhQ+CJupKDPTdgYsvS9ST2Ah5Cfg=
+Received: from SJ2PR07CA0008.namprd07.prod.outlook.com (2603:10b6:a03:505::8)
+ by CY0PR12MB708545.namprd12.prod.outlook.com (2603:10b6:930:130::24) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
+ 2026 15:49:01 +0000
+Received: from SJ1PEPF000037A0.namprd04.prod.outlook.com
+ (2603:10b6:a03:505:cafe::7) by SJ2PR07CA0008.outlook.office365.com
+ (2603:10b6:a03:505::8) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.22 via Frontend Transport; Mon,
+ 26 Oct 2026 15:49:01 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ1PEPF000037A0.mail.protection.outlook.com (10.167.244.132) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.569.4 via Frontend Transport; Mon, 26 Oct 2026 15:49:01 +0000
+Received: from [127.0.1.1] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 26 Oct
+ 2026 10:49:00 -0500
+From: Mario Limonciello <mario.limonciello@amd.com>
+Date: Mon, 26 Oct 2026 10:48:32 -0500
+Subject: [PATCH v3 1/3] PCI: Preserve the initial bus number in pci_bus
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,98 +99,132 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20261026-vfct-regression-v3-1-fe9586ed6978@amd.com>
+References: <20261026-vfct-regression-v3-0-fe9586ed6978@amd.com>
+In-Reply-To: <20261026-vfct-regression-v3-0-fe9586ed6978@amd.com>
+To: Bjorn Helgaas <helgaas@kernel.org>, Alex Deucher
+	<alexander.deucher@amd.com>, =?utf-8?q?Christian_K=C3=B6nig?=
+	<christian.koenig@amd.com>
+CC: Oz Tiram <oz@shift-computing.de>, <linux-pci@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>,
+	<dri-devel@lists.freedesktop.org>, Mario Limonciello
+	<mario.limonciello@amd.com>
+X-Mailer: b4 0.16.0
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000037A0:EE_|CY0PR12MB708545:EE_
+X-MS-Office365-Filtering-Correlation-Id: cae83bc4-801a-4f0b-689a-08df3378a80e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|82310400026|36860700016|23010399003|1800799024|261026140227099003|11063799006|56012099006|261026121527099003|10067099003|261022105027099003|261021121427099003|261022075727099003|261009223027099003|22082099003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	/SU+HaX2tiyDU+Kdj7G5WPUseGnOhTeDVsDn9x8mrjBty+bIGRjfdrgrZ+XBsmJk/PTozMoaUSVMAknXxGOU0MreuM02r7y1qz7Ujg2lniUu/KRGi98lV2U00GIwqZDg7rTyoiIIwts3TcA16jfM/6IVzJAPy84+gJfclo1ElrF2qVFafDR8vR1rGwCpN86gHvOmO0ViETVxzf++rRFKi60P3j4kuTXkub8gYzhCHqftRv88k5wYwGd8WwB+Ic5xi1q3I6QGogTjLeBtl5RnFPb6f4+/F7Mnk8xLq+ppBzFg2V6gL30U6W4FjsBt65pDCTe9Y8N4lJd09ZEDNbmUTAX+zRqdqU4nHUbHLUtwxCWAd9qVRFQtTuRoAMwS2SrbGgURz0so7Xxhl+uFWvJZiMvpGDFHk2IelAlrVvcWmLQT0FzImWBhA63JdEw+K0Vw+hckhmbOX1z/MbIB2ihmQtk5+7bFfcVkzS/OgwD5y+NKr2IS0Ev9TqhAWGbV4PVEuFlUFKDwm/+zCd4pPPFD1OOt19PPVomQ4R1kEkHHgz+4xsqv2OEiSTnWctYTS6YDysRnGflqcqBi5JG5SMvIB07YijZXbyPqmuKMDpISnIE1zr4rM/tZY3frlD7scvK2lV3uo3t1Kh6sDSMLsKzkF8edj7zdKAP8vXC1abd1eGvjAmdAJHBn9Z07AI25mdzKefVLC/bxJpZvzgof2QQYSA==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(36860700016)(23010399003)(1800799024)(261026140227099003)(11063799006)(56012099006)(261026121527099003)(10067099003)(261022105027099003)(261021121427099003)(261022075727099003)(261009223027099003)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	u7yqwbqZAxRmRu/k3x3ehlwhVQytv/wit6EIx1kr3kz1IDJ8x/6nQNXZhBHBrehaWmuxqu4K3AlI9QmDLTv208z6kslBg5QTjn15bLQ+lBheoJ4LxSthyPXm2Cpu6y0xTI0i3I6Bu3PBrCrdhWVa81lq1Tq/Ll9K6urFeIpUCPxhxnjT+E5GDmIEa+dykndgHNpLvQPH5GlxQnWxwdTwQ0ezE/ZhdFkD4RmTzrRDtW1qWCnEib6qwKCZ8JdTFSv0+fvb/3LUXPYbFbhxo8p18Fnv2ITUnmDTmA480RSjM7bOEJFmZ+QkhvbMkXBQvYz0TaFqr8c8EDzoLn5IhaMj2r+IdzXgjojXdSisain1DSqcjXt6k8Hv6Ywvan3bb3W1L0zmL6rAt+a+bsIV5Ojp/C6+cMmN59GN99KB+KOPMHYsnCfAylNZAG9VpTnFm5BB
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 15:49:01.7236
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: cae83bc4-801a-4f0b-689a-08df3378a80e
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF000037A0.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY0PR12MB708545
 
-FBIOPUT_VSCREENINFO can supply a virtual width large enough to
-overflow get_line_length()'s int multiplication and bypass the
-video-memory limit, allowing fbcon to write past the framebuffer. The
-offset additions can also wrap, while an excessive videomemorysize
-module parameter can be truncated when PAGE_ALIGN() is assigned to
-unsigned int.
+Bridges that need bus reassignment are scanned in two passes. Save
+the firmware secondary bus number during the first pass, before the
+bridge is disabled, and carry it to the bus created in the second
+pass. Drivers can then match firmware records against the bus number
+from before PCI bus renumbering.
 
-Limit virtual geometry and offsets to 8192 x 8192 and cap video
-memory at 512 MiB, keeping the stride, framebuffer-size, and generic
-fbdev drawing calculations within their destination types.
+The initial number belongs to the bus, so consumers can use the
+pci_bus value directly without copying it into every pci_dev.
 
-KASAN reports:
-
-  BUG: KASAN: vmalloc-out-of-bounds in sys_fillrect
-    drivers/video/fbdev/core/sysfillrect.c:24
-  Write of size 8 at addr ffa0000001671000 by task poc/198
-  sys_fillrect
-    drivers/video/fbdev/core/sysfillrect.c:24
-  bit_clear_margins
-    drivers/video/fbdev/core/bitblit.c:247
-  fbcon_clear_margins.constprop.0
-    drivers/video/fbdev/core/fbcon.c:1410
-  fbcon_switch
-    drivers/video/fbdev/core/fbcon.c:2261
-  redraw_screen
-    drivers/tty/vt/vt.c:994
-  fbcon_modechanged
-    drivers/video/fbdev/core/fbcon.c:2693
-  fbcon_update_vcs
-    drivers/video/fbdev/core/fbcon.c:2732
-
-Cc: stable@vger.kernel.org
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Reported-by: <co+b0df61d49532b2ee@bugs.sh>
-Suggested-by: Helge Deller <deller@gmx.de>
-Assisted-by: LLM
-Signed-off-by: Weiming Shi <bestswngs@gmail.com>
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
-Changes in v2:
-- Limit virtual geometry and offsets to 8192 x 8192. This retains 8K mode
-  support while bounding all generic fbdev drawing calculations.
-- Cap videomemorysize at 512 MiB.
-- Keep the existing arithmetic types now that all inputs are bounded.
+ drivers/pci/probe.c | 9 +++++++++
+ include/linux/pci.h | 2 ++
+ 2 files changed, 11 insertions(+)
 
- drivers/video/fbdev/vfb.c | 17 ++++++++++++++++-
- 1 file changed, 16 insertions(+), 1 deletion(-)
+diff --git a/drivers/pci/probe.c b/drivers/pci/probe.c
+index 27008e2ea5afc..9950a9dd1db1f 100644
+--- a/drivers/pci/probe.c
++++ b/drivers/pci/probe.c
+@@ -1012,6 +1012,7 @@ static int pci_register_host_bridge(struct pci_host_bridge *bridge)
+ 	bus->sysdata = bridge->sysdata;
+ 	bus->ops = bridge->ops;
+ 	bus->number = bus->busn_res.start = bridge->busnr;
++	bus->number_initial = bus->number;
+ #ifdef CONFIG_PCI_DOMAINS_GENERIC
+ 	if (bridge->domain_nr == PCI_DOMAIN_NR_NOT_SET)
+ 		bus->domain_nr = pci_bus_find_domain_nr(bus, parent);
+@@ -1232,6 +1233,7 @@ static struct pci_bus *pci_alloc_child_bus(struct pci_bus *parent,
+ 
+ 	/* Set up the primary, secondary and subordinate bus numbers */
+ 	child->number = child->busn_res.start = busnr;
++	child->number_initial = busnr;
+ 	child->primary = parent->busn_res.start;
+ 	child->busn_res.end = 0xff;
+ 
+@@ -1470,6 +1472,7 @@ static int pci_scan_bridge_extend(struct pci_bus *bus, struct pci_dev *dev,
+ 			child = pci_add_new_bus(bus, dev, secondary);
+ 			if (!child)
+ 				goto out;
++			child->number_initial = secondary;
+ 			child->primary = primary;
+ 			pci_bus_insert_busn_res(child, secondary, subordinate);
+ 			child->bridge_ctl = bctl;
+@@ -1491,6 +1494,8 @@ static int pci_scan_bridge_extend(struct pci_bus *bus, struct pci_dev *dev,
+ 		 * do in the second pass.
+ 		 */
+ 		if (!pass) {
++			if (!dev->secondary_busnr)
++				dev->secondary_busnr = secondary;
+ 			if (pcibios_assign_all_busses() || broken)
+ 
+ 				/*
+@@ -1529,6 +1534,10 @@ static int pci_scan_bridge_extend(struct pci_bus *bus, struct pci_dev *dev,
+ 			pci_bus_insert_busn_res(child, next_busnr,
+ 						bus->busn_res.end);
+ 		}
++		if (dev->secondary_busnr) {
++			child->number_initial = dev->secondary_busnr;
++			dev->secondary_busnr = 0;
++		}
+ 		max++;
+ 		if (available_buses)
+ 			available_buses--;
+diff --git a/include/linux/pci.h b/include/linux/pci.h
+index 5ffcf5ce8c966..75a5fd2374acb 100644
+--- a/include/linux/pci.h
++++ b/include/linux/pci.h
+@@ -363,6 +363,7 @@ struct pci_dev {
+ 	struct pci_slot	*slot;		/* Physical slot this device is in */
+ 
+ 	unsigned int	devfn;		/* Encoded device & function index */
++	u8		secondary_busnr;	/* Original secondary bus number */
+ 	unsigned short	vendor;
+ 	unsigned short	device;
+ 	unsigned short	subsystem_vendor;
+@@ -724,6 +725,7 @@ struct pci_bus {
+ 	struct proc_dir_entry *procdir;	/* Directory entry in /proc/bus/pci */
+ 
+ 	unsigned char	number;		/* Bus number */
++	unsigned char	number_initial;	/* Bus number before reassignment */
+ 	unsigned char	primary;	/* Number of primary bridge */
+ 	unsigned char	max_bus_speed;	/* enum pci_bus_speed */
+ 	unsigned char	cur_bus_speed;	/* enum pci_bus_speed */
 
-diff --git a/drivers/video/fbdev/vfb.c b/drivers/video/fbdev/vfb.c
-index de137b2bd..de40ba8c3 100644
---- a/drivers/video/fbdev/vfb.c
-+++ b/drivers/video/fbdev/vfb.c
-@@ -31,6 +31,9 @@
-      */
- 
- #define VIDEOMEMSIZE	(1*1024*1024)	/* 1 MB */
-+#define MAX_VIDEOMEMSIZE	(512 * 1024 * 1024)
-+#define MAX_XRES		8192
-+#define MAX_YRES		8192
- 
- static void *videomemory;
- static u_long videomemorysize = VIDEOMEMSIZE;
-@@ -159,6 +162,14 @@ static int vfb_check_var(struct fb_var_screeninfo *var,
- 	else
- 		return -EINVAL;
- 
-+	if (var->xres_virtual > MAX_XRES ||
-+	    var->yres_virtual > MAX_YRES)
-+		return -EINVAL;
-+
-+	if (var->xoffset > MAX_XRES - var->xres ||
-+	    var->yoffset > MAX_YRES - var->yres)
-+		return -EINVAL;
-+
- 	if (var->xres_virtual < var->xoffset + var->xres)
- 		var->xres_virtual = var->xoffset + var->xres;
- 	if (var->yres_virtual < var->yoffset + var->yres)
-@@ -434,9 +445,13 @@ static int __init vfb_setup(char *options)
- static int vfb_probe(struct platform_device *dev)
- {
- 	struct fb_info *info;
--	unsigned int size = PAGE_ALIGN(videomemorysize);
-+	unsigned int size;
- 	int retval = -ENOMEM;
- 
-+	if (videomemorysize > MAX_VIDEOMEMSIZE)
-+		return -EINVAL;
-+	size = PAGE_ALIGN(videomemorysize);
-+
- 	/*
- 	 * For real video cards we use ioremap.
- 	 */
 -- 
-2.56.0
+2.43.0
+
