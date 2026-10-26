@@ -1,54 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793044947;
-	b=I4xVMB8LWo2YcWo0pxL59pom7htRi2y7MG783hNGwZY5ODbuv6PILlXznaADXQ/2leJR
-	 llvbaxsWQarSix6TsKKEhQRvJctD8sDvvl73oEFNDYQ9jMMPkOsUTM/QgX5KRfvQ3ORoG
-	 xzYaJDIOMQ4RfFv9UbevWxw4j2F0mDdnTuUIL7KWvDlMWklhTMgJlMdDQBsQNztfYrUP+
-	 Bal/8c03iEqvhw0SNnxr5krWAUxOdpDi8Sw7yPfUoZaMo7/6hioc3yM10wzfgbSThhANX
-	 7Pkb3OqYQ/jWZVyRdWjg930fkDI/2SIHNka/F8YUL1T/jn6McKY1cvxsdHow1EFBNNA==
+	t=1793044940;
+	b=VfUoL1DyTbPXg2HRnNSeWjdR7X/tF3oWjkfxcdiSL+3474dVNAK0qw3dl4TwqdABeHew
+	 CDcFMVEwB+6FO+Y/C4sV4h7SrswXr0fJsQHld8k1A5Z2b54kKpgH780WyGJ2MyOkFaSnL
+	 7tSW2cFXvmzMBnogW4FpsHQN16zE0gGSFtdvfS86D0vM87e90EUlLjfU65zEIF0+sYz5/
+	 hk3Gq8SFmEnEv6bYLfwcr1+UnZ7pUKQpaZnF3Fe4Q9gG0UkKf1LW6EAZA+X8ctYl/oR6S
+	 SD8wJqKjKRoz7f8WMmM6lOiZ8lHRsH9CF1lgvLkXBaTk3OtCQxQGFciIB+Ptzuu3WOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793044947;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793044940;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=N2COgMJdxeQAvx7S+Q6UBvbh8mW4nF5CYPzexiu1PKI=;
-	b=lOvmq6OtNVUHkFnhHMiy8zYA7elVHA5yH8UXCemv0vzz5KT/m9GIVgk+FE6O03HK9kQe
-	 AvtMHYPOOUoaIp/446LusAxcviEoK1N0EIYfAzTV8G9Y++M5Z/0qJ0IzmmPzuJ1SXjSD8
-	 yHaG0+Bjv4VG0j6CZlQ/SP03skGh6r2p7PhLJZmt6ftQUIJTnPyILOE1GAd5hEMA1hlx4
-	 ii6Vfcw8120u3wN7ypA76ZxYhEs62RfhRkQX+EdowPy3j8vVqWDm3Gb65z4Dr8eqWiOCJ
-	 Dl7gZAA06/tfpJoFUgqWqvD3bHfPwcWcoj/vEBAISmXaNVw7eMSltfsjrERNN7B5nKQ==
+	bh=pU5b5ihcYnoiOulq03sY9zpKeBhkxlrYNGiLlmtR8+0=;
+	b=JN24DP1D0kGEA1qY/E7cb3UZtGB2X9Yr+J7DzoKAFoGla96+kHoHXe2cmQIUnHuFngPr
+	 s1SZ+2EzGnQ66FB24acR90ZA0TUUUCL7xnSBATLIZKh6qnAG5vchnLwEMKw9PG5V8dP62
+	 XSfXBn8rH3es23/TRwWiejbZEbM25e4hoe4aSjo/iUyiusbswwnzCUB97H92qk08tOsCK
+	 X+d5+qAteIY0aZGFjDVFIT/6SimBLmpxcMJ14GmpJ6BIdnvPUBc/vB/18UkUeL3RmiCWk
+	 oQThcPEmQB4fiL2zGoa+473NjDdpMlxJummYYlh5ALD9FBd11ryFbxyinpapGOhZEmA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=RwQPWwj2;
-	arc=none smtp.remote-ip=91.218.175.131
-Received: from mta0.migadu.com (out-131.mta0.migadu.com [91.218.175.131])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fa30BEEM;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7145606A320
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 20:02:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7145606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1CF2606A31A;
+	Mon, 26 Oct 2026 20:02:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=RwQPWwj2
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=3c5zx73qa9zbzHK/OsBfgB2TbAsXfenQkA8z7M0+31Y=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793044944; v=1; x=1793649744;
- b=RwQPWwj2gNAPc2T9Da0Ydt7uByrbnkZxx893QmEYC78jdsFuEgrVG/Kz8kkqwubbEVmakYnX
- F7O/IQde9Y6WKxftAjM7IBrsfIwVzA6bUDD8otYjayJlk36aIPQBSVNtpDHgmx9MtuV/plrcJh2
- HZxw+2wIlJDc/bkdvmwBBr/4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ea248a7b7212ccb7;
-	Mon, 26 Oct 2026 20:02:24 +0000
-X-Mizu-Trace-ID: ea248a7b7212ccb7
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <dee39669-b726-480e-8ca6-10f19512da68@linux.dev>
-Date: Mon, 26 Oct 2026 14:02:19 -0600
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fa30BEEM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AABE41F01825;
+	Mon, 26 Oct 2026 20:02:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793044939;
+	bh=pU5b5ihcYnoiOulq03sY9zpKeBhkxlrYNGiLlmtR8+0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=fa30BEEMAWJNd6ifbLnG4k7C33ee498bhauewafyMZ8tZfJMmcFcflsxoC5yxOCce
+	 W0qY/OwtxQL+zBTGzNQsVV7X+pPlERL4xCA2FHtWvySY7Ybkyt1OinOjnQLWpUoCym
+	 73fI/lUYwhOLl6TvnjQ/aHUVDVVbg1phGDGdAPt13DY8wtlpuPbNo2xUadOYuJCP/U
+	 CoXYhrZL0vKfG56uby3pc8IMk++oVCNAxxUmAm4ppxxPlAlhTV57ypqcn+1mLxozez
+	 AIP4JIJFJiBHL9XFSV/GJ/4kPa/iefpS83DlBQCDmYIZYqlgf8fu1RLL1BNw92CsRj
+	 9QzCCaOsQ4QPA==
+Message-ID: <f2dd98be-0551-4857-93c7-59ffad1d3e88@kernel.org>
+Date: Mon, 26 Oct 2026 21:02:12 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,101 +52,75 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] mm/huge_memory.c: skip zero-page remapping when
- underused THP shrinker is disabled
-To: Barry Song <baohua@kernel.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
- Yu Zhao <yuzhao@google.com>, Xu Xin <xu.xin@linux.dev>,
- Chengming Zhou <chengming.zhou@linux.dev>,
- Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
- Gregory Price <gourry@gourry.net>, Ying Huang
- <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
- Usama Arif <usamaarif642@gmail.com>, aarcange@redhat.com
-References: <20261025-b4-ksm_fixv2-v2-0-8b61ad0491f1@linux.dev>
- <20261025-b4-ksm_fixv2-v2-1-8b61ad0491f1@linux.dev>
- <CAGsJ_4zUVpBJazRxc1CzN6u5XvpUaGnaf-_7JMz-rGK_ZTYMtw@mail.gmail.com>
- <e865f7f0-087c-4fe5-b729-6e6946cd20f6@linux.dev>
- <CAGsJ_4wp_jCtCeMx39nW0Z1Jm5pja7_V6XNwLB6p7zTan0c3VA@mail.gmail.com>
-Content-Language: en-US
-From: Nico Pache <nico.pache@linux.dev>
-In-Reply-To: <CAGsJ_4wp_jCtCeMx39nW0Z1Jm5pja7_V6XNwLB6p7zTan0c3VA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v14 RESEND 0/6] Merge redmi-wmi into bitland-mifs-wmi
+To: Chris Taraszka <chris@miget.com>
+Cc: Mingyou Chen <qby140326@gmail.com>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Ilya Gladyshev <ilya.gladyshev@linux.dev>, KentoNion <kento@kekto.ru>,
+ platform-driver-x86@vger.kernel.org, ted eric <ericted8810@gmail.com>,
+ Armin Wolf <W_Armin@gmx.de>, linux-kernel@vger.kernel.org,
+ Matias Civadda <matias.civadda2342001@gmail.com>, =?UTF-8?B?6auYIOS/ig==?=
+ =?UTF-8?B?5paH?= <btx342@gmail.com>, powerfullz <wleizc7319@gmail.com>,
+ =?UTF-8?B?5a2ZIOiqiemTrQ==?= <wolf109909@outlook.com>,
+ =?UTF-8?Q?Milo=C5=A1_Vlku?= <vlku.milos.fun@gmail.com>, Rsplwe
+ <i@rsplwe.com>, Bozhen Peng <bozhenpeng93@gmail.com>,
+ Anton Karasev <uselessfire@gmail.com>, Jame Jao <jaojame6@gmail.com>,
+ Serhiy Shliapuhin <shlyapugin@gmail.com>
+References: <20261026102101.224568-1-qby140326@gmail.com>
+ <073e6aaa-12dd-4fc1-b7dd-4d27cb4e27b6@kernel.org>
+ <CAAcRvKNvBKwVcPQ6vv-+OGZdL2Gxd-ocNyvZO_q-g083QNfR5w@mail.gmail.com>
+From: Hans de Goede <hansg@kernel.org>
+Content-Language: en-US, nl
+In-Reply-To: <CAAcRvKNvBKwVcPQ6vv-+OGZdL2Gxd-ocNyvZO_q-g083QNfR5w@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+Hi,
 
-
-On 10/25/26 10:52 PM, Barry Song wrote:
-> On Mon, Oct 26, 2026 at 5:48 AM Nico Pache <nico.pache@linux.dev> wrote:
->>
->>
->>
->> On 10/25/26 2:28 PM, Barry Song wrote:
->>> On Mon, Oct 26, 2026 at 1:40 AM Nico Pache (Red Hat)
->>> <nico.pache@linux.dev> wrote:
->>>>
->>>> The zero-page remapping in __folio_split() was added to support the
->>>> underused THP shrinker. When the shrinker is disabled via
->>>> shrink_underused, gate TTU_USE_SHARED_ZEROPAGE on split_underused_thp
->>>> to avoid scanning subpages for zero content unnecessarily.
->>>>
->>>> Suggested-by: David Hildenbrand <david@kernel.org>
->>>> Fixes: b1f202060afe ("mm: remap unused subpages to shared zeropage when splitting isolated thp")
->>>> Signed-off-by: Nico Pache <nico.pache@linux.dev>
->>>
->>> is b1f202060afe a correct fixes tag? as
->>> commit b1f202060afe has no even "split_underused_thp" there.
->>
->> I believe so. IIUC these two series were merged together. While
->> 81d3ff3c6f7 introduces the toggle, b1f202060afe is where the behavior
->> started.
->>
->> I guess you could argue that the Fixes should include both?
->>
->> Not entirely sure!
+On 26-Oct-26 20:56, Chris Taraszka wrote:
+> On Mon, 26 Oct 2026, Hans de Goede wrote:
+>> 1) This assumes the event indicates a platform-profile-change has happened, if
+>> it is a request for a platform-profile-change then platform_profile_cycle();
+>> should be used instead.
 > 
-> Thanks for the clarification. I guess it's fine.
+> Hi,
 > 
-> BTW, with the code below, we no longer add fully mapped
-> folios to deferred_split_folio. So the scanning code only
-> handles partially mapped folios to set up zero-page mappings
-> for their subpages.
+> Some data for this and for Mingyou's KBD_BRIGHTNESS question, from the
+> Xiaomi Book Pro 14 (TM2424, BIOS XMAPT4B0P0A0A), traced with a kprobe
+> on bitland_mifs_wmi_notify() with v13 on v7.3 (v14 has the same event
+> handling):
+
+Thank you for the info.
+> - Fn+Space (keyboard backlight) sends no WMI event at all, neither 0x05
+>   nor anything else, and does not change the backlight under Linux. So
+>   this model cannot tell whether the firmware handles KBD_BRIGHTNESS.
+
+Hmm, I wonder if this maybe sends some scan-code on the PS/2 atkbd
+interface? Windows must get an event somehow ...
+
+> - Fn+K sends event 0x28 with value_low 0x01 on every press (01 28 01 00),
+>   not 0x16. The firmware does not change the mode by itself: the
+>   SystemPerMode value (EC 0x68) stays the same across the presses. If
+>   0x28 is the performance mode key on this model, it is a request rather
+>   than a notification, so platform_profile_cycle() would fit. 0x28 is
+>   currently logged as "Unknown WMI event".
+
+Ack, this sounds like a case for calling platform_profile_cycle() if
+platform-profile support is present.
+
+> - On Windows on the same machine, with Xiaomi PC Manager not running
+>   (it fails to start on this install), neither Fn+K nor Fn+Space does
+>   anything either. So Fn+K looks like a request that Xiaomi's software
+>   normally acts on, not a mode change made by the firmware.
 > 
-> I'm still not quite sure whether this is really harmful, though.
-> Am I missing something, or was there some discussion I missed?
+> - Mic mute sends 0x21 with value_low 1 and 0 and is reported as
+>   KEY_MICMUTE, as expected.
 
-The issue is not in the actual shrinker code or the deferred split list.
+Hmm, if the value-low toggles I wonder if the firmware also mutes
+the mic itself ?  This may need some special handling.
 
-The issue is that any split leads to this zero-page remapping 
-indiscriminate of the actual toggle. The same way this toggle is gating 
-things going on the deferred split list, we should be gating the actual 
-zero-page remapping too.
+Regards,
 
-There were two pieces to the underutilized shrinker, first we check if a 
-THP is underutilized, if so we split, and the split+remapping handles 
-the freeing of that memory. However, functionally this also made ANY 
-split do this zero page remapping, not just those coming from the shrinker.
+Hans
 
--- Nico
-
-> 
-> void deferred_split_folio(struct folio *folio, bool partially_mapped)
-> {
->          ...
->          /*
->           * Order 1 folios have no space for a deferred list, but we also
->           * won't waste much memory by not adding them to the deferred list.
->           */
->          if (folio_order(folio) <= 1)
->                  return;
-> 
->          if (!partially_mapped && !split_underused_thp)
->                  return;
-> }
 
