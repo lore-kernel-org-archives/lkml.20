@@ -1,100 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.41
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793057257;
-	b=4bv13GUti2G/XECVuyrBh7b+rVRL6XaFdABg0Ai7UMRVe30xsNEyU5CTHPkFnlovLmjX
-	 MYutPZ0+3IP7PNqnKia90XxyM+/475Eu3nbM7NCr4k53yg6ov2hjKIpghQFh+oUMqP/yT
-	 GXzZ/X9kCXdRmV473fYRSjE8SrDDDqckniWm6I/h1EQZk086nBa/skZ5prW8K3NFUywq5
-	 /AWpcarXFLMUJEUZqjaiTxjUFOZgBZMxAfukZH9M4P41hPDdbQFtKGSLxc8dn4WuGRC3T
-	 3WubKAvaOffCmYNd/rSi8SWNppPY5Rf5drKImvoHSCvFUAs/E2iLa/V+NAPodM1M2zw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793057257;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=1mqD5M1SOnbBXQZnyfEZ1oBMiETd8QiLPN/NWhIUn50=;
-	b=w4mq4e6qEIBwbe/82ouwGyQT8XR+/SngKPoTMc3oqSls+bPDM2uBswxe5RceR0u84q8C
-	 JLKLkzX7kg19FrPEJx2HM98ZTakC6KaTnCSVqR2QBXAF2fCOJ1as+yEk1qekBRn9u6P66
-	 B9Cq0VBtdbGKDVM479PtHB4Y8mkjtPJnVeToJzIOQCWchcN8ZDDJyxXIO4amJQd4hgGir
-	 AiyEe/dTBYecnSx5QQ8qN/LuBtZqTp4kCCmJkRXphZLbUvvKHy0352x7oQst1mrcIzXKy
-	 rY8eEX2t8PnPjGbVc1ZzQ7h4S6ZlEWqTnHqqNsOuYa+Y/w2VnvikSkljHXtvYHJRZ2w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=bLs7jcyi;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793057275;
+	b=NnVy+6ivi46SFUtDkImX++x+wOfKx85JGUnbsM+/DMWXZ34OE4vlMMyWzUEu+Ac0T0Xu
+	 KPUHepoVkt0WSLxPCOodBxdVyaP2nsD01YpHQEtzFX9wlmmMW/KL63ibyPT/gyz5m0pYB
+	 zVqNN/p5fjtahuSiCbm7Pyn2YLYeozBVlU917/QxYuz7RtsgR37MFx3BjZWfHgaYSusKj
+	 mb2Q26jLAK+rRiiLwg9vQdKQhstGq1MhSXQ4iI9E5Gj+KC6WpO15chH9i1GzAkebtKOks
+	 /ArnT8tFE0DKarStZ/n9wS/Y83Z/74THfx8ZC81PJinm5ZTPoRJt9AQuXBGiOOrKS9w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793057275;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=NHUznzbhtn3AtvFPFOcCt9tvyez2ae3rJ1KObV9N9d8=;
+	b=rr0uxIJMzHlIWKKF33je/9GjYN5UuRGyfeMWLcaO/3YHa2obJbvCTQvHCV5FceksILfX
+	 YHysIHD173YDejxs1nbYjHz1h2zUnEq2YSwPeC29TMvL6Jj4i5A7u4OxKGNfY2/crgHgN
+	 CJCrvx5+sSbO4MFPxIWT0VDN4XCyoRvotaAaAFSEB4ahgipSAQ9hfMQHf5PjVDbasFhv1
+	 zm8lAqsAL3gCotupzdEm8eQlL/PMRolKp0QlzzQy1Q/8DACvJz2ys1BfeNsffcfsq9z7H
+	 PYOPFs6T3DRMGLq4E0VYYtESG5rFcZefkL7dG7mpgOSsXq/iAw5co8p0YXaDfL1tYOg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wax5YaVW;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44D70606A31D
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 23:27:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44D70606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 834A8606A329;
+	Mon, 26 Oct 2026 23:27:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=bLs7jcyi
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a206f0b95bso28635e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 16:27:36 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793057255; cv=none;
-        d=google.com; s=arc-20260327;
-        b=KWl2BRO60zvaPSTEwP7yDLa0Cj1/BBGB1DGoYQegr1gvX9+TUgwxnmn0AdtvUfYrQF
-         kzllCcFRidSePcrdvL5VmPzFGWbtAWSg52x3/2qXvTiQ4DEjv9LEYg0wiJdY03YZzRkt
-         3z522yrS1ak95IN1nRNUSCP7DW93Cv8nBVdSVPnEtIZEztHSr6Jsxc6yAQZ4Uhaz1V3P
-         Haafxaps51lTgdlWx99DhjRXNBjJ+SmbyIj/ZIjvxEu3veyOIhRmTXwkDx4MV/qVk6Hl
-         zlb9Gy/+iV3wBZN8hkVoIopDspaVRd+sSantfjgoFWQEGaunclC6sxM6XF+7FlkOIrAq
-         7cCg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=1mqD5M1SOnbBXQZnyfEZ1oBMiETd8QiLPN/NWhIUn50=;
-        fh=fSYdHy77utZXfkYaDYraSChNiqfqPJBkZGuz9s3b7xc=;
-        b=SnqYaDSxHNTvi9OcJZ7BnklTzAxERiVLuDTx/j7PNK0C+1I6vliqy35zVoCUx9PR2C
-         1ey8gWi+vITgljz4dNK5v2yScXgId3jjqqQZSKdBEzIzyIpzszzc18XfF+800Ap5Xd3H
-         pPXVmVtA8XxNL8poyG/yBv31jdLwLEy1bioraMGF5OFKq8p0RFjmLb+p/3rdrsGNU3yq
-         p/35qqkElMSPCq2OzT+dDEx0yLaTlmwEmT+halTb8h9ydBHebV2glaq7ZL8V8lwSHeDR
-         NGrJENK5B+UC9wPDBoR87ghEIn+jX5gYovrra5UsYE1LzEFNQwIZ+sKRo7xWzWAqmNWA
-         24ww==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1793057255; x=1793662055; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=1mqD5M1SOnbBXQZnyfEZ1oBMiETd8QiLPN/NWhIUn50=;
-        b=bLs7jcyikitVpBLAUtc5L2B1UIJNgHuQGB0/pF4n7y1CCVCfe3qDOSBQ5pAnBzBmhG
-         KPimts657MIy49F/7/Gvs2NaFGibHWpc/d3yhvQSzXhK2X13IvDrJ09P56agdXF4CKvc
-         3MFmEflF+bzmb2Wx7Db0Mam0uMCk9WkSC5BQEVFpkr7EmWZdMXuEvYqLR81Ukxpvzd9y
-         Kqo0F50y/t9+iT40S//H2VQXPX4QagP9gO2Z+a2LNk7UypsLyx0Y3LRF+qq9e/mNEnOB
-         LMWGFVLALngr33ZvctHC9CHs4wFwaoMg1C88TBSFAmFnGeLceehulTsRF4FFnCUr6wpL
-         lCSQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793057255; x=1793662055;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1mqD5M1SOnbBXQZnyfEZ1oBMiETd8QiLPN/NWhIUn50=;
-        b=uSDnykVqk7r7Fxa2Q/lRtIjqIsL8wF3Jp5XV6lOBvQN4QU9C/59FPsKcGxWiHdGohy
-         GMn50mMDgUqcZf87c1JyKw6tGI2n6xceIfXCgn2Hk4Jm0EK8QRLJgtT+rENmv6N7H21w
-         vHITnK6VRKaILuXah5fvqCXfEvh+VFEOxYhvWxySz/3U/IDmWMFfkcrnQNRnuJ4sROfM
-         OasPEIA1jkvCo3OSLc42uDX9qkRqee2Hh63BRECheBaPGFhFXJHXQDfwe+EmM5x0T4ue
-         sUKKE8ZC2tFmawtmMLIbWVI2CImw9mf/Jy5Wuhf+mEsOA6RAxT9Zd/2rpKz49owoa9zh
-         0PYA==
-X-Forwarded-Encrypted: i=1; AKwUvBzSTbmTHAxnoSwK80FK7A3khoVWeEE9k7O8TBsS5BGniQoSdKwqP/PKnGtl326qXxaBcBmP0ddPVdozBQo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJKYo0UhW0nipttnB7R+pZJitYi9GZl1dvyW90z4TiVCeSOhBnO
-	Qah23+fkyqFrfHOWpfCD0o9FVk3aRtSkCFkVSyESVAUfs2yMXRYXxY2+qw3LqEBVxT/vc6kKYFn
-	t+vZc0lZ0hAXOshV8Mw9eAQebw+9R44bsD0wQtFPZ
-X-Gm-Gg: AYBFou0/UR7hSSW3fyBO0IBX6hTmVl/n+fKxuUf7Uuigx7mc2oWl3wYKgPTik8VvyHk
-	NG3p58j2PTTdpF3OgiQQGjJdKy9SlO4XEceRNqnGteI+bCtDsZ3dXWokT2xUbllGkeaqu78eMKr
-	F0+hcLxKaCl64cTrEca5pnyUtanIvLx+B74OX6nG6bGxw9OzJuRw5WH5TVg/PQapH/kjBlmXybN
-	pRD9PVD5+q0RroItPL84AVsbWRpJcexXoCoZIgdpC1/ptBD+AxIiRjiKhhESbHivptfnVUsc6iG
-	l9E155NX24bxgGS/0qxTNKcEkAQKlKlefVhsWzwVoqGPbBjfahUPrIGvsOIChEL4V6nKxfpa10l
-	1B1cWTebjtZRVJNpB/S9rtZ7yfy9OeIhexSJs7eTwYq6POSOHJB7h70ztQuuefRS7T5E=
-X-Received: by 2002:a05:600c:6385:b0:4a2:1053:8854 with SMTP id
- 5b1f17b1804b1-4a7fa6d7103mr238195e9.7.1793057254910; Mon, 26 Oct 2026
- 16:27:34 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wax5YaVW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79B271F031E1;
+	Mon, 26 Oct 2026 23:27:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793057275;
+	bh=NHUznzbhtn3AtvFPFOcCt9tvyez2ae3rJ1KObV9N9d8=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=Wax5YaVWlZWtTyF1cl336nJjKdkNmG46OgD6dxRlnHVJj8Cbu/sv1aOd3OtX/XYgv
+	 aOdlKrCsUrZ98XB3SksCIIOmcUjGLEvQtGQGJVeaemTMwpsJj9ahgppeTtpHPd40F+
+	 jvYOYs9DHDRRfJTZb+t3Ez41u+L45karzC00vwIuxjfyYyOeMH1iBD798L0fsDEMlD
+	 IiFRsjyubm5blmZwKQSUQIsHP+XrFLH1hX38WNCQ5pdkYFPW31DiHx6N+6JdLpuvKg
+	 W8Mw8HIHbW1azLcj/SFBIkJ+dLBGpd3p8aUSBTN5r89kufzYi4k3Mxxnq80QzNL3m4
+	 WUiPj3dN6cZMA==
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Date: Tue, 27 Oct 2026 00:17:52 +0100
+Subject: [PATCH 32/46] mm/memory_hotplug: avoid races in
+ pfn_to_online_page() with dying pgmap
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,175 +53,169 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261026221306.3151025-1-namangulati@google.com> <at_TlVBS-5KVZAkg@devvm16445.scu0.facebook.com>
-In-Reply-To: <at_TlVBS-5KVZAkg@devvm16445.scu0.facebook.com>
-From: Naman Gulati <namangulati@google.com>
-Date: Mon, 26 Oct 2026 16:27:23 -0700
-X-Gm-Features: AclHuK8Cd20sFe09QIEr5z-xvF2Lx3z99lk5bXEqBpQ_ECzBPmwROmoKDtup8iQ
-Message-ID: <CAMP57yVNVLsGJs5goWDZeoOtm0wOZDFziXpou3c_9fuTt_5r3w@mail.gmail.com>
-Subject: Re: [PATCH net] netdev-genl: ignore NETDEV_UNREGISTER rebroadcasts
-To: Stanislav Fomichev <sdf.kernel@gmail.com>
-Cc: "David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Kuniyuki Iwashima <kuniyu@google.com>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	syzbot+1269fe6cc2016008124e@syzkaller.appspotmail.com, 
-	lege.wang@jaguarmicro.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261027-fixes_core-v1-32-6f74bec9a5bb@kernel.org>
+References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
+In-Reply-To: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>, 
+ Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+ Baoquan He <baoquan.he@linux.dev>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
+ Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, 
+ Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>, 
+ Pasha Tatashin <pasha.tatashin@soleen.com>, 
+ Pratyush Yadav <pratyush@kernel.org>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+ Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>, 
+ Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
+ Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
+ Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>, 
+ Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>, 
+ Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
+ Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
+ linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, 
+ Josef Bacik <josef@toxicpanda.com>, 
+ "David Hildenbrand (Arm)" <david@kernel.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4238; i=david@kernel.org;
+ h=from:subject:message-id; bh=HSq6X/4K+SfPFkviF2rs567Nufb8NBDKLoe9P0lK1SA=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLLu35/OsvFGcH2Wo5bmDct3yy6Eyfkcepkg7VWeznVXV
+ OA8b+bTjlIWBjEOBlkxRZag4PsGL1+uq61242OGmcPKBDKEgYtTACbyopLhv5/tl/2M77RcfY0u
+ aHKYGOlJqt7fkrkle85nU9N5lduDXBkZFrqs6/fxP278dlJVj395qVda2efLWs0N9UrH55Upsp/
+ gBgA=
+X-Developer-Key: i=david@kernel.org; a=openpgp;
+ fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-On Mon, Oct 26, 2026 at 3:28=E2=80=AFPM Stanislav Fomichev <sdf.kernel@gmai=
-l.com> wrote:
->
-> On 10/26, Naman Gulati wrote:
-> > netdev_wait_allrefs_any() re-sends NETDEV_UNREGISTER every second while
-> > it waits for the last references on a device to be dropped. By then
-> > netdev_run_todo() has already marked the device NETREG_UNREGISTERED and
-> > RTNL has been dropped at least once since the initial notification sent
-> > by unregister_netdevice_many_notify().
-> >
-> > netdev_genl_netdevice_event() does not tell these rebroadcasts apart
-> > from the initial notification and sends a NETDEV_CMD_DEV_DEL_NTF
-> > multicast for each of them. At best this spams NETDEV_NLGRP_MGMT
-> > listeners with duplicate notifications; at worst the pernet state of
-> > the netns the device belongs to is already gone and the handler
-> > dereferences a NULL pointer.
-> >
-> > default_device_exit_batch() only unregisters the devices still listed
-> > in the exiting netns; it does not wait for in-flight unregistrations of
-> > devices that were already unlisted (the barrier doing that was removed
-> > by commit 8a4fc54b07d7 ("net: get rid of rtnl_lock_unregistering()")).
-> > So when a device is unregistered by something other than the
-> > cleanup_net() of its own netns while references on it are still held,
-> > e.g. a veth whose peer in another netns gets deleted, and that netns
-> > exits while the device is stuck in netdev_wait_allrefs_any(), the
-> > remaining pernet exit handlers run and genl_pernet_exit() sets
-> > net->genl_sock to NULL. The next rebroadcast then crashes in
-> > genl_has_listeners():
-> >
-> >   BUG: KASAN: null-ptr-deref in netlink_has_listeners+0x3d/0x3f0 net/ne=
-tlink/af_netlink.c:1388
-> >   Read of size 8 at addr 0000000000000578 by task syz.0.0/5325
-> >   Call Trace:
-> >    <TASK>
-> >    netlink_has_listeners+0x3d/0x3f0 net/netlink/af_netlink.c:1388
-> >    genl_has_listeners include/net/genetlink.h:644 [inline]
-> >    netdev_genl_dev_notify+0x161/0x450 net/core/netdev-genl.c:93
-> >    netdev_genl_netdevice_event+0x98/0x3c0 net/core/netdev-genl.c:1491
-> >    notifier_call_chain+0x1a5/0x3d0 kernel/notifier.c:85
-> >    netdev_wait_allrefs_any net/core/dev.c:11690 [inline]
-> >    netdev_run_todo+0x731/0x1060 net/core/dev.c:11808
-> >    rtnl_unlock net/core/rtnetlink.c:157 [inline]
-> >    rtnl_dellink+0x68f/0x810 net/core/rtnetlink.c:3707
-> >
-> > syzbot hit this by moving one end of a veth pair into a short-lived
-> > netns while netdevsim's deferred FIB event processing still held a
-> > reference on it, and then deleting the other end (repro [1]). While the
-> > source of this bug is netdevsim deferring FIB processing for and holdin=
-g
-> > onto the device reference for O(seconds) which is being fixed
-> > separately [2], any driver may introduce such a delay and trigger the
-> > null-ptr-deref.
-> >
-> > Skip the rebroadcasts, which are the only NETDEV_UNREGISTER events
-> > delivered with reg_state =3D=3D NETREG_UNREGISTERED. The notifications =
-sent
-> > by unregister_netdevice_many_notify() and, for a device leaving a netns=
-,
-> > by __dev_change_net_namespace() are issued under RTNL in the same
-> > critical section that unlists the device, before its netns can be torn
-> > down, and keep being handled. This mirrors what ip6_route_dev_notify()
-> > already does to cope with the rebroadcasts.
-> >
-> > This change should not break the UAPI spec as it defines dev-del-ntf as
-> > a "Notification about device disappearing." which is a single event. Th=
-e
-> > rebroadcast in netdev_wait_allrefs_any() exists to re-kick in-kernel
-> > subsystems holding references; netdev-genl happens to be on the notifie=
-r
-> > chain and forwards it.
-> >
-> > [1] https://gist.github.com/NamanGulati/2d1b49b8757f9a88b0bd6e55018c02a=
-e
-> > [2] https://lore.kernel.org/r/20261023191517.607834-1-kuniyu@google.com
-> >
-> > Fixes: d3d854fd6a1d ("netdev-genl: create a simple family for netdev st=
-uff")
-> > Reported-by: syzbot+1269fe6cc2016008124e@syzkaller.appspotmail.com
-> > Closes: https://lore.kernel.org/netdev/6adf9f64.6200f071.51519.0ed1.GAE=
-@google.com/
-> > Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
-> > Signed-off-by: Naman Gulati <namangulati@google.com>
-> > ---
-> > Note that the reproducer attached to the syzbot bug targets a different
-> > bug (via devlink_port_notify() on netns teardown) that happens to share
-> > the same crash title, not the one in the original reported crash report=
-.
-> > ---
-> >  net/core/netdev-genl.c | 6 ++++++
-> >  1 file changed, 6 insertions(+)
-> >
-> > diff --git a/net/core/netdev-genl.c b/net/core/netdev-genl.c
-> > index 33b9f4eb9565a..2032ab9a864c2 100644
-> > --- a/net/core/netdev-genl.c
-> > +++ b/net/core/netdev-genl.c
-> > @@ -1487,6 +1487,12 @@ static int netdev_genl_netdevice_event(struct no=
-tifier_block *nb,
-> >               netdev_unlock_full_to_ops(netdev);
-> >               break;
-> >       case NETDEV_UNREGISTER:
-> > +             /* netdev_wait_allrefs_any() rebroadcasts NETDEV_UNREGIST=
-ER
-> > +              * while waiting for the last references to be dropped; t=
-he
-> > +              * netns may already be torn down by then. Notify only on=
-ce.
-> > +              */
->
-> [..]
->
-> > +             if (READ_ONCE(netdev->reg_state) =3D=3D NETREG_UNREGISTER=
-ED)
-> > +                     break;
->
-> Same as
-> https://lore.kernel.org/netdev/20261026063743.1797-1-lege.wang@jaguarmicr=
-o.com/
-> ?
+From: Josef Bacik <josef@toxicpanda.com>
 
-Yes, sorry, same as that patch - which I missed. The author sent that
-as an RFC and mentioned they're happy for someone else to take it
-over. I'm happy to iterate on this and credit them unless Xiaoguang
-prefers to keep working on it.
+If ZONE_DEVICE memory shares a memory section with ordinary memory, the
+section is online and the pfns of the device are valid.
+pfn_to_online_page() tells them apart by asking get_dev_pagemap() whether
+the pfn belongs to a dev_pagemap.
 
->
-> reg_state is protected by netdev, why not do this under netdev_lock?
+get_dev_pagemap() only returns a dev_pagemap whose reference is alive.
+memunmap_pages() kills the reference first, waits until all pages are
+idle, and then removes the memmap. During all that time the function
+finds nothing, and pfn_to_online_page() hands out the struct pages of the
+device as if they were online memory. A pfn walker reads them while they
+are poisoned and freed.
 
-No strong reason. I read it outside the lock because the rebroadcast
-runs on the same thread that set NETREG_UNREGISTERED in
-netdev_run_todo() so reading reg_state under the lock is not strictly
-required, but we take the lock right below so can move it there if
-prefered.
+The entry in pgmap_array is only deleted after the pages have been
+removed. Look at that instead of trying to get a reference.
 
+This is probably not worth CCing stable.
 
-> Also seems like we are fixing a symptom, not the problem?
+Fix generated by an LLM and sent by Josef Bacik in private.
 
-Since 8a4fc54b07d7 ("net: get rid of rtnl_lock_unregistering()"),
-cleanup_net() doesn't wait for devices stuck in
-netdev_wait_allrefs_any(), so the rebroadcast can reach notifiers
-after the device's netns has already exited. However the rebroadcast
-is only a retry to make ref holders let go, not a new event, yet
-netdev-genl sends userspace another DEL_NTF for each one. I don't
-think userspace should receive these redundant notifications, even if
-the device still exists and we avoid the null-ptr-deref.
-ip6_route_dev_notify() and mlxsw_sp_netdevice_unregister() already
-skip handling the rebroadcasts the same way, by checking for
-NETREG_UNREGISTERED.
+Fixes: 1f90a3477df3 ("mm: teach pfn_to_online_page() about ZONE_DEVICE section collisions")
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+---
+ include/linux/memremap.h |  6 ++++++
+ mm/memory_hotplug.c      | 13 +++++--------
+ mm/memremap.c            | 13 +++++++++++++
+ 3 files changed, 24 insertions(+), 8 deletions(-)
 
+diff --git a/include/linux/memremap.h b/include/linux/memremap.h
+index e3c2ccf872a8a..b5e5e626c7a59 100644
+--- a/include/linux/memremap.h
++++ b/include/linux/memremap.h
+@@ -231,6 +231,7 @@ void memunmap_pages(struct dev_pagemap *pgmap);
+ void *devm_memremap_pages(struct device *dev, struct dev_pagemap *pgmap);
+ void devm_memunmap_pages(struct device *dev, struct dev_pagemap *pgmap);
+ struct dev_pagemap *get_dev_pagemap(unsigned long pfn);
++bool pfn_has_dev_pagemap(unsigned long pfn);
+ bool pgmap_pfn_valid(struct dev_pagemap *pgmap, unsigned long pfn);
+ 
+ unsigned long memremap_compat_align(void);
+@@ -284,6 +285,11 @@ static inline struct dev_pagemap *get_dev_pagemap(unsigned long pfn)
+ 	return NULL;
+ }
+ 
++static inline bool pfn_has_dev_pagemap(unsigned long pfn)
++{
++	return false;
++}
++
+ static inline bool pgmap_pfn_valid(struct dev_pagemap *pgmap, unsigned long pfn)
+ {
+ 	return false;
+diff --git a/mm/memory_hotplug.c b/mm/memory_hotplug.c
+index 796af1028ee23..5a972d7a9e478 100644
+--- a/mm/memory_hotplug.c
++++ b/mm/memory_hotplug.c
+@@ -342,7 +342,6 @@ static int check_pfn_span(unsigned long pfn, unsigned long nr_pages)
+ struct page *pfn_to_online_page(unsigned long pfn)
+ {
+ 	unsigned long nr = pfn_to_section_nr(pfn);
+-	struct dev_pagemap *pgmap;
+ 	struct mem_section *ms;
+ 
+ 	BUILD_BUG_ON(IS_ENABLED(CONFIG_HAVE_ARCH_PFN_VALID));
+@@ -363,14 +362,12 @@ struct page *pfn_to_online_page(unsigned long pfn)
+ 	/*
+ 	 * Slowpath: when ZONE_DEVICE collides with
+ 	 * ZONE_{NORMAL,MOVABLE} within the same section some pfns in
+-	 * the section may be 'offline' but 'valid'. Only
+-	 * get_dev_pagemap() can determine sub-section online status.
++	 * the section may be 'offline' but 'valid'. Only the presence of a
++	 * pgmap can determine sub-section online status: it indicates a
++	 * ZONE_DEVICE offline pfn. That includes a pgmap whose reference has
++	 * been killed, its memmap is about to go away.
+ 	 */
+-	pgmap = get_dev_pagemap(pfn);
+-	put_dev_pagemap(pgmap);
+-
+-	/* The presence of a pgmap indicates ZONE_DEVICE offline pfn */
+-	if (pgmap)
++	if (pfn_has_dev_pagemap(pfn))
+ 		return NULL;
+ 
+ 	return pfn_to_page(pfn);
+diff --git a/mm/memremap.c b/mm/memremap.c
+index accba23aef28c..a1e99a4c55c56 100644
+--- a/mm/memremap.c
++++ b/mm/memremap.c
+@@ -413,6 +413,19 @@ struct dev_pagemap *get_dev_pagemap(unsigned long pfn)
+ }
+ EXPORT_SYMBOL_GPL(get_dev_pagemap);
+ 
++/**
++ * pfn_has_dev_pagemap() - does @pfn belong to a dev_pagemap, dead or alive
++ * @pfn: page frame number to lookup page_map
++ *
++ * In contrast to get_dev_pagemap() this also finds a dev_pagemap which is on
++ * its way out: it is registered before its pages are added, and until they
++ * have been removed.
++ */
++bool pfn_has_dev_pagemap(unsigned long pfn)
++{
++	return xa_load(&pgmap_array, pfn);
++}
++
+ void free_zone_device_folio(struct folio *folio)
+ {
+ 	struct dev_pagemap *pgmap = folio->pgmap;
 
+-- 
+2.43.0
 
-pw-bot: changes-requested
-
->
-> >               netdev_lock(netdev);
-> >               netdev_genl_dev_notify(netdev, NETDEV_CMD_DEV_DEL_NTF);
-> >               netdev_unlock(netdev);
