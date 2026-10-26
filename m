@@ -1,85 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793009481;
-	b=SAQny3+xnYjvCAK7kQi6TeG75ZDO7RIukweDN246OkxTHxWD6f4jXKrfQ/9JDkesKIK9
-	 M2hNVZi5t5RSJ54+rnCmqen/K/aCUtNFJgo+EXtWHg0T+Twt2k6lo4n1ej2/uMT0nBLlI
-	 KGZmfgLmnmSgCEDg7tXRuYjIzPt9hOxTzm2i76xVd3p4iebpNVjZaNIS5LwVWOuRDFXRE
-	 gRW0RXKx1VtN8ScHQaJfMRL3wP51/ECxM1BJhtrV0K8wHyXEhfOhD+Vx6+E21Vo0kyegc
-	 CeKHkTVz46zBjRqpqbwiB8BbNnbiHOfP/WGh4Q0z08AGIkZBKfg4Ii2taQ4Qb7xr6gg==
+	t=1793009588;
+	b=ZoRztwWZETuqon7TYtsK0/VUHVewTSkAM4sTYROW4y67Mj5cUUyJJ8W804rRtVEJbcfz
+	 XdwTcSARAb0OmLjbZlj1bXMzr4npD6jBiMr4ISHl2WuIOSzl18w1N4bdrZ+bJD4XsRyFR
+	 wlvFwCsf7pY54LfS/zZ5eCegX03/DAGfJmedcAgTp1pBIrFcfpiwkuUe3FsXP3YppPeHV
+	 FJ7toHKlJYOmtrXJbL9v7H0eTH7jTe4U58cfNTU8JtXpECqSddE6D9Oy4mEGvj+JTfJCx
+	 X59Wle4PC2KPWkgQ2QfCVWjPb3IvHBpbrU3HZt6EKvJkiZY3hmFgG9ywV1s2w42n72Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793009481;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=nHzLAUsQ2YNWwS+va9j2/lpxa/j+AoQFACmUeHcREIM=;
-	b=TjQPxEXqoxe8JtB0xcfdHpKOOG5191HdQ5nnQW1nSpVTiOM9+X4Vc2qw1Wcw6p8cEl6F
-	 A8UD+fssT2sQyAJ1CrXkcGPrgjgRvxXQDPx7urPTC5qYfiaoPutmXfOmM6UL1LsgC8hlW
-	 OU2dEo2fvog0HofRcaFeuOGeOipH8NyFgVTaARmOor4z4CVXdHmuEhr80vB2fM5eeYU67
-	 ZcGmf3G9aI41fXD7hrw742X1U35tVHUNXUhb2pDwb+8D31SA06aham71lX27mTE31QpfC
-	 hlw489zuTcugXxH30Rn0iUGeBtU4xKCtgLscOPtaEYlKn/qQSceofHI1ZKf9xyWL5yg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793009588;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=nESduMqia6gP/rxZ9IW15LDaNeBLJQQduuyyyp24WF4=;
+	b=fbkr/x5iY7p1l2udGbg6CUODKDpXTDFIgXtyk3TRenQN5g9DKb09vZADY5WleSQHcZst
+	 0sIARym7GtqoSk3VbqthvyKOz5ZEvauvL0rR3Rrzg7kMNpB5t76i8uf+v7IgsrjqmhF7W
+	 IaPNcG/aqvVUTHH+wyt1qxjpmdTIq86/k4nKadGWR6e8sV5AXdisLZ9YsiLIM+TDU/Q/S
+	 3wuGoh3qTYr29xfZJ/jDExBQcypFlL3zrWdMos5DeGBsh68RmG3tmxV4PldOdOFSdBpvn
+	 4eTGxyz1OSLZ2Vhye9IKjwuNwRVbYR2fwSef0JbUNesLmnIHfEY+mDNnF7pqJF6RyAw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=1YVZacPP;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=0xswxDpu;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=BKeCC0N8;
+	arc=none smtp.remote-ip=90.155.92.199
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C3A5606A31A;
-	Mon, 26 Oct 2026 10:11:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C3A5606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7791A606A31B
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:13:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7791A606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=1YVZacPP;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=0xswxDpu
-Date: Mon, 26 Oct 2026 11:11:17 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1793009479;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=nHzLAUsQ2YNWwS+va9j2/lpxa/j+AoQFACmUeHcREIM=;
-	b=1YVZacPP5NPyL4rpBaTY4TTSK6ebdm3IKzjOW4/fl1/gf8jNI0CFONv1ZAQ6MRL9U2ZWYU
-	UXwpv0GtvVqUSi6bo+PTnyrsw3rBxdzlIeUN56TcHSzAcI8/JACyMoOFZKlR21qr9CWbBw
-	DLNfInirpQkuQWrp2HxxBSe348BaqfKeAmrAR7lsfOa7GuI4O5PEoRKyGUaFg7oZSAaojY
-	Yimuf9zNWA9671E5WcR63gf9B67Omsm6FxBVaE+cUNxqPf5xG+m6RbTmnc/Ul2nbGTkINk
-	ZmBkk9pPsdUKrxhdLg0t2xJoFs+dAOn+oSfz7OJ8SSGVBkXLspnvhvGpseTXJA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1793009479;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=nHzLAUsQ2YNWwS+va9j2/lpxa/j+AoQFACmUeHcREIM=;
-	b=0xswxDpu5/IOM5iVsYwwwQMy22SacGvOOFA0XSPsWHkfgLHtx3JPsHUNmU8yP6meOoqWKy
-	rI9FTW0uOhmGSvDg==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: Daniel Zahka <daniel.zahka@gmail.com>,
-	Alexander Duyck <alexanderduyck@fb.com>, kernel-team@meta.com,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Jesper Dangaard Brouer <hawk@kernel.org>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	Eric Dumazet <edumazet@kernel.org>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, bpf@vger.kernel.org
-Subject: Re: [PATCH net-next v2 1/4] eth: mpnic: count packets, bytes, and
- drops per ring
-Message-ID: <20261026101117.YTmp0eu2@linutronix.de>
-References: <20261012-mpnic-counters3-v2-0-8afba81c2d5a@gmail.com>
- <20261012-mpnic-counters3-v2-1-8afba81c2d5a@gmail.com>
- <20261016220930.i32JEcqe@linutronix.de>
- <DM8U47F4MNK3.2V54CCQ9YTNBY@gmail.com>
- <20261019215405.OCzrrKYw@linutronix.de>
- <20261019190543.419e70bc@kernel.org>
- <20261020212155.47v0ot4g@linutronix.de>
- <20261020145038.4f7eb295@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=BKeCC0N8
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=nESduMqia6gP/rxZ9IW15LDaNeBLJQQduuyyyp24WF4=; b=BKeCC0N8FdK+zM2O8LOPyYlCMN
+	XeAaerQyAdn3wU3IN8eUf5nM83W75IJU04tw7ukkj8yzBt+QjAMYQaO3b/JikxFSDrZHDB7zltGsk
+	0+PIJWUvpoDMNueID6beoyyfW4PlJcV3qr/kCvLJwpfWVnTuesnc88KBshGxHXeod3hgy424nCgta
+	tRqHRRd3LH81KQ3DzaXM0/cJrdpmp2XMiegqdiucd2DvdYTrBl25BPRpa6XSWKxpim0lA6w0I/+oF
+	kAtdXrF8oupJLQeo3z3wDKP2GKdT4MtdBRVhJRoiDxGJ9/7HApXDfIDWlg7DF45x97m+kCTg9W13i
+	iKrczC8Q==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xLHhI-0000000DgL5-2k3c;
+	Mon, 26 Oct 2026 10:12:56 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id F24F3300DB9; Mon, 26 Oct 2026 11:12:54 +0100 (CET)
+Date: Mon, 26 Oct 2026 11:12:54 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Qais Yousef <qyousef@layalina.io>
+Cc: Ingo Molnar <mingo@kernel.org>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Christian Loehle <christian.loehle@arm.com>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	John Stultz <jstultz@google.com>, linux-kernel@vger.kernel.org,
+	Wei Wang <wvw@google.com>
+Subject: Re: [PATCH v2] sched/uclamp: Fix race condition leading to
+ imbalanced uclamp_rq
+Message-ID: <20261026101254.GA2668200@noisy.programming.kicks-ass.net>
+References: <20261025162612.360033-1-qyousef@layalina.io>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,46 +72,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261020145038.4f7eb295@kernel.org>
+In-Reply-To: <20261025162612.360033-1-qyousef@layalina.io>
 
-On 2026-10-20 14:50:38 [-0700], Jakub Kicinski wrote:
-> On Tue, 20 Oct 2026 23:21:55 +0200 Sebastian Andrzej Siewior wrote:
-> > > > Is there any other driver doing this?
-> > > > There is ::get_sset_count() and so on for the per-queue stats.  
-> > > 
-> > > You may be mixing up queue stats (netlink) with the old ethtool -S
-> > > kitchen sink / garbage dump.  
-> > 
-> > The statistics is folded on device-down into a global counter. So on
-> > device-up the statistics is still available. At least that is my
-> > understanding. This means the per-queue stats are lost and global stats
-> > don't match the per queue stats anymore.
-> 
-> Yes, that's intentional and recommended by the docs for queue stats.
+On Sun, Oct 25, 2026 at 04:26:12PM +0000, Qais Yousef wrote:
 
-I guess this is Documentation/networking/statistics.rst that I need to
-study.
+> diff --git a/kernel/sched/idle.c b/kernel/sched/idle.c
+> index 76f3c84ca6846..950e2885bba63 100644
+> --- a/kernel/sched/idle.c
+> +++ b/kernel/sched/idle.c
+> @@ -502,6 +502,23 @@ static void set_next_task_idle(struct rq *rq, struct task_struct *next, enum snt
+>  	 * lost_idle_time of clock_pelt
+>  	 */
+>  	update_idle_rq_clock_pelt(rq);
+> +
+> +	/*
+> +	 * Due to a race condition when enabling sched_uclamp_used static key,
+> +	 * we can end up with imbalance where uclamp_rq_inc_id() has happened
+> +	 * on a CPU without uclamp_rq_dec_id() on another CPU that hasn't seen
+> +	 * the static key flipped. The race condition is unlikely, but ensure
+> +	 * the uclamp_rq() state is set properly on each entry to idle.
+> +	 *
+> +	 * The reset will cause the uclamp_max from uclamp_idle_value() to be
+> +	 * lost. Since we are imbalanced, hard to know what is right. So just
+> +	 * cleanup. This should be a transient error state once we recover
+> +	 * everything should work as expected.
+> +	*/
 
-> > So if this never happens, it might not be needed to preserve this. That
-> > force-RCU might not be needed. This does happen on down and I would
-> > assume that the device is no longer processing packets.
-> 
-> The (old) ndo for stats reading runs under RCU, only.
-> AI will immediately point that out if we remove the sync.
-> 
-> May I ask why you care? Is there another driver you're trying 
-> to implement stats in? I'm not sure where you're coming from
-> and therefore what to explain to you.
+Whitespace fail here.
 
-I tried to be useful and do so some reviews and this stats part is what
-I did not expect to be "expected". I would expect per-queue stats which
-are folded into device stats on query time. Anyway. Let me study what is
-recommended before making noise here again.
-One last thing: If you replace RCU with SRCU then the logic should
-remain the same. On the plus side you would have some domain separation
-and the "synchronize" part will not force/ wait for the global grace
-period but be limited to the local one.
+> +	if (uclamp_is_used()) {
+> +		if (unlikely(uclamp_is_imbalanced(rq)))
+> +			init_uclamp_rq(rq);
+> +	}
+>  }
+>  
+>  struct task_struct *pick_task_idle(struct rq *rq, struct rq_flags *rf)
+> diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+> index 7d2ec527b8a25..47dcfd74e150f 100644
+> --- a/kernel/sched/sched.h
+> +++ b/kernel/sched/sched.h
+> @@ -3704,6 +3704,7 @@ static inline unsigned long cpu_util_rt(struct rq *rq)
+>  #ifdef CONFIG_UCLAMP_TASK
+>  
+>  unsigned long uclamp_eff_value(struct task_struct *p, enum uclamp_id clamp_id);
+> +void init_uclamp_rq(struct rq *rq);
+>  
+>  /*
+>   * When uclamp is compiled in, the aggregation at rq level is 'turned off'
+> @@ -3783,6 +3784,33 @@ static inline unsigned int uclamp_bucket_id(unsigned int clamp_value)
+>  	return min_t(unsigned int, clamp_value / UCLAMP_BUCKET_DELTA, UCLAMP_BUCKETS - 1);
+>  }
+>  
+> +static inline bool __uclamp_is_imbalanced(struct rq *rq, enum uclamp_id clamp_id)
+> +{
+> +	struct uclamp_bucket *bucket = rq->uclamp[clamp_id].bucket;
+> +	int bucket_id = UCLAMP_BUCKETS - 1;
+> +
+> +	/*
+> +	 * On idle all bucket.tasks must be 0, or we have hit imbalance
+> +	 * problem.
+> +	 */
+> +	for ( ; bucket_id >= 0; bucket_id--)
+> +		if (bucket[bucket_id].tasks)
+> +			return true;
+> +
+> +	return false;
+> +}
+> +
+> +static inline bool uclamp_is_imbalanced(struct rq *rq)
+> +{
+> +	enum uclamp_id clamp_id;
+> +
+> +	for_each_clamp_id(clamp_id)
+> +		if(__uclamp_is_imbalanced(rq, clamp_id))
+> +			return true;
+> +
+> +	return false;
+> +}
 
-Sebastian
+Anyway; I was thinking, since we have a hole in struct uclamp_rq; and
+also uclamp_flags. Can we fold uclamp_flags into the hold, and also use
+UCLAMP_FLAG_IDLE to detect if we need this bucket scan at all?
