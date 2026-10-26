@@ -1,55 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793024452;
-	b=0PAOHFiCV8QqMk/Jmk9rZ/YfzptsbusZvmJ8XgH0IhWouOMfWxMpGPTytxFhF8EL0NDq
-	 lHm1/J8500iIfHRUR2/62/05U1J84pW0a8BSDPa7eLGw1YJrxta+kvNpq59/mxKHrCbWK
-	 cwlIf1vDpgUj/LH6fRAawVlh/SkY9Oy1AfyhqGR/NbXg5QnN2Zf9Sy8hgK37pUNAIehXi
-	 JyuaaeZ/phB+0Q2P/N1xYRKp9yjw5P7Fj61tDCqShxK6vjqJM9597wiOmloelQkRskix/
-	 OSwRLSr5ezH50RFbrVsR1pScw/tQ4MV304+8b5oo0QebZoDbOO5JfZ2KkmMud9KzcEQ==
+	t=1793024445;
+	b=rc+MIQStV0L109iybrsjiQdwLFKkfLRkfdc0kN8kQZSTBWHU19lgEMUY9AdA2il/RtFW
+	 DS0QvO3FTTaktykV3H9rgNzmQJgXpoG33D5lS5AzfQdZKCIegJ3X8Pm2cwN1vIl52QaCp
+	 LjToBjiUzpZAI21NZUZEziLdryz2QwYQRkflsmOjskCUfiUcVkMvsbCvVlvUDFU5gD7n4
+	 OWamk9o7xK4l953i7lNMlp3f2qD7C309SCWPbuKx7A6yQ0tPObrXh6vAhayJA1de3IWAn
+	 t3uNvNM3dzoqr0LY4DSyMzHx3DroO3puP6BWe7lA7AQPjEfE634GBYlxEuP42bm3O0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793024452;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=AmlF0+0aAM2fRJ2RV4wjFXkBSJJqDWyBurX+4vn392I=;
-	b=mIYbaw08QOWFrM3q3L54UkVjIfnui8fpH+3l7aq3rYHMWV7NPL8kaPNBSMm8jrVOS/pG
-	 GaAhu/y4nB2irP76wpNePO8/Vc8ca0T5YF7QX+NO9RR/AdcIojYwXUarfVuEmHGKyyVyN
-	 4VHAoeh17lVIbOJQxfIwGWvSDogLWIe83O9jpKPZ/wnQh6oSkSwfZqAtuxcctYDRecar6
-	 RMp4aRkfJBTHhOxt4SwdL05cMvpP7qMAXkh3m5UkuRHJTZSy3ulME182as3DzwQwH6YZQ
-	 VF9DO3G1n8wLDY7erWB+4N7RCA+I/W7BbJ7BYOCtgl1lvrySdNC1Dyowc95ikKP7SMw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793024445;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=gZsq+xXtHizaLpzo1tER32r/t6mRAs6VUf47ZcMCllc=;
+	b=XGRLVfSwCuZFwHLz05ARxRRJsmeGxqDyVMLXFo8Jbkt885sXVeiy0YIe0rF661/goIm0
+	 3E7vAM4Jq4WBRe6EFCCpQxpQp4bzwApxfvoiQvNi3XFtyVTlobyhU9QjCybbHrOLo0dOo
+	 4OZ661Dg2yw+y++J1/AntL/ukxbkpEWEV2vwiXt6JOvAf0W/XD7oAjwnb/zOhAh47o9JC
+	 z8d9//mN6SyO3TfQRiH68UOpGjN5K5SmULSxkwAr3nF7faxW00J+BnNdIw0im+HKq67yZ
+	 uHaDV4Iua9DsvPDZTqa4npURLmACCgvwvsEHUWZtlK8xnEd6bv2Gb/x+bC66RpIjQPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PwrHKO5q;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PiF1ICPh;
+	arc=none smtp.remote-ip=209.85.221.50
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7F2E606A322
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:20:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 039BA606A31E
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:20:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 039BA606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PwrHKO5q
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73B2C1F031E1
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:20:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793024446;
-	bh=AmlF0+0aAM2fRJ2RV4wjFXkBSJJqDWyBurX+4vn392I=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=PwrHKO5qtJxFxRGL1vGL4JNW8fYL9264QY5VABTbch1W/dcwzLpgjUqGj/urzbo9E
-	 0e2w6D5H9unmPYvIpHrm+qvIJW6BgV9qch9v/TWQ/uMoqRtPul6ao+kJRwJUGmNb10
-	 GpX+/RfBNqRdOAxcFdo8ik4GWr089+Exfk9OHK3PquqEf19qG47JwzBLmA7gjzm+ie
-	 HnRJNoBVVzGjl5I44Gd1rLthKrXjSL9DTz47XF/SdhbfV1Md5hQTV/K2GqxH3nOCqP
-	 1SGaAQ87/uKKBq4FBrOujGqClneAKphm67ZhBntCtdKtN5loSvSMSvv0qMJ79FRDsI
-	 fZPhLhUz80/iw==
-Received: by mail-oa1-f49.google.com with SMTP id 586e51a60fabf-48eee44b908so1827859fac.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 07:20:46 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzvBEtnRNcqvECz7lNFnM/nqkGUgL43M9sHJw1cWG0xe6Sr6j4AC29htgz5KCg19DhuiGfImT+O1ViKdPQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYItWhGFLDdbj0tpjZYaa5vzUStttcpC1U9DMIYE+zzpoBPs1FGT
-	XMwVFmmHtqiKeTUyYi1DIgKAJObjzZBwYsZrASk2XFfI1hQoww15puhTsYri+VUNlyZvmtt9vCW
-	zfI1Waq05YVs/0kIloeySCYtC3ogBEq0=
-X-Received: by 2002:a05:6871:419b:b0:49d:c9ed:21f2 with SMTP id
- 586e51a60fabf-4a83f42e1c8mr3861088fac.18.1793024445749; Mon, 26 Oct 2026
- 07:20:45 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PiF1ICPh
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48dfaa3fa12so2955064f8f.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 07:20:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793024443; x=1793629243; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=gZsq+xXtHizaLpzo1tER32r/t6mRAs6VUf47ZcMCllc=;
+        b=PiF1ICPhsZXEQPej5refTiirqNLb6J2mK+PQpmijJDAQZIHVYPOgPgdiMURTByH7ET
+         UBkXeOTqyfsvCJLtcrfBSA6rP9+aNOb0g240XThoIqfIJiiaop7HmgnaypCcuWf1s4p2
+         ytFIjBB0+KKOuEFkH3avHr4KEUN2uajL0N6Z6jIP81H6TuImv3TO6aK2QNR7vOIWp5BJ
+         aBd20eMJyrW5n6WWmWVwLYHdhj1eoq8KizhzKESpCDQxIfPoqJzFjqcomM+uMMMKPgms
+         yRTZdmZNEUfzyrBNHKBR1AfCCpvDbO9xOA015wRMWC1U7kjfDDjpHVEjoiN7cOPujFxT
+         Ko3Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793024443; x=1793629243;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gZsq+xXtHizaLpzo1tER32r/t6mRAs6VUf47ZcMCllc=;
+        b=nNGIqc2IvS+Y30wjrr2afIwp2v3W83MeP5PVVI9kAN9ov+1Clr9KH4jPMPOI718OjH
+         L57seSOrzx3XcKdY/jN8xi2PumYl9D7U1Q0Is8Pr+GZKveKzbqFz4oUh7/Bvs3xjolSf
+         yogxX3rlIj7Xw6uan7bFGMHuMwVj0JtGWk0+3Cp/6AyrCdL/VMTZyM/X6SZUVlPujQGV
+         yeU5Xe5ECet4i5cMHhcxXdCicg9fgp3+9ezFN9FbaHdllWGgppbalTTZkGH761cqZ8He
+         U3aqTcjQG9hZIGQgm+aKlbs2vl3Gfwn7gfKsvAKjZVVlxk8caMKuOGdS2t9V2wdMGgxI
+         XWSg==
+X-Forwarded-Encrypted: i=1; AKwUvByAgFtEJT1Xun6Qwmq+XHyzlBXbWR9n2ziVGYXEsNzdatev6tbTd4XdF64a2xwGYMCuSkLuvupzuh93M0k=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJQ5Zwby3Vovap7j8dJVlv/EC4uyy3c4PJJG/hna72XyLy/Tl8U
+	tFcc/rxyRyZ4GiHsgqfP6WsM5VeWNFKGEeyeGxY4GYT+oJ14iJZxmf8=
+X-Gm-Gg: AYBFou2VHBIWrPXSalFmsDY4OIHWwrOn9U/NNEMLZ0PWe6l09adIqXvUzc7y5F8pQR8
+	z9v2lYx8HuramRmxyVaEn4sb/hqOQ8HE6Txd98/8/lUpxWTAaoQgEYc6qk09buvB+3sxhZa2gOo
+	7+W5w9mMN4pOuOMY4WwY2t6Y+aAyB5/VpUhOLmhFbjBAJosAvAJddqyc3J1Krlx1hUTKNUKFH+L
+	RROzZiNa6EoLhCVXweKYSlhcucoVAnPIiWwcB//xhRcV28iUsZFwOFdqpTVPqKBcjSXrEs7qgn0
+	7lUVEkN/QxXbIW2X19yi3z+eWAyuBOLxo7cTIMm+V9kO2tm9UESCwqhh/qc9ebwcl3AKN0pNRRc
+	+XAgms4DPpnlFlbPajtb2xLwlIxXu0+NMfRLZHFfAdC0o/SGLEJWonnI5ercXjJs1sDlwEhgB7x
+	kUIc75Zl3XlHG5FQVamkYXcIGLLf/mS+9mfBSONQQmqdAKIIkxXtETH+wIV7Rhc8Luo0KXELxcy
+	e/DvGIqEnkpzCJn234rSSzH
+X-Received: by 2002:a05:6000:2881:b0:48d:f1ab:faf9 with SMTP id ffacd0b85a97d-48e3ed2c7a8mr13855318f8f.16.1793024442950;
+        Mon, 26 Oct 2026 07:20:42 -0700 (PDT)
+Received: from debian.. ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebcb8d5sm17484186f8f.28.2026.10.26.07.20.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 07:20:41 -0700 (PDT)
+From: Tristan Madani <tristmd@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Lars-Peter Clausen <lars@metafoo.de>,
+	Kevin Tsai <ktsai@capellamicro.com>,
+	Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno Sa <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Hans de Goede <hansg@kernel.org>,
+	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>
+Subject: [PATCH v2 0/2] iio: validate ACPI object types before package access
+Date: Mon, 26 Oct 2026 14:20:37 +0000
+Message-ID: <20261026142040.62383-1-tristmd@gmail.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,93 +103,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <179278529389.3327.1530536500905686255@kernel.org>
- <20261025222222.1064464-1-tristan@talencesecurity.com> <20261026150541.a5a34642db9d1523f839f644@uniroma2.it>
-In-Reply-To: <20261026150541.a5a34642db9d1523f839f644@uniroma2.it>
-From: Eric Dumazet <edumazet@kernel.org>
-Date: Mon, 26 Oct 2026 15:20:34 +0100
-X-Gmail-Original-Message-ID: <CAL4WiirtzVke8V8f6LJEWdOCDNevGxdQCFhXxEGiEMq-TNbsVA@mail.gmail.com>
-X-Gm-Features: AclHuK8L92wlrbdXy0m1rYg5r51z1Kquhpb4YkZm0AcuyqBb82vwpDIOASY1obs
-Message-ID: <CAL4WiirtzVke8V8f6LJEWdOCDNevGxdQCFhXxEGiEMq-TNbsVA@mail.gmail.com>
-Subject: Re: [PATCH net] seg6: fix tun_src RCU lifetime on namespace teardown
-To: Andrea Mayer <andrea.mayer@uniroma2.it>
-Cc: Tristan Madani <tristmd@gmail.com>, netdev-bot+sinfo@kernel.org, davem@davemloft.net, 
-	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
-	tristan@talencesecurity.com, david.lebrun@uclouvain.be, 
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org, stable@vger.kernel.org, 
-	stefano.salsano@uniroma2.it
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Le lun. 26 oct. 2026 =C3=A0 15:05, Andrea Mayer <andrea.mayer@uniroma2.it> =
-a =C3=A9crit :
->
-> On Sun, 25 Oct 2026 22:22:22 +0000
-> Tristan Madani <tristmd@gmail.com> wrote:
->
-> > Found by manual code inspection while auditing RCU lifetime
-> > patterns in the seg6 subsystem.  The issue is theoretical --
-> > found by reading the source, not triggered in production.
->
-> Hi Tristan,
-> thanks for the info.
->
-> The pre_exit in this patch introduces a NULL deref. It sets tun_src to
-> NULL before the netns devices are removed, while set_tun_src() can
-> still read it.
->
-> I ran a stress test on net with KASAN. A userspace program sends UDP
-> packets in a loop from init_net through a veth into a test netns, where
-> a seg6 encap route without a per-route tunsrc forwards them. Meanwhile,
-> the test netns is created and deleted repeatedly.
->
-> With this patch applied, KASAN reported a null-ptr-deref in
-> set_tun_src() and the kernel panicked:
->
->  BUG: KASAN: null-ptr-deref in set_tun_src+0xd1/0x240
->  Read of size 8 at addr 0000000000000000 by task udp_flood_user/379
->  Call Trace:
->   <IRQ>
->   set_tun_src+0xd1/0x240
->   __seg6_do_srh_encap+0x410/0x710
->   seg6_do_srh+0x65e/0x6a0
->   seg6_input_core+0x87/0x4c0
->   lwtunnel_input+0x18d/0x420
->   ipv6_rcv+0x44f/0x460
->   __netif_receive_skb_one_core+0xd6/0x130
->   process_backlog+0x2cc/0xa00
->   __napi_poll.constprop.0+0x56/0x270
->   net_rx_action+0x327/0x730
->   handle_softirqs+0x15a/0x6c0
->   do_softirq+0xb4/0xf0
->   </IRQ>
->   <TASK>
->   __local_bh_enable_ip+0xdd/0x100
->   __dev_queue_xmit+0x538/0x1030
->   ip6_finish_output+0x280/0x640
->   ip6_output+0x118/0x380
->   ip6_send_skb+0x99/0x210
->   udp_v6_send_skb+0x397/0x760
->   udpv6_sendmsg+0x1100/0x14d0
->   __sys_sendto+0x219/0x2d0
->   ...
->  Kernel panic - not syncing: Fatal exception in interrupt
->
-> Without this patch, I ran the same test with 1000 netns deletions and
-> KASAN reported nothing.
->
-> Ciao,
-> Andrea
+From: Tristan Madani <tristan@talencesecurity.com>
 
-Right, and there is no bug to fix in the first place.
+Two IIO drivers access ACPI package members without validating the
+returned object type.  Use acpi_evaluate_object_typed() to request
+ACPI_TYPE_PACKAGE at evaluation time, and replace kfree() with
+ACPI_FREE() for ACPI-allocated buffers.
 
-ip6_segments_ops is a pernet subsys, so seg6_net_exit() runs after
-all netns devices have been unregistered (default_device_exit_batch()
-and the RCU grace periods in netdev_run_todo()). At that point no
-packet can reach set_tun_src() for this netns, and no socket can
-issue SEG6_CMD_GET_TUNSRC either.
+Changes in v2:
+- Use acpi_evaluate_object_typed() instead of manual post-eval type
+  check, as suggested by Jonathan Cameron
+- Replace kfree() with ACPI_FREE() for ACPI-allocated buffers
 
-pre_exit runs before devices are dismantled, hence the crash Andrea
-reported.
+Tristan Madani (2):
+  iio: light: cm32181: validate ACPI object type in
+    cm32181_acpi_get_cpm()
+  iio: imu: inv_mpu6050: validate ACPI object types in
+    asus_acpi_get_sensor_info()
 
-pw-bot: rejected
+ drivers/iio/imu/inv_mpu6050/inv_mpu_acpi.c | 7 +++++--
+ drivers/iio/light/cm32181.c                | 5 +++--
+ 2 files changed, 8 insertions(+), 4 deletions(-)
+
+-- 
+2.47.3
+
