@@ -1,64 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793026152;
-	b=x23uspcvQ9oS+pbDcofnePamUGLaImAgRDxJD+lL8/tBqBG5+ZMUWy8CNZs6gTgaeooA
-	 g7pFtHsR6zqAsC++0wqvTFkaz+MRyuQ2rEqu/gktLr4gOivB20+jWeyAjP6Rz/mE9qe41
-	 CHRaoWTKGIJSkCjQIAGlShLsFYux6qPXDRA/trQUx55IvZ+MsIPn4caLrhIkEE2ZD8gnH
-	 IJSh2yWq5J39GAFPuZTuwUfeVQco0PqG46Ky0vsFV7C/JLy2OgqcPNQ4GjJNB4YvjfO/C
-	 G/LK/bOKs3N3LWLNUxrjH7lwW7IYUtFpjVfkO/c3UvLtdScPe8hXsCfTuZikF/EYpWw==
+	t=1793026200;
+	b=TzcG7mgH8fAQ09IjoAvSmg3qkUCPRZcw9cou25YDioP2eqcOjxJ6i++RCIM7FAOSk8p6
+	 B+rvRw+tVtoqFZLkMthpCKlPiuwlLDuXVAv894tU0/SJCvEPZ5s0sVqzPEpcO0f+A3KVG
+	 PjqXsLu9th9q/YkdA1qkbmQPYVg+3EqBtGdPEFu+4QoGh/tk/bmrbM2yFF4uReJgkvHhg
+	 tAsAW1MFN1nw9qVKbtEWV32a0Tqi4LsnrGShgj98q61uJV9CHUDggdjxKT63aR8MOAxZu
+	 1igH1Z18X7AiFTMY6qEWNmnnFTfqTy7ASabZ0XAYl5RiZ0RZ2TKKXSjaL7/sLl2uEqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793026152;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=q1uPJJujBlQwMDVIEbVRHxhSYFea8SfgoWYItKkXDG8=;
-	b=21a+mkjyVfA7sU2Aw7KPYXpNZX9V+/o/SurN4zR/j0RcfOJZ4KLa55km+xldwztnR7P3
-	 gt7VD6qE/yCC+3P/RXzcKdjoBXZqUq9yt4vql3MdV1JUHWqVhoRNapvD/slY4wjRv5G7/
-	 OUxYCCLAF8AdM5u+SheM6rrc+bItKI536oLyEMWGJ6WooXDxulE4FPfLlcVViBpVXH2Cl
-	 4NE4vWergfLwq4NbtWF439ib9FDvQuMxeh3H3A6+2upYtcWeB+fIMi0oFDQ19MMINxoRd
-	 MYJTe/hN0Z4GomGsUODIks2fTlF2v7t57/a+mzUjKCaPFPRBgkoT3hZo+QR2aaLZ5Wg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793026200;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:References:Content-Language:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=X1oQuy70UgKD0jIhv1PPeTm937BIFvaHwD6vzeFRSYc=;
+	b=CEftcDpLzSHAoRiypAFO3Y/vEExcUEnZDbrmu0+IOvENQg/P2d+IaxH7Iygg4EIFgV+8
+	 3wbjD/JPyJV/VkspjQs1eMuXD6r/Ztz46t7tSjfuSgsrEseVNqQN5siVq0icm/krbj8Ys
+	 xF+WzwAw2YrX23l6Zhj//58L3KauqIHuyoC4k+UpvBONnTuYaBHYHZyH1aRtvXdLsk1zu
+	 K96mcpC9R+WMzc5r4CMVT80jO8OURc96Qp1GDwcmEVAnZ6YZ+mKOA2uR/exE35ULTMae8
+	 9yk4a2K2Umr3FBJ8SZ5w2TZ9T0kwNara8cK3w/ncZLP7JZ67ElOEw0CQZQEEv7rAkyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=puC9kj1L;
-	arc=none smtp.remote-ip=117.135.210.4
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A02B606A31B
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:49:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A02B606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="t4NfJd9/";
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 68663606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:50:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68663606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=puC9kj1L
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=q1
-	uPJJujBlQwMDVIEbVRHxhSYFea8SfgoWYItKkXDG8=; b=puC9kj1LBRzDwPO2+K
-	KrVZv1iCMDAqvE7ItxjUiJXBIF7cnYD65P+vsusW8BIMHBtEbA2BVf1grt2L1l1f
-	ZpxEsWX//eaFZpJWWyOL0GrftKs3CmpBVhg03As4ltAYTr2kdEJVBnTKRJJpmizX
-	BpSmCLfnE8092eznbbnCZwSQg=
-Received: from SYPC (unknown [])
-	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wD3P6kmaN9qcCfOCw--.2131S2;
-	Mon, 26 Oct 2026 22:48:07 +0800 (CST)
-From: hsyysy@163.com
-To: Chen-Yu Tsai <wens@kernel.org>
-Cc: Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Simona Vetter <simona@ffwll.ch>,
-	Samuel Holland <samuel@sholland.org>,
-	dri-devel@lists.freedesktop.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Yang Siyuan <hsyysy@163.com>
-Subject: [PATCH] drm/sun4i: report coverage pixel blending for alpha-capable planes
-Date: Mon, 26 Oct 2026 22:47:42 +0800
-Message-ID: <20261026144742.1392695-1-hsyysy@163.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=t4NfJd9/
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 616BD15A1;
+	Mon, 26 Oct 2026 07:49:56 -0700 (PDT)
+Received: from [10.2.212.8] (e134344.arm.com [10.2.212.8])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DE2463F7B4;
+	Mon, 26 Oct 2026 07:49:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793026199; bh=CR0imfGgqiScyd7wesG/X+HJxG7MT9e6at/JgsayxXw=;
+	h=Date:Subject:To:References:From:In-Reply-To:From;
+	b=t4NfJd9/QIFsAcS9JRjthTLtEAU0vi8eocBFej2Ng7+6VcDBWysjFRVcRNr6dvZPs
+	 /pD9S6W6AHLKiB+TJ2cuo/X1wYJoMpGWRTtw1Xa6Hq43lXFnlXUD0o9C5eP8AkGSle
+	 AnJamrmbOrfoFDrrswJ5JhG2srTOUpPf1I1FE96g=
+Message-ID: <c0fe8907-81e2-4bde-a5a4-193209946583@arm.com>
+Date: Mon, 26 Oct 2026 14:49:55 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,91 +53,116 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3P6kmaN9qcCfOCw--.2131S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxWryktrWkCFy8CrWxtr4rGrg_yoW5Cw4rpF
-	WrGFW5C34UCr4ava43ArW8ZF43Wa1FgFWFgry7J3s3Xr1qqF9ak3s8Caya9ryUArs7Ar42
-	gw15WFsF9F4DCw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pEpVbDUUUUU=
-X-CM-SenderInfo: 5kv152r16rljoofrz/xtbC7ge16WrfaCcAFgAA3Z
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 RESEND 05/15] arm_mpam: Don't stall MPAM enable when
+ an MSC fails to probe
+To: Jinjie Ruan <ruanjinjie@huawei.com>, tony.luck@intel.com,
+ reinette.chatre@intel.com, Dave.Martin@arm.com, james.morse@arm.com,
+ babu.moger@amd.com, tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
+ dave.hansen@linux.intel.com, hpa@zytor.com, fenghuay@nvidia.com,
+ tan.shaopeng@fujitsu.com, zengheng4@huawei.com, jic23@kernel.org,
+ gshan@redhat.com, catalin.marinas@arm.com, x86@kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261020134239.3921377-1-ruanjinjie@huawei.com>
+ <20261020134239.3921377-6-ruanjinjie@huawei.com>
+Content-Language: en-US
+From: Ben Horgan <ben.horgan@arm.com>
+In-Reply-To: <20261020134239.3921377-6-ruanjinjie@huawei.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Yang Siyuan <hsyysy@163.com>
+Hi Jinjie,
 
-Linux 7.3 added validate_blend_mode_for_alpha_formats(), which warns once
-per plane that exposes a pixel format with an alpha channel but has no
-blend mode property:
 
-  sun4i-drm display-engine: [drm] [PLANE:35:plane-0] pixel format with
-  alpha exposed but blend mode not setup. Please fix.
 
-The mixer blends a layer using its own alpha channel: ALPHA_MODE is set
-to PIXEL when plane alpha is opaque and to COMBINED otherwise, while
-BLEND_PREMULTIPLY keeps its reset value. That is straight alpha, i.e. the
-DRM "coverage" blending equation.
+On 20/10/2026 14:42, Jinjie Ruan wrote:
+> mpam_msc_drv_probe() registers the discovery cpuhp callbacks only when
+> the number of successfully probed MSCs reaches fw_num_msc. Every failure
+> path returns before the counter is incremented, and a failed probe is
+> final - the driver core does not retry. One failing MSC therefore leaves
+> the counter below fw_num_msc forever: the discovery callbacks are never
+> registered, mpam_enable() is never scheduled, and MPAM stays dead
+> system-wide - the resctrl filesystem is never registered, and no error
+> message hints at the cause.
+> 
+> An MSC can legitimately fail to probe on an otherwise working system:
+> firmware may describe MSCs that are not accessible from any possible
+> CPU, e.g. when the possible CPUs are restricted with nr_cpus=. The MSCs
+> of the clipped CPUs then fail with "MSC is not accessible from any
+> CPU!", or their cache resources become unresolvable from PPTT.
 
-Advertise exactly DRM_MODE_BLEND_COVERAGE on every layer that can expose
-an alpha format (UI always, VI on DE3 and later). This matches the
-existing register programming, keeps userspace behaviour unchanged and
-satisfies the new validation. Premultiplied blending would require
-driving BLEND_PREMULTIPLY and is left as a follow-up.
+As the MPAM resources are system wide we need to query the support from each of the MSC to know what
+resources will end up. I do appreciate that if you have full control of your system then you can
+know this in advance but then you can also adjust your acpi tables to mark the non-accessible MSC as
+disabled. As such, I don't think changes such as this should be in the driver. Here is a previous
+explanation for a similar patch [1]
 
-Fixes: 860e748bddcc ("drm: ensure blend mode supported if pixel format with alpha exposed")
-Signed-off-by: Yang Siyuan <hsyysy@163.com>
----
- drivers/gpu/drm/sun4i/sun8i_ui_layer.c | 13 +++++++++++++
- drivers/gpu/drm/sun4i/sun8i_vi_layer.c | 14 ++++++++++++++
- 2 files changed, 27 insertions(+)
+Thanks,
 
-diff --git a/drivers/gpu/drm/sun4i/sun8i_ui_layer.c b/drivers/gpu/drm/sun4i/sun8i_ui_layer.c
-index 7d894e1eb..ef059ac47 100644
---- a/drivers/gpu/drm/sun4i/sun8i_ui_layer.c
-+++ b/drivers/gpu/drm/sun4i/sun8i_ui_layer.c
-@@ -283,6 +283,19 @@ struct sun8i_layer *sun8i_ui_layer_init_one(struct drm_device *drm,
- 		return ERR_PTR(ret);
- 	}
- 
-+	/*
-+	 * The mixer blends the layer using its own alpha channel with the
-+	 * pixels not premultiplied (BLEND_PREMULTIPLY keeps its reset value),
-+	 * which is the DRM "coverage" equation. Report it so that the blend
-+	 * mode validation in drm_mode_config_validate() is satisfied.
-+	 */
-+	ret = drm_plane_create_blend_mode_property(&layer->plane,
-+						   BIT(DRM_MODE_BLEND_COVERAGE));
-+	if (ret) {
-+		dev_err(drm->dev, "Couldn't add blend mode property\n");
-+		return ERR_PTR(ret);
-+	}
-+
- 	ret = drm_plane_create_zpos_property(&layer->plane, index,
- 					     0, plane_cnt - 1);
- 	if (ret) {
-diff --git a/drivers/gpu/drm/sun4i/sun8i_vi_layer.c b/drivers/gpu/drm/sun4i/sun8i_vi_layer.c
-index 92dd5a97f..b6771576b 100644
---- a/drivers/gpu/drm/sun4i/sun8i_vi_layer.c
-+++ b/drivers/gpu/drm/sun4i/sun8i_vi_layer.c
-@@ -470,6 +470,20 @@ struct sun8i_layer *sun8i_vi_layer_init_one(struct drm_device *drm,
- 		}
- 	}
- 
-+	/*
-+	 * Only DE3 and later expose pixel formats with an alpha channel, and
-+	 * the mixer blends them with straight alpha (coverage), same as the UI
-+	 * layer.
-+	 */
-+	if (layer->cfg->de_type >= SUN8I_MIXER_DE3) {
-+		ret = drm_plane_create_blend_mode_property(&layer->plane,
-+							   BIT(DRM_MODE_BLEND_COVERAGE));
-+		if (ret) {
-+			dev_err(drm->dev, "Couldn't add blend mode property\n");
-+			return ERR_PTR(ret);
-+		}
-+	}
-+
- 	ret = drm_plane_create_zpos_property(&layer->plane, index,
- 					     0, plane_cnt - 1);
- 	if (ret) {
-base-commit: 091b06388b117fefdcb63336ac09956a4914b961
--- 
-2.56.0
+Ben
+
+[1] https://lore.kernel.org/lkml/59c21340-4e3d-4c48-9d9f-c0f78a023bac@arm.com/
+
+> 
+> Count every completed probe, successful or not. Failed MSCs are not on
+> mpam_all_msc (either never added, or removed by mpam_msc_drv_remove()),
+> so the discovery path skips them naturally, and MPAM is enabled for the
+> surviving devices.
+> 
+> Cc: stable@vger.kernel.org
+> Cc: Ben Horgan <ben.horgan@arm.com>
+> Cc: Reinette Chatre <reinette.chatre@intel.com>
+> Cc: Fenghua Yu <fenghuay@nvidia.com>
+> Cc: Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>
+> Cc: Catalin Marinas <catalin.marinas@arm.com>
+> Fixes: f04046f2577a5 ("arm_mpam: Add probe/remove for mpam msc driver and kbuild boiler plate")
+> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+> ---
+>  drivers/resctrl/mpam_devices.c | 26 ++++++++++++++++++--------
+>  1 file changed, 18 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
+> index 61cbc75625fa..a44d66a5733d 100644
+> --- a/drivers/resctrl/mpam_devices.c
+> +++ b/drivers/resctrl/mpam_devices.c
+> @@ -2120,21 +2120,31 @@ static int mpam_msc_drv_probe(struct platform_device *pdev)
+>  	msc = do_mpam_msc_drv_probe(pdev);
+>  	mutex_unlock(&mpam_list_lock);
+>  
+> -	if (IS_ERR(msc))
+> -		return PTR_ERR(msc);
+> +	if (IS_ERR(msc)) {
+> +		err = PTR_ERR(msc);
+> +		goto out;
+> +	}
+>  
+>  	/* Create RIS entries described by firmware */
+>  	err = acpi_mpam_parse_resources(msc, plat_data);
+> -	if (err) {
+> +	if (err)
+>  		mpam_msc_drv_remove(pdev);
+> -		return err;
+> -	}
+> -
+> -	if (atomic_add_return(1, &mpam_num_msc) == fw_num_msc)
+> +out:
+> +	/*
+> +	 * A failed MSC must not prevent MPAM being enabled for the
+> +	 * surviving devices. Firmware may describe MSCs that are not
+> +	 * accessible from any possible CPU, e.g. when the possible CPUs
+> +	 * were restricted by nr_cpus=. The failed device is not
+> +	 * re-probed, so count it here too: otherwise the counter never
+> +	 * reaches fw_num_msc, the discovery cpuhp callbacks are never
+> +	 * registered and mpam_enable() is never scheduled - MPAM stays
+> +	 * dead system-wide, without any error message.
+> +	 */
+> +	if (atomic_inc_return(&mpam_num_msc) == fw_num_msc)
+>  		mpam_register_cpuhp_callbacks(mpam_discovery_cpu_online, NULL,
+>  					      "mpam:drv_probe");
+>  
+> -	return 0;
+> +	return err;
+>  }
+>  
+>  static struct platform_driver mpam_msc_driver = {
 
