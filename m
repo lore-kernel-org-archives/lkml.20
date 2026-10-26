@@ -1,97 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.59
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793006222;
-	b=S84GGXxH/wA715ZSstqwAxOYVoJ4bB506UCSoIQYLMZDq1TYpUbqUzNNPm8HSJZXyiJ/
-	 gvMkqL2Ngu/hDjkUSkxMwSxKNBZXYBOarG+SG697Tth6raN7mdlvcpVY3I+8h/Q1/m0MQ
-	 ZjNza1VlrPQypKVWZlIhWJnoUiNOVDL6kt3RDypMAgS7iEoa0OyKR1rxxR5fM0DyX5ujR
-	 DvynRHsTXk4YJgR43Z6UECoHINSQEAUTYTNHN8EUs1UyN3ENSHveGuEpUIWw58riZ3kkB
-	 HgGJXNcOel6Tl6ZPKJvKA2LF4Vg88QLt87Vim34eALhzAj6AY/SqljCEGDDSAUJ+dQA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793006222;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=gkkT4hOOdOXSTPZp5qqoBCqrwk72h6p7FWIDAlx3ot4=;
-	b=fVBBP4znRqavXj0Eehg+y1f5D3kX6LJlQ+THZYjkR3UmppHFRJoUBuzfdMYDZH3XedLS
-	 3cs5HZKyzeeSz9xOBRTwjs5HjSuRygcHaAlhUq2TKI+74dwQ996lyMceyveTwoDDCWXj6
-	 VEe1BkwdrJL367MR7gKgm2Z8RcBl8V0W1kTrml4tcfSwphWfWstAJmltT75VncpjozHhM
-	 /U6tMq/kuSqCvwn5Icg/50bD9gwVz9WwMHDOGoDfKEX8+4zkidWBMEmWvkDUjl33PbiPG
-	 lgRTwFfekvNVm6CYMKIPL983kDUDV2Ix2dEPy4RIT3EgsgS8TRx6KEhWr+pid8xzG2g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=yDdXj6ZR;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.59
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011059.outbound.protection.outlook.com [52.101.57.59])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793006282;
+	b=nYNzNsKA1t18X3LwFJkvBxfKkFFIZIuRB2fB4IwzMLFOA9P4bWdfp7fuIu5XNTLVhXbd
+	 /0BsjU6qoUHyTFYaOtUckNxBpoVoQZpyL7W06ZAgeHtNwP7ZwCt5zhIJ2b2NB1nRMX6XW
+	 zAG2uC8Y04paVh35bpWFXHdcAloIwrYDK0hPhFFtCMUyz1Idx+nnVqag6+Wg1upfSorhL
+	 AkDVOziT2mz1eG85yeTNExMfqlvlY+G38ZGGgq9kSHxnibOIO6JFQau5so6WRuEX1GRXj
+	 xatgLPL7awHUYtdoxSQFWCvnprZQkVZ1yTR54mdOMZP+pOX6V9VDMAegpX03G0Bo7ag==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793006282;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=vs0s3P39868InZqKcCMlmBK4q2AP/gKRdDkPfmZM/b4=;
+	b=TLlVmIiZ6hXAkCAfLQvDPGAmcwag+dMc4cA/xrF59sRkRPAuNHvmPSIVkOPUIYf7VVWp
+	 KwA1EjktbrSzTV9FbNs3qrwDRgjRDr4hjoCQwW037uMuZLdi003Yxofxm/GsY9vqrvM4V
+	 r+oFv23UOtk0Mt0TrKovs813C4wRiAmOgKPSNAjqEmI8snHhuswLy4/SRhxNipPSMwzme
+	 2b9Fx/XR65wpQKGnEQjPFJDIb15jGYv468JgoYKOCdXPlDglKjrvcExaNX8yz5t5ys/Ft
+	 J4GHnqgKm5i1l7+Yg7eGqFN0jwWsGjqq37D3TJf3yIiYnNHQOSor1NC+wnOvhrpRQpA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=LgPdiuXE;
+	arc=none smtp.remote-ip=74.125.82.172
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C2A2606A333;
-	Mon, 26 Oct 2026 09:17:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C2A2606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D401606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:18:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D401606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=yDdXj6ZR
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Jd4M0upXbkBlT9LqMb/U/jte9GElMj3Zy+coe+zzxDrfK13q6QAEYv46C2d202riS0j0ckQuLj1mdKOrZB39jtjvGY1n3k0rVFm90QKyqwRIRgL6Qz8Ee3Hy/IzXBZXO7i34jv1Shl/SY2nWOY4Pug1Z1YG18WRXr8VKNtB1ccROMPx06fi9DBFvaiZ3sgKOemEyNS6TM38BqqaTMC/nVweC7lH2qlLe8H5zA9DDkz36lbImlbD7lnxjSRIEnEScaVTzgL3yx0Vacebr332skeZGyrhHTRebQWGg8ZhIsmv/DgXoL5wxOAQI1ZYSTdmZjyJ703l6wDHsG1kJTKg1yA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gkkT4hOOdOXSTPZp5qqoBCqrwk72h6p7FWIDAlx3ot4=;
- b=pTJT7i1cxP3dIK4lIBNCoqkBLhDX8P/vdL4LNO9msUVKXXW1VYxavlmBLS3rnSTGcgckERVnCW+zoDF4wA9JyRMa4THFM8iX/ZItg4BpnPsGUv69TBzUgp3IHnZUY+Xnifd1t91/6r8P52ye76woDFpvq15wFdCAjR8mL/rIHOPFcPe+RD4XH6WhX24bMx6FiZMFA1DtlImxoiKeJIiLA7MczU+iYr9g7HRD5RwTHV7XaBvV3nzD5JTwtf6gfmSmHPUieuc+nNGNukj8Nwaduyl+FJA/LR/hOxSGQ4DQi7o/8I3Hl0DgD1ThhlzMKekSoZRKARPJZfJqZCdTIEJQTw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gkkT4hOOdOXSTPZp5qqoBCqrwk72h6p7FWIDAlx3ot4=;
- b=yDdXj6ZRr33xNdmSwoSTe/upNG/icAzxAfp7425k2TfIioxG3G21RncaaZZvSkUXgFCBSzukaJVxm6nGqudN8ux7c0krDQ37NoNOvcMiL5M4yMjszVxZkmpu+Cpz2Dy2goeItTv9/9+Cm20NSq4+ObvuS9xUtGrX8DoemJSCNVA=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by MW3PR12MB4473.namprd12.prod.outlook.com (2603:10b6:303:56::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
- 2026 09:16:58 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
- 09:16:58 +0000
-Message-ID: <8bb2f7a6-f7de-4805-9b6f-fe2f500d1be5@amd.com>
-Date: Mon, 26 Oct 2026 10:16:53 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dma-buf: Add DMA_BUF_IOCTL_SET_RELEASE_EVENTFD
-To: Val Packett <val@invisiblethingslab.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, Philipp Stanner <phasta@kernel.org>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
-References: <20261021093533.1990028-1-val@invisiblethingslab.com>
- <6e45ae81-0319-4857-a96e-159509c1b140@amd.com>
- <a1057af1-2390-41c0-ac57-4ab9ef0fe31d@invisiblethingslab.com>
- <bcb4f2fd-dec9-4d2f-869e-a1578843ab84@amd.com>
- <3d654cee-81a5-4f0c-bf15-a24e31db60d0@invisiblethingslab.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <3d654cee-81a5-4f0c-bf15-a24e31db60d0@invisiblethingslab.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0268.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:e8::13) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=LgPdiuXE
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-35829219da8so4858146eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:18:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793006280; x=1793611080; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vs0s3P39868InZqKcCMlmBK4q2AP/gKRdDkPfmZM/b4=;
+        b=LgPdiuXEf4Vl17SCpAu6K88Eg5KHcacuGdDWEJ6dkzZyVTFk1OMLAMY3nm4qWeq3WW
+         pR7fwIGBgJcxUjCZoIv88quH3VCpmfr7PH/Ko0qs6PKsDXmKEZgubUH9MHi7hKrNC9UY
+         H60no+1BggORy2fMgw1nD+ih9TIOeBuEyhJTOXF5PqcDd9QwSc7MeBhqcnpTE2dszWx9
+         X/Dx2z774u5Iv8vqAjt75y282M9cN7As3feNGI/BjXKsf9Si+gKXMTP5gdBD6+F2+6lf
+         +weZlTJ5sT3MBgzPUvI+zbvhWFod2NOLUNFWGnT/3hBGsbAR7CSafENVDisaMHiqL6Os
+         b9aQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793006280; x=1793611080;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vs0s3P39868InZqKcCMlmBK4q2AP/gKRdDkPfmZM/b4=;
+        b=Oe2EYy4qTYn5DMWEqJ6IqSsshyhWSsEGWIzmU/4TtTZMYYSAfNBLAqfbDhLsW919bf
+         z2phP9IkQ7rUou+bciT+fbXyyZjyAP6+hqqPhQgMmLfpYPrwyyCejNtBcwdggn+Odxky
+         Rg4SWL6yy6W9+23HDq5dKWGtCiT3UNriqzpXmijakywLcQscYGT8fVY1hUHAIsj9hkfY
+         ZHcnmAg5qVHxZyr1vU0rjrMPyaNjZWdvQ/bGmjAMC6wjZUYyTQkt1kMNxgVEWxr2khK8
+         nrl9rc2CUHCYxy0k86nV3mySJKO3Y4zScnyUElGmBPFjIQEtBDnQS9B8WAqBu2SmLqRk
+         BCWw==
+X-Forwarded-Encrypted: i=1; AKwUvBxfYKcRU6ylpmfxbjz1YLFSkyhEpbmiyxZC2Pjo1xrwkJlO0gjvoZsPUbwPNYwzqAa6Llt2uiLkQejYUrk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKoPfeSjOqFBM6HFDD0T2gka1ZJ346ECUhtFrNKbMb74C9IwPIS
+	aBQ42BiBPZ2IjWcjntc8Og2dPlh31mC5jTJMYVtdyQFEW4+Qlusdafw9
+X-Gm-Gg: AYBFou2Pnf8j8st9qsULgPJQ1olR5Vi7ABpVTmpxE4bu5+ldtBtdHXA9e9pZI/1VgmT
+	S4Iz3quuTJzr82cksLDsxn0AcACm4LFA4glZcQIOSxoq03tNWc4XKkJvhtyO5KVlYomB3pR5uYC
+	0fkklS9+uAej0wiN+0qdGtjIRFmmCL5xribDcrLeDfeNr1mO4HIIGXrBqKnuwQlzQ0qaS4xdcdR
+	plHXoJ5TJ+4j96tnZKUXLefsfNPFSZhr52cMKqSRoKzzdQ6vbv3sNVrD4hi924V1lbDslt3Zlvr
+	EXuIjT8+vKI2gJ2QIpHuTh0Sa/a8WwI2biYWxs541Ks2yUAJ7B84eo3O21CZ+dheBSHDgowfb08
+	+2QfB0Cyxltflv1/HFpWRf9omq6A7vgFbF9prEJp/QA4NcDilfaTMURFNuLbKzkixLu35IouU6d
+	UE5MwWZuZRNXF0/9aRhN/ZTN0c0XyvJwzqIog5fDTUHVUj/rZMutnfMXRuLp5+VgzPKFhBk/QOL
+	FpSQkdqktjr/ZIKFRK7+uvUDdnydoe+YNrqBTXjm8S0p76p+fi6PPQXAV1wz8uKVxdrV3SMs3rG
+	lyVQGxYwinPuaM3LWac=
+X-Received: by 2002:a05:7022:3b82:b0:166:f097:6f10 with SMTP id a92af1059eb24-1993505ebb4mr9971384c88.11.1793006280006;
+        Mon, 26 Oct 2026 02:18:00 -0700 (PDT)
+Received: from jeuk-MS-7D42.. ([211.226.54.223])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a020df20sm26854348c88.6.2026.10.26.02.17.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 02:17:59 -0700 (PDT)
+From: Jeuk Kim <jeuk20.kim@gmail.com>
+X-Google-Original-From: Jeuk Kim <jeuk20.kim@samsung.com>
+To: linux-scsi@vger.kernel.org
+Cc: alim.akhtar@samsung.com,
+	bvanassche@acm.org,
+	James.Bottomley@HansenPartnership.com,
+	mkp@kernel.org,
+	peter.wang@mediatek.com,
+	vamshigajjela@google.com,
+	cw9316.lee@samsung.com,
+	hyenc.jeong@samsung.com,
+	stanleyjhu@google.com,
+	beanhuo@micron.com,
+	can.guo@oss.qualcomm.com,
+	rafael.j.wysocki@intel.com,
+	avri.altman@sandisk.com,
+	john.garry@linux.dev,
+	ping.gao@samsung.com,
+	linux-kernel@vger.kernel.org,
+	j-young.choi@samsung.com,
+	jeuk20.kim@samsung.com
+Subject: [PATCH] scsi: ufs: mcq: Reap aborted CQEs before returning from abort
+Date: Mon, 26 Oct 2026 18:17:45 +0900
+Message-ID: <20261026091745.1490707-1-jeuk20.kim@samsung.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,121 +111,155 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MW3PR12MB4473:EE_
-X-MS-Office365-Filtering-Correlation-Id: 115ccdcb-9b75-4786-1407-08df3341e2a4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|4143699003|11063799006|56012099006|261022113327099003|261022105027099003|261021121427099003|261022075727099003|261021123027099003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	PigpMqR1L8xb5jWM2WGGdq3bkvqRH/6ShgTcblcAZkjxgyLXwYAa6Pa/XnDkXyrpKUV7A27UVxxrkOIb3vfouNB5rer5UMnN9HaDvzBy4beWgYHTvF9fsN8ir3ngI5u5SueY9U5+rBinC116VPjPaFcOrHcwmdjoiEwSMJpg87sGQOu18YrD001q5n+J1Dci4Zti4Se7ZAdfe43IgYKkQvNzrvoH51LNycYC8tUwKc0jp7xCkp0F8P3cBZXLk4dSHXvq7/Q9Rjg+i1nApDxxeb8NbipWdpiY1QTj54Xq35Hf9TZyEe/a6fQLcxLNGetQdazkrEfEnoBueVXV75k0TfJ8CUhAK9OrGXGB0YTGgHqd7YDiz4RWepBsJhV3qHRI9RTTnSI1NffMDshR1/eByop4j0D51/9o1h18wX3iwwCy6cgciM4JeD8bxd9oBXOYl3tBWEAeWJf7QWPcHHL2Wa0Rv2GP6Ktdo49dySROxqSsU1UVygmgOLFJpToc/1b+/9PP4CAI4NIEWcx/r2agQw8k3fHdJ8zeGOm1vmjffX7dxdsh5dofZl6wUT8egHNKPoavzptVEczeQ0SL6i1QWytKAV4Vret4t9z5mepf26AGZsaQgutyCj+vCUZnuEJNX7RbE/0jWhfpLk/DZ3byppNPE/MmArcmWzXdgjRn7F8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(4143699003)(11063799006)(56012099006)(261022113327099003)(261022105027099003)(261021121427099003)(261022075727099003)(261021123027099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Q2lIVlpRWlNmS3ZsVEkwZHBaWTU3VnlLRzFrUGpnczYyTzJhR1crSUtYU25r?=
- =?utf-8?B?eGs2dXdUZk9ob3JPcnF0SHpJTDZmMUJPaUQzT0dNSlU1eXYzRldOL05qaWEv?=
- =?utf-8?B?MG9DdkJIcWxreEZ3U3FXa0dDOGM1SE9YcFIyMko5bGtDTEoyTGNOVm5LdUVw?=
- =?utf-8?B?ckIwWVZqc1c1U0hQdVZ0OWtRL0U0QndSeW9qcWpvaFE1WlVVTDYybzV2UktT?=
- =?utf-8?B?RFBzdGVsZlNaWW9HYzV5Nk5RRlo1SExFeVdZdWJmbnI2SzJ2Y1ZCbngrTXdt?=
- =?utf-8?B?SlIwN0lEMjFXRWxGaGptVUVjRUhJN1NhUndLRDZTNWc4b0d0R2Z6b1Z4QkpG?=
- =?utf-8?B?OFNsd1JxMVZzU2MrY2phRzY2S0xFUmxxNGhOQ203RU9abnNhK1MyT1lpdC9n?=
- =?utf-8?B?ZTRiaXo2MWVsSWhwM1I5eXF4eC9ieUIwQ0pVWW1tUjd0aDNmOU9XZFQxUm5Z?=
- =?utf-8?B?SU5vVDRiWmVMNFg5Y09rN2JKcFZuNkFnY1Rpa3BvOC9LVVM5akRDdFQ0KzVq?=
- =?utf-8?B?cnEwVEN6aUkrOEwzdEY0bG5wcW5mcEFVcGptZDFqZ1BLU3ZLUkRzNUE3UmtQ?=
- =?utf-8?B?UDlXMWl5cm1HMm9yaW9JYkFpeDBXYnFIaWdjVmhRYWhEbjRnNmtUTWZSWE5p?=
- =?utf-8?B?L0hxcExRTzJPcGNPSWlHN1RtQ0dlZkRvNTdsWVpmNWhXNVhYN2pUbVo2TXl2?=
- =?utf-8?B?Ni9aZHlKczNGU1VCQlZjbHhYbXZNRVpGWmhOQ3NQVGRZR1R1dG9WQTR5MGUy?=
- =?utf-8?B?NHpvM081b0p1WE5aMmpWeFd4YlkzcTR4WTdKR2thR1Q0ZDZXWW9kRktNeXJS?=
- =?utf-8?B?MFJwV2ZnVFNXMWN0bjZjZExFazB5ZXVkR3h5M081ajU4UC9zV29VQmQxY0hL?=
- =?utf-8?B?TDdFUHRBMkpXSTkzd2dNbmVLemZ2UnE5ZTd3NXdnbVVEWlUxL3IxbC9mNGlN?=
- =?utf-8?B?V1RvbHdhWWpPcnN5QWFxZUc2alhKY3Y3cm5FU1U1OFVuQ3JiNWtSeWVvd1Ur?=
- =?utf-8?B?U2lsY000MC9mM2FuRFROUzd4dXF6SWp5dFFZWUtOd0RqaGNkeDlEQlQ1TVdN?=
- =?utf-8?B?dUpRaEFHRWd3OEovTVBFTyt0L00xTkhhclpZaXIyc05SOVhmNytHRkxpd2g5?=
- =?utf-8?B?S1JmYW5PcmZyQ05ndVdMem55aWZHNDg5VndKMWtEZGZuYWhveGpKQ3RSZlI5?=
- =?utf-8?B?YjdUS0QwSE1Idi9rc0cvcjZzVzRRQ093cytOUGJ0ZGpjd04zSUF2b1VBU25R?=
- =?utf-8?B?bHBHT2o4N2pscXduNStnaXJoZTZwU0xheGxGK1hZSXdhclBHUlR5VUE2MURV?=
- =?utf-8?B?cWVRbTEybFNhUFNHTGtaZ0UxVDVRRjBodFdsTkJzRGgrY2JWL1RWeDloODVP?=
- =?utf-8?B?NWo5aWpoM21pSEFiOFVUc1pDOXptOElYN20ydENuOVltMkk1N2hSUnE2ZmFK?=
- =?utf-8?B?YjdnRXkyck8zd1d1YjFmRklXMkVQd1JxTFhyVDNVUk81TkQ5Z2pTdzdxZU94?=
- =?utf-8?B?eFpTeTBlSjUwK0lxYWJHVFRJcnowOUdodW1IZERRTEROS3BRWlZpVUhEUThU?=
- =?utf-8?B?Y2FsVWNYMWJ5dGlrK0hIYk54QnJ0N0tKQVU4TWJzSnVQS01nT1AzSGZNd0Fr?=
- =?utf-8?B?OFRDMFNFVDdFY29uNTBRdUtObnEyZ0VYSG5LbVRoRkp1ZzRpZkEyS25qUWIv?=
- =?utf-8?B?dzJxMXBnbzF6TWx2S1A4VG5vUXdGK3ErU05idXFkeHd6bzluaGJ3ZlYxd1lr?=
- =?utf-8?B?VGxLU21BVzFzZWMzWS94RVZNZmlobVJuUEpCb3dVeEsxVmp0VnEraHJtR2FU?=
- =?utf-8?B?eDdyRVZkRGNIZEhjT1hZYkNnYWQ3Y2I3bGF0SGVEejVSbFJtUzlVc25LNVNv?=
- =?utf-8?B?dUppZmV3bEtESkxUL1paQmtITXZMUHI5c2JqV1QrL1BZVk5PQVZxdHI0QmJn?=
- =?utf-8?B?N0FEQm5GQkt5T2dkYmQxamg5MWlVbmZ4d1BpdUNuVmtlMURlQUF3cFkyNVFU?=
- =?utf-8?B?UG9oQ1lrRHdseHdXcmNTeEludGxiNndkTUcxRXJSSUxlRWZZOGRHbnZLUTZN?=
- =?utf-8?B?RUcyUDU5UEVORHRobXZuUjU2K0JuenR4RHVNM0ltR3ZLbXZUeWMyZ3VpbkVM?=
- =?utf-8?B?bXZmZEFwTFZubURWTmFXTFgrOWZkcHBaNE9YcmUyS3RXZ1BySzVkL29jYW9M?=
- =?utf-8?B?Yy91OWVNa0dPTy9JMmkzWGg3Um9haDZCVEduR3ExYjNBTzdJNHJRZ0xsL29C?=
- =?utf-8?B?SUlZRWZWbVFmM0dIcmV5MnZORFNhU21QZmloSktWNGFJSlFGNE5IbWZqanE2?=
- =?utf-8?Q?dRng0dsXRmxwZivEks?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 115ccdcb-9b75-4786-1407-08df3341e2a4
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 09:16:58.0251
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kfDCtkO6uwDFLAAM+o/9H7ejlEoJ+Gkw8v8Mg58Ze6gQj0WtU6HFcOYe5WKVA2US
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4473
+Content-Transfer-Encoding: 8bit
 
-On 10/23/26 02:36, Val Packett wrote:
-> On 10/22/26 9:26 AM, Christian König wrote:
->> On 10/21/26 22:16, Val Packett wrote:
->>> On 10/21/26 10:43 AM, Christian König wrote:
->>>> [..]
->>>>> The buffer lifecycle coordination we need this for applies to KVM as well
->>>>> and it generally doesn't make sense to have this as a provider-specific
->>>>> thing since it's not related to the provider in any way, it's just
->>>>> something we want from dmabufs in general.
->>>> I wouldn't put that on the DMA-buf file descriptor where basically anybody can mess with it. That is just an recipe for trouble.
->>>>
->>>> The better approach seems to be putting it into the udmabuf_ioctl(), so that from the very beginning you add the eventfd which signals when the udmabuf is released.
->>>>
->>>> If we need that for more implementations than just udmabuf, we can potentially add it to dma_buf_export_info so that exporters can provide the eventfd file descriptor directly on creation.
->>> Well, we already need it with both udmabuf and gntdev-dmabuf..
->>>
->>> Involving the exporter sounds really annoying when it's not something exporter dependent really.. What if the policy is just "only one eventfd ever" i.e. the first call of the ioctl succeeds but later calls on the same dmabuf return an error?
->> No, exactly that is what I'm trying to avoid.
->>
->> Nobody except the original creater should be able to insert an eventfd here.
-> 
-> If there's no replacement allowed anymore, what could possibly be harmful/undesirable about "someone else" being able to do this?
->
-> With a "first caller only" policy, the original creator already can be 100% sure that no one else is able to insert an eventfd:
+ufshcd_mcq_abort() can return before the OCS_ABORTED CQE is reaped.
+If the command is retried or reused, the late CQE can unmap its new
+DMA buffers or access a freed SG table, triggering a KASAN
+null-ptr-deref in dma_direct_unmap_sg().
 
-Ok that sounds like you my argumentation wasn't fully clear: That approach is exactly what I try to avoid!
+Reap the CQE and serialize resource release with CQ processing before
+returning. On timeout, wait for a host reset to invalidate late CQEs;
+a successful LU reset alone allows the SCSI core to reuse the command.
 
-> If the original creator calls this API before sending the fd to anyone else, well, the original creator *is* the first caller, that's it.
-> 
-> Otherwise, i.e. if the original creator is not interested in this API.. it's unlikely a different process would use it, but if one does for some reason, I don't see any negative consequences from that?
+Reproduced with QEMU UFS in MCQ mode using fault injection and a
+test-only delay in OCS_ABORTED CQE processing.
 
-First of all if this gets added as common DMA-buf API the functionality suddenly becomes available to every exporter, not just the ones who explicitly implement it.
+Fixes: 53755903b935 ("scsi: ufs: mcq: Delete ufshcd_release_scsi_cmd() in ufshcd_mcq_abort()")
+Signed-off-by: Jeuk Kim <jeuk20.kim@samsung.com>
+---
+ drivers/ufs/core/ufs-mcq.c     | 31 ++++++++++++++++++++++++++++++-
+ drivers/ufs/core/ufshcd-priv.h |  2 ++
+ drivers/ufs/core/ufshcd.c      |  9 +++++++++
+ include/ufs/ufshcd.h           |  2 ++
+ 4 files changed, 43 insertions(+), 1 deletion(-)
 
-That in turn would be rather questionable because lifetime is something only the exporter of a buffer can fully deal with.
-
-For example it is very common that the exporter delegates cleanup from the ->release callback to a work item and your whole approach with the eventfd on the DMA-buf then doesn't work any more.
-
-
-Then second when the add this as common DMA-buf functionality then it should be usable by everybody and not just the first one who asks. Otherwise you can run into all kind mess with that when you give a DMA-buf where the eventfd slot is already used up to some other process which expects to use that functionality.
-
-
-For now that functionality only seems to make sense for the original creator and a limited amount of exporters where it actually works. So my suggestion is to either add some functionality to the exporter(s) or add some common functionality to dma_buf_export_info to aid exporters with their implementation.
-
-Apart from that the approach with the eventfd looks perfectly fine to me.
-
-Regards,
-Christian.
-
-> 
-> 
-> 
-> Thanks,
-> ~val
+diff --git a/drivers/ufs/core/ufs-mcq.c b/drivers/ufs/core/ufs-mcq.c
+index df293b66350d..efbe4d1487b4 100644
+--- a/drivers/ufs/core/ufs-mcq.c
++++ b/drivers/ufs/core/ufs-mcq.c
+@@ -692,11 +692,20 @@ static bool ufshcd_mcq_sqe_search(struct ufs_hba *hba,
+ 	return ret;
+ }
+ 
++static bool ufshcd_mcq_cmd_reaped(struct ufs_hba *hba, struct ufs_hw_queue *hwq,
++				  struct scsi_cmnd *cmd)
++{
++	struct ufshcd_lrb *lrbp = scsi_cmd_priv(cmd);
++
++	ufshcd_mcq_poll_cqe_lock(hba, hwq);
++	return test_bit(UFSHCD_LRB_RELEASED, &lrbp->flags);
++}
++
+ /**
+  * ufshcd_mcq_abort - Abort the command in MCQ.
+  * @cmd: The command to be aborted.
+  *
+- * Return: SUCCESS or FAILED error codes
++ * Return: SUCCESS, FAILED, or -ETIMEDOUT if the CQE was not reaped.
+  */
+ int ufshcd_mcq_abort(struct scsi_cmnd *cmd)
+ {
+@@ -705,6 +714,7 @@ int ufshcd_mcq_abort(struct scsi_cmnd *cmd)
+ 	int tag = scsi_cmd_to_rq(cmd)->tag;
+ 	struct ufshcd_lrb *lrbp = scsi_cmd_priv(cmd);
+ 	struct ufs_hw_queue *hwq;
++	bool reaped;
+ 	int err;
+ 
+ 	/* Skip task abort in case previous aborts failed and report failure */
+@@ -743,5 +753,24 @@ int ufshcd_mcq_abort(struct scsi_cmnd *cmd)
+ 		return FAILED;
+ 	}
+ 
++	/* Reserved commands do not set UFSHCD_LRB_RELEASED. */
++	if (blk_mq_is_reserved_rq(scsi_cmd_to_rq(cmd)))
++		return SUCCESS;
++
++	/* Reap the CQE before the SCSI core can reuse the command. */
++	err = read_poll_timeout(ufshcd_mcq_cmd_reaped, reaped, reaped, 20,
++				MCQ_POLL_US, false, hba, hwq, cmd);
++
++	/* Wait for any CQ handler still releasing the command. */
++	scoped_guard(spinlock_irqsave, &hwq->cq_lock)
++		ufshcd_release_scsi_cmd(hba, cmd);
++
++	if (err) {
++		dev_err(hba->dev, "%s: no completion for aborted tag %d\n",
++			__func__, tag);
++		lrbp->req_abort_skip = true;
++		return -ETIMEDOUT;
++	}
++
+ 	return SUCCESS;
+ }
+diff --git a/drivers/ufs/core/ufshcd-priv.h b/drivers/ufs/core/ufshcd-priv.h
+index e55c2a02c1f5..b899014ea70e 100644
+--- a/drivers/ufs/core/ufshcd-priv.h
++++ b/drivers/ufs/core/ufshcd-priv.h
+@@ -6,6 +6,8 @@
+ #include <linux/pm_runtime.h>
+ #include <ufs/ufshcd.h>
+ 
++#define UFSHCD_LRB_RELEASED	0
++
+ void ufshcd_enable_intr(struct ufs_hba *hba, u32 intrs);
+ 
+ static inline bool ufshcd_is_user_access_allowed(struct ufs_hba *hba)
+diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
+index cc75384c6502..38148d8081f8 100644
+--- a/drivers/ufs/core/ufshcd.c
++++ b/drivers/ufs/core/ufshcd.c
+@@ -3029,6 +3029,7 @@ static void __ufshcd_setup_cmd(struct ufs_hba *hba, struct scsi_cmnd *cmd,
+ 	struct ufshcd_lrb *lrbp = scsi_cmd_priv(cmd);
+ 
+ 	ufshcd_init_lrb(hba, cmd);
++	lrbp->flags = 0;
+ 
+ 	memset(lrbp->ucd_req_ptr, 0, sizeof(*lrbp->ucd_req_ptr));
+ 
+@@ -5968,6 +5969,11 @@ static irqreturn_t ufshcd_uic_cmd_compl(struct ufs_hba *hba, u32 intr_status)
+ /* Release the resources allocated for processing a SCSI command. */
+ void ufshcd_release_scsi_cmd(struct ufs_hba *hba, struct scsi_cmnd *cmd)
+ {
++	struct ufshcd_lrb *lrbp = scsi_cmd_priv(cmd);
++
++	if (test_and_set_bit(UFSHCD_LRB_RELEASED, &lrbp->flags))
++		return;
++
+ 	scsi_dma_unmap(cmd);
+ 	ufshcd_crypto_clear_prdt(hba, cmd);
+ 	ufshcd_release(hba);
+@@ -8183,6 +8189,9 @@ static int ufshcd_abort(struct scsi_cmnd *cmd)
+ 	if (hba->mcq_enabled) {
+ 		/* MCQ mode. Branch off to handle abort for mcq mode */
+ 		err = ufshcd_mcq_abort(cmd);
++		/* A LU reset cannot invalidate a late CQE. */
++		if (err == -ETIMEDOUT)
++			err = ufshcd_eh_host_reset_handler(cmd);
+ 		goto release;
+ 	}
+ 
+diff --git a/include/ufs/ufshcd.h b/include/ufs/ufshcd.h
+index be62165b785e..1892821c5054 100644
+--- a/include/ufs/ufshcd.h
++++ b/include/ufs/ufshcd.h
+@@ -166,6 +166,7 @@ struct ufs_pm_lvl_states {
+  * @lun: LUN of the command
+  * @intr_cmd: Interrupt command (doesn't participate in interrupt aggregation)
+  * @req_abort_skip: skip request abort task flag
++ * @flags: per-command flags
+  * @issue_time_stamp: time stamp for debug purposes (CLOCK_MONOTONIC)
+  * @issue_time_stamp_local_clock: time stamp for debug purposes (local_clock)
+  * @compl_time_stamp: time stamp for statistics (CLOCK_MONOTONIC)
+@@ -190,6 +191,7 @@ struct ufshcd_lrb {
+ 	u8 lun; /* UPIU LUN id field is only 8-bit wide */
+ 	bool intr_cmd;
+ 	bool req_abort_skip;
++	unsigned long flags;
+ 	ktime_t issue_time_stamp;
+ 	u64 issue_time_stamp_local_clock;
+ 	ktime_t compl_time_stamp;
+-- 
+2.43.0
 
