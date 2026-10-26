@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.69
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793051574;
-	b=HjxEBl0o34AWr5lrSQb7QfZEWQFSYYcOyCaiB4di3BMWsoeKjEAB5Hw585TL69+fQaaE
-	 YApMnRFUkX7avQdXHry7IUnz45JwvyGlmfLKoTZsCBFwM4SKPQnLVeJqDRFUuSZtNrpmL
-	 GBT1lw04nH+i1+lGTzzBGU0c4XbsdvjdOk758vGfhzhJxssThesyhm0VY4DNO444u2zd2
-	 FzTfMpJfHOKwKQuqTvtesY5hFcW2b/oEVftre9Et5Gv5nMnppfdp4c6NbCE6BO9InaUTR
-	 oP/MlVyDn1cpI2ADNdqaJEfDOMyO06zKU3rfU3HaZ66v04GKN3HzQQrtPTHX9qkAZfA==
+	t=1793051569;
+	b=b3DlrJXncp1QnIa3bbE8G87bMgCg7zmn5P/jT614Mu0Q2Gr3h/tus/J//3yisrbLTpYQ
+	 5vCh5RQ7Yszhb6QjD5/hh+6fGDK2K3fc3hbIK2gWeurwfanbyGMm46Oe3jsLC5LmsMc2F
+	 aVXbItwIfVrVvMsZIwcZbMNZKMiDiVPZowrFCADr6Gr5c6pqc/6FprbZ80L4iexxWuA1T
+	 PjpZDwzQr6JG7p6sDI487mVSrwjWmBjvkFbiUwMtUbC65XGduYbunGDFT0rsUinMttC26
+	 62PP5+vhbdOvg8cXi++89HHfj2rD1siPasuDkX9WDu5oza3YcVi9eUW8Kil9+fqa8/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793051574;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793051569;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=cYBRYm53aIgyLidEi/RI31/ngJcANLPfjWm3HzPNi4M=;
-	b=MOVkIHoXuR59Hju67iOzrFrQHWAfFXWF6oI2D5SEvtMB1K4M29BpLs+jicR3JQ2DFjBU
-	 mg2WcVs5ZIMqUP+bYDJkoF7S3neW22tWkzDXhdogFjV3GvgR05iYH+UyO4h2MA0K0qoQc
-	 /LH+R8isp03/18Y4+Vzk3Kq99ueoDWeqJJ9C+6AwCec0foBZuO6chlwzIBlqCbpfhvnTP
-	 WKK4RH028eL9mqHhmoBvfzrlNickx1SQQ29+qerz5yjM0kMAb2Mt1047SdHwS9314f5yk
-	 0+qd9wIr5/wfGCBc/E1yuo/xyOcbr8v2ZOkmnG14iPSs/jXwPCAyI+GbSZiaJ2mA9Jw==
+	bh=RD5MWqHEB8iYDLFdQXvkJ0xSc6fsoJ0ZXufXHQQ7zgM=;
+	b=fIt5WWJSkfdBd0Guj+NiAnzmNVekKRgH6H9mvdI5XsWmmivw1XmyGXemst3PEdD5/GzC
+	 d2b0zvKB10gJdAdhcdQIarAU4/srfbMoQDlaF61bYsBQloF35DrqQhuIgCgJLK+xzBqs6
+	 RQeMF4B1x018bD8WNn2gBAd4neD7QELCRX8nCdYd22oIjsPYWHHRObXTD3ACFWHo3r9ju
+	 pTAqxg+PRAcdgzvWbnwuMq9ufezZtk3rWGXJzz9eIdldOG7ya5WgAaTMDBJzJm2/TnpYO
+	 txckWykusZ3wVyiVdHEm9WKoyZqdeFPGkqn2lQ6NbFHkZaeXeO9/qKjvLp34WC9ZeWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--jthoughton.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=CvG0Fy7g;
-	arc=none smtp.remote-ip=209.85.216.69
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=ttuByBgZ;
+	arc=none smtp.remote-ip=209.85.215.198
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B65A960A5BC8
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 21:52:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B65A960A5BC8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F90E606A32C
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 21:52:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F90E606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jthoughton.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=CvG0Fy7g
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3ad91787a1aso2356194a91.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:52:53 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=ttuByBgZ
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cd5fd34fee0so1863969a12.3
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:52:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1793051573; x=1793656373; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1793051569; x=1793656369; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=cYBRYm53aIgyLidEi/RI31/ngJcANLPfjWm3HzPNi4M=;
-        b=CvG0Fy7gZIv2FTt2FLi/I4EtmhrrdDUp0LMHK2e4OFiGbeZTP3anWci5lM/QVrw/H/
-         vjprgqeI7Qf9DFSiI1EjYmA+NS+U8yLIMnl0OtrbcRYf5Yx2EdFq4bQctlNGf9haYRxk
-         zNOY3needT5Dpogs2gFazhUPqrGCvlqBMur+MB6IXA8lRBX5MJRSdMIgYwVgDWxC+xVD
-         /gOzfwe4ZxDGF2x8WsA3INU3jvJi5tteYqQn27Fg8BipvdjcomyZJXXlXk3f8l341y6c
-         eOkADpgnRFASfGK7dklKQl3bIpeDuRbf+lJ1Y+nNaXwWEPiWKf9RujwO8Uw/gehBi/kO
-         jo5A==
+        bh=RD5MWqHEB8iYDLFdQXvkJ0xSc6fsoJ0ZXufXHQQ7zgM=;
+        b=ttuByBgZyXhz+vCIDU5aBy90hRWqwioXsk1DTyafweNnvz2VRwJpnWhZTDjU/ruhRF
+         +eNkpq2S/OLTAC4WKDyiSOVdOZpoaInxvu9UjK8OVtqVOVGoXQz0xw4USi3sYBtAAjKW
+         xFkNF7RtNx3C8ylvzrtr3yIDJFmQr5Fpx5GMG7lg7Zxkb9Zz76slRyBARq30C4fj/GZc
+         lewXB4OZG8GXpxXvg/Z2Si+lR9m0f1WY60ZFwIRoGIQ8gBxO4HkEYP6M2T1bDHZOH6bh
+         LsWrGaMFI/TsCQGQozWRU1Jk+J5GWR7q6ZBrNLB6qEnTv5RGoUe2N/rfxG8p6ofbEptr
+         6CiQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793051573; x=1793656373;
+        d=1e100.net; s=20260707; t=1793051569; x=1793656369;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=cYBRYm53aIgyLidEi/RI31/ngJcANLPfjWm3HzPNi4M=;
-        b=RafunL1KU6nytTKTNP8k2kcAwQgmH9yN0qR9zomdrCiRSJEUq0e1DiaoptSDeShTjF
-         WLCBKeUfmZzcqQy8Q7tu2W2ogMtQM4DR5CdwNZTyLuJV/a6CQCQ4gN7PjAWyF0YCjtdE
-         /pKR5bI7E6j/UX23AZbKijCrAHm4SkjXAU3JWTPl/X7C3Wq8UyoAyu5+MZ1lXm8bU11O
-         1mDgx4r3rNjAVRMnJ0JoapfOd+Wvso5ms/0RX9bWWTfazdx1RnRYnZHfI+2o3fAFVplw
-         rNF7YQCJyFCyHyfuNNU56YaA5A8fsZVb5yqVBARYWDtcKMrdPMG1pw5xnuxg7vKaqZIc
-         Cfpw==
-X-Forwarded-Encrypted: i=1; AKwUvBwJ1dJDSkapu+md5+z12ZbweaH4y1GfDtLDM58QfhOBF7w73Gxa+l8AoRKuRF02plCPX6awzYZD8lIkPmA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIQ4b2DvZdYJ6Ikkx2s+V/en1dLd6KSMPajONjAdqOjzllRiBvx
-	kjQhLrbxZOJZGoVvfuHtTmIEPIE9WApuNxN8sG2KwAbcxNVULv05osrN1cyTVOBi5xvGjtjt/mz
-	WJo99LcsJ8uhkZ+5RJuySeQ==
-X-Received: from pjst21.prod.google.com ([2002:a17:90b:195:b0:3ab:3d7f:6c0c])
+        bh=RD5MWqHEB8iYDLFdQXvkJ0xSc6fsoJ0ZXufXHQQ7zgM=;
+        b=KMOHjEPAU8vBzBHEK+mAbgwG/jp8eM9bXNbNl2QkGwbx2oUSip7VXVU24GiavviuM7
+         Rq4dNCYv8vtXe+n3xwitNnz/y9RDZKMjpmTwTSKUfg2h6/Ka8ZXh9gnN99m96nmu8gIZ
+         EddMV9EykVSONAM1MypRecJf9neBuEBxTMV6652qb4FW3SPvtrEB7CIktRUaVbiyGn9N
+         rb5hTwdoFnl5DfquDDNn6twbC2S0FCe6NXQ47LcylIvqNvZ4pzcc1vFkzALpCSwyw0n6
+         0yOHjzZ6Pe6B3NWDhOXInmMH9n2RhkWZOV1aIHgAbd6Capf6qSe1bDjeoj76H0Tsykta
+         oKRw==
+X-Forwarded-Encrypted: i=1; AKwUvByOqmCVC+ln4/owaRsD9swQ2h79ocwtpDIKYpXMZIhLhzAzC+uvA7pbKHDx+wwWKBX/W3kYQZa19EQiTGo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJeR2kdMxIsThZ3Gg9t5zEyQ3mb2FcLvpP/Bd9z6iHhxIaM4cpQ
+	dETfa6hx1RUrLxTk2xKMdrrvDXBD/Rj4QZcCUNc1DLXCt9r2i1Vp2koPC72w2AaPnPRnIiRU+eU
+	O4RVktbA0q9cchK39ITL2Bw==
+X-Received: from pjps6.prod.google.com ([2002:a17:90a:a106:b0:3ad:c8d8:70c3])
  (user=jthoughton job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:90b:3ec7:b0:3ad:3715:d21 with SMTP id 98e67ed59e1d1-3adeafb0481mr6464242a91.49.1793051572848;
- Mon, 26 Oct 2026 14:52:52 -0700 (PDT)
-Date: Mon, 26 Oct 2026 21:52:22 +0000
+ 2002:a17:90b:2688:b0:3a8:cb54:e135 with SMTP id 98e67ed59e1d1-3adea899125mr6172313a91.19.1793051568668;
+ Mon, 26 Oct 2026 14:52:48 -0700 (PDT)
+Date: Mon, 26 Oct 2026 21:52:17 +0000
 In-Reply-To: <20261026215226.3713941-1-jthoughton@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,9 +81,9 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261026215226.3713941-1-jthoughton@google.com>
 X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
-Message-ID: <20261026215226.3713941-7-jthoughton@google.com>
-Subject: [RFC PATCH 06/10] uaccess: Refuse and warn on user copies when
- current->mm is NULL
+Message-ID: <20261026215226.3713941-2-jthoughton@google.com>
+Subject: [RFC PATCH 01/10] scsi: bsg: Don't copy sense data to user memory
+ when canceled
 From: James Houghton <jthoughton@google.com>
 To: Andrew Morton <akpm@linux-foundation.org>, Alexander Viro <viro@zeniv.linux.org.uk>
 Cc: Thomas Gleixner <tglx@kernel.org>, Peter Zijlstra <peterz@infradead.org>, Kees Cook <kees@kernel.org>, 
@@ -106,159 +106,50 @@ Cc: Thomas Gleixner <tglx@kernel.org>, Peter Zijlstra <peterz@infradead.org>, Ke
 	linux-kernel@vger.kernel.org, James Houghton <jthoughton@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Accessing user memory from a task that has no mm is always a bug. This
-can happen from a kernel thread that is not using kthread_use_mm(), or
-from a task that has already gone through exit_mm() (e.g. when the last
-reference to a file is dropped from task_work at exit). KVM has had
-bugs of exactly this kind, and other drivers may have them too.
+scsi_bsg_uring_task_cb() copies the sense data to the submitter's
+response_addr with copy_to_user(). It runs as io_uring task work, but
+io_uring may also run it with tw.cancel set from other contexts when the
+submitting task can't run it: from a kworker when the submitting task
+has exited (io_tctx_fallback_work()), or from io_cancel_local_task_work()
+when a DEFER_TASKRUN ring is torn down.
 
-Such an access does not reliably fail. The user portion of the address
-space belongs to whatever mm happens to be lazily loaded, if any. If
-the access faults, the fault handler refuses to handle it and the copy
-fails, but if the page is already mapped, the copy silently reads or
-writes another task's memory.
+In a kworker, current->mm is NULL, and the copy does not reliably fail:
+the user half of the address space belongs to whatever mm happens to be
+lazily loaded, if any, so up to max_response_len bytes of sense data may
+be written into an unrelated process.
 
-Add uaccess_should_fail(), which combines the existing
-should_fail_usercopy() fault injection check with a
-WARN_ON_ONCE(!current->mm), and use it in place of every
-should_fail_usercopy() call. The user copy is then refused as if it had
-failed, so no access to user memory takes place.
+Don't copy the sense data when the task work is canceled, and complete
+the command with -ECANCELED.
 
-This covers copy_{to,from}_user() on all architectures, including the
-masked user access paths that never call access_ok(), and the
-__copy_{to,from}_user() variants used by KVM's guest memory accessors.
-It also covers __copy_to_user_inatomic() (and so copy_to_user_nofault()),
-the user-backed iov_iter copy routines and strncpy_from_user().
-
-Paths that never called should_fail_usercopy() are not covered, e.g.
-__copy_from_user_inatomic(), copy_from_user_nofault(), strnlen_user(),
-get_user()/put_user(), clear_user() and unsafe_*() accesses within
-user_access_begin() sections.
-
+Fixes: 7b6d3255e7f8 ("scsi: bsg: add io_uring passthrough handler")
 Signed-off-by: James Houghton <jthoughton@google.com>
 ---
- include/linux/uaccess.h | 27 ++++++++++++++++++++++-----
- lib/iov_iter.c          |  6 +++---
- lib/strncpy_from_user.c |  2 +-
- 3 files changed, 26 insertions(+), 9 deletions(-)
+ drivers/scsi/scsi_bsg.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/include/linux/uaccess.h b/include/linux/uaccess.h
-index eddbbb65ccc4..8ab24e706a22 100644
---- a/include/linux/uaccess.h
-+++ b/include/linux/uaccess.h
-@@ -50,6 +50,23 @@
-  #define mask_user_address(src) (src)
- #endif
+diff --git a/drivers/scsi/scsi_bsg.c b/drivers/scsi/scsi_bsg.c
+index 5eec248a77a6..3755e33fcdd2 100644
+--- a/drivers/scsi/scsi_bsg.c
++++ b/drivers/scsi/scsi_bsg.c
+@@ -43,9 +43,17 @@ static void scsi_bsg_uring_task_cb(struct io_tw_req tw_req, io_tw_token_t tw)
+ 	if (pdu->bio)
+ 		blk_rq_unmap_user(pdu->bio);
  
-+/*
-+ * Return true if a user copy must not be attempted, either because a failure
-+ * is being injected, or because the current task has no mm.
-+ *
-+ * Accessing user memory without an mm (e.g. from a kernel thread that is not
-+ * using kthread_use_mm(), or from a task that has already gone through
-+ * exit_mm()) is always a bug: the user portion of the address space belongs to
-+ * whatever mm happens to be lazily loaded, if any, so the access could
-+ * silently hit another task's memory.
-+ */
-+static __always_inline bool uaccess_should_fail(void)
-+{
-+	if (WARN_ON_ONCE(!current->mm))
-+		return true;
-+	return should_fail_usercopy();
-+}
++	/*
++	 * If the request is being canceled, e.g. because the submitting task
++	 * has exited, this may run from a kworker or in a different task, so
++	 * don't copy the sense data to the submitter's address.
++	 */
++	if (unlikely(tw.cancel))
++		ret = -ECANCELED;
 +
- /*
-  * Architectures should provide two primitives (raw_copy_{to,from}_user())
-  * and get rid of their private instances of copy_{to,from}_user() and
-@@ -114,7 +131,7 @@ __copy_from_user(void *to, const void __user *from, unsigned long n)
- 
- 	might_fault();
- 	instrument_copy_from_user_before(to, from, n);
--	if (should_fail_usercopy())
-+	if (uaccess_should_fail())
- 		return n;
- 	check_object_size(to, n, false);
- 	res = raw_copy_from_user(to, from, n);
-@@ -138,7 +155,7 @@ __copy_from_user(void *to, const void __user *from, unsigned long n)
- static __always_inline __must_check unsigned long
- __copy_to_user_inatomic(void __user *to, const void *from, unsigned long n)
- {
--	if (should_fail_usercopy())
-+	if (uaccess_should_fail())
- 		return n;
- 	instrument_copy_to_user(to, from, n);
- 	check_object_size(from, n, true);
-@@ -149,7 +166,7 @@ static __always_inline __must_check unsigned long
- __copy_to_user(void __user *to, const void *from, unsigned long n)
- {
- 	might_fault();
--	if (should_fail_usercopy())
-+	if (uaccess_should_fail())
- 		return n;
- 	instrument_copy_to_user(to, from, n);
- 	check_object_size(from, n, true);
-@@ -167,7 +184,7 @@ _inline_copy_from_user(void *to, const void __user *from, unsigned long n)
- {
- 	unsigned long res = n;
- 	might_fault();
--	if (should_fail_usercopy())
-+	if (uaccess_should_fail())
- 		goto fail;
- 	if (can_do_masked_user_access())
- 		from = mask_user_address(from);
-@@ -195,7 +212,7 @@ static inline __must_check unsigned long
- _inline_copy_to_user(void __user *to, const void *from, unsigned long n)
- {
- 	might_fault();
--	if (should_fail_usercopy())
-+	if (uaccess_should_fail())
- 		return n;
- 	if (access_ok(to, n)) {
- 		instrument_copy_to_user(to, from, n);
-diff --git a/lib/iov_iter.c b/lib/iov_iter.c
-index 2072c04e99d0..3d6ecb50d778 100644
---- a/lib/iov_iter.c
-+++ b/lib/iov_iter.c
-@@ -17,7 +17,7 @@ static __always_inline
- size_t copy_to_user_iter(void __user *iter_to, size_t progress,
- 			 size_t len, void *from, void *priv2)
- {
--	if (should_fail_usercopy())
-+	if (uaccess_should_fail())
- 		return len;
- 	if (access_ok(iter_to, len)) {
- 		from += progress;
-@@ -33,7 +33,7 @@ size_t copy_to_user_iter_nofault(void __user *iter_to, size_t progress,
- {
- 	ssize_t res;
- 
--	if (should_fail_usercopy())
-+	if (uaccess_should_fail())
- 		return len;
- 
- 	from += progress;
-@@ -47,7 +47,7 @@ size_t copy_from_user_iter(void __user *iter_from, size_t progress,
- {
- 	size_t res = len;
- 
--	if (should_fail_usercopy())
-+	if (uaccess_should_fail())
- 		return len;
- 	if (can_do_masked_user_access()) {
- 		iter_from = mask_user_address(iter_from);
-diff --git a/lib/strncpy_from_user.c b/lib/strncpy_from_user.c
-index 5bb752ff7c61..565b3125e752 100644
---- a/lib/strncpy_from_user.c
-+++ b/lib/strncpy_from_user.c
-@@ -115,7 +115,7 @@ long strncpy_from_user(char *dst, const char __user *src, long count)
- 	unsigned long max_addr, src_addr;
- 
- 	might_fault();
--	if (should_fail_usercopy())
-+	if (uaccess_should_fail())
- 		return -EFAULT;
- 	if (unlikely(count <= 0))
- 		return 0;
+ 	if (scsi_status_is_check_condition(scmd->result)) {
+ 		driver_status = DRIVER_SENSE;
+-		if (pdu->response_addr)
++		if (pdu->response_addr && !tw.cancel)
+ 			sense_len_wr = min_t(unsigned int, pdu->max_response_len,
+ 					     scmd->sense_len);
+ 	}
 -- 
 2.56.0.307.g5fe7bd680c-goog
 
