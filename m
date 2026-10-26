@@ -1,56 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793016947;
-	b=x4onTL8/HKa5ud02hjXWXL7ifFdS4zqQimO9tjT3A13zK8FgkFVCiKDy4y/H3cVCwBfH
-	 4strk6wXlutHaxakABQ6sjb2SvXgsPjqdItCukz/wOK+005miW4bKKT4T9pBTWbOeiCIK
-	 E4VFIGDoqFcGnXUwDDoeNaxnxST4ph3FCDC9UAr5vJ3hv5hp4nwRVlISFPY2Hg4yBuG6j
-	 UnUxV0WeYrXSXgG/8qH1mneY7cz75RhMG0DnWgaZLghJTGUnYkoAkuRQ/odC56gsKL+pv
-	 HQdQfAC95oXPu1msD5yo1UTkmybJCKQW5XMszuyXkVUjPxt+oO/nrfP7RH8p7S7YhSg==
+	t=1793016940;
+	b=L4hVw0lwcC2DOPlE+3yYDOuAR2pIloEnSSnytVOSdt9h3xrvfeq7KNJ2BQuZuwaIqJFD
+	 JrDhpgLi4Vt4tktkdFWAPIRDwFRPUmWv5misgOjc6jX02jC7jlG8B0/9OuiNXxLAA2/JS
+	 8uS0vVrDZ6nGNJY6mynsfuhOOLMi7+9Fl7QdobkAxwFJ0+zMl7NdB/ZyzhL4p3hVt5Sfu
+	 NAQwpV0dAU76ifUdrC5XywlJEhEOH43i995wmDaEhnfAuZchTxsvM0Q53xlZeO+Xx2uyF
+	 HejoEYjE4ESU1ERQqy+6ca8PqmI/Qlavk6+mgBSuTdxnQ/dkjBp+npyVLzVm/MCZYoA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793016947;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=hm24c+cQsdbwAkbm9KBkSNZyBbC+x5iHoOkTvzmaaWk=;
-	b=YTfJ5pmIyHQVvnQR+95pUTeDKuQRNVMC17PJ55yAfAb+USDkkgLiUFfzMo+kWgUwNV50
-	 mc49AHcMmdRAVEZVsw4GRtukZ/cjA+uWLC9ECLQnbdirpaE4puR0q10BIuwu097VXvbYS
-	 OvAVC59FtGEwl1w3xB3DZglvIv+2P5kcqq07zxWfwAxjPXOIEW0yrVAgg4dSpuSpeAiQi
-	 OHc4KavCM+hCavYyT13JGgWyLyafj1qwKOA1DupMSLA8jd5WNyhQtd3ZWWdOp0+hcbTKM
-	 btTK7Pyw6uByB6sGgFM79x8JfBqkE0lbynRGxlWoJzlgvex3z/HXKysWtl083Sk8kUA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793016940;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=H8KnQWvxuK6V08t47ps2cs08V3cGZwetRofByIjuEao=;
+	b=l9Ra475RgTXRk6D49ENBBs0B3z8/N3pEYLYumGzGYKMxwftQ7OlKe8eAJbc+vR3jurUp
+	 OHZ3bgLKp7eZFcm7zh3ulO5K9PeiyNY+8vezu9+Dsxbf4KqQIQGCw/UQ6R6di8jNSSfav
+	 yQhE6T2yVjg976+WOExO4+99EpTN44t4krHLgXbZzkDGHTr/wG/Zo94Ju9T6Zl2hx7Lqn
+	 avc6Tgsotg8kuWYvT6Iy3v700evucXXbpohQCdNXi827UYVKjKgXExSrw6SNjonA73sKa
+	 X0n4vEEdSsPASlMOBQlcNAHdRI6FM7bSzeWDrJZfiGBm3ADUlHqnwcQWdyfTEfn9wkQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=IIGk4zAB;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UcZ+UzZh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 044A3606A330;
-	Mon, 26 Oct 2026 12:15:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F17C2606A321;
+	Mon, 26 Oct 2026 12:15:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=IIGk4zAB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C99381F031E5;
-	Mon, 26 Oct 2026 12:15:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793016946;
-	bh=hm24c+cQsdbwAkbm9KBkSNZyBbC+x5iHoOkTvzmaaWk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IIGk4zABS5Ytjop60WP6cY/Ii/G+oA5dWDtAMN/PXC6oT2iTIbf2BuAd7kpY6oe8A
-	 A2u8IKR4aCLxi+8/nB3NvPS9tQ9DK+4Mvjy9FK/iPFWsqNVM2EfIt+y4Fsgd5k65gc
-	 bDvCCBYpMtSi7gQVdRCQxc01yvyCKaf+mmFBoIXs=
-Date: Mon, 26 Oct 2026 13:15:46 +0100
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Beata Michalska <beata.michalska@arm.com>
-Cc: ojeda@kernel.org, dakr@kernel.org, rafael@kernel.org,
-	aliceryhl@google.com, boqun@kernel.org, gary@garyguo.net,
-	bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org,
-	tmgross@umich.edu, daniel.almeida@collabora.com,
-	boris.brezillon@collabora.com, work@onurozkan.dev,
-	samitolvanen@google.com, acourbot@nvidia.com,
-	rust-for-linux@vger.kernel.org, driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org
-Subject: Re: Request::put_noidleFrom 43bd77ceaa3d6a9f61ae8074be13824a94fa76c1
- Mon Sep 17 00:00:00 2001
-Message-ID: <2026102635-stray-census-1169@gregkh>
-References: <20261026120523.526942-1-beata.michalska@arm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UcZ+UzZh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A04961F01825;
+	Mon, 26 Oct 2026 12:15:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793016939;
+	bh=H8KnQWvxuK6V08t47ps2cs08V3cGZwetRofByIjuEao=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=UcZ+UzZh6envg0pIT6DV3Crs77mjh+wm0SzypbOqgqTc3or4MLJtFN5lhp8Uzq4BA
+	 3s/VSsEJeN2tQF+AtS+f209Rqn7xqJR3LNj6S8U1CXmZdA5C1Q7bhDRuqaB0QBNe3h
+	 6+gMbTFWeoCUMUtXOHOqDOUCs/f4+EeCD+dsjpecxOVev4K6UG4Xu+jaW9AFXRW/Fi
+	 CBC8PufITzQsUvyQW/WXyO/5VBkwDZRR9cZDuET4Nc6ueVcqxn5f2O9dik6qV10mRB
+	 yEgCPYGFMIRBF47ZKXsnxb00HMID1A3aQEfIu2k9TzfXL/PV9V0A9R/pRP3ie8hzbk
+	 5D/LB80BoUj0A==
+Subject: Re: [PATCH net 1/5] ipv6: restrict gc_elasticity to 31
+From: netdev-bot+sashiko@kernel.org
+To: jiayuan.chen@linux.dev
+Cc: netdev@vger.kernel.org, stable@vger.kernel.org, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ dsahern@kernel.org, idosch@nvidia.com, kuniyu@google.com,
+ joel.granados@kernel.org, chia-yu.chang@nokia-bell-labs.com,
+ bronzed_45_vested@icloud.com, yuuchihsu@gmail.com, fmancera@suse.de,
+ hannes@stressinduktion.org, fbl@redhat.com, pmladek@suse.com,
+ paulmck@kernel.org, linux-kernel@vger.kernel.org
+Date: Mon, 26 Oct 2026 12:15:38 +0000
+Message-ID: <179301693822.3134.16821045137329382001@kernel.org>
+In-Reply-To: <20261023091419.167088-2-jiayuan.chen@linux.dev>
+References: <20261023091419.167088-2-jiayuan.chen@linux.dev>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,12 +66,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261026120523.526942-1-beata.michalska@arm.com>
 
-On Mon, Oct 26, 2026 at 01:05:05PM +0100, Beata Michalska wrote:
-> Hi All,
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Subject looks a bit wrong, did something break?
+Low priority / nit picks for your consideration:
 
+- [Low] The commit message for "ipv6: restrict gc_elasticity to 31" says
+  only "Cap it at 31", and its reasoning covers only values >= 32.
+
+--
+
+ipv6: restrict gc_elasticity to 31
+
+This commit switches the net.ipv6.route.gc_elasticity sysctl from
+proc_dointvec to proc_dointvec_minmax with bounds [0, 31]. The upper bound
+avoids an out-of-bounds shift of the u32 ip6_rt_gc_expire in ip6_dst_gc()
+that UBSAN reported.
+
+> diff --git a/net/ipv6/route.c b/net/ipv6/route.c
+> index 94e5ef1c4f83e..6f2efc219f395 100644
+> --- a/net/ipv6/route.c
+> +++ b/net/ipv6/route.c
+
+[ ... ]
+
+> @@ -6627,7 +6629,9 @@ static const struct ctl_table ipv6_route_table_template[] = {
+>  		.data		=	&init_net.ipv6.sysctl.ip6_rt_gc_elasticity,
+>  		.maxlen		=	sizeof(int),
+>  		.mode		=	0644,
+> -		.proc_handler	=	proc_dointvec,
+> +		.proc_handler	=	proc_dointvec_minmax,
+> +		.extra1		=	SYSCTL_ZERO,
+
+[Severity: Low]
+This isn't a bug, but should the commit message mention the new lower
+bound too?
+
+The changelog says:
+
+  Cap it at 31. 31 and 32 are equivalent anyway [ ... ]
+  Values above 31 add no new behaviour, they only hit the UB.
+
+This only covers values >= 32. With extra1 set to SYSCTL_ZERO, negative
+writes that proc_dointvec used to accept will now fail as well.
+
+The lower bound also fixes real UB. In ip6_dst_gc(), rt_elasticity is a
+signed int read from the sysctl:
+
+	int rt_elasticity = READ_ONCE(net->ipv6.sysctl.ip6_rt_gc_elasticity);
+	[ ... ]
+	atomic_set(&net->ipv6.ip6_rt_gc_expire, val - (val >> rt_elasticity));
+
+so a negative value also gives a negative shift count.
+
+"Cap" also reads as if values get clamped. proc_dointvec_minmax actually
+rejects writes outside [0, 31] with -EINVAL.
+
+Since this is tagged for stable, could the changelog say that writes
+outside [0, 31] are now rejected in both directions? That would help
+anyone with a negative or >= 32 value in sysctl.conf who starts seeing
+the write fail.
+
+> +		.extra2		=	&ip6_rt_gc_elasticity_max,
+>  	},
+>  	{
+>  		.procname	=	"mtu_expires",
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261023091419.167088-1-jiayuan.chen%40linux.dev
