@@ -1,72 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.37
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793031865;
-	b=J4j7PvIo1Ca1Fp0lzccvwfdLq1uEU1U7qehERjxraU8mqZtkeo75nkCqcEgSRa5U028J
-	 ps3qegAOaUKIqQP4elBhskmQHVFamg8to68AIx8pMexchEkvdgP58Y2Zf/VChKdg+pwDa
-	 dZrMTyM8M0renG78zZPyOeZVc/c7EcAUIcaZVP8ISTXhdKwYPmqBSg2axJkZrsVvkNCxG
-	 kF6O6fKJyxq2zV+30mOEGxAzE5ttb0tXdb4pD3W+XJ9lItzpANxPq9SvzhzooMzBl9/bH
-	 kjKmwB1h6Z61OS9K5tIOqotfTJAIjcAmUOplFd9k35jJktQHw8ce6rEGAyGXaXpw3ZA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793031865;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:
-	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
-	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
-	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
-	bh=DajPTuRGlwcD4J4PQkOl0tYDfpyADr1jZ7qC3/V/b3M=;
-	b=HrpGh8QnJZTA1P/pL81ilddZWr65AmrNC/qFJNByPGH2+FmgeLVf8Pl9jHaX4GH8hk/8
-	 SxIAMq+GWov5s+XEeNYjaya5NR/AwLncN3Yo0E0WCd3iKUnzoyZq3Q4crcAGQFux/x5L0
-	 LPvniO0jQlO+cbVLOYqM1to5U3P/VBGpYAVXS2aYabsqCrGD38bgWu9iHFAKsvB85P/+8
-	 sc3uiv5At65pKVFMT70A/3yUeB61CIPnc1Cnsb8n+2OGmi8Lw+a69BnFZ2cLLAXugSiwG
-	 moVwXXsP6hO4/aSPLkCN3vxN+D3enTgN82LheYwla3aqWWiiqy9ffzDixk7oqm+8t6g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=lsNrZREB;
-	arc=none smtp.remote-ip=35.89.44.37
-Received: from omta38.uswest2.a.cloudfilter.net (omta38.uswest2.a.cloudfilter.net [35.89.44.37])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.50
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793032005;
+	b=VbW/rXLyg8WowjveP//Hg1TA6J+GXFK4A9VmDP6j2AH36yLZK3qNhenbHrA3TTERXvvT
+	 HhPYIXUCNbBCQgVlvwOd8RWCp0M0GbVQb9Kxn5EBFKPUozG0N+xtKUYc9bc5pfGKYlq2i
+	 WJnDIiwo75CedyOlbl3AY/fsOBlF8TVJkVK5+uPnDYa/3yK1sh3k0CkE92MSek8NnJTPI
+	 ff7GDuhYO6qHek/OKuh9uZvkuwdAoqsHE+RHzcmQb/h6Cgge/VzxkjPX09CKn3OD2kYty
+	 lBSePKDT7qV3uVtLDIQH7VJo0JEnQGTZ681j6WYiBq84UgFHTt7hG0M35cvAWizOVeA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793032005;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=lW187BX7pvnv89/fgKm/N1OWRtkvU+9tvFLWWwcKajk=;
+	b=WSn2dAeVgclo0DUwCD8d1EyEColoh8sTA9KqyU2DxzFHgniYUp6qG4LQyQI4HyrJ+F7T
+	 js7nO6gQfEPhu2zrmbaWGaxHiXJTHsKHG8sqIB7A2q9yRjx9hfUfxgs21VUoOs0vkmIZF
+	 C5FnODYTh7l9wMENkjL3GPiFuL33Zgc4J7QMjxPsIUzLGGTgpgBXK67CrGzF6VWzO7JAH
+	 hbJGJnd8XC7UkYjUINwwjQKrsrgwwDveVQBpva0XJ+im13dzFPJg6xyxp0UZcp4luOQ3r
+	 eUJ+aymU/Cz6qx9dy3wRKnUAw0KzViYDWYga1JI9IgMMFk5TUeQuX9q52bB3VY3J1eg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=MUOvYbUG;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.50
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5F9E606A31E
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 16:24:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5F9E606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D1E7606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 16:26:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D1E7606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=lsNrZREB
-Received: from eig-obgw-6007b.ext.cloudfilter.net ([10.0.30.166])
-	by cmsmtp with ESMTPS
-	id LKqZxsdv5v0ndLNUmxBFSu; Mon, 26 Oct 2026 16:24:24 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id LNUlxM0Mx9VGYLNUmxuMBA; Mon, 26 Oct 2026 16:24:24 +0000
-X-Authority-Analysis: v=2.4 cv=VrYjA/2n c=1 sm=1 tr=0 ts=6adf7eb8
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=M0FbrtG7MMAA:10 a=VwQbUJbxAAAA:8
- a=iox4zFpeAAAA:8 a=tt6zo4tp7eAlrjPKee4A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=WzC6qhA0u3u7Ye7llzcV:22 a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
-	In-Reply-To:From:References:To:Subject:MIME-Version:Date:Message-ID:Sender:
-	Reply-To:Cc:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
-	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
-	List-Archive; bh=DajPTuRGlwcD4J4PQkOl0tYDfpyADr1jZ7qC3/V/b3M=; b=lsNrZREBaNyV
-	34I/2MbZZFS63thif2qT+LwMsLC5dLGoqiCLbUJia0eyD7/PVaTnwaZHHWBpIRHUpZ+kP/A9qlsnH
-	LqSVDEQc4PwHDdqZElYdGktKtpvwrnoiWjROMvd4FIMmyEezANBlLwMHzae7YjSJjqa2NJ5umz4wc
-	+NYwr866ZOiDKLpxuf7nDfNXJm6ykgXrQNvHi5lixAMBJC6/MC9cpSZc1vt4cFDy7cGaWf7O/RPLN
-	UDkdRAa2PNjqUHhh3tLciDF5bwZZUKJjwIEzW3utdUXbkZoSkLtEUaSrtcIUnP+M2iPZOOkdGWCNC
-	LOnjiQRDB+ichCBDvYCJDA==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:55640)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xLNUh-00000000J3G-11yk;
-	Mon, 26 Oct 2026 21:54:19 +0530
-Message-ID: <7df58d42-517c-4936-88b0-9d044d30882c@roeck-us.net>
-Date: Mon, 26 Oct 2026 09:24:16 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=MUOvYbUG
+Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6b408f2d936so4669675a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:26:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793032004; cv=none;
+        d=google.com; s=arc-20260327;
+        b=TugZbQyxOUcao822ahme+6zJGhPFndPGjY16kmN7I000+UZyhlVPvoA5amUXIixzUU
+         JI26/t0gWYTIOE8ruYsFsaEhZZoY1Ry+aAwSKrtXEc8xlC2aHs5p6a1+64R4JrR+NlfF
+         bLnWrWDH1BOesn6sdBRRv5nk7/RHz76fPP12dxIKuIGlC7nIN/ghQEbaGlyqumMwb5vG
+         kcYZNcB7HW6r2ibY/9rw8cSkO0O213KlJY8tBLyD4RJ53TecktRfiPxzfD8kJXP4wli1
+         /S+DlM9MLBZN2DR8MALOk8lawI0ynlyqCD8cEjZvomAiEp3neYfLmIHR9H8nYqqpgQ2O
+         X1KA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=lW187BX7pvnv89/fgKm/N1OWRtkvU+9tvFLWWwcKajk=;
+        fh=AIJiEmH3v6GgzlplKayuQA0j11j/CjY454D1hHc3toY=;
+        b=cESZze62zj4jOwHb0zTsWpZHaxdarCV5LxXFUbtcSHkySr/329Lnj2kbGAu84pbJgB
+         5ow6dwgN4SBUwpGqC2FwS9rdtJHx/UhqW8Kix7zdTs1wQ9Ut9R8HDkvj7T0/aQWnhv3P
+         MuBe6KBRoHALD6P/Hf4Ak2HX2Wf1PIIdW7RYOlO2b1lzYbf4TK8aISON+NtQ2LMGOp2h
+         x3o+Q0sEp32b4zAgxuC6VYbpkal/Znwrhon5+0ipuWO1UiEbm9YJqTwD/2F+yQyzOVLs
+         krwuwMsoDtfQaqJM6qkdxO6ch3A+53bTxTD6PKpGtBe8vM1cbSQlfPKKxvy3UrtAm368
+         MFIQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793032004; x=1793636804; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=lW187BX7pvnv89/fgKm/N1OWRtkvU+9tvFLWWwcKajk=;
+        b=MUOvYbUGJvLRY+4ozSTJAEYhkO+CViDCgDR/3HRZ2ZWklhcxdU68sVei8SZjibc+9J
+         J/ZNuFm8p9TkB2fxCuz3OVOlpf2qJp2bkWOYL6xSqXJ86bQpdYp+2R+NuOF3onvlTqMA
+         Je20QgRQFsAlFNpoRVlKQx/997AKY43XUf9v7WKQD5FKqoZM//oU3SRUwQG2FwMcct48
+         FPWtM84uU9h6uUcStZ5/AMLizASUvfEq+/F9MQT9uXBPbHezFapVQJANiRTyQ1zgykLO
+         +TstMVO6d3IdV6JbtXoZLedXzaQgSP4HKjde5q+zJ2c8iK3D6Wtb0C/VG7RPtmcKiKA+
+         ejWQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793032004; x=1793636804;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lW187BX7pvnv89/fgKm/N1OWRtkvU+9tvFLWWwcKajk=;
+        b=DhuYlarmidigahkALFPJulzNA3OhRLmJcOV0xmfG9V81lyNboPHKte4UBEJsk0kuLw
+         YPUwo+lu57SlqQ4uAW1A5f0eIPTVahJJ4QgiePs3JTB5pvr+iGCCYVI7a0FvK0wjvZbO
+         TlsbPRQUYLGyaY7AF7V0Q4VIH5ijQZEgwi9dyGyV+b458l/E1uwrOH27gmZkGempcGcA
+         pZYM5yTzPlhEMEQ3xRDsTQtXxUlpI/0hkeHfnipDSqMvcFPUvVyb+rauHaNaXqGW8ttH
+         6z2mG+1+w0jQ1fyyDa5uvDpBg2aM9I3mDZnnPuV+JeQgDNbS8BCeeebiHC4ngBKLSYlj
+         sA+g==
+X-Forwarded-Encrypted: i=1; AKwUvBwUkJozopEWPpq3FsdsAv8BlenmoYbCCXgexx8MBUc2T7NQDDbXKc1IE/QvTFraVcvsXCeWTJJVVeni8cs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLW4QD+ZtbbQCSysfSxlmo0PZAe3DxjGO8kZ21UWDY6LqOHrgvI
+	3MKR++l/4yGsAL8Wjz7eiLzLVRXIH89iiM4RneplVmSd/o6WcuIKYn4tEZh4BaFzIhl2GnjNmpf
+	lD7LiRYQ0g1YXQ4P1NG32mFW9gxX/FQgSy6+fERUUavzY
+X-Gm-Gg: AYBFou2B4c2zqMzTTMwKqegj9GW0fDGVYUDPBFjKSpQ04DDf+rVM8NrrbyNT1vroA8l
+	ZlPUBl83r+gqilCicmreYg6G8Nkoi0jZB1JmGQllBdb4Lt8WrwqLqnRrtb9/AgIP8rCYcbFTMNF
+	y+/J8M3C2AIglumyLi/yNdldaOq8puXAFMpXPVxD/uMM/5tWHRPAGyYUW7q6+AkDJpZ9cCpaEvj
+	C4rkaiEG+xiV5RwJO5/8o3z33vLMG8ypVRB2SZbwj3jjNR6ZxcGddERDmmjmNpIwy/ahjx5qAoL
+	MROZ42KMntlQAabTbbgNGb4BcfwKpx5XVytFWsJP0I/Xl/zTk/V0lMnl7GVEK+PrdPkReXZOGoz
+	8ku63scDN+wnHEBdNiPK79UUHcXqkLT6nYozSsIKa09Q1bxODwHCCQc8e56NRgKmzyqgbAA==
+X-Received: by 2002:a17:907:961a:b0:c44:14d:d95d with SMTP id
+ a640c23a62f3a-c46bde35b78mr860710466b.23.1793032003455; Mon, 26 Oct 2026
+ 09:26:43 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,192 +104,127 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 0/4] hwmon: Add fan tachometer support for Raspberry
- Pi RP1
-To: Andrea della Porta <andrea.porta@suse.com>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?=
- <ukleinek@kernel.org>, Ray Jui <rjui@broadcom.com>,
- Scott Branden <sbranden@broadcom.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Gregor Herburger <gregor.herburger@linutronix.de>,
- Stanimir Varbanov <svarbanov@suse.de>, linux-hwmon@vger.kernel.org,
- devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-pwm@vger.kernel.org,
- Gary Guo <gary@garyguo.net>,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-References: <cover.1792748690.git.andrea.porta@suse.com>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <cover.1792748690.git.andrea.porta@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xLNUh-00000000J3G-11yk
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:55640
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 17
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfOYLIe0VVykCKt8uJpe7+h5FLf4B50MZjMMmpJLmfS19AFueV4pI9UISvxOFkc/8ifLFbBjjHFBH0GH+j6/A599ViNoZZ/mDDSaGS/A8l36j0xfI8EAD
- h4xEyI2CTI5gxXhHCijnwQKFt/1n5kYxohzsHwf+IFGp7G6wGNbgYIl9whVY9WibPV4KNq3k1ovymOg/vqZxN85AWEKFO1bdXGIbNMVOeR7WIr4iKi9DeoQL
+References: <20261026154604.579823-2-bestswngs@gmail.com> <2f8371e4-ea8c-45d4-8a42-e1a616915b61@gmx.de>
+In-Reply-To: <2f8371e4-ea8c-45d4-8a42-e1a616915b61@gmx.de>
+From: Weiming Shi <bestswngs@gmail.com>
+Date: Mon, 26 Oct 2026 09:26:07 -0700
+X-Gm-Features: AclHuK8xJMkjzycsM_PGDEWxDNP3nAsGNewoI6y1CFU9ObUj4hzqU8eQ9FVmawY
+Message-ID: <CANgPUi1WDS4aK9+7LO+O4D1JDvGd3isWVWps_W-ocD_fT39HAQ@mail.gmail.com>
+Subject: Re: [PATCH v2] fbdev: vfb: Validate framebuffer geometry and memory size
+To: Helge Deller <deller@gmx.de>
+Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, co+b0df61d49532b2ee@bugs.sh, 
+	Xiang Mei <xmei5@asu.edu>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/23/26 03:15, Andrea della Porta wrote:
-> Hi,
-> 
-> This patch series adds fan tachometer / RPM monitoring support for the
-> Raspberry Pi RP1 southbridge found on the Raspberry Pi 5.
-> Please note that the patchset in [1] is a prerequisite for this one.
-> 
-> On the Raspberry Pi RP1, the active cooling fan speed is controlled via
-> the RP1 PWM controller. In addition to generating PWM signals, the RP1
-> monitors fan tachometer pulses. The pulse measurement and RPM calculation
-> are performed autonomously by the RP1's onboard Cortex-M microcontroller
-> core, which periodically writes the computed RPM value directly into
-> dedicated MMIO registers located within the RP1 PWM hardware block.
-> 
-> During earlier discussions, Uwe Kleine-König explicitly indicated a
-> preference to keep the core PWM controller driver (drivers/pwm/pwm-rp1.c)
-> focused strictly on PWM duties, rather than bloating it by registering an
-> hwmon device directly from within the PWM driver (see [2]).
-> 
-> Because the Linux PWM subsystem currently lacks a generic framework or
-> consumer API for reporting hardware-calculated tachometer readings, this
-> series implements a standalone hwmon driver (rp1-fan) using the following
-> structure:
-> 
-> -  The PWM driver exposes and exports rp1_pwm_read_tachometer() within a
->     dedicated symbol namespace ('RP1_PWM') to read the RPM value from
->     the MMIO block.
-> -  A companion DT binding (raspberrypi,rp1-fan.yaml) introduces a vendor
->     property, 'raspberrypi,pwm-tachometer', to link the fan node to the
->     PWM controller node without overloading or abusing the standard 'pwms'
->     property.
-> -  The rp1-fan hwmon driver parses this phandle, establishes a device link
->     for proper runtime and unbind dependency management, and registers the
->     standard hwmon 'fan1_input' sysfs attribute.
-> 
-> An alternative architectural approach to the DT phandle + exported helper
-> method would be to model the tachometer as a child device using the
-> auxiliary bus framework (drivers/base/auxiliary.c). In that model, the RP1
-> PWM driver would instantiate an auxiliary device for the tachometer, and
-> the hwmon driver would bind to that auxiliary bus device without requiring
-> a separate DT node.
-> 
-> However, adopting the auxiliary bus would require a more significant
-> rework and refactoring of the existing RP1 PWM driver.
-> 
-> I'd appreciate any feedback on whether the current companion driver with
-> a dedicated DT property is acceptable, or if an auxiliary bus-based
-> refactoring of the PWM driver is the preferred upstream path.
-> 
-> Patch Breakdown
-> ---------------
-> Patch 1: pwm: rp1: Export helper to read fan tachometer RPM
-> Patch 2: dt-bindings: hwmon: Add Raspberry Pi RP1 fan binding
-> Patch 3: hwmon: Add driver for Raspberry Pi RP1 fan tachometer
+Helge Deller <deller@gmx.de> =E4=BA=8E2026=E5=B9=B410=E6=9C=8826=E6=97=A5=
+=E5=91=A8=E4=B8=80 09:06=E5=86=99=E9=81=93=EF=BC=9A
+>
+> On 10/26/26 16:46, Weiming Shi wrote:
+> > FBIOPUT_VSCREENINFO can supply a virtual width large enough to
+> > overflow get_line_length()'s int multiplication and bypass the
+> > video-memory limit, allowing fbcon to write past the framebuffer. The
+> > offset additions can also wrap, while an excessive videomemorysize
+> > module parameter can be truncated when PAGE_ALIGN() is assigned to
+> > unsigned int.
+> >
+> > Limit virtual geometry and offsets to 8192 x 8192 and cap video
+> > memory at 512 MiB, keeping the stride, framebuffer-size, and generic
+> > fbdev drawing calculations within their destination types.
+> >
+> > KASAN reports:
+> >
+> >    BUG: KASAN: vmalloc-out-of-bounds in sys_fillrect
+> >      drivers/video/fbdev/core/sysfillrect.c:24
+> >    Write of size 8 at addr ffa0000001671000 by task poc/198
+> >    sys_fillrect
+> >      drivers/video/fbdev/core/sysfillrect.c:24
+> >    bit_clear_margins
+> >      drivers/video/fbdev/core/bitblit.c:247
+> >    fbcon_clear_margins.constprop.0
+> >      drivers/video/fbdev/core/fbcon.c:1410
+> >    fbcon_switch
+> >      drivers/video/fbdev/core/fbcon.c:2261
+> >    redraw_screen
+> >      drivers/tty/vt/vt.c:994
+> >    fbcon_modechanged
+> >      drivers/video/fbdev/core/fbcon.c:2693
+> >    fbcon_update_vcs
+> >      drivers/video/fbdev/core/fbcon.c:2732
+> >
+> > Cc: stable@vger.kernel.org
+> > Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> > Reported-by: <co+b0df61d49532b2ee@bugs.sh>
+> > Suggested-by: Helge Deller <deller@gmx.de>
+> > Assisted-by: LLM
+> > Signed-off-by: Weiming Shi <bestswngs@gmail.com>
+> > ---
+> > Changes in v2:
+> > - Limit virtual geometry and offsets to 8192 x 8192. This retains 8K mo=
+de
+> >    support while bounding all generic fbdev drawing calculations.
+> > - Cap videomemorysize at 512 MiB.
+> > - Keep the existing arithmetic types now that all inputs are bounded.
+> >
+> >   drivers/video/fbdev/vfb.c | 17 ++++++++++++++++-
+> >   1 file changed, 16 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/video/fbdev/vfb.c b/drivers/video/fbdev/vfb.c
+> > index de137b2bd..de40ba8c3 100644
+> > --- a/drivers/video/fbdev/vfb.c
+> > +++ b/drivers/video/fbdev/vfb.c
+> > @@ -31,6 +31,9 @@
+> >        */
+> >
+> >   #define VIDEOMEMSIZE        (1*1024*1024)   /* 1 MB */
+> > +#define MAX_VIDEOMEMSIZE     (512 * 1024 * 1024)
+> > +#define MAX_XRES             8192
+> > +#define MAX_YRES             8192
+> >
+> >   static void *videomemory;
+> >   static u_long videomemorysize =3D VIDEOMEMSIZE;
+> > @@ -159,6 +162,14 @@ static int vfb_check_var(struct fb_var_screeninfo =
+*var,
+> >       else
+> >               return -EINVAL;
+> >
+> > +     if (var->xres_virtual > MAX_XRES ||
+> > +         var->yres_virtual > MAX_YRES)
+> > +             return -EINVAL;
+> > +
+> > +     if (var->xoffset > MAX_XRES - var->xres ||
+> > +         var->yoffset > MAX_YRES - var->yres)
+> > +             return -EINVAL;
+>
+> Instead of returning EINVAL, I wonder if we could simply
+> cap the resolutions at MAX_XRES/MAX_YRES?
+>
+>
+> > +
+> >       if (var->xres_virtual < var->xoffset + var->xres)
+> >               var->xres_virtual =3D var->xoffset + var->xres;
+> >       if (var->yres_virtual < var->yoffset + var->yres)
+> > @@ -434,9 +445,13 @@ static int __init vfb_setup(char *options)
+> >   static int vfb_probe(struct platform_device *dev)
+> >   {
+> >       struct fb_info *info;
+> > -     unsigned int size =3D PAGE_ALIGN(videomemorysize);
+> > +     unsigned int size;
+> >       int retval =3D -ENOMEM;
+> >
+>
+> and here maybe
+>         videomemorysize =3D min(videomemorysize, MAX_VIDEOMEMSIZE);
+>
+> that way the driver loads even if the provided too big value?
+>
+> Helge
+> > +     if (videomemorysize > MAX_VIDEOMEMSIZE)
+> > +             return -EINVAL;
+> > +     size =3D PAGE_ALIGN(videomemorysize);
+>
+>
 
-This seems conceptually wrong.
-
-Have you considered implementing the hwmon driver as auxiliary driver
-and accessing the register in question through regmap ?
-
-> Patch 4: arm64: dts: broadcom: bcm2712-rpi-5-b: Add RP1 fan tachometer node
-> 
-> Thanks,
-> Andrea
-> 
-> 
-> LINKS:
-> [1] - https://lore.kernel.org/all/cover.1790686331.git.andrea.porta@suse.com/
-> [2] - https://lore.kernel.org/all/adLTwOTbkJ0VQXy6@monoceros/
-> 
-> Andrea della Porta (4):
->    pwm: rp1: Export helper to read fan tachometer RPM
->    dt-bindings: hwmon: Add Raspberry Pi RP1 fan binding
->    hwmon: Add driver for Raspberry Pi RP1 fan tachometer
->    arm64: dts: broadcom: bcm2712-rpi-5-b: Add RP1 fan tachometer node
-> 
->   .../bindings/hwmon/raspberrypi,rp1-fan.yaml   |  39 +++++
->   Documentation/hwmon/index.rst                 |   1 +
->   Documentation/hwmon/rp1-fan.rst               |  41 ++++++
->   MAINTAINERS                                   |   1 +
->   .../boot/dts/broadcom/bcm2712-rpi-5-b.dts     |   5 +
->   drivers/hwmon/Kconfig                         |  11 ++
->   drivers/hwmon/Makefile                        |   1 +
->   drivers/hwmon/rp1-hwmon.c                     | 136 ++++++++++++++++++
->   drivers/pwm/pwm-rp1.c                         |  27 ++++
-
-Either case, there is no such driver in mainline or linux-next.
-
-Guenter
-
->   include/soc/bcm2835/raspberrypi-pwm-rp1.h     |  10 ++
->   10 files changed, 272 insertions(+)
->   create mode 100644 Documentation/devicetree/bindings/hwmon/raspberrypi,rp1-fan.yaml
->   create mode 100644 Documentation/hwmon/rp1-fan.rst
->   create mode 100644 drivers/hwmon/rp1-hwmon.c
->   create mode 100644 include/soc/bcm2835/raspberrypi-pwm-rp1.h
-> 
-
+Yes, that makes sense. I'll cap the geometry and videomemorysize as
+suggested and send a v3.
