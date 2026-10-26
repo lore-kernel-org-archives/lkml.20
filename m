@@ -1,41 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.7
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793007344;
-	b=P150GkzAIaa7e8FuMmdK9TE/xJ8h0sohtsKMgYMZMA+rYPRJWITMX3VFnJUPouhkgj8A
-	 zHK5hkVdnskebnVp4QUoYn+LbLSqYnH6+/QIT/5BbkgxzZDYrH9s96WLgEk7+szj1vqXg
-	 2HxUA1WRkAhlgc+1uyzqeNmc92thIBuM4oelypNhz8rbJ8m0zqG4yUyup421TSVXZZguk
-	 mt3fL1+kQppzrKuMmatdzThCcXSzr0DTbnq7AKwIvjMOzGbjxRA4+AAAFXyyxSEFkx8we
-	 utgxoJxooLM8pcI0XLA7l/BHY/RXiMHvdtMlbTfhsQsOj8cfn3b+3C/gk+Aho8KOyGA==
+	t=1793007350;
+	b=XVTnolq5pVIph6QNk0R2wEqObcdqnAFlEUxMSH4B4KQwMbkCGtSd7xUOEw5IUotZyEmT
+	 g+AAO/7Q/oLH1m9RDln1r64sedV17NgCCUgv6eZ0o/7s9BZWaFl8Zqlh6EaZqhh/Vr5uU
+	 JkEPOcRHhp0F4mHofDhEGwYuGrL0Qf+vBvPEzx9pa73TCA8VwSeQ/qTLhhg9YiG1Nbtrb
+	 Y19sQdYmDTrxcXlCpeu2YJ7FYszbETERR8DK85WZZSICRPKevUM8aYLMSnhNvfYnc+2iE
+	 xeeZ3fppKp2KdzY5RF7zcEBRzGZvZyAYp3oP6egG75znwF5P+Uf1z/VdAKSV7ktAmzA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793007344;
-	h=DMARC-Filter:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:X-CM-SenderInfo:
-	 X-Coremail-Antispam;
-	bh=IktkEx4zX4zWwoAqU3vLL+1o7cLskiaczwDJ/WCeiYI=;
-	b=cp6SgOlXFPJ5CFiJBl/2cOLOH3zRafY3COZaW1DPly34hhW9r4Pk4JDXMArTSj6gKnKZ
-	 hjNqrVCSJet25m7w/A0CmMGCono9UDppRvp6Jk/nD0R4j0NX/PNuXbU1WrhWb1MVk2Apk
-	 H26VrTGOlnldROiHI4sQULuEt4Xc/HUilhP4cqaNFHwK0WHTi8bhk/4xRLdB8GTDHAMJB
-	 XYfHZCBRIY+pEm/+Hz9/qEmk/QrkYh7C5RUDVyKOvnakxr1m8/DLRe9PrEFWdFS1qbbnt
-	 mg+bwZaSjChdbWahapqFjefL2xzplIjY5ljON6gukw1WQVEEcqOsRpwx/LGXSZl0B3w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793007350;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=6YsBA4Ee5PSZdt8L0zDA3t2tXEnH24VTCBnneo576i8=;
+	b=ChfKWOrAw6H7JLSt/uKd56KKm/KI4FPW7BnIM1zOMLSiQTVCP80TMKOJnFEYpPyDpdQ+
+	 bcfBUOuYiEVUGor1uI5pL9CvJ+WSHg53EA/+sItZrNatNrqmEu2E2GcEqtsHgMMOeu6eM
+	 /UxegWs/RzUj+LL/fX3V1XHiUFuV1u2IcCdni32nmALpQbBEzyFHV1hVFYTmxEGuT72Ks
+	 yV4KXlLyI4QK1tlz8dVdpAnMW5NWHTeTMzIF692w7Kbyx0wDd3UQ9PZJDFJfw+obZMk98
+	 4yERE4UDB0aI3MDBJ7eBZefDcMsjB2PJO/msJMUYqywF0uG5D/qbTFDsQv6o35YWQnA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=loongson.cn;
-	spf=pass smtp.mailfrom=loongson.cn;
-	arc=none smtp.remote-ip=114.242.206.163
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 99C0C606A31F;
-	Mon, 26 Oct 2026 09:35:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99C0C606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [10.20.42.102])
-	by gateway (Coremail) with SMTP id _____8Bx79LtHt9qV24ZAA--.8897S3;
-	Mon, 26 Oct 2026 17:35:41 +0800 (CST)
-Received: from [127.0.0.1] (unknown [127.0.0.1])
-	by front1 (Coremail) with SMTP id qMiowJAx3c7qHt9qlEwwAA--.35470S2;
-	Mon, 26 Oct 2026 17:35:40 +0800 (CST)
-Message-ID: <15af8b62-9461-46b0-8359-4db597b96d66@loongson.cn>
-Date: Mon, 26 Oct 2026 17:32:53 +0800
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=C1dqIIoR;
+	arc=none smtp.remote-ip=192.198.163.7
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F52D606A326;
+	Mon, 26 Oct 2026 09:35:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F52D606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=C1dqIIoR
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793007348; x=1824543348;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=b/SDW2mb7o05e/qgU2YoufIPTurlDbBkSRJ/WcAWOug=;
+  b=C1dqIIoRKM+k+wJhMz/o5VBurVP4kHLxFWY2ibgwFtkHP3crlrFpYgJi
+   lXOQ9vGOF1wrHe7dLu7zRaloPVJcAtkWdrxtgOZsYJRXXlCfED5LOmr+Y
+   F0l5/ekIl1H9SPLo1z/8ZQyBumqqpzjPDeBGLlmtrVGQ39OYbuabd0Y7U
+   QLFCwqp5rkDC7QzFKEAljHjkDJdTYCFapYn5Z3YaozCFKYDTYpycXE6HQ
+   aQUjKaVenCV2gruboGw1KVoMZbjqNNdmN/mibaalqq4JfXiqbtenprZfS
+   qVwXAaQguOwJyYaThD9N22a0oMRFst087wNwiTGqS1cfKgk5ZNGfe6fle
+   w==;
+X-CSE-ConnectionGUID: kV+ppmwUQs2J6wqeWFLh/A==
+X-CSE-MsgGUID: 5B/ZhRfpT7Wqbuo2lOs4HQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1563321"
+X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
+   d="scan'208";a="1563321"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 02:35:47 -0700
+X-CSE-ConnectionGUID: ksHphfCLSsGeV9UaGbAnMw==
+X-CSE-MsgGUID: H7cIiJWKSXSZaGN2PCxsgQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
+   d="scan'208";a="4166420"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.93])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 02:35:45 -0700
+Date: Mon, 26 Oct 2026 11:35:43 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Victor Chernyakin <chernyakin.victor.j@outlook.com>
+Cc: andy@kernel.org, dlechner@baylibre.com, jic23@kernel.org,
+	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	nuno.sa@analog.com
+Subject: Re: [PATCH v2 0/3] iio: cdc: add Texas Instruments FDC1004 driver
+Message-ID: <at8e77xcrCAxDiWu@ashevche-desk.local>
+References: <at5qzj89R8W4K5Zc@ashevche-desk.local>
+ <SN1PR12MB2528B7C10FBE90A0B31BE375A5622@SN1PR12MB2528.namprd12.prod.outlook.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -45,60 +80,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 16/28] mfd: loongson-se: Zero-initialise controller
- command structures
-To: Lee Jones <lee@kernel.org>
-Cc: stable@vger.kernel.org, Yinggang Gu <guyinggang@loongson.cn>,
- Huacai Chen <chenhuacai@kernel.org>, linux-crypto@vger.kernel.org,
- mfd@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <20261021121245.3111563-1-lee@kernel.org>
- <20261021121245.3111563-16-lee@kernel.org>
-Content-Language: en-US
-From: Qunqin Zhao <zhaoqunqin@loongson.cn>
-In-Reply-To: <20261021121245.3111563-16-lee@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJAx3c7qHt9qlEwwAA--.35470S2
-X-CM-SenderInfo: 52kd01pxqtx0o6or00hjvr0hdfq/
-X-Coremail-Antispam: 1Uk129KBj9xXoWruFW5AF13GFWUJFW3XryxJFc_yoWfJFX_Aa
-	y3KF95C34kCr4vk3sYqF1fZFZI9a48J3WIk3WDtr4rW3ZYqw4FvryIk3yI93W3Krs8ArnI
-	9w18u3yvkr4UZosvyTuYvTs0mTUanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUj1kv1TuYvT
-	s0mT0YCTnIWjqI5I8CrVACY4xI64kE6c02F40Ex7xfYxn0WfASr-VFAUDa7-sFnT9fnUUI
-	cSsGvfJTRUUUb78YFVCjjxCrM7AC8VAFwI0_Jr0_Gr1l1xkIjI8I6I8E6xAIw20EY4v20x
-	vaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxS
-	w2x7M28EF7xvwVC0I7IYx2IY67AKxVWUJVWUCwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxV
-	WUJVW8JwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
-	6r4UJVWxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF0cIa020Ex4CE44I27w
-	Aqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE
-	14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwCF04k20xvY0x0EwI
-	xGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480
-	Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7
-	IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k2
-	6cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxV
-	AFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7IU1QVy3UUUUU==
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <SN1PR12MB2528B7C10FBE90A0B31BE375A5622@SN1PR12MB2528.namprd12.prod.outlook.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
+On Sun, Oct 25, 2026 at 04:35:36PM -0500, Victor Chernyakin wrote:
+> > > Changes in v2:
+> > > - Patch 1
+> > >   - Added tests
+> > 
+> > >   - Added a fix in iio_format_value
+> > 
+> > If it's about abs(), it should go  in a separate patch.
+> 
+> This is about both abs() and working around overflow when
+> computing 10^scale. To be clear, neither of these were problems before,
+> they're directly caused by the new units. You're saying they should still
+> go in a separate patch?
 
-在 2026/10/21 20:09, Lee Jones 写道:
-> loongson_se_init() and loongson_se_init_engine() declare struct
-> loongson_se_controller_cmd on the stack without zero-initialising it
-> and only populate a subset of its fields before
-> loongson_se_send_controller_cmd() writes all eight 32-bit words to the
-> controller MMIO registers.  Zero-initialise the stack command structures
-> so that unused words do not leak residual kernel stack contents to the
-> hardware.
->
-> Fixes: e551fa3159e3 ("mfd: Add support for Loongson Security Engine chip controller")
-> Closes: https://sashiko.dev/#/bug/linux-b81dca3d-6812-43b6-9ad9-912727674154
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lee Jones <lee@kernel.org>
+For a starter I'm saying that changelog should be more elaborative.
+But conduct a small research and check if it's possible to split. One fix per
+problem is what we want ideally. However, there are other aspects are being
+involved (in all steps), such as code readability and additional churn made.
 
-Reviewed-by: Qunqin Zhao <zhaoqunqin@loongson.cn>
+-- 
+With Best Regards,
+Andy Shevchenko
 
-Thanks for fixing this!
-
-
-Best Regards,
-
-Qunqin.
 
