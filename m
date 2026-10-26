@@ -1,127 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.145
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793023667;
-	b=iFYfTn3TQG7wPSFDIICWfQRVJXlxt9fvO4k0TTF6Hw7RmkG+3sbF1AA0X4HX4Eydcup5
-	 MmlDabSl3S1GpRf9VCVvLhCe85YlMCizzS+E014TokVVuQTTGu0vsWhKKKRHnc2p82qFn
-	 noEr1kZ6kjs9PHqK9gf2nKltc2NZhoQe+YxieGWlcgl1TUQJyPwpxInVdv9WfCvQztUdA
-	 ul73Zsf05rUfWQcQBHBJAao606vIN+blwFtCCBDXgbk3NXdNqDH+QVU/c7cEytk9OlD8X
-	 LZ8IBxymFCpWps39AiuuQdVEK5fk7POPVCEPAP4eYo9Lk0F+rfjIdwCjbL0qlPuyvAg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793023667;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=XDw7IcoXcwWijRhNP3kWys9OVzhOsB2/yX037KXF4Ro=;
-	b=QCBV2xTdUk2Bp+32sy7Twrbt7beFjiSsb5i7TB5CUzld+xcBxy8GdssiPPrTJNiU/Yuv
-	 FZnkSZu3uzmPUWPiSJysyz24eB5aY++8x1/Fen0p0BjvDF/C3g5ic9Pb6DHgo5FPB5YHX
-	 SO9SAu4MRHasSuKMpntei9zXkqXjk6KxjkAT5ZjWBmAtB/fkpbS7MF6dYgkoHCXAWJ1XZ
-	 HchZCzss2SwkC0dKuQvoi9yAr0YuJHo40QDQdfk+5kefamN5jU52rsibj+OHv1E/RvMU5
-	 5+ETNNQTmqt5zpCaaa/+qPPD65gQ2RM893qCBpEWE7pNCHmZebKErashgm8tPKvDVNw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ragnatech.se;
-	spf=pass smtp.mailfrom=ragnatech.se;
-	dkim=pass header.d=ragnatech.se header.i=@ragnatech.se header.a=rsa-sha256 header.s=fm1 header.b=o46p7hQR;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=kJWpizz3;
-	arc=none smtp.remote-ip=202.12.124.145
-Received: from fout-b2-smtp.messagingengine.com (fout-b2-smtp.messagingengine.com [202.12.124.145])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.33
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793023694;
+	b=OoG5XRcWU+IwulqBW4qhBItP8ilq+ncOpKO3BD1kD0QJmgvH6GbYpogvFMOrU8CnSKoP
+	 5SScESINbv7H9NVvp54fcCIzcw54QClS31ygkUZIBe0bZoROFJ8n9gYQ4Xj/VAyF0T7Ty
+	 qCXTaRiRR9bK/Iv5BR+DLC/ppDUnfcHVp9g4cV0pR28JEE0pIfYiiOr8lPTHOK1i9OSEf
+	 eptrfUXMfyC4nLHvHE21S5703yOIy+pmBVQRIZTF2NWWH+Ag1jgrhSF/FbOhTdqJ//WhX
+	 fq7rYmV6Pgn8TbjoqxfdCJM8/pOlrkOpQqTTigMjC2cdOulbVTRiLb96f45DbEeD8ZA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793023694;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=HUKosdFuWGGM/GGE1aqHFsnqoSet1pY9R+lr6zd6vdg=;
+	b=zzKWsrnU223GTpbYuPcd7V5EipEP5kbm4HCnmDMv840u6JpCMq2uFdBUoYxfMGlDFeUe
+	 iFPFetfJ2hK99xwq0VwpYgJbWAWa/dYBWR6d9Aeosb5vjvqYPH7UFx89wKUfSeGmNZIuB
+	 qWnoK15XBOrASoJ0Vza3dFR6UKv1+XRx7jSVuVqMuYGQG3L3D42k6MgwASeG44C+9tAEn
+	 nYTmU7MBk4NjxosKz8XR4zzg+Jfzl7HyN/+IM+6p67Re9kqKhfpq535VCFIrxDia1O1lo
+	 fME86+poV2u5mFx/qY9K1RAAmpjqmC4YoCrSk6PHjncBZFzqwSFmrNadQ4CjaW12DnA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=WdbeVwSH;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.33
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010033.outbound.protection.outlook.com [52.101.201.33])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47696606A321
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:07:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47696606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B54C6606A328;
+	Mon, 26 Oct 2026 14:08:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B54C6606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ragnatech.se header.i=@ragnatech.se header.a=rsa-sha256 header.s=fm1 header.b=o46p7hQR;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=kJWpizz3
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfout.stl.internal (Postfix) with ESMTP id CC3C51D003CA
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:07:46 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-03.internal (MEProxy); Mon, 26 Oct 2026 10:07:46 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1793023665;
-	 x=1793110065; bh=XDw7IcoXcwWijRhNP3kWys9OVzhOsB2/yX037KXF4Ro=; b=
-	o46p7hQR3/YbzRr2CCRs1S2eiUv5n9mlYWyHvKK0h0qmJCVuziv0nIPq1p3A8Tmv
-	m+B3RP2iFVgZyP9SkKtoV31LvT5Nb29pY7A686y3uis1mfyUVyxeU1ylTQEs9agK
-	u9ZWwBhxFpBxxPSUh+101tcpWjBnT+aKioJ++5gH+ZOkDnMfGzGs1gPqBJCOObwK
-	TuFQTdTTa70uoOkNXyhRHkxGNbj3ewfMJr7qZi55UkDQ341RpYLqnaVhX84j8c+O
-	i7R5rDc4rjPxlhUwC4km/UStSNYU8zqutOZATloCZ0jEplNi77jQ24mw9QShu7rn
-	o9NDbogjcHrvNVI/+V4AkA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793023665; x=
-	1793110065; bh=XDw7IcoXcwWijRhNP3kWys9OVzhOsB2/yX037KXF4Ro=; b=k
-	JWpizz3fOK78tFLHyT5grz6NoaFp1oE5A/ckX5oG8T7yrtRV0Gz3X8hT2qWyIlXU
-	BvvfU0rnxEGMCsJ+WGO5tqfZxEDsSbjdUv+ahMBnF+mOee5qon+vIKpyiMfrVn2c
-	N4zhA6wQf3BeMS7oGT29Gzy29E0RHH8V+s3KfbWmFkMGa1itQXgAFJVVyZZ7jj1l
-	fitpwnw9JYuCkY5nPc54q7IATsfXe7uoxa671htykh2JJdVaXGJcP9LsGhCoxZBo
-	A5zbZVlVbP2IFeR6pWbQ5Bof5f8toF5Eu6m5qYjAEedqRMkaV5Fyub4sKz2VBy8D
-	TYTobxtjPfsjaTfbzXpZQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=sign d=ragnatech.se a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793023665; d=ragnatech.se;
-	mf=PG5pa2xhcy5zb2Rlcmx1bmRAcmFnbmF0ZWNoLnNlPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:o2x3XhOXKb9pDmqW1amJXVo6kavObC+lqyZgckuAhiXRt5A
-	No6fcjy86LxAwjQKnx5xhHE1E8dwO1WbfykrY6naFNbP8ot4gkE+iZkT3PL/Dw+C
-	wSC1yrceDK5bscfQxvJ5i5sTUcqcn1Zlikb/sMR/rS15RHb5uI5Ez4NQJt3ga5o5
-	eLErFGqusOiN+wcX9HSIiHcD/5Hlx+rfD4Mx/gd58hdLc7Mbves7noPBSrlaGNSP
-	7CjsuzrPnJKzwzSm4tqcatZu6URR+QGSvl7w8FPcIba+rLMytJlIz5P0klrVrAzf
-	Kp2EWQStVv85TNJFdz1wU2AvUF0V6bqpMo822uA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=13;
-	hn=cc,content-disposition,content-transfer-encoding,
-	content-type,date,feedback-id,from,in-reply-to,message-id,
-	mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:tUMj578xm9B5bEJc5f+ImvL62O44PBjXsoN9GLoT8Qk=:Sp4nMPPIXzzLdI3HqpoHKlLEmIpXU1wWVVuz7Rm2M8I=;
-X-ME-Sender: <xms:sV7fapqb-nCJ7Hle3FAcC-NEQxBhOOypEOpKd_WjyIYKJsieb2TfWw>
-    <xme:sV7fanhvXTcugqQqKpb1EfRLHg4IyRGwbwekEddoL6OabyjFbvgZ8eJ3jn1IxaSXv
-    eZD7khiOXS6b4rk25Q2I0ctpdwT2VBi3xfmQFtn7ShQ9CYIn6R89bMhOQ>
-X-ME-Received: <xmr:sV7fajNhWSfjbQaWzJloaLAqPxr1-xU2581qIbNavvglmb8etfGFIEf8hsnSJ0X0uJCdK7a1MoHmUQwk8f1JSaTqpY-HC3w>
-X-ME-Proxy-Cause: dmFkZTGNXUMS2UHU5v6sb7fcqJngNDG5NVCmW3qZ0sw87WXfPII9v0gOfz0bEclZzCQ2Hq
-    9czmEI30wu42dYLjIHp2kagQI9GVgCgBzbdkWzk1G1Fke1RSQ79ocvNsCGLH4i/WJ6V9zY
-    e3l2htE24rbLqk85ZUY6pwFoLj5F5PMSrGTpgD28cGlKPsfjy7iPBCPzbgr23fz9kO7viY
-    DyxejT69Mh6UlKrIfks7yLlh9lJR6CBTQUYVM2qSJ9d/gx/7i4BB6qUPBjhnB6azYo69FV
-    gWKS9ubyd0mia3+nmweHqrKuB1RXjydOJfxmcA//PN7zN5iGn8YsZfvPvI/v5vutMeeDZQ
-    IPk3WiisB8asHoX8HJCTZW8mPvZJ8kwMTG6fO6U9Tg9XfK2mXnR/F4FItygnS5KoXz6zzG
-    N+j6ydimR1zcWg6oQw2h4jBNeLs9Wepm4A2EV1BMJ/6AhngyBuudGQnNZ+olKjVNIlF5OZ
-    LsUuweIUf1APpGvQqtu8nKuCYygIB7tmV755fN7lZvYXVJaLv7BCSkx5IDMCc58DWat7BZ
-    YqIwxKz6oL79sR0kK4f0i8SFB15U1s1BfgjkkJQtl0ZK7f2sMKVIhHnjsysvRAwH4uEqFx
-    9UzdCOrormkv+/JA1B5JiW52aOwc9CY54oN8m4n5l78z/mFxYYvsl+1+9GNw
-X-ME-Proxy: <xmx:sV7fapyfl6BVdfZSYBeL1HWdXYDlwh2vIVhn1O6EX1OUq-g-3jPoPQ>
-    <xmx:sV7fatpWFs5dbe157ZNPAE_vGwNqXNYC1r7BlWePS214e0mU3nFjTg>
-    <xmx:sV7fahMUMSFhkX4lKFEYjrXsMGZ6AY_FyBUzdY9l49D6ROeUY_BSEA>
-    <xmx:sV7fapc0_XsEfPvaeR4fQM_48nlHv35AkiCKmjVOPHGC_wNqgtAwOw>
-    <xmx:sV7fahq4bLlo31OxPmAnOXmnGAdYfEvGEK2EUwodOnPFWJlaLrVeej5o>
-Feedback-ID: i80c9496c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 26 Oct 2026 10:07:44 -0400 (EDT)
-Date: Mon, 26 Oct 2026 15:07:42 +0100
-From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>
-To: Li Ximo <lixicaicai@gmail.com>
-Cc: "Rafael J . Wysocki" <rafael@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	linux-renesas-soc@vger.kernel.org, linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Wang Haoran <haoranwangsec@gmail.com>
-Subject: Re: [PATCH] thermal/drivers/rcar_thermal: fix list_first_entry on
- possibly empty sensor list in suspend/resume
-Message-ID: <20261026140742.GB1959885@ragnatech.se>
-References: <20261026115018.3227372-1-lixicaicai@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=WdbeVwSH
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YqprhL18CBEo6fAuiSMgXZPrVQl94FwHEtH5hDLQQ04Kz39VXake5rhzs4NYAuodkN2P0xL6hZ/DspZQAxmGoj9lmRYa2Csrn8Lf8MXN/53Emc9EwBFaLwH/5V/i/47NWNMlaDXAL0AN/7aQfmzfVGgN4buGMXyCRgn2TvJ6asfdeTICOMPh36FvHRjzXWfyuVbNatoLluYUygZHasxNGgpUrUdyaKF3l74oBhoIrvK94t1eR2gt5bYE9sI5tFSzZA/Yi+1Q6PwV1tHZsncLjBrGiWOVBs7LziPm0FRS5c+NAKyg3VUGmzuORlv8phRfcpDzb4/Fqmy3nogizwaMzw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=HUKosdFuWGGM/GGE1aqHFsnqoSet1pY9R+lr6zd6vdg=;
+ b=KPYnoVkLdwKKZ+lG8W1GwURmk18aRO1poOvjJkhwmgUkS3Ze6OUN4+KNNTAvnWusDH95AMI42alWR85zaSf0MA8r2EBT6f4p9oR2Qsvwxg1/NpMR5SulICW0ZPB3OgU/DLNtbO7eaZmL/jR5OO4hVdzAAHgJz1ppfFqG8jhx+wNi6Ud4BbD0ByQurngryFHVft0dcJAn9L8uKZxAzvUF7eFxtObO5Bviu3uE+B5FsmzcTDstrFtP/mXHiodxPEay51GLMZ7a2qLU+lt1qTRfoe4LCJ4vjasPJ87N6BNxt+jSc8MF/u8SWkjLhwOQHhvo5/YkMJPMV6p0Q+s/eb+hyw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HUKosdFuWGGM/GGE1aqHFsnqoSet1pY9R+lr6zd6vdg=;
+ b=WdbeVwSHvulQBAdrmBfP+MpAgo2giWxW0AHKUQvbjRVqMgsgyLxwFurNwJIsr5B6a3HwbxBZekhW/bX6645yVHFworXw+Z+sieL81plKOdrDO+4O4V/p3/eWyXeq3eJTK/zZhTsjF1EP+KlLluGz5vCeqYLaCieK3xOQC9TI8xXgGmeZL+vMWmb5raPNr23a+cKumkxdvGQzXZbqePFPwM/QtERoyqF1BBCFr6Vc4AsjQwAIudBII5A8tlA9h2dcGjBz11BaJdwMFpO7JoiihmbsquCA33GJ8TrirUqGquYRJIx0unlSya6qukzXuSN8UrDveRTJAJw4cJLCeTF6sA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12) by DM4PR12MB5961.namprd12.prod.outlook.com
+ (2603:10b6:8:68::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
+ 2026 14:08:02 +0000
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
+ 14:08:02 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH RFC 05/20] ctlv: Prepare message input handling
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Jiri Pirko <jiri@resnulli.us>
+Cc: linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org, 
+ linux-doc@vger.kernel.org, jgg@ziepe.ca, david.quigley@intel.com, 
+ lukas@wunner.de, ksinyuk@kernel.org, rodrigo.vivi@intel.com, 
+ cedric.xing@intel.com, sameo@meta.com, drdeeglaze@gmail.com, 
+ James.Bottomley@HansenPartnership.com, aik@amd.com, jpiotrowski@nvidia.com, 
+ qinkun@google.com, pgonda@google.com, jic23@kernel.org, 
+ alistair.francis@wdc.com, ankita@nvidia.com, suzuki.poulose@arm.com, 
+ kas@kernel.org, rick.p.edgecombe@intel.com, elena.reshetova@intel.com, 
+ dave.hansen@linux.intel.com, sathyanarayanan.kuppuswamy@linux.intel.com, 
+ peter.fang@intel.com
+In-Reply-To: <20261015145053.3664509-6-jiri@resnulli.us>
+References: <20261015145053.3664509-1-jiri@resnulli.us>
+ <20261015145053.3664509-6-jiri@resnulli.us>
+Date: Mon, 26 Oct 2026 11:07:54 -0300
+Message-Id: <179302367449.58760.13616210130636541456.b4-review@b4>
+X-Mailer: b4 0.17-dev
+X-ClientProxiedBy: YT4PR01CA0037.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:fe::10) To CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -131,96 +106,127 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261026115018.3227372-1-lixicaicai@gmail.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|DM4PR12MB5961:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8b55be30-8398-417e-8303-08df336a8bdc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|7416014|366016|23010399003|4143699003|56012099006|11063799006|261009223027099003|261022105027099003|261021130227099003|261022113327099003|261022075727099003|261021135927099003|261022115727099003|261021121427099003|261021123027099003|10067099003|22082099003|18002099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	6fU9u60Gw/FmzZsGMELJEmGEEOZOJKer7lELut3hzKcxPJKWu4gw0gmRC4v1RaNpWlnRNl81Xf6T3yELxgBVGErbmtuQgEq27Dkr+fRWyUiVDt4JIYxbxifNpeKeRjjOc07uSo3vne2kSEz2NutJukJ228UQUz0W5Xq06VPT3ZzbLHJgJBzpApI3ajv1AaVxbPhCWdwpGi5N4NFdygZrU9m8kUatjgcX4N8e53IwPA3yaD9/yk8OWZg5cNbDwpAfW3OgiAegMn5ZAH/IZOHUIkfLld6fRHcuPmRzLghpmeNgVNyTaV37KzUfkeGFAK4Id7oztXj4jzUWwUtIvRKr1khApZaayj/mplwQwVGtpCPObRyRUNVeOrALukYipDaq2EDS0dSMBSX96LXt7bZeVIao3W0esTnD2Eh9eRx21zCPlj8f7Fc1TJagAhEsf6m+PZBCO6VAheSmKhkwk8ZCAvv1AL2KmJX0VSENLG6oyvZ1bA9jlDiSFNdSCr8JW0Ww7Esr1APnIfylFk7sIVjlqt5AUxRyO1wZryDbBysQLk4svWdN5P9p/9FTfLOqyW4JAk+Nwa6490nrHxJ/qMxO39SvDjQcnoQDtqU8gopWP86XpLh/5XtzFAO6rsz/iVC8wuyQZXwkFD7U5Le5BN/rY/1OZTQaTDB/I1eJesC1VjA=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHBPR12MB731189.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(366016)(23010399003)(4143699003)(56012099006)(11063799006)(261009223027099003)(261022105027099003)(261021130227099003)(261022113327099003)(261022075727099003)(261021135927099003)(261022115727099003)(261021121427099003)(261021123027099003)(10067099003)(22082099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?M2FWRHREL0pyNmgvUExGY2h1UDlxQithUkpMM2RRbk5jdW5lQmFTK0RWbWZa?=
+ =?utf-8?B?ZVZacUZGdjJZMGNwWEtEbzhpWGh4emU3NWtOa3NBWGJ2ZTJnZkViMU1HOEFs?=
+ =?utf-8?B?Mm91NkN3SXhPVUNHd042bU12aGFsb1JEbWdrWkFsWkxIMU4xNStEMGlRUFlG?=
+ =?utf-8?B?ZGYwTnhkVWZ2bkgvR1NHYW4yUzlFQ0ttRFZIM3p0bFJXTzlRL09VMEsvTkV3?=
+ =?utf-8?B?NkJXc3dSdmF1ZzF6RDZodGZSRkxDSW4yT2xZYVFZd1NIbE96RmhST0M0b3RU?=
+ =?utf-8?B?NTRKaW9YMDMvNHNNQkt4bjNjWU50QnQ4aTQrRUhmeGorTWUwRHRGOVNmNDB4?=
+ =?utf-8?B?b0REbnQ0YVZ4T2xLbEZKRWhjOG90ZVZMS1gxRjRLRC9BZ3lhNFIzaDhEOGNx?=
+ =?utf-8?B?dUVCSGNZSWh2WEk0ekdhOVVUTUZKa1JEUWh0b3VyRHNSd0tMeHVEcHhDaTR3?=
+ =?utf-8?B?eVllZHNyOEJlOEc4Q1FWZUhrMmsybTJTZzgxSnZiTjBUdFpxajVRNHI3N21J?=
+ =?utf-8?B?ekFpaTlBcHgzVFlxMDBSUWR3T2dLb2t6SHZ3ZkdROUlXcTAzWEFuN0ZWWW9a?=
+ =?utf-8?B?aGpjTDMxVG1EeGVvRzZFR1RTV08vMy9SNGpKRU5MS3ZHa3hadW45QnZCaEJr?=
+ =?utf-8?B?emZOOTBQdkkvV2lpaTdCOE1UbkhQVUNSb3NmQzdUNXlhMjRWcjZOMTJCQUk4?=
+ =?utf-8?B?RG5OQ2VKQ1kraUhIbm5oREdqbEFOTHJPZ0xUYmh6UWRZZE9JbnJpeWl3WWJX?=
+ =?utf-8?B?VnZuU2w2MEp5SzZPN0Q3S1E0NXNRY0JSeXBoQ1crUVZ6VlhIWkpLK3lnN2xt?=
+ =?utf-8?B?WkdwVnBsZmRkc2hScGQ1eUV4UGN5eTZGZ0pyd05YM0FlRGY1ZE1sRGNOcTVH?=
+ =?utf-8?B?NDcxU2FJQmlHZlhzQW50VnJDdXpDbXNYYWFEZTRnTEcxeERvVnZEMlQvbm1P?=
+ =?utf-8?B?aHNrKzZYNVEvY0xLa3NTeFNUYjJmYWo4c2FBaUJFQUxYLzZsOGd6Vk1FMFM5?=
+ =?utf-8?B?Z2RhZTE1UTAxeE9KZnhXN2wwcVdpZmlCRXpaelIyMmpGVVBqQ2VISEFnSlc4?=
+ =?utf-8?B?TFlibEthaEo4cU81YjR1S0cwaGxieFl5Ti80dndQRC9Fdzh6cngxVEI0RVFu?=
+ =?utf-8?B?VEZVeERHeHYrdklTU2Y1Y29MVkJFSGVyV2ZtMmU3V29id0lnaEF3T0FYL0Z4?=
+ =?utf-8?B?SFh6YnYxOGtFbU9ncU9OTUpGUy9QQTdYRVNWdFl0YmhRVFM5cWdRdWFTNEo2?=
+ =?utf-8?B?QS8wUDY4c01xa2crVjVGY2tGaXBJcHVXRFZXL1lvY0lwMmR4cmoxaUJKQkhG?=
+ =?utf-8?B?elZvc1ZOMENidkFiNVZIc3pBSy9FNk1OcHR1RGhEVDVaejVmbzlsNjhmYmo3?=
+ =?utf-8?B?L0MwZ0diNnFReGlaNjllNGt0K3pHekV1cno5RHJTdUhQcTJ4alo1RmxqendH?=
+ =?utf-8?B?SWt6bktsTUpnMWtoNGt6VjRUVGdVMTVkSWR2UjNpYUE5c1h6ZDFPVERkankx?=
+ =?utf-8?B?enVTMDB1cy82OFVGMGN2a1ZabVUxWXVRcjA3ekdXMDJpUGhxL3hJdzVDNE9X?=
+ =?utf-8?B?U0xabkw4RW92WXp6RHYxa3Iyc0EwUFMvb3pVc1NBcWhWV0MyTHpOTWpJblBT?=
+ =?utf-8?B?anBwREorT0J3TWI2dHFUOWxLY0twNVgydy82enhwVUFpY05YSU43b3hCZ0ZP?=
+ =?utf-8?B?SE93RzY5RUVZUW9TTXZteWJYNnJla3dwYmtBQ3ZtVzhyZGljMEtIMmVyY2t6?=
+ =?utf-8?B?dGhVQWc4ZGhld0Q4dmdPc0x4N0ozOG55WDBmNUZJZFh3UWQvNUp4WWc1Nlln?=
+ =?utf-8?B?dExRS1ZudkkzLzhMT1p4MWRNZDZLQVJ5MXpZRjM0M2ZzZ2VtdUhUZTdONS9u?=
+ =?utf-8?B?aW96Mm5DR0IwMGhrRkQ2MnlRWVVnWk9oT041UmdZMFlSbUZESm9yWTVudGJJ?=
+ =?utf-8?B?MURhSy9iUnBQd2Vrem1KYTFpSGRFSHM3YWxTSXBXeVVvR1pHSmZ2VVpBOUsx?=
+ =?utf-8?B?UnVNL25UK1JYRXBna1ZiMHZ5RjZDSnkyYWFqMW1LVlNZUWYvWmFrTW12VU5m?=
+ =?utf-8?B?bGs0eXFPSWZDU0ZCa2xsZzBoSTlsZjA0bG1VWmUwdE4wYTZoeldBcFpHZ09v?=
+ =?utf-8?B?eWlHeHRaUkdqT3NSak4xRy8xWlU3cWNqV0FROWNJU0t3NURHZTliRWkrRTlP?=
+ =?utf-8?B?WXJHYVpjL3VKMHo4Wlk4ZmtwWTZNTnd3QTNZVTdXU3lOTmhqcDNPd0xVekJC?=
+ =?utf-8?B?RHpYbG9QbGM1aUZxZzRlc1FONHI3RmdGb1dPZytxL055VUVEekd1dktycFBF?=
+ =?utf-8?Q?iBH+EJxN0A80aW0SFG?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8b55be30-8398-417e-8303-08df336a8bdc
+X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 14:08:01.7272
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mDiD7RBGjSzHdLIFVULS2AHnfWnLDA52HH4SzhocTYiTmHdi3hIvP3oSZqdeSzNe
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5961
 
-Hello Li,
-
-Thanks for your work.
-
-On 2026-10-26 19:50:18 +0800, Li Ximo wrote:
-> From: Wang Haoran <haoranwangsec@gmail.com>
-> 
-> rcar_thermal_suspend() and rcar_thermal_resume() call
-> list_first_entry(&common->head, ...) without checking whether the list
-> is empty. list_first_entry() does not return NULL for an empty list; it
-> returns the container_of() of the list head pointer, i.e. a wild pointer
-> into struct rcar_thermal_common. Dereferencing it at
-> priv->chip->needs_suspend_resume (and the MMIO accesses through
-> priv->base that follow) is undefined behavior and can corrupt memory or
-> crash the kernel.
-> 
-> The list can indeed be empty: rcar_thermal_probe() only adds a sensor to
-> common->head after platform_get_resource() succeeds, and it returns
-> success even when zero sensors were probed (no i == 0 check before
-> "return 0"). With a malformed DT node (no MEM resource) the driver binds
-> successfully with an empty list, and the PM core then unconditionally
-> invokes the suspend/resume callbacks. This was found by code audit; we
-> do not have R-Car hardware to reproduce it at runtime.
-
-Could you please audit the code some more, preferably without an LLM.  
-While I agree the issue should be solved this is not the fix.
-
-Nacked-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
-
-Does it make sens to allow probe to succeed if we haver a malformed DT 
-node? Would a nicer fix not be to fail probe with -ENODEV in that case?
-
-> 
-> Fix both callbacks by switching to list_first_entry_or_null() and
-> returning 0 early when the sensor list is empty. This matches how the
-> rest of the driver already tolerates an empty list via the
-> list_for_each_entry()-based rcar_thermal_for_each_priv() iterator used
-> in remove and IRQ handling, and does not change behavior on the normal
-> non-empty path.
-> 
-> Reported-by: Wang Haoran <haoranwangsec@gmail.com>
-> Reported-by: Li Ximo <lixicaicai@gmail.com>
-> Signed-off-by: Wang Haoran <haoranwangsec@gmail.com>
-> ---
->  drivers/thermal/renesas/rcar_thermal.c | 14 ++++++++++----
->  1 file changed, 10 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/thermal/renesas/rcar_thermal.c b/drivers/thermal/renesas/rcar_thermal.c
-> index 9a9038671..65dba6354 100644
-> --- a/drivers/thermal/renesas/rcar_thermal.c
-> +++ b/drivers/thermal/renesas/rcar_thermal.c
-> @@ -530,8 +530,11 @@ static int rcar_thermal_probe(struct platform_device *pdev)
->  static int rcar_thermal_suspend(struct device *dev)
->  {
->  	struct rcar_thermal_common *common = dev_get_drvdata(dev);
-> -	struct rcar_thermal_priv *priv = list_first_entry(&common->head,
-> -							  typeof(*priv), list);
-> +	struct rcar_thermal_priv *priv = list_first_entry_or_null(&common->head,
-> +								  typeof(*priv), list);
+> [ ... 38 lines skipped ... ]
+> --- /dev/null
+> +++ b/drivers/ctlv/Kconfig
+> @@ -0,0 +1,12 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +menuconfig CTLV
+> +	tristate "CTLV character device TLV UAPI"
+> +	help
+> +	  CTLV provides character device UAPIs described by a checked-in YAML
+> +	  specification. It owns the character device lifetime, the strict TLV
+> +	  message format, request validation, reply serialization, the large
+> +	  payloads a request describes rather than carries, per-open event
+> +	  queues and runtime schema introspection, so families only implement
+> +	  semantics.
 > +
-> +	if (!priv)
-> +		return 0;
->  
->  	if (priv->chip->needs_suspend_resume) {
->  		rcar_thermal_common_write(common, ENR, 0);
-> @@ -545,10 +548,13 @@ static int rcar_thermal_suspend(struct device *dev)
->  static int rcar_thermal_resume(struct device *dev)
->  {
->  	struct rcar_thermal_common *common = dev_get_drvdata(dev);
-> -	struct rcar_thermal_priv *priv = list_first_entry(&common->head,
-> -							  typeof(*priv), list);
-> +	struct rcar_thermal_priv *priv = list_first_entry_or_null(&common->head,
-> +								  typeof(*priv), list);
->  	int ret;
->  
-> +	if (!priv)
-> +		return 0;
+> +	  If you don't know what to do here, say N.
+
+This should probably just be a simple selectable config instead of a
+full blown menuconfig. ie one with no description. Since this is
+really just a tool for subsystems to use every subsystem that uses it
+should just select it.
+
+So:
+
+config CTLV
+   bool
+
+
+> [ ... 159 lines skipped ... ]
+> +static bool ctlv_message_nest_index_ok(const struct ctlv_cursor *nest)
+> +{
+> +	const struct ctlv_message_input_index *index = nest->msg->index;
+> +	const struct ctlv_message_input_nest *indexed;
+> +	const struct ctlv_message_input_scope *scope;
+> +	const struct ctlv_attr *attr;
 > +
->  	if (priv->chip->needs_suspend_resume) {
->  		ret = rcar_thermal_update_temp(priv);
->  		if (ret < 0)
-> -- 
-> 2.30.2
-> 
+> +	if (WARN_ON_ONCE(!nest->msg->request || !index ||
+> +			 nest->index_nest_scope >= index->scopes_count))
+> +		return false;
+> +	scope = &index->scopes[nest->index_nest_scope];
+> +	if (WARN_ON_ONCE(scope->nest >= index->nests_count))
+> +		return false;
+> +	indexed = &index->nests[scope->nest];
+> +	attr = (const void *)((const u8 *)nest->msg->root + indexed->offset);
+> +	if (WARN_ON_ONCE(attr != nest->attr))
+> +		return false;
+> +	return !WARN_ON_ONCE(scope->tree != nest->tree || scope->node != nest->node);
+
+Maybe wrap these invariant assertions in a helper and we can compile
+them out?
+
+  #ifdef CONFIG_CTLV_DEBUG
+  #define CTLV_ASSERT(xxx) WARN_ON_ONCE(xxx)
+  #endif
+
+It helps manage expectations around WARN_ON. I assume these have all
+been checked to guarentee they cannot be triggered by users space?
 
 -- 
-Kind Regards,
-Niklas Söderlund
+Jason
