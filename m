@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793057540;
-	b=au4U3uwP9/TN7uE+ila8qhYoXapqstmDj2AgYT6oAzjBAcEJjnAb2Qli3AmLQlfoL4Xe
-	 l8X6b7zxCRaWVB259eWBhRtpM1tHzPLfOD8g8HpV2MPFk7ARJNQUk4Yj6ADBAmX2MzGRE
-	 lLhmE7Ay8Ahpes07SbOq6yDZOjjZlxqlbyzydpFjF7Zeqt+4RKW1ohuHOaysk1uVesKH9
-	 nAYDO+awYHV7tB6iKhE43aKmEDvOodBxDpi16/De5etQ31u9900xtHqxI4fEx0xurdzPd
-	 O4A0bESsIV/kYH1a/2HCLeb4xlaM/iLLXr+DBc/fBNUmIbQ3X9WMxXKm0oBgy0qod/A==
+	t=1793057565;
+	b=fyidks+jwxPhUbYUfQU6/I8d3FYv1z4oHikS9GPqQV1Sg1g4jV4p50XQROyyKlvCQX4q
+	 To+XLz6rzF3CJDLE0n+oJRbhWAw7r2gd503pYbhKa9s7GfP5mBTjQRPF3rm30kBLgN3lt
+	 kYAe6wmHQXdCcuzI/RT9lrPkugcj7rDh5t4eYpM/qXPb/EZ33UjRu06o5OysPGTj5W/cT
+	 +V9K/yz3auFP1gO59w3ieYQsKWoJ2GGVuZ0wxUnij7QakaKd6tJ3DP8Sxt0Yd6NzSV+oc
+	 1EUx1X2Q3w8BjERlCn0vBha29O4RtaIqEruYlOAN2gYAxreosVOiXyHu3Sb+gXM2u9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793057540;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=leDMySoi7QnuGrXCT7kUTF7p3M2NeDPBgSV/0vbZ0BI=;
-	b=4ZhZr27NY60rwCCJuH5JlxaLpssP4bm2HE9COTf99R8qSn9R4u9zyWngSvuNRjFJu8sH
-	 oCEAgjpmfaDew3yl6+EHMmH18xTHq9ZNsJrV2ZXzvqCxCek1p//8lnMx5RrKiURRWnskR
-	 InjYtkoyupu5+mylOV7dYMg8oKv5PYUkFRSCvOQ/xvrSmbDCN4bssAZ4pwqWJdRb5eoQa
-	 clI0YNs0aQ1+/W0g6mz2kydGS9KM79uJdLCvWxqhm5e09uW5fwVG/i4R/hLHP5o9NsZ99
-	 1fD2CHv2M666d9LWSKqWix0PlLDZqoSIVRGxWOeg73k5q7WicpZ1/bEDUovb06OH76g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793057565;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=qWpDpMLmFaXT9JtQQDBaik7ooyuX4varZ4Dsj2I+Kpg=;
+	b=lSyYJ8PzpyNIKmKg2PfmC7dHT/tgnc9/tE7Zd/x59VM8Tk/tKZhkvuJGgRXY2KcgAvKs
+	 U0pD3G/nwoH5a5Uz3X8EC7Vk0jO3shoZpVV50CovxrKRe8DVpUZvp9HeI47qC8zIvpdFO
+	 0HAs5BN29cpmLRhsXXhVrsaRCpp/9OySKrRXSVej95SrZEA26YWQj3VtoN7KYwDb1Rplo
+	 c+EPQrXzCtNzBr5T5Q3reYQk6AdGlVoCdv30tEZHdHSJxl/4gpYQnp+etPsocTW1y6nXs
+	 Zw53sp+ego4SDCZqrETB2c2jKWxTP2py1ezoG2GXB4wZUGNNAreWm4RhRVIPXrZJnOw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L9akpim6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hoIggnBe;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54CAD606A31D;
-	Mon, 26 Oct 2026 23:32:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95CF8606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 23:32:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L9akpim6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C72011F01825;
-	Mon, 26 Oct 2026 23:32:02 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hoIggnBe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00B261F01825;
+	Mon, 26 Oct 2026 23:32:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793057540;
-	bh=leDMySoi7QnuGrXCT7kUTF7p3M2NeDPBgSV/0vbZ0BI=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=L9akpim6QbyBegiqBFdq/baFvmFgEdwCFWOYawuBvlzKXZmVSx0OXUe0vIKVc29Kq
-	 qFDhmjhE2XC8r2UET7MbseG82Yrlr5rl8uhm+FWZXg9zSHHjcPx6jOzdtkZAUAd57/
-	 SUaqIU3cTuXQ5rkuIOkuugP4Oddi+rqpi0RzyFZcXrXMvV1AJRJeL0Ka60cc/6lFzl
-	 3aj7CVp9NxQgtlAVViDSO2yiUZAwQ3wkx24AZ9ntSDPW+IGf2vjdQTXbtW5e5vPduc
-	 PYBh4bWzA7jbOLzBvw10CaUrJ2jvgAzk/WB3Tm80LB/7B3bjWitIFuSzSjELUy2vBJ
-	 OVrw1PteZgGXQ==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Tue, 27 Oct 2026 00:18:06 +0100
-Subject: [PATCH 46/46] fs/proc/task_mmu: refuse addresses beyond 32 bits on
- 32bit
+	s=k20260515; t=1793057565;
+	bh=qWpDpMLmFaXT9JtQQDBaik7ooyuX4varZ4Dsj2I+Kpg=;
+	h=From:Subject:Date:To:Cc;
+	b=hoIggnBe/qNh544MT3CnwoaIwpMDkpEMmEC0hUP4Pe65akZIehdjJ8g/P7lN1zo0b
+	 LHjWWKkY4+u9nvEMdWRXOr/fi8pSZAiPZjXQLjRZzgbG1pCBo7Hp6glb0lHlXFOLxh
+	 VBIlYSs7d8KBBOJznryrEeUIuTQN0j6B1VJddfl1Zg7zFycRjRuwQpvhBzg9s4Q6pi
+	 CdS7MsHkhPcUuRKe0+/exi2qzMRJUIMKg05K/3RoK06vQ7mvaJN201xpGfE+hhnBap
+	 IEQJkcw+h9A12zCpLoI/m6Hq4qL16YKPwr+cn7uYR1pl493VwROw9gXmx+VrYB1YCK
+	 +A5033KfvdcdQ==
+From: Mark Brown <broonie@kernel.org>
+Subject: [PATCH 0/2] regcache: Validate bounds of regcache drop requests
+Date: Mon, 26 Oct 2026 23:32:06 +0000
+Message-Id: <20261026-regmap-drop-region-min-max-v1-0-2c28637ede23@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,97 +55,41 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-fixes_core-v1-46-6f74bec9a5bb@kernel.org>
-References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
-In-Reply-To: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>, 
- Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
- Baoquan He <baoquan.he@linux.dev>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
- Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, 
- Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>, 
- Pasha Tatashin <pasha.tatashin@soleen.com>, 
- Pratyush Yadav <pratyush@kernel.org>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
- Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
- Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>, 
- Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
- Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
- linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, 
- Josef Bacik <josef@toxicpanda.com>, 
- "David Hildenbrand (Arm)" <david@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1648; i=david@kernel.org;
- h=from:subject:message-id; bh=+RaX15JldLvyrOg9i/7002o3Wko+CCA0o+GE3n4B9o0=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLLu3595P/+VmdMlLqcHjo7hx5XfCereZwuyfqL6dWnoT
- tPbz1nLO0pZGMQ4GGTFFFmCgu8bvHy5rrbajY8ZZg4rE8gQBi5OAZjIuT2MDAtnL/pcH+sjlak6
- xTFMq1Epryj302Srs5J1+1ufKrr0T2FkuFqsNvv532l6H9VM/3dH69amCF5+VDmd8zXP8lDXW2x
- ruQE=
-X-Developer-Key: i=david@kernel.org; a=openpgp;
- fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
+X-B4-Tracking: v=1; b=H4sIAPfi32oC/yWMQQqDMBBFryKz7kASSxe9SnGRxIlOQQ0TK0Lw7
+ o518eA/+LwKhYSpwLupILRx4WVWsY8G4ujngZB7dXDGvayCQsPkM/ay5GvrHSdW/I7BpvSM0Zk
+ 2tKCBLJR4/8c/3e3lF74U16sIx3ECo0SVOH4AAAA=
+X-Change-ID: 20261026-regmap-drop-region-min-max-b1ff4cc203b3
+To: Mark Brown <broonie@kernel.org>
+Cc: linux-kernel@vger.kernel.org
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=825; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=SIT/JXfH5vUxxh4RL4GHO8jvXBQcwSW/kIt1H0Kp98k=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLLuP5ZQeb0/sFLUf9UM3v2eCXp6ercXeDpdSelw3ys7a
+ /5qsynsHaUsDGJcDLJiiixxWdwv60ter+E7uLANZg4rE8gQBi5OAZjI5xuMDEtvWFZnfz7caN6Q
+ s/praPfiI8mxziXX9x/299suHeqUmsvIcHEp86xtid+trYSV7bIeT81elX9qY2PZs///u9Nuztu
+ sxQoA
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-From: Josef Bacik <josef@toxicpanda.com>
+It is not valid for a caller to try to drop a range of registers from
+the cache where the minimum register is greater than the maximum register,
+and doing so is likely to trigger bugs in the caches.  Reject such
+invalid inputs and add a KUnit test for it.
 
-The addresses in struct pm_scan_arg are 64 bits wide.  The first thing
-pagemap_scan_get_args() does with them is to cast them to unsigned
-long.  On a 32-bit kernel the upper half is dropped without a word:
-PAGEMAP_SCAN of 0x100001000-0x100002000 scans, and with
-PM_SCAN_WP_MATCHING write-protects, 0x1000-0x2000, stores the result
-at the lower half of vec, and reports success.
-
-Return -EFAULT, as for other addresses outside of the address space.
-
-This is probably not worth CCing stable.
-
-Fix generated by an LLM and sent by Josef Bacik in private.
-
-Fixes: 52526ca7fdb9 ("fs/proc/task_mmu: implement IOCTL to get and optionally clear info about PTEs")
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- fs/proc/task_mmu.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+Mark Brown (2):
+      regcache: Validate bounds of regcache drop requests
+      regcache: Add test for bounds checking of regcache drop requests
 
-diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-index 7452b695fdaec..762b6dbb81e4a 100644
---- a/fs/proc/task_mmu.c
-+++ b/fs/proc/task_mmu.c
-@@ -3032,6 +3032,12 @@ static int pagemap_scan_get_args(struct pm_scan_arg *arg,
- 	     arg->category_anyof_mask | arg->return_mask) & ~PM_SCAN_CATEGORIES)
- 		return -EINVAL;
- 
-+	/* Don't cut 64-bit numbers down to addresses that happen to work. */
-+	if (arg->start != (unsigned long)arg->start ||
-+	    arg->end != (unsigned long)arg->end ||
-+	    arg->vec != (unsigned long)arg->vec)
-+		return -EFAULT;
-+
- 	arg->start = untagged_addr((unsigned long)arg->start);
- 	arg->end = untagged_addr((unsigned long)arg->end);
- 	arg->vec = untagged_addr((unsigned long)arg->vec);
+ drivers/base/regmap/regcache.c     |  3 +++
+ drivers/base/regmap/regmap-kunit.c | 21 +++++++++++++++++++++
+ 2 files changed, 24 insertions(+)
+---
+base-commit: 2dee91ee94eec85d09c13c7ca83e3005906d3732
+base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/broonie/regmap.git for-7.4
+change-id: 20261026-regmap-drop-region-min-max-b1ff4cc203b3
 
--- 
-2.43.0
+Best regards,
+--  
+Mark Brown <broonie@kernel.org>
 
