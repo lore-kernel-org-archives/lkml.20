@@ -1,53 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.149.156.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793058891;
-	b=SZxj8T7NefqAwpvyK5ha+C7cshEQJpvvShnnkwKHPFtPlpecTqQk6AhV8iIAayOuEPmZ
-	 LkzIwdCcxwzSH/YxK5xWjWdNpnIoCVfcXfF1SHfWp5DBofhkgpPgcRNF1zWCyrKIsi/v1
-	 iBEqpqBq+duuhlZpeMJiPCphR4U+hIhVDoeYXrKvKIlYDBzY+2Mm5T1eCtfkccRPkkwKY
-	 NsF7yMr+0/p90MYhDvFa8NvaJ5/1sWYmY4ty6HIMrA0Z5Lsm3N7YThTvjzFCtYj1bvY5k
-	 z6X87KFadcE5jMY/ioLnTVwUQySkVpWtMlKW+99bLpmBYg+hWzp7cr4tD5sXVG3z5jw==
+	b=xYSIbfB+Fa0EiTIIBeLQEfhXabl8YbbPBJuJkdn6HwW5uqtjRjqddQeEH8zZc840oU0Z
+	 U3TbI9O+NxhIu53wNLBinZyPYLnPEEFIvmVdC6EIvYXYntGfKuRyJzxFRXFXxpZvu//gK
+	 3xUvH67SxfcK6cQWN9/PP1Z3MNs2RCrMkDHTpLdWm/y9GE5xdHUWBZ96cYHF0pL8PwcNQ
+	 Lt9yaKp15Wk71FYJ4MqViiCJdIrwpGLd9VR2lyZbimdCB5saxOMdtOYes7GKaLYG4+2/A
+	 v+0WULXiq/9yQg2a1zAm1q3tj4gnLZDIgPPykmY6CerPC9H8idy5mLGboxXg3RCnuMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793058891;
 	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer:X-CMAE-Envelope;
-	bh=1rbZZM92EewBFIKqO25Z+Fr2+4X/GzpJedO6dI13tck=;
-	b=Ftfokbxp0MDHiZLLkNqqWn/c05CuyvyDQqMtALlUQublpadqume86R3Y6RAolbz9RWSF
-	 PWQKYzVcBImvRLDagaJlAdMiUWhQBO34xnAgT01YOwj9Zr7rQAkIAmKNkkDcxW4aeqQgo
-	 YS0ZTs1iEcVr5WCG79gJ/Rtm9JDuZdrenO6w1PGItzrfZTrd40yFocUZcAanDt2F15T0V
-	 do6KwsVZZGMRA8r4KK4qJI7PsDY6l1wVa3knvXrsYQLWMa5zt0HKa8yd+7LltMfbzlGqk
-	 etcVqxNwtPXxOSgXaL9zVjGIrytwYmneEelXuyPE9EDN2TbJtwkpAPvW5nwPVpLyr8Q==
+	bh=tmLf/LhHmlix/ZRJFso7e9AUnTilQUuxrbjjOjPIDDQ=;
+	b=OUuktfkxYfc/crMMhmb6AOfrP3YiwcOeJBJTWgPnH1IjgnPGNAEJnoviToGygocJm+b3
+	 /0gMpIOJygxsAe5FkC4oVxnnosKOKcHB7erseo+0VZjNhjFG15q2DEDW0dEPwJYd89O3S
+	 GGIHSaAg2hU+4Tzgg9A13U0o+KE8TxlaVHywSM0wc0ss5TxjVtureRUpUAwS6K1TmkBnS
+	 9opZbfGCcWfbJVKvPKz4Bvurt4mS+W5m4284Ix10TiUWpG0z3N96kXw7nSfFPVZC5brBl
+	 IOykqjcSKRGG5K8dusSWaxqMkVqn4lZr+bpHML9MTKTo2WjIG6mSIFMPeeIybv/dl3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mythread.it;
 	spf=pass smtp.mailfrom=mythread.it;
-	dkim=pass header.d=mythread.it header.i=@mythread.it header.a=rsa-sha256 header.s=a1 header.b=Syled8T6;
+	dkim=pass header.d=mythread.it header.i=@mythread.it header.a=rsa-sha256 header.s=a1 header.b=JBCVBDzP;
 	arc=none smtp.remote-ip=62.149.156.101
 Received: from smtpcmd10101.aruba.it (smtpcmd10101.aruba.it [62.149.156.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6290F606A322
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62829606A321
 	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 23:54:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6290F606A322
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62829606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mythread.it
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mythread.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mythread.it header.i=@mythread.it header.a=rsa-sha256 header.s=a1 header.b=Syled8T6
+	dkim=pass (2048-bit key, unprotected) header.d=mythread.it header.i=@mythread.it header.a=rsa-sha256 header.s=a1 header.b=JBCVBDzP
 Received: from [127.0.0.1] ([79.43.52.162])
 	by Aruba SMTP with ESMTPSA
-	id LUVexsCYFW41bLUVixjBgD; Tue, 27 Oct 2026 00:53:50 +0100
+	id LUVexsCYFW41bLUVhxjBfo; Tue, 27 Oct 2026 00:53:50 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mythread.it; s=a1;
-	t=1793058830; bh=5iUEvhleMNRhgFjox1R6x5dcIaCScRIRYb5QDa3E5AM=;
+	t=1793058830; bh=VkghKG5mvE7++Re6VaVBV/w1wZKm0wW+u8rh6hBTMK4=;
 	h=From:Date:Subject:MIME-Version:Content-Type:To;
-	b=Syled8T6PSideLz6f71TVMd3nZ0LvPMRaK2S4MBxXG6vXhQ7QP/IcAm4aD+4zRYs0
-	 mwumCKiAegekS5T1omLmTA7Fxl7BrkQY4Bqmxi2SR6VqdPkBwNVw1EXskcHEnyRqfz
-	 pZIBtlEdq/BsJzB53Qa5+oFqmr30A52i1fm31l8bJy0l2DrQt51lYcB5lp7KHVfxjb
-	 YjmeC/Su7c1UG2Utj+kHrkc+8IlUq+7cQ2cXVgtzeU9n1GSWcsm3aX1Hxm9a72oTkp
-	 Ia0F1qQPfR5grt8bd/f1kCK3TfMGeWygS1+MFkZWTfSE9ou+cV5mM6xujPfTaVHGnf
-	 iKpTf1radmpOg==
+	b=JBCVBDzPXNi4vn6vpTnOCS0fEXx2E6eg/0rfazevTA50urSwwITx5J3SzljULhuWZ
+	 oJJZS1MzcYZSNVBUaCX10uTBeo4mw7R2CuFd2Z0kyoHa+F3QjrLS6gT4qcbbyqMRCF
+	 5rWkf7U1SyWYuP3i7+otcAbs7RlOLp8skBWIXaqn1KY2NsAxL3vSXSHkXAeAtnZGDD
+	 61f1REf9zPUuvlrn5cjpbIc58cWGXvFtOTT0vCF77IpOyPiXtHd1CCaE3avNXfa/GF
+	 /e7XRfolXzMgxvpNCizlm6+o7Z5B7HO88V9KnIx2JmbFpUXrcrkqZc03zpgJOruK5F
+	 m4BULNPAACKyw==
 From: Alessio Ferri <alessio.ferri@mythread.it>
-Date: Tue, 27 Oct 2026 00:53:51 +0100
-Subject: [PATCH wireless-next v2 8/8] bcma: add the BCM4352 PCI ID
+Date: Tue, 27 Oct 2026 00:53:50 +0100
+Subject: [PATCH wireless-next v2 7/8] firmware: bcm47xx_sprom: read
+ boardflags3 and AvVmid_c0..2 from NVRAM
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,7 +60,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-bcma-ac-rev1-v2-8-b69b61c31920@mythread.it>
+Message-Id: <20261027-bcma-ac-rev1-v2-7-b69b61c31920@mythread.it>
 References: <20261027-bcma-ac-rev1-v2-0-b69b61c31920@mythread.it>
 In-Reply-To: <20261027-bcma-ac-rev1-v2-0-b69b61c31920@mythread.it>
 To: =?utf-8?q?Rafa=C5=82_Mi=C5=82ecki?= <zajec5@gmail.com>, 
@@ -72,25 +73,80 @@ X-CMAE-Envelope: MS4xfGKOy2UZ5BM+jnYiTwLEWzZm9Bqn9y/XHLMt91Xe039y1mbDS6zN0sl+Ucf
  vvXnSdrxqhHJY0KqsWG1LTLCbhu75G2uAsRslHmkmNgWC99Gu/V4nYcdiRUV2aLrl537YzJvKQybbZt8yxAgZ4dcX2fuvGRKgnGYwPFNpFScuw+o8SNY9+l6
  gQ11Azqo6whfTqXDkAFnfhVyHKz3Tn6hteUXv2jso0pvDihPObU=
 
-Bind bcma-pci-bridge to the BCM4352, 0x43b3.
+Read them along with ledbh4..ledbh15. AvVmid_cN holds the Av/Vmid pairs
+of chain N's power detector per band; avvmid_valid marks the chains
+whose list parsed. A boardflags3 in NVRAM overrides the SPROM word.
 
 Signed-off-by: Alessio Ferri <alessio.ferri@mythread.it>
 ---
- drivers/bcma/host_pci.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/firmware/broadcom/bcm47xx_sprom.c | 32 +++++++++++++++++++++++++++++++
+ include/linux/ssb/ssb.h                   |  3 +++
+ 2 files changed, 35 insertions(+)
 
-diff --git a/drivers/bcma/host_pci.c b/drivers/bcma/host_pci.c
-index 3dc298506..f6cf722a3 100644
---- a/drivers/bcma/host_pci.c
-+++ b/drivers/bcma/host_pci.c
-@@ -298,6 +298,7 @@ static const struct pci_device_id bcma_pci_bridge_tbl[] = {
- 	{ PCI_DEVICE(PCI_VENDOR_ID_BROADCOM, 0x43a9) },
- 	{ PCI_DEVICE(PCI_VENDOR_ID_BROADCOM, 0x43aa) },
- 	{ PCI_DEVICE(PCI_VENDOR_ID_BROADCOM, 0x43b1) },
-+	{ PCI_DEVICE(PCI_VENDOR_ID_BROADCOM, 0x43b3) },
- 	{ PCI_DEVICE(PCI_VENDOR_ID_BROADCOM, 0x4727) },
- 	{ PCI_DEVICE(PCI_VENDOR_ID_BROADCOM, 43227) },	/* 0xa8db, BCM43217 (sic!) */
- 	{ PCI_DEVICE(PCI_VENDOR_ID_BROADCOM, 43228) },	/* 0xa8dc */
+diff --git a/drivers/firmware/broadcom/bcm47xx_sprom.c b/drivers/firmware/broadcom/bcm47xx_sprom.c
+index 75604cd70..581dd867d 100644
+--- a/drivers/firmware/broadcom/bcm47xx_sprom.c
++++ b/drivers/firmware/broadcom/bcm47xx_sprom.c
+@@ -173,6 +173,32 @@ static void nvram_read_alpha2(const char *prefix, const char *name,
+ 	memcpy(val, buf, 2);
+ }
+ 
++/*
++ * AvVmid_c<core>: Av,Vmid of the chain's power detector for 2g, 5gl, 5gml,
++ * 5gmu and 5gh. The chain is marked valid only if all ten values parse.
++ */
++static void nvram_read_avvmid(const char *prefix, int core,
++			      struct ssb_sprom *sprom, bool fallback)
++{
++	char name[sizeof("AvVmid_c0")];
++	char buf[64], *p = buf, *tok;
++	u8 v[10];
++	int n = 0;
++
++	snprintf(name, sizeof(name), "AvVmid_c%d", core);
++	if (get_nvram_var(prefix, NULL, name, buf, sizeof(buf), fallback) < 0)
++		return;
++	while (n < ARRAY_SIZE(v) && (tok = strsep(&p, ",")) != NULL) {
++		if (kstrtou8(strim(tok), 0, &v[n]))
++			return;
++		n++;
++	}
++	if (n != ARRAY_SIZE(v))
++		return;
++	memcpy(sprom->avvmid[core], v, sizeof(v));
++	sprom->avvmid_valid |= BIT(core);
++}
++
+ /* Variables read from NVRAM whether or not the SPROM itself comes from it. */
+ static void bcm47xx_sprom_fill_nvram_only(struct ssb_sprom *sprom,
+ 					  const char *prefix, bool fallback)
+@@ -185,6 +211,12 @@ static void bcm47xx_sprom_fill_nvram_only(struct ssb_sprom *sprom,
+ 		nvram_read_u8(prefix, NULL, name, &sprom->gpio_ext[i], 0xff,
+ 			      fallback);
+ 	}
++
++	nvram_read_u32(prefix, NULL, "boardflags3", &sprom->boardflags3, 0,
++		       fallback);
++	sprom->avvmid_valid = 0;
++	for (i = 0; i < ARRAY_SIZE(sprom->avvmid); i++)
++		nvram_read_avvmid(prefix, i, sprom, fallback);
+ }
+ 
+ /* This is one-function-only macro, it uses local "sprom" variable! */
+diff --git a/include/linux/ssb/ssb.h b/include/linux/ssb/ssb.h
+index 02e6c9054..5a4daa76d 100644
+--- a/include/linux/ssb/ssb.h
++++ b/include/linux/ssb/ssb.h
+@@ -77,6 +77,9 @@ struct ssb_sprom {
+ 	u8 gpio2;		/* GPIO pin 2 */
+ 	u8 gpio3;		/* GPIO pin 3 */
+ 	u8 gpio_ext[12];	/* GPIO pins 4-15, NVRAM ledbh4-15 only */
++	/* NVRAM AvVmid_c0..2: {Av, Vmid} for 2g, 5gl, 5gml, 5gmu, 5gh */
++	u8 avvmid[3][5][2];
++	u8 avvmid_valid;	/* bit per chain whose AvVmid_cN parsed */
+ 	u8 maxpwr_bg;		/* 2.4GHz Amplifier Max Power (in dBm Q5.2) */
+ 	u8 maxpwr_al;		/* 5.2GHz Amplifier Max Power (in dBm Q5.2) */
+ 	u8 maxpwr_a;		/* 5.3GHz Amplifier Max Power (in dBm Q5.2) */
 
 -- 
 2.34.1
