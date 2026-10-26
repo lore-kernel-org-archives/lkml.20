@@ -1,64 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.29.241.158
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792981243;
-	b=fy/ncqcrTkblqQ06I9i1AD6U7wfOAs8o6Hy3LD0zH8hZgSefiE6ht3vmyhl/a6VisQRC
-	 XfkQa8ehZf6Iq5R/rN8DddsKiedilOkJ2Mu1z2FXyRZ/MN2td0T5huKKPp9KR2oz0iowz
-	 pWZk6wBr3Dgx15knAaRnNV0oGFGN7Pgd0r2TNj1CVZmHVzYlaoZKbpwb+UUyyGEbXG7gh
-	 x0lbzTZeBWxZmO+WzU4ybvo6haobYYH4JEc0k6tlATb0IxX/wgoqH+ZqwjzTCCVz7FOoQ
-	 bKhGw66+jztQP4egXOEh0DFhYzmcVBezfRcBziw7nxsR9q42i0RKNxO8DcJrSLXUCAQ==
+	t=1792981460;
+	b=lKUiCBP0tJ0hjs7NwDg6hKQSI6FtOgUB9bU4wahaoMo5lSSpfhM9gXmhA2Ebmm/XM2Kp
+	 T4gpaWt052bDj4R6kxj+zYQ6xIKoMA4Zsd6HHQsJWxpcdBfl0d/SRLEux2L/gts82tKZa
+	 sVyZQ4ub1cu2uvvxzPQysE7xOhrq86slV5/RQERHSHEwJTEB7CmqHjFlXciK/BDek70Rz
+	 aLv5ykLKfoOrDWl52FSzf6JwUi2TfipV9UpwqWij8jq6ULe7TnL9yDJuFgWlOS9pQkI7O
+	 9BSe+eZxhN50BumN4Z4llDrEf9uWa+i5snRyjZuVmdDQh/f5WDQeB9tc0OHeSdsbKfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792981243;
-	h=Received:DKIM-Signature:Received:Subject:From:In-Reply-To:References:
-	 X-PR-Tracked-List-Id:X-PR-Tracked-Message-Id:X-PR-Tracked-Remote:
-	 X-PR-Tracked-Commit-Id:X-PR-Merge-Tree:X-PR-Merge-Refname:
-	 X-PR-Merge-Commit-Id:Message-Id:Date:To:Cc;
-	bh=whvXQDKSi6waauaG4lRgpbIAgIUYHfauD6WQmhre8Q0=;
-	b=lpRjY4Alqh6zfOLG49tXlp6Au3YBt9l0KX9FirG7jR2Q13OmcFPwcsK0j7AISU7IXTib
-	 xDMvJ0BbmhJU/7jxkS01AJcsTg1PigO2mE1mycB7+vuyElXemL3s3V0lDkp9kBFEeY7mJ
-	 RNSs7Kci5dk0eBhqMis0L5vm1ezNHioVXpVhTgmFJqrfoVwmNu/FhKRxwShKlQWPebkXW
-	 yuOopkZk1BbUs9yla8NDKnUqK57euKKhP3jDdD0JpUqEuxZtnPa8H5QdDALueARuahdpj
-	 QxAw1PCJBmrT7LDe14ef4HIJf/B3OAj+zJshdD9XmgZDl88FzUfsmBVI2m7NuMlXTnw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792981460;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=l+Cpnj9kI7AYRodxzQsT0p/xehFVSu3AkRwRpL8ubzc=;
+	b=yhDZ1UF5AvT7+Cmvy5azrmLTUrXHWVZJDQr1LhfGDt15tda3h/WpMOIrfY6dguBIje/b
+	 JCRif1joaF2EIi3vaqYqM2lAkadmi1lyeHfwLEqsF75gNPEXn4ZNS1Y+KERuGiT2iam9d
+	 3CGk0Ixww0DDdNNDqTe/ovSeT9AoEKpf/Eh9pChIfglRjxIBnIfDQkslnqm3gWZ/rFUU4
+	 O1fGvuF5+uan+psmTMF+QwbqrJQrJM5iuKWuRqMqIC8NT2JoaqH7B8Gks9m9YqFTU6B0k
+	 K+L1CYVLotMesrV2RKkG5sLw925gQHge0cSPAr1kXXEfiXUm5Jq7bF+QCszopB/Rpng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JOEvzFRX;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=codeconstruct.com.au;
+	spf=pass smtp.mailfrom=codeconstruct.com.au;
+	dkim=pass header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=ROFrScSE;
+	arc=none smtp.remote-ip=203.29.241.158
+Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34F65606A31A;
-	Mon, 26 Oct 2026 02:20:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 425D8606A31A;
+	Mon, 26 Oct 2026 02:24:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 425D8606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JOEvzFRX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11B401F01825;
-	Mon, 26 Oct 2026 02:20:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792981243;
-	bh=whvXQDKSi6waauaG4lRgpbIAgIUYHfauD6WQmhre8Q0=;
-	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=JOEvzFRXWaWQe13meppqAEnXv0Hwn6Xi2glZP4pUOUkJNuQMaOZkf0oEkXiCOh+gh
-	 si6XutFL40T8xWgw9aEFtj01gnMPdl+jpoIKLOlFOwZS/B0gLlc42x4RKWOo1yhSC2
-	 pkbXcKLwIEQRESD1bKaSIsai2CjBm7s/cp6JQXms4xCu2Bgo5VmfGvsWnRo5+aMIGe
-	 ldoV6R2lA3rWUFl+Jbn8NAULgYmF8cnWb63qqD5XUSNiHG0k5aLokqQPF7W88OAWXB
-	 75CMUJYTwgjmXi6qS3wf1cr7iBK5jLMP3zK10ipMZH2uIR9rEWRWEQ/K9y/16VARoS
-	 pYnQvqvXAwgzQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 0751B39EA760;
-	Mon, 26 Oct 2026 02:20:43 +0000 (UTC)
-Subject: Re: [GIT PULL] ext4 updates for 7.4-rc1
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <atoWDJDx6sFovvjp@mit.edu>
-References: <atoWDJDx6sFovvjp@mit.edu>
-X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
-X-PR-Tracked-Message-Id: <atoWDJDx6sFovvjp@mit.edu>
-X-PR-Tracked-Remote: https://git.kernel.org/pub/scm/linux/kernel/git/tytso/ext4.git tags/ext4_for_linus-7.4-rc1
-X-PR-Tracked-Commit-Id: 8c4f6e3376348fc3162eed86a05b933921c8f9ed
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: ac5feaad48f0910b3db4047c298dd11157aef1f4
-Message-Id: <179298124149.2366612.12689866261093531013.pr-tracker-bot@kernel.org>
-Date: Mon, 26 Oct 2026 02:20:41 +0000
-To: Theodore Ts'o <tytso@mit.edu>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, Ext4 Developers List <linux-ext4@vger.kernel.org>, Linux Kernel Developers List <linux-kernel@vger.kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=ROFrScSE
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=codeconstruct.com.au; s=2022a; t=1792981456;
+	bh=l+Cpnj9kI7AYRodxzQsT0p/xehFVSu3AkRwRpL8ubzc=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=ROFrScSE1hp/YYr7qG90cW1FBP9V7BY1v81H8XHIru6DrTE1nXZX90mtPfu1gtX86
+	 vmtEzxK2xe3QnUR04/6EJ96jCDSNy4eK3V7OIvUlebla80erVpTeVqK3oEMCrx9RlR
+	 2v8BYjL6bxaytbVHR10CGlwu71W9RrNUbAX4LpoHm2wDM7ElWyZhByp98fPPt1SgSr
+	 471Mpw7LQMlVipdQ72YqSQ/szrnrfbYlBaGAT3ADNvmRq5hlSaIKS6goTB4LIO427B
+	 lqI95/f4UhQ70BTkaFlZ3foyOjQhLtnpJbSE27n+2P/b0gOz096CmQs3VGD8Pj+1Dw
+	 YkN08G75VqfNQ==
+Received: from [192.168.72.170] (210-10-213-150.per.static-ipl.aapt.com.au [210.10.213.150])
+	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 273936E6D4;
+	Mon, 26 Oct 2026 10:24:14 +0800 (AWST)
+Message-ID: <ddac7bab20a90404ae7dfd928f56aa69f1675fab.camel@codeconstruct.com.au>
+Subject: Re: [PATCH net-next v3 6/7] net: mctp: usblib: Add initial kunit tx
+ tests
+From: James Lee <james@codeconstruct.com.au>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Jeremy Kerr <jk@codeconstruct.com.au>, Matt Johnston	
+ <matt@codeconstruct.com.au>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S.
+ Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub
+ Kicinski <kuba@kernel.org>,  Paolo Abeni <pabeni@redhat.com>, Kees Cook
+ <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-hardening@vger.kernel.org
+Date: Mon, 26 Oct 2026 10:24:14 +0800
+In-Reply-To: <CAMuHMdXTGGdGWZ9sKz5_sQF1237gV844cEhkXr6v_TUHPOb78Q@mail.gmail.com>
+References: 
+	<20261014-dev-mctp-usb-lib-test-v3-0-ee5bc3ea1db1@codeconstruct.com.au>
+	 <20261014-dev-mctp-usb-lib-test-v3-6-ee5bc3ea1db1@codeconstruct.com.au>
+	 <CAMuHMdXTGGdGWZ9sKz5_sQF1237gV844cEhkXr6v_TUHPOb78Q@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,16 +75,19 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
 
-The pull request you sent on Thu, 22 Oct 2026 09:56:59 -0400:
+Hi Geert,
 
-> https://git.kernel.org/pub/scm/linux/kernel/git/tytso/ext4.git tags/ext4_for_linus-7.4-rc1
+On Fri, 2026-10-23 at 15:39 +0200, Geert Uytterhoeven wrote:
+> This fails with gcc-14 (the latest available in Ubuntu 24.04LTS)
+> and earlier:
+>=20
+> drivers/net/mctp/mctp-usblib-test.c:819:23: error: expression in
+> static assertion is not constant
+>   819 |         static_assert(!sends[ARRAY_SIZE(sends) - 1].more,
+>       |                       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Oops, should have tested with gcc too. Will send a patch. Thanks.
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/ac5feaad48f0910b3db4047c298dd11157aef1f4
-
-Thank you!
-
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+All the best,
+James
