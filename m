@@ -1,105 +1,123 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.139
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792985943;
-	b=R06dlDn195x+QoYA1rAIeIRmp7bMlVSv1vobK7V2XJMK5cSmAPQhZ4CccIObVeFSJkNm
-	 mIAbIdz53WIjw7OHDE7WLOR9btOKFrgKBtd9ZG2+yysYoUCXMnOGBYv1OcyQwV+BeALho
-	 G4R8cTO39NbXQVWyTMi3n8nkRBcEidjOcuPIUefLipCFSkNMOfb9iVIBPfD4pjwJZdVG+
-	 TlXxdBogoEFVh6KMInS9kTMGxlZdeM/Z+0k/MbObaXDNmR/8VLJTPE49IiKadlwPVLuyV
-	 dtHXjIVACVYKw2cDVUJGJaDeOlIU9YNJOB8J9wDSD4tcgSnm9wnx6iCrSg5+jXrLYKw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792985943;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=jpgh9dYKrbdOId0WvbDJGaczFPlU/X/b0Ot3e0dT6O4=;
-	b=VVlU/OyPuVrmTCkXNR4GGgHvdMZvZQzuF5sJikxMtCCNZRjfie9gR094llI5F+fI+Jxu
-	 r8Kag8woZFnbVVAyCea6kBG4mn/SlM981xmPbRLtE2QQCrCn0Sn+nt5VQI9gdcuK/X1X6
-	 Wc//8A1ccW+6PCPYJprIngmOXOxN9XSAEJW/UkLK/5UHG1vJnDq8XZbwI8ukjm+dfoDhy
-	 wPBxoroP6Celm+YBmDBIdHbBFlJhAcEolWMmT24zG9DO8Bqmq96mLOFIewzxUF6wMNGWE
-	 r9ZcksxBrLDbl5z5KZicpMwWXb7UMfy2lykMrQadrsjtLo3SpEzb6Dy+wYqf1n+CYxw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=geHWvKJe;
-	arc=none smtp.remote-ip=74.125.227.139
-Received: from mail-pj2-f11.google.com (mail-pj2-f11.google.com [74.125.227.139])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=198.175.65.17
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1792986168;
+	b=w2fCHXWHRsFcANoJEr/wYrJA4V2TrHYRi1OAsqGdX2z0xqjvuQBZqz2GBPDLMjAufszQ
+	 0egkPA6GiBajxkMEyT2dcnKFANXnhi3SUcbOOQfIXwOO+BDwmrIB632z4Rnwd1NU5z5de
+	 k/wodxrOw/ao6O5QGRu0rnmKdUVeLKo0GacGNgz+p0AKk27j2iI6yg+VKB4krfODi9pH0
+	 d+c/ZXxahY4jiBlwjTqd62SSz5KZYHYca0UgVMQLSCxoCneit8Yzdzl+3rQRT8x+KZXO6
+	 gmmpONRTg6jVpUo0Sv5LUNeBqnWRjwADN2nNRKMW3l2HrXrX9gsOMjQgmXNiqM5nbxg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792986168;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:Date:From:To:CC:Subject:Message-ID:
+	 Content-Type:Content-Disposition:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=0DSc06Tvrs1REh/+hfnS2Kl87LtwK1fGP6QP9k8T3dk=;
+	b=N4xee5z/PVrkUvgaSPZihao7P0tDG1TW7hsU56VeFFKJ3WJi67yYv9Lyr/Ko5WRd+xEo
+	 wHOKvyeBxH9gxZ7l58KQfgZ4vghbW/v5M4ipbJl3ZODWTlNo4PiREzQo/UOa2XdyWotCg
+	 f+NHCYKt/JlyOyB8zRPU2k3Uqv4TnGyPaIcz69m1QgN0igwhgTXN+YfO6H8TVhKn6G4il
+	 Qn6r3lWzRPy28vU+kymVqPrLxi3D6fuCBZN8XBtH5NDxeJ/QcTWuYNjgN61q+upXwO+EJ
+	 z3U/m7GoWaF1SZDoB86N4/ItM2GZ5Ef12vO2gqEGWGhrPV1jqHX30rQtPVPvyIMFn3Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AzGIjYXh;
+	arc=fail smtp.remote-ip=198.175.65.17
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2094F606A31B
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 03:39:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2094F606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C981606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 03:42:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C981606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=geHWvKJe
-Received: by mail-pj2-f11.google.com with SMTP id 98e67ed59e1d1-3ae1dca6bc0so358306a91.1
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 20:39:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792985942; x=1793590742; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jpgh9dYKrbdOId0WvbDJGaczFPlU/X/b0Ot3e0dT6O4=;
-        b=geHWvKJeAwXDfr0ltxkalvcCrBGRbFsVZ1t1Rx4cpIyDTkMBcq2R3RF1eV3SWxr+1J
-         Od4aXwqqhEK1jd4iyjbvTPWm9sM0cu0zMwY18xaJanhtEKMaxPTRsqqwSrHPACb470+j
-         VkhPxzv5skE+VAPiJWcMy3oH1VkXIeR8MywcpUDligv64YHEoQAC9tu0iWSjXMx17Av2
-         a/c3oXZlM951FYd7fRXpOFSxgehoS8IkD3smsJYjFShIWtJO8fmFRZPKxvKoTU0Azl+J
-         hJQpdncmkefXtF3/lSxk+/3PssDVmHB6RkD2GYC1LW7g0cskdNHbTKzrD7W90JAfmBx3
-         gEbg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792985942; x=1793590742;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jpgh9dYKrbdOId0WvbDJGaczFPlU/X/b0Ot3e0dT6O4=;
-        b=ymZEfSwDp/tj18oWxf+S3rWTfnC8QN+KKAhI63kfff9g7HUphmOx+c0R9ycVi/QQqf
-         aEkpG+Up4Zx13a2mhes/mCH3066WzMPHHVpS25bOGuaQ9aaJD4ETT1H5mUr48YFA8yZE
-         RSaAZOE5tgF7fIXT9HnJveY71oFrSIS+876TJl/RE6obbKt6pL7RHFdAfys+sI7L/iDy
-         64ZLJeLM1R/o7qYhFiscc9xHsMayD2hoO1t2JNdRcBNlxWUR/F+1H+hOzjHYaTITTfZk
-         jP9wJpD/HhrHJTW2XaGn2rMfvPyyDpkzMz1W7imd1K23uPWjT+CacsAmB1Bz12MRZIbN
-         qCFQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxoKxIKFZfp0X8u79clbBFzCvhd+IjzlQiWCD3EWisbAHdSULVoRWDZGO6/DSZyoxeT0FfV0fDLLla1qFI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJUQC70gNz3nTyhM663JaTcDBKlGg8KtC1NZNj8PQ60jDIW5j0k
-	aGqeMRmHqVa+o8AUQnjRZEgDoCRVeveySS92WlLhlKMygkP6BXi+5dDs
-X-Gm-Gg: AYBFou1UnCUIDA+dPg0myfLcZkZ+iWd8NnCB78qhIt+T4F1Pibb3E8pEK5MVgd8yUJa
-	vXCdDCw5zkA+uZHx3vGx7jeg7/FpXj7tLc8qG6XFfbnwIVRBtCgSJvVnvgL07ZJcdPplzngu0oN
-	g5fmA4CskWpxkU3KQQl8i88S2MJcDj2XyJbZrDM54KDhByaT2SYSuRXCS1gDMHTJe8GrgbtS15Q
-	D97FaXTbadGgPP9Mng4nXQBf2P3g36gjkPdKVT9OXyRvNdo1pUjTboDiFj8CbTVT8OEKXVv6Bdw
-	x5cEHkf98BzoZpnio8zsE8nzLCWWQFpRgyzgKrqrqdJ7iOXQN26nbDs24iNaeimOSeeNE3t9MS2
-	3wbl+5anjMogqcVJjRWKOTdLoEFhHbjssEkmxZ/Wqwq+sKyeY+lpkIX1OS1X4B2FeuGV8F8TaEI
-	VHSMsVqXiaA/lvL9MR+E/3RXJ+W9yruvFT1wymOvLVug1eVxLvuw3LgOv/VHVY1jZB6fR0VoVDD
-	mcYezSHnDdueirkMdBm/FHARJ+rGQ98xMqLLsGGg6jvCpWcDErfoD3ooWJILm1xVIgrOO3hx1rw
-	EjrROFlgAQMZDOD1nQ==
-X-Received: by 2002:a17:90b:1c8e:b0:3a8:9b79:e6ea with SMTP id 98e67ed59e1d1-3adeb122e89mr4984006a91.59.1792985942393;
-        Sun, 25 Oct 2026 20:39:02 -0700 (PDT)
-Received: from nzzhao-ThinkCentre-M760t.mioffice.cn ([43.224.245.179])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adebe8f0b2sm6409823a91.8.2026.10.25.20.38.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 20:39:02 -0700 (PDT)
-From: Nanzhe Zhao <nzzhao.sigma@gmail.com>
-To: linux-f2fs-devel@lists.sourceforge.net,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
-	Chao Yu <chao@kernel.org>
-Cc: Barry Song <baohua@kernel.org>,
-	Juan Yescas <jyescas@google.com>,
-	Daeho Jeong <daehojeong@google.com>,
-	Pengfei Li <lipengfei28@xiaomi.com>,
-	Dev Jain <Dev.Jain@arm.com>,
-	David Hildenbrand <David.Hildenbrand@arm.com>,
-	linux-kernel@vger.kernel.org,
-	Bo Zhang <zhangbo56@xiaomi.com>,
-	Kalesh Singh <kaleshsingh@google.com>,
-	Nanzhe Zhao <nzzhao@126.com>,
-	Nanzhe Zhao <zhaonanzhe@xiaomi.com>,
-	Ryan Roberts <Ryan.Roberts@arm.com>
-Subject: [PATCH v7 15/15] f2fs: make compressed files compatible with large folio
-Date: Mon, 26 Oct 2026 11:37:45 +0800
-Message-ID: <20261026033745.784107-16-nzzhao.sigma@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261026033745.784107-1-nzzhao.sigma@gmail.com>
-References: <20261026033745.784107-1-nzzhao.sigma@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AzGIjYXh
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792986165; x=1824522165;
+  h=date:from:to:cc:subject:message-id:mime-version;
+  bh=XmbFLNvNu6w2K0TrV3YpsXKWQY1eD+bXtFJ6vGK79rM=;
+  b=AzGIjYXhaZMPXMaSA+1LL3pcL3s9ArQj0OFabdzMud6Y5cqh+EEVwIle
+   C9aDDkUkLhUX/nYOkl7oHhkDhhkhoik/Kd8q5J7cSSda11s7dpauqSotA
+   EzkaPAc3JEYZCvdMFvlKHKs/xSpx5N+toS1nsCbWM6D2/a/z5LVmMQCzH
+   tHWsaEdVvLzl5Lx2QLT+IMgG3g7qAR8E7+IvIVp22ncDyyvnTUGXAG5Pz
+   ylNi1LuO3y71dysjjcvtPNJbAzSqzsOR3ppJVlbecIk/FnsD2/RU5dAga
+   VNjeYCqviFTafP9C0mv2ec/34VqPJ8Da1cvxZAF4JFZarqO8PvA4DA0lg
+   g==;
+X-CSE-ConnectionGUID: al4WmASRS8qhVLqJBS56kw==
+X-CSE-MsgGUID: nXrMF4YrTsSnQN11a0tMqA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1656956"
+X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
+   d="scan'208";a="1656956"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 20:42:44 -0700
+X-CSE-ConnectionGUID: DxA5EruVR7SzTn4hGPrZBQ==
+X-CSE-MsgGUID: Ua5usMe6QFKeQFnNN2cvUA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
+   d="scan'208";a="4211570"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+  by orviesa009.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 20:42:44 -0700
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Sun, 25 Oct 2026 20:42:43 -0700
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Sun, 25 Oct 2026 20:42:43 -0700
+Received: from DM5PR21CU001.outbound.protection.outlook.com (52.101.62.47) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Sun, 25 Oct 2026 20:42:43 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kj0SzohT1hdvvvbNW/8dckwcxdNBi+efY4mUP7+BCqZ8thJJvHGubplX4akTCB6Xk+oKZyS4dbb9uYKiwzaG36HAa3WOm1rEFuHzcBt42rnSPjzorKMUabT4PKNGKluiOmh65cQekf61I/9hcZ4zkM8lkiTcecqZnpZmgrENI+m7PKFtkLYdVhO1GpW4lwWFu2KufvO8oeu634q652Zo9INV1bkyR3iNm6nhu6eDxWzwaelP/I5NHRIA6yvPkVKdtjHnsvAGtdKKpTbJSj+oBUTgMSknPiWyRd70le8v4UzLMM/4rlJq8A+HERpLjXmJkmm9YjCnC1LEOvn1hMYbSA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0DSc06Tvrs1REh/+hfnS2Kl87LtwK1fGP6QP9k8T3dk=;
+ b=w6yoXlwnyhRlU4Rh1f7I+d+CmYmMpRB1h93/eRbYmcBawZp065l5WHYIXiyVl9s2qnRZ6a5GwTlEM3H/usOCDSRVhPwyjKtFaj9uTLn/+0I7cDzb0tARMEBY9WoYbO+zWRG6VYd8EAuGRbrdYMqbqAC/yLU2U/O27tolitiTsyVw6t36LrKZO5lg+5gVwYjzTYXMbtJKmOx8SfGU7P2ntLaazjnVyBYCucs3KJJXrnCQG7vpdsv2/Xs2MjraKeqvywa54LeGFl3mkRTXDH5lOhWYNseUNjjx+Ly508t+7Gb7BHIKH42ay+hkzexmNzOxaaT3V2cHM9SkSFfA4pdtSw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS4PPF0BAC23327.namprd11.prod.outlook.com (2603:10b6:f:fc02::9)
+ by CO1PR11MB5011.namprd11.prod.outlook.com (2603:10b6:303:6d::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
+ 2026 03:42:11 +0000
+Received: from DS4PPF0BAC23327.namprd11.prod.outlook.com
+ ([fe80::6fbf:c112:d0a8:f1a8]) by DS4PPF0BAC23327.namprd11.prod.outlook.com
+ ([fe80::6fbf:c112:d0a8:f1a8%5]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
+ 03:42:11 +0000
+Date: Sun, 25 Oct 2026 20:42:01 -0700
+From: Alison Schofield <alison.schofield@intel.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+CC: <dave.jiang@intel.com>, <linux-kernel@vger.kernel.org>,
+	<nvdimm@lists.linux.dev>, <vishal.l.verma@intel.com>
+Subject: [GIT PULL] NVDIMM and DAX for 7.4
+Message-ID: <at7MCT6uhsn0B4ER@aschofie-mobl2.lan>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+X-ClientProxiedBy: MW4PR04CA0261.namprd04.prod.outlook.com
+ (2603:10b6:303:88::26) To DS4PPF0BAC23327.namprd11.prod.outlook.com
+ (2603:10b6:f:fc02::9)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,110 +127,118 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS4PPF0BAC23327:EE_|CO1PR11MB5011:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4fb40ba8-1cf8-4aec-8a07-08df33131e37
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|261021123027099003|11063799006|56012099006|261009223027099003|261022075727099003|261022105027099003|261021121427099003|10067099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info: Q08hfdI6YW7AJjcaiYdbhAHKSB+m3oLnfPm1AGEDMpPkIwZUp9I8kvzmcF7WjxP2TSCUdZ7NPMcNJfoc5XM4IisHzez7A4hsQyxwF66cLdYzZ6YAIQPGyz+nuCOdmK+0YNfyUx1XDskJXZelmBwQKsivtP/uXtenNGLGPEFZ9GqyZtJjNjB4UPjjwRcoly8Cntrz9yH5CYaFWp1/E1zy7UB84p7FIIgfWrec+va6g9e618VNm+W7G+cCVP8YrdJyA1x9M5wdjKSrecizHIxyYDsVt7gNjo+EAYlNVnFQJEOVYKMT1JCO1ouK6Gg86IYWGIrVUeE0+jFSRkBp1K7Aw0PHlpoLQYurBlzW2qP3du52trqifZoPaR1dHz7GWz6Tn2Vfh8W4o4vWvaTmv9WjTfHe/aBR8l/BzZq6IXfa1oQfqMP2h5t/xCfzrdXtnsJE7iL4FKMtGO4PQtfwsvuhcsRXh02HnpssbnAK18Fc+XFkirbY6WJkKJBNMLill7L9WMcz8tjLeehHu1onxZ9LXBctSyKmjj76njhQaYtOoOQer5qXDpn7cCTsgYt+OhsVcLlFVx/o7v1G+KCn+0SOOsV1xof6dbLuHK6fMcTC5lrSLB0fbNCIU50YnSgxJsWhQ/wpE7YrW5NqwHRGfoWuJZygdKcL2I5rGkdWITvdt0E=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS4PPF0BAC23327.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(261021123027099003)(11063799006)(56012099006)(261009223027099003)(261022075727099003)(261022105027099003)(261021121427099003)(10067099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?eLjdIGYf0Nnv8Snp53BaBAR+YG+NHtepqjawWIzcpWEyi9KEVz6I0zucjN7p?=
+ =?us-ascii?Q?z7iCiyf9npl7EPPMmytzGwpUrYIYFsAdCxcaQxG1mXzkIFQstcgE11NVOSRM?=
+ =?us-ascii?Q?ksLB8m5Da+k36Nq/Q90fZIZXT9+V1seNX76Rxp76mx03h8BTkmIUzJveMTw1?=
+ =?us-ascii?Q?LAOfMeDFE+wELwcxAOFqLmjzQ6IhyVG8JM32/niVBC9uC+lcfOvY0XmhfVOt?=
+ =?us-ascii?Q?NJK0GsjWOedx4RaH2Y32Fs9Lu1wYOlC07C8QZqKJihR4ulb2Deuqy2JoHoVz?=
+ =?us-ascii?Q?WnmD4QsRFXNCgWGIgSWRQbXz2pJCUmwWpZ1E1okwlpjZhDr9R/95lNJYpVCy?=
+ =?us-ascii?Q?epaJzKgYJf8OeJwzgd3hDUVzCyG4FqVhILGm3KwOPSm7LohbnmaqcWQ7nefu?=
+ =?us-ascii?Q?WANDDfQspY1o1qCruXvXEd7hh6a2ax3SQ0Aca7nmBDeGC+EAIuPFnEhwwTIo?=
+ =?us-ascii?Q?3OTOEYqnMs8gRAhMtRC1ZTY258ObnONZQhrfNCmgIh9W2I5aDXrVckedCXAb?=
+ =?us-ascii?Q?+9YB1o72RRR3XVu6jI6q/tjhIhNgbzqggY+LzZ6WZgslDSDjXneawgH77U15?=
+ =?us-ascii?Q?e6OOMPb/mEw4TNexa7RSOLSNLmPlWL8gLVe6526yFa4CfR88tQVMP4RR2ndO?=
+ =?us-ascii?Q?GwYIJIADbB/C/EkVtVNkpjY+BJ4LtcaPu3SJbql/66q+DKBh3sVwvgi2DQbk?=
+ =?us-ascii?Q?F/zGGIjVPXvu5BKDEvmPm6mVGZenUzBSUfpqzh9918LiNzplGQsWHlznTKtw?=
+ =?us-ascii?Q?oWDq5qzfK3/XxZ6FtZLlOBj5FD8DkfJIFfzhykvItEfxhk47kxddKql5EZhk?=
+ =?us-ascii?Q?PPDilobXdU3Q5JExegudG6wDL7l9YtIHPVSXEqtqNwATIwEI8XDJT0tOl3iU?=
+ =?us-ascii?Q?85HjZn32vDzZGUHlodGVGeh9xbPiKDRbzhGTgJS/R2qbNDMLoUIKcXSJcrH2?=
+ =?us-ascii?Q?pKwjpUol0uLSKRyTiURit4yRV++q+m87ZpyRKEW0zYdBriBaWat2nOpB2Ube?=
+ =?us-ascii?Q?/E8ALu1HqJCo0sds5tfU4bRKLwWggDv5BpHuYJ+w6pmDM0p6MGTXM3NZsQrX?=
+ =?us-ascii?Q?+ATRC5xd7M4bij+oAytHeMsaMR4w93asL/IxSFRrZWg0v5Jib8x/WQsCNHg4?=
+ =?us-ascii?Q?qezIicyZ3VtiRvjHGixNf3S/Rkn0NogMLBGnzbpHLT1tt8EaTFBmXvCa09Ui?=
+ =?us-ascii?Q?rZE0AmHJWo2UpS/4Iy7UDDatokYs76sRb66I+jrF5CqlM4z27KGjJZzSbVPL?=
+ =?us-ascii?Q?O3V0tKZ/sFPMHM2s0vPterGRnDJurIzyTVqy40qRdkmV12RMWavSJHkXlRfY?=
+ =?us-ascii?Q?V6Rq4PfnGz2nmdSKDS9e1ky8p9AI4BosQYydUz9hGk84686D6AeWJQrPFfHE?=
+ =?us-ascii?Q?04OhtbqyIXHnTDH61V19CmmmvvihzQZvfSAS02Y7w7uW5qNyltXSJUUJJ5pg?=
+ =?us-ascii?Q?wttvXnzhdWx23+WrJynC+Is8kEMaQ/HSrHZdbWJPi50Rhsw0zMdglAB1DTSK?=
+ =?us-ascii?Q?ANA2ZXCSwvsW7flpUvaO9k9wmOHTtrx1VsTXbz2vES+qw6N62Zq/EsTNbPSC?=
+ =?us-ascii?Q?mdit22X1L8zjzCcGjoGoY7umzPnROV/QnUYM4wHI/AbwvzpawQrFtwkvZrBA?=
+ =?us-ascii?Q?y3wo+o4/iZgchF78weF+fiEv/D2QX4QA9dcdAztkY2qeAzQXmFQlKjFqc6gk?=
+ =?us-ascii?Q?IyF+7AK0+TgiDWgHz0pjJDziDgZ75fsj3z8yll6f4MEjIt0Os8XXmWbRF8An?=
+ =?us-ascii?Q?7Fxc+KboF6pE6J/Fw3NpMJHWzJVKYQs=3D?=
+X-Exchange-RoutingPolicyChecked: CP77TVVjiJTWodiiVt5mAnqPgc5qSt7oHkczNffeMt8W1bizrajceeIYJ1KVVtGCP2gRehw00+008z7hJheE/QOVLL/A1JeuJJOiQi4XzBpV8fqfCak3vpoCq9vwm+qao8aoZr7tmqv2xLq4SzAYpdo4KknXOG1DwnXZVPO3KVcXiYomt1HONKobpj2+uboAFqdG69vfViDV+4zuO093ou6NBXatgvRbiXxkpETwhLjwyD7iLw5C+AblMkFeql0LmkmWU4Hnfk88pCyc1D3NcFoyPQrJY4c5HbHq3ruQS4FKyRKmqIh113kyXVIThANvrzV0MIoVN6QpGvDGC2GqGA==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4fb40ba8-1cf8-4aec-8a07-08df33131e37
+X-MS-Exchange-CrossTenant-AuthSource: DS4PPF0BAC23327.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 03:42:11.6202
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: owK3eH7Cnq0rSX2wb87tQOsfYnRtC/hDcz5FKhyB5EIg8WGWncaiuRR6rVr0Azo3pcEHnfLqzn++026hy9+yWqqt+HGnm5JvPT0Yakw30v4=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO1PR11MB5011
+X-OriginatorOrg: intel.com
 
-From: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+Hi Linus,
 
-The compression flag is the hint indicates that the inode can be
-compressed, when the inode is using large folio, we expected it keeps
-using the large folio read/write paths and its data stays uncompressed
-on disk until the inode is evicted and re-read
+Please pull to receive NVDIMM and DAX changes for 7.4:
 
-Let f2fs_write_begin() skip the compression overwrite preparation for
-such inodes and remove the compressed-file gate in
-f2fs_read_data_large_folio() so the data is simply read/written as
-regular blocks.
+    git://git.kernel.org/pub/scm/linux/kernel/git/nvdimm/nvdimm.git tags/libnvdimm-for-7.4
 
-For the same reason, reject F2FS_IOC_COMPRESS_FILE with -EOPNOTSUPP
-once the inode mapping is switched to large folios.
+This is a small set of fixes: error handling corrections in the DAX
+core and bus code, a fix to the DAX file range comparison helpers, and
+two libnvdimm/pmem fixes for error and probe failure paths.
 
-Signed-off-by: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+These have all appeared in -next for at least 6 days.
+
+Thank-you,
+Alison
+
 ---
- Documentation/filesystems/f2fs.rst | 10 ++++++++++
- fs/f2fs/compress.c                 |  2 ++
- fs/f2fs/data.c                     |  9 ++-------
- fs/f2fs/file.c                     |  7 +++++++
- 4 files changed, 21 insertions(+), 7 deletions(-)
 
-diff --git a/Documentation/filesystems/f2fs.rst b/Documentation/filesystems/f2fs.rst
-index 55798421f2c4..b79bb67ee78e 100644
---- a/Documentation/filesystems/f2fs.rst
-+++ b/Documentation/filesystems/f2fs.rst
-@@ -942,6 +942,16 @@ Compression implementation
-   reserved via ioctl(F2FS_IOC_RESERVE_COMPRESS_BLOCKS) or the file size is
-   truncated to zero.
- 
-+- Compression and large folios are not effective at the same time on a file:
-+  a compressed inode does not use large folios, while an inode which is
-+  using large folios keeps its data uncompressed on disk.  If the compression
-+  flag is set on an inode that is already using large folios, the flag works
-+  as a hint until the inode is evicted: the inode keeps using the large folio
-+  read/write paths, f2fs_write_begin() skips the compression overwrite
-+  preparation, and ioctl(F2FS_IOC_COMPRESS_FILE) fails with -EOPNOTSUPP.
-+  Once the inode is evicted and read back, it uses order-0 folios again and
-+  compression is applied as usual.
-+
- Compress metadata layout::
- 
- 				[Dnode Structure]
-diff --git a/fs/f2fs/compress.c b/fs/f2fs/compress.c
-index 162bd8ef822a..721b01dd0d24 100644
---- a/fs/f2fs/compress.c
-+++ b/fs/f2fs/compress.c
-@@ -78,6 +78,8 @@ bool f2fs_is_compressed_page(struct folio *folio)
- 		return false;
- 	if (folio_test_f2fs_nonpointer(folio))
- 		return false;
-+	if (f2fs_folio_has_ffs(folio))
-+		return false;
- 
- 	f2fs_bug_on(F2FS_F_SB(folio),
- 		*((u32 *)folio->private) != F2FS_COMPRESSED_PAGE_MAGIC);
-diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index 4db92c85ea99..f0d2fcf10062 100644
---- a/fs/f2fs/data.c
-+++ b/fs/f2fs/data.c
-@@ -3282,12 +3282,6 @@ static int f2fs_read_data_large_folio(struct inode *inode,
- 	int ret = 0;
- 	bool folio_in_bio = false;
- 
--	if (f2fs_compressed_file(inode)) {
--		if (folio)
--			folio_unlock(folio);
--		return -EOPNOTSUPP;
--	}
--
- 	map.m_seg_type = NO_CHECK_TYPE;
- 
- 	if (rac)
-@@ -5313,7 +5307,8 @@ static int f2fs_write_begin(const struct kiocb *iocb,
- 	}
- 
- #ifdef CONFIG_F2FS_FS_COMPRESSION
--	if (f2fs_compressed_file(inode)) {
-+	if (f2fs_compressed_file(inode) &&
-+	    !mapping_large_folio_support(inode->i_mapping)) {
- 		int ret;
- 		struct page *page;
- 
-diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
-index 3d621a20766d..e61c80ae7537 100644
---- a/fs/f2fs/file.c
-+++ b/fs/f2fs/file.c
-@@ -5021,6 +5021,13 @@ static int f2fs_ioc_compress_file(struct file *filp)
- 	if (!(filp->f_mode & FMODE_WRITE))
- 		return -EBADF;
- 
-+	/*
-+	 * The mapping is already using large folios, where the data is kept
-+	 * uncompressed, so refuse to start compressing the file.
-+	 */
-+	if (mapping_large_folio_support(inode->i_mapping))
-+		return -EOPNOTSUPP;
-+
- 	f2fs_balance_fs(sbi, true);
- 
- 	ret = mnt_want_write_file(filp);
--- 
-2.43.0
+The following changes since commit 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e:
 
+  Linux 7.3-rc5 (2026-09-27 13:55:01 -0700)
+
+are available in the Git repository at:
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/nvdimm/nvdimm.git tags/libnvdimm-for-7.4
+
+for you to fetch changes up to 9b036546a02c6c9a5133f9c1e93503896595c6ba:
+
+  dax: fix wrong error code returned from dax_dedupe_file_range_compare() (2026-10-19 09:43:01 -0700)
+
+----------------------------------------------------------------
+NVDIMM and DAX for v7.4
+
+DAX fixes:
+dax: fix wrong error code returned from dax_dedupe_file_range_compare()
+dax: fix dax_range_compare_iter() to use correct size and address offset
+dax: Return errors from dax_core_init()
+dax/bus: Return errors for invalid mapping targets
+
+NVDIMM fixes:
+libnvdimm: Handle negative return from nvdimm_clear_poison() in nsio_rw_bytes()
+nvdimm/pmem: Release gendisk on probe failure
+
+----------------------------------------------------------------
+Hemanth Selam (1):
+      nvdimm/pmem: Release gendisk on probe failure
+
+Jianyun Gao (3):
+      dax: Return errors from dax_core_init()
+      dax: fix dax_range_compare_iter() to use correct size and address offset
+      dax: fix wrong error code returned from dax_dedupe_file_range_compare()
+
+Muchun Song (1):
+      dax/bus: Return errors for invalid mapping targets
+
+Serhat Kumral (1):
+      libnvdimm: Handle negative return from nvdimm_clear_poison() in nsio_rw_bytes()
+
+ drivers/dax/bus.c      |  8 ++++++--
+ drivers/dax/super.c    |  2 +-
+ drivers/nvdimm/claim.c |  2 +-
+ drivers/nvdimm/pmem.c  |  6 ++++--
+ fs/dax.c               | 14 ++++++++------
+ 5 files changed, 20 insertions(+), 12 deletions(-)
