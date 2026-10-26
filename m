@@ -1,75 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792984942;
-	b=inAsb86BOodL9MKGWdEyxFRZCucjxAxhbaE6+WjhyGWe8lkRUDKDgq6Y8ZEVwBNk7m4J
-	 okOcwrbYi0YmTH/jWPlnWFmuyL6lVtAoX9QCw0Ym3hQINf+rirt5gZZz6In4ph99oU03u
-	 dqXBoeJbzhoJt/cCc4Mlb6Pt1wntx46yjAQKmyy9KU7OGgFOCXMOaCGmvnPrZ1lcXbvJO
-	 owCSi9gdAAUY9/HBDiW7Jn5MFaxYpY3lxXll1y1e80Z38OQsN8ZYq5G1e0RNUEgoJLah8
-	 MyFuefsekWUaVQhc8OvqjjYNFqj4rjlM5Fpjf4FNXexdh3/EjmPN4FV5YHk7Ncdq0IQ==
+	t=1792985158;
+	b=XKxH87Q4bT1X09wu8UHq7XlreMIeY/o+TPVBUtF8aopoJC/oDv47ic9Ex0EgZjIdLopE
+	 9oz5zEm+a19SqJLRytd2XE3PDMtMxoNcAWO7Yap7264zFxVIAag7257e4A6LrybeUOfDq
+	 Mf4+Y8r6rUVzVTR2aaYSb04fW976SnJB+DVeP7YBc8if4oZ4qL8cXdhYHHan7+PjcRNZb
+	 xNi8ytgRvUhAPa/tDa0iBlrGh+1ZVNnYIarhIi0RCjvJ5VEyKineHD6hVNzWVsIV0IEVK
+	 LM/R0KsInIOLYTvn5lpbF5SSq4iNFZc2Waz8aBTrCaTSKrzJexb2b3cBBcCicDHwkMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792984942;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=x40x3fDhGGgehXKpGGRcJMG7MWAknRBMtZbK0YN/lfQ=;
-	b=h87wnT+Ohq64I9y4qSPGH5efr4hORMerZRJMVqEttgfSrpTGlmchzC+20jpbl9GfOsos
-	 oiBHNDts84KGedFK3YHKIEpLGePyTTPvAAjYBmogJe7UV+8pZ7r0fycDfTqbkd4HKua3g
-	 ImxdvajExalHu2oXQR7sGbLFL0BED1Dca3TA02/Dji5QKFU/wVQ2WSX5yyh5joLZW5Uwv
-	 kOkxq/sIcE5KWotTf6uKfsd2Nf6yk8y2jIiz2C85Mr0cL6VLgkQ/aryEofVz4yMMq1ZJD
-	 hLhikXhaWDxQRkJ1iUESGc7BEJ+soipfDbEcimILPLwsmfNC+/fU+ckLpilDo6hkEsg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792985158;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=r7ezphrj+oGFDlyJzh0KgsQtGnCebZng7eNFUrW44ts=;
+	b=Kr34c5rs7Bhg1qxFfxn5Y5PVxfoGr9VHWPLB4o5Ww9uJF1rSpYKBNq1X7mbqTU+DFejg
+	 o1wZStB/nRbpHmYAYgI6t7s03xtUc76roodE9u+tA//q8M5Dv8O6DqoWiYvmF9DSN2gtt
+	 8XF16yFl86wDAIROmvxXGEEDF+auka+AMTSkliZg28RDZVVGufIYkggpoV+2hmb1sQ+dv
+	 vrKb8Ufq18xR5GqjZRww8ZATTTy00jJTm13pYUdtzmM/RiigQi6Hib0ystCncoQsEGbuI
+	 RXa2ghyGAv3RttxHMbbnWIdv77RpbKheRbkx3VFSxi3i+rB9faiT1SwGbMJVsZ0H1vg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--tavip.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=RUC9kPc2;
-	arc=none smtp.remote-ip=209.85.215.197
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iJbor1ZF;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F00A0606A31B
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 03:22:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F00A0606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tavip.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66646606A31B;
+	Mon, 26 Oct 2026 03:25:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=RUC9kPc2
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cd66551e02cso2854044a12.2
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 20:22:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792984941; x=1793589741; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=x40x3fDhGGgehXKpGGRcJMG7MWAknRBMtZbK0YN/lfQ=;
-        b=RUC9kPc2QgeKPHkz52+j9onBT7HbaXmL875LeBjYgZhW591Z5VhRDW39xOA/ZgA2NZ
-         398u8ozP0Dawb18g5SU+G8mNQtQFg5wJ3rJCMk6z6Y/snoKxj1MwJeIg8B2v0pcgcW3/
-         dr5/kO9Db94ToDqsVfRqSgkLlxs9OJUbcptKhaHJ9d2QzbwIj8oLW6a0y2+5d5qtevF1
-         YCTQ1979rFx4q64M/qMMQtVh5jn8jzvBzjjlmZ1mwh4G4FloNOMFlf8qj2X7eEAqCdqN
-         kmi7FUn1OQGceXNE1924FIHOGme3zDX5DpRz0NNOGkzKB38IWpfDR2wSBAMkKGNPDFHJ
-         D38A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792984941; x=1793589741;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=x40x3fDhGGgehXKpGGRcJMG7MWAknRBMtZbK0YN/lfQ=;
-        b=UoPHGCyBpeSYQ5Jfwk8xG6pS6AH1dxhoccxCKPfmUFm+Bn0wmHAMo6qfVcK+0WNj+q
-         nTs3e3yT+7kMRzllBEPaDVnTA//lPjd2KhsHg2AEsjz+tyXESYZLdS9y7BgZAr9PiHL2
-         +tQR3XY6mVGZpl8tlWzll1MIMusreLO4GKbL66OZKE3fZG1wxa+acdA187TmOnvkDgjY
-         aUMnYJ2HeJGwt/5ueehbBZw26SYeMJ8uU+V1So41i7dNEe/zzORv86XSUb43L1OBiIZL
-         M7jfRcqfGCgc9n7KRZKymbmk53cblWXU5vsW7LWQ6bCc9ELidDZOv+ONGA/nZqw6YU0+
-         PzXQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzHw6l/LnUy0vPi/fBaKaJmIeOiID/kzw3Nfcmuj6MC/2ctTsmN2ARtm5fl/7qzgfpKRQ67F2A+N7XOBoQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJS5gcpnAzYptXVCptQydqXiygeNUFtZqriMDlTc/XXBAHYbb6A
-	GPE6LSOhkMUHgHrCVLH0dbZEeEg/fn+UNW99wSg7u1YdRhafe5N/VnBsTMl6PIDcyTEfZSxkK7C
-	ADQ==
-X-Received: from plcf10.prod.google.com ([2002:a17:903:104a:b0:2e9:9805:eafe])
- (user=tavip job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:fa8:b0:2e9:740c:371
- with SMTP id d9443c01a7336-2ea9c6c4eacmr45888055ad.38.1792984940836; Sun, 25
- Oct 2026 20:22:20 -0700 (PDT)
-Date: Mon, 26 Oct 2026 03:22:16 +0000
-In-Reply-To: <20261026032216.1145201-1-tavip@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iJbor1ZF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24BB41F01825;
+	Mon, 26 Oct 2026 03:25:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792985158;
+	bh=r7ezphrj+oGFDlyJzh0KgsQtGnCebZng7eNFUrW44ts=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=iJbor1ZF6TAy1nxpgPmlEV3U2iTl4M1wdl+VcMJ2pE2JDoI2fQfESg9a5P5yNEF6/
+	 9d8F6waUwgqFW8BupkLm2PXDnn6lATlwpKVNc9i4etUIDAKe+K29b0Wh6ISwpDhMuL
+	 dl5apYZ14qKbxvzsXDMZ5vRkzf3jm/p7Nu4//ms2QrIw2Wo2ZpGB27KgnxcdCKLMNY
+	 qcaRb4AzjbXELgY14p60jozchxVwoO8OVlS/dIyboC70DrozygyEb5Ue0YGUpYvn2b
+	 rWzNxu0B3DOZrlafHeswD2onVwZGcZx+ZStSTlDeohADnsYfuurkww+HfSYDALXVEY
+	 bnWmjIl96w8QQ==
+Date: Mon, 26 Oct 2026 03:25:50 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Brian Norris <briannorris@chromium.org>
+Cc: Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, "Rafael J. Wysocki"
+ <rafael@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
+ linux-pm@vger.kernel.org, Andy Shevchenko <andy@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, linux-iio@vger.kernel.org, Andy Shevchenko
+ <andriy.shevchenko@intel.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 08/17] iio: chemical: atlas-sensor: Discard
+ pm_runtime_put_autosuspend() return values
+Message-ID: <20261026032550.0451be50@jic23-hlaptop>
+In-Reply-To: <20261021165858.v2.8.I55d76837b3feb481080e43d358375445ca0993c6@changeid>
+References: <20261021235818.3059519-1-briannorris@chromium.org>
+	<20261021165858.v2.8.I55d76837b3feb481080e43d358375445ca0993c6@changeid>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,212 +63,55 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261026032216.1145201-1-tavip@google.com>
-X-Mailer: git-send-email 2.56.0.257.gf7497c7d27-goog
-Message-ID: <20261026032216.1145201-3-tavip@google.com>
-Subject: [PATCH net v4 2/2] selftests: net: packetdrill: add test for negative
- sk_forward_alloc in tcp_wmem_schedule()
-From: Octavian Purdila <tavip@google.com>
-To: Eric Dumazet <edumazet@google.com>, Neal Cardwell <ncardwell@google.com>, 
-	Kuniyuki Iwashima <kuniyu@google.com>, "David S . Miller" <davem@davemloft.net>, 
-	David Ahern <dsahern@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Shuah Khan <shuah@kernel.org>
-Cc: Simon Horman <horms@kernel.org>, Willem de Bruijn <willemb@google.com>, netdev@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Octavian Purdila <tavip@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Add a packetdrill test that drives sk->sk_forward_alloc negative via
-tcp_collapse() on the receive queue while sk->sk_wmem_queued exceeds
-sysctl_tcp_wmem[0], and verifies that a subsequent non-blocking write()
-under TCP memory pressure fails with EAGAIN rather than returning a
-negative copy length from tcp_wmem_schedule() and failing with EFAULT.
+On Wed, 21 Oct 2026 16:57:09 -0700
+Brian Norris <briannorris@chromium.org> wrote:
 
-Assisted-by: LLM
-Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
-Signed-off-by: Octavian Purdila <tavip@google.com>
----
- .../testing/selftests/net/packetdrill/config  |   2 +
- .../selftests/net/packetdrill/ksft_runner.sh  |  28 +++++
- .../tcp_wmem_schedule_negative_fwd_alloc.pkt  | 116 ++++++++++++++++++
- 3 files changed, 146 insertions(+)
- create mode 100644 tools/testing/selftests/net/packetdrill/tcp_wmem_schedule_negative_fwd_alloc.pkt
+> The atlas-sensor driver propagates the return value of
+> pm_runtime_put_autosuspend(), which is not particularly useful.
+> 
+> Returning an error code from pm_runtime_put_autosuspend() merely means
+> that it has not queued up a timer or work item to check whether or not
+> the device can be suspended and there are many perfectly valid
+> situations in which that can happen, like after writing "on" to the
+> device's runtime PM "control" attribute in sysfs for one example.
+> 
+> For this reason, modify this driver to simply discard the
+> pm_runtime_put_autosuspend() return value.
+> 
+> This will facilitate a planned change of the
+> pm_runtime_put_autosuspend() return type to void in the future, similar
+> to commit 3afd8df02433 ("PM: runtime: Change pm_runtime_put() return
+> type to void").
+> 
+> Signed-off-by: Brian Norris <briannorris@chromium.org>
+> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Applied.
 
-diff --git a/tools/testing/selftests/net/packetdrill/config b/tools/testing/selftests/net/packetdrill/config
-index b7df8bf309200..a14a704dcbd49 100644
---- a/tools/testing/selftests/net/packetdrill/config
-+++ b/tools/testing/selftests/net/packetdrill/config
-@@ -1,6 +1,8 @@
-+CONFIG_CGROUPS=y
- CONFIG_HZ=1000
- CONFIG_HZ_1000=y
- CONFIG_IPV6=y
-+CONFIG_MEMCG=y
- CONFIG_NET_NS=y
- CONFIG_NET_SCH_FIFO=y
- CONFIG_NET_SCH_FQ=y
-diff --git a/tools/testing/selftests/net/packetdrill/ksft_runner.sh b/tools/testing/selftests/net/packetdrill/ksft_runner.sh
-index 0a97d5ae34699..ba62f3840eb57 100755
---- a/tools/testing/selftests/net/packetdrill/ksft_runner.sh
-+++ b/tools/testing/selftests/net/packetdrill/ksft_runner.sh
-@@ -52,6 +52,34 @@ if [[ -n "${KSFT_MACHINE_SLOW}" ]]; then
- 	failfunc=ktap_test_xfail
- fi
- 
-+pagesize=$(grep -E '^--define=REQUIRES_PAGESIZE=' $script | cut -d '=' -f 3 | tr -d '"')
-+if [[ -n "$pagesize" && "$(getconf PAGESIZE)" != "$pagesize" ]]; then
-+	ktap_skip_all "requires ${pagesize}B PAGE_SIZE"
-+	exit "$KSFT_SKIP"
-+fi
-+
-+if grep -q -E '^--define=REQUIRES_MEMCG=' $script; then
-+	cgroot=$(mount -t cgroup2 | head -1 | awk '{print $3}')
-+	memcg_was_enabled=0
-+	if [[ -n "$cgroot" ]] &&
-+	   grep -qw memory "${cgroot}/cgroup.subtree_control" 2>/dev/null; then
-+		memcg_was_enabled=1
-+	fi
-+	if [[ -z "$cgroot" ]] ||
-+	   ! echo +memory > "${cgroot}/cgroup.subtree_control" 2>/dev/null; then
-+		ktap_skip_all "requires cgroup2 memory controller"
-+		exit "$KSFT_SKIP"
-+	fi
-+	cleanup_memcg() {
-+		rmdir "${cgroot}"/pkt_* 2>/dev/null || true
-+		if [[ "$memcg_was_enabled" -eq 0 ]]; then
-+			echo -memory > "${cgroot}/cgroup.subtree_control" \
-+				2>/dev/null || true
-+		fi
-+	}
-+	trap cleanup_memcg EXIT
-+fi
-+
- ip_versions=$(grep -E '^--ip_version=' $script | cut -d '=' -f 2)
- if [[ -z $ip_versions ]]; then
- 	ip_versions="ipv4 ipv6 ipv4-mapped-ipv6"
-diff --git a/tools/testing/selftests/net/packetdrill/tcp_wmem_schedule_negative_fwd_alloc.pkt b/tools/testing/selftests/net/packetdrill/tcp_wmem_schedule_negative_fwd_alloc.pkt
-new file mode 100644
-index 0000000000000..e4d8d13144f0a
---- /dev/null
-+++ b/tools/testing/selftests/net/packetdrill/tcp_wmem_schedule_negative_fwd_alloc.pkt
-@@ -0,0 +1,116 @@
-+// SPDX-License-Identifier: GPL-2.0
-+// Test that tcp_wmem_schedule() clamps negative sk->sk_forward_alloc to 0
-+// when sk_wmem_schedule() fails under memory pressure and
-+// sk->sk_wmem_queued >= sysctl_tcp_wmem[0], returning EAGAIN rather than
-+// EFAULT.
-+//
-+// Buffer and segment sizes are tuned for 4 KB pages and standard
-+// CONFIG_MAX_SKB_FRAGS values (17 to 45).
-+
-+--define=REQUIRES_PAGESIZE="4096"
-+--define=REQUIRES_MEMCG="1"
-+--mtu=65535
-+--tolerance_usecs=100000
-+
-+`set -e
-+./defaults.sh
-+ip link set dev tun0 mtu 65535
-+sysctl -q net.ipv4.tcp_rmem="4096 131072 6291456"
-+sysctl -q net.ipv4.tcp_wmem="4096 16384 4194304"
-+taskset -cp 0 $PPID >/dev/null 2>&1 || true
-+cgroot=$(mount -t cgroup2 | head -1 | awk '{print $3}')
-+[ -n "$cgroot" ]
-+echo +memory > "${cgroot}/cgroup.subtree_control"
-+rmdir "${cgroot}/pkt_${PPID}" 2>/dev/null || true
-+mkdir "${cgroot}/pkt_${PPID}"
-+echo 0 > "${cgroot}/pkt_${PPID}/memory.swap.max" 2>/dev/null || true
-+echo $PPID > "${cgroot}/pkt_${PPID}/cgroup.procs"
-+`
-+
-+// Create listening socket in pkt_${PPID} memcg and establish connection
-+0.000 socket(..., SOCK_STREAM, IPPROTO_TCP) = 3
-++0.000 setsockopt(3, SOL_SOCKET, SO_REUSEADDR, [1], 4) = 0
-++0.000 bind(3, ..., ...) = 0
-++0.000 listen(3, 1) = 0
-+
-++0.000 < S 0:0(0) win 65535 <mss 35000,nop,wscale 7>
-++0.000 > S. 0:0(0) ack 1 <...>
-++0.000 < . 1:1(0) ack 1 win 512
-++0.000 accept(3, ..., ...) = 4
-+
-+// Move packetdrill back to its original cgroup so subsequent packetdrill
-+// allocations are not charged to pkt_${PPID}.
-++0.000 `cgroot=$(mount -t cgroup2 | head -1 | awk '{print $3}')
-+runner_pid=$(awk '/^PPid:/ {print $2}' /proc/$PPID/status)
-+orig_cg=$(sed -n 's/^0:://p' /proc/$runner_pid/cgroup)
-+echo $PPID > "${cgroot}${orig_cg}/cgroup.procs"`
-+
-++0.000 setsockopt(4, SOL_SOCKET, SO_SNDBUF, [200000], 4) = 0
-++0.000 setsockopt(4, SOL_SOCKET, SO_RCVBUF, [112500], 4) = 0
-+
-+// 1. Warm up rcv_ssthresh to full window
-++0.000 < P. 1:35001(35000) ack 1 win 512
-++0.000 > . 1:1(0) ack 35001
-++0.000 read(4, ..., 35000) = 35000
-+
-++0.000 < P. 35001:70001(35000) ack 1 win 512
-++0.000 > . 1:1(0) ack 70001
-++0.000 read(4, ..., 35000) = 35000
-+
-++0.000 < P. 70001:105001(35000) ack 1 win 512
-++0.000 > . 1:1(0) ack 105001
-++0.000 read(4, ..., 35000) = 35000
-+
-++0.000 < P. 105001:140001(35000) ack 1 win 512
-++0.000 > . 1:1(0) ack 140001
-++0.000 read(4, ..., 35000) = 35000
-+
-+// 2. Queue 79 KB on TX so sk_wmem_queued >= sysctl_tcp_wmem[0], while leaving
-+//    both tail SKB space (26 KB) and sk_page_frag space (19.3 KB) >= 16 KB.
-++0.000 write(4, ..., 79000) = 79000
-+
-+// 3a. Inject 6 high-density 35 KB segments (210 KB payload, 222.7 KB truesize
-+//     across 8-page order-3 frags on both CONFIG_MAX_SKB_FRAGS=17 and 45) and
-+//     read 100 bytes from the head SKB so before(skb->seq, tp->copied_seq)
-+//     holds.
-++0.000 < P. 140001:175001(35000) ack 1 win 512
-++0.000 < P. 175001:210001(35000) ack 1 win 512
-++0.000 read(4, ..., 100) = 100
-+
-++0.000 < P. 210001:245001(35000) ack 1 win 512
-++0.000 < P. 245001:280001(35000) ack 1 win 512
-++0.000 < P. 280001:315001(35000) ack 1 win 512
-++0.000 < P. 315001:350001(35000) ack 1 win 512
-+
-+// 3b. Inject three smaller segments into the remaining advertised rcv_wnd.
-+//     Their higher truesize pushes sk_rmem_alloc > sk_rcvbuf (225000) and
-+//     exhausts sk_forward_alloc, triggering tcp_prune_queue() -> tcp_collapse()
-+//     on the 3rd segment and driving sk->sk_forward_alloc <= -16.4 KB.
-++0.000 < P. 350001:350801(800) ack 1 win 512
-++0.000 < P. 350801:351601(800) ack 1 win 512
-++0.000 < P. 351601:351901(300) ack 1 win 512
-+
-+// 4. Drain per-CPU memcg stock via memory.high=0, cap memory.max=0 (O_NONBLOCK
-+//    avoids synchronous reclaim/OOM), and expect -EAGAIN on a 16 KB non-blocking
-+//    write. Because copy (16 KB) minus sk_forward_alloc (<= -16.4 KB) exceeds
-+//    PAGE_ALLOC_COSTLY_ORDER (32 KB), try_charge_memcg() fails without invoking
-+//    the memcg OOM killer.
-++0.010 `cgroot=$(mount -t cgroup2 | head -1 | awk '{print $3}')
-+echo 0 > "${cgroot}/pkt_${PPID}/memory.high"
-+echo 0 > "${cgroot}/pkt_${PPID}/memory.high"
-+printf 0 | dd of="${cgroot}/pkt_${PPID}/memory.max" oflag=nonblock status=none`
-++0.000 fcntl(4, F_SETFL, O_RDWR|O_NONBLOCK) = 0
-++0.000 write(4, ..., 16384) = -1 EAGAIN (Resource temporarily unavailable)
-+
-++0.000 close(4) = 0
-++0.000 close(3) = 0
-+
-+// Untimed cleanup command executed by packetdrill on both pass and early
-+// failure.
-+`cgroot=$(mount -t cgroup2 | head -1 | awk '{print $3}')
-+[ -n "$cgroot" ] || exit 0
-+runner_pid=$(awk '/^PPid:/ {print $2}' /proc/$PPID/status)
-+orig_cg=$(sed -n 's/^0:://p' /proc/$runner_pid/cgroup)
-+echo $PPID > "${cgroot}${orig_cg}/cgroup.procs" 2>/dev/null || true
-+echo $$ > "${cgroot}${orig_cg}/cgroup.procs" 2>/dev/null || true
-+rmdir "${cgroot}/pkt_${PPID}"`
--- 
-2.56.0.257.gf7497c7d27-goog
+> ---
+> 
+> Changes in v2:
+>  * Split iio patch into per-driver patches
+> 
+>  drivers/iio/chemical/atlas-sensor.c | 4 +---
+>  1 file changed, 1 insertion(+), 3 deletions(-)
+> 
+> diff --git a/drivers/iio/chemical/atlas-sensor.c b/drivers/iio/chemical/atlas-sensor.c
+> index 1d4a9919df1a..48598475512f 100644
+> --- a/drivers/iio/chemical/atlas-sensor.c
+> +++ b/drivers/iio/chemical/atlas-sensor.c
+> @@ -426,9 +426,7 @@ static int atlas_buffer_predisable(struct iio_dev *indio_dev)
+>  	if (ret)
+>  		return ret;
+>  
+> -	ret = pm_runtime_put_autosuspend(&data->client->dev);
+> -	if (ret)
+> -		return ret;
+> +	pm_runtime_put_autosuspend(&data->client->dev);
+>  
+>  	return 0;
+>  }
 
