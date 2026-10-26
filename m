@@ -1,74 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.145.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793045471;
-	b=zEueBLh0UkU4S6zE2li8qWt4K2tV4sSvGVv5r5fC8LeX5olTkiXZiKQ5jKxPmPLM49jT
-	 BSvdXHyFNaaWTG6LsJkkq21vawjpqv46xf0zvMR95i2lR1yH2qmzy50OttJLll9jDEM8O
-	 4+dfsekSO/C+1ELGFLIiTzV7WN+V65uqTEe18S7wpWdRz5fR9e+PMiaqFPTx02w+FLNwV
-	 vsT3cEEcl2ZwZXIYfesi21sZLSZQZ5BjvX/s6b7PNuu0Uyc3Tr9f10svBkSq61cKqguoi
-	 4aPYjYTlsde0/KulS3a4BK9dZPrEK0RCMUJ2NhffJvq/R+8cXQ9dwInFCT8AE2FBcyA==
+	t=1793045536;
+	b=WNMQKcGppelYNUOvwLQJpZ+FWrSri17IlzbYl76ujLSr++eVy7DzPhWZ5+9b7g3CqRVF
+	 yKf2epbeCvh7v1WF2yoQVnzqYeEXOwgMHNS31qJmuPH0tJl3CHXURLWmacfDWiKhvGkwI
+	 y+NIJZzDtFQqSoVHVOgonuWtx6Z51mZw3HphW+nqugpTy46Lxs1r5z2F3koZt8mBc+tb9
+	 +x6b13vIhLgOE/NxXNtfpE/PLQwJUAOTU4qjB1azQDtE0eOT0lQHAbsA+hh6izXBMKc82
+	 o1rJHIckrgaWIX5Z36afEbaHnyBsJ1sgeNeMtiPZqwD41kqZ8+EtXjfRuH85UU5JAGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793045471;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:From:
-	 To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-FB-Internal:Content-Type:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version;
-	bh=qYGmspSDri8F9HUYFDu6GHeZDiCWXNATZ3rpWuwaMVI=;
-	b=LHe16ivIiul9Ut4AIP4uLpr9gpUOfMyFFi9YffGJN3o/3etHZEXX9fi5CnLeoMeiCrT6
-	 CSKgj/xRt2vckJAOXg7JDcG2NNmZpZuJmsw39LN9fI5oESBuqvjR68tJK/ydnmZL6jbOP
-	 BKVV2ze18rHFAw8CsemmCFUMYfYveqhw+A1fJ8n7A/kvcfAG0TLXFEGFmACfdIIJO5Mbt
-	 wdDeLNERF133GnnwYxulH/UY7VbMhd4YOCEaYXvg3HBejifyCd5dQifCLxAJyzkbOZYnz
-	 2Tk6JUsvkbKHoxQnhCEh56cdubqlogs5LdAOjgRCn0CcEKR462GJ7+gUTmNcik81HMw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793045536;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=WY8zdkd7rZ5cmhFyEZEoT+5FWqoeefwdy0riPJROyps=;
+	b=maYR3bGvMprYK5Oe4XwRyuq5hqtX0YKVGD9DXKgslGuuVirzgD27GMcFS43R8H3VblSw
+	 inNWmd5MUQ0OrpjsuIWo0t6774OFGuZf6qfV4f20ipS6xW5p3F3NzDlySIN3jTTpJ3lRu
+	 P3hA2zN4N726XN+FsK17GDOMKEdL/lJXtezhh3s8djfebzXb4Om/tlf7YmtqyvCiVm/08
+	 hasUnA/vxRPFXqaEPK5P3MFE7buAzizN30MQkw6uStF/IwIRgM88bbMieT/NtU9+pvnNh
+	 EbChqypTnadNEmHsddfQWB6Dh/AgFJA2xCcse239vNpR2i1VCEFOPAJNUTMqMe/7s7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=meta.com;
-	spf=pass smtp.mailfrom=meta.com;
-	dkim=pass header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=hJcciEKi;
-	arc=none smtp.remote-ip=67.231.145.42
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com [67.231.145.42])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Cc/n71xi";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E9E7606A31D
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 20:11:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E9E7606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C86B4606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 20:12:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=hJcciEKi
-Received: from pps.filterd (m0148461.ppops.net [127.0.0.1])
-	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69QImdrj772693
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:11:10 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=pps82601-s2048-2026-q3; bh=qYGmspSDr
-	i8F9HUYFDu6GHeZDiCWXNATZ3rpWuwaMVI=; b=hJcciEKiP7JOPDYk195bCDe8l
-	3soiDm3V5iFNcCOk5pK+koJcFLBsV/McUy5VDqOBqa6y9mhTDmRvpNR4B6gedjwY
-	joKth85BBuRSubR4RJmGypC/w38DqTH9/H2ffQWND7SCKL4Qki5qtAPmxJfJnAmN
-	WdVw5UJDFnhTTThI/SxfORejketSRoAQVOMeoJk8gF+sM9l4+Mo3iHRvbL313QH+
-	tZNbsJ+zTtf4gftfI/BCRT/NFaNB3JbEuHnL+WfFopWDya+Ttl2qV9mM2x817IvB
-	wKWFl9Tc4PMWghQV6u0vw6ykLZBTMw0YyI+4N0Iee+Srx1AswPtuWTR3ZBPxg==
-Received: from mail.thefacebook.com ([163.114.134.16])
-	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4hgss7d65d-7
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:11:10 -0700 (PDT)
-Received: from twshared0305.01.snb2.facebook.com (2620:10d:c085:208::f) by
- mail.thefacebook.com (2620:10d:c08b:78::2ac9) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.56; Mon, 26 Oct 2026 20:11:07 +0000
-Received: by devvm33008.atn0.facebook.com (Postfix, from userid 228142)
-	id AAC9B131419B40; Mon, 26 Oct 2026 13:11:04 -0700 (PDT)
-From: Leon Ming <leonming@meta.com>
-To: Miklos Szeredi <miklos@szeredi.hu>
-CC: <fuse-devel@lists.linux.dev>, <linux-fsdevel@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, Luis Henriques <luis@igalia.com>,
-        Joanne
- Koong <joannelkoong@gmail.com>, <leonming@meta.com>,
-        <stable@vger.kernel.org>
-Subject: [PATCH] fuse: set dentry epoch before making the dentry visible
-Date: Mon, 26 Oct 2026 13:11:01 -0700
-Message-ID: <20261026201101.3915217-1-leonming@meta.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cc/n71xi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55C0B1F01825
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 20:12:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793045535;
+	bh=WY8zdkd7rZ5cmhFyEZEoT+5FWqoeefwdy0riPJROyps=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Cc/n71xiAX6mMSvHcjXHQI7LVOk1Jcy/mOH5WQxw2aXn6FT2gsn79YTQnoKgY/ahJ
+	 5EhdoPJRaXrOfkvRTPsiSxHLo6LWK4HcF3ZttA1gZqZM0h+gZGmF98bTerrZFGHaly
+	 uHpNsngx148BP6U0wSLmuIlc+AMUzb6bZ/GgZv9DrgcfiqspEHa053BxPwwmcisBBT
+	 y6yg58iGihWnW5siJkHTbH6XczSSRLQBfGi85h9KasMaK9O83hrj3e5lnZEAbBbWUt
+	 zJlERr/+Yoj5H0Y4TzWbaCaY7Lb2F6vfqN0Drz811ZKLDRmICyh7Fvx8RtDmnS/UDa
+	 SDPkjRz6ug0Ww==
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c414e5d282eso396275966b.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:12:15 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBx0LYRTYZiUaZrcezPm84aVA9CgNPhS/JjvfrhK0zSfBB47MCpC3WMYHra5KbggVUX/kFHCVQRgshZ07LI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK3MoUx/AzkxT26nSpmfhWJ1LE6nwC/kLrBS4cKc/lubt+bmygh
+	Z5pmip5gJd32JngX0k4rE54SU26uN2Xb/hOwsmHCVPjbtpnIxPTx+4yFm+XA18yK6dWb+vwBsx1
+	k70QAfgGwdxwaWvh8iV1m4Lb8VcqSAg==
+X-Received: by 2002:a17:906:c14f:b0:c2e:8eb7:53e8 with SMTP id
+ a640c23a62f3a-c46bde6b23cmr858650066b.30.1793045534038; Mon, 26 Oct 2026
+ 13:12:14 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,154 +59,123 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <20261020212235.1143086-1-ebiggers@kernel.org> <363b228a-7e96-481a-b70f-195ba55d025e@kernel.org>
+ <20261021063927.GA31908@sol> <d5d0801e-371c-4836-8b4a-26bff33df46f@kernel.org>
+ <20261021064940.GC31908@sol> <aea2328d-4ea8-45bc-922e-9c1fed94083f@kernel.org>
+In-Reply-To: <aea2328d-4ea8-45bc-922e-9c1fed94083f@kernel.org>
+From: Rob Herring <robh@kernel.org>
+Date: Mon, 26 Oct 2026 15:12:01 -0500
+X-Gmail-Original-Message-ID: <CAL_JsqLA2F0oB=7LsoxZe-=AboOJu7FotpMACNsuV==jGWB8nw@mail.gmail.com>
+X-Gm-Features: AclHuK8ctbLSJubqCXzYfxrKgeiEezgD3UGSo0bp_Ip9hFZUOPrInPCSAfIjGnM
+Message-ID: <CAL_JsqLA2F0oB=7LsoxZe-=AboOJu7FotpMACNsuV==jGWB8nw@mail.gmail.com>
+Subject: Re: [PATCH] docs: submitting-patches: Require base tree information
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Eric Biggers <ebiggers@kernel.org>, linux-doc@vger.kernel.org, 
+	workflows@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	linux-kernel@vger.kernel.org, 
+	Konstantin Ryabitsev <konstantin@linuxfoundation.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-FB-Internal: Safe
-Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: Lpc44XQK8TrcOakuh49I8XjWvIbY_IHi
-X-Proofpoint-GUID: Lpc44XQK8TrcOakuh49I8XjWvIbY_IHi
-X-Authority-Analysis: v=2.4 cv=BsYIUoX5 c=1 sm=1 tr=0 ts=6adfb3de cx=c_pps
- a=CB4LiSf2rd0gKozIdrpkBw==:117 a=CB4LiSf2rd0gKozIdrpkBw==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
- a=03ozwUkBphtHgyqjj1sw:22 a=VwQbUJbxAAAA:8 a=VabnemYjAAAA:8
- a=fdC3CPP0TigLrd-b9RYA:9 a=gKebqoRLp9LExxC7YDUY:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA4MCBTYWx0ZWRfX1mJO+U1cAO5n
- 72SGweEgV8TLStvZVjxtdzvIyw+mnYYHjZ5vF0BVqbCkNJv4chYu9+O35XpLaOcRUjVfe6c7Hm2
- pVkWg7VYBpclb74mk2DsGcU9QBvi5ho7bnCovgA5zlVYP6Cv9QqxxHSRI9x74Jgb34k4gDlI+fK
- 68+oF1HFNAqMNe6LXupbHi0nMeMJ4d5c0krUKSFxCVDYoUsZi1kA5KesDVvuVR8nqEIoxH+T0+r
- I+R2WoyG8Tk3rFhpuUIJ+VFmaopEAO0laxa3oXjoDooqlGtIhur0/xmMoscDemdJOhPS0vLEakC
- 45kG6k1mQsQ2DA004bUugI44jyOENYtIelOBsvgiu0HfCN5sWZFjS07msk8aAyqAJYDofmQTejw
- 78dR1NzrqJ3LHVr8mpC4vI3Cel9UIqt5/3y3G/QC4awj6aAnsFNcsG6AJfpzyTiqh8jXBmKfbRV
- FmcqqZimR3TexSrriiw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA4MCBTYWx0ZWRfX3VLB6OqAQzhM
- v2MgP55yx9PBNXbJo3vrYwjHRf1BDY11W7Ar1JYq9FJBlY40EF3MDDuzJ8znCxiGW5D20/SWneB
- ajUK2yX0KDxAoa9CmnkRrLs8wffkeK0=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-26_04,2026-10-21_02,2025-10-01_01
 
-fuse_lookup(), create_new_entry(), fuse_create_open() and
-fuse_direntplus_link() all record the connection epoch in the new dentry
-only after d_splice_alias() or d_instantiate() has published it.  A new
-dentry starts with an epoch of zero (fuse_dentry_init()), and the
-connection epoch starts at one, so in that window the dentry is hashed
-but fails the epoch check in fuse_dentry_revalidate().
+On Wed, Oct 21, 2026 at 6:55=E2=80=AFAM Krzysztof Kozlowski <krzk@kernel.or=
+g> wrote:
+>
+> On 21/10/2026 08:49, Eric Biggers wrote:
+> > On Wed, Oct 21, 2026 at 08:41:47AM +0200, Krzysztof Kozlowski wrote:
+> >> On 21/10/2026 08:39, Eric Biggers wrote:
+> >>> On Wed, Oct 21, 2026 at 08:26:28AM +0200, Krzysztof Kozlowski wrote:
+> >>>> On 20/10/2026 23:22, Eric Biggers wrote:
+> >>>>> -Make sure that base commit is in an official maintainer/mainline t=
+ree
+> >>>>> -and not in some internal, accessible only to you tree - otherwise =
+it
+> >>>>> -would be worthless.
+> >>>>> +    If ``git format-patch`` with ``--base=3Dauto`` (or
+> >>>>> +    ``format.useAutoBase=3Dtrue``) can't detect a base commit, e.g=
+. due to
+> >>>>> +    the current branch having no upstream tracking branch, it exit=
+s with
+> >>>>> +    an error. In such cases, pass an explicit base commit to ``--b=
+ase``
+> >>>>> +    instead. This is also needed if git detects the wrong base com=
+mit,
+> >>>>> +    such as when the upstream branch has local, unpublished commit=
+s.
+> >>>>> +
+> >>>>> +The base commit must be in a well-known public tree, such as the
+> >>>>> +subsystem development branch the patch is targeting. See
+> >>>>> +:ref:`obtain_a_current_source_tree`. Mainline or the latest linux-=
+next
+> >>>>> +can also be acceptable bases, depending on the subsystem.
+> >>>>
+> >>>> I disagree, that's pointlessly too hard requirement.
+> >>>>
+> >>>> For many of my contributions base is obvious and not needed to be
+> >>>> explicitly defined. For all the patches I accept, answer is the same=
+ -
+> >>>> base is either obvious or if not and patch does not apply, then the =
+base
+> >>>> does not matter.
+> >>>>
+> >>>> Requiring it is just bureaucracy without actual benefit.
+> >>>>
+> >>>> The only benefit would be if maintainer COULD change its base to app=
+ly
+> >>>> some patch with odd base... but this cannot happen. Maintainer base =
+is
+> >>>> fixed - it's the HEAD of his development branch for given category o=
+f
+> >>>> commits (e.g. DTS branch for SoC maintainers).
+> >>>
+> >>> There are many use cases for applying patches besides the final patch
+> >>> acceptance, such as review (by anyone, not just a maintainer), testin=
+g,
+> >>> CI systems, etc.
+> >>>
+> >>> HEAD of a branch is of course not fixed, and changes every time a pat=
+ch
+> >>> gets applied.  That's especially relevant when wanting to check out a=
+n
+> >>> old patch for any reason.  Trying to guess a base commit based on the
+> >>> date and patch subject is a waste of time.
+> >>
+> >> All these tools should just work on top of linux-next. Requiring peopl=
+e
+> >> to add base like "next-20261021" or "tip-of-obvious-maintainer-tree" i=
+s
+> >> pointless. I understand that base is helping, but helping and requirin=
+g
+> >> an obvious information just do not go together.
+> >>
+> >> So again: base has ZERO meaning to the maintainer process. It has
+> >> meaning to tools, so fix the tools to work on known and obvious trees.
+> >
+> > So what is your proposed algorithm to apply an arbitrary patch when
+>
+> Already provided that, so to recap:
+>
+> > there's no base-commit?  Including any historical patch (from
+> > months/years ago), patches with dependencies, etc.
+>
+> Dependency is something else, but for every other patch:
+> 1. For testing/CI: you apply on top of next
+> 2. Every other case the maintainer knows where to apply it, because it
+> is his HEAD of next-branch.
+>
+> I am repeating myself, but I really had no single problem of lack of
+> knowledge where to apply a patch as a maintainer or reviewer of some
+> subsystem, thus maybe I do not understand the actual problem you are
+> experiencing.
 
-d_splice_alias() hashes the dentry and wakes the lookups waiting on it
-in d_alloc_parallel().  A waiter, or a concurrent lookup_fast() that
-finds the dentry in the hash, calls ->d_revalidate(), gets 0 and
-d_invalidate()s the dentry the original lookup is about to return.  The
-caller still gets a valid dentry, but it is now unhashed.  One visible
-result is that readlink() of /proc/self/fd/N for an O_PATH fd opened on
-that path returns "<path> (deleted)" for a file that exists.
+Look at our DT PW. There are numerous patches that don't apply and
+then we silently don't test them at all. Here's one example[1] (3
+actually as the whole series doesn't apply). The more base-commit
+tags, the better. If b4 can't apply it, then I do try just linux-next,
+but is that today's, yesterday's or 2 weeks ago? That still doesn't
+work sometimes.
 
-This shows up when many threads look up the same uncached path at once.
-TypeScript's native compiler (tsgo) resolves real paths with
-open(O_PATH) + readlink(/proc/self/fd/N), and when it type-checks a
-project in a FUSE-backed checkout it intermittently caches the
-"(deleted)" path and fails to resolve a package that is installed.
+Rob
 
-Before commit 5a6baf204610 ("fuse: fix uninit-value in
-fuse_dentry_revalidate()") initialised the epoch to zero, it held
-whatever the slab left there, so the check usually passed by accident.
-
-Set the epoch on the new dentry before it is published.  If
-d_splice_alias() returns an existing alias, keep setting the epoch on
-that dentry afterwards, as before.
-
-Reproducer: N processes start together and each run open(O_PATH) +
-readlink(/proc/self/fd/N) over the same list of files in a freshly
-mounted FUSE filesystem, counting results that end in " (deleted)".
-On this tree under UML (16 CPUs, squashfuse_ll, 6000 files, 32
-processes, a fresh mount per round):
-
-  before: 3519 of 10.75M lookups "(deleted)", in 51 of 56 rounds
-  after:  0 of 10.75M lookups
-
-On v7.1-based production kernels with EdenFS the same test returned
-"(deleted)" for 5.5% of lookups.
-
-Fixes: 2396356a945b ("fuse: add more control over cache invalidation beha=
-viour")
-Cc: stable@vger.kernel.org
-Signed-off-by: Leon Ming <leonming@meta.com>
----
- fs/fuse/dir.c     | 16 ++++++++++++----
- fs/fuse/readdir.c |  1 +
- 2 files changed, 13 insertions(+), 4 deletions(-)
-
-diff --git a/fs/fuse/dir.c b/fs/fuse/dir.c
-index 28516a1760e..b7af3f5a3bb 100644
---- a/fs/fuse/dir.c
-+++ b/fs/fuse/dir.c
-@@ -644,13 +644,21 @@ static struct dentry *fuse_lookup(struct inode *dir=
-, struct dentry *entry,
- 	if (inode && get_node_id(inode) =3D=3D FUSE_ROOT_ID)
- 		goto out_iput;
-=20
-+	/*
-+	 * Set the epoch before d_splice_alias() makes the dentry visible.
-+	 * Otherwise a concurrent lookup can find it with an epoch of zero, fai=
-l
-+	 * fuse_dentry_revalidate() and invalidate it under us.
-+	 */
-+	fuse_dentry_set_epoch(entry, epoch);
- 	newent =3D d_splice_alias(inode, entry);
- 	err =3D PTR_ERR(newent);
- 	if (IS_ERR(newent))
- 		goto out_err;
-=20
--	entry =3D newent ? newent : entry;
--	fuse_dentry_set_epoch(entry, epoch);
-+	if (newent) {
-+		entry =3D newent;
-+		fuse_dentry_set_epoch(entry, epoch);
-+	}
- 	if (outarg_valid)
- 		fuse_change_entry_timeout(entry, &outarg);
- 	else
-@@ -907,8 +915,8 @@ static int fuse_create_open(struct mnt_idmap *idmap, =
-struct inode *dir,
- 		goto out_err;
- 	}
- 	kfree(forget);
--	d_instantiate(entry, inode);
- 	fuse_dentry_set_epoch(entry, epoch);
-+	d_instantiate(entry, inode);
- 	fuse_change_entry_timeout(entry, &outentry);
- 	fuse_dir_changed(dir);
- 	err =3D generic_file_open(inode, file);
-@@ -1030,6 +1038,7 @@ static struct dentry *create_new_entry(struct mnt_i=
-dmap *idmap, struct fuse_moun
- 		fuse_chan_queue_forget(fm->fc->chan, forget, outarg.nodeid, 1);
- 		return ERR_PTR(-ENOMEM);
- 	}
-+	fuse_dentry_set_epoch(entry, epoch);
- 	kfree(forget);
-=20
- 	d =3D d_splice_alias(inode, entry);
-@@ -1040,7 +1049,6 @@ static struct dentry *create_new_entry(struct mnt_i=
-dmap *idmap, struct fuse_moun
- 		fuse_dentry_set_epoch(d, epoch);
- 		fuse_change_entry_timeout(d, &outarg);
- 	} else {
--		fuse_dentry_set_epoch(entry, epoch);
- 		fuse_change_entry_timeout(entry, &outarg);
- 	}
- 	fuse_dir_changed(dir);
-diff --git a/fs/fuse/readdir.c b/fs/fuse/readdir.c
-index 83a1cc46fe4..ffce4031892 100644
---- a/fs/fuse/readdir.c
-+++ b/fs/fuse/readdir.c
-@@ -239,6 +239,7 @@ static int fuse_direntplus_link(struct file *file,
- 		if (!inode)
- 			inode =3D ERR_PTR(-ENOMEM);
-=20
-+		fuse_dentry_set_epoch(dentry, epoch);
- 		alias =3D d_splice_alias(inode, dentry);
- 		d_lookup_done(dentry);
- 		if (alias) {
-
-base-commit: 416fd13cb4b789b78304ef1b8579125106ba3ffc
---=20
-2.53.0-Meta
-
+[1] https://patchwork.kernel.org/project/devicetree/patch/8b2c7719c301a4458=
+91fc6c5309456327ec8a94c.1793026273.git.geert+renesas@glider.be/
