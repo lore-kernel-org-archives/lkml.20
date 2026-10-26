@@ -1,64 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793035512;
-	b=NfKCIc9hmqV5kfrSuK9dLbZ64oyXE2d+GbT93tbwXGbC8A8AmJgoARVnTB8EF0WEsDk2
-	 3x1L8EePENhIooSZhYCcpD1tMZAMiNyNU1hoxGbgqsVmVkSZYpxF20a0EhkIz3755dwRe
-	 27q2ztiPWZVoI0ZjGpelwkGP3TbjOPr4juzID4FHo6agmmR0ogygZODQ2D4A6dAjEEjHx
-	 bAljx1dnwj7KMilIquNrwJSgaVuLXALkS3tzwHw+H62NN4UbnFYcahIaWOfexDDtnNleq
-	 d0TLLYlfvHftDEQ3VQvr3ZnqXtpVPuWOWoWzhF2fmzXSTXRR3CzepHXrH0ZulIELrmg==
+	t=1793035538;
+	b=1Zm9WQJN8yb38qkxMLh8/gCMgIovMadDsWMR0K5ezSni6t5mJcFRGb6tgD/iTeOqxgFf
+	 q8IUYejXhlgOxaqoewcE/ToeC+uGHRjzab7ys9CNeAMz9BQhLegFZgU0ifJX3lL4eI95a
+	 67ScHVSV2uKrhy9ewoiq+/e6/chNAlHuyJp6mNmiHbHfA+1XfWVFgRtm9so7PdIXIKF6a
+	 BQB+Kqhfrp8zsOEp0EVmAgkj64EUDEvhLVq5qhgaxR4MoTGxv/XG3/cfW9hN66qac+jYv
+	 K3XzgkfKHG9EgI/zfGQ+MPW24K0xbofuFqNG17ldc6ePQ1h5BUktlCgqzbFlYhj4Tjg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793035512;
-	h=Received:DKIM-Signature:Received:Subject:From:In-Reply-To:References:
-	 X-PR-Tracked-List-Id:X-PR-Tracked-Message-Id:X-PR-Tracked-Remote:
-	 X-PR-Tracked-Commit-Id:X-PR-Merge-Tree:X-PR-Merge-Refname:
-	 X-PR-Merge-Commit-Id:Message-Id:Date:To:Cc;
-	bh=Ve1em0WUiVhfs92cCJj6cPFNkzrHbV84VQlCPQJkvMM=;
-	b=MYzAID/MSIefIdBUGjuxQ8/tvBg9T3dRRscBzvFurYdTPzCkIqCSM/iIPlR9ON4NC7KU
-	 uZq6tA2ousn0ZpBUBnUvx77phzB8oAJAvdI45jN7PpWRHrjLEUWoeZZrhCiH5TUTaT44U
-	 anynCvf+TG3J/vn/wfh4jmfaer2ifTYSVtNCCtmdbY9Lz8ejslXrB2cHTyfUeeD3/KUrB
-	 1LzuZ0LHCT7g11nBXqmrGmkv5o3ukOxpTLlXB7ISOxIDBk8Dpmjc9DQiXjL7ZAdiuIsa7
-	 k2UjYkpzRkCyDwg47B8BwSuPa7uQKd08BA95WVFaOD82N8l5fHWZCjmzSyQ76UoGQMg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793035538;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type;
+	bh=buxG7wzvUrhysQ03B60L3jHsDzOHP1rRWLo5WHGJFa8=;
+	b=RAPTtSwq4ne+eSQuNAGlDFgOJ81Gnq2akaEbaTptExT/1iJmE9yX7lmx9DMc5Ank4ep8
+	 +ZRPGhCPOrry9AKMyUed6cO6u2cnv9a3JjFSu+s7pREzfSM9CbP1/72d/VMG5pDquzogC
+	 5NpMfVwajmrx04FHhEG/PnM66duAU9nbEaxyxDZuq/JQZ2Lj3ltzXVxssb7EB7wSwMB4W
+	 Xb6TCsVZMGoJMMe+nuWnCOewvSr5099el6EMteynL0L+gDBWOHV101MjBZmvFeed64Dyv
+	 pTJZrbICADO8lsJm8ie/40esLXxBuETwbzLIU/yqNi3FtAaPC6UChAs+xJcDCri7H4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mtu0qkvl;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=sntech.de;
+	spf=pass smtp.mailfrom=sntech.de;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=EuQoFvcT;
+	arc=none smtp.remote-ip=185.11.138.130
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D85E606A33F;
-	Mon, 26 Oct 2026 17:25:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77223606A31D;
+	Mon, 26 Oct 2026 17:25:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77223606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mtu0qkvl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B98F1F01825;
-	Mon, 26 Oct 2026 17:25:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793035511;
-	bh=Ve1em0WUiVhfs92cCJj6cPFNkzrHbV84VQlCPQJkvMM=;
-	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=Mtu0qkvlQ2Jnu5/RI63xZMZCEEUoukWGl+wppoGptPvYNNEoHHNIrX6Jy3JVmv9hs
-	 z2Dp1gtR4eTQfVvztZWsknh2KIz5zA5tjRymx/B+FLvzRn9m/UTc+vHrNaamrGvz46
-	 w24s0yeJVnswGGb0lw0p2tJ2xweknr/+Q7hUoOVK+06DDruHSKf27aaF/WTsCIpo0m
-	 z9s16zFPvqp9bWj7ToHPObLRWQqtrfKBDamhF3g08wh3ndPiDsvPT0erWgfK8Qk0R3
-	 rDcIHO+Qs7SwJgqfffymbI2NSEK78Ytq8YixFxzjLhbY8ebTTev/DC/tTrns4Bztnl
-	 gN+PKHHGl4YxQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 816883AA58BF;
-	Mon, 26 Oct 2026 17:25:11 +0000 (UTC)
-Subject: Re: [GIT PULL] Driver core fixes for 7.4-rc1
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <DME7288WXCGZ.1XSS13X4IVJ5W@kernel.org>
-References: <DME7288WXCGZ.1XSS13X4IVJ5W@kernel.org>
-X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
-X-PR-Tracked-Message-Id: <DME7288WXCGZ.1XSS13X4IVJ5W@kernel.org>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/driver-core/driver-core.git tags/driver-core-7.4-rc1-2
-X-PR-Tracked-Commit-Id: 187a62f99da29b1a55602b0d401a783d8dc86161
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 0cc3ad8f4d2e2009c2005278c754caf7c07fe0a4
-Message-Id: <179303551017.3291751.18363392359285544875.pr-tracker-bot@kernel.org>
-Date: Mon, 26 Oct 2026 17:25:10 +0000
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, Johan Hovold <johan@kernel.org>, Saravana Kannan <saravanak@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, driver-core@lists.linux.dev, linux-usb@vger.kernel.org, rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
+	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=EuQoFvcT
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=buxG7wzvUrhysQ03B60L3jHsDzOHP1rRWLo5WHGJFa8=; b=EuQoFvcTmdF1MqhFINMp9kW4jn
+	j4134NOWSe6VQzg3ql4+9o6rRcYSKwYYS+jPZIJDAJcUNXEAG79n6U7S60Ewwx/eKpabnRmMsKd95
+	Uox2Wg7cZpNtvz1ZLGryqszWJ55+zPphKeoxIpSvElwfFvPlct1yjlrQzZ00VsB5jIMbYhnPtvbvW
+	rbuGFvT9yBMLmTOYzxWtlcFUXZIes9qbDoSYCgPoenq9R+Mw7mNLwWuJ1Aspw1qme0grL2SmA8VJR
+	Slv8bT7AHy09dEp/4zcbR7u5Qak62kGVUiFeySL1koTWdBHd5D7RuoxGxLecrCkU8+2z2nceTcPDw
+	xB03/g7w==;
+From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
+To: =?UTF-8?B?5byg5pm0?= <zhangqing@rock-chips.com>,
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Richard Cochran <richardcochran@gmail.com>, Cunhao Lu <1579567540@qq.com>
+Cc: linux-clk <linux-clk@vger.kernel.org>,
+ devicetree <devicetree@vger.kernel.org>,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
+ linux-rockchip <linux-rockchip@lists.infradead.org>,
+ linux-kernel <linux-kernel@vger.kernel.org>, netdev <netdev@vger.kernel.org>
+Subject: Re: [PATCH v3 3/3] clk: rockchip: Add RK3572 clock and reset support
+Date: Mon, 26 Oct 2026 18:25:14 +0100
+Message-ID: <3062797.SvYEEZNnvj@diego>
+In-Reply-To: <tencent_6876096D2306016F88487E0E4D78345B3208@qq.com>
+References:
+ <20261026-add-board-ok3572-c-clk-v3-0-dbabfa39d692@qq.com>
+ <0d5de6fd-3150-4898-a652-7f5b64dcaf07@rock-chips.com>
+ <tencent_6876096D2306016F88487E0E4D78345B3208@qq.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,16 +70,84 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-The pull request you sent on Sun, 25 Oct 2026 21:16:37 +0100:
+Am Montag, 26. Oktober 2026, 15:56:06 Mitteleurop=C3=A4ische Normalzeit sch=
+rieb Cunhao Lu:
+> Hi zhangqing,
+>=20
+> > This is in clk.h, please submit it separately.
+>=20
+> Thanks for the review. I will move COMPOSITE_MUXTBL to clk.h and add it
+> in a separate preparatory patch.
+>=20
+> > This is incorrect here; there should be no negative values. Two's
+> > complement is used here, so a conversion is needed. For example,
+> > -12955 should be 52581.
+> >
+> > In clk-pll.c, cur.k & BIT(15) is used to determine the two's complement
+> > conversion.
+>=20
+> I agree that the hardware expects a 16-bit two's complement encoding:
+> -12955 is encoded as 0xcd65, which is 52581 when read as unsigned. The
+> difference here is how that coefficient is represented in the rate
+> table on the kernel version this series targets.
+>=20
+> I found the cur.k & BIT(15) branch in Rockchip's downstream develop-6.12
+> tree. There, k is unsigned int, so the driver explicitly checks bit 15
+> and subtracts the magnitude of a negative fractional coefficient.
+>=20
+> This series uses the upstream implementation. Both v2 and v3 are based
+> on a804c5742bff, which already contains commit
+> 581478883477 ("clk: rockchip: Fractional PLL coefficient on RK3588/RK3576
+> is two's complement"). That commit changed the k member of
+> struct rockchip_pll_rate_table to:
+>=20
+>         s16 k; /* fractional part, 16 bit two's complement */
+>=20
+> On this base, rockchip_rk3588_pll_recalc_rate() uses signed arithmetic:
+>=20
+>         s64 frac_rate64 =3D (s64)prate * cur.k;
+>         postdiv =3D cur.p * 65536;
+>         rate64 +=3D div_s64(frac_rate64, postdiv);
+>=20
+> The signed type represents the negative coefficient directly, so this
+> implementation does not need a separate cur.k & BIT(15) branch. For
+> example, the mainline RK3576 rate table already contains:
+>=20
+>         RK3588_PLL_RATE(955520000, 3, 478, 2, -15730),
+>         RK3588_PLL_RATE(785560000, 3, 393, 2, -14419),
+>=20
+> These are exactly the same entries as in this RK3572 patch, including
+> p, m and s. Mainline RK3588 uses the same entries as well. Since RK3572
+> uses this shared upstream PLL implementation, I will follow the
+> mainline RK3576 convention for its rate table.
+>=20
+> Writing 52581 directly into an s16 initializer would require an
+> out-of-range implicit conversion; a reduced compiler test reproduces
+> Clang's constant-conversion diagnostic. An explicit cast such as
+> (s16)52581 would produce the same signed coefficient, but would add a
+> conversion that the existing mainline tables avoid. Using -12955
+> directly makes the value used in the rate calculation clear and stays
+> consistent with RK3576.
+>=20
+> The register encoding is preserved: the write path passes k through
+> HIWORD_UPDATE() with a 0xffff mask, so -12955 still writes 0xcd65 into
+> the coefficient field. The five initializer changes from v2 to v3 only
+> make the signed values explicit; they do not change p, m, s or the
+> 16-bit coefficient encodings. In particular, no further adjustment of
+> m is needed for these representation changes.
+>=20
+> I will therefore retain the signed coefficients, following mainline
+> RK3576.
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/driver-core/driver-core.git tags/driver-core-7.4-rc1-2
+I definitly agree. For reference the commit fixing rk3588/rk3576 and
+containing all the details is
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?=
+id=3D5814788834774ed6ad1a27ae91b44eeca80cd27f
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/0cc3ad8f4d2e2009c2005278c754caf7c07fe0a4
+Heiko
 
-Thank you!
 
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
