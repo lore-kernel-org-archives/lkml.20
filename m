@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793042241;
-	b=WJbQybgrmFDW9xZVXAHZVcQuN8QrEPA1WoX3hbsPYmolWHacztcz5eGkLyUaQlKxw/wJ
-	 j4zG4u9N1z+TIJWkd6lInGjNSs3cHpHElEjd+NwFwZL+19guFB+CK1MBM7LlKM6rWEEHq
-	 oSSoXsV5ySIrfCNJM0iLEpZ5rmgQ7UtRxILvV+DheYhq+sKf3We6xVAon9W2vrZ/HBbkZ
-	 7dQPG3yzGiSTvqt6O0fT8W7w5rXKsoJjn8p1ErjW/EdHwYPrphQ0I1vauPjHpPIr16EIc
-	 pf8oQMifYTnpvaULKCb2xVX4y0qphceTu/T/bCpLwjNOuY0P+fggbx+sJmlJYcv4R8Q==
+	t=1793042239;
+	b=B0eL1TvsQuHuxpycElIi1QTPhPamqYbEb88dEpNhxFBnDj7BVk+kFUZy4YnVpYJJu/Mi
+	 Gsj/T+EMcOQeLoRpXausjk67tz7W27DVIUbqZ2soFhxIKPLOchQ9VOjVQdaoKtRvkz1gk
+	 wzKnoNpIBBl/7vbVrUuYUwffc3uck14yIgl3OdNISPKCd0tetxTPbpqgDcP6eXHAv9+7K
+	 9W1/hK213MqGgrcKd2SQkDyLOWptxzVutl2lRgfujvXctO+8VbQIEgLYP8c5tVkEmcld/
+	 66y12YNSgLTl+/7NQa5T1bBl/05RUDSks8BqAdxK+v1Sbi+7apwnQ00k5I42nWY46DA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793042241;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793042239;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=bUzni0iK/C+PhtxdHk9zeTrgmQXy4renjbgo9cCUJ7I=;
-	b=lGD8R8MXhqNC0akA92grtYdbjBf3tvZ+nMoeqaNxSGL/g4RBFKmKHA2a4dV3lNZKDEKW
-	 aa+CP0h9X9eEXNS7+s4Mwonbgzc2fNIvOjsA3gHAfi7vop3GOp9hMdwstihP8Hza3pBBT
-	 IHEzujrEr+z1buc48fYby3P6cmB5Ra7Zsi3DGg9favr+kZ4pGbRlrkgtl+Q5Cf5AvdRwl
-	 uhwE9kTfBjF4Z7Db2u3DatcilkRgm2dNVJleYVyDfq0k3YHBIqof6+RVNsSfcMPlAIWnG
-	 cT2sAB+FCf7c7RdkUgzCJ6ZtX5LP+1+21DEIBRQZugWLM8Y5JZFbWxFjhDDlv8mGU2Q==
+	bh=yJru5R+YQPLu3R1c5df1kMX2H2UK+L3ywcxDSk2j+SQ=;
+	b=xQvqZ4sAslXTbLLoMSn4faHOEyPJu+9rJVDAKMMuhsvz534QQVBwD1FfIs5Cr4nZHGTf
+	 nlR+89HLwP8SpQObOOWQFv49Mkj5MeIAmzsvYccgsMSbNY00A55jsCQC/ucOY38QhPWfc
+	 4Z0IgL2oZnE1LYBhrKAreNpOGZr4dIKaXxLlliC4inGQL2mv8fy8WO9JjGIzx9EBi80nE
+	 R1aygVG2U9+erKydoYTRlECQsLxarjUbvEwSffruViMPlsYoTcaslbEeDBl+BqlEp746g
+	 ad1Z2wn2TAJXmV2e6FWIbpZEPmKeydZRtqRrjakCDw8y5uKCrT+YHPCxTM4Ii6Eyqzw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Us+cBCcJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H5yABUjz;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1A2C60A260E;
-	Mon, 26 Oct 2026 19:17:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6167360A2607;
+	Mon, 26 Oct 2026 19:17:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Us+cBCcJ
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H5yABUjz
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793042240;
-	b=cabIcGffNexV246wSdv72au5KVzUY/fixq6wBplUpJGslPnvFpSNsoJMXwl0kxTQbcVD
-	 LnS0lkRh3+H1iIGLXufiriskGtsvm3mWeP9mFjD2MMAwe4QJt+4M8Y/F0c2LBXgFC73Tt
-	 1Rgj+6vKp8eT5nLs7DwKV87ELKdyqeeKX6l4d2Rg6bw+lb2AM9RBpZ1YWZqlwXWuc8Ey2
-	 ZjSgL6GiS35yEIq0X1alanin4sqCqa2R7EKm8im/ew0GLG6uQGk1cSiVuPtyNr/iNItY7
-	 M31bKP6eVrfEuu9ICPruszl7u3tXmWovsekhZDEQZWysZWTjpF8SxKIV5Mjn8gGjCjQ==
+	t=1793042239;
+	b=uhTKdqLV2C0h9sJ9qZPpUeTvXN4NWvnNCfVxDUlPsBacDxjJG8tRzUr8NEeQpSEXfNxn
+	 K12omh/znEOHiPofyrm4KxdBBGiB7iBnzgcm3HH7INvAHfjJEPEpUUK421e8x7dQf4Ezp
+	 qPpCmCFLK6JVnwW7zEmS7mNOREeTRMTNyJW6OsNhAp0k+1+r1zUfgR5fXd8D69i8V7RDh
+	 gNfada/WzMeCMtJCXYR0+NlKqz7X8Hj7tsZX7DQ0fUlEHeRGvVh/+rthEmBS/7pLvb2VJ
+	 qt0CS1VJi3TfpUha+uS/rWfu3ggzMwC8U0bjZ4Lwc8yOhPdtsCmQbAVaOF6bUpXPmRA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793042240;
+	c=relaxed/relaxed; t=1793042239;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=bUzni0iK/C+PhtxdHk9zeTrgmQXy4renjbgo9cCUJ7I=;
-	b=lRtvmNtjfrWDbl3LKNTIf6qqUfL5FEE6AyTe1BzW2uzMeW/h/jgLMlgRlnRUWPH/JrKc
-	 kENEXMU5awypCIAO08ZanevO4xyqD7yrseu0BpExIk7FDGR7KJxs0pnfLrbFffuBjiXoe
-	 5Vm84kA03cTato/OWl8Jx+UnyYbK6JTsZcuLxDQ//dfZy6oYPItVsHOqNOpUuxGMFf5Ii
-	 K9xVX6eNm8gosOCZFwGP/LqM2HIaH5Ncr5veN+l84g9MdoI4IEmiFfIjCliTbwhWstK82
-	 +1Y0iaYqpCbyNhA2BG1/kdjC8Pa1DMg02Wsi3QfbS/nLQPxDLWp3YOmPRZDMA7ict3A==
+	bh=yJru5R+YQPLu3R1c5df1kMX2H2UK+L3ywcxDSk2j+SQ=;
+	b=Gc7+ebKsRQSrZVp3En/TvqVBB+6BW75hDWZu/0sgu1BG0CZIJaZqva4xc5fjG/StYmX2
+	 EsBHcTvHHQsfwpfmSUfSw54lkOHiZrqrwQWJ40lH5juFW9OlRX7gtDaTPgTl9I9jKUgps
+	 Bz3xpoZyH4G3R5W0Ab7bm4iKcljkOVsRmkLo76UichRCZsOGiRkV6/y7FcFfj3xaEgb2B
+	 tsKPvG9Nr1skZ79YyThkdlONN4RdNE3n9UvnD24Guew5WmEAn7ikthUiRm5gUgbyfNI+v
+	 pv0t90yu9gfL9aB1dpUgrD1TKZ/bBMc11O1wuSHxNE2HsEMJPvuMyQjvy0qwmAI3ZmQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id D47FE1F01828;
-	Mon, 26 Oct 2026 19:17:18 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 411EA1F031E0;
+	Mon, 26 Oct 2026 19:17:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793042240;
-	bh=bUzni0iK/C+PhtxdHk9zeTrgmQXy4renjbgo9cCUJ7I=;
+	s=k20260515; t=1793042239;
+	bh=yJru5R+YQPLu3R1c5df1kMX2H2UK+L3ywcxDSk2j+SQ=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=Us+cBCcJbAn3Q+yLcgwyQHQby9XUeGr9p7f2jxnJtte0O8MWoiPXsC+CCZ5JJQi8a
-	 n9INEvY2OVVr2ou2zlexFanoHDSYr2dV6S/exHzjV36wg3mIgJgT7Tt0L0DU0/mVqa
-	 /TpoIoZoLUHIaFABITbzpojIp6VNOH63AJFU9Zfz4+1kR5+rD4lgg5gnKFacZAlv/T
-	 cXOVZBYuYg1wFBpESzY2R9/ZErYuQqQfYU1nFJBi0L7Ks1+C+yhJvXlDXq44FmBDhS
-	 Af4flbgvyHkU6mQBQ5FeeDasVr2tdzQ7VHyPvlv5tk8DVyGHpjwMk5eyXus2Y+ZlSI
-	 pc3BLUBDBSOgA==
+	b=H5yABUjzLKxwsIP16q11S0Uppp8OhSfxauZMzVfJXVCGjtU03jgnZdTJLPmqtwsGO
+	 fSptUOOxaOzxdOSV94xpboIlMWR4OirJNAVsiwLdQqB+datIdgjvg6rD/Y2eADZc3z
+	 kT5M+CQ3brdQYDVcTTy8aFRjj7im8852C2IbBXjZZ4qV7KjYPV0zhzS+cg5wOMNXuA
+	 aR2Jaiiylanm1lU7/zPWDWL7+burNjKpsTtQyEK1ZZn8PPadcgpNYRDQgjy1csyd3A
+	 6pHQ1QCJ1XRe9sikG1O+anhm4CIqk8l4RIgow1fh41gAbnrTkXCM3RJb/0FpxgG6Nw
+	 0bix6gCBY7jBw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id E7F2A44E5C;
+	by lkml.kernel.org (Postfix) with ESMTP id AFC7344E48;
 	Mon, 26 Oct 2026 19:17:16 +0000 (UTC)
 From: Xi Zhang via B4 Relay <devnull+xz.ca.cn.gmail.com@kernel.org>
-Date: Mon, 26 Oct 2026 16:16:55 -0300
-Subject: [PATCH 7/8] drm/msm: force mode_changed on color_mgmt_changed, not
- just ctm
+Date: Mon, 26 Oct 2026 16:16:50 -0300
+Subject: [PATCH 2/8] drm/msm/dpu: save LMs in encoder mode_set for cleanup
+ use later
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261026-msm-dpu-res-clean-v1-7-f46130a8a717@gmail.com>
+Message-Id: <20261026-msm-dpu-res-clean-v1-2-f46130a8a717@gmail.com>
 References: <20261026-msm-dpu-res-clean-v1-0-f46130a8a717@gmail.com>
 In-Reply-To: <20261026-msm-dpu-res-clean-v1-0-f46130a8a717@gmail.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>, 
@@ -97,11 +97,11 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Xi Zhang <xz.ca.cn@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793042236; l=1219;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793042236; l=5327;
  i=xz.ca.cn@gmail.com; s=20261026; h=from:subject:message-id;
- bh=Wo3tEP0RL/iVZrlVbjqizqGErC2YhsS/kVeKWgJ1UBY=;
- b=Ka8elEcmKvRmXT6MxV7shh8QtW1BUM34m8jO69Pppxv34hT1WkBIwW/du7byZGl5q+mivl9sR
- dI2mCiPGOpqDqqYH8xMs8i3CNw8qaTypCBy8azN6b6SYsV6VTBNx13P
+ bh=V4mLK345lCOmhdDlVV1XIHR0Pem/w1Ucp8VqbcFCJKI=;
+ b=glx89Qe3JYy5yHq6+TurwdBUIPmcoxejwN+MiNJyz9wdafR04WFOune4MkngwWwyY9coEWIeS
+ ICMIL/hyb2SDjiQjzC3LeJtRdXNC5aFU10JNwh+BYNEXFkDvUkldsJG
 X-Developer-Key: i=xz.ca.cn@gmail.com; a=ed25519;
  pk=aRUll5L3eJbwG8Y4BO9uySKGzm+Uy+Ccei9prnRVZRs=
 X-Endpoint-Received: by B4 Relay for xz.ca.cn@gmail.com/20261026 with
@@ -112,37 +112,133 @@ Content-Transfer-Encoding: 7bit
 
 From: Xi Zhang <xz.ca.cn@gmail.com>
 
-dpu_crtc_atomic_check calls dpu_crtc_assign_resources when
-color_mgmt_changed is set, which is unsafe outside of full modeset.
+dpu_encoder_helper_reset_mixers, which is called during atomic_commit
+disable phase, previously called
+dpu_kms_get_existing_global_state, which returns the global_state
+after the state swap. So the cleanup was performed on the newly
+allocated resources instead of the ones that actually need reset.
 
-Set allow_modeset and mode_changed when color_mgmt_changed is set,
-not just when ctm is changed.
+Cache LMs in dpu_enc similar to other resources during mode set, and
+perform the cleanup on cached LMs instead.
 
-Also would fix
-commit 42f62cd79578 ("drm/msm/dpu: try reserving the DSPP-less LM first")
-which was reverted.
-
-Closes: https://gitlab.freedesktop.org/drm/msm/-/work_items/102
+Also removed redundant ctl->ops.setup_blendstage during cleanup since
+ctl->ops.clear_all_blendstages covers it already.
 
 Signed-off-by: Xi Zhang <xz.ca.cn@gmail.com>
 ---
- drivers/gpu/drm/msm/msm_atomic.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 57 +++++++++++++++--------------
+ 1 file changed, 30 insertions(+), 27 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/msm_atomic.c b/drivers/gpu/drm/msm/msm_atomic.c
-index a8babf1dbe0d..6f0f30b0728a 100644
---- a/drivers/gpu/drm/msm/msm_atomic.c
-+++ b/drivers/gpu/drm/msm/msm_atomic.c
-@@ -195,8 +195,7 @@ int msm_atomic_check(struct drm_device *dev, struct drm_atomic_commit *state)
- 	 */
- 	for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state,
- 				      new_crtc_state, i) {
--		if ((old_crtc_state->ctm && !new_crtc_state->ctm) ||
--		    (!old_crtc_state->ctm && new_crtc_state->ctm)) {
-+		if (new_crtc_state->color_mgmt_changed) {
- 			new_crtc_state->mode_changed = true;
- 			state->allow_modeset = true;
- 		}
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+index 8d2b4d2726f2..09afc0681248 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+@@ -133,6 +133,7 @@ enum dpu_enc_rc_states {
+  * @cur_master:		Pointer to the current master in this mode. Optimization
+  *			Only valid after enable. Cleared as disable.
+  * @cur_slave:		As above but for the slave encoder.
++ * @hw_mixer:		Handle to the layer mixers used for the display.
+  * @hw_pp:		Handle to the pingpong blocks used for the display. No.
+  *			pingpong blocks can be different than num_phys_encs.
+  * @hw_cwb:		Handle to the CWB muxes used for concurrent writeback
+@@ -182,6 +183,7 @@ struct dpu_encoder_virt {
+ 	struct dpu_encoder_phys *phys_encs[MAX_PHYS_ENCODERS_PER_VIRTUAL];
+ 	struct dpu_encoder_phys *cur_master;
+ 	struct dpu_encoder_phys *cur_slave;
++	struct dpu_hw_mixer *hw_mixer[MAX_CHANNELS_PER_ENC];
+ 	struct dpu_hw_pingpong *hw_pp[MAX_CHANNELS_PER_ENC];
+ 	struct dpu_hw_cwb *hw_cwb[MAX_CWB_PER_ENC];
+ 	struct dpu_hw_dsc *hw_dsc[MAX_CHANNELS_PER_ENC];
+@@ -1156,11 +1158,12 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
+ 	struct msm_drm_private *priv;
+ 	struct dpu_kms *dpu_kms;
+ 	struct dpu_global_state *global_state;
++	struct dpu_hw_blk *hw_lm[MAX_CHANNELS_PER_ENC];
+ 	struct dpu_hw_blk *hw_pp[MAX_CHANNELS_PER_ENC];
+ 	struct dpu_hw_blk *hw_ctl[MAX_CHANNELS_PER_ENC];
+ 	struct dpu_hw_blk *hw_dsc[MAX_CHANNELS_PER_ENC];
+ 	struct dpu_hw_blk *hw_cwb[MAX_CHANNELS_PER_ENC];
+-	int num_ctl, num_pp, num_dsc, num_pp_per_intf;
++	int num_ctl, num_lm, num_pp, num_dsc, num_pp_per_intf;
+ 	int num_cwb = 0;
+ 	bool is_cwb_encoder;
+ 	unsigned int dsc_mask = 0;
+@@ -1189,6 +1192,14 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
+ 	trace_dpu_enc_mode_set(DRMID(drm_enc));
+ 
+ 	/* Query resource that have been reserved in atomic check step. */
++
++	num_lm = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
++		drm_enc->crtc, DPU_HW_BLK_LM, hw_lm, ARRAY_SIZE(hw_lm));
++
++	for (i = 0; i < ARRAY_SIZE(dpu_enc->hw_mixer); i++)
++		dpu_enc->hw_mixer[i] = i < num_lm ? to_dpu_hw_mixer(hw_lm[i])
++						: NULL;
++
+ 	if (is_cwb_encoder) {
+ 		num_pp = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
+ 						       drm_enc->crtc,
+@@ -2183,42 +2194,34 @@ void dpu_encoder_kickoff(struct drm_encoder *drm_enc)
+ 
+ static void dpu_encoder_helper_reset_mixers(struct dpu_encoder_phys *phys_enc)
+ {
+-	int i, num_lm;
+-	struct dpu_global_state *global_state;
+-	struct dpu_hw_blk *hw_lm[2];
+-	struct dpu_hw_mixer *hw_mixer[2];
++	int i;
+ 	struct dpu_hw_ctl *ctl = phys_enc->hw_ctl;
++	struct dpu_encoder_virt *dpu_enc = to_dpu_encoder_virt(phys_enc->parent);
+ 
+ 	/* reset all mixers for this encoder */
+ 	if (ctl->ops.clear_all_blendstages)
+ 		ctl->ops.clear_all_blendstages(ctl);
+ 
+-	global_state = dpu_kms_get_existing_global_state(phys_enc->dpu_kms);
++	for (i = 0; i < ARRAY_SIZE(dpu_enc->hw_mixer); i++) {
++		if (dpu_enc->hw_mixer[i]) {
++			if (ctl->ops.update_pending_flush_mixer)
++				ctl->ops.update_pending_flush_mixer(ctl, dpu_enc->hw_mixer[i]->idx);
+ 
+-	num_lm = dpu_rm_get_assigned_resources(&phys_enc->dpu_kms->rm, global_state,
+-		phys_enc->parent->crtc, DPU_HW_BLK_LM, hw_lm, ARRAY_SIZE(hw_lm));
+-
+-	for (i = 0; i < num_lm; i++) {
+-		hw_mixer[i] = to_dpu_hw_mixer(hw_lm[i]);
+-		if (ctl->ops.update_pending_flush_mixer)
+-			ctl->ops.update_pending_flush_mixer(ctl, hw_mixer[i]->idx);
+-
+-		/* clear all blendstages */
+-		if (ctl->ops.setup_blendstage)
+-			ctl->ops.setup_blendstage(ctl, hw_mixer[i]->idx, NULL);
+-
+-		if (hw_mixer[i]->ops.clear_all_blendstages)
+-			hw_mixer[i]->ops.clear_all_blendstages(hw_mixer[i]);
++			/* clear all blendstages */
++			if (dpu_enc->hw_mixer[i]->ops.clear_all_blendstages)
++				dpu_enc->hw_mixer[i]->ops.clear_all_blendstages(
++					dpu_enc->hw_mixer[i]);
++		}
++	}
+ 
+-		if (ctl->ops.set_active_lms)
+-			ctl->ops.set_active_lms(ctl, NULL);
++	if (ctl->ops.set_active_lms)
++		ctl->ops.set_active_lms(ctl, NULL);
+ 
+-		if (ctl->ops.set_active_fetch_pipes)
+-			ctl->ops.set_active_fetch_pipes(ctl, NULL);
++	if (ctl->ops.set_active_fetch_pipes)
++		ctl->ops.set_active_fetch_pipes(ctl, NULL);
+ 
+-		if (ctl->ops.set_active_pipes)
+-			ctl->ops.set_active_pipes(ctl, NULL);
+-	}
++	if (ctl->ops.set_active_pipes)
++		ctl->ops.set_active_pipes(ctl, NULL);
+ }
+ 
+ static void dpu_encoder_dsc_pipe_clr(struct dpu_hw_ctl *ctl,
 
 -- 
 2.55.0
