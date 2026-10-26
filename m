@@ -1,86 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.37
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793052289;
-	b=34zVOTqDN7pHrLWGh7K4f+LIDFaFe9QjSeOd4wJI/AXk/xGleK7JBdB2Bgs78mIgsKta
-	 xO0LSuSlpcch5QNY7ANTZ7+/x/4FXoy02wc9Bu10j5tbkxHzqoKY6t7rqiXjX1cdQT7E2
-	 vPGNSB0rpOEwSY8u2TvFHTevJJVb57x8MI58vEiiceHwNo70Ph9IEEPv6QiFaJ7AUBfB0
-	 GlV02DYlQGED2GXpWmQqAk+KqCohIgGrxsKxfY411oXL+vn7dX6uNwXfwZHvqw/D+1zYN
-	 RW1dQ0hOONaYa028DgxyveYBsMbSAErdnCn/2zrm5hHLmITiPkZVPnv325684TrT3vw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793052289;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
-	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
-	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
-	 X-Local-Domain:X-CMAE-Envelope;
-	bh=l/bU72n12Nk7X3tML4z7ugi8b/xJfGvmK/ZMUzSiUnQ=;
-	b=VSOfTVUNcU66d7QWlgptdK6KZqshECh8H0B+pNDs6iW26FQoK6K7+3zsM5Ik82vIOdOX
-	 hcaUfQPb3/Ifi/o1aPWPTOq6weom5NrQgUjei/TVkCiW36W7JggPq720OUmTrS5z3lVYl
-	 sWZyOWmHO9CIC+bKpzSooXxa+7DZfY97yNDplakiqKTr7xrCrscwt0MzLdNeleWWLTqRH
-	 6CRRnAah5rHUQnPUXqIL49Zx0+VHMnXA1gUy4PukU9ve38N9FcBsbpajTM0K0uY46V4yB
-	 Hjtkkb032rJOp2vVMjvlMULqoK8TVOrIU871K6ZPyc26XpMzsrtO7/nFTsPELlfufUQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b="5c9hyRy/";
-	arc=none smtp.remote-ip=35.89.44.37
-Received: from omta38.uswest2.a.cloudfilter.net (omta38.uswest2.a.cloudfilter.net [35.89.44.37])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=67.231.153.30
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793052357;
+	b=A74e26ujdDHhBEYbPLsPqTtlKDfZAXqdwH8a+DQ2BqL3+JTGJLwK3+mTr7X7/29lwm/u
+	 V3W7vavUF6n2gLUmLonZgnPWFGGCr4He8suIgnR+ZhAmIGtNBgpcekh3g3Fy4Dy8148sw
+	 t5GOmytJxt73Ou9dLXpjWfkKOCwmBrzyjWn/gMXslTDmkmm5zmGlF7UsikcJNuyU/FNnn
+	 htvd3iGVKyahcMsWMhNXOBKPhM0tyrntiJQi4HCKc+AVWMwr/5Q2HNxAhKMbqbCfvSjhw
+	 DZgtcIr0UBIrcxbEDYTeTcq5F6ktZYta4SxvTEfJoFTDom5d/N4eLuNSNCz20U9GN1g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793052357;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 X-Google-DKIM-Signature:X-Forwarded-Encrypted:X-Gm-Message-State:
+	 X-Gm-Gg:X-Received:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version;
+	bh=z4nQTtfOhd8q9VhT0x4dUvhNJ9D8OtV16AyYym6/9DQ=;
+	b=bcowkBoq5hXvPUIjCQsaySli7784RX43K22yByUfvd2AGRX9NObQtcrWcI72ykqdRNYD
+	 xYEcgYlNMByFEA3rn0JKxj7nV+eWxzDLUq610cKISLBKgDmanXQMg5k8w67l/8Xn6ft3Z
+	 NdOi9jv4+XgevFtjf4/3DGT9YnYeYS8F1b1eBr5focRXn/l49XrxsYhnH5jwWkPFYHRIU
+	 6q5LdZNU+V0mpa57tOPdEgrAt3t+Yd3QHxhdv7aRKxmaPS/oY8pYUSqnY0dQVhqJAo6tU
+	 rNU7xfKR0zR2sLl0eP/RutHB16yUbFc/OY+0XMzatln/z1BD8EY5rrVMn/8NrOfhYpg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=meta.com;
+	spf=pass smtp.mailfrom=meta.com;
+	dkim=pass header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=hlKqV8Du;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=67.231.153.30
+Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com [67.231.153.30])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55273606A31B
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 22:04:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55273606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A28EA606A322
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 22:05:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A28EA606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=5c9hyRy/
-Received: from eig-obgw-5004b.ext.cloudfilter.net ([10.0.29.208])
-	by cmsmtp with ESMTPS
-	id LO3IxtbFNv0ndLSoBxEPWT; Mon, 26 Oct 2026 22:04:48 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id LSoBxhVw8oYFCLSoBx85L0; Mon, 26 Oct 2026 22:04:47 +0000
-X-Authority-Analysis: v=2.4 cv=b4Cy4sGx c=1 sm=1 tr=0 ts=6adfce7f
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=M0FbrtG7MMAA:10 a=xq3W2uTSAAAA:8
- a=VwQbUJbxAAAA:8 a=vp2u3eVZ9GCVVnw8xgAA:9 a=CjuIK1q_8ugA:10
- a=P5L7wpMTXyg1GfFA3Gwx:22 a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
-	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
-	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=l/bU72n12Nk7X3tML4z7ugi8b/xJfGvmK/ZMUzSiUnQ=; b=5c9hyRy/zJmLQxANxhrqojLMIT
-	lmWywoRgLNkJ8pM/nDjIhTxMSxnq6tyFu62bCdWPixfbtb+WKwfICyJqyJ6Z8lQIHGjuQH/HUXy/o
-	KHU1J0qqVwKZvKGcZWroZ879tfB2l3QvUOefyEC/MwI+oq3vadh8zqT4HkLMwMC/4FzzmHBuE0/uJ
-	alEAG3Iz6xCg0z9X+6HSRluvnitN845APtRNntO0qzpaI1F8YUSTWZN+MJxOETgBZQsW9oqt6q3dr
-	w7bZLaH06FfZ3QTVTwhDTN5ah9uqNPwWNHJPfeLj6GKbKHiZ0izpC6I/myUro8Zy2SDjr9A4/gT3N
-	Aw0kP+jA==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:59860 helo=server.roeck-us.net)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xLSoA-00000003q7y-2n9x;
-	Tue, 27 Oct 2026 03:34:46 +0530
-Date: Mon, 26 Oct 2026 15:04:45 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Kevin Jia <kjia@nexthop.ai>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	Abdurrahman Hussain <abdurrahman@nexthop.ai>
-Subject: Re: [PATCH v2 3/3] hwmon: (fs1603) Add driver for TDK FS160x and
- FS1006 uPOL converters
-Message-ID: <3735b504-30ba-4656-927c-d321248102e1@roeck-us.net>
-References: <20261020-fs1603-v2-0-0986107a5cd2@nexthop.ai>
- <20261020-fs1603-v2-3-0986107a5cd2@nexthop.ai>
+	dkim=pass (2048-bit key, unprotected) header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=hlKqV8Du
+Received: from pps.filterd (m0148460.ppops.net [127.0.0.1])
+	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69QIn54K421065
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 15:05:55 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pps82601-s2048-2026-q3; bh=z4nQTtfOhd8
+	q9VhT0x4dUvhNJ9D8OtV16AyYym6/9DQ=; b=hlKqV8Dur4ZzUuKxTjP7YrMiIjt
+	3ZsOzN/DdqCpY/o56SvMkVq3ZXuz+GA7bcM+/aPPz6SpoviGFTl/4hrkVTfjX05H
+	0GT7EGWQj2EE0PEccBWYxiw+GhKrlLLc7J9afMut2vpHBX+bQM6qRxkTR5zRkbmX
+	oSa5qK3hwZ9vkghNACrjtWY57rxM2wrBkf1P9KEau/9GkUYQ3XheuKXBd0gfttSu
+	UqqqEN99t56wc+KwSZdPn/fNIq003oaGTjLV+M2+SjYPlgkNzqrgh9aTe+EnkyOZ
+	1DqwCxNs9C1AFXQUxT8UomRIhtnGM9OfFoCNlDgfBKJ//xeeR05pvvDZU2A==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4hgt6bd41p-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 15:05:55 -0700 (PDT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2ea71803effso36275415ad.3
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 15:05:55 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793052355; cv=none;
+        d=google.com; s=arc-20260327;
+        b=m5OuTsw9Xzm9C0/cLr+GLbBeVaHW9x2hGwfv1VyOUMF6LFWuokTNQdR16jRlW/uFVg
+         tcVJMSXU95F3GtkS9oOmJ2P81q4JF6q2YOT82hqvnKL2OTwko8e7t8NYEjrcmTcscTdj
+         FhQplNzPHaaxZXD09G7aqwk5uhN+sq55nZtKiR98XQi0F+Y1NkR3ytpO86wpu7GP9+yM
+         EGGOpnhciXlIg+33BI4ME89KNwRObhL4TWXjZ99svfibnrdERtokUwoHA6zrukPRej1S
+         2dHAf/1l4o6GCS71aO2Mm7Of0pj32vAFpq+R7QLmhNO4RbZ9s1uMwzdpZG++HzPScajG
+         jqTQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version;
+        bh=z4nQTtfOhd8q9VhT0x4dUvhNJ9D8OtV16AyYym6/9DQ=;
+        fh=sTG3cND4670z3eF12AgD4q77vwY2K6ZQrZI6fBnhzDE=;
+        b=GECIa5hIuBqZfmURXKe3+y7cSKCxFJOz5qJGbBDfcLw1CkgGuIrM3labYyR8c9G7R6
+         ReSGdOmA9JCnM9MsMNZcYKuf3X1S6zvqprW69NGxxGU5MaRw14CWFxc+++x0Z4LQjNp5
+         cYrzNCpQFcrIbrxGRqtFE37RVreGKVbCUGy6nMcpAj2+njQCI7/mBCeP3EdHIv09fR0y
+         KxJJOoxCd1yATcKciXg3vEBNco0f4sIwS3QP0vt8kGHbOtJNuInCmM0OyNpOFDcfusMy
+         oytAoHG0pnlQdhQ6WNPV8XZQVkZwHMQIl0fUV1YiAxEOl88UxYdRczjC4zUjl/z0NBp9
+         WXrw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793052355; x=1793657155;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=z4nQTtfOhd8q9VhT0x4dUvhNJ9D8OtV16AyYym6/9DQ=;
+        b=wI8n5wvS1O9SWyMyB8fPugSEZPZoeM7PkVJhlJM/5RxMkDVrgZIAokCr8zPpCamDb6
+         tx9LNFayxC09Bfui1ebLqku1L/3y2BA9JKiAPlgcf+cuyCwlNsIuQ6b3J2HFdNIFieE6
+         dqBg8Z+nPhf2WvdctMn5nHK4Y3m2OrhTu3ElVHiXgYzRwCPsmDmHZo66DY853mXVlDnA
+         Vf1GdDTeZyCVv3A0PgSzUH49sqH3p65FWANFI6njAMQzMm0Vkkgt0X6VDkIQ1gvep2xQ
+         Ovg11HDvb4hIY6lajtQxYC50dK0Li91U1IE1mxSkSA+NqTILtRmZmaZltAh4BWNPXG6j
+         mwwA==
+X-Forwarded-Encrypted: i=1; AKwUvByPubGLPUlWL+BcgttjvLpJO4RhkUHWHQXqnKF0YOw8ZFlZToqlQDzVv/SPrbiCthONhT1gjQ7DLAGvF+U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI3EVrs3q92+1kGUyMNBfAG4+zpUdQfRRcWfudMZBZ/XLxIzFlW
+	7KSPMsybxRD759Yrmr+kUsjnucyO0uY4RrQ0prd1lVmWZ4n3mMAzC/7mrVEBz5ZgkUg3JCwuEks
+	TSTLX5S1Y/2TzgILX+T5LoohT6lbstCgxW32e/olrFWS/QioD/EFEkqDtfBU9zZepY/Rb7JE4D6
+	I/IqhawMMrhBCDzCfVscL7zav8dkmiioOR6ob5n4hvFytALNg9Bn5s
+X-Gm-Gg: AYBFou190pXvnBXuRvVfcwnUhkrWSmHqP8HVJEV8tLkQtFzoPAaUf2quRHHXVBm/+tB
+	UJMMtniXc/SsEUNpKiu/xfbAkf8f+rDKhFWLJuRacI7JDWdLMXJukE0pIn8rzZesO2sr8/49dNt
+	JNmfmT2yQWv/tLiWVjHzf8K5hgLLJGzpqjszTSENOPwW2sLce1cYV7F26Axf+KBQcj6Tk0MkTYz
+	WexaIiprrZuypDS5x5c3tNiGHWhvLAAxd5dNKQtdcmq/uEzAJQ=
+X-Received: by 2002:a17:903:fa8:b0:2e8:3d48:4d80 with SMTP id d9443c01a7336-2ea9c695516mr62602545ad.45.1793052354619;
+        Mon, 26 Oct 2026 15:05:54 -0700 (PDT)
+X-Received: by 2002:a17:903:fa8:b0:2e8:3d48:4d80 with SMTP id
+ d9443c01a7336-2ea9c695516mr62601855ad.45.1793052353322; Mon, 26 Oct 2026
+ 15:05:53 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,775 +111,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261020-fs1603-v2-3-0986107a5cd2@nexthop.ai>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xLSoA-00000003q7y-2n9x
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:59860
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 4
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfCsKpaInXdCeVsVJ1T7wi8WWRMm86qt/d84+eM8zatgq3uvcRxkWG5cgqPHIRACPeyVGep1crC3DUuaSaf4Nel0Jxi1te+M0rg0r1dG3siVCQLhN8sCS
- NA40b47VYCcKsd0x+61RQHm1sXxZ19Nj6n8SyG8/YC+tHW/BTUvE9WpM5/9YUNAl3k2AQ3FgRUD12U3xqOTqqVeaXlnENpOt6ddusPKTWgK9GLQijv5mlqdT
+References: <20261023234640.1459291-3-toddfreed@meta.com> <179288570143.3134.8925369868949382653@kernel.org>
+In-Reply-To: <179288570143.3134.8925369868949382653@kernel.org>
+From: Todd Bert Freed <toddfreed@meta.com>
+Date: Mon, 26 Oct 2026 15:05:42 -0700
+X-Gm-Features: AclHuK8vmHsUIvz0IY0SMdSvsvG63AqCObkQ1uaVFzRtYuR6y8WvmQn7TcpGKDc
+Message-ID: <CADh2yMyYS-PWP4912En9D6B9up6Kz-hnCthNkWot+e7N8-q7ZA@mail.gmail.com>
+Subject: Re: [PATCH net v3 2/4] psp: support ipv6 extension headers in
+ psp_dev_rcv() decap
+To: netdev-bot+sashiko@kernel.org
+Cc: netdev@vger.kernel.org, borisp@nvidia.com, saeedm@nvidia.com,
+        leon@kernel.org, tariqt@nvidia.com, mbloch@nvidia.com,
+        andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+        kuba@kernel.org, pabeni@redhat.com, daniel.zahka@gmail.com,
+        willemdebruijn.kernel@gmail.com, horms@kernel.org, shuah@kernel.org,
+        cratiu@nvidia.com, raeds@nvidia.com, rrameshbabu@nvidia.com,
+        linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-kselftest@vger.kernel.org, bjorn@kernel.org, dtatulea@nvidia.com
+Content-Type: text/plain; charset="UTF-8"
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA4NyBTYWx0ZWRfX2ArAIxdvqU++
+ oqfyeqSmgivwxxyPPOrng3xJ5pUHSOJY6LQICfnThvsb4wsHsS61tY1I6NMQS/I6kWkSXqZroFH
+ ddCYdHv/5KY1Vm74ZpiN8MfIrJBVV+E=
+X-Proofpoint-GUID: 1XHymCI6Q5dHPT9enaEZ6hp8-Mp2XMY0
+X-Proofpoint-ORIG-GUID: 1XHymCI6Q5dHPT9enaEZ6hp8-Mp2XMY0
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA4NyBTYWx0ZWRfX463Gu2amzxe/
+ 8YiAWtGKB7A/WVYVydGYnnNBvJ+q/fnX/k8wH4zRZJWCEOC5RxAbYiONhhDdfc6DTjBWnRJcWJx
+ mcU03UzDcPkNJWhm7ZiQRgLsE2JTgVwlU0/22953gSfnDZyHWvkjPTC9iDV3iq3wiZdYp3QL+jZ
+ Tb37gvbDEIaqJs3uDJhBddVjssFVIctrDhSyC/29dfx7o6uh8K6yb2N8yb8qx1mac0kcBx1fesr
+ 8Xl4g167AFyrqS2gSWzg6xoACVHd2KQg6oQiGlQaA6MN8ZH5HbRh/xhfwosY9IPbHdMubwFyzNl
+ OaQw8QYKpRoNYryYBYnSEgZ6m9cSH316OfB//UXQRjJ+nrlo4y88xSJt5fR+QfKMdxhy0ilkDIR
+ G4eaPidUm9PNmiHLUNvwKBXnKYFSsmvRnMP8cMmL6fCTYOjgQOQOwuX4hs/MuPbchSxEwnOX5Zz
+ iVrh0YLGv09TbooaMfg==
+X-Authority-Analysis: v=2.4 cv=XOKl2ghE c=1 sm=1 tr=0 ts=6adfcec3 cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22 a=JnKecZnUtZousrUlYMGU:22
+ a=Pwd9bqppP3xQxChDgmkA:9 a=QEXdDO2ut3YA:10 a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-26_04,2026-10-21_02,2025-10-01_01
 
-On Tue, Oct 20, 2026 at 04:48:16PM +0000, Kevin Jia wrote:
-> The TDK FS1603, FS1604, FS1606 and FS1006 are uPOL DC-DC converters with
-> an integrated inductor. They report input voltage, output voltage, output
-> current and temperature, plus over-voltage, over-current and
-> over-temperature status, over a proprietary I2C register map. They are
-> not PMBus devices, and their register numbers collide with PMBus command
-> codes: 0x21 is a status byte here where PMBus defines VOUT_COMMAND.
-> 
-> The parts have no ID register, and the FS1606-0600 and FS1606-2500
-> presets change how telemetry is encoded: the -2500 uses the 20mV steps
-> of the higher voltage parts, and the -0600 needs a current correction
-> derived from the IOUT_GAIN register and the output voltage. The model is
-> therefore taken from the device name or compatible. OCSet[2:0], the
-> programmable over-current protection level, ships with a different
-> default on each family member, so probe warns if it does not match the
-> declared part, which usually catches a wrong device name.
-> 
-> The over-voltage and over-temperature protection thresholds are
-> reported as in1_crit and temp1_crit. The over-voltage threshold is a
-> percentage of the VOUT_SET target, so the driver reads VOUT_SET but
-> never writes it: VOUT_SET is a two-byte pair, and a partial write leaves
-> the part silently ignoring all register writes until its input power is
-> cycled. The driver is read-only.
-> 
-> Power good is not exposed. It also deasserts while the output is
-> disabled or soft-starting, so it would report a deliberately disabled
-> output as a fault.
-> 
-> On boards that raise the rail with a feedback divider, VOUT_SET holds
-> the feedback-pin target while the output voltage telemetry reports the
-> rail. The driver measures the divider ratio at probe from the output
-> voltage and the Fb register and scales the over-voltage threshold by
-> it, so in1_crit is in the same domain as in1_input. A part whose Fb
-> reads within four steps of the output keeps a ratio of one.
-> 
-> Co-developed-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-> Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-> Signed-off-by: Kevin Jia <kjia@nexthop.ai>
-> ---
->  Documentation/hwmon/fs1603.rst |  78 ++++++
->  Documentation/hwmon/index.rst  |   1 +
->  MAINTAINERS                    |   7 +
->  drivers/hwmon/Kconfig          |  11 +
->  drivers/hwmon/Makefile         |   1 +
->  drivers/hwmon/fs1603.c         | 540 +++++++++++++++++++++++++++++++++++++++++
->  6 files changed, 638 insertions(+)
-> 
-> diff --git a/Documentation/hwmon/fs1603.rst b/Documentation/hwmon/fs1603.rst
-> new file mode 100644
-> index 000000000000..ba0038e0d9b5
-> --- /dev/null
-> +++ b/Documentation/hwmon/fs1603.rst
-> @@ -0,0 +1,78 @@
-> +.. SPDX-License-Identifier: GPL-2.0-or-later
-> +
-> +Kernel driver fs1603
-> +====================
-> +
-> +Supported chips:
-> +
-> +  * TDK FS1603
-> +
-> +    Prefix: 'fs1603'
-> +
-> +    Datasheet: Publicly available at the TDK website
-> +
-> +  * TDK FS1604
-> +
-> +    Prefix: 'fs1604'
-> +
-> +    Datasheet: Publicly available at the TDK website
-> +
-> +  * TDK FS1606, FS1606-0600, FS1606-2500
-> +
-> +    Prefixes: 'fs1606', 'fs1606_0600', 'fs1606_2500'
-> +
-> +    Datasheet: Publicly available at the TDK website
-> +
-> +  * TDK FS1006-3300, FS1006-5000
-> +
-> +    Prefixes: 'fs1006_3300', 'fs1006_5000'
-> +
-> +    Datasheet: Publicly available at the TDK website
-> +
-> +Author:
-> +
-> +  * Kevin Jia <kjia@nexthop.ai>
-> +
-> +Description
-> +-----------
-> +
-> +The TDK FS160x and FS1006 are uPOL DC-DC converters with an integrated
-> +inductor. They report input voltage, output voltage, output current and
-> +temperature over a proprietary I2C register map. They are not PMBus devices,
-> +and their register numbers collide with PMBus command codes, so a PMBus driver
-> +must not be bound to them.
-> +
-> +The model is not auto-detected. It must be declared through the I2C device
-> +name or the devicetree compatible. The FS1606-0600 and FS1606-2500 presets
-> +scale telemetry differently from the base FS1606, so they must be declared
-> +by their own names. At probe time the driver compares the OCSet register,
-> +the programmable over-current protection level, with the factory default of
-> +the declared family member and logs a warning on a mismatch. That usually
-> +means the wrong model was declared, but it is expected on boards that
-> +reprogram the over-current protection level.
-> +
-> +The driver is read-only. On boards that use a feedback divider to reach a
-> +higher rail voltage, the output voltage is still reported for the rail, and the
-> +over-voltage threshold is scaled to the rail by the divider ratio, measured at
-> +probe from the output voltage and the feedback pin. TDK notes that current
-> +reporting does not apply in that configuration.
-> +
-> +Sysfs attributes
-> +----------------
-> +
-> +=================== == ========================================================
-> +in0_input           RO Input voltage in millivolts.
-> +in0_label           RO "vin"
-> +in1_input           RO Output voltage in millivolts.
-> +in1_label           RO "vout"
-> +in1_crit            RO Output over-voltage protection threshold in millivolts:
-> +                       the OV_Threshold percentage of the VOUT_SET target,
-> +                       scaled to the rail on boards with a feedback divider.
-> +in1_alarm           RO Output over-voltage status.
-> +curr1_input         RO Output current in milliamperes.
-> +curr1_alarm         RO Over-current status.
-> +temp1_input         RO Temperature in millidegrees Celsius.
-> +temp1_crit          RO Over-temperature protection threshold in millidegrees
-> +                       Celsius.
-> +temp1_alarm         RO Over-temperature status.
-> +=================== == ========================================================
-> diff --git a/Documentation/hwmon/index.rst b/Documentation/hwmon/index.rst
-> index 199ca79621e9..7d79a7aadaa6 100644
-> --- a/Documentation/hwmon/index.rst
-> +++ b/Documentation/hwmon/index.rst
-> @@ -81,6 +81,7 @@ Hardware Monitoring Kernel Drivers
->     f71805f
->     f71882fg
->     fam15h_power
-> +   fs1603
->     fsp-3y
->     ftsteutates
->     g760a
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 5ad12c57ca5f..24073ee3ede2 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -26799,6 +26799,13 @@ W:	https://linuxtv.org
->  T:	git git://linuxtv.org/media.git
->  F:	drivers/media/i2c/tda9840*
->  
-> +TDK FS1603 HARDWARE MONITOR DRIVER
-> +M:	Kevin Jia <kjia@nexthop.ai>
-> +L:	linux-hwmon@vger.kernel.org
-> +S:	Maintained
-> +F:	Documentation/hwmon/fs1603.rst
-> +F:	drivers/hwmon/fs1603.c
-> +
->  TEA5761 TUNER DRIVER
->  M:	Mauro Carvalho Chehab <mchehab@kernel.org>
->  L:	linux-media@vger.kernel.org
-> diff --git a/drivers/hwmon/Kconfig b/drivers/hwmon/Kconfig
-> index 18c682e1a475..047a3050946b 100644
-> --- a/drivers/hwmon/Kconfig
-> +++ b/drivers/hwmon/Kconfig
-> @@ -728,6 +728,17 @@ config SENSORS_MC33XS2410
->  	  This driver can also be built as a module. If so, the module
->  	  will be called mc33xs2410_hwmon.
->  
-> +config SENSORS_FS1603
-> +	tristate "TDK FS1603 and compatible uPOL DC-DC converters"
-> +	depends on I2C
-> +	select REGMAP_I2C
-> +	help
-> +	  If you say yes here you get hardware monitoring support for the
-> +	  TDK FS1603, FS1604, FS1606 and FS1006 uPOL DC-DC converters.
-> +
-> +	  This driver can also be built as a module. If so, the module
-> +	  will be called fs1603.
-> +
->  config SENSORS_FSCHMD
->  	tristate "Fujitsu Siemens Computers sensor chips"
->  	depends on (X86 || COMPILE_TEST) && I2C
-> diff --git a/drivers/hwmon/Makefile b/drivers/hwmon/Makefile
-> index d4c345ed7261..23a5f262eecf 100644
-> --- a/drivers/hwmon/Makefile
-> +++ b/drivers/hwmon/Makefile
-> @@ -85,6 +85,7 @@ obj-$(CONFIG_SENSORS_F71805F)	+= f71805f.o
->  obj-$(CONFIG_SENSORS_F71882FG)	+= f71882fg.o
->  obj-$(CONFIG_SENSORS_F75375S)	+= f75375s.o
->  obj-$(CONFIG_SENSORS_FAM15H_POWER) += fam15h_power.o
-> +obj-$(CONFIG_SENSORS_FS1603)	+= fs1603.o
->  obj-$(CONFIG_SENSORS_FSCHMD)	+= fschmd.o
->  obj-$(CONFIG_SENSORS_FTSTEUTATES) += ftsteutates.o
->  obj-$(CONFIG_SENSORS_G760A)	+= g760a.o
-> diff --git a/drivers/hwmon/fs1603.c b/drivers/hwmon/fs1603.c
-> new file mode 100644
-> index 000000000000..afe75657ce39
-> --- /dev/null
-> +++ b/drivers/hwmon/fs1603.c
-> @@ -0,0 +1,540 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +
-> +/*
-> + * Copyright (C) 2026 Nexthop Systems Inc.
-> + *
-> + * Driver for the TDK FS160x family of uPOL DC-DC converters with integrated
-> + * inductor. Supported models: FS1603, FS1604, FS1606, FS1006.
-> + *
-> + * The parts expose voltage, current and temperature telemetry over a
-> + * proprietary I2C register map. They are not PMBus devices, and their
-> + * register numbers actively collide with PMBus command codes -- 0x21 is a
-> + * status byte here where PMBus defines VOUT_COMMAND -- so a generic PMBus
-> + * driver must never be bound to them.
-> + *
-> + * Read-only. VOUT_SET (0x12/0x13) is an atomic write-protected pair: writing
-> + * the high byte arms an update that takes effect only once the low byte is
-> + * written. A partial write leaves the part armed, after which it acknowledges
-> + * but silently ignores every register write until its input power is cycled,
-> + * so this driver only reads it, to scale the over-voltage threshold.
-> + *
-> + * On a board that raises the rail with a feedback divider, VOUT still reports
-> + * the rail but VOUT_SET holds the feedback-pin target, so the over-voltage
-> + * threshold is scaled by the divider ratio, measured at probe from VOUT and
-> + * the Fb register (0x22). TDK notes that current reporting does not apply in
-> + * that configuration.
-> + */
-> +
-> +#include <linux/bitfield.h>
-> +#include <linux/err.h>
-> +#include <linux/hwmon.h>
-> +#include <linux/i2c.h>
-> +#include <linux/module.h>
-> +#include <linux/regmap.h>
-> +
-> +#define FS1603_REG_PVIN			0x0C
-> +#define FS1603_REG_VOUT			0x0D
-> +#define FS1603_REG_IOUT			0x0E
-> +#define FS1603_REG_TEMP			0x0F
-> +#define FS1603_REG_VOUT_SET_HI		0x12
-> +#define FS1603_REG_VOUT_SET_LO		0x13
-> +#define FS1603_REG_OCSET		0x15
-> +#define FS1603_REG_OV_THRESHOLD		0x17
-> +#define FS1603_REG_OT_THRESHOLD		0x19
-> +#define FS1603_REG_IOUT_GAIN		0x1A
-> +#define FS1603_REG_STATUS		0x21
-> +#define FS1603_REG_FB			0x22
-> +
-> +#define FS1603_VOUT_SET_HI_MASK		BIT(0)
-> +#define FS1603_OV_THRESHOLD_MASK	GENMASK(1, 0)
-> +#define FS1603_OT_THRESHOLD_MASK	GENMASK(1, 0)
-> +#define FS1603_IOUT_GAIN_MASK		GENMASK(7, 2)
-> +
-> +/*
-> + * OCSet[2:0] is the user-programmable over-current protection trip level,
-> + * not an ID. Each family member ships with a different default, so a
-> + * mismatch at probe usually means the wrong model was declared.
-> + */
-> +#define FS1603_OCSET_LEVEL		GENMASK(2, 0)
-> +#define FS1603_OCSET_DEFAULT_FS1603	0
-> +#define FS1603_OCSET_DEFAULT_FS1604	1
-> +#define FS1603_OCSET_DEFAULT_FS1606	2
-> +#define FS1603_OCSET_DEFAULT_FS1006	3
-> +
-> +/* Bits in FS1603_REG_STATUS. */
-> +#define FS1603_STATUS_OVER_VOLTAGE	BIT(6)
-> +#define FS1603_STATUS_OVER_CURRENT	BIT(5)
-> +#define FS1603_STATUS_OVER_TEMP		BIT(4)
-> +
-> +/* OV_Threshold[1:0] in percent of programmed VOUT; OT_Threshold[1:0] in degC. */
-> +static const unsigned int fs1603_ov_threshold_pct[] = { 105, 110, 115, 120 };
-> +static const unsigned int fs1603_ot_threshold_c[] = { 75, 85, 125, 145 };
-> +
-> +/*
-> + * Voltage telemetry is a linear step and base, both fixed per variant.
-> + * Current is raw/32 A except on the FS1606-0600, which applies a calibration
-> + * correction derived from FS1603_REG_IOUT_GAIN and the output voltage.
-> + */
-> +struct fs1603_info {
-> +	unsigned int vout_step_mv;
-> +	unsigned int vout_base_mv;
-> +	u8 ocset_default;
-> +	bool iout_gain_corrected;
-> +};
-> +
-> +enum fs1603_model {
-> +	fs1603,
-> +	fs1604,
-> +	fs1606,
-> +	fs1606_0600,
-> +	fs1606_2500,
-> +	fs1006,
-> +};
-> +
-> +/*
-> + * The FS1606 reports at 10mV/300mV except for the -2500 preset, which uses the
-> + * same 20mV/600mV encoding as the higher-voltage family members.
-> + */
-> +static const struct fs1603_info fs1603_models[] = {
-> +	[fs1603]      = { .vout_step_mv = 20, .vout_base_mv = 600,
-> +			  .ocset_default = FS1603_OCSET_DEFAULT_FS1603 },
-> +	[fs1604]      = { .vout_step_mv = 20, .vout_base_mv = 600,
-> +			  .ocset_default = FS1603_OCSET_DEFAULT_FS1604 },
-> +	[fs1606]      = { .vout_step_mv = 10, .vout_base_mv = 300,
-> +			  .ocset_default = FS1603_OCSET_DEFAULT_FS1606 },
-> +	[fs1606_0600] = { .vout_step_mv = 10, .vout_base_mv = 300,
-> +			  .ocset_default = FS1603_OCSET_DEFAULT_FS1606,
-> +			  .iout_gain_corrected = true },
-> +	[fs1606_2500] = { .vout_step_mv = 20, .vout_base_mv = 600,
-> +			  .ocset_default = FS1603_OCSET_DEFAULT_FS1606 },
-> +	[fs1006]      = { .vout_step_mv = 20, .vout_base_mv = 600,
-> +			  .ocset_default = FS1603_OCSET_DEFAULT_FS1006 },
-> +};
-> +
-> +/*
-> + * Every register is a byte, and every read is live telemetry, so nothing is
-> + * cached. regmap is used for the uniform accessors and the debugfs dump.
-> + */
-> +static const struct regmap_config fs1603_regmap_config = {
-> +	.reg_bits = 8,
-> +	.val_bits = 8,
-> +	.max_register = FS1603_REG_FB,
-> +	.cache_type = REGCACHE_NONE,
-> +};
-> +
-> +struct fs1603_data {
-> +	struct regmap *regmap;
-> +	const struct fs1603_info *info;
-> +	u32 fb_ratio_num;
-> +	u32 fb_ratio_den;
-> +};
-> +
-> +static int fs1603_read_vout_mv(struct fs1603_data *data, long *val)
-> +{
-> +	unsigned int raw;
-> +	int err;
-> +
-> +	err = regmap_read(data->regmap, FS1603_REG_VOUT, &raw);
-> +	if (err)
-> +		return err;
-> +
-> +	*val = raw * data->info->vout_step_mv + data->info->vout_base_mv;
-> +	return 0;
-> +}
-> +
-> +/*
-> + * Output current in mA.
-> + *
-> + * Every variant but the FS1606-0600 reports raw/32 A directly. The -0600
-> + * additionally applies, with G taken from FS1603_REG_IOUT_GAIN bits [7:2]:
-> + *
-> + *   I = raw/32 - (9.05 - 0.24 * G) * Vout - 0.356 * G + 13.1
-> + *
-> + * Scaled to milliamps and millivolts so it stays in integer arithmetic:
-> + *
-> + *   I_mA = raw * 125 / 4
-> + *          - ((9050 - 240 * G) * Vout_mV) / 1000
-> + *          - 356 * G
-> + *          + 13100
-> + */
-> +static int fs1603_read_iout_ma(struct fs1603_data *data, long *val)
-> +{
-> +	unsigned int raw, gain;
-> +	long vout_mv;
-> +	int err;
-> +
-> +	err = regmap_read(data->regmap, FS1603_REG_IOUT, &raw);
-> +	if (err)
-> +		return err;
-> +
-> +	*val = raw * 125 / 4;
-> +
-> +	if (!data->info->iout_gain_corrected)
-> +		return 0;
-> +
-> +	err = regmap_read(data->regmap, FS1603_REG_IOUT_GAIN, &gain);
-> +	if (err)
-> +		return err;
-> +	gain = FIELD_GET(FS1603_IOUT_GAIN_MASK, gain);
-> +
-> +	err = fs1603_read_vout_mv(data, &vout_mv);
-> +	if (err)
-> +		return err;
-> +
-> +	*val -= ((9050 - 240 * (long)gain) * vout_mv) / 1000;
-> +	*val -= 356 * (long)gain;
-> +	*val += 13100;
-> +
-> +	if (*val < 0)
-> +		*val = 0;
-> +
-> +	return 0;
-> +}
-> +
-> +/*
-> + * The 9-bit VOUT_SET code steps at half the telemetry resolution from a base
-> + * of 80 steps.
-> + */
-> +static int fs1603_read_vout_set_mv(struct fs1603_data *data, long *val)
-> +{
-> +	unsigned int hi, lo;
-> +	int err;
-> +
-> +	err = regmap_read(data->regmap, FS1603_REG_VOUT_SET_HI, &hi);
-> +	if (err)
-> +		return err;
-> +	err = regmap_read(data->regmap, FS1603_REG_VOUT_SET_LO, &lo);
-> +	if (err)
-> +		return err;
-> +
-> +	*val = ((FIELD_GET(FS1603_VOUT_SET_HI_MASK, hi) << 8 | lo) + 80) *
-> +	       data->info->vout_step_mv / 2;
-> +	return 0;
-> +}
-> +
-> +/* Fb has no documented encoding; it decodes with the VOUT step and base. */
-> +static int fs1603_read_fb_mv(struct fs1603_data *data, long *val)
-> +{
-> +	unsigned int raw;
-> +	int err;
-> +
-> +	err = regmap_read(data->regmap, FS1603_REG_FB, &raw);
-> +	if (err)
-> +		return err;
-> +
-> +	*val = raw * data->info->vout_step_mv + data->info->vout_base_mv;
-> +	return 0;
-> +}
-> +
-> +/*
-> + * A board that raises the rail with a feedback divider leaves VOUT_SET at the
-> + * feedback target, and Fb then reads well below VOUT. The divider is fixed in
-> + * hardware, so measure its ratio once. Without a divider Fb reads the output
-> + * itself, and the ratio stays one so the limit does not follow ADC noise.
-> + */
-> +static int fs1603_measure_fb_ratio(struct fs1603_data *data)
-> +{
-> +	long vout_mv, fb_mv;
-> +	int err;
-> +
-> +	data->fb_ratio_num = 1;
-> +	data->fb_ratio_den = 1;
-> +
-> +	err = fs1603_read_vout_mv(data, &vout_mv);
-> +	if (err)
-> +		return err;
-> +	err = fs1603_read_fb_mv(data, &fb_mv);
-> +	if (err)
-> +		return err;
-> +
-> +	if (fb_mv > 0 && vout_mv > fb_mv + 4 * data->info->vout_step_mv) {
-> +		data->fb_ratio_num = vout_mv;
-> +		data->fb_ratio_den = fb_mv;
-> +	}
-> +	return 0;
-> +}
-> +
-> +/*
-> + * OVP trips at OV_Threshold percent of the VOUT_SET target, measured at the
-> + * feedback pin. Scale it by the feedback divider ratio to report it in the
-> + * same rail domain as in1_input.
-> + */
-> +static int fs1603_read_vout_crit_mv(struct fs1603_data *data, long *val)
-> +{
-> +	unsigned int raw;
-> +	long vout_set_mv;
-> +	int err;
-> +
-> +	err = regmap_read(data->regmap, FS1603_REG_OV_THRESHOLD, &raw);
-> +	if (err)
-> +		return err;
-> +	err = fs1603_read_vout_set_mv(data, &vout_set_mv);
-> +	if (err)
-> +		return err;
-> +
-> +	raw = FIELD_GET(FS1603_OV_THRESHOLD_MASK, raw);
-> +	*val = DIV_ROUND_CLOSEST_ULL((u64)fs1603_ov_threshold_pct[raw] *
-> +				     vout_set_mv * data->fb_ratio_num,
-> +				     100 * data->fb_ratio_den);
-> +	return 0;
-> +}
-> +
-> +static int fs1603_read_status_bit(struct fs1603_data *data, u8 mask,
-> +				  long *val)
-> +{
-> +	unsigned int status;
-> +	int err;
-> +
-> +	err = regmap_read(data->regmap, FS1603_REG_STATUS, &status);
-> +	if (err)
-> +		return err;
-> +
-> +	*val = !!(status & mask);
-> +	return 0;
-> +}
-> +
-> +static int fs1603_read_in(struct fs1603_data *data, u32 attr, int channel,
-> +			  long *val)
-> +{
-> +	unsigned int raw;
-> +	int err;
-> +
-> +	switch (attr) {
-> +	case hwmon_in_input:
-> +		if (channel == 0) {
-> +			err = regmap_read(data->regmap, FS1603_REG_PVIN, &raw);
-> +			if (err)
-> +				return err;
-> +			/* PVIN reports in 1/16 V steps. */
-> +			*val = raw * 1000 / 16;
-> +			return 0;
-> +		}
-> +		return fs1603_read_vout_mv(data, val);
-> +	case hwmon_in_crit:
-> +		return fs1603_read_vout_crit_mv(data, val);
-> +	case hwmon_in_alarm:
-> +		return fs1603_read_status_bit(data, FS1603_STATUS_OVER_VOLTAGE,
-> +					      val);
-> +	default:
-> +		return -EOPNOTSUPP;
-> +	}
-> +}
-> +
-> +static int fs1603_read_curr(struct fs1603_data *data, u32 attr, long *val)
-> +{
-> +	switch (attr) {
-> +	case hwmon_curr_input:
-> +		return fs1603_read_iout_ma(data, val);
-> +	case hwmon_curr_alarm:
-> +		return fs1603_read_status_bit(data, FS1603_STATUS_OVER_CURRENT,
-> +					      val);
-> +	default:
-> +		return -EOPNOTSUPP;
-> +	}
-> +}
-> +
-> +static int fs1603_read_temp_crit_mc(struct fs1603_data *data, long *val)
-> +{
-> +	unsigned int raw;
-> +	int err;
-> +
-> +	err = regmap_read(data->regmap, FS1603_REG_OT_THRESHOLD, &raw);
-> +	if (err)
-> +		return err;
-> +
-> +	*val = fs1603_ot_threshold_c[FIELD_GET(FS1603_OT_THRESHOLD_MASK, raw)] * 1000;
-> +	return 0;
-> +}
-> +
-> +static int fs1603_read_temp(struct fs1603_data *data, u32 attr, long *val)
-> +{
-> +	unsigned int raw;
-> +	int err;
-> +
-> +	switch (attr) {
-> +	case hwmon_temp_input:
-> +		err = regmap_read(data->regmap, FS1603_REG_TEMP, &raw);
-> +		if (err)
-> +			return err;
-> +		/* TEMP_REPORT is degC directly: 1 degC per LSB, no offset. */
-> +		*val = raw * 1000;
-> +		return 0;
-> +	case hwmon_temp_crit:
-> +		return fs1603_read_temp_crit_mc(data, val);
-> +	case hwmon_temp_alarm:
-> +		return fs1603_read_status_bit(data, FS1603_STATUS_OVER_TEMP,
-> +					      val);
-> +	default:
-> +		return -EOPNOTSUPP;
-> +	}
-> +}
-> +
-> +static int fs1603_read(struct device *dev, enum hwmon_sensor_types type,
-> +		       u32 attr, int channel, long *val)
-> +{
-> +	struct fs1603_data *data = dev_get_drvdata(dev);
-> +
-> +	switch (type) {
-> +	case hwmon_in:
-> +		return fs1603_read_in(data, attr, channel, val);
-> +	case hwmon_curr:
-> +		return fs1603_read_curr(data, attr, val);
-> +	case hwmon_temp:
-> +		return fs1603_read_temp(data, attr, val);
-> +	default:
-> +		return -EOPNOTSUPP;
-> +	}
-> +}
-> +
-> +static int fs1603_read_string(struct device *dev, enum hwmon_sensor_types type,
-> +			      u32 attr, int channel, const char **str)
-> +{
-> +	if (type != hwmon_in || attr != hwmon_in_label)
-> +		return -EOPNOTSUPP;
-> +
-> +	*str = channel == 0 ? "vin" : "vout";
-> +	return 0;
-> +}
-> +
-> +static umode_t fs1603_is_visible(const void *data, enum hwmon_sensor_types type,
-> +				 u32 attr, int channel)
-> +{
-> +	switch (type) {
-> +	case hwmon_in:
-> +		switch (attr) {
-> +		case hwmon_in_input:
-> +		case hwmon_in_label:
-> +			return 0444;
-> +		case hwmon_in_crit:
-> +		case hwmon_in_alarm:
-> +			/* OVP and its alarm describe the regulated output only. */
-> +			return channel == 1 ? 0444 : 0;
-> +		default:
-> +			return 0;
-> +		}
-> +	case hwmon_curr:
-> +	case hwmon_temp:
-> +		return 0444;
-> +	default:
-> +		return 0;
-> +	}
-> +}
-> +
-> +static const struct hwmon_ops fs1603_ops = {
-> +	.is_visible = fs1603_is_visible,
-> +	.read = fs1603_read,
-> +	.read_string = fs1603_read_string,
-> +};
-> +
-> +static const struct hwmon_channel_info *fs1603_channel_info[] = {
-> +	HWMON_CHANNEL_INFO(in, HWMON_I_INPUT | HWMON_I_LABEL,
-> +			   HWMON_I_INPUT | HWMON_I_LABEL | HWMON_I_CRIT |
-> +			   HWMON_I_ALARM),
-> +	HWMON_CHANNEL_INFO(curr, HWMON_C_INPUT | HWMON_C_ALARM),
-> +	HWMON_CHANNEL_INFO(temp, HWMON_T_INPUT | HWMON_T_CRIT | HWMON_T_ALARM),
-> +	NULL
-> +};
-> +
-> +static const struct hwmon_chip_info fs1603_chip_info = {
-> +	.ops = &fs1603_ops,
-> +	.info = fs1603_channel_info,
-> +};
-> +
-> +static int fs1603_probe(struct i2c_client *client)
-> +{
-> +	struct device *dev = &client->dev;
-> +	char *name;
-> +	struct fs1603_data *data;
-> +	struct device *hwmon;
-> +	unsigned int ocset;
-> +	int err;
-> +
-> +	if (!i2c_check_functionality(client->adapter, I2C_FUNC_SMBUS_BYTE_DATA))
-> +		return dev_err_probe(dev, -ENODEV,
-> +				     "SMBus byte data not supported\n");
-> +
-> +	name = devm_hwmon_sanitize_name(dev, client->name);
-> +	if (IS_ERR(name))
-> +		return PTR_ERR(name);
-> +
-> +	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
-> +	if (!data)
-> +		return -ENOMEM;
-> +
-> +	data->regmap = devm_regmap_init_i2c(client, &fs1603_regmap_config);
-> +	if (IS_ERR(data->regmap))
-> +		return dev_err_probe(dev, PTR_ERR(data->regmap),
-> +				     "failed to allocate regmap\n");
-> +
-> +	data->info = i2c_get_match_data(client);
-> +	if (!data->info)
-> +		return dev_err_probe(dev, -ENODEV, "no match data for %s\n",
-> +				     client->name);
-> +
-> +	err = regmap_read(data->regmap, FS1603_REG_OCSET, &ocset);
-> +	if (err)
-> +		return dev_err_probe(dev, err, "failed to read OCSet\n");
-> +
-> +	ocset = FIELD_GET(FS1603_OCSET_LEVEL, ocset);
-> +	if (ocset != data->info->ocset_default)
-> +		dev_warn(dev, "OCSet %u differs from the %s default %u\n",
-> +			 ocset, client->name, data->info->ocset_default);
-> +
-> +	err = fs1603_measure_fb_ratio(data);
-> +	if (err)
-> +		return dev_err_probe(dev, err,
-> +				     "failed to read the feedback ratio\n");
-> +
-> +	hwmon = devm_hwmon_device_register_with_info(dev, name, data,
-> +						     &fs1603_chip_info, NULL);
-> +	return PTR_ERR_OR_ZERO(hwmon);
-> +}
-> +
-> +static const struct i2c_device_id fs1603_id[] = {
-> +	{ .name = "fs1603",
-> +	  .driver_data = (kernel_ulong_t)&fs1603_models[fs1603] },
-> +	{ .name = "fs1604",
-> +	  .driver_data = (kernel_ulong_t)&fs1603_models[fs1604] },
-> +	{ .name = "fs1606",
-> +	  .driver_data = (kernel_ulong_t)&fs1603_models[fs1606] },
-> +	{ .name = "fs1606_0600",
-> +	  .driver_data = (kernel_ulong_t)&fs1603_models[fs1606_0600] },
-> +	{ .name = "fs1606_2500",
-> +	  .driver_data = (kernel_ulong_t)&fs1603_models[fs1606_2500] },
-> +	{ .name = "fs1006_5000",
-> +	  .driver_data = (kernel_ulong_t)&fs1603_models[fs1006] },
-> +	{ .name = "fs1006_3300",
-> +	  .driver_data = (kernel_ulong_t)&fs1603_models[fs1006] },
-> +	{}
-> +};
-> +MODULE_DEVICE_TABLE(i2c, fs1603_id);
-> +
-> +static const struct of_device_id fs1603_of_match[] = {
-> +	{ .compatible = "tdk,fs1603", .data = &fs1603_models[fs1603] },
-> +	{ .compatible = "tdk,fs1604", .data = &fs1603_models[fs1604] },
-> +	{ .compatible = "tdk,fs1606", .data = &fs1603_models[fs1606] },
-> +	{ .compatible = "tdk,fs1606-0600",
-> +	  .data = &fs1603_models[fs1606_0600] },
-> +	{ .compatible = "tdk,fs1606-2500",
-> +	  .data = &fs1603_models[fs1606_2500] },
-> +	{ .compatible = "tdk,fs1006-5000",
-> +	  .data = &fs1603_models[fs1006] },
-> +	{ .compatible = "tdk,fs1006-3300",
-> +	  .data = &fs1603_models[fs1006] },
+> [Severity: High]
+>
+> The PSP ICV doesn't cover the outer IPv6 header or its extension headers.
+> An on-path attacker could take a captured PSP packet, insert one of these
+> headers, and set saddr to an address they control. This assumes the
+> device authenticates such packets, which this patch's premise implies.
+>
+> Several of those handlers reply with an ICMPv6 error that quotes the
+> packet. With default sysctls, this happens for an unrecognized routing
+> header type (type 0, for example) with segments_left != 0:
+>
+> Before this patch, all of these packets were dropped at the is_udp check.
+> Forwarding the decrypted skb itself looks blocked by
+> sk_validate_xmit_skb() ("unencrypted skb with no associated socket -
+> dropping"). That leaves the ICMP error path as the open channel.
 
-Why those extra compatibles ? I can see that -0600 and -2500 are
-needed, but the others could just use tdk,fs1606.
+Agree with this finding.
 
-Thanks,
-Guenter
+Ok, this puts me back in mind of the approach in v0 of this series ; just drop
+packets with extension headers. Actual support for extension headers can be
+done separately from this fix.
 
-> +	{}
-> +};
-> +MODULE_DEVICE_TABLE(of, fs1603_of_match);
-> +
-> +static struct i2c_driver fs1603_driver = {
-> +	.driver = {
-> +		.name	= "fs1603",
-> +		.of_match_table = fs1603_of_match,
-> +	},
-> +	.probe = fs1603_probe,
-> +	.id_table = fs1603_id,
-> +};
-> +module_i2c_driver(fs1603_driver);
-> +
-> +MODULE_AUTHOR("Kevin Jia <kjia@nexthop.ai>");
-> +MODULE_DESCRIPTION("TDK FS160x uPOL DC-DC converter telemetry driver");
-> +MODULE_LICENSE("GPL");
+pw-bot: cr
+
+-Todd
