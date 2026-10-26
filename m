@@ -1,130 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.138
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793029936;
-	b=zPgr7aUFDHJzX4rHPb1Hka/gwLIpywT8VPZBcBLZOZ/D//QhyU5zcjwO3du8QRQgY8K/
-	 6d2wlWI8X+VI5tGKkwO3Qk1/7kqryqdIGGhNyeVDyP8OfZcSat55cac0N+n7Hs6Jlr9vE
-	 sfcUtrlwY8NG0uRhDjru64fXSLmO+CeMIRW6aOUA1sy5HfZbSVQE5d/gQ/2iTyVML0pK8
-	 wa6Vc7sAoNVE4PMbbce+aBQBp2JG9ZLrgQ0FP1QNIyGuDhedCfwMu3W037go1KUAcUqwp
-	 wtlwSOyhrSF38rXKDq6+14qbjTUIZuBSLNritSLNEx6CPjerM3i3m/WaHR04nI1TIiA==
+	t=1793029945;
+	b=rgX3bK1WLJ/j+hbz1JLxWdVkEvfmCfteGMP+VT1YovGYisXoDoO8cnapUo++AcO4gB4Y
+	 crsTIHvBNW0I5WEm0QeaHKINDs+ToyNJv3teNaJatDMIRPg0waCeY4eMTs8cbps95BgHZ
+	 gfrVX774H+XPN67PsMJgEBWJlBN6J3VsIsfJq1dESK/i7CmwlCX9LKFwxRwwMnLB+7bO7
+	 CqVPCnXkkmr7Jlgy+pJhbCybGtZ9PpiRO+V9uuuhmwt/9iXUbEMzQt7aFSEAs1xqOGHAP
+	 9ub9QjzsHWf6g75eDpLAlHM+VHqmDH0H6ckmxFYe4j9S/3Nd+VoIFyX22Bx2zLjIY1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793029936;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=CPgBc4xaMzIFqQc4IC3B48/bd19HMe5+87bnM/Zq9yc=;
-	b=ZDCok+SEV2cSPVkxgp18Ym59PhXXSM5v0RTyOBmdooy3xSf40L4UaSnR+355VcVr2a/+
-	 HLJxQrDwMavS4c/891g4llpPLqcLugAHNy0Scalu0/UvDtDwjtGuZMAW7WZ9ojdyL1Z9u
-	 ZvnxbCMRAp4QeTGNBVe6HAECwVjUOhAanWRVfAo//o10yzrUCTC94v6encOb7shcnDNlX
-	 xG5KzVFqjy3Rk+CpSkZFtaTecVpl0cdsojAT4q8Rgsqy4C0ue8HW4errwPP9t34599Y9x
-	 GY3Amat1BFI6Gzara3H7EL5hzXlOnIC72bHV5LeFIR3nFuVxxa5zRCvp8s/TFxs09Qw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793029945;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:Date:Message-ID;
+	bh=VaQMEbNe6iILjWkN+oLQ9JFAOPWDJQN9tfc/T2bNOlo=;
+	b=WQVpdtwid+BSTTynt5jUUjz4SbjpdO9B+2WkQx3TfYzzsFRNZawq1IKiGEqfC5Z7GQAs
+	 FYesjLl+A1fbnKvO9oTr3qM063YYvo1fRo1GSe5U2T+Jg3QuWR+8BD9gLREv792wa4UM3
+	 Tzpi4umH1T6whuO7oLTQDXI6GEWdUotQQsQ/8gmwXwXrvWgehEM5VE6+nSRzRhT2QTXjA
+	 7am0vrqIamc/CoXtAjurEweV3qTaEkv+JsC/EzDOrzKq+CHJ2ezWLQDCz9b0U+NH9Qit3
+	 fxEsFnL+gTpudyYES6ClCNtWsmnvI4Wj9I87V+PPUT6aqb0dNVALZo+A+lWxsw60NVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=shutemov.name;
-	spf=pass smtp.mailfrom=shutemov.name;
-	dkim=pass header.d=shutemov.name header.i=@shutemov.name header.a=rsa-sha256 header.s=fm1 header.b=o0BKoQCE;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b="Kz0s54/5";
-	arc=none smtp.remote-ip=103.168.172.138
-Received: from flow-a3-smtp.messagingengine.com (flow-a3-smtp.messagingengine.com [103.168.172.138])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Ix0PLRmi;
+	arc=none smtp.remote-ip=74.125.227.139
+Received: from mail-pj2-f11.google.com (mail-pj2-f11.google.com [74.125.227.139])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 096FF606A31D
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 15:52:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 096FF606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B0D6606A320
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 15:52:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B0D6606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=shutemov.name header.i=@shutemov.name header.a=rsa-sha256 header.s=fm1 header.b=o0BKoQCE;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Kz0s54/5
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailflow.phl.internal (Postfix) with ESMTP id 4BF4713801F0
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:52:15 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-02.internal (MEProxy); Mon, 26 Oct 2026 11:52:15 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm1; t=1793029934; x=
-	1793037134; bh=CPgBc4xaMzIFqQc4IC3B48/bd19HMe5+87bnM/Zq9yc=; b=o
-	0BKoQCEo3nSrcyVCxtJP1KJxl/yw5aVebOquu+la35y5fz9jh9W0wIbsccWPZOtw
-	lPv0PfFhRS36jmErd0kS3aCFrWXSr6hBe03n1budn0uiDaaykqK2f/fDwglTEM0t
-	PwRTOZut60Q9SQoxlkepYalWady5fZJfrJlIjjlj/ouTkGyII3DFnbBLlyiSIgvV
-	HHQgPvG5QWRfaHVffWOinWQo4RxSsggAVN06fL9rqytCyZKaVtvisskLTe6pRuZU
-	qcGSazzOT/ln+dhx15bgJEhjQlIkGf0AuMAgwSAlVOy34OCMk1Wg6x87uYKnqG5c
-	x7vr6szoyhJTqwIVnvqvw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1793029934; x=1793037134; bh=CPgBc4xaMzIFqQc4IC3B48/bd19HMe5+87b
-	nM/Zq9yc=; b=Kz0s54/5iJjqL/Hh3p2OtVE9uLiC6AN79waFcNg2he6mabZvfnm
-	n0XWxAimat+vJBiSn8Jmd3iLewQGdKw47wOJnPMQDOdSKl/xZ15jrFiCga3kHtfL
-	M6gAB6obdV0GQEymXG0DOWwQhKGTeNNAuPSqWN78l1t4UbPSAIJWNnwkiJJQ4YTr
-	tIBJTJTkj9DwvnS19J2+X0k9gt3dbElymBO/yct7zQlUPVlLMAo706mTvH2cOUwO
-	jmuESzMcfXZ1yXG1biavNgJK7DU4hfnaioqEiCZ1ifmblUbrCkMy3YXTK/JkGVlH
-	erWJcKTsyKCkg2+QATFWk/r4KG4nH6Soaww==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=sign d=shutemov.name a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793029934; d=shutemov.name;
-	mf=PGtpcmlsbEBzaHV0ZW1vdi5uYW1lPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:uYWwaAOc4McT8GfERt6VidmNCQ+ICl6X8qudvFKY46njL52
-	j1/FbUYH9tNIsuZ/tgNgURs/2gBFNFZkpc5jNAGRm1eT18d7XdH/pxejIQ+ZUjsF
-	kpNT9W5Y6OAw75oMKaK6VqFEQbeppF80Q586hOEEri83aofGrj3gvrfKk6u17jeT
-	QzbUe5dttprkNY08L1SYZLKWKpH8RJLSDxw21hi5hLUt/JoixpqAyQn68ukbpncQ
-	Qw7rCIzrWV8X2mfgfJxUGtIy86sC37xH2C+NUHo6CbYhQHmB1MwKVoZZ8qcZe8zv
-	QO6yijsripFPubUPFej1Hbpt2q8ZSOnY8VbI+6g==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-disposition,content-type,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:TSptQC+uPMW58EhXC2TW+E5AzwHwIj0iAaNeMtqyI1A=:5YQRYL/pXslXA49efxXcFJfhlbdrgkaeNfpXN03LNGc=;
-X-ME-Sender: <xms:K3ffahXllY81gQANBHMWb7ApPzS4XFdgRPGgmQsQBZqVrOI-rfCLvA>
-    <xme:K3ffaoS4f-N2KBXy0sO2JKuIUYhwMZ9jSMURIQtPmKJaFiuHdBHnUX2StJGa_IL5L
-    8A0YepPvhed_5e-_CoeEJI8vqWAoNyRTn1Ki4XBNBlLzi4HYd5E7io>
-X-ME-Received: <xmr:K3ffann2o7DU9q1N8a1-EiSkbdymdeOHlv95OV7smwUBwfgkxPDQN5Osb3Y>
-X-ME-Proxy-Cause: dmFkZTEkSluo7FEz7n1qY7QYOfbn0owFYeZY5oOq3jGyfhvPnNpVEknLvAeGR1+iGM3syA
-    9KIyaf94wEd0nEJHg2+khnrAfvqxgujFfy94I/ENHCdc0906l3qTkFhAemCDZZtRoxQBpm
-    ISOWhrDqbIIdQD/XOE0Efd3BZFKX5jwo5O5BVQet0MVPWPwjx/89wQFabKcqsb87E2zGhQ
-    AhHs9zIIZ+GdDFr2ga3NpUuXWeHL9qnhJdz8bu55mbEWD3a9HPXRp+Z1vqFAzmuJVpG86o
-    jDvHzSpOLflmtoY1U6+79dpdUBqHq75y5KpZ9OM97P7mgyK/gICBKBi13o7qY++ND5OLLr
-    YZTLwIugW9gTdbWrpRzW1DUeaLESRpM8rozbGIb7htDEohjfWM6G0235tRBvr5Lq4T46p6
-    Hy1JiSS0d+flJ3EyLB1tHFF6xqKs4XcGDrliXW8nyDab27YUhPkoMSrRX0Q28XOlGmGwKk
-    qhM8mFIJrU5PxpeECU37qyJkils1hwny+zsf1IpG52mzKP1ds/hxmicboQ7qzWJxQ8S3+0
-    Pv4PtDi3sLD+barIJSVFqqNfykQ7mAowqBqY6pOX02pWMz74t/xkVx+6Bx4Ok7znZcyAV+
-    GJ2hnpW15TnIYQHZYc3bCOWkqiZotgTDwAtJEqKb1lbgbzxXsZhL1SoYbGuA
-X-ME-Proxy: <xmx:K3ffak_F0cERTHmcQXmxXAI7UweRjo5_rxdsq5rs3fPxmQdpTENHJQ>
-    <xmx:LHffavWFQzi_x4edbTi0is-2e57xE3DOZA6BYkc4e8CjvbhJ8LLUBA>
-    <xmx:LHffauT4MRVbf9U50mVFfA6bl6K-ealI_VMKfGYJUT-sh9uJVp8T6w>
-    <xmx:LHffav0lwvfFc7HeGCdTdI6O7GaLWe95hMP8ont6HY_mJQ1JZHKKfw>
-    <xmx:LnffaozOOq9MK8xz-qfmkdgz7WlkK1yxG60yntUXhVC7MpPc-gw5b-C0>
-Feedback-ID: ie3994620:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 26 Oct 2026 11:52:10 -0400 (EDT)
-Date: Mon, 26 Oct 2026 15:52:09 +0000
-From: Kiryl Shutsemau <kirill@shutemov.name>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Gregory Price <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
-	Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Vladimir Davydov <vdavydov.dev@gmail.com>, 
-	Michal Hocko <mhocko@suse.com>, Hugh Dickins <hughd@google.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Lukas Czerner <lczerner@redhat.com>, 
-	Carlos Maiolino <cmaiolino@redhat.com>, Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
-	Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>, Muchun Song <muchun.song@linux.dev>, 
-	Oscar Salvador <osalvador@suse.de>, David Stevens <stevensd@chromium.org>, 
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>, William Kucharski <william.kucharski@oracle.com>, 
-	Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, Nhat Pham <nphamcs@gmail.com>, 
-	Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi <nao.horiguchi@gmail.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Chris Mason <mason@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH 04/16] mm/shmem: honour F_SEAL_EXEC when an ACL is set
-Message-ID: <at93HVbtV34eDnOM@thinkstation>
-References: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
- <20261026-fixes_shmem-v1-4-703206d5fa0c@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Ix0PLRmi
+Received: by mail-pj2-f11.google.com with SMTP id 98e67ed59e1d1-3ae08d3dd4fso1305695a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 08:52:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793029944; x=1793634744; darn=vger.kernel.org;
+        h=message-id:date:mime-version:content-transfer-encoding:content-type
+         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VaQMEbNe6iILjWkN+oLQ9JFAOPWDJQN9tfc/T2bNOlo=;
+        b=Ix0PLRmilhzB5Xu6pIWjScPeGZ+L9r72dm0aA+xd1UGwroGHgBkEMykQUa0xdkXJsF
+         ZAxysaSOMzn8ZI7anNojWi/UufVfh0gYwkLfCnUaGNLA/C8XHTC2LDbKIEUwoHEnkJnM
+         xsLkaD+m4U0KBCcCYZ+yEdAAlsWUXbyQvjuZP6bioNjoMf+A8lmKoIvSaD4+CvZdrPCe
+         nQjoF/R+xGmejigYy4Sa+bysdTQTqgJ61VxU1ry16qJsbQu0ri+QZRukFSgnxrotzprL
+         DZnT+ho1ao3IgHohi8b4rCjGjMisi/dRqp5upZ04rrYb0aQlNuB9JK+KFvXDY20ErE0s
+         /ysA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793029944; x=1793634744;
+        h=message-id:date:mime-version:content-transfer-encoding:content-type
+         :references:in-reply-to:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VaQMEbNe6iILjWkN+oLQ9JFAOPWDJQN9tfc/T2bNOlo=;
+        b=WCd/eFq0VwYLGmJlceL1weZ/UxlogUv/D16bFZW8No11wjC4Jq4drxjZf6H0ZnXrnT
+         JEGYB13ECi9STt7eQGfM9F70PhnHq6bao0vvzJd1p9Esy85+3kZW3NW3fs+YKHYndKgO
+         7ZfoCjBStBL9VxE5zSZxjX7Xw2I+WmQ0YGFi9Z9nHnXn6vg5cFL7k3YDuTNPvi0rGlAo
+         9/Q5UlNKgaIW75hfet92/q917yX/u1JKV8eXQ7occ7rkEJ3dFtvZOL24XjWAcmbm/kwA
+         egddr158bLX7R2WmipPj/Aou2fWuKn9VUEvyu3OILGOexpBh1xkMKlGyeXo08VOXh6lL
+         QyaA==
+X-Forwarded-Encrypted: i=1; AKwUvBx714J9FK4aphmeYbcGneqliInn7XzsCaD/2wXiYfKuwhYhnLSIv7viGkbBDpXk03bk8RxzkbgWej5MNCQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK5LkgWpIWhxLC2KOW3OwO4kooKIRnGButd2BTheKHW9hr0gjAC
+	rAJCmBRzIT8bRfgypjFydEiv16mdVZ8XKjuSMGuomgx5QM+cBTVjoJKD
+X-Gm-Gg: AYBFou3BuWKWRTflxc1i+Qs39wMsler1+WLTVUgevv6UzkSInUYETc0MhyHrRqTsK61
+	o1hxDjnH+T9vlbDZCQtOWzpJ37XU+N/k9vGGHZI5LYCPID9GSnPon5UwPjtoJ2u0h/qSSWPgqGj
+	sFynO+3bylgMNaGa/c9gScqmxz9+ZLXM93RAY/tZHm6SInhaP69wnJ8wIy9Vdj8KW4syXIb0Xxi
+	/YusIgM1bJ+DETlqu+cyYkPh9KupZ72S8kh7a7yXj4pyel9YqwrS0ZRj45V2lPuT/CO5hjbypvX
+	03DLKoGEhE4QHd3Xc4lK99Pd8tw/T8vajBlxkxm0RDVwuuTT5h8P54vdrKmhy2OObJkNNiMJoMQ
+	W9qQ8ZT0GGHeKcMDlPGUQmHmP2IYDJCsC6O0DLYlPaI3T611P9nmKGuO4P5ge8qQhxzaahdE7ge
+	vzP64p131ddLgxM4gzP0Igkrz3A0Vmk16qW9HIv3Aeu5Lug0eMYVXXVGMsTyrb7Mk5hT+GFbugJ
+	tc42K7RpM3/6AYCrj/TmTZjj7lx3k4cvI4X1ue+NaAK3f79JblxjyP2/puvU3YDi2Fmf6YOQRK2
+	uiYHh2TDE4dDEi58mT58w7sY/IZLBb0SztbGdg/KVUsTCZkfUePvyQ==
+X-Received: by 2002:a17:90b:55ce:b0:3a8:185:cf40 with SMTP id 98e67ed59e1d1-3adead57ccdmr6255798a91.10.1793029943804;
+        Mon, 26 Oct 2026 08:52:23 -0700 (PDT)
+Received: from localhost (n106-71-19-159.sun21.vic.optusnet.com.au. [106.71.19.159])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae40427782sm48676a91.4.2026.10.26.08.52.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 08:52:23 -0700 (PDT)
+From: Aveline Noir <jm5905938@gmail.com>
+To: SJ Park <sj@kernel.org>
+Cc: Manuel Ebner <manuelebnerli@mailbox.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
+ damon@lists.linux.dev, linux-mm@kvack.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/8] Docs/admin-guide/mm/damon/start: fix grammar
+In-Reply-To: <20261026142927.149910-1-sj@kernel.org>
+References: <b0d8d0ceda82e303262c0f61324fe8a84fd9f745.camel@mailbox.org>
+ <20261026142927.149910-1-sj@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -134,32 +100,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261026-fixes_shmem-v1-4-703206d5fa0c@kernel.org>
+Date: Tue, 27 Oct 2026 02:50:54 +1100
+Message-ID: <179302985413.2.2084375678408090049.damon-docs-reply-01-start@gmail.com>
 
-On Mon, Oct 26, 2026 at 10:40:37AM +0100, David Hildenbrand (Arm) wrote:
-> From: Chris Mason <mason@kernel.org>
-> 
-> The owner of a memfd sealed with F_SEAL_EXEC can still change its
-> execute bits by setting a POSIX access ACL. With CONFIG_TMPFS_POSIX_ACL,
-> this lets an unprivileged owner make a non-executable memfd executable,
-> bypassing vm.memfd_noexec=2.
-> 
-> simple_set_acl() updates i_mode directly, bypassing the seal check in
-> shmem_setattr(). Add shmem_set_acl() to check the resulting mode. Share
-> the F_SEAL_EXEC check with shmem_setattr() using memfd_check_seals_mode()
-> in include/linux/memfd.h.
-> 
-> Fix generated by an LLM and sent by Chris Mason in private.
-> 
-> Fixes: 6fd7353829ca ("mm/memfd: add F_SEAL_EXEC")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Chris Mason <mason@kernel.org>
-> [ david: use common helper; simplify description ]
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Hi SJ and Manuel,
 
-Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+On Mon, 26 Oct 2026 07:29:26 -0700, SJ Park wrote:
 
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+> My intention was saying DAMO is commanding DAMON to monitor the process.
+> So I find Aveline's version is slightly better.
+
+Agreed. Both "start" and "make" depend on "asks DAMO to", so I'd keep
+"make" here.
+
+> Looks good.  Unless Aveline objects or do this by themselves with
+> revisioning, I will add this change when I apply this patch to
+> damon/next.
+
+Those two fixes look good to me too. Please include them when
+applying, SJ. Thank you both for reviewing.
+
+Thanks,
+Aveline Noir
