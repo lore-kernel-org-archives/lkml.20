@@ -1,66 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.98
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793028856;
-	b=xroKzAbCIh8hzqe/wteK4I60VSY9IXS21q9Tyvu7Q1a0CIdnqZDuJcYkuzoCoi1ujh/j
-	 2I0POUS7C29CE3xcfUYnOyR27OdJ+ICUuF9rfXy8I0BymTXEWW/lpXNVd+Wbcya9PWLha
-	 CGQgv4virzdC/krpU0DVIpeIozxTkyvKSUaIJ92Q1y93R0N1ugM/+XwZ52+IcpQdcuZyd
-	 hJZjh0WztbXDXop9r9pGqIXDMm2KZ7BQtuvdunGz2AFcSbnb/6HeCvQdwjdcdqs4MiR+N
-	 aeO8w41aw/mGvci2FsqSprxNy03Sq7VUvD2hEc0zl5n7td549W9tgNGrlphCPO3fpJQ==
+	t=1793028883;
+	b=t7Fg0EJNZs8WT4rWqL9oTFtfmBGRC9rMPFaS99xC3adMHvn0e9ArFuBmAGWmsXs7hbk7
+	 ffQJKHdzfsUxnyDBXVNFWqpLSXU7S0OZ0BlGCE6w95+zL3X9/ZZp8kNGqaaK7wlybNMW4
+	 mqwEeHYYFt3QA8F50oVL64oeBqKtiPrdQjA5PAxeMWdfGIqX/fsHiggO7/g8BCVB42KPP
+	 mg8iBqBxyhKbp38Sl8NlA44YCzpHpk/v1teHRcVEuH4sdBzoARlHFdb0IPxCg9LEwcgTM
+	 Q6GsVlp8jbEBuAQkAKLMZVDiaPp62Xwrc9bu5h4IRiipCfL77S3hd7E1GmFHcRhsCMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793028856;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793028883;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=N2M2ynz1TYTbyP0bcLVwndk5qgcK+iuezakI16B8/5M=;
-	b=l45+dndvOOgO7PUzLThnQ5cGqXxO0lpK0p09R0UoD7fTgxdLIMA230hecoQNOHVHvldP
-	 Ije2IHoKVvmHEDC5BX+FNS2ZXUd6BfEWQfCwfRONRCUv6yO5nhd6t5LrWF++P3lJGoPgS
-	 pZxtagb1N0BH6C2CASueBiEBjWdPJgVVswQqcOAsxcDfYSLB2/kr9MVGR+Pk43mkpxGUt
-	 pR1S9nzhlvw5Th8ld2Y0pjpPmameQ1zRcZz5yUEyfVcskp0rO6EslWr8oAVJtNR53D5Sy
-	 qGes17geq5dLiT1iLGs/FUPPpGIQMe4gTswjYihHOvvhHt69v4Fe/qsD0azoPz+ZmBA==
+	bh=5WbTE6FtCqbifuziiK1Je8VFGg0z85esmt3ElMO056c=;
+	b=inWr6r17vY7Z5h9HJblTkIDHEbq8uLb4yr2CY3hezNx/YgsazLItX3gYZices15IfIKp
+	 2v8bQ/+BYYl6x2XQHIJ++ebGA4ZLET0TV5Rytk6vhFvUy56fuT56o1MB5BzUUaTDSJXHf
+	 fuXds91nzKeCBl4jtMUDToQeBpyF/iRbjXuoRpCzdPz3CBwujmd8Oz3GcgwVVrrh+RXZw
+	 WpBAweFZ/UtnV/HQyUenM4RMHddki+q1JrSShJuwsQP0h5m12T5dGNhDzhPkXfCpY6B2d
+	 X4ych/XmDbIQ4Bgb4MVBdSEhqP5IGwS+FO9av90xpnFfYaAR1BerXBIqFcN9wCYlfAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=acm.org;
-	spf=pass smtp.mailfrom=acm.org;
-	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=XTvnriEA;
-	arc=none smtp.remote-ip=199.89.1.16
-Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
+	dmarc=none header.from=xiaopeng.com;
+	spf=pass smtp.mailfrom=xiaopeng.com;
+	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=gycQtTV9;
+	arc=none smtp.remote-ip=115.124.28.98
+Received: from out28-98.mail.aliyun.com (out28-98.mail.aliyun.com [115.124.28.98])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A478C606A31D;
-	Mon, 26 Oct 2026 15:34:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A478C606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7715606A31A;
+	Mon, 26 Oct 2026 15:34:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7715606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=XTvnriEA
-Received: from localhost (localhost [127.0.0.1])
-	by 013.lax.mailroute.net (Postfix) with ESMTP id 4jCyN06wtMzlfvpc;
-	Mon, 26 Oct 2026 15:34:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1793028845; x=1795620846; bh=N2M2ynz1TYTbyP0bcLVwndk5
-	qgcK+iuezakI16B8/5M=; b=XTvnriEAS2EihqfB4LvyS9p3zH4Z0gmCa6imAX1w
-	geyaXlZiiltMj/dC9TKJLEUAUg6iBA7VHYz7zWOCs80wqdUG0oN3xOJGFJajBpya
-	U8tJVrF4ihNCEZht4KMu3b+Z96JiikxFHvi9to60QXa47ghrqvGYa57tisO+mAB0
-	90h2jgPoeOYOgUt/kN9hpj/hs07+vEBRl4+TtyjGVMEsntLsn2fq1NH4eiLLC6N1
-	/wiRMtv0cbaocn8NT4cN0tncNGCyh2rFjNV4I/vDE7W6oaDS8FlwxuMn5ZBHuRxZ
-	Y9GESKEQIY5UwF/YhwRIeqGoNHQ77bjTNkKkrI0WWc/zCA==
-X-Virus-Scanned: by MailRoute
-Received: from 013.lax.mailroute.net ([127.0.0.1])
- by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id UGNZoz65PEB2; Mon, 26 Oct 2026 15:34:05 +0000 (UTC)
-Received: from [100.80.231.125] (unknown [104.135.182.41])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4jCyMx2ZrrzlfvpT;
-	Mon, 26 Oct 2026 15:34:05 +0000 (UTC)
-Message-ID: <1d79dd9f-ef71-43f9-a02d-5d5138047fbc@acm.org>
-Date: Mon, 26 Oct 2026 08:34:03 -0700
+	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=gycQtTV9
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1793028871; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=5WbTE6FtCqbifuziiK1Je8VFGg0z85esmt3ElMO056c=;
+	b=gycQtTV9gpsNfdC/iZJ3G8/cRmysmvw1+jDwlDzvSw/4Zyd+J08v4LlFzQ2XU2xJ988oYIOFTIhtnm6JrxrkhQHiTikWBl4sEOAN9X0hCUb+aw+LXD+ip2+KpXDSwQVB0iDrtvZqwnY8OnaetBuhvIac2+mXMq2hMtc5d0fEXPU=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.1212897|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_news_journal|0.0519486-0.00412499-0.943926;FP=18301423795854014354|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037034184;MF=fangxy@xiaopeng.com;NM=1;PH=DS;RN=13;RT=13;SR=0;TI=SMTPD_---.jq4ePfq_1793028869;
+Received: from localhost.localdomain(mailfrom:fangxy@xiaopeng.com fp:SMTPD_---.jq4ePfq_1793028869 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Mon, 26 Oct 2026 23:34:30 +0800
+From: Fang Xieyan <fangxy@xiaopeng.com>
+To: fw@strlen.de
+Cc: pablo@netfilter.org,
+	phil@nwl.cc,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	netfilter-devel@vger.kernel.org,
+	coreteam@netfilter.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	liuwb@xiaopeng.com
+Subject: Re: [PATCH] netfilter: xt_policy: add NULL check for skb_dst() in output policy match
+Date: Mon, 26 Oct 2026 23:34:28 +0800
+Message-ID: <20261026153428.76698-1-fangxy@xiaopeng.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20261026125313.14810-1-fangxy@xiaopeng.com>
+References: <20261026125313.14810-1-fangxy@xiaopeng.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,52 +71,11 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] scsi: ufs: Change the error check sequence for auto
- hibern8
-To: Stanley Jhu <stanleyjhu@google.com>, HOYOUNG SEO <hy50.seo@samsung.com>
-Cc: "Martin K. Petersen" <mkp@kernel.org>, linux-scsi@vger.kernel.org,
- linux-kernel@vger.kernel.org, alim.akhtar@samsung.com,
- kwangwon.min@samsung.com, kwmad.kim@samsung.com, cpgs@samsung.com,
- h10.kim@samsung.com
-References: <CGME20261026053046epcas2p31ae8a493f40c0f12523feec6e036072f@epcas2p3.samsung.com>
- <20261026052632.1848929-1-hy50.seo@samsung.com>
- <18e21b71f8996bcc.3137322e31362e3131332e313435.1c875f.0000sendgmr@google.com>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <18e21b71f8996bcc.3137322e31362e3131332e313435.1c875f.0000sendgmr@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
+Hi Florian,
 
-On 10/26/26 7:42 AM, Stanley Jhu wrote:
-> On Mon, Oct 26, 2026 at 02:26:32PM +0900, HOYOUNG SEO wrote:
->> v2: https://lore.kernel.org/linux-scsi/20261022074249.3098100-1-=20
->> hy50.seo@samsung.com/
->=20
->> Signed-off-by: HOYOUNG SEO <hy50.seo@samsung.com>
->> ---
->=20
-> Please move it above "---".
->=20
->> +=C2=A0=C2=A0=C2=A0 if (ufshcd_is_auto_hibern8_error(hba, intr_status)=
-) {
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 hba->errors |=3D (UFSHCD_U=
-IC_HIBERN8_MASK & intr_status);
->> +
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 cmd =3D hba->active_uic_cmd;
->=20
-> This brace is never closed, so ufshcd.c does not build.
-
-Hi Hoyoung,
-
-Stanley's comments need to be addressed: please compile-test v5 and move
-the Signed-off-by above "---". Additionally, please consider using a
-local bool for the ufshcd_is_auto_hibern8_error() result instead of
-testing hba->errors, describe the actual changes in the changelog, link
-to all previous versions and Cc stable. With these addressed the
-approach looks good to me.
+Thanks for the explanation. Agreed, I'll drop this patch.
 
 Thanks,
-
-Bart.
+Fang Xieyan
