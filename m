@@ -1,88 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.154.123
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793022402;
-	b=G+i3piaPizO3cDq9iRjIPVdTYkAc+TmpvqOqNUBaBehBiGOOPF3jjI3jEaN9/cLsgT7m
-	 Bndr8hPKHJ+UUj0r2pNBneXltTivnl2PZwTPshxHam6QHu2/o9LbS7yL49PKFyqcP0mmD
-	 +IpNWBcv/vtRNHiZxJ6F2VnPBvpWA0oN0UeX68mchZVR2Iwv88TG5tYS2kA5/wV9Huu6i
-	 G4gFSV5rl91VADjDgY3Ujgh0EMp2olQRgTNAQBZvSuihJEYFm6MEsiLrORxBFmMR9zoy+
-	 Bt81TO96v4mHygjFui2eiCZBOidau+rjF0CUeURpgLslg2b2nyuIut0UGGJsfHRy1Vg==
+	t=1793022408;
+	b=y2RLi2qq0nqx9aHv3AHeBZ3JvLGvDhav7Jqg8Ray4lXV8qTJyYs+L42o3CeQfUUHqjNF
+	 kKUEuFOhuI4t0v4vvWSIK0OVXrRuz3MlaGYsn+YjFMEE6uvtiR7jP/45IdWWXR22bEdGA
+	 zXHYI/AXUhqq+PozbOwhrQ570dLQWFvIgtEN/WjCBYO21VzeL+3m60/4BuXcWRt8XykEa
+	 ICgZjwZZP5HcTE7ss/9EohtrNdOOeQdh5X0zIx/asaWMeNk0GAt/G94KyUWh+ONMUcQPN
+	 3k7EZNRrUtPuZOlW47+90NQ/+q9o+dpQLDHBuMLuW3HtuFxHZfybmzcgD+ISh0n7VdA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793022402;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Up25sXPkaIo4f1R0s9btJjt4RYr7oIm0MDexn6UlXds=;
-	b=eBZ8w0wc5WPgVzcdY4VPd1yYG6MbIuMSDz/rpXncruJ4E/NkQqb8+6gU6WSs36FNFQbv
-	 A9DlfNDhW+pA3KtMDrNRzxShMkOxwSb++MBBBotrUxh3uk/iXwwgijiKXil53bkdKzXUM
-	 KzwQJ9B91sYkwNRo21jWjN+ksQuAsW+dSXqodvnpPCfPUqld7Tr7aeFRwWEzbC4Q+qpSM
-	 OvIuXrFp7iH6qIvR7QL5H2kMANY40VSCQClW4yTSCmiMzWWmSxIOxXpdl0r6orcFJlxlb
-	 f5Mt8wfOIpYofah7r0HgFksZMaaORKS9x5l310PT5lZaf1mdHVLpDY6nyAtLhgW7RMw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793022408;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-ID:X-B4-Tracking:X-Change-ID:To:CC:X-Mailer;
+	bh=rPticPiLc3pCUn/0LDVPtmHtdlDPQ08+ktThrCe8zzA=;
+	b=GKnIKvPLU8RPtuFW1SbD292+yvTSHxSJWrvLMAJWi2GqOCE+g1zOwUrE/52PKAYjz1w2
+	 FVsTLEdN63DbNdmWyfgPbir6AJb9uA1oQG/JsQEWZs4X+Wm7KLTp9BGpmUwcyCu7HkKaF
+	 Y20elwJq8/yTM4JF/Fq28tOX7sZ7YpZNElGQYixZjmehx/4R+iKcpHzIi+CWFanlLnn6D
+	 TJe8CML3Or6yXcT+NP1B4SsVFqiZDbkW8IQVg19vs4vdSLtucjdFC9uKVOZvioWEjecvr
+	 Fu1JRCVh8f6ZYVRTaXRHMxOJ/3WAW0eGLVgTp1aeYjl42As5JhBRVHtjrCaO3lvzu3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kernel.dk;
-	spf=pass smtp.mailfrom=kernel.dk;
-	dkim=pass header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=FuPOOeud;
-	arc=none smtp.remote-ip=74.125.82.181
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=microchip.com;
+	spf=pass smtp.mailfrom=microchip.com;
+	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=UEuiWBP5;
+	arc=none smtp.remote-ip=68.232.154.123
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8394606A336
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:46:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8394606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E3B4606A328;
+	Mon, 26 Oct 2026 13:46:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E3B4606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=FuPOOeud
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-3535bf8b3e0so4964203eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 06:46:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1793022400; x=1793627200; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Up25sXPkaIo4f1R0s9btJjt4RYr7oIm0MDexn6UlXds=;
-        b=FuPOOeudMdxFdMiodw/MS6s9zJEnPZJ6uL6kpUeogL28WlaBKf/pe110zinkDVVA1X
-         lB4VHJMC0rtDNiPMbfxfmkfb4NwbWF8XY112th6SqvdZi6fKDIM0t5zwI9KS1orquvGf
-         8ygdvtu6gICp6KqRx4Uj5XcnCaRc0d6vtT0XiShpwg9tLNxjjYZvTyLXOi9OEIJYovVo
-         rjyOkVUvecL+qT5SRGaWtMjusGg2YmwjWjZy7r8BD7Zk8N9NsZ+lZ49WB+3TjORF2Pyv
-         5ikt3krTgViuFFh0+CwHIB6XoqUe4+lUOXySwKgAhnFx6ML9sLzp54f13WmuVKteL5G1
-         GavQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793022400; x=1793627200;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Up25sXPkaIo4f1R0s9btJjt4RYr7oIm0MDexn6UlXds=;
-        b=VUAjWejJdofYEQXUAH9WTmHP/EKLrD/HAjSwID9jqj2rKT/hu0S5qDb+cAombxz7lo
-         eM1n/G1z7ZXwLqUfwSdUDHm4jWR9U1rIa2ewTEjL/WHEsrExfwCjNxldNt5mAMrRe08l
-         XgpRF1XOx6xOTkALQ4jTDhR0sQI4AHeeuiSO+7PyNFOXh93MifapxFZKUMZGf1aRsXYb
-         bV5ERnbbOaEj8tPUqaWQLbgjODu1DBgXtV9Al11xP7HECp042pBizgKg8yKhZKnHIMJw
-         LzLY4jKxvSc/BPMtdhhks5haDPq1SAGRgfokRWfPHoWvVKtrPwOqALU7vzO2KzTV8dkl
-         IG5A==
-X-Forwarded-Encrypted: i=1; AKwUvBwxYAPSqI/vYcU0K9k+x48LwS+nHZ8VhmpPgM2r+zOFTUa19pMl0MwDgCg9UTjrT25sVKE0zt/gNwSD78g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ1rE5Hm470RAXR7n2ySroEdKyAE2ety0+XdV1HBsPjusVclU3a
-	aP9IKru40JSAaaWsPT6drMhB16Xf/HHiwAZkpny3nnsbMlh3IUi7haHcKwlrwPvea5A=
-X-Gm-Gg: AYBFou3A/E9w6re7lDG+GvzBw5HzBkeHM8HNjKHilkrfzoV/WDqlz4cTlwSv/1L5Iv3
-	oqlJ84jB1EbQX0T461mnK+5jSt8cSq5tZNlAp3+pTk9vAApeQprxNsweQGbDENVyiH78SCFOb3P
-	qna4vPEmKZL/70gm9UNKkOx2JTOOcvsWAWVyCBAdTzszb8InFOwaZGwfwibtrxHB0Dmsw41ews0
-	7TLKTmS14NhpMqpuwBGLAB/EmOfG15OdZZxJmv2/DlMvs0vzFk0/fz9HTi69AX1+yE3Wxib5rIz
-	5SjJXw88CMZ0HLJVNt6kUP8LW9wKOT77elN826MOOrEurNKuqOchAb5iKMU6sWSum0oyae2XnBt
-	7FPd05fS4oZ+2eXAak/+K0barKGaF1oXJpFJZn1iO0fPbpv7p0pdlEIWCTGBOxDlTbpnG30ggIa
-	OGGc03pOPouotKIpIoXeyvaa8MMaFxKnDP7chBE40DLq5FkpfJPG/f/oeTKvqoME6giiG0mS11n
-	BLyd6SO3zZD54XrBoEJM18fVl/SWLzy0JWAqX3RB2z9ZSLrQBCnTWN25NPBxOM8t1KofBDXnuoU
-	Y/IoQM71nbSlJ5BoBAna86ZvxtukeJ6+t9otn4E=
-X-Received: by 2002:a05:693c:66d2:10b0:35d:95e4:267d with SMTP id 5a478bee46e88-369e84bdd3cmr10806008eec.27.1793022399307;
-        Mon, 26 Oct 2026 06:46:39 -0700 (PDT)
-Received: from [192.168.1.106] ([198.8.77.135])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a005c0188sm11976378eec.9.2026.10.26.06.46.38
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 26 Oct 2026 06:46:38 -0700 (PDT)
-Message-ID: <fe5bf816-815b-4a81-b765-2ed36cdd3168@kernel.dk>
-Date: Mon, 26 Oct 2026 07:46:38 -0600
+	dkim=pass (2048-bit key, unprotected) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=UEuiWBP5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1793022408; x=1824558408;
+  h=from:date:subject:mime-version:content-transfer-encoding:
+   message-id:to:cc;
+  bh=/KcO045JT01u3I/kXvlahPmG41Mc678leFr4DDSet04=;
+  b=UEuiWBP5ApL8Ut/1I1857wQi+SD/a9yKr6/z5Mmy1c34c+glhjdQjstJ
+   vXmnQNWUHe9JMTmg2o3qkwkAdWOsis9p5BNebs9M/D5MlY+t3riKh+Lv3
+   PAVeTlvXzT0+LAweKRV9a/+bDeCKgp3b0TsEPP/jPJFO2GXQO7KgJIv6q
+   0hZ/9eAdEO2BPWUE+sG4HA25zwGJpi+zWp8TCZBJ0fa6dbJk0INRUWP6I
+   BRfSskU2214oENZuxL2WggpsMdIfH3DgyhwHK6YVGzUnygr/kWw6IvRAH
+   nJTCfIq9ZCrZrgJG6zPtCcJh/azZFzESxAaegvtW4vrRXIz6+s5XgGFZB
+   A==;
+X-CSE-ConnectionGUID: 5CF51qDfQ+2dIdLlRmS61Q==
+X-CSE-MsgGUID: jBm1vDtITHOWoDsRL38gUw==
+X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
+   d="scan'208";a="232637425"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa6.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 06:46:47 -0700
+Received: from chn-vm-ex02.mchp-main.com (10.10.87.72) by
+ chn-vm-ex1.mchp-main.com (10.10.87.30) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.49; Mon, 26 Oct 2026 06:46:47 -0700
+Received: from DEN-DL-M70577.microsemi.net (10.10.85.11) by
+ chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Mon, 26 Oct 2026 06:46:44 -0700
+From: Daniel Machon <daniel.machon@microchip.com>
+Date: Mon, 26 Oct 2026 14:46:39 +0100
+Subject: [PATCH net] net: lan966x: fix the DB dataptr of frames from
+ ndo_xdp_xmit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,178 +74,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] io_uring/napi: drop the single NAPI busy poll special
- case
-To: Cinq Prairie <notprairie@gmail.com>
-Cc: Stefan Roesch <shr@devkernel.io>, Jakub Kicinski <kuba@kernel.org>,
- io-uring@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261025232926.17944-1-notprairie@gmail.com>
-Content-Language: en-US
-From: Jens Axboe <axboe@kernel.dk>
-In-Reply-To: <20261025232926.17944-1-notprairie@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-ID: <20261026-lan966x-xdp-xmit-dataptr-v1-1-d0dd068324de@microchip.com>
+X-B4-Tracking: v=1; b=H4sIAL5Z32oC/x3MwQqEIBCA4VeJOTdgxkr1KtFhzNltoExUQojeP
+ dnjd/j/GxJH4QRTc0PkS5KcvqJrG1g38j9GcdWglTad0j3u5EdjChYXsByS0VGmkCNaRcwfY1d
+ nB6h5iPyV8l/P4DnD8jwv8uOvwW8AAAA=
+X-Change-ID: 20261023-lan966x-xdp-xmit-dataptr-b0aee56bcdb8
+To: Horatiu Vultur <horatiu.vultur@microchip.com>,
+	<UNGLinuxDriver@microchip.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David
+ S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, "Jakub
+ Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, "Alexei
+ Starovoitov" <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
+	"Jesper Dangaard Brouer" <hawk@kernel.org>, John Fastabend
+	<john.fastabend@gmail.com>, Stanislav Fomichev <sdf@fomichev.me>
+CC: <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<bpf@vger.kernel.org>
+X-Mailer: b4 0.14.3
 
-On 10/25/26 5:29 PM, Cinq Prairie wrote:
-> io_napi_blocking_busy_loop() has a special case for a single registered
-> NAPI: it passes io_napi_busy_loop_should_end() as loop_end to
-> napi_busy_loop_rcu() and runs its own loop only once, relying on the
-> inner __napi_busy_loop() to spin until that predicate says to stop.
-> 
-> napi_busy_loop_rcu() sets NAPI_F_END_ON_RESCHED, so __napi_busy_loop()
-> also returns when need_resched() becomes true. io_uring treats that
-> return as the end of the busy-poll period and falls through to
-> schedule_hrtimeout() for the remainder of the wait timeout. The queue
-> is then serviced by the gro_flush_timeout softirq timer instead of
-> being actively polled (when napi_defer_hard_irqs/gro_flush_timeout are
-> set).
-> 
-> With two or more NAPIs, the inner loop runs for a single iteration and
-> io_uring's outer loop controls the busy-poll period, honoring
-> busy_poll_to. As a result, the same registration behaves differently
-> depending on whether one or multiple NAPIs are registered.
-> 
-> Remove the special case so a single NAPI follows the same path as
-> multiple NAPIs: the inner loop runs for a single iteration, while
-> io_uring continues busy polling until a completion, a signal or the
-> deadline. Since commit df8599ee18c0 ("io_uring/napi: cap busy_poll_to
-> 10 msec"), the deadline is at most 10 ms on every path, so this does not
-> extend the busy-poll period beyond what the multi-NAPI path already
-> allows.
-> 
-> First observed on a 5.14-based distribution kernel carrying the 6.13
-> io_uring NAPI backport, reproduced on io_uring-7.4 at 9c207aa58e54,
-> x86-64, HZ=1000, PREEMPT_DYNAMIC (lazy), no CPU isolation, low RX
-> traffic, r8169 with one RX queue, prefer_busy_poll, busy_poll_to = wait
-> timeout = 10 ms, with a SCHED_FIFO task pinned to the polling CPU
-> waking every 1 ms:
-> 
->   before, 1 NAPI:  busy 0.5-1.5 ms per 10 ms wait, ~0.8M polls/s, CPU ~5%
->   before, 2 NAPIs: busy 10 ms per 10 ms wait,      ~7.2M polls/s, CPU ~100%
->   after,  1 NAPI:  busy 10 ms per 10 ms wait,      ~7.4M polls/s, CPU ~100%
+lan966x_fdma_xmit_xdpf() transmits both XDP_TX frames and xdp_frames
+from ndo_xdp_xmit, and builds the DB with
+lan966x_fdma_xdp_tx_dataptr_cb(), which adds XDP_PACKET_HEADROOM to the
+stored DMA address.
 
-Claude had a few comments on this one, mostly related to now
-ending up with a full start/stop cycle for every poll. Details
-below:
+Before this patch, the headroom is also added for xdp_frames. For
+XDP_TX the stored address is the start of the page pool page, but for an
+xdp_frame it is the mapping of the IFH placed in front of the frame
+data, so frames from ndo_xdp_xmit are read from XDP_PACKET_HEADROOM
+bytes after their IFH.
 
-> diff --git a/io_uring/napi.c b/io_uring/napi.c
-> index 7e698720cd51..5362690a9d17 100644
-> --- a/io_uring/napi.c
-> +++ b/io_uring/napi.c
-> @@ -166,28 +166,24 @@ static bool io_napi_busy_loop_should_end(void *data,
+Use the plain tx dataptr callback for xdp_frames.
 
-[ ... ]
+Found by an AI code review agent. Reproduced on a lan9668 board with an
+XDP program redirecting frames from one port to another: none of the 20
+frames arrived intact on the link partner. With the fix all 20 did.
 
->  	list_for_each_entry_rcu(e, &ctx->napi_list, list)
-> -		napi_busy_loop_rcu(e->napi_id, loop_end, loop_end_arg,
-> +		napi_busy_loop_rcu(e->napi_id, NULL, NULL,
->  				   ctx->napi_prefer_busy_poll, BUSY_POLL_BUDGET);
->  	return false;
->  }
+Fixes: 29cc3a66a81d ("net: lan966x: use FDMA library for adding DCB's in the tx path")
+Signed-off-by: Daniel Machon <daniel.machon@microchip.com>
+---
+ drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-[ ... ]
+diff --git a/drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c b/drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c
+index a7940eca5df31..8ea86b800af75 100644
+--- a/drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c
++++ b/drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c
+@@ -686,7 +686,8 @@ int lan966x_fdma_xmit_xdpf(struct lan966x_port *port, void *ptr, u32 len)
+ 		       FDMA_DCB_STATUS_BLOCKO(0) |
+ 		       FDMA_DCB_STATUS_BLOCKL(next_dcb_buf->len),
+ 		       &fdma_nextptr_cb,
+-		       &lan966x_fdma_xdp_tx_dataptr_cb);
++		       len ? &lan966x_fdma_xdp_tx_dataptr_cb :
++			     &lan966x_fdma_tx_dataptr_cb);
+ 
+ 	/* Start the transmission */
+ 	lan966x_fdma_tx_start(tx);
 
-> @@ -216,24 +210,12 @@ static void io_napi_blocking_busy_loop(struct io_ring_ctx *ctx,
->  				       struct io_wait_queue *iowq)
->  {
->  	unsigned long start_time = busy_loop_current_time();
-> -	bool (*loop_end)(void *, unsigned long) = NULL;
-> -	void *loop_end_arg = NULL;
->  	bool is_stale = false;
->  
-> -	/* Singular lists use a different napi loop end check function and are
-> -	 * only executed once.
-> -	 */
-> -	if (list_is_singular(&ctx->napi_list)) {
-> -		loop_end = io_napi_busy_loop_should_end;
-> -		loop_end_arg = iowq;
-> -	}
-> -
->  	scoped_guard(rcu) {
->  		do {
-> -			is_stale = __io_napi_do_busy_loop(ctx, loop_end,
-> -							  loop_end_arg);
-> -		} while (!io_napi_busy_loop_should_end(iowq, start_time) &&
-> -			 !loop_end_arg);
-> +			is_stale = __io_napi_do_busy_loop(ctx);
-> +		} while (!io_napi_busy_loop_should_end(iowq, start_time));
->  	}
+---
+base-commit: 6430fb7f1cc4e329e386521b7b208df443de92f2
+change-id: 20261023-lan966x-xdp-xmit-dataptr-b0aee56bcdb8
 
-Does dropping the single-NAPI path trade the early need_resched() exit
-for a full busy poll start/stop cycle on every poll?
-
-With loop_end set, __napi_busy_loop() acquires the NAPI once, spins in
-its own loop, and only calls busy_poll_stop() when it is done. With
-loop_end NULL it breaks out right after the first poll and tears the
-busy poll state down each time:
-
-net/core/dev.c:__napi_busy_loop() {
-    ...
-		if (!loop_end || loop_end(loop_end_arg, start_time))
-			break;
-    ...
-	}
-	if (napi_poll)
-		busy_poll_stop(napi, have_poll_lock, flags, budget);
-    ...
-}
-
-So after this change every iteration of the do/while above re-acquires
-the NAPI with the cmpxchg on napi->state, polls once, and then runs
-busy_poll_stop(). Without prefer_busy_poll that is a second
-napi->poll() call just to re-enable the device interrupt:
-
-net/core/dev.c:busy_poll_stop() {
-    ...
-	} else {
-		/* Use driver poll to re-enable device interrupts. */
-		rc = napi->poll(napi, budget);
-    ...
-}
-
-so the interrupt is re-enabled after every poll, and once it fires and
-schedules the NAPI the next cmpxchg in __napi_busy_loop() fails and that
-iteration polls nothing. With prefer_busy_poll and gro_flush_timeout set
-it is instead an hrtimer_start() and a clear of NAPI_STATE_SCHED per
-poll.
-
-The multi-NAPI path already behaves this way, but a single registered
-NAPI is the case the tight loop was there to serve. The before numbers
-in the message all cover the early exit case, so the cost of the fast
-path when it is not cut short does not show up in them. Is losing that
-path acceptable, given this also goes to stable?
-
-The notes below the --- line say keeping the singular fast path and
-falling back to the single-shot loop only after an early return "works,
-but leaves two code paths for a case whose only benefit was the one it
-was broken for". Avoiding the per-poll busy_poll_stop() looks like a
-benefit that is independent of the need_resched() exit, so would the
-fallback approach be the better fix here?
-
-The notes also say re-entering the singular loop is not viable because
-__napi_busy_loop() restarts its deadline on entry. It does take
-start_time at entry:
-
-net/core/dev.c:__napi_busy_loop() {
-	unsigned long start_time = loop_end ? busy_loop_current_time() : 0;
-    ...
-}
-
-but io_napi_busy_loop_should_end() is io_uring's own callback, so could
-it check an absolute deadline stored in iowq instead of the start_time
-that net core passes in? That would let the inner loop be re-entered for
-the remaining budget after a need_resched() exit without overshooting
-busy_poll_to.
-
-This isn't a bug, but with the special case gone neither the single nor
-the multi NAPI path checks need_resched() at all for the whole budget,
-and the only preemption point is the preempt_enable() between polls
-inside __napi_busy_loop(). On a kernel without preemption that is up to
-10 ms with no cond_resched(). Should the message mention that the
-single-NAPI case now stops yielding to a woken task on those
-configurations?
-
+Best regards,
 -- 
-Jens Axboe
+Daniel Machon <daniel.machon@microchip.com>
 
