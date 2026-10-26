@@ -1,87 +1,118 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793008198;
-	b=4iCqt8Q8aKMEYRFvReECcfqpQ/zsYvX+j7TDJ+F33/M9tnrwC9vo/oJ7uidYeZQeR22W
-	 3V1S2SiK4O1sC+o8pn26gkk/OKMXe3Whp8ZIdIUJnVSLgk3NZLjb/RmadMG2u7zzPW6d5
-	 2OOTejj/gBCqpCuWEErTbLr0JEKkm3dMEz9jq9oZhPH6cc8Kg4V0szSWn2TVjONHAIHE8
-	 /zH2CfA0CxxdtfBGPdo0t45dwudZ75+lDvxEgOBV6A1pS0d2iNVVI6o0pbxrq3TiJO7gt
-	 6L07X6B8M644jMPzEuhecBDQmyXhYVkiEZc2Bko5Y4OGcIeztkEpNtWdqZLxkDf6lXg==
+	t=1793008222;
+	b=jWKPfFIZjHyViWz8EGo83H/NTUs+/1gw9mdzSyenKqyPT1eT25Ynku0SbsC4COXjWLpO
+	 dcsm4LBOWC9sVf5coe2Ovzl/fMayVi2L2sKlxlxWH+qeZ+8HoIRIyTC0i7M9uR6MT+mpk
+	 kiQcndDpP3fHT0m9CLIZFIv3/H7XC7hZwt5aBAEJOsC/yt9cT7SFi13x/UVetDUnsqFXb
+	 DRz8oX7ygaKIxTLZGHo6dAk3dhy8yNUzpBWocwpSLJArkBnscQaG9y0f1F9VqCLe5h9ou
+	 namhmqf89BVvg6gIFzAV0HKzsoNZzui5f6fxfluEjkJ4uAdPxsuQJ7lOvRIwnHzZKeg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793008198;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=kgHqO+fhYKyfCEdeXUZGJLv/oRemT+gvt+GWE9ye3yM=;
-	b=X0PjcOlc6Nadn92vAqo07RnlNox4ULzVRejUKllyDFolo3nVYVpa2ZYe2B9FkaY7yw/s
-	 JbNBxdVDZl/OoSZVmei1EjUQTCxzxKpGkfagz4drPTq1pCSaxCyvWz4KPOEdsg7O16++H
-	 nEaE0ZZsV9Ltd9QPbvlZhSJxoa1vboVe2ZCD+fPU4z+akrwcfrqtZF83rrm+eJDypSC97
-	 LbK+jmOyOhIpoHkiAUXrIo51x6OkapkzwNrxiX8kVIQrUBIhCYH2gX/RTCh7t4Au2chWS
-	 Bm/nD3tRHD1j8Ft8iavl4EZWkL/spuSbh2ny45u77PiTNQJMgJYV+vArWGTNT0+QEDg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793008222;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=zKX1jeaJXKjVB7lhiiifJDbywGu1ddtc70oSnHfUUaU=;
+	b=0RqMiuLfusSiMBHhK7ChAElYC9SUqelKgA2BNd6VO7RiVJmHHE1rEsXw1uimHolPduAL
+	 QP70lOReSwsU1VRCURYIumpnTsxXJdBBuwFrpow7h2l9jXz+xV1SGLDU2bGzYeeprvQgC
+	 eF/akKZFu4jpOq5xGb9rOknODo3Wgv9DhN0Cmn6fVcy47pwyHjRDENe6u9wgsCGnJBMc7
+	 wPIsr9BlZ5lDbANSCqSCSEd8VqwkVJFxT35UzoFPmpsh3D9/lNmwLuIhcA1fHrP6sdGkQ
+	 DWvUgSeS7RcJLx/gDWpyB0pgbufYYKoTRToROTjOUwb5ZqkDNY9XEPY0BMvHkJMQQuQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=RNo+WCeI;
-	arc=none smtp.remote-ip=209.85.221.49
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=XRVXsrOk;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JiX0fFzg;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E524B606A321
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:49:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E524B606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19D53606A320
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:50:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19D53606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=RNo+WCeI
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48e09aa5264so1468175f8f.2
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:49:57 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=XRVXsrOk;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JiX0fFzg
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69Q4avtZ2727085
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:50:21 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=zKX1jeaJXKjVB7lhiiifJDbywGu1ddtc70o
+	SnHfUUaU=; b=XRVXsrOkESbp/cCSaWJSpjFpCVV2NlaUh7gPe17KKmW3HKIpf0k
+	B68B2bms9+r2ilQzj1RjSNqPy87FrPtWESIpo43Xuyk7kZIxtrlgcllaxUQwEICh
+	yre5PFns5T/ny2mwDdCSbyFTr7b0hyX9/WtUdNsU4xpjDDQLclxAf9SNvgv3X5sS
+	7VaGsajlciZGW96Kgb+kMje1hkiqp6VclViG4zGGy9vf4t5rLFVOPsvOICioGx6/
+	8MUqCBcKLF/Hqe/pOg20CXjJhST6FuwVtjZWH/2Lv/LFACiyMM77idnqB2RBFXNM
+	Fnd1d9AoUqvydsk7QzBYav8NCmkEvYNdxhA==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hgkp6nwk5-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:50:20 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93ecdc701a2so358017385a.3
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:50:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793008196; x=1793612996; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kgHqO+fhYKyfCEdeXUZGJLv/oRemT+gvt+GWE9ye3yM=;
-        b=RNo+WCeIwCfpJ0C/z/FjHnmIM0LmAwnN4NIHt7+1KEZ+c4ykIrJ+GuDq8z+1OEDcjt
-         MYx4qzeDeKiMtfgLeBJjhtL2/B0YRHlN/luBIQpLvdCfPnSmbGj8FWDx1e5wcJ9qytax
-         RFL+sWZUUpF7enMLzYPWqkfoPNj0A/oskyWtqBZ7oaxeYCf/y+wouOuSSvwE2gKcmfHz
-         MmZqXEQQPQCfRTO0zXWBy9PCbVgQ1qkhKhKtNLJXqJ0ed4mOVr7VfB9lTpqaMwlyYzd4
-         lM0eNv3/O1en2uCC8ppSuE+rLpoTjwm44NACw9ceThEd4qb1O5b5Zc0vqDzVk2QV0zui
-         d5Lg==
+        d=oss.qualcomm.com; s=google; t=1793008220; x=1793613020; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zKX1jeaJXKjVB7lhiiifJDbywGu1ddtc70oSnHfUUaU=;
+        b=JiX0fFzgcgd7yk06M+3KTwENidi6pxln+1J8unjOw9BYLvBD+Ab6iuRQO0n87fV5Lu
+         P3HY0mkE2oxievv1ZRqfK+3wJDtY8Gt2a6qMeEyDrGg9Ivjn7gWEqKfhRXDQoflRs0wN
+         2P6c5+uhyjYdbp5soqad+SRRZpGvi6j1QkZNWLUcLBrik7J9xrY07u1ZW1LmD8j+oXbh
+         AhI/TLEAKdJY/FbEL13X8LvS66bUzJ3LSs3OFLIzhHdmTSBBeOt32FX+7IiIsroj5xWv
+         xhoRXPGZg2inW67tu3G5/1ouhUW1syGzSAzJcsaZ4Fmp99ffPc6gT6hxZeY2Xt0xJQ4a
+         JIQA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793008196; x=1793612996;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1793008220; x=1793613020;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=kgHqO+fhYKyfCEdeXUZGJLv/oRemT+gvt+GWE9ye3yM=;
-        b=oVUwXlL6v4KGLgfl9ZEDeQpgWxVryLrFzVBV1m7YhNvhag7slMB8YFAdn+yKRvh56t
-         idJyx1OHwZ2lQAPfwWu4wUHvYwIfEmxS1qD23mFmb7wZIInXwycbYiCvHiB1nYlbtP1T
-         XLDFqOriD0AHcn/399HcT3nYIeFSXwS8ZkriyglydCznny3Atv/ouk4Po/YGtxQRUhA4
-         X7EPSEfqIV18kw95ZhA2MJCfSotKO/hk8jHdOEmr52blZ4hWSB7b7T74OelqA8Q5pfZn
-         TEt1wIQQv1HIGfXSbfinqSoPhiixcAwEIYDYJ7nr16Y+WkMd7Adjp1yDN8mlX/1Dz+ii
-         eH6g==
-X-Forwarded-Encrypted: i=1; AKwUvBx6C0Svf8AvGVaGPTZnRfNh3seejAvrKYhQ3X//E16+NaxL4VUMxR7PwaTlAyB1C89CXFt8b74qgXDMDyU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIJ2uADbt4GgU4qSKS5Co0GsIP/RNxtCQIdDSicL9S36OuWz+E/
-	4y5TCvXzr/+R695bhAmZ8iyd0KJ5S8AXuG+wczCKkT3f7a4xDxnNgLGD9WzCj6jTOYc=
-X-Gm-Gg: AYBFou0NXPQ/2+dmLqcucw7RjNvUlRqTwuqwRDHri2zxU0IPaP6TOeFeDumpIqSGYVj
-	s5cYxkifQkgfXRQHNd73NbSIThDEH0X7WX+FLlG72c0bvfmn4Pko8ROzOPF+NUkXjaalsDhiK+e
-	xtXXKljGRoqqzwn6ce2QclCSDnKCfixOS3PstninaV3kIa6+67MRC9P1iVxqBHv9kSS+0W+vZr+
-	7IE/DzqpqlS0D3IGGUHrhBmxUgjVKMk2NV+ruklR7Cj5V95nA3Qs4OhU6AlWBwmowGzs23yaBUH
-	gd4aReqDVr/z9qHC8j1ED/rrO7uzP4MhclzYE8ncGqgrmFI7DtpatsZ0Bls69V4dJalP89hGdWL
-	Yy3uSMXe3vKVU05nf6cEwbCjtekHMp6nLk89emUQk/+9BnHxhpXLbuNh9JNsHADbHcucYjSZEhY
-	N5MBEDjqbh+6Ize0f2zt1+hPyNq+SkqO/JEfii4QrirhZkszSl2HeTE+IHy9yHnxB2hONQurr6/
-	s8PTVwUQ5Pg6SrCSciTFtQBTX1eSwff8xqJNkrXKLgLYeq8hp2pPkjTFoLB
-X-Received: by 2002:a5d:6f08:0:b0:48d:f034:7fcd with SMTP id ffacd0b85a97d-48e3eba1207mr11656985f8f.51.1793008196231;
-        Mon, 26 Oct 2026 02:49:56 -0700 (PDT)
-Received: from [192.168.1.3] ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e4806e208sm10525562f8f.40.2026.10.26.02.49.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 26 Oct 2026 02:49:55 -0700 (PDT)
-Message-ID: <c445cac0-a124-4499-b99e-21fba1e8bd1f@linaro.org>
-Date: Mon, 26 Oct 2026 09:49:54 +0000
+        bh=zKX1jeaJXKjVB7lhiiifJDbywGu1ddtc70oSnHfUUaU=;
+        b=vyV6sYO2NCTIBVaSMIs/lMsQNdRw+WNUCUHT8/OO5SRSqQ8rQIenbpa5APmndzhJeQ
+         cAp3T1pAV1DiiyTJJnNnnnhFg4L9a585kl+rxSmEwfi3ImQ5CTeyNymOfR0cvzwqia55
+         +OfoGKrXzpRJHM6EY0JIf0OHOvMbZFaNLsYNfwTVrU7ZL0oIiaGakDf3itE0Tc/wFEo1
+         LImN67Zndu0FeIwTMw1lGP8D8976TeVIkt6KNph6L7O8gVPZMSlrHcJJNycjW9LGMwEa
+         Sl9BDyVX8ZbxT7/kXrP4TmkF6Hu57R9e51/5phhWWUFMYErSOefSVUlss7GBZmufNHWL
+         e7uw==
+X-Forwarded-Encrypted: i=1; AKwUvBwciMdaLLpDmomiecgK1Xaoy58Wg0sYdbp/OUiXcrEeF/Mv1Ink287t7JgGMEB7ImGv88nk7FHcIZGQz7U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKCfkUk69KOEUSjMJ3aRsVoCmrgsY/tV4Bd+SmQmWxPwRdx4fr7
+	02zKolhZw9HUuDh4zEmNs8PJza3unfoQf5+ZHtoMIJjhvLDH41wEelH3fgJicilZbFqeidMp8Fa
+	FcSHfzEDTW4b5Q3OVm2SlZyseDJFiBDXI7Iksabi3Y/hKJ1f7E27+aok+kQYQX9Ja12A=
+X-Gm-Gg: AYBFou1F7cDHeK41iBqjnBoYQRdOuZH4O9eYHQL+TXJ140DWyvR4jW19M9VhkVDNE4R
+	oyOd246lNJIHcIH0hI3sRy5IXufuUO8qcYs3I1UHiVNXd+0s8caqOFPIm9rUmOYMPR9aCP7EluX
+	Eu+46n5fHYTrrB+VRGmrsHEM/N23GkZpghUMoTIFrDTO3zLBMwWqt/ceAoBMGTLCSU0/N/OC2nX
+	DkMNu5vLp/vUmNWtoQCmLqMfc+J3ww1pMzTs/zfOyANturV/5IcZki8Moy30ZrSIVMJR0GrhONR
+	gO1sGr8/1ZWvMOfNP22flVrX5SgxVT2TY3ESojKpGflOIGalZLxoTyvoaW7BlpKSWosj+aMhiQ0
+	uDRPDdyaFg7pEwbRlVXvVg6U1Ogk=
+X-Received: by 2002:a05:620a:4509:b0:93e:bbda:dd06 with SMTP id af79cd13be357-940ef682ec2mr945163185a.0.1793008220219;
+        Mon, 26 Oct 2026 02:50:20 -0700 (PDT)
+X-Received: by 2002:a05:620a:4509:b0:93e:bbda:dd06 with SMTP id af79cd13be357-940ef682ec2mr945159985a.0.1793008219740;
+        Mon, 26 Oct 2026 02:50:19 -0700 (PDT)
+Received: from mai.box.freepro.com ([2a05:6e02:1041:c10:7d20:e20f:a77f:4ef7])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebc3dcbsm15405472f8f.14.2026.10.26.02.50.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 02:50:19 -0700 (PDT)
+From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+To: daniel.lezcano@oss.qualcomm.com, robh@kernel.org, krzk+dt@kernel.org
+Cc: Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@kernel.org>,
+        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+        Conor Dooley <conor+dt@kernel.org>,
+        linux-pm@vger.kernel.org (open list:THERMAL),
+        devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
+        linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] dt-bindings: thermal: Drop thermal zone node name length limit
+Date: Mon, 26 Oct 2026 10:49:56 +0100
+Message-ID: <20261026094956.2323036-1-daniel.lezcano@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,179 +122,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 6/7] coresight: etm4x: Report whether the PMU counts
- the external outputs
-To: Amir Ayupov <aaupov@fb.com>
-Cc: Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jonathan Corbet <corbet@lwn.net>,
- Mathieu Poirier <mathieu.poirier@linaro.org>,
- Randy Dunlap <rdunlap@infradead.org>, Shuah Khan
- <skhan@linuxfoundation.org>, Daniel Pereira <danielmaraboo@gmail.com>,
- coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
- linux-perf-users@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Leo Yan <leo.yan@arm.com>,
- Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach <mike.leach@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>
-References: <cover.1792907332.git.aaupov@fb.com>
- <cover.1792989860.git.aaupov@fb.com>
- <a433810b85a9b768489d7b7b3ceb50324a2cd336.1792989860.git.aaupov@fb.com>
-Content-Language: en-US
-From: James Clark <james.clark@linaro.org>
-In-Reply-To: <a433810b85a9b768489d7b7b3ceb50324a2cd336.1792989860.git.aaupov@fb.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: nfG8houwRHproSR11ns0ImIrV5NDxWEK
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDAzOSBTYWx0ZWRfXxvn+9XEZXkd4
+ Sm/9J4gPfSJr9ONNYNC282pA8a7VRfoTn//0SDCb9+ccCMhSN/bqv9DLZOJvX8toQCQvQUfZdeS
+ qp4EcH/BGmR2SOWIpFoQXh41/Z72w0s=
+X-Proofpoint-GUID: nfG8houwRHproSR11ns0ImIrV5NDxWEK
+X-Authority-Analysis: v=2.4 cv=bq/Zl0ai c=1 sm=1 tr=0 ts=6adf225c cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=660iZSQnnn4A:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=_glEPmIy2e8OvE2BGh3C:22 a=EUspDBNiAAAA:8 a=F35qRUJZQmyXIphswqcA:9
+ a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDAzOSBTYWx0ZWRfX1U2wc+7BwI80
+ KMaJpg/9H3zcAKG2BhrZVaYoudr7D/RwALPyi+hJ6uJF/0xoKRVKwk6ZfdKdfeF2Zg6GRjd+2dB
+ IP3jEFf+DuIqb1PaB+ZTj1cypaWqfZgNVENGSdPYImsKRhrpRYfoTeDvpXbCQ9bjEs2uIFjoUJS
+ m9UEweTi1A1w4an8cGc2GRGZewCTLQUfOhLkQ083FPSPudvXZJy03l5aVYCrwBs0LFlS7661GLA
+ 8EXqchVwdAEJcffViRTScIi23GwdgknjSJfb6JaJbsjZNNgu1tN4r4Alh+btnifZLP2yqt8h0tc
+ q/UrCBCSkmTRhzGREZTIQEbrminweRpte/U3nu9P90ShJ3Ak2nMy5oJcACeMzK9zl57DLyoCRd7
+ AWQvAA1wkLJNUypRuegWrWyOmVjfU4QqQvZcilgiBaNC3lb7cjCofBstQ68JBbjsUjo6CsoZmpC
+ 88Tyl9pmoVBd55j5eDg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-26_01,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 malwarescore=0 bulkscore=0 impostorscore=0 spamscore=0
+ suspectscore=0 clxscore=1015 lowpriorityscore=0 priorityscore=1501
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610260039
 
+Device Tree bindings describe hardware and must remain OS-agnostic.
+The thermal zone node name length limit is derived from Linux's
+THERMAL_NAME_LENGTH macro, which is an implementation detail rather
+than a hardware requirement.
 
+Remove the length restriction and its accompanying comment while
+preserving the thermal zone naming convention. Any OS-specific limits
+should be handled by the implementation rather than encoded in the
+Device Tree ABI.
 
-On 26/10/2026 05:48, Amir Ayupov wrote:
-> Some CPUs count the trace unit's external outputs as the PMU common
-> events TRCEXTOUT0-3 (0x4010-0x4013), which lets a configuration drive a
-> PMU event from trace unit events. Other CPUs, Neoverse N1 for example,
-> have no such events, and a feature relying on them would silently do
-> nothing there.
-> 
-> Detect at probe, on the trace unit's CPU, whether the PMU counts every
-> external output: the trace unit has an external output for each of its
-> events (caps.nr_event), and pmuv3_event_implemented() reports whether
-> the PMU implements TRCEXTOUTn. Only check ETE: per its specification, an
-> implemented TRCEXTOUTn event counts external output n, while whether that
-> output is also an external input is IMPLEMENTATION DEFINED.
-> 
-> Add a CS_CFG_MATCH_CAP_TRCEXTOUT capability match flag, set it on those
-> trace units, and show it in the feature's configfs 'matches' attribute.
-> With capabilities matched separately from the device class, a feature
-> that requires it only loads on those trace units.
-> 
-> Assisted-by: Devmate:Opus-5.5
-> Signed-off-by: Amir Ayupov <aaupov@fb.com>
-> ---
->   .../hwtracing/coresight/coresight-config.h    |  2 ++
->   .../hwtracing/coresight/coresight-etm4x-cfg.c |  6 ++++-
->   .../coresight/coresight-etm4x-core.c          | 26 +++++++++++++++++++
->   drivers/hwtracing/coresight/coresight-etm4x.h |  3 +++
->   .../coresight/coresight-syscfg-configfs.c     |  3 +++
->   5 files changed, 39 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/hwtracing/coresight/coresight-config.h b/drivers/hwtracing/coresight/coresight-config.h
-> index 220bc54f8e5e1..4cf53230854d0 100644
-> --- a/drivers/hwtracing/coresight/coresight-config.h
-> +++ b/drivers/hwtracing/coresight/coresight-config.h
-> @@ -38,6 +38,8 @@
->    * a device that matches one of its classes and has all of its capabilities.
->    */
->   #define CS_CFG_MATCH_CAP_MASK		GENMASK_U32(15, 8)
-> +/* the PMU counts the trace unit's external outputs as TRCEXTOUTn */
-> +#define CS_CFG_MATCH_CAP_TRCEXTOUT	BIT(8)
->   
->   /*
->    * Limit number of presets in a configuration
-> diff --git a/drivers/hwtracing/coresight/coresight-etm4x-cfg.c b/drivers/hwtracing/coresight/coresight-etm4x-cfg.c
-> index 52cb036bb04b9..9e4dc5950c13d 100644
-> --- a/drivers/hwtracing/coresight/coresight-etm4x-cfg.c
-> +++ b/drivers/hwtracing/coresight/coresight-etm4x-cfg.c
-> @@ -176,9 +176,13 @@ static int etm4_cfg_load_feature(struct coresight_device *csdev,
->   
->   int etm4_cscfg_register(struct coresight_device *csdev)
->   {
-> +	struct etmv4_drvdata *drvdata = dev_get_drvdata(csdev->dev.parent);
->   	struct cscfg_csdev_feat_ops ops;
-> +	u32 match_flags = CS_CFG_ETM4_MATCH_FLAGS;
->   
->   	ops.load_feat = &etm4_cfg_load_feature;
-> +	if (drvdata->caps.trcextout)
-> +		match_flags |= CS_CFG_MATCH_CAP_TRCEXTOUT;
->   
-> -	return cscfg_register_csdev(csdev, CS_CFG_ETM4_MATCH_FLAGS, &ops);
-> +	return cscfg_register_csdev(csdev, match_flags, &ops);
->   }
-> diff --git a/drivers/hwtracing/coresight/coresight-etm4x-core.c b/drivers/hwtracing/coresight/coresight-etm4x-core.c
-> index af017bd8a5477..cb5fbb0279b88 100644
-> --- a/drivers/hwtracing/coresight/coresight-etm4x-core.c
-> +++ b/drivers/hwtracing/coresight/coresight-etm4x-core.c
-> @@ -30,6 +30,7 @@
->   #include <linux/uaccess.h>
->   #include <linux/perf_event.h>
->   #include <linux/perf/arm_pmu.h>
-> +#include <linux/perf/arm_pmuv3.h>
->   #include <linux/platform_device.h>
->   #include <linux/pm_runtime.h>
->   #include <linux/property.h>
-> @@ -1399,6 +1400,29 @@ static void etm4_fixup_wrong_ccitmin(struct etmv4_caps *caps)
->   	}
->   }
->   
-> +/*
-> + * Whether the PMU counts each external output of this trace unit as
-> + * TRCEXTOUTn. The trace unit has an external output for each of its events.
-> + * Only ETE is checked: per its specification, an implemented TRCEXTOUTn event
-> + * counts external output n.
-> + *
-> + * Must run on the CPU that owns the trace unit.
-> + */
-> +static bool etm4_pmu_counts_extout(struct etmv4_drvdata *drvdata)
-> +{
-> +	int n;
-> +
-> +	if (!etm4x_is_ete(drvdata) || !drvdata->caps.nr_event)
-> +		return false;
-> +
-> +	for (n = 0; n < drvdata->caps.nr_event; n++) {
-> +		if (!pmuv3_event_implemented(ARMV8_PMUV3_PERFCTR_TRCEXTOUT0 + n))
-> +			return false;
-> +	}
-> +
-> +	return true;
-> +}
-> +
->   static void etm4_init_arch_data(void *info)
->   {
->   	u32 etmidr0;
-> @@ -1562,6 +1586,8 @@ static void etm4_init_arch_data(void *info)
->   	/* NUMCNTR, bits[30:28] number of counters available for tracing */
->   	caps->nr_cntr = FIELD_GET(TRCIDR5_NUMCNTR_MASK, etmidr5);
->   
-> +	caps->trcextout = etm4_pmu_counts_extout(drvdata);
-> +
->   	coresight_clear_self_claim_tag_unlocked(csa);
->   	etm4_cs_lock(drvdata, csa);
->   	cpu_detect_trace_filtering(drvdata);
-> diff --git a/drivers/hwtracing/coresight/coresight-etm4x.h b/drivers/hwtracing/coresight/coresight-etm4x.h
-> index 5417280cdb274..33994ad4b2641 100644
-> --- a/drivers/hwtracing/coresight/coresight-etm4x.h
-> +++ b/drivers/hwtracing/coresight/coresight-etm4x.h
-> @@ -868,6 +868,8 @@ enum etm_impdef_type {
->    * @lpoverride:	If the implementation can support low-power state over.
->    * @skip_power_up: Indicates if an implementation can skip powering up
->    *		   the trace unit.
-> + * @trcextout:	The trace unit is an ETE whose PMU counts its external
-> + *		outputs as TRCEXTOUTn.
->    */
->   struct etmv4_caps {
->   	u8	nr_pe;
-> @@ -907,6 +909,7 @@ struct etmv4_caps {
->   	bool	atbtrig : 1;
->   	bool	lpoverride : 1;
->   	bool	skip_power_up : 1;
-> +	bool	trcextout : 1;
->   };
->   
->   /**
-> diff --git a/drivers/hwtracing/coresight/coresight-syscfg-configfs.c b/drivers/hwtracing/coresight/coresight-syscfg-configfs.c
-> index 2b40e556be872..7b3800138f625 100644
-> --- a/drivers/hwtracing/coresight/coresight-syscfg-configfs.c
-> +++ b/drivers/hwtracing/coresight/coresight-syscfg-configfs.c
-> @@ -250,6 +250,9 @@ static ssize_t cscfg_feat_matches_show(struct config_item *item, char *page)
->   	if (match_flags & CS_CFG_MATCH_CLASS_SRC_ETM4)
->   		used += scnprintf(page + used, PAGE_SIZE - used, "SRC_ETMV4 ");
->   
-> +	if (match_flags & CS_CFG_MATCH_CAP_TRCEXTOUT)
-> +		used += scnprintf(page + used, PAGE_SIZE - used, "TRCEXTOUT ");
-> +
->   	used += scnprintf(page + used, PAGE_SIZE - used, "\n");
->   	return used;
->   }
+Signed-off-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+Cc: Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
+---
+ Documentation/devicetree/bindings/thermal/thermal-zones.yaml | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-Reviewed-by: James Clark <james.clark@linaro.org>
+diff --git a/Documentation/devicetree/bindings/thermal/thermal-zones.yaml b/Documentation/devicetree/bindings/thermal/thermal-zones.yaml
+index 999ad40a20d5..6091e886829d 100644
+--- a/Documentation/devicetree/bindings/thermal/thermal-zones.yaml
++++ b/Documentation/devicetree/bindings/thermal/thermal-zones.yaml
+@@ -49,10 +49,7 @@ properties:
+       to take when the temperature crosses those thresholds.
+ 
+ patternProperties:
+-  # Node name is limited in size due to Linux kernel requirements - 19
+-  # characters in total (see THERMAL_NAME_LENGTH, including terminating NUL
+-  # byte):
+-  "^[a-zA-Z][a-zA-Z0-9\\-]{1,10}-thermal$":
++  "^[a-zA-Z][a-zA-Z0-9\\-]*-thermal$":
+     type: object
+     description:
+       Each thermal zone node contains information about how frequently it
+-- 
+2.43.0
 
