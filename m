@@ -1,95 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793003688;
-	b=wjZq40/Dnt6NIvsRLTCzREAtbyWT5kcogeDYJhnJWgX8BYdn767YiSBe1CB/sVbpvEII
-	 0/izV/iRm9ekJtZZrT3j49qQkTOOlhPszak8kefrp4B6FvJFqMU6s7qyvP6on/2XnwvKF
-	 PMUccZhUwWy6EG459f0ukPK4MSY4DNd5qOz+x+RJZkwFyUFehYY/EGkSYeoD/NTwi6hGz
-	 y0Zj65Dn04Vc/9TMgHIhcC9G2+IsDc4xzAHaa0Aesq2dLqLwCLvCTgq3KaGs/TsNaU+Ji
-	 7za/wMVXfV/cr5K53SRv4Co41PS90r2OL6rB8jouyCL55ZX0xDF4ftol0Jd7XRSxKyw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793003688;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.180
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793003761;
+	b=JbjAhjxCKEEl60+yqHSOXeVdsTcRJyGIsMS+9RbrRpqOWoVkBJeTHbnEXwe3YoRcfGH9
+	 7UyvzkjhgK7+l6wK9oKawT8G29eNoVBza9HOrz5NLMsujnAjPsVATO+EHy/lHQcYUe0Bs
+	 dr+VBGi1mhDHeIHtDqqG57t+wDMJ3KjjoXaPuFQFE6T/mT1AtSJdtKhUpzG87XSWN/RBT
+	 aBsotPLZ1TrFO/G7gD4+x+rR1xzkv4UKfFVkL4IkwLZ96EymXD13sv8iCBWlny+Hod837
+	 2hYDltFq91+EqrVFE3SwMhXQiWL+ZKg3EoEHVL4J7BYOQL6V+B8OJWJZE07ZwbOGd6Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793003761;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=B7dQENZy5hO1NBbTQGYEZ7DmBs04uprzORGYnKqQV5I=;
-	b=vjFkJ9hmEvXCl+Fe3uIIRnoVyS3vVnOQsjpr0A8Q/8/eHTz4ghVOlY2VMs0LYA62M2jq
-	 YynEQ/evmKhUXYj+s0YnNYc+9Fuamnoi4kAf0KRtQ1CatpjQdZJjyACiv1ubyDP9UoGqR
-	 ha2tdVn98d5Vx8XLtAWAuuBWBNUDOEdQiwRHSfbI4zZvPtlAsjE2PZvn8Z1sjcNwPZiB5
-	 tjHPZ97xKYJzovhYjSLTzD6+vFAAuAk/c/oPXCqLRExS1SCJAxNHS9N6kYs3aVFaSFpV0
-	 PQLyvZmvbcnmjzzIq+IH/sOVSBNSe24ahxP9GfBWIWfsYLd8JtqiYu15tM0eUyKyhCQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=mgcrea.io;
-	spf=pass smtp.mailfrom=mg-crea.com;
-	dkim=pass header.d=mg-crea-com.20251104.gappssmtp.com header.i=@mg-crea-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=AhtaalZK;
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=sPnjwjR+QK9Dk/w8gbYkbbIU9b+DRJJdLLT642WnysY=;
+	b=uclRqpEBSYwYzWd+LGG8QYUthFHvMkl0H4WnjeBjpedmYI5Wd+CjQtSwmzNl/aMgPrU/
+	 TwLYVI2OBDRV2lvTzTypqnG44klaysQFcJEmu4BmzvMa//xHQTO+1VJTw91oS+IUpIOxg
+	 KW9QO+XcjjvQTpaO+E/9jZ7h6Bk2n9U5mR6lIulmtrQZ1igMawhcF3nbGM0QGC0knruAI
+	 yMJU2InfI7tmQFJLveotvG5XfxIxOxVLmxA2RDxDeThF70TXxCUrRUgXaw/Ulj9y1WAWo
+	 kpePeKjqD1rDPj7OBFgDhQsb1LSWdPQnt/bzjnH7MRtsdC8DauuHeM4H37smY0yK7tA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="YCn/AeQ1";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.180
+Received: from mail-oi1-f180.google.com (mail-oi1-f180.google.com [209.85.167.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A945606A31D
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 08:34:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A945606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=mgcrea.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mg-crea.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB60F606A31F
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 08:36:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB60F606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mg-crea-com.20251104.gappssmtp.com header.i=@mg-crea-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=AhtaalZK
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4956869750eso17507885e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 01:34:42 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=YCn/AeQ1
+Received: by mail-oi1-f180.google.com with SMTP id 5614622812f47-4ab8cb2a6e4so2097328b6e.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 01:36:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793003760; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Pjps7fD0HbnZMogC3wvT2rAxZ8U7dJAbW3qV95x1tFXuuMNI7Irmh2KRD/Wo638lUb
+         9umotjXXRx+W4za3s+z531GaoO0/W9vuI8tNRg5JqjAdSm9hDLc5cmaNTNYEf06D0afw
+         jdMiaQBAfwgnHwuKYvaLr/rjlO/ZPxvS0CUIrrNGpfkmM9pBVCHA+u2Z37hF+x4HimwE
+         sylVIFz+fATol9MHoQ7jFvvV+AENKMMrM81RwHuY9iV5EpvgbLNY3R5U8KqB7H3bcdAf
+         /iB6TdLyQfPnEbzs1PkYyVSZbGXmV+1JHb5ulBfxnhrEVY4O/4siZosk+D6sAwjjCXj7
+         uBEQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=sPnjwjR+QK9Dk/w8gbYkbbIU9b+DRJJdLLT642WnysY=;
+        fh=b2Wp8J83n7BxFyRd83iECoWmjj85xKEK2MHsK9raftY=;
+        b=s3nUZMxGB9JAKs/Q40S+9a7LJ1Ura4hWARz4wdsxDB7XgGet+xrUcVgjJiCfCD3S2T
+         526fLjo6J8+WO357SR4VPv7g8KoYGKAhH2VJscyhkjKOeYZCzy0T7T8fAqavx8nrqko3
+         HVvF8gH6uy8CB+uMHmwnaSs8sM2hD+SYFSdW+0yMzyNiUNbgh3/FmFORWF8/cpzTaSse
+         AssMhu9Ci07fdwQforgRPiIc3JGTo68VzrgaQgohKOAEZFERn0qPdbYbTgJrQ7T0u/Iy
+         6rzIqXvFP+MS3NHiSeEPgnD09sl3Na9AJ/7+gr4T8lS+Yp2uawsr6vhabAtZuz39vH/r
+         wRIQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mg-crea-com.20251104.gappssmtp.com; s=20251104; t=1793003681; x=1793608481; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=B7dQENZy5hO1NBbTQGYEZ7DmBs04uprzORGYnKqQV5I=;
-        b=AhtaalZK6vN7H0we5eZfJaEtME0g9vXRsj/0PMehl3von5Nk0qkJY7j6OkShNE0q12
-         odEpqW2KkQsSoLU2MXSeU4fjNORSCAlOj/4zcFAomJTW4qeF2b0QTYGZ9hVJpCgtcWEB
-         VGoGGA/04A4vmKbq7JDMx4sZYK4Bk7L4j0lkjtXfJkQ7CTkTws3TX29cIixciL0LTnog
-         buxKQv0j2NkRB4uUKEWYN7jpAYVnOcWhjkiJTqOOMO4u1thG4RbTKQtTec4qnenlGl88
-         z/8LwfTVBuO7BhkBtB+f/s4TMchGQcsiMX3SF/dYc411q7RLtY5n4wc5pdFewf0zsG8F
-         UGBw==
+        d=gmail.com; s=20251104; t=1793003760; x=1793608560; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=sPnjwjR+QK9Dk/w8gbYkbbIU9b+DRJJdLLT642WnysY=;
+        b=YCn/AeQ166/qZAt28aGak4/A33BlqMdpPB+gSVQNTXcpYIHLizALy0AgHE51r5+n4M
+         aOgp8d1+9Du5SCf8UiCVBeRKaqEyhUsxwszfpYdGmrLB8iJSrMuu6PhqGAgG/hcRBVOS
+         2G30nEHT+EbPJCNHDYqo1qjWt59SK7irA1m2AH8DdXGvp74WbqsvnAwl4XlHFCz6WQdr
+         5wCNCcdRY1lKDjRvzd7RxifVf11GcTkaHpjK8cgx+VR5BjA7GwhN1I7Q0QZV3TuYV4Ym
+         KZ/9oVjEwjDhRnIrlr0Z7OCNDNFGL+j8hVNxyp+xSVFkoXfAiPxSEZWV0jrS4l9j9hDU
+         7NvQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793003681; x=1793608481;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=B7dQENZy5hO1NBbTQGYEZ7DmBs04uprzORGYnKqQV5I=;
-        b=mBh+PvkwBD7dfp4GrNblqyWrjUpjD1Ifd8EXCdNonUFtjAVsLUmsfLnrPEp/BZnZb7
-         0JlXfo8xLekCXoyC4zV0AvlMCdN6m8lkbpcFctLVC4sVVyIfjrD7WIalw0AAy+8G3nLf
-         rSwJ/VqqvtmwQ+b/vkMcDFw3N9dSrXka99+3Xr4w5irgqrXgEEfXOh3CmGRdb6yqaZU9
-         WcD6p/IU6Xk9xw6lBZ3+r5X8mE3fJH8mfOjvOPv8tLlytCIAIKmlDoLG21mHoXMKy3vH
-         y9ijPBwKagCAS6WxoOnHy+7TIiBu8aDA6WSgv2XQWbV3DCqdOTkizDu8ojhPwo+2QE+Y
-         DFzA==
-X-Forwarded-Encrypted: i=1; AKwUvByAhHH8QjNiNpzF8c42fsat0QCt3BNIUKvxPOOyv+qIpNE6hR2b/eTp8yCPJ+UtoQ4h66N49VxWCPXimjQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLCrqCxAveW9zVTr46JD454z5TEWEub6t7ZISWvHFFQ5OXWtZHc
-	VzMgBZDygPINc11wLdE++gv/bSJl67JOrzq85ii9ILu1Db4zfNMOmI1inPLBkanrJz0=
-X-Gm-Gg: AYBFou2wFkymlX24LkBYsBaHmNZbMuuLuBO+Rh2Za7mkDWR1ArX0UHhQBOq92gVSPPn
-	lsyg0hJEgAKjRy76vGd42sXxg6aSJ5U/6MBbnxuv/K+4PL3KK85Sb5WFrTNknriSlOySUn7kzYQ
-	VV++2t/1fR3T6w1vHsDeS2lFeZ292x2ldbNaCdr3TIxUa6g1gz1TKeiCHrRdDOo8WDwfaSYpDiA
-	b+HwfRaVOMnf6uxvoqyPxSugPAmXsBfgkutkfX+pK/qIqBCkDuobyJUPI28h1wkaa9CAa7bdJAO
-	2yPKd5ck9K1pL5PeSyQOs8ub6fN8dOHB/TAXwRAdhqr15IQDKb6T2924O0iVEwppMg6hU41CYyI
-	WNa+zNPe2U9uU2VZacZS5EcSCgPNrdiR0O/kg8mE0lFyYsyw9HpMDPAobHeWf0wG0x1h3uBsDTa
-	va/ONmM1qreMdx4xbFRWJoJylmfEhS8eb2kASxcFddtsCHL5dip7q6K8MukKcmmTd7C4qZ23RLV
-	Q1v00EyNMfvvzJqg29fdQ9llEWCzAPXAGSfjon0/vxEDX+uB1sfPGHp8nA/MXAePpIy+AqoOO1c
-	IkvTgYhYw+lq4w==
-X-Received: by 2002:a05:600c:3115:b0:4a2:167a:c939 with SMTP id 5b1f17b1804b1-4a35ac9f6a7mr113540625e9.21.1793003680191;
-        Mon, 26 Oct 2026 01:34:40 -0700 (PDT)
-Received: from localhost.localdomain ([2a01:e0a:9d2:5a71:6dfc:5715:ead7:7540])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a08643dsm143259045e9.4.2026.10.26.01.34.39
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 26 Oct 2026 01:34:39 -0700 (PDT)
-From: Olivier Louvignes <olivier@mgcrea.io>
-To: Ulf Hansson <ulfh@kernel.org>
-Cc: Paul Cercueil <paul@crapouillou.net>,
-	Lars-Peter Clausen <lars@metafoo.de>,
-	Matt Fleming <matt@console-pimps.org>,
-	linux-mmc@vger.kernel.org,
-	linux-mips@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Olivier Louvignes <olivier@mgcrea.io>
-Subject: [PATCH] mmc: jz4740: Remove the host before resetting the controller
-Date: Mon, 26 Oct 2026 09:33:23 +0100
-Message-ID: <20261026083323.12301-1-olivier@mgcrea.io>
-X-Mailer: git-send-email 2.54.0
+        d=1e100.net; s=20260707; t=1793003760; x=1793608560;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sPnjwjR+QK9Dk/w8gbYkbbIU9b+DRJJdLLT642WnysY=;
+        b=kNCEnXVu48TZYH0G4mqZ69K2VoGMFKwRDKjM8dFQ7zzLz6Uu5JAvSDL5J+zEB8y8az
+         1YYBEvvvVQT0/b2rJXwt5qA67U7MZK8fzIwHUz/i0T30x3gwjZxM44ZJFSByJMX4eq5z
+         Q7hPTz+OkIzoeIAq4GmQQtuEc5baUA8zwD6x6aQR3LRLIl6yZg/36VgxoZ3+4/RO5jfC
+         tVGJW98I8TCVgPF8brnvBulCN9Cy0eCzwVJxi31pbQIrulbhQoz+wqjM1jxirMKiVR7a
+         DCTgYvYa7iVIvO/DVnck+fGESURF+z9TP+8F0OMZaHrpEF0aRfSSjZcWKpK6xAtIu9B7
+         0dUQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxykNkJ2NV042Yy0FHbCdhu31+W2SpqUisqT2SwS4cHWAbgr5nl9vdHjmkkkCYAvemDTKOtsMlM0jHqkWI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKsq1o8OcuIAJlWQVfkbqBM6mxFZpw+3bsdtu8abbd2Etw5KRhq
+	k+TXHpEFci5YoiTmchPHgFG7vfbXBSLJVH36djejhcqX11XbWHeQnhYOENI64q9sgCOhbJJh0kI
+	wcx4MY8bB1mrqOpJB264FfqDjSGNue/0=
+X-Gm-Gg: AYBFou29rxfoUprR/kQT7xCG4rr6dioaVs2oU+1IuS99droU0vzGB65J5IsBkOowCjK
+	vN7LErk4lJ0F8k9mEA+7e6AES3bBGx4WRkcU1+v6wM9InfO36Y3C1FLKnGyJW3QG4PpDtZ2+ihF
+	jRHGrKEwP1StMNACa1hPivmbUp/8OmTET006uy8d6FkILtMjY8Z5RzNnhafnoujcy/PyoHh2H77
+	QGewp6nER99pO/p3B0UsFPEm8lOF6/73NUa89JLhA70Kemng/Z5sWZRwulr3r+0c3fWiEMbMm92
+	rrdANUl5VYu/SHHEriJ62N6YeMT2bM6R1oikBRQ8ujUKfPt1NXCChHyeCDYXMwNyGeBzUoijsmK
+	krKc+pkUNbpcwdHxuiYiSch7MlyTWJL3JAXkpPRH6u5nEDqIaJfEvamNxCc2ZiYNOSli/gQ==
+X-Received: by 2002:a05:6808:138c:b0:4d6:92b3:5c8d with SMTP id
+ 5614622812f47-55c00426714mr3601843b6e.67.1793003759591; Mon, 26 Oct 2026
+ 01:35:59 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,52 +104,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261025024114.1955782-1-mmyangfl@gmail.com> <d841a56b-1ec4-4095-9040-cc67f4f91956@lunn.ch>
+In-Reply-To: <d841a56b-1ec4-4095-9040-cc67f4f91956@lunn.ch>
+From: David Yang <mmyangfl@gmail.com>
+Date: Mon, 26 Oct 2026 16:35:23 +0800
+X-Gm-Features: AclHuK9B0zK6RkB8B1KTCp3XjrUylRhgO9yQ4J7sUttU6ozFjpO7qEQI6Yw6uKU
+Message-ID: <CAAXyoMOfDKR8iRi21w+h3RrobOFTAHcFgVDtKJ6O0BZm3iP4dw@mail.gmail.com>
+Subject: Re: [PATCH net] net: dsa: motorcomm: Report error when FDB fails to add
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: netdev@vger.kernel.org, Vladimir Oltean <olteanv@gmail.com>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-jz4740_mmc_remove() masks every interrupt and resets the controller
-before mmc_remove_host(), which removes the card and lets the card's
-driver send its last commands. Those commands then run on a controller
-that was just reset, and can wait out the driver's 5 s request timeout.
+On Mon, Oct 26, 2026 at 8:44=E2=80=AFAM Andrew Lunn <andrew@lunn.ch> wrote:
+>
+> On Sun, Oct 25, 2026 at 10:41:11AM +0800, David Yang wrote:
+> > fdb_add() ignored any errors returned by the hardware (for example,
+> > table is full). Return error for that case.
+> >
+> > Fixes: 186623f4aa72 ("net: dsa: yt921x: Add support for Motorcomm YT921=
+x")
+> > Signed-off-by: David Yang <mmyangfl@gmail.com>
+>
+> I'm not sure this deserves a Fixes tag. How many entries does the
+> table take before it is full? Typical home networks have what, 10, 20
+> devices maximum. A small business network may have a couple of
+> hundred?
+>
+> What happens if it is full, and you don't return ENOSPC?
+>
+>       Andrew
 
-With an SDIO card that cost 5 s on every unbind: on a HiBy R1 (Ingenic
-X1600, a BCM43430A1 driven by brcmfmac), the CMD52 that
-sdio_release_irq() sends from brcmfmac's remove waited 5.1 s. The
-command had finished (END_CMD_RES set in MSC_STAT), but MSC_IMASK read
-0xffffffff although the request had unmasked END_CMD_RES. MSC_STAT can
-still show IS_RESETTING after jz4740_mmc_reset() returns, so the reset
-most likely completed after that write and undid it.
+When full, the error was silently ignored -- the bridge kept the entry
+marked offloaded while the hardware never stored it.
 
-Remove the host first, then quiesce the controller, as other host
-drivers do. On the R1, unbinding the Wi-Fi's MSC now takes 0.65 s.
-
-Fixes: 61bfbdb85687 ("MMC: Add support for the controller on JZ4740 SoCs.")
-Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
----
- drivers/mmc/host/jz4740_mmc.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/mmc/host/jz4740_mmc.c b/drivers/mmc/host/jz4740_mmc.c
-index 6a3c26b7c82d..923cf1450de5 100644
---- a/drivers/mmc/host/jz4740_mmc.c
-+++ b/drivers/mmc/host/jz4740_mmc.c
-@@ -1151,12 +1151,13 @@ static void jz4740_mmc_remove(struct platform_device *pdev)
- {
- 	struct jz4740_mmc_host *host = platform_get_drvdata(pdev);
- 
-+	/* The card's driver may still send commands as it goes */
-+	mmc_remove_host(host->mmc);
-+
- 	timer_delete_sync(&host->timeout_timer);
- 	jz4740_mmc_set_irq_enabled(host, 0xff, false);
- 	jz4740_mmc_reset(host);
- 
--	mmc_remove_host(host->mmc);
--
- 	free_irq(host->irq, host);
- 
- 	if (host->use_dma)
-
-base-commit: fd9af27f6c2319713bb23832066585f8a59a1771
--- 
-2.39.5
-
+May indeed be too minor for a Fixes tag -- could drop it in v2 if you prefe=
+r.
