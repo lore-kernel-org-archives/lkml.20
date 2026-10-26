@@ -1,61 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793023584;
-	b=VI5KxRpED4wgJvLMjMhadjeztST2D7zPpDngamgAZq7gSclYVX7m44qPj7EE1VktDOya
-	 9xf4YveKVfncY81h1vyqP7i5bJnw+jE5dpb0G048A+GlQvCDsdXLKZ2G+XxB0LuCBvFgK
-	 ONtn5Pomb2kuaGBKsweWw/Zb7b1DiTaCbKhP/S1edgoBKSW0yK9QeFX/ZOeGPaqnQs8yz
-	 kUZ6mcalOsXKfe4ULE4dlNzIyYIxz2Z4dvWjXEvrZAUlfEQIPD9u8XsyFzLun07BIb1dH
-	 YlaP0O12bBY/QvwW6y1d8XWmczyBK9gc3vif5XgDes5Jht0nFzuvHDaFn9UXR0cd8hw==
+	t=1793023593;
+	b=c2hSoE4a0XYMSo0zDR/VFNJVZaoQiXfey1O/P+umi2Gi5vtHSveKzTju+p8EvOcvltf6
+	 UVD7/DD/Iz8xX3c4QfBPWnnYdh2Uh1GBt/zOcqHUyErIDWm6JVXwrBNSyWoxrDbVZ9PPY
+	 RVF8LkLS3W0TBigaardoUi8bI2wtDl9sxhzdst7IrWI26GbwzvHV73m5j8paMc/ufH7me
+	 QFxpf3+ctcD5I4vpDoNLfnVBqTyKKMicb4m4LxMMcQ/NGzesBKxKUzmT19uhulOpVm6LU
+	 xL9fwF3RXjl/CNrh5QkkdQY34C99R2s01t4bTrSEII1J+Gp2o69kmlMWFLW0HpDBaQw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793023584;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=KVOT22Bwz4LtlT/RZuYF6B93AUp538Zy+jsG2nfmmpU=;
-	b=rzCVawAr6TLZdrYXrttXHYRSYqupDr0WXPPa8hrw0d/YupXFyif6/pFlcT05eWYpsNMh
-	 0uoL7hV+IZizacCwsCe1cpFOVammHl/39kFVwFe04xK6+DevL2gjLMi4V0DLV2Ri4vw/q
-	 3rxvNJBI7Fees3anXIIDd2Yf/zV6pKsnJ5Uqt0hKYyK+07XgaA7estyhDliAFrFivHkGm
-	 kFXvh1YmVv8B7Jh3N0JfVuNXhUOwHvOCphV/f39BThYYoLsOdXE7iwDJ0wH8SYY/aU7Jv
-	 e3T9RDJVoPPjChe9/jMTM016lfVdsY1u1b63Wt2EZKcQK3dt51ub9xTmVojPGhnDjEw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793023593;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=HmrH/TGWyb0rSuPIo9zqb3R5Gwa7ppDeLL7nHFi+ICE=;
+	b=LoX3mNMOkXmpBw11ZWuoaDyOni5QzN/NmzgzUAeqmYzsTPQfa0Jt+Shl8+QmjRRCqNrA
+	 aWcdffyu3/UknQbdc89B9r8J4f4MfT6Whix24EdNyeNGVj02Ho7cabNoj4+680h2k6SGt
+	 eYRRGfY1LwEzLWiXXi7y/775MHJQmUgJdiENYkT2A2uK+1EdX2IY+puxocUjTj0RLFNnw
+	 zmQ6cl5GGvLNARhkXXbMoMF+hhDGMvJ4E4ZadgUIVtwNXLoRbBbQ/CCqwTby1RmN85edR
+	 1E1UfqYgU+6ufctEon9XXNimN/S0TJg5KUm9OOK8KQg6WOeTDJ1tQ162fJ4GZQEePmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DLi4XMum;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EA26606A322;
-	Mon, 26 Oct 2026 14:06:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DLi4XMum
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B88801F031E2;
-	Mon, 26 Oct 2026 14:06:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793023583;
-	bh=KVOT22Bwz4LtlT/RZuYF6B93AUp538Zy+jsG2nfmmpU=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=DLi4XMum9/39TU9W0qod4lbS1gGVQvAo4jmVHTLwutSS2im08ba7nt9Nd02iZnJPM
-	 de8kamUHZhgNRhrD+2J1RB2Lvf5n5B97yjWlfW2UMj5guAaLT8uV+j07s22sqCI3t0
-	 WU7MxUUpbKFoHug9b3+zUf2a1EbmFO1IrYN+VSMeCSDmXbMzYhYgF4DnNcSYhZpYet
-	 ZrfN8e63FUGwFyrh7q4IM50gFNnTN3o0x0rg86dKKQXKRHvlxEn0Phnm2An0BDNA5f
-	 jE6GRUhnOnEvvtj6lNx3WyRjjmrGmAUqMsjtCfR1j6m0EiFMpqZT0R9hNYS3V59+OX
-	 ljUXjKx3W+wrg==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 71264CE0877; Mon, 26 Oct 2026 07:06:23 -0700 (PDT)
-Date: Mon, 26 Oct 2026 07:06:23 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Kai Ma <kai.ma1@huawei.com>
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	linux-kernel@vger.kernel.org, Boqun Feng <boqun@kernel.org>,
-	Bradley Morgan <brads@mainlining.org>, Gary Guo <gary@garyguo.net>,
-	rcu@vger.kernel.org, lkmm@lists.linux.dev,
-	Lian Wang <lianux.mm@gmail.com>, Kunwu Chan <kunwu.chan@gmail.com>
-Subject: Re: [PATCH hazptr v3 0/4] Hazard pointer updates
-Message-ID: <e3b1c73d-8248-4644-80e7-a0640538fde6@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20261011194902.97364-1-mathieu.desnoyers@efficios.com>
- <2cf703a6-7828-4735-98af-1a6fe93abd3f@paulmck-laptop>
- <87cxsw4qnl.fsf@huawei.com>
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4DFD3606A31D;
+	Mon, 26 Oct 2026 14:06:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4DFD3606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=HmrH/TGWyb
+	0rSuPIo9zqb3R5Gwa7ppDeLL7nHFi+ICE=; b=aFidpKlotDxiog9KDJ1un9przG
+	1e0TStCYVEFGUzcU9G3EqAfArsOZaGbIBXi3kuxczun1V6sGNLqI1k+HyXsJEIJK
+	69tKStdQ98t0BwQjdfM14CSjsz3chvlUb0Ur5naqDGBe2jpyTx8EvCP7VX7jeDbD
+	pIirDfYYNcoJ/3UiI=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.126])
+	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkA2fQJaXt9q6ezpAA--.6916S2;
+	Mon, 26 Oct 2026 22:06:18 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>,
+	YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+Subject: [PATCH v2] media: dvb-core: prevent frontend thread resurrection after unregister
+Date: Mon, 26 Oct 2026 22:06:18 +0800
+Message-Id: <20261026140618.20173-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,115 +58,173 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <87cxsw4qnl.fsf@huawei.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BLQMCkA2fQJaXt9q6ezpAA--.6916S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxKrW3AF4kJr1xJF1UWF4Uurg_yoWxWF17pF
+	WkJry5KFWqkw1xXr4vy3Zrur90vw1xGayUG347Gay3Cr1fGFWSgrW8ta4DX3W3ArZ3Jr4q
+	qw17WFW8ua9rJaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9G14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVWxJr
+	0_GcWlnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xv
+	F2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r1j6r
+	4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I
+	648v4I1lc7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6ry5MxAIw28IcxkI7VAKI48JMx
+	C20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAF
+	wI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20x
+	vE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v2
+	0xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxV
+	W8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUbpVbDUUUUU==
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUSD2reG1PLYAAAsO
 
-On Mon, Oct 26, 2026 at 01:01:18PM +0100, Kai Ma wrote:
-> "Paul E. McKenney" <paulmck@kernel.org> writes:
-> 
-> > On Sun, Oct 11, 2026 at 03:48:46PM -0400, Mathieu Desnoyers wrote:
-> >> Hi Paul,
-> >> 
-> >> This series applies on top of "hazptr: handle NULL address in
-> >> hazptr_detach" you have in your rcu dev tree.
-> >> 
-> >> This first patch addresses a race identified by Boqun Feng in the
-> >> two-phase wildcard scheme. (no change since the last series)
-> >> 
-> >> Patches 2-3 are prerequisites for using ptr_eq() in the 4th patch.
-> >> Those were discussed at length in a prior version of hazard pointer
-> >> patches.
-> >> 
-> >> Since the last series, I have renamed ptreq.h to ptr_eq.h, addressing
-> >> the feedback received from Boqun and Gary.
-> >> 
-> >> Patch 4 introduces a "try acquire" helper to allow the fast path
-> >> to not rely on wildcards, while keeping the wildcard forward
-> >> progress guarantees in the acquire slow path, used on fast path
-> >> failure.
-> >
-> > I have pulled this in for additional review and testing, thank you!
-> > (With Bradley's Reviewed-by on 4/4.)  Still subject to rebase, which means
-> > that I can easily replace it with an updated series from you, if you
-> > wish.
-> 
-> Hi Paul, Mathieu, and everyone,
-> 
-> I've been following the hazard pointer work and have done some testing
-> on earlier versions. I'd be interested in getting more involved,
-> particularly in concurrency correctness testing.
-> 
-> If there are WIP patches or early design discussions where additional
-> review or testing would be useful, could you please CC me? I'd
-> appreciate the opportunity to get involved earlier and help identify
-> potential concurrency issues.
+A use-after-free read in dvb_frontend_thread() was observed when a DVB USB
+device was disconnected concurrently with userspace opening and closing the
+frontend device node:
 
-The current stack is in my -rcu tree [1] at v7.3-rc1..c3aea7747975,
-with these patches on top:
+  BUG: KASAN: slab-use-after-free in dvb_frontend_thread+0x1380/0x1620
+  Read of size 8 at addr ffff888008dd4320
+  Comm: kdvb-ad-0-fe-0 Not tainted 7.1.2-dirty #81
+  dvb_frontend_should_wakeup drivers/media/dvb-core/dvb_frontend.c:641
+  dvb_frontend_thread drivers/media/dvb-core/dvb_frontend.c:682
 
-5df49d76ff3a3 hazptr: Fix two-phase hazptr_synchronize race with detach
-b41c6c2d4a33f ptr_eq.h: Introduce ptr_eq() to preserve address dependency
-97ff14db1c381 Documentation: RCU: Refer to ptr_eq()
-451174c765179 hazptr: Introduce "try acquire" fast path, fallback to overflow list
-633f91e3408cc hazptr: Record per-CPU slot owner after claiming the slot
+  Allocated by the frontend attach path:
+   cinergyt2_fe_attach+0x... (drivers/media/usb/dvb-usb/cinergyT2-fe.c:271)
 
-The biggest need is use cases, with the most likely ones being cases
-where per-CPU reference counts consume too much memory or a reference
-count is suffering from memory contention.  However, we are still finding
-critical bugs both in the mechanism and the torture tests, so as you say,
-review or testing is also very important.
+  Freed by the final frontend release:
+   dvb_frontend_put+0x... (drivers/media/dvb-core/dvb_frontend.c)
+   dvb_frontend_release+0x... (drivers/media/dvb-core/dvb_frontend.c:2934)
 
-These patches CC the rcu@vger.kernel.org list, so the best way to get
-involved in the discussions is to join that list.
+On disconnect, dvb_unregister_frontend() stops the frontend kthread through
+dvb_frontend_stop() and unregisters the dvb device, but it never marked the
+frontend itself as removed: fe->exit was left at DVB_FE_NORMAL_EXIT, or at
+DVB_FE_NO_EXIT when no thread was running.  dvb_frontend_open() does not
+hold frontend_mutex, and dvb_frontend_start() did not check the removal
+state at all, so an open racing with dvb_unregister_frontend() passed the
+DVB_FE_DEVICE_REMOVED check in dvb_frontend_open(), unconditionally reset
+fe->exit to DVB_FE_NO_EXIT and spawned a new kthread on a frontend that
+was being removed.
 
-And welcome aboard!!!
+dvb_unregister_frontend() and dvb_frontend_detach() then dropped both
+registration references.  The resurrected kthread never holds a reference
+on the frontend object itself, so once the last file descriptor was
+closed, dvb_frontend_release() dropped the final reference and freed the
+frontend state while the kthread was still running, resulting in the
+use-after-free reported above.
 
-							Thanx, Paul
+Close that window by unregistering the device node before the thread is
+stopped.  dvb_device_open() invokes the frontend open handler while
+holding minor_rwsem for reading, and dvb_remove_device() takes the same
+lock for writing, so once dvb_remove_device() has returned no open can
+reach dvb_frontend_start() any more and the kthread cannot be restarted
+after dvb_frontend_stop() has killed it.  Mark the frontend removed after
+the thread has terminated, so that the marker is written only once the
+thread is gone.
 
-[1] git://git.kernel.org/pub/scm/linux/kernel/git/paulmck/linux-rcu.git
+Make the removal state sticky in the frontend as well:
 
-> Thanks,
-> Kai
-> 
-> > But in the meantime, some additional testing.  ;-)
-> >
-> > 							Thanx, Paul
-> >
-> >> Thanks,
-> >> 
-> >> Mathieu
-> >> 
-> >> Mathieu Desnoyers (4):
-> >>   hazptr: Fix two-phase hazptr_synchronize race with detach
-> >>   ptr_eq.h: Introduce ptr_eq() to preserve address dependency
-> >>   Documentation: RCU: Refer to ptr_eq()
-> >>   hazptr: Introduce "try acquire" fast path, fallback to overflow list
-> >> 
-> >> Cc: Paul E. McKenney <paulmck@kernel.org>
-> >> Cc: Boqun Feng <boqun@kernel.org>
-> >> Cc: Bradley Morgan <brads@mainlining.org>
-> >> Cc: Gary Guo <gary@garyguo.net>
-> >> Cc: <rcu@vger.kernel.org>
-> >> Cc: <lkmm@lists.linux.dev>
-> >> Cc: Lian Wang <lianux.mm@gmail.com>
-> >> Cc: Kunwu Chan <kunwu.chan@gmail.com>
-> >> 
-> >>  Documentation/RCU/rcu_dereference.rst |  38 +++++++-
-> >>  arch/x86/include/asm/ptr_eq.h         |  16 +++
-> >>  include/asm-generic/Kbuild            |   1 +
-> >>  include/asm-generic/ptr_eq.h          |  16 +++
-> >>  include/linux/hazptr.h                |  48 +++++----
-> >>  include/linux/ptr_eq.h                |  63 ++++++++++++
-> >>  kernel/hazptr.c                       | 135 +++++++++++++++-----------
-> >>  7 files changed, 237 insertions(+), 80 deletions(-)
-> >>  create mode 100644 arch/x86/include/asm/ptr_eq.h
-> >>  create mode 100644 include/asm-generic/ptr_eq.h
-> >>  create mode 100644 include/linux/ptr_eq.h
-> >> 
-> >> -- 
-> >> 2.43.0
-> >> 
-> 
-> -- 
-> Kai Ma
+- do not overwrite DVB_FE_DEVICE_REMOVED when the thread notices the exit
+  condition;
+- do not derive DVB_FE_DEVICE_REMOVED from kthread_should_stop() when the
+  thread returns.  Restarting an idle frontend stops the thread through
+  kthread_stop() as well, and treating that as a removal left the device
+  unusable;
+- keep the DVB_FE_DEVICE_REMOVED check in dvb_frontend_start() and the
+  reset in dvb_register_frontend() as a second line of defence, which
+  also covers drivers that mark the frontend removed themselves.
+
+em28xx already sets DVB_FE_DEVICE_REMOVED manually before unregistering
+its frontends; the core now provides this protection for every dvb-core
+user.
+
+Fixes: 1f862a68df24 ("[media] dvb_frontend: move kref to struct dvb_frontend")
+Cc: stable@vger.kernel.org
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+---
+Changes since v1:
+ - remove the device node before the frontend thread is stopped and
+   set DVB_FE_DEVICE_REMOVED only after dvb_frontend_stop() has
+   returned.  Unregistering the device node takes minor_rwsem for
+   writing, so no open can restart the kthread once it has returned,
+   and the marker is written when the thread is already gone.
+ - do not derive DVB_FE_DEVICE_REMOVED from kthread_should_stop()
+   when the thread returns: restarting an idle frontend stops the
+   thread the same way, which would leave the device unusable.
+ - do not overwrite DVB_FE_DEVICE_REMOVED with DVB_FE_NORMAL_EXIT in
+   the thread exit path.
+
+ drivers/media/dvb-core/dvb_frontend.c | 25 ++++++++++++++++++++-----
+ 1 file changed, 20 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/media/dvb-core/dvb_frontend.c b/drivers/media/dvb-core/dvb_frontend.c
+index d082b6c57c76..74c8042d84fc 100644
+--- a/drivers/media/dvb-core/dvb_frontend.c
++++ b/drivers/media/dvb-core/dvb_frontend.c
+@@ -688,7 +688,8 @@ static int dvb_frontend_thread(void *data)
+ 			/* got signal or quitting */
+ 			if (!down_interruptible(&fepriv->sem))
+ 				semheld = true;
+-			fe->exit = DVB_FE_NORMAL_EXIT;
++			if (fe->exit != DVB_FE_DEVICE_REMOVED)
++				fe->exit = DVB_FE_NORMAL_EXIT;
+ 			break;
+ 		}
+ 
+@@ -794,9 +795,7 @@ static int dvb_frontend_thread(void *data)
+ 	}
+ 
+ 	fepriv->thread = NULL;
+-	if (kthread_should_stop())
+-		fe->exit = DVB_FE_DEVICE_REMOVED;
+-	else
++	if (fe->exit != DVB_FE_DEVICE_REMOVED)
+ 		fe->exit = DVB_FE_NO_EXIT;
+ 	mb();
+ 
+@@ -873,6 +872,11 @@ static int dvb_frontend_start(struct dvb_frontend *fe)
+ 	if (down_interruptible(&fepriv->sem))
+ 		return -EINTR;
+ 
++	if (fe->exit == DVB_FE_DEVICE_REMOVED) {
++		up(&fepriv->sem);
++		return -ENODEV;
++	}
++
+ 	fepriv->state = FESTATE_IDLE;
+ 	fe->exit = DVB_FE_NO_EXIT;
+ 	fepriv->thread = NULL;
+@@ -3042,6 +3046,7 @@ int dvb_register_frontend(struct dvb_adapter *dvb,
+ 	init_waitqueue_head(&fepriv->events.wait_queue);
+ 	mutex_init(&fepriv->events.mtx);
+ 	fe->dvb = dvb;
++	fe->exit = DVB_FE_NO_EXIT;
+ 	fepriv->inversion = INVERSION_OFF;
+ 
+ 	dev_info(fe->dvb->device,
+@@ -3076,8 +3081,18 @@ int dvb_unregister_frontend(struct dvb_frontend *fe)
+ 	dev_dbg(fe->dvb->device, "%s:\n", __func__);
+ 
+ 	mutex_lock(&frontend_mutex);
+-	dvb_frontend_stop(fe);
++	/*
++	 * Remove the device node before stopping the thread.  New opens
++	 * cannot enter dvb_frontend_open() once dvb_remove_device() has
++	 * returned, because dvb_device_open() calls the frontend open
++	 * handler while holding minor_rwsem for reading and
++	 * dvb_remove_device() takes it for writing.  This guarantees that
++	 * dvb_frontend_start() cannot restart the kthread after it has
++	 * been stopped here.
++	 */
+ 	dvb_remove_device(fepriv->dvbdev);
++	dvb_frontend_stop(fe);
++	fe->exit = DVB_FE_DEVICE_REMOVED;
+ 
+ 	/* fe is invalid now */
+ 	mutex_unlock(&frontend_mutex);
+-- 
+2.34.1
+
