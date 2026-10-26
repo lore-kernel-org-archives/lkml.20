@@ -1,94 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.240.27.27
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792984622;
-	b=Ue1bCWOgccHBc9OgtEqorTt9zpD3R4CYGK78MqaNlk9S1VHObcmQUGrEHKnvsKD07l0q
-	 WioBTrXQQCkHNygQJSdx2j6CfYn205BQ9Iv2x2Tm/Wh9uy3CX1jFM6lm3ZpezoDHvjPad
-	 8fxanOPXC7BdhdbVyEF6S8DYjvakJeRUKbAxoN0cfZaBtjYLuijMJcHRvSHQeRw1WAppT
-	 Qn1QclKN/vASNqSckywu1hfq635NFqUBhT29ykx7QbGNLp/2OF8UHwHZWIBGOktEciTBF
-	 0CPRSDF5ZMZ5j07gvF/YSVmNR0qLRXNXapu9GBEu+1lw+KDXTl4KF7Fdf21br8Ax5bQ==
+	t=1792984623;
+	b=Y1Gnmx6PkzxzObLgvnd/CUffXgsSqU2O2u3dprG9EV9MuE5CxfcG5xZr/zfXB982ecx1
+	 a34IXmiYBKNhI0Yh2ZJQPvHgKNmlhhgu4hIgMgLFwox7o/UFKVNilQ4mI//R8Q6cSpLFf
+	 wJA8JLLyrY37ScmO1AZUvubPSDVlGEFGrLlu7sPGfOKheaNwLb1+5f9nBD53CzEfrgv+O
+	 px3gc74hK46vfysnUi2ZAtRomfhLcVIpb74VwgBE818895zN6B1tvKYgjj7+c9K4fVz7P
+	 dhBL1z9mE8Wg5jYU0iebPArcrENY10sH5TLIfttomHrVPi5B+tgnzr2MB2Cwr/qOH+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792984622;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=NenYAvPhHWZ/46YV8Jd0FVOjzULAh5TeHzIIJT0k+CY=;
-	b=GL3p6MK78gokNKzgQuThs6DHf0k2DOnep1rF01TTj7aug+/D8qIqf0JzcMaG3aTqqZ3g
-	 imAVerDlie5DPpQ01lBr6C5S94zHu684YPXbLzGQpyG0t47tmVyTPOX+SjIuqJ7vxXdjC
-	 XVRyr7EISN3/vLiETNUPVkzpBwdwa5fzz4uOpowObuEd9jV3yhu5MCOYyig+icoAF1G8X
-	 IfaFG7fM3YbSnoEuei2JfPvulTShg4JDKrwjGPUDwC4rNySMg5zqj821E3uJ1bsDrIfXW
-	 fgLrcWJPqcEWj1X92c3FMttv9QtDlXFWZy8psXZ1gRJpDjIYkzUvW4iofJU28ubhYDw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792984623;
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:Feedback-ID:X-SES-Outgoing;
+	bh=A2LbPxlANFscuDu+5t6LoJ+YO+qfoCuiwkLsdsczSs4=;
+	b=f4GSGujn37LyepSbaajVAuIAWnT1zUfQvGAE98vk72b7GZK9dYL5Ad0vfSAmZN9dfUPY
+	 JnOpmRRwm9N3DtduNj8E210FdZybFmCEYFqKW6tcFXoP7k3bmZ4Os+/i0qZRDVqcq+5UP
+	 EWjFkL3EOGIejn8DgAvHce+K87rXlKpJ1zVT5Sp4JLQRuKwNFemBgYoyNgyhnC4WTz0Hl
+	 slCci+2PbcG6Ru39SeOB5WC5UMD8WO/OjCCh2yK2eKBG7dKaFbAW8Aukjvz6mc6SLvneV
+	 Vr4Tjhn6fcr0ZVpUp2XfIfMbpJZFxd4q9+j/rX69kmBQJ/uuzRTvgzfDT7fhD0zJhJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="dt/NcDME";
-	arc=none smtp.remote-ip=74.125.82.182
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	dmarc=pass header.from=eliskeggs.com;
+	spf=pass smtp.mailfrom=us-west-2.amazonses.com;
+	dkim=pass header.d=eliskeggs.com header.i=@eliskeggs.com header.a=rsa-sha256 header.s=5wf2ig6m4xs5fvcu5nmk6zmaekj5twpk header.b=aMIieMyq;
+	dkim=pass header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=hsbnp7p3ensaochzwyq5wwmceodymuwv header.b=iLi5uCYL;
+	arc=none smtp.remote-ip=54.240.27.27
+Received: from a27-27.smtp-out.us-west-2.amazonses.com (a27-27.smtp-out.us-west-2.amazonses.com [54.240.27.27])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5A31606A31B
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 03:17:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5A31606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6186A606A322;
+	Mon, 26 Oct 2026 03:17:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6186A606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=eliskeggs.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=us-west-2.amazonses.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=dt/NcDME
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-35cd4e8bdbdso4377432eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 20:17:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792984621; x=1793589421; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NenYAvPhHWZ/46YV8Jd0FVOjzULAh5TeHzIIJT0k+CY=;
-        b=dt/NcDMEmKOVELO3Q/Q1vfpogzrtSDRawkNZF2nUDqVOK0ZfZbYAtF7bXQUI7ZRuHg
-         n2vzRlq8J4S/4KMrkjt4KWJEAhyILUHUo02eIA0SHcCfUlL3Gfc6JDVl7ZEmx0tHc5lt
-         ltktK8K/E7TEE7xEgH1I93V4kyXFCs8HiCqpau4Er/jhmT7/n4KSVhSfLpolHh5oC/sM
-         xFht5j9RcAid8x9GyoxOj0Bf7p48ar5mGW+QATZtMqMDCBwa4+hTZxO3ZG9LhjLU/vm5
-         JRi0Pq06585EogMEZMr12rC/E+AmJky/RRN8tgJWLp9UtBn3EP4Muaks8zIbhZOe+ThT
-         0vJQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792984621; x=1793589421;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NenYAvPhHWZ/46YV8Jd0FVOjzULAh5TeHzIIJT0k+CY=;
-        b=V7BntmVqp0777IBF/T0DdK1WmjVSdLQj8EfBFRzhfCdfWlv34e8ZN+UGkj3UvT19S6
-         qo3wKRy7YGE+5n1RmN0wW3UpWh27bLQWnfiA9+NQDM8YEcMPGgB5mb9wi79JHb6ovAZW
-         mnLaSNMRHqgCXjp63pcYpmHHGJkrJ2ejItTA1wV8+FGbNF1l5pLUQwHPQuFGZDuyW97S
-         ERiWhP2VTs1kDwieDKhop8d63M13Dev0mCup3qVEqSpCeos1YCv7pM75GP3XtFIt4abm
-         IRyvjm0x519xNvZCXRqEdotHZP+a+md/THcGQf33h4psd+jvi42B+n1fqCYX8b4nbpp+
-         k8Mg==
-X-Forwarded-Encrypted: i=1; AKwUvBzZlbZ4R+EdjvAD/836NK5JqadE7U25h9DLO6dZyuulI4rW+Bigsif5gRRqSUFIAnDAVBxESCLaUWTBrv4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIEGDbGJIJ5qlGZsjTxazjewqdDCtC6+pDSihVR0giDai1lpTlq
-	sYJDaAQm9w9NQ11i1vxA9i73jqkXw2USSCg9e7Q8HFjlFTMhL2cE+DTG
-X-Gm-Gg: AYBFou3RS5GoY2tr67Qn5MpeXxGdk2E5WPCd1njFBQ1q3M4knmBygszRTYX5+qvUPHF
-	1jhli2qa2RkG/39zPEW3AK6NwNUMxz7SW1NJeDysH6FtppqZEyp314KJlnaYgN/GXNpnIRNbg+X
-	hI6oFJfu/k2lLhvpfR+2GfAZHZoVrTvH3SECHojZRrqZ6Vdo71k/q4v8c8aWOgdbdImcHiF86cd
-	/4FWUESRSwV+CdTUY0gUUyPWYvAXCkqw3NU4O5NQmITUQGWZIj2/7RbDlQzEPKm6zCnm5el8sTX
-	Ou+1F5IoPyBWg7f9pXUZVrlLon8N8MusJy/KOV/T/8V8w5nNzQsP6kILG5vP6Wl4H5CZhge5nmM
-	cuUc1p7sKH7Vv66swjZUB7VRPh5mRqSng1L+AvmXrtDsdwR+iWD6WmZeFX+AnNFgv/MvF3GVtnb
-	pvu1q5vagViXkMgxPHNAJ+sKG9Wfnf+W8mYsIuv7n+dTIWIKzrCx8mttl/W+68C1iEXZ9dnNA4/
-	AEWCxKy1IEifau9NF2e4//pi84VxPGPU8ivk8pKD4OoNfa+LDdbEO1s04lLxJ5VV8dfkwy6Lwnh
-	Rh4rOe5spav1XRl4+3GssULK7iCgK2oLWXz5T8cRJ16GwBwje6gQ0f/FHK5EFvyLMKOHJWfSnHp
-	ezResaN7Av3nJ
-X-Received: by 2002:a05:7301:10c3:b0:35f:2858:aa4b with SMTP id 5a478bee46e88-369e8660376mr12281630eec.30.1792984620819;
-        Sun, 25 Oct 2026 20:17:00 -0700 (PDT)
-Received: from nugod-NUC15CRHU5.tail9f095a.ts.net ([218.237.104.87])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8ec864fsm25485942eec.24.2026.10.25.20.16.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 20:17:00 -0700 (PDT)
-From: HyeongJun An <sammiee5311@gmail.com>
-To: tiwai@suse.com
-Cc: ivan.orlov0322@gmail.com,
-	perex@perex.cz,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	HyeongJun An <sammiee5311@gmail.com>
-Subject: [PATCH] ALSA: pcmtest: Reject invalid fill_mode values
-Date: Mon, 26 Oct 2026 12:16:55 +0900
-Message-ID: <20261026031655.2699561-1-sammiee5311@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key, unprotected) header.d=eliskeggs.com header.i=@eliskeggs.com header.a=rsa-sha256 header.s=5wf2ig6m4xs5fvcu5nmk6zmaekj5twpk header.b=aMIieMyq;
+	dkim=pass (1024-bit key, unprotected) header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=hsbnp7p3ensaochzwyq5wwmceodymuwv header.b=iLi5uCYL
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=5wf2ig6m4xs5fvcu5nmk6zmaekj5twpk; d=eliskeggs.com; t=1792984622;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:In-Reply-To;
+	bh=A2LbPxlANFscuDu+5t6LoJ+YO+qfoCuiwkLsdsczSs4=;
+	b=aMIieMyqNmiWx5SOQvYw/09ThJHTSl0FHiX1rGynNpEov/suluJAC5W0VjmvIDdI
+	LkXm9GjwRhLuo8mtFs0s9tnMeogzIaK5m/vDaEFuedukU5RD9PQFVx8SmHZGqQgyOBp
+	Jpdu+cOaXgS+akchCwEcb/Q5siMP/2gGozanjEQM=
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=hsbnp7p3ensaochzwyq5wwmceodymuwv; d=amazonses.com; t=1792984622;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:In-Reply-To:Feedback-ID;
+	bh=A2LbPxlANFscuDu+5t6LoJ+YO+qfoCuiwkLsdsczSs4=;
+	b=iLi5uCYLf2AE1CoxngD8YySv3oj7AGYaAU8tetFyCThPuzNBMLfp2oVjtWWQik+4
+	C3wEYhpzsmJBU9K87XNj321/nuSZivjf+p94infmSheOkArLpkvsaDbjxtFg99FZWkO
+	Dn/OhE1HUOO7DAjta2U5phrokcqYYBmbTG3KSjeM=
+Date: Mon, 26 Oct 2026 03:17:02 +0000
+From: Eli Skeggs <kernel@eliskeggs.com>
+To: Jiayuan Chen <jiayuan.chen@linux.dev>, 
+	Alexei Starovoitov <alexei.starovoitov@gmail.com>
+Cc: John Fastabend <john.fastabend@gmail.com>, 
+	Jakub Sitnicki <jakub@cloudflare.com>, 
+	"David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Daniel Borkmann <daniel@iogearbox.net>, 
+	Andrii Nakryiko <andrii@kernel.org>, 
+	Eduard Zingerman <eddyz87@gmail.com>, 
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+	Yonghong Song <yonghong.song@linux.dev>, 
+	Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>, 
+	Ihor Solodrai <ihor.solodrai@linux.dev>, 
+	Shuah Khan <shuah@kernel.org>, Geliang Tang <geliang@kernel.org>, 
+	netdev@vger.kernel.org, bpf@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH bpf 1/2] bpf, sockmap: Stop reporting EPIPE on
+ zero-length skb redirect
+Message-ID: <010101a176362646-06b53e65-6c20-4ac2-9e05-b74eb5376abf-000000@us-west-2.amazonses.com>
+References: <20261025-sockmap-bare-fin-v1-0-bb8feae7c4a7@eliskeggs.com>
+ <20261025-sockmap-bare-fin-v1-1-bb8feae7c4a7@eliskeggs.com>
+ <23181ba7-e4ef-4475-92ee-366e0ca2dcf0@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,61 +84,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <23181ba7-e4ef-4475-92ee-366e0ca2dcf0@linux.dev>
+Feedback-ID: ::1.us-west-2.aEUYuRRC8Z+WeC8mlWAQBpqJLV0VswmaEnHpVsice/Y=:AmazonSES
+X-SES-Outgoing: 2026.10.26-54.240.27.27
 
-The fill_block() function handles only fill_mode 0 (random) and 1
-(pattern). With any other value it writes nothing and does not move the
-buffer position. A capture stream then gets no data, and a read fails
-with -EIO after the timeout. Nothing in the kernel log says why.
+On Mon, Oct 26, 2026 at 09:59:00AM +0800, Jiayuan Chen wrote:
+>
+> On 10/26/26 7:41 AM, Eli Skeggs via B4 Relay wrote:
+> > From: Eli Skeggs <kernel@eliskeggs.com>
+> >
+> > Treat a return of 0 as success when there is no data to send, while
+> > continuing to fail on a 0 return with residual bytes. The loop exits
+> > without incident on an empty skb, and the skb gets cleaned up as usual.
+> > On an ingress redirect, the empty message is still queued as before, but
+> > the target socket no longer reports EPIPE.
+>
+> The target can't receive anything after that though. The empty msg sits
+> at the head of psock->ingress_msg and nothing ever dequeues it:
+>
+> [...]
+>
+> So the user gets EOF on a socket whose peer never closed, and everything
+> redirected to it after the FIN is lost. Without a verdict prog on the
+> target it is worse, tcp_bpf_recvmsg() returns -EFAULT forever.
+>
+> Since this patch is already about the zero-length skb, can you handle
+> the ingress side too? E.g. in sk_psock_skb_ingress(), don't queue an
+> empty msg when len is 0 and the skb was redirected (skb->sk != sk). The
+> self PASS case must keep its empty msg since is_next_msg_fin() depends
+> on it.
 
-Check the value in a set callback, so a bad value is rejected both when
-the module is loaded and when the parameter is written.
+Yep, thanks for pointing that out.
 
-Fixes: 315a3d57c64c ("ALSA: Implement the new Virtual PCM Test Driver")
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
----
- sound/drivers/pcmtest.c | 21 ++++++++++++++++++++-
- 1 file changed, 20 insertions(+), 1 deletion(-)
+Alexei suggested skipping empty skbs in sk_psock_backlog():
+https://lore.kernel.org/all/DMEE6SW3UE97.2DF11HBEBKYYI@gmail.com/
 
-diff --git a/sound/drivers/pcmtest.c b/sound/drivers/pcmtest.c
-index d1b0dff56cd9..422fdb10f237 100644
---- a/sound/drivers/pcmtest.c
-+++ b/sound/drivers/pcmtest.c
-@@ -72,13 +72,32 @@ static u8 playback_capture_test;
- static u8 ioctl_reset_test;
- static struct dentry *driver_debug_dir;
- 
-+static int fill_mode_set(const char *val, const struct kernel_param *kp)
-+{
-+	short mode;
-+	int err;
-+
-+	err = kstrtos16(val, 0, &mode);
-+	if (err)
-+		return err;
-+	if (mode != FILL_MODE_RAND && mode != FILL_MODE_PAT)
-+		return -EINVAL;
-+	fill_mode = mode;
-+	return 0;
-+}
-+
-+static const struct kernel_param_ops fill_mode_ops = {
-+	.set = fill_mode_set,
-+	.get = param_get_short,
-+};
-+
- module_param(index, int, 0444);
- MODULE_PARM_DESC(index, "Index value for pcmtest soundcard");
- module_param(id, charp, 0444);
- MODULE_PARM_DESC(id, "ID string for pcmtest soundcard");
- module_param(enable, bool, 0444);
- MODULE_PARM_DESC(enable, "Enable pcmtest soundcard.");
--module_param(fill_mode, short, 0600);
-+module_param_cb(fill_mode, &fill_mode_ops, &fill_mode, 0600);
- MODULE_PARM_DESC(fill_mode, "Buffer fill mode: rand(0) or pattern(1)");
- module_param(inject_delay, int, 0600);
- MODULE_PARM_DESC(inject_delay, "Inject delays during playback/capture (in jiffies)");
--- 
-2.43.0
+To your point, I think the critical difference between these approaches
+happens when the sk's backlog queue is not empty and the socket's own
+FIN (the self PASS FIN) gets queued. In that case, we rely on the empty
+msg to correctly update copied_seq, and skipping it means the copied
+sequence number ends up 1 behind rcv_nxt.
 
+This path is already broken: when a socket's FIN gets queued behind
+other skbs, the backlog reports the erroneous EPIPE just as in the
+redirect case.
+
+I do like the simplicity of skipping the empty skbs entirely. I don't
+immediately see what the consequence is for copied_seq being behind in
+this terminal state, but the approach that updates copied_seq does seem
+strictly more correct.
+
+Is that the right interpretation? Let me know what direction I should
+take for v2.
