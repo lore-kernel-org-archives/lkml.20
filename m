@@ -1,86 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793020856;
-	b=qY8A+SA4FJHVQhvbq/4icQmN3GfBpfYg9ZxUVVO/n7Mh9FaZ8E+LwpMnPKTuS9H4Sa1T
-	 x3jUt7mm56VYCEogJefIjTjR7aRKupP9YjZdxqEc95dKtBK8FpYdXLWG5Zr3TUzVOVLXT
-	 fAgXtxZpoFnQKzun2K4MzCvY/JChtYqjGAOXULpL2mRLiVVEaIFlI3IT9tILZ2uS12wFQ
-	 6UCeXFStsBcDbBGxF4/RBnWv/5T1G4UwRw8mCyed7XUFoclPTkufi3SiZbUUUi78Rzexu
-	 4bUB/ykP7NaJmc1aQ9cC2tQkCqgdJrxRc/mLo1hDY4CULu9ivuKv6tPATFsE2mhTOpQ==
+	t=1793020863;
+	b=GK6Rtw6h5DwjxX1lR2OZqbpsGFDLyFI/LpzlYqxizrEAIr6eYWpSuxRbghQLEEz3EGoZ
+	 Rq4TWE88hGJdU0SlAqcQj27uIA3YdG8RTqONtDdGCfTtovnG9f0t8Rtnh+llvF5U41BIW
+	 o0OF6AYuF/50QkxZUjyYgsPeYUWgYUvg3IXZgCpd3ZCyuUrWcB2P/Xi8BJwDLdo2YwH0X
+	 hG4OPZdUJt+P8BOUck70zlV4sE4iTU2Ul+fFll8wcZDYFBVa4JzER6cFNksapHf/fzOuJ
+	 U882PYGvwPJZiK8AGmIafoW5y2e1y+MyB9EQziufRuxidsCFNrxXE5XPiW0XBJyVv0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793020856;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793020863;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
-	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
-	bh=G+t5LI1oK9Rp/QuGiql4zUlrmxV3HSEfpw2XyLd1i0o=;
-	b=xwSxpp28ifnS/PCUlk1cTuvU4y1clLMhb/B5vn7MMcDXVin8UbxcdyMnCu0jqxIuefz9
-	 a69OXiD1bcqUK+xccuGZCTAcEW2FOcj6Ho9no3+b1kAViix3hoOueKZl4kg/J9pynFogu
-	 vnZ8AXK44iPv8KIA5KOAbA5/NWoritAFx+zXeq3Xpyw+qnrXibNtQxe30TSbMmk9zaqgY
-	 o9ZrwBHBoz90HdRlsKoVzi12ThqG7qPX/ZDTCy7P8wdKHcqqcT//FofpOoi0No2VMkA14
-	 8Sn4qLjvfbZlIGc78y5LtYuzj959PjiD+X4P54nwWtObY9o5DJI0xU9IMSdcvj5aw1Q==
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=92zvWHSppKZKlbV2z8fjTOWLGPxOJ1h84oGpWcTlTa0=;
+	b=ZW/XQ/x8j9wqEIBubWl54DHqWDcgkQXjXt0QmBmxw3IAWYHZJi+EUPwbYLCp+nMvCG1V
+	 VSX4/v/0jeNv8Oj9VHln1pUFVtshToDdU3A2a2r4/P6X836S4EkvahR+CfSOnVVtG30Sl
+	 LiuLpZxXT0UJX96oV6wLhfd4N16hb+WX13rprTCajKR1PECdOmj7QMl1OyFWt8yMu0YRw
+	 YB0TiQi5rrnCB1lIAExhs9wOGTQJMq0Pb/AKfxuiACKtMW/vHrW+BNF+ar8gzsRHstPZC
+	 RCCESMMU3AcpyGVVTDB/XW+EfqdU1qq/WR8L6YhFIzomotMSPes6Bhemb3Q9YadG+Ug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.intel.com;
 	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=W7S3lZ4n;
-	arc=none smtp.remote-ip=192.198.163.16
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=UyEsjetc;
+	arc=none smtp.remote-ip=198.175.65.19
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32820606A31A;
-	Mon, 26 Oct 2026 13:20:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32820606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBA3A606A321;
+	Mon, 26 Oct 2026 13:21:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BBA3A606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=W7S3lZ4n
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=UyEsjetc
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793020856; x=1824556856;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=kgPxOnsQSOq9y4VzRLbWTcL9wCR+tTZD8Qaw7XVAdp4=;
-  b=W7S3lZ4nLVy+X9SQQKard4ImFMUNXXaDqJz4ICbR4v0D2aE/qFdYY9rx
-   mrAl5hAlvgTzyzmO6ayxQvTpjM1KejtqTxb/+KhARKsmhaybIAzKquLsS
-   yudEQCFkU784JgEUj9OvUoYofZpHSRx/rlh/dzvWPzgr9Hj1SeBccMTcK
-   uHE+pt7lc18zV83lksbCGA9oSkK1UWrczQ2qT+aaoS7oP0vm1D2/i33Tj
-   l/rOTTfBz+3agE1R5n5tcdVWIWlcJ/mM/a8PIZwoB88BRNUt5PukjF057
-   5lTajyURoKFHZI9ZrnDaFQISdrEy7cxQH8Ml3pQzLSjrH2UZbNvHuT7Yv
-   g==;
-X-CSE-ConnectionGUID: PwKOhL7SQzG2i1PTfB/1rg==
-X-CSE-MsgGUID: k72EBVEVQQevpCZMpUMcog==
-X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1697799"
+  t=1793020863; x=1824556863;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=q6UvNyOiSBy/+IxTQtW7UsyYTQPm1czeX/2xhznn6Gs=;
+  b=UyEsjetcICm4VRhp4Iy0mgEtWZM8m3aPBH1YtqtuhRKkwn6KeyDMHX9y
+   J/6FzDF6/pyFEEILyKNRITAnsB9qpQSfOp6jYT3GoEA+rqUcF9ryRxyjH
+   HbN5VMId4Sx49slStSxzNrjohQtUmRFJbqT+aFZ9OZJKD47Z4sF/h6VlK
+   903rbZTM7y4APxzMn22fCdFCCAKg1sL4XycYpvH8McnBnnGsaSvuzGwyC
+   T7IXMzJSQxnIIJgXdHGyR1H0D5BqvApVeLnCb1Q8mys7FAnU4ZBWavbCe
+   msBkyPhrcRlnum9KmacPxcftc4VkiICykQqIG55Lc9Hl5q0IIYuT7kfpt
+   Q==;
+X-CSE-ConnectionGUID: EswSfgT7SB6SOm2g60gakA==
+X-CSE-MsgGUID: A7o+F5QfTXGtdzoeUGaJ2g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1717905"
 X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
-   d="scan'208";a="1697799"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 06:20:55 -0700
-X-CSE-ConnectionGUID: uIUpBazpSBq7gQMkPdPEGQ==
-X-CSE-MsgGUID: lf++Tc8CTqeMD9RWBvKZ6g==
+   d="scan'208";a="1717905"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 06:20:54 -0700
+X-CSE-ConnectionGUID: Mw/j33mWQxywAcp5SRfSfw==
+X-CSE-MsgGUID: w6K/vCLGRh2RTP9zxJha7Q==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
-   d="scan'208";a="4374535"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.109])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 06:20:50 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Mon, 26 Oct 2026 15:20:45 +0200 (EET)
-To: Denis Benato <denis.benato@linux.dev>
-cc: LKML <linux-kernel@vger.kernel.org>, platform-driver-x86@vger.kernel.org, 
-    linux-input@vger.kernel.org, kernel@lists.opengamingcollective.org, 
-    Benjamin Tissoires <bentiss@kernel.org>, Jiri Kosina <jikos@kernel.org>, 
-    "Luke D . Jones" <luke@ljones.dev>, 
-    Mateusz Schwartz <matthew.schwartz@linux.dev>, 
-    Denis Benato <benato.denis96@gmail.com>, 
-    Jonathan LoBue <jlobue10@gmail.com>, 
-    Khamunetri Clark <khamunetriclark@gmail.com>, 
-    "Derek J. Clark" <derekjohn.clark@gmail.com>, 
-    Joshua Leivenzon <hacker1024@users.sourceforge.net>, 
-    Nathan Chancellor <nathan@kernel.org>, 
-    =?ISO-8859-15?Q?Rebecca_Mara_M=FCller?= <rebecca.mara@posteo.de>, 
-    Ivan Levchenko <me@livan.pro>, Corentin Chary <corentin.chary@gmail.com>, 
-    Hans de Goede <hansg@kernel.org>
-Subject: Re: [PATCH v11 09/18] HID: asus: add support for gamepad mode
-In-Reply-To: <20261025235232.129945-10-denis.benato@linux.dev>
-Message-ID: <5f908138-980f-2005-b319-38d89a1e59dc@linux.intel.com>
-References: <20261025235232.129945-1-denis.benato@linux.dev> <20261025235232.129945-10-denis.benato@linux.dev>
+   d="scan'208";a="4652334"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa006.fm.intel.com with ESMTP; 26 Oct 2026 06:20:52 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id 15ED699; Mon, 26 Oct 2026 14:20:51 +0100 (CET)
+Date: Mon, 26 Oct 2026 14:20:51 +0100
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Joonhoe Kim <26rote@gmail.com>
+Cc: gregkh@linuxfoundation.org, neil.armstrong@linaro.org,
+	linux-usb@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] usb: typec: mux: fsa4480: Keep the USB 2.0 switch on in
+ DP-only modes
+Message-ID: <at9Ts6lDS7yWuAMK@black.igk.intel.com>
+References: <20261022165143.1327-1-26rote@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,240 +82,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261022165143.1327-1-26rote@gmail.com>
 
-On Sun, 25 Oct 2026, Denis Benato wrote:
-
-> ROG Ally devices can emulate either a mouse+keyboard (desktop mode)
-> or an gamepad device (xbox360 controller in ROG ally and a custom
-> DInput device on newer models): add support for switching the current
-> controller mode.
+On Fri, Oct 23, 2026 at 01:51:43AM +0900, Joonhoe Kim wrote:
+> DisplayPort pin assignments C and E give all four SuperSpeed lanes to
+> DisplayPort, but the USB 2.0 D+/D- pair is not part of the pin
+> assignment and stays available. The FSA4480 sits on that pair, and in
+> these modes the driver turns its USB switch off, so a USB 2.0 hub or
+> device behind a DisplayPort sink is disconnected as soon as the
+> DisplayPort mode is set.
 > 
-> Signed-off-by: Luke Jones <luke@ljones.dev>
-> Signed-off-by: Denis Benato <denis.benato@linux.dev>
+> Configure the USB switch the same way in all DisplayPort modes.
+> 
+> Fixes: c7054c31c1c9 ("usb: typec: fsa4480: rework mux & switch setup to handle more states")
+> Signed-off-by: Joonhoe Kim <26rote@gmail.com>
+
+Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+
 > ---
->  drivers/hid/hid-asus.c | 158 ++++++++++++++++++++++++++++++++++++++++-
->  1 file changed, 157 insertions(+), 1 deletion(-)
+> Tested on a Lenovo Y700 Gen 5 (TB323FU, Kaanapali; out-of-tree board
+> support) with a USB-C monitor in pin assignment C: its USB 2.0 hub was
+> disconnected when the mux was set; with this change the hub and the
+> keyboard behind it stay connected.
 > 
-> diff --git a/drivers/hid/hid-asus.c b/drivers/hid/hid-asus.c
-> index a3a21a1493aa..fae5f36a9fa6 100644
-> --- a/drivers/hid/hid-asus.c
-> +++ b/drivers/hid/hid-asus.c
-> @@ -198,6 +198,11 @@ struct ally_joystick_resp_curve {
->  	struct ally_joystick_resp_curve_param entry_4;
->  } __packed;
->  
-> +enum ally_gamepad_mode_index {
-> +	ALLY_GAMEPAD_MODE_GAMEPAD = 0x01,
-> +	ALLY_GAMEPAD_MODE_KEYBOARD = 0x02,
-> +};
-> +
->  struct ally_config {
->  	/* Must be locked if the data is being changed */
->  	struct mutex config_mutex;
-> @@ -411,6 +416,15 @@ enum ally_command_codes {
->  /* XInput rumble magnitudes use the hardware's 0..100 intensity range. */
->  #define ALLY_FF_MAX_INTENSITY 100
->  
-> +static const char *const ally_gamepad_mode_text[] = {
-> +	"gamepad", "desktop"
-
-So this paired with ally_gamepad_mode, because ally_gamepad_mode_index is 
-off-by-one?
-
-> +};
-> +
-> +static const u8 ally_gamepad_mode[] = {
-> +	ALLY_GAMEPAD_MODE_GAMEPAD,
-> +	ALLY_GAMEPAD_MODE_KEYBOARD
-
-Almost duplicate of _index variant?
-
-Couldn't you use [xx] = style initializers with ally_gamepad_mode_text[] 
-instead?
-
-> +};
-> +
->  static const u8 ALLY_FORCE_FEEDBACK_OFF[] = {
->  	0x0D, 0x0F, 0x00, 0x00, 0x00, 0x00, 0xFF, 0x00, 0xEB
->  };
-> @@ -930,6 +944,137 @@ static ssize_t xbox_controller_store(struct device *dev,
->  
->  static DEVICE_ATTR_RW(xbox_controller);
->  
-> +/**
-> + * ally_set_gamepad_mode() - Set the gamepad operating mode
-> + * @ally: ally handheld structure
-> + * @hdev: HID device
-> + * @mode: gamepad mode to set
-> + *
-> + * Return: 0 on success, negative errno on failure
-> + */
-> +static int ally_set_gamepad_mode(struct ally_handheld *ally, struct hid_device *hdev, u8 mode)
-> +{
-> +	u8 payload[] = { mode };
-> +	int ret;
-> +
-> +	if (mode < ALLY_GAMEPAD_MODE_GAMEPAD ||
-> +	    mode > ALLY_GAMEPAD_MODE_KEYBOARD) {
-> +		hid_err(hdev, "Invalid gamepad mode: %u\n", mode);
-> +		return -EINVAL;
-> +	}
-> +
-> +	u8 *buf __free(kfree) = ally_alloc_cmd(CMD_SET_GAMEPAD_MODE, payload, sizeof(payload));
-> +	if (!buf)
-> +		return -ENOMEM;
-> +
-> +	ret = ally_gamepad_send_packet(ally, hdev, buf, ROG_ALLY_REPORT_SIZE);
-> +	if (ret < 0) {
-> +		hid_err(hdev, "Failed to set gamepad mode: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static ssize_t gamepad_mode_show(struct device *dev, struct device_attribute *attr, char *buf)
-> +{
-> +	struct hid_device *hdev = to_hid_device(dev);
-> +	struct asus_drvdata *drvdata = hid_get_drvdata(hdev);
-> +	struct ally_handheld *ally = drvdata->rog_ally;
-> +	struct ally_config *cfg;
-> +	u8 mode_byte;
-> +	int i;
-> +
-> +	if (!ally)
-> +		return -ENODEV;
-> +
-> +	cfg = ally_get_config(ally);
-> +	if (!cfg)
-> +		return -ENODEV;
-> +
-> +	guard(mutex)(&cfg->config_mutex);
-> +
-> +	mode_byte = cfg->gamepad_mode;
-> +
-> +	for (i = 0; i < ARRAY_SIZE(ally_gamepad_mode); i++) {
-> +		if (ally_gamepad_mode[i] == mode_byte)
-> +			return sysfs_emit(buf, "%s\n", ally_gamepad_mode_text[i]);
-> +	}
-> +
-> +	/*
-> +	 * The recorded mode only comes from the table above: an unknown
-> +	 * byte means memory corruption, not a userspace-visible value.
-> +	 */
-> +	return -EIO;
-> +}
-> +
-> +static ssize_t gamepad_mode_store(struct device *dev, struct device_attribute *attr,
-> +				  const char *buf, size_t count)
-> +{
-> +	struct hid_device *hdev = to_hid_device(dev);
-> +	struct asus_drvdata *drvdata = hid_get_drvdata(hdev);
-> +	struct ally_handheld *ally = drvdata->rog_ally;
-> +	struct ally_config *cfg;
-> +	u8 mode_byte;
-> +	int mode;
-> +	int ret;
-> +
-> +	if (!ally)
-> +		return -ENODEV;
-> +
-> +	cfg = ally_get_config(ally);
-> +	if (!cfg)
-> +		return -ENODEV;
-> +
-> +	mode = sysfs_match_string(ally_gamepad_mode_text, buf);
-> +	if (mode < 0) {
-> +		hid_err(hdev, "Unknown gamepad mode\n");
-> +		return mode;
-> +	}
-> +
-> +	/* Convert the index of the text mode array to the byte
-> +	 * that will be accepted by the ally MCU.
-> +	 */
-> +	mode_byte = ally_gamepad_mode[mode];
-> +
-> +	guard(mutex)(&cfg->config_mutex);
-> +
-> +	ret = ally_set_gamepad_mode(ally, hdev, mode_byte);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	cfg->gamepad_mode = mode_byte;
-> +
-> +	hid_dbg(hdev, "Set gamepad mode to %s\n", ally_gamepad_mode_text[mode]);
-> +
-> +	sysfs_notify(&dev->kobj, NULL, "gamepad_mode");
-> +
-> +	return count;
-> +}
-> +
-> +static ssize_t gamepad_mode_index_show(struct device *dev,
-> +				       struct device_attribute *attr,
-> +				       char *buf)
-> +{
-> +	int i;
-> +	ssize_t len = 0;
-> +
-> +	for (i = 0; i < ARRAY_SIZE(ally_gamepad_mode_text); i++) {
-> +		if (!ally_gamepad_mode_text[i] || ally_gamepad_mode_text[i][0] == '\0')
-
-[i][0] == '\0' is not true for anything??
-
-> +			continue;
-> +		len += sysfs_emit_at(buf, len, "%s ", ally_gamepad_mode_text[i]);
-> +	}
-> +
-> +	/* Replace the last space with a newline */
-> +	if (len > 0)
-> +		buf[len - 1] = '\n';
-> +
-> +	return len;
-> +}
-> +
-> +static DEVICE_ATTR_RW(gamepad_mode);
-> +static DEVICE_ATTR_RO(gamepad_mode_index);
-> +
->  /**
->   * ally_set_vibration_intensity() - Set vibration intensity values
->   * @ally: ally handheld structure
-> @@ -2217,6 +2362,8 @@ static struct device_attribute dev_attr_right_response_curve_index =
->  
->  static struct attribute *ally_config_attrs[] = {
->  	&dev_attr_xbox_controller.attr,
-> +	&dev_attr_gamepad_mode.attr,
-> +	&dev_attr_gamepad_mode_index.attr,
->  	NULL
->  };
->  
-> @@ -2356,7 +2503,7 @@ static struct ally_config *ally_config_create(struct hid_device *hdev, struct al
->  	}
->  
->  	if (!cfg->initialized) {
-> -		cfg->gamepad_mode = 0x01;
-> +		cfg->gamepad_mode = ALLY_GAMEPAD_MODE_GAMEPAD;
->  		cfg->xbox_controller_enabled = true;
->  		cfg->left_deadzone = 10;
->  		cfg->left_outer_threshold = 90;
-> @@ -2926,6 +3073,15 @@ static int hid_asus_ally_init(struct hid_device *hdev, struct ally_handheld *all
->  				 ret);
->  	}
->  
-> +	/*
-> +	 * An MCU reset switches the gamepad mode back to its default:
-> +	 * send the recorded one first, so that every other setting
-> +	 * restored below is applied on top of the expected mode.
-> +	 */
-> +	ret = ally_set_gamepad_mode(ally, hdev, cfg->gamepad_mode);
-> +	if (ret < 0)
-> +		hid_warn(hdev, "Failed to restore gamepad mode: %d\n", ret);
-> +
->  	/*
->  	 * The MCU does not keep the vibration intensity across a reset:
->  	 * send the recorded values again, whichever interface probed.
+>  drivers/usb/typec/mux/fsa4480.c | 9 +--------
+>  1 file changed, 1 insertion(+), 8 deletions(-)
 > 
+> diff --git a/drivers/usb/typec/mux/fsa4480.c b/drivers/usb/typec/mux/fsa4480.c
+> index bea0c1deec94..e05ab3c10c81 100644
+> --- a/drivers/usb/typec/mux/fsa4480.c
+> +++ b/drivers/usb/typec/mux/fsa4480.c
+> @@ -93,16 +93,9 @@ static int fsa4480_set(struct fsa4480 *fsa)
+>  		sel = FSA4480_SEL_USB;
+>  	} else if (fsa->svid) {
+>  		switch (fsa->mode) {
+> -		/* DP Only */
+>  		case TYPEC_DP_STATE_C:
+> -		case TYPEC_DP_STATE_E:
+> -			enable |= FSA4480_ENABLE_SBU;
+> -			if (reverse)
+> -				sel = FSA4480_SEL_SBU_REVERSE;
+> -			break;
+> -
+> -		/* DP + USB */
+>  		case TYPEC_DP_STATE_D:
+> +		case TYPEC_DP_STATE_E:
+>  		case TYPEC_DP_STATE_F:
+>  			enable |= FSA4480_ENABLE_USB | FSA4480_ENABLE_SBU;
+>  			sel = FSA4480_SEL_USB;
+> 
+> base-commit: 2efb7a11f1aa4d2dc285fe2680cca22cb9f72f64
+> -- 
+> 2.43.0
 
 -- 
- i.
-
+heikki
