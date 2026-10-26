@@ -1,53 +1,192 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.71
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793012081;
-	b=TMLVr1ZEgzNmp9tTXTi94ReapuW9jTHGiM0ql/Qp1I0eh5Ci/jeTXKQRdksJenLRVleY
-	 80vYGDrG5QuHPYlyowH8ZcEU9NirPDRhDOb+pJT5DcI0fky2aBt8dfQeTKVJyuSagE/BX
-	 AH26ZBw7/VAU8LKoVWbvxqjOBlOnMxUqaAI5oR5p3q5/U3xSJliqDV5GVhWAaPX43Bj4m
-	 5z5eVMN5y6O55elCXdRfljsdOUFTye0eidQVoDl4kNAQPToiuG65yCW9wuJPPLqMzcIew
-	 /44A/BJcFcnCJoTYM/FDoLqigyQ7aachjhCmMXKwlVfUJ/5nyXNDmkDRrbcRzBSvTMQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793012081;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
-	 MIME-Version:X-Received:Date:X-Google-Appengine-App-Id:
-	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
-	 Content-Type;
-	bh=RBCyfOqZ8orxpSJuRJ2SYeYJ7j8W5qtbbOxDj0iiVng=;
-	b=UtrCGwaRsRKt0zFDq3SJFfrwZRjB/yvGbxPS6cAlQqL1y1ZsqXSPbhyxbV2sIVNr/3Mx
-	 4GFlUKBXXTrKRS5/kJJ7xQQfzaxswGI08mXKqWtUr+CciAJbJVp9OQ+39Zf1MrJFdzYZf
-	 30bNQyur7kPiZJy1/U6CHX1b6S6Tk1YTBA6i/XxeUMpV44p3nldjlal8Qon4je7D7E/Ip
-	 4kmfyDGGI7Sgj07O1LbC/9m2Am4zRNhnsuvJDPzHLtz/JzHwViCZ7UAUk7i1tqRtwsxjN
-	 dwDBbTZsuZtuR7x2onr8r7WZaBu0/hn+oBL5k3kfQsamf69zcS1xxxIsYoBNN7angTQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.210.71
-Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.135.77
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793012092;
+	b=hs806BYPetbX0/kXAN14DJfD5Emf7a2G6g987wd52MWc+/eKV4ozofheYJYuUsBiP+YS
+	 GxRuVPSVrt/uHiHtu0S3HbqyoADqJPTF6TKjJpBEJw/8G8Aj/j/zoe/IanEfZBQiwYuxb
+	 hRni2kGVgsGtxYqnvSaa+nHFe/BqX16rQ8lEbl+FlWOcYRWhqBBwq3zlFTMlfHI44O7pA
+	 RYFtB96rNalN1zaLE9/s9oJuLejg1jgT/f/zhEMBcza2/eqt2W36O67iZZuUWEL2zNH6M
+	 frrR++bGlGRBBquNTXcsKROsPe++1EIWvbBs07eL2NOAaOJ1niQX05Gn5tC5Iw8z1pw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793012092;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
+	 Received:Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:
+	 Message-ID:References:In-Reply-To:Accept-Language:Content-Language:
+	 X-MS-Has-Attach:X-MS-TNEF-Correlator:x-ms-publictraffictype:
+	 x-ms-traffictypediagnostic:x-ms-office365-filtering-correlation-id:
+	 x-ld-processed:x-ms-exchange-senderadcheck:
+	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:
+	 x-ms-exchange-antispam-messagedata-1:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:
+	 X-Exchange-RoutingPolicyChecked:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=b056ezsocbdxljoLLm3NmA/Kr7mJQ8nR3v5LL7hNBEM=;
+	b=BOR2Wov/Sxl7vlDjne2SuuFmhud22kTWs9rBGikEzugALJnrmlLMrsh8M52UmIYulYYZ
+	 XtuapNoTndw0n4zDiE5Qrs1w3Cn6xv9s77EOMkVqAp64pfz2RzGOwSoRNxj/TghaKgRLM
+	 GJG0lqnTtxkRr6rRQovVv4jfwZgRpK2R04eFjMYwUT5/hTNxDCm0hTvgY7wU2YfIksC2J
+	 KQqs6TJg++8goZw5r4GyvKJ34WxTiZW9mqGdBd8/sCmgzlXHXxXgOAIbyaUnbnuzZn1FM
+	 A02jmIBVjSQq5BTZrSSLcrqPDoF7GQR9ItNb9mlqlelkBy/+6g+Dtxfwn+Ma3Sp9xjg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=analog.com;
+	spf=pass smtp.mailfrom=analog.com;
+	dkim=pass header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=sOmtdTv+;
+	dkim=pass header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=DHVl0ejQ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.135.77
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58ADA606A31E
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:54:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58ADA606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-824cc5f7fcdso4417973a34.3
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 03:54:41 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793012080; x=1793616880;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RBCyfOqZ8orxpSJuRJ2SYeYJ7j8W5qtbbOxDj0iiVng=;
-        b=V11M0gA/3yPtcO+7TFJ75a99u+waySXEU7O/GYN9pkgbtWYJjnUrl8nIgPRTDeaBtT
-         /ZriowZP6+r/MIXrdshSk6Xd1kaLc0MipRy6tGGQFKQEKwJgvpjuhWrIy3QMcUGaZf3A
-         d7fmte469TiLASDUFsFPmm04R3JTOeJx+utR460xVd7uUaBEWHmsNfUaC010jMN5oQKw
-         WLsVEDMgqMfbUQTfBtI409cYocGnD9H1GspqYBg0D2SC8Iwr37UhFjWaykrM3jvuIz9n
-         SBstMapZrJCYphZBYtbJB048UXhMjKIJigRylrhit0uWDnVbq7P/Vqm2DhwzFLXNMxAM
-         YlDA==
-X-Gm-Message-State: AFq9FYKDqpP15iU1mmmsFvJYfMcy8sHnNc41Pfq43i1NaVAHG6ySVLoI
-	WbWjNH/biNkKDXz6ZPTqEuuUnfvf6Opfubndi9vkjFaLSC4vkhZPRIG+XXpUG8vjU9hvUt6eyfK
-	d9zf7qmQ++X98DicsjCcWZgyV5zg2U14OEIbUTsVLnQOSPaOkztbQC6mz/ts=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDC94606A31A;
+	Mon, 26 Oct 2026 10:54:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EDC94606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=sOmtdTv+;
+	dkim=pass (2048-bit key, unprotected) header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=DHVl0ejQ
+Received: from pps.filterd (m0167089.ppops.net [127.0.0.1])
+	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69QA0I64632137;
+	Mon, 26 Oct 2026 06:54:34 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vtelectron.com;
+	 h=cc:content-transfer-encoding:content-type:date:from
+	:in-reply-to:message-id:mime-version:references:subject:to; s=
+	DKIM; bh=b056ezsocbdxljoLLm3NmA/Kr7mJQ8nR3v5LL7hNBEM=; b=sOmtdTv
+	+ThphM1GTt57e48bIlGyf669JdTeXOujquXJXXBM3gtYGxuK0+Kj8DWzC2iES/46
+	KHf0tjJv6K0EzG/TgANpzm75Vww6fvB9eOdQXY7QsduFtOLBNHB5Qr2/9YBVslk0
+	f67r3XBtpMa8IsvO2Ra+UzA0wzu71tjmvnilytfKHgoREghSie25dCfWmL2rqzxo
+	QO1iVcPtNQmiyuhM2lOnipuzyrjDD+aqi8CJexeOzhzwKJtB5+gBLmh2fXCr6CmX
+	xWmt/4pgt3jpLenrYfvuUMRoXfQVV+3UL467JRdbMsr8QHhaXoAokiAOoxG9TzrU
+	mt/6Vt0ah5fz+iQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=DKIM; bh=b056e
+	zsocbdxljoLLm3NmA/Kr7mJQ8nR3v5LL7hNBEM=; b=DHVl0ejQLxsv+k7Dr3HCb
+	19Kv8BUBhaIg/V6dsRSgVVEyl02B7ks/Z8wPkOU+WJndhnvf+j767bZ1Hu9C0oQ6
+	rH4VmQmyRXuWmERvFQHAtMMbWU3Cp4bSxb1l5PFcelJ47jXrZA4yAD02+mw1L2Bv
+	Ig3IAlefBox3gE1oJ0yD9IUxvZbSoQck1f05oqxFrrQCLeA3OsRcmBYJa3zUBr08
+	sltzrfKj+SkWBPKzDkuUgvfpJAxoZ/xQJe83Jy8KXQ1LWJ3MZHpNedSsPgqGd4oj
+	16E6Q49M69Ngo6vC9cgnkV1BvTGUEU/MLfGGZocuffYEjMTqc9GNWlzR2JnPV2lW
+	Q==
+Received: from ch4pr04cu002.outbound.protection.outlook.com (mail-northcentralusazon11013036.outbound.protection.outlook.com [40.107.201.36])
+	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4hj4qv8aqg-2
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 26 Oct 2026 06:54:33 -0400 (EDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=uVdQTiwpA6WLCBvkZay/ZkqrEox9flW/J/A3AsnqzZE+92O15pVG9kM9vubu/C544wji4N+c4bsoE3kNRqkLVqf4dUzZUfl9RujgUxzBy7GmDKGY7c8iLmeHUzmMaQ2BpTphF6gCGI6DY5A27DY9Io49T89kg0uDcxf3qPtn8I16OrAyJmgtDQio2JUuSA3FjEbugpaFGPrrU45wsy4n64E/38flAaCISSD3kmdy6XO4irlLvXTm+1H8XzxOzHcFeoQHJK0ZrP9sf4GIKS0RHvQxwazVVKzD++Sz7gbpptgIR70BvebTNJHn/qeFUNbZ7v4A99MsWW0JsbgOYIOXbw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=b056ezsocbdxljoLLm3NmA/Kr7mJQ8nR3v5LL7hNBEM=;
+ b=xVwAp5Ggs4eZSIKNTmQyzvzIVZ/MfHPsND9duAWW1E/o78w1Hs7FxBaWbnLCQsZoVeosjSOGfM/KYbDJ/uDeUb7BOb9LTfVc45mILu94PWbhJ4rs4cA7dT1Y4EW19OCZDbNEaD68BUL5AgBzwBF4Cy7lnxn7ves3bg3mwGmkXcLvFJObvysuLEMjpCdvznFyNVroFD4rCm8Goq+xHk6Eb4zUesGcqf2iFAiDqBN6Wxg3e1/mkTZ4ycrKF0X2q9lVy4gHswyil5/UfcJM3OOGl0sFtQp6sVRialNAnvhNYc1AdJznBwo/794Mb3m/dKgpWNhIfvmVZ4dqchXQ6LOA0Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=analog.com; dmarc=pass action=none header.from=analog.com;
+ dkim=pass header.d=analog.com; arc=none
+Received: from LV9PR03MB8414.namprd03.prod.outlook.com (2603:10b6:408:367::23)
+ by SA6PR03MB7807.namprd03.prod.outlook.com (2603:10b6:806:431::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
+ 2026 10:54:30 +0000
+Received: from LV9PR03MB8414.namprd03.prod.outlook.com
+ ([fe80::d661:7c16:d052:cc81]) by LV9PR03MB8414.namprd03.prod.outlook.com
+ ([fe80::d661:7c16:d052:cc81%4]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
+ 10:54:30 +0000
+From: "Sabau, Radu bogdan" <radu.sabau@analog.com>
+To: Jonathan Cameron <jic23@kernel.org>,
+        Radu Sabau via B4 Relay
+	<devnull+radu.sabau.analog.com@kernel.org>
+CC: Lars-Peter Clausen <lars@metafoo.de>,
+        "Hennerich, Michael"
+	<Michael.Hennerich@analog.com>,
+        "Sa, Nuno" <Nuno.Sa@analog.com>,
+        David
+ Lechner <dlechner@baylibre.com>,
+        Andy Shevchenko <andy@kernel.org>,
+        Alexandru
+ Ardelean <alexandru.ardelean@analog.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        "linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
+        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+        "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+        linux
+	<linux@analog.com>
+Subject: RE: [PATCH v4 7/8] iio: imu: adis16607: Add external clock sync
+ support
+Thread-Topic: [PATCH v4 7/8] iio: imu: adis16607: Add external clock sync
+ support
+Thread-Index: AQHdYtEmeJWDofcEWUGyLxXV0N38b7cO93kAgACzhRA=
+Date: Mon, 26 Oct 2026 10:54:30 +0000
+Message-ID:
+ <LV9PR03MB8414AAFA18307F673D64FBACF7612@LV9PR03MB8414.namprd03.prod.outlook.com>
+References: <20261023-adis16607-v4-0-a4d541ebfd13@analog.com>
+	<20261023-adis16607-v4-7-a4d541ebfd13@analog.com>
+ <20261026001132.3c76529a@jic23-hlaptop>
+In-Reply-To: <20261026001132.3c76529a@jic23-hlaptop>
+Accept-Language: en-US
+Content-Language: en-GB
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=analog.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: LV9PR03MB8414:EE_|SA6PR03MB7807:EE_
+x-ms-office365-filtering-correlation-id: d702320e-c2d6-4323-76a2-08df334f8316
+x-ld-processed: eaa689b4-8f87-40e0-9c6f-7228de4d754a,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|23010399003|1800799024|376014|7416014|10070799003|366016|38070700021|4143699003|56012099006|11063799006|261009223027099003|261022105027099003|261021121427099003|10067099003|22082099003|18002099003|6133799003;
+x-microsoft-antispam-message-info:
+ 2O11n/B6oKP/u7I2KdYf18fAZtZDudreM87c8T52H84241+AhFF7Yl47kOEjShbE5n251/mY5BQ92Pyo3lBc4g/48AB+CPztiBZtoCvMrruTLUiDoVO8QzHfZGu3GZKROULam1WKndmUTWdThHSMHn/TD7Ez+PueDFK5gTSL7Am1MmjzqtRn2vgKeUbf6TqK4LfqeC3nHgbMNTAp8s3MIv8Mx+53AUwRE2ntH3cCllq1cHHkb9G1MrrMUncgFaKNlSCcT4n8+zLNR1eMmDhZ2SQzEkCPC0Ho7q8SGxrqdobZfUXljzdl0IkmlOWOmqj0cg+9inoVXHtNF/oPLLgcieAZDpHv9VjB7ban6fONxKuruPhpp8Ppe3EeKJh0VI1V5XunDpMQodWiWshKRYsqmvgWsIakPT39dxObe7HrOlkiTQZXCaPZxTBtvBRyJltIWDeVnHvejClkYlYY+P2tIE9a9T62zeZi8IcILfcko6ue1+rLOp0oE/A3ZR765XT396rIpY7gzw5RBxUUs7X7MSlyR3nV6dP2wjqHah7dk/+fPAQzIbrGPyEafHsnhjKFfaCcPtqFm6RPujfXkHCR7Au1ekrRU/vC18hCb973e77z5rwiHWexucy/hIn7qPYO6FYm2bKMHvZWfl8ihX3/4zbpDMgf56hxvvEVrPH5w/zqCiTdDhwz7vYcMx7dcD5KfaoOnrXCtQOND61PEOvghXyoy/435AYO2zCAxmYChxA=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV9PR03MB8414.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(7416014)(10070799003)(366016)(38070700021)(4143699003)(56012099006)(11063799006)(261009223027099003)(261022105027099003)(261021121427099003)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 2
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?Qs4K+fTsnRhDPtozDwFyJTO8YgXmWEeBOxNxJGHylS+LciwK+FLiJMRhSzzo?=
+ =?us-ascii?Q?T/Jggg8RheBC4MJQf2tNVKcIHqq/aAKRM0S/Sv28MI+Sh+HznmllqvlGyCWh?=
+ =?us-ascii?Q?usXl6OYHJusmc0d1Vpp6744ELW/BZtUxvI+ZKA7vI3t7aV5Hh/xJDYoZIJ+a?=
+ =?us-ascii?Q?KxLX+F/gdHpPun7ekacfX7dY8P2vHW2mDNyYiaxqkH9NCpMy6LJQqPCj7LTN?=
+ =?us-ascii?Q?3Va4Rq5DZUM2ALv/vmfZOCnds7w/2mnGjTeThTtY3YtxIiqoVesLvRcIcpiJ?=
+ =?us-ascii?Q?jtKzenhqhIntfUIiNpuWFsgu7+iDHLZ5qUKq6qZMeZd+kTPoNNo0gE/CVVyP?=
+ =?us-ascii?Q?PM8fWkdLrvDbYkxz/j+3KLNY6MvgkPowI0LZiucm+jf8JgUZPuSTM8pi6LN3?=
+ =?us-ascii?Q?ntHNFiAYmVC1bCgDOmNJiID6WhLJcQnwv3GazB8WnCz0Ph/u3E8JyWPT4s6d?=
+ =?us-ascii?Q?2WVpAMhfy/yJIVVDvRv+s/ToEYqO8OezupBriR9cHghtM0KWVgJkCe2sfWGv?=
+ =?us-ascii?Q?Kl2+cO8tVvw5Bz15boWTyY0QGSy1EjOvxBH/6IE6KUzwKsPYxns6yZK75kVM?=
+ =?us-ascii?Q?7LjjCmVZgydwYCJMbhT/KlWYFuz2LCR5uWiFYmUGOIr6atXGnVsRumskBuHa?=
+ =?us-ascii?Q?tfhXQjVh6KK5ZBb9jai4/57dVYlVdw1U/N5L15nmDUb/iQDckqlaUjQNyWAR?=
+ =?us-ascii?Q?M4rYkiq4ENJIoHxtJtK5XvSnrSR5PG7NlcolVaGt00SWosA3qBeY7RtpqgjG?=
+ =?us-ascii?Q?ccGIp/NoYX/Cs4g5nW2pKgdoQ5VXP9jE3rnN0A/ADPa/Q3KmFzr2Zgkpcqsw?=
+ =?us-ascii?Q?BafQWjUPipPL9zRg75OLXJ26OHEls9xsZmO5uDS38Nt0Mcm0zRUXvwbKZGuI?=
+ =?us-ascii?Q?VSPOA9dagUMVpVFDNgy2noJN5jHvNjhgH5SPqbZg9ffUarILkuqNNMb9ulOd?=
+ =?us-ascii?Q?YPXFA/zOVYqonEtu6bNyhBEkSHUI+9pNipKsCRcLFg7U8vQmZHOMKsiRS/2s?=
+ =?us-ascii?Q?Khdszzr5DdUgdlAmNTRNm/03XToj50kGfPoN9zdMfB5iSef4jZxJVhKIFQNo?=
+ =?us-ascii?Q?McjzAt55uKEGzNUfypMMo4pD3XNcBmN65HST93KNd7qCYTgTyoK7JFtRxjwF?=
+ =?us-ascii?Q?UbVwMIvO81rtH0nz8cE+MzYvZgyJkd6zjQlE1ESYge7RLrescZHdycGxX1yh?=
+ =?us-ascii?Q?h1QVWAX3Ncn5Cz5gEpBMO4mrNFdMTYw6d4AMvXiUOoPLXupKJhiGwkLtkBHS?=
+ =?us-ascii?Q?HxlWT6dbXiKiS2w1JSkpPzRGAgEFoUYrM0cTlvVPkjhmvyQq+qPsTa59QERG?=
+ =?us-ascii?Q?+QN5RQ/eMspeeMvQQ94VMQJiZVZiGc+Fogx3t7OO0dLxPBLTtm19mnLUPlhd?=
+ =?us-ascii?Q?U8FnNd8MKK8dHzFqlsrHaVYcvL99309b5aS/kAwU249+3uDRKsrq0FPrUKHs?=
+ =?us-ascii?Q?3suTiuvAIm9xTtjOrXNk2jPCOXzZr90KSf5gyOt1tGHGMS+26CyLp09XUc3L?=
+ =?us-ascii?Q?9tTJcnYSxSF9BysQadJ89etb5i9/RcB/FAeG8i37QcxeCLUEMsuGLVIYxBgt?=
+ =?us-ascii?Q?aNLJn7DHFufvpvnBo0hLX/sZ1cxkOLtMdsZfyh1WSU2lJ6W0cNDNZqx15Enl?=
+ =?us-ascii?Q?Lxj2aJwYw3KJLEw5/oa6LBwes10g3dQLn9k2/2H/jtHUxT6ChrrAAaX/I3ff?=
+ =?us-ascii?Q?3z6uryl+zXlWIcjN5ClqPIVQC09SEAWJuHJeEjChy0AiCPEuQ66yfVbmgsmS?=
+ =?us-ascii?Q?KcV3Z1V9kcapcAjcMJz0RQj76UWkbnlz/LsT2cHaAVzKTX+EXJi48Q9rRZCy?=
+x-ms-exchange-antispam-messagedata-1: 5G+CeKqwmSZjnw==
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,116 +196,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1510:b0:539:ad19:d0cf with SMTP id
- 5614622812f47-55c0020b600mr4075211b6e.20.1793012080274; Mon, 26 Oct 2026
- 03:54:40 -0700 (PDT)
-Date: Mon, 26 Oct 2026 03:54:40 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6adf3170.a6443767.132891.0077.GAE@google.com>
-Subject: [syzbot] kernel BUG in remove_inode_hugepages (2)
-From: syzbot <syzbot+2fcec0eca7f4cade53b2@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
-
-Hello,
-
-syzbot found the following issue on:
-
-HEAD commit:    9ba46df34488 Merge tag 'bitmap-for-v7.4-rc1' of https://gi..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=14eff495580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=968c4ca981edd5f
-dashboard link: https://syzkaller.appspot.com/bug?extid=2fcec0eca7f4cade53b2
-compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=16eff495580000
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+2fcec0eca7f4cade53b2@syzkaller.appspotmail.com
-
-refcount_t: addition on 0; use-after-free.
-------------[ cut here ]------------
-kernel BUG at lib/refcount.c:34!
-Oops: invalid opcode: 0000 [#1] SMP KASAN PTI
-CPU: 0 UID: 0 PID: 5930 Comm: syz-executor856 Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/07/2026
-RIP: 0010:refcount_warn_saturate+0xf0/0x110 lib/refcount.c:34
-Code: 80 c1 03 38 c1 0f 8c 6a ff ff ff 4c 89 f7 e8 d7 92 63 fd e9 5d ff ff ff e8 ad b2 f6 fc 48 c7 c7 60 82 ea 8b e8 11 5c 57 fc 90 <0f> 0b e8 99 b2 f6 fc 48 c7 c7 e0 82 ea 8b e8 fd 5b 57 fc 90 0f 0b
-RSP: 0018:ffffc90004a37928 EFLAGS: 00010246
-RAX: 000000000000002a RBX: 0000000000000002 RCX: 3a69e62f58ffd700
-RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
-RBP: ffffc90004a37be8 R08: 0000000000000000 R09: 0000000000000000
-R10: dffffc0000000000 R11: fffff52000946ed5 R12: ffffea0001610000
-R13: dffffc0000000000 R14: ffff888036ec0c01 R15: ffff88803af58430
-FS:  000055558950d4c0(0000) GS:ffff8881247ad000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007fa042400000 CR3: 000000003486e000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- __refcount_add include/linux/refcount.h:-1 [inline]
- __refcount_inc include/linux/refcount.h:366 [inline]
- refcount_inc include/linux/refcount.h:383 [inline]
- kref_get include/linux/kref.h:45 [inline]
- hugetlb_unmap_file_folio fs/hugetlbfs/inode.c:413 [inline]
- remove_inode_single_folio fs/hugetlbfs/inode.c:512 [inline]
- remove_inode_hugepages+0xbdb/0x10f0 fs/hugetlbfs/inode.c:577
- hugetlb_vmtruncate fs/hugetlbfs/inode.c:621 [inline]
- hugetlbfs_setattr+0x4f0/0x6d0 fs/hugetlbfs/inode.c:856
- notify_change+0xbb8/0xec0 fs/attr.c:556
- do_truncate+0x1c2/0x250 fs/open.c:68
- do_ftruncate+0x4e0/0x590 fs/open.c:194
- ksys_ftruncate fs/open.c:206 [inline]
- __do_sys_ftruncate fs/open.c:211 [inline]
- __se_sys_ftruncate fs/open.c:209 [inline]
- __x64_sys_ftruncate+0x8f/0xe0 fs/open.c:209
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fa04350daa7
-Code: 00 00 00 48 c7 c0 d0 ff ff ff 64 c7 00 0c 00 00 00 b8 ff ff ff ff c3 66 2e 0f 1f 84 00 00 00 00 00 66 90 b8 4d 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 01 c3 48 c7 c2 d0 ff ff ff f7 d8 64 89 02 b8
-RSP: 002b:00007fffbd25aeb8 EFLAGS: 00000246 ORIG_RAX: 000000000000004d
-RAX: ffffffffffffffda RBX: 0000000000000003 RCX: 00007fa04350daa7
-RDX: 0000000000000044 RSI: 0000000000000000 RDI: 0000000000000003
-RBP: 00007fa0435adb60 R08: 0000000029b4ae16 R09: 3fffffffffffffff
-R10: 4000000000000000 R11: 0000000000000246 R12: 0000000000000003
-R13: 00007fffbd25af00 R14: 00007fffbd25aef0 R15: 4ec4ec4ec4ec4ec5
- </TASK>
-Modules linked in:
----[ end trace 0000000000000000 ]---
-RIP: 0010:refcount_warn_saturate+0xf0/0x110 lib/refcount.c:34
-Code: 80 c1 03 38 c1 0f 8c 6a ff ff ff 4c 89 f7 e8 d7 92 63 fd e9 5d ff ff ff e8 ad b2 f6 fc 48 c7 c7 60 82 ea 8b e8 11 5c 57 fc 90 <0f> 0b e8 99 b2 f6 fc 48 c7 c7 e0 82 ea 8b e8 fd 5b 57 fc 90 0f 0b
-RSP: 0018:ffffc90004a37928 EFLAGS: 00010246
-RAX: 000000000000002a RBX: 0000000000000002 RCX: 3a69e62f58ffd700
-RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
-RBP: ffffc90004a37be8 R08: 0000000000000000 R09: 0000000000000000
-R10: dffffc0000000000 R11: fffff52000946ed5 R12: ffffea0001610000
-R13: dffffc0000000000 R14: ffff888036ec0c01 R15: ffff88803af58430
-FS:  000055558950d4c0(0000) GS:ffff8881247ad000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007fa042400000 CR3: 000000003486e000 CR4: 00000000003526f0
+X-Exchange-RoutingPolicyChecked:
+	03N0T2CO16YoZB44OiUV6PEL/DWV4Pi/iVXsZYy8FUCceOEuWKtL4Swhh8CKa3nfVD3wXV9E1tFujxCLe4NIdkwSh4M4o/c6R44DG8SPSz7ohRpGUjO2snOokk21U4INy7t3LSxqlzeFi6Yy2Gzx2mjTQtSKVmXKbwa8/1jux/YfsXU92x7iVy6clyn6ZKuOFO1eRNpPJLNEPhf3eH0lIE8IfqOK9KNI3QYBPZenInXVrhSaXUAnr7y+gJyRORDFwVicMlXSvMF6vLOG71FYJHzkuxsVZ1J+eSDP6V8Djq86/Tge4D8iq+5DMWQFIanq35BBVObgIkmBoi260yssVQ==
+X-OriginatorOrg: analog.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: LV9PR03MB8414.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d702320e-c2d6-4323-76a2-08df334f8316
+X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Oct 2026 10:54:30.4531
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: eaa689b4-8f87-40e0-9c6f-7228de4d754a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 5pa6zOuj8E3oS0yAzS7w3XC0t+KYRnVPvrw8HGJF7SVLnm+Twr6szmcT7Y8Lz/bV+I+jW7ZKeIEFTTThCnaY/w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA6PR03MB7807
+X-Authority-Analysis: v=2.4 cv=W6qtxhWk c=1 sm=1 tr=0 ts=6adf3169 cx=c_pps
+ a=0RQO2klDQ5fyV1VIsLBujQ==:117 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
+ a=Z0pTeXoby7EwIRygza74:22 a=VwQbUJbxAAAA:8 a=Kh4wWMj23ALisYEeBXsA:9
+ a=CjuIK1q_8ugA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA0MyBTYWx0ZWRfXwoJALKChjrxc
+ vff+s+eT4AUMR74lTodCyg0C9Sss1rGQSFS21O1Y918GuT1/BnWSzWDM0qDQHLBwmCFfqPjZ9Xe
+ 6hCczC7iJgx5wWno2On03uo9ScCnPIHrIYSTBSlOVOGJZ1pdoIAiBza/3LLsKVxJQ+XAjNU9IIO
+ ywkrU6rDi3paB8P451td02Kr4s+58pFw0RKwFUv1R/RNRqXsAeCYC+306QICwWQUOolVSlK0V7e
+ /ILy5nvd1NF5ujNj08vd4yE8CvkedaNZOc9n561SRxJHH1gEkd01RDtz5QL/Xwsdc3IoKQ5Xdwf
+ 8OcvjLyT3lQnRbqA9tphJ+gRhnDtAIaTFmry8qd4h8V9k2V9xIJo32exaLzZtB2M/sk5/+TZubP
+ AS4vMLqW6mht3RRosJ4FvDsZzWMQ7BPE0Tnm3vLIehj6d+vny8WouBRKwXINWSkw1BSVN+39VJm
+ 8Q/P3RJDzcaLi0IRQWA==
+X-Proofpoint-ORIG-GUID: q78ZPX6GNH_aJ685P9r-pming88BlBLH
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA0MyBTYWx0ZWRfX1UdWLwiXWYgY
+ OeHNJNviW3iQy1K8H5xopTELerEPkNZNM/Xp0578P4Fmc9HkaLf0o26TB7zzqkchd6c7zyjMG+L
+ y5w697ARNyW6D9NWzz4CZwoE/cJ70vQZhzbU1CC+tOC6LDOB8wmG
+X-Proofpoint-GUID: q78ZPX6GNH_aJ685P9r-pming88BlBLH
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-26_01,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 lowpriorityscore=0 adultscore=0 priorityscore=1501 malwarescore=0
+ impostorscore=0 clxscore=1015 bulkscore=0 suspectscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610260043
 
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+> -----Original Message-----
+> From: Jonathan Cameron <jic23@kernel.org>
+> Sent: Monday, October 26, 2026 2:12 AM
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
+...
 
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+> > +
+> > +	clk =3D devm_clk_get_optional_enabled(dev, NULL);
+> > +	if (IS_ERR(clk))
+> > +		return PTR_ERR(clk);
+> > +
+> > +	if (clk) {
+> > +		ext_clk_hz =3D clk_get_rate(clk);
+>=20
+> Hmm. What if it is a controllable clock?
 
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
+Good point. What I'm thinking: add a clk_notifier (same pattern as
+adf4377_freq_change() in drivers/iio/frequency/adf4377.c) that
+re-runs the sync/scale setup on POST_RATE_CHANGE, under the same
+state_lock the trigger handler already uses, so it can't race with
+an in-flight FIFO drain. Splitting adis16607_config_clk() into a
+probe-time wrapper (gets the clk, registers the notifier if one's
+present) and the actual setup logic, so the notifier can re-run just
+the latter. A fixed-rate clock would simply never trigger it in
+practice, so this covers both cases with the same code.
 
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
+Does that work for you?
 
-If you want to undo deduplication, reply with:
-#syz undup
