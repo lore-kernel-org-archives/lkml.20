@@ -1,96 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793034068;
-	b=qhbUkNcHZNhCul/AperMATGUhEQYoJHhMz4gx39ViY/wwHiM7tAz/HDqLkYgVAkYbtMl
-	 ki8s/u/bqlQO3xS2BVygOjLAVgoZxnDhCeUp5MI4v3K57kAkuokHp43xtcavicoAJlfOG
-	 NGPcF5dDT6uLGdLURZYiTG47j3M0YQEHTO69jV7egbrB+8iwzvVZEhxYD5+XXZzx39moG
-	 PS22KQqE1PscHmmnTiIanaV65dwsGSfIdiZ8c6biJuRQvZBOI99kG5+peKo1OenGuOrRt
-	 EWaocLeKXuD+ARnVvjeL0l7gNHhoOJ0dHCMSqCCiBAybFzy5NO0bPHy7zOFByfhCHyQ==
+	t=1793034125;
+	b=QD/JfQvW9LkSe/G1bhs4lrDYErFxTsGt57xdr8AGL/zR7CN+Flz1RQelO4HlJK45k6Ff
+	 VxWOoDFG7JZtQWCUOF4EI4hJpisbigUudxiDsPbANpdATNPDv2nj54Jthl/lvuLhWAwTJ
+	 FPl8nr52tWHeWDbhrbys7lDYW1EFlU1UC1LTXGQfm7zAnmhCAQWFhCsRDmfFo+vDtRFoQ
+	 HDWvBFHublCY9akf2XUceswlGMzu6kkrSoQ/sCq/ZdSkuUs0V19Y598+bBoPcyJUn9nrV
+	 eF0kZqr8PWgGTvyCHOjRNjM+hugatrJcnKq+PJ3XsScKqsR9eZPqiJAhlLXbzt+0TjA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793034068;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:User-Agent;
-	bh=5Ydy4SrZ5ujWtkPCvnsBn7qPeS/tADlr85tTPO/ygQE=;
-	b=PZbnOo5dxogt69KP4QeRnR1wcif9fwDItgf8lCvAaclgfMPkOsyEivMk/hiTeRqAgCkP
-	 nXTybPzAtwSvP4iP4fKGV7xkxv/AbbiAhfKMyO2zDgCNLEDliNJRdrXc6HEdff4Ffbyvs
-	 5npMiraA/dmGvXA6d/MF3i6knBmmfIN1V9qs8Z6PJa1ElzevlMub9QX0/GSN7HfNSm0OE
-	 nxvKpdWCy5ESOukx144HgABVj7LMlyo6q+ZNJ+TTxaFUa+zAWnFmlKloafgofiUdffxHn
-	 I+lCzIkBgZG4GsQst6cL1fzfmR4TuXdU3VbShfltmJzZkT1IiJ04DVtqHcDhypaOjkQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793034125;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=qkqhPHOCo4fTWwPKT7Kxijt1nrEHB3Og6VjW7E1Dyb0=;
+	b=CmmoFA+IBfwgIpC//0gtvCgDs+Kn80dG4FyKncYyDWGNmmPBQdT03wjib2UlIN82sus5
+	 aaS/v1t69xy5bnUkKBiCSBS4tw+edkre2QACbtogtQQ+dvECzGglGaabksHeI9jHsWLyZ
+	 swqLx+Peic18CMfKKrAB3ehpvznYhTvy0B2zi9kgaGUs8iw2WtZxGRODcfqFsSFKiImUD
+	 JsUJi4pgPEIY57nzKiJpDuX+lhlyJybkywH/BlSggdhdNVVbb8quItBLSsAp2d9+8OS5t
+	 ESZbWUKJTwHyVOMom7xsxmmj2rFn1e7jss3HijkQWorIdx7nMZAh/FmQxXf+CcYNqwg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chrisdown.name;
-	spf=pass smtp.mailfrom=chrisdown.name;
-	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=A2DuRq+o;
-	arc=none smtp.remote-ip=209.85.210.170
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=awEcjpuD;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7AB4606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 17:01:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7AB4606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E37EA606A31A;
+	Mon, 26 Oct 2026 17:02:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=A2DuRq+o
-Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-8a06ca6e8f4so2271945b3a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:01:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chrisdown.name; s=google; t=1793034067; x=1793638867; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=5Ydy4SrZ5ujWtkPCvnsBn7qPeS/tADlr85tTPO/ygQE=;
-        b=A2DuRq+ouNiZhDxs72yVkhAlv9jb4uTMtBCF77mn1/O2pHImsYX4ijhR4NBvk7wDGe
-         pl2/1qRW7A22RsVvUOvuJeQoS3I7jcDSvu25r12mNwk3TDyXZl028AePohHMGizBOQ5N
-         r5X0S6hIH0CTyV1mMtaMsNJssX+2a+PxVLb8E=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793034067; x=1793638867;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5Ydy4SrZ5ujWtkPCvnsBn7qPeS/tADlr85tTPO/ygQE=;
-        b=wDJZDkajHhhqB6pfFBdixRzrHG2CmySUA082bY8CvawCcRj5U4y1SjE5PS3LV2uK8y
-         IUaMn7vPyNKcnZyVxuOIqiZ0E0Okhz1u7Big/D+MYOC/Fv5j/2o3pv5ZSLpDKOkx5pM+
-         m9TpgvThgFoS9bWe+4CtOWMmwkPBIPLeJ/BCCI3vPyez17zqnEwZ3OK04f4zGqPgzgOt
-         u9QRJXDj7nX9X250riOspOwn8ictEecdskmq8LNYOW35HMjXyrhJ4+co07JL8v0CKgI1
-         6z0b5V6/UYjIZ4nK4JiNZ/j0PWcAGZgf4jk618gVCDYHdbDH31GL1BjT8SUz32Gc9Vca
-         kSUQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwkGODQSu+oh8IuTyvALNy8/NNLLizIjQ/qmkdbDAupP8FF3bbp+WvC+qgsXWhk+aPyIN2tXlvXb4F36aw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL3lyTtZWCAGiXwlOiErgwfGZgWPVFjytcgXkKrzzplnWDXqmCA
-	6it3T9SH3mVDi8oPS7NVlqFU+jaf0MEZiLBuEdk61hYXHWSpEqQgln0oqMXfejXZ66g=
-X-Gm-Gg: AYBFou2Qq1++3wRp9R/1WoiJwxwVhP78D9d/+jCO9yvrj7y0myLEzwFPTYs3GBH118j
-	2Cb3G/Yd4j1/Ahuqrex3MhiYakaZz+5QQceIVDqekusM2xW+CTOxrzxmrJ3sX/jDAwKir9ZBWkb
-	Ryxdp3/d6aqXS3A7D1iAJfzM+bgtQSnAErdGR68Mr6iwPBdrkZ3cQ8oSdpsN6EMQsb3II+zVqWy
-	rMgBvFtvwPMxtFAHNSJBoTMd8GcMHEKdo9djO0BRk1Ltks2TihjoZGSqbhlPtxEQv5yB9/chWYp
-	p6MCW37JEnlwTBU/S1KnOaq4lU/mgwfLZ5wPDWbtih7kcvVZvJYn3HaK4Q4Bf0urm89B7iLkJLj
-	4FOTVfaa+toegbpVDGRmAQWiEpAlaWgJ97hqIKMPE50DWDsW8KsjJkDOu0UQBGUsR1In/4bBP26
-	1m7cVNASm4DYIOa/Z36ARTiAVR0lpIYNFNUxxcA4U9KJkTgfwX9kb+LG9gaUTJVq8GbsYWE6HhZ
-	eIebzSm15kRA9m34Vt4OeDDfHRbXNIYUYoZ9NTlsE1JndYqDtgi/IAXo8eSNHx/P3UBLzJ0Nqwk
-	Yuv6VKGBaJRK6WbYyYh+9K9gv9FROyMnG+2ZWOghtjg98pcbUrcBxQfP95tFMXueQq40200fmtg
-	shzUmgExji6Awhm4a8QErdPc=
-X-Received: by 2002:a05:6a00:a21b:b0:89e:259c:cd77 with SMTP id d2e1a72fcca58-8a368d87aedmr6495038b3a.57.1793034065729;
-        Mon, 26 Oct 2026 10:01:05 -0700 (PDT)
-Received: from localhost ([116.86.153.182])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a36c4e8616sm1699563b3a.56.2026.10.26.10.01.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 10:01:05 -0700 (PDT)
-Date: Tue, 27 Oct 2026 01:01:01 +0800
-From: Chris Down <chris@chrisdown.name>
-To: Petr Mladek <pmladek@suse.com>
-Cc: John Ogness <john.ogness@linutronix.de>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] MAINTAINERS: Add new "printk" mailing list for PRINTK,
- PRINTK INDEXING, and VSPRINTF
-Message-ID: <at-HTeibj08ZG4YL@chrisdown.name>
-References: <20261026160128.12581-1-pmladek@suse.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=awEcjpuD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 797861F01825;
+	Mon, 26 Oct 2026 17:02:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793034124;
+	bh=qkqhPHOCo4fTWwPKT7Kxijt1nrEHB3Og6VjW7E1Dyb0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=awEcjpuD1v4ke9BAf8ab8An27hYYxZqCuvHfrQXBrDxsbhGC8Q0pnoyO/s7yM3Hbh
+	 dxAzdCDsJDokzQs3Hqcq4dAFDYXCch3aRJO1/38iG0D34aKc1sbOj5P9MOLlc2Ix9E
+	 QivOq0RPc4hjrcLC2tksBDa0O9Ivy8CMEUPtziBOOmZoaeT+0HKUV3CzD2IILMhm6i
+	 /Z+oeMh9XxubnHZl55OXoblC8+CC6lCN8NMHj3//5iDQvLjh6v0OUqa6Y03SU6xUbG
+	 jUidKixUOV5C9bucVx+27g63uiiNa88zCRgqV9dmWtoBLQdPUg6FaOGyAkJalb/1eZ
+	 LOVf4Ead/0R7Q==
+Date: Mon, 26 Oct 2026 17:02:00 +0000
+From: Simon Horman <horms@kernel.org>
+To: Arnav Kapoor <kapoorarnav43@gmail.com>
+Cc: Ronak Doshi <ronak.doshi@broadcom.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	syzbot+8eed6f83440ecdaf4be6@syzkaller.appspotmail.com
+Subject: Re: [PATCH net] vmxnet3: stop DMA mapping the adapter structure
+Message-ID: <20261026170200.GF257209@horms.kernel.org>
+References: <20261021221221.502428-1-kapoorarnav43@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,53 +62,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261026160128.12581-1-pmladek@suse.com>
-User-Agent: Mutt/2.3.3 (9073d26d) (2026-06-12)
+In-Reply-To: <20261021221221.502428-1-kapoorarnav43@gmail.com>
 
-Petr Mladek writes:
->Reference the new "printk@lists.linux.dev" mailing list for PRINTK,
->PRINTK INDEXING, and VSPRINTF subsystems.
->
->Signed-off-by: Petr Mladek <pmladek@suse.com>
+On Thu, Oct 22, 2026 at 03:42:12AM +0530, Arnav Kapoor wrote:
+> vmxnet3_probe_device() maps the whole struct vmxnet3_adapter with
+> dma_map_single() and passes its address to the device as the "driver
+> data" (misc.ddPA/ddLen) in the shared area.
+> 
+> The adapter is the netdev private area, and alloc_netdev_mqs() allocates
+> it with kvzalloc(). struct vmxnet3_adapter embeds 32 tx and 32 rx queues
+> and is well above PAGE_SIZE, so when a high-order allocation fails the
+> adapter ends up in vmalloc memory. dma_map_single() then warns
+> ("rejecting DMA map of vmalloc memory") and returns DMA_MAPPING_ERROR,
+> and probe fails with -EFAULT. syzbot hit this with page allocation
+> fault injection.
+> 
+> The driver data is only informational: the mapping is DMA_TO_DEVICE,
+> done once at probe and never synced, so the device could only ever see
+> a stale copy. The per-queue descriptors in this driver already report
+> no driver data with ddPA = ~0ULL and ddLen = 0, and other vmxnet3
+> drivers, such as the one in DPDK, never set misc.ddPA at all.
+> 
+> Drop the mapping and report no driver data in the shared area as well.
+> This also removes a probe failure path and the adapter_pa field.
+> 
+> Fixes: b0eb57cb97e7 ("VMXNET3: Add support for virtual IOMMU")
+> Reported-by: syzbot+8eed6f83440ecdaf4be6@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=8eed6f83440ecdaf4be6
+> Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
+> ---
+> Tested in QEMU (q35, KVM) on net/main (abeacca61eea), with KASAN,
+> CONFIG_DMA_API_DEBUG and fail_page_alloc (min-order=4, as in the syzbot
+> reproducer):
+> 
+> - syzbot C reproducer: before, "rejecting DMA map of vmalloc memory"
+>   WARNING and probe fails with -EFAULT; after, no warning (probe then
+>   fails at BAR mapping, as the reproducer binds vmxnet3 to a non-vmxnet3
+>   device).
+> - QEMU's emulated vmxnet3 (-device vmxnet3): probes, link up, ping
+>   works, before and after.
+> - Same NIC unbound and rebound with order>=4 page allocations failing:
+>   before, the WARNING and probe fails, so the NIC is gone; after, it
+>   binds and ping works.
+> 
+> No new W=1 warnings in drivers/net/vmxnet3/. Not tested on ESXi.
+> 
+>  drivers/net/vmxnet3/vmxnet3_drv.c | 19 +++----------------
+>  drivers/net/vmxnet3/vmxnet3_int.h |  1 -
+>  2 files changed, 3 insertions(+), 17 deletions(-)
 
-Huzzah!
+Reviewed-by: Simon Horman <horms@kernel.org>
 
-Acked-by: Chris Down <chris@chrisdown.name>
-
->---
-> MAINTAINERS | 3 +++
-> 1 file changed, 3 insertions(+)
->
->diff --git a/MAINTAINERS b/MAINTAINERS
->index 1e3f9f2751fe..bf0a12274e68 100644
->--- a/MAINTAINERS
->+++ b/MAINTAINERS
->@@ -22211,6 +22211,7 @@ M:	Petr Mladek <pmladek@suse.com>
-> M:	John Ogness <john.ogness@linutronix.de>
-> R:	Steven Rostedt <rostedt@goodmis.org>
-> R:	Sergey Senozhatsky <senozhatsky@chromium.org>
->+L:	printk@lists.linux.dev
-> S:	Maintained
-> T:	git git://git.kernel.org/pub/scm/linux/kernel/git/printk/linux.git
-> F:	Documentation/core-api/printk-basics.rst
->@@ -22219,6 +22220,7 @@ F:	kernel/printk/
->
-> PRINTK INDEXING
-> R:	Chris Down <chris@chrisdown.name>
->+L:	printk@lists.linux.dev
-> S:	Maintained
-> F:	Documentation/core-api/printk-index.rst
-> F:	kernel/printk/index.c
->@@ -29851,6 +29853,7 @@ M:	Steven Rostedt <rostedt@goodmis.org>
-> R:	Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> R:	Rasmus Villemoes <linux@rasmusvillemoes.dk>
-> R:	Sergey Senozhatsky <senozhatsky@chromium.org>
->+L:	printk@lists.linux.dev
-> S:	Maintained
-> T:	git git://git.kernel.org/pub/scm/linux/kernel/git/printk/linux.git
-> F:	Documentation/core-api/printk-formats.rst
->-- 
->2.56.0
->
