@@ -1,95 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.0
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793044309;
-	b=csS/VYlb5ZaDrBJ/XVQdwMqWT7cKDOan26exwrkq80fIPlILbVqtKz7hQiUxchZ4s7ib
-	 7Er2dJYwMw5kAvhFgIhiYrVGunMEEuIjyxA3aE0j5f50QFRQT4qnaA0nhXJb5reroYIl0
-	 k/n69lVuOI9kwm16C3OM4o4L+Z1uGLeoxJamZrBjOlaykd7qVvayLsPssJ0XtRrcs+MS6
-	 07Z4MJwx99mgZbi2ylw6SBry4Qrewq1frbsj/y3LVo2ByYg+i8jQT/o1wCGgzsXZBm0aJ
-	 ERRAxUh4c7CNabnTrosTaltbrJl9vzoK4mjXM0K+Mbu2EMPi+NOnPqXd85RrHHxM4/Q==
+	t=1793044351;
+	b=3fOwRoyY6sF5Y7TuCA6AKcKMz0rZdlSCB5dmV2AzsYTBKW2WoPBl8XfiRQUmtmfeRZ6h
+	 wkNiV6pjynCl1L8rbcHyZgJDpkJXEFe8xSwoUKmgD1z3jcq1IAwyDtmno96OtHpbxuiaO
+	 Shsm06JEe+Yy47s3wfLrD6O/z+1KsF7zFOAdzxDYqahMwObC6hYYN63JjLmvEL5/zan6R
+	 5SXjWIaNKMNRRVr0bpw6NhdJ65Yzdgu80WM/4qZTY0P6oIukh/S1HUStJ4uOc5JqUjmDU
+	 v6SAEUvYSjRcEr1EUPusICYELjeIK70c17IKOwTsNsKRkRv0JHJq0Cj4PQVR7k8ZM8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793044309;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=lt5+IIOEQntNwj4k8ixyv60ZFra3k7uwj0Sn4JHHT+4=;
-	b=KMai3bSzCTG4Fq1VZdn9iXY+Bd6tOUaPfL1zCFZ+AbZHNevY2FJntU6JJLVrjlQi2BUq
-	 KG0wHK8FwK5qlN/XhZOQcWcsJqnYj8wL/FMCz/dcrBJ/gjK9LYkgJfjZP0CeMRMylMTs+
-	 HbbzdPKp0kcPr8fqX4cvsV9EPCxKAORQe9g9iRZ2x2wvy769ioRbdK5jdS2qSIUF8czyn
-	 2VYvQznOE5OfNknwDevj7OwlhwlTRpj0ETttpQgIA26hd6e7uqZrY4+oIOj77mLMy4ILR
-	 GBtNnZgTUYHCyYJ9AleywepYF0AR16fBqEXmLEo4FLtyAwGuaVzzv7BwB3LTqDf4bvQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793044351;
+	h=Received:DKIM-Signature:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:X-SA-Exim-Mail-From:
+	 X-SA-Exim-Scanned;
+	bh=IoO8jhMb7zvyQD2W9noPd0i8Vmj5N2eTxpmHRimEf5s=;
+	b=z6lJ6wqUVmrSMcLXUfGFF/2AxzvTGgQCTPB8EhsdKghdI1DdV1NIir7n1PVdbEUcINCY
+	 z+RnTfr2LD5sNjoEHVogJ8jeG620eEMy/OzRJEOLfzPDzWzxxU/y3qnQxxHjCFR5QFraX
+	 UWVUO4sRCRj0W0xtg8pkXyoUDNJ4A6R7Tz1WM/rE+TdiIXa+VYkzOzW6V4M28nExcD2Jw
+	 3bWsNvDXHLItMA3geo1PQcVQLY7IlqLbaTjy7F144aOTLwsUpjnU+K+ogzNFmsb6lSZwn
+	 C/UtnLuy0KL3qJFcnYRr4WamN3/UMFigU4+zksTvcoFJvbDjuLLb2YG4NIKsiE2kV3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=D2YtkdlV;
-	arc=none smtp.remote-ip=74.125.229.0
-Received: from mail-dy2-f0.google.com (mail-dy2-f0.google.com [74.125.229.0])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dh+lMa57;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7610C606A31D
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 19:51:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7610C606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B3E5606A31A;
+	Mon, 26 Oct 2026 19:52:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=D2YtkdlV
-Received: by mail-dy2-f0.google.com with SMTP id 5a478bee46e88-3117f9b9e64so505007eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:51:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793044307; x=1793649107; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lt5+IIOEQntNwj4k8ixyv60ZFra3k7uwj0Sn4JHHT+4=;
-        b=D2YtkdlVCDGqT/iZgKm4itlNOYiW4o6uFWvyGLGYTXjPAelbMQS2Pv18QOHavGVg+2
-         ioK8NOehpDooXHPIbX8jkrkGbJckCdeOh60CmsswXjMvrcNBdMXOB/AZ8LG6ezgMfK/N
-         7lUc8oS7m8KmfPNBxPTy6xjMOKDvHfDKSeRGVj19Uv+8grTzMLgweXy5xJFTNKGognr7
-         zDOfA7MWebe+XHAlNEyCLcM1RNqx6EijjI/FNx+4qDAkWlWoST0H6Kk6FUtBSgvwVXFy
-         /9ehPtbmsP3d61x9DZzzg50mAPfv9GtSsgNFGd6jOa+p5d+J3fc1HraVLcJEHSfT/5Ji
-         b9TA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793044307; x=1793649107;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lt5+IIOEQntNwj4k8ixyv60ZFra3k7uwj0Sn4JHHT+4=;
-        b=y9vzMlJfZERzDp6WoRmGIO3mAbJs61ri1/Q6eB/1EJSXwpQD1PvFV5lBBKsO9Gss4F
-         k2Uh1oQqCDWG1BrEiSIE5RCaFD8Eru9Gv5E0eBX9zWGM1qQGk1R6oO0m0zYm8LB/UrTy
-         VuzFv8Qof3iiAuVnZweKZusbEcxNVsVYDVjP7nypnC+mNeLd+nGeNiMF5YAF7fJd5CGD
-         aX+1hEqa56ig6QWNZ8oqVy+BXAHkzduRYT+KB1mg2fTV/q5GO6a5cruHtEwpBoPO7tgY
-         X74GSrbJY4vWy9D5l1ddz3zPyj5y9tT66DwQWKXLVQru1PlnGgZ8VZ5T/Ts9cdSkgTSN
-         lqzg==
-X-Forwarded-Encrypted: i=1; AKwUvBy0r/WEf6WFrLjHCVPRtoGJOeHxYdn9C9nbzDN1tWJ+ERfSgeWWvpYELIN/4a2vevgWNvY3XUPwX6YxYXc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLCAVm8fl2ZKODU/5QuulWOx0P7H4Fg794HlFFuFEDV3Xo6oQkV
-	qDONmk+4sn1hUKcoqI5Drg6IU+8m+HbwWAJ9GkklnxXpnaaOufjre6EI
-X-Gm-Gg: AYBFou2bt/yAwGn6fXkzakWYnp+LpCWQdgtuNdTrCkZPIHCp11G99dytmiLojdq5naQ
-	ZmmEkf7TGkP+gYck9g4aJz/s/ZF8Olai50rMZM/esr/IjqUIhqhoCb51V/LvnXUdUi9q60zmso/
-	64GIQdcWrdkVXYd/kckM9QkStaP+nZY9+buQOpkCGf1eQvXTTOi5pdWnr1Lw+qyPXFz3ERMmxn7
-	FDVy34RkrmB8IGGui0lL2sz0d1M4bgOCvWNLoJFbyMYyLwZlEwx5v1SJAJ/rzMAoilQovwqj7Dm
-	SnZ5ttIIAGww5nDFk78z6zqAbNiptdTkRmWP9eo6kCGLiseY+VCBOPW330xuUwh4ZZvbpi/WAr8
-	0VkvFro6y4GF2UOAQ4Rpxf2yjt2gLUcldWOHy0uQPwxXiCrtNOIxxdAFgLQkW6UasYbQL+or3nO
-	r/YyP5m+dGN2uhjJM5U0gV04jbrvlzQHH+8kzKP+CGUZBnP4rDE1YMdPTIhF4lNs13uK87JKydW
-	pTAYX7wRNSp61/DW1F4nXbu5NLeYolf1BoaLoW1gQzKvFEYNQRtTxbGTygmD3u/Qmz5Te7M2Aub
-	aXvEsQI=
-X-Received: by 2002:a05:7022:102:b0:196:7590:8bed with SMTP id a92af1059eb24-1a3c3240338mr1258384c88.2.1793044307251;
-        Mon, 26 Oct 2026 12:51:47 -0700 (PDT)
-Received: from localhost.localdomain ([98.148.34.5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1989ff2ee69sm36573707c88.4.2026.10.26.12.51.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 12:51:46 -0700 (PDT)
-From: Hungyu Lin <dennylin0707@gmail.com>
-To: axboe@kernel.dk
-Cc: linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	dm-devel@lists.linux.dev,
-	mtsai@redhat.com,
-	sashiko-bot@kernel.org,
-	stable@vger.kernel.org,
-	dennylin0707@gmail.com
-Subject: [PATCH v2] block: fix discard alignment for non-power-of-two granularities
-Date: Mon, 26 Oct 2026 19:51:31 +0000
-Message-ID: <20261026195131.46699-1-dennylin0707@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dh+lMa57
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA57C1F01825;
+	Mon, 26 Oct 2026 19:52:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793044350;
+	bh=IoO8jhMb7zvyQD2W9noPd0i8Vmj5N2eTxpmHRimEf5s=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Dh+lMa57ctnoQbPT7OdxHHCZrljxrsPpdfG+vxEZI13YMHVbXy6qtk+DCZfdOyFy4
+	 N2TwljPdyHZfAI3mTwwX+b8iU8Z2zoO17BoQShYNMRMjoZBxqCes75qo2DHtS9gMoM
+	 Cc58wmExV10KhJuIAULNgA4RkzDuACLlF2KbJUb2psbb9b2pukicYbhg1RMuV2cuDR
+	 /+Zxh0hL2q4tUH7bLb5pBAwvwR3yl5B8d89vs8iNbDcxemwB73Dgre6rPTLuaweKa+
+	 XKdlLz3XZ9csWRf+zaaIbXJtuQj9rPph2U/fB+G1AcchVvrclH1NN/a++AaFj8heBy
+	 bUgId6+bxkhFA==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1xLQk8-00000007QAT-1I5B;
+	Mon, 26 Oct 2026 19:52:28 +0000
+Date: Mon, 26 Oct 2026 19:55:45 +0000
+Message-ID: <87qzhc8ce6.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Oliver Upton <oupton@kernel.org>
+Cc: Fuad Tabba <fuad.tabba@linux.dev>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Raghavendra Rao Ananta <rananta@google.com>,
+	Eric Auger <eric.auger@redhat.com>,
+	Will Deacon <will@kernel.org>,
+	Fuad Tabba <tabba@google.com>,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] KVM: arm64: vgic-v4: Don't allocate vPEs for a GICv2 VM
+In-Reply-To: <at-mF3Qvq67Nh_v5@kernel.org>
+References: <20261026152639.3926498-1-fuad.tabba@linux.dev>
+	<20261026152639.3926498-2-fuad.tabba@linux.dev>
+	<at-mF3Qvq67Nh_v5@kernel.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,77 +79,28 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: oupton@kernel.org, fuad.tabba@linux.dev, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, rananta@google.com, eric.auger@redhat.com, will@kernel.org, tabba@google.com, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-bio_discard_limit() uses round_up() and round_down(), which require a
-power-of-two alignment. However, discard_granularity need not be a power
-of two. For example, dm-thin supports data block sizes that are arbitrary
-multiples of 64 KiB and advertises the block size as its granularity.
+On Mon, 26 Oct 2026 19:12:23 +0000,
+Oliver Upton <oupton@kernel.org> wrote:
+> 
+> On Mon, Oct 26, 2026 at 03:26:38PM +0000, Fuad Tabba wrote:
+> > KVM can run a GICv2 VM on a GICv4.0 host whose CPU interface supports
+> > legacy operation.
+> 
+> I'm pretty sure there's no IP out there that has GICv4.0 and legacy
+> mode...
 
-With a 192 KiB granularity, discarding one complete block at offset
-384 KiB is split into 128 KiB and 64 KiB bios. Neither covers a complete
-thin block, so dm-thin ignores both and the mapping remains allocated.
+My favourite space heater, HiSi D05, says otherwise: 64 A72,
+GICv4.0. Remember that it is the *CPU* that provides compat mode, and
+not the GIC.
 
-Use sector_div() to find the distance to the next granularity boundary,
-and rounddown() to align the maximum bio size. This handles non-power-of-
-two granularities while preserving the alignment for power-of-two ones.
+	M.
 
-When discard is unsupported or disabled, discard_granularity can be zero.
-Return BIO_MAX_SECTORS in that case so the existing bio submission checks
-can handle unsupported discard requests without dividing by zero.
-
-Fixes: 9b15d109a6b2 ("block: improve discard bio alignment in __blkdev_issue_discard()")
-Reported-by: Ming-Hung Tsai <mtsai@redhat.com>
-Link: https://lore.kernel.org/r/CALjSBEvjbiGDVewuapWKhGDtaxZwcn4=22raUiBEOyj22rY7-g@mail.gmail.com
-Cc: stable@vger.kernel.org
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
----
-Changes in v2:
-- Handle zero discard_granularity before dividing, as pointed out by
-  Sashiko. Leave unsupported discard handling to the bio submission path.
- block/blk-lib.c | 14 ++++++++------
- 1 file changed, 8 insertions(+), 6 deletions(-)
-
-diff --git a/block/blk-lib.c b/block/blk-lib.c
-index 688bc67cbf73..5649e4d3b5bf 100644
---- a/block/blk-lib.c
-+++ b/block/blk-lib.c
-@@ -13,26 +13,28 @@
- static sector_t bio_discard_limit(struct block_device *bdev, sector_t sector)
- {
- 	unsigned int discard_granularity = bdev_discard_granularity(bdev);
--	sector_t granularity_aligned_sector;
-+	unsigned int remainder;
-+
-+	if (!discard_granularity)
-+		return BIO_MAX_SECTORS;
- 
- 	if (bdev_is_partition(bdev))
- 		sector += bdev->bd_start_sect;
- 
--	granularity_aligned_sector =
--		round_up(sector, discard_granularity >> SECTOR_SHIFT);
-+	remainder = sector_div(sector, discard_granularity >> SECTOR_SHIFT);
- 
- 	/*
- 	 * Make sure subsequent bios start aligned to the discard granularity if
- 	 * it needs to be split.
- 	 */
--	if (granularity_aligned_sector != sector)
--		return granularity_aligned_sector - sector;
-+	if (remainder)
-+		return (discard_granularity >> SECTOR_SHIFT) - remainder;
- 
- 	/*
- 	 * Align the bio size to the discard granularity to make splitting the bio
- 	 * at discard granularity boundaries easier in the driver if needed.
- 	 */
--	return round_down(BIO_MAX_SIZE, discard_granularity) >> SECTOR_SHIFT;
-+	return rounddown(BIO_MAX_SIZE, discard_granularity) >> SECTOR_SHIFT;
- }
- 
- struct bio *blk_alloc_discard_bio(struct block_device *bdev,
 -- 
-2.43.0
-
+Jazz isn't dead. It just smells funny.
