@@ -1,102 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.177
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.5
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793039489;
-	b=1cHSRP3wOqDnvYN9aatwyy8ap0UAFHjCcOII35vniCctHB5e61j0CPxtf7UQ4BYgu0d0
-	 bhU9myQu9UjmBqcHHl7DO3RIwVjZgB/6iNl6mCJt2C5q2gWnCkzvhNgyGeNg9tgGpx+ID
-	 kFkENNlVtJaWTLLGZcc9APYcMPF4e1vCZgWVBpRF9EXzvbJDmfNNbibefVed//8fkdM3R
-	 hbP26bKVm4D9sRZs+yDbJiZr0MsDOpDbDA3BvVQrD2kMbkoS5FRXe1fcJzMylM39pCQMr
-	 aRHOGZcpcuj0HILd0/gWvYF5Ql1n1RZ0TkLM7uRfvYRlVrhwqey2nfVURf9tyeFaqWA==
+	t=1793039485;
+	b=bpwPLXZSSDKxLsOEdUOCq98yD74AgQFPI5eHnFrL5RFBxkzJyuEA5+Jor/DLxCKg/JkG
+	 7dDc6nX4iM/0PVctvRQkpXbjjpiD2PzuhOw7d9ZM1sdu4CtT0CWMMZesH8SKFmUED5LcV
+	 n3oMSAPVflmYYLxgCXMlZQKNpa5YviDGoPaTeJ9t7RqmVWUAuxmSjzfS6GdWBxUD9tsOI
+	 jZE/xGX3z6UiisVD1rlECtD0gOSCskEi3ffsXWOweql7+sfekE2v+rAJqdfBeSQ+adVOw
+	 8Lb5W7nWEBVIXRdsE2c1NJ9BDtxKrK1Lq5xveWfFtayDg5um1Ay7A91AI9ezRynWGcg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793039489;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=0gAsj6qI++VbCo88r6Ynjuj61Kc1LdhSuLSo7guQzmE=;
-	b=FsXn2rYvK1Hj2vg9u+W9XHGA4JUI+WoRrtK+2ilZ9aUZ7Oo4Krcm0NGv5EyLoqNVjgxm
-	 V4Uy25b7ChdoDBvy/QnGhrizUcalPgQH4RdstvEIJhNnrQRRIiyAyZmeeYJ3X1cVtZf7V
-	 XDKYSvGL6FHoLCcdIUVU48spuA0cSWMHLbln/MeYv4y1wJxQVczGpuDUxpfKasfvew2Hm
-	 vNYQ31nHU0bFQ4CFMxLbEhT0BflMfEc8ZaAzNzxood6Nv3xi2ZKoPMR/kxCUw/pUONgIg
-	 Rvjl1te720syLzu2N75OjcxdL/HRcSPJG85WOVlPE0ilUKhDoEs4O4oB0bR6/WpgAGA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793039485;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:
+	 Organization:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=EmjOYDXOtcQdXu/OjdB9xSLSrZr64ecA41VbMTQc9oI=;
+	b=FuN2hFjGutPFz9fOMbbRhawOrRAeNDJWpXzsH2qAKcpsrb67MjDeSPZih+Cc4Z2nST7S
+	 4FnDlBM12F3w95AQF6Ph4tIdn9DOR5A4DsbRpEjJeggHFRBJ9ixey4B13q0RWvHpPANrf
+	 5fZU2HN3UKnDH5WkmWeggkrsuPBQdmCEmExmz5B5aB68CIwCb6pACVhPNc5qZYtSWTTUy
+	 NLRdhUiVyxOJeFvmwVI00WKRkiPb42pN9DKptEwTK6ECsclLUOlyEYvjvUJtXjfVTzEcV
+	 J6ppaPdaqQ4MHb/KLk9RwqNN3jlyUh0XHHBrGRRcxtXelT75tQ37wnzMV3YP0CfqQpg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="g7H/vLy+";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.177
-Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=xYRYERGs;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.5
+Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011005.outbound.protection.outlook.com [52.101.62.5])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93459606A320
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 18:31:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93459606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B22D6606A31A;
+	Mon, 26 Oct 2026 18:31:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B22D6606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=g7H/vLy+
-Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-8b125371596so2125447b3.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:31:29 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793039488; cv=none;
-        d=google.com; s=arc-20260327;
-        b=PJWlHk05W90cHC5H7qkSFU/bwKFLDZeYnB/whhCzp8r/04YlqEZsckLZBoL5AKZprL
-         pseHyNEWXzqFb7tYguQeGvMAnsHipzFdP22RmOxIKKp3s0ZGPgihCaXmxqqr5h490PuJ
-         0QAa3Yecrhsa9Yspz51miP1du7xPwNIV+q9WDd9UwdaGKqEm0TaMcWGb2UH5mM4wLSzc
-         rgM1IpsSgXjwungtArU5Isckxj13Cv74vgQILz208afGbAct8L+NTqwmiqreZn3s00P4
-         trPISkoU83W3RmpXsmpg+UlwaWmYrwmz1UNeEOUqHeSuL3Ac+KqYXHJTjlAvUfreuvTQ
-         J4SQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=0gAsj6qI++VbCo88r6Ynjuj61Kc1LdhSuLSo7guQzmE=;
-        fh=tUlw618drfEHdR+xLZLOQUQZn1z4GLPb5QK02OMPUOU=;
-        b=erU9EQnScA+/kbceB8/fXLTVTeEh67nBmnaOV+8UvLeKqP4gLI1lY0D0uJDpNLQ96a
-         ifg91FLBETqxBC8PWpNM3IFaEPpR9U7BaXWWiSWL/PfzpD2wCB+YoyHMg83ZluX4J+Xd
-         XxeCMFWiM5+l7akRluN6bncbt++gEfzuNBy7hiM5nal186h2gvFkwM1QMeIzUCM3tkgB
-         DR9Q/ClJMYMqnCzzXJ2YyN4lVJf2Pm7K/V1dxQhUnYSYMZWaEfoYLY2CKPLr9FerJkrg
-         MHfBg4tynu9D0n5Z55P5R66/wYy1ljbZyqKuEokBBKa/eJCgxAZysDZubqDEnvk0yc12
-         kHRg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793039488; x=1793644288; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=0gAsj6qI++VbCo88r6Ynjuj61Kc1LdhSuLSo7guQzmE=;
-        b=g7H/vLy+7ZmS+8WfdfCRzhIcqUzV9z254lfIfe0rQNmRKB8jITgDiANJUD+DBV6moO
-         XmbH+kAbspDlY6liPkx9u1CG5wOQW/3w9p67CzyMW+TY5LDbnxCA8rGI6F0rZu+Eo2rV
-         C1mmztc9qN/RPcKwkB3cWXK2QVNS45cF4uDXWqV8iSwHfZDlCbYWj6CksX0s6uaVD3m7
-         fCfOFbEhlk48e3xfkwNMSNxmZIOVGsCVuXHM/HOGN98cyKwow7WuzU1mRsdxmRutsUHH
-         LxoRfH+xg8HNmoTCDGshmFzWvdttNxqeozpYikGKk+7oyFaj5xjE4PqnkkGMlCgozR5J
-         XIJw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793039488; x=1793644288;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0gAsj6qI++VbCo88r6Ynjuj61Kc1LdhSuLSo7guQzmE=;
-        b=iyJSvOyeye4gY/J8TEKw6Tp+qIZpfV+l5NzwecU1adclSNdT2WA+1h40w+KhBUXpJ1
-         7YjD9TX/CK/4RUWFS0JzLo6qfTfARu0SNIFh8K5iraoF7c+WZkdi5WWpj9aCQdaSyz06
-         HiI1lZMVZjxHAQtwc0IsCDSwZHXzmgl1EtUSJCEYzgcrzunodEY+6C2B8Hm+IXERhaob
-         MW2Gt9T0MgGSdqe7+lqu413nigJtcA0DxyicHMynfKGnGm7+Yt9j4Rvcb+asP8umuuRM
-         sySpR+EIhaPEENd4YmkEa3rOeFqUOxzSM+GgwJcjh2cmW16Z5EUyV1xu+aiz1WJIgDs0
-         rfQw==
-X-Forwarded-Encrypted: i=1; AKwUvBzOPYAQXRHDOT0GP6Yz252OrmvZan2Fvt1r0OQE4vb/ZjNzu5KoCLzciX7zbmTOo0wgosUn9adClCrjPjM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIxu/nJ80D+csIpNlAmKRu//4Flh9rX/4lTx/kSk40c3eoLRSUL
-	/Eh0BNK0naSUWk2+ErgOq5gFEOxIBh530tBiA/QyrS07D47bMJykCCzj877VkDhS+l2R99pytiO
-	/YnFJ2DtDz5CExNEwkVeMRAZ6RdPBNaQ=
-X-Gm-Gg: AYBFou14RZ9/k5T2jYFJnNyrOV5SqraTZvw7lBAYzCj1QBktDC2IGJIToxFCm046ybx
-	V1k7bcnVEKqkgcySRWzHgJBAtDNyvGeAwRkFKi5w1W+Gdw3ocxPHHH+HusVOvJMh4h4Wohxihdl
-	ZTL/sQspjAvmpNSnOVwCHnTj20xa/zQyqLOldEJf1xRje4VRmGyKpBlr8hlfKpZqZ8gJ41R/iBc
-	VoAbF+/48zetGtakfY6+dBa6cl8JPp2jdC6SWRyeT4zC11euLWbFps8eWhuIJD1lZsDDXT0PcoS
-	ftWbrALaNxkTigOyle1n4MIVNKjEn3AXeM2H6X20JQxAMTswH193xERXzBA5IJ1UADBur59thyG
-	T1Fhg4VfWcWvz6mj2Mpb0B/DtGInbqzQIxrIya75B4zssvE/7486tCP4XMq/bcoM85SWYeBYgjj
-	eE2yQD6+uaYazSZDdZ6yyYYNPouj8Mf0hQl3G+BlitSe3o2WkFrZVuTcEssISqT8IVWkU6PQnFO
-	Ar3
-X-Received: by 2002:a05:690c:f8f:b0:8b0:cf3d:7b10 with SMTP id
- 00721157ae682-8b19c9a0081mr3613457b3.28.1793039488379; Mon, 26 Oct 2026
- 11:31:28 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=xYRYERGs
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vIt4Wtn6Db1wF2WyqsK8VW2wd+1bZQ3G63M5U9+l9dl1qoHSPHRXoQz7enrZ03AFEEsPZzs+DLrpdcFE4b7tKPKMO0odVpEOXHvBZF6OlwwQp4PBZt3YhUT0l7yShLwm8MQr67dof5pVAumHWVL+V9rrwzh4ZT5FbyTZ39EGRbRIwmxcmSNpD4D4OnwMvL3zug8h6O1QMumxQKLmuLk5I5OyizPLdGvUE8LdKubINIo+hrsbn3MWkxiZpdLEVVoBjE/hwEmAcaCCtXkUz2Corf9QXVgbnH4AydZWsFNMTN6Wow0Kpo93Kk4eogGisQD1QviH41QyDjjUMRrgt7rI4g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=EmjOYDXOtcQdXu/OjdB9xSLSrZr64ecA41VbMTQc9oI=;
+ b=DdSR7OEScOQsYfuf1t7TgsDOV29YMTE3DfUXFokfnV7sr24x2enkarZdiL05glzUffhSEjrf4LlDNVbbhelCK5BFIjUgmap6DGD+6pqmcGGX1x45pdOQe4qDwId8LSJ8K+rIsCbtDV4YqR9tYxIPidlFmWR8OR5ad7nkiU/WMtIqN5Ey9gppYvCZctzq6j9LV14q6R3Fr2bIe5BpNHyVgXUN/0TcVMqQfrWqJJ8k7RrS5Ov4LO8h5i++4iw610/oaJHxP98YznLh2CVtUbUh4U4kLMjdUiLeCESWXKKQkHhfvyYWmhF4IAuMwogUIMCbhRzAhk4i2R4kav8RbyTM1g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EmjOYDXOtcQdXu/OjdB9xSLSrZr64ecA41VbMTQc9oI=;
+ b=xYRYERGsALMU+i9cUndiUTz2VhgCWZUyQ3aOd5b1MZYIAMKNAemfgcQ5WdR5o9baAZNDlLo244Ji2cMFyVwt8vDz5FdPML9IJjsK72yAXe9Ii0gBKAo2zNG5Xgmc65nZ36vZYamluohoSK3F9VbftIvfEMUuI0MRCnuLC45o/LM=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ (2603:10b6:40f:fc02::607) by DM6PR12MB4042.namprd12.prod.outlook.com
+ (2603:10b6:5:215::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
+ 2026 18:31:15 +0000
+Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ ([fe80::67a7:9feb:71ef:964a]) by BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ ([fe80::67a7:9feb:71ef:964a%8]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
+ 18:31:15 +0000
+Message-ID: <bcd63af3-d2ce-488c-ab96-2b11536cd50c@amd.com>
+Date: Mon, 26 Oct 2026 14:31:14 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu: Harden against potential deadlock
+To: Philipp Stanner <phasta@kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Sumit Semwal <sumit.semwal@linaro.org>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
+References: <20261026141541.469727-2-phasta@kernel.org>
+Content-Language: en-US
+From: Felix Kuehling <felix.kuehling@amd.com>
+Organization: AMD Inc.
+In-Reply-To: <20261026141541.469727-2-phasta@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YT1PR01CA0094.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2d::33) To BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ (2603:10b6:40f:fc02::607)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,81 +102,131 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261022211104.2091128-1-florian.fainelli@broadcom.com> <20261022211104.2091128-3-florian.fainelli@broadcom.com>
-In-Reply-To: <20261022211104.2091128-3-florian.fainelli@broadcom.com>
-From: Jonas Gorski <jonas.gorski@gmail.com>
-Date: Mon, 26 Oct 2026 19:31:16 +0100
-X-Gm-Features: AclHuK8Zffk1z4S4WDnZNvZlsHkwBOv-M-RtH0jRYwO8NEDBODWkjFIQ0giSyGw
-Message-ID: <CAOiHx=nXKnzqB+-BvYg7rgxpLq9p2JP2xk8JchK-3+fqzpG7nw@mail.gmail.com>
-Subject: Re: [PATCH net v2 2/2] net: dsa: b53: restore the NSP IMP port 2 Gbps mode
-To: Florian Fainelli <florian.fainelli@broadcom.com>
-Cc: netdev@vger.kernel.org, Andrew Lunn <andrew@lunn.ch>, 
-	Vladimir Oltean <olteanv@gmail.com>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	=?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Arnd Bergmann <arnd@arndb.de>, 
-	open list <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN7PPF5F16C5C9C:EE_|DM6PR12MB4042:EE_
+X-MS-Office365-Filtering-Correlation-Id: fa23a9e1-8a17-4470-57f0-08df338f51ab
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|18002099003|6133799003|261026121527099003|22082099003|56012099006|11063799006|10067099003|261009223027099003|261022075727099003|261022105027099003|261021121427099003|261026140227099003|261021123027099003;
+X-Microsoft-Antispam-Message-Info:
+	41yH2wqjuWX/XD297wUrIppGg0bO5gF8ruCsVSKTV8VpjKP7fthzw1hnUjic9fyES197GS7rAp/GtMmy0Ra13CtDPHOZLKcbH+epNMRvQp6P9JMl1CjO0BbhyEWCJMpihrlQFXIk96B37GDoeE8EzHNe/yeuypbk5LmPOYwt/1BepbniNMoEoHOMpyNQX/avzV8iluitDpZ570EtaA7sLI3+S6PgM38oa0hUOwdGSbpOwzuKOP7hVNd8E5iacvDSYNURRZLCeayiMpBrayNPvywZ/H20ji8JoFvaliA0dK24EaZPmu2BlBHia8gT20Rk4w97hPvuHdePNx88qxZqJt2n0t/8l/h1Sjbwuz2sNFR5aUsxk3nzc3o7HBg1KTro6ohnrdt+RGAepG6CKAgxiIqG3crzuOY5gV0r72C2J3fBOZ77pwsXgHhwaYNqrMY9IEPccA/oBCnY6Cg0IEGo4vE1DsgcSLVvF8Kte8QSWvkI4wZmLB/ZSCG9P1BMfd5kw8A22af4jMUypY2Iyufm1nvySofDhlOX4WXj+n7ryBAMg36dB2IjLedAAphQdkCJTskCpHvBIIGhl/QsPQ+pN2VUBy0VPwCBwA0rMNnt8YifUCvAf//37VTb9YEn85VZ
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN7PPF5F16C5C9C.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(18002099003)(6133799003)(261026121527099003)(22082099003)(56012099006)(11063799006)(10067099003)(261009223027099003)(261022075727099003)(261022105027099003)(261021121427099003)(261026140227099003)(261021123027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?K05uUzBTektlRGZMZFZJeExJVCt4RWs0dm1ia1EyYlZXWW5pS1N2cnlEeDhE?=
+ =?utf-8?B?aHQ1cEN6R1RSSmxaMis0dmFLUUltS2E2TjRJSUovRnlwREZWRVlHMVh1NUlm?=
+ =?utf-8?B?ZU96dnRWdGpDV2FiMWNCdDVlZ0Y5M1daUVdyY1pxaFphTWhWTEF6N293eUJq?=
+ =?utf-8?B?MWlGUFRhSitnYnhhb2JJaGdGaGpud2R2b2ZwMzNNL2dydGRPSTBxOTRPL3ov?=
+ =?utf-8?B?eWlua2Q3R0RlRnBBR3M0Z2pONWVGdWdoeVFkUldFcU4xbzNZZkcwb1FhKzk2?=
+ =?utf-8?B?YXBnWHNpVGp4Q3pySGRuWW1PUDFYSGVrQlBrQTFKUlRiSUJZdGlVb2JiYlE3?=
+ =?utf-8?B?SnJmcVUvYVBudFd0YytuQ3ZIc1pIcEpidGVQcU00K0c0U00vVThkVHNhbXBW?=
+ =?utf-8?B?TWd6TXUxMlFvK3F3c1lNcGZVcnVsaXE3MVBlY3FSeXRyWlJGMWJFbDhCMkVi?=
+ =?utf-8?B?TmFzaG41Z3BkZ0VSdDE1cU83NDFBKzdKZEkranVhd2k0TUwyYjlZc3p2ME9a?=
+ =?utf-8?B?MUtWTHJ5ZEVheFJzd2xXZzkvbVRlU2c1VTBPaUNOUEV5eWZlVDNodnZFbnFh?=
+ =?utf-8?B?YkYrR2s2dElSbEVITFEyYXJlcjNwT1VjVGNPNnNZU3RFMFRiNSs3Y3B5bjBO?=
+ =?utf-8?B?WkdXWXJiaDBlNi94dC9QM1RJR3AxeFRHMkc4RE1oMDBUN21TcU5hM2dsWXYw?=
+ =?utf-8?B?R3pWeVAzempOeGRCRkd4Qmt4UEE3cVBrUU5NNWlad01SREhJcnNHOHRKZHJ4?=
+ =?utf-8?B?VEM2c3BoZjdjYWh2MUVLdnorMEZqK2lEbGVUd0dZL3hCOTBxL0srbGRmN1N2?=
+ =?utf-8?B?aDhzMzZSdXpQZW4xY2pRbU5tNWRYT0FYVStYVEp4aTdWT1E3VVdnYTJjNHZK?=
+ =?utf-8?B?SFdaSFBDY09WOXVwYkd4QXp5TEI0TGc2andHNStYZDB2elR0T0VWWkFoVlNN?=
+ =?utf-8?B?bktLN1VRZWtTYkg5Zmk0ZFYxaE1VclFPclRGNklraXc1N2dPRjlGY3lvNjRN?=
+ =?utf-8?B?SDh0RHFoTW51d1Vhb0w0czdrZUdERy9UZk16bzZPb25MQmhpdHhPeTNTMVRZ?=
+ =?utf-8?B?aTJodVE2cjFra1ROV1BYa3NJTFpsdzFzZXVYMlZJSGpNZHRDTlR5cVNwKzJY?=
+ =?utf-8?B?Wjl5N0JGa3d6NmU4RkkyNkFQeG5jZmc5M2hFdzh0RnBmSXlaQkFYbVoyT05R?=
+ =?utf-8?B?Z2NFVlFrVjVuQjFUMDJobEhWRHgzaVFtdm1IZ29HbkptZml5Y0pkeUJJOUNP?=
+ =?utf-8?B?d0k2UlpJUENBekRySElqMFNtNFowbm5TT000N2tLOUR1SEkvVi9qcUtLeStK?=
+ =?utf-8?B?QUduN3hoc0cySXk4NDB4MTZXd0NvUWFxcjFnbXJHdUtGTHhtUW5MWmlzSTZu?=
+ =?utf-8?B?dHhLbVY4dXFxY0FGMnJLTk5XYXVGRUgxaGlDR0hDQVU5SkZkWThhQ08wWWUr?=
+ =?utf-8?B?ZTUreGJzaW5uZmo5RHR6VWR5STdtY2owdm5vdE5DOHlTM3ZVYmkwUitDVml5?=
+ =?utf-8?B?RE9kTWhyMVVTSHBmVUlzM21abXRpMjJWZW9vck56ZHpSRlhTSytKNVpicFNu?=
+ =?utf-8?B?QnBQZmNLQ0VDMkFnYWZlOGwwM1pBK1RJS0FCOUtWUEJ6dWJlUXVCeHFiNlA2?=
+ =?utf-8?B?TDhobG12aElLRVJ1VkxLcDZ6VlgvakxuekxJZml3RGxRdElnb21LVjdzWWs2?=
+ =?utf-8?B?UGZKVFB4RU1ML2JjZmlTN0d6ZExkQ2Z3anRHdktTQkxIRWRvemZad1RoaDlH?=
+ =?utf-8?B?NmRFbk9aM2ZTeEVwcHluaE9heXVueGdhT3Q4Q0VWUUY3L1RWbG9EMjFEY0NM?=
+ =?utf-8?B?anE2SjhlL0toeGNGN2JzWGw2K25uNVhLU1ZqNGhTS280UWtWTXdzZC9vL3p0?=
+ =?utf-8?B?VnBCMGRoaUhSUGZyMWRZaXAvM1dGc0ZCeGR0dUFwaVZDbjMxNExKM0pISFNQ?=
+ =?utf-8?B?N0pPTzZLTUkzZ2phSUhueUFJWHJURzRlNGgrdlhYNmRmUS9Da1BZbVFhVDBx?=
+ =?utf-8?B?cWlHSDJOamIzcnZrZjdFd0hWMnI1Z2pseVJZMXFGWE5oM0w3L1RUMjVaNzBD?=
+ =?utf-8?B?Rng0YnJZZ0RtMkhiT0FyWkwvWEVjZTBpbExPalBIVnptVE1JaEFiVXY5R1RZ?=
+ =?utf-8?B?cWE1d0dSejl5N1hCNHBkRHFZejhpUDZ2VnZBWE5qL2taYnl2aDF2VlcvaFBq?=
+ =?utf-8?B?NGZ6NmFhWkVvRms4Wm9vNlB3QkVGYlI4WG1zWmczVVd1WEhiYVhmNXFmdzQx?=
+ =?utf-8?B?Kzh6OHI5K09jMmFoRmJDK005cUtEM0JyTENQend5bEsveXloSU5xRFVIMnRk?=
+ =?utf-8?B?OHgxUVdtdHBYQnltK3BTVi9TdXRhSXlqcllIUm1nRzhmYi80OFFhQT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fa23a9e1-8a17-4470-57f0-08df338f51ab
+X-MS-Exchange-CrossTenant-AuthSource: BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 18:31:15.4734
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: inbC8KiPqHrsN1oYUOyXU66ABR8396R+JQAY5KPhoxJ8Hr9JCEqwkdfTGLc9KRKa4JuKYbQGT7L3bBXU+wGUSA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4042
 
-Hi,
-
-On Thu, Oct 22, 2026 at 11:11=E2=80=AFPM Florian Fainelli
-<florian.fainelli@broadcom.com> wrote:
+On 2026-10-26 10:15, Philipp Stanner wrote:
+> amdgpu's KFD eviction fence's dma_fence ops->enable_signaling() contains
+> a dma_fence_is_signaled() check.
 >
-> The Northstar Plus IMP port uses the switch's proprietary 2 Gbps mode for
-> its internal link to the AMAC.  Its fixed-link description reports 1 Gbps=
-,
-> so applying that speed clears PORT_OVERRIDE_SPEED_2000M and leaves the tw=
-o
-> ends of the internal link configured at different speeds.
-
-Sounds like the devicetrees are wrong. Shouldn't that fixed-link
-description be updated to be 2 Gbps then? ;p
-
-> Force the 2 Gbps mode and flow control for BCM5301x and NSP CPU ports.  T=
-he
-> mismatch caused switch output queue discards on both copper and SerDes
-> ports, with one discard for every TCP retransmission.  With both ends
-> restored to their high-speed modes, iperf3 reports no retransmissions.
+> ops->enable_signaling() is currently consistently being called with the
+> dma_fence lock held. dma_fence_is_signaled() might try to take this lock
+> in its dma_fence_signal() call.
 >
-> Fixes: b6a8a5477fe9 ("net: dsa: b53: fix resetting speed and pause on for=
-ced link")
-> Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
+> This deadlock can currently not occur because the amdkfd_fence_ops do
+> not implement ops->signaled. Should that ever be added, however,
+> deadlocks might occur occasionally once the fastpath check in
+> dma_fence_is_signaled() is skipped.
+>
+> Replace dma_fence_is_signaled() with dma_fence_is_signaled_locked().
+>
+> Signed-off-by: Philipp Stanner <phasta@kernel.org>
 > ---
->  drivers/net/dsa/b53/b53_common.c | 10 +++++++---
->  1 file changed, 7 insertions(+), 3 deletions(-)
+> As detailed in my recent discussions with Christian [1], I also think
+> that drivers should be very tightly constrained as to what they do in
+> the fence_ops. I think at the very least they shouldn't use any
+> dma_fence functions there.
 >
-> diff --git a/drivers/net/dsa/b53/b53_common.c b/drivers/net/dsa/b53/b53_c=
-ommon.c
-> index 0880310c9ce3..1f4964c28fc5 100644
-> --- a/drivers/net/dsa/b53/b53_common.c
-> +++ b/drivers/net/dsa/b53/b53_common.c
-> @@ -1663,9 +1663,13 @@ static void b53_phylink_mac_link_up(struct phylink=
-_config *config,
->         }
->
->         if (mode =3D=3D MLO_AN_FIXED) {
-> -               /* Force flow control on BCM5301x's CPU port */
-> -               if (is5301x(dev) && dsa_is_cpu_port(ds, port))
-> -                       tx_pause =3D rx_pause =3D true;
-> +               /* Force flow control on BCM5301x and NSP CPU ports */
+> So we could also remove this check here completely;
+> __dma_fence_enable_signaling() already checks the signaled-flag, after
+> all, but I'm not sure whether that might break amdgpu.
 
-The comment is now outdated, and is missing the forced 2G mode.
+Looking at the code, I think it should be safe to remove the check. 
+There is another one in kgd2kfd_schedule_evict_and_restore_process, 
+which is called from amdkfd_fence_enable_signaling, which is also redundant.
 
-> +               if ((is5301x(dev) || dev->chip_id =3D=3D BCM58XX_DEVICE_I=
-D) &&
-> +                   dsa_is_cpu_port(ds, port)) {
-> +                       tx_pause =3D true;
-> +                       rx_pause =3D true;
-> +                       speed =3D 2000;
-> +               }
->
->                 b53_force_port_config(dev, port, speed, duplex,
->                                       tx_pause, rx_pause);
-> --
-> 2.34.1
->
+We don't implement ops->signaled, and we explicitly signal the fence 
+from SW with dma_fence_signal or dma_fence_check_and_signal. So the 
+signaled flag should be the only thing that needs to be checked. The 
+flag is only set while holding the fence lock, and checked while holding 
+the fence lock. So in theory, relying on the check in 
+__dma_fence_enable_signaling should be safe.
 
-Best regards,
-Jonas
+Regards,
+   Felix
+
+
+>
+>
+> P.
+>
+> [1] https://lore.kernel.org/dri-devel/320b6e7c75da6f05c015e89df0e2c7d11f20d70a.camel@mailbox.org/
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c | 3 ++-
+>   1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c
+> index 9b10d015671c..61621eebb2b0 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c
+> @@ -123,7 +123,8 @@ static bool amdkfd_fence_enable_signaling(struct dma_fence *f)
+>   	if (!fence)
+>   		return false;
+>   
+> -	if (dma_fence_is_signaled(f))
+> +	/* The enable_signaling() ops is called under lock protection. */
+> +	if (dma_fence_is_signaled_locked(f))
+>   		return true;
+>   
+>   	if (!kgd2kfd_schedule_evict_and_restore_process(fence->mm, fence->context_id, f))
