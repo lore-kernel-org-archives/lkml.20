@@ -1,106 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793016173;
-	b=lGPaKgGx+vT2KWEzd7kdD2nBttyklcRn56ktS8ph5Q3LD21mfFdZqa0NW7XXfnbn09iB
-	 M2VkbxVOD9YhMzPnPc6lNUwGGVMvcBT/tElgaP842VecdEjPhqR0kaPEaE7KkUzM1nlrU
-	 CHtL8pjcCOImDLsxifJylxDHswbvcosyYnOlYDo0TbfmXiU8ZS85b2hQKHlG7yjKa/D20
-	 s1d4w9VUFoenaUgPNsDb29mZESSPzPlKJrWq4IUL0+hSkVwf9JTowDZr3EPTfJ0jHymF4
-	 YkCdLJAOARSbzDk1COUvceK7+mp75nyEB3BP2/sJycKP0ngLYiOh2j/B9zjlTfdELww==
+	t=1793016178;
+	b=ez7A9Y8IabPThQLg9t+Y38a8j+T4WGqBT3LOeSlU+rrbbHeeuzup9bTYmDyhPFVouXNG
+	 cwny20NxR3qF9cvgy45xMAhpfmmDE6pxV0S7OkofXsRczJXkUoUx6bZ9IoWxIISbcCSIt
+	 lqEF2CjP7s6KwjBk/jh524j/f486QHDHmXE1N7APW3HVS7y1H8d/5ksmwlJJh4Emrodfw
+	 2z1wh9Wt472RTKJF36qAl8ZyTg2u7TI4Prd1pk0LpR21WeDs+/BEESIoSfMKlp0hXJ/WK
+	 81H9872q3NwGRPCTwkOJsD7Q1ZGtSiTKsFxVbBhtenfZYe/ZzjVq9cZQsOeDyREFcUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793016173;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
-	bh=zlmTMmi6YudkfPu7PQopDM7ohP807S77yK/bEEbWsyw=;
-	b=AxQVnf48kU1QwgmruFb7/YJdJxgMN2l1pfT9dwf0fSH0YXk3dy/BhFkJb5CgQA/BokmW
-	 sEfHhQGTC5ur+UO/z+hZEZCyOdgpmpOQl06cskKay7dl6KiYa2Oghd6nm+mXrsuNGX+Lw
-	 IyWOLo2EoUSFy66OKJtwdR6iUg58wxIFHB2asKedbJ8eUZjKGQ8X0LShtday/tXrr+d4w
-	 /+z6g5b6S8OJukhNzlrbMvmLsCRSM8VPgqSRsseXHHd+m7RfNMby5rSeaxuK3ZKQV+E/n
-	 sG02aLvpe5YijQ/VLw4gMMJUDDqyEcRZ8TRIdwuvrE80M8k/C3j5SkYKDgyo9hPg1Rw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793016178;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=RFJJleyh4O8FR2L0iIk2GYhVD/sdkcXc7KlKPVTmZgw=;
+	b=1rK80FUnkKubTurzj9TPRNWxKtLzvN4hptpc4LeBQCgU2UDKprWkmJh0bGX0fezwz74v
+	 STWNIHmePZFxgcKYMTsBEMdoOPZ7Pzz/4VzqJHkkT5fLYDvdZq9emsz4yJ2c4uI6cpjby
+	 bMjFGHMOIWx/KKUt7AGA3gjL2JGnIMzTmrEvXj5h2J8s6hEsSrpZjFxuXzlHGNXakG/Ij
+	 21u9Cihbg/vm9mL8cE+XuWM5JzvhAAr7KLhnOCZSA3XmWWfq+pcrCfi1gChlIClDVgH2H
+	 jvjUnKBd2SAvWzLYie/5GfNEuiX35z51CYpwYiJ1c4IhjDTBa71FPrkOygqUDYGKUzg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=FTmYjyKn;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=4Mg8YKoq;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=FTmYjyKn;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=4Mg8YKoq;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=K4rJlASm;
+	arc=none smtp.remote-ip=209.85.216.42
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52298606A31E;
-	Mon, 26 Oct 2026 12:02:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52298606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F28960A2603
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:02:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F28960A2603
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=FTmYjyKn;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=4Mg8YKoq;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=FTmYjyKn;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=4Mg8YKoq
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 6E28A1F43B;
-	Mon, 26 Oct 2026 12:02:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793016171; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zlmTMmi6YudkfPu7PQopDM7ohP807S77yK/bEEbWsyw=;
-	b=FTmYjyKnXuz+M22Q+mfqbSj6/T0RlrpgAX8TNuLV+Gg0qTUxAs7JCesva4HdWI/YoDh1xT
-	O+YQrKbcx0GG13sZwvdwMNwzGPgMJFqFBr1aJNSuOMKfrqfSeXnY/1CBJTNg55KC4tlFar
-	zE92SmgX9kH+RK1SA9BshbjHOWgMUWA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793016171;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zlmTMmi6YudkfPu7PQopDM7ohP807S77yK/bEEbWsyw=;
-	b=4Mg8YKoqM3mMVBgLb7V41KBwnjE00rEZ9nZBiYx1zpFYMpO7KF1MqMoyhxiAYToaez1VM9
-	9xJr06wBjPLp+UCg==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793016171; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zlmTMmi6YudkfPu7PQopDM7ohP807S77yK/bEEbWsyw=;
-	b=FTmYjyKnXuz+M22Q+mfqbSj6/T0RlrpgAX8TNuLV+Gg0qTUxAs7JCesva4HdWI/YoDh1xT
-	O+YQrKbcx0GG13sZwvdwMNwzGPgMJFqFBr1aJNSuOMKfrqfSeXnY/1CBJTNg55KC4tlFar
-	zE92SmgX9kH+RK1SA9BshbjHOWgMUWA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793016171;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zlmTMmi6YudkfPu7PQopDM7ohP807S77yK/bEEbWsyw=;
-	b=4Mg8YKoqM3mMVBgLb7V41KBwnjE00rEZ9nZBiYx1zpFYMpO7KF1MqMoyhxiAYToaez1VM9
-	9xJr06wBjPLp+UCg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 40B5813319;
-	Mon, 26 Oct 2026 12:02:51 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id YdaJCGtB32oQHAAAD6G6ig
-	(envelope-from <jack@suse.cz>); Mon, 26 Oct 2026 12:02:51 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id C4A2BA1419; Mon, 26 Oct 2026 13:02:46 +0100 (CET)
-Date: Mon, 26 Oct 2026 13:02:46 +0100
-From: Jan Kara <jack@suse.cz>
-To: Christian Brauner <brauner@kernel.org>
-Cc: Jan Kara <jack@suse.cz>, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Josef Bacik <josef@toxicpanda.com>, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 4/5] super: make sync(2)'s wait for s_umount killable
-Message-ID: <tqgqwii6it4zxhtsfgnkri2mppbcijvsdnywrsbsyrsc3ey6w5@ts5aqmpikwyv>
-References: <20261023-work-super-lock_helpers-v1-0-d0fcb3f2f275@kernel.org>
- <20261023-work-super-lock_helpers-v1-4-d0fcb3f2f275@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=K4rJlASm
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3aded3c6103so784676a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 05:02:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793016176; x=1793620976; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RFJJleyh4O8FR2L0iIk2GYhVD/sdkcXc7KlKPVTmZgw=;
+        b=K4rJlASmdIPv97DMDWcrB0zJXkoTNtE9QO7B1Z3zl7VbKMDzMDyWZ1myWlENx1HWFX
+         bQvYnQDesVorMvowUBanQwTmhNbS/JkknAE5OY5CehAktnSYyk5P8pOJgiwt8HcWwmed
+         5vN/U7/Ai/QpxJ0Js0V9VtCIiGUG7hsyCyBoSSjCYYqrhbAh0az82USZwtYuz4QWHnyK
+         aRImYgnbVwZlAClW7z4LJZREsB8h2GnuGvg9+2qqZ9dhn+as4raWRVUyvpTCV2ZvVBDK
+         qUdUr+urP/xdQayVLGiAMAOnlGgR+tVsF47U6DCykZRDOyvn6Hf4byPa/DuObRHstU9m
+         SHBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793016177; x=1793620977;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RFJJleyh4O8FR2L0iIk2GYhVD/sdkcXc7KlKPVTmZgw=;
+        b=khBuNl4A//YdYeOUOA0lWJwiiAH0fPt5Ht85phiW8++Tj7ehTBUFx0r+94C6uObIdh
+         vbLcwPJaZMzmG+kRKgHE1c34WmNfdrcMu5Tz8TpkWY9IqiIalbxM4k0fAzBtrs7HAN70
+         JWVtQloly08k/bC2iu1LKs0M6rTcXP9imJX+8qFmJxKcbfuu99aNiiozeQOZBC3Rsk3D
+         obLAdaRiYbnU3NvnWIn0Y8EbGtDmlS9nkKJh/HanLy8iGD/mcr6YZLFPoI4O2h6dowQx
+         QYgyyoKNr3zTHlBwHBXi3NlT4mhcw9wadUjG3tzWoJn1wyQuQItR0fn+b7QVTB0NbGzH
+         qL5Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzdndrUWjMDpkOwmu/3iMLJpdv1jgHhKIu86w1HjPiMqHD4zb+rIlQ+h1LqXsE6GUKXwGWP1VlqOIxbBxg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI/6Gv0dEFdZ9dNQ9qPA4WsAEyXnii5fhI9/XvdIV+O+j0ebWjB
+	ksuWqbcvehjywD7w6UtVzk6Kfjikp8SREHGcNqrVnSUc8Vz+j3M8cDjL
+X-Gm-Gg: AYBFou1gG3zIH7cQgFMuXLLUd29v3r/eirWlx/yQbOUyErDOnZQVTDtUCcaXF6uFDJ0
+	eO1A+/7cMMHxQ9Tx6YndLWCkHbt/aOIiLbJs92KGALVgIw8e9vmojnzOpAOjxOsZFE1H7VO5523
+	sAeK4V+Hy+BsQACDnceUs6pK/6RqJ/7vJARiK5C7MyVyeBaoNgyWkeGg5wz75MY1kIHcYcD2A1J
+	F+a8j2Ju3Fp43XiofKHW0sGG33MLIWc5mxcPU4HUaU2eI9D2xrmF8TDT/PLHxQJx1bpMM1+ljYJ
+	Am+VEvn6o5YXrw93QymkyFTq4NiaIz9fsnkbAUaKxEwuZFVtTWOHfZRu7V7viTPiFLkCcgOuXZi
+	86cVWO734gUgb+JSLqRRXbVWOVIMuUYleelYloBM9fYKWFJuELZ1l5qN5c2dL/g2QS0i0Qkror4
+	/9woEFjgamxwrTQZ3otpLOjYZbaDCd7syCZy7apH7QsdL19qhHlsPCzSHQtkzaSC/ay56gYeSEK
+	h/TNn9WWRjSYX6hPzOZ9oi0+kvPPVSmYa90U6rnLF9d6QdnWtLDYrmaHUr9wF8Asks/EaNp
+X-Received: by 2002:a17:90b:164a:b0:3a4:ba6b:cc24 with SMTP id 98e67ed59e1d1-3adeb137823mr4733512a91.58.1793016176366;
+        Mon, 26 Oct 2026 05:02:56 -0700 (PDT)
+Received: from osman.mioffice.cn ([43.224.245.178])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adeba47266sm4750299a91.1.2026.10.26.05.02.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 05:02:55 -0700 (PDT)
+From: Zhan Xusheng <zhanxusheng1024@gmail.com>
+To: akpm@linux-foundation.org
+Cc: hannes@cmpxchg.org,
+	mhocko@kernel.org,
+	roman.gushchin@linux.dev,
+	shakeel.butt@linux.dev,
+	muchun.song@linux.dev,
+	penguin-kernel@I-love.SAKURA.ne.jp,
+	tj@kernel.org,
+	mkoutny@suse.com,
+	cgroups@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	zhanxusheng@xiaomi.com,
+	stable@vger.kernel.org
+Subject: [PATCH] mm: memcontrol: don't miss processes whose leader has exited in OOM scans
+Date: Mon, 26 Oct 2026 20:02:48 +0800
+Message-ID: <20261026120248.2188024-1-zhanxusheng1024@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,145 +104,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261023-work-super-lock_helpers-v1-4-d0fcb3f2f275@kernel.org>
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-12.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	MISSING_XM_UA(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_TLS_LAST(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6]
-X-Spam-Score: -12.80
+Content-Transfer-Encoding: 8bit
 
-On Fri 23-10-26 11:41:04, Christian Brauner wrote:
-> iterate_supers_sync() waits killably for a superblock that's being shut
-> down, but it takes s_umount of a live superblock uninterruptibly. So a
-> freeze_super() or remount that's stuck under s_umount, in
-> sync_filesystem() or ->freeze_fs() say, still hangs every sync(2) on
-> the machine without anyone being able to kill it.
-> 
-> That's inconsistent with fs_bdev_sync() which already uses a killable
-> super_lock() for both waits. And the reasoning is the same: if the task
-> is killed the walk stops and ksys_sync() returns, there's nobody left to
-> make a promise to. The emergency sync and the sync before suspend and
-> hibernation run from a workqueue where that can't happen. The PROM sync
-> on sparc32 runs in whatever task it interrupted but that one could
-> already be cut short while it waited for a superblock being shut down.
-> 
-> Let __iterate_supers() pass SUPER_LOCK_KILLABLE together with
-> SUPER_LOCK_WAIT_SHUTDOWN for SUPER_ITER_WAIT_SHUTDOWN. Only
-> iterate_supers_sync() passes that flag.
+From: Zhan Xusheng <zhanxusheng@xiaomi.com>
 
-This might get surprising in the future, I guess SUPER_ITER_KILLABLE flag
-might be a more explicit way to control this but I can live with what we
-have now.
+mem_cgroup_scan_tasks() walks with CSS_TASK_ITER_PROCS, so it sees only
+thread group leaders, plus a dying leader that still has live threads.
+Moving a process whose leader has exited, by writing its PID to
+cgroup.procs, moves the live threads but leaves the leader behind, as
+cgroup_migrate_add_task() skips exiting tasks.
 
-> The wait for SB_BORN doesn't
-> matter for sync(2) as iterate_supers_sync() skips unborn superblocks
-> anyway.
-> 
-> This can be reproduced by freezing a filesystem on a suspended dm-linear
-> device and calling sync(2) behind the freeze:
-> 
->   truncate -s 512M img
->   DEV=$(losetup -f --show img)
->   mke2fs -q $DEV
->   dmsetup create t --table "0 $(blockdev --getsz $DEV) linear $DEV 0"
->   mount -t ext2 /dev/mapper/t /mnt
->   dd if=/dev/urandom of=/mnt/f bs=1M count=64
->   dmsetup suspend --nolockfs t
->   fsfreeze --freeze /mnt &
->   sleep 3
->   sync &
->   sleep 3
->   kill -9 $!
-> 
-> fsfreeze sits in sync_filesystem() with s_umount held for writing.
-> Without this patch the sync stays in down_read() after the SIGKILL. With
-> it the sync goes away.
-> 
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+The destination's OOM killer then cannot see the process.  If it is
+alone there, every attempt ends with "Out of memory and no killable
+processes..." and the charge is retried indefinitely, and
+memory.oom.group kills nothing; otherwise another process is killed in
+its place.  The source's OOM killer still finds the leader, reaches the
+moved threads' mm through find_lock_task_mm(), and kills a process that
+has left the memcg.
 
-Looks good. Feel free to add:
+Walk all tasks and take one per thread group: the leader, or the first
+live thread once the leader is exiting.  Skip exiting threads, which may
+belong to a group that has moved out.
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+Tested in a VM with memory.max=64M: in each case above the process using
+the memory is now killed, and a process whose exited leader was not
+moved, or whose leader is alive, is killed as before, with and without
+memory.oom.group.
 
-								Honza
+Fixes: f168a9a54ec3 ("mm: memcontrol: use CSS_TASK_ITER_PROCS at mem_cgroup_scan_tasks()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+---
+ mm/memcontrol.c | 35 +++++++++++++++++++++++++++++++++--
+ 1 file changed, 33 insertions(+), 2 deletions(-)
 
-> ---
->  fs/super.c | 22 ++++++++++++++--------
->  1 file changed, 14 insertions(+), 8 deletions(-)
-> 
-> diff --git a/fs/super.c b/fs/super.c
-> index 0f3308fb99aa..a0f9eadf0da7 100644
-> --- a/fs/super.c
-> +++ b/fs/super.c
-> @@ -1010,9 +1010,13 @@ static inline struct super_block *next_super(struct super_block *sb,
->  static int __iterate_supers(void (*f)(struct super_block *, void *), void *arg,
->  			    enum super_iter_flags_t flags)
->  {
-> +	enum super_lock_flags_t lock_flags = 0;
->  	struct super_block *sb, *p = NULL;
->  	int ret = 0;
->  
-> +	if (flags & SUPER_ITER_WAIT_SHUTDOWN)
-> +		lock_flags |= SUPER_LOCK_KILLABLE | SUPER_LOCK_WAIT_SHUTDOWN;
-> +
->  	spin_lock(&sb_lock);
->  
->  	for (sb = first_super(flags);
-> @@ -1032,12 +1036,14 @@ static int __iterate_supers(void (*f)(struct super_block *, void *), void *arg,
->  
->  		if (flags & SUPER_ITER_UNLOCKED) {
->  			f(sb, arg);
-> -		} else if (!super_lock(sb, 0)) {
-> -			f(sb, arg);
-> -			super_unlock_shared(sb);
-> -		} else if (flags & SUPER_ITER_WAIT_SHUTDOWN) {
-> -			/* whoever shuts it down writes it out, wait for that */
-> -			ret = super_wait(sb, SB_DYING, TASK_KILLABLE);
-> +		} else {
-> +			ret = super_lock(sb, lock_flags);
-> +			if (!ret) {
-> +				f(sb, arg);
-> +				super_unlock_shared(sb);
-> +			} else if (ret == -ENOENT) {
-> +				ret = 0;
-> +			}
->  		}
->  
->  		if (p)
-> @@ -1085,8 +1091,8 @@ void iterate_supers_born(void (*f)(struct super_block *, void *), void *arg)
->   * A superblock which is still being set up isn't passed to @f either, and
->   * isn't waited for.  Nobody can have written to it yet.
->   *
-> - * Return: 0 if all the superblocks were seen, -ERESTARTSYS if the task was
-> - *         killed while it waited for one.
-> + * Return: 0 if all the superblocks were seen, -EINTR or -ERESTARTSYS if the
-> + *         task was killed while it waited for one.
->   */
->  int iterate_supers_sync(void (*f)(struct super_block *, void *), void *arg)
->  {
-> 
-> -- 
-> 2.53.0
-> 
+diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+index 4d00748c8a5b..8823c549b6af 100644
+--- a/mm/memcontrol.c
++++ b/mm/memcontrol.c
+@@ -1427,6 +1427,36 @@ static void invalidate_reclaim_iterators(struct mem_cgroup *dead_memcg)
+ 						dead_memcg);
+ }
+ 
++/*
++ * Take one task per thread group: the leader, or the first live thread once
++ * the leader is exiting, since migrating the group leaves an exiting leader
++ * behind.  Exiting threads are skipped, as one left behind may belong to a
++ * group that has moved out.
++ */
++static bool mem_cgroup_scan_skip(struct task_struct *task)
++{
++	struct task_struct *leader = task->group_leader;
++	struct task_struct *t;
++	bool skip = true;
++
++	if (READ_ONCE(task->flags) & PF_EXITING)
++		return true;
++	if (task == leader)
++		return false;
++	if (!(READ_ONCE(leader->flags) & PF_EXITING))
++		return true;
++
++	rcu_read_lock();
++	for_each_thread(leader, t) {
++		if (!(READ_ONCE(t->flags) & PF_EXITING)) {
++			skip = t != task;
++			break;
++		}
++	}
++	rcu_read_unlock();
++	return skip;
++}
++
+ /**
+  * mem_cgroup_scan_tasks - iterate over tasks of a memory cgroup hierarchy
+  * @memcg: hierarchy root
+@@ -1452,9 +1482,10 @@ void mem_cgroup_scan_tasks(struct mem_cgroup *memcg,
+ 		struct css_task_iter it;
+ 		struct task_struct *task;
+ 
+-		css_task_iter_start(&iter->css, CSS_TASK_ITER_PROCS, &it);
++		css_task_iter_start(&iter->css, 0, &it);
+ 		while (!ret && (task = css_task_iter_next(&it))) {
+-			ret = fn(task, arg);
++			if (!mem_cgroup_scan_skip(task))
++				ret = fn(task, arg);
+ 			/* Avoid potential softlockup warning */
+ 			cond_resched();
+ 		}
+
+base-commit: 6b4b543fa18757297ac756a6fe6e64f506b7844a
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+2.43.0
+
