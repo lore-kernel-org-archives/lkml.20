@@ -1,86 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793023075;
-	b=oi9sDfoSQFz9ON4T4mah83qfcECxXO20DUgyuegHBF+wA86x3f0ttXQSNpPGTPLUvisb
-	 19+9vM6EGs6PevKfcDTX6UefLyE2Mv8dPVWufMLJM4iUr1pTx0qQ6U0vqCw+F7EMGRgz+
-	 mblCcL/uIT7epvggcemYmmO3ikUL09VRAj7/6LTb00A3eDW3J7AVMvGtpZQtuNfzJuuWv
-	 Osj5vDdgJKxghi3F6BbDK4HlRjpNWI1i+p+7cVDXlFZqeZ42v+Rdaj6lHKSlvJeQ5N6GM
-	 XK1XR68VQMop7EBygmw31hhKtYrifLHhTWvfLKhN+ufte0H4lHQYhZ7QdvlLM/PI98A==
+	t=1793023101;
+	b=ADwxsh/up43nscZ4ejXYVq0hjewZfpiEISCj2QXkhbqz6DzZtw9tn1ghFzrN7Uhnh+Fj
+	 qZqxqA/LkxkxRIN0hhMI5NESpm/iLWGtZhIFRvm5Cfbc0BYk0BFk7r1Q8ksIOZaAejycz
+	 MEoIonhNacfrTysYLrDGVJN3L7D4zJ74+FEBuDHELYGE28Sz2SRPeciJF1wfa63qOLCgl
+	 Z4b3FuEOoIcTTbZ9CBtoUmP6KH6JJOpVuabjGywRfw3lkcjl4tAvuxS/CNCPaY0z5d34F
+	 5rB4oMcE90nHaEqG0RmhpuTQtc9a+HQH1+R+FMpj6ItE/enzXwnxjt5NDDoxlLpBA5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793023075;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Received:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 X-CMS-MailID:X-Msg-Generator:Content-Type:CMS-TYPE:cpgsPolicy:
-	 X-CFilter-Loop:X-CMS-RootMailID:References;
-	bh=adIdtnlCMMqgB92EkRoohcRf2XzhG2GPZV5HSQQgJFw=;
-	b=PwP4Pl3zeknN92e+YOAhv/VeTfHlEtGMh0GSiXFq+1DazS8yogERziiS4bWL5xTYYaAR
-	 F0y+OTOiSis+DHZQTmNFYrLHBDb5aHn4YwMYmW0wT/VEf+IIeZ6g9yCOmPJibZPxuXLo/
-	 8Ux+aDueiS/CF+qCvv8qTxwFcg7l9jvLhihnQtagPgvaW4xEpKnyxGP49v+E3rfWoy0mT
-	 7UDxllyECqjPM3WUHXl/oPhXClaH5DrA4PWzzSY3Qyukxuiyg9oN/eRVBBGp/RHLMmkKU
-	 a3WXDJXcaxlqT+NX3ezLyzI6wb5UH+SB1x5w5TAu/N2i3xAi1r5+hISN2v0fsvp2etQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793023101;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=hCPQ2C/jeVRFFIM7Oshbvz7OZwUREI/I2inMe09Wsao=;
+	b=BumulWne0FhCq7LylDKVBrhRvqedyMuw6DuQ+VkS73WYmgxqvhqnLgAfLJrpFkHhPvaV
+	 sJRc9HXlNviy3N/LFU+tT32fImb6cOlgNWZHYuRFtQnyAGMEAPbi+SHaeSwsJsc+JjuY2
+	 cSVMz6ZNspkXqFYfHXrJK47FICwwbPlNGFBBPUq1h82l1p+mkD/Ju+Hwwe5BwX2tS8U3y
+	 WGhXjpNcehp3rvsZCaXsEZJDkEhqnZb9V/6AVWEiQhSMz2fXBh9NhuFxRuyIXb3NlZake
+	 qtYrYBU38bZSgYQaruYBNyWe7Q3Q/7oaMY5i1OmX/9CFgf9Vj4kFsvz7YYZklqxsfqg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=XPrgrbuE;
-	arc=none smtp.remote-ip=203.254.224.34
-Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=KA8gH0Dr;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A016606A31D
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:57:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A016606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BBD1606A31B;
+	Mon, 26 Oct 2026 13:58:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3BBD1606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=XPrgrbuE
-Received: from epcas5p1.samsung.com (unknown [182.195.41.39])
-	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20261026135751epoutp0429e416d9dd6a3e08a0e094af231b76f5~iGPu98IqO1631616316epoutp04Q
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:57:51 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20261026135751epoutp0429e416d9dd6a3e08a0e094af231b76f5~iGPu98IqO1631616316epoutp04Q
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1793023071;
-	bh=adIdtnlCMMqgB92EkRoohcRf2XzhG2GPZV5HSQQgJFw=;
-	h=From:To:Cc:Subject:Date:References:From;
-	b=XPrgrbuEsxKKz63wFIJclOiQU2ADz8C3mkb80tctYqEOecHcf4c4fZD1sBFjPCejx
-	 etFT5FLolWlM4c2CXknvExLXcRJ0gJPwgeynm+FUtMDrw0elprGeGl/wwHpcwuoOIZ
-	 cn/nhqrUwNqkZIq5q26uh4ckBNMPbus7PfTLe7eA=
-Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
-	epcas5p1.samsung.com (KnoxPortal) with ESMTPS id
-	20261026135750epcas5p1bf3d46de8f85e51a17826201f6e49eab~iGPuDbjpt0764807648epcas5p1p;
-	Mon, 26 Oct 2026 13:57:50 +0000 (GMT)
-Received: from epcas5p3.samsung.com (unknown [182.195.38.91]) by
-	epsnrtp03.localdomain (Postfix) with ESMTP id 4jCwDs3Q5Mz3hhT8; Mon, 26 Oct
-	2026 13:57:49 +0000 (GMT)
-Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
-	epcas5p4.samsung.com (KnoxPortal) with ESMTPA id
-	20261026135748epcas5p4b33d010f9bf35a6fcbbc1ae2cc9a6276~iGPsoV9-c1260612606epcas5p44;
-	Mon, 26 Oct 2026 13:57:48 +0000 (GMT)
-Received: from vega.samsungds.net (unknown [107.108.73.84]) by
-	epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20261026135745epsmtip29c8ecd39ba6a4b3b57ca6895d18f1a9b~iGPpxhzSS1131311313epsmtip2X;
-	Mon, 26 Oct 2026 13:57:45 +0000 (GMT)
-From: Selvarasu Ganesan <selvarasu.g@samsung.com>
-To: gregkh@linuxfoundation.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, peter.griffin@linaro.org, alim.akhtar@samsung.com,
-	Thinh.Nguyen@synopsys.com, selvarasu.g@samsung.com,
-	linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: jh0801.jung@samsung.com, h10.kim@samsung.com, dh10.jung@samsung.com,
-	akash.m5@samsung.com, hongpooh.kim@samsung.com, eomji.oh@samsung.com,
-	shijie.cai@samsung.com, muhammed.ali@samsung.com, thiagu.r@samsung.com
-Subject: [PATCH v4 0/2] Add USB DWC3 support for Samsung Exynos8855
-Date: Mon, 26 Oct 2026 19:27:13 +0530
-Message-Id: <20261026135715.33071-1-selvarasu.g@samsung.com>
-X-Mailer: git-send-email 2.17.1
-X-CMS-MailID: 20261026135748epcas5p4b33d010f9bf35a6fcbbc1ae2cc9a6276
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-CMS-TYPE: 105P
-cpgsPolicy: CPGSC10-542,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261026135748epcas5p4b33d010f9bf35a6fcbbc1ae2cc9a6276
-References: <CGME20261026135748epcas5p4b33d010f9bf35a6fcbbc1ae2cc9a6276@epcas5p4.samsung.com>
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=KA8gH0Dr
+Received: from pb-laptop.local (185.221.143.99.nat.pool.zt.hu [185.221.143.99])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id A18B1D0;
+	Mon, 26 Oct 2026 14:56:06 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1793022966;
+	bh=6puGPTdIWp+0M7mx2OBYO+jk1Uh58PKmNGrKeIAuo3k=;
+	h=From:To:Cc:Subject:Date:From;
+	b=KA8gH0DrE5fTWn5hmi8DUaABVh74+AErZLIA+q3neLPWQsuk0wySfYCaRCadx1DZz
+	 Z1Vl0ByyPT9Nm9gRyxSP1it6wsXV5DabWTf3Kkc1k6BbJoOLHIPkORNe/e9AJhCRT+
+	 B6rv+0qEQ7Xs2YwiaGEIGTTDwccKdCqgWgQNaCwM=
+From: =?UTF-8?q?Barnab=C3=A1s=20P=C5=91cze?= <barnabas.pocze+renesas@ideasonboard.com>
+To: Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>,
+	Jai Luthra <jai.luthra+renesas@ideasonboard.com>,
+	=?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?Barnab=C3=A1s=20P=C5=91cze?= <barnabas.pocze+renesas@ideasonboard.com>
+Subject: [RFC PATCH v1] media: rppx1: Update shadowed registers
+Date: Mon, 26 Oct 2026 14:58:14 +0100
+Message-ID: <20261026135814.564457-1-barnabas.pocze+renesas@ideasonboard.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,59 +63,136 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-The Samsung Exynos8855 SoC implements a Synopsys DesignWare USB3 DRD
-controller. The DWC3 core on the Exynos8855 is instantiated with the
-generic DWC3 platform driver using a flattened model, where the
-controller is directly addressable without a separate glue layer.
+Certain registers are shadowed and changes to those must be explicly
+applied. Updating the shadowed registers after a frame is complete can
+be done by writing `RPPX1_RPP_HDR_UPD_REGS_GEN_CFG_UPD` to the
+`RPPX1_RPP_HDR_UPD_REG` register.
 
-This is the first Samsung Exynos binding using the flattened
-representation, and this series adds the device tree binding and
-platform driver support for this configuration.
+This is already done in `rppx1_start()`, but this auto-update feature
+is documented as "self reset at picture end". Therefore setting it
+at start will only auto-update the registers once, after the first
+frame.
 
-Signed-off-by: Selvarasu Ganesan <selvarasu.g@samsung.com>
+For example, this causes that the LSC module cannot be toggled after
+the first frame. This behaviour can be tested by reading the first
+bit of `LSC_STATUS_REG`, which will show the same value after the
+first frame regardless of what was last written to `LSC_CTRL_REG`.
+
+Fix this by unconditionall triggering an auto-update when a parameter
+buffer is processed in `rppx1_params()`.
+
+Signed-off-by: Barnabás Pőcze <barnabas.pocze+renesas@ideasonboard.com>
 ---
 
-Changes in v4:
-- Drop redundant "binding" from the subject.
-- Reorder properties, interrupts after clocks, power-domains after
-  interrupts. 
-- Reorder interrupt property in the example as well.
-- List clocks with per item descriptions.
-- Link to v3:
-  https://lore.kernel.org/all/20261023131501.3157463-1-selvarasu.g@samsung.com/
+I made the minimal amount of changes to get the desired behaviour because
+I don't know how the maintainers would prefer the registers in headers.
+So I simply copied only a subset, but it feels a bit suboptimal like this,
+hence this is an RFC.
 
-Changes in v3:
-- Drop the MAINTAINERS patch.
-- Drop the samsung,snps-dwc3 generic fallback compatible. The binding
-  now uses the SoC specific compatible samsung,exynos8855-dwc3 only.
-- Binding file is renamed to match the compatible string.
-- Remove the "select" from the binding.
-- List the clocks (ref, bus) explicitly and drop the redundant if/then
-  block.
-- Update the driver patch to use the new compatible string.
-- Drop the v2 Reviewed-by (Alim Akhtar) and Acked-by (Thinh Nguyen)
-  tags as the patches changed. re-requesting them.
-- Link to v2:
-  https://lore.kernel.org/all/20260916122229.2604003-1-selvarasu.g@samsung.com/
+---
+ .../platform/dreamchip/rppx1/rpp_params.c     |  3 +++
+ .../media/platform/dreamchip/rppx1/rppx1.c    | 23 -------------------
+ .../media/platform/dreamchip/rppx1/rppx1.h    | 21 +++++++++++++++++
+ 3 files changed, 24 insertions(+), 23 deletions(-)
 
-Changes in v2:
-- Commit 2/3: Clarify this is the first Samsung Exynos binding using
-  the flattened node representation.
-- Commit 3/3: Add the compatible entry in alphabetical order in the
-  of_match_table.
-- Link to v1:
-  https://lore.kernel.org/all/20260903071250.3421499-1-selvarasu.g@samsung.com/
-
-Selvarasu Ganesan (2):
-  dt-bindings: usb: Add Samsung Exynos8855 DWC3 controller
-  usb: dwc3: Add Exynos8855 to the generic platform driver
-
- .../bindings/usb/samsung,exynos8855-dwc3.yaml | 71 +++++++++++++++++++
- drivers/usb/dwc3/dwc3-generic-plat.c          |  5 +-
- 2 files changed, 74 insertions(+), 2 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/usb/samsung,exynos8855-dwc3.yaml
-
+diff --git a/drivers/media/platform/dreamchip/rppx1/rpp_params.c b/drivers/media/platform/dreamchip/rppx1/rpp_params.c
+index a75a27a8afd09..cbc9847ba5be6 100644
+--- a/drivers/media/platform/dreamchip/rppx1/rpp_params.c
++++ b/drivers/media/platform/dreamchip/rppx1/rpp_params.c
+@@ -110,6 +110,9 @@ int rppx1_params(struct rppx1 *rpp, struct vb2_buffer *vb, size_t max_size,
+ 		}
+ 	}
+ 
++	/* Trigger update of shadowed registers after frame is done. */
++	write(priv, RPPX1_RPP_HDR_UPD_REG, RPPX1_RPP_HDR_UPD_REGS_GEN_CFG_UPD);
++
+ 	return 0;
+ }
+ EXPORT_SYMBOL_GPL(rppx1_params);
+diff --git a/drivers/media/platform/dreamchip/rppx1/rppx1.c b/drivers/media/platform/dreamchip/rppx1/rppx1.c
+index c502be7979146..4794672e088cf 100644
+--- a/drivers/media/platform/dreamchip/rppx1/rppx1.c
++++ b/drivers/media/platform/dreamchip/rppx1/rppx1.c
+@@ -15,7 +15,6 @@
+ #include "rppx1.h"
+ 
+ /* RPP_HDR Base Addresses */
+-#define RPPX1_HDRREGS_BASE			0x0000
+ #define RPPX1_HDR_IRQ_BASE			0x0200
+ #define RPPX1_RPP_OUT_BASE			0x0800
+ #define RPPX1_RPP_RMAP_BASE			0x0c00
+@@ -26,25 +25,6 @@
+ #define RPPX1_RPP_MVOUT_BASE			0xc000
+ #define RPPX1_RPP_FUSA_BASE			0xf000
+ 
+-#define RPPX1_RPP_HDRREGS_VERSION_REG		(RPPX1_HDRREGS_BASE + 0x0000)
+-
+-#define RPPX1_RPP_HDR_UPD_REG			(RPPX1_HDRREGS_BASE + 0x0004)
+-#define RPPX1_RPP_HDR_UPD_REGS_GEN_CFG_UPD	BIT(1)
+-#define RPPX1_RPP_HDR_UPD_REGS_CFG_UPD		BIT(0)
+-
+-#define RPPX1_RESERVED_3_REG			(RPPX1_HDRREGS_BASE + 0x0008)
+-
+-#define RPPX1_RPP_HDR_INFORM_ENABLE_REG		(RPPX1_HDRREGS_BASE + 0x000c)
+-#define RPPX1_RPP_HDR_INFORM_ENABLE_ENABLE	1
+-#define RPPX1_RPP_HDR_INFORM_ENABLE_DISABLE	0
+-
+-#define RPPX1_RPP_HDR_OUT_IF_ON_REG		(RPPX1_HDRREGS_BASE + 0x0010)
+-#define RPPX1_RPP_HDR_OUT_IF_OFF_REG		(RPPX1_HDRREGS_BASE + 0x0014)
+-
+-#define RPPX1_RPP_HDR_SAFETY_ACCESS_PROTECTION_REG	(RPPX1_HDRREGS_BASE + 0x0018)
+-#define RPPX1_RPP_HDR_SAFETY_ACCESS_PROTECTION_ENABLE	1
+-#define RPPX1_RPP_HDR_SAFETY_ACCESS_PROTECTION_DISABLE	0
+-
+ #define RPPX1_RPP_ISM				(RPPX1_HDR_IRQ_BASE + 0x00)
+ #define RPPX1_RPP_RIS				(RPPX1_HDR_IRQ_BASE + 0x04)
+ #define RPPX1_RPP_MIS				(RPPX1_HDR_IRQ_BASE + 0x08)
+@@ -349,9 +329,6 @@ int rppx1_start(struct rppx1 *rpp,
+ 	/* Immediate commit update for shadows. */
+ 	rppx1_write(rpp, RPPX1_RPP_HDR_UPD_REG, RPPX1_RPP_HDR_UPD_REGS_CFG_UPD);
+ 
+-	/* Then for operation update shadows with picture synchronization. */
+-	rppx1_write(rpp, RPPX1_RPP_HDR_UPD_REG, RPPX1_RPP_HDR_UPD_REGS_GEN_CFG_UPD);
+-
+ 	/* Clear any pending interrupts. */
+ 	rppx1_interrupt(rpp, NULL);
+ 
+diff --git a/drivers/media/platform/dreamchip/rppx1/rppx1.h b/drivers/media/platform/dreamchip/rppx1/rppx1.h
+index 3bf3955afbaed..c6bd82f504560 100644
+--- a/drivers/media/platform/dreamchip/rppx1/rppx1.h
++++ b/drivers/media/platform/dreamchip/rppx1/rppx1.h
+@@ -13,6 +13,27 @@
+ 
+ #include "rpp_module.h"
+ 
++#define RPPX1_HDRREGS_BASE			0x0000
++
++#define RPPX1_RPP_HDRREGS_VERSION_REG		(RPPX1_HDRREGS_BASE + 0x0000)
++
++#define RPPX1_RPP_HDR_UPD_REG			(RPPX1_HDRREGS_BASE + 0x0004)
++#define RPPX1_RPP_HDR_UPD_REGS_GEN_CFG_UPD	BIT(1)
++#define RPPX1_RPP_HDR_UPD_REGS_CFG_UPD		BIT(0)
++
++#define RPPX1_RESERVED_3_REG			(RPPX1_HDRREGS_BASE + 0x0008)
++
++#define RPPX1_RPP_HDR_INFORM_ENABLE_REG		(RPPX1_HDRREGS_BASE + 0x000c)
++#define RPPX1_RPP_HDR_INFORM_ENABLE_ENABLE	1
++#define RPPX1_RPP_HDR_INFORM_ENABLE_DISABLE	0
++
++#define RPPX1_RPP_HDR_OUT_IF_ON_REG		(RPPX1_HDRREGS_BASE + 0x0010)
++#define RPPX1_RPP_HDR_OUT_IF_OFF_REG		(RPPX1_HDRREGS_BASE + 0x0014)
++
++#define RPPX1_RPP_HDR_SAFETY_ACCESS_PROTECTION_REG	(RPPX1_HDRREGS_BASE + 0x0018)
++#define RPPX1_RPP_HDR_SAFETY_ACCESS_PROTECTION_ENABLE	1
++#define RPPX1_RPP_HDR_SAFETY_ACCESS_PROTECTION_DISABLE	0
++
+ #define RPPX1_IRQ_ID_256HIST			BIT(27)
+ #define RPPX1_IRQ_ID_PRE2_DPCC			BIT(25)
+ #define RPPX1_IRQ_ID_PRE1_DPCC			BIT(24)
 -- 
-2.17.1
+2.56.0
 
