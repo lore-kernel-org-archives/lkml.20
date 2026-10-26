@@ -1,101 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.178
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793021837;
-	b=jpWNsxVqyGThxIPl6On0GGbwFY6bAhtIWQlhR5N278CEj6zwJZIjRchSYHwgZ6v8UE55
-	 gUF+ZHPL9/M2WioEv5H4WFjSISxbcmdLqFXzYrJKLjz9s7tzSOVk/vNms9GY5cp8/xCC4
-	 JexieUs8GNrrY0T6bHPQueuEL/4USdNGyjFpNgVd+8oJYkatnfs3/mYVv8GNduDaU6HsJ
-	 DhiQ5APSrt/6jKznBeS+HYs4wJPQkMPN5W8zMzroF+I/Fy9PkGsCOyQnIHveDUWFOKjwr
-	 ZvJUVu5HiKXKOi0e5geMvLvmZyiohiaDyJRLe0wo3Vmwy0dlK9MhXZOjOeZnGeYXABw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793021837;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.42
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793021822;
+	b=N66ge2ml9jVd0x9U7TfiAtlAv3eXoDZ/UjbASbH1l+SLHbE/qjSGnX6027BTCZKYvLUB
+	 p3Gha/y1qzljH2L/SRZuw4T4jO9nOL741QufZJ/Ek8BUUxIfIWf6QEHG8sQZDybSt+CCH
+	 StSbc7dY9e8xEJw0P7Ae1N2j+UFdjXBLicVVdyEdap6F9l5bcVCMgM2bxAklOboKhHrZ0
+	 qyVA9LpgY0quBmX2jsnJRDBC6yIx7n3i8hZbKTCOfIdVhQwNdOuRyLrO4ZmadMzztFyBK
+	 4V/jPVMDuAlyBeWOt/vPg9EDR7v5fBgxj8hpn2YttOsLmHYEUIJHrc3odFZcFHfRHzA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793021822;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=c4ppOZ7c6FXgFTH2gmSpwM/JgOkQlj5fbz4MqhSpDso=;
-	b=qFzchpnWMDqwG/3luyQ0grgj1koZL0wqteUrn+27br3Lxshle1Kq6GYFUV+GCpfiq2UH
-	 tvb8KMFCHr8q8hcufI2ybhU7HVYxsGeXQzo4sHsIkG3//ZmmNroxQWGxF6G7JYx0s6bUK
-	 +LQ75H5h3CpboZvsi1632grFaxl6/qW87MCIM8lJKPKNuAHcXw7u9PBW9bt+oFZ7uzB37
-	 jJJLtUqnCNERHGwPNlRe0AAAdiiD8+g2iLWtijHwWKK4S5Iy5bQ284iko2EdkTfAfzjo/
-	 9BHgdq2xjY3hdUUfgFYqUfw7r9iNb8QROLYSq+uuucHEQkbVK0fVSyvovtoQD1ZtRmA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=kHWEnru0;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.178
-Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com [209.85.160.178])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:To:Cc:X-Mailer;
+	bh=5tMMGpxtoQZxq0cbe4boMn3nqRQBhfDysNVoo7AMAY8=;
+	b=zJKLsH4x7iMzZxvMDJVyCHN+ABPGOJMONMmM2ZM9w+YaR1Ynt/YLc1GUNnAUujP12w4g
+	 GlzdJk+hni3fc+Ttn+572ft4o6bUXROJfNvXZUcbeCr9twEPjv4nzCf752q7RCBLXG+Ku
+	 YhOUymTv0pBR5Lsvg71r8KeVnvzPHiYwNs/4pr9gozv++h0McM3d+8X7GC+Ta/l3dvnVQ
+	 l2UHJThRkCx43Opf/yhd/Yu7zf4gZoJKMgcuJWPHIcMBc3uTCwYVIaU0KKaMEbi4dl1It
+	 /VyIGS5DkyHdY2qS1/uxb08leNv2KAZWD5VR7pmFxGGEtbv75KozC3I0jIyujFr/oww==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=snu.ac.kr;
+	spf=pass smtp.mailfrom=snu.ac.kr;
+	dkim=pass header.d=snu.ac.kr header.i=@snu.ac.kr header.a=rsa-sha256 header.s=google header.b=t8AUsbBG;
+	arc=none smtp.remote-ip=74.125.82.42
+Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E2FB606A329
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:37:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E2FB606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B837606A327
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:36:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B837606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=snu.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=snu.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=kHWEnru0
-Received: by mail-qt1-f178.google.com with SMTP id d75a77b69052e-5383c97c8cfso354601cf.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 06:37:17 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793021836; cv=none;
-        d=google.com; s=arc-20260327;
-        b=SJPmz2OS4K7UwEfusAYqJzTBvyXr2ShpcF9mh+bLSQLySOR32HSiABoQulSj9KeXkx
-         Gb0qu9sBBYnRXuboohLVN5B+gPipP282f4ctSJzCahglNU0xpCPJU/GDSBgf54sjJGH+
-         dT0DdJ9+MUjflIQgiIWdcf/IuLgCnC8Zu9qUgUOrtk3ph+haB6/5XOHELT2AWo7L6QSL
-         yVpJDbSLbsk55v0PV9fX2eYyupGhxTae190Vm8g1HExluRsDFB66PwhXb9etMeGaJEXs
-         usxW3WhSNlLrwHhnjQCtzAmO28OVXd1kZRhpyqgz5s+Ixn0st4zC773leM6zma75RowO
-         RZxg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=c4ppOZ7c6FXgFTH2gmSpwM/JgOkQlj5fbz4MqhSpDso=;
-        fh=ku8/s9ch1nZYm8J2SbiwPuiPStJ9oDtOK336sbQxXpA=;
-        b=KXy8e5sAOjiJH2vcLIdAFMpDTGY5N6zUekYO/dalkvNJW64IqB7WH61eqhXuDqkb50
-         5Z/dyhxUrW5QRcA2FKznuYpUdnrM1+IBPCSz9X1u8dpHPXkGVgNSkjhGIPiYP2VrC6Sj
-         48Cq/3ge90+pd6rHcnWWYEx7YMZj/VoIvsYywb2XYWbplYn57g9/XPKdZeYf1d/oeJXB
-         M/7UsFddn2Dgz5aMaj1bJfDJ8XLdyXHmjjWcmT/M0h2T3m9fyDNnc6gOfZZMNRm0Zx94
-         VTdsK4uQtL3pMr8M/31Z+iNTObtzJvr06LjuuBzOhkrlfTVc4MYawcbfusDPB5Ll3V+/
-         cv5w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key, unprotected) header.d=snu.ac.kr header.i=@snu.ac.kr header.a=rsa-sha256 header.s=google header.b=t8AUsbBG
+Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-170135e43c7so3001109c88.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 06:36:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1793021836; x=1793626636; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=c4ppOZ7c6FXgFTH2gmSpwM/JgOkQlj5fbz4MqhSpDso=;
-        b=kHWEnru0CHmLudr9EcHq1gQt7nBEJ/ssbwXcC+mpIdeqydP1sisZ15xxZd6hymIJ/E
-         C5ML8ayjzxI7VrsDiWtaPHlViiwjg41YBfqrCzZymXV7YThnRYnc4sbTeu9dzvvSKWn6
-         Yi3Z7qw/0ANHdczAokJXCD1mj9LAwgoQXbhwQ5XJSayhz37+lr5R+JptRkR4SKPRIJIp
-         m6i8W6fxEx3dH+0HH2nXyDvChl29fHcyzgWUBi6Oj3vE/cBjWcGoR80FbrKT2WNOcm+W
-         Tj9WIRsGVizMCc42HM6xouGMZXI8hY0bhCbWksSHdsU6S3p4hxv5FCWrGvFIq4fSOCko
-         PakQ==
+        d=snu.ac.kr; s=google; t=1793021817; x=1793626617; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=5tMMGpxtoQZxq0cbe4boMn3nqRQBhfDysNVoo7AMAY8=;
+        b=t8AUsbBGZl7j5ze9xZyez+XpgRZcYy1xDR2p4TSbQ91kJl7PLRjRrNP3+ch/7+ihjV
+         u4Hyou2L3OvUhS1sw89zli36GmqqR9cx7EkfZDd4L0YEF0k/XqcYY7U8qDzXlyMwoHmn
+         1nfqzZscpfXOI1byWWTMrFKq5OuK7qEVFT+C8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793021836; x=1793626636;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=c4ppOZ7c6FXgFTH2gmSpwM/JgOkQlj5fbz4MqhSpDso=;
-        b=bU/drZ4rQOghHxnFUiSyqzn3ZbmNOigAePV8VNkjQy5VapZ9NZLrUrFcpM8j0/T1Rh
-         yXAlqO2H/JFsFFEjYQ33zYxB7ysb8kdWxBSMseNgx8QI6NS2oXc5xgRFIk3y8rTF+9Z6
-         tmsYt7MZMNNX9oRYpYcHOQErEGlEKy+Aje/03tpy4HUUC7S+M1cgH3kciH3ZMyOUkGNy
-         udvIry0afIyT1kTFLgtXAox4MCQzSGWjI4fXbIzBMc7WHoQNsJHIgsHPTUR4IEj4LoSu
-         EbLZo6bWdiQuZDk8j+Y7SOs1t2qMcEDrSxTMCRjknL701z5mhBttdP+befssURccPHA6
-         C//Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxL+vGlAqgxoM+6LzTvNHp+wit0kOdn7CFKEj6Rq/t01V/wjNIQbR+/sbASpfcUUH+Aax96txseP4PksFk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLjx21RYqm+9NdhXemSComNchePuks/Fb/Y7elXF6bkgzBwqBch
-	cHBuyIVKZqYYqkesTbA/DsKHZ3/puL/4YNCbhRF8fM4D4xiM0ta33EzS3M+hsIh+YuwsUlpkb4j
-	oCy9r2GtYPNZwSa6I1wBuMWid4itWDfYoLlQqsRrm
-X-Gm-Gg: AYBFou0BtiwGDSipcF7qRqZRm9OyJkGPzd1LxgG94ibmaFThapYT+1quBVA57sHKmb0
-	1nlyKbL9kEhFNu+HL8lUbEl0OYWhraH4k0VuxjRFWxhPT8CgGq4B8epL/hyCnxkYFiG9jF1rNQ6
-	DCHK7ldnFHowAYFyyw0hd9Ed+8RAB1JhFE1t7vpq0mqWhwvHiJhpXPFsRvyGMPEToB6njvp2yyG
-	kxs3mzO5b33Tu8CPlcwpedYvjydS2dEzWUlOXhnMMVWaxfkZ0sifWJsvWoA/beIzysCjyaCYJ9N
-	iVZy7a7tJXPKX52CIk77mE+9mGDuK3kiAdByv3ivlNLrZDa7dGcBte8pjQZvRH8a/2kqvvd0nes
-	dVva18tDjSIXt1OvXD2EIuPS8Pcm9oAqGW5UKFPME81kRp0q8B7yWj7quW64QfbiEiOqipccImE
-	gi3Pnqiekx81Gin+40sjecpHkD6Xpq
-X-Received: by 2002:a05:622a:90b:b0:532:9220:a9ae with SMTP id
- d75a77b69052e-5383b540914mr33040301cf.6.1793021835298; Mon, 26 Oct 2026
- 06:37:15 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1793021817; x=1793626617;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=5tMMGpxtoQZxq0cbe4boMn3nqRQBhfDysNVoo7AMAY8=;
+        b=VlXKQ0NASKnIdxpJ/dOS6DFwyyJPFX+jheFGBDOCvkd5pp+JZEwTrhIKYmWclrlFbo
+         212qeUMm8gzIlpVNjFwNF6ZL+E95czZJI79ooFaAB90qM937NlHakD9IQvs//ozw0Bil
+         hg9Yvf5OqbeYatD/nOGrccRAOT0du3pqzlE3F4qFntvFZK1AVN+Ygfq9WWREX5XAU3S9
+         7P+W7lrUr540SsBso0VmukIqLvyonWS2154MBcajehpnWibpu0c/JnNTHxHKlTdKEf7U
+         3f1r4YBPcQPtk3+dIGNr6Ovj/sDLYyA38o43On1VKybGAswoRJQHrsYPBpcLGLNonRBC
+         w62g==
+X-Forwarded-Encrypted: i=1; AKwUvBx+TaCPtrM0B6GyArF5cx57qQ9jhpGlgAm7heIubNQGUYzsxxR4CHAdRBRI8hNDhLQE6Jr0Gh2Vw6gtm/g=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLWpHl1oD0yIWZshD6yknBLve4Si5LFlaCbifuU7rV4dOv7O4Bj
+	dmRm2B4tby2FNH/nSTsZN+7kL2c5+qUY7RNBSw97PMqYCxC66HyO4pGpJCIFAOlFZSc=
+X-Gm-Gg: AYBFou1E36oTQYTRgOJ0C3SzC/o5hyml8r7r4N225dfpJF7XI38r4Ub5/p4orJREFlS
+	91nihqefbu7wfenLaWS8vPhliOHrmwGQtbGVVMYOFdvDB1Btkz9gMNix4tYh9hMo8i/+xmt+OUo
+	V/zIQfv9qStBtP9O3eeV99e9fSr089JEBJ2R5FnI17Nr3RdSO6Z2ge1Ax3TGOEEXYWeTKxzBy2f
+	17tKm/iEwJLa3Q5PSanqhmrvdimGkstj+fvPtDJjnkETdTVU4P3fIlkQrlBIqPG3J+sjPgXYb8k
+	J27ntXT4gU8cdpNO+0eFR8TkSOLriLkwloo70TbIomLoEl55yVhxl7HtCYhPtVP2uve67KA1vL9
+	Pv5DvAXwIzRairZTgVbepudtpu3RW0P/d5rj+3dtLvK+uNOmW7Xdy8Vk0xk+z4/xujjN7XRmFQ/
+	rpVKAuHK2wGjA/q2KhG9zBt1uROJJAmfmOQ07Dm6sK0UsYg8dWRU4WnDV7oqYckrMPJDC+vO+u8
+	Ta5XkrdJ5eR2SsUSm0X+hO3PUQsX7iWS6DtXm2wSjoQY1+FrA==
+X-Received: by 2002:a05:7022:48:b0:16d:1e24:5cc3 with SMTP id a92af1059eb24-199375eb24amr13097855c88.19.1793021816370;
+        Mon, 26 Oct 2026 06:36:56 -0700 (PDT)
+Received: from [172.19.0.2] ([49.142.45.25])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1989ff2ee5asm22432520c88.8.2026.10.26.06.36.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 06:36:55 -0700 (PDT)
+From: Seongjun Hong <hsj0512@snu.ac.kr>
+Subject: [PATCH 0/2] iommu/io-pgtable-arm: fix missed dirty pages in
+ read_and_clear_dirty()
+Date: Mon, 26 Oct 2026 13:36:42 +0000
+Message-Id: <20261026-iommu-arm-fix-missing-dirty-pages-v1-0-115b6b1cc0f5@snu.ac.kr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,123 +88,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261026123244.239766-1-jiayuan.chen@linux.dev> <20261026123244.239766-2-jiayuan.chen@linux.dev>
-In-Reply-To: <20261026123244.239766-2-jiayuan.chen@linux.dev>
-From: Neal Cardwell <ncardwell@google.com>
-Date: Mon, 26 Oct 2026 09:36:58 -0400
-X-Gm-Features: AclHuK-ZwT-Ffa8PUyxQxfIXZbtYplbPQ0Z6MF6o-MPhrCkkbjJDCm6CcXr5iWA
-Message-ID: <CADVnQyk7wTXsgUKbEijSVd689E96Ps=sbiK8osWSuemKYD8BVg@mail.gmail.com>
-Subject: Re: [PATCH net v2 2/2] tcp: fix shift-out-of-bounds in inet_csk_rto_backoff()
-To: Jiayuan Chen <jiayuan.chen@linux.dev>
-Cc: netdev@vger.kernel.org, stable@vger.kernel.org, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, Kuniyuki Iwashima <kuniyu@google.com>, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAGpX32oC/x2NQQ6CQBAEv0Lm7CQsCqhfMR4WGdY+7EJm0GgIf
+ 3fioQ6VVLo3MlGI0bXaSOUNw1xcwqGixzOWJIzRnZq66YLDmHN+cdTMEz6cYYaSeISuX15iEuN
+ j355iP4TzEC7kO4uKp/+P233ff+UKJCBzAAAA
+To: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
+ Shameer Kolothum <skolothumtho@nvidia.com>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Kevin Tian <kevin.tian@intel.com>
+Cc: linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, Seongjun Hong <hsj0512@snu.ac.kr>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.13.0
 
-On Mon, Oct 26, 2026 at 8:33=E2=80=AFAM Jiayuan Chen <jiayuan.chen@linux.de=
-v> wrote:
->
-> icsk_backoff is incremented by tcp_retransmit_timer() on every backed-off
-> RTO with no cap of its own, and by tcp_send_probe0() up to tcp_retries2.
-> It is used as a shift amount in inet_csk_rto_backoff():
->
->         u64 when =3D (u64)icsk->icsk_rto << icsk->icsk_backoff;
->
-> Once it climbs past 63 the shift is UB. Seen with tcp_retries2=3D255 and =
-a
-> silent peer, when an ICMP host unreachable goes through
-> tcp_ld_RTO_revert():
->
->   UBSAN: shift-out-of-bounds in ./include/net/inet_connection_sock.h:258:=
-40
->   shift exponent 73 is too large for 64-bit type 'long long unsigned int'
->   Call Trace:
->    <IRQ>
->    dump_stack_lvl+0xc1/0xf0
->    dump_stack+0x10/0x20
->    __ubsan_handle_shift_out_of_bounds+0x1d1/0x390
->    tcp_ld_RTO_revert.cold+0x16/0x92
->    tcp_v4_err+0xdb3/0x13e0
->    icmp_socket_deliver+0x1a7/0x390
->    icmp_unreach+0x2dd/0xe50
->    icmp_rcv+0x93e/0xe30
->    ip_protocol_deliver_rcu+0x36b/0x3e0
->    ip_local_deliver_finish+0x37d/0x620
->    ip_local_deliver+0x165/0x1d0
->    ip_rcv+0x284/0x320
->    __netif_receive_skb_one_core+0x16b/0x1c0
->    __netif_receive_skb+0x21/0x150
->    process_backlog+0x37e/0x1200
->    __napi_poll.constprop.0+0xa5/0x5e0
->    net_rx_action+0x4c0/0xf70
->    handle_softirqs+0x204/0x9b0
->    __irq_exit_rcu+0x13c/0x220
->    irq_exit_rcu+0xe/0x20
->    sysvec_apic_timer_interrupt+0x92/0xd0
->    </IRQ>
->
-> The orphan check in tcp_probe_timer() calls the same helper. On x86-64
-> the oversized shift count is taken modulo 64, so an orphan that should
-> be dead can be seen as alive, and tcp_ld_RTO_revert() can end up with a
-> smaller RTO than intended.
->
-> Cap the shift at 32: any non-zero icsk_rto << 32 exceeds TCP_RTO_MAX, so
-> the min_t() result is what the unbounded math would give. The
-> ilog2(TCP_RTO_MAX / TCP_RTO_MIN) + 1 bound of tcp_probe0_when() does not
-> fit here, as icsk_rto has no TCP_RTO_MIN floor the way tcp_probe0_base()
-> has.
->
-> Fixes: fcdd1cf4dd63 ("tcp: avoid possible arithmetic overflows")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
-> ---
->  include/net/inet_connection_sock.h | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
->
-> diff --git a/include/net/inet_connection_sock.h b/include/net/inet_connec=
-tion_sock.h
-> index 903499581db7..562e12033a5d 100644
-> --- a/include/net/inet_connection_sock.h
-> +++ b/include/net/inet_connection_sock.h
-> @@ -255,9 +255,10 @@ static inline unsigned long
->  inet_csk_rto_backoff(const struct inet_connection_sock *icsk,
->                      unsigned long max_when)
->  {
-> -        u64 when =3D (u64)icsk->icsk_rto << icsk->icsk_backoff;
-> +       u8 backoff =3D min_t(u8, 32U, icsk->icsk_backoff);
-> +       u64 when =3D (u64)icsk->icsk_rto << backoff;
->
-> -        return (unsigned long)min_t(u64, when, max_when);
-> +       return (unsigned long)min_t(u64, when, max_when);
->  }
->
->  struct sock *inet_csk_accept(struct sock *sk, struct proto_accept_arg *a=
-rg);
-> --
-> 2.43.0
+Fix missed dirty pages report in read_and_clear_dirty(), which is
+caused by 1) unaligned iova walk address, and 2) missing iotlb invalidation.
 
-The following review comments are from an LLM, look legitimate, and
-IMHO are worth addressing.
+First, align down the iova walk address with page size, noticing that
+small dirty pages following large page block (e.g., 2M) because requested
+iova start address can be in the middle of the page block.
 
-Please either incorporate each piece of feedback or respond to
-indicate why you think it's not appropriate.
-
----
-
-This is exactly the diff Eric suggested in 2020:
-https://lore.kernel.org/netdev/CANn89i+=3DQRibXsm6tw-eVwhB3wjOtgF-MtVu0G--K=
-5=3DoWP97+A@mail.gmail.com/
-Please add "Suggested-by: Eric Dumazet <edumazet@google.com>" and a Link:
-to that message.
-
-As for 1/2, please add the discovery/validation/testing statement
-required by maintainer-netdev.rst.
-
----
+Second, use io_pgtable_tlb_add_page() on visiting dirty ptes instead of
+iommu_iotlb_gather_add_range(), which is called in iommu_dirty_bitmap_record()
+and does not update gather->pgsize, so that arm_smmu_iotlb_sync() does not
+invalidate the cleared pte from the iotlb.
 
 Thanks,
-neal
+Seongjun
+
+Signed-off-by: Seongjun Hong <hsj0512@snu.ac.kr>
+---
+Seongjun Hong (2):
+      iommu/io-pgtable-arm: align next walk address to large page size
+      iommu/io-pgtable-arm: invalidate iotlb on dirty pte read_and_clear
+
+ drivers/iommu/io-pgtable-arm.c | 15 ++++++++++++---
+ include/linux/iommu.h          | 17 -----------------
+ 2 files changed, 12 insertions(+), 20 deletions(-)
+---
+base-commit: 6b4b543fa18757297ac756a6fe6e64f506b7844a
+change-id: 20261026-iommu-arm-fix-missing-dirty-pages-3754a7b18b19
+
+Best regards,
+-- 
+Seongjun Hong
+
