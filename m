@@ -1,79 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793042341;
-	b=cfPy8Mm7AVY9v6gFFO6YZ/YRrlUmeJ0C+IkG+HIntF/PhgiQNgNaOLdKDJutyeJjw3DM
-	 49LmVF/hxEO93B90xJHC0gsAnJpWhP8iVZbQRWsnHnnL1hNqy+hEf7XjYMm3vILjajrE3
-	 +guQDBHHJHIqPWjgHGCv8vteNnwfjmmIixzhUtlCE0cIDbHGGxa61EEynv9XCCZFBgcJ/
-	 M3f8/To7MKDsDB7ZXoIQ4VDj5HAdKr2heGpCDo3/7+RbfuL7RLr4DNV0qPUnYZT37oQ8y
-	 MEOSnJtxsn1g4zT0H/LrdJO/A+FV2v1CWB5qbQn5vGUQfQbjaZJ7jNddVSDL1XeGfOQ==
+	t=1793042397;
+	b=g2Us27YT2h5oJTVSl0+m0mXrBYTZzUwtTrdUeMnallin9wEo9J74d5qhy+8uYpJfTVIj
+	 u/nSc/xLNFf25LvEv+ZOcpwauJByWwgkOF5zpbA1mROU2NLSeWUaDqyFfHy0V2xugn1cB
+	 eht6H3p0ZmspHD3Eip+PYhtWbz7ah6OQzchBWGXMOCa05rM8TvGMBRIfhjqNPlX/jFOe+
+	 QG31Ze3XcyioCiNY1kBFo9epkQRZDGhyRxmsjEbtRwfig/Wjg50PeqKvu/IgDjq511hWs
+	 cW30Tz4gMOXMiEFQqgFKRUrA5EQQxlru78/TKwGF+BO/TnU++6On8H/uFjlche/ic4g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793042341;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
-	 Organization;
-	bh=tZvfI3wzfnYx/bXkTP/Q8P9KO9tci6mG+Gu1KKw4J6M=;
-	b=mH4QYiU8GnuLHmSR5+8qyeleti8rEkHdiXwYv1DhPg8Gd16ur7pZZG2L1ZiMol3ThJIk
-	 K41pPvSpt7Vlbi2tI8LdqvJVxHDjmBoevZP9bkTcSvde9wOw0EBqquxhydb85CpHVs4QG
-	 3aXLlJzp71C7hdXxKXtlTzHwE8piuN3c25xpUiXPYzfH51Fkn5krSGAz9zAFD+vfooxo5
-	 bjvkXBHoG591JnBOruXnb4qSBRy7wTJtq55xbS6rl5a02sKLSHhbBhh4L2XuSQVJtkNjV
-	 0AfF0fRehgO/IFzAI7uKwr/mL3opl3QqvgJ7+ydJ3XXhYD0GJEs0ygU4X62e8dfyqVA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793042397;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=SsbARq1XztgaSNEWXbQ8p7kVsWpg0u+gh+IWzi9nO+Y=;
+	b=03BaqACuuxRgY3XWzaBKI3wv/hGDsHZ+Am2/7CveOE44PfdGqpYDbK7qj0fb2qhx+53U
+	 CYP2beHiZ/aadzg8717QjIRljZrMRf/wzLNP5CNGjMCmQKu4Dpgw6ST60DIQv3DbkTamP
+	 BO1CbVTpuMJ5YJN+qBFVin7znpCMOvytinYp9AjlWxixDw95P6/Z6qLpI6Es/yMlcrw5z
+	 GElrwSQdTm8iP6whoqFY9INQchAzfhCuxgg/QSQlKTxWJitGPWFJ+RFNX8v1I25DpK7uI
+	 O3vG11w1H6Ytb2ZbF8/fCwi1ZrNyqEFJVMp/LZUzm2Msk1gZ1m0lmR/savw1oa9wMMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=er2AVjq1;
-	arc=none smtp.remote-ip=198.175.65.14
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UERXiL1t;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57DEB606A31D;
-	Mon, 26 Oct 2026 19:18:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57DEB606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 138F6606A31D
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 19:19:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=er2AVjq1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793042340; x=1824578340;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=XVT3BxzTOBSFPzcS2ZkxgzCA5ztZ8ujHlOCaBWMDfFY=;
-  b=er2AVjq1m+FxWWiU83Tl5tpKTagAGt/7LKCmFKRFLc9wgT17TW8cg3BL
-   1QtFm7bt8XgYlTomnNBhXiem7Mo4d6s2ZT3zRGmU+VzrgrQTPTd2lO4nJ
-   HG8lS5sx7T0gwidOfhPqHn2TK9ruVawJCiYwQ6fojhae50p8dL0KBQLjK
-   ZK3GAo2NNxQ4pyQto6t+ntXYXpzZzg6vtKfWcks117VLMOXljeS0IbuMI
-   eYwG7lBtk8uZwK8B1kJaCBuRYaD0vlN0eP0xmkIN2OspuziXACjhBmwpK
-   c+qPu3oUrUJC3e1BnDwbdOVijvkwkCrIcThod3WVOJvDR+fX55RoYMQ/A
-   A==;
-X-CSE-ConnectionGUID: Bn1jCudlR+yhxHxm8EIYMg==
-X-CSE-MsgGUID: v5D6tLMYThuPXT053jL86A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1601219"
-X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
-   d="scan'208";a="1601219"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 12:18:59 -0700
-X-CSE-ConnectionGUID: Ihw29R31QaS6vQl3kmds2w==
-X-CSE-MsgGUID: ohxDCuAlSUSWgsB5HXu6Eg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
-   d="scan'208";a="4427521"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.93])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 12:18:57 -0700
-Date: Mon, 26 Oct 2026 21:18:55 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>
-Cc: Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Andy Shevchenko <andy@kernel.org>, linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 08/22] gpio: sodaville: Add missing PCI module
- annotations
-Message-ID: <at-nnxOqJpKQH8Gz@ashevche-desk.local>
-References: <cover.1793030820.git.u.kleine-koenig@baylibre.com>
- <5c0a0be0cc9af836f43e6ec97d9bd0616e0f1cd1.1793030820.git.u.kleine-koenig@baylibre.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UERXiL1t
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E59EB1F031E1
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 19:19:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793042396;
+	bh=SsbARq1XztgaSNEWXbQ8p7kVsWpg0u+gh+IWzi9nO+Y=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=UERXiL1tLnB3LcWcWTwc1HEh6YW0J5I+pS+Tk25siIJw0ImsH9mu3zcand1fsSr3S
+	 OBfE6ePMvLLnECXaAIX4Xv+UCTsBKJF2bpcMmE6/xKPmh12OnXFhdOspwd9TT3nTXI
+	 +cHwzvw3mHPTejXBJr1DRhcHyblmEU7j4k9IVWLS3k0ZxUPFRWtWg2l99ACvPrrO7s
+	 ofwKRjLYIb7EHys5ZzEPnzLB73vfBpl19E2DNVLrD+PVQKY1/uxQQdSJOwO+XKIBE6
+	 5hN+/qGjRlPieASlgmQvZtweTA20zhHZtomFoPv2FmoUkRZ3W/+kAhgWAlJl6Qt25O
+	 CWMV3amID9OnQ==
+Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5bcdae234ecso2850293e87.3
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:19:56 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwJJ8l3dD8mILS89PBux5F4Pc7qQHjfKHFmhGwykCYfltRphGMgivqee2Ofxm676TG7Uw37VWS7A2RXrUE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIsVXzMb522dQ4eclr/1xOqDTgGMhWnbeL3ZfPk1QqNy96Kr8m6
+	5rSS/ABTzdqmjhMvZe/friHGY2Ts0wt8Y2Rbei0OjMd49jWWbCxjcwR8Qo1v6ucJmVXPmj8dJ7c
+	IOtve7mqYxNGI4jWqR967lcdLZi0k1N4=
+X-Received: by 2002:a05:6512:31d5:b0:5bf:a12b:9ba8 with SMTP id
+ 2adb3069b0e04-5bfb71f6651mr2166158e87.65.1793042395358; Mon, 26 Oct 2026
+ 12:19:55 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,22 +59,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <5c0a0be0cc9af836f43e6ec97d9bd0616e0f1cd1.1793030820.git.u.kleine-koenig@baylibre.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+References: <20261005111157.17256-1-ovidiu.panait.rb@renesas.com> <d11e7da8-9202-4b9f-b915-155f9185770f@kernel.org>
+In-Reply-To: <d11e7da8-9202-4b9f-b915-155f9185770f@kernel.org>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Mon, 26 Oct 2026 20:19:43 +0100
+X-Gmail-Original-Message-ID: <CAJZ5v0gG_n4ZhKB_omJwCr6oTmOMRhzKvOga2C30642V+VFbiQ@mail.gmail.com>
+X-Gm-Features: AclHuK9sMqetImTZUXdcLYTZLw_3JvQOFqqTMwxs-3YQwLm7ZNxrltJEjuCHbGs
+Message-ID: <CAJZ5v0gG_n4ZhKB_omJwCr6oTmOMRhzKvOga2C30642V+VFbiQ@mail.gmail.com>
+Subject: Re: [PATCH] PM: suspend: Do not call suspend_ops->begin()/end() for s2idle
+To: Claudiu Beznea <claudiu.beznea@kernel.org>
+Cc: Ovidiu Panait <ovidiu.panait.rb@renesas.com>, rafael@kernel.org, lenb@kernel.org, 
+	pavel@kernel.org, linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Oct 26, 2026 at 05:28:19PM +0100, Uwe Kleine-König (The Capable Hub) wrote:
-> A driver module matching devices using a PCI device id table is
-> supposed to declare that in the module's metadata. Add this information
-> to the sodaville driver.
+On Mon, Oct 12, 2026 at 11:42=E2=80=AFAM Claudiu Beznea
+<claudiu.beznea@kernel.org> wrote:
+>
+>
+>
+> On 10/5/26 14:11, Ovidiu Panait wrote:
+> > Commit 7602c0ec0bbf ("firmware: psci: Set
+> > pm_set_resume/suspend_via_firmware() for SYSTEM_SUSPEND") made
+> > psci_system_suspend_begin() call pm_set_suspend_via_firmware(), so that
+> > device drivers can prepare for the possible removal of the power before
+> > PSCI SYSTEM_SUSPEND.
+> >
+> > Since then, on platforms where PSCI firmware supports SYSTEM_SUSPEND,
+> > pm_suspend_via_firmware() returns true during both s2ram and s2idle.
+> > This is inconsistent, since SYSTEM_SUSPEND is only invoked for s2ram.
+> >
+> > This was observed while investigating PCI-related suspend/resume issues
+> > on Renesas platforms (RZ/G3S, RZ/V2H), and was traced to
+> > platform_suspend_begin() falling back to suspend_ops->begin() (PSCI in
+> > this case) when there is no s2idle_ops->begin() callback:
+> >
+> >    platform_suspend_begin(PM_SUSPEND_TO_IDLE)
+> >      suspend_ops->begin()
+> >        psci_system_suspend_begin()
+> >          pm_set_suspend_via_firmware()
+> >
+> > platform_resume_end() falls back to suspend_ops->end() in the same way.
+> >
+> > Since s2idle has its own set of callbacks in s2idle_ops, make
+> > platform_suspend_begin() and platform_resume_end() only invoke those fo=
+r
+> > s2idle, like the other platform_*() helpers do.
+> >
+> > Signed-off-by: Ovidiu Panait<ovidiu.panait.rb@renesas.com>
+>
+> Tested it on top of
+> https://lore.kernel.org/all/20261007053645.1391545-1-claudiu.beznea@kerne=
+l.org
+>
+> You can add:
+> Tested-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+>
+> Should "Fixes:" tag be added as well?
 
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Added and applied the patch as 7.4-rc material, thanks!
