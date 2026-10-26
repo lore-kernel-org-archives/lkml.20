@@ -1,60 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.2
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793006029;
-	b=xOgKAriAUAVXtk+flrrQ5uQiZqqajbT1Lx3j93DNciYizRnKMmneGuFYFrrjWgegEf8I
-	 Ua6FVrqUepjoCr5LIRz58Wcdb86Ogc+hRiT/Y0eMGn4Rh4uimvws8CTEtmZCHgJS3diw7
-	 byDjLwcoAhsqJagSBw/tBUTTpuR08Stgl4DTwZBez94/K9Lh6Wu8S7rqFpuPtB0avXmEQ
-	 jiuW7pHDuqst4DoaCC/XCqI7Luus4kpP6wgnyMcenOp7yIpgmi6JZIeri5qk8u3eYIaoZ
-	 Wu1LrQTU8kv0BgH6AcCeQD9zq4aSkkQ1oXzIQVupp2VmaZA9/OVoYaXRvZwu83wKMkg==
+	t=1793006065;
+	b=3Qg2Uuz90ptqvyAbCFN7BQgtN7fkpCA4EETb9fjCeOtK3mC7wcZxFrXQvnv17fq0BhhP
+	 gEIFUNmWJ2sTH3ZKlEE32CwSbJZDS+joMe8/URUjxoc4Ls2hSp28wTY8h5e6H6BiHpDrC
+	 tcg+hArG9QyzxA1hJGbneY2gdaT3sJ3PrAA07xGmihjCulQHp1MfpuUN/wQUaamCc/iXz
+	 1z2mZQz1E3EYW5s7s8kwOtw8VTQA8r0OKBVQtkBl0vDaLQudf8Im5FCoYEsRpvommOkLP
+	 VlXG9USvZUIDtPIV4LaIJYOMssi5+MnAuHTlk2Vr9Hr1Sxpxvdk+QM5sDrTgeC36vbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793006029;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=43pDqq6vFSrPujroVpHFrIOYtAlfbhzMNFlambJDvYU=;
-	b=pKEYMCPqaRy32zXd8J2V6sfeqN+OPTPP8lt98KK+DRKPiui4nHtqzXC2bO8VM0DL5UF1
-	 dngdYU9/2cmRc49MZw0UTYbjcJl1UmYJfo64ERqWTz1OrLmzBJMLpWBn1bPV+lLl5kOuG
-	 PYfM3tEklPkbtFeq6mO39raxVi9wLI6TQYMWs9AQBe8DY6q41NHWmZBeqaRIdCfq7hDOn
-	 LegnMs5diz1qLDBsIiK0kZoQu/+6ln1LPzZ2+sBvwcrGtML20F/5qzuzc17LCuha3ZDXu
-	 r5usXhDBQfb0oO53JNErXEl7GKvUnCEyZc3fz2VSp1PznIlXt68Oal5pVNAU42E3N/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793006065;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=bwsdZw0/JzbTp7fNB/am0/APd5GfUL8IVr8c+H1Agpg=;
+	b=JfENZratgeeUoks8LgzWITnX13w/yg46N+tQhXf7uM+HcTKylkXz43+BHVnu6C0kCjq3
+	 /WIHqc+dACyxisixr9W3RGindSKbMNIrVFAj8BgPbmRSIfbolM1FX4PoRuFVekFN39CNZ
+	 nPozkv0aa9YAsOKbG15uDwAAd+GAb/AgyP6E3DCL1p+NgFhIrbCU53it8HpjJ0v8vQ5Xa
+	 cL90g0Wby1m8ZItBle00wjM3C/0MYY+5Gr75YzJ2NyevFoFBdYs31ZDGVXjrRU3skwgQ6
+	 aGGjqIUiXBcG2RqRJ6Q5nCc9gwGRGF3xCbGjSd02z11f8Uh9aBgCOxMYLdTUDdxUC7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nxsw.ie;
-	spf=pass smtp.mailfrom=nxsw.ie;
-	dkim=pass header.d=nxsw.ie header.i=@nxsw.ie header.a=rsa-sha256 header.s=protonmail2 header.b=k0vbnGt6;
-	arc=none smtp.remote-ip=185.70.43.20
-Received: from mail-4320.protonmail.ch (mail-4320.protonmail.ch [185.70.43.20])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=CWnPq8c2;
+	arc=none smtp.remote-ip=220.197.31.2
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E657D606A31A;
-	Mon, 26 Oct 2026 09:13:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E657D606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nxsw.ie
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxsw.ie
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51129606A325;
+	Mon, 26 Oct 2026 09:14:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51129606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nxsw.ie header.i=@nxsw.ie header.a=rsa-sha256 header.s=protonmail2 header.b=k0vbnGt6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxsw.ie;
-	s=protonmail2; t=1793006026; x=1793265226;
-	bh=43pDqq6vFSrPujroVpHFrIOYtAlfbhzMNFlambJDvYU=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=k0vbnGt6SA00S/ZTZ2pTxa3t+Yd0kPoKH7Q43Ik1CU6iahsNUQXItsKWSvR9ZvoDt
-	 8Qpj2n/ksnKgTQHhsSCpEAByYhguGrrLQ3RxbOKH/R3iPIblWF54u5CfQCFR7EC5yx
-	 2l2kIzln1giHMYm7CYP0au3BXnZOMeUkoLjrg6fnWVUqfJgrEH/Ku+WAUiGupse2cz
-	 N/aXiGAUsW4/wBNnifdGzddEOeCiLAFgXMii9Ipc3ePqY2OZFkmZyPWaYSYkIp9M1+
-	 YQl3cTGTMN5iZDiKNbMtgiqFsH5pPonU6NhFVF5/5jkZf+CTvCV4mL3Rj/1IR6DAX3
-	 Ps3X+i9AubbrQ==
-Date: Mon, 26 Oct 2026 09:13:40 +0000
-To: Atanas Filipov <atanas.filipov@oss.qualcomm.com>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Mauro Carvalho Chehab <mchehab@kernel.org>
-From: Bryan O'Donoghue <bod.linux@nxsw.ie>
-Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Loic Poulain <loic.poulain@oss.qualcomm.com>, Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>, linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 4/6] media: qcom: camss: share VFE clock sources by the highest rate
-Message-ID: <4d01af69-0942-47a8-a1cc-be52f520184d@nxsw.ie>
-In-Reply-To: <20261024094027.3095475-5-atanas.filipov@oss.qualcomm.com>
-References: <20261024094027.3095475-1-atanas.filipov@oss.qualcomm.com> <20261024094027.3095475-5-atanas.filipov@oss.qualcomm.com>
-Feedback-ID: 136405006:user:proton
-X-Pm-Message-ID: 2a8ea65834f7989086f16bec1556eeae0430390c
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=CWnPq8c2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=bw
+	sdZw0/JzbTp7fNB/am0/APd5GfUL8IVr8c+H1Agpg=; b=CWnPq8c2jVPXRTFXZ9
+	y/CjUH43xo0G2IdLnS83eqVFTIHmC7U2Y2HWpmqaoboB3xcLwhkGpBuzgdSsrEIo
+	adFBdgh6qUjxr5Nq+5cF6KkWAdwWWHadZTZtBJHPqWE/7IG3GSsrIUIszbQkykBy
+	GvgMYMlUl+aeJyh7AvKN0eyCs=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD332jHGd9q4hmLCw--.8486S6;
+	Mon, 26 Oct 2026 17:14:03 +0800 (CST)
+From: Qunqin Zhao <zhaoqunqin@163.com>
+To: bp@alien8.de
+Cc: tony.luck@intel.com,
+	linux-edac@vger.kernel.org,
+	chenhuacai@kernel.org,
+	zhaoqunqin@loongson.cn,
+	linux-kernel@vger.kernel.org,
+	Wusheng <wusheng@loongson.cn>,
+	Wang Jinwei <wangjinwei@loongson.cn>,
+	Huacai Chen <chenhuacai@loongson.cn>
+Subject: [PATCH v5 4/4] EDAC/loongson: Add CS4-7 timeout filter for cross-node access
+Date: Mon, 26 Oct 2026 17:13:32 +0800
+Message-Id: <20261026091332.30226-5-zhaoqunqin@163.com>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20261026091332.30226-1-zhaoqunqin@163.com>
+References: <20261026091332.30226-1-zhaoqunqin@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,63 +68,112 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD332jHGd9q4hmLCw--.8486S6
+X-Coremail-Antispam: 1Uf129KBjvJXoWxZFy7GFyUCF45Xw18Ar1xAFb_yoW5uF45pF
+	W5Can8trW0gr1q9w1ktrWUZa45CFZagFZrWFZ3A34rWr9Iy34DZryagr12vFn8A34Fyr15
+	X3WrKr4xCF4UAa7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j5NVgUUUUU=
+X-CM-SenderInfo: 52kd01pxqtx0i6rwjhhfrp/xtbC7hsPTmrfGdvtRQAA3r
 
-On 24/10/2026 10:40, Atanas Filipov wrote:
-> Clocks of different VFEs can be fed by one clock source, and each VFE
-> sets such a source to the rate it needs. A VFE started later at a lower
-> rate then lowers the source under a VFE that is still running.
->=20
-> For example, on SM8250 the two VFE Lite share one core clock source,
-> which the VFE sets to 400 or 480 MHz from the pixel rate. With VFE Lite
-> 0 streaming the CSID test pattern at 480 MHz, starting an imx577 stream
-> on VFE Lite 1 sets the shared source to 400 MHz under the running VFE
-> Lite 0.
->=20
-> Group the VFE clocks with rate tables by their clock source at probe
-> time. A source shared by several VFEs follows the highest rate requested
-> by its running VFEs and drops to the highest remaining one when a VFE is
-> powered off; with no VFE left it keeps its rate, as it may feed
-> consumers outside CAMSS. A source used by a single VFE is dropped to its
-> lowest rate on power off. Clocks whose rate the VFE does not set are
-> left untouched.
->=20
-> In the example above the shared source stays at 480 MHz until VFE Lite
-> 0 stops, and then drops to the 400 MHz still requested by VFE Lite 1.
->=20
-> Grouping is enabled through the vfe_clock_domains resource flag, so far
-> only on SM8250. The current parent of an RCG depends on its last rate,
-> so other SoCs keep setting their VFE clocks directly.
->=20
-> Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
-I think this patch can be dropped.
+From: Qunqin Zhao <zhaoqunqin@loongson.cn>
 
-clk_set_rate_range() is a CCF provided aggregator which will allow a VFE=20
-or another consumer of the same clock to set an effective floor -=20
-without having a driver-specific voting framework.
+On Loongson 3C6000 multi-node systems, when the EDAC driver running
+on one node accesses the memory controller registers of another node,
+the read operation may timeout and return random values. This causes
+false CE error reports because the random values in CS0-3 (low 32 bits)
+are misinterpreted as valid ECC error counts.
 
-/* vfe_get() */
-ret =3D clk_set_rate_range(clock->clk, rate, ULONG_MAX);
+For cross-node accesses, check CS4-7 (high 32 bits) of the ECC
+count register. If the valid-cs-bits firmware property is set and
+the high bits are non-zero, it indicates a timeout or random value,
+so skip the report and return the previous count.
 
-/* vfe_put() */
-clk_set_rate_range(clock->clk, 0, ULONG_MAX);
+To avoid undefined behavior on 8-CS systems where valid_cs_bits=64,
+guard the shift with a bounds check (valid_cs_bits < 64).
 
-This should subtract:
-
-- camss_clock_domain
-- camss_clock_vote
-- camss_init_clock_domains()
-- Associated boiler-plate code, mutexes etc
-
-This holds for camnoc_axi and vfe_lite clocks.
-
-On release, relax the range first and then clk_set_rate() to the lowest
-listed rate explicitly.
-
-Bundle that into patch #6, a driver-specific clock aggregation mechanism=20
-isn't required.
-
+Signed-off-by: Wusheng <wusheng@loongson.cn>
+Signed-off-by: Wang Jinwei <wangjinwei@loongson.cn>
+Signed-off-by: Qunqin Zhao <zhaoqunqin@loongson.cn>
+Reviewed-by: Huacai Chen <chenhuacai@loongson.cn>
 ---
-bod
+ drivers/edac/loongson_edac.c | 25 ++++++++++++++++++++-----
+ 1 file changed, 20 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/edac/loongson_edac.c b/drivers/edac/loongson_edac.c
+index eb240e418e7..c3cc5642f98 100644
+--- a/drivers/edac/loongson_edac.c
++++ b/drivers/edac/loongson_edac.c
+@@ -27,6 +27,7 @@ struct loongson_pvt {
+ 	 */
+ 	int last_ce_count;
+ 	u32 mcs_per_node;
++	u32 valid_cs_bits;
+ 	bool mc_idx_valid;
+ };
+ 
+@@ -37,11 +38,21 @@ static int read_ecc(struct mem_ctl_info *mci)
+ 	int cs;
+ 
+ 	ecc = readq(pvt->ecc_base + ECC_CS_COUNT_REG);
+-	/* cs0 -- cs3 */
++	/* Discard the read value if any invalid bit is set to 1 */
++	if (pvt->valid_cs_bits < 64 && (ecc >> pvt->valid_cs_bits)) {
++		edac_mc_printk(mci, KERN_DEBUG, "ECC read invalid, skip: 0x%llx\n", ecc);
++		return pvt->last_ce_count;
++	}
++
++	/* cs0 -- cs7 */
+ 	cs = ecc & 0xff;
+ 	cs += (ecc >> 8) & 0xff;
+ 	cs += (ecc >> 16) & 0xff;
+ 	cs += (ecc >> 24) & 0xff;
++	cs += (ecc >> 32) & 0xff;
++	cs += (ecc >> 40) & 0xff;
++	cs += (ecc >> 48) & 0xff;
++	cs += (ecc >> 56) & 0xff;
+ 
+ 	return cs;
+ }
+@@ -111,14 +122,15 @@ static void dimm_config_init(struct mem_ctl_info *mci)
+ }
+ 
+ static void pvt_init(struct mem_ctl_info *mci, void __iomem *vbase,
+-		     bool mc_idx_valid, u32 mcs_per_node)
++		     bool mc_idx_valid, u32 mcs_per_node, u32 valid_cs_bits)
+ {
+ 	struct loongson_pvt *pvt = mci->pvt_info;
+ 
+ 	pvt->ecc_base = vbase;
+-	pvt->last_ce_count = read_ecc(mci);
+ 	pvt->mc_idx_valid = mc_idx_valid;
+ 	pvt->mcs_per_node = mcs_per_node;
++	pvt->valid_cs_bits = valid_cs_bits;
++	pvt->last_ce_count = read_ecc(mci);
+ }
+ 
+ static int probe(struct platform_device *pdev)
+@@ -127,7 +139,7 @@ static int probe(struct platform_device *pdev)
+ 	struct mem_ctl_info *mci;
+ 	struct device *dev = &pdev->dev;
+ 	void __iomem *vbase;
+-	u32 mcs_per_node;
++	u32 mcs_per_node, valid_cs_bits;
+ 	bool mc_idx_valid = true;
+ 	int ret;
+ 
+@@ -165,7 +177,10 @@ static int probe(struct platform_device *pdev)
+ 	if (device_property_read_u32(dev, "mcs-per-node", &mcs_per_node) || mcs_per_node == 0)
+ 		mcs_per_node = 4;
+ 
+-	pvt_init(mci, vbase, mc_idx_valid, mcs_per_node);
++	if (device_property_read_u32(dev, "valid-cs-bits", &valid_cs_bits))
++		valid_cs_bits = 32;
++
++	pvt_init(mci, vbase, mc_idx_valid, mcs_per_node, valid_cs_bits);
+ 	dimm_config_init(mci);
+ 
+ 	ret = edac_mc_add_mc(mci);
+-- 
+2.47.2
 
