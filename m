@@ -1,96 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793028563;
-	b=pX9oi0nGWsQ0XTH8RmQrNMlGoPRnlXxzgsvJ5DUUpF6vB9Jq+dj3dOtBqxL1BEAEMDCc
-	 +G5veJPyoW4LbQ55EosprfmTYLWA9JKPrzRm2ESeu8TAy63KoBH0ybunbS25u60VTECLt
-	 MaJ2FHoP4YVRcxq2J7Qqoe1pMnVOKfAPZDIg58Dm5iMyOAN21zklHKsaIbQnSzkSwwPtq
-	 AulgIptYNBAdwzeg6lbGwgarupaBTQZfcSihNTb+cKJmiQMychrQ1nk7yb6lgn6FUttBx
-	 MZDMuoxzZ6/jM6kIRp9CA/HX2uNWUGD1b6RneDuPNdVC/cGQik8Dl9ZN+y5gL8vyByA==
+	t=1793028585;
+	b=WViT9b6Q/NtroIkhBBhap+ONbwyT6ddH4pKoAMTci9ZPuoXRCtfWlZmylIFDQpY3hvgv
+	 JyPTne3af+4I84CyDFMtczhyns5FtSQ0UzDoTKyjp8nTdvmUU0M4hAKkW72SS6lXakuZr
+	 hIEuNB3desAIC6tG3Y4yPcAkaZeSgrmtjglwzxntp0MOcK93G2GSR2y8Bfk/4nLHuGI88
+	 2w3JjQuNwVXhWb4KiezSWCwMgcnjK/rVDuOtAIDyfj0vcRMloQYYSt63ITfcLhJ6G8y/c
+	 EotJz3yWB4E/j2xemudA5g3fv9DQxu3EcacrCn5+J9ZBAddAK+8JKBZVjgBxgZO/kRQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793028563;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793028585;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:
-	 X-Google-Original-From:Date:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=8iZubcz038EY8c4oZtKV+g//UmaZbw0VPeAJAfl9gbs=;
-	b=ny70qwEmv82ldWBJnHteUa+gJeDZN69R9t/Ac0n+boxBnvAY7+80u8nOPEfO+BChQ7ZJ
-	 F6ArFUM3YBZmt7rQwE7yGtcg5+HojVnu7QlJvVxeo79eOb/NcOVH4S/ZMx6SKQ1MEg/kX
-	 lIF5bSP8413ABQWRBiqkc8PsdIWkISFLj4LRhRKchG6Nk+Qi+Gjv/NcgfMnVVVO8uc5Kw
-	 3j5N1r/CCphRWT7SOmxSCbQ2oi9XRNUaxYf8aJgpxoL3l5DW/9D+YQpWwmN1McCDgc53F
-	 oa3qcFf3iliJWronlZDBbo0AvwnjL2RCFIj/JY1hC7RqPgUY4FZYc/SL7oR3WrkXRbw==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=ZgmulRLKrW7tQEaXo/z3vIG+CpDs5q5KiagK/MmeFLo=;
+	b=MQx0NmQNZZ15LNq00hf1sXmmn73orTjxalvxr2ZcDkIAY/JroDBwUhhDBb3VGRkjeUMy
+	 oaiM5J9VP1O0yByI/j8+QuLC9rO5IYkpDoTG9VL/8wHDzdAqjoTLShmQ9Ee6jXYV0vLYW
+	 oYIfM6WQoxqdgIaUCK+0UOig54OYvwRK2edA3hJbttaj/cow+D/cdHKp43GeJ82TtNPxx
+	 Uff0zMbl0KLMt+dJOOcMJIvGQlvnjWjnKjhuvz/SxnXIJtv0vSGlC3JTEaNFP+HQBBr53
+	 RlOXKx7cWvxtKZTBYV+SswJ1eEoK21+UjBjzV1luX7734mCIQFE1ikdAwpH9/kwljag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="n/3EmII+";
-	arc=none smtp.remote-ip=209.85.215.169
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=W+sDuWlW;
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26FF7606A31B
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 15:29:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26FF7606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A3A4606A321
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 15:29:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A3A4606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=n/3EmII+
-Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cd5cd8d89a7so921817a12.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 08:29:22 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=W+sDuWlW
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a1fbd52ab6so20092285e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 08:29:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793028562; x=1793633362; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=8iZubcz038EY8c4oZtKV+g//UmaZbw0VPeAJAfl9gbs=;
-        b=n/3EmII+fJ3KhXyCQp9OEAWpnHIEVyvrQJ1AzXdeKd0KhvvrNiJNZtCH4Gj55qCChy
-         q2DyGFrBEWIZ8NO+qHPrl/AFajFpUQIRdQnIMx9BBZV7oJWloxHlED+nsYrFCkmqqoIf
-         PFX5J+e0NMDoVfhMUi/4b+hA3ss5n3qwKz3J/1JfpswNsbxfbBKmfYEzSa+4e5AZbgWL
-         xtpMqxmQMC0Gh0ZTd7nLGGX0NzBGE+Mmur1OF2t9GnRaxPk0xPdAghfCfB31U9g54r4k
-         9/pN4Da0ifQQvbcjqz2k9bcsAwyNxSh3X2GopNHSIrWhmnfcZ0KTW84YAe/ea33TbZiW
-         3mBw==
+        d=gmail.com; s=20251104; t=1793028583; x=1793633383; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZgmulRLKrW7tQEaXo/z3vIG+CpDs5q5KiagK/MmeFLo=;
+        b=W+sDuWlWiNzSRkkpY65k70p/Rmnz9jLZTBL4Eqy6KxH+22jfRdLRkUs7LOkVDfCnBR
+         Rpw7xlv+6Ay3sCZ/Q13g8431y4UeiEvw/Qp7wOIbQdNGiK/+qEwjNB4byvvIlPULNeKD
+         VswW86ODYjTvxMwN4bOwOZelKWYYz4TFjoNzAXJ8P72NoBjDtDsv+Mc9L1rPKJiMhX1j
+         xVHVOdhOv50Ap70wRrGTA/oaem+V4dfHbyhA6NVcEmxGmMuYOGtMyk/W9+6Ekc5OzWDj
+         ijYtm/0xbDWjHeog8vcXZ+kZUA2qGz/Jq/BRi07AjclrYpnCNRT4nftLr7weGUfqIpOk
+         Oy9w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793028562; x=1793633362;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8iZubcz038EY8c4oZtKV+g//UmaZbw0VPeAJAfl9gbs=;
-        b=lqiLrl1xTXon0rCnKnm6SH3rEe3cbFGlUU/PoebLNBBOJXrLzQbE7E9EexYHtHlBIr
-         vUlIHlZulTlhZGomK4voXxK1H/kztTw7pGXl42P3kKFZ+45Jc8byQStig/EjfD6qEW2x
-         Lhe5Tekb2hirfrZT4wCvo8/yVn0UgKUpoFykcKTifKU5Cer5VmHzLiecIJHzqTKvq8iH
-         uO9OqejOpL5Vn2qRCgPVyysHI0gQYKyLtXWXZvJxPcJTE6aF8wmDGhobSqLx/PScku7x
-         tQRDg9oIcBb9lS+371W6Y54oktrbivnQpjhB7nhtps/3YKCq0UsOg4wZZIr+tm803rh/
-         6wQg==
-X-Gm-Message-State: AFq9FYI8MmIJf8irW8Exewn/sYAT77d+ONp8v/RxrT4AvxZ2MlQWyGxl
-	JxUmKwXSeyAwWirxoa2hI1eliQ/zjTEbd2Dsay3Q0O5KYSkN5hWysXJB
-X-Gm-Gg: AYBFou0p+qf1P4SZOCKE7c7f3Sg4IWvgLN7U4lIYtXBSCn51/zJ5O/UcQpVglLcb/J/
-	ZN/U1XWjGnTIi5cwCDGcOsXrCjQAgpmOanfYHMKnONPRae9cq683FWsl6WOcJLsocqesFRYw7t7
-	KgXkQ5ajSIaiW0sSjlHEBx/uTdQz13Iw6ixhFTeWA2P92TDJgKIu9OmFzlfliZmqq+KrgN8Bipp
-	Ri109XFDHgoxsvCQBmT110wvhEHvJjRWYhFEVUNc7OxGfaLoJNXoMStzIsURSKqoGO11KkUusyf
-	bubDlpXNdMUOrygalHyZOlRZB+8lE8HvJiYkea2+IHe/G+4kgynvflg1pQKvZTZ4+1OMmeKhDk0
-	xPY/pDd+fizkUna24iuMF5IbenmO4c0x4qZEBYrJ0DyTiuIQNwR9BXHKPH5LduMNbL5Z0mcS2UH
-	c/f1VSaJmsm6XwMAJpjti5q/sMLkocGcM9FVjD8GKN8P7DhSEMVN5Kg/jk6jsIDdS+yVE3Zh3/p
-	aBBQ90YDKFFL8l1OP+NxOTHXcMkxDQHZILPr8hsQs3ibQPPVSuwjkr0jjzKK7mT1KEOSBb+4+70
-	HR9V25hbEgBUol+eRPnaECLyv0hJhhRtk2Wi1ZiFcwcLHaI68QU=
-X-Received: by 2002:a17:90b:1c8b:b0:3a8:c0cd:57f3 with SMTP id 98e67ed59e1d1-3adea8966a7mr5554619a91.18.1793028562351;
-        Mon, 26 Oct 2026 08:29:22 -0700 (PDT)
-Received: from RDEALENC-L01.ad.analog.com (158.95.44.30.netskope-rdns.com. [158.95.44.30])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae403d0d9dsm3332a91.15.2026.10.26.08.29.18
+        d=1e100.net; s=20260707; t=1793028583; x=1793633383;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZgmulRLKrW7tQEaXo/z3vIG+CpDs5q5KiagK/MmeFLo=;
+        b=qwfMrSmsLghGtp+TVlBq4BBjv4lTfwwvOFAerCyvYNqoAKi5A8I7U1nsMT1N7a5kcO
+         PudPl1zMPAhyAUyh1dc9QKmHCVIJYHlj9KIDlubtdj1O/ckL2gew94CQ4qpShsW9nRub
+         UJSvsVMqMYCsN1kzzZfBpiau2zlXM7hu9xEk6wTq56552R1HK6Ga1l9oHD9kYImIVzHr
+         gIGODx3hT4lzIhl5nKabQGcQJ0kL9MCwWHl5pmJv/WoAfEH1VCTyZlH7w80eXHfHHtUV
+         +eA0+CpgnoPpGfZyFJlGWOZYqWg4zR/h1+XIq/53XNpJ/85F4HHYaK23AGBbq2yroI5N
+         XwUg==
+X-Forwarded-Encrypted: i=1; AKwUvBwDeCZiKHy9xRNRheiveEQz83asEE/cd03yQlvQT0P3mz3h7yDQlFGJTuxNrAHF1YEA4SJh4HtyZj1BCSA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIP+SYkLavySuI9c474HHm0PYX6thzP4JDJfRGfSuleFwR2X2ps
+	2bPWO1iqk4sc6A44u3hhb8gOdhyGImBC1zB2AICtHPZYViVItfArbBYxx4LYBAdL
+X-Gm-Gg: AYBFou0sxKDV2XLGFAd7P7YLINTH5/ggmOmcQKF5WNc29kmfBVElFDZ3FmVSdl5B+I+
+	E0Vfvb+SBZsJFP6YJL1k4b/lAm58EEtxUqz20w+R1AxjgLvdYHpAF2YgKa/QEP9J+ZbXMeUBqLo
+	u6JcudFice0Y0zSnPtsUaWuc/EBJIN1cGtEdffUZ2fq1R5gVT/0QGgX+O9LBDQYt5jDkaySW4Om
+	fyQAdf4unZEydB2WAL5YAxyZ9SXMKn7HzIpC3eH5bkb9oaY2CfL3Z3Bvl+1kj/IB5zY00ehGd0C
+	adL2jjG+cnV0f11Wfrp3/cAwqvwp0m1+TvRFF1PyHQCKz1lhbeEBGmzkeqtgZlCwcMlUggPhim4
+	ps9PAPY3lZAEWfh8DVbJuTjmrGqgraKrt8obkp3fZOqQi6OKmdX3iZbvZZr0BcBSzQJZ8THZJmH
+	WRaaZO5m1D08JeHLWo4aApSSUURifktFoKIipkUOiqcQ9AO1P1SmADhe4nA5KkezDtqll4QEbtP
+	NB4qwJ3PNMmq46MaaS8NzNvWbYIjRQolZdTB4YdaydyJHF3F1PbQwMIMYJ2uw==
+X-Received: by 2002:a05:600c:6088:b0:4a1:fae5:f2e2 with SMTP id 5b1f17b1804b1-4a35ac3b010mr120429325e9.4.1793028582721;
+        Mon, 26 Oct 2026 08:29:42 -0700 (PDT)
+Received: from deb05.proceq.com ([213.160.61.66])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebd4ba7sm17255244f8f.33.2026.10.26.08.29.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 08:29:21 -0700 (PDT)
-From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
-X-Google-Original-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-Date: Mon, 26 Oct 2026 12:29:16 -0300
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org, 
-	Andrew Morton <akpm@linux-foundation.org>, Jonathan Cameron <jic23@kernel.org>, 
-	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>
-Subject: Re: [PATCH v4 4/6] iio: test: rescale: compare scales against the
- precision of the output
-Message-ID: <r3mtebdkezwd4sfpnqp2e3mo3bjqzzgdyyfcw3h5x6mqp5cskz@4d72r3r2wpkm>
-References: <20261026-e-notation-v4-0-a366a6d14d57@analog.com>
- <20261026-e-notation-v4-4-a366a6d14d57@analog.com>
- <at9mXdRhiM-9TVyg@ashevche-desk.local>
+        Mon, 26 Oct 2026 08:29:42 -0700 (PDT)
+From: Mehmet Fide <mehmet.fide@gmail.com>
+To: Ping-Ke Shih <pkshih@realtek.com>
+Cc: Luka Gejak <luka.gejak@linux.dev>,
+	Bitterblue Smith <rtl8821cerfe2@gmail.com>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	mehmet.fide@screeningeagle.com
+Subject: [PATCH rtw-next v9 1/3] wifi: rtw88: download the beacon the reserved page was built with
+Date: Mon, 26 Oct 2026 16:29:38 +0100
+Message-ID: <20261026152940.1274382-2-mehmet.fide@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261026152940.1274382-1-mehmet.fide@gmail.com>
+References: <20261026152940.1274382-1-mehmet.fide@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,53 +99,161 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <at9mXdRhiM-9TVyg@ashevche-desk.local>
+Content-Transfer-Encoding: 8bit
 
-On 26/10/26 16:40, Andy Shevchenko wrote:
-> On Mon, Oct 26, 2026 at 08:54:08AM -0300, Rodrigo Alencar via B4 Relay wrote:
-> > 
-> > The scale tests format the rescaled value with iio_format_value(), which
-> > prints at most nano precision, and require the relative error to the
-> > expected value to be below 1 ppm. Both strings are parsed back with
-> > iio_str_to_fixpoint() at nano precision, so for the small scale cases the
-> > check only passes because the expected value, like the formatted one, is
-> > truncated to nano. For example, "0.000000033594" is parsed as 33 nano,
-> > equal to the formatted "0.000000033", although the actual error is about
-> > 1.8%. If the expected value were rounded instead, it would be parsed as
-> > 34 nano and the test would fail even though the output is as accurate as
-> > the format allows.
-> > 
-> > Parse both values with kstrtodec64() at a scale of 10, one digit more
-> > than the output precision, so the expected value keeps the digits lost
-> > when formatting. Scale 10 is the largest that still fits the overflow
-> > cases (about 2.1e8) in an s64. Compute the relative error with
-> > mul_u64_u64_div_u64(), as the product with 10^6 no longer fits in 64 bits
-> > for those cases.
-> > 
-> > Then allow a relative error up to the relative size of one nano of the
-> > expected value, the precision of the formatted output. This is 0 ppm for
-> > values of 0.01 and above, so those cases are checked as before, and it
-> > accepts the formatting error for the small scale cases.
-> 
-> ...
-> 
-> > +/*
-> > + * iio_format_value() prints scales with up to nano precision. Parse values
-> > + * with one more digit, so the expected values keep the precision lost there.
-> > + * Scale 10 is the largest that fits the overflow test cases in an s64.
-> >   */
-> > +#define IIO_TEST_DEC_SCALE	10
-> > +#define IIO_TEST_NANO		10	/* one nano at IIO_TEST_DEC_SCALE */
-> 
-> I would put them as (9 + 1) to show that actually show that "with one more digit".
-> I also don't follow the comment near to the last definition. What does it mean?
+From: Mehmet Fide <mehmet.fide@screeningeagle.com>
 
-With decimal scale of 10, a unit is 10^-10, 10 units is 10^-9 = NANO, which is
-the scale used in iio_format_value().
+rtw_fw_download_rsvd_page() downloads the beacon twice: once as part of
+the reserved page and once more on its own, so that the firmware ends up
+with a TX descriptor that describes the beacon rather than the whole
+page. The second download fetched a new beacon from mac80211 instead of
+downloading the one the page already holds.
 
+Besides the extra work, every beacon fetch advances the DTIM count and,
+while a channel switch is announced, the CSA countdown; doing it twice
+per update lets a countdown that starts at 2 reach 0, which mac80211
+warns about. Hand the beacon skb out of the page build and download
+that. The hw scan, which downloads the beacon without a page build,
+keeps fetching its own.
+
+Signed-off-by: Mehmet Fide <mehmet.fide@screeningeagle.com>
+Reviewed-by: Luka Gejak <luka.gejak@linux.dev>
+Acked-by: Ping-Ke Shih <pkshih@realtek.com>
+---
+
+Notes:
+    Changes in v9:
+    - none
+    
+    Changes in v8:
+    - none
+    
+    Changes in v7:
+    - none, rebased on rtw-next
+    
+    Changes in v6:
+    - none
+    
+    Changes in v5:
+    - none
+    
+    Changes in v4:
+    - none, rebased on rtw-next
+    
+    Changes in v3:
+    - the beacon out-pointer is initialised in the caller
+
+ drivers/net/wireless/realtek/rtw88/fw.c | 34 +++++++++++++++----------
+ 1 file changed, 21 insertions(+), 13 deletions(-)
+
+diff --git a/drivers/net/wireless/realtek/rtw88/fw.c b/drivers/net/wireless/realtek/rtw88/fw.c
+index 945fedcd375b..3cd17a3bb494 100644
+--- a/drivers/net/wireless/realtek/rtw88/fw.c
++++ b/drivers/net/wireless/realtek/rtw88/fw.c
+@@ -1622,7 +1622,8 @@ static int  __rtw_build_rsvd_page_from_vifs(struct rtw_dev *rtwdev)
+ 	return 0;
+ }
+ 
+-static u8 *rtw_build_rsvd_page(struct rtw_dev *rtwdev, u32 *size)
++static u8 *rtw_build_rsvd_page(struct rtw_dev *rtwdev, u32 *size,
++			       struct sk_buff **beacon)
+ {
+ 	const struct rtw_chip_info *chip = rtwdev->chip;
+ 	struct ieee80211_hw *hw = rtwdev->hw;
+@@ -1702,13 +1703,15 @@ static u8 *rtw_build_rsvd_page(struct rtw_dev *rtwdev, u32 *size)
+ 	list_for_each_entry(rsvd_pkt, &rtwdev->rsvd_page_list, build_list) {
+ 		rtw_rsvd_page_list_to_buf(rtwdev, page_size, page_margin,
+ 					  page, buf, rsvd_pkt);
+-		if (page == 0)
++		if (page == 0) {
+ 			page += rtw_len_to_page(rsvd_pkt->skb->len +
+ 						tx_desc_sz, page_size);
+-		else
++			/* the caller downloads it once more on its own */
++			*beacon = rsvd_pkt->skb;
++		} else {
+ 			page += rtw_len_to_page(rsvd_pkt->skb->len, page_size);
+-
+-		kfree_skb(rsvd_pkt->skb);
++			kfree_skb(rsvd_pkt->skb);
++		}
+ 		rsvd_pkt->skb = NULL;
+ 	}
+ 
+@@ -1723,11 +1726,12 @@ static u8 *rtw_build_rsvd_page(struct rtw_dev *rtwdev, u32 *size)
+ 	return NULL;
+ }
+ 
+-static int rtw_download_beacon(struct rtw_dev *rtwdev)
++/* the beacon the page was built with, or a fresh one for the hw scan */
++static int rtw_download_beacon(struct rtw_dev *rtwdev, struct sk_buff *beacon)
+ {
+ 	struct ieee80211_hw *hw = rtwdev->hw;
+ 	struct rtw_rsvd_page *rsvd_pkt;
+-	struct sk_buff *skb;
++	struct sk_buff *skb = beacon;
+ 	int ret = 0;
+ 
+ 	rsvd_pkt = list_first_entry_or_null(&rtwdev->rsvd_page_list,
+@@ -1744,7 +1748,8 @@ static int rtw_download_beacon(struct rtw_dev *rtwdev)
+ 		return -EINVAL;
+ 	}
+ 
+-	skb = rtw_get_rsvd_page_skb(hw, rsvd_pkt);
++	if (!skb)
++		skb = rtw_get_rsvd_page_skb(hw, rsvd_pkt);
+ 	if (!skb) {
+ 		rtw_err(rtwdev, "failed to get beacon skb\n");
+ 		return -ENOMEM;
+@@ -1754,18 +1759,20 @@ static int rtw_download_beacon(struct rtw_dev *rtwdev)
+ 	if (ret)
+ 		rtw_err(rtwdev, "failed to download drv rsvd page\n");
+ 
+-	dev_kfree_skb(skb);
++	if (!beacon)
++		dev_kfree_skb(skb);
+ 
+ 	return ret;
+ }
+ 
+ int rtw_fw_download_rsvd_page(struct rtw_dev *rtwdev)
+ {
+-	u8 *buf;
++	struct sk_buff *beacon = NULL;
+ 	u32 size;
++	u8 *buf;
+ 	int ret;
+ 
+-	buf = rtw_build_rsvd_page(rtwdev, &size);
++	buf = rtw_build_rsvd_page(rtwdev, &size, &beacon);
+ 	if (!buf) {
+ 		rtw_err(rtwdev, "failed to build rsvd page pkt\n");
+ 		return -ENOMEM;
+@@ -1782,13 +1789,14 @@ int rtw_fw_download_rsvd_page(struct rtw_dev *rtwdev)
+ 	 * the beacon again to replace the TX desc header, and we will get
+ 	 * a correct tx_desc for the beacon in the rsvd page.
+ 	 */
+-	ret = rtw_download_beacon(rtwdev);
++	ret = rtw_download_beacon(rtwdev, beacon);
+ 	if (ret) {
+ 		rtw_err(rtwdev, "failed to download beacon\n");
+ 		goto free;
+ 	}
+ 
+ free:
++	dev_kfree_skb(beacon);
+ 	kfree(buf);
+ 
+ 	return ret;
+@@ -2345,7 +2353,7 @@ int rtw_hw_scan_offload(struct rtw_dev *rtwdev, struct ieee80211_vif *vif,
+ 	rtw_fw_set_scan_offload(rtwdev, &cs_option, rtwvif, &chan_list);
+ out:
+ 	if (rtwdev->ap_active) {
+-		ret = rtw_download_beacon(rtwdev);
++		ret = rtw_download_beacon(rtwdev, NULL);
+ 		if (ret)
+ 			rtw_err(rtwdev, "HW scan download beacon failed\n");
+ 	}
 -- 
-Kind regards,
+2.55.0
 
-Rodrigo Alencar
