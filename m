@@ -1,61 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793039862;
-	b=5BpgstfmzarMTNLDk46bOphYmWbvdxUmxSB67PXo8IVUsGRv+m7rROYwuqX01SlD+25n
-	 odOVjGqjfQ6SQd58qF0hQFgc5liz0SP5m7DSW7B/4Hb6tYJTCR/G/63KHCsWorYKX0g6G
-	 rIPXSF9R5ngL1F6NklSn84SOHFk65Aym2z1LZnhL2o2JxZzZhU9a8/Yyio0BDC3ouSmyb
-	 InC+UK9ZSnYVxRW3BqyHTtUz2aUDAXBT4XqUMTwrHwOzdXdZEqDLC58zV8vnGwx/DNbUi
-	 Bu+ZaPClGH9ZDJRfm/vJ/IlQS57EDVzHW3oyo9bROEnzfvkr4yZCejQlIx3Q6TrwQGg==
+	t=1793039926;
+	b=IPmRvuSpiorPKiYw1nJm9T3UIGMZsOM/4NeiCJQb4OW/e+vF5w/XiVZTBZj9sR2mkEw7
+	 E3gyZZ/E7hA5wnFzQicWl0Xb0skGX91GRAuCeZGNqMuni5PEWWLAC60Obk+JW6aQA3Rk7
+	 qzW3MKhHzYtpvnJ43JWpYT/xKHUBT0rWH1cpNpueyArmmCiYHeoTRwtQNbCpXPgvvm9kM
+	 66sb638da+AApayo957FSYoLWDrqkKXPJRLT0XyMS0mrNxH0yqr0Js3DUt3P5eHdTLImr
+	 9X89ne56gfPmLouc2iAYJeT6SPpnWzmOfDJle6d0RYrK7S1RC4Ir25NiXCfRnYKPfDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793039862;
-	h=Received:DKIM-Signature:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793039926;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=9C4Uluvd0xkYA+zo3dMgPpHbnwkaCgVbnnUTHjmZZJw=;
-	b=faDMu6tK7ShAep/JyJlKxN0OhflP7paKUXGBBqICnxPfLhEDWTBLSVyyIiyZ1LKeA61w
-	 h+NjDvoe3t3g2pLTF2biBwbLn7mi1tvvEJaR5Et7YT2W+/eWp/PV6XYtjyeNE3BFAAnuU
-	 w3XffwId5578D9YhXlIJLHwovJo3gNy757FWQm5C3CQobXqpcZpX0lcNzBrih8fU4dmO+
-	 5d6HYZd2Vr+XXz7QfZK7k9rXnR6RakY09mqmALmaV3XKHC/KD1/nMGmlnHNBGWdMDw9OD
-	 eACE8FOhrkzwYd6H18kqicmDrncjk9342cBa/dw2X0NeJAkYX6BGHxt+ViPcU15D2/A==
+	bh=qtkfCa1ACFlx/Umc0D+/jZFN6SiMdUN5vaZm0FGpPXQ=;
+	b=d22AA0bKHU2Ga8J5SrgtBopFFxCB65TC49gbNswODLUfAjUhMO4A9XT2ADZXmedEZ8Is
+	 EAbm45/MsXP/28pOu/85b6F+tq+6Ys+Za/Ibgc50GO7CyqwYeAGri2zx4v+f4/opQ8sbl
+	 O8yXHO1ly48/PvNWhFWdI7pnlu/sKw713eHaB650En4+24PDYaYCqEMJHIF/0hjOAfKtX
+	 2HfOsxCIVLhZ9+dVag243M0JMt4Kwg9l3xc7wzG5Niok47XkI/mac2TpVPiInc3ZPeQl6
+	 6KFeBLa9S0pCMsoJ42o7vfLqcABsGOa79VeauDBHRbfbK5g/+oG5koV2T/WY2OVotsw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="bC7/Qk0v";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linuxfoundation.org;
+	spf=pass smtp.mailfrom=linuxfoundation.org;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=gbqFxgya;
+	arc=none smtp.remote-ip=209.85.210.52
+Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com [209.85.210.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F19EF606A31E
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 18:37:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33D37606A31E
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 18:38:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33D37606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bC7/Qk0v
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68DE11F01825;
-	Mon, 26 Oct 2026 18:37:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793039861;
-	bh=9C4Uluvd0xkYA+zo3dMgPpHbnwkaCgVbnnUTHjmZZJw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=bC7/Qk0vq8cZZc6oEXAbxGsifR5b5IzIAM2Hez33JAZ8gnPVz/6YshFTXzvTQ7q3n
-	 ngL+xWSM6a4HEmIxJ4M2eK52LYe2R2cpqO7P8n9zRxwmFjchS9g15FpBrJaAirs4hE
-	 OdnDE1U9eruJ5GxYOyUC3nGlhlqnG2NFgPr3NUe4SypJKaBEGXjZA55INW87wIBbty
-	 rLAk5KwoSyPUCPwe0Do+8vwH5wbYYQB/Cd5krWQpEnr0iSvIh2t79JFl4GN1gxQe/a
-	 tJJb+fTE1PKpr5oeqtnSmVCcg8m9o/MME1pSrMm4xPtwyuQlqEyATnOmGDV0JTWwZH
-	 h0MsL+U0xOe8Q==
-Date: Mon, 26 Oct 2026 08:37:40 -1000
-Message-ID: <7fec5fa8362328bf3356a077a8bd9687@kernel.org>
-From: Tejun Heo <tj@kernel.org>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- kernel-dev@igalia.com, Boris Brezillon <boris.brezillon@collabora.com>,
- Bradley Morgan <include@grrlz.net>, Chia-I Wu <olv@google.com>,
- Liviu Dudau <liviu.dudau@arm.com>, Matthew Brost <matthew.brost@intel.com>,
- Steven Price <steven.price@arm.com>, Lai Jiangshan <jiangshanlai@gmail.com>,
- Breno Leitao <leitao@debian.org>
-Subject: Re: [PATCH v7 3/4] workqueue: Add support for real-time workers
-In-Reply-To: <9d6add80-2ec9-4f29-a815-ad0e955f7b5a@igalia.com>
-References: <20261022093848.5727-1-tvrtko.ursulin@igalia.com>
- <20261022093848.5727-4-tvrtko.ursulin@igalia.com>
- <a3ae9a0f13e3972d0645f555bcc26f4f@kernel.org>
- <9d6add80-2ec9-4f29-a815-ad0e955f7b5a@igalia.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=gbqFxgya
+Received: by mail-ot1-f52.google.com with SMTP id 46e09a7af769-8241a56cd70so2160351a34.3
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:38:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linuxfoundation.org; s=google; t=1793039924; x=1793644724; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qtkfCa1ACFlx/Umc0D+/jZFN6SiMdUN5vaZm0FGpPXQ=;
+        b=gbqFxgyaSJpwnPMXEHEl8DRMN0FH5f+eZmyf7f2x5yINhWDC0h+TI9fLbmGVXrriTb
+         IVX2UKfZbpWhTHtZSiooDsuNCBRCnMLM30hT6S3h50adSBK7Pw2Deh6iFyu8CBclN/z4
+         9C4rCb+Un3r64IpzDxakAemSIEHFSiRml0wqY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793039924; x=1793644724;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qtkfCa1ACFlx/Umc0D+/jZFN6SiMdUN5vaZm0FGpPXQ=;
+        b=mPF+tBnZWIUed9+DlA+UoHujdHSEU14v749xQUUe4WonZRWQnFJ0H7dd6z++PrPPVp
+         BcwnWhLDyAuxBIGQeAMw9rxCQjMBGEleicBObX01cNBgXtihH73hSUTz73yGJ1OqPNYr
+         shO6+AE8qAkosXCczzUovq8mC8fsjg32P1NFBhkP4c7ARtV8pgslpSCnumVbeQHEORZe
+         sdTM41SykPLkFo63iXq6p4YkQO1z+ghZjfPEbc6NGbQaC3pxHmy4JSLByDbH2HGpt6po
+         s9xsqJKk7F6xI2u8XG2VEA8SxIAGRtfCX3t+UIs6TCy4IVmsxFAD3HAd7Oj5JMd5DZAB
+         iU3Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxVOTXp4cPejHFCu3PVbRZKCelE7HV5CKnFFGI//knUjmT6QUfmGVtoTjyBYlLCFpkmtE65jSuHxvUHQnY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKFfHPZAlWs/NPI+ap6a8GrBrj2X50UDwiUp5/a8EK+vD6udtsQ
+	v4lY1lxTHs+j63l5bplPj7nDygYWxw3FxxmF2yUhfDwg//mK03vTCRBIKK7KgkKyxVQ=
+X-Gm-Gg: AYBFou29Y8LpCw48EqNR+i61nSrd2P+O1ykcwdHh1v7TAIPzuvSdbfvAhGrSNRkaUEd
+	tD+iTnHDw50mLB2Hc336iJB66j7u/txJQUxpd8Tgk/o38qPRIyG6orYW1rSpPWI9p0Q+4xveJPu
+	9NT1zdsaEQfQLUUYDGyo26ygBglTwBR6QPCOmXsDic13XzwxxLJgVukVtLkmvpbFELlc+wHS9N8
+	vDXExw5nH2Dt0H9JAIP7FMJmZk8Ko8DMGTBLSVUTlMkmqrA99YZu5wbG9k9E8ZpXJ9kFxR/h1L6
+	jn/sKwcdfjTjqeyD/2Gfm25QmLPYT9Uf1oWa+JfoQRCuSC/crI9DF5q1K05lD2ih80HgkxqM36K
+	setpynyIvnFqnFA3gWg8suiuCnYAmC7kFmyMR3+G1JMzZe2KZvY5UfxaTnGQuhox91lPVK5f4Y7
+	iKuU0Vy77/g3tvMJ+czbAlvK8TGCGhhuuYsoVtZwjqOIF+GbusRSDLPTcb9zKpPiUSsj0wxRjGl
+	EMaVoCKA7bM9GfczpGxDyDMDIGQl1aINof5pVmRe1hxZAezLPodKzdn3CnP5avUVR4=
+X-Received: by 2002:a05:6830:2b11:b0:834:b015:aed2 with SMTP id 46e09a7af769-850fda467b9mr5329495a34.6.1793039924057;
+        Mon, 26 Oct 2026 11:38:44 -0700 (PDT)
+Received: from [192.168.1.128] ([38.15.57.99])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-850fa99bd35sm8395712a34.8.2026.10.26.11.38.40
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 26 Oct 2026 11:38:43 -0700 (PDT)
+Message-ID: <a072b675-62ef-4076-b3fe-7a344516e992@linuxfoundation.org>
+Date: Mon, 26 Oct 2026 12:38:38 -0600
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,31 +88,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.2 000/231] 7.2.13-rc3 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com,
+ Shuah Khan <skhan@linuxfoundation.org>
+References: <20261025125805.309934791@linuxfoundation.org>
+Content-Language: en-US
+From: Shuah Khan <skhan@linuxfoundation.org>
+In-Reply-To: <20261025125805.309934791@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hello, Tvrtko.
+On 10/25/26 06:58, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.2.13 release.
+> There are 231 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Tue, 27 Oct 2026 12:57:40 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.13-rc3.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
+> 
 
-On Sat, Oct 24, 2026 at 09:33:42AM +0100, Tvrtko Ursulin wrote:
-> Can do. I'll get to it the week after next. (Tweaks to other patches in
-> the series as well.) Should I switch to a different base branch by then?
+Compiled and booted on my test system. No dmesg regressions.
 
-I just branched wq/for-7.5. That should work as the base.
+Tested-by: Shuah Khan <skhan@linuxfoundation.org>
 
-> But if you are curious how much better strict
-> affinity makes them I can measure, it is not a huge effort.
-
-Yes, numbers with and without strict affinity would be great.
-
-> Hmm.. I could do that, but since the tool ships within the kernel does
-> it _need_ to have backward compatibility regarding kernel _internal_
-> implementation details?
-
-It's just a nice-to-have, but other parts of the script already support
-older kernels, so falling back would be good if it doesn't add too much
-complexity.
-
-Thanks.
-
---
-tejun
+thanks,
+-- Shuah
