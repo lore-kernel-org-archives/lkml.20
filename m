@@ -1,81 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.153.30
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793016408;
-	b=4H20EV4KzWHSuaG1zDcmXZ+BpBnUKYIqCG2r9rvF+uT2h6lpAr2Psw+UQSLdjGq96EWJ
-	 DgBINJ58FO6FjlyUFbj+yPLj+p1G/yIpn6q/QUZRFkf1BO5l86ZTSIUy5L/qhrtLQqWg+
-	 mQldBouZQWPfLiP6u1kjLA41UQWvoh3nVzZvuv1Ubs6YkUXxHus4uVTh1MQj/jB3QYSXJ
-	 rAdrnA+Q7Fww3LTrkXX1qr5uzIpvW0RP9nMszeKCpXs7nkAPfdlHerC9t14SrMtfLKQoQ
-	 5RHPtxuRMOUsEutSOW8wU9tVtKlC+DM8c8jpNPjb/GpTT/BbQSAKJqR2x1J85vF5r8A==
+	t=1793016429;
+	b=AwMG5MH4N9n+N/c7P/SYFvk3Iu55zVwg81gj+BGFxKibrjTmJ42KrE0j9OAphfy0HawS
+	 Uu1Zs7VliOmswjhc8w3q44vFZisls3AomlVBBGzu2rb0HafSKulcd7r4+Mvdt77ED+eb8
+	 v8YxAqHCSEsozfzhAvYtJePMdbJWBJdouOe3epaougjSDA6eh9yYxySzo/9aBAUBHmb9W
+	 cI0AQbUF7sLpRIxcOG2j9YzovnhUojBTs/Tq5onIB6qxpp6j/LtMZawuo8kvfsK7+176J
+	 OnwCg9jI/JH573YtapelQIpcpHbbM/ermA1lDPw+wnMcSOEdzry3FA7i3QlmxiLyJrQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793016408;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Virus-Version;
-	bh=ZKEBvOXVh7AS8mAEx/W2jzI2z85/QDl4JNzyPDn0jSY=;
-	b=rwEkjQXIZlhupHp/R00GE9TUr7goHWGfGtAf/Qsg01SrQrbFLpWIDbBL7hUhjZFpuX3f
-	 rpwX28y5Oy/cClupva+Mkyb8X/hq8FJx223yVMiwpxl970c2PJpHNIEXJ1KfG8JA3TlD9
-	 bv+RvpQh8C2m1TBJHrkbiB8k2eicXNxzxdbWFirudkoc9nk49oXVsfGIhqjZ/sWVPNB1U
-	 UgQfYVVBylsxcwziAupSruyNJhg3mHOZKex0gqFYuuS4kfAOtsDfMmJ2QqOUFDJhjZC6I
-	 GLLA1xxc8rCVZpgvMwNxR5ftFwfYihDl5TPjINtFpb7rdgNxwTotkYxRgMPeUIhsIqQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793016429;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=luljZsF+iWnO3KszIjhYznebYyZpvyomwy+SI1LfIaU=;
+	b=gQSMqFdFMKgAYINVZgCPOqRrKgEu3hTkXeFvXxOwfHFurSqiihw28/eQk8KtbImu6rj7
+	 ZlS++FDOm7CP6VB5jCCa4nUXXwUDD4kSFDg4FJL6AbSdle73mQQDChFgPOmvy9WS/0Et9
+	 ytu8pr63j5EW12pV/uy83oHVlNAQLrGx/Ua/C5SVLA59jDVgswGIZzvFmGh84QQ5ZIe+r
+	 oT1/IzGfv6Eof1RlVHnYTIuHdy4mNTEvwkAi0YGq8AozMYr1QMZB6qEgzYSHR5z1QRUIt
+	 pVwPBdU5UE435weeRgjgAu752G6SrAOyNCIkKN0Af6PtFCd6L0cg3JlHQgeZKbn+wmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=meta.com;
-	spf=pass smtp.mailfrom=meta.com;
-	dkim=pass header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=Muuf7vEK;
-	arc=none smtp.remote-ip=67.231.153.30
-Received: from mx0a-00082601.pphosted.com (mx0b-00082601.pphosted.com [67.231.153.30])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NHwjHkeO;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A784606A339
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:06:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A784606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 600D3606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:07:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=Muuf7vEK
-Received: from pps.filterd (m0089730.ppops.net [127.0.0.1])
-	by m0089730.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 69QAsDTT2264943;
-	Mon, 26 Oct 2026 05:06:29 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	pps82601-s2048-2026-q3; bh=ZKEBvOXVh7AS8mAEx/W2jzI2z85/QDl4JNzyP
-	Dn0jSY=; b=Muuf7vEK6dtGqnrK2F1cHXnVUvgXIVHkGRJo758LN9dWz2930bdf4
-	BL/iRB1UqOnsIA1ATv7rtNtrE1JCAV9lQe7mMgI44xuntM3k17ieyZdFcAnreJ5x
-	Ed/FzU1uPxqmEw7bPUkpunwcqbtrhXKJ+gTGUivla6dgHjxONbjY7LL5GX+YqHJP
-	9SAiNgw5ry0ykHGNtX/+o0/5bc4OFPtzbiHt5yHfAkRuUF8KcY6vGJHhBOVxBBZB
-	11CyN2WmOKyZX0s9jG4+fezldXlr9iW6AvZACiKvhHv825O2FEDG9HQ7uI2ReuAx
-	YFC2PeMb7jEREH1Tw8/3sN1X87brGQ7+Q==
-Received: from mail.thefacebook.com ([163.114.134.16])
-	by m0089730.ppops.net (PPS) with ESMTPS id 4hgr5n10yd-2
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
-	Mon, 26 Oct 2026 05:06:28 -0700 (PDT)
-Received: from localhost (2620:10d:c085:208::f) by mail.thefacebook.com
- (2620:10d:c08b:78::c78f) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.56; Mon, 26 Oct
- 2026 12:06:27 +0000
-From: Ruben Hakobyan <hruben@meta.com>
-To: "Michael S . Tsirkin" <mst@redhat.com>
-CC: David Hildenbrand <david@kernel.org>, Breno Leitao <leitao@debian.org>,
-        Atish Patra <atishp@meta.com>, Jason Wang <jasowangio@gmail.com>,
-        =?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
-        Xuan Zhuo
-	<xuanzhuo@linux.alibaba.com>,
-        Alexander Duyck
-	<alexander.h.duyck@linux.intel.com>,
-        Andrew Morton
-	<akpm@linux-foundation.org>,
-        <virtualization@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
-        <virtio-comment@lists.linux.dev>
-Subject: Re: [PATCH] virtio_balloon: batch large descriptor chains for page reporting
-Date: Mon, 26 Oct 2026 05:06:12 -0700
-Message-ID: <20261026120612.4126524-1-hruben@meta.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261023042737-mutt-send-email-mst@kernel.org>
-References: <20261023042737-mutt-send-email-mst@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NHwjHkeO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DDCE1F031E1
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:07:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793016429;
+	bh=luljZsF+iWnO3KszIjhYznebYyZpvyomwy+SI1LfIaU=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=NHwjHkeOkstPEJqCjHX8/2xdRelRt4agBTWQ3Twr9HTsmkxSEUFvN+HcXUjuIGYaB
+	 WpJbiqLAbUW6qgFIyqQk3SdmfvrtlLo4eI6xtE/YJZ4YUwuW9GWK6NT64IpZI6hZPy
+	 h7BNGKljhKfH+dnaoqKiYC08vaLiPzYkwRbL3jTTnwMeKHyAEw+GrGmVnYJfei9mo8
+	 tE0tq54Uv7bjLYbr42jj0mpmNSVZTOSR6EuwDJvIOjGAnsSVuObumKZddJEZVVfkFM
+	 Joxah5gfTQrt91IbyiGhj30pF4BO0iL8M6daodIRIVicRWawwAMBEuTsXWOVA6tDHT
+	 jpRof49PCO9GQ==
+Received: by mail-oo1-f51.google.com with SMTP id 006d021491bc7-6cfed5dd083so1853700eaf.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 05:07:09 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxQJDOWvO687Zz8X8WNAsnep6xzpmGgKRWQMDOBJdwnvBAJ2n6HZSUD61bzGCAmtpQULeJeaOjIBBSQvrA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ+IAQbr8AWZ0bFVZTyW2SSWKpJSvQ3QLv4RtDxiwbXi1ddJG92
+	YpG5dC0yJjcjaGp9yPBUfWKkS1iU5tKk1hZnjIO8TjMC6EKIGzimXAJByNk6oh5lwrRtUzaRl2Z
+	wbA2cZN7Yz8D25MKqwKWJFH0Fu7RA9Fs=
+X-Received: by 2002:a05:6820:5601:b0:703:a9bc:b7f4 with SMTP id
+ 006d021491bc7-70ba0da2fb8mr2169046eaf.17.1793016428464; Mon, 26 Oct 2026
+ 05:07:08 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,132 +59,119 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: CKr2CO7Ct-8iBzo5ZDhGcYYyx3nrLWZn
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA0NyBTYWx0ZWRfX2V2W9RlSFim8
- 87qVvk+d2/78Ve/EB0NSMLCqDEYJHsbFatN8timI2Fs1AkHr2tL/0yj1JRHocJZOVkLx9XbKlS4
- jZqxuMLK3znTJPUAX2YQ1ZzKJHJKaXc=
-X-Proofpoint-GUID: CKr2CO7Ct-8iBzo5ZDhGcYYyx3nrLWZn
-X-Authority-Analysis: v=2.4 cv=Vr62kO2n c=1 sm=1 tr=0 ts=6adf4244 cx=c_pps
- a=CB4LiSf2rd0gKozIdrpkBw==:117 a=CB4LiSf2rd0gKozIdrpkBw==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
- a=855S8uPTkML1Oy45N9_h:22 a=VwQbUJbxAAAA:8 a=20KFwNOVAAAA:8
- a=SjX2uGVl9HjTzPjVSL0A:9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA0NyBTYWx0ZWRfX9jsMVaPSN+1p
- 1MmEuWxVJ9OxP1wT4Ds1crDe/G2Okig51XQYnJAwrUohVqIAdfIotZAsQzPWuaWJAcjAUpKXYBl
- SFxPW0/CkI6VDnRFimrUzZ91SWseY2a1zaGjCb6J0acgwQePZKjuBC72D+0hFw/VDva9CPf6+bH
- Yjl42ZMNEmODtcOb7Pq9FEwEdNj+phY66BVd4xhr51KcjBsp+0BnB/PcypqIepRkLEwSLri/6f3
- PTpOvGuE4A27tiMNwewhCekPSIXHB37X695ogryJtvRgUV5XdjysIGJNIAXqXXRfFdgLbYCPHsw
- non6Isi2HW+weqV8/Kdz/rZr3fRzox2cUkwlnKBzwpD9aEKD34Ngw8vNazY7DjNmjYZkQheQb6k
- H8C0uV5Srs9M4V4oPZjQMJcLz50t1T8BxHIrxggx1njac17EBIIe/Es7+klTM+xHGE8Pu+tGGW4
- siQq7SeCAwFAdILTY0A==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-26_02,2026-10-21_02,2025-10-01_01
+References: <20261026032216.1145201-1-tavip@google.com> <20261026032216.1145201-2-tavip@google.com>
+In-Reply-To: <20261026032216.1145201-2-tavip@google.com>
+From: Eric Dumazet <edumazet@kernel.org>
+Date: Mon, 26 Oct 2026 13:06:56 +0100
+X-Gmail-Original-Message-ID: <CAL4WiiqQ3cychvCccpNW+WOU2SYCfNt6L=wgPkNmfTLHLy605Q@mail.gmail.com>
+X-Gm-Features: AclHuK8KFiQyICMplHqTxpaHZz8TgAR3YnqBxsQA3a7KGxLqx573_i0CLVWtPMI
+Message-ID: <CAL4WiiqQ3cychvCccpNW+WOU2SYCfNt6L=wgPkNmfTLHLy605Q@mail.gmail.com>
+Subject: Re: [PATCH net v4 1/2] tcp: clamp return value of tcp_wmem_schedule()
+ to non-negative
+To: Octavian Purdila <tavip@google.com>
+Cc: Eric Dumazet <edumazet@google.com>, Neal Cardwell <ncardwell@google.com>, 
+	Kuniyuki Iwashima <kuniyu@google.com>, "David S . Miller" <davem@davemloft.net>, 
+	David Ahern <dsahern@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Shuah Khan <shuah@kernel.org>, Simon Horman <horms@kernel.org>, 
+	Willem de Bruijn <willemb@google.com>, netdev@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Oct 26, 2026 at 12:19 AM Michael S. Tsirkin <mst@redhat.com> wrote:
-> On Sun, Oct 25, 2026 at 04:56:41PM -0700, Ruben Hakobyan wrote:
-> > On Fri, Oct 23, 2026 at 11:04 AM Michael S. Tsirkin <mst@redhat.com> wrote:
-> > >
-> > > Great patch, thanks!
-> > >
-> > > On Fri, Oct 23, 2026 at 01:19:19AM -0700, Ruben Hakobyan wrote:
-> > > > The virtio_balloon driver reports a scatter-gather list of free pages
-> > > > to the VMM so it may discard unused pages.
-> > ...
-> > >
-> > > It's not just a question of convenient, is it?
-> > > Rust is buggy wrt to spec as it allows only U32_MAX.
-> > > So it is also to make it work.
-> > > So should we maybe fix Rust to be spec compliant and allow 2^32 too?
-> > >
-> > > I think we should definitely recommend U32_MAX in the spec
-> > > because otherwise it can not fit in the used length.
-> > >
-> >
-> > Thanks for the review!
-> >
-> > Sounds good to me, I will CC virtio-comment@lists.linux.dev as
-> > per your recommendation.
-> >
-> > Agreed that Rust-VMM should also be fixed in case 2^32 needs to
-> > stay the hard limit. I think here for the driver, we can be more
-> > conservative as long as we stay below 2^32.
-> >
-> > ...
-> >
-> > > > ---
-> > > > The wording in the spec is a bit ambiguous because it uses "chain
-> > > > length" for both descriptor counts and the total size of the memory
-> > > > ranges referenced by the descriptors. My read is that the byte limit
-> > > > applies to the sum of descriptor lengths, which is also what rust-vmm
-> > > > checks.
-> > >
-> > >
-> > > quote what you are referring to please, also in the commit log
-> > > not after ---.
-> >
-> > I will update with quotes in v2, thanks.
-> >
-> > >
-> > > I would also CC virtio-comment@lists.linux.dev - spec should recommend
-> > > U32_MAX.
-> > >
-> > > >
-> > > > Another option I considered was to limit reporting capacity based
-> > > > on the largest possible block. E.g. for 64 KiB pages, the largest
-> > > > block is 512 MiB, so limit the reporting capacity to 7 to stay
-> > > > below 4GiB. Although simpler, I found that the time to reclaim
-> > > > was quite a bit longer.
-> > >
-> > >
-> > >
-> > > So I was going to apply this actually:
-> > >
-> > > https://lore.kernel.org/all/b541ff170218bd5d45b551b5132e7cf2c490d761.1780906288.git.mst@redhat.com/
-> > >
-> > > which makes the question completely moot.
-> > >
-> > > Does this have any effect on performance?
-> > >
-> > > Thanks!
-> >
-> > Thanks for sharing this. Yes, this would also make sure we stay below
-> > the limit. Regarding performance, I tested this on QEMU and it calls
-> > virtio_notify() after each completion.
+Le lun. 26 oct. 2026 =C3=A0 04:22, Octavian Purdila <tavip@google.com> a =
+=C3=A9crit :
 >
-> Who, QEMU does?
-
-Yes QEMU, sorry for the ambiguous wording.
-
+> When sk_wmem_schedule(sk, copy) fails under TCP memory pressure and
+> sk->sk_wmem_queued already reaches or exceeds sysctl_tcp_wmem[0],
+> tcp_wmem_schedule() returns min(copy, sk->sk_forward_alloc).
 >
-> > Using one chain per entry
-> > creates more chains, so QEMU can use more CPU time to reclaim the same
-> > amount of memory.
-> >
-> > If we go with this, I think a QEMU patch to batch notifications
-> > could reduce the overhead. Alternatively, I think we could create
-> > larger chains here but make sure they stay within the 2^32 limit,
-> > and keeping your approach of queuing them all before kicking.
-> >
-> > I am happy to share a patch with my thinking here.
-> >
-> > ...
+> However, sk->sk_forward_alloc is a signed int that can transiently
+> become negative when tcp_collapse() re-packs partially read or high
+> payload-to-truesize SKBs in the receive queue and charges newly
+> allocated SKBs via sk_mem_charge() before freeing the original SKB.
 >
-> Oh. It's just the driver being silly and never disabling
-> callbacks.
+> If tcp_wmem_schedule() returns a negative value, tcp_sendmsg_locked()
+> passes that negative copy length to skb_copy_to_page_nocache() ->
+> copy_from_iter_full() -> check_copy_size(), where it is converted to an
+> unsigned size_t > INT_MAX, triggering a WARN_ON_ONCE(bytes > INT_MAX)
+> in production and returning -EFAULT instead of waiting for memory or
+> returning -EAGAIN:
 >
-> pls just add virtqueue_enable_cb_delayed and this will fix it.
+>   WARNING: CPU: 1 PID: 939331 at include/linux/thread_info.h:249 tcp_send=
+msg+0x10c1/0x1530
+>   Call Trace:
+>    <TASK>
+>    __sys_sendmsg+0x292/0x490
+>    do_syscall_64+0x88/0x340
+>    entry_SYSCALL_64_after_hwframe+0x76/0x7e
 >
+> Clamp the return value of tcp_wmem_schedule() to [0, copy] so callers
+> treat negative sk_forward_alloc as 0 available bytes.
+>
+> Fixes: 849b425cd091 ("tcp: fix possible freeze in tx path under memory pr=
+essure")
+> Assisted-by: LLM
+> Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+> Reviewed-by: Eric Dumazet <edumazet@kernel.org>
+> Signed-off-by: Octavian Purdila <tavip@google.com>
+> ---
+>  net/ipv4/tcp.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/net/ipv4/tcp.c b/net/ipv4/tcp.c
+> index 87ef6d5cbfeba..0e062fcd94a6c 100644
+> --- a/net/ipv4/tcp.c
+> +++ b/net/ipv4/tcp.c
+> @@ -1037,7 +1037,7 @@ int tcp_wmem_schedule(struct sock *sk, int copy)
+>         left =3D READ_ONCE(sock_net(sk)->ipv4.sysctl_tcp_wmem[0]) - sk->s=
+k_wmem_queued;
+>         if (left > 0)
+>                 sk_forced_mem_schedule(sk, min(left, copy));
+> -       return min(copy, sk->sk_forward_alloc);
+> +       return clamp(sk->sk_forward_alloc, 0, copy);
+>  }
+>
+>  void tcp_free_fastopen_req(struct tcp_sock *tp)
 
-Ah great, I tried with virtqueue_enable_cb_delayed() and yeah it
-largely fixed it.
+I do wonder if the following fix could be better (no change in the fast pat=
+h)
 
-So regarding the patch in
-https://lore.kernel.org/all/b541ff170218bd5d45b551b5132e7cf2c490d761.1780906288.git.mst@redhat.com/
+Before a complete fix in tcp_collapse() (in net-next)
 
-I see it's in a larger series, so just wanted to check if you're
-planning to send this patch separately? Or let me know if you'd
-like me to do it. Thanks!
+    tcp: do not let tcp_collapse() drive sk_forward_alloc negative
 
+    tcp_collapse() charges each newly allocated skb with skb_set_owner_r()
+    before the skbs it replaces are freed, without scheduling memory first.
+
+    Since sk_mem_uncharge() reclaims eagerly, sk->sk_forward_alloc has no
+    cushion and can become negative. This can be durable when the collapsed
+    skbs had a high payload/truesize ratio or were partially read, because
+    the new skbs can have a bigger total truesize than the old ones.
+
+    A negative sk_forward_alloc then confuses tcp_wmem_schedule(), which
+    can return a negative length to tcp_sendmsg_locked(), triggering
+    a WARN_ON_ONCE(bytes > INT_MAX) in check_copy_size().
+
+    Call sk_forced_mem_schedule() before charging nskb.
+
+    Fixes: 4890b686f408 ("net: keep sk->sk_forward_alloc as small as possib=
+le")
+
+diff --git a/net/ipv4/tcp_input.c b/net/ipv4/tcp_input.c
+index 1ddce9c4b7e8cf91bfd4f5361abec3925fe25046..e879bdfddf1abe2ced80b12ea8a=
+40c1f7c958708
+100644
+--- a/net/ipv4/tcp_input.c
++++ b/net/ipv4/tcp_input.c
+@@ -5847,6 +5847,10 @@ tcp_collapse(struct sock *sk, struct
+sk_buff_head *list, struct rb_root *root,
+                        __skb_queue_before(list, skb, nskb);
+                else
+                        __skb_queue_tail(&tmp, nskb); /* defer rbtree
+insertion */
++               /* nskb is charged before the skbs it replaces are freed.
++                * Make sure sk->sk_forward_alloc can not become negative.
++                */
++               sk_forced_mem_schedule(sk, nskb->truesize);
+                skb_set_owner_r(nskb, sk);
+                mptcp_skb_ext_move(nskb, skb);
