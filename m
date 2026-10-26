@@ -1,122 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.227
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793039370;
-	b=gVgEgKo68ZNlQe350A8j7/Wi2IYJpyVv9GLdGQ0x3ZMStazctIPAlnKs1p0zx8CSCiH6
-	 l0Ntm0G0SdpOiArNbHAPW5YCm4Ynq2HOGp371Kqpeql0PttrywT0UQjtig01pQGpVNf3N
-	 3uf/41NJOXcczbyYYvHfge7XGQrfHCxrbO/WXSuDKMwdmMsR4QcswL9xaBpbJ+MLS6K6V
-	 u9H3a1kTQYec5zqh6mEFBUw2zRmifS7V7yBzq3wzGL29TkTD9RUJdn9CPs1ffX1v24RBK
-	 /hgcWRE48MVtKSA3wss43qx7+agsA2a2WMx2OVbswQSNFpRjYHaLVoplYkhGMqqeYiw==
+	t=1793039346;
+	b=JjOJHuGLALy8rrj3U3DpdgpDg2tGO6aVGJ9CQU3Zo1udGj40vj9NefGQBqeleVdqxNaj
+	 qcUgCYcFKBON9T8XIGtUnorKJ6iofOMSWXWuJF7bBxwZ09c7vRgO8AoSOz3HtjYbd8PXE
+	 sYYgz8Tb/sZfdY4mA/BPb4P4L3h6I9pUzJToDDLXNstQOLFbi1moBeGwO91aZDmg/DqIY
+	 iDGf6DUgyEoknJTaLfwejF4uoviPQcqMFBAV9tI3w8QGxBEzI8tFm5urqS9x3nuWBu7yW
+	 5ghzOQqTbiZzK3CnYgkNjYEXYgBX+SMj1w0LILMOX+ad+iqiYC3sXTj7LhJbcqBUMFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793039370;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
-	 X-Gm-Gg:X-Received:Received:X-Relaying-Domain:X-CFilter-Loop:Received:
-	 DKIM-Signature:X-Received:X-Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-DetectorID-Processed;
-	bh=MA5/QmONgwci+C4pVkhkGywYbmpIkNjdx6wsVgaOess=;
-	b=mU6RYjf9fykY7JyfIWBW+XKYrEmOTzLhSzHM4Y0eNq/Q0n8enPpX+X+9XxYAVBNwhJpt
-	 P4sG/nrEElpmEBxc/UF9GJbkR7WemdBtnh3SyAbsJkQPdu84h3Mr97toMzb/St8xE933q
-	 dX0d1c1koTVrbmlQwqD8aCfzioJNq0uRiOWpF8aLJWQKTRGhXlDizY00VHTJLOhopxCM/
-	 gRneGVBxvPR8Ib1GoBRBEjOpuHkkO3dB4FLxYDXTVsJMg7E0jeZiCg77zc97CEEZEFU9d
-	 LboDM5sbfzB0uMIlOvQ9O5Tp/JaZMTm5EjL/sDBKflN5NIge7VXzptIxCHIGGY5hrsw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793039346;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=IWScLLUM6vSNoGJtI8uM6XnkCz3Cf8EDLBeUgktuvyc=;
+	b=F4cTkJHngsrAu2u0fkjOgAjSQjAqrp/6DlE8ApZchrmLL5VNTfavos3nawY4vhFD6ok9
+	 Wvo1LsIvi9Rt+ew2QLNcpVRInMWtJwHP8wfPCrpu+tHBc3v4xvxelIV/PtZnpWgueYw/B
+	 d7HSHuAI6dgPKhgcnTpOTddPZ23Vv8R7HNgndJpq2pyoDgsfpVoPhIfIbF+DnrWXQvWZ9
+	 HL/APSe2IyZCONTbvpKWn1fXCZL8nlkSbrwyCciAkmz7cBy6tFy+aOktHtfEYiUBbbeYF
+	 pq+0FtKOECmwYnr2wW6lBpQt7CzRSpxkm0ItzUlSVBaGCxI1gCM6k1a00EsUAoBtV+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b="MUU4/c29";
-	arc=none smtp.remote-ip=209.85.214.227
-Received: from mail-pl1-f227.google.com (mail-pl1-f227.google.com [209.85.214.227])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mvlVhVPF;
+	arc=none smtp.remote-ip=198.175.65.9
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14E7A606A31E
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 18:29:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14E7A606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5107E606A31F;
+	Mon, 26 Oct 2026 18:29:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5107E606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=MUU4/c29
-Received: by mail-pl1-f227.google.com with SMTP id d9443c01a7336-2e99b1e5b4cso18145395ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:29:29 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793039369; x=1793644169;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MA5/QmONgwci+C4pVkhkGywYbmpIkNjdx6wsVgaOess=;
-        b=CAlh/FwxA7xtGfNBtrMxR5cyAdZHrfvoQWqxtXFagyIJcPqO4+y/fOgzJ4rGP/bhRQ
-         Iicv3rT7Gbs+yw7AXgJiiE1/Msjh3d3XS4suGKx6CqxlhzNZ3XIjdVYgGOxIWRZCQiNZ
-         Pg/yL6EyxsZD3AIRDQFkMIT0+3fFX4/8NXzujjxeTIyMWClixk0Ze0zmiPIQufJ/8nKZ
-         3Lx2qRoJ8h2yiqIxcHOel39Evf7y4To34hu99KDuxIid9Nn/h8cVnk8NTECD7nUy1AvQ
-         wHTQHPg3ixvF/5QWyktYSO/RzCflmmSFabwOH8TL8ZDvV/k8I5s55EIoagoEI4Md6H2+
-         7rRw==
-X-Gm-Message-State: AFq9FYIUhJ4BTpOfe7SfCRewps+9IZEI3L5K8rZnDHewq8gUJAJvN+T3
-	eXiZz7QXgo9X97V1L1RcksQupOiU1QV2uP943fiZkhVJTOwpOSTO/La5MaTw5xhMmNA69XmhcvE
-	HL+GFoau0B8mF5I+/WxyC7C7iyUIWL0beINnukl/13rFRsU763cygoHW06SyOxmaDA7hJEzcZmc
-	p31XtWcYuFIQCexDd5gxHPKTUi284hbJraFz5yKMREGyf+i2rAxLAb0KsMblYTpWE8pR9w8UJpk
-	Ve8nWuy4Zj9dKZQmzZqfOMEGvo=
-X-Gm-Gg: AYBFou2fJpaRjm8+vrHFUctYrWGG9viOaOVCloUUGq0hq9+rc53b7wYo6sJkCIyuaTa
-	PrIZoi5DGfE6LhSWmMD4w37B5VIs/HlJvddAwc0g+q7iv/9HGOBnamk3uA5Wxwm1r9ohrV3MqM1
-	BAZicfLSuiLLjqFiAtaW3K7DW8RKdB+o9VZa3eXxOv4oseBKeeQip1ay2p70vRnn5daH8dcqNA3
-	K0BejwwjIRLcW67lCfdGNGr4S84O+4Ed5dMsyguys56ydNTLF/BTnW9bRfWKO54EiKcmMu10PlR
-	o6sq1LiRwbgzR2mi+lrSt6DjwORd2UviRr7cCwlLrDBImj2cpP7HjH+0gNOV+xmblqf66ZKunIu
-	MJEXziJ71nklEHEe4Bhaifmhxa+3xXk/2lQEwhmjHIpCQTvBBwDYP+SqaSsWfNLHx2VCCBkYtjL
-	+j3NmrA7uU2FogxWzegzhGKtitrRPlADUeMTo/W3pq
-X-Received: by 2002:a17:90a:e187:b0:3ab:b764:826c with SMTP id 98e67ed59e1d1-3adea898711mr6259465a91.12.1793039369323;
-        Mon, 26 Oct 2026 11:29:29 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-23.dlp.protect.broadcom.com. [144.49.247.23])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3adebaf1d64sm2583254a91.2.2026.10.26.11.29.28
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 26 Oct 2026 11:29:29 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-36998507c13so2392776eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:29:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1793039367; x=1793644167; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MA5/QmONgwci+C4pVkhkGywYbmpIkNjdx6wsVgaOess=;
-        b=MUU4/c29HqY8EX3beDgF2bM8mqMCuEwDUnaXImyYV5Dwq67/IiP2H4TlXWhDCnQc3H
-         iyvMQgxJi1i1U2i/xss5I3MDw8RHv+u54ijs1u+OCgKtPgfNW/Qfj2e3+1AW6ysWo1Rb
-         yS8JhtTvGSpBrWdbWMGF8Bq/I9kHb4dZ9WCjc=
-X-Received: by 2002:a05:7301:fa2:b0:34b:5ab2:e200 with SMTP id 5a478bee46e88-369e8455879mr10320933eec.14.1793039367493;
-        Mon, 26 Oct 2026 11:29:27 -0700 (PDT)
-X-Received: by 2002:a05:7301:fa2:b0:34b:5ab2:e200 with SMTP id 5a478bee46e88-369e8455879mr10320869eec.14.1793039366691;
-        Mon, 26 Oct 2026 11:29:26 -0700 (PDT)
-Received: from fainelli-desktop.igp.broadcom.net ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a01fa4c58sm24657259eec.21.2026.10.26.11.29.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 11:29:26 -0700 (PDT)
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-To: linux-kernel@vger.kernel.org
-Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
-	Damien Le Moal <dlemoal@kernel.org>,
-	Niklas Cassel <cassel@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Ray Jui <rjui@broadcom.com>,
-	Scott Branden <sbranden@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Kishon Vijay Abraham I <kishon@kernel.org>,
-	Tejun Heo <tj@kernel.org>,
-	Yendapally Reddy Dhananjaya Reddy <yendapally.reddy@broadcom.com>,
-	linux-ide@vger.kernel.org (open list:LIBATA SUBSYSTEM (Serial and Parallel ATA drivers)),
-	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
-	linux-arm-kernel@lists.infradead.org (moderated list:BROADCOM IPROC ARM ARCHITECTURE),
-	linux-phy@lists.infradead.org (open list:GENERIC PHY FRAMEWORK)
-Subject: [PATCH v2 2/6] dt-bindings: ata: sata-brcm: Describe the NSP IDM registers
-Date: Mon, 26 Oct 2026 11:28:52 -0700
-Message-ID: <20261026182856.3168686-3-florian.fainelli@broadcom.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261026182856.3168686-1-florian.fainelli@broadcom.com>
-References: <20261026182856.3168686-1-florian.fainelli@broadcom.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mvlVhVPF
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793039346; x=1824575346;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=Squ+X+dHLfmfHqNxzVlAZAEqmPdqY2Q0JmAc3dqtHdo=;
+  b=mvlVhVPFrRaCvFtro3cvk3ch0m3OMKX6U3qdJ/N7YJyKiekhtEvnQUha
+   s/yRvBwkXd4Tz56oz/6xYyLT2raVp+/2+QUo0sWBCT1O4zSlZaeKhjus8
+   zKPLgkgeuGHP/gqM/5o+oucYK0CykJFqCGONnOZ42ZcDoYm22ZZ0MG1Bm
+   O6K4g/lgcl98joC7lssMhshGILK0nSBvPq3U4OhaM41+C2SgLizhKzzke
+   LNjKCqrN8RVz0ti2hn0GuvxaPLvCkJGJnSUhMgrX+f3LKqWv3+QNCO4Zn
+   w+3x/rc8Ww/FI/UKp0YdvhTa4e0ADsvwHAxC0ZHAEG9unrTCkDWHX90kl
+   g==;
+X-CSE-ConnectionGUID: kAU6oNfOSpCVsHZYoP0DgQ==
+X-CSE-MsgGUID: 0YNv8RgtTL2ogB7xL4ZyNw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1600998"
+X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
+   d="scan'208";a="1600998"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 11:29:05 -0700
+X-CSE-ConnectionGUID: f+f1tJHtSQqwEF7LIKTX9g==
+X-CSE-MsgGUID: /igHDuSWSa+R8liF5cK95g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
+   d="scan'208";a="4720084"
+Received: from ubuntu.igk.intel.com ([10.102.114.174])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 11:29:03 -0700
+From: Szymon Durawa <szymon.durawa@linux.intel.com>
+To: nirmal.patel@linux.intel.com,
+	bhelgaas@google.com,
+	robh@kernel.org,
+	mani@kernel.org,
+	kwilczynski@kernel.org,
+	lpieralisi@kernel.org,
+	asutosh.pathak@linux.intel.com,
+	szymon.durawa@linux.intel.com
+Cc: linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v9 0/7] VMD add second root bus support
+Date: Mon, 26 Oct 2026 20:54:53 +0000
+Message-ID: <20261026205502.3502574-1-szymon.durawa@linux.intel.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -127,63 +85,121 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-Northstar Plus uses the SATA IDM block to enable the interface clock and
-deassert the core reset before accessing the controller registers.
+This series adds support for a second VMD root bus.
 
-Allow an optional third register region named "idm" for the NSP
-controller. Keep other compatibles limited to their existing two
-register regions and allow older NSP descriptions without the IDM.
+Today the VMD driver can enumerate and manage devices only behind the
+first VMD root bus. Starting with Intel Arrow Lake, VMD may expose a
+second root bus (BUS1), and devices behind that bus are not discovered
+by the current driver.
 
-Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
----
- .../bindings/ata/brcm,sata-brcm.yaml          | 20 ++++++++++++++++++-
- 1 file changed, 19 insertions(+), 1 deletion(-)
+The hardware model for Intel Arrow Lake VMD is slightly different
+from earlier VMD generations:
 
-diff --git a/Documentation/devicetree/bindings/ata/brcm,sata-brcm.yaml b/Documentation/devicetree/bindings/ata/brcm,sata-brcm.yaml
-index fe7f091e744f..98529784b1fa 100644
---- a/Documentation/devicetree/bindings/ata/brcm,sata-brcm.yaml
-+++ b/Documentation/devicetree/bindings/ata/brcm,sata-brcm.yaml
-@@ -15,6 +15,21 @@ maintainers:
- 
- allOf:
-   - $ref: ahci-common.yaml#
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: brcm,bcm-nsp-ahci
-+    then:
-+      properties:
-+        reg:
-+          description: AHCI, top control and optional IDM register regions
-+    else:
-+      properties:
-+        reg:
-+          maxItems: 2
-+        reg-names:
-+          maxItems: 2
- 
- properties:
-   compatible:
-@@ -30,12 +45,15 @@ properties:
-           - const: brcm,bcm-nsp-ahci
- 
-   reg:
--    maxItems: 2
-+    minItems: 2
-+    maxItems: 3
- 
-   reg-names:
-+    minItems: 2
-     items:
-       - const: ahci
-       - const: top-ctrl
-+      - const: idm
- 
-   interrupts:
-     maxItems: 1
+- CFGBAR, MEMBAR1, and MEMBAR2 are shared by both VMD root buses.
+- Root ports on BUS1 have PCI_PRIMARY_BUS hardwired to 0x80.
+- Interrupt handling remains based on the existing VMD MSI/MSI-X and
+  irq_domain model; this series does not introduce a separate interrupt
+  domain for BUS1.
+
+To support that layout, the series first refactors the current code so
+resource setup, bus creation, and enumeration are split into helpers.
+It then partitions the shared CFGBAR/MEMBAR apertures between BUS0 and
+BUS1 and creates a second root bus in its own emulated PCI domain.
+Reads of PCI_PRIMARY_BUS from BUS1 root port bridges are emulated to
+return the actual root bus number, so PCI core bridge scanning does not
+detect a mismatch and lose BUS1 subordinate device discovery. This
+replaces the separate workaround patch used in v8.
+
+Patch overview:
+
+- Patches 1-4 extract helper functions for bus enumeration, CFGBAR and
+  MEMBAR configuration, and root-bus creation.
+- Patch 5 replaces hardcoded resource indices and constants with enums
+  and defines.
+- Patch 6 converts single-bus state (bus, busn_start, sysdata) into
+  per-root-bus arrays.
+- Patch 7 adds BUS1 resource partitioning, a separate PCI domain for
+  BUS1, PCI_PRIMARY_BUS read emulation for BUS1 root ports, and
+  second-root-bus support.
+
+Tested on an Arrow Lake platform with NVMe devices present behind both
+VMD root buses. With the series applied, devices behind BUS0 and BUS1
+are enumerated and become visible to the kernel.
+
+Changes from v1:
+- splitting series into more commits, requested by Bjorn
+- adding helper functions, suggested by Bjorn
+- minor typos and unclear wording updated, suggested by Bjorn
+
+Changes from v2:
+- wording update in commit logs, suggested by Bjorn
+
+Changes from v3:
+- using GENMASK() instead of manual bits shifting, suggested by Bjorn
+- converting decimal number to hex representation, suggested by Bjorn
+- wording update in commit logs, suggested by Bjorn
+
+Changes from v4:
+- Update Dan's email address
+- Resending the whole series to the correct mailing list
+
+Changes from v5:
+- Fixed correctness issues in BUS/resource layout in patches 7 and 8
+- Fixed lifetime and use-after-free issues in patches 3 and 7
+- Fixed resource tree integrity issues in patch 7
+- Fixed error-path leaks across patches 3, 4, and 5
+- Fixed allocation failure handling in patch 3
+- Note on Sashiko feedback: Pre-existing warnings (unrelated to
+  this feature series) were left untouched.
+
+Changes from v6:
+- Refactoring the series to align with recent changes in link below:
+ https://patchwork.kernel.org/project/linux-pci/patch/20260629165025.268836-1-nirmal.patel@linux.intel.com/
+- Fixed double free of the IRQ domain and emulated domain number
+- Fixed a race with concurrent readers when modifying sibling pointers
+- Fixed the MEMBAR2 split equations in
+  vmd_configure_membar1_membar2()
+- Fixed hardcoded resource indices in vmd_configure_membar()
+
+Changes from v7:
+- wording update in commit logs in patch 8, suggested by Bjorn
+
+Changes from v8:
+- Dropped patch 8 ("PCI: vmd: Workaround for hardwired BUS1 bus
+  number") along with the issues Sashiko reported against it. The
+  hardwired BUS1 primary bus number is now handled in patch 7 by
+  emulating PCI_PRIMARY_BUS reads for BUS1 root port bridges in
+  vmd_pci_read(), and BUS1 is assigned its own emulated PCI domain.
+- Patch 6: sysdata is converted to a per-root-bus array as well.
+- Patch 7: Fixed a data race reported by Sashiko where the MEMBAR
+  .sibling pointers were assigned manually while the resource tree
+  could be walked concurrently. BUS0/BUS1 MEMBAR resources are now
+  inserted and removed with request_resource()/release_resource().
+- Patch 7: Fixed an issue reported by Sashiko where resizing the CFGBAR
+  start address for BUS1 caused vmd_domain_reset() to skip the root
+  buses. The reset now starts from busn_start[VMD_BUS_0] and covers
+  the whole CFGBAR aperture when BUS1 is present.
+- Patch 7: BUS1 setup failures (domain allocation or bus creation) now
+  release BUS1 resources and fall back to BUS0 only.
+
+Suggested-by: Nirmal Patel <nirmal.patel@linux.intel.com>
+Reviewed-by: Asutosh Pathak <asutosh.pathak@linux.intel.com>
+Signed-off-by: Szymon Durawa <szymon.durawa@linux.intel.com>
+
+Szymon Durawa (7):
+  PCI: vmd: Add vmd_bus_enumeration() helper function
+  PCI: vmd: Add vmd_configure_cfgbar() helper function
+  PCI: vmd: Add vmd_configure_membar() and
+    vmd_configure_membar1_membar2()
+  PCI: vmd: Add vmd_create_bus()
+  PCI: vmd: Replace hardcoded values with enum and defines
+  PCI: vmd: Convert bus, busn_start and sysdata to an array
+  PCI: vmd: Add support for second rootbus under VMD
+
+ drivers/pci/controller/vmd.c | 727 ++++++++++++++++++++++++++++-------
+ 1 file changed, 592 insertions(+), 135 deletions(-)
+
 -- 
-2.53.0
+2.43.0
 
