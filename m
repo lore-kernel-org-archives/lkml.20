@@ -1,80 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793036983;
-	b=0z93bhNS1UC3sJXNuzBDDJeENVJPGHtKdcvxxdLN0XlWW/WXNWsaGx0I2tklHtf0WAl/
-	 4DE5C0PH7ORaXGyHDcIsKeRD6M8CsoA6LfDzwYSWKvV0KqOmAzxubT32zjwstKdwEjUBe
-	 jJiW49V4Uf7tG8FxWhITOKxT/bJsdJETWZFRqP96EgCcWyUdWSI0km/Z+L1KJVv0EInfn
-	 q6/VQ3SY6JXJ7TwhtSYm/lTnsXJODpW8wnh2gQNGXd/Bq/ypV0j16ctn5dj8FXO7BgrZd
-	 F9ZDUn7TgZ+3+/UgW3YE3QXWJidXui2FUhyBA32E9Wqe13Vmsec/PZ0XpUFkEatnThQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793036983;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=ZqtX6DI0kr6jtVxLiN9ux1tO8B5QzkEQXV5/RmgmS1A=;
-	b=GVxiXoI0EWsHQjccCcgwCuJAyM5gxfExw/+Lz30044SFE/U0HBm+2XjA1KAREYGsf1Bu
-	 8TwoknpGESNckVmp8AziVgz3Axw5UIOfV9SqXU8lDfLRD2s2FcLYhT/IEgHtlw/7IfeWO
-	 SZofizLwugn9CzgxIdm2rrcwxmqzc2MmVDLQ+EPX4GlDku7JiJAzTpDItYEA4G/ot+zYb
-	 XJpxwf8yEwzU2EpReMKd9k7IxRr4LUkShtlcJWekQ2U9qNqljdLSF9ceLje0CaZr/qoLy
-	 Uq/xubngKFLyWE30NpXaCogopXgdrO4yRrDF93ensElE5RAZPSNA/DtxzJbabhAtKTw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZccSGIN1;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793036991;
+	b=w6FqrQn+2d3lsd6T1iyRQNxU54vMeEb04WOidA00XoUXlk1u7zBlMFr4B7iAg/4iD+il
+	 yUXDMbeIO3rpNOKwbUZzs0M0zI2veDFCavNHXvuJej9TuRdHREUujZznpV6bmzBT45Eds
+	 q9dAcW6qXE6c11t7X4CUKCrnWgnDA76AjviHWON2QkiwQAofUcO4S6ycJA+JOk8sseFwu
+	 VyMfbjCJqURvflRLQef7H8tq8u1wIPX+TZFbrn2uUxLj6rGcu4hvR3zyxo4lNkz6MXmyn
+	 vhpnez4GfZtUtldegM2AfBT+noca3UR7sT3q4ff8GZNV/wxHDF/YNgmvFqvOLrwKnaw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793036991;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Debian-User;
+	bh=orD7g6UPcmdsNlJx2cAfXE0bvH+N2Z5uxr3hmHyDm+4=;
+	b=nZ4EaCGN2PGvU+wg+oQD3x2WR4fBpcmVUhQCZbuk7/p4amAaKx3cFgPeAsHDbWoL11Re
+	 SYt07+MXB02OaZedz/Ah1xyMdSH7oBXQVB/QgQ7Q+5HIhnxi7fneXSw3dIjXxCpHLyPGL
+	 yraYaueDGsMAiBOUJ8UT1Gss6/B/VlmqFufkABbs0BjepLTpnv5v4jyRsKerBTyfKPubc
+	 QgtIECRphPjrYLKiDC2q+sdPS8JgGAdgB+cEfuJ0MFuRLNyzuSpwY0b5Tl5u0521kwpVK
+	 4aFVNrlMwiVrA6gP/b9N7a4IZI7nEJrn6w+HNC6MXGxRJ8sB0yfbh7yNkEeUpvXotSg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=EQ3cwj6v;
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9215606A31A;
-	Mon, 26 Oct 2026 17:49:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 077BB60A2616;
+	Mon, 26 Oct 2026 17:49:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 077BB60A2616
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZccSGIN1
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793036982;
-	b=t6Ex82ZySKASHboV4vV6gtxTpWHi7yOhgM7Skn//Z4VG5Aa9Z+n42mFiO/FoLcOflbU6
-	 YI9yUDeiSIWQ5eKhBIsFRhISkmpmiopSo0Stgzey+7iC8DXqmIQkqRGDnkubZSuRlEUMp
-	 jkrdbjS54m6piYfWyd9mex1OUuzzCXCLBNVmVDcv9fZgxx+gby37juLxNMsLTdPlE2fpr
-	 a793LOPawHuoc7p+JQnDwYc8xJov7kYAMSAxJTtZ0o5/xyQSiIxHhVViaIzmpRlH8dwQ/
-	 QDBOoSvIrUrB0hMsREXMmhzzAQOujjNk6SBt/kXkfX5FoWCZ4v5vcpePzJxnH60rzVg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793036982;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=ZqtX6DI0kr6jtVxLiN9ux1tO8B5QzkEQXV5/RmgmS1A=;
-	b=GW1/Mvh6LvwalVofWOe2VFAo+5UNcCw2Y6aXYkoSYS82Z7L+1GqXJep1i/eVVtYy3jmc
-	 TMDhR7CZFaZ+BXrAFONGBOACu9/+/sM9DBncvMeWMKh33XFRqfZK+KOcO8m/gmpu3jWQb
-	 d34McNOY3gb12FHIqNQ3Is5ZgW9jRjwhZ5wpDgllrSwfXqtfEDwDZ9YJPCJT+RjvfrNPl
-	 xEIm6onBLbhPlHMP4FvSvk4irq8ZIBZdV299PSzy5gJ6krBIPPLN2Yuk79f9qDRywWCG1
-	 EdEAcionqR0xg5lhT/Pl84ss8B77nkCNotUm6I1yjz2CGCXwq2dw0UBsAp5VKIKlqkQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id BF12C1F01825;
-	Mon, 26 Oct 2026 17:49:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793036982;
-	bh=ZqtX6DI0kr6jtVxLiN9ux1tO8B5QzkEQXV5/RmgmS1A=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=ZccSGIN1gYfAomNmS+396+iIjiqH61e3iB9ano8cuajVQfweLEGNvzYWw3A7uYR4J
-	 Wl/2peKylkLg1FDf43/ARgg9ZuSbXvQhat680ZDTWewBuW7J1QQpSfaVJYZ+5c1TtZ
-	 1FG+OIbEzgPb0sxwD8OuRy4UvB2FJ9Zz8Pq2oa/w5DpflAO4N85oKvuu3ShqqZX9bg
-	 SXomrsYBLU4fVwBkjnZ69zDO45Fu805XKB/7NA8BonEBalwYnVL4QyEkrdUAEsoJqW
-	 2NJJItDvKkU8GnIxb1KFm96cDy00f+c/79QD3ef+GJdDTUN68Xhyc3G5D1CihI/HBI
-	 Qe7/66eA3ldsQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 4172A44E12;
-	Mon, 26 Oct 2026 17:49:41 +0000 (UTC)
-From: Ishu Brar via B4 Relay <devnull+patches.brar.si@kernel.org>
-Subject: [PATCH v3 0/2] interconnect: qcom: Add SM7250 interconnect
- provider
-Date: Mon, 26 Oct 2026 23:18:16 +0530
-Message-Id: <20261026-icc-sm7250-v3-0-aa303226298c@brar.si>
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=EQ3cwj6v
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=orD7g6UPcmdsNlJx2cAfXE0bvH+N2Z5uxr3hmHyDm+4=; b=EQ3cwj6vy6u0oKGJx6dBj5hNcm
+	f2tqIQzKAicQW+pA6YhglvraStNdeG7SbjTBQBTIFj5NjwaYNnT7fe5Yc5P2FLDiv7tlcO/zc7WJL
+	KzVkK1uLWVRjLK0qFh2qwJysSYdlt/zPigDwVqNOK57lzRuFGbv8r/LmkogqXinIS/nCFp1qOaLVH
+	BNi5u3+bnF9Vwj15EcrmlBWYhw3tu2r2LwksKAa/WTZzha3BQKx88fSI0Ww0crnNXQgYl89Wt9p/S
+	AUqOFn5fPjEvtPxRFmse/MaWe4UWbMUVNb+LSRaO7nivRu7w4+U9yajvotLwLkLTDECeaJZQM+U9z
+	RX/SrIbQ==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xLOpF-000qtM-20;
+	Mon, 26 Oct 2026 17:49:37 +0000
+Date: Mon, 26 Oct 2026 10:49:32 -0700
+From: Breno Leitao <leitao@debian.org>
+To: John Ogness <john.ogness@linutronix.de>
+Cc: Petr Mladek <pmladek@suse.com>, chris@chrisdown.name, 
+	Sam Crossley <samuelcrossley@gmail.com>, Thomas Gleixner <tglx@kernel.org>, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
+	Jonathan Corbet <corbet@lwn.net>, Paolo Abeni <pabeni@redhat.com>, 
+	Randy Dunlap <rdunlap@infradead.org>, Sergey Senozhatsky <senozhatsky@chromium.org>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Simon Horman <horms@kernel.org>, 
+	Steven Rostedt <rostedt@goodmis.org>, linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
+	linux-doc@vger.kernel.org
+Subject: Re: [PATCH RFC 0/2] netconsole: allow replaying the printk buffer on
+ demand
+Message-ID: <at-Ppa86sBw7mO8W@gmail.com>
+References: <20261024-netcons-replay-upstream-v1-0-9613f38496e5@gmail.com>
+ <87fqxskdpl.fsf@jogness.linutronix.de>
+ <at84qygscue8crQi@gmail.com>
+ <87a4o0k3qa.fsf@jogness.linutronix.de>
+ <at9qgBucVm-QHnye@pathway.suse.cz>
+ <87zew0ifpp.fsf@jogness.linutronix.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,93 +79,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NywrCMBBFf6VkbSSZ5qUr/0NctHG0I9hKUoNS+
- u8mdaGCywP3nDuxiIEwsm01sYCJIg19hnpVMd81/Rk5HTMzEGCkgJqT9zxeLWjBpXEKDSrZCGB
- ZuAU80WOJ7Q9vjvf2gn4shbLoKI5DeC5vSZbd33CSPNdRWS8BjNN214YmrCOxkk3wLaofEbIo0
- GrtNqqVzn3EeZ5fH0+yPe0AAAA=
-X-Change-ID: 20261023-icc-sm7250-1684e6e41a02
-To: Georgi Djakov <djakov@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Ishu Brar <patches@brar.si>
-Cc: linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org, 
- Konrad Dybcio <konradybcio@kernel.org>, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793036977; l=2815;
- i=patches@brar.si; h=from:subject:message-id;
- bh=XMn17Mlz1sQ1bjtBVxi9S/AkNIdkb5Ce8gNvbH3tfeM=;
- b=p6liVVIh25kiR7QvG2SeuvdfSRLRIVGeO/1/wz6ACoFFHbsJsxpSYqQSqZsuZ3JLEK0/StOyC
- LNqW8DHZp0eBSkq95HLKpvpdbRsr+jxiEbjBhLPdf1H2DCwE9dvOUWX
-X-Developer-Key: i=patches@brar.si; a=ed25519;
- pk=Ds+E23E3ntzjPzuBDyVRkOouclcNI5k75R+N42yJtCk=
-X-Endpoint-Received: by B4 Relay for patches@brar.si/default with
- auth_id=1189
-X-Original-From: Ishu Brar <patches@brar.si>
-Reply-To: patches@brar.si
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87zew0ifpp.fsf@jogness.linutronix.de>
+X-Debian-User: leitao
 
-Add the binding and the driver for the Network-On-Chip interconnect
-providers of the Qualcomm SM7250 SoC (Snapdragon 765/765G/768G). They are
-controlled through RPMh Bus Clock Managers, like the other RPMh based
-providers. The driver follows the layout of sm7150 and sm8250, and the
-nodes and BCMs come from the downstream interconnect description of the
-platform.
+On Mon, Oct 26, 2026 at 05:39:54PM +0106, John Ogness wrote:
+> On 2026-10-26, Petr Mladek <pmladek@suse.com> wrote:
+> > The "replay" approach looks like a big hammer. Many messages might get
+> > duplicated, especially when the outage was small.
+> >
+> > A better solution might be to do not increment con->nbcon_seq
+> > when the transmission failed. And try it later again.
+> 
+> Note that there was a time during the rework that we used to allow the
+> console to return failure but decided it was too complicated [0].
+> 
+> The kthreads are setup to stay in their printing loop until the backlog
+> is clear. Having a nice=-20 task busy-loop would be bad.
+> 
+> > con->write_thread() currently does not return anything. I believe that
+> > it is partly a historical limit. Two problems come to my mind:
+> >
+> >    1. There used to be a global "console_seq" counter which was common
+> >       for all console drivers. But we have a per-console counter since
+> >       the commit a699449bb13b70b8bd1 ("printk: refactor and rework
+> >       printing logic").
+> >
+> >    2. There has never been a try-later logic. But is should be easier
+> >       to add it now. We have the kthreads. And even the legacy loop
+> >       is able to break when there is not progress.
+> 
+> I suppose for only the write_thread() callback we could implement some
+> sort of throttled retry if the console driver reports failure. But this
+> is assuming console drivers can even detect if it successfully sent or
+> not. The netconsole certainly has no method to _know_ if the UDP packet
+> was received. And UARTs (asside from flow-control) also have no way to
+> confirm that the other side received the data.
+> 
+> Breno and Sam simply want the user to trigger a replay of the full
+> log. Essentially a sysrq-R but per-console. I think that is a reasonable
+> request and certainly much easier than attempting some sort of
+> transmission guarantee.
 
-Tested on a OnePlus Nord (a 7.3 based tree): all providers probe,
-and UFS, USB, display, I2C, serial and camera ISP devices get their
-paths without errors. The Adreno 620 GPU also takes its memory bandwidth
-levels from these providers (the Adreno 620 series sent earlier relies on
-them). The SoC devicetree nodes are not part of this series.
+A bit of context on the use case from our side.
 
----
-Changes in v3:
-- Subject: drop the redundant trailing "bindings" (Krzysztof)
-- Drop the "Child node's properties" comment (Krzysztof)
-- Binding: no child nodes any more; compute-noc, mc-virt and qup-virt are
-  separate compatibles on top-level nodes without reg (reg: false), as in
-  the milos and kuno bindings, so patternProperties goes away (Krzysztof)
-- No change to the driver
-- Link to v2: https://patch.msgid.link/20261024-icc-sm7250-v2-0-0e755894b188@brar.si
+In an ideal world netconsole is enabled from early boot through the
+kernel command line, but in some case this is impossible
+(linux as bootloaders - ipxe/sd-stubs/etc).
 
-Changes in v2:
-- Set .enable_mask = BIT(3) on the ACV BCM, like sm8150, sm8250 and sc7180, so
-  that the voter sends the one-hot APPS RSC bit instead of the scaled bandwidth
-  (reported by sashiko-bot)
-- Drop the IPA virtual provider (qcom,sm7250-ipa-virt, its BCM and its node IDs):
-  clk-rpmh already owns the IP0 BCM through RPMH_IPA_CLK, and the sibling SoCs
-  have no such provider either; otherwise icc_sync_state() would zero its vote
-  (reported by sashiko-bot)
-- Link to v1: https://patch.msgid.link/20261023-icc-sm7250-v1-0-1e47c1226857@brar.si
+The other way to setup netconsole is to create a new target at runtime
+through configfs. Netconsole then only sends messages from the time the
+target is enabled.
 
-To: Georgi Djakov <djakov@kernel.org>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-To: Ishu Brar <patches@brar.si>
-Cc: linux-arm-msm@vger.kernel.org
-Cc: linux-pm@vger.kernel.org
-Cc: Konrad Dybcio <konradybcio@kernel.org>
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
+For this second case, I would like to replay the whole kernel log on
+netconsole, such as previous messages. Something might have happened
+before the target was enabled, and we want visibility into that.
 
----
-Ishu Brar (2):
-      dt-bindings: interconnect: qcom: Add SM7250 RPMh NoC
-      interconnect: qcom: Add SM7250 interconnect provider driver
+That said, the "per-console counter" might work as well, since it would
+start as 0, thus, we know that netconsole target would be behind, and
+try to replay? (not sure how yet)
 
- .../bindings/interconnect/qcom,sm7250-rpmh.yaml    |   81 +
- drivers/interconnect/qcom/Kconfig                  |   14 +
- drivers/interconnect/qcom/Makefile                 |    2 +
- drivers/interconnect/qcom/sm7250.c                 | 1642 ++++++++++++++++++++
- .../dt-bindings/interconnect/qcom,sm7250-rpmh.h    |  148 ++
- 5 files changed, 1887 insertions(+)
----
-base-commit: 3fd56a2833c22f62eb84297d0dbd47739632f1a0
-change-id: 20261023-icc-sm7250-1684e6e41a02
+That said, one way or another might work for our purposes ?!
 
-Best regards,
---  
-Ishu Brar <patches@brar.si>
-
+Thanks for the proposal and discussions,
+--breno
 
