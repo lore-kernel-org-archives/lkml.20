@@ -1,109 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793051648;
-	b=dpfZT1K/U1/vOgdYUrBNiI6U/Nld3zrrPMsxbfF5DIhlG2Z7luirA4FukJgqvf/+3+IU
-	 A2jLzF9XZWki/XeFRkcoSWs0xPcX66PmJU00hLzL4+ZNWorozKuxf1kSQIgFpXLVgj582
-	 HeWZBI1WqmQQZtvcyFINPsE7GPb67g4/wRmxIzk0RrBtkPdNCsLd8nWxjIvuRybNpHX/G
-	 l5E7RNsc+ccfCQAxZjXRZBHuVHiuovhyBy1P6rL7ThTI76U1QmJKoNAhbshTjA2QucP3k
-	 LiF0mStcS0EJO8HwPBzlID1bFzjT7c4o1pIjZOc+tU//4/GVVrlBNMnxacqtJNWaWNQ==
+	t=1793051755;
+	b=YGdDdgjoG9POkeXnm1BUO3Jswx/DAy8VrUnNq52djr/lPf6+EoNCMhnMlLiI8FBumHcB
+	 bLWxQ4fTCg6sbOjy3ac2RrnyFa/AzYJy0FvXACRY1GdpduI2BkSfAAHK8Vgs24zAYzqZ1
+	 wWIVZfp+FY9p0Rq/Ym5V2AAlgb+AdssavAsb8KKtD0+xZqA0b/FVsTkb6IqurjiyBrHn2
+	 1uxFxRXGS7fhnrd2lZm6cc4fuMrEheNwCRGiawzSbdj6zsma/12IpjBj+jhe/wVM41WOt
+	 oFRF+Ou8GdnRmVVR3h3MVq9+Nzgo1zQDhF0ixEGvKmeMToFqsI3lRiVRu3sCAqudajw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793051648;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:
-	 X-Spam-Flag:X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
-	bh=pf3S30pSW0zRv1AOVALzxFmv0Ce8aBbZC2HWrVwtQ0k=;
-	b=n3rP2adYulaFsDe9OVR+BdGJiVSEB6d3XQZeyuaAwRTnRNkn6D+bX78SAFe2jwPQg3ED
-	 4Osg7cQoYyFBxMeZVJ18ekUSG5mxuAPHthKsaTNC32fmstsLSMM51/dwLZn6ZXRc/mLm4
-	 2+Za+HL3jpoQx8Ki3yvHcKTPbC0h8lXGzA0W5iFMjvy0lmcbakZemEWOP1FdmT8RAUHIj
-	 CKmDPHWXLFOTZVA8GPWAcQ0wwJqsDNfkFZiHUAJxRzZFLt2luoL7aqldHyLxB+ErVG55j
-	 31yFx5q3SS1OC2ESQ3oU9myJtAa5mCUwkunRL9cRNfkD/t8I30e4cSu/Ju7Cu3F2saA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793051755;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=EhGcnjUkFtHrBzTYh2OSeEzvO4o7DxmKsvaxyBcAlmM=;
+	b=uISuY9mgYZ8/X4kTl+lTiZIkIPY5lRltZBDDYN9iS0In4u3aNj9Sr9auLazSoGeQbeSs
+	 rE6Gg+5XiWMaocYJ5vhRLZKqJuW9QC2Df+UmB5LhgCJOvgQNHng3rFE0Pde3UUSBFxbOE
+	 BR9VbMBvZJLcqB/2yPw0WpnwQHOeWvyKh9ln51c1ExgAKszQXsE21yY3+mpZ8eTkrr/mx
+	 pOBXuOxfJk8AYsoQQp5TqKAT8OqSav2yPv9R+1k8HXS8sHhWTdr3mbg/JUO3zYsF6pxVK
+	 Fs+zZRdBLCCQboz4ziLdPkdDCRqXgJQDBqv6Yy1h4ToMYwzWyHBbvb7g3Rp9CZ2I6jw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=of181jWl;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=8QG2qy3k;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=vmUyTTmL;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ksiUWbKe;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l8AIqsWH;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02DF8606A31E;
-	Mon, 26 Oct 2026 21:54:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02DF8606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DAE8606A31B;
+	Mon, 26 Oct 2026 21:55:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=of181jWl;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=8QG2qy3k;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=vmUyTTmL;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ksiUWbKe
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 310B41F457;
-	Mon, 26 Oct 2026 21:54:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793051646; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=pf3S30pSW0zRv1AOVALzxFmv0Ce8aBbZC2HWrVwtQ0k=;
-	b=of181jWlE24V1YchHTnAbfa6DvBROfm21FOhrvZxE3/WE3ub/jzfqztQ7ZEyVUzvmYHWLf
-	Wk5QuyNTssa8db2DAeGfRinabyX/tcaMR13itFnGHT0KkwbGDVnzzO8QJ8TY8gNOif6JlJ
-	hrwoI+QoC6qWwvDLZ+exOZNyqS46gd4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793051646;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=pf3S30pSW0zRv1AOVALzxFmv0Ce8aBbZC2HWrVwtQ0k=;
-	b=8QG2qy3kxjDS8gWtfiZZb82xl4IPeo20JBGmqFR3Aedrls2FqL2P9OK/lzC9kOWh8MhaQo
-	eitJKcOutKC5mkBw==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=vmUyTTmL;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=ksiUWbKe
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793051645; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=pf3S30pSW0zRv1AOVALzxFmv0Ce8aBbZC2HWrVwtQ0k=;
-	b=vmUyTTmLdaZAwBYgjkw/QyA2Xjjfz8UchViKglAwbb7oYI/lpYIQAwW5JECH48zIBNNHCX
-	klnjCNBQNqophVhLIEvEy+tIg0u7iE0Yh3OXfSNVXEy59dv+g6abh/u6eB7UhmXzjV8s4g
-	UinrVww4MeOy7BUhnF5bkqypVkcIQSI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793051645;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=pf3S30pSW0zRv1AOVALzxFmv0Ce8aBbZC2HWrVwtQ0k=;
-	b=ksiUWbKeDvuES6KhGnl/L/nFOP8h6joc4JaID0sI6C7U2W/N2hsN5czxgK9P2fq25VfY5V
-	+qMllW8R0lWikNCQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D807F13408;
-	Mon, 26 Oct 2026 21:54:04 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id iOpCK/zL32onCQAAD6G6ig
-	(envelope-from <jack@suse.cz>); Mon, 26 Oct 2026 21:54:04 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 612ACA1419; Mon, 26 Oct 2026 22:54:04 +0100 (CET)
-Date: Mon, 26 Oct 2026 22:54:04 +0100
-From: Jan Kara <jack@suse.cz>
-To: Aurelien DESBRIERES <aurelien@hackers.camp>
-Cc: jack@suse.cz, brauner@kernel.org, willy@infradead.org, 
-	viro@zeniv.linux.org.uk, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	aurelien.desbrieres@gmail.com
-Subject: Re: [PATCH] buffer: warn when a buffer is attached to a second mmb
-Message-ID: <lmns74nam22ljcd4lhdyoel3vvxmhf6gakggmbtxbmkpgzhiva@xqlyexvgkwcy>
-References: <q472nkbfcfdumbxm3cebfnnmueqyl6uhhnper5t6e2cxajpvtu@7prjjo7k6ia3>
- <20261026213626.301480-1-aurelien@hackers.camp>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l8AIqsWH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48C971F01825;
+	Mon, 26 Oct 2026 21:55:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793051755;
+	bh=EhGcnjUkFtHrBzTYh2OSeEzvO4o7DxmKsvaxyBcAlmM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=l8AIqsWHD6Eek/lVL5PX3vbyVuzj0D/I7YVo9HTfIM/gie0y8YEuOq3n8oKCNjx8q
+	 Zat0kz50JUM74onR0VO8BtctuCnn1CP+vorJRPVHouZPp+heTK6g6IZZLSKm+OzHn/
+	 E1HdJZxqcD+gHtdGaFaAwih8F/srTIRYO3TOS/nal8E+pUJMEIfBAqnjice3qJdmlN
+	 bjYSk3Yb/s3LOhTPqzM5cDrIyzOJfKG4Aqs6BxBXpRM5ChgtDIMrVpwFJ+PnoXEXbY
+	 IHZAMEfqnvq780qQ2vhKZJjIBNhZpb3DvkfHMVcXdCvafFi6CJnKNWEpCfmWfVfAUU
+	 SgKcdJGQ0zs1Q==
+Date: Mon, 26 Oct 2026 14:55:51 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: kernel test robot <lkp@intel.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+	"Jason A. Donenfeld" <zx2c4@kernel.org>
+Subject: Re: error[E0080]: evaluation panicked: assertion failed:
+ size_of::<isize>() == size_of::<isize_atomic_repr>()
+Message-ID: <20261026215551.GD1330439@ax162>
+References: <202610261307.vnC1uCAL-lkp@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,119 +59,99 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261026213626.301480-1-aurelien@hackers.camp>
-X-Spamd-Result: default: False [-11.51 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCVD_COUNT_THREE(0.00)[3];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_CC(0.00)[suse.cz,kernel.org,infradead.org,zeniv.linux.org.uk,vger.kernel.org,gmail.com];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,hackers.camp:email,suse.cz:email,suse.cz:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -11.51
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 310B41F457
+In-Reply-To: <202610261307.vnC1uCAL-lkp@intel.com>
 
-On Mon 26-10-26 22:36:26, Aurelien DESBRIERES wrote:
-> mmb_mark_buffer_dirty() tracks a buffer on one mapping_metadata_bhs at
-> most. The per-mmb lock does not protect a buffer that changes lists,
-> and mmb_sync() clears b_mmb for a moment under its own lock, so a
-> filesystem that attaches a buffer shared by several inodes to each
-> inode's list in turn corrupts b_assoc_buffers eventually. With
-> CONFIG_DEBUG_LIST the list_del is refused and mmb_sync() spins on a
-> list that never empties, holding mmb->lock: seen with beamfs under
-> dbench (xfstests generic/241) as list_del corruption, a soft lockup and
-> a node lost to the OOM killer, with nothing naming the filesystem.
+On Mon, Oct 26, 2026 at 01:51:14PM +0100, kernel test robot wrote:
+> Hi Nathan,
 > 
-> Warn once when a buffer already tracked by another mmb is marked dirty
-> through a second one, so that the misuse is named at its first
-> occurrence rather than at the corruption it leads to. A corrupted
-> volume in which two inodes claim the same block reaches this as well;
-> the cmpxchg below keeps the lists sound in that case, and the warning
-> then says which filesystem believed its block map.
-> 
-> Suggested-by: Jan Kara <jack@suse.cz>
-> Link: https://lore.kernel.org/linux-fsdevel/q472nkbfcfdumbxm3cebfnnmueqyl6uhhnper5t6e2cxajpvtu@7prjjo7k6ia3/
-> Assisted-by: LLM
-> Signed-off-by: Aurelien DESBRIERES <aurelien@hackers.camp>
+> FYI, the error/warning still remains.
 
-Thanks! Looks good! Feel free to add:
+I think the result of this bisection is wrong. When building at the
+parent change (703749b069d5) with this toolchain, there is the error
+that this change (eb13a1ff271b) resolves:
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+  ld.lld: error: undefined symbol: memset
+  >>> referenced by getrandom.c:87 (lib/vdso/getrandom.c:87)
+  >>>               arch/loongarch/vdso/vgetrandom.o:(__vdso_getrandom)
+  make[4]: *** [arch/loongarch/vdso/Makefile:83: arch/loongarch/vdso/vdso.so.dbg] Error 1
 
-								Honza
+If I use LLVM 23.1.4 + rust 1.99.1 to build at the parent change, I can
+get the same error reported, so I don't think my change is responsible
+for it.
 
-> ---
-> Tested on vfs.all with beamfs, x86_64 guest, 4 CPUs:
+> tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+> head:   6b4b543fa18757297ac756a6fe6e64f506b7844a
+> commit: eb13a1ff271b0d180687eebb30611b0b276d5193 random: vDSO: avoid call to memset() when zeroing reserved parameter
+> date:   3 weeks ago
+> config: loongarch-randconfig-r2103-20261026 (https://download.01.org/0day-ci/archive/20261026/202610261307.vnC1uCAL-lkp@intel.com/config)
+> compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 42d4451d86c175b745d6ea1c4081787994c7259b)
+> rustc: rustc 1.96.0 (ac68faa20 2026-05-25)
+> reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261026/202610261307.vnC1uCAL-lkp@intel.com/reproduce)
 > 
-> - the module as it was before our fix, attaching the shared bitmap
->   block to each allocating inode's list in turn: the warning fires at
->   boot, 8.6 s in, on the first truncate that frees blocks of a file
->   another inode had allocated, long before the dbench run that used
->   to corrupt the list:
+> If you fix the issue in a separate patch/commit (i.e. not just a new version of
+> the same patch/commit), kindly add following tags
+> | Fixes: eb13a1ff271b ("random: vDSO: avoid call to memset() when zeroing reserved parameter")
+> | Reported-by: kernel test robot <lkp@intel.com>
+> | Closes: https://lore.kernel.org/oe-kbuild-all/202610261307.vnC1uCAL-lkp@intel.com/
 > 
->     WARNING: fs/buffer.c:639 at mmb_mark_buffer_dirty+0x46/0xd0, CPU#3: S01hostname-cmd/111
->      beamfs_write_bitmap_block+0x191/0x1c0
->      beamfs_inline_free_blocks_from+0x64/0x390
->      beamfs_inline_setattr+0x127/0x4c0
->      notify_change+0x33b/0x520
->      do_truncate+0xbf/0xf0
->      path_openat+0x8c1/0xaa0
+> All errors (new ones prefixed by >>):
 > 
-> - the module with the shared buffers on one superblock list: no
->   warning at boot or under the filesystem's own tests.
+> >> error[E0080]: evaluation panicked: assertion failed: size_of::<isize>() == size_of::<isize_atomic_repr>()
+>    --> rust/kernel/build_assert.rs:112:23
+>    |
+>    112 |         const _: () = ::core::assert!($condition $(,$arg)?);
+>    |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ evaluation of `sync::atomic::predefine::_` failed here
+>    |
+>    ::: rust/kernel/sync/atomic/predefine.rs:98:1
+>    |
+>    98 | static_assert!(size_of::<isize>() == size_of::<isize_atomic_repr>());
+>    | -------------------------------------------------------------------- in this macro invocation
+>    |
+>    = note: this error originates in the macro `::core::assert` which comes from the expansion of the macro `static_assert` (in Nightly builds, run with -Z macro-backtrace for more info)
+> --
+> >> error[E0080]: evaluation panicked: assertion failed: align_of::<isize>() == align_of::<isize_atomic_repr>()
+>    --> rust/kernel/build_assert.rs:112:23
+>    |
+>    112 |         const _: () = ::core::assert!($condition $(,$arg)?);
+>    |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ evaluation of `sync::atomic::predefine::_` failed here
+>    |
+>    ::: rust/kernel/sync/atomic/predefine.rs:99:1
+>    |
+>    99 | static_assert!(align_of::<isize>() == align_of::<isize_atomic_repr>());
+>    | ---------------------------------------------------------------------- in this macro invocation
+>    |
+>    = note: this error originates in the macro `::core::assert` which comes from the expansion of the macro `static_assert` (in Nightly builds, run with -Z macro-backtrace for more info)
+> --
+> >> error[E0080]: evaluation panicked: assertion failed: size_of::<usize>() == size_of::<isize_atomic_repr>()
+>    --> rust/kernel/build_assert.rs:112:23
+>    |
+>    112 |         const _: () = ::core::assert!($condition $(,$arg)?);
+>    |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ evaluation of `sync::atomic::predefine::_` failed here
+>    |
+>    ::: rust/kernel/sync/atomic/predefine.rs:100:1
+>    |
+>    100 | static_assert!(size_of::<usize>() == size_of::<isize_atomic_repr>());
+>    | -------------------------------------------------------------------- in this macro invocation
+>    |
+>    = note: this error originates in the macro `::core::assert` which comes from the expansion of the macro `static_assert` (in Nightly builds, run with -Z macro-backtrace for more info)
+> --
+> >> error[E0080]: evaluation panicked: assertion failed: align_of::<usize>() == align_of::<isize_atomic_repr>()
+>    --> rust/kernel/build_assert.rs:112:23
+>    |
+>    112 |         const _: () = ::core::assert!($condition $(,$arg)?);
+>    |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ evaluation of `sync::atomic::predefine::_` failed here
+>    |
+>    ::: rust/kernel/sync/atomic/predefine.rs:101:1
+>    |
+>    101 | static_assert!(align_of::<usize>() == align_of::<isize_atomic_repr>());
+>    | ---------------------------------------------------------------------- in this macro invocation
+>    |
+>    = note: this error originates in the macro `::core::assert` which comes from the expansion of the macro `static_assert` (in Nightly builds, run with -Z macro-backtrace for more info)
 > 
->  fs/buffer.c | 10 ++++++++++
->  1 file changed, 10 insertions(+)
-> 
-> diff --git a/fs/buffer.c b/fs/buffer.c
-> index 1dc933ba6925..e503a7ed9c37 100644
-> --- a/fs/buffer.c
-> +++ b/fs/buffer.c
-> @@ -627,6 +627,16 @@ void write_boundary_block(struct block_device *bdev,
->  void mmb_mark_buffer_dirty(struct buffer_head *bh,
->  			   struct mapping_metadata_bhs *mmb)
->  {
-> +	struct mapping_metadata_bhs *cur = READ_ONCE(bh->b_mmb);
-> +
-> +	/*
-> +	 * A buffer is tracked by one mmb at most. The per-mmb lock does
-> +	 * not cover a buffer that changes lists, and mmb_sync() clears
-> +	 * b_mmb for a moment under its own lock, so a filesystem that
-> +	 * attaches a buffer to a second mmb corrupts b_assoc_buffers
-> +	 * sooner or later. Name it here, before the lists do.
-> +	 */
-> +	WARN_ON_ONCE(cur && cur != mmb);
->  	mark_buffer_dirty(bh);
->  	if (!bh->b_mmb) {
->  		spin_lock(&mmb->lock);
-> 
-> base-commit: 2c3ba1f1cb416b81d617b92a24a4bcaa48d574e3
-> -- 
-> 2.55.0
-> 
+> --
+> 0-DAY CI Kernel Test Service
+> https://github.com/intel/lkp-tests/wiki
+
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+Cheers,
+Nathan
