@@ -1,58 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793047658;
-	b=dgoOn2AoPsme0Pkvz5VCnTZmeSEPrBQsSmjQDpTSIl9GG3nrdHfcOf91sD1sk8bfV0E5
-	 d6sEUI6mHrQAnQpz37xFAvie8pLksmhpOWyEAkzzRbbYD3nlqdAPwjxuodXrPuK8b8EgX
-	 JhjYiWGJXZTxvArV9e3def2ExsMN63cMC8oUM8VM72FjTEPm3zYRSeH5h/Ofm1h6oX21j
-	 GovfQwuDFg9rlmqzv2KnE0SPdUykEbGroH6R+aBJ+waXNtsUI909I1CP1HRs/bKTQRDYA
-	 TPKJxEt9sCp8sTjKwoOdRLhjSC76YUtwgDyibufI/54G+qszVHRL1/TrYv77a5kAOow==
+	t=1793047678;
+	b=Z2tbVCc/BZl8QMbiaRAwJmGkI4qGbs6W+EuopXeshuh6Z1MsuBCDC7Hb9Gg6VlVSwgEz
+	 2DRh6XTHb2Uymq/moWeAGfZvv6Azfi5Ms6J0mfWC5oeuV4yjVbP+YSYuy5I048qyIVc66
+	 wmrea+SzsFV8LGis6hP2SlMZ5RJr+nkIZQQE4WnD9Sivveoo1DQ/OMoxDLvJpaYdN4Jt5
+	 v/1jaeOm4vUX/phwVoFX56EJi9WUCO25AKrTLDiu6fFpBMtP+YZYM0StCsbUWQRRTYxF2
+	 1fQTs32MAqRkheEFwlsNZ5oFulD8WMsKuz0nk5LDYkzNEXnO8S6JBk+5vLfdgSyp0cA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793047658;
-	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Stat-Signature:X-Rspamd-Server:
-	 X-Rspamd-Queue-Id:X-Spam-Status:X-Session-Marker:X-Session-ID:
-	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
-	bh=bi/dF0duPNIpFPP0XBhAUfWsF3W0vUPh0zZaQpp5mnU=;
-	b=XgRVWwyAoYypIuyyJ5ZyJ/E2nLcI3rk44bsAPHjZoVg/fr+B7T9ZlqwmgYxmBoFeZM9S
-	 qGLflVcYwhJuJkbujZgqegSa3YVvtmhgGLLkOPb8A+tGp7RjlkGJ4dU4KMmEtxJGoBxkk
-	 azVntRfVKqm8boVqe00GlAvpC6Rfy0UMGZ8qgO1SUNw/fbG0XamRy7kYqeVReNwhhep+h
-	 lXjccMlVQz5GTSNFhjlqWLYC8l7a7lq6cJQ2gARuxibZii4Z3XvIhk652Ilea4SO/UKZ9
-	 fK43zrL1EYjyZYGH2hK6VqhYeFbI90LVIcU0nji01bJNsGovfDiNVE3zKOhp4EubciQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793047678;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Sender:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=SBmctSjaoLLILJHNPpPv1PuNvPvq0whtOyZw1gjKndI=;
+	b=su0j2swKwK1zHwvVrxIcz9ibtOiphAUkwRRa61iybyGaDalBrt1y8wEDJ6UmJzbjmBSX
+	 d0ED+ed5pv3iAE0Pc+K7exddL3pIpcrWSW2j0VSywt6RUP8Wm36STB4FUgJbfPVIPRLNm
+	 0LksBtJmYTuH/xInut60k+ONUqWLA3DHeWMBTdi0GNhsG5HLOFilJpKkqNVx+Lux/FyRn
+	 BXwoTIScJCwLkpv55CPswQUO7OWCHMlUv/VDYBOjA6MsokV9wZtksu+81HPfD3JTY08to
+	 gr+z8fAgB83H4WaHessjjWzX1msamjcRa6TZnyCif7/9Dx2ZVwAo6HP7cdFvWzRUDTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goodmis.org;
-	spf=pass smtp.mailfrom=goodmis.org;
-	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=Jt6bDdKM;
-	arc=none smtp.remote-ip=216.40.44.12
-Received: from relay.hostedemail.com (smtprelay0012.hostedemail.com [216.40.44.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=roeck-us.net;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=irCKRdav;
+	arc=none smtp.remote-ip=74.125.82.51
+Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECA4D606A31A;
-	Mon, 26 Oct 2026 20:47:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECA4D606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BAF8606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 20:47:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2BAF8606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=Jt6bDdKM
-Received: from omf08.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay03.hostedemail.com (Postfix) with ESMTP id 75203A0810;
-	Mon, 26 Oct 2026 20:47:35 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf08.hostedemail.com (Postfix) with ESMTPA id AABB420026;
-	Mon, 26 Oct 2026 20:47:33 +0000 (UTC)
-Date: Mon, 26 Oct 2026 16:47:27 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-Cc: Shuah Khan <shuah@kernel.org>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH v2 6/9] tracing/filters: Skip second character of '&&'
- and '||' in calc_stack()
-Message-ID: <20261026164727.0d1636cb@gandalf.local.home>
-In-Reply-To: <179291748555.492959.3275503783612449972.stgit@devnote2>
-References: <179291742944.492959.11659339795290028998.stgit@devnote2>
-	<179291748555.492959.3275503783612449972.stgit@devnote2>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=irCKRdav
+Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-15ea896ddc8so5960416c88.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:47:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793047677; x=1793652477; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=SBmctSjaoLLILJHNPpPv1PuNvPvq0whtOyZw1gjKndI=;
+        b=irCKRdavJ1ic6tR9vsqNpCYqnE/IzH8mECl28f7EEWDTHhJizVrT9hOcsCXrlL6zhx
+         NSTeoZXboKZF99CJNcnVHZdKUUSk5kEkbSSU5w1xeKbhNKltgulw2WPFtfizm714ls6y
+         aSNJB9P8YNNi8xWqwQiUgEtWrDwZaXsZUHUpfMb0ZY8lDKo230xFmBsilpkMBNegfQP+
+         SexeY5JCZOe+PHxJAJ5H9eePOWUKl5K/iewGcknIEklYTQHUg6UXLnMLfi0fxIqeoLXg
+         f10hQdO7YPYUiHFezZ0LvK3EPCqgGJ1sN8RaFCl8Roj9LVQbseKNdPAK564zXvqY3N6l
+         ftKA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793047677; x=1793652477;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SBmctSjaoLLILJHNPpPv1PuNvPvq0whtOyZw1gjKndI=;
+        b=RHY5n/IlPueBrnwlJkl0xI6QuHVuVTvVmChuNbWeqqZ0VwbXXvwoPC5QEMenxOaV5X
+         SMsumpsRivxl/q5H070H6dpgCLFJHbEjOtCzsJI8xzfxLaZwUPIPz7c2kfflz4uZGY7D
+         8FtN/tLMncMiPPnW3TqXnkf6j0OtPOjyjf0ycjLdpbZQhOQRkZeg5emVzGjoSEMYo9OE
+         KanTURBMoqg4hc+HBlAnDavRg+pMdo+ZK9GeXz+R1Q8024vq8EHRb7UPv8wvUk8AWmXi
+         Nl0uxET05ldHa8DIxI63VLb2vPhFUpDrz807/IjpPXrTAv+lqz44KnAOFJ3khWC0Tpc1
+         rARA==
+X-Forwarded-Encrypted: i=1; AKwUvBxZ3EJESzYUgUXm3ocwdllvIBpDk+D8TO9pYkAmYoUsQC2/ureLiOEUQHuZ/QZeNsXqxaRlIk17fEveoaY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLXrHEtOynPLcZ71WbBlTxV3AmuE5GFk+5cf1OKfW/bShh1XwQR
+	lnQCqptyBp06yHB2wJ4E5ibQF0yYWog1MA/3y2WYoqQmqedYL6+L1aCw
+X-Gm-Gg: AYBFou2+tocHrlF3qpiiIcl16UzgHRfVdSJ2ICbD5TbEC63fwxcpr0+oj1x68xmvWDi
+	KIXsWazeQ1PAGQ1YUt/pmVawmbNwOmgCg6GYoaUUB36VKDH7zWOFOnWVo6ymJuPwXbtYkkWwnsG
+	+/c+Zpxl5h1XeFBNJkRFp3jW9kOmYwJvMDn26TkgmYKBlG49J2JoLzBFHQgvQuNfzARiGGuiZS0
+	nCnGvvpo4507kPrkv9hjV1s6hUWPSRGtA6zFxEAmdx7Pu+1bONGUYwsA/0RHCZjXSUM6tRcS0vi
+	OczhIIU5i+GURHow11Ptbuc8EYfQUOOSusrARvrUEDA3z2/4kS2kXeR8IimwUKzWRM/0cQLS4g7
+	fTFS0cCl15C/r84rYNkq6HDd2K1zYwGZKWz2ld74gsX7HaDNYQwYhMRaAo7jAtB/MBpZnmTgG8H
+	MN+t01nL1/gPHDDx8FdVXnxMPsR6kzUepUGOSBRifUyxQVLCbHCBo9+3FIprbrUA9AWdpAoRPvb
+	URslAGP8cZQo/XLFZm4qNJ/zi9Ehqm9VA5BxBPZjq9bp8E/ibqw7DSv6Kdkgh1wSKt6Ow==
+X-Received: by 2002:a05:7022:5f09:b0:15e:6541:3099 with SMTP id a92af1059eb24-19933e10e21mr12324517c88.7.1793047677064;
+        Mon, 26 Oct 2026 13:47:57 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1989ff2eefbsm27586280c88.7.2026.10.26.13.47.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 13:47:56 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Mon, 26 Oct 2026 13:47:54 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Vas Zayarskiy <contact@vasily.cc>
+Cc: Aleksa Savic <savicaleksa83@gmail.com>, Jack Doan <me@jackdoan.com>,
+	linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>
+Subject: Re: [PATCH v5 1/5] hwmon: (aquacomputer_d5next) Avoid truncating
+ scaled sensor readings
+Message-ID: <494625fc-168a-42b4-9591-cbf5fb2e981e@roeck-us.net>
+References: <20260927191316.4137752-1-contact@vasily.cc>
+ <20260927191316.4137752-2-contact@vasily.cc>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,109 +101,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Stat-Signature: q6cg4rk9fn5igcqzm4ab8txy8re7sjjt
-X-Rspamd-Server: rspamout08
-X-Rspamd-Queue-Id: AABB420026
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX19vVCx3D5Mg3/w52xBtHaqIJ/CilWYSCkA=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=bi/dF0duPNIpFPP0XBhAUfWsF3W0vUPh0zZaQpp5mnU=; b=Jt6bDdKMJ3KQmIG0f4XKsO/MT2SC2coYmryQPkvtir3BrdZTt+J+3H7rmlbcQ7VbrBOkdVdcgJIrlW0Va0v5RtDIwrxQNoJBdz3nHi85QXkqKCJnA8X0n3XrXmaxWXSPc9g8N3IfZ2I/Eo/aEBIYU4kzMrFGM9Uu0u6/CQX5mew=
-X-HE-Tag: 1793047653-986889
-X-HE-Meta: U2FsdGVkX1+YncBO4JaXPsoWfzD4EEYZJ/odPV9r4TDTsT83HgYihm3bjVsRPDErdXmGDDrjk4SVhmTVJvr/TvkjI+RSX+h5CDUYTn9L2xmRaVa5GKEfhj1GCq2ALxK0RnGV5YZ7M9+RVxuYXewLF8anT+1YI/DwvS6tbP6WE53vhZ8RX6TcBzIgm3X2bZNOlo21MS2qZJHoJCVwcHSUWsLFr0U+Lz9MHyCRnIQUrkDcrIgZ4SwPQwrMBBJpLwAQZcTecE3UkrIda1OaGMt5kVwxj07QbeEU3y0GYam3CNUCJrl90eiZvGc75ZFBiJqbDeHem6fkhdmKhZs4EAzdMW12iM5kphCz
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260927191316.4137752-2-contact@vasily.cc>
 
-On Sun, 25 Oct 2026 17:38:05 +0900
-"Masami Hiramatsu (Google)" <mhiramat@kernel.org> wrote:
-
-> From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+On Sun, Sep 27, 2026 at 10:13:12PM +0300, Vas Zayarskiy wrote:
+> High Flow Next power is reported in watts. Multiplying the 16-bit value
+> by one million can overflow both the signed intermediate and the u32
+> cache. Store power in long, perform the conversion in u64, and clamp to
+> LONG_MAX. The other existing power conversions fit in a signed 32-bit
+> value. Return -ENODATA for unavailable power instead of exposing the
+> stored error as a reading.
 > 
-> In calc_stack(), when encountering '||' or '&&' (where str[i+1] == str[i]),
-> the loop sets 'is_pred = false' and continues without advancing 'i' past
-> the second character of the operator. On the next iteration, the second '|'
-> or '&' sees str[i+1] != str[i], breaks out of the switch statement, and is
-> counted as the start of a new predicate (incrementing nr_preds and setting
-> is_pred = true).
+> The power cache is updated by HID reports without the hwmon read mutex.
+> Read it once with READ_ONCE() and use that snapshot for both the
+> availability check and the returned value. Mark the corresponding
+> updates with WRITE_ONCE() so that the shared accesses are explicit.
 > 
-> Consequently, a trailing logical operator (e.g. 'common_pid == 1 ||') is
-> counted as having 2 predicates instead of 1, and any subsequent non-space
-> character before a delimiter fails to increment nr_preds.
-
- "common_pid ||' is an invalid expression.
-
+> Widen the shared current cache to u32. The Aquastream XT conversion to
+> milliamperes can exceed 65535 mA; clamp its negative conversion results
+> to zero before assigning to the unsigned cache. This also permits devices
+> with scaled aggregate currents to store milliamperes directly.
 > 
-> Increment 'i' when matching '||' or '&&' so the entire two-character
-> operator is skipped.
+> Assisted-by: LLM sparse
+> Signed-off-by: Vas Zayarskiy <contact@vasily.cc>
 
-This is just wrong.
+Applied.
 
-Masami, don't blindly trust AI.
-
-I purposely did it this way. Because && and || creates a new predicate.
-
- If you have "x||y"
-              ^
-              i
-
- Start with i = 0; is_pred = false; nr_preds = 0;
-
-   str[i] == 'x'
-   if (!is_pred) {
-	nr_preds++;  // nr_preds = 1
-        is_pred = true;
-   }
-
- in for loop i++;  // i = 1; str[i] = '|'
-
-   switch (str[i])
-   case '|':
-      if (str[i+1] != str[i]) // false
-      is_pred = false;
-      continue;
-
- in for loop i++; // i = 2; str[i] == '|';
-
-   switch (str[i])
-   case '|':
-      if (str[i+1] != str[i]) // true
-          break;
-
-   if (!is_pred) {
-	nr_preds++;  // nr_preds = 2
-        is_pred = true;
-   }
-
- in for loop i++; // i = 3; str[i] == 'y';
- 
-   if (!is_pred) { // false because is_pred == true
-
-Loop ends.
-
-nr_preds == 2. This is correct.
-
-This patch is garbage.
-
--- Stevwe
-
-
-
-> 
-> Fixes: 80765597bc58 ("tracing: Rewrite filter logic to be simpler and faster")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-> ---
->  kernel/trace/trace_events_filter.c |    1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/kernel/trace/trace_events_filter.c b/kernel/trace/trace_events_filter.c
-> index 3bd0b47a627f..bcd37fd6c109 100644
-> --- a/kernel/trace/trace_events_filter.c
-> +++ b/kernel/trace/trace_events_filter.c
-> @@ -2208,6 +2208,7 @@ static int calc_stack(const char *str, int *parens, int *preds, int *err)
->  		case '&':
->  			if (str[i+1] != str[i])
->  				break;
-> +			i++;
->  			is_pred = false;
->  			continue;
->  		case '(':
-
+Thanks,
+Guenter
