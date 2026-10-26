@@ -1,65 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793057466;
-	b=Lk6rPF4FlAui6n7AmaEa/pSrf7NiuogO0NyJLmcOybMsjqqMnRk4o2PWDopNnWWP7lmT
-	 b2leI6Q1SrDwIeKWG3Iq1Zt9Q0Zv89Rrx7nUPLAVTuAF3R2xK2HJ2G/NEdfglTbScPJAG
-	 ZR5WAi6w7xMR7n+6kkZGqDrgcPjmrx87JuwO1tckgctC5GzxAAlhpyD2IOBzyF71EaGYK
-	 cSk0RWeNHJUVUN3TyGkki73b07v3IFoFlx23GFkHiknq5ZNA9gjoSq+CAn51uVTI3Bo3B
-	 aZ3XLBVwxO1UwNh8KZNAqp6k9S+3OVAWPF0zZkxxKemdTZ/N9OzdWfm47EAzsJo3KCg==
+	b=UZfDKbO+RpfNnNPytGDh2Z/6730cqFddiWfrNH1PTzvZ+9qZsTWKbhaX73zjcjPKKSSn
+	 uMhtXQPZpD4fvGjpwBZJ1PIu/vtQLAEqV9KWozTsRWuNZ3bmZI0ukN2v3RIL6c49k0qGk
+	 UZ8Xsh/xly0gXRb0nd3gpZLTIn6lEp0NMUB+8Ta553zLJ+26KGuM6qoTdb+yVwdMJadco
+	 UbfVBaCiQEjjL68PYeRjSXROBW4jSd+KUbLevM5bi6JsQIAEi0c0Y4Ojs4cpA8scE5KOO
+	 IsEYiUz+5MBkZDEQyFjvnQdMPsdHLj6Ajy2uGLBj3NVNQOK+pSZk8j3Q6LRKsaxSVmw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793057466;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=BXMaxfxl8pUfKyjU+RYdBrxevhEHCmwAm3DkCRJuUXM=;
-	b=VK1JC2AGddsJZXTvCILXFsu2rlc97mmhP/6IIfA404ZVFtOUhjnJacpU7KFt3sQYTv66
-	 iGnFd2et2+QrJ8FsTQIntBHSPYYY0ntGQQSoQb4/t57o071NGq8hNE8crKu1ExYSfPiI/
-	 OXEEva5duRCpX0Bg3PADxrGZsE2caNLtgaUgNPLzmGmiwm6fsqBKz2jBBt/+pNzRX+jkt
-	 q0JCiyipSrDcEs2XQe2ebwsmTbOFz7m699hdLexmeRMINmxNE2z/FXCo6LMOi4wG3KMU+
-	 wDSQfDlws+9yqW/gtaRFBPUNNPgdsHPPQi4V3pWoMLT/wytG/7ZQhe7zVmsf30sfbWA==
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=Z1RyZWAi78ndVHxKqcXWt9kL8B14QePwfDTsZT4EoFs=;
+	b=tZB7rDxASI+yHtiZe15RcDyjgmiO7EadZLKndetCNJoTZc4IuCAVUrItcGQfLlKa9l7w
+	 MXjL+dgJpxr0XkfDNCiWNMXY5Nm+lKQ9rcAm8pMWfpL0apsl3H8kIyXQbgg5QSFLQMB/Z
+	 T3CGqj1EwfHatFVxJiff6BNaLmBcN0j2m5pkpaIe1gfxGiHbU2uzqICETTpfkasolWqJd
+	 u3PZLhQxEFmHpup+n5WjjGmG8EcS+J3VuIWuW2+5Oz8xTDWzypkmzm6osp8XFAkjHAr89
+	 Rtm+xHNGnnBFJZRTbP4aA51ORbPelHJTC/sugnqVsloAwubqn9VTj2r4T9nlqjZDEgA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b827CWyl;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=U807TgqL;
+	arc=none smtp.remote-ip=198.137.202.133
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96CF3606A323;
-	Mon, 26 Oct 2026 23:31:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FF2B606A31E;
+	Mon, 26 Oct 2026 23:31:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4FF2B606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b827CWyl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FF101F031E0;
-	Mon, 26 Oct 2026 23:31:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793057466;
-	bh=BXMaxfxl8pUfKyjU+RYdBrxevhEHCmwAm3DkCRJuUXM=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=b827CWyl3P7PTW++NzPzVAN4jcqAt1OMlwu3Tg4YdVJZHb+t3k6vkPdataGUHC09H
-	 m5uQjB9F/3YYYC2eIakeohWLgXrBMDbRf9xqVel5D8pwiPsvFCkSYDSrzAJi5FdbI0
-	 X2h/JDXw7wymz0h+4g2s4f8SzJP7Tmpnf5/fXzo9iWw9O3s2zAIzQYINpwRLkty60B
-	 H34hzkXG+djeZcKcE1ndF9LWu1Jh3vNDmq0wOmjmWLprtvJTGF8bTGojj7HNAyN6r7
-	 FaUTgi4vbpouFmDaHeQM0agJtbU4gt/ECf3ntna2xYtvU92+EzqSXo9OjMcQTOVPiB
-	 RBuCrmeXavPaA==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 2F65ACE0C35; Mon, 26 Oct 2026 16:31:06 -0700 (PDT)
-Date: Mon, 26 Oct 2026 16:31:06 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: KunWu Chan <kunwu.chan@gmail.com>
-Cc: jiangshanlai@gmail.com, josh@joshtriplett.org, work@onurozkan.dev,
-	frederic@kernel.org, neeraj.upadhyay@kernel.org,
-	joelagnelf@nvidia.com, boqun@kernel.org, urezki@gmail.com,
-	rostedt@goodmis.org, mathieu.desnoyers@efficios.com,
-	qiang.zhang@linux.dev, rcu@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Kunwu Chan <chentao@kylinos.cn>
-Subject: Re: [PATCH 7/9] srcu: Detect duplicate callback enqueue at
- registration
-Message-ID: <c259fb39-153a-41f2-9d82-cba4255e65e8@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20261023101841.2910719-1-kunwu.chan@gmail.com>
- <20261023101841.2910719-8-kunwu.chan@gmail.com>
- <60e6148e-b7e1-4f2f-a665-24567305956f@paulmck-laptop>
- <b5c84b27-5e66-44f1-b95a-d7c1655df69d@paulmck-laptop>
- <CAN_Opa9MvTvLemY5DYNHu-yXy9xZvJJiLXigknP-qM=bK0Xw7w@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=U807TgqL
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=Z1RyZWAi78ndVHxKqcXWt9kL8B14QePwfDTsZT4EoFs=; b=U807TgqLYju5/OsccI52dt/h7P
+	GaXN+erPhJzMw0V+4OfcQhvDK19by3fq29FwbbvdzXgxKpwbnaUpe0RoBqhi/Vq5bhv6wDcBMpCff
+	4UXskh7J5kle/tb7fZLzFIhExMYylaW1FD2hapgEsc9QtiTWf58LEQOYizpFOPC9dkrlF4/QSthg9
+	TqRip/W8W8Ry9p1jUcQwgMeAiPBHy5AXv4Vw8Km4GBrv0gWQPgiJ82cdbX/fhFGrJINO83DiXnE/A
+	Rnb7qcEbkhk2f0I+bHj7cg0bnhEgN0toprzZSQ6K0hVklmqtedv4l6f4tcU/u0+vMWZB5VVfK1H1+
+	MnimUWVg==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xLU9X-00000003Rz0-3d2E;
+	Mon, 26 Oct 2026 23:30:55 +0000
+Message-ID: <5ebdcc81-29ec-462c-a600-bacfc670f5f3@infradead.org>
+Date: Mon, 26 Oct 2026 16:30:54 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,133 +58,104 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [net-next PATCH v6 03/10] net: pcs: Add subsystem
+To: Sean Anderson <sean.anderson@linux.dev>, netdev@vger.kernel.org,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Russell King <linux@armlinux.org.uk>
+Cc: Vineeth Karumanchi <vineeth.karumanchi@amd.com>,
+ Heiner Kallweit <hkallweit1@gmail.com>, linux-kernel@vger.kernel.org,
+ Kory Maincent <kory.maincent@bootlin.com>,
+ Daniel Golle <daniel@makrotopia.org>, Simon Horman <horms@kernel.org>,
+ Christian Marangi <ansuelsmth@gmail.com>, Lei Wei <quic_leiwei@quicinc.com>,
+ Jonathan Corbet <corbet@lwn.net>, linux-doc@vger.kernel.org
+References: <20250610233134.3588011-1-sean.anderson@linux.dev>
+ <20250610233134.3588011-4-sean.anderson@linux.dev>
+ <f5b16bd6-01b6-45c0-9668-41ccf90445a3@infradead.org>
+ <b7137a4a-cb87-4aa5-958f-a83d3239e967@linux.dev>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <b7137a4a-cb87-4aa5-958f-a83d3239e967@linux.dev>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAN_Opa9MvTvLemY5DYNHu-yXy9xZvJJiLXigknP-qM=bK0Xw7w@mail.gmail.com>
 
-On Mon, Oct 26, 2026 at 10:35:02AM +0800, KunWu Chan wrote:
-> Thanks Paul for the detailed review.
-> 
-> On Sat, Oct 24, 2026 at 3:38 AM Paul E. McKenney <paulmck@kernel.org> wrote:
-> >
-> > On Fri, Oct 23, 2026 at 12:30:57PM -0700, Paul E. McKenney wrote:
-> > > On Fri, Oct 23, 2026 at 06:18:39PM +0800, Kunwu Chan wrote:
-> > > > Move the duplicate-callback check from srcu_do_enqueue() to
-> > > > __call_srcu() entry so that detected duplicate registrations
-> > > > are rejected before they reach the deferred-list enqueue path.
-> > > > Report the callback address, function symbol, and object
-> > > > information, rate-limited to the first three occurrences.
-> > > >
-> > > > Signed-off-by: Kunwu Chan <chentao@kylinos.cn>
-> > >
-> > > Getting the stackof the call_srcu() once double-enqueue is detected
-> > > would be a very good thing!
-> 
-> I'm also working on the rcutorture support and will send it out separately.
+Hi,
+Sorry for the delay.
 
-Looking forward to it!
 
-							Thanx, Paul
+On 6/12/25 8:38 AM, Sean Anderson wrote:
+> On 6/10/25 20:24, Randy Dunlap wrote:
+>> Hi,
+>>
+>>
+>>> diff --git a/Documentation/networking/pcs.rst b/Documentation/networking/pcs.rst
+>>> new file mode 100644
+>>> index 000000000000..4b41ba884160
+>>> --- /dev/null
+>>> +++ b/Documentation/networking/pcs.rst
+>>> @@ -0,0 +1,102 @@
+>>> +.. SPDX-License-Identifier: GPL-2.0
+>>> +
+>>> +=============
+>>> +PCS Subsystem
+>>> +=============
+>>> +
+>>> +The PCS (Physical Coding Sublayer) subsystem handles the registration and lookup
+>>> +of PCS devices. These devices contain the upper sublayers of the Ethernet
+>>> +physical layer, generally handling framing, scrambling, and encoding tasks. PCS
+>>> +devices may also include PMA (Physical Medium Attachment) components. PCS
+>>> +devices transfer data between the Link-layer MAC device, and the rest of the
+>>> +physical layer, typically via a serdes. The output of the serdes may be
+>>> +connected more-or-less directly to the medium when using fiber-optic or
+>>> +backplane connections (1000BASE-SX, 1000BASE-KX, etc). It may also communicate
+>>> +with a separate PHY (such as over SGMII) which handles the connection to the
+>>> +medium (such as 1000BASE-T).
+>>> +
+>>> +Looking up PCS Devices
+>>> +----------------------
+>>> +
+>>> +There are generally two ways to look up a PCS device. If the PCS device is
+>>> +internal to a larger device (such as a MAC or switch), and it does not share an
+>>> +implementation with an existing PCS, then it does not need to be registered with
+>>> +the PCS subsystem. Instead, you can populate a :c:type:`phylink_pcs`
+>>> +in your probe function. Otherwise, you must look up the PCS.
+>>> +
+>>> +If your device has a :c:type:`fwnode_handle`, you can add a PCS using the
+>>> +``pcs-handle`` property::
+>>> +
+>>> +    ethernet-controller {
+>>> +        // ...
+>>> +        pcs-handle = <&pcs>;
+>>> +        pcs-handle-names = "internal";
+>>> +    };
+>>> +
+>>> +Then, during your probe function, you can get the PCS using :c:func:`pcs_get`::
+>>
+>> It's preferable to use                               PCS using pcs_get()::
+>> instead of the :c:func: notation to make the .rst file more human-readable.
+>> They produce the same generated output.
+> 
+> If you find this syntax useful, then you should update
+> Documentation/doc-guide/{kernel-doc,sphinx}.rst. I did not use it
+> because it I did not know about it because it is not documented.
 
-> > > One question below.
-> > >
-> > > > ---
-> > > >  kernel/rcu/srcutree.c | 20 ++++++++++++++------
-> > > >  1 file changed, 14 insertions(+), 6 deletions(-)
-> > > >
-> > > > diff --git a/kernel/rcu/srcutree.c b/kernel/rcu/srcutree.c
-> > > > index 1993ddbdb828..3838d9fdf532 100644
-> > > > --- a/kernel/rcu/srcutree.c
-> > > > +++ b/kernel/rcu/srcutree.c
-> > > > @@ -27,6 +27,7 @@
-> > > >  #include <linux/smp.h>
-> > > >  #include <linux/delay.h>
-> > > >  #include <linux/module.h>
-> > > > +#include <linux/mm.h>
-> > > >  #include <linux/slab.h>
-> > > >  #include <linux/srcu.h>
-> > > >
-> > > > @@ -1511,12 +1512,6 @@ static unsigned long srcu_gp_start_if_needed(struct srcu_struct *ssp,
-> > > >  static void srcu_do_enqueue(struct srcu_struct *ssp, struct rcu_head *rhp,
-> > > >                         rcu_callback_t func, bool do_norm)
-> > > >  {
-> > > > -   if (debug_rcu_head_queue(rhp)) {
-> > > > -           /* Probable double call_srcu(), so leak the callback. */
-> > > > -           WRITE_ONCE(rhp->func, srcu_leak_callback);
-> > > > -           WARN_ONCE(1, "call_srcu(): Leaked duplicate callback\n");
-> > > > -           return;
-> > > > -   }
-> > > >     rhp->func = func;
-> > > >     (void)srcu_gp_start_if_needed(ssp, rhp, do_norm);
-> > > >  }
-> > > > @@ -1529,6 +1524,8 @@ static void srcu_do_enqueue(struct srcu_struct *ssp, struct rcu_head *rhp,
-> > > >  static void __call_srcu(struct srcu_struct *ssp, struct rcu_head *rhp,
-> > > >                     rcu_callback_t func, bool do_norm)
-> > > >  {
-> > > > +   static atomic_t doublefrees;
-> > > > +
-> > > >     /* Misaligned rcu_head! */
-> > > >     WARN_ON_ONCE((unsigned long)rhp & (sizeof(void *) - 1));
-> > > >
-> > > > @@ -1539,6 +1536,16 @@ static void __call_srcu(struct srcu_struct *ssp, struct rcu_head *rhp,
-> > > >     if (WARN_ON_ONCE(ssp->srcu_reader_flavor == SRCU_READ_FLAVOR_ATOMIC))
-> > > >             return; // Leak the callback rather than corrupt SRCU state.
-> > > >
-> > > > +   if (debug_rcu_head_queue(rhp)) {
-> > > > +           if (atomic_inc_return(&doublefrees) < 4) {
-> > >
-> > > Why this hard-coded 4?  Why not 3 or 5?  Should this be adjustable via
-> > > Kconfig or kernel boot parameter?  Or, alternatively, should the below
-> > > pr_err() instead be pr_err_ratelimited()?
-> 
-> Regarding the hard-coded limit, I followed the existing code in tree.c when
-> choosing 4. Thanks for pointing this out. I'll switch to pr_err_ratelimited()
-> in v2 and make the same change in tree.c as well, so the two paths are
-> consistent.
-> > >
-> > > > +                   pr_err("%s(): Duplicate call_srcu() CB %p->%pS()\n",
-> > > > +                          __func__, rhp, rhp->func);
-> > > > +                   mem_dump_obj(rhp);
-> > >
-> > > Does any of this automatically dump out the stack that was recorded
-> > > in earlier patches in this series?
-> >
-> 
-> I'll also add dump_stack() to all three duplicate-enqueue patches
-> to capture the current stack when a duplicate is detected.
-> 
-> > As in shouldn't there be a kasan_print_aux_stacks() in there somewhere?
-> > I did not see an call from mem_dump_obj(), but I could easily have
-> > missed it.
-> >
-> 
-> As for kasan_print_aux_stacks(), as mentioned in my reply to patch 1,
-> it is called by the existing KASAN report path, which prints the auxiliary
-> stack recorded by patches 1-3. It does not need to be called directly
-> from these patches.
-> 
-> Thanks,
-> Kunwu
-> 
-> >                                                         Thanx, Paul
-> >
-> > > > +           }
-> > > > +           WRITE_ONCE(rhp->func, srcu_leak_callback);
-> > > > +           return;
-> > > > +   }
-> > > > +
-> > > >     /* Record the caller: the irq_work's stack says nothing about it. */
-> > > >     kasan_record_aux_stack(rhp);
-> > > >
-> > > > @@ -1554,6 +1561,7 @@ static void __call_srcu(struct srcu_struct *ssp, struct rcu_head *rhp,
-> > > >             if (READ_ONCE(sndp->draining) && !in_nmi()) {
-> > > >                     WARN_ONCE(IS_ENABLED(CONFIG_PROVE_RCU),
-> > > >                               "call_srcu() re-entered during callback drain; leaking callback\n");
-> > > > +                   debug_rcu_head_unqueue(rhp);
-> > > >                     return;
-> > > >             }
-> > > >             sdp = this_cpu_ptr(ssp->sda);
-> > > > --
-> > > > 2.43.0
-> > > >
+See Documentation/doc-guide/kernel-doc.rst,
+commit 7c8b9e3000f8
+Author: Nícolas F. R. A. Prado <nfraprado@protonmail.com>
+Date:   Thu Sep 3 00:58:26 2020 +0000
+    kernel-doc: Update "cross-referencing from rST" section to use automarkup
+
+
+Cross-referencing from reStructuredText
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+No additional syntax is needed to cross-reference the functions and types
+defined in the kernel-doc comments from reStructuredText documents.
+Just end function names with ``()`` and write ``struct``, ``union``, ``enum``
+or ``typedef`` before types.
+
+-- 
+~Randy
+
