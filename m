@@ -1,66 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.128
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793046611;
-	b=d/vWBSM39OQQsGK6e+L4Wee7NdjW681Mywq4Um9RA1MhrOI8IlgH0kOQAoWXXLvqjBCT
-	 Xrv99SJzP4MPADxuj3hjbDEuUEmcyur25O3ZNRsKf9piqBhFiY4dLxGozuEAokC3gqKFv
-	 5pvklZAdEtDThcXWrsS/GAW38SNIU72iI5tKXYIwykGm92wDJO6Xzltf9qt76t4Y+4Nl2
-	 QEuk0Ia3NB2tAIfEfg3ZjEpIng3DjoUCP9oZ2q/bQPwZFY6MnkMqmYjKBjL8bDpW6Elmp
-	 rLRNmLxc9386TLI4Sw/8EipXXizy1o6yb+2TrVrgZVv49LTmCCTpZzJg9BG6yQyzSLg==
+	t=1793046652;
+	b=pwABwEUeMN+lQ8rjVoAn6gR3hpGKVeqD4X2m2UJneXvBAPmr63R+gyVS4tsZxYBb2LHE
+	 89XjogbUlTN+u/pJy0EDVw51XpsPf7H3dDJFi6LC3BD4BdYPeT7EX5Xx+9Ss4fzIFzT/a
+	 qzOBy5s7kiMQbfGrgOKEu0nhKWD3MdmGehG9qs8iiL/bAdwigGLA9hadOwkHdQio8z/YK
+	 UwciLY63e7bP6Q0LvapIKW2JwTGULsKUb7jrSF376FDU55+AVJ0DVNE+jx+wklK0jW3dt
+	 kL0jEi1sdGBoRMZUbDQvqWpm9yQlh14uB/OEvd8CY9X0o+JRKYESAi4wNQp5si8ytIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793046611;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=ZU382VR9VFvP+88q69iBNd3gx3rQknKjVsiESDHwxak=;
-	b=qB66kfC4LtltW5t2MqxXqqJM2Qrk5lJuBHEU2HXcO56xA7EEwShVbnQKXHccrrt7J9nX
-	 FXb9FSP7fiVrPSq2EraTiXbjTILdG2t8O+CDKyBEVXwE6ly2h3OzkUc74dJtkJSZzhLnj
-	 ITu2i/axzyF5l07nGWxqxdDdoJF/nRAgitZb/8uwgaWmF1BRI6+V5bq7QHBuI9z57lWeU
-	 RjJCZvtJ+ZARAGzysEQqaic1LdCRVS4jVItZgReaueUjdQMcCCIqDsOcvED6NVwhxFURw
-	 pIv5y0pY0HaE60DKHcJFc0P9rrutafpoC7+xcwMth5dPbhhT65ZdOYZhUnvKRKSHuQQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793046652;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=q91/ZqBRSWos1rOGl7FRZkFKpbVqDazHpwLRukKvSaw=;
+	b=MStjYQ2WodgOQF8jyiQMf1UPSBaYFcXnTZNpOKcJzZHhFYamN6AI8fLy34UXe6wEcOVB
+	 lGAcNDTrz1xOJZqhHsfu0FaV8856++uokxpkyOm8O2gOKK+9NNdtarVhwgP1RhZf6KrVK
+	 d+NnqSw7R7lW+PO7qg8KKG9q2XkDpHdIuiK/osc6YPP1U6xz37JMQYXiW0fhEnAOlNwoP
+	 VJe8rHGcQ1gTP1bE9DoBklSz2ILL3MTZNBX/luDDq39lvubk3T4i3U/UD1viiFuLANzjz
+	 3ow0ozw2Q/sukivwm0lU22Eb3AzChAGrZnfvrs0AFZZAYrkyjbG3KQLETHRYW+jyPFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=acm.org;
-	spf=pass smtp.mailfrom=acm.org;
-	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=WbL3yBWI;
-	arc=none smtp.remote-ip=199.89.1.14
-Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=jtpKN8BH;
+	arc=none smtp.remote-ip=95.215.58.128
+Received: from mta1.migadu.com (out-128.mta1.migadu.com [95.215.58.128])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BC3B606A31F;
-	Mon, 26 Oct 2026 20:30:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8BC3B606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A81B606A31B
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 20:30:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A81B606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=WbL3yBWI
-Received: from localhost (localhost [127.0.0.1])
-	by 011.lax.mailroute.net (Postfix) with ESMTP id 4jD4xY74C1z1XM30g;
-	Mon, 26 Oct 2026 20:30:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1793046607; x=1795638608; bh=ZU382VR9VFvP+88q69iBNd3g
-	x3rQknKjVsiESDHwxak=; b=WbL3yBWI8skb1sIL1KDWTfndvB4f6GYkqEIYEhGK
-	tVap9QkZZxmF/JNnXs+qsU35vKsRQ/UauU8Tyqt9YXeafGf5MftZSHdoyLPckCAj
-	kOxHldWg8EMkHqHixIbK/xLBclS1MYt4l0D/uJ4VhgN5bD1Vf9v8MDN0Z+w9VLRi
-	QdaTO3Wu3wy8I8zo3CjZXqz9KBEWHP+yuon4XHOAwynnS1MsTthpt9ZJ9SkVt5DG
-	uedFWaN+UoxrF+fo9KH3yWbidWLJQjbEAxUsVbVG6MKfIh8Die7h6MOcTC6ZJk5T
-	AwvBJTUWONXnfoPEx3YiU0x46T/u+EDzratVH3N4qpVB5w==
-X-Virus-Scanned: by MailRoute
-Received: from 011.lax.mailroute.net ([127.0.0.1])
- by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id c_-km9dqUKSi; Mon, 26 Oct 2026 20:30:07 +0000 (UTC)
-Received: from [100.80.231.125] (unknown [104.135.182.41])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4jD4xW3pWnz1XM4Tl;
-	Mon, 26 Oct 2026 20:30:07 +0000 (UTC)
-Message-ID: <7f77627b-91eb-4d94-913f-9e4164f24a86@acm.org>
-Date: Mon, 26 Oct 2026 13:30:06 -0700
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=jtpKN8BH
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=cIhC+X2D9PeHbpAlmTyQ0l0MeQ/nAc9SVi2AYlpNJD0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793046649; v=1; x=1793651449;
+ b=jtpKN8BHuVUBXWCVsWrTSBs+B1RxpFdrgm/3o82kT/UMumKUl13IPxPS0OcFcNWAZVAsv8Tf
+ hkWSCJjCCztFDvX00D8wlHd8Mutyw3oK2eaPTnw/CuznmEf4NB/mnkNS+QtmguR/cNM/jhJj/J3
+ Jyd3QPU5tTt9KTlDc12O7I5g=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 40420f710c1f9aa8;
+	Mon, 26 Oct 2026 20:30:49 +0000
+X-Mizu-Trace-ID: 40420f710c1f9aa8
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <b9fb702d-9782-44b7-803a-26a00fc4206e@linux.dev>
+Date: Mon, 26 Oct 2026 13:30:42 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,26 +59,120 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] scsi: core: Balance the pseudo target reap reference
-To: Giuseppe Piscitelli <ooonea@gmail.com>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- "Martin K. Petersen" <mkp@kernel.org>
-Cc: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261026202119.667348-1-ooonea@gmail.com>
+Subject: Re: [PATCH bpf-next v3 04/12] bpf: Track low-32 scalar equality
+ across zero-extending movs
+To: bot+bpf-ci@kernel.org, ast@kernel.org, daniel@iogearbox.net,
+ andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com
+Cc: martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev,
+ jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev,
+ john.fastabend@gmail.com, shuah@kernel.org, bpf@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ martin.lau@kernel.org, mason@kernel.org
+References: <20261020161907.2115379-5-vineet.gupta@linux.dev>
+ <d6b900be6e27a2ab0ff198e30d28c0d35410daa23bf03ead13a359569f9bfdd9@mail.kernel.org>
+From: Vineet Gupta <vineet.gupta@linux.dev>
 Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <20261026202119.667348-1-ooonea@gmail.com>
+In-Reply-To: <d6b900be6e27a2ab0ff198e30d28c0d35410daa23bf03ead13a359569f9bfdd9@mail.kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/26/26 1:21 PM, Giuseppe Piscitelli wrote:
-> OpenAI Codex analyzed the teardown warnings and wrote this fix and its
-> local validation.
+On 10/20/26 10:09 AM, bot+bpf-ci@kernel.org wrote:
+>> bpf: Track low-32 scalar equality across zero-extending movs
+> TL;DR: The comment and changelog claim a zero delta from an add is refused
+> composition, but a 32-bit add of known zero records the same link as the mov
+> and composes. Behaviour is sound; the explanation looks inaccurate.
+>> @@ -17594,11 +17584,28 @@ static int adjust_reg_min_max_vals(struct bpf_verifier_env *env,
+>>
+>>   		if (dst_reg->link_kind) {
+>>   			/*
+>> -			 * If the register already went through rX += val
+>> -			 * we cannot accumulate another val into rx->off.
+>> +			 * Only the zero-extending link the mov above records,
+>> +			 * BPF_REG_LINK_ZEXT with delta 0, can take a delta:
+>> +			 * (u32)((u32)(base + 0) + off) is (u32)(base + off).
+>> +			 * The add has to be 32-bit as well, since a 64-bit one
+>> +			 * parts company with the link once the low half wraps.
+>> +			 *
+>> +			 * Everything else still drops the link. A zero delta
+>> +			 * reached by an add rather than by the mov, say "r1 +=
+>> +			 * r3" with r3 known to be 0, has already spent its
+>> +			 * delta; composing onto it keeps a link alive across a
+>> +			 * loop's increments, and since the delta is compared
+>> +			 * for equality, every value the loop reaches becomes a
+>> +			 * state of its own and stops pruning.
+>>   			 */
+>> +			if (dst_reg->link_kind != BPF_REG_LINK_ZEXT || !alu32 ||
+>> +			    dst_reg->delta) {
+>> +				/* also the target of the two gotos above */
+>>   clear_id:
+>> -			bpf_clear_scalar_id(dst_reg);
+>> +				bpf_clear_scalar_id(dst_reg);
+>> +			} else {
+>> +				dst_reg->delta = off;
+>> +			}
+>>   		} else {
+>>   			if (alu32)
+>>   				dst_reg->link_kind = BPF_REG_LINK_ZEXT;
+> The comment says a zero delta "reached by an add rather than by the mov"
+> has already spent its delta, and the commit message says allowing
+> composition onto "a zero delta that an add produced rather than the mov
+> still costs 1176 -> 1196".  Can this test actually tell the two apart?
 
-Please include the teardown warning in the patch description.
+Comment is wrong, fixed in v4.
 
-Otherwise this patch looks good to me.
+Walking it through to confirm your reading: a 32-bit add on a register 
+that has an id but no kind takes the else arm,
 
-Thanks,
+     } else {
+         if (alu32)
+             dst_reg->link_kind = BPF_REG_LINK_ZEXT;
+         else
+             dst_reg->link_kind = BPF_REG_LINK_FULL;
+         dst_reg->delta = off;
+     }
 
-Bart.
+so "w1 += 0" records exactly what the mov records, ZEXT with delta 0, 
+and a following "w1 += 1" composes onto it.
+
+The example the comment gives, "r1 += r3", is 64-bit, records 
+BPF_REG_LINK_FULL, and is refused for being full link rather than for 
+having spent a delta.
+
+The behaviour is sound: (u32)((u32)(base + 0) + off) is (u32)(base + 
+off) whichever instruction produced the zero. What is actually refused 
+is a *second* delta, and that is what the comment now says.
+
+
+> A 32-bit add or sub of a known zero ("w1 += 0", "w1 -= 0", or "w1 += w3"
+> with w3 known to be 0) on a register that has an id but no link_kind goes
+> through the else arm quoted above and records:
+>
+>      dst_reg->link_kind = BPF_REG_LINK_ZEXT;
+>      dst_reg->delta = off;    /* off == 0 */
+>
+> That is the same state the mov records, so a following "w1 += 1" passes the
+> "dst_reg->link_kind != BPF_REG_LINK_ZEXT || !alu32 || dst_reg->delta" test
+> and composes.
+>
+> Only the 64-bit example from the comment ("r1 += r3", which records
+> BPF_REG_LINK_FULL) is actually refused.
+>
+> The result is still sound, since (u32)((u32)(base + 0) + off) is
+> (u32)(base + off).  Should the comment and the changelog limit the claim to
+> 64-bit adds, or does the mov-produced link need to be made distinguishable
+> from the add-produced one?
+
+Former. Composing is already capped at one so comment says second delta 
+is refused.
+
+Thx,
+-Vineet
+
+>
+>
+> ---
+> AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+> See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+>
+> CI run summary: https://github.com/kernel-patches/bpf/actions/runs/39458500836
+
