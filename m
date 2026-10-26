@@ -1,60 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793028547;
-	b=IG2dHhNi6TI9iRID6adCgznxndaCt88/rHOYtd8aSb7ZQmjRerHeORFotHSEcff7QmnM
-	 OgbnMktF78o2o+FjZSoeF42GR/lw3by1cGaB0Y/u8xiiJpKc7DsqL9uwIRJBQMFXFjZwo
-	 JKYm+yFcvkcpzAOZ84bSjnRAtTqp3oo1zbpegZnI9U7ZdySYfLcttWh3z9T2F2eWr9D/C
-	 U5Pm7bhU1P0Y0uH2aXUtImDPhArNXH6xKyP4Z59gP0ee9rc+Mw2IWdu94UAxRv0s6a1ED
-	 6hcpuTS0rGO53GJlX8bfVo4AWK0t3fcj8BlTFXh7QnPGGwdgHlL8x0Ypowknn6sgU8A==
+	t=1793028563;
+	b=pX9oi0nGWsQ0XTH8RmQrNMlGoPRnlXxzgsvJ5DUUpF6vB9Jq+dj3dOtBqxL1BEAEMDCc
+	 +G5veJPyoW4LbQ55EosprfmTYLWA9JKPrzRm2ESeu8TAy63KoBH0ybunbS25u60VTECLt
+	 MaJ2FHoP4YVRcxq2J7Qqoe1pMnVOKfAPZDIg58Dm5iMyOAN21zklHKsaIbQnSzkSwwPtq
+	 AulgIptYNBAdwzeg6lbGwgarupaBTQZfcSihNTb+cKJmiQMychrQ1nk7yb6lgn6FUttBx
+	 MZDMuoxzZ6/jM6kIRp9CA/HX2uNWUGD1b6RneDuPNdVC/cGQik8Dl9ZN+y5gL8vyByA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793028547;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=C3oJnVN+Hwvm5Jbw2TkkoHl94T3jd8kkc2EwWgGtdRs=;
-	b=hz5/E/IVvOq4dwC3tUgW6hWwSkEzCzSykhxfAWcbIZaiQRamccMXu7Qmlgc1voHe/DYg
-	 iwGwnwbUcnzHEnJrY6IDn49fYfQ8uhJzvjAr34uO1PcBTg0ARmAjKTp5N0DS8c/bbr3nL
-	 7lvZrvKry6AXNm+ffit0zhauhwyNC8yAoq31XEFRUane3XNp4mWR8vagbVzx5PyGlu4C3
-	 GkDD+ybUWMNiJF2EtBF5mU2MbJQlHe/ON8CsOGk4FyLN+4fPJaRvRGw8zsPuKMdFlctg7
-	 aZUQi4xqNkcl8Zp4gcBvEoZcAW4SaH9kKhKAOkOKbgTpP4koA4spSv+8Bo3Fm48+yFg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793028563;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:
+	 X-Google-Original-From:Date:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=8iZubcz038EY8c4oZtKV+g//UmaZbw0VPeAJAfl9gbs=;
+	b=ny70qwEmv82ldWBJnHteUa+gJeDZN69R9t/Ac0n+boxBnvAY7+80u8nOPEfO+BChQ7ZJ
+	 F6ArFUM3YBZmt7rQwE7yGtcg5+HojVnu7QlJvVxeo79eOb/NcOVH4S/ZMx6SKQ1MEg/kX
+	 lIF5bSP8413ABQWRBiqkc8PsdIWkISFLj4LRhRKchG6Nk+Qi+Gjv/NcgfMnVVVO8uc5Kw
+	 3j5N1r/CCphRWT7SOmxSCbQ2oi9XRNUaxYf8aJgpxoL3l5DW/9D+YQpWwmN1McCDgc53F
+	 oa3qcFf3iliJWronlZDBbo0AvwnjL2RCFIj/JY1hC7RqPgUY4FZYc/SL7oR3WrkXRbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HCnFYEo2;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="n/3EmII+";
+	arc=none smtp.remote-ip=209.85.215.169
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0118B606A31A;
-	Mon, 26 Oct 2026 15:29:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26FF7606A31B
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 15:29:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26FF7606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HCnFYEo2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C430B1F01825;
-	Mon, 26 Oct 2026 15:29:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793028546;
-	bh=C3oJnVN+Hwvm5Jbw2TkkoHl94T3jd8kkc2EwWgGtdRs=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=HCnFYEo2VZpk4lWe7IE/EFDnLdw6iW6il7r8s2Ga7KmYF6xN80CElgzQQBzlXvecA
-	 3k8pZGQBLoEjNoizGISJZAQr6dZLaRWg6DfZj9S26prBK5IHOJ3sATiqe5UNQc37Yq
-	 +BIzGJZ+3uTEsefS5meCrKHwXTe0XKDCa93JwJNQVf5EKb1szQCSs455EP5FjYII4/
-	 HeKW/vop9dXo6M0HzLbRw57CqLLecRS9NGllrNuISevz5Dil+cHCeVNEmPtXj5w9pJ
-	 5zfqyaxNR85nzVJJUyXM9j0NqGZPOogGffJwd/gQv0MHIE7rlAVGv9nnyu53Ms1hKW
-	 45/tIlbDTYeLw==
-Subject: Re: [PATCH net] net: bridge: do not bypass port state for MST without
- VLAN filtering
-From: netdev-bot+sashiko@kernel.org
-To: teel4res@gmail.com
-Cc: razor@blackwall.org, idosch@nvidia.com, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- bridge@lists.linux.dev, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- tobias@waldekranz.com
-Date: Mon, 26 Oct 2026 15:29:05 +0000
-Message-ID: <179302854528.3134.18358959701165767967@kernel.org>
-In-Reply-To: <179268538303.70821.3493915601694605045@gmail.com>
-References: <179268538303.70821.3493915601694605045@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=n/3EmII+
+Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cd5cd8d89a7so921817a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 08:29:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793028562; x=1793633362; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8iZubcz038EY8c4oZtKV+g//UmaZbw0VPeAJAfl9gbs=;
+        b=n/3EmII+fJ3KhXyCQp9OEAWpnHIEVyvrQJ1AzXdeKd0KhvvrNiJNZtCH4Gj55qCChy
+         q2DyGFrBEWIZ8NO+qHPrl/AFajFpUQIRdQnIMx9BBZV7oJWloxHlED+nsYrFCkmqqoIf
+         PFX5J+e0NMDoVfhMUi/4b+hA3ss5n3qwKz3J/1JfpswNsbxfbBKmfYEzSa+4e5AZbgWL
+         xtpMqxmQMC0Gh0ZTd7nLGGX0NzBGE+Mmur1OF2t9GnRaxPk0xPdAghfCfB31U9g54r4k
+         9/pN4Da0ifQQvbcjqz2k9bcsAwyNxSh3X2GopNHSIrWhmnfcZ0KTW84YAe/ea33TbZiW
+         3mBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793028562; x=1793633362;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8iZubcz038EY8c4oZtKV+g//UmaZbw0VPeAJAfl9gbs=;
+        b=lqiLrl1xTXon0rCnKnm6SH3rEe3cbFGlUU/PoebLNBBOJXrLzQbE7E9EexYHtHlBIr
+         vUlIHlZulTlhZGomK4voXxK1H/kztTw7pGXl42P3kKFZ+45Jc8byQStig/EjfD6qEW2x
+         Lhe5Tekb2hirfrZT4wCvo8/yVn0UgKUpoFykcKTifKU5Cer5VmHzLiecIJHzqTKvq8iH
+         uO9OqejOpL5Vn2qRCgPVyysHI0gQYKyLtXWXZvJxPcJTE6aF8wmDGhobSqLx/PScku7x
+         tQRDg9oIcBb9lS+371W6Y54oktrbivnQpjhB7nhtps/3YKCq0UsOg4wZZIr+tm803rh/
+         6wQg==
+X-Gm-Message-State: AFq9FYI8MmIJf8irW8Exewn/sYAT77d+ONp8v/RxrT4AvxZ2MlQWyGxl
+	JxUmKwXSeyAwWirxoa2hI1eliQ/zjTEbd2Dsay3Q0O5KYSkN5hWysXJB
+X-Gm-Gg: AYBFou0p+qf1P4SZOCKE7c7f3Sg4IWvgLN7U4lIYtXBSCn51/zJ5O/UcQpVglLcb/J/
+	ZN/U1XWjGnTIi5cwCDGcOsXrCjQAgpmOanfYHMKnONPRae9cq683FWsl6WOcJLsocqesFRYw7t7
+	KgXkQ5ajSIaiW0sSjlHEBx/uTdQz13Iw6ixhFTeWA2P92TDJgKIu9OmFzlfliZmqq+KrgN8Bipp
+	Ri109XFDHgoxsvCQBmT110wvhEHvJjRWYhFEVUNc7OxGfaLoJNXoMStzIsURSKqoGO11KkUusyf
+	bubDlpXNdMUOrygalHyZOlRZB+8lE8HvJiYkea2+IHe/G+4kgynvflg1pQKvZTZ4+1OMmeKhDk0
+	xPY/pDd+fizkUna24iuMF5IbenmO4c0x4qZEBYrJ0DyTiuIQNwR9BXHKPH5LduMNbL5Z0mcS2UH
+	c/f1VSaJmsm6XwMAJpjti5q/sMLkocGcM9FVjD8GKN8P7DhSEMVN5Kg/jk6jsIDdS+yVE3Zh3/p
+	aBBQ90YDKFFL8l1OP+NxOTHXcMkxDQHZILPr8hsQs3ibQPPVSuwjkr0jjzKK7mT1KEOSBb+4+70
+	HR9V25hbEgBUol+eRPnaECLyv0hJhhRtk2Wi1ZiFcwcLHaI68QU=
+X-Received: by 2002:a17:90b:1c8b:b0:3a8:c0cd:57f3 with SMTP id 98e67ed59e1d1-3adea8966a7mr5554619a91.18.1793028562351;
+        Mon, 26 Oct 2026 08:29:22 -0700 (PDT)
+Received: from RDEALENC-L01.ad.analog.com (158.95.44.30.netskope-rdns.com. [158.95.44.30])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae403d0d9dsm3332a91.15.2026.10.26.08.29.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 08:29:21 -0700 (PDT)
+From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
+X-Google-Original-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+Date: Mon, 26 Oct 2026 12:29:16 -0300
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org, 
+	Andrew Morton <akpm@linux-foundation.org>, Jonathan Cameron <jic23@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>
+Subject: Re: [PATCH v4 4/6] iio: test: rescale: compare scales against the
+ precision of the output
+Message-ID: <r3mtebdkezwd4sfpnqp2e3mo3bjqzzgdyyfcw3h5x6mqp5cskz@4d72r3r2wpkm>
+References: <20261026-e-notation-v4-0-a366a6d14d57@analog.com>
+ <20261026-e-notation-v4-4-a366a6d14d57@analog.com>
+ <at9mXdRhiM-9TVyg@ashevche-desk.local>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,116 +100,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <at9mXdRhiM-9TVyg@ashevche-desk.local>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+On 26/10/26 16:40, Andy Shevchenko wrote:
+> On Mon, Oct 26, 2026 at 08:54:08AM -0300, Rodrigo Alencar via B4 Relay wrote:
+> > 
+> > The scale tests format the rescaled value with iio_format_value(), which
+> > prints at most nano precision, and require the relative error to the
+> > expected value to be below 1 ppm. Both strings are parsed back with
+> > iio_str_to_fixpoint() at nano precision, so for the small scale cases the
+> > check only passes because the expected value, like the formatted one, is
+> > truncated to nano. For example, "0.000000033594" is parsed as 33 nano,
+> > equal to the formatted "0.000000033", although the actual error is about
+> > 1.8%. If the expected value were rounded instead, it would be parsed as
+> > 34 nano and the test would fail even though the output is as accurate as
+> > the format allows.
+> > 
+> > Parse both values with kstrtodec64() at a scale of 10, one digit more
+> > than the output precision, so the expected value keeps the digits lost
+> > when formatting. Scale 10 is the largest that still fits the overflow
+> > cases (about 2.1e8) in an s64. Compute the relative error with
+> > mul_u64_u64_div_u64(), as the product with 10^6 no longer fits in 64 bits
+> > for those cases.
+> > 
+> > Then allow a relative error up to the relative size of one nano of the
+> > expected value, the precision of the formatted output. This is 0 ppm for
+> > values of 0.01 and above, so those cases are checked as before, and it
+> > accepts the formatting error for the small scale cases.
+> 
+> ...
+> 
+> > +/*
+> > + * iio_format_value() prints scales with up to nano precision. Parse values
+> > + * with one more digit, so the expected values keep the precision lost there.
+> > + * Scale 10 is the largest that fits the overflow test cases in an s64.
+> >   */
+> > +#define IIO_TEST_DEC_SCALE	10
+> > +#define IIO_TEST_NANO		10	/* one nano at IIO_TEST_DEC_SCALE */
+> 
+> I would put them as (9 + 1) to show that actually show that "with one more digit".
+> I also don't follow the comment near to the last definition. What does it mean?
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] The patch adds a live, lockless read of BROPT_VLAN_ENABLED to
-  br_mst_is_enabled() (net/bridge/br_private.h:1956).
-
---
-
-net: bridge: do not bypass port state for MST without VLAN filtering
-
-This commit makes br_mst_is_enabled() also require BROPT_VLAN_ENABLED.
-Without that check, a bridge with MST enabled but VLAN filtering
-disabled enforces no port state at all. With the patch, the legacy STP
-port state checks apply until VLAN filtering is turned on.
-
-> diff --git a/net/bridge/br_private.h b/net/bridge/br_private.h
-> index ff746f036f548..85065304597eb 100644
-> --- a/net/bridge/br_private.h
-> +++ b/net/bridge/br_private.h
-> @@ -1953,6 +1953,7 @@ static inline bool br_mst_is_enabled(const struct net_bridge_port *p)
->  	/* check the port's vlan group to avoid racing with port deletion */
->  	return static_branch_unlikely(&br_mst_used) &&
->  	       br_opt_get(p->br, BROPT_MST_ENABLED) &&
-> +	       br_opt_get(p->br, BROPT_VLAN_ENABLED) &&
->  	       rcu_access_pointer(p->vlgrp);
->  }
-
-[Severity: Medium]
-Can a frame now skip both the legacy port state check and the per-VLAN
-MST state check while vlan_filtering is being toggled?
-
-The predicate now depends on a bit that can change at runtime. A single
-frame evaluates it separately in br_handle_frame(),
-br_handle_frame_finish() and should_deliver(). br_allowed_ingress() also
-reads BROPT_VLAN_ENABLED on its own. The writer flips the bit under RTNL
-and does not wait for frames already in flight:
-
-net/bridge/br_vlan.c:br_vlan_filter_toggle() {
-    ...
-	br_opt_toggle(br, BROPT_VLAN_ENABLED, !!val);
-
-	err = switchdev_port_attr_set(br->dev, &attr, extack);
-	if (err && err != -EOPNOTSUPP) {
-		br_opt_toggle(br, BROPT_VLAN_ENABLED, !val);
-		return err;
-	}
-    ...
-}
-
-Say VLAN filtering is being turned off while MST is enabled, and the
-ingress port is in BR_STATE_BLOCKING. Here is one interleaving:
-
-br_handle_frame()
-    if (br_mst_is_enabled(p))        <-- true
-        goto defer_stp_filtering;    <-- BLOCKING drop skipped
-    nf_hook_bridge_pre()             <-- frame may sit in NF_QUEUE
-
-                                     br_vlan_filter_toggle() clears
-                                     BROPT_VLAN_ENABLED
-
-br_handle_frame_finish()
-    if (br_mst_is_enabled(p)) {      <-- now false
-    } else {
-        if (p->state == BR_STATE_DISABLED)  <-- only DISABLED dropped
-        state = p->state;            <-- BLOCKING
-    }
-    br_allowed_ingress()             <-- returns true, filtering off
-    if (state == BR_STATE_LEARNING)  <-- only remaining state check
-
-The frame then looks like it is forwarded or flooded from a BLOCKING
-port.
-
-A similar case is when both MST checks see true and set state to
-BR_STATE_FORWARDING, and the bit is cleared before br_allowed_ingress()
-runs. In that case the per-VLAN MST state is never applied either.
-
-On egress, when VLAN filtering is being turned on, ingress can record
-vlan_filtered = false. should_deliver() then sees br_mst_is_enabled()
-as true and skips the p->state check:
-
-	(br_mst_is_enabled(p) || p->state == BR_STATE_FORWARDING) &&
-	br_allowed_egress(vg, skb) && ...
-
-br_allowed_egress() then passes the frame unconditionally:
-
-	if (!BR_INPUT_SKB_CB(skb)->vlan_filtered)
-		return true;
-
-Would that let a BLOCKING egress port transmit the frame?
-
-Before this patch, br_mst_is_enabled() did not depend on
-BROPT_VLAN_ENABLED, so these interleavings look new. The window only
-lasts while the reads disagree. A bridge PREROUTING NF_QUEUE rule can
-stretch it.
-
-Would it be possible to make the MST/VLAN decision once per frame and
-reuse it at each check? For example, it could be carried in
-BR_INPUT_SKB_CB. Another option is to skip p->state in should_deliver()
-only when BR_INPUT_SKB_CB(skb)->vlan_filtered is set. A third is to
-re-check BLOCKING/LISTENING in br_handle_frame_finish() when VLAN
-filtering turns out to be off.
+With decimal scale of 10, a unit is 10^-10, 10 units is 10^-9 = NANO, which is
+the scale used in iio_format_value().
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/179268538303.70821.3493915601694605045%40gmail.com
+Kind regards,
+
+Rodrigo Alencar
