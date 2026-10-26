@@ -1,83 +1,127 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793040157;
-	b=dRiS1SXhSpffbeffAUTHSnqOdJfq0d/5XKnwxWRkaVNkILa2rUlueEo3U/fINymj9ZqJ
-	 70OeaJGkCSmFZ69Aqyf4qbvxkz/tdP1AGd4Xkc7EFa4ibS92oj7whxi/88ZaPt7QvCVgJ
-	 jMJBhBGDmc8ZJ2Wug5KLHmshWwnBpOW80/0CIeiCl1LXDC86NAP0ckF729qtTE8tkvaCe
-	 tEvyMly/PjDWj3bf4A6YS/V23PEPyiVlman9BeCuNVHCjrO0WGSsO+9SQ5wo0C588X7sn
-	 O3Ng+sQ1TR30vljjN5M4VpmxQ2+LHcRQxElYgNIclJikYTwOlWUGLknCLlR7hYxIKAg==
+	t=1793040200;
+	b=vOVlLsRUWObp5BnNX0hnbHKx/+bby1iNv5Fy+ZGvk6ag/INH5O4EwHOJBYxImOUp+KjQ
+	 2O8P4Id9+RgE/YWnxRGtsz9m6EdhZom3ycjXVzI4WN070g4xTaLz8r8FJx3ldC2X7kiIc
+	 zY7ddu4rVg9dXcv0IgZ1+X1zzGyDg7D2TZgYmB0rkRVmOTYtkVo+q8j6Tu3pF8GW40dUJ
+	 3qnG8bPpKj6fI8t2KxuWyPc0oe2PrctZt8x/ejxKwjl1b5JSEKzELND0KJoW/51srcp1j
+	 Jct6VVK9FfgQc7UH9L1wd0O+7zfpzbb/ugv5cZuHhqXrugDaV1fo9lTgKeASGfjHD9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793040157;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=jHGQKwi3HPZqZ9VMWi33DPF8ighBiHYISSnr6zwG9Ks=;
-	b=aSVqFlv+cFLk+ZmHOMpI60V0D+sTxpNVxiWvsqrjQParX8/qafbqrcwcxdWBNNQAdbrx
-	 1nNjHLX5U/KfSZUKhieGNRAN9fmKUHh4UsHzC+WflLzYoOpSQWUXhbd70h/ZGLto2ELfX
-	 S95ru00Y3V6B0dFm9+mQfMpiFlmTVUeJy8+UtJLOka0Sz5nVugxnJpMMVfVbsmeg3/D6k
-	 aLSfTqaL1mKURt0VurQb0Fdqpt6AtEnwBiRazUMOGg8MDDkKyU+RYTm/sesrCxONL69Pr
-	 oZAi7+H3Kx3xXnEDi7lartwTtI5U0/cSdx6JbtSYf/3MumZHkAWFN/ozHD9LSUXLNIQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793040200;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=ZWci1OY37Q98PjNDa+DsqfD5q79/im0Ez6T5Vupv1s4=;
+	b=q4yY3ev+a5jJ2REUPvBVpH9VdO8j2OdGL7ITxFD3Y9/isl8sqm9DuoKFjXBppYXZEQIO
+	 SwTTgcdkYb0xzEqJf+iyC8hnUbjrxN8yOnCg2XK7NBq936VPRW1b+Q4xXGnovxMOH99Br
+	 14tAaPjGzDG4ROJIbOu9HNK49DIH60fHQB81l1AYerWcE1vLt/C95syanpQp9r40vltec
+	 VvOFx0P66RkRNi4C4I54w51ZUsRROOPqS/gA0TPpbwMBtH9O0W7V12+ZSKMnWxhqq/9wB
+	 bXs+xkDPeL/pfFL1Yd30hgA1CfDKMHEEq/xtx1bZZb8PP/d7DEDyPQqmwGu0jAb2ieQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MPDbHy+5;
-	arc=none smtp.remote-ip=192.198.163.15
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=none header.from=ziepe.ca;
+	spf=pass smtp.mailfrom=ziepe.ca;
+	arc=none smtp.remote-ip=209.85.219.54
+Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com [209.85.219.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1F75606A31D;
-	Mon, 26 Oct 2026 18:42:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1F75606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MPDbHy+5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793040157; x=1824576157;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Pxkiu2dpipdFnT+u2/AE1L8SMSKwkt5e3B1Dige/WPs=;
-  b=MPDbHy+5cL9da7ZKt8tlTaiCd+WBbkP080itWj89uQg+xizcnYssCrVa
-   IV8F+McIyokaotHn3NVDB2H/M/8oMFFu0OHMcdAAQxbqY/T7kaefq8nmB
-   ZRHlb5/XZ7YYnoEbOm07BUS3gXvtQYumewxbMgD8RmPgviCX5IboGH5fM
-   hnjoBsBWHLyaHgnuSCXOGk+65xeVM2vidIdZr2zMKgB0beDs/okoOtMbL
-   fl6TZtmZ9Oh+62WmK50Y6xUqomv5ES2WkLS3UShipwj6If/4Lk5iE61Hf
-   yYTcMML+6psiaW57ZC3K/E6TxexeD/GAZTl8pQqnKWWjTzoUlSgItkZrt
-   A==;
-X-CSE-ConnectionGUID: zepA9MyYQeiCD2XU/U60sA==
-X-CSE-MsgGUID: WOLvbHtsT7yzXr/EMl0MvA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1731416"
-X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
-   d="scan'208";a="1731416"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 11:42:36 -0700
-X-CSE-ConnectionGUID: 7nm3nCWrREmdXpwFKMm4aQ==
-X-CSE-MsgGUID: yimnzbkvTE6NQb400VmwsQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
-   d="scan'208";a="4321598"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.93])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 11:42:33 -0700
-Date: Mon, 26 Oct 2026 20:42:31 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Brian Norris <briannorris@chromium.org>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33159606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 18:43:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33159606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+Received: by mail-qv1-f54.google.com with SMTP id 6a1803df08f44-91b83459526so41410626d6.2
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:43:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1793040194; x=1793644994; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ZWci1OY37Q98PjNDa+DsqfD5q79/im0Ez6T5Vupv1s4=;
+        b=azZPsctqXRKqpOwzOSUanbXvvxd+v2oxaACaz4naHK4U/NBQWTZSH1+8VRwPrLVwY0
+         DocnyrGmPyv8LQRxTMk4K4sAlQVJBR98rqP+2aWoEAiU0n2xJtP2lXe11PdsBX9zw7zH
+         rykKuo4jE8Sw3g1ZHf1cUaz2vGbXwYAs98RHcsf375OaxpJvYYqyPF71AEMIeOtk1CIf
+         vDE/ajmi0uLVqaMusVBTVkVR8NUGi0AybkTdqBwAenvqpPLeBFRcUdif9SgXW44+UVBP
+         XcslWkg4kCuQnmXySZ0RwdZ8wSe243a/pyuPpY5dxc6Pr/hlCqlSwaLgYcUdwFY6ZPLq
+         p4lg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793040194; x=1793644994;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZWci1OY37Q98PjNDa+DsqfD5q79/im0Ez6T5Vupv1s4=;
+        b=P/6u7YEHoaTOc4CFNHVAJuEPR/KFSo8QXQLd4Tj8/DO1GuB1/8oXJGb+PNOtR+Hoy3
+         bhuTbYJb3rGC58lnSV+Xriw/hyvDk6uJvAODdHyTuXgm07yrTES9MZQMgdTHg8dzANoD
+         Q1iEst9frpRHWRmp9NoEBdwW4349S+d1naAPRg869yiaLyRW7BxLZKBJceJn3EpgWmBc
+         7iEOiV5LObEBWNeVH0Mj4zKNpqZ2L3tfjF7r67/yIdUW5/ZxCC+/hvVk0z5pSH2U1Vtv
+         A8RNJvJpsP+BT2l72aQJmVxgdQXe6fVn3A72Og/uJNgIz4XZrzY0KDJQZoH7Pfx9NtnJ
+         d1yw==
+X-Forwarded-Encrypted: i=1; AKwUvBxj5LdiPexwuE0P11692vPtTRBHLfH3imH+swVhnCVT+1qTGeXKgw2boIIgkkLuAB0w5U2DAxzWSJPkOy8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK0dMa5X+ueD9ol9iZnfA6Gb8BRLWVNV21EReoIGNwF7nSqnoHX
+	zsk6mdeezcZRnE9q88Qfo8vx6+2/MVWTRsAG6HV7hV7S6a7/7wLj5uvG4O/iLeXWLh0=
+X-Gm-Gg: AYBFou129ddn6GnSd6x/k20bbkowbksMAWOW5byD7rNk3351idogeBzis9QBt97s0cL
+	amwwZeCul9WTzpEownBMheVOziqgCuTR7+OyjUq4UD3XSPFhOjWEBU40yIwomyv5iujCkgKkjiS
+	FsVBsZKMugqvH1BIB6XHWG07et3fFWnhO7Yf5rPzIPRuaBrpZHmtvaQiJD2g19vLEm3QCSs17K5
+	H46a3S5lHhX4GcE9b/V+YtSSm/Gc+95pcwYO8mkWfFYaYGfdfRCC8iQDloSFsE1IYVldOKljGcL
+	Z8JAVI5lJgol6MhzvZn5REE3GNdIW9Qn2zojmbsqHtaYKCCFD9CZw6lmq5jRnqciZ7nXNREj/45
+	HlTnThI012uFI6tnl4amxkkz3NrmQkSLAnyaMrOl5hxtKXHGHFH4xxBr2evN1bdUrTL+468laSr
+	HmXgTdEdZo/UmHPpPaPyHldsVHOtyWZnocHirIRJXACGmJypVk9W74XMkWvDeSyPSiU79yorXtG
+	TVJXMNj/Bdv2QP1GJRCt8eiGxdYED4Ai/npX6bBPJSupb+6GoKJEPRr3UNxS9TkC74npBIEtdjX
+	8VFFhmy9gjGdZSe5Z78P/2m2hwhGlEbtxBcD/tnvOx5xb3yL0Szh6I1Y790GbQPzFgcezX2fi5p
+	rOAORoStHMuY=
+X-Received: by 2002:a05:620a:172a:b0:939:6c31:2318 with SMTP id af79cd13be357-940ef8d8389mr1233127985a.34.1793040193950;
+        Mon, 26 Oct 2026 11:43:13 -0700 (PDT)
+Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-940f067c879sm758709385a.16.2026.10.26.11.43.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 11:43:13 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1xLPf6-00000007foP-2hO4;
+	Mon, 26 Oct 2026 15:43:12 -0300
+Date: Mon, 26 Oct 2026 15:43:12 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Leon Romanovsky <leon@kernel.org>
+Cc: Alex Williamson <alex@shazbot.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+	Armin Wolf <W_Armin@gmx.de>, David Lechner <dlechner@baylibre.com>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Luis Chamberlain <mcgrof@kernel.org>,
+	Petr Pavlu <petr.pavlu@suse.com>,
+	Daniel Gomez <da.gomez@kernel.org>,
+	Sami Tolvanen <samitolvanen@google.com>,
+	Aaron Tomlin <atomlin@atomlin.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
 	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Ulf Hansson <ulfh@kernel.org>, linux-pm@vger.kernel.org,
-	Andy Shevchenko <andy@kernel.org>,
-	David Lechner <dlechner@baylibre.com>, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 16/17] iio: light: tsl2583: Discard
- pm_runtime_put_autosuspend() return values
-Message-ID: <at-fF6u6Oqq-CHbW@ashevche-desk.local>
-References: <20261021235818.3059519-1-briannorris@chromium.org>
- <20261021165858.v2.16.Ic3775fd68cac415d959c0456c4d4c36e9e5b95e5@changeid>
- <20261026005504.7482bf26@jic23-hlaptop>
- <at-U7LvkoiNAJ6YM@google.com>
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Bradley Morgan <brads@mainlining.org>,
+	Aleksandr Nogikh <nogikh@google.com>, linux-modules@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-usb@vger.kernel.org, driver-core@lists.linux.dev,
+	linux-trace-kernel@vger.kernel.org, Johan Hovold <johan@kernel.org>,
+	Richard Weinberger <richard@nod.at>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Bjorn Helgaas <helgaas@kernel.org>, linux-pci@vger.kernel.org
+Subject: Re: [PATCH v4 0/3] driver core: add TAINT_FORCED_BIND for when
+ userspace manually messes with devices and drivers
+Message-ID: <20261026184312.GA1685504@ziepe.ca>
+References: <20260914-bind_taint-v4-0-eadf8a090903@linuxfoundation.org>
+ <DLIL9H50MALI.3JROXYEEUM3KU@kernel.org>
+ <arIvG0nx4LXG9nlW@monoceros>
+ <defb3953-7516-437e-b70b-d57de55b91bf@baylibre.com>
+ <9bd3a34b-5e98-4038-80d6-da2c3b1948dd@gmx.de>
+ <2026092321-province-yearly-44aa@gregkh>
+ <arOfHEsGGglNse7T@monoceros>
+ <2026092348-victory-erased-0e5a@gregkh>
+ <20261023181326.0dc2f7ed@shazbot.org>
+ <20261026122243.GA28851@unreal>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,37 +133,25 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <at-U7LvkoiNAJ6YM@google.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20261026122243.GA28851@unreal>
 
-On Mon, Oct 26, 2026 at 10:59:08AM -0700, Brian Norris wrote:
-> On Mon, Oct 26, 2026 at 12:55:04AM +0000, Jonathan Cameron wrote:
-> > Note I'm putting these on my testing branch which I'll rebase
-> > after rc1 is out and then they should show up in linux-next.
+On Mon, Oct 26, 2026 at 02:22:43PM +0200, Leon Romanovsky wrote:
+
+> This is needed for two reasons: to save hardware and software resources
+> when creating a large number of VFs, and to allow the PCI config space to
+> be configured *before* the driver starts using it.
 > 
-> Thanks. I can't seem to find them on any 'testing' branch [1]. Just FYI,
-> in case you were intending to publish the intermediate result. If that's
-> intentionally a local branch, that's fine -- I'll check back in later.
-> 
-> I also see you're trying to partially rework/expand/add to some of them.
-> I'll try to review those, based on my local combination of my patches an
-> your patches.
-> 
-> Regards,
-> Brian
-> 
-> [1] In any of these:
-> 
-> $ git ls-remote -b git://git.kernel.org/pub/scm/linux/kernel/git/jic23/iio.git | grep testing | wc -l
-> 9
+> There is no in-kernel alternative.
 
-Yet another "useless use of grep" ;)
+Having userspace involved in driver binding has also always been the
+plan for confidential computing needs. We cannot have a device driver
+bound across some of the HW transitions like TDISP shared/private, so
+there has always been an expectation of bind/unbind.
 
-$ git ls-remote -b git://git.kernel.org/pub/scm/linux/kernel/git/jic23/iio.git \*testing* | wc -l
+For this case the existing sysf drivers_probe is good enough for bind,
+but we must have taint-free unbind for PCI devices too.
 
--- 
-With Best Regards,
-Andy Shevchenko
+I think this patch should be reverted ASAP, it is a pretty major
+regression for a lot of users.
 
-
+Jason
