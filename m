@@ -1,121 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793021862;
-	b=smpDUCLKF0NmH71F6bB9SSue+90u1r8d66of/65A2l5MV1UUL1zONbTUKBGHRRyzF1TC
-	 HTBIJ4kvysZDWTuDlBPcVN18Ojr2maoGidF6ZVPambP3BrtFuPk87WTkoYdAo9I7KrGxt
-	 9wksQb300cexapwJ7IpNvgG3ru2Gx2UBoVwgjAVkuZxfqVJ0uGTyMoS38l8VnzJdNkbpQ
-	 qyj2s+DJwj0hWCco626bzFEelUyPAX6UuR0mFOhlD+MdkEvoufMqCRhb3HnGeJNiHp7n1
-	 I+FQT10Yl7V5kcnjL6SgD7bsXyKgRy4ooHjPqDk5xvT5xn/3/q1YouP1yaJGAdDQNuA==
+	t=1793021853;
+	b=Ft/8qTSO0X/yRP7kmwI9Fm1FdhkpPoxv8hT483Nj+biyrFnHQ1lOJT2KTcNhh0BdcZNQ
+	 LhiR9zflOX9JUEt4SRwP1X6m0u5bKqDoyNuJaGVlqrQx0EmVd6YpAJ9JbfIGZMcg30iBy
+	 xHJeW+wbHL4KcqloQz/ndhkGfqUzK0qI3ej4dAepY/suXvIFS0L5CQSfs59eKC0D3PWo+
+	 DAJZfRGrQXpEScYnpgFgI4FUUJz9tszO3r3KVKifRFEwhMPccw8pGTMoD6AZec4oA9Iqz
+	 EUUh1wERzGevJlrrplDs2hjZY5KcOueUAF5cCHYyRtcQrYAtEJweph6EWQ3HUiko5Hw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793021862;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=RuRFymShgsilHwdTJCHghvu8/w7kYi6eDSMaIMLmBKI=;
-	b=lFnTINyjCeza2MfJxTX0MyYiyvMEYph1mmlL9NeTvv5yG4aiPcnmRnUDP8Y2eVklaejR
-	 R2j4XPDd9tDtQkPt5dAdWFbOrIRfKG53IZ6/Q3DGP9dVIan0GGj2l+bXPF+DUQWW7paWu
-	 dP4M2aXMQuZ7LuvCSWoxzBtPlxRGlSWrfc/BbF9wqAf8JZUVnmvS+/z+9Athy7jGTyyOL
-	 RsqGfsbGzkc2biyCdhg4vSnMixLSL3saxXe7Kk6fDOEfrf0vjLHxTQFK6PswuWh3dehzx
-	 mdqJKQ5dNcVzz3cYNVX7v3OHhdaCHFH35Eymdv4U8a3qMY3eJYoO/EdmKKBjdjb6RJQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793021853;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=nBY1mmCwepedk2iyITEBFuHFNNd7QJHmRZc1xMAKEUQ=;
+	b=gMI0I1ypWsdpMUnho3d2KxF0SmvV8VqA+4u+3ZYsaC5r+Q/do2BjkjC7Lq1ddfKf9ROy
+	 tn/cxRvn8DBM0TuSLWg2Ne6ODsL4rdC51gb9565NvQB3lfnvCrT4ZaGJxdw0GmtboZIv0
+	 qcp7IFKwXBL5huWMC+4zyZZC+rFwNWjf1cIjcZfxZBvx/yj2shc7273G/Ujd1/SqKrrCt
+	 7V3AwvhouoXRu/hS/5m6ABAu65N7Z7IsLXbZP3XUiGg8+imVmiKQi3T/W6Ug9coTfcUWz
+	 /rS0/LkzhPlfO51vBf8HZVdoWrugQSAYTich6I9avFpzXB4eIfrvjqz1QWRqpR1fbxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=cBb+Js1J;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Uq5BcEw2;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=AzhIqonQ;
+	arc=none smtp.remote-ip=209.85.214.176
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BF5D6072CCD
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:37:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7BF5D6072CCD
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 498B160A262B
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:37:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 498B160A262B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=cBb+Js1J;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Uq5BcEw2
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69QAtKof2541824
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:37:42 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=RuRFymShgsi
-	lHwdTJCHghvu8/w7kYi6eDSMaIMLmBKI=; b=cBb+Js1Jgge4rwa4NlyBBYDN+I8
-	3hfWHZe3O2TgATdMd/pJfZLA1UmEPDgdjAz3slyXXnK0jMu9SM9lNpnN1xDC1oOm
-	rUoCKjBykCiOF5T2RnX16yQWjQ4jk4TG/mZtpozeHt+o7zqxUyY6t6Ig0MbUCqKM
-	4qmmc9c88rCWcjSGYdbn4VgkTjpzxLmyNpUS+8W8g5JnbHWs/KdGehkR+MgYEWdB
-	WI9tdK32Uw9VQq1hl2w2+zTDv4n8WNQy153L46qO47bVpHARDzscPFrWn2c5NIzQ
-	I+idRdcPp5A5Fkx1gp5ief3FV40bNoGCNB0YIaOLL+xP5LejWq0T/jIgT5g==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hhsjdanrx-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:37:41 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-5364605e74bso47979101cf.3
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 06:37:41 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=AzhIqonQ
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2e946155442so25341085ad.3
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 06:37:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793021861; x=1793626661; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1793021853; x=1793626653; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=RuRFymShgsilHwdTJCHghvu8/w7kYi6eDSMaIMLmBKI=;
-        b=Uq5BcEw2rdrYvjKRHHdBvR7cj7rPh9PM1HQgSGGX2Qk9anwQ2mmabb4W1QrbkFwwaV
-         No3e5+dI5ysq0L2ylk9/BXFypaK3D9R7p8sO49wuGV2RMfuC9W1tRJTf7kBn5UUavug8
-         6aWNKnggoP5y8Vih4tG+803u90mV8Gghg/LwdX8XTgIiihx19pquB0kwQb+liIi1nUCN
-         c/hlt8IJKsom7dNb/F1UgrET+p4tUh58KwJzZ+izVeFDUvM4ZufSigB3tamlJfdZhG6c
-         tbSOpuAHCYAfvzjJpvCLYUf/8/26+8vxGMHuCZ2RbGpbZ7AB3AfFMOaYcKa3Uuet7MyC
-         gYIQ==
+        bh=nBY1mmCwepedk2iyITEBFuHFNNd7QJHmRZc1xMAKEUQ=;
+        b=AzhIqonQL5Uz86TyKnTmu0FB0HM0uW4V7dOpLLwi3iM0SwtC3kaTVxq9rRL0fzec+k
+         sFY23eSRJ8JAptFl6fqJ1+tUdlhkmVpoMshX8RebnNCU89+6QKFtets1ud0IVrI9udwJ
+         keGhbdwFhwdA4pxUvLW3b/rhSFp9Kdz9bcdbJOHM2DljAycRkyX2lUoSHTq1T3cWdvoW
+         fxtlNizoqrdaUxCpvKdLpnrxa+weP6Hd6q1i1J+uendBjvcUrNvh0lqexZIWc7j16QDB
+         xOi3EIS3YA1mhNPDw5e9EsuJ+JRlTni2Zbv7N0/1xSnWiDSfEvG/ZjcW2uMbIt5PNnti
+         7fRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793021861; x=1793626661;
+        d=1e100.net; s=20260707; t=1793021853; x=1793626653;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RuRFymShgsilHwdTJCHghvu8/w7kYi6eDSMaIMLmBKI=;
-        b=P/meN9fAdeAGVOY3tOPlS12PveCqhh1/Cdzqrb5CvXyLjBhU3oA/Vh5LNpS94FROjb
-         dKqtJua5HRP6I8xpdN9QPyckDnENjmuT0hYXBOodpacG61AeCT2+bTVkwIroEc9z9TDR
-         ZamZGdtnN6YyrVq6JdtPcSCIyuized29NNY1vLE5NncKcvIhAbR3XtMhlgGH5C5pDhTK
-         9k06hjinCM1iN98swl0XuYk9u1lZnHApHp5leZJD05nPNeKx3jkbW1deRzYDv3JZfXdY
-         RKgRWjPnXUW8t5AY2/IY8MUfR9AeASnN9vMpIUfSyoJhoQh8fHRPcuozTTSzq99u7wax
-         IbjQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz4GMzfhro1aYTDwyRorPCLthr88exocCREgmSSUTqtvo6Aq4EQ4HG/cXAh10ixzkaXjJqGlajzd6klcGY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIjipKrJLbh3pP3SiFCbXPEw90IieD53sOSUOfgYn7gQBgrZhgH
-	b2nhdsY3VxjaGVbEBzDl0xg8zBe0hN6EASIN1Za8F7XHPr06X+eKchvoEBxA22sBIxiFRJCm7/4
-	Jw6hoTpcTR2j3cB2XSSZTdt85xyWSty7aRlWW6L9VeLvmcsLZNAKrrga5v6DEbHeLbJ5hm2DHIY
-	aBlg==
-X-Gm-Gg: AYBFou3xEBZxUBpz3pYBT7Q5WBD68WZClx9v+sIyqbXtF8QqBeOGys1qsK7+5x+WpZT
-	KTAShg6kuIXH1TZ2hEkh/QdMND3N6j3C3/NSbnHH2MvewCKc3weJkvvEkGhPuTVM91ZNZ7y2n5H
-	75c/Lywi9uIMDR9d4BHnzTViKbFapphDTG6LCX0fNy49aNtm5AVsTHOC1gSjXdgBzCmzrPZ26gM
-	xCVFjvaneRXZIipCfGHAxJlevYCogftWXBeEkAN0vkBbxo9SgpBwDhXPas1/O8zPsk021oBvHfZ
-	KXN9+rGHJvI6QHZK8aMzY4+1REVR1eAOYGuW/5CqxPybVSyQ2gDdak0WCopv/g8gDYIlOjlLEjo
-	1zDDC6sN3AAE8xFDtNm9eZ2He
-X-Received: by 2002:a05:620a:46a4:b0:93f:2f48:c9e5 with SMTP id af79cd13be357-940ef8c944cmr1071686785a.34.1793021860732;
-        Mon, 26 Oct 2026 06:37:40 -0700 (PDT)
-X-Received: by 2002:a05:620a:46a4:b0:93f:2f48:c9e5 with SMTP id af79cd13be357-940ef8c944cmr1071681385a.34.1793021860265;
-        Mon, 26 Oct 2026 06:37:40 -0700 (PDT)
-Received: from lin-0772.qualcomm.com ([212.136.9.4])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3eb8f305sm15376512f8f.3.2026.10.26.06.37.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 06:37:39 -0700 (PDT)
-From: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: atanas.filipov@oss.qualcomm.com,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>,
-        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: [PATCH v3 5/6] media: qcom: camss: sm8250: set the VFE AREG clock rate from the VFE
-Date: Mon, 26 Oct 2026 15:37:25 +0200
-Message-Id: <20261026133726.3249235-6-atanas.filipov@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261026133726.3249235-1-atanas.filipov@oss.qualcomm.com>
-References: <20261026133726.3249235-1-atanas.filipov@oss.qualcomm.com>
+        bh=nBY1mmCwepedk2iyITEBFuHFNNd7QJHmRZc1xMAKEUQ=;
+        b=Gr2t4TWZtmgLWpkjlgjgTyLkjvYZWeUC0V2Drh/ptXMK81GZu8HlEiP4uZZUMBHptm
+         5ZSjbRpp2QKgJh5R/FgDwQGJ45wFXuHidbNUuWF4CviC2z9Gb2F5HwbNHaWCA58JvpNL
+         Ij7Z1eVcCBF8O4rWZTM392YpRd5qtnb0lZaXN84arYdgmJDFfR/Ys+8ROlJVHIGoDAL8
+         7H+Uup59ax7ZQeFrItm+DzXXbwyqb3NLr1GFLL7zc2HrDY3DfVYjxg8K/yJdgbvK8eaf
+         9ebumfefuDWWAdtadVoww5949TT6vPdkDrC1V6E+yZe8qHwoQ57TlSK4c7tMVBXZHknE
+         QQzw==
+X-Forwarded-Encrypted: i=1; AKwUvBxw/Bo2Z+VezNv60QmVGpw3jFiGYf6rRoHiihgNGmaHm/wgkle7KritoFr763TVuxLomj81ZG58InlrlzA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIgdy8seYYz1yLRW1Hysmej5izdSlk6pZaJe/LZgd7xouKhNWGg
+	5eVzLjL+J+yi19dL1NlDDZEVvI7hRtVYiL2/ouLRxaZ4ilfG8fJHCZTAAhPwCa0TiOE=
+X-Gm-Gg: AYBFou3UYGXg0j/6urS6OyKWf3iULdZOt0jqzmOuFfmE0KhW0apZAXmBu+OkGSBQDZH
+	2dl1lTtYMTpLpcDtATpRSMqHBMiJ1+ePSOW6SeohMP6IvQPTTfNqq+/a53VQDqZa5kxtPIL+1VE
+	ryq5hAnrH1hYWM3cUEHeQFVZSC7Efs9fQiDAovyRAgZuZGdwFEIhkY0T2r+Rmn05NohsnPHaMhQ
+	Z2tc70UB4LtJwDgXSyQS9S3CeZQc7sQryGCHTMlk8fTybX9rPjD/FzNTTCEEatEhbzrDJnSJOsi
+	qypWUld9q4wk7s0dKGcx9pn0otunK/sJYzOVvvUaAXLhPtLfQIp3p1WG2JpjdFaUChR/yMrQXX1
+	NogVw7AmgQz8ETkzdfEHAjnaVMZyuIfxhE9+lLDGgZeVX0tAFqa845KY2SxvXbYj3qDhF061AQh
+	bBL5WfvQmbB3FnN7hrEV0QpSgNUz13Kj/Ovad8qSy5NcOar7ZY7lzecObnZkYlQwkbxJ5n+PnKK
+	ZIyvkahcMptMD0IAg8yUq7cecDpi7UAaf97FxfFrQtSnnOSwTWB3zqqkAHXUO9W+nb3xGjzDzWY
+	vlsxta1RWKfFCSbSo1YvqKH8gO8V8DTiP3IHN/m0od5sl6QfM+5zDVgeaHA=
+X-Received: by 2002:a17:903:2c0e:b0:2e2:c995:b00a with SMTP id d9443c01a7336-2ea9c83f0acmr63903965ad.48.1793021852505;
+        Mon, 26 Oct 2026 06:37:32 -0700 (PDT)
+Received: from yafangs-Air ([240e:46d:2600:484d:51ee:4f49:b5a8:aabd])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea9b1a5cf0sm17447055ad.52.2026.10.26.06.37.27
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 26 Oct 2026 06:37:31 -0700 (PDT)
+From: Yafang Shao <laoar.shao@gmail.com>
+To: jpoimboe@kernel.org,
+	mbenes@suse.cz,
+	pmladek@suse.com,
+	joe.lawrence@redhat.com,
+	song@kernel.org
+Cc: live-patching@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yafang Shao <laoar.shao@gmail.com>
+Subject: [PATCH v13 4/9] livepatch: Call klp_init_patch_early() earlier
+Date: Mon, 26 Oct 2026 21:36:46 +0800
+Message-ID: <20261026133651.40061-5-laoar.shao@gmail.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20261026133651.40061-1-laoar.shao@gmail.com>
+References: <20261026133651.40061-1-laoar.shao@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -126,109 +103,54 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: DhM17os5-byC9jPPCbfd2Pre2IRvafCw
-X-Proofpoint-GUID: DhM17os5-byC9jPPCbfd2Pre2IRvafCw
-X-Authority-Analysis: v=2.4 cv=a4elZkSF c=1 sm=1 tr=0 ts=6adf57a5 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
- a=QxXRlGHHTI4QcL78iLwA:9 a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA1NCBTYWx0ZWRfX9aW4UIX/Kero
- tOA5iD+jzpIxwYISBAcIynKiNmHu04/R2I9d0vFjcNPUwPxFbukX1Yz7LqfmF2tmKIZXCGtqfMC
- l8HIofRubuFbayaIy+umaWtobCmjtmM=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA1NCBTYWx0ZWRfXyIWV9/Ly62qT
- Tz9FdtpphhE8+C52LfUtW3vBhXwaU6PRsSsroKQgpfC0zIxj0HuT/g0k322p+cNEmT9lNlfUTes
- IdAkuN19uOLuHSwGN5z/Ae96aVrK9JQD7DobkDU6MT2mRCgBONvl6LyjIlSCGIh2BUQIQdfRcao
- PUkNFU+7T8/S6XPVeA/3JQVBd/3z5kBxHzM6GrANKafJLJoOIr7RlHORQmrer1EdvYbKQgrm4l6
- b8NgrBtIq6od4MCI0lyGBVHwFY6EDrTHelH0MK3YYAcapS8smjEQVGz1b7cPXrucVLRaDu8mJDo
- fUPDmTxL60rRafrmH8uoNYpnrSS9oPExTbYv0YIVx0msk6mkjoY0Wbr8xo4FuKE5vXB5w6+MQRe
- WY07xnrV7ou8wMj9oABVsb6ef8Fu89CTsmqoV9UDSPvVDxW1mXwLueUxSYGNaEBlSrsiZ4DjTwg
- OuxJUjD+0V3NNS7Gisg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-26_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 malwarescore=0 adultscore=0 lowpriorityscore=0 bulkscore=0
- priorityscore=1501 impostorscore=0 spamscore=0 clxscore=1015 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610260054
 
-The SM8250 VFE AREG clock lists four rates, 100, 200, 300 and 400 MHz,
-in both the VFE and the CSID resources. The VFE only enables it, as
-vfe_match_clock_names() does not match the AREG clock name, so its rate
-is set by the CSID, which always selects the lowest one.
+Invoke klp_init_patch_early() during early initialization to avoid
+mixing for_each_() and for_each_*_static() variants later in the code.
 
-Match the VFE AREG clock in vfe_match_clock_names(), list a single
-400 MHz rate for it and drop its levels from the CSID resources. The
-AREG clocks of VFE0 and VFE1 are separate clocks on the fast AHB
-source, so a fixed rate keeps one VFE from lowering it under the other.
+No functional change. This prepares the code for an upcoming patch.
 
-Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+Suggested-by: Petr Mladek <pmladek@suse.com>
+Signed-off-by: Yafang Shao <laoar.shao@gmail.com>
+Acked-by: Song Liu <song@kernel.org>
+Acked-by: Miroslav Benes <mbenes@suse.cz>
+Reviewed-by: Petr Mladek <pmladek@suse.com>
+Signed-off-by: Petr Mladek <pmladek@suse.com>
 ---
- drivers/media/platform/qcom/camss/camss-vfe.c | 3 +++
- drivers/media/platform/qcom/camss/camss.c     | 8 ++++----
- 2 files changed, 7 insertions(+), 4 deletions(-)
+ kernel/livepatch/core.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
-index 30504e614e4b..d38491a845d8 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe.c
-+++ b/drivers/media/platform/qcom/camss/camss-vfe.c
-@@ -907,12 +907,15 @@ static int vfe_match_clock_names(struct vfe_device *vfe,
- {
- 	char vfe_name[7]; /* vfeXXX\0 */
- 	char vfe_lite_name[12]; /* vfe_liteXXX\0 */
-+	char vfe_areg_name[12]; /* vfeXXX_areg\0 */
+diff --git a/kernel/livepatch/core.c b/kernel/livepatch/core.c
+index 9d25685..7240e72 100644
+--- a/kernel/livepatch/core.c
++++ b/kernel/livepatch/core.c
+@@ -1155,13 +1155,6 @@ int klp_enable_patch(struct klp_patch *patch)
  
- 	snprintf(vfe_name, sizeof(vfe_name), "vfe%d", vfe->id);
- 	snprintf(vfe_lite_name, sizeof(vfe_lite_name), "vfe_lite%d", vfe->id);
-+	snprintf(vfe_areg_name, sizeof(vfe_areg_name), "vfe%d_areg", vfe->id);
+ 	mutex_lock(&klp_mutex);
  
- 	return (!strcmp(clock->name, vfe_name) ||
- 		!strcmp(clock->name, vfe_lite_name) ||
-+		!strcmp(clock->name, vfe_areg_name) ||
- 		!strcmp(clock->name, "vfe_lite") ||
- 		!strcmp(clock->name, "camnoc_axi") ||
- 		!strcmp(clock->name, "camnoc_rt_axi"));
-diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-index 80eab898611d..911ceb7202ab 100644
---- a/drivers/media/platform/qcom/camss/camss.c
-+++ b/drivers/media/platform/qcom/camss/camss.c
-@@ -2053,7 +2053,7 @@ static const struct camss_subdev_resources csid_res_8250[] = {
- 		.clock_rate = { { 400000000 },
- 				{ 400000000 },
- 				{ 0 },
--				{ 100000000, 200000000, 300000000, 400000000 },
-+				{ 0 },
- 				{ 0 } },
- 		.reg = { "csid0" },
- 		.interrupt = { "csid0" },
-@@ -2070,7 +2070,7 @@ static const struct camss_subdev_resources csid_res_8250[] = {
- 		.clock_rate = { { 400000000 },
- 				{ 400000000 },
- 				{ 0 },
--				{ 100000000, 200000000, 300000000, 400000000 },
-+				{ 0 },
- 				{ 0 } },
- 		.reg = { "csid1" },
- 		.interrupt = { "csid1" },
-@@ -2128,7 +2128,7 @@ static const struct camss_subdev_resources vfe_res_8250[] = {
- 				{ 19200000 },
- 				{ 0 },
- 				{ 0 },
--				{ 100000000, 200000000, 300000000, 400000000 },
-+				{ 400000000 },
- 				{ 350000000, 475000000, 576000000, 720000000 },
- 				{ 0 },
- 				{ 0 } },
-@@ -2154,7 +2154,7 @@ static const struct camss_subdev_resources vfe_res_8250[] = {
- 				{ 19200000 },
- 				{ 0 },
- 				{ 0 },
--				{ 100000000, 200000000, 300000000, 400000000 },
-+				{ 400000000 },
- 				{ 350000000, 475000000, 576000000, 720000000 },
- 				{ 0 },
- 				{ 0 } },
+-	if (!klp_is_patch_compatible(patch)) {
+-		pr_err("Livepatch patch (%s) is not compatible with the already installed livepatches.\n",
+-			patch->mod->name);
+-		mutex_unlock(&klp_mutex);
+-		return -EINVAL;
+-	}
+-
+ 	if (!try_module_get(patch->mod)) {
+ 		mutex_unlock(&klp_mutex);
+ 		return -ENODEV;
+@@ -1169,6 +1162,13 @@ int klp_enable_patch(struct klp_patch *patch)
+ 
+ 	klp_init_patch_early(patch);
+ 
++	if (!klp_is_patch_compatible(patch)) {
++		pr_err("Livepatch patch (%s) is not compatible with the already installed livepatches.\n",
++		       patch->mod->name);
++		ret = -EINVAL;
++		goto err;
++	}
++
+ 	ret = klp_init_patch(patch);
+ 	if (ret)
+ 		goto err;
 -- 
-2.34.1
+1.8.3.1
 
