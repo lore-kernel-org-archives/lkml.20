@@ -1,131 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.142
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793036986;
-	b=bu3AlxkabtI/L9gIPD6jRRRRp+jBxV/8+0BPmRJSFdc+t+Ae4RTrayHBsDb9pmuJm033
-	 x1UB/hhMqMi0hSOYT9F+NrZNgMLvTDIsY+3OAlxJF2BNFDzmC6oTuEitPaKf/VrzLvcr/
-	 GXzlgNxKHTFhnkR73pqBdenAgU/0XI9Nr6wNXcnOpxaG5tFAx9FMbQj7N53hzq+9rg6se
-	 EUYEend17K8F0zhDFGpfx8Fetq6FGdIJKDxx3IrBCIU4p6tSX5nwrlj7KKnJdjWEL9Qe9
-	 CZqJI2jhGzaxAq+krugZdc+T3Ge+gf/yc/6B10YvRCIRO4moQ6iN2IZqnEfxckCVDNQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793036986;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=xxV5ov3c0hTKqd9UolE8DYnovGSmzcocUgKkmdnwh3k=;
-	b=pMJOWMsiA4yZaa5Hdm71n0DhIuB+yGh+Wkd7FG2RNROqMkIn+wjfpQZld0rs0oCrRFRt
-	 CNRI4Nzn8GMGrlNKmH++6QDD80kjYG0VzhAAV0O67h31Jkik4u4EusFoVA6I0XWkuRPvz
-	 alI9tfuUwQIZft0+bKesh0IXKU3JfOq+XiHqzQ0xV1jXgftVeGVeNWvZdYfPPqpsLU9nR
-	 c02JcR0me5SvIHmP3mstNCeLQ/VH2UbRJ7tok/vN/ARox+Kc2+ReK/YAcOcNpVw30SOFq
-	 55xZlrn4UEkv/hYamPrpLNFfDFrBy2GiQXV06ijjufnB38TYV3Sa3XOO+7UAma8TXaA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=shutemov.name;
-	spf=pass smtp.mailfrom=shutemov.name;
-	dkim=pass header.d=shutemov.name header.i=@shutemov.name header.a=rsa-sha256 header.s=fm1 header.b=JdL3NJqd;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=jsaKGria;
-	arc=none smtp.remote-ip=103.168.172.142
-Received: from flow-a7-smtp.messagingengine.com (flow-a7-smtp.messagingengine.com [103.168.172.142])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793036983;
+	b=0z93bhNS1UC3sJXNuzBDDJeENVJPGHtKdcvxxdLN0XlWW/WXNWsaGx0I2tklHtf0WAl/
+	 4DE5C0PH7ORaXGyHDcIsKeRD6M8CsoA6LfDzwYSWKvV0KqOmAzxubT32zjwstKdwEjUBe
+	 jJiW49V4Uf7tG8FxWhITOKxT/bJsdJETWZFRqP96EgCcWyUdWSI0km/Z+L1KJVv0EInfn
+	 q6/VQ3SY6JXJ7TwhtSYm/lTnsXJODpW8wnh2gQNGXd/Bq/ypV0j16ctn5dj8FXO7BgrZd
+	 F9ZDUn7TgZ+3+/UgW3YE3QXWJidXui2FUhyBA32E9Wqe13Vmsec/PZ0XpUFkEatnThQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793036983;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=ZqtX6DI0kr6jtVxLiN9ux1tO8B5QzkEQXV5/RmgmS1A=;
+	b=GVxiXoI0EWsHQjccCcgwCuJAyM5gxfExw/+Lz30044SFE/U0HBm+2XjA1KAREYGsf1Bu
+	 8TwoknpGESNckVmp8AziVgz3Axw5UIOfV9SqXU8lDfLRD2s2FcLYhT/IEgHtlw/7IfeWO
+	 SZofizLwugn9CzgxIdm2rrcwxmqzc2MmVDLQ+EPX4GlDku7JiJAzTpDItYEA4G/ot+zYb
+	 XJpxwf8yEwzU2EpReMKd9k7IxRr4LUkShtlcJWekQ2U9qNqljdLSF9ceLje0CaZr/qoLy
+	 Uq/xubngKFLyWE30NpXaCogopXgdrO4yRrDF93ensElE5RAZPSNA/DtxzJbabhAtKTw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZccSGIN1;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3E8D60A2604
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 17:49:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3E8D60A2604
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9215606A31A;
+	Mon, 26 Oct 2026 17:49:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=shutemov.name header.i=@shutemov.name header.a=rsa-sha256 header.s=fm1 header.b=JdL3NJqd;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=jsaKGria
-Received: from phl-compute-11.internal (phl-compute-11.internal [10.202.2.51])
-	by mailflow.phl.internal (Postfix) with ESMTP id DBE361380274
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:49:44 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-11.internal (MEProxy); Mon, 26 Oct 2026 13:49:44 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm1; t=1793036983; x=
-	1793044183; bh=xxV5ov3c0hTKqd9UolE8DYnovGSmzcocUgKkmdnwh3k=; b=J
-	dL3NJqdbugJRjuL9LjsbKRphw2KicwxMAV+dxpERQY19YmZ6QzhL4ln9wQHwiRfA
-	TnU5tgHVCMuKDz2ydh5yqEc6EV5jCwljkkQj5ZzyPNS3axhN+/hZgOXyZkM/RtCl
-	9H4yepfmeOHHV3GJJdQv6ve8B9gW3kfR3KxjI7e4KDv8mLQVmsJcmR2Lppfijn+t
-	U0bMcyWlTqeZTEcSSfT1blE7VQo0bfWtsnRymicu6qzh6hPxZ3SKxuYefnpAhLyn
-	K5or2rlyWtepue8dI6zJyXApcau2pJxOGCpQFsxmwhXzgQXmXs+W7obSdzuFvJhB
-	ArncCXmZNz1bgx71MLw5g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1793036983; x=1793044183; bh=xxV5ov3c0hTKqd9UolE8DYnovGSmzcocUgK
-	kmdnwh3k=; b=jsaKGriaA692dIgpgEARXfonTPOY41+tEtlzdyhDRdnf0v/lFz+
-	IxIAldbuY99yXj2+uvwHOgBYeG5g2FbmNzgrMSdNjQrdWzYO72La7ZCdUG1f9d9J
-	Af60QpKAvmZ0RHGaWtqd7AiXuoG0sfBjbbg0mrPU4EZ4YR9IOmVFhSc3+nSwNnzS
-	ouQHdvYZsOx4LL9XXeYHdChsXjpNHSbE53VnBXxZFlwuftFZHKE88Ukc6HVdGyl9
-	6nlEbXIzh61dNNA6idTeqYQmheLPlFDf2hj4CxzM5NGSizwEo1XjWs6sPmF1gx50
-	c0KDCCrRBx+TfNBYTIAurgl9KFFzUjhsn1A==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=sign d=shutemov.name a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793036983; d=shutemov.name;
-	mf=PGtpcmlsbEBzaHV0ZW1vdi5uYW1lPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:poMQzOfOblpDEHyS3KqfGayocGYqhunnOSLu+H70MXbRf26
-	NwkQk+c7k0KtMkXwLouhUSfOdqn6PrPn19AutsnFe5W8u1Nj2FFFLBoH2yYRe2ye
-	2gPYk6yVcoMicUN02L5gKEHU3i/oQIXWHczQuFKzvnTh11VSZwQgRkRHN8XEGJeT
-	9OynG+kgg4H80HeGOWGEIwW8ZoI8oBzluEXmhgzUFbANWGegcAAG+ADEs+lXJv46
-	Z7u2GDtQl2/SlzyJWOjucNJK2lwxH32vk2wgJa76DjxG4h/Eipb7ulb93uoh1Ty7
-	/EjlxxtvMwC79/yy76QQKrr8rL9GS/gClwor9Dg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-disposition,content-type,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:oAI8CvIbumntInw+4PFy9SOzhfVHaiSI3xBGsLX0Fcc=:cIqzR+dk4dI8U2SGLdBfaB3Z+vbsjVLGPogfgOdxTgQ=;
-X-ME-Sender: <xms:tJLfaiFURCNdynr59obpYBBiVl4V5UzanoXaw9VQTms5MmvDtIuP-w>
-    <xme:tJLfaiezpFzXO-Zfv_74k1daYZBx6nHLGhU7gb5qHt1m95IWKbwRmmHtAaVqg2Wis
-    zafiftWyYeKAGSyT1Kjbi9iIpDJqezGMiLgTiCWhUE99To5FR2lAiWt>
-X-ME-Received: <xmr:tJLfahJkh1-pM4dmfx0_FPH8hg8zgScCWFiPl7YL1n4UUWyyhTGAzxUa80U>
-X-ME-Proxy-Cause: dmFkZTF3TFhuE3wGcZJjUzIyjpcTOyexH41fjQWtbyhLeXHhYokFl+PdzJCSXxGGgJCuOJ
-    dy5xoklUsRtz+csfRFFFJskyhlsSQsto9rVk3Xlz3nETmWH8sqjeYYmCn0LJzkpgO57i5k
-    rdDoyf1u9Kchi7X+0v96xV5zGmpLMOO9JQ5HHJkAv5WxzI0OrT8Sq74zbsPUvq7mGA7rRZ
-    IIwvOGRi06s646S/NkFK+4dyblma9DUxNKJT1uTJkvS+vsg2bD+Upt3/LTu/0HWVZlK0Jj
-    DlFAwQClbZ6XOv6mqbXadmBiTvGlWIFDBKnMCr7YO4yM+t3ktQ/4bZdUK9LFzakP+92+Fm
-    vG79z7HcXs2kjYGMgAzRjuQ0Qg90Hot+Ca0+OaVT98vuHtEbFT0dJOmcOSmfcw/Xw6u2d1
-    ydWX/qnX0spiO/oLJjHsmk+rsjzeachNCfZqYri4OECtaMqBqLsy8GKT4bQbqK5deL+Y+j
-    xz4oi0XTNlD6jG61NGTNYmy4QmHW5t9idNlTTjUXxyjcS9YURryFMnzp27h1BibhDflcz5
-    UY0o1n8SpTQHwQ3/5malhwYKSeSMg8q6/xrtSPPcVMnMpyyR9vsCGY0TTUpc/3e38AVljE
-    CwiXQtNotFjguQ2i5vkeoRsoHb1TyfkFlTP3gRHzl3UveODfQuz8nenQXqlQ
-X-ME-Proxy: <xmx:tJLfarraKcese7WoQH1qripNE2RW3sQ02AnhQpBgIvlz7tnud-QoxA>
-    <xmx:tJLfagazhqAewp0B4A9M3D6fTyn7_VpRNZ0nuifN8YsHYk9-7jyB2Q>
-    <xmx:tJLfahiI7id630K9NmomSvn62flSZaHn2KKrgta1RGySXMbr7guD7g>
-    <xmx:tJLfatrSUI9pQ0K6u_jA0hZM_uWTVUEDYP0jCuf0p5tgifabZsZhnQ>
-    <xmx:t5LfapU-At2geLhbkQFkmFVQe5KK6EYoSm5kLoDw3GYWlWKmcDqAJ0O7>
-Feedback-ID: ie3994620:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 26 Oct 2026 13:49:39 -0400 (EDT)
-Date: Mon, 26 Oct 2026 17:49:38 +0000
-From: Kiryl Shutsemau <kirill@shutemov.name>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Gregory Price <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
-	Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Vladimir Davydov <vdavydov.dev@gmail.com>, 
-	Michal Hocko <mhocko@suse.com>, Hugh Dickins <hughd@google.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Lukas Czerner <lczerner@redhat.com>, 
-	Carlos Maiolino <cmaiolino@redhat.com>, Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
-	Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>, Muchun Song <muchun.song@linux.dev>, 
-	Oscar Salvador <osalvador@suse.de>, David Stevens <stevensd@chromium.org>, 
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>, William Kucharski <william.kucharski@oracle.com>, 
-	Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, Nhat Pham <nphamcs@gmail.com>, 
-	Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi <nao.horiguchi@gmail.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 13/16] mm/shmem: preserve allocation errors when swapping
- in large entries
-Message-ID: <at-SpfCdyXq18_Ab@thinkstation>
-References: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
- <20261026-fixes_shmem-v1-13-703206d5fa0c@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZccSGIN1
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793036982;
+	b=t6Ex82ZySKASHboV4vV6gtxTpWHi7yOhgM7Skn//Z4VG5Aa9Z+n42mFiO/FoLcOflbU6
+	 YI9yUDeiSIWQ5eKhBIsFRhISkmpmiopSo0Stgzey+7iC8DXqmIQkqRGDnkubZSuRlEUMp
+	 jkrdbjS54m6piYfWyd9mex1OUuzzCXCLBNVmVDcv9fZgxx+gby37juLxNMsLTdPlE2fpr
+	 a793LOPawHuoc7p+JQnDwYc8xJov7kYAMSAxJTtZ0o5/xyQSiIxHhVViaIzmpRlH8dwQ/
+	 QDBOoSvIrUrB0hMsREXMmhzzAQOujjNk6SBt/kXkfX5FoWCZ4v5vcpePzJxnH60rzVg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793036982;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=ZqtX6DI0kr6jtVxLiN9ux1tO8B5QzkEQXV5/RmgmS1A=;
+	b=GW1/Mvh6LvwalVofWOe2VFAo+5UNcCw2Y6aXYkoSYS82Z7L+1GqXJep1i/eVVtYy3jmc
+	 TMDhR7CZFaZ+BXrAFONGBOACu9/+/sM9DBncvMeWMKh33XFRqfZK+KOcO8m/gmpu3jWQb
+	 d34McNOY3gb12FHIqNQ3Is5ZgW9jRjwhZ5wpDgllrSwfXqtfEDwDZ9YJPCJT+RjvfrNPl
+	 xEIm6onBLbhPlHMP4FvSvk4irq8ZIBZdV299PSzy5gJ6krBIPPLN2Yuk79f9qDRywWCG1
+	 EdEAcionqR0xg5lhT/Pl84ss8B77nkCNotUm6I1yjz2CGCXwq2dw0UBsAp5VKIKlqkQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id BF12C1F01825;
+	Mon, 26 Oct 2026 17:49:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793036982;
+	bh=ZqtX6DI0kr6jtVxLiN9ux1tO8B5QzkEQXV5/RmgmS1A=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=ZccSGIN1gYfAomNmS+396+iIjiqH61e3iB9ano8cuajVQfweLEGNvzYWw3A7uYR4J
+	 Wl/2peKylkLg1FDf43/ARgg9ZuSbXvQhat680ZDTWewBuW7J1QQpSfaVJYZ+5c1TtZ
+	 1FG+OIbEzgPb0sxwD8OuRy4UvB2FJ9Zz8Pq2oa/w5DpflAO4N85oKvuu3ShqqZX9bg
+	 SXomrsYBLU4fVwBkjnZ69zDO45Fu805XKB/7NA8BonEBalwYnVL4QyEkrdUAEsoJqW
+	 2NJJItDvKkU8GnIxb1KFm96cDy00f+c/79QD3ef+GJdDTUN68Xhyc3G5D1CihI/HBI
+	 Qe7/66eA3ldsQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 4172A44E12;
+	Mon, 26 Oct 2026 17:49:41 +0000 (UTC)
+From: Ishu Brar via B4 Relay <devnull+patches.brar.si@kernel.org>
+Subject: [PATCH v3 0/2] interconnect: qcom: Add SM7250 interconnect
+ provider
+Date: Mon, 26 Oct 2026 23:18:16 +0530
+Message-Id: <20261026-icc-sm7250-v3-0-aa303226298c@brar.si>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -135,33 +84,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261026-fixes_shmem-v1-13-703206d5fa0c@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NywrCMBBFf6VkbSSZ5qUr/0NctHG0I9hKUoNS+
+ u8mdaGCywP3nDuxiIEwsm01sYCJIg19hnpVMd81/Rk5HTMzEGCkgJqT9zxeLWjBpXEKDSrZCGB
+ ZuAU80WOJ7Q9vjvf2gn4shbLoKI5DeC5vSZbd33CSPNdRWS8BjNN214YmrCOxkk3wLaofEbIo0
+ GrtNqqVzn3EeZ5fH0+yPe0AAAA=
+X-Change-ID: 20261023-icc-sm7250-1684e6e41a02
+To: Georgi Djakov <djakov@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Ishu Brar <patches@brar.si>
+Cc: linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org, 
+ Konrad Dybcio <konradybcio@kernel.org>, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793036977; l=2815;
+ i=patches@brar.si; h=from:subject:message-id;
+ bh=XMn17Mlz1sQ1bjtBVxi9S/AkNIdkb5Ce8gNvbH3tfeM=;
+ b=p6liVVIh25kiR7QvG2SeuvdfSRLRIVGeO/1/wz6ACoFFHbsJsxpSYqQSqZsuZ3JLEK0/StOyC
+ LNqW8DHZp0eBSkq95HLKpvpdbRsr+jxiEbjBhLPdf1H2DCwE9dvOUWX
+X-Developer-Key: i=patches@brar.si; a=ed25519;
+ pk=Ds+E23E3ntzjPzuBDyVRkOouclcNI5k75R+N42yJtCk=
+X-Endpoint-Received: by B4 Relay for patches@brar.si/default with
+ auth_id=1189
+X-Original-From: Ishu Brar <patches@brar.si>
+Reply-To: patches@brar.si
 
-On Mon, Oct 26, 2026 at 10:40:46AM +0100, David Hildenbrand (Arm) wrote:
-> shmem_swapin_folio() adjusts swap to the requested slot within a large
-> swap entry before allocating a folio. If allocation or charging fails,
-> the error path compares this adjusted value with the original entry
-> still stored in the XArray in shmem_confirm_swap().
-> 
-> Unless the index is at the start of the entry, this turns -ENOMEM into
-> -EEXIST even though nothing changed.
-> 
-> The caller retries -EEXIST, so persistent allocation failures can leave
-> the task spinning instead of returning the error.
-> 
-> Restore swap to index_entry on allocation failure so the existing error
-> path checks the original entry. This preserves the allocation error if
-> the entry is unchanged and still retries if it changed concurrently.
-> 
-> Original fix generated by an LLM and sent by Josef Bacik in private.
-> 
-> Fixes: 91ab656ece13 ("mm/shmem, swap: tidy up swap entry splitting")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Add the binding and the driver for the Network-On-Chip interconnect
+providers of the Qualcomm SM7250 SoC (Snapdragon 765/765G/768G). They are
+controlled through RPMh Bus Clock Managers, like the other RPMh based
+providers. The driver follows the layout of sm7150 and sm8250, and the
+nodes and BCMs come from the downstream interconnect description of the
+platform.
 
-Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Tested on a OnePlus Nord (a 7.3 based tree): all providers probe,
+and UFS, USB, display, I2C, serial and camera ISP devices get their
+paths without errors. The Adreno 620 GPU also takes its memory bandwidth
+levels from these providers (the Adreno 620 series sent earlier relies on
+them). The SoC devicetree nodes are not part of this series.
 
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+---
+Changes in v3:
+- Subject: drop the redundant trailing "bindings" (Krzysztof)
+- Drop the "Child node's properties" comment (Krzysztof)
+- Binding: no child nodes any more; compute-noc, mc-virt and qup-virt are
+  separate compatibles on top-level nodes without reg (reg: false), as in
+  the milos and kuno bindings, so patternProperties goes away (Krzysztof)
+- No change to the driver
+- Link to v2: https://patch.msgid.link/20261024-icc-sm7250-v2-0-0e755894b188@brar.si
+
+Changes in v2:
+- Set .enable_mask = BIT(3) on the ACV BCM, like sm8150, sm8250 and sc7180, so
+  that the voter sends the one-hot APPS RSC bit instead of the scaled bandwidth
+  (reported by sashiko-bot)
+- Drop the IPA virtual provider (qcom,sm7250-ipa-virt, its BCM and its node IDs):
+  clk-rpmh already owns the IP0 BCM through RPMH_IPA_CLK, and the sibling SoCs
+  have no such provider either; otherwise icc_sync_state() would zero its vote
+  (reported by sashiko-bot)
+- Link to v1: https://patch.msgid.link/20261023-icc-sm7250-v1-0-1e47c1226857@brar.si
+
+To: Georgi Djakov <djakov@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Ishu Brar <patches@brar.si>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: linux-pm@vger.kernel.org
+Cc: Konrad Dybcio <konradybcio@kernel.org>
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+
+---
+Ishu Brar (2):
+      dt-bindings: interconnect: qcom: Add SM7250 RPMh NoC
+      interconnect: qcom: Add SM7250 interconnect provider driver
+
+ .../bindings/interconnect/qcom,sm7250-rpmh.yaml    |   81 +
+ drivers/interconnect/qcom/Kconfig                  |   14 +
+ drivers/interconnect/qcom/Makefile                 |    2 +
+ drivers/interconnect/qcom/sm7250.c                 | 1642 ++++++++++++++++++++
+ .../dt-bindings/interconnect/qcom,sm7250-rpmh.h    |  148 ++
+ 5 files changed, 1887 insertions(+)
+---
+base-commit: 3fd56a2833c22f62eb84297d0dbd47739632f1a0
+change-id: 20261023-icc-sm7250-1684e6e41a02
+
+Best regards,
+--  
+Ishu Brar <patches@brar.si>
+
+
