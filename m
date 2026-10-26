@@ -1,90 +1,127 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.145
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793023663;
-	b=GQoFXPGsQ+MxGmvE1I0F18RntsRaH9Pw79+iaFjY552o5IIIs5ZDgiJ0X7SPXl9vkGEx
-	 ZQUIdEeGuNU27IhsxxaEyMVFGvsfJKZlQSmh5cpxWxG/IR0W3d5y2k8otrqCR3AbMLr6C
-	 oozV2nB+GskqSPBy2m75sA6yO3MZd5R7Eg62aWAhx6w+WoMYosiFjESbhtyPxoXdZ4kDm
-	 Sr56LN/n//prbdwlR6fo8YTWicjUC7FsSjfLQF+sfYoA+IbY7wTyHF9i7BoSK43gDcZYB
-	 v8uXudojX4PrUjgX/XmFGS/hyD3gNh+qmbDT9dRMMH5j31pdu/YBsucPsEjvsvPA++g==
+	t=1793023667;
+	b=iFYfTn3TQG7wPSFDIICWfQRVJXlxt9fvO4k0TTF6Hw7RmkG+3sbF1AA0X4HX4Eydcup5
+	 MmlDabSl3S1GpRf9VCVvLhCe85YlMCizzS+E014TokVVuQTTGu0vsWhKKKRHnc2p82qFn
+	 noEr1kZ6kjs9PHqK9gf2nKltc2NZhoQe+YxieGWlcgl1TUQJyPwpxInVdv9WfCvQztUdA
+	 ul73Zsf05rUfWQcQBHBJAao606vIN+blwFtCCBDXgbk3NXdNqDH+QVU/c7cEytk9OlD8X
+	 LZ8IBxymFCpWps39AiuuQdVEK5fk7POPVCEPAP4eYo9Lk0F+rfjIdwCjbL0qlPuyvAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793023663;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=XakBI9gtX78sZAtOezqM1zuZ81mvr8zjp5zgGUEv5HU=;
-	b=5giUP2yBenVwni0JZjelkbOvI0Pq4J0pg6gi9jr9tktyuAcGyRmerJC9Yb5LPJ2Davn2
-	 HUWY0/yabm9Y23YtRFXxANfp2neugRm4R3RAtffPPZVfgIv7LZRP7SJRXvg+O9JwpZ1tC
-	 ZftejZM+zXZ12oF4Kc/QI2qurtg5iYgL0Ykqe6SLBxsZVszTS4HlLhRF0Gz4DpcaxIf1W
-	 876DUWbnE8gdHnSTY7tlp2Xfuu0TmM3Mt9QniwOvfub9lg0kIhCYfDvkf27ej57zNXMAE
-	 9dgz+8dZzBuQptKLlOk3PVSVu2iFfVEjuWej8lpon/+9zbBZ8RKKpOTtbpr4uQnvmZw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793023667;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=XDw7IcoXcwWijRhNP3kWys9OVzhOsB2/yX037KXF4Ro=;
+	b=QCBV2xTdUk2Bp+32sy7Twrbt7beFjiSsb5i7TB5CUzld+xcBxy8GdssiPPrTJNiU/Yuv
+	 FZnkSZu3uzmPUWPiSJysyz24eB5aY++8x1/Fen0p0BjvDF/C3g5ic9Pb6DHgo5FPB5YHX
+	 SO9SAu4MRHasSuKMpntei9zXkqXjk6KxjkAT5ZjWBmAtB/fkpbS7MF6dYgkoHCXAWJ1XZ
+	 HchZCzss2SwkC0dKuQvoi9yAr0YuJHo40QDQdfk+5kefamN5jU52rsibj+OHv1E/RvMU5
+	 5+ETNNQTmqt5zpCaaa/+qPPD65gQ2RM893qCBpEWE7pNCHmZebKErashgm8tPKvDVNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WxCaJxpS;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=ragnatech.se;
+	spf=pass smtp.mailfrom=ragnatech.se;
+	dkim=pass header.d=ragnatech.se header.i=@ragnatech.se header.a=rsa-sha256 header.s=fm1 header.b=o46p7hQR;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=kJWpizz3;
+	arc=none smtp.remote-ip=202.12.124.145
+Received: from fout-b2-smtp.messagingengine.com (fout-b2-smtp.messagingengine.com [202.12.124.145])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD484606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:07:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47696606A321
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:07:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47696606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WxCaJxpS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 444351F01828;
-	Mon, 26 Oct 2026 14:07:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793023662;
-	bh=XakBI9gtX78sZAtOezqM1zuZ81mvr8zjp5zgGUEv5HU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WxCaJxpS4RT5Rt6eFzT7+wZgOe/GRPAmjH3AqsGfiakObwHg1VY1JJNi0pIrPnik7
-	 LWYUmo8hc6UufQZ6WHKxTq9xYwbctTZ+0V8AZm/Z02qLsvfpJt7QpBAZgJOCKzRq8b
-	 sO7fSzYxI/xVJdBACOmvAHKmydVSAMW8sUJZZm+pSIFUmUMVDQnzgfjRaYB7HOKPfB
-	 8K/X3fm9h1Ezl7Pbgv0hIS5Bah6UFMYHfpQFCQK7NfXthDC1gzOTcq7h57iFe/sWML
-	 xIx3xXObFoyp8zxwmf0IcVx7xyYYpYRotsMlMTcylm+ek7EU4LeQjkZ4lLZHCkyk9l
-	 9Az6ytO70tYAw==
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfauth.phl.internal (Postfix) with ESMTP id 4787AF4006B;
-	Mon, 26 Oct 2026 10:07:41 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-04.internal (MEProxy); Mon, 26 Oct 2026 10:07:41 -0400
-X-ME-Sender: <xms:rV7falXFc8rgY0kZiZWLQpp1duK7t-4d9jeFRjqXvwSfhMHN10ofSA>
-    <xme:rV7fasECXzzTPU7FmoGw7wHH_lOJhNS2cuSzui5LWFp97epFbQfWb0yhOIIzvShvW
-    J2W6gz3ZRtykHe8PTuZj89CZkbws1-vFkPZfgQROlgNwVXF-uwY1A>
-X-ME-Received: <xmr:rV7favacw5EJcxahdH_aor83_I4OEGEoUXOjpNBI5g89xHlgNZWIDn8bDq-hDy_XMmb09fOiJ0NxRXTDf1HPXYUcXD4Uapm6>
-X-ME-Proxy-Cause: dmFkZTGHPTZoVgbYo32XJYjko3kEymooXPsi2xL+ta6zn/3CUgwvCNza6QO5ml4d3WEJSX
-    B81f6OQ8BX84Th8MBukku5MrddiFNHjISGbII1oow9cL+KR1qJtAn3Rfwc6udslhg5fBBp
-    NAkuxktdRq/ThSyoW/6sYm66Cx/DQ3w7QOCjEdJxbQd42O8vjWlPjxpr3/wSVNEQejPqjv
-    aKoaOW4wQlRbkOCDqqLh7kwEaiRAbG45JUeMUE3BPjDvbzO33lTRXHrwK3qQ7jmjepaNUU
-    Tg+7i3Ffl+6pV5qh9j3V7RIBtcc25Tt+4S+gMFFdS81OnFT7XartKSIMtVN4JSyO6qSObr
-    T7UrxbOlATSwsvTh0zS0YBns1MjUgFDrqQpjSBCY3phjoAbdeiKt5RDc58KbUkNLJigsSB
-    UavNU12IDc/Vl0iH5helDCcurXjtOc5wNNv/gfdFf0MceCdCqkyvz+gRgYBag/4r7xHLiJ
-    PJclNhsn5D1ldF8pMVmWGN2xcD4teWGa7DqqVXl7gOpClUjLo8iBX3W+18hJrPB2LqZwTI
-    qqNKh4T/NYOyVIsZzeG1C+GtoSzCyag57mSEBGmaRHIQq5+OpLkKKLz90eMd6aBAxmR++6
-    5qqp5iTOyk90EdfAprSHPCRTO619iQxYKKz1RB2W2iPvLV4bqJaZC3KrU5mg
-X-ME-Proxy: <xmx:rV7farEkwePmR4sfQRVoe5Hm-SU5qBwawyb2C790iv0A5eWl3zj9sw>
-    <xmx:rV7fal2ITUuwZfrcHWTVWXb6FsV6O_9_XTUUpORo0oB2y_6W9Aag1A>
-    <xmx:rV7favyQCLK6X5mq_0aCQY5GHIagP8RdKxmzxQLtm-UwUAQkSpfn1Q>
-    <xmx:rV7fauhwr3eY2MdtPVEq4FUUJfYmy68tIIWhUT3azTJhfSbtPkd6nQ>
-    <xmx:rV7fakPKgwsOlzoHYmI3hM607W9wsrCo-oIKB5fXC-woliI2ku0BskAO>
-Feedback-ID: i8dbe485b:Fastmail
+	dkim=pass (2048-bit key, unprotected) header.d=ragnatech.se header.i=@ragnatech.se header.a=rsa-sha256 header.s=fm1 header.b=o46p7hQR;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=kJWpizz3
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfout.stl.internal (Postfix) with ESMTP id CC3C51D003CA
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:07:46 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-03.internal (MEProxy); Mon, 26 Oct 2026 10:07:46 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1793023665;
+	 x=1793110065; bh=XDw7IcoXcwWijRhNP3kWys9OVzhOsB2/yX037KXF4Ro=; b=
+	o46p7hQR3/YbzRr2CCRs1S2eiUv5n9mlYWyHvKK0h0qmJCVuziv0nIPq1p3A8Tmv
+	m+B3RP2iFVgZyP9SkKtoV31LvT5Nb29pY7A686y3uis1mfyUVyxeU1ylTQEs9agK
+	u9ZWwBhxFpBxxPSUh+101tcpWjBnT+aKioJ++5gH+ZOkDnMfGzGs1gPqBJCOObwK
+	TuFQTdTTa70uoOkNXyhRHkxGNbj3ewfMJr7qZi55UkDQ341RpYLqnaVhX84j8c+O
+	i7R5rDc4rjPxlhUwC4km/UStSNYU8zqutOZATloCZ0jEplNi77jQ24mw9QShu7rn
+	o9NDbogjcHrvNVI/+V4AkA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793023665; x=
+	1793110065; bh=XDw7IcoXcwWijRhNP3kWys9OVzhOsB2/yX037KXF4Ro=; b=k
+	JWpizz3fOK78tFLHyT5grz6NoaFp1oE5A/ckX5oG8T7yrtRV0Gz3X8hT2qWyIlXU
+	BvvfU0rnxEGMCsJ+WGO5tqfZxEDsSbjdUv+ahMBnF+mOee5qon+vIKpyiMfrVn2c
+	N4zhA6wQf3BeMS7oGT29Gzy29E0RHH8V+s3KfbWmFkMGa1itQXgAFJVVyZZ7jj1l
+	fitpwnw9JYuCkY5nPc54q7IATsfXe7uoxa671htykh2JJdVaXGJcP9LsGhCoxZBo
+	A5zbZVlVbP2IFeR6pWbQ5Bof5f8toF5Eu6m5qYjAEedqRMkaV5Fyub4sKz2VBy8D
+	TYTobxtjPfsjaTfbzXpZQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=sign d=ragnatech.se a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793023665; d=ragnatech.se;
+	mf=PG5pa2xhcy5zb2Rlcmx1bmRAcmFnbmF0ZWNoLnNlPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:o2x3XhOXKb9pDmqW1amJXVo6kavObC+lqyZgckuAhiXRt5A
+	No6fcjy86LxAwjQKnx5xhHE1E8dwO1WbfykrY6naFNbP8ot4gkE+iZkT3PL/Dw+C
+	wSC1yrceDK5bscfQxvJ5i5sTUcqcn1Zlikb/sMR/rS15RHb5uI5Ez4NQJt3ga5o5
+	eLErFGqusOiN+wcX9HSIiHcD/5Hlx+rfD4Mx/gd58hdLc7Mbves7noPBSrlaGNSP
+	7CjsuzrPnJKzwzSm4tqcatZu6URR+QGSvl7w8FPcIba+rLMytJlIz5P0klrVrAzf
+	Kp2EWQStVv85TNJFdz1wU2AvUF0V6bqpMo822uA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=mi-m=1; hc=13;
+	hn=cc,content-disposition,content-transfer-encoding,
+	content-type,date,feedback-id,from,in-reply-to,message-id,
+	mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:tUMj578xm9B5bEJc5f+ImvL62O44PBjXsoN9GLoT8Qk=:Sp4nMPPIXzzLdI3HqpoHKlLEmIpXU1wWVVuz7Rm2M8I=;
+X-ME-Sender: <xms:sV7fapqb-nCJ7Hle3FAcC-NEQxBhOOypEOpKd_WjyIYKJsieb2TfWw>
+    <xme:sV7fanhvXTcugqQqKpb1EfRLHg4IyRGwbwekEddoL6OabyjFbvgZ8eJ3jn1IxaSXv
+    eZD7khiOXS6b4rk25Q2I0ctpdwT2VBi3xfmQFtn7ShQ9CYIn6R89bMhOQ>
+X-ME-Received: <xmr:sV7fajNhWSfjbQaWzJloaLAqPxr1-xU2581qIbNavvglmb8etfGFIEf8hsnSJ0X0uJCdK7a1MoHmUQwk8f1JSaTqpY-HC3w>
+X-ME-Proxy-Cause: dmFkZTGNXUMS2UHU5v6sb7fcqJngNDG5NVCmW3qZ0sw87WXfPII9v0gOfz0bEclZzCQ2Hq
+    9czmEI30wu42dYLjIHp2kagQI9GVgCgBzbdkWzk1G1Fke1RSQ79ocvNsCGLH4i/WJ6V9zY
+    e3l2htE24rbLqk85ZUY6pwFoLj5F5PMSrGTpgD28cGlKPsfjy7iPBCPzbgr23fz9kO7viY
+    DyxejT69Mh6UlKrIfks7yLlh9lJR6CBTQUYVM2qSJ9d/gx/7i4BB6qUPBjhnB6azYo69FV
+    gWKS9ubyd0mia3+nmweHqrKuB1RXjydOJfxmcA//PN7zN5iGn8YsZfvPvI/v5vutMeeDZQ
+    IPk3WiisB8asHoX8HJCTZW8mPvZJ8kwMTG6fO6U9Tg9XfK2mXnR/F4FItygnS5KoXz6zzG
+    N+j6ydimR1zcWg6oQw2h4jBNeLs9Wepm4A2EV1BMJ/6AhngyBuudGQnNZ+olKjVNIlF5OZ
+    LsUuweIUf1APpGvQqtu8nKuCYygIB7tmV755fN7lZvYXVJaLv7BCSkx5IDMCc58DWat7BZ
+    YqIwxKz6oL79sR0kK4f0i8SFB15U1s1BfgjkkJQtl0ZK7f2sMKVIhHnjsysvRAwH4uEqFx
+    9UzdCOrormkv+/JA1B5JiW52aOwc9CY54oN8m4n5l78z/mFxYYvsl+1+9GNw
+X-ME-Proxy: <xmx:sV7fapyfl6BVdfZSYBeL1HWdXYDlwh2vIVhn1O6EX1OUq-g-3jPoPQ>
+    <xmx:sV7fatpWFs5dbe157ZNPAE_vGwNqXNYC1r7BlWePS214e0mU3nFjTg>
+    <xmx:sV7fahMUMSFhkX4lKFEYjrXsMGZ6AY_FyBUzdY9l49D6ROeUY_BSEA>
+    <xmx:sV7fapc0_XsEfPvaeR4fQM_48nlHv35AkiCKmjVOPHGC_wNqgtAwOw>
+    <xmx:sV7fahq4bLlo31OxPmAnOXmnGAdYfEvGEK2EUwodOnPFWJlaLrVeej5o>
+Feedback-ID: i80c9496c:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 26 Oct 2026 10:07:40 -0400 (EDT)
-Date: Mon, 26 Oct 2026 07:07:39 -0700
-From: Boqun Feng <boqun@kernel.org>
-To: Vlad Poenaru <vlad.wing@gmail.com>
-Cc: Bart Van Assche <bvanassche@acm.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>,
-	Waiman Long <longman@redhat.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Davide Caratti <dcaratti@redhat.com>,
-	Breno Leitao <leitao@debian.org>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH] lockdep: Keep dynamic key hash nodes in
- lockdep-owned storage
-Message-ID: <at9eq_3YUIL1ACEK@tardis.local>
-References: <ef57e0ab-f0b4-46d6-a2f8-f6c97fec8d8e@acm.org>
- <20261023121946.2260882-1-vlad.wing@gmail.com>
+ 26 Oct 2026 10:07:44 -0400 (EDT)
+Date: Mon, 26 Oct 2026 15:07:42 +0100
+From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>
+To: Li Ximo <lixicaicai@gmail.com>
+Cc: "Rafael J . Wysocki" <rafael@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	linux-renesas-soc@vger.kernel.org, linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Wang Haoran <haoranwangsec@gmail.com>
+Subject: Re: [PATCH] thermal/drivers/rcar_thermal: fix list_first_entry on
+ possibly empty sensor list in suspend/resume
+Message-ID: <20261026140742.GB1959885@ragnatech.se>
+References: <20261026115018.3227372-1-lixicaicai@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,59 +131,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261023121946.2260882-1-vlad.wing@gmail.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261026115018.3227372-1-lixicaicai@gmail.com>
 
-On Fri, Oct 23, 2026 at 05:19:46AM -0700, Vlad Poenaru wrote:
-> On 10/21/26 8:01 PM, Bart Van Assche wrote:
-> > This patch introduces a new hard upper limit on the number of dynamic
-> > lockdep keys. That's unfortunate but I assume it's not possible to
-> > eliminate this hard upper bound if the key storage is owned by
-> > lockdep?
+Hello Li,
+
+Thanks for your work.
+
+On 2026-10-26 19:50:18 +0800, Li Ximo wrote:
+> From: Wang Haoran <haoranwangsec@gmail.com>
 > 
-> It isn't inherent; it comes from preallocating the nodes the way lockdep
-> does for its other tables. Two ways to lift it:
+> rcar_thermal_suspend() and rcar_thermal_resume() call
+> list_first_entry(&common->head, ...) without checking whether the list
+> is empty. list_first_entry() does not return NULL for an empty list; it
+> returns the container_of() of the list head pointer, i.e. a wild pointer
+> into struct rcar_thermal_common. Dereferencing it at
+> priv->chip->needs_suspend_resume (and the MMIO accesses through
+> priv->base that follow) is undefined behavior and can corrupt memory or
+> crash the kernel.
 > 
-> 1. Fall back to the embedded node when the pool is full. Keys
->    registered after that are linked through their own hash_entry, as
->    today, and only those wait for a grace period when they are
->    unregistered. The key stays at 16 bytes and there is a second lookup
->    path, but running out becomes a slowdown instead of lockdep turning
->    itself off.
+> The list can indeed be empty: rcar_thermal_probe() only adds a sensor to
+> common->head after platform_get_resource() succeeds, and it returns
+> success even when zero sensors were probed (no i == 0 check before
+> "return 0"). With a malformed DT node (no MEM resource) the driver binds
+> successfully with an empty list, and the PM core then unconditionally
+> invokes the suspend/resume callbacks. This was found by code audit; we
+> do not have R-Car hardware to reproduce it at runtime.
+
+Could you please audit the code some more, preferably without an LLM.  
+While I agree the issue should be solved this is not the fix.
+
+Nacked-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
+
+Does it make sens to allow probe to succeed if we haver a malformed DT 
+node? Would a nicer fix not be to fail probe with -ENODEV in that case?
+
+> 
+> Fix both callbacks by switching to list_first_entry_or_null() and
+> returning 0 early when the sensor list is empty. This matches how the
+> rest of the driver already tolerates an empty list via the
+> list_for_each_entry()-based rcar_thermal_for_each_priv() iterator used
+> in remove and IRQ handling, and does not change behavior on the normal
+> non-empty path.
+> 
+> Reported-by: Wang Haoran <haoranwangsec@gmail.com>
+> Reported-by: Li Ximo <lixicaicai@gmail.com>
+> Signed-off-by: Wang Haoran <haoranwangsec@gmail.com>
+> ---
+>  drivers/thermal/renesas/rcar_thermal.c | 14 ++++++++++----
+>  1 file changed, 10 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/thermal/renesas/rcar_thermal.c b/drivers/thermal/renesas/rcar_thermal.c
+> index 9a9038671..65dba6354 100644
+> --- a/drivers/thermal/renesas/rcar_thermal.c
+> +++ b/drivers/thermal/renesas/rcar_thermal.c
+> @@ -530,8 +530,11 @@ static int rcar_thermal_probe(struct platform_device *pdev)
+>  static int rcar_thermal_suspend(struct device *dev)
+>  {
+>  	struct rcar_thermal_common *common = dev_get_drvdata(dev);
+> -	struct rcar_thermal_priv *priv = list_first_entry(&common->head,
+> -							  typeof(*priv), list);
+> +	struct rcar_thermal_priv *priv = list_first_entry_or_null(&common->head,
+> +								  typeof(*priv), list);
+> +
+> +	if (!priv)
+> +		return 0;
+>  
+>  	if (priv->chip->needs_suspend_resume) {
+>  		rcar_thermal_common_write(common, ENR, 0);
+> @@ -545,10 +548,13 @@ static int rcar_thermal_suspend(struct device *dev)
+>  static int rcar_thermal_resume(struct device *dev)
+>  {
+>  	struct rcar_thermal_common *common = dev_get_drvdata(dev);
+> -	struct rcar_thermal_priv *priv = list_first_entry(&common->head,
+> -							  typeof(*priv), list);
+> +	struct rcar_thermal_priv *priv = list_first_entry_or_null(&common->head,
+> +								  typeof(*priv), list);
+>  	int ret;
+>  
+> +	if (!priv)
+> +		return 0;
+> +
+>  	if (priv->chip->needs_suspend_resume) {
+>  		ret = rcar_thermal_update_temp(priv);
+>  		if (ret < 0)
+> -- 
+> 2.30.2
 > 
 
-This gives me feeling that we did something for nothing, because in a
-system where there are a plenty of dynamic keys, we back to the current
-status after we introduce another hashlist.
-
-> 2. Grow the pool in chunks allocated outside the graph lock in
->    lockdep_register_key(). That removes the bound without a fallback,
->    but it is the allocation Boqun preferred to avoid.
-> 
-> For what it's worth, keys whose locks are ever taken already count
-> against MAX_LOCKDEP_KEYS (8K classes), and the default pool is 16K, so
-> what the cap adds is a limit on keys that never get a class.
-> 
-
-Yeah, I think if everyone call lockdep_init_map_type() right after
-lockdep_register_key(), MAX_LOCKDEP_KEYS will be reached to the limit
-before MAX_LOCKDEP_DYNAMIC_KEYS. So technically it's not a new
-limitation. Honestly you can just make MAX_LOCKDEP_DYNAMIC_KEYS = 2 *
-MAX_LOCKDEP_KEYS (i.e. without introducing a Kconfig), "2 *" is needed
-because a key can be in-between lockdep_register_key() and
-lockdep_init_map_type() and pending_free can be delayed, so "2 *"
-provides a buffer for when active key numbers > class numbers.
-
-It might be worth checking whether a lockdep_register_key() is always
-followed by a some sort of lockdep_init_map_type() in the kernel code
-base.
-
-Regards,
-Boqun
-
-
-> Boqun, would you prefer (1), so that the cap can never turn lockdep off?
-> 
-> Thanks,
-> Vlad
+-- 
+Kind Regards,
+Niklas Söderlund
