@@ -1,106 +1,138 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.35
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793046261;
-	b=Bp3184aHou3kT+ZT7xqGt4OqJvopOTXZjjNY13BmZJCeKToVs7yI5OmTePYvipTQXqfS
-	 VVQUS8rnJKWGTcppGUz3mr4dhymqhKvDKJulOnggCRS2E13bg/+H2CI3rHg8kaZLkAOTV
-	 RODzqSoCDy+TYBMmV06QybRe1fHsaxo3NNSCZ3vSl32Ai6qn8LyiGlUPj1yRXl9Nor7yp
-	 O8o8Ox/CS1ZTgejEGgZFUykK0EByK5MNu7hEl7Gkbe36OUec7h+D1mmItseR3K5t0zOGd
-	 r7RISvLo1Nbx0MPos482hZoGovFeFugNhGP4/0pK4afHts3gXEwIObVMrfo/7xnQEhw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793046261;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=SgVJb4h6XK2+irnLfPO1jG/0wdeKUmteLBCXL6o2cVM=;
-	b=bQjpSPvYohALV9u6oDGjThHw4CZo9OT1efCWphufZcxzwl5KcuaNIeoxQZE80rIt+7BU
-	 jRufuCqTCBNkf8OWofcn6FKtaf1AC1K1uTp2JFI0jTUcNQsSqnBiSzret23+qsmWbNMzG
-	 l7kIBxAzrcRHV/RF1w1OCEP9jtzE4U5O3EVfAx1RW+pd9CN1mHQbPFAblUcM4ELGQ6CeT
-	 nfVLgbE+mlcrcwl3QN28lIsqHdHGMF+ed4+LZcc0XJJlvQyxojeyh01oC4Ycakm62sbY6
-	 dJkMHmJQkIpGT/cRQwm4VwloLUUbrGIgpl7tgL/5gqjyP+ffaZ48po9thw6fmyyX6Fw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=A3FJttmi;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.35
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013035.outbound.protection.outlook.com [40.107.162.35])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793046303;
+	b=sysEgoF9TodQHCDkNJdkI32jHXoM7jmCqIjgYTFwP1Z/0eE2/3gnXGqXpj6EmJ4NzDew
+	 FOFLpC5mmdosPTA0OzrHOZf/ttbEbIb9VMz7zePbtIar7jJUWE5qumV27yOW0aNr6sqE1
+	 BMF8yD/4TYZi5zTgxqwjOd+mahrxFAwId+x0KrW+2CXwYeOWUBGhxqyiWdAYBFvMxAJC+
+	 0VUC/cZYbgOUU98Z9O6JzcWat9s19wQlpEzVWBt0FLEpwwtdoFWrFmaiTr/c91qMEGzYJ
+	 nyA5aZMLuNAmRMv9nYKaVr4HlSUgIoRAzX5Ie1xT7p738Z/rkw3I4Aw+tObAcwCysBQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793046303;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
+	 References:Content-Type:Content-Transfer-Encoding:User-Agent:
+	 MIME-Version;
+	bh=dyUiwFHOuZ6jUB6/ApCIxjebYZYlYZpkM6HcrbFEf4s=;
+	b=Zg8EU+K2EamAc/gh0f7g4zl9hEWojmqe25QPQlR2v2/gzCBoq24aWsUwj1fAcYyuZLlY
+	 xlXPDafoXb797Iz/m6CT0Cwt8BRL02JxVvRSeg8SS0ywBEf02lKcroQUZKyIXTsNAKEz2
+	 SH5z0iT6djJDLEM7qhDrWFTb2hZlYmkAp8dakvPBx0uvfMCZZETSnsY5sTv9FYLxNrIR7
+	 DGGKz6WCPIxAYjLLMBS4u9GVFfFev8AzFzvIRst4TRMoSd1K40wPd7P8R4V0MNNHo207x
+	 WqHuFUXj2h95xMnv5wMMOPSFF3XI/RSwRXkHybF7ND7/yWd9uuJ6ig7JGDbH3cSufow==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=LKBdmTNg;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=emqBnxMy;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABC96606A31A;
-	Mon, 26 Oct 2026 20:24:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ABC96606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 997D2606A32D
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 20:25:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 997D2606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=A3FJttmi
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=odgowE8+rEyYnT4g0C7ldlXmnnx7WFkWGi2j8L/e8DwqLlh+5a73qJPt2OW8VtJRa9ICCobj9FSnEQVZHsB5AKzA48DRsetkJ9LMJ05QEIwVQWExImqDY4sBa74Hw0W9ZtglnTXyhjIyLY9bYG3Ov6ED8Ok6RNj+di62TOGJ9TrhmTJBUyDvBv0E+LuwpjJfRSSqhe9762BSq0C1KxcY+hvPnGg0iRRdEoI4uykAeXLiy6jtTWSPhsIFjYhCKwBjYGnrZNVAoQL61dgXKx3D4nDSOPrLZi049ILbWUdnnqLah/HLih76x3XX4A2xAFJ8TAu9XfEADlc+5tBvy4cWsw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SgVJb4h6XK2+irnLfPO1jG/0wdeKUmteLBCXL6o2cVM=;
- b=lb8OZqr0oMLA0e7CJrVYD7OT3s7EiQIVzln/P34kyfeV/DafPCCwtonHr46c7dRELldk8nNUSfLyGmyejozx/+XswFOGVOgKCtcOXAkV7cOfQH81ELyoVHnOSS0A99YTuInz04pTlYOsCxnh4F2VQ0iwqywdEgBZdQ/XP703IdNyR39n8MTdIbHHV6Q3N11frP6veVQJtg3sb/zj02Pg0/Dixa9Bb9Mjj1k61teXylZ10CXNYNgsUvhNZlsbJaT2ovpBZR0Fx9VsKWjxo9NlQfmEhMqbpKAYgfSRPdWBGuoSjiMHK+rUZeXSD8D+yEYgZJgEKM1iYkj/eW3oD42Kcg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SgVJb4h6XK2+irnLfPO1jG/0wdeKUmteLBCXL6o2cVM=;
- b=A3FJttmiXt85AErFOegofIgYx3INZs1n7SAF+u9VTqGj85Xtgx82jzLP5AGt2jgZNoU4Ks4lBwv1/IbbFtn6n+YR3Ac9Zzdgx58nitfyERyXQss4JBYqWlZhOtOZldNnvWwJK7uhZ59h4eblU9z32r/4i+2RaZrJdfim6YOWgta0QeVvq/Lv7IiVO0vm3DdMQX6IJ0sfMK/NGYiflO1WlxjmpAZA7GQo1bZXZ0yeBvZwzDWsqNMTCjDp0Csw+ysgrcvq0nvvpFc1CoEMHDYSZMaFQxPKj2xY6ZwW92bYqnD/kWG4QfO55bVFrfGzgyJd5J/V1ft3k+XFh6rptxHn3w==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by DU4PR04MB11361.eurprd04.prod.outlook.com (2603:10a6:10:5cd::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
- 2026 20:24:17 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
- 20:24:17 +0000
-Date: Mon, 26 Oct 2026 16:24:09 -0400
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Diogo Ivo <diogo.ivo.sx@renesas.com>
-Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Linus Walleij <linusw@kernel.org>, linux-i3c@lists.infradead.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
-	linux-gpio@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/7] i3c: renesas: Fix zero I2C SCL rate on pure I3C
- buses
-Message-ID: <at-26QiDtxJUra5p@lizhi-Precision-Tower-5810>
-References: <20261026-divo-ssgrlpcsrc-2966-i3c-v2-0-2e76b87209bb@renesas.com>
- <20261026-divo-ssgrlpcsrc-2966-i3c-v2-1-2e76b87209bb@renesas.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261026-divo-ssgrlpcsrc-2966-i3c-v2-1-2e76b87209bb@renesas.com>
-X-ClientProxiedBy: DM6PR08CA0054.namprd08.prod.outlook.com
- (2603:10b6:5:1e0::28) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=LKBdmTNg;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=emqBnxMy
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793046301;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dyUiwFHOuZ6jUB6/ApCIxjebYZYlYZpkM6HcrbFEf4s=;
+	b=LKBdmTNg8sJ3sSNZqlJpOo/D+Dxzxxr0L+gDGGK9mFd6pvAY2w2Rfp+saUKPTJM/YIO5H5
+	kZ6xTOiTCePcDKN+o6sGW49ke03/+zydJNnb6VW7iYAteysxlptqkjiAXkENTDHRfrUNju
+	ayReAytvd+/RefGSecSIAUUyfHtHdKA=
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-364--Sc9MA_GMG-HiTD-mVBK6w-1; Mon, 26 Oct 2026 16:24:59 -0400
+X-MC-Unique: -Sc9MA_GMG-HiTD-mVBK6w-1
+X-Mimecast-MFC-AGG-ID: -Sc9MA_GMG-HiTD-mVBK6w_1793046299
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93cb7f9bb86so706524685a.2
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:24:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1793046299; x=1793651099; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=dyUiwFHOuZ6jUB6/ApCIxjebYZYlYZpkM6HcrbFEf4s=;
+        b=emqBnxMyuXJ+dFPo7kma5wmC4AFechpY6FN8vs3RaZZ8+uQv7vqXoivxV+3KYs63a1
+         g3V6LHEzWGPaK5i2d+5A6enI5EE/eqsk48t6zzrD0cabhW/rQSIjquFlbSxftchVyrMI
+         vd1H5z6foL378/6OLIz1P6ZuHxSRJDuAED5cWZFwZpAk7RnCoshS6O4477qABKMWA6ro
+         MYiurLzmbZgQ9ENdvzJsb5Qra838QVFmATgJ/TiG8IdUpIJZUn5PwbOZNldQUbodGKwG
+         SuxdysTewFPdWcmRZrHfN/9j8Ff6FzQP7o09svZfAUIJGThXWTldhNg+E7j2hqc/SEEb
+         ax9Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793046299; x=1793651099;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dyUiwFHOuZ6jUB6/ApCIxjebYZYlYZpkM6HcrbFEf4s=;
+        b=M4uUM27BCPf/IQ0d5vV8wJ7kAYhg5r4rTrTSI7tYvGsSWVEess1Mmodz2cJ64XU+Tx
+         XwovwhExZbhwl+Jssdn0cU5TySTRozu+IsevsVLEG0Z4DbxbLQxxLf/InBVp3s/6lxd/
+         1qEATsyiFRYJlYVWsZvLkUYjjpCyWLbCaQYBAFm/BlapDVFsFHFNOLD13WYQQ7HEIWUx
+         PYg8Uk2binCOl8NUG+pVPjDVd8EMQvZH+AtGfEt7PX428SJcCyNPBj4PXDr3wDVtjswp
+         YFWqNRWfGZiYHctkbv3v9J4HGroKUl/xS4e2TlpE5bdYVi+gLN8G/BjI4lNccHNLIXxj
+         ot0w==
+X-Forwarded-Encrypted: i=1; AKwUvBwx9ahkoXKmJJHx+rtlER3O8ToH9UjLAC9TfGTw7FY5vQMs1+scbx6WGwqw07G431UNVUAnMltTVLpb8Rs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIsHTBa0Y/hkprFbFQa42I2TZGciNsKRO7ndfjKKLRudKVREn45
+	rpIV0TVpuFUfY5QkCRpcoL677dc37rK20tJyKILNCrReIiBoe5jeInwGg6LjyNh1UdSuHuEcOSH
+	/qZoW7kC44o0nO54CSRNPMbXwxjtY1zVJRSMxpl1Q2hz8mGob9e34DsWJiWiJitUqew==
+X-Gm-Gg: AYBFou3vdgBtMucKxtKnFePKrVFgltDzEkUys+KsXhVfTdv+uNddINkgD7AioaSGkKY
+	iOyiccv7wEZxGaSAeOWhg3cqfsBij28Lrp3uRQ4d2UkKUqL+kZHhSA5Scd+wOXNnldxM3Eqvpwc
+	c2bkSeNleSHOTwz09l3AsfY3TCA02fBtwELOZNtIE7ebwgrgtnkXhOfGhx+3awzBDeMlh3E2tWS
+	uHwz6zeS1bpAXAXSjV/WQSnzU0hkul/cctXgvuEDaRNY+dqAs8b8dwNZl4JeYEuZOUOXRBAPk1U
+	jar79Ud5VZtBPb1Q+dXRyStm/hY4d/s6r0ztty7h1r1u8aOQUQhR/7/gu1jmQjwg4j51Bhg=
+X-Received: by 2002:a05:620a:40d5:b0:93e:9cc1:7b95 with SMTP id af79cd13be357-940ef98035amr1280969785a.58.1793046298901;
+        Mon, 26 Oct 2026 13:24:58 -0700 (PDT)
+X-Received: by 2002:a05:620a:40d5:b0:93e:9cc1:7b95 with SMTP id af79cd13be357-940ef98035amr1280965985a.58.1793046298385;
+        Mon, 26 Oct 2026 13:24:58 -0700 (PDT)
+Received: from [192.168.8.4] ([100.0.180.93])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-940f0a771c9sm779007885a.34.2026.10.26.13.24.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 13:24:57 -0700 (PDT)
+Message-ID: <0b17a082338118004a56b9769a7fc753ae928432.camel@redhat.com>
+Subject: Re: [PATCH] docs: remove Assisted-by references
+From: lyude@redhat.com
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Troy Benjegerdes <hozer@hozed.org>, Theodore Tso <tytso@mit.edu>, 
+ "Lorenzo Stoakes (ARM)"	 <ljs@kernel.org>, Laurent Pinchart
+ <laurent.pinchart@ideasonboard.com>,  Krzysztof Kozlowski	
+ <krzk@kernel.org>, Sasha Levin <sashal@kernel.org>, corbet@lwn.net, 
+	skhan@linuxfoundation.org, rdunlap@infradead.org, federico.vaga@vaga.pv.it,
+ 	apw@canonical.com, joe@perches.com, workflows@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, Greg Kroah-Hartman
+	 <gregkh@linuxfoundation.org>, Justin Stitt <justinstitt@google.com>,
+ Carlos Maiolino <cem@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Jori
+ Koolstra <jkoolstra@xs4all.nl>,  Brian Foster <bfoster@redhat.com>,
+ Christoph Hellwig <hch@infradead.org>, David Disseldorp <ddiss@suse.de>, 
+ Mark Brown <broonie@kernel.org>, Jani Nikula <jani.nikula@intel.com>, Jens
+ Axboe <axboe@kernel.dk>,  "David Hildenbrand (Arm)"	 <david@kernel.org>,
+ Vlastimil Babka <vbabka@kernel.org>, "Christian Brauner (Amutable)"
+ <brauner@kernel.org>
+Date: Mon, 26 Oct 2026 16:24:56 -0400
+In-Reply-To: <CAHk-=wgm4tZBd68PxaQiGeComxa9Us-SC5P2s6UG1Dwu8n_38Q@mail.gmail.com>
+References: <20261009083137.3-1-sashal@kernel.org>
+	 <0914a106-bacf-4d95-854a-bfeefbff62a4@kernel.org>
+	 <asz9AeFe3CutP73z@gremlin>
+	 <20261013123132.GC4214@killaraus.ideasonboard.com>
+	 <as4pAEnLd4H68W4W@gremlin>
+	 <20261013131243.GM56180@killaraus.ideasonboard.com>
+	 <as4xMnT8a75pIw9v@gremlin> <as7uqZn9rQ52USwy@mit.edu>
+	 <4a2c667b14fafad7acef96af2585e41f158fdac0.camel@redhat.com>
+	 <atjjQ0oupQ4pmKHB@false>
+	 <00636bea8791e75b3b16afef2dc5ee7f2cb8bc0d.camel@redhat.com>
+	 <CAHk-=wgm4tZBd68PxaQiGeComxa9Us-SC5P2s6UG1Dwu8n_38Q@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,108 +142,117 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|DU4PR04MB11361:EE_
-X-MS-Office365-Filtering-Correlation-Id: f1d42f11-b642-4ae1-5c56-08df339f1c39
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|23010399003|376014|7416014|366016|1800799024|4143699003|11063799006|56012099006|261021123027099003|261021121427099003|261022105027099003|261009221227099003|261009223027099003|10067099003|22082099003|18002099003|261026140227099003;
-X-Microsoft-Antispam-Message-Info:
-	5bqER+VOEOyJqXkpxguEFE+RvLm+kDQva2fTsu6TxMVrB2BnwtAmKciTxP2DdFXxi4+b+u7Z9KhLzNVcLBZlyQMbKzCFyVeSlgz2k5NpifxOyaT+fv9iTLRowFlyqwrsuv2CjDpLfkmeqVGKgIXbEQWZ/naPlYCE+7MPB4iWTaNnEWRHFKn1VyEHDv/QfP+hYnTMJPYoAzgOlD4kvBQhymfWW3iuwskqok9x1mP05PGg9RFE7IQNr06cj0iHk+LAFobd0/vJ4Jem6LWr5TXir5409jBuIyLwWiKa1SkkoYhf828tCeFVtNJezZwO37WaisHR1XP5MD3oqP5DGhC3jZ9W23hrrj65kUfm333m30BFUlMkJ9s+GSQe9nPcfECwEV7m5cyVwdkKO4P7c6EvQ2ybyQMn95RcPcyLOoknN/ewH5sojJ+tHH6CojCXQgEP67tPPS4UzL3oMhjjBz1dXziTNwPHnKG7J0qQw0wUdxwmT3fKLFo5HT7fm4Vitg86GG89MOaJgmrXWugaLFpQjHQTNxPSb2mruC++1wh1yc3P8N9d4zrJe3uXRbNQn3wXQc+QiAC11Q6gfHU5Rap+SzEBVphb/77yjObe4AJkni14KABCsZTQYflu+NkZXmhBtdHb+YAQOdnZjIUq+CAt2jsnFsgsCaNI+YdxA3n17RU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(376014)(7416014)(366016)(1800799024)(4143699003)(11063799006)(56012099006)(261021123027099003)(261021121427099003)(261022105027099003)(261009221227099003)(261009223027099003)(10067099003)(22082099003)(18002099003)(261026140227099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?tFN/YGbC49i6GBJXfH3efhaKTYp/EnktbrWbd83Irglhchyl8E3pxjOBjdlM?=
- =?us-ascii?Q?Kkn9HLc/pHtSmxMT7EF7gpOSRRbBhuXYxIC49SRCqqrsPkx2M6MxYBki63mt?=
- =?us-ascii?Q?Dn03Nt7dXBg+3SurE5OLU95DAevHYwPo8amn1D4whkM0RrR9c2+P0EOpP3rP?=
- =?us-ascii?Q?6hDXtfJow6gzoUGz77XRxIq4K6RrUxxgIqX5n5NEV0IqTxorjNUMnHD3C7nZ?=
- =?us-ascii?Q?517eUyYmTonyfGx0bWWK2hlKeNadawqFSnDQfXfdptrgpgADvP3Zx3I3LBoF?=
- =?us-ascii?Q?cniAAHrVs7EtVHVmaymnKKBq11he60hBtkeGLbiJmCnnlkTqczD+7xzqfL4V?=
- =?us-ascii?Q?gsiX2m+DrIXFpQ4ymG119Z4JKXwt6ZYCysX154T3xy4uHl/qadTX5PlbojWy?=
- =?us-ascii?Q?aIcyeeEHNMmlRcaJHhKhv09FmrU6H8ddPtzqUsx2HCLtsxaf/VuCjDoztfAF?=
- =?us-ascii?Q?lsx9euUB1r8JagK9qMQb2o8jv3CRrA1QftrwJ+YPTzl9CLcl3h+Mq12K2IKo?=
- =?us-ascii?Q?pT9YaCsgne8qLAwmarCpMcMUR/1Ukwi1gLj9mCFhy0Mr14iAMjtiU83B01OO?=
- =?us-ascii?Q?PxuUApr74JVmTUS1agaPSw/CLfXESysQ2yxGwnARidtvwUQkGMVTxCC0pNk9?=
- =?us-ascii?Q?JYQ29VNBtlz8u/avpPr5r8ZzkS9P2e7L3uLhM+XaJNraM5anHwMOEqVL/Jk5?=
- =?us-ascii?Q?jrgSAcI+V14rbANjacT+ai7FRJZFIs1QdaC/Zw/i1eKqiiJLb9I6xvdFJT4K?=
- =?us-ascii?Q?wxQoZMu0Ry21EksvFvQ+CsGemdm9OV70bfGSjx3DTaMrlayc9t2tSd2SKf9V?=
- =?us-ascii?Q?uGHjQfEgKBdFPcAdfcAu26dEXxAfPuR1kTYn1T1vNYO7MKNrD9xpPiXFO7bV?=
- =?us-ascii?Q?tUw3OQRgcSCjbiCiCVi+TI8TxSB67LCSe/0Wj6tzkhm0T6ug6FIoQ1rO34Cg?=
- =?us-ascii?Q?cmfTSMFoEBX5YMFDrH8M+fXjtg7tjOwnzyK78yJpmh0Xi9QExLQU3/NaRN4g?=
- =?us-ascii?Q?1jr858UErjFmYem6AnhV/+tsC8PjCwsw8mC/JQvGZ9zrlbEaVmGPLVgIapLY?=
- =?us-ascii?Q?dl0lxurfGMjeUu7Pjae+4lKEwzF8cgeQOzIKiPTeg6+lUntCCeujv6jbAk5d?=
- =?us-ascii?Q?ghKLbgJEQjLRmOgz8qM1wYEhzpDd0DoiSFL7qMWq6Y6bqtt6q68+CJpmaz54?=
- =?us-ascii?Q?Hqb31cZkn5VU8MjB1gD7DR2mziG0wLFas6VouFEras8vxXiQVawDt0PPWI9g?=
- =?us-ascii?Q?IYW/50UOSbIMG+Dm8YY2XLQX94d/2a7dyluxY1XRkKDHEVXQmkaOvcavYpJR?=
- =?us-ascii?Q?pvCQtoLH8eqPZ/ipnlNfVXnd4tscdke2RQv4+C/VFkYAp8VLFCg35C9BQe4R?=
- =?us-ascii?Q?DX9wk7HLiVW+HKB03nLEreclRGgebZJQ8jL/oRMbn224jJ0qU2uf9tK9nE5k?=
- =?us-ascii?Q?NcxwXok/twW9xSXeYl+oI+2DIP9gVe1DDQeny6zsy7rtKFF7wc3OiSQ1BQ/6?=
- =?us-ascii?Q?PwR4Ov/e5dgH5SYfftvelhqgKjoPS+tPD3KTvMHcoMvCFmaggIEntrnXUpJJ?=
- =?us-ascii?Q?G8sfEPfxv2GoRYRLSZNb58i8HkFWBEZdgQ791VZdcPgJvsg65WNjXqIdoqAD?=
- =?us-ascii?Q?e0haelI2MDWcrqeOnmiqIq1+2rkJGURafbmKfZ09+bk5vZOOhKWPdV2LN1ti?=
- =?us-ascii?Q?VoP/+NxQbmv/kjnJyA5LswqHNmxjxwfDQf4KZcBinSoqZirIsbrkLXXday6Q?=
- =?us-ascii?Q?0e0keADI+SDno/bNeuNjX/kgxntMbBBh/ihYFPs6s7yiYtsaXfip?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f1d42f11-b642-4ae1-5c56-08df339f1c39
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 20:24:17.7053
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: sXarn4ESrdYAAy+CfXv0SZpVFxGZIWViswrjU8Z+e+3rmiJx6lfpF+Qlw6stDLP3/HuNxlZpFTsyu9cOTELLOeRewE4FsNCy8PEPhrRcaW4D2jNQ2vFDlwlqdGsFj6Pb
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR04MB11361
 
-On Mon, Oct 26, 2026 at 11:35:44AM +0000, Diogo Ivo wrote:
-> On a pure I3C bus there are no I2C devices, so the I3C core leaves
-> bus->scl_rate.i2c at zero if i2c-scl-hz is not specified in DT.
-> Deriving i2c_total_ticks from that zero rate programs a zero-width
-> open-drain SCL into the STDBR open-drain fields, which are still used
-> in pure I3C mode for example in DAA.
->
-> Fall back to the 1 MHz FM+ limit instead, the fastest rate an I2C
-> device could have, so that a sane open-drain timing is programmed.
->
-> Fixes: d028219a9f14 ("i3c: master: Add basic driver for the Renesas I3C controller")
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
-> Signed-off-by: Diogo Ivo <diogo.ivo.sx@renesas.com>
-> ---
+On Mon, 2026-10-26 at 09:39 -1000, Linus Torvalds wrote:
+> On Mon, 26 Oct 2026 at 09:04, <lyude@redhat.com> wrote:
+> >=20
+> > On Wed, 2026-10-21 at 16:07 +0000, Troy Benjegerdes wrote:
+> > >=20
+> > > It *is* possible to make a deterministic LLM, and this is why I
+> > > think
+> > > it
+> > > is critical to my personal future to have an LLM that can
+> > > actually be
+> > > understood by a human instead of a random number generator casino
+> > > that
+> > > sometimes puts "4" in your private key.
+> >=20
+> > I hate to break it to you but that is literally not how large
+> > language
+> > models work.
+>=20
+> More importantly than that - the whole "deterministic" part is a
+> total
+> red herring.
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+I'm going to stop you and say "please read my responses on the rest of
+this thread and actually get a sense of where I am arguing from instead
+of seeing a anti-AI person and jumping on it immediately". I use LLM
+review tools like sashiko, I have merged LLM generated work, I work
+with people who regularly use LLMs in their workflow to a much greater
+extent then I do. The deterministic bit I mentioned was not meant to be
+some ultimate point to shut down the use of LLMs forever, it is to set
+people's expectations with how these tools can improve correctly.
 
-> Changes in v2:
->  - Substituted if/else with ternary operator
->  - Picked up R-b from Wolfram Sang
-> ---
->  drivers/i3c/master/renesas-i3c.c | 10 +++++++++-
->  1 file changed, 9 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/i3c/master/renesas-i3c.c b/drivers/i3c/master/renesas-i3c.c
-> index 8b264f72e55c..78d0a2c4a19e 100644
-> --- a/drivers/i3c/master/renesas-i3c.c
-> +++ b/drivers/i3c/master/renesas-i3c.c
-> @@ -579,7 +579,15 @@ static int renesas_i3c_bus_init(struct i3c_master_controller *m)
->  	if (!i3c->rate)
->  		return -EINVAL;
->
-> -	i2c_total_ticks = DIV_ROUND_UP(i3c->rate, bus->scl_rate.i2c);
-> +	/*
-> +	 * A pure I3C bus has no I2C devices, so the I3C core leaves
-> +	 * scl_rate.i2c at zero if not explicitly defined in DT. The
-> +	 * open-drain SCL fields of STDBR, which are used for the DAA
-> +	 * pending read, are derived from it though, so fall back to
-> +	 * the 1 MHz FM+ limit instead of programming a zero-width clock.
-> +	 */
-> +	i2c_total_ticks = DIV_ROUND_UP(i3c->rate,
-> +				       bus->scl_rate.i2c ?: I3C_BUS_I2C_FM_PLUS_SCL_MAX_RATE);
->  	i3c_total_ticks = DIV_ROUND_UP(i3c->rate, bus->scl_rate.i3c);
->
->  	i2c_parse_fw_timings(&m->dev, &t, true);
->
-> --
-> 2.56.0
->
+Yes - people are also non-deterministic and make mistakes, the goal has
+never been to get a "perfect" tool. But I do think it is important
+context to bring up because the fact that they're non-deterministic
+means we need to take that into account when interacting with and using
+these tools in order to use them more effectively and avoid leaving
+extra work at maintainer's laps. Especially when you're trying to get
+across to people "if you're contributing to a kernel that is being run
+all across the globe, you need to learn how to do this job as well
+instead of leaning entirely on an LLM for it - otherwise people won't
+be happy with you because you're making them do the hard work".
+
+The bigger point that I'm getting at that keeps getting glossed over
+here - LLMs can generate a lot of code, a lot faster then a person can.
+When someone is submitting code that they've written by hand, at the
+very least I have the guarantee that for the most part they've been
+following along with the process of making it. It's not perfect, there
+will be mistakes, some of those mistakes will bite me years later. And
+yes - some people even do move faster then they can think with writing
+code by hand. I've had to deal with that very problem in kernel
+development a number of times. But honestly, even when that's the case
+- I can usually work with the contributor to help change their workflow
+into something that produces work that's easier for me to review and
+get upstream.
+
+But the amount I have seen people moving way too fast has gone up
+significantly since LLMs came onto the scene, and it's been repeatedly
+difficult to actually work with many of these contributors. Often times
+they don't take feedback or learn from it, in part because they aren't
+writing the code and are focusing on just running it. It's also become
+dramatically more difficult to encourage people to try to dig further
+into troubleshooting issues when I only have so much time available and
+am trying to provide contributors ways that they can provide me more
+information that lets me properly review their work. I've dealt with a
+number of people who, even after explicitly describing the steps to
+take to try to investigate something further, end up just asking the
+LLM, and then giving up when the LLM can't figure it out again. And
+yes, this isn't entirely new - it's happened in the past. But it
+happens a LOT more then it used to now.
+
+That is the social contract changing, suddenly someone who moves a
+million miles per hour can drop an enormous patch series and either I'm
+against LLMs for trying to put a foot down and say "There's no possible
+way you generated tens of thousands of lines of code that quickly and
+can still guarantee me you've at least tried your best to understand
+that code." or I have to do that work myself. Even with reasonable
+sized commits, I often am still left doing a hell of a lot more work
+trying to get them into shape then I was before. And more often then
+not, the person submitting them doesn't actually know how to do
+anything beyond just prompting the LLM. This isn't everyone, but
+contributors like that used to happen every now and then. It is almost
+constant at times now, and it's mostly from people using LLMs.
+
+And there is actually a pretty dramatic difference in the quality of
+work I've seen from contributors who use LLMs in their workflow and
+don't just copy paste the LLM output verbatim into their mail client
+and send it to me. I know plenty of people who use LLMs very heavily
+who I've literally never had a problem working with. Often times, they
+also tend to be the ones who use the LLM for everything but writing the
+code - or at the very least they actually take the time to give their
+submission a major face lift before it comes across my desk. The one
+thing that's in common with all these workflows - there's a clear,
+stark effort to do their best to understand what they are submitting.
+again, it's not perfect, but it's something.
+
+> And yes, non-determinism adds a wrinkle to things and it's something
+> that needs to be taken into account (and people often add things like
+> explicit seeds to avoid it when they need explicit determinism from
+> otherwise non-deterministic algorithms). So non-determinism is
+> something that should be weighed as a factor against what else the
+> tools brings you.
+>=20
+> But it's not actually an argument against LLM's.
+
+No. It's not. And it wasn't meant to be. Please go and actually read my
+responses in the future. This is a huge part of the reason these
+discussions constantly blow up on the mailing list, no one is allowed
+to have nuance with this.
+
+>=20
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 Linus
+
