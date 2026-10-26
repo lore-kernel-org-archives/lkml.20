@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792997071;
-	b=V5GoJZOnMbWapsuw3fDcqLkeWmJ8N+Lj+XXoDqqrf95gxRfax/JqobQf1FykJ06W1TeP
-	 NGSbyiMLyxWEcEp1RoMutwvlTPb826pBy0MqhSKsR2efUxDbNHMk3nY6EQBgWmPaJZWoU
-	 ERk35Cm3VLua3H/SPwB1CYI92VRRzQWuzWI4nrakZtBb0TcobVVAvDlI69IQHHfLLj57p
-	 udpj7yoT1iZnwn9vzUMqt8JNSBnAXXdxfdTFyviBbVjTLlHrRJxW6pBTR9UpAuMDaUxBm
-	 sKcs7s0qIC2fIqPt0l5WzlRdEitMn8RX/yMikZs9Wh/+E6Fqh/bCGHCG4IclUTklC/A==
+	t=1792997072;
+	b=ttKMmqpM0CmatxFGfC1BS1huCiGCNdyYi2E6xQzwRglADJUzVEZYpNOQL+2ruyvJMqPO
+	 Lp0+0PBjedT3i+Oc+TNRBlPVUyFrafnxDCqXtM2J/IUcWULpur2Y1TZA92kq+bWHbPY7n
+	 oxwKCNDrtUB6BrD03/JpKr9W1kNoRfGAJhNQbeeRia19fR1MQPGNqD1HKVBxW9hdaAzsG
+	 cAmGKVe3CxtCTH0hkIGtPwaYg8J1kEi+koXQn96w9RVPTXiGW9BJQYuQ/8iqy4VnHm1MC
+	 Q+E8OjtWVYppsO8/2ZRHfYMGrN6XSVWpfwXS1kqtjmDtMREy1FrBZ3jG14CfmCU3JXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792997071;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792997072;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=M3EDOowXZsrrhNVEgNXQbzKMdEe3cl0umytkMHrXnV0=;
-	b=iqaLiGnfHXTDFJ55irbcy2A8SeyY0Ki1NxE9+PHsSIhvM1C4xlMDRMN9OPReQSqQOUYN
-	 hUBUz84100+R4Qrg3gwVKnsrvxOQa5nzGWhWoCFZRmKSUnA3kqcyV6DahaydUzTUcPjF7
-	 pmNeE3gEY83Viyee6GBwz5jgkYUdPoONISXWhY0L/Kwv0iv/HT+sET4BQyFPAH8ZzuPYu
-	 1WooJuwHZlmiaMLUiB9noV5FHWjmyw1mFiDa2BWHkrepmk/Oe0rOx4RUJClNR2bp1xm+o
-	 exG+KsOq4Bw8oum333iwY0ECN6HHmH6s2VrLNR7+aa3VdiYwa+cHGwn3nxi3O8elQpQ==
+	bh=SVDMJgn10rHnD4uE6hPqCMQFD9J01/4zPqZn28ffNpc=;
+	b=b00/0Z6EIqZv3gmyxWNrqSsdG5McEpF2iJjCHPvJTpRcaa84fAMelyT1fVUgis23i/jK
+	 vHt6akIlEqtDu9DxClR+FH9PXdm9nWlB96/+aYMzjSwE0gVHp/qxu8vFU9ntWwUt23NlX
+	 K5+WUgug2tnJvCWcZL0FMlqQTMz09daTK9BjaO5DybPzuU8PymTU56i5MEqrTZyB2XSHj
+	 bKK2inqBKCnMbT+TUJsUhQGMrbgD0mXWUxN3tnqmyYUwlxY9+GNt8BfLM8+DUxHuiUdTU
+	 Bk9uo2B6hohhmOamZHIidYbKMFrM3oXldfcIXqAslzMS/mY3CFy3SB8epUs/DeB1jXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--gongtao.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=fF9K+m73;
-	arc=none smtp.remote-ip=209.85.210.199
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=JjCptTet;
+	arc=none smtp.remote-ip=209.85.214.199
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49C4D60A261B
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 06:44:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49C4D60A261B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A288E606A32A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 06:44:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A288E606A32A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--gongtao.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=fF9K+m73
-Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-8a05c820ecbso4093381b3a.0
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 23:44:30 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=JjCptTet
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2e8ad8c5f80so42357005ad.0
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 23:44:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792997070; x=1793601870; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1792997071; x=1793601871; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=M3EDOowXZsrrhNVEgNXQbzKMdEe3cl0umytkMHrXnV0=;
-        b=fF9K+m730/hslEY2RWIjWXh4j/MqjpulINvJrQ0/0oTdxq34K5F6siWmcNg4d97vA6
-         odhmYHiBVU7QeedofFCjWv2NXvDQ+PbWkcb6oyfZ0AIHa32Yh1WLTaOu/IY7cY2iYhtU
-         lWP0YqAY/K9xsJEq0n+wYVuhl7eExTA4yz0qO/fodnRz0prlbYf5l/8Pni7UkTMxvrQT
-         T4ifb2ZVCP67nK2GKJrmTZ6z5wCYbBTEyVg/b6YKJ5yyCAhtMpcCMTo+Idj6AznT48Fq
-         MdLgw9hNwJj7csw31v9/QJ2Vmpn9dtW7E53sK/8hAdzlYzWFAghbkJsZeBMZ13LNFSGF
-         ZK1g==
+        bh=SVDMJgn10rHnD4uE6hPqCMQFD9J01/4zPqZn28ffNpc=;
+        b=JjCptTetbNOcG54FEjsBHK7DXD2G20PJIUydtqZS8VmndGJnL5jd7h49Hubdsodwbv
+         9pU1fP143Z1/OXHOSyd/emSgh36vVZrxfMFypsXQ2FT9WQxSgIT1iDzfkRFSNWZE9gA+
+         sKzbyxXULqwhnA+S/3/icTXM2Ot8jsU9VbDpj6s1LPkE8Jq4tJOqQkkQ7ZYLj8C/FIjw
+         2BpDKsFtRl3qvL0WQVm9k4hz37ZxvYQjeyjbBZt/Qoirh/HdCCz+4fr5L3t/JX064hwP
+         ReYGvwdYSEnPiXN2ZfEvc0zKBbrp63aA9x7+fy3PiN1W12SJegilX6Sww87WWZ5JGPBE
+         Txxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792997070; x=1793601870;
+        d=1e100.net; s=20260707; t=1792997071; x=1793601871;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=M3EDOowXZsrrhNVEgNXQbzKMdEe3cl0umytkMHrXnV0=;
-        b=OqXHgfWYlLtsT9MhgSH28cU6mXMk3Pps3VK2TnpE/D6dpITPaYMRsGdaMs2XYLi2KW
-         bmqct5fmf0q2DwP0se+P+eQ2nDZUhUNOcbxQZlsF5qCY8FXOAoYqWhMjmbgqqBXmQceN
-         HKfmyIpIrKDbJb+fbgLMMQ8XlqOVb3r/8P8nUlcvUMyTL3cBwRoVlxH1L50ooH1a2Dl/
-         jgMoj/aKQ3w/rhO7GmYPNWMg2nkRg9zef3r4PA8tA1ZcfvW6nO13MFpQ1JYbvoTSGKPl
-         gw406NP9pzZIAsi0+KgO6wYBdLy8ZKxLzNZd3hT6XG+mGmzFZWMFYPVEchNN/qm9pMhT
-         FfNw==
-X-Forwarded-Encrypted: i=1; AKwUvBxro5AQ/mEvZThgRVHEutBWOrsZHOMihunccKcw8MNj4DN6FFeyn98t/yoENceEqwgWH13JfO3s4eAUMQs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLA/6wYr93yLib/SSvQjYYIcemuZvXXvhFdDXRV5ZKMuK3MkLr+
-	S7R6fhRTUsrgrqPqcjxyWIe8ldySLsVfM+08YqPxRX1sFiPFOnuIw4RJ2Z+rP9rY5b5m993EAtX
-	fK3uCsovHvA==
-X-Received: from pgby7-n1.prod.google.com ([2002:a05:6a02:6507:10b0:cd6:9a63:3839])
- (user=gongtao job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:c91a:b0:3e2:a0b7:9af2
- with SMTP id adf61e73a8af0-3e7cd4d63abmr6026951637.65.1792997069364; Sun, 25
- Oct 2026 23:44:29 -0700 (PDT)
-Date: Sun, 25 Oct 2026 23:44:21 -0700
+        bh=SVDMJgn10rHnD4uE6hPqCMQFD9J01/4zPqZn28ffNpc=;
+        b=zXgAsTTeiGOqNKCjz/TI9hO1kckGIfoTVlnXVCddl1zGHGmoXU/TrcXOf2hP5oC3Er
+         XwC4RDCXindJddT0HwfRrR0VgMHrgdlsM+psXDDbzFFKi3307/I9ftCnetyx3SHWwA4v
+         9x/3uV1aWcttKPLPskDREiX1u0k73facqCGUwMRu6c32CdosRLaEoIByA3MkjmLcza7x
+         pZVKodvFhggGkUaFfpDQ0rbRj5YPvFG3gK6KBYp5VATcGPPOUNfSdUz07gxxK42iiM0R
+         cTqOsEqL4BpvKkspThEh3pjAAow0P3OvwMZzAHcM+vatcb9igVru+pjfxfbk24jqEcsP
+         2z8A==
+X-Forwarded-Encrypted: i=1; AKwUvBzv3XQRc+HAMPo5Fo2wOJOgrwJdPp39zGRW4txgeuqOEiXa2KPiAMOjyHbT2CjQYNfG2RWCvy9cLIvfnqQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI9Z1Kk8uju7JbuVFjhqN91KrRDA3/YtaJFFixoJyDQOTfavaj1
+	3hOaiR7ool9qBTFPLGVrYLxOxUBYCugq/z9JnMh+o41Go21sc6Vq7MeGvec15mQRrsTz4xdjmT6
+	IVqG4Ra8lhg==
+X-Received: from pljc8.prod.google.com ([2002:a17:903:3b88:b0:2ea:dab4:d40d])
+ (user=gongtao job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:ecca:b0:2e9:4008:6fda
+ with SMTP id d9443c01a7336-2ea9c67741amr54989615ad.28.1792997070865; Sun, 25
+ Oct 2026 23:44:30 -0700 (PDT)
+Date: Sun, 25 Oct 2026 23:44:22 -0700
 In-Reply-To: <20261026064424.3003536-1-gongtao@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,13 +81,13 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261026064424.3003536-1-gongtao@google.com>
 X-Mailer: git-send-email 2.56.0.257.gf7497c7d27-goog
-Message-ID: <20261026064424.3003536-3-gongtao@google.com>
-Subject: [RFC PATCH v3 2/5] KVM: guest_memfd: Add ioctl KVM_LINK_GUEST_MEMFD
+Message-ID: <20261026064424.3003536-4-gongtao@google.com>
+Subject: [RFC PATCH v3 3/5] KVM: guest_memfd: Advertise support for KVM_LINK_GUEST_MEMFD
 From: Tao Gong <gongtao@google.com>
 To: kvm@vger.kernel.org, Paolo Bonzini <pbonzini@redhat.com>, 
 	Sean Christopherson <seanjc@google.com>
-Cc: Ackerley Tng <ackerleytng@google.com>, David Hildenbrand <david@kernel.org>, 
-	Ryan Afranji <afranji@google.com>, Vishal Annapurve <vannapurve@google.com>, 
+Cc: Vishal Annapurve <vannapurve@google.com>, David Hildenbrand <david@kernel.org>, 
+	Ackerley Tng <ackerleytng@google.com>, Ryan Afranji <afranji@google.com>, 
 	Sagi Shahar <sagis@google.com>, Jonathan Corbet <corbet@lwn.net>, 
 	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
 	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
@@ -96,280 +96,65 @@ Cc: Ackerley Tng <ackerleytng@google.com>, David Hildenbrand <david@kernel.org>,
 	linux-kselftest@vger.kernel.org, Tao Gong <gongtao@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-From: Ackerley Tng <ackerleytng@google.com>
+From: Vishal Annapurve <vannapurve@google.com>
 
-A guest_memfd file is bound to the KVM instance that created it and
-cannot be bound to another VM's memslots. Add KVM_LINK_GUEST_MEMFD to
-link an existing guest_memfd's underlying inode to a new file (and fd)
-bound to a target VM, allowing multiple VMs on the same host to use the
-same underlying guest_memfd memory without copying (e.g. for intra-host
-migration).
+Advertise KVM_CAP_GUEST_MEMFD_LINK via KVM_CHECK_EXTENSION so that
+userspace VMMs and selftests can discover support for linking
+guest_memfd instances across VMs via KVM_LINK_GUEST_MEMFD.
 
-Only allow linking between distinct, compatible VMs (same VM type on x86)
-so that private memory of a confidential VM cannot be mapped into an
-incompatible VM, and serialize additions to the inode's gmem_file_list
-with the mapping's invalidate_lock.
-
-Signed-off-by: Ackerley Tng <ackerleytng@google.com>
-Co-developed-by: Ryan Afranji <afranji@google.com>
-Signed-off-by: Ryan Afranji <afranji@google.com>
+Signed-off-by: Vishal Annapurve <vannapurve@google.com>
 Co-developed-by: Tao Gong <gongtao@google.com>
 Signed-off-by: Tao Gong <gongtao@google.com>
 ---
- Documentation/virt/kvm/api.rst | 42 +++++++++++++++++
- arch/x86/kvm/x86.c             | 10 ++++
- include/linux/kvm_host.h       |  1 +
- include/uapi/linux/kvm.h       |  8 ++++
- virt/kvm/guest_memfd.c         | 83 ++++++++++++++++++++++++++++++++++
- virt/kvm/guest_memfd.h         |  1 +
- virt/kvm/kvm_main.c            | 10 ++++
- 7 files changed, 155 insertions(+)
+ Documentation/virt/kvm/api.rst | 8 ++++++++
+ include/uapi/linux/kvm.h       | 1 +
+ virt/kvm/kvm_main.c            | 2 ++
+ 3 files changed, 11 insertions(+)
 
 diff --git a/Documentation/virt/kvm/api.rst b/Documentation/virt/kvm/api.rst
-index 3d6a4bf01c700..7c527a1e7c487 100644
+index 7c527a1e7c487..bc54212e48c32 100644
 --- a/Documentation/virt/kvm/api.rst
 +++ b/Documentation/virt/kvm/api.rst
-@@ -6759,6 +6759,48 @@ if the guest_memfd memory was pinned in IOMMU page tables.
+@@ -9738,6 +9738,14 @@ take care to differentiate between these cases.
+ The presence of this capability indicates that the nested KVM guest can
+ start in ESA mode.
  
- See also: :ref:`KVM_SET_MEMORY_ATTRIBUTES`.
- 
-+4.147 KVM_LINK_GUEST_MEMFD
-+--------------------------
++8.48 KVM_CAP_GUEST_MEMFD_LINK
++-----------------------------
 +
-+:Capability: KVM_CAP_GUEST_MEMFD_LINK
 +:Architectures: all
-+:Type: vm ioctl
-+:Parameters: struct kvm_link_guest_memfd (in)
-+:Returns: A file descriptor on success, <0 on error
 +
-+Errors:
++The presence of this capability indicates that KVM supports linking an
++existing guest_memfd file to another VM via KVM_LINK_GUEST_MEMFD.
 +
-+  ========== ===============================================================
-+  EINVAL     ``fd`` is not an open guest_memfd file descriptor, ``flags`` or
-+             ``reserved`` are not zero, the target VM is not compatible with
-+             the VM ``fd`` is associated with (e.g. on x86, the VMs are of
-+             different VM types), or ``fd`` is already associated with the
-+             target VM.
-+  EFAULT     The parameter address was invalid.
-+  ENOMEM     Ran out of memory.
-+  ========== ===============================================================
-+
-+::
-+
-+  struct kvm_link_guest_memfd {
-+	__u64 fd;
-+	__u64 flags;
-+	__u64 reserved[6];
-+  };
-+
-+KVM_LINK_GUEST_MEMFD creates a new guest_memfd file descriptor that is
-+associated with the target VM (the VM on which the ioctl is invoked) and refers
-+to the same underlying memory as the existing guest_memfd referred to by ``fd``,
-+similar to how link() creates another name for an existing file.  The new file
-+descriptor can be used in KVM_SET_USER_MEMORY_REGION2 for the target VM, and
-+the memory's contents, size, flags and (with in-place conversion) memory
-+attributes are shared by all linked guest_memfd instances.
-+
-+The primary use case is intra-host migration, where the destination VM needs to
-+access the same guest memory as the source VM without copying it.
-+
-+No flags are defined yet; ``flags`` and ``reserved`` must be zero.
-+
- .. _kvm_run:
+ 9. Known KVM API problems
+ =========================
  
- 5. The kvm_run structure
-diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index c081e4b9b25de..4427d32290c0f 100644
---- a/arch/x86/kvm/x86.c
-+++ b/arch/x86/kvm/x86.c
-@@ -10648,6 +10648,16 @@ bool kvm_arch_supports_gmem_init_shared(struct kvm *kvm)
- 	return gmem_in_place_conversion || !kvm_arch_has_private_mem(kvm);
- }
- 
-+bool kvm_arch_gmem_link_allowed(struct kvm *dst, struct kvm *src)
-+{
-+	/*
-+	 * Different VM types have different requirements for, and different
-+	 * (vendor) state associated with, guest_memfd memory, e.g. memory that
-+	 * is private to a TDX guest must never be mapped into a non-TDX VM.
-+	 */
-+	return dst->arch.vm_type == src->arch.vm_type;
-+}
-+
- #ifdef CONFIG_HAVE_KVM_ARCH_GMEM_CONVERT
- int kvm_arch_gmem_make_private(struct kvm *kvm, gfn_t gfn, kvm_pfn_t pfn,
- 			       kvm_pfn_t nr_pages)
-diff --git a/include/linux/kvm_host.h b/include/linux/kvm_host.h
-index 485f18454eb45..5cffb7ad376e1 100644
---- a/include/linux/kvm_host.h
-+++ b/include/linux/kvm_host.h
-@@ -2585,6 +2585,7 @@ static inline bool kvm_is_private_gfn(struct kvm *kvm, gfn_t gfn)
- #ifdef CONFIG_KVM_GUEST_MEMFD
- bool kvm_gmem_is_private_gfn(struct kvm *kvm, gfn_t gfn);
- bool kvm_arch_supports_gmem_init_shared(struct kvm *kvm);
-+bool kvm_arch_gmem_link_allowed(struct kvm *dst, struct kvm *src);
- 
- static inline u64 kvm_gmem_get_supported_flags(struct kvm *kvm)
- {
 diff --git a/include/uapi/linux/kvm.h b/include/uapi/linux/kvm.h
-index 8dff2fc1972e9..53fe8dce57db2 100644
+index 53fe8dce57db2..09926fa85fe6c 100644
 --- a/include/uapi/linux/kvm.h
 +++ b/include/uapi/linux/kvm.h
-@@ -1690,4 +1690,12 @@ struct kvm_pre_fault_memory {
- 	__u64 padding[5];
- };
+@@ -1000,6 +1000,7 @@ struct kvm_enable_cap {
+ #define KVM_CAP_PPC_COMPAT_CAPS 250
+ #define KVM_CAP_ARM_PMU_V3_STRICT 251
+ #define KVM_CAP_GUEST_MEMFD_MEMORY_ATTRIBUTES 252
++#define KVM_CAP_GUEST_MEMFD_LINK 253
  
-+#define KVM_LINK_GUEST_MEMFD	_IOWR(KVMIO,  0xd6, struct kvm_link_guest_memfd)
-+
-+struct kvm_link_guest_memfd {
-+	__u64 fd;
-+	__u64 flags;
-+	__u64 reserved[6];
-+};
-+
- #endif /* __LINUX_KVM_H */
-diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
-index 3ca6f64d48040..54b11747a8c48 100644
---- a/virt/kvm/guest_memfd.c
-+++ b/virt/kvm/guest_memfd.c
-@@ -892,6 +892,15 @@ bool __weak kvm_arch_supports_gmem_init_shared(struct kvm *kvm)
- 	return true;
- }
- 
-+/*
-+ * Returns true if a guest_memfd instance associated with @src may be linked
-+ * into @dst, i.e. if both VMs can safely share the underlying memory.
-+ */
-+bool __weak kvm_arch_gmem_link_allowed(struct kvm *dst, struct kvm *src)
-+{
-+	return kvm_arch_has_private_mem(dst) == kvm_arch_has_private_mem(src);
-+}
-+
- static int kvm_gmem_init_inode(struct inode *inode, loff_t size, u64 flags)
- {
- 	struct gmem_inode *gi = GMEM_I(inode);
-@@ -970,7 +979,10 @@ static struct file *kvm_gmem_alloc_file(struct kvm *kvm, struct inode *inode,
- 	kvm_get_kvm(kvm);
- 	f->kvm = kvm;
- 	xa_init(&f->bindings);
-+
-+	filemap_invalidate_lock(inode->i_mapping);
- 	list_add(&f->entry, &GMEM_I(inode)->gmem_file_list);
-+	filemap_invalidate_unlock(inode->i_mapping);
- 
- 	return file;
- }
-@@ -1026,6 +1038,77 @@ int kvm_gmem_create(struct kvm *kvm, struct kvm_create_guest_memfd *args)
- 	return __kvm_gmem_create(kvm, size, flags);
- }
- 
-+int kvm_gmem_link(struct kvm *kvm, struct kvm_link_guest_memfd *args)
-+{
-+	static const char *name = "[kvm-gmem]";
-+	u64 flags = args->flags;
-+	u64 valid_flags = 0;
-+	struct file *dst_file, *src_file;
-+	struct gmem_file *gmem;
-+	struct timespec64 ts;
-+	struct inode *inode;
-+	struct fd f;
-+	int ret, fd, i;
-+
-+	if (flags & ~valid_flags)
-+		return -EINVAL;
-+
-+	for (i = 0; i < ARRAY_SIZE(args->reserved); i++) {
-+		if (args->reserved[i])
-+			return -EINVAL;
-+	}
-+
-+	/* Don't let fdget() silently truncate the fd. */
-+	if (args->fd > INT_MAX)
-+		return -EINVAL;
-+
-+	f = fdget(args->fd);
-+	src_file = fd_file(f);
-+	if (!src_file)
-+		return -EINVAL;
-+
-+	ret = -EINVAL;
-+	if (src_file->f_op != &kvm_gmem_fops)
-+		goto out;
-+
-+	/* Cannot link a gmem file with the same VM again. */
-+	gmem = src_file->private_data;
-+	if (gmem->kvm == kvm)
-+		goto out;
-+
-+	if (!kvm_arch_gmem_link_allowed(kvm, gmem->kvm))
-+		goto out;
-+
-+	fd = get_unused_fd_flags(0);
-+	if (fd < 0) {
-+		ret = fd;
-+		goto out;
-+	}
-+
-+	inode = file_inode(src_file);
-+	ihold(inode);
-+
-+	dst_file = kvm_gmem_alloc_file(kvm, inode, name);
-+	if (IS_ERR(dst_file)) {
-+		iput(inode);
-+		ret = PTR_ERR(dst_file);
-+		goto out_fd;
-+	}
-+
-+	ts = inode_set_ctime_current(inode);
-+	inode_set_atime_to_ts(inode, ts);
-+
-+	fd_install(fd, dst_file);
-+	fdput(f);
-+	return fd;
-+
-+out_fd:
-+	put_unused_fd(fd);
-+out:
-+	fdput(f);
-+	return ret;
-+}
-+
- int kvm_gmem_prepare_memory_region(struct kvm *kvm, struct kvm_memory_slot *slot,
- 				   unsigned int fd, uoff_t offset)
- {
-diff --git a/virt/kvm/guest_memfd.h b/virt/kvm/guest_memfd.h
-index 01bd359d27e30..7ffa4fa7337e9 100644
---- a/virt/kvm/guest_memfd.h
-+++ b/virt/kvm/guest_memfd.h
-@@ -8,6 +8,7 @@
- int kvm_gmem_init(struct module *module);
- void kvm_gmem_exit(void);
- int kvm_gmem_create(struct kvm *kvm, struct kvm_create_guest_memfd *args);
-+int kvm_gmem_link(struct kvm *kvm, struct kvm_link_guest_memfd *args);
- int kvm_gmem_prepare_memory_region(struct kvm *kvm, struct kvm_memory_slot *slot,
- 				   unsigned int fd, uoff_t offset);
- int kvm_gmem_commit_memory_region(struct kvm *kvm, struct kvm_memory_slot *slot);
+ struct kvm_irq_routing_irqchip {
+ 	__u32 irqchip;
 diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-index 3ed481c4a15b6..70521371b64ab 100644
+index 70521371b64ab..135e7bb7609a8 100644
 --- a/virt/kvm/kvm_main.c
 +++ b/virt/kvm/kvm_main.c
-@@ -5453,6 +5453,16 @@ static long kvm_vm_ioctl(struct file *filp,
- 		r = kvm_gmem_create(kvm, &guest_memfd);
- 		break;
- 	}
-+	case KVM_LINK_GUEST_MEMFD: {
-+		struct kvm_link_guest_memfd params;
-+
-+		r = -EFAULT;
-+		if (copy_from_user(&params, argp, sizeof(params)))
-+			goto out;
-+
-+		r = kvm_gmem_link(kvm, &params);
-+		break;
-+	}
+@@ -5008,6 +5008,8 @@ static int kvm_vm_ioctl_check_extension_generic(struct kvm *kvm, long arg)
+ 			return 0;
+ 
+ 		return KVM_MEMORY_ATTRIBUTE_PRIVATE;
++	case KVM_CAP_GUEST_MEMFD_LINK:
++		return 1;
  #endif
  	default:
- 		r = kvm_arch_vm_ioctl(filp, ioctl, arg);
+ 		break;
 -- 
 2.56.0.257.gf7497c7d27-goog
 
