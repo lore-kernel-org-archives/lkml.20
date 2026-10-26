@@ -1,59 +1,41 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.25
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792989346;
-	b=weTDFpv5Yyk683eUndQWE70d/0Z1+4enXmAxEY6qKQHN3uUfKIinWLb16JoLJpTEcyVV
-	 oDSFUL/w7gOaPm8QZYqF3yoTSDXwsnvdw2KpS0rzVqZ9a525zZ718+kWDluQ9xRosQTb4
-	 OXIBLo42uXEXhiKsW7KAULdJFa7VQ1HdxjPPmoiqJBNjBPy7gSmaaczUzauMqaJ+Kp/hQ
-	 HCQ5pit7G00A1rxJQ8jLl5K8zsFJUgfaK6IRivz5HYmfGwn1+9y/BFDCsEPYWIDNlo+U8
-	 CWiHDiZz5ODYokQfJwsBZj5Lce/q53CWegrTx6MTpvKFWS6IiGPqfygBgc/7kiFX+/g==
+	t=1792989393;
+	b=CZS9dxw7Jj3oDMkWQqpGckAxJxS0FRsy1Hb4YROB7ND14BXn3DPgvFGpBWkKI9Q7zt2I
+	 SugOqDadbGE6GcISvBvICX7DO19jJv9QSaXsdeQkiJ0kl3ZUNXPWkEDVRB6N4xdrJPhGk
+	 azF0GEYiIqZ72nW74W8HtiuRZPOWgfSE3EUCg/C9mtY7kOBGD3Ojs+ljfC9sBKGFop2XW
+	 mnS8KMlkvUV6V9eVephB6ObpqYPFJNRJ8NpVmKhGVc53TLgUDrC5Uk//1WGrtbp9FKUh3
+	 I8ysiLpiaVzTR5SjxPceAU8tiMccyMaytj1V/OlHVQfkDVxYncWl2g2LB90pIRLm4bA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792989346;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Mime-Version:Subject:Reply-To:Sender:From:To:CC:X-Priority:
-	 X-Content-Kind-Code:X-CPGS-Detection:X-Drm-Type:X-Msg-Generator:
-	 X-Msg-Type:X-Reply-Demand:Message-ID:Date:X-CMS-MailID:
-	 Content-Transfer-Encoding:Content-Type:X-Sendblock-Type:CMS-TYPE:
-	 X-CPGSPASS:X-CPGSPASS:cpgsPolicy:X-CFilter-Loop:X-CMS-RootMailID:
-	 References;
-	bh=wciXDY2CuZyeYwB6TARdL3Pugw7udMIoxXsDqRW7dYE=;
-	b=OhO/L+q14btXmAiX9BHdmafFZ/UZcbipoiYeTSJzQuxnqfdI5AqDBBLqG387jckd8G7x
-	 bxXe+cE2E+1qpR50pywWg/F4EDA71O/5etxW165HWEWHfgjCQgt/tysxeJb8KxK0xxcwQ
-	 +oJ70z/ELYElofx1KVW+Vr3RiCIOt7HO+17fDWmXxVGCfnCOs8BU1N76yiVN4PzMrcTUM
-	 Ud0iFHmu53yZ3Ax/K1W4COSMgTyGNX1GWwI/X4Yn/19GDU50H1GmPcI21hMbVoiAVFW1p
-	 sNTmfuER0N7aTz+l3uxBsttb2u8Zffc3Z0AOWUnYwlEAxQzXvw9MnyCYopm11o5v9+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792989393;
+	h=DMARC-Filter:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-CM-SenderInfo:
+	 X-Coremail-Antispam;
+	bh=fkjASHhjHD9dtcL2FTJk6qqQRP9PpHcbiVA7YApl7Ho=;
+	b=nMGYb5j5ZhG+/Ygv9lEtcWsKuwj60Hn1KWRfVSk69BIQ6lwEdi5Uhds3ka0d5bHwO4tT
+	 FppvWfTDN9AkgeOhvZz1rAke9B5YiFv94NsJJVOZPDdH5rCmkknEamAVTmCU0WKm3SEKQ
+	 2EwT3zA8VAH/XfuA+B3Lof9meRL+Dzn+KXEO9kK/mhH6/SVKfRDpQDMnrcx6u9A93YjFI
+	 97DoIsZ3lYNhxwfXi3xiuU+u/WY4YNxtqSgHeidG409IGxC8u7T1HptxUF2euwClZlmoD
+	 cZfFWc8vuaY5V/kUvYRnneh+rLkqecxePjsZwmwh4/rs/tcmrOar75cJJELupdARL6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=g7LoO8CD;
-	arc=none smtp.remote-ip=203.254.224.25
-Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B04EF606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 04:35:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B04EF606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=g7LoO8CD
-Received: from epcas2p2.samsung.com (unknown [182.195.41.54])
-	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20261026043536epoutp02d34e175fbd8a7f25563d05bf1fef97e2~h_k1J-kC61842218422epoutp028
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 04:35:36 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20261026043536epoutp02d34e175fbd8a7f25563d05bf1fef97e2~h_k1J-kC61842218422epoutp028
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1792989336;
-	bh=wciXDY2CuZyeYwB6TARdL3Pugw7udMIoxXsDqRW7dYE=;
-	h=Subject:Reply-To:From:To:CC:Date:References:From;
-	b=g7LoO8CDLFTpM4nRRN+J//wrV5OLR4uuVkhqyLbF2ft5N3QyOarWsldEtG7DAHOiJ
-	 L1f4wpxILLOTQPG3w+XZeEccEKH+l1YxD2FyNzfNqa/jf6K1MI+QPMLJQ2J7da0lPp
-	 phN018xx9lwR1IuZfmwd48lhN/HK6jE0xmby4LJI=
-Received: from epsnrtp02.localdomain (unknown [182.195.42.154]) by
-	epcas2p2.samsung.com (KnoxPortal) with ESMTPS id
-	20261026043536epcas2p2a6babd8b853d46104f6fa2ea18bc5b59~h_k0vSpcl0992609926epcas2p28;
-	Mon, 26 Oct 2026 04:35:36 +0000 (GMT)
-Received: from epcas2p2.samsung.com (unknown [182.195.38.200]) by
-	epsnrtp02.localdomain (Postfix) with ESMTP id 4jCgm7675Lz2SSKb; Mon, 26 Oct
-	2026 04:35:35 +0000 (GMT)
+	dmarc=none header.from=loongson.cn;
+	spf=pass smtp.mailfrom=loongson.cn;
+	arc=none smtp.remote-ip=114.242.206.163
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 656C2606A31B
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 04:36:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 656C2606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [223.64.69.17])
+	by gateway (Coremail) with SMTP id _____8Bx79LO2N5qHV4ZAA--.8731S3;
+	Mon, 26 Oct 2026 12:36:30 +0800 (CST)
+Received: from [127.0.0.1] (unknown [223.64.69.17])
+	by front1 (Coremail) with SMTP id qMiowJCx9czM2N5qODkwAA--.7944S2;
+	Mon, 26 Oct 2026 12:36:29 +0800 (CST)
+Message-ID: <b5044747-0f3a-4a63-9446-829379f3915f@loongson.cn>
+Date: Mon, 26 Oct 2026 12:36:28 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,173 +44,96 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Subject: [PATCH] f2fs: fix to keep m_last_pblk across direct write mappings
-Reply-To: keosung.park@samsung.com
-Sender: Keoseong Park <keosung.park@samsung.com>
-From: Keoseong Park <keosung.park@samsung.com>
-To: "jaegeuk@kernel.org" <jaegeuk@kernel.org>, "chao@kernel.org"
-	<chao@kernel.org>
-CC: "linux-f2fs-devel@lists.sourceforge.net"
-	<linux-f2fs-devel@lists.sourceforge.net>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, Jinyoung Choi <j-young.choi@samsung.com>
-X-Priority: 3
-X-Content-Kind-Code: NORMAL
-X-CPGS-Detection: blocking_info_exchange
-X-Drm-Type: N,general
-X-Msg-Generator: Mail
-X-Msg-Type: PERSONAL
-X-Reply-Demand: N
-Message-ID: <20261026043535epcms2p875f882afc533a2d9a450cdd567f197c6@epcms2p8>
-Date: Mon, 26 Oct 2026 13:35:35 +0900
-X-CMS-MailID: 20261026043535epcms2p875f882afc533a2d9a450cdd567f197c6
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 04/28] mfd: ls2kbmc: Allocate simplefb platform_data on
+ the heap
+To: Lee Jones <lee@kernel.org>, Chong Qiao <qiaochong@loongson.cn>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, mfd@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20261021121245.3111563-1-lee@kernel.org>
+ <20261021121245.3111563-4-lee@kernel.org>
+From: Binbin Zhou <zhoubinbin@loongson.cn>
+In-Reply-To: <20261021121245.3111563-4-lee@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="utf-8"
-X-Sendblock-Type: AUTO_CONFIDENTIAL
-CMS-TYPE: 102P
-X-CPGSPASS: Y
-X-CPGSPASS: Y
-cpgsPolicy: CPGSC10-223,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261026043535epcms2p875f882afc533a2d9a450cdd567f197c6
-References: <CGME20261026043535epcms2p875f882afc533a2d9a450cdd567f197c6@epcms2p8>
+X-CM-TRANSID:qMiowJCx9czM2N5qODkwAA--.7944S2
+X-CM-SenderInfo: p2kr3uplqex0o6or00hjvr0hdfq/1tbiAgEMCGrexPwvHwAAs7
+X-Coremail-Antispam: 1Uk129KBj93XoW7KFy5CFWDJF1rJF4kCr1rGrX_yoW8tryDpF
+	ykCa43AFs5KFy29a47Gr1kuryYkwsFv340gF93Xa4S93s8J348KFWrKFy8uas3trykJ3W7
+	Xr1DtF45uFZ8ZFcCm3ZEXasCq-sJn29KB7ZKAUJUUUUr529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9Sb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E
+	14v26r4UJVWxJr1ln4kS14v26r1Y6r17M2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6x
+	kI12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v2
+	6rWY6Fy7McIj6I8E87Iv67AKxVWxJVW8Jr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcV
+	AKI48JMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMxCIbckI1I0E14v2
+	6r1Y6r17MI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17
+	CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26F1j6w1UMIIF
+	0xvE2Ix0cI8IcVCY1x0267AKxVW8Jr0_Cr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCw
+	CI42IY6I8E87Iv67AKxVWxJVW8Jr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBI
+	daVFxhVjvjDU0xZFpf9x07jxSdgUUUUU=
 
-Since commit f0a7adfedcc8 ("f2fs: don't break allocation when crossing
-contiguous sections"), a direct write in LFS mode that allocates a
-block which is not contiguous with the current mapping ends the mapping
-and remembers the block in m_last_pblk, so that the next mapping starts
-with it instead of allocating again.
 
-The value is carried over in iomap->private, but iomap clears the iomap
-between two mappings, so the next call never sees it. It allocates a
-second block and the first one is left unwritten in the log.
 
-Keep the value in the private data of the iterator instead, which
-lives as long as the write.
+On 2026/10/21 20:09, Lee Jones wrote:
+> ls2k_bmc_probe() declares struct simplefb_platform_data on the stack and
+> assigns its address to the display MFD cell.  Although mfd_add_device()
+> deep-copies platform_data via platform_device_add_data() before
+> ls2k_bmc_probe() returns, the shallow mfd_cell copy attached to the
+> child platform device retains a stale pointer to the expired stack
+> frame.
+> 
+> Allocate the simplefb_platform_data structure on the heap via
+> devm_kzalloc() prior to devm_mfd_add_devices() so the pointer remains
+> valid for the lifetime of the child platform device.
+> 
+> Closes: https://sashiko.dev/#/bug/linux-4e2dd9cb-310b-4bba-b305-ffacc738285c
+> Signed-off-by: Lee Jones <lee@kernel.org>
 
-alloc_mode=reuse below is only used to get a non-contiguous section
-with a single writer on a fresh filesystem. Concurrent direct writers
-lose blocks the same way with any alloc_mode.
+Acked-by: Binbin Zhou <zhoubinbin@loongson.cn>
+> ---
+>   drivers/mfd/ls2k-bmc-core.c | 12 ++++++++----
+>   1 file changed, 8 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/mfd/ls2k-bmc-core.c b/drivers/mfd/ls2k-bmc-core.c
+> index e245bdee8226..3e3bc835262e 100644
+> --- a/drivers/mfd/ls2k-bmc-core.c
+> +++ b/drivers/mfd/ls2k-bmc-core.c
+> @@ -470,7 +470,7 @@ static int ls2k_bmc_parse_mode(struct pci_dev *pdev, struct simplefb_platform_da
+>   
+>   static int ls2k_bmc_probe(struct pci_dev *dev, const struct pci_device_id *id)
+>   {
+> -	struct simplefb_platform_data pd;
+> +	struct simplefb_platform_data *pd;
+>   	struct ls2k_bmc_ddata *ddata;
+>   	resource_size_t base;
+>   	int ret;
+> @@ -489,12 +489,16 @@ static int ls2k_bmc_probe(struct pci_dev *dev, const struct pci_device_id *id)
+>   	if (ret)
+>   		return ret;
+>   
+> -	ret = ls2k_bmc_parse_mode(dev, &pd);
+> +	pd = devm_kzalloc(&dev->dev, sizeof(*pd), GFP_KERNEL);
+> +	if (!pd)
+> +		return -ENOMEM;
+> +
+> +	ret = ls2k_bmc_parse_mode(dev, pd);
+>   	if (ret)
+>   		return ret;
+>   
+> -	ls2k_bmc_cells[LS2K_BMC_DISPLAY].platform_data = &pd;
+> -	ls2k_bmc_cells[LS2K_BMC_DISPLAY].pdata_size = sizeof(pd);
+> +	ls2k_bmc_cells[LS2K_BMC_DISPLAY].platform_data = pd;
+> +	ls2k_bmc_cells[LS2K_BMC_DISPLAY].pdata_size = sizeof(*pd);
+>   	base = pci_resource_start(dev, 0) + LS2K_DISPLAY_RES_START;
+>   
+>   	/* Remove conflicting efifb device */
 
-Testcase:
-- mkfs.f2fs -f /dev/vda
-- mount -o mode=lfs,alloc_mode=reuse /dev/vda /mnt/f2fs
-- for i in 0 1 2 3 4 5 6 7 8 9; do
-      dd if=/dev/zero of=/mnt/f2fs/k$i bs=2M count=1 conv=fsync; done
-- rm /mnt/f2fs/k1 /mnt/f2fs/k3 /mnt/f2fs/k5 /mnt/f2fs/k7; sync
-- echo 1 > /sys/kernel/tracing/events/f2fs/f2fs_map_blocks/enable
-- dd if=/dev/zero of=/mnt/f2fs/dio bs=8M count=1 oflag=direct; sync
-- cat /sys/kernel/tracing/trace
-- cat /sys/fs/f2fs/vda/dirty_segments
-
-Before, the f2fs_map_blocks trace events of the direct write show that
-the first block of each section it moves on to is lost, and
-dirty_segments reads 3:
-  file offset = 512,  start blkaddr = 0x1c01, len = 0x1ff
-  file offset = 1023, start blkaddr = 0x2001, len = 0x1ff
-  file offset = 1534, start blkaddr = 0x2401, len = 0x1ff
-
-After, no block is lost and dirty_segments reads 0:
-  file offset = 512,  start blkaddr = 0x1c00, len = 0x200
-  file offset = 1024, start blkaddr = 0x2000, len = 0x200
-  file offset = 1536, start blkaddr = 0x2400, len = 0x200
-
-Fixes: f0a7adfedcc8 ("f2fs: don't break allocation when crossing contiguous sections")
-Signed-off-by: Keoseong Park <keosung.park@samsung.com>
----
- fs/f2fs/data.c | 14 +++++++++-----
- fs/f2fs/f2fs.h |  5 +++++
- fs/f2fs/file.c |  6 ++++--
- 3 files changed, 18 insertions(+), 7 deletions(-)
-
-diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index 6d4ba5e7790..5c32a77f2d0 100644
---- a/fs/f2fs/data.c
-+++ b/fs/f2fs/data.c
-@@ -4756,18 +4756,22 @@ static int f2fs_iomap_begin(struct inode *inode, loff_t offset, loff_t length,
- {
- 	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
- 	struct f2fs_map_blocks map = { NULL, };
-+	struct f2fs_dio_write *dio_write = NULL;
- 	pgoff_t next_pgofs = 0;
- 	int err;
- 
-+	if (flags & IOMAP_WRITE)
-+		dio_write = container_of(iomap, struct iomap_iter, iomap)->private;
-+
- 	map.m_lblk = F2FS_BYTES_TO_BLK(sbi, offset);
- 	map.m_len = F2FS_BYTES_TO_BLK(sbi, offset + length - 1) -
- 							map.m_lblk + 1;
- 	map.m_next_pgofs = &next_pgofs;
- 	map.m_seg_type = f2fs_rw_hint_to_seg_type(F2FS_I_SB(inode),
- 						inode->i_write_hint);
--	if (flags & IOMAP_WRITE && iomap->private) {
--		map.m_last_pblk = (unsigned long)iomap->private;
--		iomap->private = NULL;
-+	if (dio_write) {
-+		map.m_last_pblk = dio_write->last_pblk;
-+		dio_write->last_pblk = NULL_ADDR;
- 	}
- 
- 	/*
-@@ -4808,8 +4812,8 @@ static int f2fs_iomap_begin(struct inode *inode, loff_t offset, loff_t length,
- 		iomap->bdev = map.m_bdev;
- 		iomap->addr = F2FS_BLK_TO_BYTES(sbi, map.m_pblk);
- 
--		if (flags & IOMAP_WRITE && map.m_last_pblk)
--			iomap->private = (void *)map.m_last_pblk;
-+		if (dio_write)
-+			dio_write->last_pblk = map.m_last_pblk;
- 	} else {
- 		if (flags & IOMAP_WRITE)
- 			return -ENOTBLK;
-diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-index 089a62c054e..2a11b14f473 100644
---- a/fs/f2fs/f2fs.h
-+++ b/fs/f2fs/f2fs.h
-@@ -829,6 +829,11 @@ struct extent_tree_info {
- #define F2FS_MAP_FLAGS		(F2FS_MAP_NEW | F2FS_MAP_MAPPED |\
- 				F2FS_MAP_DELALLOC)
- 
-+struct f2fs_dio_write {
-+	struct kiocb *iocb;
-+	block_t last_pblk;	/* block allocated ahead for the next mapping */
-+};
-+
- struct f2fs_map_blocks {
- 	struct block_device *m_bdev;	/* for multi-device dio */
- 	block_t m_pblk;
-diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
-index ef4d218e694..86bd1692011 100644
---- a/fs/f2fs/file.c
-+++ b/fs/f2fs/file.c
-@@ -5488,7 +5488,8 @@ static void f2fs_dio_write_submit_io(const struct iomap_iter *iter,
- {
- 	struct inode *inode = iter->inode;
- 	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
--	struct kiocb *iocb = iter->private;
-+	struct f2fs_dio_write *dio_write = iter->private;
-+	struct kiocb *iocb = dio_write->iocb;
- 	enum log_type type = f2fs_rw_hint_to_seg_type(sbi, inode->i_write_hint);
- 	enum temp_type temp = f2fs_get_segment_temp(sbi, type);
- 
-@@ -5526,6 +5527,7 @@ static ssize_t f2fs_dio_write_iter(struct kiocb *iocb, struct iov_iter *from,
- 	struct f2fs_inode_info *fi = F2FS_I(inode);
- 	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
- 	const bool do_opu = f2fs_lfs_mode(sbi);
-+	struct f2fs_dio_write dio_write = { .iocb = iocb };
- 	const loff_t pos = iocb->ki_pos;
- 	const ssize_t count = iov_iter_count(from);
- 	unsigned int dio_flags;
-@@ -5576,7 +5578,7 @@ static ssize_t f2fs_dio_write_iter(struct kiocb *iocb, struct iov_iter *from,
- 	if (pos + count > inode->i_size)
- 		dio_flags |= IOMAP_DIO_FORCE_WAIT;
- 	dio = __iomap_dio_rw(iocb, from, &f2fs_iomap_ops,
--			     &f2fs_iomap_dio_write_ops, dio_flags, iocb, 0);
-+			     &f2fs_iomap_dio_write_ops, dio_flags, &dio_write, 0);
- 	if (IS_ERR_OR_NULL(dio)) {
- 		ret = PTR_ERR_OR_ZERO(dio);
- 		if (ret == -ENOTBLK)
 -- 
-2.43.0
+Thanks.
+Binbin
 
