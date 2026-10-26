@@ -1,92 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793024815;
-	b=Z2F5yo0aiOIBhZXz06YCGLFCLVISIhLF79MAG49FP33l4ghI/rhCFr060a+pAykNa6tK
-	 oNcDZB3aj5INcyO+UJcPV3F+pVFNz4VpYHoiHdGic7YvvjDGbNVTyMKsYjVSwkHQg9vSa
-	 3mXYeLP7RhFZTrs7UFc+B7efKJ6XN1uuP2xXRt0Fh2tGrxXhsdLUqp7mCtJ1GA0jMfJSa
-	 q0QQYks/js2k/FTll46xisayj1ylBgw0+j7tw88j98/Qu31QkH4QVhtMXwO08D0G5cO+/
-	 NIi2KJwYnqdKCpaaUozjblRil5Ex6XAdZ4W3mult3lMPgusuQN1IWchlLiKfQkEs3Fw==
+	t=1793024814;
+	b=ha9snXO3DITPgHx1N2dv+k/ch0UEbOdPIx4g9f/8qwZLTbdsxGEzMWoY6NhzAugXwhSt
+	 vG3Hf1nF6AIz+FV0LfXvGbE4qdf8JZxOWqt3IFweNXVLqLKOO4/Cs4V2wiBgAS6eId7kL
+	 8/jSkMNsCY8zGLna6sMwgXQlvUcgS1jehRoFvEQ5gYLwgek0lVzD6Qki2ERM0LSm+nF7Y
+	 bdBI9avtAOqFM8olZ17r4C9kXjyqq8cFtbTyibVs/xQYU20n7GaOyCjmMhladF32bS7qg
+	 sEqq/TCPwmLB9xwkIEeI2Pq4kFr5amsILotOdhJ2W1b3uCfsLHb05mBgLZ5P/UZcgXg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793024815;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793024814;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=Kqsneomx7oxt7G8JgkY/wgvljJcG1r2hAmJ3TT9dba8=;
-	b=iXdQXqyQYb31TkyidA/cvl3pJF6hSDEaqQVgWXVCQ5aDm3Rag20NFcaOR6x9F6jcMRs3
-	 W/kBjf1NXQEYfBjHbS8SvFB4+aod508rgMrVjD/p31sIqXkJ9S3b1VzF+XhOockwVSp6j
-	 Dgw7pwGCCFSb27vSj2Q8K8qITdcgqvY5KOnzF0WIwTinX0waijjNVReIisKG8c4dMgqhx
-	 pL9f5fcTVcw+LkXJdyFXip5ggNGvKpFrv4b63RE9Ydn+WSx4+KGbrdknhANpAWP8uzvpT
-	 6g7xFwtfRvlRrw26xDEnuyq7+dwqTKeehj9cQ/fRa61ai8sSSsZodP3IuExXGI9JE0A==
+	bh=NMA8b2FLsw89EHpRJHOM22y2TeL8WKaQgR/1AzfY5T4=;
+	b=eWAg7GAjptuKXEui0oLq2zgiqZsYeXMh4dQ5m4rmPfh6ilRx8Qj6Jygf02gJ0Qt6zpe0
+	 FKrGvf9ghce9ES7a7Lc/gqlr0awr6rjANFUsqonH0O8AuxQP4PD7IdEatz1W5N9YnYS/r
+	 Su/QO+RyLdes9XHn1g8zbNHGo4/gIiH9TigSRTNNjxZDs3ObT98nDWTU+dfB77yz5JqnP
+	 kJY/TjfBN5rQAH7PIS6KhjFN0LeLaqUb5h6A5Gh6lAENCimbBJB222GicrscGp3JuAY5X
+	 BQJuF4wUTyQq0xvptHPnKBI3Ys9iw39JuDImo3FCp3Ah3lSGHTUrWVHEK01AYBXH1Sw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=kernelgen.org;
 	spf=none smtp.mailfrom=kernelgen.org;
-	dkim=pass header.d=kernelgen-org.20251104.gappssmtp.com header.i=@kernelgen-org.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=fUBFZXQx;
-	arc=none smtp.remote-ip=209.85.221.52
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	dkim=pass header.d=kernelgen-org.20251104.gappssmtp.com header.i=@kernelgen-org.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=rttoZkvF;
+	arc=none smtp.remote-ip=209.85.208.171
+Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com [209.85.208.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05616606A33B
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:26:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 05616606A33B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7879C606A322
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:26:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7879C606A322
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernelgen.org
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=kernelgen.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernelgen-org.20251104.gappssmtp.com header.i=@kernelgen-org.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=fUBFZXQx
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48af4ba4425so377323f8f.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 07:26:54 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernelgen-org.20251104.gappssmtp.com header.i=@kernelgen-org.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=rttoZkvF
+Received: by mail-lj1-f171.google.com with SMTP id 38308e7fff4ca-3ab3cb83f54so2440091fa.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 07:26:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernelgen-org.20251104.gappssmtp.com; s=20251104; t=1793024813; x=1793629613; darn=vger.kernel.org;
+        d=kernelgen-org.20251104.gappssmtp.com; s=20251104; t=1793024812; x=1793629612; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Kqsneomx7oxt7G8JgkY/wgvljJcG1r2hAmJ3TT9dba8=;
-        b=fUBFZXQx6lGyWMoSQ21EiEhm1q0JIJItErQC/zLQ6moUmkaaEHN/OTa7A9i2kOjyip
-         5ytxXNBgVOaIJOwfHEB0CuJUgz6jAF7kLshRaDQUPag3q6Szv/ndtZhLsl+sEh3g9CKS
-         RA4rjrjcfvUTLvxXgiRddWCkGTEn8NmGjmRAQun+pVBtvhsS8rFme7P/WfR28hU1pp9I
-         K5JFy6RQnHPSS5hL8ZY0rasvsuKEhAK6uRmNubrlIjML+UOK56TEtVReZYnqSOtInPjR
-         /md7WD7FoTNTTygRNH8I4tCsu+tgDsQvD6SqmaeTTxysvIivQcUKhUY1BDmidDvhgESn
-         1lCg==
+        bh=NMA8b2FLsw89EHpRJHOM22y2TeL8WKaQgR/1AzfY5T4=;
+        b=rttoZkvFyzfEFvSMKW/6ag3jOjMW0V3y6KTZr1jNtBJhLZzaWWgZWLp6wSLZW2+nK/
+         dmYwL2t7hh4HAX3TKw52QFVtE1exjV/0qHknx2qbi4f6+/D/JNCmpsUFgKkqrTcgqWQn
+         lQMbMnLD0ycw4HKMA8i1tOeI4c7Djc81XbNWnMo48k0XKvaNfTDmlByJTmf+1VKE52fE
+         NwuPkvM1xm+hxfiaVkKtPoiNNbJUHKYkASZ3EICfGrEcd5O+/q7fC2ZDGEjzlE4FHm1V
+         u2ev/jxUvqYF4ChHXhJCT73UzQybdT3lYpNwGSCNvTZWrVQsscglxWQq1lAga8PLKLUR
+         6dBw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793024813; x=1793629613;
+        d=1e100.net; s=20260707; t=1793024812; x=1793629612;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Kqsneomx7oxt7G8JgkY/wgvljJcG1r2hAmJ3TT9dba8=;
-        b=Qs/TSBaVjXrG3TYLFCBJiOGHpYLQYlVX+SIC2BZPjdj91WGSPit0T7FU7OPbagpaGf
-         wm2xHbB9ZuMGSaZByYLkcU/EwRsuTSIRIkkRRTQF8T5MJMXrRVw3F5fg/+QBBTA4xanX
-         JbFg0ZwlF+hKv2LbhI5XPQJJPzyag9fRKtAE/5hnDaA2nxvknkQ61aj6NQKc22je0d7C
-         wODqcUTuE4QXyQxHXqpMQCYcPdenziScFMn8D+FO/29VQmuLHRxRj7dM/0DSRqKjMvDm
-         nBSBE5MJslVagWxcw9/y63FvFDtswohV4XIX8GjQbKnN3LZYjKbrqXvB6ShwZOaG3d7m
-         N2vg==
-X-Forwarded-Encrypted: i=1; AKwUvBzr1Gu8HsvM8YAfx2b3Ld8BIlVscaQbNcrZK7g/T04BMd0Fc3rlcG5p8XU4ekNKGgXlwLH33YX1Tm5XR0k=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKHWVqmMtbinx4PGNU857MQMbJfecgkLEMPmnWL4izZ8+k25NaJ
-	Va0qoHXFOkgmrUz5eoA/Z4WBl1+WFT33yJrTP+VTgH321ZeqbfVLFEMFNaksUDtBJvw=
-X-Gm-Gg: AYBFou2729ZiwdZHIOXUCTzJpnomHlE/zgVaXCmfso3cCKEBMt9R+7KOXpRvoZZBWd+
-	qf9psuonAiyXjem4T/ptrnOk2DerteZ0WLxI238ff01YaLvS5hIHYnWb11HTseBv6jJB+IZvhVE
-	4HfzrAcZqwJV9Hf6Uz98vNPKGTSF9zdberBJxFBOSGiLglywaErEN2iJp9vdjWwCoOqV9Q1ueYT
-	KHGWe7QjnhOfJP9u5W9xvu6oOf0Aynk9DTxKH0hEc9AOL/tCVJqeYliAGRkauUzY08fqnX2yjb+
-	jwfKcM40kryEVL/mF9d9oGtkChCJxHARlsPvhBkarJlC9IWFNxnA2z8u7xjqOZApBq0p6BlTyp0
-	gTfRU0XvdjQ7R/r+Mwgbdn8zwc50Tklh1tJoBZP8TKsC2KUv5qloUqSnxmEEMQGP0+cN8nbNbUk
-	ZowfENjtGocNMyVLNJaFB4dunM+WSbEjc4y/8KqNm+C0K/zdgJMH2PgcRUP0ES4fVAxmh/llL9u
-	f+FrVkCs5BTGgTOEt+gZGAqBC/I6wQoYTVSuSuGA4jZephdFu4UCMnhBggZj6e0cvu+VBn/qRPp
-	7NV3iHWcKUoEN62U111fVlvDjesRR48Ohxq4egaiirJ9mXiS/3WvpN7Y0PCI/G/dG0Hp+H0BxPe
-	MZh28HZoWwL3wg58775E=
-X-Received: by 2002:a05:6000:40c7:b0:48a:f5c5:d067 with SMTP id ffacd0b85a97d-48e3eb36376mr14822402f8f.2.1793024813472;
-        Mon, 26 Oct 2026 07:26:53 -0700 (PDT)
+        bh=NMA8b2FLsw89EHpRJHOM22y2TeL8WKaQgR/1AzfY5T4=;
+        b=qvODFWxQpTrqTuN34N+6Dvc8Iadd7nNWaDdvgDxFK1+bLqgzVh1K7+ta++meOCNu9G
+         DcbIDftRetkjgzB0VMJ5uJWSoBkcHuADuWV8bBuWyfrzico0q1gACj28zel4JpYuoLar
+         AyVGynApbZEqIwuIIfUtXd5UDo3oQezZqV5ZGdSjHd27qloUS9lXqTZKMCa45M/MQlCo
+         klfJNNKLs4BphNHJRo0r3fSVAFupQl7Vnr4pCMn+S00V7Inul1IUK+P5d2QcIVnQNbSH
+         oAvtvccbVSCeFjK8Tu8Bzn1uzC1wDIWcO3yIgKB4AF+TKQ02OZfkeCDPDg5qmciePn/S
+         atKw==
+X-Forwarded-Encrypted: i=1; AKwUvBzKylEyQSTMF3044575jKKNEE1ZpnF9LMCZSAsOIlbbQKYEw9svE4AJuwl2WGCWQZGcn8+q38KYw8YFx6Q=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJa4LRc4AQhdhmNQxXq3fzt/cAtHZJBOD0m3aa0d66HvBNDDj+7
+	aZonXojqttAxjUFOmJw6XRSOz2o3p+IPOz8SOYTcrj5jc6R2RShj6/A+upMBZ+0+6NtBULt1rX1
+	bDzr8+dI9bg==
+X-Gm-Gg: AYBFou3R6TG6Honk6tT7MGbWDoiOZZJStCzJGRmvYZeP1+r+qWLoTpFcnrsB7k0yjGt
+	4ejJ/5LqEuTUAf8D5ZV0QYIglBZv1D+zQTOdvi1JHC9//0hjPUI97HX2KKtBXDDqP6dj9uUPw+o
+	XDXTKXYIPuvCJSuLjnWPFYHJ9Gy6QfNjeeADoteemyPOwDr5qeZjJ6gLnG+6isB+dc65dIVy8+l
+	tHmzpRsi4vVeTYGc8GPgEfSNmvk29ZSHGWfF9PUiYd77dbrjOHU9PgQs0yvtjBCmWgUjckY3B0P
+	Iey8e1OPaMNH3k3GG8HIuNM3F3eSswAzhi96EPyQ3ee/IrR07eIoMKqUIORhRGUypVosNCOLNzO
+	YHJbcP+z4VeTfGdm+O1gLpRi4b1bemfYW8YumpoeEQjKuAu3S8Q7lVgyOron0ntdzVoH1vceRCe
+	dczg4nucmO/PXrV2yudeCoZ2QiNCooH0zkSXRKM+GMvuUs6r5d/gmcDcmP5SLIlEWwlFkPvg0Xb
+	DIwK1FG+BUEkTwoZOStDp+s9+YAl93LPncQPxnRsRXm1Vwh3z7R+iRXxbtlChkOHHfo8CQG+RVL
+	f521K/w+wBIQlvpA1JKIc6xhUFq7ZzDjjP2sHfhljHFwebqpPLnowaDvSxtNQpahsBflsxW/jw=
+	=
+X-Received: by 2002:a05:6512:230a:b0:5bf:b9ef:d033 with SMTP id 2adb3069b0e04-5bfb9efd289mr2016966e87.5.1793024811386;
+        Mon, 26 Oct 2026 07:26:51 -0700 (PDT)
 Received: from kernelgen.org ([2a04:ee41:83:91ea:29ae:67de:9d1a:d368])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3eb8f387sm16400703f8f.4.2026.10.26.07.26.52
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3eb8f387sm16400703f8f.4.2026.10.26.07.26.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 07:26:52 -0700 (PDT)
+        Mon, 26 Oct 2026 07:26:50 -0700 (PDT)
 From: Dmitry Mikushin <dmitry@kernelgen.org>
 To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 Cc: Dmitry Mikushin <dmitry@kernelgen.org>,
 	linux-input@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 3/3] Input: synaptics - add LEN2072 to smbus_pnp_ids for ThinkPad P14s Gen 2i
-Date: Mon, 26 Oct 2026 15:26:48 +0100
-Message-ID: <20261026142648.2567233-4-dmitry@kernelgen.org>
+Subject: [PATCH v2 1/3] Input: synaptics-rmi4 - f12: pass Data1-relative size to process_objects
+Date: Mon, 26 Oct 2026 15:26:46 +0100
+Message-ID: <20261026142648.2567233-2-dmitry@kernelgen.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261026142648.2567233-1-dmitry@kernelgen.org>
 References: <20261026142648.2567233-1-dmitry@kernelgen.org>
@@ -101,35 +102,39 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The ThinkPad P14s Gen 2i (20VX) has a Synaptics TM3471-030 touchpad
-(PNP ID LEN2072, firmware 3324237) that supports SMBus/RMI4, but it is
-not in smbus_pnp_ids[], so psmouse drives it in legacy PS/2 mode. There
-it is limited to two tracked contacts and shares the i8042 channel with
-the TrackPoint.
+rmi_f12_process_objects() gets a pointer to Data1 and limits the number
+of objects it parses by the size it is given, but rmi_f12_attention()
+passes valid_bytes, which counts from the start of the F12 data packet
+rather than from Data1. When Data1 is not the first data register,
+the bound is too large by data1_offset bytes.
 
-With psmouse.synaptics_intertouch=1 the touchpad binds to rmi4 at SMBus
-address 0x2c, reports four contacts, and the TrackPoint keeps working
-through the RMI4 pass-through port. Suspend/resume (s2idle) works.
+On the attention data path valid_bytes can be smaller than the full
+packet, so objects may be parsed from beyond the bytes that were
+actually received. Pass the number of valid bytes starting at Data1,
+and skip object processing if Data1 was not received at all.
 
-Add LEN2072 to the smbus_pnp_ids[] passlist.
-
+Fixes: 6d0dbeae71f0 ("Input: synaptics-rmi4 - handle incomplete input data")
 Signed-off-by: Dmitry Mikushin <dmitry@kernelgen.org>
 ---
- drivers/input/mouse/synaptics.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/input/rmi4/rmi_f12.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/input/mouse/synaptics.c b/drivers/input/mouse/synaptics.c
-index 1ed9261bff2b..b007e642ea76 100644
---- a/drivers/input/mouse/synaptics.c
-+++ b/drivers/input/mouse/synaptics.c
-@@ -194,6 +194,7 @@ static const char * const smbus_pnp_ids[] = {
- 	"LEN2058", /* E490 */
- 	"LEN205b", /* T490 */
- 	"LEN2068", /* T14 Gen 1 */
-+	"LEN2072", /* P14s Gen 2i */
- 	"SYN1221", /* TUXEDO InfinityBook Pro 14 v5 */
- 	"SYN3003", /* HP EliteBook 850 G1 */
- 	"SYN3015", /* HP EliteBook 840 G2 */
+diff --git a/drivers/input/rmi4/rmi_f12.c b/drivers/input/rmi4/rmi_f12.c
+index 841884d967a3..34f24de34465 100644
+--- a/drivers/input/rmi4/rmi_f12.c
++++ b/drivers/input/rmi4/rmi_f12.c
+@@ -278,9 +278,9 @@ static irqreturn_t rmi_f12_attention(int irq, void *ctx)
+ 		}
+ 	}
+ 
+-	if (f12->data1)
++	if (f12->data1 && valid_bytes > f12->data1_offset)
+ 		rmi_f12_process_objects(f12, &sensor->data_pkt[f12->data1_offset],
+-					valid_bytes);
++					valid_bytes - f12->data1_offset);
+ 
+ 	input_mt_sync_frame(sensor->input);
+ 
 -- 
 2.56.0
 
