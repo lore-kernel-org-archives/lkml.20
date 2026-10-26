@@ -1,128 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793006515;
-	b=T3FoaPHxmnIxWEXt7X7nUiRIM7LjW4WyPEJ+kFOp2lTsPQfZPyCTjb/V0fIGFA4vGUP5
-	 CGSpN5QUsPn4006JUHeTEKLm6lNjEZGcyFUmegPb0eqvin714sntOzQMfpjg8VJ+yLzu1
-	 6PVQoYnU8kpoVGDhE5DSNW9dxhO6xxOEqO9cU3L8dBDiG2e9z7I6SAt4Q5K7ce5ag808n
-	 uI3TlWeRK1TYWQITdKzk080zSiwjhxD9loxE6CZWIeYaZeA5Zt5KuQAuG3z6pyJPrxdc7
-	 2IImqyIHDdxwghMBzkXQeKrYEus7qh4d+sckaaHBCJOw1J5zkHvg6kbOGTHOGvjoF4Q==
+	t=1793006535;
+	b=qqbEynDjREdCCkteJ9FkF+3dbHZ3D/ZEcyAenDgXS9ORgJB/8tolz/fhXRw5JN89vIrV
+	 DkJU73aqmss/7iXzkOul2zlEsuzrK9exmwa1yrnsPF5PDZDGPItTVEyJ5wcugOsMGt0Mm
+	 BzNzPquRa40TtQDyRaNsj9oJZlb3NAyEXG1Ho6bENsNy1+MW2r1uHPRsIJz5V2UyESJy/
+	 gbXKdf7IWXFXTCAYC7IhVWtOXh9I7XvMTMFf5iFYLfUBk3M0N0ZUQlaNcUXHVUul040n6
+	 9TuPcNCf+QmHKjvJ8zGATRXVjDZCci5MsnVvZzF2yVKFbR4ujYLdqD5gVo+PwLDTKLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793006515;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
-	 References:Autocrypt:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=g5iKcSbReiRguiVrpq8yN+qtpwVfnJUnZ33li2p+vFY=;
-	b=MUMioLObCa4a5Eryn3j+0QNR4xSLwc+0Xb5HGRVThAAoRkgN/KzQXqcP7uUXHkBNAxgL
-	 h/YL6DZYhW0TRhiUvWUkDXp+d+AO+ZLbDiKOKI+itgWO5925DVyhm5KWhglM/KrUpOAMK
-	 Pm9ZaOnzolwIqAxc+QKTx9KMYyveZvEhz7/iMmdDv4ETL5PzNMJlH+5cE+Qer84XkV2Sr
-	 MSuYOyY5306BPuHxMYRi3b7aAZRIxEVhyk/3Vci3LTuvAmksE4mP8GtHz+wGWi8sA7xFP
-	 fhMwfnnH19T7j0xyDo3xBcGlLgcEtvBjgZgAINH4M4q5FxdAIYFiHlqOsAt/DLCAI5g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793006535;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=iBHz0YV3YdiXGolaXXLrTp8rFrwcwAaKpHWy6zk0/rM=;
+	b=p7rSZJtnuGWu7l3nRReni9nSrGbOxOwmxBc+fWh190GJ5LzX1yxg2PYy3mPkEbyzjOwG
+	 S7X+V7Kdp0REEFa8mcGeCxfpj+ODr6rDka97yp08N/jWjHv8vy1/HGLhsXlZU9KvV9GdO
+	 Mw2pbUQPbxsZLIm6xYwonWE/4xagpdCTyxlu7qpHp2RfQWr1j34o4n2zFxFf+NlXEwyWZ
+	 +CuyCa/izzH6Sm4X6td1bJt6ikGiifegdai59N15UewLcsms/vzJHeuTjyvooN8vj+fKG
+	 77mCHyk0ZuCJO005zL1ASugqHcTFDqS0lOJ1nqrd5p48WxJtqt6R9rsDSZK/LdLNekw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=F1lTbrVg;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=H64mUEsz;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=m9CCfkDH;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=XKbFVwqh;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 775D3606A31E
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:21:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 775D3606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6FE0606A31B
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:22:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6FE0606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=F1lTbrVg;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=H64mUEsz
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793006513;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=g5iKcSbReiRguiVrpq8yN+qtpwVfnJUnZ33li2p+vFY=;
-	b=F1lTbrVgtr75rh1du7VYyqtUBiQaCTo+RDuKgHpmPua9i1Cz4kPNevDpmyQ1VRK6GCikDq
-	SJjA3Ek9fiUmLjFmZGgblFMt7g1I6YsKYMdjCMvAC7jH0QtY5OXNTo5yzznR+fX2OAipUq
-	QoemTzZohIYkCGxGCzdYMh+DcGCRtms=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-324-qBDs4aipMHO8D8EZhyuYMA-1; Mon, 26 Oct 2026 05:21:51 -0400
-X-MC-Unique: qBDs4aipMHO8D8EZhyuYMA-1
-X-Mimecast-MFC-AGG-ID: qBDs4aipMHO8D8EZhyuYMA_1793006511
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4a214a5f8a1so25776355e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:21:51 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=m9CCfkDH;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=XKbFVwqh
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69Q4b9Dx718211
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:22:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	iBHz0YV3YdiXGolaXXLrTp8rFrwcwAaKpHWy6zk0/rM=; b=m9CCfkDHBtQtvar0
+	NYfH7dg81uQPVwzS1po3OITBRmUfqMcPwOo5cWXJyjfvoXUoQNYe3lSx/ObzhQ2e
+	Ch7m2dCfokKZPKrkU4GTRz213IWkhyTHfoRcss+h6wVIQIidhaCVk1hZttIpvvIq
+	9qoTTtKleoaH7M/pp3UV6nnngrJpyWHrrDyVcG6M3eWd9/aVfKRyAhgnfCzfInNm
+	Lfu/Bkog2SmK8A1GZXAsXx7/GSosAqAkK9PfLmoRy0exxp1BgtM9zDzdqw8XIeAJ
+	VsN6RIFgHALZX3oIeQgiDBjmCLRzdSfznhVGLf4J94QEs5/0K82TaWyoTtKTEw9t
+	C6AARw==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hhsgssrep-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:22:13 +0000 (GMT)
+Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-91c008df17fso8485996d6.2
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:22:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793006510; x=1793611310; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=g5iKcSbReiRguiVrpq8yN+qtpwVfnJUnZ33li2p+vFY=;
-        b=H64mUEszyk0VKfZ4URZJ8Ti9wiz11rWtYZriQKahJKKIm+4Rx3b7GwhsDoXm6B2Zkj
-         x5KlQXdr6nM7kbCiXSI6sDdvksGNGf6BsOuL3O2ZypK3tGImdnY1x6tdPiWo+Sxg5e5p
-         aiwtkCU5cTee6Vw79BLXnrg+4/D+1KIepuV8UDOLMcXQKM8ouAATxiUSi8Hj4LkelScY
-         XgX8py2P89rkcehIP+F0dmdJ/Ettb+i7Hm1KE/nk1LHy6I3Q5I8jjLMnGomIxFkdNS+G
-         bWFMkkB/G5c1St7jIyRkntbCaPvQoC4o2ErzyKYTVYgSvECYmE6TTZa1hXGmH0ozh6eL
-         dtyA==
+        d=oss.qualcomm.com; s=google; t=1793006533; x=1793611333; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=iBHz0YV3YdiXGolaXXLrTp8rFrwcwAaKpHWy6zk0/rM=;
+        b=XKbFVwqhA56HghU2BNW5hlrXHlB7ACKyymL6H03I9HpoHsIpRDaAGrYEsBHp6Rai/d
+         H5x2oDx3Sszc7Q5Bl4Kn0PwWTgPmSkIiKm6z3qAx7IQWZ52AHYceMQkKLKjkbKgxVubn
+         mJNuw8sVl36J+SpOYl+yexWVYoSoTw1U795hj7ZzOyGFQid4/ccz7ijtszkKhS/cXjIg
+         qNUOwm5J3Wm/mHzeTME7o9e+jNZrz7d1gGb0ZCi4XErtRw9QDfom9gcLiuUYwND4R4qn
+         2cp8tTnQYuoNZeEo7XV1wEBuR5kvNSTLvpWvlzoaIhhyxhAdAhfQG06oh2mIvw+G85jD
+         w58A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793006510; x=1793611310;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=g5iKcSbReiRguiVrpq8yN+qtpwVfnJUnZ33li2p+vFY=;
-        b=o+5ckwFv4ylgIUytOihrGcNbHbf1d8eOnF0GMd0m7PFTa1+ovgsJm1r1U7TB5J96HC
-         sEx86bDgSegu+uiIBwcI/mxcrA/b6NZWPhde6eB4at39fdO2T5e3IMjdWJrcvRZocA/H
-         F+04jGqj3zwNQqfwLkK0ilMXxSuxLxOoRJ8m6XX4WUUwJ9NLM7rGE8peeCUvfhid7GMo
-         fx+x6A2TYfDbf/rgoIBJBa+fektgeJ5zVlN9QG1sck0HKIGMcfqxPPMu86O2pkiKf68k
-         PpFkomeIeuu5oIFdgovIWZK8eX1Blsa97aS12lMNbWCDkq8q5OkWQe9DiR3ZIZrXVxNF
-         tMmg==
-X-Forwarded-Encrypted: i=1; AKwUvBw+TLdb+kdCqjG6d7Ij7gulqtKBdQt0pS9NHndQrNuEygR+t5LcOakht/Y5n7PM64zaG2Pczo8t3hEi1Zg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLRz5K4HWS5vAs8N1aL44wwQs4IyLehl16r95ynW2wS+jQCvqOO
-	BRd9z1W9udGc15Y3dJJhGmPed9UjzXb13UmXgLDuHfCUsxF1H2DlegXVDCxJD7NBgUTgYcnwDth
-	vaPZRwTHl30LoMOgm77miUNnFX8OpFXguZCwRSL7OV3ulRk9bJT6eExnd1t8aSOzD27rOzt4cVQ
-	==
-X-Gm-Gg: AYBFou2pY/HADK4NImltFeiefi3OJOanjB7tIBt6B/o6BZTC5J9Ym63rh+56exiaj61
-	OiFTy5WWvS/6JgrWPqxIDhxDjDIxPqRuCbICwEDQbyh0RilKWS5IieH1GGHHqtdDjSDLJOYVHUz
-	f2CBLNhhDdnzXiB5POkEW5pHbQYEgabKOMjMDbpdvHhsUZXUoUdHRzDE+nGXyxEdRWyxwtrVKJM
-	ZQnpgx0Rn6uGVIzRN9By04bJut1Nm6xlm+DrKOMB+3ZnOXl8Vo2H1AzpeGF2CeaUxR+hsYpMmVt
-	kISPNizs7tdG08fCtqU4DUI1wJstHPaZg5AfYZUnrUcJHVvtSUqRZ1YgSRI6oNuUhonkAlHrNSj
-	kSDvyfySQBu7WxwtP8Z1JjyX23iJN
-X-Received: by 2002:a05:600c:4704:b0:4a2:1612:637a with SMTP id 5b1f17b1804b1-4a35acbd575mr120747165e9.16.1793006510565;
-        Mon, 26 Oct 2026 02:21:50 -0700 (PDT)
-X-Received: by 2002:a05:600c:4704:b0:4a2:1612:637a with SMTP id 5b1f17b1804b1-4a35acbd575mr120746615e9.16.1793006510118;
-        Mon, 26 Oct 2026 02:21:50 -0700 (PDT)
-Received: from gmonaco-thinkpadt14gen3.rmtit.csb ([195.174.133.173])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a00e1b0sm144534585e9.3.2026.10.26.02.21.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 02:21:49 -0700 (PDT)
-Message-ID: <b7a037a62858e6ad7017cf05c3ccaba06e7a8671.camel@redhat.com>
-Subject: Re: [PATCH v7 02/14] rv: Fix ha_monitor timer and invariant
- underflow
-From: Gabriele Monaco <gmonaco@redhat.com>
-To: wen.yang@linux.dev
-Cc: Nam Cao <namcao@linutronix.de>, linux-trace-kernel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Date: Mon, 26 Oct 2026 10:21:48 +0100
-In-Reply-To: <2ab5a814ce453e282c5d90b7285ee6fea8a674b6.1791745088.git.wen.yang@linux.dev>
-References: <cover.1791745088.git.wen.yang@linux.dev>
-	 <2ab5a814ce453e282c5d90b7285ee6fea8a674b6.1791745088.git.wen.yang@linux.dev>
-Autocrypt: addr=gmonaco@redhat.com; prefer-encrypt=mutual;
- keydata=mDMEZuK5YxYJKwYBBAHaRw8BAQdAmJ3dM9Sz6/Hodu33Qrf8QH2bNeNbOikqYtxWFLVm0
- 1a0JEdhYnJpZWxlIE1vbmFjbyA8Z21vbmFjb0BrZXJuZWwub3JnPoiZBBMWCgBBFiEEysoR+AuB3R
- Zwp6j270psSVh4TfIFAmjKX2MCGwMFCQWjmoAFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgk
- Q70psSVh4TfIQuAD+JulczTN6l7oJjyroySU55Fbjdvo52xiYYlMjPG7dCTsBAMFI7dSL5zg98I+8
- cXY1J7kyNsY6/dcipqBM4RMaxXsOtCRHYWJyaWVsZSBNb25hY28gPGdtb25hY29AcmVkaGF0LmNvb
- T6InAQTFgoARAIbAwUJBaOagAULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgBYhBMrKEfgLgd0WcK
- eo9u9KbElYeE3yBQJoymCyAhkBAAoJEO9KbElYeE3yjX4BAJ/ETNnlHn8OjZPT77xGmal9kbT1bC1
- 7DfrYVISWV2Y1AP9HdAMhWNAvtCtN2S1beYjNybuK6IzWYcFfeOV+OBWRDQ==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+        d=1e100.net; s=20260707; t=1793006533; x=1793611333;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iBHz0YV3YdiXGolaXXLrTp8rFrwcwAaKpHWy6zk0/rM=;
+        b=CE5GaJiKzIx5Vv8LO0f6myl6eWtl5+z3d21QvmdKnxTwF9Y728V3mkGEacGNqal+6N
+         CCiK7Dvi9SrgWgJm4yA18xHWEBSwz34CqsSPn6GCrb1IYE5FLyj2Jb1DF3I+LQSb0mY8
+         b+ZKp/BsQOO3/LsYKdKrpf/LANxRYqaBuCvN4tgNbzfzpU5K3w4WsG+pbifKkJP11Mjw
+         688oS5FNAoZ+e7jVy5lhwLuLcQh7SW6SX21xTMDEiNviSkbujDtelVF4iEuqlA8D3gvr
+         9QMMWjZDyncaMRpOSN6MWZRKuc8D4IOD2nNBo2tOOfi+u/cBtdENMJYhhYq++AshsJ82
+         in0w==
+X-Forwarded-Encrypted: i=1; AKwUvBw3XKYm18I4bGovt5NcOydcKVBdrVF2dY7ssvrEWmoVuV/ItNuqQVPzh3RiT4HT+cabP1jC/eDoOITms1c=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLTLHHr7LN3lbhHzGLMGswwiuwG64/kSqnJiDvNdJmAlNGT6ZKD
+	WCkZjgjMvChCqmhYjlY8lAyiyR9FNyjRkc0hh53QboEfBfbAugkFj9McLc6FLSZPKrny60mvw1Z
+	WlxFeUEiJNfV0Xvr1eeQ4OTkEQ7Wl8sBzRSkn8dzguXNFD6fOQbYM3StJ/MrdJjNuolQ=
+X-Gm-Gg: AYBFou04Imx9sKaX6FAlrIkVUXXTR3lfd/gEap5aea9lhUnL2YXKqZEjA9zt/nd8hpC
+	mXqA2ez7+aytRPkLA7lenZrOBPBjMQNkWl5omu1Y9473W64Uoqq22FmrTYQmlso0hBKcW/6PAkx
+	RFEpzG4cvcH53maAqM4etYcLCC0YW+gOcOwuCgzKwSTqneWykGDxVi0NbPCJrmlz7OZBxIXl38d
+	PesPPWR2tk90jtOglKu/ziCHqLUnUpGCXqioleDx9Hz+Z1RVgiknaOvdw1+curMtTQ7/+vp8ABH
+	7H9qJaBXyI62ugh7W40j5YK5h3Ox/0EhkTkAtCk6hsLRLPDvuiXkgSRdPFBo8uWdRHCCNECoJqZ
+	HPuOY9k5IogL3jw5uNoijCQ==
+X-Received: by 2002:a05:620a:8703:20b0:93f:a34:d9fa with SMTP id af79cd13be357-940ef7d5676mr947659085a.1.1793006532774;
+        Mon, 26 Oct 2026 02:22:12 -0700 (PDT)
+X-Received: by 2002:a05:620a:8703:20b0:93f:a34:d9fa with SMTP id af79cd13be357-940ef7d5676mr947656285a.1.1793006532304;
+        Mon, 26 Oct 2026 02:22:12 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4992141068sm76044666b.60.2026.10.26.02.22.09
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 26 Oct 2026 02:22:11 -0700 (PDT)
+Message-ID: <a2905078-a7ca-4241-92f1-d4d2b0de3984@oss.qualcomm.com>
+Date: Mon, 26 Oct 2026 10:22:08 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -132,123 +115,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 02/14] drm/msm/mdp5: forget the hardware blocks of a
+ previous bind
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov
+ <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20261024-msm-kms-destroy-fixes-v3-0-66a30120a5ea@oss.qualcomm.com>
+ <20261024-msm-kms-destroy-fixes-v3-2-66a30120a5ea@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261024-msm-kms-destroy-fixes-v3-2-66a30120a5ea@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDAzNyBTYWx0ZWRfXwfXcqUN4qO6g
+ X0uSy7Z2vp1pdNnmhWlXIj6dZsWPdy+KgPXcWeLExykuuAmctZOzZVwGyLP0T+EMSEEeFlmDiHD
+ dWtUrkfP1pglBwqYAQnxmZ0Qu5YslHQ=
+X-Proofpoint-GUID: oSQMkkIboo1yE_E1_u7jMNJwI2h0a2eQ
+X-Authority-Analysis: v=2.4 cv=c+8+0h9l c=1 sm=1 tr=0 ts=6adf1bc5 cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=sdshgxurkjS-ratPg-cA:9 a=QEXdDO2ut3YA:10
+ a=pJ04lnu7RYOZP9TFuWaZ:22
+X-Proofpoint-ORIG-GUID: oSQMkkIboo1yE_E1_u7jMNJwI2h0a2eQ
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDAzNyBTYWx0ZWRfXzdPoPtDQuYNF
+ 9iypW6wGZjRq+dNChuGwK/LTSqVdD6cMuZtPhR7DSuyxfYHzyco/xKUFy5X/V1UYAqL0bCnWCzh
+ u3Be9JXJqToC727yuIAC33O8Jk82Tu53N6yoPe5gh/CrdSA0y85giLRy2+i/Aem6VBuzf7SPQEY
+ 5vqu9WWKNJh/R6YI1QTXUi5kp9f2ay6pZY1Rnf2/KO3fo2IHBaO4VcpikqdpFbE6Xs8khGBcGS4
+ cIQhfih1MNqXzvirIHVXZVWI+aQ8cS/fHsADeytWMeQhmDeyiX9+cQe6tl5P+7AfVpZtOdXHzMu
+ ktYLNWzo4Gpj1QjnhQmb8zEUbnZPDUFTbaIu7uUDbkuamttrmlnEN4gAevp2AGA35qGLcBcRjWi
+ kiXGmxHPd5uDAsbjQEhBaYOpErH7G48sLOukfkTiL13G60eMX0HeBg0vloK5VmsmId9GsgbvueZ
+ ePIYzFn5wszBIRldIRg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-26_01,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 lowpriorityscore=0 clxscore=1015 priorityscore=1501
+ suspectscore=0 adultscore=0 phishscore=0 impostorscore=0 spamscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610260037
 
-On Mon, 2026-10-12 at 03:39 +0800, wen.yang@linux.dev wrote:
-> From: Wen Yang <wen.yang@linux.dev>
->=20
-> ha_start_timer_ns() and ha_start_timer_jiffy() compute the remaining
-> budget as expire - passed.=C2=A0 Once the elapsed time passed exceeds the
-> budget expire (e.g. a state transition after the invariant should have
-> fired, before the timer callback ran), the unsigned subtraction
-> underflows to a huge value and the timer is scheduled far into the
-> future instead of expiring immediately.
->=20
-> ha_check_invariant_ns() computes store >=3D time_ns - expire_ns, which
-> underflows when the system uptime is still below expire_ns (a monitor
-> armed early in boot with a large budget), reporting a false violation.
->=20
-> Clamp the timer remainder to 0 (fire immediately) when passed >=3D expire=
-,
-> and replace the invariant check as store + expire_ns >=3D time_ns so
-> neither side can underflow.
->=20
-> Fixes: f5587d1b6ec9 ("rv: Add Hybrid Automata monitor type")
-> Fixes: ab2900ae252b ("rv: Simplify hybrid automata monitors's clock
-> variables")
-> Signed-off-by: Wen Yang <wen.yang@linux.dev>
+On 10/24/26 1:19 AM, Dmitry Baryshkov wrote:
+> Binding the MDP5 driver again, after an unbind or after a failed bind,
+> corrupts struct mdp5_kms. On DB820c, binding it after a failed bind
+> oopses in hwmixer_init():
+> 
+>   Unable to handle kernel paging request at virtual address ffff0004d411f9d8
+>   pc : mdp5_kms_init+0x264/0x7f8
+> 
+> Since mdp5_kms is allocated in mdp5_dev_probe(), it outlives the bind,
+> but hwpipe_init(), hwmixer_init() and interface_init() still run on
+> each bind and append to the hwpipes[], hwmixers[] and intfs[] arrays
+> without resetting their counts. The second bind writes past the end of
+> hwpipes[] into the fields which follow it.
+> 
+> Reset the counts when the hardware blocks are torn down. The blocks
+> themselves are devm-allocated on the MDP5 device on each bind and are
+> only freed when it is unbound; that leak is left for a separate change.
+> 
+> Fixes: 1f50db2f3e1e ("drm/msm/mdp5: move resource allocation to the _probe function")
+> Assisted-by: LLM
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 > ---
 
-Looks good, thanks
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Reviewed-by: Gabriele Monaco <gmonaco@redhat.com>
-
-> =C2=A0include/rv/ha_monitor.h | 19 ++++++++++++++-----
-> =C2=A01 file changed, 14 insertions(+), 5 deletions(-)
->=20
-> diff --git a/include/rv/ha_monitor.h b/include/rv/ha_monitor.h
-> index 93ac99ff7f1d..499ce60779f9 100644
-> --- a/include/rv/ha_monitor.h
-> +++ b/include/rv/ha_monitor.h
-> @@ -351,7 +351,7 @@ static inline void ha_reset_clk_ns(struct ha_monitor
-> *ha_mon, enum envs env, u64
-> =C2=A0static inline bool ha_check_invariant_ns(struct ha_monitor *ha_mon,=
- enum envs
-> env,
-> =C2=A0					 u64 time_ns, u64 expire_ns)
-> =C2=A0{
-> -	return READ_ONCE(ha_mon->env_store[env]) >=3D time_ns - expire_ns;
-> +	return READ_ONCE(ha_mon->env_store[env]) + expire_ns >=3D time_ns;
-> =C2=A0}
-> =C2=A0/*
-> =C2=A0 * ha_invariant_passed_ns - prepare the invariant and return the ti=
-me since
-> reset
-> @@ -410,6 +410,11 @@ static inline void ha_inv_to_guard(struct ha_monitor
-> *ha_mon, enum envs env,
-> =C2=A0	WRITE_ONCE(ha_mon->env_store[env], READ_ONCE(ha_mon->env_store[env=
-])
-> - value);
-> =C2=A0}
-> =C2=A0
-> +static inline u64 ha_time_left(u64 passed, u64 expire)
-> +{
-> +	return passed < expire ? expire - passed : 0;
-> +}
-> +
-> =C2=A0#if HA_TIMER_TYPE =3D=3D HA_TIMER_WHEEL
-> =C2=A0/*
-> =C2=A0 * Helper functions to handle the monitor timer.
-> @@ -439,15 +444,17 @@ static inline void ha_start_timer_jiffy(struct
-> ha_monitor *ha_mon, enum envs env
-> =C2=A0{
-> =C2=A0	u64 passed =3D ha_invariant_passed_jiffy(ha_mon, env, time_ns);
-> =C2=A0
-> -	mod_timer(&ha_mon->timer, get_jiffies_64() + expire - passed);
-> +	mod_timer(&ha_mon->timer,
-> +		=C2=A0 get_jiffies_64() + ha_time_left(passed, expire));
-> =C2=A0}
-> =C2=A0static inline void ha_start_timer_ns(struct ha_monitor *ha_mon, enu=
-m envs
-> env,
-> =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0 u64 expire, u64 time_ns)
-> =C2=A0{
-> =C2=A0	u64 passed =3D ha_invariant_passed_ns(ha_mon, env, time_ns);
-> +	u64 delay =3D ha_time_left(passed, expire);
-> =C2=A0
-> =C2=A0	ha_start_timer_jiffy(ha_mon, ENV_MAX_STORED,
-> -			=C2=A0=C2=A0=C2=A0=C2=A0 nsecs_to_jiffies(expire - passed + TICK_NSEC=
- -
-> 1), time_ns);
-> +			=C2=A0=C2=A0=C2=A0=C2=A0 nsecs_to_jiffies(delay + TICK_NSEC - 1),
-> time_ns);
-> =C2=A0}
-> =C2=A0/*
-> =C2=A0 * ha_cancel_timer - Cancel the timer
-> @@ -494,7 +501,8 @@ static inline void ha_start_timer_ns(struct ha_monito=
-r
-> *ha_mon, enum envs env,
-> =C2=A0
-> =C2=A0	if (RV_MON_TYPE =3D=3D RV_MON_PER_CPU)
-> =C2=A0		mode |=3D HRTIMER_MODE_PINNED;
-> -	hrtimer_start(&ha_mon->hrtimer, ns_to_ktime(expire - passed), mode);
-> +	hrtimer_start(&ha_mon->hrtimer,
-> +		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ns_to_ktime(ha_time_left(passed, expire=
-)), mode);
-> =C2=A0}
-> =C2=A0static inline void ha_start_timer_jiffy(struct ha_monitor *ha_mon, =
-enum envs
-> env,
-> =C2=A0					u64 expire, u64 time_ns)
-> @@ -502,7 +510,8 @@ static inline void ha_start_timer_jiffy(struct ha_mon=
-itor
-> *ha_mon, enum envs env
-> =C2=A0	u64 passed =3D ha_invariant_passed_jiffy(ha_mon, env, time_ns);
-> =C2=A0
-> =C2=A0	ha_start_timer_ns(ha_mon, ENV_MAX_STORED,
-> -			=C2=A0 jiffies_to_nsecs(expire - passed), time_ns);
-> +			=C2=A0 jiffies_to_nsecs(ha_time_left(passed, expire)),
-> +			=C2=A0 time_ns);
-> =C2=A0}
-> =C2=A0/*
-> =C2=A0 * ha_cancel_timer - Cancel the timer
-
+Konrad
