@@ -1,122 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793001951;
-	b=vVfXTsQIGDY07N1TDyeZDmu0M9cptNtmy/Yo0h5QdGmhUvcni1heRGkSLi13rt+sthFb
-	 PIcO2PrTuz2AlPpeCTv+pGaD2K+QM8jAf5xJuHQ0hPO/osCKlILz54gq1CjhQNia9HK5O
-	 TWZ8bLAP13nWdJl4lncI80Q6HzFv0U2yPhwypM3Wge9ZCOzF6q1MO4afrNGJMB6wO6hr8
-	 ASlf1dY2YoMyfTv+K6wLmJyPeqJ45FwQPo7qdODLPzFS1Il4QIoHiU9kKC5Cg00r/3lgL
-	 XoqusSbDYcIg1bSQ+gOD6896m3AXBP/VIudQKE9fTg8Lj5UtzxFjT+I4eyDe6ganIzQ==
+	t=1793001991;
+	b=znJSJyyfHthmG+rorC5D6M+OefI9zUZz/JtKc+EYO6u4TMkoGD4ZpqJJrzMdj8RjGXD5
+	 7Tfq8E3y11rTWsek0AmWmi1ONy/fY4rUvWYNXFJ9jf/FF07h1d3YlGi+QGtB5CbKbtgEl
+	 PuzLHbdh6ewx3fdEDqyX4ZTCXJ+JYnIBEwyah2hhy1W4lW8ArDRPnPy0j3PrhABLoeAfL
+	 8aI26e5y8dLf671CtKaL1QyCaQJNTejZ4W5KJu99Nvofi0n/5x9kkVd2ye/AlBaSed7aW
+	 4zdQsf6b0zwvonx1OQJqlkJE1bLv0xRd0I2HrPxVcAuD8IJUOU/nNdSgbkZI+0PO6ig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793001951;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=D242ShT8h8RdqZ5L8WmZvCimBf9zTP6sn6+Cdrpwgt0=;
-	b=TEGCHIHSbFA4efcVAYo6sZTefxyh3ihsndxMuMaRFokbRffaN+IRJv598Y35JRXznVaD
-	 N5IfaKt3N/FW38TLjLbX9qLWKY/qHj/niT5aQMXB2B3xbkYQN1MUOhUv/7MIW4RKZnvCc
-	 u/Xb6E0zJxDMomBZhIe3UBte224SS8TdJ8YG/JK9Xf7uVEGrJp/gYBfrI7A5C+NeiYy2N
-	 nKa52otkA4Bhl+W+vnQP7LtJmhuM1QnOAN3Muw1H61wb1qF2Wim/iw2x3EwInfHnpiB3s
-	 pac63b3mMcSBnb+1Wmz3RqpsHHhTiNn38tbCMwxtnXzpXyG861NlTznpHYmXQmO4ENw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793001991;
+	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:
+	 X-Zmail-LocalSMTP:X-Zmail-RealSender:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 X-ZMAIL-USEORIGINALEMLTOOUTBOUND:Content-Transfer-Encoding:X-MAIL:
+	 X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:
+	 X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
+	bh=DUbfcD+mF5appbi7QLgptqZT1xJk72MGi2kCZUq9Hmc=;
+	b=1OeGMmC9N6aJjsLLw8K6yFcHoNEiKnjwLLTXA/uxriOvUQUvaOcCI4TCJtLpPIv9JgaY
+	 fNltk0TeRXkmARmF7ETTQLy6k/keVQZ8EPp4ZRxi1zXPE3YoAP9qyU45JAgNmwvJHElxb
+	 1EYSWbSvrqMIgS2TVBnF4cGjqwOcJds723W1vvu+UtHsDfLG3q3ZtEFvHuZHlq3oP1WBF
+	 RFaSvEi5Q2pxR0DtMhJ8JqrtCFtYEsi5cFjZQz/ru+iaqp8+mb/o/oG0H8IT2jEPKdbBl
+	 3E29kIfciWFuTHNs7hwr6FzUOwVGn0SW1eNaj/yEudieX8jhURcxGtYmIBmdD68oCMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=jAiYLg0s;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=pZn0c9x1;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dmarc=none header.from=sanechips.com.cn;
+	spf=pass smtp.mailfrom=sanechips.com.cn;
+	arc=none smtp.remote-ip=160.30.148.34
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9097606A31E
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 08:05:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9097606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=jAiYLg0s;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=pZn0c9x1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793001948;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=D242ShT8h8RdqZ5L8WmZvCimBf9zTP6sn6+Cdrpwgt0=;
-	b=jAiYLg0s61TgnZB74CwjHsvZIqpZg795AXoa1YW8fAj0RZXqF+kAm66h1GQ2mOx/Nm82oP
-	xMuMW4DmS9kyykpTyoNc9axfPzMQNJ5ndZgSts1MRzZ2d4FXcesiUKaBckw7PTGflcrl7I
-	9kXDhkwnXRy876yLNgZuMxE9OAPMqYo=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-676-trl-VoS8OiudxQjAMI-06w-1; Mon, 26 Oct 2026 04:05:47 -0400
-X-MC-Unique: trl-VoS8OiudxQjAMI-06w-1
-X-Mimecast-MFC-AGG-ID: trl-VoS8OiudxQjAMI-06w_1793001946
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4a204f135ffso16069335e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 01:05:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793001946; x=1793606746; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=D242ShT8h8RdqZ5L8WmZvCimBf9zTP6sn6+Cdrpwgt0=;
-        b=pZn0c9x19i2Jzn6WpHDEv0w6vcP24mrCUqX9G42FaZKw5gDo0b4v39pFtLiJc4Wj6/
-         eZPEDQGqyDX0JyhVROS9mUT9Qp1Y3uF4HVZMNqJVQZ1e2KOrCdXszX70uALz0fiS45dj
-         lfUiSxWltXlNPLLKG5W/nPvzAOk9S/pi0DnoAAb2ddZuCRGBucr5ub9Q1BZ7atbrjTEv
-         rpEikrtesRUQE69BDE0oESQxbHehoI4eFCWS3M8zdx95ypbYZtQxnKG05dpPotoUct4O
-         m6gJh+od3OljhD74IEm4gyOxP3OUBTVMv85bqQ/X9jqJFr4AoOtHEQpIz1zlkzTVMskp
-         UHaQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793001946; x=1793606746;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=D242ShT8h8RdqZ5L8WmZvCimBf9zTP6sn6+Cdrpwgt0=;
-        b=HP1b3b4sCuKhumcmZ6MLbwkeyDY5H2kSJXSqBvHXpDgBkBF5G5buqM8drWve4FpWY5
-         SZEcasKcrZyl7jrYz9y8KpA+2Z5hnJw8FDpZ5Ow9jjRURQS2ogbiTDCeIfJnO5Zys/Z4
-         i7I8PkqoTMJqSC1PTg97f+8DvfAW2xXfNi5kNaoY70CAvhNO6f9w3dP+G1o7rhOuuSML
-         5/+CDjUgxp2VJd286DoQMgMfGQtbq/IM52DCbyzc+34iytxU+4bYhML61lDmyRIydyrX
-         0fc0/DaTylZqQukB6TdW5ui9z5F95f05ZAxP73Ew6E4mJG3UnimVogTKhtMaYRkXEE/F
-         HXxA==
-X-Forwarded-Encrypted: i=1; AKwUvBw80dCbkiTuIXC0jFxe9DvIoIGIGbHvVB11QMDiapOPsY11S7rMCr3Ty5/xfn4DOqAEHkndO7snQMzb844=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIFAVObRt+vEvQVU0vvRVfYk2DGXyzeW+tSHXvM0NRVHJFJ1jjQ
-	3bXuVVOMMr7K9VuvFnfUgtm1ieeMoUdRIyQ0kmGv7fQjalfLblDwosyxs9fqS9rS0o6m+NVAi6p
-	XXvWYz1/+coylUBUpR1Vh11dpmrCeveWCCk3QscqsyYyKYlfoG2EGK865I2ayqMgGnw==
-X-Gm-Gg: AYBFou0FzGmJl+zTmokkYd0IspxpIqoSbXdVZgK0C7FDgEcgedDzRWxfA+60jzFD1fh
-	+q0zPGdcjHfoWkOf1qTqV6MBUnDVgIQCc3xzFUH4j4JtWjF/ywHRUsVYxlJoPBByS/sojeTdWD/
-	OzA5EDVy8viTsqlMubN6+doqU6MRHlZbXyGAXWPYUGD/y1vg+PUa/tXL0CqB8zpXpFIGhD8Asxt
-	VnVbPaSDbaaOQBNYL+AFW0qoaUiyhITUJqFP/lPrqpZEzYAo8wz0TiwCXtJSHy6n9br7IdCalwj
-	toyxNKOeCAbxQNAIW8ho3iJ8Wpaim6KLbSbjIL5ZbhMDL7TbISjFFfxwRNIgToFr0pxz/6wjQ54
-	WPQaTNq4iWhANePZTcZDNm3UFngr+ml8=
-X-Received: by 2002:a05:600c:190b:b0:4a5:cfc:1e95 with SMTP id 5b1f17b1804b1-4a50d0b6418mr72057965e9.33.1793001945638;
-        Mon, 26 Oct 2026 01:05:45 -0700 (PDT)
-X-Received: by 2002:a05:600c:190b:b0:4a5:cfc:1e95 with SMTP id 5b1f17b1804b1-4a50d0b6418mr72057595e9.33.1793001945189;
-        Mon, 26 Oct 2026 01:05:45 -0700 (PDT)
-Received: from jlelli-thinkpadt14gen4.remote.csb ([176.206.35.229])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebc3cfasm14911211f8f.17.2026.10.26.01.05.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 01:05:44 -0700 (PDT)
-Date: Mon, 26 Oct 2026 09:05:42 +0100
-From: Juri Lelli <juri.lelli@redhat.com>
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: linux-rt-devel@lists.linux.dev, cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	K Prateek Nayak <kprateek.nayak@amd.com>, Tejun Heo <tj@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
-	John Ogness <john.ogness@linutronix.de>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>
-Subject: Re: [RFC] RT throttling, DL/ fair server, RT_GROUP_SCHED and
- everything
-Message-ID: <at8J1mimeQ2oPZDE@jlelli-thinkpadt14gen4.remote.csb>
-References: <20261023161348.t3lpPLQZ@linutronix.de>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3C7A606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 08:06:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3C7A606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sanechips.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sanechips.com.cn
+Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jCmRL3fzxz4yjSf;
+	Mon, 26 Oct 2026 16:06:22 +0800 (CST)
+Received: from szxl2zmapp06.zte.com.cn ([10.1.32.108])
+	by mse-fl1.zte.com.cn with SMTP id 69Q865A0064039;
+	Mon, 26 Oct 2026 16:06:05 +0800 (+08)
+	(envelope-from gong.shuai@sanechips.com.cn)
+Received: from ubuntu-35-gs (unknown [10.230.214.35])
+	by smtp (Zmail) with SMTP;
+	Mon, 26 Oct 2026 16:06:07 +0800
+X-Zmail-TransId: 3e816adf09e6027-1935f
+X-Zmail-LocalSMTP: 1
+X-Zmail-RealSender: gong.shuai@sanechips.com.cn
+From: Gong Shuai <gong.shuai@sanechips.com.cn>
+To: fangyu.yu@linux.alibaba.com
+Cc: alex@ghiti.fr, andrew.jones@oss.qualcomm.com, aou@eecs.berkeley.edu,
+        gsh517025@gmail.com, guoren@kernel.org, iommu@lists.linux.dev,
+        jgg@nvidia.com, jgg@ziepe.ca, joro@8bytes.org, jroedel@suse.de,
+        kvm-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
+        linux-riscv@lists.infradead.org, palmer@dabbelt.com, pjw@kernel.org,
+        robin.murphy@arm.com, tomasz.jeznach@linux.dev, will@kernel.org,
+        zong.li@sifive.com, Gong Shuai <gong.shuai@sanechips.com.cn>
+Subject: Re: [RFC PATCH v2 3/4] iommu/riscv: Add guest IMSIC GPA mapping helpers
+Date: Mon, 26 Oct 2026 16:06:04 +0800
+Message-ID: <20261026080604.184574-1-gong.shuai@sanechips.com.cn>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261016030138.91675-1-fangyu.yu@linux.alibaba.com>
+References: <20261016030138.91675-1-fangyu.yu@linux.alibaba.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -126,105 +73,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+X-ZMAIL-USEORIGINALEMLTOOUTBOUND: 1
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261023161348.t3lpPLQZ@linutronix.de>
+X-MAIL:mse-fl1.zte.com.cn 69Q865A0064039
+X-TLS: YES
+X-ENVELOPE-SENDER: gong.shuai@sanechips.com.cn
+X-SOURCE-IP: 10.5.228.132 unknown Mon, 26 Oct 2026 16:06:22 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6ADF09FE.001/4jCmRL3fzxz4yjSf
 
-Hi Sebastian,
+Hi Fangyu,
 
-On 23/10/26 18:13, Sebastian Andrzej Siewior wrote:
-> Hi,
-> 
-> this is about the old RT throttling mechanism, the DL/fair server around
-> the RT tasks, the /proc/sys/kernel/sched_rt_* mechanism to control the
-> former and CONFIG_RT_GROUP_SCHED which never worked as it supposed to.
-> The current status looks like a mess and I'm not sure if there is a bug
-> somewhere leading to my headaches or if this is just not meant to be
-> working together. If so out with it.
-> 
-> tl;dr /proc/…/sched_rt_*, sched_rt_runtime_exceeded() probably
-> CONFIG_RT_GROUP_SCHED should be removed. A bit of docs should be added
-> for the fair server (or the right place).
+> >Andrew has moved well past a v3
+> >
+> >I shouldn't be seeing code in iommu or irq drivers directly mapping into
+> >domains. That doesn't work, Andrew's latest series don't do this.
+> >
+> >It still needs to use the SW_MSI mechanism and related.
+> >
+>
+> Andrew has posted two patch series in the community: one is the
+> MSI remap v6 series[1], and another is the IRQ bypass v3 series[2].
+> I think you are referring to the MSI remap v6 series. My patch was
+> based on the IRQ bypass v3 series, and I added this patch on top
+> of it.
+>
+> [1] https://lore.kernel.org/linux-iommu/179209292714.4133959.5997128071302263244.b4-review@b4/T/#t
+> [2] https://lore.kernel.org/linux-riscv/20260928143113.49838-1-andrew.jones@oss.qualcomm.com/
+>
+> >Nothing in the commit messages clearly explained what this is actually for
+> >without having to go dig up the riscv manuals again. Please explain how the
+> >interrupt translation works and what actual user visible problem this is
+> >trying to solve is.
+> >
+>
+> The interrupt translation is based on Andrew's irq bypass patch
+> description.
+>
+> RISC-V IOMMU defines an optional MSI page table feature, which can
+> be used to implement irq bypass by translating the vIMSIC GPA to
+> the pIMSIC HPA.
+>
+> My patch complements that design. If the RISC-V IOMMU hardware does
+> not implement the MSI page table, then the second-stage page table
+> can be used instead to map vIMSIC GPA to pIMSIC HPA.
 
-Thanks for putting this recap together!
+Using the regular stage-2 page table to translate MSI target
+addresses seems reasonable to me as a fallback for hardware without
+MSI_FLAT.
 
-> Now. Details.
+I would like to share my personal understanding of Jason's review.
+Please correct me if I missed his point.
 
-...
+His concern seems to be about who owns and maintains these mappings.
+When the RISC-V IOMMU driver calls iommu_map directly on a paging
+domain managed by iommufd, the mappings are not visible to the domain
+owner. This makes it difficult to handle mapping lifetime and
+hardware page table replacement correctly.
 
-> Without enabled RT_GROUP_SCHED the files can be set. Are they useful?
-> According to Documentation/scheduler/sched-deadline.rst it used for
-> "admission control" whatever that means. Anyway the fair server still
-> kicks if it is disabled. So I *think* this is just something else and
-> not part for the docs there.
+The current SW_MSI support does not appear to cover this use case
+directly. It allocates IOVAs for host MSI pages and records the
+resulting mappings. Guest forwarding instead requires mappings at
+fixed guest GPAs, with their target HPAs changing when vCPUs migrate.
+Supporting this through SW_MSI would therefore seem to require a
+nontrivial extension.
 
-Right, confusing, but for a root_domain comprising M CPUs, -deadline tasks can
-be created while the sum of their bandwidths stays below
+Best regards,
+Shuai
 
-  M * (sched_rt_runtime_us / sched_rt_period_us)
-
-and writing -1 disables the check altogether. That's the "admission control"
-the docs hand-wave about, and it's also why the knobs can't simply be deleted.
-As you noticed already, the servers are completely independent of these knobs:
-writing -1 does not disable the fair server, it only lifts the DL admission
-cap. In principle we could move this to a different interface that reads closer
-to the underlying purpose, but I'm not sure how much breakage it could cause.
-
-...
-
-> Anyway. Could this interface be moved to /sys/kernel/sched/fair_server
-> away from the debugfs part? debugfs is not for stable kernels/ ABI. Is
-> there a reason why this might be considered debugging and not final or
-> restricted from productive?
-
-I think this was raised already in the past, but at the time maybe it
-was still to early to say if dl-servers will stick around. They now have
-got more users (sched-ext), so it might be a time we discuss a stable
-(non-debug) interface for it. Your suggestion doesn't look bad to me.
-
-> Just to summarize:
-> - Remove /proc/sys/kernel/sched_rt_*
->   [ ] Yes [ ] No, because
->               _____________________
-
-Yes and no :). We need an interface to tweak admission control, but we
-could find a better/different one.
-
-> - Remove CONFIG_RT_GROUP_SCHED
->   [ ] Yes [ ] No, because
->               _____________________
-
-Luca already commented on this. I believe the plan is still to come up
-with a DEADLINE backed RT_GROUP_SCHED for Cgroups v2. If cleaner, an
-approach could be to first merge the removal of RT_GROUP_SCHED and then
-reimplement the whole lot as Yuri and Luca are proposing to do. The
-series is already somewhat doing that, but it could be made more
-explicit/clean I guess.
-
-> - An additional trace sched event for fair server preemption
->   [ ] Yes   [ ] No, it is silly to have
-
-With 820725b0eb59f ("sched: Add deadline tracepoints") we already have
-some of that: sched_dl_{throttle,replenish,update,server_start,server_stop},
-which fire for fair/ext servers too (there's a type field, DL_SERVER_FAIR
-and friends). They of course require something like this [1] to be
-activated. We could add more if they are still not enough to get a clear
-picture about what's going on.
-
-> - Fair server documentation needs to go to
->   [ ] It is fine where it is
->   [ ] To ____________________
-
-Not fine where it is: the servers (fair & ext) work independently of
-RT_GROUP_SCHED and deserve their own description (defaults 50ms/1s per
-CPU, what they guarantee for fair tasks under RT pressure, how to tune
-or disable them). Either a new section in sched-deadline.rst (they are
-DL servers after all) or a small standalone file works for me.
-
-Thanks!
-Juri
-
-1 - https://github.com/jlelli/sched_tp/commits/deadline-tp/
-    from Qais' https://github.com/qais-yousef/sched_tp
-
+>
+> Thanks,
+> Fangyu
+>
+> >--
+> >Jason
+>
