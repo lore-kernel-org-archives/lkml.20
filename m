@@ -1,93 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793053375;
-	b=QOsk2K1X5PPNjiRhX6hIe88MpZqMUWbFA91/XXkNnxVIcNM/M4nqWDe9JU/+k9a/DPkz
-	 oU/7fVt56Xs6BR8Kxe6Nwne5L+ag4WZNaC0NLhtmNllj40wdGg5PgvvHy1n1Q5nLHDZpT
-	 QlZEbfdThCL5r4Qjjib4GbzZlDNqwYWDn5BQ9cBYIUV6gahvrZusrgJiRVkUjD0mprvxe
-	 /aFzUFZIKxtJjWx3m7USbuIEWYBVD/XAyONuQPEqEHm495j+DY712rVXl6MxrbXr/Mef3
-	 dmTmEr/13R0FrxanSJvIDz3R5gqaR76OmR5eHV57nCWAUy2gloUx+g8YubX702C+8Hw==
+	t=1793053574;
+	b=I0byaffaqsEhHL+m+06xDK7NiQXVmktZhsrYrhq+KIxoRQQ1wHSK/y1/C8GJWjNpElHV
+	 Rwib4rl72tuFc8CndLB1+fvNfifm1PDk41extyP0yqNQMHA6+j236y9cqvAFoIbMofgFX
+	 eeF6664HJRmJpAGy1lto2BGBJhvSJKU0vfaGAycQrEkYZeMBBy8UUsANZIEB1cks+qAZQ
+	 faFmFwUepW2h2wqqC2gZ+oMZXu3HLeds6KGwN1/AyTRuGlm0KoDu0as1bB3y4K6s04Ly4
+	 6RTtCmAdubbzejyFfdI9YP9K8UcF3ldZty7idjCkTn04o2F7ZaDk/rdOqd2QgOEO/IA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793053375;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=dV1881HEeEtEiUTYAXLH0Ho3cOZgw7Cwho1AbJrtE2E=;
-	b=s/xoz3i9OiIlQpzbS/1tknB5HG7hFrdhqWdE7ysuP+9S5TDXrHr11cyDkVEQCnJLWKjg
-	 Ny9VhpPV6/mx91K58mDH7k2zD7eGbrCBDjcsn8pAnZeL3cdfs3k0hQodMSTwtS4MvsvHj
-	 86fARFfedsd8mFwUKD0dIPh+Q9F4BTuS/UrWxXzawACTfXf+jfum0kHYNbCp4dlNZzw/O
-	 nqWErK/377JWfovwJ5pdZIxTasRrAKVCT7Pxt8DR7yjDm5qgt7dWovdU4usYjubmHkcuW
-	 hhMvdzTqS916H7l7JPiI6hm5fpahnByuEuWhVB6YyOJkpuDtl9B+91zgYz6uV24zQ6w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793053574;
+	h=Received:DKIM-Signature:Received:From:To:Cc:Subject:Date:Message-Id:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=pWS3JwVxq8BPKl5typ3BsrdaWXW9EhNPjKYs7EHpLwg=;
+	b=q0RxSss6oQvYUUtvSlCAXl9Y3Ib4d/yZJCC+/6uTh8uptkPkb27/XEqsG4GIGVXwT3w8
+	 0A28xHi9YgdSSdqzpiM+7158CpCibby7GOwBzHoyuoBUZerTytAzPHHSlK5QEMJ/3chXw
+	 y2p37A5ZwDRFOU8YOfqEi2g2tbLiuasIf5sI8FfglE77R/EmpsCx26KhU4U1wKGDJ58jK
+	 1mQGIEAzgJGjkn0mpLGeglNzmcwc2UbINXtWKnirrvzQD/Pp3BUrICT1i6Ujg0Ia7Rf6B
+	 KZg6heIIgy1aNF52VPMcMtGUNU4PCHTgWGGyWFLxjbHkGx9OkiBr9ny8ZpXT9KuWA+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=TxXa2YZy;
-	arc=none smtp.remote-ip=198.175.65.19
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dQcr0woO;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF5BE606A31D;
-	Mon, 26 Oct 2026 22:22:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF5BE606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A48D606A328;
+	Mon, 26 Oct 2026 22:26:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=TxXa2YZy
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793053374; x=1824589374;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=q5I42LJ+Ggvbwqnw/q5HRxVak1prfcKrwrjhtIMtmLQ=;
-  b=TxXa2YZyIiORib8VEl0NB7wMIRMMww4n+o5Z+ehVJb5AmtFTdoCjfnre
-   UFnsjEn0C3SoAMdL8+g+tNC5GALQQZaxtp1T5eY0dkhnRWojhDFRrLEY4
-   Ar4WMJeNxbfJlK5LRQjcWt6czpseIfdNbThKkfxP9opyDKw6S+5OVGcQA
-   2zC5OXzTXG/4guNIrey7zNd9AjRALE+iGRs/9T96JgRXt+nfGqlZ9JbLP
-   oZa/OC6afuibze+twLr7Fxr55s/R3To/+SSFLzWeq/YFrbKLCYUGjkE9j
-   Bl0vSXIGTLTLYxQ7UaJW3u+IjH6GnqI3fPLoxucUdk9FaHQvwO4L0CjJ+
-   Q==;
-X-CSE-ConnectionGUID: QeCtEhnRQm+7XgReaS9wBQ==
-X-CSE-MsgGUID: T3/d4BWFTjidyo9hC5tKzg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1769679"
-X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
-   d="scan'208";a="1769679"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 15:22:49 -0700
-X-CSE-ConnectionGUID: uJMEBo1OQ72a6KADbad8gA==
-X-CSE-MsgGUID: u7KF62snTnaBZeqPRxA/dw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
-   d="scan'208";a="4246512"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa008.jf.intel.com with ESMTP; 26 Oct 2026 15:22:45 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xLT5V-00000000WXw-1Zg3;
-	Mon, 26 Oct 2026 22:22:41 +0000
-Date: Tue, 27 Oct 2026 06:21:46 +0800
-From: kernel test robot <lkp@intel.com>
-To: Mingyou Chen <qby140326@gmail.com>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Ilya Gladyshev <ilya.gladyshev@linux.dev>
-Cc: oe-kbuild-all@lists.linux.dev, KentoNion <kento@kekto.ru>,
-	platform-driver-x86@vger.kernel.org,
-	ted eric <ericted8810@gmail.com>, Armin Wolf <W_Armin@gmx.de>,
-	linux-kernel@vger.kernel.org, Chris Taraszka <chris@miget.com>,
-	Matias Civadda <matias.civadda2342001@gmail.com>,
-	=?utf-8?B?6auYIOS/iuaWhw==?= <btx342@gmail.com>,
-	powerfullz <wleizc7319@gmail.com>,
-	=?utf-8?B?5a2ZIOiqiemTrQ==?= <wolf109909@outlook.com>,
-	=?utf-8?B?TWlsb8Wh?= Vlku <vlku.milos.fun@gmail.com>,
-	Rsplwe <i@rsplwe.com>, Bozhen Peng <bozhenpeng93@gmail.com>,
-	Anton Karasev <uselessfire@gmail.com>,
-	Jame Jao <jaojame6@gmail.com>,
-	Serhiy Shliapuhin <shlyapugin@gmail.com>,
-	Mingyou Chen <qby140326@gmail.com>
-Subject: Re: [PATCH v14 4/6] platform/x86: redmi-wmi: Drop redmi-wmi driver
-Message-ID: <202610270608.l51GVbZ8-lkp@intel.com>
-References: <20261026102101.224568-5-qby140326@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dQcr0woO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15B7E1F01828;
+	Mon, 26 Oct 2026 22:26:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793053574;
+	bh=pWS3JwVxq8BPKl5typ3BsrdaWXW9EhNPjKYs7EHpLwg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=dQcr0woOdR3JEt37zD4ucJaBAokKOrgpaOFrZfn1T2E+Zng0mor0xLLVH1bR8Ie3y
+	 qeQxtf6u6V+gYeGKKNztY0mwqeKOTUcqZzhj7HnECTeYc4hzjYmXMtmyGBPeaBObeC
+	 Zbo7ixYm2bRyj4q/TlyupmkDX/SC+b6lNinDaEulN+6s5/6TPjl+Sk4STn8ILnh2xX
+	 u4pxVvxJEku7+3MJ/WFcJ9w01VTHsEsix5/MGn7dtXccL6jMbLT3UQFmjwIWDgFMxe
+	 geJgSnfmaqhCqhO02uzcK08iFFA5PVV1RwJRrCa7dPQDoon5IzsUNLbQ9WxBo0leGg
+	 JKXTfN60nXrcA==
+Received: by pali.im (Postfix)
+	id 3815ACA4; Mon, 26 Oct 2026 23:26:10 +0100 (CET)
+From: =?UTF-8?q?Pali=20Roh=C3=A1r?= <pali@kernel.org>
+To: Paulo Alcantara <pc@manguebit.org>,
+	Namjae Jeon <linkinjeon@kernel.org>
+Cc: linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v7.3 4/9] cifs: Validate presence of EA $LXMOD for WSL reparse points
+Date: Mon, 26 Oct 2026 23:25:55 +0100
+Message-Id: <20261026222600.17323-5-pali@kernel.org>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20261026222600.17323-1-pali@kernel.org>
+References: <20261026222600.17323-1-pali@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,37 +62,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261026102101.224568-5-qby140326@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Mingyou,
+S_DT part of xattr $LXMOD is mandatory for all WSL reparse points except the
+WSL symlink and Win32 socket. Microsoft WSL subsystem does not recognize
+them without xattr $LXMOD too, and treat such inodes as regular files.
 
-kernel test robot noticed the following build errors:
+Fixes: ef201e8759d2 ("cifs: Validate EAs for WSL reparse points")
+Fixes: 78e26bec4d6d ("smb: client: parse uid, gid, mode and dev from WSL reparse points")
+Signed-off-by: Pali Rohár <pali@kernel.org>
+---
+ fs/smb/client/reparse.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-[auto build test ERROR on 9d3475065167197742b0882aff21cf8e78393277]
+diff --git a/fs/smb/client/reparse.c b/fs/smb/client/reparse.c
+index e547510ca3c5..577cdf49c047 100644
+--- a/fs/smb/client/reparse.c
++++ b/fs/smb/client/reparse.c
+@@ -1153,6 +1153,7 @@ static bool wsl_to_fattr(struct cifs_open_info_data *data,
+ 	kgid_t gid = cifs_sb->ctx->linux_gid;
+ 	struct smb2_file_full_ea_info *ea;
+ 	bool ignore_missing_eas = false;
++	bool have_xattr_mode = false;
+ 	bool have_xattr_dev = false;
+ 	dev_t rdev = 0;
+ 	umode_t mode;
+@@ -1216,6 +1217,7 @@ static bool wsl_to_fattr(struct cifs_open_info_data *data,
+ 			if (S_DT(mode) != S_DT(get_unaligned_le32(v)))
+ 				return false;
+ 			mode = get_unaligned_le32(v);
++			have_xattr_mode = true;
+ 		} else if (!strncmp(name, SMB2_WSL_XATTR_DEV, nlen)) {
+ 			rdev = reparse_mkdev(v);
+ 			have_xattr_dev = true;
+@@ -1226,6 +1228,16 @@ static bool wsl_to_fattr(struct cifs_open_info_data *data,
+ 	if (!have_xattr_dev && (tag == IO_REPARSE_TAG_LX_CHR || tag == IO_REPARSE_TAG_LX_BLK))
+ 		return ignore_missing_eas;
+ 
++	/*
++	 * S_DT part of xattr MODE is mandatory for all WSL reparse points except the WSL symlink.
++	 * Microsoft WSL does not recognize them without xattr MODE too (except the WSL symlink).
++	 * IO_REPARSE_TAG_AF_UNIX is here an exception because this reparse point is used by both
++	 * WSL subsystem and native NT/WinAPI subsystems. And NT/WinAPI creates AF UNIX socket
++	 * without the xattr MODE and recognize it also without the xattr MODE.
++	 */
++	if (!have_xattr_mode && (tag != IO_REPARSE_TAG_AF_UNIX && tag != IO_REPARSE_TAG_LX_SYMLINK))
++		return ignore_missing_eas;
++
+ 	fattr->cf_uid = uid;
+ 	fattr->cf_gid = gid;
+ 	fattr->cf_mode = mode;
+-- 
+2.20.1
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Mingyou-Chen/MAINTAINERS-Add-maintainer-entry-of-bitland-mifs-wmi-driver/20261026-182056
-base:   9d3475065167197742b0882aff21cf8e78393277
-patch link:    https://lore.kernel.org/r/20261026102101.224568-5-qby140326%40gmail.com
-patch subject: [PATCH v14 4/6] platform/x86: redmi-wmi: Drop redmi-wmi driver
-config: x86_64-rhel-9.4-ltp (attached as .config)
-compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261027/202610270608.l51GVbZ8-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610270608.l51GVbZ8-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
->> error: recursive dependency detected!
-   symbol BITLAND_MIFS_WMI is selected by REDMI_WMI
-   symbol REDMI_WMI default value contains BITLAND_MIFS_WMI
-   For a resolution refer to Documentation/kbuild/kconfig-language.rst
-   subsection "Kconfig recursive dependency limitations"
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
