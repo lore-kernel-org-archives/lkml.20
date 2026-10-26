@@ -1,68 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792982768;
-	b=Hekx5/CcxGZVsN40T19VZf2jUSgvAu3xQ6WjJJ35UdG3jjJsGuMKnN/GxyTLsHqvNQAZ
-	 uqgq6UusqTr+U5SkUW+0fz7qO3slnLMpXB4jOxgX5ye3yzEt970ScTY6bPr8NDGssZeIO
-	 RxEiC7W3CxKkmkYco0/tMnWab+Nuga8xZz7DoLcBy8SEOSMlusPTIG1L0DAVKnGEb01Fg
-	 tpLKMUMpNKugiPlOYYhFdMK4GoL3OusetGlPIJ3DoajmqMLkGOwtoswPDyj7AicNTHjZc
-	 frgwpDqpJCN7BxUretr2V/G3H6qQcEe4KocBqQbv1P991RnFbroSb07NJJm0O6Gg/2w==
+	t=1792982771;
+	b=m8HqOjJpTEsHmyj2plFCgOSdkZJ5WJ2mvU2DKzO909m+pcg9NA5Nm+/FhKf78+wLoX3k
+	 K8pMW6xd71FZN1ScajsHn8TDJQCCSHFC27ijy/l56bd/Uk1TVzT7BvqwZ6i3YzHvWsZUp
+	 cVjPc8mQOLLcojKAGnWm1Xi81ik2J9o8xnBR+ajjNs2uAJqJEIcrAmydNSfZo2aomycJx
+	 munc/VWPcdpTRNrNygKh8TUcF3+Hbrcc6EA3QV1J6iLLFjfQBZ1060gUb9obuds3xHdDu
+	 QRJFnQTDhwiPyeE1Z4eoFmCDWvIrX1BaUG+WTiQLPrcVEgLDvtD7/NrPADYR30qjyMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792982768;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=XRfnuEsJW9eDd5GuL7N/O5hmfaaecsLCtwYXZEW9g80=;
-	b=wB+3nXcUCBf6uAg07pW34PP036L4RxYxfFpkrmnHinHb7efsd923TRQhA4bhBg4uVZyE
-	 dmtF3FbVe6mVrDt2m8ufEoX1mbwVmmIZVEVTl8yCz6PvlpTo4ktDZNJDmJaHQKagbuqFB
-	 VT0Nw9nfsO+nkjq5CcIIHZm/qsQjShUc3vvSF4JHC1j17/Sm8Pr6RxWZjlQeB4jLOPvHs
-	 Wjd8DwgSdupqrIsR376k1YkbudC8UUY2VnjZw/0BCNB3EL0Ms+ClHv7x9onsYiMHrUf7V
-	 h7niXGt+thPrFRedWGpVf0K+qF+QHDAUcXrHfhzVB47TzmjNnPuJhCQIGtZwklC6URA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792982771;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=GNx9q8xlz4C2pL81nd+DaavacT/yEGpKYKkpo4ND8NU=;
+	b=3zr8b9aVGA7aqUJ//s6U2L3+RToAVz6Nkd60K0aL4k5PrHfU/19sPQ6524ke0bmGIioY
+	 VRZj33H0cey3dszr9FsQq6vapT3EHW75657KHs5MXbpCEJqdU4ym+BaqkGZBVzUUZcKEX
+	 MPN+wrhsYduWvPkLhcGUXL7dkFpxdmMtXeNSjRdhWiDIef1QfWwNalRMnUG1Wrpr3Kv+V
+	 IF/yfkBvdoiGQwZi1S5FW6iGD5EhcB7dHvRG0Qz86b1w/o+nuTe+LHOO4UYu1QCZs/Ai9
+	 1SZIAIpDcex/jmUywNVyATJUCnnbxqkjzIa5XLYJu1Djv4mDKUFQEEinHo2Mb1KIRRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hLbJ2xY7;
-	arc=none smtp.remote-ip=192.198.163.19
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="bERgx/F9";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 039D4606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:46:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 039D4606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 448C6606A31A;
+	Mon, 26 Oct 2026 02:46:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hLbJ2xY7
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792982767; x=1824518767;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=Vx2Xy4UO042Wl7uGcitnlICH98I0IbIOo3F00Ac4d3o=;
-  b=hLbJ2xY78IhD+qhr/5hvdzwHAlvi0ePNp/Ex0d1fH3LWFyWyZYmJbMz9
-   WtsYxtBjnawrAPWFQJIFfXqvkNjODEXEllxnA0+8X3emgNPLmPWGbOSbe
-   QrAl7O5qIUvfj7T37ngHYP3DdvM0uaqnAmiycBOtoSfnMavmhymebwYxV
-   cDNHcVtWk4YRxeuHa31opENApKeo5qzeHDHIUXaYVZpKHXWQJ/twZXNvG
-   c969YVrUMt/8Tp7sNYRk3+xQJxRjz3zQ5+FS6oKjDvhrUEMfWcBCQs2MZ
-   RAjoMX2mVNhunJjahzJcCYSXrWi1cnFCCLXQBovs4qbCW3kxC2ZC9uDLd
-   g==;
-X-CSE-ConnectionGUID: n3gHiEseRc2iC7jn9V2cXA==
-X-CSE-MsgGUID: zPDvaqLJTgmH6alZzfs0eA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1747794"
-X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
-   d="scan'208";a="1747794"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 19:46:06 -0700
-X-CSE-ConnectionGUID: o4UIRS6rSMiC92R69qvb0Q==
-X-CSE-MsgGUID: lwC8IMYySuiObT2VTV5vmw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
-   d="scan'208";a="5975772"
-Received: from unknown (HELO [10.238.0.97]) ([10.238.0.97])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 19:46:01 -0700
-Message-ID: <2b1f455e-e432-4439-8fc0-3b29548c45d3@intel.com>
-Date: Mon, 26 Oct 2026 10:45:58 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bERgx/F9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B0F21F031E2;
+	Mon, 26 Oct 2026 02:46:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792982770;
+	bh=GNx9q8xlz4C2pL81nd+DaavacT/yEGpKYKkpo4ND8NU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=bERgx/F9ZjkMitNzqoudEWvCaXT/3dbqzKl+ZiXjjftlhGpYvDfv2NBTP4Y5e8Aac
+	 T5naUosoU6z7L5JhLOUn5cwD6Xojt86l3MB36mxqAzZxDafUW7VJR7bnO8GXGVsd1T
+	 YuLAdE4slSGEOw1ry/io4QzbhEudt28Aa8iwrLMm5SiQt6Iuu2fhYi7H/+V3fv0JJp
+	 AyLzhVyGLVxkTrVjHWnCQlXxiIN1VdW1zXOmkc2i1AOjwx9N+AIVhVV10UbRpW0euO
+	 k5RsxToIcyTpiusbpp6nw/BJ2hul1yf6nOzDTLyM4UYxHxa7g2Mem1HwEGpiLrNDsN
+	 HeTCHU99vn4gQ==
+Date: Mon, 26 Oct 2026 02:46:05 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Rupesh Majhi <zoone.rupert@gmail.com>, Andy Shevchenko
+ <andy@kernel.org>, David Lechner <dlechner@baylibre.com>, Eddie James
+ <eajames@linux.ibm.com>, Joel Stanley <joel@jms.id.au>, Nuno
+ =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] iio: pressure: dps310: wait for a new sample after a
+ ratio change
+Message-ID: <20261026024605.3286702f@jic23-hlaptop>
+In-Reply-To: <atZqSXI14WojGso5@ashevche-desk.local>
+References: <20261019153328.80739-1-zoone.rupert@gmail.com>
+	<atZqSXI14WojGso5@ashevche-desk.local>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,62 +64,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 07/15] PCI/TSM: Track Device Interface Report MMIO
- range index
-To: Zhenzhong Duan <zhenzhong.duan@intel.com>, x86@kernel.org,
- linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org
-Cc: dave.hansen@linux.intel.com, tglx@kernel.org, mingo@redhat.com,
- bp@alien8.de, hpa@zytor.com, dave.hansen@intel.com, kas@kernel.org,
- rick.p.edgecombe@intel.com, jgg@nvidia.com, nicolinc@nvidia.com,
- aik@amd.com, aneesh.kumar@kernel.org, seanjc@google.com,
- pbonzini@redhat.com, yilun.xu@linux.intel.com, chao.gao@intel.com,
- vishal.l.verma@intel.com, kevin.tian@intel.com, chao.p.peng@intel.com
-References: <20260924041032.1096569-1-zhenzhong.duan@intel.com>
- <20260924041032.1096569-8-zhenzhong.duan@intel.com>
-Content-Language: en-US
-From: Xiaoyao Li <xiaoyao.li@intel.com>
-In-Reply-To: <20260924041032.1096569-8-zhenzhong.duan@intel.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On 9/24/2026 12:10 PM, Zhenzhong Duan wrote:
-> TDX Connect's TDG.MMIO.ACCEPT interface identifies an MMIO range
-> by its index in the Device Interface Report. Preserve this report
-> index when building pci_tsm_mmio entries.
+On Mon, 19 Oct 2026 22:06:49 +0300
+Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
 
-If we are going to report it to the TSM guest framework series and ask that to
-contain this change. It's better to put it at the beginning of this series and
-state it as a prep patch instead of burying it in the middle.
-
-> Signed-off-by: Zhenzhong Duan <zhenzhong.duan@intel.com>
-> ---
->  drivers/pci/tsm/core.c  | 1 +
->  include/linux/pci-tsm.h | 1 +
->  2 files changed, 2 insertions(+)
+> On Mon, Oct 19, 2026 at 06:33:28PM +0300, Rupesh Majhi wrote:
+> > After an oversampling ratio change, the sample waiting in the result
+> > registers and the one being measured are both from the old ratio, but
+> > are scaled with the new one. Pressure ratio 2 to 16 reads 192 kPa instead
+> > of 103 kPa, and temperature is off by hundreds of degrees. Pressure is
+> > also wrong after a temperature ratio change, as it is compensated with
+> > the cached temperature.
+> > 
+> > Discard those two samples on a ratio change, and for temperature cache
+> > the one after. The ratio write now blocks until then.
+> > 
+> > That wait can be longer than the 1/rate timeout, after which the driver
+> > resets the chip and the ratio silently goes back to 1. Allow two periods.  
 > 
-> diff --git a/drivers/pci/tsm/core.c b/drivers/pci/tsm/core.c
-> index 19ad35f2da4a..3efb9c10d44b 100644
-> --- a/drivers/pci/tsm/core.c
-> +++ b/drivers/pci/tsm/core.c
-> @@ -754,6 +754,7 @@ struct pci_tsm_mmio *pci_tsm_mmio_alloc(struct pci_dev *pdev,
->  		entry->res.start = range.start;
->  		entry->res.end = range.end;
->  		entry->tsm_offset = tsm_offset;
-> +		entry->index = i;
->  		mmio->nr++;
->  	}
->  
-> diff --git a/include/linux/pci-tsm.h b/include/linux/pci-tsm.h
-> index be9f78ca2c1a..e5d9d7af2701 100644
-> --- a/include/linux/pci-tsm.h
-> +++ b/include/linux/pci-tsm.h
-> @@ -165,6 +165,7 @@ struct pci_tsm_pf0 {
->  struct pci_tsm_mmio_entry {
->  	struct resource res;
->  	u64 tsm_offset;
-> +	int index;
->  };
->  
->  struct pci_tsm_mmio {
+> ...
+> 
+> >  /* Make sure sleep time is <= 30ms for usleep_range */
+> >  #define DPS310_POLL_SLEEP_US(t)		min(30000, (t) / 8)  
+> 
+> Seems the use of USEC_PER_SEC below should be postponed to a regular cleanup.
+> Because otherwise it will be inconsistent with the above where it would need
+> to be 30 * USEC_PER_MSEC
+Do we want to have the extra churn on the below?
+I'm not that bothered by a temporary state of different styles.
+Nice indeed to have a follow up tidying up other cases though!
+
+There is quite a bit going on around this driver, so I'm going to pick this
+one up for the testing branch of iio.git rather than the faster path.
+
+Thanks,
+
+Jonathan
+
+> 
+> > -/* Silently handle error in rate value here */
+> > -#define DPS310_POLL_TIMEOUT_US(rc)	((rc) <= 0 ? 1000000 : 1000000 / (rc))
+> > +/* A period plus a measurement time; silently handle error in rate value */
+> > +#define DPS310_POLL_TIMEOUT_US(rc)	(2 * USEC_PER_SEC / max(rc, 1))  
+> 
 
