@@ -1,73 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.71
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793022604;
-	b=ia5xCxAM4257Pnh5YmLxx0+yb1k/zo6u7gH1iFPFeXqcLWJ8yvD/3AxAngpiO7uSU28s
-	 giVCgBBQ4bMRVd1ztNaXbkP1DxhxJcdou4LtM/XWWfx6TijU6ZAwbrQPYmNUzNFvGg3i1
-	 K8BIaW8PkRj30W61nEXoZJe107xpo1yh/c9D/+jR4yMtq9yGMLpygodvJNelUUsnitQbv
-	 UZ8EqHMCn08s+GklnEuWf5PnrXJUH6pVV7+S021O4xoEKhfjoYIzpSxR3ZC/lbdg/Mkch
-	 x1qMUNdvt36cQzfpHbChBeTDlBaWyE9A89GVTdKnuj/n7gqAOxqy7RzQACtMB+8Y+ww==
+	t=1793022722;
+	b=oQpnz9wQ6ZDLk/nkbjE8YA3N56qS1H9nzNmaWhm5J7+EtLYeVGJZA74SfbkFS366kDxZ
+	 /Y9Du1+OI9eN8PBbVnyI1md9rr9WsFCdgOHHFaMyXMnaZQ4F0eKsJ7zSzDgyLbF+CtkWU
+	 +MFmu93r0ALRF1uP9PIvnXtAJDZfc4FVoRP66sUegCccpfc+PPtuQR4jKwqaCHYqXoncD
+	 fZ6A2fMvqfOVmbEN99t/689h5gLomFn23fCfIZ1TkojMBQdVnjEH2LAtdpkHo5TV6Y+Jr
+	 1By/ekuMM+ft/aW+0YCcfZ2GvPDhclAfd5MNHyJ2PXme5gEuXwWyFES2ZhorCa3BG3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793022604;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Received:Date:In-Reply-To:Mime-Version:
-	 References:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=c7my5rSEsn+U+kYhoFnNu7P7PE6jHz+gWSHK/wcS/Mk=;
-	b=GeTObZNiWPgyC7OvmgHAqZ2iEI6NXo3Kokl5/SuxIXyejMmggeswffPleEYobGrdYH8q
-	 14YuU9kTx1lEOdLmlD4N8ukn2PFhrt5J7iwqRDl2OvvDkRw7NQajiW4wCumgCEByA8Lyr
-	 n3uHXns+bG1HoGJuR4xlKEn+ybfwORb6Yxkwsfi89OiGYtHhIS2gDsRvNnbOTiFLTdJik
-	 TUHbwrPPVbJiK4jiLODLHamb8dpQd6DKDUO1d+0yB0maY4JDJRrxWVRILeXZtbAuRyIh6
-	 RLLKRR+cicBBQI3FAEUzXG+o2JEirWykIZdDo3oYvMqWkDsFZcwiqLZnuKmFN2UBU7Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793022722;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=Q3DEVqrZHjQPZv56tDkM43SEEr29dhJWwVMxvej/8Yc=;
+	b=lpkTBODDcH0Oe2Vi7Bh1U8tC9qgKoSSQT8MeUrAS5cWhg8k1V0SLNDEPhXaVRWb5yS7Q
+	 rP4ILWH+OlnVFxQQQsrcZ7Ejc2FEwgoCt6vZ6qOn3kdjxBKzs4bxK8m3ZX6UYxyrLn0XY
+	 FWb3KrLmXKDxXkEb8QDIH0O8L8dQmimxwb0VZln7lUVXlZvaif1Bj8etlZpP9RoKApa6k
+	 7cJbn1oAWXlqQjR9yxeowqkaFh/bro7nNnS+DjLq3F+b8l9BuGgOfew7dWnBdW/PWXWnA
+	 Hg2iK3u7m34ErXOG97SdoCulsN0NVnYXZyca6jEImcH6uk1fTeG2bX+xEtEMl/PNaMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=OKDVyKgE;
-	arc=none smtp.remote-ip=209.85.216.71
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=arndb.de;
+	spf=pass smtp.mailfrom=arndb.de;
+	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b="hxEh/ZsV";
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b="t/Npa1R0";
+	arc=none smtp.remote-ip=103.168.172.151
+Received: from fout-a8-smtp.messagingengine.com (fout-a8-smtp.messagingengine.com [103.168.172.151])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35483606A31B
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:49:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35483606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 564CA606A321
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:52:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 564CA606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=OKDVyKgE
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3ad840053c7so3034546a91.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 06:49:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1793022598; x=1793627398; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=c7my5rSEsn+U+kYhoFnNu7P7PE6jHz+gWSHK/wcS/Mk=;
-        b=OKDVyKgEF3jYW4Cf647YnddnbotpaIlDw2BqJ3HVXNLwO6uSOa9wIYmZIzbffqqwg9
-         dw+vs8m7gm7095GZf13wFXtdHJp8RxdNtfD3LnRku8RQEURhM/DYpm5YF8dcWrnLe4pD
-         pr0cLmGeMSLKxHmsB6ux653+RM8S9ix1mRMGF7I32+u7L01vB5iA/IB5kE88YGMTXvjx
-         H9iZb4C0r7Pl++1fBVmflIOoQWiqzvXOggy9o/iNguje64DCqRKXtCjhlAKCjhvfM62k
-         MTEA2aiKU0/3n0mmzvcBYzOgSR/VXCD7/Htzs9W5G/OngyH4UXCWAI2n4GZsYbqTnJC0
-         zNcg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793022598; x=1793627398;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=c7my5rSEsn+U+kYhoFnNu7P7PE6jHz+gWSHK/wcS/Mk=;
-        b=tPLLs05iBkZuuEESQDn9fseDSRyO2798/1hwdkdpmCDqw4uCYNuaU2kurPeokPKNQY
-         s99nzrxnJ9NPcQjqb6ztIchrZN6O0zdztgohidDEkaBsA90MK11Fxs9PKheNHt8UVKYR
-         taqA80LRqRTCosFCeSYzZI0gs35lyvrzBcg8OyEsZKg2Wg1BuveLMq5vFabvDjS49Gee
-         cfQmhm2Nk7d4W+7Avl8IOF7k/NqSqzg18DeBFnS/yMjAG7XUQjAeUPBfI4Wc9B3d5ctd
-         Ixt+pm/6fyvaoO7PMxDAEMyipCYCBkKGUhbmQkOcbBCeVQdlQVVeX2ltPzh/Qwb1bl8W
-         F/uA==
-X-Gm-Message-State: AFq9FYIj/U/kSHrlRdBoyOMq75+45pBt9PH8AdOVlF5j3X5iO7uivIQa
-	/AC/PevemWE/A+3hBexCB2fKNg7DViEk1212pLwniQcxWlThVmxbHanPn2bvzj0Pv6Iav5RTZso
-	gnSUycQ==
-X-Received: from pjbbu22.prod.google.com ([2002:a17:90a:ee56:b0:3ac:c43b:e322])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:564d:b0:3ac:7f4c:a690
- with SMTP id 98e67ed59e1d1-3adeafb0449mr5178332a91.35.1793022598376; Mon, 26
- Oct 2026 06:49:58 -0700 (PDT)
-Date: Mon, 26 Oct 2026 06:49:56 -0700
-In-Reply-To: <20260804120529.1730187-1-pbonzini@redhat.com>
+	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=hxEh/ZsV;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=t/Npa1R0
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfout.phl.internal (Postfix) with ESMTP id 5959EEC010B
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:52:01 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Mon, 26 Oct 2026 09:52:01 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1793022713;
+	 x=1793109113; bh=Q3DEVqrZHjQPZv56tDkM43SEEr29dhJWwVMxvej/8Yc=; b=
+	hxEh/ZsVMXx0VaMd/+M8Z96je/vs1Zp8GiGfwLUU3sMVKxrSEqFM1LWqRrwVWgxD
+	ic0sjz+MicnBUw5CZJPlx0Im3sJpaRjNc/HJGDjCajNWx4gGJdpwfkIQYj6wNBgt
+	e+eBnu22SH8Y13GRb32d0cm7GJHJYhAaN3NtprW97s/y44jdKzmoaT39V/9RtiVL
+	lgSBIebc6e8J0HOOX/kHDyFaCPKp11iqSuPK/+z/Z1sc7CsYx0MNLVw0B5TzOJEa
+	gkEOLtE9ere9nNr543UjbRUwyLo/hIH2Tb02YqGaI11nMi6nMznFeQ5tAhWomJwg
+	xhQZsW0krpAfTW46v/PmQA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793022713; x=
+	1793109113; bh=Q3DEVqrZHjQPZv56tDkM43SEEr29dhJWwVMxvej/8Yc=; b=t
+	/Npa1R0HkfQ14yvATXInKphJDtSyIRV5l1q/k/issD2KJKlkaDH69zU27cQn31VR
+	H/FdlWiJIZjeUOxC5j4CEIeFRIQx04x8vxSKD+BnbxlKq/MnpFi+LAh8jRGMfd4p
+	fkywLOY6ZkHPeBjcsrMyhy05dVvMtGODDM3QTKzc2OkJ5z1p5YAZkqxjhpFWlmde
+	zRW7wyDzFw7qtTunUW4h7T3yrEQLuu+UMsWuWq5cIrRgH4qglLFfojmgY0XeKJTr
+	CyW8svbnP5DaX2g7vzUefeiuA2V3xw/alfRwqv/kCN7yCXqTd+3u9gLDb589PkGD
+	zGpTnWmH5v+LDlhzK7Cbg==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793022713; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:OqHJUJ7cFZP33vCquREWpz2+VJ6xC6y3sGQ06hFlAfVGrrn
+	QJI0C/is575bKeRYN3nG1CnK6dxxsajRdCI6T6zWiKAeSIR7GtfPKPwqqG2wSKIb
+	CwWcxhy0zTrKQL8CUyZw4doZJtqRkzXWYlItYK7ShWk226yFuWGUa6MYNTldUECX
+	6wG8cHsaDFy7jfXO5rUYycJsfNFZ6KF68SL9SMm2zq5/18JHXwES+oxZG33LhZZO
+	g7oSI17FLhyvKA/It2EmNYhTU33hymWpjfhiwADFEZ5rr2e1XihwUrrTwGgPpo5R
+	93ORkzqO5JibDM9//8EcCe6whreTb6fZubULelQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:Oy/howkruMFXJD3laxRsMr4nOnclTbF4SNSQ6L93fKU=:KtX4k3ya7RcU8NJ3EsCTbOk4F9OmT8AIpqn6aAliyFk=;
+X-ME-Sender: <xms:81rfaljJJ3gxVsOVJ5b0Iz5j0m47vRpWtVSiAphiT1Etk6luBcYQMQ>
+    <xme:81rfak2ehLAhgKTK5zig3tDAtZ1co2alavnEDhfKb4XkER8uQ8U6KVrtGuTxQzR66
+    J2dmDyQE6m0GIlPem8cM79NX1Z3JbFKQBEd1U0fZ9uKzquF7OrXOJKz_g>
+X-ME-Proxy-Cause: dmFkZTE10nT9aBR7VZGvooOUSEy9GXDTiA4fuLwAGQk8gcKjnfNQfW7SSsRSjF46yJnilC
+    ug+nAoOlsm9ni3ebzgzSGJQTNboxVBBt0rTBObzgYi41jG1ILiJdkgROT/uof9eFptJse5
+    A/btnyQRsPuQSDLUJUyv+dDyIWiP2iy5NVIt+T7Uh/uddWL3I90XhDupPX5M2vCqxcXQSq
+    DwEcdDZqwm/UTSkgzVRlQ3pVQizQ7FMRRau9ixulXaj32FeKpkicStKj4YiY4HslYkiAaw
+    goJG1x5bgtcelQrzM8UffY+pZItrjSQfzVqS/KifCHl8bsUOm3U37cipWrWqSXt4182EWf
+    Eik/LS5y0fz+oAnEp9bUrQWhuYEjFQKeLzSREa89M4D8HV6rRTfQ0mqBsM9qcJUgYPmxMe
+    sEyVhxNgO6AxEuWlZeLmqotx/P8Bhcb6RxrvkNzQVnmEUzebcZEplqJxS+KuEYomjiS2GY
+    cN72nYbIOtIGEIRDJ9etf0A2gGSlwKw6m3Rgk2Dkc5/Cb/yZchesW11dNuIuPxudNvPKED
+    dKhQaWo3Js5LXQqwCzEdIu0bDGLWP4TSJCa+ZPEA6SwlcCTEZwrwzLY57F0AUf655SM5SG
+    S5NeYVsEIA3aUIzcD4sCrp4UTGkR0cY0NljKqhKlc/BzwBjgvzdO2/ArwPzQ
+X-ME-Proxy: <xmx:9lrfai7MMHWvIpkcN7Ex5paFsEknNsUPslrfZRwafLq-NQEsd0Rnpw>
+    <xmx:9lrfamkcRv4lrYDS2g6ntYkeiTSDdVz0R2bpb4U2gCkPS39zq66rZw>
+    <xmx:9lrfaoEh7Ix8f1v3crW6hERWF3Um-x7HKNkbpV6FpuGkSX8Bd8LnIg>
+    <xmx:9lrfaqHFuIS2W1vz-hDVLSax1chdktmSPzQjFRWyAEF-LETbuYAkYg>
+    <xmx:-VrfagmAfe00RPWSkxcZJ3xx5c7E_MlNrP2HqaJaTR3cSUgzjJdapRYy>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 3F1D932A0093; Mon, 26 Oct 2026 09:51:47 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,94 +114,62 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20260804120529.1730187-1-pbonzini@redhat.com>
-Message-ID: <at9ahKiYsVtH8kpU@google.com>
-Subject: Re: [PATCH v2 0/6] mm, drm: fix interaction of .pfn_mkwrite() with fixup_user_fault()
-From: Sean Christopherson <seanjc@google.com>
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org, 
-	Alex Williamson <alex@shazbot.org>, bcm-kernel-feedback-list@broadcom.com, 
-	Boris Brezillon <boris.brezillon@collabora.com>, Christian Koenig <christian.koenig@amd.com>, 
-	David Hildenbrand <david@kernel.org>, dri-devel@lists.freedesktop.org, 
-	Fei Li <fei1.li@intel.com>, Huang Rui <ray.huang@amd.com>, linux-mm@kvack.org, 
-	linux-s390@vger.kernel.org, Michal Hocko <mhocko@suse.com>, Peter Xu <peterx@redhat.com>, 
-	Sergio Lopez <slp@redhat.com>, Thomas Zimmermann <tzimmermann@suse.de>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+X-ThreadId: AIMzr2H-57Yw
+Date: Mon, 26 Oct 2026 14:51:16 +0100
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Dmitry Torokhov" <dmitry.torokhov@gmail.com>,
+ "Lee Jones" <lee@kernel.org>, "Krzysztof Kozlowski" <krzk@kernel.org>,
+ "Peter Griffin" <peter.griffin@linaro.org>,
+ "Alim Akhtar" <alim.akhtar@samsung.com>,
+ "Russell King" <linux@armlinux.org.uk>, "Mark Brown" <broonie@kernel.org>,
+ "Charles Keepax" <ckeepax@opensource.cirrus.com>,
+ "Linus Walleij" <linusw@kernel.org>, "Bartosz Golaszewski" <brgl@bgdev.pl>
+Cc: mfd@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, patches@opensource.cirrus.com,
+ linux-kernel@vger.kernel.org,
+ "Bartosz Golaszewski" <bartosz.golaszewski@oss.qualcomm.com>
+Message-Id: <a6df6043-9f0d-4b03-8efc-d3e47a82f096@app.fastmail.com>
+In-Reply-To: <20261024-samsung-kp-v4-0-e21253295e68@gmail.com>
+References: <20261024-samsung-kp-v4-0-e21253295e68@gmail.com>
+Subject: Re: [PATCH v4 0/4] ARM: s3c: crag6410: Convert to software nodes and
+ properties
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-On Tue, Aug 04, 2026, Paolo Bonzini wrote:
-> This "v2" combines three series that I have previously posted separately to gather
-> reviews and tests:
-> 
-> - kvm: apply VM_READ/VM_WRITE checks to all VMA types
->   https://lore.kernel.org/kvm/20260731175834.1121005-1-pbonzini@redhat.com/
-> 
-> - mm: pull writability check to follow_pfnmap_start()
->   https://lore.kernel.org/kvm/20260731160514.1101989-1-pbonzini@redhat.com/T/#u
-> 
-> - mm, drm: ensure .fault() does not have to be followed by .pfn_mkwrite() for write faults
->   https://lore.kernel.org/kvm/20260731164341.1109827-1-pbonzini@redhat.com/
-> 
-> All three, together, make it possible to write drivers that use .fault()
-> and .pfn_mkwrite() callbacks for VM_IO|VM_PFNMAP regions, and that also
-> interact correctly with users of fixup_user_fault().
-> 
-> The problem is that if you define .pfn_mkwrite(), vma_set_page_prot()
-> clears the writable PTE bit in vma->vm_page_prot, at which point
-> the .fault() callback has no way to create a writable PTE.  Users of
-> fixup_user_fault() will then see a read-only PTE and have no clue that
-> the page needs a *second* fault to reach its final status.
-> 
-> fixup_user_fault() itself does not have a good way to notice this, because
-> vma->vm_page_prot is an opaque pgprot_t, so the fix needs to be somewhere
-> else.  Other preexisting functions, namely vmf_insert_page_mkwrite()
-> as well as vmf_insert_pfn_pmd(), suggest that this has to be the driver.
-> In fact, of the five vm_ops that use .pfn_mkwrite() together with .fault(),
-> three are in file systems and are not buggy: all of them ultimately end
-> up in dax_fault_iter(), which uses vmf_insert_page_mkwrite() to correctly
-> insert the PTE.
-> 
-> The two problematic implementations instead are both in drm code.  One, in
-> drm_gem_shmem_helper, was reported as a KVM regression; the other, in
-> vmwgfx, was found by inspection of .pfn_mkwrite() implementors.
-> Both of these use pfn-mapped regions, but there is nothing like a
-> vmf_insert_pfn_mkwrite() function that they could use; the first part of
-> this series thus adjusts mm.h to provide two new functions for this
-> usecase---vmf_insert_pfn_prot_mkwrite() and vmf_insert_pfn_mkwrite()---and
-> then teaches drm's two users of .pfn_mkwrite() to call them.
-> 
-> This however leaves another case buggy where fixup_user_fault() is preceded
-> by follow_pfnmap_start().  Most callers of follow_pfnmap_start(), seeing
-> it return 0 for a PFN that is mapped read-only, would not attempt to
-> call fixup_user_fault() on it, and thus the PTE would not be upgraded
-> to writable.
-> 
-> This is arguably a bug in... almost all the callers of follow_pfnmap_start(),
-> but fixing it is much better achieved with a small improvement to the API;
-> if follow_pfnmap_start() is told by the caller that it needs the memory
-> for a write, most callers are simplified because they were doing such a check
-> anyway and now just see -EFAULT.  They then proceed to call fixup_user_fault()
-> and everyone is happy.  This is done in patch 5.
-> 
-> To sum up:
-> 
-> - patches 1-3 introduce the new MM API, and use it in the DRM .fault()
->   callbacks to install writable PTEs in response to write faults
-> 
-> - patch 4 is a preparatory fix in KVM, eliminating inconsistencies in the
->   handling of !VM_READ and !VM_WRITE VMAs; these would return different
->   error codes for a !VM_WRITE VMA depending on whether the PTE happens
->   to be mapped (but with wrong permissions).  This needs to be here
->   because the next patch would introduce even more inconsistencies.
->   
-> - patch 5 moves the check for writable PTEs from follow_pfnmap_start()'s
->   callers to the function itself
-> 
-> - finally, patch 6 is a KVM addendum that will have to wait until
->   the next merge window; it removes yet another inconsistency in
->   KVM's handling of !VM_WRITE but is technically userspace-visible,
->   and therefore it shouldn't be included in stable kernel releases
->   unlike the rest.
+On Sun, Oct 25, 2026, at 06:03, Dmitry Torokhov wrote:
+> Hi,
+>
+> This series converts the Cragganmore 6410 board to generic software nodes
+> and device properties, allowing the removal of legacy GPIO lookup tables.
+>
+> We add software node propagation support to the wm831x MFD core to route
+> DVS GPIOs to the PMIC regulator, and convert the peripherals on the
+> Cragganmore board (PMIC DVS GPIO, basic-mmio-gpio, LEDs, WM1250, and SPI0)
+> from legacy GPIO lookup tables to software nodes and properties. This
+> eliminates the legacy GPIO lookup tables on the board and fixes incorrect
+> GPIO chip names from previous conversions.
+>
+> Hopefully Krzysztof can finish merging the series through the soc tree
+> once Lee acks the MFD part.
 
-What happened to this series?  It seemed liked something semi-urgent, but AFAICT
-it got silently dropped?
+Hi Dmitry,
+
+This all looks good to me,
+
+Acked-by: Arnd Bergmann <arnd@arndb.de>
+
+I'm a bit unsure about how this fits into your wider plan, i.e. why it
+is helpful to replace the lookup tables with device properties in
+this file:
+Are you working towards eliminating all gpio lookup tables from
+the ~50 files currently defining them, or is there an immediate
+benefit to doing this one in particular even without the others?
+
+Do you plan to also eliminate the uses of the legacy gpio
+interfaces in mach-s3c, e.g. the hardcoded numbers
+in {pca953x,wm831x}_platform_data, crag6410_lcd_power_set(),
+crag6410_machine_init(), or the pin config in
+s3c64xx_i2s_cfg_gpio()?
+
+     Arnd
