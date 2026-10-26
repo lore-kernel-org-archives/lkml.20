@@ -1,100 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.46
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792982176;
-	b=ZDQacYZix6NIeabeTeY85aDK6jZF2c6KbwNV0heOch1FsUUIjAaJZWD4F6amC10KxY1M
-	 0uPPgLa/WTLj3o608NQqsXSW30sIM9jDeJ6DcetBf3g7sa8AoVgoape4Y/G4fFzA7pVSX
-	 1/C4eSfUZHpnpFMqQObNDl1eM3McYtM31iB7mvBCJyMfJrcK3sM+T9zL5+NSs4nrXpPg6
-	 H8jMWCelz8yQHnY1VzYiceCBax3vpQ30PwCvKHgdMhRFTFWVT9MsZBHzWlDlmQ1iatg68
-	 g2tUSxiwhg4bFVsLeUxuD+DroNGatOEQJl2IWdmGW8BMCIY1mwUtbkBG62Yo+yxQ1kw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792982176;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.52
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792982177;
+	b=RjuR+sqjKT/sBouDA9jDnKsykMbLUOlYeUX13GmtZmoHzQwvxMnkAI8LGAHiqP9hJLwc
+	 FAsyYfiEgciqFQlqRv3dT777sehWW7/F1rLyin7zy+ap3BrCmZYrfNa7oI16Qo2wp38i6
+	 uw7OOTTFNSnYDIpcR245UhmVobfyBGOkdsI9gdGRPNoerNftPwAQNG5G894YoxdGyabt1
+	 gGePdrzSkmX5r9wEGYwisE7UnLsRtK3/XfWfdZj9IFenJ/l9GYdAg/tuVhd2HYpzPfbM6
+	 GjrqBH99nuLu3o1buyKAemQU/f12cWgY3VOA3Wp5DtNzjbj+feLSdwjYbfALYyQUfKA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792982177;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=iAk23gi97Bh3E2+QZ3E4niRePEWiOsVcJhq4RJVVZpc=;
-	b=vowRnpG3u+SwlF8bUQKPjKpfGr4VXkw/SBGAqdhiuWWoe+gOnbi+FxtycTVnUweXSOKF
-	 tb92ic2emYkAsyBoDu1Oa1pVicMDxE7piXgm57xs2nAsm1nAHHhvSmyEtUWyf7St5D+wE
-	 vjfik3+Ux3aZXMXxvY+Yl4BFVxIFBn8R+n3yDBc3JPzXQTm9nG6uZ/hjbGC415DA8VXaQ
-	 5EqaMjm0rrUdvbBb2L5V6/csi0eXYOCtX7Xj7BpwTCoCGAH0JyXt/UwTAvMBbNwh/ayzB
-	 4bjLJOLJXpfufrPyydKhvgAZqQBeD/iG5xYAn3jl3o9fOxi5LfRPyfXMcBWS9tCTfIg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ofwUcJCk;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=opVpgEYV9gBtf6yQWstiOV78EVjFTqAa0i4kc/jTqnc=;
+	b=aoI1lXOPxN0Hpd8YapQ6wWomqCPbcOQHaupCvjMlDEfuTR7+L9SxjoCa9R6z77XhnopA
+	 6uDECRunArx7H57Wu8I5hDElpfq2Ka5sOxgVahX87lp98pjDtLyKUXvl0actgB8X2t0LC
+	 Sg6cfxLUlbZ6z75CxOV7l1kPImEHoa3jFvRE36flhNwJ50w75Zm32XnaozNyUCxh4zop3
+	 zGz0BYkEE3h74fd0JOTBPMgFmKpC01IBFQI8B7Zq3C7GqljTTL4rvrqJwqA0SfIGBmG5r
+	 kIBoG/3IrQaCiz/TItVwIyoRXEYyisjSX/wewA2DBuWZnLhXl4jQwbpJv6iX/KDt4jA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=linux-foundation.org;
+	spf=pass smtp.mailfrom=linuxfoundation.org;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=ed83bYUX;
+	arc=none smtp.remote-ip=209.85.208.52
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DBFD606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F09F606A31B
 	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:36:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0DBFD606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F09F606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ofwUcJCk
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-49d0da752ffso22020045e9.3
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=ed83bYUX
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6aa8d04fcddso4840222a12.0
         for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 19:36:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792982174; cv=none;
-        d=google.com; s=arc-20260327;
-        b=G1djIu+9V4mvvewu6lDf9YcsjYhb4mfuR6JFxMzsokVqTRn3Q+SO/32gQN6aMDCqpF
-         gsCvT944u1YFtWLUfqUM0dDdcvpDHysJZ+9TqJkeSGCp7iNo7Gt/PRYwnQAdaKTYqiQO
-         Uzyf7H3CqNN2/AeIuGsv8HaL1DfTwzJSiC7WvLcl90jJLLmarjy0WyEjF1SQFEpa4SUO
-         /9+/ZNCKZe6MU/z+UiD7daHG0lzq8YCIfPHDELkn6hrwau4GM1foAKCsd/+xKqH6INn0
-         iHty8Qvhpn0EWBdX6aWab/42it09539OnpZKYXcDm3mqifYniwwBMeWkVYouBN5fMmzU
-         8mYw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=iAk23gi97Bh3E2+QZ3E4niRePEWiOsVcJhq4RJVVZpc=;
-        fh=TtginRXxUcSpR4fcsj+gg8paY8JCtsmBbUibaUSdarY=;
-        b=Gnidq980MXwtD85Se0YSQGtySK3Ok5PAKzEBStDwmHY4RZjcCXlG4xiG4y3+fIVNnV
-         1k3bK675sgoUiM2FdDER6DuPCm1MxQYnHzyCuEtr03GZl07F+eQ86SjiZ7zNImZSXY6D
-         aVw8gf5PZ5iDRD7Dqf+Cqny503Lw5OFB80IH64Zrdt3jqzGBEof7LWG5eRJ7VQfL4O7L
-         c+rDvQvVUUR46yXiH0jvGulp9nO7FTznGjQZUCw/e2mlI7wdUrBX2n1T7Ojuz3U13u6p
-         pIHfwuaCTi9UyuvimrfMOgl7SYxEfQftKo9MyMROUzK1GjAurbAxoe8OOFhBr91sSBLQ
-         /CDg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792982174; x=1793586974; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=iAk23gi97Bh3E2+QZ3E4niRePEWiOsVcJhq4RJVVZpc=;
-        b=ofwUcJCkVBq+dP5gJkQOnwrdg5TYbPF/qPRb0A8VwtIB5at85L1RSTwNh5W0mqDBzh
-         J94jvIwEphAGegNFqLajeAgELfmfnL/u4rzpxl2pTpINfNXVGoPhuYQwwuO2w7/sgrP1
-         OOFAoWhsonuX++lHhd4eE35U9sFcM4Pwj+1+4UcLMOGtTxmhwOM2cwOWF7ZQsyGLznPj
-         hE6d9vGLJvsrL2ZKiA+fPYsaRqnypf7MCIxWkrwR+yN1m799tfxv8lE+VOI6UH1w/BuP
-         E5pqNbTpdkCZXiiQ0PwI+o1ukeby31z5a3LOzc3OcwLMPasfHbtWc6F00stjh5oongXp
-         rVqQ==
+        d=linux-foundation.org; s=google; t=1792982174; x=1793586974; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=opVpgEYV9gBtf6yQWstiOV78EVjFTqAa0i4kc/jTqnc=;
+        b=ed83bYUXTCIkrhzksy4x3pzmpKMBgYQHrvFqoBH540ywzekGYs0w8L+Na+thNsrfzu
+         gp+m5pREcmBAjD4TTrTfILsxc6CwxgnmqRQG293eNQDvhmXGnSogegooX8jlsr8k/FC9
+         qA4Y83KOjl0sUKdoArFVQSHIuyAlTmmpc6634=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1792982174; x=1793586974;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iAk23gi97Bh3E2+QZ3E4niRePEWiOsVcJhq4RJVVZpc=;
-        b=DwoQNjFjH+5TS7oSUK4Ld3CL/i70CtCnEP4XhDEjxfyn6112AmgJA2ggf34bU4wFGo
-         O2YFAuRBH/YsGi1QNWyTnDbx+GMLn1eUWo74D+D2YgAdG1aHb9XiWBCBfDWo/+F+uJh/
-         GBfPyY18mA2XIFj2sT61GD7rnaZm59aqfZbEGouDsnHjwT2e25r5RHnrfqtRs2CjE1Iu
-         XsV67yps4yBdLPASEnGarxVSYfbSsV7RlQVWNRUQRKvPbtsx6Jw+TnsSColxmBmr/6U9
-         p2dpPx4FuqSaPm6NlYIKeS22Xc8qGY+B34+3mT4Ea+KYi12oLNQIkmzcpcIh4u/9tvDZ
-         FbMA==
-X-Forwarded-Encrypted: i=1; AKwUvBw3YFHZSXOL9e26SFRJUKPHtRHIpv+yIk+aXtMtdvTBhzd4qw5Bky9bDrBaTgLmnsF9itYF1ExfGyhc58w=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLfyAGOHCRyXbaqKDnnWJwyGmkeX88EjuV0bVmd8Xsju9688vav
-	TXxhZUlnmQYD2Fmpc15pntBnGqGxiJ1Ois3coKSz0w/4egjmLVvCDk/B9f22nxNBZI60jiQQNv2
-	oKO9lw3RcY+rIo/MOEMBjuQ4+TzPXLqs=
-X-Gm-Gg: AYBFou3icezjP4cgxFVzbF/wN8KvnPiQhCL4hQF0AQNEP1zcZi0lVciyfCKbMzSi8c1
-	E4F9sjWOTeJnNXZZNWTO10KXe315P4effIC4iVTVrG+/l6sKCmw4Lcf5JwY2qrCNb8kVH+WwXO7
-	ns0/7EK2cF7KYI5HMuIWjWQcMAvjLTIVj1Uw3pG3Mfuzp5j2KrjzdwLjY/fMWE4gFgE+7wZww3q
-	8/cgcCgjMmfx1McmUpbyBQ0fJwD5yrhha39ONktp3rI78s8Jv4f2nSJBr/bgOoHTaKlfUZ1pn6U
-	dKbQsm8shfDbRw4Q9b+HSHG12TCkeKPigqPgv5kILjamU5xMIcAtBCSNeoQ0jeRgtbFjUeBpPba
-	KxPdpqxA5t/wIEKr91XIa+DzvwTawpxsGPMX88bsEQHk/DuyXNCCKSR0TBTWP+oIV2Pm8MHEj
-X-Received: by 2002:a05:600c:3e86:b0:4a2:cbe:bebc with SMTP id
- 5b1f17b1804b1-4a35aca5f94mr95517015e9.23.1792982174353; Sun, 25 Oct 2026
- 19:36:14 -0700 (PDT)
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=opVpgEYV9gBtf6yQWstiOV78EVjFTqAa0i4kc/jTqnc=;
+        b=NgQBCnHYVa101n429pXBsINyXgHZGVjJB6RigCKtjgxeHH7/PZx3ybCllijeMyIrVi
+         qbT57zNA0r9y1iQ+BfAqAjf2pKvFZtpZw80JpzjwxNkEG1eRrD/irgFZQxWyjGJ0wa32
+         Yu+9WupI24P5+1jze4CeKXggMJne/byIexMXx3Q2oDVnMKpPbVTviuwLry+3CvZyXLrH
+         vPqhIU5qsi5jRkFtT1UcxtUx0MXwu0avaBKKBo5El2eu8goDfzBdC+Tv5MzEh9Hmkqpi
+         8qgSaHWDYmpAmqd5CKzqrWgV18M4BBcM7BaoOobPPIFDljOJx9PP1gZAcMyIJB8f7eh0
+         t+4w==
+X-Forwarded-Encrypted: i=1; AKwUvBzm1NAvByYwnCMKxkYy9pGxsXqqP7HLHCYE9gVAT/wCVr949lSt4KPIt3HgrOhSbyPPU9Nw+Qwt1IquHGI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL/hEC4XagS1wLuXtIy2BWob0FUZSladqRMLVQGuthRqSZfaafO
+	nGBFQAfvL95sUmNxbfVVp9SxpTN4BNk7c8jZrXV2JjEZD7S6HH/U07oGLxAmt1UZsVVLf99B55a
+	nH61SZkM=
+X-Gm-Gg: AYBFou3kr292uHXR0zE8df87APbFnPd2six06LBb3Vpb74QZHw3FHfsynZihj7MmAID
+	XIGUY83mFcePyRRTtAAR3Zi2woCcGJmBti1dLO46Hwj6bljJ21UU5w9yEkW/ZonqCddR4Rc3rG8
+	pmA8sD8J0u/boqTFvfHYG/VCPeHuZJfI7iCeuozox6I/DSvzIHsuXkxa9AxbhzjER4Ks25DiHdU
+	lTWPqlx0bU2O/vkuLxcDTiiZ2IyJcqIbJ3GAcfAo7MUHn/cuBTmoiviunct1kA2c8eOEfhm15Re
+	HVIyEkC2o/vdhYVJ34R+mQcWAS2k5zG7WndbT2Xw4tTS1NLjRF9VpPfI1dP9K9coJ+GzzkSHDsq
+	JivGf8Y8k4jddOX3TYHmvzqBdSL5qnqvkEAeVkavjKKa318cQKJ7FifGFo5N6Jx6pTNzIxcwdwJ
+	pTqXpcMswOdnON8W7rAatIwU0xDesn8+94ri2xJcTss2SccrlGXc47SXUs7Al/T7ooo/Bm+dSj/
+	VXJPQoQDIbL4IZVN2ag2pVZrcHjwuUaFOt79lMZXNFVPZDwed0avH163lyDKXItc062eRr1eIs6
+	CdPfFr2cunhUMF7EAv9enVPttEE0XA==
+X-Received: by 2002:a05:6402:42c2:b0:6b3:d0a0:39c9 with SMTP id 4fb4d7f45d1cf-6b443a23971mr8230399a12.6.1792982173889;
+        Sun, 25 Oct 2026 19:36:13 -0700 (PDT)
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com. [209.85.218.51])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b467e42f75sm932774a12.23.2026.10.25.19.36.13
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 25 Oct 2026 19:36:13 -0700 (PDT)
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c46bd7a7345so202292866b.0
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 19:36:13 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxO1r8OZXisWzCNNMYYx8LQD+mCCLmobRDL4CNew20qYKEs/DeIEv+NAjCYSFKplU2611rEAPfTc/snpvM=@vger.kernel.org
+X-Received: by 2002:a17:907:3e8d:b0:c46:7fa4:9212 with SMTP id
+ a640c23a62f3a-c46be5e3d65mr763708766b.23.1792982173252; Sun, 25 Oct 2026
+ 19:36:13 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,103 +93,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261023101841.2910719-1-kunwu.chan@gmail.com>
- <20261023101841.2910719-10-kunwu.chan@gmail.com> <cdd3f35d-9e9a-4b87-bea7-59ff3e1a7390@paulmck-laptop>
-In-Reply-To: <cdd3f35d-9e9a-4b87-bea7-59ff3e1a7390@paulmck-laptop>
-From: KunWu Chan <kunwu.chan@gmail.com>
-Date: Mon, 26 Oct 2026 10:36:02 +0800
-X-Gm-Features: AclHuK-dNDX8dRPchF6C9mpMkMHM9t09-8qvMf53mQYiOJQpdnXUdDfEsPaIb0s
-Message-ID: <CAN_Opa_eWF27jfz_HfXjUEw_raQb-j8Q1TMHLr9cx0P=N2-s6Q@mail.gmail.com>
-Subject: Re: [PATCH 9/9] rcu-tasks: Detect duplicate callback enqueue
-To: paulmck@kernel.org
-Cc: jiangshanlai@gmail.com, josh@joshtriplett.org, work@onurozkan.dev, 
-	frederic@kernel.org, neeraj.upadhyay@kernel.org, joelagnelf@nvidia.com, 
-	boqun@kernel.org, urezki@gmail.com, rostedt@goodmis.org, 
-	mathieu.desnoyers@efficios.com, qiang.zhang@linux.dev, rcu@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Kunwu Chan <chentao@kylinos.cn>
+References: <20261016-vfs-v74-41eaf6c4712c@brauner> <20261024-vfs-7.4-rc1.keyring-db88a8f3b5b1@brauner>
+In-Reply-To: <20261024-vfs-7.4-rc1.keyring-db88a8f3b5b1@brauner>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Sun, 25 Oct 2026 16:35:56 -1000
+X-Gmail-Original-Message-ID: <CAHk-=wh0gCvsC7A9z_H7her218kSCmd16dqtd9uMfO5ZrSvxLw@mail.gmail.com>
+X-Gm-Features: AclHuK9j_db__idbNB1VD4BAB9oEUCi3kHT1x-yRvpTXB0AMWOknVyDLChen_N8
+Message-ID: <CAHk-=wh0gCvsC7A9z_H7her218kSCmd16dqtd9uMfO5ZrSvxLw@mail.gmail.com>
+Subject: Re: [GIT PULL for v7.4] vfs keyring
+To: Christian Brauner <brauner@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Sat, Oct 24, 2026 at 3:31=E2=80=AFAM Paul E. McKenney <paulmck@kernel.or=
-g> wrote:
+On Sat, 24 Oct 2026 at 00:45, Christian Brauner <brauner@kernel.org> wrote:
 >
-> On Fri, Oct 23, 2026 at 06:18:41PM +0800, Kunwu Chan wrote:
-> > Detect duplicate callback enqueue attempts in the generic
-> > RCU Tasks callback registration path.
-> >
-> > Signed-off-by: Kunwu Chan <chentao@kylinos.cn>
->
-> And the same questions for this patch as well.  ;-)
+> Neither keyring is linked into any other keyring so request_key() and
+> KEYCTL_SEARCH can't find them. Userspace has to scrape the serial out
+> of /proc/keys before it can add a key to either of them. That's not
+> great as any user can add a key with a newline in its description and
+> make /proc/keys show a fake .dm-verity keyring line with whatever
+> serial they like.
 
-Same changes applied: pr_err_ratelimited() and dump_stack.
+This explanation reads *very* oddly. It doesn't actually explain at
+all what the patches do or why they do it.
 
-Thanks,
-Kunwu
+Instead it states *another* problem entirely that it doesn't actually
+fix, and almost entirely ignores what the patches actually do.
 
->
->                                                         Thanx, Paul
->
-> > ---
-> >  kernel/rcu/tasks.h | 15 +++++++++++++++
-> >  1 file changed, 15 insertions(+)
-> >
-> > diff --git a/kernel/rcu/tasks.h b/kernel/rcu/tasks.h
-> > index 5d7f234795b4..49b716feb31d 100644
-> > --- a/kernel/rcu/tasks.h
-> > +++ b/kernel/rcu/tasks.h
-> > @@ -6,6 +6,7 @@
-> >   */
-> >
-> >  #ifdef CONFIG_TASKS_RCU_GENERIC
-> > +#include <linux/mm.h>
-> >  #include "rcu_segcblist.h"
-> >
-> >  //////////////////////////////////////////////////////////////////////=
-//
-> > @@ -339,9 +340,12 @@ static void call_rcu_tasks_iw_wakeup(struct irq_wo=
-rk *iwp)
-> >  }
-> >
-> >  // Enqueue a callback for the specified flavor of Tasks RCU.
-> > +static void rcu_tasks_leak_callback(struct rcu_head *rhp) { }
-> > +
-> >  static void call_rcu_tasks_generic(struct rcu_head *rhp, rcu_callback_=
-t func,
-> >                                  struct rcu_tasks *rtp)
-> >  {
-> > +     static atomic_t doublefrees;
-> >       int chosen_cpu;
-> >       unsigned long flags;
-> >       bool havekthread =3D smp_load_acquire(&rtp->kthread_ptr);
-> > @@ -358,6 +362,16 @@ static void call_rcu_tasks_generic(struct rcu_head=
- *rhp, rcu_callback_t func,
-> >       if (WARN_ON_ONCE(!func))
-> >               return;
-> >
-> > +     if (debug_rcu_head_queue(rhp)) {
-> > +             if (atomic_inc_return(&doublefrees) < 4) {
-> > +                     pr_err("%s(): Duplicate call_rcu_%s() CB %p->%pS(=
-)\n",
-> > +                            __func__, rtp->name, rhp, rhp->func);
-> > +                     mem_dump_obj(rhp);
-> > +             }
-> > +             WRITE_ONCE(rhp->func, rcu_tasks_leak_callback);
-> > +             return;
-> > +     }
-> > +
-> >       rhp->next =3D NULL;
-> >       rhp->func =3D func;
-> >       local_irq_save(flags);
-> > @@ -586,6 +600,7 @@ static void rcu_tasks_invoke_cbs(struct rcu_tasks *=
-rtp, struct rcu_tasks_percpu
-> >       raw_spin_unlock_irqrestore_rcu_node(rtpcp, flags);
-> >       len =3D rcl.len;
-> >       for (rhp =3D rcu_cblist_dequeue(&rcl); rhp; rhp =3D rcu_cblist_de=
-queue(&rcl)) {
-> > +             debug_rcu_head_unqueue(rhp);
-> >               debug_rcu_head_callback(rhp);
-> >               local_bh_disable();
-> >               rhp->func(rhp);
-> > --
-> > 2.43.0
-> >
+That's not at all helpful.
+
+Yes, yes, that *other* problem is some of the *impetus* for doing
+this, but at the same time it is absolutely *NOT* an explanation for
+what this code actually does, and why I should pull it. It talks about
+what the patches *don't* do, and rambles about the background, but
+nary a word about what is actually happening.
+
+The only explanations about what the patches actually do are complete
+and utter nonsense. They claim it adds some kind of "well-known key
+IDs". That's complete BS. There is absolutely nothing "well known"
+about any of that: they are completely new random key IDs that nobody
+has ever heard of before, but that are meant to be used as fixed known
+key IDs.
+
+To clarify: I'm not pulling this.  The code looks fine, but I had to
+*look* at the code to try to even guess at what the hell you asked me
+to pull, and that's not fine.
+
+The pull request was an incomprehensible word salad that makes no
+sense and doesn't describe anything. Please fix it.
+
+                Linus
