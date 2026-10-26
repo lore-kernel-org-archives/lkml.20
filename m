@@ -1,60 +1,44 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=154.81.10.187
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792981063;
-	b=wZFX70ENGe5IWPY10EJRAnyTeRnqaDLo1Q2c0toOyiLC2NQSbtKiU8MusO6riUmo2SzT
-	 1xHhZkQ/i4nMuXIEND3UYb3Hn8IeAbWbCyBZXRp7JsHPQG/1XTPC2RQhCZis3ZUIhqelO
-	 rs6jPUpt/Y1sLAGJWVImxSv8t0bycxfXB+x3djF8rmwGxyZAJkvKJaJRqPZMgnanZwJAp
-	 Q/dcXcbpJqbTr8OJOfdhakImzwoVvadQnXxvktwkuMPFMgSc40CLhHvcDhzmEIQi/0kpD
-	 Y1kLlwODbd3hGrCj7TIn2lEK7gi84OJj6KBdVc45Q34zhXS4eSXYu6PR5zJDF2sBVzw==
+	t=1792981113;
+	b=ydsUBwNlyl39VDRXD4Qza5t7Tg8rh1AruymAF1iYfA/ffR8LhI/ITC3sFThJbyyHRE57
+	 u2+NsMNQG1M1OevBSOIne0c1m27RRoDRwJTnSxUzCpjGCzCHlK/cUuMXbZDBfqj7yO8Aw
+	 UW0hylSpzB6QRMlNGv6IN5Xq7GUBb16AFfNzd15V9d72LxGXqZbwbFdEj2vJyUr9tLnbO
+	 s/+y0phHUapfW50yYvGd3y090bhSidz9pjio6ooTWwL1wiU9FafOVw8eU5dQtd1Sn6UNd
+	 RRCQjQMxsQkz+N2j7EJjC6jPMfvav/11YpnhjIS7JjBc8GOFa3y4ewr9EeJzCtmbwhw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792981063;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=sj5VDmHeARycPVKAa2+uY840rbMDIPKBRKKT53IOukY=;
-	b=cmVSptSow/RtsB7D8B5hF4A5C7hz0bSLtWRCI3Llpsw0kKKU4G4aWXBrmO4D9xEO4Xxo
-	 PvU8WMEdQ4mOmSJgKZjbgy+Wepf+LaoERoobeMTBT8HNBtr9txkwKhVnSeoiRM+c4lMSq
-	 c9YXMmeUVs4n0xSdLeplkUVX59cxpMp3VvAfSzVP2lmeZgpcWBV+HvX4aiyLPWhymZUwb
-	 Cu+rqClX/a6gprPSvLtVlmNzoqvRz5rYKaZ/fNLziqq+amg57o/JTEy+QwC2HsLAyUBnZ
-	 y1gEWVLYRw3lJ0HwOTD1AxaVv08zJHklykw3qgA4edfq2rQVPcxckRyB6W5/+JZF5xA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792981113;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
+	 X-HM-Spam-Status:DKIM-Signature;
+	bh=85O98ibYQIY4tqJnX7KyBnA6NvI/h3LWUxQTLuidEQg=;
+	b=Z6DmGE4lExfcmXaTcXfI6g+2OZorKq5Vr3BnYTixprHHUegd8cTVhMoBrUrLYwL06t2r
+	 f5KGrqAnJmeABWKIDQ6vMoWJ7pru4bPNtvGCjndpKPpmejx/ziH+fD5NCbB56V+ZG4bj5
+	 GszgRNFX0HBnvp0e6PY74kOCsVKtrVJYzWOBbQbL71dXXGwp/a7eRxLF5ZIw+VzKxgl0D
+	 oD36fVOq56Apgm15Y4tZgK9WKlIYL7txkJXhgKABonUeZcMF7a/JbJqfbTXAwvhsTnGYa
+	 SjWAuJ1+kf0FsF53Ab4F2LnZnbvqN9uiVXf+0LtXfcTmFF47JqkLm/58T4e8XDvrr1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mkXApCO7;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=rock-chips.com;
+	spf=pass smtp.mailfrom=rock-chips.com;
+	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=kVKDnGi7;
+	arc=none smtp.remote-ip=154.81.10.187
+Received: from mail-m10187.netease.com (mail-m10187.netease.com [154.81.10.187])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51D4A606A31A;
-	Mon, 26 Oct 2026 02:17:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4BDB606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:18:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4BDB606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mkXApCO7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A93711F01825;
-	Mon, 26 Oct 2026 02:17:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792981062;
-	bh=sj5VDmHeARycPVKAa2+uY840rbMDIPKBRKKT53IOukY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=mkXApCO7UnufkYIsKM9EOU5PzB4B7eU5b1cdoS1PiQxXHWHQ0Fxp7zP2Qr689ioVk
-	 RjlbNEhJHnACGURYWbjDjIK6aH1VPyY1s7iiy4AzwpJlQS4hTk3QbG/0LwzwneW3qX
-	 n/u35mPzMNAy/ReY193Ub0GVDG1kJBkeMgnJXfmAQdtfVmdyVts53P4EXnv5nni6G6
-	 1l6f9dEgO819DUR6hlYOV9dLP1viOUAh59oGzNJWYk+ngagxUASCz5jl51gZAPk0xi
-	 5RYesp8Xx9+aqOKdkhpVZn3tfViGZie6ns/J5IFUa/+lVT9XpuYctRguVhKWn4TX6e
-	 sGx+seDqa65lA==
-Date: Mon, 26 Oct 2026 02:17:32 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Jonathan Santos <Jonathan.Santos@analog.com>
-Cc: <linux-spi@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-iio@vger.kernel.org>,
- <linux@analog.com>, <broonie@kernel.org>, <robh@kernel.org>,
- <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
- <Michael.Hennerich@analog.com>, <nuno.sa@analog.com>,
- <dlechner@baylibre.com>, <andriy.shevchenko@intel.com>
-Subject: Re: [PATCH v4 6/9] spi: introduce SPI ancillary device with lanes
-Message-ID: <20261026021732.31e510da@jic23-hlaptop>
-In-Reply-To: <21fb26ff0337f493643167f8c9dfae92d1b3b9a7.1792435248.git.Jonathan.Santos@analog.com>
-References: <cover.1792435248.git.Jonathan.Santos@analog.com>
-	<21fb26ff0337f493643167f8c9dfae92d1b3b9a7.1792435248.git.Jonathan.Santos@analog.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=kVKDnGi7
+Received: from [127.0.0.1] (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 524c264ae;
+	Mon, 26 Oct 2026 10:18:21 +0800 (GMT+08:00)
+Message-ID: <9e3dc854-b2f5-459c-8267-55e88e87f5b5@rock-chips.com>
+Date: Mon, 26 Oct 2026 10:17:58 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,100 +48,142 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/bridge: dw-mipi-dsi: use the lane rate for lbcc when
+ lanes run faster
+To: Romain TISSERAND <romain.tisserand@gmail.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Heiko Stuebner <heiko@sntech.de>, Liu Ying <victor.liu@nxp.com>,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261025142639.3454322-1-romain.tisserand@gmail.com>
+Content-Language: en-US
+From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+In-Reply-To: <20261025142639.3454322-1-romain.tisserand@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-HM-Tid: 0aa176006a1b03a7kunm3cd7cb0e672527
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZTx9LVktJTRlOShlISUNJSFYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+	9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=kVKDnGi7Vz6BTvdW8UtqvNNMudpYj9sKVhglzVFIrz/tElI5jE2PuHYdAiS+Em2/OikLiA5pArO5uVmdWbDcI+mM3aj9/vteKEmHJRrZIbQxdLJ1BBaBT/QeTSyTI3NC3vRa5R3bNlfuqSS6/sEpaAqq18JMAIiUnDrFscxw/Vg=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
+	bh=85O98ibYQIY4tqJnX7KyBnA6NvI/h3LWUxQTLuidEQg=;
+	h=date:mime-version:subject:message-id:from;
 
-On Tue, 20 Oct 2026 22:58:01 -0300
-Jonathan Santos <Jonathan.Santos@analog.com> wrote:
+Hi Romain,
 
-> The existing spi_new_ancillary_device() creates an ancillary SPI device
-> but does not consider the parent's lane map. In multi-device setups where
-> each sub-device's chip-select is bound to a dedicated data lane, there is
-> no way to bind an ancillary device to an arbitrary lane index.
+On 10/25/2026 10:26 PM, Romain TISSERAND wrote:
+> Commit ac87d23694f4 ("drm/bridge: synopsys: dw-mipi-dsi: Use pixel clock
+> rate to calculate lbcc") counts HSA, HBP and HLINE from the pixel clock,
+> which is only right when the lanes run at the pixel bandwidth (pixel
+> clock * bpp / lanes). Commit 93e82bb4de01 ("drm/bridge: synopsys:
+> dw-mipi-dsi: Fix hcomponent lbcc for burst mode") went back to the lane
+> rate for burst mode, where the lanes are faster on purpose.
 > 
-> Introduce spi_new_ancillary_device_with_lane() and
-> devm_spi_new_ancillary_device_with_lane(), which accept rx_lane_idx and
-> tx_lane_idx parameters to select a specific lane from the parent's
-> rx_lane_map and tx_lane_map respectively. The resulting ancillary device
-> is registered with a single RX and TX lane, keeping it independent from
-> the other sub-devices sharing the same controller.
-
-The multiple-data-lanes.rst doc doesn't me make it clear if for the 
-lanes are all one wide, or if it is fine to have 2 lanes each
-of width 4.  Either way I'd expect more parameters to be needed.
-The AD7786 has diagrams of two devices, bus width 2 for each.
-
+> The Rockchip glue runs the lanes faster in every mode: it adds 25% to
+> the pixel bandwidth, or uses the rate the panel asks for. In non-burst
+> video mode the line programmed in lane byte clocks is then shorter than
+> the DPI line. On the GPD XD (RK3288, ILI9881C panel, 4 lanes at
+> 752 Mbps, 59.5 MHz pixel clock, htotal 747) HLINE was 561 lane byte
+> clocks (6.0 us) for a 12.55 us line: the DPI payload FIFO overflows
+> (dpi_pld_wr_err in DSI_INT_ST1) and the panel shows garbage as soon as
+> a client page-flips.
 > 
-> While at it, fix the spi_new_ancillary_device() documentation, which
-> claimed it returns 0 on success instead of a pointer.
+> Use the lane rate when it is clearly above the pixel bandwidth (more
+> than 1/8), and keep the pixel clock formula when both match, as on
+> i.MX93, Meson and STM in non-burst mode, where lane_mbps is the pixel
+> bandwidth rounded up to the next MHz. On the GPD XD this gives HLINE
+> 1181, HSA 21 and HBP 7, and the picture is stable.
 > 
-> Signed-off-by: Jonathan Santos <Jonathan.Santos@analog.com>
+> Fixes: ac87d23694f4 ("drm/bridge: synopsys: dw-mipi-dsi: Use pixel clock rate to calculate lbcc")
+> Signed-off-by: Romain TISSERAND <romain.tisserand@gmail.com>
 > ---
-> Changes in v4:
-> * Don't use extern for the new declarations of the ancillary functions from
->   spi.h.
+> Notes for reviewers (not for the changelog):
+> - The 1/8 threshold separates glues that report the pixel bandwidth
+>   rounded up to the next MHz (i.MX93, Meson; STM in non-burst mode) from
+>   Rockchip, which adds 25% in every mode. If a per-glue flag is
+>   preferred instead of a threshold, I can rework it that way.
+
+Adding different glue code for each implementation seems like a good
+idea.
+
+Maybe you should try to add a new callback in dw_mipi_dsi_plat_data ?
+
+> - Testing: built with W=1 for arm (multi_v7) and arm64 (defconfig),
+>   DRM_DW_MIPI_DSI=y and =m, no warnings. Tested live on the GPD XD
+>   (RK3288, ILI9881C, non-burst with sync pulses), 6.18.54 with this
+>   exact change applied: HLINE 1181, HSA 21, HBP 7 read back from the
+>   DSI host, no dpi_pld_wr_err in DSI_INT_ST1 while the UI page-flips,
+>   and a clean picture in the UI and in games (before the change: garbage
+>   as soon as a client page-flips).
+>   Not tested on i.MX93, Meson or STM hardware; for them the computation
+>   is unchanged unless the lane rate is more than 1/8 above the pixel
+>   bandwidth.
+> - Tool disclosure: this patch was prepared with Claude Opus 5.5
+>   (Anthropic) as a coding assistant, in an interactive session where I
+>   asked it to bring up the GPD XD display and then to prepare the fix
+>   for upstream. It located the cause from the DSI host registers, went
+>   through the history of the lbcc computation (ac87d23694f4,
+>   93e82bb4de01) and the lane rates of the other dw-mipi-dsi glues, and
+>   drafted the code change and the changelog. I reviewed and understand
+>   both, and tested the patch on the GPD XD as described above.
 > 
-> Changes in v3:
-> * Refactored code using helper function to reduce duplicated code.
+>  drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c | 23 +++++++++++++------
+>  1 file changed, 16 insertions(+), 7 deletions(-)
 > 
-> Changes in v2:
-> * New patch.
-> ---
->  drivers/spi/spi.c       | 116 +++++++++++++++++++++++++++++++++++-----
->  include/linux/spi/spi.h |   8 +++
->  2 files changed, 110 insertions(+), 14 deletions(-)
-> 
-> diff --git a/drivers/spi/spi.c b/drivers/spi/spi.c
-> index 53d6ab4ce8a3..30103bffad33 100644
-> --- a/drivers/spi/spi.c
-> +++ b/drivers/spi/spi.c
-> @@ -2918,20 +2918,12 @@ static void of_register_spi_devices(struct spi_controller *ctlr)
->  static void of_register_spi_devices(struct spi_controller *ctlr) { }
->  #endif
->  
-> -/**
-> - * spi_new_ancillary_device() - Register ancillary SPI device
-> - * @spi:         Pointer to the main SPI device registering the ancillary device
-> - * @chip_select: Chip Select of the ancillary device
-> - *
-> - * Register an ancillary SPI device; for example some chips have a chip-select
-> - * for normal device usage and another one for setup/firmware upload.
-> - *
-> - * This may only be called from main SPI device's probe routine.
-> - *
-> - * Return: 0 on success; negative errno on failure
-> - */
-> -struct spi_device *spi_new_ancillary_device(struct spi_device *spi,
-> -					     u8 chip_select)
-> +#define SPI_UNDEFINED_LANE	-1
-> +
-> +static struct spi_device *__spi_new_ancillary_device(struct spi_device *spi,
-> +						     u8 chip_select,
-> +						     int rx_lane_idx,
-> +						     int tx_lane_idx)
+> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c b/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
+> index 22d1b8cbe1..b026b602ab 100644
+> --- a/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
+> @@ -781,19 +781,28 @@ static u32 dw_mipi_dsi_get_hcomponent_lbcc(struct dw_mipi_dsi *dsi,
+>  					   u32 hcomponent)
 >  {
->  	struct spi_controller *ctlr = spi->controller;
->  	struct spi_device *ancillary;
-> @@ -2958,6 +2950,21 @@ struct spi_device *spi_new_ancillary_device(struct spi_device *spi,
->  	 */
->  	ancillary->cs_index_mask = BIT(0);
+>  	u32 frac, lbcc, minimum_lbcc;
+> +	u64 pixel_kbps;
+>  	int bpp;
 >  
-> +	if (rx_lane_idx >= spi->num_rx_lanes || tx_lane_idx >= spi->num_tx_lanes) {
-> +		rc = -EINVAL;
-> +		goto err_out;
+> -	if (dsi->mode_flags & MIPI_DSI_MODE_VIDEO_BURST) {
+> +	bpp = mipi_dsi_pixel_format_to_bpp(dsi->format);
+> +	if (bpp < 0) {
+> +		dev_err(dsi->dev, "failed to get bpp\n");
+> +		return 0;
 > +	}
 > +
-> +	if (rx_lane_idx != SPI_UNDEFINED_LANE) {
-> +		ancillary->rx_lane_map[0] = spi->rx_lane_map[rx_lane_idx];
-> +		ancillary->num_rx_lanes = 1;
-> +	}
-> +
-> +	if (tx_lane_idx != SPI_UNDEFINED_LANE) {
-> +		ancillary->tx_lane_map[0] = spi->tx_lane_map[tx_lane_idx];
-> +		ancillary->num_tx_lanes = 1;
-> +	}
-> +
->  	WARN_ON(!mutex_is_locked(&ctlr->add_lock));
+> +	/*
+> +	 * Use the lane rate when it is above the pixel bandwidth (burst, or
+> +	 * glues adding margin in all modes); the 1/8 slack ignores lane_mbps
+> +	 * being rounded up to the next MHz. Otherwise the pixel clock is more
+> +	 * precise.
+> +	 */
+> +	pixel_kbps = div_u64((u64)mode->clock * bpp, dsi->lanes);
+> +	if (dsi->mode_flags & MIPI_DSI_MODE_VIDEO_BURST ||
+> +	    (u64)dsi->lane_mbps * MSEC_PER_SEC > pixel_kbps + pixel_kbps / 8) {
+>  		/* lbcc based on lane_mbps */
+>  		lbcc = hcomponent * dsi->lane_mbps * MSEC_PER_SEC / 8;
+>  	} else {
+>  		/* lbcc based on pixel clock rate */
+> -		bpp = mipi_dsi_pixel_format_to_bpp(dsi->format);
+> -		if (bpp < 0) {
+> -			dev_err(dsi->dev, "failed to get bpp\n");
+> -			return 0;
+> -		}
+> -
+>  		lbcc = div_u64((u64)hcomponent * mode->clock * bpp, dsi->lanes * 8);
+>  	}
 >  
->  	/* Register the new device, passing the parent to skip CS conflict check */
+> 
+> base-commit: cf61bef3801c3c9d0d8c39026b7b2fb242898a3a
 
+-- 
+Best, 
+Chaoyi
