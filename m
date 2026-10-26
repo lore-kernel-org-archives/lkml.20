@@ -1,59 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.217
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793001197;
-	b=QY9dHRT8gt34oZ9VocAHua6Wzf/3beAmU1vq4ZHlBTmMul1Q0nAHGszG1g7DjG7zRPmc
-	 PbLoe8QEBi/ucb9PSfAozuY9tKegUSszun3EC29Zjq9jkI8syp0rVNOXme41dLSceUH8d
-	 H7+znSQ2wd8ZWaLbIKbGMDOFDafIIab8FFXGVqKYzEaPoQZknjmaqNWUYakW0oic0Ygfo
-	 ybxKd/K0sJQRT93r8AX1A5hx4Kk/wAJU/XsQyf6q3jibcOlHzOrXJL8WC4U0h2Vsc2Lrm
-	 v6fIqY1Ll+x4/6s2ZT2Vff4e62O6gcsVZSROYdf/AxNfioEEDXXXAi8m4V5SWolyJbQ==
+	t=1793001205;
+	b=JfCFuBonIjN4vr7S4dGZsbcieMShMP3c+Lilz4NKyF9oLfRjQsFGmA/rf+UnVcbi3zj+
+	 KgwjtC/v68jYsiSNRfLK/svx0b61t3xLbn6tl2UkQyghw8HG5Z92U7ExhmRd/0QaBhVnP
+	 2HiRBoB1wDueWQ5KQ5XITIu/AjfDioN8gP1AtWuhuKuXp65dAb/aBbRKaPyWgdM23xFpY
+	 NVASh6pwhC22/JPxJcVPze9twHvfVk6DMJqvHLQXlGx7t7ChAImSi/Y68TWyhQB5NJfFB
+	 w9tvfBYBpY/SA2Jdclct4bga6kzKpRe+6iiXUGYY7supQPmUjemPTMcf+VqhXo+7kGw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793001197;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=0qw5HqjCC5zdFEPhrGxqWLo+k92+fiCBMMJ19xH2DEQ=;
-	b=RMSCsKyZBPFgDHg16oznlLpqNDhDyzou1TMxOIJrzYx1FpvEcz+cUZugynUU2O5mETHY
-	 d7ucV+QZOXT8BWOI0sH6RmWJ7JTSEIR/TfIPl9+ez+F7XM8gmikawgwFAVBRRzxCvQ1fX
-	 mCxoX34RRP8BMaeuCc7Gh+aKYz9Yzc7nbSxjwQrocE2HElvGxuM23NnGkHO4AfFjHszV1
-	 duIZzl3xC2MwCVEIItD8+9vLgxp6L+UsLLrmaQL9j6mYZJYWrEReUOtwnlRyu3gznCrew
-	 XDKf/mbbA/GuMzRsnIF9ReWraV+Z3nBy6OwkpqJVdvkHXPsY6fyOkti3RpZyLrTfZqw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793001205;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=pSoiTisTdLyDABRny0EfLWIR/8NTweVskkbiFhCdYRI=;
+	b=4NyGef8enPmQVtIvc79cDraLCVvMu8QBPPUq9dlNvG4X8vMGzKBtDJvbRwzALAArZmNO
+	 iCVwaRXUPXXPwzUfgeUx8pek6qJ1UQ45lz/uP/oInFT6tGn/by0AmZzR9gCdwWwVPRlPV
+	 D4nLmRqFcnc0TiN8KWiG0S3dq/bKWAxwMUz8sxtjP0hI/oXnHf6OsfSfgSdVKPhKwWgPs
+	 o5Hp/cttl84E1uoolseS4FEFlnLlKUxmY/7Y1PsswIplXLHQiBV2ooEfrM4/9gNnEq+VV
+	 bgppWa9Sb7Kbj9jCGiUwfOOLbZhFWxws6osA6asF0PO3SUqrO2+5ScERt26Vtlv/b6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R0W5OmGj;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=may1eVbI;
+	arc=none smtp.remote-ip=113.46.200.217
+Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com [113.46.200.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8221460A2629;
-	Mon, 26 Oct 2026 07:53:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4848E60A3807
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 07:53:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4848E60A3807
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R0W5OmGj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11EAB1F01825;
-	Mon, 26 Oct 2026 07:53:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793001197;
-	bh=0qw5HqjCC5zdFEPhrGxqWLo+k92+fiCBMMJ19xH2DEQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=R0W5OmGj345e4icryfA6fmnT8OgSJcIR8OQam9Wmi8BjCF3R/kxzOMZDEEBp9woD2
-	 6Bti1BCAESy0yW0J10ko/4lcrjCk07Tpa5Hixfha3SmHATic55UY5l2yenHih385bJ
-	 HsNaHX/lZKesxTZfZ9PUa2ZliBh0B/sufpncUaoXdmUXLVja1ajQYgr2gefUfstMb5
-	 lSnSDm++Ronw+1HC3Ias/9pBNpTmf0+ttRoO9n/t85wQfRFlWHE8YVuVjzxhnFuDmw
-	 MeVOQ3mFIIJUZMpoF/r/CIOOFVK6TtDEkviQmq7NG6vuOJeY2vOXXGgwcNnD/FYDx/
-	 F1m2ljTC0lyGg==
-Date: Mon, 26 Oct 2026 13:23:09 +0530
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Anthony Ruhier <aruhier@mailbox.org>
-Cc: Bjorn Helgaas <helgaas@kernel.org>, 
-	Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Baochen Qiang <baochen.qiang@oss.qualcomm.com>, 
-	Vasanthakumar Thiagarajan <vasanthakumar.thiagarajan@oss.qualcomm.com>, Jeff Johnson <jeff.johnson@oss.qualcomm.com>
-Subject: Re: [PATCH] PCI: Disable LTR on Qualcomm WCN7850 [17cb:1107] to
- allow ASPM L1.2
-Message-ID: <at8GgTHUjOF8Tv1J@debian>
-References: <20261023-quick-wcn7850-v1-1-9a139b9b2c8e@mailbox.org>
- <20261023182004.GA2796729@bhelgaas>
- <atvQtV71SbtMK-jZ@tour-anthony.aruhier.fr>
- <at7x8K9Xxa92xW2j@debian>
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=may1eVbI
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=pSoiTisTdLyDABRny0EfLWIR/8NTweVskkbiFhCdYRI=;
+	b=may1eVbIKnuT6BzXZGd+NgHQQZeS2C22Sh0ddpHdZC/MsL8bbJ2wiRJl8W19/bVNF7htVTpdw
+	Utg5LTu8wkXOuRJVY/F8wORx45uYrl6cxuI7LrsKF/ulXl6Hoo2pu30AYBvB/ZxgBOi2iFXJg7e
+	ShCHlMcj0jEVzhi5AfNUT1Y=
+Received: from mail.maildlp.com (unknown [172.19.162.140])
+	by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4jCm823KDCzcbZ1;
+	Mon, 26 Oct 2026 15:53:06 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 7716E202E6;
+	Mon, 26 Oct 2026 15:53:16 +0800 (CST)
+Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 26 Oct
+ 2026 15:53:14 +0800
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+To: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
+	<chenhuacai@kernel.org>, <kernel@xen0n.name>, <maddy@linux.ibm.com>,
+	<mpe@ellerman.id.au>, <npiggin@gmail.com>, <chleroy@kernel.org>,
+	<ritesh.list@gmail.com>, <sshegde@linux.ibm.com>, <pjw@kernel.org>,
+	<palmer@dabbelt.com>, <aou@eecs.berkeley.edu>, <alex@ghiti.fr>,
+	<tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>,
+	<dave.hansen@linux.intel.com>, <hpa@zytor.com>, <akpm@linux-foundation.org>,
+	<baoquan.he@linux.dev>, <rppt@kernel.org>, <pasha.tatashin@soleen.com>,
+	<pratyush@kernel.org>, <thuth@redhat.com>, <ruanjinjie@huawei.com>,
+	<leitao@debian.org>, <yeoreum.yun@arm.com>, <robh@kernel.org>,
+	<sourabhjain@linux.ibm.com>, <kees@kernel.org>, <coiby.xu@gmail.com>,
+	<Yeking@Red54.com>, <tangyouling@kylinos.cn>, <maqianga@uniontech.com>,
+	<zhangtianyang@loongson.cn>, <guodongtai@kylinos.cn>, <blum@kernel.org>,
+	<adityag@linux.ibm.com>, <hui.wang@canonical.com>, <sohammetha01@gmail.com>,
+	<guoren@kernel.org>, <gaohan@iscas.ac.cn>, <kai.huang@intel.com>,
+	<kas@kernel.org>, <vishal.l.verma@intel.com>, <piliu@redhat.com>,
+	<jbouron@amazon.com>, <mclapinski@google.com>, <me@linux.beauty>,
+	<graf@amazon.com>, <bgwin@google.com>, <x86@kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<loongarch@lists.linux.dev>, <linuxppc-dev@lists.ozlabs.org>,
+	<linux-riscv@lists.infradead.org>, <kexec@lists.infradead.org>
+Subject: [PATCH v7 11/15] kexec: Free the elf core header in kimage_file_post_load_cleanup()
+Date: Mon, 26 Oct 2026 15:51:57 +0800
+Message-ID: <20261026075201.699550-12-ruanjinjie@huawei.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261026075201.699550-1-ruanjinjie@huawei.com>
+References: <20261026075201.699550-1-ruanjinjie@huawei.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,65 +88,143 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <at7x8K9Xxa92xW2j@debian>
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-On Mon, Oct 26, 2026 at 12:55:25PM +0530, Manivannan Sadhasivam wrote:
-> On Fri, Oct 23, 2026 at 11:49:22PM +0200, Anthony Ruhier wrote:
-> > On Fri, Oct 23, 2026 at 01:20:04PM -0500, Bjorn Helgaas wrote:
-> > > By "firmware reports LTR value", do you mean that the WCN7850 sends an
-> > > LTR Message with snooped/non-snooped values just below
-> > > LTR_L1.2_THRESHOLD?
-> > >
-> > > And since the reported LTR values are never greater than or equal to
-> > > LTR_L1.2_THRESHOLD, the link never enters L1.2?
-> > 
-> 
-> This is correct.
-> 
-> > Not exactly. The firmware doesn't report a max snoop/no snoop that I could see
-> > in lspci (it's set at 0ns), but if I set one with setpci, the card still
-> > doesn't reach L1.2.
-> 
-> Max Snoop/No-Snoop latencies are supposed to be set by the host software, not
-> the Endpoint firmware. The Endpoint firmware only uses these values to send
-> their Snoop/No-Snoop latencies in the LTR message.
-> 
-> But there are two issues here in Qcom platforms:
-> 
-> 1. Neither the BIOS, nor the PCI core/pcie-qcom driver set the Max
-> Snoop/No-Snoop latencies for the Endpoints/Upstream Ports based on the platform
-> requirement.
-> 
-> 2. The L1_2_Threshold calculated by the PCI core doesn't match the Qcom platforms:
-> 
-> l1_2_threshold = 2 + 4 + t_common_mode + t_power_on;
-> 
-> On the Qcom platforms, T_POWER_ON is 0 by default. I initially misunderstood
-> that the T_POWER_ON value of '0' was wrong. But after checking more, I
-> understood that '0' was indeed the correct value, but there is one more
-> parameter that we are not taking into account, which is TL10_REFCLK_ON time. It
-> is ~40-80us depending on the platform.
-> 
-> Unfortunately, PCIe base spec didn't define any registers to pass the
-> TL10_REFCLK_ON time to the OS. I'm planning to introduce a DT property, set
-> it in Root Port node and take it account in the l1_2_threshold calculation.
-> 
-> Because of the issue (1), the Endpoint firmware reports 0 Snoop/No-Snoop
-> latencies as the LTR latencies cannot exceed Max Snoop/No-Snoop latencies set
-> by the host software. This is the behavior across all Endpoints connected to
-> the Qcom host machines.
-> 
-> So if the LTR requirement bit is set, and the Endpoint sends 0 latencies in LTR
-> message, then L1.2 is not entered all the time because, LTR > L1_2_Threshold.
-> The spec mandates that the link should enter L1.2 only if LTR <= L1_2_Threshold.
+The elf core header buffer is generic state, but arm64, LoongArch,
+RISC-V, x86 and powerpc each free it in their post-load cleanup.  Move
+it into the generic cleanup, which also gives the loader a helper to
+release it on error.
 
-Typo here. I got the condition inverted. Currently, LTR < L1_2_Threshold and
-spec mandates LTR >= L1_2_Threshold for entering L1.2.
+Cc: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Will Deacon <will@kernel.org>
+Cc: Huacai Chen <chenhuacai@kernel.org>
+Cc: Palmer Dabbelt <palmer@rivosinc.com>
+Cc: Alexandre Ghiti <alexghiti@rivosinc.com>
+Cc: Thomas Gleixner <tglx@linutronix.de>
+Cc: Ingo Molnar <mingo@redhat.com>
+Cc: Borislav Petkov <bp@alien8.de>
+Cc: Dave Hansen <dave.hansen@linux.intel.com>
+Cc: Michael Ellerman <mpe@ellerman.id.au>
+Cc: Nicholas Piggin <npiggin@gmail.com>
+Cc: Christophe Leroy <christophe.leroy@csgroup.eu>
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Cc: Baoquan He <baoquan.he@linux.dev>
+Cc: Mike Rapoport <rppt@kernel.org>
+Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+---
+ arch/arm64/kernel/machine_kexec_file.c     | 4 ----
+ arch/loongarch/kernel/machine_kexec_file.c | 4 ----
+ arch/powerpc/kexec/file_load_64.c          | 4 ----
+ arch/riscv/kernel/machine_kexec_file.c     | 4 ----
+ arch/x86/kernel/machine_kexec_64.c         | 4 ----
+ kernel/kexec_file.c                        | 9 +++++++++
+ 6 files changed, 9 insertions(+), 20 deletions(-)
 
-- Mani
-
+diff --git a/arch/arm64/kernel/machine_kexec_file.c b/arch/arm64/kernel/machine_kexec_file.c
+index d3d191a5ac89..e7f280915e8d 100644
+--- a/arch/arm64/kernel/machine_kexec_file.c
++++ b/arch/arm64/kernel/machine_kexec_file.c
+@@ -32,10 +32,6 @@ int arch_kimage_file_post_load_cleanup(struct kimage *image)
+ 	kvfree(image->arch.dtb);
+ 	image->arch.dtb = NULL;
+ 
+-	vfree(image->elf_headers);
+-	image->elf_headers = NULL;
+-	image->elf_headers_sz = 0;
+-
+ 	return kexec_image_post_load_cleanup_default(image);
+ }
+ 
+diff --git a/arch/loongarch/kernel/machine_kexec_file.c b/arch/loongarch/kernel/machine_kexec_file.c
+index 6ea60e0faa2c..c0a799f0d240 100644
+--- a/arch/loongarch/kernel/machine_kexec_file.c
++++ b/arch/loongarch/kernel/machine_kexec_file.c
+@@ -28,10 +28,6 @@ const struct kexec_file_ops * const kexec_file_loaders[] = {
+ 
+ int arch_kimage_file_post_load_cleanup(struct kimage *image)
+ {
+-	vfree(image->elf_headers);
+-	image->elf_headers = NULL;
+-	image->elf_headers_sz = 0;
+-
+ 	return kexec_image_post_load_cleanup_default(image);
+ }
+ 
+diff --git a/arch/powerpc/kexec/file_load_64.c b/arch/powerpc/kexec/file_load_64.c
+index bd80c5fb1b1f..0cf03cee35a7 100644
+--- a/arch/powerpc/kexec/file_load_64.c
++++ b/arch/powerpc/kexec/file_load_64.c
+@@ -841,10 +841,6 @@ int arch_kimage_file_post_load_cleanup(struct kimage *image)
+ 	vfree(image->arch.backup_buf);
+ 	image->arch.backup_buf = NULL;
+ 
+-	vfree(image->elf_headers);
+-	image->elf_headers = NULL;
+-	image->elf_headers_sz = 0;
+-
+ 	kvfree(image->arch.fdt);
+ 	image->arch.fdt = NULL;
+ 
+diff --git a/arch/riscv/kernel/machine_kexec_file.c b/arch/riscv/kernel/machine_kexec_file.c
+index ca921b063920..d191351c6055 100644
+--- a/arch/riscv/kernel/machine_kexec_file.c
++++ b/arch/riscv/kernel/machine_kexec_file.c
+@@ -29,10 +29,6 @@ int arch_kimage_file_post_load_cleanup(struct kimage *image)
+ 	kvfree(image->arch.fdt);
+ 	image->arch.fdt = NULL;
+ 
+-	vfree(image->elf_headers);
+-	image->elf_headers = NULL;
+-	image->elf_headers_sz = 0;
+-
+ 	return kexec_image_post_load_cleanup_default(image);
+ }
+ 
+diff --git a/arch/x86/kernel/machine_kexec_64.c b/arch/x86/kernel/machine_kexec_64.c
+index c3f4a389992d..0a66cc268ee7 100644
+--- a/arch/x86/kernel/machine_kexec_64.c
++++ b/arch/x86/kernel/machine_kexec_64.c
+@@ -600,10 +600,6 @@ int arch_kexec_apply_relocations_add(struct purgatory_info *pi,
+ 
+ int arch_kimage_file_post_load_cleanup(struct kimage *image)
+ {
+-	vfree(image->elf_headers);
+-	image->elf_headers = NULL;
+-	image->elf_headers_sz = 0;
+-
+ 	return kexec_image_post_load_cleanup_default(image);
+ }
+ #endif /* CONFIG_KEXEC_FILE */
+diff --git a/kernel/kexec_file.c b/kernel/kexec_file.c
+index 59fb9d71e9d8..62d4cba278a5 100644
+--- a/kernel/kexec_file.c
++++ b/kernel/kexec_file.c
+@@ -100,6 +100,13 @@ int kexec_image_post_load_cleanup_default(struct kimage *image)
+ 	return image->fops->cleanup(image->image_loader_data);
+ }
+ 
++static void kexec_free_elf_headers(struct kimage *image)
++{
++	vfree(image->elf_headers);
++	image->elf_headers = NULL;
++	image->elf_headers_sz = 0;
++}
++
+ /*
+  * Free up memory used by kernel, initrd, and command line. This is temporary
+  * memory allocation which is not needed any more after these buffers have
+@@ -118,6 +125,8 @@ void kimage_file_post_load_cleanup(struct kimage *image)
+ 	kfree(image->cmdline_buf);
+ 	image->cmdline_buf = NULL;
+ 
++	kexec_free_elf_headers(image);
++
+ 	vfree(pi->purgatory_buf);
+ 	pi->purgatory_buf = NULL;
+ 
 -- 
-மணிவண்ணன் சதாசிவம்
+2.34.1
+
