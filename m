@@ -1,90 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793031055;
-	b=MuYsKL5PVvGzrHJDNhaZQ6DAYicCzBmWiIO0THpPgokQkP6I0MUMBCjM0c4G2GCKj5mp
-	 5tNmnacUqqdf2Ptbi1GPAD5g5/Z2oW1rykAMIedMWUQeD8j7BynFFXjBi7yXG+Arxl8TV
-	 wreLbvt82KeSOkz3NxlJX/NAbbkSk+ePN89hSKno/xMurDK4iG16Ov5Nkh9RkwWS0As32
-	 1Q3G2rQRvCNJlMAFRsSvam6as+jHVBZsZBU1PCVrj5zEgAX9eQjaiuUaPSbn1/h9RrKfM
-	 92V3KfXI6C5sVQdWbI3T6HiL+WdhukmBSOx1VS7TC+3XUeYTEnd/19LTIKf9xk3CirQ==
+	t=1793031100;
+	b=WSSEXxKJ2pskohgbxsZ61tYqEgCe6BAZ2bXMz9yRPjyuve+XrayU6x4UKiWu4TYr4CbZ
+	 IWzFE77ebKzJ7u/bZIht00lVxnUUpsiXTKBKsVQxmTAPrJc/wwMS4RXCjPNoVyznfu86c
+	 9Zd0i2qKQ1u6NyDpY+WEDUydolI+QxhRM9BpEppqTgmo4MZf6G4CP+R2gH8x7N7TheP4C
+	 LilT3x2ZGdCOhxaDdzv2QIhjHqzKswfDeAg7kE8VtbTTCLsQP1wndRdcoIVmM+rTqjU1l
+	 OddtEa0xqOkIFkCbF2fuvm1t51Y+0GAM6EAblbGr1kBEHFnUQkarum7h9dFdCdP/4vw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793031055;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793031100;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=LRYiObfFeB4WPOp5iFNMLIAZZFa6drRLpmas4AXgTgk=;
-	b=lwWBGgygdr/swDzkUjutbxQ96QCfUwdfrOvXKm7kcDs5ZvOnTv2KfSo77vBl8zJeZFYF
-	 j7WI10tbPOQMzmD3VO2sUehXJGD/rw15D3IVJfsNsYc9JEJMxiM8pp1DwgkWPwWpmiys+
-	 74GN3i8gA7nh6qc3+boTNxGeAX4yTtYI9W7/YxejxuqkbmkzKJRMot0CaQRAw58MxCpwn
-	 frINGXW6Cbzd8l9dPn6mRYrxEEXE9wlTFtcwx3SWWy4bhoqKSo+2/hIPQn2z0jlf4zjY4
-	 cUKsWYCop6l/YjEK/+mY+diLgpPVn/sBwTa4q1ecxA1I6xDoE6UvcsUuCOaAHXFl2mw==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=LG6AcmX2/N2qOVHT7pnuXKdlfVeXe/kESoYcfDBWLAA=;
+	b=0s6p90gad8rbM/gyQ9GT5ScbpYQxYs0lZpwo1iTozcn7DslRSSQ44LjrUuZCwDgSJHK1
+	 E+sKz/PbsyJXRTVebsjz0+egDlbJd4P+FnpMpglz8NJ/X1XvfJe3kkEmOnYPNuuCAlwkO
+	 B8Q/47sxthyDNOtB98OGIosD4EEbvs6tDjXGwxKOiP57Jv9fnoV4prejLyD9cEWxeJiFF
+	 xVpIN4AzvSIExx5PyRGf+XDom9K9jNKp0j8Az01JCZLwDOfZpo6Jw/dJAiUhtE9YTM+uW
+	 TGBkH7ueIT2Jc4KQrLO1AvM58dHvAZnIegv5rQd5RPGDPtRcyw2nfnabTOb/vUE/Jzg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=ZBS4DOKw;
-	arc=none smtp.remote-ip=209.85.167.46
-Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com [209.85.167.46])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Ec6wPc2w;
+	arc=none smtp.remote-ip=74.125.82.176
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6033C606A322
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 16:10:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6033C606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A02F606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 16:11:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A02F606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=ZBS4DOKw
-Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5ba3ac592faso1436407e87.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:10:55 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Ec6wPc2w
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-36661f953e4so5966517eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:11:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793031054; x=1793635854; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=LRYiObfFeB4WPOp5iFNMLIAZZFa6drRLpmas4AXgTgk=;
-        b=ZBS4DOKwaFSBTwSnrT82bQprXWVLVOyeHn7Rd47+Nu8KvW7cigkMoZczMeyOwgumjt
-         hJEe7X1zBFzRe3OGiUgWDMJWb89cIgdJT0fuAUbNCv5+YqC1Pxqyv3wlZtvFADsTKVUq
-         /CYzQDk5M8EkrYIn5gF+cXHtk2jRWLgQKjjlA=
+        d=gmail.com; s=20251104; t=1793031098; x=1793635898; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LG6AcmX2/N2qOVHT7pnuXKdlfVeXe/kESoYcfDBWLAA=;
+        b=Ec6wPc2wFT20FC3KB0+qnGI4dQd2oVEciA9syRT5/vc2mbrZC4k0vO5q0Ghw48UTd/
+         LmC8Qkj/nCm4WdRZxVwvG1eNOniWv3ZJQIBjhW2zKA9eHo2zCpWdXXrieel8NFNNF9S+
+         FDjTVgHvrSVWbwgyQBNqoBtrPF0OgEcS4U0KhfaMKXAYP3g0MQQcmeMFbgge6jE9UIop
+         xgbQPODkOiVPxpHjLv+ui+eMpDs02wAB4Eeo+Gh/21WY87OAVbqUex0yM2hOLmvu2iOq
+         Yeq1FMQYUBHWCHk/rSHb7nnkFGVnhqonHHejbXfyWdmJxS50wUY7hdcA4dakuHN1OW6L
+         5pNQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793031054; x=1793635854;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LRYiObfFeB4WPOp5iFNMLIAZZFa6drRLpmas4AXgTgk=;
-        b=KBPjsnFWbGWp0vzWkdYE3MgkGHhEXIBksYfvDld808LpB7toRc2M1/dHZpk3nfx0bS
-         yvb8apnsAQplSPpE4FDf6JTF2c8Kae0uuVNWENkHzg6FjTpwJE3NwYGIejQ4r6quJBqR
-         jott9wvnTNMWYsV0Vk8AlYISiPrjEa5SOnq+WIASdOJ7K5a412UUOluoL5vP9zBmzoWb
-         HbabRQsKlI8X6Uqeq2YtoAO3g5GXPKsHj71oXjKDE4sdOOvHkvZwnV7Eh+hO3GOQfEaM
-         EsSlfzOTtEITM0Fi2PgZwf3umrcXhvIwQRAjiAdFSvwJ5lBhyYbD049iDCKu7C76SvAT
-         UGRw==
-X-Forwarded-Encrypted: i=1; AKwUvBxKr6/eMvSsM4fNLg35g2NFgiVVTwUoxFXagRpzOqaDqBKFEfzzK71hMIpdIgx9dceTXwZ/kAHAAwON3ng=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIxVWaMoSTcQ/ZCmdkFrg00c2xjPSZXaHL+VvAWpfMrNan7nH0E
-	EEaAc8JGZ5smPcwc2hHyDRKT/Bs6WUvukxswuLHghL2wVWF18ZgQFlRWV6MpP4ePRayIKVMCVjR
-	r4aKQig==
-X-Gm-Gg: AYBFou1Ab3tfC8F28kYXkjwivo3Pc3xZm3JT5WqTMEdnxaMQ4x83BVawpn+0BeVzcqW
-	nEBawLQwMC84683nLoKu7KvRW7+sM6+vZaCTdobtM2D+5SgpWpQ/HpRhVeto+agTDVAB9ZNFJx+
-	KipsqEyHO9i4wW5eOtdWM4ZcqTc1Oc+Ll+Gjgp+CbiW7aHAjnVC6hA9/Jna+rDDiNojM81540ZX
-	v3CPAiXWMOdaeObnyiHSk4+9/PlhfFsPWWa7A9ZipP8I5VftaO8kkL4IB9T1hjjIaSXG8aj44rH
-	jjvdB6RO6E/VCEg01BuMcuiFVClfOz+FyNXcUSWvkIFBa7fFKLZLDNUonBkibmUVXGv77ikZaqc
-	8gwi45CPBtDqm6L7A/rVvhfYHxDYJb5wBQj21EWYjgwvq3tx4Se61db3PmVQXG8nKJfxreoB7rs
-	D9aA/xUuxxE9YlIhPTXbfS7LivWi/ABrPPYk6b51XvpuD5R8BN88Rmk6J8I/3xz/R1+2+ZeqxWZ
-	Z8AHTfx74X20zVATxd5zVXomnAHParJjfKR2StiUeQ4r8J/driiAQIszm+guPEv/68Y0Ap1EN1c
-	XrnV3yavT3ukgXrgXQ+2v1s=
-X-Received: by 2002:a05:6512:400f:b0:5bf:bed1:6ae2 with SMTP id 2adb3069b0e04-5bfbed16c19mr1026441e87.65.1793031053669;
-        Mon, 26 Oct 2026 09:10:53 -0700 (PDT)
-Received: from mail-lj1-f178.google.com (mail-lj1-f178.google.com. [209.85.208.178])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfc0a8f680sm521295e87.3.2026.10.26.09.10.48
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 26 Oct 2026 09:10:49 -0700 (PDT)
-Received: by mail-lj1-f178.google.com with SMTP id 38308e7fff4ca-3a75f960be3so27801321fa.2
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:10:48 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxhfaZG3sMHv5IdkWgTbde/XmtJFM8EGlA2y/y14Nr5EBk5YUTX7E9YcLok810C3GnvFlIzT3J3nzPWkVQ=@vger.kernel.org
-X-Received: by 2002:a05:651c:a32c:b0:3ab:690f:82ab with SMTP id
- 38308e7fff4ca-3ac6fd6d952mr16112171fa.28.1793031047006; Mon, 26 Oct 2026
- 09:10:47 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1793031098; x=1793635898;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LG6AcmX2/N2qOVHT7pnuXKdlfVeXe/kESoYcfDBWLAA=;
+        b=a9LqEadiNBoWTmACHsraGykAQf1jc/HCE8QN4QXjVNKLG02MWvS4iFfqTJqRgICx+R
+         2DdaOgeKdKfFsmj3pV25Xc3zblde8ESQS2twLIck8RgZjq8uXNfMo0x2PWEw4yC3/Aw8
+         9V/ARzPQ3vrqyCXfqIWHNPw6Lc80HpL3LRVUSzDdn/5lzH9QVuEnQJUTI9AhtrgnQalX
+         4xLbj6cU4K0Xa7ECXAJVnOGZRpBGS6yzMHOBbXizpTge1HjHRA2cVTJDRpS2vBSq/ROb
+         Snob4U4ah/PGN528bgxrtlFVNhHH79yfrsNnUZqsANJphr7F9+pel7JSkaaTK9rpNERr
+         LQJA==
+X-Forwarded-Encrypted: i=1; AKwUvBw9Y6eKwWqv2KSJHDSJ+urA5dEpaW/Rm6drJZ7wpX8NTGMXXE+ijH5tcQru8YNZubJ0e/70C4YFshbiBiQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIhTTCTdyEho3ZssOml2wzzH0ocYJtuSzpMHbtiFOZ7xBk8Qign
+	5DyjjV9BN1p9ecECv5fBxYQxT23yhFR1Mi3F5HCsgY4zBCnER0CV6T/E
+X-Gm-Gg: AYBFou3l9U54R2RIYPf5enEXfPU1O1GlG9HZ/JAzzbr3k33bIEgF+ApvEQbtoSQjJ9B
+	M3E4To8sr1ZB1cj+UXUKG9lhNCqP2dJ5i1vkLyYSxgpJZRBnBhJJlWG8viJ/wsxC/6hXiezw6lB
+	RsC8C0F7xoAAsi+14XUsKzd54WTw0s+6yiPFa+heQHSbfIolu4HtdJS7TOiPRu3KYGr2eXLTZd+
+	1o+lPVLF1BP09aB+4Ivq/0lZBy/MrtWJRJPhm6DRzoCDcXS8ZyKhZ2lkbH+2dQwm5WgYSG+oWch
+	OQ4Ahbu1NHtqZ5PPEBQ+YsxQ6DZ7SWCcjC1qTcrRdgZxns09GZzACKoJqxAzk87Nc9y1coLLNtX
+	p6Y1eP+4f/dfCJTjk08QJKMYh/sVXWeA2dCq2vEzffp8HXX+G0BvnvJQxY4IweMbUZdjwWEEUEf
+	5i9oiGF9C76pe2pEUDcMGjU7UC88T3iGkNW1X1wLYOsWw6vGXoCX61mVWBjDyOTelUUQHwV5fml
+	SmYwC0OVVacvah/xKeb7iEmY9epQ8FWj2EK6sIyWSFr37C8QccroAeg8anBOSEu1isRNHqLbRnb
+	h/xTPqmrBHyEE9JKeJF4/lKtpTnc62Q9cYeyaiKjZA4P/OJ4fQ==
+X-Received: by 2002:a05:7301:fa6:b0:369:f64e:7feb with SMTP id 5a478bee46e88-369f64e83damr7407400eec.2.1793031098200;
+        Mon, 26 Oct 2026 09:11:38 -0700 (PDT)
+Received: from localhost ([103.204.210.88])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369ff5a4d68sm11702809eec.14.2026.10.26.09.11.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 09:11:37 -0700 (PDT)
+From: Abdullah Mohammd Sifat <sifat.yt.2.0c@gmail.com>
+To: hansg@kernel.org,
+	mchehab@kernel.org,
+	gregkh@linuxfoundation.org
+Cc: linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Abdullah Mohammd Sifat <sifat.yt.2.0c@gmail.com>
+Subject: [PATCH] drivers/staging/media/atomisp: Initialize curr_rules in atomisp_freq_scaling
+Date: Mon, 26 Oct 2026 16:10:58 +0000
+Message-ID: <20261026161058.25031-1-sifat.yt.2.0c@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,149 +98,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261024-sp11-bl-upstream-1-v1-1-d39bfaf9afbc@gmail.com>
-In-Reply-To: <20261024-sp11-bl-upstream-1-v1-1-d39bfaf9afbc@gmail.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Mon, 26 Oct 2026 09:10:34 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=X+003jZ_LLQK6HEtuKs9Y39z=4=2SaN_=Y0uSXgVXFOA@mail.gmail.com>
-X-Gm-Features: AclHuK8VJDZ71e8SV7IfzgVPRQ8znFYiO6UYRUmBFyp4fXJJtzRNheKbSl34Kx8
-Message-ID: <CAD=FV=X+003jZ_LLQK6HEtuKs9Y39z=4=2SaN_=Y0uSXgVXFOA@mail.gmail.com>
-Subject: Re: [PATCH] drm/panel-edp: disable the backlight before powering off panel
-To: jimmie.lin@gmail.com
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Linus Walleij <linusw@kernel.org>, Sam Ravnborg <sam@ravnborg.org>, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	Dale Whinham <daleyo@gmail.com>, linux-arm-msm@vger.kernel.org, 
-	aarch64-laptops@lists.linaro.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi,
+The local structure 'curr_rules' is declared on the stack but is
+not initialized. Initialize it to zero using empty brackets '{}'
+to prevent potential information leakage of stack garbage values.
 
-On Sat, Oct 24, 2026 at 5:24=E2=80=AFPM Haipeng Lin via B4 Relay
-<devnull+jimmie.lin.gmail.com@kernel.org> wrote:
->
-> From: Haipeng Lin <jimmie.lin@gmail.com>
->
-> If the display pipeline takes longer than the runtime-PM autosuspend
-> delay (1 s) to bind after the panel probes, panel-edp's runtime suspend
-> powers the panel off while the backlight is still on: pwm-backlight
-> inherits the enable state left by the firmware at probe and keeps the
-> enable GPIO high. The panel supply is thus cut without first disabling
-> the backlight, leaving BL_EN asserted across a panel power cycle.
->
-> On the Surface Pro 11 LCD (LGD0779), leaving BL_EN high across this
-> power cycle appears to leave the backlight controller in an incorrect
-> state: brightness is pinned near maximum with a greatly reduced
-> dimming range. Subsequent brightness changes update the PWM duty, but
-> do not restore it to normal. Cycling the backlight off and on at
-> unchanged brightness restores the full range.
->
-> The first drm_panel_enable() does not recover from this because
-> pwm-backlight still considers itself enabled and leaves BL_EN high.
->
-> Disable the attached backlight in panel_edp_suspend() before marking
-> AUX unpowered and cutting panel power. This ensures that the first
-> modeset enables the backlight after panel power and video are ready.
-> When DRM has already disabled the backlight, it remains off.
->
-> Verified on the Surface Pro 11 LCD by delaying display pipeline bind
-> past the autosuspend timeout. BL_EN now drops before panel power is
-> cut, and brightness control works at the first modeset.
->
-> Fixes: 5540cf8f3e8d ("drm/panel-edp: Implement generic "edp-panel"s probe=
-d by EDID")
-> Link: https://github.com/dwhinham/archiso-aarch64-sp11/issues/41
-> Assisted-by: claude-fable:5
-> Signed-off-by: Haipeng Lin <jimmie.lin@gmail.com>
-> ---
-> Can reproduce on an installed system on Surface Pro 11 LCD (X1P-64-100,
-> LGD0779 LCD) by booting with modprobe.blacklist=3Dphy_qcom_qmp_combo then
-> loading that module manually after ~20s. This delays DPU component bind
-> past the panel's runtime autosuspend timeout.
->
-> A/B tested against the same v7.2 tree:
->
-> - Unpatched: panel VDD off 3.5s..20.5s while BL_EN stays high.
-> after the first modeset brightness is pinned near max brightness with
-> a "collapsed" dimming range. sysfs brightness writes still reprogram
-> the PMIC LPG. One bl_power off/on cycle at unchanged brightness
-> restores the full range.
->
-> - Patched: BL_EN drops ~300us before the VDD cut and rises again after
-> panel power+link at the first modeset. full brightness range works.
->
-> Tracing and functional testing on the SP11 shows unchanged sequencing
-> for fast boots, DPMS off/on, and system suspend/resume.
->
-> Two cases would benefit from testing on other hardware:
-> 1. AUX-controlled backlights
-> The disable is placed before drm_dp_dpcd_set_powered(false) and
-> regulator_disable() so the panel remains accessible if disabling its
-> backlight requires AUX writes. But I have not tested this since my
-> LCD is GPIO/PWM based.
->
-> 2. Panels with shared/always-on supplies and no panel enable GPIO
-> These panels may continue displaying the firmware framebuffer during
-> the pre-first-modeset runtime suspend. This change will turn off their
-> attached backlight during that interval, potentially making the boot
-> display go dark earlier. This matches the driver's powered-off state,
-> but I have not tested that configuration.
->
-> Testing on other panel-edp systems particularly with pwm-backlight,
-> would be appreciated.
-> ---
->  drivers/gpu/drm/panel/panel-edp.c | 13 +++++++++++++
->  1 file changed, 13 insertions(+)
->
-> diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/pa=
-nel-edp.c
-> index 94bc54c3833a..87f9c13380be 100644
-> --- a/drivers/gpu/drm/panel/panel-edp.c
-> +++ b/drivers/gpu/drm/panel/panel-edp.c
-> @@ -21,6 +21,7 @@
->   * DEALINGS IN THE SOFTWARE.
->   */
->
-> +#include <linux/backlight.h>
->  #include <linux/debugfs.h>
->  #include <linux/delay.h>
->  #include <linux/gpio/consumer.h>
-> @@ -413,6 +414,18 @@ static int panel_edp_suspend(struct device *dev)
->  {
->         struct panel_edp *p =3D dev_get_drvdata(dev);
->
-> +       /*
-> +        * eDP panel power sequencing requires the backlight to be off
-> +        * whenever the panel is powered off. Before the first modeset th=
-e
-> +        * backlight driver may still hold the enable state inherited fro=
-m
-> +        * the firmware, and some panels' backlight controllers come up i=
-n a
-> +        * wrong dimming mode if their enable line stays high across a pa=
-nel
-> +        * power cycle. Sync the backlight off here so that the backlight
-> +        * enable from drm_panel_enable() performs a true power-on in the
-> +        * correct order.
-> +        */
-> +       backlight_disable(p->base.backlight);
+Signed-off-by: Abdullah Mohammd Sifat <sifat.yt.2.0c@gmail.com>
+---
+ drivers/staging/media/atomisp/pci/atomisp_cmd.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-The above doesn't look right to me. In general, the backlight should
-be owned by the core DRM panel code. Jamming this in here looks like a
-hack. We'll also be double-disabling the backlight in most cases since
-the core drm_panel code will be disabling it _and_ we'll be disabling
-it.
+diff --git a/drivers/staging/media/atomisp/pci/atomisp_cmd.c b/drivers/staging/media/atomisp/pci/atomisp_cmd.c
+index e66a7d1c7a0e..d4de2bd9a0a5 100644
+--- a/drivers/staging/media/atomisp/pci/atomisp_cmd.c
++++ b/drivers/staging/media/atomisp/pci/atomisp_cmd.c
+@@ -170,7 +170,6 @@ static int write_target_freq_to_hw(struct atomisp_device *isp,
+ 		dev_err(isp->dev, "DFS target freq is rejected by HW.\n");
+ 		return -EINVAL;
+ 	}
+-
+ 	return 0;
+ }
+ 
+@@ -180,7 +179,8 @@ int atomisp_freq_scaling(struct atomisp_device *isp,
+ {
+ 	const struct atomisp_dfs_config *dfs;
+ 	unsigned int new_freq;
+-	struct atomisp_freq_scaling_rule curr_rules;
++	struct atomisp_freq_scaling_rule curr_rules = {};
++
+ 	int i, ret;
+ 	unsigned short fps = 0;
+ 
+-- 
+2.53.0
 
-I guess the problem here is that the PWM backlight code tries to
-preserve the backlight to handle panel drivers that support a seamless
-handoff from the bootloader to the kernel. Since some panel drivers
-handle that and others (like panel-edp) don't, it's hard for the core
-to magically do the right thing.
-
-I think the right answer is to disable the backlight at probe time for
-panel-edp. This is a one-time thing and just to handle the bootloader
-handoff, so having the workaround run once at bootup is better.
-
--Doug
