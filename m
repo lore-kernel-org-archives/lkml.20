@@ -1,105 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793032211;
-	b=c77iKwLXxFKjh43IYwd95+sgX2xfMuLq3t3tkTlXa4MCIAJaqpnUbHR9LLlr3wzcOI8e
-	 qCqWt67eNdC5ZQIabohwlFUTlcNXpd0EXjcH8ro6y8SMDs/A5kw0n6ob/DAFZnVkwGgG0
-	 4KPognvkC9DZLgBm9DHQpwr5KvAaBSahWLThdZ/Y7wiEdwxB5swpZsRtwgGKqLp4v7YjV
-	 QPUGdruuBA5Z/sLDdkwLwPWye81dH1QuNcW2CcgZp06mduTeKEvJS9o51wVBFIUlbMREl
-	 xVad5FnS/fnZDB+2EXIXYIe+1YwpQXXE4OpU/eLQllDRf+EUL+pwayAyWRNZXRmAB/Q==
+	t=1793032235;
+	b=tkDgggXxwJfAJaCLx1UqwS6GRELEOSZdE98DCLf9finP70+n+O0zaIx81ubVuU2evZL9
+	 kPt1dshJ1pD8NzCXfZ3u5FMyjtjy+UhC9njeVBFxrNDNg0EfCu65nO8vnAce8GVJK1ep0
+	 G5x78zcx2MQ2y9eQPe2gyGT6FP2WKUvVOpAwcaVZddvMowk127WnfRw7WznH3CS3wQxpo
+	 PyaInuglvsbTasU6XzdEHc0Wgp9wfZ1ucGwTQdbSJr9jRtIACg8sitmdx4AL/M3OKGlC1
+	 JJEwefRbROC9skntwLWFAkljk7bgA5yY85jJ0ThEnaNNMODwrxx6pzQonVOJx6WHp4A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793032211;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793032235;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:X-Developer-Signature:X-Developer-Key:
-	 Content-Transfer-Encoding;
-	bh=tsrGFIGUSYgIS9WAku3WtyuWXYZnqWS0fWPP6Qel7w0=;
-	b=BvXfsZEmAxwMW2ZS64Sdb9BkexuBMY+PdJokfGnI1xiVYn4QxuIpeIOtP5gR8D1ubJg9
-	 6mWZyil7kg8A/m7kw/MVP5/WFb45Key21CkXuIJkzOg9n7vbzUmwCzqpbhecnA59TZw8X
-	 cSr4NCYEZC9l37gy7m+JakZkFnSlsLIfFG8Ak+qF08ZlGryrZ1ehc3L9blamDVzX7Vu/W
-	 gHTkiN95jedPUWdBhBGreNLBerUysFP7WLF4kRITmDFk8cTZY0q9wjRMXQM8soX7aHEgr
-	 m8abzRlYlK0bcGpprI5fozBvd+n1Ipv2ZtkqIuCBpf2oUZOmdX8C8WPIpnfv6PDXU4w==
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=WGd8hv6dQ0jpXHntVrEKsl2n+adOY8jZkAHXTXnqh7c=;
+	b=ZmzO8i2WyhLeEjJu6wAEqwyNbxBqERojWNLzP3RYNFsodKN6EIrjxlFxYIa6ApesCGBJ
+	 0KfshOo5SV5v5MF9Chsqaod5OZZeusYYqOlNcR4iKAyjUJ+xlILyADlJpNGpIY8vl55WB
+	 psaelkz4RhBsxwojg1RDUzbW5Plm0n6Yr5bBLDYLGrSKkukAupG1p6zqysKZ7DGTr4eDT
+	 hYxtjw9eKLLMqJtHygSCx9ta2auNgQfXRiIsQoy3oDjuxBaZVrceHmBY/SvDSkIhklVVj
+	 mWIMP3b2MmtqvgJ1Ekk/veTNjeTgjvHVhfQszQllQ0kxk3Lbi3LMSwNhjjUszb2vzqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=E6sJHw1t;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=OWgrT87Q;
+	arc=none smtp.remote-ip=74.125.82.169
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64EFA606B7CA
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 16:30:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64EFA606B7CA
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27A52606AA3A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 16:30:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27A52606AA3A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=E6sJHw1t
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a2069b9710so30777485e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:30:10 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=OWgrT87Q
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-36661f953e4so6000770eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:30:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1793032209; x=1793637009; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=tsrGFIGUSYgIS9WAku3WtyuWXYZnqWS0fWPP6Qel7w0=;
-        b=E6sJHw1tBAsvqO2OPAaOZ4zRxGEFNrhfyRV4UccY4DCqYTK/5vp/KF2Rpd6y1TRL32
-         bnC0N3vzhCResvG/ZLiSkstkZhscHtSirKCGrCS0ufltDjZ/zPoqjBJWcxkzYwvmFr+Z
-         pwjDRm8v8olP5UfOq95yGIp8t4TuUaNHn9RpbKwkJutYyDmRuBXOyC9Neq8rHil/959a
-         0vgZQky+REuacnRiAlhf1MZiaJpJTwhKR7Gqx5nT2gtBGtzLvfrU/csmKXgMlQ+cMwu4
-         g3Ur75ApltXx8OVZ18lA+PlQzFF2cgfHHtyaFGuYvysKoRL5Bk4/ImIY2A4ZbMHaAgA4
-         bdQw==
+        d=gmail.com; s=20251104; t=1793032234; x=1793637034; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WGd8hv6dQ0jpXHntVrEKsl2n+adOY8jZkAHXTXnqh7c=;
+        b=OWgrT87Qj/2zyW8smzZBl773SMPrPIzcvxCXye5uBT8QFVCCjI9Rok0yb22yySWm7Z
+         XxKPx1VpKgrJr1Z9ev71PvTb8vFPBIiAiIBfFBPkCyV5KkbZiZfxLW1hrjRMlIoXXzQv
+         Pi2jcEap2puXyNfA+70UuljWtojYba002F5ZqLUETRQBGKklcmM2NkLVq+uvOYvQxHH1
+         FK25Og2Kk078DLTMCVWxJcKUk6lVI7qlVD3UJcaeKOEYhOscCtsRqlWx2eRPix3JrhTR
+         m7vjPzGwMMuwHNDEd+a41fikRJO53eLxA5tTjkQJBnY2A1xWp+M5V7bzqk69179sGXSa
+         gXLg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793032209; x=1793637009;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tsrGFIGUSYgIS9WAku3WtyuWXYZnqWS0fWPP6Qel7w0=;
-        b=Sd9EFr5BiwRPtqbgGEm4ZLWCkzTnMeI4X2tllldPX7EB/+qtANxX3X0kWwbVEFt7kl
-         ZrfWqYOEBL9lgcZeb0b8GO8I5QhAK/IYEA5D3wl14bCk6tOkXddP5E/CljdWa1p5eOrU
-         /vlWlQNRbqmBjEWY14OYE3nkulN/D8uoXTpuZDqbBeiKo+qWewz8dsuNbxovTMWXhuFr
-         j6t+VO0XtDUJFInqSxlxT8ETbFy9G71Xk3fsmTcNOgK2rcCxSXYB+g5phQkZ0aiW7awu
-         uEtJwWfs5qgutvf3dCAZq4aS1nWWJZEK6gRLt7mMfxKcmOTeZyFaXQHR+7RzHMN4Ario
-         MqTw==
-X-Forwarded-Encrypted: i=1; AKwUvBwsVzHXYfAE/KSHKZRhjyq2hU7bfsC2gcsSsM9+D4YIoGPnVYCWCHYA731LDm/CNqkVmKn+4gkBaePfmpk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIaRFFapcuDikBi5dch7OoPRpS/S81kHdRsFYXEX9x2i+lpfSP6
-	DSiJhfvOyVbf9bgu1Xx/rj0FT+RMqQTYqskG292HcbgMY12pqMxQs7G8rC/j/xx4FzU=
-X-Gm-Gg: AYBFou0ATU66xjqkUQhE8cMoscnhFsZtZREHuRZutP0VtOF1rktIbnTy0x7UoN7ZGNN
-	kl6DxkEYTFWIzyQtzebZp58ONhW6OwtFuXKqyjI1hOd+obru/thQ0a3+giMW4S9eTBO8O7Iilly
-	FC+lI+UH/ZzuaBN9EUdwHWG7hrapnIsTJovapkhV7Ep5wbhTcQDyTBIr2MnRtfEotEgNXKQuERR
-	D5b9+5BIYizneD3NQg7/+5aCxcD0RvUkMJOObvPQ1mwlECjyRTs72SYW9uFYz3Gec4CWhFYnoEX
-	waIBC0xnGrTJ89ZRo5EtCHmfI3lH8DqPUbigpWVLTZuqyrb6/nMEgJhAK7yJftgiUnREmI6wl2f
-	66dvcGIgAZj5jhE8Y52/zeINpr7QMVyPGs9Ed+hEd5y3Lw63S1AsGOFqW6wK+n4ztQ8Zzb5flCw
-	0UcVlXvQ7u3D851mQT3uThHxBquO0UlFBtG8D2LoJK8TfTVW7NfJhdChuyCtda1pq7FJiWbGCHg
-	hIAUYNlAZVRwyDdi22RjmJetdOvcz9TYElg4SG/IaT9fFR5AJAIAQ8Mc9UkGsY1nn32rWyNrzcL
-	q6z5mPhn1R3iPdfHqWxk5lYTPfiXMt3hGFAA9DWf0CBHeY4dBZF5yHOcAzxvvtqp
-X-Received: by 2002:a05:600c:6384:b0:4a2:a3b:7aa8 with SMTP id 5b1f17b1804b1-4a35ac3acb7mr134780025e9.3.1793032208691;
-        Mon, 26 Oct 2026 09:30:08 -0700 (PDT)
-Received: from localhost (p200300f65f19a904cbccaa7a4d73ac15.dip0.t-ipconnect.de. [2003:f6:5f19:a904:cbcc:aa7a:4d73:ac15])
-        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-48e3ecdfb8esm17396493f8f.54.2026.10.26.09.30.07
+        d=1e100.net; s=20260707; t=1793032234; x=1793637034;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=WGd8hv6dQ0jpXHntVrEKsl2n+adOY8jZkAHXTXnqh7c=;
+        b=1OVKeR7bcnAQGsJqa3nHrLlF1FVKnWJ/4mEtMag6oCvdSHhWH8tDW/QNTDJTGg8IDX
+         02zFlmlmNSfzNcyyVab6fDMmVedvLCnubiyKh3awwdzn8FJT/A/BVs0r+whR/0RnJKHz
+         GpD7s6Gp7SU+h387rQhJXhY6pKpwBrLuFKVhka4tLszfuV4NximwNFQz/jXI7jgjtLBL
+         2zrwEPXtg/H5yzVJsmaqW3Zwa+kmHu/7ouCMh12ecLSst3O4TS1r5c8WVaRAxijdF9C0
+         5Z6OhbkzGMgi0ujIwiMJw/QjeEjdayljgjwnOiWW2X1uzCnSyQd9Nf0AE6hhY6UatvxW
+         inhg==
+X-Forwarded-Encrypted: i=1; AKwUvByLfZ5tMt6egDJFuzDLywXXIiyVrmeLJTt6VLuZJ0+0ZOiZQQUTldyY0Ffv7WwQp/+7ytCkHkvtiOyCDJs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI2ayXLH6rsJTyZdR5Kc8NXqcRdgO3mhPO/XS57V02u39BwYKhq
+	OOoZzW3HHbqTPRiPT2vYM67PXl1B2cWHQIjyJDueBIa9QDggrsIF2LK/
+X-Gm-Gg: AYBFou1UrHHxvvXlQgCSble6+2dbSLuKGigUABxGhNJjM9ayj5N1WXUNScufTT9k56q
+	vGgoN+Aji9B07iQ+yic0hfQILlTljR9zggpcC0mKkWPoZayhQFaYxv2p27GuX/ogn2zpParabl/
+	tDSyxWFXLtpV2oA19y55wFaVv5nwMdfPJgR/kNgefPSMQ2FbwpQuZ9G2a0QVKQXr9uBcxOG2wQ1
+	vPaONoJ/UqdKvv78lsgXhrVVdb+b6Z/8tjQ+QSjaQmc3efKMqH8kZysYdRdaDYh2fBq7gr3po9Y
+	QHsCs1bJ0m/WeKnEM9Yzg1vU7AsykrhS5rZEyuFw3zVxa340JwLLNMALD9w1Ph8Uj47DFLS/OPM
+	kJiJw+2yLvWTqVnMs6/PMYpvk6jO0pcNkmOorgic9UpPY/LGtKlAo695hLP1Jm4GKh4tBzUyreF
+	uc2WJbRJewqIDOBRUgF1vZAc6DanJnQAzM/HF3RJ/eC8Degb22tKAs7OonJwocSNRCfynWnDYvh
+	aR2sgXMRy635QcqW8hUXVOVhZnhcx3DG/rVWvhqPd6aTGwxWs2HKUs/IwfUHGiQxiosrp6zlOtP
+	Ug3WAVbqdNPcWeAYfAIc3g7vhWxxoLT5/DdOfg5Dy9iyMra4LVm4jwO4vPr2dhBuX+Kns/JoVm4
+	=
+X-Received: by 2002:a05:7301:1530:b0:35e:da0a:75b0 with SMTP id 5a478bee46e88-369e84e94a7mr11024368eec.25.1793032233734;
+        Mon, 26 Oct 2026 09:30:33 -0700 (PDT)
+Received: from nixos ([2405:201:c40d:9039:f859:3f74:c064:3281])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8db7b23sm36119014eec.19.2026.10.26.09.30.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 09:30:08 -0700 (PDT)
-From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>
-To: Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>
-Cc: Lixu Zhang <lixu.zhang@intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	"Enrico Weigelt, metux IT consult" <info@metux.net>,
-	Viresh Kumar <vireshk@kernel.org>,
-	Mika Westerberg <westeri@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	linux-gpio@vger.kernel.org,
+        Mon, 26 Oct 2026 09:30:32 -0700 (PDT)
+From: Ayushman Rout <ayushmanrout27@gmail.com>
+To: bpf@vger.kernel.org
+Cc: ast@kernel.org,
+	Ayushman Rout <ayushmanrout27@gmail.com>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Shuah Khan <shuah@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Jesper Dangaard Brouer <hawk@kernel.org>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	linux-kselftest@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	virtualization@lists.linux.dev,
-	linux-acpi@vger.kernel.org,
-	Viresh Kumar <viresh.kumar@linaro.org>
-Subject: [PATCH v3 22/22] gpio: Unify style of various *_device_id arrays
-Date: Mon, 26 Oct 2026 17:28:33 +0100
-Message-ID:  <7a3aad753cd5bebe6dd3f05d72edff398920d1f6.1793030820.git.u.kleine-koenig@baylibre.com>
-X-Mailer: git-send-email 2.56.0.rc1
-In-Reply-To: <cover.1793030820.git.u.kleine-koenig@baylibre.com>
-References: <cover.1793030820.git.u.kleine-koenig@baylibre.com>
+	netdev@vger.kernel.org
+Subject: [PATCH bpf v2 2/2] selftests/bpf: Test overlapping dynptr copies on xdp frags
+Date: Mon, 26 Oct 2026 21:58:09 +0530
+Message-ID: <20261026162810.12862-3-ayushmanrout27@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261026162810.12862-1-ayushmanrout27@gmail.com>
+References: <20261026162810.12862-1-ayushmanrout27@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,102 +117,147 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3362; i=u.kleine-koenig@baylibre.com; h=from:subject:message-id; bh=j/C3qYFYRthO80RC2ruW66dF5Huy3Fq9N8YWUVYu5G4=; b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBq33/c0ojVyzZ+u43M0bI2sq6g/5XGn+69FfExb 6JR29ElxDKJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCat9/3AAKCRCPgPtYfRL+ Tu3mCACkeeZltd8ipKxsWv88vZPp7a51zX9A/QuTuoijhYbibnTnLrZgZA76jfu63MGJaQJGlqO RZ784GJXMxzbqjs80BfJAWadFOuUNepVzzvkgn3Y+A278UUH9Vsh3Mlb2YhbI7SHJQ3YleBzjj3 0BmtkMk6cPK3D+LwmR74MSGw0vDvjW0UzNI3hbPpG58wgMHfoHv3nny+SevlCB36OXOJ5BbzS+7 OMdumhFuzEkiijn3dxQybyFAvc5crrWIPu8XZmk9XvSGj3b2iMp0/LZ/YXGbHJqMg1xVEcbZTQ3 2HrFm6e6RZWV9HGnGroKYMqkR1OKXTuNCH+/gY3/+9skqw7X
-X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp; fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
 Content-Transfer-Encoding: 8bit
 
-Update the various *_device_id arrays to conform to the most used and
-generally recommended coding style. That is:
+Add dynptr tests for copies within one xdp packet with frags, where the
+source and the destination overlap and the destination is above the
+source:
 
- - no comma after the list terminator;
- - a comma after an initializer if (and only if) the closing } is not
-   directly following;
- - no explicit zeros in the list terminator;
- - a space after an opening { and before a closing }, a single space in
-   the list terminator;
+- test_dynptr_copy_xdp_overlap: both ranges cross from the linear part
+  into frag0. bpf_dynptr_copy() of 1200 bytes with the destination 100
+  bytes above the source.
+- test_dynptr_copy_xdp_overlap_src_linear: the source is in the linear
+  part and the destination crosses into frag0.
+- test_dynptr_copy_xdp_overlap_dst_frag: the source crosses into frag0
+  and the destination is in frag0.
 
-Adapt the few offenders accordingly.
+The new tests set err when the data is wrong. The existing
+test_dynptr_copy_xdp does not, so it can pass on corrupted data.
 
-Acked-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-Acked-by: Viresh Kumar <viresh.kumar@linaro.org>
-Signed-off-by: Uwe Kleine-König (The Capable Hub) <u.kleine-koenig@baylibre.com>
+Without the fix to bpf_dynptr_copy(), test_dynptr_copy_xdp_overlap
+fails. With it, all the new tests pass.
+
+Signed-off-by: Ayushman Rout <ayushmanrout27@gmail.com>
 ---
- drivers/gpio/gpio-ljca.c           | 2 +-
- drivers/gpio/gpio-mpsse.c          | 3 +--
- drivers/gpio/gpio-pca953x.c        | 2 +-
- drivers/gpio/gpio-virtio.c         | 2 +-
- drivers/gpio/gpiolib-acpi-quirks.c | 2 +-
- 5 files changed, 5 insertions(+), 6 deletions(-)
+ .../testing/selftests/bpf/prog_tests/dynptr.c |  3 +
+ .../selftests/bpf/progs/dynptr_success.c      | 90 +++++++++++++++++++
+ 2 files changed, 93 insertions(+)
 
-diff --git a/drivers/gpio/gpio-ljca.c b/drivers/gpio/gpio-ljca.c
-index ad5dc9a3a119..d9d7394d8b95 100644
---- a/drivers/gpio/gpio-ljca.c
-+++ b/drivers/gpio/gpio-ljca.c
-@@ -473,7 +473,7 @@ static void ljca_gpio_remove(struct auxiliary_device *auxdev)
+diff --git a/tools/testing/selftests/bpf/prog_tests/dynptr.c b/tools/testing/selftests/bpf/prog_tests/dynptr.c
+index 4396560365e8..cbb2cc9969be 100644
+--- a/tools/testing/selftests/bpf/prog_tests/dynptr.c
++++ b/tools/testing/selftests/bpf/prog_tests/dynptr.c
+@@ -22,6 +22,9 @@ static struct {
+ 	{"test_dynptr_data", SETUP_SYSCALL_SLEEP},
+ 	{"test_dynptr_copy", SETUP_SYSCALL_SLEEP},
+ 	{"test_dynptr_copy_xdp", SETUP_XDP_PROG},
++	{"test_dynptr_copy_xdp_overlap", SETUP_XDP_PROG},
++	{"test_dynptr_copy_xdp_overlap_src_linear", SETUP_XDP_PROG},
++	{"test_dynptr_copy_xdp_overlap_dst_frag", SETUP_XDP_PROG},
+ 	{"test_dynptr_memset_zero", SETUP_SYSCALL_SLEEP},
+ 	{"test_dynptr_memset_notzero", SETUP_SYSCALL_SLEEP},
+ 	{"test_dynptr_memset_zero_offset", SETUP_SYSCALL_SLEEP},
+diff --git a/tools/testing/selftests/bpf/progs/dynptr_success.c b/tools/testing/selftests/bpf/progs/dynptr_success.c
+index b668ebd61fc7..56be4eafc270 100644
+--- a/tools/testing/selftests/bpf/progs/dynptr_success.c
++++ b/tools/testing/selftests/bpf/progs/dynptr_success.c
+@@ -759,6 +759,96 @@ int test_dynptr_copy_xdp(struct xdp_md *xdp)
+ 	return XDP_DROP;
+ }
  
- static const struct auxiliary_device_id ljca_gpio_id_table[] = {
- 	{ "usb_ljca.ljca-gpio" },
--	{ /* sentinel */ },
-+	{ /* sentinel */ }
- };
- MODULE_DEVICE_TABLE(auxiliary, ljca_gpio_id_table);
++static __always_inline int fill_xdp(struct bpf_dynptr *ptr, __u32 start, __u32 n)
++{
++	__u8 b;
++	int i;
++
++	bpf_for(i, 0, n) {
++		b = (start + i) % 251;
++		if (bpf_dynptr_write(ptr, start + i, &b, 1, 0))
++			return 1;
++	}
++	return 0;
++}
++
++static __always_inline int check_xdp(struct bpf_dynptr *ptr, __u32 at, __u32 n, __u32 from)
++{
++	__u8 b;
++	int i;
++
++	bpf_for(i, 0, n) {
++		if (bpf_dynptr_read(&b, 1, ptr, at + i, 0))
++			return 1;
++		if (b != (__u8)((from + i) % 251))
++			return 1;
++	}
++	return 0;
++}
++
++SEC("?xdp")
++int test_dynptr_copy_xdp_overlap(struct xdp_md *xdp)
++{
++	void *data_end = (void *)(long)xdp->data_end;
++	void *data = (void *)(long)xdp->data;
++	__u32 off = data_end - data - 1000;
++	struct bpf_dynptr ptr;
++
++	bpf_dynptr_from_xdp(xdp, 0, &ptr);
++	if (fill_xdp(&ptr, off, 1300)) {
++		err = 1;
++		return XDP_DROP;
++	}
++	err = bpf_dynptr_copy(&ptr, off + 100, &ptr, off, 1200);
++	if (err)
++		return XDP_DROP;
++	if (check_xdp(&ptr, off + 100, 1200, off))
++		err = 2;
++	return XDP_DROP;
++}
++
++SEC("?xdp")
++int test_dynptr_copy_xdp_overlap_src_linear(struct xdp_md *xdp)
++{
++	void *data_end = (void *)(long)xdp->data_end;
++	void *data = (void *)(long)xdp->data;
++	__u32 lin = data_end - data;
++	struct bpf_dynptr ptr;
++
++	bpf_dynptr_from_xdp(xdp, 0, &ptr);
++	if (fill_xdp(&ptr, lin - 64, 118)) {
++		err = 1;
++		return XDP_DROP;
++	}
++	err = bpf_dynptr_copy(&ptr, lin - 10, &ptr, lin - 64, 64);
++	if (err)
++		return XDP_DROP;
++	if (check_xdp(&ptr, lin - 10, 64, lin - 64))
++		err = 2;
++	return XDP_DROP;
++}
++
++SEC("?xdp")
++int test_dynptr_copy_xdp_overlap_dst_frag(struct xdp_md *xdp)
++{
++	void *data_end = (void *)(long)xdp->data_end;
++	void *data = (void *)(long)xdp->data;
++	__u32 lin = data_end - data;
++	struct bpf_dynptr ptr;
++
++	bpf_dynptr_from_xdp(xdp, 0, &ptr);
++	if (fill_xdp(&ptr, lin - 10, 84)) {
++		err = 1;
++		return XDP_DROP;
++	}
++	err = bpf_dynptr_copy(&ptr, lin + 10, &ptr, lin - 10, 64);
++	if (err)
++		return XDP_DROP;
++	if (check_xdp(&ptr, lin + 10, 64, lin - 10))
++		err = 2;
++	return XDP_DROP;
++}
++
+ char memset_zero_data[] = "data to be zeroed";
  
-diff --git a/drivers/gpio/gpio-mpsse.c b/drivers/gpio/gpio-mpsse.c
-index 61c5ca96314b..a540f6e94f11 100644
---- a/drivers/gpio/gpio-mpsse.c
-+++ b/drivers/gpio/gpio-mpsse.c
-@@ -80,10 +80,9 @@ static struct mpsse_quirk bryx_brik_quirk = {
- static const struct usb_device_id gpio_mpsse_table[] = {
- 	{ USB_DEVICE(0x0c52, 0xa064) },   /* SeaLevel Systems, Inc. */
- 	{ USB_DEVICE(0x0403, 0x6988),     /* FTDI, assigned to Bryx */
--	  .driver_info = (kernel_ulong_t)&bryx_brik_quirk},
-+	  .driver_info = (kernel_ulong_t)&bryx_brik_quirk },
- 	{ }                               /* Terminating entry */
- };
--
- MODULE_DEVICE_TABLE(usb, gpio_mpsse_table);
- 
- static DEFINE_IDA(gpio_mpsse_ida);
-diff --git a/drivers/gpio/gpio-pca953x.c b/drivers/gpio/gpio-pca953x.c
-index 77b447c0fea5..06f7ad0299f3 100644
---- a/drivers/gpio/gpio-pca953x.c
-+++ b/drivers/gpio/gpio-pca953x.c
-@@ -175,7 +175,7 @@ static const struct dmi_system_id pca953x_dmi_acpi_irq_info[] = {
- 			DMI_EXACT_MATCH(DMI_BOARD_NAME, "GalileoGen2"),
- 		},
- 	},
--	{}
-+	{ }
- };
- #endif
- 
-diff --git a/drivers/gpio/gpio-virtio.c b/drivers/gpio/gpio-virtio.c
-index 42871db05ec1..062c70fe4671 100644
---- a/drivers/gpio/gpio-virtio.c
-+++ b/drivers/gpio/gpio-virtio.c
-@@ -647,7 +647,7 @@ static void virtio_gpio_remove(struct virtio_device *vdev)
- 
- static const struct virtio_device_id id_table[] = {
- 	{ .device = VIRTIO_ID_GPIO, .vendor = VIRTIO_DEV_ANY_ID },
--	{},
-+	{ }
- };
- MODULE_DEVICE_TABLE(virtio, id_table);
- 
-diff --git a/drivers/gpio/gpiolib-acpi-quirks.c b/drivers/gpio/gpiolib-acpi-quirks.c
-index 3ab02c5f95df..77b9e34cd618 100644
---- a/drivers/gpio/gpiolib-acpi-quirks.c
-+++ b/drivers/gpio/gpiolib-acpi-quirks.c
-@@ -465,7 +465,7 @@ static const struct dmi_system_id gpiolib_acpi_quirks[] __initconst = {
- 			.ignore_wake = "GTCH7503:00@10",
- 		},
- 	},
--	{} /* Terminating entry */
-+	{ } /* Terminating entry */
- };
- 
- static int __init acpi_gpio_setup_params(void)
+ SEC("?tp/syscalls/sys_enter_nanosleep")
 -- 
-2.56.0.rc1
+2.54.0
 
