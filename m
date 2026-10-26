@@ -1,55 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.246.68.102
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793048296;
-	b=40OsSAg8jkyYrbHMf4FxtSYYd/D1yXk5pmQb2R8jjpQ5KTOQrfMFkgVRCNKsgek2JK0d
-	 v224PKbNCNwBW2W31debhiDiN6ik6bR5Bpj4Hs+G9Gdb1ggQjdNZfDtT3SgI4t+tm/CBx
-	 n2Z1oOjzGKkTYDvG3B7Ylx2R7mMQUFNlnvsViS7eMjU3wnY43QI6Hnq+pH21AtKMWIsVo
-	 qA/S4LnPN0JlU/IoTF7Z801u49eJPGYVIWjab2oiMXdkAwxli3DyM0SfywpuJS1X8WFLy
-	 0WbaYDcknZkKPySkhWphFGOR3k2xyeHsm7o+fx7wscVX3tJRRReYeEFAnm/+D7+WR4g==
+	t=1793048367;
+	b=kxNfrVlB14fyddw4V8cTQG+A7C4NFv2WD5lHrTP7I956LYygfaT3NthIaJL5oiqo2NZG
+	 qYL+vcja8hwFmQvRBDo54DI9GDTiGvYH+dixU9fefzPbR3lmUSEbA//rqt6ZK6OjBIFC5
+	 mZ/PFu62v51HQ79r9hgvA3dGniBer/Y0ygGFnz9oou4p96UWP/Rq3ja49LiRXhuT9m5yN
+	 EpASjIt37iViCoc+wzvtFZatdG6n6vKhC3AI9NGUnFqAdSFOuj5nwV4DywU5XpugmSmB0
+	 LphMsmbruUnMCgkbKjFtK8U7t7d6Dy5Z+TNaca0ZE9Vd99MZaxosUX91pqTZRp/66xA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793048296;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=icmUq+qL2c/gwZjRUiz00O2bxdKoJyT2ITQRS8SDc+k=;
-	b=peGZpMtSJUrjwogwBH1A3AiCsq7cZTLuqdvNeQ4skEXpV2xduwRCXwG5rHzSoqqh25UN
-	 JqsgmAWpSaXO8ASp6UH2Yznx+OICHiLrlSK5EaZmKqjE97UhhBKYFiT7S9TswjnbDlr0y
-	 r9nrjoy1lsrtui6jHhBeZLFM/+HTtNhf5m3VOYYVWucFkbp4ntqom8wRAFgzNYbsLUIE2
-	 ssHqgxG80efsvFMfEIECALz6vfJX4zyscJYwC7SJzi4aeg49OLzVROzDRv8iCVSif7e/V
-	 g2vD52NgJm0u36ec3IlpFIWXgvN2t2cqiZGl7/vbP7W2WwryGFvynKBMknIatGdgkNg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793048367;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=Qrq3FNW/0SEN44vJvKEC14nzqvJcKELdScbHaQ9C9/o=;
+	b=EQIqGU+ZKT+ui4+euGP0se8TNkk32uIF20s4T1pjoeYTNTofj/zy00QZ7kTLYiWA+uCf
+	 bGFhBw+OVOICk0tpP860a+3p8+95A6VMnLT6OlBfPT2NuuOZs0YmQbEHAStc/KCJ8njSr
+	 wLfsEj5epmKXst2FwdtQRLWXK7mTeJqnX3J9rSsG2ptlFHT+nUzG/ocoL+upDrwPMaPsS
+	 oUOzGeV09sXzlcBeauQmY5TKG6w4izpMSmFBH8+vn+CjI7xvVnz1/9nVFfjguMEv0vT7W
+	 0pYwJS1hGZzWQ9ezj717bt0Kyf2gh8e7WpEtCLMVZmOpjKKuhZK/0AgO9JTwYB1h6Gg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c8Ahxz+L;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=amazon.com;
+	spf=pass smtp.mailfrom=amazon.com;
+	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=bS18TvyI;
+	arc=none smtp.remote-ip=44.246.68.102
+Received: from pdx-out-003.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-003.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.246.68.102])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 057C6606A31B
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 20:58:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9D3D606A31A;
+	Mon, 26 Oct 2026 20:59:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9D3D606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c8Ahxz+L
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A4BB1F031E0
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 20:58:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793048295;
-	bh=icmUq+qL2c/gwZjRUiz00O2bxdKoJyT2ITQRS8SDc+k=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=c8Ahxz+LtK0cK80zV6kg8UGyAghjfA0p3hs9m5IKO7imlTjuRbPZ+YWwVA8GXrV1J
-	 vHHpMylEfor90qdVsHO1EWbJ711CTvV5FnEqmxY+jAh+oj16Uu3g4JU/ULctNeQBT8
-	 M81B/4dEEle7aqWzOV4XkJqegLUGDxysOYzRVj6ddtAUxeJP47tcufPOhTXsEIQMd/
-	 d1prtaXbqKqDbuQtZpXPZTcbpNO9gMrTeWXNbCbOJvPcWLij3ylBetKULwzCWyWkbU
-	 QQRvZ3kC+eMRggyFSpjcmFJPkmo+Wdko+nPmjJNTXclQgtZlIJtITyoXQMnL9OxBMW
-	 GsnMkvZrRP4mA==
-Received: by mail-qk1-f171.google.com with SMTP id af79cd13be357-93e7ad9f78dso411895285a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:58:15 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBw6IWrXgKABiRQsO//1b+fwl5qMXpMXSxN40SE0+pbLaveNyo3NM/vcwwFjegoAkWZUQxJbh+3Q3WpHy5I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKfo7vIlb4r0tF2GaUf2ktJ1BPCAbE4AmTGZEc68aoyKwS860r4
-	5sik8zdQbo3Wac/24w0tyHWwG7Um8SPtCwwZZqN0zAoEDTZPIm4PVy7aeGvwStI1p7PObv18ZGT
-	XNTOKwHUuD9nxg0fqfQ8rmqjlMKX96zs=
-X-Received: by 2002:a05:620a:271d:b0:93f:e53:a55c with SMTP id
- af79cd13be357-940ef95200fmr1180262885a.78.1793048294632; Mon, 26 Oct 2026
- 13:58:14 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=bS18TvyI
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1793048366; x=1824584366;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=Qrq3FNW/0SEN44vJvKEC14nzqvJcKELdScbHaQ9C9/o=;
+  b=bS18TvyId33lhEPNrAGSuwlBRRdN/670GTWdFlEflov90N5DhXYvSD2D
+   XYfD4Ns8aUit4A16RU9wOUD9wzoy3xDSzjaef0yQigUuTxHxvYWIwGdd9
+   BpaWsXcgiOySFmzVIqoWywDuVT/zWZ1GXb2828s4wYIQk4IS1ClSdVPzG
+   etd7EK6mfXyYmRo8gBOmBn9A4M8Hy2cZwlcYV4qKP2ch3HRCkLyX+X4Fx
+   xsIbTfQlW76zus7jrubernlsazIWZppYpEmvWfCztQl6rAd5zQH8M6sOH
+   akGKWcNlPhtX+k4QdNmJwvRBIiFkvVstpnosmYbfImhd9lAr5LKkYOKPE
+   g==;
+X-CSE-ConnectionGUID: T/lN1pTdSIKq7SWI0pE8qw==
+X-CSE-MsgGUID: uyvTqbsmT1mmcWIkKx8aPA==
+X-IronPort-AV: E=Sophos;i="6.27,180,1787011200"; 
+   d="scan'208";a="32211838"
+Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
+  by internal-pdx-out-003.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 20:59:26 +0000
+Received: from EX19MTAUWC002.ant.amazon.com [205.251.233.111:31130]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.41.86:2525] with esmtp (Farcaster)
+ id 2862e1d7-248b-4929-83d9-7d6defe956f7; Mon, 26 Oct 2026 20:59:26 +0000 (UTC)
+X-Farcaster-Flow-ID: 2862e1d7-248b-4929-83d9-7d6defe956f7
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWC002.ant.amazon.com (10.250.64.143) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Mon, 26 Oct 2026 20:59:25 +0000
+Received: from dev-dsk-patrzhan-2a-52a3f46b.us-west-2.amazon.com
+ (172.22.91.11) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56; Mon, 26 Oct 2026
+ 20:59:25 +0000
+From: Patrick Zhang <patrzhan@amazon.com>
+To: <netdev-bot+sashiko@kernel.org>
+CC: Marc Kleine-Budde <mkl@pengutronix.de>, Vincent Mailhol
+	<mailhol@kernel.org>, <linux-can@vger.kernel.org>, Pavel Pisa
+	<pisa@cmp.felk.cvut.cz>, Ondrej Ille <ondrej.ille@gmail.com>, Harini T
+	<harini.t@amd.com>, Michal Simek <michal.simek@amd.com>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	"Jakub Kicinski" <kuba@kernel.org>
+Subject: Re: [PATCH 3/3] can: ifi_canfd: enable NAPI before starting the controller
+Date: Mon, 26 Oct 2026 20:58:55 +0000
+Message-ID: <20261026205855.871681-1-patrzhan@amazon.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <179274950592.3130.11275892525697074934@kernel.org>
+References: <179274950592.3130.11275892525697074934@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,98 +89,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261025-b4-ksm_fixv2-v2-0-8b61ad0491f1@linux.dev>
- <20261025-b4-ksm_fixv2-v2-1-8b61ad0491f1@linux.dev> <CAGsJ_4zUVpBJazRxc1CzN6u5XvpUaGnaf-_7JMz-rGK_ZTYMtw@mail.gmail.com>
- <e865f7f0-087c-4fe5-b729-6e6946cd20f6@linux.dev> <CAGsJ_4wp_jCtCeMx39nW0Z1Jm5pja7_V6XNwLB6p7zTan0c3VA@mail.gmail.com>
- <dee39669-b726-480e-8ca6-10f19512da68@linux.dev>
-In-Reply-To: <dee39669-b726-480e-8ca6-10f19512da68@linux.dev>
-From: Barry Song <baohua@kernel.org>
-Date: Tue, 27 Oct 2026 04:58:02 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4w4ozXM+=T0qGBAhC323F49Y4LxrrKKt3GFCs+en_TVCg@mail.gmail.com>
-X-Gm-Features: AclHuK87m9cZBrXF70X-vghHkwSRiCol7Tl6VccIZSTsfEiuILsGNXgum-WwE1U
-Message-ID: <CAGsJ_4w4ozXM+=T0qGBAhC323F49Y4LxrrKKt3GFCs+en_TVCg@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] mm/huge_memory.c: skip zero-page remapping when
- underused THP shrinker is disabled
-To: Nico Pache <nico.pache@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
-	Kiryl Shutsemau <kas@kernel.org>, Yu Zhao <yuzhao@google.com>, Xu Xin <xu.xin@linux.dev>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, Matthew Brost <matthew.brost@intel.com>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
-	Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
-	Alistair Popple <apopple@nvidia.com>, Usama Arif <usamaarif642@gmail.com>, aarcange@redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D031UWA003.ant.amazon.com (10.13.139.47) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-On Tue, Oct 27, 2026 at 4:02=E2=80=AFAM Nico Pache <nico.pache@linux.dev> w=
-rote:
->
->
->
-> On 10/25/26 10:52 PM, Barry Song wrote:
-> > On Mon, Oct 26, 2026 at 5:48=E2=80=AFAM Nico Pache <nico.pache@linux.de=
-v> wrote:
-> >>
-> >>
-> >>
-> >> On 10/25/26 2:28 PM, Barry Song wrote:
-> >>> On Mon, Oct 26, 2026 at 1:40=E2=80=AFAM Nico Pache (Red Hat)
-> >>> <nico.pache@linux.dev> wrote:
-> >>>>
-> >>>> The zero-page remapping in __folio_split() was added to support the
-> >>>> underused THP shrinker. When the shrinker is disabled via
-> >>>> shrink_underused, gate TTU_USE_SHARED_ZEROPAGE on split_underused_th=
-p
-> >>>> to avoid scanning subpages for zero content unnecessarily.
-> >>>>
-> >>>> Suggested-by: David Hildenbrand <david@kernel.org>
-> >>>> Fixes: b1f202060afe ("mm: remap unused subpages to shared zeropage w=
-hen splitting isolated thp")
-> >>>> Signed-off-by: Nico Pache <nico.pache@linux.dev>
-> >>>
-> >>> is b1f202060afe a correct fixes tag? as
-> >>> commit b1f202060afe has no even "split_underused_thp" there.
-> >>
-> >> I believe so. IIUC these two series were merged together. While
-> >> 81d3ff3c6f7 introduces the toggle, b1f202060afe is where the behavior
-> >> started.
-> >>
-> >> I guess you could argue that the Fixes should include both?
-> >>
-> >> Not entirely sure!
-> >
-> > Thanks for the clarification. I guess it's fine.
-> >
-> > BTW, with the code below, we no longer add fully mapped
-> > folios to deferred_split_folio. So the scanning code only
-> > handles partially mapped folios to set up zero-page mappings
-> > for their subpages.
-> >
-> > I'm still not quite sure whether this is really harmful, though.
-> > Am I missing something, or was there some discussion I missed?
->
-> The issue is not in the actual shrinker code or the deferred split list.
->
-> The issue is that any split leads to this zero-page remapping
-> indiscriminate of the actual toggle. The same way this toggle is gating
-> things going on the deferred split list, we should be gating the actual
-> zero-page remapping too.
+On Fri, 23 Oct 2026 09:58, netdev-bot+sashiko wrote:
+> With NAPI enabled before ifi_canfd_start(), can ifi_canfd_poll() now run
+> against an IP that has not been reset yet? Can it also run alongside the
+> reset and programming sequence in ifi_canfd_start()?
 
-I'm not quite sure this is true. The toggle prevents fully mapped
-folios from being added to the deferred split list, so their
-subpages won't have a chance to be remapped to zero.
+I think this is a valid point. Unlike ctucanfd and xilinx_can, which reset
+the controller in open() before napi_enable(), ifi_canfd_open() does not
+quiesce the IP first, the handler is registered with IRQF_SHARED, and the
+ISR acts on the raw IFI_CANFD_INTERRUPT status. So on the first open after
+boot or kexec, the poll can now be scheduled before or during
+ifi_canfd_start().
 
-For the remaining folios that are not fully mapped, or those
-that were added to deferred_split_list while the toggle was
-on and remain there after it is switched off, allowing
-remapping to zeropfn doesn't seem to violate the toggle's
-intention of preventing fully mapped folios from being added
-to deferred_split_list.
+In v2 I plan to call ifi_canfd_stop() in ifi_canfd_open() before
+request_irq(), so the IP is reset, its interrupts are masked and pending
+status is cleared before the handler is installed and NAPI is enabled.
 
-Anyway, I don't have a strong opinion on this.
+The bus-off restart path through ifi_canfd_set_mode() already runs with
+NAPI enabled. I will leave that alone in this series.
 
-Thanks!
-Barry
+I will wait a few days for other comments on the series before sending v2.
+
+pw-bot: cr
