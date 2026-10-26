@@ -1,113 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793019821;
-	b=NCgfj2EGsHlkLhfabgACYYfI9IWMHT6IIl0H0atGAOKVubCmfmCAWRbQD3n/Z+nFrkFq
-	 qa6C9RFoAzCI7sDC64EzO96czZm4B9i6ZfwlxIcDVYmTdUqR5jzcAzCJNiV8V1goMlZgB
-	 IJG4b/O+aqkjBeYm+VaTHTG8/kj0aR+phHow7xULFsaaELTWIvcw4y+wppTNsrTFZvngl
-	 CwBlzj6NOfiPKgTHIfSOS87IvhHvs25svR8wvcpRYFu28gGkKXfO1oUAi+9aBJWxj1++p
-	 B1e+ZjQdLEdn1zdaU3pcfFiSokANS84uP6N3cdasV6tiGhsw/VT6INMCv7SFwUIpHLA==
+	t=1793019849;
+	b=oMto75eCSftSu8mkQdg5XI64Q9FTBaYH3hhdWYNLRHgBpWzcu6aH3Gg6XZcozwhx/N9t
+	 58frBlnRRW8dWdRamOLN6MAlX91Z82uYoQC9XkxKUsy+ZQx6tRVFVRToxLyEOoilOWjU9
+	 yjDTHEyukI/YMI8c2zTD2LkvqlHb/I8bVAGp5kUz/M9cGl4ff27NxGCcf4K8vzoP0MWvp
+	 Vz2WcS0DgkevbjWdQ3qtxANlg5LWUUmA+b+2f1ULED7Q61a61ZiCvwG6qvX9IsxXGfzEL
+	 b3gdkmr0EJ+1XONi/jPA7WliJLufW/HCUQAWCs20Z+lydMcDwZmcigkJGP9TF1mJbPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793019821;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding:X-Spamd-Result:
-	 X-Spam-Score:X-Spam-Level:X-Spam-Flag;
-	bh=3BLIuDEhsTthzC16kupGp2wOIgagbUkGHrl+XCDNR18=;
-	b=sSQ6IsFLJxjQj/nYMhFPmb7W+V+M12c+cAj9R2J5iCQ/KqXfYSbYaLk7TLgH0GsL8KE0
-	 vftEbX//hPlWXm4NWiJBkxgqQjzGvRD6TrDwv8ixV7OJLsnOalHRwhlz+QnXCU9zWV64K
-	 1sRk/TBbO08jSlRbuSl95FNmgmEm8IsHUTTYZP6ZyevW33RVC99lwfEFUQ114vKG3zNkQ
-	 p3Ua4r9suHFxuDPMrMI8FxavIx+O/rW9L5mARxqo2m2YMKX7YiIGyErMNb+MVQGiwbvVC
-	 qIs+DnvZONuXOSwyAC+8GlUV8JfqCzTJT/Vqu/zDgilGAFFOsuCeuKWJrgpHdJNf3Tg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793019849;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=wunO0TNI/doV0xV97P7JBiy+Hf4WD5xHBuyJwPfif/U=;
+	b=svemVi5rGmF6JRuvkvJJw1gP2FrTUqVIAYeUuuxICc+bbZ01hSEnV2HdIFfVPng77Wdz
+	 JsSD0S0Syd/Yml3HUZGerwBYvT03wLT+TC5yaNyBPfWRxno2VnouncTfllUl659d44YvX
+	 JlMVzArUClzbvf8ec+YAwV7TUnMO0ri7JxAl8oVpgli3V/2ETIyWscmAd7dPbroBrIWUa
+	 a2PNtF7sF/GOGjt6YK5mG/f/s3KpjqN67QLmran34Htvw2InmxFOnUDk1nnjOpRs6GrJj
+	 /V/vVYX0CoqYHY1KrkwbwHsIZY/VldIW7OPollJtezFMwoqdk6Wig1SXgQhCPSw5DBA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=bSj2J5fY;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=bSj2J5fY;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=IfXlQmW8;
+	arc=none smtp.remote-ip=148.163.158.5
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3C11606A327;
-	Mon, 26 Oct 2026 13:03:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3C11606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C942606A323;
+	Mon, 26 Oct 2026 13:04:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C942606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=bSj2J5fY;
-	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=bSj2J5fY
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 3FABB1F7C8;
-	Mon, 26 Oct 2026 13:03:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1793019819; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3BLIuDEhsTthzC16kupGp2wOIgagbUkGHrl+XCDNR18=;
-	b=bSj2J5fYNQd9A157z3In6GKUk+AOWsyNTlr3WBkL9j/yGxMea62EAbcJvEvgcC2iNYoSpX
-	XkD1S18U9aCKxmA0X1zFsQ3b7EGyZKHG7PvNYvxhoZ1RcHL+bmWbUZ65zYHgaMrD+B1A0/
-	yzmRpGHrun6A+ihXpCV8UNL0uhz37AA=
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1793019819; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3BLIuDEhsTthzC16kupGp2wOIgagbUkGHrl+XCDNR18=;
-	b=bSj2J5fYNQd9A157z3In6GKUk+AOWsyNTlr3WBkL9j/yGxMea62EAbcJvEvgcC2iNYoSpX
-	XkD1S18U9aCKxmA0X1zFsQ3b7EGyZKHG7PvNYvxhoZ1RcHL+bmWbUZ65zYHgaMrD+B1A0/
-	yzmRpGHrun6A+ihXpCV8UNL0uhz37AA=
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6339513408;
-	Mon, 26 Oct 2026 13:03:38 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id Ws83DqpP32rVWwAAD6G6ig
-	(envelope-from <jgross@suse.com>); Mon, 26 Oct 2026 13:03:38 +0000
-From: Juergen Gross <jgross@suse.com>
-To: linux-kernel@vger.kernel.org,
-	x86@kernel.org,
-	linux-perf-users@vger.kernel.org,
-	linux-hyperv@vger.kernel.org,
-	kvm@vger.kernel.org,
-	linux-coco@lists.linux.dev
-Cc: Juergen Gross <jgross@suse.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>,
-	Dexuan Cui <decui@microsoft.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	Rick Edgecombe <rick.p.edgecombe@intel.com>,
-	Michael Kelley <mhklinux@outlook.com>
-Subject: [PATCH v5 12/12] x86/msr: Simplify some rdmsrq() use cases
-Date: Mon, 26 Oct 2026 14:02:23 +0100
-Message-ID: <20261026130223.773129-13-jgross@suse.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261026130223.773129-1-jgross@suse.com>
-References: <20261026130223.773129-1-jgross@suse.com>
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=IfXlQmW8
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69QBEmYa3358105;
+	Mon, 26 Oct 2026 13:04:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=wunO0T
+	NI/doV0xV97P7JBiy+Hf4WD5xHBuyJwPfif/U=; b=IfXlQmW8eQpMsvCEIRZ+in
+	6Fdi5dcJmFwvgCrOUyz7xrhAjjhnZJXSzuksbWldwPJS0nbxymmWskETNHgJXFcE
+	yJ0hNQMWMJohUhRN+eoID/7s9QfVwqeuWnZIeaYtTutmNgHUK5sr0FG0bEfXJqa+
+	nu0HJ5KFEzQNuY8GYB6EgChOqv4UXEwqkxBqc+ZrwqiBYqmFSRs5lIUsXRlywFMj
+	maFP8zBQpp9GS6VLP9RIa7Dj73zLz7oytMmJRvay6wJmcWetTEDQY1kBgLXQoTOe
+	O82By76rX4q/cS+ioc28aAnYGNff/CyrgGalz0PcSKz79obaGjuXKudbps2vS3NQ
+	==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hgmav9nw8-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 26 Oct 2026 13:04:07 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69QB4ukQ1270410;
+	Mon, 26 Oct 2026 13:04:06 GMT
+Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hh97gnt13-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 26 Oct 2026 13:04:06 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
+	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69QD42r151904964
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 26 Oct 2026 13:04:03 GMT
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id D1EDC2004D;
+	Mon, 26 Oct 2026 13:04:02 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 520E320043;
+	Mon, 26 Oct 2026 13:04:02 +0000 (GMT)
+Received: from [0.0.0.0] (unknown [9.111.8.249])
+	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 26 Oct 2026 13:04:02 +0000 (GMT)
+Message-ID: <b27e1bb4-9112-4df0-9595-90b5419acafa@linux.ibm.com>
+Date: Mon, 26 Oct 2026 14:04:02 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,363 +85,131 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-15.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	REPLY(-4.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	R_MISSING_CHARSET(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[29];
-	MIME_TRACE(0.00)[0:+];
-	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo,outlook.com:email];
-	FREEMAIL_CC(0.00)[suse.com,infradead.org,redhat.com,kernel.org,arm.com,linux.intel.com,google.com,intel.com,linaro.org,alien8.de,zytor.com,microsoft.com,outlook.com];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_HAS_DN(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	R_RATELIMIT(0.00)[to_ip_from(RLfdszjqhz8kzzb9uwpzdm8png)];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	FREEMAIL_ENVRCPT(0.00)[outlook.com]
-X-Spam-Score: -15.80
-X-Spam-Level: 
-X-Spam-Flag: NO
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/4] s390/maccess: Remove spinlock from
+ __s390_kernel_write()
+To: Heiko Carstens <hca@linux.ibm.com>,
+        Alexander Gordeev <agordeev@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>
+Cc: linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org
+References: <20261026120329.1792436-1-hca@linux.ibm.com>
+ <20261026120329.1792436-5-hca@linux.ibm.com>
+Content-Language: en-US
+From: Ilya Leoshkevich <iii@linux.ibm.com>
+In-Reply-To: <20261026120329.1792436-5-hca@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Authority-Analysis: v=2.4 cv=P8SvFSAu c=1 sm=1 tr=0 ts=6adf4fc7 cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VnNF1IyMAAAA:8
+ a=surRbCUiQUJXvdXw5N0A:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: 3K7lI_RHne9GqijRnIj00SrDdwxHbA0T
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA1MCBTYWx0ZWRfX1z9UKx+LkRwB
+ Q/eWSE+I6H9y1Co9zdK0BVQkDvtvuGQBWoGD37afXa7nrxs11Vk4+tEWSMFh7ZsmSgWL2v5L9Z9
+ hN5ApZCrMUHNyEruhS1hmNBgqs3tjxo=
+X-Proofpoint-ORIG-GUID: 3K7lI_RHne9GqijRnIj00SrDdwxHbA0T
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA1MCBTYWx0ZWRfX+VXUbBrCaMi3
+ mmq/UH3KbitmO9kUgB3U0dOY3WgKdkoH1KtoAVP/TREmT868/AYoIkLgEj/t4yNydd6+cRRDUyK
+ SYgdmd7NzDq8nnyN8AAQEYkhR0vmNHIydrODzVvbLUo9rOMTqvgj2sih9XNXhR5W094hbtaOZRy
+ ni0wFFh/l8fyS/czGI185T4vjZmUOOUR6fQs/unGZVPFS1UFFRM9XGZHh/1upe3P1vjpXB6rh3d
+ sqMTVkiIseUNstZrxXXEppsU7xBNdxWzeMag/oMVUrkrB0zzsFyB/oOcD8x2MfbBNpx8CbDdXDY
+ CRkQzW2zhov77bCzinyRitdm4SXKAQwHtZKWoiSiWsyedIrUf89EgUvZsaF8tXBwGeRnonplnkg
+ L+UIe1BSxQUeTRTPZLchdxsD/DcGmdEUe25+Jtfzgoirl1JwrIRMIZio6lvX3U7pTDVn7Onk7mU
+ nHr6aNAAnYpuacrDFDg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-26_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 adultscore=0 malwarescore=0 phishscore=0 spamscore=0
+ clxscore=1015 bulkscore=0 suspectscore=0 priorityscore=1501
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610260050
 
-After the conversion of rdmsrq() to an inline function some use cases
-can be simplified by dropping an intermediate variable or by
-eliminating the inline function completely.
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
-Reviewed-by: Michael Kelley <mhklinux@outlook.com> # Hyper-V
-Acked-by: Sean Christopherson <seanjc@google.com>
----
-V3:
-- eliminate KVM's read_msr() (Sean Christopherson)
----
- arch/x86/events/amd/core.c      |  6 +-----
- arch/x86/events/amd/lbr.c       | 12 ++----------
- arch/x86/events/intel/core.c    |  6 +-----
- arch/x86/events/intel/cstate.c  |  5 +----
- arch/x86/events/intel/knc.c     |  6 +-----
- arch/x86/events/intel/lbr.c     | 17 +++--------------
- arch/x86/events/intel/uncore.c  |  6 +-----
- arch/x86/events/rapl.c          |  4 +---
- arch/x86/events/zhaoxin/core.c  |  6 +-----
- arch/x86/hyperv/hv_apic.c       |  5 +----
- arch/x86/include/asm/apic.h     |  5 +----
- arch/x86/include/asm/debugreg.h |  6 +-----
- arch/x86/include/asm/kvm_host.h | 10 ----------
- arch/x86/kvm/vmx/tdx.c          |  2 +-
- arch/x86/kvm/vmx/vmx.c          |  6 +++---
- 15 files changed, 19 insertions(+), 83 deletions(-)
 
-diff --git a/arch/x86/events/amd/core.c b/arch/x86/events/amd/core.c
-index 80ed49dba255..3d0e076c1636 100644
---- a/arch/x86/events/amd/core.c
-+++ b/arch/x86/events/amd/core.c
-@@ -660,12 +660,8 @@ static __always_inline void amd_pmu_set_global_ctl(u64 ctl)
- 
- static inline u64 amd_pmu_get_global_status(void)
- {
--	u64 status;
--
- 	/* PerfCntrGlobalStatus is read-only */
--	status = rdmsrq(MSR_AMD64_PERF_CNTR_GLOBAL_STATUS);
--
--	return status;
-+	return rdmsrq(MSR_AMD64_PERF_CNTR_GLOBAL_STATUS);
- }
- 
- static inline void amd_pmu_ack_global_status(u64 status)
-diff --git a/arch/x86/events/amd/lbr.c b/arch/x86/events/amd/lbr.c
-index 0972690c7d45..5e219a94f28c 100644
---- a/arch/x86/events/amd/lbr.c
-+++ b/arch/x86/events/amd/lbr.c
-@@ -74,20 +74,12 @@ static __always_inline void amd_pmu_lbr_set_to(unsigned int idx, u64 val)
- 
- static __always_inline u64 amd_pmu_lbr_get_from(unsigned int idx)
- {
--	u64 val;
--
--	val = rdmsrq(MSR_AMD_SAMP_BR_FROM + idx * 2);
--
--	return val;
-+	return rdmsrq(MSR_AMD_SAMP_BR_FROM + idx * 2);
- }
- 
- static __always_inline u64 amd_pmu_lbr_get_to(unsigned int idx)
- {
--	u64 val;
--
--	val = rdmsrq(MSR_AMD_SAMP_BR_FROM + idx * 2 + 1);
--
--	return val;
-+	return rdmsrq(MSR_AMD_SAMP_BR_FROM + idx * 2 + 1);
- }
- 
- static __always_inline u64 sign_ext_branch_ip(u64 ip)
-diff --git a/arch/x86/events/intel/core.c b/arch/x86/events/intel/core.c
-index 20e96e6c649c..96bcbf823aec 100644
---- a/arch/x86/events/intel/core.c
-+++ b/arch/x86/events/intel/core.c
-@@ -2972,11 +2972,7 @@ static void intel_tfa_pmu_enable_all(int added)
- 
- static inline u64 intel_pmu_get_status(void)
- {
--	u64 status;
--
--	status = rdmsrq(MSR_CORE_PERF_GLOBAL_STATUS);
--
--	return status;
-+	return rdmsrq(MSR_CORE_PERF_GLOBAL_STATUS);
- }
- 
- static inline void intel_pmu_ack_status(u64 ack)
-diff --git a/arch/x86/events/intel/cstate.c b/arch/x86/events/intel/cstate.c
-index 69eb6cf51d3b..c6d9146d8ec8 100644
---- a/arch/x86/events/intel/cstate.c
-+++ b/arch/x86/events/intel/cstate.c
-@@ -322,10 +322,7 @@ static int cstate_pmu_event_init(struct perf_event *event)
- 
- static inline u64 cstate_pmu_read_counter(struct perf_event *event)
- {
--	u64 val;
--
--	val = rdmsrq(event->hw.event_base);
--	return val;
-+	return rdmsrq(event->hw.event_base);
- }
- 
- static void cstate_pmu_event_update(struct perf_event *event)
-diff --git a/arch/x86/events/intel/knc.c b/arch/x86/events/intel/knc.c
-index c4f81215f758..a74caa8280be 100644
---- a/arch/x86/events/intel/knc.c
-+++ b/arch/x86/events/intel/knc.c
-@@ -199,11 +199,7 @@ static void knc_pmu_enable_event(struct perf_event *event)
- 
- static inline u64 knc_pmu_get_status(void)
- {
--	u64 status;
--
--	status = rdmsrq(MSR_KNC_IA32_PERF_GLOBAL_STATUS);
--
--	return status;
-+	return rdmsrq(MSR_KNC_IA32_PERF_GLOBAL_STATUS);
- }
- 
- static inline void knc_pmu_ack_status(u64 ack)
-diff --git a/arch/x86/events/intel/lbr.c b/arch/x86/events/intel/lbr.c
-index 68d184ea5bcf..beac04502b73 100644
---- a/arch/x86/events/intel/lbr.c
-+++ b/arch/x86/events/intel/lbr.c
-@@ -209,10 +209,7 @@ void intel_pmu_lbr_reset(void)
-  */
- static inline u64 intel_pmu_lbr_tos(void)
- {
--	u64 tos;
--
--	tos = rdmsrq(x86_pmu.lbr_tos);
--	return tos;
-+	return rdmsrq(x86_pmu.lbr_tos);
- }
- 
- enum {
-@@ -311,26 +308,18 @@ static __always_inline u64 rdlbr_from(unsigned int idx, struct lbr_entry *lbr)
- 
- static __always_inline u64 rdlbr_to(unsigned int idx, struct lbr_entry *lbr)
- {
--	u64 val;
--
- 	if (lbr)
- 		return lbr->to;
- 
--	val = rdmsrq(x86_pmu.lbr_to + idx);
--
--	return val;
-+	return rdmsrq(x86_pmu.lbr_to + idx);
- }
- 
- static __always_inline u64 rdlbr_info(unsigned int idx, struct lbr_entry *lbr)
- {
--	u64 val;
--
- 	if (lbr)
- 		return lbr->info;
- 
--	val = rdmsrq(x86_pmu.lbr_info + idx);
--
--	return val;
-+	return rdmsrq(x86_pmu.lbr_info + idx);
- }
- 
- static inline void
-diff --git a/arch/x86/events/intel/uncore.c b/arch/x86/events/intel/uncore.c
-index ab2c5a962b31..cffbd780a435 100644
---- a/arch/x86/events/intel/uncore.c
-+++ b/arch/x86/events/intel/uncore.c
-@@ -169,11 +169,7 @@ struct intel_uncore_box *uncore_pmu_to_box(struct intel_uncore_pmu *pmu, int cpu
- 
- u64 uncore_msr_read_counter(struct intel_uncore_box *box, struct perf_event *event)
- {
--	u64 count;
--
--	count = rdmsrq(event->hw.event_base);
--
--	return count;
-+	return rdmsrq(event->hw.event_base);
- }
- 
- void uncore_mmio_exit_box(struct intel_uncore_box *box)
-diff --git a/arch/x86/events/rapl.c b/arch/x86/events/rapl.c
-index 180cc18282ca..2d2376c59816 100644
---- a/arch/x86/events/rapl.c
-+++ b/arch/x86/events/rapl.c
-@@ -192,9 +192,7 @@ static inline unsigned int get_rapl_pmu_idx(int cpu, int scope)
- 
- static inline u64 rapl_read_counter(struct perf_event *event)
- {
--	u64 raw;
--	raw = rdmsrq(event->hw.event_base);
--	return raw;
-+	return rdmsrq(event->hw.event_base);
- }
- 
- static inline u64 rapl_scale(u64 v, struct perf_event *event)
-diff --git a/arch/x86/events/zhaoxin/core.c b/arch/x86/events/zhaoxin/core.c
-index 1980e5995e27..9203321c18b4 100644
---- a/arch/x86/events/zhaoxin/core.c
-+++ b/arch/x86/events/zhaoxin/core.c
-@@ -266,11 +266,7 @@ static void zhaoxin_pmu_enable_all(int added)
- 
- static inline u64 zhaoxin_pmu_get_status(void)
- {
--	u64 status;
--
--	status = rdmsrq(MSR_CORE_PERF_GLOBAL_STATUS);
--
--	return status;
-+	return rdmsrq(MSR_CORE_PERF_GLOBAL_STATUS);
- }
- 
- static inline void zhaoxin_pmu_ack_status(u64 ack)
-diff --git a/arch/x86/hyperv/hv_apic.c b/arch/x86/hyperv/hv_apic.c
-index 4e30f9a11bc4..52ee8c237c2c 100644
---- a/arch/x86/hyperv/hv_apic.c
-+++ b/arch/x86/hyperv/hv_apic.c
-@@ -36,10 +36,7 @@ static struct apic orig_apic;
- 
- static u64 hv_apic_icr_read(void)
- {
--	u64 reg_val;
--
--	reg_val = rdmsrq(HV_X64_MSR_ICR);
--	return reg_val;
-+	return rdmsrq(HV_X64_MSR_ICR);
- }
- 
- static void hv_apic_icr_write(u32 low, u32 id)
-diff --git a/arch/x86/include/asm/apic.h b/arch/x86/include/asm/apic.h
-index e028140fac49..993b52b52625 100644
---- a/arch/x86/include/asm/apic.h
-+++ b/arch/x86/include/asm/apic.h
-@@ -231,10 +231,7 @@ static inline void native_x2apic_icr_write(u32 low, u32 id)
- 
- static inline u64 native_x2apic_icr_read(void)
- {
--	unsigned long val;
--
--	val = rdmsrq(APIC_BASE_MSR + (APIC_ICR >> 4));
--	return val;
-+	return rdmsrq(APIC_BASE_MSR + (APIC_ICR >> 4));
- }
- 
- extern int x2apic_mode;
-diff --git a/arch/x86/include/asm/debugreg.h b/arch/x86/include/asm/debugreg.h
-index 60a3df32a4d3..e00251c7eb12 100644
---- a/arch/x86/include/asm/debugreg.h
-+++ b/arch/x86/include/asm/debugreg.h
-@@ -174,15 +174,11 @@ static inline unsigned long amd_get_dr_addr_mask(unsigned int dr)
- 
- static inline unsigned long get_debugctlmsr(void)
- {
--	unsigned long debugctlmsr = 0;
--
- #ifndef CONFIG_X86_DEBUGCTLMSR
- 	if (boot_cpu_data.x86 < 6)
- 		return 0;
- #endif
--	debugctlmsr = rdmsrq(MSR_IA32_DEBUGCTLMSR);
--
--	return debugctlmsr;
-+	return rdmsrq(MSR_IA32_DEBUGCTLMSR);
- }
- 
- static inline void update_debugctlmsr(unsigned long debugctlmsr)
-diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
-index e1e5d32c6286..183f252a6815 100644
---- a/arch/x86/include/asm/kvm_host.h
-+++ b/arch/x86/include/asm/kvm_host.h
-@@ -1875,16 +1875,6 @@ enum kvm_intr_type {
- 
- #define kvm_arch_has_readonly_mem(kvm) (!(kvm)->arch.has_protected_state)
- 
--#ifdef CONFIG_X86_64
--static inline unsigned long read_msr(unsigned long msr)
--{
--	u64 value;
--
--	value = rdmsrq(msr);
--	return value;
--}
--#endif
--
- #define HF_GUEST_MASK		(1 << 0) /* VCPU is in guest-mode */
- 
- #ifdef CONFIG_KVM_SMM
-diff --git a/arch/x86/kvm/vmx/tdx.c b/arch/x86/kvm/vmx/tdx.c
-index 8a593159c9b7..926bbf88b20a 100644
---- a/arch/x86/kvm/vmx/tdx.c
-+++ b/arch/x86/kvm/vmx/tdx.c
-@@ -793,7 +793,7 @@ void tdx_prepare_switch_to_guest(struct kvm_vcpu *vcpu)
- 	if (likely(is_64bit_mm(current->mm)))
- 		vt->msr_host_kernel_gs_base = current->thread.gsbase;
- 	else
--		vt->msr_host_kernel_gs_base = read_msr(MSR_KERNEL_GS_BASE);
-+		vt->msr_host_kernel_gs_base = rdmsrq(MSR_KERNEL_GS_BASE);
- 
- 	vt->guest_state_loaded = true;
- 
-diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
-index aa8d23ba1204..7cd64feefc67 100644
---- a/arch/x86/kvm/vmx/vmx.c
-+++ b/arch/x86/kvm/vmx/vmx.c
-@@ -1390,8 +1390,8 @@ void vmx_prepare_switch_to_guest(struct kvm_vcpu *vcpu)
- 	} else {
- 		savesegment(fs, fs_sel);
- 		savesegment(gs, gs_sel);
--		fs_base = read_msr(MSR_FS_BASE);
--		vt->msr_host_kernel_gs_base = read_msr(MSR_KERNEL_GS_BASE);
-+		fs_base = rdmsrq(MSR_FS_BASE);
-+		vt->msr_host_kernel_gs_base = rdmsrq(MSR_KERNEL_GS_BASE);
- 	}
- 
- 	wrmsrq(MSR_KERNEL_GS_BASE, vmx->msr_guest_kernel_gs_base);
-@@ -1450,7 +1450,7 @@ static u64 vmx_read_guest_host_msr(struct vcpu_vmx *vmx, u32 msr, u64 *cache)
- {
- 	preempt_disable();
- 	if (vmx->vt.guest_state_loaded)
--		*cache = read_msr(msr);
-+		*cache = rdmsrq(msr);
- 	preempt_enable();
- 	return *cache;
- }
--- 
-2.56.0
+On 10/26/26 13:03, Heiko Carstens wrote:
+> The spinlock in __s390_kernel_write() was introduced to serialize the
+> read-modify-write sequence against concurrent callers. Now that all
+> relevant runtime callers of s390_kernel_write() hold the text_mutex, the
+> spinlock is not required anymore.
 
+Do we want to enforce this with __must_hold?
+
+> Replace it with preempt_disable() / preempt_enable() and sync_core().
+> Previously, CPU serialization was implicitly done by other
+> instructions. Make this explicit with sync_core() instead of
+> relying on that.
+> 
+> Preemption is disabled so that sync_core() issues the CPU serialization
+> instruction on the same CPU that executed the stores. This completes all
+> previous stores and makes them visible to other CPUs.
+> 
+> Other CPUs need to perform CPU serialization, e.g. with text_poke_sync(),
+> to discard already prefetched instructions.
+> 
+> Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
+> ---
+>   arch/s390/mm/maccess.c | 9 ++++-----
+>   1 file changed, 4 insertions(+), 5 deletions(-)
+> 
+> diff --git a/arch/s390/mm/maccess.c b/arch/s390/mm/maccess.c
+> index f39968dd8063..cda3f81dfbc2 100644
+> --- a/arch/s390/mm/maccess.c
+> +++ b/arch/s390/mm/maccess.c
+> @@ -6,6 +6,7 @@
+>    *
+>    */
+>   
+> +#include <linux/text-patching.h>
+>   #include <linux/uaccess.h>
+>   #include <linux/kernel.h>
+>   #include <linux/types.h>
+> @@ -60,22 +61,20 @@ static notrace long s390_kernel_write_odd(void *dst, const void *src, size_t siz
+>    * bytes from destination at an eight byte boundary, modifies the bytes
+>    * requested and writes the result back in a loop.
+>    */
+> -static DEFINE_SPINLOCK(s390_kernel_write_lock);
+> -
+>   notrace void *__s390_kernel_write(void *dst, const void *src, size_t size)
+>   {
+>   	void *tmp = dst;
+> -	unsigned long flags;
+>   	long copied;
+>   
+> -	spin_lock_irqsave(&s390_kernel_write_lock, flags);
+> +	preempt_disable();
+>   	while (size) {
+>   		copied = s390_kernel_write_odd(tmp, src, size);
+>   		tmp += copied;
+>   		src += copied;
+>   		size -= copied;
+>   	}
+> -	spin_unlock_irqrestore(&s390_kernel_write_lock, flags);
+> +	sync_core();
+> +	preempt_enable();
+>   
+>   	return dst;
+>   }
+
+I've been looking at sync_core() and started thinking about the safety
+of this interface w.r.t. CPUs concurrently executing the code being
+patched, since locking protects only against concurrent readers and
+writers, but not executors.
+
+If there is only one active CPU, for example, during ftrace
+initialization, then everything is fine.
+
+If there are other active CPUs and we make modifications within a single
+aligned u64, then sync_core() is required, because even though
+text_poke_sync() nominally takes care of this, it may sync our core
+last. However, I wonder, what would it take to make it always sync the
+current core first?
+
+Finally, and most importantly, if there are other active CPUs and we
+patch multiple u64s, then we are broken, since the other CPUs may see
+partial instructions. I'm not sure if it's worth bothering with, but
+maybe consider adding a WARN_ONCE() to guard against this?
