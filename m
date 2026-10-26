@@ -1,107 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792991015;
-	b=OsLeI/qkPTFQNHEzrxuMTnnuIHGxHziB/TAzto9zzfVRk8zuGB7C+Q8WjkYuKA3B6bUU
-	 uW3MdPkSuQ8dU/A/diTrGOUtbw3vMP5zdRjoEz32zDwNK6EMhatEBlwwsFnNDY/bXwUaZ
-	 XTcNzdznqQRpuL6dspg0y4l1Bb5VCpt9qP2XIWRWHi2I4GubqGqTfO5bnrgONI3fa0LcA
-	 zdUnT/kQWOYlt2BCACDjkatjDIrKv3Fs0p0+5lbxCjId9VZwrYPLeq2UjPD/517psSoTA
-	 CijXhD3xzQlCMfIqfLLy2yKK8gjCgqYaXOO4d3UmExvpxdNaW0getrtFhK5nOdM5fHA==
+	t=1792991083;
+	b=BhN39oc0xUtiAi8bEIWf4DIcIxKHVLNhAp+pvo+Dz9YwYRXulbDuzobIYbAItPII+BMh
+	 nnAECYlLREvX9ELwf56LrVvmkmRIEggTkQCColmd2GGUKQQzw7IuKdsOfKbufpS4pRjNH
+	 kLakukpi6cZZ/MLI6sJMvLz26NUmiA08vp9tdFEAq9N0r97V9mLTzJo4w+qC5Rm0gqmet
+	 1HsHE55yBsqZ7fpayVdOYLOPFrdH/dFYGBF2toQngNoke2PPNdiS/mzWO82yKD0ngvix0
+	 fcplargh0s/VMu2ASAPwU7UTjb1zU9f7ZrHjBhSGYSaPDG4ehYWwo6GOHsX523Ieb1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792991015;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
-	 Received:Received:Received:Received:Received:From:To:CC:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-ADIRuleOP-NewSCL:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=vT0+zXTmG/EmzhQW9D3zRNY20EvRt94/oKoyM4sLpWI=;
-	b=E+f7bcIi8pS7jjHszBkbCls7mkLsuOZUHbHyzCPOwScHmjpA0c/7EQDNR1lZrFyyXg0B
-	 3C0MWzVmr9O4ZQNlUvUUYj+tbdcCVY2Q5EmkkKKabkI9xhJ2AXR1ggqlZnhDmvbchhndG
-	 gCjD2Ph2vzA3maq7Z27baN1DqdMaGfISkVjqgASEMQCqQ3GzcNtby3Ci1WtQae2VQ/hyK
-	 Gywwfl9KTwwW8f909xr5KPYaQdldrO2vkIDa0KXctUrRCMKXLpmwyXrdyEIAQIBd+Cbyh
-	 6wyo0DlitrLLHbt7tTiQmGaPQa0RV/MkTc034hojBhGO+xphKju7BzPIL1tS3Ntf7Bw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792991083;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=CAP3pImyasVPHFJHhGSvq5YXqLG+iW+fojFBPuLjqCM=;
+	b=nd4wfR09g3++W0J33DDLVNwb7ak/i+dbugQvsLy6hHS5t5rLwa0g6+pgokciU8cvSm69
+	 uOYYKnKq8wtRW7lZOJYwRc6sC8BR9vOkN4qWGILPapb9PK4kVMkkjzaDTlA7rATVHrWe8
+	 ydSZsni6TxSpyGApDEqh+zc3mYQHAC/YzP6Yq7d8vYf91HNBZzd2Ml1+RXhW2ARswDZ0F
+	 CXNjdJE7YPFSEJzKfv1aC8mpTZlrVPMIT0CikfIq/gwYJxJQPFatujx4upGXO+WN+uUpl
+	 2Acbg3HaVVcGiOizeW7BgGlUQYxUZMnchuEnnSyiCn3ZFJxlIxmr0vajMZJuYa/THbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=analog.com;
-	spf=pass smtp.mailfrom=analog.com;
-	dkim=pass header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=cl0C8Iu5;
-	dkim=pass header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=wmILc5c1;
-	arc=none smtp.remote-ip=148.163.135.77
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cYMd5a0Q;
+	arc=none smtp.remote-ip=192.198.163.16
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC409606A31B;
-	Mon, 26 Oct 2026 05:03:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC409606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 666D3606A31B
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 05:04:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 666D3606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=cl0C8Iu5;
-	dkim=pass (2048-bit key, unprotected) header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=wmILc5c1
-Received: from pps.filterd (m0167089.ppops.net [127.0.0.1])
-	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69Q4t2mS4132700;
-	Mon, 26 Oct 2026 01:03:11 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vtelectron.com;
-	 h=cc:content-transfer-encoding:content-type:date:from
-	:in-reply-to:message-id:mime-version:references:subject:to; s=
-	DKIM; bh=vT0+zXTmG/EmzhQW9D3zRNY20EvRt94/oKoyM4sLpWI=; b=cl0C8Iu
-	5K1vRp3gC9CMhkDOcinT1J5117EZhGCcVKYxrp6Ps9idUQh71AjCCvf2QfPNglIl
-	ttWFmEqywLA8V5hY4fy/0iy6L+745QGEPivY69vrmpRgNzQmA5VEDVArA7zX4E5j
-	YyFnddWyKkSDlFmOZInY5C/625ipkdwfEEdbvwTfoUTQoNHr10TXeBvIf9vfhq4z
-	15KfFAvtFDsDOGCnbLS+syBz95HKzn5QQOfXug8Hd+GKvS4TrAvLKM31lNCl5KAn
-	cdV5HBHJLNJaoeGkLcF0dOml5lyv4UdCN5NuXEYfPV7MqDP8P6RWPnshGbArrCti
-	9O9VdKoAqgD0HXw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=vT0+z
-	XTmG/EmzhQW9D3zRNY20EvRt94/oKoyM4sLpWI=; b=wmILc5c1IosF0M04ZJHZ8
-	r7FDZHEn8HwvsLMNZtAwKzW4xHRwhk2at+RUq1+AGF3jctfZouqYDIsq+883M7tN
-	ifgrV2vOZg3vhNc3jb3KRgvlXSCR0VlCXKHaN1GW61i8gqMBdYdEtz+WQw3JZi1N
-	mk6WGoWbnE8MC8iXxGGMIKnECxpsA0TC6kyl2q26xitsq/3yvMQpTW19ersqcrNf
-	bD6DK96a+LNRLL6aUI1s9zE0B8J0SgAb4XQCg/TbXaEuRPc4Lvsz4mbVjAI8rvyL
-	kcDzX6DXVWk4V4QTgO8M7dgJoo3l/K7UeJU+uJD3sP5bng61v8XwHC46bo8LBPn2
-	g==
-Received: from nwd2mta4.analog.com ([137.71.173.58])
-	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4hj08m81mk-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 26 Oct 2026 01:03:09 -0400 (EDT)
-Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
-	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 69Q538mc000987
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 26 Oct 2026 01:03:08 -0400
-Received: from ASHBCASHYB4.ad.analog.com (10.64.17.132) by
- ASHBMBX9.ad.analog.com (10.64.17.10) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Mon, 26 Oct 2026 01:03:08 -0400
-Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by
- ASHBCASHYB4.ad.analog.com (10.64.17.132) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Mon, 26 Oct 2026 01:03:07 -0400
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx8.ad.analog.com
- (10.64.17.5) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
- Transport; Mon, 26 Oct 2026 01:03:07 -0400
-Received: from CJONES7-T01.ad.analog.com (CJONES7-T01.ad.analog.com [10.117.222.42])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 69Q52g3o018821;
-	Mon, 26 Oct 2026 01:02:59 -0400
-From: Carlos Jones Jr <carlosjr.jones@analog.com>
-To: Guenter Roeck <linux@roeck-us.net>,
-        Alexis Czezar Torreno
-	<alexisczezar.torreno@analog.com>,
-        Rob Herring <robh@kernel.org>,
-        "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-CC: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
-        Randy Dunlap <rdunlap@infradead.org>, <linux-hwmon@vger.kernel.org>,
-        <devicetree@vger.kernel.org>, <linux-doc@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>
-Subject: [PATCH 1/2] dt-bindings: hwmon: max20830: Add MAX20810, MAX20815, LTM4739, LTM4740
-Date: Mon, 26 Oct 2026 13:02:40 +0800
-Message-ID: <20261026050241.100428-2-carlosjr.jones@analog.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261026050241.100428-1-carlosjr.jones@analog.com>
-References: <20261026050241.100428-1-carlosjr.jones@analog.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cYMd5a0Q
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792991083; x=1824527083;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=h1Ol9v/7Yz5OguXGslXMs4aKABkZAC1Mi5rLoDEa5OA=;
+  b=cYMd5a0QQ0PwcLhuq+ymzP9ZUNiwyEXkAfDvgmjvjXS7rJH8lcoOBB69
+   Ytwdc6E7BxSkUihFEQl14fgN5O0QKWdVmt2OfSm3QT4dVTYnS+BEj6R4u
+   K/G7lSnXDTskSGx04c3JUMgp26Fh1vYXFcSb+eo8ZNzZZ++mRAHVqFOTH
+   yrKn0RsdUk5oAU+yXaU8+AuFd2ncbYQb4khWuDubyC5IVfbL9YVUqBjUN
+   Bivhk+YtUuUf82dS+5ML50KvhpostFTT/JiKQCq/DzdnYgBuByVkre+wk
+   pEyaS4ObyRqMn+NOqjH1cLLukJBs7Ad41jDW5pPKXuJ4m2Oh4Jz1rIBBa
+   A==;
+X-CSE-ConnectionGUID: sK9HFL++RuqBiyd1hpEFjw==
+X-CSE-MsgGUID: Vs08/8qmQr6D8zNtcsePoQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1658890"
+X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
+   d="scan'208";a="1658890"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 22:04:42 -0700
+X-CSE-ConnectionGUID: O2Tqdz1zSfO9tCynJ3rThg==
+X-CSE-MsgGUID: FE+amqo2SzGSHUwWGrOcoA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
+   d="scan'208";a="4114745"
+Received: from unknown (HELO [10.238.0.97]) ([10.238.0.97])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 22:04:37 -0700
+Message-ID: <edafb4a0-ba6d-4fc1-a61a-801888e31a9e@intel.com>
+Date: Mon, 26 Oct 2026 13:04:33 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,62 +72,125 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Proofpoint-GUID: grFJvO88psFi7ukgE0xDpLVNqbz-b3kV
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDAxOSBTYWx0ZWRfX1VPyziGSJ+m3
- f3Mc8S7uXUlIqjNDuPK8yEfaYxl6uKCPVnTueC4Xv9UMDhQgYNrIqC/k3YG01gRU7ofEqqit0lp
- QTQcKyrPRZhExV4OuTDYbBF1rCKZco9XUgHPsFj97N6912hdfkLJ52UMe5SFLOnFg89Mj+O2yoX
- RNJTwONblHGOk7fodQH1h/ar865bFJe/eiZFkWe7o5UYmoX+RNkoYO4Cqvc/D89gWPkSgF/73XY
- CTpHt+3gl8N3gpJUUyqIJ2qn8k+G5fjrSb4D1eEyEw8inODyj1SUC409RW43v4ZAcleObdPUgeg
- W0Eef9XalPNUBwcz+yXyDHLX4a430E/3C03BIJkQ/h8JbIaauxrHZKJfzMuxEOGbLFQglFtEnr7
- 3bcDwuv/YK1S/hMPrTTEn7U8T3vPha11xhz9WbrxKHWJD6qKJJ7Mu2+OeDLP03vmtvZ2KOhJhjb
- 6YeTrxSboZ0OfLlW6cQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDAxOSBTYWx0ZWRfX0ZUYb7sh7eK2
- 62q2zPhDx1eU8FFsIbY8i4MGYXhqlw+U/E8phpdRQ4H1HNZHOBGtc3IBMHWGtd29sFmWl68cEPU
- 3SVlQ81kFo/kLayZHvQvrA4/7m+M91jrcPAp0+n38OGH4hYVzJJK
-X-Authority-Analysis: v=2.4 cv=LJ3z05W9 c=1 sm=1 tr=0 ts=6adedf0d cx=c_pps
- a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
- a=Z0pTeXoby7EwIRygza74:22 a=gAnH3GRIAAAA:8 a=LkTFOP2xGKwYGyyeCikA:9
-X-Proofpoint-ORIG-GUID: grFJvO88psFi7ukgE0xDpLVNqbz-b3kV
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-26_01,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 suspectscore=0 adultscore=0 phishscore=0 clxscore=1011
- bulkscore=0 malwarescore=0 priorityscore=1501 lowpriorityscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610260019
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 09/15] virt: tdx-guest: Capture the TDI report during
+ device lock
+To: Zhenzhong Duan <zhenzhong.duan@intel.com>, x86@kernel.org,
+ linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org
+Cc: dave.hansen@linux.intel.com, tglx@kernel.org, mingo@redhat.com,
+ bp@alien8.de, hpa@zytor.com, dave.hansen@intel.com, kas@kernel.org,
+ rick.p.edgecombe@intel.com, jgg@nvidia.com, nicolinc@nvidia.com,
+ aik@amd.com, aneesh.kumar@kernel.org, seanjc@google.com,
+ pbonzini@redhat.com, yilun.xu@linux.intel.com, chao.gao@intel.com,
+ vishal.l.verma@intel.com, kevin.tian@intel.com, chao.p.peng@intel.com
+References: <20260924041032.1096569-1-zhenzhong.duan@intel.com>
+ <20260924041032.1096569-10-zhenzhong.duan@intel.com>
+Content-Language: en-US
+From: Xiaoyao Li <xiaoyao.li@intel.com>
+In-Reply-To: <20260924041032.1096569-10-zhenzhong.duan@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The MAX20810 (10A) and MAX20815 (15A) are members of the same device
-family as the MAX20830, sharing an identical PMBus command set and
-telemetry (VIN, VOUT, IOUT, TEMP). The LTM4739 and LTM4740 are the
-LTM-series module equivalents of the MAX20810 and MAX20815 respectively.
+On 9/24/2026 12:10 PM, Zhenzhong Duan wrote:
+> Retrieve the Trusted Device Interface report through
+> TDCM_OP_GET_TDI_REPORT after binding the device.
+> 
+> Store the report in the PCI TSM device evidence object and free it
+> during device unlock.
 
-All variants use the existing adi,max20830 fallback compatible.
+It doesn't talk about why the report is needed, and why it needs to be stored in
+the evidence object.
 
-Signed-off-by: Carlos Jones Jr <carlosjr.jones@analog.com>
----
- .../devicetree/bindings/hwmon/pmbus/adi,max20830.yaml         | 4 ++++
- 1 file changed, 4 insertions(+)
+> Signed-off-by: Zhenzhong Duan <zhenzhong.duan@intel.com>
+> ---
+>  drivers/virt/coco/tdx-guest/connect.c | 45 +++++++++++++++++++++++++++
+>  1 file changed, 45 insertions(+)
+> 
+> diff --git a/drivers/virt/coco/tdx-guest/connect.c b/drivers/virt/coco/tdx-guest/connect.c
+> index e36515fc43ef..d5934e8c0089 100644
+> --- a/drivers/virt/coco/tdx-guest/connect.c
+> +++ b/drivers/virt/coco/tdx-guest/connect.c
+> @@ -217,8 +217,35 @@ static int tdx_tdi_read_state(struct tdx_devsec *tdevsec, u8 *state)
+>  	return ret;
+>  }
+>  
+> +static u8 *tdx_tdi_get_report(struct tdx_devsec *tdevsec, u32 *report_sz)
+> +{
+> +	struct pci_dev *pdev = tdevsec->pci.base_tsm.pdev;
+> +	u8 *report;
+> +	int ret;
+> +
+> +	struct tdcm_ctx *tdcm __free(tdx_tdcm_free) =
+> +		tdx_tdcm_alloc(pdev, TDCM_OP_GET_TDI_REPORT, 0, MAX_TDI_REPORT_SIZE);
+> +	if (IS_ERR(tdcm))
+> +		return ERR_CAST(tdcm);
+> +
+> +	ret = tdx_tdcm_run(tdcm);
+> +	if (ret)
+> +		return ERR_PTR(ret);
+> +
+> +	report = kmemdup(to_tdcm_rsp_data(tdcm), tdcm->rsp_data_sz, GFP_KERNEL);
+> +	if (!report)
+> +		return ERR_PTR(-ENOMEM);
+> +
+> +	*report_sz = tdcm->rsp_data_sz;
+> +	print_hex_dump_debug("tdi_report: ", DUMP_PREFIX_OFFSET, 16, 1, report, *report_sz, false);
+> +	return report;
+> +}
+> +
+>  static struct pci_tsm *tdx_devsec_lock(struct tsm_dev *tsm_dev, struct pci_dev *pdev)
+>  {
+> +	struct device_evidence_object *tsm_report;
+> +	struct device_evidence *evidence;
+> +	u32 report_sz;
+>  	u8 state;
+>  	int ret;
+>  
+> @@ -237,6 +264,10 @@ static struct pci_tsm *tdx_devsec_lock(struct tsm_dev *tsm_dev, struct pci_dev *
+>  	if (IS_ERR(tdevsec_bind))
+>  		return ERR_CAST(tdevsec_bind);
+>  
+> +	u8 *report __free(kfree) = tdx_tdi_get_report(tdevsec, &report_sz);
+> +	if (IS_ERR(report))
+> +		return ERR_CAST(report);
+> +
+>  	ret = tdx_tdi_read_state(tdevsec, &state);
+>  	if (ret)
+>  		return ERR_PTR(ret);
+> @@ -244,6 +275,17 @@ static struct pci_tsm *tdx_devsec_lock(struct tsm_dev *tsm_dev, struct pci_dev *
+>  	if (state != TDI_STATE_CONFIG_LOCKED)
+>  		return ERR_PTR(-EIO);
+>  
+> +	evidence = device_evidence_create(0, HASH_ALGO_SHA384);
+> +
+> +	if (!evidence)
+> +		return ERR_PTR(-ENOMEM);
+> +
+> +	tsm_report = &evidence->obj[DEVICE_EVIDENCE_TYPE_REPORT];
+> +	tsm_report->data = no_free_ptr(report);
+> +	tsm_report->len = report_sz;
 
-diff --git a/Documentation/devicetree/bindings/hwmon/pmbus/adi,max20830.yaml b/Documentation/devicetree/bindings/hwmon/pmbus/adi,max20830.yaml
-index cc50a4ee44a2..8194108d61e3 100644
---- a/Documentation/devicetree/bindings/hwmon/pmbus/adi,max20830.yaml
-+++ b/Documentation/devicetree/bindings/hwmon/pmbus/adi,max20830.yaml
-@@ -26,6 +26,10 @@ properties:
-       - const: adi,max20830
-       - items:
-           - enum:
-+              - adi,ltm4739
-+              - adi,ltm4740
-+              - adi,max20810
-+              - adi,max20815
-               - adi,max20830c
-               - adi,max20840c
-           - const: adi,max20830
--- 
-2.43.0
+it looks better if TSM evidence sub system can provide some helper instead of
+manually operating on the obj. But this is not the problem of this patch.
+
+> +
+> +	tdevsec->pci.base_tsm.evidence = evidence;
+> +
+>  	retain_and_null_ptr(tdevsec_bind);
+>  
+>  	return &no_free_ptr(tdevsec)->pci.base_tsm;
+> @@ -252,10 +294,13 @@ static struct pci_tsm *tdx_devsec_lock(struct tsm_dev *tsm_dev, struct pci_dev *
+>  static void tdx_devsec_unlock(struct pci_tsm *tsm)
+>  {
+>  	struct tdx_devsec *tdevsec = to_tdx_devsec(tsm);
+> +	struct device_evidence *evidence = tsm->evidence;
+>  
+>  	if (WARN_ON(tdx_tdi_unbind_dev(tdevsec)))
+>  		return;
+>  
+> +	kfree(evidence->obj[DEVICE_EVIDENCE_TYPE_REPORT].data);
+> +	kfree(evidence);
+>  	kfree(tdevsec);
+>  }
+>  
 
