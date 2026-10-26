@@ -1,128 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793055307;
-	b=c0Z653tnmHBPVObiZbxFlzqN45doLN7oQhWX2I/XQQ9ar/CE+kAA4aXZ9b1RSsrqTVgb
-	 SFujyh3Y+7vijxyQFCkTZT02yosyhWnzKwz8u8YRpaRD8DJtmK/dB+5gabliaeJMTMQUW
-	 aBUUXThLvbS2FH4hUiGhAfok/qVY0SreqVJj5fK/QysvxsdOGI5JVIRd9avCfRXiUb4vZ
-	 peUkPcAP5+senTEQ760MTUtNPXYD/cF55XHIR6SZpwxk21YdVJx4r9sjP8xqJqbXGjNlo
-	 w8zHI7XMSlcjl7aZYliqYLXNlOOcdHQxWGGFDFTPMxggj6W5xD6tmG3URlozDRFOeSg==
+	t=1793055368;
+	b=BZ7Tcau5pUrZMhqCmo861pOdn41BE+RmWO0MI0vBi2E8yyWhU45rqm8vnJ3vDZtK+wde
+	 I69RJ2dggeUd2UOFTxusm9UIyLnwlMN5dOQejGhAJ9w8qt63jPkrtO5VOnsN8D7m1Nsgk
+	 gVGFr6l7goeYM6ePCSJCig/NY8qP6E84+D8OsgZtgirczbc/EpZtqQYKmybZHTjdy0/q+
+	 R96ABW9kxGztGqvKalZCVxluyco6bCcTLuoe0q+DoJPxix3dn/eCIiiFHYDeL1Lbm6JK1
+	 1EtNGLhDustk4EcOSIF2ci9Eorqif/0obABIFhmLAEsJ8S/OQQSnJEUfiqyG74ThfsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793055307;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=Qv4yXz9mBS7TK9aKYpPIFfG0d3O9zFyQxnBKda+GG2U=;
-	b=jm0/43hyF0YdmlLW6C/wLLUBoHGT54l5g/i8YlAypv6syodIXiHLmelw8NTR+0Cuaff0
-	 O4hV6wih8UskYhrebEGt8AYN6dj1b08/23Ci92aRmPKUBi+DWZoHk7QdlAKlIDb1Rvjib
-	 Coi1Bfvy0/8NwJ/+PZL7vcJ4AMiNI/0xYL3g0GlDfyIHqSQqCf6YJ41DhVyBMDBJfdqBa
-	 sahfskklthYd9xJ1t6O5zR6go5VzsUNUuXANkXhYcmxILDldmg7o4iSFOvUCb5E9S7q76
-	 Cen+moQUHTAprAdxmrduNrC9t8sW05YpZR4FlKyrgequvlZ7EFwbdKfxBCSvnNVX3Ag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793055368;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=kDRiWJeMZqvF6vqXY+N9yfNAfM6lhJN4gULkYvRyiak=;
+	b=SbJgeI8cjOucxdvKtzDuM5ZZu4XQEQRsjW+GH/LMSSD8SIDPzAdVZD6d1tdnV04SUg+o
+	 Ow0ChkCYwVDHeD65Y+45lVUkTAEJQujCwCUp5fUZjNdYV+e4JFUxdN/QwYqQuu9RIuxFY
+	 t70RHXIVwRyUL7M+EzJCxm4Q/qCRv2CgmOBVyz7juwYa+kTPFXiYdbmopoXd1dOD7ZrNA
+	 rLisWV7bUoBGld4L/xE7X80wj0dA9vHWjoF4EcTgNOKmnYNtm3MJqgscZiQWDIaWv5iX3
+	 3lhl3xrQGr/0mbG8Om+ocCAXEVLtxqSBDIbu4giS4iLOAoEK3BkcT1n+SF9vNeCE0yw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=ziepe.ca;
-	spf=pass smtp.mailfrom=ziepe.ca;
-	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=iE1vhkuf;
-	arc=none smtp.remote-ip=209.85.160.176
-Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JA6O2W7j;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C78C606A320
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 22:55:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C78C606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 171B1606A326;
+	Mon, 26 Oct 2026 22:56:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=iE1vhkuf
-Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-5361e313e63so33918751cf.3
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 15:55:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1793055306; x=1793660106; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Qv4yXz9mBS7TK9aKYpPIFfG0d3O9zFyQxnBKda+GG2U=;
-        b=iE1vhkufDNk47J0y0sfQfrcXvv7YwF5xZFg9Zgo3GIzWAPWbTFVaeyw2U0dtOlPag2
-         5dWMf7SyNSgNhsm9D6diSHIdA69bKNuWJ33g6Ws86B/FXC72+OUoK0GlOXNcOXMMUb7j
-         vEQdmCqpATKVE6+OWcRHTpwNRrYJBNMNiiH9SbBKxx83oBE7NDzOB6NP/kzPMrB7tS1u
-         BJ8R/xA3Vtfw1W0CvF40clDWUJO6jz0fi1k5djJewrxA40gh6oNqWlI/rreVaHKQhFSf
-         2D4NvJf4yKKhk9yrS9MArPN93WnWZW895J1xZMvYhJ7gHZqrZyRRpjbacUJzAeaZicS/
-         ct0w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793055306; x=1793660106;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Qv4yXz9mBS7TK9aKYpPIFfG0d3O9zFyQxnBKda+GG2U=;
-        b=GFnRrDLDwHwwP3WkBzUQlO9bWN69+FvOA2tpGiBfCxJd53gAZ7RDFxzIeQEEdCpccS
-         OVPdspCOjYmnuBsWya+dQVIcuztRRF6Jju5msyX+tzDbEWVdW/Z3oHvCqSragpVDQOCF
-         2QiL3ZNJ3OpUWdiKDsPaf3fzffMJK+y78zOWXYwH7CuCS49GPv+DGm8PaAX95jxW3fwW
-         KypQ/ZC6Q7w/Yp/wvCtJtB39QGh2G4RL04YofBFI+/eHGHfv1Clw8CknWq89sJaW5HRt
-         scykyU8RXx5jwSyaqVR7bBcVOOKb+UQqUxQke5BoAd83xFsmacndzGXKjZ9HrGrPnK0l
-         BeMA==
-X-Forwarded-Encrypted: i=1; AKwUvBzIn+pF57oNik94UwSmUD78AWD9NU8PBELhdYadEAi9od3Mgu86yeo6k/brnUKx1i0OO+zYoApSh4MBCxE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJZJGGcWJYC2veoSFdg3osRxS4IAuHcEn5JZpWpadTlc6YxPmY5
-	vdxCVZyymv9t1r0buLDCGBXwq5V8R0HI+0nmlSglHYJXgtcnAV4pV9zJaCtkwxxjLR4=
-X-Gm-Gg: AYBFou3injHNE29z+syFfan1ZiL64rzSQWjlREy0vRir4Wo9RBrGBlcFC0KhU6h6Cuh
-	68BzQ1FqkUz+cCWEDZXyLHxDu5CYEl9jHabydNO7hMctemsblZTpuuPTrC/iazCLRW/D149fcQD
-	gBAmRkb9DDBB+NysROLnX45PlBZ2ST1unAOLz4r/bzb3KagnbShuR4kKl7hfkdyKEQQ0hGILlHg
-	GrHkSoSoXkz8ycASrGCvPggQyyyPVx+OWpDv39iAdezPYxAR3AfKidcZK9Fg998dDPX5EURDy+g
-	MCk152g57YZCYbkN00/15doJwmt9bQxavb/AMQglUfQvhiF1sVeNILu0qcNI2haO9SFtbYi12Dg
-	sS4Wj3FidUFIePGdTDLPuSo8ZEAeBPJR9Jrba1EEXO73ZZDeV3amdOG6QuXXIYdDiI62YLeqR0A
-	EO5uo3/GBRFuigzx4+w6segY1d4W0EDm+AqCzlI91oFA+uE4JBIYZxahXFTPzzeSUeqQf4Zh4uv
-	UtwMXnmls7nyfbdcOPRNOItpDN9pns6iQWaIzpRZ+2eXLrfsHZeSz75sCnCs3KJLmT3jLQnCild
-	QUIxhoV92KDobPQ8f0ErlFmNpvwEuS1cCFDAEw==
-X-Received: by 2002:a05:622a:4b18:b0:535:80b:9911 with SMTP id d75a77b69052e-5383b4b0e1dmr122069761cf.24.1793055306222;
-        Mon, 26 Oct 2026 15:55:06 -0700 (PDT)
-Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-538394c565esm66284051cf.6.2026.10.26.15.55.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 15:55:05 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1xLTaq-000000088rN-3CrV;
-	Mon, 26 Oct 2026 19:55:04 -0300
-Date: Mon, 26 Oct 2026 19:55:04 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Leon Romanovsky <leon@kernel.org>, Alex Williamson <alex@shazbot.org>,
-	Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
-	Armin Wolf <W_Armin@gmx.de>, David Lechner <dlechner@baylibre.com>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Luis Chamberlain <mcgrof@kernel.org>,
-	Petr Pavlu <petr.pavlu@suse.com>,
-	Daniel Gomez <da.gomez@kernel.org>,
-	Sami Tolvanen <samitolvanen@google.com>,
-	Aaron Tomlin <atomlin@atomlin.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Bradley Morgan <brads@mainlining.org>,
-	Aleksandr Nogikh <nogikh@google.com>, linux-modules@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-usb@vger.kernel.org, driver-core@lists.linux.dev,
-	linux-trace-kernel@vger.kernel.org, Johan Hovold <johan@kernel.org>,
-	Richard Weinberger <richard@nod.at>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Bjorn Helgaas <helgaas@kernel.org>, linux-pci@vger.kernel.org
-Subject: Re: [PATCH v4 0/3] driver core: add TAINT_FORCED_BIND for when
- userspace manually messes with devices and drivers
-Message-ID: <20261026225504.GC1685504@ziepe.ca>
-References: <DLIL9H50MALI.3JROXYEEUM3KU@kernel.org>
- <arIvG0nx4LXG9nlW@monoceros>
- <defb3953-7516-437e-b70b-d57de55b91bf@baylibre.com>
- <9bd3a34b-5e98-4038-80d6-da2c3b1948dd@gmx.de>
- <2026092321-province-yearly-44aa@gregkh>
- <arOfHEsGGglNse7T@monoceros>
- <2026092348-victory-erased-0e5a@gregkh>
- <20261023181326.0dc2f7ed@shazbot.org>
- <20261026122243.GA28851@unreal>
- <2026102654-enlighten-perkiness-193c@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JA6O2W7j
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E29761F01828;
+	Mon, 26 Oct 2026 22:56:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793055367;
+	bh=kDRiWJeMZqvF6vqXY+N9yfNAfM6lhJN4gULkYvRyiak=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=JA6O2W7j6unWHhshHnkD/s//HD6Gtrrxz19ZJJp88yY8baS14aOi/vhUL9vmbQFoS
+	 YlCnw7TvFUMhJk64ZYoPjt3OMOnK8zJ2oQjFkyu9W+VNz93QO51yxzDj1RmljmeT49
+	 jCw0KgpYmfxg3j7ZZM4qmjjs6fx0/qNxyAs0s9SWeOnQzFA8SHMclQsgU83RHmaTsD
+	 hkNT63KrvO/8yXP1sZU3TQ3kuzUPk4y+K6dMrAzpF7eWXz37BThopS4aUsG5FNh6sr
+	 /VEgJeNMtrTnrhtLZ+0zdQAAvDBEURk95nPKgwo+ut9jeN7y8uxuG8lo4HwSab71fV
+	 Q1MzPx4yhnwAg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Sasha Levin <sashal@kernel.org>,
+	SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: Re: [PATCH 7.3.y] mm/damon/core: error damos_commit_quota_goal() for zero target_value
+Date: Mon, 26 Oct 2026 18:55:55 -0400
+Message-ID: <2026-10-26-1-daily-reply-0004-damon-zero-target-value-7-3@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261026133320.68445-1-sj@kernel.org>
+References: <20261026133320.68445-1-sj@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -132,64 +62,16 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2026102654-enlighten-perkiness-193c@gregkh>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 26, 2026 at 09:27:25PM +0100, Greg Kroah-Hartman wrote:
-> > > Sorry, late to the party, but this isn't a few user scripts that rely
-> > > on this behavior.  Effectively every use case of vfio relies on this
-> > > behavior.  We rely on unbinding the default driver from the device
-> > > before using driver_override and drivers_probe.  That means every
-> > > hypervisor with device assignment and every userspace driver use case
-> > > now experiences a tainted kernel. That seems like a significant
-> > > regression.
-> > 
-> > Sorry, I was on vacation and missed this change earlier. This change will
-> > affect SR-IOV deployments around the world, which *rely* on being able to
-> > bind a driver manually *after* virtual functions are created but before
-> > they are used.
-> 
-> Why can't a real driver bind to those virtual functions?  Like is
-> happening in the rust apis?
+> Notes for stable kernel porting.  The upstream commit doesn't have
+> Fixes: and therefore not ported to stable kernels.  It turned out it
+> fixes commit 8b549a4fd3c5 ("mm/damon/sysfs-schemes: commit damos quota
+> goals user input to DAMOS") which was merged into v6.8.  The user impact
+> is a race condition that can result in divide-by-zero.  Hence backport.
 
-Most people using SRIOV will bind the VFs to the VFIO driver.
+Queued for 7.3, thanks.
 
-The rest, it is the same as the CC case, there needs to be a gap after
-creating the PCI VF functions and before binding a real driver, with a
-proper match and a correct id.
-
-This is usually managed by clearing drivers_autoprobe
-
-Ie look at commit b8c5cec23d5c ("Driver core: udev triggered
-device-<>driver binding") from 2007 explaining this workflow.
-
-The taint on sysfs unbind makes zero sense here because we can trigger
-unbind of those VFs just by disabling SRIOV through sysfs. Should we
-taint that too?
-
-> > This is needed for two reasons: to save hardware and software resources
-> > when creating a large number of VFs, and to allow the PCI config space to
-> > be configured *before* the driver starts using it.
-> 
-> How is hardware and software resources an issue here at all? 
-
-If you create a 1024 VFs, which is what people on big servers seem to
-do, then that can use 1024 x megabytes of resources to load all those
-drivers which will memory exhaust a hypervisor.
-
-This is a real case actual users run into, I saw the support requests
-go by :|
-
-> And you can write to PCI config space from userspace today, 
-
-Not allowed in lockdown, triggered by secure boot, which pretty much
-every server uses.
-
-> > There is no in-kernel alternative.
-> 
-> Then just don't have a in-kernel driver for the device and all is good?
-
-What? How do you use the HW then? Is this a serious reply?
-
-Jason
+-- 
+Thanks,
+Sasha
