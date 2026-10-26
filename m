@@ -1,66 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793051855;
-	b=TxLQgKFSeepb/cdtIyUEA/SgqJTVpsKTYKrpQPDyxgdcSKp7cpGfCqS6eoUcY3nv6Uo6
-	 mAWWdcVbxBpm1e83xcb3ORUFAcvRRCJOI3mG9mVQRuUfdPCQa98X2+BpT4A9RAXXWdvai
-	 WR8ffYxG+zlMilHY2vHiv91PU5uTjtK+3bQCvk3xQ2OQOVMY0/eZW49fmsT855RDdnH+r
-	 93QoThdzhhm8YWn8f2/7AuezeRWcmiGhU2uC9iAAg73cIm2vKh62txXS+2Pglt7ljN05o
-	 BoNTUHDeLthvz/wwNUhtQDVeO5LetrHnAlhJVijgV8ZaYLQRiyYXPirPvPXcPZuT+5w==
+	t=1793051852;
+	b=2OZP8hac+mIQAA/v54rUfrRVy9J7lSU5py3pdyziE2ix9ATNpUX1uHRTcfk8on7DF4vn
+	 dyO2YhJYu3u+DDJzDoly0KHmgxNQ7LYoOfVIItjO2BtTaXMOFGqeqoHUGbwAD00BiYLt+
+	 qirm8uWZqWSaX6+n6065mcBiqeqxnhNH1PQVoU1K1shI1zhnodbkXw0cCaz75spuLTQsS
+	 rEuOvGtZF2wdpGVMGOwcVz+39EthhbfjXO2UN/gHzyyReMQpQ8jcb4JyPXW7+0V98Iis/
+	 UsT7S7bJfVbACGdI4p61KeaxCHKeEslXLzOaRPDXrrHjQZU6+s1DmERDY1HZ1VNigIg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793051855;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793051852;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=vvsz2i/tJSXRruC19/aYm2BsTqbmtaTOP4nm04uvRDY=;
-	b=HhhxYLBizKWoRWSlV/4zJybBnhoHGa7Ev6NWl8ktHNZzw+dOS/cBBa9bXRFfIvonGfZt
-	 lOdGckRu5U3M/6iRV2aI1C1UGWKNnhHSjC8aCP+LbwKSJgnjfepc8L0PHmQdsbklYf0oR
-	 aS5XkMewOKh67JJhksVLOkMtL9uuoV7ZBAMxBzeosiNM5hF433zsO1M5XZCdO+KR6xXvP
-	 0VTS0EuRZa8IpcMqbwNHx25A1orh7iAGrOfgczewjOBhhWz/FUp4cv/ZNiEeu2nPYTNRS
-	 8ocPgJcqtmhasJV5vu9JWNKs13kl8i3V3NlgBLV5eL8nU3kCBzA1apcurAl4KqXybRw==
+	bh=v5mry8NX7IU25Mv4VbIVDhN3Ltk2Ra2LbLU8Ssj2ZWI=;
+	b=MtXqbxdVbAsIOYty1TK50Wv66akuRFchAkoXIAoJ9tLxJ+ba5dq35JUurgFIxEe+Frh6
+	 z1IyzJYfsbmr/XNOLekOmi1qI/UMgiD3nl3ZSn9Yfr+ccEOcltZ2V9Aq+YVwPOPbmtLox
+	 bBQrNl4kIiaQ+s/y/HNFnJVz0BmYCCxS/CLXi4axBeYYnbZvlOYQVPzCEYQa0OCZ0vg95
+	 fdJ4mOHQkaIruZhzfGsNOYjg9wJLZGLaBluPUKs43Ut/MvZUP3ZBIhj8yRBWPjpg0DTz1
+	 jlOnoHt5U4ZCSjgVqKXhGrIYm0T+iUI1tl7YSX3QKCRqeCEJempt3wJljW2k/3m577Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nFGMXcpN;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hDZZQli3;
 	arc=none smtp.remote-ip=192.198.163.14
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C72B260A2627
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 21:57:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C72B260A2627
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BC8D606A32C
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 21:57:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8BC8D606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nFGMXcpN
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hDZZQli3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793051854; x=1824587854;
+  t=1793051852; x=1824587852;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=XU5cu1gFtiSbEl4wlEPXZEU+UqphTi+pfTOPwr484Xw=;
-  b=nFGMXcpN40bJE04iu1BWCixUJju2zBWVJeWeAkwHRrzROT6+cm337XNO
-   a0IURXIXxrVgSFQi0cs2jlfsrZWa4jqAPUiqL8GEON2fiqBILyEyY3cHR
-   rXmx0gMvqqyl/gwWx6R7sLo2kc3l+OJJv35qRydgAugOrWzC/8JUML7ez
-   zRRCPBoc8yfQGkKK4+b6vhrAFxSil3DM5IBSN8pttafGsyA2b31rZpo/J
-   8I2TpMJwNZQxSVhQl7rtpgWDyQR+t39z1l68r8ea9/w498tbH1AzYykpL
-   f2SK4DOu4tEIc7BMyKn/nAX+qmsV9oXr1hvpl+j5gEqGRCUkhkRBWaJal
-   g==;
-X-CSE-ConnectionGUID: lt2jWDCNTBeVsttdFoOd1w==
-X-CSE-MsgGUID: +7L3W1ITSdiEuckeq57I1g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1766434"
+  bh=vIU/9TBpx3zGWSy8HO2xYesQ/tYEPGpo/eHn0hKcOcA=;
+  b=hDZZQli3HYMnzDIoISIxko9IGpzJQGKVZXbrDtvHhn+3d3XQnakLjq9K
+   4LSpIFya4w+xx/2VFlcNyb4+YEnHfl/+pKJ9KhBGGsR6OycNNrECvO3XK
+   VS0MRtWHqQt3rdwIQ0Wa+I6QxZGPXMUHkFucNiCsB8WQUCchgjwKNs5aE
+   BARjXNSZ5MdYUIBrTtiL+kRhRPJmU1KdknzhNoPVEGv6vGsURiNyDxTyO
+   mx917/RLY0+G01gZdchFFmwtuRTZhU8BKDMOv+CY3JscoQU/EU3kuLQ2m
+   JsvmfZJDtBNugV2JsI+YHnvqR66z1NVNDoKqFEUux0f0ekw1SHcBvC16B
+   w==;
+X-CSE-ConnectionGUID: vOcdQYxMQ5yVGPt5BWYkww==
+X-CSE-MsgGUID: LZYrLXBhRdmqoaaCxbXNpw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1766399"
 X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
-   d="scan'208";a="1766434"
+   d="scan'208";a="1766399"
 Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 14:57:30 -0700
-X-CSE-ConnectionGUID: qtSJOMT6Rh6MLljWKEOWug==
-X-CSE-MsgGUID: ODLNEzs3QDCyJxmOo2MWcA==
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 14:57:28 -0700
+X-CSE-ConnectionGUID: xBAUE/VKQwO/fVgAfek7AA==
+X-CSE-MsgGUID: yVDShx/BSH+V7b6GUWPKtg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
-   d="scan'208";a="4240292"
+   d="scan'208";a="4240269"
 Received: from khuang2-desk.gar.corp.intel.com (HELO agluck-desk3.home.arpa) ([10.124.221.204])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 14:57:29 -0700
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 14:57:27 -0700
 From: Tony Luck <tony.luck@intel.com>
 To: Fenghua Yu <fenghuay@nvidia.com>,
 	Reinette Chatre <reinette.chatre@intel.com>,
@@ -75,9 +75,9 @@ Cc: x86@kernel.org,
 	linux-kernel@vger.kernel.org,
 	patches@lists.linux.dev,
 	Tony Luck <tony.luck@intel.com>
-Subject: [RFC PATCH 8/8] fs/resctrl: Suppress creation of cbm_mask info file on asymmetric systems
-Date: Mon, 26 Oct 2026 14:57:18 -0700
-Message-ID: <20261026215718.16810-9-tony.luck@intel.com>
+Subject: [RFC PATCH 4/8] x86/resctrl: Add X86_FEATURE bits for asymmetric L2
+Date: Mon, 26 Oct 2026 14:57:14 -0700
+Message-ID: <20261026215718.16810-5-tony.luck@intel.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261026215718.16810-1-tony.luck@intel.com>
 References: <20261026215718.16810-1-tony.luck@intel.com>
@@ -92,73 +92,67 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hybrid CPUs with a mix of P-cores and E-cores may support different
-cache allocation bit masks. The per-domain masks are described in the
-info/L2A/schemata/L2A/max file.
+CPUID(0x7,0x1).ECX[1] enumerates that a CPU may have some asymmetric
+allocation features. These are enumerated in CPUID leaf 0x28 in a
+parallel manner to CPUID leaf 0x10.
 
-The cbm_mask file contains a single value and cannot describe an
-asymmetric system.
-
-Skip creating cbm_mask in the info/L2A directory.
+Create new #defines, add dependencies, and initialize from CPUID.
 
 Signed-off-by: Tony Luck <tony.luck@intel.com>
 ---
- Documentation/filesystems/resctrl.rst | 4 ++++
- fs/resctrl/internal.h                 | 2 ++
- fs/resctrl/rdtgroup.c                 | 5 ++++-
- 3 files changed, 10 insertions(+), 1 deletion(-)
+ arch/x86/include/asm/cpufeatures.h | 3 +++
+ arch/x86/kernel/cpu/cpuid-deps.c   | 2 ++
+ arch/x86/kernel/cpu/scattered.c    | 3 +++
+ 3 files changed, 8 insertions(+)
 
-diff --git a/Documentation/filesystems/resctrl.rst b/Documentation/filesystems/resctrl.rst
-index de162280a0fe..25e9e5e5e738 100644
---- a/Documentation/filesystems/resctrl.rst
-+++ b/Documentation/filesystems/resctrl.rst
-@@ -91,6 +91,10 @@ related to allocation:
- "cbm_mask":
- 		The bitmask which is valid for this resource.
- 		This mask is equivalent to 100%.
-+		Not present for asymmetric L2 allocation (L2A), where
-+		valid masks can differ between domains. Use the bitmap
-+		control's "max" file under "info/L2A/schemata/" to obtain
-+		the per-domain masks.
- "min_cbm_bits":
- 		The minimum number of consecutive bits which
- 		must be set when writing a mask.
-diff --git a/fs/resctrl/internal.h b/fs/resctrl/internal.h
-index 4bd09b1541c7..d93d349db08b 100644
---- a/fs/resctrl/internal.h
-+++ b/fs/resctrl/internal.h
-@@ -261,6 +261,8 @@ struct rdtgroup {
+diff --git a/arch/x86/include/asm/cpufeatures.h b/arch/x86/include/asm/cpufeatures.h
+index f70ee74b5f92..8a800964c100 100644
+--- a/arch/x86/include/asm/cpufeatures.h
++++ b/arch/x86/include/asm/cpufeatures.h
+@@ -430,6 +430,9 @@
+ #define X86_FEATURE_SUCCOR		(17*32+ 1) /* "succor" Uncorrectable error containment and recovery */
+ #define X86_FEATURE_CPPC_PERF_PRIO	(17*32+ 2) /* CPPC Floor Perf support */
+ #define X86_FEATURE_SMCA		(17*32+ 3) /* "smca" Scalable MCA */
++#define X86_FEATURE_RDT_A_ASYM		(17*32+ 4) /* Asymmetric allocation features */
++#define X86_FEATURE_ASYM_CAT_L2		(17*32+ 5) /* Asymmetric Cache Allocation Technology L2 */
++#define X86_FEATURE_ASYM_CDP_L2		(17*32+ 6) /* Asymmetric Code and Data Prioritization L2 */
  
- #define RFTYPE_RES_PERF_PKG		BIT(12)
- 
-+#define RFTYPE_RES_COMMON_CBM		BIT(13)
-+
- #define RFTYPE_CTRL_INFO		(RFTYPE_INFO | RFTYPE_CTRL)
- 
- #define RFTYPE_MON_INFO			(RFTYPE_INFO | RFTYPE_MON)
-diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
-index 46d39332706e..5cf6a257bea8 100644
---- a/fs/resctrl/rdtgroup.c
-+++ b/fs/resctrl/rdtgroup.c
-@@ -2196,7 +2196,8 @@ static struct rftype res_common_files[] = {
- 		.mode		= 0444,
- 		.kf_ops		= &rdtgroup_kf_single_ops,
- 		.seq_show	= rdt_default_ctrl_show,
--		.fflags		= RFTYPE_CTRL_INFO | RFTYPE_RES_CACHE,
-+		.fflags		= RFTYPE_CTRL_INFO | RFTYPE_RES_CACHE |
-+				  RFTYPE_RES_COMMON_CBM,
- 	},
- 	{
- 		.name		= "num_mbm_cntrs",
-@@ -3024,6 +3025,8 @@ static int rdtgroup_create_info_dir(struct kernfs_node *parent_kn)
- 	list_for_each_entry(f, &rdt_resource_final_all, list) {
- 		r = f->res;
- 		fflags = fflags_from_resource(r) | RFTYPE_CTRL_INFO;
-+		if ((fflags & RFTYPE_RES_CACHE) && !r->asymmetric)
-+			fflags |= RFTYPE_RES_COMMON_CBM;
- 		kn_res = rdtgroup_mkdir_info_resdir(f, f->name, fflags);
- 		if (IS_ERR(kn_res)) {
- 			ret = PTR_ERR(kn_res);
+ /* Intel-defined CPU features, CPUID level 0x00000007:0 (EDX), word 18 */
+ #define X86_FEATURE_AVX512_4VNNIW	(18*32+ 2) /* "avx512_4vnniw" AVX-512 Neural Network Instructions */
+diff --git a/arch/x86/kernel/cpu/cpuid-deps.c b/arch/x86/kernel/cpu/cpuid-deps.c
+index 99801e844b30..b5d44cf12df6 100644
+--- a/arch/x86/kernel/cpu/cpuid-deps.c
++++ b/arch/x86/kernel/cpu/cpuid-deps.c
+@@ -73,6 +73,8 @@ static const struct cpuid_dep cpuid_deps[] = {
+ 	{ X86_FEATURE_BMEC,			X86_FEATURE_CQM_MBM_TOTAL   },
+ 	{ X86_FEATURE_BMEC,			X86_FEATURE_CQM_MBM_LOCAL   },
+ 	{ X86_FEATURE_SDCIAE,			X86_FEATURE_CAT_L3    },
++	{ X86_FEATURE_ASYM_CAT_L2,		X86_FEATURE_RDT_A_ASYM },
++	{ X86_FEATURE_ASYM_CDP_L2,		X86_FEATURE_RDT_A_ASYM },
+ 	{ X86_FEATURE_AVX512_BF16,		X86_FEATURE_AVX512VL  },
+ 	{ X86_FEATURE_AVX512_FP16,		X86_FEATURE_AVX512BW  },
+ 	{ X86_FEATURE_ENQCMD,			X86_FEATURE_XSAVES    },
+diff --git a/arch/x86/kernel/cpu/scattered.c b/arch/x86/kernel/cpu/scattered.c
+index 8665a6474806..02e405a95dbd 100644
+--- a/arch/x86/kernel/cpu/scattered.c
++++ b/arch/x86/kernel/cpu/scattered.c
+@@ -28,6 +28,7 @@ static const struct cpuid_bit cpuid_bits[] = {
+ 	{ X86_FEATURE_APERFMPERF,		CPUID_ECX,  0, 0x00000006, 0 },
+ 	{ X86_FEATURE_EPB,			CPUID_ECX,  3, 0x00000006, 0 },
+ 	{ X86_FEATURE_INTEL_PPIN,		CPUID_EBX,  0, 0x00000007, 1 },
++	{ X86_FEATURE_RDT_A_ASYM,		CPUID_ECX,  1, 0x00000007, 1 },
+ 	{ X86_FEATURE_MSR_IMM,			CPUID_ECX,  5, 0x00000007, 1 },
+ 	{ X86_FEATURE_APX,			CPUID_EDX, 21, 0x00000007, 1 },
+ 	{ X86_FEATURE_RRSBA_CTRL,		CPUID_EDX,  2, 0x00000007, 2 },
+@@ -46,6 +47,8 @@ static const struct cpuid_bit cpuid_bits[] = {
+ 	{ X86_FEATURE_SGX2,			CPUID_EAX,  1, 0x00000012, 0 },
+ 	{ X86_FEATURE_SGX_EUPDATESVN,		CPUID_EAX, 10, 0x00000012, 0 },
+ 	{ X86_FEATURE_SGX_EDECCSSA,		CPUID_EAX, 11, 0x00000012, 0 },
++	{ X86_FEATURE_ASYM_CAT_L2,		CPUID_EBX,  2, 0x00000028, 0 },
++	{ X86_FEATURE_ASYM_CDP_L2,		CPUID_ECX,  2, 0x00000028, 2 },
+ 	{ X86_FEATURE_OVERFLOW_RECOV,		CPUID_EBX,  0, 0x80000007, 0 },
+ 	{ X86_FEATURE_SUCCOR,			CPUID_EBX,  1, 0x80000007, 0 },
+ 	{ X86_FEATURE_SMCA,			CPUID_EBX,  3, 0x80000007, 0 },
 -- 
 2.56.0
 
