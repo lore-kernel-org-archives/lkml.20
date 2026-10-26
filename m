@@ -1,47 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793023471;
-	b=cPH0daPzP8KiYtSbfAnBedOxGHVv7EibtZHztuzl/HKJSLAcnUObxs9iiVIXPIeo05ye
-	 ahWa7isoycg20J3ISg1ZHeqyVQJs2dptnkn/FOgd/FP+YrJOCTzZaupErMhyj13KqMzt0
-	 qmonnP9SNZLCLi969c5ntu05toFVPYwkUazQO/AEFxqraOPucd72CDGrpPLtw8iNqt1ql
-	 NwaU9D80HaNjod0FnLIgdO1GFJiPFFfh+AEG/35m/qvmS+Tl+3+qPsMX0GNUvmklyIc5Q
-	 itnY5G0/fOcyXG5lHksmMUHT67BTSCxgD87rxldyRV2z0mW+uBtaJHKqeuhE35CZcBw==
+	t=1793023467;
+	b=qMUfLcMJ4PU3jkJi6PzOvM1mqfHcDEryOG01iJhKHNSwTPz3spbWY+k8HmpXOlMWIiPr
+	 OY+9kWu9PeoBGo/Wa/54JCawyTT1D7ILFXpjJAf8KjxkiCq2gxJiYVKfXuuJyeXnei/8d
+	 2q8yzD40u0fYNaH/GmNV+TkMoNmvuumP2+DWDD6LxttaMezDWtcXWyCxkFOhARNg2SvmK
+	 mx9wHIkPyXbwHwSO9CX5sP1pO97LlNA5YJrRhS76ynwi+C0zSdMxFJqAcI+8We1CXgYpR
+	 eUY8LHBX7kcRtjhkuZRZZINSFKG38lUnUyLfCdeM0nFAFEEB9nevm6wA7bTD0t7mBuQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793023471;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=4e61ZPJ/VaKm8jta7uyflFaTjlybKJSM5/XzhXlIwHU=;
-	b=mXEHDLTI9ZlRoKGa3nrmMDqqgJaLFrDVyAuP5Rf8VckToHfhpG37j+SopN0+DG+SCCJ4
-	 YDmHt3173F5JDcZATobjPhrpT457MlbG4nxPPXL/lRoe0lDuq3/+xUoddU7ZzBPgn3M20
-	 HalTOOuCkxloZRNP/I91nXy/q4WE7MhpQWiOpT5VBUnQ4njq/Ho4aEBsX7fP4TfQdmSUo
-	 S2dK9yckmfuxKMXf8I7Qk9Buq15cWRZ14dOw3w36ju7jqm5rB/sNqP0z4Ek+9MZNJwPrK
-	 zXyQYW+T/snjbFMLTwI/htTVBAVFjNTlWojtIJBgNAqiGkhR9HM/tm33943cByEiROQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793023467;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:User-Agent;
+	bh=+j+27jHK6eH0bRZGv1MwMG7TaEjdMoEo1o6LdZHQ6Ew=;
+	b=miOSngHgA6DmJSFbm0YR6o+wW+4n/OMJC/Y/rE3M0iFfANDhDbdxqJhbI90Jmw3Pfj6Q
+	 Pac/oAXXl9ACmKbc99Nuwarv9znQtSsbZhVOqR5ZuRAgVCUM2Ztjc8Sl1JKIojriG+z98
+	 BL1zlUOG0bABF1NTy4pVVPxmn1N0wAtanG3PmhTBGsK4qiUcQg4lQi12JLc3KneP7wPzP
+	 FpQRiEtc3/ybIe4MTmilXBg0elpo5Bx1eapxU1KCBuaxk0BvUN70IF356P3YJxdFxTDRu
+	 rP9S/XhbxVPkowXE5cDc94dO8Gxvv7jTx+Jjw2tYAcZ9po27pjfyF213f0cyaphlw/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="bo9M/E/R";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=chrisdown.name;
+	spf=pass smtp.mailfrom=chrisdown.name;
+	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=Xdp8Bl+H;
+	arc=none smtp.remote-ip=209.85.214.178
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D0B2606A31E;
-	Mon, 26 Oct 2026 14:04:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0179606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:04:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0179606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bo9M/E/R
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3DB01F01828;
-	Mon, 26 Oct 2026 14:04:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793023471;
-	bh=4e61ZPJ/VaKm8jta7uyflFaTjlybKJSM5/XzhXlIwHU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=bo9M/E/R8/9BwByc1QsS00ASWjFDJ5FqjjPUVjFkusP8ycGZoEbo26Wpf/TdzIxVI
-	 XxTVr2dHnfKtgccYWGfMj4VWmkuV4lAzU+8yUJxo7Oj/9Q+AdDIKHGlO/EUaH9U3N3
-	 mWbW8coHn+HjPG7Iesa5Q4IlpyJLNBeCx1XQUQUXEaDBxaWgFsfMcPrFJ5toEh7c0A
-	 /t2p0RVC7VzErzelfxkYQ+vcPEqCXS+fmCFDDydkm2EEuy5vc2ctiM5wIamjPIrQLh
-	 syoAd7BihBeOftw0hgwvDs4VumfT1x+h12hznZi14m1eLA40eBnoURMsdZ/RMKJ8Yb
-	 nX+hhyaWtJw3Q==
-Message-ID: <34e52feb-10bc-4fcf-9f42-b2cdf50eb32a@kernel.org>
-Date: Mon, 26 Oct 2026 09:04:29 -0500
+	dkim=pass (1024-bit key, unprotected) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=Xdp8Bl+H
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2e9995ce866so28027315ad.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 07:04:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chrisdown.name; s=google; t=1793023466; x=1793628266; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=+j+27jHK6eH0bRZGv1MwMG7TaEjdMoEo1o6LdZHQ6Ew=;
+        b=Xdp8Bl+HlIpTIPADNhAC0Bnw5OtQeb3yZTFJmf5cytDe9mHelUcX2mmU4icI+2ccD/
+         WrnClsqvYtuTqsazujFmgW0Gcj46cDEuRSg9F1uojLb3QNxF/Nq5kg0Boui8wIYQXPtk
+         OU604TtjzKm0ENnUPinDkMxv8DmH0XrQerPPs=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793023466; x=1793628266;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+j+27jHK6eH0bRZGv1MwMG7TaEjdMoEo1o6LdZHQ6Ew=;
+        b=PdRJ3AFgi9sw/dXbyWh1aSnAKh066cdcTqO5905Qw+yJ5WkjBJdFGDIsTx93n5648S
+         Z8yoWHH13hWG5P2s2lJl74ztaZPMF6ojyYny8GXfiZK96pUXZmbRyzp9zFnLvgK8AtLp
+         qLj+ikFz1PPBEAmJwsg7tRhZWmZu7FwGa5u1WgmGJvx9ijdcGAZXCb76Z8Sm9qGlPjV0
+         dj2HxMLltLa5V2S4DlsmgYl+UeG42n2cI/x1PdXcwnUSjizkzUp1oGq7shERUCkwXLVG
+         pEp4NmWQ9o7F1u8rHi4d33qtpij9KDjkglLcDRVQ3NtcFqv4CejAfipApewEr3HQmy4w
+         qD8A==
+X-Forwarded-Encrypted: i=1; AKwUvBzbPnoqBqPOp2sG6YDxxf2zMBKyGjp+ZjQq4Gy3UX5ArN4ugBwmxq4WsA+oor0WLYWXfDUbOscSDI+seqE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLUA/bRcvm5bpp3dMQf1wl/BMfWL4NMqy2OLWS47jPUElGcxV6A
+	GC0DzinQDhrS8KOVPXGkHslbERT18gLsgwRkA5iJfdRjQFNNJyCxa6ZBTNQH4r1qUZA=
+X-Gm-Gg: AYBFou3diGwcNE0Xsn20cxqonYFuiA2QsEJcHu0K8erkjHe0r+ZOK3SsuSK3SeJxgx7
+	SmFKAzzfxBssl4hXYSYFu35Dp4ZmLKxIi0K39LGQ+f14WWKenrNm/Mnqr+V9N0DlWv4zlUaOEaa
+	1/I/tXdPgl6DEcVG6JCc0pTZFut90U1BMcLp0sxqdz43nMJ+0VDLp6nISTXhAiyQPhqe8q8jEt/
+	MXJXhGTChKEsbmFbIBnOaIc4te8sMVJeRSbF49hjw/vykXL/ClhY+8u3dlrRxzh0YyjRRMVD+9J
+	XUfi/pvLeVEODmBkkqdsczRvEpiq9D5WVT7Sj2t3G8V94qBDPIUwrr/3Cr7D1jXXFYG0P8yXUvg
+	OMYRjvDNrl8IyDiHRpr8qEcqBQOHRFOFLu0JqQEAtdtpsT0FazUpme2XcjRNcYw/MxXgznqfCz4
+	ADypreOC4A9jaMjBd6QxzS2PF7KA77jOuzFL3PSxuvu2EolQg9s2tNSUrqDr4QbgQxXZsOYY/4i
+	NK0gyJjNUjlT2nv1gNJOIT87qkE3Y6HM1vSyBCMTzWoOH+T1VRFolu3TJGA2OGSguKUPs8tto3g
+	S2Sz42IuO1yYsBMQJM5MhvxMM1/XWzxU4z4jfw+Eh9JPcT9SMTJpRCxBB1nRibxMUK5dPErpIVx
+	o3fyDWLsFognn8RaIXs9Ly1Y=
+X-Received: by 2002:a17:902:db0f:b0:2e8:4066:d247 with SMTP id d9443c01a7336-2ea9c697792mr62884475ad.33.1793023466139;
+        Mon, 26 Oct 2026 07:04:26 -0700 (PDT)
+Received: from localhost ([116.86.153.182])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea9b1a748csm17270035ad.55.2026.10.26.07.04.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 07:04:25 -0700 (PDT)
+Date: Mon, 26 Oct 2026 22:04:22 +0800
+From: Chris Down <chris@chrisdown.name>
+To: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Hugh Dickins <hughd@google.com>, Chris Li <chrisl@kernel.org>,
+	Kairui Song <kasong@tencent.com>,
+	Kemeng Shi <shikemeng@huaweicloud.com>,
+	Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
+	Barry Song <baohua@kernel.org>,
+	Youngjun Park <youngjun.park@lge.com>,
+	Ying Huang <huang.ying.caritas@gmail.com>,
+	Kelley Nielsen <kelleynnn@gmail.com>,
+	Vineeth Pillai <vineeth@bitbyteword.org>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, kernel-team@meta.com
+Subject: Re: [PATCH] mm: Make swapoff interruptible when unusing mms/shmem
+Message-ID: <at9d5rD-15wXXiK8@chrisdown.name>
+References: <ar2YlFYjYUZ49ZA5@chrisdown.name>
+ <b1aaff8f-c4b1-4c2c-939e-7051e7f9b6b8@linux.alibaba.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,76 +104,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 0/2] arm64: dts: socfpga: agilex: add SoCDK multi-QSPI
- board
-To: genevieve.chan@altera.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261012074845.18039-1-genevieve.chan@altera.com>
-Content-Language: en-US
-From: Dinh Nguyen <dinguyen@kernel.org>
-In-Reply-To: <20261012074845.18039-1-genevieve.chan@altera.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <b1aaff8f-c4b1-4c2c-939e-7051e7f9b6b8@linux.alibaba.com>
+User-Agent: Mutt/2.3.3 (9073d26d) (2026-06-12)
 
+Hi Baolin, Andrew,
 
+Sorry, I missed this.
 
-On 10/12/26 02:48, genevieve.chan@altera.com wrote:
-> From: Genevieve Chan <genevieve.chan@altera.com>
-> 
-> The Agilex SoCDK is populated with a single QSPI flash by default. A
-> multi-QSPI daughter board can be fitted in its place. That board connects
-> four Micron MT25QU02G devices (256 MiB each, 1 GiB total) to the HPS
-> QSPI controller on chip selects 0-3. Each device carries one partition
-> covering the whole flash, and is described in quad mode at 25 MHz, as
-> the four devices share the clock and data lines.
-> 
-> This is a board-level population difference, in the same way the
-> existing SoCDK eMMC and NAND variants differ from the default SoCDK.
-> The HPS is the Agilex SoC, later marketed as Agilex 7 F-Series. The
-> programming model is unchanged, so the board falls back to
-> "intel,socfpga-agilex" and does not add an F-Series SoC compatible.
-> Agilex 7 M-Series is a different device and already has its own
-> fallback.
-> 
-> Patch 1 documents that compatible next to the other Agilex SoCDK
-> boards. Patch 2 adds socfpga_agilex_socdk_multiqspi.dts. UART,
-> Ethernet, USB, SDMMC, LEDs and the watchdog match the SoCDK; the QSPI
-> node is the difference.
-> 
-> Changes in v4:
-> - Give the partitions on flash@1-3 unique labels so that they do not
->    share an MTD name with flash@0 (Dinh, Sashiko). flash@0 keeps
->    "Boot and fpga data", which U-Boot's RSU code looks up by name.
-> - Explain in the patch 2 commit message why the flashes run at 25 MHz
->    rather than the 100 MHz used on the SoCDK (Dinh).
-> 
-> Changes in v3:
-> - Rebase onto the socfpga for-next branch, which moved the SoCFPGA
->    device trees to arch/arm64/boot/dts/altera/. The new DTS is added
->    there.
-> - Reword the subject of patch 2 to avoid repeating "Agilex" (Dinh).
-> - Add Conor's Acked-by to patch 1.
-> 
-> Changes in v2:
-> - Rename the compatible, DTS filename and model, dropping "agilex7f".
-> - State in the binding patch why the fallback is "intel,socfpga-agilex".
-> - Describe the daughter card instead of restating the diff.
-> 
-> Genevieve Chan (2):
->    dt-bindings: arm: altera: add Agilex SoCDK multi-QSPI board
->    arm64: dts: socfpga: agilex: add SoCDK multi-QSPI board
-> 
->   .../devicetree/bindings/arm/altera.yaml       |   1 +
->   arch/arm64/boot/dts/altera/Makefile           |   1 +
->   .../altera/socfpga_agilex_socdk_multiqspi.dts | 213 ++++++++++++++++++
->   3 files changed, 215 insertions(+)
->   create mode 100644 arch/arm64/boot/dts/altera/socfpga_agilex_socdk_multiqspi.dts
-> 
+Yes, I think -ERESTARTSYS is appropriate here. I used -EINTR to match the 
+existing signal exit in try_to_unuse(), but that also means a freezer induced 
+interruption becomes visible to userspace after thaw. Let me use ERESTARTSYS 
+instead.
 
-Applied!
+Re: Andrew's earlier questions: before b56a2d8af914, try_to_unuse() checked for 
+signals between swap entries, rather than after walking an entire mm.  
+Individual I/O waits can still delay it but certainly it's a lot better than 
+this situation.
 
-Thanks,
-Dinh
+So yes, I think this probably warrants a stable backport given the suspend 
+timeout is reproducible and it's a reasonable usability regression even though 
+it has been present for a long time. I'll add Cc: stable for v2.
 
+Thanks!
