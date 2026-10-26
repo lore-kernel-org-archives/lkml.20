@@ -1,98 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.130
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792990095;
-	b=SD5XEclg/4BrYeczrLve4UXaqJ6knw8R8iDrCkKNA2abzhxkTujQ5qJSwVcXg66kgHTy
-	 kHiWeQLuiiRO4ZyNNUvgOab2e7F8ZySl8UR4M9bnSeaKhG+XfsrawZT71dss/gx5aZFjX
-	 8fHAFO/SJsOkzdn1gogqjTqNEHxsmqFqAHQdjXh1ca0noTwpgZ8D77dYD3ewgNmS7bAwg
-	 1WWx4jiBrPwCRGFrs8/4u/kLGMKoTipmxOoE1SXsviGX7PJRkeo4ORm7C38pwMORX5TbJ
-	 6SHKvP6b2OPhku1J1WKAW2kmnoSpBCKAUWZTiuIC0fkLiW7q2BbzeHFQwLcMHoSpURQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792990095;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.49
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792990120;
+	b=dQq9CX9re3ZD4YhJ4ykMzibIZCYouSMa89RVYn3Z4NliWH37e0Dl4PyEcT8ZeAWb8T6Z
+	 WkkVdAlQVb2FEzG0/clAGBkY0xUD39KnyEBt89raGgzYZ4BtT6WciKdT5JotsK8y4reCn
+	 8MfUeSDVsq6WOhD1drYh7dRKz9H8kbCrNeHBQUjpMt3Tx5AjPOG0W//qiuqaYUvYjc/dg
+	 Nk9EeZ3TK8PRgigD1DpJ4pH8vTK7o9E5i+AVIOwn5KjqykuM1+K5+O6x7BqhhdvcB2jyV
+	 tmSIelfKZdF2lsaV7zUpIyx2+QBEnTrJEk1h5fp8sx/viCAm3bBIM51jcn+QhOZIMZw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792990120;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=k/JB2/vnEe/nhNkdsVP6HUPiRtdVAo3aP+vpEA0X8co=;
-	b=1i+U88VJL79UeAAEo4y/DJxnOEUTXfvSw6e+KxZOL1kyXgYSsMbFAMpRLPKNPJgPLyr3
-	 LzmlEmIVfd72PpG/FoBYUI6ieEhwMmDpPlWQXWm4mlhhyfJsxERg9oGj6fKyKOqjD8rYa
-	 N4aDnAsMGfm2UPdaqn0iHiI/6f5fzivy55uC2JFQIvbUmUZUOncQY3BWBO6DJoCzNtHQr
-	 h9+A8wQscVzyGRIoi4bZUaDZcuhZ/dzEN1g4OoHai5LdcO1eeTaWOsWF4q/POiIpBy6wk
-	 ktZdlIF9A1P3/LaI8+VXAxOLa7JQiFwMYyu5wB+R3tkwuGh3hMjAK6rm8TnPmEp8b+g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=56Y4H+QOpsErxz20UwuJ3uqXiwvb5kpke2jcTVoosVI=;
+	b=zRE5GRsUOlwt2mWMyJZ+7rTslksPw7awIvhYiXxoKB67hNmPJqyt5rjd5/gWZhDx3sXf
+	 PAKw/P1NrMV9/1K07sNvb2/kbXOujbwAFgNTa2l1qt526kC4BC3+xFLuHmyZx5rB7uLQd
+	 uIhoSfBi0qXQrpPWNQHci71Tdh6kAEhUJFA+el8w8IyF9J1CwZOXnzjo6t1x2T4VnuzTu
+	 h5CDtxa1dXF9gzFBOdQw4usI393wfBvNOaDHQePNAeo1isyQgKdDhMxFMJxy1MDeNpZMc
+	 VI65sq7M7nQskZjZPqn+g77FtSKLDIRzJNImLSBC5k51uAQa4wUQr90PWrj4BJ5+5Vg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=EJ4WlZTI;
-	arc=none smtp.remote-ip=74.125.227.130
-Received: from mail-pj2-f2.google.com (mail-pj2-f2.google.com [74.125.227.130])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="WcRmM9L/";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.49
+Received: from mail-oo1-f49.google.com (mail-oo1-f49.google.com [209.85.161.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 665D7606A31B
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 04:48:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 665D7606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3C31606A31B
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 04:48:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3C31606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=EJ4WlZTI
-Received: by mail-pj2-f2.google.com with SMTP id d9443c01a7336-2e613f813b0so4026355ad.1
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 21:48:14 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=WcRmM9L/
+Received: by mail-oo1-f49.google.com with SMTP id 006d021491bc7-6e560e00a86so1817240eaf.1
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 21:48:39 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792990119; cv=none;
+        d=google.com; s=arc-20260327;
+        b=nO1eEjwF9q43VrpPuLAaA/5K9sruH5Tx5duCX+tUXOH3jxN4japX4sbBRFHkT7ENxk
+         PSVtGQWYZ88awCrerjT4srOkkNfVhr40du6VJgydESAPnEJ6cx5/O3CWNVD0f9y6wcfQ
+         QvjuYQYqjxS3+o3cgr4sFIz7/lHXSMI4NcqoHVVELp4/ckvnkjeDhyvFzXZAeQwPHQXa
+         3OVEWcA6EdSX+6fOKFJFKCriu2tA2Ol/DY8SyyUx1ih9KmhWXCua7HmOzXicvA6ZDfWA
+         OsXrndG9SWurQwn5RhWF9BLxZlwMryrxPipxl1bgivN+QYphQhqPc6AVgDSqFNzOQn4f
+         AQ9g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=56Y4H+QOpsErxz20UwuJ3uqXiwvb5kpke2jcTVoosVI=;
+        fh=k1354K/vN80OjOItMuRBJb1K9I71FlZG3BzI7RnLGIk=;
+        b=dakr+fhaO5ZvoBPOycROAKGS3LVLecQs1J/yDSmUofYPjDDDnxVjRG8Fmj1IrA0FUV
+         Ctjf114dpOagLzO35RW9Hjx6AVsZbv1YlOqF7bNjzMRWTeGtBhG/K0KWo0isys2pSgo4
+         8YBlNNW7b6pq0s1/234td9EjWDqTo3ejw45daxC9qDH+omY/JeHfq43mq7awtN6ZXDGh
+         kXHEvJuiYeq/IUHHW6QHGE3xCyzZTRNXRf6ogdRYDwP78DXw+hTcfFtmD1SbtEZsOG86
+         0g36CoBbiFezmg5bw1yhtlNPuBQPvaNqdfGvGQYan7wMMUonPEj3uHSgEh2ugfUwzLEt
+         H5tw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792990094; x=1793594894; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=k/JB2/vnEe/nhNkdsVP6HUPiRtdVAo3aP+vpEA0X8co=;
-        b=EJ4WlZTIcbgcuKmwpDrhJsKZFt4OasvMx1uaaMfnCbhaVB6Ea1F7Y+cZqMypQOXwiz
-         kjbvhoR27SoMV2Qd5nAecC2UwvkICePmaWHKy4f7rsompsKYuHIM00xbm1QzYwo4Vees
-         PrEiq48okHVRgJf2K24pzMrQ6avEYt5Efo8E9Pz43NvR8bPM1x2BrLud/DjVXhl1Bkbh
-         LNht6Fx0WANuYi/OPP6T3O7Zt78LfSv44bnEz7hkanPLZERqvk1Ce9His2omPpYiNuIj
-         S9Oe0yOmatN+pzhxEPHbYECcxbi51p8pmbigwifs9dKspLf2Yw6W1+h26/LqlenfOvCA
-         Qgiw==
+        d=gmail.com; s=20251104; t=1792990119; x=1793594919; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=56Y4H+QOpsErxz20UwuJ3uqXiwvb5kpke2jcTVoosVI=;
+        b=WcRmM9L/sz/H8KG2lOQoxvJL91bbD1aAc6eXQLxZ0S1g4ijInjZdX/ODV8kbStiyLy
+         vdycIwd8tpi+4JUedHMMMDoPSCXrGNGFK0j/qKp3oWTukFMMWEZk9yseU3c5dVSXmP58
+         EI9K9dr21qIkcAmJKyoh+wGN4fK0f/mpfO+AAZSriOCLjPphGkFwm5OyVxI/+a/hMnUu
+         iGh3JYRA/rO8hd9FBczh3DUAF3pf4Ad3OaxYdGxaY7ucUNLAknv3qeopjkyGSGVwIAHt
+         x9acQVIjCWfV/KQ9XEU7yPhzV1lnvGn2knV2ArxKjBQsKyEA67gxSRMWeqOa6lq2w9At
+         nmdg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792990094; x=1793594894;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=k/JB2/vnEe/nhNkdsVP6HUPiRtdVAo3aP+vpEA0X8co=;
-        b=FuxE0UjHWCry5rtWMzEuFXI57fkNEouzfu+4jhFgWJYjhUiFU/o9b2O7y2a9a94I09
-         3+hJIdcdaT81cBqCK3KNoUkg0KeG4gYIyWbYSTs3275oMBf0IRgbQe17EELVB0Ay5iDH
-         RL0n0P8ATf/ke1aRwQJn6h379HE6HrM3LGF+vIzu1hEk30rMt4HyK4Ixb/Ud2/sCb7TQ
-         Vbm/0LuiFp00uETSiXJocBIsSTGuLhSOhFw7ihehU9/2MuyvMk9IHyZt0V5ihruCDYZf
-         7MJL2Hth4uYGSGbzs7incrGnmGAOZxbKXh0OYTViI/hUeLcmuevyNtCU85y/acbG/ClV
-         5ofA==
-X-Forwarded-Encrypted: i=1; AKwUvBy6ibcNxdlHganmITIebE56Qzn0A20xhtSmbVx+xzVYSQraNALFB+rh9khGdZxrcKhGqPU0GAE/buAfbsY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIDU8eMpZuHmENiRLxeNR5oDDqaWxpncI1W8DAi0z9dWczC0lM+
-	VSazsnEAKhuhheJ43Jq6PTnCx9XIkESyNVGpNeTIqHkqW3I54pN+2nVBYiFJUO9I5Ohu4Lm8
-X-Gm-Gg: AYBFou2QyfzPLDYL8bm4Dv7FXiwFZqQqUchWF0zV08eQcQkXQhpgZvDAWhTXw+A7vb2
-	pPlkTDlL9XOsR2jZ1lV6ymG638Z6Ulcmj/Y8XMhhZ41wbWTYjtebfILQVnleY80LK/J5kKrIjTZ
-	oZly8LBrIoiw+gQtsM8ZY4xs/b1CbHh2g1AnCW/jKWWYkh82hSQyDAtw0jnsIygs4Lm0GljYisS
-	Tu9WOMLQTlU7Jo0pfus3kxd1nv3+qbOoZaEDdA0oRLxDpa4AQbX2SmApcY9wyw/X80fEHo89Nwi
-	RAv3nO6DYcdwZHLyPgF3FYLYcH5FLPaS32rU+e4hmKhuesHrEdts9BP5lZVTe4DzsiwPf22XSXj
-	UTLLtvKiYNwk86jQPaIBgl3DsZBz3GNfgg5mkQRFPkxrUNGY0I5OSHz6eNiBXj61TI17oisncJ/
-	x3O1vWaQiPXDIik5TK07ZIHR0rZfQ53iVyuHHrwlNipdYPqLwVeI4BWdjzvQhls7OFdlAheJ2yB
-	4E41/ZAfa8aBobKJ8yj5eHLz+JwZXgFy/pIkIjUjJQTncxEWneKg6+yGwerd7e+kNcxQDh1Pckp
-	oQfsYvDhRwVsgu0leZg=
-X-Received: by 2002:a05:6a21:880e:b0:3de:3f4d:f2bd with SMTP id adf61e73a8af0-3e7db876af6mr2824220637.6.1792990093603;
-        Sun, 25 Oct 2026 21:48:13 -0700 (PDT)
-Received: from LAPTOP-0A59PORJ ([119.234.82.208])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a36e7fbc64sm858163b3a.24.2026.10.25.21.48.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 21:48:13 -0700 (PDT)
-From: Zhou Qiuyue <n0ps1edzz@gmail.com>
-To: netdev@vger.kernel.org
-Cc: David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Hangbin Liu <hangbin.liu@linux.dev>,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH net v2] ipv6: raw: fix use-after-free in rawv6_send_hdrinc()
-Date: Mon, 26 Oct 2026 12:48:08 +0800
-Message-ID: <20261026044808.613-1-n0ps1edzz@gmail.com>
-X-Mailer: git-send-email 2.50.1.windows.1
+        d=1e100.net; s=20260707; t=1792990119; x=1793594919;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=56Y4H+QOpsErxz20UwuJ3uqXiwvb5kpke2jcTVoosVI=;
+        b=bH13+2gtiCGGvDTNbEZt1qqBLse8PIh4V3ubfY29kQO+nB2TSmbtUapmV9TZXMuDbc
+         K1W18QLs2Ll45+eDl7VchPG38jpta2zjUQEkqUTk2M1R7IDAsqsZgr4DZ58ja1A7qW4Z
+         Gsa6eSDbp6VfXW3r4hLpm/Ml8eUfKPLffXhP6bNF4m9CW5UnXiVPbMNS1AzClTs7IMli
+         803o2EEFQDBveBxIzO36yHm1gLvUyMHZ3GbMvz33kLLdLUYfgrTxhYP1wcuyrAIHmTKl
+         E/07jvWpoBDWbQmxbBQiWPk6SsiNVBw3JuE+zTVhtpwHuCVtHD+9VoFSa5vVYAUUI0nh
+         J7Fw==
+X-Forwarded-Encrypted: i=1; AKwUvBwI/sypclN44k4f7wFLM/q75buTm/fd8uZJ1ZAnXZD9j+gn/A2MyAzOJL9jHbZbW31ll9aObC/JncRiAWQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK8D1QSLMQ99Za3UxQ+cJkvG5eYrbMRE7TsumyZekSZ2THXoMOw
+	AnUAgZ8GjS5KhgFlAXT6RsVVWdT0NQu9GkRZ39PwQ2VOP2PlHn0w46vwlgYjDPrN5+E4OAClzpO
+	C0BZyHxjwgo6p5rgjvZ52mhpCSA9wNDA=
+X-Gm-Gg: AYBFou03OddBEsmzfTsMQnodZy7aZ7d4WPlsbx3S5CqhKaj4/RnfXwmR0PCby0m+IxL
+	w4GOUVkiueuk9gorObxLHnnBkPoY7CBgJ06LBkp9j23/cpfZkgdVYqN+hlaMc4XfKclysuTwnRf
+	Jg6Ccjn9PE9TYHWbroxqDc9vXDB6qaRxtO1PaixnIFVK+lU44SE6FJlnAroLwdkp4HiHEhIluiC
+	eNExmE1qERjkPlG/I7en6TpZLJnxCudnVNFN3rq9vHCic8LeWsOWPMzea0U4e62ho5Or1iRJPjl
+	pPQhfN5lgNxn4DJawozAkEnL3XvG3JEA2e7uUymCZKIRb0gisxBPcHhNFKvAShwwHzfm/HGO5My
+	OKkU/5cghu5k1AMPhla+FOMHeFAZAueEdSv/VjRpe5UpfngFAclDwQEqp+g2AZFqSwvS+B94=
+X-Received: by 2002:a05:6820:7184:b0:70d:a53e:845 with SMTP id
+ 006d021491bc7-70da53e26e4mr1017756eaf.17.1792990118754; Sun, 25 Oct 2026
+ 21:48:38 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,58 +104,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261024180803.108872-1-himanshu.bakshi478@gmail.com> <at4Zyt9QP3Yo-ZTC@ashevche-desk.local>
+In-Reply-To: <at4Zyt9QP3Yo-ZTC@ashevche-desk.local>
+From: Himanshu Bakshi <himanshu.bakshi478@gmail.com>
+Date: Mon, 26 Oct 2026 10:18:27 +0530
+X-Gm-Features: AclHuK-hrVr9XIOU9ZgMN2G04tr1CEuz2jBrJcJQCkK3Fq75oom0ajhxJqnjf-0
+Message-ID: <CAGLmz9+B4bcp4WKfBzpS1nO019J3yZppeGKx-ZgZjncik5e4Hw@mail.gmail.com>
+Subject: Re: [PATCH] staging: fbtft: Fix line length warning
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: andy@kernel.org, gregkh@linuxfoundation.org, 
+	dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org, 
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-rawv6_send_hdrinc() caches the route before handing the skb to
-l3mdev_ip6_out(). The VRF output path may replace skb->dst and release
-the original route, leaving the cached pointer stale.
+Hi Andy,
 
-The function later dereferences that pointer for statistics accounting
-and as the output device passed to NF_HOOK(). Its RCU read-side critical
-section starts after l3mdev_ip6_out(), so it cannot prevent the old route
-from being reclaimed in between.
+I have sent over the revised patch (v2) over the mail, and will be glad if
+you go through it.
 
-Reload the route from the current skb destination after
-l3mdev_ip6_out() returns.
+I have made sure that the \ (backslash) is properly aligned to the same
+column as the rest of the macro. I have also taken into account your
+advice and hence added a local variable for platform data.
 
-KASAN reports a slab-use-after-free in rawv6_sendmsg(), with the route
-allocated by ip6_dst_alloc(), freed by dst_destroy() from rcu_core(), and
-the related RCU callback queued from vrf_l3_out().
+After some thorough searching through the respective directory, I have
+not found any calls for fbtft_init_dbg. This might be because it's a
+helper macro that might be useful as the driver progresses.
 
-Fixes: 4c1feac58e06 ("net: vrf: Flip IPv6 output path from FIB lookup hook to out hook")
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhou Qiuyue <n0ps1edzz@gmail.com>
----
-Changes in v2:
-- Rebased onto the current net tree at 7076f684d513.
-- Regenerated the patch with git-format-patch so it applies cleanly.
-- Corrected the Fixes tag to the commit that made the IPv6 VRF path reachable.
-- Shortened the code comment and added the required recipients.
+I have also noticed that some other macros around this one have simple
+style issues and if you would like, I can send another different patch
+cleaning up those too.
 
-v1: https://lore.kernel.org/r/6adad51d.8fc0b0c9.1ec657.1868@mx.google.com
+I have also done minimal testing by using the macro once to make sure it
+compiles and has no errors, if you would like, I can also run any
+standalone tests for this macro.
 
-Thank you to Hangbin Liu for reviewing v1 and pointing out the submission
-issues.
+Thanks and Regards,
+        Himanshu Bakshi
 
- net/ipv6/raw.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/net/ipv6/raw.c b/net/ipv6/raw.c
-index b965258cf..bdea82543 100644
---- a/net/ipv6/raw.c
-+++ b/net/ipv6/raw.c
-@@ -654,6 +654,9 @@ static int rawv6_send_hdrinc(struct sock *sk, struct msghdr *msg, int length,
- 	if (unlikely(!skb))
- 		return 0;
- 
-+	/* l3mdev_ip6_out() may have replaced the skb dst. */
-+	rt = dst_rt6_info(skb_dst(skb));
-+
- 	/* Acquire rcu_read_lock() in case we need to use rt->rt6i_idev
- 	 * in the error path. Since skb has been freed, the dst could
- 	 * have been queued for deletion.
-
-base-commit: 7076f684d5132e6a6145e1da2fa74771ecd052e5
--- 
-2.50.1.windows.1
-
+On Sun, Oct 25, 2026 at 8:31=E2=80=AFPM Andy Shevchenko
+<andriy.shevchenko@intel.com> wrote:
+>
+> On Sat, Oct 24, 2026 at 11:38:03PM +0530, himanshu bakshi wrote:
+> >
+> > Split the line in fbtft_init_dbg macro to keep it within the limit of 1=
+00
+> > columns and address the check-patch warning.
+>
+> checkpatch
+> (in one word)
+>
+> ...
+>
+> >  #define fbtft_init_dbg(dev, format, arg...)                  \
+> >  do {                                                         \
+> >       if (unlikely((dev)->platform_data &&                 \
+> > -         (((struct fbtft_platform_data *)(dev)->platform_data)->displa=
+y.debug & DEBUG_DRIVER_INIT_FUNCTIONS))) \
+> > +         (((struct fbtft_platform_data *)(dev)->platform_data)-> \
+> > +         display.debug & DEBUG_DRIVER_INIT_FUNCTIONS))) \
+> >               dev_info(dev, format, ##arg);                \
+> >  } while (0)
+>
+> First of all, make sure that \ (backslashes) occupy the same column on ea=
+ch
+> line of this macro. Next one, it's better to add a temporary variable to
+> hold the platform data pointer. Something like
+>
+>         struct fbtft_platform_data *__pd =3D dev_get_platdata(dev);      =
+     \
+>                                                                          =
+   \
+>         if (unlikely(pd && pd->display.debug & DEBUG_DRIVER_INIT_FUNCTION=
+S) \
+>                 dev_info(dev, format, ##arg);                            =
+   \
+>
+> And last, but not least, have you checked with `git grep` how it's being =
+used?
+>
+> --
+> With Best Regards,
+> Andy Shevchenko
+>
+>
