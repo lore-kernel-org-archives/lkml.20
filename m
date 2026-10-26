@@ -1,91 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793008459;
-	b=RYhFrK16OYw2jHwqKFqRuotwRWMZVY/mb/H9kLgSrsqDQHqjuBT2uU9+PgrHra5v143d
-	 Cr6N41nsSnxrYRAZfav6RLWdm9m4k84BAofRwl4LrrAnnySYl7uiA3dkT8BYyRE0ewqLX
-	 gkahXCEB4MNWV3/Z6CHfKN1HAg5CAKfEm/fi+dyDaPyItC3Y3mmUcxyOn+aW8xmlAWGlP
-	 zKrXOJ5I8VMdb+4da4yxfaIurUlWq3uAfdo1Vnrt6JVtLW/libZwYdqIZYkAByv0bRgvV
-	 G1z0HHyrK39TyosdlOg29ccQEJg5FNgS9n789/RNmXFpf9t7KlrH+/oqfx9wh7cGNPg==
+	t=1793008480;
+	b=QV+/hXH42DtY3H8G0mSWFFIlaICA3+Pp3kfoFwlMdrhGf0xFO+PK+9BXr84VdbKE+yg3
+	 Y+XCwfGcHnsNHvRDJj92WrnDibk0X/vRMqM3pGZxA+39LjZzRH9al+hZcImFgUCVzv5zT
+	 88DpP1lhGdS3nCFAPNCK+ohsCZlOFvoB6QNLl3MbzK9Co4Cepu1R64eawpm2nMZjPhRKW
+	 QNZ1EcQHALb/Qh5bnar2C12EvH0sA2+JKUUQ+LL5dVVKx3d9L1AYeY8MMieg1s8SQcP3Z
+	 f8bVixz2r5cQQAWo2I6nwUNsoxybcvlyMOcCaNlt2auj8MQUizP/425L4j3oCrHeBng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793008459;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=D/VaSOMcUlwPUAdjntA1Q0HEeOmbUij0t3BgSN8ccDo=;
-	b=fqU2iLO2VpLJ2dEZeENAxWVOriJ+QNYZr4kq5pa/HF8/1kNxJmULJ/WUtLFkdRT3o9Kc
-	 m4tDiStWeWLYOdPDK65EzCjvCQfX6ZBTFfi81zCIXOfkBsXCJEWsMELt/PTvnDblpIyQe
-	 YirEZrS83oDvuu3DhF9WWqhwGegJ2eZ7KkqNwEmIFbZ0k7E75TT7Rf9EM5OuUPnLzB5sk
-	 poY8pZaE3h/kN3Gj7HqfEO4XIiQua+Mfm87BBy04LG5QpTkpwUQ3/jXyu5uKsQrR4Wqgk
-	 1CRjFb/tqu8tDYbRRWo51C11AN/KLKa+g+XROXDNhuGBsojdHANcdueBl38eX8omSYg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793008480;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:MIME-Version:
+	 Content-Transfer-Encoding:X-CMS-MailID:X-Msg-Generator:Content-Type:
+	 X-RootMTR:X-EPHeader:X-CMS-RootMailID:References;
+	bh=O9ZW72vGNIXpuYB+A7o7sjHW3/ldWrvVKixSt1FU3Go=;
+	b=Y7ZUZgrCLJAVb/mzU9jD48kCnCqXyng1sLqGz6HPXhBYL098W2em22NfsKgu2Ts1MYlr
+	 INPlfBdGvasMxZARMZQYpVTKbIFUNefaUkAsWyX9drocoTv/1ErdjWvodlyV6C0P990Lj
+	 fBXwlro9+9DnN0iJjLVnTsO6/tVb+Jb+Hi6iahJMc5VbD20cOTXI/ECOEp2484hHTyKnV
+	 Ag/u5c7I09SBqBttj9B0kXACOvRE7sWiGlm+4mOqW4zT9Pw+QXRxGFd2wL5nKZxnK4aRt
+	 6owGlJbPmmPhr3bXsb9ey6vxB9Cz/u7az7i4Umwi/o8IehXPVjFvmz49crv0ETb4wSg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=aaTnvn64;
-	arc=none smtp.remote-ip=209.85.221.44
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=Smvre56S;
+	arc=none smtp.remote-ip=210.118.77.12
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95CA6606A324
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:54:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95CA6606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6B80606A335
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:54:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6B80606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=aaTnvn64
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48e00eee27dso1718147f8f.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:54:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793008457; x=1793613257; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=D/VaSOMcUlwPUAdjntA1Q0HEeOmbUij0t3BgSN8ccDo=;
-        b=aaTnvn64/QBcpX/pHFhqq2YhMDxBaXebWmQjWa05pDNGjrYYJSz7ukx2+UyEWspfO/
-         SWEwMIz46wRXbwn236vYnsnUm8QvS8vdWVGXSlKGz7giEK4fcfgGmBFxnxMQaEUTZkHm
-         5nftAGEnW/xkjsWtPaDFtCOAfV3qTUybKuV/ERwvD9QIzBAAiWB2rd5OgA7aPBhlOIRL
-         GuLCZ7S0ay24QIuil3U+mat2FrT08g7aQUlQoTf69SrYAF7lttN2x72dylaK/L3jJIEe
-         nS1b3nTg45aDowTu42xQeLLkkK/kykgetHearnFCnYd2p932Pgz1SIlN15FLlzpxkM/+
-         61ug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793008457; x=1793613257;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=D/VaSOMcUlwPUAdjntA1Q0HEeOmbUij0t3BgSN8ccDo=;
-        b=Ao+vOZSQbvri2pq68mTQy0fU8/cAhRcy4OT/EgYSeVwMEse/neE9CrltXHVhXqETVv
-         iaDXPO8adEfvVlVGDlH3/KcQ1fzYYmNgAx88MMSvwbrvLlfeQvKzQTzJU0CVRxd77bZY
-         KrKXjKz37qJ6oEakjpAR5/ZnmCcSVXq2x/rwIWmfPPVpJ6vvre8gyR288wcARjM5moWC
-         IW2B5bnIJdCnpqGtYmxjyAY9BtkDYee+Ec3nJLOTN9iTC2HrWppp12buFpFgBfhcLpDd
-         fcsug3UarS8hqo4S6wcfyjA8kATpQalb5wiVsgneisIUhu1uqNjhycm3TpLluzHhzVNy
-         SzKQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz+0qwMXrEz973JQ3V4Neq5mhR443GXsQVSiQYFjcR7i3VuMfnCNP6r6K9muOvG3eK6bQpjxM085u2DhyI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKsjoPo6lgKbeoIUdk+L/MH1alOXeyL2YWpdiNdXM9rdOr7EzWF
-	5Rn3G+ECddl5JjAZvIa3TTXTKLlboI7dS8JXxseFYA9B2aZ+vR+99X4dvDnokVvBnxjeZ6Ty
-X-Gm-Gg: AYBFou3WQ8wTzmX5Sq9N6nvBv85f8InTiwqkJ+RE6TYABen185sQlrMT56J/lr+0eF/
-	Guc9pS4Ets2F1HVRDhp1t0KpZN/J6/lSdWBs9Xi0Cn/Kd2OMArFV2GAa5GCzq+uJ/8tLD046JEl
-	ph1GTBTiNb6eKJ0lgG9kLuFGgEVkNTq5tBsyI1uXhZk1jdkx3cSdJZan4D2Wot5R6TJ9545AWXw
-	Nbk+x5PGOPxmxlwMcPMBZ9EyAFnk25z/tfbYwJYj/2ikzMzgIUwyh7R24SOJTBVYufQ7ZZLqBTF
-	y7kpHm7RZuwj/y8VUu4nDbFY5YMAAZUVParm37WkTnLj69AZ+KU/wqAS4Lyh9rIBMWdL4jIGsh/
-	kGOHjUHm4jZ92d7EG9vnfNcFdtBM48ihuEk6JJQl490pzFRibTCUI3IoWCpem6s444NqePTtbeL
-	uDe06gX1h+mlimO3l4U6zHr4KYEAWm5aod2RsPl4CGI4xOIWW/fdN1YvNv1Tf4XkvfaH/2LBpHl
-	z3VS1R2w/St62PCRG5mHnPGASGlRVK4IaZiosHstInRSlxToeXgi3ve5T8MeR+TcJqUfmaHmF8U
-	g4reWp7Ol4mFhO3L79+u4df6QRI+AcuA5VBSVg==
-X-Received: by 2002:a05:6000:2312:b0:48c:557d:ab24 with SMTP id ffacd0b85a97d-48e3eb2cdbfmr11414765f8f.4.1793008456800;
-        Mon, 26 Oct 2026 02:54:16 -0700 (PDT)
-Received: from localhost ([217.150.74.224])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecdf9bdsm14960572f8f.55.2026.10.26.02.54.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 02:54:16 -0700 (PDT)
-From: Eduard Zateev <hackerowskiy@gmail.com>
-To: johannes@sipsolutions.net
-Cc: linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+c38f93f387ac25eabf68@syzkaller.appspotmail.com
-Subject: [PATCH] wifi: mac80211: use owner vif for AP VLAN station TXQs
-Date: Mon, 26 Oct 2026 19:54:14 +1000
-Message-ID: <20261026095414.149334-1-hackerowskiy@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=Smvre56S
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261026095435euoutp02da5bc13d9f6c590b02a99206b4030244~iC7VfKIZP1240012400euoutp02B
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:54:35 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261026095435euoutp02da5bc13d9f6c590b02a99206b4030244~iC7VfKIZP1240012400euoutp02B
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1793008475;
+	bh=O9ZW72vGNIXpuYB+A7o7sjHW3/ldWrvVKixSt1FU3Go=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=Smvre56SQAoyPDsig0nJhtBl+QEw8gSA80Ej1RF0m4urSG6lW4gmf6H8xPn11fKxP
+	 4HGkSZn2v+OetzJ05KLu7UKTZwR7S/CtdsBkr1ZPeUFSRJJB0x+pO2Yc8d6nOGGGO/
+	 tY9RVb75U8vhBfZ6+LBrOJGGLneeO8XyEdfEqdbY=
+Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
+	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+	20261026095434eucas1p1bb0ac7f1e94bcac196fdc97a0f2c9e9f~iC7VMknpd1650516505eucas1p1i;
+	Mon, 26 Oct 2026 09:54:34 +0000 (GMT)
+Received: from AMDC4653.digital.local (unknown [106.120.51.32]) by
+	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20261026095434eusmtip20edbf2321e17be51c7de2200921a3515~iC7U408zR1096710967eusmtip2P;
+	Mon, 26 Oct 2026 09:54:34 +0000 (GMT)
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+To: iommu@lists.linux.dev, linux-kernel@vger.kernel.org
+Cc: Marek Szyprowski <m.szyprowski@samsung.com>, Robin Murphy
+	<robin.murphy@arm.com>, Andrew Morton <akpm@linux-foundation.org>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/5] dma-coherent: serialize reserved memory pool
+ initialization
+Date: Mon, 26 Oct 2026 10:54:12 +0100
+Message-ID: <20261026095423.966856-2-m.szyprowski@samsung.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261026095423.966856-1-m.szyprowski@samsung.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,41 +73,60 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20261026095434eucas1p1bb0ac7f1e94bcac196fdc97a0f2c9e9f
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20261026095434eucas1p1bb0ac7f1e94bcac196fdc97a0f2c9e9f
+X-EPHeader: CA
+X-CMS-RootMailID: 20261026095434eucas1p1bb0ac7f1e94bcac196fdc97a0f2c9e9f
+References: <20261026095423.966856-1-m.szyprowski@samsung.com>
+	<CGME20261026095434eucas1p1bb0ac7f1e94bcac196fdc97a0f2c9e9f@eucas1p1.samsung.com>
 
-AP VLAN interfaces are not added to the driver, so their station TXQs
-must wake the queue through the owning AP interface.  Keep the AP VLAN
-interface in skb control data for key selection, but associate its
-station TXQ with the driver-facing AP vif.
+Multiple devices can share the same "shared-dma-pool" reserved memory
+region, in which case the dma_coherent_mem structure is created by the
+first device attached to it and stored in rmem->priv. To avoid the
+potential race, serialize the check and initialization of rmem->priv
+with a mutex.
 
-This avoids calling drv_wake_tx_queue() with an AP VLAN vif that has no
-IEEE80211_SDATA_IN_DRIVER flag.
-
-Fixes: e937b8da5a59 ("mac80211: Add TXQ scheduling API")
-Reported-by: syzbot+c38f93f387ac25eabf68@syzkaller.appspotmail.com
-Link: https://syzkaller.appspot.com/bug?extid=c38f93f387ac25eabf68
-Signed-off-by: Eduard Zateev <hackerowskiy@gmail.com>
+Fixes: 7bfa5ab6fa1b ("drivers: dma-coherent: add initialization from device tree")
+Cc: stable@vger.kernel.org
+Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
 ---
- net/mac80211/tx.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ kernel/dma/coherent.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
 
-diff --git a/net/mac80211/tx.c b/net/mac80211/tx.c
-index e9b6a0415..7446c8d9d 100644
---- a/net/mac80211/tx.c
-+++ b/net/mac80211/tx.c
-@@ -1571,6 +1571,13 @@ void ieee80211_txq_init(struct ieee80211_sub_if_data *sdata,
- 	INIT_LIST_HEAD(&txqi->schedule_order);
+diff --git a/kernel/dma/coherent.c b/kernel/dma/coherent.c
+index 4d0266893bcc..ac62b6bd3d0d 100644
+--- a/kernel/dma/coherent.c
++++ b/kernel/dma/coherent.c
+@@ -7,6 +7,7 @@
+ #include <linux/slab.h>
+ #include <linux/kernel.h>
+ #include <linux/module.h>
++#include <linux/mutex.h>
+ #include <linux/dma-direct.h>
+ #include <linux/dma-map-ops.h>
  
- 	txqi->txq.vif = &sdata->vif;
-+	if (sta && sdata->vif.type == NL80211_IFTYPE_AP_VLAN) {
-+		struct ieee80211_sub_if_data *ap;
+@@ -335,10 +336,18 @@ static phys_addr_t dma_reserved_default_memory_base __initdata;
+ static phys_addr_t dma_reserved_default_memory_size __initdata;
+ #endif
+ 
++static DEFINE_MUTEX(rmem_dma_mutex);
 +
-+		ap = container_of(sdata->bss,
-+				  struct ieee80211_sub_if_data, u.ap);
-+		txqi->txq.vif = &ap->vif;
-+	}
+ static int rmem_dma_device_init(struct reserved_mem *rmem, struct device *dev)
+ {
+-	struct dma_coherent_mem *mem = rmem->priv;
++	struct dma_coherent_mem *mem;
  
- 	if (!sta) {
- 		txqi->txq.tid = tid;
++	/*
++	 * Multiple devices can share the same pool and may be probed
++	 * concurrently, so serialize the initialization of rmem->priv.
++	 */
++	guard(mutex)(&rmem_dma_mutex);
++	mem = rmem->priv;
+ 	if (!mem) {
+ 		mem = dma_init_coherent_memory(rmem->base, rmem->base,
+ 					       rmem->size, true);
 -- 
-2.56.0
+2.43.0
 
