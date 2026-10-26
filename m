@@ -1,100 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793006546;
-	b=sKysuUuwm+XBVor0J8zPgHOEjZ09gcUEL4e7OG4Umsel2E18QF3mfIaUb5q0zSH0VHau
-	 l65I2jGtIW+H7PQQEGJ2U61tdXfd/SYQcgZJy+LLZOLiiPuuGiUnmhM/1qCrvCIalBwRj
-	 apDL8m86EWh+UdO4SWkppUjQY5T5Cfp2tMIQIzl6p/ZNOUIccsohppncVyxq2ksG5Ntqm
-	 wq3XZDPqyhXLWHwOpOkw0tWQS0pzfaGQ1AR1gcL3OVrPvve6a+GCMesoh70SDyo2pIOdV
-	 82fRuQOK6bkXMrD5E8zR3MV2f1+T07IAEMh3e2PWuUQqPgmb8NMBVPsVReUMarNbILg==
+	t=1793006562;
+	b=3uPPt2JKkuUD8OiHxi7BGYGuCsg6Ayzfpy/XvaQ+juWnPXChUa20ibajiq1/LA7lovs7
+	 ZxGRVhjh7PjOrO8hUu6W4BDR2xdbmsCssymFvjlJ/bGJZ88SUYGNgJKG4H4cf6lm37NXY
+	 RdVg7NGpfWI2il7oaWW5Ig6jlNDI6rC3ZM7ogCSSm5twIwnbtliMKcQAA4XEQ531PPfXI
+	 ayXSNCF+lKqdsRuWJM9cRdPJPfDspjum1nPxL32lJ0mu+Zna63RODD19ydp9n4psSbigN
+	 FqYs7gqpnyyode/MJRjL0X/ud98CcDI+g3ypLJ4GuQHbAmpVBhK7W8MuZjYaPsc9kiw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793006546;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793006562;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=KLAz+LSoKYpUFYpmLED3+ouddRavFyctHlwqyoedBik=;
-	b=Wo+7LEp57/CAymoAtJ5suwdsrxxvdnJ/sWeVypvauSG1k6NEShaNqeqRJ8WAjWhSs2pz
-	 vBIqI0rCv95Z+QGfgqd0M0HOzNCcmS/tlnCh3aueL/eNDfWTkowivRLmfHgEMHN2dAG3C
-	 SfS+jUGwAgX38HNDahv+uNSPkLEPzt54wTePgA7lGZYj97LuFFxbXqqaWfZmKF9I+p0nC
-	 RAU79csCZj92PcMtzpp0H60ULoNsLgksIfvrR94Q5U9rbfJPmfj4++mqk399mIwkGn5xh
-	 xC83x8/TTy2adxm0Nwj9sgG39AuYH3Pc2hPpO9bn1/bkgIkuwiug2o92iYcDbEsWZMg==
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=30QwHpi4RQGrlJA4Ni1ieESAKb4LlkBBANXTStC06eU=;
+	b=cSgco1DDzMVmiB0M6dhgHQtnAhWnlznwYn1cRHFqYqbk5NVIw2XI9FlwHIbgKIZtCtYh
+	 nU7Hene8wzxPTx2mCbJ93/Tky4amGUYyYpiNbGYQh8Ey6pD+syiNvCNgfBWoFMftGnzKb
+	 3f2dVkzVYxlG75WC+iHs9xLeQVqjgC0XHvKCNdBB1LC5rAvf2LPoCrnOhFOd2A/lLIbj9
+	 Ax4M//5v60v+emFJ+PbdTYD+T3wbUwKgcR17/5dgZZXcf7rOfWgOVRxlmPgFE6JQLXroF
+	 RmSuSIg1p84vc/o5kh2TJeUhGWAyvVOhnkn7gWMnfruvfcMnub0PJmZK53arL23HyDQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=kaoasQmm;
-	arc=none smtp.remote-ip=209.85.210.169
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=SqEKp91Q;
+	arc=none smtp.remote-ip=209.85.216.47
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89666606A31E
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:22:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89666606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58D99606A321
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:22:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58D99606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=kaoasQmm
-Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-8a39e5161c1so912339b3a.3
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:22:26 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=SqEKp91Q
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3ab752f6244so2587318a91.2
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:22:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793006546; x=1793611346; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KLAz+LSoKYpUFYpmLED3+ouddRavFyctHlwqyoedBik=;
-        b=kaoasQmmDydfWLx1m9/jkMSVPSP8PixcxmKmh5tt0rOoQyw7Z9LopjuZwTTo8fJ6mT
-         mL+FuHXT4+XZiOx8l+hAdgYbJ3x2s/3qPC+LwUuNLgyC9xVPC77zs1UayFRALWA3FEO0
-         y5aQX5iNcfz9vKPyLeplWKRqJ9QjSh8R8jG0Z4HAYcKuJVZnihyKp6IlcrD3aDAdLyJY
-         DsVLRyg2/OoZ631aEPTkckuQA72BdU0MTA2d+Zpfg8kRsDrGtENNaf3+coFwg8YfXrIO
-         y/bEaPnYWzEcbIz1EGqS/V4K0K/1btYZZ9l0/+8x762SnowlfM2FgDqNaTRpWXsmV3CM
-         DlDA==
+        d=gmail.com; s=20251104; t=1793006562; x=1793611362; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=30QwHpi4RQGrlJA4Ni1ieESAKb4LlkBBANXTStC06eU=;
+        b=SqEKp91QEemx2ju6xjRBnie9/9djcxRU+HZEFSiSRyQWs+ck13SCYuzwf5iDKE3O8b
+         h9juM9RlXBSS0KdREyQ8vvTsvLQCrNqK3youafF5HBvGBH/eCKkazk79Joz5fJFm4ZQX
+         +b96DLvSHiCQ45HZD/vDwgokbXbNuQUP5S74bpwWedQZRh70/dNYZAK3DZB+XANsRLFY
+         kfZtKSWgEgBCdgvbJxkr2U956y4A91JIDPEhds2IE13W0maedIO+xOCW01n0b1Wds8P+
+         VcJXT5VaDaHaZgPVWama7AlVlFBPDZfscJDtLcsCAbnYVHAej+yz+6wYOclPjEEujoI4
+         BbCQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793006546; x=1793611346;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KLAz+LSoKYpUFYpmLED3+ouddRavFyctHlwqyoedBik=;
-        b=L94HPeez1vPIbrt5Ki0mWJ+SiDrRg9YengQMaeLis2bqV9fxWC9O+ej219bpK2SteT
-         0jfz8u5cBb0Lfro5Yfi4IRGP9U6Z7zCtoLgBVBbrldNPk/maxznBosp0OY4zBxeIrCiB
-         3bLW/K4dW6b/HfPFYnj4wHngo/URrK1tfcBuoMkc2xZTOLpiDOd38t43j4zTUnf2nPGz
-         fVKZYthqQVyba0688xGnT12H3zH7ZR0wFoy4rf7MvK9oKofa0evZ+Z9bMYkU7XQQM6pK
-         5R/ta1xkufAwtAbtdZlqzMDCFAF8++JStEdvjBP34Thyb0E8/R2oPwj1CiZA4UP6Q3e3
-         wS6w==
-X-Forwarded-Encrypted: i=1; AKwUvBxvlMZhx2uu9hT8+hwZEnmip6E/ePdJjWYM1lKUMRX70BinQFAn0Ckp3ph9fkoCtnto2PwJBRMIkjMyMqE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKI4zNh2OHldNDAGiMhivCifrmbJavNeWC2ARZddLspXXnUulXV
-	b6rOUu+qE3HyiE2tqX4YrilM8eul3yHn8b79u/lcl350Gg0brCcLAjeX
-X-Gm-Gg: AYBFou2NrXnHHW5ou7fpmVJ2c6Al8awQngTB+K8zHcRewpdUAIYmn3cLihq9In4uirg
-	KEgzYeVy4Be7Wpaaie+/l/Q5E1zd2xPJ3n+f1oIzOMN9jmcsJ44yE8lXE1/rKlu3FTl1xvPOr8D
-	l8vwhbPo3Oxas3MBbRrQKThV03ZQG6yKscvEhZsmH9N+debVDTnupKNCrErRasoAqwvJfk1o5CL
-	wPAFSWc+ggGgxPrdxwDF+a2VAy1zZnKlZHXD2arz1ArcjcVOwUjv9jIGrTXS11MoTm+3Ben2XYR
-	pV64zuhSwF2h4C7g4BOsuensmQ78aGZ1yxawGpkEl+ADlz9fWSlSYnGNkRqgaQaX9fT22FcU1un
-	4m4YRO/s2yW901w4Eym4y3W+0Oog5Bb3tvTJzO+6g+PpsA/2rRCsm3ab26cN2ApVwqwIusjoFj9
-	CNC6zHkNYlfm7D0GPJ5fQwa735ruA/eOPe/qyhPs2+5vwJ9Hp7tN28HqE0LQHZcq0VhG834Uivz
-	dGptsZ/i1p2ta2oqoOODrBqoQ0XdAlAMux+iZOaPImER8o4btTMwnwuQO0Lyi3FTB66F+qTDw==
-X-Received: by 2002:a05:6a00:98d:b0:89f:fdb7:a9df with SMTP id d2e1a72fcca58-8a364b4c9b1mr4646584b3a.5.1793006545834;
-        Mon, 26 Oct 2026 02:22:25 -0700 (PDT)
-Received: from osman.mioffice.cn ([43.224.245.178])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a36b37145fsm1055887b3a.22.2026.10.26.02.22.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 02:22:24 -0700 (PDT)
-From: Zhan Xusheng <zhanxusheng1024@gmail.com>
-To: xiang@kernel.org
-Cc: chao@kernel.org,
-	zbestahu@gmail.com,
-	jefflexu@163.com,
-	dhavale@google.com,
-	hongbohbli@tencent.com,
-	guochunhai@vivo.com,
-	giuseppe@scrivano.org,
-	linux-erofs@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	zhanxusheng@xiaomi.com
-Subject: [PATCH v2] erofs: don't reuse a superblock for a mount that passes device=
-Date: Mon, 26 Oct 2026 17:22:17 +0800
-Message-ID: <20261026092217.2129604-1-zhanxusheng1024@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <at8UCyjlHgxxBAaf@MacBookPro>
-References: <at8UCyjlHgxxBAaf@MacBookPro>
+        d=1e100.net; s=20260707; t=1793006562; x=1793611362;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=30QwHpi4RQGrlJA4Ni1ieESAKb4LlkBBANXTStC06eU=;
+        b=rVm+etzL31JOVfRIeYSEhmKQv+tOB2v0ro/3Rb8FxVJew4KM9Aiw1kF5ZPfRj9NyZh
+         NW3YbJqjdDBk7QnMRdnxaQMMXYpB2Jddh+YacHtLJEA2xRZ0EZdC6cMF/VW9Ui4yofCs
+         w6Gxadu2gugLLogXfoEVO9XJWggUYFVkmo48pZW05O3ulh4ghkVIwOpHxvBx4HGGZwXd
+         f2JAsE4+ExHNJPinHm4eC5Ir8+Q/0pGLfbr2K47shwDVr7poVFGpMZ5XMVl3MJkDs8Ue
+         HY3e2Vw4/vBPyVX2Yr07x8+qnEqhMRBp7Ai5Q1ZzZNYu9AYf2wySj12VKJaURM3eb4Zq
+         IEzQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy+v9HrphDhypXitMJsiph4hyBDhsXE3WC673v933TM0KV7vfnnY1UEqnalMZtLPBee7SLN9szdYyl98Cg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKx95mLBoxIc3N2lAh/Nqp6WISNOpdA76+qq5/CkqAVDw02a53Z
+	50a5jOJEtg848Ltur4NF1b1ljOpmZmdB9fPEjgQAcHxaUVzT9b5HtAFe+Y0+UbME
+X-Gm-Gg: AYBFou2GaT4vBKA8tXSQ8F0Kqop4fLhT0fNc8kmU7NK7KU+JfvAaIoy2ZenXvtOKkKq
+	hwyqId0CborLztkernUu5pDC66HB7jcBOkntzSjvlhTxsm9NZhAYDoDAL+kPI+74n3x6GYy1A+e
+	6I6doMrme05Bb1Tjrac5eIrs+vwxXBUY51ztSAXtYqpaEykGiUH/ntgm+TmZqwzSTN9tDxIml89
+	b8KAeAzpT+FnUAJu1cCBFEWxgLG7cTFM3VwHvql0ScyRJmF0/J466weEsclfUdw+bSWQ38qWd+y
+	ObzB4GEK1p3mnB04v+Bgr78bs5FmJEn5dPxnAGxhDRyuVEUF6UKjK6MQIFAG/jtLx09xN7FvRYy
+	/CBsMReYDCh7V6aHj3gm9DUrh/gsXPYlzUQZRnRRwIcRwNg52Ce2JATa6rUN3XOpZaRoBPy46xa
+	bSH6o/0qP41BWulTKNPOMLdqbWQNFWT00djcTDo3r6b3n6loxHJG3Vc8cWPR7APnRgo9ILD5Qpe
+	uTied4VOmZ4ji5ZN1Pu+cxkhQi01qMMrt9amCYv1WOPISIPVUP0pke0+jEmZYGx7yaMUCNlK1J+
+	pxx+10wabsEUwqdxyGWt3A==
+X-Received: by 2002:a17:90b:2645:b0:3a8:878:ebab with SMTP id 98e67ed59e1d1-3adead4c29bmr5294059a91.35.1793006561792;
+        Mon, 26 Oct 2026 02:22:41 -0700 (PDT)
+Received: from ?IPV6:2408:8210:2436:950:3934:2b73:344c:e6fc? ([2a13:edc0:18:16f::a])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adebb06c57sm5454569a91.3.2026.10.26.02.22.37
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 26 Oct 2026 02:22:40 -0700 (PDT)
+Message-ID: <96fc3e59-9fd4-4960-b318-10dcca1bd11f@gmail.com>
+Date: Mon, 26 Oct 2026 17:22:36 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,61 +92,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] platform/x86: bitland-mifs-wmi: Add Xiaomi Book
+ Pro 14 quirk
+To: Chris Taraszka <chris@miget.com>, Hans de Goede <hansg@kernel.org>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Ilya Gladyshev <ilya.gladyshev@linux.dev>, Armin Wolf <W_Armin@gmx.de>,
+ KentoNion <kento@kekto.ru>, Matias Civadda <matias.civadda2342001@gmail.com>
+References: <20261025195456.43414-1-chris@miget.com>
+ <20261025195456.43414-2-chris@miget.com>
+Content-Language: en-US
+From: Mingyou Chen <qby140326@gmail.com>
+In-Reply-To: <20261025195456.43414-2-chris@miget.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Zhan Xusheng <zhanxusheng@xiaomi.com>
-
-superblock_share together with device= is rejected in
-erofs_fc_fill_super():
-
-	if (test_opt(&sbi->opt, SUPERBLOCK_SHARE) &&
-	    sbi->devs->extra_devices)
-		return -EINVAL;
-
-but extra_devices is kept in sbi->devs, not in sbi->opt, and
-erofs_sb_share_test_super() compares only the backing inode, the
-fsoffset and sbi->opt.  So once the image is mounted with
-superblock_share, a second mount with superblock_share,device= matches
-that superblock and get_tree_super() reuses it without calling
-fill_super() at all.
-
-The same command line therefore either fails with -EINVAL or succeeds
-with device= quietly dropped, depending on whether a compatible mount
-already exists.
-
-Refuse to match a context that brought device= options, so that it gets
-a superblock of its own and fill_super() decides as it does today.
-
-Only the incoming context can be tested: a shared superblock may have
-extra_devices set itself, because erofs_scan_devices() fills the device
-table from the image when no device= was given.
-
-Fixes: cd4108319bb3 ("erofs: reuse superblock for file-backed mounts")
-Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
----
-v2: fold the check into the return statement and drop the comment
-    (Gao Xiang)
-v1: https://lore.kernel.org/all/20261021083826.1870937-1-zhanxusheng1024@gmail.com/
-
- fs/erofs/super.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/fs/erofs/super.c b/fs/erofs/super.c
-index 16fa3b853f1b..8ca44b1c0bd1 100644
---- a/fs/erofs/super.c
-+++ b/fs/erofs/super.c
-@@ -827,7 +827,8 @@ static int erofs_sb_share_test_super(struct super_block *sb,
- 		return 0;
- 	return file_inode(sbi->dif0.file) == file_inode(new_sbi->dif0.file) &&
- 	       sbi->dif0.fsoff == new_sbi->dif0.fsoff &&
--	       !memcmp(&sbi->opt, &new_sbi->opt, sizeof(sbi->opt));
-+	       !memcmp(&sbi->opt, &new_sbi->opt, sizeof(sbi->opt)) &&
-+	       !new_sbi->devs->extra_devices;
- }
- 
- static int erofs_file_get_tree(struct fs_context *fc)
-
-base-commit: 52dceb88082b4c7983d1c8c7de1c181f018055ac
--- 
-2.43.0
-
+On 10/26/26 03:54, Chris Taraszka wrote:
+> The Xiaomi Book Pro 14 (board TM2424) implements SystemPerMode with
+> its own values. Its firmware ignores 0x00 and 0x01, and GET returns one
+> of 0x02, 0x03, 0x04, 0x09 or 0x0a, so with the default table balanced
+> and balanced-performance are no-ops and reading the profile fails with
+> -EINVAL whenever the firmware is in 0x04, 0x09 or 0x0a. The failed read
+> also aborts system suspend.
+>
+> The values were identified from the WMAA method in the firmware's SSDT
+> and by setting each one and reading the sustained package power limit
+> from intel-rapl-mmio on AC:
+>
+>    0x02  18 W
+>    0x03  37 W
+>    0x09  45 W
+>    0x04  58 W
+>    0x0a  18 W
+>
+> Map low-power, balanced, balanced-performance and performance to 0x02,
+> 0x03, 0x09 and 0x04. 0x0a is only entered through the firmware's own
+> mode cycling, so report it as low-power without offering it for SET.
+>
+> The machine is USB-C only and WMI_FN_SYSTEM_AC_TYPE is not implemented,
+> so skip the AC type check.
+>
+> Signed-off-by: Chris Taraszka <chris@miget.com>
+> ---
+>
+> Notes:
+>      Tested on the Xiaomi Book Pro 14 (TM2424, BIOS XMAPT4B0P0A0A) with this
+>      series on top of v13, backported to v7.3, on AC: all four profiles set
+>      and read back, and the firmware mode (EC 0x68) and PL1 follow:
+>      0x02/18 W, 0x03/37 W, 0x09/45 W, 0x04/58 W. These match the values
+>      first measured on BIOS XMAPT4B0P0909. s2idle suspend/resume from
+>      performance restores 0x04.
+>      
+>      On battery, balanced-performance and performance are refused by
+>      bitland_pp_check_capability(), although BIOS 0909 applies 0x04 on
+>      battery. This patch leaves that check as it is.
+>
+>   drivers/platform/x86/bitland-mifs-wmi.c | 21 +++++++++++++++++++++
+>   1 file changed, 21 insertions(+)
+>
+> diff --git a/drivers/platform/x86/bitland-mifs-wmi.c b/drivers/platform/x86/bitland-mifs-wmi.c
+> index a4c341ffbb9b..73be63146fd5 100644
+> --- a/drivers/platform/x86/bitland-mifs-wmi.c
+> +++ b/drivers/platform/x86/bitland-mifs-wmi.c
+> @@ -116,7 +116,28 @@ static const struct bitland_mifs_quirks default_quirks = {
+>   	.num_profile_entries = ARRAY_SIZE(default_profile_entries),
+>   };
+>   
+> +static const struct bitland_profile_entry tm2424_profile_entries[] = {
+> +	{ PLATFORM_PROFILE_LOW_POWER,              0x02 },
+> +	{ PLATFORM_PROFILE_LOW_POWER,              0x0a, true },
+> +	{ PLATFORM_PROFILE_BALANCED,               0x03 },
+> +	{ PLATFORM_PROFILE_BALANCED_PERFORMANCE,   0x09 },
+> +	{ PLATFORM_PROFILE_PERFORMANCE,            0x04 },
+> +};
+> +
+> +static const struct bitland_mifs_quirks tm2424_quirks = {
+> +	.profile_entries = tm2424_profile_entries,
+> +	.num_profile_entries = ARRAY_SIZE(tm2424_profile_entries),
+> +	.skip_ac_type_check = true,
+> +};
+> +
+>   static const struct dmi_system_id bitland_mifs_dmi_table[] = {
+> +	{
+> +		.matches = {
+> +			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "XIAOMI"),
+> +			DMI_EXACT_MATCH(DMI_BOARD_NAME, "TM2424"),
+> +		},
+> +		.driver_data = (void *)&tm2424_quirks,
+> +	},
+>   	{}
+>   };
+>   
+Reviewed-by: Mingyou Chen <qby140326@gmail.com>
