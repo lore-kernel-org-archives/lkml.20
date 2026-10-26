@@ -1,102 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.171.160.6
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793000225;
-	b=o5dGrUQcVQzJkc9lrhhls5xJxfi2RzXWeBATblJqSNauNStB9b0DmHr3VsqAN+m++Z7G
-	 3dwW0h4NVblDmd8drEngP4cvi+OtIZk6PGBgjKX+1uLlWzLpcvK7ci9uKpUL90tCvJvHY
-	 5KSirPNym5XRUv7IhycNjUNgMBH5q0OfrPxI0Fxn+NCOZpYBfIrb2zFC19J+6iw8lsiUV
-	 uUX+c2x75ZjpJ2NnPyNX94B8V709cPP9YLNwMnHICYqbEISKlNCtcsNETaXVSaeehkAMb
-	 mh+5gSa1i6DqjqsTA4Tvlpz5xr6hM8xriSgy7UVhN7J4x6EtrC4yHXc2h+1rRd8TUNA==
+	t=1793000244;
+	b=JScCRfmlsldaxmR3zWAcwiZia6shRzXv01W9QY9NZtfVcZ1C2Zn1NRaTRNTEnAqrikKM
+	 FqHV3SXpbEQHwlqYwYIZbEeWXIdJxZaIOd5mWkTfs3baMurqJFzHC/jRmQ0d4uKDClPz3
+	 Yi2/KTlSQ5vmABx2wMKGnm5t6Wk37hTIIFZK1naBUL9S3mPHMj8Why097YkEvZW0B+12b
+	 09Egj/b729grbtVckvyNxjSqGQVCbQlzTNxrhZkrgtw0FZ4HvGDiPu0LYQ/sJiHlSD5sE
+	 aU95WBPbg7nkXXO03GAQDdSbIatuPIqqZKCSpXYX8GiWkWQktGSmFHSiR0dhh55PVDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793000225;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Spam-Flag:X-Spam-Level:
-	 X-Spamd-Result:X-Spam-Score;
-	bh=2Tlji1wL3C5Miea4Vt5faKcWvh3GAyU4yBXGwQXSxqg=;
-	b=bwc6SiuuXgA8y4/xsbPKKMRHqxdgnBFgSwRTrAoabhGFZUIaZTqBv12znVkz7icMXF8O
-	 +RcpoPgpVqMXcL8kUoUbmqTVJDZkBBpZZRsCJceOQigyyCO8DrMXIQ2Nm4JjbKxucp+6s
-	 WOuBoEJyxUyci2mKgYnrArHIz+yQJUYCqmR9PDdWqaeS9BDJlxObdqaKd7TPGwRU0ehH1
-	 IncEMqlEcv0b7eJd2RjzowUCBq1UF8LaRc1tgFPcIX64P0rlkgFFaefsqGpfSvw01NX3S
-	 XsnVznuOjG44QCWq6k9+/elV9QVlumdTn5NBiNiiFAnCJPB8/qBJtZUoI5TY3zB/IMg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793000244;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
+	 Received:From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 User-Agent:MIME-Version:Content-Type;
+	bh=2vp3QjJ817iw+uy+pcrWq/RDVWdRNpTEg9ybL2+diMQ=;
+	b=su1btq3Wyx+hHcGsBn2grUHpgdK9IOA343moc4mbQuJGtqk6d5UB54z6/0rIe3YDVlF5
+	 OG6tejVA4b+zm9ljKVPA8RtKy6vJ8HDf7EoVcUIAv7XI1ovPJ3VgIiDyvSdRGmO50cIoo
+	 ozXfosY4oOZTnynIXY4g1IWihjLZ1HteFjilXqz+rhUf7jK/FH/cKBwV3Tf6JasDrVdyB
+	 wf9nOy8Pi56UCQyvXt9+W83gBxvgfRyODOPVimyLuDOLJdRLoixqFEdXxtOWva7Q3Lgx2
+	 DpLOoP3gUQFET4Ly3oJsT8ozbSN/pkYpKJhSxFw4g1sc7YvV2McI9lnm6klgw39ITgQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=o04SKfON;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=FdUlnHs3;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=i6CcgjXl;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Ly0HoaH5;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=mail.parknet.co.jp;
+	spf=pass smtp.mailfrom=parknet.co.jp;
+	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=rsa-sha256 header.s=20250114 header.b=tcpGJ6HM;
+	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=ed25519-sha256 header.s=20250114-ed25519 header.b=NJG1i8Px;
+	arc=none smtp.remote-ip=210.171.160.6
+Received: from mail.parknet.co.jp (mail.parknet.co.jp [210.171.160.6])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A5DE606A31A;
-	Mon, 26 Oct 2026 07:37:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A5DE606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0730606A31E;
+	Mon, 26 Oct 2026 07:37:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0730606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.parknet.co.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=parknet.co.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=o04SKfON;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=FdUlnHs3;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=i6CcgjXl;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Ly0HoaH5
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id AB313222C7;
-	Mon, 26 Oct 2026 07:37:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793000223; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
+	dkim=pass (2048-bit key, unprotected) header.d=parknet.co.jp header.i=@parknet.co.jp header.a=rsa-sha256 header.s=20250114 header.b=tcpGJ6HM;
+	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=ed25519-sha256 header.s=20250114-ed25519 header.b=NJG1i8Px
+Received: from ibmpc.myhome.or.jp (server.parknet.ne.jp [210.171.168.39])
+	by mail.parknet.co.jp (Postfix) with ESMTPSA id 4F44426F7658;
+	Mon, 26 Oct 2026 16:37:13 +0900 (JST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=parknet.co.jp;
+	s=20250114; t=1793000233;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=2Tlji1wL3C5Miea4Vt5faKcWvh3GAyU4yBXGwQXSxqg=;
-	b=o04SKfON50HyvoMwpBtX88PbtmuNHgWFILFXT3+FTIFj+ltc0laLMmAcz4gmynkvc3xuMn
-	SZVYnc49JHp0u/zalW81GeaDBbvghJAK0ryY3XgaNQ5rxhBv06uEjHA6NvyCAStmzAaTtk
-	86gen5ljqivHgEIHk+nHJ+ctPwHvxOw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793000223;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
+	bh=2vp3QjJ817iw+uy+pcrWq/RDVWdRNpTEg9ybL2+diMQ=;
+	b=tcpGJ6HMXlfIONcreIbHlyJFH5AsaoMz+8VE0snqTbIhrEakFRC7ts1VvQBNSa8PjqPA+9
+	mVDLlbb2/1esUdIvvk+X7WYhRiU74HMKlDFzXoCBxaX75j4QRYC8mOS7a7StSqJZ2XS97l
+	bN0bS8AlTdRZN3z4b5GVqJzdaIfLPZE5+GD/8irrNfcISYUBZI6GJ8123nnZYxoLjNv+6m
+	zjq77ZvGS1IrJDYOi93yF05wfX4MCgX64VvoI2kvxUTWYBQq0l8/p25et9Cb8w45bNdIWo
+	jMU0HLo0ptObmtp6HIDv4ZMj6l9uIZY0kjlNrUAo5eJJt/neBpeBPLEZe2NUXA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=parknet.co.jp;
+	s=20250114-ed25519; t=1793000233;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=2Tlji1wL3C5Miea4Vt5faKcWvh3GAyU4yBXGwQXSxqg=;
-	b=FdUlnHs32cf2ZnSHgxOdJzH9Dgqy8neVhFnafgilixyr/9l0X4P5pakk2OuiSOu4QXq382
-	urlHBAxBWKpcuMDw==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793000221; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=2Tlji1wL3C5Miea4Vt5faKcWvh3GAyU4yBXGwQXSxqg=;
-	b=i6CcgjXleFfiJkAT7ZQOZxTt5AlboPowtNIQgNx50vPUbf1iFmimwV1PdRv346EQ82eNRr
-	Xz4wFa3kEY1Iqbay0UguGhoStFOhlxeiOyrKsQhsflc6Hk0PfS3fRLqB5F47W4Db5CehWE
-	6kAzlaiGUq9VqiLIQL/r/81GGE9tSVs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793000221;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=2Tlji1wL3C5Miea4Vt5faKcWvh3GAyU4yBXGwQXSxqg=;
-	b=Ly0HoaH5Axxz9P3uPKknOkqHRbtER2LU2Ug0oBT4E0AKvkC4wc+n3bc6MaO2w+i57XPvZd
-	QkCxgi+C5AvloZBg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DBD9413319;
-	Mon, 26 Oct 2026 07:37:00 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id S9pZJRwD32prAgAAD6G6ig
-	(envelope-from <hare@suse.de>); Mon, 26 Oct 2026 07:37:00 +0000
-Message-ID: <131fc354-ff38-4aca-ac3d-8e3a6f3716f4@suse.de>
-Date: Mon, 26 Oct 2026 08:37:00 +0100
+	bh=2vp3QjJ817iw+uy+pcrWq/RDVWdRNpTEg9ybL2+diMQ=;
+	b=NJG1i8PxSDqk+iaOWqE1F/2WQENTpl4yyUDuMM/eiX+0Ua1TxhMuwmPMJNo8+IjkKfndI0
+	7bp70YMMYKRhOoDg==
+Received: from devron.myhome.or.jp (devron.myhome.or.jp [192.168.0.3])
+	by ibmpc.myhome.or.jp (Postfix) with ESMTPS id C5802E00171;
+	Mon, 26 Oct 2026 16:37:12 +0900 (JST)
+Received: by devron.myhome.or.jp (Postfix, from userid 1000)
+	id B8565220019C; Mon, 26 Oct 2026 16:37:12 +0900 (JST)
+From: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+To: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+Cc: linux-fsdevel@vger.kernel.org,  linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] fat: batch synchronous mirror writes
+In-Reply-To: <20261025191006.407209-2-matheus.aalmeida@inf.ufrgs.br>
+References: <20261025191006.407209-1-matheus.aalmeida@inf.ufrgs.br>
+	<20261025191006.407209-2-matheus.aalmeida@inf.ufrgs.br>
+Date: Mon, 26 Oct 2026 16:37:12 +0900
+Message-ID: <87ecdchpzr.fsf@mail.parknet.co.jp>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,319 +80,189 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC net-next 2/5] tls: add socket options to register the
- traffic secrets
-To: martin.nvme.dev@gmail.com, John Fastabend <john.fastabend@gmail.com>,
- Jakub Kicinski <kuba@kernel.org>, Sabrina Dubroca <sd@queasysnail.net>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, Shuah Khan <shuah@kernel.org>
-Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org,
- Hannes Reinecke <hare@kernel.org>, Chuck Lever <cel@kernel.org>,
- kernel-tls-handshake@lists.linux.dev, linux-nvme@lists.infradead.org,
- Alistair Francis <alistair.francis@wdc.com>,
- Martin Belanger <martin.belanger@dell.com>
-References: <20261025-keyupdate-rfc-v1-0-60b7756eccbd@gmail.com>
- <20261025-keyupdate-rfc-v1-2-60b7756eccbd@gmail.com>
-Content-Language: en-US
-From: Hannes Reinecke <hare@suse.de>
-In-Reply-To: <20261025-keyupdate-rfc-v1-2-60b7756eccbd@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-11.79 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	XM_UA_NO_VERSION(0.01)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	TAGGED_RCPT(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[22];
-	FREEMAIL_TO(0.00)[gmail.com,kernel.org,queasysnail.net,davemloft.net,redhat.com,lwn.net,linuxfoundation.org,infradead.org];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[ietf.org:url,suse.de:email,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -11.79
+Content-Type: text/plain
 
-On 10/26/26 1:36 AM, Martin Belanger via B4 Relay wrote:
-> From: Martin Belanger <martin.belanger@dell.com>
-> 
-> kTLS holds the key and IV of each direction, but not the traffic secret
-> they were derived from. The derivation is one-way, so the kernel cannot
-> compute the next generation for a KeyUpdate on its own.
-> 
-> Add TLS_TX_TRAFFIC_SECRET and TLS_RX_TRAFFIC_SECRET. The owner of the
-> socket passes the TLS 1.3 application traffic secret of a direction after
-> installing its key. The cipher of the installed key selects the hash, so
-> the option takes only the secret. A socket without a registered secret
-> behaves as before.
-> 
-> The TX secret can be registered alone. The RX secret needs the TX secret
-> first: a received KeyUpdate can ask for one in reply, and since the
-> kernel consumes the record, only the kernel can send that reply.
-> 
-> Installing a new key with TLS_TX or TLS_RX removes the secrets that no
-> longer apply. The secrets are cleared when the context is freed and
-> cannot be read back.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Martin Belanger <martin.belanger@dell.com>
+Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br> writes:
+
+> fat_mirror_bhs() currently synchronizes buffer-by-buffer on synchronous
+> mounts, serializing I/O and degrading performance.
+>
+> Make fat_mirror_bhs() batch dirty buffer heads and use fat_sync_bhs()
+> to sync several at once. Add a fat_brelse_array() helper that releases
+> buffer heads in an array.
+>
+> Benchmarking was done under QEMU/KVM with a virtio-blk device using
+> cache=directsync. Each result is the arithmetic mean of 10 samples.
+>
+> start = now_ns();
+> for (unsigned i = 0; i < count; i++) {
+> 	fallocate(fds[i], FALLOC_FL_KEEP_SIZE, 0, bytes);
+> }
+> elapsed = now_ns() - start;
+>
+> Sync-mounted FAT32 using count=16 files:
+> File size    Cluster size    Before    After    Improvement
+> 256MiB       512B            49.81s    12.26s   4.06x
+> 1MiB         512B            0.198s    0.057s   3.50x
+> 256MiB       4096B           7.060s    1.640s   4.31x
+> 1MiB         4096B           0.073s    0.028s   2.60x
+>
+> Asynchronous mounts were also benchmarked with no noticeable performance
+> change.
+>
+> Signed-off-by: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
 > ---
->   Documentation/networking/tls.rst | 26 ++++++++++++
->   include/net/tls.h                | 13 ++++++
->   include/uapi/linux/tls.h         |  2 +
->   net/tls/tls_main.c               | 86 +++++++++++++++++++++++++++++++++++++++-
->   4 files changed, 126 insertions(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/networking/tls.rst b/Documentation/networking/tls.rst
-> index 980c442d7161..2e011bd1ce4a 100644
-> --- a/Documentation/networking/tls.rst
-> +++ b/Documentation/networking/tls.rst
-> @@ -300,6 +300,32 @@ extra byte used by the ContentType field.
->   
->   [1] https://datatracker.ietf.org/doc/html/rfc8449
->   
-> +TLS_TX_TRAFFIC_SECRET and TLS_RX_TRAFFIC_SECRET
-> +~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> +
-> +``TLS_TX_TRAFFIC_SECRET`` registers the TLS 1.3 application traffic secret
-> +of the transmit direction, ``TLS_RX_TRAFFIC_SECRET`` that of the receive
-> +direction. With a registered secret, the kernel performs KeyUpdate for that
-> +direction itself (RFC 9846, section 4.7.3). The value is the secret itself.
-> +TLS 1.3 only, software path only.
-> +
-> +Install the key of the direction first, with the ``TLS_TX`` or ``TLS_RX``
-> +socket option described above. The cipher of that key selects the hash, and
-> +the secret must have the length of that hash: 32 bytes for SHA-256
-> +(AES-128-GCM, AES-128-CCM, ChaCha20-Poly1305) or 48 bytes for SHA-384
-> +(AES-256-GCM). Other ciphers return ``EOPNOTSUPP``.
-> +
-> +Each secret can be registered once. ``TLS_RX_TRAFFIC_SECRET`` needs
-> +``TLS_TX_TRAFFIC_SECRET`` first: a received KeyUpdate can ask for one in
-> +reply, and only the kernel sees it. ``TLS_TX_TRAFFIC_SECRET`` alone is
-> +allowed.
-> +
-> +If the application installs a new key itself with ``TLS_TX``, both secrets
-> +are removed. With ``TLS_RX``, the RX secret is removed. KeyUpdate for that
-> +direction is then left to the application again.
-> +
-> +The secrets cannot be read back.
-> +
->   Statistics
->   ==========
->   
-> diff --git a/include/net/tls.h b/include/net/tls.h
-> index e57bef58851e..aacc6d12226e 100644
-> --- a/include/net/tls.h
-> +++ b/include/net/tls.h
-> @@ -65,6 +65,9 @@ struct tls_rec;
->   
->   #define TLS_AAD_SPACE_SIZE		13
->   
-> +/* SHA-384, the longest hash of a TLS 1.3 cipher suite kTLS supports */
-> +#define TLS_MAX_TRAFFIC_SECRET_SIZE	48
-> +
->   #define TLS_MAX_IV_SIZE			16
->   #define TLS_MAX_SALT_SIZE		4
->   #define TLS_TAG_SIZE			16
-> @@ -224,6 +227,12 @@ struct tls_prot_info {
->   	u16 tail_size;
->   };
->   
-> +/* A TLS 1.3 application traffic secret. len is 0 if none is registered. */
-> +struct tls_traffic_secret {
-> +	u8 data[TLS_MAX_TRAFFIC_SECRET_SIZE];
-> +	u8 len;
-> +};
-> +
->   struct tls_context {
->   	/* read-only cache line */
->   	struct tls_prot_info prot_info;
-> @@ -266,6 +275,10 @@ struct tls_context {
->   	union tls_crypto_context crypto_send;
->   	union tls_crypto_context crypto_recv;
->   
-> +	/* Registered for KeyUpdate, protected by the socket lock */
-> +	struct tls_traffic_secret tx_secret;
-> +	struct tls_traffic_secret rx_secret;
-> +
->   	struct list_head list;
->   	refcount_t refcount;
->   	struct rcu_head rcu;
-> diff --git a/include/uapi/linux/tls.h b/include/uapi/linux/tls.h
-> index 1245ab38afc1..d1b136ecea96 100644
-> --- a/include/uapi/linux/tls.h
-> +++ b/include/uapi/linux/tls.h
-> @@ -42,6 +42,8 @@
->   #define TLS_TX_ZEROCOPY_RO	3	/* TX zerocopy (only sendfile now) */
->   #define TLS_RX_EXPECT_NO_PAD	4	/* Attempt opportunistic zero-copy */
->   #define TLS_TX_MAX_PAYLOAD_LEN	5	/* Maximum plaintext size */
-> +#define TLS_TX_TRAFFIC_SECRET	6	/* TLS 1.3 TX traffic secret */
-> +#define TLS_RX_TRAFFIC_SECRET	7	/* TLS 1.3 RX traffic secret */
->   
->   /* Supported versions */
->   #define TLS_VERSION_MINOR(ver)	((ver) & 0xFF)
-> diff --git a/net/tls/tls_main.c b/net/tls/tls_main.c
-> index 8bdb78718a8d..1c6e993ec012 100644
-> --- a/net/tls/tls_main.c
-> +++ b/net/tls/tls_main.c
-> @@ -31,6 +31,7 @@
->    * SOFTWARE.
->    */
->   
-> +#include <crypto/sha2.h>
->   #include <linux/module.h>
->   
->   #include <net/tcp.h>
-> @@ -325,6 +326,8 @@ void tls_ctx_free(struct sock *sk, struct tls_context *ctx)
->   
->   	memzero_explicit(&ctx->crypto_send, sizeof(ctx->crypto_send));
->   	memzero_explicit(&ctx->crypto_recv, sizeof(ctx->crypto_recv));
-> +	memzero_explicit(&ctx->tx_secret, sizeof(ctx->tx_secret));
-> +	memzero_explicit(&ctx->rx_secret, sizeof(ctx->rx_secret));
->   	mutex_destroy(&ctx->tx_lock);
->   
->   	if (sk)
-> @@ -757,8 +760,16 @@ static int do_tls_setsockopt_conf(struct sock *sk, sockptr_t optval,
->   		ctx->rx_conf = conf;
->   	update_sk_prot(sk, ctx);
->   
-> -	if (update)
-> +	if (update) {
-> +		/* The registered secret no longer matches the key. The RX
-> +		 * secret also needs the TX one, see do_tls_setsockopt_secret().
-> +		 */
-
-What is a bit unfortunate that we don't have a direct link between the 
-key and the traffic secret. So a user might set a key which is _not_
-derived from the traffic secret, rendering the KeyUpdate non-workable.
-
-Can we add a check here?
-It should be possible to calculate the key from the traffic secret, no?
-
-> +		if (tx)
-> +			memzero_explicit(&ctx->tx_secret,
-> +					 sizeof(ctx->tx_secret));
-> +		memzero_explicit(&ctx->rx_secret, sizeof(ctx->rx_secret));
->   		return 0;
-> +	}
->   
->   	if (tx) {
->   		ctx->sk_write_space = sk->sk_write_space;
-> @@ -857,6 +868,72 @@ static int do_tls_setsockopt_tx_payload_len(struct sock *sk, sockptr_t optval,
->   	return 0;
->   }
->   
-> +/* Length of the TLS 1.3 traffic secret for @cipher_type, the size of
-> + * its hash. 0 if KeyUpdate is not supported for the cipher.
-> + */
-> +static int tls_traffic_secret_len(u16 cipher_type)
-> +{
-> +	switch (cipher_type) {
-> +	case TLS_CIPHER_AES_GCM_128:
-> +	case TLS_CIPHER_AES_CCM_128:
-> +	case TLS_CIPHER_CHACHA20_POLY1305:
-> +		return SHA256_DIGEST_SIZE;
-> +	case TLS_CIPHER_AES_GCM_256:
-> +		return SHA384_DIGEST_SIZE;
-> +	default:
-> +		return 0;
-> +	}
-> +}
-> +
-> +static int do_tls_setsockopt_secret(struct sock *sk, sockptr_t optval,
-> +				    unsigned int optlen, int tx)
-> +{
-> +	struct tls_context *ctx = tls_get_ctx(sk);
-> +	struct tls_crypto_info *crypto_info;
-> +	struct tls_traffic_secret *secret;
-> +	int len;
-> +
-> +	if (tx) {
-> +		crypto_info = &ctx->crypto_send.info;
-> +		secret = &ctx->tx_secret;
-> +	} else {
-> +		crypto_info = &ctx->crypto_recv.info;
-> +		secret = &ctx->rx_secret;
-> +	}
-> +
-> +	/* The key must be installed first: its cipher selects the hash */
-> +	if (!TLS_CRYPTO_INFO_READY(crypto_info) ||
-> +	    crypto_info->version != TLS_1_3_VERSION)
-> +		return -EINVAL;
-> +
-> +	if ((tx ? ctx->tx_conf : ctx->rx_conf) != TLS_SW)
-> +		return -EOPNOTSUPP;
-> +
-> +	len = tls_traffic_secret_len(crypto_info->cipher_type);
-> +	if (!len)
-> +		return -EOPNOTSUPP;
-> +
-> +	if (sockptr_is_null(optval) || optlen != len)
-> +		return -EINVAL;
-> +
-> +	/* A received KeyUpdate may ask for one in reply. The kernel
-> +	 * consumes the record, so only the kernel can send the reply.
+>  fs/fat/fat.h    |  1 +
+>  fs/fat/fatent.c | 81 +++++++++++++++++++++++++++++++++++--------------
+>  fs/fat/misc.c   |  6 ++++
+>  3 files changed, 65 insertions(+), 23 deletions(-)
+>
+> diff --git a/fs/fat/fat.h b/fs/fat/fat.h
+> index b18385461de8..5086c35230ac 100644
+> --- a/fs/fat/fat.h
+> +++ b/fs/fat/fat.h
+> @@ -479,6 +479,7 @@ void fat_truncate_time(struct inode *inode, struct timespec64 *now,
+>  int fat_update_time(struct inode *inode, enum fs_update_time type,
+>  		unsigned int flags);
+>  extern int fat_sync_bhs(struct buffer_head **bhs, int nr_bhs);
+> +void fat_brelse_array(struct buffer_head *bhs[], int n);
+>  
+>  int fat_cache_init(void);
+>  void fat_cache_destroy(void);
+> diff --git a/fs/fat/fatent.c b/fs/fat/fatent.c
+> index 8897a5dd522d..4fa1fae5abf9 100644
+> --- a/fs/fat/fatent.c
+> +++ b/fs/fat/fatent.c
+> @@ -376,39 +376,74 @@ int fat_ent_read(struct inode *inode, struct fat_entry *fatent, int entry)
+>  	return ops->ent_get(fatent);
+>  }
+>  
+> -/* FIXME: We can write the blocks as more big chunk. */
+> -static int fat_mirror_bhs(struct super_block *sb, struct buffer_head **bhs,
+> -			  int nr_bhs)
+> +static int fat_mirror_one(struct super_block *sb, struct buffer_head **bhs,
+> +			  int nr_bhs, int target)
+>  {
+>  	struct msdos_sb_info *sbi = MSDOS_SB(sb);
+> +	sector_t backup_fat = sbi->fat_length * target;
+> +	/*
+> +	 * Use the value of MAX_BUF_PER_PAGE for 4K pages. This reduces stack
+> +	 * usage on large-page architectures as callers may already have a
+> +	 * MAX_BUF_PER_PAGE-sized array in their stack.
 > +	 */
-> +	if (!tx && !ctx->tx_secret.len)
-> +		return -EINVAL;
-
-Hmm? What is this? Doesn't that imply that you first have to set the
-TX key before setting the RX key?
-The documentation says we can do either way ...
-
+> +	struct buffer_head *dirty[8];
+>  	struct buffer_head *c_bh;
+> -	int err, n, copy;
+> +	int err, err2, n, nr_dirty;
+>  
+> +	nr_dirty = 0;
+>  	err = 0;
+> -	for (copy = 1; copy < sbi->fats; copy++) {
+> -		sector_t backup_fat = sbi->fat_length * copy;
+> -
+> -		for (n = 0; n < nr_bhs; n++) {
+> -			c_bh = sb_getblk(sb, backup_fat + bhs[n]->b_blocknr);
+> -			if (!c_bh) {
+> -				err = -ENOMEM;
+> -				goto error;
+> +	for (n = 0; n < nr_bhs; n++) {
+> +		c_bh = sb_getblk(sb, backup_fat + bhs[n]->b_blocknr);
+> +		if (!c_bh) {
+> +			err = -ENOMEM;
+> +			goto error;
+> +		}
+> +		/* Avoid race with userspace read via bdev */
+> +		lock_buffer(c_bh);
+> +		memcpy(c_bh->b_data, bhs[n]->b_data, sb->s_blocksize);
+> +		set_buffer_uptodate(c_bh);
+> +		unlock_buffer(c_bh);
+> +		mmb_mark_buffer_dirty(c_bh,
+> +			&MSDOS_I(sbi->fat_inode)->i_metadata_bhs);
+> +		if (sb->s_flags & SB_SYNCHRONOUS) {
+> +			dirty[nr_dirty] = c_bh;
+> +			++nr_dirty;
+> +			if (nr_dirty == ARRAY_SIZE(dirty)) {
+> +				err = fat_sync_bhs(dirty, nr_dirty);
+> +				fat_brelse_array(dirty, nr_dirty);
+> +				nr_dirty = 0;
+> +				if (err)
+> +					goto error;
+>  			}
+> -			/* Avoid race with userspace read via bdev */
+> -			lock_buffer(c_bh);
+> -			memcpy(c_bh->b_data, bhs[n]->b_data, sb->s_blocksize);
+> -			set_buffer_uptodate(c_bh);
+> -			unlock_buffer(c_bh);
+> -			mmb_mark_buffer_dirty(c_bh,
+> -				&MSDOS_I(sbi->fat_inode)->i_metadata_bhs);
+> -			if (sb->s_flags & SB_SYNCHRONOUS)
+> -				err = sync_dirty_buffer(c_bh);
+> +		} else {
+>  			brelse(c_bh);
+> -			if (err)
+> -				goto error;
+>  		}
+>  	}
 > +
-> +	if (secret->len)
-> +		return -EBUSY;
-> +
-> +	if (copy_from_sockptr(secret->data, optval, len)) {
-> +		memzero_explicit(secret->data, sizeof(secret->data));
-> +		return -EFAULT;
+>  error:
+> +	if (nr_dirty) {
+> +		err2 = fat_sync_bhs(dirty, nr_dirty);
+
+		int err2 = fat_sync_bhs(dirty, nr_dirty);
+
+I'd like to see err2 as local.
+
+> +		if (!err)
+> +			err = err2;
+> +		fat_brelse_array(dirty, nr_dirty);
 > +	}
-> +	secret->len = len;
 > +
-> +	return 0;
+> +	return err;
 > +}
 > +
->   static int do_tls_setsockopt(struct sock *sk, int optname, sockptr_t optval,
->   			     unsigned int optlen)
->   {
-> @@ -883,6 +960,13 @@ static int do_tls_setsockopt(struct sock *sk, int optname, sockptr_t optval,
->   		rc = do_tls_setsockopt_tx_payload_len(sk, optval, optlen);
->   		release_sock(sk);
->   		break;
-> +	case TLS_TX_TRAFFIC_SECRET:
-> +	case TLS_RX_TRAFFIC_SECRET:
-> +		lock_sock(sk);
-> +		rc = do_tls_setsockopt_secret(sk, optval, optlen,
-> +					      optname == TLS_TX_TRAFFIC_SECRET);
-> +		release_sock(sk);
-> +		break;
->   	default:
->   		rc = -ENOPROTOOPT;
->   		break;
-> 
-Cheers,
+> +static int fat_mirror_bhs(struct super_block *sb, struct buffer_head **bhs,
+> +			  int nr_bhs)
+> +{
+> +	struct msdos_sb_info *sbi = MSDOS_SB(sb);
+> +	int err, copy;
+> +
+> +	err = 0;
+> +	for (copy = 1; copy < sbi->fats; copy++) {
+> +		err = fat_mirror_one(sb, bhs, nr_bhs, copy);
+> +		if (err)
+> +			break;
+> +	}
+> +
+>  	return err;
 
-Hannes
+		int err = fat_mirror_one(sb, bhs, nr_bhs, copy);
+		if (err)
+			return err;
+	}
+
+	return 0;
+
+very minor (either is ok actually)
+
+>  }
+>  
+> diff --git a/fs/fat/misc.c b/fs/fat/misc.c
+> index e79762cf1975..f8f89b947baf 100644
+> --- a/fs/fat/misc.c
+> +++ b/fs/fat/misc.c
+> @@ -365,3 +365,9 @@ int fat_sync_bhs(struct buffer_head **bhs, int nr_bhs)
+>  	}
+>  	return err;
+>  }
+> +
+> +void fat_brelse_array(struct buffer_head *bhs[], int n)
+> +{
+> +	while (--n >= 0)
+> +		brelse(bhs[n]);
+> +}
+
+I'd like this is noop if n == 0, possibly easier to use and safer in future.
+
+Thanks.
 -- 
-Dr. Hannes Reinecke                  Kernel Storage Architect
-hare@suse.de                                +49 911 74053 688
-SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
-HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
+OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
