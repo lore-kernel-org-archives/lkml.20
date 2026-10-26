@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793032834;
-	b=OTHbMDtm5PU8ncDw39iVu+fkopwwx0Yq4hM5YWAArYxsGDMuYOnvSdL7OuQaDDXsmXxW
-	 ER1IDe83lxwohfWBiYc2g4mfbiptlR01ojttvr8sgOvsV7IWzjum1jGjA8VdkxgbHGgCm
-	 vx5/yJQZHWnTW+L213n2a51cKxvwkIjXwBjjdX7oz0a7cvL/c5BX/LePM6erV9LQZkw1T
-	 SB5TOMgxibXre6SfaGqJ7thdxFtPDHPFuS1pQnWVUURVe4GtBRy6v4U86oWgge4vWompx
-	 lDUUjvNzY1CBYXL3tUlfC1qriHbucK0X43nQltnBELncOQWnrKUlbZfhqB5cBOwBfmQ==
+	b=QNGjipPUrDu1iQpMVk6tLCEpXcyOzTLQNoZMYbnSw/69wWAxIAXKBCK0LqkMfdfIMP7Y
+	 Wh+j5dXpozC7IMG/2moSs8DuxoyzuHE1SsNb+YSv+HuxvbAUYoyeqI9jT1nO1HUDlRNe4
+	 suqptUmxSbRvlDHv0t9FEQpQuCm0vMdFjeqRAsGTTRL4pDrajJzjBcbFWBBo4sfIlUNcS
+	 854XDpsWc3NnFysnVYO7NjZ1WqeodtGJpoN8EEid62fG+i4dbRyyudhdr81nCCI4rQ4kp
+	 etzBsqktsbSrFnkDYthTJZghkFp2Wxma7WqDZDNbfKKkyma3/LpKRj/pG170igMzsUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793032834;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=k/RQfOJkIdQzlXf5l9/irF3ArAcPBHy+Vg3AaL27hnc=;
-	b=p34c2SossQ6AikNre+vti9Uxg06X+IzWMP8QnfRgq6/a2UYhkzJS3kOM9ZbddqvDnICV
-	 spOkKSh4jLhq5Suf2/qwpTnNijy82fesZSJVCUJ8dvaaQ2wlM40gK0YemLrAlZcRClzjL
-	 Gry3SmRy2WUtPkGmFvaDT8wig1wm700S1+g5P4MUssXXONpdr/C8dg2qAN64+b30AoN7o
-	 sAPkArsUlfeLoN6iv8T0lpddtOHdoscQdO+83hKHvN99QrgX/y/7Pe8VY3DWjdZcgLoN4
-	 V4IENd5ZBA/RC++vU+jo+n4HfaX63UI8B9N8CCFV9lXGkjtyoQG2OM+J46huiRdO98A==
+	bh=oG0OCrqpe0XEV+bay86LwUo+wIO5sgYnrEJ8HAsyUYo=;
+	b=FRQ1cYDAqCVMiYslK9LYsUGYDKl6ZTq9n6ScS077xjan/dH4lu/OJfZ3/o2sxq0xs0Ob
+	 RQw8sIIUXVkZ3IaALIBwlFFwK0zQQ/5weYn5HEg90uGEdbfn8NXKUm1yyP0UzdNBRAtb6
+	 2A3JYtAf+SmasBNmvc0WqMDBzGvmdBU9q0cI/s+gfyY//qEVIKPAE+T1KYffo77/9tlk5
+	 KmrLDrSDNua8XSbovIMzht7KTgE01eW3Nvk00oVUPYSiX6zFfkI8Artm5x2iHYkiBU8ez
+	 2Xmy/zsP4nUisNGCrm5FoSX+y7nHpJxcu85IjcZnr1LyoIrOyemsan2HkFGBAaWd72g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=neat.no;
 	spf=pass smtp.mailfrom=neat.no;
-	dkim=pass header.d=neat.no header.i=@neat.no header.a=rsa-sha256 header.s=google header.b=IFvv7334;
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	dkim=pass header.d=neat.no header.i=@neat.no header.a=rsa-sha256 header.s=google header.b=gWDcGF5y;
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 015BC606A320
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 16:40:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 015BC606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD27C606A32A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 16:40:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD27C606A32A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=neat.no
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=neat.no
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=neat.no header.i=@neat.no header.a=rsa-sha256 header.s=google header.b=IFvv7334
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a35d5d4a20so20208855e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:40:32 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=neat.no header.i=@neat.no header.a=rsa-sha256 header.s=google header.b=gWDcGF5y
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a7992e2f7dso2527965e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:40:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=neat.no; s=google; t=1793032831; x=1793637631; darn=vger.kernel.org;
+        d=neat.no; s=google; t=1793032832; x=1793637632; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=k/RQfOJkIdQzlXf5l9/irF3ArAcPBHy+Vg3AaL27hnc=;
-        b=IFvv7334RUecEqgCZeJLDe54+kNVLGJT5y3dPohSLzzB4aNtlLs3fEr6EWYHRsrJ7T
-         GOhHbxzeqP3qJg0QnDg+9fhaKnweR6TNJa639MNOBuZGq/ow82CnTg85+PWQexV3bCQa
-         z2KsiRpEv6wVjGoujgL0Rw+Oco146HEwhtUKJR9sWDApycv/DIxFUUlYtq39FJ6v45wQ
-         qMtImlPjdKLANYZVJyi9yxV/frNWefQh55mvkjXR4yvWyfxCCzlQsEgBSj6yWBAYBTDD
-         E4B1PJs9VWONMi79OVAi0aftzLeOJL02G76V/UQGKMHOnSbyR4ysuzJcna39s0q7cpNe
-         Q1+g==
+        bh=oG0OCrqpe0XEV+bay86LwUo+wIO5sgYnrEJ8HAsyUYo=;
+        b=gWDcGF5yTCl+ltUDUmx/EnIgMcv9cYZ45OAt4KEzCH/FGL+HfkLw8Jzw+f2sewUcB2
+         y17Je6QGxvKQmyjWvFqT8ILCHIpgVBOezjYEN3CeDh4Zx27yJwhvZZXlG2N/+iHKM+b3
+         Rja7q+PXBGGrt0tQBtM4CCeDn3z9fwALWTHLNXLOCU0TpzuhCxd4leFmfUzf0pQnYyDm
+         fY/tltoI0TpdBu7oKcsU2yD9zaYFLPHINo0GyfW7TDMBBLTKFSrbcmX25mNU+giaPqyi
+         C5H/kl+d0wv4mguweDiPc0Z41rGa5aaIbs3mqUEopLkaUy8Idw+Tn2/DTVANbu5qrPNV
+         onOA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793032831; x=1793637631;
+        d=1e100.net; s=20260707; t=1793032832; x=1793637632;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=k/RQfOJkIdQzlXf5l9/irF3ArAcPBHy+Vg3AaL27hnc=;
-        b=Owb9J0M0n2JJbeqyvUcy3sGZp++l8SGuHQGiYMVPnuZFkjuHZWxj9Sq9alu9654n49
-         MdEnkiljQ/CCAYsOOQEMO3krD6lwI8Upw/87UjhQ3gKvstiFoqPuGy3D1s0Dn4mHmnp8
-         41h8d4wASFUaK19hEjZZamx94FCPQzn1ctfwvBnJyG5hH3Ye1Z0NzYyCeWNktvy++Gk1
-         c4JGzgEhnuGIa0AZjNUWlgZFUsAK1VWyYUuR9Uy7gjGed+z/OtBo+kMC+oSbgE9tiEjP
-         uxTdBITrR1u6v/1G49Vhv+LCnuk4F1LicCYK74LdyRzqI/0HkHNPJMkR4kK4Odev/PDg
-         7lWA==
-X-Forwarded-Encrypted: i=1; AKwUvByF49cdfATt/oIakkmAR4VSAlhmvJqz4V7kVC6JqDaqazveN3RdGBl/CVI3CwdAEAaTMOgZukbeSLoRvxc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJmDpMTQA3JQQay1FKKaVQy/r47pRQVnkIFuz6IghItdWXvtTwK
-	PZHQXUEAvS88QBl+dSElvqDtIfvZ288aNWtLkAwvnmSsXFxttsBKYkWfH7eVjN4zhlDtm/hBZ2Q
-	E+CPImz9qO62RleuzSd8i9/TWIGowbs4rpd1ozzcRF6oEReDBm0xsemM+V9qHAgjuDYOm/Ju8mr
-	kKMGTxiz2aYnNT+X1v+kwEZNinBy6xsskP5fd5hOmih6AdkIyG3cAhxOUt5hfwWc5MZz1jFl1Ds
-	xWzJ0jJ6TTDdPZE4KA=
-X-Gm-Gg: AYBFou2dnmWXdKo+md02JFcs6LUhgMpGKqXayItXTm/PgkYRskbWlmzg4UrfKPqMjJQ
-	fYJo8iuhQq+AHIudQqxceoj0yFHmg/mCiOgAIopVSLZbYHE5nprCEHDeeOc3rEVSSuzSW3oDqtn
-	zIVMTm/bFV7yosI7cTuPDZzjzDsU6twzFhxaowk7lfo6qXR0+nPPlvOR0u5dAWYWRIu6gbCjdI3
-	rGZZ8JtgiND8424oiXxJu5NgKp5lkEA7YMak3sQu5C/2KAbxQS2pwaK/TcApqk1R1O/7TMAlYe7
-	rzHpLzqv5VwCZ6OYi7NKgFHSmvD+6vtsL53CI5WwbbpRieXeXwflmniLQaHQefs2Mf0OlvhS5Uw
-	/tS/yUQaw3YA/cIs3XltzB/wDwNMzWVjItvCcECbbeHKg5TX2nPhS8zTsopvm7rNd3F7y3uQcyb
-	A6M0M323q7ogBRlFfZUjrVS3pMbAvbL/T7J3Rg2w5pCjP0Z3WiO98Cae3cQ9VSQZOrN2pyUyrMi
-	RK6wEkBm6lAncL3SeM8LcoAONPxPlwBmdm2tEwGdttYQubKRxBe2WBbYi/0yNK7
-X-Received: by 2002:a05:600c:811a:b0:4a7:a309:6b73 with SMTP id 5b1f17b1804b1-4a7a3096bb7mr12028775e9.1.1793032831444;
-        Mon, 26 Oct 2026 09:40:31 -0700 (PDT)
+        bh=oG0OCrqpe0XEV+bay86LwUo+wIO5sgYnrEJ8HAsyUYo=;
+        b=Cdf+Q62aLW76Yq8UDaOxegG2/8ejtPABWuA8OvUtU1qCIQ75dCBeKgof0ktWytHxp3
+         vvWPZJ7kNuWxMMD8sGsPdb3gJwmQnD+oFasuYVtVZB03eVX7zrJSxl/ADUZpF+bJIpg3
+         icOWRp7I05AGbxKQop1xieogm2X4odSBKR39hSJ0uXt9oeO8A1eHwuPRbpTqlBA6Skg7
+         6MGVXKANQDpfbu919OpfZfW1eCpqg0Js2qFl/l1OXN5rp0kudMkQ/qb8NC/AusWxHpaL
+         VqpfkHqR5gN7v2QSsY5JOWCeUVDyg2oQOOtqwMeOqvvEBOXWJJotK4ApJpS25eHHnRYF
+         0N0A==
+X-Forwarded-Encrypted: i=1; AKwUvByH+M/WLyC8ZbnXuk5kQvXYaJCpEwb5Q1/5d1y7aLDbiKdl+tnvPcRZTOmU0MHTxNb+hG1GyG1s8+sLBuI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ9p59cZPM+YIaTIp3fJoDUfZKFrlxIDChRfuh9ZdayDYhqjc+E
+	/m3j7dH2ON2oqBhaDDSFp87/OBE7+WEeVboekGgtiIGKwRbY1F7MNKw/NtTbZQeVvFWKb78nJlQ
+	N4pSAV2RUeCTb6cYpJE+gSkwFu6MOsvSrF+3FmBnWWbZcAVWh1imtvesiN+h1bYeUXY9y/zlNPr
+	1ylwwD4GlLp/lsY+eSXYmkC2pnZEucUtGf5aDrJ15m+hdfEG/DathI4RaLJvWO8xvTIrAml+rEt
+	WTUKvJdGcFrBYQDEjY=
+X-Gm-Gg: AYBFou0tnai3GoF447Z0AgQdLOEMKNU6XbdQnf/lt+pGQ6hvyRne0xDEmgGJpqzAfeu
+	DDoY5k3fnuYsChmaLL/juEYXDnL1W55RbGCSleLE6qcvJgXUa9AlwpS8OKcaRJ1PHe/TIaIDt7j
+	nEmO4p6i7N4mxiEMPdatldH4A+jRtDuJA/nrMB3ZgoX9S5o6lhD/UQizRof58FhtY6uhIp7+O8u
+	mxSZIvnq0PWEI27fd6XufdZwXyPvJB4hqWPk0Ms8wTpdd/0CPRk9kHY6VoCCgfyW2TFNbaXGpvp
+	6vJBgQ8IE/Awp70M+UckOo17rNAN5vg00WwNj5LGRFcK+IgwOsnxnGZCC4YvpGq7nIv/GxOPzTM
+	utt+vVBeuXwrrpBck/UzKCyQmPS0Xq1bn2xl+HyLbeXp+lTyScy2KF+8uRkLlguXMgedlbkcPfO
+	H/fqMkNl/bVYd9eibS3VFabE/cuO9+LJ3TC1DIDKTnobiV1qe7l2spwqRgdlwm1V0WYlKdziibJ
+	wFbC3wqyWmflYZ7CAoldVVI+ft+PqkTb24g5PbXrfy4bG9t9q9pCOrqmfqKnWhT
+X-Received: by 2002:a05:600c:19d4:b0:4a1:fa33:441a with SMTP id 5b1f17b1804b1-4a35ac3f123mr144774155e9.2.1793032832124;
+        Mon, 26 Oct 2026 09:40:32 -0700 (PDT)
 Received: from threads.localdomain ([81.79.62.202])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a30e22csm205961655e9.2.2026.10.26.09.40.30
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a30e22csm205961655e9.2.2026.10.26.09.40.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Mon, 26 Oct 2026 09:40:31 -0700 (PDT)
 From: Lucas Tanure <lucas.tanure@neat.no>
@@ -94,9 +94,9 @@ Cc: Dom Cobley <popcornmix@gmail.com>,
 	dri-devel@lists.freedesktop.org,
 	stable@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 2/3] drm/vc4: hdmi: always cancel the scrambling work synchronously
-Date: Mon, 26 Oct 2026 16:40:27 +0000
-Message-ID: <20261026164028.78792-3-lucas.tanure@neat.no>
+Subject: [PATCH v3 3/3] drm/vc4: hdmi: enable scrambling before the TMDS clock starts
+Date: Mon, 26 Oct 2026 16:40:28 +0000
+Message-ID: <20261026164028.78792-4-lucas.tanure@neat.no>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261026164028.78792-1-lucas.tanure@neat.no>
 References: <20261026164028.78792-1-lucas.tanure@neat.no>
@@ -112,40 +112,73 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The scrambling work re-arms itself every second while a scrambled mode
-is active. When the output is disabled, the work may be executing at
-that moment rather than pending, and delayed_work_pending() is then
-false, so the cancel is skipped. The running instance finishes after
-the disable, sees the sink report scrambling off, writes the SCDC
-scrambling and clock ratio bits back on, and queues itself again. The
-sink is left configured for a scrambled 1/40 link that no longer exists
-and the work keeps running until the next enable.
+HDMI 2.0 requires a source to suspend the TMDS clock, write the
+TMDS_Bit_Clock_Ratio bit in the sink's SCDC registers, wait at least
+1 ms and only then resume the clock. vc4 does the opposite: the PHY
+starts at the new rate first, and the SCDC bits are written tens of
+milliseconds later, at the very end of the enable sequence, together
+with the source side scrambler. On disable the bits are cleared while
+the clock is still running.
 
-cancel_delayed_work_sync() handles both states: it waits for a running
-instance and blocks it from queueing itself again.
+Some sinks sample the bit only when the clock appears. One HDMI 2.0
+sink we tested then sets up its receiver for a 1/10 clock and never
+recovers: a Raspberry Pi 5 at 3840x2160@60 shows no picture, while
+1080p60 and 4K30 work and other sources work at 4K60 on the same sink.
+Writing the bit by hand before enabling the output makes the same mode
+lock every time.
 
-Fixes: 257d36d493e9 ("drm/vc4: hdmi: Add a workqueue to set scrambling")
+Enable scrambling, on the sink and in the controller, before the PHY is
+started, and disable it only after the PHY has been stopped. The SCDC
+helper already waits the required time after writing the ratio bit.
+
+Fixes: c85695a2016e ("drm/vc4: hdmi: Enable the scrambler")
+Link: https://github.com/raspberrypi/linux/issues/7693
 Assisted-by: LLM
 Signed-off-by: Lucas Tanure <lucas.tanure@neat.no>
 Reviewed-by: Maíra Canal <mcanal@igalia.com>
 ---
- drivers/gpu/drm/vc4/vc4_hdmi.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ drivers/gpu/drm/vc4/vc4_hdmi.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdmi.c
-index 2cc46036f11d..4a386e053d3f 100644
+index 4a386e053d3f..e57fc33af6b3 100644
 --- a/drivers/gpu/drm/vc4/vc4_hdmi.c
 +++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
-@@ -843,8 +843,7 @@ static void vc4_hdmi_disable_scrambling(struct drm_encoder *encoder)
+@@ -918,8 +918,6 @@ static void vc4_hdmi_encoder_post_crtc_disable(struct drm_encoder *encoder,
+ 		spin_unlock_irqrestore(&vc4_hdmi->hw_lock, flags);
+ 	}
  
- 	vc4_hdmi->scdc_enabled = false;
+-	vc4_hdmi_disable_scrambling(encoder);
+-
+ 	drm_dev_exit(idx);
  
--	if (delayed_work_pending(&vc4_hdmi->scrambling_work))
--		cancel_delayed_work_sync(&vc4_hdmi->scrambling_work);
-+	cancel_delayed_work_sync(&vc4_hdmi->scrambling_work);
+ out:
+@@ -947,6 +945,8 @@ static void vc4_hdmi_encoder_post_crtc_powerdown(struct drm_encoder *encoder,
+ 	if (vc4_hdmi->variant->phy_disable)
+ 		vc4_hdmi->variant->phy_disable(vc4_hdmi);
  
- 	if (!drm_dev_enter(drm, &idx))
- 		return;
++	vc4_hdmi_disable_scrambling(encoder);
++
+ 	clk_disable_unprepare(vc4_hdmi->pixel_bvb_clock);
+ 	clk_disable_unprepare(vc4_hdmi->pixel_clock);
+ 
+@@ -1554,6 +1554,8 @@ static void vc4_hdmi_encoder_pre_crtc_configure(struct drm_encoder *encoder,
+ 		goto err_disable_pixel_clock;
+ 	}
+ 
++	vc4_hdmi_enable_scrambling(encoder);
++
+ 	if (vc4_hdmi->variant->phy_init)
+ 		vc4_hdmi->variant->phy_init(vc4_hdmi, conn_state);
+ 
+@@ -1688,7 +1690,6 @@ static void vc4_hdmi_encoder_post_crtc_enable(struct drm_encoder *encoder,
+ 	}
+ 
+ 	vc4_hdmi_recenter_fifo(vc4_hdmi);
+-	vc4_hdmi_enable_scrambling(encoder);
+ 
+ 	drm_dev_exit(idx);
+ 
 -- 
 2.56.0
 
