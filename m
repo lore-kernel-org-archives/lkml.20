@@ -1,139 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=192.198.163.7
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793012807;
-	b=x0RrLsNBZCt16no87AnW+KdYPD9trj76es5XQTJaOpZWgEB/yiZctQShD2iHzbDUaWAZ
-	 yDMHmQzuDcSzJDivWbD/3AEy5ybfNdLJpRxB6ep2EE8Fdy6R98A7q/FYX6R06ww6VUsPU
-	 l0OeW8J3FU7Lav9vn2eb4u0sK0wIFYQlCcqRDwBlUZTjGg42y/YJvgQE66QGEHv7//NWy
-	 cZsIS9N02rTtKKVmKEQQQlxP9VDHVR61/tKE+T2e31kf5AVhoLIm8PiFiyAROIWGgj92w
-	 WhPK+gx8tWl2UKryRBdzJ7wmma0vmHeSrUy9TntraCwjuyNMHy3oyRKwW7jGxCNYGsA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793012807;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:Message-ID:Date:User-Agent:Subject:To:CC:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=ZM7izgT3/ym73OsNBjv/feUrpl1F6OtRe+HLGo4r40E=;
-	b=dRqBsjKQzNwGbnHhhzPt9tP+yIRkDAStXvVLohujmxTtA5HwnuG3iHg9oVoiz9SS84yN
-	 XfcnSCbkVqTTiDXNtSHLitqSS+AvYZ7vIfWIGx6P3eKzzyMcRi9xQWxO3p39UADts+cPa
-	 qvCXKcBDXuQAqf69Evs0noj+ybVmCXEZgL5qrITFok1E2vVBs0JbT6u5BCGOou8yK4zdV
-	 AtJPsYMJAyltO21EAGRlOL7OZsi9NiyWtOiUeGW5kieIXzdDs3Mtz92CctIeShUVY+RUR
-	 M9fP01beOYL9E8jcbJeEFC4crgRhylBEvdZk03JZkVqcAiPRQtAqy+zjetAGdxzrc9Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KHeYON1d;
-	arc=fail smtp.remote-ip=192.198.163.7
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=168.119.38.16
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793012841;
+	b=hHID0cYJjbIjkECedBWJUzi0EEFtcZUjXYIs31QA79XilcNo00BP+sGk4sGgr+QgyFpb
+	 IxIUraTNY2j3b51SyBoDZa7WS6kxFWmzVNFzi1oj0iEvoXD0OmPxCII/Unv+QesCANDvZ
+	 hfg9JFv41DYov1kJJnO2nnqGPuyMVFPIbZCwtdT5CpduWp8ZNkHxZRwd+9rnX4RVRmstM
+	 ci869S8pYNTVKiuEdkzbLcN6/tTaOMoeH+b9GdP3LvtHieP2Ah2WitVgBPzp5grDTApzA
+	 8cLORrLhOLhIXUZdRCech8sQXsjnfetlxO/+cLqaT7OhbT/gr1rOTVSNsKXgmyzYh7w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793012841;
+	h=DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:Date:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version:X-malware-bazaar;
+	bh=iwhaYhg950skyzyNiHbnMoeJRabwevrYhb3dfzGOLNs=;
+	b=Fzbel2zq6qosyN/asiesa2OddHwHqQqBjKYdVF3/adDViP9z26AAVzXysIOciR5lNi8q
+	 r7CtPsRrSDpZ4326b+x899Nml8d5nq7M/Y39XfTRu6kWhCcWP4Ymqz5LQz6fpXfT3OXBP
+	 NlvALG+lzwsPcn7QHaQmLzYk7rqZ+kurBVJZ8HeCzTUJI2wmmwskWBe8PPYGEBhKXem/N
+	 313NI+3L1nVnE0OAddTR2qvThcNillod/3K0MDMe5H49cJY1jkcx2ACoIrd48us/8dpUe
+	 UHcdV39Ge4kFfpmsayN9kwSTXWqrPClpcCl9QYxtmOqskRrvtjJa3BFKMr4Xt/S5qNg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=permerror header.from=sipsolutions.net;
+	spf=pass smtp.mailfrom=sipsolutions.net;
+	dkim=pass header.d=sipsolutions.net header.i=@sipsolutions.net header.a=rsa-sha256 header.s=mail header.b=m8F1rhoI;
+	arc=none smtp.remote-ip=168.119.38.16
+Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEB23606A31A;
-	Mon, 26 Oct 2026 11:06:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AEB23606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ADF1606A31A;
+	Mon, 26 Oct 2026 11:07:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KHeYON1d
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793012806; x=1824548806;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=1qhzOs7P3GuEKv1KhlWnfEsgz3yUjwysi2r28D3+d8c=;
-  b=KHeYON1dAr1lpAF6s4KAabgV7eA7PeVtiRRDuD1ZjJqXlPGA6eS3koXI
-   IdO41RA/wCGI44ufTxX0o+6yR9rWowd8GKr3Bifxa9hXt7eWlliy+ph44
-   YKWr7s19m54Um30s4Xj2GkF+qC8FncXs3dNgHnhsC/vVnhxvPAg2xQ97P
-   6h8n4fN3sKu87EXm6BAEwp/pv/clOCQw/6FoKyG7Ae1f+8qrkje+14yMZ
-   YrW6EV48jXwqdIs2Pi0FLDfDreCn5qR8orpuz5iHjTJfzoJUy6TFxwfZU
-   HaBa0l/CQw4ZtJQrWBKa5IuYPHVbeKRpbL54YRCSPEcGatg5tAXzYIUMq
-   g==;
-X-CSE-ConnectionGUID: Cb93orYIREimL6ZGtljn8A==
-X-CSE-MsgGUID: m8zXl/lRRQOWnadBnT/BiA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1571159"
-X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
-   d="scan'208";a="1571159"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 04:06:44 -0700
-X-CSE-ConnectionGUID: 4MVH0cKuRRyQ3m4fhMaElg==
-X-CSE-MsgGUID: z8wroVZXQH+wXNQ6H43cBQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
-   d="scan'208";a="4295731"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
-  by orviesa009.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 04:06:44 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Mon, 26 Oct 2026 04:06:43 -0700
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Mon, 26 Oct 2026 04:06:43 -0700
-Received: from PH7PR06CU001.outbound.protection.outlook.com (52.101.201.32) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Mon, 26 Oct 2026 04:06:43 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WE0VoHx1HauQdSDUPDrDWhuyNY4ErX5Upt/4pvkwRZ8UzjoFhDmMHLNo0WSvMU1tFQPDKd58alp9gPB/LzFtcl0YrWzdy9NI1HOjawqNjVweIvrB6qq8CcZUAZdghac7l51C9rSxFTNgrCEe0EUBVdk3mCa38EVs6JKEZNUOBCe4ewK4O/xbOQWVv7+fXL+iK+3FeDNPKPgWC9GQ0jjPm4FqrfPYCWzqOs7QirMdLfZOV6xg+Q9EavUl9fMtJ5iYCyMu2TMbvNIwY6FexZZLrMXEYolkzGrDH627A3L+FUEpKA7B/2sY+pERyiH+x1HaB0ggibBLVU9025SP9ngghA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZM7izgT3/ym73OsNBjv/feUrpl1F6OtRe+HLGo4r40E=;
- b=aVgEi/+wulP5Bfvia6wis5Y24FnpzFLcq2WPcw5lwY8/+4NbgrhG0H6cgn6JS9lRCPHdmEtWj/9OZERjgxdxHX3HN/rBA0haODPtYAz3SzGyPkBq1nZ4uOJfcxsTUa6uY9jW3+yI9mBp1Bbbou/PBZl2oH9DRww2EsORtj3HYFGdyg6juhe5gB7elXrrf25evOFE0dWKmO+qXZulB74CscruyIJKy8GYtSa4ln7voefKnEdEB1KcrVci8/6u1eeZjRdXOakJGW/1HqKYBVDyKpIcmyqx1Bt2jG/0vGXT2PMzXwnnjA3I4M+OcHQ3lTms0xNEoWN4WbVM4yzXlWltuw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from SJ0PR11MB5630.namprd11.prod.outlook.com (2603:10b6:a03:3bb::6)
- by BL3PR11MB6531.namprd11.prod.outlook.com (2603:10b6:208:38e::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
- 2026 11:06:40 +0000
-Received: from SJ0PR11MB5630.namprd11.prod.outlook.com
- ([fe80::79de:af84:3b43:84e3]) by SJ0PR11MB5630.namprd11.prod.outlook.com
- ([fe80::79de:af84:3b43:84e3%4]) with mapi id 15.21.0546.017; Mon, 26 Oct 2026
- 11:06:39 +0000
-Message-ID: <77a3c7b1-fc8b-47b2-994c-de8e07b8b2d3@intel.com>
-Date: Mon, 26 Oct 2026 13:06:32 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH iwl-net 1/2] igc: Fix Tx stop threshold to cover empty
- frame descriptors
-To: "Loktionov, Aleksandr" <aleksandr.loktionov@intel.com>, Benoit DE RANCOURT
-	<b2rancourt@gmail.com>, "Nguyen, Anthony L" <anthony.l.nguyen@intel.com>,
-	"Kitszel, Przemyslaw" <przemyslaw.kitszel@intel.com>,
-	"intel-wired-lan@lists.osuosl.org" <intel-wired-lan@lists.osuosl.org>
-CC: "netdev@vger.kernel.org" <netdev@vger.kernel.org>, Andrew Lunn
-	<andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, "Eric
- Dumazet" <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
-	<pabeni@redhat.com>, "Gomes, Vinicius" <vinicius.gomes@intel.com>, "Sasha
- Neftin" <sasha.neftin@intel.com>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-References: <20261004152840.61222-1-b2rancourt@gmail.com>
- <20261004152840.61222-2-b2rancourt@gmail.com>
- <IA3PR11MB8986BCCFE3F96262762B5B9EE5962@IA3PR11MB8986.namprd11.prod.outlook.com>
-Content-Language: en-US
-From: "Ruinskiy, Dima" <dima.ruinskiy@intel.com>
-In-Reply-To: <IA3PR11MB8986BCCFE3F96262762B5B9EE5962@IA3PR11MB8986.namprd11.prod.outlook.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: TLZP290CA0006.ISRP290.PROD.OUTLOOK.COM
- (2603:1096:950:9::16) To SJ0PR11MB5630.namprd11.prod.outlook.com
- (2603:10b6:a03:3bb::6)
+	dkim=pass (2048-bit key, unprotected) header.d=sipsolutions.net header.i=@sipsolutions.net header.a=rsa-sha256 header.s=mail header.b=m8F1rhoI
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
+	Resent-Cc:Resent-Message-ID; bh=iwhaYhg950skyzyNiHbnMoeJRabwevrYhb3dfzGOLNs=;
+	t=1793012839; x=1794222439; b=m8F1rhoIn/QwtAmntzoG1wAwi1JY7JwNZJ2y3ZynX6IdzLX
+	594wF7YJpXefjSOZ3bv5a0SfjPBVYHsN2PT2Eszpx/MOA4ID/f2rT+Pv0oNNISxZpve/wBE933e3+
+	e8tKUfGaRDva6D7fez4YgQtSxlDqSghiw7GH9MH/DX4l5uufVRCJXGCatCWOndTj0zX6gWa75+ZCf
+	EfxVuf7tS4/HGwD4euOGcnLp0UgA6yPklAaZOggBmqHtgcDDrSuvVyvuaXz+U6UL2ABNSMYf4vOgo
+	UYDd+tdXnHLLZP81GsMXZnITibwJewZEd2akSZYWrzqpuKMlvgfM/0BvSAzBWNfg==;
+Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
+	(Exim 4.98.2)
+	(envelope-from <johannes@sipsolutions.net>)
+	id 1xLIXt-0000000BCCo-1qAt;
+	Mon, 26 Oct 2026 12:07:17 +0100
+Message-ID: <116e1f238e2d78817a2ac5b42b00e0faeabf16bc.camel@sipsolutions.net>
+Subject: Re: [PATCH wireless] wifi: mac80211: use HT CCFS2 when computing
+ the AP's HE and lower bandwidth
+From: Johannes Berg <johannes@sipsolutions.net>
+To: John Macias <dencity7@gmail.com>, linux-wireless@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Date: Mon, 26 Oct 2026 12:07:16 +0100
+In-Reply-To: <20261026040148.2633920-1-dencity7@gmail.com> (sfid-20261026_050215_574698_93BE14B6)
+References: <20261026040148.2633920-1-dencity7@gmail.com>
+	 (sfid-20261026_050215_574698_93BE14B6)
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -143,167 +69,23 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR11MB5630:EE_|BL3PR11MB6531:EE_
-X-MS-Office365-Filtering-Correlation-Id: a286dbe0-1b9c-4b1a-c5a2-08df335135b2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|23010399003|366016|18002099003|22082099003|56012099006|11063799006|4143699003|261022075727099003|261021121427099003|261021123027099003|10067099003|261009221727099003|261009220027099003|261009221227099003|261009223327099003|261009223027099003|261021135927099003|261022105027099003;
-X-Microsoft-Antispam-Message-Info: JUH6RN9HkHrC/cLTQR9UIeXgD44wtRdYUQztbQA0kT9iU8tQxO4mmGQas6byBxu3AzZpnYSTVaSAWxLG6Vz4GonVaTULu57nkU+sYxIwPv4+eS7HINMC2h7diJ+uUuhkkVaPmhY1GDYgKXpcDicOHzwvSJlk/mEznPT7G4x1c/ilMEPO4X9cwHu8c0R5SkcgeGOhjbPbIjJlXqpIanmop3QfnmLJaYcPFTKs+a2beM8nErh0Cp/vFLtQIou4rqt9UfCTDcNLH9Prp8fBwzAAEb0gJcFofCkeLKyxxp85MZXSv+XqDKlHEW8KfS1U7YB/EqQ+ziHhDdCrUA/x0GpDZ7fYNTbX/TIhx8okAjQbAzjpl5EFUqAtm3+SUT8DwSKVNzQXhrr4b5D2imLgT7T0pOmxt8oWFhE/ZFSjCxnfM1/90lfARNQMGGX+lsCIH3AQrMh9jyDv0ljhVhtQX64M7BMCbyc3uwBfvavEkg/Ci1gAdzpXUXUXRNym+vHhtlVX4ceWHpN6/Vy7xzJzB37c8zm+jO1cq9SozR0Q6Ka+dFDewYk1xQVbuyQwDAY1chQWgWi302RZYzecTQI9Haynu+oB4fFkEp2kiuYY0KR+64Z42jTALNque5xahrI+vdgx2tzxnKfq9ACDpFXGz8FTG6EJnl+xQMvOrbrSlgXb5Vo=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR11MB5630.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(18002099003)(22082099003)(56012099006)(11063799006)(4143699003)(261022075727099003)(261021121427099003)(261021123027099003)(10067099003)(261009221727099003)(261009220027099003)(261009221227099003)(261009223327099003)(261009223027099003)(261021135927099003)(261022105027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ajh1ZXVWbTlycG0rWHNIM3ZsRnpRQXl0QUMrU1VNY3JpLyt3SW5kSkh2RG1u?=
- =?utf-8?B?K1J5TTl5UEZVOEx4YkpEb3JFRjlCV05Jd3hSQXBTR0ZFUC9EbitLc2xVVW0v?=
- =?utf-8?B?ZC9adGw2YWdTelB3SkVMVnd3TFc2VUUyd2ZIUzVjUkhWVTFrVlVqTzdPZDQw?=
- =?utf-8?B?aXhLdkRFcnFmRWs4WlFEOXVlR0dFbzFINXFPd0dJRENISlA4ZDViZjRNOVlk?=
- =?utf-8?B?L3ZJODZ4WGx6ck5GRVp3MVJsQ0xtcU1DSjNuRTVscmoxbklQT0pnbW8xTWtp?=
- =?utf-8?B?SEc0ZXhqazJXYkJVTFdObVRUcFYvM1NEbW5HMkZIT294ZUgrSStUTGFvZzhB?=
- =?utf-8?B?RzRNUU93N1VOMkJaTDU3SkhZTjdTWW4zdFVJZ0kwTk1jWVhYRkhrNWtBWGhj?=
- =?utf-8?B?NkJ6RUFCamNQUWQwRzN0a3lra2o2YlBsWGpuN1pYWkJ2THdEZXVBQjZkTFMv?=
- =?utf-8?B?UmMrRFpsdUI1Mm5VZ013blFOSDN4RVIyVTRUdkowREFEV2RDZzF4V3VsOENO?=
- =?utf-8?B?SGs4WTRVSlpIcnd1SjZDdWd4Z0E5NXVXVFhydVJyVjRNTmtYalYvbjVCUDAw?=
- =?utf-8?B?MHVLK0I1RTZpdU51a0FRanF2WVc1OExPbXZsOE1TUkZJdUZGeEQydDFHKzlp?=
- =?utf-8?B?SFdsTUsvanl3VlQ3b2FQemJoQ3lMUEVzRUFDczlYMURZam1MRkdvMDNGTEtD?=
- =?utf-8?B?ZDg5dkk4YjRUTk5vSkZ1M28zdW1hSnFPenBzblppTzFCeEFuM2VCQWFLMjd1?=
- =?utf-8?B?V0lwWWx3bFV6VUxONzhUQ0gvVVRid3UvNUdFNlJRdGxjazgvZmV4ZlpmbHd0?=
- =?utf-8?B?V28zODJvbm1DeHNpK0YrVEJwcjE1WkpDUGlJTTYrR25iSkxiNVZ5OU1xcXZB?=
- =?utf-8?B?OEZUQ1liTXNGMFV4TWZEL01RcFF0eU4zdExSUUgyampFVGQxU2poZjl0L09H?=
- =?utf-8?B?cmdHTnRUSEFWU2F1eUNpVlAwTGUrMlRvY2JDeW9WWFhNZ2JTWmRDR2tpYmxW?=
- =?utf-8?B?cEpnSk5NVmxRc2pQazhvZm5nM05nN1dsZWhBRG85eTlDWjZlRHhkaGd3Y0xZ?=
- =?utf-8?B?QUlQT21mQklZMnJVZjhOWlY2NGk4T0dkcnJJQXhENyt2eUdYSldpUlBOd1hN?=
- =?utf-8?B?U2F2WmprQjBLMkhFY3lsVzFBa0k5QU5FOXBsazhtRVJhc0Vyb0Y1WSttTGs4?=
- =?utf-8?B?YmphcVpjUzRBMzBtVzA3YkEwOElOekVUWGVuMVlKQmN3bEUzaG5sVTd4eTU2?=
- =?utf-8?B?WmZNZ1ZLNjQ3K2Eza2VLRlV0Q3h6MThrckdUSDBFMkdhUURwc25EU2kxMzlz?=
- =?utf-8?B?QlVWYURpVm5iekMwSnZ1anBKQjk4dVBXRWJScVpjd0ZjVDV2czFMVit4WDVp?=
- =?utf-8?B?LzVkajlqbHlPSm5KOGJmRXZ0NDk3WUJha0lhd01CMExZZytHU1JCaEMybHgz?=
- =?utf-8?B?UkZuQzV4MmNGM0NwVWd1bk92R1R2cWlKTzAwNG5nRVliRG5iRTNpMmdoRnh4?=
- =?utf-8?B?ZGxISzVYdEFZcGJSS2t2ekhRVStXVlVHVEpHOWZqNVNhb3lhTkNIdGFTdzZ5?=
- =?utf-8?B?cGJPRkxFck9XdjVNb2g1azg2ZFVZeTNYUHFPRjQ0ZmI4SzBwRTlZTUIwT3du?=
- =?utf-8?B?aHVRb04vNXJqNWVneWZyLytDRnNRYWJUOGlKdUVIbU1Za0hTTFliVWFTNUpu?=
- =?utf-8?B?NkxydllyM0VYTXFBOHJsTDF4eThVVU02SEdRMGFua2hEdUR4ak9tMFFseVVo?=
- =?utf-8?B?L2xDY2Z0THlIVnQ1eEh4TDBLN3pBVDRDV2tjdll6NFZzWnRhZndyYXFINkpN?=
- =?utf-8?B?QVdNK1lYaHhPSU83VC9vdU1VQkhFRnE0eC8wODAycEJFUFBQVUx1ZVZnYTgv?=
- =?utf-8?B?NUZsZlRZSGF1RjljQ215cFZjdEZLWURBdVhiejRsUkhGRCtKdVcxM09OUWd3?=
- =?utf-8?B?TFkwVUFpN29iN0Jid3BsNjhHOXI1WVdaR2I1VlVSUE9ESHRmY09ERnVIb3Zv?=
- =?utf-8?B?TXdLVjQ3VGV1SkRrSDZDN2FueWxoS3ZtMEZjTzdEbDZnZ2xQUkRPOEdhN2JN?=
- =?utf-8?B?aWxOemFqMStjY3JKYXp6V3F5bUExYVZ3bTRQQWZ1a2c2YmEzTitRYjZJMi8x?=
- =?utf-8?B?QjdZNzJmMVk5YlREbkIzdDVGa2cyNXRHL2lWckgxdjVHUjBJalBXelpkMzIv?=
- =?utf-8?B?Vk5yZzZidEEzdFNHeEZ3azFYMVhIV3pIN0lxODNPa2JmUEt1VEY2WjBVdmwr?=
- =?utf-8?B?SkRiRHVIU1ZhWXU3cGtyZkZvOXRTZWUrcGxIa2JxMG8yRkhybWR4UjRYSnNV?=
- =?utf-8?B?blArRTRGVWErK0RHU1M4eFB3Sk15NjgyNE16K2p4NGdUWHRMRXFUZz09?=
-X-Exchange-RoutingPolicyChecked: 1HjVeGBzxqWU9nBpANG/2XFsFM/INXA0B7FSoc26xuJubAb8dWYUv0S83g2lfjMs8aJqvv7aV85Bafr6szx+mzeXjXZKl5/YxBScc+fWZyv6a9gKWAyuSr+OsQvnaQPMKWXcEOVZmapj5OUZo1Q7ULY7zZkk+Bbi0dN8QSpj7q5mOcT//85yxR0asBWUGA90DqZ9GOCl87/WMgQIJA9UqCUVCER+4ik0RfYQ11LkDBh/npn7EMFLaI6jzJOb+ayECikcrfOODutQV8v9KQPYkcZXw7aHXumCwITq+uXGJib2Lxlw3Pk7pm6CAx2a9t3NRr+Oijk9SO/vG0wfW9xVxA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: a286dbe0-1b9c-4b1a-c5a2-08df335135b2
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR11MB5630.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 11:06:39.9264
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: cJgQ9XgDG59sWTaulavn0Ou8x5e/zPRuritsDYlliBlKEUzFeHV7SAylkMvLPBxVPNGQ4hpZLk3nmOXa/H+O6Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR11MB6531
-X-OriginatorOrg: intel.com
+X-malware-bazaar: not-scanned
 
-On 05/10/2026 13:22, Loktionov, Aleksandr wrote:
-> 
-> 
->> -----Original Message-----
->> From: Benoit DE RANCOURT <b2rancourt@gmail.com>
->> Sent: Sunday, October 4, 2026 5:29 PM
->> To: Nguyen, Anthony L <anthony.l.nguyen@intel.com>; Kitszel,
->> Przemyslaw <przemyslaw.kitszel@intel.com>; intel-wired-
->> lan@lists.osuosl.org
->> Cc: netdev@vger.kernel.org; Andrew Lunn <andrew+netdev@lunn.ch>; David
->> S. Miller <davem@davemloft.net>; Eric Dumazet <edumazet@kernel.org>;
->> Jakub Kicinski <kuba@kernel.org>; Paolo Abeni <pabeni@redhat.com>;
->> Gomes, Vinicius <vinicius.gomes@intel.com>; Sasha Neftin
->> <sasha.neftin@intel.com>; linux-kernel@vger.kernel.org; Benoit DE
->> RANCOURT <b2rancourt@gmail.com>
->> Subject: [PATCH iwl-net 1/2] igc: Fix Tx stop threshold to cover empty
->> frame descriptors
->>
->> Commit db0b124f02ba ("igc: Enhance Qbv scheduling by using first flag
->> bit") raised the number of free descriptors that igc_xmit_frame_ring()
->> requires before mapping a packet from count + 3 to count + 5, to leave
->> room for the empty frame (one context and one data descriptor) that
->> may be inserted ahead of a launch time packet. DESC_NEEDED was left at
->> MAX_SKB_FRAGS + 4. igc_tx_map() uses it to stop the queue in advance,
->> and TX_WAKE_THRESHOLD is derived from it.
->>
->> A queue left running after a transmit therefore only guarantees
->> MAX_SKB_FRAGS + 4 free descriptors, while the next skb with a linear
->> part and MAX_SKB_FRAGS fragments, each fitting in one data descriptor,
->> requires MAX_SKB_FRAGS + 6. igc_xmit_frame_ring() then returns
->> NETDEV_TX_BUSY, which the queue stop logic is meant to prevent.
->>
->> With TSO this happens routinely. On an I226-V (8086:125c) running
->> 7.2.8 with MAX_SKB_FRAGS = 17, routed and locally generated TCP
->> traffic on a CPU-saturated router produced 10890 NETDEV_TX_BUSY
->> returns in three runs of 180 seconds, all for TSO skbs with 16 or 17
->> fragments, with
->> 21 or 22 free descriptors in all but 5 cases. Together with deferred
->> tail writes (xmit_more), these returns led to 25 Tx timeouts and
->> adapter resets in the same runs:
->>
->>    igc 0000:08:00.0 terra: NETDEV WATCHDOG: CPU: 1: transmit queue 2
->> timed out 5353 ms
->>    igc 0000:08:00.0 terra: Reset adapter
->>
->> The following patch addresses the lost tail write itself.
->>
->> Raise DESC_NEEDED to MAX_SKB_FRAGS + 6 to match the admission check.
->> The additional reservation is currently unconditional, including when
->> launch time is disabled; match that existing admission policy in the
->> proactive stop threshold. With MAX_SKB_FRAGS = 17, the queue is now
->> stopped below 23 free descriptors instead of 21. This also raises the
->> completion-based wake threshold from 42 to 46 free descriptors,
->> preserving the existing two-times-stop-threshold policy. Throughput
->> and latency effects were not measured.
->>
->> With this change alone, three runs of the same test on 7.2.8 produced
->> no NETDEV_TX_BUSY and no Tx timeout over 8.8M NETDEV_TX_OK returns,
->> including 613k TSO skbs with 17 fragments.
->>
->> As before commit db0b124f02ba, an skb whose linear part or fragments
->> exceed IGC_MAX_DATA_PER_TXD may still need more descriptors than
->> DESC_NEEDED accounts for.
->>
->> Fixes: db0b124f02ba ("igc: Enhance Qbv scheduling by using first flag
->> bit")
->> Cc: stable@vger.kernel.org
->> Assisted-by: LLM bpftrace
->> Signed-off-by: Benoit DE RANCOURT <b2rancourt@gmail.com>
->> ---
->>   drivers/net/ethernet/intel/igc/igc.h | 8 ++++++--
->>   1 file changed, 6 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/net/ethernet/intel/igc/igc.h
->> b/drivers/net/ethernet/intel/igc/igc.h
->> index 17f213cc93e4..f1efadbd9f74 100644
->> --- a/drivers/net/ethernet/intel/igc/igc.h
->> +++ b/drivers/net/ethernet/intel/igc/igc.h
->> @@ -575,9 +575,13 @@ enum igc_boards {
->>   #define IGC_MAX_TXD_PWR		15
->>   #define IGC_MAX_DATA_PER_TXD	BIT(IGC_MAX_TXD_PWR)
->>
->> -/* Tx Descriptors needed, worst case */
->>   #define TXD_USE_COUNT(S)	DIV_ROUND_UP((S), IGC_MAX_DATA_PER_TXD)
->> -#define DESC_NEEDED	(MAX_SKB_FRAGS + 4)
->> +
->> +/* Tx descriptor budget for a head and MAX_SKB_FRAGS fragments,
->> + * each fitting in one data descriptor: one context descriptor,
->> + * two descriptors for an optional empty frame, and two spare
->> entries.
->> + */
->> +#define DESC_NEEDED	(MAX_SKB_FRAGS + 6)
->>
->>   struct igc_rx_buffer {
->>   	union {
->>
->> base-commit: a83267db14681b3be481e02a4d5a38177507006c
->> --
->> 2.55.0
-> 
-> Reviewed-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
+On Sun, 2026-10-25 at 21:01 -0700, John Macias wrote:
+> If the driver advertises VHT extended NSS BW support, hostapd announces
+> a 160 MHz BSS the way IEEE 802.11-2020 allows for that case: the VHT
+> Operation element has channel width 1, CCFS0 is the 80 MHz segment and
+> CCFS1 is 0, and the 160 MHz centre is in the CCFS2 field of the HT
+> Operation element.
+>=20
+> ieee80211_calc_ap_he_and_lower() only looks at the VHT CCFS1, so it
+> sets bss_bw.he_and_lower to 80 MHz and ieee80211_sta_usable_bw() then
+> limits every HE and VHT station to 80 MHz. Stations parse CCFS2 and use
+> 160 MHz towards the AP, but the AP never transmits wider than 80 MHz.
+>=20
+> Take CCFS2 from the HT Operation element when the VHT CCFS1 is 0, as
+> the station side already does in ieee80211_chandef_vht_oper().
 
-Reviewed-by: Dima Ruinskiy <dima.ruinskiy@intel.com>
+This, by itself, is wrong.
+
+johannes
