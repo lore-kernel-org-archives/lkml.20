@@ -1,59 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793022812;
-	b=q9s6BQSdpReaonqzHEML6otCGcgHDOing1bHQR6Y6bmOcq8ZVD4bdIM4gEkEQGHc6SgY
-	 QHp1jYaOWqjKSppzG/E444S6f47340ftg+A35vSJ5nDKIkSa2IpzcHFDBr6fxyn+JCfAp
-	 ObPN0sPPUmRaYjSLki+t6mRQSpp5ztxjgritU/9UOQqNZT3Z1dVzR/6sENFSKiAqMgGZA
-	 GGAlatkMuWCNZXCkJ7fGLJ7PZOOzCRyHAdWnV5jHvsrbvOBM/YQSvtPuU5nKukLw5xS85
-	 qgtZ0ejovlNIhz+834HXgAlDXwO+mjv68zmpW7Bd/Tm8HXF4OHCyXcziXdxQlf5YlfQ==
+	t=1793022809;
+	b=l6xhlDGZjZldUXwcEwqEj+OxD4/BbtQykkHz2F2dLO/P+Y/ROAVSMBjddD71BAaWu7/5
+	 9HtZBM9Y/2qsVvtCSobLHxQBH6+A6xQE/7GK/384CO44KaEWdyLepPAEY462cICUXo7GI
+	 7Buy9kSSCe1iKBDjRfCU9ucbU80LsXf6qtXWM/LHKDh7G8oIFuv8TOfr9phe5pkFW+YpQ
+	 cBNTsSROj0vBzQr/2Ck2Rs2h3DK0r+WOASkoCysFHdgqvhWfFx7Ayld0JPAzqA7xoR/C/
+	 horQ90/nPf07sKCfAOMx5KxcQoxwBqdDsoIWCNjatilDyYKliM+OtO7nSf7AIRu1n6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793022812;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793022809;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=vrfzXv/ccKZrHyimwscWwKIpEaYPjB6OOpe7bAi/4L8=;
-	b=RuDDe8q4CkgjYAHkzSfYEoEtBRXh9RaSeQaJ5QgvIszK0zIsV85PE7GGC4ZyZBJvn2SR
-	 +mHGQ+mzUJChuEduhOBA0h9WdpT+gt+fJybW72rlXueMd8ZGsush/KEVXpP9erPLc4+r9
-	 rhnL7Tl4uRryRD+yeGbGvJIxQWjXQvP5rkBDjVTZtE3EB2UT1xQT1r7lVZK2FQuni7VRZ
-	 xy3zHdTp2GLt1/HP7XFMx98v05VhbumzC9KsNput5EE8jluLKspKDnIkNLsJatzeGocbR
-	 iueXwwGYqP3WMe76nHmPSnw3Bb8PHNUD+oVThVR5/wh4khZG6/rLPTBs7+NYYNe4zgQ==
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=2VNtcJdRiVE5wcehkgvy8TAiipkC3W4OhSqQ91G0hU8=;
+	b=yQu5iVn5Ownq9Yu+OWLRmiBYogCC2QhWhDAe76JNB8p6TbVZK4J97VwvkzTMOJF9/Oza
+	 PHB+dLUGoUCeDnemANvAApDyiglLYxfRDokDP7+h9hUdrMxPcGYvmFXCda0+Xa9LUnS2U
+	 0La7svZcoRwFNkzlvboBDBApbhF+VRUWCDdMMhmgzwyb1TcnY6oTG/wPs5nAI0Pne2PZb
+	 gcvqI3g7b8bKzUkLvXOod2Uiu8DfvJDoxo3o0tblP1R2WaG6SVEIOnBaSQ2kVGHAMdWAw
+	 /BspYdQoqozmbMWLqm6Dm2KOvxkAjz7eX1Ha7o8NbMksLDQFY1lnRFVobPYOaPfnv2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c9LT7RiH;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FjBhwON2;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11870606A331;
-	Mon, 26 Oct 2026 13:53:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C584606A31A;
+	Mon, 26 Oct 2026 13:53:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c9LT7RiH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8F8B1F01829;
-	Mon, 26 Oct 2026 13:53:26 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FjBhwON2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E73641F01825;
+	Mon, 26 Oct 2026 13:53:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793022811;
-	bh=vrfzXv/ccKZrHyimwscWwKIpEaYPjB6OOpe7bAi/4L8=;
+	s=k20260515; t=1793022809;
+	bh=2VNtcJdRiVE5wcehkgvy8TAiipkC3W4OhSqQ91G0hU8=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=c9LT7RiHw6KJ1VARX/LtW2MFOl+XrKV7GCOaYVTnXgftnbs2YZNS4Gijdhx/LxrZq
-	 8zby5X1WCVtmsA4+dQ8o0qEP96FycxU9ObUjQedJf21dR7XQAVklvhpJTgLbUygZa2
-	 ANMfWIWGuI0lBsX7E5QFXf48k6MGS+4kYUZFcpef5WiKzFTnnpl4UL8FMjtTD6Mz7p
-	 II5P9+T+8WafsjIDHKtBOUMs8mXmeMC40e1stAgPYOC+4K0FAyklNeyHoX36g8AL9B
-	 sXcAAOxYxnVyOmasHr3NSLZYDJGmVM5DWtcdlfpE1i5X3sRQPvJGVrbmpinZIpnmJI
-	 bj4eArodIS+qQ==
-Date: Mon, 26 Oct 2026 19:23:21 +0530
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Chunkai Deng <chunkai.deng@oss.qualcomm.com>
-Cc: Jakub Kicinski <kuba@kernel.org>, netdev-bot+sashiko@kernel.org, 
-	davem@davemloft.net, edumazet@google.com, pabeni@redhat.com, horms@kernel.org, 
-	linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	tao.zhang1@oss.qualcomm.com, peter.chen@oss.qualcomm.com, jeff.johnson@oss.qualcomm.com, 
-	konrad.dybcio@oss.qualcomm.com
-Subject: Re: [PATCH net-next 3/3] net: qrtr: implement shutdown()
-Message-ID: <at9XxF32WiKBEJQY@debian>
-References: <20261016-qrtr-add-shutdown-v1-3-e1cc01ca5919@oss.qualcomm.com>
- <179248895481.3135.9231497728918795508@kernel.org>
- <20261021133531.55da7de5@kernel.org>
- <9f76467c-5b21-40a2-95b8-e91cf1e1b47c@oss.qualcomm.com>
+	b=FjBhwON2lGqcDeAsQsur5YQJpwijTGL4gNxeB5JDtzunt2ZZduk4xjYTAo4go/lcZ
+	 2Ve+e21JhrcXXcs9OOlnbwi4MzsFVfRdSI1sHTUueXGDCH21vG3mBKNGGZpOdr7YlY
+	 cUViZLTP8txseKSOJ0MNjl+SB3FDOhv3ilrjaaXLxzb5OtnypOzQI+/hseFVUmFuvx
+	 biJmLnh3FuzD56tP9s1isiBSqoSCE9HED5vpgGDUK1LVc4GQj6oxVJ7kV8SfEJxucz
+	 GdAirjMlWMjzqoqiTgccW04NJAFGnOvGT/IILN4tjOafVrcHPqZHTHDWVgJyVSxIlT
+	 KbIcgx6+lz/Rw==
+Date: Mon, 26 Oct 2026 13:53:23 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Hengyu Liang <hengyul@cs.unc.edu>
+Cc: akpm@linux-foundation.org, linux-mm@kvack.org, liam@infradead.org, 
+	vbabka@kernel.org, jannh@google.com, pfalcato@suse.de, usama.anjum@arm.com, 
+	avagin@gmail.com, mirq-linux@rere.qmqm.pl, arnd@arndb.de, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] fs/proc/task_mmu: return -ENOTTY for unknown pagemap
+ ioctls
+Message-ID: <at9YUh99R8Ib7Lr9@gremlin>
+References: <20261023181300.3366487-1-hengyul@cs.unc.edu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,26 +59,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <9f76467c-5b21-40a2-95b8-e91cf1e1b47c@oss.qualcomm.com>
+In-Reply-To: <20261023181300.3366487-1-hengyul@cs.unc.edu>
 
-On Mon, Oct 26, 2026 at 06:23:18PM +0800, Chunkai Deng wrote:
-> Yeah, this is a known limitation and the commit message calls it out.
-> 
-> The sender sleeps on flow->resume_tx, which hangs off the node and is
-> keyed by destination node/port, so the socket has no way to reach it.
+On Fri, Oct 23, 2026 at 02:13:00PM -0400, Hengyu Liang wrote:
+> Commit 52526ca7fdb9 ("fs/proc/task_mmu: implement IOCTL to get and
+> optionally clear info about PTEs") made do_pagemap_cmd() the ioctl
+> handler of /proc/<pid>/pagemap.
+>
+> However, do_pagemap_cmd() returns -EINVAL for every command other than
+> PAGEMAP_SCAN. Before that commit, pagemap had no ioctl handler, and
+> the VFS returned -ENOTTY for these commands. As of now, they fail with
+> EINVAL, so tcgetattr() and isatty() on pagemap report EINVAL instead
+> of ENOTTY.
+>
+> The issue can be reproduced with a simple C program:
+>
+>     #include <fcntl.h>
+>     #include <stdio.h>
+>     #include <termios.h>
+>
+>     int main(void)
+>     {
+>             struct termios t;
+>             int fd = open("/proc/self/pagemap", O_RDONLY);
+>
+>             if (tcgetattr(fd, &t) < 0)
+>                     perror("tcgetattr");
+>             return 0;
+>     }
+>
+> Before that commit, the result is:
+>
+>     tcgetattr: Inappropriate ioctl for device
+>
+> After that commit, the result is:
+>
+>     tcgetattr: Invalid argument
+>
+> This patch will return -ENOIOCTLCMD for unknown commands, as
+> procfs_procmap_ioctl() in the same file does, so that the VFS turns it
+> into -ENOTTY.
+>
+> Fixes: 52526ca7fdb9 ("fs/proc/task_mmu: implement IOCTL to get and optionally clear info about PTEs")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
 
-It is fine to defer this fix as a follow-up patch, but I'm not buying the 'no
-way to reach flow control' from shutdown() callback claim. Why can't you just
-store the 'qtrt_tx_flow' pointer in qrtr_sock and dereference it in shutdown()
-callback to wake up qrtr_tx_wait()?
+Seems reasonable, though I doubt any sane user is relying on this.
 
-Storing the pointer here is fine since all callers of qrtr_tx_wait() hold
-lock_sock().
+Confirmed the conversion from -ENOIOCTLCMD (first time I saw that :) to -ENOTTY also.
 
-- Mani
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
--- 
-மணிவண்ணன் சதாசிவம்
+--
+Cheers, Lorenzo
