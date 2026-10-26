@@ -1,92 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793019484;
-	b=NnFOGZa9BYjuc1CAUnVmlp+jRMyiJ2VBCBBCciT1wzjE4qmapRfU8TAh4aS77ExNlVGX
-	 7xvYGAi4QEMWakYw+X/TqPpJWiG8/LLXEHOpMV/NAYw7wU77gn5YJQTgC6k8Wfpb23XR/
-	 zCt7Y56+X8c9Tkc9EOGzu+yF5abflp3dlr2ouZDN1SDvA5IevOCx+vwFZaMLO96B6XFAh
-	 fXCPPAVPOLHrwOeEBZYS+Xe6U0RKPLnst/H/DCQbQhh1mbSlk3q9LmkuhB76/lDjNYWVJ
-	 FwbMa3shNYFU0Ri+w6Pv3D1BiGUP4H1iiu77e6CHSYh3L+uP90FwDzFB9bGqWGy5xqg==
+	t=1793019488;
+	b=RrQ04w9klaRPxztGKE5sZloUaYAkvzahyZH6G4X4YzbP5ToJGUVf59VDlslWpLN0jY4p
+	 oNUAmxdD2IeDAjM3fH8YEiypFWAto3KK2BDByLO3IKYMZscVBvs0CHCdn36gkhVNp09bM
+	 5D/1l7G+t1ZKjzme9HjBjmSfgYNhMvU25f2MptLlB8M+7w0ZhGTX49PINbgr8JHyQHGg3
+	 +fdpjER1BMbRkWqG6JZ0CNhnfh9N1ITVfBKoRW8bmIXHy/8DnJiAxP5O2BxvhXrYjiYPd
+	 +PKgAqOw+AMx3r5QNmr7fgDC7CLQTTmnJqan/F+3JwaHLNz6UHgbYYTKO9qR7GfFRcQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793019484;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=CDuCVz07S0qbPUdAIoAtmgasF8yvxzKJyrb8p26CSho=;
-	b=L1aRw7iGJl+BucPDwgPe7KoZVWqvqoaZunYm5xfS2W9/zAHgPqwGmuUlHdMeAaZHAIh0
-	 dORQqooIH+Qb1a6o56W2s8yGxOtj/tkfpmNum7ADw4U4qv3HeyWLXlBxOJQmpsx0Wdwe1
-	 oYssqesayEBYZeullNx+m/9Y+iIoDgKRHkQ6lwIqikVjb49ig1EY4KLzT3klk0FIRfn3y
-	 gbmSg3g1r8mM3i/1lMgty7sWSUCpJEBqtRKxZL0VOUFi+9U6F/Ar5iA44KupHOxijt7FD
-	 HuUUBUhiHV1wOa5rFTj++hxoZRW5RVzSga+6JN/6qjT247eX8mJBVJHoQ232TQfmFOg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793019488;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=lZl2kSIwMNJIkCLglscnuCt3O0TybLkz70TCo4UfuW8=;
+	b=VQYJtZPwIKc0GZ4DOurzqF42SDPy4uCiogBy15GoA1Hbm+9EbFgcPcC/4MIZShEm4ffQ
+	 l2DhzwxWmQHDpIqAws5eE8IXG9yzZ9dhdhQ9sG4TYp9vM9AmpxAFXaPgIKF0EZjMnVAI8
+	 m0iQZ6Ew9XA1WPTUKQkG02QlNHTjAHOg/XJW+vvrZ1oHBIkTrUjkzE0Fi179KT894+Jlf
+	 CHmpkkarHpruO/gZFRmJ4Hizb4EMoEDEgW2HmVXhQB46BtMQM69VmIggrJbnK+jNT6Hrz
+	 +bMZK/u805B69IcWdMyEa+nJftDTzsA7moThgXE25CPK9nJa0jdgMPk6cps0aG7qlIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Y+vtiLKj;
-	arc=none smtp.remote-ip=209.85.221.46
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8301D606A31D
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:58:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8301D606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Y+vtiLKj
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48df54150dfso1594374f8f.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 05:58:04 -0700 (PDT)
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E74C1606A320;
+	Mon, 26 Oct 2026 12:57:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E74C1606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793019483; x=1793624283; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CDuCVz07S0qbPUdAIoAtmgasF8yvxzKJyrb8p26CSho=;
-        b=Y+vtiLKjJ1N9OgW2m0zh3o2GnfDpPDv9JuQKGv7uung54Kjb4xMG7uhUVywhkef8ef
-         7FW7OyD5ub4rNm+tOj/13wlRNWcKwz/QpL18ZLDqkolzpXopBGw1kBKhtfaUdQIE/hww
-         O+NZJEkHoFHyzsqEslf+cz7EoteAt5PfaS9zNxcUREt/oHZJ7aLdFZLQH17nIxviN3g7
-         TWwPQJzJvImMdezxUUzjflDZtlWULa0MxrpLORzokcSp4NXQd9ldZOOaWmPnvr+QAVaR
-         Pu4PKopoX1vg/QJoFFoVg5SznRvshS6dpJ+H8zJ44+B5n0JEnNR1Ik+QDhcGlRSqoJf6
-         zOMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793019483; x=1793624283;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CDuCVz07S0qbPUdAIoAtmgasF8yvxzKJyrb8p26CSho=;
-        b=XlfBvKbREa2wSAPq0gEdxCH5rV+n1W+/Qm6jj14TxXAnvvz/EVfvQL3cwpKImFyfZA
-         Q14+xXHaXlcIvHzAyeZnE9RtWYKY0iR6XhccvjuC/TrwCNNKHRe5zq6bJ06ri2FfIKGp
-         SG9VrwdxBUOtvPOXTY8lbAltfkCXWNmCNAE7VFLgnjnyAFIkVDG39YZlcLVOGE2VqRlY
-         S6MXlzXEmsN9QKuDnTQk+JVHQOjPOZdHbrlrEHgeNPbGHO27G46MCb+wWwVqGIFl+rtE
-         oTX8TVcGIx8VxejT0w6FoEBz1mo8z77338dU7lKtxcAfjLTj8/re5mRC5U+fnaUuU93V
-         4+sw==
-X-Forwarded-Encrypted: i=1; AKwUvBzjoAgDxFPyO82upGCPFXFvb5Nnwf6mH0zTD9E4mcl2MyyWngIjXeC6j6lDavWF5hHNv/FQfRrPwjLl128=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJKWHtweqhisY6xpUZhLHvexi3GGvZJjKbJff7ZWB60DWwzUIav
-	GCFbL3t6UBDUIyOJYbItcdXfJuLlxZshRoLkjwhWxnsDPr3kGvPfG2Oa
-X-Gm-Gg: AYBFou0sPGj928jRTuIDXPC7jjRYQeTASUPJLPa49kg24LVcrvn+GTVNivD/EyqEZBF
-	a4idCrK3I+isXAyje2kmcsieMAhnCMVpcZwdu+HzAaXO0ubjs64CBORkLyfUjydQ1TyUpV9/paf
-	HgKdsG15r1RM0NPbONnEcDY+bbI1tl0/bna33uUX3v6yfy3+1JJyN74yGbk/wdiJr+9MtiCDjI7
-	Pq8Z+vBoeBVG8g0UBsH3XNaExvSPQeTmlMihIimY55QiHfMKMO6085mc80rTE1s9WW6n2CyGExz
-	631dx5yV3CXnCQ3lej9o9vOaEzYkkAlQlRF9Ca/ogR1wsYjQXL4y8fcDBMidA11vNQw6s9raoBj
-	BtljdK/9gzb27L+sLG7QuKq0/q+vZvuxwbCfGDZ5Y5zL4KYaHR9fUH1PDZzS8FBedidow1H92SQ
-	OeQaNwGU8Cu5ozbLYpbEGCSkTi8KVvFIPYBs8U6WbeDfMGXTR1WC6GNG0ZaCCcSyO/FanxcZUaE
-	4DP0eofk5t3Lm+5QIRqhVMchlOKTEfGHraeFsLoAyiPEjk6+CWsISZtk+zZrzNtJTBdXnzksMkb
-	ied7TeOflaliSWcLk/ZNI9Q=
-X-Received: by 2002:a05:600c:1388:b0:4a1:fb01:13 with SMTP id 5b1f17b1804b1-4a35aca74f6mr151054235e9.18.1793019482733;
-        Mon, 26 Oct 2026 05:58:02 -0700 (PDT)
-Received: from stjepan-Aspire-F5-573G ([2a00:1bb8:118:d39e:4868:f22e:b51d:7cb])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebcb99esm15827381f8f.23.2026.10.26.05.58.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 05:58:02 -0700 (PDT)
-From: Stjepan Poljak <stjepan.poljak@gmail.com>
-To: Takashi Iwai <tiwai@suse.com>,
-	Jaroslav Kysela <perex@perex.cz>
-Cc: Clemens Ladisch <clemens@ladisch.de>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] ALSA: usb-audio: reset a MIDI device whose input is stuck
-Date: Mon, 26 Oct 2026 13:57:51 +0100
-Message-ID: <20261026125751.1700779-1-stjepan.poljak@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-ID:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=lZl2kSIwMNJIkCLglscnuCt3O0TybLkz70
+	TCo4UfuW8=; b=QnuhWUjtE04W8Eoe0tqGvEFE7Xfm/3dcmvnasdLILAqeUb7rpt
+	7coohlYSPBm6VCWKOcEyssZ22tW8TunkOBzSdMwM79TPZoZE94kcsf7L3vMBBgbZ
+	2OAShrz/F2w6yKmaBeOp/V08WICmWrzdEizTepwh/d9VAm8tYZGezE9J4=
+Received: from localhost.localdomain (unknown [113.200.174.126])
+	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkDWGwFJTt9qbqzpAA--.7289S3;
+	Mon, 26 Oct 2026 20:57:51 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Sean Young <sean@mess.org>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Anssi Hannula <anssi.hannula@iki.fi>,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/2] media: rc: ati_remote: fix NULL input_dev on rc device open
+Date: Mon, 26 Oct 2026 20:57:30 +0800
+Message-ID: <20261026125731.1952-2-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.45.1.windows.1
+In-Reply-To: <20261026125731.1952-1-25031212351@stu.xidian.edu.cn>
+References: <20261026125731.1952-1-25031212351@stu.xidian.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,142 +63,151 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BLQMCkDWGwFJTt9qbqzpAA--.7289S3
+X-Coremail-Antispam: 1UD129KBjvJXoWxZw48KF13Gr43ZF48AF1rXrb_yoWrKF1fpF
+	W3CayFgFZ5Kr1jga13Kw1UZa45Wr4xZay5ur1fX34a9rs5Zr9YyFyDtFy7JayUAFy09Fy5
+	tw15J3y8uFyUAF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUmSb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
+	8067AKxVWUGwA2048vs2IY020Ec7CjxVAFwI0_JFI_Gr1l8cAvFVAK0II2c7xJM28CjxkF
+	64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWUCVW8JwA2z4x0Y4vE2Ix0cI8IcV
+	CY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv
+	6xkF7I0E14v26F4UJVW0owAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62
+	kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2
+	z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JMxkF7I
+	0En4kS14v26r126r1DMxkIecxEwVAFwVW5JwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE
+	7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI
+	8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWU
+	CwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r
+	1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBI
+	daVFxhVjvjDU0xZFpf9x07j4dgXUUUUU=
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUSD2reG1O7tQACsp
 
-Switching a bus-powered USB keyboard off and on can be too quick for the
-hub to report a disconnect. The device comes back unconfigured at the old
-address, and its input endpoint then fails forever:
+ati_remote_probe() registers the rc device before it allocates and
+assigns the mouse input device:
 
-  - with -EPIPE, which snd_usbmidi_urb_error() logs and treats as
-    "continue", so the URBs are resubmitted at once and the log fills
-    with "urb status -32" every few milliseconds;
-  - or with -EPROTO/-ETIME/-EILSEQ, retried silently every 100 ms.
+	rc_register_device(ati_remote->rdev);
+	...
+	ati_remote->idev = input_dev;
 
-Either way the rawmidi device stays, reads never fail and no data ever
-arrives, so the instrument goes silent until the cable is replugged.
+The rc device can be opened as soon as it is registered, either through
+its evdev node or through /dev/lirc0; both call ati_remote_open(), which
+submits the interrupt URB.  The completion handler ati_remote_irq_in()
+reports the events it receives through ati_remote->idev, so a report
+that arrives before the assignment above is passed to input_report_rel()
+and input_event() as a NULL device:
 
-Retry a stalled input endpoint through the error timer like the other
-errors, and when input stalls, or keeps failing for 2 s with no
-successful URB, queue a USB reset. snd-usb-audio has no pre_reset or
-post_reset, so the reset unbinds and re-probes the card, and userspace
-sees an ordinary unplug and replug. A real unplug normally reaches
-disconnect() long before 2 s. If the host misses that as well, as
-dwc_otg does behind a hub, the input stalls and the reset finds no
-device, which ends in the same disconnect.
+	BUG: kernel NULL pointer dereference, address: 0000000000000028
+	#PF: supervisor read access in kernel mode
+	...
+	RIP: 0010:input_event+0x41/0xa0 drivers/input/input.c:394
+	...
+	Call Trace:
+	 <IRQ>
+	 input_report_rel include/linux/input.h:450 [inline]
+	 ati_remote_input_report drivers/media/rc/ati_remote.c:634 [inline]
+	 ati_remote_irq_in+0xf45/0x1420 drivers/media/rc/ati_remote.c:657
+	 __usb_hcd_giveback_urb+0x238/0x550 drivers/usb/core/hcd.c:1657
 
-The queued reset is dropped without a word if usb_lock_device_for_reset()
-fails (e.g. -EBUSY when the device lock is held for over a second), so
-while input keeps failing, queue another one every 2 s.
+input_event() dereferences the device it is given and the faulting
+address 0x28 is the offset of evbit in struct input_dev.  ati_remote is
+zeroed when it is allocated and ati_remote->idev is never written back,
+so the pointer is NULL because it has not been assigned yet, not
+because an input device was freed.
 
-Output endpoints are left as they are.
+Allocate and initialize the mouse input device before the rc device is
+registered, so that ati_remote->idev is valid before any path that
+submits the interrupt URB exists.  input_register_device() keeps its
+place: input_event() is documented to be safe before registration, the
+events are then simply not delivered to any input handler.
 
-Tested on a Raspberry Pi 3B+ (dwc_otg, Raspberry Pi 6.12.61 kernel) with
-a Nektar Impact LX49+ (2467:2015) behind the on-board hub. Without this
-patch, switching the keyboard off and on left it silent, with "urb
-status -32" logged every few milliseconds. With it, each off/on cycle
-logged a single "MIDI input not recovering (urb status -32), resetting
-device", and the keyboard was re-enumerated and playing again 2.8-4.0 s
-later, including two cycles 9 s apart. Left switched off for 3 minutes,
-it was reset, disconnected cleanly and enumerated normally when switched
-back on. Unplugging the cable went the same way: the input stalled, the
-reset found no device and disconnected it, and plugging it back in
-enumerated it normally. No warnings while playing normally over about
-three hours.
+Free the input device only after the rc device has been unregistered and
+the URBs have been killed, so that a completion still in flight cannot
+report through an input device that is going away.
 
-Also tested on x86_64 (xHCI, 7.0 kernel): there the host sees both the
-off/on cycle and an unplug as ordinary disconnects, so no reset is
-queued and input resumes after re-enumeration as before.
-
-Assisted-by: LLM
-Signed-off-by: Stjepan Poljak <stjepan.poljak@gmail.com>
+Fixes: c34516e599d9 ("[media] ati_remote: migrate to the rc subsystem")
+Cc: stable@vger.kernel.org
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
 ---
- sound/usb/midi.c | 45 ++++++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 44 insertions(+), 1 deletion(-)
+ drivers/media/rc/ati_remote.c | 34 ++++++++++++++++++++++------------
+ 1 file changed, 22 insertions(+), 12 deletions(-)
 
-diff --git a/sound/usb/midi.c b/sound/usb/midi.c
-index e3d157554061..7f93df66e55b 100644
---- a/sound/usb/midi.c
-+++ b/sound/usb/midi.c
-@@ -70,6 +70,12 @@
-  */
- #define ERROR_DELAY_JIFFIES (HZ / 10)
+diff --git a/drivers/media/rc/ati_remote.c b/drivers/media/rc/ati_remote.c
+index 51d85de24fae..8543612d5a60 100644
+--- a/drivers/media/rc/ati_remote.c
++++ b/drivers/media/rc/ati_remote.c
+@@ -813,7 +813,7 @@ static int ati_remote_probe(struct usb_interface *interface,
+ 	struct usb_endpoint_descriptor *endpoint_in, *endpoint_out;
+ 	struct ati_receiver_type *type = (struct ati_receiver_type *)id->driver_info;
+ 	struct ati_remote *ati_remote;
+-	struct input_dev *input_dev;
++	struct input_dev *input_dev = NULL;
+ 	struct device *device = &interface->dev;
+ 	struct rc_dev *rc_dev;
+ 	int err = -ENOMEM;
+@@ -893,37 +893,47 @@ static int ati_remote_probe(struct usb_interface *interface,
+ 	if (err)
+ 		goto exit_kill_urbs;
  
-+/*
-+ * how long input may keep failing before we reset the device (a real unplug
-+ * reaches disconnect() well before this), and the least time between resets
-+ */
-+#define RESET_DELAY_JIFFIES (2 * HZ)
-+
- #define OUTPUT_URBS 7
- #define INPUT_URBS 7
+-	/* Set up and register rc device */
+-	err = rc_register_device(ati_remote->rdev);
+-	if (err)
+-		goto exit_kill_urbs;
+-
+-	/* Set up and register mouse input device */
++	/*
++	 * Set up the mouse input device before registering the rc device:
++	 * opening the rc device submits the interrupt URB, and its
++	 * completion handler reports mouse events through
++	 * ati_remote->idev, so that pointer has to be valid before the rc
++	 * device can be opened.  input_event() may be called before
++	 * input_register_device(); such events are then simply not
++	 * delivered to any input handler.
++	 */
+ 	if (mouse) {
+ 		input_dev = input_allocate_device();
+ 		if (!input_dev) {
+ 			err = -ENOMEM;
+-			goto exit_unregister_device;
++			goto exit_kill_urbs;
+ 		}
  
-@@ -162,6 +168,10 @@ struct snd_usb_midi_in_endpoint {
- 	bool in_sysex;
- 	u8 last_cin;
- 	u8 error_resubmit;
-+	u8 failing;		/* no successful URB since the last error */
-+	u8 reset_queued;	/* at reset_at */
-+	unsigned long failing_since;
-+	unsigned long reset_at;
- 	int current_port;
- };
- 
-@@ -234,6 +244,36 @@ static void dump_urb(const char *type, const u8 *data, int length)
- #define dump_urb(type, data, length) /* nothing */
- #endif
- 
-+/*
-+ * A device that was power cycled without the hub noticing (e.g. a bus
-+ * powered keyboard switched off and on again) has lost its configuration:
-+ * it stalls the input endpoint or stops answering, and resubmitting the
-+ * URBs never recovers it. Reset it instead; snd-usb-audio has no
-+ * pre_reset/post_reset, so this unbinds and re-probes the card.
-+ * A queued reset is skipped if usb_lock_device_for_reset() fails, so if
-+ * we're still here a while later, ask again.
-+ */
-+static void snd_usbmidi_in_error(struct snd_usb_midi_in_endpoint *ep,
-+				 int status)
-+{
-+	if (!ep->failing) {
-+		ep->failing = 1;
-+		ep->failing_since = jiffies;
+ 		ati_remote->idev = input_dev;
+ 		ati_remote_input_init(ati_remote);
+-		err = input_register_device(input_dev);
 +	}
-+	if (ep->reset_queued &&
-+	    time_before(jiffies, ep->reset_at + RESET_DELAY_JIFFIES))
-+		return;
-+	if (status != -EPIPE &&
-+	    time_before(jiffies, ep->failing_since + RESET_DELAY_JIFFIES))
-+		return;
-+	ep->reset_queued = 1;
-+	ep->reset_at = jiffies;
-+	dev_warn(&ep->umidi->dev->dev,
-+		 "MIDI input not recovering (urb status %d), resetting device\n",
-+		 status);
-+	usb_queue_reset_device(ep->umidi->iface);
-+}
-+
- /*
-  * Processes the data read from the device.
-  */
-@@ -242,13 +282,16 @@ static void snd_usbmidi_in_urb_complete(struct urb *urb)
- 	struct snd_usb_midi_in_endpoint *ep = urb->context;
  
- 	if (urb->status == 0) {
-+		ep->failing = 0;
- 		dump_urb("received", urb->transfer_buffer, urb->actual_length);
- 		ep->umidi->usb_protocol_ops->input(ep, urb->transfer_buffer,
- 						   urb->actual_length);
- 	} else {
--		int err = snd_usbmidi_urb_error(urb);
-+		/* a stalled endpoint stays stalled: don't resubmit at once */
-+		int err = urb->status == -EPIPE ? -EPIPE : snd_usbmidi_urb_error(urb);
- 		if (err < 0) {
- 			if (err != -ENODEV) {
-+				snd_usbmidi_in_error(ep, urb->status);
- 				ep->error_resubmit = 1;
- 				mod_timer(&ep->umidi->error_timer,
- 					  jiffies + ERROR_DELAY_JIFFIES);
-
-base-commit: 5deb9c57ba93d28a52871a96f3d8794d2cbed035
++	/* Set up and register rc device */
++	err = rc_register_device(ati_remote->rdev);
++	if (err)
++		goto exit_kill_urbs;
++
++	/* Register the mouse input device */
++	if (mouse) {
++		err = input_register_device(input_dev);
+ 		if (err)
+-			goto exit_free_input_device;
++			goto exit_unregister_device;
+ 	}
+ 
+ 	usb_set_intfdata(interface, ati_remote);
+ 	return 0;
+ 
+- exit_free_input_device:
+-	input_free_device(input_dev);
+  exit_unregister_device:
+ 	rc_unregister_device(rc_dev);
+  exit_kill_urbs:
+ 	usb_kill_urb(ati_remote->irq_urb);
+ 	usb_kill_urb(ati_remote->out_urb);
++	input_free_device(input_dev);
+  exit_free_buffers:
+ 	ati_remote_free_buffers(ati_remote);
+  exit_free_dev_rdev:
 -- 
-2.53.0
+2.34.1
 
