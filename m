@@ -1,54 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.140
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792996764;
-	b=B4AOfDfsHVHKD6OPKT5eIGN/rOVuc+t37ydrvDXM+NnX0ZfAsLp8gRsFuFdvgr+6yDY6
-	 mmyLmcir1Hn96nAly8FTKBTwcRE9dQVCI2eVSIdzn72vaZZSmSKBwIS2hiSzRs/pxKNah
-	 bk2wD+aY9Hotg7ksvjC+RU5oLyudoMp5UB4sEp9G717+F7GRyeLjDaB81+HspQ4p0MRw8
-	 R455zs5r3dCmZxHJ+oio/c0/6F7ihZ+RoHoB318WmaR2HRapJ/EZyNq36UTuYtETJsJTx
-	 6CN2/9ZB5qF3CBjqrH351Ge62QS/Ll9N/kYx+ocXmk3/Z3/hV0EyuwQ6/L0DHhdBBTg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792996764;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=/N/xE84PocqyOAP0Dt4y/I58wEJZRZjEFHwItj6N+Rk=;
-	b=jW7cmRVTRA1v4pwN0MQIpP946iXDVRfUFxQGo++gAenrLXEPymjPg61rcnJXGuXCwGSy
-	 xl5ZOs/mIVGrbjimTip/0Fk6Lx4oP7GxdkUXSvOn3QZnn+DLXJl3givi3ikvN+pxjT3N8
-	 EPDdeaQruZG2v4bWqTJ6furTxwSFDMsjzCafex9sRQpFSkEQXbgWhmO2I0DH/nFCVwCi9
-	 cBwKxiXaxnDxmviEgizKcOXBZz8G8MSZlefjbSKuePEhM8+0y79zoJ6CGKmrLa3mGQeeg
-	 /oNVzwSO4jnWcI1nLU8VT9s1tQZtJYMpl9mGwX3ceW7VBo+qeZkCOmbuM1yvpuvFnnQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=nkVPhuPb;
-	arc=none smtp.remote-ip=91.218.175.140
-Received: from mta0.migadu.com (out-140.mta0.migadu.com [91.218.175.140])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.229.143
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792996796;
+	b=tNzKzZPFRcIEXkoX+IDbT/8NCqdf+JxTO3fOxOwcubg2fHLIj+xIzZUb2jwTi8RG9iX0
+	 S5vhq3k+eWolOxxl1pI53hjxWOm8yw3aXKODMki+tOELzAqmucHdyi7JpGM5R+9cCilL7
+	 06uhRNBMjMZ++acw3/jgBemykMltyfNCeysuNZzEpuEKXpEjyNIJBYvNdB1BtQ2boi4L4
+	 B0yY89gMwaDttQjc3nl0pHj+jzLD4RzRxYyhe3Cm6krmrNeUEXsyx7UeB20Z4UhJLIxhl
+	 BQOI2F+T5WMkaKOzcIQPvnXWhKbeeoovl0ZIOWZAh8jYfvNY12pkaLNnjXI9H25Tb0Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792996796;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:Content-Transfer-Encoding:Content-Type:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=QuTAB/WvGRyPfcIPuN+3aV/aND7R5Ds7Z45qXwbKMgI=;
+	b=s2ed0zbnpT5pp9VKl6UfILsBbO7Q/uvwKa2XBfTYwI0RZZ1pVBe1T3Zlbv7w58p18JT6
+	 f2c5Iqllna4Lpdpt8cdDUIUzIu+J+4S1lvBBNPDHBI0EWB45/0itVdK8TukyD0oSkTjoh
+	 8lTKdkL9SEWkrc3TuIjPsX7qyK6BeCiChBN6cEgiDuBzkN+EgOJHFSO6c4Q4ao1EEH/WK
+	 3Id44IKJU9bxzKz38Wp8riHoCLCPKYxjx1DBuGn4yQ44aInQvJ3+eFzkMSEptkQRmt1y0
+	 6ZQwA7UvZkGr3DX5ifZcmfWHZwm4a/+2H4350KAKlxT42uurmWzdEUsBg5rUnR8wlTg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=valinux.co.jp;
+	spf=pass smtp.mailfrom=valinux.co.jp;
+	dkim=pass header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b=VvpldK2P;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.229.143
+Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11020143.outbound.protection.outlook.com [52.101.229.143])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 976E8606A31B
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 06:39:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 976E8606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23DEA606A31A;
+	Mon, 26 Oct 2026 06:39:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23DEA606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=nkVPhuPb
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=6a75/GLo+zgQm/2IZiuenZ69fWTStQnvKmbm4FFx2Ro=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792996761; v=1; x=1793601561;
- b=nkVPhuPbcoT5mqNdCwKhUf7FJ0WYcSOasvtkJBy0lyAAufKDbgtACFXknghxoEGxSD0+FLuI
- g/tUhnHsn4akwtpp2xKOm3EmB1RUM4XMhieTKzFNAifnDCzo1thJhjXY8mh/pM2IsXo4YdTuQmX
- wJsdBCG4UaHb+MHRTugrZ1iY=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id e717e60d4673babe;
-	Mon, 26 Oct 2026 06:39:21 +0000
-X-Mizu-Trace-ID: e717e60d4673babe
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <b6b32541-7add-48b4-af00-af276c8b016f@linux.dev>
-Date: Mon, 26 Oct 2026 14:39:14 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b=VvpldK2P
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Foe8TpA7Gt2LdX7rN1Kw+gtGQ6ZO+rdPQzYgdxsgm+aKqYLjXb07I5SNSUM3C5SY0CLhNsugYSjkdydEn3TDf8bmiMuZNrUCPN3gEIdkkkvzeP808erIhXK64P+10TllxLBjfjqSgdfSAAeyaXm2VsPtb//zizX30lP2S4808GTSxnjbfgWqxG5OOG8EInKjbUroMD1dTiseWZT1iQUbqzweK0rMHAypjDl5j35QAMm+/pVHRUx3E45dMuZHxWfIXK0n9kOqXTK1m1jeTZ/bMqDHWhdw1zrU/X5mhvjCJPg4+dAaCHUgFMK2701ajyfi8D/s3Zl0Rjob+X4bCqreLQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QuTAB/WvGRyPfcIPuN+3aV/aND7R5Ds7Z45qXwbKMgI=;
+ b=DyD0ZzAluC5Q8HO1R66xNyEC0h8V2njf89GBZ2TKDvsGM0k5JtcnBPtnI+zI31k4e3etEAu5zyFeh/Dmh8vrUhEdAjJs6g0Pzi+h25DTRSpwE7+eWcrDEZP9nt9UW/n9jx4u9yB2hGpuY5GkfnpYtKYV1MVmf5kQsZjT8FZCNAM5Uf9YyxssuNDhK05HESk6tduC/rP4O7iyhFWcWlQh+xYfBxHdcPaiId176yJyFxJ3wmKHZvK+kdnd7RiM/MZZ5gE3AZ+XcqTyJu18tPabpCl6SpMecU5zyh8Os9tgCCMayRIzIpKaA2RR6tdmrxyCp5M5wqo8rLyuvWTo3k8vkA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
+ header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QuTAB/WvGRyPfcIPuN+3aV/aND7R5Ds7Z45qXwbKMgI=;
+ b=VvpldK2PVHhds9cYPHOZWSqAvl4NPhgzV2zg96fwwdFEpqe68GplpyUllgVrR4VCzfoVNLxFtFXzByF8DnZxc+uBQgrK0aBybqsjXUCPeG/Ua3gCZAPPicjDDm2ahShS5ch8M31Utft714aZLBlIiqA2f0vRh31G3A+tqGaJiFQ=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=valinux.co.jp;
+Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:325::11)
+ by TY1P286MB3373.JPNP286.PROD.OUTLOOK.COM (2603:1096:400:2e2::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
+ 2026 06:39:50 +0000
+Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::cce5:2aa8:53f9:dba9]) by TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::cce5:2aa8:53f9:dba9%5]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
+ 06:39:50 +0000
+From: Koichiro Den <den@valinux.co.jp>
+To: Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+	linux-renesas-soc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] arm64: dts: renesas: spider: Add overlay for PCIe ch0 endpoint mode
+Date: Mon, 26 Oct 2026 15:39:41 +0900
+Message-ID: <20261026063942.3173469-1-den@valinux.co.jp>
+X-Mailer: git-send-email 2.54.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: TYCP286CA0228.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:3c7::7) To TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:325::11)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,288 +101,119 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH-next v3 02/11] cgroup/cpuset: Properly compute effective
- xcpus in update_parent_effective_cpumask()
-To: Waiman Long <longman@redhat.com>, Ridong Chen <ridong.chen@linux.dev>,
- Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
- =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
- Shuah Khan <shuah@kernel.org>
-Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org
-References: <20261025214449.310715-1-longman@redhat.com>
- <20261025214449.310715-3-longman@redhat.com>
-Content-Language: en-US
-From: Guopeng Zhang <guopeng.zhang@linux.dev>
-In-Reply-To: <20261025214449.310715-3-longman@redhat.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY7P286MB6866:EE_|TY1P286MB3373:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1a0ce2d1-914c-48eb-6fcd-08df332bef67
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|10070799003|23010399003|366016|1800799024|56012099006|261021121427099003|261021135927099003|261022075727099003|261009223027099003|260925021911599003|260925021311599003|260925022911599003|10067099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	EmLdNP+oKqj9gduDNkGe8+K4GkgF4IXc77VUP7jfQ2cBUzpFb7fqDIJ31rtMPSC3HH3mARkE0J7gIu9WyCp0hrQYNRnTBKIG16O6scHAuiYo/bzzVWlZrYuqxLf0q1DWV41sLuFMwTJB7suX6AXaFx820d5q0rtOOLAmU007B+XeI6kRGiTKcoWik7vUHM4Z7mh1EKDEq93nl1fl8RAKM6OCvWPgiOAFrVaiv6kH//DAg0NTEs/kwYciuGW3TN6p/9v8WAPKG+Uz5iGSj00sTW9KbB/JllJVHrp4vCTrS5MYMk4sl7BkoZw3nFNYjUbE+P+not9SYCEcUIz+injENTkntTNgvkdwPOKoZCV+NMjM4EGECBuGQt+snkUOG8IZBsyNRER3AWnk+QMbOxvEcVj/CD4rvsIid6e6BLIYQxfSvH5XdlY4ASMLTp0RokLOqMLLTXbHKmveHWkomxFOH1IImhXushR434of/QGX+ly0y4BcnuO27KsP4AgRqctOvkFQKfsIHxWqNnxX2PDU+eLNIFfGS0bAY/EQDlHK0nip0sAJjla0JUeuaUOkcHyxeNwxMVZPVFWAfIzidIjxdcS07kBAyN87fBQk3AsgBZ0p/MCoBxvZ0PGZTmc1+GwA
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(10070799003)(23010399003)(366016)(1800799024)(56012099006)(261021121427099003)(261021135927099003)(261022075727099003)(261009223027099003)(260925021911599003)(260925021311599003)(260925022911599003)(10067099003)(18002099003)(6133799003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?fqreoWvBHc7l61boAhABLcr8KBvoxmSJET0w6rA05TK6MXbBS+zl+D2fBb+o?=
+ =?us-ascii?Q?l01DWqplFBXM0tVIzCPdHac6tp8/6M7RqPnwqUrM/93zgtZBndq7YivEBjlb?=
+ =?us-ascii?Q?FtNAoxkWxdeWUMbnwAkJuUeYQ0oRL267EPRvcVBiRlUOcB+XPeCDPzo8F1r9?=
+ =?us-ascii?Q?8xBPfMX1tYTkpZf+DuQNWRkzqU//zatDNb2nyhpYzdiJdKjrqGl6lNpaCp+l?=
+ =?us-ascii?Q?lqX1DTei85D0I1XZvvIY50eQhJKyK/E7AzJjwO5oxD0w9haIQjZGQ67TfIN8?=
+ =?us-ascii?Q?812ye8EmJbUY2DzpgYov0GXlzQ7+Lxobr7R3RxPokkXvv0GnEx4oAK0KR4GW?=
+ =?us-ascii?Q?1VJjIivXSkaa3CRHpZyL0G0Eko6yL0Ddc1kObiUbwqXuiI56AiH+PnOtVoYI?=
+ =?us-ascii?Q?Iakne8swpp1YYfgwY5hwMCDPl8q7FhMqJbXxvp9wa8Ujj3jFE93hFwxaxdda?=
+ =?us-ascii?Q?XnDZcv5VawFK1vkg35RHz/KdeQSW6k6tcgvnbBzj5+kyrgL0tp4E4crRAiDI?=
+ =?us-ascii?Q?fmIKkxGPyk9RWWIQP9ZN8TPsvQLjfzwyF7hUfsaWmjJsssyfvb7Y1vhAX99y?=
+ =?us-ascii?Q?vpB4ErzkW/66EdtDf3oQduSJ65AN7Hzq95ajYZWOy5cl9KpynY8lMbnUmVwi?=
+ =?us-ascii?Q?fv3NC58pP2/M3oqtnsrREloEHvsJ2k7ewir9kFi1ajDKc2I2eXBdviNQqh6R?=
+ =?us-ascii?Q?McN3yytdWX5M72N609wVjcQuhyeZH4eA1DV240MeB+x+htWISj9I/BsMIoh/?=
+ =?us-ascii?Q?6Zd/8zGw3XfzhPXyunjldg0qgnXhIANFjhR+CCT9e9MFHhPTF9tX+6Z4mvgR?=
+ =?us-ascii?Q?ZxvgzR2zsNQyf3ShNjBrO0oP5B2ki62wLVG9T/zCOkEXHpTyvZFg5SjldEHb?=
+ =?us-ascii?Q?CSOKqPyEtV9gTMBddRhg4X/pyJTsLeSs+QolMnnmSfnCMrW7era27nF4VFVi?=
+ =?us-ascii?Q?GQR2Y3KlcYCDG7mM8/tVgJ6a1YxACL5pSl+3+2iuI0thPNaatIcPOq48PcaZ?=
+ =?us-ascii?Q?ntQCC0ubDRXuZE8SJO8lJwxD7gSE3izmqwqoky0BB7n5ueOlI98khLmXgVPj?=
+ =?us-ascii?Q?J1MRsESetP9QpvBXNFB9wKDL0WfRvpMsUQvPu7ArpQRZOuhlmsNutwBuNB2A?=
+ =?us-ascii?Q?SKVXKd+NkdTBREqArgqqP8QerXBZ1WaJL8k9Amuf3rvVtuXmtCp8wFJJQgvE?=
+ =?us-ascii?Q?Jctbp6zGDAzWAgVIlE2PiPta1iaGKa7otsHuhyPHAucIyFP9nWsnNVjnw8Uw?=
+ =?us-ascii?Q?0o5IwKOnJ+qosf/G5SicheciRhHTYsQAWcUTuS9r3gu26xOWjcF6/6ISfWmu?=
+ =?us-ascii?Q?4uLi3Qipbre7Ha0KK81zFxM9ZzOQVewZgKasnH3iuFRv/ZWo5J8mvq6i9iek?=
+ =?us-ascii?Q?PS1+V2VwGYHvXaImddnXig8STJPK4+nmyoiio/UP7RsXq5RepBiNeu8pwnyJ?=
+ =?us-ascii?Q?zw/s1AugqGsf2NNhghKPspVI+syJRShtFU+ClLXscVr6+oAP44dd0hxo/dl3?=
+ =?us-ascii?Q?ggfghh2MdAVnvz4R64wn11U4wPLVkHk5j/iBtIjHLhZ6sHJRRMjUKz+7A4UA?=
+ =?us-ascii?Q?rES/eRAbGnj4AMJ2imQka1oXEXPaqDeN9q/XeYCHtaALU6eSrUQoMxNrVyiZ?=
+ =?us-ascii?Q?shDeYf5fiQsvqteuRBHyQ/xkJX0ArahCErBxZ8eNIjdZEX7WSHfCQsXX6tvE?=
+ =?us-ascii?Q?IjlbZHwH+W8MIQEiwHicUETgrGcnCO3oztPsYT3klTrL97N3ObjTn/O2Yy1f?=
+ =?us-ascii?Q?V+rm+jelwGiiEew2CNZqVZ/V1tkz2XO+TSoLtaqwmLDa16q3jiui?=
+X-OriginatorOrg: valinux.co.jp
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1a0ce2d1-914c-48eb-6fcd-08df332bef67
+X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 06:39:50.4389
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: dlScNdHS10sEWG648sER5gnm2f4AnbQSEPhYkVYz4/NSy3nizs39B/dLvP6mkO4TL+RJsV+UMqaxb+y11KC9fA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY1P286MB3373
 
+PCIe channel 0 on the R-Car S4-8 Spider board can work either as a Root
+Complex (the default) or as an Endpoint. Add an overlay that disables
+the RC node and enables the EP node, to let it work in EP mode.
 
+Signed-off-by: Koichiro Den <den@valinux.co.jp>
+---
+Changes in v2:
+  - Polish the header (Marek)
+  - Link to v1: https://lore.kernel.org/r/20261022082113.3163666-1-den@valinux.co.jp/
 
-在 2026/10/26 05:44, Waiman Long 写道:
-> Since the introduction of cpuset.cpus.exclusive in commit
-> e2ffe502ba45 ("cgroup/cpuset: Add cpuset.cpus.exclusive for v2"), a
-> compute_effective_exclusive_cpumask() helper which is later renamed to
-> compute_excpus() is added to compute the effective xcpus of a partition
-> root. However update_parent_effective_cpumask() is not updated in all
-> proper places to use the new helper to check if a given cpuset should
-> remain a valid partition root. This can cause a cpuset to incorrectly
-> remain a valid partition root even if no effective xcpus is left.
-> 
-> Fix that problem by using compute_excpus() to compute the effective xcpus
-> into delmask in all cases except partcmd_disable, partcmd_invalidate
-> or partcmd_update with newmask set and use it for tasks_nocpu_error()
-> check as well as checking its emptiness. This enables us to catch invalid
-> partition root more accurately in update_parent_effective_cpumask().
-> 
-> In the case of partcmd_update with newmask set, the passed in new
-> effective xcpus value will directly be used in the tasks_nocpu_error()
-> check without relying on old data in the cpuset.
-> 
-> For the partcmd_update with NULL newmask case, the cpu exclusivity test
-> there is also relaxed to be performed only if exclusive_cpus is empty.
-> 
-> Some test case are added to test_cpuset_prs.sh for invalidating a
-> partition root due to its effective xcpus becoming empty as well as
-> making sure that an invalid partition can only be revived when exclusive
-> CPUs are available agin.
-> 
-> Fixes: e2ffe502ba45 ("cgroup/cpuset: Add cpuset.cpus.exclusive for v2")
-> Signed-off-by: Waiman Long <longman@redhat.com>
-> ---
->  kernel/cgroup/cpuset.c                        | 87 ++++++++++---------
->  .../selftests/cgroup/test_cpuset_prs.sh       | 11 +++
->  2 files changed, 56 insertions(+), 42 deletions(-)
-> 
-> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-> index bbd44782d4bf..b850aba4d907 100644
-> --- a/kernel/cgroup/cpuset.c
-> +++ b/kernel/cgroup/cpuset.c
-> @@ -1795,7 +1795,7 @@ static void remote_cpus_update(struct cpuset *cs, struct cpumask *xcpus,
->   * update_parent_effective_cpumask - update effective_cpus mask of parent cpuset
->   * @cs:      The cpuset that requests change in partition root state
->   * @cmd:     Partition root state change command
-> - * @newmask: Optional new cpumask for partcmd_update
-> + * @newmask: Optional new effective xcpus for partcmd_update
->   * @tmp:     Temporary addmask and delmask
->   * Return:   0 or a partition root state error code
->   *
-> @@ -1810,11 +1810,11 @@ static void remote_cpus_update(struct cpuset *cs, struct cpumask *xcpus,
->   * given back to parent's effective_cpus. 0 will always be returned.
->   *
->   * For partcmd_update, if the optional newmask is specified, the cpu list is
-> - * to be changed from effective_xcpus to newmask. Otherwise, effective_xcpus is
-> - * assumed to remain the same. The cpuset should either be a valid or invalid
-> - * partition root. The partition root state may change from valid to invalid
-> - * or vice versa. An error code will be returned if transitioning from
-> - * invalid to valid violates the exclusivity rule.
-> + * to be changed from effective_xcpus to newmask. Otherwise, effective_xcpus
-> + * will be computed and a valid partition will be invalidated if it is the new
-> + * cpumask is empty. The cpuset should either be a valid or invalid partition
-> + * root. The partition root state may change from valid to invalid or vice
-> + * versa.
->   *
->   * For partcmd_invalidate, the current partition will be made invalid.
->   *
-> @@ -1837,7 +1837,6 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
->  	int deleting;	/* Deleting cpus from parent's effective_cpus	*/
->  	int old_prs, new_prs;
->  	int part_error = PERR_NONE;	/* Partition error? */
-> -	struct cpumask *xcpus = user_xcpus(cs);
->  	int parent_prs = parent->partition_root_state;
->  	bool nocpu;
->  
-> @@ -1880,30 +1879,30 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
->  	if (!newmask && xcpus_empty(cs))
->  		return PERR_CPUSEMPTY;
->  
-> -	nocpu = tasks_nocpu_error(parent, cs, xcpus);
-> +	/*
-> +	 * Except for partcmd_disable and non-NULL newmask, use delmask
-> +	 * to compute the current effective xcpus value and use it for
-> +	 * tasks_nocpu_error check.
-> +	 */
-> +	if ((cmd != partcmd_disable) && !newmask) {
-> +		compute_excpus(cs, tmp->delmask);
-> +		nocpu = tasks_nocpu_error(parent, cs, tmp->delmask);
-> +	}
->  
->  	if ((cmd == partcmd_enable) || (cmd == partcmd_enablei)) {
-> -		/*
-> -		 * Need to call compute_excpus() in case
-> -		 * exclusive_cpus not set. Sibling conflict should only happen
-> -		 * if exclusive_cpus isn't set.
-> -		 */
-> -		xcpus = tmp->delmask;
-> -		if (compute_excpus(cs, xcpus))
-> -			WARN_ON_ONCE(!cpumask_empty(cs->exclusive_cpus));
->  		new_prs = (cmd == partcmd_enable) ? PRS_ROOT : PRS_ISOLATED;
->  
->  		/*
->  		 * Enabling partition root is not allowed if its
->  		 * effective_xcpus is empty.
->  		 */
-> -		if (cpumask_empty(xcpus))
-> +		if (cpumask_empty(tmp->delmask))
->  			return PERR_INVCPUS;
->  
-> -		if (prstate_housekeeping_conflict(new_prs, parent_prs, xcpus, NULL))
-> +		if (prstate_housekeeping_conflict(new_prs, parent_prs, tmp->delmask, NULL))
->  			return PERR_HKEEPING;
->  
-> -		if (tasks_nocpu_error(parent, cs, xcpus))
-> +		if (nocpu)
->  			return PERR_NOCPUS;
->  
->  		/*
-> @@ -1915,16 +1914,14 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
->  		 *
->  		 * Warn if it is not the case.
->  		 */
-> -		cpumask_and(tmp->new_cpus, xcpus, cpu_active_mask);
-> +		cpumask_and(tmp->new_cpus, tmp->delmask, cpu_active_mask);
->  		WARN_ON_ONCE(!cpumask_subset(tmp->new_cpus, parent->effective_cpus));
-> -
->  		deleting = true;
->  	} else if (cmd == partcmd_disable) {
->  		/*
->  		 * May need to add cpus back to parent's effective_cpus
->  		 * (and maybe removed from subpartitions_cpus/isolated_cpus)
-> -		 * for valid partition root. xcpus may contain CPUs that
-> -		 * shouldn't be removed from the two global cpumasks.
-> +		 * for valid partition root.
->  		 */
->  		if (is_partition_valid(cs)) {
->  			cpumask_copy(tmp->addmask, cs->effective_xcpus);
-> @@ -1944,8 +1941,8 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
->  			goto write_error;
->  		}
->  
-> -		/* Check newmask again, whether cpus are available for parent/cs */
-> -		nocpu |= tasks_nocpu_error(parent, cs, newmask);
-> +		/* Check newmask whether cpus are available for parent/cs */
-> +		nocpu = tasks_nocpu_error(parent, cs, newmask);
->  
->  		/*
->  		 * partcmd_update with newmask:
-> @@ -2000,7 +1997,7 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
->  		/*
->  		 * partcmd_update w/o newmask
->  		 *
-> -		 * delmask = effective_xcpus & parent->effective_cpus
-> +		 * delmask = newly computed effective xcpus value
->  		 *
->  		 * This can be called from:
->  		 * 1) update_cpumasks_hier()
-> @@ -2012,7 +2009,7 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
->  		 * A partition error happens when parent has tasks and all
->  		 * its effective CPUs will have to be distributed out.
->  		 */
-> -		if (nocpu) {
-> +		if (nocpu || cpumask_empty(tmp->delmask)) {
->  			part_error = PERR_NOCPUS;
->  			if (is_partition_valid(cs))
->  				adding = cpumask_and(tmp->addmask,
-> @@ -2025,38 +2022,44 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
->  				cpumask_copy(tmp->addmask, cs->effective_xcpus);
->  				adding = true;
->  			}
-> -		} else if (is_partition_invalid(cs) && !cpumask_empty(xcpus) &&
-> -			   cpumask_subset(xcpus, parent->effective_xcpus)) {
-> +		} else if (is_partition_invalid(cs)) {
->  			struct cgroup_subsys_state *css;
->  			struct cpuset *child;
->  			bool exclusive = true;
->  
->  			/*
->  			 * Convert invalid partition to valid has to pass the
-> -			 * cpu exclusivity test as well as the housekeeping
-> -			 * check.
-> +			 * cpu exclusivity test when cpuset.cpus.exclusive is
-> +			 * empty as well as the housekeeping check.
->  			 */
->  			if (prstate_housekeeping_conflict(cs->partition_root_state,
-> -							  parent_prs, xcpus, NULL)) {
-> +							  parent_prs, tmp->delmask, NULL)) {
->  				part_error = PERR_HKEEPING;
->  				goto write_error;
->  			}
-> -			rcu_read_lock();
-> -			cpuset_for_each_child(child, css, parent) {
-> -				if (child == cs)
-> -					continue;
-> -				if (!cpusets_are_exclusive(cs, child)) {
-> -					exclusive = false;
-> -					break;
-> +			if (cpumask_empty(cs->exclusive_cpus)) {
-> +				rcu_read_lock();
-> +				cpuset_for_each_child(child, css, parent) {
-> +					if (child == cs)
-> +						continue;
-> +					if (!cpusets_are_exclusive(cs, child)) {
-> +						exclusive = false;
-> +						break;
-> +					}
->  				}
-> +				rcu_read_unlock();
->  			}
-> -			rcu_read_unlock();
->  			if (exclusive)
-> -				deleting = cpumask_and(tmp->delmask,
-> -						xcpus, parent->effective_cpus);
-> +				deleting = !cpumask_empty(tmp->delmask);
->  			else
->  				part_error = PERR_NOTEXCL;
->  		}
-> +		/*
-> +		 * When both cs and parent remain valid, parent's
-> +		 * compute_partition_effective_cpumask() call would have removed
-> +		 * cs's effective_xcpus from the parent's effective_cpus. So
-> +		 * there is no need to adjust parent's effective_cpus here.
-> +		 */
->  	}
->  
->  write_error:
-> diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-> index d04aad697b96..8bdda955b4a7 100755
-> --- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-> +++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-> @@ -359,6 +359,8 @@ TEST_MATRIX=(
->  								       A1:P0|A2:P1|A3:P2|B1:P1 2-4|3"
->  	"  C1-6:P1 C3-6:P1 C5-6:P1 .      .      P2      .      .    0 A1:1-2|A2:3-6|A3:5-6 \
->  								       A1:P1|A2:P2|A3:P-1 3-6"
-> +	"  C1-6:P2 C3-6:P2 C3-4:P2 .      .     C5-6     .      .    0 A1:1-4|A2:5-6|A3:5-6 \
-> +								       A1:P2|A2:P2|A3:P-2 1-6"
->  	" C1-4:X2-4 C2-4:X3-4:P1 C3-4:X4:P2 \
->  				   .      .      X5      .      .    0 A1:1-4|A2:2-4|A3:3-4 \
->  								       A1:P0|A2:P-1|A3:P-2 ."
-> @@ -427,6 +429,10 @@ TEST_MATRIX=(
->  	# cpuset.cpus is allowed, but those extra CPUs are ignored.
->  	"  C2-3:P1   C3:P1  .      .      .     C2-4    .      .     0 A1:|A2:2-3 A1:P1|A2:P1"
->  
-> +	# A child cannot recover until its exclusive CPUs are available again.
-> +	" CX1-4:P1 CX3-4:P1 .     .     X1-2     .      .      .     0 A1:1-2|A2:1-2|XA2: A1:P1|A2:P-1"
-> +	" CX1-4:P1 CX3-4:P1 .     .  X1-2:X1-4   .      .      .     0 A1:1-2|A2:3-4|XA2:3-4 A1:P1|A2:P1"
-> +
->  	# Taking away all CPUs from parent or itself if there are tasks
->  	# will make the partition invalid.
->  	"  C2-3:P1   C3:P1  .      .      T     C2-3    .      .     0 A1:2-3|A2:2-3 A1:P1|A2:P-1"
-> @@ -503,6 +509,11 @@ TEST_MATRIX=(
->  	"  C1-3:P2 C2:P2    .      .       .     P1     .      .     0 A1:1-3|A2:2 A1:P2|A2:P-1 1-3"
->  	"  C1-3:P2 C2:P1    .      .       .    C2-3    .      .     0 A1:1-3|A2:2-3 A1:P2|A2:P-1 1-3"
->  
-> +	# A middle isolated parent shrunk below coverage: the released CPUs of
-> +	# an invalidated child stay isolated as a higher ancestor still covers them.
-> +	" CX0-4:P2 CX2-4:P2 CX3-4:P2 .     .     X2     .      .     0 A1:0-1,3-4|A2:2|A3:2 \
-> +								       A1:P2|A2:P2|A3:P-2 0-4"
-> +
->  	#
->  	#  old-A1 old-A2 old-A3 old-B1 new-A1 new-A2 new-A3 new-B1 fail ECPUs Pstate ISOLCPUS
->  	#  ------ ------ ------ ------ ------ ------ ------ ------ ---- ----- ------ --------
+ arch/arm64/boot/dts/renesas/Makefile          |  3 +++
+ .../dts/renesas/r8a779f0-spider-pcie0-ep.dtso | 21 +++++++++++++++++++
+ 2 files changed, 24 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/renesas/r8a779f0-spider-pcie0-ep.dtso
 
-Reviewed-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
-Tested-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
+diff --git a/arch/arm64/boot/dts/renesas/Makefile b/arch/arm64/boot/dts/renesas/Makefile
+index c6f3718cd19f..2b0012118287 100644
+--- a/arch/arm64/boot/dts/renesas/Makefile
++++ b/arch/arm64/boot/dts/renesas/Makefile
+@@ -86,6 +86,9 @@ dtb-$(CONFIG_ARCH_R8A77995) += r8a77995-draak-panel-aa104xd12.dtb
+ dtb-$(CONFIG_ARCH_R8A779A0) += r8a779a0-falcon.dtb
+ 
+ dtb-$(CONFIG_ARCH_R8A779F0) += r8a779f0-spider.dtb
++dtb-$(CONFIG_ARCH_R8A779F0) += r8a779f0-spider-pcie0-ep.dtbo
++r8a779f0-spider-pcie0-ep-dtbs := r8a779f0-spider.dtb r8a779f0-spider-pcie0-ep.dtbo
++dtb-$(CONFIG_ARCH_R8A779F0) += r8a779f0-spider-pcie0-ep.dtb
+ dtb-$(CONFIG_ARCH_R8A779F0) += r8a779f4-s4sk.dtb
+ 
+ dtb-$(CONFIG_ARCH_R8A779G0) += r8a779g0-white-hawk.dtb
+diff --git a/arch/arm64/boot/dts/renesas/r8a779f0-spider-pcie0-ep.dtso b/arch/arm64/boot/dts/renesas/r8a779f0-spider-pcie0-ep.dtso
+new file mode 100644
+index 000000000000..cdfc898e44f6
+--- /dev/null
++++ b/arch/arm64/boot/dts/renesas/r8a779f0-spider-pcie0-ep.dtso
+@@ -0,0 +1,21 @@
++// SPDX-License-Identifier: (GPL-2.0 OR MIT)
++/*
++ * DT Overlay for enabling PCIe channel 0 in Endpoint Configuration with the
++ * R-Car S4-8 Spider board.
++ *
++ * Copyright (C) 2026 Renesas Electronics Corp.
++ *
++ * For example, follow the standard configfs steps for pci-epf-test documented
++ * in Documentation/PCI/endpoint/pci-test-howto.rst to set the endpoint up.
++ */
++
++/dts-v1/;
++/plugin/;
++
++&pciec0 {
++	status = "disabled";
++};
++
++&pciec0_ep {
++	status = "okay";
++};
 
-Thanks,
-Guopeng
+base-commit: d99e991749f3b12a3a8b23224725dbc1ca15f6bf
+-- 
+2.54.0
+
