@@ -1,92 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793046312;
-	b=3vk2wAM/gRVNUHWO7+2t3IFWSKhhbecMs48b8Z6DUKzoSfOVq03FRrdqsvOzIcyhmMch
-	 0peUdLBR0rdhh4BtnlGePmvW7jh1VMi73BBdNG0AGR/nV/T0IVT326cbh2S7AaZmALb5t
-	 WlKeg7v97DaSqjuJUafNCSK40xr/zvFX1U3aluNWMmgvF8SrkKn/m+IR9bxKjG2mG5+Uc
-	 Oesgu3sIFMH5NfZl0kdVPUKeJhW9KxBn+RI4aETh+Q7Prxt6UPm6a7alw1Rp+SNN+Wuvn
-	 FUWm7UhyTsKry89pZ2VahdcbQzhqXv6nEtvuUQQSWGJoLwzzKQP26sbkQjkG3WgWGgQ==
+	t=1793046327;
+	b=dLpIQjNixf6Bm7guGdcaI8NrN75xTL4yZ95xTW5mDIfULzteU+QnuVTm1k3Cfrsu1Q6r
+	 nlzb2bmq+mMorYph7Vk7T2VY1NM+wL02B1vKXKx35fkEW9zKXsovGnv2Jhc1XewrGsJs5
+	 F3YYYX7QQzX7vyz65f70TetogSiyUkkaSJ72WZMUdGtSzuhN/p3ZeDLh2NAmTbiOFG9Lv
+	 5tNU5SWa5ZNd3rdt07b/DI59r2OQl84Nq+CaGFJfLPyNQMumgFIJKITA9Ld6qfb499BdV
+	 V2cf4lZhAMXQafd33auHkuI6KI2UKynREYJLMHr9BzT2eGEcui45TES3NsbsrmN8bVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793046312;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793046327;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Sender:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=Rgy6JAa8WWpUv6rTqSbaTFGVKK9WiNFppzWhSik38N0=;
-	b=IEGgVnnlw4twPtssn7KQRS/5uqDyjW1Mw2WcmxnYZJLT4lgFBIfknaL7VCLcRmLqVjzd
-	 r03csd+giF+jB3iDeT4TPpT61HRYfnJsWTn0h9b2CXE55yrBOa0wZkNRP6zWNILtNKGlq
-	 V2VHPqlD/617OrZBggwCQSkN1yHY/kuQG/jGlDBIpeJRByh6nBWDgoTRqti3zD74k6eDx
-	 crfRVoq9g3rYn6i1EXbl52A4gLZ9PIcV1ttpxsxJPXELusdcPZTdVj7vC0eWzbrxfi5ZT
-	 YOSNBRxHkQuUGQT7qlBp0TRzhB/g0658fZIWEOAKX05odlvsXgxwPJIfUtYIiLJlUww==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=aed4Rgnz6EIvDA20M5W9ZTUqmqT/8I65PlxJXFCzwH4=;
+	b=OwKtPwNNX4LzV5KWtRvsaszfQvFwC0Fzenwi7J/AaOXK349cXBXMPZUNxbga4EHegtmf
+	 TJoFSj7T2qfcXf+yWJaEskF3AxvLL68wFAD3bR8A9WOQ3dNkuiOWNsncHrUO7W2NTHy36
+	 Y/1rOI9Phy2zHgMBAlc8ULPXWYz3DFrkEMuJy1RMPG2HFFpnjlFXskHXVdvSorgoX3E2o
+	 OpMzSwoOX0KVLBgcjQts1oKV2g75A/KZlDNr1ajD3bfcEbCfJwwZ5V31AY+92SF1TlNzZ
+	 P2Lr2z/dRQ0r5wgDr62osLKIO0I8U5gVC0B0gaa0OVZSCMDUVcz59QsZ1fl+1NV+jPA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
+	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=m6ttTcRQ;
-	arc=none smtp.remote-ip=74.125.82.45
-Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DUDTcG4m;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3D0D606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 20:25:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3D0D606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEAE1606A322
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 20:25:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AEAE1606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=m6ttTcRQ
-Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-18cdcfc05ffso4160467c88.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:25:11 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DUDTcG4m
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a210470b49so28185755e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:25:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793046311; x=1793651111; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Rgy6JAa8WWpUv6rTqSbaTFGVKK9WiNFppzWhSik38N0=;
-        b=m6ttTcRQAMLbecDDXna//Ii2f/zGqMt/aKjrOnBZ20kOlcur5NpzBx7xF7S4TVQgsq
-         ICfplv1hL+Weeh6xEI9C1OKfhuwuVh0SrjC50UsE4Bdvywscm0OspUesErvXXz2sVnI1
-         jyjLAS9tgi6F1SF34vbRRHL6QJCH6vZ+tMdMxkSI37IkQrJT9Rk6Orw+3RLn4kcCRACx
-         /cYUN5WhfuwVH2ADlqZ4TGClOeqWIbsV9qyCqPI076o02T2htQirK2kVYcA2B8WPkAM9
-         J8o6MiQ1SXWu/auYzwm5w36tvrqrqUeO8x53LKOKQYcBjkPL3m3f9Ov58/sjg8qsHgJy
-         2cKA==
+        d=gmail.com; s=20251104; t=1793046325; x=1793651125; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=aed4Rgnz6EIvDA20M5W9ZTUqmqT/8I65PlxJXFCzwH4=;
+        b=DUDTcG4m01pngZDHRm0vtPFiOHAjvOKTNBrJy4qLEyCDaX/4FvhKwMnM/B4N4dICPY
+         ZN0PpluhYDZ5mz+D/aKGoBDrXZPuXdmjwcVarXDdeygPP8yCZctQduU40Y1H+kU644z6
+         czhYGUD9XX4B2g52+eUdXWkWWZT1Iwjg39rB2CBRkQ3kx5H14H2EOuoJIT06bkWlxR1V
+         zqOFf1kGIQnKdc2wwPUge9u5DKN2M7IXGfo+hSksdnHJRXaWCG/Ycy0L3syVwSF7fvWu
+         HHPKhE8Gp53Pc9pxLqdCA/JYg+wzU1pRAdidExi+kSNz6cMUaLEFjM2M6mMpDkb3TJ8U
+         4PxQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793046311; x=1793651111;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Rgy6JAa8WWpUv6rTqSbaTFGVKK9WiNFppzWhSik38N0=;
-        b=S5Qzqv0dFBzjdyjoSeNqrOqRCKdIWXTJHXNDy/2+kBEzx0QpLaUOaNX50KdwOysCyt
-         FYEqR1juFxIyorFDjIumZLg5bW/vXuPxiuVVUw6CoYZIJ4KL+uPYzj3ubO1zIyeXsRJd
-         ectfiqu35XWoa39+RNjH/xqMvElSvB7F23RQSoa6qABSBuVuP2ZOJxmDbQssV+zmUwhp
-         Fp035/aL/n+a7eYPF8zsaTUeaDSCoY8D/C4zTyyrYI2VQyLE4A/WrE0Z05+D1ewlPS6U
-         SL33uSj+5iWns2mO7Fo7JAMuds0aq4ZRvu721Reuph+H3bv5QCAyrvHp9EUjnxtuifnu
-         s/IQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzLjLsye8n5k4Ky1tEeHwMMHRjVGtyEZBrvQA3MuTTN5HF0kHQQppdckHQBvnrtKLcX3az+J6JfhfRIQjg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLzccMFR0+ipmzlpG2dmZxtSY7EuuYlUlbyYoxSr9MelyRFE9JA
-	VCZxlGxLBMhMKhAYHyDHr33JclGfayszEU+H65wPeR/8E/Sho60+YwuJ
-X-Gm-Gg: AYBFou0mikgyi7hl+OqdEpSGh6AQthaHYilz3HRhLBvZPQjsfOS4q46JxtdJ3PVHUUj
-	6zxrSdd/c0Nwy5CdprsoYaMrKro497R56q4vZgfg+uuvqFAa9bM6xTU39BBVz5xshAC0vxsD3Qf
-	uBf3+zVS8Jno2ImdVl5ZeMRsrcYpMUItvjsHwB248TCnc4F1duIdzbF1ULD7ihWgSrwUzSijZgK
-	GkumGQNooQc+0FxQbTE5jNOqH2BxTP+YCGr9snB9domKVyhPStK2T1ukEWkvoe88jBtqOFfXvio
-	S0P7KkCpYw6U6N8O87fCbs1vELlqV+swOcKwZUMcx7UuWQTkXd27n72oBkIPLJ4CWy0Vf3XkkMe
-	5Wa2vjqptf4lZgvzpmW22ncya7yyfPztMwAZ73x/1bXyitm0clnYSb7qHqDFj2Di96GiMwQ1/5O
-	WkVz+ntF8GlKCBTYB19i9pc+Ja4ddQiMHhcwo1UkaZ1PNHnDt7t1VhR1KvxHvTurnyLw0+w6OYb
-	iR/wjvdK5jq1Z+7vOXQ4QaIzN10vaqoq43XHg8RmANCG0lspicul/gzoWNSeGqbrTM8LA==
-X-Received: by 2002:a05:701b:290b:b0:192:74cf:1db2 with SMTP id a92af1059eb24-1993505e004mr10125053c88.11.1793046310420;
-        Mon, 26 Oct 2026 13:25:10 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a32ff780sm26015316c88.22.2026.10.26.13.25.09
+        d=1e100.net; s=20260707; t=1793046325; x=1793651125;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aed4Rgnz6EIvDA20M5W9ZTUqmqT/8I65PlxJXFCzwH4=;
+        b=J3XlcaXJktKLmc061/6wl121dAaUGg625T+UYyYvLw6hUYTjgxVtUmmtZyIfwChbFc
+         viDkdxOm+dSH46xm+ZcougQzBCgPcFZoR8vOmw+AwIQCoFEaU09acwXzU40SN3Hhsfkf
+         nKKbL40mTsT57AyGsvBqSNMI7vXbFWhISHm+d8jQs3gBZhMH5bPcV8sARq6zMI7jqOM4
+         yn7A06klJ4anc+O0lzzWe/wEzh7u3LdgoIkaGpSfjo5PBm+sKDQgEco1VHnCqNghTNy8
+         RZGEAAgNch5xCQ0PrkzeCPhEJYLqjOXS1I9S3NVoDAyhoFomdZpRJP95e0j1H7rRNkmo
+         OUXQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwYlJ67CEdaEL6r6ZJcZhJMNqsr3g/37ShAsyXAhGYgNhu3DlDmYexD0s1BdbVktnc9emtfsa2i0xQcQSE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIeoUxlBK0OWrzFGJcealApYoQcUeCZUgFLFvtghjnx+t1azxyf
+	Snoqftp14RvryPLxsYhWb/vamk9bUHxGI2me9jCgvMejkDUm9zqe7Kys
+X-Gm-Gg: AYBFou2AJ8b6WgDsXaa9jhalBSsCu/iSydCTOiB4M23r10r84x9vVCifvNQfBk+a9p1
+	R1760bhiNsVgQT+YQ9gqGVOs1tpUJ73jGnRRPOr9qIIkwZGh2bDSoUlCWSBU/FX631/kf8tnZLz
+	XSGh4WzwMaLlQuuOTk/WfJIl0qzOYfzYrDOaRMv7lzfHJyTlHQFpEv2WhjWoZJBkt6AKdlpFp25
+	ryllUyc2koMpONUgi9fj9YqAqt1cXVyFmLWAQiHN9RshN0wigjHdKRjW4l1f4LzAxjquwXIqepS
+	siD07Q3LFlwO5zq4r+yOgCFt/a8YHF6Au3mzwV5LCj7sGS95tHF9gIezP5vrr+CNE+620xlBeWf
+	z5dBKXMyKYFSyYgR9APZ3DYy7Ox5yKkQM1l65Gr1Sa0Au7zoUeh87Z3kZCV59RUrj2eptLHFgQx
+	K7/N0lloRYHIO0vT1b76jjeq5HrGiHEZVGUtt4t2IvjEZEG/ndRT0srrfzmyfO9p3/hLF3kuWS1
+	kPsz+Xq98apVlGIlKPdazM5eXz5zJbVn/rrQBoXhl4n2kO+7BVFhI+Zdt6MU9F/nt0=
+X-Received: by 2002:a05:600c:3541:b0:4a1:fbf8:55c9 with SMTP id 5b1f17b1804b1-4a35acc6a2emr148103215e9.33.1793046325020;
+        Mon, 26 Oct 2026 13:25:25 -0700 (PDT)
+Received: from unicorn.lan.internal ([2a0d:3341:b894:4600:8f9a:af38:72d6:7c0e])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a046fefsm276685585e9.5.2026.10.26.13.25.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 13:25:09 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Mon, 26 Oct 2026 13:25:08 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Ethan Jimmy <duhxu0@gmail.com>
-Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] hwmon: (acer-aspire14-ec) Add driver for Acer Aspire 14
- 52MT and 52M fan
-Message-ID: <0dee51d4-c153-457a-a3aa-ebf1177df045@roeck-us.net>
-References: <20261010041313.34153-1-duhxu0@gmail.com>
+        Mon, 26 Oct 2026 13:25:24 -0700 (PDT)
+From: Giuseppe Piscitelli <ooonea@gmail.com>
+To: Damien Le Moal <dlemoal@kernel.org>,
+	Niklas Cassel <cassel@kernel.org>
+Cc: linux-ide@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ata: libata-core: Check device support before querying power state
+Date: Mon, 26 Oct 2026 21:25:11 +0100
+Message-ID: <20261026202513.669084-1-ooonea@gmail.com>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,438 +94,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261010041313.34153-1-duhxu0@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 09, 2026 at 09:13:13PM -0700, Ethan Jimmy wrote:
-> The Aspire A14-52M and A14-52MT expose fan speed through an I2C HID
-> embedded controller that also serves the keyboard. The same product id
-> is used by other Acer keyboards, so the driver binds only when DMI
-> matches these two models.
-> 
-> Signed-off-by: Ethan Jimmy <duhxu0@gmail.com>
-> ---
->  Documentation/hwmon/acer-aspire14-ec.rst |  38 ++++
->  Documentation/hwmon/index.rst            |   1 +
->  MAINTAINERS                              |   8 +
->  drivers/hwmon/Kconfig                    |  20 ++
->  drivers/hwmon/Makefile                   |   1 +
->  drivers/hwmon/acer-aspire14-ec.c         | 270 +++++++++++++++++++++++
->  6 files changed, 338 insertions(+)
->  create mode 100644 Documentation/hwmon/acer-aspire14-ec.rst
->  create mode 100644 drivers/hwmon/acer-aspire14-ec.c
-> 
-> diff --git a/Documentation/hwmon/acer-aspire14-ec.rst b/Documentation/hwmon/acer-aspire14-ec.rst
-> new file mode 100644
-> index 000000000000..73acfb181c39
-> --- /dev/null
-> +++ b/Documentation/hwmon/acer-aspire14-ec.rst
-> @@ -0,0 +1,38 @@
-> +.. SPDX-License-Identifier: GPL-2.0-or-later
-> +
-> +Kernel driver acer-aspire14-ec
-> +==============================
-> +
-> +Supported chips:
-> +
-> +  * Acer Aspire 14 AI 52MT/52M embedded controller
-> +
-> +    Prefix: 'aspire14_ec'
-> +
-> +    Addresses scanned: none
-> +
-> +    Datasheet: unavailable
-> +
-> +Author: Ethan Jimmy <duhxu0@gmail.com>
-> +
-> +Description
-> +-----------
-> +
-> +This driver monitors the fan on the Acer Aspire 14 AI (Aspire A14-52M
-> +and A14-52MT). The embedded controller is an I2C HID device (vendor
-> +0x1025, product 0x174b) that also provides the keyboard.
-> +
-> +The device is autodetected on those models. The same product id is used
-> +by other Acer keyboards; those machines stay with hid-generic. On the
-> +Aspire A14-52M and A14-52MT this driver provides both the keyboard and
-> +the fan sensor.
-> +
-> +Fan speed is reported in RPM through the standard hwmon attribute
-> +``fan1_input``. The driver does not change fan speed.
-> +
-> +Sysfs entries
-> +-------------
-> +
-> +======================= ======================================================
-> +fan1_input		Fan speed in RPM
-> +======================= ======================================================
-> diff --git a/Documentation/hwmon/index.rst b/Documentation/hwmon/index.rst
-> index 199ca79621e9..9dd16e6ddabd 100644
-> --- a/Documentation/hwmon/index.rst
-> +++ b/Documentation/hwmon/index.rst
-> @@ -22,6 +22,7 @@ Hardware Monitoring Kernel Drivers
->     abituguru
->     abituguru3
->     acbel-fsg032
-> +   acer-aspire14-ec
->     acpi_power_meter
->     ad7314
->     adc128d818
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 5ad12c57ca5f..b944f77c7a71 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -262,6 +262,14 @@ L:	linux-gpio@vger.kernel.org
->  S:	Maintained
->  F:	drivers/gpio/gpio-pcie-idio-24.c
->  
-> +ACER ASPIRE 14 AI (A14-52M, A14-52MT) EC FAN DRIVER
-> +M:	Ethan Jimmy <duhxu0@gmail.com>
-> +L:	linux-hwmon@vger.kernel.org
-> +L:	linux-input@vger.kernel.org
-> +S:	Maintained
-> +F:	Documentation/hwmon/acer-aspire14-ec.rst
-> +F:	drivers/hwmon/acer-aspire14-ec.c
-> +
->  ACER ASPIRE ONE TEMPERATURE AND FAN DRIVER
->  M:	Peter Kaestle <peter@piie.net>
->  L:	platform-driver-x86@vger.kernel.org
-> diff --git a/drivers/hwmon/Kconfig b/drivers/hwmon/Kconfig
-> index 18c682e1a475..84e9e9c115a1 100644
-> --- a/drivers/hwmon/Kconfig
-> +++ b/drivers/hwmon/Kconfig
-> @@ -67,6 +67,26 @@ config SENSORS_ABITUGURU3
->  	  This driver can also be built as a module. If so, the module
->  	  will be called abituguru3.
->  
-> +config SENSORS_ACER_ASPIRE14_EC
-> +	tristate "Acer Aspire 14 AI EC fan sensor"
-> +	depends on HID
-> +	depends on X86 || COMPILE_TEST
-> +	depends on DMI || COMPILE_TEST
-> +	depends on I2C_HID_ACPI || I2C_HID_OF || COMPILE_TEST
-> +	help
-> +	  If you say yes here you get support for reading the fan
-> +	  speed from the embedded controller on the Acer Aspire 14 AI
-> +	  (Aspire A14-52M and A14-52MT). The controller is an I2C HID
-> +	  device (vendor 0x1025, product 0x174b) that also provides the
-> +	  keyboard. Fan speed is read-only.
-> +
-> +	  The same product id is used by other Acer keyboards. This driver
-> +	  registers only on the Aspire A14-52M and A14-52MT, where it also
-> +	  provides the keyboard. Other machines stay with hid-generic.
-> +
-> +	  This driver can also be built as a module. If so, the module
-> +	  will be called acer-aspire14-ec.
-> +
->  config SENSORS_SMPRO
->  	tristate "Ampere's Altra SMpro hardware monitoring driver"
->  	depends on MFD_SMPRO
-> diff --git a/drivers/hwmon/Makefile b/drivers/hwmon/Makefile
-> index d4c345ed7261..ac5cec462c81 100644
-> --- a/drivers/hwmon/Makefile
-> +++ b/drivers/hwmon/Makefile
-> @@ -27,6 +27,7 @@ obj-$(CONFIG_SENSORS_W83791D)	+= w83791d.o
->  
->  obj-$(CONFIG_SENSORS_ABITUGURU)	+= abituguru.o
->  obj-$(CONFIG_SENSORS_ABITUGURU3)+= abituguru3.o
-> +obj-$(CONFIG_SENSORS_ACER_ASPIRE14_EC) += acer-aspire14-ec.o
->  obj-$(CONFIG_SENSORS_AD7314)	+= ad7314.o
->  obj-$(CONFIG_SENSORS_AD7414)	+= ad7414.o
->  obj-$(CONFIG_SENSORS_AD7418)	+= ad7418.o
-> diff --git a/drivers/hwmon/acer-aspire14-ec.c b/drivers/hwmon/acer-aspire14-ec.c
-> new file mode 100644
-> index 000000000000..9d100f2a0b80
-> --- /dev/null
-> +++ b/drivers/hwmon/acer-aspire14-ec.c
-> @@ -0,0 +1,270 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + * Hwmon driver for the Acer Aspire 14 AI embedded controller.
-> + *
-> + * Author: Ethan Jimmy <duhxu0@gmail.com>
-> + *
-> + * On the Aspire A14-52M and A14-52MT the EC is an I2C HID device
-> + * (vendor 0x1025, product 0x174b) that also serves the keyboard. The same
-> + * product id is used by other Acer keyboards. The HID driver is registered
-> + * only when DMI matches these models, so those machines stay with hid-generic.
+The standby path queries the power state before checking whether the
+device accepts ATA power-management commands. This sends CHECK POWER MODE
+to ATAPI devices, including the QEMU DVD-ROM, which rejects it.
 
-Doees this impact the actual keyboard functionality ?
-> + * 
-> + * Fan speed is read with one feature report: A0 00 A0 08 00 02 02. The
-> + * reply carries a little-endian status word, command id, and RPM.
-> + */
-> +
-> +#include <linux/dmi.h>
-> +#include <linux/hid.h>
-> +#include <linux/hwmon.h>
-> +#include <linux/module.h>
-> +#include <linux/mutex.h>
-> +#include <linux/string.h>
-> +#include <linux/unaligned.h>
-> +
-> +#define ACER_ASPIRE14_VID		0x1025
-> +#define ACER_ASPIRE14_PID		0x174b
-> +#define ACER_ASPIRE14_REPORT_ID		0xa0
-> +#define ACER_ASPIRE14_PREFIX		0xa0
-> +#define ACER_ASPIRE14_CMD_MARK		0x02
-> +#define ACER_ASPIRE14_RPM_OFFSET	8
-> +#define ACER_ASPIRE14_MIN_REPLY		(ACER_ASPIRE14_RPM_OFFSET + sizeof(u16))
-> +#define ACER_ASPIRE14_STATUS_OK		0xe000
-> +#define ACER_ASPIRE14_CMD_FAN_RPM	0x0008
-> +
-> +struct acer_aspire14_data {
-> +	struct hid_device *hdev;
-> +	struct device *hwmon_dev;
-> +	struct mutex lock; /* protects buf across feature report I/O */
+Run the existing taskfile initialization and device-class check first,
+as the active-power path already does.
 
-There is no asynchronous call, meaning the lock is unnecessary
-since requests are already serialised by the hwmon subsystem.
+Fixes: 9cec467d0502 ("ata: libata-core: Do not call ata_dev_power_set_standby() twice")
+Signed-off-by: Giuseppe Piscitelli <ooonea@gmail.com>
+---
+OpenAI Codex investigated the QEMU DVD power-command failures and wrote
+this fix and its local validation.
 
-> +	u8 *buf;
-> +	u32 report_len;
-> +};
-> +
-> +static int acer_aspire14_fan_rpm(struct acer_aspire14_data *data, long *val)
-> +{
-> +	u16 status, command_id;
-> +	int ret;
-> +
-> +	mutex_lock(&data->lock);
-> +
-> +	memset(data->buf, 0, data->report_len);
-> +	data->buf[0] = ACER_ASPIRE14_REPORT_ID;
-> +	data->buf[2] = ACER_ASPIRE14_PREFIX;
-> +	put_unaligned_le16(ACER_ASPIRE14_CMD_FAN_RPM, &data->buf[3]);
-> +	data->buf[5] = ACER_ASPIRE14_CMD_MARK;
-> +	data->buf[6] = ACER_ASPIRE14_CMD_MARK;
-> +
-> +	ret = hid_hw_raw_request(data->hdev, ACER_ASPIRE14_REPORT_ID,
-> +				 data->buf, data->report_len,
-> +				 HID_FEATURE_REPORT, HID_REQ_SET_REPORT);
-> +	if (ret < 0)
-> +		goto unlock;
-> +	if (!ret) {
+Earlier validation covered 1,536 source-body dispatch cases, a Linux 7.3
+build and two ordinary corrected QEMU DVD cycles. No exhaustive ATA/ATAPI
+hardware matrix was run. This base was checked for applicability; no new
+build or runtime test was run.
 
-Shouldn't that check for a specific length, such as data->report_len ?
+ drivers/ata/libata-core.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-> +		ret = -EIO;
-> +		goto unlock;
-> +	}
-> +
-> +	memset(data->buf, 0, data->report_len);
-> +	data->buf[0] = ACER_ASPIRE14_REPORT_ID;
-> +	ret = hid_hw_raw_request(data->hdev, ACER_ASPIRE14_REPORT_ID,
-> +				 data->buf, data->report_len,
-> +				 HID_FEATURE_REPORT, HID_REQ_GET_REPORT);
-> +	if (ret < 0)
-> +		goto unlock;
-> +	if (ret < ACER_ASPIRE14_MIN_REPLY) {
-> +		ret = -EIO;
-> +		goto unlock;
-> +	}
-> +
-> +	status = get_unaligned_le16(&data->buf[1]);
-> +	command_id = get_unaligned_le16(&data->buf[3]);
-> +	if (status != ACER_ASPIRE14_STATUS_OK ||
-> +	    command_id != ACER_ASPIRE14_CMD_FAN_RPM) {
-> +		ret = -EIO;
-> +		goto unlock;
-> +	}
-> +
-> +	*val = get_unaligned_le16(&data->buf[ACER_ASPIRE14_RPM_OFFSET]);
-> +	ret = 0;
-> +
-> +unlock:
-> +	mutex_unlock(&data->lock);
-> +	return ret;
-> +}
-> +
-> +static int acer_aspire14_read(struct device *dev, enum hwmon_sensor_types type,
-> +			      u32 attr, int channel, long *val)
-> +{
-> +	struct acer_aspire14_data *data = dev_get_drvdata(dev);
-> +
-> +	if (type != hwmon_fan || attr != hwmon_fan_input || channel != 0)
-> +		return -EOPNOTSUPP;
+diff --git a/drivers/ata/libata-core.c b/drivers/ata/libata-core.c
+index 92233fb..c644e2c 100644
+--- a/drivers/ata/libata-core.c
++++ b/drivers/ata/libata-core.c
+@@ -2047,6 +2047,10 @@ void ata_dev_power_set_standby(struct ata_device *dev)
+ 	struct ata_taskfile tf;
+ 	unsigned int err_mask;
+ 
++	/* Issue STANDBY IMMEDIATE command only if supported by the device */
++	if (!ata_dev_power_init_tf(dev, &tf, false))
++		return;
++
+ 	/* If the device is already sleeping or in standby, do nothing. */
+ 	if ((dev->flags & ATA_DFLAG_SLEEPING) ||
+ 	    !ata_dev_power_is_active(dev))
+@@ -2065,10 +2069,6 @@ void ata_dev_power_set_standby(struct ata_device *dev)
+ 	    system_entering_hibernation())
+ 		return;
+ 
+-	/* Issue STANDBY IMMEDIATE command only if supported by the device */
+-	if (!ata_dev_power_init_tf(dev, &tf, false))
+-		return;
+-
+ 	ata_dev_notice(dev, "Entering standby power mode\n");
+ 
+ 	err_mask = ata_exec_internal(dev, &tf, NULL, DMA_NONE, NULL, 0, 0);
+base-commit: 69be770908ae57354a41d7e1cc99ab46278d2e86
+-- 
+2.54.0
 
-Unnecessary check.
-
-> +
-> +	return acer_aspire14_fan_rpm(data, val);
-> +}
-> +
-> +static umode_t acer_aspire14_is_visible(const void *drvdata,
-> +					enum hwmon_sensor_types type,
-> +					u32 attr, int channel)
-> +{
-> +	if (type == hwmon_fan && attr == hwmon_fan_input && channel == 0)
-> +		return 0444;
-> +
-Unnecessary check. Just return 0444.
-
-> +	return 0;
-> +}
-> +
-> +static const struct hwmon_channel_info *const acer_aspire14_info[] = {
-> +	HWMON_CHANNEL_INFO(fan, HWMON_F_INPUT),
-> +	NULL
-> +};
-> +
-> +static const struct hwmon_ops acer_aspire14_ops = {
-> +	.is_visible = acer_aspire14_is_visible,
-> +	.read = acer_aspire14_read,
-> +};
-> +
-> +static const struct hwmon_chip_info acer_aspire14_chip_info = {
-> +	.ops = &acer_aspire14_ops,
-> +	.info = acer_aspire14_info,
-> +};
-> +
-> +static const struct dmi_system_id acer_aspire14_dmi_table[] = {
-> +	{
-> +		.matches = {
-> +			DMI_MATCH(DMI_SYS_VENDOR, "Acer"),
-> +			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "Aspire A14-52M"),
-> +		},
-> +	},
-> +	{
-> +		.matches = {
-> +			DMI_MATCH(DMI_SYS_VENDOR, "Acer"),
-> +			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "Aspire A14-52MT"),
-> +		},
-> +	},
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(dmi, acer_aspire14_dmi_table);
-> +
-> +static u32 acer_aspire14_fan_report_len(struct hid_device *hdev)
-> +{
-> +	struct hid_report *report;
-> +	u32 len;
-> +
-> +	report = hdev->report_enum[HID_FEATURE_REPORT].report_id_hash[ACER_ASPIRE14_REPORT_ID];
-> +	if (!report)
-> +		return 0;
-> +
-> +	len = hid_report_len(report);
-> +	if (len < ACER_ASPIRE14_MIN_REPLY || len > HID_MAX_BUFFER_SIZE)
-> +		return 0;
-> +
-> +	return len;
-> +}
-> +
-> +static int acer_aspire14_probe(struct hid_device *hdev,
-> +			       const struct hid_device_id *id)
-> +{
-> +	struct acer_aspire14_data *data;
-> +	struct device *hwmon_dev;
-> +	long rpm;
-> +	u32 report_len;
-> +	int ret;
-> +
-> +	hdev->quirks |= HID_QUIRK_INPUT_PER_APP;
-> +
-> +	ret = hid_parse(hdev);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = hid_hw_start(hdev, HID_CONNECT_DEFAULT | HID_CONNECT_DRIVER);
-> +	if (ret)
-> +		return ret;
-> +
-> +	report_len = acer_aspire14_fan_report_len(hdev);
-> +	if (!report_len)
-> +		return 0;
-> +
-> +	data = devm_kzalloc(&hdev->dev, sizeof(*data), GFP_KERNEL);
-> +	if (!data)
-> +		return 0;
-> +
-> +	data->buf = devm_kzalloc(&hdev->dev, report_len, GFP_KERNEL);
-> +	if (!data->buf)
-> +		return 0;
-> +	data->report_len = report_len;
-> +
-> +	ret = devm_mutex_init(&hdev->dev, &data->lock);
-> +	if (ret) {
-> +		hid_warn(hdev, "failed to init mutex: %d\n", ret);
-> +		return 0;
-> +	}
-> +
-> +	data->hdev = hdev;
-> +	hid_set_drvdata(hdev, data);
-> +
-> +	ret = acer_aspire14_fan_rpm(data, &rpm);
-> +	if (ret)
-> +		hid_dbg(hdev, "fan report failed: %d\n", ret);
-> +	else
-> +		hid_dbg(hdev, "initial fan speed %ld RPM\n", rpm);
-> +
-> +	hwmon_dev = hwmon_device_register_with_info(&hdev->dev, "aspire14_ec",
-> +						    data, &acer_aspire14_chip_info,
-> +						    NULL);
-> +	if (IS_ERR(hwmon_dev)) {
-> +		hid_warn(hdev, "failed to register hwmon: %pe\n", hwmon_dev);
-> +		return 0;
-
-That is a problem. Something is wrong here: If the driver fails to instantiate
-the hwmon device, it should return an error. Same for all other "return 0"
-instances above.
-
-> +	}
-> +	data->hwmon_dev = hwmon_dev;
-> +
-> +	return 0;
-> +}
-> +
-> +static void acer_aspire14_remove(struct hid_device *hdev)
-> +{
-> +	struct acer_aspire14_data *data = hid_get_drvdata(hdev);
-> +
-> +	if (data && data->hwmon_dev)
-> +		hwmon_device_unregister(data->hwmon_dev);
-> +	hid_hw_stop(hdev);
-> +}
-> +
-> +static int acer_aspire14_reset_resume(struct hid_device *hdev)
-> +{
-> +	if (hdev->claimed & HID_CLAIMED_INPUT)
-> +		hidinput_reset_resume(hdev);
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct hid_device_id acer_aspire14_id_table[] = {
-> +	{ HID_I2C_DEVICE(ACER_ASPIRE14_VID, ACER_ASPIRE14_PID) },
-> +	{ }
-> +};
-> +
-> +static struct hid_driver acer_aspire14_driver = {
-> +	.name = "acer-aspire14-ec",
-> +	.id_table = acer_aspire14_id_table,
-> +	.probe = acer_aspire14_probe,
-> +	.remove = acer_aspire14_remove,
-> +	.reset_resume = acer_aspire14_reset_resume,
-> +};
-> +
-> +static int __init acer_aspire14_init(void)
-> +{
-> +	if (!dmi_check_system(acer_aspire14_dmi_table))
-> +		return -ENODEV;
-> +
-> +	return hid_register_driver(&acer_aspire14_driver);
-> +}
-> +
-> +static void __exit acer_aspire14_exit(void)
-> +{
-> +	hid_unregister_driver(&acer_aspire14_driver);
-> +}
-> +
-> +module_init(acer_aspire14_init);
-> +module_exit(acer_aspire14_exit);
-> +
-> +MODULE_AUTHOR("Ethan Jimmy <duhxu0@gmail.com>");
-> +MODULE_DESCRIPTION("Acer Aspire 14 AI EC fan driver");
-> +MODULE_LICENSE("GPL");
