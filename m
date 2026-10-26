@@ -1,60 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793032962;
-	b=TtpdtvtR0KFBdfH035kQw/0SWYimT1rPsFr2fcCdEdGYmUbcDGQRzHuW71q+PVOywdZf
-	 Ft4ZZZUjiCqwa/Y5tO250QjbOze35R9RxKvy0W0oK557FqZVSgPkMhLnvjWj6lRWFxjuL
-	 WASa51tZtYDNoELl1aBaJFXE4Kau6a7u2qJkn62F+IvePmyDL3vqEfPk7YYOuP5frTJzg
-	 3xV78twis8QEiI/rW9qonVef6TT/AousNK0oxbwsHrMLPXrpu4ZpZFRFxMAODsZu+XOnu
-	 VCijGBcE1nR71m4WyPfpiYUxdUn4k6n2LVXIACmFdAs/JgKDlBHoH326ZUQIfcNEf+g==
+	t=1793032982;
+	b=cgTvCDrwqRn0c0Qz0X544AU30ONLl+5dzdLRZnAIZMwpLpitUYjBiEqe2D3zCGxnB3LJ
+	 mrg1QKqWYqjiQ2zeCEzH+IRo8maG/FoFXiyEACeAZFRHk9QDSqRTZd0m4BlOO7uEQxN5q
+	 mlGEMPvAm818shsp3GeqSnZCvmMpzwdA66eeDiA3KzaaKXHqEmpOl1UDH5O1pTm3XUJOX
+	 Yg98/zZCLmRLRVlaSKijq6eDnF0OjwwnK+3cG4RZlV6gJbDeXbKYx5Uodooju5j2axPoG
+	 j/lIdtjEAJkOCsFpg1G31xL88w55SvpZEfRxvvCVD1ZMeAhJhvz98a+jcaTisx5HDEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793032962;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=6mbXt/Af0zoLEPy8v7Meri4cKDTZRsA9NiegSTOWj8g=;
-	b=A6erRk25vP7h0M16uNkdKkf1B1K20Qg6rfZ7dF9fZYM3vfXaEgolO8A8gDyOd3jnY7Sw
-	 L4M7TrpgtvGtvTiWawQavMabdNC4M1VlTfPlZ9sarU/5SMO3WLDtiLJbXRCLeH+JKgQ6y
-	 QAcBP/R6h2fbZHa/VYMCzVcHgnaoZXYk/C2Mpiv2Jq1IuNMoaiKFpEhR6Xg9DeUvWwKHt
-	 AU0esd6M13gpJBC5cYTy7Zdctu4ufl7eE16rCVBBIdkHmTtEVuz7LGiCmkWwvSJPmuI5G
-	 +BdkUCXnlKcAP3+2Zt7iifJe6aLHxdLvYRLMndaDcU1FrnEiom4x0h2a4hPPf9fTO+w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793032982;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=rl/sdudR8wX1+GEVh2fbN+8+vnr5jBWbAdmUCT1slSI=;
+	b=y540RNOkNPoJIS1Lczot1luO1+nJ4JSjeG4TEF6L0F63xUTPFeh4CQHVGrBr1C0txjRW
+	 eu6xUrRu5ROZQvhWwazWI0lrXr2h6Jysw9imb/KgRq82ZqjfheVC9NZK5J7jLtXc8+F1Q
+	 XkT5dtnPhu2ntz8L1L9HKEqqkyrx5ASnMHcDOXJnGLed87v+yfgFi4LRNpcFJ9J1kJIbo
+	 n7P7a4aC5ZQ7G8UAoUfJbqipknu1gLFwkeOpFJ2FHnNfiMBLMINrUjS4zfqTWlnxyL8FD
+	 Komn3SDsZNuL8SqUGUDDOUn3gYPZQ1iqVQ1MbZHEON5Sn8hppcJIBtqiERSebObrdAg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="RuiU/N1D";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A84CC606A31A;
-	Mon, 26 Oct 2026 16:42:42 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Zr2s8SKr;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 186EF606A31D;
+	Mon, 26 Oct 2026 16:43:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 186EF606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RuiU/N1D
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4CA71F01825;
-	Mon, 26 Oct 2026 16:42:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793032962;
-	bh=6mbXt/Af0zoLEPy8v7Meri4cKDTZRsA9NiegSTOWj8g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RuiU/N1DOwMl477zmkdrSfMoPB38d0RUMO51YSSc1d5EHkWobQ8zBq8Vp0MFcwTba
-	 mEIiQw383b58naYd5TzAiD+JyxARrdC7mK0WRXnJuJ2NTOcT/+sbSBk9vJ/17CdHgg
-	 cDr7eUtZoJIHatUL2LHtB1OYwM+v8GQY0DIXWetcs1X795se5lMwDngp0O8Pf+NN1T
-	 n3K01A39o7109M9T8se5Ao0q/vOiIyo6vkcY/W8US7Bp/ChLN8dofBdUM1SwYUifCO
-	 Ud95vosTArsJ3cZ1cImhkOM6wbUY0XXxY/CQ0YfUZa4/7LBq6dJjj6bK88NHFG8lMT
-	 /Y7B8QK8l62bg==
-Date: Mon, 26 Oct 2026 17:42:39 +0100
-From: Frederic Weisbecker <frederic@kernel.org>
-To: Stian Halseth <stian@itx.no>
-Cc: Peter Zijlstra <peterz@infradead.org>,
-	Paul Menzel <pmenzel@molgen.mpg.de>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Anna-Maria Behnsen <anna-maria@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	regressions@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] sched/cputime: Don't warn when the tick period starts
- after idle exit
-Message-ID: <at-C_3rGi55L1v2X@localhost.localdomain>
-References: <bfe9b14a-6e65-41c5-b638-26f6e033788b@molgen.mpg.de>
- <20261025100202.2584654-1-stian@itx.no>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Zr2s8SKr
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7295B1655;
+	Mon, 26 Oct 2026 09:42:51 -0700 (PDT)
+Received: from [10.57.60.72] (unknown [10.57.60.72])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 86E553F7B4;
+	Mon, 26 Oct 2026 09:42:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793032974; bh=7rUQZLP+SlM7AbMLViF+r61zYKGh+vmGw1BuFhIyhSg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Zr2s8SKrmcvfq6RKvLPEXc/cBwYmoEbGNi0zUkO4kq9deWneGSqXYqSqpPzXzcjU/
+	 sWWP825ixEHEutVa39SjxwhGoWk6tT6A0FmdXnnTwxdvpiCOmVbWpd7InSXf/lA6+C
+	 37u2CmBH7DJr8wMcBe/V91TS/kWm57pehuEfkP0I=
+Message-ID: <474d4ed0-b011-49dd-853e-697448382a0e@arm.com>
+Date: Mon, 26 Oct 2026 17:42:50 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,34 +53,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261025100202.2584654-1-stian@itx.no>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/3] pinctrl: sunxi: number the IRQ banks from the
+ first one that has IRQs
+To: Pablo Mazzini <pmazzini@gmail.com>, Linus Walleij <linusw@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-sunxi@lists.linux.dev
+References: <20261025142412.112216-1-pmazzini@gmail.com>
+Content-Language: en-GB
+From: Andre Przywara <andre.przywara@arm.com>
+In-Reply-To: <20261025142412.112216-1-pmazzini@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Le Sun, Oct 25, 2026 at 11:02:02AM +0100, Stian Halseth a écrit :
-> kcpustat_dyntick_stop() warns if idle ends before the current tick
-> period has started. It fired once during boot on a Dell XPS 13, in
-> CPU 0's first idle period, right after the switch from refined-jiffies
-> to tsc-early.
+Hi Pablo,
+
+just some heads up about process:
+- Please do not repost that quickly! The kernel doc says to wait at 
+least a day, but that's only the lower limit, in case the series is 
+almost ready and there were only minor comments from real(!) reviewers.
+I would wait for a couple of days, after you got some proper reviews.
+The reason is that reviews (by humans) take time, and it's not like 
+people are bored waiting for some patches to look at. So they might be 
+interrupted by something or need to do some checks and research. It's 
+pretty bad if their effort is ambushed by a new revision, which now 
+means they need to start over.
+- Please do not repost just because Sashiko said something. Wait for a 
+proper review. It's probably a good idea to acknowledge the comment, but 
+don't just re-post then.
+- Try to avoid posting inside the merge window. Depending on the 
+subsystem and maintainer, your posts might just be ignored, because they 
+might be busy fixing up conflicts. But more importantly: you are missing 
+the correct base: you should always base your patches on an -rc1, unless 
+being told otherwise explicitly. And since -rc1 won't be out till 
+Sunday, this is not a good timing.
+
+I will comment on the patch set separately.
+
+Cheers,
+Andre
+
+
+On 10/25/26 15:24, Pablo Mazzini wrote:
+> The DT pinctrl helper numbers the IRQ banks from PA, even when PA has
+> none. The A523 got a DT interrupt for its unimplemented PA bank to work
+> around that, the A733 would need the same, and on both PK is written
+> past the end of irq_array.
 > 
-> That can happen. The clocksource switch continues ktime from the last
-> jiffies update, so ktime falls behind the tick by up to a tick, and the
-> sched timer that NOHZ arms next on tick_next_period can expire more
-> than a tick after now. In a KVM guest it was 1.5 ticks ahead after a
-> switch from jiffies to hpet. An idle period that stops the tick and
-> exits before it fires then sees ts->last_tick - TICK_NSEC after now.
+> Number the IRQ banks like the static drivers do, with irq_bank_map for
+> the A523 and A733, and drop the PA interrupt from the binding and the
+> A523 DT. The B288 (IRQ banks on PB, PD, PF and PG) then needs no
+> made-up interrupt.
+> 
+> v3:
+> - apply irq_bank_map to the A733 register layout too (Sashiko)
+> 
+> v2:
+> - give the A523 and A733 an irq_bank_map, and drop the PA interrupt
+>    from the binding and the A523 DT
+> 
+> Pablo Mazzini (3):
+>    pinctrl: sunxi: dt: number the IRQ banks from the first one that has
+>      IRQs
+>    dt-bindings: pinctrl: sun55i-a523: one interrupt per implemented bank
+>    arm64: dts: allwinner: a523: drop the PA GPIO interrupt
+> 
+>   .../bindings/pinctrl/allwinner,sun55i-a523-pinctrl.yaml   | 8 ++++----
+>   arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi            | 3 +--
+>   drivers/pinctrl/sunxi/pinctrl-sun55i-a523.c               | 2 +-
+>   drivers/pinctrl/sunxi/pinctrl-sun60i-a733.c               | 5 ++++-
+>   drivers/pinctrl/sunxi/pinctrl-sunxi-dt.c                  | 8 +++-----
+>   drivers/pinctrl/sunxi/pinctrl-sunxi.h                     | 7 ++++---
+>   6 files changed, 17 insertions(+), 16 deletions(-)
+> 
+> 
+> base-commit: 4f0dbdbdb3ad122e8bbfb1d722fd584bac7124db
 
-I'm a bit confused by the scenario that happens here. Do you mean that
-after switching from a clocksource to another, ktime_get() goes backward?
-
-Also refine-jiffies is not a suitable clocksource for nohz, so last_tick
-shouldn't be updated while refine-jiffies is the clocksource.
-
-What am I missing?
-
-Thanks.
-
--- 
-Frederic Weisbecker
-SUSE Labs
