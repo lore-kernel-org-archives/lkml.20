@@ -1,61 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.238.236.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793057205;
-	b=qGow59nmH4fPDt7JXq3lySbUkBTK0r9UjKE3Veojs68FwZP+tjtYvQXtll5xBWXVarcu
-	 Tk6L+RaFNRbR3znaatwGMUUBsqDfGDITiY7SfHjPBaapw3aTy2oRukkFknFsR5wYGa0re
-	 EiHsB9+YoyueL/7lqPuI/Vb4HRoTdCxQwFp/KYXtjTy6/SQkCITcR7oajMj4ja1lxtJW9
-	 uEQ5FhB6nFyfig9WjBSWA986CN3B9Q3oaP+WYFVIaN3l4+L1Gak79/qH/J3oFyHqnhobX
-	 7jUPPJNBEXtp0Tofr7kO88Rgxp57+tRnVHuSCD1g1jxi2Ne1LDKg1X2mdQB3/alJQPg==
+	t=1793057199;
+	b=v5VHw7Kf97ECf36zfP/L8gUIcKEnabf3VKHk5qcVlFP734vEbv1a6CiQmWuETw4WbdUE
+	 FKuf847DpsZYtEsC/L2HR01hcTIMuptJgkIOo2eAgtOZlThOQrRnGc4OPxoJ2k0Db8Pyo
+	 B5i2mKUXJ/onASk+ojnXL4oltnUvtauKP+kHrxfgjXEuXhdM8jnvP308lHWM9AdpGn0W7
+	 vRhTV+u30tL8b2NsCh+9SJVjCUSToiZs/r0rwwU/VoMd7MOp8gV5mLBqFs38PR1gAmWQD
+	 fjUbiCsodxqZUQCGj0YRnInZGrY9ZgX0e7VcNiOkq6g7li3j2fZLa0Aa189+CtlMwBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793057205;
-	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=TuMxpuKm0GqZ9iLgROZ0NfIBSu1Y+sVk0Mx1hT6klxU=;
-	b=I5/2ENbTMclJuhTj6JIoAUY5e7uq2r992GID/TlvYQbNFhaAyz50+rxwVQXS2y72vVsp
-	 BlDeoYUnExwLBQ9P3NemZDxvb+YsvO2X/s8h8+my/Szrcqh0gho41kZeXFHV6ralmPHCW
-	 VtvMPEXQFnBIXpn122cIakHu+CLFsBbGZj4CMtZuTVsIHJFOwm28+bROYuAIETq3GhWyj
-	 5DkJWwb+xHSTigtiGkiewAfwr4hmYxeWodDawaAWVT9/SzMqCFnx/3gT5zjqqgZh3gvgg
-	 Vney4kkYxII9C5pHycj+etBXhTfJorcthYiHM/AKW7vMtJMdhCNawBq+yP7fDv+AjhA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793057199;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=JD3h3UamRh59QcjyL8J1MuE/w/u1X5RZ3DOsE1wllXg=;
+	b=NeQb2GcWBl5Inypx+1MhdXyhs1QJBavrKhzQAnVRw7fDgBWMtC61HFlGZRgWFOPyQZ4i
+	 leMfK5UUStfpZfCbWGFR/gWnhiBJwxiWRxMs8FtSosQ/U+r671WiC1aUlFox3lMYd8/D5
+	 9776zCmnWSMg9zcikAfDdpMxMH1k20RvdJQ3beErtpMTpF+EKpFIZxHHw6NtcKLMstYmX
+	 Paf1qn3X3AtsxiTFqdu44V56FpUn3nstBCerh/DFpXUnVWwLYXbfChzbn8RIFhHxZR7Il
+	 DOAVElna8z1VlEwQTfTW+Aa4p/CJJiwg/qmYBdicuamtLdj7Ik0/Vr9aO7Ij6PUU0Yw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kemnade.info;
-	spf=pass smtp.mailfrom=kemnade.info;
-	dkim=pass header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=LqOoDYWG;
-	arc=none smtp.remote-ip=178.238.236.174
-Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NqxXcyZ5;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49D5A606A337;
-	Mon, 26 Oct 2026 23:26:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49D5A606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73544606A31A;
+	Mon, 26 Oct 2026 23:26:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=LqOoDYWG
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
-	Reply-To:Content-ID:Content-Description;
-	bh=TuMxpuKm0GqZ9iLgROZ0NfIBSu1Y+sVk0Mx1hT6klxU=; t=1793057205; x=1794266805; 
-	b=LqOoDYWG6IGZbfmhG25ui5A78fLxB0j2g++tevB9nTK1xRals/+UHVpF44SEbY2zlmSfMfovInb
-	9hvqRhNAnI53CBIPF9UXpHmR1TFFlW8T2ItUiUVyLD+VbaOH4EmIEz+u2hyaxVo4aWHVXrUsN6Fbn
-	Li0s821gzOAh1+Xd0KPcPVRh3lzQFikHywbsf4ynYrb4ypD2LhL9AKTPO+deWv6CD9kBD6Sij5fNs
-	OtQU+rUN1fMNNzfKA2rktfERRff6n2BHRjqm/z4IhSJDBhFMwO1fT7kdqvEuTGqoeXmDBzcMQmdHx
-	rfp1x/rH0E60IwXVe9XrxHtwk3KJaPhWTcUA==;
-Date: Tue, 27 Oct 2026 00:26:35 +0100
-From: Andreas Kemnade <andreas@kemnade.info>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: Pablo Mazzini <pmazzini@gmail.com>, Mark Brown <broonie@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Lee Jones <lee@kernel.org>, Alistair
- Francis <alistair@alistair23.me>, linux-hwmon@vger.kernel.org,
- mfd@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 5/7] regulator: sy7636a: report the temperature
-Message-ID: <20261027002635.6b831c0b@kemnade.info>
-In-Reply-To: <f68279bc-20f1-41a9-ba5c-92b974785cd8@roeck-us.net>
-References: <20261026003918.155321-1-pmazzini@gmail.com>
-	<20261026003918.155321-6-pmazzini@gmail.com>
-	<f68279bc-20f1-41a9-ba5c-92b974785cd8@roeck-us.net>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NqxXcyZ5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06A8C1F01825;
+	Mon, 26 Oct 2026 23:26:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793057199;
+	bh=JD3h3UamRh59QcjyL8J1MuE/w/u1X5RZ3DOsE1wllXg=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=NqxXcyZ5B7hNxVICB8D7ZuTu2KTFj1aY/wZHjWEHcrphKUZXEhErMydzk2Pzo1mLO
+	 KXsakbOlKadHDvCpmoPg4VdpWYop82udMmVVbnJSsa/yNZfnIpnc7zXVJuFxKNqzsX
+	 XXtyntURfV0Gyys700YmRUpcZNsNBwSVXZSPdu5SAf1AyhwNb3x1lfgitOWD3HGdQS
+	 vWS7Cl3Pan8Rn7XnMFij0eGv/K6IbU4S0Jzeq3EhdCV3hZuhxaFbAcpEYOR+STaAHN
+	 NiDWgUxmVXVvm5yitg/azM9C5yVHptICOOnN2qnAup6cV1VLBTsoFalfWOvsoe9Zzc
+	 roonF+qboPgYw==
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Date: Tue, 27 Oct 2026 00:17:48 +0100
+Subject: [PATCH 28/46] mm/mmu_notifier: set ->mm only after mmgrab()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,64 +52,109 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261027-fixes_core-v1-28-6f74bec9a5bb@kernel.org>
+References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
+In-Reply-To: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>, 
+ Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+ Baoquan He <baoquan.he@linux.dev>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
+ Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, 
+ Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>, 
+ Pasha Tatashin <pasha.tatashin@soleen.com>, 
+ Pratyush Yadav <pratyush@kernel.org>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+ Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>, 
+ Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
+ Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
+ Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>, 
+ Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>, 
+ Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
+ Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
+ linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, 
+ Chris Mason <mason@kernel.org>, stable@vger.kernel.org, 
+ "David Hildenbrand (Arm)" <david@kernel.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1928; i=david@kernel.org;
+ h=from:subject:message-id; bh=x0mKttz+HwDvoeWV/WYBCh6ori+6WykC26zRhsHss7s=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLLu358WvjBTPacmt4dPIdDk5tcpn+01cwTchGfUrDY2m
+ /szsutzRykLgxgHg6yYIktQ8H2Dly/X1Va78THDzGFlAhnCwMUpABOZdZHhf0TH64MXTnQzGVbk
+ qRb3zPUxmqEu+rl0VcOt4H8i+Tv3tjEyTI9WCD+789mjnlXPFlqk3zA4dezK72lrV9nE/lCeLr9
+ WlhcA
+X-Developer-Key: i=david@kernel.org; a=openpgp;
+ fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-On Mon, 26 Oct 2026 07:35:24 -0700
-Guenter Roeck <linux@roeck-us.net> wrote:
+From: Chris Mason <mason@kernel.org>
 
-> On Mon, Oct 26, 2026 at 12:39:16AM +0000, Pablo Mazzini wrote:
-> > The separate hwmon cell enables VCOM at probe. Report the temperature
-> > from here, as the TPS65185 and FP9931 drivers do, and under the chip
-> > name as they do: read it while the rails are on and return -ENODATA
-> > otherwise. Boards that need the rails on mark VCOM always-on. Drop the
-> > hwmon driver.  
-> 
-> This is going the wrong way. The correct solution would be to convert
-> the hwmon driver to an auxiliary driver. I am not going to approve
-> this patch. I am not giving an official NACK (yet).
-> 
+Radeon uses a non-NULL notifier->mm to decide whether to call
+mmu_interval_notifier_remove() when freeing a buffer object.
+__mmu_interval_notifier_insert() sets ->mm before validating the range,
+so a wrapping userptr range can leave ->mm set after insertion fails.
+Cleanup then tries to remove an unregistered notifier for which no mm
+reference was acquired.
 
-First we need the problem defined, then the solution, and then we can
-talk about what is the correct solution. The commit message does not
-name a problem.
+Set ->mm only after mmgrab(), once insertion can no longer fail. While
+we could fix radeon's code instead, setting ->mm on success only makes
+the code more robust.
 
-So what we have:
-one bit to turn on a bunch of things,
-after one time to sample (< 1ms), fresh values are provided on the ADC
-register periodically.
-after some more time (max. 50ms), several voltage outputs are ready.
-Powering on those things is expensive, so you would not use this as an
-ordinary temperature sensor.
+Fix generated by an LLM and sent by Chris Mason in private.
 
-The problems I see in the sensor driver this patch might want to solve:
-- problems if the regulator driver is registered earlier.
-- not having powered on the regulator all the time (that is described
-  in the cover letter)
+Fixes: 3506ff69c3ec ("drm/radeon: use mmu_interval_notifier_insert")
+Cc: stable@vger.kernel.org
+Signed-off-by: Chris Mason <mason@kernel.org>
+[ david: simplify description ]
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+---
+ mm/mmu_notifier.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-The way the patch handles it does not require any structural change,
-availabitily of the regmap is given. So it would be a separate cleanup
-patch. 
+diff --git a/mm/mmu_notifier.c b/mm/mmu_notifier.c
+index 2e20f88e162d7..a7bae5de5fedc 100644
+--- a/mm/mmu_notifier.c
++++ b/mm/mmu_notifier.c
+@@ -947,7 +947,6 @@ static int __mmu_interval_notifier_insert(
+ 	struct mmu_notifier_subscriptions *subscriptions, unsigned long start,
+ 	unsigned long length, const struct mmu_interval_notifier_ops *ops)
+ {
+-	interval_sub->mm = mm;
+ 	interval_sub->ops = ops;
+ 	RB_CLEAR_NODE(&interval_sub->interval_tree.rb);
+ 	interval_sub->interval_tree.start = start;
+@@ -964,8 +963,12 @@ static int __mmu_interval_notifier_insert(
+ 	if (WARN_ON(atomic_read(&mm->mm_users) <= 0))
+ 		return -EINVAL;
+ 
+-	/* pairs with mmdrop in mmu_interval_notifier_remove() */
++	/*
++	 * Pairs with mmdrop in mmu_interval_notifier_remove(). Drivers take a
++	 * non-NULL ->mm for "registered", so set it only with the reference.
++	 */
+ 	mmgrab(mm);
++	interval_sub->mm = mm;
+ 
+ 	/*
+ 	 * If some invalidate_range_start/end region is going on in parallel
 
-But it introduces another race condition.
-The temperature might be read too early.
-1ms delay should suffice.
-
-The  SY7636A_OPERATION_MODE_CRL_ONOFF flag might be reset before 
-reading the temperature. If that register does not reset to zero
-but just keeps the temperature last read, then we have no problem.
-
-If not, there needs to be some synchronisation between the regulator
-part and the sensor part, probably a mutex saved in a common structure.
-And in that case, structural change of the drivers is needed which
-I see the following possibilities:
-
-a) non-simple mfd driver
-b) aux device as a child of the regulator driver.
-c) regulator driver containing everything.
-
-No strong personal opinion here.
-
-Regards,
-Andreas
+-- 
+2.43.0
 
