@@ -1,62 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.10.208.61
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792975592;
-	b=ETgnUk8/axKQcw2gBDPyelH0+jlVEbjVlMzRQdEzIIIrDYmLuAjv/jymiclbTz0YMt3x
-	 nlYfB6O0qjWkNsFox5+ehIAuqSSK1Fo0UgsLQ35K83nni8h7/PVR1k533PYrw9QpVgQ6e
-	 It3PM5+II2Q27put3U7KM1yosDYZY7F4fLmCaNJbyza0s1X6lkUxwwpxRrWWn66+ozG/r
-	 OBN7h70IJqWn01lLUHO5s+Jy91jOLUZkwI46DaHU3v9ATe+WUrkzcggk/zbw9oY3zJjEZ
-	 wE+cO6KFyldGl9vqopnH4ANCnpH79PSnJ3MVK6QioKlTpa1zO4Eoi9nJla98HsoJTkQ==
+	t=1792975732;
+	b=jh7FfV4jb062nnUJStndhNEzAq7D07fpwrjnfQxKgLAejbDoJRviIrKa4jIGeeSjY0wZ
+	 TcgsertCIPZw+OFlxzydfIRFHthjSnN2u0nP3O/6XvldeVoEEvEPR9ZVtdThAnpvNuQze
+	 XvtV2CCIe4NPcZLRkmReuqYMgyDUDHwy+osESMWP29HNuhLZghLe0mej5M23kYgDvI7JU
+	 re9CaOobDkim3umH897Km27UTN4adXDV/OXabOCOgc39SsU6HeNwfFuKXunCQ3cz69mmR
+	 NsuIsKnOtic6o1FZTYolHjWeBaMrMemjKpMjn1BKwq8tm39Tf22g2dh3efuqGBThWog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792975592;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:
-	 Organization:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Rspamd-Queue-Id;
-	bh=FAR0iRKXPMW4E6lnTsRJlnzxCnvWYQ6WdVpcOkANE4A=;
-	b=eLZRl3DxyjADN8MijOQtf59sDsHa6fWI9w4DmbKnriZl7NGultaH0CA7EIBM31Me1KhC
-	 aWgI62J6r3QN1ncIUB5kYhXdHtr1KyDLbjVQIV6DtWWtCKBvqluTTh7Nw0gQx7Q8eK73r
-	 +xnpUF2IJ6yu9NYIQe4oxjWCyRfVZKKO/5/ABEl+9dhbAQCmiisg8XisRw0aKJ1lRu+lB
-	 mX9t9bQXqRt1ULJukcXdb/uyvSnpTfVOJiY2t3vC/S8tQdEg65pizT2wTleWiKDvTc7Rc
-	 4sB1cgMJG6A6MLzqaCq0SMrktSC3Vfi2VhBTq4ybww8+jWUcpA6cpJhbURfaVwQ2XQw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792975732;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=udVOlod3HEgAxXI2vzlG4B3fPf5JJlSfrQiG5WIkwpk=;
+	b=2o7LRUQgUJA/b+kvImmjAzuFapInoQCe0WXTUwKWu5Wnh07zh/9M1xHwzMQQd9wH/9wB
+	 vuti/vS/YV4syQe8v0ZUmJ516QtJkRw4iczawHsXSHZ14xr6j++knDdpPpYqctHOGom90
+	 Xt6RyZoElBupLqdfHZ8brvuxE0Sv4osL3JUSH3HioPM+CRUT5TvaZJYOLMwNrz2WoTy/a
+	 +tjoWXywl6Z8BKubik/2P6i4YhJSn9LTUOWNdH9aa8nK9NVnNYOqDwXXOQHxetLV8d2s3
+	 MUNQVnopS5Ijb3ipN/1bldLLZ7nv1ehXJ8PlZsb3zne0Rmk43Kmm/1nhyQVBls6S3mg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=mandelbit.com;
-	spf=pass smtp.mailfrom=mandelbit.com;
-	dkim=pass header.d=mandelbit.com header.i=@mandelbit.com header.a=rsa-sha256 header.s=MBO0001 header.b=kbgmTutz;
-	arc=none smtp.remote-ip=195.10.208.61
-Received: from mout-b-201.mailbox.org (mout-b-201.mailbox.org [195.10.208.61])
+	dmarc=pass header.from=pobox.com;
+	spf=pass smtp.mailfrom=pobox.com;
+	dkim=pass header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm1 header.b=n0IayPEK;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Exe4oodw;
+	arc=none smtp.remote-ip=103.168.172.151
+Received: from fout-a8-smtp.messagingengine.com (fout-a8-smtp.messagingengine.com [103.168.172.151])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3DFF606A31D;
-	Mon, 26 Oct 2026 00:46:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3DFF606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mandelbit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mandelbit.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B706606A31B
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 00:48:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B706606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mandelbit.com header.i=@mandelbit.com header.a=rsa-sha256 header.s=MBO0001 header.b=kbgmTutz
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-b-201.mailbox.org (Postfix) with ESMTPS id 4jCZgd5YSgzLlW8;
-	Mon, 26 Oct 2026 01:46:21 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandelbit.com;
-	s=MBO0001; t=1792975581;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FAR0iRKXPMW4E6lnTsRJlnzxCnvWYQ6WdVpcOkANE4A=;
-	b=kbgmTutzvbAkkgXjacjxueUC05s3Y82cfmdE2HrNo/7IXzihACN9Jz/ce6qoXyZyvzXsrL
-	udGgxEsvd3YjagmYw3G9gHvsl7IoLPDGvkIfKAQUpVa8us0+OsVc+Om939bL2QixO3MWg0
-	5qJMA5b6kwexlMCyvmoj7R1SHdm6qqGkRTGAkfHtHGMixL+P0oD2UJOxYZty22r+bbu7+l
-	SHdLNkZoN6azxgEiblhurNubGo/fuadFbSponIX3vXAUh19gUFSnhMIowdJeLULZCi6NWK
-	E5bEhpVTeyUqfLxx5tJCy+BVWAMj2vqdU3Ycls17CfAhhOTEUp4DQQVtZL7aGQ==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=none;
-	spf=pass (outgoing_mbo_mout: domain of antonio@mandelbit.com designates 2001:67c:2050:b231:465::2 as permitted sender) smtp.mailfrom=antonio@mandelbit.com
-Message-ID: <3e2dee91-bba4-42e3-9d22-619ea54484e4@mandelbit.com>
-Date: Mon, 26 Oct 2026 01:46:19 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm1 header.b=n0IayPEK;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Exe4oodw
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfout.phl.internal (Postfix) with ESMTP id DC7B2EC02C2
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 20:48:50 -0400 (EDT)
+Received: from phl-frontend-01 ([10.202.2.160])
+  by phl-compute-06.internal (MEProxy); Sun, 25 Oct 2026 20:48:50 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1792975730;
+	 x=1793062130; bh=udVOlod3HEgAxXI2vzlG4B3fPf5JJlSfrQiG5WIkwpk=; b=
+	n0IayPEK+VMz2Hjvj8EHJ6u+kXq9iRGPoema7Rm5vA9nu2cG2FRSSq5giCXfSz5N
+	8e3Yxfjx3UhZrpvDsF4Amr3w7Guduwe2pTrgR3RKu+TN+XnaegnRkj5IROt6KqFk
+	85cESkflFNT/sAc4Z+XubeguorkaVh35clZAtuyGuaN9j/ChmmEPHh0FjgKlX+Zp
+	vC0VM2Bc7z/0leVlMfphWOBro2jUviZDICdvFb5AiI9KVM7a2AMGJeOd7Hiq9P9M
+	kHLQZjFDsLeYuCUeaDT+4TaIBjwX0NEmYj5P8ab9FCPhmockXU6DUkZsplC/qZJJ
+	xFQDJYUnT5BI2cRjfiBdAw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792975730; x=
+	1793062130; bh=udVOlod3HEgAxXI2vzlG4B3fPf5JJlSfrQiG5WIkwpk=; b=E
+	xe4oodwVG5TmVy6FOnDPljijtHU9zAuYCEEdKzuoPYkmRPv5ap01GxI2MWsqVsar
+	abF7IbftbtF9tBW7fvT/IviYPzdV3/c3+j58lRkxNvdXQewd+skKlscHqWH/3r7l
+	acO2RnUG+zvw6ytL4nfAb03yulygTRJkuw1iYVHwaWw8sgxGBRACtX0gDWpmW31E
+	PPsRZxQoxFhnYP8i9LZIpDxMXG2qIFNi1muEZA0cA2miVgipy1fKgcvYQa5hh5/J
+	pVB1hMuuegPzOG9gJLm8qz3ttM9m24dSCKhv0O57fvvXx1dns7zKn0aSv26So5Lb
+	EDhj8WCXuHLI81rzPzMRg==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=sign d=pobox.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792975730; d=pobox.com;
+	mf=PGJhcnJ5bkBwb2JveC5jb20+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:jyvbqsCtwdBiChUuB8Hw7P2RbHZBxg/VM0+KYseJ5Dk8OsC
+	sFUrDONx2VGIRBfm1jUnLplqzqBLmLkb5WBZhSPH/62xg/3O2HqhKJruY3LPr1g/
+	SB4YkC4RhuDVkGDosMwPvPkH60Yde0CWUXn8OH+KmqiYy33bo7cLozm5UO5O7Ey9
+	75yGfLoyXNY8/ttWCPCxbS1IaQcfRQyVrQKl9nK/O1MxD+LJDVwFPVWVhKWf+rnT
+	Tx06/1a3gEy1Zi6xvu5Tw5wkEeBnaxFiJJa0Qxv1LMQFK9N3SHmIAKGYagyDZ9de
+	ikSwzcQMBSuUHMaTHJ/m6ykh+gAYGOhy6bElpgg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=mi-m=1; hc=14;
+	hn=cc,content-language,content-transfer-encoding,content-type,
+	date,feedback-id,from,in-reply-to,message-id,mime-version,
+	references,subject,to,user-agent;
+Message-Instance: m=1; h=sha256:41MKAXvoTXN8LUdyB3+lq5a1h8G0EFUWaCA2z5YHMU8=:iQvbRSHRPGa7LFbYBx98BtR+DgVbLuGcOSRE1L7ajoo=;
+X-ME-Sender: <xms:cqPeagBWlPf7TW46luIeDiZPqPKqa9izLIIuT2UX7JDp4J1j8xf9IQ>
+    <xme:cqPeaubsb9PJZeZYlJwhzeQRA2yW_ltG1wtVlTnwvYN1KqwjgZKzLZp7VDXy813iw
+    HeYeh-8O5qoIoWc7uEdVbfjMtz0FOUcaLIaV0s0UdF2yxWMAqExf7_i>
+X-ME-Received: <xmr:cqPeavFomnZ2E2r5v_mZjbtT-VCaxBZU63RH3YksFBGlfmL7CT_uYhiuEIcQwqI8FgypmPrOK3Jc-ffOOI48TyrYujBUeUQz>
+X-ME-Proxy-Cause: dmFkZTE9yGijkaZXXZ0EKKMGDgwIXdQ62+nstrZptYXNRPY+Uae5Lkg73KctWwVNxg6qb7
+    Cz+PRXp+MNcKaZwJrvfDB4FJ+I32WWRQ8sPXgUccyqi9W3NXfMu/u4JhEY2fWvjt0VCCtK
+    5Paerl6VDtCrDBak9W28q0sM1VjofokTB0BnnotlXPjeMIoyOZ8ENh48USJbK2tC9Jotc3
+    XiPwKIM7QwvXXUKxwa461GcBL4eUB8kybJdF+qffY1NzfQLQ5OjULXvUFibfLSHlVIo+WB
+    hMO+w3pDBHAhbJ/VuKornkXrxaPOLk2qM+NlSOMlQEedqGef41dWhSWh7FegGe3h5Ynqew
+    EsF3geVb7hfaaO7yk74wCeTDVWVeDtaunzR6MSWEDDP6W4976slrPw6c76FUm7ioUxa95f
+    iv/lhrVRQ1mH/A8fdL2HHHF7QAFV9JBs0rmlveVKd9iFZIN6gnMRSNhneG5KqlVRwzweAz
+    20xH4s9Mz3i70/TNM68F1cNCllT9RBWd5PA0YVgeoSlcOJp3TxId+lGQVs97GlUiBRaozN
+    YTbLO/DL+pbAORY5WrUkeAZ2o12GN2LAfRvY75T9kzgt+Q1JeUNPZncKWxg1+HqkTgSvZ/
+    6uY4pZJlGzL1qIZDLIkYew3yE4IeEbGbJ/cRKTBN+8UrfglNI96OL7p9IOkw
+X-ME-Proxy: <xmx:cqPeaqsepklbwYXqQHjUwC3WZQI0ZTjZHoFPwAkm-k3BJrE43d5R1A>
+    <xmx:cqPeatJpWKaNGSxlj5Yq1avGeClyzNfkY1ZQGwWLdY33VQrjItkRxA>
+    <xmx:cqPeagNRq6ypNGvNqfBt9QxDQx2mwPXIs1nWRsOsXm_9z263BS20Ww>
+    <xmx:cqPeatZRSMIy5snZwa8by0C4ZDXpjk_o_K3LUieTi2133Ygio-3XTw>
+    <xmx:cqPeanUCJ8epSBmDd8OJ92kl119oFzwheKlcgGP9O-9NeofV8H9HKGFT>
+Feedback-ID: i6289494f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 25 Oct 2026 20:48:48 -0400 (EDT)
+Message-ID: <8b3fd4ce-7a1e-46f4-b457-7ff9c09022e0@pobox.com>
+Date: Sun, 25 Oct 2026 17:48:46 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,94 +120,46 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] lib/crypto: x86/chacha: Add 16-block AVX-512
- implementation
-To: Eric Biggers <ebiggers@kernel.org>, Martin Willi <martin@strongswan.org>
-Cc: "Jason A . Donenfeld" <Jason@zx2c4.com>, Ard Biesheuvel
- <ardb@kernel.org>, linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261025234758.3219829-1-antonio@mandelbit.com>
- <20261026003510.GA1843@sol>
+Subject: Re: [PATCH 7.2 000/231] 7.2.13-rc3 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20261025125805.309934791@linuxfoundation.org>
 Content-Language: en-US
-From: Antonio Quartulli <antonio@mandelbit.com>
-Organization: Mandelbit SRL
-In-Reply-To: <20261026003510.GA1843@sol>
+From: "Barry K. Nathan" <barryn@pobox.com>
+In-Reply-To: <20261025125805.309934791@linuxfoundation.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Rspamd-Queue-Id: 4jCZgd5YSgzLlW8
 
-Hi Eric, Martin,
-
-On 26/10/2026 01:35, Eric Biggers wrote:
-> [+Cc Martin Willi <martin@strongswan.org>]
+On 10/25/26 5:58 AM, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.2.13 release.
+> There are 231 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 > 
-> On Mon, Oct 26, 2026 at 12:47:53AM +0100, Antonio Quartulli wrote:
->> Hi all,
->>
->> this series adds a 16-block ChaCha implementation for x86 using 512-bit
->> registers. It is preceded by a KUnit suite and benchmark for
->> chacha_crypt(), as lib/crypto has none for plain ChaCha yet.
->>
->> Patch 1 stands on its own and passes with and without patch 2.
->>
->> On AMD Zen 5, the new code doubles chacha_crypt() throughput for inputs
->> of 1 KiB and more, from about 5.2 GB/s to about 10.2 GB/s. It came out
->> of work on the OpenVPN data channel offload driver (ovpn), whose
->> ChaCha20-Poly1305 throughput is CPU-bound: in a VM benchmark it gained
->> about 10% at a 1500-byte MTU and 35% at 9000.
->>
->> iPlease note that I could only measure Zen 5.
->> The new code is not used on the CPUs setting X86_FEATURE_PREFER_YMM
->> (Skylake-X, Ice Lake and Tiger Lake), but it is on
->> Rocket Lake, Sapphire Rapids and later, and on Zen 4, where 512-bit
->> operations are split into two halves. Numbers from any of those would be
->> very welcome.
+> Responses should be made by Tue, 27 Oct 2026 12:57:40 +0000.
+> Anything received after that time might be too late.
 > 
-> Can you clarify how your AVX-512 implementation differs from
-> https://lore.kernel.org/linux-crypto/20260722153247.630519-1-martin@strongswan.org/
-> ?  See also the feedback I left on it here:
-> https://lore.kernel.org/linux-crypto/20260722232424.GA50619@quark/
-> That applies to this one too, it looks like.
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.13-rc3.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
+> and the diffstat can be found below.
 > 
-
-It doesn't differ in any meaningful way, sorry.
-
-I had missed Martin's patch and mine basically takes the same approach
-(sixteen blocks in zmm registers, used for inputs longer than eight
-blocks and skipped on CPUs setting X86_FEATURE_PREFER_YMM).
-It also doesn't address your consolidation feedback either.
-
-@Martin, since you mentioned a series consolidating the AVX2 and
-AVX-512 block functions, please consider my patch 2 withdrawn in favour
-of yours.
-
-I'm happy to test and benchmark it, including with ovpn, and if
-you'd rather hand the consolidation over, just let me know and I'll see
-what I do.
-
-Patch 1 (KUnit tests and benchmark for chacha_crypt()) is independent
-of the AVX-512 code: it compares chacha_crypt() against
-chacha_block_generic() for every length up to 4100 bytes and random
-ones up to 12 KiB, with guard pages, in-place and split calls, plus the
-RFC 7539 vector.
-
-@Eric, would you consider it on its own? It would cover Martin's series
-as well. I can resend it standalone if that's easier.
-
-> Side note: "Zen 5" needs clarification.  The vector execution units
-> aren't as wide on the Zen 5 mobile processors as on Zen 5 desktop and
-> server.  Probably your numbers apply to desktop and server only.  (I've
-> made that mistake in the past before, but they are indeed different.)
+> thanks,
 > 
+> greg k-h
 
-Right, they were measured on a Ryzen 9 9950X (desktop), thanks for
-pointing that out.
+Tested on my Lenovo ThinkPad T14 Gen 1, my DIY amd64 NAS, and an arm64
+virtual machine. This fixes the regression I had with 7.2.13-rc2. Thanks!
+I have not observed any other regressions and it's working well.
 
-Thanks,
+Tested-by: Barry K. Nathan <barryn@pobox.com>
 
 -- 
-Antonio Quartulli
-
-CEO and Co-Founder
-Mandelbit Srl
-https://www.mandelbit.com
-
+-Barry K. Nathan  <barryn@pobox.com>
