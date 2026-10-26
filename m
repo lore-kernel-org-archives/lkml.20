@@ -1,19 +1,20 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.100.135
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.100.83
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792983464;
-	b=k5ICOil/8HbB6PvIbplQSeFo5QnBueeent1YArwll/sLLMe+dnIXRLqxh1cGL4bv0ZBs
-	 RTrymPc7M4G0lTfYGIvx/cyXMH58o9npFWOmsURnifoPz/DaF2xUgUDejrslju9xM2F/g
-	 El4TRjFJ+W6Qe6f8f5g62zlkyxNjKSbhgsPC5Ti1P9wJ555/sEyeyqXnp1aL1mmBTcLCG
-	 24PCSfVybfC21W2sjupBMbcn5z69uGl0E+4HTSnm9bILUmpEqAxSjDQSHD9fmLafovnKW
-	 HondxgvGfPV9GW0IhXwDBQfLqvuFsvkMWzxlKvtXlFEFzmGS0YqjukXaq8bEcuz6iqA==
+	t=1792983477;
+	b=ZlyH1fCKhkQFwaClBfp7U6L77slPwXnaDHXMotFZhxL8nkLLzlPPIl5W8wGe+2E9QeSh
+	 i0KXKbxVv/dUxgtVwcdcwHpqZHn7VqvtRe7h4clzxgQkQaU6mloxuYJziQrQxoIquOCoE
+	 IL7Px9SiZL0gWEYFlHSgvuMaGZY6NmTGrmsI30DsD9WKQIHyKx09V23alpJ7hMGudEW7/
+	 lP9j0aujFZmGiGA/E3Yq+9rEkl7GZF0FLDJR+Az8vAA3xxe//EAu50TR3BGCWNTAEy7v+
+	 xJkMJms6hgJ57orGisXRgrI8oY23x2L5siae7Fh1DZ3GjVlI4ILU0HVyKBDX0gGKjGA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792983464;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792983477;
 	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:
-	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-Mailer:In-Reply-To:References:Content-Transfer-Encoding:
+	 Content-Type:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
 	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
 	 X-MS-Exchange-CrossTenant-Network-Message-Id:
@@ -23,31 +24,31 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=h9FDyXevTNA/oWxUCqkmJgppsXjac+K4thn9D6rdDP4=;
-	b=cr1iFBTea8TICVQcyhFjBr6sJ8yFVthHXr6O0jVd5Ltr9z5+hsdRpx4wbXV1I89/e4by
-	 /Ey3AJJjmMQg7W9VGg2ehM9nib05bM1lzqUcG56Q7hyLvx7+W5WTU531hz3FYOAN/Vt0E
-	 wD999QXTpWFNQOqMRJeAPcveJXipyOW69e9O9b55VdbLgKjy1OR11FE9H3UvmZeM0wg/S
-	 alfoMIy8I+SVjHXRp0G8JmIhyiRToXw30NSiqcdaNyfRrRrflrp7ynaUjrppP8nc1LC5j
-	 41KQzDm8M4zbqQBgfMpNNLUse/PI+El/kMiz5hsdz9ICWhRTYi9bFx9xyk8fvypL+8Q==
+	bh=eZp4rrmdY0s4A8o1LRNbbqn1bJ5GrqK6NKfXRyZbmu4=;
+	b=0hP4rhpN3o4iqMTcr3C2UpLAc3b/4sKqoEYOGniNGPf7wq3LbU8cgKa4oj/r52B0Bdya
+	 NB7Tn39pGlVtyYxmT8udlKlhNUvge45t5SWGPdqu3QMdMdehYhUubGEJOxH3aqcWduIvL
+	 6qnrBa2rrsfqx+tjmi6bH1pNSIklYLL/AzPR9Zn8pnNt5RMlUnURCvmkB8TCsDw8VTy7N
+	 yqP+EsF+cgwNVm5MXYy3hQqKNCOCrKXRilsgtWEnjvVB9N+T/ZZba3WE43BQnhL01bqWX
+	 qj6p81/MaXbUjOQ8eEUTG0UMzzXiOJEIPKRsUrfh0+cP2Joh5y2xvCU5ht7jch6YnzQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=none header.from=atomlin.com;
 	spf=pass smtp.mailfrom=atomlin.com;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.100.135
-Received: from CWXP265CU009.outbound.protection.outlook.com (mail-ukwestazon11021135.outbound.protection.outlook.com [52.101.100.135])
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.100.83
+Received: from CWXP265CU009.outbound.protection.outlook.com (mail-ukwestazon11021083.outbound.protection.outlook.com [52.101.100.83])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C0D5606A31A;
-	Mon, 26 Oct 2026 02:57:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C0D5606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DD83606A31D;
+	Mon, 26 Oct 2026 02:57:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5DD83606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UTgHJ53KBBgNXuen4JYNHL5WNNLZkTc5iNS9Ayin665ZcKYxMP5IjK3/1DviVHzjsqm3I/yKe/m09J5AgC3R7ABs6FdbSp0uMGL9ni5ZMT6TJxUtKBzNB7weHKnfseQKF8QxgOzPpb61vDhlIj/ZaLKkTK3IAClRWcwW5DDhja+rLLG4jwKEhbDlyKs67v/mPTQMPTJ/NjZemcVNA3buO+SkYgwqyUCHHWKuBUUHAaYw96axUjLonwwKltiiWKlZ+7CUlmkOly6TaMi0P84ZdCCzRMQkczj6rkxPM2pz9ohc3AAD4XD2WtSXQGJbwS9RUelEbKrFBD5a+TWwR0hyJQ==
+ b=p+9ZSdJegzyEb6yBDd9L2zeSDFwb5WHlDgkKZPUrn+wWfRdlq2Drw5OYTsDirn5F2oQ4FEKOtzLAgbJe4XYgdlr3HL9aOhNkzeffCuhpB99LmHDpmCkTUhDAJBU8DaobhzSWKguIr5CCJ7lB/ImNGi2q8tb3oYjP15IDJxFeOijNjM0XoWXkBxJvDlyCRwbWgar5r7b61UZxeO8NUt4Z7Jndwce8eJ9pk72SFL8FJcvoP5B56ayPNAMBQJkx34AWXEGDNvxfKrYqKW166vBeegUq5FQ1Ql2JmE3RsXWXziq5RFmIQSeXaHTmrZbki2+ZyWOq9nMC7K8sdFbmYzo+YA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
- bh=h9FDyXevTNA/oWxUCqkmJgppsXjac+K4thn9D6rdDP4=;
- b=tmdsw2fVAPu+P/GuiN0fLBJGm9J6Dn1ye6RyAEExQVbhQICTOArqpRiGkLCsODgVNpKjq0K3GV3ZePoEikyHFaGl2v5OcNr3NgZhFSK3AAnb2tP2R8Dm9QHnDrTDrfVxfO7EE+jaxPVn+npSNTcNvvXxTDBpkMGQHU3qQMCWE1aT9ZoOHvf3esYZOp42QWDIdnybuPRaOuVW6LMzk6uAigJlKeWAhSdhc+fhfZxx7LpmjxaduprhBYHfAijQbohK8dR3ZU+NpKDi6WKkEp0mfvPBKFC2b1SOp5hdLOJLowzTVQYQm0cFrsanXMaR/cqM71XFxqAWbJ5nE+IKe+kwrA==
+ bh=eZp4rrmdY0s4A8o1LRNbbqn1bJ5GrqK6NKfXRyZbmu4=;
+ b=jKjScsqctxoGUxkfYjQnVm1UfgFAjGZZXPJg1xOjXj0VwVPDBxg9TJ2xmgzE3HXYFmrwiUnsgVMLvcWlJhSrxwqGjxLhWk25Q5IBtSxMwpfhP1DfKRCsnXpMY3YHy91k/m2+g4P4OuTwvVjcag98xEufKy5zzvfIZpomJa2nmTR0s6ddhhQh2SuKwILk/jXgfgBY/33rsGKP7/E7VqkSzsBjLOz4j6ixUGOeBmmQZdRUb6rsiEu6r9w0G9pAg0+nfz6o/SP2q+rXWg7hSd7vZOconjba+0mu6ZrTw4a0AXEGY1M7d7fOW9fvpOQ8HN1iovXfgzrDkRsqr21kI7xPPA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
  dkim=pass header.d=atomlin.com; arc=none
@@ -57,11 +58,11 @@ Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
  by CW1P123MB9009.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:285::12) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
- 2026 02:57:39 +0000
+ 2026 02:57:54 +0000
 Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
  ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
  ([fe80::cec4:77ab:262e:d230%5]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
- 02:57:39 +0000
+ 02:57:54 +0000
 From: Aaron Tomlin <atomlin@atomlin.com>
 To: peterz@infradead.org,
 	mingo@redhat.com,
@@ -78,14 +79,16 @@ Cc: mark.rutland@arm.com,
 	sean@ashe.io,
 	linux-perf-users@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH perf-tools-next v12 00/10] perf ftrace: Support inlined functions and display enhancements in function graph tracer
-Date: Sun, 25 Oct 2026 22:57:25 -0400
-Message-ID: <20261026025735.546101-1-atomlin@atomlin.com>
+Subject: [PATCH perf-tools-next v12 03/10] perf ftrace: Support filtering return address comments
+Date: Sun, 25 Oct 2026 22:57:28 -0400
+Message-ID: <20261026025735.546101-4-atomlin@atomlin.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261026025735.546101-1-atomlin@atomlin.com>
+References: <20261026025735.546101-1-atomlin@atomlin.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: IA1P220CA0003.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:208:461::9) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+X-ClientProxiedBy: BN0PR04CA0184.namprd04.prod.outlook.com
+ (2603:10b6:408:e9::9) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
  (2603:10a6:400:183::5)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -98,527 +101,391 @@ Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|CW1P123MB9009:EE_
-X-MS-Office365-Filtering-Correlation-Id: 96c1470a-43e0-441c-f704-08df330ce533
+X-MS-Office365-Filtering-Correlation-Id: 6d0db75a-0a8d-4b6f-5391-08df330cee36
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|7416014|376014|366016|23010399003|5023799004|56012099006|261009223027099003|261022105027099003|261022115727099003|261022113327099003|261022075727099003|261021135927099003|261021123027099003|261021121427099003|10067099003|18002099003|6133799003|3023799007;
+	BCL:0;ARA:13230040|1800799024|7416014|376014|366016|23010399003|56012099006|261009223027099003|261021133027099003|261022105027099003|261022115727099003|261022113327099003|261022075727099003|261021130227099003|261021135927099003|261021123027099003|261021121427099003|10067099003|22082099003|18002099003|6133799003|3023799007;
 X-Microsoft-Antispam-Message-Info:
-	hsuAU4rCALmK5PVYpdTA8M6ikk8+pvXDWtxB84OPByroA6AJSb/m89fLc+9S8NTAdspGQO8oChOuheO9XmHL2FE8mILlvfsGkEnjf/JbMqgEEduk0mANr+jtx8J3QVvZejwz5t6KUl24BfXJFl29rwySrp+YnUlSy/PXwkBhpjgjgiZKpYPKrLRCk0056gfPSM0dQ7XAtqj+pHKYXOBSLidkaLYmeR4loccPQod4FoKGtpueYwP6mII5zKU8LyqaTXSPr0bk5lPoK/aMelHBxD2ZcTcFcSt9xpPKoBn3v2tb1R8AeN23cr/hacbwZIOIS/k+2OT+k4x1Vf/3VvqURVHEGKmjGHObbQdPQfZVzuq+tB39jgmsSNiJlcwMBmaXLtVgV6dq2xTV0vqt242Wg9Xa5XtIg5M9wm+RKqTjvmShWL0GJNkxh4px31jg6BuHKAAGlXRwVJzGJQRvBhcJIHoO7Ed2xAIZmYXBZm3nFtljuihJ5Q2aMbo8WDIXwk+1541J02B9eM1un2K9wOQUfC2xqGW4CX8ht3y4qEg+LZFK6ifqfGwvftscCT9bdQOzkXgNIsT9Q9ByGibMMe432p6ZjM3gPZkVIhD7oJsGHyroRVVzMtzGK/0fsUIXusDD
+	wxop4gHAUXRz5k0HTSCP4j8cgzFAm5IZSqnjsF6IS9IEL2cF4d+H1Ua0MliVd3oEbcLjrfCyiGIFBZcu/io0wdWKZwKGvifbAvEB0B3kBonkCLPm3Y8yD1MgVNK/X6nBhD3t9gvXAzVJCDhjDq9xj86plTvEJTfYWGUWhnYan+S+mquxhRXoL432B0fbZcDYZ4n7Yw2CeT2dXgR9npuPB2f/caSzqYfrvbmi46TpNVH1bMB5vjVS3KgV2vDOiuQL5T13ijXHDme5b/WwYKXk1J5YmNZJ1Dg7llmwmiiPAxCfrg29HezOLz/F8ganPd/8qfTpOZ9bfXf5Vh+UaByuz4++QEMaxgCUwAgNS/rLqlNEj8ln/vPFpwcFjwPyO+M9/bBDaMNSyICJmh0AGSh9Wp7KDs8+0fkRzgu8vv4SBQixS2EgS0O02H31YIdDRXlmscw5NmvFazsAgo7eQA+NRa9XyWKrGFE24CjJQuDAL8+JxPcbRcHsfqox/8HlyXWabEZOVTXMcGGlTov/E4FzHPiz/IzZWkGUvjd0jzF4qBQ9MuAQ6vYKR9Oz2BNwiWx8NGe1F9QEDhb6XECkpiqTXryexsWm+F9S1/63kSKJ/BuJMj0kIe31rKPdxAzqYX3kedybp9mLd32QRfdjN2dwEFZ2RBFSCGtd3cAqhhhl8+o=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(366016)(23010399003)(5023799004)(56012099006)(261009223027099003)(261022105027099003)(261022115727099003)(261022113327099003)(261022075727099003)(261021135927099003)(261021123027099003)(261021121427099003)(10067099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(366016)(23010399003)(56012099006)(261009223027099003)(261021133027099003)(261022105027099003)(261022115727099003)(261022113327099003)(261022075727099003)(261021130227099003)(261021135927099003)(261021123027099003)(261021121427099003)(10067099003)(22082099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?9aJtNu1TB/BVR2O7qjHYH+m7V5HbAEWHLgTQOuayL4T9Ov0AxCS4W9OruCyd?=
- =?us-ascii?Q?62Vs7HBEjr782yY52HwsCt1C519j5E0TZ1WhKsz2+8ebrfMGQl/fP45Hg20U?=
- =?us-ascii?Q?vP3Thw6RtNo4sYiTZS9S7D0d8PxDEJiA2i/Dv+bZcClI4RbU4XItN28VdVYC?=
- =?us-ascii?Q?NX4W0riRfB2p/wHaqOg8SdqdnxbHYLEyea6frEuFOTiSJ5euv0V+yfIuND0A?=
- =?us-ascii?Q?mTKmFZxno7+amqapYpIb3CdNRIIPScZ7ryD4erbRh52FH8CCDEIP+eSGIMPJ?=
- =?us-ascii?Q?y8pt/JKfGwJekpML/xE2pIOE9zYtwhk4Qow9EptetI5VTuFGHIN5C87xa86P?=
- =?us-ascii?Q?b+JQ6cYm7N1N2l+FtDeIqWdFkMtwXfzUiPhUpnbJQSuOC13q1+B5elLPxmTC?=
- =?us-ascii?Q?RZiGIc7igSSy4C3RBRj0ZA1hBnk952/miwdYopITlIgfcVXtL7KtE7I5fB0p?=
- =?us-ascii?Q?piDWmZd0WeCjT7ScEcEzybqSp/4B5bWSeo2fPP6qMLLOzmrhEiVonrJWCRoO?=
- =?us-ascii?Q?pYCbbLG21YMLlQ0sNRsPbLvl9505bY6vwQ3N3BrljxdijNCb0YTrSqLnP9My?=
- =?us-ascii?Q?I+BytNeogrnIvY52P+DxD04GuQKzQ03Sc0R7Emuf9UOj6Yd/oPKtoDVTxJRW?=
- =?us-ascii?Q?JLUg4vWGOU22kKwBPCF7IWtGvD9bDwHkPKuVnNqIJfX/KwU9/IpJ87uIf6nj?=
- =?us-ascii?Q?0uRvooa1A+cqK4pG/uXDz/nYGxhpNBBCqmSdDEF7Bh6QhLjPHxBMtnq5ybBW?=
- =?us-ascii?Q?/PXn0x+henTmnnXgyoGXVW5blLBXBcLBmpIboKY35qrAng9pZcXtBbc94o8o?=
- =?us-ascii?Q?4/c3k35guM8kMNCwBLsMsUSy96fd3kvsZSiAPj7e1R3XsyaWpz5edkl/jUXt?=
- =?us-ascii?Q?RpFQwVX5XVUmQQS5ODYUL0Cqo7xZCqgYHb9OQu9QKXIvCopoQTiETxhiQzEo?=
- =?us-ascii?Q?3zEwKTs3awEnNiH0A4uHmgz5yq8RuA3aCzBaJsVshyFStsVzFbFRdeRJztCr?=
- =?us-ascii?Q?wNEPGPR4jYm7dT4zFhWXiyCHtw6zzLf8Yqq4TVX8Xt9gY0K4PUcc6JtLdsA6?=
- =?us-ascii?Q?TloLYBfi+ZtHuppOuSK4YkHH8IiFYsP1HeQjl2EH7BKCISqLRNZNzjSKNpBT?=
- =?us-ascii?Q?GElSXq4yOhFlhhDgHXRw025RD7nMWtqx/fbZOpK9/UR3MdNnMJHWOoxmnJWd?=
- =?us-ascii?Q?xl455XhD78vU/XGOUv6pqkt4QofisysBO3NMXmmb5Y8VO64y/LM/2H2yZwC1?=
- =?us-ascii?Q?YjoG7iJSVIohfHTrTDfSmLL3VcBsaGUjimgDc6NIHjtFfrU5Ohot1eoX57kO?=
- =?us-ascii?Q?KqXrvfjpBBL/G4f5THD588ZaIlo27Kq/juo6ZA2I/aZlUhT/HUHzzS246Oru?=
- =?us-ascii?Q?zKxya79QDdiOSGWIBXDI70YsdYdlniPV/GsRZvUpryVCsTknrV3SCWlx3uXE?=
- =?us-ascii?Q?n9oSVQAW20DjoAcar1JQK0S+CHw3SpUtjBS3XxyebWRdA8pE4OEGNCiNEU8C?=
- =?us-ascii?Q?/SQWXcn12v51IipzSBZSfNW8gaJ9r4q/8rwGCXV8fAWHWMWi2vUw6eCKUcH9?=
- =?us-ascii?Q?YUSSmXJs2dSEqRK/paissCKItJfWg4iGgn/p64Swfb0JBXDGmfQPSse/rECb?=
- =?us-ascii?Q?m4zyzKROWXeoxwYgGDTwS2a+ZB5TZMMeIYGKoKDI88teyrs5L4wNxnBk3mR7?=
- =?us-ascii?Q?5CADWqRBfP7rcVML5/Ar2muDhCMYHjwrY3uBCSElZAW2s3GjjswDUPLJfHxw?=
- =?us-ascii?Q?NBMZUaDw8Q=3D=3D?=
+	=?us-ascii?Q?7Xj3Q2/5Y2EwPaC0bytR8wBWIIwdH07eQwoAuIZOWDWwq3c5Gd48/mXX8P0g?=
+ =?us-ascii?Q?QMwKj1/iWDuDwZpqgzhefCXZKqRgU1XPe5xmc7chCd+rM+DFtTAbcFqeO2fZ?=
+ =?us-ascii?Q?HCb6LhsfD0Ko2DTr/SwRHrUqa3Fppb1NoAGwy26nrABtDWEvhq6egAxuK+J3?=
+ =?us-ascii?Q?mK10tTQDW1s9WMDj7mA9uhXZVNa1eiU9Z7DEBTaKmyxXGfz2ZblemL8I3Fo5?=
+ =?us-ascii?Q?I27hEhQprBsgQIGJC3spn3o5hbKwMko7iz5z6aZzcZekEtkUvCflwgaSXIYI?=
+ =?us-ascii?Q?DGJEtYIwhCmGLBpxk1uO1EdfPhYsYjC+N9IrTnpoF+lTIdecn1i7gcctBPFT?=
+ =?us-ascii?Q?k5eQ0f358dCp6KnqLuA9lU55CpuubuIAZTVHNHP3U9l+Hca1Q61eCthQHL2Q?=
+ =?us-ascii?Q?K/7XRLtYmmXCZ/VvseHB5CgdELKji4PwwBMfeA894c+XsWS/vtISlDbjGH3D?=
+ =?us-ascii?Q?F0u5fBxl2W8yl23myOoyEvzjHXuu/e1M5EC3NfHLfPfgbDeIBHKknHZvdxEH?=
+ =?us-ascii?Q?unJlixJe8E5AnSLs2XQCO+DZF4XxCip+SYoSDH9P7tCH5pCt7rzhZ9rqy6vZ?=
+ =?us-ascii?Q?vZaoAZ/0bI0ZExKHk6DND4h43mAfZGRj55ISgKRxjp3TCB2q0b4ow5yn6XkI?=
+ =?us-ascii?Q?lq1qmNEyUpEr7NoOZ+genceDSIjcvLqjYxviffopkMzPtdaVt+VSQM8m4XNu?=
+ =?us-ascii?Q?N1tDzo77JFBLYgSUSL+EhpkYBGANK9ViiSBnPmcA8MyjRZfZzyND+jD2/rQs?=
+ =?us-ascii?Q?E3JTWS7pBFB1XmiRnCT7AgSz6l2YrJF++cKsXQAXRD8INVGZ4LG1iArXeH2X?=
+ =?us-ascii?Q?1KbQj3IDCRLn4e/TSdYaZmUHHhBcIcE0HnKxodF/hlQXHEV5cK3S1SApkuz/?=
+ =?us-ascii?Q?YTGH/+4X911pg78zBxNwhk4nwmw/ToeVRSBPOF1QhgztCVQm6Gg8UskFvndc?=
+ =?us-ascii?Q?OkfJrXtfTDgPniu/zw/bfwELeikwjJmXkGwtvTT7O3KIJfsJjoQexODWmNXG?=
+ =?us-ascii?Q?dZjDQVTkK5kbl7QSmiBOg143tFiaJrA9ApETv7/LKg7lDNaxJw7NgNNx+8Fz?=
+ =?us-ascii?Q?ly/HQ60/2NFWOaznof1vKvy3FpaEybdyz9kla2zVi8INl5rF6Vhn0vjGKFUM?=
+ =?us-ascii?Q?0MK7o3XXXNRvZf98K3GZ0K95DxGZWnsnuoKAfloZnFr2YJobuj9KZyP+luwU?=
+ =?us-ascii?Q?PQBO16c5wxz7cU5TMMBB+g/olX1/lrl//pfti+hgQ4AUQiYfsGOpdw6SkPGL?=
+ =?us-ascii?Q?nVBps8B/R8BUC30Euuc8Byzp9o4nemPwfJreWtNteYQl8VxUjoIH+EYpw19C?=
+ =?us-ascii?Q?D9niHBwSLqS8SJdcqTouRdfywUdMSv+cn6af6gLk4cVv9/2Tezav9LSAvMQr?=
+ =?us-ascii?Q?x1lEPPXKTHoHhKhZXOuj7XaFhSvxL6+ufNJvzjfvnmFAmhCzX/18ANpnkb/c?=
+ =?us-ascii?Q?uWfAfRkC3SXsbqiz5UckXlzI5gk9mp8I7rD3fhLpCuonp/Cw5cWJzNis59sC?=
+ =?us-ascii?Q?66iXuMxVxc9e8uQzIajRX/CGq8gqxz0AnQCIUlZ3Qp3oKgYzQw6o7th2cYsI?=
+ =?us-ascii?Q?l3VHdJABm8La9E7GjUmThX1cToKcv974/nJsyvsR/L8Xqzu+U2ux1r5JIV33?=
+ =?us-ascii?Q?rBcMs+OxP8zKPweZFQNfO0HccbDkP6qp2Xo2W3lR3mylci5siUbmz/qXL02S?=
+ =?us-ascii?Q?7HEeK17QVC99Ds0BAvGSNiwCL048HyYu5FCEWCb0Su3fSnxGkmUhr22nA8u+?=
+ =?us-ascii?Q?YEjxJU1Lkg=3D=3D?=
 X-OriginatorOrg: atomlin.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 96c1470a-43e0-441c-f704-08df330ce533
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6d0db75a-0a8d-4b6f-5391-08df330cee36
 X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 02:57:38.9998
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 02:57:54.0553
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: b0x7Xl91iks+lxKOT1WpMpWM29+MqBMnF9aeJhxXxSOcSMhUtYIQJ+J7/Q3mbYek+mEeMSm36IX7rjJezNfhjA==
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3uKDDGlDv5M7BDrJqPUIBueIMPoZPEY+ddJGia0puBlF66bIc3lngVvNTQnEjQTXYCrMhhO18HFnc1ExP3TMBw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CW1P123MB9009
 
-The Linux kernel's function graph tracer operates at the machine
-instruction level via compiler instrumentation
-(-fpatchable-function-entry), recording entry and return events for
-physical function calls. Consequently, functions inlined by the compiler
-are invisible in the resulting call graph, as no discrete call or return
-instructions are emitted for them. While technically expected, this
-omission frequently obscures the logical execution flow when analysing
-kernel subsystems heavily reliant upon inlining (such as the scheduler,
-memory management, locking primitives, and RCU).
-
-When the kernel is configured with CONFIG_FUNCTION_GRAPH_RETADDR=y, the
-funcgraph-retaddr trace option records the caller's return address on each
-function entry, manifested in the trace stream as a comment
-(e.g. /* <-wake_up_new_task+0x1d1/0x3e0 */). By interrogating DWARF debug
-information from the kernel image (vmlinux) utilising libdw, perf ftrace
-resolves this return address to its inlined callchain and synthesises the
-intermediate inlined frames directly into the streamed call graph.
-
-This patch series addresses these challenges across ten commits covering
-six key areas:
-
-    1.  Signal handling and stack frame optimisation in __cmd_ftrace()
-
-        Separates robust signal handling (EINTR), non-blocking read
-        retries, and pager exit handling into a dedicated patch, and
-        replaces the 4096-byte stack array in __cmd_ftrace() with
-        dynamic heap allocation alongside struct strbuf streaming,
-        reducing the stack frame footprint by over 96% (down to
-        ~160 bytes) while ensuring complete line-delimited records.
-
-    2.  Return address comment filtering
-
-        Introduces ftrace_parse_retaddr() and ftrace_filter_retaddr()
-        to automatically strip caller comments from trace output unless
-        explicitly requested via --graph-opts retaddr, accompanied by
-        a unit test suite in tools/perf/tests/ftrace.c.
-
-    3.  Preparatory vmlinux lookup helper
-
-        Introduces vmlinux_path__find() in tools/perf/util/symbol.c and
-        symbol.h to search standard vmlinux paths and return the first
-        accessible kernel image, providing a generic helper across
-        tools/perf and avoiding hardcoded access() checks in tests.
-
-    4.  Inlined function call graph reconstruction
-
-        Introduces --inline and -k/--vmlinux, dynamically synthesising
-        inlined frames marked with /* (inline) */. Correctly matches
-        bare closing braces when funcgraph-tail is disabled, clamps stack
-        depth to prevent indentation drift, and expands the automated test
-        suite to verify inline resolution, comment filtering, and stack
-        saturation recovery utilising vmlinux_path__find().
-
-    5.  Execution duration suppression
-
-        Introduces --graph-opts noduration (accepting noduration=[0|1])
-        to toggle the kernel's funcgraph-duration tracing option,
-        omitting the duration column when the user is focused purely on
-        call graph topology and inlined hierarchy. Rejects noduration
-        when invoked under 'perf ftrace profile'.
-
-    6.  Extraneous function filtering in function graph tracer
-
-        Introduces userspace call graph filtering when targeted
-        tracing (-G or --graph-funcs) is active. Suppresses transient
-        unrelated entries arriving before filter activation as well
-        as detached callee trees (such as ring-buffer wakeups)
-        originating outside the target hierarchy. Dynamically resizes
-        the synthetic call stack to eliminate saturation edge cases and
-        accurately suppresses detached subtrees without orphan exit name
-        collisions.
-
-Synthesised inlined functions are rendered with an explicit /* (inline) */
-annotation at both entry and exit:
-
-    # tracer: function_graph
-    #
-    # CPU               FUNCTION CALLS
-    # |                 |   |   |   |
-     0) enqueue_entity() {
-     0)   update_cfs_group() { /* (inline) */
-     0)     calc_concur_shares() {
-     0)       tg_cpus() {
-     0)         cpuset_num_cpus() {
-     0)           class_rcu_constructor() { /* (inline) */
-     0)             rcu_read_lock() { /* (inline) */
-     0)               __rcu_read_lock();
-     0)             } /* rcu_read_lock (inline) */
-     0)           } /* class_rcu_constructor (inline) */
-     0)           cgroup_e_css();
-     0)           class_rcu_destructor() { /* (inline) */
-     0)             rcu_read_unlock() { /* (inline) */
-     0)               __rcu_read_unlock();
-     0)             } /* rcu_read_unlock (inline) */
-     0)           } /* class_rcu_destructor (inline) */
-     0)         }
-     0)       }
-     0)       __calc_smp_shares();
-     0)     reweight_entity();
-     0)   } /* update_cfs_group (inline) */
-     0) }
-
-Changes since v11:
-
- - Replaced the single unsequenced min_raw_indent scalar with a monotonic
-   suffix-minima array of (seq, raw_indent) watermarks so shallow exit
-   watermarks are not lost on subsequent function entries or falsely
-   applied to frames pushed after an earlier shallow exit
-
- - Pruned each stack per-frame against subsequent watermarks on the other
-   state and performed a 2-way sequence-ordered merge of surviving frames
-   and watermarks in ftrace_task_state__rekey() to handle non-contiguous
-   unknown-PID execution across multi-hop CPU migrations
-
- - Tracked orphan subtree base indentation and event sequence numbers
-   (orphan_base_indent and orphan_seq) in struct ftrace_task_state:
-    - Recovered cleanly when an orphan exit event is dropped inside a
-      nested child of the target root by clearing orphan_depth when an
-      exit matches or is shallower than orphan_base_indent, or when an
-      entry at or shallower than orphan_base_indent descends directly from
-      an active frame on the tracked stack
-    - Pruned stale orphan_depth across CPU migrations in
-      ftrace_task_state__prune_stack() using subsequent watermarks on the
-      peer state and preserved orphan tracking state across
-      ftrace_task_state__rekey()
-    - Avoided recording indentation watermarks on detached orphan entries
-      so suppressed orphan calls do not prematurely prune active frames
-
- - Buffered interrupt entry markers ("==========>") in pending_irq_ent
-   while inside a target callgraph and suppressed the corresponding
-   "<==========" return marker (suppress_irq_ret) when the interrupt
-   handler is filtered out as a detached orphan, preventing empty IRQ
-   marker pairs from leaking into filtered output, and updated
-   parse_graph_cpu() to bind the active task state from the comm-pid
-   column in verbose mode
-
- - Unwound stale non-target ancestor frames with raw_indent >=
-   leading_spaces (and any trailing inlined frames) when an unmatched
-   exit (match_idx < 0) occurs outside or resets the target filter state
-
- - Expanded unit tests in tools/perf/tests/ftrace.c
-   (test_graph_target_filter()) to ensure deterministic synthetic inline
-   fallback and cover dropped orphan exits inside nested target children,
-   orphan_depth pruning across task rekeying, IRQ marker suppression
-   around orphan interrupt handlers, and stale ancestor unwinding on
-   unmatched exits
-
- - Link to v11: https://lore.kernel.org/lkml/20261025181125.514372-1-atomlin@atomlin.com/
-
-Changes since v10:
-
- - Removed duplicated member fields members seq and min_raw_indent from
-   struct ftrace_task_state
-
- - Fixed call stack misordering and active frame pruning during CPU
-   migration in ftrace_task_state__rekey():
-    - Tracked monotonic event sequence numbers (seq) on each synthetic
-      stack frame
-    - Replaced whole-state older/newer classification with a
-      split-and-splice
-      merge, partitioning existing->stack at the splice boundary where
-      frames postdate ts, pruning only pre-ts exited ancestor frames from
-      existing, and splicing ts->stack directly between ancestor and
-      descendant frames via memmove()
-    - Prevented active intermediate frames entered on unbannered CPUs from
-      being pruned and prevented exited ancestor frames from remaining on
-      the stack when a task migrates and returns before a banner is emitted
-    - Added unit test scenario in tools/perf/tests/ftrace.c validating
-      migration across unbannered CPUs and delayed context-switch rekeying
-
- - Added tags "Tested-by:" and "Reviewed-by:" (Ian Rogers)
-
- - Link to v10: https://lore.kernel.org/all/20261024212549.450634-1-atomlin@atomlin.com/
-
-Changes since v9:
-
- - Reorganised the patch series from 6 to 10 commits following review
-   feedback:
-    - Split error handling (signals on EINTR, non-blocking read retries,
-      and pager/pipe exits) out of the strbuf streaming commit into a
-      dedicated preparatory commit ("perf ftrace: Handle signals,
-      non-blocking reads and pager exits in __cmd_ftrace()")
-      (Namhyung Kim)
-    - Decomposed the monolithic inlined functions commit into four
-      focused, bisectable commits covering basic task stack management,
-      context-switch tracking, inlined function display, and automated
-      unit tests (Namhyung Kim)
-
- - Removed the standalone --filter-retaddr command-line option and
-   --graph-opts filter-retaddr flag; return address comments are now
-   automatically stripped from function graph output unless explicitly
-   requested via --graph-opts retaddr (Namhyung Kim)
-
- - Link to v9: https://lore.kernel.org/lkml/20261021023337.809936-1-atomlin@atomlin.com/
-
-Changes since v8:
-
- - Preserved funcgraph-retval return value comments when filtering
-   funcgraph-retaddr comments (/* <-caller ret=0x0 */ ->
-   /* ret=0x0 */) in ftrace_filter_retaddr()
-
- - Enhanced vmlinux_path__find() helper in tools/perf/util/symbol.c:
-    - Avoided redundant memory allocation in vmlinux_path__init() when
-      vmlinux_path is already initialised
-    - Ensured symbol configuration is initialised via symbol__init() prior
-      to path resolution
-    - Guaranteed vmlinux_path memory cleanup by invoking
-      vmlinux_path__exit() unconditionally in symbol__exit()
-
- - Tracked raw (pre-inline-expansion) indentation on synthetic stack
-   frames, ensuring bare closing braces ("}") are accurately matched
-   against corresponding non-inlined frames without indentation
-   distortion
-
- - Unwound stale frames on untracked caller entries (caller_idx < 0) whose
-   raw indentation is greater than or equal to the new entry, and closed
-   trailing open inlined frames resulting from dropped exit events
-
- - Pre-bound single-PID tracing across all CPUs in
-   perf_ftrace__setup_inlines(), ensuring consistent synthetic call stack
-   tracking across CPU migration when kernel context-switch banners are
-   suppressed (verif_pid prev_pid == -1)
-
- - Strengthened error handling during DWARF/vmlinux initialisation in
-   perf_ftrace__setup_inlines(), checking load return codes, emitting
-   diagnostic warnings, and safely freeing ftrace->machine on failure
-
- - Recognised interrupt/IRQ entry and exit markers ("=====>" and "<=====")
-   alongside context-switch markers under --graph-opts noduration,
-   preventing non-function lines from corrupting function column detection
-   or popping active stack frames
-
- - Handled leaf function lines with trailing comments
-   (e.g. funcgraph-retaddr or funcgraph-retval comments) in
-   parse_func_duration() for 'perf ftrace profile', ensuring parentheses
-   are stripped cleanly and leaf records match non-leaf entries in duration
-   tracking
-
- - Preserved tracked ancestor frames on cs->stack across dropped target
-   root exits by verifying caller provenance
-   (caller_idx < cs->target_root_depth) before checking indentation bounds
-   in ftrace_check_target_caller()
-
- - Purged stale non-target frames below target root upon target root entry
-   when caller_idx < 0, preventing unrelated ancestor frames from
-   prematurely terminating subsequent target calls
-
- - Prevented cs->orphan_depth lockouts when both an orphan exit and
-   enclosing target root exit are dropped by resetting cs->orphan_depth on
-   any line at or outside target root indentation
-   (leading_spaces <= cs->target_root_indent), and allowing ancestor exits
-   to fall through to match frames on cs->stack
-
- - Preserved interrupt/IRQ markers inside active target callgraphs while
-   suppressing those outside target filters under -G or --graph-funcs
-
- - Fixed test_stack_saturation() to avoid premature frame unwinding,
-   ensuring depth clamping and recovery are tested as intended
-
- - Expanded automated test coverage in tools/perf/tests/ftrace.c:
-    - Added test_context_switch_handling() for CPU migration and task
-      tracking
-    - Added test_column_layouts() covering standard, verbose, and
-      noduration formats including IRQ and context-switch markers
-    - Added regression tests in test_graph_target_filter() covering double
-      dropped exits, ancestor frame preservation, leaf duration parsing,
-      and deep orphan recovery
-
- - Link to v8: https://lore.kernel.org/lkml/20261018023753.584873-1-atomlin@atomlin.com/
-
-Changes since v7:
-
- - Rebased onto latest perf-tools-next/perf-tools-next (commit 1c90f0a3c8a1
-   ("perf kvm: Cast tv_usec to long to fix build on MIPS 32-bits"))
-
- - Link to v7: https://lore.kernel.org/all/20261018021346.582845-1-atomlin@atomlin.com/
-
-Changes since v6:
-
- - Expanded the series from 5 to 6 patches by introducing a standalone
-   preparatory commit ("perf symbol: Introduce vmlinux_path__find()
-   helper") in tools/perf/util/symbol.c and symbol.h to locate accessible
-   kernel images via configured vmlinux paths, replacing ad-hoc
-   access("vmlinux", R_OK) checks in unit tests (Ian Rogers)
-
- - Explicitly included stdio.h in tools/perf/util/ftrace.h to declare the
-   FILE type for ftrace_process_fgraph_line(), ensuring clean compilation
-   under musl libc and non-glibc environments
-
- - Prevented name collisions between orphan callee exits and active target
-   frames in ftrace_process_fgraph_line()
-
- - Allowed dropped-orphan exit recovery on closing braces only when the
-   exit explicitly names the target root function itself, ensuring that
-   lost orphan exits do not swallow the target root's exit while protecting
-   intermediate callee frames from collisions
-
- - Replaced the fixed-size array in struct ftrace_task_state with a
-   dynamically resized stack grown via realloc(), completely eliminating
-   cs->overflow_depth and its associated failure modes:
-    - Fixed skipped filter teardown when a target function begins at the
-      stack limit, ensuring standard teardown runs upon root exit and
-      preventing subsequent sibling functions from leaking into filtered
-      output
-
-    - Fixed orphan filter bypass during deep call stacks by preserving all
-      caller frames on the stack, ensuring unknown callers (caller_idx < 0)
-      are accurately identified as orphans and suppressed
-
- - Link to v6: https://lore.kernel.org/all/20261016040310.482876-1-atomlin@atomlin.com/
-
-Changes since v5:
-
- - Prevented call stack desynchronisation on dropped orphan exit events by
-   clearing orphan_depth when a named exit matches a tracked frame or an
-   entry descends from the target callgraph
-
- - Fixed premature target filter termination on child exits by capturing
-   cs->target_root_depth after unwinding stale frames above the caller
-
- - Ensured synthesised caller inlines above cs->target_root_depth are
-   cleanly closed upon target function exit before resetting filter state
-
- - Prevented legitimate deep calls exceeding FTRACE_MAX_STACK from being
-   falsely dropped as orphans by checking cs->overflow_depth
-
- - Expanded unit tests to cover dropped orphan exits, target root depth
-   synchronisation after stale siblings, and deep call stack overflows
-
- - Provided support for glob pattern matching with -G or --graph-funcs
-
- - Link to v5: https://lore.kernel.org/all/20261015011155.414667-1-atomlin@atomlin.com/
-
-Changes since v4:
-
- - Handled non-fatal EAGAIN, EWOULDBLOCK, and EINTR in __cmd_ftrace()
-   polling and draining loops to prevent premature session termination on
-   non-blocking reads or signal interruptions
-
- - Eliminated an unused local variable endptr in ftrace_parse_retaddr() by
-   passing NULL to strtoull()
-
- - Prevented stack buffer overflows in make_blank_prefix() by clamping the
-   blanking loop bounds and end pointer to the destination buffer length
-   when processing trace records with exceptionally long prefixes
-
- - Tracked call stack saturation with overflow_depth to prevent untracked
-   function exits with bare closing braces from prematurely popping tracked
-   frames from the parser stack on deep call chains exceeding
-   FTRACE_MAX_STACK
-
- - Ensured stale non-inlined callee frames resulting from dropped function
-   exits do not block inactive inlined frames from being closed upon
-   subsequent entries by unwinding the stack down to caller_idx + 1 +
-   common
-
- - Fixed filter state not resetting for targeted leaf calls when --inline
-   is active: synthesised inline frames inflated cs->depth beyond
-   cs->target_root_depth, causing subsequent sibling functions to be
-   falsely classified as detached orphans and bypassing inline unwinding;
-   resolved by tracking target root entries (is_target_root), explicitly
-   unwinding all synthesised inlines, and resetting filter state upon leaf
-   completion
-
- - Expanded unit test coverage to verify recovery across dropped exit
-   events and bare closing braces, and to verify that targeted leaf calls
-   with synthesised inlined frames properly close inlines and reset filter
-   state
-
- - Link to v4: https://lore.kernel.org/lkml/20261014161457.373253-1-atomlin@atomlin.com/
-
-Changes since v3:
-
- - Explicitly rejected the noduration option when invoked under the profile
-   subcommand, since profiling inherently requires function duration to
-   compute timing statistics
-
- - Fixed make_blank_prefix() clobbering the comm-pid column in verbose mode
-   by searching backwards for the preceding "|" delimiter, and returning
-   early when graph_noduration is active
-
- - Fixed filter state not resetting for targeted leaf calls at non-zero
-   call stack depths by checking cs->depth <= cs->target_root_depth and
-   clearing cs->target_root_depth, preventing subsequent non-targeted
-   sibling functions within the parent frame from leaking into trace output
-
- - Expanded unit test coverage to verify comm-pid preservation under
-   verbose and verbose-noduration inline modes, and to verify that targeted
-   leaf calls at depth > 0 properly reset the target filter state.
-
- - Link to v3: https://lore.kernel.org/lkml/20261012003016.263063-1-atomlin@atomlin.com/
-
-Changes since v2:
-
- - Expanded the series from 4 to 5 patches by adding a dedicated commit
-   ("perf ftrace: Filter extraneous functions in function graph tracer") to
-   enforce strict target callgraph boundaries when -G or --graph-funcs is
-   specified
-
- - Suppressed unrelated top-level functions that leak through the transient
-   tracefs filter initialisation window before RCU synchronisation
-   completes
-
- - Filtered detached/orphan calls from appearing as nested children within
-   the target graph by validating caller return addresses against the
-   active target stack
-
- - Tracked nested orphan scope depth (cs->orphan_depth) to cleanly suppress
-   child calls and closing delimiters of detached subtrees without
-   desynchronising the target stack
-
- - Added automated unit test coverage in tools/perf/tests/ftrace.c
-   (test_graph_target_filter()) validating top-level suppression (both with
-   and without --inline) and detached orphan wakeup suppression
-
- - Link to v2: https://lore.kernel.org/lkml/20261006232756.65620-1-atomlin@atomlin.com/
-
-Changes since v1:
-
- - Modularised the implementation into a 4-patch bisectable series rather
-   than a monolithic commit
-
- - Resolved potential infinite loop on poll() upon trace_pipe EOF
-
- - Fixed stuck call stack frames when funcgraph-tail is disabled by
-   supporting bare closing delimiters matching LIFO stack frames
-
- - Prevented unbounded indentation growth on deep call trees by clamping
-   inline expansion and synchronising cs->inlined_depth to frames
-   successfully pushed onto cs->stack
-
- - Added dedicated unit tests covering bare closing braces and stack
-   saturation recovery
-
- - Refined option documentation in perf-ftrace.txt
-
- - Link to v1: https://lore.kernel.org/lkml/20261005211518.26786-1-atomlin@atomlin.com/
-
-Aaron Tomlin (10):
-  perf ftrace: Handle signals, non-blocking reads and pager exits in
-    __cmd_ftrace()
-  perf ftrace: Optimise __cmd_ftrace() stack frame with strbuf streaming
-  perf ftrace: Support filtering return address comments
-  perf ftrace: Add basic task call stack management
-  perf ftrace: Support context switch tracking in function graph tracer
-  perf ftrace: Support display of inlined functions in function graph
-    tracer
-  perf symbol: Introduce vmlinux_path__find() helper
-  perf test: Add test for ftrace inline and task stack tracking
-  perf ftrace: Support omitting execution duration in function graph
-    tracer
-  perf ftrace: Filter extraneous functions in function graph tracer
-
- tools/perf/Documentation/perf-ftrace.txt |   14 +
- tools/perf/builtin-ftrace.c              |  202 +-
- tools/perf/tests/Build                   |    1 +
- tools/perf/tests/builtin-test.c          |    1 +
- tools/perf/tests/ftrace.c                | 4000 ++++++++++++++++++++++
- tools/perf/tests/tests.h                 |    1 +
- tools/perf/util/Build                    |    1 +
- tools/perf/util/ftrace.c                 | 2053 +++++++++++
- tools/perf/util/ftrace.h                 |   28 +
- tools/perf/util/symbol.c                 |   38 +-
- tools/perf/util/symbol.h                 |    2 +
- 11 files changed, 6312 insertions(+), 29 deletions(-)
+When tracing with the Linux kernel's function graph tracer, enabling
+funcgraph-retaddr records the return address of each function entry as
+a comment in the trace stream (e.g. /* <-load_elf_phdrs+0x6c/0xb0 */).
+Whilst valuable for tracing execution origins, these trailing comments
+can add considerable visual clutter to the call graph, particularly
+when examining deeply nested call trees or when synthesising higher-level
+abstractions.
+
+Introduce support for filtering out return address comments from
+function graph trace output whenever return address display is not
+explicitly requested via --graph-opts retaddr.
+
+Key aspects of this implementation:
+
+    1.  Return address parsing and filtering
+
+        Implement ftrace_filter_retaddr() in tools/perf/util/ftrace.c
+        to locate return address comments and strip them in-place with
+        memmove(3).
+
+        Additionally, introduce ftrace_parse_retaddr() to parse caller
+        symbol names and offsets across diverse output styles (standard
+        format, return values, and bracketed addresses), establishing
+        the parsing foundation for subsequent inlined callchain
+        resolution.
+
+    2.  Automatic comment filtering
+
+        In __cmd_ftrace(), filter return address comments from whole
+        trace lines whenever !ftrace->graph_retaddr, ensuring clean
+        output unless the user explicitly requests return address
+        comments via --graph-opts retaddr.
+
+    3.  Automated verification
+
+        Add a dedicated unit test suite ("Ftrace return address
+        processing") in tools/perf/tests/ftrace.c to validate comment
+        parsing and string filtering across all supported formats.
+
+Tested-by: Ian Rogers <irogers@google.com>
+Reviewed-by: Ian Rogers <irogers@google.com>
+Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
+---
+ tools/perf/builtin-ftrace.c     |  6 +++
+ tools/perf/tests/Build          |  1 +
+ tools/perf/tests/builtin-test.c |  1 +
+ tools/perf/tests/ftrace.c       | 81 ++++++++++++++++++++++++++++
+ tools/perf/tests/tests.h        |  1 +
+ tools/perf/util/Build           |  1 +
+ tools/perf/util/ftrace.c        | 93 +++++++++++++++++++++++++++++++++
+ tools/perf/util/ftrace.h        |  3 ++
+ 8 files changed, 187 insertions(+)
  create mode 100644 tools/perf/tests/ftrace.c
  create mode 100644 tools/perf/util/ftrace.c
 
+diff --git a/tools/perf/builtin-ftrace.c b/tools/perf/builtin-ftrace.c
+index 65983259b07e..e00621703dd7 100644
+--- a/tools/perf/builtin-ftrace.c
++++ b/tools/perf/builtin-ftrace.c
+@@ -837,6 +837,8 @@ static int __cmd_ftrace(struct perf_ftrace *ftrace)
+ 				break;
+ 			for (int i = 0; i < n; i++) {
+ 				if (buf[i] == '\n') {
++					if (!ftrace->graph_retaddr)
++						ftrace_filter_retaddr(linebuf.buf);
+ 					if (fprintf(stdout, "%s\n", linebuf.buf) < 0)
+ 						break;
+ 					strbuf_setlen(&linebuf, 0);
+@@ -874,6 +876,8 @@ static int __cmd_ftrace(struct perf_ftrace *ftrace)
+ 			break;
+ 		for (int i = 0; i < n; i++) {
+ 			if (buf[i] == '\n') {
++				if (!ftrace->graph_retaddr)
++					ftrace_filter_retaddr(linebuf.buf);
+ 				if (fprintf(stdout, "%s\n", linebuf.buf) < 0)
+ 					break;
+ 				strbuf_setlen(&linebuf, 0);
+@@ -885,6 +889,8 @@ static int __cmd_ftrace(struct perf_ftrace *ftrace)
+ 	}
+ 
+ 	if (!ferror(stdout) && linebuf.len > 0) {
++		if (!ftrace->graph_retaddr)
++			ftrace_filter_retaddr(linebuf.buf);
+ 		fprintf(stdout, "%s\n", linebuf.buf);
+ 		strbuf_setlen(&linebuf, 0);
+ 	}
+diff --git a/tools/perf/tests/Build b/tools/perf/tests/Build
+index 395f2866094a..136138932fcb 100644
+--- a/tools/perf/tests/Build
++++ b/tools/perf/tests/Build
+@@ -72,6 +72,7 @@ perf-test-y += hwmon_pmu.o
+ perf-test-y += tool_pmu.o
+ perf-test-y += subcmd-help.o
+ perf-test-y += kallsyms-split.o
++perf-test-y += ftrace.o
+ 
+ ifeq ($(SRCARCH),$(filter $(SRCARCH),x86 arm arm64 powerpc riscv))
+ perf-test-$(CONFIG_DWARF_UNWIND) += dwarf-unwind.o
+diff --git a/tools/perf/tests/builtin-test.c b/tools/perf/tests/builtin-test.c
+index 880eece0bc12..640d6d327215 100644
+--- a/tools/perf/tests/builtin-test.c
++++ b/tools/perf/tests/builtin-test.c
+@@ -156,6 +156,7 @@ static struct test_suite *generic_tests[] = {
+ 	&suite__perf_hooks,
+ 	&suite__unit_number__scnprint,
+ 	&suite__mem2node,
++	&suite__ftrace,
+ 	&suite__time_utils,
+ 	&suite__jit_write_elf,
+ 	&suite__pfm,
+diff --git a/tools/perf/tests/ftrace.c b/tools/perf/tests/ftrace.c
+new file mode 100644
+index 000000000000..42604811a2fb
+--- /dev/null
++++ b/tools/perf/tests/ftrace.c
+@@ -0,0 +1,81 @@
++// SPDX-License-Identifier: GPL-2.0
++#include <linux/compiler.h>
++#include <linux/kernel.h>
++#include <stdio.h>
++#include <stdlib.h>
++#include <string.h>
++#include <unistd.h>
++#include "tests.h"
++#include "debug.h"
++#include "util/ftrace.h"
++
++static int test_parse_retaddr(void)
++{
++	char sym[128];
++	u64 offset = 0;
++
++	/* Standard format */
++	TEST_ASSERT_VAL("parse standard retaddr",
++			ftrace_parse_retaddr("kernel_read() { /* <-load_elf_phdrs+0x6c/0xb0 */",
++					     sym, sizeof(sym), &offset));
++	TEST_ASSERT_EQUAL("sym name", strcmp(sym, "load_elf_phdrs"), 0);
++	TEST_ASSERT_VAL("offset", offset == 0x6c);
++
++	/* With return value */
++	TEST_ASSERT_VAL("parse retaddr with ret",
++			ftrace_parse_retaddr(
++				"__cond_resched(); /* <-load_elf_phdrs+0x6c/0xb0 ret=0x0 */",
++				sym, sizeof(sym), &offset));
++	TEST_ASSERT_EQUAL("sym name", strcmp(sym, "load_elf_phdrs"), 0);
++	TEST_ASSERT_VAL("offset", offset == 0x6c);
++
++	/* Bracketed address */
++	TEST_ASSERT_VAL("parse bracketed retaddr",
++			ftrace_parse_retaddr("foo() { /* <-[0xffffffff818534c8] bar+0x20/0x40 */",
++					     sym, sizeof(sym), &offset));
++	TEST_ASSERT_EQUAL("sym name", strcmp(sym, "bar"), 0);
++	TEST_ASSERT_VAL("offset", offset == 0x20);
++
++	/* No return address */
++	TEST_ASSERT_VAL("no retaddr",
++			!ftrace_parse_retaddr("do_filp_open();", sym, sizeof(sym), &offset));
++
++	return TEST_OK;
++}
++
++static int test_filter_retaddr(void)
++{
++	char line1[] = "kernel_read() { /* <-load_elf_phdrs+0x6c/0xb0 */";
++	char line2[] = "__cond_resched(); /* <-load_elf_phdrs+0x6c/0xb0 ret=0x0 */";
++	char line3[] = "do_filp_open();";
++
++	ftrace_filter_retaddr(line1);
++	TEST_ASSERT_EQUAL("filter standard retaddr", strcmp(line1, "kernel_read() {"), 0);
++
++	ftrace_filter_retaddr(line2);
++	TEST_ASSERT_EQUAL("filter retaddr with ret",
++			  strcmp(line2, "__cond_resched(); /* ret=0x0 */"), 0);
++
++	ftrace_filter_retaddr(line3);
++	TEST_ASSERT_EQUAL("filter line without retaddr unchanged",
++			  strcmp(line3, "do_filp_open();"), 0);
++
++	return TEST_OK;
++}
++
++static int test__ftrace(struct test_suite *test __maybe_unused, int subtest __maybe_unused)
++{
++	int ret;
++
++	ret = test_parse_retaddr();
++	if (ret != TEST_OK)
++		return ret;
++
++	ret = test_filter_retaddr();
++	if (ret != TEST_OK)
++		return ret;
++
++	return TEST_OK;
++}
++
++DEFINE_SUITE("Ftrace return address processing", ftrace);
+diff --git a/tools/perf/tests/tests.h b/tools/perf/tests/tests.h
+index 5982c4e62cd3..cd12ae85ccfa 100644
+--- a/tools/perf/tests/tests.h
++++ b/tools/perf/tests/tests.h
+@@ -180,6 +180,7 @@ DECLARE_SUITE(perf_hooks);
+ DECLARE_SUITE(unit_number__scnprint);
+ DECLARE_SUITE(mem2node);
+ DECLARE_SUITE(maps);
++DECLARE_SUITE(ftrace);
+ DECLARE_SUITE(time_utils);
+ DECLARE_SUITE(jit_write_elf);
+ DECLARE_SUITE(api_io);
+diff --git a/tools/perf/util/Build b/tools/perf/util/Build
+index 2c1f880c4c47..5b082d09006d 100644
+--- a/tools/perf/util/Build
++++ b/tools/perf/util/Build
+@@ -169,6 +169,7 @@ perf-util-y += list_sort.o
+ perf-util-y += mutex.o
+ perf-util-y += sharded_mutex.o
+ perf-util-y += intel-tpebs.o
++perf-util-y += ftrace.o
+ 
+ perf-util-$(CONFIG_PERF_BPF_SKEL) += bpf_counter.o
+ perf-util-$(CONFIG_PERF_BPF_SKEL) += bpf_counter_cgroup.o
+diff --git a/tools/perf/util/ftrace.c b/tools/perf/util/ftrace.c
+new file mode 100644
+index 000000000000..452231c01568
+--- /dev/null
++++ b/tools/perf/util/ftrace.c
+@@ -0,0 +1,93 @@
++// SPDX-License-Identifier: GPL-2.0
++#include <linux/compiler.h>
++#include <linux/kernel.h>
++#include <linux/string.h>
++#include <stdio.h>
++#include <stdlib.h>
++#include <string.h>
++#include <ctype.h>
++#include "util/ftrace.h"
++
++/**
++ * ftrace_parse_retaddr - Parse return address comment from trace line
++ * @str: The trace line containing the comment
++ * @sym_name: Buffer to store the parsed symbol name
++ * @sym_len: Length of the @sym_name buffer
++ * @offset: Pointer to store the parsed offset
++ *
++ * Extract the function name and offset from a funcgraph-retaddr comment
++ * (e.g. "<-load_elf_phdrs+0x6c/0xb0").
++ *
++ * Return: true if successfully parsed, false otherwise.
++ */
++bool ftrace_parse_retaddr(const char *str, char *sym_name, size_t sym_len, u64 *offset)
++{
++	const char *p = strstr(str, "<-");
++	const char *plus;
++	const char *bracket;
++	size_t name_len;
++
++	if (!p)
++		return false;
++
++	p += 2;
++	while (*p == ' ')
++		p++;
++
++	if (*p == '[') {
++		bracket = strchr(p, ']');
++		if (bracket)
++			p = bracket + 1;
++		while (*p == ' ')
++			p++;
++	}
++
++	plus = strchr(p, '+');
++	if (!plus)
++		return false;
++
++	name_len = plus - p;
++	if (name_len == 0 || name_len >= sym_len)
++		return false;
++
++	memcpy(sym_name, p, name_len);
++	sym_name[name_len] = '\0';
++
++	*offset = strtoull(plus + 1, NULL, 16);
++	return true;
++}
++
++/**
++ * ftrace_filter_retaddr - Remove return address comment from trace line
++ * @str: The trace line to modify
++ *
++ * Find and strip the funcgraph-retaddr comment from the trace line
++ * in-place, removing trailing spaces where applicable.
++ */
++void ftrace_filter_retaddr(char *str)
++{
++	char *start = strstr(str, "/* <-");
++	char *end;
++	char *ret_ptr;
++
++	if (!start)
++		return;
++
++	end = strstr(start, "*/");
++	if (!end)
++		return;
++
++	ret_ptr = strstr(start, " ret=");
++	if (ret_ptr && ret_ptr < end) {
++		memmove(start + 3, ret_ptr + 1, strlen(ret_ptr + 1) + 1);
++		return;
++	}
++
++	end += 2; /* skip end-of-comment delimiter */
++
++	/* Also backtrack any spaces before comment */
++	while (start > str && *(start - 1) == ' ')
++		start--;
++
++	memmove(start, end, strlen(end) + 1);
++}
+diff --git a/tools/perf/util/ftrace.h b/tools/perf/util/ftrace.h
+index 950f2efafad2..a3a679f74e9d 100644
+--- a/tools/perf/util/ftrace.h
++++ b/tools/perf/util/ftrace.h
+@@ -93,4 +93,7 @@ perf_ftrace__latency_cleanup_bpf(struct perf_ftrace *ftrace __maybe_unused)
+ 
+ #endif  /* HAVE_BPF_SKEL */
+ 
++bool ftrace_parse_retaddr(const char *str, char *sym_name, size_t sym_len, u64 *offset);
++void ftrace_filter_retaddr(char *str);
++
+ #endif  /* __PERF_FTRACE_H__ */
 -- 
 2.55.0
 
