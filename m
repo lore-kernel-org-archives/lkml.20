@@ -1,55 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793024001;
-	b=n0YaN9IsfzT4iex0yb13AOZ+s8kiiw14TyvEtKOCsCrgVPaZXDFfEzXRkH00zukPYCXh
-	 RZg1ddfqsso5BKcy8uodfLviisdIZL+qy9EOaM3fpUtTMCuWuCFq/nAmZADXHae6Lxlaj
-	 2+EpyRd061j7ez6ivWqsJ6Ve5y888zfdqRgDg/BuMTSjMW6GMCRrth9RszkiVekAb2pkM
-	 tDyT1OJyzOOZNiwx/RuTx35yTlZKKXziMrCg2/BQYNLtb7/J5As9zSyx39jfGi4IlpUhQ
-	 2RLhhAlkQMHFgNSOXPartIGm/H5sgvrFRuFlID1unCt9VDTcdxzkqVAftJYHYHFlypw==
+	t=1793024112;
+	b=cUxB34gElBKHPabe2t7D+sHWg9rt4AB1B21PlnIEBXR3qjXxjCacwHkI+OChA2DlVR1r
+	 lWaZPUSM2lsq+T+Whz5EnG5Qu4Zm7ezhaJpH//f44D6cK0Tapsyt1S3ZDCDaB0NuuYP6n
+	 Z4VCGtyhAUf6o94QrPSXhU+n4/zL3x7lYsUdbw10Xk9IBFg2AXwDY+M8ye4OaNzUkfM7R
+	 7Jf7fqNccFGiW1CovJmC96LBD12t2x4jYLFQe+XZ0kvDe1TZ7ietErQM37FZlxYmmoKZt
+	 OKvDf2NC96GWfMcFIFLLJvxbFMqog6oO4B/ra2x5g0JT4unTOWyBDOvIm42tgAxHOog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793024001;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=yx6JOOAwjfJvEl+q2w/2z9+UJVKvZxSYxlAqCZCN51I=;
-	b=YZWu846aHSG0nMN2MACHJJS+PHOAIgsqOFoU6AxlUJCJhG806nsj+e1do8UPpkusooWT
-	 u0xeKmQZsxXL549OSsbNtS93TcCNiR1GgfA7RDkyVLZpZL4C3oY0j52yzIbKtZ8DECETB
-	 3ZV2CtLyE2kj43bfnxqNmAJA60qkD4h1Vu5tyPhcKZfnmzPGb3fjfs3R+I23206yJeBfJ
-	 N3i1vRCpIxiQklsDjxGMzykoNiUVq0Ea/I2fULYV32Qi/DM1Na2pASPCiYbxJlRVNlVvi
-	 F0HjOUVwQkjmjuIXrdiCqzkrDA49nELOVWe9P83UkYtCJbHGIlTsWo5RnXuby1YzlfA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793024112;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
+	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
+	bh=Ez5ntbIh+EW8bTl4TijkvlK9dqmEXQTUkScs6BriJM4=;
+	b=m04DcZn8FXvapDoMgLrhTmAn5uO3UlvEtGXuec4h7EsJXzUTSFatq4ZbAXMOYkg67OPf
+	 TCKo2I74e7ATCrYXHOdpY0KcCA7iPTEigO4o5orURlgmsgr+vEHYdniBLwxJE8V8fh5NY
+	 kuCLmeZ4l5Ot4UoowZ3JB/87bGljQm5ygeZci6tYIO38dsHaBK2XXDgxSKjRsgryqooqw
+	 nhtnmxzrmqa+vLLNWwAWgSiUt318XIs81IzJwI6aQ5v94Gz6JqzIherUP8DWAFOBg6LmU
+	 Y1OLw+E4u2gRD+VPP/3sAx+6kE+d0UMDZZ4AlvtE4LoTFJbPD2ufCHsC6IqipDEPr6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H1wte44Y;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FPBarEr6;
+	arc=none smtp.remote-ip=198.175.65.15
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE63C606A31B
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:13:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2649F606A31B;
+	Mon, 26 Oct 2026 14:15:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2649F606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H1wte44Y
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 629A81F031E0
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:13:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793024000;
-	bh=yx6JOOAwjfJvEl+q2w/2z9+UJVKvZxSYxlAqCZCN51I=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=H1wte44YpT5aIST/Um51VTsXlpWMPHKaLp6M5oMLQsLxwaJZ4E6mlSH111JBkzYLH
-	 Bd/lr48tmGAjkGk4UcDV5XeiUfis5AlZ+cKbQLFHj9IOSPjqDkQ685RMNmmvUpFm1B
-	 XZogLuGqhS262AaBFG2C0CAO2Ji/1StINXiEQ4boG1fSXqrrfmS4JAH7PrOBIqGf12
-	 c2oe54BcwfJIUmnzvgetx+2JgRx+amL1lL1CpzEGeiiIrFMaXpTzBe0J4DLBJBUZ+9
-	 E7cFr9B523TajyOQ+UyzGKFsl7vixI+vshtJa06d3bMIFcP98g0i/n3opgpwaDJ8Tw
-	 J48hWBOJ6dGoA==
-Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6b170129413so5962167a12.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 07:13:20 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzXIqbIH2t4D49nSnj0pu5rYxE6KEy5lETEir3Pfso7d660sIbpsqM85JyTE8hBn/93EcOu+Cxm2eF9bb8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJdEEgGHhxETeBYo92oTc2fAe+h18QXVBOpx5nDGtQ0ndEx4zLX
-	0LJr8xAgoBFEBwznqIw0CFi9oPg3KntK2dIB871eyyc27t4ZKS8JnrjDpFqdHGVfGjq8qYLOCTF
-	7j2QNK4n10X4cN5AKZQlgaS20Sx+Kank=
-X-Received: by 2002:a05:6402:4405:b0:6b4:1629:b1aa with SMTP id
- 4fb4d7f45d1cf-6b442a87d34mr8879902a12.2.1793023999024; Mon, 26 Oct 2026
- 07:13:19 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FPBarEr6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793024111; x=1824560111;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=qc4beh/LwtB0vw+iP15WQW0Wl9ZVp8GN+Zby6+YptcI=;
+  b=FPBarEr6Z48ed5eQdIWBr/1Wvl8Ey0YsYgfrP0sPfig9UjR030rPkQE9
+   jazNXwTAeCLp7QmMvwAK1W2yGYh0eQxf9rwi+rt9BHgxryRoNOC1hbpK2
+   y3YXqxwN6bf8aGfNjukUHyq4pKkcfYArw+BJLACmCiYwQ8Te+90ZGFy+T
+   BG/jVnL6remkBvg2obgvhTKaLECwRvsTvDu8PK9B2uX3jioVrkoP38BeJ
+   n3t4YdfBSxa2RZMCXIz1DVSDd5nSno1qzcpqDDanbNoiw0jSdL/PkB9Bz
+   pjJNRfQ5vSs0Mc/OLp7IYsKQd/jAItXmsq8sbm/NTtExxrcFNgyN51QpZ
+   w==;
+X-CSE-ConnectionGUID: W2iS01voS2mzfvOUU4Ev0w==
+X-CSE-MsgGUID: cm+LquatQ5eLCuiSPNzB0w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1697599"
+X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
+   d="scan'208";a="1697599"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 07:15:11 -0700
+X-CSE-ConnectionGUID: d9jyxAXVQmSMZnS5qFL0gg==
+X-CSE-MsgGUID: SRRySvS4RSK0qwR27b/pHQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
+   d="scan'208";a="4285214"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.109])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 07:15:04 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Mon, 26 Oct 2026 16:15:00 +0200 (EET)
+To: Denis Benato <denis.benato@linux.dev>
+cc: LKML <linux-kernel@vger.kernel.org>, platform-driver-x86@vger.kernel.org, 
+    linux-input@vger.kernel.org, kernel@lists.opengamingcollective.org, 
+    Benjamin Tissoires <bentiss@kernel.org>, Jiri Kosina <jikos@kernel.org>, 
+    "Luke D . Jones" <luke@ljones.dev>, 
+    Mateusz Schwartz <matthew.schwartz@linux.dev>, 
+    Denis Benato <benato.denis96@gmail.com>, 
+    Jonathan LoBue <jlobue10@gmail.com>, 
+    Khamunetri Clark <khamunetriclark@gmail.com>, 
+    "Derek J. Clark" <derekjohn.clark@gmail.com>, 
+    Joshua Leivenzon <hacker1024@users.sourceforge.net>, 
+    Nathan Chancellor <nathan@kernel.org>, 
+    =?ISO-8859-15?Q?Rebecca_Mara_M=FCller?= <rebecca.mara@posteo.de>, 
+    Ivan Levchenko <me@livan.pro>, Corentin Chary <corentin.chary@gmail.com>, 
+    Hans de Goede <hansg@kernel.org>
+Subject: Re: [PATCH v11 17/18] HID: asus: report the XG Mobile GPU vendor to
+ asus-wmi
+In-Reply-To: <20261025235232.129945-18-denis.benato@linux.dev>
+Message-ID: <8353d073-2abd-96d6-e861-b170f5b95f45@linux.intel.com>
+References: <20261025235232.129945-1-denis.benato@linux.dev> <20261025235232.129945-18-denis.benato@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,154 +91,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261026091332.30226-1-zhaoqunqin@163.com> <20261026091332.30226-2-zhaoqunqin@163.com>
-In-Reply-To: <20261026091332.30226-2-zhaoqunqin@163.com>
-From: Huacai Chen <chenhuacai@kernel.org>
-Date: Mon, 26 Oct 2026 22:13:09 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H6dRGvL3wL=i66NUOmou89AEZTQoF8XV0DJY9KihkcatA@mail.gmail.com>
-X-Gm-Features: AclHuK-ldtfwiCR5le0JdWKUWCsTMKB0NsMqWvVq9nRMk0olgQISDUVOAOerzII
-Message-ID: <CAAhV-H6dRGvL3wL=i66NUOmou89AEZTQoF8XV0DJY9KihkcatA@mail.gmail.com>
-Subject: Re: [PATCH v5 1/4] EDAC/loongson: Rename driver-local symbols
-To: Qunqin Zhao <zhaoqunqin@163.com>
-Cc: bp@alien8.de, tony.luck@intel.com, linux-edac@vger.kernel.org, 
-	zhaoqunqin@loongson.cn, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
 
-Hi, Qunqin,
+On Sun, 25 Oct 2026, Denis Benato wrote:
 
-On Mon, Oct 26, 2026 at 5:14=E2=80=AFPM Qunqin Zhao <zhaoqunqin@163.com> wr=
-ote:
->
-> From: Qunqin Zhao <zhaoqunqin@loongson.cn>
->
-> Remove the "edac_" prefix from driver-local definitions to keep the
-> edac_ namespace reserved for EDAC core functions.
->
-> Rename edac_check(), edac_probe() and edac_remove() to check(), probe()
-> and remove(), respectively, and rename struct loongson_edac_pvt,
-If we follow other drivers' patterns, we should use loongson_check(),
-loongson_probe() and loongson_remove().
-
-Huacai
-
-> loongson_edac_driver and loongson_edac_acpi_match to loongson_pvt,
-> loongson_driver and loongson_acpi_match, respectively. The shorter
-> names are unambiguous since they are all file-local.
->
-> Signed-off-by: Qunqin Zhao <zhaoqunqin@loongson.cn>
+> The version query answers with the 4-part PCI ID of the GPU installed
+> in the station. Parse it, report its vendor part to asus-wmi as soon
+> as the station is identified and clear it when the station goes away,
+> so that enabling the eGPU through egpu_enable composes the right
+> activation value for NVIDIA, AMD and Intel stations alike.
+> 
+> Signed-off-by: Denis Benato <denis.benato@linux.dev>
 > ---
->  drivers/edac/loongson_edac.c | 32 ++++++++++++++++----------------
->  1 file changed, 16 insertions(+), 16 deletions(-)
->
-> diff --git a/drivers/edac/loongson_edac.c b/drivers/edac/loongson_edac.c
-> index 3ed4d34a336..d9bc33dda7e 100644
-> --- a/drivers/edac/loongson_edac.c
-> +++ b/drivers/edac/loongson_edac.c
-> @@ -13,7 +13,7 @@
->
->  #define ECC_CS_COUNT_REG       0x18
->
-> -struct loongson_edac_pvt {
-> +struct loongson_pvt {
->         void __iomem *ecc_base;
->
->         /*
-> @@ -27,7 +27,7 @@ struct loongson_edac_pvt {
->
->  static int read_ecc(struct mem_ctl_info *mci)
->  {
-> -       struct loongson_edac_pvt *pvt =3D mci->pvt_info;
-> +       struct loongson_pvt *pvt =3D mci->pvt_info;
->         u64 ecc;
->         int cs;
->
-> @@ -41,9 +41,9 @@ static int read_ecc(struct mem_ctl_info *mci)
->         return cs;
->  }
->
-> -static void edac_check(struct mem_ctl_info *mci)
-> +static void check(struct mem_ctl_info *mci)
->  {
-> -       struct loongson_edac_pvt *pvt =3D mci->pvt_info;
-> +       struct loongson_pvt *pvt =3D mci->pvt_info;
->         int new, add;
->
->         new =3D read_ecc(mci);
-> @@ -74,13 +74,13 @@ static void dimm_config_init(struct mem_ctl_info *mci=
-)
->
->  static void pvt_init(struct mem_ctl_info *mci, void __iomem *vbase)
->  {
-> -       struct loongson_edac_pvt *pvt =3D mci->pvt_info;
-> +       struct loongson_pvt *pvt =3D mci->pvt_info;
->
->         pvt->ecc_base =3D vbase;
->         pvt->last_ce_count =3D read_ecc(mci);
->  }
->
-> -static int edac_probe(struct platform_device *pdev)
-> +static int probe(struct platform_device *pdev)
->  {
->         struct edac_mc_layer layers[2];
->         struct mem_ctl_info *mci;
-> @@ -98,7 +98,7 @@ static int edac_probe(struct platform_device *pdev)
->         layers[1].size =3D 1;
->         layers[1].is_virt_csrow =3D true;
->         mci =3D edac_mc_alloc(0, ARRAY_SIZE(layers), layers,
-> -                           sizeof(struct loongson_edac_pvt));
-> +                           sizeof(struct loongson_pvt));
->         if (mci =3D=3D NULL)
->                 return -ENOMEM;
->
-> @@ -112,7 +112,7 @@ static int edac_probe(struct platform_device *pdev)
->         mci->ctl_page_to_phys =3D NULL;
->         mci->pdev =3D &pdev->dev;
->         mci->error_desc.grain =3D 8;
-> -       mci->edac_check =3D edac_check;
-> +       mci->edac_check =3D check;
->
->         pvt_init(mci, vbase);
->         dimm_config_init(mci);
-> @@ -128,7 +128,7 @@ static int edac_probe(struct platform_device *pdev)
->         return 0;
->  }
->
-> -static void edac_remove(struct platform_device *pdev)
-> +static void remove(struct platform_device *pdev)
->  {
->         struct mem_ctl_info *mci =3D edac_mc_del_mc(&pdev->dev);
->
-> @@ -136,21 +136,21 @@ static void edac_remove(struct platform_device *pde=
-v)
->                 edac_mc_free(mci);
->  }
->
-> -static const struct acpi_device_id loongson_edac_acpi_match[] =3D {
-> +static const struct acpi_device_id loongson_acpi_match[] =3D {
->         { .id =3D "LOON0010" },
->         { }
+>  drivers/hid/hid-asus.c | 18 ++++++++++++++++--
+>  1 file changed, 16 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/hid/hid-asus.c b/drivers/hid/hid-asus.c
+> index e444cad85b32..244d103fbd4c 100644
+> --- a/drivers/hid/hid-asus.c
+> +++ b/drivers/hid/hid-asus.c
+> @@ -186,6 +186,7 @@ struct asus_xgm_info {
+>  	char part_number[ASUS_XGM_INFO_LEN];
+>  	char firmware_version[ASUS_XGM_INFO_LEN];
+>  	char generation[ASUS_XGM_INFO_LEN];
+> +	u8 gpu_id[4];
 >  };
-> -MODULE_DEVICE_TABLE(acpi, loongson_edac_acpi_match);
-> +MODULE_DEVICE_TABLE(acpi, loongson_acpi_match);
->
-> -static struct platform_driver loongson_edac_driver =3D {
-> -       .probe          =3D edac_probe,
-> -       .remove         =3D edac_remove,
-> +static struct platform_driver loongson_driver =3D {
-> +       .probe          =3D probe,
-> +       .remove         =3D remove,
->         .driver         =3D {
->                 .name   =3D "loongson-mc-edac",
-> -               .acpi_match_table =3D loongson_edac_acpi_match,
-> +               .acpi_match_table =3D loongson_acpi_match,
->         },
->  };
-> -module_platform_driver(loongson_edac_driver);
-> +module_platform_driver(loongson_driver);
->
->  MODULE_LICENSE("GPL");
->  MODULE_AUTHOR("Zhao Qunqin <zhaoqunqin@loongson.cn>");
-> --
-> 2.47.2
->
+>  
+>  struct asus_touchpad_info {
+> @@ -6313,6 +6314,12 @@ static int asus_xgm_get_version(struct hid_device *hdev,
+>  	asus_xgm_tlv_str(info->firmware_version, sizeof(info->firmware_version),
+>  			 buf, len, "VER");
+>  
+> +	/* the 4-part PCI ID of the GPU installed in the station: buf[3..10] */
+> +	if (len < 11)
+> +		return -ENODATA;
+> +
+> +	memcpy(info->gpu_id, buf + 3, sizeof(info->gpu_id));
+
+Is this 3 also related to tag length (the literals comment I had to the 
+other patch)?
+
+--
+ i.
+
+> +
+>  	return 0;
+>  }
+>  
+> @@ -6685,6 +6692,8 @@ static int asus_xgm_init(struct hid_device *hdev, struct asus_drvdata *drvdata)
+>  		hid_info(hdev, "XG Mobile: firmware %s, generation %s\n",
+>  			 info->firmware_version, info->generation);
+>  
+> +	asus_wmi_egpu_set_vendor(info->gpu_id[0]);
+> +
+>  	/*
+>  	 * The attribute group is not devm-managed: a creation failure is
+>  	 * fatal and unwound through asus_xgm_init_err, while on the unbind
+> @@ -6732,6 +6741,7 @@ static int asus_xgm_init(struct hid_device *hdev, struct asus_drvdata *drvdata)
+>  
+>  	return 0;
+>  asus_xgm_init_err:
+> +	asus_wmi_egpu_set_vendor(0);
+>  	sysfs_remove_group(&hdev->dev.kobj, &asus_xgm_attr_group);
+>  	drvdata->xgm_info = NULL;
+>  	drvdata->xgm_led = NULL;
+> @@ -6951,8 +6961,10 @@ static int asus_probe(struct hid_device *hdev, const struct hid_device_id *id)
+>  	if (drvdata->listener.brightness_set)
+>  		asus_hid_unregister_listener(&drvdata->listener);
+>  
+> -	if (drvdata->xgm_info)
+> +	if (drvdata->xgm_info) {
+> +		asus_wmi_egpu_set_vendor(0);
+>  		sysfs_remove_group(&hdev->dev.kobj, &asus_xgm_attr_group);
+> +	}
+>  
+>  	if (drvdata->xgm_led)
+>  		devm_led_classdev_unregister(&hdev->dev, &drvdata->xgm_led->cdev);
+> @@ -6972,8 +6984,10 @@ static void asus_remove(struct hid_device *hdev)
+>  	if (drvdata->listener.brightness_set)
+>  		asus_hid_unregister_listener(&drvdata->listener);
+>  
+> -	if (drvdata->xgm_info)
+> +	if (drvdata->xgm_info) {
+> +		asus_wmi_egpu_set_vendor(0);
+>  		sysfs_remove_group(&hdev->dev.kobj, &asus_xgm_attr_group);
+> +	}
+>  
+>  	if (drvdata->xgm_led)
+>  		devm_led_classdev_unregister(&hdev->dev, &drvdata->xgm_led->cdev);
+> 
