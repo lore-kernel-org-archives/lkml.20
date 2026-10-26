@@ -1,111 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.87
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793009893;
-	b=LI9YOXoT+Pr54FfxssjU7qmVO0ZxKY3RKrE+pTFwhb+8YPH32CuIFKzoAq8Pyln+ZCa4
-	 0qsm9WM6OhESklvaSicFzdDtzHjJro4I89Gc2vFWz2v071KZzTBF3waZTgyluwHRNTR/6
-	 jPhnSpfbAbez1z/2DJVZEp9SBh2l5y4pmdzmw/SmM3gZ14YW8PlmS2LSxtiyEs7d+8zhU
-	 L1cxg2bqQDTHjKwnpL7ZlN5LyTM7wP+ljqULs2T34U3+abPh7R1+24rNZwL5dZwnZ03K8
-	 npYqFk04cVDFTuuYXgm1/I8DBDShNhEBXZ78j8QemMnKpyWxqc0spezKxYO4PZ2tZSg==
+	t=1793009879;
+	b=C0OBuEu3ZS+xlM42abRNBBE4p8xTXSGQqGFT/nBLGWHEJ+Xsnn5y/8M6fXxULDjkdAPo
+	 +RnYtUOTz9LdMmR08oXTNEPCU70AZS2dse3Cu2NnBNQ8huLR8pLRsqz2tJMpM7sS6/kHM
+	 cAT4M5D+suylQSwMHKePuqZK1hgzHeQKoGrKOqa4K7ra7LIs4l9zPmbU5KN/yANY0Jbjy
+	 lrqSemyX1F+DmbPX6xYvqq9JnHwOsc00OrRjsfZpJjrl5gHNQWkj2rZayJdRTI8uLdjCX
+	 Pt9P3rKEc3rYctb5jpGS3O6nvGiavRc80lDvLR05eLUm3nWTOZEqN0jIqkucuwqzF0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793009893;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=3R5Zo4yAfimR6LnVWpq1lFnDn9+4WkdPOhsqjK8hrsA=;
-	b=h5Ca3nEsEgvjOfmfLUZS33v7ceRFoHa6YOlFmHIMD8UCOt4Y4Py7HjRsjHAOVPJVz3gP
-	 300qb1y23EDh8Gqxlq016uCI6PQKFUiZvB3QUoUixo1Cjhbvt89wmv7LPmMNK9mKBbPsC
-	 HR3X2uqvSstov66dSDxfjQ6yY5hbLzEvfwofoqEl/uZ0cCsj4EjPiP8r5+uU+Wb6dajgQ
-	 mTsaEUqvt3oZ0MgqZR1Ju+mZmBhlptk6XCi7t48OCvMR/gELqmdjrxjl7aFR1Aiuy/SaA
-	 hc6qKchDhkWr50CFMBqZtMlerz/mQM/Wif3Keadi3Leucvvv6sV6PwHtjjqjMOHsmgw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793009879;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=+vQqFjBignZRT8XMhvdZi2Ne9dp7Awmm/kWjKmOpBRM=;
+	b=vl0Um0CK1y202sCg/5y+o9AvTU3ke5A20ZTe8FzjReDAoRH/XZXAiyOr0CkH+vBnk5J0
+	 H3Xjv1OegEoSzxgiPBYB8xsnbXwl2kDbMMhuFo7/CwPc6gXTNSDlIwvNkgdD64WVm38kZ
+	 wWTPfcQ4bbVpRft1I4OL0Tf6tZWxzOwhCY+mt9mkZJ1mcSGUIMkcmd2SM/iCPUGV/+nMf
+	 zBpTQXQmH89jlM+91QHAUweHHnyxfYDvA37LOIw/G98StzUWqSNRebDoXM896mbP3mTla
+	 ec0978vjxjCtiaf747+mifb7VaAi8ypTv61eau/b3mqtj46QO6hdy1XUzTOEy32oT+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=VPPxRNat;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=b5Nd5Ctt;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=bupA3k6D;
+	arc=none smtp.remote-ip=162.62.57.87
+Received: from out162-62-57-87.mail.qq.com (out162-62-57-87.mail.qq.com [162.62.57.87])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 748F2606A326
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:18:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 748F2606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3ABD606A31A;
+	Mon, 26 Oct 2026 10:17:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3ABD606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=VPPxRNat;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=b5Nd5Ctt
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69QA3rkK3521873
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:18:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	3R5Zo4yAfimR6LnVWpq1lFnDn9+4WkdPOhsqjK8hrsA=; b=VPPxRNatdmsu/dNH
-	lTUkUvHVX4UCJo1YoQi27WjjVDcUbpcUXACUhnctZT6VunyYiEDbysCZCR8ARfM1
-	WuC4DoKBg+91OZ8+E7fY5ymRTAwA9557UZlMc5fBfhTKDIRpfXilN/51A8jQhezN
-	yX5M3GhnsaHxAe1gpCVLVpp2O9mHkC9FzK0fxL3fjJ18p9COjtiS1p+dSQU/C+ce
-	/ZOZjxOqiBh4olOOOoQhqYLn8bEvDukKgLWUfO//77YZDoSkxvO+pZ51SUoi1hZF
-	IZHy7MQe/3tJQa2huoe0gJdttb0R2dgm99+iwf49hoLeNrPGlv38hciKm5lmf6d0
-	CGt+IQ==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hj4sf01qd-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:18:11 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-5356c6d98cbso10652261cf.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 03:18:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793009891; x=1793614691; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3R5Zo4yAfimR6LnVWpq1lFnDn9+4WkdPOhsqjK8hrsA=;
-        b=b5Nd5Ctt21m9HyPBR1rCiVnyy5PBDlG24z9Ft/UOFYGu4GjIBQeOrUtNC/UDTJD21P
-         94dUzw7Y6X0ocv5YTds7mdMF51vqRuVJ7UtUemUxs02W1YeoCf/rviQKA/D4OreRPorW
-         8+1fNnG+EyfphXOlFDrDD9GsytQpKEvBO9RrTi3hGUzRmQA23viIWlnzmu4GxoNuBIZd
-         X0ck3qH+PRwP5+vLEsBS0JcPTt1QWtABW8xRsbo4P0u233J5aakdlOjb+4ltRwVBfyQy
-         eJC7GeRtneaU9DBEXqPUhQKiPcB1VXVjqvhtQ/YRlkblL3JnW01xBHuI6W/urmmsV1lv
-         ss4A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793009891; x=1793614691;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3R5Zo4yAfimR6LnVWpq1lFnDn9+4WkdPOhsqjK8hrsA=;
-        b=fS3D0JZsqqI072xbVSrQDcwVAvrEl5Tc6tU0LQ4o095IDJCARz+oOJYRtsvJvnpgwd
-         9jqOV14n2HW8LMoWX3XJ1sbDsnb8DxQhf5r48lj8gLHpNqi/Ai/gZiOHcBft6f9FRpTA
-         F+7piSjKQTpKMPrKO2gcWTCI5gT49baOIr2YdMTdYfS8vzed5HllfvLjJdIevcO8SIdC
-         JZI1K+rqrJRIR6+ODBFajWa/qUWo9ncFBt5ssAXpu31OrNODjmtAZrwxbPL5qyOXdVmw
-         KY40sn+f27pimOTrMKUVsXvh34cwj/GuJYesxBZ0sJwxldIqTfQNNeUJqtuLU2ah8fEp
-         X/FA==
-X-Forwarded-Encrypted: i=1; AKwUvBxlOJNyXoQJ4hTMImey2vGl0fPnwWzsQ7pBh4U7aPHR/2kpeKsxK3eNFv2S14Gb0CUlfrRgTzvn/IMx2Lo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKwJVJpTdacl+QtP5MISx6XFyKhqamPdNRmDXdfU018ZsvOD+1U
-	kTQeSG3fkZpxgxtIU7m7C5Smj9blNKq3hFm4/L/hujz33y0RX80PmVUWP79T09pROdr+66No9Gk
-	s+71DDjtAVn2635kocAktvuvPuczHm1+Bkovz2CDY8/y+XRrlsPaJU79dk5MmYakbGss=
-X-Gm-Gg: AYBFou24VUrdOQiN3xLIqm1LxD1xn55pOREDxRWIlApZDmmuP7wK307rmKoqzx6JRSy
-	uHnvZ3dizaAmob8PmBVnkDJAO+o+4FYW+bqBvkKXfMB8/qYHW8WG4Rw1I6ia5ojdt9SDZMdCeNg
-	viLZt/3DwHDJlWVVrF4OVh59TwRK/a/kuCABcfOgzWgtwAYCsFKFXy9L4FEwM+gurXXPOBqNCiV
-	QxfphlqYJzZV+1Rzen9+QAXj4CFQQea9Ns/NYw6uwJ7eaq2HmOrXaPbGF6o7BeWoITnb/B8yNcb
-	k2BfS1/QdoqPT+PUC8kTkMgOflZNLKY7tl7squ52Y/xWyOmfkmYEa0zlAHsnzy0WK2MFehI94jJ
-	Rz8LdHnbMJn4bIbZO/Iuf4A==
-X-Received: by 2002:a05:620a:8a0f:b0:940:f21a:eb64 with SMTP id af79cd13be357-940f21aef09mr685922485a.5.1793009890668;
-        Mon, 26 Oct 2026 03:18:10 -0700 (PDT)
-X-Received: by 2002:a05:620a:8a0f:b0:940:f21a:eb64 with SMTP id af79cd13be357-940f21aef09mr685919985a.5.1793009890199;
-        Mon, 26 Oct 2026 03:18:10 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd350a61sm301851866b.12.2026.10.26.03.18.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 26 Oct 2026 03:18:09 -0700 (PDT)
-Message-ID: <4e7c426b-f3c1-433c-9d9d-45fad28aa5e8@oss.qualcomm.com>
-Date: Mon, 26 Oct 2026 11:18:07 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=bupA3k6D
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1793009872; bh=+vQqFjBignZRT8XMhvdZi2Ne9dp7Awmm/kWjKmOpBRM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=bupA3k6DCECkrOjWSHttIXmngApt+vDhSYQXzR+m67ABSM5I1yIo0hGDMvv/SQCfM
+	 HrVzoMV4OlEdaKue+dRR5SJFaT4d+K1/O/+bW7mNu5sWV6Hb4Pp/EzU1XZnkTmD/dj
+	 eHbryo53p62qHsBI0NeN/1rIJHY3LITbGPd+81tI=
+Received: from shuai-VMware-Virtual-Platform.. ([117.158.156.199])
+	by newxmesmtplogicsvrszc56-0.qq.com (NewEsmtp) with SMTP
+	id 46F8F47C; Mon, 26 Oct 2026 18:17:47 +0800
+X-QQ-mid: xmsmtpt1793009870tps30lbfd
+Message-ID: <tencent_9F56130CEE9798D5C4A13B897412CBA6FC06@qq.com>
+X-QQ-XMAILINFO: MRMtjO3A6C9XbXZ2D+oNSNFnYsB2eXDqJLQf313vnrwb2TIeb6sDOKeR9xPgzB
+	 Jefh+y22rQNvIraKSagnDdrTX5O2c9DEV7qcUqDCp1ewzdgSI+KIiQnUTNV0gMR0wWh9s5Ge5u8a
+	 BQyW2Xsi3wBfhIvesbmT/0m1VKkah9jmSI2eU6Z2KWK0l6vzut9q/VNlCrgyYh0juqzjj6uEpS/W
+	 Ll1qAQzo0i01FYndxB4hVZdQU4njZu+fM7IujCF5wPvnbYKgbqvPpqfdjIrrN8lPLwWfnvWuyWCl
+	 APlemUKAYAEwLXJe11N6oqi26VOjDI8qTYd1K2VkszDn4eIi8sEZldhyunaj4ScJh9j9eLpXTmFD
+	 L6Wi/nvgtdi8mFz9cHhXedgvE5AXqiqIoncTniJ2QfhwvJ54V7sc3Ift3E7CYNn4TRBKeNT7RBEe
+	 Savq1Ai/whqVgd0oRujsaqLyDZKycfaMGpPuChOVLQdvJ/gHaBS3Ucnbdt6wZdn/mO8zjIwIWk9S
+	 oVMV2V9bAInZkM3O1A4la24TeCXw1eRBdtai4uFF/ppjTxmeI4vaBlISvwwqMBjRRM4bt/utTnnO
+	 tfDdt5bjzjBxcj3O3ErH5lgKydF6qckLHyqQ7Aoul4bsWym4jU+2kRNE+uAt6+cWqV977MIosJhW
+	 R662EIfvISmj+HW5vIyofBmE007skEzm37cH9ItNnjUVkJieED8XamXFNFNzsCLhKHI4LxLocGNy
+	 1fQCISauIIxUkR/x7ogZCAidq7fOTEXUE/XVwTHxuwgd+IOWsxk0ZHRiAC2cxZwkkDvaqJA1Qc8M
+	 pOrzb4PSWW3s1iKDmmv0LCoSsGVWV5UkE0wntBQmv+qsHrbK7YmS1EScz5R/u1CIsqO2MjiYgrau
+	 /tD8cLvjzRuLitdlDKUN8iAycZx/dm/at/EMoF1PLSt58V/oLF9ud4DEcxNZhyto5t+1nR7s6M0M
+	 CmIxZv03Iz43iJi/ZnicVT8jb0pPEyCQDsZJ6aKTcl+iDzp0HkbasBKGRV+RN1gQVpSTYDfQMxex
+	 bSDsNahLyA8++4vN95rlu3VQfDlD9mS4B/vZQ7GPezgIPS26RFOBj+4bU/3CVou2l3F4RMGmDCxI
+	 bNoM+oqfJ4EOa2tV8=
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+From: Shuai Liu <847807867@qq.com>
+To: linux-spi@vger.kernel.org,
+	rust-for-linux@vger.kernel.org
+Cc: broonie@kernel.org,
+	ojeda@kernel.org,
+	dakr@kernel.org,
+	linux-kernel@vger.kernel.org,
+	Shuai Liu <847807867@qq.com>
+Subject: [PATCH v2 2/3] rust: spi: add SPI driver abstractions
+Date: Mon, 26 Oct 2026 18:17:46 +0800
+X-OQ-MSGID: <20261026101747.126903-3-847807867@qq.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261026101747.126903-1-847807867@qq.com>
+References: <20261026101747.126903-1-847807867@qq.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,75 +84,641 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] arm64: dts: qcom: sm6115: Correct cluster idle
- state parameters
-To: Michael McAllister <me@michaelmcallister.org>,
-        Bjorn Andersson <andersson@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <cover.1792840208.git.me@michaelmcallister.org>
- <b73aaefa59c2aa795af8e1c4ab117b0857b332b0.1792840208.git.me@michaelmcallister.org>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <b73aaefa59c2aa795af8e1c4ab117b0857b332b0.1792840208.git.me@michaelmcallister.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDAzOSBTYWx0ZWRfXxrJqMtvxa11d
- kKLtl9mUG9qWWafWPDwEE7L6NFtI/er8WcWLcKIIkdpfiYumZZWSeS4eMXgZ9VN0taxYiczt/lK
- YKtJI4IKXbGN7vP6z6mrjTdmYu+6YvA=
-X-Authority-Analysis: v=2.4 cv=ZOdCCn7b c=1 sm=1 tr=0 ts=6adf28e3 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=sim_hGIB01VkqWS-gC8A:9 a=QEXdDO2ut3YA:10
- a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-GUID: V3B2qAKcAWuqLvrrudX01pTi6VUE5cZS
-X-Proofpoint-ORIG-GUID: V3B2qAKcAWuqLvrrudX01pTi6VUE5cZS
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDAzOSBTYWx0ZWRfX3TJx/DpvztYr
- EBmY7IzhA4sZ8h5sSa575qgEN6VPCHnUXUsoGUqOrKawkZcBEXRGjbxJaugyayKwHqIxHj+mGj8
- W+gNRnMFNUuwWg8yk/XYJzVaGbdtqwdonr16sBpA3V7iAEi9pF1PpKWmVgyyqtSN1dj4PIl+CzP
- +06PE2nIu0tGwV8i9BhSM+NLw6BomUgIOfO+EL4kAphtUIipBLQWX+gvvXb8mZwvx7Kavea4fY9
- 90/umYFlblO7MfolnJPiVeKssufTwgh2MhB/1lO3fduI7IaQMJSZjJB1/DJJgHhFowPcFF1NgWU
- 9Pyb1Qz50pODyJG3BCZ114IvtCs4uQUeXvTT7StNeQB2W1cEVEbnqR4lJI/goufjrUJyVFa7Xjm
- NcaVR/eAvC7WiqJn5kqeEDDpHQrtsklMG9PoIaBfYldFREVm7e2t75L1ejmHhpgVpAtCFC4kO8F
- 1gK6tgUsCl5GSTHykTQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-26_01,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 clxscore=1015 lowpriorityscore=0 priorityscore=1501
- malwarescore=0 adultscore=0 spamscore=0 bulkscore=0 impostorscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610260039
+Content-Transfer-Encoding: 8bit
 
-On 10/24/26 1:10 PM, Michael McAllister wrote:
-> The cluster state IDs encode unsupported CPU modes: the GDHS entries
-> request CPU mode 2 and the power-collapse entries request CPU mode 4.
-> The CPU power-collapse state is mode 3, as already used by the CPU
-> idle-state nodes. The GDHS entries also omit the cluster affinity level,
-> and cluster 1 requests cluster power collapse instead of GDHS.
-> 
-> The downstream Bengal power description [1] defines CPU power collapse
-> as mode 3, cluster GDHS as mode 2 and cluster power collapse as mode 4,
-> with cluster mode shifted by four bits. Its idle driver [2] combines
-> these with bit 30 for CPU reset and bits 25:24 for the affinity level.
-> For either cluster this yields 0x41000023 for GDHS and 0x41000043 for
-> power collapse. The Motorola SM4250 tree uses the same power description,
-> byte-for-byte, as the Xiaomi SM6115 release cited here.
-> 
-> Correct the shared states to match this interface. This replaces the
-> board-specific overrides used by the Motorola Moto G10. Runtime testing
-> is limited to that device; the downstream sources provide the common
-> SM6115/SM4250 encoding evidence.
+Add the Rust abstractions for the SPI driver subsystem, allowing SPI
+drivers to be written in Rust.
 
-This paragraph needs to go. It's a conclusion of your LLM's local
-work and doesn't make sense in the upstream git history
+This adds the following abstractions:
+- `spi::DeviceId`: a driver-side device id.
+- `spi::Adapter`: the registration of SPI drivers, implementing
+  `driver::DriverLayout` and `driver::RegistrationOps`.
+- `spi::Driver`: the trait that SPI drivers implement, with `probe()`,
+  `shutdown()` and `unbind()` callbacks.
+- `spi::SpiDevice`: a representation of `struct spi_device`, providing
+  device configuration accessors and the `setup()`, `write()`, `read()`
+  and `write_then_read()` operations.
+- `module_spi_driver!` and `spi_device_table!` macros.
 
-otherwise:
+The module is only built when CONFIG_SPI is enabled, since the SPI core
+functions it uses are not available otherwise.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+The I/O methods copy the data into DMA-safe bounce buffers before
+transferring, as the SPI core requires transfer buffers to be DMA-safe
+and the caller-provided slices may be located anywhere (e.g. on the
+stack).
 
-Konrad
+Match data lookup follows the same order as the C core's
+spi_get_device_match_data(): first the OF/ACPI match data, then the SPI
+id table.
+
+Signed-off-by: Shuai Liu <847807867@qq.com>
+---
+ rust/kernel/Kconfig.test |  11 +
+ rust/kernel/lib.rs       |   2 +
+ rust/kernel/spi.rs       | 558 +++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 571 insertions(+)
+ create mode 100644 rust/kernel/spi.rs
+
+diff --git a/rust/kernel/Kconfig.test b/rust/kernel/Kconfig.test
+index 3bf4194f28c7..bda70dcc7793 100644
+--- a/rust/kernel/Kconfig.test
++++ b/rust/kernel/Kconfig.test
+@@ -94,6 +94,17 @@ config RUST_BUG_KUNIT_TEST
+ 
+ 	  If unsure, say N.
+ 
++config RUST_SPI_KUNIT_TEST
++	bool "KUnit tests for the Rust SPI driver abstractions" if !KUNIT_ALL_TESTS
++	depends on SPI=y
++	default KUNIT_ALL_TESTS
++	help
++	  This option enables KUnit tests for the Rust SPI driver
++	  abstractions. These are only for development and testing, not
++	  for regular kernel use cases.
++
++	  If unsure, say N.
++
+ config RUST_TIME_KUNIT_TEST
+ 	bool "KUnit tests for the Rust time API" if !KUNIT_ALL_TESTS
+ 	default KUNIT_ALL_TESTS
+diff --git a/rust/kernel/lib.rs b/rust/kernel/lib.rs
+index a4747f75b163..cbe5a4ed825d 100644
+--- a/rust/kernel/lib.rs
++++ b/rust/kernel/lib.rs
+@@ -133,6 +133,8 @@
+ pub mod sizes;
+ #[cfg(CONFIG_SOC_BUS)]
+ pub mod soc;
++#[cfg(CONFIG_SPI)]
++pub mod spi;
+ #[doc(hidden)]
+ pub mod std_vendor;
+ pub mod str;
+diff --git a/rust/kernel/spi.rs b/rust/kernel/spi.rs
+new file mode 100644
+index 000000000000..ad13225c74fe
+--- /dev/null
++++ b/rust/kernel/spi.rs
+@@ -0,0 +1,558 @@
++// SPDX-License-Identifier: GPL-2.0
++
++//! SPI Driver subsystem
++//!
++//! This module adds abstractions for the SPI driver subsystem, allowing drivers to be
++//! written in Rust for SPI devices.
++
++// SPI Driver abstractions.
++use crate::{
++    acpi,
++    device,
++    device_id::{
++        RawDeviceId,
++        RawDeviceIdIndex, //
++    },
++    driver,
++    error::*,
++    of,
++    prelude::*,
++    sync::aref::AlwaysRefCounted,
++    types::Opaque, //
++};
++
++use core::{
++    marker::PhantomData,
++    mem::offset_of,
++    ptr::NonNull, //
++};
++
++/// An SPI device id table.
++#[repr(transparent)]
++#[derive(Clone, Copy)]
++pub struct DeviceId(bindings::spi_device_id);
++
++impl DeviceId {
++    const SPI_NAME_SIZE: usize = 32;
++
++    /// Create a new device id from an SPI 'id' string.
++    #[inline(always)]
++    pub const fn new(id: &'static CStr) -> Self {
++        let src = id.to_bytes_with_nul();
++        build_assert!(src.len() <= Self::SPI_NAME_SIZE, "ID exceeds 32 bytes");
++        let mut spi: bindings::spi_device_id = pin_init::zeroed();
++        let mut i = 0;
++        while i < src.len() {
++            spi.name[i] = src[i];
++            i += 1;
++        }
++
++        Self(spi)
++    }
++}
++
++// SAFETY: `DeviceId` is a `#[repr(transparent)]` wrapper of `spi_device_id` and does not add
++// additional invariants, so it's safe to transmute to `RawType`.
++unsafe impl RawDeviceId for DeviceId {
++    type RawType = bindings::spi_device_id;
++}
++
++// SAFETY: `DRIVER_DATA_OFFSET` is the offset to the `driver_data` field.
++unsafe impl RawDeviceIdIndex for DeviceId {
++    const DRIVER_DATA_OFFSET: usize = core::mem::offset_of!(bindings::spi_device_id, driver_data);
++}
++
++/// IdTable type for SPI
++pub type IdTable<T> = &'static dyn kernel::device_id::IdTable<DeviceId, T>;
++
++/// Create a SPI `IdTable` with its alias for modpost.
++#[macro_export]
++macro_rules! spi_device_table {
++    ($($tt:tt)*) => {
++        $crate::module_device_table!("spi", $crate::spi::DeviceId, $($tt)*);
++    };
++}
++
++/// An adapter for the registration of SPI drivers.
++pub struct Adapter<T: Driver>(T);
++
++// SAFETY:
++// - `bindings::spi_driver` is a C type declared as `repr(C)`.
++// - `T::Data` is the type of the driver's device private data.
++// - `struct spi_driver` embeds a `struct device_driver`.
++// - `DEVICE_DRIVER_OFFSET` is the correct byte offset to the embedded `struct device_driver`.
++unsafe impl<T: Driver> driver::DriverLayout for Adapter<T> {
++    type DriverType = bindings::spi_driver;
++    type DriverData<'bound> = T::Data<'bound>;
++    const DEVICE_DRIVER_OFFSET: usize = core::mem::offset_of!(Self::DriverType, driver);
++}
++
++// SAFETY: A call to `unregister` for a given instance of `DriverType` is guaranteed to be valid if
++// a preceding call to `register` has been successful.
++unsafe impl<T: Driver> driver::RegistrationOps for Adapter<T> {
++    unsafe fn register(
++        sdrv: &Opaque<Self::DriverType>,
++        name: &'static CStr,
++        module: &'static ThisModule,
++    ) -> Result {
++        build_assert!(
++            T::ACPI_ID_TABLE.is_some() || T::OF_ID_TABLE.is_some() || T::SPI_ID_TABLE.is_some(),
++            "At least one of ACPI/OF/Legacy tables must be present when registering an spi driver"
++        );
++
++        let spi_table = match T::SPI_ID_TABLE {
++            Some(table) => table.as_ptr(),
++            None => core::ptr::null(),
++        };
++
++        let of_table = match T::OF_ID_TABLE {
++            Some(table) => table.as_ptr(),
++            None => core::ptr::null(),
++        };
++
++        let acpi_table = match T::ACPI_ID_TABLE {
++            Some(table) => table.as_ptr(),
++            None => core::ptr::null(),
++        };
++
++        // SAFETY: It's safe to set the fields of `struct spi_driver` on initialization.
++        unsafe {
++            (*sdrv.get()).driver.name = name.as_char_ptr();
++            (*sdrv.get()).probe = Some(Self::probe_callback);
++            (*sdrv.get()).remove = Some(Self::remove_callback);
++            (*sdrv.get()).shutdown = Some(Self::shutdown_callback);
++            (*sdrv.get()).id_table = spi_table;
++            (*sdrv.get()).driver.of_match_table = of_table;
++            (*sdrv.get()).driver.acpi_match_table = acpi_table;
++        }
++
++        // SAFETY: `sdrv` is guaranteed to be a valid `DriverType`.
++        to_result(unsafe { bindings::__spi_register_driver(module.as_ptr(), sdrv.get()) })
++    }
++
++    unsafe fn unregister(sdrv: &Opaque<Self::DriverType>) {
++        // SAFETY: `sdrv` is guaranteed to be a valid `DriverType`.
++        unsafe { bindings::spi_unregister_driver(sdrv.get()) }
++    }
++}
++
++impl<T: Driver> Adapter<T> {
++    extern "C" fn probe_callback(sdev: *mut bindings::spi_device) -> kernel::ffi::c_int {
++        // SAFETY: The SPI bus only ever calls the probe callback with a valid pointer to a
++        // `struct spi_device`.
++        //
++        // INVARIANT: `sdev` is valid for the duration of `probe_callback()`.
++        let sdev = unsafe { &*sdev.cast::<SpiDevice<device::CoreInternal<'_>>>() };
++
++        // Match the lookup order of the C core's `spi_get_device_match_data()`: first the
++        // OF/ACPI match data, then the SPI id table.
++        //
++        // SAFETY: `sdev` matched data is of type `Self::IdInfo`.
++        let info = unsafe { <Self as driver::Adapter>::id_info(sdev.as_ref()) }
++            .or_else(|| Self::spi_id_info(sdev));
++
++        from_result(|| {
++            let data = T::probe(sdev, info);
++
++            sdev.as_ref().set_drvdata(data)?;
++            Ok(0)
++        })
++    }
++
++    extern "C" fn remove_callback(sdev: *mut bindings::spi_device) {
++        // SAFETY: `sdev` is a valid pointer to a `struct spi_device`.
++        let sdev = unsafe { &*sdev.cast::<SpiDevice<device::CoreInternal<'_>>>() };
++
++        // SAFETY: `remove_callback` is only ever called after a successful call to
++        // `probe_callback`, hence it's guaranteed that `SpiDevice::set_drvdata()` has been called
++        // and stored a `Pin<KBox<T::Data<'_>>>`.
++        let data = unsafe { sdev.as_ref().drvdata_borrow::<T::Data<'_>>() };
++
++        T::unbind(sdev, data);
++    }
++
++    extern "C" fn shutdown_callback(sdev: *mut bindings::spi_device) {
++        // SAFETY: `shutdown_callback` is only ever called for a valid `sdev`
++        let sdev = unsafe { &*sdev.cast::<SpiDevice<device::CoreInternal<'_>>>() };
++
++        // SAFETY: `shutdown_callback` is only ever called after a successful call to
++        // `probe_callback`, hence it's guaranteed that `SpiDevice::set_drvdata()` has been called
++        // and stored a `Pin<KBox<T::Data<'_>>>`.
++        let data = unsafe { sdev.as_ref().drvdata_borrow::<T::Data<'_>>() };
++
++        T::shutdown(sdev, data);
++    }
++
++    /// Returns the driver's private data from the matching entry in the [`spi::IdTable`], if any.
++    ///
++    /// If this returns `None`, it means there is no match with an entry in the [`spi::IdTable`].
++    fn spi_id_info(dev: &SpiDevice) -> Option<&'static <Self as driver::Adapter>::IdInfo> {
++        // Ensure the driver has an SPI id table: the entries matched by `spi_get_device_id()`
++        // below come from the table registered in `register()`, i.e. `T::SPI_ID_TABLE`, which
++        // guarantees that every `driver_data` field is a valid `T::IdInfo`.
++        T::SPI_ID_TABLE.as_ref()?;
++
++        // SAFETY:
++        // - `dev` is guaranteed to be valid while it's alive, and so is `dev.as_raw()`.
++        //
++        // `spi_get_device_id()` looks up the registered driver id table using the device's
++        // modalias and returns either a pointer to a matching entry or `NULL`.
++        let raw_id = unsafe { bindings::spi_get_device_id(dev.as_raw()) };
++
++        if raw_id.is_null() {
++            return None;
++        }
++
++        // SAFETY: `DeviceId` is a `#[repr(transparent)` wrapper of `struct spi_device_id` and
++        // does not add additional invariants, so it's safe to transmute.
++        let id = unsafe { &*raw_id.cast::<DeviceId>() };
++
++        // SAFETY: `id` comes from `table` which is of type `IdArray<_, Self::IdInfo>`.
++        Some(unsafe { id.info_unchecked::<T::IdInfo>() })
++    }
++}
++
++impl<T: Driver> driver::Adapter for Adapter<T> {
++    type IdInfo = T::IdInfo;
++
++    fn of_id_table() -> Option<of::IdTable<Self::IdInfo>> {
++        T::OF_ID_TABLE
++    }
++
++    fn acpi_id_table() -> Option<acpi::IdTable<Self::IdInfo>> {
++        T::ACPI_ID_TABLE
++    }
++}
++
++/// Declares a kernel module that exposes a single spi driver.
++///
++/// # Examples
++///
++/// ```ignore
++/// kernel::module_spi_driver! {
++///     type: MyDriver,
++///     name: "Module name",
++///     authors: ["Author name"],
++///     description: "Description",
++///     license: "GPL v2",
++/// }
++/// ```
++#[macro_export]
++macro_rules! module_spi_driver {
++    ($($f:tt)*) => {
++        $crate::module_driver!(<T>, $crate::spi::Adapter<T>, { $($f)* });
++    };
++}
++
++/// The spi driver trait.
++///
++/// Drivers must implement this trait in order to get a spi driver registered.
++///
++/// # Example
++///
++///```
++/// # use kernel::{device::Core, spi, of};
++///
++/// struct MyDriver;
++///
++/// kernel::spi_device_table!(
++///     SPI_TABLE,
++///     <MyDriver as spi::Driver>::IdInfo,
++///     [
++///          (spi::DeviceId::new(c"rust_driver_spi"), ())
++///     ]
++/// );
++///
++/// kernel::of_device_table!(
++///     OF_TABLE,
++///     <MyDriver as spi::Driver>::IdInfo,
++///     [
++///         (of::DeviceId::new(c"test,device"), ())
++///     ]
++/// );
++///
++/// impl spi::Driver for MyDriver {
++///     type IdInfo = ();
++///     type Data<'bound> = Self;
++///     const SPI_ID_TABLE: Option<spi::IdTable<Self::IdInfo>> = Some(&SPI_TABLE);
++///     const OF_ID_TABLE: Option<of::IdTable<Self::IdInfo>> = Some(&OF_TABLE);
++///
++///     fn probe<'bound>(
++///         _sdev: &'bound spi::SpiDevice<Core<'_>>,
++///         _id_info: Option<&'bound Self::IdInfo>,
++///     ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
++///         Err(ENODEV)
++///     }
++///
++///     fn shutdown<'bound>(
++///         _sdev: &'bound spi::SpiDevice<Core<'_>>,
++///         this: Pin<&Self::Data<'bound>>,
++///     ) {
++///     }
++/// }
++///```
++pub trait Driver {
++    /// The type holding information about each device id supported by the driver.
++    // TODO: Use `associated_type_defaults` once stabilized:
++    //
++    // ```
++    // type IdInfo: 'static = ();
++    // ```
++    type IdInfo: 'static;
++
++    /// The type of the driver's bus device private data.
++    type Data<'bound>: Send + 'bound;
++
++    /// The table of device ids supported by the driver.
++    const SPI_ID_TABLE: Option<IdTable<Self::IdInfo>> = None;
++
++    /// The table of OF device ids supported by the driver.
++    const OF_ID_TABLE: Option<of::IdTable<Self::IdInfo>> = None;
++
++    /// The table of ACPI device ids supported by the driver.
++    const ACPI_ID_TABLE: Option<acpi::IdTable<Self::IdInfo>> = None;
++
++    /// SPI driver probe.
++    ///
++    /// Called when a new spi device is added or discovered.
++    /// Implementers should attempt to initialize the device here.
++    fn probe<'bound>(
++        dev: &'bound SpiDevice<device::Core<'_>>,
++        id_info: Option<&'bound Self::IdInfo>,
++    ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound;
++
++    /// SPI driver shutdown.
++    ///
++    /// Called by the kernel during system reboot or power-off to allow the [`Driver`] to bring the
++    /// [`SpiDevice`] into a safe state. Implementing this callback is optional.
++    ///
++    /// Typical actions include stopping transfers, disabling interrupts, or resetting the hardware
++    /// to prevent undesired behavior during shutdown.
++    ///
++    /// This callback is distinct from final resource cleanup, as the driver instance remains valid
++    /// after it returns. Any deallocation or teardown of driver-owned resources should instead be
++    /// handled in `Drop`.
++    fn shutdown<'bound>(dev: &'bound SpiDevice<device::Core<'_>>, this: Pin<&Self::Data<'bound>>) {
++        let _ = (dev, this);
++    }
++
++    /// SPI driver unbind.
++    ///
++    /// Called when the [`SpiDevice`] is unbound from its bound [`Driver`]. Implementing this
++    /// callback is optional.
++    ///
++    /// This callback serves as a place for drivers to perform teardown operations that require a
++    /// `&Device<Core>` or `&Device<Bound>` reference. For instance, drivers may try to perform I/O
++    /// operations to gracefully tear down the device.
++    ///
++    /// Otherwise, release operations for driver resources should be performed in `Drop`.
++    fn unbind<'bound>(dev: &'bound SpiDevice<device::Core<'_>>, this: Pin<&Self::Data<'bound>>) {
++        let _ = (dev, this);
++    }
++}
++
++/// The spi device representation.
++///
++/// This structure represents the Rust abstraction for a C `struct spi_device`. The
++/// implementation abstracts the usage of an existing C `struct spi_device` that
++/// gets passed from the C side.
++///
++/// # Invariants
++///
++/// A [`SpiDevice`] instance represents a valid `struct spi_device` created by the C portion of
++/// the kernel.
++#[repr(transparent)]
++pub struct SpiDevice<Ctx: device::DeviceContext = device::Normal>(
++    Opaque<bindings::spi_device>,
++    PhantomData<Ctx>,
++);
++
++impl<Ctx: device::DeviceContext> SpiDevice<Ctx> {
++    fn as_raw(&self) -> *mut bindings::spi_device {
++        self.0.get()
++    }
++
++    /// Returns the maximum speed of the SPI device.
++    #[inline]
++    pub fn max_speed_hz(&self) -> u32 {
++        // SAFETY: By the type invariant of `Self`, `self.as_raw()` is a valid pointer to a
++        // `struct spi_device`.
++        unsafe { (*self.as_raw()).max_speed_hz }
++    }
++
++    /// Returns the number of bits per word of the SPI device.
++    #[inline]
++    pub fn bits_per_word(&self) -> u8 {
++        // SAFETY: By the type invariant of `Self`, `self.as_raw()` is a valid pointer to a
++        // `struct spi_device`.
++        unsafe { (*self.as_raw()).bits_per_word }
++    }
++
++    /// Returns the mode flags of the SPI device.
++    #[inline]
++    pub fn mode(&self) -> u32 {
++        // SAFETY: By the type invariant of `Self`, `self.as_raw()` is a valid pointer to a
++        // `struct spi_device`.
++        unsafe { (*self.as_raw()).mode }
++    }
++
++    /// Configures the SPI device with the settings currently stored in it.
++    #[inline]
++    pub fn setup(&self) -> Result {
++        // SAFETY: By the type invariant of `Self`, `self.as_raw()` is a valid pointer to a
++        // `struct spi_device`.
++        to_result(unsafe { bindings::spi_setup(self.as_raw()) })
++    }
++
++    /// Writes the data from `buf` to the SPI device.
++    ///
++    /// The data is copied into a DMA-safe bounce buffer before the transfer, since the
++    /// slice may be located anywhere (e.g. on the stack).
++    #[inline]
++    pub fn write(&self, buf: &[u8]) -> Result {
++        let mut bounce = KVec::with_capacity(buf.len(), GFP_KERNEL)?;
++        bounce.extend_from_slice(buf, GFP_KERNEL)?;
++
++        // SAFETY: By the type invariant of `Self`, `self.as_raw()` is a valid pointer to a
++        // `struct spi_device`. `bounce` is valid for reads of length `bounce.len()` for the
++        // duration of the call, which SPI core guarantees not to outlive.
++        to_result(unsafe {
++            bindings::spi_write(self.as_raw(), bounce.as_ptr().cast(), bounce.len())
++        })
++    }
++
++    /// Reads data from the SPI device into `buf`.
++    ///
++    /// The received data is collected in a DMA-safe bounce buffer and then copied into
++    /// `buf`, since the slice may be located anywhere (e.g. on the stack).
++    #[inline]
++    pub fn read(&self, buf: &mut [u8]) -> Result {
++        let mut bounce = KVec::with_capacity(buf.len(), GFP_KERNEL)?;
++        bounce.resize(buf.len(), 0, GFP_KERNEL)?;
++
++        // SAFETY: By the type invariant of `Self`, `self.as_raw()` is a valid pointer to a
++        // `struct spi_device`. `bounce` is valid for writes of length `bounce.len()` for
++        // the duration of the call, which SPI core guarantees not to outlive.
++        to_result(unsafe {
++            bindings::spi_read(self.as_raw(), bounce.as_mut_ptr().cast(), bounce.len())
++        })?;
++
++        buf.copy_from_slice(&bounce);
++        Ok(())
++    }
++
++    /// Writes the data from `write_buf` to the SPI device, then reads data from the SPI device
++    /// into `read_buf`.
++    ///
++    /// Both buffers are copied into DMA-safe bounce buffers before the transfer, since
++    /// the slices may be located anywhere (e.g. on the stack).
++    #[inline]
++    pub fn write_then_read(&self, write_buf: &[u8], read_buf: &mut [u8]) -> Result {
++        let n_tx = u32::try_from(write_buf.len())?;
++        let n_rx = u32::try_from(read_buf.len())?;
++
++        let mut tx = KVec::with_capacity(write_buf.len(), GFP_KERNEL)?;
++        tx.extend_from_slice(write_buf, GFP_KERNEL)?;
++
++        let mut rx = KVec::with_capacity(read_buf.len(), GFP_KERNEL)?;
++        rx.resize(read_buf.len(), 0, GFP_KERNEL)?;
++
++        // SAFETY: By the type invariant of `Self`, `self.as_raw()` is a valid pointer to a
++        // `struct spi_device`. `tx` is valid for reads of length `tx.len()` and `rx` is
++        // valid for writes of length `rx.len()` for the duration of the call, which SPI
++        // core guarantees not to outlive.
++        to_result(unsafe {
++            bindings::spi_write_then_read(
++                self.as_raw(),
++                tx.as_ptr().cast(),
++                n_tx,
++                rx.as_mut_ptr().cast(),
++                n_rx,
++            )
++        })?;
++
++        read_buf.copy_from_slice(&rx);
++        Ok(())
++    }
++}
++
++// SAFETY: `SpiDevice` is a transparent wrapper of `struct spi_device`.
++// The offset is guaranteed to point to a valid device field inside `SpiDevice`.
++unsafe impl<Ctx: device::DeviceContext> device::AsBusDevice<Ctx> for SpiDevice<Ctx> {
++    const OFFSET: usize = offset_of!(bindings::spi_device, dev);
++}
++
++// SAFETY: `SpiDevice` is a transparent wrapper of a type that doesn't depend on
++// `SpiDevice`'s generic argument.
++kernel::impl_device_context_deref!(unsafe { SpiDevice });
++kernel::impl_device_context_into_aref!(SpiDevice);
++
++// SAFETY: Instances of `SpiDevice` are always reference-counted.
++unsafe impl AlwaysRefCounted for SpiDevice {
++    fn inc_ref(&self) {
++        // SAFETY: The existence of a shared reference guarantees that the refcount is non-zero.
++        unsafe { bindings::get_device(self.as_ref().as_raw()) };
++    }
++
++    unsafe fn dec_ref(obj: NonNull<Self>) {
++        // SAFETY: The safety requirements guarantee that the refcount is non-zero.
++        unsafe { bindings::put_device(&raw mut (*obj.as_ref().as_raw()).dev) }
++    }
++}
++
++impl<Ctx: device::DeviceContext> AsRef<device::Device<Ctx>> for SpiDevice<Ctx> {
++    fn as_ref(&self) -> &device::Device<Ctx> {
++        let raw = self.as_raw();
++        // SAFETY: By the type invariant of `Self`, `self.as_raw()` is a pointer to a valid
++        // `struct spi_device`.
++        let dev = unsafe { &raw mut (*raw).dev };
++
++        // SAFETY: `dev` points to a valid `struct device`.
++        unsafe { device::Device::from_raw(dev) }
++    }
++}
++
++// SAFETY: A `SpiDevice` is always reference-counted and can be released from any thread.
++unsafe impl Send for SpiDevice {}
++
++// SAFETY: `SpiDevice` can be shared among threads because all methods of `SpiDevice`
++// (i.e. `SpiDevice<Normal>) are thread safe.
++unsafe impl Sync for SpiDevice {}
++
++#[cfg(CONFIG_RUST_SPI_KUNIT_TEST)]
++#[kunit_tests(rust_kernel_spi)]
++mod tests {
++    use super::*;
++
++    #[test]
++    fn device_id_name_size() {
++        assert_eq!(DeviceId::SPI_NAME_SIZE, bindings::SPI_NAME_SIZE as usize);
++    }
++
++    #[test]
++    fn device_id_new_short_name() {
++        let id = DeviceId::new(c"rust_driver_spi");
++
++        let expected: &[u8] = b"rust_driver_spi\0";
++        assert_eq!(&id.0.name[..expected.len()], expected);
++
++        // The remaining bytes must be zeroed.
++        assert!(id.0.name[expected.len()..].iter().all(|&byte| byte == 0));
++    }
++
++    #[test]
++    fn device_id_new_empty_name() {
++        let id = DeviceId::new(c"");
++
++        assert!(id.0.name.iter().all(|&byte| byte == 0));
++    }
++
++    #[test]
++    fn device_id_new_max_length_name() {
++        // 31 bytes plus the NUL terminator is the maximum accepted name length.
++        let id = DeviceId::new(c"abcdefghijklmnopqrstuvwxyz01234");
++
++        let expected: &[u8] = b"abcdefghijklmnopqrstuvwxyz01234\0";
++        assert_eq!(&id.0.name[..], expected);
++    }
++}
+-- 
+2.43.0
+
