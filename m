@@ -1,63 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793046534;
-	b=tIJ0ZbVQUXrrzEwABhepXQHO3Rzkue24NeGFAhcnJ1wlC4+nAzysCsTW8d9F7PzTcHSp
-	 tl5VRmntb889ycLCGsu73JJ6ZDKlKsZnolW0Ui+mY4FhfsGNge70OGHuhYjirRknwwzGb
-	 wbA6QXWMGo05YfDUTp325MacA7pZaMih3KXZfFYZf5SFRZf5fq/1awJLDwqkmjdIK4VPH
-	 7w/7aJ4YlFKhk0mJEhT46WRWt42zYTihXCg1CUNcWEDyPKsPPYEfht0AkUpDDtr1t/QkI
-	 chH/RuA1yJH6u7GWDNEk8sx75jyoLBSOUAnBHlV8+oy+Otob7xERcc99T1Ks2OLr/Ew==
+	t=1793046588;
+	b=3WHvG4KKxa3E9Osy6GIcPaf8nbrNoYFKt9SlU+TQpw0qcL8/nX7KJTAAkk4xGJSq1oD+
+	 ieJ6fGDHqjB3ncr73LOilT8XJYaMU6rvGGoZQdWk7Tdwa6obtAF4EUlZZYKaRVEeknV1Q
+	 mvxDoqwDEDMMo5BnOWUfIM8RxNyk5+p2WAz+k3aY+foUTf1kxdnGwl38U+vyCSRVB0R0N
+	 cDVw5+rOHo34vt7vnTwfGHCg24JVUxk4GtUdzBHlYLTB7M6QAcMq2GHjPYlUfWpbgyNPl
+	 OildocPN7JPqdXv0gKHWbuw53SC9JQvIlW9Tlqxe2Q1dVkwxupEi1uEBeFxl/ITO0Zg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793046534;
-	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Rspamd-Server:X-Rspamd-Queue-Id:
-	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:
-	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
-	bh=JOR5bbIbiInINDDKl8udJD2n2rQt1cixikmX67XYQ94=;
-	b=q4oQJW3inJkJywzlbMBBJ1WYUSbGhdm18EtP1Rqx8w8Y72IXNansu7VjjMJRg+/t85pg
-	 0K39Yb5MDhyGKEz1ZSsyR5pir0ELpbqm6BnhbbMWIrh7WekgiBMj0NpEQBv3BYH+zgUfE
-	 gxvWahL/F3tgraubpev3+VYIsuK5dc2TXDgJ/3Gl4KLpHmhekpBQ/8U5mGJgrleUK6UD1
-	 YhQMmbFIweI+YnrZpi6nY/yrc1nDOPE36HBoU0xGAlNhM/CMdyitT5j0CHTK7oCilptmE
-	 pe6GQUCSB4HMFA4mtI5BsbZaGd6BVuSuP2FtmwT+EPOVStENGsdDui2TF73s7Z5WEyQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793046588;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=SlwCDorLykD2oMbZGdGF8ssg7k93qd6ZBcdFL1kKcQY=;
+	b=059yP23pc8mUCmx5GNrQYiszTrhrMR1ISytUJt00JIYl9WvYuar5Jh1vRwRbC4BqT7NQ
+	 TOlW7qqjy5JmyOC4MP6oNs7QWc2ZhkmDMDCIrjkJQUwODJw7IYr3wI2swjaYu9h67l0yQ
+	 NZ9wYYf1Zf5noRwNjE4l0PzI+ruMyEV3eUnSs5/UR6TxdNFftn1KvTMEkel7ELlbwIaAA
+	 iCcXiR+11LxS80AK72DgaM/QfXbHf8FzotxCAy1TMIDyNAOzT1Pnq1OpZladSAQxItb/r
+	 /7QHk7RsScLpy6qxSl0OYwPP3R2GnND0vN6uYH2JqpXptj3KJ63nHWisj8N938ojQAw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goodmis.org;
-	spf=pass smtp.mailfrom=goodmis.org;
-	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b="5G/pFS4k";
-	arc=none smtp.remote-ip=216.40.44.14
-Received: from relay.hostedemail.com (smtprelay0014.hostedemail.com [216.40.44.14])
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=qYtqlQU1;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5153C606A31A;
-	Mon, 26 Oct 2026 20:28:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5153C606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98878606A31B;
+	Mon, 26 Oct 2026 20:29:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98878606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=5G/pFS4k
-Received: from omf17.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay08.hostedemail.com (Postfix) with ESMTP id ECC7D140864;
-	Mon, 26 Oct 2026 20:28:50 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf17.hostedemail.com (Postfix) with ESMTPA id 1955118;
-	Mon, 26 Oct 2026 20:28:48 +0000 (UTC)
-Date: Mon, 26 Oct 2026 16:28:46 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: BoxStrikesTeam <BoxStrikesTeam@proton.me>
-Cc: "brauner@kernel.org" <brauner@kernel.org>, "kees@kernel.org"
- <kees@kernel.org>, "viro@zeniv.linux.org.uk" <viro@zeniv.linux.org.uk>,
- "jack@suse.cz" <jack@suse.cz>, "mhiramat@kernel.org" <mhiramat@kernel.org>,
- "mathieu.desnoyers@efficios.com" <mathieu.desnoyers@efficios.com>,
- "jkoolstra@xs4all.nl" <jkoolstra@xs4all.nl>, "farid.m.zakaria@gmail.com"
- <farid.m.zakaria@gmail.com>, "linux-fsdevel@vger.kernel.org"
- <linux-fsdevel@vger.kernel.org>, "linux-trace-kernel@vger.kernel.org"
- <linux-trace-kernel@vger.kernel.org>, "linux-mm@kvack.org"
- <linux-mm@kvack.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "bpf@vger.kernel.org" <bpf@vger.kernel.org>
-Subject: Re: [RFC PATCH] binfmt_misc: add binfmt_misc_select tracepoint
-Message-ID: <20261026162846.23686159@gandalf.local.home>
-In-Reply-To: <cmtfuzYFZMj7WozUoEjFs3RxYWe9UgdY5rK3ZGT7CPwO1mpemvEwNhG4v5ucoKBgUHMqFa7kSzOvLjFcVcxAybfmKdURZ4h-qoKX1lHXlAA=@proton.me>
-References: <cmtfuzYFZMj7WozUoEjFs3RxYWe9UgdY5rK3ZGT7CPwO1mpemvEwNhG4v5ucoKBgUHMqFa7kSzOvLjFcVcxAybfmKdURZ4h-qoKX1lHXlAA=@proton.me>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=qYtqlQU1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
+	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
+	In-Reply-To:References; bh=SlwCDorLykD2oMbZGdGF8ssg7k93qd6ZBcdFL1kKcQY=; b=qY
+	tqlQU14AamnRAEGzw/bhK6M6BTVqn6vRFWf5bX4jZwOD3i+EBSWFBv/uWEIvN/E5pfdjRR4nwF1vE
+	CF/Gy2dFHy3flxWkeonRmXFEAclkaJ8b7mLH6ZKziUe6EKTCA+Uv2muVJNRxDF2O33E26HlpxHoC+
+	oadOsi4xbX9jsCk=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xLRK1-00CqJY-Ow; Mon, 26 Oct 2026 21:29:33 +0100
+Date: Mon, 26 Oct 2026 21:29:33 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Florian Fainelli <florian.fainelli@broadcom.com>
+Cc: Jonas Gorski <jonas.gorski@gmail.com>, netdev@vger.kernel.org,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	=?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH net v2 2/2] net: dsa: b53: restore the NSP IMP port 2
+ Gbps mode
+Message-ID: <735e6453-30da-430d-9e4f-8ecd0e06f459@lunn.ch>
+References: <20261022211104.2091128-1-florian.fainelli@broadcom.com>
+ <20261022211104.2091128-3-florian.fainelli@broadcom.com>
+ <CAOiHx=nXKnzqB+-BvYg7rgxpLq9p2JP2xk8JchK-3+fqzpG7nw@mail.gmail.com>
+ <47511aa5-3032-4bd1-bf8d-bcb1a2280367@broadcom.com>
+ <bab723f0-742a-429b-a22d-bd086ef35389@lunn.ch>
+ <9510382b-c726-41a9-8997-5779d991395e@broadcom.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,167 +75,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Rspamd-Server: rspamout05
-X-Rspamd-Queue-Id: 1955118
-X-Stat-Signature: nk3fjntisjjnbaxtd3wt5bdqzs5m9dw7
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX193Yt8I2BKFgojrvTfdeQfvY6W/MQa/MvM=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=JOR5bbIbiInINDDKl8udJD2n2rQt1cixikmX67XYQ94=; b=5G/pFS4kvRmY+FpqSfvYmgy1VmMMFvFIYFHxl+48nU9Q+OVL316//PslVP42qJzTQy+TJdC59hDbcVyb1GLW1YoUSJhkbm7wiSUUMR9Sjq9f8n1Pm5As6qgNjijzS9k+qBLc2+9PswJgFqS5pc0EMZ49z1Q22DHKMvSYB6pNQBk=
-X-HE-Tag: 1793046528-319477
-X-HE-Meta: U2FsdGVkX1/JMOcv1OjDojaLV+nCutKkXq36M/X9yG5D2u9mr6nzoEnPM7M+QucS41MT2z3fV9QQaSDEg85HXXiQNmFkcUj/ElBU/bA3Jkb7czxONW7s8b61PU1nZlCTSiML7BF9dwTqD2SZ7yx8ZbmmNRjnv7V3rmABebYT8ErViBrHGIsfMPR7RUNkjGK0k1fFKfcz+Gc+pGArKoXCTiN9yDmPU7zluTP3b7rRr7S1HiOvmwdEPIfrZ3QSWvtB7BOUc0RSnQl0LCaWjyeFkb7lgp/pxtVNMggzodPwzdzG2I/aFD2+mHADp3cLjs25m5aAwMwAAz5VYXAM7zgMk7TUC6+CmMfk
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <9510382b-c726-41a9-8997-5779d991395e@broadcom.com>
 
+On Mon, Oct 26, 2026 at 12:34:05PM -0700, Florian Fainelli wrote:
+> On 10/26/26 12:11, Andrew Lunn wrote:
+> > On Mon, Oct 26, 2026 at 11:34:36AM -0700, Florian Fainelli wrote:
+> > > On 10/26/26 11:31, Jonas Gorski wrote:
+> > > > Hi,
+> > > > 
+> > > > On Thu, Oct 22, 2026 at 11:11 PM Florian Fainelli
+> > > > <florian.fainelli@broadcom.com> wrote:
+> > > > > 
+> > > > > The Northstar Plus IMP port uses the switch's proprietary 2 Gbps mode for
+> > > > > its internal link to the AMAC.  Its fixed-link description reports 1 Gbps,
+> > > > > so applying that speed clears PORT_OVERRIDE_SPEED_2000M and leaves the two
+> > > > > ends of the internal link configured at different speeds.
+> > > > 
+> > > > Sounds like the devicetrees are wrong. Shouldn't that fixed-link
+> > > > description be updated to be 2 Gbps then? ;p
+> > > 
+> > > That's a fair ask, however that would require introducing 2Gbits/sec all
+> > > over the place, and it's not like we really have a good way to report that
+> > > even through emulated PHY registers. This would not be a bug fix however,
+> > > which this patch set is targeting.
+> > 
+> > Hi Florian
+> > 
+> > As far as i know phylink fixed-link does not care what the speed is,
+> > and it does not try to emulate it in the PHY. So it probably just
+> > works. Assuming the DSA driver is using phylink.
+> 
+> Can we agree this is outside of the scope of what is being fixed here?
 
-You shouldn't attach patches but inline them. Yeah, I know a lot of email
-clients can't handle that. But claws-mail can! (and it can also reply to
-attachments like they were inlined ;-) ).
+Yes, it can be done sometime in the future.
 
-I'll let others comment on whether or not this patch is needed, but I'll
-comment on the tracing side of things.
-
-
-On Mon, 26 Oct 2026 20:17:26 +0000
-BoxStrikesTeam <BoxStrikesTeam@proton.me> wrote:
-
-> From: Eneshan Erdo=C4=9Fan Karaca <BoxStrikesTeam@proton.me>
-> Subject: [RFC PATCH] binfmt_misc: add binfmt_misc_select tracepoint
->=20
-> A binfmt_misc entry can select an interpreter for an exec.  With a BPF
-> 'B' handler, that selection can be made by a BPF struct_ops program.
-> The kernel commits the decision in bprm->interp and bprm->flags, but it
-> does not emit an event at the selection point.
->=20
-> Existing observers have to reconstruct the decision from
-> /proc/PID/exe, AT_EXECFD, AT_FLAGS, or /proc/PID/maps.  These sources
-> are mode-dependent: a transparent dispatch still reports the original
-> binary in /proc/PID/exe, and a short-lived process can exit before the
-> observer reads it.  A classic dispatch reports the interpreter, but
-> not which handler selected it or which invocation flags were used.
->=20
-> Add a tracepoint after the interpreter and the invocation flags are
-> selected.  It reports the binary filename, the selected interpreter,
-> the handler name (for BPF handlers), the invocation flags, and the
-> pid.  The flags are masked with MISC_FMT_INVOCATION_FLAGS so that
-> static entry state does not leak into the event.
->=20
-> The tracepoint is observability only; it does not change exec
-> behavior.
->=20
-> Assisted-by: LLM
-> Signed-off-by: Eneshan Erdo=C4=9Fan Karaca <BoxStrikesTeam@proton.me>
-> ---
->=20
-> This is an RFC.  A small PoC and short A/B results are available for
-> context; they are not needed to review the patch.
->=20
->  fs/binfmt_misc.c                  |  8 ++++++++
->  include/trace/events/binfmt_misc.h | 52 ++++++++++++++++++++++++++++++++=
-++++++
->  2 files changed, 60 insertions(+)
->=20
-> diff --git a/fs/binfmt_misc.c b/fs/binfmt_misc.c
-> --- a/fs/binfmt_misc.c
-> +++ b/fs/binfmt_misc.c
-> @@ -41,6 +41,9 @@
-> =20
->  #include "internal.h"
-> =20
-> +#define CREATE_TRACE_POINTS
-> +#include <trace/events/binfmt_misc.h>
-> +
->  /* Entry status and match type bit numbers. */
->  enum binfmt_misc_entry_bits {
->  	MISC_FMT_ENABLED_BIT	=3D 0,
-> @@ -644,6 +647,11 @@
-> =20
->  	flags =3D entry_invocation_flags(fmt, bprm);
-> =20
-> +	trace_binfmt_misc_select(bprm, interpreter,
-> +				 test_bit(MISC_FMT_BPF_BIT, &fmt->flags) ?
-> +				 fmt->bpf_ops->name : "",
-> +				 flags & MISC_FMT_INVOCATION_FLAGS);
-
-Logic like the above should be done in the trace event itself. Not in the
-code path. That is, pass in fmt and flags.
-
-> +
->  	/* No argv is built for a staged argument to land in. */
->  	if ((flags & (MISC_FMT_LOADER | MISC_FMT_TRANSPARENT)) &&
->  	    bprm->bpf_interp_arg)
->=20
-> diff --git a/include/trace/events/binfmt_misc.h b/include/trace/events/bi=
-nfmt_misc.h
-> new file mode 100644
-> --- /dev/null
-> +++ b/include/trace/events/binfmt_misc.h
-> @@ -0,0 +1,52 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +/*
-> + * Tracepoint for binfmt_misc binary type handler dispatch.
-> + *
-> + * Fires once for every exec a binfmt_misc entry matches, after the
-> + * interpreter and the invocation flags have been selected. Unlike
-> + * sched_process_exec (which reports bprm->filename) and /proc/PID/exe
-> + * (which a transparent dispatch sets to the binary), this reports the
-> + * interpreter that actually runs, so observers can see through a
-> + * transparent dispatch.
-> + */
-> +#undef TRACE_SYSTEM
-> +#define TRACE_SYSTEM binfmt_misc
-> +
-> +#if !defined(_TRACE_BINFMT_MISC_H) || defined(TRACE_HEADER_MULTI_READ)
-> +#define _TRACE_BINFMT_MISC_H
-> +
-> +#include <linux/tracepoint.h>
-> +#include <linux/binfmts.h>
-> +
-> +TRACE_EVENT(binfmt_misc_select,
-> +
-> +	TP_PROTO(struct linux_binprm *bprm, const char *interp,
-> +		 const char *handler, unsigned long flags),
-> +
-> +	TP_ARGS(bprm, interp, handler, flags),
-> +
-> +	TP_STRUCT__entry(
-> +		__string(filename,	bprm->filename)
-> +		__string(interp,	interp)
-> +		__string(handler,	handler)
-
-Then here you would have:
-
-		__string(handler, test_bit(MISC_FMT_BPF_BIT, &fmt->flags) ?
-				 fmt->bpf_ops->name : "")
-
-
-> +		__field(unsigned long,	flags)
-> +		__field(pid_t,		pid)
-> +	),
-> +
-> +	TP_fast_assign(
-> +		__assign_str(filename);
-> +		__assign_str(interp);
-> +		__assign_str(handler);
-> +		__entry->flags =3D flags;
-
-and here:
-
-		__entry->flags =3D flags & MISC_FMT_INVOCATION_FLAGS;
-
--- Steve
-
-
-> +		__entry->pid =3D current->pid;
-> +	),
-> +
-> +	TP_printk("pid=3D%d filename=3D%s interp=3D%s handler=3D%s flags=3D%#lx=
-",
-> +		  __entry->pid, __get_str(filename), __get_str(interp),
-> +		  __get_str(handler), __entry->flags)
-> +);
-> +
-> +#endif /* _TRACE_BINFMT_MISC_H */
-> +
-> +/* This part must be outside protection */
-> +#include <trace/define_trace.h>
-
+     Andrew
