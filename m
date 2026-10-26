@@ -1,75 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793006421;
-	b=cnPYZDxTKrHWVGFKzDKcQ4MvyX7n++D/VsLrEdrXVCLyq0p04jPLZOgUXDXgE0f1lu9r
-	 86FdhTY/xkjNAHN1E6NHvOkjR9jnzv/u5PxbjJZeK1s6Xq/J1SdciqbYCh02jseym1QjP
-	 TPtEoxPdf0A54/W85fEDFbmCUBtaB51mTq5oPIsLyKGyAw3UEMWwT1J0tiont1M6VVM29
-	 peINOsfGkxFSRyfu7KEVgvlA/EIpJjEavkzVD57sCXwJkI4iK66VD6SMXv5dDHqk3Ty+s
-	 QjsqGCtD/WPV+vYl1WtHscHh1j/MbaxxT6qI1auebx5Law1rWtu1xETlmq/GutEH9Aw==
+	t=1793006429;
+	b=xSNIIlJenwPqm6DLG1HtRCNcfXKHl8oCe0X3/iwH9yYqiYkOrJIi/V54V69zqGMRRJIA
+	 ECP1txNqFzhqOIudZDakwxgraJjqn7Fo9nx4m6RLLq9kQX5XRNH16G7c16kT4NuR8RNWH
+	 h0FVK4jsgBoy1o55+QJFUzFvtwjHjRCXrW+JJJtrqBAm5VgmN1UN81UHNpdp7g7WQV5gp
+	 /o9zMSW9fiT9d5Q4A2PTqVt3XJSK2TyTLjQpGW/50bDk/lA4whfEySP3qtrwXjTN5Ip1F
+	 zoWnLvt2lOOhnvMecqgX4b+30Z13033GvpP/RAqkwiRiXWPFTJ2DNJ1G1DDFLsNekVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793006421;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=ovyzx+4aMS0ZrrN8RnrYN2vt3p/SsR70lqwN6FFW96Y=;
-	b=TZKFUv11xN7ZL57S5jP8uOOEiMPtDDkVtUnERjvyF7Agf0GCisPWLsDT/HtQ2ZTBo1vW
-	 ldxxJACImTZielcBusRgQbg7JuRwM467hlogzs17P8XkWFTtZVhD3IfbPE8Af3LNJWRqs
-	 LR743lHInRi2vN9FLYVpxLwjcx6SnSsNoOaAMqYkA4twIVEWQ1GMyu6wVgmVd2CL1sjM+
-	 dzoZ2u7V4w50utGLvwUXalV2LBYdHFfavOCkQSHmUkQcwL1yXTBZpuT9XgJL6xe7Vc/kn
-	 HGbRtZccDaSVJsMfskqiC91UiGBaai8YvKUeqNQajky/4vu2oKL0X3ymSOVqvE8kwUQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793006429;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:Auto-Submitted:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
+	b=U4TVtGKo/fiGPaT+dXAjf6JSM+N/2DXwi2N+GS3A0nbRZUFWzorplfyW8obCGNpVgpu7
+	 qsD6mT4rp5Ap5pHb68XYhK49UKrvX8PHy5dHY/GCd0JAXu1+rA/BhW7dbi2ZCwlEEWA2v
+	 N8Xgmk63XFOTu0EJzsb5eoLWjY2ha0gMJZ6iaKzN8W8XLNmXAC02MCirXryM4y1F5Zk4V
+	 9bckKFNf00YiUUj2TeTvghXw4T/+c3D0fnhIh8iw7LB+3j8kbiW33SH1XLsUPQE1KP1ot
+	 kFB0TxyW94kmPGmf3p7Eey5pyeMYlC0pBn+LRpFFaGkDWNl5uIk/pKEnKdBLArJH2/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nk4xQPYa;
-	arc=none smtp.remote-ip=192.198.163.10
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z71U8dI2;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FA04606A31A;
-	Mon, 26 Oct 2026 09:20:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FA04606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AEDA606A322;
+	Mon, 26 Oct 2026 09:20:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nk4xQPYa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793006420; x=1824542420;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=l98tJlWIxePL8UadcPX+icRB1JGKcTcv7OakA/8Fbb8=;
-  b=nk4xQPYaqxVy2el9UByZy1TI4/fkvrLr5UvNDds+DzOgcVqM1C9mqVsn
-   dtaFQuDv15yN4jajb2efUrCYPAn3ycUaKyfLkNgwV3JTungjdg7TsHqNJ
-   Tj7i6+HQ8OaN64RqtWP94YcGxmz/krI9l4Vd5CoIkn3rXjEGP2Xzoz1GG
-   nq3dOH1xyzPHm6ZDgcerecIC0B2jpuN6n8gSgQV9sfRtl2Dazc6NU1k8b
-   vo3wKclataNvYn0pqajMxSEN81FdFIkw14x5YP9qEgpwquzQ41u+votDQ
-   t995mMAj9r8L84TE5MmRg/DG6WsClWznKvHGCRJMACRKM13NtH0lOU7rw
-   g==;
-X-CSE-ConnectionGUID: WuFkWrmeSNCASi7wyqLp5A==
-X-CSE-MsgGUID: jEzkpKnLQYSlAgjwGIpVvg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1567219"
-X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
-   d="scan'208";a="1567219"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 02:20:20 -0700
-X-CSE-ConnectionGUID: +NkuXWxbSty1XHIxudWlug==
-X-CSE-MsgGUID: 61o73YBrTBeplNEqcvJ6Eg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
-   d="scan'208";a="4269505"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.93])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 02:20:18 -0700
-Date: Mon, 26 Oct 2026 11:20:15 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: himanshu bakshi <himanshu.bakshi478@gmail.com>
-Cc: andy@kernel.org, gregkh@linuxfoundation.org,
-	dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
-	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] staging: fbtft: Fix line length warning
-Message-ID: <at8bT7NCQb9XvGoS@ashevche-desk.local>
-References: <20261026044523.18516-1-himanshu.bakshi478@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z71U8dI2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 093211F01829;
+	Mon, 26 Oct 2026 09:20:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793006429;
+	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Z71U8dI2QvKTJynspl15J6gQC6Isn2+VTBjxhFitQebvW7UQ8orPMQoWasdkB4VYp
+	 YGSWd3olF68KmcAGygnO0PFtlZ0S85iNoacvgXG4zvbDduQVsmjWL10pMX6uD/4vIa
+	 mKQVIP6oe+Sl/UOTqYz6eEDJqzzFMWD957elaUtbA3MMc5pA0v3DofKBvw0plb3aWc
+	 g1HEbKMZWulfE3EicsJbzvMqHvB/qQZ1rMQj3IqaeSUVOCbknJ/uUlltz9wlxovGYJ
+	 Im9haTqcMaM9m3IrKHiNCwfTPtn0GVpqBjeTIQ8JyK+G6hgYvUfXOnAKBZM1R1F6HD
+	 jiDR0+P2wQPog==
+From: netdev-bot+sinfo@kernel.org
+To: Paul Moses <p@1g4.org>
+Cc: anthony.l.nguyen@intel.com, przemyslaw.kitszel@intel.com,
+ intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ aleksandr.loktionov@intel.com, chwee.lin.choong@intel.com,
+ faizal.abdul.rahim@linux.intel.com, horms@kernel.org,
+ vinicius.gomes@intel.com, sasha.neftin@intel.com, matthew.vick@intel.com,
+ aduyck@mirantis.com
+Subject: Re: [PATCH net 1/3] igc: pad preemptible packets before reserving TX
+ timestamps
+Date: Mon, 26 Oct 2026 09:20:27 +0000
+Message-ID: <179300642756.3327.8776904148998915275@kernel.org>
+In-Reply-To: <20261026091549.605810-1-p@1g4.org>
+References: <20261026091549.605810-1-p@1g4.org>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,28 +68,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261026044523.18516-1-himanshu.bakshi478@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, Oct 26, 2026 at 10:15:23AM +0530, himanshu bakshi wrote:
-> From: Himanshu Bakshi <himanshu.bakshi478@gmail.com>
-> 
-> Split the line in fbtft_init_dbg macro to keep it within the limit of 100
-> columns and address the checkpatch warning. Also aligned backslashes (\)
-> for the macro. Added a temproray variable for platform data.
-> 
-> Signed-off-by: Himanshu Bakshi <himanshu.bakshi478@gmail.com>
-> ---
+Hi!
 
-Where is the changelog?
-Why do you think this patch is anyhow useful (based on the previous discussion
-and your observations)?
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
--- 
-With Best Regards,
-Andy Shevchenko
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
 
+ - What hardware the change was tested on. For driver fixes please
+   mention the device (and if relevant firmware version) used for
+   testing, or say that the change was not tested on real hardware.
+
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
+
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
