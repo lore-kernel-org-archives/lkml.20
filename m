@@ -1,81 +1,44 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.240.27.27
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.224.82.230
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792981521;
-	b=pssHGJ8odug59Ig+2cW4TbYBcN4O3fVDWvu8G9WAvZ5Jyc9v6S1PqzDE82D0AFCqsxpe
-	 IyiOFSQtqqUSNri42OjjbFNU73H4Yr1L74RQX2hjaszKPM5Rx6iIYaOcqNoLH+3Ki1gI0
-	 BCkDUo7NpaZ+nXGJvitJ4BrUKOV53x3l00XlV7ZprpVrmcemknknxDEK0r0uOb/rt5cRc
-	 pxgsiToiij1FlU/bysnIEVcRVyV5rMgnv+St+qxWQClT44LcCTppycXijYuas6SkdAIU+
-	 Tdfo7AVKdtN7bLkpCxAMClHRku6ppQEshaZmLD1h8SAxKyrzBzRzteiJo12Jy1iWCTg==
+	t=1792981598;
+	b=OpspNjQlS/9gXtl6qiQXcYRgRL5T21jCUD8A8t+G/UtAhsgZNYbTOTtCYPLnbzayEnbp
+	 Sx0K16cv2eSkYvRfrK96uQJskuuSuDOCS4r/x9JJiG33GKqnsXFmuCum44lRJpK/E5vEU
+	 YMd+VYv5XfLrMygN/t8u4UTI0pBJhtiQuPKnb/jMRtuwvbKl9awVYaoT5J4C8VAyoOZ7m
+	 ky+YELeoI6pqupPHPJImshAoVTG7OWgiQKK2fb2aj8+WS20ceqDS6ZOiYsQHiLNWd9N02
+	 D5hMPNkqYWy43nQl3PI6J2mNHwj00ucQSoiyOJhoBoY5mXyB2yFMV1QKzjBR2kMf8Dw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792981521;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:Feedback-ID:X-SES-Outgoing;
-	bh=mOSnnefzNqn/6aThbNT9VG6t46jh9yA3DrEsrzMoR2o=;
-	b=5KqHW+XdR8ZFgduSkHqzPDrjsOWiTuKF/mdlsI3e9CuwUmnauVlIt1FcGQxQ7zl5DKDz
-	 npMVKH3/4ofJWdOScvDZZtjkWTYH6Q//lmNgOaGLHZ/8WlgSI7f/0MqWRgYLDUcXt7MIr
-	 EqXAN99nDc4JYt0BsJ/JYAiTVvLpxqauBxs4o4YMpJ8HQt5k60psHcyn3HWRedBStDekV
-	 HSjpZu1YKK1/ViN8Z7bBhlO/Vpjtw7LLBbgSJ8NVjSjb+Qh7Vj8xr6vum53aPyuuLklTq
-	 sQezwsDmD+P4faPqgr0f2MFUVtzyULurUodxAcp5LPQbkSbso3cRB5S2SVpAbYdQMtw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792981598;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:Cc:
+	 Subject:To:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:X-HM-Spam-Status:
+	 DKIM-Signature;
+	bh=urfEyyHn5kTPStI4ZHijB5qvt2eSMg21ywUW0EWxMho=;
+	b=G7SRGij1/6E50LJZnTFIXP/Jr4c4/ijceC5Z9zVtAoxRTuf7teZW4754vo66E90H2fJQ
+	 JhfRxPEQa88I9n9a9k/JuQL/aCyNw5naKGMOy1tGsByl1bobEWJVPs5BwucMr3edVFvkP
+	 CteXci32etVxPSDScIFFBf//kXf/XzSiih00OGGLjCf05eXy8hXAfE/do3hZO19wOwxrv
+	 JZEVT9AZ3HUScDaP+pOBdggRMDsIOUdoWbyey0tz3WvYF+jsNHtTwdhraJ0in79lKSqPO
+	 VufQ7AUhiZcG8FX0Ai2sYJ8YqWN3ggltV+qzGASCZztc8NBNGqPLVCrjrU9Osx3KORA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=eliskeggs.com;
-	spf=pass smtp.mailfrom=us-west-2.amazonses.com;
-	dkim=pass header.d=eliskeggs.com header.i=@eliskeggs.com header.a=rsa-sha256 header.s=5wf2ig6m4xs5fvcu5nmk6zmaekj5twpk header.b=nvLgzNL9;
-	dkim=pass header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=hsbnp7p3ensaochzwyq5wwmceodymuwv header.b=uRbAHSEA;
-	arc=none smtp.remote-ip=54.240.27.27
-Received: from a27-27.smtp-out.us-west-2.amazonses.com (a27-27.smtp-out.us-west-2.amazonses.com [54.240.27.27])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=rock-chips.com;
+	spf=pass smtp.mailfrom=rock-chips.com;
+	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=JcYUNmGU;
+	arc=none smtp.remote-ip=156.224.82.230
+Received: from mail-m82230.xmail.ntesmail.com (mail-m82230.xmail.ntesmail.com [156.224.82.230])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E860B606A31A;
-	Mon, 26 Oct 2026 02:25:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E860B606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=eliskeggs.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=us-west-2.amazonses.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 338F4606A31A;
+	Mon, 26 Oct 2026 02:26:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 338F4606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=eliskeggs.com header.i=@eliskeggs.com header.a=rsa-sha256 header.s=5wf2ig6m4xs5fvcu5nmk6zmaekj5twpk header.b=nvLgzNL9;
-	dkim=pass (1024-bit key, unprotected) header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=hsbnp7p3ensaochzwyq5wwmceodymuwv header.b=uRbAHSEA
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
-	s=5wf2ig6m4xs5fvcu5nmk6zmaekj5twpk; d=eliskeggs.com; t=1792981520;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:In-Reply-To;
-	bh=35YpjmCQnDHx1pTvHTeuKBReAyIAyciGpvzy/nmgkfo=;
-	b=nvLgzNL9sMCAAgNUnV73o92WKlsOZuOraGO2WRUzWEPtCGelFWa/7iY3D6qiuJwr
-	OfBi/4xjkD3P2NVJKfb4t0UwWDsgXXwxb3Esog6CQxDCguaJF+BFiftnkRXyGH7BpBE
-	NqbChxFSMyFUzXtsF3IBdDjGf1N9MWydM1D+8L9Q=
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
-	s=hsbnp7p3ensaochzwyq5wwmceodymuwv; d=amazonses.com; t=1792981520;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:In-Reply-To:Feedback-ID;
-	bh=35YpjmCQnDHx1pTvHTeuKBReAyIAyciGpvzy/nmgkfo=;
-	b=uRbAHSEAJogdrDohGdkpYULAkw8oMI61hWMQ1C6KTKs9oWLIHuFiYATMRNPOkvR8
-	SEIxNXdxk29TNvNt355YnD2wZ+UDoYFnTHnOKez3fNXOS2tfYCGIXbuYG4R8VXvsbIJ
-	QRiqwNrEX5cHtXFW5XWTJ/DnRLk8ma6PJgrCmBPg=
-Date: Mon, 26 Oct 2026 02:25:20 +0000
-From: Eli Skeggs <kernel@eliskeggs.com>
-To: Alexei Starovoitov <alexei.starovoitov@gmail.com>
-Cc: John Fastabend <john.fastabend@gmail.com>, 
-	Jakub Sitnicki <jakub@cloudflare.com>, 
-	Jiayuan Chen <jiayuan.chen@linux.dev>, 
-	"David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Cong Wang <cong.wang@bytedance.com>, 
-	Daniel Borkmann <daniel@iogearbox.net>, 
-	Andrii Nakryiko <andrii@kernel.org>, 
-	Eduard Zingerman <eddyz87@gmail.com>, 
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
-	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
-	Yonghong Song <yonghong.song@linux.dev>, 
-	Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>, 
-	Ihor Solodrai <ihor.solodrai@linux.dev>, 
-	Shuah Khan <shuah@kernel.org>, Geliang Tang <geliang@kernel.org>, 
-	netdev@vger.kernel.org, bpf@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH bpf 1/2] bpf, sockmap: Stop reporting EPIPE on
- zero-length skb redirect
-Message-ID: <010101a17606cf6f-5e824e65-23b0-4539-835b-e8527b8c1f57-000000@us-west-2.amazonses.com>
-References: <20261025-sockmap-bare-fin-v1-0-bb8feae7c4a7@eliskeggs.com>
- <20261025-sockmap-bare-fin-v1-1-bb8feae7c4a7@eliskeggs.com>
- <DMEE6SW3UE97.2DF11HBEBKYYI@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=JcYUNmGU
+Received: from [172.16.12.48] (unknown [58.22.7.114])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 524c7990e;
+	Mon, 26 Oct 2026 10:26:27 +0800 (GMT+08:00)
+Message-ID: <78564cbc-8faa-4392-ab66-2a1395fdca4e@rock-chips.com>
+Date: Mon, 26 Oct 2026 10:26:26 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,31 +48,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DMEE6SW3UE97.2DF11HBEBKYYI@gmail.com>
-Feedback-ID: ::1.us-west-2.aEUYuRRC8Z+WeC8mlWAQBpqJLV0VswmaEnHpVsice/Y=:AmazonSES
-X-SES-Outgoing: 2026.10.26-54.240.27.27
+User-Agent: Mozilla Thunderbird
+Cc: shawn.lin@rock-chips.com, Rob Herring <robh@kernel.org>,
+ linux-pci@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] PCI: dw-rockchip: Remove redundant dev_err()
+To: Diederik de Haas <diederik@cknow-tech.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Bjorn Helgaas
+ <bhelgaas@google.com>, Heiko Stuebner <heiko@sntech.de>
+References: <20261021101533.609118-1-diederik@cknow-tech.com>
+From: Shawn Lin <shawn.lin@rock-chips.com>
+In-Reply-To: <20261021101533.609118-1-diederik@cknow-tech.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa17607d42803a4kunm445aa2303d8aee
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZGUhCS1YaQh9PHk5LQh
+	0YHxlWFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
+	tIVUpLSU9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=JcYUNmGUGamMX0H4edPTX5buUkXYPXtzWNZJzuHFd2cO8Zvt2/2GQlk2tcILYDNXTCofCO2xjK3aRQhgmlyWPSA+CVjG9pvEvwbP3R0qUDmNF7iOLfUaaigRZOrSbL2fVRjdZ4PAwHFI6XI/ULrph+sqGPCExHf1KWV2SXip0NM=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=urfEyyHn5kTPStI4ZHijB5qvt2eSMg21ywUW0EWxMho=;
+	h=date:mime-version:subject:message-id:from;
 
-On Mon, Oct 26, 2026 at 01:51:43AM +0000, Alexei Starovoitov wrote:
-> On Sun, Oct 25, 2026 at 04:41 PM Eli Skeggs via B4 Relay <devnull+kernel.eliskeggs.com@kernel.org> wrote:
-> > On an ingress redirect, the empty message is still queued as before, but
-> > the target socket no longer reports EPIPE.
+在 2026/10/21 星期三 18:14, Diederik de Haas 写道:
+> The devm_request_threaded_irq() function already automatically logs
+> detailed error messages on failure since commit
+> 55b48e23f5c4 ("genirq/devres: Add error handling in devm_request_*_irq()")
+> So remove the now-redundant driver-specific dev_err() calls.
 > 
-> That leaves the target broken.
-> Nothing dequeues the empty sk_msg. __sk_msg_recvmsg() sees
-> sge->length == 0, returns -EFAULT and leaves it at the head of ingress_msg.
-> tcp_bpf_recvmsg_parser() finds FIN in is_next_msg_fin(), returns 0 and
-> does copied_seq++ on a socket that didn't receive any FIN.
-> So every recv() on the target returns 0 and moves its copied_seq further
-> past rcv_nxt, and the data redirected from other sockets stays behind
-> that msg forever.
 
-Thanks, I'd missed that detail of __sk_msg_recvmsg().
+Reviewed-by: Shawn Lin <shawn.lin@rock-chips.com>
 
-> Lets skip empty skbs instead. That covers both directions.
-> The socket's own FIN that goes through the backlog is not queued either,
-> but SOCK_DONE check in tcp_bpf_recvmsg_parser() returns 0 anyway.
+Thanks.
 
-That does sound much cleaner. v2 will skip empty skbs entirely, and I'll
-add a corresponding selftest for the ingress pathway.
+> Signed-off-by: Diederik de Haas <diederik@cknow-tech.com>
+> ---
+>   drivers/pci/controller/dwc/pcie-dw-rockchip.c | 8 ++------
+>   1 file changed, 2 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/pci/controller/dwc/pcie-dw-rockchip.c b/drivers/pci/controller/dwc/pcie-dw-rockchip.c
+> index 14976861f8ef..a4dbfc52c2f1 100644
+> --- a/drivers/pci/controller/dwc/pcie-dw-rockchip.c
+> +++ b/drivers/pci/controller/dwc/pcie-dw-rockchip.c
+> @@ -718,10 +718,8 @@ static int rockchip_pcie_configure_rc(struct platform_device *pdev,
+>   	ret = devm_request_threaded_irq(dev, irq, NULL,
+>   					rockchip_pcie_rc_sys_irq_thread,
+>   					IRQF_ONESHOT, "pcie-sys-rc", rockchip);
+> -	if (ret) {
+> -		dev_err(dev, "failed to request PCIe sys IRQ\n");
+> +	if (ret)
+>   		return ret;
+> -	}
+>   
+>   	/* LTSSM enable control mode */
+>   	val = FIELD_PREP_WM16(PCIE_LTSSM_ENABLE_ENHANCE, 1);
+> @@ -764,10 +762,8 @@ static int rockchip_pcie_configure_ep(struct platform_device *pdev,
+>   	ret = devm_request_threaded_irq(dev, irq, NULL,
+>   					rockchip_pcie_ep_sys_irq_thread,
+>   					IRQF_ONESHOT, "pcie-sys-ep", rockchip);
+> -	if (ret) {
+> -		dev_err(dev, "failed to request PCIe sys IRQ\n");
+> +	if (ret)
+>   		return ret;
+> -	}
+>   
+>   	/*
+>   	 * LTSSM enable control mode, and automatically delay link training on
+
