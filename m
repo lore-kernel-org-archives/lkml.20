@@ -1,100 +1,117 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.44
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793021938;
-	b=QlMyyIjAn8Xk2NllM0zJRM9ZQwOgeQtgr6E8BK76u6bXizTf4ev7cLXMtzMJ6bpFuhLq
-	 XKX9pxP9ZRgXHIZDo/yF5txoXoxyDCnOwpGRrU7UOrqMimpN2QnzaGXpN/myakvIulbjH
-	 bzPfowBZ8WYqE9nI284Qm+LnM89Hn/EJ6ArdoJHhP3908YI18zHXh3yTWf6JyZqo8d6B9
-	 dCDkxeVLkHAF0ZFMGVgrsIrkdQojtN77d1WRQlEQMO6EfCh38Tc/9VqI6UEEl8jumFwYZ
-	 8V+8kqPHPRnnQ4J96sP2LvI8eqOXTuZhLe/tsW/J9wXJR4cIxTGvdRlypqGHTAbe/jg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793021938;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=ia3WxArLDuCPrww14fZWiIGW/gcvNKfDorKU73bhn0w=;
-	b=2dNNPb5ndZz2v0PZWEdjdj8Xxgsx1Z0RJXD3MEmv/mR6fTTNSICkUJ4Wp8i1HBJahy7a
-	 J5pQuNn6kyJGvGkzgd+kK01wYvYk/hTHlOoA/NTdQ27lBTXS/PTaWM8C5QTBy3kRTVYVi
-	 aoeXvybgxDm5Avj+X2dQZL12oBDcUjJ8p84yTnm2gLD/foKL7BuYL/BOauIel6KS+XYwN
-	 ulHUEUVJPpwl9tGu5op31Q2sGlLGr7x/et+WDO1ECgiRLns39d0YCPA7QXbLRlXvySv38
-	 WnEUlv3h6TjXyU4rhnkZlAimJR1IFKFAltLiEEoppMs6ABg96ZhEQke/KOKA7lRVtWw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=hYhRefqU;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.44
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793021939;
+	b=Y9e/F+uZDi0f6aEHD0sKZ/KQR5gv4xlg+gsR0Cq+wB5RGmd2DrnBmISZtz0ENen4LATP
+	 sQ5ko8zGpXDYb4tdEg/fNZsVUM0/Gb+KtkqAHswQfidKZq0NJbNO42FTAY0r4VfQuSs2e
+	 bCkItVFLYplYoZtnUAFF2QkZ4WwRla1E8xnRA+sVkCKv3eT+ko8P4P9kWhnCoub/4Ix2C
+	 fnUQq6r5bRkkfmygUvyK76hcsSMNtLj+E5TLbzhDSgMmYh7rHg90iABNCurrm79xKe4sS
+	 za55nQi+r+U8nGzAZ6o8XAIpmxq8oxpowk5efp310eZCaFjg/a3SGqEe1tRY9tj7n2g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793021939;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:
+	 X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
+	bh=J8msHD21z81Jfe07/YVkn5bSt0UwqtrZZbU29bnedd4=;
+	b=MtsSR/45AMSMnHpoDl6J0TGmJPiTUDRb+8+xBoad2fQvYMFSnCN8V5Nk0Rx9hk4HccrX
+	 wQZog5ZfDPemtPw8pixIpSIF5k++As//SxqC8YK5R6ps/GCfNxGfSWUQ7ZcSG/TD3faon
+	 15Zsfd0O9VX28/+Mh7EZMrflYm8H3bY5puT2Zw5BSjtahPRjdmSjBaemtQmWwRPwHGfqo
+	 ojKgZh4uAuHGjURHVQetZDhJuU2//0AlsXwSOr9mAsV9pbX2IFoUa+nbsAQANUcnCa0WK
+	 vrcu7/5SeSLR+SA2mCChJm1s3M4/Uj9/MMF76AuOFgkD4tE/p0Bgw19U2thYOjoLZCg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=fP4jfNbD;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=LiRzvW77;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=fP4jfNbD;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=LiRzvW77;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5719B6072CCE
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:38:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5719B6072CCE
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14B726072CD6;
+	Mon, 26 Oct 2026 13:38:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14B726072CD6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=hYhRefqU
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c40f29667e6so480216566b.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 06:38:58 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793021937; cv=none;
-        d=google.com; s=arc-20260327;
-        b=go1JwKJ7n1jw9TUq0uOL17bOuG2or8QYHlVqvkd1Ip3RmEa9qSur3+MKnYwlbvw0yM
-         cPPROIoh0ACXrrBEIH3DSMkEoJfMRjCLArGnJj+NHNLKGeEuB26NzcpXYZYbp+jLXt35
-         0lsVpXfcdU1r2so3LPD/93vmdE9O0PSUN1eytSEMYxkUzwbYIfRwuzo7RJHEnpoC4KRS
-         Gfz6Q3ZVrAbVl6X1Z8PDeo2dN4h2EDXMeAKVf3U6L0Ftn9VB13q8XrEwu7ELy8rNJBAm
-         reXj5ugjiBlbtO7aKvgPP0eeJOusEf2Q5zKbkNomIqVsyLFi0IhFwiGHMZplhi6QfXYC
-         2RAQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ia3WxArLDuCPrww14fZWiIGW/gcvNKfDorKU73bhn0w=;
-        fh=x+doBB6+83AqG8rn8LRJjxmMTAmcnl+94zD2E43qxO0=;
-        b=JLCZCCovBCFCWLMkZ3WlDOv2vhENXP3H/mppD4GE7lilLWqUoCdyXwzChtivj0yw9U
-         o81+p1f7GLR3iChWfGIDKLmYzhT/S3ZnosF1ZCBvUAf1n8QKafPTRSJ0wJcSOsa9N4tj
-         NI3XlcHQwEWBE1iTN1oMakDuMAXnBjobqw5B1Q14LxF0ecME6/zQHMjIJxmgdLdnckqx
-         p2QiwiwPib9s+dRa8KTGuNQLfFZIq+4n0Uqoh4chX3rwOhtpZeM0teHFw9NN4onbM4pi
-         zp/ZTWef+gdc7TxWf39JsIaZGosRe6jhPW4dNclKbEwAgBBVqZX1E6lKAoNTgnJjM9cE
-         hHJg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793021937; x=1793626737; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ia3WxArLDuCPrww14fZWiIGW/gcvNKfDorKU73bhn0w=;
-        b=hYhRefqUw7zcvdTQF9mC89+0FHxZJKSarmZf8+8Ph41pSwPYuuDFFcW0d+1I8K+WYd
-         hlULpPNHBoOxhBnAM6INrTjWYsFwVBP+eSKSXSzxnO8dbHbZ52MPheMs/uShOm/vJ3tX
-         6ViYSpRn6tnSSAeS92lG8vsFBQhU2fdl9U1iX0p1bFEwalD4xlGKMdYYtb8U+YU3m+RD
-         p4+8KTNmAElpsZxMsz4CodN89vC1hcJiUTwhhcouEUhFVuztwUfBkAGIIpRVVd3mugd1
-         nyZu4KIKqRkqSGbvhKk+e9KezDNZ1bWIa3F8GTiYh8gjdRlrpnSyeXbMKz0u3Smp7yuj
-         uGeg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793021937; x=1793626737;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ia3WxArLDuCPrww14fZWiIGW/gcvNKfDorKU73bhn0w=;
-        b=faWN4dEmjOzwyU4pPRFrcFjuk6AszOAmKZ7fTmm40q1Fjgz8TA1wifY7MJwT3DUf4O
-         0sSFY+TP1X2zz/mFq+7JWVnbppVkvcorGquuvUWAGNgu4gvElDgbp/LP4wq2Gd4EZDvO
-         1lkWRErTXyO2s7UagWByuMZUaEDGg7HiRfYkxb8eRu4/sPJ/hsVCkMMU4EiT08iB8r/Z
-         +lxZ6LMf2XX1z6iTsBt0RiUD7oys7joYuPGnAUbPnE8ZjpLa/hheGc5AvttTAvHQLKQu
-         co7Wd15yc5Hq7/aYzNs5Lb0MW/eSouI8cw5h/mxnMNZpXIDgg8hZcQs/Pdu81wv2BZPu
-         h1Lg==
-X-Forwarded-Encrypted: i=1; AKwUvBy5ycswiBmKF4p4+/avge29riPfbaQhqNPdbT7HYs1rRLN1ppLfhz2unCRf83qY7XxNtg3QnhqzWfXzUtQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKt0fsrdvhMY3qQZ5QUk+4mmhHmBzuQfTSD3pa+YrN3Y0UjJwiY
-	3Ngj2M/EHlXJWrG06ZtnP19rojxkg6gtW3CXh7F/88wP3sAtzybp86K0C43N20FPwERts3h5Wd7
-	VuzATYTA5OFNWsDuSC+s1GDsTypyxVYs=
-X-Gm-Gg: AYBFou1aCvAHdPlr+D1tCZIk7A1urqeXBicQ0BKnG4iZLoS55izmLX1W4elLVWY1oGT
-	xTqOHIAEoY7j6W+p4DmhpQDAlumq5NsL7n+kq283qjqjD/EqYdJohY4Ba2A8q8c3Lp+x1PRDSDK
-	fDNs/XmhQrYMOt5N0h3dU8Bt5oyqVl/BUUq4AqsEJCZ+9/XQfozju+WF5KYT4OMb1n6izvclNvj
-	jlqCet+cd48PtAyf5/uhAo20EDPPQMP+Y8YJFFWL4WD9EB1SzBSu51aDiK7nvt+7WT+xNAWD6A/
-	klIPfSVlGYrPw7Q13zZ6QTIQk4BBah/LwP4b9AK6jnH0faeQo54nkrL6Z1SpLoJa9I8ZXfE+fxy
-	A6BGaRDc+Cwalas/E6UjeTwzSvwN+FOahiGXPDzvxatDWqEsQzD7Jd3dW3MMKi8Vt/EABzQ==
-X-Received: by 2002:a17:907:3ea3:b0:c42:4750:8d33 with SMTP id
- a640c23a62f3a-c46bdc5a852mr799429366b.28.1793021936432; Mon, 26 Oct 2026
- 06:38:56 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=fP4jfNbD;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=LiRzvW77;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=fP4jfNbD;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=LiRzvW77
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 39DC51F786;
+	Mon, 26 Oct 2026 13:38:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793021937; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=J8msHD21z81Jfe07/YVkn5bSt0UwqtrZZbU29bnedd4=;
+	b=fP4jfNbD1FR5VVI/DTKWhcq7P+Y9GJUxfi1o6dM2weL2quwWjcS5bomyCLz9jOIzLInfl0
+	E809AnNdxpKzM7SEbLyB3yRa6bOdj+KPb3BSanzkQqtwN2IkfLrBEWLlbQp89tdS0vycOn
+	HMbJ+RyFbH66tgPVLHQxngpG3HrPSQ4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793021937;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=J8msHD21z81Jfe07/YVkn5bSt0UwqtrZZbU29bnedd4=;
+	b=LiRzvW77nvqygtAgd0aQr7xC3bchc4P9JJzhqnzl9AdA3W5p93SKtt+j0KKfSN45EA6vUQ
+	iRvU9WNmUfueZsCg==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=fP4jfNbD;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=LiRzvW77
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793021937; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=J8msHD21z81Jfe07/YVkn5bSt0UwqtrZZbU29bnedd4=;
+	b=fP4jfNbD1FR5VVI/DTKWhcq7P+Y9GJUxfi1o6dM2weL2quwWjcS5bomyCLz9jOIzLInfl0
+	E809AnNdxpKzM7SEbLyB3yRa6bOdj+KPb3BSanzkQqtwN2IkfLrBEWLlbQp89tdS0vycOn
+	HMbJ+RyFbH66tgPVLHQxngpG3HrPSQ4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793021937;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=J8msHD21z81Jfe07/YVkn5bSt0UwqtrZZbU29bnedd4=;
+	b=LiRzvW77nvqygtAgd0aQr7xC3bchc4P9JJzhqnzl9AdA3W5p93SKtt+j0KKfSN45EA6vUQ
+	iRvU9WNmUfueZsCg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7048A13408;
+	Mon, 26 Oct 2026 13:38:54 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id KBSoDe5X32qCAgAAD6G6ig
+	(envelope-from <pfalcato@suse.de>); Mon, 26 Oct 2026 13:38:54 +0000
+Date: Mon, 26 Oct 2026 13:38:52 +0000
+From: Pedro Falcato <pfalcato@suse.de>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Gregory Price <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
+	Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Vladimir Davydov <vdavydov.dev@gmail.com>, 
+	Michal Hocko <mhocko@suse.com>, Hugh Dickins <hughd@google.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Lukas Czerner <lczerner@redhat.com>, 
+	Carlos Maiolino <cmaiolino@redhat.com>, Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+	Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>, Muchun Song <muchun.song@linux.dev>, 
+	Oscar Salvador <osalvador@suse.de>, David Stevens <stevensd@chromium.org>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, William Kucharski <william.kucharski@oracle.com>, 
+	Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, Nhat Pham <nphamcs@gmail.com>, 
+	Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi <nao.horiguchi@gmail.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, Chris Mason <mason@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH 01/16] mm/mempolicy: charge shared policy nodes
+Message-ID: <at9X2LBkv8Df9Tt6@pedro-suse.tail5790ac.ts.net>
+References: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
+ <20261026-fixes_shmem-v1-1-703206d5fa0c@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,119 +121,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261022145615.2184343-1-alex@ghiti.fr> <CAMgjq7AB4wUzmugV3n4mhWcYqMKmhoZJCDV2uUagFjZXjUUi3A@mail.gmail.com>
- <CAEmasaXz2GGoy4dyhbo9Em95Cnz6QL3u2fcnAa2=8pJOOJyH8g@mail.gmail.com>
-In-Reply-To: <CAEmasaXz2GGoy4dyhbo9Em95Cnz6QL3u2fcnAa2=8pJOOJyH8g@mail.gmail.com>
-From: Kairui Song <ryncsn@gmail.com>
-Date: Mon, 26 Oct 2026 21:38:18 +0800
-X-Gm-Features: AclHuK-mv42vSP0j_QUAw9kHH-YjfqEHToFq35eWyV0ENcI-qXQus23q6x1_16E
-Message-ID: <CAMgjq7BjOeboPMP64PfGDoY4yMGq0xR4E4Wa66U0+gsd2tnu+g@mail.gmail.com>
-Subject: Re: [RFC PATCH 0/1] mm/swap: keep reclaim batches contiguous on swap
-To: Alexandre Ghiti <alexghiti@meta.com>, Nhat Pham <nphamcs@gmail.com>
-Cc: Alexandre Ghiti <alex@ghiti.fr>, Andrew Morton <akpm@linux-foundation.org>, 
-	Barry Song <baohua@kernel.org>, Chris Li <chrisl@kernel.org>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Hugh Dickins <hughd@google.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
-	Wei Xu <weixugc@google.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261026-fixes_shmem-v1-1-703206d5fa0c@kernel.org>
+X-Spamd-Result: default: False [-12.01 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	ARC_NA(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCPT_COUNT_TWELVE(0.00)[32];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_CC(0.00)[linux-foundation.org,gourry.net,nvidia.com,gmail.com,sk.com,linux.alibaba.com,cmpxchg.org,suse.com,google.com,redhat.com,kernel.org,suse.cz,chromium.org,linux.dev,suse.de,infradead.org,oracle.com,tencent.com,huawei.com,kvack.org,vger.kernel.org];
+	DKIM_TRACE(0.00)[suse.de:+];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	R_RATELIMIT(0.00)[to_ip_from(RLgmxzz5wwb987hpmihmge51fg)];
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -12.01
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 39DC51F786
 
-On Fri, Oct 23, 2026 at 12:17=E2=80=AFAM Alexandre Ghiti <alexghiti@meta.co=
-m> wrote:
->
-> Hi Kairui,
->
-> On Thu, Oct 22, 2026 at 5:27=E2=80=AFPM Kairui Song <ryncsn@gmail.com> wr=
-ote:
-> >
-> > >
-> > On Thu, Oct 22, 2026 at 11:00=E2=80=AFPM Alexandre Ghiti <alex@ghiti.fr=
-> wrote:
-> > >
-> > > 7.3 regressed swap I/O: for the same swap volume, a workload that
-> > > rewrites swapped out memory sends many more requests to the device.
-> > > mysql/sysbench in a 256M memcg swapping to an NVMe partition, 7.3
-> > > compared to the previous version:
-> > >
-> > >   device read requests per transaction        +59%
-> > >   device write requests per transaction       +27%
-> > >   throughput, iocost off                      no change
-> > >   throughput, iocost on                       -19%
-> > >
-> > > Two commits interact:
-> > >
-> > > - Commit 9a42aed48421 ("mm, swap: prefer nonfull over free clusters")=
-,
-> > >   in 6.18, makes order-0 allocations fill nonfull clusters before
-> > >   taking a free one.
-> > >
-> > > - Commit 3cedb745d354 ("mm: clarify the folio_free_swap() for
-> > >   do_swap_page()"), in 7.3, frees the swap slot on an exclusive write
-> > >   fault. 7.0 to 7.2 kept the slot, but only as a side effect of commi=
-t
-> > >   4b34f1d82c65 ("mm, swap: free the swap cache after folio is
-> > >   mapped").
-> > >
-> > > The freed slots leave holes in full clusters, which then go back on
-> > > the nonfull list. Reclaim allocates slots one folio at a time and
-> > > merges the writes afterwards, so a batch of LRU-adjacent folios gets
-> > > scattered over those holes and is written with many small requests.
-> > > Readahead later finds those pages scattered as well, and needs more
-> > > read requests to bring them back.
-> > >
-> > > I tried three fixes, which perform similarly:
-> > >
-> > > A. Revert 3cedb745d354. This keeps the slot on write fault, but undoe=
-s
-> > >    the intent of that commit and keeps swap space pinned under dirty
-> > >    pages.
-> > >
-> > > B. Below 50% swap usage, make order-0 allocations take a free cluster
-> > >    before a nonfull one. This is what the allocator already does, at
-> > >    any usage, on swap devices with discard enabled (swapon
-> > >    --discard=3Dpages). It is about five lines, but the threshold is
-> > >    arbitrary, it stops working as swap fills up, and it applies to
-> > >    every order-0 allocation, using up the free clusters that
-> > >    nonfull-first keeps for mTHP.
-> >
-> > Hi Alexandre,
-> >
-> > That's a interesting problem. I think the real problem is with commit
-> > 9a42aed48421 ("mm, swap: prefer nonfull over free clusters"), right?
-> >
-> > It's more like a balance between fragmentation and contiguity of small
-> > order allocation issue.
-> >
-> > Perhaps we should instead always scan the full clusters and revert
-> > that one commit? That commit was only following the idea of keeping
-> > the allocation more compacted for that series, it looked good at that
-> > time. Since fragmentation issues can be solved in other ways,
-> > contiguity seems to matter more for large physical swap devices.
-> >
->
+On Mon, Oct 26, 2026 at 10:40:34AM +0100, David Hildenbrand (Arm) wrote:
+> From: Chris Mason <mason@kernel.org>
+> 
+> Any local user can bypass memory.max with mbind() on a tmpfs file, and
+> allocate unbounded kernel memory.
+> 
+> mbind() sets a NUMA memory policy for a range of a mapping. If the
+> mapping is of a shmem and friends, the kernel also stores the policy on
+> the inode, in a tree with one entry per range of the file.
+> 
+> Each mbind() on a single page of a mapping can add one shared policy node
+> (struct sp_node) and one struct mempolicy to that tree. They outlive the
+> mapping and stay around until the inode is destroyed. The tree is not
+> bounded by the file size, so the file can be empty.
+> 
+> Memory that user space can allocate must be charged to a memory cgroup. A
+> slab cache does that for all of its objects if it is created with
+> SLAB_ACCOUNT. numa_policy_init() creates the slab caches for both
+> structs without SLAB_ACCOUNT, so they are not charged to any cgroup.
+> 
+> Reproduced with mbind() on single pages of an empty tmpfs file, from a
+> cgroup with memory.max=8M: the global OOM killer killed tasks owned by
+> root, and the machine panicked.
+> 
+> Fix this by creating both caches with SLAB_ACCOUNT. This change implies
+> that mbind() can now fail when running into memcg limits. Further,
+> the policy_cache also serves task and VMA policies, so they are
+> similarly accounted now.
+> 
+> Note that per-file limits are not really helpful, as the user could
+> simply use many files; having limits per user is tricky as well.
+> 
+> Fix generated by an LLM and submitted by Chris Mason in private.
+> 
+> Fixes: 5d097056c9a0 ("kmemcg: account certain kmem allocations to memcg")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Chris Mason <mason@kernel.org>
+> [ david: smaller description tweaks ]
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Hi,
+Acked-by: Pedro Falcato <pfalcato@suse.de>
 
-> Oh, okay. I thought reverting it wasn't an option given the good
-> numbers the patch provides.
-
-That patch is 1/3 of a series, that series yields really nice
-results, but that one patch plays only a small part in them. Or
-perhaps we can limit that to SYNC devices? I hope there are simpler
-ways to avoid the problem you encountered. I think the ~4% reduction
-of 64k mTHP failure is kind of trivial compared to the problem you
-encountered, and 2M swapout is still not easily doable, as the
-main blocker is from the page allocator.
-
->
-> What are the other fragmentation solutions you are referring to?
-
-Right, nothing has landed in upstream for that yet, but with larger
-swap space the fragmentation issue will be largely solved. And before
-that we might be able to sort the clusters by the continues size of
-slots on it instead just blindly move then back to nonfull on any
-freeing.
+-- 
+Pedro
