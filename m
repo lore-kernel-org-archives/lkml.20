@@ -1,144 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.111
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793008796;
-	b=tt1DUoTwFxJ882zMpq3kY8sWrDuEB0n6gMraPpiEgXM9kln6lWmnrm6OAOdMTEwDc3C4
-	 c6GFc/Mb+t+y42iKI83RdJ7Xp5QXtMiJjAPNQVUjW2HTZY6XGbJXVZcp6pGRqYXw7K9Dx
-	 +nLqBrcKZhQhaNsV0IxBY6UnfWGKW9Xo4p2kYJRYoBdOH5ydWm43Y9c7pEWPODHQ+A7HJ
-	 mNSR71jreqx9U4XKVgBavZwR3jiGw15G1EcbvdKnqJx7yFEIC6hmL0A4P7uX84+tovQ9+
-	 VC1oBhHFDKW7wvJDrfD/dxmUYtVbM96uV4aJhw883O2U2ZcKtQVaU3zsPSERvTvVy3w==
+	t=1793008807;
+	b=XT/yHqYFNtB0eblqutp8v6Gqu2GqrOI/dqZYG8tWLbKqP6EpefkM3jgVNMCGhEZ0Rwyf
+	 io3AqMrd8wncwaON9eA8vbMaVcZIz9/25NRHt1VAQag3DqjFj6y2AyyE0ViFeHB8xRQn+
+	 HCIpCY+2AKkKE2dN2qoWUhL1/WMD1vZY/EwQ8P8CsFQDUr9ESMGf/B1o5gLLvONZ7AQ6B
+	 vASAySKU8vTGDcAoWX/NFlWOe04jPCBT11UmTacksZAXnzMP6xr+dFC9dBFFlCYC/rVk4
+	 BFIiN9mpXuonE9PA1kEmOWy0dz+HZGV1YohBfLr5+m3tvvH7+o/zgrbG2f6tcDnHY7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793008796;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=EihPl48XyzquhIbKjuEyAajD35LkfbvtwIfgKv80/jQ=;
-	b=trFVbpZmLkLB761oDmEEuTlmsORxMuePL5fAYeHZUHEuUwqaKx8LpPIHp204cwSjXBKX
-	 Nvoo/PDq7tJD6RGHRaD66Eppo+rsMpxDZTPZi7G1a/Xb06+YkfxGwaJlWmtDILnqO5bTW
-	 3tnwNoK6+lBCFqGsV918eh1xvRHgrta0aaksvkZbuKLZbYHlQpF9sdMFqzp9oo4P6j+yi
-	 6BT1NQPj6SGJB6OF7FmGAxyRNqt+6zw9P+jwMbR3kS3ko4soOWndQbmxoInl301otcjHG
-	 juXLrFSOBs6lsWehEbbKb8LV6lgFRr/RhpuwPMtCfPcP5rJZtlBkMxABZ5ITLaWZ/SQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793008807;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=F/pa/uFhSJPFHIEewk36wTKJdJWq4rFHLThxtYs5ePs=;
+	b=Nx0jLcGNNGjfEJ8RLn/n8BKkZ/Qw4kL6WSdBcwcHv5zkV8x88z43NETpzn16hdeFcG9p
+	 rJVHrUXtjhgWT40xHVg/768Dk7Rds3aXKbPRdrW0jze//i4TbzlkLAN5HRDZIWMF8WoY0
+	 exrg9XcQJQlnyowDr5hxE7vClz3xWmhl1aqyggjcJzWRb+L7MS9KeDGToLFT6I3Q4YnHN
+	 6aWjH7Wtbjxb9SXDy9JbP1AX7ftUOsMnw3Z2mM7TQ8meeaQuAF5gatZiQ7loovKm62Xvk
+	 qFrWPznWvj1GycOrLuLr0vZFYM/zvrNY1QDmV2StoD/d8un1sPqENESnU8unnGkDiOw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=duOPPQmS;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Lq4wGaDO;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=dwlM3Jda;
+	arc=none smtp.remote-ip=115.124.30.111
+Received: from out30-111.freemail.mail.aliyun.com (out30-111.freemail.mail.aliyun.com [115.124.30.111])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBE4A606A8ED
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:59:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBE4A606A8ED
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6634606B454;
+	Mon, 26 Oct 2026 10:00:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6634606B454
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=duOPPQmS;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Lq4wGaDO
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69Q4auOk2255122
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:59:55 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=EihPl48XyzquhIbKjuEyAajD
-	35LkfbvtwIfgKv80/jQ=; b=duOPPQmSNBtx6zhy2MyD4npHJuJX7Gm6wHBXP8ce
-	gso6SBXwNnKeARLD/e0CobapPe+Pf7ies1PCMX8l0Ug5iwRxIVau+SXTqeR4fsTE
-	bPqNxK1Bfn5d+FDp8KiVM+Bp+TZkWsYiaO5Dxo3FHoaEt9Yu7ndZYJNRki6RGyau
-	e9TqyPtI9Gei8s75Mu/XbJ23qlTZsPaJIRg3qr0eUH6Wvuq+DaaJU5SFPTDHFggF
-	7OibQZR51kSYWjQNBxzIW8c0qzGWVc8rErJCz0VI/N1iO4JE5O3EbCK0hg/I3CsL
-	BG8uaN7ChjqvVzPqPBbYVSwVAksgA7o7Ey9Rzt7q1IwiOg==
-Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com [209.85.217.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hgmw3nsps-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:59:55 +0000 (GMT)
-Received: by mail-vs1-f69.google.com with SMTP id ada2fe7eead31-7cc48fbca26so406613137.3
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:59:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793008794; x=1793613594; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=EihPl48XyzquhIbKjuEyAajD35LkfbvtwIfgKv80/jQ=;
-        b=Lq4wGaDOBpVkSPMT650pzVDZ0ZdqcSGrAoZzfFFdM518fJR89ZIGJx6eXL4yL13Xrl
-         9oCqAU0R7kUVi1UhMw8akonpcHbyZwFuJSqb2u0tKGPC3YAvtla7H51NOZadFUZSmL2Q
-         r16hd6Nxd/2pcqEyFFpl+3UUTK8ynsmIJlWYJhXm4y/6UIroUCCKK5bS4dQlsFUeRuZD
-         +7dv+Yy+eyqDqM0WLJ19pWBstqB3OdBiZ+hFQNu63MhCIR9KRwPkVXUIAerjgns2bfb6
-         l4jF9umI9ok5cQKWo5grKI3y0p/QZRQ0T53+Wdpe+LNpYXhCZaRkEVf7sKuP/riR2oQH
-         rR6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793008794; x=1793613594;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EihPl48XyzquhIbKjuEyAajD35LkfbvtwIfgKv80/jQ=;
-        b=U9xKw8jjgTe8lQ7ZYOCzDn9nkB4ciiNgoEtXjgBvwYQiGt9TJH9jOCC6g2sMIbT0yw
-         9khFoZqMgX6QaJYVROwtjcAVomgPMlk++Sae/gp6k8tE0jgwW3vDIATYr8cXYd/PkckX
-         +5GrKCKa4MX5RWHF7CZwM/44TiUDXUXlIicYmJrwJoXb5tgGIPv/963bonkYnPH0fwKb
-         dM9bW6IWJ0GxghRjFSKC3aKUbZyaY3TE0bt1Hh3Dm98nRywBuKFuYLXZmHdRD1N9rnNk
-         t45Mich5dQBuanzuCUWvsY7BVJZyK+nLcC3VLV5qxQQL1uvk3qf5OK2+RBu7xsXEcHJB
-         dvLQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwp/1pPIv3lxkg8gRrUbuI+LdujYibcfCjju6DBi6eWlH+9C0Z5QnBgNzyeMx2FjCQWMzukn2o9TZE/vl0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLkpWsuEgc7Au5LKCa+pKZyzQvWfcQl2Twf9y3/q6HuwEqwLIFN
-	WwVLlt0xnEpZz8tiOKGObIrhBp8p+wIWndx7mLgM469A9IjF8YVhagTEzkUiIK3aZzCONU+wR1s
-	54YlbAfq9rIaWlOFxuKcXuN1uBr/+lUMTeusvoaKPe0ZOe71EpU2fQG+E3WZ89eiRtq4=
-X-Gm-Gg: AYBFou1oL4Q6418uMlHH/6ra6BKz1WTWaeZ2x0QxayOh6vT+lrGqGHK4Wfs0ZKxnSGR
-	JI9XhO0AdI+X7FrRRdkOfGF7kAcBfvT004N2/vcBk8ux6UUQjYeza14dNCvpD8lxXDIA4s7IglM
-	uKjIARZwGBJgk+w1zMKeWvdKEyDv7ITQt8kR6SbDU9GpCLIclN0w1Fo3baV1m7lxTHgjac8iHr7
-	URvjfp/59L+r0ORXBCLwKNej4BiKrvs0tzEjC2cd+/E4ZdtRxquEeJ1LQ/rIkxJIyF/j+adQcuc
-	ol7kN7nZndCHhRNmtX0l4AzuARivXypm0ZYI57fF/82XsE67B7oRupNhqORx/5qpN1LjwjADcVY
-	8NXEn9Z0IlrCMCU8aWWCdAcBQK7OeKGYJP2J5mAL7x/WaccGr74hcQ4JiDMzmRBbzj6yvZJvEUH
-	wM2MdE9ktBCI5b
-X-Received: by 2002:a05:6102:511e:b0:7cc:2fd1:7143 with SMTP id ada2fe7eead31-7ce5cd65a0fmr1586647137.17.1793008793925;
-        Mon, 26 Oct 2026 02:59:53 -0700 (PDT)
-X-Received: by 2002:a05:6102:511e:b0:7cc:2fd1:7143 with SMTP id ada2fe7eead31-7ce5cd65a0fmr1586636137.17.1793008793315;
-        Mon, 26 Oct 2026 02:59:53 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ac709d0606sm16973671fa.14.2026.10.26.02.59.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 02:59:52 -0700 (PDT)
-Date: Mon, 26 Oct 2026 11:59:50 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        "Michael S. Tsirkin" <mst@redhat.com>,
-        Jason Wang <jasowangio@gmail.com>,
-        Eugenio =?utf-8?B?UMOpcmV6?= <eperezma@redhat.com>,
-        Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-        Sumit Semwal <sumit.semwal@linaro.org>,
-        Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
-        Philipp Stanner <phasta@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>,
-        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>,
-        Flemin Jose <flemin.jose@oss.qualcomm.com>,
-        Mahadevan P <mahap@oss.qualcomm.com>, virtualization@lists.linux.dev,
-        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
-        linaro-mm-sig@lists.linaro.org, iommu@lists.linux.dev
-Subject: Re: [PATCH v2 18/23] virtio: Add Qualcomm Platform Services Firmware
- Interface ID
-Message-ID: <lisaligvjmnnib7gm6klab77jfzyagn5cx5pix3isodu2cjvrr@o6efvpyte5yg>
-References: <20261026-jshekhar-dcp-hlos-v2-0-7cf014efdee1@oss.qualcomm.com>
- <20261026-jshekhar-dcp-hlos-v2-18-7cf014efdee1@oss.qualcomm.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=dwlM3Jda
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1793008802; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=F/pa/uFhSJPFHIEewk36wTKJdJWq4rFHLThxtYs5ePs=;
+	b=dwlM3JdaG5OIPj4Hpwv6O+JHHTOsMIur4AduK7yfy1WQtq1WlssMpBZ5KPIcbYRGK5R55/izikwaCtLpgnIuI8lQL9f1TE4LBmScw+3iSCX5mqBiJKDafwC+KvB29VhQsgTcT7+EmuneBwXusMiwx/ZH/K9JdowyBgALjAu4Tmc=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R141e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=9;SR=0;TI=SMTPD_---0XDW4SKg_1793008801;
+Received: from 30.221.130.82(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XDW4SKg_1793008801 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Mon, 26 Oct 2026 18:00:01 +0800
+Message-ID: <87a005a4-c61f-4525-a0d1-89bfc6a8f75d@linux.alibaba.com>
+Date: Mon, 26 Oct 2026 17:59:59 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -148,69 +53,194 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261026-jshekhar-dcp-hlos-v2-18-7cf014efdee1@oss.qualcomm.com>
-X-Proofpoint-GUID: i1WdOpdojXzHkJbfZ7knIGHtPXcuGa8v
-X-Proofpoint-ORIG-GUID: i1WdOpdojXzHkJbfZ7knIGHtPXcuGa8v
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDAzOSBTYWx0ZWRfX5uh2egMrSK9g
- HRbr/j7QKAfYztwq0NysZxKfQipF+QZYWgX6shzkRsGiYixX36HRcpeaTDDOnX9hDqkf21WHi6O
- JK0y6guUVdSrEKSJnlIcvI7MoCBEFqY=
-X-Authority-Analysis: v=2.4 cv=HqHjiETS c=1 sm=1 tr=0 ts=6adf249b cx=c_pps
- a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
- a=dTofmrguFlo4DCddnn8A:9 a=CjuIK1q_8ugA:10 a=gYDTvv6II1OnSo0itH1n:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDAzOSBTYWx0ZWRfX1Ur7STd8Wf8N
- U+EBoWa07rgBLlx6xbNX4QBqj3Xlp3yfKcRgvZ1kEL16KN9QrFuGU2d7n6CNF4kwYEGPFQ4n/MW
- 9y9InLc6bC4iT+8igxj9E27i0c4kXasz88P5WqMU4KPxdwW1PcNV6DlndqNY+x6ZgFi47kVdALP
- bEf0ADs3ypa/ziblvCxbe7oh90HDIAdtJKCXVUkrMrwNMqLRhBIirR1QdV5xcMVyOFfYBhmWXgp
- NFfd+rkWr0hSjBjJUJc/upr/HsbijQMsNf5Ghupp5UGb8Acy4wi58xBzY1VHNHi4D+h4FO0euS9
- PDV4WncIdAA7LTt9KMlE9MRpGf1wz4tN0Bx8ycXApgphrhNg28pn2Y4rLF/BnfT/9U+37NyKmbr
- Lpplw+/Bre0NjsEoYib43IojB1xf9jhQAB/MWw2ue/90YwrooCK03JNHorkmgRp+wxnm094k6zq
- j0wyAtl2KXW2Ku9ssCA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-26_01,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 bulkscore=0 malwarescore=0 lowpriorityscore=0
- clxscore=1015 impostorscore=0 adultscore=0 phishscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610260039
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] ocfs2: validate move extents against a stable EOF
+To: Cen Zhang <zzzccc427@gmail.com>
+Cc: mark@fasheh.com, jlbec@evilplan.org, heming.zhao@suse.com,
+ ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, baijiaju1990@gmail.com, jjzuming@gmail.com
+References: <pm-ocfs2-move-extents-isize-rrw-v4-d4b80ed0748f84dc3f8e@gmail.com>
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+In-Reply-To: <pm-ocfs2-move-extents-isize-rrw-v4-d4b80ed0748f84dc3f8e@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 26, 2026 at 11:51:28AM +0530, Jayant Shekhar wrote:
-> The Qualcomm Platform Services Firmware Interface (QPSFI) is exposed
 
-Can it be anything other than the DCP? If so, how would you identify it
-on the Linux side?
 
-> as a VirtIO device with device ID 52. Define VIRTIO_ID_QPSFI in the
-> common VirtIO ID header so transport and function drivers use the
-> shared identifier.
+On 10/25/26 12:20 AM, Cen Zhang wrote:
+> The move-extents range must be bounded by the inode size used for extent
+> movement. ocfs2_ioctl_move_extents() checks and clamps the request before
+> taking the local inode and cluster locks in ocfs2_move_extents(). It also
+> uses separate i_size_read() calls for the range check and subtraction.
 > 
+> A concurrent truncate can invalidate the first check and make the later
+> unsigned subtraction underflow:
+> 
+>   Move-extents ioctl                  Truncate
+>   ------------------                  --------
+>   check me_start <= i_size
+>                                       take inode and cluster locks
+>                                       shrink EOF below me_start
+>                                       release locks
+>   compare me_start + me_len with EOF
+>   set me_len = EOF - me_start
+>     [unsigned underflow]
+>   acquire inode and cluster locks
+>   select extents using the bad range
+> 
+> A truncate after clamping can also leave the range extending beyond EOF.
+> Conversely, the cached size may be smaller than the size refreshed when
+> the cluster inode lock is acquired. Early validation can then reject a
+> valid start or permanently shorten the requested length and threshold.
+> The me_start + me_len comparison can also wrap for a large input length.
+> 
+> Validate and adjust the original request once, after inode_lock(), the
+> exclusive rw lock and ocfs2_inode_lock() have stabilized and refreshed
+> the size. Read EOF once, reject a start beyond it, and bound the length
+> by EOF minus start. Normalize the threshold using the same EOF snapshot.
+> This keeps zero as the default-threshold sentinel until validation uses
+> the size that will govern extent movement.
+> 
+> Move goal validation after range adjustment as well. Its allocation-group
+> capacity check uses me_len and must see the EOF-clamped length. Both
+> validation failures use the existing inode-lock unwind path before any
+> extent movement or transaction starts.
+> 
+> Fixes: 53069d4e7695 ("Ocfs2/move_extents: move/defrag extents within a certain range.")
+> Cc: stable@vger.kernel.org
 > Assisted-by: LLM
-> Signed-off-by: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
 > ---
->  include/uapi/linux/virtio_ids.h | 1 +
->  1 file changed, 1 insertion(+)
+> Changes in v2:
+> - Validate and normalize the original range only once, after inode and
+>   cluster locking have stabilized and refreshed EOF.
+> - Move goal validation after range adjustment because its allocation-group
+>   capacity check depends on me_len.
 > 
-> diff --git a/include/uapi/linux/virtio_ids.h b/include/uapi/linux/virtio_ids.h
-> index f9056af0c622..6c6f283733b1 100644
-> --- a/include/uapi/linux/virtio_ids.h
-> +++ b/include/uapi/linux/virtio_ids.h
-> @@ -70,6 +70,7 @@
->  #define VIRTIO_ID_GPIO			41 /* virtio gpio */
->  #define VIRTIO_ID_SPI			45 /* virtio spi */
->  #define VIRTIO_ID_MEDIA			48 /* virtio media */
-> +#define VIRTIO_ID_QPSFI			52 /* Qualcomm Platform Services Firmware Interface */
+> Link to v1: https://lore.kernel.org/r/pm-ocfs2-move-extents-isize-rrw-v3-b2a7508c41108cc2d00b@gmail.com
+> 
+>  fs/ocfs2/move_extents.c | 68 ++++++++++++++++++++++-------------------
+>  1 file changed, 37 insertions(+), 31 deletions(-)
+> 
+> diff --git a/fs/ocfs2/move_extents.c b/fs/ocfs2/move_extents.c
+> index ad1678ee7cc4..f2682ef6bf2b 100644
+> --- a/fs/ocfs2/move_extents.c
+> +++ b/fs/ocfs2/move_extents.c
+> @@ -907,6 +907,30 @@ out:
+>  	return ret;
+>  }
 >  
->  /*
->   * Virtio Transitional IDs
-> 
-> -- 
-> 2.43.0
-> 
+> +static int ocfs2_validate_and_adjust_move_range(struct inode *inode,
+> +						struct ocfs2_move_extents *range)
+> +{
+> +	u64 i_size = i_size_read(inode);
+> +
+> +	if (range->me_start > i_size)
+> +		return -EINVAL;
+> +
+> +	if (range->me_len > i_size - range->me_start)
+> +		range->me_len = i_size - range->me_start;
+> +
+> +	/*
+> +	 * The default threshold for defragmentation is 1 MiB, which
+> +	 * matches the maximum OCFS2 cluster size.
+> +	 */
+> +	if (!range->me_threshold)
+> +		range->me_threshold = 1024 * 1024;
+> +
+> +	if (range->me_threshold > i_size)
+> +		range->me_threshold = i_size;
+> +
+> +	return 0;
+> +}
+> +
+>  static int ocfs2_move_extents(struct ocfs2_move_extents_context *context)
+>  {
+>  	int status;
+> @@ -936,6 +960,19 @@ static int ocfs2_move_extents(struct ocfs2_move_extents_context *context)
+>  		goto out_rw_unlock;
+>  	}
+>  
+> +	status = ocfs2_validate_and_adjust_move_range(inode, context->range);
+> +	if (status) {
+> +		mlog_errno(status);
+> +		goto out_inode_unlock;
+> +	}
+> +
+> +	/* The goal check depends on the adjusted range length. */
+> +	if (!context->auto_defrag) {
+> +		status = ocfs2_validate_and_adjust_move_goal(inode, context->range);
+> +		if (status)
+> +			goto out_inode_unlock;
 
--- 
-With best wishes
-Dmitry
+Seems we'd better log the failure like ocfs2_validate_and_adjust_move_range().
+
+> +	}
+> +
+>  	/*
+>  	 * remember ip_xattr_sem also needs to be held if necessary
+>  	 */
+> @@ -1028,27 +1065,8 @@ int ocfs2_ioctl_move_extents(struct file *filp, void __user *argp)
+>  		goto out_free;
+>  	}
+>  
+> -	if (range.me_start > i_size_read(inode)) {
+> -		status = -EINVAL;
+> -		goto out_free;
+> -	}
+
+This seems changes the return value. It returned -EINVAL without touching
+the caller's buffer. It now unwinds through out_inode_unlock and falls into
+the copy back and returns -EFAULT instead of -EINVAL.
+
+Seems not a bug since the goal validation failure already behaved this way,
+but worth a line in the commit log.
+
+Thanks,
+Joseph
+
+> -
+> -	if (range.me_start + range.me_len > i_size_read(inode))
+> -			range.me_len = i_size_read(inode) - range.me_start;
+> -
+>  	context->range = &range;
+>  
+> -	/*
+> -	 * ok, the default threshold for the defragmentation
+> -	 * is 1M, since our maximum clustersize was 1M also.
+> -	 * any thought?
+> -	 */
+> -	if (!range.me_threshold)
+> -		range.me_threshold = 1024 * 1024;
+> -
+> -	if (range.me_threshold > i_size_read(inode))
+> -		range.me_threshold = i_size_read(inode);
+> -
+>  	if (range.me_flags & ~(OCFS2_MOVE_EXT_FL_AUTO_DEFRAG |
+>  			       OCFS2_MOVE_EXT_FL_PART_DEFRAG)) {
+>  		status = -EINVAL;
+> @@ -1060,23 +1078,11 @@ int ocfs2_ioctl_move_extents(struct file *filp, void __user *argp)
+>  
+>  		if (range.me_flags & OCFS2_MOVE_EXT_FL_PART_DEFRAG)
+>  			context->partial = 1;
+> -	} else {
+> -		/*
+> -		 * first best-effort attempt to validate and adjust the goal
+> -		 * (physical address in block), while it can't guarantee later
+> -		 * operation can succeed all the time since global_bitmap may
+> -		 * change a bit over time.
+> -		 */
+> -
+> -		status = ocfs2_validate_and_adjust_move_goal(inode, &range);
+> -		if (status)
+> -			goto out_copy;
+>  	}
+>  
+>  	status = ocfs2_move_extents(context);
+>  	if (status)
+>  		mlog_errno(status);
+> -out_copy:
+>  	/*
+>  	 * movement/defragmentation may end up being partially completed,
+>  	 * that's the reason why we need to return userspace the finished
+
