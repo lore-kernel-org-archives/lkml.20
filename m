@@ -1,63 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793011247;
-	b=Gmq8fDoV3ouZf6Bb9MpAcONHa34ArYZY4Y+To3ZHRbQN9ZBvv0/xSWwpLPoF7V5JUJML
-	 CiRXPwXessHfrCgzjd4OI/0oAx5rwudcS2CZqGN1fvirQ25cp8iKonm7nbhiH8S+P+2ri
-	 sknEgb0fPLDtyDreUDs25tI1SGtOaWe26rh1vEue1iGDBwzxVtRlNPM81qLvo2cDgYIWE
-	 2WSqyDzZFsXcFht5AmSI689tsxWTuml0eGHUkg1SJ3bMiCA4KSyMd+k2T5dO0E9n17X1F
-	 jmNip767zSHcZy+3qz1d8LcmYtSLdt7E2YcMVboO1THGaG4i4Lutrm/1JTA2Sqj4pfA==
+	t=1793011268;
+	b=u/8AyV4kkXvgmOoRexSkdPu4oXP3Yy5MwWhGaB8jgCBMlMWtJflpFqbzmyFZFOUAD1JH
+	 bb+gtWCEo7PVqs8P+FqdfhyIvF5uV07xyz+1HvT5ZSz6D2x8RqLut2w/oaJ5aKAjnBlzO
+	 PPiXLq4i1X9dDb/3otOqhb54rRsCsVQ/U37cR/wlZiPL6uItLheC8n6wwXItaxd1m3bE0
+	 apZiS2hfIJtEu8GSFari9gzlafyuyRT2g83e+Fjp+Us/n/FXbn8E6Gniqv5xQg0+ox7Wm
+	 m8suN1S1tpG9oIkwN1lNbQVz16pQm41BKbq9Jf1k7v+G3iL7pA6ocdtln9unjCwMtEA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793011247;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 Mail-Followup-To:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=EP4HK2sAGEG6Sk9+NnIgjZnlbU/DTAHtGnb+M3I0RHo=;
-	b=XeZpMVtZHPIUGWFgj1zKijIgxcsLvBO+OBwMmqamk8e9UxHJ5x9rlKmUF+zLlwVI7L2i
-	 1WNqS09uOlzBUqJyuo2ybTz2lbuUjkTMWHw7euESV7QBQcgIk1KLXoHVnav36BTXjcM/p
-	 KhFwN8t4cR+BczHZk3Wmw+4Zx1DDAXu3dRI4kmnS2xbdIdT7GmRtW7/Pagr5VLCpsWM/m
-	 8lcgcgxDjaGXEJ7RFaGqhVUTP4jtiZCpqsaJY7VEKLMs8j/dS/RRFIvhIYaGlTaii8Ho+
-	 fu6aMG1WuGRpt8GZfPykfYqckt1Zbl+8QdRONPcNuv9cNif9s2xaGf2bTqqqgyI2HJQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793011268;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=qV4ZHJFXjIYgpG7WVAH0k5qU5yzw+vLtfj/KzRxTo3U=;
+	b=Ekg8rxcfvEcn1qtFHs61m50LqYfh2VFtrHujnPyFi0fkalzrj33fmndxpXzLcQjT8Xsk
+	 Ac3T1Q7JtHsHyjzPP3ZO6zGGo/EgG4h7/kyT0X2bHwu21slN861PJRT/GdkC4DnRw3Y8s
+	 t2AghE+Ets271nIm6miXbFWrq48ri6FaiPSKq55BgpTARFXtCeh1vkLBwj7YHqg4m4sSQ
+	 6FmFcRIyu1kRTOs1xCrb2SPPwcqP7ubu58dgwsJwlnSIAMBQNBC0JsKr2dS9UmYc2lquv
+	 fYucPNFN3+/kuR+nQdlTpZEuwvgr4L37dNpMJhcORTmXOMr9wvM6W+n/o9QMsD9zzmQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ojG/I6nA";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=mUk35RM6;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41EB1606A32D
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:40:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25487606A31A;
+	Mon, 26 Oct 2026 10:41:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25487606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ojG/I6nA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E67D1F01828;
-	Mon, 26 Oct 2026 10:40:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793011247;
-	bh=EP4HK2sAGEG6Sk9+NnIgjZnlbU/DTAHtGnb+M3I0RHo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ojG/I6nARC+3zNB6Jjc/jmbjIcDZSvlgu9MpO8czPyyVpMlw/KnmvJ8TE4BnjY+Hn
-	 6XknwjXP+TIpYh9goWlaatrny8u2RobcbspIIXWMIsnDIT/IvbMf3Wac8s64gRZQe5
-	 NjJf0VkaT+DmzoH4zyorAxT3yQhgjYLstjrkN3YSJnhmki9x0WjG+01iaWzq/46qh3
-	 LNTc/mDsxGmuWcpa/EdoTY/Nb0IsG9zv+lH3qT+ZRuHUGl0QzdUOAvylwYxbLlhplD
-	 9H3Qqs5njDSCGn4tWYZGhos4V/WNA/SXY8C+yR4xUnjqNSX/B+uzbgkwgAAZIImtqn
-	 kHyKsZ2islK3A==
-Date: Mon, 26 Oct 2026 11:40:37 +0100
-From: Gao Xiang <xiang@kernel.org>
-To: Zhan Xusheng <zhanxusheng1024@gmail.com>
-Cc: xiang@kernel.org, chao@kernel.org, zbestahu@gmail.com, jefflexu@163.com,
-	dhavale@google.com, hongbohbli@tencent.com, guochunhai@vivo.com,
-	giuseppe@scrivano.org, linux-erofs@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org, zhanxusheng@xiaomi.com
-Subject: Re: [PATCH v2] erofs: don't reuse a superblock for a mount that
- passes device=
-Message-ID: <at8uJdaEhdkZVsfY@MacBookPro>
-Mail-Followup-To: Zhan Xusheng <zhanxusheng1024@gmail.com>,
-	xiang@kernel.org, chao@kernel.org, zbestahu@gmail.com,
-	jefflexu@163.com, dhavale@google.com, hongbohbli@tencent.com,
-	guochunhai@vivo.com, giuseppe@scrivano.org,
-	linux-erofs@lists.ozlabs.org, linux-kernel@vger.kernel.org,
-	zhanxusheng@xiaomi.com
-References: <at8UCyjlHgxxBAaf@MacBookPro>
- <20261026092217.2129604-1-zhanxusheng1024@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=mUk35RM6
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 8FDD9269;
+	Mon, 26 Oct 2026 11:38:46 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1793011126;
+	bh=ze4wP+aSFuxF6kwJKEwmj5+aDh4YZVbDYD1zVIzKoow=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=mUk35RM63pPwTNvFC8/1J2kr0lWcAlBAmAG8BcVBBp/Fxbo9f6Uk/nkkGcqILi6DE
+	 6E9y8JQzqswYZzkPxVskrX7v3aYD+4t8XJIpTiXTmdzWRrc8WDZ/+FMIhaXvWtphlo
+	 Audz7q7mNwe2WDmqMiGiwd8pjb7YnKlQv2ADRbZc=
+Date: Mon, 26 Oct 2026 12:40:56 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Eric Biggers <ebiggers@kernel.org>, linux-doc@vger.kernel.org,
+	workflows@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org,
+	Konstantin Ryabitsev <konstantin@linuxfoundation.org>
+Subject: Re: [PATCH] docs: submitting-patches: Require base tree information
+Message-ID: <20261026104056.GH15441@killaraus.ideasonboard.com>
+References: <20261020212235.1143086-1-ebiggers@kernel.org>
+ <363b228a-7e96-481a-b70f-195ba55d025e@kernel.org>
+ <20261021063927.GA31908@sol>
+ <d5d0801e-371c-4836-8b4a-26bff33df46f@kernel.org>
+ <20261021064940.GC31908@sol>
+ <aea2328d-4ea8-45bc-922e-9c1fed94083f@kernel.org>
+ <20261021163242.GB325924@killaraus.ideasonboard.com>
+ <73d01869-b536-4fcd-a139-6f9d0a043347@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,44 +72,54 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261026092217.2129604-1-zhanxusheng1024@gmail.com>
+In-Reply-To: <73d01869-b536-4fcd-a139-6f9d0a043347@kernel.org>
 
-On Mon, Oct 26, 2026 at 05:22:17PM +0800, Zhan Xusheng wrote:
-> From: Zhan Xusheng <zhanxusheng@xiaomi.com>
+On Thu, Oct 22, 2026 at 08:57:55AM +0200, Krzysztof Kozlowski wrote:
+> On 21/10/2026 18:32, Laurent Pinchart wrote:
+> > On Wed, Oct 21, 2026 at 01:55:37PM +0200, Krzysztof Kozlowski wrote:
+> >>
+> >>> there's no base-commit?  Including any historical patch (from
+> >>> months/years ago), patches with dependencies, etc.
+> >>
+> >> Dependency is something else, but for every other patch:
+> >> 1. For testing/CI: you apply on top of next
+> >> 2. Every other case the maintainer knows where to apply it, because it
+> >> is his HEAD of next-branch.
+> >>
+> >> I am repeating myself, but I really had no single problem of lack of
+> >> knowledge where to apply a patch as a maintainer or reviewer of some
+> >> subsystem, thus maybe I do not understand the actual problem you are
+> >> experiencing.
+> > 
+> > When I review patches, I often need to apply them to a tree, mainly to
+> > see the context, but sometimes also to test them. I have encountered
+> > many cases where the patch wouldn't apply on the current for-next branch
+> > of the relevant subsystem. That's often because the patch had
+> > dependencies. When I'm lucky they are listed manually in the cover
+> > letter with a link to a branch, but that's far from being the common
+> > case. I then have to ask the submitter to provide a branch, or enough
+> > information to recreate a branch. Having base information (base-commit,
+> > prerequisite-patch-id, and possibly base-tree) would save me quite some
+> > time.
+> > 
+> > I understand your concern about maintainers cherry-picking and sometimes
+> > introducing issues as a result. In that case I also prefer asking the
+> > submitter to rebase, retest, and resubmit. That's not what I want to use
+> > base information for, in my case it helps with the review process.
 > 
-> superblock_share together with device= is rejected in
-> erofs_fc_fill_super():
+> That's valid and for 95% (guessing the number...) of cases will be
+> solved by having linux-next as a base, thus requiring the base
+> information is redundant. It's just linux-next.
 > 
-> 	if (test_opt(&sbi->opt, SUPERBLOCK_SHARE) &&
-> 	    sbi->devs->extra_devices)
-> 		return -EINVAL;
-> 
-> but extra_devices is kept in sbi->devs, not in sbi->opt, and
-> erofs_sb_share_test_super() compares only the backing inode, the
-> fsoffset and sbi->opt.  So once the image is mounted with
-> superblock_share, a second mount with superblock_share,device= matches
-> that superblock and get_tree_super() reuses it without calling
-> fill_super() at all.
-> 
-> The same command line therefore either fails with -EINVAL or succeeds
-> with device= quietly dropped, depending on whether a compatible mount
-> already exists.
-> 
-> Refuse to match a context that brought device= options, so that it gets
-> a superblock of its own and fill_super() decides as it does today.
-> 
-> Only the incoming context can be tested: a shared superblock may have
-> extra_devices set itself, because erofs_scan_devices() fills the device
-> table from the image when no device= was given.
-> 
-> Fixes: cd4108319bb3 ("erofs: reuse superblock for file-backed mounts")
-> Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+> When patchset does NOT apply on linux-next or maintainer tree is
+> non-obvious, the base should be provided, but that is only "if ->
+> should". I think the proposal here is a bit different.
 
-Reviewed-by: Gao Xiang <xiang@kernel.org>
+What's the downside though ? As git can easily provide the base
+information once configured to do so, what's the downside of asking
+contributors to include it ?
 
-Also I will update the subject as "erofs: fix disallowing superblock_share
-if device= is set".
+-- 
+Regards,
 
-Thanks,
-Gao Xiang
-
+Laurent Pinchart
