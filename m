@@ -1,72 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793027162;
-	b=ZPQxCwFXf0VRGV5tGRctAiFvWvTXfIPnkcLpStBEeYZTdwuID0z6UexsNFghL6T8P3UC
-	 kncQrc6+L0kdTEgDeTaDZu2J5gz93sB0njIrcnuR0VxyEwX+GWtTUxGHmo5m3o50qxiab
-	 eE2D/o54q/QqgAKwJLtSWw+N8XhhyXN3Gds4fx1TjJfgH0YxNyGwz7EgoWGMv1YRe3Os5
-	 xRNDavWaDLV3i4C+x/MK0OiFPkF95ZqDGmARw8wWtwV8uhniTGKYGOZSw0fzxLpG0EgE5
-	 5Rh5c9UUgRuxAVlfteUs0CPHsJgU8dU4GN6LSZ0rFstOUMO9hSNlE5IS63GNwr2XETQ==
+	t=1793027243;
+	b=OIP/dCdIuxrfDoU8O5iVH2wAXIu8chAHioo3+OEwb4/9WdyJgd1GEVvqYCbJekizmwjs
+	 u2nd2O6sA6RQ9nwc9aPEsBSLcYJBPjgd5HoVQgvD2dh6jT9mZJxctxjceGpKmu7kJ381Q
+	 YyN5PLb9ISFH8cQevcrB7YW2ewWktfn9LJ9ujBFL83HOK8zBPh8vlvkilAAZEVJNNRvCN
+	 OQTIvlUxtCX4kVAacCPufw2nJGzmwteSeP4qgm4PLZDIdsCesVrilPha5uLRATEHTkLfr
+	 gjtfe++lVBuItKf3UScPvAPmRQJYkHEbMnToewY0V18yjr+SooPzcsWk8Q7i+X3OL7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793027162;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=YAQMHYEx+VaTuqm8g03RQPwUqcCWwVMwQyZo+1H6cdk=;
-	b=SmZESAu0KAg75ugRrf3S++tepxXTvV8nCuffKjmBBzfRRiRW5E9q/rKU30dnFo2EmfXM
-	 0Jk1M16V2qVOj1Dp0J3xjhFXSWXAXzCzoavcgZzmf3l2ndpRz5TNggBWLy+ljofvX7Ghe
-	 beFB5bg0BHRZ1K1lhp+5zT4SHgXOi5wZCutS9v6stP9MQRPP09Fd6KCZ9zDxFM0R2CaHu
-	 WTARnt5T595ykTOGW5fBrwNp+wydqoF4v/h7+PABp3p9d7hlA15/7keF5qhuW38HMPl38
-	 cRDyR2SWjk5OjJSJtylNxzxxiVYQGDR/Do6BnC9BItLLXvd92CUsg/A8e67jh+eGkDA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793027243;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Scanned-By;
+	bh=knXRq142e85M+kupUkJy646qboEKARTEaWQ97s0UgTA=;
+	b=ZWbDWGWMWqUrqbFBoIrM89M3sQoRAj3BOazdwNoI+nasIWY//A21k03d977rkvuNJNcN
+	 TokZxIavlR5qdFq+M6rMkPsI+J6umTnI4gxoFXtNoYyZ7qZ6SajTNUHa5+O6SCHfWF0l+
+	 RJCf108dAelQzcbHpuofebrEM2ssyQI4JnVaE97OtxVN+AePxoQ1ANb5ScEaDClilQyPd
+	 OaxTHd+8/jxp7z9qmVzkscixC2B3EXm5WSgpAaDKVaXx1xVHCjGROVtMcJijrOI5gFEu1
+	 TYAlg/XDGi/8TrIziGAEB+mJRtz/Skrr1UpE+2MM/rTPwo/m6PwHMtZrxhe6qjaZEVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--starchang.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b="c/itTipw";
-	arc=none smtp.remote-ip=209.85.210.198
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=ef1j1Xd6;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92F27606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 15:06:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92F27606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--starchang.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0F9B606A320
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 15:07:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0F9B606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=c/itTipw
-Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-8a06bc723b1so4336384b3a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 08:06:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1793027161; x=1793631961; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YAQMHYEx+VaTuqm8g03RQPwUqcCWwVMwQyZo+1H6cdk=;
-        b=c/itTipww81RdHIsFj/YLbtrmBWdREPwQvBKHtDBxe/FvZujjDlc49ZOSpWCbuJuJg
-         1fe+ayqma0cf4FcVygvFvMClHx59Ibi7nvqC3YSasl712c3YmKrT+h8zQc1oMa5msN49
-         JlMrpX03sxldPxb90AnaX1/ol8SnmWaZxJlL8F1uAeXZADGiCNNG5sUIcgoM9td31FIF
-         CxehzBUS3wqOFKPqHnZ09ko21aNNK3IV2rxn8YB81w8rBpojAxEohSsiuirY5yr9gVSS
-         v6kGKOmV5vHsgQkKvNhuLDXNqDR/jbUiK8NN3kxWJwVDtMvxed4I0J7wL6nase2mcz/6
-         ux4A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793027161; x=1793631961;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YAQMHYEx+VaTuqm8g03RQPwUqcCWwVMwQyZo+1H6cdk=;
-        b=BZ/S1QatkVGERxgMb+hOcmWv0UmtBDuj+zs1YqAvj9n143PdcMAmuBvtPlGmGT1Vdl
-         XLtWO4KF5xP7kk0xKwOh/aFjGkcHszBTGBC9BdVY7YLxqC9NdOPgN0AGvWBD/fAVzfpA
-         jYXENdGqCCn7LTsoeWjFwly7bXRV42+mkXm6TgdshbsYY3n9erCHG7jET7ed6j3sRloP
-         jjS3qH9clorh23MDgHEh1lAAwyRzS8uqLS2OuX0C7DZYU1OKEYjvWJ8uiBKl+8XOUgd4
-         JhcvoEnNmSj79mbnigo4YvLQBB2gaBgrSPbyEggmThmB34OXG8JE7fHCClEkjuErIf+U
-         FNnA==
-X-Forwarded-Encrypted: i=1; AKwUvBxUhLxhy7NVR02HdQAkw/0ExZ5+dj2jkpU3bwdmsLKuRa+WRdskEgOW6Ozo2PB8QiBx30w+g/qmgMgxHOk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLYZODyPWP5/Rp4NgPIriqV5RY6re9bFzjRz82rHVdsyyZZsJsQ
-	2iNMzSic5aaIucx9HZ9XuuQCNEE7lCVn2Vzgr4csLdkN3+uMaOt7KFUPLDaUZKA4xLJzwilTpwa
-	LON0ACNd9yqXd4RWfog==
-X-Received: from pfbeb15.prod.google.com ([2002:a05:6a00:4c8f:b0:8a0:3171:5410])
- (user=starchang job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a00:896:b0:880:973d:597a with SMTP id d2e1a72fcca58-8a368a9fd92mr6124603b3a.53.1793027160600;
- Mon, 26 Oct 2026 08:06:00 -0700 (PDT)
-Date: Mon, 26 Oct 2026 15:05:39 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=ef1j1Xd6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793027242;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=knXRq142e85M+kupUkJy646qboEKARTEaWQ97s0UgTA=;
+	b=ef1j1Xd69IZWCHm+kO8Z62Ci+7He9bw5glOVZ0cysFQ4KGTL4XuLpBYBGfeh7CdK51s3Cs
+	G1lKv0pKdTXbxMcTcjwL4NlOaLkRVlsxtHZ4v0fMk0VpCY5IOCh+ijuPK3Jtd0HaOrRVC3
+	YpjKynMBs9bIJ7V5QKBKY7PrAqoJu+g=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-226-xkKoX4nDOE6tI3u5x_u0EQ-1; Mon,
+ 26 Oct 2026 11:07:19 -0400
+X-MC-Unique: xkKoX4nDOE6tI3u5x_u0EQ-1
+X-Mimecast-MFC-AGG-ID: xkKoX4nDOE6tI3u5x_u0EQ_1793027237
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id C085F1953966;
+	Mon, 26 Oct 2026 15:07:17 +0000 (UTC)
+Received: from loberman-thinkpadp16gen3.redhat.corp (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 8310D30000E3;
+	Mon, 26 Oct 2026 15:07:16 +0000 (UTC)
+From: Laurence Oberman <loberman@redhat.com>
+To: mkp@kernel.org
+Cc: linux-scsi@vger.kernel.org,
+	target-devel@vger.kernel.org,
+	mlombard@redhat.com,
+	michael.christie@oracle.com,
+	bvanassche@acm.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v4 1/3] scsi: target: iscsi: Complete an aborted WRITE stuck before the first R2T
+Date: Mon, 26 Oct 2026 11:07:08 -0400
+Message-ID: <20261026150710.1063511-2-loberman@redhat.com>
+In-Reply-To: <20261026150710.1063511-1-loberman@redhat.com>
+References: <20261026150710.1063511-1-loberman@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,169 +82,223 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.257.gf7497c7d27-goog
-Message-ID: <20261026150539.1357037-1-starchang@google.com>
-Subject: [PATCH net v3] net: Fix Hole-196 vulnerability by dropping unicast
- ARP/IP in L2 BMC
-From: Star Chang <starchang@google.com>
-To: netdev@vger.kernel.org
-Cc: dsahern@kernel.org, edumazet@google.com, kuba@kernel.org, 
-	pabeni@redhat.com, davem@davemloft.net, idosch@nvidia.com, horms@kernel.org, 
-	linux-kernel@vger.kernel.org, Star Chang <starchang@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-Wi-Fi 802.11 to 802.3 frame translation allows attackers to inject
-unicast L3 packets or ARP payloads inside GTK-encrypted L2 broadcast
-and multicast (BMC) frames (the "Hole-196" vulnerability).
+A WRITE that arrives with immediate data, and whose data length exceeds
+FirstBurstLength, is left in TRANSPORT_WRITE_PENDING by
+iscsit_execute_cmd() until the first R2T is built. If a LUN_RESET or
+ABORT_TASK from another session sets CMD_T_ABORTED in that window,
+iscsit_execute_cmd() returns without sending the R2T.
 
-While the `drop_unicast_in_l2_multicast` sysctl was introduced to drop
-unicast IPv4/IPv6 packets received over L2 BMC, it had several gaps:
+Nothing then completes the command. No R2T has been sent, so the
+initiator cannot legally send more data; no DataOut timer was armed, so
+the ERL=0 timeout cannot fire either. The command stays in
+TRANSPORT_WRITE_PENDING with CMD_T_ABORTED set, and
+core_tmr_drain_state_list() blocks in target_put_cmd_and_wait() on it for
+as long as the connection stays up:
 
-1. ARP packets were not checked in `net/ipv4/arp.c`, allowing attackers
-   to perform ARP poisoning via L2 BMC frames (`group-arp-unicast`).
-2. Enforcement lacked DHCP client (UDP port 68) exemption, which could
-   discard legitimate DHCP server responses sent via L2 broadcast.
-3. Dropped packets were silently discarded without warnings or MIB stats.
+  INFO: task kworker/5:2 blocked for more than 46 seconds.
+   target_put_cmd_and_wait+0x6d/0xb0 [target_core_mod]
+   core_tmr_drain_state_list+0x2dc/0x380 [target_core_mod]
+   core_tmr_lun_reset+0x93/0x1a0 [target_core_mod]
 
-The issue was identified via manual code inspection and protocol security
-analysis of cross-station frame injection in 802.11 shared-key (GTK)
-networks. In laboratory testing, crafted 802.11 broadcast frames containing
-unicast ARP payloads (e.g. ARPOP_REQUEST / ARPOP_REPLY with tha set to a
-victim's unicast MAC) bypassed the existing sysctl, poisoning the victim's
-ARP cache. Furthermore, per RFC 2131 inspection, unconditionally dropping
-L2 broadcast frames carrying unicast IP addresses discards standard DHCP
-server responses (DHCPOFFER/DHCPACK) destined for UDP port 68 during lease
-negotiation.
+Commit aaa00cc93c1d ("scsi: target/core: Fix TAS handling for
+aborted commands") is what left it that way. Before it, this site
+called transport_check_aborted_status(), which sent the delayed
+TASK_ABORTED status for the command; that commit replaced the call
+with a bare CMD_T_ABORTED test and a return, on the basis that the
+target core would send TASK_ABORTED from the ABORT TMF context
+instead. That holds only for commands the core can finish on its
+own. A WRITE still in TRANSPORT_WRITE_PENDING has never been passed
+to the backend, so the core's abort path is itself waiting in
+target_put_cmd_and_wait() for the fabric to complete it, and since
+that commit the fabric no longer does.
 
-Enhance `drop_unicast_in_l2_multicast` sysctl enforcement:
-- Extend sysctl checks to `net/ipv4/arp.c` (`arp_process()`) to drop
-  unsolicited ARP Replies and ARP Requests with a non-zero unicast
-  Target Hardware Address (tha) received over L2 BMC.
-- Exempt Gratuitous ARP (GARP) and RFC 5227 Address Announcements
-  (`sip == tip`) from L2 BMC unicast drop logic so they defer to the
-  `DROP_GRATUITOUS_ARP` sysctl, preserving VRRP/HSRP router failover.
-- Exempt non-fragmented DHCP client traffic (UDP dest port 68) in
-  `net/ipv4/ip_input.c` and safely reload `ip_hdr(skb)` after
-  `pskb_may_pull()` to prevent dangling pointer access.
-- Log rate-limited warnings (`pr_warn_ratelimited`) and increment MIB
-  error counters (`IPSTATS_MIB_INHDRERRORS`) for dropped frames.
+Complete it in iscsit_execute_cmd() instead. No DataOut path can race
+with this: without an R2T the initiator cannot send further data for the
+command, and the branch is only reached when no unsolicited DataOut is
+expected either.
 
-Fixes: 12b74dfadb5a ("ipv4: add option to drop unicast encapsulated in L2 multicast")
-Fixes: abbc30436d39 ("ipv6: add option to drop unicast encapsulated in L2 multicast")
-Signed-off-by: Star Chang <starchang@google.com>
+That introduces a second site which can complete a command that
+iscsit_release_commands_from_conn() would also complete during connection
+teardown, because t_state is still TRANSPORT_WRITE_PENDING there.
+target_complete_cmd() on a command that already has CMD_T_ABORTED set
+goes straight into target_cmd_interrupted(), which queues
+target_abort_work and returns without setting CMD_T_COMPLETE and without
+changing t_state, so nothing in target core records that a completion has
+happened. A second target_complete_cmd() re-initialises and re-queues
+se_cmd->work while it is still queued and drops a command reference that
+was never taken. Add a one-shot claim, taken under se_cmd->t_state_lock,
+so that only one of the two sites completes the command.
+
+This was reported against an Oracle RAC cluster on two-session iSCSI LIO
+targets, where one node's LUN_RESET aborts WRITEs belonging to the other
+node's session. It was not reproducible in a lab, so the diagnosis came
+from instrumented kernels in the reporter's environment. Across two
+hosts, every stalled command had the same signature: DMA_TO_DEVICE,
+TRANSPORT_WRITE_PENDING, CMD_T_ABORTED | CMD_T_TAS, outstanding_r2ts == 0,
+write_data_done == first_burst_len, and an empty cmd_r2t_list. 217 of 222
+LUN_RESET drains completed in under a second; the rest took 46 to 54
+seconds, which is where the hung-task panics came from. One 53.7 second
+stall recovered on its own and the host ran for a further 19 hours. The
+stall only ever ended when the initiator gave up and dropped the
+connection, which let iscsit_release_commands_from_conn() complete the
+command.
+
+Fixes: aaa00cc93c1d ("scsi: target/core: Fix TAS handling for aborted commands")
+Cc: stable@vger.kernel.org
+Signed-off-by: Laurence Oberman <loberman@redhat.com>
 ---
-v2 -> v3:
-  - Add Fixes: tags for commits 12b74dfadb5a and abbc30436d39.
-  - Reformat lines in net/ipv4/ip_input.c to adhere strictly to the 80-column
-    limit.
-  - CC maintainers Ido Schimmel and Simon Horman per netdev bot check.
-v1 -> v2:
-  - Clarified discovery method (manual code inspection and protocol analysis)
-    and triggering context in commit message per netdev-bot automated feedback.
- net/ipv4/arp.c       | 29 +++++++++++++++++++++++++++++
- net/ipv4/ip_input.c  | 32 ++++++++++++++++++++++++++++++--
- net/ipv6/ip6_input.c |  2 ++
- 3 files changed, 61 insertions(+), 2 deletions(-)
+ drivers/target/iscsi/iscsi_target.c      | 12 +++++--
+ drivers/target/iscsi/iscsi_target_erl1.c | 10 +++++-
+ drivers/target/iscsi/iscsi_target_util.c | 46 ++++++++++++++++++++++++
+ drivers/target/iscsi/iscsi_target_util.h |  2 ++
+ include/target/iscsi/iscsi_target_core.h |  6 ++++
+ 5 files changed, 73 insertions(+), 3 deletions(-)
 
-diff --git a/net/ipv4/arp.c b/net/ipv4/arp.c
-index d409f606aec0..ad23db2e2f59 100644
---- a/net/ipv4/arp.c
-+++ b/net/ipv4/arp.c
-@@ -791,6 +791,35 @@ static int arp_process(struct net *net, struct sock *sk, struct sk_buff *skb)
- 	    (!IN_DEV_ROUTE_LOCALNET(in_dev) && ipv4_is_loopback(tip)))
- 		goto out_free_skb;
+diff --git a/drivers/target/iscsi/iscsi_target.c b/drivers/target/iscsi/iscsi_target.c
+index 124ff26..aab9237 100644
+--- a/drivers/target/iscsi/iscsi_target.c
++++ b/drivers/target/iscsi/iscsi_target.c
+@@ -4198,10 +4198,18 @@ static void iscsit_release_commands_from_conn(struct iscsit_conn *conn)
+ 		if (cmd->se_cmd.t_state == TRANSPORT_WRITE_PENDING) {
+ 			/*
+ 			 * We never submitted the cmd to LIO core, so we have
+-			 * to tell LIO to perform the completion process.
++			 * to tell LIO to perform the completion process --
++			 * unless iscsit_execute_cmd() already did.  t_state
++			 * stays TRANSPORT_WRITE_PENDING across that
++			 * completion, so the claim is the only thing that can
++			 * tell us.
+ 			 */
++			bool claimed = iscsit_claim_completion_locked(cmd);
++
+ 			spin_unlock_irq(&se_cmd->t_state_lock);
+-			target_complete_cmd(&cmd->se_cmd, SAM_STAT_TASK_ABORTED);
++			if (claimed)
++				target_complete_cmd(&cmd->se_cmd,
++						    SAM_STAT_TASK_ABORTED);
+ 			continue;
+ 		}
+ 		spin_unlock_irq(&se_cmd->t_state_lock);
+diff --git a/drivers/target/iscsi/iscsi_target_erl1.c b/drivers/target/iscsi/iscsi_target_erl1.c
+index d8ca06e..cf72c79 100644
+--- a/drivers/target/iscsi/iscsi_target_erl1.c
++++ b/drivers/target/iscsi/iscsi_target_erl1.c
+@@ -927,8 +927,16 @@ int iscsit_execute_cmd(struct iscsit_cmd *cmd, int ooo)
+ 
+ 			if (!(cmd->cmd_flags &
+ 					ICF_NON_IMMEDIATE_UNSOLICITED_DATA)) {
+-				if (cmd->se_cmd.transport_state & CMD_T_ABORTED)
++				/*
++				 * No R2T has been sent for this command yet,
++				 * so returning here leaves the initiator with
++				 * nothing to send and no DataOut timer armed.
++				 * Complete it, or nothing ever will.
++				 */
++				if (cmd->se_cmd.transport_state & CMD_T_ABORTED) {
++					iscsit_complete_aborted_cmd(cmd);
+ 					return 0;
++				}
+ 
+ 				iscsit_set_dataout_sequence_values(cmd);
+ 				conn->conn_transport->iscsit_get_dataout(conn, cmd, false);
+diff --git a/drivers/target/iscsi/iscsi_target_util.c b/drivers/target/iscsi/iscsi_target_util.c
+index c1888c4..31248cb 100644
+--- a/drivers/target/iscsi/iscsi_target_util.c
++++ b/drivers/target/iscsi/iscsi_target_util.c
+@@ -14,6 +14,7 @@
+ #include <scsi/scsi_tcq.h>
+ #include <scsi/iscsi_proto.h>
+ #include <target/target_core_base.h>
++#include <target/target_core_backend.h>
+ #include <target/target_core_fabric.h>
+ #include <target/iscsi/iscsi_transport.h>
+ 
+@@ -186,6 +187,51 @@ struct iscsit_cmd *iscsit_allocate_cmd(struct iscsit_conn *conn, int state)
+ }
+ EXPORT_SYMBOL(iscsit_allocate_cmd);
  
 +/*
-+ * Hole-196 defense for ARP:
-+ * If drop_unicast_in_l2_multicast sysctl is enabled on this interface,
-+ * drop ARP Replies in L2 BMC frames, and ARP Requests in L2 BMC frames
-+ * that specify a non-zero unicast Target Hardware Address (tha).
++ * A WRITE command still in TRANSPORT_WRITE_PENDING has never been passed to
++ * the backend, so when a TMR aborts it the fabric has to complete it.  More
++ * than one site can reach that conclusion for the same command, and
++ * target_complete_cmd() on a command that already has CMD_T_ABORTED set
++ * neither sets CMD_T_COMPLETE nor changes t_state, so target core keeps no
++ * state that would stop a second completion.  Serialise them here: whichever
++ * site claims the completion performs it and every other site leaves the
++ * command alone.
 + *
-+ * Legitimate Gratuitous ARP (GARP) and RFC 5227 Address Announcements
-+ * require (sip == tip) and tha matching sha (tha == sha). Only valid
-+ * GARP frames are exempted so they defer to DROP_GRATUITOUS_ARP below.
++ * Caller must hold cmd->se_cmd.t_state_lock.
 + */
-+	if ((skb->pkt_type == PACKET_BROADCAST ||
-+	     skb->pkt_type == PACKET_MULTICAST) &&
-+	    IN_DEV_ORCONF(in_dev, DROP_UNICAST_IN_L2_MULTICAST)) {
-+		bool is_valid_garp = (sip == tip) && tha &&
-+				     !memcmp(tha, sha, dev->addr_len);
++bool iscsit_claim_completion_locked(struct iscsit_cmd *cmd)
++{
++	lockdep_assert_held(&cmd->se_cmd.t_state_lock);
 +
-+		if (arp->ar_op == htons(ARPOP_REPLY) && !is_valid_garp) {
-+			net_warn_ratelimited("Drop ARP Reply in L2 BMC on %s\n",
-+					     dev->name);
-+			goto out_free_skb;
-+		}
-+		if (dev->addr_len == ETH_ALEN && tha &&
-+		    is_valid_ether_addr(tha) && !is_valid_garp) {
-+			net_warn_ratelimited("Drop unicast THA ARP Req in L2 BMC on %s\n",
-+					     dev->name);
-+			goto out_free_skb;
-+		}
-+	}
++	if (cmd->completion_claimed)
++		return false;
 +
-  /*
-   *	For some 802.11 wireless deployments (and possibly other networks),
-   *	there will be an ARP proxy and gratuitous ARP frames are attacks
-diff --git a/net/ipv4/ip_input.c b/net/ipv4/ip_input.c
-index 9860178752b8..75a5c2059632 100644
---- a/net/ipv4/ip_input.c
-+++ b/net/ipv4/ip_input.c
-@@ -456,10 +456,38 @@ static int ip_rcv_finish_core(struct net *net,
- 		 * this is 802.11 protecting against cross-station spoofing (the
- 		 * so-called "hole-196" attack) so do it for both.
- 		 */
-+		/* Hole-196 defense:
-+		 * Drop unicast IP packets received over L2 BMC frames.
-+		 * Exempt DHCP client responses (UDP port 68).
-+		 */
- 		if (in_dev &&
- 		    IN_DEV_ORCONF(in_dev, DROP_UNICAST_IN_L2_MULTICAST)) {
--			drop_reason = SKB_DROP_REASON_UNICAST_IN_L2_MULTICAST;
--			goto drop;
-+			bool is_dhcp_resp = false;
++	cmd->completion_claimed = true;
++	return true;
++}
 +
-+			iph = ip_hdr(skb);
-+			if (iph->protocol == IPPROTO_UDP &&
-+			    !ip_is_fragment(iph) &&
-+			    pskb_may_pull(skb, iph->ihl * 4 +
-+					       sizeof(struct udphdr))) {
-+				const struct udphdr *uh;
++/* Complete an aborted command at most once.  Must not hold t_state_lock. */
++void iscsit_complete_aborted_cmd(struct iscsit_cmd *cmd)
++{
++	struct se_cmd *se_cmd = &cmd->se_cmd;
++	unsigned long flags;
++	bool claimed;
 +
-+				iph = ip_hdr(skb);
-+				uh = (const struct udphdr *)
-+					(skb_network_header(skb) +
-+					 iph->ihl * 4);
-+				if (uh->dest == htons(68))
-+					is_dhcp_resp = true;
-+			}
++	spin_lock_irqsave(&se_cmd->t_state_lock, flags);
++	claimed = iscsit_claim_completion_locked(cmd);
++	spin_unlock_irqrestore(&se_cmd->t_state_lock, flags);
 +
-+			if (!is_dhcp_resp) {
-+				net_warn_ratelimited("Drop unicast IP %pI4 in L2 BMC on %s
-+",
-+						     &iph->daddr, dev->name);
-+				__IP_INC_STATS(net, IPSTATS_MIB_INHDRERRORS);
-+				drop_reason =
-+					SKB_DROP_REASON_UNICAST_IN_L2_MULTICAST;
-+				goto drop;
-+			}
- 		}
- 	}
++	if (!claimed)
++		return;
++
++	/*
++	 * No-op unless a DataOut timer was armed for this command; callers
++	 * that complete before the first R2T have none.
++	 */
++	iscsit_stop_dataout_timer(cmd);
++	target_complete_cmd(se_cmd, SAM_STAT_TASK_ABORTED);
++}
++
+ struct iscsi_seq *iscsit_get_seq_holder_for_datain(
+ 	struct iscsit_cmd *cmd,
+ 	u32 seq_send_order)
+diff --git a/drivers/target/iscsi/iscsi_target_util.h b/drivers/target/iscsi/iscsi_target_util.h
+index 7ae48a8..8f3fe74 100644
+--- a/drivers/target/iscsi/iscsi_target_util.h
++++ b/drivers/target/iscsi/iscsi_target_util.h
+@@ -18,6 +18,8 @@ extern struct iscsi_r2t *iscsit_get_r2t_from_list(struct iscsit_cmd *);
+ extern void iscsit_free_r2t(struct iscsi_r2t *, struct iscsit_cmd *);
+ extern void iscsit_free_r2ts_from_list(struct iscsit_cmd *);
+ extern struct iscsit_cmd *iscsit_allocate_cmd(struct iscsit_conn *, int);
++extern bool iscsit_claim_completion_locked(struct iscsit_cmd *cmd);
++extern void iscsit_complete_aborted_cmd(struct iscsit_cmd *cmd);
+ extern struct iscsi_seq *iscsit_get_seq_holder_for_datain(struct iscsit_cmd *, u32);
+ extern struct iscsi_seq *iscsit_get_seq_holder_for_r2t(struct iscsit_cmd *);
+ extern struct iscsi_r2t *iscsit_get_holder_for_r2tsn(struct iscsit_cmd *, u32);
+diff --git a/include/target/iscsi/iscsi_target_core.h b/include/target/iscsi/iscsi_target_core.h
+index 51ca80a..5eb3cf2 100644
+--- a/include/target/iscsi/iscsi_target_core.h
++++ b/include/target/iscsi/iscsi_target_core.h
+@@ -496,6 +496,12 @@ struct iscsit_cmd {
+ 	u32			first_data_sg_off;
+ 	u32			kmapped_nents;
+ 	sense_reason_t		sense_reason;
++	/*
++	 * Set once one site has claimed the completion of this command.
++	 * The claim is taken before target_complete_cmd() is called.
++	 * Protected by se_cmd.t_state_lock.
++	 */
++	bool			completion_claimed;
+ }  ____cacheline_aligned;
  
-diff --git a/net/ipv6/ip6_input.c b/net/ipv6/ip6_input.c
-index 8972863c93ee..caf9811f6352 100644
---- a/net/ipv6/ip6_input.c
-+++ b/net/ipv6/ip6_input.c
-@@ -278,6 +278,8 @@ static struct sk_buff *ip6_rcv_core(struct sk_buff *skb, struct net_device *dev,
- 	    (skb->pkt_type == PACKET_BROADCAST ||
- 	     skb->pkt_type == PACKET_MULTICAST) &&
- 	    READ_ONCE(idev->cnf.drop_unicast_in_l2_multicast)) {
-+		net_warn_ratelimited("IPv6: Drop unicast IP %pI6c in L2 BMC on %s\n",
-+				     &hdr->daddr, dev->name);
- 		SKB_DR_SET(reason, UNICAST_IN_L2_MULTICAST);
- 		goto err;
- 	}
+ struct iscsi_tmr_req {
 -- 
-2.56.0.257.gf7497c7d27-goog
+2.43.0
 
