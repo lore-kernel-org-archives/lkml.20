@@ -1,67 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793022790;
-	b=2zS57g76Ot79Wbrp3upl6kdu35TSnIW7QVxjJv2UwUN4G1WTRgfgnoLeE3NrqB2zlooP
-	 aCRSCfNOantGGA+AsVZ+G6mCP7L9jczCROjmrVNOnbwfY01rU4lfjS8wjGmIgZOpYkx10
-	 H6nO00Uqa/koq1QowSuI2ybRgkmog04uSCuQqNvYkjA8KgXginkCSFTZa6A6GMbZO8siE
-	 F29Y8DGocaDpJUrs4uYUOvaNBNsBWhit9fU8Tm7APS0pCtFRQN053ol8zTD15mP3CVtxA
-	 dh34ebYlpjWgGzZ4unpzuZgvTDwmMqHOhVc1xUTH2cStt1gigG13Tol3SB+KQdiX8zA==
+	t=1793022812;
+	b=q9s6BQSdpReaonqzHEML6otCGcgHDOing1bHQR6Y6bmOcq8ZVD4bdIM4gEkEQGHc6SgY
+	 QHp1jYaOWqjKSppzG/E444S6f47340ftg+A35vSJ5nDKIkSa2IpzcHFDBr6fxyn+JCfAp
+	 ObPN0sPPUmRaYjSLki+t6mRQSpp5ztxjgritU/9UOQqNZT3Z1dVzR/6sENFSKiAqMgGZA
+	 GGAlatkMuWCNZXCkJ7fGLJ7PZOOzCRyHAdWnV5jHvsrbvOBM/YQSvtPuU5nKukLw5xS85
+	 qgtZ0ejovlNIhz+834HXgAlDXwO+mjv68zmpW7Bd/Tm8HXF4OHCyXcziXdxQlf5YlfQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793022790;
-	h=Received:DKIM-Signature:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:X-SA-Exim-Mail-From:
-	 X-SA-Exim-Scanned;
-	bh=kCaZLfOe866RkzJW+w4WPIoxNgQcez1QZFd2FZRsiXo=;
-	b=y9vWc7RO8FrhCb6r9oaDh9LDlmjCALAcQwmA1oPyJo/tehnA9Tg/fCV/DlfuPxhDCRZu
-	 Fe4ER3yuloISBpMcgkv+xCGFykLVBvGAd1BhpV7+ZYFIAdLWSSm43ds7DUzXwjekWebZo
-	 Ud/EzY5uAXTydkV6lxrYjAl3JFfRLgTUXbkCtFr1NdblRPFit1GYcvLVLk5iUAikg7ECW
-	 /HspAU+ghEiD6pKFU1uWRW+X8GFyquTWOX4CWy9huV+ASnYOUNO28F7khoDEfqy+oIyPF
-	 DdwRuaQQfo5lG8/9M+Sc/GJOrhmeQu9RgHbULL0hyIJtWKt3CimwFKLu60s3kOLTYDw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793022812;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=vrfzXv/ccKZrHyimwscWwKIpEaYPjB6OOpe7bAi/4L8=;
+	b=RuDDe8q4CkgjYAHkzSfYEoEtBRXh9RaSeQaJ5QgvIszK0zIsV85PE7GGC4ZyZBJvn2SR
+	 +mHGQ+mzUJChuEduhOBA0h9WdpT+gt+fJybW72rlXueMd8ZGsush/KEVXpP9erPLc4+r9
+	 rhnL7Tl4uRryRD+yeGbGvJIxQWjXQvP5rkBDjVTZtE3EB2UT1xQT1r7lVZK2FQuni7VRZ
+	 xy3zHdTp2GLt1/HP7XFMx98v05VhbumzC9KsNput5EE8jluLKspKDnIkNLsJatzeGocbR
+	 iueXwwGYqP3WMe76nHmPSnw3Bb8PHNUD+oVThVR5/wh4khZG6/rLPTBs7+NYYNe4zgQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dFBNLqWy;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c9LT7RiH;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4433606A31D;
-	Mon, 26 Oct 2026 13:53:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11870606A331;
+	Mon, 26 Oct 2026 13:53:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dFBNLqWy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 474A91F01825;
-	Mon, 26 Oct 2026 13:53:09 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c9LT7RiH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8F8B1F01829;
+	Mon, 26 Oct 2026 13:53:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793022789;
-	bh=kCaZLfOe866RkzJW+w4WPIoxNgQcez1QZFd2FZRsiXo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=dFBNLqWymxgRyBgSIZZ5s34TdrOG/2EN6kjRdZcFDBcYrTPlgkj0mZ32V1ZcGSciQ
-	 GzRhZlFVUcKARG2bG0zVacm+y3OGuC6/JhWw4Ba6E7Bww1HDnwa/QpUN2S6XOSiUBI
-	 BioiP+/vSRMc0OGWUqYFH30D2gJbDfPUkL5labchLjIDnebMve5w3En7qxyz9AYmoy
-	 zAPwvjgW5kBdgLy/8LmHDQhIX1PRgvuVqaXVXYUQBGZyADfbRMxzrSZZTs4oaxyL+K
-	 MDjNroE4ZpZ87ZU8zyTqAXtFazNG79O05KWksg90pbud0V2yx90KV9g2PPD8ALZbzX
-	 9EFD+ZjKYmefQ==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xLL8M-00000007Iii-3un8;
-	Mon, 26 Oct 2026 13:53:07 +0000
-Date: Mon, 26 Oct 2026 13:53:06 +0000
-Message-ID: <86y0bky3el.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-Cc: Thomas Gleixner <tglx@kernel.org>,
-	linux-arm-msm@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] irqchip/gic-v3-its: Claim LPI tables inherited across kexec on DT
-In-Reply-To: <179301488974.13269.12823732532276833194@mail.ustc.edu.cn>
-References: <87v76r8h0o.wl-maz@kernel.org>
-	<179301488974.13269.12823732532276833194@mail.ustc.edu.cn>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	s=k20260515; t=1793022811;
+	bh=vrfzXv/ccKZrHyimwscWwKIpEaYPjB6OOpe7bAi/4L8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=c9LT7RiHw6KJ1VARX/LtW2MFOl+XrKV7GCOaYVTnXgftnbs2YZNS4Gijdhx/LxrZq
+	 8zby5X1WCVtmsA4+dQ8o0qEP96FycxU9ObUjQedJf21dR7XQAVklvhpJTgLbUygZa2
+	 ANMfWIWGuI0lBsX7E5QFXf48k6MGS+4kYUZFcpef5WiKzFTnnpl4UL8FMjtTD6Mz7p
+	 II5P9+T+8WafsjIDHKtBOUMs8mXmeMC40e1stAgPYOC+4K0FAyklNeyHoX36g8AL9B
+	 sXcAAOxYxnVyOmasHr3NSLZYDJGmVM5DWtcdlfpE1i5X3sRQPvJGVrbmpinZIpnmJI
+	 bj4eArodIS+qQ==
+Date: Mon, 26 Oct 2026 19:23:21 +0530
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Chunkai Deng <chunkai.deng@oss.qualcomm.com>
+Cc: Jakub Kicinski <kuba@kernel.org>, netdev-bot+sashiko@kernel.org, 
+	davem@davemloft.net, edumazet@google.com, pabeni@redhat.com, horms@kernel.org, 
+	linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	tao.zhang1@oss.qualcomm.com, peter.chen@oss.qualcomm.com, jeff.johnson@oss.qualcomm.com, 
+	konrad.dybcio@oss.qualcomm.com
+Subject: Re: [PATCH net-next 3/3] net: qrtr: implement shutdown()
+Message-ID: <at9XxF32WiKBEJQY@debian>
+References: <20261016-qrtr-add-shutdown-v1-3-e1cc01ca5919@oss.qualcomm.com>
+ <179248895481.3135.9231497728918795508@kernel.org>
+ <20261021133531.55da7de5@kernel.org>
+ <9f76467c-5b21-40a2-95b8-e91cf1e1b47c@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,62 +62,27 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: xiaqinghuan@mail.ustc.edu.cn, tglx@kernel.org, linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <9f76467c-5b21-40a2-95b8-e91cf1e1b47c@oss.qualcomm.com>
 
-On Mon, 26 Oct 2026 11:41:29 +0000,
-Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn> wrote:
+On Mon, Oct 26, 2026 at 06:23:18PM +0800, Chunkai Deng wrote:
+> Yeah, this is a known limitation and the commit message calls it out.
 > 
-> Hi Marc,
-> 
-> Understood on all three points, and the series is withdrawn -- I am not
-> going to resend it in any form.
+> The sender sleeps on flow->resume_tx, which hangs off the node and is
+> keyed by destination node/port, so the socket has no way to reach it.
 
-Thanks.
+It is fine to defer this fix as a follow-up patch, but I'm not buying the 'no
+way to reach flow control' from shutdown() callback claim. Why can't you just
+store the 'qtrt_tx_flow' pointer in qrtr_sock and dereference it in shutdown()
+callback to wake up qrtr_tx_wait()?
 
-> 
-> Just so it is on record that I got the reasoning right this time:
-> 
->  - Inheriting LPI tables is not something the incoming kernel can decide to
->    fix up after the fact.  By the time it runs, it can no longer tell which
->    of those pages are still the LPI tables and which are ordinary memory it
->    has already handed out, so any "claim" is a race with a statistical
->    chance of being correct.  That is why it is either configured before the
->    handoff, or not at all.
+Storing the pointer here is fine since all callers of qrtr_tx_wait() hold
+lock_sock().
 
-Indeed. By the time it gets to the GIC driver, the memory used by the
-LPI tables could be allocated to other things (page tables, for
-example), and memory corruption is very likely.
-
->  - EFI and DT are not alternatives: the reservation has to exist in
->    whichever description the next kernel is given, EFI memory map or DT
->    reserved-memory, and EFI booting a DT machine is the normal case.
-
-Correct. The EFI reservation is done through Linux-specific EFI tables
-that are available irrespective of the platform description method. DT
-reserved memory is also usable, but obviously has to be set from the
-initial boot point.
-
->  - Therefore the LPI tables have to be programmed and reserved by the
->    firmware/bootloader at boot and stay reserved across the whole kexec
->    chain.
-> 
-> In our case the "bootloader" for a kexec chain is the kexec loader itself,
-> so the work moves there: add the reservation to the FDT that is handed over
-> (e.g. grow the blob when there is no space for the memreserve) and have the
-> loader program the tables, instead of the kernel trying to reclaim them.
-> Anything that needs LPIs will simply use a full reboot until that exists.
-
-If you're using Linux as your first stage bootloader (like petitboot),
-then the DT you produce has to have the reservation. If you're using
-u-boot without EFI as the bootloader, you can perform the reservation
-there.
-
-	M.
+- Mani
 
 -- 
-Without deviation from the norm, progress is not possible.
+மணிவண்ணன் சதாசிவம்
