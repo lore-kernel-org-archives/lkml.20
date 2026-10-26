@@ -1,86 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793042311;
-	b=H4UQA0hCEZMTPsrcQWX1UaSq6EwEhfeBcSfa6jpXymnNTvVkGt3PkWy4K50+vuWZ+dNB
-	 56ZmjRiNaMTdaoE1+SyWi+cWGDtqswK4ICDQ0Wsoej8fuB1/X+yw8tuKcAA4y26JFiIEU
-	 B685CviIH0/Uh4U1IkrQDJBsoQRBOgq+fb5HGziInAPxMbPbySZHZlh0xxhVWk1Qd3Oy0
-	 MzXBNFGDSsdV7J3TUwEM0KW7aDxN58gAmBYTXAYW7C1G2k3PLjf52zMjsoGfHAWHafWMR
-	 1DMLK0lIlAYsb6STs6dD5wZ9tm8efy4ydIvSbOzP/Mbj9kfRq0tTFUlmjyGgPsmizJQ==
+	t=1793042341;
+	b=cfPy8Mm7AVY9v6gFFO6YZ/YRrlUmeJ0C+IkG+HIntF/PhgiQNgNaOLdKDJutyeJjw3DM
+	 49LmVF/hxEO93B90xJHC0gsAnJpWhP8iVZbQRWsnHnnL1hNqy+hEf7XjYMm3vILjajrE3
+	 +guQDBHHJHIqPWjgHGCv8vteNnwfjmmIixzhUtlCE0cIDbHGGxa61EEynv9XCCZFBgcJ/
+	 M3f8/To7MKDsDB7ZXoIQ4VDj5HAdKr2heGpCDo3/7+RbfuL7RLr4DNV0qPUnYZT37oQ8y
+	 MEOSnJtxsn1g4zT0H/LrdJO/A+FV2v1CWB5qbQn5vGUQfQbjaZJ7jNddVSDL1XeGfOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793042311;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:Content-Language:From:
-	 To:Cc:References:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=cGD8W5Iwqa3vtO+g7S66ASNM4WO54+pVAVq203sNFMQ=;
-	b=N83xzqZKO1l/UwpiqcNJLV08hYI4XKDf/jNq/hVCCxNoS65sUtVfC0rivTVJh1br31Ua
-	 xienMIvxAEQ2O8LZf95UzWObfJc6QFnQUacgkH3xDCoE5pjnd8jqeEfJ5JjbG6qXe6jik
-	 vY4MCEF4ZcBbRijD9qXa4TBHEp0LeY8n5o0JQ4zYL0OdoGx2pHPeGc5Np9ecJwHvPtwTT
-	 4liKbc73yArnXUoZdtE1Ftt+7R5qjHU9uUwFLx7nA+YPWB+QAACLLnKD6bhDLS5GcDXCQ
-	 PgRY/XAKYSlnGARAhSWCaq/VI0NnHXrrq+VdaEr1nkrWY8jopqrnHdKM+KqysaUuTjQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793042341;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
+	 Organization;
+	bh=tZvfI3wzfnYx/bXkTP/Q8P9KO9tci6mG+Gu1KKw4J6M=;
+	b=mH4QYiU8GnuLHmSR5+8qyeleti8rEkHdiXwYv1DhPg8Gd16ur7pZZG2L1ZiMol3ThJIk
+	 K41pPvSpt7Vlbi2tI8LdqvJVxHDjmBoevZP9bkTcSvde9wOw0EBqquxhydb85CpHVs4QG
+	 3aXLlJzp71C7hdXxKXtlTzHwE8piuN3c25xpUiXPYzfH51Fkn5krSGAz9zAFD+vfooxo5
+	 bjvkXBHoG591JnBOruXnb4qSBRy7wTJtq55xbS6rl5a02sKLSHhbBhh4L2XuSQVJtkNjV
+	 0AfF0fRehgO/IFzAI7uKwr/mL3opl3QqvgJ7+ydJ3XXhYD0GJEs0ygU4X62e8dfyqVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=XaiZ8X0b;
-	arc=none smtp.remote-ip=74.125.82.173
-Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=er2AVjq1;
+	arc=none smtp.remote-ip=198.175.65.14
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5323060A2608
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 19:18:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5323060A2608
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57DEB606A31D;
+	Mon, 26 Oct 2026 19:18:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57DEB606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=XaiZ8X0b
-Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-35f1f76ea84so5641708eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:18:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793042305; x=1793647105; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:references:cc:to
-         :from:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cGD8W5Iwqa3vtO+g7S66ASNM4WO54+pVAVq203sNFMQ=;
-        b=XaiZ8X0bioidF10IAlSN8+QN62juwzsX/5+1MBvz+jcTxMh16TijzxD8hO1XxhrH2v
-         G2qHzFB02Y4tWliymH3Fl8sEja8nxhjW+gLUfvVXyQHigIsA7ra2UoAgSlX8g+Uu5LJw
-         HDZsi+XiAxYZUI6XicNF85MV04ShF5c/kGe7jMZFrkZ9CR2KIFqieyK81Rd4AlnqzLa7
-         CbKfMqiyXJ+nZVqdYVOoq/alQZz+nO/A49vvNnbj3DAulLVsz7+pfVt5FeDzP+R/geiX
-         4gtBPAm2GaLc3Z6DWZJLSNl52jrTM0f28qZ7VrMYswpr/pozKEq7+2ISQ5GZ8oH+HEI3
-         pLMg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793042305; x=1793647105;
-        h=content-transfer-encoding:content-type:in-reply-to:references:cc:to
-         :from:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cGD8W5Iwqa3vtO+g7S66ASNM4WO54+pVAVq203sNFMQ=;
-        b=JulgWYV+/8XE+KMYxiU/82d4DqMe25D89x99O713S4H99keYywJqK+7hdcwsDwoVik
-         3DVWYKIVDIZPHDQ72rGAr1ngkfBTCkx6uQW7Ci5lpLwhP8qeesRFpdBIBVhQfEstEWr9
-         DwJ2Hx8kLg3iCFHZsayBawdITuzzo0T5RtY9135TWZNNyhSZDhhwEFZWjvEbbWQt2yz5
-         zpdQHOlNBoOW9r2koQTkS+5+yOzIAzj4MXEMdvQoDgRGtjIRF/x3HTkIhPMDnQd/c59M
-         OKSZbz2EPpd2U2mJV+2+y9Hp0gjq+3QqKVpj0vLjK03DE/2Z853/4MQRUNIdpSI3imK4
-         OLPA==
-X-Forwarded-Encrypted: i=1; AKwUvBxQZZRYu9HLlQywmjNZYYWWm83VeSJpnZOyb+wu/2vqbHFeD+vvKGtoAQDqL/gVR7Z66WtyBS+vezmeuok=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJE9XEceZlaSsPAL/6uvOmQoCKJVWvFOFpsJKmS6M1yJEkJqamQ
-	BWaPIkzBd1JWb6JyruLOpr2DzYVFZnlI0JBkHmgxMV3FUYxszkcVd1+f
-X-Gm-Gg: AYBFou2vBdDdNqqfxkIveyuil90LLLxmE/dh8lyahfe5jxhl8cLnKsZx8VjEV2RA/KH
-	ED+345R7MuQK/72RN6yq1bdcOfAoX/fUUJ+np4dkfnCt/4KEyqwKdep/HU90rTaKYif4ex2RKyz
-	2e947jwodXy+CDLdjEStqbmcvJKJPjxiTlXYZM13BK3jndLwdtknfsAVk1V9ofqUB3qx24m+WlX
-	oKg45OVd+R8ELBSTX1qZjLizLHYPbeSsZuIyWyQ6zRsI474k+nkVQKyTSxLvtQ4OXKCY+2oBVGw
-	zD4qdNlul4EOpKONGVAFXhnvNEDZISJrPzuRi9UGlUrTjeFaeAV0Q2c6H51MGnaGcJ+A/O87Ud7
-	5STtba4KWA8fDTLixc83aAqXn7RttGB5/MRe5DOsN3IwfF2P9APvW2x9Gvvwp+jtplG4zZDlwS4
-	tcFmIL5vk44peltnB8dy6IQyQpXsuXvkIS0akibMKbHdzt7154W+bBJlvFvyG+0K196oAIE480T
-	GEJ7IZaZA3e+7UjqrKDeZXZM7GAj1Qk0lyOYQGuorQOtk6aOxqEA0EOuozE/my8V5fMPpSdwGQ7
-	o5Z3CLQLxnJjAUe6YsFVqhhzjWEMMT5bMBkH/w==
-X-Received: by 2002:a05:693c:88c1:10b0:367:5e31:ce29 with SMTP id 5a478bee46e88-369e84fe37emr11058609eec.20.1793042305050;
-        Mon, 26 Oct 2026 12:18:25 -0700 (PDT)
-Received: from [192.168.21.192] ([24.18.106.4])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a005c0188sm13789851eec.9.2026.10.26.12.18.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 26 Oct 2026 12:18:24 -0700 (PDT)
-Message-ID: <dcf2c329-9268-488a-8b7a-79419e49293c@gmail.com>
-Date: Mon, 26 Oct 2026 12:18:26 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=er2AVjq1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793042340; x=1824578340;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=XVT3BxzTOBSFPzcS2ZkxgzCA5ztZ8ujHlOCaBWMDfFY=;
+  b=er2AVjq1m+FxWWiU83Tl5tpKTagAGt/7LKCmFKRFLc9wgT17TW8cg3BL
+   1QtFm7bt8XgYlTomnNBhXiem7Mo4d6s2ZT3zRGmU+VzrgrQTPTd2lO4nJ
+   HG8lS5sx7T0gwidOfhPqHn2TK9ruVawJCiYwQ6fojhae50p8dL0KBQLjK
+   ZK3GAo2NNxQ4pyQto6t+ntXYXpzZzg6vtKfWcks117VLMOXljeS0IbuMI
+   eYwG7lBtk8uZwK8B1kJaCBuRYaD0vlN0eP0xmkIN2OspuziXACjhBmwpK
+   c+qPu3oUrUJC3e1BnDwbdOVijvkwkCrIcThod3WVOJvDR+fX55RoYMQ/A
+   A==;
+X-CSE-ConnectionGUID: Bn1jCudlR+yhxHxm8EIYMg==
+X-CSE-MsgGUID: v5D6tLMYThuPXT053jL86A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1601219"
+X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
+   d="scan'208";a="1601219"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 12:18:59 -0700
+X-CSE-ConnectionGUID: Ihw29R31QaS6vQl3kmds2w==
+X-CSE-MsgGUID: ohxDCuAlSUSWgsB5HXu6Eg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
+   d="scan'208";a="4427521"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.93])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 12:18:57 -0700
+Date: Mon, 26 Oct 2026 21:18:55 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>
+Cc: Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Andy Shevchenko <andy@kernel.org>, linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 08/22] gpio: sodaville: Add missing PCI module
+ annotations
+Message-ID: <at-nnxOqJpKQH8Gz@ashevche-desk.local>
+References: <cover.1793030820.git.u.kleine-koenig@baylibre.com>
+ <5c0a0be0cc9af836f43e6ec97d9bd0616e0f1cd1.1793030820.git.u.kleine-koenig@baylibre.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,88 +83,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Betterbird (Linux)
-Subject: Re: [PATCH] sparc: populate sysfs cache topology information on sun4v
-Content-Language: en-US
-From: Tony Rodriguez <unixpro1970@gmail.com>
-To: Jan Engelhardt <jengelh@inai.de>
-Cc: davem@davemloft.net, sparclinux@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
- Stian Halseth <stian@itx.no>
-References: <X-TH#1.20261018222723.43442-1-jengelh@inai.de>
- <CANmkgULrJwKSuwQhZjgL0-zWgMYWgOZLhseDXGtp_XwjcAayow@mail.gmail.com>
-In-Reply-To: <CANmkgULrJwKSuwQhZjgL0-zWgMYWgOZLhseDXGtp_XwjcAayow@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <5c0a0be0cc9af836f43e6ec97d9bd0616e0f1cd1.1793030820.git.u.kleine-koenig@baylibre.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
+On Mon, Oct 26, 2026 at 05:28:19PM +0100, Uwe Kleine-König (The Capable Hub) wrote:
+> A driver module matching devices using a PCI device id table is
+> supposed to declare that in the module's metadata. Add this information
+> to the sodaville driver.
 
-On 10/26/26 11:52 AM, Tony Rodriguez wrote:
-> Tested-by: Tony Rodriguez <unixpro1970@gmail.com>
->
-> Tested on both SPARC T7-1 and S7-2 systems; the lscpu output is correct on both.
->
-> A) T7-1:
-> A1) lscpu
-> Architecture:          sparc64
->    CPU op-mode(s):      32-bit, 64-bit
->    Byte Order:          Big Endian
-> CPU(s):                256
->    On-line CPU(s) list: 0-255
-> Model name:            SPARC-M7
->    Thread(s) per core:  8
->    Core(s) per socket:  32
->    Socket(s):           1
->    Flags:               sun4v
-> Caches (sum of all):
->    L1d:                 512 KiB (32 instances)
->    L1i:                 512 KiB (32 instances)
->    L2d:                 4 MiB (16 instances)
->    L2i:                 2 MiB (8 instances)
->    L3:                  64 MiB (8 instances)
-> NUMA:
->    NUMA node(s):        1
->    NUMA node0 CPU(s):   0-255
->
-> A2) lscpu --cache
-> NAME ONE-SIZE ALL-SIZE WAYS TYPE        LEVEL  SETS PHY-LINE COHERENCY-SIZE
-> L1d       16K     512K    4 Data            1   128                      32
-> L1i       16K     512K    4 Instruction     1    64                      64
-> L2d      256K       4M    8 Data            2   512                      64
-> L2i      256K       2M    8 Instruction     2   512                      64
-> L3         8M      64M    8 Unified         3 16384                      64
->
-> B) S7-2:
-> B1) lscpu
-> Architecture:          sparc64
->    CPU op-mode(s):      32-bit, 64-bit
->    Byte Order:          Big Endian
-> CPU(s):                128
->    On-line CPU(s) list: 0-127
-> Model name:            SPARC-S7 (Sonoma)
->    Thread(s) per core:  8
->    Core(s) per socket:  8
->    Socket(s):           2
->    Flags:               sun4v
-> Caches (sum of all):
->    L1d:                 256 KiB (16 instances)
->    L1i:                 256 KiB (16 instances)
->    L2d:                 2 MiB (8 instances)
->    L2i:                 1 MiB (4 instances)
->    L3:                  32 MiB (4 instances)
-> NUMA:
->    NUMA node(s):        2
->    NUMA node0 CPU(s):   0-63
->    NUMA node1 CPU(s):   64-127
->
-> B2) lscpu --cache
-> NAME ONE-SIZE ALL-SIZE WAYS TYPE        LEVEL  SETS PHY-LINE COHERENCY-SIZE
-> L1d       16K     256K    4 Data            1   128                      32
-> L1i       16K     256K    4 Instruction     1    64                      64
-> L2d      256K       2M    8 Data            2   512                      64
-> L2i      256K       1M    8 Instruction     2   512                      64
-> L3         8M      32M    8 Unified         3 16384                      64
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 
-Corrected the lscpu --cache output to fix the PHY-LINE and 
-COHERENCY-SIZE fields, making the output easier to read in the email.
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
