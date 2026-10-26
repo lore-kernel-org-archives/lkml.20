@@ -1,108 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.238.236.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793002213;
-	b=1pOD6ed7cHjuNmbO/e4HcDZPYIwiDGHAdGWtbguVj0CsvkOzUWK4H/W6YqWj9FQgWJO0
-	 LZJyjAYy9gZZEdg0ZVkaarrnQZQLWXfwgtQgUfWuZ6DtzqvqpjDKlDxYDJyKVm/iXpHnU
-	 V53JUYKQWgxkSdx+fRwWlC2jSAygvAP+grCr7l/Gxyq9wJ5KO/CCeHozGLtwkzX5CCHIh
-	 64jR/T58ZxqwzanQx/5EHmt7docqIjr4g9wUuHrAFIn+WTUaTtePgdzkDoKxsDbXwmCHN
-	 011ywhWLFKmF7u5FlmVjWqHtmoA1Qnc+MU1aPYXrB/I0g48T9WdUUVNeu+pvYHB6h+A==
+	t=1793002246;
+	b=qI7ZVcj2GT/anakb867m3raNskPdKTLiyeZudXsb5fK2BE17wvM3rb5jkFaL50hEsHxg
+	 5ofBokoZgNTs7EwK0sGcQ30FgvaQLCDqjemX4Qwiit9c3tW9GjpKTu6EM++19QfUOPzX2
+	 sHxDld7Kbsdt//TMTDnPVovTKTYi0ar+/1CskSxzNVwKLW+j4nWTpMA3o6zKk6k+NAlou
+	 o5LkTVWtJQmtPhwEbhLGN7cak05oHTzPqVsd1fDlOtR5G5D6+Wa179YVekm6W/HVHIofa
+	 1u8zW3rG7rAzBalRYktSD3AGZr3OYN2/dMr6b1hNCFeCq0SGuNt/CbxPYPEfl23tC2A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793002213;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
-	bh=bshICqdUzBB4/c189FBQy9woiTuRIh58eCa1412pbbs=;
-	b=OiSdsJVrgJHRVBr2cPr+tQxzJ2MZZFUA/8CPmJkF4c9Ex+62Y/E1jEYS3ZkEH6Atb5oR
-	 YDzbUn7X8zxP7esHisOtmZJnhVwfQEKkszFWJCUgCP7IXIVyUvKRsrcqNICAvElqd0gL3
-	 AcPUDKHYkJynojCDfo7BLXLyLEuJFCupBR8UepPZlXHyzTkqnkKgl9J7nXbJGqMg7q4mH
-	 uHKbr3SZbsMzl9FEdpujxC5wb1IIhDcyXAfd3vfCsJYixPjp6mK2Yh9ztaWRoR360JfU2
-	 Zln2WeSksF3+U4Y+tQE/CRfR+lfYIGMpHjN3fiAwNKfTBlmYARiucN/WW0BOiskL2jQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793002246;
+	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=FT2R+3LBW1RgNSBu29PCS8eirV9Pz7HjQL+1gPg5bno=;
+	b=2Q5/yO4NUGcW+88oB8hNT/9z0NLjaX+qvkq4gL97W5Ia6M+4R2cMxnA2yer8icuyi5/8
+	 KRr8Nyvvvloxqq4RvFKHxP/3RivlVABFqkPl2NurOUNSdraGBRYxyWLnqiozs2mTIKNlG
+	 Jn4SUqr6iNBP5ttjLBnjhyjWwEekuA9bcXH1pBDHzeRaOSpOVIfkjdWlWQYZlrda+f4uw
+	 0d3/c2DXkQFoRfUS9vML7qN8wdvRtnq5BDPrTqBnO1Zun/KmATCn/mgFVGPC97OWVruGh
+	 tRhK1TjWGGBgo4ZZ1z72dxDtx195r1tmVQKj87XCvo9/jyogbeZ8CphqKG9JSsSkSyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=nJihmMW9;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=1pgdIMq+;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=nJihmMW9;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=1pgdIMq+;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dmarc=pass header.from=kemnade.info;
+	spf=pass smtp.mailfrom=kemnade.info;
+	dkim=pass header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b="sy9Pf/tb";
+	arc=none smtp.remote-ip=178.238.236.174
+Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E494606A31A;
-	Mon, 26 Oct 2026 08:10:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E494606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83D78606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 08:10:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83D78606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=nJihmMW9;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=1pgdIMq+;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=nJihmMW9;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=1pgdIMq+
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 5F7EA1F7A7;
-	Mon, 26 Oct 2026 08:10:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793002211; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bshICqdUzBB4/c189FBQy9woiTuRIh58eCa1412pbbs=;
-	b=nJihmMW93UkI7GO0eNfLe6GQK780yro7hd4GccCZBI6K+mtAV1jQV9miOR4KKvMo2dle6O
-	C3wFQ8FrNCMkxrYUEnklNQR5sooODA7LjjxSdNQawwl1g+zxh08Zje9URjE8u73rkos1Dp
-	dD53gtIVJmAgcFUlqhFl1zO2WQGR9/I=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793002211;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bshICqdUzBB4/c189FBQy9woiTuRIh58eCa1412pbbs=;
-	b=1pgdIMq+O5y8jrgWVDwfAo8UZ22sn7i9KXsaY7IWKdecG8lHGgAeqvgiBcKIOpRxEF6Z4B
-	X0Lg3zV2JBBcLNBg==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793002211; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bshICqdUzBB4/c189FBQy9woiTuRIh58eCa1412pbbs=;
-	b=nJihmMW93UkI7GO0eNfLe6GQK780yro7hd4GccCZBI6K+mtAV1jQV9miOR4KKvMo2dle6O
-	C3wFQ8FrNCMkxrYUEnklNQR5sooODA7LjjxSdNQawwl1g+zxh08Zje9URjE8u73rkos1Dp
-	dD53gtIVJmAgcFUlqhFl1zO2WQGR9/I=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793002211;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bshICqdUzBB4/c189FBQy9woiTuRIh58eCa1412pbbs=;
-	b=1pgdIMq+O5y8jrgWVDwfAo8UZ22sn7i9KXsaY7IWKdecG8lHGgAeqvgiBcKIOpRxEF6Z4B
-	X0Lg3zV2JBBcLNBg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 117AE13319;
-	Mon, 26 Oct 2026 08:10:11 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id gztzNuIK32qSJAAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Mon, 26 Oct 2026 08:10:11 +0000
-Date: Mon, 26 Oct 2026 09:10:10 +0100
-Message-ID: <87se1s6fx9.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: HyeongJun An <sammiee5311@gmail.com>
-Cc: tiwai@suse.com,
-	ivan.orlov0322@gmail.com,
-	perex@perex.cz,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ALSA: pcmtest: Reject invalid fill_mode values
-In-Reply-To: <20261026031655.2699561-1-sammiee5311@gmail.com>
-References: <20261026031655.2699561-1-sammiee5311@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key, unprotected) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=sy9Pf/tb
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
+	Reply-To:Content-ID:Content-Description;
+	bh=FT2R+3LBW1RgNSBu29PCS8eirV9Pz7HjQL+1gPg5bno=; t=1793002246; x=1794211846; 
+	b=sy9Pf/tbEYmKkvRpsy8UdaS35GQvhJrVzX3l7+IagA9wEFjXYK0OY/eDrFynnAzz/UNC9o3WmrL
+	2ctmEtYco/At3EwK2DlM9N0aJz/6/ETVANnhSSD4O8f2MKuDvSZQE/Ztttl8PGUyLJHoEdvVtxNOF
+	w22WQIAbY+FgsHpE6iIRkLGxQ/YTdiK0uymWTOVa/5gR2hdMoBIc0f/AKRbm5Lbb992qPfaCTAij9
+	aPAvxZ9VY1cHe1tvXU8N7vBPTLhaSe4AAS7Sdb6gzqqzTX8xEg70RfNgfv5VHmq5lw3dcd5vLM2d2
+	hpKVbhIeafOdK1m4FgMKC/mm2YI3+y0WJ3JQ==;
+Date: Mon, 26 Oct 2026 09:10:42 +0100
+From: Andreas Kemnade <andreas@kemnade.info>
+To: Pablo Mazzini <pmazzini@gmail.com>
+Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Alistair Francis <alistair@alistair23.me>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 4/7] regulator: sy7636a: wait for power good, then
+ switch VCOM_EN
+Message-ID: <20261026091042.5376dd7d@kemnade.info>
+In-Reply-To: <20261026003918.155321-5-pmazzini@gmail.com>
+References: <20261026003918.155321-1-pmazzini@gmail.com>
+	<20261026003918.155321-5-pmazzini@gmail.com>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,52 +62,38 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-10.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_TLS_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[suse.com,gmail.com,perex.cz,vger.kernel.org];
-	RCPT_COUNT_FIVE(0.00)[6];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -10.80
+Content-Transfer-Encoding: 7bit
 
-On Mon, 26 Oct 2026 04:16:55 +0100,
-HyeongJun An wrote:
+On Mon, 26 Oct 2026 00:39:15 +0000
+Pablo Mazzini <pmazzini@gmail.com> wrote:
+
+> Wait for power good on enable, as the TPS65185 and FP9931 drivers do.
 > 
-> The fill_block() function handles only fill_mode 0 (random) and 1
-> (pattern). With any other value it writes nothing and does not move the
-> buffer position. A capture stream then gets no data, and a read fails
-> with -EIO after the timeout. Nothing in the kernel log says why.
+which is a good idea that the consumers can relay on the regulators being
+useable when enabled.
+
+> The VCOM_EN line was requested but held low. When it is wired, let it
+> switch VCOM after power good.
 > 
-> Check the value in a set callback, so a bad value is rejected both when
-> the module is loaded and when the parameter is written.
-> 
-> Fixes: 315a3d57c64c ("ALSA: Implement the new Virtual PCM Test Driver")
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
+What is the reason for this change? VCOM gets enabled this way, too.
+I added this line just for having the hardware completely documented.
 
-Applied now.  Thanks.
+A possible scenario where I could imagine this line being useful:
 
+Calibration of required VCOM voltage, You would turn on everything else,
+do a mode 0 refresh on the EPD and measure some kickback voltage on the
+otherwise inactive VCOM line and have your calculated value for that
+regulator.
 
-Takashi
+To be useful, several things are needed:
+- SY7636a driver needs to model vcom as a separate regulator turning
+  on a vposneg regulator. The TPS65185 driver defines a vposneg regulator.
+- ADC input is needed. The TPS65185 provides (not implemented in the
+  driver yet) such measurement. Of course that can come from another
+  chip.
+- Some (probably userspace logic) to control all of this.
+
+Regards,
+Andreas
