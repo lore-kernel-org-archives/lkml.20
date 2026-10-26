@@ -1,95 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793028243;
-	b=V53BcZ1NiDYHxx4TOI9OwGE/OvfVO8zIcCq7r+K44S35wFjKNNv9glsbD3a0eSnvLzts
-	 np87BN7dzTKuxwnKkvqsEVo1HepqD099oYXy7a+fVWaD00nqjkoRcpU/yn7EXVLKpIWSk
-	 InZbtLv3Db6NzraR3nFoiZSyaDOtS2pldmQlxu476mZLHW4tBYX0C4gFp1V6MPMaR2ynD
-	 +jV/3yREGMbsInuS7Yjh2p8uZ+UD57a2olcgKTNRl9Z310ztdkzrCU+nJ/qkE15S6Nj09
-	 moCB2Be6SbuSutlSj8w1piibI48ETl0AeGAuEn9TVXNLxxO+S0ELDpn86TE1Mx+q8aQ==
+	t=1793028292;
+	b=km4/uVcwHbo6RuuDycLCJQpK/c24PbrTyeB5qls6kooSYv9/5srax6h36i2fHVWJlNWe
+	 I3HH9BzQiToZIl70txqEAIHCduy5RsAHcynij26R2abu2ZdbSz1rchHBCXnmmqXKGJcB7
+	 +keuVooaPaFecfCEWZblhkop7u0w+PP6E1Ed+HywTWH6hsUP5mJQdvk2K92Yfn839CDSt
+	 UeUiciZbtdx0LlApQyfdRbqkxTYMeEIo9z5dTq0GE8TrR9rMUug+Q/ctn5wy9GBF+8IeH
+	 bkF1z8VeQT/IpaPo7bgxS3VHHi6AgebPPRBX2a91yyFCZt7Yy79r0FrsE1qmhmEmBAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793028243;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793028292;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=lypC8MurV7HRH3c/w8NFFi643nEkO5cK6HfBNA//Ydg=;
-	b=GPrvMA5sIzQBbJnoLwwtDuooKVVCpt09ZJHmtYjnNHipCNrsUX9g7pJ/G2cKgOp5/rmv
-	 TybGxcNfbbj7JhZsgUhGaQK5vOpzm1zDotXR6xdbCC1ThEZd9ig2KRCruI8cdoBj+XGG4
-	 d3GQaJewCH4TsnKeCMRZm68P6AjYMumFWJENmQ93YDlVzaOUszC2cuNBvsIYT50/Zo5/O
-	 gILaP8GIuYapXFMOsaisEhVnERCcfJhT9P21mTiiz950s+GBwmBAIHrYH46dVh66jv9zZ
-	 PoCeC/AYtowffqVQvtazroKbF8E2DsVoC6zA/NbZb1caRdq0fQcd0o3UFlqnYp0R05A==
+	bh=CFP3sAy+nyBx/JCNvXQvD82uO55dVEcyEylOAJhkFUQ=;
+	b=z0YPbyOaxhY44KHf2t0aG32407ROnqVdOghKgaRPCcqnpsXYzEYnjMPvkeaX13rjW9Z4
+	 vf+tXiH+4ICVLXmk77ZWP5IrXigllYw7VxjwT/Wc09+k2gWLd5OFDz6+tygHktpsx7dR4
+	 eGNRuuAW3iPSImieIDsPHfJP0pqjvySPiKxIQF/dc7nx+Wg7MHp0Uq0gT3LBoY1Y74F1+
+	 N4/ZMlKAwKBeUdD8vjq5LaDiR2+XmLv+es1r/moM+NJODrXvzPqVrdBijCtqa2RuBNZCx
+	 JzGNwyWBthGklLOVlXPJyUp/no0axTSlJr8lG4Znh0Kv7U4sUY7TFqM7w+b99JOSB/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rW2lIEEv;
-	arc=none smtp.remote-ip=74.125.82.45
-Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=acm.org;
+	spf=pass smtp.mailfrom=acm.org;
+	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b="m9gptB/6";
+	arc=none smtp.remote-ip=199.89.1.14
+Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B09E606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 15:24:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B09E606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D323606A31A;
+	Mon, 26 Oct 2026 15:24:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D323606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rW2lIEEv
-Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-1a2af4c8d00so550891c88.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 08:24:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793028243; x=1793633043; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lypC8MurV7HRH3c/w8NFFi643nEkO5cK6HfBNA//Ydg=;
-        b=rW2lIEEvuwSAkL2jbAgcmTJAk2n+zIa5LQNm9NMbYf+KxdQHyfVjH63yHrBxgk7Jth
-         FofeGnaiNRBRGDM1ZEjLi7ukfmQQ442OVNEpqB9tVqeu//e6dO93DCUsjbzMCzQCsj8V
-         NeziUvl9f8EBqzO+lImbGAtNtiez6xRwXrLN/8R45WGAwU6Mn4601xigCsdb2NKIlwTA
-         C718GoOJRycgYQtA2xh876S9UpIr09e9BOdmBZBBCxxcIqPWHmKGmyi6Zo3NkgSn9rzR
-         9Txx281PM+KH7G43s89AAaazOXsyGwFvmhAxfYkxhtI+TcWpjXRkaIPeJQvFLZ3XqqRe
-         /4dg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793028243; x=1793633043;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lypC8MurV7HRH3c/w8NFFi643nEkO5cK6HfBNA//Ydg=;
-        b=cPdHXdlbNoka0loEM6Jc/uzH/MhCrA7h6/UBrK4nfxZ0Pxjig1uRT1IJT36ZDLiaJC
-         Ve3/XnwXYzx1PJRoIYOvFDhp8pBwbbfhvvCoJgnXPsnBV8+BMxcS5l5zXPJjhYXY7ad3
-         /ig2B3f7z6E8wvzOpWt+pF4c99oQWO33JZBE7ODn6ytr+Yr9AA5XF2q9DqxXLFcY8vkh
-         uqjqrUaW2k0STp4p/1ElKH8n+Xp3YJRUhVp86lG5YrpSKEsVl16ht+m24Hs4cIyM0mcx
-         QQpCVpRZJe9JMkrviacj9YqhdBQaYcnH0nsoARBf8qF9Y1/DRQ9kKMQDO3q/vK5LEHkk
-         MaeQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwm+EILtHu4GNrs+AfpsB1/MVENhaf3uysgZSacw7PLsblePcbrmWIO19ey4DVH/CBAlAs5y63sxGLyCW0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJccrM3LG46AYCsDKDxbt4COHFHNfNY/HnZUcYWmeA/AU7oqXvQ
-	7C2W3K8/RlLNNZh3ws7MIJSBIyQB8ER6rnhjEJzOcSjJpKiG7Fh6+ACbfzk3ZPe5
-X-Gm-Gg: AYBFou0d0aYB0orq9zz5RnlNXbY+BPFKXW0RfTnqslw54PERYYOzc8n5mmTYu8d6ith
-	7IiJmbxbJsY03bJ5l61PeWoKx/LVQGn9wdlehyj3TRMZiP+jIYXdeLBXypPWOU4bKd2uWA21iBo
-	CUOh517r+qhWYFe8sjzUeZlIs/Gg/35kfXkx0V0ZTN2Hq/jObVp3RkD8Z7IBjHpLRJulJX02JDr
-	HauhsDqX9LOQ45LKEB8yW0QPS314F764A4NVM7RAdFmKsl8kTHDWirwMMQAASZu3ahcM1qPMJIZ
-	PtW8nXQZvQcU+DteBF/+emSKRKVVqkj26KRxY+9kHS61T1a/4Z2LacCQXBZgIQPxjtz6oq7rbBZ
-	oFlenfQ3dbFpaq/9qhFdfN1Xo2JiAu6tqstL+bJ+5eXFQ2HEKRpS3V4gcc144fSDwCqA7CrpeNn
-	LjdHlrkuzCwwdeiykfwHDWQpl+21SdS9Ot0iFRfs0K7Kon/i5shlvw1eGZP2DuDQ4MjRLuzYz4y
-	PUcR4quIa4tGPi7PvRVVzCBsb4BEhXosFegLptcrv6njQ/hXeJl1UFaZntvJUxDKq/kz64=
-X-Received: by 2002:a05:7022:1114:b0:18d:ac5a:89ef with SMTP id a92af1059eb24-1993639e52cmr10117949c88.31.1793028242124;
-        Mon, 26 Oct 2026 08:24:02 -0700 (PDT)
-Received: from localhost.localdomain ([61.255.248.240])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a0f83cedsm31749966c88.13.2026.10.26.08.23.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 08:24:01 -0700 (PDT)
-From: Song jeonghak <thdwjdgkr123@gmail.com>
-To: Viacheslav Dubeyko <slava@dubeyko.com>,
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-	Yangtao Li <frank.li@vivo.com>
-Cc: linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Shardul Bankar <shardul.b@mpiricsoftware.com>,
-	Edward Adam Davis <eadavis@qq.com>,
-	Song jeonghak <thdwjdgkr123@gmail.com>,
-	syzbot+98547b0428b6a6a3467c@syzkaller.appspotmail.com
-Subject: [PATCH] hfsplus: free failed b-tree nodes in hfs_bnode_put()
-Date: Tue, 27 Oct 2026 00:21:39 +0900
-Message-ID: <20261026152139.458677-1-thdwjdgkr123@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=m9gptB/6
+Received: from localhost (localhost [127.0.0.1])
+	by 011.lax.mailroute.net (Postfix) with ESMTP id 4jCy9961P3z1XM30g;
+	Mon, 26 Oct 2026 15:24:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
+	content-transfer-encoding:content-type:content-type:in-reply-to
+	:from:from:content-language:references:subject:subject
+	:user-agent:mime-version:date:date:message-id:received:received;
+	 s=mr01; t=1793028281; x=1795620282; bh=CFP3sAy+nyBx/JCNvXQvD82u
+	O55dVEcyEylOAJhkFUQ=; b=m9gptB/6ZJoufpbC75B5v0XGKWgjTVCwAMKvR5it
+	dD+d5WQeQKGLwWGSZZfHWiwJTYMtopeB5nRTc6t7Y31fTOBnHsa8YeHh0+BC5hxb
+	ZN8YmyETGjUaKI0j2F6jXGJk0YK6yOLnfNaEwfVi2foMcn5lw23n0B/c39n/hXm0
+	KaaKhMLoLwow8GRKnuZZBtkLWSL5alEcBJGZxaa1BISeYnboSbxHcW4oiFBBIwwF
+	9YEC0/MmFiy+UbEsMcw2oGyEoarGc1sdF/tG3Kp6+CPB1hJVnpZMWlW9xxMjSA6+
+	wX2UT738kz2HUfaohGI4wmRrxi9OjGbhMLyTOa9/zLN0Ww==
+X-Virus-Scanned: by MailRoute
+Received: from 011.lax.mailroute.net ([127.0.0.1])
+ by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
+ id rBkXgnKsa6kC; Mon, 26 Oct 2026 15:24:41 +0000 (UTC)
+Received: from [100.80.231.125] (unknown [104.135.182.41])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bvanassche@acm.org)
+	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4jCy9533PSz1XM4Tl;
+	Mon, 26 Oct 2026 15:24:41 +0000 (UTC)
+Message-ID: <79480408-8403-4a93-a2dc-c5f01864a20c@acm.org>
+Date: Mon, 26 Oct 2026 08:24:40 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,91 +70,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 0/3] scsi: target: iscsi: fix stalled and doubly
+ completed aborted WRITEs
+To: Laurence Oberman <loberman@redhat.com>, mkp@kernel.org
+Cc: linux-scsi@vger.kernel.org, target-devel@vger.kernel.org,
+ mlombard@redhat.com, michael.christie@oracle.com,
+ linux-kernel@vger.kernel.org
+References: <20261026150710.1063511-1-loberman@redhat.com>
+Content-Language: en-US
+From: Bart Van Assche <bvanassche@acm.org>
+In-Reply-To: <20261026150710.1063511-1-loberman@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-hfs_bnode_find() flags a node it fails to load with HFS_BNODE_ERROR and
-then drops its reference with hfs_bnode_put(). When the last reference
-goes away, hfs_bnode_put() only releases nodes flagged HFS_BNODE_DELETED.
-Every other node stays hashed in tree->node_hash as a cache entry and is
-freed later by hfs_btree_close().
+On 10/26/26 8:07 AM, Laurence Oberman wrote:
+ > On moving the one-shot guard into target core:
+ >
+ > This will be explored later on but is not in scope for this series; it
+ > changes the path every fabric completes through and I have no way to test
+ > easily in iSER, FC or SRP right now.
 
-That is fine while the tree is open, but hfs_btree_open() looks up the
-header node itself. If that lookup fails, hfs_btree_open() unwinds with
-iput() and kfree(tree) and never calls hfs_btree_close(). The failed node
-is still hashed, nothing references it anymore, and it is leaked. syzbot
-triggers this by mounting a corrupted image:
+I don't think that argument holds. Fabric drivers that complete an
+aborted command exactly once never trigger a one-shot guard in
+target_cmd_interrupted(), so their behavior wouldn't change. The guard
+can be a new transport_state bit that is tested and set under
+t_state_lock, and the CMD_T_ABORTED test can be moved under that lock
+too. Today target_cmd_interrupted() reads transport_state without
+holding any lock. That would:
+- make the iSCSI-private completion_claimed member and both new helpers
+   unnecessary;
+- close the race that patch 3 only narrows (CMD_T_ABORTED being set
+   between the iSCSI test and target_cmd_interrupted());
+- also cover the sites this series doesn't touch, e.g. the deferred
+   ICF_OOO_CMDSN path where iscsit_execute_ooo_cmdsns() ends up calling
+   target_execute_cmd() for an aborted command without taking the claim.
 
-  hfsplus: failed to load extents file
-  BUG: memory leak
-  unreferenced object 0xffff8881040930c0 (size 96):
-    __hfs_bnode_create+0x57/0x310 fs/hfsplus/bnode.c:476
-    hfsplus_bnode_find+0x138/0x660 fs/hfsplus/bnode.c:554
-    hfsplus_btree_open+0x30b/0x5d0 fs/hfsplus/btree.c:384
-    hfsplus_fill_super+0x272/0x880 fs/hfsplus/super.c:546
+Please consider doing this instead of adding iSCSI-specific
+bookkeeping. If the iSCSI-only approach is kept for stable, please
+explain in the cover letter why the core approach isn't suitable.
 
-Free a node that is flagged HFS_BNODE_ERROR when its last reference is
-dropped instead of leaving it hashed. This follows the existing
-HFS_BNODE_DELETED handling: unhash the node under hash_lock, drop the
-lock, then free it. A failed node was never handed out for use, so unlike
-a deleted node it has no b-tree map bit to release and no contents to
-zero out. A later hfs_bnode_find() of the same node number now reads the
-node from disk again instead of getting the cached failure.
+Patch 1/3:
 
-Tested with the syzbot C reproducer in QEMU (x86_64, kmemleak) on
-next-20261023: the leak was reported in 3 of 3 runs before the change and
-in 0 of 3 runs after it, two of which ran with slub_debug=FZPU. On a
-valid image, creating 3000 files, deleting half of them, and remounting
-gives identical results before and after, and fsck.hfsplus reports the
-volume as OK. checkpatch.pl --strict and sparse report nothing for
-bnode.c. This was not tested with KASAN or with concurrent access to the
-same node.
+ > Fixes: aaa00cc93c1d ("scsi: target/core: Fix TAS handling for aborted 
+commands")
 
-Claude (Anthropic) was used to help with the root cause analysis, the
-reproduction setup and drafting this changelog. The code change itself
-was written by the submitter.
+transport_check_aborted_status() only sent the TASK ABORTED status. It
+didn't drop the reference that the abort path now waits on. Nothing
+waited in target_put_cmd_and_wait() until commit 2c9fa49e100f
+("scsi: target/core: Make ABORT and LUN RESET handling synchronous").
+I think that's the commit this patch fixes, or at least it should be
+mentioned too. Both commits went into v5.0, so stable coverage doesn't
+change.
 
-Fixes: 8ad2c6a36ac4 ("hfsplus: validate b-tree node 0 bitmap at mount time")
-Reported-by: syzbot+98547b0428b6a6a3467c@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=98547b0428b6a6a3467c
-Signed-off-by: Song jeonghak <thdwjdgkr123@gmail.com>
----
-This takes the direction Viacheslav suggested while reviewing Edward
-Adam Davis's earlier attempt, "[PATCH] hfsplus: Supports freeing newly
-created tree head" (April 2026): look at HFS_BNODE_ERROR in
-hfs_bnode_put() rather than special-casing the header node. That thread
-did not get a follow-up version.
-Link: https://lore.kernel.org/all/tencent_C4F16CD096B0EAEAEE5ACDB07A266E382C0A@qq.com/
+ > +bool iscsit_claim_completion_locked(struct iscsit_cmd *cmd)
+ > +{
+ > +	lockdep_assert_held(&cmd->se_cmd.t_state_lock);
 
-fs/hfs has the same structure: hfs_bnode_put() has no HFS_BNODE_ERROR
-handling, and hfs_btree_open() looks up the header node and then frees
-the tree without hfs_btree_close() on failure. I have not reproduced a
-leak there, so this patch leaves fs/hfs alone.
+Please also add __must_hold(&cmd->se_cmd.t_state_lock) to the
+declaration so that Clang's context analysis can check this at compile
+time.
 
-sparse reports a few warnings elsewhere in fs/hfsplus (ioctl.c and
-attributes.c) that are not touched by this patch.
+ > +/* Complete an aborted command at most once.  Must not hold 
+t_state_lock. */
+ > +void iscsit_complete_aborted_cmd(struct iscsit_cmd *cmd)
 
- fs/hfsplus/bnode.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+Please change that comment into a __must_not_hold() annotation.
 
-diff --git a/fs/hfsplus/bnode.c b/fs/hfsplus/bnode.c
-index 3a1a1fa6f2e2..3d159db229e5 100644
---- a/fs/hfsplus/bnode.c
-+++ b/fs/hfsplus/bnode.c
-@@ -702,6 +702,14 @@ void hfs_bnode_put(struct hfs_bnode *node)
- 			hfs_bnode_free(node);
- 			return;
- 		}
-+
-+		if (test_bit(HFS_BNODE_ERROR, &node->flags)) {
-+			hfs_bnode_unhash(node);
-+			spin_unlock(&tree->hash_lock);
-+			hfs_bnode_free(node);
-+			return;
-+		}
-+
- 		spin_unlock(&tree->hash_lock);
- 	}
- }
--- 
-2.43.0
+ > +	spin_lock_irqsave(&se_cmd->t_state_lock, flags);
 
+All callers run in process context with interrupts enabled, and
+iscsit_release_commands_from_conn() uses spin_lock_irq() on the same
+lock. spin_lock_irq() is enough here.
+
+ > +	bool			completion_claimed;
+
+Please add __guarded_by(&se_cmd.t_state_lock) instead of just stating
+in a comment which lock protects this member.
+
+Patch 2/3: looks fine to me, assuming the series stays as it is.
+
+Patch 3/3: as explained above, this patch narrows the race but doesn't
+close it, and the ooo_cmdsn branch right above the new code still
+defers to a path that doesn't take the claim. I'd rather see this
+solved in target_cmd_interrupted() than merge a partial fix that will
+be replaced later anyway.
+
+Thanks,
+
+Bart.
