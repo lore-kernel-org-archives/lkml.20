@@ -1,78 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793031159;
-	b=BMl5yP2hSfOthz1W8RPo12Avh2iJYqLVe2+YfGIFCamqsuKZTtGYfkTIJn4aMarkMPkT
-	 Pt5QSCcM1v9Y33wrggytMCMjOYT7yRjvqUg6JDFVQLjuR0a+ysneAEzIjBne9z6zyeWR6
-	 38tYZSvIdM8faHwQDO8A16G0W6V2G6n0yB6xuQR1o8kWPzpSboYJq37DpF0l0pMQDpq9v
-	 NAVsRHUNR4Vm7EZ9qyjGQFq98woOFB4yssdtzy2cOjZgTNcLIv+b0XKXyZlnbdBLTCM+N
-	 pBBYBa4tcWKobcNK7Ajt0/muzKdp8Z3gZPzCTN05YpsKP2KdJs8umzpfA1+9P8COqYQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793031159;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=F7Npv4/6BVdAZSR8mVUnSzo51kSho3k18+5Nnsi5eBg=;
-	b=pcumsJpGNewwmakxdcMjhzRLZmbYKPEK8W7rI6mA4gOz+UgURtlG4B0iT9AOzXIK/BVf
-	 LfS2s27EUix+ExXJE/Qhedphgkrf+3qQDaDHz5evB2tFxvukPicNt2e/A1x7/fWMaA8HS
-	 epSETL/GM1fzKZALgbggvj02y+Bxqysrd7gIZgDQoK6dcDyYcWm1RemuC+JSR3FK/cCyV
-	 i0HjdEAez3ETKnVYzHr/2O0Utp4GbUbgPAVgT+HHmlSPUh/hQB9MGEDIhm1c0hP6Dczw6
-	 hpUQ3rfpwLTb8qHsItaUgSKwVzwVLz2DDQjFR6zWApYZypJJMtVpK2WgLBA2aOcKf1g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="F/aH+EZa";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22000606A336;
-	Mon, 26 Oct 2026 16:12:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F/aH+EZa
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793031159;
-	b=As89RU1qNWwGzDy8mkS3Ppjbt4Ej+6E5MbgSdoKGcoqUZ4iIq+koBx7v4oCeYQT1nRVW
-	 yclJWoKXiirhxtwSoaoMCytXBTpV7rINHXQ43iLF2ZAldpOHcnYr7XJGo3zFn3kGYkl4i
-	 xRWPlEdb4Qp5v4l2QfAApT6SGkGxP6l/2MyY6IsYfwPl2u5zdsoCKuAVeRdyDhc4cVG5R
-	 PtLq1lfp1vtQClZ1Fw2SNqq0JMDrir0ha8L1lQHKHHCiMGUk0harMMNMRbUIvL8/C9I0T
-	 VzDY6gHMxhjnjJzuMyqp2OJkjWopYSGmBb9Btm5D4bc2Q/9mi0+sSaIL6u+yLVq6KIQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793031159;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=F7Npv4/6BVdAZSR8mVUnSzo51kSho3k18+5Nnsi5eBg=;
-	b=Qq/bWkw17ijXp/nxtQ539TvXihHlrABlRQJPpO0p9lwfzMW2q4WUST7HuDTxectwpvTp
-	 mn6VqWfUl/+VTzxCXHSQt8Z9D+rnOko1gXPgTkSDPjL+hr1cQgZBYe7+hvYdOnMDYZUWS
-	 UVOufmU2+gbumAvzIk8WyPZQYL5T4mVRtYKW73hWln3x9N99S1uPhEpckVY5dpZzFyZhh
-	 DqQce8gF/xD7swHi0szAonTkWkSwYahpfFnNa7w506o7NEXd7qsgkyuEkf9A0xByvWN16
-	 ZXHDmz5MTwwk91/skllgORMXPaluXZF3EwA0fahKgCoQiBuCa8N78kugJ6gXn06b41Q==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793031184;
+	b=D10ClAA9+lhIoA5Bh3rduDoA9wTCjKQzViGDAM7YmMAnJTCYhy7Lmh8rYTIsHwQZKeHG
+	 TY1QggHTb7gdXgxDuScxy0Op6xmW+XZy3K0IzNUk8qGJN8I7lTA7px5i4xjeKVZtl2Ljy
+	 yM1+uGe5XSHDQOVwS5Nz8bbb7GbXPRBSaA9BWIfJOGJl8tMuv94j90gBl2dRXD5UCZLNY
+	 WDM8DolFiHMmS8HNNpyMwxuBT2KQYiUgTdsvtFZjfNccJ2PzaOOcYtwCk/SMM8yNMW/KB
+	 ufN1l/rO74h4cjKnNidh+OT8njEFx7Mr0Y/Yg9oasT6aFbQbBNdlzraHEE8YYgvx80Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793031184;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=7YaGQskNIcBSxlv7EA2prRfFbmqBzNuO34oMXZxCOxU=;
+	b=0tKaVINpa8m5ujB/viEam+qo0LC7v7Ulz72Ii5kXCDM00+ZHWTnTMGL09A1FIXYCrcsl
+	 9uDnTAicaSRMnD+BKSP1FImJ6F0YxT7cTEtxluPAx4WLgfYjH4dJ04G3+YSNOyf/U1fi1
+	 +7yyyKNmpRWoZ6G4aq5IjxNZr8FNuHNEILdZXy9D/u5XFtKlj3F20nnrSiaB9yB1Jwdj4
+	 GVFM4z6w0PRaZ7JpxnfO3vMKJaJgOn5Z0RX2iRsmKvc/B2QyenAmjlv7AZ0uGvQcDGh5V
+	 uhWceJvP4ZFy9WiXngcIg6NKMJgT8pZ97pq46Pngg+SCG769U/t78qu7lHRF+AxV2zg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="lZpc2/4J";
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ECvEdokZ;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 0245D1F031E5;
-	Mon, 26 Oct 2026 16:12:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793031159;
-	bh=F7Npv4/6BVdAZSR8mVUnSzo51kSho3k18+5Nnsi5eBg=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=F/aH+EZaF4B6S4FRJXJ3Dr8CpGwa+a6pbjeCwfTYxuo9Uxksk7JhA85mX34jGM96w
-	 vkiKfSXeev0zzu8Eu0ENzhENF45rxgGnI+2Q2Aay8A+GJDOTpc0sHNEb9AvqcnohMj
-	 TOwqpuQM6ziJvDARWHQYO+Um6zpvCRR2wg8xf6baDL4BfVgOPZ5vlNjUGwf/aYM33A
-	 LajVTK1heXgUQYo3ZocQ3ra2ADpFDn6cbnIk6NikblvBCOoKUGAGfattygMbDfwdmp
-	 lTlsM71gbDGVQD65EtYq5BLADWehSgpIb1N5S7FExKuHIN+zTVcAfA5HZJyS0NWVQ5
-	 mC0ezbCjuVlWw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 6F43D44D99;
-	Mon, 26 Oct 2026 16:12:36 +0000 (UTC)
-From: Dave Marquardt via B4 Relay <devnull+davemarq.linux.ibm.com@kernel.org>
-Date: Mon, 26 Oct 2026 11:12:38 -0500
-Subject: [PATCH v16 06/12] scsi: ibmvfc: add NOOP command support
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A635606A336
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 16:13:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A635606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=lZpc2/4J;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ECvEdokZ
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69QEwVBo3076356
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 16:13:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	7YaGQskNIcBSxlv7EA2prRfFbmqBzNuO34oMXZxCOxU=; b=lZpc2/4JJTBApHXl
+	iCraTsRjG727qkU/3+Jc8M72AVTofA/hMIwW9CktwZi2RYHisWm8ARyQw82Vjmnm
+	rOWwZxz9m8DebDVXMdf70muLVI5ABr6tCXWHwcZGwUzXYA6dsXCZ82PtZfUBIjQT
+	EwRr0xdYD2f4Ojz/7zkFRZbZIw/FTF9RFf5XN6Jdq41mXxVd7tw7K2LTa/as0GXQ
+	PTcFOmalZBBqluu+pbyPa/zCKuPQlvjKVAaS1RP89ThetVpVm3XV88IFdOsQNBG2
+	KXLlIve8FUgu8uDPjZIr2pPwxhuy3YEBCh0tQPpSIATvZLIdcr59xLUiEHVTbLlL
+	Ssoeiw==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hhsjdb9p5-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 16:13:03 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93cbf2fd504so612639985a.2
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:13:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793031182; x=1793635982; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=7YaGQskNIcBSxlv7EA2prRfFbmqBzNuO34oMXZxCOxU=;
+        b=ECvEdokZdZsADQH0PTAwAUGDjh/vCT5ocQdgLTSADM7E3eLb/iW3yZQYRMTD57S6Zw
+         665FLxzPkMsltlzqDrG5W4UqaGgJa0N3FYsn9yX7O7klDHdIPerTDkl6eJ+eVuJ+pcmg
+         BbFevAMMBrWJXMX1ZOXHCqM/j5IYPgGcjwf176FZbnfoAnLkYFX2kV+xavNes/7aSJPU
+         F9l6P61ACL4JOGYXholy1qmNl5IzGpV+FCJuNb+yvw7MTBEB9l2Cz6/u+xjfL3aMmy+O
+         KnMbyNJyR4MXCCQ3jjHAm22ArnLayzT+NkVJwkGXvmcOVM91Zc47fuEflucqgHuDycu+
+         sPjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793031182; x=1793635982;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7YaGQskNIcBSxlv7EA2prRfFbmqBzNuO34oMXZxCOxU=;
+        b=X0SsMbRpbbsKm0OBqE6XprBBr28CFx/Jx7bVxr/8pf0Kyg9Vi4lpAo0JUGz6vk+qEX
+         smUDfrtpjOUt6g5WZF7jrpYHkhwhaJ8re4AwUkrWE3CF4h80CbN6QaHRVIvWs8ENZx7t
+         UsGKVh574iufs55ykpWrPd7TmHEaZnxvjUO2reBx7SBAv33kSUPcfJuiwShj9fCUBA3z
+         MoNc8AeRhIYhpB9vbgG2SVV2QlLQgm+3NmA+6qqy23GK+f8S+U6A3FDdomweDspHl8zW
+         L87G8H43p4InylOkmrY3Wz3ZuLaDozlPrbDP388VtZnzK6IIsaLu3YkVF1Ln/kzKhJkx
+         6UGQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy34l7MqvrFVNljEqYVkcVu/CFSchEipwaGzY+FOvw/gowM2KYnHggGOfpAJfdYGYhWe8SSCKtM9zkyxBE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIyLAPwCLtgXDdutQnxvmb60fYKFSFhLiL6a4QJiMPmvE1H7e7n
+	Hs9YZ1FgvOjMyeX+g8TEyHPQf8/7oPqgB3Oo8ZJVj00rxmI6tWKf9QnT/Lvoofrzl9yv0cM7G//
+	KbceGNW3JhMbPN9H/egTdg5NRaom6UPHwRYkTzJskGupWw12twt+Wj4npKKZsmpU7wsc=
+X-Gm-Gg: AYBFou2krPH8cfdA0i3kB6gf7bqBX03aAJrDhaD5bGvvk4mVxz9mkm7DNDP+5KyYG62
+	+D1tDOluaG2F1xtnddzROGA4Zq+M09e6cnsNpOsdcmCQ1J+u0R0wvKgyqm2DCnNJGfoDfmJ49zb
+	6FSk8d/PAhByjnejEHARiOOQSJ7I0QnwjmrMLsFyHFx1tamEK2C9l5Mrv2gqdDesOX+kBlcwI1d
+	ht18m5IqoTlyP1TgQ638/lB+OP2/FfEZVXTOMXFRzTAAila+LIWu4vUiJejOQYeoGoUmjuHVSgI
+	2vr89U37WOJnadMw6JUk2i2o22IFuw4KlLlyKlZmA3AXoLgHI553J5zO0x5zBgX6h3WmJ9NR6wR
+	oAwS574Bzqw==
+X-Received: by 2002:a05:620a:45a1:b0:93e:95ce:539c with SMTP id af79cd13be357-940ef7b5358mr1023656385a.2.1793031182307;
+        Mon, 26 Oct 2026 09:13:02 -0700 (PDT)
+X-Received: by 2002:a05:620a:45a1:b0:93e:95ce:539c with SMTP id af79cd13be357-940ef7b5358mr1023649385a.2.1793031181718;
+        Mon, 26 Oct 2026 09:13:01 -0700 (PDT)
+Received: from [127.0.1.1] ([188.27.161.187])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebd48eesm17285385f8f.30.2026.10.26.09.13.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 09:13:00 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,154 +113,87 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261026-ibmvfc-fpin-support-v16-6-a900aa657ed5@linux.ibm.com>
-References: <20261026-ibmvfc-fpin-support-v16-0-a900aa657ed5@linux.ibm.com>
-In-Reply-To: <20261026-ibmvfc-fpin-support-v16-0-a900aa657ed5@linux.ibm.com>
-To: Madhavan Srinivasan <maddy@linux.ibm.com>, 
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, 
- Tyrel Datwyler <tyreld@linux.ibm.com>
-Cc: linux-scsi@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
- linux-kernel@vger.kernel.org, Dave Marquardt <davemarq@linux.ibm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793031155; l=4964;
- i=davemarq@linux.ibm.com; s=20260216; h=from:subject:message-id;
- bh=YGRbIUdNWWyi7nKL+Hl5vEf39hZjfHe6uwnKRRlVDEE=;
- b=RbADDqKxCVwXVunO8QitHv+yesB1fToy6qFfL1zysiQjtc2xNJwmY1G2tiNi27vd485HI5MLw
- 0KdUtQRfU/SDzXR7HtU0+NYo4G31Kp9mpJ1+U5loRDSULU/BN8sMHNA
-X-Developer-Key: i=davemarq@linux.ibm.com; a=ed25519;
- pk=vy0/nfobrje6EqZxuyw6a3ZstytG8WK2vf5Y3xtGrEg=
-X-Endpoint-Received: by B4 Relay for davemarq@linux.ibm.com/20260216 with
- auth_id=689
-X-Original-From: Dave Marquardt <davemarq@linux.ibm.com>
-Reply-To: davemarq@linux.ibm.com
 Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v4 0/7] arm64: dts: qcom: shikra: Enable audio on EVK
+ boards
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Harendra Gautam <harendra.gautam@oss.qualcomm.com>,
+        Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
+In-Reply-To: <20261026-shikra_audio_dts-v4-v4-0-cfebe0809467@oss.qualcomm.com>
+References: <20261026-shikra_audio_dts-v4-v4-0-cfebe0809467@oss.qualcomm.com>
+Date: Mon, 26 Oct 2026 18:12:55 +0200
+Message-Id: <179303117523.150406.9620841341326281603.b4-review@b4>
+X-Mailer: b4 0.15.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=806;
+ i=abel.vesa@oss.qualcomm.com; h=from:subject:message-id;
+ bh=9TfO2KR6FbWjEjh9bD5cCLIAuh1sd0jIYWSuHk9VgJU=;
+ b=owEBbQKS/ZANAwAKARtfRMkAlRVWAcsmYgBq33wLTBWj1bksFy7nA5sk+j2NGrviWjKqufRKV
+ YXqaabR3OWJAjMEAAEKAB0WIQRO8+4RTnqPKsqn0bgbX0TJAJUVVgUCat98CwAKCRAbX0TJAJUV
+ VkvbEACAthY7fYDU+kudhPtXhao1l0mQ2i8uYq/KkWWDjl6AjI3xO29sPSSPBC2O6QEXC4xvhlV
+ UIy0MWy3X1rxepz+VN4d2mmUYz2Gbvy68t0IkoXtTKhqx7C6JpwFWI7SWx2VUweRl9spxvEkvAE
+ LAJcDyzN9oNk4Eo+P/O2utrX/lXD3JJAh2L7djPyckfQU+UR/WUOMeejAiC1JWUOYWlihDKzZFL
+ wn8pW7mDsy4NY2qTidMK0WSUxNio6j5Rpr9WMdnthHcJhzxGJstPWnAZeL7KuoKaUPDzZuwFm7c
+ pYi89g4pufVc6+Lm7bYk64erZQDpSnPxKKFkzt6bhelMSQp8aMArT67olyDF1P91oMVo/UZJYJT
+ lDXMpu6PrwffcZzjTXxUV/KRFmC7+/meed06uYiJGm1KWxfx78HYwzzpoLz+MTSQOZpYOR79nRR
+ mfxUAvrzjnZW31WXm8LU90GNUsfziKHMGJdcWe3orCl3FSkraXcpSf+YD3BWUHvYn3UkFRxnp1J
+ svPfemyoLq+6V9RmOeIt/PatROd4g0G48luPGy+tDX/D9MFYyVDV0vsJlgVz8fYIdvKCXPA8MNw
+ ip3ca10C2lZ052Lj0EzS2YKgsAgmN2JI3BI9pdmwVTcNE26WcQ4GsshdtQApZ4sfXAmo7fLAWU6
+ yI9iypSE2hTgafA==
+X-Developer-Key: i=abel.vesa@oss.qualcomm.com; a=openpgp;
+ fpr=6AFF162D57F4223A8770EF5AF7BF214136F41FAE
+X-Proofpoint-ORIG-GUID: MJNGsXnxDSqLmZXp3wR_OxmpSOnvTJgQ
+X-Proofpoint-GUID: MJNGsXnxDSqLmZXp3wR_OxmpSOnvTJgQ
+X-Authority-Analysis: v=2.4 cv=a4elZkSF c=1 sm=1 tr=0 ts=6adf7c0f cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=Qvngrl3H0rQgGg+94q4QgA==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=FTV9ytXlIdVfh_-C-1sA:9 a=QEXdDO2ut3YA:10 a=zgiPjhLxNE0A:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA2NCBTYWx0ZWRfXxNDEA5H4zBah
+ YrESL1PbbJauFgpChwXJchu0Ll3AxunBOD1iEzHibk6jrRSRtKV54JU4r0N5FMODGgtHpQOqZ/d
+ vafkuoxncZXcdsTUfaY8ll2g7JaJej4=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA2NCBTYWx0ZWRfXwYD1M7hK8LRg
+ cUrlJkjWkoHwq4pYwIhNgUtmiKxN/T3ko6f6MhdteW5AK+pkQQeY1LzW2bHcHKzEj43TIx0unUt
+ st+jYA94Qfeu9SQQXMzDmrRkZ4jG3Qy2kXbO0YixprZ+CUPHmuPKXmo8TRzTwni62PDEnrqkmJw
+ e/UBj2+jDufzIzQD9xdgwCv9uJ7DYoqzFS5trsjjRIBAxeMI0oru6unPre9EF+E5DjULi+U+Uaf
+ TDzVbsjXIzy5aEWa0WKv0T1yZie+bNxbxdc6hVEbDyyMhoSTiL3+FFm8UYVzZhNhVyvsk7AywOf
+ ievAJeGD1yXVE7YbUbOW/C+MPxj2+pe5OpTXIl4zpYlUHRxC/82EuInCpQnS5Nyu/r70ecQlODI
+ uwndwbFwvLjGOSCb5N3rZO7quG2baMGulUGOciNvBzu4ff8FP3F4/5xNd8jIpkRCeExrVakx3Ah
+ yWZt7w+PCZvc69ub7rQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-26_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 malwarescore=0 adultscore=0 lowpriorityscore=0 bulkscore=0
+ priorityscore=1501 impostorscore=0 spamscore=0 clxscore=1015 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610260064
 
-From: Dave Marquardt <davemarq@linux.ibm.com>
+On Mon, 26 Oct 2026 17:14:28 +0530, Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com> wrote:
+> arm64: dts: qcom: shikra: Enable audio on EVK boards
+> 
+> This series enables the Shikra audio path on EVK targets by adding the QAIF
+> CPU endpoint, GPR/APM/PRM services, SoundWire and LPASS macro nodes, and
+> board-level sound card wiring for CQM, CQS and IQS variants.
+> 
+> Shikra EVK variants use different audio components and processing
+> architectures:
+> - CQM/CQS use an I2S-based path with WSA885x amplifiers and
+>   PM4125 + Rouleur codec components.
+> - CQS uses modem-DSP based audio processing.
+> - IQS uses a third-party MAX98091 codec with modem-DSP support.
+> 
+> [...]
 
-Add support for handling IBMVFC_NOOP format CRQ messages from the
-VIOS partner.
-
-Advertise the client's ability to handle NOOP commands by setting the
-IBMVFC_CAN_USE_NOOP_CMD capability in ibmvfc_set_login_info().
-
-Handle and ignore IBMVFC_NOOP format messages in both ibmvfc_handle_crq()
-and ibmvfc_handle_scrq(). In both handlers, log a rate-limited error if a
-NOOP is received while in the IBMVFC_ACTIVE state without the partner
-having advertised IBMVFC_SUPPORT_NOOP_CMD.
-
-In ibmvfc_handle_scrq(), also fix a typo ("Got and invalid" -> "Got an
-invalid"), add a missing return on invalid message types, and guard
-against null event pointers before processing CRQ responses.
-
-Change ibmvfc_handle_scrq() to take a struct ibmvfc_queue *scrq
-parameter instead of struct ibmvfc_host *vhost, deriving vhost from
-scrq->vhost internally. Use &scrq->evt_pool for event validation instead
-of &evt->queue->evt_pool, avoiding a potential wild pointer dereference
-if crq->ioba contains a non-zero garbage token before ibmvfc_valid_event()
-has a chance to validate it.
-
-Signed-off-by: Dave Marquardt <davemarq@linux.ibm.com>
-Acked-by: Tyrel Datwyler <tyreld@linux.ibm.com>
----
- drivers/scsi/ibmvscsi/ibmvfc-core.c | 36 ++++++++++++++++++++++++++++++------
- 1 file changed, 30 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/scsi/ibmvscsi/ibmvfc-core.c b/drivers/scsi/ibmvscsi/ibmvfc-core.c
-index 1cd39d36edf5..b52bf7863b2d 100644
---- a/drivers/scsi/ibmvscsi/ibmvfc-core.c
-+++ b/drivers/scsi/ibmvscsi/ibmvfc-core.c
-@@ -1580,7 +1580,9 @@ static void ibmvfc_set_login_info(struct ibmvfc_host *vhost)
- 		login_info->flags |= cpu_to_be16(IBMVFC_CLIENT_MIGRATED);
- 
- 	login_info->max_cmds = cpu_to_be32(max_cmds);
--	login_info->capabilities = cpu_to_be64(IBMVFC_CAN_MIGRATE | IBMVFC_CAN_SEND_VF_WWPN);
-+	login_info->capabilities =
-+		cpu_to_be64(IBMVFC_CAN_MIGRATE | IBMVFC_CAN_SEND_VF_WWPN |
-+			    IBMVFC_CAN_USE_NOOP_CMD);
- 
- 	if (vhost->mq_enabled || vhost->using_channels) {
- 		login_info->capabilities |= cpu_to_be64(IBMVFC_CAN_USE_CHANNELS);
-@@ -3706,6 +3708,14 @@ static void ibmvfc_handle_crq(struct ibmvfc_crq *crq, struct ibmvfc_host *vhost,
- 	if (crq->format == IBMVFC_ASYNC_EVENT)
- 		return;
- 
-+	if (crq->format == IBMVFC_NOOP) {
-+		if (vhost->state == IBMVFC_ACTIVE &&
-+		    !ibmvfc_check_caps(vhost, IBMVFC_SUPPORT_NOOP_CMD))
-+			dev_err_ratelimited(vhost->dev,
-+					    "Received unexpected NOOP command from partner\n");
-+		return;
-+	}
-+
- 	/* The only kind of payload CRQs we should get are responses to
- 	 * things we send. Make sure this response is to something we
- 	 * actually sent
-@@ -4225,9 +4235,10 @@ static int ibmvfc_toggle_scrq_irq(struct ibmvfc_queue *scrq, int enable)
- 	return rc;
- }
- 
--static void ibmvfc_handle_scrq(struct ibmvfc_crq *crq, struct ibmvfc_host *vhost,
-+static void ibmvfc_handle_scrq(struct ibmvfc_crq *crq, struct ibmvfc_queue *scrq,
- 			       struct list_head *evt_doneq)
- {
-+	struct ibmvfc_host *vhost = scrq->vhost;
- 	struct ibmvfc_event *evt = (struct ibmvfc_event *)be64_to_cpu(crq->ioba);
- 
- 	switch (crq->valid) {
-@@ -4236,7 +4247,20 @@ static void ibmvfc_handle_scrq(struct ibmvfc_crq *crq, struct ibmvfc_host *vhost
- 	case IBMVFC_CRQ_XPORT_EVENT:
- 		return;
- 	default:
--		dev_err(vhost->dev, "Got and invalid message type 0x%02x\n", crq->valid);
-+		dev_err(vhost->dev, "Got an invalid message type 0x%02x\n", crq->valid);
-+		return;
-+	}
-+
-+	if (crq->format == IBMVFC_NOOP) {
-+		if (vhost->state == IBMVFC_ACTIVE &&
-+		    !ibmvfc_check_caps(vhost, IBMVFC_SUPPORT_NOOP_CMD))
-+			dev_err_ratelimited(vhost->dev,
-+					    "Received unexpected NOOP command from partner\n");
-+		return;
-+	}
-+
-+	if (unlikely(!evt)) {
-+		dev_err(vhost->dev, "Received null event\n");
- 		return;
- 	}
- 
-@@ -4244,7 +4268,7 @@ static void ibmvfc_handle_scrq(struct ibmvfc_crq *crq, struct ibmvfc_host *vhost
- 	 * things we send. Make sure this response is to something we
- 	 * actually sent
- 	 */
--	if (unlikely(!ibmvfc_valid_event(&evt->queue->evt_pool, evt))) {
-+	if (unlikely(!ibmvfc_valid_event(&scrq->evt_pool, evt))) {
- 		dev_err(vhost->dev, "Returned correlation_token 0x%08llx is invalid!\n",
- 			crq->ioba);
- 		return;
-@@ -4287,7 +4311,7 @@ static void ibmvfc_drain_sub_crq(struct ibmvfc_queue *scrq)
- 	spin_lock_irqsave(scrq->q_lock, flags);
- 	while (!done) {
- 		while ((crq = ibmvfc_next_scrq(scrq)) != NULL) {
--			ibmvfc_handle_scrq(crq, scrq->vhost, &evt_doneq);
-+			ibmvfc_handle_scrq(crq, scrq, &evt_doneq);
- 			crq->valid = 0;
- 			wmb();
- 		}
-@@ -4295,7 +4319,7 @@ static void ibmvfc_drain_sub_crq(struct ibmvfc_queue *scrq)
- 		ibmvfc_toggle_scrq_irq(scrq, 1);
- 		if ((crq = ibmvfc_next_scrq(scrq)) != NULL) {
- 			ibmvfc_toggle_scrq_irq(scrq, 0);
--			ibmvfc_handle_scrq(crq, scrq->vhost, &evt_doneq);
-+			ibmvfc_handle_scrq(crq, scrq, &evt_doneq);
- 			crq->valid = 0;
- 			wmb();
- 		} else
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
 
 -- 
-2.56.0
-
-
+Abel Vesa <abel.vesa@oss.qualcomm.com>
