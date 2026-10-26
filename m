@@ -1,59 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.227
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793036753;
-	b=g69Orc95YqwcGYJRqA7eBON8mnFq/zXgQc1IcrUG7S7DwKs27lKQj6kR3VLXoLnaXGLl
-	 gz95AJbL7Zk3boVkYE0YbIPuiD48oHAHGaUBivAZEedSjpVhoueZLkrzmRQSe+HXOSe8/
-	 uDO99iRuEU+JlTLwane97e5Jawh70wVh4isSPSuiQcnWv+jlnygM3aFg5AUDGY2/EWOoV
-	 +w6jPGHDa2zQPw4TZei9sCYKl8W6qS53ZaARTEBIkc7ggN/Y0yajMomDO5n+LYwObgguZ
-	 ZLch4k2J4HOHHFOs74462Nenl5tfkrEebT+fOcnW8t00kmAcmKKX0M9CtJyIC48nFow==
+	t=1793036750;
+	b=zC3/IHw0+K3e6mavOHHZqq61fvtrUCCLzyPwxA9txE16fgXtwPWxbc0DXi9dCNXs4QCH
+	 0FxP+hgGYK2reaylTjYnEP1KwcvxKZH2M89zpM98424TOVbDz+4np8/4S1df3+70gPBFF
+	 sJU77P+h6YiW0h4Kaby2yEPDFy3EYFfDk8uYV5x8QdZO9PQrpe4Z3/LsIiiko8WoLb8ac
+	 2pss4k1gzLVeEI/Y3n8MOopVHZvW3I41vbY6ODrlOY4NYKZoUFv9j2bj4qS0x8+2iyodA
+	 NTBLJu2HMjInjG/0yjEao7Qfc/o32j9xJemv6StZDPpWNRffpAtAdEHM1Eu0eCV6j/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793036753;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=5IWVNWzcWZ7/GsRgxjWRJKgZOwK5XXA78Ujm2BtrSno=;
-	b=vmvhb/+ioMyvPXfWEHoxHMR/moswSbxs2OZ2uRLnYcB46COBO68VR684QrcZYWlqaF0O
-	 HObLZYT8Mgx2/dF5flhmUD2mNAqlEW0ahVysINzInDxFiDvbm+JEeePww1sc/Xha0scPd
-	 vJCZcf8SfR/3kTwjlzDyk35WGg+6B/HoTqN3Dvo30Huvp7EjuVumjVBnjR3LqsEjcm/xV
-	 jsue077t9OWnR6RxAUjhdptSMzPZyHwD0XPyVr9YepFZPbtqST2pOI1V6ncTOTFFesQ8f
-	 0Q6oFfSerz3+0iViInYgPPB2n9xun9YaOaTes/8OstuWhzLe86zC8QvigcakuCrRHbg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793036750;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
+	 X-Gm-Gg:X-Received:Received:X-Relaying-Domain:X-CFilter-Loop:Received:
+	 DKIM-Signature:X-Received:X-Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-DetectorID-Processed;
+	bh=EkPvFgQc8FbM9LSXUf6KgPjczi0z70sToct6/kDqPXc=;
+	b=L0+RWDnmw48UgnAiH9MJ3u8qdNhjXJF9UYgigca+1d0nAAqORY/CNCzwBKodWLXp0Yko
+	 B3m5O2dklkI+NNv0pEFYXXYXJaTaP98NE+t5/DPPHWBa9/0ThMNhMwTvjlTyJA3W8IosM
+	 J1eGd9+gVAITjmIwcKEjlkUbXWH9+7RZ9ru2EX4bLHHlibPZKfTID+JrL/TT9Nz2gFeta
+	 0z0P1YeB0Luu+INLSGidi3xobLiO+NsuuCimbAulUcx2FFAkvTwT0f3RQZuiFleV0Nnuw
+	 jpBPbiQTrTgE2oqFAqX6iRTFAbcKWPDYsGXyUlWkDnkDY4q6Fp0gWnjm7srfTEgTWQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j6opAFdH;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=Hi90HxGm;
+	arc=none smtp.remote-ip=209.85.215.227
+Received: from mail-pg1-f227.google.com (mail-pg1-f227.google.com [209.85.215.227])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 537BE606A320;
-	Mon, 26 Oct 2026 17:45:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B81F606A31E
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 17:45:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B81F606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j6opAFdH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AA4E1F01825;
-	Mon, 26 Oct 2026 17:45:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793036752;
-	bh=5IWVNWzcWZ7/GsRgxjWRJKgZOwK5XXA78Ujm2BtrSno=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=j6opAFdHGTFw3fY8Z5qzGqRZIe4yMxwbyAs2wwsyrvXGve2gsnIT/guUhKJO2/Frq
-	 JI0/SsX5Jj4lRaN5CEXoBVSzyB6f2SyOGTJGYP+cuml26IJGKb4du8wTuoGAQtB/zT
-	 BkydhsgwCS1Nl0aATTX83VKuhvQj77pjf8r1sWnsHMrsq1SnaKrEpvsBV0ma0HRHP3
-	 mBs2TPFQjLGjM0jO1/9Ejo8i/n9GZ4sx5uig9KoIqIRwWx0OWmuSkKvLTSDNvzyjbj
-	 CCxBb7qykPQ6YiujRUB1gG+Qkz2db9Wypff+w/ukUZCuBlzZgQCOx7fcNfKy097A96
-	 HlSalAZl5WHGQ==
-Subject: Re: [PATCH net] sctp: fix ASCONF address change on single-homed hosts
-From: netdev-bot+sashiko@kernel.org
-To: andrey.misyrov@gmail.com
-Cc: marcelo.leitner@gmail.com, lucien.xin@gmail.com, junvyyang@tencent.com,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, linux-sctp@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Mon, 26 Oct 2026 17:45:51 +0000
-Message-ID: <179303675173.3134.11217955296529787762@kernel.org>
-In-Reply-To: <20261022163639.2566945-1-andrey.misyrov@gmail.com>
-References: <20261022163639.2566945-1-andrey.misyrov@gmail.com>
-X-sashiko-severity: Critical
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=Hi90HxGm
+Received: by mail-pg1-f227.google.com with SMTP id 41be03b00d2f7-cc7e79c1eaaso1156250a12.2
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:45:50 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793036750; x=1793641550;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=EkPvFgQc8FbM9LSXUf6KgPjczi0z70sToct6/kDqPXc=;
+        b=enHvcuOJVhtnQmNEsKEvPr6va1HUffp9L/QUSiQz7YaNzjUTq0Va1DoAERruc+E0/u
+         y37adXUQU+MyrsNFH5Q4wbT5vCfiCNLFUKcHKGpsnuj7sXvBFWDQl+o8FETwmGfCtAzB
+         foR7N/bCgKhO5Gf+FvyDzQDaruwysXW39PxqedNDdyKhfZngr9GijBAFXdYWgwyWz/QH
+         00sf09LpOVeK8fqwWxL/9OfEmwKjHxIH6pEnSCjg4YLCHEPIghHntkEs6WB0tyANz9kC
+         IJSSRpztvaVRmlooUUYVspt9lSFjDFf056QY/NgSWk7VcHKCNFXeVR6Um3+g0lUozmIB
+         wlzQ==
+X-Gm-Message-State: AFq9FYLCLIORc/rR8qfVGuUwFacrlxeWkrtS9kqlkPiP4Qcqe0C5/m6q
+	TEdWphCOx2K1kNiNnagBkim4oFA5lmjqJ+KjtsH0v/U7XaMjlS1JzEvP99RzVYZJ3XmcqTdq172
+	yFVG9YyO7jdr1WXFUdtlT5f5olcZRl0PSGoE6zpngGm2PoOvliUks6ZIJ9XQlKuoZoTaxrsv4ko
+	IlQBVKzhxU/YWKfnsVmGbYDkDCETAWbyWwlTuM9e8IcWe/RmGPR0mDp4RlV7QWfkzuz425jptC2
+	E2sr3FMLBRDaN/VX/w6y++5m9E=
+X-Gm-Gg: AYBFou1i/OHnvZuMgL1PO8p0lgBYX//AamQ8cXhgGsXRiSyz156m918HstYbr6t4Kd9
+	rS9W+CQ8jkwEm5FET18zcCV1irvj6YGBW0saXH1kv02x6cI9AraGNXlUW3ytMOVKsFz/UwwqeW4
+	PNizopgufxBWxBukdn4QZ0ST7pfBkldUnIAs7XFOWehEhGxBb4oS6nkh9zwhFmxGYiciDy+0dyi
+	csK0NmgXX/EI+uOz01H9XIlw/GCIRLNevBelJQqS6BgnR891zRXmJt/1s8kjEvWnxLMv1UKdM+d
+	Nh7DVUfdMr2NWORx9gtNGCEsSLiKzpKGJvOuOBy5dGAXOOqSDoZ1ZHQaP94JhE+K79NBY6v7/UR
+	gJdWltG+HwplC3GKL9YDVZ7AxwhN1WBKiMwR1J9qA2yW1EwwxNnadRanVXUHEX30PLkizBecitC
+	HA4XrTU05dVOL2Xr1PrHY/F/sLfjC4TX75ARHOIU/T
+X-Received: by 2002:a17:90b:4cc4:b0:3ac:b197:1a37 with SMTP id 98e67ed59e1d1-3ade9b2d399mr6229299a91.3.1793036749542;
+        Mon, 26 Oct 2026 10:45:49 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-23.dlp.protect.broadcom.com. [144.49.247.23])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3ae4063d1e9sm182555a91.7.2026.10.26.10.45.49
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 26 Oct 2026 10:45:49 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-18b5ee75447so3080698c88.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:45:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1793036748; x=1793641548; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=EkPvFgQc8FbM9LSXUf6KgPjczi0z70sToct6/kDqPXc=;
+        b=Hi90HxGmwFReqqAgsF/9ATlmlNRol5IUELd2Wm18czE0Jy0ZPhvjbR/u5wj6Dzc7XI
+         WSXfWxXdgj1HUMHwAdAvMFtWkVoGKHXSaIo6/1G9kqhv7jhd/NUsPyFUx+CXYZCUr6kW
+         t6eiGbJeCLhuc6loJ1tRJ+x4n/PZqfIcltju8=
+X-Received: by 2002:a05:701b:230e:b0:167:d73a:e994 with SMTP id a92af1059eb24-1993658f1f8mr9164895c88.24.1793036747873;
+        Mon, 26 Oct 2026 10:45:47 -0700 (PDT)
+X-Received: by 2002:a05:701b:230e:b0:167:d73a:e994 with SMTP id a92af1059eb24-1993658f1f8mr9164844c88.24.1793036747049;
+        Mon, 26 Oct 2026 10:45:47 -0700 (PDT)
+Received: from fainelli-desktop.igp.broadcom.net ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-19894d5a10csm25820555c88.1.2026.10.26.10.45.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 10:45:46 -0700 (PDT)
+From: Florian Fainelli <florian.fainelli@broadcom.com>
+To: linux-kernel@vger.kernel.org
+Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	Andi Kleen <ak@linux.intel.com>,
+	linux-perf-users@vger.kernel.org (open list:PERFORMANCE EVENTS SUBSYSTEM)
+Subject: [PATCH] perf print_insn: Include sys/types.h for ssize_t
+Date: Mon, 26 Oct 2026 10:45:31 -0700
+Message-ID: <20261026174535.3157580-1-florian.fainelli@broadcom.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,153 +116,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+print_insn.h declares fprintf_insn_asm() with an ssize_t return type but
+does not include the header defining that type. This causes builds where
+stdio.h does not provide ssize_t to fail when compiling util/print_insn.c:
 
-Critical: 1 · High: 0 · Medium: 0 · Low: 0 (1)
+  util/print_insn.h:21:1: error: unknown type name 'ssize_t'
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Include sys/types.h so the header provides its own dependency for ssize_t.
 
-- [Critical] The patch rewrites the wildcard DEL-IP (0.0.0.0) branch of
-  sctp_process_asconf_param() (net/sctp/sm_make_chunk.c:3153-3159) to…
+Fixes: 218c200f677d ("perf script: Consolidate capstone print functions")
+Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
+---
+ tools/perf/util/print_insn.h | 1 +
+ 1 file changed, 1 insertion(+)
 
-Pre-existing issues:
-- [Low] The wildcard SET_PRIMARY branch of sctp_process_asconf_param()
-  (net/sctp/sm_make_chunk.c:3182) takes the packet source address from…
-
---
-
-sctp: fix ASCONF address change on single-homed hosts
-
-This patch drops the refusal of a plain DEL-IP of asconf->transport that
-commit 9b2854f86f0b added, so the RFC 5061 5.3.2 single-homed address
-change works again. The wildcard DEL-IP branch now looks up the
-transport of the packet source instead of reusing asconf->transport. The
-plain DEL-IP branch now clears asconf->transport when it removes that
-peer.
-
-> diff --git a/net/sctp/sm_make_chunk.c b/net/sctp/sm_make_chunk.c
-> index ddc31a5dbad32..2b76e451d5cb0 100644
-> --- a/net/sctp/sm_make_chunk.c
-> +++ b/net/sctp/sm_make_chunk.c
-> @@ -3151,9 +3151,11 @@ static __be16 sctp_process_asconf_param(struct sctp_association *asoc,
->  		 * packet MUST be deleted.
->  		 */
->  		if (af->is_any(&addr)) {
-> -			sctp_assoc_set_primary(asoc, asconf->transport);
-> -			sctp_assoc_del_nonprimary_peers(asoc,
-> -							asconf->transport);
-> +			peer = sctp_assoc_lookup_paddr(asoc, &asconf->source);
-> +			if (!peer)
-> +				return SCTP_ERROR_REQ_REFUSED;
-> +			sctp_assoc_set_primary(asoc, peer);
-> +			sctp_assoc_del_nonprimary_peers(asoc, peer);
->  			return SCTP_ERROR_NO_ERROR;
->  		}
-
-[Severity: Critical]
-
-Can this leave asconf->transport pointing at a freed transport?
-
-Suppose __sctp_rcv_asconf_lookup() found the association through the
-ASCONF Address Parameter L. Then asconf->transport is T(L), while
-asconf->source is the packet source S. Take a packet from a new source S
-like this:
-
-  [AUTH][ASCONF: AddrParam L, ADD-IP S (or ADD-IP 0.0.0.0), DEL-IP 0.0.0.0][DATA]
-
-ADD-IP S creates T(S). The wildcard DEL-IP then keeps T(S) and removes
-everything else, including T(L):
-
-sctp_assoc_del_nonprimary_peers(asoc, T(S))
-  sctp_assoc_rm_peer(asoc, T(L))
-    sctp_transport_free(T(L))
-
-Nothing in this branch clears or retargets asconf->transport. Only the
-plain DEL-IP branch below does that.
-
-sctp_inq_pop() reuses the same chunk struct for the bundled DATA chunk.
-sctp_assoc_bh_rcv() then runs:
-
-	if (sctp_chunk_is_data(chunk))
-		asoc->peer.last_data_from = chunk->transport;
-
-This stores the removed T(L). The last_data_from fixup in
-sctp_assoc_rm_peer() has already run, so it does not catch this.
-sctp_rcv() then drops its lookup reference, and T(L) is freed after the
-RCU grace period.
-
-When the delayed SACK timer fires:
-
-sctp_gen_sack()
-  trans = asoc->peer.last_data_from
-  sctp_make_sack()
-    retval->transport = asoc->peer.last_data_from;
-  ...
-  sctp_outq_select_transport()
-    reads new_transport->state
-    list_add_tail(&ctx->transport->send_ready, &ctx->transport_list)
-
-Is that a use-after-free read and write of the transport?
-
-Before this patch, the wildcard branch always kept asconf->transport, and
-9b2854f86f0b refused a plain DEL-IP of it. So asconf->transport could not
-be freed during ASCONF processing.
-
-Any peer of an association with ASCONF enabled appears able to reach
-this, including a well-behaved peer following the RFC 5061 wildcard
-procedure.
-
-Would it close this to set asconf->transport = peer after
-sctp_assoc_del_nonprimary_peers(), or to clear it whenever it is not the
-surviving transport?
-
-> @@ -3166,13 +3168,9 @@ static __be16 sctp_process_asconf_param(struct sctp_association *asoc,
->  		if (!peer)
->  			return SCTP_ERROR_DNS_FAILED;
->  
-> -		/* Don't free asconf->transport; a later wildcard DEL-IP
-> -		 * parameter reuses it.
-> -		 */
-> -		if (peer == asconf->transport)
-> -			return SCTP_ERROR_REQ_REFUSED;
-> -
->  		sctp_assoc_rm_peer(asoc, peer);
-> +		if (asconf->transport == peer)
-> +			asconf->transport = NULL;
->  		break;
->  	case SCTP_PARAM_SET_PRIMARY:
->  		/* ADDIP Section 4.2.4
-
-[Severity: Low]
-
-This is a pre-existing issue and was not introduced by this patch. The
-wildcard SET_PRIMARY handling in sctp_process_asconf_param() uses
-sctp_source() instead of &asconf->source:
-
-	if (af->is_any(&addr))
-		memcpy(&addr, sctp_source(asconf), sizeof(addr));
-
-sctp_source() returns &chunk->transport->ipaddr whenever chunk->transport
-is set. When the association was located via the Address Parameter
-(transport T(L), source S), SET_PRIMARY 0.0.0.0 makes L primary instead
-of the packet source S. That doesn't match the comment. The ADD-IP and
-DEL-IP wildcard branches both use &asconf->source.
-
-With this patch the result also depends on parameter order:
-
-- After a plain DEL-IP L clears asconf->transport, sctp_source() returns
-  S.
-- After a wildcard DEL-IP, it returns the ipaddr of the removed T(L), the
-  dangling pointer described above. The lookup then fails and the
-  parameter gets SCTP_ERROR_DNS_FAILED.
-
-Should this branch use &asconf->source like the other two?
-
+diff --git a/tools/perf/util/print_insn.h b/tools/perf/util/print_insn.h
+index cefa5c5f246e..3de9438af9cd 100644
+--- a/tools/perf/util/print_insn.h
++++ b/tools/perf/util/print_insn.h
+@@ -4,6 +4,7 @@
+ 
+ #include <stddef.h>
+ #include <stdio.h>
++#include <sys/types.h>
+ 
+ #include <linux/types.h>
+ 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261022163639.2566945-1-andrey.misyrov%40gmail.com
+2.53.0
+
