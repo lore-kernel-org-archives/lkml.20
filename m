@@ -1,76 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793044103;
-	b=AHCc9S83LG1SxgByQj0nRddXYyvjb3EigVFak9RHDej4lelevFbgRFRaT7p3uph6fP+s
-	 9D8726vrQhe7Lnc/g7itDkkw8WpZAOTDndJYrbphRLL4nX2QBIZA/F97AGqgQMpjQhvJP
-	 wOP93q0ruL4HbsYEUaGOCLF99WBqSWaYmpQ3ss4hz56dF1Rf8ngm02IsJFcpl50Niidv2
-	 u3Q+KAg5ifZpTdk3nZmjnuMaLrdyxFWXiZLwPpWGl91Tl55E4yNPHJsTNN9jP3Kz+yIcy
-	 tFOmnv1JaV5grtPcz8MSGmz12qh2QRIO5T45ehBJTTewq5jcZhth6KlhWmIsrXoOMrA==
+	t=1793044289;
+	b=0xZ7pBA/z6Uwp8w5b3/7orFYHlR3Z268PvJ4wAS1O36sgeKuwAHOGYA3gYmu3aYxWTHK
+	 4IwAuA/b8jdrjZ5OhaDi87YeemdJw0qAcgjVDNBsvz82jW/X8w2sB1+W4zb44/glsU/Qc
+	 mjvjNhDIX82NrSrtjciDa42PQItVH6uCkLuBL9sC6b4W4eYpEqgVuQH8G0iXSd8OqfL70
+	 s/PRjd4yvebhmRMStlsg8jqO2CnJvfKg+iv9eRWQKZWkNpboVUwICsmcDWWeELAjr6Sc/
+	 t6T0K75MOgAtqYKoA4yLHHt8yCSrEwBK3JBjxtslCdKNWxnYhw3nsKeLqZ2tBHDOZSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793044103;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=5gIl0t6kJCxw2MNLMNSbR+KgSku/5SVUrggtOh2gw7g=;
-	b=vG+WY61LBf1xIW+FDjLS8gwVkbhQF4pxupGfIEtwv8UhoDJbl7Xek//Bx01zvxoVQEtg
-	 +UZDVYn0nzDP6p7rPTb+2FvtN86W37fbQ6jgkM+D8QOvgTq0Z1FJQ20R3kgs0Y6N3rQaE
-	 Zxtu93kR4nLLxx0oYg+50gi9XuREWqSL1Br6D92fofwH7rrtU/OpnV0EBk7OPz340YQCJ
-	 Y7hYhf7JnKTkJOX+dEi5OHOw1dw0be0aWNbgymkik1/KY2+CfAx9rSXrGv2plgmndzIXZ
-	 5uNkYfXF68so4fYnOOfzPZOMoo9B9j084CYWkpeCXq/41xeAOrsshYG68DVYBk6JZqQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793044289;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=RZowu2CZSoWrtBGCqSS1fXlX08mpdG8XiB36UcwU8S8=;
+	b=oP4Fs8qUtDtm4jUy5iFwp2zNnj64x28b4Dcw1RowuLi7UjXBGoeuBWIDcZ5Ny3zBjLhD
+	 kNqzjLDqTYLddGmxxwZQ5SeMqHsTsRDA2/B7lJXrTj1Jlj5QKtMGxn6LjQxnSADn4XDDx
+	 AyCkiL6Nx8If3xYAGQaQDJrO/vnWYLa/Qgp/ISk1qCFn98faeeUyA605lvCjBKRACUNb0
+	 inON8UWBNoIlnSBzP9XTwEfMsHBeFd72zMWLzYOx/VRahQPXWqX7vZeVd9AeMmjWK7WXq
+	 2p59wQPmkhs3GEDUyAMOw0B9uIiyKfyEaq0vL5tX5S7zAr0fhxlMv7lE2K4TnSg4Y9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="n/l4QQ7c";
-	arc=none smtp.remote-ip=198.175.65.18
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=GJj+EOMe;
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D61B7606A31A;
-	Mon, 26 Oct 2026 19:48:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D61B7606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27554606A32D
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 19:51:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27554606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=n/l4QQ7c
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793044102; x=1824580102;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Pt5t8K/pIpbSSx50cuHnBxf5hCIfQ1RsdhJ9lGlqrtk=;
-  b=n/l4QQ7cAM/33rSmNpi89VlJVko3UYqrm4zREJUu0+nhg+MMCZ6hpuNf
-   Rxlre0wRosbA0xQjCdFyIuFBUAmV5vXoZQ9Tp+1UInFStxVbSdperIeDS
-   IYLHuTtXvi+Vc+HrtIdpbNz4gGOLzg4Pal6j0S1XT+2EZp4Blsf5pw6Ym
-   OsOeMtuV6pGcAzIQsdC6DIEHTRdPtCgxhC1CKj3TpGvLqHaLkzlHLYRpj
-   gonsTKHgK1jODjnndedOTk8/Ng0bHTD8Hk9hfW4Z1DwwuvtYHtR+bKm6g
-   nuhGp/lJaXcWoNqHpIbbegDO58cmiyhoBYBfp1EfTHxRWcIX5chNXF9qZ
-   A==;
-X-CSE-ConnectionGUID: 5ezgg+jiS8yxOns8T0FbCQ==
-X-CSE-MsgGUID: shL4GuuaQW+r3LhXDzD0ag==
-X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1733712"
-X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
-   d="scan'208";a="1733712"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 12:48:21 -0700
-X-CSE-ConnectionGUID: wYcMSyN3TkOuTFxQ4XQvxw==
-X-CSE-MsgGUID: cd3MrB2mSx+36nNCMKn/pw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
-   d="scan'208";a="4746044"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.93])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 12:48:20 -0700
-Date: Mon, 26 Oct 2026 21:48:17 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Victor Chernyakin <chernyakin.victor.j@outlook.com>
-Cc: andy@kernel.org, dlechner@baylibre.com, jic23@kernel.org,
-	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
-	nuno.sa@analog.com
-Subject: Re: [PATCH v2 3/3] iio: cdc: add Texas Instruments FDC1004 driver
-Message-ID: <at-ugcvhOmPFpJP6@ashevche-desk.local>
-References: <at8g26_l5JVbqs2i@ashevche-desk.local>
- <SN1PR12MB25284A3A9B89F3CC50689527A5612@SN1PR12MB2528.namprd12.prod.outlook.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=GJj+EOMe
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a2084d62cdso26984465e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:51:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793044286; x=1793649086; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=RZowu2CZSoWrtBGCqSS1fXlX08mpdG8XiB36UcwU8S8=;
+        b=GJj+EOMeAgyR3cQmT8Uu/sQpyLca+gU+lWlclg67e8kbtkVYTrhnSge8YR+D7poqvw
+         PET7XQV5Jy6gG3Zsi2sFqpILlqZF8xsLwYLurJD+mZwCbOXZXqjWljZ24wXN53AVe2Ps
+         o2ztpckza7lfbzt2YCmDcj5+SU3M0bimYQVPPI6VOuF96Zl8vgxq/fpI9oc+TRai0Jtl
+         gmXd17KKHCRC/gqEltyxYIbDnY6Nz6ziGBxnakjhu04L+4xxbridpQysQOsq/y2tbduX
+         nfZsYZ70S2LI2pRPydbILyQe/EfVtULkWsj9iD4J2eupTHLiLAmiCHmwu80rWmT7dW8E
+         wVHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793044286; x=1793649086;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RZowu2CZSoWrtBGCqSS1fXlX08mpdG8XiB36UcwU8S8=;
+        b=1+r8/5IvdFT60gy0wrJGnT1NNKgA39IV9Q/FpGjJb2CeVYGpUVH6dIdylk3YMGtUEB
+         FiCXEFfcA9PLw6JbXnXitsWj0dt0VPeWRSphcMSlH681pP+H8Hy8FaoGpbsK3YwiNmBb
+         EiplzEoLO9KmtmdYLyboAbGSf/Xp0fCX17sHmAEk/0HE+bRHxTAHyuHZfaX7orQofpK4
+         plFJ+tnBRh0Rci1gyDwbsgCPJL1jdq/FjAUvIyUk0/l1aU1P2/MRARgdB/DItFTUi7Bh
+         Yakx2FI1Lk0hSBS5aG8c4lJFxOPK6cOza+nuNKXl4JDiI66I7J25sHTA6Wh51XKF1N7a
+         3FOg==
+X-Forwarded-Encrypted: i=1; AKwUvBwJtUjfQwemvjONVXhIncCgT/8JMEVbPXK+OaP2d4R2GXpJiR/fUlcQydE/BuQVmYA3OFkfjv8tBX0CgQo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIDn97ntsZshUYdev/2ErlTR3YxuB8E3or1Xib4sFWV4Q/FA2Tw
+	qtXOsPE8PhpmQ+maPR27utmO694VYWBeaeS6byv4rPtPOFRnCwN6FjYo
+X-Gm-Gg: AYBFou26hh4jqcvqQOHoO6wOuNjWamPI//8d71PJNX844BIttdfQluGU4oaFaOkEOdW
+	Nppn0dFmOWS6vAuueoSYppc6boBROKEUVegjCwinx1PXmlQ5mOI6eI7AW6apPKQugY2WJjGqr9L
+	+YMXONWiGM7mIQsCEQHtCEHDpacGlIf+NaESjaOXV3R8jHi/Ij4HDoUfmMNZWlUoIdKIHaMuR7b
+	owF+J7quOk7eoyg7Zd7QFvDvR4ajmtM1sAxwHHbNyYgQmuknkklZ2qlVYq3tNKqlqS8Ul70a6aW
+	4a5TMqmHjGaEQrgvzTFTBOLncPuWhrYW2ujB4l4+IbzC7bC3YQ6h0k+RyUASG3+O0804FV7XjSs
+	bTvhxkdni88PTPfr9Gaht4LUUEfTX2evxDyv73qx5pCGFYTjZ0scdV8lno4geNtHTsjDoilZ8yy
+	E4ojujJzCSezaTpGkWYdmXixyFJt90joAaYBr5xD90kaEtmXg6HPWPFp9ZPMll25rgp1c9q52YX
+	SuZh4ra9JURi2E13PWUYkT2NLukEn+02inFyb1lmKtwX2swW2+PzFM3ERakmXKt9SawyrWVHnpD
+	DUB5b2S7k2SgTdpvwmTgeDtffNZKqQbbyxPqzIoJj5C0IRWAeZpN1tSWtpaXwmWNffJj5lbY/rW
+	368GLFvizIcgwlaLvKEb+BFmMKmBJZWzdXmqQKruS+GE5hzxzp9H4ESlUbYQY07IPTVx3WIyRez
+	QufRPO
+X-Received: by 2002:a05:600c:1c03:b0:4a6:42cc:bf65 with SMTP id 5b1f17b1804b1-4a642ccc7b2mr89258385e9.17.1793044286305;
+        Mon, 26 Oct 2026 12:51:26 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a00-1028-8388-a84e-8ce1-bbf6-5949-b0f3.ipv6.o2.cz. [2a00:1028:8388:a84e:8ce1:bbf6:5949:b0f3])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebc3c5bsm18877654f8f.9.2026.10.26.12.51.24
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 26 Oct 2026 12:51:25 -0700 (PDT)
+From: Josef Schlehofer <pepe.schlehofer@gmail.com>
+To: Lee Jones <lee@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: =?UTF-8?q?Pali=20Roh=C3=A1r?= <pali@kernel.org>,
+	=?UTF-8?q?Marek=20Beh=C3=BAn?= <kabel@kernel.org>,
+	Andy Shevchenko <andy@kernel.org>,
+	Rong Zhang <i@rong.moe>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+	Griffin Kroah-Hartman <griffin@kroah.com>,
+	linux-leds@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-api@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v4 1/2] dt-bindings: leds: Add CZ.NIC Turris 1.x LED controller
+Date: Mon, 26 Oct 2026 20:51:19 +0100
+Message-ID: <20261026195120.12759-2-pepe.schlehofer@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261026195120.12759-1-pepe.schlehofer@gmail.com>
+References: <20261026195120.12759-1-pepe.schlehofer@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,62 +112,188 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <SN1PR12MB25284A3A9B89F3CC50689527A5612@SN1PR12MB2528.namprd12.prod.outlook.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 26, 2026 at 12:06:36PM -0500, Victor Chernyakin wrote:
+From: Pali Rohár <pali@kernel.org>
 
-> > > regmap gives us the two 16-bit registers in native CPU endianness.
-> > 
-> > It's only if you specify endianess for the whole communication of regmap.
-> > I'm too lazy now to check the original patch, but if it's not specified,
-> > it means the device native endianess, whatever it is on per register basis.
-> 
-> We do specify it, yes (the chip is big-endian).
-> 
-> > > If the CPU is little endian, that means the overall 32 bits aren't in
-> > > __be32 format (because the two bytes in each of the halves are swapped).
-> > 
-> > But yes, even if you do it in the device native endianess, it will still be
-> > a pair of 16-bit values with the halves being swapped in case of treating
-> > them as a single 32-bit value. This is unfortunate... So, basically this
-> > needs to be elaborated in the comment above (where you refer datasheet).
-> 
-> Can you clarify what you want elaborated? (or are you saying, *if* we
-> were working in the device's native endianness, *then* we would have to
-> explain that in the comment?)
+Add a binding for the LED controller on the front panel of the CZ.NIC
+Turris 1.x routers. The LEDs are controlled by the firmware of the
+CZ.NIC CPLD, which is memory mapped on the local bus.
 
-In the comment you can add something like "We may not read these
-two registers in a bulk transfer because they are 16-bit wide and
-the byte order in the compound 32-bit value will be wrong."
+The turris1x.dts device tree, which is part of the mainline kernel since
+v6.0, already references this compatible string.
 
-Yeah, we can address that by swapping 16-bit parts, but it might
-make code worse to read (and possibly affect generation as well).
-(FWIW, we have even swahw32() for that.)
+Signed-off-by: Pali Rohár <pali@kernel.org>
+Co-developed-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
+Signed-off-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+---
 
-...
+Notes:
+    Changes in v4, by Josef Schlehofer:
+    - add Rob's Reviewed-by
+    - move the Cc: line out of the commit message (Andy)
+    
+    v3: https://lore.kernel.org/r/20260928111907.72592-2-pepe.schlehofer@gmail.com/
+    
+    Changes in v3, by Josef Schlehofer:
+    - drop the file name and "binding" from the subject
+    - describe the hardware rather than the driver
+    - fix example indentation and use the merged turris1x.dts node
+    - set Josef Schlehofer as the binding maintainer
+    - constrain color to LED_COLOR_ID_RGB
+    - list the required controller and LED properties
+    - describe the register range and the LED order in the reg properties,
+      and put the SPDX expression in parentheses
+    - pass dt_binding_check with dtschema 2026.9
+    
+    checkpatch asks whether MAINTAINERS needs updating for the new file.
+    The MAINTAINERS entry that covers it is added in 2/2, together with
+    the driver.
 
-> > What I meant is to compare decomposed val64 as well.
-> 
-> Hmm, if we only worked with the decomposed values, I think we would have to
-> write something like this, which is probably even worse...
-> 
->     if ((val < fdc1004_calibscale[0][0]) || 
->         (val == fdc1004_calibscale[0][0] && val2 < fdc1004_calibscale[0][1]) ||
->         (val > fdc1004_calibscale[2][0]) || 
->         (val == fdc1004_calibscale[2][0] && val2 > fdc1004_calibscale[2][1]))
->         return -EINVAL;
+ .../bindings/leds/cznic,turris1x-leds.yaml    | 132 ++++++++++++++++++
+ 1 file changed, 132 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/leds/cznic,turris1x-leds.yaml
 
-It can be avoided by using a helper to validate. Also the meaning of the outer
-and inner indices is clearer. With one-dimension array it's unclear what those
-indices mean. Ideally the outer indices should match something with datasheet
-and in some cases can even be named.
-
+diff --git a/Documentation/devicetree/bindings/leds/cznic,turris1x-leds.yaml b/Documentation/devicetree/bindings/leds/cznic,turris1x-leds.yaml
+new file mode 100644
+index 000000000000..ad7ef7015f0b
+--- /dev/null
++++ b/Documentation/devicetree/bindings/leds/cznic,turris1x-leds.yaml
+@@ -0,0 +1,132 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/leds/cznic,turris1x-leds.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: CZ.NIC Turris 1.x LED controller
++
++maintainers:
++  - Josef Schlehofer <pepe.schlehofer@gmail.com>
++
++description:
++  The front panel of the CZ.NIC Turris 1.x routers carries eight RGB LEDs
++  driven by the CPLD firmware running on a Lattice FPGA. The five LAN LEDs
++  share one set of colour registers, so they cannot be given different
++  colours or brightness from each other. The CPLD firmware is open source
++  and available at
++  https://gitlab.nic.cz/turris/hw/turris_cpld/-/blob/master/CZ_NIC_Router_CPLD.v
++
++properties:
++  compatible:
++    const: cznic,turris1x-leds
++
++  reg:
++    description:
++      CPLD address range of the LED registers. It starts at the first colour
++      register, offset 0x13 in the CPLD, and ends at 0x2f; the offsets of
++      the registers inside the range are fixed by the CPLD firmware.
++    maxItems: 1
++
++  "#address-cells":
++    const: 1
++
++  "#size-cells":
++    const: 0
++
++patternProperties:
++  "^multi-led@[0-7]$":
++    type: object
++    $ref: leds-class-multicolor.yaml#
++    unevaluatedProperties: false
++
++    properties:
++      color:
++        const: 9  # LED_COLOR_ID_RGB
++
++      reg:
++        description:
++          Index of the LED, which is also its bit in the CPLD LED control
++          registers. 0 is WAN, 1 to 5 are LAN 5 to LAN 1, 6 is WiFi and 7 is
++          power. The CPLD source calls LEDs 1 to 5 lan1 to lan5 and the WiFi
++          LED status.
++        minimum: 0
++        maximum: 7
++
++    required:
++      - reg
++      - color
++
++required:
++  - compatible
++  - reg
++  - "#address-cells"
++  - "#size-cells"
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/leds/common.h>
++
++    led-controller@13 {
++        compatible = "cznic,turris1x-leds";
++        reg = <0x13 0x1d>;
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        multi-led@0 {
++            reg = <0x0>;
++            color = <LED_COLOR_ID_RGB>;
++            function = LED_FUNCTION_WAN;
++        };
++
++        multi-led@1 {
++            reg = <0x1>;
++            color = <LED_COLOR_ID_RGB>;
++            function = LED_FUNCTION_LAN;
++            function-enumerator = <5>;
++        };
++
++        multi-led@2 {
++            reg = <0x2>;
++            color = <LED_COLOR_ID_RGB>;
++            function = LED_FUNCTION_LAN;
++            function-enumerator = <4>;
++        };
++
++        multi-led@3 {
++            reg = <0x3>;
++            color = <LED_COLOR_ID_RGB>;
++            function = LED_FUNCTION_LAN;
++            function-enumerator = <3>;
++        };
++
++        multi-led@4 {
++            reg = <0x4>;
++            color = <LED_COLOR_ID_RGB>;
++            function = LED_FUNCTION_LAN;
++            function-enumerator = <2>;
++        };
++
++        multi-led@5 {
++            reg = <0x5>;
++            color = <LED_COLOR_ID_RGB>;
++            function = LED_FUNCTION_LAN;
++            function-enumerator = <1>;
++        };
++
++        multi-led@6 {
++            reg = <0x6>;
++            color = <LED_COLOR_ID_RGB>;
++            function = LED_FUNCTION_WLAN;
++        };
++
++        multi-led@7 {
++            reg = <0x7>;
++            color = <LED_COLOR_ID_RGB>;
++            function = LED_FUNCTION_POWER;
++        };
++    };
++
++...
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.54.0 (Apple Git-157)
 
