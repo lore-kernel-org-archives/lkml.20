@@ -1,110 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793024921;
-	b=RlgkERW1IWurjw8a5sWPal4NSte1xYZ9b8kRx1MhGm1t0vMNYivL+ARVgQTA66VpTzJQ
-	 RBVSoaNGkytRUuHhspn28rPGLEb+SoNjlLZfgXfhFYiUL+DIVCbzq+58C0ZxT6wtTrN+W
-	 Q6Z8UtT+pIjLdI3zU4EUXq6D2DsqeGDJYtrca8XE6zLpnEFU9oW3V0eVyPrG1jeTafNZR
-	 a7XDwMF5lO6z9OI3/hLTNtLtFhbhVkTq0IW09CJztGhx1UtE3DHwaYgqzBI2LlnbTn9Ml
-	 axeVBNUywji7tKPYFXupb44cX5Mbqz12X7pjl0MIF2oRuZliT8EM7EXNc1qMXZOemCw==
+	t=1793024975;
+	b=llhGtQEpaoh8ru8XfUbKKEDYqFhsLgYHJD3yH4j8F4y/SoQ7VXdkkdFOYRs9Eha6MEmZ
+	 fUihfwZ5s7OqegYHZUX2Ykm6rZ+KmfLf99x6KcPoK0P3NwcM0FlERwqSgVSSMLTYVQXeU
+	 jCR6/UXQxt05z/1eqwuO/whZEIlPQpv5Da/L+Hxl8hzXOLtJ3f+ThB8vyHJ5ybn96veOx
+	 9FM/xnhQEcyhduacYDLqSiCbsghLH69kh+sAIJOiNPN1uoGzmHO+P8h42aPR1d8yAu+A6
+	 cDAV+0vF6PZnl+Od/Sz3T/sC6pSPsI+3Bv+jBkU7eXrbILlZExd7tQ3GtY12MtS08Jg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793024921;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=S27QzKMcYR9G8Z3dEod1U+E+8QpI3/ATLwAMINQQlkc=;
-	b=LD1M0QQoYVagJRrVceGqeohhWBefIEE8E8utWbkcaXpkhyNDZlYoUeljSSg1LUBq3csP
-	 c0pGiAc5uWyvC3UnBGv2G8oxeLSVRwjV2XoNXhIdH/axXb5AeDeofg024rTMR4YCCbtmV
-	 YdrVm1jNBFDCTYacuZ6SxkVnzH/zGbJbhlgcWSAYliPCCmUNfN5DmHLTfHo9KjkWjvnz+
-	 OOBDXWr2CgUNdbsTFugT05EoQJFsdYtEBs7yszuBnTa2RBbsFJwkh1iB8kiuYPtH3P56g
-	 586GBpCeLspbGu/2ECJp5xDJ1gDYrUBUzTRN1xoaMj+V4fwFQA3f236M8Blt5DeGGnw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793024975;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=WZBVupOUuKnSknN2BKYrJ59ZtgUZFU1sRJU3GwWHfSE=;
+	b=QcgZiYgVkKj+MjrP0et2VINsyVsFjSahnWvwJ4YLaUvOjik5Gw4PDsQhSX+wCcb414SN
+	 4Hy0uaHDvLsCqTTXpK5pLqG6683xRi1RKVaw2DVo9+Kmc7uoCQ5ZNxL0DXkH0xGP8Uvi9
+	 1lZ+PdH7UPdIYsK3ff66MPSm9hVM39/Pbno44Oc0uwKEO91DVCYoaq8k7XFZZ50jb2bK7
+	 9/GnIx1BEChJqGKCxbLcdnXyIRkKidRHUKBakZxDuW/XiroW0QU+mFJGYZ8Dh1s6+whY2
+	 QxHArpNHrasNWcroCO717kAq9tw+nUiFoHeoPZ1WbLHb2u+MXtpNf4JotTGteOrPmCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Fp6NuUFP;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=s19Gc6uY;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jc4Gc0Vr;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA696606A321
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:28:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA696606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5C07606A31A;
+	Mon, 26 Oct 2026 14:29:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Fp6NuUFP;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=s19Gc6uY
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793024919;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=S27QzKMcYR9G8Z3dEod1U+E+8QpI3/ATLwAMINQQlkc=;
-	b=Fp6NuUFPyaw2UQ2llu6VouoBzr10ovta9gi+RLzykxHorzLNNlwNX+z49KL0dRiZgaiXyM
-	7H2J+z3jOr3lwS0gpdz9RnnTIBdWjiSzFoEZlf/ClBXsivtKJuzH9HSR0wbMEMST/p3//j
-	VuBsO+z3wwfHZxGlWNG36COASNl3Adg=
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com
- [74.125.82.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-130--yXZ9veJPxCgKStuxbpcmQ-1; Mon, 26 Oct 2026 10:28:38 -0400
-X-MC-Unique: -yXZ9veJPxCgKStuxbpcmQ-1
-X-Mimecast-MFC-AGG-ID: -yXZ9veJPxCgKStuxbpcmQ_1793024917
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-341eff9e381so8972139eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 07:28:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793024917; x=1793629717; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=S27QzKMcYR9G8Z3dEod1U+E+8QpI3/ATLwAMINQQlkc=;
-        b=s19Gc6uYHWb+eFLtQB/iS8KUrhlZDPxIWEQtaPTybmZ7tNSoSobMXTxnXVfj7WlJyj
-         Q95mEIQlRSmS49cOd6QeTM5LaBpewKlIdVxGv5/lPSBFpPBNdPETs4soJozqrRpTCoLK
-         YqM9Le3NOad7ADwR0bwvFVJuxV00XoSTr922XX9aiw5osLSu3ihZf0o1EZxaJfkzY9wi
-         QBsg+a74R/BW4zKqfLTssbt48SzLkXwrGq/14eRdI3kjlfC72acnoMZeNvbmSTjlZNcz
-         zJCvwrqaL83RbTRA8vD2tD+zZAREbSSYgPqa8GGe1o3QQzb63ssUNdmiXqhTt7FG/zAQ
-         ceXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793024917; x=1793629717;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=S27QzKMcYR9G8Z3dEod1U+E+8QpI3/ATLwAMINQQlkc=;
-        b=t3tkXaXWPtvtp86TDg4YuFN5BPzFiSxbCywmrc5ub9bdZYyeDvFnRKOeCjtiBJZV30
-         ahCW/457gJtftBYO6pJJ+haMsgB5MlyK2TDHe9P64ofV29+3bmiHTnyY1uj2ddiOKktl
-         r+26ma2aBmKf2Fd7AHCl7W+K+0T1NKwngatgbK3ILbbkDiTJWpgBejt5r7tXC5KsoT4/
-         cS2sM9v8OZGRfSEbF+ccWqOzO8TwLO5cCCPnXBGaue46NtnD71F3S91oSnYeOFjLk8tx
-         dKBByC7HKMy/EZ7oUW78N/NvN8DUjI5cEiq6y9DOVXMPRFn/wGLy7e8L/C9JhEHYcK1b
-         Ex9A==
-X-Gm-Message-State: AFq9FYIzkBs/DMEtwPAV58llM0bbpFfDWmE6+HSWZ2qlqxAPScFv2k3Y
-	wYh9Wda8NfeIRevAZoPtbReqH2WRQJhqIlR6GA6MNNNGt5Uht1CJEXuSWIE3Ud3UQSNqNnXril1
-	8QlBjBlQLfAOQRu2tToU+JseUMz3a6ZAhXm4vHi/NZlxQJqd9B4/56cHXloAzI7LWQA==
-X-Gm-Gg: AYBFou1/MweckIlu3OxhWbyAp7gjbcVGwrUcSQSELgs83YlGiHVAJan2BtJxtAGSKlZ
-	h1Wm+B88FbeMUI7IDPdrrObv1S+hpewiNVsPGIHHvmbUwOGt90lXbbdq7c/GPJmNdAZe+nS6vry
-	uE+dJ8kwiEhAaR3Xu+AYDjh+ZEhzCvijagy+r+CfKPkVZuV0I6lXL724quzF4yVJmglIU1w00zn
-	7JESjMQPORCpPjdGGcFid7EytOEGcGyTycaQ1nUmW1ydv88fxjhVNdFGIidNqVyxFnAxPyLIK7n
-	hX/+/5o5mTNsATm9XRgHCG/UejN2Ku2UcQOKke+/scylGIkj3ZhUqRUHxdra/4zzqQ==
-X-Received: by 2002:a05:7301:6f09:b0:35d:eafd:5737 with SMTP id 5a478bee46e88-369e84e382dmr10158558eec.22.1793024916341;
-        Mon, 26 Oct 2026 07:28:36 -0700 (PDT)
-X-Received: by 2002:a05:7301:6f09:b0:35d:eafd:5737 with SMTP id 5a478bee46e88-369e84e382dmr10158525eec.22.1793024915537;
-        Mon, 26 Oct 2026 07:28:35 -0700 (PDT)
-Received: from fedora ([49.47.195.13])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8ee71f5sm33500881eec.28.2026.10.26.07.28.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 07:28:35 -0700 (PDT)
-Date: Mon, 26 Oct 2026 19:58:28 +0530
-From: Arun Menon <armenon@redhat.com>
-To: Jarkko Sakkinen <jarkko@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-integrity@vger.kernel.org,
-	Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>
-Subject: Re: [PATCH v4 2/6] tpm_crb: Split start method into a separate header
-Message-ID: <at9jjLN9I5XsRPZT@fedora>
-References: <20261025201859.221991-1-armenon@redhat.com>
- <20261025201859.221991-3-armenon@redhat.com>
- <at5suDJyVOusvc3R@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jc4Gc0Vr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5146B1F01825;
+	Mon, 26 Oct 2026 14:29:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793024974;
+	bh=WZBVupOUuKnSknN2BKYrJ59ZtgUZFU1sRJU3GwWHfSE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Jc4Gc0VrMoeEjDqcZyGdb4FpOMlHCGbAez6wW7ehQcMBBUd9gGlUaK1cCjC/iucc8
+	 w6lImTj1ZUn4R7b+hl9p3NmSwACn0rSD+JOhT5FoczhbcHsjjJWcbEfWCAKHhVNPvy
+	 ClqY+L0T5FBDGMVJTwoXs+RmgRkFbOAnf37tpiW0nTHDv4dihHoVz3/FamBzHRHYeY
+	 eF+3/JpllVXrPk4v0bpidleO5Lxfy2K4rAjRCP2yClGSRM6Ty0eXuwkLfglc7P/LdB
+	 0pDF50wsnHfuIBl0c8GlWeu08A9KXG+hoG9VbLV2w/E3pGQ8bYNNc61wa3uJ9uYofM
+	 2jocnXFmJm0mQ==
+From: SJ Park <sj@kernel.org>
+To: Manuel Ebner <manuelebnerli@mailbox.org>
+Cc: SJ Park <sj@kernel.org>,
+	Aveline Noir <jm5905938@gmail.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/8] Docs/admin-guide/mm/damon/start: fix grammar
+Date: Mon, 26 Oct 2026 07:29:26 -0700
+Message-ID: <20261026142927.149910-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <b0d8d0ceda82e303262c0f61324fe8a84fd9f745.camel@mailbox.org>
+References: 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,118 +66,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <at5suDJyVOusvc3R@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Jarkko,
-Thanks for the review.
+On Mon, 26 Oct 2026 13:41:32 +0100 Manuel Ebner <manuelebnerli@mailbox.org> wrote:
 
-On Sun, Oct 25, 2026 at 10:55:20PM +0200, Jarkko Sakkinen wrote:
-> On Mon, Oct 26, 2026 at 01:48:54AM +0530, Arun Menon wrote:
-> > From: Arun Menon <armenon@redhat.com>
+> On Mon, 2026-10-26 at 22:14 +1100, Aveline Noir wrote:
+> > Fix a few grammar slips in the getting-started guide, like "make DAMON
+> > monitors" and a region "that has not accessed".
 > > 
-> > The current implementation handles different platform start methods
-> > (ACPI, ARM SMC, and ARM FFA) directly within crb_send().
-> > Move this logic into a new helper function, tpm_crb_start(). This is a
-> > pure refactor with no functional changes intended.
+> > "The line of the commands" used to be "The first two lines".  With only
+> > one masim line left, I make it "The first line". 
 > > 
-> > Signed-off-by: Arun Menon <armenon@redhat.com>
-> > Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
+> > Signed-off-by: Aveline Noir <jm5905938@gmail.com>
 > > ---
-> >  drivers/char/tpm/tpm_crb.c | 50 ++++++++++++++++++++------------------
-> >  1 file changed, 27 insertions(+), 23 deletions(-)
+> >  Documentation/admin-guide/mm/damon/start.rst | 10 +++++-----
+> >  1 file changed, 5 insertions(+), 5 deletions(-)
 > > 
-> > diff --git a/drivers/char/tpm/tpm_crb.c b/drivers/char/tpm/tpm_crb.c
-> > index d76f9e30f036..9a2f512b4ae3 100644
-> > --- a/drivers/char/tpm/tpm_crb.c
-> > +++ b/drivers/char/tpm/tpm_crb.c
-> > @@ -446,6 +446,32 @@ static int tpm_crb_smc_start(struct device *dev, unsigned long func_id)
-> >  }
-> >  #endif
-> >  
-> > +static int tpm_crb_start(struct tpm_chip *chip)
-> > +{
-> > +	struct crb_priv *priv = dev_get_drvdata(&chip->dev);
-> > +	int rc = 0;
+> > diff --git a/Documentation/admin-guide/mm/damon/start.rst b/Documentation/admin-guide/mm/damon/start.rst
+> > index d98b0eb8e771..a83fcc2265bd 100644
+> > --- a/Documentation/admin-guide/mm/damon/start.rst
+> > +++ b/Documentation/admin-guide/mm/damon/start.rst
+> > @@ -63,7 +63,7 @@ the execution. ::
+> >  
+> >  The first command of the above example downloads and builds an artificial
+> >  memory access generator program called ``masim``.  The second command asks DAMO
+> > -to start the program via the given command and make DAMON monitors the newly
+> > +to start the program via the given command and make DAMON monitor the newly
 > 
-> After declarations thre should be empty line. checkpatch.pl should
-> complain about this.
+> 'The second command asks ... and makes ...' Thus:
 > 
-> > +	/* The reason for the extra quirk is that the PTT in 4th Gen Core CPUs
-> 
-> I probably did not spot this last time but:
-> 
-> 	/*
-> 	 * ...
-> 
-> https://docs.kernel.org/process/coding-style.html
+> +to start the program via the given command and makes DAMON monitor the newly
 
-I will amend the commit. Thanks.
+My intention was saying DAMO is commanding DAMON to monitor the process.  So I
+find Aveline's version is slightly better.
 
 > 
-> > +	 * report only ACPI start but in practice seems to require both
-> > +	 * CRB start, hence invoking CRB start method if hid == MSFT0101.
-> > +	 */
-> > +	if (priv->sm == ACPI_TPM2_COMMAND_BUFFER ||
-> > +	    priv->sm == ACPI_TPM2_MEMORY_MAPPED ||
-> > +	    !strcmp(priv->hid, "MSFT0101"))
-> > +		iowrite32(CRB_START_INVOKE, &priv->regs_t->ctrl_start);
-> > +	if (priv->sm == ACPI_TPM2_START_METHOD ||
-> > +	    priv->sm == ACPI_TPM2_COMMAND_BUFFER_WITH_START_METHOD)
-> > +		rc = crb_do_acpi_start(chip);
-> > +	if (priv->sm == ACPI_TPM2_COMMAND_BUFFER_WITH_ARM_SMC) {
-> > +		iowrite32(CRB_START_INVOKE, &priv->regs_t->ctrl_start);
-> > +		rc = tpm_crb_smc_start(&chip->dev, priv->smc_func_id);
-> > +	}
-> > +	if (priv->sm == ACPI_TPM2_CRB_WITH_ARM_FFA) {
-> > +		iowrite32(CRB_START_INVOKE, &priv->regs_t->ctrl_start);
-> > +		rc = tpm_crb_ffa_start(CRB_FFA_START_TYPE_COMMAND, chip->locality);
-> > +	}
-> > +	return rc;
-> > +}
-> > +
-> >  static int crb_send(struct tpm_chip *chip, u8 *buf, size_t bufsiz, size_t len)
-> >  {
-> >  	struct crb_priv *priv = dev_get_drvdata(&chip->dev);
-> > @@ -471,29 +497,7 @@ static int crb_send(struct tpm_chip *chip, u8 *buf, size_t bufsiz, size_t len)
-> >  	/* Make sure that cmd is populated before issuing start. */
-> >  	wmb();
-> >  
-> > -	/* The reason for the extra quirk is that the PTT in 4th Gen Core CPUs
-> > -	 * report only ACPI start but in practice seems to require both
-> > -	 * CRB start, hence invoking CRB start method if hid == MSFT0101.
-> > -	 */
-> > -	if (priv->sm == ACPI_TPM2_COMMAND_BUFFER ||
-> > -	    priv->sm == ACPI_TPM2_MEMORY_MAPPED ||
-> > -	    !strcmp(priv->hid, "MSFT0101"))
-> > -		iowrite32(CRB_START_INVOKE, &priv->regs_t->ctrl_start);
-> > -
-> > -	if (priv->sm == ACPI_TPM2_START_METHOD ||
-> > -	    priv->sm == ACPI_TPM2_COMMAND_BUFFER_WITH_START_METHOD)
-> > -		rc = crb_do_acpi_start(chip);
-> > -
-> > -	if (priv->sm == ACPI_TPM2_COMMAND_BUFFER_WITH_ARM_SMC) {
-> > -		iowrite32(CRB_START_INVOKE, &priv->regs_t->ctrl_start);
-> > -		rc = tpm_crb_smc_start(&chip->dev, priv->smc_func_id);
-> > -	}
-> > -
-> > -	if (priv->sm == ACPI_TPM2_CRB_WITH_ARM_FFA) {
-> > -		iowrite32(CRB_START_INVOKE, &priv->regs_t->ctrl_start);
-> > -		rc = tpm_crb_ffa_start(CRB_FFA_START_TYPE_COMMAND, chip->locality);
-> > -	}
-> > -
-> > +	rc = tpm_crb_start(chip);
-> >  	if (rc)
-> >  		return rc;
-> >  
-> > -- 
-> > 2.54.0
-> > 
+> >  started process.  The third command retrieves the current snapshot of the
+> >  monitored access pattern of the process from DAMON and shows the pattern in a
+> >  human readable format.
+> > @@ -71,7 +71,7 @@ human readable format.
+> >  The first line of the output shows the relative access temperature (hotness) of
+> >  the regions in a single row heatmap format.  Each column on the heatmap
+> >  represents regions of same size on the monitored virtual address space.  The
+> > -position of the column on the row and the number on the column represents the
+> > +position of the column on the row and the number on the column represent the
+> >  relative location and access temperature of the region.  ``[...]`` means
+> >  unmapped huge regions on the virtual address spaces.  The second line shows
+> >  additional information for better understanding the heatmap.
 > 
-> Br, Jarkko
+> I have read the damon directory aswell but I didn't find enought to send a patch yet.
+> But I found this, could you add it to your patch?
 > 
+> @@ -78,8 +78,8 @@ additional information for better understanding the heatmap.
+>  
+>  Each line of the output from the third line shows which virtual address range
+>  (``addr XX size XX``) of the process is how frequently (``access XX %``)
+> -accessed for how long time (``age XX``).  For example, the eleventh region of
+> -~9.5 MiB size is being most frequently accessed for last 3.7 seconds.  Finally,
+> +accessed for how long (``age XX``).  For example, the eleventh region of
+> +~9.5 MiB size is being most frequently accessed for the last 3.7 seconds.  Finally,
+>  the fourth command stops DAMON.
 
-Regards,
-Arun Menon
+Looks good.  Unless Aveline objects or do this by themselves with revisioning,
+I will add this change when I apply this patch to damon/next.
 
+> 
+> Rest looks good to me:
+> 
+> Reviewed-by: Manuel Ebner <manuelebnerli@mailbox.org>
+
+Thank you for reviewing!
+
+
+Thanks,
+SJ
+
+[...]
