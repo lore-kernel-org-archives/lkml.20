@@ -1,111 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793018390;
-	b=tz5Ca99WrXaF7kjRRsRYQiIXQ+ycA936akiTCkr0jwyPWXjq7HJGFBsD+rS0XRcS370q
-	 cNJh7l1h3/gGmRvtNIU+uYaHexajG+JYVEXl/McfuqwX9+J7UEkM8DRHqHiwZvlGSQYli
-	 fMLzSt0BtFFkK7mQiICGOvKd5ykYPW9M2e8Gu0JHSaA7fl4NbznkYKDx3Aq54bQnszpio
-	 6NLoPZC21N9uaoIlrWW4lV7YHyu7wuPKO0PTJQeBwyg1NuXCFTuw0vetUODctmFrOEuzI
-	 z8NApVIfBP2GxLtOQf8F9kibhC7QFcEfXn90AF6Xt2/0acvz53pO3qb2CduDjXfqxSg==
+	t=1793018386;
+	b=ItQC79zZ9VNUdW/IcV3B32ErBpUEs1/lXUC0Q2mE6x5L6pqmexEz8hOATg8HGrRMUrWf
+	 fzF4Hr958BEnBUqwIZrsb0wvAfiU8/dzFJYTkkZvLxBeqWIgomQH9m0yE+6hrGI70vHIK
+	 T7idnz3UXkRE9fQV6MsZh/zqlr5aOlvfwNZuUtIZ/tht2Wdxzg5EGu7eLqZXUsPdB0dd9
+	 QgYacha22et1MXuWNmETud3WwZkeYEzBBHv3XJsekWBfuExjV+FTjbdwCrWUHndLCvKwQ
+	 b1QwmTkVR5Qs60WV9MR5PW2a8J0rLXwCcNAQJyMiU2snh5QopSVOHxSgaBAGYnr+Zxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793018390;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=ja6gmdD2JmGFs0lY8XP4mgS/BSc4NsAvuUJRmdYg7kk=;
-	b=4JjrPCPREFYH1WRrQK5Vu5l0NoDARKq5DQyA7Ph11ZnCq5eadBSBXYbyIiUGw7c8dfUK
-	 sIqtQJGrVzl/wFDfndFeZnXV8m37sNtl5wNrHSnP6eC93rIR8zmb2Mh7MTt/BR2A4Wwv7
-	 0xCN16nYiRPfSHZxwm8SpeJtvI3SJPURdCuZnzoO64SRjd/GIkMR9/6a68gvrERdfjIUg
-	 nCXs291tvvCwcESYSToZB8qeJvUsgOq0X0omNr7VlPEz5rHrYCeap6u8m81VPdnTP/NDO
-	 HxHxW+Ekt4HKZdeB95DEwfBAN4Pe5RKWL1/Fu1EL2kdVz1bOr65SIEOVAYm6icmDlHw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793018386;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
+	bh=NGOYvwWXtHCtXAoCdL/2EsRICoNUM1uFaxEPB0yTgrg=;
+	b=osellOhcQxVfV8CAob7Tkac9CrCdi9BjvIztYXW34hZyDPGTA4MgMvc7VPdDqjoh5309
+	 G0mDhTrIeNZj8Ij7c9YkZB0LtOo0iapZDNLwCHbnuTbCFwMoJTutmMMd7IdDZmDQU2WL1
+	 hwayQ720t2DwqkIN1JdzjmsbgkTiuBxZkCHac0J6d5T0Sz5/fMd6Pip5e19bK5C2HNpMr
+	 10qTHp15eNh+WzR3AzwUkRVrDwy0d2Qt7/8wLylp2xV2iRZfvOL2+eHhMmBMnXN+uAAF/
+	 WUUbNwX/FM55M50qtFrTcp3hw2STW6sfncSvnl+wowzsEfnntBcuSdkmpin6X5oeQUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mFVWfLNs;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=V7bFEDlX;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b="i/Qotwak";
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=NPbnbhH1;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=UyBkdwTm;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="/jbCXYqr";
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5F95606A31E
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:39:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5F95606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD347606A31A;
+	Mon, 26 Oct 2026 12:39:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD347606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mFVWfLNs;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=V7bFEDlX
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69QAtKrP3563659
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:39:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	ja6gmdD2JmGFs0lY8XP4mgS/BSc4NsAvuUJRmdYg7kk=; b=mFVWfLNsjWIGvAe9
-	ahqatTBNXrOW7rBEt7J/1Zj5eKycgNyFO72FzCgv0Hnnc2+qd0aVpmT7GZXIGDqk
-	rXHeepTWTpjU2jnwRX+TPwavjcmSaY+tk416jVKV+WWc6Raobc3BCAJSr4ZcNGHz
-	lAXJABgdXo70CGnYt1w6qljKK8LL2Jwg5mLUs0meA2Bm0PKd95IToCrGQCcVm0u2
-	3emUM7urahv73bHlcaRmSA3K+GHfWZVD5+0cbjXJDqzzXPEdnmcd1W+nWcMPZ3sq
-	Sr3lk0xXQ4m/wizgjsEfa6IwfsVH7xTrD3YuuybZ5dnJH9pp41dgmpXxsDxXlTL+
-	Qo0vTg==
-Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hj4s90ktw-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:39:48 +0000 (GMT)
-Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-7cc0ae52207so48545137.2
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 05:39:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793018388; x=1793623188; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ja6gmdD2JmGFs0lY8XP4mgS/BSc4NsAvuUJRmdYg7kk=;
-        b=V7bFEDlXa0OgAa72h9HJhGruRotZbuPkT1L9ajtfGn/o2J8d4ZLpNQqPTQ2mVrKOqz
-         PQRSNQUoZsOeco4GubqgBInhDfAe3XdX3AepTQjybb4ClckutX1aumRdRBLrK+xs4Meq
-         DlEMMj1SkkEn8RwSWgQuFguviEOXdd7gkvv1Hc9hJNUNbV7OJ0iXg+sm/PAS6ifjkowW
-         lyxl+ykViAAeexKHKcHWi6J8lwAuRn2Xm0VZR4U8He6ssQqzjAjijpGfWOTbvPTWSBxt
-         fpaocdgVENg3ZBwjUz66Oi5SWXsQh8gQLF4Ko7WO8TPF0ElZyxAj4YgZPeuFIG/S3Sx5
-         Or/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793018388; x=1793623188;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ja6gmdD2JmGFs0lY8XP4mgS/BSc4NsAvuUJRmdYg7kk=;
-        b=YpQPiuD88MEW8MwH3c0h60JAHT13OHL33a30eAq3zWEsahMMxq1vz0r49QiHbYB170
-         1RdsKPQDwYLXeONa4G0AiY0RRHljurP4IWFqcynONTsV2kQhlSz6fhfvvwCKVlC8PN9E
-         JFjR4zbAM50ZJbNv3aRb7Xch0ivgVvcU54dbA2M3hj6LaAzNu9kdiQ1wNomtSV776aH8
-         4rfT8+elxHj6cxxnH2MRPlwwq1+PuNJuOQXeV5rRiXLNhADvCCJNIoJYYENvmKsytwN7
-         0QsLlchvZ3Gd3ldt3PrfYbZ8E9vQqgQ4SFoT50lt/bi4i4LDJ1BUgRNiesR2Oz7oUzZK
-         GMhw==
-X-Forwarded-Encrypted: i=1; AKwUvBzhjdEf+tDPzFGQEc0VPOd+FcvnNhAV6zWdSRQDaU+wptemcnGKmIB0Wor5J2RLgrk6Jz7rqOT9kESOYT8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJr9jstB//5rXxA42Il/R47VQ041gf5buwTiATsl/SnmGbOb/W6
-	HWn4jjfmKS0/iETqd4zHW6dXCGOl4fzdwDj1NSEuiLcaqiXQmGZ9v5ln8FQkPi77Q7a8UWr0k0a
-	Zi0ZJ1pyuys7quJcAjHjratFKwF/9TjIfrLnQt0H8BYGdKlXimk0g+r0tUWi6LvOgIKo=
-X-Gm-Gg: AYBFou0grsqFrFAyyFVXxLVvksV3opCFrgZY5XJSB2Kf6gJX7CAHODD/fgeZYEp72AD
-	RtsQtHICcfAVrB9f+GlmyXCqxelPkoKIiJUV9ihJ++kEvozA9udQmDlX7GVz220YidQpvTqP4c+
-	5eKR2SWmcygIrTeIXghhuCUpkVHXZxjbFv3NCIWC5/eAwBk5rNpqTzmuwlmD0sWu4Y0tta+fy2F
-	SRPUqyuI0Lz7OcEVph8dIOUjDaa4V2OkHr7gbaH4tRoTub+3z8wfBe1ueJOLn1/hlafE+jNtRNA
-	4e6zN6iISegNoL0I7p0OAnm6uc4ROaeiz5GTG35Z+pblW3y/Cyf1TF+PEJNVFXTclS4Td01vibx
-	JIUkSGVrmI5tFtQdTBoA1zQ==
-X-Received: by 2002:a05:6122:6b91:10b0:5e9:2e3c:2f5 with SMTP id 71dfb90a1353d-5ec230bb944mr1757894e0c.2.1793018388212;
-        Mon, 26 Oct 2026 05:39:48 -0700 (PDT)
-X-Received: by 2002:a05:6122:6b91:10b0:5e9:2e3c:2f5 with SMTP id 71dfb90a1353d-5ec230bb944mr1757881e0c.2.1793018387768;
-        Mon, 26 Oct 2026 05:39:47 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ac70993e89sm18146581fa.9.2026.10.26.05.39.45
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 26 Oct 2026 05:39:46 -0700 (PDT)
-Message-ID: <7056d429-5bd8-47bb-8c9a-5827be7c6279@oss.qualcomm.com>
-Date: Mon, 26 Oct 2026 13:39:44 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=i/Qotwak;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=NPbnbhH1;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=UyBkdwTm;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=/jbCXYqr
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 1D8631F807;
+	Mon, 26 Oct 2026 12:39:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1793018384; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=NGOYvwWXtHCtXAoCdL/2EsRICoNUM1uFaxEPB0yTgrg=;
+	b=i/QotwakT0gNRHREU1wFt/wueTqEGMxkEwBZeAfvtg2vOQK5MYdjocpFukd6OPnCPB/HBb
+	BS0H0i4lis8Cx5HxUegab52ZMYIDulElTF5aTBb4Hap0VclwXxLjUKay5gMGoKDFBAw/gO
+	anMbeiMRLXl/qiNjvli9BmC5o5g5fSc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1793018384;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=NGOYvwWXtHCtXAoCdL/2EsRICoNUM1uFaxEPB0yTgrg=;
+	b=NPbnbhH1+/ni7hIQiLvEz0Rw5mCTPrjqGt7I2H76ldS/ThhDXfkF8lfkKoBLAi7flQa7sI
+	AFYw0bBdP9G4PIBw==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1793018381; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=NGOYvwWXtHCtXAoCdL/2EsRICoNUM1uFaxEPB0yTgrg=;
+	b=UyBkdwTm5idr9gRs92m2eXllZTQxCYHgb6mSyGPn3DAQii7ZPZorI6hRb5yz437E6K8JRt
+	9pOQjbje6tYo+E1xUamu/s+LJWs2gVfm2XsRkhf8at6dGKTDCHLAc33wjhqLyl1FQZJ5Tu
+	RVFUKsWGY9W3ynWQXI3luWhJsu7g258=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1793018381;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=NGOYvwWXtHCtXAoCdL/2EsRICoNUM1uFaxEPB0yTgrg=;
+	b=/jbCXYqrtbqaIP7dJVxN5S4mQ57yZnFtClcNfpzjJKt3CjU7A46+Pv9vRDGjctpBpT3HIY
+	FqElgoIqGoH83JAQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E89A713319;
+	Mon, 26 Oct 2026 12:39:40 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 39IFMQxK32qJQgAAD6G6ig
+	(envelope-from <jack@suse.cz>); Mon, 26 Oct 2026 12:39:40 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 7EA71A1419; Mon, 26 Oct 2026 13:39:40 +0100 (CET)
+Date: Mon, 26 Oct 2026 13:39:40 +0100
+From: Jan Kara <jack@suse.cz>
+To: Josef Bacik <josef@toxicpanda.com>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/5] fs: make mount(2) remounts killable on s_umount
+Message-ID: <3x3n2vfnyy3nmhz3rd56q6ygm72252gy26lxrf2kmhdrxg7f5d@q56ow6psbtpb>
+References: <20261023-b4-s-umount-killable-v1-0-844a341ff1df@toxicpanda.com>
+ <20261023-b4-s-umount-killable-v1-3-844a341ff1df@toxicpanda.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,72 +111,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC v3 2/2] arm64: dts: qcom: Add a minimal REDMI K90
- Ultra description
-To: Zhang Jiaxi <Z1529105815@outlook.com>,
-        Bjorn Andersson <andersson@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
-        "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-References: <20261021-b4-warsaw-minimal-usb2-v3-0-9f4213ab83ef@outlook.com>
- <20261021-b4-warsaw-minimal-usb2-v3-2-9f4213ab83ef@outlook.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261021-b4-warsaw-minimal-usb2-v3-2-9f4213ab83ef@outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA1MCBTYWx0ZWRfX8yXQSpS6lJ5K
- iuQuYDTRHkPh3zZjUTTg1oZPZb0PrEV5811VzoMbfmpToKYPbO0/OPidrpHWbn5Kv8/CYqSlF5+
- B9gS+3u+EOuXheEd3/c2HNSKslznVLCQ2RJXDjxpMDO8wKv0+91vBkYxBmLQT2qJftSxcGYOMYd
- f6e+BgXI/UVSBzdk1wju+6gxYsrgJAFhdU3FbTF1haJLYcKR/rb+GAapWFk+aprZRTUKIQU9cH1
- lky8HF3dS5RZrT6Y9Owj3PoCiS2glQHn0OuWthb7LS8XG4HoHIEMIlmy+CwR5BEMW5MHaYF0uuv
- pcnyD2TA0rtOMXg3K1I/4iuN+82/e9EsSqcLZktrrN80fHb9rLKT/5iQfHrGdfmeKlYkMsCAFzC
- B/v4Gwm7AiSqyHLlbc2cBEEgdfqY52//qbbeCfedICHg4dwI0tqESsLj6PgHzaEwAo6D8/yu7Tv
- vkY07hwAn/Hryx9jEtg==
-X-Proofpoint-ORIG-GUID: m5GtlAJPSAZWJUNQYNpxT0HBmP6Aez83
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA1MCBTYWx0ZWRfXy/UrY57jnc2k
- LvYEZFeklDSzfsA/Pd4iRCESrxljjTftn+QrBhXRTZC/Se9SsxtOapyo7G4mpGOUZqA1La70Oja
- u10StGX43vaxYqULxw2lkMoezwCZroo=
-X-Proofpoint-GUID: m5GtlAJPSAZWJUNQYNpxT0HBmP6Aez83
-X-Authority-Analysis: v=2.4 cv=HKhWhYtv c=1 sm=1 tr=0 ts=6adf4a14 cx=c_pps
- a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=cNoKYFeJyS4W4/1HdvzxLidmn8o=:19 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=_glEPmIy2e8OvE2BGh3C:22 a=UqCG9HQmAAAA:8 a=EUspDBNiAAAA:8
- a=BhY9DA6nPAixTnPfFlgA:9 a=QEXdDO2ut3YA:10 a=crWF4MFLhNY0qMRaF8an:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-26_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 priorityscore=1501 bulkscore=0 malwarescore=0
- impostorscore=0 lowpriorityscore=0 adultscore=0 clxscore=1015 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610260050
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261023-b4-s-umount-killable-v1-3-844a341ff1df@toxicpanda.com>
+X-Spamd-Result: default: False [-12.80 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	URIBL_BLOCKED(0.00)[suse.cz:email,suse.com:email,toxicpanda.com:email,imap1.dmz-prg2.suse.org:helo];
+	RCVD_COUNT_THREE(0.00)[3];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo,suse.cz:email,toxicpanda.com:email]
+X-Spam-Score: -12.80
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-On 10/21/26 2:46 PM, Zhang Jiaxi wrote:
-> From: Jiaxi Zhang <z1529105815@outlook.com>
+On Fri 23-10-26 20:39:32, Josef Bacik wrote:
+> mount(2) with MS_REMOUNT takes s_umount exclusively, with MS_BIND as well
+> it takes it shared.  If the lock is held for a long time, by a syncfs(2) on
+> a device which doesn't answer say, the remount sits in D state and can't be
+> killed.
 > 
-> Add the REDMI K90 Ultra (Xiaomi internal codename Warsaw) board identity,
-> reference clocks, PM8550/PMK8550 devices, keys, debug UART and USB2
-> peripheral connection. Build from the SoC and common PMIC includes.
+> The one which wants the lock exclusively makes matters worse for everybody
+> else: while it is queued, every new reader of s_umount queues up behind it.
+> Killing it gets it out of the way, the rwsem wakes those behind a waiter
+> which gives up.
 > 
-> Reuse pmih0108.dtsi on SM8750 SPMI bus 0 instead of duplicating PMIH0108.
-> Keep the board-specific repeater supplies and tuning values. Preserve the
-> OEM firmware GPIO reservations without assigning an unverified function
-> to GPIOs 48-51.
+> Nothing has been changed yet when the lock is taken, and both can fail.
+> Use the killable variants.
 > 
-> The OEM configuration retains OTG and UCSI role switching. This RFC
-> provisionally restricts USB to the validated high-speed gadget path; the
-> connector, role-control and VBUS path still require board integration and
-> review. This does not establish a peripheral-only port or rule out DP.
-> Usable RAM and firmware reservations remain a bootloader contract.
-> 
-> Signed-off-by: Jiaxi Zhang <z1529105815@outlook.com>
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+
+Looks good. Feel free to add:
+
+Reviewed-by: Jan Kara <jack@suse.cz>
+
+								Honza
+
 > ---
-
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-
-Konrad
+>  fs/namespace.c | 7 +++++--
+>  1 file changed, 5 insertions(+), 2 deletions(-)
+> 
+> diff --git a/fs/namespace.c b/fs/namespace.c
+> index e5feb4e48290..837f531e494b 100644
+> --- a/fs/namespace.c
+> +++ b/fs/namespace.c
+> @@ -3485,7 +3485,9 @@ static int do_reconfigure_mnt(const struct path *path, unsigned int mnt_flags)
+>  	 * We're only checking whether the superblock is read-only not
+>  	 * changing it, so only take down_read(&sb->s_umount).
+>  	 */
+> -	down_read(&sb->s_umount);
+> +	ret = down_read_killable(&sb->s_umount);
+> +	if (ret)
+> +		return ret;
+>  	lock_mount_hash();
+>  	ret = change_mount_ro_state(mnt, mnt_flags);
+>  	if (ret == 0)
+> @@ -3531,8 +3533,9 @@ static int do_remount(const struct path *path, int sb_flags,
+>  	fc->oldapi = true;
+>  
+>  	err = parse_monolithic_mount_data(fc, data);
+> +	if (!err)
+> +		err = down_write_killable(&sb->s_umount);
+>  	if (!err) {
+> -		down_write(&sb->s_umount);
+>  		err = -EPERM;
+>  		if (ns_capable(sb->s_user_ns, CAP_SYS_ADMIN)) {
+>  			err = reconfigure_super(fc);
+> 
+> -- 
+> 2.55.0
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
