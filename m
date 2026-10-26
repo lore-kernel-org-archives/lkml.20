@@ -1,79 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793012262;
-	b=tSuzy1hrqj79AkLO8xrY+lxOMVBvSEXi2IiZAUM2nNvWt5MSBhfckAxOX0o4FyogJpiq
-	 ltyTLfuTnsrSd13CbrjheZCsJv/FVnBVx1h1LRl1H1jpQYFw7j75GoPkVzsgqFsDGVXhh
-	 gkFbw4osOnmBJ55C6Z0i0ZOSjJut31HRy1cmxot78yxKHHaufjYTFkq7+va6e2N5Q4Ajf
-	 1xmUuDToYuySZaveWNvAUM9UeeKOhoqecREJ5xDRLsWenOlzDNEnPadDDfIEexpVdqH4m
-	 mhRpzfSk7iCRM5JOIJVPNbGY1YkVVPAqo6Gojxm2yPQAhUYT01Sj7IMBexqsonvwpHw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793012262;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Gd56Sd7/GJp1QZRYj78YWZNIrrTVthbU1qGc1em23wA=;
-	b=f26I5uxW/SxbwdQ4JsQkka5fe3jj7DbGe5dUXxxVAJQiMp2sWcLpRNoETAVpImcr8/Ef
-	 FvMVeSfHpOMx4zO97cdHPcSqkXT5I64BASB7J6u0wY0P0mPbQ7jBSnPTSgnhubOJLz3Vj
-	 /0n0gCVSMhNvM0/EI+GeGi3I6pKo7pWGNuAl2OUR77PxqYA6w8S3ez60fODx6ameA3WL3
-	 MQc88pBIhnl0706yFUgdrriJb91EquA+GHfeOL/8eMIknSZYKodc/fV5+GwvBSkuTUlLC
-	 5Jfygp9VFiE640JhWWJ6u236aEGPKxkC9Q7X+/xU5eKddtkQnMnVg/WZY5XQU3EH7HA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lEGsx1G6;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793012313;
+	b=AiyxDWxnt9dZkBT8+S6VplVBuCfWXiOM1ur3Cxn0Ieux4qqRnjNbka/WomByCpqfgr1F
+	 6o5ODnzM+pIqrSQ7iL8sxfu5fPC0WvIfiMxz0pByG/s4e+jV476Cf9MYyiqHRt9NDo89N
+	 R2FIRsMXZnzAI8R4EkLHUWzTYTGSR6ZDzRsFj9K0ewcu1XnkPVhluLg4MuW8569xiU9TU
+	 CwAFTlAn6nM99rXJIM1u6w7ZGUESMyXizy52RpaLa9eiHUnNOBAOp3tUCvXP7b1CmumSe
+	 tSYNOqTcrhVWuV2+Ev9uuSEb6gJPOWM02eNb2iN0CBYIHS+7pmu0l3IJxERXjyxzAEg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793012313;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=F4PTtG0p5qUxkiwJlFf03ohdweVlCHw/PJrDFEEobnM=;
+	b=avJvHpbkMRxR2+BKtJjLLrZYew1X1qwr5BJvz2HPiscGAd20FIPRZV+mFqaF259EdMe3
+	 hevn61TU7LRKjX4CJJKgDrgsOo3LKTmZX10xafSJPir/9eIRGS40pXcbcm6BVABswUKzv
+	 OK6Fnv1YBOXT9VlB+tooO9Wz1bj2fDPCEn2WaKzw5YCfa6JArxRK3IR7Km6fhgsmbWTL+
+	 DqO/sd63VJ3mgTj7+2Sd+YpDMObzuYFWqNamRfAKIz+wCotJDwV8OSohMJrwPvHmRpb7h
+	 T/d14p2oHvbzqxWKsqH3w7Qo9bZYsbtc49YZk7oj9fB0j3Kuj8S7R67yu3NvYEBA0VQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PGxIQdVp;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EBA5606A31A;
-	Mon, 26 Oct 2026 10:57:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04D4F606A31D;
+	Mon, 26 Oct 2026 10:58:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lEGsx1G6
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793012262;
-	b=15uK5GSDiP/Jw0AOgRyw6GzMLLjbIFT/kuVMn2ccFPb4GJNaEQ9qfnCKFnXju3ZajglB
-	 jm2C4YN+wYsKJLhA6fgKzLfRuHLpAgJz6qHVN2VfDgMkrR3zcwxr/FpDd8wRSsQpJ/OQM
-	 FMAXNvWPl0hGL9gbfd0KSTr1EFsSq/mfEgvh6xE3dYb9vB0rsY0+UpERmG4JZJBgvWkGA
-	 QuAIW9puL913uwNOoP6V1kJVRWCqVhzfF2I8aiWovIlvgc0F9M0VYq+pcHGz5oE0YzoK+
-	 22P/YSmeisRkcjeNBSdT0A9ldFO3IJ+nryjeAQ74vuAM08z4FFRJmCRkQnOjuzH7CUA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793012262;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Gd56Sd7/GJp1QZRYj78YWZNIrrTVthbU1qGc1em23wA=;
-	b=EQnVQcGnsbdRB81gh4vUcOHabZ9Zq/p6rQMnXTOGle67kW5oAng90OuHhR1aJE1/zx30
-	 xDbtEPCyJxMlk0/XX1p4rYyDr2O3CZZ3vGuGmwuS9m4LQazc5hsDn7LFJWmdBsIVvj6WY
-	 rl3A0bYRPd8ZOq9iQAK1MKrhI5Kyo1c2994YHArOCPtCAMMk9p3IJePEUdjjsJBpR3Akc
-	 Rm4XboxnbfNFOL5Rmt94Umpw8Mgx6bUR47+QZr1dFV2ESWA5oT+Pp+NJuASXpIhLshCLW
-	 9umhbHFTZ+bWO1IjRCva9Klb67dI918NV1NE0CFXkPMWGZ+rNxe6JQWMU97AVjRgW8w==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id B265F1F01825;
-	Mon, 26 Oct 2026 10:57:41 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PGxIQdVp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BED471F01828;
+	Mon, 26 Oct 2026 10:58:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793012262;
-	bh=Gd56Sd7/GJp1QZRYj78YWZNIrrTVthbU1qGc1em23wA=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=lEGsx1G6N2JAxEK86wQ5/+G58d1ZahVNKqvt7rXZNqT1M2USjL31opJjdMfgMBxgv
-	 OT2hZFBPNMdB+6Nrirr+2LVRBadN72eXHCO6MHRbQGthGl2VZvi1U757ZzwdmQW9V+
-	 n5cl+KPgOQsObao3z08NtHkcbEhfl99l6au+gMlLrlPelEvs/n2tENUvsbQCCqJSmG
-	 xn6vnAlcecu4pkZIP+gT6bPuGFL7vhkghl/gE2612IrZ7o7o0LUIDbph9YgTxxVzLI
-	 Pq89022oiknc3MdYl/05CqezaWy8ZY4kMTqb7aUvK38e46vFC6Pj6B6Ms7A2CsTsfZ
-	 EOx/ETI9QARmw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 32F5344CC3;
-	Mon, 26 Oct 2026 10:57:41 +0000 (UTC)
-From: Andrea Amer via B4 Relay <devnull+and.amer.gmail.com@kernel.org>
-Date: Mon, 26 Oct 2026 11:57:38 +0100
-Subject: [PATCH v3] iio: afe: rescale: expose offset if rescaler or source
- has one
+	s=k20260515; t=1793012312;
+	bh=F4PTtG0p5qUxkiwJlFf03ohdweVlCHw/PJrDFEEobnM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=PGxIQdVp8L88LqYyx3vL76tCm8GDgKA++ToGxAeC0ElfCnRejTz2M6Zt6lH4uz2PB
+	 56EDJgyRuP1efY06BdLmJUCN7IX5I8d/tMEm9HWUEiKpDL/02pExOI9JgYqqfkTaIN
+	 isjmSrBro6LSz2BXkZE2rnHykFrFZIhlDz4WGTYVcfIEr/6G1b9CDZDgQRXro4Oru0
+	 AXuxVgM4Em/a3yfPiwiqYlwW3SLK8LBwp5TVbLDztoTuZIAZ8F212Y1nwMpIk76WeK
+	 MGD+l6CdTtC+J4WQU5f/TnJIFJQPTy6Ra7sCHsO4Rpw5mQcYGIW01my8u2N7r8xBAC
+	 KmHdDudFKApMg==
+Message-ID: <dd7765dc-f636-4572-8325-97e901814796@kernel.org>
+Date: Mon, 26 Oct 2026 11:58:25 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,78 +51,124 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261026-iio-rescale-offset-v3-1-7cf6540111dc@gmail.com>
-X-B4-Tracking: v=1; b=H4sIACEy32oC/33NwQ6CMAyA4VchOzvDOhjOk+9hPMzRQRNgZiOLh
- vDuDk4cjOnpb9KvC4sYCCO7FgsLmCiSn3LIU8Fsb6YOObW5GZSgRCmAE3keMFozIPfORZx5JaC
- ujJRP1SqWD18BHb139P7I3VOcffjsP5LYtn+5JHieCltR60Y7B7duNDScrR/ZxiU4EuonAZkow
- V6g1qoRUh+JdV2/kbOZ/PcAAAA=
-X-Change-ID: 20261012-iio-rescale-offset-41254a33b6d6
-To: Peter Rosin <peda@lysator.liu.se>, Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Liam Beguin <liambeguin@gmail.com>
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Jonathan Cameron <jic23@kernel.org>, Andrea Amer <and.amer@gmail.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793012260; l=1684;
- i=and.amer@gmail.com; s=20261012; h=from:subject:message-id;
- bh=7+5E3nPFEdzUpCLuOKaAoA53dGKvrkfb4WX9YIOvEws=;
- b=VDVUdoBQYQZjXbvlRrnjs9xQP1nPAFe0JmJx9Tt2pyo1JnTRYUYHBNNdwsLcBoThKUmDJOkI+
- LeUx+i9zr0pBbYdo5hBBJ0UiHzzisYggm3mVKvnJ68WPXD1vwwYeTyl
-X-Developer-Key: i=and.amer@gmail.com; a=ed25519;
- pk=TiMK202FvcPM+yKGkAI4hsAZA7QkwyEgru97PAFa4pg=
-X-Endpoint-Received: by B4 Relay for and.amer@gmail.com/20261012 with
- auth_id=1165
-X-Original-From: Andrea Amer <and.amer@gmail.com>
-Reply-To: and.amer@gmail.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v13 0/7] Merge redmi-wmi into bitland-mifs-wmi
+To: Mingyou Chen <qby140326@gmail.com>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Ilya Gladyshev <ilya.gladyshev@linux.dev>
+Cc: KentoNion <kento@kekto.ru>, platform-driver-x86@vger.kernel.org,
+ ted eric <ericted8810@gmail.com>, Armin Wolf <W_Armin@gmx.de>,
+ linux-kernel@vger.kernel.org, Chris Taraszka <chris@miget.com>,
+ Matias Civadda <matias.civadda2342001@gmail.com>, =?UTF-8?B?6auYIOS/ig==?=
+ =?UTF-8?B?5paH?= <btx342@gmail.com>, powerfullz <wleizc7319@gmail.com>,
+ =?UTF-8?B?5a2ZIOiqiemTrQ==?= <wolf109909@outlook.com>,
+ =?UTF-8?Q?Milo=C5=A1_Vlku?= <vlku.milos.fun@gmail.com>, Rsplwe
+ <i@rsplwe.com>, Bozhen Peng <bozhenpeng93@gmail.com>,
+ Anton Karasev <uselessfire@gmail.com>, Jame Jao <jaojame6@gmail.com>,
+ Serhiy Shliapuhin <shlyapugin@gmail.com>
+References: <20261021123414.25516-1-qby140326@gmail.com>
+From: Hans de Goede <hansg@kernel.org>
+Content-Language: en-US, nl
+In-Reply-To: <20261021123414.25516-1-qby140326@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-From: Andrea Amer <and.amer@gmail.com>
+Hi,
 
-A rescale channel advertises IIO_CHAN_INFO_OFFSET only when its own
-offset is non-zero. A child rescale therefore hides a source offset,
-and consumers apply raw * scale and drop it, even though
-rescale_read_raw() folds the source offset in.
+On 21-Oct-26 2:34 PM, Mingyou Chen wrote:
+> This patch series consolidates the standalone 'redmi-wmi' driver into the
+> 'bitland-mifs-wmi' driver to eliminate code duplication and centralize
+> the maintenance of overlapping ACPI WMI event streams.
+> 
+> Bitland is the ODM manufacturer for various Xiaomi Redmibook models. Both
+> platforms share the exact same keyboard event stream WMI GUID
+> (46C93E13-EE9B-4262-8488-563BCA757FEF). While redmi-wmi previously parsed
+> the 4-byte payload as a bulk u32 scancode, bitland-mifs-wmi deconstructed
+> it into discrete type/id/value fields.
+> 
+> Redmi operations were not contained in this patch series, future reverse
+> engineering is required.
+> 
+> This series introduce a newly reported mic-mute hotkey definition
+> for Redmibooks, dropped the previous redmi-wmi driver and intrudoced
+> the quirks table for the bitland-mifs-wmi driver.
+> 
+> I don't have a Redmi or other Bitland device. So I cannot work on the
+> real device.
+> 
+> Features are working properly on my device (Lecoo Bellator N176).
+> 
+> I leave the future reverse engineering work to the community.
+> 
+> Tests are welcome.
+> 
+> And by the way, the no_set member in bitland_profile_entry means a
+> platform profile is only report by the firmware but not available for
+> set.
+> 
+> Does accept_zero_function still necessary since the driver now permits
+> 0x0 function field on SET operations?
+> 
+> And I've got a question, from sashiko's comment in my v12
+> 
+> https://sashiko.dev/#/patchset/20261012133648.132363-1-qby140326%40gmail.com
+> 
+>> Will this result in the loss of KEY_PERFORMANCE events on event-only legacy
+>> devices?
+>> Looking at bitland_mifs_wmi_probe() in drivers/platform/x86/bitland-mifs-wmi.c,
+>> if dev_type == BITLAND_WMI_EVENT, it returns early after registering the input
+>> device:
+>> 	if (dev_type == BITLAND_WMI_EVENT) {
+>> 		/* Register input device for hotkeys */
+>> 		drv_data->input_dev = devm_input_allocate_device(&wdev->dev);
+>> 		...
+>> 		return input_register_device(drv_data->input_dev);
+>> 	}
+>> When the performance key is pressed, bitland_mifs_wmi_notify() intercepts it,
+>> invokes the bitland_notifier_list, and returns without reporting an input event:
+>> 	case WMI_EVENT_PERFORMANCE_PLAN:
+>> 	case WMI_EVENT_PERFORMANCE_PLAN_ALT:
+>> 		blocking_notifier_call_chain(&bitland_notifier_list,
+>> 					     BITLAND_NOTIFY_PLATFORM_PROFILE,
+>> 					     NULL);
+>> 		return;
+>> Because the platform profile and notifier were not registered during probe
+>> for event-only devices, does this mean the events are silently dropped instead
+>> of emitting KEY_PERFORMANCE like the old driver did?
+> 
+> I ackknowledged that KEY_PERFORMANCE (WMI_EVENT_PERFORMANCE_PLAN_ALT in
+> bitland-mifs-wmi) looks like an event in this LKML thread
+> 
+>> Since the event reports a change that has already happened,
+>> platform_profile_notify() is the natural way to pass it on, as
+>> suggested in my v6 reply: power-profiles-daemon then re-reads the
+>> profile, which is harmless after the driver's own writes too. If
+>> KEY_PERFORMANCE should stay for on-screen displays (Ibragim asked to
+>> keep these events observable), it may be worth not reporting it for the
+>> event that echoes the driver's own write, or at least saying in a
+>> comment that it reports a mode change that already happened. On
+>> Ibragim's TM2209 the profile SET is reported not to work [3], so there
+>> 0x16 can only come from Fn+K and the echo does not exist; Ibragim, can
+>> you confirm?
+> 
+> https://lore.kernel.org/all/20261008152647.1510152-1-uselessfire@gmail.com/
+> 
+> So should I follow sashiko's advice?
 
-Expose the attribute when either the rescaler or the source channel
-provides an offset.
+What I think should happen here is that *if* there is a platform-profile-handler,
+then platform_profile_notify() should be used (1). OTOH if there is no
+platform-profile-handler (the mentioned event-only mode) then reporting this
+to userspace as KEY_PERFORMANCE as was done before makes sense to me.
 
-Fixes: a29c3283653b ("iio: afe: rescale: add offset support")
-Signed-off-by: Andrea Amer <and.amer@gmail.com>
----
-Changes in v3:
-- Only expose offset if the rescaler or the source has one (Jonathan Cameron)
-- Link to v2: https://lore.kernel.org/r/20261016-iio-rescale-offset-v2-1-02c825967139@gmail.com
+Does that sound reasonable?
 
-Changes in v2:
-- Keep the IIO_CHAN_INFO_SCALE line unchanged (Andy Shevchenko)
-- Link to v1: https://lore.kernel.org/r/20261012-iio-rescale-offset-v1-1-14ed15979ff2@gmail.com
----
- drivers/iio/afe/iio-rescale.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Regards,
 
-diff --git a/drivers/iio/afe/iio-rescale.c b/drivers/iio/afe/iio-rescale.c
-index 3a6a09ffa5267ddfd5131fbd04a5df928836589d..c01292a15a29d02afa8de80a778c2c2a2aeecd3f 100644
---- a/drivers/iio/afe/iio-rescale.c
-+++ b/drivers/iio/afe/iio-rescale.c
-@@ -303,7 +303,8 @@ static int rescale_configure_channel(struct device *dev,
- 	chan->info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
- 		BIT(IIO_CHAN_INFO_SCALE);
- 
--	if (rescale->offset)
-+	if (rescale->offset ||
-+	    iio_channel_has_info(schan, IIO_CHAN_INFO_OFFSET))
- 		chan->info_mask_separate |= BIT(IIO_CHAN_INFO_OFFSET);
- 
- 	/*
+Hans
 
----
-base-commit: a3b3580713f3ac5a32dc2874ee546828977a1d68
-change-id: 20261012-iio-rescale-offset-41254a33b6d6
 
-Best regards,
--- 
-Andrea Amer <and.amer@gmail.com>
 
+1) This assumes the event indicates a platform-profile-change has happened, if
+it is a request for a platform-profile-change then platform_profile_cycle();
+should be used instead.
 
