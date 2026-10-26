@@ -1,65 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=168.119.38.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793012841;
-	b=hHID0cYJjbIjkECedBWJUzi0EEFtcZUjXYIs31QA79XilcNo00BP+sGk4sGgr+QgyFpb
-	 IxIUraTNY2j3b51SyBoDZa7WS6kxFWmzVNFzi1oj0iEvoXD0OmPxCII/Unv+QesCANDvZ
-	 hfg9JFv41DYov1kJJnO2nnqGPuyMVFPIbZCwtdT5CpduWp8ZNkHxZRwd+9rnX4RVRmstM
-	 ci869S8pYNTVKiuEdkzbLcN6/tTaOMoeH+b9GdP3LvtHieP2Ah2WitVgBPzp5grDTApzA
-	 8cLORrLhOLhIXUZdRCech8sQXsjnfetlxO/+cLqaT7OhbT/gr1rOTVSNsKXgmyzYh7w==
+	t=1793012848;
+	b=AP2rieqbicdDWLUZ/NEq5FBV/5lyEVFxkQRG/V1nHHBw1ClcFf1fsd2H6eTXNe2gQ9kp
+	 1QYN8CTnN87EQaqehcUdVf5Oco1P4xm9ZY9sccJv5+yAq6K31rnGmOMYXNTnPXj6/1YLQ
+	 HRfb/MtJUAcFFq5W4GBQWVVPNpQqQKZOavWIro5yKFqXsdyPEAUUTjNvcg57B6jkKaRkA
+	 5Rddl2sa9m7ozHjmVruC5r/iGnxsDuN93mXP8RM3YYphCt9AfOOiyAsvkZQMWMvqp3UwN
+	 MlhSkVpvbHM6lz6k3yFynrQdFyTFWPXdDRbay/vxjbr75TIFp7vLwjBKuCvICbvlMNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793012841;
-	h=DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:Date:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version:X-malware-bazaar;
-	bh=iwhaYhg950skyzyNiHbnMoeJRabwevrYhb3dfzGOLNs=;
-	b=Fzbel2zq6qosyN/asiesa2OddHwHqQqBjKYdVF3/adDViP9z26AAVzXysIOciR5lNi8q
-	 r7CtPsRrSDpZ4326b+x899Nml8d5nq7M/Y39XfTRu6kWhCcWP4Ymqz5LQz6fpXfT3OXBP
-	 NlvALG+lzwsPcn7QHaQmLzYk7rqZ+kurBVJZ8HeCzTUJI2wmmwskWBe8PPYGEBhKXem/N
-	 313NI+3L1nVnE0OAddTR2qvThcNillod/3K0MDMe5H49cJY1jkcx2ACoIrd48us/8dpUe
-	 UHcdV39Ge4kFfpmsayN9kwSTXWqrPClpcCl9QYxtmOqskRrvtjJa3BFKMr4Xt/S5qNg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793012848;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=UqQ6YN3C0My0ei2913fj4EsSC5xlag6VWjFK6Bm+zNI=;
+	b=IbC43MWmjoTewouPJYRbgZxIFNxZaNAcmEq+SHIeITJhjCpua+Mtq1g25rLdj5pWSIIY
+	 Xq1raiwiHwY7rjTLjIlk5oyAGYOwy+Hmh5HBazUdKfezvgyZGh0GFOeofD0wm4ZJC/83N
+	 Lzkma07fROgEI2tIwxgp72R9KE8DXcjVJnxKhRFOiq6MiVU04UFKDjsd8rO9Zj40VVlXB
+	 wArnLVvsP2eP8F6qydlZeuu8bI/OwA7u2Sc0kqH3fSmwJqHnhrtT3F4ADT+mEWq9cpS7h
+	 Q30+k2CVoEw0YXrZHRv9AaK4u0Cb/Cj6jBtI3cP5HBmvqpzn3LKKv0xgrhn/RU82Vxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=permerror header.from=sipsolutions.net;
-	spf=pass smtp.mailfrom=sipsolutions.net;
-	dkim=pass header.d=sipsolutions.net header.i=@sipsolutions.net header.a=rsa-sha256 header.s=mail header.b=m8F1rhoI;
-	arc=none smtp.remote-ip=168.119.38.16
-Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m+meOosx;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ADF1606A31A;
-	Mon, 26 Oct 2026 11:07:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AA4A606A31D;
+	Mon, 26 Oct 2026 11:07:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sipsolutions.net header.i=@sipsolutions.net header.a=rsa-sha256 header.s=mail header.b=m8F1rhoI
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
-	Resent-Cc:Resent-Message-ID; bh=iwhaYhg950skyzyNiHbnMoeJRabwevrYhb3dfzGOLNs=;
-	t=1793012839; x=1794222439; b=m8F1rhoIn/QwtAmntzoG1wAwi1JY7JwNZJ2y3ZynX6IdzLX
-	594wF7YJpXefjSOZ3bv5a0SfjPBVYHsN2PT2Eszpx/MOA4ID/f2rT+Pv0oNNISxZpve/wBE933e3+
-	e8tKUfGaRDva6D7fez4YgQtSxlDqSghiw7GH9MH/DX4l5uufVRCJXGCatCWOndTj0zX6gWa75+ZCf
-	EfxVuf7tS4/HGwD4euOGcnLp0UgA6yPklAaZOggBmqHtgcDDrSuvVyvuaXz+U6UL2ABNSMYf4vOgo
-	UYDd+tdXnHLLZP81GsMXZnITibwJewZEd2akSZYWrzqpuKMlvgfM/0BvSAzBWNfg==;
-Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
-	(Exim 4.98.2)
-	(envelope-from <johannes@sipsolutions.net>)
-	id 1xLIXt-0000000BCCo-1qAt;
-	Mon, 26 Oct 2026 12:07:17 +0100
-Message-ID: <116e1f238e2d78817a2ac5b42b00e0faeabf16bc.camel@sipsolutions.net>
-Subject: Re: [PATCH wireless] wifi: mac80211: use HT CCFS2 when computing
- the AP's HE and lower bandwidth
-From: Johannes Berg <johannes@sipsolutions.net>
-To: John Macias <dencity7@gmail.com>, linux-wireless@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Date: Mon, 26 Oct 2026 12:07:16 +0100
-In-Reply-To: <20261026040148.2633920-1-dencity7@gmail.com> (sfid-20261026_050215_574698_93BE14B6)
-References: <20261026040148.2633920-1-dencity7@gmail.com>
-	 (sfid-20261026_050215_574698_93BE14B6)
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m+meOosx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4579B1F01825;
+	Mon, 26 Oct 2026 11:07:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793012848;
+	bh=UqQ6YN3C0My0ei2913fj4EsSC5xlag6VWjFK6Bm+zNI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=m+meOosxYEHJlg943p50ulC5iE079L9OGgPtW/odYLzLQg+0VGSol/hn4/fWuxD30
+	 58wPrPe1F9NA125zZZ/Su2aPA9723xi+YV5jG8EnRysHeh3Q6FtMfWZK4MobquGTn8
+	 DS1p4aZnwx7XcXfbVh8FFlfaSSGYY9bPjF22uIDB5teAonB8rKhEj/xz/uCrbr+i1f
+	 cyBHOMny6jO6oCQadDn/8tIV/BLGrLYwLkM0JdaIogfSBR3/pugY2vaTvxmr/ZUFkn
+	 mkaap2y8VfAV6Wt5H5mQd/cJNVuTBA9t48xCyGKweYT8N1ugIsgGgdcVXVrrna/d/s
+	 XVCmDaF1YExuQ==
+Date: Mon, 26 Oct 2026 12:07:24 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Robert Marko <robimarko@gmail.com>
+Cc: andersson@kernel.org, abelvesa@kernel.org, sboyd@kernel.org, 
+	bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, konradybcio@kernel.org, taniya.das@oss.qualcomm.com, 
+	linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: clocks: qcom,gcc-ipq8074: allow CMN PLL
+ bias clocks
+Message-ID: <20261026-terrestrial-thankful-trout-8eea58@quoll>
+References: <20261024103401.761125-1-robimarko@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,23 +60,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-malware-bazaar: not-scanned
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261024103401.761125-1-robimarko@gmail.com>
 
-On Sun, 2026-10-25 at 21:01 -0700, John Macias wrote:
-> If the driver advertises VHT extended NSS BW support, hostapd announces
-> a 160 MHz BSS the way IEEE 802.11-2020 allows for that case: the VHT
-> Operation element has channel width 1, CCFS0 is the 80 MHz segment and
-> CCFS1 is 0, and the 160 MHz centre is in the CCFS2 field of the HT
-> Operation element.
->=20
-> ieee80211_calc_ap_he_and_lower() only looks at the VHT CCFS1, so it
-> sets bss_bw.he_and_lower to 80 MHz and ieee80211_sta_usable_bw() then
-> limits every HE and VHT station to 80 MHz. Stations parse CCFS2 and use
-> 160 MHz towards the AP, but the AP never transmits wider than 80 MHz.
->=20
-> Take CCFS2 from the HT Operation element when the VHT CCFS1 is 0, as
-> the station side already does in ieee80211_chandef_vht_oper().
+On Sat, Oct 24, 2026 at 12:33:09PM +0200, Robert Marko wrote:
+> CMN PLL in IPQ8074 provides 2 fixed clocks to the GCC clock controller.
+> In order to describe this in DTS, allow passing them as the inputs to GCC.
+> 
+> This has a benefit that it avoids doing a global matching by name.
 
-This, by itself, is wrong.
+That's ABI break, so at minItems.
 
-johannes
+> 
+> Signed-off-by: Robert Marko <robimarko@gmail.com>
+> ---
+>  Documentation/devicetree/bindings/clock/qcom,gcc-ipq8074.yaml | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/clock/qcom,gcc-ipq8074.yaml b/Documentation/devicetree/bindings/clock/qcom,gcc-ipq8074.yaml
+> index 00d7df75b3d6..d489c6332e6c 100644
+> --- a/Documentation/devicetree/bindings/clock/qcom,gcc-ipq8074.yaml
+> +++ b/Documentation/devicetree/bindings/clock/qcom,gcc-ipq8074.yaml
+> @@ -29,6 +29,8 @@ properties:
+>        - description: sleep clock
+>        - description: Gen3 QMP PCIe PHY PIPE clock
+>        - description: Gen2 QMP PCIe PHY PIPE clock
+> +      - description: 300 MHz bias clock from CMN PLL
+> +      - description: 416.5 MHz NSS NoC bias clock from CMN PLL
+>  
+>    clock-names:
+>      items:
+> @@ -36,6 +38,8 @@ properties:
+>        - const: sleep_clk
+>        - const: pcie0_pipe
+>        - const: pcie1_pipe
+> +      - const: bias_pll_cc_clk
+> +      - const: bias_pll_nss_noc_clk
+
+Drop _clk. Names should represent the input.
+
+Best regards,
+Krzysztof
+
