@@ -1,66 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793030196;
-	b=1PXdCyBpf1iYKjA13ZNVIpZgE4ec0VO0GAbzGpj28eS6taLHjRM76Z4Yi2V5i6HCP5fb
-	 +BRa6zm546BaWZzOQ/7NdWmyiDa31jtFnVDYzlLAJfUZ6c9q5O7BcMTqDF5ngJ96cCyGm
-	 Rj6xGWlXBOXw+32ieUkzfaH2jHoXzyKnlm1qWGzJPGSahcIHE/gyAFuQciyty83IqS4MI
-	 kRCeTS1NG6sPgULJfjN7tOwG/qwMGBUIFkfuV7ufhfFnAI0kX9nR4J/b5gZe29oKDKvhU
-	 mEX5AumFWIOu/sTm71rHoSbyUU4MWTJGFgTOj4kZDRB189j6t166CVbke8BKbc+TLUA==
+	t=1793030284;
+	b=JBFWDHh5KaeVGtZ8/srlYbN/vchHeWMf7JEsV4gzg5VwSgpfab1lxZp9ClGWaUf7/6sx
+	 +S8XplqtcIy9eXvrBTvUEkEZFaknL/NfMs+tB9qwEMU/Ek3fCOR4PZfKaz4v/iYwEpHVs
+	 h6py/FRX8xnpSMnoktgE7nLaOPxU5v7Y264x7aNGGvrnF9BBPDUt8U/6extlecE4s5gpt
+	 A3p03DUgWbV9m1o4g3pE2DtcSsjhdUU5Jw1NztQyP319usSyb3i0xPxy9RQAFefmIOLlz
+	 XaYzEbjf2lrE6+oI3Y+Mt/LdH4FTL59t3b70xTJ/lMjt1skDpGzeKXU0RlHEKdGSjQw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793030196;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=2GoPmj1ZmLofWBrMyOcxppGzOSH5vRfw4U/a5/6h2ME=;
-	b=dQKt2r3K4IBD6jGs3YF3YqnDiEX6KlRA1PTe+V5Onol+uXTRoywGOWpcXGSu0Hhw/xfY
-	 2vfG65sqkl92n9ES2YN3NKgDjsz/urEiEpKTZc5/glA6yJ3LnifsxmLcPju2KM+nnJk7+
-	 kyHjjbLDE43S8ecvVEClGS64QfRRjnwB0yo6m25NqOJ8Lb0mqLNYh6IiYkPh/NgvoqdVW
-	 kAx40qUGmHXLVGwwdGOmiaYTvQ8Z1zl4yZJaCkgu30gvjMWfu95ndwfsgU2HrGBqn7CBC
-	 hbPKtgBLzsVJRo82g5HBcckafQCkp9VnPW/0SPYpbLeakknVhFe2K5NT/yBajIKVZtA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793030284;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=vDe8CRpYtfnlmiKQSVOlxcNlMy5T26XfLimRRniHF+0=;
+	b=LF2VNBTf1vyy7M7FxEYxI9WpLIvvDS1GMn8gtHm+uZvENmRzG+OeuAe88yqxdSAzIH0d
+	 OxSqSs6XiQkpV6eFt7DuBMNyAbS07bv2r7XniUdgTOexedDwsvG7cdSLoY2Me8+zPf8Mg
+	 6QbL4ZJWGvGGw3ZV9Ad5wTUTB8e5TLY1mgMrJ5HXH3q3t1ca1w9DC4kyJ/iONcQr6i7l8
+	 OKE2UdiKseylVRamvO4WBLz9kD6p7TazRE+q7zyd/5Pm6ohYza4rKpRODaCugN85q4GxG
+	 n3ZrHt7tfS2Ql9dzdvm6Llvh43B9GIGYRl9NSegqyV9AaY3QQC0CNunAlUurwZ6zscQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=acm.org;
-	spf=pass smtp.mailfrom=acm.org;
-	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=CFz0EqCR;
-	arc=none smtp.remote-ip=199.89.1.16
-Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RfGdENv1;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A14C606A31B;
-	Mon, 26 Oct 2026 15:56:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A14C606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 847CF606A31D;
+	Mon, 26 Oct 2026 15:58:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=CFz0EqCR
-Received: from localhost (localhost [127.0.0.1])
-	by 013.lax.mailroute.net (Postfix) with ESMTP id 4jCysv5DCPzlfvpW;
-	Mon, 26 Oct 2026 15:56:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1793030192; x=1795622193; bh=2GoPmj1ZmLofWBrMyOcxppGz
-	OSH5vRfw4U/a5/6h2ME=; b=CFz0EqCRRpkaKxNgZD2gnz80gb+xK4IrgHP2uIOb
-	1xwfASfByJrEHN0huo3sKoNPmOs0ifC5Yv8nLBNf1o6EzwirzmUWsf+J2M42I9PF
-	nbiWg3HgJ5p1lUWSewqvgho9m5utg/N/ezYFouYlik3FSM7mu8+ZtAVX30EhnFxL
-	WB1gyusxNjUGmOUDeB30svhB2RuD1yqTxQJEZkNRGPJK+zMNTqOPkcMRG338CG1N
-	/Jb5+EPe3RAY8raVd8m2mNxNRez6b1f/zWzFBREz4G5W5yckL/BtZluXHeMEGnkf
-	X5liwIBizR6JnImgJyTHdkc21Hi1UTMI7p7wxNVFQxVxZQ==
-X-Virus-Scanned: by MailRoute
-Received: from 013.lax.mailroute.net ([127.0.0.1])
- by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id A3JlEVgOhlsY; Mon, 26 Oct 2026 15:56:32 +0000 (UTC)
-Received: from [IPV6:2a00:79e0:2ed2:d:829f:7082:d079:ed8b] (unknown [104.135.182.43])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4jCysq64GJzlfvpT;
-	Mon, 26 Oct 2026 15:56:31 +0000 (UTC)
-Message-ID: <6efae213-c75b-435b-888e-f58c32b28bf1@acm.org>
-Date: Mon, 26 Oct 2026 08:56:31 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RfGdENv1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA1081F01825;
+	Mon, 26 Oct 2026 15:58:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793030284;
+	bh=vDe8CRpYtfnlmiKQSVOlxcNlMy5T26XfLimRRniHF+0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RfGdENv1KO6WGultc5JBQI30mnFo6lIKcY9IMNm242LLG++yypD0knxji/25b8PHA
+	 KWUyeaY+4qcol3KBKeNo/GMw23xHfVVKzB402sfacJYzvNeFe0vZy2sQNkMTR4sBTA
+	 aS24MMu0Ia1VzOQuVdZFCc+ZaXidM1CweyLxsyn4wzGVxu8YYpmOW2gjBQ9Z6qCaSb
+	 N5LRLymxHHOcSDK0YF1Oa37aZCvH6asL4lEb88PKQ34ncvLwNfAQNWCB9f2nPYsiyM
+	 cX9YDggdR5JCxlrTsVUznB2IBeWahvXy3OARhdTDh0GYMww/mQKO50oK7pU4vvBbOz
+	 mWdsfHDrHsgeQ==
+Date: Mon, 26 Oct 2026 09:58:02 -0600
+From: Keith Busch <kbusch@kernel.org>
+To: Christian Aurich Zanettini Martins <christian.aurichzm@gmail.com>
+Cc: linux-nvme@lists.infradead.org, axboe@kernel.dk, hch@lst.de,
+	sagi@grimberg.me, sgogte@purestorage.com, mgurtovoy@nvidia.com,
+	israelr@nvidia.com, wagi@kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] nvme-rdma: fix NULL metadata_sgl dereference with T10-PI
+Message-ID: <at94ipr6nhBIMBK2@kbusch-mbp>
+References: <20261024213737.506824-1-christian.aurichzm@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,39 +58,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 6/6] scsi: bsg: release io_uring requests in end-I/O
-To: Yingjie Wang <x-professor@outlook.com>,
- "Martin K . Petersen" <mkp@kernel.org>,
- "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>
-Cc: "linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
- Yang Xiuwei <yangxiuwei@kylinos.cn>, Jens Axboe <axboe@kernel.dk>,
- "io-uring@vger.kernel.org" <io-uring@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>
-References: <cover.1793003363.git.x-professor@outlook.com>
- <8f30e238d2b169702308303687e9504c7513ecc8.1793003363.git.x-professor@outlook.com>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <8f30e238d2b169702308303687e9504c7513ecc8.1793003363.git.x-professor@outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261024213737.506824-1-christian.aurichzm@gmail.com>
 
-On 10/26/26 1:29 AM, Yingjie Wang wrote:
-> +	pdu->response_addr = READ_ONCE(cmd->response);
-> +	pdu->max_response_len = min(READ_ONCE(cmd->max_response_len),
-> +				    SCSI_SENSE_BUFFERSIZE);
-> +	pdu->sense_buffer = NULL;
-> +	if (pdu->response_addr && pdu->max_response_len) {
-> +		pdu->sense_buffer = kmalloc(pdu->max_response_len,
-> +					    gfp_mask | __GFP_ACCOUNT);
-> +		if (!pdu->sense_buffer)
-> +			return (issue_flags & IO_URING_F_NONBLOCK) ? -EAGAIN : -ENOMEM;
-> +	}
+On Sat, Oct 24, 2026 at 06:37:37PM -0300, Christian Aurich Zanettini Martins wrote:
+> Since commit 2a8513091d2f ("nvme-rdma: parallelize I/O queue allocation
+> and startup") the I/O tag set is allocated before the I/O queues.
+> nvme_rdma_init_request() only sets req->metadata_sgl if
+> queue->pi_support is set, but pi_support is only set later by
+> nvme_rdma_alloc_queue(), so every I/O request is left with a NULL
+> metadata_sgl.
+> 
+> With an RDMA device that supports integrity and a namespace formatted
+> with protection information, nvme_rdma_dma_map_req() then dereferences
+> the NULL pointer on the first integrity I/O, already during the
+> namespace scan when there is more than one I/O queue.
+> 
+> Queues that a later reconnect adds for the first time have the same
+> problem.
+> 
+> Check queue_idx and the controller's max_integrity_segments instead,
+> which is what nvme_rdma_alloc_queue() derives pi_support from.
 
-No new kmalloc() calls in the I/O path please. These have a measurable
-performance impact.
-
-Thanks,
-
-Bart.
+Thanks, applied to nvme-7.4.
