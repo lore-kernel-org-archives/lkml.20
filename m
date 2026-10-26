@@ -1,96 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.54
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793008149;
-	b=zwWwGxb/oMthsRJONUkqYxqt0qdDYT3EAVpKRwWqgHzo8zHeIKHE2OYxtXd6cpY47iWy
-	 zXQfhqY/JvpOj7Vgfbz7QSXkBiUdzNA02/QcUu3z642T20Sbt0A1cXIrwEoaMFsxQGcHr
-	 BDzLe3zpphUB5FY2gX4tU5LKpKXD0Ov8/Uw+TgumZCAat5KTimko3nrYng5yJ4iEirM9r
-	 jjisiLXUiPwLoaxInmxkZfsInOkrJ6U8xJEindBk5ap/YIVAWZmSPmXrprEt0gnfYrD5e
-	 TQH6yjQplB5nufr5Ho0uIoA8u4agRph+Q00mgkl0W5WinwCux1mM3NnDY5eRPTwr/zA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793008149;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=FuUzM1WaQyok0e/qkOj26iucNld9X/+5dUm21tLW5Ng=;
-	b=SRfIp2yt13qjwopYOxl8F6qlJjZvtHw4MU6SmUxjHoRMOhePNHim1jH7mws/bMScMl7h
-	 qFpbaf3Tl0JQ1Wu0X0tPh/ZByXCNBsHZri3mQaKgTB+v7ibk2RNuHlKHp3Q+v5oqr78Xs
-	 FPIPOvfHOrr/O3arpSBfOB45iv6qcBuG6SILkB6thpmeaZ7lF24fc6DszXAGFwWvhHJ+B
-	 58wXMwbLgfE/jIYxw0bpIaJSMO67HHza1BV3zTzhGcjUcR+zEYG5WwYryRsb3ug6+/4DE
-	 F3rkbzsmRl1IwcPAFCxmRdRWPfXw3T9NC3qZhaRHZNaEfBevtHADhGKgGsbgyvtN6+g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=miget.com;
-	spf=pass smtp.mailfrom=miget.com;
-	dkim=pass header.d=miget.com header.i=@miget.com header.a=rsa-sha256 header.s=google header.b=MFsRk5Mg;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.54
-Received: from mail-oo1-f54.google.com (mail-oo1-f54.google.com [209.85.161.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.12
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793008201;
+	b=vESRWF27OvL8Te5nejjPKYZJiFtl14+b6UHx1UALKdheLi4GjZxOSVtSHAbUZFfb3A4r
+	 q+MPMi8A+BaQs014cjRdO/t3BwV/tYFxVQrihOcR7tT7eYePKEaCeKuvdbBtWTJN8DaII
+	 WstsuGPihgEUENw4CVWRxGpgOqZzx5sBc+eia3NTWEulHNu6DE/4sXVjYu2J9IT++RfIc
+	 S8HY70z0RcCc/RZTl1ozpBMsxsucAe2m/d43Ji1QvCeRCI2hQzV11LrlaCzB1rONOD7oj
+	 5oA1qB/ZGFKChvfmWHz+fgJ4IiFjfPgAzpuufhU/0W37DB6OF6uvh8Cc37Df4YG/wHA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793008201;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=Q9f2uGWeWP2/426R1+gQS6saQbeRCspCMELW+WPFZWA=;
+	b=BIGiyjBLAUrjhFrKjZC0c3RMqGe1Xjhq5BjmrwBGuCk7BxY5ofi6myYSdb7+b2ksXBSY
+	 022N6NVrXk2Hce2ptLyI8wxlOvP8B44cBYeW1Ipofeowdszjf/6qlNALm6rO877LoBKU1
+	 wGvb5wn3LspTWnmk2xQv53sFQA2DZXbq9l5IiHiTD/hoEwww6/et1V1SrsCQlRGf/AkIn
+	 av52L1/rwEpkMjRYRM4ltwPtFEv444pIpOStLPiArDAT1UD1Muv0NPL/6spZbja5GiNsP
+	 NyFIHZowxlWRD2UWlByJCUhSAy6gObyVVXv0x8ZUKHPtxn8EEpIwbA2XAzhtgNGhQ6A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=bKItXg7O;
+	arc=none smtp.remote-ip=192.198.163.12
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E771A606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:49:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E771A606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=miget.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=miget.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E853C606A323;
+	Mon, 26 Oct 2026 09:49:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E853C606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=miget.com header.i=@miget.com header.a=rsa-sha256 header.s=google header.b=MFsRk5Mg
-Received: by mail-oo1-f54.google.com with SMTP id 006d021491bc7-7037daaa820so1022840eaf.2
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:49:08 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793008148; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Jp5qUM9dQQottudN1X9XjoA/QCJW1BukPPmMvDzeYAZoIN2VJgAibGiNnoq0Fh1J/s
-         NNSgBsGbYiP6yB8sxcRsC2lkmxyH208v+7qsFN7jOcbA5Y1g+/jEzt/fqJIU9Nh6WUDs
-         WCnMnxMqIevaD0lrEHXIW2HWmxKyRQ8BYAesE5/K46V+xsvqBJdX1I/KFKIs/v/pBc7V
-         mFz4IUzI4q2zP71TSSZK1g4J96e+/cyDm0NdSl55f8WjW2aF+fYGEckn3FYNzhz7OeA5
-         ztBSUJEW4yHlUcQF9FQc1hXZQ1PyS8che6zPgkn8TnuK6ouJFN5zDDnVfXpuGFGrUxNo
-         Wo2A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=FuUzM1WaQyok0e/qkOj26iucNld9X/+5dUm21tLW5Ng=;
-        fh=NEUlT8aLBABOTbiLFxMZTpml0CD2iolcvQul9Zg5Wp0=;
-        b=HsyXULpyuBio8CBHvVatX/LXyrGpIBy//Y+VpMQwL4b5gPaUwy4SdVHfpu7yEz9mfN
-         Miw3widLIdtMZFW8Sz5XK1QPDbI9F2FTydLC2DSmR78tj87UQOS1W0N8VtDzHOiQVnCj
-         P0ydXHD0DQ/UbqodK4rNPa64BjTVE33foiZQQ7WvtZ8OJrdkal2I5MJ2jlQcIYT4UIJy
-         ihhDUlNK5+tKWngxRf8C1gV70iam9ZVEtI7nIUxxHQogPgEZxc5vHg8rkwqn+4lHEhUl
-         +cFIBlnG33/CAzJJQfXYQSxKyK8a/u1ydyS1V/CvLx7LyHzezVU2l9tWYADX2PTgLYFC
-         Q+EQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=miget.com; s=google; t=1793008148; x=1793612948; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FuUzM1WaQyok0e/qkOj26iucNld9X/+5dUm21tLW5Ng=;
-        b=MFsRk5Mg23obbBNpKJiXdyAqBhEoxn2+qZ/llSvpkFxqxqWje4AigorkPeosfp7DHB
-         4us1KTiC3i9s6hUDz8+iipZtIcbNs7qkGMUZBQPZuVqZsrVEOH/et52QW3kqAYlSgNUw
-         538/x7biZ8zwMjsgKiaE2MU6cofOUF5kKJc2k=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793008148; x=1793612948;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=FuUzM1WaQyok0e/qkOj26iucNld9X/+5dUm21tLW5Ng=;
-        b=Fyosxvufumy94jh7ObxHXw7ZKk1J8FmYGXDBKJa9uE17ROtdEyyytafUt2wcLnJHUs
-         7tF6kmUtXnXnp+YJzQnuyd6Vj3WRzlor3GLqr2PXEALIKv4LREomyBhRJ0YPcO1pKleg
-         jaU+YsUXIvHt3tRymIcvl4kOXVESkDHZXAi5L+iexlE+//4h3WrwYrYsg+kYIkXhBiRV
-         v0X0Fj1wdoV66EdyJtGMSq7ELgJM8Xrh7CXY79Zv9VceXoj3dttDzBQdhlK7mj0nCSWZ
-         rAdmmwujtLQ6eEYYJvM1EesHBVQUc5oueoD3HMcY1zf9s8Sjuti23r29eNde7XZY0ExN
-         l3lA==
-X-Forwarded-Encrypted: i=1; AKwUvBxhopU1QenT+1PyR82h0lC9eZAka5RRx4VIHkb4HF0iQRLTCNoiM/Q0cO1XUEYr5zylMqicffOJ9LVcwk4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKhBNPDpx/aap44fm+VRoOkUTMD+QiGjY0SsTghEM6fXH5FU0gj
-	vI3D7hr86F4T4/mtnniONRFdqieQV6sGy7oX3Gf1DLi3bZZ6t/PxXP184qYtCOIBd1sVXF7Hiug
-	cLq/afVaLo6u5SpMJwY4pJXUEgW+XvTwaL3fY87Z0cQ==
-X-Gm-Gg: AYBFou1bSV1QD4nxCDecOcAgex6JAtS72utku8lpBurnEHfRIp5MiWIKjJprVDxSAe0
-	Fkz6XwGP0+KWZb5tXPWtCzO1eo6aFmgyvHGtmjluKHnjSBkmiQPRbF8JNhrdhUutDU8vXQMJv8A
-	CDm/kobmLPZxVFMoskOEcSSrFXyxEzpuE9/0Zl1uo476gh6LjTYCifmKGqxSZ1F1AuRMnrf/wIW
-	8XEt3RZnyUOX2MVvKQVwrMpHssaZsqG3P/ZY8H+rT3hTd+GSI5ptMP8Xf0gdvrCl+AEtbuxgcqn
-	FY3vjLWjMPNYtDixry8Jf9Ok7coIYlbiBN2H7femJzRHpREwRWZsc9PqIhb2YCgZEywDueXCDmI
-	aNH7jPB4o20SzvAIwemTfCWguRggaVWI3wkT2qaY387FPozRNDS/eSe+mgreCl4b2FzbCnw==
-X-Received: by 2002:a05:6820:1393:b0:6f9:59ee:cfb7 with SMTP id
- 006d021491bc7-70ba0e6375fmr3568051eaf.23.1793008147879; Mon, 26 Oct 2026
- 02:49:07 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=bKItXg7O
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793008200; x=1824544200;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=0CPUBaoIM/gu62Y/pBUcQ6kvFd6fpUVAmPDb4OpbuQ8=;
+  b=bKItXg7OD5KzLKtGRSIH1Eg4usyWsqk35woOMgeX3KNudoOywyjIaInP
+   KGOmrKFNPxaFaSN2txwYptOrQHgxzaQy/rML3l8/bz5qNUKwkEA27aSI5
+   NUh0ZN0wrIhNylT0/bGoDhxY12n6YPdiZsvEPLAOAqFdwckVXpuE0Ms4e
+   sXNR9jpOq0RJl/lF44MfEfJShSANSKaxKi47yV6h+4/4mMbry5N4UFt64
+   Kjssc2SEcoM2E1BnMrAdS0vwUMg37K4znT+FkU9elZk/zES1Yye2JWvZ6
+   DRdTELN7inYxIk4WCcDhJ+dzeGmoktA+p2Q7cuvsr5w3aeC5B7jne14Ah
+   g==;
+X-CSE-ConnectionGUID: WfArfJQFRJuEWnAttmtOsg==
+X-CSE-MsgGUID: uqM2JVCUSpul1zop77aNmg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1570726"
+X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
+   d="scan'208";a="1570726"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 02:50:00 -0700
+X-CSE-ConnectionGUID: 0syt+QF6SOujdi1UOBKF6g==
+X-CSE-MsgGUID: QE/bqolnQ8exEHLapGXJsg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
+   d="scan'208";a="4569812"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.93])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 02:49:57 -0700
+Date: Mon, 26 Oct 2026 11:49:54 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Nithishvelan M <mnithishvelan@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Nuno Sa <nuno.sa@analog.com>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] staging: iio: impedance-analyzer: ad5933: use
+ guard(mutex) in ad5933_show()
+Message-ID: <at8iQhUDfDpkRxI6@ashevche-desk.local>
+References: <20261026082828.652-1-mnithishvelan@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,59 +84,23 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261025195456.43414-1-chris@miget.com> <20261025195456.43414-3-chris@miget.com>
- <5360953a-ed8a-450b-93c2-f55876af8600@gmail.com>
-In-Reply-To: <5360953a-ed8a-450b-93c2-f55876af8600@gmail.com>
-From: Chris Taraszka <chris@miget.com>
-Date: Mon, 26 Oct 2026 10:48:55 +0100
-X-Gm-Features: AclHuK8ozhNoswhNuPdRnKi6YYcff8kxUXP8CRTlrzEGAMZVA7mXrrYS6jcIhps
-Message-ID: <CAAcRvKM2CQeJLWDnUhQJ+pKxiduY3XakeBbJCTbnY8=beE5MLw@mail.gmail.com>
-Subject: Re: [PATCH v2 2/2] platform/x86: bitland-mifs-wmi: Don't fail suspend
- or resume on profile errors
-To: Mingyou Chen <qby140326@gmail.com>
-Cc: Hans de Goede <hansg@kernel.org>, =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-	platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Ilya Gladyshev <ilya.gladyshev@linux.dev>, Armin Wolf <W_Armin@gmx.de>, KentoNion <kento@kekto.ru>, 
-	Matias Civadda <matias.civadda2342001@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261026082828.652-1-mnithishvelan@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, 26 Oct 2026, Mingyou Chen wrote:
-> What value does the firmware respond?
->
-> This patch fixes the suspend problem, but it hides the real driver
-> problem (unsupported profile entry).
->
-> I saw 0x04 in your patch "platform/x86: bitland-mifs-wmi: Add Xiaomi
-> Book Pro 14 quirk".
->
-> If result.data[0] in laptop_profile_get actually equals 0x04, the
-> function should be succeed, but it doesn't.
+On Mon, Oct 26, 2026 at 08:28:28AM +0000, Nithishvelan M wrote:
+> Use guard(mutex) to automatically manage the state lock in
+> ad5933_show(). This simplifies the function by allowing direct returns
+> from each switch case, eliminating the mutable return variables and
+> manual mutex_unlock() calls.
 
-Hi Mingyou,
+LGTM now,
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 
-It does succeed with patch 1. The firmware returns 0x04 (I also read it
-back from EC 0x68), and with the TM2424 entry laptop_profile_get() maps
-it to performance. Since then the machine has suspended and resumed
-several times without the warning.
+-- 
+With Best Regards,
+Andy Shevchenko
 
-The test in the notes was run without patch 1 on purpose, on the v13
-default table, where 0x04 is not listed. That is the state of every
-Bitland machine that has no entry yet: the TM2424 before patch 1, the
-TM2107 before Matias' patch, and whatever model comes next. On those,
-the aborted suspend is what users hit first. Before I knew the mode
-values, logind retried the suspend every 15 seconds with the lid
-closed, and the laptop drained about 40 Wh in one night.
 
-> Is there another no_set (for read only) profile entry for the
-> performance profile?
-
-No. GET only ever returned 0x02, 0x03, 0x04, 0x09 and 0x0a here, and
-all five are in the table.
-
-So patch 2 does not hide a problem on this machine. On a machine
-without an entry it keeps suspend working, and the "Failed to save
-platform profile" warning still shows that the table needs an entry.
-
-Thanks for the review of patch 1.
-
-Chris
