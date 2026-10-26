@@ -1,59 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793011906;
-	b=Zurj+neceZUvkJsg+QpWSdVooMTCuRekdmT9aLVaJFX5XiIj9pl2bAtjES6t5Dt5GDAR
-	 6JWcuVM5/KrLitEFw2sUjVoTEhf5YktdQQmdP791c0WTLjxhJFi4nfwS+r3944jBK9srJ
-	 CZSHD1JZR9ZxEhwvl0jHS0dytUAnLJi1arnAzfOTZMHP/J3CZvsLw5guartjZnHuKTQoh
-	 KTOkrBatqcCTRpSXTaqk/Y8TdgYOXufJy8T9lv8qoiviTUbPthqAzAFDKUtDhBnjJlGKn
-	 thji03V5+AbOYwnwmYf0wubrWGrroQhcJV3EnCWgWKmtJu5LdaNUZPXxosKCfc595eg==
+	t=1793011944;
+	b=KfpGb+V9dp+AXfJECRk0L1o2D6cyhokJNml32X25HAbseZ0t1MfF6uvCZXh0tJM22CnC
+	 qZSsS1vU7oW5LboV3bX+wXZeIT2syVnsFCw+2FiUG2kgN/H1qMpyXKD4TMaXvSNk37ARu
+	 3nGPemetCmeI+zl+GhksEmRaK5f+PvHPgJlBy/rZtOn1jfO1tWOv+m1Ad7HrJKwkozeLP
+	 2vEYrd7bHLe0ZhhzPb7tMnL2v2cNIhLidSXQOdmRlZPKTowROOVQWPKbf/gKoWLHi9aQb
+	 auO4PD1m/krTnGiORAowS7bvGRougo4YkrSUMpm8g+T5E9igDUYrTd9fNSUrGHyD9aw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793011906;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=v5tLdsYVe6jkudpLhvAnNdfNyTx+hkCn0nQ4rxKNJDg=;
-	b=NGUAL9p++364Hqu/MLXgWMNmY/J2/T4NijpOgoVLZhwjyZSQXaDZJHBqHWUUewq1kLgY
-	 XakTk0dxI0HaUk7jflJ+RJA8I4ljNMdUGELRRz3GaXMwwyuohLTpyzrg1ed8QqhlNFcSH
-	 gGwK4jMzdVz88i3HTFfS9m5CzQSjBI6al8ZPU7rFZII4ugp/IUV9Z8h6aQxQ/rDZxuEid
-	 W2lgDHfQT1zCfOuWW+LVZxLjOjogki8izw17ru9SmiJu5ZJKQ4qr5lt6wRLdaEehiE7SX
-	 sXJSBNBgtEwbQbO6IlirCnnme6r3n+DrZJO1acxWHeaNrDK4qBIBuLbYgL0iQIXn5BA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793011944;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=gOYmoGPbwEQdywGQ/41fb29WcNoZgPqM/BtBzm9km6Q=;
+	b=fOKHX1EqjVuO7JmigVkMr8x3oeSUXtSAB7bohhq75fqv8x49hwbOny7ZsJnwlfyWQyp+
+	 ayv73BaofsmWWILg2IHWSiNzFIo03lt4VlH2/DgVIlFQPal/O99tqxEtFUyYZdIienbf2
+	 igUtnHnGK6bfvT+worCRkB7D/+ic88xNxV1LhO5x+07AD+UCHEwA2RAfiQ6OyrPWet6Y1
+	 Pvgn1/nttMXkTKv9vQbVxAreoSmq2Fg8xxYRYO3kZ/UFe9u3qgSh4dWbJCxZ/FvSZyPSi
+	 hbKnxJ9eGxfcvVC5VqlemMUoRGSysGXE3QJ/1cEJWfd3LUHrQ/Yba0WkwuBZnLvj+sQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JgntCwBi;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rZJnMpRb;
+	arc=none smtp.remote-ip=74.125.82.174
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DC3E606A31B;
-	Mon, 26 Oct 2026 10:51:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C371606A31D
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:52:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C371606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JgntCwBi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 176351F01825;
-	Mon, 26 Oct 2026 10:51:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793011905;
-	bh=v5tLdsYVe6jkudpLhvAnNdfNyTx+hkCn0nQ4rxKNJDg=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=JgntCwBilmygVU4migOHVAa1q/0zsYcGJ1yaRuD/XcHGcPkuoaN/dM5JrmBfsdy3t
-	 Ydi/D39kX+0QL8Bc/iSA/+5cXEbTnnZpndFZs41eidxdLNM0HP72SUxfhyObejal1w
-	 Vlg2FyuwirYyADGgwIElgWezMmwIkRaNm6Jvpoj+k8tNoyqBCjFyoCikAoX/5v8NEu
-	 6PMUqONYKGUbUH2f12ZfYXWvFg4ubsxYWHan9LBCGb38cNqlIZKSOVDzJRUEVl9Qum
-	 ALTElPbWX1Ta0iuXQwoqsQ1XO0bLQGv2LCzl2eTMczR9E3O126KIFLdFcU/SyRg2xC
-	 bR5CmV5PwTPNg==
-Subject: Re: [PATCH] xfrm: disable state hash resize work on netns exit
-From: netdev-bot+sashiko@kernel.org
-To: hackerowskiy@gmail.com
-Cc: steffen.klassert@secunet.com, herbert@gondor.apana.org.au,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- syzbot+f3f4fce0609f8e91b540@syzkaller.appspotmail.com
-Date: Mon, 26 Oct 2026 10:51:44 +0000
-Message-ID: <179301190461.3134.10521978654575001066@kernel.org>
-In-Reply-To: <20261022102641.1429128-1-hackerowskiy@gmail.com>
-References: <20261022102641.1429128-1-hackerowskiy@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rZJnMpRb
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso8416075eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 03:52:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793011943; x=1793616743; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gOYmoGPbwEQdywGQ/41fb29WcNoZgPqM/BtBzm9km6Q=;
+        b=rZJnMpRbX2Ia4RYK1vuImjnGX7O9nlYmr0ED4gNrciX9tqntGQHWBXF+tllAiRKdw/
+         cNC9F1iHLzHnXaAaSt03J7J9Z/3q+pna6nS30Dw926Hgq7JVsKqPZvSsn6iRqHK4gfwd
+         +GbA/d1aDtPHhTm1q21W+SvCYECQxyN5aXke6p2nCQZ0XJ/LmcpOxBb970n9nY+ELLKm
+         ZMB9eBYm89irFnKqpx1GVazc1aGTiANvrvpojt45R+pX/PasowWASWzNw5XdOheYWklk
+         et0nqII1PLjXIU8OMRBmNe2EBcxxJbIzdBYMDOTJnPiWjTlzUcyumeQgjlfiY+0v4wPJ
+         cuTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793011943; x=1793616743;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=gOYmoGPbwEQdywGQ/41fb29WcNoZgPqM/BtBzm9km6Q=;
+        b=EFeBwZIU4cuyqRQttdwCR2xJnR82MHxVsm4v06A+uO4uhzwdrYp9mm3dVlSvQP6vQR
+         k0k8YexAzwKnqOSWt9JOos3EFV8DqbEQi0q0HSUbA/IrURqC4NHXcVDMocaA8fWt4Rk1
+         nnp+kknewKTn7hZJRLu0UtX/IFAAgmSCYuZMCQW2tclnD1QiWUmo6KkD/OTZhgwd82Tb
+         IHKLL+bQh7AVihexRGUF7psClr9TQbKoeDUwsJM7x+N17rISWT7lJyGX0iF4RcTK2c4Y
+         w5IxG8HS2nAu3jh73zh90cuYSXZh/B8JMqq208q4Qn93g6gGFyjdhzU2MTHdA9OxF82M
+         yFfA==
+X-Forwarded-Encrypted: i=1; AKwUvBzMIAymyOj8dOuQrW1jPiQFLKAPN0nLqo4R+WB09Q88Pqh5uBuxH2yc9ovLgwsXCj3XuyLtAxVGhPuWs7g=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIAX9pyp0YLHVVCSXINX4d6Iy6kJ2ygEMqCfTg6xQ8QFmMonugT
+	SW8T/AoUkqZrM6z/1OnMDChJqOF8cf7NEU5FOrr4PH1scACbHaad4Ln0
+X-Gm-Gg: AYBFou3bZffN4xXlP/JGCuBdY16gBeQFwcvuXycyW8YntkijOGKrqcdb6IwKg4ly2x4
+	p1IjCY8J/rOjoguRWKLTcqv4aIL9wTwGBN/bQG/8pGRLsaDNFOuQ73k7geCgqkGDw+NusbcTnu+
+	tANx9O2xhdUU01/mFQuItaOxQEXk+RYYZqo5GQfQlJ08DSiHnxXvTapxJ/FPMs8773gdjyqzfoF
+	xeKueolQj12kj5DBlyqyTgGgM2rWJhHCJG52yHJsfsPbeBnrlIKf/zvLXlFYoXi4CjbVBMZQXuO
+	Jj4FunmYkYcBx7BEY+GnQii4ar3LjaTRYmN+1OdSRHVuvsQ3GdREEGp6dmhe6BJmYiN3BE9P2FE
+	xybu1K9Pr13maUK1JnsbGaSRU7e78W6or9iaKiYzV/ORC+iKJEpGdqugHpEhtddV9vKWtj0NdFw
+	U3EP2NVFNhMVIM+cHweysa5NlGMU5kO5d7AmvWc5HyVhNnnP17Dq7h98blzeyvo9STSYnKKMAS3
+	oU1SnwLAMYvj2PKVVSVLNQ2o7yqbASsRnIKLLX/li/UvgzsGmgiKiiev0DEHCecXRj05hSBf9Xv
+	bD33rpi5qPQkNHwLqQ4=
+X-Received: by 2002:a05:693c:88c4:20b0:369:c6d8:5799 with SMTP id 5a478bee46e88-369e86444b5mr9500581eec.41.1793011942963;
+        Mon, 26 Oct 2026 03:52:22 -0700 (PDT)
+Received: from youngkk-vm.localdomain (67.216.200.102.16clouds.com. [67.216.200.102])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8ee72c0sm37475633eec.29.2026.10.26.03.52.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 03:52:22 -0700 (PDT)
+From: Cheng Yongkang <teel4res@gmail.com>
+To: Trond Myklebust <trondmy@kernel.org>,
+	Anna Schumaker <anna@kernel.org>
+Cc: linux-nfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2] NFS: keep in-flight slots when shrinking the session slot table
+Date: Mon, 26 Oct 2026 03:52:15 -0700
+Message-Id: <20261026105215.1149970-1-teel4res@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,144 +97,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+nfs4_reset_slot_table() shrinks the forechannel slot table to the new
+session's max_reqs without checking whether any of the slots being
+freed are still in use.  The session drain it follows only snapshots
+highest_used_slotid once, while nfs4_setup_sequence() and
+nfs41_assign_slot() deliberately let privileged RPCs (sa_privileged,
+e.g. the DELEGRETURN sent while an inode is being evicted) allocate a
+slot after that snapshot.  If such an RPC owns a slot with
+slot_nr >= max_reqs, nfs4_shrink_slot_table() kfree()s it and the
+reply path (decode_sequence(), nfs41_release_slot(), nfs4_free_slot())
+later dereferences the freed slot: a slab-use-after-free.
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 1
+Clamp the shrink target to highest_used_slotid + 1 when the table is
+not empty, so only slots above the highest used slot are freed, and
+stop resetting highest_used_slotid: the high-water mark is still needed
+to release those slots and to complete a later drain.  max_slotid is
+still set to the server's new highest slotid, so new RPCs cannot use
+the preserved slots above the new max_reqs.  A server advertising
+max_reqs == 0 arrives with server_highest_slotid == NFS4_NO_SLOT; make
+that wrap explicit.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Link: https://lore.kernel.org/all/20261025180317.349421-1-teel4res@gmail.com/
+Fixes: 87dda67e7386 ("NFSv4.1: Allow SEQUENCE to resize the slot table on the fly")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Cheng Yongkang <teel4res@gmail.com>
+---
+v2: add Link, Fixes and stable tags, and remove local validation details from the
+commit message.
 
-- [High] The race the commit message describes cannot happen, so this
-  patch does not change any reachable behaviour and cannot be the fix…
-- [Low] The commit message splits its trailer block.
+ fs/nfs/nfs4session.c | 26 ++++++++++++++++++++++++--
+ 1 file changed, 24 insertions(+), 2 deletions(-)
 
---
-
-xfrm: disable state hash resize work on netns exit
-
-This commit replaces flush_work() with disable_work_sync() for
-state_hash_work in xfrm_state_fini(). The stated goal is to stop a
-concurrent state insertion from queueing a hash resize while netns
-teardown walks and frees the per-net state hash tables.
-
-Closes: https://syzkaller.appspot.com/bug?extid=f3f4fce0609f8e91b540
-
-> diff --git a/net/xfrm/xfrm_state.c b/net/xfrm/xfrm_state.c
-> index e45aa1ed5b965..8a2e465bd73d7 100644
-> --- a/net/xfrm/xfrm_state.c
-> +++ b/net/xfrm/xfrm_state.c
-> @@ -3392,7 +3392,7 @@ void xfrm_state_fini(struct net *net)
->  	unsigned int sz;
->  	int i;
->  
-> -	flush_work(&net->xfrm.state_hash_work);
-> +	disable_work_sync(&net->xfrm.state_hash_work);
-
-[Severity: High]
-Can the race in the commit message actually happen? If it can't, this
-change does not alter any reachable behaviour, and the syzbot report would
-be closed without its real cause being fixed.
-
-The commit message says:
-
-  A concurrent state insertion can queue another resize while that flush
-  is in progress.
-
-The only place that queues state_hash_work is xfrm_hash_grow_check():
-
-net/xfrm/xfrm_state.c:xfrm_hash_grow_check() {
-	if (have_hash_collision &&
-	    (net->xfrm.state_hmask + 1) < xfrm_state_hashmax &&
-	    net->xfrm.state_num > net->xfrm.state_hmask)
-		schedule_work(&net->xfrm.state_hash_work);
-}
-
-It is only called from xfrm_state_find(), __xfrm_state_insert() and
-__find_acq_core().
-
-xfrm_state_add(), xfrm_state_update(), xfrm_find_acq(), xfrm_migrate() and
-ipcomp_tunnel_attach() are only reached from xfrm_user netlink handlers
-(xfrm_add_sa, xfrm_alloc_userspi, xfrm_do_migrate) or from af_key
-handlers. Those need a live user socket in the netns. That socket holds a
-netns reference, so cleanup_net() cannot have started yet.
-
-xfrm_state_find() only links an ACQ state when a key manager accepts the
-acquire:
-
-		if (km_query(x, tmpl, pol) == 0) {
-			spin_lock_bh(&net->xfrm.xfrm_state_lock);
-			...
-			xfrm_hash_grow_check(net, x->bydst.next != NULL);
-
-Once xfrm_user_net_pre_exit() has run:
-
-	RCU_INIT_POINTER(net->xfrm.nlsk, NULL);
-
-xfrm_nlmsg_multicast() returns -EPIPE. pfkey_broadcast() returns -ESRCH
-because no PF_KEY sockets are left in the dying netns. So km_query()
-fails.
-
-xfrm_state_find() holds rcu_read_lock() across km_query() and the
-insertion. ops_undo_list() runs synchronize_rcu() between all pre_exit
-and exit methods:
-
-net/core/net_namespace.c:ops_undo_list() {
-	...
-	list_for_each_entry_continue_reverse(ops, ops_list, list) {
-		hold_rtnl |= !!ops->exit_rtnl;
-		ops_pre_exit_list(ops, net_exit_list);
-	}
-	...
-		synchronize_rcu();
-	...
-	list_for_each_entry_continue_reverse(ops, ops_list, list)
-		ops_exit_list(ops, net_exit_list);
-}
-
-That means any xfrm_state_find() already in flight finishes before
-xfrm_net_exit()->xfrm_state_fini() runs.
-
-Any resize queued before .exit would therefore already be drained by the
-old flush_work(), and xfrm_hash_resize() never re-queues itself.
-
-Which insertion path can queue state_hash_work during xfrm_state_fini()?
-
-The commit message gives no such path and no splat, and says no
-reproducer was available. With the Fixes: and Closes: tags, this would go
-to stable and mark the syzbot report fixed while the actual trigger is
-still reachable.
-
-Earlier WARNs in xfrm_state_fini() have had other causes, for example kern
-states that xfrm_state_flush() skips because of xfrm_state_kern(). This
-patch does not touch those.
-
-Could the syzbot report be rechecked to find the real root cause?
-
->  	xfrm_state_flush(net, 0, false);
->  	flush_work(&xfrm_state_gc_work);
-
-[Severity: Low]
-This isn't a bug, but the trailer block in the commit message is split
-by a free-form paragraph:
-
-    Assisted-by: LLM
-
-    Build-tested: W=1 ARCH=arm64 net/xfrm/ (out-of-tree build).
-    No reproducer was available to run the teardown race locally.
-
-    Signed-off-by: Eduard Zateev <hackerowskiy@gmail.com>
-
-git interpret-trailers only treats the last paragraph as trailers. As a
-result, Fixes:, Reported-by:, Closes: and Assisted-by: are not parsed as
-trailers.
-
-Could the testing notes go below the --- separator, with all tags kept in
-one block at the end of the message?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261022102641.1429128-1-hackerowskiy%40gmail.com
+diff --git a/fs/nfs/nfs4session.c b/fs/nfs/nfs4session.c
+index 175390e..869451c 100644
+@@ -274,8 +274,25 @@
+ 		u32 ivalue)
+ {
+ 	struct nfs4_slot **p;
++	u32 newsize = server_highest_slotid + 1;
++	u32 highest_used = tbl->highest_used_slotid;
+ 
+-	nfs4_shrink_slot_table(tbl, server_highest_slotid + 1);
++	/*
++	 * Privileged RPCs are allowed to allocate slots after the session
++	 * drain has taken its snapshot, so slots above the server's new
++	 * highest slotid may still be owned by in-flight RPCs.  Shrink
++	 * only up to the highest slot that is still in use: every slot
++	 * above it is known to be free.
++	 *
++	 * A server advertising max_reqs == 0 arrives here with
++	 * server_highest_slotid == NFS4_NO_SLOT, for which the addition
++	 * above wraps to 0.
++	 */
++	if (server_highest_slotid == NFS4_NO_SLOT)
++		newsize = 0;
++	if (highest_used != NFS4_NO_SLOT && newsize <= highest_used)
++		newsize = highest_used + 1;
++	nfs4_shrink_slot_table(tbl, newsize);
+ 	p = &tbl->slots;
+ 	while (*p) {
+ 		(*p)->seq_nr = ivalue;
+@@ -283,7 +300,12 @@
+ 		(*p)->seq_nr_last_acked = ivalue - 1;
+ 		p = &(*p)->next;
+ 	}
+-	tbl->highest_used_slotid = NFS4_NO_SLOT;
++	/*
++	 * Leave highest_used_slotid untouched: when it is not
++	 * NFS4_NO_SLOT, the high-water mark belongs to an in-flight
++	 * privileged RPC whose slot survives the shrink, and
++	 * nfs4_free_slot() lowers it once that RPC completes.
++	 */
+ 	tbl->target_highest_slotid = server_highest_slotid;
+ 	tbl->server_highest_slotid = server_highest_slotid;
+ 	tbl->d_target_highest_slotid = 0;
