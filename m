@@ -1,93 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792994447;
-	b=ESx6f4spUZrQRG5AK74NsLXV8EWvK2cCHyHqZeEDNSNr2T+q/RZVMiihg7J47oJjG0Ug
-	 4eXizOvwV2lD4jvsqS1aqMX4fxF2zXnEPJrACh14Q2UtOYt2iRdYOWqQa0ycyq9BxWO9W
-	 1GfP4p7ry2cEA0NwfJwhKw8YSmKNdpWFDm5SDCnI/OdZWPXrvqbTvT8b6y7yqpkryFyZK
-	 0yEti834R7ieJZjA/SWa3jwXpFJOnk820+rRJVANXbtzRRI7kqWAMsY+XFpWDsx+ErhAv
-	 Qq+lwW6Pjj9yzSOFYV49Oi1YJ36hhdIOCBNBtvBXadCki/Z38Ni8K9gUwFjCgCpGMKA==
+	t=1792994472;
+	b=2xCTM/1CDNOuDU30TPNLpzPIBwn2Ui1JSl4ajiqwfCE9oVYZ2noR1ZdzAQ8G2MFYCllb
+	 vAjR972KBmuMOaEJ+FtI5GjGpVRoGl7Tflaaa6I130aHVMEnEaYcTNPh0RRor2/Q6k6x7
+	 iV6Te6pItYqoAwCw/euJhp5HGovhLP93Jls5UNTf4lKzVYvcfULAU2qbGO7Lb15UTwdxE
+	 /4JScRd843z/oMhvwbvg6T1fYwn1QjYFSw+Pi4WJi/0hGYf4UHHMa9gW0sfGOGsgDPFC+
+	 NrpMafwcqFPt7QIq2orbpJOzm9VoRK0f7q2l7rLIp3QBSVrptNXOs7d1VAcZbdk/1nA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792994447;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=AthUPl1Vi250H7j13yBEimZbQkhUEMEFrCpf0L5Rwag=;
-	b=db7f3onJzqImSwaN1dAZqko9dfao1cIZP8gplg1K5Ha6yG/xYItrIjjPv0ZvROjSF24M
-	 FAHXAOBWKQksIKsUWAEpBhvVkCbs8t8ScMIj+Em6Fafz6llVz0WZhrcl3yLGf6AuQNghH
-	 mtN4su6+Kzkh7TAw3sKVlRM0PKZOsIOMR24QHl4j5aDIoYZd/AJ8Ia3x35erSr6tU6Tqs
-	 c7Tf1xCkGai0nZ9JW18+4eVfA2SgVipglPeEIF5zFwvd9ntLgWaysRmWaaNuNHtKWWu2H
-	 V5zwXoxIYk1ndWZqKXSkphR9ObrR8z2Y1gGPG8RFEUbY7iegzWf9Nc5yAtm030tHEbA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792994472;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
+	 X-Proofpoint-Reinject:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=MBhI4jv9cNfuwGNpplohOG2ETIzBr1ta9Zp83voofwg=;
+	b=uqIQxsMAxBhGS0eZWnpdnTfdkMOSGVwWH+hweieQFrSLw9Y//Zsv30vZd6XHIOZEamso
+	 rp1cmKxnH3AXmuHcSSgftxOX8Mj2dVV2SHJ0JCK/S5OLLJN66ogZ5anWE9AyZ1+MV6ryj
+	 pMctWNC5UNdaKtihki+HqFMfcLRidqRR42a7SqgjKa5d0ahp2fnGShrxiI2NFOrbu1S2K
+	 /N1+oNJyWAUd7ecp6Zek31uoJwmUPeXH5b5YVaFfnWH7NTxAe6MGpcjIaghA5y3yi4ZYD
+	 nd+waPMm9YrXa7h8BWsnA7HroEa+vAL6BPGt7Mpl/OKoUpLkeKnVFLMsUu/lm/vhZ2A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=aVoaYR4K;
-	arc=none smtp.remote-ip=209.85.210.179
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b="jDMtrDN/";
+	arc=none smtp.remote-ip=148.163.156.1
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E24B7606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 06:00:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E24B7606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62DD7606A325;
+	Mon, 26 Oct 2026 06:01:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62DD7606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=aVoaYR4K
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-89f85edd210so771449b3a.2
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 23:00:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792994446; x=1793599246; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AthUPl1Vi250H7j13yBEimZbQkhUEMEFrCpf0L5Rwag=;
-        b=aVoaYR4KGwxdEJ+I9HK+HQUmLk9NnMqwNe05yhHvbQ0ntmWgK2HnQVFeiQ8euA15KA
-         ipZGt4+fo6BqsoHvS4T0K1F6cT0h/EFZP2Hgv3CUB0DO1TQz/stuIFPl8XXUZ6dLFlha
-         WqexFO/xUhWOGullcV3CXon2Xyi4EdNEomovKc1VxdM1UCzaylM6Cvsb3tp5z+fafF+1
-         WvYrOKQi2xlYOCjuUsbvM6s1Xe1E+v7VWGVJmqixtL2zfM8hhRLJb/k6AkpdMZSdCRIS
-         3HnkzlsAebBB6f48C6VYQ3WDW7itas1rdVHWBi4MtWdFOlJxnTMCEuDfph/0BlCYISBg
-         OnkQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792994446; x=1793599246;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AthUPl1Vi250H7j13yBEimZbQkhUEMEFrCpf0L5Rwag=;
-        b=0Gj/V8vR2OQ2j4tzRBFW7L5zfHnmX7zQ0fChUU0huGOmQCVAKjZnYDo/pchwqs0Xp0
-         lk3djKI2IkeNDlrv+tnw53Ugo47YXOQ416Wm1xGtzVOpGaOBfVMo0Y78+6WoYPbaQkKW
-         x6LAQGdgPGV4s/nNT9s60PE7DA055Z3h99Mur9JtIyd+RjHI8VB4WQYD59wDYfSL7THV
-         nQENvGsEBgP0S6rq4VPb42ykM1MJPOFvKOYdN6EgIIhUMw6r5r2lVjRggGqN6XlSlbyr
-         wHLi+wDIjpJj/kI4jnlZLSACrePzViUIon1+9jVoYtC9IkXXKcf1GRoF5lLJqtcNqDC3
-         +XWg==
-X-Forwarded-Encrypted: i=1; AKwUvBwqhwtqA8qFPe1VQ8c8sZykpSgK0zev2WMXg64rmvOhP9Wi2nOgIOhgV0/CkzvPdRSfjw5s9McBxkOPJ9A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKaf/PvBLZ2rLpBMGJ2xSgJKxzHyC8jV7plEWPgGZrEapWpVt+d
-	VjQfbpHdve57pIHmfNropTPqilKyOHAQ7ulDyupvSf31/1fV/8IiMwhX
-X-Gm-Gg: AYBFou3AExinal+tdc0XXCU7N0Q5BMgpXeFIwAMAPeNJiN91lW3M7tfNcABkSqDXQZ2
-	2a55q7ffwERLbOgn89ZWgFTlil/2PEC+u0A1tPctYlImvvY3KBAxOu49YERQ941JMUdKzLf2KOj
-	Wxrny5X0JAIEukuEB4PihI4b7QTLVqiyHZp0gNu1F9hQ+IEUZQJvmD8jbod6pjz0XU/9a9y7pF1
-	qxRzzwF+rqwgiIHcC+kRBdNcYqVWm3iB0apHXTzdEEPDG3bfgdLrf/ae6uLIThkGQqzX3cXY1jX
-	NidK2UhMctFLAQSyb/7MRMbVPbLAKsChK5J7Wdq075PQNoDqUiuXJsncbO5P+ze3PCgZsZuQ+yq
-	WUtL/29oWOS6eJz6NsU3Hh7AsueLpGmEz87jgp0eC3X32mLWtLrocZoWVdC0+RU0hn8e0Q/C8SS
-	TPJfl+iWcazGAbEO65Ed7AikbjHan/m9Xz1taUkTGdF5S8i8/8jsJTUuuUbhGNJHN+TfjclTLIi
-	LFLBNnovJ5M2ARittrvwVylD69sd7qbqjipVIuCmFkpBd5s1LFoekkAswMhOLRUwgIxS5M91Fd7
-	rkgriHyUev5R5Hy6ezs5ZXIxz9dgiBUo5vgD/DioZhfIPaFGygbao2FILm0FbnsCyiSY1dEh2zh
-	6dDi9i9w/I+2wOT6R7tNDM2DPpNmq
-X-Received: by 2002:a05:6a00:3a11:b0:88d:8074:1a9e with SMTP id d2e1a72fcca58-8a364b4c9f7mr867710b3a.3.1792994446159;
-        Sun, 25 Oct 2026 23:00:46 -0700 (PDT)
-Received: from EAIT-H54D9Q2FJQ.eait.uq.edu.au ([130.102.10.17])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a36c4e8616sm993961b3a.56.2026.10.25.23.00.40
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 25 Oct 2026 23:00:45 -0700 (PDT)
-From: Yu Zhang <yuz08559@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Neill Kapron <nkapron@google.com>
-Cc: linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yu Zhang <yuz08559@gmail.com>
-Subject: [PATCH] usb: gadget: f_ecm: serialize notification state with a spinlock
-Date: Mon, 26 Oct 2026 16:00:31 +1000
-Message-ID: <20261026060031.60582-1-yuz08559@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=jDMtrDN/
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69Q2iaJx1991011;
+	Mon, 26 Oct 2026 06:01:04 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=MBhI4j
+	v9cNfuwGNpplohOG2ETIzBr1ta9Zp83voofwg=; b=jDMtrDN/W9iNSRg67BjC0y
+	fUoUeoz3XK8sgsGLBGKbYknf+jPthY+z91MvxtLN9h6YdTXxGzuxyBevuV66ZZam
+	jrazXRbkLmQRyNW8JP7FU6OsaPLSmhC7Loas/qMNjHmGTEBJZgsXG4UXmhnTbkWD
+	+ZB7zp2S7YLJKp+bufSdT9wI932VWvRcpZ9wATrDWn0jqYHQrm6jRFlanmferDZQ
+	DxiUxtVedeGmX+hdU5vwZQF0DYq3Xq6NVz07B8o3B6W2g1z3KaAMHX6ZaHIDwI3A
+	W8if7neSoOsxTKFa0fKW5jOAqnG7KMoH/ToiMCqMDGXMfMbhqr3W9UhrzTGS1oDA
+	==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hgmd6r5me-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 26 Oct 2026 06:01:03 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69Q2KQIg1924216;
+	Mon, 26 Oct 2026 06:01:02 GMT
+Received: from smtprelay07.wdc07v.mail.ibm.com ([172.16.1.74])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hh8ggvbsf-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 26 Oct 2026 06:01:02 +0000 (GMT)
+Received: from smtpav04.wdc07v.mail.ibm.com (smtpav04.wdc07v.mail.ibm.com [10.39.53.231])
+	by smtprelay07.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69Q612tO13828648
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 26 Oct 2026 06:01:02 GMT
+Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 3C5315805E;
+	Mon, 26 Oct 2026 06:01:02 +0000 (GMT)
+Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id D20F858054;
+	Mon, 26 Oct 2026 06:00:58 +0000 (GMT)
+Received: from [9.123.14.188] (unknown [9.123.14.188])
+	by smtpav04.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 26 Oct 2026 06:00:58 +0000 (GMT)
+Message-ID: <5756baff-990f-4c5f-b2c0-4a74bf2b56e2@linux.ibm.com>
+Date: Mon, 26 Oct 2026 11:30:57 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,117 +86,167 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] module: drain external refs before freeing a failed-init
+ module
+To: mcgrof@kernel.org, petr.pavlu@suse.com, da.gomez@kernel.org,
+        samitolvanen@google.com, atomlin@atomlin.com
+Cc: linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-s390@vger.kernel.org, pasic@linux.ibm.com
+References: <20261007083956.2488796-1-mjambigi@linux.ibm.com>
+Content-Language: en-US
+From: Mahanta Jambigi <mjambigi@linux.ibm.com>
+In-Reply-To: <20261007083956.2488796-1-mjambigi@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=ZYOIpcVA c=1 sm=1 tr=0 ts=6adeeca0 cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=lsQSk-BVQFwOlMB7tfUA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDAyMiBTYWx0ZWRfX8n2OyJqqVaLL
+ nK5j1t8kBgqCoFe2lu8fNZ3v84sATQb0H3rByx2GfddmVgSuLfqB9MV+69YE0pMEQ4akVwqFg1M
+ T6WirOiz3Kj+tGA9v71mvUwb8fgXKNWHweRUxeN9eaEBqHhcVPy40FSVINYpbTv4zYcSwlsRop4
+ I/TKUs/j8CECZX3E8SZ/8N5xo+CL9HzbIyNCVTlrqk5QNEdFeYITA2gccZ//ON+gDG6UQ8SnDNY
+ zg2S6QS/ivj/kJofnzxRYpGUwpXS3SYmqhgUvrXNvrt9/w9MoP+Mg/J9Ib3qz/VKI+k0AJGWpzb
+ AaQGkYdxxDmlu9RwJjyVZTe+HVf6LGKmhLyLGMaroWZELoX7+oHL48AGL6ebjzG+WKzSOwHAGzp
+ 9zA+vxt3wlRT9aqUMnfwKCy3bYtDTidVo+zqNy3grG6yXXyrsygmGepgyHi3Bz3A9/SaVrRESoM
+ 8Kh2VoBVtlXFgKri9uQ==
+X-Proofpoint-GUID: N_Tf-mWYZsQaFZHp4f3RZ4anFYYAhOsP
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDAyMiBTYWx0ZWRfX7EBtpCblfygC
+ tyM6bzGdK/ebu+WZLjl6UkTvhPDa6IvelC5qVBY/IAbRZ3TCo3J46CCZ//h/+h6NCzJbUgeOih6
+ Rz4zetrh2CkmGIVxw4GTC9Zyj28McTE=
+X-Proofpoint-ORIG-GUID: izxh6AesXzWeESc6LNhBHbXy0fJd7Yx4
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-26_01,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 priorityscore=1501 suspectscore=0 phishscore=0 clxscore=1015
+ bulkscore=0 malwarescore=0 lowpriorityscore=0 spamscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610260022
 
-ecm_do_notify() guards re-entry only with an atomic_read() of
-notify_count, then fills ecm->notify_req, does atomic_inc() and
-usb_ep_queue().  This check-fill-inc-queue sequence is not atomic and
-runs from three contexts that share no lock: ecm_notify_complete(),
-ecm_open()/ecm_close() (netdev up/down via u_ether) and ecm_set_alt().
+Hi All,
 
-When the completion handler decrements notify_count to 0 and re-enters
-ecm_do_notify(), a concurrent ecm_close()/ecm_set_alt() can observe
-notify_count == 0 in the window between the atomic_dec() and the next
-atomic_inc(), and queue the same ecm->notify_req a second time.  The
-request is then added to the endpoint queue twice (list_add corruption),
-and notify_state is updated concurrently.
+Gentle ping on this patch. Is there anything I should change, or
+any additional information that would help the review?
 
-struct f_ecm has carried a FIXME about this missing locking.  The sibling
-f_ncm already serializes the identical state machine with a per-instance
-spinlock.  Do the same in f_ecm: take ecm->lock across the is_open update
-and ecm_notify() in open/close/set_alt and across the state update in
-ecm_notify_complete(), dropping it only around usb_ep_queue().
+Thank You,
+Mahanta
 
-Signed-off-by: Yu Zhang <yuz08559@gmail.com>
----
- drivers/usb/gadget/function/f_ecm.c | 19 ++++++++++++++++---
- 1 file changed, 16 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/usb/gadget/function/f_ecm.c b/drivers/usb/gadget/function/f_ecm.c
-index e495bac..d699832 100644
---- a/drivers/usb/gadget/function/f_ecm.c
-+++ b/drivers/usb/gadget/function/f_ecm.c
-@@ -59,9 +59,8 @@ struct f_ecm {
- 	atomic_t			notify_count;
- 	bool				is_open;
- 
--	/* FIXME is_open needs some irq-ish locking
--	 * ... possibly the same as port.ioport
--	 */
-+	/* protects the notification state machine */
-+	spinlock_t			lock;
- };
- 
- static inline struct f_ecm *func_to_ecm(struct usb_function *f)
-@@ -414,7 +413,11 @@ static void ecm_do_notify(struct f_ecm *ecm)
- 	event->wIndex = cpu_to_le16(ecm->ctrl_id);
- 
- 	atomic_inc(&ecm->notify_count);
-+
-+	/* usb_ep_queue() can complete the request re-entrantly */
-+	spin_unlock(&ecm->lock);
- 	status = usb_ep_queue(ecm->notify, req, GFP_ATOMIC);
-+	spin_lock(&ecm->lock);
- 	if (status < 0) {
- 		atomic_dec(&ecm->notify_count);
- 		DBG(cdev, "notify --> %d\n", status);
-@@ -438,6 +441,7 @@ static void ecm_notify_complete(struct usb_ep *ep, struct usb_request *req)
- 	struct usb_composite_dev	*cdev = ecm->port.func.config->cdev;
- 	struct usb_cdc_notification	*event = req->buf;
- 
-+	spin_lock(&ecm->lock);
- 	switch (req->status) {
- 	case 0:
- 		/* no fault */
-@@ -455,6 +459,7 @@ static void ecm_notify_complete(struct usb_ep *ep, struct usb_request *req)
- 		break;
- 	}
- 	ecm_do_notify(ecm);
-+	spin_unlock(&ecm->lock);
- }
- 
- static int ecm_setup(struct usb_function *f, const struct usb_ctrlrequest *ctrl)
-@@ -588,7 +593,9 @@ static int ecm_set_alt(struct usb_function *f, unsigned intf, unsigned alt)
- 		 * follow another (if the first is in flight), and instead
- 		 * just guarantee that a speed notification is always sent.
- 		 */
-+		spin_lock(&ecm->lock);
- 		ecm_notify(ecm);
-+		spin_unlock(&ecm->lock);
- 	} else
- 		goto fail;
- 
-@@ -653,8 +660,10 @@ static void ecm_open(struct gether *geth)
- 
- 	DBG(ecm->port.func.config->cdev, "%s\n", __func__);
- 
-+	spin_lock(&ecm->lock);
- 	ecm->is_open = true;
- 	ecm_notify(ecm);
-+	spin_unlock(&ecm->lock);
- }
- 
- static void ecm_close(struct gether *geth)
-@@ -663,8 +672,10 @@ static void ecm_close(struct gether *geth)
- 
- 	DBG(ecm->port.func.config->cdev, "%s\n", __func__);
- 
-+	spin_lock(&ecm->lock);
- 	ecm->is_open = false;
- 	ecm_notify(ecm);
-+	spin_unlock(&ecm->lock);
- }
- 
- /*-------------------------------------------------------------------------*/
-@@ -942,6 +953,8 @@ static struct usb_function *ecm_alloc(struct usb_function_instance *fi)
- 	if (!ecm)
- 		return ERR_PTR(-ENOMEM);
- 
-+	spin_lock_init(&ecm->lock);
-+
- 	opts = container_of(fi, struct f_ecm_opts, func_inst);
- 	mutex_lock(&opts->lock);
- 	opts->refcnt++;
--- 
-2.43.0
+On 07/10/26 2:09 pm, Mahanta Jambigi wrote:
+> When a module's __init makes it externally reachable (e.g. by registering a
+> protocol family or a bus driver) and a later __init step fails, do_init_module()
+> frees the module while callers that entered through that interface and called
+> try_module_get() may still be executing module text.
+> 
+> The normal unload path in try_stop_module() refuses to proceed while
+> module_refcount() is non-zero. The init-failure path has no such check and races
+> to free_module() immediately after synchronize_rcu().
+> 
+> Fix it by waiting for all external references to drain before calling
+> free_module(). Add a per-module struct completion refs_gone inside the existing
+> CONFIG_MODULE_UNLOAD block that is initialised in module_unload_init() and
+> completed from module_put() when refcnt drops back to MODULE_REF_BASE and the
+> module state is MODULE_STATE_GOING. The fail: path calls wait_for_completion()
+> (guarded by the same #ifdef) after dropping the loader's own reference,
+> replacing the previous implicit assumption that no external refs exist at that
+> point.
+> 
+> Also move wake_up_all(&module_wq) to before the drain so that concurrent loaders
+> blocked in module_patient_check_exists() are unblocked immediately once
+> MODULE_STATE_GOING is visible, rather than after the drain completes.
+> 
+> Fixes: 1fb9341ac348 ("module: put modules in list much earlier.")
+> Signed-off-by: Mahanta Jambigi <mjambigi@linux.ibm.com>
+> ---
+> Link: https://lore.kernel.org/all/5dc1fe2b-289e-4786-b9e9-e181dda8d4e9@linux.ibm.com/
+>       [RFC] module: init-failure path can free a module with live
+>       try_module_get() users
+> 
+>  include/linux/module.h |  2 ++
+>  kernel/module/main.c   | 33 +++++++++++++++++++++++++++-----
+>  2 files changed, 33 insertions(+), 2 deletions(-)
+> 
+> diff --git a/include/linux/module.h b/include/linux/module.h
+> index 96cc98568eea..0dee2ed02a2d 100644
+> --- a/include/linux/module.h
+> +++ b/include/linux/module.h
+> @@ -562,6 +562,8 @@ struct module {
+>  	void (*exit)(void);
+> 
+>  	atomic_t refcnt;
+> +	/* Completed when refcnt drops to MODULE_REF_BASE on init failure. */
+> +	struct completion refs_gone;
+>  #endif
+> 
+>  #ifdef CONFIG_CONSTRUCTORS
+> diff --git a/kernel/module/main.c b/kernel/module/main.c
+> index c1b34dc1e89a..655c693bd8e2 100644
+> --- a/kernel/module/main.c
+> +++ b/kernel/module/main.c
+> @@ -655,6 +655,7 @@ static int module_unload_init(struct module *mod)
+>  	 * refcnt == 0 means module is going.
+>  	 */
+>  	atomic_set(&mod->refcnt, MODULE_REF_BASE);
+> +	init_completion(&mod->refs_gone);
+> 
+>  	INIT_LIST_HEAD(&mod->source_list);
+>  	INIT_LIST_HEAD(&mod->target_list);
+> @@ -956,6 +957,14 @@ void module_put(struct module *module)
+>  		ret = atomic_dec_if_positive(&module->refcnt);
+>  		WARN_ON(ret < 0);	/* Failed to put refcount */
+>  		trace_module_put(module, _RET_IP_);
+> +		/*
+> +		 * If refcnt just dropped to MODULE_REF_BASE and the module is going
+> +		 * away due to an init failure, all external references are gone. Wake
+> +		 * any thread waiting in the init-failure drain path.
+> +		 */
+> +		if (ret == MODULE_REF_BASE &&
+> +		    module->state == MODULE_STATE_GOING)
+> +			complete(&module->refs_gone);
+>  	}
+>  }
+>  EXPORT_SYMBOL(module_put);
+> @@ -3206,16 +3214,36 @@ static noinline int do_init_module(struct module *mod)
+>  fail_free_freeinit:
+>  	kfree(freeinit);
+>  fail:
+> -	/* Try to protect us from buggy refcounters. */
+>  	mod->state = MODULE_STATE_GOING;
+>  	synchronize_rcu();
+> +
+> +	/*
+> +	 * Unblock concurrent loaders waiting in module_patient_check_exists() on
+> +	 * module_wq. finished_loading() returns true once state is GOING, so they
+> +	 * can now proceed. Do this before the drain below so a failed init delays
+> +	 * only this task, not every other loader that raced to load the same
+> +	 * module.
+> +	 */
+> +	wake_up_all(&module_wq);
+> +
+> +	/* Drop the loader's own reference taken in module_unload_init(). */
+>  	module_put(mod);
+> +
+> +#ifdef CONFIG_MODULE_UNLOAD
+> +	/*
+> +	 * Wait for all external references taken before MODULE_STATE_GOING became
+> +	 * visible to be released. module_put() completes refs_gone when refcnt
+> +	 * drops to MODULE_REF_BASE. The hung-task detector will catch any module
+> +	 * whose error path leaks a reference.
+> +	 */
+> +	wait_for_completion(&mod->refs_gone);
+> +#endif
+> +
+>  	blocking_notifier_call_chain(&module_notify_list,
+>  				     MODULE_STATE_GOING, mod);
+>  	klp_module_going(mod);
+>  	ftrace_release_mod(mod);
+>  	free_module(mod);
+> -	wake_up_all(&module_wq);
+> 
+>  	return ret;
+>  }
 
