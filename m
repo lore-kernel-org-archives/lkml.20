@@ -1,101 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.41
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793039546;
-	b=Gv9OIqE6E7HfyfYeqvW43FtvNUZBQLw4wjuodzvvns2vxn88xEeuHCUXZAsbfBx7wgjt
-	 ceiWb63TewIpvG8KmcWlLUtVJoOaeIPwac9fWimvXnG+BtZZNwBPMx7ZG6IYPp/QHa+QW
-	 BcbNA870On0hrK2wEMfetaN6IO9XAP51sPzPwdX+Pehv8VSa/XdwyACrmsREQ3seFza9q
-	 ITUBkIAa9rwMDaVsbsBvtXGTvWUAi4bO8CyakfbqVO75BZb6hDtK3PJ8tSuk6yjyl0H+F
-	 Eg/p9wOBJo6uAZ+z9FHq2/3Usswf83P2na3t448WFr3k7Gosr1djwpRFUy0w1lFLHzw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793039546;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=WEX9+sqg9KeVky/NcPkirTK8PMNoKH+/ZsoFca1T+0s=;
-	b=5OBJOGQo6d0nAcdgnIfeu6DfWsVAszcg73p97x32tIxTWc3Th6NnZfJufTzKfQhx/ORp
-	 V6Hle/e1MksUhfXFXDaYp5/npxIymCIMOWjTynOqs/3drwmuvpL29N8+AqbVAw1NSGfbk
-	 GhLS2FWR6P5+fBokTCPyo5a5syP7374mQdBe9qWwkTJz2sjnARJr59YQ27/HuXCyyz/de
-	 JmCfAInE5qLw9IzgpKg+CjBQanwx29MePUwLY9rG0s0ogFNufJJ6y3izVLCZhZE6cZk4c
-	 N4I7NZICuX/0FA+t49eRdZqSS9SQUDh3Jo2GV/F85rtRxolEI8NSfBeDaGHxa1pKifA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=nFlKpNNN;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00029606A31D
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 18:32:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00029606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793039570;
+	b=fB2fKxFAaP1ETTmywk6BsL3Vy5vbvD1m8aUP9h/b2gVqTddwRYINWXDv1phkUJQB4S28
+	 J2DZNK3wONJINkCcYKNl6s1Ltju0FfunQwL7HZ08XJsAQeP9bKJg+2AIPnXrPHGXeLp5O
+	 reeEY86EBU9t4y4isxI2uhjTWdQFuOWA9n+85jvV2N5m1IByanM234/LAarMIW+DQWcUU
+	 GCQFyG5JguRDr0R+pUPXp+vIJENVrvvwqeFNMHzx8GWiWlk8RtiWwyd6MCFmAEvpimLSt
+	 UzrjIbu4Kcn2CRgFbSEtJNKk0Yhzb0nvunHkMzD1nnS6uJ9cUHi71D0UFFSdmu4z2DA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793039570;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=yBDBfddaUvxfPKX7S3biSebLhWa78wPzWcZi2nvKfc4=;
+	b=10HS5mYOnYtUpY/hqAvb8pTY//BNgGOvIEQvdVebKYR8mSC7cZdCDS2WvDnH8Kq8XrTF
+	 zIJ7h60zI8/wTLiFmtv4XPwLgDaZkpdDWo3+yi+OYkvrJRNo0KTM37CpNLjO586M6f0tG
+	 7fJm/p1ST3fr8cWUAs0l8cgYH3HR+BdIUk9xwAcI4QYsP9i7KUxQ0tQcoiTBHGTqfEvrJ
+	 S79nxdFzxzXqXozP3qcS7x3l+uSrrnHxYvutp89imLctMOQzfg0yJomQ4FC11sFDT83OX
+	 ery+PXlvQHE+9ReeEq0z0HzU7x1bIpGZol2+h+iXXbK6nLYPHy5T22VHczXxPvMuXtQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=JeJjMLC7;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 26836606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 18:32:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26836606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=nFlKpNNN
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a20bde60a0so28613545e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:32:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793039543; cv=none;
-        d=google.com; s=arc-20260327;
-        b=MD0W5EVusZwkdhBah+hMgtpTQ+g/1MQ+TNsPnNmjbbj6E5FyOq4nzaQSk2LIZCU6Np
-         nygig4ZFNnWPqiBAl2Hm7Kzh2uIQvf1q9F49rGuNZBrrZU6pIhSj72JJnmuzYSWlBa8/
-         lQOJRg01EZA9o4zP8Uylo/9c3KC/hc04z8tIJS2+PDXhfUdq1JJWrkks/FBLUOXH9b68
-         EBZcZ2LD3oDxZAxlYfHcQiTxXbQnqYvzCfOWTUOtouLklXdvHt8GycP7qJSlW7vDBMLZ
-         AbeCbLBCnM5ycJ1rUJHGnL2UUHIUqmYHGthIW+fmSA4kjXw1FYYplyT9fQdoM0UTElLk
-         4JXQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=WEX9+sqg9KeVky/NcPkirTK8PMNoKH+/ZsoFca1T+0s=;
-        fh=73n07gMJ95BR6X1yg83bXZRJqgVN9Vk2euLbWHsy+V4=;
-        b=DPstxH/dD/diVBjxXthR0RKpoSq2vAy44HQlwl/3ttzlSBN7LEXels9wcRL33D34il
-         FbIPkO+yI+OR/Hb6NhypX9RXUcsDuGBLSFuUGUwLmzWg6UPpJtrfjVfprTDXxVhMV6+6
-         qR2Cq4cHoV+me9vLOrlhPl4Gs+t0Hv26RW+VH0wPwpAljMvM/HZZuq34un7c8dAvqqhF
-         72Fp77j1k5uBZAhZ6Px5cltkpUUnTZr7WYoNicozOCWu4FH/nKBT+QvnV7TzBtjHxynB
-         e9Q0QyE7vVuW8wzbQCec9wS5zWWiLnsUdfCIUZf/LT/I+hzw2Ls+Ab+29fC/h2dhc9sR
-         z/sA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793039543; x=1793644343; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=WEX9+sqg9KeVky/NcPkirTK8PMNoKH+/ZsoFca1T+0s=;
-        b=nFlKpNNNs+M8NXXCCZiaK2V85D/zRSjrKNbX5mRXExdk8mMy3jEhTxV/DbvE3kHVld
-         GUT1wSx+EC2Xb3ParLzCQnoNRNnX8eimPBgMA4dwJHn9RnAAPHcJOiUZlnUQ3F/cctf6
-         MZJ/rnaPQrEyElT+jNkareOG8NoEbM1Gr8Lskgquk889E4SNNiIIZDO6YIL+c8m/bThT
-         tNcQOv5/777NeBm8yoB4bFmjc3xr2VRMtx8gXmc9vymM1PvIj+yp5ENSDLtqYpw9Yxu8
-         9foFP2ylI/caEC3OtC9+8P1jYygicqc7O/PfKfI55FKs10kMQs05m+f8KNGLmzyzTRc7
-         GSaQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793039543; x=1793644343;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WEX9+sqg9KeVky/NcPkirTK8PMNoKH+/ZsoFca1T+0s=;
-        b=MGOZhlSkznEj2TLEOynQGHNjSU0FUGsJ9B8Qnrfjmtdyjcrf2BLYXAhn2p4EK2xz0f
-         tHHaoUxJ33VfFaafBUIUKWAjp5Gv0iXLHlvwDB0k6jLojXktJkep1IF6VCeEwNRbMPTH
-         x6GmmjPfNGli+Yxuk3iDAR44AW+YIfEYdh4taXxt5Zpt/PJs6a0nnSA1NWVyMSSN8OkD
-         t/hTYjSQpxTnvy+8iI8M3q9PUU0O55cb1QaDSiESMQXAcht18x+raBqhX18q4jsStJ+H
-         NrbAOUgAbopebTr4Vwi52u/SSvCmc3Z+yJxwBrfQoLYjsg6stjtYJtHTvmTLeFuhd2Yx
-         mahA==
-X-Forwarded-Encrypted: i=1; AKwUvBy8ri2ayazaUMnr1FjUKIvkfx/1pKCQyMmcXOThkYZP7TbBeG8FJEH3zy5qKR1KMkjPSWX44R9Qzt/qCqM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIOF+Gkiqm9GxbC9dCdhkTp5yTZMwYIMEZ2H5icG9fSMB/3kJHz
-	6eH9o8b7jkC4mfLKqR3lEfEOKxL/xTSs9zLm9pgz5vVa7ydoKuA1jGdy7JxugAW20ly23be1D1V
-	B+1GBMNknDcrEYfqM2vm9EbEvNo4WhDg=
-X-Gm-Gg: AYBFou0NglWRqwuKTlT6Shtv1HT7lLSfjp4kdmITW47tagoXWGbPciRHe2d85FBBlK2
-	disN8ANxgCi7qN5ujU+xU+uEoyK1YUFjgaCMaXjZPqOQNcIlhOwkqh/nkgKCCxl0i+AhxneDEYx
-	ye7CpV+uuS5aFK3KL/d1S1tYG/c9aTOuCA6fgvvu751mUhaedINaChRbu+7lX2l4r/8ny8sCwJh
-	JrYj8bo0MGCf07IF0dZ6IqSzL9Q7hMSeuMie+eS9Xa5vnlREsGUj1RKhOBK/8Th3g6kY9SbZgPo
-	i1MYDEXbDhjDNOXQxDZP6vJZvGLyKUvmX9M3GRpyoJ2w0xkGPGJhuz/12TLEI6rsBr4XcUv420V
-	31W/TZlLjh6RcbRJFwOF/4gCMZRS8iSV2ZINrtZ9dCwb4vhjnr65C00i+vMRs3+OVqoSCmQI5K5
-	GbT8iutVLtlZoG4SII/T8VeCHkIeIJLzkLpsepc8wOpAnpvFjBoyc4
-X-Received: by 2002:a05:600c:4e87:b0:4a1:a2c0:7b73 with SMTP id
- 5b1f17b1804b1-4a35acaa6c3mr145207195e9.30.1793039543135; Mon, 26 Oct 2026
- 11:32:23 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=JeJjMLC7
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 426D415A1;
+	Mon, 26 Oct 2026 11:32:46 -0700 (PDT)
+Received: from arm.com (RQ4T19M611-7.cambridge.arm.com [10.0.144.47])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 52D0E3F7B4;
+	Mon, 26 Oct 2026 11:32:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793039569; bh=KyOTK+JHmlO+rcDJ12BHciVm13fsPWlRYD/5lfdsduk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=JeJjMLC7Y+Do9bszcjHu+F7V++WE6b4FSUWOc+6miEWnE6wx7ab8VGUpWBKoWZwQd
+	 1VHo2IYXWh1soAcUMux5cYpkxT42ynzJmu7VJOZdoe2F5ukJtWee7fnPC2Wnect0eo
+	 ZTz5Z100eZ85VG8/o7b9PL4ei0CSnJjaYhZ0al+8=
+Date: Mon, 26 Oct 2026 18:32:45 +0000
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: Zhao Gongyi <zhaogongyi@bytedance.com>
+Cc: will@kernel.org, mark.rutland@arm.com, oleg@redhat.com,
+	ruanjinjie@huawei.com, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] arm64: ptrace: don't warn on missing siginfo in a
+ group-stop
+Message-ID: <at-czRUYRPRxi9dy@arm.com>
+References: <20261023110710.10145-1-zhaogongyi@bytedance.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,85 +61,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org> <20261026-fixes_shmem-v1-6-703206d5fa0c@kernel.org>
-In-Reply-To: <20261026-fixes_shmem-v1-6-703206d5fa0c@kernel.org>
-From: Nhat Pham <nphamcs@gmail.com>
-Date: Mon, 26 Oct 2026 11:32:10 -0700
-X-Gm-Features: AclHuK_E_LaW5XNIuZY1k1mQOjBZJvvQ1cVrvsfMHmbvxMe_yR0Z_CAYp1s13eU
-Message-ID: <CAKEwX=NJfyZMgC1trXKnr3G_PMau+j5wqMxBty6QtHCyMdmYrg@mail.gmail.com>
-Subject: Re: [PATCH 06/16] mm/shmem: hold off eviction in shmem_writeout()
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Gregory Price <gourry@gourry.net>, 
-	Zi Yan <ziy@nvidia.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
-	Ying Huang <ying.huang@linux.alibaba.com>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Vladimir Davydov <vdavydov.dev@gmail.com>, Michal Hocko <mhocko@suse.com>, 
-	Hugh Dickins <hughd@google.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	Lukas Czerner <lczerner@redhat.com>, Carlos Maiolino <cmaiolino@redhat.com>, 
-	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
-	Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>, 
-	Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
-	David Stevens <stevensd@chromium.org>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
-	William Kucharski <william.kucharski@oracle.com>, Chris Li <chrisl@kernel.org>, 
-	Kairui Song <kasong@tencent.com>, Miaohe Lin <linmiaohe@huawei.com>, 
-	Naoya Horiguchi <nao.horiguchi@gmail.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261023110710.10145-1-zhaogongyi@bytedance.com>
 
-On Mon, Oct 26, 2026 at 2:41=E2=80=AFAM David Hildenbrand (Arm)
-<david@kernel.org> wrote:
->
-> From: Josef Bacik <josef@toxicpanda.com>
->
-> Once shmem_writeout() has moved the folio from the page cache to the
-> swap cache, the folio lock no longer keeps the inode alive: truncation
-> and eviction find a swap entry, free it and do not wait for anybody.
-> That did not matter as long as swap_writeout() was the last thing the
-> function did.  But since it puts the folio back when swap_writeout()
-> returns AOP_WRITEPAGE_ACTIVATE, it uses the mapping and the inode
-> afterwards:
->
->   reclaim                               last close of an unlinked file
->   shmem_writeout()
->     shmem_delete_from_page_cache()
->     swap_writeout()
->       zswap_store() fails               shmem_evict_inode()
->       writeback is disabled               shmem_truncate_range()
->       return AOP_WRITEPAGE_ACTIVATE         shmem_free_swap()
->                                         destroy_inode()
->                                         ... RCU grace period, freed
->     shmem_add_to_page_cache(mapping)
->       xas_lock_irq()            <- use after free
-
-Yikes on a bike yeah I think this race is definitely possible. Good catch.
-
->
-> swap_writeout() behaves that way if zswap is enabled, cannot take the
-> folio and the memcg or one of its ancestors has memory.zswap.writeback
-> set to 0.
-
-Acked. It just takes some incompressible pages to trigger this with
-memory.zswap.writeback=3D0.
-
->
-> shmem_unuse() already added infrastructure to deal with that.
-> Reuse info->stop_eviction to protect the inode during writeout. Increment
-> it before removing the folio from the page cache, and decrement it after
-> swap_writeout() and any attempted reinsertion and inode accounting.
-> In shmem_evict_inode(), wait for the counter to reach zero even if
-> swapoff has already removed the inode from the swap list. Add some helper=
-s
-> to make the code easier to digest.
->
-> Fix generated by an LLM and sent by Josef Bacik in private.
->
-> Fixes: 6344a6d9ce13 ("mm/shmem: writeout free swap if swap_writeout() rea=
-ctivates")
+On Fri, Oct 23, 2026 at 07:07:10PM +0800, Zhao Gongyi wrote:
+> PTRACE_ATTACH to a group-stopped child can enter do_jobctl_trap(),
+> which calls ptrace_stop() without siginfo. If the tracer writes
+> NT_ARM_SYSTEM_CALL, system_call_set() can change syscallno from
+> NO_SYSCALL before calling update_syscall_orig_x0_after_ptrace(). The
+> WARN_ON_ONCE(!info) then fires, although this is a valid ptrace stop.
+> 
+> Remove the warning and guard the syscall-exit-stop check against a
+> missing siginfo. Keep recognizing both SIGTRAP and SIGTRAP | 0x80:
+> syscall-exit-stops use either value depending on whether the tracer
+> enabled PTRACE_O_TRACESYSGOOD. With no siginfo, allow the final
+> assignment to synchronize orig_x0 from x0.
+> 
+> Fixes: 88b839ce497c ("arm64: ptrace: Keep 'orig_x0' in-sync with x0 on syscall entry")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> [ david: code cleanups; improve description ]
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> Signed-off-by: Zhao Gongyi <zhaogongyi@bytedance.com>
+> ---
+> Changes since v1:
+> - Remove the warning and early return, as suggested by Oleg.
+> - Keep recognizing syscall-exit-stops with or without PTRACE_O_TRACESYSGOOD.
+> 
+> v1: https://lore.kernel.org/r/20261016024536.18938-1-zhaogongyi@bytedance.com
+> 
+> Tested on arm64 KVM at af32da41b032 with this v2 applied.
+> At a group-stop, PTRACE_GETSIGINFO returned -EINVAL and an
+> NT_ARM_SYSTEM_CALL write succeeded. Syscall-entry and seccomp
+> x0 rewrites worked. At syscall-exit-stops, NT_PRSTATUS writes succeeded
+> with and without PTRACE_O_TRACESYSGOOD (si_code 133 and 5,
+> respectively). No kernel warnings occurred.
+> 
+>  arch/arm64/kernel/ptrace.c | 6 +-----
+>  1 file changed, 1 insertion(+), 5 deletions(-)
+> 
+> diff --git a/arch/arm64/kernel/ptrace.c b/arch/arm64/kernel/ptrace.c
+> index f743cbec1..22fb9eeed 100644
+> --- a/arch/arm64/kernel/ptrace.c
+> +++ b/arch/arm64/kernel/ptrace.c
+> @@ -573,10 +573,6 @@ static void update_syscall_orig_x0_after_ptrace(struct task_struct *target)
+>  	if (regs->syscallno == NO_SYSCALL)
+>  		return;
+>  
+> -	/* We should only be called when target is in a ptrace stop */
+> -	if (WARN_ON_ONCE(!info))
+> -		return;
 
-LGTM from (z)swap perspective.
+That's a slight semantic change since this function may now update
+orig_x0 even when !info. However, I think it makes more sense as the aim
+of commit 88b839ce497c ("arm64: ptrace: Keep 'orig_x0' in-sync with x0
+on syscall entry") was to update orig_x0 in all cases other than
+syscall-exit-stop. We can't have the latter with !info.
 
-Reviewed-by: Nhat Pham <nphamcs@gmail.com>
+I'll wait for a couple of days to see if Will has any comments and queue
+it.
+
+Thanks.
+
+-- 
+Catalin
