@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793053576;
-	b=m1Qc4RRULxnWVF47NgWaN1M2ibQUiIXjrXGBfRP0HCrGooKlUYBchD8v7aKAfZSKBCbJ
-	 fdVkQvPqhL097GCb6gDiqnV6YyZuyPme8eq0abBBZxhKSTXQq5ofx6LhSh6jABZKafN17
-	 pzK8MjvPdjKhPNNLpvI6TswvYagiozvOhQsTk3Ysf0SoOVIkhEsVVd9cu4/4Quxckya0U
-	 T0r9mNwbs3v7vkuYJPlQBW1F6lDlul9Jbwu8aALtB93rYTR9laiWzLhMabgVjmq657nGU
-	 4yVW373961tlAOXOmGlkwDh8gqfTsimBAH2uCiF59AvQBuiJfQlO29EvU7qDPZZWUoA==
+	t=1793053574;
+	b=uHsqBYMMIsrIFaKmeUjQU2AvTWoSNDGYdL/+KgC81i6jekrrcJ1+FrRpcyE9AqFKYROz
+	 zhEreK7wuq0szzKEd30fM01qwaimTGyl5YfB8oN3CZ9vmUViDujI7Rv2YeQMQBKxi1QNd
+	 g1LYQFvq1oOuj/V8zKli7uZdF+dG8cyPL0FCeWyb8kBWCgzo1KW5Qkw/r0rGP7ttmKAwO
+	 /fDdYfHsvuoWc321g/V/YnEDOmoX4/q8HQRPB5TVCUcQy9GBcUPiZVj+ItErGTPSjDDPB
+	 voKB18Lv8nj2p4QIo0vn9uThZgwS/ceWoibVxV4AHVSDR8B+f4LApbV8598ZcR1jVRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793053576;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793053574;
 	h=Received:DKIM-Signature:Received:From:To:Cc:Subject:Date:Message-Id:
 	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=+AHOeQv+GND5Q0M/3XIRcfQVZxyeXsBzdilGn7fzPqE=;
-	b=aQvAaKQNbzOylSDVD3xOdcmlW4t5eFnhAuX1mwxuOThv/WYxRiNYyEkcSfIHA6FHXAq5
-	 QyvE6u3/p1394kBNU6pwA9udFnRtHaFlp9XXp9swAiU7r3XjBnR6I3nM3pypN4JNOuGGT
-	 kBJQmKoQ+bI15QAu3tDlaF2gnEPeMc90n4hN94nsUcpl41QzLsj5KveLwq8qicS6cO0Wk
-	 M5Lo0oFrvYJMGeNm0cRttu62NvYPNDk6Pv47SQEeWuqhMF9voRuQlsK4UIMu0PVUc9CCt
-	 aUHrkUFPYZ/bx3HgyP0At9hK2LWGvgPdXhd6AumRXw56bmzfpF3XjRdxq4AWWZqGeJg==
+	bh=501v5zGSSrJJbT553kHWUYIqeUlxgW8LfMQp2LR/cCc=;
+	b=0OldLSaCrijwttYxWR/LHg6mo6rwSkRw+6KW2eZrG96tc0tayk/cEG3+q3dWkBnhwzls
+	 56RKA30vvawUD8ASojQ2PN2EgqJz9lq6EYNHSiK4YBfO1dlyuiPKF2903osbfibNgpmy9
+	 +ZB2GjDOQJR9IPkgc7RRMrVbcYhLXtpcohHiSrBIYLlVKcGLQ6Xk8PJ8Q3ipXykMh+qEw
+	 3/+1NQLtgQErqw6nQ+u5qtuBzNQpGFnt5+l8E+JAJpjHzdyzDaYjV1Q0BI3DMqybeAxlf
+	 HTpALucQ/AwzUFaUJL8GOE5gh9KKrqlesZ2gwPEFPmYbcKazuWLLLrz5K7Z4XH2c57Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fsqUjz6c;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NsxhbB4s;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECE5F606A329;
-	Mon, 26 Oct 2026 22:26:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 735AD606A32A;
+	Mon, 26 Oct 2026 22:26:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fsqUjz6c
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E6C31F01828;
-	Mon, 26 Oct 2026 22:26:15 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NsxhbB4s
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E03951F031E3;
+	Mon, 26 Oct 2026 22:26:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793053575;
-	bh=+AHOeQv+GND5Q0M/3XIRcfQVZxyeXsBzdilGn7fzPqE=;
+	s=k20260515; t=1793053574;
+	bh=501v5zGSSrJJbT553kHWUYIqeUlxgW8LfMQp2LR/cCc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fsqUjz6c1FUL5rCoTT14tRhqUo9UwOIBO+2bolJH2qKA0Xk0QGQwA7m4PY29CG5Nk
-	 DJTHVPeXWtM+kof+vLFHDYyv/rATaPuIj1mxIXDNEbZEtNg9TEw7ESEZL4uNsMaTkV
-	 4SrXPaLGurR21Lhu7Qa5GOTLA1eD72L/J7AIepOAgZLZLBIbAJgsB8HVIxC4zA1jVb
-	 GUwgOdjqS3sK9ZLo4be9W3SS5QMZfIXHuJGrhp1zei03mz/MRVMRw4ynJGn3+l6cAG
-	 /Ymgtwd04JKUschWJBS48VpIUU2ULX6p0L7DVUzMmbfvj5G/hnq72cXdtqadHmNl4f
-	 mj2zcaA9VuMwQ==
+	b=NsxhbB4sWHH8yUJtHtbjhF7zspqyAv7f91r3TOLF5XcE41kbeU2RwD7cNzM38djVo
+	 ak0U5KoiA1CdbZtnBXkIRIbiG7iRmaayuTKQELxMzDzvJWL4Ir1m/8clmZS0KeixoV
+	 wj6vcpzPCSXwgoid3gzOZqvWoRX7L00Vw8PaTu+j3RH+nYPJ3b98r3f0/nrtl3Ehs2
+	 JRZTHJpcpyFvkt0dKm23wmRFNnzS5MvABMEJSXcKalXblbMbuetHlJZQr0ltFjT/0b
+	 RXGqt+TIHPAn3lyzsUGBSQKwNNjkrvFYDUuNuJ0Crgc8pO6QbJUn4zvdpm9yCNTucX
+	 THDqmqCx2tv4g==
 Received: by pali.im (Postfix)
-	id C4F05FA6; Mon, 26 Oct 2026 23:26:10 +0100 (CET)
+	id 937E0F86; Mon, 26 Oct 2026 23:26:10 +0100 (CET)
 From: =?UTF-8?q?Pali=20Roh=C3=A1r?= <pali@kernel.org>
 To: Paulo Alcantara <pc@manguebit.org>,
 	Namjae Jeon <linkinjeon@kernel.org>
 Cc: linux-cifs@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v7.3 7/9] cifs: Create native Window socket file compatible also with WSL subsystem
-Date: Mon, 26 Oct 2026 23:25:58 +0100
-Message-Id: <20261026222600.17323-8-pali@kernel.org>
+Subject: [PATCH v7.3 6/9] cifs: Extend ->set_EA() callback to allow operate on reparse point
+Date: Mon, 26 Oct 2026 23:25:57 +0100
+Message-Id: <20261026222600.17323-7-pali@kernel.org>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20261026222600.17323-1-pali@kernel.org>
 References: <20261026222600.17323-1-pali@kernel.org>
@@ -65,81 +65,128 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-After creating a native socket via the IO_REPARSE_TAG_AF_UNIX reparse
-point, try to set also the WSL EA $LXMOD.
+Upcoming changes for setting EAs needs to operate on the reparse point
+iself. This change extend >set_EA() callback with a new boolean parameter
+to allow it.
 
-This makes the native Win32 / NT socket file recognized also under
-WSL subsystem. WSL subsystem uses same reparse point tag but requires also
-to be EA $LXMOD set.
-
-Fixes: 45a99d5d1173 ("cifs: Add support for creating native Windows sockets")
 Signed-off-by: Pali Rohár <pali@kernel.org>
 ---
- fs/smb/client/reparse.c | 30 ++++++++++++++++++++++++++++--
- 1 file changed, 28 insertions(+), 2 deletions(-)
+ fs/smb/client/cifsglob.h  |  1 +
+ fs/smb/client/cifssmb.c   | 20 +++++++++++++++++++-
+ fs/smb/client/smb1proto.h |  3 ++-
+ fs/smb/client/smb2ops.c   |  6 ++++--
+ fs/smb/client/xattr.c     |  3 ++-
+ 5 files changed, 28 insertions(+), 5 deletions(-)
 
-diff --git a/fs/smb/client/reparse.c b/fs/smb/client/reparse.c
-index 86eb56dbc81a..6a7e6d9ad375 100644
---- a/fs/smb/client/reparse.c
-+++ b/fs/smb/client/reparse.c
-@@ -409,7 +409,7 @@ static int detect_directory_symlink_target(struct cifs_sb_info *cifs_sb,
+diff --git a/fs/smb/client/cifsglob.h b/fs/smb/client/cifsglob.h
+index 5c5b76a9e9fe..d5faef5f3a73 100644
+--- a/fs/smb/client/cifsglob.h
++++ b/fs/smb/client/cifsglob.h
+@@ -570,6 +570,7 @@ struct smb_version_operations {
+ 			const unsigned char *, const unsigned char *, char *,
+ 			size_t, struct cifs_sb_info *);
+ 	int (*set_EA)(const unsigned int, struct cifs_tcon *, const char *,
++			bool open_reparse_point,
+ 			const char *, const void *, const __u16,
+ 			const struct nls_table *, struct cifs_sb_info *);
+ 	struct smb_ntsd * (*get_acl)(struct cifs_sb_info *cifssb, struct inode *ino,
+diff --git a/fs/smb/client/cifssmb.c b/fs/smb/client/cifssmb.c
+index 8bdd81af6d21..07c7d6fa97c4 100644
+--- a/fs/smb/client/cifssmb.c
++++ b/fs/smb/client/cifssmb.c
+@@ -3166,6 +3166,7 @@ struct inode *cifs_create_reparse_inode(struct cifs_open_info_data *data,
+ 			rc = CIFSSMBSetEA(xid,
+ 					  tcon,
+ 					  full_path,
++					  true /* open reparse point */,
+ 					  &ea->ea_data[0],
+ 					  &ea->ea_data[ea->ea_name_length+1],
+ 					  le16_to_cpu(ea->ea_value_length),
+@@ -6322,7 +6323,8 @@ CIFSSMBQAllEAs(const unsigned int xid, struct cifs_tcon *tcon,
  
- static int create_native_socket(const unsigned int xid, struct inode *inode,
- 				struct dentry *dentry, struct cifs_tcon *tcon,
--				const char *full_path)
-+				const char *full_path, umode_t mode)
+ int
+ CIFSSMBSetEA(const unsigned int xid, struct cifs_tcon *tcon,
+-	     const char *fileName, const char *ea_name, const void *ea_value,
++	     const char *fileName, bool open_reparse_point,
++	     const char *ea_name, const void *ea_value,
+ 	     const __u16 ea_value_len, const struct nls_table *nls_codepage,
+ 	     struct cifs_sb_info *cifs_sb)
  {
- 	struct reparse_data_buffer buf = {
- 		.ReparseTag = cpu_to_le32(IO_REPARSE_TAG_AF_UNIX),
-@@ -423,6 +423,10 @@ static int create_native_socket(const unsigned int xid, struct inode *inode,
- 		.iov_base = &buf,
- 		.iov_len = sizeof(buf),
- 	};
-+#ifdef CONFIG_CIFS_XATTR
-+	const __le64 xattr_mode_val = cpu_to_le64(mode);
-+	struct cifs_sb_info *cifs_sb = CIFS_SB(inode->i_sb);
-+#endif
- 	struct inode *new;
- 	int rc = 0;
+@@ -6338,6 +6340,22 @@ CIFSSMBSetEA(const unsigned int xid, struct cifs_tcon *tcon,
+ 	int remap = cifs_remap(cifs_sb);
+ 	unsigned int total_len;
  
-@@ -433,6 +437,28 @@ static int create_native_socket(const unsigned int xid, struct inode *inode,
- 		d_instantiate(dentry, new);
- 	else
- 		rc = PTR_ERR(new);
-+
 +	/*
-+	 * Try to set also optional WSL EA $LXMOD but ignore errors.
-+	 * WSL socket and native Win32/NT sockets uses same reparse point
-+	 * tag IO_REPARSE_TAG_AF_UNIX. WSL subsystem additionally requires
-+	 * EA $LXMOD to be set with the S_IFSOCK value. So setting this EA
-+	 * allows native socket to be recognized also by WSL subsystem.
-+	 * Note that setting of both EAs and reparse points is not supported
-+	 * by NTFS filesystem on Windows 8 / Windows Server 2012 and always
-+	 * fails. So ignore failures from this set_EA call.
++	 * On NT systems which supports reparse points, the TRANS2_SET_PATH_INFORMATION
++	 * operates on the reparse point itself and not the path location where reparse
++	 * point redirects. So the behavior of TRANS2_SET_PATH_INFORMATION is as if the
++	 * path was opened with OPEN_REPARSE_POINT flag. Hence this SMB1 SetEA function
++	 * implements only the behavior of "open_reparse_point=true" parameter.
++	 *
++	 * TODO: Implement "open_reparse_point=false" support for SMB1 SetEA. For this
++	 * is needed to call NT OPEN without OPEN_REPARSE_POINT flag and then call
++	 * TRANS2_SET_FILE_INFORMATION.
++	 *
++	 * On systems which do not support reparse points, the behavior of both
++	 * "open_reparse_point=true" and "open_reparse_point=false" is same.
 +	 */
-+#ifdef CONFIG_CIFS_XATTR
-+	if (!rc && tcon->ses->server->ops->set_EA &&
-+	    (le32_to_cpu(tcon->fsAttrInfo.Attributes) & FILE_SUPPORTS_EXTENDED_ATTRIBUTES))
-+		tcon->ses->server->ops->set_EA(xid, tcon, full_path,
-+					       true /* open reparse point */,
-+					       SMB2_WSL_XATTR_MODE,
-+					       &xattr_mode_val,
-+					       SMB2_WSL_XATTR_MODE_SIZE,
-+					       cifs_sb->local_nls, cifs_sb);
-+#endif
++	(void)open_reparse_point;
 +
- 	cifs_free_open_info(&data);
- 	return rc;
- }
-@@ -742,7 +768,7 @@ int mknod_reparse(unsigned int xid, struct inode *inode,
- 	struct smb3_fs_context *ctx = CIFS_SB(inode->i_sb)->ctx;
+ 	cifs_dbg(FYI, "In SetEA\n");
+ SetEARetry:
+ 	rc = smb_init(SMB_COM_TRANSACTION2, 15, tcon, (void **) &pSMB,
+diff --git a/fs/smb/client/smb1proto.h b/fs/smb/client/smb1proto.h
+index f0350fa3f173..8a17350fee7c 100644
+--- a/fs/smb/client/smb1proto.h
++++ b/fs/smb/client/smb1proto.h
+@@ -209,7 +209,8 @@ ssize_t CIFSSMBQAllEAs(const unsigned int xid, struct cifs_tcon *tcon,
+ 		       const unsigned char *ea_name, char *EAData,
+ 		       size_t buf_size, struct cifs_sb_info *cifs_sb);
+ int CIFSSMBSetEA(const unsigned int xid, struct cifs_tcon *tcon,
+-		 const char *fileName, const char *ea_name,
++		 const char *fileName, bool open_reparse_point,
++		 const char *ea_name,
+ 		 const void *ea_value, const __u16 ea_value_len,
+ 		 const struct nls_table *nls_codepage,
+ 		 struct cifs_sb_info *cifs_sb);
+diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
+index 583ab4c4d773..6de334e222f0 100644
+--- a/fs/smb/client/smb2ops.c
++++ b/fs/smb/client/smb2ops.c
+@@ -1188,7 +1188,8 @@ smb2_query_eas(const unsigned int xid, struct cifs_tcon *tcon,
  
- 	if (S_ISSOCK(mode) && !ctx->nonativesocket && ctx->reparse_type != CIFS_REPARSE_TYPE_NONE)
--		return create_native_socket(xid, inode, dentry, tcon, full_path);
-+		return create_native_socket(xid, inode, dentry, tcon, full_path, mode);
+ static int
+ smb2_set_ea(const unsigned int xid, struct cifs_tcon *tcon,
+-	    const char *path, const char *ea_name, const void *ea_value,
++	    const char *path, bool open_reparse_point,
++	    const char *ea_name, const void *ea_value,
+ 	    const __u16 ea_value_len, const struct nls_table *nls_codepage,
+ 	    struct cifs_sb_info *cifs_sb)
+ {
+@@ -1290,7 +1291,8 @@ smb2_set_ea(const unsigned int xid, struct cifs_tcon *tcon,
+ 		.path = path,
+ 		.desired_access = FILE_WRITE_EA,
+ 		.disposition = FILE_OPEN,
+-		.create_options = cifs_create_options(cifs_sb, 0),
++		.create_options = cifs_create_options(cifs_sb,
++				open_reparse_point ? OPEN_REPARSE_POINT : 0),
+ 		.fid = &fid,
+ 		.replay = !!(retries),
+ 	};
+diff --git a/fs/smb/client/xattr.c b/fs/smb/client/xattr.c
+index 5091f6c0d7fe..93e4cc114d75 100644
+--- a/fs/smb/client/xattr.c
++++ b/fs/smb/client/xattr.c
+@@ -154,7 +154,8 @@ static int cifs_xattr_set(const struct xattr_handler *handler,
  
- 	switch (ctx->reparse_type) {
- 	case CIFS_REPARSE_TYPE_NFS:
+ 		if (pTcon->ses->server->ops->set_EA) {
+ 			rc = pTcon->ses->server->ops->set_EA(xid, pTcon,
+-				full_path, name, value, (__u16)size,
++				full_path, false /* open reparse point */,
++				name, value, (__u16)size,
+ 				cifs_sb->local_nls, cifs_sb);
+ 			if (rc == 0)
+ 				inode_set_ctime_current(inode);
 -- 
 2.20.1
 
