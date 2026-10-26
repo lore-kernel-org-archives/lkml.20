@@ -1,78 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793045624;
-	b=1nPe62vAyUBk3audvSqW0/F2dEHkUVgIWCLvQ+TiiS5zHzhZJJXiG6pg06tjNoxoo638
-	 JG21KlGMoKpYwi5sqFvzMonewsgbeXgHCCgGWNTzdkxeFGSyOTJmrdJjbsW0emxmf1Wku
-	 jMxAwZ43+1rj6Ehogs37Mt5XOzuSstfGExfY5/UuGjp8S32/EwRUTHX9nl0b6qZu9WjX7
-	 uCcXIZOxmn8g64DawEcoA0VCqdv1owERVAXpTjDfLhpaiFn+Q5H6VOG23lx9ySG0gdIK7
-	 dITEWoiyo+g//P/BQj6nyX4LtiYVTy7WXx6UlcYWIwpfBnVNkF6fsnyCNP94Ro+yX1g==
+	t=1793045638;
+	b=mtsvP9zMk8VztIZfto66CtLmHOMFHBBoDFpU8WIar3avj4+Fg95O2VPQH0oKbnzAcu0n
+	 NcoJZqcYPvASbgzgbAPnYlRtlM3/CGUeeEvTo2wSY29//PrU0R4JtCHU4flJekQbpinyD
+	 1KkbIXISAVZG5gCiSQ3hJTx3JpfdHX+QLGyYLud450l0Ln5+tNsAKV0Rp5MNWDfz1ZTt1
+	 TWNX9AOWCfx33O1tP5wutXkE56N3uNHbl7sGQdVmdBjSGHvWip8RDqM0UcMEbgvsHjeim
+	 oY3U+qP4jEbE6Xux0IJcscrhpEobQ5VqwuyFr4gMv7T1ksw2PnimMSHG2NanbqL9gNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793045624;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=kNy67E0ovLt8TzLvMy++WQEgiPFH7FIGj23FzpCowmk=;
-	b=UeC24sZ40M6JoKe21DbVjt+g1QX1erwQJ6C7A4wUntBXAInUNYncSp94P5RhCcsg6OHL
-	 djOjwfBi5OYrwrhFDDhCgoUio0YSJPcPJxxVBV+6LNpL6hBX9CAglP8P00V/DfxpSJA4g
-	 1RbGoZHG30NSTjZ9OmVCp7rLV/EfOA7MknQ+HOfJ0lP88+TX9CPY3lviqlSlpID3vPTQx
-	 1cfQiqnL8Mvgf/MTuDZ3YMx4Wqzsm3kR8rqiEUuQ6BkazXNR2fE+eijss5ChcF3YrYFV5
-	 1PZ3dmNxbFSfjk9aqUDGk3C6e/ixjbcCWgHnW5TbjmZArFPGPJVNX/lPN5fpxbp6e0A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793045638;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=q8AEEwHTufrmryJTMsqhvzKZ6h2afKOYiH2xqSkBe5Y=;
+	b=vC/xcQZ8XFWSBJCJvEzPNuPSLZXwRltL6UW6ytn0q5lb/nw9XWE5vS/KI6aGnkefq8Xx
+	 /tl0ucCJiF76rRKqVnMYNLWJU5XN/QVS2q7CRgoyRBiAaEzp2zUcTsSaWlWupRvmmo1gj
+	 VByBhQVS8gfJjjj6JrwNn3Gb1VZv40x8UXofhFm7cUVT3CgE0jIdM1EmXZRPpkVM8U10/
+	 P31k9+pu8NbE5nFiE3lowLad7RD5Xekwqn2ZxoMrDSoJ7dIgzT5u+l4y2v8vNW/yXU372
+	 4QnaByHCjWeYvtOQVjtJoYAc39Dh1lPRUTk/mNQMoVl4Q58mQb1ng+CNcWhzn6xf6OA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ClTBrJB7;
-	arc=none smtp.remote-ip=198.175.65.17
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=M9nqX60h;
+	arc=none smtp.remote-ip=74.125.82.51
+Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8318E606A323;
-	Mon, 26 Oct 2026 20:13:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8318E606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0670F606A320
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 20:13:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0670F606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ClTBrJB7
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793045623; x=1824581623;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=fY6/ucNuO0SnDJMQGPu88RMx9ffrdOcwr4EHZtee2B4=;
-  b=ClTBrJB7qcyl/ZN9s5pUTQCFbmifZ8JJcwuRJ+XZB3CwrbXWfi0V8brg
-   yXrc/shK46Bu2HdhJhK6uI4vwSFu36juvE7pHVvHG/mpI0oBojDeYBsnP
-   Tw0rKKH18iE/M6CWBuzFMQYLr2U1Wg9/qwXlLjFN+IxYMlOFOoguRP/rj
-   pagQuV9oxRR0eNdFUcNad42vOHSt3ckhf8jNsosE4tNJh+lOPsMdAP6rU
-   c9j6FobO5MNI7QfpWiyr9gtKA/D5r0gnoOO/Xhjyb1WO5ln5xC44Ir7jK
-   g09ShNvqCLGINd9CoPP1GtTIl5wOG2qL9jciQQzYxxeBNQZfdg5vxBFde
-   g==;
-X-CSE-ConnectionGUID: OGcxCygyT/W0rLcSEfv/sA==
-X-CSE-MsgGUID: /KW1lquXS8GsR2j5d/Zpig==
-X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1745022"
-X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
-   d="scan'208";a="1745022"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 13:13:42 -0700
-X-CSE-ConnectionGUID: DXPwm/T8SWCi+oFe6kcQhw==
-X-CSE-MsgGUID: pvvSMQkSShmg8Xd3guMmdg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
-   d="scan'208";a="4311673"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.93])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 13:13:40 -0700
-Date: Mon, 26 Oct 2026 22:13:37 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Victor Chernyakin <chernyakin.victor.j@outlook.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 4/4] iio: cdc: add Texas Instruments FDC1004 driver
-Message-ID: <at-0cXiBV0RM-Att@ashevche-desk.local>
-References: <SN1PR12MB252882C0E885BF3368E036E5A5612@SN1PR12MB2528.namprd12.prod.outlook.com>
- <SN1PR12MB2528DB8EE8ACEBF9551ED52EA5612@SN1PR12MB2528.namprd12.prod.outlook.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=M9nqX60h
+Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-156cbe59622so2743184c88.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:13:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793045637; x=1793650437; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=q8AEEwHTufrmryJTMsqhvzKZ6h2afKOYiH2xqSkBe5Y=;
+        b=M9nqX60h6UASgVEfTP+vJ5fHXK4iggnxl8c+u1lnR7uefcFeJ9KYTdmZUHOA+9XpEV
+         zuExPp84uVmsvMkYlwaW6vXWn2EXnLyo23Kdodrg2at8RCg+CM+/bqdWeL56Fv4vSDjX
+         y4dS3Q/Z21K+V9pib0nUKUKjVrNAoh0m7jvzl3PTovN/UNAcECvVP5nwkXS57ij6Ba4K
+         3Fliq0BP2LJn3uEbDvkMOzWQARHYPgRC+U8Ki3S8WIMsMzrVbKYvso6pxzBEGH/YJqV0
+         y8RjJ+CsSZ7hVFZk+h8/1mgqkvQ+awGQAsJcPicNKqUYu85zXAkO3sB8O42VlAm9an7L
+         UqfA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793045637; x=1793650437;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=q8AEEwHTufrmryJTMsqhvzKZ6h2afKOYiH2xqSkBe5Y=;
+        b=O7fR7Ksw5q1+mf2yMNBWNCkg5jCw2V/lEGUB7EQq/3ycfVFXn/jmtccDVXrUrYKmzD
+         tu+5pEbmzbXSiH3S3vwHf7WXj9yJvUw/hIxqogmgp1E9qNkOBHEiU6Y0bBns8lcH5Drg
+         21XYGLKERgcjQ2VUdrsJIkhm/efFKgp1pTEnvqR6Loox1fPg2YdRJ/bRrNza4nsUL6+5
+         ag7D5lDvJhQAOpU/e0eed3boTfKwKlfUPIN/OMeMYRtLPMqNZUXdV12fTDmkE54wzYJW
+         rvN2VRT1i10uGkS/0sIwWYOCx1qvNXg++HuTuQbSbMkBK968dwmsqIiWNzOol3I9YVsz
+         FNhQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwyScuN5+NAmsrfZTlCcgjzGxpwtVrl8eBcs1ppbRvmZsmAQmCzMslVLpNqPn7CdzX668wV4iA6yf0XmFY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJBc/o/oU6DCnjyF4xMgaYiJ+VAnIHsMvDnYBFHUN15TkLSp+bE
+	3y0ztCxIr+x5EP95Ep1kaQHYoTP0lin7H9O2ECya6wIcFtgyzllmMwwb2YUV5w==
+X-Gm-Gg: AYBFou3WeLNJtEy3ziMYu6x67IM9q5d1hn/ZU0ZaLFzIoWH413YkeVPKdECKcl5XCpc
+	0Hwxkzpc9gTxXt6EXHgS5ONFOOFEv5t1gcv8kUy7SaKscqdlF5UGd2NyHcJBF+86uU327bB8C+W
+	p1jhag0T1aEmbhpEPNS4VBqMjgjfqGodyRCFvlG6Nc/FLMvBn/Rv8zUofNbKLmcHeuMOYydGRTz
+	RRYGIAGGA7+xGw6s4xuxJVLI9THRp3T1PF+yXxvdeYaJLWLP5jZW6tMWIUHCiD8cN9nY1kBmNHM
+	0tjS+VerD/DF6ddgIZzsOA2Ew4PZJeczWg/Q9EAdyp0FzpMWSNhUvZ8mY8jRPO5aslVctsdE0+S
+	Hmtn24fdu5cKhcy4gGitTVwfmf7crJj705mH8a9ZjlDdDNy/8caiGnFFW/6+hPZnManYeP1LwtA
+	g4N/dd1O2jHyvOKUAAQAsWc8skKGS48uC98Ny/IzuzdzjvalwEYSpzUo2yNAa7osjwGh10dY/UU
+	78YceLZF+EWMfpnLT3sFM6O88a++VXilvaZRvyQHeSk4wGVQbgv+cUGwglftbM=
+X-Received: by 2002:a05:7022:1702:b0:14e:d0ba:7569 with SMTP id a92af1059eb24-199290fe34cmr9680108c88.6.1793045636848;
+        Mon, 26 Oct 2026 13:13:56 -0700 (PDT)
+Received: from valdaarhun.localdomain ([2401:4900:1c44:61b8:f26f:bd5b:b550:7a07])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a020df20sm31730486c88.6.2026.10.26.13.13.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 13:13:56 -0700 (PDT)
+From: Sahil Siddiq <sahilcdq0@gmail.com>
+To: jonas@southpole.se,
+	stefan.kristiansson@saunalahti.fi,
+	shorne@gmail.com,
+	naveen@kernel.org,
+	davem@davemloft.net,
+	mhiramat@kernel.org
+Cc: pjw@kernel.org,
+	wangruikang@iscas.ac.cn,
+	namcao@linutronix.de,
+	kees@kernel.org,
+	linux-openrisc@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Sahil Siddiq <sahilcdq0@gmail.com>
+Subject: [PATCH v3 4/4] openrisc: Add Kretprobes
+Date: Tue, 27 Oct 2026 01:42:40 +0530
+Message-ID: <20261026201240.107462-5-sahilcdq0@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260930202744.50489-1-sahilcdq0@gmail.com>
+References: <20260930202744.50489-1-sahilcdq0@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,220 +107,233 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <SN1PR12MB2528DB8EE8ACEBF9551ED52EA5612@SN1PR12MB2528.namprd12.prod.outlook.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 26, 2026 at 11:51:14AM -0500, Victor Chernyakin wrote:
-> The FDC1004 is a high-precision 4-channel capacitive sensor that talks
-> over I2C. It can report the values of each of its 4 channels individually,
-> as well as the difference between any two of them.
-> 
-> This initial driver allows performing single reads and configuring
-> the sensor's various settings (sample frequency, calibration
-> gain/offset, etc.). It could be extended with support for triggered
-> buffers, repeated measurement mode, and/or power management.
+Add Kretprobes support for OpenRISC. Kretprobes allow a probe to be
+fired when a function returns. They are built on top of the generic
+rethook framework and also require the KProbe mechanism introduced
+in the previous commit. This work is primarily based on similar work
+done for RISC-V.
 
-...
+Kretprobes work by inserting a KProbe at a function's entry point.
+When the function begins to execute, the KProbe is fired and its
+pre-handler replaces the function's return address with that of the
+rethook trampoline. The trampoline in turn calls the kretprobe handler.
+Control is returned to the original caller following this.
 
-> +static int fdc1004_soft_reset(struct fdc1004_data *data)
-> +{
-> +	int ret;
-> +	unsigned int val;
+Signed-off-by: Sahil Siddiq <sahilcdq0@gmail.com>
+---
+Changes v2 -> v3:
+- arch/openrisc/kernel/rethook_trampoline.S:
+  (save_all_base_regs): Save SR and SP registers
+  (restore_all_base_regs): Restore SR register
 
-Try to keep all of them in the reversed xmas tree order.
+Changes v1 -> v2: New commit
 
-> +	ret = regmap_write(data->regmap, FDC1004_REG_FDC_CONF,
-> +			   FDC1004_FDC_CONF_RST_MASK);
+ arch/openrisc/Kconfig                     |   2 +
+ arch/openrisc/kernel/Makefile             |   1 +
+ arch/openrisc/kernel/rethook.c            |  32 +++++++
+ arch/openrisc/kernel/rethook.h            |   8 ++
+ arch/openrisc/kernel/rethook_trampoline.S | 111 ++++++++++++++++++++++
+ 5 files changed, 154 insertions(+)
+ create mode 100644 arch/openrisc/kernel/rethook.c
+ create mode 100644 arch/openrisc/kernel/rethook.h
+ create mode 100644 arch/openrisc/kernel/rethook_trampoline.S
 
-	struct regmap *map = data->regmap;
-	...
-
-	ret = regmap_write(map, FDC1004_REG_FDC_CONF, FDC1004_FDC_CONF_RST_MASK);
-
-(yes, it's fine to have 81 characters here)
-
-> +	if (ret)
-> +		return ret;
-> +
-> +	return regmap_read_poll_timeout(data->regmap, FDC1004_REG_FDC_CONF, val,
-> +					!(ret & FDC1004_FDC_CONF_RST_MASK),
-> +					1 * USEC_PER_MSEC, 200 * USEC_PER_MSEC);
-> +}
-
-...
-
-> +static int fdc1004_read_raw(struct iio_dev *indio_dev,
-> +			    const struct iio_chan_spec *chan,
-> +			    int *val, int *val2, long mask)
-> +{
-> +	struct fdc1004_data *data = iio_priv(indio_dev);
-> +	struct regmap *map = data->regmap;
-> +	unsigned int reg_val;
-> +	u16 reg_vals[2];
-> +	int ret;
-> +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_SCALE:
-> +		iio_val_s64_decompose(fdc1004_scale, val, val2);
-> +		return IIO_VAL_DECIMAL64_YOCTO;
-> +	case IIO_CHAN_INFO_RAW: {
-> +		guard(mutex)(&data->lock);
-> +
-> +		/* Configure the measurement we want. */
-> +		reg_val = FIELD_PREP(FDC1004_CONF_MEAS_CHA_MASK, chan->channel)
-> +			| FIELD_PREP(FDC1004_CONF_MEAS_CHB_MASK, chan->channel2)
-> +			| FIELD_PREP(FDC1004_CONF_MEAS_CAPDAC_MASK,
-> +				      data->offsets[chan->channel]);
-
-We don't practice this style in IIO.
-
-		reg_val = FIELD_PREP(FDC1004_CONF_MEAS_CHA_MASK, chan->channel) |
-			  FIELD_PREP(FDC1004_CONF_MEAS_CHB_MASK, chan->channel2) |
-			  FIELD_PREP(FDC1004_CONF_MEAS_CAPDAC_MASK,
-				      data->offsets[chan->channel]);
-
-> +		ret = regmap_write(map, FDC1004_REG_CONF_MEASn(0), reg_val);
-> +		if (ret)
-> +			return ret;
-> +
-> +		/* Start the measurement. */
-> +		reg_val = FDC1004_FDC_CONF_MEAS_n_MASK(0)
-> +			/* "+ 1" because the chip wants a 1-indexed value. */
-
-Move comment on top of the assignment.
-
-> +			| FIELD_PREP(FDC1004_FDC_CONF_RATE_MASK,
-> +				     data->samp_freq_index + 1);
-
-Same about the style.
-
-> +		ret = regmap_write(map, FDC1004_REG_FDC_CONF, reg_val);
-> +		if (ret)
-> +			return ret;
-> +
-> +		/*
-> +		 * Wait for the measurement to complete.
-> +		 * The slowest sampling frequency the chip supports is 100 SPS,
-> +		 * i.e. 1 sample every 10 ms, so our timeout can't be shorter
-> +		 * than that. Go with 40 ms to be safe.
-> +		 */
-> +		ret = regmap_read_poll_timeout(map, FDC1004_REG_FDC_CONF, reg_val,
-> +					       reg_val & FDC1004_FDC_CONF_DONE_n_MASK(0),
-> +					       1 * USEC_PER_MSEC, 40 * USEC_PER_MSEC);
-> +		if (ret)
-> +			return ret;
-> +
-> +		/*
-> +		 * Now read the two registers making up the measurement.
-> +		 * The datasheet says to read MSB first, LSB second.
-> +		 */
-> +		ret = regmap_bulk_read(map, FDC1004_REG_MEASn_MSB(0),
-> +				       reg_vals, ARRAY_SIZE(reg_vals));
-> +		if (ret)
-> +			return ret;
-> +
-> +		*val = (sign_extend32(reg_vals[0], 15) << 8) | (reg_vals[1] >> 8);
-
-We still have two shift operators, so it might be not a bad idea after all to
-have a combined variable with wordswap done in case of LITTLE_ENDIAN
-architecture. Jonathan, what do you think about this? Reading the whole set as
-32-bit value and convert it if required
-
-		// also note in this case we don't need to have _MSB in the name
-		ret = regmap_bulk_read(map, FDC1004_REG_MEASn(0), reg_val, sizeof(reg_val));
-		if (ret)
-			return ret;
-
-#ifdef __LITTLE_ENDIAN
-		reg_val = swahw32(reg_val);
-#endif
-
-		*val = sign_extend32(reg_val >> 8, 23);
-
-		// I assume the following is also possible in this case
-		// *val = (int)reg_val >> 8;
-		// but usually we use sign_extend32() in IIO even when simple
-		// casting is okay
-
-This also reduces stack usage.
-
-> +		return IIO_VAL_INT;
-> +	}
-> +	case IIO_CHAN_INFO_SAMP_FREQ: {
-> +		guard(mutex)(&data->lock);
-> +
-> +		*val = fdc1004_samp_freqs[data->samp_freq_index];
-> +		return IIO_VAL_INT;
-> +	}
-> +	case IIO_CHAN_INFO_OFFSET: {
-> +		guard(mutex)(&data->lock);
-> +
-> +		*val = data->offsets[chan->channel] * fdc1004_offset[1];
-> +		return IIO_VAL_INT;
-> +	}
-> +	case IIO_CHAN_INFO_CALIBBIAS:
-> +		ret = regmap_read(map, FDC1004_REG_OFFSET_CAL_CINn(chan->channel),
-> +				  &reg_val);
-> +		if (ret)
-> +			return ret;
-> +
-> +		iio_val_s64_decompose(sign_extend64(reg_val, 15) *
-> +				      fdc1004_calibbias[1], val, val2);
-> +		return IIO_VAL_DECIMAL64_FEMTO;
-> +	case IIO_CHAN_INFO_CALIBSCALE:
-> +		ret = regmap_read(map, FDC1004_REG_GAIN_CAL_CINn(chan->channel),
-> +				  &reg_val);
-> +		if (ret)
-> +			return ret;
-> +
-> +		iio_val_s64_decompose(reg_val * fdc1004_calibscale[1], val, val2);
-> +		return IIO_VAL_DECIMAL64_FEMTO;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-
-...
-
-> +static const int fdc1004_calibbias_decomposed[] = {
-> +	lower_32_bits(fdc1004_calibbias[0]), upper_32_bits(fdc1004_calibbias[0]),
-> +	lower_32_bits(fdc1004_calibbias[1]), upper_32_bits(fdc1004_calibbias[1]),
-> +	lower_32_bits(fdc1004_calibbias[2]), upper_32_bits(fdc1004_calibbias[2]),
-> +};
-> +
-> +static const int fdc1004_calibscale_decomposed[] = {
-> +	lower_32_bits(fdc1004_calibscale[0]), upper_32_bits(fdc1004_calibscale[0]),
-> +	lower_32_bits(fdc1004_calibscale[1]), upper_32_bits(fdc1004_calibscale[1]),
-> +	lower_32_bits(fdc1004_calibscale[2]), upper_32_bits(fdc1004_calibscale[2]),
-> +};
-
-We still haven't decided on this one. I think the 2D array is better for these.
-And with the above we effectively have a duplication of the tables.
-
-...
-
-> +#define FDC1004_DIFFERENTIAL_CAPACITANCE_CHANNEL(_chan1, _chan2)         \
-> +	{                                                                \
-> +		.type = IIO_CAPACITANCE,                                 \
-> +		.indexed = true,                                         \
-> +		.differential = true,                                    \
-> +		.channel = _chan1,                                       \
-> +		.channel2 = _chan2,                                      \
-> +		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),            \
-> +		.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE),    \
-> +		.info_mask_shared_by_all = BIT(IIO_CHAN_INFO_SAMP_FREQ), \
-> +		.info_mask_shared_by_all_available =                     \
-> +			BIT(IIO_CHAN_INFO_SAMP_FREQ),                    \
-> +	}
-
-Please, use tab for indenting the \ slashes (and only spaces at the end if you
-want to shorten that a bit).
-
+diff --git a/arch/openrisc/Kconfig b/arch/openrisc/Kconfig
+index d240533b424b..82365eb8f574 100644
+--- a/arch/openrisc/Kconfig
++++ b/arch/openrisc/Kconfig
+@@ -28,6 +28,8 @@ config OPENRISC
+ 	select HAVE_ARCH_JUMP_LABEL_RELATIVE
+ 	select HAVE_PCI
+ 	select HAVE_KPROBES
++	select HAVE_KRETPROBES
++	select HAVE_RETHOOK
+ 	select HAVE_UID16
+ 	select HAVE_PAGE_SIZE_8KB
+ 	select HAVE_REGS_AND_STACK_ACCESS_API
+diff --git a/arch/openrisc/kernel/Makefile b/arch/openrisc/kernel/Makefile
+index 0c1cade09e0c..e36537cea319 100644
+--- a/arch/openrisc/kernel/Makefile
++++ b/arch/openrisc/kernel/Makefile
+@@ -15,6 +15,7 @@ obj-$(CONFIG_STACKTRACE)	+= stacktrace.o
+ obj-$(CONFIG_MODULES)		+= module.o
+ obj-$(CONFIG_OF)		+= prom.o
+ obj-$(CONFIG_KPROBES)		+= kprobes.o
++obj-$(CONFIG_RETHOOK)		+= rethook.o rethook_trampoline.o
+ obj-$(CONFIG_OR_KPROBES_KUNIT)	+= tests/
+ obj-y	+= patching.o
+ 
+diff --git a/arch/openrisc/kernel/rethook.c b/arch/openrisc/kernel/rethook.c
+new file mode 100644
+index 000000000000..50ef6715d044
+--- /dev/null
++++ b/arch/openrisc/kernel/rethook.c
+@@ -0,0 +1,32 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Generic return hook for OpenRISC. Depends on KProbes.
++ *
++ * Linux architectural port borrowing liberally from similar works of
++ * others.  All original copyrights apply as per the original source
++ * declaration.
++ *
++ * OpenRISC implementation:
++ * Copyright (C) 2026 Sahil Siddiq <sahilcdq0@gmail.com>
++ */
++
++#include <linux/kprobes.h>
++#include <linux/rethook.h>
++#include "rethook.h"
++
++unsigned long arch_rethook_trampoline_callback(struct pt_regs *regs)
++{
++	return rethook_trampoline_handler(regs, regs->gpr2);
++}
++NOKPROBE_SYMBOL(arch_rethook_trampoline_callback)
++
++void arch_rethook_prepare(struct rethook_node *rhn, struct pt_regs *regs, bool mcount)
++{
++	/* Store original return address and frame pointer */
++	rhn->ret_addr = regs->gpr9;
++	rhn->frame = regs->gpr2;
++
++	/* Set return address to trampoline */
++	regs->gpr9 = (unsigned long)arch_rethook_trampoline;
++}
++NOKPROBE_SYMBOL(arch_rethook_prepare)
+diff --git a/arch/openrisc/kernel/rethook.h b/arch/openrisc/kernel/rethook.h
+new file mode 100644
+index 000000000000..332306a5c380
+--- /dev/null
++++ b/arch/openrisc/kernel/rethook.h
+@@ -0,0 +1,8 @@
++/* SPDX-License-Identifier: GPL-2.0-or-later */
++#ifndef __OPENRISC_RETHOOK_H
++#define __OPENRISC_RETHOOK_H
++
++unsigned long arch_rethook_trampoline_callback(struct pt_regs *regs);
++void arch_rethook_prepare(struct rethook_node *rhn, struct pt_regs *regs, bool mcount);
++
++#endif
+diff --git a/arch/openrisc/kernel/rethook_trampoline.S b/arch/openrisc/kernel/rethook_trampoline.S
+new file mode 100644
+index 000000000000..5e8fd5a65222
+--- /dev/null
++++ b/arch/openrisc/kernel/rethook_trampoline.S
+@@ -0,0 +1,111 @@
++/* SPDX-License-Identifier: GPL-2.0-or-later */
++/*
++ * Author: Sahil Siddiq <sahilcdq0@gmail.com>
++ */
++
++#include <linux/linkage.h>
++
++#include <asm/asm.h>
++#include <asm/asm-offsets.h>
++#include <asm/ptrace.h>
++
++	.text
++
++	.macro save_all_base_regs
++	l.sw	PT_GPR2(r1),r2
++	l.sw	PT_GPR3(r1),r3
++	l.sw	PT_GPR4(r1),r4
++	l.sw	PT_GPR5(r1),r5
++	l.sw	PT_GPR6(r1),r6
++	l.sw	PT_GPR7(r1),r7
++	l.sw	PT_GPR8(r1),r8
++	l.sw	PT_GPR9(r1),r9
++	l.sw	PT_GPR10(r1),r10
++	l.sw	PT_GPR11(r1),r11
++	l.sw	PT_GPR12(r1),r12
++	l.sw	PT_GPR13(r1),r13
++	l.sw	PT_GPR14(r1),r14
++	l.sw	PT_GPR15(r1),r15
++	l.sw	PT_GPR16(r1),r16
++	l.sw	PT_GPR17(r1),r17
++	l.sw	PT_GPR18(r1),r18
++	l.sw	PT_GPR19(r1),r19
++	l.sw	PT_GPR20(r1),r20
++	l.sw	PT_GPR21(r1),r21
++	l.sw	PT_GPR22(r1),r22
++	l.sw	PT_GPR23(r1),r23
++	l.sw	PT_GPR24(r1),r24
++	l.sw	PT_GPR25(r1),r25
++	l.sw	PT_GPR26(r1),r26
++	l.sw	PT_GPR27(r1),r27
++	l.sw	PT_GPR28(r1),r28
++	l.sw	PT_GPR29(r1),r29
++	l.sw	PT_GPR30(r1),r30
++	l.sw	PT_GPR31(r1),r31
++	/* Save SR in pt_regs */
++	l.mfspr	r13,r0,SPR_SR
++	l.sw	PT_SR(r1),r13
++	/* Save SP in pt_regs as it was prior to setting up this frame */
++	l.addi	r13,r1,PT_SIZE
++	l.sw	PT_SP(r1),r13
++	.endm
++
++	.macro restore_all_base_regs
++	/* Restore SR from pt_regs */
++	l.lwz	r13,PT_SR(r1)
++	l.mtspr	r0,r13,SPR_SR
++	/*
++	 * r1 doesn't need to be explicitly restored from pt_regs. When
++	 * arch_rethook_trampoline_callback finishes, it restores SP to
++	 * what it was before its frame was set up.
++	 */
++	l.lwz	r2,PT_GPR2(r1)
++	l.lwz	r3,PT_GPR3(r1)
++	l.lwz	r4,PT_GPR4(r1)
++	l.lwz	r5,PT_GPR5(r1)
++	l.lwz	r6,PT_GPR6(r1)
++	l.lwz	r7,PT_GPR7(r1)
++	l.lwz	r8,PT_GPR8(r1)
++	/* Return address in r9 is stale, so don't restore it */
++	l.lwz	r10,PT_GPR10(r1)
++	l.lwz	r11,PT_GPR11(r1)
++	l.lwz	r12,PT_GPR12(r1)
++	l.lwz	r13,PT_GPR13(r1)
++	l.lwz	r14,PT_GPR14(r1)
++	l.lwz	r15,PT_GPR15(r1)
++	l.lwz	r16,PT_GPR16(r1)
++	l.lwz	r17,PT_GPR17(r1)
++	l.lwz	r18,PT_GPR18(r1)
++	l.lwz	r19,PT_GPR19(r1)
++	l.lwz	r20,PT_GPR20(r1)
++	l.lwz	r21,PT_GPR21(r1)
++	l.lwz	r22,PT_GPR22(r1)
++	l.lwz	r23,PT_GPR23(r1)
++	l.lwz	r24,PT_GPR24(r1)
++	l.lwz	r25,PT_GPR25(r1)
++	l.lwz	r26,PT_GPR26(r1)
++	l.lwz	r27,PT_GPR27(r1)
++	l.lwz	r28,PT_GPR28(r1)
++	l.lwz	r29,PT_GPR29(r1)
++	l.lwz	r30,PT_GPR30(r1)
++	l.lwz	r31,PT_GPR31(r1)
++	.endm
++
++SYM_CODE_START(arch_rethook_trampoline)
++	/* Allocate enough space on stack for pt_regs */
++	l.addi	r1,r1,-PT_SIZE
++	save_all_base_regs
++
++	l.addi	r3,r1,0	/* pt_regs */
++	l.jal	arch_rethook_trampoline_callback
++	l.nop
++
++	/* use the result as the return-address */
++	l.addi	r9,r11,0
++
++	restore_all_base_regs
++	l.addi	r1,r1,PT_SIZE
++
++	l.jr	r9
++	l.nop
++SYM_CODE_END(arch_rethook_trampoline)
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.55.0
 
