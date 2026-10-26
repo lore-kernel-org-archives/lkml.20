@@ -1,65 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.63
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.57
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1792994980;
-	b=f4vCpyIaHJtaqT11xncfeQyL+K4/wURPUvSDcFGRPoMzYo8IfgZQuCfzm8cDd+3Q1qI4
-	 hbbUmZsauigZGcusRmIJp1zfY4oboknudBRbg2I0QBPd1/eHpYPEVLOpsMs2fD2UG9pU4
-	 Drt0SstO6QW8zOyU24iFqXvM3Yk9CRaKnPbNShctFP+wMV0c1c/wzZNhpEyLUCDhcB9gs
-	 jM/4pUkqDo60TxHDrNF4r/qV3JUKevF25RVrFQxtexcEqm17XFoi+HXDgJRqjqFsnlyfG
-	 FfZwULo0QNtf9bwODYFzFGvUcvaWidKcuHtQQGTYqZeC/Icplf4JvuULaaHBdsovImw==
+	b=uLRHPr3Mde4iFjHsBopZ7q9zs4HSzZ4pbO4JUczDeQMOeaqgg+PsNfAUpSphkODlidFU
+	 pKP/eD+XKYWX60CuK0VADNeBkADAcvfuSor7+xisn+dugp7HCufz6ayKQ50FBmk5BIBAV
+	 i45o81V5dDh3fBvSVlZVjeHushMZqTl0glh9q/GTkiCnJPL5zjT4rW6XJi8yXiisasZ63
+	 J13LO5Wf4ZdhHC+UXsg1fIkwLKFQhj59ua3GECAlTFeg3prm2g7tRUg2NR12qV8G2ihp+
+	 FG9iUl79JTYmW3SBGwKn6CfnH3X237R/P4NR2JEa2RsUMKjECvA3xRHsZT6eaAmR8aA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792994980;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=ScUwDrCxcDY2Tg+t0+W2UwFl6cxgpHFmAE9XOo7zw8g=;
-	b=qiDt6ccO0Oy3D1ALzL10BKMT09czpYid8B2lcmUpqtoA5UEAxaCeTiQxK1ttkvyS19mK
-	 6buwX0oFWoeJqG3y/7/uxLKKLzAfAAvpGrXKH7x++Op88JsH+Zjq4W/Vpa8NmgNdnnjSz
-	 nA+MfqcCg9MDo9Np3ul6uasoGIqj/VHpVOOJVV3MRd/rMChPdWWnjQIBEuYEnR4/NrG58
-	 s3h2fV92piwBzOcRyvrnmf5sg4qMmtbpy8w4bb2qTBD68QQjY2C8rnUFFiF1nzLULw0yj
-	 RXADoICn9mlSS9RN1Zk2Ye8I4BQnMJbsrV+QiJej8GT0dW/DOwG4xpBH6vs6M7/PfNg==
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer;
+	bh=4YF1uuN8vSqlU2rOKHVGJs/CBUWobe7SwbzRynZeYYE=;
+	b=2dmFvwFhM+x6+8jPoAptCIcgZH8lco7BSLxR5smx+IWVfSbdbRxYV/l9iM7xPVSJ34Ku
+	 zedWdZtH7TylB8xdgHFvHyVbFQsxbwoaj4iDIPD9SoWwPrcgwdPxm+T/D7Bw2kdzgiLoX
+	 rjrOxmOlNxYqOYKWMUgMiRgCWCQ3Tb0WOLTUqS4LJO1uLucQFH7IqGYaJMbLTKO7jkqSO
+	 wHMiD+kKJu43rKKZHCXvdI9ChPc8R+apKtbmWdWO/OWdqNyr7ZCzeKXY200U2qUx9wHJy
+	 rYMabGQlDLOCTTMCwvzYooJ8TDJp8CtQq4cuauVHZnyUxQSXE3MciXYD71CP38WaDUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ZJ87ng0A;
-	arc=none smtp.remote-ip=91.218.175.63
-Received: from mta0.migadu.com (out-63.mta0.migadu.com [91.218.175.63])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=TkiIF6yu;
+	arc=none smtp.remote-ip=91.218.175.57
+Received: from mta0.migadu.com (out-57.mta0.migadu.com [91.218.175.57])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B623606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33EA8606A31A
 	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 06:09:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B623606A325
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33EA8606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ZJ87ng0A
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=TkiIF6yu
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=HVI1rhJAjlA6hwOuxcxfPrgx9c8vnckidjUuhN7LrGs=;
+DKIM-Signature: a=rsa-sha256; bh=+Gh148DE2VMFS8ATJDVgo5IPfM8B6qMQjDKrc8U6oj4=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
  t=1792994977; v=1; x=1793599777;
- b=ZJ87ng0Awshfd2qAvlXjnoYCpo/685WZn3yvyRHt4/IgTUhKjohacDBgrda54qYzp5EEu6a3
- j+5Z9V0ZA+ZvdslvqtOa0+tNlccVk8FfUpTHuYtkfVkkcwXZsifiFeGE8StoTGNJmjxarDN8IYO
- pNYB1P4Ax4eCxk58aoUyS7rA=
+ b=TkiIF6yuVJtr6nAf2/USF/K15C9zdPNVY4ELLntSEfEjQ/t/ZS0GaN0fB/nfjQDDaTSJmQS4
+ VPLOK45yx5wMU7TfeCBV7ibNU3FrEBxcWLJfB2HOoQoL8Sz6mZF2+o9AdmEMadIGE9N5sYtOYqz
+ URk7lT8s5lqCy9mPZI+S3uUQ=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 5076e146843fdcaf;
+Received: by smtp.migadu.com with ESMTPS id 68994bf62ca272a5;
 	Mon, 26 Oct 2026 06:09:37 +0000
-X-Mizu-Trace-ID: 5076e146843fdcaf
+X-Mizu-Trace-ID: 68994bf62ca272a5
 X-Migadu-Flow: FLOW_OUT
-Date: Mon, 26 Oct 2026 14:09:23 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Zhou Qiuyue <n0ps1edzz@gmail.com>
-Cc: netdev@vger.kernel.org, David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net v2] ipv6: raw: fix use-after-free in
- rawv6_send_hdrinc()
-Message-ID: <at7uk8gXtzNufuQF@fedora>
-References: <20261026044808.613-1-n0ps1edzz@gmail.com>
+From: Ye Liu <ye.liu@linux.dev>
+Date: Mon, 26 Oct 2026 14:09:24 +0800
+Subject: [PATCH 2/2] mm/vmalloc: warn on NULL page in
+ remap_vmalloc_range_partial
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,63 +60,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261026044808.613-1-n0ps1edzz@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261026-vmalloc_remap-v1-2-b7a907814e90@linux.dev>
+References: <20261026-vmalloc_remap-v1-0-b7a907814e90@linux.dev>
+In-Reply-To: <20261026-vmalloc_remap-v1-0-b7a907814e90@linux.dev>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ Uladzislau Rezki <urezki@gmail.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ Ye Liu <liuye@kylinos.cn>
+X-Mailer: b4 0.17-dev-39d60
 
-On Mon, Oct 26, 2026 at 12:48:08PM +0800, Zhou Qiuyue wrote:
-> rawv6_send_hdrinc() caches the route before handing the skb to
-> l3mdev_ip6_out(). The VRF output path may replace skb->dst and release
-> the original route, leaving the cached pointer stale.
-> 
-> The function later dereferences that pointer for statistics accounting
-> and as the output device passed to NF_HOOK(). Its RCU read-side critical
-> section starts after l3mdev_ip6_out(), so it cannot prevent the old route
-> from being reclaimed in between.
-> 
-> Reload the route from the current skb destination after
-> l3mdev_ip6_out() returns.
-> 
-> KASAN reports a slab-use-after-free in rawv6_sendmsg(), with the route
-> allocated by ip6_dst_alloc(), freed by dst_destroy() from rcu_core(), and
-> the related RCU callback queued from vrf_l3_out().
-> 
-> Fixes: 4c1feac58e06 ("net: vrf: Flip IPv6 output path from FIB lookup hook to out hook")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Zhou Qiuyue <n0ps1edzz@gmail.com>
-> ---
-> Changes in v2:
-> - Rebased onto the current net tree at 7076f684d513.
-> - Regenerated the patch with git-format-patch so it applies cleanly.
-> - Corrected the Fixes tag to the commit that made the IPv6 VRF path reachable.
-> - Shortened the code comment and added the required recipients.
-> 
-> v1: https://lore.kernel.org/r/6adad51d.8fc0b0c9.1ec657.1868@mx.google.com
-> 
-> Thank you to Hangbin Liu for reviewing v1 and pointing out the submission
-> issues.
-> 
->  net/ipv6/raw.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/net/ipv6/raw.c b/net/ipv6/raw.c
-> index b965258cf..bdea82543 100644
-> --- a/net/ipv6/raw.c
-> +++ b/net/ipv6/raw.c
-> @@ -654,6 +654,9 @@ static int rawv6_send_hdrinc(struct sock *sk, struct msghdr *msg, int length,
->  	if (unlikely(!skb))
->  		return 0;
->  
-> +	/* l3mdev_ip6_out() may have replaced the skb dst. */
-> +	rt = dst_rt6_info(skb_dst(skb));
-> +
->  	/* Acquire rcu_read_lock() in case we need to use rt->rt6i_idev
->  	 * in the error path. Since skb has been freed, the dst could
->  	 * have been queued for deletion.
-> 
-> base-commit: 7076f684d5132e6a6145e1da2fa74771ecd052e5
-> -- 
-> 2.50.1.windows.1
-> 
+From: Ye Liu <liuye@kylinos.cn>
 
-Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
+remap_vmalloc_range_partial() oopses if vmalloc_to_page() returns
+NULL, which never happens today because VM_USERMAP areas keep every
+page mapped. Add a WARN_ON(!page) to flag a break before the oops.
+
+Signed-off-by: Ye Liu <liuye@kylinos.cn>
+---
+ mm/vmalloc.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+index a888eca016a8..59ba203a4eff 100644
+--- a/mm/vmalloc.c
++++ b/mm/vmalloc.c
+@@ -4906,6 +4906,7 @@ int remap_vmalloc_range_partial(struct vm_area_struct *vma, unsigned long uaddr,
+ 		struct page *page = vmalloc_to_page(kaddr);
+ 		int ret;
+ 
++		WARN_ON(!page);
+ 		ret = vm_insert_page(vma, uaddr, page);
+ 		if (ret)
+ 			return ret;
+
+-- 
+2.43.0
+
