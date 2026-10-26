@@ -1,100 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793000821;
-	b=k+1JjWvdoemZuM3va4pkAswEruYi0tpR/XQzgFHgK2QWGNB55PWq1dn3lT/Ms85n6NPC
-	 WZH5Qf1s1OXk1zd3q8e2SlzI+JUSNm7MsUXmONtZ6IN8ay26pM3kVH3zeec+wcFkZchGD
-	 Sa7aVFLBIpGRSKBMVsodI6n1gCnjA92IdhXcML+RxAAN1uAI4MiZ/T53rGpIbwtvMWRCm
-	 56bwIdpezOSNqk8HovsZd17jPoRYfDf0Hcjkln+dpxK8nPvb1Gbk7Qe4ynIwm1/ecGWTg
-	 /9J4eXn+gtzN9HXs+oxr+MHuF3dFt0msLkfrdSgmY7yQnLnUdHQgA//oDPDUwP1vEQQ==
+	t=1793000815;
+	b=tMAneBdJiDe5zMsMkAza+3srTneqNobOXn8l4KFyEt86VYV4l5x2T2pZOhKcOFwEPQ4t
+	 QOWjWT2S+3bbbA8BmPmksS1hUtDYmDV41wyBqobDidBAUMMdg8OvcG1nU8n6/SNXTmJUS
+	 OFn6NgiYpASsGky3Vvds0OsXzOlI/me1jWkykGmvAwbeHdUj/smQ1V2DLyokQUDsnEaJC
+	 R6Y/db47no0KYPa0hpP1O4h0VtYvOfskmTWDpVc5ZGc7NX1qp8/EOOjNxANJECt2kg/P1
+	 OLABXokF+oeumZ+PvV7yPwv2ZofCYqpYlqUy9ByAfXtZJEThlE3OJlpTXzfqSVBQ3lg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793000821;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793000815;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=c5dii+p2+tXugsvLbD0LiEn9CLz6QjSaElSANvZFz5A=;
-	b=EbVRLPvG78Z7zrVqurkPYUrxRUIBQOqt8AZXTAp4LqZ5MWb/7mYSmEUJAkFKkcDxQuZR
-	 BsTGRoqzMLFFWPdecljyEQvYM+O7l7GNho4sfsUl9GX/nFNC6pGHVk9qRxVTCQd1BZlvx
-	 8ZQIeP0iXO8kOQD83v8qhzhaPnza/SZUXxkbY6XTG5a+06R8bP9v3IMnc7wFH8uKQCtzF
-	 aZgwLXOygWQFsu+OGgivj+UZalv7WAT4cLjz7uHpRNSF3bEOwkJT2aJIDqc1dMbzntHst
-	 SggKNA/FokAShV5AL43zvHgUMR6VTfStigvPsu0FxO2ke1oBG6u5nTlwuyKlbZO2aiw==
+	bh=MaW4IJWC0g/bCa4F071QFM2op8BvQwVDTC8JsoSAq5M=;
+	b=ykKxtyFTM7XSjzurSou8Ftzrhsjxdh3IT3sNvYRSRfmZ3VbIb7S6fg2hf19sphvNw2eH
+	 7WR0ufMxIbIskU9BcMjiLcGowN+fMZY+YFVw46oBHY5Fh/wvtsOXn0TQ/j2t1FO657lvr
+	 vmmY4dwSdq5UqD87oBQGpiJYNKGxjX0FYA+tn0DDUQAO/yDpC4ohAVWRpsQcR0DIaXUiZ
+	 +ake4lRte0mgHaNe2DKbueLVCREZ6+5kR2MYySAq5wnWpgVdEW0UJBKW9lMGKyC8I1E9v
+	 y04xQmIuKSpgrvqcFEn1yxGjjCZQGLPvcJtdWx+8+0RILVdYo64ncXqhMf1xaHzUu2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amarulasolutions.com;
-	spf=pass smtp.mailfrom=amarulasolutions.com;
-	dkim=pass header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=NCzrwkS7;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="K8aIDWO/";
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67814606A32C
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 07:47:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67814606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E425606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 07:46:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E425606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=NCzrwkS7
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a218c463d1so15446695e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 00:47:01 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=K8aIDWO/
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a35a60499eso12993135e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 00:46:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=amarulasolutions.com; s=google; t=1793000820; x=1793605620; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=c5dii+p2+tXugsvLbD0LiEn9CLz6QjSaElSANvZFz5A=;
-        b=NCzrwkS7ftLddMPUiiC0UEPgiUmuUYezwx2j9vcNMKeg7NnJRX4sLEAL56vufEIlDd
-         Ngvfv7abkzA3fFBpQA4wpjEiNDBjsLalUBTWvlcTMlZXfM6nCt6fUvAmh8M2/ttu4YJO
-         Zpuu3rwMZrOq0zCrdz61m64foLZQm/O1Js7Ac=
+        d=gmail.com; s=20251104; t=1793000813; x=1793605613; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MaW4IJWC0g/bCa4F071QFM2op8BvQwVDTC8JsoSAq5M=;
+        b=K8aIDWO/9vobgoNaHDeHs63GRCjcODxwXky3Nq02Xikwnau67QyVp7FZu3ERHcUegf
+         Zgw8RxfKLX5hxLGOs6LlAxk+EQ0m+jVeuWmiNk/B2GVZrxxP9VySjUeC4zD9PQmkzEJ+
+         RfOjhl5k4Uq1OhQj9slRU9uYOw0AnTcoV/HTftyzGhqRcTH1VWEWbgOTGmCu25TeWgwA
+         Xl8KQb+vSZO/oLuiCWtKlwbhYD8VCxfgBZjv0khwG3VY5v3sHlKyQI079BKCLUsBP5oh
+         FpR4PABafjb8LA4OVLfRbss+Y2pEyKhx8WsGjp78M7ISpZAeNfmcQ/pkz+78HKsewBd4
+         i4vw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793000820; x=1793605620;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=c5dii+p2+tXugsvLbD0LiEn9CLz6QjSaElSANvZFz5A=;
-        b=rIbvZ0C/GCDrx1sI6YByZkodfQJyZmfKGp4ACOIiw6e9v/SJEVQPTy2IW4q0FVuROb
-         7Cx3LJIu3vocpopnkBEpmmr6L+KnJDC+rV01JHUMDnR6W3sUIppQXnp0z9xMO2eCkrUI
-         3BPwmYj/0iKp9DBEDv/hSvQry3QfwqwswUGzuRxzGJ1SBKDlR/2awUAeLKY/QVmJsM+E
-         FoduMFhrUb5IzvGUfjKywAv6oLO1/1qCNV/e9/8QkOeu3ta+qCvgbUafynKOI+PPwFru
-         j1jDjQ2icjJCz530DiQOwIB3EPbQDXD85OMwKkfGIhoFdjxh0rnOCnW19nZEs0eLdDUV
-         4vwg==
-X-Gm-Message-State: AFq9FYKG6yQ6XZxRxFa/3Ro6HC+ezaxWyznP1but71sMPnwl+SnYwy99
-	1Qn05zNsaBshO+n464Nrfkr/P2h7qKDhHyg9M1Ykr9qgaHSo73R0zsB12xNm3t85gsdTKhhl/nb
-	UsrMG
-X-Gm-Gg: AYBFou3ZL7MBT9xFCYLilHUgWAJJWk8xLxsb9qtXCnuvjJq4jhRu1o54UENByQYIpO2
-	dewBavgozbhCzGknI+cY+NubCogeoZwx9Fp9jR2NX2f0HXfOpDsS7uTTTBIfAa9uCu3IY7+OgEo
-	AoBklbFgDSgaiFeVhmEZjGow2POnX4V2VAUBcGGdAQd/iTFHWIkg4G0x8untr/st4xZRoeYG5DT
-	9N28IdhNugZhXPEr9gaKM6qvvA2P3SIIIqBu84wBT7jlHyf/6iQMOUgbfh2itB6Q2oERWlTy7u9
-	oCzm8Qll6eD7G6ID1i8wKwwDIoYv5wo45LxrYNFlT/J9VWl5ta4ey815FPfOAMUw5bKfP6nnoLA
-	Win19tvG/DWJUTiEOelAtNHrqiOITavt4HuQzO3IwhLgVzgKWtRi252+omoAqudx7joJLM2HXqF
-	A16mJSy9tfOeCMrhWhiM5cV8m0GH/5JAXLzTVQxQ3X/vONFmBji327OqQoBqiX6Z40R68RnivbA
-	YQCfFhGaYpiJrAHy6bxn61N+AikjwLB/pT65kOZkCuYs+U0na3O87Z7+xSOwpjySxG8hyM4QTKC
-	lOi9iSQu0yqGm+p0Jx+gwdnphkw0Lx1Wqq4UkSol2VU6Zsd8CrEjXowgewfA5nWu2qrnsLHcUSP
-	wD+WNWiVEYNAnIaFeeBEsRc/Frq874ckw0Mp+3yKH9Zcr6d14KKT1bg==
-X-Received: by 2002:a05:600c:3541:b0:4a1:fbf8:55c9 with SMTP id 5b1f17b1804b1-4a35acc6a2emr107275155e9.33.1793000819693;
-        Mon, 26 Oct 2026 00:46:59 -0700 (PDT)
-Received: from dario-ThinkPad-P14s-Gen-5.homenet.telecomitalia.it (host-79-14-29-58.business.telecomitalia.it. [79.14.29.58])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e412cc164sm13731353f8f.7.2026.10.26.00.46.58
+        d=1e100.net; s=20260707; t=1793000813; x=1793605613;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MaW4IJWC0g/bCa4F071QFM2op8BvQwVDTC8JsoSAq5M=;
+        b=ZZjq8Ox8DqxWCjHO+OcpBuhc0OTq9HFtMTgQPHCH2mN2SUGjCorDA/ND+Sbx6EUS/y
+         /DyazuSEgaRzPHGi0LWa4iSYdlK5pf8HtRXzLkziFnHe8C10A/kU+GdS/JRPhV/PpHe1
+         aeywQTW6p0OVvCFuCecI90AyASGtLcqZ1Gv8XBiTohCIvzNBKmEQnkNFqaxL1CshO7Yj
+         PtrkwVxNodGgIRQMK9wGgk12f/UaO8FF4w1BSCWAGdtJSbsgMQW9rvHR1+2RFVlQNImh
+         Mh7pKt5X8PSFxqA+pYnD60sHP4LAo0jSwMNS5u4V20+NxfAMOXS47Pe7UN4g1w5d93jP
+         idlw==
+X-Forwarded-Encrypted: i=1; AKwUvBwTfkqGsLEx7V4W9015SqCQxtYLUK4iad98tracdlW9/DAdzrIVKZJ48X/7flVacEZLH0R4LS1eINx2rnQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLN/Dlyt2ny7twie8B8ZIG9fEhXN3hcliezGNf6rGGkDL9siQpQ
+	odoXa8/3XQAuSdyGzZQiy2tJgzTXIoNG9LjcLZ/hkU1nrcALeF4l44G9
+X-Gm-Gg: AYBFou0RaPueBS2RPkR/OQX6rI4o754jOqvQgoNnKLhV5HkFqNSs4axc7ktN3uiLZbG
+	ToE71parxOehXsIKIrr+2z0vJT1dtXe1YrrgiXlXj/LZ5KNM75cjyhy/lC4b+jitB2eAUmqxUXj
+	CRjDVO1gPIEFUthBEnPtV8CHtXGGccwq1OVG6czNfonO2+5IEPZziy0F5VHEJdGT/ujSrJDFnON
+	DQbg6WaGmaMPdhpoaZEPK3SM9z/Wmiz3ZrYmPpfSrj+xeID/8qNRSyfCuzs36RdJIRYtUsUGFC6
+	ELwJmbyuLXE+v7i2/z5XYd91LkGpbljrmlKeSFFmZqvr12w0oVfDdStxANgagzVkrZzEJ9qAwWn
+	1k16tp+UwZZod6P1snB4vUSNhgT16N6vXhmI0RwG3UfDO08y0ugWTPpLW6p9rblkkIUGPbjvuPC
+	NF0IiA+ggwdmllg9V6cFofzubWAniwDUiSFFNKiqLvrx4ZuGP1d8p+cNvnfXo5hwkvFchu4+rIz
+	Cs26ykWfsjpxcrfHpdqFPvDZLROfuoW2YJM2T/VHH8RItuzeOxynw+ZNIqmbE5O1U3Ixw==
+X-Received: by 2002:a05:600c:3493:b0:4a2:a6e:80f5 with SMTP id 5b1f17b1804b1-4a35ac9d0e8mr108207515e9.11.1793000813031;
+        Mon, 26 Oct 2026 00:46:53 -0700 (PDT)
+Received: from fedora.jkuat.ac.ke ([41.204.187.5])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a59d238sm162898215e9.14.2026.10.26.00.46.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 00:46:59 -0700 (PDT)
-From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-To: linux-kernel@vger.kernel.org
-Cc: linux-amarula@amarulasolutions.com,
-	michael@amarulasolutions.com,
-	Dario Binacchi <dario.binacchi@amarulasolutions.com>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Stephen Boyd <sboyd@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-clk@vger.kernel.org
-Subject: [PATCH v2 1/3] dt-bindings: clock: ti: dpll: drop the ti,ssc-* properties
-Date: Mon, 26 Oct 2026 08:46:27 +0100
-Message-ID: <20261026074654.3997494-2-dario.binacchi@amarulasolutions.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261026074654.3997494-1-dario.binacchi@amarulasolutions.com>
-References: <20261026074654.3997494-1-dario.binacchi@amarulasolutions.com>
+        Mon, 26 Oct 2026 00:46:52 -0700 (PDT)
+From: Bramwel Barack <bramwelbarack89@gmail.com>
+To: pali@kernel.org,
+	gregkh@linuxfoundation.org,
+	jirislaby@kernel.org
+Cc: linux-serial@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Bramwel Barack <bramwelbarack89@gmail.com>
+Subject: [PATCH] tty: serial: mvebu-uart: use device_get_match_data()
+Date: Mon, 26 Oct 2026 10:46:44 +0300
+Message-ID: <20261026074644.17464-1-bramwelbarack89@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,45 +98,51 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The common clock binding provides assigned-clock-sscs to configure
-spread spectrum clocking (SSC), supported by the clock core since commit
-a7f16660af39 ("clk: conf: Support assigned-clock-sscs"). Keeping the
-vendor specific ti,ssc-deltam, ti,ssc-modfreq-hz and ti,ssc-downspread
-properties would leave two ways to describe the same thing.
+Modernize the driver by replacing the legacy of_match_device() call
+with the modern device_get_match_data() helper API. This cleans up
+the boilerplate code by extracting the match driver data configuration
+directly.
 
-The properties have no in-tree users, so they can be dropped.
+Consequently, drop the explicit inclusions of <linux/of_device.h> and
+<linux/of_platform.h> as they are no longer required by the driver.
 
-Existing DTS files using them continue to work, with SSC disabled,
-until they switch to assigned-clock-sscs.
-
-Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-
+Signed-off-by: Bramwel Barack <bramwelbarack89@gmail.com>
 ---
-If keeping the properties as deprecated is preferred, I can add a
-fallback to the driver in v2.
+ drivers/tty/serial/mvebu-uart.c | 6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
 
-(no changes since v1)
-
- Documentation/devicetree/bindings/clock/ti/dpll.txt | 6 ------
- 1 file changed, 6 deletions(-)
-
-diff --git a/Documentation/devicetree/bindings/clock/ti/dpll.txt b/Documentation/devicetree/bindings/clock/ti/dpll.txt
-index 14a1b72c2e71..ffbe50f46e68 100644
---- a/Documentation/devicetree/bindings/clock/ti/dpll.txt
-+++ b/Documentation/devicetree/bindings/clock/ti/dpll.txt
-@@ -56,12 +56,6 @@ Optional properties:
- 	- ti,lock : DPLL locks in programmed rate
- 	- ti,min-div : the minimum divisor to start from to round the DPLL
- 		       target rate
--	- ti,ssc-deltam : DPLL supports spread spectrum clocking, frequency
--			  spreading in permille (10th of a percent)
--	- ti,ssc-modfreq-hz : DPLL supports spread spectrum clocking, spread
--			      spectrum modulation frequency
--	- ti,ssc-downspread : DPLL supports spread spectrum clocking, boolean
--			      to enable the downspread feature
+diff --git a/drivers/tty/serial/mvebu-uart.c b/drivers/tty/serial/mvebu-uart.c
+index 33ea496c93b2..adc2cf7ee65d 100644
+--- a/drivers/tty/serial/mvebu-uart.c
++++ b/drivers/tty/serial/mvebu-uart.c
+@@ -18,9 +18,7 @@
+ #include <linux/math64.h>
+ #include <linux/of.h>
+ #include <linux/of_address.h>
+-#include <linux/of_device.h>
+ #include <linux/of_irq.h>
+-#include <linux/of_platform.h>
+ #include <linux/platform_device.h>
+ #include <linux/serial.h>
+ #include <linux/serial_core.h>
+@@ -866,8 +864,6 @@ static int uart_num_counter;
  
- Examples:
- 	dpll_core_ck: dpll_core_ck@44e00490 {
+ static int mvebu_uart_probe(struct platform_device *pdev)
+ {
+-	const struct of_device_id *match = of_match_device(mvebu_uart_of_match,
+-							   &pdev->dev);
+ 	struct uart_port *port;
+ 	struct mvebu_uart *mvuart;
+ 	struct resource *reg;
+@@ -919,7 +915,7 @@ static int mvebu_uart_probe(struct platform_device *pdev)
+ 		return -ENOMEM;
+ 
+ 	/* Get controller data depending on the compatible string */
+-	mvuart->data = (struct mvebu_uart_driver_data *)match->data;
++	mvuart->data = (struct mvebu_uart_driver_data *)device_get_match_data(&pdev->dev);
+ 	mvuart->port = port;
+ 
+ 	port->private_data = mvuart;
 -- 
-2.43.0
+2.56.0
 
