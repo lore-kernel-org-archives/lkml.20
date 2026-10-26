@@ -1,94 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.35
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792976187;
-	b=np63vqmFboxsy+nVywj0Lk9tialjY3uHqh8NsYLyDfWhC3964lCa1ffjwFe606RA5l0/
-	 V88pLnmAtGODtbdOaHM/Oubcrz5ZhQIp1lYpyQG330jwxUvQc0x+JyCdzPeYeZNoeuzWC
-	 IqjCndI7zEBcMm5XbsJao2MiXHDarQVvsnpbL67BJFjlmx2mZ8q6XA2zr+sztzlFLx3Hn
-	 GWVjOyy/Ak4ICY+yK6sMrHzVAoxbCs3aDROoNParlgXv5+Ai1vNJRsUV/WA4GGix6rPnu
-	 vODFOJm1WB/jsaVPGcmt1sO6wcCL2amf0ZdCZZt9WbkRecWbfwRjXru6EEszceOntNw==
+	t=1792976215;
+	b=3RR+O0hMvhOTjBML22Sy1CQ4Ev4iaQuXj1ghM/z/ESTtwyoisquejlJ9BInRIH/z9VJY
+	 tZvqHdTSiBy8D9qetXt2dDeiARPud2pvb7sSDwk9u1/NYX1P6ViZj2GjaAuj7J3gfhBRa
+	 yY8wgqkT3FZ64u+MMdjbZhGcHQZtjXsd86oWzl4YFE32rzb9zqHexFDJxpcGxBS9qYMv8
+	 ofC/mQsTj/cvINB/FzNv/SKimBVTXfhMvRFjDPpAaeNHmhqhVL0NCcVodQ2GIiMmYlzo8
+	 gFCHqpxlM9d2HT+YjsbojxL3mlcGAi4pgFMbQTh1OsmWq4DlXnlaVidXwpV3PAezZBw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792976187;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Sender:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=sBbetg3460zCBBHo1b9aOflhXCRQmCfSVeApKwjETns=;
-	b=QRPP5L29XXylxi0YgOi5dJjtEEGhEuv92GMy+Ez5Yutp7NhRf5VOr72qlMUF+ytRgfLS
-	 Sw1YNn7aoD471nrJ5dinbVEBqEko2ScrR1zojJAxB4aTpnOs6MHaTVfNsdblkhTlszNkh
-	 ctmnv913OheQIDbKsnPh93bRKO1TNorgCSY3+c5Vh4+rM/RcNV7l9KSbejcfhXYHqPVTI
-	 qBuWGSKt55UJ1LUJJuTZOqp+QrASuftloLbZ4XOn+JpzyDfqr970g84XQv11UimyXru0n
-	 JZtAgKmZcO44YEkeWw3zgzsdAuYVL6wZ1uxz74mH1o/wsfazHjZ88ZvHJr6aYe56Izw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792976215;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=RLx2Ro+oXYG6Esl8h8Oz8vJrCiQY2x6fL9DTdSUob0M=;
+	b=ciFG+W7rY2hO7mQabXXvN5PD8kB5B9Args6KPesAbAwRCY643x8ehRnvoNbm4203Vr1l
+	 n8qQWQbmXofEbsNZFLtggkDspOtCT7DYCT5IiftkMc9cexZAAayprK70pbghDGYl1/HYr
+	 IcztHO5cRQg5Y6pOoAeo/f5Hi+jU30/+uAVeIzbsHo8PB8Y6m09MyVDfkYwmI0gWvEVmk
+	 ZJP7OqT8rrhXItAMKMZb7dTW6aa4kLDuZVpl653cObMzVBREaWmExkgr87Fije2UECD+U
+	 eKANEXRefMd37lfCIuPpH1SJskiUAq7jmMtCQLAwHfrUa9tb1pG6Ix1L/k95Au7Ujxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=YgN1J2vq;
-	arc=none smtp.remote-ip=209.85.210.177
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=D3HVgW8u;
+	arc=none smtp.remote-ip=91.218.175.35
+Received: from mta0.migadu.com (out-35.mta0.migadu.com [91.218.175.35])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E6F7606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 00:56:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E6F7606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BF17606A31B
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 00:56:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BF17606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=YgN1J2vq
-Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-8a01cac8733so1775001b3a.2
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 17:56:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792976187; x=1793580987; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=sBbetg3460zCBBHo1b9aOflhXCRQmCfSVeApKwjETns=;
-        b=YgN1J2vqtleVDoBC2TI9ADivCYcHE9GeOQMzOKneHIahk4S8gcvUilTtNgzQQwGzsG
-         qyn5MRuEpJueQfsHwam8Gr3mFc8smzjqEcgSzobL1z/f8PdQnvr2fWH9qz/kaV276GmU
-         DHkV7JXpmUc5j7Qrn6tQRSmf6KePLHozV+afcvdJek56rP2mGwuP+Tv27fWYf9j9igxT
-         E0tRHG3x2WjAzfPp8a8o11mpEngvHOkP8ZnbnmLfrGZDMzSDP//gAWTkMRSg6dascvJC
-         uv1L1LPF1tv/qCbcnEiQjVc+a7OwycVFT4K6tr+zHHmux5Xnug1IVaNljTeZi2kZnbqX
-         wYXQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792976187; x=1793580987;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sBbetg3460zCBBHo1b9aOflhXCRQmCfSVeApKwjETns=;
-        b=2LR5qDEALolvkGX2F3pbXx0AtZw/u3+fhQQJPV1fy8Eynbc4o0eeqH3j1z9k5/v6ND
-         qtbky1ygMEj6By5ISNdzCgq1HYwwkuVk9oq9LdUze78UgAh9SXuJZorCIF6uHwTEylJh
-         IMrJWpTqe7aSc4Lt0XG6vt3g3ww87CYjWM0OqHX+usfa12hiUyYza760zDOawKGUsxsb
-         klZJWy/43B8A+lFIDyh/4Wl4VHK8Jm5pGiWPuPXVuHOyUOUI4/XZd/ui3Va71cjOt3ZI
-         Fzg7mpAYbYoVH9leNg5SBkCk+6ILn6pUIIMFVbNQ8YE8hvicbzBN+TtVe62YcYaeUZjY
-         Cfww==
-X-Forwarded-Encrypted: i=1; AKwUvBzLn4l5OIsSImJSjPyCl8uzyTBleiHvslc5wRiW9SFdn2ey0xhXxYqY2f1Ps2s7zOjWrr9TN3A1c0Nxmlo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLDyaKEdhSBGif0vUc+RxvSa2RvA5qxssysCORL5WHicosCsyRI
-	+8z91CY/nqMDbiJgZ3kmutR4xIK2MuMzOIgrS4pPJhSxX1HUmvOP/MJH
-X-Gm-Gg: AYBFou3NrF/4pTDLB+Wm0Fe3Os9Iyv2yPEmqbarpOl4YIJS/RJwn5Cfjm7xodXMKk1Z
-	CYStLkQRYXN0phbcJv2DBYugnyt4NWeLfJ9GpoiJL+mLtJdWgZSOI3q3PhrTz8BzcbioJ4K3oRN
-	Nctlo5gq6+F2rSPEPlQYrsf7mAvBaNVW2afSCHvkfj8uVX6VhNWUqU58cwz/ZF2bLvXmBqdi1Vc
-	llXQ6+hMvMFaaUNASo99rZBJyaf+Hvi5NkYRsv64S+Ufa+rVIfN4EwaT+B7BCA8lAAUMjfz8LIP
-	4hExeZW+nLScTMdWMcU4LHJx21vkk8FUOR6RdCRF4UOpHsqVxRuOaUeGeCdMZvuD8X82pF9J3Y+
-	cvzl92uhPMnsNxNdp2OXXUiSffrqOYNnzMADrZnDKufsaSCqySQzK2iDjb2WP+2b4YU/0odKhBd
-	kS8nXY/hRfpv4WYA8UEznQ4e/AOIU56hOgYCNiTWmyJ8Lfbk3nI3H4oMY/G+XD+b7yR4VUCHW02
-	x0IJGOv1+dVFYQLpq9z5R3XKI4EpyopuEDQ1gtTEay0gpHyhdztVuv9P5BCPdGx/wcSzw==
-X-Received: by 2002:a05:6a00:2395:b0:892:fc00:6e68 with SMTP id d2e1a72fcca58-8a364e335e8mr4011572b3a.3.1792976186708;
-        Sun, 25 Oct 2026 17:56:26 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a36b3712bdsm748838b3a.21.2026.10.25.17.56.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 17:56:26 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Sun, 25 Oct 2026 17:56:24 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Matt Layher <mdlayher@gmail.com>
-Cc: Eugene Shalygin <eugene.shalygin@gmail.com>,
-	linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] hwmon: (asus-ec-sensors) add CPU_Opt fan for ROG
- STRIX X570-E GAMING
-Message-ID: <0800413a-a3c6-4de8-9c5b-1308c1d067c5@roeck-us.net>
-References: <20261006-asus-ec-x570e-cpu-opt-v3-0-62672edc18b3@gmail.com>
- <20261006-asus-ec-x570e-cpu-opt-v3-1-62672edc18b3@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=D3HVgW8u
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=DhZfvcVUIAIZszQSJBwAYpMOK0X26Pzmzgl/OqwUSZI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792976212; v=1; x=1793581012;
+ b=D3HVgW8u+Is1mGe+u+pOX/SkrZtonVjGkXjBIqj0GBsj+Rc8JDSpV3aWyYoVKQdhzmmU1+wm
+ 8r0ZVJ801W+QlSPfzu9ykiPFe7+evZWPLIcrsiCL4fXZHzHQN9fAE2VZrVh0Takx0cAQMGu14fd
+ VAmXyfHnCnUf+9evqXJvr2zw=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 0f3592458cc6a98b;
+	Mon, 26 Oct 2026 00:56:52 +0000
+X-Mizu-Trace-ID: 0f3592458cc6a98b
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 26 Oct 2026 08:56:44 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: Timur Stukan <timur.stukan.linux@gmail.com>
+Cc: netdev@vger.kernel.org, Hangbin Liu <liuhangbin@gmail.com>,
+	Fernando Fernandez Mancera <fmancera@suse.de>,
+	Jay Vosburgh <jv@jvosburgh.net>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Nikolay Aleksandrov <razor@blackwall.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] bonding: fix missing down path on speed/duplex
+ failure after FAIL->UP
+Message-ID: <at6lTNHwA1V9Xja9@fedora>
+References: <20261022103821.89552-1-timur.stukan.linux@gmail.com>
+ <atsRW-aYHeB-cEgi@fedora>
+ <CAF+_u5Byu9BccKQpZ9VcXAb-fMEhpKAD9A65LktLDJ77ng+KfQ@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,19 +75,42 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261006-asus-ec-x570e-cpu-opt-v3-1-62672edc18b3@gmail.com>
+In-Reply-To: <CAF+_u5Byu9BccKQpZ9VcXAb-fMEhpKAD9A65LktLDJ77ng+KfQ@mail.gmail.com>
 
-On Tue, Oct 06, 2026 at 10:35:37AM -0400, Matt Layher wrote:
-> From: Matt Layher <mdlayher@gmail.com>
+On Fri, Oct 23, 2026 at 03:35:57PM +0300, Timur Stukan wrote:
+> On Fri, 23 Oct 2026 at 10:48, Hangbin Liu <hangbin.liu@linux.dev> wrote:
 > 
-> The board has a CPU_OPT fan header, which the EC reports at the same
-> register (bank 0, 0xb0) as the other AMD 500 series boards. Enable it.
+> > >  static void bond_miimon_commit(struct bonding *bond)
+> > >  {
+> > >       struct slave *slave, *primary, *active;
+> > > @@ -2807,10 +2828,21 @@ static void bond_miimon_commit(struct bonding *bond)
+> > >                       err = bond_update_speed_duplex(slave);
+> > >                       netdev_unlock_ops(slave->dev);
+> > >                       if (err && bond_needs_speed_duplex(bond)) {
+> > > -                             slave->link = BOND_LINK_DOWN;
+> >
+> > Hmm, this issue only happens when link_state is on
+> >
+> >         netif_running(slave->dev) && netif_carrier_ok(slave->dev);
+> >
+> > while !netif_device_present. Should we set the link up when device detached?
 > 
-> Assisted-by: LLM sparse
-> Signed-off-by: Matt Layher <mdlayher@gmail.com>
-> Reviewed-by: Eugene Shalygin <eugene.shalygin@gmail.com>
+> 
+> Hi Hangbin,
+> 
+> Thanks for the review and the suggestion.
+> 
+> A detached device is one way to get there, but it does not cover all
+> the ways to hit this bug. In particular, it does not cover the case i
+> reproduced: during inspect both link_state and netif_device_present()
+> are true, but the carrier is lost after inspect and before commit, so
+> reading speed/duplex fails in commit.
 
-Applied.
+Hi Timur,
 
-Thanks,
-Guenter
+Thanks for the explain, but the same question to this patch. How do you
+make sure the carrier is not lost during bond_miimon_inspect() and 
+this slave->link_prev_state setting?
+
+Thanks
+Hangbin
