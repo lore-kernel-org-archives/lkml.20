@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793013838;
-	b=NmqtAiPkS7NNR2VT/YQBMHJNi7GpjwD2R6bPC+EEdurHD5rbrh9d0wmu6gdKJTUtM4Ju
-	 mR9IPIjZtOnR89mhclnSJBVICgATEg+xNCGLWElzwpWvp3thT/PboaGyxfxBrp7K+IF8r
-	 2EmqQ2hxHhQDINDjvEtQ0e0GoKWuFe2FgWeOFshfgJ2d7V3ZOEBIeYMWPajOURBEOQMcf
-	 aWGe3/OdG8kG66eBQvSiK7jrS6wOFJLFfBSUYevYL/xC6vs5bt36RSH4tsvPj/Eg9olAO
-	 a0ly7s/bUywfs13MQu0EXnH3b5HwCbYrDURtlPNofSS0gH3fsxB3JtphHM311Z+8+WQ==
+	t=1793013850;
+	b=ktBPJGwnQ86iJjrqn9gpPvncW0bjmNU7Yn2oSMyym/XaRkIVIrFxWsq3INZPDJy665i9
+	 MmgqZTgTVi9XAfg2zwxdOOJsCxrOzVFDgnWX4+Axx2gU2e/uEixDuyKthD058RMuLs7aC
+	 3eZV9Xry/tQM2hzfxlMtWtsNIIVbwWLhdy74fYSVntB/mnbXI6gh5YQ3+vBTTeZyh2c3I
+	 TpGCN9dQWBvgdYCQLfDEfMLDqlt/c10qYbCuzv0TeLwyCn+mbskkjd/SOnZD+OAiGWSe4
+	 XDEnxnBXYEd7bmS6AOq/rEvq3T3QTHWYmfBdlTofqtWiU5JiRJlUfEKPhp+w3r7DNXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793013838;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793013850;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=WdkOB6VcqgEBpO4s2s6iFSqHY8CcGzvsCx2rzyCP3Ao=;
-	b=jlGam5HT6gryYWY8t9beRaxsQgZn69l7kOHD9yj+6ZVpSixvq4DSwdhdiG3HlwhNTaS6
-	 kzwDL0hl0+GdwFOLEQ7S6t9P/JxNuKb5fuhxte5oYkIlAj6MxMn2exi4T1DzoiWRbQAb5
-	 38fBnQkWiHMQssu11raIHl/qjr6Bggg2Pcoqz7+cqkxks6fVxrKUe2BAT2xpBcPs4+dMC
-	 7ihKHY8sznK67IMD29qZBu3eoSFjn7DXVigdxxCo8w19tWY8q4DxvTUSa641XVOdFYq/e
-	 xdzps5LI81wQs2S8I/1oohE5xXf59LjhHL4900k0iwvXsVJuFtigmGD8Ht4tSbF8t5w==
+	bh=3ZCcLPkE02vSHMXBIPmyiMf940q2ub6k3rkDQkOeqZ8=;
+	b=rxcxBkqPkWm6aC8P1H5xw72wpKxBgqrH9JY5JAGBL9pAB445owx5ip+JN1QavtHw7wXu
+	 leNzXDuG4MuCj2/XNnStEDEmywvTuH+eDNIdSHr1eL0EWlRcx5iBmcjDFrYZdfCDp/GHz
+	 pn1BzCq1Ikp3Ogl3A6z/4AN4yCB2kMkkbJTO74Cyh89H/1OvkzXq9sWdW1h1NrtWawSZ6
+	 c2y/cEuf2YsSUJ0TNoC8VfBbnJAZp1Er1gJVMDXNRpy7i0aPjogAdCv9LJy7bnFLoNATk
+	 XV72hXzRhdP8Q4+4CpSOEe9A/E6vjNVxgm7/BwwATTNV/IbWS29hb6qb8YVLI/IGh3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=GY0kZjy7;
-	arc=none smtp.remote-ip=74.125.82.173
-Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=F72iXN0y;
+	arc=none smtp.remote-ip=74.125.82.182
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 845B2606A331
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:23:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 845B2606A331
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C350606A321
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:24:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C350606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=GY0kZjy7
-Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-35f1f76ea84so4807954eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 04:23:58 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=F72iXN0y
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-3645f0f3fcdso5438794eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 04:24:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793013838; x=1793618638; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1793013848; x=1793618648; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=WdkOB6VcqgEBpO4s2s6iFSqHY8CcGzvsCx2rzyCP3Ao=;
-        b=GY0kZjy7GNL6frg9u7inlu1Qb7hDKFMuTFeosW/Zi6NR/2VutCyp6774hKOZLIQ4Uw
-         hZ9aejfoH4Q6A0cWbsooQGLOzV+Y/DGxkDLhQz+tNqHNjNTRgkbY3zTpr0piYPpUDqbk
-         Qbci4KibkDYh77Oxp+9zhMdxX79KPOaIVWdVOuXWTcijp9fjvNtKiUHC57lTFPNUxJvO
-         3Xu0dXA+1LCQXqGFIQsPwkHZ0ORnHEgjVW0hF56fHT2lH73DytDLyWrDoNjxwqC8pSHx
-         3Eql/I5qwXGP/J/uDYuJI+tgmgN5k9+K1tvVvDcB318pajZ/9YTIvTW/1OBebeFey5Yr
-         FdWg==
+        bh=3ZCcLPkE02vSHMXBIPmyiMf940q2ub6k3rkDQkOeqZ8=;
+        b=F72iXN0yFRLfPRlWjDxgJAnIr+m4n4vU9Ami7ER6qVccNBMPnt0tI1KoumsYSUNtFz
+         UVnSiZSpDeHiQVyIftRIcnmHvseXQp4b+Tal5CGYSdte/q6zA6HU0r7P1h4C6LJ5D4Je
+         lOYuUW+9bukg9iiZSdo0jmUgsuV0cRgVTvdG/pE19g7ayogYl6/BD9n8+4NJFbh3rl5C
+         /aApeAWwu6s7I0hQhu/gtXLKyx/Jk9rySop6l2LubCNK/Ma5AQxuxymS1FRYj12HU6w7
+         DN91M52Rg4CekbYmz0VoHzOF6g7+8k6guGZ3ySKB+K60c0NRfjcznFjrCLW4zO0YuAaH
+         hTfg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793013838; x=1793618638;
+        d=1e100.net; s=20260707; t=1793013848; x=1793618648;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WdkOB6VcqgEBpO4s2s6iFSqHY8CcGzvsCx2rzyCP3Ao=;
-        b=B0RrLo9b4HgEDSti4gls84bFk/bbi2v7NibWiL98gLMcCC3dQiWdtUMe1CDnurV9bt
-         EmlSPeL0ztJl1e7Wy+lM5gXol8TMQJV0CiR9cJWi1GJTniUbjKzcrO2eDf9Nzn5X8WG+
-         w87Y2bgFSjFUihp/5SJqNYwc0QrzyCz0kPQzarUTVT9qmUt0r15z5+d25aLpE9780+3k
-         PXfrRzkMPCKlwOMGjS8xRxJ0HVDz1esu2thz56DNg62kG9rbdKmmKdxQuspSeKz4EkXY
-         /CuFuXuF+I2T7giR35jlrJJU47CU74lXIUjmB3/nfBNyE1002cnef7TPZkIcWE61EMOF
-         kbhg==
-X-Forwarded-Encrypted: i=1; AKwUvBxRh5f8pkdKaTc5LTlZ9X1xBVWY39IhCZQwlBKnRGn38P9b5eu0ZC/9ZbaPuUUJfTApxEUzyOp3tm4LPsc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIVHgGS/ZD94GYOCFIfq34wcfVeZkfQ4Ibh97TbwOH3rJvUrgSa
-	VDfBgXsSkOzdo1WjqJHmnSeL6AAKORyXX4liy1mVvZH3b+spovmVl0sJ
-X-Gm-Gg: AYBFou35NFH4J1NtnYmY9JFsFxWMnW/YdI/nv+mRZ0ezXPZMILBqF3owvJUTCwO3IOi
-	xAgq6iJ36ITZ85ULJUHD1bO8soB1gbarW37p3U94GviU5/10wxNTPneqbET7AO1LLP+LpuPz4Dn
-	qjUG0oC88E/SkbBUYPV66lpdd+2Vbw2PB2hsopivO1VEQKI7Sj7oCOKyF//2beXLz6reXFkW6j3
-	eBkEDy0OhGV96joVbC7AWBeF8X+xdhAxBxOTDslSoI7L4U7rHUaGk3mrNoyIne++J8miOrFlyP7
-	C10NhAO4jAIZZUCbguEs5bPs85YkEwr0ZuBtbk3LBpYMIbenFQsS87QybkORsaNUxVUWyYM55LW
-	p+Q1rTaADP1w1zZEU2ycqO5hlGTx0u1tGLR4lB3KK4zgeoAye+zqhIrnlzVWPTfh3ZAcUIIKkXl
-	II8PA0ksNvUKUzuhvAhJ9PpYXnoBmJ6ZF5IT9EfIjlTlc1iQoLuv3JgIF5CuLORW+vWyWv+whPs
-	6guAoocxVEpiXDfw17Q719IZu7iZxV2Ll8CSSz8DKvObwsA4TPK3ZGXElHRR2ywR5elJrAjv4nk
-	w+DZbhSN9p+Sb0Sr2RBL914CS4rQU/LBKBxf+7jreKgkAZY3jnyjzoQHX5UEOmdS6FCfnJldhH3
-	SW/KHmJ9u564=
-X-Received: by 2002:a05:7300:c8c4:b0:367:6d85:29ef with SMTP id 5a478bee46e88-369e861b789mr10833374eec.27.1793013837476;
-        Mon, 26 Oct 2026 04:23:57 -0700 (PDT)
+        bh=3ZCcLPkE02vSHMXBIPmyiMf940q2ub6k3rkDQkOeqZ8=;
+        b=es9v1NhSjtweYhuiMcs6K44pFhaDxyX/G6DPgVw+sfFbz/DGn16vnhBxmURuTS/5Se
+         XKLHQoYfKLkv8otZpYUlKfvKBzk1+9laUW7WkpfteXCMMsYbP1dxUnNRBUYH3NxpoqXF
+         Bmyr5EQV+0QFB4Zy6wXbKrsFU493RU1g/31KtLgESSIXUFcVmSuiO5Cg++oXIeSgXWfu
+         iO0aZvhOOs0maCIkzaGR9/VOQvYIG8WjVl1xanS7WuPZez89kVF4VGAfktHbxPutyRWW
+         nQtBpwmP1HHsDGNnB4z/SbotSIx5v8JWdVJwW8V6Ze7ju9ikaf2XY/LNwTPmkygUIyGy
+         7oIA==
+X-Forwarded-Encrypted: i=1; AKwUvByW4z5H9bp0GI2Ig8AvilPRtuolaMCH/nZKvaXGOIZlrwouGa1g9LVg49ONg0eylJz/5a+qkl3VGLPGyh8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLCBwVbZaHTp1HUcxHj78/NEHUaXiRxOLVOk6az7/1u5M3Ceo1W
+	1yPzyeT+GZMZxtcMvqNPiPgGu2JKMHz+dWhoGtI+2bDxax4Uan8gdriR
+X-Gm-Gg: AYBFou0vaV2BO5G7CnCTz5ey0zu8ULzb8aVMpkrehXZV4U/ZJDhJJdIc2yeqFP1Ye9W
+	iNI1BGu8wi46tNv5pdqf+st2jWBA40AXnd4eyp3CFjPXg2JKSu8jX8+zgxiasR5SsoFZ9zsouqY
+	4neg4QbPlwBe2l7QSNb30qj66aLH7eVjOhymsNB0lNykwYEA3Ho9HYvzcYs1rYfMq8llbGqB7cx
+	pMALszy/ISLgfQYmMrhoA5avZmtgnPFBmwdb5skgfx0sOXltWvRP9kMD1feGIIdyKHmS61bgUUs
+	OZAs6oxeC/tVniXBrWTyTPsm4Zg7lCgtkCqeAy0lnKK/lvhW0OZ5WVIX9Sp71ZRFSxsG3/sstX6
+	1qwG2HUrpPDfrQPs7mgcoyykIAsCK80r3HkrGrX4s+qOCS+fs7URCw+kAHf88ZnfkXZjYpp34+h
+	lnJcujMYxPAoo1hMK70LRHMqVypMW0MUufNmfahkzSXETJeDe9DMwQLfQK8YjSx2CetEAdo0jhi
+	RNw/MIBrAgDtJYxlJ6pcIbW6TMsLb4+WZqG2F+HKJUXoxjouQ1ddo8vaX6ZXmuAVYMFN9J1O6wz
+	I8Vt0Gp/mpZCfAkcgWQKjhTOvTUT/LJtOxcwj+hAlw/ImPtejXZ1FxBIfUk3Qx1XFHR46K+eoZI
+	3MqfjqABkgAw=
+X-Received: by 2002:a05:693c:6016:b0:369:f5f6:36a7 with SMTP id 5a478bee46e88-369f5f63c1emr5941419eec.16.1793013847987;
+        Mon, 26 Oct 2026 04:24:07 -0700 (PDT)
 Received: from kapoor.iiserb.ac.in ([203.18.51.239])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a064510b0sm6599989eec.2.2026.10.26.04.23.53
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a064510b0sm6599989eec.2.2026.10.26.04.24.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 04:23:56 -0700 (PDT)
+        Mon, 26 Oct 2026 04:24:07 -0700 (PDT)
 From: Arnav Kapoor <kapoorarnav43@gmail.com>
 To: Jonathan Cameron <jic23@kernel.org>
 Cc: David Lechner <dlechner@baylibre.com>,
@@ -90,9 +90,9 @@ Cc: David Lechner <dlechner@baylibre.com>,
 	linux-iio@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Arnav Kapoor <kapoorarnav43@gmail.com>
-Subject: [PATCH v2 1/3] iio: proximity: sx9310: keep the IRQ balanced across suspend and resume
-Date: Mon, 26 Oct 2026 16:53:04 +0530
-Message-ID: <20261026112342.65917-2-kapoorarnav43@gmail.com>
+Subject: [PATCH v2 2/3] iio: proximity: sx9324: keep the IRQ balanced across suspend and resume
+Date: Mon, 26 Oct 2026 16:53:05 +0530
+Message-ID: <20261026112342.65917-3-kapoorarnav43@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261026112342.65917-1-kapoorarnav43@gmail.com>
 References: <20261026112342.65917-1-kapoorarnav43@gmail.com>
@@ -107,9 +107,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-sx9310_suspend() disables the interrupt first and returns with it still
+sx9324_suspend() disables the interrupt first and returns with it still
 disabled if a register access fails. Resume isn't called after a failed
-suspend, so the interrupt is never enabled again. sx9310_resume() also
+suspend, so the interrupt is never enabled again. sx9324_resume() also
 returns without enabling it on error. Without an interrupt line,
 client->irq is 0 and both callbacks act on IRQ 0, which the driver
 doesn't own.
@@ -117,31 +117,31 @@ doesn't own.
 Disable the interrupt only once the device is asleep, always enable it
 in resume, and skip both when there is no interrupt.
 
-Fixes: 72ad02b15d63 ("iio: Add SEMTECH SX9310/9311 sensor driver")
+Fixes: 4c18a890dff8 ("iio:proximity:sx9324: Add SX9324 support")
 Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
 ---
- drivers/iio/proximity/sx9310.c | 41 ++++++++++++++++++++++------------
- 1 file changed, 27 insertions(+), 14 deletions(-)
+ drivers/iio/proximity/sx9324.c | 31 +++++++++++++++++++------------
+ 1 file changed, 19 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/iio/proximity/sx9310.c b/drivers/iio/proximity/sx9310.c
-index 79ba46d8a0aa..fad1dcffbe26 100644
---- a/drivers/iio/proximity/sx9310.c
-+++ b/drivers/iio/proximity/sx9310.c
-@@ -943,8 +943,6 @@ static int sx9310_suspend(struct device *dev)
- 	u8 ctrl0;
+diff --git a/drivers/iio/proximity/sx9324.c b/drivers/iio/proximity/sx9324.c
+index 255a36976ac4..ced415747a98 100644
+--- a/drivers/iio/proximity/sx9324.c
++++ b/drivers/iio/proximity/sx9324.c
+@@ -1088,8 +1088,6 @@ static int sx9324_suspend(struct device *dev)
+ 	unsigned int regval;
  	int ret;
  
 -	disable_irq_nosync(data->client->irq);
 -
  	guard(mutex)(&data->mutex);
- 	ret = regmap_read(data->regmap, SX9310_REG_PROX_CTRL0,
- 			  &data->suspend_ctrl);
-@@ -956,7 +954,28 @@ static int sx9310_suspend(struct device *dev)
- 	if (ret)
- 		return ret;
+ 	ret = regmap_read(data->regmap, SX9324_REG_GNRL_CTRL1, &regval);
+ 	if (ret < 0)
+@@ -1100,23 +1098,32 @@ static int sx9324_suspend(struct device *dev)
  
--	return regmap_write(data->regmap, SX9310_REG_PAUSE, 0);
-+	ret = regmap_write(data->regmap, SX9310_REG_PAUSE, 0);
+ 
+ 	/* Disable all phases, send the device to sleep. */
+-	return regmap_write(data->regmap, SX9324_REG_GNRL_CTRL1, 0);
++	ret = regmap_write(data->regmap, SX9324_REG_GNRL_CTRL1, 0);
 +	if (ret)
 +		return ret;
 +
@@ -150,47 +150,35 @@ index 79ba46d8a0aa..fad1dcffbe26 100644
 +		disable_irq_nosync(data->client->irq);
 +
 +	return 0;
-+}
-+
-+static int sx9310_wake_up(struct sx_common_data *data)
-+{
-+	int ret;
-+
-+	guard(mutex)(&data->mutex);
-+	ret = regmap_write(data->regmap, SX9310_REG_PAUSE, 1);
-+	if (ret)
-+		return ret;
-+
-+	return regmap_write(data->regmap, SX9310_REG_PROX_CTRL0,
-+			    data->suspend_ctrl);
  }
  
- static int sx9310_resume(struct device *dev)
-@@ -964,19 +983,13 @@ static int sx9310_resume(struct device *dev)
+ static int sx9324_resume(struct device *dev)
+ {
  	struct sx_common_data *data = iio_priv(dev_get_drvdata(dev));
- 	int ret;
++	int ret;
  
 -	scoped_guard(mutex, &data->mutex) {
--		ret = regmap_write(data->regmap, SX9310_REG_PAUSE, 1);
--		if (ret)
--			return ret;
-+	ret = sx9310_wake_up(data);
- 
--		ret = regmap_write(data->regmap, SX9310_REG_PROX_CTRL0,
--				   data->suspend_ctrl);
+-		int ret = regmap_write(data->regmap, SX9324_REG_GNRL_CTRL1,
+-				       data->suspend_ctrl |
+-				       SX9324_REG_GNRL_CTRL1_PAUSECTRL);
 -		if (ret)
 -			return ret;
 -	}
-+	/* Balance the suspend even if the device couldn't be woken up. */
-+	if (data->client->irq)
-+		enable_irq(data->client->irq);
++	scoped_guard(mutex, &data->mutex)
++		ret = regmap_write(data->regmap, SX9324_REG_GNRL_CTRL1,
++				   data->suspend_ctrl |
++				   SX9324_REG_GNRL_CTRL1_PAUSECTRL);
  
 -	enable_irq(data->client->irq);
 -	return 0;
++	/* Balance the suspend even if the device couldn't be woken up. */
++	if (data->client->irq)
++		enable_irq(data->client->irq);
++
 +	return ret;
  }
  
- static DEFINE_SIMPLE_DEV_PM_OPS(sx9310_pm_ops, sx9310_suspend, sx9310_resume);
+ static DEFINE_SIMPLE_DEV_PM_OPS(sx9324_pm_ops, sx9324_suspend, sx9324_resume);
 -- 
 2.53.0
 
