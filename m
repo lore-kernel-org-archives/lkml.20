@@ -1,117 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.149
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793027671;
-	b=x99wxkc+/5AjG/78KNln4P+BHgUeMDc9neP/xhM3TD6j2sy7LmLcH1YLe43S8/c+pheX
-	 z7oNkYMMin3B6s3gjlUYftZAJOVS8ZK1MghMxSpdF/oLGbj0DYj3Vy+NiukeTci8vJtk4
-	 2UU9pEcPCxd8KGu7p8lxqnAn+ufheld7tdYHMw6FIzkEAGCd93CTB96dh1j+m20/g+XK0
-	 X8JBnOvoXsU9Xf72Sk9oKsYdGLR5QOTzB1p4JeMiFAylq1GJSQ9xbra4HY25kRhLH7hbm
-	 97bVhcr4NcK3BgpcSuF1jMUTcbEf1MCnSFM8XPbgAuyooz4EeJDTBeYA37RoYSgggIw==
+	t=1793027819;
+	b=V0nmnv70u4oGgLAfVxOeTm/GMrhTn2h/7jZ2ubLzo3is4x5MqtQAFsVIZUje6Tl+IYd/
+	 xaN6OVpYQ3ZKkdmoRsFzleLPEz5JBDwE4kFeSbG76w490zbx7Ta4E6gGARumGqPMwbg9I
+	 Npieu2WkHbNxgXaHSHL6iEddzOIGpsmlBW/JEkYAIQ3iVv3CZOUHoLSt9f/Lo2fZJ7l1o
+	 1dQiQjbTKCw2TOpZnPiI9p6TVOPlGx62RHGZ7CInGpPsXnhaGeGr7D5RYWLkAUYbxCC8r
+	 4HQrv3hZCKKa4+yLUibacLBwyOisU6V6IMEZQCsuxFeCHmKPDWwFX0d0w8fIkn/44wQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793027671;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:
-	 X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
-	bh=A390b+RkOufGHgkEjGHNdu4x5HPryHev6YTwANlMKMQ=;
-	b=hKk0TfSWo9ixnSzfm9vwZlSuCXZZALitNCsIOG2kEmiGTcBkt3qp5BNaiTw2tK3qkaI+
-	 mBuQAOflnJaVk2e/6Qs+zl6W5fI1FNvSXPSxtCwGQqzGGAUT+U3bX1fZFcAN16iqHhNFb
-	 OlRErl4Gwm8l75rCkJvA7ATjf2gAYVMce1ZgsBr86vGuhPAqG3LatkujsPQxj6J0kjoda
-	 iF9RUeRAm0czdoofvySDmLWO8S8+YY1c/5b+k3UpwKuznrGbZokfALnC6XYgma5mVCLir
-	 f2O7gQwb+2ImMfKWrdZw9yDFjdH4tzhvkGeSpCDveb9zGeHzNgP3Gy+az9HKUnJPFJQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793027819;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=V5GkPV1OJFnkZ5kXP2DE2sZbq+RcL+loOw2b9lbmerY=;
+	b=SVKrKsTAoXI1dyYV4BMi+ccAIQzyXG6my1ntAiDbBfLaaZKU5iU4XruK7IwxiNGii0Dr
+	 i+GmcKd66o1mLROxueJ803E685ilsg2FHQAjP7HhRs3XZ1MHqfPMVP4LXW9ex+Ses5znB
+	 1IsxSHXoEA6pOZsfT4YPDnHTmYewSEmUUbUF9sk9WsRbHQPKER8K45hOd7lrj5L5uyzL1
+	 SwalN2qe8pM5nc8EEhHPfwqO0/AteR4bsf8FX5lXrRmU1v0eguKPBtmVoRFc2M7AEWAQj
+	 4IW//EP/uBSAg2uBPF3HFSXh1/mD/ULw37gn6sSME++HU+/ATj5kTzJCc+c7hZYvEyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=okADKsBv;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ookcr4Qy;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=NTS9H0Uy;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=SUx3dPdq;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=F4T6gEQX;
+	arc=none smtp.remote-ip=203.205.221.149
+Received: from out203-205-221-149.mail.qq.com (out203-205-221-149.mail.qq.com [203.205.221.149])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE9B9606A31A;
-	Mon, 26 Oct 2026 15:14:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE9B9606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88301606A31A;
+	Mon, 26 Oct 2026 15:16:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88301606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=okADKsBv;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ookcr4Qy;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=NTS9H0Uy;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=SUx3dPdq
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id D120E2211D;
-	Mon, 26 Oct 2026 15:14:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793027669; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=A390b+RkOufGHgkEjGHNdu4x5HPryHev6YTwANlMKMQ=;
-	b=okADKsBviTfid89FMXFeDRM8EJUw2C1sWJJZsEVk7e0Vp6e06w6ck7+oj/pPwrvx4ReEZ3
-	ksVnr5glsgNqQYJORiKjtUBTqLyKtllbDhqI6gb8wMbpF4uoOoTtROHFykZRvn6xy7Ii1+
-	893dfVR+HmLQoRle1prQpmyfkIJnyuI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793027669;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=A390b+RkOufGHgkEjGHNdu4x5HPryHev6YTwANlMKMQ=;
-	b=ookcr4QykwNQ/NdHhJtHrMhKMqk8N8I3PNoeVCAkMeHDR1+iwHGIpvEveVWMzU7bpheFmh
-	Tqd1TI8QhJZGaaAw==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=NTS9H0Uy;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=SUx3dPdq
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793027668; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=A390b+RkOufGHgkEjGHNdu4x5HPryHev6YTwANlMKMQ=;
-	b=NTS9H0UySzS9ohriVwrte8GIrkpmqPVao+ls8fqbTdVt+2Cti+LmXhgtEvZkfiZ3FiOAXC
-	hhUa2nQuTa4BnSb/Kt2ycb1UvqqLdmCwfYTnkDG3ylaRzi+n1kiApPUb0Kgl6aV7k2Qmsz
-	UzGTb5EuLDysD4D5mYCeH4UuSIiVIDA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793027668;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=A390b+RkOufGHgkEjGHNdu4x5HPryHev6YTwANlMKMQ=;
-	b=SUx3dPdqUjrsTRC1YkBdtvGKZ00LIIvl+tZJjwjXt4yQ/6fIMG3MIODzRNmiojpszCZsqg
-	QsFMQv9KynNVxuBA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C2B4613408;
-	Mon, 26 Oct 2026 15:14:26 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id Qp7jI1Ju32oVZwAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Mon, 26 Oct 2026 15:14:26 +0000
-Date: Mon, 26 Oct 2026 15:14:25 +0000
-From: Pedro Falcato <pfalcato@suse.de>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Gregory Price <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
-	Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Vladimir Davydov <vdavydov.dev@gmail.com>, 
-	Michal Hocko <mhocko@suse.com>, Hugh Dickins <hughd@google.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Lukas Czerner <lczerner@redhat.com>, 
-	Carlos Maiolino <cmaiolino@redhat.com>, Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
-	Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>, Muchun Song <muchun.song@linux.dev>, 
-	Oscar Salvador <osalvador@suse.de>, David Stevens <stevensd@chromium.org>, 
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>, William Kucharski <william.kucharski@oracle.com>, 
-	Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, Nhat Pham <nphamcs@gmail.com>, 
-	Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi <nao.horiguchi@gmail.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org
-Subject: Re: [PATCH 06/16] mm/shmem: hold off eviction in shmem_writeout()
-Message-ID: <at9hs0Unq0EOg2M2@pedro-suse.tail5790ac.ts.net>
-References: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
- <20261026-fixes_shmem-v1-6-703206d5fa0c@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=F4T6gEQX
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1793027807; bh=V5GkPV1OJFnkZ5kXP2DE2sZbq+RcL+loOw2b9lbmerY=;
+	h=From:To:Cc:Subject:Date;
+	b=F4T6gEQXCF9So9m4Ensh8ARd1xnIyIYn3Wlx5wy93daLNwbsn6iaNdJwxMtYTE3+P
+	 UqNr00ksBn57Fq+m4SGY1tp8bXzuUwlCOvUowVwSzPKofpBVKCgxtyKF2YjRlXqJqt
+	 lZMUEK5VFKUITBJQYEnClYxovg3QnAz0EtO0g7Qc=
+Received: from kernel-lab.tail5e91bb.ts.net ([2409:8950:57d:63:ad3c:addd:6586:2a94])
+	by newxmesmtplogicsvrsza53-0.qq.com (NewEsmtp) with SMTP
+	id 42D98026; Mon, 26 Oct 2026 23:16:45 +0800
+X-QQ-mid: xmsmtpt1793027805tjrij2d6z
+Message-ID: <tencent_FF729CBCFFA37F06072959FD798A11F55D0A@qq.com>
+X-QQ-XMAILINFO: MGJQUKeBeYZp4hmXt3y7HPTOhAebEBvhnoKYgoYz2gzml9qlAj6DSQN5DVc+lA
+	 LgI++NUmx17nau7w56WtJ2n2Odx7khEnWjQkoc8EW9iFTUg8VnRi5N7FHOdshEJxUFeO4TFTLAxa
+	 5ViJzBTuH2nR/hGYrkS4MziqtDnwQ/B6nc4CCMpoRrKqHkXcLn7j0NIEXRQgLc8yiikDe/xPBiG3
+	 Z2FeVjKx7IbZUBt7tZMinTFWUpzLuuBm9ZIOCwHTuO+XJJDEsVcyO3Kwxg4QHrZex1JYLG3QtPMH
+	 93ZmrYTxLQOjSPWpVImr7SMz7aWF4xTQ17DmYxYbNjcMZ9LPCRlTTrLKc0MzcUda0SWKPCTpb1X0
+	 oY/+RoukMDSGIs4Uez58hBTxWsUCe8gGkynhqQHSlt39gjpmWcllZUzcQZYVKZc6GyE+AEA++oJT
+	 e0hG8/20X+j+P6f1xI7UVxhYbklAYP/gVI95Pxjsg+woZQS/ik+en1fovd4yTEM5z3EbeFW09pAD
+	 l7prg687xS9zLIPWaXY042VN81To61cf+gfEllk+s/vEPQy5NcsNqEjftmLuosWia3qFKkWhJg7f
+	 l91yPQbcW1lab5AorY0zjcGP5UO/kpW0Oy2rrcMcY4ohvvGKJdRL12Ph5yefJ72Ee+msJfsKWZ7q
+	 6SfTqtdXK6EJ7H12JlBLv0OMYin4r1Wt7vEF3MTTvsG//HU3pghJ+yOQIxS06kReKAqQblr1Ke5c
+	 ptrqwSUK1Q9TYCbtt6pmTXP1ajIPDEsHbgKHglU+zwFUbHyPFk6ZXZa1oxBXbYB0xSGvuAJkcrWh
+	 MkVk9NenL2fqK2htTv0qYmEcw/0Qyrzm1lE0uHRpE8eGZNCkCxWOio6jgD7zvGcwRfkKcsO/Mz3g
+	 hCbuENnknARq1HYCR6XBDd4CiiDGez/yUYQ/3al+ga9jiQC5S9LnlWZw7Mmzm9h6+pfGaD6MSbWQ
+	 NTgFzKf3A9XffpGZe5lNgNwaA7h7JexSxz05SCPBC5qbfg2n4inz/0jrL1abHNiH27qyMne2r3Tc
+	 kb2iaXU+thCZLA+Rp6Gpc5pvWk+Z4Go/ov3jsIZ5f6HIrhCFw+
+X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+From: Yingjie Wang <1075151112@qq.com>
+To: linux-scsi@vger.kernel.org
+Cc: loberman@redhat.com,
+	jmeneghi@redhat.com,
+	James.Bottomley@HansenPartnership.com,
+	mkp@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-api@vger.kernel.org
+Subject: [PATCH] scsi: st: Prevent timeout arithmetic overflow
+Date: Mon, 26 Oct 2026 23:16:45 +0800
+X-OQ-MSGID: <20261026151645.2212994-1-1075151112@qq.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -121,110 +80,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261026-fixes_shmem-v1-6-703206d5fa0c@kernel.org>
-X-Spamd-Result: default: False [-12.01 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCPT_COUNT_TWELVE(0.00)[32];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_CC(0.00)[linux-foundation.org,gourry.net,nvidia.com,gmail.com,sk.com,linux.alibaba.com,cmpxchg.org,suse.com,google.com,redhat.com,kernel.org,suse.cz,chromium.org,linux.dev,suse.de,infradead.org,oracle.com,tencent.com,huawei.com,kvack.org,vger.kernel.org,toxicpanda.com];
-	DKIM_TRACE(0.00)[suse.de:+];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	R_RATELIMIT(0.00)[to_ip_from(RLgmxzz5wwb987hpmihmge51fg)];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:email,suse.de:dkim]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -12.01
-X-Spam-Level: 
-X-Rspamd-Queue-Id: D120E2211D
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 26, 2026 at 10:40:39AM +0100, David Hildenbrand (Arm) wrote:
-> From: Josef Bacik <josef@toxicpanda.com>
-> 
-> Once shmem_writeout() has moved the folio from the page cache to the
-> swap cache, the folio lock no longer keeps the inode alive: truncation
-> and eviction find a swap entry, free it and do not wait for anybody.
-> That did not matter as long as swap_writeout() was the last thing the
-> function did.  But since it puts the folio back when swap_writeout()
-> returns AOP_WRITEPAGE_ACTIVATE, it uses the mapping and the inode
-> afterwards:
-> 
->   reclaim                               last close of an unlinked file
->   shmem_writeout()
->     shmem_delete_from_page_cache()
->     swap_writeout()
->       zswap_store() fails               shmem_evict_inode()
->       writeback is disabled               shmem_truncate_range()
->       return AOP_WRITEPAGE_ACTIVATE         shmem_free_swap()
->                                         destroy_inode()
->                                         ... RCU grace period, freed
->     shmem_add_to_page_cache(mapping)
->       xas_lock_irq()            <- use after free
-> 
-> swap_writeout() behaves that way if zswap is enabled, cannot take the
-> folio and the memcg or one of its ancestors has memory.zswap.writeback
-> set to 0.
-> 
-> shmem_unuse() already added infrastructure to deal with that.
-> Reuse info->stop_eviction to protect the inode during writeout. Increment
-> it before removing the folio from the page cache, and decrement it after
-> swap_writeout() and any attempted reinsertion and inode accounting.
-> In shmem_evict_inode(), wait for the counter to reach zero even if
-> swapoff has already removed the inode from the swap list. Add some helpers
-> to make the code easier to digest.
-> 
-> Fix generated by an LLM and sent by Josef Bacik in private.
-> 
-> Fixes: 6344a6d9ce13 ("mm/shmem: writeout free swap if swap_writeout() reactivates")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> [ david: code cleanups; improve description ]
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+MT_ST_TIMEOUTS converts the requested timeout from seconds to jiffies in
+signed int arithmetic. A sufficiently large value overflows before it is
+stored in long_timeout or passed to blk_queue_rq_timeout(). Non-immediate
+MTERASE commands also multiply long_timeout by eight, which can overflow
+even when the original seconds-to-jiffies conversion fits.
 
-I've been looking at this for a while trying to get a smoother fix, but:
+These overflows can turn an administrator's timeout setting into a much
+shorter request timeout. MTSETDRVBUFFER requires CAP_SYS_ADMIN, but the
+driver should reject settings it cannot represent instead of accepting
+a wrapped value.
 
-Acked-by: Pedro Falcato <pfalcato@suse.de>
+Check the decoded seconds before multiplication, using the smaller of
+INT_MAX and MAX_JIFFY_OFFSET as the jiffies limit. This keeps both the
+signed timeout arguments and the relative jiffies interval in range.
+For MTERASE, multiply in u64 and clamp to the same limit, so a valid long
+timeout remains usable without wrapping when it is extended for erasure.
+Zero retains its existing behavior, and timeouts within the limit are
+unchanged.
 
-Things I looked at:
-1) Could we just drop this logic? No, it's fairly recent and seems to have
-impact on zswap setups with no writeback.
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yingjie Wang <1075151112@qq.com>
+---
+Validation of this revision:
+- Built drivers/scsi/st.o with x86_64 and i386 defconfig, CHR_DEV_ST=y,
+  HZ=1000 and W=1 (GCC 13.3). Both builds needed
+  -Wno-error=format-truncation for an existing create_one_cdev() warning,
+  also seen when compiling the base st.c with the same headers.
+- Host-side checks of the extracted fixed arithmetic covered both timeout
+  selectors, zero/default values, range rejection and erase saturation,
+  with modeled 32/64-bit limits and seven HZ values from 12 to 12287.
+  These are not device runtime tests. This revision has not been
+  boot-tested.
 
-2) Could we reorder swap_writeout with removing the folio from the page cache?
-Perhaps, but it would be a larger change. I'm not sure if the logic all works out,
-but you could possibly have a:
+ drivers/scsi/st.c | 21 ++++++++++++++-------
+ 1 file changed, 14 insertions(+), 7 deletions(-)
 
-error = swap_writeout(...);
-if (error != AOP_WRITEPAGE_ACTIVATE) {
-	shmem_delete_from_page_cache(folio, swp_to_radix_entry(folio->swap));
-} else {
-	/* the other swap bookkeeping */
-}
+diff --git a/drivers/scsi/st.c b/drivers/scsi/st.c
+index e9d41e3cc2dd3..fccb83e75a66c 100644
+--- a/drivers/scsi/st.c
++++ b/drivers/scsi/st.c
+@@ -172,6 +172,8 @@ static int debugging = DEBUG;
+ 
+ #define ST_TIMEOUT (900 * HZ)
+ #define ST_LONG_TIMEOUT (14000 * HZ)
++/* Fit the signed timeout arguments and the jiffies interval. */
++#define ST_MAX_TIMEOUT min_t(unsigned long, INT_MAX, MAX_JIFFY_OFFSET)
+ 
+ /* Remove mode bits and auto-rewind bit (7) */
+ #define TAPE_NR(x) ( ((iminor(x) & ~255) >> (ST_NBR_MODE_BITS + 1)) | \
+@@ -2306,6 +2308,7 @@ static void st_log_options(struct scsi_tape * STp, struct st_modedef * STm)
+ 
+ static int st_set_options(struct scsi_tape *STp, long options)
+ {
++	unsigned int seconds;
+ 	int value;
+ 	long code;
+ 	struct st_modedef *STm;
+@@ -2403,15 +2406,18 @@ static int st_set_options(struct scsi_tape *STp, long options)
+ 		}
+ 	} else if (code == MT_ST_TIMEOUTS) {
+ 		value = (options & ~MT_ST_OPTIONS);
++		seconds = value & ~MT_ST_SET_LONG_TIMEOUT;
++		if (seconds > ST_MAX_TIMEOUT / HZ)
++			return -EINVAL;
+ 		if ((value & MT_ST_SET_LONG_TIMEOUT) != 0) {
+-			STp->long_timeout = (value & ~MT_ST_SET_LONG_TIMEOUT) * HZ;
+-			DEBC_printk(STp, "Long timeout set to %d seconds.\n",
+-				    (value & ~MT_ST_SET_LONG_TIMEOUT));
++			STp->long_timeout = seconds * HZ;
++			DEBC_printk(STp, "Long timeout set to %u seconds.\n",
++				    seconds);
+ 		} else {
+ 			blk_queue_rq_timeout(STp->device->request_queue,
+-					     value * HZ);
+-			DEBC_printk(STp, "Normal timeout set to %d seconds.\n",
+-				    value);
++					     seconds * HZ);
++			DEBC_printk(STp, "Normal timeout set to %u seconds.\n",
++				    seconds);
+ 		}
+ 	} else if (code == MT_ST_SET_CLN) {
+ 		value = (options & ~MT_ST_OPTIONS) & 0xff;
+@@ -2942,7 +2948,8 @@ static int st_int_ioctl(struct scsi_tape *STp, unsigned int cmd_in, unsigned lon
+ 			timeout = STp->device->request_queue->rq_timeout;
+ 		}
+ 		else
+-			timeout = STp->long_timeout * 8;
++			timeout = min_t(u64, (u64)STp->long_timeout * 8,
++					ST_MAX_TIMEOUT);
+ 
+ 		DEBC_printk(STp, "Erasing tape.\n");
+ 		break;
 
-But I'm not familiar enough with the swap logic to reason about possible
-races.
+base-commit: 3650bb41391b51d9dcf87b0480ecafeb1526252f
 
--- 
-Pedro
