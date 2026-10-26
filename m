@@ -1,66 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793015188;
-	b=0yYQCNdRmHBZ6lP4Cv8qaZtQCxTfxv9GaspwZWT6d6qAx2osKvro5X4BAxEOtWNPkq07
-	 fyANmKbtenj/aJwepBHfkdWSIsOVoRDp4Ppj8TOyC5JDj8nE7nmABxcsQJFQb9mCYlKPe
-	 8jDAnbp6rvp9w1PaymLBrGj+W3jE6JSbZgXx1P1YYqsT8Y9XdNq2aYZiKE7Zz4lFwM6OM
-	 YDjhYNdub5VOIEU4uvfx/Y7fi/BMNCvs3A9vlDtUjkzxVeZj9lB12QP7AZBKjtQ66zqt6
-	 fZhSNnBnjgAJ4gGjO0JMCnHtZpXQInG6ls6t5LwRDNzNEhOm4NVv/3DnkVw4m9yywQQ==
+	t=1793015180;
+	b=DGLjKe3c6sCAZ1PMMXH30Uw1IwKa/p+Dj95DibmfieLonqTV8KWf1BQVGI12ie0u+fRd
+	 noHNAGQ58rLfH7nMizxkSa3gmifM9nkF8LiUOnfoE+zvOvXaAEPjpaTlOA9hJnZwoCO0v
+	 rWT4s8V4SiiOQm5NL8QJBKr/aCAssgH+bzEdkBp3j50nBW3jhkYCidNb/kAX0ZunkgBn4
+	 eNGVSJfpXnvI2BHkv6JWvgCPB198JEqqxfG+djDA7wGYkpLc74Q+i6l1r6vxDby+IDeR7
+	 wyCENbH12F08GvYrSjGo3RjnHV8Mo29cgXQSxzWBmoGLpA37YqajFSepgNN7+v+QFFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793015188;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Debian-User;
-	bh=eteIyHggK7fdejTj9DTqqw4UqXgLh7y8GQE8hS71QVo=;
-	b=QtH/csm2aTZrWyzpQfl2y8Hx/yH8BTWui+JYAmOMM6o7ORF9S9YDHZ1Mn2eKGFDfIErg
-	 tgI8BbyojiMGs3U6PdjsKs2jANpXTzLxV+2LWNyCwSqrHXkrh+Lu7PVdulFKxGSBoZmOY
-	 4OUvbBMaQPW2YgAY5nGtsRicBs0k98IwS0huQydH2UBaL52YE+Oo1ZO8mwZrzCpI4oXq4
-	 GIkhjyyDMG/XAaeUh0utp4i+j83Zx62myZAty134kkQuFipCSXQ9r1bh+A8gIQ/uvwXA0
-	 hO5tSincxVNy05ax1uHlNb4aOBc9pRfBIkkZ4KrFAfDilUSsWG4UKouVI6z5yiez7rg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793015180;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:References:Content-Language:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=waEbYX6KJPSoRNadiwOCD4LDKbTYoW2me5cQNSodTwI=;
+	b=1B3ggsoIOLgeta/jlMu6gIoDKOG3twjbM6aY/FIJh10147eFfb9i0efSkeAf38hxSWiU
+	 ZO6e+sfzckk+FueyUdesw0VEk8pvEaaDUEhq5V85JrIlzuTKTscs57xrSQ01cSQXncZ/g
+	 nZ6XHz5K4W4U1XNP4FsnX5EZGadYwCMTQ3G2NJWW7GMEzkRnihzp0J6kvtFhZ9LqANNOU
+	 MAQef3yTdJheVRpoow+Xdq/r+BgumXOcEmA2lEYmi2mvHcOVQrIf4yud9w+1JD7Yo6tK7
+	 JZZwLR75SnI2fybq/L8EzaW/9Vi8DbiwYn3fGbRI6Pi3j6Iny/7dTxg/o9Np1U+sPSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=VMOi4Av7;
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B929606A31F;
-	Mon, 26 Oct 2026 11:46:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B929606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=mzuqJlL7;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8D706606A31A;
+	Mon, 26 Oct 2026 11:46:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D706606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=VMOi4Av7
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=eteIyHggK7fdejTj9DTqqw4UqXgLh7y8GQE8hS71QVo=; b=VMOi4Av7zlpWWJ263lhlaJLcQ6
-	kAcTiECM907TE5mh2/TQVDQM9deyF4miUtXbM6A/10XVfoEwWgdO/vYFw66EDsD5JOoBjgRz8IsWy
-	d9ZkjWjD/8lmjZDWSOCjJNdK5aLLP5Vkw85sI79e34Vl1z2VawnL/93nBv7EZyd64sL3DVMcgiP8Q
-	D9RpAg6jdXEwTKPtu8h4zCqTKb12UT/2XOlGNQ/TfWefxbtqz3WLZzS6qJhYMdLy0i7LunGS2hGqP
-	goRO+sN1l0b3bHVATXcDrjeXUd9t1tkUb7KViF46nmMvpMj8RDeEfqhMWeYg8FEZgyWFf0wcEDhG4
-	EjoZgBWQ==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xLJ9i-000eaW-28;
-	Mon, 26 Oct 2026 11:46:22 +0000
-Date: Mon, 26 Oct 2026 04:46:18 -0700
-From: Breno Leitao <leitao@debian.org>
-To: Gustavo Luiz Duarte <gustavold@gmail.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Stephen Hemminger <stephen@networkplumber.org>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v4 1/3] netconsole: finish enabling the target before
- releasing RTNL
-Message-ID: <at89fwMimRz6FU8K@gmail.com>
-References: <20261021-netcons-fixes-v4-0-3857120c6340@gmail.com>
- <20261021-netcons-fixes-v4-1-3857120c6340@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=mzuqJlL7
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4DFA61684;
+	Mon, 26 Oct 2026 04:46:14 -0700 (PDT)
+Received: from [10.2.212.8] (e134344.arm.com [10.2.212.8])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1AE3D3F59E;
+	Mon, 26 Oct 2026 04:46:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793015177; bh=fG1932O5DnRLeWO28TC5OCEzVFgP3pBcePlqgLQmTiM=;
+	h=Date:Subject:To:References:From:In-Reply-To:From;
+	b=mzuqJlL7w1VogY9w2u92PK52BKlIVq3WC5uykPM1cXLMVMUZa12omeT08El7Nu7u2
+	 mTjSVSp6lM91xzRHWsVcz4qdAEmAk4SvhgfsWe7O/IoiOLWEk2aY1y3J/uchKTbOMX
+	 10s26HxS0natqMBJ/41T+1s1GqRrmEweoeRBvLJc=
+Message-ID: <c1e80268-3981-48bb-b251-dcd2218fc9d5@arm.com>
+Date: Mon, 26 Oct 2026 11:46:13 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,32 +53,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261021-netcons-fixes-v4-1-3857120c6340@gmail.com>
-X-Debian-User: leitao
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 0/7] arm_mpam: Add L2 cache monitors
+To: Jinjie Ruan <ruanjinjie@huawei.com>, catalin.marinas@arm.com,
+ will@kernel.org, mark.rutland@arm.com, corbet@lwn.net,
+ skhan@linuxfoundation.org, rdunlap@infradead.org, james.morse@arm.com,
+ reinette.chatre@intel.com, fenghuay@nvidia.com, tony.luck@intel.com,
+ Dave.Martin@arm.com, babu.moger@amd.com, x86@kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261022084821.4014873-1-ruanjinjie@huawei.com>
+Content-Language: en-US
+From: Ben Horgan <ben.horgan@arm.com>
+In-Reply-To: <20261022084821.4014873-1-ruanjinjie@huawei.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Oct 21, 2026 at 03:19:05PM +0100, Gustavo Luiz Duarte wrote:
-> netcons_netpoll_setup() publishes nt->np.dev inside __netpoll_setup(),
-> then releases the RTNL and waits for an RCU grace period before
-> returning. Only after that does its caller store STATE_ENABLED.
-> 
-> A NETDEV_UNREGISTER event landing in that window tears the target down
-> and we end up storing STATE_ENABLED with a NULL np->dev, leading to a
-> null-ptr-deref in netconsole_write():
-> 
->   BUG: KASAN: null-ptr-deref in netconsole_write+0xb9/0x7f0
->   Read of size 8 at addr 00000000000000a8 by task pr/netcon_ext0/135
->    netconsole_write+0xb9/0x7f0
->    nbcon_emit_next_record+0x501/0x550
->    nbcon_emit_one+0x10e/0x170
->    nbcon_kthread_func+0x2ff/0x3b0
->    kthread+0x199/0x1e0
-> 
-> Store STATE_ENABLED before dropping the RTNL lock to avoid racing with
-> netconsole_netdev_event().
-> 
-> Fixes: 2382b15bcc39 ("netconsole: take care of NETDEV_UNREGISTER event")
-> Signed-off-by: Gustavo Luiz Duarte <gustavold@gmail.com>
+Hi Jinjie,
 
-Reviewed-by: Breno Leitao <leitao@debian.org>
+On 22/10/2026 09:48, Jinjie Ruan wrote:
+> MPAM resource monitors hang off a partitionable resource in an MSC, not
+> off a particular cache level. resctrl only knows about the L3 scope, so
+> the L2 cache monitors that MPAM platforms implement are discovered by
+> the driver but never show up in resctrl.
+
+Yes, it would be good to add support for more monitoring scopes. This is not just relevant for MPAM.
+RISC-V can also have monitors at many places in the system and we should coordinate so we have a
+uniform solution across architectures.
+
+> 
+> An L2 MSC has the same CSU and MBWU counters as an L3 MSC; the cache
+> level comes from the ACPI MPAM table's cache locator. So this is mostly
+> a resctrl scope problem, not a hardware one.
+> 
+> Extend resctrl's monitor scope to L2: register the L2 occupancy and
+> bandwidth events against the L2 resource, pick the L2 classes for them,
+> and borrow a CSU/MBWU monitor for the duration of a read. With CDP the
+
+Borrowing an MBWU monitor doesn't sound right. The MBWU monitor needs to be configured while the
+traffic is happening so that it can keep count of bytes. The CSU is different as it can measure the
+occupancy without having to keep any state.
+
+Thanks,
+
+Ben
+
+> two PARTIDs need separate accumulating monitors, so the borrowed-monitor
+> context becomes one monitor per PARTID.
+> 
+> Patches:
+> 
+>   1-2  Generalise the per-domain read path, add l2c_occupancy and
+>        mbm_core_bytes, update the documentation.
+> 
+>   3    Split the borrowed-monitor context into data and code entries.
+> 
+>   4    Do the CDP num_rmid halving for every mon_capable resource.
+> 
+>   5-7  Pick the L2 classes, describe the events with the L2 resource,
+>        add the read paths.
+> 
+> Tested on QEMU with an L2/L3/memory-controller MSC topology. The L2_MON
+> files show up and are readable; l2c_occupancy reports the modelled
+> occupancy, and mbm_core_bytes reports the modelled bandwidth.
+> 
+> QEMU branch: https://github.com/ruanjinjie-eng/qemu/tree/mpam
+> Test cases: https://github.com/ruanjinjie-eng/mpam_testcase
+> 
+> Jinjie Ruan (7):
+>   fs/resctrl: Generalize __l3_mon_event_count for non-L3 resources
+>   fs/resctrl: Add the L2 monitor events
+>   arm_mpam: resctrl: Split monitor context for code/data
+>   arm_mpam: resctrl: Halve num_rmid for every mon_capable resource on
+>     CDP
+>   arm_mpam: resctrl: Describe the L2 monitor events with the L2 resource
+>   arm_mpam: resctrl: Pick L2 classes for the L2 monitor events
+>   arm_mpam: resctrl: Add the L2 monitor read paths
+> 
+>  Documentation/arch/arm64/mpam.rst |  23 +--
+>  drivers/resctrl/mpam_resctrl.c    | 236 +++++++++++++++++++++++-------
+>  fs/resctrl/monitor.c              |  15 +-
+>  include/linux/resctrl_types.h     |  13 +-
+>  4 files changed, 222 insertions(+), 65 deletions(-)
+> 
+
