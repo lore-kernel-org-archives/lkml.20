@@ -1,47 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793012310;
-	b=QWrTX2WrGL7ahxsGtfAkiAnjfvVgBog1oEL8AW9bqeykWaLFJ6FihjxAt3qhUCbn08k5
-	 wktbRkGP55y1k2XJBC47JgGGU67EPs1p1jHqM7QKuO9ItsSCvmIvXBag/BeSynKDlRYaS
-	 LpBotOg/9PY6UsoXK4tiM32WNPjDuvmcSf0wZ3M2ZhMdgeE8sNIUP9SJtXvTGsebqajDe
-	 UpSoeUGIJKNXU4z2ogwZXThc5vqie08flTW34H2f3q0DV+7eKX9tlnFeRDUbfbg68QTjb
-	 YeDImB3xoqgPE7KXIVw31o57xNR5qoI4e+TvA1/+lwuhTiegJGOj7WOaY4n0hQVDiLQ==
+	t=1793012330;
+	b=Q/qQw3WaMr+ioss9+GeOB4KxWyt5VLzYDczsQw+CErrqh1SkxASCVSx7SSTpIWv2n9mJ
+	 IlK6XE5YcjQthIhUc5Cim+R2QkshxAVG9fWFIRk5sUxZPCbFwSlb5TKTXG1UPMg1iQ8f3
+	 p9/vwANPAJF79vOZwqPDgzxqGnqqC41i0SJrYhblNq7IhWgVUI548hVeimg5UxsqccHwn
+	 0cwFfMw8kgb0RZnICqCOzEwXqCIQzns8u50nVthBcAB7zCj9IC+gIcPxaARQux5jX2OFW
+	 nZHjQm/tjuqC2hgXIAsh4wotNXClpaGDkvqRs1a8e8F6Gz0XD3FwtvNmtqRpDlK842g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793012310;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=K+Yo9AfgBYCQQPg349B4iNZddsMgsiAX+VK2TRMdUgA=;
-	b=GwSe+p/yZ3YBtoyKNycG6UagJ+gxmvBDFlAP39zaflQYPZUzIEYbpj4XxBIdPQf4KNmp
-	 7Ww1h3MKP7yx0+djiyGozgRAs11BNlXwfrdxKtp5dJoKvdnsHAoq4Bfp7VjatKbW07kvY
-	 QfnfZV4uQrO1qOPz2cXT7dRLTeL54br8AFXC39/1pScx/KnclAxwidKfdFni+lc4gmm1/
-	 7zfmio7opSbwtFRZEaWQUXJZi2aYbcZvYf0QWTVZyhUHKSD59jtHlgw9dswHqdSNTQR2X
-	 8rw51z9SGgG3k0wCOcIZ7cx52cY8ddMJK+x9pe9aEwmEVRF1sGjjWtspkJ6/8Vu04IQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793012330;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=oeh28SrrH4onteuX2bTowmkL8SoxLDzHp+MgXoVMSPQ=;
+	b=t4rQZfmM+7B4w33bCul9fY94NKfwyTYPq4oNwHlgWWkr3UtCavGKN+iHOhyWWCx7aeJI
+	 D6GbB+QlOcGZ9kiXGRkGc0k6LLXqxR5F+hi0gA8QRtCUf1gcBRuggr7KbksVkuDjitBAX
+	 tbmQJjv+S9xo4dUygfvZsn0AOTLVzrpiih/yjjEShkVkSfZgtr5hETyt/LCsuKbZqsXsP
+	 NBjziEcZ7jcRf3R0JaLNyPLENbCxkoxuE6Nsavy+Em7qb3eSAoI+/XbgKuWPvhRnt1fMn
+	 +4+JtiZ+T790kJdzTcep+JT/xzGs2MUmWZr+HzxyDK66osRCgmXf4lWImSrOLEElDvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RqbfLLRV;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="WSQ/NSDP";
+	arc=none smtp.remote-ip=209.85.215.171
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 161F2606A31B;
-	Mon, 26 Oct 2026 10:58:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0395606A324
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:58:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0395606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RqbfLLRV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BE161F01825;
-	Mon, 26 Oct 2026 10:58:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793012309;
-	bh=K+Yo9AfgBYCQQPg349B4iNZddsMgsiAX+VK2TRMdUgA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=RqbfLLRVlyH7GstXhr6fF9lEhVYgUIapphRe/P81YcGFINT+z6Fhe+lBJsgn3rMWz
-	 nwPcI/HcXSZLq4QV6LbqzF9rK8XtphsImEu3BLIYRJovrFr9vyf9Xs6PuuRt+L2lQs
-	 Zg3AMz9M2A5pC0eWwAKisCiZWiYxpk5oWXjthXBh8D9qPIyl5orSZle8QQfsbXwzty
-	 y2aL31Ujc54I2eI029xYLGpwylZOTerNomlZgooFoQQXYLwHhbKBEq5+v2pEFuCahV
-	 J8p3gG36je/h1ao/NDOSxh3pmDCEVX5k5Xo4njrbndApsmsVN2IUyxBoaFjzKwpD9p
-	 P9KRVBQabzHVg==
-Message-ID: <88626067-69c0-4487-98b0-f68eb8c5e36c@kernel.org>
-Date: Mon, 26 Oct 2026 10:58:24 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=WSQ/NSDP
+Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-cd623dfe420so1822683a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 03:58:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793012329; x=1793617129; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=oeh28SrrH4onteuX2bTowmkL8SoxLDzHp+MgXoVMSPQ=;
+        b=WSQ/NSDPaq+fu90JVvXh2nn6dhS6asWvcgt5EMSrmsyz21mvtsMGK+9cpjlQLutBqw
+         3awg7JBTWGxxFkgsF3HWiZKNtBmBkCXANuxyC5GtTcBw2xeqzebWI5arHprqM5D+QOf8
+         190voOFHSsvN88y0Cv/gdb5eh1pI32QwDiezk7Wg9wIRZJi3IZZe/rR8qS0GIXxQldli
+         cyBoMoIRYo/uTBt9X3bGBu/fHQOS/GWyRTIdz1z51p8GAFl+ztgA0JHJJ1VMcULfuef3
+         33bo3VZWiAAAs06qLOlCzSmrS55VqVZLdZc9F02RHWkoNKtcCCejUs56eG/xhuS0z21Q
+         aSTg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793012329; x=1793617129;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=oeh28SrrH4onteuX2bTowmkL8SoxLDzHp+MgXoVMSPQ=;
+        b=Y3wDvfADZswjYIJrg2QnLGXoYWTrfVw3iRm8/W7KYit+BcU4rIA8RoSnGUSkR6v9zK
+         czqRzFBH/JEXgj5RXGtbgZ0isd45Mu895M0TAcJTmFV7KdW02NHQgieeL8gBhVLfZAy1
+         QxnUZ/IkHLMCQJTx4TxymRal2sHtogin9pmlm89spSM251vqKBCuLKK1JIzDjvN8PcHu
+         pXeeRY7FSD6uWZrXzMqYNOrGfHbn/2iPWQ+UKRu4hzITLuddpPdjdaWx2QodKd/OebqO
+         Ts9qnuX8rfzWilQ1PZZ95I9ZKNbgHFT5L5xh8Of4zAxOpp24mBbyVXx5fLUmcrMTwHYJ
+         nNMw==
+X-Forwarded-Encrypted: i=1; AKwUvBwWxadTXVDExobe+126h9AHOy/VHpOz3Mk1arvHs7M9d5hjnDSclnaRgo/T5K/4rnQgxGH1vlxffXUeTGQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKUBKy2X1HzrQFbwQpwhgoL6bt/aAO0canx2xshkbDaFPFdA6S2
+	nDouSR3QNBgodOZgLhl1HhE+kZ5JiA7VYVkANHd6KsDIun+UQuP3EIk1
+X-Gm-Gg: AYBFou0IGB4RONwqVPwPdhg+TjQvF5G6hoABKVQKDR3HFVewRC9EpY+1A/lhQiBZPR0
+	TVB3/k/yroEyp9rqKoP16Deo1r0AaM/Hl28hmzCNqj+OJeP8TZpj+AZivg7urPhEomqQlCtbudw
+	T3bC2oJbslJJphwEL2ca6JiIaEcPLpsYS8ZupQn2yIGX3URzO2PhJpJ4hCISYiLIrw9pcaZm2GV
+	XqWtolf/NWIQDnEMJt+U5+Heo2cbOhPaprYfFHNxjjNaKy6nA35WA/RpOoYPViI2bTTNo0FT8HF
+	JNOlOuD295clRnkGOcLFGkinwkNwQecXKKszDvTYCBuKLhWNv1fUsXlzNPLD7S1gPQSe5EQvQPh
+	O1Kjlks0T4wFrj/1HWvA16PO+gZ7x3iTgx/dmrB8p+/C92MoU/Kh13bfRNMisFhHGWV467h7JgN
+	21MeFptDwLCYEV7AUcMWdHg7N+liPcXXGgFML8Ral8XuZHABOCJUvTEzBV2aL3MsyB3fIqNzZ5p
+	bR9dcrEM8hlgNqz8ZMMOSFqVRiB8gRNJLcAGuLjmomxbBLG9sZLKZ4sQpmuDBX3P5ph2qra3aqi
+	b9RPb2umbMsicAGzRLogXdFfUWDyjHvzVlzctpg0WtZwgCMrDI+7H6m2BQ9Ijvx0Qs/AnQcp9jq
+	VGemWfHz16Zuo8kWp
+X-Received: by 2002:a17:90b:524d:b0:3a7:b260:9ccc with SMTP id 98e67ed59e1d1-3adeafdd84cmr5386884a91.65.1793012328990;
+        Mon, 26 Oct 2026 03:58:48 -0700 (PDT)
+Received: from phuc-desktop.. ([183.91.15.56])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adebadfa82sm7980768a91.8.2026.10.26.03.58.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 03:58:48 -0700 (PDT)
+From: phucduc.bui@gmail.com
+To: Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	linux-sound@vger.kernel.org,
+	Russell King <rmk+kernel@armlinux.org.uk>,
+	linux-kernel@vger.kernel.org,
+	bui duc phuc <phucduc.bui@gmail.com>
+Subject: [PATCH 0/5] ASoC: kirkwood: Improve clock and error handling
+Date: Mon, 26 Oct 2026 17:58:30 +0700
+Message-ID: <20261026105835.19052-1-phucduc.bui@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,154 +101,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] bpftool: fix line info in multi-function CFG dumps
-To: Eduard Zateev <hackerowskiy@gmail.com>, bpf@vger.kernel.org
-Cc: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org,
- eddyz87@gmail.com, memxor@gmail.com, martin.lau@linux.dev, song@kernel.org,
- yonghong.song@linux.dev, jolsa@kernel.org, emil@etsalapatis.com,
- ihor.solodrai@linux.dev, shuah@kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org
-References: <20261024062329.264086-1-hackerowskiy@gmail.com>
-From: Quentin Monnet <qmo@kernel.org>
-Content-Language: en-GB
-In-Reply-To: <20261024062329.264086-1-hackerowskiy@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-2026-10-24 08:23 UTC+0200 ~ Eduard Zateev <hackerowskiy@gmail.com>
-> The CFG dumper computes BTF line-info offsets relative to each function, but bpf_prog_linfo__lfind() expects offsets from the start of the whole program. As a result, line annotations in later functions can resolve to source lines from the first function.
-> 
-> Pass the program instruction base to the graph dumper and use the global instruction offset for line-info lookup and display. Keep function-info matching relative to the function as before.
+From: bui duc phuc <phucduc.bui@gmail.com>
 
+Hi all,
 
-Please wrap your commit description. Also capitalise your title , and
-target your patch to the bpf-next tree ("[PATCH bpf-next v2] bpftool:
-Fix line info...")
+This series improves error handling and clock management in the
+Kirkwood I2S driver.
 
+It propagates resource mapping and clock enable errors, removes
+redundant error logging, and ensures that clocks are cleaned up in
+the correct order on probe failures and device removal.
 
-> Add a selftest with a BPF-to-BPF call that checks the second function source line in visual output.
-> 
-> Link: https://github.com/libbpf/bpftool/issues/178
+Compile-tested only.
 
+Best regards,
+Phuc
 
-Thanks for picking up this issue. Since you found that page, you must
-also have seen the patch I posted there, and on which yours is based, so
-some crediting would be appreciated.
+bui duc phuc (5):
+  ASoC: kirkwood: kirkwood-i2s: Fix error handling for resource mapping
+  ASoC: kirkwood: kirkwood-i2s: Improve error handling in probe
+  ASoC: kirkwood: kirkwood-i2s: Check return value of
+    clk_prepare_enable()
+  ASoC: kirkwood: kirkwood-i2s: Disable extclk on internal clk error
+  ASoC: kirkwood: kirkwood-i2s: Disable clocks in reverse order in
+    remove()
 
+ sound/soc/kirkwood/kirkwood-i2s.c | 28 ++++++++++++++--------------
+ 1 file changed, 14 insertions(+), 14 deletions(-)
 
-> Signed-off-by: Eduard Zateev <hackerowskiy@gmail.com>
-> ---
->  tools/bpf/bpftool/cfg.c                       | 19 +++++----
->  tools/bpf/bpftool/xlated_dumper.c             | 10 +++--
->  tools/bpf/bpftool/xlated_dumper.h             |  3 +-
->  .../selftests/bpf/prog_tests/bpftool_cfg.c    | 41 +++++++++++++++++++
->  .../testing/selftests/bpf/progs/bpftool_cfg.c | 16 ++++++++
->  5 files changed, 75 insertions(+), 14 deletions(-)
->  create mode 100644 tools/testing/selftests/bpf/prog_tests/bpftool_cfg.c
->  create mode 100644 tools/testing/selftests/bpf/progs/bpftool_cfg.c
-> 
-> diff --git a/tools/bpf/bpftool/cfg.c b/tools/bpf/bpftool/cfg.c
-> diff --git a/tools/bpf/bpftool/xlated_dumper.c b/tools/bpf/bpftool/xlated_dumper.c
-
-> diff --git a/tools/bpf/bpftool/xlated_dumper.h b/tools/bpf/bpftool/xlated_dumper.h
-
-
-The fix itself looks good to me.
-
-
-> diff --git a/tools/testing/selftests/bpf/prog_tests/bpftool_cfg.c b/tools/testing/selftests/bpf/prog_tests/bpftool_cfg.c
-> new file mode 100644
-> index 000000000..7d5b80927
-> --- /dev/null
-> +++ b/tools/testing/selftests/bpf/prog_tests/bpftool_cfg.c
-> @@ -0,0 +1,41 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +#include <bpftool_helpers.h>
-> +#include <test_progs.h>
-> +#include <linux/bpf.h>
-> +#include "bpftool_cfg.skel.h"
-> +
-> +#define MAX_BPFTOOL_OUTPUT_LEN (64 * 1024)
-> +
-> +void test_bpftool_cfg(void)
-> +{
-> +	struct bpftool_cfg *skel = NULL;
-> +	struct bpf_prog_info info = {};
-> +	__u32 info_len = sizeof(info);
-> +	char output[MAX_BPFTOOL_OUTPUT_LEN];
-> +	char cmd[MAX_BPFTOOL_CMD_LEN];
-> +	const char *expected = "return\\ bpf_ktime_get_ns()\\ ?\\ skb->len\\ :\\ 0;";
-
-
-How did you test this? I would expect bpftool to print "skb-\>len" and
-not "skb->len", so the expected string should never be found?
-
-
-> +	int err;
-> +
-> +	skel = bpftool_cfg__open_and_load();
-> +	if (!ASSERT_OK_PTR(skel, "bpftool_cfg__open_and_load"))
-> +		return;
-> +
-> +	err = bpf_obj_get_info_by_fd(bpf_program__fd(skel->progs.bpftool_cfg),
-> +				     &info, &info_len);
-> +	if (!ASSERT_OK(err, "bpf_obj_get_info_by_fd"))
-> +		goto cleanup;
-> +
-> +	err = snprintf(cmd, sizeof(cmd), "prog dump xlated id %u visual linum",
-> +		       info.id);
-> +	if (!ASSERT_GT(err, 0, "format bpftool command"))
-> +		goto cleanup;
-> +
-> +	err = get_bpftool_command_output(cmd, output, sizeof(output));
-> +	if (ASSERT_OK(err, "dump program CFG")) {
-> +		ASSERT_HAS_SUBSTR(output, "cluster_1", "second function in CFG");
-
-
-Escaping issue aside, I don't think this check would catch the issue in
-the first place? The string is present in bpftool's output regardless of
-your fix. Maybe check that "return\ helper(skb);" does not appear after
-the main block, instead? And please make sure to test it.
-
-pw-bot: cr
-
-
-> +		ASSERT_HAS_SUBSTR(output, expected, "second function line info");
-> +	}
-> +
-> +cleanup:
-> +	bpftool_cfg__destroy(skel);
-> +}
-> diff --git a/tools/testing/selftests/bpf/progs/bpftool_cfg.c b/tools/testing/selftests/bpf/progs/bpftool_cfg.c
-
-
-
-Nit: You're not doing a generic validation of the CFG from bpftool here,
-so I think the names for the new test files should be more descriptive
-to better indicate what the test it about ("bpftool_cfg_func_offset.c"?)
-
-
-
-> new file mode 100644
-> index 000000000..db01f20c8
-> --- /dev/null
-> +++ b/tools/testing/selftests/bpf/progs/bpftool_cfg.c
-> @@ -0,0 +1,16 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +#include <linux/bpf.h>
-> +#include <bpf/bpf_helpers.h>
-> +
-> +static __noinline int helper(struct __sk_buff *skb)
-> +{
-> +	return bpf_ktime_get_ns() ? skb->len : 0;
-> +}
-> +
-> +SEC("socket")
-> +int bpftool_cfg(struct __sk_buff *skb)
-> +{
-> +	return helper(skb);
-> +}
-> +
-> +char _license[] SEC("license") = "GPL";
+-- 
+2.43.0
 
