@@ -1,64 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793103431;
-	b=NKiyM6fQK5OXAdI6Q7OD598w9wItnb6zz/WcPOrJMEnnbjT7arKAnXBqDeLkpx3eqpvP
-	 KfLmqE7lBdFug1G50C9hTeXgXiJGKgpjIYb7NGgS6PnqtxwB7G4WQzjlaeT+tl/akN6rA
-	 /B+1J6a0tR2PqaVpnpg3yRv9uUl8ga98EW9rjvNFt8SPCWxAnlb3Rje7TAHS0phcCbLrd
-	 eerQHbzNwzQEsNogN6j8P8JrAjJQVmV5pSHD+Hrz8vlG1j1+LjqFtOKAN77IE/D3TlmGv
-	 Ti101saFB+F3a31Aslm26eYQUmxFLRVYl9Sw5W+w9X3yG7kgJQ53SMPw8lNKe0ve5tw==
+	t=1793103504;
+	b=FMJNoHFE+mgCdI5E3xS2KDaemqcOu+ZuSHXvmuQiKIlfYxKX+bhV1g8niGc40qjeYgZ4
+	 PLoy1BV8W+lCJr/Ie00bP5UdD73/Aq1z8F2qqQPhEAdRdkvVrJa95pQ5xRHEUGycG3IbN
+	 RXjBscnRup7dd2oEGOB2k1nK/8SU7eKrPj21RBrVFb5gfo5+QJrxnTuuqjt+QRXr7+3rs
+	 BqO0Kzq7+oErGhZissBbyiiWdlSTH+XvmL7lsk1/nU/gzvo5QWq5e+Qdkh06m1NpyytCC
+	 Fl0nUldZkzkvgCCYKeP0E+zPI0sH5LFCk5aVSm74bgEKa6rm8SJGOwHPU1+XA7x6eFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793103431;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=YhcjD1YBMzA5Xs7JoqVBnf/2Enan5NxfdYZ+s0ul08c=;
-	b=ytNbM4iqOuBQgpfm5qf6kKnAGwk3dmK6B+piw0+VZhZ1fKdwlZjqIwjDEmNFQVu+Vrs5
-	 FjK/0dU8dLNS4JMhsZuN71h3rjOD88pzlYSh3ajBtwjNeBouwr8kqa65aTBA7otkh4ODm
-	 Gh3Wo/UPqsmMOgwBSy0TY4JYxokb2e+0QiMrS+7ZVRX+xklHRdwWO81HMhvBFnt6D1u3r
-	 3uw88dTgX/DcW4VS4juSR6MaHwlAVBaS5AqlupkTJ7PM2uGstjlhf07C+UTFBMicDCswq
-	 TLzeVWDlGIkYJ78GBV/f/yRbvs/msL0x43yYD0oNRKyZwaHIHSP9/pV+iFFRcofkKTA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793103504;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:
+	 X-Spam-Flag:X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
+	bh=PDKPE1DY4rH3zqXOGpxZjcDadnBXMru7fQiU3DWYkZQ=;
+	b=HjW1n9BssM11wcSnAfIaZzP5M0rtJpAZkXsjIuRejoGPnKP07JMgfCBtW+Ze02Ctnka/
+	 z1T32FOdpju1VjEbDTRTwEqbikR6GxvsZDQd6Dsv/sbUq64I5PZ7wXucJRaYUcDTvaRVR
+	 Vtg8AbkDPV8dybxlil5/M300fBMJ3INsmr7A1tlO1OcmoKgX+C5JbBM85n/ylcp2ZqG4e
+	 X3omv+EE4NapxQ+ZvrRzB1lf8EeGYI4t6e1VA+HPg4LfWNwO0wVrlIxOsoLdfQ3CokVjC
+	 Jx2A9AtaxcUG88YHq5yWi3XODbGc8UaZHgNeJhXyDnhAyFU3416FG+32kmbyG/ylQEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="c/x5zjto";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=g7Ibpv6B;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=nVInDUJg;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=JSzPA2tX;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=xmGj1+R7;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44A66606A330;
-	Tue, 27 Oct 2026 12:17:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8553606A31A;
+	Tue, 27 Oct 2026 12:18:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8553606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c/x5zjto
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA4581F01825;
-	Tue, 27 Oct 2026 12:17:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793103430;
-	bh=YhcjD1YBMzA5Xs7JoqVBnf/2Enan5NxfdYZ+s0ul08c=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=c/x5zjtoSUWG3kSbfh2U+NnRQ109lCtJVwu5+uOcfnNbifpj61anmMJ8cnZRp0/eh
-	 7Uo0BhRmcPNF8Pef1y50r3+x4i4HMz99vhb5uyo+hIOl3Kv3xKARsl+XbbvMgf4zQ1
-	 b4+PkKXNNQ8YLkJhuoZfK/MomyirEV027P/LxDA/Xm5FYDlZe6GXeu4hksqXWEcaOJ
-	 0A+VLqY2n0W7PX7seGzH78MN+cuvqrLzE2iExxPS6FCaeEkFQjBbpEgeQYMcNI2kKr
-	 vj/YRwmAHAQ62WAPiGhiBu6f7fhGE1mk5ziMYm0QTvb75F4FCIPZudCvuJB8gHHFTx
-	 35eXFNx2CIZrA==
-Subject: Re: [PATCH net 2/3] igc: prepare TSO and checksum offloads before TX
- timestamps
-From: netdev-bot+sashiko@kernel.org
-To: p@1g4.org
-Cc: anthony.l.nguyen@intel.com, przemyslaw.kitszel@intel.com,
- intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- aleksandr.loktionov@intel.com, chwee.lin.choong@intel.com,
- faizal.abdul.rahim@linux.intel.com, horms@kernel.org,
- vinicius.gomes@intel.com, sasha.neftin@intel.com, matthew.vick@intel.com,
- aduyck@mirantis.com
-Date: Tue, 27 Oct 2026 12:17:09 +0000
-Message-ID: <179310342944.3134.10071026023246764321@kernel.org>
-In-Reply-To: <20261026091549.605810-2-p@1g4.org>
-References: <20261026091549.605810-2-p@1g4.org>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=g7Ibpv6B;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=nVInDUJg;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=JSzPA2tX;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=xmGj1+R7
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id B42BF1F7BE;
+	Tue, 27 Oct 2026 12:18:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1793103501; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PDKPE1DY4rH3zqXOGpxZjcDadnBXMru7fQiU3DWYkZQ=;
+	b=g7Ibpv6B84sstM7I/79yQ+rlnikVcDxn9Z5abKeg9i74awwyWyymesqZoid6Uwy9/1lxI5
+	4TwztHSU3LV7ydiscMf5ESkXJ5XT0sJnwDKOZBEzxhlSdLHdQ/mn1UkkrA0sY6alFk3qos
+	WkwtX+FdR0//bCFpGSoISHQyYx9HfLc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1793103501;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PDKPE1DY4rH3zqXOGpxZjcDadnBXMru7fQiU3DWYkZQ=;
+	b=nVInDUJggYLCLbDRHYYsRMbO1x+AOVoKrdg0w6wowrIravKKS1DD0LwPj/N/hdC52OvETO
+	c9VDQe8gZLF4fqDQ==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=JSzPA2tX;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=xmGj1+R7
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1793103500; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PDKPE1DY4rH3zqXOGpxZjcDadnBXMru7fQiU3DWYkZQ=;
+	b=JSzPA2tX8PYYltEI9WbXOazkPLv6rb+rIrCFid9Wnd+nyNjqbVugILUI7ObmOiICofwGT4
+	rgXh9yBS53OmFVZ5vvUSRO7uUKXDtugAPdSpRpxnfzg2u246LM4cwo5+DAe5dPruDYw92i
+	kA9MPuFDywGLerXFHZj/0iTIkaeNuss=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1793103500;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PDKPE1DY4rH3zqXOGpxZjcDadnBXMru7fQiU3DWYkZQ=;
+	b=xmGj1+R79hNqFuB8nfpVJtCUhw40zo+0yC8Y5uBLsU4LZnM9oq+QP/kmryQBokIdj49bqf
+	p66WsENkV6pp8iAA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 818C51321C;
+	Tue, 27 Oct 2026 12:18:20 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id OZ+fFoyW4GppAQAAD6G6ig
+	(envelope-from <jack@suse.cz>); Tue, 27 Oct 2026 12:18:20 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 21F51A133E; Tue, 27 Oct 2026 13:18:16 +0100 (CET)
+Date: Tue, 27 Oct 2026 13:18:16 +0100
+From: Jan Kara <jack@suse.cz>
+To: Christian Brauner <brauner@kernel.org>
+Cc: Jan Kara <jack@suse.cz>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Josef Bacik <josef@toxicpanda.com>, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 4/5] super: make sync(2)'s wait for s_umount killable
+Message-ID: <iuzzutvgk7rzto25mdmbsooewnacir5y2gu2ghvcwqcwuox2n6@7elbvcvbrzws>
+References: <20261023-work-super-lock_helpers-v1-0-d0fcb3f2f275@kernel.org>
+ <20261023-work-super-lock_helpers-v1-4-d0fcb3f2f275@kernel.org>
+ <tqgqwii6it4zxhtsfgnkri2mppbcijvsdnywrsbsyrsc3ey6w5@ts5aqmpikwyv>
+ <20261027-spargel-laterne-verirren-9d984ac342d4@brauner>
+ <20261027-wedel-lenken-seehund-d85c9ba29aa9@brauner>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,144 +115,108 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261027-wedel-lenken-seehund-d85c9ba29aa9@brauner>
+X-Spamd-Result: default: False [-13.01 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_SOME(0.00)[];
+	ARC_NA(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	MIME_TRACE(0.00)[0:+];
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim,suse.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
+	RCVD_COUNT_THREE(0.00)[3];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_TLS_LAST(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	DKIM_TRACE(0.00)[suse.cz:+]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -13.01
+X-Spam-Level: 
+X-Rspamd-Queue-Id: B42BF1F7BE
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On Tue 27-10-26 11:13:09, Christian Brauner wrote:
+> On Tue, Oct 27, 2026 at 09:11:42AM +0100, Christian Brauner wrote:
+> > On Mon, Oct 26, 2026 at 01:02:46PM +0100, Jan Kara wrote:
+> > > On Fri 23-10-26 11:41:04, Christian Brauner wrote:
+> > > > iterate_supers_sync() waits killably for a superblock that's being shut
+> > > > down, but it takes s_umount of a live superblock uninterruptibly. So a
+> > > > freeze_super() or remount that's stuck under s_umount, in
+> > > > sync_filesystem() or ->freeze_fs() say, still hangs every sync(2) on
+> > > > the machine without anyone being able to kill it.
+> > > > 
+> > > > That's inconsistent with fs_bdev_sync() which already uses a killable
+> > > > super_lock() for both waits. And the reasoning is the same: if the task
+> > > > is killed the walk stops and ksys_sync() returns, there's nobody left to
+> > > > make a promise to. The emergency sync and the sync before suspend and
+> > > > hibernation run from a workqueue where that can't happen. The PROM sync
+> > > > on sparc32 runs in whatever task it interrupted but that one could
+> > > > already be cut short while it waited for a superblock being shut down.
+> > > > 
+> > > > Let __iterate_supers() pass SUPER_LOCK_KILLABLE together with
+> > > > SUPER_LOCK_WAIT_SHUTDOWN for SUPER_ITER_WAIT_SHUTDOWN. Only
+> > > > iterate_supers_sync() passes that flag.
+> > > 
+> > > This might get surprising in the future, I guess SUPER_ITER_KILLABLE flag
+> > > might be a more explicit way to control this but I can live with what we
+> > > have now.
+> > 
+> > I think you're right I'll fix that up in-tree.
+> 
+> I've folded:
 
-Critical: 0 · High: 0 (1) · Medium: 2 · Low: 0
+Thanks!
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+								Honza
 
-- [Medium] The commit message misstates what the patch fixes.
-- [Medium] igc_tx_csum() (drivers/net/ethernet/intel/igc/igc_main.c:1200)
-  still ignores the return value of skb_checksum_help().
-
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but ixgbe has the
-  same skb_get()-before-skb_cow_head() ordering and the series leaves it…
-
---
-
-igc: prepare TSO and checksum offloads before TX timestamps
-
-In igc_xmit_frame_ring(), this patch moves the igc_tso() and igc_tx_csum()
-calls ahead of the TX hardware timestamp reservation. As a result, the
-extra skb reference that igc_request_tx_tstamp() takes no longer exists
-while the headers are being prepared.
-
-> Commit c7d8bc3dd511 ("net: skbuff: don't BUG() on bad arguments to
-> pskb_expand_head()") replaced the BUG_ON() with -EINVAL, causing TSO
-> preparation to fail and the packet to be dropped.
-
-[Severity: Medium]
-Is this description accurate for the tree this patch applies to?
-c7d8bc3dd511 does not appear to be an ancestor of this commit, and
-pskb_expand_head() in net/core/skbuff.c still has:
-
-	BUG_ON(skb_shared(skb));
-
-Before this patch, igc_request_tx_tstamp() does tstamp->skb = skb_get(skb),
-which leaves skb->users at 2. If the header is cloned (for example an
-AF_PACKET tap clone from dev_queue_xmit_nit(), or a bridge or mirred
-clone), these paths are taken:
-
-  igc_tso()->skb_cow_head()->__skb_cow()->pskb_expand_head()
-  igc_tx_csum()->skb_checksum_help()->skb_ensure_writable()->pskb_expand_head()
-
-Both would hit that BUG_ON() instead of returning -EINVAL.
-
-The stable trees that the Fixes: tags (2c344ae24501, f38b782dccab) point
-at would behave the same way. Could the commit message say that in those
-kernels the symptom is a BUG(), not a dropped packet or a missing checksum?
-
-> diff --git a/drivers/net/ethernet/intel/igc/igc_main.c b/drivers/net/ethernet/intel/igc/igc_main.c
-> index f1bf4e462a511..cd4c9815fca7c 100644
-> --- a/drivers/net/ethernet/intel/igc/igc_main.c
-> +++ b/drivers/net/ethernet/intel/igc/igc_main.c
-> @@ -1678,6 +1678,12 @@ static netdev_tx_t igc_xmit_frame_ring(struct sk_buff *skb,
->  			goto out_drop;
->  	}
->  
-> +	tso = igc_tso(tx_ring, first, launch_time, first_flag, &hdr_len);
-> +	if (tso < 0)
-> +		goto out_drop;
-> +	else if (!tso)
-> +		igc_tx_csum(tx_ring, first, launch_time, first_flag);
-
-[Severity: Medium]
-The commit message says "igc_tx_csum() ignores the error, allowing
-transmission to continue without completing the checksum". After this
-patch, igc_tx_csum() still throws away the return value:
-
-drivers/net/ethernet/intel/igc/igc_main.c:igc_tx_csum() {
-    ...
-	default:
-		skb_checksum_help(skb);
-		goto csum_failed;
-    ...
-}
-
-The reorder removes the shared skb trigger, but skb_checksum_help() can
-still fail in other ways:
-
-- -ENOMEM from __skb_linearize() for shared frags
-- -ENOMEM from skb_ensure_writable()->pskb_expand_head(GFP_ATOMIC) when
-  the header is cloned
-- -EINVAL or -EFAULT for bad offsets or unreadable frags
-
-In each case ip_summed is left as CHECKSUM_PARTIAL with no checksum
-written, and igc_xmit_frame_ring() continues to igc_tx_map(). Does the
-frame then go out with only the pseudo-header seed in the L4 checksum
-field?
-
-The default branch can be reached because igc_probe() advertises
-NETIF_F_HW_CSUM. That lets CHECKSUM_PARTIAL skbs with any csum_offset
-arrive, for example packets forwarded from tun/tap vnet_hdr guests.
-
-Could igc_tx_csum() return an error and goto out_drop on failure, the
-same way the igc_tso() < 0 case is handled?
-
-> +
->  	if (unlikely(test_bit(IGC_RING_FLAG_TX_HWTSTAMP, &tx_ring->flags) &&
->  		     skb_shinfo(skb)->tx_flags & SKBTX_HW_TSTAMP)) {
->  		unsigned long flags;
-
-[Severity: High]
-This is a pre-existing issue and was not introduced by this patch, but
-ixgbe seems to have the same ordering, and this series does not touch it.
-Later in the series, igb is fixed by "igb: prepare TSO and checksum
-offloads before TX timestamps". ixgbe_xmit_frame_ring() still takes the
-timestamp reference before any header preparation:
-
-drivers/net/ethernet/intel/ixgbe/ixgbe_main.c:ixgbe_xmit_frame_ring() {
-    ...
-			adapter->ptp_tx_skb = skb_get(skb);
-    ...
-			if (skb_cow_head(skb, 0))
-				goto out_drop;
-    ...
-	tso = ixgbe_tso(tx_ring, first, &hdr_len, &ipsec_tx);
-    ...
-	else if (!tso)
-		ixgbe_tx_csum(tx_ring, first, &ipsec_tx);
-    ...
-}
-
-ixgbe_tso() also calls skb_cow_head(skb, 0) itself. Once HWTSTAMP_TX_ON is
-enabled and a socket asks for SOF_TIMESTAMPING_TX_HARDWARE on a GSO skb
-with a cloned header, this path runs while skb->users is 2:
-
-  ixgbe_tso()->skb_cow_head()->__skb_cow()->pskb_expand_head()
-
-Wouldn't that hit BUG_ON(skb_shared(skb)) in pskb_expand_head()? The DCB
-software VLAN skb_cow_head() call and ixgbe_tx_csum() also run after the
-reference is taken.
-
-[ ... ]
-
+> 
+> diff --git a/fs/super.c b/fs/super.c
+> index aff2169ca94d..cd6f57ababe0 100644
+> --- a/fs/super.c
+> +++ b/fs/super.c
+> @@ -1015,6 +1015,7 @@ enum super_iter_flags_t {
+>         SUPER_ITER_REVERSE      = (1U << 1),
+>         SUPER_ITER_WAIT_SHUTDOWN = (1U << 2),
+>         SUPER_ITER_SKIP_UNBORN  = (1U << 3),
+> +       SUPER_ITER_KILLABLE     = (1U << 4),
+>  };
+> 
+>  static inline struct super_block *first_super(enum super_iter_flags_t flags)
+> @@ -1040,7 +1041,9 @@ static int __iterate_supers(void (*f)(struct super_block *, void *), void *arg,
+>         int ret = 0;
+> 
+>         if (flags & SUPER_ITER_WAIT_SHUTDOWN)
+> -               lock_flags |= SUPER_LOCK_KILLABLE | SUPER_LOCK_WAIT_SHUTDOWN;
+> +               lock_flags |= SUPER_LOCK_WAIT_SHUTDOWN;
+> +       if (flags & SUPER_ITER_KILLABLE)
+> +               lock_flags |= SUPER_LOCK_KILLABLE;
+> 
+>         spin_lock(&sb_lock);
+> 
+> @@ -1122,6 +1125,7 @@ void iterate_supers_born(void (*f)(struct super_block *, void *), void *arg)
+>  int iterate_supers_sync(void (*f)(struct super_block *, void *), void *arg)
+>  {
+>         return __iterate_supers(f, arg, SUPER_ITER_WAIT_SHUTDOWN |
+> +                                       SUPER_ITER_KILLABLE |
+>                                         SUPER_ITER_SKIP_UNBORN);
+>  }
+> 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261026091549.605810-1-p%401g4.org
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
