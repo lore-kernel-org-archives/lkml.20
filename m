@@ -1,46 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793117106;
-	b=FHAU9OwNrs/W2wrIJISXqw9q8jN3aV1TXCmWh1JJ8cEf88DoPekXv8nlLlOABtuIPFGA
-	 i8UzoJLUfL5JcPy9ZMGtYRON4LVJ0cEHVCBwy8awtsP8ygEny1t502OR38tdz8dF3p3Fv
-	 g28HFKt7T7r8WRxLkipTXbAXpzJJ5jEx/PGF5+pLOcmJ6tv1uMmDGyGVwLtQnyVMFMcPA
-	 ywnHybJkoNJEcf8074xUF+XeQ27ZCaScLr+iuH94/9TjbmKE7cp6NbSRQeHDku1bU+ikR
-	 Qd5rFvfLYbvvgCiBBO3E7eIL6JyuQ/yJ9cWFVvSAhegoBaE6ixunOUK6+d8lrcbqSTQ==
+	t=1793117109;
+	b=W9ZleKir8hFATcI1km00Fqj89BBqKgYm8kpOGk9hfP+QBtUiWJFliO29KKtVj7qAZFJQ
+	 cgSjP2Vi54at7SNUknmPKIiFZevnLqw8WkoffPbjb4NE885SKs2A4bzBdpr2mCpOhRz8P
+	 NDb8t7MWRR5F7aAMTyhj53Kgs9WFT/C845+Qkiu/akVFnZePnvE/uK/7tFyunHhingV0L
+	 e1d3D4qjcUzrtp/6ceGNQ2hLud/XO4x9DLwRDEc9jsMoZymw8xaAHcHVUWwLXSOxW35Pp
+	 Rrc1AAuWR5N/ry9FkWNfRld6+A2O4584qdyhhA9pBsOQKIOJqnFVOqyr89hlehBlE5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793117106;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793117109;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=hOWFEi5+RZ/fuwWtlNOg8zbWImcoivTmK8uutxaIcpI=;
-	b=sWYJbqDUmruvqdrS+d2sOoREDA28+mByD+uKerC0zZUwNWCh3+RQp2ja6pGfPRz35yiI
-	 MtWAXAgtJ7FZ1LgV5aR4M6iMJykS2i8REg2D4PNi9caRTzRcvWOJTMFZjqC3OUHjNShjX
-	 YeptfR2iqU68bJYA9tktdlNng4cGojRhU+dFUcLfScJ9HuA10PEdqoK1VQiM4TWWl3spN
-	 mX8h99wG26+SiAeSr3u4NVQJw55wHvRcHtZXpplgmCiIYYzq9vXyq3zzLVWXgiph4jFYi
-	 Mkf1BjqoNm6/jUsw0a25MXAIyOGfCIq8vxlcLgzwyx0KPqCFMXFV38Tk/ykSMCzEaDw==
+	bh=e/tpKZZCVE5WqWrSniLDPlvpCbD4gjoO6ct5kG9Gs90=;
+	b=2nF1kmheIPbYbuIT5a+S5hRv4mrKkKRlxn0Pk5+C9LrIGFPG1M/TuWZGCVWrKRZ2EU3N
+	 HCnc6y9+PKeSDs38RAXuTwSY877axxgE3gPc8Q11sMhXbAlyJsf+ljyOXyqplQ3lKzPi5
+	 PdM4Q5fUKHh63W719PJdDlimldnm1RyCpA9NPdB+EitHIvpbOJF/6EqAUj/xP/VjZvQDL
+	 ywHzUs2wkJF6qePmzAL6p93o0Obz7+QqyGwpRncmXKW7wv23nL4zaHGDQHuTs+qq6IIIY
+	 K15v0lUZNTm94jzAEBhTCgm4QvlotAIlbRkcEMI21m3ZNUcenZfWfRZHknifJaV48+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ENoIZ171;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=2aTnw5ue;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 967E160A3827
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:05:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56B4860A382C
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:05:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ENoIZ171
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFA921F01300;
-	Tue, 27 Oct 2026 16:05:05 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=2aTnw5ue
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AF2E1F01300;
+	Tue, 27 Oct 2026 16:05:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793117106;
-	bh=hOWFEi5+RZ/fuwWtlNOg8zbWImcoivTmK8uutxaIcpI=;
+	s=korg; t=1793117109;
+	bh=e/tpKZZCVE5WqWrSniLDPlvpCbD4gjoO6ct5kG9Gs90=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=ENoIZ171/FfBjbAz02wjVZv/IJ1ZvKNo3YOSlPHCEHd82LxCwnAWXEjIe5Nl5UIuG
-	 h8UfQWvvnR5owYvuJywiFM8xcG1hCbt9qIEn1uaKgfxKhSBWsMMfJK6qBuxV0Wqz1j
-	 E1uV5tyGrG22mlwTGaRMa7eA/nPUsF6/eg+XnHtQ=
+	b=2aTnw5ue5DHg/nUDGN79tGWoVSQN1K3rqPHc2/cEbzJievNxdEbR/UOg1rk572Y30
+	 vH87CTr5NWPIwZm8o7lJm60M68E4BQvV8dx3F/dQ61KaEJQK2MRZhBcBHI3q7zpKHM
+	 jdpHE67QxgONNWngw7JF1mDAjc8d2Vd7b6uLiZls=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Date: Tue, 27 Oct 2026 17:04:41 +0100
-Subject: [PATCH 8/9] w1: w1_therm: lock the list of slaves for the bulk
- read
+Date: Tue, 27 Oct 2026 17:04:42 +0100
+Subject: [PATCH 9/9] w1: w1_therm: leave the slaves of other families alone
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,122 +51,128 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-llm-char-misc-w1-v1-8-d2e6bfafb6a4@linuxfoundation.org>
+Message-Id: <20261027-llm-char-misc-w1-v1-9-d2e6bfafb6a4@linuxfoundation.org>
 References: <20261027-llm-char-misc-w1-v1-0-d2e6bfafb6a4@linuxfoundation.org>
 In-Reply-To: <20261027-llm-char-misc-w1-v1-0-d2e6bfafb6a4@linuxfoundation.org>
 To: Krzysztof Kozlowski <krzk@kernel.org>
 Cc: Josef Bacik <josef@toxicpanda.com>, linux-kernel@vger.kernel.org, 
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable <stable@kernel.org>
 X-Mailer: b4 0.17-dev-e5168
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3951;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4055;
  i=gregkh@linuxfoundation.org; h=from:subject:message-id;
- bh=+/oBlo55X+AUWqotGYHYCruqRktMsgf0CBMkPB3/F3k=;
- b=owGbwMvMwCRo6H6F97bub03G02pJDFkPTs/UM5oiExrlKfZrlZX4nBt7Tgpnm3yZ0lJ1K1L9a
- e7sw0rcHbEsDIJMDLJiiixftvEc3V9xSNHL0PY0zBxWJpAhDFycAjCRkGMM8wwaHTq3zA71jZq9
- wd9FMnl3hOn/zQzzzEVbv1Y+FFmn67FGPCZmadW/Y58lAA==
+ bh=bmy2TEw33VcOkKqk+Vflc/dBhP8nki+6sSqASV2YASQ=;
+ b=owGbwMvMwCRo6H6F97bub03G02pJDFkPTs902XrpdNNtr1tzg2r/GTl+6Hi/0v3vlIXLk1LU6
+ wsVMgMvdsSyMAgyMciKKbJ82cZzdH/FIUUvQ9vTMHNYmUCGMHBxCsBEbvMzzA9aKBzuP8t9CQP7
+ Wn6TljjjO8HvoxgW3JykKfLA8fjt40cSuc8cDY3L3uMvDgA=
 X-Developer-Key: i=gregkh@linuxfoundation.org; a=openpgp;
  fpr=F4B60CC5BF78C2214A313DCB3147D40DDB2DFB29
 
 From: Josef Bacik <josef@toxicpanda.com>
 
-The callbacks of the file therm_bulk_read walk the list of the slaves of
-the master, trigger_bulk_read() three times and therm_bulk_read_show()
-once, without the list_mutex which protects it.  In the meantime the
-thread of the master may find out that a sensor has gone:
+The file therm_bulk_read belongs to the bus master.  Its callbacks walk
+all the slaves of the bus and look at sl->family_data as if every slave
+were a temperature sensor.  A 1-wire bus can carry other devices too:
 
-  write to therm_bulk_read              w1_process()
-  trigger_bulk_read()                     w1_slave_detach()
-    list_for_each_entry(sl, ...)            w1_unref_slave()
-      bulk_read_slave(sl)                     list_del()
-                                              w1_therm_remove_slave()
-                                                kfree(sl->family_data)
-                                              kfree(sl)
-      SLAVE_CONVERT_TRIGGERED(sl) = 1
+- The family data of a slave which is driven by another driver, such as
+  w1_ds2433, w1_ds250x, w1_ds28e04 or w1_ds28e17, is a structure of that
+  driver.  bulk_read_support() takes whatever is at the offset of
+  specific_functions for a pointer and dereferences it, and if the
+  result happens not to be 0, the callbacks write the state of the
+  conversion into that foreign structure.
 
-The walk reads, and writes to, memory which has been freed, and follows
-the poisoned list pointers.
+- For a slave without family data, which is the case for most of the
+  other drivers and for the default family, trigger_bulk_read() gives up
+  with -ENODEV.  A single serial number chip on the bus is enough to
+  make the bulk read unusable for all the sensors.
 
-Take list_mutex around each of the four walks.  No pointer to a slave is
-kept from one walk to the next.
-
-This could not be done as long as w1_unref_slave() held the mutex while
-it waited, in w1_therm_remove_slave(), for these very callbacks and for
-the readers of the sensor, who need the bus_mutex which
-trigger_bulk_read() holds around its second walk.  Now nothing is waited
-for with list_mutex held, and none of the other mutexes of the subsystem
-is taken under it, so it can be nested inside bus_mutex.
+Only look at the slaves whose family is one of ours.  A bulk conversion
+now works on a bus with other devices.
 
 Fixes: 57c76221d5af ("w1_therm: adding bulk read support to trigger multiple conversion on bus")
 Cc: stable <stable@kernel.org>
 Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/w1/slaves/w1_therm.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/w1/slaves/w1_therm.c | 37 +++++++++++++++++++++++--------------
+ 1 file changed, 23 insertions(+), 14 deletions(-)
 
 diff --git a/drivers/w1/slaves/w1_therm.c b/drivers/w1/slaves/w1_therm.c
-index d96b224e2215..6db0b534b338 100644
+index 6db0b534b338..d8751b29f420 100644
 --- a/drivers/w1/slaves/w1_therm.c
 +++ b/drivers/w1/slaves/w1_therm.c
-@@ -1495,6 +1495,7 @@ static int trigger_bulk_read(struct w1_master *dev_master)
- 	 * and compute duration of conversion for these devices
- 	 * so we can apply a strong pullup if required
+@@ -906,6 +906,19 @@ static inline bool bulk_read_support(struct w1_slave *sl)
+ 	return false;  /* No device family */
+ }
+ 
++/**
++ * bulk_read_slave() - check if a slave of the bus takes part in a bulk read
++ * @sl: any slave on the list of the master
++ *
++ * The family data of the slaves of other families is none of our business.
++ *
++ * Return: true if it is one of our devices and supports bulk read
++ */
++static bool bulk_read_slave(struct w1_slave *sl)
++{
++	return device_family(sl) && sl->family_data && bulk_read_support(sl);
++}
++
+ /**
+  * conversion_time() - get the Tconv for the slave
+  * @sl: device to get the conversion time
+@@ -1497,9 +1510,7 @@ static int trigger_bulk_read(struct w1_master *dev_master)
  	 */
-+	mutex_lock(&dev_master->list_mutex);
+ 	mutex_lock(&dev_master->list_mutex);
  	list_for_each_entry(sl, &dev_master->slist, w1_slave_entry) {
- 		if (!sl->family_data)
- 			goto error;
-@@ -1508,6 +1509,7 @@ static int trigger_bulk_read(struct w1_master *dev_master)
- 					w1_strong_pullup));
- 		}
- 	}
-+	mutex_unlock(&dev_master->list_mutex);
+-		if (!sl->family_data)
+-			goto error;
+-		if (bulk_read_support(sl)) {
++		if (bulk_read_slave(sl)) {
+ 			int t_cur = conversion_time(sl);
  
- 	/*
- 	 * t_conv is the max conversion time required on the bus
-@@ -1534,11 +1536,13 @@ static int trigger_bulk_read(struct w1_master *dev_master)
- 			w1_write_8(dev_master, W1_CONVERT_TEMP);
- 
- 			/* set a flag to instruct that converT pending */
-+			mutex_lock(&dev_master->list_mutex);
+ 			t_conv = max(t_cur, t_conv);
+@@ -1539,7 +1550,7 @@ static int trigger_bulk_read(struct w1_master *dev_master)
+ 			mutex_lock(&dev_master->list_mutex);
  			list_for_each_entry(sl,
  				&dev_master->slist, w1_slave_entry) {
- 				if (bulk_read_support(sl))
+-				if (bulk_read_support(sl))
++				if (bulk_read_slave(sl))
  					SLAVE_CONVERT_TRIGGERED(sl) = -1;
  			}
-+			mutex_unlock(&dev_master->list_mutex);
- 
- 			if (strong_pullup) { /* some device need pullup */
- 				sleep_rem = msleep_interruptible(t_conv);
-@@ -1564,10 +1568,12 @@ static int trigger_bulk_read(struct w1_master *dev_master)
- 	mutex_unlock(&dev_master->bus_mutex);
- set_flag:
+ 			mutex_unlock(&dev_master->list_mutex);
+@@ -1570,7 +1581,7 @@ static int trigger_bulk_read(struct w1_master *dev_master)
  	/* set a flag to register convsersion is done */
-+	mutex_lock(&dev_master->list_mutex);
+ 	mutex_lock(&dev_master->list_mutex);
  	list_for_each_entry(sl, &dev_master->slist, w1_slave_entry) {
- 		if (bulk_read_support(sl))
+-		if (bulk_read_support(sl))
++		if (bulk_read_slave(sl))
  			SLAVE_CONVERT_TRIGGERED(sl) = 1;
  	}
-+	mutex_unlock(&dev_master->list_mutex);
- error:
- 	return ret;
- }
-@@ -1932,6 +1938,7 @@ static ssize_t therm_bulk_read_show(struct device *device,
- 	struct w1_slave *sl = NULL;
- 	int ret = 0;
+ 	mutex_unlock(&dev_master->list_mutex);
+@@ -1940,16 +1951,14 @@ static ssize_t therm_bulk_read_show(struct device *device,
  
-+	mutex_lock(&dev_master->list_mutex);
+ 	mutex_lock(&dev_master->list_mutex);
  	list_for_each_entry(sl, &dev_master->slist, w1_slave_entry) {
- 		if (sl->family_data) {
- 			if (bulk_read_support(sl)) {
-@@ -1946,6 +1953,7 @@ static ssize_t therm_bulk_read_show(struct device *device,
+-		if (sl->family_data) {
+-			if (bulk_read_support(sl)) {
+-				if (SLAVE_CONVERT_TRIGGERED(sl) == -1) {
+-					ret = -1;
+-					goto show_result;
+-				}
+-				if (SLAVE_CONVERT_TRIGGERED(sl) == 1)
+-					/* continue to check other slaves */
+-					ret = 1;
++		if (bulk_read_slave(sl)) {
++			if (SLAVE_CONVERT_TRIGGERED(sl) == -1) {
++				ret = -1;
++				goto show_result;
+ 			}
++			if (SLAVE_CONVERT_TRIGGERED(sl) == 1)
++				/* continue to check other slaves */
++				ret = 1;
  		}
  	}
  show_result:
-+	mutex_unlock(&dev_master->list_mutex);
- 	return sprintf(buf, "%d\n", ret);
- }
- 
 
 -- 
 2.56.0
