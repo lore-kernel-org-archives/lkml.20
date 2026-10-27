@@ -1,83 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793106608;
-	b=kXizq8273zgxgeJvPyxV0SwIX5zmVd7AzjdF9IsyZIqqFUabYQxOhvzvfg64/13MVDYm
-	 soG9q8BJmguJCP+ypMhP2/qLJ5bqoc0UOdQUr5+irveoGK8tTzPEBeVfuN4YWzcwNI7s5
-	 XMSavauw7nsBx2PJo5XuGjWlu721Huae5htYpWqUGOfGA1xSTPVKZEQpsrl0UbmTbWvHr
-	 0cnvGdEkxvBvuqjJSaMuNY/UUe8m71jwKpOSCqEpDEIgHdgQs5dyVpI0qErJ/C5cx8ifi
-	 krlI+fbE6tkL/WuIahGDJmvnHFLdxfInz2Vgzy7DyBffDLM68NwroiRpS55JNZY/uEw==
+	t=1793106633;
+	b=noyfntnxfrviy1NuFjouimUus77MAACS+9xO/QE0oozcNOR1RvHxSii7VQ3Hs5LkDemR
+	 MHvCNElyUw4eCl6PeFXuBa28pC6qmC5jFHLhNC9I01EnlUiNcDgusJsFhPe3ZsnGTds/+
+	 qSe5Nkfcwqf1PxnNA94f8ZkW/5Pac+csBYEzNignO2avBbAhreTRISAqDTKpzCxneCI2x
+	 /q1mR0mUmkP+kROmZUCx3+Nr9YIqUzYBWUT6oO3EddrfFXe4cNfYruwE0iny3FpRJGWUc
+	 VTYJYvG9l7mhZWtrej5sQkn6ur29/8LUff/HmfBCNAbp8R26ZfnClWv+yXgF4whNwAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793106608;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793106633;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=855Irl/YTZlHxHj+4WNDjo6xdB3B4og4aS6vB5/n1Uw=;
-	b=kuAqTYEgcfLUS/GD1DMg5YrOYZ6XwKLpkQ28NcYRPsyHg3JV7iBwwVXdX/djogLyc8VF
-	 ETsiy1cvUvKkW90F1FCkmypoSZfbk53EwpHf5uFZm6m87Cegnu84ZWmrOFNHNOFx3/vxs
-	 bLArmFlEzc7HgiOumB97VET/wFIgN/nNAYdAz+mU/FDhcffOl86g5dUzMohtHeQt5K/ui
-	 lS8NNFkpSN2y38lFWgjbpXvyWLNZZOT0dJTp84kaL5KfV+L/T5Qq74qox6PJ/zx5LtreA
-	 jCyQzvKhc3pvyvpygB9mBK63ci2SvvE4s1u23oLhj9WdTeCL9StUJlNLy9MuIOWdaJg==
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=1MHkWmtoDbkxYL8NaThzIQ/ymNf1rAP9merCQQ1YBMs=;
+	b=neUQDr8B6hosbC0AZc+z+gQRGB+FeuPvZnTmcujQipr28Ho16kAs52wviihHZFIOYgNa
+	 mwLl2hqZknxW7ov+uow7nPcrD1GMMxCPYG95uVlkYNLaBIMsPP33Mhhrsvs+aZJTmVfwA
+	 Gfs4GwCmDtVONPldQVjTJBTRn9cy5QTnS8NaBnMeHB//167j6cfdY1sjLllVQcdrAK5Vs
+	 ziIH83/Dwno2NkLnZV+847aAER5sTy/gTeF6iNkgYL8xCh8zGUtZZKsPNGn6Y/QieyaIM
+	 Um5yngCGw954cPokWVHLZ0rLSBtRYZ9QAfXQjtAvjB0AgMWISZIBo8BybYzLzV/TDBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=sk4AlKbg;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fWyEx127;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 473E1606A31B;
-	Tue, 27 Oct 2026 13:10:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 1EA71606A31F;
+	Tue, 27 Oct 2026 13:10:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=sk4AlKbg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55D571F031E3;
-	Tue, 27 Oct 2026 13:10:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793106608;
-	bh=855Irl/YTZlHxHj+4WNDjo6xdB3B4og4aS6vB5/n1Uw=;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fWyEx127
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 2C0D91F01825;
+	Tue, 27 Oct 2026 13:10:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793106632;
+	bh=1MHkWmtoDbkxYL8NaThzIQ/ymNf1rAP9merCQQ1YBMs=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=sk4AlKbgewgz9lqTJdn+ZG0/iw5HeGyjasOhjegB/BTKi3PEV9pjoEnQG6r/RVk7J
-	 Zkp2Um+TQ7FIwN1vsNZMOrPhy7COiysJ8Af1RKor0xf4FgMLO8eKAXZN6XWZ9MHI+F
-	 zuxS52J9XfD3HJkdTOWB8HTpFdN3s7J3yTUWVLmU=
-Date: Tue, 27 Oct 2026 14:10:06 +0100
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Jiri Slaby <jirislaby@kernel.org>, Joshua Rogers <linux@joshua.hu>,
-	Chris Mason <mason@kernel.org>, Josef Bacik <josef@toxicpanda.com>,
-	Tony Lindgren <tony@atomide.com>, Rafael Gago Castano <rgc@hms.se>,
-	Florian Fainelli <f.fainelli@gmail.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Peter Hurley <peter@hurleysoftware.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Crescent Hsieh <crescentcy.hsieh@moxa.com>,
-	Frank Li <Frank.Li@nxp.com>, Sherry Sun <sherry.sun@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Olof Johansson <olof@lixom.net>,
-	Andreas =?iso-8859-1?Q?F=E4rber?= <afaerber@suse.de>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Robert Baldyga <r.baldyga@samsung.com>,
-	Thomas Abraham <thomas.abraham@linaro.org>,
-	Kukjin Kim <kgene.kim@samsung.com>,
-	Patrice Chotard <patrice.chotard@foss.st.com>,
-	Srinivas Kandagatla <srini@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Andy Shevchenko <andy.shevchenko@gmail.com>,
-	Vladimir Zapolskiy <vladimir_zapolskiy@mentor.com>,
-	Al Cooper <alcooperx@gmail.com>,
-	LKML <linux-kernel@vger.kernel.org>,
-	linux-serial <linux-serial@vger.kernel.org>,
-	stable <stable@kernel.org>
-Subject: Re: [PATCH 14/24] serial: 8250: ioc3: store registered line number
- in driver data
-Message-ID: <2026102727-challenge-unrest-8c83@gregkh>
-References: <20261027-tty-llm-v1-0-99b0202ae546@linuxfoundation.org>
- <20261027-tty-llm-v1-14-99b0202ae546@linuxfoundation.org>
- <37ad6cbd-3a66-17d7-4221-3814a9ae7b90@linux.intel.com>
+	b=fWyEx127vm0/A0kbZaBsKqv0EXPhNkOdKc1/WWjYG/xMQoZDbzSt0XjkMN9u6ZImK
+	 za1Vc0h+j/MrwhsdvwGtpP6auab9vFOZhj/anElruh0R6MRn0Mn1BLr56G4RtT22jZ
+	 k6ktWFgN83S2+MjVRhI1N0XsVQHGmcFyiR1nNX97z/2auoqZq4p+7XEMPCb0j+5vrB
+	 lz4+ffZnJaKHl4D1HPrxd5wLlFbNXinKWaqiTBQ6CWXJOfyEGgEeGIQDCvg38kIwgr
+	 7yPch5GWPJEg1RxKBWTOom4tSafkhnGk/fxa+ad+3FS9GpwN4NnPogjnjyNgxsQdY/
+	 JkXdL/LXSYtbw==
+Date: Tue, 27 Oct 2026 15:10:28 +0200
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Jorge Ramirez <jorge.ramirez@oss.qualcomm.com>
+Cc: peterhuewe@gmx.de, jgg@ziepe.ca, sumit.garg@oss.qualcomm.com,
+	linux-kernel@vger.kernel.org, linux-integrity@vger.kernel.org
+Subject: Re: [PATCH 1/1] tpm: add TEE driver for a discrete TPM behind OP-TEE
+Message-ID: <auCixK7kx1KgKQqt@kernel.org>
+References: <20261026163259.1900439-1-jorge.ramirez@oss.qualcomm.com>
+ <20261026163259.1900439-2-jorge.ramirez@oss.qualcomm.com>
+ <at-y-BtnXX-u67hv@kernel.org>
+ <auBfyueV3s_XUS97@trex>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,56 +59,164 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <37ad6cbd-3a66-17d7-4221-3814a9ae7b90@linux.intel.com>
+In-Reply-To: <auBfyueV3s_XUS97@trex>
 
-On Tue, Oct 27, 2026 at 02:38:49PM +0200, Ilpo Järvinen wrote:
-> On Tue, 27 Oct 2026, Greg Kroah-Hartman wrote:
-> 
-> > From: Joshua Rogers <linux@joshua.hu>
+On Tue, Oct 27, 2026 at 09:24:42AM +0100, Jorge Ramirez wrote:
+> On 26/10/26 22:07:20, Jarkko Sakkinen wrote:
+> > On Mon, Oct 26, 2026 at 05:32:48PM +0100, Jorge Ramirez-Ortiz wrote:
+> > > Add tpm_dtpm_tee for a discrete TPM that OP-TEE owns and the normal world
+> > > cannot reach directly (e.g. an SPI TPM on a bus driven by OP-TEE). The
+> > > driver binds to OP-TEE's passthrough pseudo TA by UUID and forwards TPM2
+> > > commands through it, presenting a standard TPM2 character device.
 > > 
-> > The registered line number returned by serial8250_register_8250_port()
-> > was stored only in the local variable 'line' and never saved into
-> > data->line, causing the remove path to always unregister line 0
-> > instead of the correct port.
+> > "OP-TEE hosts" would be more understandable.
 > > 
-> > Cc: Jiri Slaby <jirislaby@kernel.org>
-> > Cc: stable <stable@kernel.org>
-> > Signed-off-by: Joshua Rogers <linux@joshua.hu>
-> > Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> > ---
-> >  drivers/tty/serial/8250/8250_ioc3.c | 1 +
-> >  1 file changed, 1 insertion(+)
-> > 
-> > diff --git a/drivers/tty/serial/8250/8250_ioc3.c b/drivers/tty/serial/8250/8250_ioc3.c
-> > index 088242de2eff..3ab50e04be45 100644
-> > --- a/drivers/tty/serial/8250/8250_ioc3.c
-> > +++ b/drivers/tty/serial/8250/8250_ioc3.c
-> > @@ -63,6 +63,7 @@ static int serial8250_ioc3_probe(struct platform_device *pdev)
-> >  	if (IS_ERR(uport))
-> >  		return PTR_ERR(uport);
-> >  
-> > +	data->line = line;
-> >  	platform_set_drvdata(pdev, uport);
-> >  	return 0;
-> >  }
+> > I have trouble following the hops you are doing by speaking about normal
+> > world and then jumping into SPI bus. Please try to somehow make this
+> > more rigid and less terminology decorated.
 > 
-> Eh? Didn't Jiri just kill the entire line madness? In d6a0791098be 
-> ("serial: 8250: make port operations work on struct uart_8250_port"):
+> I'd rather keep "owns", not "hosts": OP-TEE does not host this TPM (that
+> is the fTPM case, where the TPM runs inside the TEE). Here OP-TEE owns
+> the bus controller the chip is wired to, so Linux cannot drive the
+> chip.
 > 
-> -struct ioc3_8250_data {
-> -       int line;
-> -};
-> 
-> There's no "line" in the entire file anymore?!
-> 
-> On which commit you're basing these on? How was this tested??? ;-) ...I 
-> hope you're not just wasting our time by sending unfiltered LLM output to 
-> us.
+> That distinction is the reason this is not an fTPM.
 
-I built this on top of Linus's latest tree, odds are I don't have a
-.config option set somewhere, sorry abou tthat.
+OK, so then it would help if it was broken down how these different
+components and their interaction work in simple terms.
 
-greg k-h
+> 
+> > 
+> > > 
+> > > It is a separate driver rather than a reuse of tpm_ftpm_tee: the TEE
+> > > transport is the same, but that driver is tied to the Microsoft fTPM TA
+> > > and opens a public-login session, whereas this is a distinct TA for a real
+> > > chip, gated to REE-kernel access so that user space and other TAs cannot
+> > > reach the TPM. Sharing the fTPM identity would conflate two different
+> > > devices and collide on a platform that has both.
+> > 
+> > And they don't share any of the same DNA?
+> 
+> Sure, they do. The TEE transport is effectively identical: the
+> shared-memory, the invoke and the response validation, plus the
+> probe/teardown sequence.
+> 
+> What differs is the device identity: TA UUID, login (REE-kernel vs
+> public), and bind method (ftpm also binds via platform/OF and has a
+> shutdown path).
+> 
+> > 
+> > Two other options:
+> > 
+> > 1. tpm_tis_core type of solution.
+> > 2. Implement the feature as part of tpm_ftpm_tee.c.
+> 
+> I'd rather do (1). The shared transport goes into a small core; the
+> per-device identity stays in thin front-ends.
+> 
+> Something along these lines:
+> 
+>   /* tpm_tee.h */
+>   struct tpm_tee_config {
+>           uuid_t  ta_uuid;
+>           u32     login;          /* TEE_IOCTL_LOGIN_* */
+>           u32     cmd_id;         /* SUBMIT_COMMAND function ID */
+>   };
+> 
+>   int  tpm_tee_core_probe(struct device *dev,
+>                           const struct tpm_tee_config *cfg);
+>   void tpm_tee_core_remove(struct device *dev);
+> 
+> 
+> tpm_tee_core.c would own everything that is common today:
+>  - open context
+>  - open session
+>  - shm allocation,
+>  - chip alloc/register
+>  - teardown and so forth
+> 
+> The front-ends collapse to config plus their own bus binding, e.g.:
+> 
+>   /* tpm_dtpm_tee.c */
+>   static const struct tpm_tee_config dtpm_cfg = {
+>           .ta_uuid = UUID_INIT(0x50568cd9, 0x370a, 0x46b8,
+>                                0x9f, 0x2c, 0x6f, 0xd9,
+>                                0x06, 0x64, 0xd2, 0xee),
+>           .login   = TEE_IOCTL_LOGIN_REE_KERNEL,
+>           .cmd_id  = 0,
+>   };
+> 
+>   static int dtpm_tee_probe(struct tee_client_device *tcdev)
+>   {
+>           return tpm_tee_core_probe(&tcdev->dev, &dtpm_cfg);
+>   }
+> 
+>   static void dtpm_tee_remove(struct tee_client_device *tcdev)
+>   {
+>           tpm_tee_core_remove(&tcdev->dev);
+>   }
+>   /* id_table + tee_client_driver unchanged */
+> 
+> 
+> I'd push back on (2): one file would carry a public-login firmware TPM
+> and a REE-kernel discrete chip, plus it breaks on a platform with both.
+
+Let's write this down to the commit message.
+
+> 
+> The core split removes the duplication and avoids that coupling.
+> 
+> Questions:
+> - Is the core in tpm_tee.c / tpm_tee.h acceptable, or do you want a
+>   different split.
+> 
+
+I'll answer below.
+
+> > 
+> > I don't think tpm_ftpm_tee was that great name choice [1] but we have
+> > to live with it. 
+> > 
+> > So more logical name as per taxonomy would be probably
+> > tpm_ftpm_tee_dtpm.
+> 
+> tpm_ftpm_tee_dtpm reads as "firmware TPM ... discrete TPM", which is a
+> contradiction (this device is _not_ a firmware TPM)
+> 
+> Per your own note in [1], the ftpm prefix was a mistake, so extending it
+> seems worse than leaving it.
+> 
+> With the core split this seems clean to me:
+> 
+>   tpm_tee.c         transport core
+>   tpm_ftpm_tee.c    firmware TPM front-end
+>   tpm_dtpm_tee.c    discrete TPM front-end
+> 
+> Does that work? I'm open to another name, as long as firmware vs
+> discrete stays visible.
+
+OK so tpm_ftpm_tee is/was a bad name but also renaming modules causes
+issues.
+
+It should have probably been "tpm_optee_ftpm".
+
+So I would do instead this:
+
+- tpm_optee -core
+- tpm_optee_dtpm -your driver
+- tpm_ftpm_tee
+
+I.e. let's accept a glitch but don't repeat the faulty naming pattern.
+
+> 
+> The rest I'll take: = {} initalizers (drop the memsets), module name as
+> the function prefix, and the MODULE_DESCRIPTION reworded once the layout
+> is settled.
+> 
+> TIA
+> jorge
+> 
+
+Br, Jarkko
