@@ -1,51 +1,41 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793080726;
-	b=rlTuZRv87HnrjLLif4l5eJIfjdLNCBkLoteEn5VLawj7yxZVZhwpshnwiGDo6WgxDvub
-	 FQ3GRca+VtjfxZos1AKPUQ5JrkCsDc5RS6e6N0bqeHpfm2PeiGj/NeaVXYZrgbqNHT4JW
-	 7VCPoK5bls603Ymw7iqhenOPDH3gFSUvL9QoPtIZ2H/+m0RNyuCcmcJj/9lxRF1JFKx0z
-	 dpzCriVhB05otmNcDWZCenO1psVX6uGniMOcrwA6RwghnfBso0DRzmu4PowXFVLbMt84Z
-	 9BJ9fTR/N1T4wXvhjqP8biAjYSYrAkF1x7AXqn1oJzjEVtVRnwoBuGorG4YFSHrA4tQ==
+	t=1793080760;
+	b=KwLk3UFkxe1YoBqBd9HHjoYjxc7C1bDevqW3MlSS4SHyJWlzQFvB6X9K5rsZf+p3yx/a
+	 Iumfe3WgIgJ1Kw5j54zx4Fg3Y1ZCFbby6kFEw6Am2spMfZxtVY0Ei2WO09Xi/IQCNKeak
+	 VTDJxIuO8fTYfwNrLkeXHFIZxazCamnTigsrOPl+auI1mivIwy42jj/jg/kxcKu85PZJa
+	 CCTWniMMa/ock5YtHLGLE5WOiV3wxbSTYTKC2w1h6aiOhbT50Jg2UywT/ycycs9VmZzj5
+	 OOhFc1+yz5i171eimggravouEZwFYsF1JTtJ05XyYVlbS0yKLGpnQBzZ+8iVRa0l6ew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793080726;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=EhZ8QQRDtpojRf+w+WKdi7PLTN6QFmI45738JzQYc8w=;
-	b=BdIvs6jtvykqb48fjoB9IgSi7sqxb3ZK6XgV7mihlpVau5xdXsZgmk9inh1K4DOY7SNI
-	 4GSQNADVyj54j/xe2llgMp9TKadvv6UjgT7NkSxIrRoHyqiLD4Eln/QQpNSLKyx2eGfLa
-	 3dlzTV0AXqWXKGZ6QmpX1bFNKMcS302soyM8M6flBZIK5uyOJf/p5G0jDyvHfBW3gEvcX
-	 7F070SyMdImhCe5unkasB8HyQhKGhKEomPmxN30S58zGNudvaMDgrR+MA5Ym7quO+yMEh
-	 pLQuunt05jKradIj/fozVBiGAsD+TdWmTK4PvPFplJbgx4I6bSZMQiAuxgs5eo+A/mA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793080760;
+	h=DMARC-Filter:X-Alimail-AntiSpam:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=4Npgbsf5Mz673d0bNT8s36i4OiK8JwGRnxwUCUdpj1Y=;
+	b=zfyS76iiKlkyeIoEqWGCakGOv9Yh2ZIvYiAsBCJwy/JQPBN0u1JripTq0rVz1iZJLdwM
+	 WGKRzkoyrKk6n7fGkrsz8Ra/dW0NUPBdcqTz1YriyV57VZEiBJQnCdWASVgxVgo4myhpE
+	 UW5kYzJ+9k0RlsLhSvW5t0zItUwGSwbleChct84oPLdmxC3WpLCaTEyxhopy300lBMVgU
+	 6v4oAXVpV8erIc5SoVEOoJ/USNVG2SIRArptnextC+d+wIssBiIBEASchWCWM8s+LaIVb
+	 QNlLb9dqzsY9stliYjT4cAun0TahUr0WC9vM2MFS12QJF7tmOJvSw3bQThaxQDVVrsA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=WOKHMYK6;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=open-hieco.net;
+	spf=pass smtp.mailfrom=open-hieco.net;
+	arc=none smtp.remote-ip=115.124.28.124
+Received: from out28-124.mail.aliyun.com (out28-124.mail.aliyun.com [115.124.28.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92651606A31A;
-	Tue, 27 Oct 2026 05:58:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=WOKHMYK6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83E271F01825;
-	Tue, 27 Oct 2026 05:58:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793080725;
-	bh=EhZ8QQRDtpojRf+w+WKdi7PLTN6QFmI45738JzQYc8w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WOKHMYK6SK7R3B+Sntmb9766mpP0UzVUVkXUedAUYPPCyop2x4NZwvgCgtuJCWrxO
-	 d/5C9m0rl/zm+RyifN88rLWoE3/RQkQRGXNAjB5ifdtux/CFMfi1yeyTnKfOtxojf8
-	 AJrJeIpltA9ZeoTvIyLE4rUkNItQDcI1E7h+7wUE=
-Date: Tue, 27 Oct 2026 06:58:44 +0100
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Liu Chao <liuc63@xiaopeng.com>
-Cc: andreyknvl@gmail.com, krishnagopi487@gmail.com, kees@kernel.org,
-	balbi@kernel.org, zhugl3@xiaopeng.com, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] usb: gadget: raw_gadget: fix dangling ep->desc on enable
- failure
-Message-ID: <2026102733-cameo-upturned-bf2a@gregkh>
-References: <20261027032332.1945140-1-liuc63@xiaopeng.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2316B606A31B;
+	Tue, 27 Oct 2026 05:59:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2316B606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=open-hieco.net
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.08090112|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.034835-0.000669236-0.964496;FP=7602957257888359646|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037034184;MF=wanglin@open-hieco.net;NM=1;PH=DS;RN=14;RT=14;SR=0;TI=SMTPD_---.jqW1159_1793080746;
+Received: from 172.18.24.170(mailfrom:wanglin@open-hieco.net fp:SMTPD_---.jqW1159_1793080746 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Tue, 27 Oct 2026 13:59:07 +0800
+Message-ID: <7e086025-c74b-4808-bc8e-ea66c9eb0a88@open-hieco.net>
+Date: Tue, 27 Oct 2026 13:59:05 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,34 +45,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261027032332.1945140-1-liuc63@xiaopeng.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 1/7] x86/hygon: Add Family 0x18 DF node enumeration
+To: Yazen Ghannam <yazen.ghannam@amd.com>
+Cc: Borislav Petkov <bp@alien8.de>,
+ Mario Limonciello <mario.limonciello@amd.com>, Pu Wen <puwen@hygon.cn>,
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>,
+ Tony Luck <tony.luck@intel.com>, Guenter Roeck <linux@roeck-us.net>,
+ x86@kernel.org, linux-edac@vger.kernel.org, linux-hwmon@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261022074218.667049-1-wanglin@open-hieco.net>
+ <20261022074218.667049-2-wanglin@open-hieco.net>
+ <20261024151527.GB1164@yaz-khff2.amd.com>
+Content-Language: en-US
+From: Lin Wang <wanglin@open-hieco.net>
+In-Reply-To: <20261024151527.GB1164@yaz-khff2.amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Oct 27, 2026 at 11:23:23AM +0800, Liu Chao wrote:
-> raw_ioctl_ep_enable() assigns the user-supplied endpoint descriptor
-> to ep->ep->desc before calling usb_ep_enable(). If usb_ep_enable()
-> fails, or if the subsequent usb_ep_alloc_request() fails, the error
-> path frees desc via out_free but leaves ep->ep->desc pointing at the
-> freed memory.
+On 10/24/2026 11:15 PM, Yazen Ghannam wrote:
+> On Thu, Oct 22, 2026 at 03:42:11PM +0800, Lin Wang wrote:
+>> The AMD node code locates function 3 for node N at PCI slot 0x18 + N.
+>> Hygon has no equivalent node-index-to-slot mapping: DF F3 devices are
+>> discovered by PCI ID and the PCI BDF is only an access point.
+>>
+>> Enumerate Hygon DF devices by PCI ID and read their identities from DF
+>> registers. Build a dense node cache with Core and DDR Dies (CDDs) before
+>> I/O Dies (IODs), providing node counts, identity and PCI function lookups.
+>>
+>> Guests may expose a supported CPU model without DF devices. Suppress
+>> the cache-build warning for -ENODEV in guests; keep other initialization
+>> errors visible.
+>>
+>> The node lookup helpers remain local until Hygon consumers are added.
+>>
+>> Signed-off-by: Lin Wang <wanglin@open-hieco.net>
+>> ---
 > 
-> The UDC driver may have captured the stale descriptor pointer during
-> the partial enable sequence and may dereference it in subsequent
-> operations, resulting in a use-after-free.
+> Reviewed-by: Yazen Ghannam <yazen.ghannam@amd.com>
 > 
-> Clear ep->ep->desc before jumping to out_free on both failure paths
-> so the pointer never outlives the descriptor it references.
-> 
-> Fixes: 97df5e5758f7 ("usb: raw-gadget: fix gadget endpoint selection")
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Guanglei Zhu <zhugl3@xiaopeng.com>
-> Signed-off-by: Liu Chao <liuc63@xiaopeng.com>
-> ---
->  drivers/usb/gadget/legacy/raw_gadget.c | 2 ++
->  1 file changed, 2 insertions(+)
 
-How was this found and tested?
+Thanks for the review.
 
-thanks,
+I'll send v9 to fix the SMN root-array leak reported by Sashiko in
+patch 7.
 
-greg k-h
+Thanks,
+
+Lin
+
