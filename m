@@ -1,51 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793110327;
-	b=2AKrOm8MOLjfsAbBnDBpXd/LH1NzHKpLgPE9s/fLdyWvnvtMXx/uOkXJYsxYdUTqkGQz
-	 XIgO1R4Tsrbz3zK0kJoaKmXi2B6ioY0KIp7Mf2yEPHiqZWwvCtzWIhc5Avw0/JqYix/cd
-	 TDLvLO4rR2My2TNdxFrf7zjFYje8rGrpUWc0Bs5tjAcPRz69mysKYS7CQcZc1pD8n/3hP
-	 EbFyRW7cP08zyjNALP2M0CJjFK75vj3kdAds7gZ3faINIvZkhjfT0VTEqxak3fE7ZFChc
-	 zFYo+ajgru3/ZE6zq4E6ZNEVP1qP29MIfLl/DD1uL93uaSEpVUwkioZeMt7jo3Q8QNA==
+	t=1793110346;
+	b=G2ZPyQIOROpF89FJJ0jA0jjoCCUI/3WefYxXjppc1Hokvah1F4FQkT84RKRY+NLAQtPo
+	 qRCBQfX/txGBh55taP9GoD1b/QGImp05ZSQIs37G06g34jycIjTzGHFj6TRBjTIPitS59
+	 HuqUpzPGdchnYFXLfdWYbppSSZebewvs7Qe8mhDr24R03XKrE1aYlQcvFhs8ys8jVryG9
+	 FnNeyUQ+DwZNPYVMuyY2WwBtscTu6ypy/xvZJuCEY1oHVdeShbGa2Vdlo4g6DURkP5N51
+	 OnC+91ceCe2HtbDWuP+/yezQulLexV2qe4KIEnRWSuq3F6TtHRPf5Mm5JVi48irRJOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793110327;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=akoXbAN8FKSRzdYW3/gw5wVBq0x50GTrXIIzaJJLulM=;
-	b=gHzgV4GlJSH+ACyG04j+BYWpSnS1awTHHyX4RMptvkUnmcKnDQqBk4qlXb5ihP/ACO7z
-	 pYKQ/5jBpIhrXbDaKEqA4E70W/9fzt12L5/k8vCGvph+XAxFHGHblU3NI6crDSxqhmtRm
-	 JBJCs+gZiBFSpSZFADwmxFGnKU3nvX93FGdjnBXAQuA3x8hVVDDzmcb71VFQKlw7+pYoJ
-	 Z+AXQltVN9TkhHG695aYmRj7wWkn4pV3PzB5ZkbaFqg0PeNGgVvX4GGAxra5bYlkMnI5x
-	 BXWGVhI5bHcJf4Tim2f3vbYq5jM6+yEuzIV/A7yStPEThqH70mlrbfaPZtb3g5LpwIQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793110346;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=buqBzj/EH2ynxXXk6rNzOgRfC4aGXhfLq39ArvoDr/c=;
+	b=j0e3U18evSz/ClqaH6eanuaNlTYT7IkCWeZPb9lQYkIHR6AShwhETUSWaBoYdIw96jl4
+	 W8XdfS5w76HzUPhOesdMWUZk1oCXSNYpDd/bKbVq+lENNoTIzHyB1LK2hYXRm5scm1foV
+	 y9mUIvF2mq7Xu5vQTfC5HOOnGF5goxEWJjciSYE73fof/BMNfW4vBNeyKYQOuFCBkh1jL
+	 BubYvOnjiWNUhR+c+JatgN8qXNY2u8GxjOhgm1qYBzjhwapquJBiclEhHTgCWbWj+CRQI
+	 AqnntUKW0tMsgloA/zRvItPIlcLjbNKXqOnffu5+FL1Z8nKNQdeAD9/e2enETgmOAmw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=JTOoDWH6;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PoVMyEXQ;
+	arc=none smtp.remote-ip=198.175.65.21
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5226606A31A;
-	Tue, 27 Oct 2026 14:12:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5B11606A31B;
+	Tue, 27 Oct 2026 14:12:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5B11606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=JTOoDWH6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBAE41F01825;
-	Tue, 27 Oct 2026 14:12:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793110326;
-	bh=akoXbAN8FKSRzdYW3/gw5wVBq0x50GTrXIIzaJJLulM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JTOoDWH6SzIpvsKIcOdMxJGqFPvbvKZtjVonlzHX3pEjZuku/BIh774YiCFF5+7pG
-	 L2WqAv8WhYcOTCJLhqltH0+bipTKGML2UWWix8MjmZqrOk9bKug7LLbDF8+bAdbMxG
-	 B6PG4iP0RD1rsryMSvhY6/qsQ4Rd5w+hQBy4sM7Y=
-Date: Tue, 27 Oct 2026 15:12:05 +0100
-From: Greg KH <gregkh@linuxfoundation.org>
-To: =?utf-8?B?5b6Q5pmX57+U?= <xuhx@hust.edu.cn>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: usb: devio: usbdev_release() has no barrier against an in-flight
- async_completed() callback (use-after-free window on  struct
- usb_dev_state)gregkh@linuxfoundation.org
-Message-ID: <2026102727-data-sequel-ce41@gregkh>
-References: <4c7f9772.192e1.1a17d5c2ed5.Coremail.xuhx@hust.edu.cn>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PoVMyEXQ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793110345; x=1824646345;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=DqPe3Y3OSnrg9LAsCJZuB9OktcRjGEKt/CME+hIdrL0=;
+  b=PoVMyEXQUQ93lQDJRw8sjUhXLrLYpdSzO4QKnsRVuJAjy1sdp2SeGROF
+   /msdlYSIsl0HoFhIg9wS3vm4U6Jav+Ss3BYFEQOaLmO0vBojNhstukqk/
+   nvF6dIRK1/T+kM78Z7D8Z99Aw0JnYsQwub230d9yhyKq3NOXTnWjnzyl7
+   FEnD0mCpLhXJClXvxcWOWJAPmyuN1dJ1G1igbkhstuDe9GaJiUAmK3UTh
+   h49QdMREsoXD0hJff3Wsc/wfpiVKEPnBzSVX8QxBj4hj2EY9Cm70aMAwQ
+   AImUqKGi5YD1vUyyyfn/gRWuiGbU/Zsrnc1DYsu/CemAx/iQ7PyET2x4y
+   w==;
+X-CSE-ConnectionGUID: 08+ipPF3TPefbH+dK2x+kg==
+X-CSE-MsgGUID: hwA0n/XiTAatnQ4vC9JmqA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1900272"
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="1900272"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 07:12:25 -0700
+X-CSE-ConnectionGUID: WQc0ybFqSaWEpVJ2iK+rJA==
+X-CSE-MsgGUID: ROpv/sLFSyqn2Olv3KSQWQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="4594940"
+Received: from xiaoyaol-hp-g830.ccr.corp.intel.com (HELO [10.124.240.140]) ([10.124.240.140])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 07:12:21 -0700
+Message-ID: <6c156bb3-a04f-4d4e-8611-b1e93359e8ad@intel.com>
+Date: Tue, 27 Oct 2026 22:12:18 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,32 +72,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <4c7f9772.192e1.1a17d5c2ed5.Coremail.xuhx@hust.edu.cn>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/3] KVM: TDX: Set SIGNIFCANT_INDEX flag as appropriate
+ when filling CPUID entries
+To: Sean Christopherson <seanjc@google.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ Kiryl Shutsemau <kas@kernel.org>, Rick Edgecombe
+ <rick.p.edgecombe@intel.com>, "H. Peter Anvin" <hpa@zytor.com>,
+ kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-coco@lists.linux.dev, Binbin Wu <binbin.wu@linux.intel.com>,
+ Changyuan Lyu <changyuanl@google.com>, Sashiko <sashiko-bot@kernel.org>
+References: <20261022210134.612848-1-seanjc@google.com>
+ <20261022210134.612848-3-seanjc@google.com>
+ <741bfe7c-5d21-4c6b-98c0-95b01a2a21f3@intel.com>
+ <auCvuyY7tTg7ISwR@google.com>
+Content-Language: en-US
+From: Xiaoyao Li <xiaoyao.li@intel.com>
+In-Reply-To: <auCvuyY7tTg7ISwR@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Oct 27, 2026 at 08:35:55PM +0800, 徐晗翔 wrote:
-> usbdev_release() ends with an unconditional kfree(ps) while an
-> async_completed() callback that has already moved its async request to
-> the completed list can still be running inside the lock-dropped window
-> of cancel_bulk_urbs() -- when the two overlap, the callback re-locks,
-> rescans the pending list and wakes the wait queue of freed memory.
-> The interleaving itself is proven reachable on a pristine Linux 7.3
-> (600/600 controlled window openings, with usbdev_release() entering
-> the window 445 microseconds after it opened); in the HCD shape I
-> tested (xHCI, single MSI, HCD_BH), the kfree() is nevertheless held
-> back by an indirect barrier -- usb_kill_urb() on the sibling URB waits
-> for a giveback that shares the same per-CPU BH worker with the
-> stalled callback -- so I am reporting this as a structurally proven
-> window whose final reachability depends on the HCD's completion
-> topology, with the open shapes listed below, not as an
-> immediately-triggerable crash.
+On 10/27/2026 10:05 PM, Sean Christopherson wrote:
+> On Tue, Oct 27, 2026, Xiaoyao Li wrote:
+>> On 10/23/2026 5:01 AM, Sean Christopherson wrote:
+>>> diff --git a/arch/x86/kvm/vmx/tdx.c b/arch/x86/kvm/vmx/tdx.c
+>>> index 271c2f94b8dd..37d088f6f7a8 100644
+>>> --- a/arch/x86/kvm/vmx/tdx.c
+>>> +++ b/arch/x86/kvm/vmx/tdx.c
+>>> @@ -2,6 +2,7 @@
+>>>  #include <linux/cleanup.h>
+>>>  #include <linux/cpu.h>
+>>>  #include <asm/cpufeature.h>
+>>> +#include <asm/cpuid/api.h>
+>>>  #include <asm/fpu/xcr.h>
+>>>  #include <linux/misc_cgroup.h>
+>>>  #include <linux/mmu_context.h>
+>>> @@ -163,12 +164,23 @@ static void td_init_cpuid_entry2(struct kvm_cpuid_entry2 *entry, unsigned char i
+>>>  
+>>>  	entry->function = (u32)td_conf->cpuid_config_leaves[idx];
+>>>  	entry->index = td_conf->cpuid_config_leaves[idx] >> 32;
+>>> +	entry->flags = 0;
+>>>  	entry->eax = (u32)td_conf->cpuid_config_values[idx][0];
+>>>  	entry->ebx = td_conf->cpuid_config_values[idx][0] >> 32;
+>>>  	entry->ecx = (u32)td_conf->cpuid_config_values[idx][1];
+>>>  	entry->edx = td_conf->cpuid_config_values[idx][1] >> 32;
+>>>  
+>>> -	if (entry->index == KVM_TDX_CPUID_NO_SUBLEAF)
+>>> +	WARN_ON_ONCE(cpuid_function_is_indexed(entry->function) !=
+>>> +		     (entry->index != KVM_TDX_CPUID_NO_SUBLEAF));
+>>
+>> I think the WARN_ON_ONCE() is very likely to be triggered in the future when
+>> people run old kernel with new TDX modules.
+> 
+> Then upstream patches to make that not happen.  Intel insists on treating the TDX
+> Module like hardware.  So, treat new TDX Modules like new hardware.  Upstream
+> support for the new "hardware" before it ships, cc'd to stable@vger.kernel.org
+> if necessary.
+> 
+> Because IMO, the WARN is doing exactly what it's intended to do: alerting the
+> admin that they are running a potentially dangerous setup.
 
-Cool, can you send a patch to resolve this as you obviously have a
-reproducer?  Same tool that made the reproducer can make a working patch
-and test it out.
+For this specific case, does it mean every later patch to add a new leaf in
+cpuid_function_is_indexed() needs to be backported to stable?
 
-thanks,
-
-greg k-h
