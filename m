@@ -1,74 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793111067;
-	b=Mf0YCZta4VFWmQc5y9/MVF+KGNJyxgtWStn76k8ci0v+gcfiQye8pcwo4rfbhlJBt7Xc
-	 Gf5shJ9NhagdrAsIQX6qvTl+I5ttigZI47bEaXCyAmQmI3t704TMS4J3cYcT1dmKbrzBb
-	 DsSLSl3Uba4klfDWBaXlDnDEt7FaIf1wP64vlrPFzDO+CB6qdcGhrToXJfiGiZPYCxD7n
-	 3o8LC821C7bx2nWrBU5wT+JBtpZDz8UcPqJULORIJAwtaEoGDrZWM4NyyhQpPPrv3RlDb
-	 iaHRKBMcI69DiaTFiSiAiIP+RwMrgcSVV1hUGOT/cjJAlKWDictv6qFk0vVDoQPdXCQ==
+	t=1793111079;
+	b=lFd81Mksjl61WckDCwT4mvx6RRHNqUajUP3Y34pW4IiCLSlMYjQUCOQtzKlpmzsJ84q5
+	 Pk56HtZ5j39vc3nRKOfPak1SXM80nImo7KFELAOi8y9DbW9WWK1sfjFM4Hfdz2jprVWuW
+	 uFe4Bn0G2rwmGQ+apzwllyCtCpaQk4T2NOZR6P4yoQKVt+qaajcCrSnusgk4GTdqiKNbJ
+	 mTyreXIlTRcnzFSLdYgh0eppYmImuT3wPbf955f9AwH4A6U/wKN0x5KeqWrgYGMjoYRD7
+	 qm9yapqHpFkEXh9WQKeBD7TY7AXCrvW3ih2nDWS732dOoaVkT2fflsdZ9JHQfayfm5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793111067;
-	h=Received:DKIM-Signature:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:
-	 X-SA-Exim-Mail-From:X-SA-Exim-Scanned;
-	bh=jwywrlpki9bMHHIBRrQFn5CCln+QEbHNkdjd7saLhsU=;
-	b=NZHSMDdLWOlhNiOSfC+chGeR8LRczxyWtlgxPMV/kbbBpDLCR/0+luBGBmWrIQ4yHRDh
-	 Oq/3Y+oubzgCl5xpFfakvfeBjAvHQQuFdK8bV+GNfFxPCgV9Mk9HDugdVBEueef3zjmtg
-	 LgBXyT9M5p3kyaOohBbm5+Sb/6x2Qh8Xpy+5w8w8QgJUX5TMiNY52wJ1nCGbj6iizhOB3
-	 zVGF00zl0hHHt7Pmv3y2cIZIVTQHvgm0HuoB+/HquyT9n0Rsx+i9YT+nCMyef48m35Ex8
-	 4VKRRIM7WddPpibLge6oiJ09X38U7qA16ZVQuVpi9UD2KFcrud0QYApWDk1Tdx8+sFw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793111079;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=IkPxJXmtiqMser+kPyM3Frb14w4G6irRRFb+HTaDxFc=;
+	b=2WNrdWxoc4jetNJS3xR4SKBYS5cFf2iCiURszlsjltoFSUMx76MULl0fFJTYbMjxnIg0
+	 aqVX9cuiQDCzkmty9beww4Iz4brQ2YMivfubEolhOMfO/jL25cnnDEfkNvrOmzBBmi7i1
+	 b3s+oA2Br0w4+MqXpYVWWgeL06yGY8Rx6LMfvFpctFY/mS4sc+BasgoGanKiBjNOFdvko
+	 K3/o4pdDX/pxBehNSZGbVUDg5GxhOrnYqhbGIAHh2ed0fn2TAcnu9JjzehmT77q3QC1RF
+	 s/8VDQb5lAI5B08m+swSNECh6D2IMPY0YT4EeGt7q7ahr4dr0TLejnPi3Fy6JFPjTBQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UrCfeUe+;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=F1DbnHuS;
+	arc=none smtp.remote-ip=209.85.128.43
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9478606A31B;
-	Tue, 27 Oct 2026 14:24:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DB22606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 14:24:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5DB22606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UrCfeUe+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BCC41F01829;
-	Tue, 27 Oct 2026 14:24:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793111067;
-	bh=jwywrlpki9bMHHIBRrQFn5CCln+QEbHNkdjd7saLhsU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UrCfeUe+fb3TmiBWvrRfzazy9kqW+cw4mJpuRy/iD27QfDHrJs+CYjvuCemQ1D9LU
-	 KzBvECnAI1cG7LQLmeBcRdRb9qC+PlPw+WOPTp8C8cSMMrq3uAjgMmbG5e6W+rTOoS
-	 IvJgLkhR4dcp848RYdR3/+yOQCKMvvpAmPxhe7BwbRbOoukZNovKujzpyc+cU2NZw9
-	 bi16C2AYxa+UTIZV/jKLDxHOma+ijQ03hAPR40Bq11z+EbBKGtIOd6hoxCdKZJKQnC
-	 Agd6K9KO0iXA9NZvxMkf6xViYvnO8A5QBdw5ctZjjgjzJO5InPQ/cwIQWsexqLhR7V
-	 oAtq4FBvcV2tw==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=valley-girl.lan)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xLi6C-00000007k8T-2lj1;
-	Tue, 27 Oct 2026 14:24:24 +0000
-From: Marc Zyngier <maz@kernel.org>
-To: Oliver Upton <oupton@kernel.org>,
-	Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Thomas Gleixner <tglx@kernel.org>,
-	Eric Auger <eauger@redhat.com>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Will Deacon <will@kernel.org>,
-	Sascha Bischoff <Sascha.Bischoff@arm.com>,
-	Sebastian Ene <sebastianene@google.com>,
-	Yuan Yao <yaoyuan@linux.alibaba.com>,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=F1DbnHuS
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a3517554f7so30094455e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 07:24:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793111078; x=1793715878; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=IkPxJXmtiqMser+kPyM3Frb14w4G6irRRFb+HTaDxFc=;
+        b=F1DbnHuSrCNo1Wf9WZzJ/XM6oVhLF8n7GttPUMUJ7Om8/L9vVb6/gx+7OHmExUZX2U
+         OgsIFMJ3I1oHgkW5/eRNmHGxfaPFDarJfkC9+eoYEMYnKj/KHlX06hYd7Jd1Z21lSLtW
+         2Tr3BzckbkcVBYMSkHMA29BVz9a0vNcI0pO4DyB+Ng0zbyPa5qPaUBWGA/ZXTh0FiXE6
+         C0ZdewMp4jsbkIwvBHhUOcdlqHbt8m+tZg13wiiyZM/gQL19IaTcFHOLPxvixWFBcgRa
+         49PdnckWQ2g0vrlmalo8t1EnusTNLLN48Awkjt06KhkuVMWup+qp1dXAiQs9co39cpRW
+         9yGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793111078; x=1793715878;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IkPxJXmtiqMser+kPyM3Frb14w4G6irRRFb+HTaDxFc=;
+        b=11kvR7vRDCznU7cUWLPTtl+YvN14CTWCqcDy7qi+ivfiXModjGjLGaFpGvVteQjoq0
+         QF8DEidKCfC16S0/KphEoHLBo7c+47gTrStugKqgKxwJPK4g/eGhBW7OeddHpayp4tfL
+         ZwE3YgvSgNT6PyGG2qxSQwao0IhEwfAkrcHFYgYc5hDGUPYwY8QRr0H3XF5uGbX3P0Cx
+         9vMS4VGy3LK2XsNM9TUFFsSyqy3smworyhNUs56E1ml4qnqH5RvEWk/Mw/Z34iGWaA4h
+         FnTkEsLY3l5zoFmoHtVHqyxR6a8n8fk0X4M6ivF8KcVjV0qPlKI68wFP3FlJmKN0vaFF
+         oYgw==
+X-Forwarded-Encrypted: i=1; AKwUvBxU9AYYEK0vwAK7OS5sNUhV0HanjKxl643SgF+aPTVhK67FbT+EDC1xtbIL8qjxke0Z05qYvi85n0S4EAo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIBCU70MNP9CAxKwt7LmsXucP68C5AE3MBNV16pXlDYcCJp1Vk+
+	h0iJXruzml+BKX55NfeGKv3k2MonXpRgW38UdB56WSx22//a/Mv/84op
+X-Gm-Gg: AYBFou1TERYhbWJo33xn4QPj84wpqDCnFeFZOogqusSAWoYnE2hsiHMn1tZCCNxegRB
+	SFK2ascMGF1YBwC74KrEc8dfHGinCOBIr3L1cSrlyKANah5kUwKf25xfrPejxfOOKhveoY7r9Jl
+	epZz37Xn4N/ehRyYe/+H3/KkEhO39PQQ7iT1wnRxxH2qAPfmcmzwdUp8GWr5S1xEyXFLbcFKrTo
+	tg9wrwzsQGAJRMY0jsyDm/PmeukmUxgAuVM2X1MEn2XC0Bhjrw8gOnkdm1Oz+wQ/McEAtHNh93N
+	RuB+Im28osBb/vIxv6p2QhO6bc+xE4w/DVcN/qT5VlvA0mAZuZq3NCsJC0OiJCi1Um31w9AZwX8
+	Sf8eHdjxMNIdu0j7s4v4Vgc+iyNbhck8UWqS/8EAyOJAf2qqdp/Efp9Ikgw5vOhtPNkZlavjMB3
+	UoHvlc2PnV8pVABpRNePx9CNL2rJlaSnxCdJI6iYESw2Je9HE32gMBj/3rgqvpyF4rwOnJJYxWd
+	5AVwJ00WbjVJWBfLUx/xZB7rMsPmRcEb480RZUZ7cQQGhAnphBAjpSeeWM63RG9E5IP8jKVRbBu
+	4Xfp7d4XTtU6+26yVxOSvFyWUzjhKu3qvDyQHKo=
+X-Received: by 2002:a05:600c:37cc:b0:4a1:a6e0:4ce4 with SMTP id 5b1f17b1804b1-4a35acb990emr193736245e9.33.1793111077331;
+        Tue, 27 Oct 2026 07:24:37 -0700 (PDT)
+Received: from [192.168.1.253] (4E5C72DA.dsl.pool.telekom.hu. [78.92.114.218])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a55e9aasm279010885e9.5.2026.10.27.07.24.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 07:24:36 -0700 (PDT)
+Message-ID: <d451b9a185817c576ebb7943a604fd1952470412.camel@gmail.com>
+Subject: Re: [PATCH v2 1/2] drm/radeon: process the VCE interrupt on SI and
+ Trinity
+From: Timur =?ISO-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Matheus
+ Tagliari <mptagliari@gmail.com>, Alex Deucher <alexander.deucher@amd.com>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 0/4] irqchip/gic-v4, KVM: arm64: Fix the vgic init error paths
-Date: Tue, 27 Oct 2026 14:24:22 +0000
-Message-ID: <179311103723.2732161.15358895757190897834.b4-ty@b4>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260921072958.2918477-1-fuad.tabba@linux.dev>
-References: <20260921072958.2918477-1-fuad.tabba@linux.dev>
+Date: Tue, 27 Oct 2026 15:24:35 +0100
+In-Reply-To: <6e0b5af2-692a-4b2f-ae20-9c164e7e42ed@amd.com>
+References: <20261022114754.865669-1-mptagliari@gmail.com>
+	 <20261022114754.865669-2-mptagliari@gmail.com>
+	 <88c61950-125e-4109-955e-ce09ebaab7af@amd.com>
+	 <0c7e45a13fb78064390818bb501e754b62f16f6e.camel@gmail.com>
+	 <20261027001506.27266-1-mptagliari@gmail.com>
+	 <6e0b5af2-692a-4b2f-ae20-9c164e7e42ed@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,40 +108,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: oupton@kernel.org, fuad.tabba@linux.dev, tglx@kernel.org, eauger@redhat.com, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, will@kernel.org, Sascha.Bischoff@arm.com, sebastianene@google.com, yaoyuan@linux.alibaba.com, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Mon, 21 Sep 2026 08:29:54 +0100, Fuad Tabba wrote:
-> Changes since v2 [1]:
->   - Patch 3: a vgic_v4_init() failure now frees only the SPI array,
->     since that function unwinds its own state; the teardown label is
->     for the routing failure. (Yuan Yao)
->   - Rebased on kvmarm/next, where the routing failure already tears
->     down the GICv5 state. Patch 3 moves that into the shared label, so
->     the SPI array is freed on that path too.
->   - Collected Reviewed-by from Yuan Yao on patches 1 and 2. (thanks!)
-> 
-> [...]
+On Tue, 2026-10-27 at 11:21 +0100, Christian K=C3=B6nig wrote:
+> On 10/27/26 01:15, Matheus Tagliari wrote:
+> > Hi Timur, Christian,
+> >=20
+> > Thanks for the input, Timur.
+> >=20
+> > To be clear, I'm not opposed to a backport. Fixing VCE1 for people
+> > stuck
+> > on the radeon driver with an LTS kernel is exactly the case that
+> > made me
+> > look into this in the first place. But my goal is only to help, and
+> > as I
+> > said before, I do not want to push a change you don't want.
+> >=20
+> > Christian, if you'd rather keep this out of stable, I'll drop the
+> > "Cc: stable" tag in v3 and leave the decision to you. If there is a
+> > specific concern behind it (risk of regressions on other SI/Trinity
+> > parts, say), I'd be glad to hear it. I can also try to address it,
+> > for
+> > example with more testing, so that a backport can be reconsidered
+> > later.
+>=20
+> I was part of the Trinity bringup back (I still have the engineering
+> sample here :) and I filled a full swear jar bringing VCE up on that
+> HW.
+>=20
+> Interrupts were definitely not working correctly back then.
+>=20
+> I have no idea when they were fixed but I want to avoid that people
+> start streaming that this change made their system not boot any more
+> and we are forced to revert a patch on stable kernels everywhere.
 
-Applied to fixes, thanks!
+@Christian
+Are you saying that you are worried about the backport because it may
+regress Trinity?
 
-[1/4] irqchip/gic-v4: Clear the domain and fwnode pointers after freeing them
-      commit: 1fbdcc13ab303987048669c73134352ef5706666
-[2/4] irqchip/gic-v4: Unwind what its_alloc_vcpu_irqs() allocated on failure
-      commit: 6b44f7777ee826360714044b1a82fbdb1388304c
-[3/4] KVM: arm64: vgic: Tear down what vgic_init() created when it fails
-      commit: 25993ec8c5bb30baa746936d7a76f03c58150927
-[4/4] KVM: arm64: vgic-v4: Restore nr_vpes before freeing the vPE resources
-      commit: 99ec74a33d52219f57cc61a2bc7bd5114cc997b0
+@Matheus
+Would it be possible to only use the interrupt on SI and not on Trinity
+so as to alleviate Christian's worry?
 
-Cheers,
-
-	M.
--- 
-Without deviation from the norm, progress is not possible.
-
-
+Thanks,
+Timur
