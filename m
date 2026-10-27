@@ -1,54 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793123588;
-	b=Py97XjF3AGCmCEASvFgiDLLzUTHa6EX2pKXo/tsKbWR52a41WxA8jk5CRcP3LlPGyr1s
-	 RuGSRgoxPc63aDnOf8n5+MpWi8qHO1x4eILYeVUVdD+u7IWQT7eDDWUebUy9ZQGO7vXp2
-	 fLjxY7PnK+ZhI5L2mj7Xy7ycPrUHgd3hsKfzi59PyXDg5pnHaOEMZkbkDGvkvLce4SjGX
-	 PkOM7sF+spP0ws/BjuefHco5KdmAl+7Z4nPcUvZggP97CXVmBv5foDUcHHXOHrSx14jeQ
-	 ghiTeUQK7pPGRDWJkBvIWiMpFyeBNC8Ke9raqV0kM+gxQiyyq8/gS+Y1ifFCBJuEwMw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793123588;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Mime-Version:
-	 Content-Type:Date:Message-Id:Cc:Subject:From:To:X-Mailer:References:
-	 In-Reply-To:X-Last-TLS-Session-Version;
-	bh=b3m0F+WvDuJINnJ7GkvHTx0Xqp13L22xT4XAuXwi3ok=;
-	b=BQSP931tJhBnHbimsuZITLwGdrx6xr733rztaeSbGVTEdPAq8u155Y2eE9C8Gf5zfnU9
-	 NVVeqClPB1Qs7HiazY+aYEk5tmsQMeMd8pCsutf0yGHKhzq9IlXx7zPZwnFrTfqjykn4B
-	 6MeEnEE6/XOWOHUaiJq9/CXdf1i365FYvI7eh9E2b3VlENsER+6D02VaEmsaDdR009bvv
-	 iaXygzuwUbCOj+/dWE+hTDOJijTAAMpR+53Wwvk84j0TWyALfPLBMUFkG+YLA07MyvxrV
-	 0o212GxkS5awS5s9NSGbZuhLRMU+GQb1je8VOtSaLRZl+qnhHLvdq0AgEuHHKTK9GTw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=k8I5eHhx;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.41
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793123600;
+	b=A8Jzc4VCTWaIndEaxImAFiXvGDwMaVv7rlu9ow/MKEFVlq3T+rM4d207+B6JTdxlVush
+	 l2F0htjIXkICdKbnH6dIQ0wBepHR9RJ2/rw+Vl9HoN2LoS8O00hGAwn0RCnPmIX0+pDVX
+	 ejXeJT98CHgdGEIfoSJ41Y4zVhBYAvsAMrnwmfhw4guapWAn3xnWcLmCc09XUpSU+nYmU
+	 DcjJcyL9YwNqCoDMpw5nH/PjeuV8XA0J2rBgnhNAzCdZPG5cU9vLljjxb/CY+jttitdOO
+	 R8nah7lBXk7lue5RuMnuLxeJaQoBaLdy8v+u9b3hI4zmcj0wjCEosQG1XVunypkRiPg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793123600;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=eZ7BfEA5+mgPjgQ08MRW3gJSoX82BS/9Z3gx++ZKTBg=;
+	b=4AzULw92PHUx7dHCRsI2o1DvFeaogz2YMZueopzNQ0PCQR/o/ecWfrLEk+6qaBJ0RJEk
+	 8y0MRnFCbyQ9O31ior3Uej3IFkv9ARnaH727vXiYs/GwUNTWjuVhjdHMT0IWNOlF+Cxi6
+	 1YsrQaA2RXKXufuz66dv3Bq4dP6AlMgDPxTHFMwGC0nmPcp2YEcFFxtkcpTmYZ2h7HYa1
+	 gaenApW0oFmbVjtQpdeC9GHpvf2Uh2GEQMUwjQkF6HWvo1Lo6RJ2bIR093QpS8cPxdp5Q
+	 tivX/Q5PrC1SuChy8VyxgYU0+wD+2xXTpf+vYKE6YY1Jx/qlEkVM4LWJq3Hul7ItUyw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=inJR6ox6;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.41
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E06D4606A31F;
-	Tue, 27 Oct 2026 17:53:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E06D4606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7A5D606A322
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 17:53:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7A5D606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=k8I5eHhx
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 99088C79AB6;
-	Tue, 27 Oct 2026 17:54:04 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id D887E603BD;
-	Tue, 27 Oct 2026 17:53:02 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D509F1032907F;
-	Tue, 27 Oct 2026 18:52:53 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793123577; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=b3m0F+WvDuJINnJ7GkvHTx0Xqp13L22xT4XAuXwi3ok=;
-	b=k8I5eHhxIwSbD6Mv8BfBl1QaWaWFOcWbwTOqJSkQth16cxa936Hx52QgdUzyWJQ/n4kcur
-	gJCY4sONExuYE9K4z0oRam20yS+jp/5YKoHVUN6g83mEYG44G8++o1o4nS6vXj9PDqR6eT
-	ClVhpeXa+9EjzvZo5+U0kX6pqJ0tLR73RaUPQNuXg+L+v9JBqYt1ZsbmJNNpfhY36NFrau
-	jKOoMOJi5lfBwp1fEFfHqRNneSv67OdGGLpuQ3lH/t7Q5IvvQXqRNtBGDCkfF+ZEQYOpHi
-	HEEp2Psgk5Q1qN0kdCLBpjYNUtYrSY1MKjh4Pe1EOWXZN82n3JfBWYcF6xwmFg==
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=inJR6ox6
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c38ac26cc5dso13487866b.2
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:53:19 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793123598; cv=none;
+        d=google.com; s=arc-20260327;
+        b=a9oDowei3J0KPFU3Tf9WQ26J4VOd121JlA55eRDqImE+KSGf1eVH+55MoznYKzn1N3
+         jhZBgCtKhzoliMrHYDl2xP42zGZEZDyfNRQkWdBRx/X8Xgq1cPSghl8WNyc8XLcGiemW
+         nUNxL4BCWYnKADXbGdPh02JbAo4l/sMZsL25GzTWXVBr935r4fySOZ6T6K2Sh634MFkW
+         USHHcZkzaD8JAld8O/pFYak33KpOFrZvTLNNqf/OU03bzQxBLzMUvzDpf9Ye3jvkIZQI
+         6m9R22OXCMgY1d2EJHCCdccbcMt7ChnwUjefITy1Md5o3NhUDHpZQ/EeXYwUdATi1c0s
+         O5FA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=eZ7BfEA5+mgPjgQ08MRW3gJSoX82BS/9Z3gx++ZKTBg=;
+        fh=X1rQMVwtlwQiOAAr7NkgRumm/QAqY04l7MtDhYHuubA=;
+        b=aqfEFZ0gPz4mThf3x2xIOZ1/GlG/XDvHXlYYgfbevn2a6UrI4+AVigR5/ltMzTDUYv
+         49E94qKKk2Jifl1p+R5PCrPd456oK+cChBGyOpLKd259uOpeoeHj581fFzEoE3Dntc/V
+         0YajqGSCkhTdaSuh0dp7APljAOxbyECk1UWD4urwMbAuwk7uOJuUraP9fOyLL/6Of5eL
+         7BSwv4PdbpYrZ4fS3qVBlnOsMDCj+GmDrWnYjcL5PfgUyx+4UcJ9bhHVIlzT2Qm2i/wZ
+         qyR5PSqsa15bM7hLBSpUBd7CGqR1uxxqV13m0sWawRu/yda/HUOKhU1KgzU1KWpCmqAK
+         rkHw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793123598; x=1793728398; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=eZ7BfEA5+mgPjgQ08MRW3gJSoX82BS/9Z3gx++ZKTBg=;
+        b=inJR6ox6aQPgzkJ0wZYiPBugaLW1/kUDoRUxznaXNPrxE2Wn3DkQl3afONPaEwO9sl
+         vnrt6FP9OFfRf9KWlwZNng3ZlaCrfp3bQxPXGc+Gx+AORrKLJ8WZpN9m6kJEM6IAqHPq
+         Jk4iMXPxJgkZqxRsoYIxQcD6CPbdcJbwTT1mEJs9Oh6VfooqjmJi5DvsYqRTbZ70S79m
+         W2gdT7rvplj4k08tnzQQgxgOTLo5uqZ4a0mScYBLYVaYMXTVeZPwvd3azNIWeu6/sXO8
+         zyeS5P1gD5N0vXZJTHB1IRGypOyTZEZWjLyDPXDDqsHxY4MhwV784zCuBQDBJ99Srvxy
+         lKbg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793123598; x=1793728398;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=eZ7BfEA5+mgPjgQ08MRW3gJSoX82BS/9Z3gx++ZKTBg=;
+        b=UQUnu8ALmKKVQI6IgQ6qV55PFjM2ZUlFzZ2ShCLAgwN5FpIIJGNwHPEwWfN8ZPHDap
+         FRZulWVDu9WWdjHpD0obdf69km1ZtiJLkFWOATNOtyfLGJe6OxdrBRX1tO0CnyiVZhe/
+         GHffz2F0wxT2Z+zcgojbENx4OuElCoILAo9vXz3aqmHOzl2pHA6YExd2C3n2ixqrl1Z2
+         NvaHBJ2KhxsAf8sdO8VJ7HDxJubZXK1kXIuaP/qShBl7Jf5nO2VfkgaaSOOWiL+rkNEb
+         2o6fFyvLWBkYl6hHJOjbPkp6ua/GnkFm7dtRMZlrdBV2gzoTV/vbkKof/rH42dmr5DqX
+         VYGw==
+X-Forwarded-Encrypted: i=1; AKwUvBzCrZpC1NhEVxXBSOUSHk7PzjtZerpngGhGzgEGOSUmuT0RTuyTYJWgFRnVnAtRQ13gMInr+PzgIBMeZ9E=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLKRoy0Jjo/K4LIKL0dGLvEKoRDaJuAMH1ic+aRHXBRCARCudXJ
+	MCc6oTG+s0la8KvwbVqoxcmH4V6qNvNbD7ts8Pie6Fo2XG+r9mKvhbQTdNwfIDwej1VcYdrR0Y1
+	c3c2hmc5uouiCWEWnKUfIVJT6g7LuDIBL9XYhhhSY
+X-Gm-Gg: AYBFou0AJeAVTyWXAy6tWmsCGGyOJrgi9JYjRd5EDiCD1WuvLgmNOe3luaQBu6nrbnx
+	yhYsRdtM0b7mpayrdHUMUolNO/6OZvL6BeiNQBQpQx1nAaEQwseYL9LqzEtijRflWX6Jl/yO4cL
+	WAyTO3FshWtrSZZu7KTI6fVIWU/IMAOwo/c8KCK+kd4R9OPhjqo36snQl5Fdgm4Qa6rl8LaqVF4
+	jGld5GSl2o5lfHN7hy0ptg+dqf5XXG4OeNOyAWXmF3pAYy5KY5pTbJsvFxFgc2yJ7iFV9oFLI8P
+	WO87FCSSQZty61kft56mGBxYmAbi5YLU6MtsCCWtrE/pcIror3EVrWQBbdSsPvnLE72pYAT0nN2
+	zs+F7wXGxmNs05HqmnT8jDEITZIi3yAeqF2gynz/EqewfUN/l16ylXDgbAJ7UA2sqhiu6c9bWxy
+	RdnKQwIQ3QqCZcL/ySn8xtqU8jJPX98VyyTb9Z+c95rCdlYfJvt3GNCGul7jYjM9dmbemiO4h5y
+	eozS32mskOGkA==
+X-Received: by 2002:a17:906:dc8e:b0:c31:e958:408c with SMTP id
+ a640c23a62f3a-c46bde8b464mr1159692166b.38.1793123597614; Tue, 27 Oct 2026
+ 10:53:17 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,188 +105,40 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=466219900224659f40c92d0c0f2d2ecfa86efcc1b91140ad1780941a0644;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Tue, 27 Oct 2026 18:52:48 +0100
-Message-Id: <DMFT97DWMREU.2S2E4MOTT54I7@bootlin.com>
-Cc: =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, "Rob Herring"
- <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
- Dooley" <conor+dt@kernel.org>, "Chen Wang" <unicorn_wang@outlook.com>,
- "Inochi Amaoto" <inochiama@gmail.com>, "Thomas Petazzoni"
- <thomas.petazzoni@bootlin.com>, =?utf-8?q?Miqu=C3=A8l_Raynal?=
- <miquel.raynal@bootlin.com>, <linux-pwm@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <sophgo@lists.linux.dev>,
- <linux-kernel@vger.kernel.org>, "Jingbao Qiu" <qiujingbao.dlmu@gmail.com>,
- "Krzysztof Kozlowski" <krzysztof.kozlowski@linaro.org>
-Subject: Re: [PATCH v8 0/2] riscv: pwm: sophgo: add pwm support for CV1800
-From: "Thomas Bonnefille" <thomas.bonnefille@bootlin.com>
-To: "Hiago De Franco" <hfranco@baylibre.com>, "Thomas Bonnefille"
- <thomas.bonnefille@bootlin.com>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20250509-pwm_sophgo-v8-0-cfaebeb8ee17@bootlin.com>
- <auCsaQt0kda01tZ4@hiagonb>
-In-Reply-To: <auCsaQt0kda01tZ4@hiagonb>
-X-Last-TLS-Session-Version: TLSv1.3
-
---466219900224659f40c92d0c0f2d2ecfa86efcc1b91140ad1780941a0644
+MIME-Version: 1.0
+References: <20261026215226.3713941-1-jthoughton@google.com>
+ <20261026215226.3713941-2-jthoughton@google.com> <1ee97e9e-3658-41a7-a879-348f51ab547d@kernel.dk>
+In-Reply-To: <1ee97e9e-3658-41a7-a879-348f51ab547d@kernel.dk>
+From: James Houghton <jthoughton@google.com>
+Date: Tue, 27 Oct 2026 10:52:40 -0700
+X-Gm-Features: AclHuK_7gnb7g4GjAy_SA5zcAxXhabVZixR-oCAtO-qS-tkfEqOEG_LlV9pvyY0
+Message-ID: <CADrL8HVgOYb1hzWDJzm4sCrEAR7PL1xBv-1zTGebTusPoDsGXQ@mail.gmail.com>
+Subject: Re: [RFC PATCH 01/10] scsi: bsg: Don't copy sense data to user memory
+ when canceled
+To: Jens Axboe <axboe@kernel.dk>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Thomas Gleixner <tglx@kernel.org>, Peter Zijlstra <peterz@infradead.org>, Kees Cook <kees@kernel.org>, 
+	Arnd Bergmann <arnd@arndb.de>, David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+	Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Jim Mattson <jmattson@google.com>, Pavel Begunkov <asml.silence@gmail.com>, 
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
+	"Martin K. Petersen" <mkp@kernel.org>, David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>, 
+	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	John Fastabend <john.fastabend@gmail.com>, Josh Poimboeuf <jpoimboe@kernel.org>, 
+	Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, linux-mm@kvack.org, 
+	linux-fsdevel@vger.kernel.org, kvm@vger.kernel.org, io-uring@vger.kernel.org, 
+	linux-scsi@vger.kernel.org, linux-btrfs@vger.kernel.org, bpf@vger.kernel.org, 
+	linux-trace-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
 
-Hello !
-
-> On Fri, May 09, 2025 at 11:45:42AM +0200, Thomas Bonnefille wrote:
->> The Sophgo CV1800 chip provides a set of four independent
->> PWM channel outputs.
->> This series adds PWM controller support for Sophgo cv1800.
->>=20
->> Signed-off-by: Jingbao Qiu <qiujingbao.dlmu@gmail.com>
->> [Thomas since v8]
->> Signed-off-by: Thomas Bonnefille <thomas.bonnefille@bootlin.com>
+On Mon, Oct 26, 2026 at 7:41=E2=80=AFPM Jens Axboe <axboe@kernel.dk> wrote:
 >
-> I see this series is abandoned. I worked on a patch to enable PWM for
-> cv1800b reusing pwm-sophgo-sg2042.c driver [1], as Uwe asked.
->
-> Is it ok if I take over this patch?
->
-> If yes, I will wait v7.4-rc1 and send the new series.
+> Reviewed-by: Jens Axboe <axboe@kernel.dk>
 
-Yes of course go ahead, I already worked on something like this but never
-had the time to send it :
-https://github.com/Taumille/linux/commits/b4/pwm_sophgo/
-
-Best regards,
-Thomas
-
-> [1] https://github.com/hiagofranco/linux/tree/v7.3-milkv-duo-pwm
->
->> ---
->> Changes in v8:
->> - Rewrote supported frequency
->> - Hardcoded HLPERIOD_BASE and PERIDO_BASE
->> - Change usage of update_bits to set/clear bits when needed
->> - Rewrote construct of enablement of PWM
->> - Fixed OE activation
->> - Fixed hw state modification in case where pwm value cannot be reached
->> - Renamed variables
->> - Errors out for new cases
->> - Reworded some comments
->>=20
->> v7: https://lore.kernel.org/linux-pwm/20240501083242.773305-1-qiujingbao=
-.dlmu@gmail.com/
->>=20
->> Changes in v7:
->> - add detailed Limitations
->> - using BIT(n) instead BIT(0) << n
->> - use 0 instead of disable macro
->> - modify OE judgment criteria
->> - add devm_regmap_init_mmio error message
->> - delete unused variable
->>=20
->> v6: https://lore.kernel.org/all/20240406063413.3334639-1-qiujingbao.dlmu=
-@gmail.com/
->>=20
->> Changes in v6:
->> - delete the OE function because we plan to use the counter subsystem
->>   instead of capture, so there is no need to reuse this code.
->> - fix set polarity reverse error.
->>=20
->> v5: https://lore.kernel.org/all/20240314100131.323540-1-qiujingbao.dlmu@=
-gmail.com/
->>=20
->> Changes in v5:
->> - drop filename
->> - fix macro
->> - optimize cv1800_pwm_set_polarity()
->> - optimize cv1800_pwm_set_oe()
->> - add comment for cv1800_pwm_set_oe()
->> - use ticks replace tem
->> - fix duty_cycle larger than period_val
->> - use devm_clk_rate_exclusive_get() replace
->>   clk_rate_exclusive_get()
->> - map linux polarity to register polarity=20
->>=20
->> v4: https://lore.kernel.org/all/20240304085933.1246964-1-qiujingbao.dlmu=
-@gmail.com/
->>=20
->> datasheet Link: https://github.com/milkv-duo/duo-files/blob/main/duo/dat=
-asheet/CV1800B-CV1801B-Preliminary-Datasheet-full-en.pdf
->> page 614
->>=20
->> Changes in v4:
->> - use macro instead of npwm number
->> - add support for polarity feature
->> - add support for Output-Enable/OE feature
->>=20
->> v3: https://lore.kernel.org/all/20240223082014.109385-1-qiujingbao.dlmu@=
-gmail.com/
->>=20
->> Changes in v3:
->> - use 0x08 instead of macro
->> - split if statements based on conditions
->> - in order to round up, first calculate the
->>   number of high-level cycles, then subtract
->>   it from the PERIOD to obtain the number of HLPERIOD
->> - use new pwmchip_alloc() API instead of old style
->>=20
->> v2: https://lore.kernel.org/all/20240212121729.1086718-1-qiujingbao.dlmu=
-@gmail.com/
->>=20
->> Changes in v2:
->> - drop full stop from subject
->> - re-order maintainers and description
->> - pass checkpatch.pl --strict
->> - fix naming errors
->> - add "Limitations" section
->> - use a driver specific prefix for all defines
->> - using bool instead u32 in cv1800_pwm_enable
->> - check and set state->polarity
->> - use mul_u64_u64_div_u64
->> - use clk_rate_exclusive_get(), balance with clk_rate_exclusive_put()
->> - using macro definitions instead of shift operations
->> - remove shift operation on 0
->> - use priv replace cv_pwm
->> - hardcode npwm
->> - set atomic to true
->> - remove MODULE_ALIAS
->>=20
->> v1: https://lore.kernel.org/all/20240207055856.672184-1-qiujingbao.dlmu@=
-gmail.com/
->>=20
->> ---
->> Jingbao Qiu (2):
->>       dt-bindings: pwm: sophgo: add pwm for Sophgo CV1800 series SoC
->>       pwm: sophgo: add pwm support for Sophgo CV1800 SoC
->>=20
->>  .../devicetree/bindings/pwm/sophgo,cv1800-pwm.yaml |  45 ++++
->>  drivers/pwm/Kconfig                                |  10 +
->>  drivers/pwm/Makefile                               |   1 +
->>  drivers/pwm/pwm-cv1800.c                           | 294 ++++++++++++++=
-+++++++
->>  4 files changed, 350 insertions(+)
->> ---
->> base-commit: 0af2f6be1b4281385b618cb86ad946eded089ac8
->> change-id: 20250407-pwm_sophgo-5032b3858c27
->>=20
->> Best regards,
->> --=20
->> Thomas Bonnefille <thomas.bonnefille@bootlin.com>
->>=20
->
-> Best regards,
-
-
-
---466219900224659f40c92d0c0f2d2ecfa86efcc1b91140ad1780941a0644
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTQT2V0EKPIM2RnVpHcsfBJI7PEOgUCauDk8AAKCRDcsfBJI7PE
-OgofAQDybuOAzQehyj4uWoDlxxAhJvgAFUSOFKewcZ3kbWlx/QEAv1EmaRDiVfoW
-l/I1vmcaueNFxv6Vc3wZOvObW7w9zQM=
-=5e20
------END PGP SIGNATURE-----
-
---466219900224659f40c92d0c0f2d2ecfa86efcc1b91140ad1780941a0644--
+Thanks, Jens!
