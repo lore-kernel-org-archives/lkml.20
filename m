@@ -1,47 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793082003;
-	b=PyF5N8+bak/CcYrVTLUuXXJE9t/dYQDn20485x1nYCawy21dc4o7vxUrgil7xlk3JPw+
-	 0uEEwYCQdSjSdZE4XYUX3HHt4Y6JrVGR9ltylTJtkWMhkRLovRvbOWfNMaHeL++ixsnYf
-	 zM0Hi7parxMCKXQ2KjAzF6vjU7oEpF2LsVYKwXynY8wur8KbdIjux2OcsMajh09P7ryt/
-	 JjV4mPzyvTMPN76ApVipiWhpAnJiDHDvJDel6jBmyKTZ85jz2UBvoatqGfcJrrW8VebYB
-	 U03jUhOAfdQWbJQPhQ3ccCNvzp3bjn5WdvttpA7W6dhbIJTtVhrqbKlxuhXIqRNJViQ==
+	t=1793082017;
+	b=sYeC7BbHi7ZtCh5MqEfTSU7PdfJoM6L3msSqZzbKVRgIBU1ONbhThCZTJ1WEHtyjr8aa
+	 9vPFR64Ha1diM+/wVm5VKQI0TtQVhSezyPz6RMHmv6qu5Jhou4+BdW4dRP22MfeBObVKj
+	 /E6BSBXpwPTia4VcUxSt3OH6b9DC0GoZi4S+DDncZn+x2XkA79nxgqQ9PrugpQd6eeFZT
+	 u8HdlcZQ+7Ay5QmtxVrP+5pfY2N3ZiRaVSv1OALNOdQ1ToZZ9GhQwR29BXwrXmdtM3JxB
+	 NWHXZyVa+QOGXzlcMY3/yB7cbj6pWfZ3ZrcGC06QdX5R3dh5AOsFqGq5VhEmxUQQWQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793082003;
-	h=DMARC-Filter:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=NsW9lqP6rABMoATa428JGCgkGiH4+5hriuKAYji82aA=;
-	b=IU/MYosYRJiEspjeHV6+shZnea6w/PWB3NP7sAEE9Dem3EMLptEM6D+gyMAJXoVheIH8
-	 AvMs6DlwDUUKsH2yXRGL7AJwxUeforeAwnN9grqEN+4FhhP+GwI1qh1NLwgOoQYqhpiZT
-	 mrfZ5raxLDgeQtjMg6X1D6tkVx/RdvG36mWpiXVn9YTx1Iak80hwNAlQaUI1Wo7bWcLB5
-	 2tZxiKYRtC0/ivsX9x/wSJEYhKGKB/c805hdz+FZ1mVKbNPLxOmjuYNxkdcdWvz1UBYGn
-	 MwWYDXeF/9k12oIFZ4E2OyPgbEfBskrOKdN6n4GBcmzBM/wWFHF25uLBPr+j2xUWlGg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793082017;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=D0qXlGYkhUaQu3BXG9i/Wn1oOUp7K31Eb/rzZABKwDo=;
+	b=jcJ+dJFaui1rbhfDmuyfKgrZEHuizrs0gA5IRciqpg480pBfIWyTLCk9BKVBM0USR/tn
+	 KgUxoBHIJeYE9wi4IbOagNMr4okSHyhHTTby7II8nQt6Q7JZq6w9W3umhdfO/6EUmS1LL
+	 ToVMtNnBsFTY9TJSs83AZMzJdeAf1SJwYL89ekOVCfIlvADLRmepyPJyVYwie/u9reRC5
+	 U3wlrAzEIxNrjkwaOHc2EPaYVgwS5utXWI0H1eGOoMfZWbwDmdoyQanGgPINdabjNKnFg
+	 dxD5XC4QOGn9EGAgQa6lgj3fnTgDrsbvEh359QJYRu3l3BnDKVTKg4yWAl86Dxtlvlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=DigoBkXs;
-	arc=none smtp.remote-ip=117.135.210.5
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=jPtPxjwi;
+	arc=none smtp.remote-ip=220.197.31.4
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F21C1606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 06:20:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F21C1606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E97D606A31A;
+	Tue, 27 Oct 2026 06:20:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E97D606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=DigoBkXs
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=jPtPxjwi
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=NsW9lqP6rABMoATa428JGCgkGiH4+5hriuKAYji82aA=;
-	b=DigoBkXsNqAKLX3yBrfwVo+oigu/g0PhI7nZ7zmgzj8H4D+ovzSbBX07WLfqrU
-	ubmyJygVIdn9IEVtoINC5snWE3oNMEM4+R93F5dvXKr2KRQ4lC4syhSL3Ty1zAZO
-	GGPsdVZEcq4HhC1LhtK8DGSu2OsjaMJk2K2KpPN7r+CdI=
-Message-ID: <02ba24ee-7428-4729-83ee-357e05c84233@163.com>
-Date: Tue, 27 Oct 2026 14:19:38 +0800
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=D0
+	qXlGYkhUaQu3BXG9i/Wn1oOUp7K31Eb/rzZABKwDo=; b=jPtPxjwit2x6XTQZmt
+	H8aym7fgDWaGtCJgvhC30wG1UnHokG3JB2oZKyUpwfhzkypFXzrGIjbvvPV2GivA
+	csiQWOCodYfH0No5IYc7p7obxUPbf91YK7x3tDT9f8+RL0ux70uny7omAIv+L6SR
+	hufP28m5bhSe2b22u3dCd9xgk=
+Received: from pc.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wD3bweXQuBqPxjOCw--.9144S2;
+	Tue, 27 Oct 2026 14:20:08 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH v2] regulator: core: flush deferred disables before suspend
+Date: Tue, 27 Oct 2026 14:20:07 +0800
+Message-Id: <20261027062007.2226548-1-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,56 +60,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 06/31] ntfs: report required system file and volume
- metadata errors
-To: Hyunchul Lee <hyc.lee@gmail.com>
-Cc: linkinjeon@kernel.org, ntfs@lists.linux.dev,
- linux-kernel@vger.kernel.org, wangxuewen@kylinos.cn, wudandan@kylinos.cn
-References: <20261020084421.2196486-1-liubaolin12138@163.com>
- <20261020084421.2196486-7-liubaolin12138@163.com>
- <auA7imuJoZKDGzpa@hyunchul-PC02>
-Content-Language: en-US
-From: liubaolin <liubaolin12138@163.com>
-In-Reply-To: <auA7imuJoZKDGzpa@hyunchul-PC02>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3f4l7QuBqJbJeDQ--.37379S2
-X-Coremail-Antispam: 1Uf129KBjvdXoWrtFy5Jry5ury3WF4kJr18Zrb_yoWfWFc_Zw
-	1j93Z7Kay8WrWUZ3ZxXF9IyrsrA3Z7Ar1rGr4vya9IkryktwsrCFs7Jwn3XFZ3WasFgF1j
-	yFnFvr1ava15ujkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUj0Jm5UUUUU==
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6RuBTGrgQns6pAAA3S
+X-CM-TRANSID:_____wD3bweXQuBqPxjOCw--.9144S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxXF1DJF45Zr48Jw4UJr4ktFb_yoW5uFykpr
+	W5XFZayr48uFyIva1Ykr47t3WYqrs7t397Zr97K3y3C3W3JF1xJF4kAry5ZF1kArykJrnF
+	yryDAw4kC3WUZFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UMpBhUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzRiJw2rgQphRUAAA3O
 
+regulator_disable_deferred() can leave hardware access pending while the
+system enters suspend. Allowing that work to run during device suspend can
+access a regulator after its backing bus has been suspended.
 
+Moving deferred disables to a freezable workqueue is not sufficient.
+DAPM uses deferred disables while suspending audio devices, and work queued
+after the workqueue is frozen would leave the supply enabled until resume.
 
-在 2026/10/27 13:50, Hyunchul Lee 写道:
->> @@ -1685,23 +1718,29 @@ static int load_and_check_badclus(struct ntfs_volume *vol)
->>   	size_t i;
->>   	int err;
->>   
->> -	base_ino = ntfs_iget(sb, FILE_BadClus);
->> +	base_ino = ntfs_system_iget(vol, FILE_BadClus);
->>   	if (IS_ERR(base_ino))
->>   		return PTR_ERR(base_ino);
->>   	if (!S_ISREG(base_ino->i_mode)) {
->> -		err = -EIO;
->> +		err = -EFSCORRUPTED;
->> +		ntfs_report_metadata_error(vol, -EFSCORRUPTED);
-> 
-> ntfs_report_*_metadata_error() calls seem to be repeated across serveral
-> functions. Would it be possible to move and call them right before
-> returing from the fucntion? Also, could you apply the same change to the
-> other patches as well?
+Mark the regulator core as suspending in the PM prepare phase. Flush each
+regulator's pending disable work before device suspend starts. Process new
+deferred-disable requests synchronously until PM completes. Synchronize
+the transition with the regulator lock so a request racing with prepare
+is either flushed or handled synchronously.
 
-Hi Hyunchul,
-    Agreed. In v5, I'll consolidate repeated reporting at common error 
-exits where appropriate, including in the other patches.
+Fixes: da07ecd93b19 ("regulator: Implement deferred disable support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
+---
+ drivers/regulator/core.c | 30 +++++++++++++++++++++++++++++-
+ 1 file changed, 29 insertions(+), 1 deletion(-)
 
-Thanks,
-Baolin.
-
-> 
->>   		goto iput_base;
->>   	}
+diff --git a/drivers/regulator/core.c b/drivers/regulator/core.c
+index 14422cfe80e2..160c588fbdd3 100644
+--- a/drivers/regulator/core.c
++++ b/drivers/regulator/core.c
+@@ -44,6 +44,7 @@ static LIST_HEAD(regulator_ena_gpio_list);
+ static LIST_HEAD(regulator_supply_alias_list);
+ static LIST_HEAD(regulator_coupler_list);
+ static bool has_full_constraints;
++static bool regulator_suspending;
+ 
+ static const struct bus_type regulator_bus;
+ 
+@@ -3463,10 +3464,15 @@ int regulator_disable_deferred(struct regulator *regulator, int ms)
+ {
+ 	struct regulator_dev *rdev = regulator->rdev;
+ 
+-	if (!ms)
++	if (!ms || READ_ONCE(regulator_suspending))
+ 		return regulator_disable(regulator);
+ 
+ 	regulator_lock(rdev);
++	if (unlikely(READ_ONCE(regulator_suspending))) {
++		regulator_unlock(rdev);
++		return regulator_disable(regulator);
++	}
++
+ 	regulator->deferred_disables++;
+ 	mod_delayed_work(system_power_efficient_wq, &rdev->disable_work,
+ 			 msecs_to_jiffies(ms));
+@@ -6327,6 +6333,24 @@ void regulator_unregister(struct regulator_dev *rdev)
+ EXPORT_SYMBOL_GPL(regulator_unregister);
+ 
+ #ifdef CONFIG_SUSPEND
++static int regulator_prepare(struct device *dev)
++{
++	struct regulator_dev *rdev = dev_to_rdev(dev);
++
++	regulator_lock(rdev);
++	WRITE_ONCE(regulator_suspending, true);
++	regulator_unlock(rdev);
++
++	flush_delayed_work(&rdev->disable_work);
++
++	return 0;
++}
++
++static void regulator_complete(struct device *dev)
++{
++	WRITE_ONCE(regulator_suspending, false);
++}
++
+ /**
+  * regulator_suspend - prepare regulators for system wide suspend
+  * @dev: ``&struct device`` pointer that is passed to _regulator_suspend()
+@@ -6380,6 +6404,8 @@ static int regulator_resume(struct device *dev)
+ }
+ #else /* !CONFIG_SUSPEND */
+ 
++#define regulator_prepare	NULL
++#define regulator_complete	NULL
+ #define regulator_suspend	NULL
+ #define regulator_resume	NULL
+ 
+@@ -6387,6 +6413,8 @@ static int regulator_resume(struct device *dev)
+ 
+ #ifdef CONFIG_PM
+ static const struct dev_pm_ops __maybe_unused regulator_pm_ops = {
++	.prepare	= regulator_prepare,
++	.complete	= regulator_complete,
+ 	.suspend	= regulator_suspend,
+ 	.resume		= regulator_resume,
+ };
+-- 
+2.34.1
 
