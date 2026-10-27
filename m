@@ -1,105 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=188.68.63.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793087243;
-	b=CLbs49CSbzmoUf+nXop5kGT2MfzZY6yCj70rO/MmLg82zm+vb+knfJ6RU2M++UO/adGN
-	 3nRFnQEf5sSs03HKw6PK03F02tsPXs6ZPbqYvN6Zfj3dB4FEv058hVJxm/0w2DwQY8VyC
-	 w//G9W+87ASn63RCec/hPnbHvI4igN8ZjXiToMCQfLRCmuQvx5LZnSZLx02NTBgLnFMeN
-	 Spt1mE6LVoIaG/V1D7X3jDDuSvnIMaljYt/5yQafBxeOQKk7CK9kQ3zs3LNi+05MMswb1
-	 T89qfSOuF6fvOhEFUZ7O16xP2n/8Jv5wuUpdww5zM7c1/YBaNe7ROnqP2ZlKHPHC49Q==
+	t=1793087275;
+	b=N3JhB/SlVFW+Kkwb2puhy117ZcW2qLoVghp/Z86AqMYwtu79g37SGKoZC9sgrh24r0fO
+	 7wR+93gRj6sZ3MWoJW/mK4E0T87LLWF1jNsmU0ZsaUO0YNeEHIGFFVshh+RJQucgPZIAu
+	 ye1aSp49LqrXRpBl1Sy1y/IV8xpE37BkcDD8vOegOQ0sgiBb8E3rJ8Y4RnzTuMtqPdrrQ
+	 mAopoGu4l8CC/0T/Jwp+aZ8BEUmezeq5uiaunkxTBnXr5J6AiN6j8dCzlVffqjqqsYv7c
+	 lgUj3+Y8tLtqxzXe48SDZ6RamPltvJiSoT9ZRxkg8fM8TvKxD3BmsuLtP39EezpBKrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793087243;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=t18E7UE4PFJI3gidN0TaBJ4kzWBHAiAbXIwjPN/F3kE=;
-	b=C5rzLyRIEgnx/DNQFw0HXHOMUONIV1daJ20mph/x2HI3dnC8plTGY++56EihZ23di4FC
-	 +HOXXjdz6TBKK59bV+s+WMJO9zsUyYMxDKG9tDjcwdEsyPTg6RMygO7aTICvqcNPrpifs
-	 /fDGjw5TpjBc57UubEGLBrAyiv3fLSIX930+zekRPD2o8en4fZ6wIMb/R1pkXWYcHLES4
-	 ucO3u+NRmKDgRmdAvFVK6mXbW7s8ne1jKtDCNdZfMy9J9NCD189Z3wzy61g5tZg1Skqnw
-	 h7GSQcxz1eW0RO5aWaGLUpwz2srknUcLT+2vIBO3o/0pd9CokiFoCHHjVLmkP6kVIhg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793087275;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received-SPF:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:From:Content-Language:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-PPP-Message-ID:X-Rspamd-Server:
+	 X-Rspamd-Queue-Id:X-NC-CID;
+	bh=aKhDAgzXXUmG46ol/nzjlLM0rzeGHEiKNZ1GatfrbYk=;
+	b=svKtmOJS4e1pAwUaRQqM+iN2gskW2KiWyZGb/TUcZpP87e+iAt3/1ZJ7Qq9UnPRASTm0
+	 ppyR26DlQcLhR3GAZay2inZQzEHn5wOfibGAVIpkHTDDNJkVs9HOwNuxC+TCmwdrl0a/k
+	 wDMR4+rfYhQzIRjJ+wcnTKyOf8L3y9g28AutWBbxLYYzLd7SLVMBUi2k8n32n3vVAakQd
+	 RUXkGiAx+c6Ov0ytiPoGUbT0plZaNVVuiKtvbwm7argHg3ScQv3Cw7RCxvJs9yfqMstzU
+	 di0HwgoHQYCDh0fZ5CgZTypfYfJ+ZM20Vxn81iIXgZitiL4D0q0hg0IibEAhh2tZwsw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=HKSspb2V;
-	arc=none smtp.remote-ip=74.125.82.47
-Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=leemhuis.info;
+	spf=pass smtp.mailfrom=leemhuis.info;
+	dkim=pass header.d=leemhuis.info header.i=@leemhuis.info header.a=rsa-sha256 header.s=key2 header.b="eldrP/xP";
+	arc=none smtp.remote-ip=188.68.63.174
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.63.174])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C1C8606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 07:47:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C1C8606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE11A606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 07:47:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE11A606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=HKSspb2V
-Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-1a2af4c8d00so1757402c88.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 00:47:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793087242; x=1793692042; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=t18E7UE4PFJI3gidN0TaBJ4kzWBHAiAbXIwjPN/F3kE=;
-        b=HKSspb2VGku+bFEsu7MaHWJXk8xw9WesXjKFY12EOgL24ZOYJRPi7TsNQxxggEqcJV
-         sba8zB68pBRCQ8XjEHh6czD6AupeAcA/ZiVBDWiBN6CNZLXNEuJo6Ai6Xg3viBVSlcvH
-         8PLcafu3CvlWFkFxl1ixwAFo0+6Buq4QfucwzGqew3WsjkSnK7am1bN9PZ9Vo0VxET3z
-         mt17j8KksNDacl3DlIxuxDwmMpoxDsj3K8OcuO/1Yue3TDIEX1HrbGNJraMut5VRFxrn
-         30WYBUdNacng1L5Lyqpl7o690coKuHSRIUiE8rAReVrATQ8gd7We0FZap98ZgQ2mJdg4
-         joog==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793087242; x=1793692042;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=t18E7UE4PFJI3gidN0TaBJ4kzWBHAiAbXIwjPN/F3kE=;
-        b=l0y0oWw4mAD5/pR9BnzhNO2vArLoWSs4kwqbpSPpQ2DLVpjyk1J2RWVPds6aTK8uH6
-         ktTUvwZQEUtKRj17TlKociaLlUwAXlRrG09P8KC/nV/EN1UDV/eQkwYZCqr1byDtw20j
-         hKlvTdd57R0tU6T0F5jMybwHI0ccJT5z/7dqkXAy5e0KU61wyO8ldtwpzoGWM6QpACpd
-         NCNbVA5ekPv7d1VLvmSPzoSmy7zAQSb7RbTjJfukxEDNQMq1Ydnq9yFY3j9PpRfBLL+s
-         RvpJTFQn4uovv1AgL6Xra1G84LSgXEGVshWBnC6vk6/By4PxZT54bmTNH4HYsKT/i0f2
-         Sg5Q==
-X-Forwarded-Encrypted: i=1; AKwUvBymm9gggLZFB6atUqiXtTHbytk3JbcMDEW6qpi4aMN4r65YQklDa4FU5eu5ng2MOl7BLsOdVXD0hiHlbFU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJLrGXUZZfb23TGaFxSt/D8HxT/CuxzW4w6p6mgOmq4h1/UftMk
-	XoO2iKZXzMgUHDPSxizt0dV7EmkWpPnX+prwvdWZ6VOKie1pBQ/pSmsX
-X-Gm-Gg: AYBFou1l54bo1y2ci2obs2I4jZkvhH4mmiSp4I3wrSvE/A69zgKGhhMvRctc/aX1GtR
-	F8/sIRhdXrTMCYXr79/tvcd29JqeyaqpXbwBb/VaIN19HfQJO0O3UbaD2diA99jQV5ogyd+VCWp
-	XPZOY3+ZH1Gnt7gbz6TI0EWbeYGfcyP7pecDIt2rBTAgmiOvjgefVQBQDIreJ7S2GpJebQhZcP/
-	+gdEfkkcFGowC2S3S8YpytWSfHqLX2vRrYXlctxVEL6Z4dKHlroZWlIgD3Ij7XfWnaSoqBQPiUl
-	wBUWjddFFQpRIT7VJp/wMFysTMEQUGp2MLIxVBS9dOLXeJF4WDo06X/Rme4jm/aqdqZjXsBmVhJ
-	OnVIWGCYxEXBhpwsQJ0d1OMmKQ0k9fkmF8Vo0/HQesweczEq9lVJi4Znza5hqNAampXa873NNDc
-	4bXAcngT4MCHsQD7QNw02zPI9pnSo7c6nQwTrKUtmL6e7YUIJSh2XJ3jvEBIHEow5zAjgoJEHAy
-	9wfyBVsXa5fjHdY3Qi+k+/1Cw6JPZhruO994khlRQ+f0Pra27IUfOTiJcu0kddp1kUhsrMNygwv
-	tqICVMmlsZGiFO+3Q45EydYqqueomf8=
-X-Received: by 2002:a05:7022:1508:b0:195:49ee:94c7 with SMTP id a92af1059eb24-19934a926ecmr14662254c88.8.1793087242216;
-        Tue, 27 Oct 2026 00:47:22 -0700 (PDT)
-Received: from li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com.com ([106.51.165.23])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a0e8d700sm36526698c88.10.2026.10.27.00.47.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 00:47:21 -0700 (PDT)
-From: "Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>
-To: maddy@linux.ibm.com,
-	mpe@ellerman.id.au,
-	npiggin@gmail.com,
-	chleroy@kernel.org,
-	ritesh.list@gmail.com,
-	sshegde@linux.ibm.com,
-	bigeasy@linutronix.de,
-	clrkwllms@kernel.org,
-	rostedt@goodmis.org,
-	mkchauras@gmail.com,
-	msuchanek@suse.de,
-	bwiedemann@suse.de,
-	ryan.roberts@arm.com,
-	mchauras@linux.ibm.com,
-	agordeev@linux.ibm.com,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	linux-rt-devel@lists.linux.dev
-Subject: [PATCH V2] powerpc: Support for generic TIF bits
-Date: Tue, 27 Oct 2026 13:17:10 +0530
-Message-ID: <20261027074710.129819-1-mkchauras@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.a=rsa-sha256 header.s=key2 header.b=eldrP/xP
+Received: from mors-relay8204.netcup.net (localhost [127.0.0.1])
+	by mors-relay8204.netcup.net (Postfix) with ESMTPS id 4jDMzN6HmYz8tt6;
+	Tue, 27 Oct 2026 07:47:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+	s=key2; t=1793087264;
+	bh=jvH5rmcNh//J8ryzh9aICY7L0QAJcN8DwFIlF0b0dRs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=eldrP/xPXhDKLrDwUdZmFUxTy5je/eM7Mk7uPx1hMxzejC/E+/kQqkEZnV4YjvWF6
+	 NAfOr+NEpCmWCVig/1w/P8OxFBgkW4VQvTM67ogv63cipqMJuuhyI3JmFZlZgdCUPj
+	 tui5X3n75IWjPe70/OYu8lGPIDqNAklbVoyhXCllwOtiQHGcNo3XSQ+e8vVL4tK7oi
+	 UzjY8V/cLogqxx+NogI5D0X7/F786u7sm0T60bmoxjVwOKGJfh07J5E5nR7HmtMyeT
+	 DaP/kKljpIcrZzrpkcGLApoBOsHuw/OByzuPS5UoxflqIphYqC/88aHahDQXLmnUh1
+	 2nOkL16SayRhA==
+Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
+	by mors-relay8204.netcup.net (Postfix) with ESMTPS id 4jDMzN5YPnz8tt1;
+	Tue, 27 Oct 2026 07:47:44 +0000 (UTC)
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4jDMzM0cMgz8sZN;
+	Tue, 27 Oct 2026 08:47:42 +0100 (CET)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 56B0E5FA40;
+	Tue, 27 Oct 2026 08:47:35 +0100 (CET)
+Authentication-Results: mxe9fb;
+        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <b9284046-be28-4f80-81e9-d800e2d4204a@leemhuis.info>
+Date: Tue, 27 Oct 2026 08:47:34 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,164 +74,299 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] drm/vblank: Don't arm vblank timer with invalid frame
+ duration
+To: Thomas Zimmermann <tzimmermann@suse.de>, Roman Ilin <me@romanilin.is>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maxime Ripard <mripard@kernel.org>, Louis Chauvet
+ <louis.chauvet@bootlin.com>, Javier Martinez Canillas <javierm@redhat.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org, =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?=
+ <ville.syrjala@linux.intel.com>, Peter Arnesen <peter.m.arnesen@gmail.com>,
+ Linux kernel regressions list <regressions@lists.linux.dev>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+References: <20260613224434.96501-1-me@romanilin.is>
+ <20260702181027.98526-1-me@romanilin.is>
+ <E697A2AE-5413-48AE-BFD6-3383819B388B@romanilin.is>
+ <3b192119-9709-4f21-841f-a4706cc85e4a@suse.de>
+ <0600a3f0-b2d2-4a07-ab21-f590c2979612@leemhuis.info>
+ <f0e4cc76-5cf3-4fdb-b42c-f405a09c0d2a@suse.de>
+ <ec0c2486-b127-4a47-a81c-499130f268d9@leemhuis.info>
+ <d106ad8a-78d4-45be-95da-0222c44107c5@suse.de>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+Content-Language: de-DE, en-US
+In-Reply-To: <d106ad8a-78d4-45be-95da-0222c44107c5@suse.de>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-PPP-Message-ID: <179308725599.897684.6626675984855169399@mxe9fb.netcup.net>
+X-Rspamd-Server: rspamd-worker-8404
+X-Rspamd-Queue-Id: 56B0E5FA40
+X-NC-CID: M6CcPbjGK/UHjI05l20YNEahmWfau3KE3EWN7F4qWvaP7iQOPC0=
 
-powerpc already uses GENERIC_ENTRY for the irq entry/exit path.  That
-means the generic entry code handles all the arch-independent
-thread_info flags (TIF_SIGPENDING, TIF_NOTIFY_RESUME, TIF_NOTIFY_SIGNAL,
-TIF_NEED_RESCHED, TIF_NEED_RESCHED_LAZY, TIF_UPROBE, TIF_PATCH_PENDING,
-TIF_MEMDIE, TIF_RSEQ, TIF_HRTIMER_REARM, TIF_USER_RETURN_NOTIFY) on
-behalf of the arch.  The only remaining blocker was that powerpc defined
-its own bit numbers for those flags, which conflicted with the layout
-required by the common header include/asm-generic/thread_info_tif.h.
+On 9/14/26 13:00, Thomas Zimmermann wrote:
+> Am 11.09.26 um 09:39 schrieb Thorsten Leemhuis:
+>> On 9/4/26 08:19, Thomas Zimmermann wrote:
+>>> Am 03.09.26 um 16:07 schrieb Thorsten Leemhuis:
+>>>> On 7/3/26 09:26, Thomas Zimmermann wrote:
+>>>>> Am 02.07.26 um 20:23 schrieb Roman Ilin:
+>>>>>> Apologies, I accidentally fired off send-email before saving my final
+>>>>>> changelog notes. Please ignore the changelog and notes in the
+>>>>>> original
+>>>>>> v3 email.
+>>>>> We want to know when this happens. And user space will only be able to
+>>>>> trigger this once, so there's no risk of spamming the kernel log.
+>>>>>> Hmmm, just wondering: what's the status here?
+>>>> Roman Ilin, did you loose interest? Or was this continued somewhere or
+>>>> maybe even resolved and I just missed that?
+>>>>
+>>>> Thomas: if Roman left this behind, could you maybe handle this, [...]
+>>> AFAICT it was almost there except for the error messaging. The v4 then
+>>> never happened. I can finish the patch if Roman is no longer around.
+>> No answer from Roman since then, so yes, that would be great! Tia!
+> 
+> I've now sent out an update with minor changes.
 
-This patch selects HAVE_GENERIC_TIF_BITS and switches powerpc's
-thread_info.h over to include <asm-generic/thread_info_tif.h> for the
-arch-independent bits, using HAVE_TIF_NEED_RESCHED_LAZY to opt in to
-the lazy-preemption flag.  The powerpc-private bits (TIF_RESTORE_TM,
-TIF_SINGLESTEP, TIF_RESTOREALL, TIF_NOERROR, TIF_EMULATE_STACK_STORE,
-TIF_ELF2ABI, TIF_POLLING_NRFLAG, TIF_32BIT, TIF_SYSCALL_RET) are
-renumbered to start at bit 16, which is the reserved range for arch use.
+Many thx again. But the thing is: it still s	
 
-Enabling HAVE_GENERIC_TIF_BITS unlocks the following features that were
-previously unavailable on powerpc because their Kconfig dependencies
-could not be satisfied:
 
-  1. RSEQ_SLICE_EXTENSION (CONFIG_RSEQ_SLICE_EXTENSION)
-     Allows userspace to register an RSEQ critical section and request
-     a limited time-slice extension when the task is about to be
-     preempted.  The kernel grants the extension (via the RSEQ shared
-     data ABI) so the critical section can complete, avoiding the
-     thundering-herd problem where many threads spin on the same
-     lock/resource after a preemption.  This feature requires a
-     dedicated TIF_RSEQ bit, which only exists when HAVE_GENERIC_TIF_BITS
-     is set.  Depends on: RSEQ && HIGH_RES_TIMERS && GENERIC_ENTRY &&
-     HAVE_GENERIC_TIF_BITS.
 
-  2. HRTIMER_REARM_DEFERRED (CONFIG_HRTIMER_REARM_DEFERRED)
-     Defers re-arming of the hrtimer interrupt to the return-to-user
-     path, using the dedicated TIF_HRTIMER_REARM bit.  This avoids
-     redundant hrtimer_interrupt() invocations within the same tick
-     period and reduces latency jitter for high-resolution timer users
-     (e.g., PREEMPT_RT workloads, audio, real-time tasks).  Depends on:
-     GENERIC_ENTRY && HAVE_GENERIC_TIF_BITS && HIGH_RES_TIMERS &&
-     SCHED_HRTICK.
-
-  3. Dedicated TIF_RSEQ flag (fast-path RSEQ handling)
-     Without HAVE_GENERIC_TIF_BITS, TIF_RSEQ falls back to aliasing
-     TIF_NOTIFY_RESUME, forcing the generic entry slow-path to run on
-     every return-to-user for all RSEQ-registered threads.  With the
-     dedicated bit, the fast path can skip RSEQ work unless the flag
-     is actually set, reducing overhead in the common case.
-
-  4. TIF_USER_RETURN_NOTIFY
-     The generic bit for the user-return-notifier subsystem
-     (kernel/user-return-notifier.c).  Used by KVM on x86 to lazily
-     restore guest MSRs; having the generic bit available means future
-     powerpc KVM work can use the same infrastructure.
-
-The arch-specific bits that do not exist in the generic header retain
-their private numbering in the powerpc-reserved range (bits 16+), so
-no existing powerpc functionality is affected.
-
-Tested on powerpc (POWER11 pSeries CONFIG_RSEQ=y +
-CONFIG_RSEQ_SLICE_EXTENSION=y + CONFIG_HRTIMER_REARM_DEFERRED=y):
-
-  * tools/testing/selftests/rseq/ -- all tests pass (basic_test,
-    param_test, basic_percpu_ops_test, syscall_errors_test,
-    slice_test via run_timeslice_test.sh)
-  * tools/testing/selftests/timers/hrtimer-rearm.sh -- deferred=1
-    events observed; no new dmesg warnings
-  * Boot and basic workload testing shows no regression
-
-Signed-off-by: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
----
-This patch is applicabe over
-https://lore.kernel.org/all/961c058f3f3e03045552186c083a68a0fde3f43f.1791975972.git.msuchanek@suse.de/
-
-Changelog:
-
-V1 -> V2:
- - Commit message updated
-V1: https://lore.kernel.org/all/20261021144453.232372-2-mkchauras@gmail.com/
-
- arch/powerpc/Kconfig                   |  1 +
- arch/powerpc/include/asm/thread_info.h | 36 +++++++++-----------------
- 2 files changed, 13 insertions(+), 24 deletions(-)
-
-diff --git a/arch/powerpc/Kconfig b/arch/powerpc/Kconfig
-index 7f7910f38a67..e5527b56159a 100644
---- a/arch/powerpc/Kconfig
-+++ b/arch/powerpc/Kconfig
-@@ -255,6 +255,7 @@ config PPC
- 	select HAVE_FUNCTION_GRAPH_TRACER
- 	select HAVE_FUNCTION_TRACER		if !COMPILE_TEST && (PPC64 || (PPC32 && CC_IS_GCC))
- 	select HAVE_GCC_PLUGINS
-+	select HAVE_GENERIC_TIF_BITS
- 	select HAVE_HARDLOCKUP_DETECTOR_ARCH	if PPC_BOOK3S_64 && SMP
- 	select HAVE_HARDLOCKUP_DETECTOR_PERF	if PERF_EVENTS && HAVE_PERF_EVENTS_NMI
- 	select HAVE_HW_BREAKPOINT		if PERF_EVENTS && (PPC_BOOK3S || PPC_8xx)
-diff --git a/arch/powerpc/include/asm/thread_info.h b/arch/powerpc/include/asm/thread_info.h
-index 4b7ec1db3034..4df3f4b5bd56 100644
---- a/arch/powerpc/include/asm/thread_info.h
-+++ b/arch/powerpc/include/asm/thread_info.h
-@@ -93,44 +93,32 @@ void arch_setup_new_exec(void);
- 
- #endif /* __ASSEMBLER__ */
- 
-+#define HAVE_TIF_NEED_RESCHED_LAZY
-+
-+#include <asm-generic/thread_info_tif.h>
- /*
-  * thread information flag bit numbers
-  */
--#define TIF_SIGPENDING		1	/* signal pending */
--#define TIF_NEED_RESCHED	2	/* rescheduling necessary */
--#define TIF_NOTIFY_SIGNAL	3	/* signal notifications exist */
--#define TIF_RESTORE_TM		5	/* need to restore TM FP/VEC/VSX */
--#define TIF_PATCH_PENDING	6	/* pending live patching update */
--#define TIF_SINGLESTEP		8	/* singlestepping active */
--#define TIF_NEED_RESCHED_LAZY	9       /* Scheduler driven lazy preemption */
--#define TIF_RESTOREALL		11	/* Restore all regs (implies NOERROR) */
--#define TIF_NOERROR		12	/* Force successful syscall return */
--#define TIF_NOTIFY_RESUME	13	/* callback before returning to user */
--#define TIF_UPROBE		14	/* breakpointed or single-stepping */
--#define TIF_EMULATE_STACK_STORE	16	/* Is an instruction emulation
-+#define TIF_RESTORE_TM		16	/* need to restore TM FP/VEC/VSX */
-+#define TIF_SINGLESTEP		17	/* singlestepping active */
-+#define TIF_RESTOREALL		18	/* Restore all regs (implies NOERROR) */
-+#define TIF_NOERROR		19	/* Force successful syscall return */
-+#define TIF_EMULATE_STACK_STORE	20	/* Is an instruction emulation
- 						for stack store? */
--#define TIF_MEMDIE		17	/* is terminating due to OOM killer */
- #if defined(CONFIG_PPC64)
--#define TIF_ELF2ABI		18	/* function descriptors must die! */
-+#define TIF_ELF2ABI		21	/* function descriptors must die! */
- #endif
--#define TIF_POLLING_NRFLAG	19	/* true if poll_idle() is polling TIF_NEED_RESCHED */
--#define TIF_32BIT		20	/* 32 bit binary */
--#define TIF_SYSCALL_RET		21	/* syscall error value set */
-+#define TIF_POLLING_NRFLAG	22	/* true if poll_idle() is polling TIF_NEED_RESCHED */
-+#define TIF_32BIT		23	/* 32 bit binary */
-+#define TIF_SYSCALL_RET		24	/* syscall error value set */
- 
- /* as above, but as bit values */
--#define _TIF_SIGPENDING		(1<<TIF_SIGPENDING)
--#define _TIF_NEED_RESCHED	(1<<TIF_NEED_RESCHED)
--#define _TIF_NEED_RESCHED_LAZY	(1<<TIF_NEED_RESCHED_LAZY)
--#define _TIF_NOTIFY_SIGNAL	(1<<TIF_NOTIFY_SIGNAL)
- #define _TIF_POLLING_NRFLAG	(1<<TIF_POLLING_NRFLAG)
- #define _TIF_32BIT		(1<<TIF_32BIT)
- #define _TIF_RESTORE_TM		(1<<TIF_RESTORE_TM)
--#define _TIF_PATCH_PENDING	(1<<TIF_PATCH_PENDING)
- #define _TIF_SINGLESTEP		(1<<TIF_SINGLESTEP)
- #define _TIF_RESTOREALL		(1<<TIF_RESTOREALL)
- #define _TIF_NOERROR		(1<<TIF_NOERROR)
--#define _TIF_NOTIFY_RESUME	(1<<TIF_NOTIFY_RESUME)
--#define _TIF_UPROBE		(1<<TIF_UPROBE)
- #define _TIF_EMULATE_STACK_STORE	(1<<TIF_EMULATE_STACK_STORE)
- 
- #define _TIF_USER_WORK_MASK	(_TIF_SIGPENDING | _TIF_NEED_RESCHED | \
--- 
-2.56.0
+>>>>> So this is not really a problem. drm_WARN_ON_ONCE was ok for that. You
+>>>>> can also use a regular DRM print macro. But instead of drm_dbg_kms()
+>>>>> should use drm_err_once(). But please also output linedur_ns and
+>>>>> framedur_ns in the error. We want to know which of them is incorrect.
+>>>>> You can also add more information to the error message. See [1] for
+>>>>> the
+>>>>> mode-formating macros.
+>>>>>
+>>>>> [1] https://elixir.bootlin.com/linux/v7.1.2/source/include/drm/
+>>>>> drm_modes.h#L422
+>>>>>
+>>>>>
+>>>>>> - Updated drm_calc_timestamping_constants with the goto error
+>>>>>> fallback
+>>>>>>      to clear the stale state.
+>>>>>>
+>>>>>> Also, an automated review bot pointed out an AB-BA deadlock in
+>>>>>> drm_crtc_vblank_start_timer(). But I am leaving this out of the
+>>>>>> patch to
+>>>>>> keep the fixes orthogonal.
+>>>>>>
+>>>>>> Sorry for the noise.
+>>>>>>
+>>>>>>> On Jul 2, 2026, at 21:10, Roman Ilin <me@romanilin.is> wrote:
+>>>>>>>
+>>>>>>> When a CRTC's display mode carries a too small pixel clock,
+>>>>>>> drm_calc_timestamping_constants() computes a frame duration that
+>>>>>>> exceeds INT_MAX. drm_vblank_crtc.framedur_ns becomes negative.
+>>>>>>> drm_crtc_vblank_start_timer() then arms the vblank hrtimer with this
+>>>>>>> interval, after which vblank events are no longer delivered. Pending
+>>>>>>> page flips never complete and the display appears frozen.
+>>>>>>>
+>>>>>>> This could be triggered on virtio-gpu guests that have dynamic
+>>>>>>> resolution
+>>>>>>> enabled: when the SPICE agent or the X server resizes the output, it
+>>>>>>> submits a mode whose pixel clock is off by a factor of 1000, e.g.:
+>>>>>>>
+>>>>>>>       clock = 406 kHz, htotal = 3152, vtotal = 2148
+>>>>>>>
+>>>>>>>       framedur_ns = 3152 * 2148 * 1000000 / 406 = 16675852216 ns
+>>>>>>> (~16.7 s)
+>>>>>>>
+>>>>>>> 16675852216 does not fit into an int and wraps to roughly
+>>>>>>> -504000000.
+>>>>>>> ns_to_ktime() then yields a negative interval and the timer stops
+>>>>>>> working.
+>>>>>>>
+>>>>>>> Found by bisection, which pointed at commit a036f5fceedb ("drm/
+>>>>>>> virtgpu:
+>>>>>>> Use vblank timer"). That commit merely made virtio-gpu use the
+>>>>>>> vblank
+>>>>>>> timer and thereby exposed the pre-existing problem in the timer
+>>>>>>> setup
+>>>>>>> added by commit 74afeb812850 ("drm/vblank: Add vblank timer").
+>>>>>>>
+>>>>>>> To fix this, modify drm_calc_timestamping_constants() to use u64 for
+>>>>>>> calculations, check for INT_MAX overflows, and return an error code.
+>>>>>>> drm_crtc_vblank_start_timer() will then propagate the error,
+>>>>>>> enabling
+>>>>>>> the driver to fall back to immediate vblank events. Valid modes are
+>>>>>>> unaffected, and the timer self-heals on the next mode with a sane
+>>>>>>> clock.
+>>>>>>>
+>>>>>>> Fixes: 74afeb812850 ("drm/vblank: Add vblank timer")
+>>>>>>> Suggested-by: Thomas Zimmermann <tzimmermann@suse.de>
+>>>>>>> Signed-off-by: Roman Ilin <me@romanilin.is>
+>>>>>>> ---
+>>>>>>> Changes in v3:
+>>>>>>>
+>>>>>>> - Changed the WARN_ON_ONCE to drm_err_once
+>>>>>>>
+>>>>>>> Notes:
+>>>>>>>
+>>>>>>>
+>>>>>>>
+>>>>>>> drivers/gpu/drm/drm_vblank.c | 71 ++++++++++++++++++++++
+>>>>>>> +-------------
+>>>>>>> include/drm/drm_vblank.h     |  4 +-
+>>>>>>> 2 files changed, 48 insertions(+), 27 deletions(-)
+>>>>>>>
+>>>>>>> diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/
+>>>>>>> drm_vblank.c
+>>>>>>> index f90fb2d13..629b9fcc7 100644
+>>>>>>> --- a/drivers/gpu/drm/drm_vblank.c
+>>>>>>> +++ b/drivers/gpu/drm/drm_vblank.c
+>>>>>>> @@ -631,42 +631,51 @@ EXPORT_SYMBOL(drm_crtc_vblank_waitqueue);
+>>>>>>>     * drm_crtc_vblank_helper_get_vblank_timestamp(). They are
+>>>>>>> derived from
+>>>>>>>     * CRTC's true scanout timing, so they take things like panel
+>>>>>>> scaling or
+>>>>>>>     * other adjustments into account.
+>>>>>>> + *
+>>>>>>> + * Returns:
+>>>>>>> + * 0 on success, or a negative errno code otherwise.
+>>>>>>>     */
+>>>>>>> -void drm_calc_timestamping_constants(struct drm_crtc *crtc,
+>>>>>>> -     const struct drm_display_mode *mode)
+>>>>>>> +int drm_calc_timestamping_constants(struct drm_crtc *crtc,
+>>>>>>> +    const struct drm_display_mode *mode)
+>>>>>>> {
+>>>>>>> struct drm_device *dev = crtc->dev;
+>>>>>>> unsigned int pipe = drm_crtc_index(crtc);
+>>>>>>> struct drm_vblank_crtc *vblank = drm_crtc_vblank_crtc(crtc);
+>>>>>>> - int linedur_ns = 0, framedur_ns = 0;
+>>>>>>> + u64 linedur_ns, framedur_ns;
+>>>>>>> int dotclock = mode->crtc_clock;
+>>>>>>> + unsigned int frame_size;
+>>>>>>>
+>>>>>>> if (!drm_dev_has_vblank(dev))
+>>>>>>> - return;
+>>>>>>> + return 0;
+>>>>>>>
+>>>>>>> if (drm_WARN_ON(dev, pipe >= dev->num_crtcs))
+>>>>>>> - return;
+>>>>>>> + return -EINVAL;
+>>>>>>>
+>>>>>>> - /* Valid dotclock? */
+>>>>>>> - if (dotclock > 0) {
+>>>>>>> - int frame_size = mode->crtc_htotal * mode->crtc_vtotal;
+>>>>>>> + if (dotclock <= 0) {
+>>>>>>> + drm_err(dev, "crtc %u: Can't calculate constants, dotclock =
+>>>>>>> %d!\n",
+>>>>> Please turn this into drm_err_once() because this call can actually be
+>>>>> triggered repeatedly from userspace.
+>>>>>
+>>>>> Best regards
+>>>>> Thomas
+>>>>>
+>>>>>
+>>>>>>> + crtc->base.id, dotclock);
+>>>>>>> + goto error;
+>>>>>>> + }
+>>>>>>>
+>>>>>>> - /*
+>>>>>>> - * Convert scanline length in pixels and video
+>>>>>>> - * dot clock to line duration and frame duration
+>>>>>>> - * in nanoseconds:
+>>>>>>> - */
+>>>>>>> - linedur_ns  = div_u64((u64) mode->crtc_htotal * 1000000,
+>>>>>>> dotclock);
+>>>>>>> - framedur_ns = div_u64((u64) frame_size * 1000000, dotclock);
+>>>>>>> + frame_size = (unsigned int)mode->crtc_htotal * (unsigned int)mode-
+>>>>>>>> crtc_vtotal;
+>>>>>>> - /*
+>>>>>>> - * Fields of interlaced scanout modes are only half a frame
+>>>>>>> duration.
+>>>>>>> - */
+>>>>>>> - if (mode->flags & DRM_MODE_FLAG_INTERLACE)
+>>>>>>> - framedur_ns /= 2;
+>>>>>>> - } else {
+>>>>>>> - drm_err(dev, "crtc %u: Can't calculate constants, dotclock = 0!
+>>>>>>> \n",
+>>>>>>> - crtc->base.id);
+>>>>>>> + /*
+>>>>>>> + * Convert scanline length in pixels and video dot clock to line
+>>>>>>> duration
+>>>>>>> + * and frame duration in nanoseconds.
+>>>>>>> + */
+>>>>>>> + linedur_ns  = div_u64((u64)mode->crtc_htotal * 1000000, dotclock);
+>>>>>>> + framedur_ns = div_u64((u64)frame_size * 1000000, dotclock);
+>>>>>>> +
+>>>>>>> + /*
+>>>>>>> + * Fields of interlaced scanout modes are only half a frame
+>>>>>>> duration.
+>>>>>>> + */
+>>>>>>> + if (mode->flags & DRM_MODE_FLAG_INTERLACE)
+>>>>>>> + framedur_ns /= 2;
+>>>>>>> +
+>>>>>>> + if (linedur_ns > INT_MAX || framedur_ns > INT_MAX) {
+>>>>>>> + drm_dbg_kms(dev, "crtc %u: Can't calculate constants, mode clock
+>>>>>>> too small!\n",
+>>>>>>> +    crtc->base.id);
+>>>>>>> + goto error;
+>>>>>>> }
+>>>>>>>
+>>>>>>> vblank->linedur_ns  = linedur_ns;
+>>>>>>> @@ -678,7 +687,16 @@ void drm_calc_timestamping_constants(struct
+>>>>>>> drm_crtc *crtc,
+>>>>>>>        crtc->base.id, mode->crtc_htotal,
+>>>>>>>        mode->crtc_vtotal, mode->crtc_vdisplay);
+>>>>>>> drm_dbg_core(dev, "crtc %u: clock %d kHz framedur %d linedur %d\n",
+>>>>>>> -     crtc->base.id, dotclock, framedur_ns, linedur_ns);
+>>>>>>> +     crtc->base.id, dotclock,
+>>>>>>> +     vblank->framedur_ns, vblank->linedur_ns);
+>>>>>>> +
+>>>>>>> + return 0;
+>>>>>>> +
+>>>>>>> +error:
+>>>>>>> + vblank->linedur_ns  = 0;
+>>>>>>> + vblank->framedur_ns = 0;
+>>>>>>> + drm_mode_copy(&vblank->hwmode, mode);
+>>>>>>> + return -EINVAL;
+>>>>>>> }
+>>>>>>> EXPORT_SYMBOL(drm_calc_timestamping_constants);
+>>>>>>>
+>>>>>>> @@ -2221,6 +2239,7 @@ int drm_crtc_vblank_start_timer(struct
+>>>>>>> drm_crtc
+>>>>>>> *crtc)
+>>>>>>> struct drm_vblank_crtc *vblank = drm_crtc_vblank_crtc(crtc);
+>>>>>>> struct drm_vblank_crtc_timer *vtimer = &vblank->vblank_timer;
+>>>>>>> unsigned long flags;
+>>>>>>> + int ret;
+>>>>>>>
+>>>>>>> if (!vtimer->crtc) {
+>>>>>>> /*
+>>>>>>> @@ -2239,7 +2258,9 @@ int drm_crtc_vblank_start_timer(struct
+>>>>>>> drm_crtc
+>>>>>>> *crtc)
+>>>>>>> hrtimer_try_to_cancel(&vtimer->timer);
+>>>>>>> }
+>>>>>>>
+>>>>>>> - drm_calc_timestamping_constants(crtc, &crtc->mode);
+>>>>>>> + ret = drm_calc_timestamping_constants(crtc, &crtc->mode);
+>>>>>>> + if (ret)
+>>>>>>> + return ret;
+>>>>>>>
+>>>>>>> spin_lock_irqsave(&vtimer->interval_lock, flags);
+>>>>>>> vtimer->interval = ns_to_ktime(vblank->framedur_ns);
+>>>>>>> diff --git a/include/drm/drm_vblank.h b/include/drm/drm_vblank.h
+>>>>>>> index 2fcef9c0f..d99772dfa 100644
+>>>>>>> --- a/include/drm/drm_vblank.h
+>>>>>>> +++ b/include/drm/drm_vblank.h
+>>>>>>> @@ -311,8 +311,8 @@ void drm_crtc_vblank_on(struct drm_crtc *crtc);
+>>>>>>> u64 drm_crtc_accurate_vblank_count(struct drm_crtc *crtc);
+>>>>>>> void drm_crtc_vblank_restore(struct drm_crtc *crtc);
+>>>>>>>
+>>>>>>> -void drm_calc_timestamping_constants(struct drm_crtc *crtc,
+>>>>>>> -     const struct drm_display_mode *mode);
+>>>>>>> +int drm_calc_timestamping_constants(struct drm_crtc *crtc,
+>>>>>>> +    const struct drm_display_mode *mode);
+>>>>>>> wait_queue_head_t *drm_crtc_vblank_waitqueue(struct drm_crtc *crtc);
+>>>>>>> void drm_crtc_set_max_vblank_count(struct drm_crtc *crtc,
+>>>>>>>      u32 max_vblank_count);
+>>>>>>> -- 
+>>>>>>> 2.54.0
+>>>>>>>
+> 
 
