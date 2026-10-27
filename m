@@ -1,111 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793100070;
-	b=jYlKBkJmDxWcdSUZboIkh3Ray+VTeNvLyM4WvVwhoSYvQkag4cZu7bIREgnQYM1NE4Wn
-	 XUH026y6TCWHSF+xN4TFZngOo5a2a1QFDrumcFUI/r6f+PtZ7goqhH9x96MWV0vwMgfXr
-	 kwTuM7+ZKqAd+FIGHru7H35lbRpiDGC8M8Vx54ndo2eQourSMV+4K2Rx26VWKBwoCpX0C
-	 KJqaTmCok4lm4sj7auwPfkrdVPrZ95aqtNnR4UbhvkGA3ScOwDyqhjHX5DWqy7wU3Byjq
-	 EllmfFVahML1KIpZ+ZKpxa3DzRuqyKituTmLgyvtDuC/Cun9DCZwIh9/fSeYnAVPQSw==
+	t=1793100072;
+	b=g7o5X0Zqx3Ub3tw1GXNsUHokc9TU3VB5zqRBRQiHcMLvz8rtgjaiThe0H+X9uccyI6NR
+	 /akO1yN7pAopwOeItGdZ6QiyKc5uVedzpHHLmF2iShD3gDrGJILN6vwSE03HGIcpmt+HC
+	 jPLKS1dTxP1yzf66qiBwK4xwj94kw4JiOoKdioeyjfTUgrhijSSbeVAPi6QnFt8vO7eFO
+	 M6MplD+5yvL1W6LsNDlVv5cWbioMqqyUTAEE4TO9xfkpqfZMCFZVe6/ZvdwkYCsZNV6X9
+	 pjUOo4rKQAO+G2BOKkUC9cc7hCDiMSvCi6DLVMURU7ZffVZ6fyUHgUPYsCvw0UpeOkQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793100070;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=g0Nj3Nw2rDrclL+E9WuW5e/Vyn0k9Yby6gNuiOif1fQ=;
-	b=W9DIoroNaS1vHl2a7fd+rqX4DiRQ9G373lGq5i2A+0APRhLmRH5rHZv7HRQZl+/Pe3Xz
-	 LlOMOCpQb/Fy/C68z4MUpdx4hYKg8/oznJ3oXLM/eHg72A62VfOcvyqTNdJUmt5Vd+BRS
-	 jlAmxEncE+RIaLOYncdlAnvriVVNzG3z/mt9YHiJqwLGkj+eVd1W1ZxOxyLKlc/ie4SbZ
-	 D0ggLkx0JtmEYuXE1dHgQzhW15jm3Bk1td3wFEpJIM/wJT+5h9iLI9pZoFJ82wEww/rtd
-	 r8bBAgE9l1s+2aQ8aEImB0CDNM1czoSlncCspGbKdkyUSHz5RZf/EvJ+sDyCsbV0Irg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793100072;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=ZGdn6bkRemJ+L9jxk2hkO3KTzCRPSiubr75CYs/of/s=;
+	b=nv7nBTvOjQKpGHdIGwojv9+oYz+7Y0zw44HKV3tI2n4oyE8obcZV73tgkXuey7W0I4r+
+	 ZEoomrQNpKcLq3T6q8xcQ+/AWimwOsaVhR/z9oOyHX9AQfNfKQKj/hSzOHV8z/Xs4q7Gz
+	 B4qr0gQnknyuUYrApIzfKdehwW+d0zb2oU+H0z0ywlx0265VkKRKSjfPG/U5iu9tCr3AG
+	 oD2jZqn1oxZduatkO/H55xt4vGsUf06Yo4xR6aBRHnIExg6q40VENOBsbK4F++dz+cJVA
+	 YlYXIFH1oqwLoTvDLVArF8xIFd3eeKk+B/xj83oTXfdYk2HJqBROOvnW89b4xv7GsNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=exfBBfqG;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ALfI7hMt;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=dwiWaGAS;
+	arc=none smtp.remote-ip=209.85.221.41
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABFF3606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:21:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ABFF3606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A0F3606A331
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:21:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A0F3606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=exfBBfqG;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ALfI7hMt
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69RAe3Dv1935897
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:21:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	g0Nj3Nw2rDrclL+E9WuW5e/Vyn0k9Yby6gNuiOif1fQ=; b=exfBBfqGbE5cPRe9
-	PgCN0x/LLfHL/uEzbzFwyoiVd62STpMuaIi37jZHgiOR8HY1uxC6Mr+P2dGyf++N
-	Z2X0D8qzizUaNFyddnU/wc7M/BVJEGDMqIGy52aa0i3Wc8Tl4ZeJYCj836vFVBJM
-	egwXDBqAyuNkHQVUH3nvMsyY+UH2Zund7fumOSh+NdgpTv5QRLQfkKMGUqy9GCrJ
-	3jKBrI3n4SuUTO1MhxUIVtix8abnt+mmoNbAZ15+eoK8ZH2MldtWliuf8pF1bxVo
-	OyNCKJNaZno9vzesfV80RsklYEQj1fSzUnuKnO4EBv+4vE1fFanySwzSolClnd1u
-	1YUr9g==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjfavtjcb-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:21:08 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93f13c143c8so741170585a.3
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 04:21:08 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=dwiWaGAS
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48afcfc4bf5so3309874f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 04:21:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793100068; x=1793704868; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=g0Nj3Nw2rDrclL+E9WuW5e/Vyn0k9Yby6gNuiOif1fQ=;
-        b=ALfI7hMt58xY3ik/+aP+b3JX6WQMCP2HCS5gxf4KHejsusfg1FT1fPHR2vH6Xmzprn
-         voJ1Yi2VerbvpJfMZPdmV+vpMSRDNZjOQrtijSS8YoyMmyDnrREhgIzu+Nqn6IroVwhI
-         /a64QTPj8eI17lqn6Jwa1N6N0YzyI38wlA4WskoM5cZWY2OuHIuuiyoHd8MSp/bAgQ2K
-         5HnXFyfMZiKLfOYe3Wvr6KHuoLx1+8UG+/kwfpPaJpZmvqvkY8vw2C2cxZkm2jCz1O1j
-         YBaQjvX6mxJjhEja0/nV9u9zM+iambebk7w+fTEziBOiy/9O0fndialFR40BT/V/1hUu
-         l4GA==
+        d=gmail.com; s=20251104; t=1793100071; x=1793704871; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ZGdn6bkRemJ+L9jxk2hkO3KTzCRPSiubr75CYs/of/s=;
+        b=dwiWaGASshTPvNbrS9NEh1hGqf014m0boNiYGu09Ec2a4Tij8YVQjNe8OqiysDTBFC
+         B1Xx3Bcw7urz4kZsIe6u2go0X43HfR3tsyk/7Mjp8st93fth87HRBTxsdOcSd1MCSmjB
+         fl6KQXOxiqr6bjsXAp77uqx+zHNNnPIPAlyHtxUehaVYzHCGq9fiT3VkZlmTuw/cGzmb
+         B2STThN9pioybd+mrMVN8Tjl+z/xnYrKIFUoXCTQf41BbEei8ngkQ00qnyFAAJlLoELn
+         VbNtMtPj5zbZ5bSweZuWuV3ir3bMdySnuZAtCJ7iywBjjpqbRKG5iLwZelaosrBxxGzN
+         extw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793100068; x=1793704868;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=g0Nj3Nw2rDrclL+E9WuW5e/Vyn0k9Yby6gNuiOif1fQ=;
-        b=dZ89mXhs4KA4iv2VMw87E2wDOWtkjUyaqyaqQthdfXeejfjC6aoVp4PL+vbi8auJCv
-         5XHf5wZNAtVXd0lz63IeNIJDfkwwyDM3mAUiG7W4XrG20vCYLBDnTGlP+bCsgjcS+3N0
-         5pJVOcIPVperGc16fldKh+2VKv9bUrHWHtAHhWPgf5z9ABz7WZ7cJq05cv4m630ky8Jj
-         XlvEaUvGQyg/Wnv9BWTH4rqJwp1dAho/iPOSTy3rZzWrGKhoeQa97AetTWoaZOlvFE4j
-         Ux4vnK/ky+3DT+NjF2wf4abfR4BNuBY4l2a713oNPvv6obVxWEP2UDXbXVKo5AeG/1oS
-         mNFg==
-X-Forwarded-Encrypted: i=1; AKwUvByKJwoi3uW9H4bgKRzI1dxSfQfYZKSNgJKw2ULen6svYylfwAd4ysUN8lnq3VHtCRZHOeWP7I+samEIABE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIIb8foePeVVFYqlIlmKuuHg2Nc439u45Bs/DSjabTgviKDMRQN
-	fmROs36SoWmwe6Y/EypStfUzvPpq4kntV5HYHbYCwYUM6NaEA0jh50VcQJe/Id/gaosNXdHEGsN
-	oV1MqFZBU26L+nLXxeO+bAiTk4dhIQekenPWOmramXqUl78xYLnYAB1vDpp4UQq8Hb2U=
-X-Gm-Gg: AYBFou35Coimo5BIO1LboiZGOLchHcH0Ip6UfNc1uUBkZJZSiza/vMRLZx0S5wf9WzW
-	qr5+FtFzgXa5hEnaT7wrXuZYpE0jqq9hFRm5czeE7zMQJd3G8npqPZfgZ+VleUYSqhnL8IeQPA9
-	n7p6noR8y8DYPPnP0QZb5jlC3/odbz9ZTMXqOGhW5ikvGVMg83wjAjR13bY5anD5f8S5qZ8I43N
-	pdGsFZgA+XcuxxPpLEW5ZQUE5e2AFLHGMe/hOuMsYxWI77v/WkIQi6PrgorY5V7gqv6TFhNiAZS
-	yt6s/rM64ynLmJsUfP7JG1IdrocyHZns5wjDs3eMRnjsWZog3gFnYeSCF+Uu6uV/YSq0wfxA6QI
-	FLW4o8VpzplT6w198/RG+8KM0ot43bl50wnUTbx5IsmO+DpgpE+nYt7hHGmbp/Q==
-X-Received: by 2002:a05:620a:1991:b0:93f:c0d:40a4 with SMTP id af79cd13be357-940ef9aecacmr1494134685a.75.1793100067746;
-        Tue, 27 Oct 2026 04:21:07 -0700 (PDT)
-X-Received: by 2002:a05:620a:1991:b0:93f:c0d:40a4 with SMTP id af79cd13be357-940ef9aecacmr1494128185a.75.1793100067048;
-        Tue, 27 Oct 2026 04:21:07 -0700 (PDT)
-Received: from ?IPV6:2a05:6e02:1041:c10:7d20:e20f:a77f:4ef7? ([2a05:6e02:1041:c10:7d20:e20f:a77f:4ef7])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a08643dsm206156405e9.4.2026.10.27.04.21.05
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 27 Oct 2026 04:21:06 -0700 (PDT)
-Message-ID: <5598422c-8830-4fcf-be2b-e4486ea64539@oss.qualcomm.com>
-Date: Tue, 27 Oct 2026 12:21:05 +0100
+        d=1e100.net; s=20260707; t=1793100071; x=1793704871;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZGdn6bkRemJ+L9jxk2hkO3KTzCRPSiubr75CYs/of/s=;
+        b=zQ1MgqTzNPcumtEHYE3fidt9+G7rNazOfKOsdzN2oHbuNP9lLZzdza8WFJDP+RpRiP
+         0+qJZ/PC827zsCu/03FFzMuL3Ks6ss4wvkQ3g6gmjUFqlJCanRf4EUCkfVvSdMR0RE/K
+         E1so7SX3fnw55TE3bhs4NSV4kOBoxSs+n1VNZ28oB3lmWP0DjflRoiOWMa7xr+4ln6XB
+         KxC09RlHnPf8nbYZeE+oAXO8VIfTAbE9AQO7rMqS4lsN4NQ6wDabmkmh+v9t2eCbGfi6
+         2lVOdTK5+q8KEtoSyQw8m0npYtYk+PI5WJ5DXsMDwrKLJIA8khrBT65GHTrFqb9EIifi
+         pXng==
+X-Forwarded-Encrypted: i=1; AKwUvBz8ciUB9ZmABoh1wRXjAu+/dgd3JrCvUvwIT4eX5OE+7qk18nYYxkOr0SYbdu3wGgc/+nLVWENB0bt7OYI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLq5+ZvDmIfGSj0NyXy8ywmt99wqixsUtcJemK0C/Tfb+nAe+ps
+	OP8Cx+kN6arWyLaOHnwLuFpWT+rV7bn3ks5sgTRMzlTR50xrS8os11Fw
+X-Gm-Gg: AYBFou0nSGCkW4qgFsCOLHB2/6+cQWt43n0PLHeh++0sADKpO6vpPTvnelAm9wHx7jh
+	7cHAiUY6bmE7TQp1MWXpfTZF5Lwp+DWf+KFkichbtgTHyz8J7F+K8VzDkH2v+2giriB/7T9jDdE
+	1VqkUGUOU725l0gJO2lj118yzFb5XT2fZoYJaFOPkkjRf1d6R2fzBYUJVBHAUXaNzBO9+BQAKbf
+	P+SZqhiFqZaOygv/wurScXpRUbzV+PUfCcfRzY6DPEi9b27+RWcYaJuXSNU4et8IUPCwclrBqQY
+	2AVJcsiASz0GYVTg+TJ9SCoxpR4p85SaZfiUd5qWGkHUjm13dhrgaOnwG+mo0yoTmzgfmutCsOa
+	qjqRTpNVOE3PV9OODJzZWHCz3KgByvsPC29GgvxxH3j4bB/1sQ/eB45DZFXG02/8EDY17xgYHnh
+	8XeNqJI8KbdOwGbK7pNGBP1GJZtwKCOt9FLINvkRbEd/63jfGodkAxE/tJ0y1hlJyJJwpIhRGg0
+	U2VY4GJG4bUBmy4RsjxQsaaqnfbZStRtpKvOG9478e6vtAVK9zZzXymucMKT3lAIMWZY+hFCw==
+X-Received: by 2002:a05:6000:26c1:b0:48e:5acf:48f8 with SMTP id ffacd0b85a97d-48e5acf4a99mr1469344f8f.16.1793100070297;
+        Tue, 27 Oct 2026 04:21:10 -0700 (PDT)
+Received: from laptop ([2a02:a03f:657d:d801:af2a:9465:5e27:73f0])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecd35c2sm21903289f8f.39.2026.10.27.04.21.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 04:21:09 -0700 (PDT)
+From: Lucas Gillard <mirsella1@gmail.com>
+To: platform-driver-x86@vger.kernel.org
+Cc: ilpo.jarvinen@linux.intel.com,
+	jlee@suse.com,
+	hansg@kernel.org,
+	W_Armin@gmx.de,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] platform/x86: acer-wmi: support PH317-51 hwmon and kbd backlight
+Date: Tue, 27 Oct 2026 12:21:04 +0100
+Message-ID: <20261027112104.1464336-1-mirsella1@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <ea6d7395-c70f-9346-fc3f-9465adb5fef1@linux.intel.com>
+References: <6aad63a9.f9180b46.32931.492b@mx.google.com> <ea6d7395-c70f-9346-fc3f-9465adb5fef1@linux.intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,272 +100,231 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 02/12] hwmon: Add Qualcomm PMIC BCL driver
-To: Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>,
-        Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
-        Stephen Boyd <sboyd@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>
-Cc: linux-hwmon@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        mfd@lists.linux.dev, Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
-References: <20261005-qcom-bcl-hwmon-v4-0-50b9a8c730b7@oss.qualcomm.com>
- <20261005-qcom-bcl-hwmon-v4-2-50b9a8c730b7@oss.qualcomm.com>
-Content-Language: en-US
-From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-In-Reply-To: <20261005-qcom-bcl-hwmon-v4-2-50b9a8c730b7@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: QPP3k7eQ0b6pW7WlIb1n_DUyiivzc3Sl
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA0NSBTYWx0ZWRfXy9rovihyfvjf
- aE9g0XlR4Q1KPOCiCvR1bgUuIFMmp9Sp57863Z+zbf7MVthAT7A8h+6X8MW0NL9hgiKp7HgTTyz
- qaUNmKiKF5vzmFv0ZlGPZlBk347KQfM=
-X-Authority-Analysis: v=2.4 cv=EIeTQFZC c=1 sm=1 tr=0 ts=6ae08924 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8
- a=ZtYQVpOM0TWofVJcpS4A:9 a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-ORIG-GUID: QPP3k7eQ0b6pW7WlIb1n_DUyiivzc3Sl
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA0NSBTYWx0ZWRfX54OAuoRmqguT
- 6gQOJeeqnvSmyWxI4Vro1g4nZ5+bPF+vtDMGoXLFlyDrqKf/1QRL4aq1KqqHYswQLzspMymS7tn
- av2/0mzAhLBwWuB5vk9KLSIcrVNkLysGAsm/0uRAlYHAS5dXvdbGNKU5tXLNEl4MFjiAuVfiuIW
- RSawwGg7CiWg7b2cmUBh59GmIOl5j6rkskzuRfwwTGg0u1FCuEofi0iwCpU+WwUmx+9GEefJxOd
- CbW0BfntFWraaZZw+mQG+NzwDkJd11gI4hfnl8zi6RbVVZqUiW7VzU4x1DVYJDFZTDLlT5QZ1Ej
- wqepdEUbhnHj15Y8utESZ9tHjL8gBRUgpD4ySUUcnkLByndzNZc/JTFOBu+2XJH/zT+zqvYYl7D
- TMg0ExgaUykMpPrYujM3phuN49wGcRKxOjBOGh2f2Si1MraRsNiGrK41AzMDW5DgSlTqAIpq1sZ
- l+WLDVrmaE4Neduv5EQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-27_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 adultscore=0 suspectscore=0 spamscore=0 phishscore=0
- bulkscore=0 malwarescore=0 impostorscore=0 lowpriorityscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610270045
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+The Predator Helios 300 PH317-51 exposes early gaming WMI methods for
+temperature and fan sensors, but lacks the platform-profile and
+overclocking methods (22 and 23). Enable hwmon for this model without
+enabling platform-profile support.
 
-Hi Manaf,
+Its keyboard backlight is controlled by EC registers 0x30 and 0x31;
+the WMI LED methods do not report or change it. Fn+F9 updates both EC
+registers. Register an on/off keyboard LED with a blocking setter and
+read its brightness directly from the EC, so sysfs reflects changes
+made with Fn+F9.
 
-On 10/5/26 14:24, Manaf Meethalavalappu Pallikunhi wrote:
-> Add driver for Qualcomm SPMI PMIC Battery Current Limiting (BCL)
-> hardware monitor. The driver exposes battery voltage and current
-> monitoring through hwmon interface.
-> 
-> The BCL driver provides
-> - Real-time voltage and current readings
-> - Configurable threshold-based alarms
-> - Interrupt-driven notifications when thresholds are exceeded
-> - Automatic threshold management with polling-based recovery
-> - Hardware-specific scaling factors and threshold representations
-> 
-> Signed-off-by: Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
-> ---
+Write both registers to match the firmware's on/off states. Use the LED
+core to suspend and resume the backlight, reading its current state from
+the EC before suspend.
 
-There are a couple of issues in sashiko related to this patch (devres 
-LIFO issue and 6 bits encoding value too short for the represented value).
+Signed-off-by: Lucas Gillard <mirsella1@gmail.com>
+Assisted-by: LLM
+---
+Hi Ilpo,
 
-[ ... ]
+Thanks for the review. This revision is based on the platform-drivers-x86
+for-next tree at 9d3475065167197742b0882aff21cf8e78393277.
 
-> +/**
-> + * struct bcl_channel_cfg - BCL channel related configuration
-> + * @default_scale_nu:  Default scaling factor in nano unit
-> + * @base_mu: Base threshold value in milli unit
-> + * @max_mu: Maximum threshold value in milli unit
-> + * @step_mu: step increment value between two indexed threshold value in milli unit
-> + * @thresh_type: Array specifying threshold representation type for each alarm level
-> + *
-> + * Contains hardware-specific configuration and scaling parameters for different
-> + * channels (voltage and current).
-> + */
-> +struct bcl_channel_cfg {
-> +	u32 default_scale_nu;
-> +	u32 base_mu;
-> +	u32 max_mu;
-> +	u32 step_mu;
-> +	u8 thresh_type[BCL_LIMIT_ALARM_MAX];
-> +};
-> +
-> +/**
-> + * struct bcl_desc - BCL device descriptor
-> + * @reg_fields: Array of register field definitions for this device variant
-> + * @channel_cfg: Array of channel configurations indexed by battery config
-> + *               PMICs without battery detection: only [BCL_BATT_1S] is defined
-> + *               PMICs with battery detection: [BCL_BATT_2S], [BCL_BATT_3S]
-> + * @battery_config_field: Register field for battery configuration detection
-> + *                        NOTE: This is an ABSOLUTE address, not relative to BCL base
-> + *                        Set to REG_FIELD(0, 0, 0) if not used
-> + * @num_reg_fields: Number of register field definitions for this device variant
-> + * @data_field_bits_size: data read register bit size
-> + * @thresh_field_bits_size: lsb bit size those are not included in threshold register
-> + * @in_mon_enabled: Voltage monitoring enabled at boot
-> + * @in_input_enabled: Voltage input reading enabled at boot
-> + * @curr_mon_enabled: Current monitoring enabled at boot
-> + *
-> + * Contains hardware-specific configuration and scaling parameters for different
-> + * BCL variants. Each PMIC model may have different register layouts and
-> + * conversion factors.
-> + */
-> +struct bcl_desc {
-> +	const struct reg_field *reg_fields;
-> +	struct bcl_channel_cfg channel_cfg[BCL_BATT_3S + 1][CHANNEL_MAX];
-> +	const struct reg_field battery_config_field;
-> +	u8 num_reg_fields;
-> +	u8 data_field_bits_size;
-> +	u8 thresh_field_bits_size;
-> +	bool in_mon_enabled;
-> +	bool in_input_enabled;
-> +	bool curr_mon_enabled;
-> +};
+Changes in v2:
+- Use the existing hwmon quirk after the predator_v4 split.
+- Name both EC registers and the state mask, and use them throughout.
+- Convert brightness to an explicit u8 on/off value without modifying
+  the enum argument; remove the redundant mask parentheses.
+- Use brightness_set_blocking and return EC write errors.
+- Use managed LED registration and remove the explicit off-write on
+  unregister. LED core handles teardown.
+- Use LED-core helpers for suspend, resume and shutdown, draining pending
+  LED work before suspend/shutdown. Read the live EC state before suspend
+  to preserve Fn+F9 changes.
 
-It is your call but I suggest to use a single variable:
+I'm currently away from the machine and haven't retested v2 on hardware. I'm sending this update for review.
 
-eg. u8 features
+I used an LLM for code changes, review and local validation.
 
-and use masks
+v1: https://lore.kernel.org/r/6aad63a9.f9180b46.32931.492b@mx.google.com
+Review: https://lore.kernel.org/r/ea6d7395-c70f-9346-fc3f-9465adb5fef1@linux.intel.com
 
-	features = IN_MON | IN_INPUT;
+Thanks,
+Lucas
 
-that will reduce the declaration size below.
+ drivers/platform/x86/acer-wmi.c | 85 ++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 84 insertions(+), 1 deletion(-)
 
-> +/**
-> + * struct bcl_alarm_data - BCL alarm interrupt data
-> + * @irq: IRQ number assigned to this alarm
-> + * @irq_enabled: Flag indicating if IRQ is enabled
-> + * @irq_wake_enabled: Flag indicating if IRQ wake is enabled
-> + * @shutting_down: Flag preventing work from re-enabling IRQ during teardown
-> + * @type: Alarm level type (LVL0, or LVL1)
-> + * @device: Pointer to parent BCL device structure
-> + * @a_lock: Mutex for protecting alarm state
-> + * @alarm_poll_work: delayed_work to poll alarm status
-> + *
-> + * Stores interrupt-related information for each alarm threshold level.
-> + * Used by the IRQ handler to identify which alarm triggered.
-> + */
-> +struct bcl_alarm_data {
-> +	int			irq;
-> +	bool			irq_enabled;
-> +	bool			irq_wake_enabled;
-> +	bool			shutting_down;
+diff --git a/drivers/platform/x86/acer-wmi.c b/drivers/platform/x86/acer-wmi.c
+index 3a018fdf513891a8a012aeaa7185a3de521ecf47..b893e04712966fb1d792e4eb27955f3dbc8fad1d 100644
+--- a/drivers/platform/x86/acer-wmi.c
++++ b/drivers/platform/x86/acer-wmi.c
+@@ -310,6 +310,11 @@ struct hotkey_function_type_aa {
+ #define ACER_CAP_PLATFORM_PROFILE	BIT(10)
+ #define ACER_CAP_HWMON			BIT(11)
+ #define ACER_CAP_PWM			BIT(12)
++#define ACER_CAP_KBD_BACKLIGHT		BIT(13)
++
++#define ACER_KBD_BACKLIGHT_EC_STATE	0x30
++#define ACER_KBD_BACKLIGHT_EC_MIRROR	0x31
++#define ACER_KBD_BACKLIGHT_MASK		BIT(0)
+ 
+ /*
+  * Interface type flags
+@@ -406,6 +411,7 @@ struct quirk_entry {
+ 	bool hwmon;
+ 	bool platform_profile;
+ 	bool pwm;
++	bool kbd_backlight;
+ };
+ 
+ static struct quirk_entry *quirks;
+@@ -430,6 +436,9 @@ static void __init set_quirks(void)
+ 
+ 	if (quirks->pwm)
+ 		interface->capability |= ACER_CAP_PWM;
++
++	if (quirks->kbd_backlight)
++		interface->capability |= ACER_CAP_KBD_BACKLIGHT;
+ }
+ 
+ static int __init dmi_matched(const struct dmi_system_id *dmi)
+@@ -474,6 +483,12 @@ static struct quirk_entry quirk_acer_predator_ph315_53 = {
+ 	.gpu_fans = 1,
+ };
+ 
++/* Firmware supports sensors but lacks the platform-profile/OC methods. */
++static struct quirk_entry quirk_acer_predator_ph317_51 = {
++	.hwmon = true,
++	.kbd_backlight = true,
++};
++
+ static struct quirk_entry quirk_acer_nitro_anv15_51 = {
+ 	.cpu_fans = 1,
+ 	.gpu_fans = 1,
+@@ -717,6 +732,15 @@ static const struct dmi_system_id acer_quirks[] __initconst = {
+ 		},
+ 		.driver_data = &quirk_acer_predator_ph315_53,
+ 	},
++	{
++		.callback = dmi_matched,
++		.ident = "Acer Predator PH317-51",
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "Acer"),
++			DMI_MATCH(DMI_PRODUCT_NAME, "Predator PH317-51"),
++		},
++		.driver_data = &quirk_acer_predator_ph317_51,
++	},
+ 	{
+ 		.callback = dmi_matched,
+ 		.ident = "Acer Predator PHN16-71",
+@@ -1968,7 +1992,7 @@ static void __init acer_commandline_init(void)
+ }
+ 
+ /*
+- * LED device (Mail LED only, no other LEDs known yet)
++ * Mail LED device
+  */
+ static void mail_led_set(struct led_classdev *led_cdev,
+ enum led_brightness value)
+@@ -1992,6 +2016,40 @@ static void acer_led_exit(void)
+ 	led_classdev_unregister(&mail_led);
+ }
+ 
++/*
++ * No WMI method drives this keyboard backlight. Fn+F9 changes both EC
++ * registers, so write both to reproduce the firmware's on/off states.
++ */
++static int kbd_led_set(struct led_classdev *led_cdev,
++		       enum led_brightness brightness)
++{
++	u8 value = brightness == LED_OFF ? 0 : ACER_KBD_BACKLIGHT_MASK;
++	int ret;
++
++	ret = ec_write(ACER_KBD_BACKLIGHT_EC_STATE, value);
++	if (ret)
++		return ret;
++
++	return ec_write(ACER_KBD_BACKLIGHT_EC_MIRROR, value);
++}
++
++static enum led_brightness kbd_led_get(struct led_classdev *led_cdev)
++{
++	u8 value;
++
++	if (ec_read(ACER_KBD_BACKLIGHT_EC_STATE, &value))
++		return LED_OFF;
++
++	return value & ACER_KBD_BACKLIGHT_MASK ? LED_ON : LED_OFF;
++}
++
++static struct led_classdev kbd_led = {
++	.name = "acer-wmi::kbd_backlight",
++	.brightness_set_blocking = kbd_led_set,
++	.brightness_get = kbd_led_get,
++	.max_brightness = LED_ON,
++};
++
+ /*
+  * Backlight device
+  */
+@@ -2847,8 +2905,15 @@ static int acer_platform_probe(struct platform_device *device)
+ 			goto error_hwmon;
+ 	}
+ 
++	if (has_cap(ACER_CAP_KBD_BACKLIGHT)) {
++		err = devm_led_classdev_register(&device->dev, &kbd_led);
++		if (err)
++			goto error_kbd_backlight;
++	}
++
+ 	return 0;
+ 
++error_kbd_backlight:
+ error_hwmon:
+ error_platform_profile:
+ 	acer_rfkill_exit();
+@@ -2877,6 +2942,7 @@ static int acer_suspend(struct device *dev)
+ {
+ 	u32 value;
+ 	struct acer_data *data = &interface->data;
++	int ret;
+ 
+ 	if (!data)
+ 		return -ENOMEM;
+@@ -2892,6 +2958,17 @@ static int acer_suspend(struct device *dev)
+ 		data->brightness = value;
+ 	}
+ 
++	if (has_cap(ACER_CAP_KBD_BACKLIGHT)) {
++		u8 state;
++
++		ret = ec_read(ACER_KBD_BACKLIGHT_EC_STATE, &state);
++		if (ret)
++			return ret;
++
++		kbd_led.brightness = state & ACER_KBD_BACKLIGHT_MASK;
++		led_classdev_suspend(&kbd_led);
++	}
++
+ 	return 0;
+ }
+ 
+@@ -2908,6 +2985,9 @@ static int acer_resume(struct device *dev)
+ 	if (has_cap(ACER_CAP_BRIGHTNESS))
+ 		set_u32(data->brightness, ACER_CAP_BRIGHTNESS);
+ 
++	if (has_cap(ACER_CAP_KBD_BACKLIGHT))
++		led_classdev_resume(&kbd_led);
++
+ 	if (acer_wmi_accel_dev)
+ 		acer_gsensor_init();
+ 
+@@ -2929,6 +3009,9 @@ static void acer_platform_shutdown(struct platform_device *device)
+ 
+ 	if (has_cap(ACER_CAP_MAILLED))
+ 		set_u32(LED_OFF, ACER_CAP_MAILLED);
++
++	if (has_cap(ACER_CAP_KBD_BACKLIGHT))
++		led_classdev_suspend(&kbd_led);
+ }
+ 
+ static struct platform_driver acer_platform_driver = {
 
-Same suggestion
-
-> +	enum bcl_limit_alarm	type;
-> +	void			*device;
-> +	/* Protects alarm IRQ enable/disable state */
-> +	struct mutex		a_lock;
-> +	struct delayed_work	alarm_poll_work;
-> +};
-> +
-> +/**
-> + * struct bcl_device - Main BCL device structure
-> + * @dev: Pointer to device structure
-> + * @regmap: Regmap for accessing PMIC registers
-> + * @base: the BCL regbase offset from regmap
-> + * @fields: Array of regmap fields for register access
-> + * @bcl_alarms: Array of alarm data structures for each threshold level
-> + * @lock: Mutex for protecting concurrent hardware access
-> + * @last_in_input: Last valid voltage input reading in millivolts
-> + * @last_curr_input: Last valid current input reading in milliamps
-> + * @last_in_updated: Timestamp of last voltage input update
-> + * @last_curr_updated: Timestamp of last current input update
-> + * @desc: Pointer to device descriptor with hardware-specific parameters
-> + * @hwmon_dev: Pointer to registered hwmon device
-> + * @hwmon_name: Sanitized name for hwmon device
-> + * @batt_config: Detected battery configuration (only for SMB2360/2370)
-> + * @batt_config_regfield: Regmap field for battery configuration register
-> + *
-> + * Main driver structure containing all state and configuration for a BCL
-> + * monitoring instance. Manages voltage and current monitoring, thresholds,
-> + * and alarm handling.
-> + */
-> +struct bcl_device {
-> +	struct device		*dev;
-> +	struct regmap		*regmap;
-> +	u16			base;
-> +	struct regmap_field	*fields[F_MAX_FIELDS];
-> +	struct bcl_alarm_data	bcl_alarms[BCL_LIMIT_ALARM_MAX];
-> +	/* Protects hardware register access and device state */
-> +	struct mutex		lock;
-> +	u32			last_in_input;
-> +	s32			last_curr_input;
-> +	unsigned long		last_in_updated;
-> +	unsigned long		last_curr_updated;
-> +	const struct bcl_desc	*desc;
-> +	struct device		*hwmon_dev;
-> +	char			*hwmon_name;
-> +	enum bcl_battery_config	batt_config;
-> +	struct regmap_field	*batt_config_regfield;
-> +};
-> +
-> +static const u8 in_attr_to_lvl_map[] = {
-> +	[hwmon_in_min] = BCL_LIMIT_ALARM_LVL0,
-> +	[hwmon_in_lcrit] = BCL_LIMIT_ALARM_LVL1,
-> +	[hwmon_in_lemergency] = BCL_LIMIT_ALARM_LVL2,
-> +	[hwmon_in_min_alarm] = BCL_LIMIT_ALARM_LVL0,
-> +	[hwmon_in_lcrit_alarm] = BCL_LIMIT_ALARM_LVL1,
-> +	[hwmon_in_lemergency_alarm] = BCL_LIMIT_ALARM_LVL2,
-> +};
-> +
-> +static const u8 in_lvl_to_attr_map[BCL_LIMIT_ALARM_MAX] = {
-> +	[BCL_LIMIT_ALARM_LVL0] = hwmon_in_min_alarm,
-> +	[BCL_LIMIT_ALARM_LVL1] = hwmon_in_lcrit_alarm,
-> +	[BCL_LIMIT_ALARM_LVL2] = hwmon_in_lemergency_alarm,
-> +};
-> +
-> +static const u8 curr_attr_to_lvl_map[] = {
-> +	[hwmon_curr_max] = BCL_LIMIT_ALARM_LVL0,
-> +	[hwmon_curr_crit] = BCL_LIMIT_ALARM_LVL1,
-> +	[hwmon_curr_max_alarm] = BCL_LIMIT_ALARM_LVL0,
-> +	[hwmon_curr_crit_alarm] = BCL_LIMIT_ALARM_LVL1,
-> +	[hwmon_curr_emergency_alarm] = BCL_LIMIT_ALARM_LVL2,
-> +};
-> +
-> +static const u8 curr_lvl_to_attr_map[BCL_LIMIT_ALARM_MAX] = {
-> +	[BCL_LIMIT_ALARM_LVL0] = hwmon_curr_max_alarm,
-> +	[BCL_LIMIT_ALARM_LVL1] = hwmon_curr_crit_alarm,
-> +	[BCL_LIMIT_ALARM_LVL2] = hwmon_curr_emergency_alarm,
-> +};
-> +
-> +/* Interrupt names for each alarm level */
-> +static const char * const bcl_int_names[BCL_LIMIT_ALARM_MAX] = {
-> +	[BCL_LIMIT_ALARM_LVL0] = "max-min",
-> +	[BCL_LIMIT_ALARM_LVL1] = "critical",
-> +	[BCL_LIMIT_ALARM_LVL2] = "emergency",
-> +};
-
-why not fold the structures into a single one?
-
-eg.
-
-struct attr_lvl_map {
-	const int level;
-	const int attr;
-	const char *name;
-};
-
-const curr_attr_lvl_map[] = {
-	{
-	  .level = BCL_LIMIT_ALARM_LVL0,
-	  .attr = hwmon_curr_max_alarm,
-	  .name = "max-min"
-	}
-	...
-};
-
-And a function lvl_to_attr() / attr_to_lvl()
-
-?
-
-
-[ ... ]
-
-Thanks
-
-   -- Daniel
-
+base-commit: 9d3475065167197742b0882aff21cf8e78393277
