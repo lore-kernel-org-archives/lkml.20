@@ -1,82 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793074948;
-	b=ril9y0Y6Hb06wHoVe3UxE2hOoaGKFya3zpGQfAW2t1hnhl3UtvbBo7BAmO2yEtp4sNqm
-	 VD3+jtBuuHhm+lbeJqIjTh0MaWreySmue96HXoidnJrOmr/En17JqOa3LySmtMvX8rO+/
-	 nd2EIsW94hqPy7oR0zJW3BTC3vMwX9bIXpriEOzhbjvZ7I1WeOoNQPit7JpVRfjk/3nr9
-	 MzSwPZz7B/7h3DGF2Xk7ZAmHwoZgTSTsM6FUgkK60iLy+6QAf+tRWbZUwrs4UhsqeUpdo
-	 rB5bbv0WDUpeeyiUJDAb4/pDsx4lbrnmw5cY18LuI0mKe2TFDhEeLX2hqjsobxaDrEQ==
+	t=1793074950;
+	b=NgXV1D78cec3hpVO37u9lpVwg++ct7C2bJmmP2xX2Uv0FK6ar9ngvCEVcnHKvlaw2OST
+	 H86uXn8r0aO7rGJzjqlhmRuHDma7SCdR+pYgDgdDfcBgX1xxkLpjM6Z/NTmnqZypkk4cC
+	 EYocGRTtZPjYIXAyCg0Rn1bIVOJSZGhM7xNuuVvwj6xo/pNg0hBObKhIvgUqvxi8IF/wr
+	 f4r2MSu5d5qhz7ueinPOB2yDI58r+91LvaTAGmn8LFTLHIYf1dl6fLIWG450YKOnRmkT6
+	 qwVnKlqRWb2fonncWrSyLkVMyh9KhhP6v0d1U4+I5Yk/e0OXsKxSmhsAV+VLvTNadWQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793074948;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793074950;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=Fgx0S8/0sycDsnMopzoyCblR7NpYYIVN3Htks6C0yAA=;
-	b=FL0zue8bqQWv9OazQPghgv+yateY+j+mw/jfiQrXwTJy/ZqHbZyZp6JkJpLLL2OWfxjZ
-	 hErXPf5dqF9Y1sV/auZK2xI2QfY0FaWz8hhCEc4SWRzPtFOzZ5xBNB7OaBfALDqITRZRi
-	 HsHZc7/O6tR3QA+7/PKN6Kqk9rHiuNETN0eAhzORKsZoPSAZZ488Wqmocz7hNN3jwWcd7
-	 rxQBgjjKtoDLE0LQIC0LQmu5fUw3rBgM9y/GE4IVKw7bHZ3uQOcaSOAIjCg/GPclbMbJp
-	 Tr+kOUmP7BeTNlUCtaQW07UWMS6RmGPqhG58/hoA5fL06lQf0OdUzR680XkU3qwt1MQ==
+	bh=+qp0OXlPFpX5xiEJlY0VrKPIDA5cshKQIUi1chin/AM=;
+	b=mnY1X+G7n3wmcaGXWMJ/mi7F/W1hN7QlKRdNmTkm3ysV0bqKMOsi80xvsrQiQbvgcWAV
+	 +RKbjFnANiYPIH2RYcgaIOE5aIKjj/nPaqCUW4M3lwws5FV8ymwA6uD6/YbuK2RyIDbhY
+	 x8YE3eMWvFj60wisUHq7uKwjTCEE2D4fy6t9tBEHivRE6Q64zxHmspQvwislo0M4Ryms9
+	 X/We0hnfz2i3XofXweE3iobX8tBoahLyhH0nKyP4IyjJDneep3rq8QkMANPZmAYQQzEnH
+	 W13u8Hohv0sQZexGe+sE/IgnJ5OTi2ulsz6SSE8yDJeDuloXNklJm2on6IK3fG82gNg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=gourry.net;
 	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=ZNfbJNjS;
-	arc=none smtp.remote-ip=209.85.160.178
-Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com [209.85.160.178])
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=LqDJFQLD;
+	arc=none smtp.remote-ip=209.85.160.176
+Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8836660A260F
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 04:22:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8836660A260F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FB7460A2613
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 04:22:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0FB7460A2613
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=ZNfbJNjS
-Received: by mail-qt1-f178.google.com with SMTP id d75a77b69052e-53394bffe0fso5634781cf.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 21:22:27 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=LqDJFQLD
+Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-53381e53b80so40135011cf.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 21:22:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1793074946; x=1793679746; darn=vger.kernel.org;
+        d=gourry.net; s=google; t=1793074949; x=1793679749; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Fgx0S8/0sycDsnMopzoyCblR7NpYYIVN3Htks6C0yAA=;
-        b=ZNfbJNjSwh4iuFBugs28Lgd2LQudZPCl8nsuNLBP8R2y4RjjjVdHq9uS6qMTNhgqaE
-         H0Gvav/Ed1apakX5n1rlwq5Tn4GoBP/ckAi4y8FupjLgzrj5z0UC+hMLG4KvzQjP7fut
-         1EdrIhPRQ/m17bNkHNewaJAFlZAF8WDtocpswbDloJCK23NRZj4VSpTPuLsORmH1TbmB
-         tVMEndigGJ7sqWmjqcfk+TQHLlG45PL3MmQnFtxLyX15O0WZ8RmKOaw44/Zn8i/m8ho/
-         PH6GY3IMJRlxrjT6yINoZcusYiV+U00dEMakQ4LgqeWtiCy7bX8ZTL5gX9aqKxXyt+JW
-         WmEg==
+        bh=+qp0OXlPFpX5xiEJlY0VrKPIDA5cshKQIUi1chin/AM=;
+        b=LqDJFQLDUaHIWGiWTCLkU2MVm9Lw96mlSopCwjiAvG5R3zeWpWiif3wxZ/jvpZU2XB
+         Ds9A79c83QW7XHkAByvlg+p808i5CyquUbLlsLTdQynrhW37t7Fu9LYnL3PZZKN8GUMF
+         fUhuTItx3x7SikAnl78R1jLlKSlTGlS0DSJyOwlTru6UrpEzprc/KXjoOShqN0G7d64k
+         pr9R3gcL6YKefPFULIOrceLvG6f6UBz2i/COa8BYcr3cGGYyn9J9+L8EcN8otLWjqOT5
+         p9v5JQywJbfi2ZrfhGtsUsn+CNZiC/x4Obt9KCNdqSHvkT9+RQVZrRc7EiRbaWxuwTOH
+         v9/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793074946; x=1793679746;
+        d=1e100.net; s=20260707; t=1793074949; x=1793679749;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Fgx0S8/0sycDsnMopzoyCblR7NpYYIVN3Htks6C0yAA=;
-        b=wlNsIbs3YzStOvU4NMrVZTzX735dnGPZY24Dd6EnrUcv3thJEPRie9sM7gnU2sB8D2
-         aroxYMG1P1NbeEiNeUt2H52lDDCtLNEfrDz9mLZ3ErP0BqYxhpEGjWz3dE6yxCgPcGBe
-         gjM+SspeKQssPe6DnmlNhwC3vogJtWNkc2yGLoxeUfojcN/fJ170oKnedR6tlTOc7su6
-         Rhd/DhLjMsKPYhKQ0F+5kKZGtqnRalSAey9L016URhr0W91U9KBJmDhElQ1Cl1lmxnOK
-         2DSLnGeVTsx66Lr09aJY3ex2joyalrRZvO5AbgX5WxvxG2Ggml6DG98mkIL3HymVM/vE
-         a/0A==
-X-Gm-Message-State: AFq9FYK+q9C8aI8+aDcDUCmk9npg1hmlv5B1IRKnVJno80a//fUOnm9K
-	yC0wHtc0PWj13rWRG4b1WffmKcnJF6TphDx4u2Ymig5k27GzUBcFzmJXh8Z3eur5K/g=
-X-Gm-Gg: AYBFou2UPCBIW7Xkumlnoj4aDpMI+fVEF7QUllYautHoTc6NAlM/pbXIOnqRtNp3cgc
-	dYr8L1RDoNJWqG0KJyL/X+vO8tTCIenUAfSBQjnGF1Ov8igpuJ0kwNch6/mGEx5yEwJ80W0AseS
-	Z3u4h9aVcGVO1BriVjtMONQ6hZdULGnZINK3JOknyRGcp1oXG3Yhiip+QW/cE9jS1E3BB4DnWnK
-	nDVkX16C5/oJY0KZbZaISdnHO03sRUlXZhvpRcwBzo76DkDi4UJwYHzg9eS2dVkYUUBlg/emcQF
-	NduO6qLstCdxMfneel6JPOy+EssKwak0iEoMMx9tAqgLGvR4pmxkFFaPEu59RyEpLL5fZi7TxHF
-	8EUrabkZ2qa/zI3gV0QLovg5tgJFJGaYDUm1IUX5ZjtrNEPd7hH+jKRHMmNJfBuGDsQyyeGHKSX
-	QoXqx1JQJQxiPm4w6J/C+GyIidMXXQL3YZX9nrMtBFfrf7RMtDIJAteDvfGspXN99s43aokWuC+
-	TZZVCVIkgLdczPHCPzhy1YkJ+BUDToDKg7JVEWtvEmyXIjRQHe1pObdIlEkD1xR0QF7/vE8hm0j
-	mDfJ3FYekHwPbk3sNb7UHZucc1rffQKTBWeuIPDX9g==
-X-Received: by 2002:ac8:5ad5:0:b0:536:723f:5de7 with SMTP id d75a77b69052e-53e3bd81b50mr32491021cf.4.1793074946632;
-        Mon, 26 Oct 2026 21:22:26 -0700 (PDT)
+        bh=+qp0OXlPFpX5xiEJlY0VrKPIDA5cshKQIUi1chin/AM=;
+        b=t5b6F3c7CdWD3Ty7NAck8pE2SwhAtZciZmu9qoNSPNZvhH5VyMNi9zDpUBBiIvsxiL
+         eH/5x4bSnK1XnWrbSGmV1XarUP4ng1RhacT/ObAfpQNFwOt8yS5itq9sGlt0yI/P9yUM
+         Zq6KdJuyh4aJVFB86dRqpEHZ9sSdCzMEyLgE5iMDNo16V92Awy9ZfVWme/h3JnXEnNSL
+         gnjfabVSplNei6fuxZvyGWPPCua/UiMSWDUT/cBH4LJi85t0W8M5p3OxZVZkBaZI13OA
+         Hdnnz2hdVO9ICcyngSmmA5BVW7SfqYRqmTFjzPZHtF6NyCL9q5R88yqZbFJi0IzIpV8h
+         6x2Q==
+X-Gm-Message-State: AFq9FYJxm+Siao4BRGXlfHTsumr2Hkrxw9qTASyIqzZARTNptIcKBEG0
+	j4OFkbxriSktn4uPqt2dZX2kbwhpYtHmaT07+zAbsP3WCBgKRJbhl/sISfk/JFbcag0=
+X-Gm-Gg: AYBFou2IiH57q9SL8+XRqEis6NcByKzhes9W23TpSuWUQH5MnHRv6e8LnbRkn/PcUWX
+	zfRBYV7+gZLq94wG11l3+KCph7XUArllFwSr1Ekin97ZX4GfKDPOY35NvpOkvl5qWZvwDMMCqBC
+	LnKqW2+xJWJvf+txTI84rlBel8RR7ARBTG50/957qyzFKSa+pMgiOwIUBfqj8tIyYqZmig18XPV
+	dhAhcRgWAh1HDmF9xcqjV8aVgfq8v6T8FhJujDGhHloHRJeOZaB91AAXFPHY0FkEP8LsBHteTcA
+	Cn5LQyxMAWGghmYUysE04H5YTr7f12chk8UY2BLkJwe3iCAxSx+5+kWJDFZGwoT/gbmJCq52SLQ
+	JlmU3vLw+ZH90PcI1/ipOQsf512lYuOqj8ZamnMbJgmPx1JW/ckt8gabFME4m6wq2fGhqnbL8rp
+	hiYdDmvFrhjtqSl1gOIAhxngeu86afe19Pflo4K1Ory+wCSA7UO0TJIxfY2//KkyiUBF9orS72H
+	d+rqXv4QUNbxZuURkA0xiV1yJkEopRjHCIMSyYZBBPL4C1loMlUbz848PqvKbgUskFuaUGJZ1Bt
+	fY4yDO5wP+tJFzQIKd/8SQDqze8Y9Sc4XgbOWELt5w==
+X-Received: by 2002:a05:622a:a6cb:b0:536:66ec:1b06 with SMTP id d75a77b69052e-53ae5466c89mr89523631cf.50.1793074949087;
+        Mon, 26 Oct 2026 21:22:29 -0700 (PDT)
 Received: from gourry-fedora-PF4VCD3F.lan (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c47bd01cdsm91139676d6.7.2026.10.26.21.22.24
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c47bd01cdsm91139676d6.7.2026.10.26.21.22.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 21:22:25 -0700 (PDT)
+        Mon, 26 Oct 2026 21:22:27 -0700 (PDT)
 From: "Gregory Price (Meta)" <gourry@gourry.net>
 To: linux-mm@kvack.org
 Cc: linux-kernel@vger.kernel.org,
@@ -100,9 +100,9 @@ Cc: linux-kernel@vger.kernel.org,
 	iamjoonsoo.kim@lge.com,
 	anshuman.khandual@arm.com,
 	stable@vger.kernel.org
-Subject: [PATCH 5/6] mm/page_alloc: keep the range online while alloc_contig isolates it
-Date: Tue, 27 Oct 2026 00:22:03 -0400
-Message-ID: <20261027042204.3741307-6-gourry@gourry.net>
+Subject: [PATCH 6/6] mm/hwpoison-inject: keep the page online while filtering it
+Date: Tue, 27 Oct 2026 00:22:04 -0400
+Message-ID: <20261027042204.3741307-7-gourry@gourry.net>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261027042204.3741307-1-gourry@gourry.net>
 References: <20261027042204.3741307-1-gourry@gourry.net>
@@ -117,111 +117,158 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A gigantic hugetlb allocation racing with memory offline can crash.
-alloc_contig_pages() checks that a range is online under zone->lock,
-drops the lock, and alloc_contig_range() then reads the zone of its
-pages.  If the range goes offline in between, a DEBUG_VM kernel faults
-on the poisoned memmap, and removal frees it on any kernel:
+Injecting a memory error with the filter enabled while the memory is
+hot-removed can crash.  hwpoison_inject() checks the pfn with
+pfn_valid(), then runs shake_folio() and the filter on its page, which
+can sleep in lru_add_drain_all():
 
-  CPU 1 (alloc_contig_pages)          CPU 2 (offline_pages)
-  pfn_range_valid_contig()
-    range is online
-  spin_unlock(&zone->lock)
-                                      offline_mem_sections()
-                                      remove_pfn_range_from_zone()
-                                        page_init_poison()
-  alloc_contig_range()
-    start_isolate_page_range()
-      isolate_single_pageblock()
-        zone of a poisoned page
+  CPU 1 (hwpoison_inject)             CPU 2 (ACPI eject)
+  pfn_valid()
+  folio = page_folio(pfn_to_page())
+                                      offline_pages()
+                                      arch_remove_memory()
+                                        vmemmap freed
+  shake_folio(folio)
+    reads folio->flags
 
-  Oops: general protection fault, probably for non-canonical address 0xdffffc00000006a2: 0000 [#1] SMP KASAN
-  RIP: 0010:isolate_single_pageblock+0xe5/0x820
-   start_isolate_page_range+0x74/0x1a0
-   alloc_contig_frozen_range_noprof+0x21c/0xcc0
-   alloc_contig_frozen_pages_noprof+0x4cf/0x700
+  BUG: unable to handle page fault for address: ffd4000006040033
+  #PF: error_code(0x0000) - not-present page
+  RIP: 0010:shake_folio+0x2a/0x50
+   hwpoison_inject+0x232/0x4b0 [hwpoison_inject]
+   simple_attr_write_xsigned.constprop.0.isra.0+0x179/0x220
+   debugfs_attr_write+0x63/0x90
 
-A range that goes offline during isolation is no better, since
-start_isolate_page_range() skips offline blocks.
+Until the filter stopped pinning the page, that reference held off
+offline.
 
-Check that the range is online, isolate it and check again under
-pfn_walk, and look up the zone only then; an isolated range cannot go
-offline.  This adds one online lookup per pageblock on each side of
-isolation.
+Hold get_online_mems() around the filter, check the pfn with
+pfn_to_online_page() under it, and drop the hold before
+memory_failure(), which takes it again.  Offline and ZONE_DEVICE pages
+never passed the filter anyway.  Export get/put_online_mems() to the
+module.
 
-With a kprobe holding a 1G allocation at start_isolate_page_range()
-across the offline, base faults in 3 of 3 runs.  With this patch the
-offline waits for the allocation in 6 of 6, and both finish.
+With the injector held at shake_folio() on a free DIMM page across an
+eject, base faults in 3 of 3 runs.  With this patch the eject waits, and
+the injection then fails with -ENXIO, in 3 of 3.
 
-Fixes: 5e27a2df03b8 ("mm/page_alloc: add alloc_contig_pages()")
+Fixes: fd476720c9ba ("mm,hwpoison-inject: don't pin for hwpoison_filter")
 Cc: stable@vger.kernel.org
 Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
 ---
- mm/page_alloc.c | 33 +++++++++++++++++++++++++++++----
- 1 file changed, 29 insertions(+), 4 deletions(-)
+ mm/hwpoison-inject.c | 55 +++++++++++++++++++++++++++++---------------
+ mm/memory_hotplug.c  |  2 ++
+ 2 files changed, 39 insertions(+), 18 deletions(-)
 
-diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index bb3c7e95f2ed4..82f35816a0711 100644
---- a/mm/page_alloc.c
-+++ b/mm/page_alloc.c
-@@ -7319,6 +7319,16 @@ static void __free_contig_frozen_range(unsigned long pfn, unsigned long nr_pages
- 	__free_contig_range_common(pfn, nr_pages, /* is_frozen= */ true);
- }
+diff --git a/mm/hwpoison-inject.c b/mm/hwpoison-inject.c
+index a11222572f978..f6cc967b3a468 100644
+--- a/mm/hwpoison-inject.c
++++ b/mm/hwpoison-inject.c
+@@ -9,6 +9,7 @@
+ #include <linux/hugetlb.h>
+ #include <linux/page-flags.h>
+ #include <linux/memcontrol.h>
++#include <linux/memory_hotplug.h>
+ #include "internal.h"
  
-+static bool pfn_range_online(unsigned long start, unsigned long end)
-+{
-+	unsigned long pfn;
-+
-+	for (pfn = start; pfn < end; pfn += pageblock_nr_pages)
-+		if (!pfn_to_online_page(pfn))
-+			return false;
-+	return true;
+ static u32 hwpoison_filter_enable;
+@@ -99,43 +100,61 @@ static int hwpoison_filter(struct page *p)
+ 
+ static struct dentry *hwpoison_dir;
+ 
+-static int hwpoison_inject(void *data, u64 val)
++/* Returns true if the filter rejects the page at @pfn */
++static bool hwpoison_inject_filtered(unsigned long pfn)
+ {
+-	unsigned long pfn = val;
+ 	struct page *p;
+ 	struct folio *folio;
+-	int err;
+-
+-	if (!capable(CAP_SYS_ADMIN))
+-		return -EPERM;
+-
+-	if (!pfn_valid(pfn))
+-		return -ENXIO;
+ 
+-	p = pfn_to_page(pfn);
++	/*
++	 * Offline and ZONE_DEVICE pages are not LRU, hugetlb or free buddy
++	 * pages, so the checks below never let them through.
++	 */
++	p = pfn_to_online_page(pfn);
++	if (!p)
++		return true;
+ 	folio = page_folio(p);
+ 
+-	if (!hwpoison_filter_enable)
+-		goto inject;
+-
+ 	shake_folio(folio);
+ 	/*
+ 	 * This implies unable to support non-LRU pages except free page.
+ 	 */
+ 	if (!folio_test_lru(folio) && !folio_test_hugetlb(folio) &&
+ 	    !is_free_buddy_page(p))
+-		return 0;
++		return true;
+ 
+ 	/*
+ 	 * do a racy check to make sure PG_hwpoison will only be set for
+ 	 * the targeted owner (or on a free page).
+ 	 * memory_failure() will redo the check reliably inside page lock.
+ 	 */
+-	err = hwpoison_filter(&folio->page);
+-	if (err)
+-		return 0;
++	return hwpoison_filter(&folio->page);
 +}
 +
- /**
-  * alloc_contig_frozen_range() -- tries to allocate given range of frozen pages
-  * @start:	start PFN to allocate
-@@ -7352,7 +7362,6 @@ int alloc_contig_frozen_range_noprof(unsigned long start, unsigned long end,
- 	struct compact_control cc = {
- 		.nr_migratepages = 0,
- 		.order = -1,
--		.zone = page_zone(pfn_to_page(start)),
- 		.mode = MIGRATE_SYNC,
- 		.ignore_skip_hint = true,
- 		.no_set_skip_hint = true,
-@@ -7397,13 +7406,29 @@ int alloc_contig_frozen_range_noprof(unsigned long start, unsigned long end,
- 	 */
- 
- 	/*
--	 * On failure this has undone its own isolation, and any other
--	 * isolated blocks in the range belong to someone else, e.g. offline.
-+	 * Part of the range may go offline under us.  Offline cannot poison
-+	 * the memmap while we hold pfn_walk, but isolation silently skips
-+	 * blocks that are already offline, so check before and after.  On
-+	 * failure, start_isolate_page_range() has undone its own isolation,
-+	 * and any other isolated blocks belong to someone else, e.g. offline.
- 	 */
--	ret = start_isolate_page_range(start, end, mode);
-+	scoped_guard(pfn_walk) {
-+		unsigned long first = pageblock_start_pfn(start);
-+		unsigned long last = pageblock_align(end);
++static int hwpoison_inject(void *data, u64 val)
++{
++	unsigned long pfn = val;
++	bool filtered;
++	int err;
 +
-+		if (!pfn_range_online(first, last))
-+			return -EBUSY;
-+		ret = start_isolate_page_range(start, end, mode);
-+		if (!ret && !pfn_range_online(first, last)) {
-+			/* Every online isolated block in the range is ours */
-+			undo_isolate_page_range(start, end);
-+			ret = -EBUSY;
-+		}
++	if (!capable(CAP_SYS_ADMIN))
++		return -EPERM;
++
++	if (!pfn_valid(pfn))
++		return -ENXIO;
++
++	if (hwpoison_filter_enable) {
++		/*
++		 * Keep the page online while the filter looks at it.
++		 * memory_failure() takes this again, so drop it first.
++		 */
++		get_online_mems();
++		filtered = hwpoison_inject_filtered(pfn);
++		put_online_mems();
++		if (filtered)
++			return 0;
 +	}
- 	if (ret)
- 		return ret;
  
-+	cc.zone = page_zone(pfn_to_page(start));
- 	drain_all_pages(cc.zone);
+-inject:
+ 	pr_info("Injecting memory failure at pfn %#lx\n", pfn);
+ 	err = memory_failure(pfn, MF_SW_SIMULATED);
+ 	return (err == -EOPNOTSUPP) ? 0 : err;
+diff --git a/mm/memory_hotplug.c b/mm/memory_hotplug.c
+index b5d9e367b893d..fe2ed0894d49d 100644
+--- a/mm/memory_hotplug.c
++++ b/mm/memory_hotplug.c
+@@ -215,11 +215,13 @@ void get_online_mems(void)
+ {
+ 	percpu_down_read(&mem_hotplug_lock);
+ }
++EXPORT_SYMBOL_FOR_MODULES(get_online_mems, "hwpoison-inject");
  
- 	/*
+ void put_online_mems(void)
+ {
+ 	percpu_up_read(&mem_hotplug_lock);
+ }
++EXPORT_SYMBOL_FOR_MODULES(put_online_mems, "hwpoison-inject");
+ 
+ bool movable_node_enabled = false;
+ 
 -- 
 2.53.0-Meta
 
