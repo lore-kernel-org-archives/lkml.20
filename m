@@ -1,65 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.94
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793093476;
-	b=fHzQmNO4tL9tosdF0UFMYFBpDwygY4SNPWKHpBpey1DL94W9dK5zso9z0PsXHoIfeTdG
-	 aLsljKc2ypEmbqkn86HxneDDmDNYDFyInD5sV2wCscqniYtEX6VS4Cu8fWjvMgriBjSBi
-	 plxuArw3Gni1hKKVCv6B0WXVFWM2cEUwJkQmINJx7PKyrf6TbYNGC+CBUFIXRXvIP8Cuq
-	 lrONXlQb3Nx/uZjLhd8ZBI+QQILXWV+VG/QVHT5MrtwH9Fp9mKZV8BfJ+SpgPkvcZByMw
-	 cXETzTrbGxd0BTVd7lSV20oySLTUznUMDwGhGcn+GHq5zNkDIwD1x+o47/7IdzZdIfA==
+	t=1793093485;
+	b=13FQUtTJCFeq87HmEOiqmhoQn6qBvU0Lln/53Gg9TVHQW7Z6i2nXXQGC4VEH9PYVaV+h
+	 PWNSjdTJtrvjiJlQwNvhmyCGaRIz0MRs/E5MdWS7olaMjIi66j9bMqEKYVtQrwlFJR16S
+	 MziyphSZUbnzewe6KV+DQvQm3n9OSfb6VJ3LEW5kQVtWFloN2el0znhbYRXsrQwX10Q3/
+	 f5ZB1hrwg6is5+yk3ZuVtutzCWrtPs53nM57S3q57LBmWNKqkeZPjG1tsGI+5dtNNMpk6
+	 bhbCtckHGyQZ88Xl1pQimAcaaIm3jSDFAioCRS5PKCEAY4Ywj5AaYh50+bGOlZ2L7uw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793093476;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=kIXCKvOTKtSXTnAmt+w2O5J3oCLsmilmPqyShsZT8Vs=;
-	b=p3m1SNEWEAxEYlhWQ3lJnQMgGslSjujDMzIfjPnQgs3dAgiVwJNn+0S+uZhb7Qs9Uiqs
-	 LyV9auJFF3s3xDGh/pVEK0Cg+1MgrLIzPmLAJdv33oslHzhOOyPjZ9af1Zrz7sSyE4GNO
-	 fwAY0CqZe8v0UYdy9vZ/AJmTuFeckoM7KeDbhX0N+ZEqDhKe3e+IQ3gPyuyKQ4vBYJnI7
-	 7pzj8Q0KhAJZb7KzQ4/8qCeqoLvzJUUGdhIN6VYBZq+hUcN49CI7qKdDqsWIRZCTeUw4H
-	 xYFBjqR3tbdztDfE+iUmpbnEMNY2urUGfqK5gOYpaB+GeZ3As2iIZisFuEuxW6HVGXg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793093485;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 In-Reply-To:Organization:References:Date:Message-ID:MIME-Version:
+	 Content-Type;
+	bh=ZrREaFPN1A2I23bFcrwrSvKLFXloO62VYkfEvECgFVQ=;
+	b=PIz1OtBVwHbBhCsze0Ut0sjIC6Z9tR8MrVx2TX8qewvUN02eNlewblmpE/yPfgCL1pb2
+	 BE0LQvT4SOZ2BOuJXasqrH/+8BGF+dMx0Td6Z1v703QNGYehTuWI3VRbKijdaTwKpmNis
+	 36dpt07S1bIXXU+n5hdk5FA6Q+eGkBbert5MUce+HJEbDuCrDnPmcbLBrUWL4pnLxDeAX
+	 I2ZpjPOkUa/z3WlNlPwS2CBU8ih4cE3waqNtal9AANnZf+VtiZS9hyF1hBl5ikuFbV0bz
+	 n8dlkpYeqqZB6evVtdJKEGoudNQAYGJ/3mgWdVHqsLq0kop72lKUWUSn6C9+0mEPVZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=TOPyQ1WI;
-	arc=none smtp.remote-ip=91.218.175.94
-Received: from mta0.migadu.com (out-94.mta0.migadu.com [91.218.175.94])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Zizy2pld;
+	arc=none smtp.remote-ip=198.175.65.18
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B5FD606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:31:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B5FD606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1D9E606A324
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:31:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1D9E606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=TOPyQ1WI
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=SiCopvP+yMT0xlwZ2moQJ9M5qKmGAl7iAC0O0RjC/0M=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793093473; v=1; x=1793698273;
- b=TOPyQ1WIMjqfIiE1Hic3NjFMjMCQncNZBcwpogDTnEhep6VLeb0QhbW6akilADh+9Hwf6HQy
- USb90LqBiZBbaVoeqg2aUwyqocWBGuHP+rtbFUWbe9FTA5/tsmI5iJKSI9EcsQ/AHOh/WXOekq5
- 8qHBk0rQ9XiCFL2rL8xTyDUc=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 217aa2d2c16b77b4;
-	Tue, 27 Oct 2026 09:31:13 +0000
-X-Mizu-Trace-ID: 217aa2d2c16b77b4
-X-Migadu-Flow: FLOW_OUT
-Date: Tue, 27 Oct 2026 17:31:47 +0800
-From: Chenguang Zhao <chenguang.zhao@linux.dev>
-To: Florian Fainelli <florian.fainelli@broadcom.com>
-Cc: netdev@vger.kernel.org, Jonas Gorski <jonas.gorski@gmail.com>,
-	Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
-	open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH net 0/6 RESEND] net: dsa: b53: PCS fixes
-Message-ID: <20261027093147.GA1548768@pc>
-References: <20261022225656.1387306-1-florian.fainelli@broadcom.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Zizy2pld
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793093484; x=1824629484;
+  h=from:to:cc:subject:in-reply-to:references:date:
+   message-id:mime-version;
+  bh=mENBM7L0NMnkFXUKkoj0KRaIna8saiPp1s2/O6X9Bsg=;
+  b=Zizy2pldXJHltUklKCgdOwd1eJaxJrw+4Wt4kML58HY8SYIJjBB3vOZy
+   arDp+Uvr7NRVaCL2S8+q/6QLVxkRVdVy3vj4VnL+Q4AknLOHVY6yE4dih
+   eZsTFiWwkgjnOhqfYs+E77a+4ueMQNYpi53dd4/GSjPbNk7avR8jdchSb
+   Z5/VpNfui2KHN95iBCA6a0ySykOiECJKJj7rNiyChTtEWsI5IkIR9EqlG
+   Erh85XZSQds1i8CxHsrlmh0//dII+INlxj7jiGiejNJe+3d+UIFoib/JY
+   mPLLkvDdrbI1Idtn+JkJn2++/ENbD9j2uYCBqL18ICAaqHn6Se5BweodW
+   w==;
+X-CSE-ConnectionGUID: +TKBXmJgQASP/fsXIWmVFA==
+X-CSE-MsgGUID: Zt3N+nsjTh2YmSEyNG1KXg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1796566"
+X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
+   d="scan'208";a="1796566"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 02:31:23 -0700
+X-CSE-ConnectionGUID: vjRQxLxUQmCYoJZVy2tglg==
+X-CSE-MsgGUID: BF2qoHQ/QPC2cHnSOnwgXg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
+   d="scan'208";a="4849329"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.247])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 02:31:20 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Aman Sharma <amansharma6122002@gmail.com>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-kernel@vger.kernel.org, Aman Sharma <amansharma6122002@gmail.com>
+Subject: Re: [PATCH v3] drm/i915/hdmi: preserve cached EDID on DDC failure
+ when connector is forced
+In-Reply-To: <179284640822.1672477.8751430644960613659@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <179284356403.1659508.10439113185286055496@gmail.com>
+ <179284522321.1666644.7085985666852699043@gmail.com>
+ <179284640822.1672477.8751430644960613659@gmail.com>
+Date: Tue, 27 Oct 2026 11:31:17 +0200
+Message-ID: <c1c3c10002166161503e6b529726ae305d0b698c@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,50 +87,135 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261022225656.1387306-1-florian.fainelli@broadcom.com>
+Content-Type: text/plain
 
-On Thu, Oct 22, 2026 at 03:56:50PM -0700, Florian Fainelli wrote:
-> This patch series fixes a number of issues found with a LLM and while
-> testing on a Broadcom Northstar Plus reference board (BCM958625HR) using
-> a SFP connected to a fiber converter:
-> 
-> - there was no serialization of the registers across multiple lanes
-> - the SerDes powering down was incorrectly managed and should have used
->   .pcs_{enable,disable}
-> - the interfaces advertisement should have been confined to successfully
->   initialized PCSes
-> - the negotation and forced link parameters were incorrectly supported
->   and should have used pcs_link_up and pcs_inband_caps
-> - link state should have been reported through the PCS
-> 
-> With these patches disconnecting the fiber cables triggers a link down,
-> as does disconnecting the fiber converter from its cable or powering it
-> down, ip link up/down also work properly as a result as well.
-> 
-> Florian Fainelli (6):
->   net: dsa: b53: serialize SerDes register transactions
->   net: dsa: b53: manage SerDes power through the PCS callbacks
->   net: dsa: b53: constrain SerDes interfaces to initialized PCSes
->   net: dsa: b53: configure PCS negotiation and forced link parameters
->   net: dsa: b53: report link state through the PCS
->   net: dsa: b53: apply resolved link settings to serial port MACs
-> 
->  drivers/net/dsa/b53/b53_common.c |  69 ++----
->  drivers/net/dsa/b53/b53_priv.h   |   4 -
->  drivers/net/dsa/b53/b53_serdes.c | 407 +++++++++++++++++++++++--------
->  drivers/net/dsa/b53/b53_serdes.h |  13 +-
->  drivers/net/dsa/b53/b53_srab.c   |  12 +-
->  5 files changed, 345 insertions(+), 160 deletions(-)
-> 
-> -- 
-> 2.53.0
-> 
+On Sat, 24 Oct 2026, Aman Sharma <amansharma6122002@gmail.com> wrote:
+> When an HDMI connector is forced enabled (e.g. via video=HDMI-A-1:e for
+> laptop clamshell operation) and the external monitor enters DPMS standby,
+> some monitors (such as the BenQ GW2790Q) power down their internal DDC/I2C
+> controller, causing SCDC/EDID reads to fail with -ENXIO (-6).
+>
+> Currently, intel_hdmi_detect() and intel_hdmi_force() unconditionally call
+> intel_hdmi_unset_edid() before calling intel_hdmi_set_edid(). When
+> drm_edid_read_ddc() returns NULL during monitor standby, the connector's
+> cached detect_edid is wiped out and
+> drm_helper_probe_single_connector_modes() falls back to the 1024x768 VESA
+> no-EDID mode. When the monitor wakes back up, because the connector status
+> remained forced to connector_status_connected, no hotplug state transition
+> occurs and the display remains stuck at 1024x768 until a manual mode probe
+> (such as toggling the laptop lid) is triggered.
+>
+> Fix this by moving intel_hdmi_unset_edid() into intel_hdmi_set_edid() after
+> checking whether a forced-on connector (DRM_FORCE_ON or
+> DRM_FORCE_ON_DIGITAL) already has a valid cached EDID (detect_edid and
+> edid_blob_ptr) when DDC fails, and preserving connector_status_connected
+> on Gen11+ digital port disconnect when a forced-on connector has a cached
+> EDID. When the monitor is awake or a different monitor is plugged in,
+> drm_edid_read_ddc() succeeds, resets the previous EDID and dp_dual_mode
+> state via intel_hdmi_unset_edid(), and updates the connector with the new
+> EDID.
 
-Hi Florian,
+Connector forcing and EDID reading/caching need to remain
+orthogonal. The patch at hand makes a complex thing more complex.
 
-Please take a look at the issues Sashiko reported.
+Please file a bug as described at [1], reproducing the problem.
 
-Thanks,
-Chenguang
+[1] https://drm.pages.freedesktop.org/intel-docs/how-to-file-i915-bugs.html
+
+> v3:
+> - Explicitly check for DRM_FORCE_ON / DRM_FORCE_ON_DIGITAL so DRM_FORCE_OFF
+>   still clears the cached EDID as expected.
+> - Report connector_status_connected on Gen11+ disconnect when a forced-on
+>   connector retains its cached EDID, and jump to out in
+>   intel_hdmi_set_edid() so CEC physical address remains valid and
+>   drm_helper_probe_detect_ctx() does not increment epoch_counter on
+>   standby HPD pulses.
+>
+> v2:
+> - Move intel_hdmi_unset_edid() into intel_hdmi_set_edid() so hotplug
+>   detection via intel_hdmi_detect() also preserves the cached EDID on
+>   forced connectors and resets dp_dual_mode when updating EDID.
+> - Clear detect_edid on Gen11+ disconnect when the connector is unforced,
+>   and verify edid_blob_ptr is non-NULL before retaining detect_edid.
+>
+> Signed-off-by: Aman Sharma <amansharma6122002@gmail.com>
+> ---
+>  drivers/gpu/drm/i915/display/intel_hdmi.c | 31 ++++++++++++++++++-----
+>  1 file changed, 25 insertions(+), 6 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
+> index b6fa1a1558b8..a14a857dfe94 100644
+> --- a/drivers/gpu/drm/i915/display/intel_hdmi.c
+> +++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
+> @@ -2570,6 +2570,21 @@ intel_hdmi_set_edid(struct drm_connector *_connector)
+>  		intel_gmbus_force_bit(ddc, false);
+>  	}
+>  
+> +	/*
+> +	 * If the connector is forced on (e.g. video=HDMI-A-1:e) and the sink's
+> +	 * DDC/I2C bus is powered down during DPMS standby, keep the previously
+> +	 * cached EDID rather than wiping it and falling back to 1024x768.
+> +	 */
+> +	if (!drm_edid &&
+> +	    (connector->base.force == DRM_FORCE_ON ||
+> +	     connector->base.force == DRM_FORCE_ON_DIGITAL) &&
+> +	    connector->detect_edid && connector->base.edid_blob_ptr) {
+
+Drivers also have no business looking at edid_blob_ptr.
+
+BR,
+Jani.
+
+> +		connected = true;
+> +		goto out;
+> +	}
+> +
+> +	intel_hdmi_unset_edid(&connector->base);
+> +
+>  	/* Below we depend on display info having been updated */
+>  	drm_edid_connector_update(&connector->base, drm_edid);
+>  
+> @@ -2580,6 +2595,7 @@ intel_hdmi_set_edid(struct drm_connector *_connector)
+>  		connected = true;
+>  	}
+>  
+> +out:
+>  	intel_display_power_put(display, POWER_DOMAIN_GMBUS, wakeref);
+>  
+>  	cec_notifier_set_phys_addr(intel_hdmi->cec_notifier,
+> @@ -2611,10 +2627,15 @@ intel_hdmi_detect(struct drm_connector *_connector, bool force)
+>  	wakeref = intel_display_power_get(display, POWER_DOMAIN_GMBUS);
+>  
+>  	if (DISPLAY_VER(display) >= 11 &&
+> -	    !intel_digital_port_connected(encoder))
+> +	    !intel_digital_port_connected(encoder)) {
+> +		if ((connector->base.force == DRM_FORCE_ON ||
+> +		     connector->base.force == DRM_FORCE_ON_DIGITAL) &&
+> +		    connector->detect_edid && connector->base.edid_blob_ptr)
+> +			status = connector_status_connected;
+> +		else
+> +			intel_hdmi_unset_edid(&connector->base);
+>  		goto out;
+> -
+> -	intel_hdmi_unset_edid(&connector->base);
+> +	}
+>  
+>  	if (intel_hdmi_set_edid(&connector->base))
+>  		status = connector_status_connected;
+> @@ -2638,10 +2659,10 @@ intel_hdmi_force(struct drm_connector *_connector)
+>  	if (!intel_display_driver_check_access(display))
+>  		return;
+>  
+> -	intel_hdmi_unset_edid(&connector->base);
+> -
+> -	if (connector->base.status != connector_status_connected)
+> +	if (connector->base.status != connector_status_connected) {
+> +		intel_hdmi_unset_edid(&connector->base);
+>  		return;
+> +	}
+>  
+>  	intel_hdmi_set_edid(&connector->base);
+>  }
+
+-- 
+Jani Nikula, Intel
