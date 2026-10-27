@@ -1,108 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793138960;
-	b=LEOtyivRZHHYm7JQ5OcFcoX88Vshw799DDN8iqMoe1ZkRdO7M+OkJeiTrNWIVae9x2nw
-	 tdbeMySQbt+xY71czqBJByZA+ykRgGOEp8uhDNIWKDdaBpu1XIqgzDZRKn9DyACTSGvbP
-	 fPorLEneGzlySf4vWnvAHdjTmklZ+2ZdlFxCpAJ6DMN1UNYO/fv/B6Bg4lCOWkBegoiud
-	 ZtrFpxASprYIBixQupNbkz8+LiHOzgzsJvgMdwxn9JAzkaXyvaPEAP4+8HJROQPnbipGN
-	 duVYQLZbF4A0Vm9i2FlE6CHPMOYw7qNkJAHdGV2UuwV+s48iaO0dO604CYOuYa0nQ0w==
+	t=1793138988;
+	b=TNzxeyjZOyaYmD8ZKHQ3rTvqk+BKb0utH5Ae/K2rrRb5wg0nqnYCmDLNpkApJwudsc+p
+	 ei8nr/93oZ4DJErsCFha+bmm+ApDyJ9ZUva26c5fOnBxNsTQ9a8AoiaoMUGd8govZvd7j
+	 kSljz+0X2mdnyBNQSSfvXUsdGOHbFhyV1fyZ5UiMDElr85mRXXeTItRv2sy8POfvrSCpY
+	 RrAm0nz90x4Ktw0MZPv04E1FA5SSo2rBsI0GIMJjNcFrbiEpS2a/9ogOnr4n84ZYM3psv
+	 8p2HdA7EQdO6GjQrg50lf60F1E7wskE3JIiFg8ObDebknnrtzAdOCbV5UAtH8cXAjdQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793138960;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=/PLmL+V/SYmlIq7ZPKJzSVA7G2MVgEzQyQAcifW2km0=;
-	b=VTjsOhRJkDzFh2yCQlWfbU08GoyUvSAISpotNUC+zQUvoNHzGeofYvqnS7wuRgQbk386
-	 I+1fhxkfmKK4isYdqSXf7e9Qx0vl9zyPHDdcchfbGjS2eZnnCXarqTdanQb7NCuHCEHF1
-	 Hkek7eiPvo/rn/WaktKNcwH56k951OB9lr0cR8PO2iOqZedaQVuUgg5LtwCgRo7khpuvu
-	 FGrMlePnL60v8TrhyNeR9J99EAkEDGcHw2Vfik2LgdQrSvs5w/DYzR8zhebrdBQS97fUS
-	 u9CACoySgvDyWh6PQYcSk/4h5zGsDZe+/4WrWUvHeZr5PxGofCMCkQzv5ndcztIBSbA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793138988;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=C3yDSyTVIHoKB3jH8aCOChCJ46WC+deb33ZaKBNRmsU=;
+	b=aQmhE0DXJJiPwBTTUo4BlA9doc3tpiiciFEUM7tcD1lwou7LivEBgQefhbDvPP96N80f
+	 pgPvk4HFpKUuw5b89J0AzhvgUC48gSlYGBWPh7R/Jwgi261WIxEim6jji9I3X1tBmrhUP
+	 0lsfhlJ5S9MvEEw/64P0uTA9YX6MXUHSPEbJ7ZT0eb3RQ36dFv9KA31wm5FsKdcZXJ5Zs
+	 pv95PUl6yPoXZs/ydRZDwsjHGj+7b0YCtA+5qwHT2n7uL9Pqq8B7x1WW9tQtcRGOJ40os
+	 tMdDHsWmPHqAaPxQw3rNrc8F3lrYrvR8U592tVu7SaQ6/aPtW28tC4yURfJ++u2JRVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=mgcrea.io;
-	spf=pass smtp.mailfrom=mg-crea.com;
-	dkim=pass header.d=mg-crea-com.20260707.gappssmtp.com header.i=@mg-crea-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=PdkMk9ke;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EyYPwQ72;
+	arc=none smtp.remote-ip=192.198.163.18
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 371E8606A335
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 22:09:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 371E8606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=mgcrea.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mg-crea.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AAED606A31A;
+	Tue, 27 Oct 2026 22:09:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2AAED606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mg-crea-com.20260707.gappssmtp.com header.i=@mg-crea-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=PdkMk9ke
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a2072b9832so9258815e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:09:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mg-crea-com.20260707.gappssmtp.com; s=20260707; t=1793138958; x=1793743758; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/PLmL+V/SYmlIq7ZPKJzSVA7G2MVgEzQyQAcifW2km0=;
-        b=PdkMk9kewIP8utyRGSc4jW43jNTAMvQDKKnT3gKuktZwVf28pYzlLA/+8SiuCRAfrI
-         iTP6Wp32ZYmkYmhcNHY+LWMn13O7ReplBh3xR1RTmCprKzhXgsxWqnqvaqpUJ8giL+V1
-         +xe0jxSNWptp05NM6xsnj84Gham/RG7I0v7BixpSZKpen9On/xnh5L/fo/U7koThVBIs
-         HkAGjIXALNX70uCl3tdEmETxOS2rCvbb6GpILbnhsIveWjpCvtJ7r+xzlfu8vNUfNXfp
-         uI9APCpJhu2wiO6jOdmntGI32eOTlFJirCXh5Dkr1AW6sJNNS0tkpH1V/MPuBRsJjy0s
-         UL5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793138958; x=1793743758;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/PLmL+V/SYmlIq7ZPKJzSVA7G2MVgEzQyQAcifW2km0=;
-        b=jtINNrcLL2Q85p4MmSpIaaQ56Po0csF/fxvx29p03HAHLigHTo14cZqJ91f248zDnW
-         5CAeWAPVHgdQeFwsgVgmeKdPdVGoe9rl2tytkwpDaFKXUnAe2jaNHCBuCH8yxFsL+f3l
-         FhwAXGW0YJXQIuyXUCWiHTFhl5tUZo15CTRtQETnP5tKrmhyqJPmEHfHLCqrGm1eJWpR
-         6OFBzn0wc/Zb16xM2JjIFMUbZuEqtMxIuCMhCoGaZlXdnv7wc6WG1fPuGGBhBpbhXqiL
-         6msTIbxmVPtxtkusNOrcayKPigrQlSr9Xj3VburMHH+4y/J2PYa2O0I9EQIn+EE3Bf6A
-         aLzw==
-X-Forwarded-Encrypted: i=1; AKwUvBwz7knuu54mSkJORxwfh6bqptg/fFIgJHS8wIQ0KW2AAOmvWTvK8i4JYCbrqxe57+lEYVr090K5a9AWKt0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKbEOVsTP3+hW1EMn0u9la6056ztnvSe4zn8A/9WLxun+IG29v3
-	LchYTt5SmBUIiyIoPQOk+f5PfFFyvYLJMp+8gWdCPLFRZzq+tEwvUlQ9Cp8wtBL79uw=
-X-Gm-Gg: AYBFou0dWtj/OTfo/vQjdcZuVc84BBloIB8wnt3t2aOnsfvFYAZjUF1zB+Bzv03vk7N
-	O/rj3JEXETszlJVYDjXmEoRMLCg2vbvOT/ptSIayktunSfP7i0uDH7uX+7RjGM90lDYYEGDp4yv
-	2ASr1V7+/wvgX0Pf9OyyAz7qivzo0pQ5pbsQulBMPAwUpLH5Dbb8jw6AZMiJTc6L+KVDQ9J5m1q
-	AGhxHduT7DElb2QJDshVmb86OK4hklWVW6aRgZx4+GHC8pLkkW5TQ6/sDRGG/9ZiHdV1IkBnazR
-	uRaAocMrhzzbh/v6AAUN3Eu21GY6LFl8bgxRgtWTEvuTGe4+44yKhMneCZ/mhr0PfJTD0MKr4uR
-	pZfbgOIESuTeDILWsXJP2jXkoqY/0lXM5z8dCdggC5mnG+hOyfXfkjaJBQ6dmRKVNBWd57EfVnM
-	o1xpurJkWD8yZbkInJm1JV/YbF6rHy/JnuipLeK9brkAb2jj3a0bqMrV314aQohSemvw1wBl5Fb
-	tYcAZgQxvirTB2gfOKUj5DLR/AY/Er12ZgTmsfl1Rnh+mFCqbaPsVPVgBUyRR+XbceZhU/+huBw
-	ehpvrAEzAqri
-X-Received: by 2002:a05:6000:46c6:b0:48e:6f:19b2 with SMTP id ffacd0b85a97d-48e55a51a7dmr5924445f8f.25.1793138958515;
-        Tue, 27 Oct 2026 15:09:18 -0700 (PDT)
-Received: from localhost.localdomain ([2a01:e0a:9d2:5a71:5cfb:af57:9834:741b])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebcb958sm25306661f8f.21.2026.10.27.15.09.17
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 27 Oct 2026 15:09:17 -0700 (PDT)
-From: Olivier Louvignes <olivier@mgcrea.io>
-To: Krzysztof Kozlowski <krzk@kernel.org>,
-	Paul Cercueil <paul@crapouillou.net>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	"H. Nikolaus Schaller" <hns@goldelico.com>,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-mips@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Olivier Louvignes <olivier@mgcrea.io>
-Subject: Re: [PATCH v2 2/5] dt-bindings: display: Add the Ingenic X1600 LCD controller
-Date: Tue, 27 Oct 2026 23:08:02 +0100
-Message-ID: <20261027220802.56348-1-olivier@mgcrea.io>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <465cb935-2648-458b-9cfc-9b7fd5dc53c5@kernel.org>
-References: <270ef5220fdd5ec3e0b88ba5c4ce044992fca41a.camel@crapouillou.net> <465cb935-2648-458b-9cfc-9b7fd5dc53c5@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EyYPwQ72
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793138988; x=1824674988;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=tEl3vdBEf6ngwULHa3r7A28OiOnmCpS7OuFXwziP5GU=;
+  b=EyYPwQ72YEyhnhDanCJFDe8z7qsDzRmg35YDS03bmvK/RWyWc+DNAlNK
+   fdqsCbUtnMAPCBwsQj1Az9aUQfaOVPwEv/i26xybZbl1z4miRD5t0MiQM
+   IZdKU2bX2tdlnYdGGIx1wqbp3XSjjCZtwd6ZZY+5j30d+IkJ8d/KeqXnZ
+   I+bQEd+HiNCqK+OWgVls9ty1UffTRjBcxTnA6ld+6fQVgjcoYRI/RZiFt
+   7vnI+zzm+p3ZO4CYCbxzRX4ye5tjYGCMf5Gw8JLPx5JIHzFHPkDlPu3sr
+   BpTtiMsUs6cYnF2rHzl+a58E0PJ2drBkacEd1rwLdDO5Ggos2f29qMb3y
+   A==;
+X-CSE-ConnectionGUID: E6Ixz6Y0Sh69nMyI92zBMg==
+X-CSE-MsgGUID: gEMHDBIWTc+TiGQ81mZaHA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1884141"
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="1884141"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 15:09:47 -0700
+X-CSE-ConnectionGUID: zXz8nBh0QUmnGFKJEBZsdA==
+X-CSE-MsgGUID: jFi5twpsQN2n/NBoUm+Maw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="5005018"
+Received: from soc-cp83kr3.clients.intel.com (HELO [10.122.184.228]) ([10.122.184.228])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 15:09:44 -0700
+Message-ID: <6da36d01-c456-4bd9-8d3a-591e98ab3481@intel.com>
+Date: Tue, 27 Oct 2026 17:09:43 -0500
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,19 +72,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 11/12] KVM: x86/pmu: Reject writes to reserved
+ MSR_PERF_METRICS bits
+To: Jim Mattson <jmattson@google.com>
+Cc: Sean Christopherson <seanjc@google.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+ kvm@vger.kernel.org, Andi Kleen <ak@linux.intel.com>,
+ Stephane Eranian <eranian@google.com>, linux-kernel@vger.kernel.org,
+ Mingwei Zhang <mizhang@google.com>, Das Sandipan <Sandipan.Das@amd.com>,
+ Shukla Manali <Manali.Shukla@amd.com>, Dapeng Mi
+ <dapeng1.mi@linux.intel.com>, Xudong Hao <xudong.hao@intel.com>
+References: <20260918193937.569414-1-zide.chen@intel.com>
+ <20260918193937.569414-12-zide.chen@intel.com>
+ <20261023184505.3284911-1-jmattson@google.com>
+Content-Language: en-US
+From: "Chen, Zide" <zide.chen@intel.com>
+In-Reply-To: <20261023184505.3284911-1-jmattson@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Krzysztof,
 
-No, it does not. The X1600's controller fetches its frames from memory
-itself, through its own descriptors and DMA (programming manual,
-section 10.3.1 and Figure 10-1: AXI -> DMA -> async FIFO -> TFT/SLCD),
-and the manual has no IPU or other block in front of it.
 
-So the only link in its datapath is the output, to the panel or bridge,
-which the binding's port describes.
+On 10/23/2026 1:45 PM, Jim Mattson wrote:
+> On Fri, Sep 18, 2026 at 12:39 PM Zide Chen <zide.chen@intel.com> wrote:
+>>
+>> +		if (kvm_pmu_cap.num_topdown_events < INTEL_TD_METRIC_NUM)
+>> +			pmu->perf_metrics_rsvd =
+>> +				~(BIT_ULL(kvm_pmu_cap.num_topdown_events *
+>> +					  INTEL_TD_METRIC_FIELD_BITS) - 1);
+>> +		else
+>> +			pmu->perf_metrics_rsvd = 0;
+> 
+> perf only sets x86_pmu.num_topdown_events for the models it knows about
+> (Ice Lake and intel_pmu_init_glc() users). On a non-hybrid part that
+> perf treats as "generic_arch_v5+", PERF_CAPABILITIES.PERF_METRICS_AVAILABLE
+> can be set while num_topdown_events is 0. (intel_pmu_init() even sets
+> GLOBAL_CTRL_EN_PERF_METRICS in intel_ctrl in that case.)
+> 
+> vmx_get_perf_capabilities() will still advertise PERF_CAP_PERF_METRICS,
+> but perf_metrics_rsvd will be ~0ull. The guest writes PERF_METRICS
+> directly, and the hardware updates it on its own, so KVM_GET_MSRS can
+> return a non-zero value that KVM_SET_MSRS will then reject. That breaks
+> save/restore. (The selftest's write of 0xdeaddead would also fail.)
+> 
+> Shouldn't vmx_get_perf_capabilities() withhold PERF_CAP_PERF_METRICS
+> (and PERF_CAP_RDPMC_METRICS_CLEAR) when kvm_pmu_cap.num_topdown_events
+> is 0? 
 
-Will send a v3 with your other points after -rc1.
+Yes, this is safer. Will updated vmx_get_perf_capabilities() to gate
+advertising both PERF_CAP_PERF_METRICS and PERF_CAP_RDPMC_METRICS_CLEAR
+on num_topdown_events.
 
-Thanks,
-Olivier
+> The SDM, volume 3, section 22.8, says:
+>> IA32_PERF_CAPABILITIES.PERF_METRICS_AVAILABLE[15]: If set, indicates
+>> that the architecture provides built in support for [four] TMA L1
+>> metrics through the PERF_METRICS MSR.
+> 
+> So, four could be a fallback, but if the part actually implements
+> eight, the upper fields would break the round trip in the same way.
+> 
+> Also, since the guest's own writes go straight to hardware, this check
+> really exists to keep the wrmsrq() in intel_mediated_pmu_load() from
+> faulting on a bogus userspace value. The commit message should say so.
+
+Agreed. I will update the commit message to clarify that because guest
+writes are passed through to hardware, the primary purpose of this check
+in intel_pmu_set_msr() is to prevent userspace (e.g. via KVM_SET_MSRS)
+from stuffing invalid metric values that would cause the unchecked
+wrmsrq() in intel_mediated_pmu_load() to #GP on VM-entry.
