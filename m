@@ -1,71 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793125071;
-	b=uslqgrGTDiPfu4eBV71aTPzyaYo75h/LD9okgG2eByVX7VOr25IMpQ2/tTZXlrrirJlz
-	 +ilUwaA2lzjown9gKvk2kH40bP8v6VQC5lQzCz0E2vs108nX8m5z4DG86gmFBcKVAWNIr
-	 /IIs8AW1uIMGb5Qv/0hz1bvk9FOkidD/YO+F39Wlq1gXl8ZQOKiCyCFrDChLu5ph3i3DB
-	 hCbEiCP416YCvw4V4sWo1ypBmSuVWDPqPXcHF059sDoFIHyIXCyx454UaE7zrj4UwmL0v
-	 ti+N7tYdQZUpqssHgKcfOOBeheQiTjpMqez32KZpC3d5tuQY0e73RX3SEnSVFtCEpEw==
+	t=1793125076;
+	b=iNvxSoFsjjq4R6tzklBWmuEzx6GJt8Q/N5dG0bXhSwfc1ss9/GdbsEB8BVtSNF6uvTyn
+	 R9uuObc+fH+9alI2MfmTDNj5Yk+QulgouvdqmcEp//wK9IOcZHTN+BKR84JALSRg3+Y+0
+	 LvdZ6WL5oaEGOEBuijFSR3IG7xppX4IR5R4nhlcTNjcr4ErR6SyR/zhEV3DlLIMUlgSE3
+	 Dw/egDzRajzqBTVjjtFOMpIXb2ZIfBQFPSJ8L/cZEhHBECCWZzq3wkt6fYLISVo12D2zI
+	 +Mpym2B9H3pym86aX+lGoj3MpdMiX2Qdtn4BI3nnfL6FzV3efiYC7fPXVduSaHI4H6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793125071;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
-	 Cc:Subject:Message-ID:In-Reply-To:References:Organization:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Last-TLS-Session-Version;
-	bh=WfnZD24g2gdDcLADC8Y1lzpwL6/F0QAQfp4goK2tXFQ=;
-	b=3rxhaPx78lhAiX8Y52FPebsmafrBcCTessdIHdbS/Tt4lxG2EAfoxXe6T5GPvLOL9PId
-	 2n/GM7mdM06dRk/1IiI3Mok0GRdmgqW4xnLgOw2a/7iQ9aFASE0u1xDiXf0H5GWTA3BkJ
-	 Z3u5L3QUkmJSIW0Dnr5gTG7qtmXFtjvHek8RNsou41B6+GELDZPGZR0qzkwEzBSsdqhek
-	 3SYbRCiXtjwb3R8qqH9BoidPml1qE0W14CObEXeaFC3V4IW/yPcs4kyA8xwK+d4SPJogS
-	 mIndBbme5QqgB7vLLTOFVYI6R5ZaKDY1LuZqOZOdTPb+enN1P4F0/CQ+hNJYHCr0KOA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793125076;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=nfV/S6ZwmWtNZwuWmh/T74T1NcuFLfcIht1ObLXQeHw=;
+	b=FRPu1C0OylQU3H4qTrCzTbuSSx8wSluEhWiUv27yajNG2yIr5/Dr+4wzGJTfcMoEsQLz
+	 MRr3w49DSyg4SiF/5H0/PAPoMsqEb0jegWUTgLVmzlTWLth/Y9W/+AZ17QgKV2Ih+u4Dm
+	 Q9Diz6u7o2bMivFA04Xub2pOIv8AVmivltq4gYmwbK1ZLvIZixX8HXBAnqoC/cfwUi9yv
+	 YLeF5Scpz7rIenbAqZpno+7yBJe3cdiOgTS87dEMW1G6K0nteUX2b+g1nh83J/cU27fbh
+	 98tcR9Sxs+7iLQU1x6tUWeMYcIyi4GP4l990KDy0NsEkX7Vf8Uzm6Ag+nj80RylwYTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=VmWnGCox;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bCH1OTqA;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8977606A322;
-	Tue, 27 Oct 2026 18:17:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8977606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5D98606A31D;
+	Tue, 27 Oct 2026 18:17:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=VmWnGCox
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 2D22E1A134F;
-	Tue, 27 Oct 2026 18:17:47 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 00420603BD;
-	Tue, 27 Oct 2026 18:17:47 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E77B210329083;
-	Tue, 27 Oct 2026 19:17:39 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793125062; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=WfnZD24g2gdDcLADC8Y1lzpwL6/F0QAQfp4goK2tXFQ=;
-	b=VmWnGCoxqadmsoL0mCv3fBFBAPW76ae7UqqzqY159Vbm4R71oKv1B9AvEe4YSs1YI6I9gI
-	iUL2umcHY5YUcs1N7tpon6vIaPfi15VCWlrm4WNNCJOSMn9BSOKjxmQVORbbkzOtDeAPEr
-	p04JY2sLVnbE4m+s5x3dLZAdTGlQaRF/K7V/cN+rXr+H4WoTS8RnBYIeZEjHrcT9p5pyrI
-	7cfsTEDu+Y+K1L67VHlX+bboQIZPJZxZAagdTpapJMEjgGtbNEvaMkhAB7O48MXG1qiWDh
-	9NVrAkhlbmngI1WCM9DdXhmJ6liNqoX1Hde1ldLkwCqTBkp9pRu5ssysjAEz0Q==
-Date: Tue, 27 Oct 2026 19:17:38 +0100
-From: Herve Codina <herve.codina@bootlin.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org, Alan Stern <stern@rowland.harvard.edu>,
- linux-kernel@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>, stable
- <stable@kernel.org>, Neill Kapron <nkapron@google.com>, Ijae Kim
- <ae878000@gmail.com>
-Subject: Re: [PATCH 06/19] usb: gadget: snps_udc_plat: lock out the
- interrupt
-Message-ID: <20261027191738.457acac9@bootlin.com>
-In-Reply-To: <20261027-llm-usb-v1-6-b9751ddb9c7c@linuxfoundation.org>
-References: <20261027-llm-usb-v1-0-b9751ddb9c7c@linuxfoundation.org>
-	<20261027-llm-usb-v1-6-b9751ddb9c7c@linuxfoundation.org>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bCH1OTqA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C15A1F031E2;
+	Tue, 27 Oct 2026 18:17:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793125075;
+	bh=nfV/S6ZwmWtNZwuWmh/T74T1NcuFLfcIht1ObLXQeHw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bCH1OTqAzL9dmzm6I8uZ52UowYU2/3TVuL06jub41yZWTF8PwHko1pmJX6VeLxJJo
+	 0mrjVn0kShRShtVp7ShvjN9qHL4wC4igbKQAD/fAl6aVZoHXKudwZL/3bsW3tXilVG
+	 dQH80Fsc3wd/Fnx/HYSCKDMWxM7W1D0WzcTYbz6348UvytYMDPqyXLA9IAqG+ugB1p
+	 thpxznbkMj4i6VuDSYvRAQZ3omCVXumSmrlZuGHIo9a9Nr6B7Qaa1qlJKY1lToMpxy
+	 RH1FPRcnMxu42QD3oWDHu/27k46rbWVHXYoPdfWuPZca0fipWVhWuKSR5eBLMZu7jG
+	 BukhMhiuO8XaQ==
+Date: Tue, 27 Oct 2026 18:17:49 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Jingyuan Liang <jingyliang@chromium.org>
+Cc: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>, Mark Brown <broonie@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-input@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-spi@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, hbarnor@chromium.org,
+	tfiga@chromium.org, fqwqf@fqwqf.xyz, daleyo@gmail.com,
+	Dmitry Antipov <dmanti@microsoft.com>,
+	Jarrett Schultz <jaschultz@microsoft.com>
+Subject: Re: [PATCH v7 08/11] dt-bindings: input: Document hid-over-spi DT
+ schema
+Message-ID: <20261027-silicon-unvented-a0c8dc394e87@spud>
+References: <20261024-send-upstream-v7-0-abad13174b43@chromium.org>
+ <20261024-send-upstream-v7-8-abad13174b43@chromium.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,44 +71,151 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="8sC1crqEc4kNm6ti"
+Content-Disposition: inline
+In-Reply-To: <20261024-send-upstream-v7-8-abad13174b43@chromium.org>
 
-Hi Greg,
+--8sC1crqEc4kNm6ti
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, 27 Oct 2026 15:57:46 +0100
-Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
+On Sat, Oct 24, 2026 at 12:51:42AM +0000, Jingyuan Liang wrote:
+> From: Dmitry Antipov <dmanti@microsoft.com>
+>=20
+> Documentation describes the required and optional properties for
+> implementing Device Tree for a Microsoft G6 Touch Digitizer that
+> supports HID over SPI Protocol 1.0 specification.
+>=20
+> Signed-off-by: Dmitry Antipov <dmanti@microsoft.com>
+> Signed-off-by: Jarrett Schultz <jaschultz@microsoft.com>
+> Signed-off-by: Jingyuan Liang <jingyliang@chromium.org>
 
-> From: Josef Bacik <josef@toxicpanda.com>
-> 
-> stop_udc() is called from a work item, when the extcon device reports
-> that the cable has been unplugged.  It takes udc->lock with interrupts
-> enabled.  udc_irq(), the hard interrupt handler of the controller, takes
-> the same lock.  If the controller raises an interrupt on the CPU which
-> is in stop_udc(), and it is likely to have something to report when the
-> cable is pulled, the handler spins on a lock which the interrupted work
-> holds: the CPU is stuck.
-> 
-> Disable interrupts while the lock is held.  They are enabled again for
-> the ->disconnect() callback of the gadget driver, for which the lock is
-> dropped as before.
-> 
-> Fixes: 1b9f35adb0ff ("usb: gadget: udc: Add Synopsys UDC Platform driver")
-> Cc: stable <stable@kernel.org>
-> Cc: Neill Kapron <nkapron@google.com>
-> Cc: Ijae Kim <ae878000@gmail.com>
-> Cc: Herve Codina <herve.codina@bootlin.com>
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Personally I prefer how this is done now, but definitely worth those who
+approved the previous iteration taking a look at this because it has
+changed significantly and no longer contains any of the properties that
+cover the timings etc anymore.
+
+Worth noting that this changed since the previous version after I
+pointed out that the second hid-over-spi device did not make use of them
+at all and needed specific handling in the driver.
+
 > ---
->  drivers/usb/gadget/udc/snps_udc_plat.c | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
-> 
+>  .../devicetree/bindings/input/hid-over-spi.yaml    | 75 ++++++++++++++++=
+++++++
+>  1 file changed, 75 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/input/hid-over-spi.yaml b/=
+Documentation/devicetree/bindings/input/hid-over-spi.yaml
 
-LGTM.
+Typically this would need to match a compatible, but I think this is okay
+provided other hid-over-spi devices actually get added here - the series
+adding the second hid-over-spi device didn't do so but should be able to
+I think?
 
-Reviewed-by: Herve Codina <herve.codina@bootlin.com>
+Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
 
-Best regards,
-Hervé
+Thanks,
+Conor.
+
+> new file mode 100644
+> index 000000000000..bed0746f004c
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/input/hid-over-spi.yaml
+> @@ -0,0 +1,75 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/input/hid-over-spi.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: HID over SPI Devices
+> +
+> +maintainers:
+> +  - Benjamin Tissoires <bentiss@kernel.org>
+> +  - Jiri Kosina <jikos@kernel.org>
+> +  - Jingyuan Liang <jingyliang@chromium.org>
+> +
+> +description: |+
+> +  HID over SPI provides support for various Human Interface Devices over=
+ the
+> +  SPI bus. These devices can be for example touchpads, keyboards, touch =
+screens
+> +  or sensors.
+> +
+> +  The specification has been written by Microsoft and is currently avail=
+able
+> +  here: https://www.microsoft.com/en-us/download/details.aspx?id=3D103325
+> +
+> +allOf:
+> +  - $ref: /schemas/input/touchscreen/touchscreen.yaml#
+> +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - microsoft,g6-touch-digitizer
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  reset-gpios:
+> +    maxItems: 1
+> +    description:
+> +      GPIO specifier for the device's reset line. The HID over SPI
+> +      specification requires a dedicated, host-driven, active-low reset
+> +      line. The line must be flagged with GPIO_ACTIVE_LOW.
+> +
+> +  vdd-supply:
+> +    description:
+> +      Regulator for the VDD supply voltage.
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupts
+> +  - reset-gpios
+> +  - vdd-supply
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +    #include <dt-bindings/gpio/gpio.h>
+> +
+> +    spi {
+> +      #address-cells =3D <1>;
+> +      #size-cells =3D <0>;
+> +
+> +      hid@0 {
+> +        compatible =3D "microsoft,g6-touch-digitizer";
+> +        reg =3D <0x0>;
+> +        interrupts-extended =3D <&gpio 42 IRQ_TYPE_EDGE_FALLING>;
+> +        reset-gpios =3D <&gpio 27 GPIO_ACTIVE_LOW>;
+> +        vdd-supply =3D <&pm8350c_l3>;
+> +        pinctrl-names =3D "default";
+> +        pinctrl-0 =3D <&ts_d6_int_bias>;
+> +      };
+> +    };
+>=20
+> --=20
+> 2.56.0.257.gf7497c7d27-goog
+>=20
+
+--8sC1crqEc4kNm6ti
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCauDqzQAKCRB4tDGHoIJi
+0purAQCYkv7CUzklUUDgE+JeGoIkAHm0JC3f3mTJttH7XxBzAQEA7mawrnCg1cIq
+AdfoN1FM3DllFm3RVC+pmpw1NcGdYQA=
+=3dUb
+-----END PGP SIGNATURE-----
+
+--8sC1crqEc4kNm6ti--
