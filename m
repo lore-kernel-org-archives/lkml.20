@@ -1,93 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.10.208.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793091104;
-	b=AStJHC945syP5UQHI6UsqVE9dzeZ658DNQzn9SpRbtMtXWF0wuJgtRDZnW5knP9Wpmx0
-	 4FT1CMwW7kYJAuEszZyhxSHdHz+ptteFaXP05EHUfjjOsXfMd65FABOZ3Rmb9wzr3Uywz
-	 1QOeglTL/ZXA5G/Mz3EtFRP4fxrSll0lyCjVCy/qNv/VzRAySy2h4uD/kTY/7uvO4HVYp
-	 UN9xZm6nDfXYW6/1Z2fSVWpnhq+8Lw107O97Fb1KZ3hnvehtT097J131Kmm+UI8kStFfF
-	 +SQCLUPty71uy/RzCuQPxdBuNlvX3mUjXCabMUQQe7N5CYDigqhy8dcGznwIT12JO8g==
+	t=1793091111;
+	b=gXog56bxFxIgr23msS704QxYVvbfXtmBLmD3caxRHAM+vt2undk5i33ZKzsL2k6qZ8iC
+	 IocT8EmgqPKPVzbrjGDmOY/DezBS62x3GR2OF6nfYglRO2mUb3yaUZozYdF52GXB8LQMM
+	 waF0MHMMW4t3iq8j/0mUt+blu8mU/DwCRWOXLdFIUCmGyNBASwolbGU+d0FztL79mBukI
+	 F/Cywn+9e9YM/cwea96XTVs4Q8/KL1ddcWWG8GWtj4iniB0IkEFktbSW4hIekLMp35hLb
+	 fmSfcjXf10HLgPA4KYJE6uQPizuRrj3MnrWdw+1o8WhPpMPbMWZ9/Dh+egDjoxy+oOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793091104;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=QHhOVuc8SPWEac70B9W5j5+x2XV5aSw2etuC6aoVzBw=;
-	b=f1rKeHfq2QjFjgIFCFH78QT4WEnF0P57RMBse4wqmr//5RVN+Drr2TR1w3uMAaagIp0q
-	 rKmY8SOAEn/bid/IFri7GzOx1hSIe4TZJftV9Accy0PD80vw+iSuJJXsDhH244+bpWA6D
-	 Ap1K9oPeUJSpklwo8isobVxrPjE6xQINeAr+lRiT/XvT6uCRHZNZYVmdcnWLiEr98Pm+b
-	 2GmA3ZN3Kb/Sf2BExt1D/+scWCRBUgA9MYAJDdbwXlpXXYUESPeWOr/ZVNXPUkcetKd7z
-	 l+1tBB8NbVHyiu6YXj2YmLyZvUmPB53kDxOpTbhvM/4HRI6NFq/+CFeIziTxeoNTGvg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793091111;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:
+	 Organization:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Rspamd-Queue-Id;
+	bh=Oevbdiblvp054dFoiv0TL11EmhqYMJMO42rw2p6kvvM=;
+	b=JZS/U7CDREFCHcjytSiHKLA9L3N73OjTSk/VDeJQYZjLNfRHVDsSPGprAP4CufDXMO2K
+	 0KE3hZTJUnjmrntGyxA8Rl+fIQz0emyRmRBrpsPyTc+JC1JDttzw46s7nl+Cuipdko0WY
+	 1uI+p6+jv+OJNmLw/XTL9nrxXhTkdo5i11QIBtdalNHR72QPe9q9A8GCacpwx0/8Adra8
+	 vf3IFzOj3rnU3GkLB/smSKPEwpdCacIWr6rEmHDpbt6GXPB2dBtNpu4i8FBOeuTKtnAO9
+	 utc94AuUShC+9qHY6u4vEugWaQXz3+dA6kMEhe+Yb0vRP0k4ESBjlOmXOFbLYjZsx1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KtDHsPxr;
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=mandelbit.com;
+	spf=pass smtp.mailfrom=mandelbit.com;
+	dkim=pass header.d=mandelbit.com header.i=@mandelbit.com header.a=rsa-sha256 header.s=MBO0001 header.b=1cUYacTP;
+	arc=none smtp.remote-ip=195.10.208.51
+Received: from mout-b-206.mailbox.org (mout-b-206.mailbox.org [195.10.208.51])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07665606A324
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:51:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 07665606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1BF9606A31B;
+	Tue, 27 Oct 2026 08:51:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1BF9606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mandelbit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mandelbit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KtDHsPxr
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a2000d5fb1so26202755e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 01:51:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793091102; x=1793695902; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QHhOVuc8SPWEac70B9W5j5+x2XV5aSw2etuC6aoVzBw=;
-        b=KtDHsPxrGgc+j7glKwphtDQsr/vlZOc1AIKx7Mws68HDZXv1sxqspkNym3VZ/sjtif
-         SR9b5CX455vkNZouBan0CmiHmeYdy1juaNvZ+C/23Us/OV87ytFhXyiJGtp7jwbDk5xh
-         lI71oiCvodB/gbR+XBIx8Dd7smbQ48zfp2tUiBSZWLQeeUj/ficey5kGyBbG6LOeR5qU
-         bUm5R1pJ4j6S2PbSspGUNmIoylmR7P3YfQeeW5Kxzj//L3AMyi9dHFDxf3jBHY04buwm
-         BSiZRblETwW+BmM7/+P34wTZ02fHbotwTiQcM00V+KMCewGwt0WN3mSnEjXHC6IprceL
-         SXfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793091102; x=1793695902;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QHhOVuc8SPWEac70B9W5j5+x2XV5aSw2etuC6aoVzBw=;
-        b=N66jh6sJzqdQL4a8ofed2viZokaHARx9gV5k87bQ7tNZnZ6RATLlUxRIpcPHI6LJcD
-         w5Xm1OnksBVFqbljClyxp+UE0Lz2PT8t1uRjSMlsn17tGTkd5x2TcuR+mpdfYUoBsy6P
-         lcLAc8N/eNVeSmv1BDeqxpwsc7kKiHO6GU/5eF/tcJ9IgSgxw6Hb+cT/qmYeL7Y31kS8
-         m+jqQYCBatDYHbdV9VHNmrZ6DbFWDJ/jRsGG/Zl3TY+9X4D+GhAoY2OaemWFlvbSAi8j
-         Y991jnHyMT+pMU2D9OuO2logtJSPcJK3l00lgAU0+/hwbrAcmDYYbY2sEGBVafO/63xF
-         8W6g==
-X-Forwarded-Encrypted: i=1; AKwUvBy+Ovp3QrhQrSWF7g+QswALSNKzkkxYgXHn4s6E4dlSBJbYD05kBzS24J2sZZqHXv27vS2OtRmBoTPYeag=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLX1FnlHRobSNLjciVFu+ljTcUfiSCFD3nyU/MJGDcbjf9B3mc/
-	5jrj4Xwr6AXHoawW0HjPcIkYG2lMk99O9a/JY6EeWFP3/XWWUbOEecVz
-X-Gm-Gg: AYBFou1GSW5SJ7RP7ZSW6cj62pBmGZYKNNlYMhTUrmVW//9MbFBS/9X9MzTbyVLwane
-	g3rAmuorqHKcSIj41wmqV6r4+7AxRQucl7lh12fNgizKeqpG2qlyPBr2Qkj/Yr1AoMqQ+lt+aFl
-	Wh3I8MY4Vvb6V6zJO9MxMAyVpD163Ekd45qAK0yg0kabTe+erhhP+z5cAr31QbFD0sB/mHqb16c
-	1nSmnFwtjcf/uCtvid7I0HGqMdFQp/gJR5Q79DTuTkO/iwqSdlj3IUJIApR/UwSvOTNd0yT/n18
-	S0NfDwHw0hZPY4ukfgGVw8ctkdYotfkQmC5+IJU1J8avMytwwWpD2l1CYV3Dw9g4mNTeA6zsj/r
-	q2jCkA6qaL4Q+Qq49AJ29wXZBtOLPERhjV/21zdSnxx4x3bYnmkpl04LQunQRO7Qank3Xt5LpQT
-	teUTwM6xtGH9eIAnjfJz4mfTD+OuNbcY4rGHICfncEEZ/7zrQ3A7Vxdotm9280+6smI451H1PA4
-	0r+ohSX1fwPhwOXwWjDtQmk1Y7xwkJfBeRXawY1XH/artIvR4Tsi/YEP7oFkSmzfe1mux9KTQ==
-X-Received: by 2002:a05:600c:c0c9:b0:4a5:87b3:ddc1 with SMTP id 5b1f17b1804b1-4a587b3e000mr90772595e9.13.1793091102146;
-        Tue, 27 Oct 2026 01:51:42 -0700 (PDT)
-Received: from localhost.localdomain ([2a06:c701:4778:c500:5658:786c:2fea:4768])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a0bae01sm310495765e9.7.2026.10.27.01.51.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 01:51:41 -0700 (PDT)
-From: Avi Weiss <thnkslprpt@gmail.com>
-To: Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>
-Cc: Jan Kara <jack@suse.cz>,
-	David Disseldorp <ddiss@suse.de>,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Avi Weiss <thnkslprpt@gmail.com>
-Subject: [PATCH] initramfs_test: exercise the oversized CPIO namesize guard
-Date: Tue, 27 Oct 2026 10:51:39 +0200
-Message-ID: <20261027085138.4107590-2-thnkslprpt@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=mandelbit.com header.i=@mandelbit.com header.a=rsa-sha256 header.s=MBO0001 header.b=1cUYacTP
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-b-206.mailbox.org (Postfix) with ESMTPS id 4jDPP83jG8zB9;
+	Tue, 27 Oct 2026 09:51:40 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandelbit.com;
+	s=MBO0001; t=1793091100;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Oevbdiblvp054dFoiv0TL11EmhqYMJMO42rw2p6kvvM=;
+	b=1cUYacTP0JB2PPGpyqcRFlCX2wR2AypXVf15lqHERELnf6V/lZxn8nv0jMZ4t/6+GEgmw6
+	V514OrfWVTnagrTsD7sDpzu4TGC781FHqOu3yilQZSNo27vHieOBL8HejUSj98XN5nSoGz
+	Uxhe8CflxCG3l2UtJMccxVMEFMUt03OeE9NKR0pPzZTyTDq0qWCZIEKLXVlz60Rst8vjlk
+	okUlTCW6YutVPsigY8Er45BN72cW5veltlZ8fpLD6wBoJ/13u6S5Ezjfk+vtoq7MXOOXD7
+	ejGDfCxUhquVlnAjt1mOz4PjJKgBAiboRRCO6YY+J+rEkQApGF5c0z4Hm9wRsA==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=none;
+	spf=pass (outgoing_mbo_mout: domain of antonio@mandelbit.com designates 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=antonio@mandelbit.com
+Message-ID: <bf6f90a3-7f47-4b39-a746-533da0913a2c@mandelbit.com>
+Date: Tue, 27 Oct 2026 09:51:36 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,47 +66,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] lib/crypto: tests: Add KUnit tests and benchmark for
+ ChaCha
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: "Jason A . Donenfeld" <Jason@zx2c4.com>, Ard Biesheuvel
+ <ardb@kernel.org>, linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261025234758.3219829-1-antonio@mandelbit.com>
+ <20261025234758.3219829-2-antonio@mandelbit.com>
+ <20261027015313.GD2395@quark>
+Content-Language: en-US
+From: Antonio Quartulli <antonio@mandelbit.com>
+Organization: Mandelbit SRL
+In-Reply-To: <20261027015313.GD2395@quark>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Queue-Id: 4jDPP83jG8zB9
 
-initramfs_test_fname_path_max() uses a directory with a nonzero body.
-Such entries are skipped even without the namesize > PATH_MAX check,
-so the test does not detect removal of that check.
+On 27/10/2026 02:53, Eric Biggers wrote:
+> On Mon, Oct 26, 2026 at 12:47:54AM +0100, Antonio Quartulli wrote:
+>> +	for (size_t i = 0; i < 10000000; i += max_len)
+>> +		chacha_crypt(&st, data, data, max_len, 20);
+> 
+> The calls to chacha_crypt() with constant 20 argument should be
+> chacha20_crypt().  Mainly so that if people copy-and-paste this outside
+> of test code, they use the right one.
+> 
+> Otherwise this test looks fine.  I'll apply it once the merge window
+> closes.
 
-Use a regular file and terminate the archived pathname early after
-fill_cpio() has encoded the oversized namesize. This allows the test
-to detect a missing parser check without relying on VFS pathname
-length limits.
+ACK
 
-Fixes: aaf76839616a ("initramfs_test: kunit test for cpio.filesize > PATH_MAX")
-Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
----
- init/initramfs_test.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+I'll send v2 with chacha20_crypt().
 
-diff --git a/init/initramfs_test.c b/init/initramfs_test.c
-index 1154547721ea..32d4d3e4e6c7 100644
---- a/init/initramfs_test.c
-+++ b/init/initramfs_test.c
-@@ -474,7 +474,7 @@ static void __init initramfs_test_fname_path_max(struct kunit *test)
- 	struct initramfs_test_cpio c[] = { {
- 		.magic = "070701",
- 		.ino = 1,
--		.mode = S_IFDIR | 0777,
-+		.mode = S_IFREG | 0777,
- 		.nlink = 1,
- 		.namesize = sizeof(tbufs->fname_oversize),
- 		.fname = tbufs->fname_oversize,
-@@ -495,6 +495,8 @@ static void __init initramfs_test_fname_path_max(struct kunit *test)
- 	       sizeof("fname_oversize") - 1);
- 	memcpy(tbufs->fname_ok, "fname_ok", sizeof("fname_ok") - 1);
- 	len = fill_cpio(c, ARRAY_SIZE(c), false, tbufs->cpio_src);
-+	/* keep namesize oversized, but give VFS a short pathname */
-+	tbufs->cpio_src[CPIO_HDRLEN + sizeof("fname_oversize") - 1] = '\0';
- 
- 	/* unpack skips over fname_oversize instead of returning an error */
- 	err = unpack_to_rootfs(tbufs->cpio_src, len);
+Regards,
 
-base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
+> 
+> - Eric
+
 -- 
-2.43.0
+Antonio Quartulli
+
+CEO and Co-Founder
+Mandelbit Srl
+https://www.mandelbit.com
 
