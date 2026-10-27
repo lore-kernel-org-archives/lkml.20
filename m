@@ -1,89 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793094044;
-	b=0+Wy/Y9pjVn5a9e6K01eL2tLvH/p9pOxi/Ajefpf3Nq7/13tkY6xmeho2rb+ghNQl1I8
-	 +NzSUY7JyFBW9JPS/VDbGqmObXDt1dM7nmnEDL7uMrzrbDy823pFZaUU6YrROPYUoc3aX
-	 w1D/gVApVGvtTP/gbXLzyqgNTHaMuDNAvTsR/tZHaBU6yl8XYgKGXLvwoICWr4vCpyGoW
-	 GGx4V8OA1Z0QXuQPWlc/iR++1H4DnVt60MxTE60db+vHtzHAsP9cCtSO9pkbN5UAN6aLC
-	 0GlsyNP1ckZcHAvJVzoot/UzEiQ5DOrMzscJMnW0MMuVCis+20poAWDm4ALd3qeWk+Q==
+	t=1793094061;
+	b=Srkl2i2vUD8459E/EgQNzWKkMY/b0iCUQsl/LIieYEK/+jijGYNXDXWku9/5EoL3RSJQ
+	 OoLLbj8zzdK0Zdid721Xf32Q/WGRJXQpY6MOy3YiRoQVBnKIjap30rmDjxCCtWkTv567+
+	 qA7Vm/UZqO+YrIIBZ7iKR9Q5YZxgrlwqdDbM4gvzzeUn5Xd9jAZVjO/vd2qsB97l+mPO+
+	 zo5DLUjFQbUUYHeGIaJeE1BNCBvJfuu/lX7c0oBaABKSkffgbFMhPik6YlHudfILrqLlr
+	 BjWbwe0gxxAV6n2w/ho7VxO4SJpIfGv8IZLusTzW/artkYQu1onP/CqyfSAAUMHc+jw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793094044;
-	h=DMARC-Filter:X-UUID:X-CTIC-Tags:X-CID-P-RULE:X-CID-O-INFO:X-CID-INFO:
-	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:
-	 Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=gJJj+e5ghXIk3mLQ0TvxU5VvD3Orm2FE5Srl4dGJX6Y=;
-	b=cyi/4fQ5fURvC67XVwdo1lPIUVDfeZDofjvWSiZK8BHlkwuFmRO4VZUGwgrWVq51Ey/s
-	 ZS26DQe5wNmCw8v83i2vt2TAKB+mgFC0nCwLIO8yiZta2eydhbC/tagUOa7tDN/CJ9/gv
-	 SXMz1lAXLzIFgrObWpXfVDgrNin1+ivKMAbN0ZCiMgHWPUCVNLNK/HK0Y2ACh/YdaRRY9
-	 NWu1/UtpBBnoyT9YvlHWuCujQs/LNSm0T82D4PapeTj7dT6r4cEQ5SPDcdqPQYUgnGpz7
-	 8HLIq5yVRVOYgN11a9u2aj75VRiFdlkBSilvCcPdyKx+hYqmsl0HUFrE7bden4HoMhQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793094061;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=JVBSyNaPKEtFoMBnmXCIBXxl7RDB3mGMHMJZz01NkVk=;
+	b=0LiKTUeIfDz9L1sp4mTLY1mqZx5slCnwWYUParxYQu4Y/1Zxr8Ea5tiElYzIoulQE/rz
+	 0I2npEHMKIsQJR11whu+Ff+ufXFCgkmna7Dq4g10bS0VYnWWOyX8fN2IPq8lD6j2nTmgi
+	 8HSElaFk1ZiClaADUvJ6Va9bSEe4YVMjZPhrqQniQ3qIAbIA1bv0H0qH4ssij/04rpaKO
+	 ercp+G2Qm32A7ZJqIceZFikW2IJNqk3AbpFH0CWxD6SNYG6KyFWLuFaUhDvytuaNg7eq1
+	 T+AfwXKM6pAn8LGT1bDV61D4ERLJg2A0KV+xYrwkRA7DzICT6LiG/0wjrLDZpGZHz7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kylinos.cn;
-	spf=pass smtp.mailfrom=kylinos.cn;
-	arc=none smtp.remote-ip=124.126.103.232
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=Cb3HmVQU;
+	arc=none smtp.remote-ip=209.85.221.47
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61DA1606A31B;
-	Tue, 27 Oct 2026 09:40:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61DA1606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 74d5704ad1ea11f19a56ed5b684f684d-20261027
-X-CTIC-Tags:
-	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME, HR_CTE_8B
-	HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME
-	HR_SJ_DIGIT_LEN, HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM
-	HR_SJ_PHRASE, HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT
-	HR_TO_NO_NAME, IP_UNTRUSTED, SRC_UNTRUSTED, IP_UNFAMILIAR, SRC_UNFAMILIAR
-	SA_TRUSTED, SA_EXISTED, SN_TRUSTED, SN_EXISTED, SPF_NOPASS
-	DKIM_NOPASS, DMARC_NOPASS, CIE_BAD, CIE_GOOD_SPF, GTI_FG_BS
-	GTI_RG_INFO, GTI_C_BU, AMN_GOOD, ABX_MISS_RDNS
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:c09bac58-4248-4467-862f-47eb338eee00,IP:10,
-	URL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
-	ON:release,TS:-15
-X-CID-INFO: VERSION:1.3.19,REQID:c09bac58-4248-4467-862f-47eb338eee00,IP:10,UR
-	L:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:-15
-X-CID-META: VersionHash:7db8b62,CLOUDID:c143c288af083e61f6a1f53a63319d3a,BulkI
-	D:26102717403633SDZJ33,BulkQuantity:0,SF:17|19|38|66|78|81|82|102|127|136|
-	850|865|898,TC:nil,Content:0|15|50|99,EDM:-3|-100,IP:-2,URL:0,File:nil,RT:
-	nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:
-	0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_FAS,TF_CID_SPAM_FSD
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 74d5704ad1ea11f19a56ed5b684f684d-20261027
-X-User: wangxuewen@kylinos.cn
-Received: from localhost.localdomain [(223.104.42.231)] by mailgw.kylinos.cn
-	(envelope-from <wangxuewen@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1101242977; Tue, 27 Oct 2026 17:40:33 +0800
-From: Xuewen Wang <wangxuewen@kylinos.cn>
-To: hughd@google.com,
-	baolin.wang@linux.alibaba.com,
-	rostedt@goodmis.org,
-	mhiramat@kernel.org,
-	mathieu.desnoyers@efficios.com,
-	corbet@lwn.net,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	akpm@linux-foundation.org
-Cc: linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	Xuewen Wang <wangxuewen@kylinos.cn>
-Subject: [PATCH 1/2] mm/shmem: trace swapin results and order fallbacks
-Date: Tue, 27 Oct 2026 17:40:13 +0800
-Message-Id: <20261027094014.2432692-2-wangxuewen@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261027094014.2432692-1-wangxuewen@kylinos.cn>
-References: <20261027094014.2432692-1-wangxuewen@kylinos.cn>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DBB4606A31F
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:41:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9DBB4606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=Cb3HmVQU
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48df8fe8513so3569975f8f.0
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 02:41:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1793094059; x=1793698859; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JVBSyNaPKEtFoMBnmXCIBXxl7RDB3mGMHMJZz01NkVk=;
+        b=Cb3HmVQUB4Lk3lJ79uCjsoT4M/qng2XCwVuFJd72c76fT2RpGya+bs94EVQS3lXDmZ
+         Cg6Q/94Kp3EhZ+A4j0FZjWN7jGX4D6jypPFwwK0yPUImFmFPBTlpaSeUh2a7bEC1QbUd
+         tr+NkkzXvQt6SV1iynM+/8ppGaWS+slHAvSfG53l13e7LLNjulAMqbtEqwtpFqVnOnGW
+         JmTaemFR5SrKvLjFC7wFZ54Pxa5aI0vOlssM2QPIltl6RZXoedLpf7CdZLldhKIIu4MS
+         bWbXpjrLCpBEtF3JY+6vwFTkIORr9u73Mx3nz3PLfGM63BCnn7/LqxxYIXWVl9C0nZgn
+         Klpw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793094059; x=1793698859;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=JVBSyNaPKEtFoMBnmXCIBXxl7RDB3mGMHMJZz01NkVk=;
+        b=dOvb0g9ESBXc/J1EXFcPNbN3D5bgAE5MUQA+7BvIWBJOeU1vUKjuTPr+mlQXvBISMy
+         12sShgQkZO5QZIynXQt9jiQ9dQdQsYNNOqKcEnzmfSJf1ZFDo/WKp+2LBm1Wy1HhA7nA
+         KeFSQZO5xgUFz2izJT/B/P/TgM7tjyi+lWqPXntb3Nl7tHLvCeOkXhBo15tOdcgZG3Bd
+         TYebUrNigeQFroI4lrXzVhPce91H0V5t+DS6nHS0PozNVJRcSbNu/yDo7Iveqyb0+X3h
+         d3r6kKyWkwtB0l7dnekMogGaB5uHL5vltF7cR+74ZUxZdAPb++eQS1Cs0mMBX00ENSYV
+         xWfw==
+X-Forwarded-Encrypted: i=1; AKwUvBwcE0MWbzPPVIfzsu2ndEyvx/o7yzvOf2MeksThlaGlfHvYy5ajC8QFh6JDXELyoSUC4M0mlb9uwzC4bJA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ0zgs7+NORtUtsAWeM6Rov4VYn70LLcCK5bodduKFQWEZSpJom
+	O3KY0EhdXUd7n9UMQeKIRtIuPwxGhBliMH3ktHd1bMCnn9pcsFswMzmTnsIRFIbsUnI=
+X-Gm-Gg: AYBFou3+855DBEkPX9sCc5UbWfKlJjqvqqfMVTVkJtIz3kUiBfEVZTlZU3l78jm7Jke
+	LpecvyADnnvd2be/YzLeUSQeUfsPP3EPbtKChXIwSKUhVu/z90U93meIUmYfZ0htevn7yrqtA53
+	syO/WAaCSVTZbAlpxHIcFhyg0Gy4ZadimaQRrd8wsES65RqAneIPRu30pFG1yEr9qvaQXkRqLCP
+	859re5nceTWKVLGj+sEbhy4Hw5/oDDD00P+CTT8qcUSDcM7cSZBmwwoN9bjkKFVwPG7PZ4V9XkX
+	qddj4tKy8sXe/hdoz9Hx2icZy1rH+/bNeoX7ueMh3SRvW3Vso2EfHx8MzLZKFjhf3ZG4lMFmVEy
+	sskRYgRorev0bit5iXbYCDFy4/O0Wb2kD/+DRIqacyhiw3LDW351W3Ae08EQc0sAZcDp5afQ+wG
+	ZnV+kgmoTSQ688mg0nQlGq45pgpWoRHilOwZpxa2nVXRePin80w+PKuEJejgs2fnRPFekc3kGsi
+	cAvRFwvuqamWAoZHQT6jsFkCZfQ35IIZjKlhnaBxEvmc6ALDO4R5LivI6GV3y1rE1mXyQ==
+X-Received: by 2002:a05:6000:2989:10b0:48d:fbdd:4132 with SMTP id ffacd0b85a97d-48e3eb78141mr13538157f8f.18.1793094058994;
+        Tue, 27 Oct 2026 02:40:58 -0700 (PDT)
+Received: from localhost (109-81-20-177.rct.o2.cz. [109.81.20.177])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebd4bc5sm21909641f8f.34.2026.10.27.02.40.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 02:40:58 -0700 (PDT)
+Date: Tue, 27 Oct 2026 10:40:57 +0100
+From: Michal Hocko <mhocko@suse.com>
+To: "T.J. Mercier" <tjmercier@google.com>
+Cc: hannes@cmpxchg.org, roman.gushchin@linux.dev, shakeel.butt@linux.dev,
+	muchun.song@linux.dev, zhengqi.arch@bytedance.com,
+	akpm@linux-foundation.org, cgroups@vger.kernel.org,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mm: memcontrol: fix NULL pointer deref in
+ high_work_func() on dying memcg
+Message-ID: <auBxqU34FQYauoQr@tiehlicka>
+References: <20261023222313.3979455-1-tjmercier@google.com>
+ <at9U2HvyUP-iYOCt@tiehlicka>
+ <CABdmKX1mLKEJNiecW+meJ=LB_Kb8-ieeWdZDd4T6rNR9gKuq_A@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,402 +102,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CABdmKX1mLKEJNiecW+meJ=LB_Kb8-ieeWdZDd4T6rNR9gKuq_A@mail.gmail.com>
 
-PSWPIN and ZSWPIN describe swap traffic but cannot identify which tmpfs
-file caused it. Shmem swapins initiated through read() do not increment
-PGMAJFAULT. This makes it difficult to identify which shared-memory file
-is being brought back under memory pressure.
+On Mon 26-10-26 11:01:51, T.J. Mercier wrote:
+> On Mon, Oct 26, 2026 at 6:25 AM Michal Hocko <mhocko@suse.com> wrote:
+> >
+> > On Fri 23-10-26 15:23:13, T.J. Mercier wrote:
+> > [...]
+> > > ---
+> > >  mm/memcontrol.c | 5 +++++
+> > >  1 file changed, 5 insertions(+)
+> > >
+> > > diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+> > > index a05d9a8baa1b..84f4a8fd4d16 100644
+> > > --- a/mm/memcontrol.c
+> > > +++ b/mm/memcontrol.c
+> > > @@ -2457,7 +2457,10 @@ static void high_work_func(struct work_struct *work)
+> > >       struct mem_cgroup *memcg;
+> > >
+> > >       memcg = container_of(work, struct mem_cgroup, high_work);
+> > > +     if (!css_tryget_online(&memcg->css))
+> > > +             return;
+> > >       reclaim_high(memcg, MEMCG_CHARGE_BATCH, GFP_KERNEL);
+> > > +     css_put(&memcg->css);
+> > >  }
+> >
+> > OK.
+> >
+> > >  static void high_irq_work_func(struct irq_work *work)
+> > > @@ -4463,6 +4466,8 @@ static void mem_cgroup_css_offline(struct cgroup_subsys_state *css)
+> > >
+> > >       page_counter_set_min(&memcg->memory, 0);
+> > >       page_counter_set_low(&memcg->memory, 0);
+> > > +     page_counter_set_high(&memcg->memory, PAGE_COUNTER_MAX);
+> > > +     page_counter_set_high(&memcg->swap, PAGE_COUNTER_MAX);
+> > >
+> > >       zswap_memcg_offline_cleanup(memcg);
+> >
+> > Should we simply disable_work_sync when the memcg is going to be
+> > released instead (mem_cgroup_css_released)? That should both prevent
+> > the run reclaim_high during the memcg shut down and and also avoid
+> > plaing with limits to work around.
+> 
+> Hi Michal,
+> 
+> Unfortunately that won't work for shrink_many() ->
+> !mem_cgroup_tryget() -> lru_gen_release_memcg() which can occur before
+> mem_cgroup_css_released() runs. (mem_cgroup_css_released() happens
+> through the cgroup_release_wq.)
 
-Add an event at each return from shmem_swapin_folio(), with the
-filesystem device, inode, original caller index and XArray entry, entry
-and folio orders, path and return value. Include entry validation
-failures and poison markers so failed attempts are visible too.
+I do not follow. Could you explain why please?
 
-Record explicit downgrades from a higher order to order 0 when the
-faulting VMA has userfaultfd armed or zswap_never_enabled() returns false.
-Record both reasons when both restrictions apply. The zswap restriction
-follows a static key, not the current enable setting: it persists after
-zswap is disabled and also applies with CONFIG_ZSWAP_DEFAULT_ON=y when
-booting with zswap.enabled=0. Initial order-0 requests do not set policy
-reason bits.
+> The high limit reset is also needed for targeting live ancestors above
+> the offlined child in try_charge_memcg(). Without the resets,
+> high_work is never attempted on them since it gets dropped when
+> attempted on the offlined child due to the first hunk, and
+> try_charge_memcg() breaks out of the loop.
 
-Also record the initial error when a higher-order synchronous attempt
-fails and is retried at order 0. Use sync_fail for this case: the swap
-layer can reject a range with -EBUSY before allocating memory, and
--ENOMEM can also come from memcg charging. A racing swap-cache insertion
-may supply a folio of a different order, so the fallback fields describe
-the request, not its outcome.
+I must be missing something really obvious here because I really do not
+follow you here too. So we are offlining a memcg. We need to coordinate
+memory reclaim with the memcg tear down, right? For the high reclaim we
+can achieve this synchronization through disable_work_sync in
+mem_cgroup_css_offline. For a synchronous high memory reclaim we do not
+have such means but we are keeping a memcg reference which makes the
+lifetime well defined. If you reset counter you might help to bail out
+early(ier) but that shouldn't be necessary from a correctness POV as it
+doesn't provide any explicit synchronization.
 
-Existing swpin_fallback and swpin_fallback_charge counters report
-failures on the swap allocation path, but lack inode attribution and do
-not describe these policy restrictions. Carry the fallback decision and
-final result in the same event so users do not need to correlate
-separate records.
+> Shakeel's remote charging patch
+> (https://lore.kernel.org/all/20261010210957.1350874-4-shakeel.butt@linux.dev/)
+> sends remote charges through high_work too, so without the resets
+> those would lose ancestor reclaim the same way. Before that patch not
+> performing the resets means reclaim_high() runs unnecesarily against
+> current's memcg (not the remote memcg above memory.high).
 
-Document attempt semantics, swap-cache hits and order sentinels. A
-successful event represents a folio installed in the file page cache;
-it need not involve disk I/O or a major fault. Keep the existing return
-and retry behavior.
-
-Signed-off-by: Xuewen Wang <wangxuewen@kylinos.cn>
----
- Documentation/trace/events-shmem.rst | 73 +++++++++++++++++++++++
- Documentation/trace/index.rst        |  1 +
- MAINTAINERS                          |  2 +
- include/trace/events/shmem.h         | 86 ++++++++++++++++++++++++++++
- mm/shmem.c                           | 64 +++++++++++++++------
- 5 files changed, 207 insertions(+), 19 deletions(-)
- create mode 100644 Documentation/trace/events-shmem.rst
- create mode 100644 include/trace/events/shmem.h
-
-diff --git a/Documentation/trace/events-shmem.rst b/Documentation/trace/events-shmem.rst
-new file mode 100644
-index 000000000000..45da82761360
---- /dev/null
-+++ b/Documentation/trace/events-shmem.rst
-@@ -0,0 +1,73 @@
-+.. SPDX-License-Identifier: GPL-2.0
-+
-+Tmpfs and shmem events
-+=====================
-+
-+The events in ``events/shmem/`` attribute swapin and allocation activity to
-+``dev`` (the filesystem device) and ``ino`` (the inode number). They also
-+cover anonymous shared memory and memfd files. ``index`` is the page offset
-+requested by the caller, before any alignment for a large folio.
-+
-+Swapin
-+------
-+
-+``shmem_swapin_folio`` records each return from ``shmem_swapin_folio()``.
-+``error`` is the return value: zero means a folio was installed in the file
-+page cache; ``-EEXIST`` normally asks the caller to retry after a race.
-+Entry validation failures and poison markers also produce events.
-+
-+``entry`` contains the original XArray entry's type and offset. For a large
-+entry, this is its base swap slot even when ``index`` lies in its middle.
-+For ``path=poison``, it encodes a marker, not a real swap slot.
-+
-+``requested_order`` is the confirmed XArray entry order, or -1 when unknown.
-+``actual_order`` is the order of the folio obtained, or -1 if none was
-+obtained. A nonnegative actual order does not imply successful insertion:
-+always check ``error``. One successful event may cover multiple pages.
-+
-+``path`` identifies the branch taken: ``lookup`` for entry validation
-+failure, ``cache`` for the initial swap cache hit, ``sync`` for synchronous
-+swapin, ``readahead`` for the readahead helper, or ``poison`` for a marker.
-+The helpers may themselves find a cached folio, so path does not prove I/O
-+occurred. Event counts are not disk-I/O or major-fault counts.
-+
-+``fallback`` is a bitmask recording explicit downgrades from a higher order
-+to order 0 in the synchronous helper. An initial order-0 request does not
-+set policy reason bits, even when the policy conditions hold. Set reasons
-+are printed separated by ``|``:
-+
-+* ``none``: no explicit downgrade in the synchronous helper.
-+* ``userfaultfd``: the VMA has userfaultfd armed.
-+* ``zswap``: ``zswap_never_enabled()`` is false, restricting the request
-+  to order 0.
-+* ``sync_fail``: the initial higher-order synchronous attempt failed.
-+
-+The zswap restriction follows a static key, not the current enable setting.
-+It persists after zswap is disabled and also applies with
-+``CONFIG_ZSWAP_DEFAULT_ON=y`` even when booting with ``zswap.enabled=0``.
-+The policy reasons can occur together, so both ``userfaultfd`` and ``zswap``
-+are recorded when both restrictions apply to a higher-order request.
-+``fallback_error`` preserves the initial synchronous error, including
-+range conflicts such as ``-EBUSY``; it is zero for policy downgrades and
-+when fallback is ``none``. ``-ENOMEM`` can indicate allocation or memcg
-+charging failure.
-+
-+These fields describe a decision to request order 0, not a guarantee about
-+the returned folio: a racing swap-cache insertion may provide a different
-+order. Swap-cache and readahead paths can also return a smaller folio
-+without setting ``fallback``.
-+
-+For example, after mounting tracefs at ``/sys/kernel/tracing``, use a private
-+instance to capture a workload's swapins::
-+
-+  mkdir /sys/kernel/tracing/instances/shmem
-+  cd /sys/kernel/tracing/instances/shmem
-+  echo 1 > events/shmem/shmem_swapin_folio/enable
-+  # Run the workload, then stop recording before reading the buffer.
-+  echo 0 > tracing_on
-+  cat trace
-+
-+Filter or aggregate by both ``dev`` and ``ino``; inode numbers alone are
-+not unique across mounts. Trace filters use the numeric values shown by
-+the event's ``format`` file. Check ``per_cpu/cpu*/stats`` for dropped events
-+before interpreting counts.
-diff --git a/Documentation/trace/index.rst b/Documentation/trace/index.rst
-index f4058e8e92e3..dbf407744430 100644
---- a/Documentation/trace/index.rst
-+++ b/Documentation/trace/index.rst
-@@ -51,6 +51,7 @@ applications.
- 
-    events
-    events-kmem
-+   events-shmem
-    events-power
-    events-nmi
-    events-msr
-diff --git a/MAINTAINERS b/MAINTAINERS
-index d2fc3d8364b3..8f6a02dcf9c7 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -27602,8 +27602,10 @@ M:	Hugh Dickins <hughd@google.com>
- R:	Baolin Wang <baolin.wang@linux.alibaba.com>
- L:	linux-mm@kvack.org
- S:	Maintained
-+F:	Documentation/trace/events-shmem.rst
- F:	include/linux/memfd.h
- F:	include/linux/shmem_fs.h
-+F:	include/trace/events/shmem.h
- F:	mm/memfd.c
- F:	mm/shmem.c
- F:	mm/shmem_quota.c
-diff --git a/include/trace/events/shmem.h b/include/trace/events/shmem.h
-new file mode 100644
-index 000000000000..7a0050a1686f
---- /dev/null
-+++ b/include/trace/events/shmem.h
-@@ -0,0 +1,86 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+#undef TRACE_SYSTEM
-+#define TRACE_SYSTEM shmem
-+
-+#if !defined(_TRACE_SHMEM_H) || defined(TRACE_HEADER_MULTI_READ)
-+#define _TRACE_SHMEM_H
-+
-+#include <linux/bits.h>
-+#include <linux/fs.h>
-+#include <linux/kdev_t.h>
-+#include <linux/tracepoint.h>
-+
-+#define SHMEM_SWAPIN_LOOKUP	0
-+#define SHMEM_SWAPIN_CACHE	1
-+#define SHMEM_SWAPIN_SYNC		2
-+#define SHMEM_SWAPIN_READAHEAD	3
-+#define SHMEM_SWAPIN_POISON	4
-+
-+#define SHMEM_SWAPIN_FALLBACK_NONE		0
-+#define SHMEM_SWAPIN_FALLBACK_USERFAULTFD	BIT(0)
-+#define SHMEM_SWAPIN_FALLBACK_ZSWAP		BIT(1)
-+#define SHMEM_SWAPIN_FALLBACK_SYNC		BIT(2)
-+
-+#define show_shmem_swapin_fallback(flags)			\
-+	(flags) ? __print_flags(flags, "|",		\
-+	{ SHMEM_SWAPIN_FALLBACK_USERFAULTFD, "userfaultfd" },\
-+	{ SHMEM_SWAPIN_FALLBACK_ZSWAP, "zswap" },	\
-+	{ SHMEM_SWAPIN_FALLBACK_SYNC, "sync_fail" }) : "none"
-+
-+TRACE_EVENT(shmem_swapin_folio,
-+
-+	TP_PROTO(struct inode *inode, pgoff_t index,
-+		 unsigned int entry_type, pgoff_t entry_offset,
-+		 int requested_order, int actual_order, unsigned int path,
-+		 unsigned int fallback, int fallback_error, int error),
-+
-+	TP_ARGS(inode, index, entry_type, entry_offset, requested_order,
-+		actual_order, path, fallback, fallback_error, error),
-+
-+	TP_STRUCT__entry(
-+		__field(dev_t, dev)
-+		__field(unsigned long, ino)
-+		__field(unsigned long, index)
-+		__field(unsigned int, entry_type)
-+		__field(unsigned long, entry_offset)
-+		__field(int, requested_order)
-+		__field(int, actual_order)
-+		__field(unsigned int, path)
-+		__field(unsigned int, fallback)
-+		__field(int, fallback_error)
-+		__field(int, error)
-+	),
-+
-+	TP_fast_assign(
-+		__entry->dev = inode->i_sb->s_dev;
-+		__entry->ino = inode->i_ino;
-+		__entry->index = index;
-+		__entry->entry_type = entry_type;
-+		__entry->entry_offset = entry_offset;
-+		__entry->requested_order = requested_order;
-+		__entry->actual_order = actual_order;
-+		__entry->path = path;
-+		__entry->fallback = fallback;
-+		__entry->fallback_error = fallback_error;
-+		__entry->error = error;
-+	),
-+
-+	TP_printk("dev=%d:%d ino=%lu index=%lu entry=%u:%lu requested_order=%d actual_order=%d path=%s fallback=%s fallback_error=%d error=%d",
-+		  MAJOR(__entry->dev), MINOR(__entry->dev),
-+		  __entry->ino, __entry->index,
-+		  __entry->entry_type, __entry->entry_offset,
-+		  __entry->requested_order, __entry->actual_order,
-+		  __print_symbolic(__entry->path,
-+				   { SHMEM_SWAPIN_LOOKUP, "lookup" },
-+				   { SHMEM_SWAPIN_CACHE, "cache" },
-+				   { SHMEM_SWAPIN_SYNC, "sync" },
-+				   { SHMEM_SWAPIN_READAHEAD, "readahead" },
-+				   { SHMEM_SWAPIN_POISON, "poison" }),
-+		  show_shmem_swapin_fallback(__entry->fallback),
-+		  __entry->fallback_error, __entry->error)
-+);
-+
-+#endif /* _TRACE_SHMEM_H */
-+
-+/* This part must be outside protection */
-+#include <trace/define_trace.h>
-diff --git a/mm/shmem.c b/mm/shmem.c
-index 9f0965b8b59c..3b910aec5bcf 100644
---- a/mm/shmem.c
-+++ b/mm/shmem.c
-@@ -87,6 +87,9 @@ static struct vfsmount *shm_mnt __ro_after_init;
- 
- #include "internal.h"
- 
-+#define CREATE_TRACE_POINTS
-+#include <trace/events/shmem.h>
-+
- #define VM_ACCT(size)    (PAGE_ALIGN(size) >> PAGE_SHIFT)
- 
- /* Pretend that each entry is of this size in directory's i_size */
-@@ -2249,16 +2252,22 @@ static struct folio *shmem_alloc_and_add_folio(struct vm_fault *vmf,
- 
- static struct folio *shmem_swap_alloc_folio(struct inode *inode,
- 		struct vm_fault *vmf, pgoff_t index,
--		swp_entry_t entry, int order, gfp_t gfp)
-+		swp_entry_t entry, int order, gfp_t gfp,
-+		unsigned int *fallback, int *fallback_error)
- {
- 	pgoff_t ilx;
- 	struct folio *folio;
- 	struct mempolicy *mpol;
- 	struct shmem_inode_info *info = SHMEM_I(inode);
- 
--	if ((vmf && unlikely(userfaultfd_armed(vmf->vma))) ||
--	     !zswap_never_enabled())
--		order = 0;
-+	if (order) {
-+		if (vmf && unlikely(userfaultfd_armed(vmf->vma)))
-+			*fallback |= SHMEM_SWAPIN_FALLBACK_USERFAULTFD;
-+		if (!zswap_never_enabled())
-+			*fallback |= SHMEM_SWAPIN_FALLBACK_ZSWAP;
-+		if (*fallback)
-+			order = 0;
-+	}
- 
- again:
- 	mpol = shmem_get_pgoff_policy(info, index, order, &ilx);
-@@ -2269,6 +2278,8 @@ static struct folio *shmem_swap_alloc_folio(struct inode *inode,
- 		return folio;
- 
- 	if (order) {
-+		*fallback |= SHMEM_SWAPIN_FALLBACK_SYNC;
-+		*fallback_error = PTR_ERR(folio);
- 		order = 0;
- 		goto again;
- 	}
-@@ -2471,7 +2482,12 @@ static int shmem_swapin_folio(struct inode *inode, pgoff_t index,
- 	softleaf_t index_entry;
- 	struct swap_info_struct *si;
- 	struct folio *folio = NULL;
--	int error, nr_pages, order;
-+	int error, nr_pages, order = -1;
-+	int actual_order = -1;
-+	unsigned int path = SHMEM_SWAPIN_LOOKUP;
-+	unsigned int fallback = SHMEM_SWAPIN_FALLBACK_NONE;
-+	int fallback_error = 0;
-+	pgoff_t orig_index = index;
- 	pgoff_t offset;
- 
- 	VM_BUG_ON(!*foliop || !xa_is_value(*foliop));
-@@ -2479,20 +2495,21 @@ static int shmem_swapin_folio(struct inode *inode, pgoff_t index,
- 	swap = index_entry;
- 	*foliop = NULL;
- 
--	if (softleaf_is_poison_marker(index_entry))
--		return -EIO;
-+	if (softleaf_is_poison_marker(index_entry)) {
-+		path = SHMEM_SWAPIN_POISON;
-+		error = -EIO;
-+		goto out;
-+	}
- 
- 	si = get_swap_device(index_entry);
- 	order = shmem_confirm_swap(mapping, index, index_entry);
- 	if (IS_ERR_OR_NULL(si)) {
--		if (order < 0)
--			return -EEXIST;
--		else
--			return -EINVAL;
-+		error = order < 0 ? -EEXIST : -EINVAL;
-+		goto out;
- 	}
- 	if (unlikely(order < 0)) {
--		put_swap_device(si);
--		return -EEXIST;
-+		error = -EEXIST;
-+		goto put_swap;
- 	}
- 
- 	/* index may point to the middle of a large entry, get the sub entry */
-@@ -2506,10 +2523,13 @@ static int shmem_swapin_folio(struct inode *inode, pgoff_t index,
- 	if (!folio) {
- 		if (data_race(si->flags & SWP_SYNCHRONOUS_IO)) {
- 			/* Direct swapin skipping swap cache & readahead */
-+			path = SHMEM_SWAPIN_SYNC;
- 			folio = shmem_swap_alloc_folio(inode, vmf, index,
--						       swap, order, gfp);
-+						       swap, order, gfp, &fallback,
-+						       &fallback_error);
- 		} else {
- 			/* Cached swapin only supports order 0 folio */
-+			path = SHMEM_SWAPIN_READAHEAD;
- 			folio = shmem_swapin_cluster(swap, gfp, info, index);
- 		}
- 		if (IS_ERR_OR_NULL(folio)) {
-@@ -2526,6 +2546,7 @@ static int shmem_swapin_folio(struct inode *inode, pgoff_t index,
- 			count_memcg_event_mm(fault_mm, PGMAJFAULT);
- 		}
- 	} else {
-+		path = SHMEM_SWAPIN_CACHE;
- 		swap_update_readahead(folio, NULL, 0);
- 	}
- 
-@@ -2603,10 +2624,9 @@ static int shmem_swapin_folio(struct inode *inode, pgoff_t index,
- 	folio_put_swap(folio, NULL);
- 	swap_cache_del_folio(folio);
- 	folio_mark_dirty(folio);
--	put_swap_device(si);
--
-+	actual_order = folio_order(folio);
- 	*foliop = folio;
--	return 0;
-+	goto put_swap;
- failed:
- 	if (shmem_confirm_swap(mapping, index, swap) < 0)
- 		error = -EEXIST;
-@@ -2616,10 +2636,16 @@ static int shmem_swapin_folio(struct inode *inode, pgoff_t index,
- 	if (folio)
- 		folio_unlock(folio);
- failed_nolock:
--	if (folio)
-+	if (folio) {
-+		actual_order = folio_order(folio);
- 		folio_put(folio);
-+	}
-+put_swap:
- 	put_swap_device(si);
--
-+out:
-+	trace_shmem_swapin_folio(inode, orig_index, swp_type(index_entry),
-+				 swp_offset(index_entry), order, actual_order,
-+				 path, fallback, fallback_error, error);
- 	return error;
- }
- 
 -- 
-2.25.1
-
+Michal Hocko
+SUSE Labs
