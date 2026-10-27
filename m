@@ -1,52 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793088518;
-	b=gWCtZ9FB/z6e7UOxtznZYNUjrbjhEOYwk3Fo3eAQj0s2YHLWFifbdeRuu0cNdR+1j2Er
-	 jUZvlt5hRq7V/GZzFBj9PQopNFinjP42PU6pSZ+2A9E1hB/vOYfJ34svWk95cOKw4Tmho
-	 /cbXBb3Zh9+E8+hU3kQUMdO7JmxoHx1NstK6HGZ+uxGhVYhIPVjLcAEqQdiiobSm3eQ88
-	 ST12iyD/V5C4d7YA0c8J83+Y4o8M0KwtHLyQ97Gc63IP2Z9QenCH/8hX/Ako6GYjBeO7D
-	 WoqTpDnCG3PzxiF8EzjFsTFWCaGhocpocoQyQ4SADZu87U5mX15WTTt/9NOrozYW/Fg==
+	t=1793088538;
+	b=mDH69JEizg8q35XbYJqDPfLAJ0AYqwnYp2D7lat96CcQau8vlnKKXfD6HooEqPlWkzkS
+	 SntdrhGRceCrpo3YDzqd75ksKBb7Z/lZti4jEUUj1s3ygcc+3e49KdtBkYp2jVPkEPYtr
+	 p18VJtVHV3zoXIMAIX6c1PrY3hGJwQ23Pi3o/73p5DZfO21/lJennUCP6Pq8dqs0aPVlF
+	 Q+WROi5IpGvTj8u/5pqf2trLmHmYQEYX0Wy0Z83ITHDdD/1LwZ1x7Wyt+Mm7Rx8rD0O2F
+	 +/uU2SA8CToP4tUJBVp1KpgWov+sQvZliXiaeyO2THKhlS1ql0zcJhIL2bGZ0hRclOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793088518;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=1UvL3mp5p0BwJk6NSPGETpacBFCSAwHbGB7AHkVNMDs=;
-	b=E3Y/55C9ig3g77/8x/l/IH+lLEjcnq5BOVazQuqL+tBRQ5HEaU4BsBq1/5JONFhCMQrb
-	 PfTL8yXIGu5nXC86NxA7X439+Ci/Jwh7+xc/aCrLMIhL6196pDwj+qii5CUh6fBKyr7yq
-	 hzbqBoN9SwQd5d9I2oSpWqNWpKaL4NxaEWO9mhMC69QSw26BLt44HXZFqYu5P/vwqu4ji
-	 tKeqmTZ/FEGsZa4Z3r4xKSJVsGh8LuqQhdQ/oFQdM56tXjB2Xng/MZfeCSzWqfSIVXC8Z
-	 9edIcw6gFc4qXSHysn/p9qj9QW2uGB+7NjSJULjFcZxW3XLq6ShsdqCDWEjpAfjwnqg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793088538;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=tEFczFf5Eq9eoLVebiF+Xy46dzvCzgJ+AjU1Q2xK364=;
+	b=ewuvt75KFkv+rAUJTWSnViHxkyEMUDJRJGKjeceFnMK1l+S0PCfWtqvhtxR78AkvuOJs
+	 D/Q+xp44OtT1uXh2W5aYm0zmpMaO9aUmcdaYgVpKLva3GoQpyEHn0CA5eOgYX1UQdlW94
+	 lzdDMCR3jT5N/XLh3GdReOmTLaRoFA5YRCiq5qenf6g+kZ58pcF6zn3obcExExUyZs2Kd
+	 GZKe96UK+0TU18rtGWJe5MZSq+rqPzs2FF2p4Dpj7rAf54w6OVq2los4cYtdDEUhATwN7
+	 B0altgnpHRgRJDDuko1EuanrM/2o+km1G88bcG+ikRnsfF38Y6ep9u9+EPWGG4l1KTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cVpFXZ8r;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WoXhgzgN;
+	arc=none smtp.remote-ip=198.175.65.16
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B21C606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:08:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86D84606A31D;
+	Tue, 27 Oct 2026 08:08:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86D84606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cVpFXZ8r
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06E2E1F01825;
-	Tue, 27 Oct 2026 08:08:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793088518;
-	bh=1UvL3mp5p0BwJk6NSPGETpacBFCSAwHbGB7AHkVNMDs=;
-	h=From:To:Cc:Subject:Date;
-	b=cVpFXZ8rDt+M0QuPUBN9cuE8SKJla7WpesX0xEtRFsjFQv+Z97EKyOXRSlxr+nsz4
-	 d+Nu2Ip8jzNTD7fua28JfePWeBhosPsjS9uerJV6IPV7MGQaiX6eDFVGHQsnkZV2c4
-	 BFeeA2snZOAygloxE0QcZ/DkIQP/bc4mGTz/OwjTgPStPmNHzWWH3zLCCDsX0mm76x
-	 fdFunBHbcX1owTZT/s5ewswAOezOcYQW7ZvotTpPSr+dZzTsNr9pOslnk3bNYMXSJ9
-	 ziBMhufOdTUCT1Y/zbjl+N6neJYbvEbdidqfwR1gK8PHbCg5QuDlDhWqJU6qa+dEEZ
-	 +daiH4YMyp1/A==
-From: Gao Xiang <xiang@kernel.org>
-To: linux-erofs@lists.ozlabs.org
-Cc: LKML <linux-kernel@vger.kernel.org>,
-	Gao Xiang <xiang@kernel.org>
-Subject: [PATCH] erofs: drop unnecessary .read_folio() checks for file-backed mounts
-Date: Tue, 27 Oct 2026 09:07:46 +0100
-Message-ID: <20261027080747.12207-1-xiang@kernel.org>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WoXhgzgN
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793088538; x=1824624538;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=m5ahp8tDajbHjTEoIWuhcG89PAb01bbuXm2wLZ7zPiY=;
+  b=WoXhgzgNJ1YlOLZ/zZgWVLDZjJOT9WVAtm+KFdAO97xYmWFucdST/JU2
+   9z9dXiDFEGL0p/V1BKBFxr61t0v6BS1sXEGGIUCKqDDv9K6pnaf9X2zM0
+   pJ+8cIKQ0E2DAjjjiJ5U+L1gG0vJ2STsPvHb1sdCRgpD363i39Ul+2bD+
+   tdyCvz9DExcUaks54LPBRRGZgepFrWKfIrwwobKUFGl3PHlXLLj9FWZh7
+   wmN3XPjGUD11z8Sz168i0K8TCOt81gBrzqR7XePX4kNzgf40kF23l9iLj
+   mOX2OFieM+rWyqyAbKjBbh8j1nhWC6vgU12rFEFDAaNYLZvU1XHH/VtaW
+   A==;
+X-CSE-ConnectionGUID: bAX55zAkTR+a0tztdKKNRw==
+X-CSE-MsgGUID: T2CHzC82RomENgyGh8yOjg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1771535"
+X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
+   d="scan'208";a="1771535"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 01:08:57 -0700
+X-CSE-ConnectionGUID: gJQX6AUQT/KVkyvB5grScw==
+X-CSE-MsgGUID: 9Ynxc+BWS1KCgxL2VQVLXw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
+   d="scan'208";a="4832386"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.196])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 01:08:54 -0700
+Date: Tue, 27 Oct 2026 10:08:52 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: longzhao@ambarella.com
+Cc: Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org,
+	Linus Walleij <linusw@kernel.org>,
+	Michael Walle <mwalle@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	Long Zhao <zl020895@163.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v12 11/11] gpio: pl061: tidy up IRQ trigger logging
+Message-ID: <auBcFLT1D4AR62mV@ashevche-desk.local>
+References: <20261027-cv75-gpio-v12-0-c22555400e18@ambarella.com>
+ <20261027-cv75-gpio-v12-11-c22555400e18@ambarella.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,43 +85,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261027-cv75-gpio-v12-11-c22555400e18@ambarella.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Since currently dedicated EROFS-owned meta inodes are used for
-file-backed mounts, .read_folio() checks are now redundant.
+On Tue, Oct 27, 2026 at 12:18:58PM +0800, Long Zhao via B4 Relay wrote:
+> 
+> Join the level-and-edge dev_err() into one string literal so a grep
+> for "edge detection" finds it.
 
-As a result, EROFS file-back mounts can now apply to tmpfs too.
+This is fine change.
 
-Fixes: e587a984d332 ("erofs: use dedicated meta inodes for file-backed mounts")
-Signed-off-by: Gao Xiang <xiang@kernel.org>
----
- fs/erofs/super.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+> Use str_high_low() for the level debug line. str_rising_falling()
+> is not in linux-next, so the edge debug line keeps its own text.
 
-diff --git a/fs/erofs/super.c b/fs/erofs/super.c
-index 16fa3b853f1b..254b32f77a42 100644
---- a/fs/erofs/super.c
-+++ b/fs/erofs/super.c
-@@ -850,8 +850,7 @@ static int erofs_fc_get_tree(struct fs_context *fc)
- 			errorfc(fc, "source fd option not supported");
- 			return -EINVAL;
- 		}
--		if (!S_ISREG(file_inode(sbi->dif0.file)->i_mode) ||
--		    !sbi->dif0.file->f_mapping->a_ops->read_folio) {
-+		if (!S_ISREG(file_inode(sbi->dif0.file)->i_mode)) {
- 			errorfc(fc, "source is unsupported");
- 			return -EINVAL;
- 		}
-@@ -871,8 +870,7 @@ static int erofs_fc_get_tree(struct fs_context *fc)
- 			return PTR_ERR(file);
- 		sbi->dif0.file = file;
- 
--		if (S_ISREG(file_inode(sbi->dif0.file)->i_mode) &&
--		    sbi->dif0.file->f_mapping->a_ops->read_folio)
-+		if (S_ISREG(file_inode(sbi->dif0.file)->i_mode))
- 			return erofs_file_get_tree(fc);
- 	}
- 	return ret;
+This should be a separate change and it requires to have str_raising_falling()
+to be added to string_choices.h for the consistency's sake.
+
 -- 
-2.47.3
+With Best Regards,
+Andy Shevchenko
+
 
