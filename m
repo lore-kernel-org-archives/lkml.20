@@ -1,98 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.125.188.123
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793132413;
-	b=zhGAktmHiwyROKsERXZ6/w7xHcq9+ycbStIRAiMG+2WLykfbfIG3Psjbj21J3oEPVUT5
-	 x1Puw+xB6ha5rh2ejeeGS909zMizTBGripF5mk4os1pJfz1BiAQYr5n+3iNaJPyN13qNe
-	 Jd85r9p5Q1pUELZDF7N082cHzsrbjjnngj8xPK8TIh4KXtEeEeCiHHo1ANb8tV3fD2Jji
-	 vBkAAf1fXl+xyRDlMWtNb0/MVy6COS91+5OUFacUxYCDuF4m+SnXXF6wMaupxv0bm1Fol
-	 riB7VSQP4tjN+yQ8eXjhoW/dAe4jhzQRxtCsJRDsFNwAmuaSNubQqabfTq/EikwZLpw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793132413;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:
-	 X-Google-DKIM-Signature:X-Forwarded-Encrypted:X-Gm-Message-State:
-	 X-Gm-Gg:X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 Organization:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=1nq0z98nuOUnFugo129zrVuABKTo7gElCbo+rq4acFQ=;
-	b=xFwzCn1DcoNc6peaHWm9LnVlrKfQWM50saLhG78M351y7NwaSgbrdQ3JwRIEK0WdcJsB
-	 h8kmZbpcwTYDeb5RyWHW42H7KSJ1akZ8Dvu0rurunOXg3vwN0BAjFtC0tctZU82aVIdec
-	 BGaS/t8bB0AMsArKc9+Ug+CpBpEF+SMF0gBkTjfsyUbFnyT13pUiR37tgjhvmBzPJA6Kl
-	 Ro7XAeCTwfRPmUv0CvEa7yRdjaS1JFsNcJATKU6o5sahARPcJ9oowFQTUZLd/Od3gQuKD
-	 Cia7PW3ezhTBQ59vHBGE6EfifsatdR/CoYjhcFkSvjKSmlCs8jzSjesfUvw2z3nab3Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=canonical.com;
-	spf=pass smtp.mailfrom=canonical.com;
-	dkim=pass header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=Mqy1N1iz;
-	arc=none smtp.remote-ip=185.125.188.123
-Received: from smtp-relay-internal-1.canonical.com (smtp-relay-internal-1.canonical.com [185.125.188.123])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793132532;
+	b=2HVPnlzjwjN97AGoZre6zTIWc0gjFgeoPQn7aLmPbijbI9krHtVZ5Yn+z7HTMT1LkpXU
+	 2dc5DqQ9YA3Fi0MOsx08vU/y5Am9PqVGAg/oLRDHciQ1KfW84sFICH9UkxlQkCVNM1f+C
+	 54Imsy6ooedS4W5p3/FH0gytR+hm3FjEpAGEAFZquzLDoNMRa6iBlaGbh5YaGal4iq1RQ
+	 dXQHeeiuzcDPP3RKewPlQ0Ag8WDmQpMtBBqOrlMyqYgRNv7B1ruin1K9CRidzwe0N67ms
+	 OmOwnMyfHBZF2X5LEBOUIaxIyZX01shTh5R1GAAaD4mpYw1fCMAezz47N9k9AEVoxaQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793132532;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=eNbUTGE4iSA32nWe/S568aDGz8kAgMHCOwq3b3eGgaE=;
+	b=nIyWwEWGMdKb9YJOBxPlqkFO8mJi7UJq9IcPfQekgSYcIFRwKufTTTdKVSGxa86BqkAI
+	 f1IwbJ8FcPQ2ROJ1shHJOM84dDKqwXeIvZJmu2rUUKDoON4yWNaYfTeLTbDRwSdSgNP44
+	 pdZPWbujK4V9XNjPS+zSPnrWiL5qwkZr/Ytegq2KgSg5VzC3gKi61E62pwnNPsoMuwGeE
+	 geGLK3RZy3gNewUb9QkS4XeqiXTCQ17qYMgqoR7SqBmM3y/aC/VizWaqkL29ZwjsvkhrT
+	 YjB2WB4pp/N9oRrwES0iYR/15yy/M7rX0u+gfTDggg0eKq+ogZLtKOIXq75DkYmoEAg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N3HapJ2f;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D738606A31A;
+	Tue, 27 Oct 2026 20:22:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N3HapJ2f
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793132530;
+	b=EWZC22WEaQU51J58IcLuBHUOLKlAASB9LI35uKu8D6DTXdkSxMbajdev5jAwwyCgQ8AP
+	 sU2b1djgJhksff27klYhUjpncbiz7PNG7xvz0U95sIXI5vtTSyzzL24+KJ4ur9eP9WTGM
+	 jyLpZL5ig2g9RD3KQ3fYUx9ATa/6mEjA6zy6adCg0l3qmNyt6VD7ZqZwlU97e3QXHAVxA
+	 AcRGSV3/NN2WUBquWTZcMoCDpnaW1tc33njH/k4BRymJkkHOxJzvspGSdEQDlmLKH//Qp
+	 56/5qmHQRhfuLm2E78oqJJIpuaKCBuZzNEi6Y/cthpSx4IPuueFxGVROZRSj3nrMH5A==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793132530;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=eNbUTGE4iSA32nWe/S568aDGz8kAgMHCOwq3b3eGgaE=;
+	b=hsqAMtoyFY7nuDQAnWenwz5I3vqLkzr3uWYc1VeTeTYHAv++EBhvveAWAgH7i/RY9ftL
+	 IMdVTUaQF5AD5iy7DZHCQl1OEfxUCxuOfTw+4AIFEgFQS0Qgurz4LrbmufL1WXjo2vokW
+	 fNZxO+V5RtIp+g9BjqCFzwXOBs3MuxvfMMVwX3YFEgRH3NfMMvTjfX7C7j25UkTXWXYde
+	 XkrkYa0Y4a/ne9FXYC65Lc83H4FZ0kSUPnwQx8hxkVkJZcFG4BtAE845RzZ9V7Drimi5t
+	 Itf48Vogude42yaOzqBLc+WK9soHhJ+BZaXja3t8F1ZE3q1XfeQOiF7MJ+ZYbl2lrXA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E402E606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 20:20:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E402E606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key, unprotected) header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=Mqy1N1iz
-Received: from mail-yw1-f200.google.com (mail-yw1-f200.google.com [209.85.128.200])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 4E2E23F98D
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 20:20:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20251003; t=1793132404;
-	bh=1nq0z98nuOUnFugo129zrVuABKTo7gElCbo+rq4acFQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type;
-	b=Mqy1N1izf2DWs5lfn21OChX+GPdYbd1BNya8ARZfGrJH20PAz/tFEI77bEzkeU1DZ
-	 GmUWvdhnwaIvhcfATr0EpnyfwyRCG20b/HeUoPKe3oE8/EQ6tV5I6gDDYiG4Tk0Fn2
-	 tAaGXMiTJJIs66KbpQHX6/QZICSCmJJNEUQUxEhgJpCSnHBLe8TceiHyeOj5T6QLii
-	 93zGi2vn0FCnBAMMPxOE10ELYjNezNc/E/S63fFUwWu8Gwi6eJCROy6/HSsxmD+dlR
-	 HYxTnjilQyhmmdYT2SV4OxL5mxZrImPvMD1sdfs5ZfybYSqd3cTerUR91ntmZhxGVt
-	 rmyhUJyi8xljmFfNOjl9dWRbMcqlXirq4NNrCLmHj19kXXmUL8Glel+ZvrVeJIH2Wj
-	 4nqnIpMsAZPed+xwCMuN9CZRLbi/XTLi6MQ0MpHeKP6O21QOrCt/xLoBYcMT0SZi8M
-	 huzF/RANmPMg+gxk3FJu4EUP9wTfg9hL2YGuRlRaOi93QVgB7WZnTKBwuK8jMKky9l
-	 K+UHOJ2vix7hEFgoN4mjY9IkIMzdWUaOlkfywqYBDEsZm86ejPjHG+VVybQVb2wnCI
-	 nHWULxqdLR7Elq/wQEyexuR11cEmuomCGVoi9Dpt4rPcWPLU4mwWJzPA93pu0NUmUm
-	 Q/7gr/BkLIleVJ8dkPjx4Z/I=
-Received: by mail-yw1-f200.google.com with SMTP id 00721157ae682-8b0da010661so3599067b3.3
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 13:20:04 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793132403; x=1793737203;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:from:content-language:references:cc:to:subject:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=1nq0z98nuOUnFugo129zrVuABKTo7gElCbo+rq4acFQ=;
-        b=ayBhOfHSPdh+nPcGpyYTxgjz8JSL8Owlu+WnhJWZg/ElS+K+DMmt5H1lsRXekYyz+j
-         2aCvhN8/VRgfeFUUfa5CFGe8ghOTv6BPW3+FB87XZOsro7zf4V0fbuVUCxsK12U26MOx
-         9hmC357uMh6pURV0CTo/wgxiXQLV3qaV2REVcAD7PnR8nEdqbd4slcENxoo455xrOmJ6
-         QTG6SxNGUCQdjIl8gqL1k6RRfCW5t68nLu7YQPHYSCHHE8Hnyt4a0tfrAaTOp0oZagEe
-         ay/8EUxqwi4XinTJ0YlhCzQdO2BfQXKJlYT4RgKnnFbwjEy+8YJg4BS+AXHqnMSNtHCC
-         l08Q==
-X-Forwarded-Encrypted: i=1; AKwUvBx1Trq8Xy6fYN5sS47TKJMTZNbnTB5MAXgp3FWD4Ku/By2l2lgs9gdVrcc2NztQgrPuvDKm42O41BrZ0ic=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJg0wnd9b0wBX0Bjcutb5AZ7LQxugv0BxYjTBoqxlFQTaEJj6Hm
-	hw00DtDMy9Em0rvZi1WUDWiwLWyynl166LGWTchdYL12CbOuRqIQ5j+7WlQmDxfiXMTMyIedN/I
-	ml+pGHMG9xb7CcS/ZpfMy/AMOyGgVp/1gEqneyZZ7s6j6jpEROXjZDBh2G3WdPjsCBe/dQp7JJg
-	GSWo3Hcw==
-X-Gm-Gg: AYBFou3z/6q25GBSiPNHTg4zfV5rxUNVyCeyvPymy7l+R/Zg/7XKEAYNZCOpvIDV0+C
-	X/OunJgcorfhqKc73ZttpqozQROQcS0D24IiOcU6yzE+dVYN167GH9Nti+A8Bk3S5nwNdJy41wm
-	2vapFf+xSMFNcnH93q1MSEISKtK4XgCr3rJFMWL9W3Qwy2rsoUNRsaddGq6CWnIksr32CSUu/aa
-	YdVs5coTAO+BgFqNu4sCe5CBMAamLNDlZEwoTmnMg4jkNFAWrGp9+0K1Jh+yQLlTQFgGaepsBdm
-	nfAcrkENHG4sMk/dPa2sT8gVytg7CUU65Wh/yfXneJ/MVP1rvWTO6VS7zG1Oqn9rSyTj5B7VNtY
-	ISPmmT3vo5wl68zfAsKki29PvfqLDKfdsXHQJiMMzMHrTKbkIhPAGuMI=
-X-Received: by 2002:a05:690c:112:b0:8b0:cd30:ce8f with SMTP id 00721157ae682-8b1b5e6143amr969107b3.49.1793132403110;
-        Tue, 27 Oct 2026 13:20:03 -0700 (PDT)
-X-Received: by 2002:a05:690c:112:b0:8b0:cd30:ce8f with SMTP id 00721157ae682-8b1b5e6143amr969067b3.49.1793132402719;
-        Tue, 27 Oct 2026 13:20:02 -0700 (PDT)
-Received: from [172.21.9.52] (host-209-35-187-178.broadbandcancun.mx. [209.35.187.178])
-        by smtp.googlemail.com with ESMTPSA id 00721157ae682-8b19e56e8fbsm17632417b3.16.2026.10.27.13.20.01
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 27 Oct 2026 13:20:02 -0700 (PDT)
-Message-ID: <247a50dd-9fc3-460d-8ad2-1da34c0c5678@canonical.com>
-Date: Tue, 27 Oct 2026 13:20:01 -0700
+	by smtp.kernel.org (Postfix) with ESMTPS id 308451F01828;
+	Tue, 27 Oct 2026 20:22:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793132530;
+	bh=eNbUTGE4iSA32nWe/S568aDGz8kAgMHCOwq3b3eGgaE=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=N3HapJ2fbzCS85B3rok2hRCgd7zkipjLYtUW3v3UMcNM54r5/Es8HGM9jpePI1tLe
+	 fwZb/bx+37PVuJ1qoNmCUAF9TLs0pahpBvY9yfhyGUYmxNiX99LHuVwQ6FIpGdSzG9
+	 ONjofovPKKip54Lo7J28wS9ezivKiBFJGJBeldv/DHRyfHWi+gmaB/QIRKM+2Kticg
+	 HZnH8fcT5gGOtQ3y9XtWXU6mHJdQLCVj+V8o9j/vE6UyAVmApHTUcgWcvZw4FUL4jH
+	 OjYD0MjoD/ihHBp9W/kC/XQu3ZVj/q5c7aenoFRjwZjMiqOLQOmNRa1z2Kj+2VlFwC
+	 a86ioXwJDHAnA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id ADB44451FD;
+	Tue, 27 Oct 2026 20:22:09 +0000 (UTC)
+From: Jim Cromie via B4 Relay <devnull+jim.cromie.gmail.com@kernel.org>
+Date: Tue, 27 Oct 2026 14:22:03 -0600
+Subject: [PATCH v13 03/39] vmlinux.lds.h: drop unused HEADERED_SECTION*
+ macros
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,97 +83,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] apparmor: Fix the return value in split_token_from_name()
- kernel-doc
-To: Karl Mehltretter <kmehltretter@gmail.com>,
- Georgia Garcia <georgia.garcia@canonical.com>,
- Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
- "Serge E. Hallyn" <serge@hallyn.com>
-Cc: apparmor@lists.ubuntu.com, linux-security-module@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260912000302.34565-1-kmehltretter@gmail.com>
-Content-Language: en-US
-From: John Johansen <john.johansen@canonical.com>
-Autocrypt: addr=john.johansen@canonical.com; keydata=
- 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 lT9Q
-Organization: Canonical
-In-Reply-To: <20260912000302.34565-1-kmehltretter@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261027-dd-cmap-part2-clean-v13-3-9267923be612@gmail.com>
+References: <20261027-dd-cmap-part2-clean-v13-0-9267923be612@gmail.com>
+In-Reply-To: <20261027-dd-cmap-part2-clean-v13-0-9267923be612@gmail.com>
+To: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Arnd Bergmann <arnd@arndb.de>, Luis Chamberlain <mcgrof@kernel.org>, 
+ Petr Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, 
+ Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>, 
+ Jonathan Corbet <corbet@net.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+ Len Brown <lenb@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+ Petr Mladek <pmladek@suse.com>, Steven Rostedt <rostedt@goodmis.org>, 
+ John Ogness <john.ogness@linutronix.de>, 
+ Sergey Senozhatsky <senozhatsky@chromium.org>, 
+ =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>, 
+ "Jason A. Donenfeld" <Jason@zx2c4.com>
+Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-arch@vger.kernel.org, 
+ linux-modules@vger.kernel.org, linux-doc@vger.kernel.org, 
+ linux-kbuild@vger.kernel.org, linux-pm@vger.kernel.org, 
+ Jason Baron <jbaron@redhat.com>, Jim Cromie <jim.cromie@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793132527; l=1428;
+ i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
+ bh=+Qnp7GmBGhxUf7BnWtOhBW1ycfqvD4UBWUm58PMJxJU=;
+ b=Lkizb67hB5HUobqhhQfE3LJEkLk1XV2kLlvsK5XlQIH+h8FJzA/WsMungFxLnUmXUbIOBuQIK
+ lvvI81jftZFBqtzQzuT2kd9LLcm6oZjHi6RKC82FIDDPrKLd8jwbHCU
+X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
+ pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
+X-Endpoint-Received: by B4 Relay for jim.cromie@gmail.com/20260203 with
+ auth_id=958
+X-Original-From: Jim Cromie <jim.cromie@gmail.com>
+Reply-To: jim.cromie@gmail.com
 Content-Transfer-Encoding: 7bit
 
-On 9/11/26 17:03, Karl Mehltretter wrote:
-> split_token_from_name() returns ERR_PTR(-EINVAL) for malformed input,
-> but its kernel-doc describes NULL as the failure result. NULL is instead
-> a successful result when the name following the token is empty.
-> 
-> Document all three results: the name, NULL for an empty name, and an
-> error pointer for malformed input.
-> 
-> Fixes: 63e2b423771a ("AppArmor: userspace interfaces")
-> Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+From: Jim Cromie <jim.cromie@gmail.com>
 
-Acked-by: John Johansen <john.johansen@canonical.com>
+These macros are unused, no point in carrying them any more.
 
-I have pulled this into the apparmor tree
+NB: these macros were just moved to bounded_sections.lds.h, from
+vmlinux.lds.h, which is the known entity, and therefore more
+meaningful in the 1-line summary, so thats what I used as the topic.
 
-> ---
->   security/apparmor/procattr.c | 3 ++-
->   1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/security/apparmor/procattr.c b/security/apparmor/procattr.c
-> index c07b6e8fd9c93c73ea82361af83337774e6d1bdf..cfc45db43aa0c7418604fbba0e4c30a90f0f6cbd 100644
-> --- a/security/apparmor/procattr.c
-> +++ b/security/apparmor/procattr.c
-> @@ -74,7 +74,8 @@ int aa_getprocattr(struct aa_label *label, char **string, bool newline)
->    * @args: string to parse  (NOT NULL)
->    * @token: stores returned parsed token value  (NOT NULL)
->    *
-> - * Returns: start position of name after token else NULL on failure
-> + * Returns: the name following the token, %NULL if the name is empty, or
-> + * ERR_PTR(-EINVAL) if the input is malformed.
->    */
->   static char *split_token_from_name(const char *op, char *args, u64 *token)
->   {
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+---
+ include/asm-generic/bounded_sections.lds.h | 15 ---------------
+ 1 file changed, 15 deletions(-)
+
+diff --git a/include/asm-generic/bounded_sections.lds.h b/include/asm-generic/bounded_sections.lds.h
+index 8c29293ca7fb..268cdc34389b 100644
+--- a/include/asm-generic/bounded_sections.lds.h
++++ b/include/asm-generic/bounded_sections.lds.h
+@@ -18,19 +18,4 @@
+ 
+ #define BOUNDED_SECTION(_sec)	 BOUNDED_SECTION_BY(_sec, _sec)
+ 
+-#define HEADERED_SECTION_PRE_LABEL(_sec_, _label_, _BEGIN_, _END_, _HDR_) \
+-	_HDR_##_label_	= .;						\
+-	KEEP(*(.gnu.linkonce.##_sec_))					\
+-	BOUNDED_SECTION_PRE_LABEL(_sec_, _label_, _BEGIN_, _END_)
+-
+-#define HEADERED_SECTION_POST_LABEL(_sec_, _label_, _BEGIN_, _END_, _HDR_) \
+-	_label_##_HDR_ = .;						\
+-	KEEP(*(.gnu.linkonce.##_sec_))					\
+-	BOUNDED_SECTION_POST_LABEL(_sec_, _label_, _BEGIN_, _END_)
+-
+-#define HEADERED_SECTION_BY(_sec_, _label_)				\
+-	HEADERED_SECTION_PRE_LABEL(_sec_, _label_, __start, __stop)
+-
+-#define HEADERED_SECTION(_sec)	 HEADERED_SECTION_BY(_sec, _sec)
+-
+ #endif /* _ASM_GENERIC_BOUNDED_SECTIONS_H */
+
+-- 
+2.56.0
+
 
