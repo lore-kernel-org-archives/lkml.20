@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793060277;
-	b=QIIXsr3ycyEWd/svS04hqBRL8yzSDcyJzdkE195kxpo20Ng4Wx+3yJZqz7QfYtozcpn+
-	 9AUG7rbWWa1C81v8qSKduOseaEAnNE+vII0o7nyXIeijxw7jS5cEnM/xAzGeGyHqFhxYN
-	 +ywhRxX/Kr0WEmZhFPXrml9mNIBnKixclkX32WjlFFhLP7uJYgvPjusFDUCfIx9F7/R7O
-	 yhRUF5GfwhtfUJaB2/6D2BkhZ4j5HwpAp1iPOIqgGaDR+YXE450HAvM8Id7eF97raxuvW
-	 91FawwRJcPaeR2wM+SxSIzA1BBNwjFrniQbeYPcKESQl+Y/7iNqC0RNW2TkEiE9WOZA==
+	t=1793060285;
+	b=yiILajmVAqQyFgVIxPhMb5VIKHA1oe7bvAH5T149MGI26F13KiMJ361HOR6ql/jdTowz
+	 ex6+fUQH9zWnCwSUtphSlZu/TBHyxG6TkbEZI8EjQ++ALmMgZP2E5ceY7RncXhuSPa7be
+	 ENFNtJBpZlhaeNFpCV6Xgdi61EQu6wh73y8FaX8usV5Lpa3UNteBcRCl9mJh2Odcr7WwO
+	 zRwWMYO18CvLIlId+jeD4fW7YUWcwgWePv7HtJulTquGx52+utmAgT1ncooc51+PZjTgA
+	 Iarj7KunDBcfNtcLb6xJFMrH9G8Vyv2j1M4trOv0aMMsxAJWKyp4AEdIhlIBt9Zb/hQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793060277;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793060285;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Gm/jin2UUvSZWV0rVrZQPJxaxPUqsgo6ygitKXiWgHM=;
-	b=dPlD4LIZs7c6p9Q6EgRIjytiPhnXtwthhDV3nAOPFB2ul/SH9La2CrVg5M5LI2YbIqXu
-	 n/fEhH1vaPV+AUowTOBvrJ9wqQVigYsNWygN8w/ZwzgYYtCbALk97pJKFSRdLv8YG9XOF
-	 8eHS5Puq+RjZ00WDfL8JsKtMWoLZx34ZVmibs7ntx+6goYNkMtV3NMnA5DrTR4RKR+c33
-	 gbqatyX3Tf3zLS6E9f2LpX6+6g6y8U12FVE+aTAk6RjSDNnW0kHVzHOfU9+40di0ERpur
-	 FFLRfcNBZ+dHtPgGPra4V21lMPIKnJ3LQ6vmzZQipts7NVYP9FqIfaoxlHqt4Ool1Eg==
+	bh=+pk3juObRaqIE357gO1AOG/A5wEbiCgigFWXtIPC40w=;
+	b=LHivF9PtwYj6CnNMxqYzPDxDY+KkanII3q9DkfDtVv+7WyVKAKjPABK3rdlQe38EXnoV
+	 g8lUtfYraa1bvP6YHhi2+XBR5b4OxZx/zKAa/xBvKD7VhXLrfIb7Nuho3FNKae7CJgKdl
+	 9Acte7KTTqFaavqtMEkBJskE12aa+HoACGFBsp2TZIMz9VhGfByANEJLh+UYsiMlr7FVc
+	 1T9CjxxTYtFSp/LC2rAo3HjFyOKU8wfQxhElkZ53aow0ePayTpo9OIANBEjHdVgmAjSTZ
+	 jKEziqD/0kB2xFlMlLgMbXJ9G9kdRYo5KuUhTh7l1xREQ+HOCuHTM8ksok4NZ2q67Dg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XywggdhV;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="jUNQ/gb7";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A046E606A33F;
-	Tue, 27 Oct 2026 00:17:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 026A7606A336;
+	Tue, 27 Oct 2026 00:18:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XywggdhV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51E011F031E0;
-	Tue, 27 Oct 2026 00:17:57 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jUNQ/gb7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A64A91F01825;
+	Tue, 27 Oct 2026 00:18:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793060277;
-	bh=Gm/jin2UUvSZWV0rVrZQPJxaxPUqsgo6ygitKXiWgHM=;
+	s=k20260515; t=1793060284;
+	bh=+pk3juObRaqIE357gO1AOG/A5wEbiCgigFWXtIPC40w=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XywggdhVFbjxKY7BZT0LxhmWCv7qT1r14vxmA2kI8xEkrRBNBb3fV+OpYL8GJLJLe
-	 amol26N8O1y/53/dbcgCzM6glrhcQ0ZmQHMjOm+ARX4meNmKAMWA4egsxyZn4a7iBn
-	 FyzSdgTBwWkIAJvFExObQSJrhQa+/mVpM5rRi9qs0hcd8LRvOskXEQz59AfsVaWZab
-	 mmMJtEPkomcBiMrDMpG17RutKBNYfZFduPjOuV2DVx21etFRCJMJxUUZkt4ZJtZq//
-	 umIpkcO8dGEC77FDcP61k5UFI5OErGyGAoIsHvtPfxxus7f2gyno/Ougj7hcwlA+vg
-	 X/m7dFm2LekWA==
+	b=jUNQ/gb7Vi3SGcpL6zSL+/Yx3oUeOVysHj2MUTjF/HuvCddHraI1//49Im3/YyZjR
+	 EOCsOAUl7nRxKpg8OI0EsCdoEP09R9wmkNbU5uU7PAmJzlNYrXy1A4Ezz7t3m1zf51
+	 diNCil7b+7Rj+e3CsZeYY4A3kawg76H3cfKziuWN9FScj+dLB6ubQRMHuLxCZ2CFP9
+	 dvU3ztGT2L0dcC2S9gzeZAEpLu7kv9k2gDkLQ8zo8gXrMLnrFpSouUGB7CZnMZzbhR
+	 RPiM3Vr86y8xSwhbWVTvO8xwjiLNI8V27Hw0jnCmAKsZxESRZFIe3j/OL/JjjjYiGW
+	 8fQsJYxA9TnfQ==
 From: Tejun Heo <tj@kernel.org>
 To: sched-ext@lists.linux.dev
 Cc: David Vernet <void@manifault.com>,
@@ -48,9 +48,9 @@ Cc: David Vernet <void@manifault.com>,
 	David Dai <david.dai@linux.dev>,
 	linux-kernel@vger.kernel.org,
 	Tejun Heo <tj@kernel.org>
-Subject: [PATCH 07/18] sched_ext: Restore a rescuee's slice after ops.stopping()
-Date: Mon, 26 Oct 2026 14:17:38 -1000
-Message-ID: <20261027001749.1821379-8-tj@kernel.org>
+Subject: [PATCH 14/18] sched_ext: Fix the bypass load balancer stranding tasks on cpus where the host lacks SCX_CAP_BASE
+Date: Mon, 26 Oct 2026 14:17:45 -1000
+Message-ID: <20261027001749.1821379-15-tj@kernel.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261027001749.1821379-1-tj@kernel.org>
 References: <20261027001749.1821379-1-tj@kernel.org>
@@ -65,91 +65,51 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-put_prev_task_scx() restores a preempted rescuee's unserved slice through
-scx_rescue_keep() before it calls ops.stopping(). A rescuee whose slice the
-scheduler zeroes there is left to the reinsert instead:
+The bypass load balancer spreads a host's bypassed tasks over the cpus of a
+node by moving them between its per-cpu bypass DSQs. It counts every cpu of
+the node as capacity and takes any cpu below the target as a donee. A cpu's
+dispatch only descends into schedulers holding SCX_CAP_BASE on it, so a
+bypass DSQ on a cpu where the host lacks BASE is never consumed. A task
+moved there sits until the host regains the cap or the bypass window ends.
 
- 1. ops.stopping() zeroes the rescuee's slice
- 2. the reinsert condition special-cases the rescuee and keeps it on the
-    local DSQ with a zero slice
- 3. the pick's default refill supplies a slice, or the task runs on a zero
-    slice until the tick when its scheduler lacks BASE
+Count only cpus where the host holds BASE as capacity and pick donees from
+them. The target rises to spread the node's tasks over the cpus that can run
+them, and a capless cpu receives nothing. A capless cpu with tasks is still
+an ordinary donor, offloaded down to the donor target when its queue grows
+past the threshold; draining it is left to the following patches.
 
-Move the keep after the stopping call so that scx_rescue_keep() restores the
-remainder whether a preemption or ops.stopping() zeroed the slice, and drop
-the special case from the reinsert condition as a rescuee reaching it always
-has a slice. A rescuee whose slice ops.stopping() zeroed now goes to the
-tail of the local DSQ with its remainder restored, behind what the scheduler
-wanted to run first, instead of staying at the head on a zero slice.
-
-The slice end in the same block moves with it, which changes nothing for a
-protected task. Its slice is the unserved remainder, and scx_rescue_charge()
-ends the protection in the same update_curr_scx() call that zeroes the
-slice, so the block never sees a protected task in either position.
-
-v2: The description no longer says that a protected task's protection
-outlasts ops.stopping().
-
+Fixes: 147d1885f390 ("sched_ext: Add the SCX_CAP_ENQ_IMMED cap")
 Signed-off-by: Tejun Heo <tj@kernel.org>
 ---
- kernel/sched/ext/ext.c | 29 +++++++++++++----------------
- 1 file changed, 13 insertions(+), 16 deletions(-)
+ kernel/sched/ext/ext.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
 diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-index 42a349aa2987..406571afc9d8 100644
+index a75d3c3bfad9..ff79d9af0389 100644
 --- a/kernel/sched/ext/ext.c
 +++ b/kernel/sched/ext/ext.c
-@@ -3617,17 +3617,6 @@ static void put_prev_task_scx(struct rq *rq, struct task_struct *p,
+@@ -6741,7 +6741,9 @@ static void bypass_lb_node(struct scx_sched *sch, int node)
+ 		u32 nr = READ_ONCE(scx_bypass_dsq(sch, cpu)->nr);
  
- 	update_curr_scx(rq);
+ 		nr_tasks += nr;
+-		nr_cpus++;
++		/* only a cpu whose dispatch consumes its DSQ is capacity */
++		if (!scx_missing_caps(sch, cpu, SCX_CAP_BASE))
++			nr_cpus++;
  
--	/*
--	 * If the slice is consumed, protection ends with it. A rescuee
--	 * preempted beforehand keeps going, see scx_rescue_keep().
--	 */
--	if (!p->scx.slice) {
--		if (unlikely(p == scx_rescuee(rq)))
--			rescue_keep = scx_rescue_keep(rq, p);
--		if (!rescue_keep)
--			scx_task_slice_ended(rq, p);
--	}
--
- 	/*
- 	 * Preserve the running session when proxy execution refreshes the same
- 	 * donor around an execution-context switch on this rq.
-@@ -3640,6 +3629,18 @@ static void put_prev_task_scx(struct rq *rq, struct task_struct *p,
- 		p->scx.flags &= ~SCX_TASK_RUN_TRACKED;
+ 		before_min = min(nr, before_min);
+ 		before_max = max(nr, before_max);
+@@ -6760,7 +6762,9 @@ static void bypass_lb_node(struct scx_sched *sch, int node)
+ 
+ 	cpumask_clear(donee_mask);
+ 	for_each_cpu_and(cpu, cpu_online_mask, node_mask) {
+-		if (READ_ONCE(scx_bypass_dsq(sch, cpu)->nr) < nr_target)
++		/* a donee's DSQ is consumed only if @sch holds %SCX_CAP_BASE */
++		if (READ_ONCE(scx_bypass_dsq(sch, cpu)->nr) < nr_target &&
++		    !scx_missing_caps(sch, cpu, SCX_CAP_BASE))
+ 			cpumask_set_cpu(cpu, donee_mask);
  	}
  
-+	/*
-+	 * If the slice is consumed, protection ends with it. A rescuee keeps
-+	 * going when a preemption or ops.stopping() zeroed its slice, see
-+	 * scx_rescue_keep().
-+	 */
-+	if (!p->scx.slice) {
-+		if (unlikely(p == scx_rescuee(rq)))
-+			rescue_keep = scx_rescue_keep(rq, p);
-+		if (!rescue_keep)
-+			scx_task_slice_ended(rq, p);
-+	}
-+
- 	if (p->scx.flags & SCX_TASK_QUEUED) {
- 		if (proxy_block)
- 			goto switch_class;
-@@ -3664,12 +3665,8 @@ static void put_prev_task_scx(struct rq *rq, struct task_struct *p,
- 		 * The exception is an IMMED donor put by proxy_resched_idle():
- 		 * the CPU isn't busy, proxy resolution is only retrying through
- 		 * idle, so keep the donor where it can be picked again.
--		 *
--		 * An open rescue must keep @p on the local DSQ even if the
--		 * scheduler zeroed the slice in ops.stopping() above.
- 		 */
--		if ((p->scx.slice || unlikely(p == scx_rescuee(rq))) &&
--		    !scx_bypassing(sch, cpu_of(rq))) {
-+		if (p->scx.slice && !scx_bypassing(sch, cpu_of(rq))) {
- 			if ((p->scx.flags & SCX_TASK_IMMED) && !proxy_put) {
- 				p->scx.flags |= SCX_TASK_REENQ_PREEMPTED;
- 				scx_do_enqueue_task(rq, p, SCX_ENQ_REENQ, -1);
 -- 
 2.56.0
 
