@@ -1,49 +1,125 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.145
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793065207;
-	b=15yoQP4wbepIgJs26/q3R6MrAUNA5xka2ii4szLdW/+wqZrK9wwhoXsUeXW2czqQV84y
-	 g7HT6iM8wTFsDkI3nQHkTXoJ62Xky5fc51lvuZeUiQVm46ZEe48/J+coe8uoHZqZwJXlA
-	 NCd3WkZHKSamlkdLyl+jhsbzC6KMoY8wVFbhIRdYFLb2/4ZQOvLnx47F4aYJvVxH1XxWD
-	 DgbN4KK0ZKUOMlD5bMxKBUx0bU97IoagvJ7pWN75m5LtAXQc89fpANJCMsAq3IpBhEVAi
-	 VGADaKC7qytUHnIMeLqdmxt2cbYruvrx7ozd3NgtnxrWlSn1uQNRA2sWkZK7A3LXuzA==
+	t=1793065232;
+	b=eAjx3cOdWYwM1Wo5grm4OcGeFWUMOiytvdzgex7QRa4bShMg3eI/gGG8OMg17kuOjPjQ
+	 TkwCbkPPcMlzNPNB3yBHfC4MXjGgK5pE83XgxD1JN8cxJBbY+BaoLGVSeK/ElYvAiIRpc
+	 dw3rGnAzOhiqQk6c40oGpq6T/4wlGoNxA2jg66K/mKA+r4BZBxnN/QPWDk2Nxg4QTSRTj
+	 aJzIQs68AZFDCQ/BXD8AVVUxp2CDee8AHm5j6sj31u+xWsXmPyOyAl1wFk1V6/SjdebrM
+	 ZJSH9r+U9okpNCV7T3BXriGeTIxDII7DNzQsyd6nGbz1gdCZfI9ynizJ1LaSo+DYwMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793065207;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=oLLGLsviN+AyNUwtthLtGQRS/ZFe1aWIbjzfKtVXnoI=;
-	b=ec+CL2sJuMccwl7xcf74LxlDlM6VLEUEWtLyzcJZj7VhZC1yUj5hrEvkUs5UHv0E6kAK
-	 PBqfQZUMqKaAN2elpvGcErCu3z5+53nVOTWSXteZJGGb8DRuYbKywcgU0fF+VQxnVc0kC
-	 0ytVcv1cRmUB8cM8IdFXJLcpuVJELU3aHO1r0ly1IZJWVvz0oYDoGJlKMp0RCqU/Ravdo
-	 9CEpPLXM7nflz2jtrCuG5URtoMUKZ7ORzaQRoSG+MngRqoUsBL66Bkz+f4ht2r6+oQ2tr
-	 ew1mYlZBU2ujH8zlVJfpF6o2KlpxIx/Ow5y8yTnbwCyAYlS7yKLjxgvR7fvn8Bvq4Zg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793065232;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=BkXkcM2hnjFWl9v28Vxsd/Upl1qj7NsrUbXI+iAyTm0=;
+	b=KD8qg42ZrDOnC36iXSe0or+DiF7tAxDpraC4z6AWAZ0llwo0x0aW6jvcbC27qmroIKLD
+	 XVEyrxPTTdDqNEQZsGEswqAqEdpusOU2zB/3rLKYxqkPa8umtIDKSIPPynPZK6ZLFHJgp
+	 46qkP7J6n2ZQ+ARp5sJtkPjsoDZ+ypMRPDaqF9puQg26hplLJSYKAOB5qLrNpIpYc7xqZ
+	 2PDtjIAq3nkGTmpUJWl75pHw/5217J/y8wOjG9AE9u5/9vpNqNN30ipNRwRw+Th4oWS7j
+	 MN3YnDS5p87UNN9DwvFObR7PWxX4ALpdwaMxMSudngsbvB2gPyZPlcCg6gA0EkJru0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i73fqt55;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=fastmail.org;
+	spf=pass smtp.mailfrom=fastmail.org;
+	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm2 header.b=guSmXYdq;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=iH2nk1m6;
+	arc=none smtp.remote-ip=103.168.172.145
+Received: from fout-a2-smtp.messagingengine.com (fout-a2-smtp.messagingengine.com [103.168.172.145])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33357606A32D;
-	Tue, 27 Oct 2026 01:40:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DFC1606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 01:40:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4DFC1606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i73fqt55
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7D801F01825;
-	Tue, 27 Oct 2026 01:40:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793065206;
-	bh=oLLGLsviN+AyNUwtthLtGQRS/ZFe1aWIbjzfKtVXnoI=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=i73fqt558eAnmGmhGUYMZnaF1B+DYgoGrf0uh6aV2cWpFpgZfCNDmbrIEJyR29c+t
-	 rut+VhYotqssVs85f0xKoDiKUwXFiS17OzVVedCdJG+1hWnPaCj7Vz8hUCdl+Ei7sk
-	 SF2zB9vUZnoWee/Ihzk/a6h/+++0ibndt2kXGFYWbJGsvbDPO0Qz90/Txwhw6XjNEy
-	 BpeHaejIFHpMqWmW9FumIP+nVRHEeAL338G6kz3NsHFiB6afYWI5u2fSnBic+TANVi
-	 DCtBCmgAVF8yneqrQ1V7iQKxus7ALUBRq2HHXOqmWMZu/Rz6n2VqtXiRoLaSuzbGjd
-	 tCeNK0n55iYhQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id BE57A3AA80F1;
-	Tue, 27 Oct 2026 01:40:06 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm2 header.b=guSmXYdq;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=iH2nk1m6
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfout.phl.internal (Postfix) with ESMTP id 8B83EEC0825
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 21:40:30 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-04.internal (MEProxy); Mon, 26 Oct 2026 21:40:30 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
+	cc:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to; s=fm2; t=1793065230; x=1793151630; bh=BkXkcM2hnjFWl9v28Vxsd
+	/Upl1qj7NsrUbXI+iAyTm0=; b=guSmXYdq4YiKcYclTRsHh19DXM7aaAC6bndgs
+	SUaJFDriiz+z9YMjqjXCyj+kbLspsq0xV8+2Al57GILG3bZWGM8G5Aojp1imOEJm
+	Lapd6ZSuCwOmks7BfwF7i0bKoaohdHJryoMzjObO7rmAoDnu27m4Rjqq40kyJchW
+	bIL039KtdO5aKxSRaSheyngDqETwZdg9+1SK21EiJRfUPZW9v/a/DxGm/AscpUSL
+	7wgf6fBh6O4Pi8zWv+5u6RTkffv1sqY15NQOWKOn6dH3r61Rmkx3neCwa3y3ZzUQ
+	ZEf5DM/5xPY6bNPnVadDZQaBg0Zqw8OaYOv2nDcZOsrSDYf9A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1793065230; x=1793151630; bh=BkXkcM2hnjFWl9v28Vxsd/Upl1qj7NsrUbX
+	I+iAyTm0=; b=iH2nk1m6zM5xucMo85aPLmwlayauindkEQvGcGv7d9z+oo7USyw
+	zmXxDuXg44SDd8+Uh8mDj2sGD10Kmdr5wTSozAIj7ObW9p6CH7RSb3wF0M3XPcfZ
+	Egd55lCFrur1QvICdhrKb6XLTraUz9CRTnlnmxCUGawdhiF0zdYKI7s9wvIO5aby
+	hC5naFBa4/+uvoWfmgdPuKSGynbhJ4BYOk3Z38FFz53IkTH+iYhfarYT/gZuYnzk
+	vYAl4g1sYi6Lv6l/6i07zD62liSSTXJ4Txg18UJ+2+Dbnx39bqLB4XU3YIclI+UJ
+	73Al+ylBTbGvEf+5Nj/mJ5v0NorOcydPaCg==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=sign d=fastmail.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793065230; d=fastmail.org;
+	mf=PGljYkBmYXN0bWFpbC5vcmc+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:TR+JtnMYRbeCfA6LyMoPJlYRlSmbKl0nGg9D/Lp0BfR5hNq
+	eE09hnvB7J1BOT//C7tKnY8INrb8Nu3laLw3YMrYI+wnkSb3gpcbaBWbf1SNW2Z7
+	Zuuy/E46VsHp3hxAqumh+OvWb4v8jd6DnsizdLdH+OQScsTBYV7EXJHTD4v7cCam
+	VrLrNTgyOYgs+pVOIhdyRQVitaa8frXgtTQGHLkylddc4Mgzk6Ac3aU4gduBZu3p
+	b0Un6LPdVpTjk6AM96Rv/c1rBz8xJQXSkpW65QEF1QM3ftn6kN6CaddqEltrVg39
+	UZSTYrgcL6sf0lqVgSYHmknDTDVwM6phfwOTRqA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=mi-m=1; hc=9;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	message-id,mime-version,subject,to;
+Message-Instance: m=1; h=sha256:JSKyhtfkzb8SipyzlO9D8s9e93a5mzMBI+TrfaaqzRk=:gZoN+jJWo6aBR/Y71g9u2luMhMBya8Sq+nCG+t54gDg=;
+X-ME-Sender: <xms:DQHgaj13oUTIeLNBE1hR-RUmNEbdu3nO3dZ3SgCQL2Dh04yP_aLXhA>
+    <xme:DQHgat9lARM8Y_ZABdEk3MVz7fpDFZEiTzasB42EJJNLepwbESF3pyQk45gVTgcjO
+    pWCN3w2AHVgYMf4rxw1txNxJCkrjvdFT9DGKheegiACWz1-C0FSVbs>
+X-ME-Received: <xmr:DQHgag7VfXTwJGPY3-jN4CPQU9u4s8VNJu294VrkVfreRy3Pj86lw9cs7Awn1oFA>
+X-ME-Proxy-Cause: dmFkZTFxZ8iPiYUXlVN1g41AZDpnk6ig7exYgtvZ7ivnbLC/ZuFvE+cYT6vZLYlRY+LN4f
+    OIan/aaRo71bUQaVqjn4W2dKlVF8rgSEOWzUg5cctUSR+07ZodC0w67WuGvxMoQfrEx088
+    1estAJIxI0N6YTj9FZYPnF1UCCBTOy1ZRZk0qiM3hh3zHxI7wylrRH6F3cBHzgRA/SW1Um
+    FIWv80//Vo8bJPxypfKJWY6dvJufqVWRuchRtTzmPPpgT4caiQ8BhyX/DY7T+7hcAxAnxb
+    0oOI4+H/HavlDoiEHTgyW+ysRbrRrKkxJGG4sczShh+fDS9LgaZQEraHHWPPAy/6A/NhKq
+    PkbGGiIjC+U/cGKJW/NumsjLnIAtcS5f01kE9jMKuI8M87ZGM0t77VzK7k9cqTh87PPKPj
+    kXOSw9VCTGTXMyHuZy2VMyCYyqhqAE7FggxYrmrUpMLsSfeQupz/Zkn4QIulEf/t8+AgI0
+    ioWgDg9ezGcPka9JdvYsC81V5ua00dzy6hFfYNs21v1NFWGFtAeRyWYFEZuf5rdtfzVpoJ
+    Stech4QNNSM6013DEGKZfNtPt8b2c8gDIMFnvhQjAwymJWN0eOgMwO3iA1vWwkQVfiWYwS
+    rrm/FqqKK5OzKxlqdHd6AwfAdtSwZKDNUqE3R9I7flOSqqNl8ZLvMJh7HvmQ
+X-ME-Proxy: <xmx:DQHgatu1F_Hz9oyse-AfBxgUgj1dtz0aIqs1VbGRBQCifX8OAHcbPA>
+    <xmx:DQHgaq1psExUvnVEOq_bXMA8PKqR0OmfnYdVaUl6tAA2Uag5lc7tGQ>
+    <xmx:DQHgauqpOMqcK6O6V9VsURMdWGU5dN-KRZTvbAdJBCCnGeFYUlqqzA>
+    <xmx:DQHgaiIrC9kepgh3V5RVqTWyFlC9oeXnol7pcbSgtohz0rQnPDcoJg>
+    <xmx:DgHgaghlb7UUU0x8g3naJ3efVVHsNwhrSzdfMxyObyvnKCWBsdxEar78>
+Feedback-ID: ib53e4b78:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 26 Oct 2026 21:40:28 -0400 (EDT)
+From: Ian Bridges <icb@fastmail.org>
+To: Namjae Jeon <linkinjeon@kernel.org>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Tom Talpey <tom@talpey.com>,
+	ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
+	Hyunchul Lee <hyc.lee@gmail.com>,
+	Ronnie Sahlberg <lsahlber@redhat.com>,
+	Steve French <stfrench@microsoft.com>,
+	linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ian Bridges <icb@fastmail.org>,
+	stable@vger.kernel.org
+Subject: [PATCH] ksmbd: fix out-of-bounds read when padding the final compound response
+Date: Mon, 26 Oct 2026 20:40:21 -0500
+Message-ID: <20261027014021.108390-1-icb@fastmail.org>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,47 +130,93 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v3 0/2] net: usb: cdc_ncm/cdc_mbim: fix netpoll lockup
- in tx_fixup
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179306520565.3504795.7927315467376347222.git-patchwork-notify@kernel.org>
-Date: Tue, 27 Oct 2026 01:40:05 +0000
-References: <20261024-cdc-ncm-netpoll-v3-0-6284ca03f967@tipi-net.de>
-In-Reply-To: <20261024-cdc-ncm-netpoll-v3-0-6284ca03f967@tipi-net.de>
-To: Nicolai Buchwitz <nb@tipi-net.de>
-Cc: oliver@neukum.org, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- sjur.brandeland@stericsson.com, alexey.orishko@gmail.com, bjorn@mork.no,
- gsuarez@smithmicro.com, leitao@debian.org, linux-usb@vger.kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, mke@visotia.com
 
-Hello:
+Compound response handling pads the last response of a compound to an
+8-byte boundary by growing the final iov and the RFC1002 length.
+smb2_allocate_rsp_buf() allocates exactly response_sz. A command can
+fill the response buffer to within 7 bytes of its end, for example a
+QUERY_INFO whose output is bounded only by the space left. The padding
+can then run past the allocation, and ksmbd_tcp_writev() reads those
+bytes when it sends the response.
 
-This series was applied to netdev/net.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+  BUG: KASAN: slab-out-of-bounds in _copy_from_iter+0x744/0x10e0
+  Call Trace:
+   _copy_from_iter+0x744/0x10e0
+   tcp_sendmsg_locked+0x2290/0x3f80
+   ksmbd_tcp_writev+0x10c7/0x1ab0 [ksmbd]
 
-On Sat, 24 Oct 2026 15:23:05 +0200 you wrote:
-> Mikkel reported lockups with netconsole on a cdc_ncm device. Further
-> analysis showed that netpoll calls ndo_start_xmit() with IRQs off but
-> BHs on while holding the txq lock, and the spin_unlock_bh() in the
-> tx_fixup paths runs pending softirqs. A transmit from one of them then
-> spins on that txq lock.
-> 
-> Patch 1 fixes cdc_ncm. Mikkel tested the v2 version of it. Patch 2
-> fixes the same code in cdc_mbim and is untested.
-> 
-> [...]
+Allocate room for the padding when the request is a compound, as
+smb2_read() and smb2_read_pipe() do for their payloads. response_sz is
+unchanged, so commands still fill only up to it, and kvzalloc() zeroes
+the padding.
 
-Here is the summary with links:
-  - [net,v3,1/2] net: usb: cdc_ncm: don't enable BHs in tx_fixup under netpoll
-    https://git.kernel.org/netdev/net/c/108ca34cf4b4
-  - [net,v3,2/2] net: usb: cdc_mbim: don't enable BHs in tx_fixup under netpoll
-    https://git.kernel.org/netdev/net/c/bfd7ced012c7
+Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ian Bridges <icb@fastmail.org>
+---
 
-You are awesome, thank you!
+Notes:
+    The bug needs a client to send a compound request whose last command
+    fills the response buffer to within 7 bytes of its end, at an offset
+    that is not a multiple of 8. The reproducer uses QUERY_INFO
+    FILE_ALL_INFORMATION as the last command, after QUERY_DIRECTORY
+    commands that fill the buffer. On a share that allows guest access
+    (guest ok) it is reachable without credentials.
+    
+    This follows 73f860489e3b ("ksmbd: zero pipe read compound padding"),
+    which fixed the same padding for smb2_read_pipe()'s payload buffer.
+    
+    A reproducer is available on request.
+    
+    This fix was developed with LLM assistance (code review and KASAN
+    reproduction).
+    
+    Tested on ksmbd-for-next 146c3fc6540e with only this patch applied,
+    under KASAN. "smb2 max trans" was lowered to 65560 so that response_sz
+    ends at a KASAN redzone. Before the patch, the compound above triggers a
+    KASAN slab-out-of-bounds read in _copy_from_iter() during the socket
+    send. After it, the last response is still padded to 8 bytes, the
+    padding is zero, QUERY_INFO returns its full output and KASAN stays
+    quiet.
+
+ fs/smb/server/smb2pdu.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
+
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index f5fe3cf8ba32..140604099bb0 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -955,7 +955,7 @@ int smb2_allocate_rsp_buf(struct ksmbd_work *work)
+ 	struct smb_version_values *vals = work->conn->vals;
+ 	size_t small_sz = MAX_CIFS_SMALL_BUFFER_SIZE;
+ 	size_t large_sz = small_sz + vals->max_trans_size;
+-	size_t sz = small_sz;
++	size_t sz = small_sz, pad_sz = 0;
+ 	int cmd = le16_to_cpu(hdr->Command);
+ 
+ 	if (cmd == SMB2_IOCTL_HE || cmd == SMB2_QUERY_DIRECTORY_HE)
+@@ -981,10 +981,17 @@ int smb2_allocate_rsp_buf(struct ksmbd_work *work)
+ 	}
+ 
+ 	/* allocate large response buf for chained commands */
+-	if (le32_to_cpu(hdr->NextCommand) > 0)
++	if (le32_to_cpu(hdr->NextCommand) > 0) {
+ 		sz = large_sz;
++		/*
++		 * is_chained_smb2_message() pads the last response of a
++		 * compound to 8 bytes, which can take it past response_sz.
++		 * Leave room for the padding. kvzalloc() zeroes it.
++		 */
++		pad_sz = ALIGN(sz - sizeof(__be32), 8) - (sz - sizeof(__be32));
++	}
+ 
+-	work->response_buf = kvzalloc(sz, KSMBD_DEFAULT_GFP);
++	work->response_buf = kvzalloc(sz + pad_sz, KSMBD_DEFAULT_GFP);
+ 	if (!work->response_buf)
+ 		return -ENOMEM;
+ 
+
+base-commit: 146c3fc6540e24eef6296395a35bf5b924182e8b
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.47.3
 
