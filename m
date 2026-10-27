@@ -1,82 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793078895;
-	b=iLZgEEHq0RDcfQB+8V5JkqsynKRrxcJ71qE4K8l5Cj6P8uGnY3aY2aejCNOZrEDBYLTr
-	 dnCm0dLCbPBOSVzOK2HAOrDyIyurkAAEJkQNQRCg0vPeQptbcBqmlH3bySfm8Jt7XOYd/
-	 Cw4y/wvmotH3etrEf4HEuVEY0R18wCIhUDDrb5+K68VCpNuDDpM4u8Ddrj3X7w40uv3B6
-	 3IizFo3Ys1cvxreC2LgRFEnfHq80KVV1yDJWhhu8tvov8iqJeElmrpMc55UUSLvlV77T7
-	 Iq/WE2k2xSgU2pDViSaPICDjdoI8spfFEqGqi2qQJgMih56C0finlhZhyg2UvcUNitw==
+	t=1793078905;
+	b=aolg5HAv8zXfuF+UCXvINgOl8JjpfI54ZWc+M05Fsd3ouakuUE+fP3B89btTxqOTby7s
+	 0kT7TowCXu1PXAY+mAeDO6d31SFkcECu0Dfyi5NP/kzGvzGAeaQowOzeTybvDDe5jdFqu
+	 mNNadsaVHMZiLu5JWDw8U6nGVzGULvtYE9w2qLhyffoOjcU2fo5wpqi9Alti2mltw/SXl
+	 /o0KIbgt2GqPDiLdVqn0fMbefUGLAVvTVvCn8o2FsWGuYRYKN09f4G5g3RhYjDo3DMCY8
+	 zpUo5rZMkQpRYmD+LR4urbFn0kHue579ufsCSXqlHG7KfVNAzYFVKWBVi5YidIjKQrQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793078895;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793078905;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=2qxG0IV7oHSsxVohiC35AuoAmHVp7nCjFSNAcc89WrE=;
-	b=XdKT4axYVeoIDx2YMVFsTLfpngbeYO0MTXVewkvAyUwh1HQw6EALcmciejqXPWUNkZz9
-	 GytSSq2N/57NvvLUkC91Zzl9BPYCFFxUxCAYN0l7aoiOzm8rhYHgiYhd7eZ0/e9zU33Zl
-	 LUSEChCg0LVDpKFVtl4aT0IQ6eGMjsPkPLE/QKfwqCthbLzyWOKGeLiHMZgC9DzpHUwLX
-	 TxnD4gkTMH3tkdQKVVjR963N/PsJyFHfNPCTUoR4QArl4mWQ5+9ZN5tHwFxU7dLNOXzIP
-	 cqpYb994d6ygOBXzgCryal0fp/6kSlqiow28BWy3CYqeLQPoMe0IXb03Bwc3612mNyg==
+	bh=3hMKyPaWEskOkBv5OG5DqLWYBk+n+YndVnXQUQRhXr4=;
+	b=rPgfHk/2D86kQKqBY4HasMR0B0+DvkfZkoZUKSPn9HLbFp2rOhgcvLGB1ur0iwvujAws
+	 7MZlAKwYQ18GwadUH/+k3tAwznnxwhtPgYPhIXyB666UUc6qLnJse0NXDVX2zeT4Ea/D2
+	 OOqsdaHEEkWYeXlIEdn6r2k1KSIx7riOofgx6lvti1VJbdOdyShDf34P+ccjsetEaLngV
+	 PoSHAcAIQUURoTySRqEga6VOZiSMws7pxTt07O0QV8SzZkAkj9ZLels97GhwzToIEdgar
+	 xQ+ndbiNZ2Bcer+3WiBneEsPm9VJ8IBWd2uhiRTRrTWYi7Q5M+0W1ryTEEPROpixSdw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rSm8yHgr;
-	arc=none smtp.remote-ip=209.85.214.171
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="YmQ/doa3";
+	arc=none smtp.remote-ip=209.85.214.173
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44598606A32D
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 05:28:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44598606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97A72606A327
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 05:28:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97A72606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rSm8yHgr
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2e9e53d011eso25873815ad.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 22:28:15 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=YmQ/doa3
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2e7e742a2c7so4318915ad.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 22:28:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793078895; x=1793683695; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1793078904; x=1793683704; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=2qxG0IV7oHSsxVohiC35AuoAmHVp7nCjFSNAcc89WrE=;
-        b=rSm8yHgr9FPHE0kcDZAAT55JxUi+PjbKN5XUkWRx7KHlUqD8IBh0P3P0wqxdF1jIgF
-         h3B6eLFBq+vwH2k1Z91Xyw8PFuvnB/lL2ElNBSHDq6g3MFm26IXYtM4U+tE9NlDA/iFN
-         VrroccmH5dA9VAxbfXN4z2Y2QR0rMypBdfjEyTTriYvzAW+LPFQi9zaluQAqBEbggRI3
-         hl/W9MGDmfoMu1xAJMkkNMelPbQf+n89zku8BQF6YVqN86nfSPNZYWNeePV9S5RZxMR4
-         zeKqb27hRYuxFs0dfNvs9wkFK+8Ba3WHg2MMfdWlbCcM34HnaSAbND6mBRVEBBXOgZ9S
-         nMrQ==
+        bh=3hMKyPaWEskOkBv5OG5DqLWYBk+n+YndVnXQUQRhXr4=;
+        b=YmQ/doa3Tp9ADiNWK9TKhBal34RqpzT+ddGpWNx00MH8fgCJWAnWAV/NTFOkEgLo3n
+         kU1EkuRLZtCaYK8MxHf/5EJ+Bn0740V11yy7Zph3QgLB33pXnppAeRzg2Fjoo5ScN1lc
+         AHTIhuBI98zFCVN00yliB3O2sJ0/lyagaM0DbMx3xSVFC+Y3eRg42ZnYGqnx92to6k4P
+         1sh7N9tAPLGJr1iwOxe+CkBsEbW9f9X7Fo3ZNY97TR4ZUliEGLy15OlmnzS4JqW5Zh4J
+         8gJz/G/CNd8RJz9VpfeMHyo199bp1EWPxOIH292Q8qJ456+HTdb1NXTqtt+St2MV2Wov
+         iQWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793078895; x=1793683695;
+        d=1e100.net; s=20260707; t=1793078904; x=1793683704;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2qxG0IV7oHSsxVohiC35AuoAmHVp7nCjFSNAcc89WrE=;
-        b=FW81hJsEhyz6ebSlU1DVFMMe9dVZIWn3j00GvRd57A5pFALYSXhTDqz6ZX7qnb6tG/
-         mHnHy9R9GTUpuVT1QfjKiGxwwbW3ckYoLNKoxJSd9rCil2IzE/g0QGOuWC9F0441so7m
-         wi1jINFeR+m+R/fDjVbgNBXlpsA4Di61gfIh5cU7423923H4jjh1Y/4/stENJpcS9ST+
-         +dBFtBRtSWtYo9LSu4Cca3QGjm0CPJNezOVQwtG6T5LBTGCYcCIEgGzCmnzQ48wyn+FG
-         6FTJFC/KoIM5TCPSgzNpXee3BsJs5L58yIAaUcDErkMDaD9d6eHtLK9QWtl12LVKhz8B
-         T4mA==
-X-Forwarded-Encrypted: i=1; AKwUvBwN83KRX5/U//8xgIkBY/4mnnxlikHMAelUDvrO+uuqj0d4V4kB6G1EOHli2eIfUbYCUIBcmAHwFQfPyCM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKtc7MDYuJuiTmX00YMIVvlGzujSmglCma0AqxaNUAiRCFhAyuj
-	00vwJrfdqbfIPGj+C7xWoLFePlJqBD4/XCWtx1mauS8CLMvBp2uHI368
-X-Gm-Gg: AYBFou2coQCyEZ6+TuJuxb/ox5U7DzljJHN5/kgmOAh/hB4/0iSp5VFx+pGlirbeDSm
-	j0Jpt/k/KBZiAjMCd1VPS/LayzSjCQ3NXl7LEvQX+ZehW4Ql2iQaRmuudsXyEWWLmmKJ6g+/uS5
-	dKP1ITabMgASHWpzfkeU/5tDfMjQCB5yIuN+2BRfRkwwUuA3J4yjyFcPX6FH/ghtGMXHZcBSXoj
-	Hk5tkhsic8pH4mMei/JxpRZclOYJ0hkBELkJuTdiVRE1mQ6q0mo2x8qf01cVYeyoNKBvqdxNg0X
-	7JZ124vbhqWVFa49QuPHUsYcFczhenkZT6hCRQ01ernf/DTesJv1desKm7auT4jR7qwBBGUXlzP
-	Ft5mYXR7MuHopwr62L3HeosfgZoHbDiHwkfCLVBIa7pDTDo4/jvTguh9zoKZ7NSYY/M594UMxne
-	aG1zMvgtxx2MELpFHw4i7WLFu7rsKJEkZmlrsgnu2Oo5frHgIXD363V5DVUnjGDnrhcPTYJExDg
-	94ymfu1hRVNa1na6hXkgP6+dSt6E6VGp07Md3IkPLaTnlFwm4GlkdJky9NuLVuxPSrebS+gSQ==
-X-Received: by 2002:a17:902:f609:b0:2cc:6018:f030 with SMTP id d9443c01a7336-2ea9c62160fmr76192135ad.14.1793078894499;
-        Mon, 26 Oct 2026 22:28:14 -0700 (PDT)
+        bh=3hMKyPaWEskOkBv5OG5DqLWYBk+n+YndVnXQUQRhXr4=;
+        b=HIJEJOQj3voNEM/9aj1tSA+7Eykq2ZYO6FZlKUJyd/K1luNRJWMJ8rOIwQoxV9hfIL
+         vAMfEVi7eTuoXXp5CGxBMGU3e+qXb3tfsNkwoXAPB1i2itj49/Ja4fvrKoyGkaYfKb7y
+         vi2+125q3SepNVmOiffyepJaGbENHgRLcdgpDZwf2KseFixPj95pJCUvmA7ppz2Fnmrk
+         9RLY/OejC3qnjUpKZXtRhSrXzWDnHMOWND4l/a/3lfsiYl5ryPgWi30R2RVxWqzckeim
+         xFdrg/pY/tEz5RoaPOLWq0IZ/sjHDvCCAFgCLsAnV5W+yUBDtEJ6yEpsX/rcdeRA4lEB
+         GA9A==
+X-Forwarded-Encrypted: i=1; AKwUvBxFFwF/ylYKZ/79za2uGprCI8K/kvagxfpSM5Ps6RosHWfWVV8CoCjfwDcklvy/YyPJLPE2vFxlN7JIr2c=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLCGdpR83ychmnRJC7AW8qc5dv76No0ZlGgk8p8BMbP+WxAsa+s
+	rZR7DIWyICgx+tZ549zGAvfD3+soXwPGq/OGdTqoDNHr0w3qyibWnArP
+X-Gm-Gg: AYBFou2afGLfsSkYfOi7Z2RGr1WWrLPXlYxfDOLcKNaTS90Ny3j3XPGo3XVlxHiLW3Z
+	k4FRzkBxhUYhUb3a5ijic7wcOdVJTSLjHgbN1VvNYmMSwa7v0sZU7e1V9SxTkD4TYrK+H8I7G7E
+	IQgrladEJK3uczrDjUJEqNq8b5wIus6VbSrcEyxUoqWZu4YfHRJPX2/TGemmqsOY67GRMKEvcAZ
+	agvolqMaYB8dC51LVYrznW/uBqL/w0KBvauBr9d/Zb/YANkhIDJmQxzIABXBWKthcwIMswrBURJ
+	rqBtaq9dy5aMdq5ReJc456Nj8FlYcHAhYtMCAwsazUu7inXVvZD9daLRu/q9OiPXvnqMvSI3k15
+	T7/h6mBYIPPfKIckPFmetCKVJfwCtamEmel42NC+dCOxxBdcDfGFf9bG963yWkzNHI7vpEFaBZl
+	446kWcsfWEBUyKyk/ZT+9LzmYTvy07btMq87QgsI46EA06suz/5YwSYFW6EDzsRzpMmCMflb2if
+	HikVNqr4LeZ9U80fr5a+KTZy3ian9rbqP62c3m9f17INiqV62oO8lbrHzWSzGPq9lOLFbFRqg==
+X-Received: by 2002:a17:903:2ecd:b0:2e9:3a86:b995 with SMTP id d9443c01a7336-2eae39fdae1mr11913125ad.15.1793078903879;
+        Mon, 26 Oct 2026 22:28:23 -0700 (PDT)
 Received: from toolbx.alistair23.me ([2403:581e:fdf9:0:13b2:851f:d9cb:44c5])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6c9757bsm3307715ad.58.2026.10.26.22.28.06
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6c9757bsm3307715ad.58.2026.10.26.22.28.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 22:28:13 -0700 (PDT)
+        Mon, 26 Oct 2026 22:28:22 -0700 (PDT)
 From: alistair23@gmail.com
 X-Google-Original-From: alistair.francis@wdc.com
 To: akpm@linux-foundation.org,
@@ -101,9 +101,9 @@ Cc: ojeda@kernel.org,
 	tmgross@umich.edu,
 	alex.gaynor@gmail.com,
 	Alistair Francis <alistair.francis@wdc.com>
-Subject: [PATCH v5 19/23] lib: rspdm: Support SPDM get_certificate
-Date: Tue, 27 Oct 2026 15:25:32 +1000
-Message-ID: <20261027052536.1722081-20-alistair.francis@wdc.com>
+Subject: [PATCH v5 20/23] rust: public_key: Add crypto public key bindings
+Date: Tue, 27 Oct 2026 15:25:33 +1000
+Message-ID: <20261027052536.1722081-21-alistair.francis@wdc.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261027052536.1722081-1-alistair.francis@wdc.com>
 References: <20261027052536.1722081-1-alistair.francis@wdc.com>
@@ -120,360 +120,118 @@ Content-Transfer-Encoding: 8bit
 
 From: Alistair Francis <alistair.francis@wdc.com>
 
-Support the GET_CERTIFICATE SPDM command.
+Initial support for the kernel crypto public key (asymmetric-keys) bindings,
+which will be used by the SPDM library.
 
-The kernel will send a GET_CERTIFICATE request to the the responder and
-then iterate over all of the certificates returned.
-
-Certificate validation happens in the next commit.
+This is just a few functions that the Rust SPDM implementation will use
+in the next few commits.
 
 Signed-off-by: Alistair Francis <alistair.francis@wdc.com>
 ---
- lib/rspdm/consts.rs    |   2 +
- lib/rspdm/lib.rs       |  15 ++++
- lib/rspdm/state.rs     | 100 ++++++++++++++++++++++++-
- lib/rspdm/validator.rs | 162 +++++++++++++++++++++++++++++++++++++++++
- 4 files changed, 278 insertions(+), 1 deletion(-)
+ rust/bindings/bindings_helper.h |  1 +
+ rust/kernel/lib.rs              |  2 +
+ rust/kernel/public_key.rs       | 69 +++++++++++++++++++++++++++++++++
+ 3 files changed, 72 insertions(+)
+ create mode 100644 rust/kernel/public_key.rs
 
-diff --git a/lib/rspdm/consts.rs b/lib/rspdm/consts.rs
-index 68f347a046859..964ae2a21c6da 100644
---- a/lib/rspdm/consts.rs
-+++ b/lib/rspdm/consts.rs
-@@ -75,6 +75,8 @@
+diff --git a/rust/bindings/bindings_helper.h b/rust/bindings/bindings_helper.h
+index a2512fda77e1f..da8855899c530 100644
+--- a/rust/bindings/bindings_helper.h
++++ b/rust/bindings/bindings_helper.h
+@@ -29,6 +29,7 @@
+ #include <linux/hrtimer_types.h>
  
- pub(crate) const SPDM_GET_DIGESTS: u8 = 0x81;
- 
-+pub(crate) const SPDM_GET_CERTIFICATE: u8 = 0x82;
+ #include <crypto/hash.h>
++#include <crypto/public_key.h>
+ #include <linux/acpi.h>
+ #include <linux/gpu_buddy.h>
+ #include <drm/drm_device.h>
+diff --git a/rust/kernel/lib.rs b/rust/kernel/lib.rs
+index f7db5975e7621..e8b652faa3b49 100644
+--- a/rust/kernel/lib.rs
++++ b/rust/kernel/lib.rs
+@@ -122,6 +122,8 @@
+ pub mod print;
+ pub mod processor;
+ pub mod ptr;
++#[cfg(CONFIG_CRYPTO)]
++pub mod public_key;
+ #[cfg(CONFIG_RUST_PWM_ABSTRACTIONS)]
+ pub mod pwm;
+ pub mod ratelimit;
+diff --git a/rust/kernel/public_key.rs b/rust/kernel/public_key.rs
+new file mode 100644
+index 0000000000000..e1d51333c1179
+--- /dev/null
++++ b/rust/kernel/public_key.rs
+@@ -0,0 +1,69 @@
++// SPDX-License-Identifier: GPL-2.0
 +
- // If the crypto support isn't enabled don't offer the algorithms
- // to the responder
- #[cfg(CONFIG_CRYPTO_RSA)]
-diff --git a/lib/rspdm/lib.rs b/lib/rspdm/lib.rs
-index ee7e9be5b41c1..6b0be0a0303fa 100644
---- a/lib/rspdm/lib.rs
-+++ b/lib/rspdm/lib.rs
-@@ -274,6 +274,21 @@ pub extern "C" fn spdm_authenticate(state_ptr: *mut spdm_state) -> c_int {
-         return e.to_errno() as c_int;
-     }
- 
-+    if state.provisioned_slots == 0 {
-+        return -(bindings::EIO as c_int);
-+    }
++// Copyright (C) 2026 Western Digital
 +
-+    let mut provisioned_slots = state.provisioned_slots;
-+    while (provisioned_slots as usize) > 0 {
-+        let slot = provisioned_slots.trailing_zeros() as u8;
++//! Wrappers around the Linux kernel crypto public key APIs.
++//!
++//! C headers: [`include/crypto/public_key.h`](srctree/include/crypto/public_key.h).
++//!
++//! Reference: <https://www.kernel.org/doc/html/latest/crypto/asymmetric-keys.html>
 +
-+        if let Err(e) = state.get_certificate(slot) {
-+            return e.to_errno() as c_int;
-+        }
++use core::ptr::NonNull;
++use kernel::prelude::*;
++use kernel::{
++    bindings,
++    error::to_result,
++    str::CStr, //
++};
 +
-+        provisioned_slots &= !(1 << slot);
-+    }
-+
-     -(EPROTONOSUPPORT as i32)
- }
- 
-diff --git a/lib/rspdm/state.rs b/lib/rspdm/state.rs
-index 73c39847d7335..7799d4ac70c3f 100644
---- a/lib/rspdm/state.rs
-+++ b/lib/rspdm/state.rs
-@@ -50,16 +50,21 @@
- use crate::validator::{
-     GetCapabilitiesReq,
-     GetCapabilitiesRsp,
-+    GetCertificateReq,
-+    GetCertificateRsp,
-     GetDigestsReq,
-     GetDigestsRsp,
-     GetVersionReq,
-     GetVersionRsp,
-     NegotiateAlgsReq,
-     NegotiateAlgsRsp,
-+    SpdmCertChain,
-     SpdmErrorRsp,
-     SpdmHeader,
-     GET_CAPABILITIES_RSP_SZ,
--    NEGOTIATE_ALGS_RSP_SZ, //
-+    GET_CERTIFICATE_RSP_HDR_SZ,
-+    NEGOTIATE_ALGS_RSP_SZ,
-+    SPDM_CERT_CHAIN_HDR_SZ, //
- };
- 
- /// Transport for exchanging SPDM messages with a responder device.
-@@ -453,4 +458,97 @@ pub(crate) fn get_digests(&mut self) -> Result<(), Error> {
- 
-         Ok(())
-     }
-+
-+    pub(crate) fn get_certificate(&mut self, slot: u8) -> Result<(), Error> {
-+        let mut request = GetCertificateReq::default();
-+        request.header.version = self.version;
-+        request.header.param1 = slot;
-+
-+        let rsp_sz = (GET_CERTIFICATE_RSP_HDR_SZ as u32 + u32::from(u16::MAX))
-+            .min(self.transport_sz) as usize;
-+
-+        request.offset = 0;
-+        request.length = (rsp_sz - GET_CERTIFICATE_RSP_HDR_SZ) as u16;
-+
-+        let response_vec: KVec<u8> = KVec::from_elem(0u8, rsp_sz, GFP_KERNEL)?;
-+
-+        let mut request_buf = request.to_bytes()?;
-+        let response: GetCertificateRsp = self
-+            .spdm_exchange(request_buf.as_mut_slice(), response_vec)?
-+            .validate(&*self)?;
-+
-+        if (response.header.param1 & 0xF) != slot {
-+            pr_err!("Invalid slot response\n");
-+            return Err(EPROTO);
-+        }
-+
-+        let portion_length = response.portion_length;
-+        let rem_length = response.remainder_length;
-+
-+        let total_cert_len = portion_length as usize + rem_length as usize;
-+
-+        let mut certs_buf: KVec<u8> = KVec::new();
-+
-+        certs_buf.extend_from_slice(&response.cert_chain, GFP_KERNEL)?;
-+
-+        let mut offset: u16 = portion_length;
-+        let mut remainder_length = rem_length as usize;
-+
-+        while remainder_length > 0 {
-+            request.offset = offset;
-+            request.length = (remainder_length.min(rsp_sz - GET_CERTIFICATE_RSP_HDR_SZ)) as u16;
-+
-+            let mut request_buf = request.to_bytes()?;
-+
-+            let response_vec: KVec<u8> = KVec::from_elem(
-+                0u8,
-+                request.length as usize + GET_CERTIFICATE_RSP_HDR_SZ,
-+                GFP_KERNEL,
-+            )?;
-+
-+            let response: GetCertificateRsp = self
-+                .spdm_exchange(request_buf.as_mut_slice(), response_vec)?
-+                .validate(&*self)?;
-+
-+            let portion_length = response.portion_length;
-+            let rem_length = response.remainder_length;
-+
-+            if portion_length == 0
-+                || (response.header.param1 & 0xF) != slot
-+                || offset as usize + portion_length as usize + rem_length as usize != total_cert_len
-+            {
-+                pr_err!("Malformed certificate response\n");
-+                return Err(EPROTO);
-+            }
-+
-+            certs_buf.extend_from_slice(&response.cert_chain, GFP_KERNEL)?;
-+            let (val, overflow) = offset.overflowing_add(portion_length);
-+            if overflow {
-+                pr_err!("portion_length  response overflowed\n");
-+                return Err(EPROTO);
-+            }
-+            offset = val;
-+            remainder_length = rem_length as usize;
-+        }
-+
-+        let header_length = SPDM_CERT_CHAIN_HDR_SZ + self.hash_len();
-+
-+        if total_cert_len < header_length || total_cert_len != certs_buf.len() {
-+            pr_err!("Malformed certificate chain in slot {slot}\n");
-+            return Err(EPROTO);
-+        }
-+
-+        let certs: SpdmCertChain = Untrusted::new(certs_buf.as_slice()).validate(&*self)?;
-+        let cert_chain_length = certs.length as usize;
-+
-+        if total_cert_len != cert_chain_length {
-+            pr_err!("Malformed certificate chain in slot {slot}\n");
-+            return Err(EPROTO);
-+        }
-+
-+        self.certs[slot as usize].clear();
-+        self.certs[slot as usize].extend_from_slice(&certs_buf, GFP_KERNEL)?;
-+
-+        Ok(())
-+    }
- }
-diff --git a/lib/rspdm/validator.rs b/lib/rspdm/validator.rs
-index f7ad46aef1b88..469a5722368f2 100644
---- a/lib/rspdm/validator.rs
-+++ b/lib/rspdm/validator.rs
-@@ -12,6 +12,7 @@
-     SPDM_CAP_SUPPORTED_ALGORITHMS,
-     SPDM_CTEXPONENT,
-     SPDM_GET_CAPABILITIES,
-+    SPDM_GET_CERTIFICATE,
-     SPDM_GET_DIGESTS,
-     SPDM_GET_VERSION,
-     SPDM_HASH_ALGOS,
-@@ -819,3 +820,164 @@ fn validate(unvalidated: KVec<u8>, context: &'c SpdmState<'c, T>) -> Result<Self
-         })
-     }
- }
-+
-+pub(crate) struct GetCertificateReq {
-+    pub(crate) header: SpdmHeader,
-+
-+    pub(crate) offset: u16,
-+    pub(crate) length: u16,
++/// Owned `struct public_key` wrapper.
++pub struct PublicKey {
++    key: NonNull<bindings::public_key>,
 +}
 +
-+impl GetCertificateReq {
-+    pub(crate) fn to_bytes(&self) -> Result<KVec<u8>> {
-+        let mut out = self.header.to_bytes()?;
-+
-+        out.extend_from_slice(&self.offset.to_le_bytes(), GFP_KERNEL)?;
-+        out.extend_from_slice(&self.length.to_le_bytes(), GFP_KERNEL)?;
-+
-+        Ok(out)
++impl PublicKey {
++    /// Create a Rust `PublicKey` from a valid C `struct public_key` pointer.
++    pub fn from_raw(key: NonNull<bindings::public_key>) -> Self {
++        Self { key }
 +    }
-+}
 +
-+impl Default for GetCertificateReq {
-+    fn default() -> Self {
-+        GetCertificateReq {
-+            header: SpdmHeader::new(SPDM_GET_CERTIFICATE),
++    /// Verify a signature using this public key.
++    pub fn verify_signature(
++        &self,
++        signature: &[u8],
++        encoding: &'static CStr,
++        hash_algo: &'static CStr,
++        message: &[u8],
++    ) -> Result {
++        let sig = bindings::public_key_signature {
++            s: signature.as_ptr().cast_mut(),
++            s_size: signature.len() as u32,
++            encoding: encoding.as_char_ptr().cast::<u8>(),
++            hash_algo: hash_algo.as_char_ptr().cast::<u8>(),
++            m: message.as_ptr().cast_mut(),
++            m_size: message.len() as u32,
++            ..Default::default()
++        };
 +
-+            offset: 0,
-+            length: 0,
++        // SAFETY: `self.key` is a valid public key handle, and `sig` points to
++        // valid signature/message data owned by the caller for the duration of
++        // this call.
++        unsafe {
++            to_result(bindings::public_key_verify_signature(
++                self.key.as_ptr(),
++                &sig,
++            ))
 +        }
 +    }
 +}
 +
-+pub(crate) const GET_CERTIFICATE_RSP_HDR_SZ: usize = mem::size_of::<SpdmHeader>() + 4;
-+
-+pub(crate) const SPDM_CERT_CHAIN_HDR_SZ: usize = mem::size_of::<u16>() + 2;
-+
-+/// A parsed SPDM certificate chain
-+#[expect(dead_code)]
-+pub(crate) struct SpdmCertChain {
-+    // `length` is a u16 (with 2 bytes reserved) for SPDM versions 1.3
-+    // and lower and u32 for 1.4. We don't currently support `LargeOffset`
-+    // and `LargeLength`, so let's pretend this is always a u16
-+    pub(crate) length: u16,
-+
-+    pub(crate) root_hash: KVec<u8>,
-+
-+    pub(crate) certificates: KVec<u8>,
-+}
-+
-+impl<'a, 'c, T: Transport> Validate<'c, Untrusted<&'a [u8]>, &'c SpdmState<'c, T>>
-+    for SpdmCertChain
-+{
-+    type Err = Error;
-+
-+    fn validate(unvalidated: &[u8], context: &'c SpdmState<'c, T>) -> Result<Self, Self::Err> {
-+        let length = u16::from_le_bytes(
-+            unvalidated
-+                .get(0..2)
-+                .ok_or(EPROTO)?
-+                .try_into()
-+                .map_err(|_| EPROTO)?,
-+        );
-+
-+        let root_hash_end = SPDM_CERT_CHAIN_HDR_SZ + context.hash_len();
-+        let mut root_hash = KVec::new();
-+        root_hash.extend_from_slice(
-+            unvalidated
-+                .get(SPDM_CERT_CHAIN_HDR_SZ..root_hash_end)
-+                .ok_or(EPROTO)?,
-+            GFP_KERNEL,
-+        )?;
-+
-+        let cert_chain_end = length as usize;
-+        let mut certificates = KVec::new();
-+        certificates.extend_from_slice(
-+            unvalidated
-+                .get(root_hash_end..cert_chain_end)
-+                .ok_or(EPROTO)?,
-+            GFP_KERNEL,
-+        )?;
-+
-+        Ok(SpdmCertChain {
-+            length,
-+            root_hash,
-+            certificates,
-+        })
-+    }
-+}
-+
-+pub(crate) struct GetCertificateRsp {
-+    pub(crate) header: SpdmHeader,
-+
-+    pub(crate) portion_length: u16,
-+    pub(crate) remainder_length: u16,
-+
-+    pub(crate) cert_chain: KVec<u8>,
-+
-+    /// The actual length of the SPDM message. `raw_bytes` might be longer
-+    /// as it includes transport specific padding.
-+    length: usize,
-+
-+    /// Entire response, used for the transcript hash.
-+    raw_bytes: KVec<u8>,
-+}
-+
-+impl GetCertificateRsp {
-+    #[expect(dead_code)]
-+    pub(crate) fn as_bytes(&self) -> Result<&[u8], Error> {
-+        self.raw_bytes.get(..self.length).ok_or(EPROTO)
-+    }
-+}
-+
-+impl<'c, T: Transport> Validate<'c, Untrusted<KVec<u8>>, &'c SpdmState<'c, T>>
-+    for GetCertificateRsp
-+{
-+    type Err = Error;
-+
-+    fn validate(unvalidated: KVec<u8>, context: &'c SpdmState<'c, T>) -> Result<Self, Self::Err> {
-+        let header: SpdmHeader =
-+            Untrusted::new(unvalidated.get(0..4).ok_or(EPROTO)?).validate(context)?;
-+
-+        if header.code != SPDM_GET_CERTIFICATE - 0x80 {
-+            return Err(EPROTO);
++impl Drop for PublicKey {
++    fn drop(&mut self) {
++        // SAFETY: `self.key` was either returned by `x509_cert_parse()` or
++        // manually transferred from an `x509_certificate` and has not been
++        // freed yet.
++        unsafe {
++            bindings::public_key_free(self.key.as_ptr());
 +        }
-+
-+        if header.version != context.version {
-+            pr_err!("Invalid version response\n");
-+            return Err(EPROTO);
-+        }
-+
-+        let portion_length = u16::from_le_bytes(
-+            unvalidated
-+                .get(4..6)
-+                .ok_or(EPROTO)?
-+                .try_into()
-+                .map_err(|_| EPROTO)?,
-+        );
-+        let remainder_length = u16::from_le_bytes(
-+            unvalidated
-+                .get(6..8)
-+                .ok_or(EPROTO)?
-+                .try_into()
-+                .map_err(|_| EPROTO)?,
-+        );
-+
-+        let cert_chain_end = 8 + portion_length as usize;
-+
-+        let mut cert_chain = KVec::new();
-+        cert_chain.extend_from_slice(
-+            unvalidated.get(8..cert_chain_end).ok_or(EPROTO)?,
-+            GFP_KERNEL,
-+        )?;
-+
-+        Ok(GetCertificateRsp {
-+            header,
-+            portion_length,
-+            remainder_length,
-+            cert_chain,
-+            length: cert_chain_end,
-+            raw_bytes: unvalidated,
-+        })
 +    }
 +}
 -- 
