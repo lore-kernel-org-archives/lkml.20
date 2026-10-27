@@ -1,100 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793133380;
-	b=GnSfICZB4Upplcrbey7itxMH1ZiY6G3WNNehPKnpC9UykLxmCu5oW19znmyAmD5hQQCy
-	 2htGbIZMPcdbIOIeq5at0y4zheKk+6fFKmQVKBL95JmtHl0Ad0N6Jf31Ot4/+59drYxb3
-	 TihguaN5NHufGd7xtT3ezKPRK7qIRcqFYPvTEQX5EO9GfFu6FL6Fmd8Jgja4qBQztxjXo
-	 JXL2iW0V9isxrPT9FS7LDbQZzI7E1UpjdkaIYMDiIXLQTZwKV6lQhVFXGS7Xx9AjjoaVX
-	 f/ymisKoHAFhbNo5ToHiF5KBCvTCaM37oJz+a28gHqj/d/F6f+Ejj76z0+kb+EFvGqQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793133380;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.179
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793133400;
+	b=MJcbIJPAAVB0Yf/YwNMV4eN0bYIm1yU90QAeekzbykdaNu0dpQPrcPcFZ+Q1Bbm+vnu1
+	 SOGAVAeZ9GvYU0v2wRol7v1N45pXqqtaKe6kKxU6aY11Q2Xq4Im/OJwZdfz9nUhyWnDzQ
+	 SYlFEy2kZkY0csp6qA691Q2Kj15sZlYYGiW34tcHLTGQ3D5J4xf2nglZIGMNxDL04RYM/
+	 a9kNdfOD3QQAFb2sB7Tx9igu6fzKh1izPOchMRbjIm9W9v3RSrwCsJSouohevy9GOGamu
+	 R0bPM2qAzJCMLZi4hsFZFwyjmk04xIRpznKGO2ezQcPBRf7Ljw8x8nqbD6NhL3Q/1kQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793133400;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=n/kXFw9Qj82REiZi7BMptrUs1FkkIpA4DyKMU4QAqcI=;
-	b=ZRmmHeC/wAz7YUBBE5Vp/3UCZTqbM1DUZqFLucW5OYkq+zdAU4epiO9LGj9Z0MPgZuSB
-	 3Rbwpcgb9sWR0GiI+HvTfaxMEnz/qAdZ2Q0B3bKz6gfXkhN8dkT0NdnMReyvCQuOWPeqC
-	 0tNCO79TVhpAc9pCLH3ywLqCtBjcnG+uR1boncO2gzpMfQ71Xj+fKlau80OMlAbOGjbEG
-	 OMX1xgh/9ImHp7Lxm0zQcibMoY+DA4kNpi3Os2M8wqpCA5wzFM+Z0danckamctCzt+vI7
-	 2zk73IZ3YH87mA0DVYdbd+jEZvKAX/WzAbeK4Wo7XG3I4M6jwI7o7NLM2fQMCn6Ngew==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=wbinvd.org;
-	spf=pass smtp.mailfrom=wbinvd.org;
-	dkim=pass header.d=wbinvd.org header.i=@wbinvd.org header.a=rsa-sha256 header.s=wbinvd header.b=BZ6rZaSQ;
-	arc=none smtp.remote-ip=74.125.82.181
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=eJungKwd24xGzL5JYcor42TH/xTcUsIKYpqSbdP6+gA=;
+	b=HK9wRo+ieApzOb7Y4X1mVCmBVN08VgNNkdJpD11TJdlqswH91SrY8DezCsNPftFodGah
+	 Qh9Uab7WjWL1ruj4A1iTyE2v17OsoYIfHh2JxfoOJaOfWVikm+sDKhk+aAfXVm2OmONWg
+	 QbO0DHKnUVMnjjLvLtUjdk9v6Fi7blKKP30t3KBugpQ+KxFUcHkcItqp99PRWvxtxp9qX
+	 UCW7o0e5L98dtW6SacXYLvxWIyVw6QG/MWGbTZ1kxGbqDP01wJMtaEZsu2TsC6KPtGZI9
+	 JiDImEJvh+ExsZ9N703xW+jGxddz89oEoI0lV6u2UKEm2lZ/S6R10QsfIT8/yxgwtTQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nullptr.com;
+	spf=pass smtp.mailfrom=nullptr.com;
+	dkim=pass header.d=nullptr.com header.i=@nullptr.com header.a=rsa-sha256 header.s=google header.b=XF37o1F4;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.179
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF216606A31D
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 20:36:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF216606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=wbinvd.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wbinvd.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61A86606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 20:36:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61A86606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nullptr.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nullptr.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=wbinvd.org header.i=@wbinvd.org header.a=rsa-sha256 header.s=wbinvd header.b=BZ6rZaSQ
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-35c76e9614aso438795eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 13:36:19 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=nullptr.com header.i=@nullptr.com header.a=rsa-sha256 header.s=google header.b=XF37o1F4
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-36a17a332ecso352166eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 13:36:38 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793133398; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ewQrX6sO9J5xGQ0ya7zyQGdf1qNd3kI4kPwqzGu4PRAc0zGv8GnUh36beG/ZcjSJ9/
+         xsshWfIBX5hITE75TD7LQw/X9Gm5k3gw5Vp1oj4l5bjIt2jSLH5zGo69HRkATPi9Pn43
+         ISFf9KsPEqENrIpgM5CNzpunDUVoii5OnzM4pYnbtWCPIwtvZlBBBCtOxfNEea8KklX+
+         zcYGeDBAJANO6E2gEgdTLiiZuyhWhdXapq/FRgVgmuaI6vkfTS0uxM5MkxPdRTpsyA0K
+         bVXF1fsDv7GhE1qEDyO1QfDj97nPvsn22I9nmEVRC5Ut/lFYmrflVBIA/hHt8PKSI18U
+         LfTg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=eJungKwd24xGzL5JYcor42TH/xTcUsIKYpqSbdP6+gA=;
+        fh=PbxobVLpef7oZlZXLMZiBYaHYrjqThxZkhQDvNB5rtQ=;
+        b=aZ2DpoF8yuhwofy9i+ijYFr5eRXV9fgSMXj/W0LqZZagtRFmOcFCTS9iaLSXEtklUy
+         iqkpaLS4z28TbNATrlRY1m1BOMcvza/xJLjVALMrNItYVLndi6+qPB+pwtQ90O8T1xEX
+         aegBB5hLalsINyEMjAdy1nk9X3XlXheFGByv/J38hW2g+3wJ9XNSUjyVeA1jIKXXazYd
+         Po2uTCpc1VCJNuDW6lur+F1eOCA1Ot31nXVc2GegZ9ss1MFbJkgS4CXhPy9KcCTQGmtJ
+         69AMzvKMRyiGQYF9u2riXFAinYsikh4DbByGJ/yZMAR3s3Os1LuXwiSON30nGnkYzQm+
+         EnHg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=wbinvd.org; s=wbinvd; t=1793133379; x=1793738179; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=n/kXFw9Qj82REiZi7BMptrUs1FkkIpA4DyKMU4QAqcI=;
-        b=BZ6rZaSQl3E8pw/qItRtqepfc3coKZCVkM6tZKlzKClpZbarNwIcvrtwXKlY4Sdix+
-         cU0hANXn8zRF4lYP3TZw1RVaJjpvu826tUuR/jGmaGp2ck32u98lHgqRq3ZooqOcb4JI
-         HJ+7ebbqnE3CjKGZi/22y3zoVLVOQIDAJUgpOCKViD0d+uxx8M5BNrmyEvdjGrhhrjMO
-         bLH4h7ubfAA8987iRjZvu6sdGomdC7xxE0XSbuImRTHIYDKqd42Doao8DBjS+kR+Hz12
-         ZJ5ucPLukQZfR0IZbUostioDeeEXYXcs/Je3zAbn9UKqNtOFSG0C6pIEnrGnuSlJKLyB
-         ki4A==
+        d=nullptr.com; s=google; t=1793133398; x=1793738198; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=eJungKwd24xGzL5JYcor42TH/xTcUsIKYpqSbdP6+gA=;
+        b=XF37o1F4Yl22QTQkqyOw0BCFOpbxrXxBKGoWPBi77Y2u8CtYc+P1QCvBeSxf47fdAP
+         29tRm+6w/glVebXC+gX6d+yM5K+kw+hekrWg2R9pV6Pnc5doMduUSAWT60BwjgTL6zkf
+         cyu2yiN+Xo+DaEDEC7O8dkvcfp1Uz0r6PXJPXqFUIogytB6Nove67Ywco+YMSI2sz9Xv
+         cyKVZrMMapJcAUfwOPJy3u7xxISTvjh5qHD2iSTmAS1In2clRR6ORix/Nqf3RvEZ56Ck
+         Wnt2J0Gu/z3/EEUHRh+nWpikqGRBqshdDL0BkXrHrbpm9sj58D0t7MtpDqIBGa52P/vx
+         M6EQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793133379; x=1793738179;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=n/kXFw9Qj82REiZi7BMptrUs1FkkIpA4DyKMU4QAqcI=;
-        b=tnSJOaMQu1W1cohucm77BFmtSlZBHSeUtwAe5g1i9TgPI9U4y+hWpGKfztu/uf00wO
-         AaWjTKg++Z8oR690g3IQYU+lpBFr2+fAsehhIgLwOg2nYA0Wi4sYs0YN5QXFEVCTlTD3
-         aKxGzu9dqp6wjGJoVPTn5JIwKAA+D59ryxmNRgRf0s2nM8ujXUzfcnP6GJWfxb0hBt3Q
-         1xxD1Z6blsDQxUCZKhoDWnX/uTrjPnnWalEDwdvLKBjV5oLX+etgCANpgUM1GMMLLkpr
-         hSbK2WWDP3nOPFUTvmOerjDCMo6haXm4n4sHt6UeIXKlCHhMulqgQqgMhuIU9XcgxsYx
-         kglQ==
-X-Gm-Message-State: AFq9FYLMo1aI/DG8upMtP4r77sCzzZTJUEeR5FbOjsKT39TtQtBNXEPY
-	LlhiCJU3kQhquWFb0t8eLK9345A//9UzbvBmTCXEQn5sB7gvJQPVq1lxNuDH+A0jA0PwcS+WQpP
-	EaVCf24Y=
-X-Gm-Gg: AYBFou23CBaVT7op8Lz7S3sbfRQakzdTlR7P/KSbm48UTUR8DxNwI0Ls62lF4Oay625
-	yXyNikbYaBxuWG2UxbDXtIyOGQthAaS3Q8+F1I2TXHWsuUk9Q4O5fA4wWaj5i9UWhrj+D0tzXbC
-	RHgnRerbffXdNvvUhi34cDizWI/McY9ck3sLZ0SeMaeWtZhKE0wq4T7hNucD6EpYwiX5tT3F6x/
-	QAyU3/uIy+heMgaZbMr4IYfrLCRIsMAIVq8VZ6uSyGOgHLdqj+5o+jLsoyCAb3eYvjXDgTaE6VZ
-	4MXhSknSrgZH8B5X9H6cAsjf7ipg6Id8ocbj64bDgIgeibNAojkLgecdyv+Gnnigx7KBwvtLNb0
-	S8BFnsGSdW1mkShVEqHSjHHb3xspBqnUFPdtJ7P4jA4aY9d4HlwNrtRFDMCHCrbYxBKt68WPS4s
-	veR7TzSB6pM9jaRBaXH5yC9AqW4/M+qnneJbN0PcRzaJ841WjhVImjjVatVTSTLI5m/Z8F7xSav
-	0SmdEKoMkaXhFBd0EVEiCyAF5CIW6c88gVBFl+u+O/IhF1uQF7EaKGnc0A=
-X-Received: by 2002:a05:693c:41d4:10b0:369:f64e:7feb with SMTP id 5a478bee46e88-36a202d5efcmr770087eec.2.1793133378769;
-        Tue, 27 Oct 2026 13:36:18 -0700 (PDT)
-Received: from mozart.vkv.me ([2001:5a8:468b:d015:a9d7:ed20:8d1b:4227])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a14383b02sm9457218eec.14.2026.10.27.13.36.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 13:36:18 -0700 (PDT)
-From: Calvin Owens <calvin@wbinvd.org>
-To: linux-kernel@vger.kernel.org
-Cc: Harry Wentland <harry.wentland@amd.com>,
-	Leo Li <sunpeng.li@amd.com>,
-	Rodrigo Siqueira <siqueira@igalia.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Alex Hung <alex.hung@amd.com>,
-	amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	Aurabindo Pillai <aurabindo.pillai@amd.com>,
-	Fangzhi Zuo <Jerry.Zuo@amd.com>,
-	George Zhang <george.zhang@amd.com>,
-	Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Subject: [PATCH] Revert "drm/amd/display: Allocate DCN32/1 dmub memory to GTT"
-Date: Tue, 27 Oct 2026 13:35:26 -0700
-Message-ID: <25995707c39c0c191e3ac46c4813f55a7f928403.1793131583.git.calvin@wbinvd.org>
-X-Mailer: git-send-email 2.47.3
+        d=1e100.net; s=20260707; t=1793133398; x=1793738198;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=eJungKwd24xGzL5JYcor42TH/xTcUsIKYpqSbdP6+gA=;
+        b=ez0u7txWtmDN3PnzwHXCu+NfS0CLsBtO1gbrlscwWenxMyMyXIkr74LnLajykETdYJ
+         TO0O3lRFzYtIkcEUGNJBLtOEs6t5TYw+8y5kbLtRBtvtVKbTw6UKIt8mwCcLDkf4LmSH
+         NzW8DH6irQwDqwJW40x1WPO1+cZGp/Oa3ojkWqcN3dfuvlglXTSZ2ID1I5CWxSXU3Lap
+         A7Kgw/+nuQv4Nal5pranfBcH3qeizESdLrzQubUtmQVGYPdEU6NDtOWUE2Sat0q8nt8l
+         J5Kd58xB91jw3xrvwt56JV3SdxvWAcEk+DTAUOy8vMCD+16Mx1+kgCxuSHpYRA+pDzCw
+         yQ3g==
+X-Forwarded-Encrypted: i=1; AKwUvBwOaPjNup6Wrj0wQ3jPqrdI4mGDWhflELM/PceRksCTlbHnP+ihDggLHSyJndyJUVnuVNKd7toWAAWw2Vw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK+NmnqvlMmECdDRU1l+7ww0EJJZsEtXHWOiEa7g8HLfgGN0qlq
+	DwrlZ4eM5VoK6/i4NrX9/ejEjKeF5coS/lGqVaMvZKsfSsGrHL5SpHQ6/wlRTO9V3YSiF1fBbZ+
+	zO6KofAKLjpmfpjPWYVCKbkQ2F4TyUI3/Q23vQ9kEog==
+X-Gm-Gg: AYBFou29zJoEmssCDt7VzRj6WORrHApg9BIupsmzqs7y4PjsrJc/kZLm4PoNOX4i15p
+	9jYu0lj+QDoH8N8PjqXGtDhza3jrcJCnJAsbiq6dB0kmGSN3Mgs7ZJm1qUx996LqhTuirco3e+n
+	Ymcy8TxCOw9hDslavuiG55HSUnohDTWiQPhCnywvFajvHQ5vIFnewkUcBxmAmZC5wbIyoYOtNB7
+	QH+G5RJQoTjomxdth4+7ohbnBunYi6dwTWvlurcfxhH44QwMxIsrrvwYGFjiwHZ1pdn756ECvkN
+	tgsoazsM20I67Uyb5H0s8uNoT3xpbwzjddYk2550ORkzOGD+4s2UduiqjfmkNItaFKQnS++ao6y
+	awwOrYh0M5OxhZq78W8SyVsyFhAQkB7c1AXbznPWOA+gYJdNaJTDChI823AT5w6LAtRsdw7V7IE
+	Sg6sMEJRRbN4x03GDyLkxumfxA64Cz5BIcn//JgXatKQNgMd5aybj5zhc=
+X-Received: by 2002:a05:693c:821b:b0:36a:1294:59e0 with SMTP id
+ 5a478bee46e88-36a20179d20mr630828eec.24.1793133398014; Tue, 27 Oct 2026
+ 13:36:38 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,98 +105,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261022-xilinx-dma-work-v1-0-20faea2e7a80@nullptr.com>
+ <20261022-xilinx-dma-work-v1-4-20faea2e7a80@nullptr.com> <auD5_fHykXpkQ8ns@lizhi-Precision-Tower-5810>
+In-Reply-To: <auD5_fHykXpkQ8ns@lizhi-Precision-Tower-5810>
+From: "Jeff C. Jensen" <kernel@nullptr.com>
+Date: Tue, 27 Oct 2026 13:36:27 -0700
+X-Gm-Features: AclHuK_MdLe_77m-KmkFSnccE3-4pezFMsWPScpQmmJScc5U5CiCCI34Cd6wgxQ
+Message-ID: <CAHnw2UkB_KTh3c816SUUgaH=SenFKOpYwvaMvowzi-O5oFmCyg@mail.gmail.com>
+Subject: Re: [PATCH 4/5] dmaengine: xilinx_dma: Withhold an AXI DMA engine
+ whose reset did not complete
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Vinod Koul <vkoul@kernel.org>, dmaengine@vger.kernel.org, 
+	Frank Li <Frank.Li@kernel.org>, Michal Simek <michal.simek@amd.com>, 
+	Suraj Gupta <suraj.gupta2@amd.com>, Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>, 
+	Alex Bereza <alex@bereza.email>, Folker Schwesinger <dev@folker-schwesinger.de>, 
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-After commit a637a140ab860310 ("drm/amd/display: Allocate DCN32/1 dmub
-memory to GTT"), a machine with a Radeon RX 7900 shows random garbage on
-the screen. It reproduces sporadically, but at times it is so bad the
-machine is more or less unusable.
+In theory. I haven't seen a reset time out on our hardware. Every failed
+reset in my testing was injected with fail_function, as the cover letter
+notes.
 
-The garbage is always horizontal bars extending across the entire
-screen, always approximately 200 pixels tall on a 3840x2160 screen,
-for what looks like a single frame. The bars are mostly black, but will
-sometimes exhibit striping and periodic artifacts which smell like
-non-framebuffer data is being rendered to the screen.
+PG021 describes the soft reset as graceful: "Pending commands/transfers
+are flushed or completed", and the Reset bit reads 1 while the reset is
+in progress. My reading is that a transfer that must complete needs the
+memory side to respond, so a stalled interconnect or memory port would
+keep the reset in progress. The driver already allows for that, since
+xilinx_dma_reset() polls the Reset bit with a timeout and returns an
+error. It just doesn't act on the error: xilinx_dma_terminate_all()
+frees the descriptors and returns 0 regardless, so if the engine is
+still fetching, the next transaction reuses segments the engine owns.
 
-It took some patience on the "good" side, but I was able to nail it down
-to commit a637a140ab860310818a14fb4d37e39e51a06be4 with this bisect:
+Patch 4 may be more than this series should carry as a fix. One option
+is to drop it from the series and post it with patch 5 as a two-patch
+RFC, scoping failed resets out of this series.
 
-  bad: [cee9395acd8043be0644b25c34bfa86623f2b935] Linux 7.3-rc1
-  good: [8d3ae59288f1e7d58d76558a6ee96d533bc5019f] Linux 7.2
-  good: [55ab7e14222e5f0b0fd9f7711ca391d2924b35e3] Merge tag 'for-7.3/block-20260819' of git://git.kernel.org/pub/scm/linux/kernel/git/axboe/linux
-  bad: [df51bdc5e80dae43cab81f6cc641e98638303c88] Merge tag 'mtd/for-7.3' of git://git.kernel.org/pub/scm/linux/kernel/git/mtd/linux
-  bad: [29daacacf4cd84e6917f09de6a99fb170071c14c] Merge tag 'drm-rust-next-2026-08-08' of https://gitlab.freedesktop.org/drm/rust/kernel into drm-next
-  good: [fff648aec5e2790d117a0ec5c849a284d9d33d70] drm/amdgpu: include amdgpu_video_codecs.h only where needed
-  bad: [336e0cd576817ac64a4b394ca2b3680029f3e37f] Revert "drm/amdgpu: fix aperture mapping leak"
-  bad: [789f7486a384ca58b9d7a76abba5efa0e80e8dab] drm/amd/display: Test plane colorop helper walkers
-  good: [e0e426f10ad653c5e9dd33fb4a76d55f06101992] drm/amd/display: Test helper_check_state rejects
-  bad: [982b2a43682b55e7d9800000f2592832ff2865ba] drm/amdgpu: Fix IP block NULL check during soft reset
-  bad: [9102b39fa924dcc3dc75a3137bfa9633c40b88c0] drm/amdgpu/userq: fix indefinite fence wait during GPU reset
-  bad: [b23470a026afe64de5c1df4ad181587b49c22923] drm/amd/display: Exit LS for ISHARP before coefficient write
-  bad: [f02b2e47355e9d381a7f34acc997e1c47879ca21] drm/amd/display: Add KUnit test for wb jobs
-  bad: [c6a13d145cc811b19c8a0620f25868cf7d5700c0] drm/amd/display: remove unused dcn42 socbb values
-  good: [1d8327353de6f1f34063840f362c208c84064f54] drm/amd/display: Fix VABC Init and OLED Support
-  bad: [a637a140ab860310818a14fb4d37e39e51a06be4] drm/amd/display: Allocate DCN32/1 dmub memory to GTT
-  first 'bad' commit: [a637a140ab860310818a14fb4d37e39e51a06be4] drm/amd/display: Allocate DCN32/1 dmub memory to GTT
+-Jeff
 
-Sure enough, reverting a637a140ab860310818a14fb4d37e39e51a06be4 on top
-of v7.3 completely and totally eliminates the problem for me.
-
-Mikhail has separately reported this regression:
-
-  https://lore.kernel.org/all/20260829010525.29935-1-mikhail.v.gavrilov@gmail.com/
-
-...but it seems to be much more consistent for me than for Mikhail, it's
-never taken more than 30 minutes even when the machine is completely
-idle. I've also never been able to reproduce any artifact one single
-time without commit a637a140, despite a lot of effort.
-
-I'm not sure reverting this is the right way forward, since presumably
-this would re-regress the timing issue Fangzhi alluded to in the
-original commit. But nobody has proposed anything concrete yet... so
-let's start the discussion here.
-
-I'm happy to help test other better ideas as well :)
-
-Signed-off-by: Calvin Owens <calvin@wbinvd.org>
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c    | 11 ++---------
- 1 file changed, 2 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c
-index 9ff25bc8ee5ae..870534b7cf46d 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c
-@@ -511,7 +511,6 @@ int dm_dmub_sw_init(struct amdgpu_device *adev)
- 		DMUB_WINDOW_MEMORY_TYPE_FB,		/* DMUB_WINDOW_CURSOR_OFFLOAD */
- 	};
- 	int r;
--	int mem_domain = AMDGPU_GEM_DOMAIN_GTT;
- 
- 	switch (amdgpu_ip_version(adev, DCE_HWIP, 0)) {
- 	case IP_VERSION(2, 1, 0):
-@@ -648,19 +647,13 @@ int dm_dmub_sw_init(struct amdgpu_device *adev)
- 		return -EINVAL;
- 	}
- 
--	/* Limit to allocate dmub to GTT on DCN32/1
--	 * TODO: Other asics with GDDR7 may have worse latency
--	 */
--	if (dmub_asic != DMUB_ASIC_DCN32 &&
--	    dmub_asic != DMUB_ASIC_DCN321)
--		mem_domain |= AMDGPU_GEM_DOMAIN_VRAM;
--
- 	/*
- 	 * Allocate a framebuffer based on the total size of all the regions.
- 	 * TODO: Move this into GART.
- 	 */
- 	r = amdgpu_bo_create_kernel(adev, region_info.fb_size, PAGE_SIZE,
--				    mem_domain,
-+				    AMDGPU_GEM_DOMAIN_VRAM |
-+				    AMDGPU_GEM_DOMAIN_GTT,
- 				    &adev->dm.dmub_bo,
- 				    &adev->dm.dmub_bo_gpu_addr,
- 				    &adev->dm.dmub_bo_cpu_addr);
--- 
-2.47.3
-
+On Tue, Oct 27, 2026 at 12:22=E2=80=AFPM Frank Li <Frank.li@oss.nxp.com> wr=
+ote:
+>
+> On Thu, Oct 22, 2026 at 03:11:33PM -0700, Jeff C. Jensen wrote:
+> > When xilinx_dma_chan_reset() times out, all the driver knows is that it
+>
+> Does this real happen? or just in theory
+>
+> Frank
+>
