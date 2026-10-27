@@ -1,100 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=74.125.82.54
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793118480;
-	b=3HEzUUaD3b7NJTVqqp6KW0Tj88MkNOQbjpHW4wjtDvTQ3rYIqEei3+1q5YXQij398fYq
-	 tQ9VJ6wIYwFAtOoCD6MrSzwi4FPTRW9r9wNgeir4oJ78CaoSCUZksZez72iz44mHIG1L7
-	 MTjRhVQMJu7ocirLFcYTO6UVuXDkxcK0LzIx2tMgHqmGQxImaAAkcrmHR1TaicWM7hT7V
-	 AALU/LsqwHHmW44DWCQQVYguZOd/t7jAl5yixVO72DZvtmSlWSRNRO8IFcVBGtd+0wObI
-	 bb4btirgcn/3kDx7MDGmXNMUCOt13HRYhZx3jhZdboysoNfkLHY+hqewxBL0WvCyolg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793118480;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=3hqu+svzVd9ISmoYzAK4HexOUNRCnaJYNRkc+XMVyq0=;
-	b=Br4fBo38xSQQXTQ8n4WoeiA6pp+SonNj1mV0yQBDA0TQGpmMSOHlXdl3i1FQ3bw8lJNb
-	 RvfAIPPlz6kMSYwdVHf5FTN7+6Uu4b/xptq4C07sd7UTBhxCo2vLewzLCr31S7VGPslsn
-	 90i8aCIkRssSfEfEj/vSHuodgyFChGAInQ4UWpXCErF6MBIw+KL05tPbkZR/+X27uZ4Vd
-	 t5eyFboHrdJ9/eGg0A7+WscOqqVSFzezWl/gAUhD5gnrxX7byB/v3PCheLuh3iJilZ9ee
-	 Mcvi6PxWpie8KpoAZANs6vHr2fnDZBOIyn8DM8UUbH6hGQCCyg6ex5BMRw5EMA/0N2A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=jwiM3DAC;
-	arc=fail smtp.remote-ip=74.125.82.54
-Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793118547;
+	b=V9CuEg2HS2k8tQMRAPF/zJSdSgeTxMYoHzR01BMilS/Bqey4rVp/bzajNyObWqSMRxGi
+	 8OfTpkZ7ScM4GgkucB8uEbtG6Wf1pC6et3l/fZat54TAJmZVkHyBToOm4zixtBfq4fvt9
+	 Zg2WRwGj4NgZ9sdohScBIkvg8lkQJd8aSMkRmUizN8khuu1FwuAH3OfE1mFzp0JKEOSWR
+	 Puwj9eiUTllroY/m6F5UhvZT8/+Ri0RRjsTrHShNfhhfGRQ/+v6FzJwEDke4bsTN6Nlmx
+	 eGLUL3TkwujKgGXg79dAt/JRdVHW2uNYPypUKi7vHXTuaFAx47Zi3FSkc7rpj3yOEdg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793118547;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Lines:X-Developer-Signature:X-Developer-Key:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=N7DaWZuwNR7U+Isl9V7dlYE6u1f8J3FLeM/+jDGgvHg=;
+	b=soAd363+jWRetv18byUzR2B11XKA00A8pFekDd7CtBzlFLh3uKVJ/RngHlui7tx88HKo
+	 j7ulbLtnyk7RjpTl3JXyKKjHXJPYqe+W67KRWouVH4NUPfPB212fQCPhmzD/DuEQMd3KO
+	 cDMXgwt1pSYfCD84rn5SR9DWizHWudA6RWsbt4W17o8hjhWZKWHkmrtAtbFDQGuamZ53l
+	 412Tr9ei6DIA8rJi7ZVmJmQIKo7NEbfEd5RVgSyFriDRcX6wkeP4URcbAQdwUn4QbmyDG
+	 N6VQz9pZAgxfwLI4paO94cGORV0gVBVo9XU4XTn3dUT21XlzQ7nzUaSC0nYZK6SO1Qw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zlR7V3o6;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60CCB606A31D
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:28:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60CCB606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19D12606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:29:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=jwiM3DAC
-Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-188406bb948so3578051c88.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:28:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793118479; cv=none;
-        d=google.com; s=arc-20260327;
-        b=lWxjNWM6q9v7LyftVXX/okYocWjP+5alYtL4nlSWT4PeWX2Dy5eDw5FwqRTnQeF5Lt
-         P4Ylm1U+w5NC49koCmUe/pII6qAGOhsV+ftf05QMs38nW5Y+OtI7k2izJfwVmAm60BaF
-         DTo6O+ewHdzzhUuhHhCRl76q1VQm2VWrNZwbJG6GXkUr/z6sGHW6J0R8LKz2FWr+Fdpz
-         6M07TsDDqHzyc4rZX3svdCNoNgUXIqnvuA43MPjjdbYcRqxtQkgJpsAflqhZ6FR/kqf2
-         rjJjZih0JuCYgaKt/sHiWKgGfslb8gd2KICU8BjHEuKqTLeayTqMxtMBfDMuzZlrLWOG
-         0FBg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=3hqu+svzVd9ISmoYzAK4HexOUNRCnaJYNRkc+XMVyq0=;
-        fh=j0DfUoG51yBygj0+haCnrdadNRh/nUQ+lvRImpOjRXw=;
-        b=Bpwz0++jin071YwOXpOUdIBYyiEqKAY1mHwv8Js7w7Pgb9Qqtk5WvGqUPB1QGJqMXo
-         uE6PYOSIXw+X54zBkwBmV18WY2xYx00NNLqPe0rXMpHsMlVHjIxyKch2kEu8B2JFqJQf
-         6uS6dTS8lKNd9V+DSCte3QxlfHriOILkTbqZS5Ism/RlYLGbQiuBYq7EvYEp581X7KU2
-         ddLXWyN5+6YLK5TqH/j66pzuVI+6WwZmr3C5Rya65z7h2tCoR1UwoK9nrIBRf0LcRHOL
-         PDT5/hfiBakTWSGC8JZAxG8yH/1r9so1hRp/sxcWLenR4O3lAoNzgWB8TYjCZMZblXK9
-         9T6A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793118479; x=1793723279; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=3hqu+svzVd9ISmoYzAK4HexOUNRCnaJYNRkc+XMVyq0=;
-        b=jwiM3DAC+hzebG0I9bJZcVu3LMVhP2QbElUaz8VKFPLMBFyKHJyLHkO5hK8hYcF3f/
-         p8QkamNQRjQuhCfz9lKtX5rB9C6UFeASgyGvgnQJMEU9KkqidK99pUeJq73MGdztWCpq
-         Xtt9vYT5ybj/pLaVKp9b7sFwFIawpgqX08IUcSLQIFrt6AsK4Qn+AZg6ozk//Q9f2RHR
-         qxpqqlOFDcwIoIOTEkX/uMDCzV0YBAuoE2AGvZdrgPJIASz9rN2XQbjmE+fGk74bAs98
-         f0ZO5O2/cDleMLV7/cUNyBDoRYxVu3wP6KCDHK3CrG50d7W6mmGxUx5DK0gpbbOu0ymR
-         JTpw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793118479; x=1793723279;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3hqu+svzVd9ISmoYzAK4HexOUNRCnaJYNRkc+XMVyq0=;
-        b=uI/7O1Da4THSiKifzj3xNQQ+SD4s2Y24TZDPn7zT6cOlkya6q7JJhAb2aFpHt+2J2P
-         c0aPFQhl90pMl86Ej65oGcyQ3faAgkKGG062kJfdN5xCurDwd0b9I+Yed17/0X1Qig1g
-         p1ZOAzbG7HL3MKKGza7tIM/LkHnyfQ02ZSK906gOcPT+82U9jQ5SQcuwUnjlwYCDFLRz
-         YHfoDyruwbYIkrms7LR0TMVVYWpJqFYfg0MZe1k1ol9q504FMnrt0vvX5hC1z+80aSOb
-         xrx4tPB1X9hUTjv6I2fozZcrKtiqls6+3mrC+LcJtV8z2pyW+9YGpqPhMcNg6oy6fwd9
-         9/9Q==
-X-Forwarded-Encrypted: i=1; AKwUvByNp6gcppkK2xeYy9iznMWkElxD3gfeTjFJEEobbSH6fQ+EZ0Wl+SuYgY8a4XTQiiQPAfDTMsS0sWj4jHE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKhGlZ2pZQW8Tf5IcNk9uj1lzljB84crQtMYjTvRyr8P6Aiqfc1
-	Ysqk5YL7AYdclJqvuleksq+nkjIVTgKQpOe8QBwrDz4NQ1yM2hzls3DhlvZ/2F9nA+vZOBECe6Q
-	mhe1I5oy67DTw7DIUiIPpV8WAgV5pHKbmQwviHgCr
-X-Gm-Gg: AYBFou1xdNLt3lz0aVdM8cgkVltNr/PdjfT8RrrCmzLipoFa0LyVLJQdS1AqAFkRdx4
-	9UHRvmxOlgIQmkTbYY77U+a8nVrtjwE4BGnDSLH1tYh/B61bN2+aaltHN1yMpaD3ybnYPRj2bxW
-	2SHUVQJnBiuXplG6M9/VWcOs9o5Vy316a/5RYZ5snZq7yNeNL2YU68f2DFEO2pIN3n4RoVCUgpr
-	mu3RReCVhPVrwSHZi721h0+WIzeIgDz/46o6kSCzAKXbP1wRBXyzCpFmpk3jLX/WSIL+9zbNBwH
-	IQQsioAPD/cjSewagg4QnTNQdtbeTXZ/cbmd14i6RnRQ81V4PqMd/nlnhqMU9d3JCgETd/QFMOY
-	3mjtHz3ybu66ATbibM8QAIwslI5tCLV5qAUs1tBEUmIqG8RqQVBQRJbg8j6ac+sIV1+0=
-X-Received: by 2002:a05:7022:28f:b0:18a:8164:ce4 with SMTP id
- a92af1059eb24-1a093cd97d4mr8439457c88.0.1793118478203; Tue, 27 Oct 2026
- 09:27:58 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zlR7V3o6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47EAF1F01825;
+	Tue, 27 Oct 2026 16:29:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793118546;
+	bh=N7DaWZuwNR7U+Isl9V7dlYE6u1f8J3FLeM/+jDGgvHg=;
+	h=From:To:Cc:Subject:Date;
+	b=zlR7V3o6ST6I+yYgrjjINv8QcoI42uoE8ZAjXsntDZKkJhSvI+66U4p0pJvVXP2L3
+	 DqT6VOevjsV+bj+CFRSVx+gud1XFoTNKP+wZsOoFZ5NdYNvfHqkjrI/aKf2HmHoskD
+	 0+ibRCLmIbB+LxLVovbRlcoH6XcneFI67bd/sReM=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: dpenkler@gmail.com
+Cc: linux-kernel@vger.kernel.org,
+	Josef Bacik <josef@toxicpanda.com>,
+	stable <stable@kernel.org>,
+	=?UTF-8?q?Dominik=20Karol=20Pi=C4=85tkowski?= <dominik.karol.piatkowski@protonmail.com>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: [PATCH] gpib: tnt4882: set iobase for the ISA and PCMCIA boards
+Date: Tue, 27 Oct 2026 17:29:03 +0100
+Message-ID: <2026102704-deletion-handcart-ee29@gregkh>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,57 +58,111 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261006-kmsan-serie-v1-0-07fa860ef3de@gmail.com> <20261006-kmsan-serie-v1-2-07fa860ef3de@gmail.com>
-In-Reply-To: <20261006-kmsan-serie-v1-2-07fa860ef3de@gmail.com>
-From: Alexander Potapenko <glider@google.com>
-Date: Tue, 27 Oct 2026 17:27:21 +0100
-X-Gm-Features: AclHuK9c8fE28gGKxDufq8O67Wv7DJr-iUBAsIf-87SKf9461Q62BbIKzKxVOkQ
-Message-ID: <CAG_fn=XHDN_zuQxrPEO_-GJTZpgasvYssxfJnxuGh49=FHmCVg@mail.gmail.com>
-Subject: Re: [PATCH 2/2] x86/kmsan: Don't call instrumented code from kmsan_virt_addr_valid()
-To: vrilutza@gmail.com, Ilya Leoshkevich <iii@linux.ibm.com>
-Cc: Marco Elver <elver@google.com>, Dmitry Vyukov <dvyukov@google.com>, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	"H. Peter Anvin" <hpa@zytor.com>, Andrew Morton <akpm@linux-foundation.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Kees Cook <kees@kernel.org>, Borislav Petkov <bp@suse.de>, 
-	kasan-dev@googlegroups.com, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4261; i=gregkh@linuxfoundation.org; h=from:subject:message-id; bh=vKdSMGihiwz2ohQazYZkhKrk5K35JnKtJ86qkNU92Bo=; b=owGbwMvMwCRo6H6F97bub03G02pJDFkPLgacNj3x6NjUtbflLz1KXLLL9pZIRY7I20s8UpN2V WjffXN8UkcsC4MgE4OsmCLLl208R/dXHFL0MrQ9DTOHlQlkCAMXpwBM5LktwzwtRQl2jVzeT4wH C1leya9bZhivV8+w4GbOY+mPvgsqN5R01iXb75DjYnoTCQA=
+X-Developer-Key: i=gregkh@linuxfoundation.org; a=openpgp; fpr=F4B60CC5BF78C2214A313DCB3147D40DDB2DFB29
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 6, 2026 at 8:10=E2=80=AFPM Viorel Cernateanu via B4 Relay
-<devnull+vrilutza.gmail.com@kernel.org> wrote:
->
-> From: Viorel Cernateanu <vrilutza@gmail.com>
+From: Josef Bacik <josef@toxicpanda.com>
 
-CC Ilya, as s390 has a similar problem.
+The fix for the address space mixup split nec7210_priv.iobase, which was
+used for port numbers and for __iomem cookies alike, into iobase and
+mmiobase. In ni_isa_attach_common() and ni_pcmcia_attach() the result of
+ioport_map() now goes to mmiobase, as it should, but nothing assigns iobase
+any more. It stays 0, and three users still rely on it:
 
-> With CONFIG_DEBUG_PREEMPT, a KMSAN kernel hangs silently right after
-> KMSAN is enabled during boot.
->
-> kmsan_virt_addr_valid() calls preempt_disable() and pfn_valid(), and
-> pfn_valid() calls rcu_read_lock_sched(). With CONFIG_DEBUG_PREEMPT both
-> end up in preempt_count_add(), which is instrumented. Its instrumentation
-> looks up metadata, which calls kmsan_virt_addr_valid() again, and so on
-> until the boot stack overflows.
->
-> Use a copy of pfn_valid() that disables preemption with the notrace
-> helpers instead. It is still an RCU-sched read-side critical section,
-> and it avoids the instrumented preemption and RCU/lockdep helpers on
-> this path.
+ - Both functions install nec7210_locking_ioport_read_byte() and
+   nec7210_locking_ioport_write_byte() as the register accessors of the
+   nec7210 library. They do inb() and outb() on iobase + register, that is
+   on ports 0x00 to 0x0e, which belong to the first DMA controller.
+ - Both detach functions call release_region() only if iobase is set. The
+   region is never released, so the board cannot be put online a second
+   time: request_region() fails with -EBUSY until the next boot.
+ - Both detach functions reset the board only if iobase is set.
 
-Instead of forking pfn_valid(), can we factor out the non-locking part
-from the original function?
+Store the port number. The reset uses mmiobase as well, so make it depend
+on that one, and do it in ni_pcmcia_detach() before the interrupt is freed
+and the ports are unmapped, as ni_isa_detach() does. The PCMCIA variant
+requests the whole I/O window of the card but releases a fixed 32 bytes:
+remember the size.
 
-        /* Caller must be in an RCU-sched read-side critical section. */
-        static inline int __pfn_valid(unsigned long pfn) { ...body
-minus RCU... }
-        static inline int pfn_valid(unsigned long pfn)
-        {
-                int ret;
-                rcu_read_lock_sched();
-                ret =3D __pfn_valid(pfn);
-                rcu_read_unlock_sched();
-                return ret;
-        }
+Fixes: baf8855c9160 ("staging: gpib: fix address space mixup")
+Cc: stable <stable@kernel.org>
+Cc: Dave Penkler <dpenkler@gmail.com>
+Cc: "Dominik Karol Piątkowski" <dominik.karol.piatkowski@protonmail.com>
+Cc: "Uwe Kleine-König (The Capable Hub)" <u.kleine-koenig@baylibre.com>
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/gpib/tnt4882/tnt4882_gpib.c | 16 +++++++++-------
+ 1 file changed, 9 insertions(+), 7 deletions(-)
 
-Then we'll be able to call __pfn_valid() from KMSAN.
+diff --git a/drivers/gpib/tnt4882/tnt4882_gpib.c b/drivers/gpib/tnt4882/tnt4882_gpib.c
+index 3cd13f637ed4..3f30812866ca 100644
+--- a/drivers/gpib/tnt4882/tnt4882_gpib.c
++++ b/drivers/gpib/tnt4882/tnt4882_gpib.c
+@@ -46,6 +46,7 @@ struct tnt4882_priv {
+ 	struct mite_struct *mite;
+ 	struct pnp_dev *pnp_dev;
+ 	unsigned int irq;
++	unsigned int iosize;	// size of the PCMCIA I/O window
+ 	unsigned short imr0_bits;
+ 	unsigned short imr3_bits;
+ 	unsigned short auxg_bits;	// bits written to auxiliary register G
+@@ -1066,6 +1067,7 @@ static int ni_isa_attach_common(struct gpib_board *board, const struct gpib_boar
+ 	// allocate ioports
+ 	if (!request_region(iobase, atgpib_iosize, "atgpib"))
+ 		return -EBUSY;
++	nec_priv->iobase = iobase;
+ 
+ 	nec_priv->mmiobase = ioport_map(iobase, atgpib_iosize);
+ 	if (!nec_priv->mmiobase)
+@@ -1106,7 +1108,7 @@ static void ni_isa_detach(struct gpib_board *board)
+ 
+ 	if (tnt_priv) {
+ 		nec_priv = &tnt_priv->nec7210_priv;
+-		if (nec_priv->iobase)
++		if (nec_priv->mmiobase)
+ 			tnt4882_board_reset(tnt_priv, board);
+ 		if (tnt_priv->irq)
+ 			free_irq(tnt_priv->irq, board);
+@@ -1708,8 +1710,6 @@ static void __exit exit_ni_gpib_cs(void)
+ 	pcmcia_unregister_driver(&ni_gpib_cs_driver);
+ }
+ 
+-static const int pcmcia_gpib_iosize = 32;
+-
+ static int ni_pcmcia_attach(struct gpib_board *board, const struct gpib_board_config *config)
+ {
+ 	struct local_info_t *info;
+@@ -1740,6 +1740,8 @@ static int ni_pcmcia_attach(struct gpib_board *board, const struct gpib_board_co
+ 	if (!request_region(curr_dev->resource[0]->start, resource_size(curr_dev->resource[0]),
+ 			    DRV_NAME))
+ 		return -ENOMEM;
++	nec_priv->iobase = curr_dev->resource[0]->start;
++	tnt_priv->iosize = resource_size(curr_dev->resource[0]);
+ 
+ 	nec_priv->mmiobase = ioport_map(curr_dev->resource[0]->start,
+ 					resource_size(curr_dev->resource[0]));
+@@ -1766,14 +1768,14 @@ static void ni_pcmcia_detach(struct gpib_board *board)
+ 
+ 	if (tnt_priv) {
+ 		nec_priv = &tnt_priv->nec7210_priv;
++		if (nec_priv->mmiobase)
++			tnt4882_board_reset(tnt_priv, board);
+ 		if (tnt_priv->irq)
+ 			free_irq(tnt_priv->irq, board);
+ 		if (nec_priv->mmiobase)
+ 			ioport_unmap(nec_priv->mmiobase);
+-		if (nec_priv->iobase) {
+-			tnt4882_board_reset(tnt_priv, board);
+-			release_region(nec_priv->iobase, pcmcia_gpib_iosize);
+-		}
++		if (nec_priv->iobase)
++			release_region(nec_priv->iobase, tnt_priv->iosize);
+ 	}
+ 	tnt4882_free_private(board);
+ }
+-- 
+2.56.0
+
