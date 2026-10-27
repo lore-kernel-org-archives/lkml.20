@@ -1,65 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793079480;
-	b=bE53LArhPkTbAWXyRjxxJVZj8mBR/orWKyNJeeXTelTnXUKnePhm4eDDrYa3fWCx5pIs
-	 O4QOBRectPoUtqnBb1eBIpTdvfKL//dtMta9HTfloLwrMBuJC3kaBwDmzsEtu4hv9wUul
-	 MwDe5KDmW76mPz8N8h0B+nN0Dk4aIIdQal8RhZW3fRQxjSlQtVQHGELRezoxlelA06rwD
-	 Qrd1oVe1x0GmQxmDQI2GntAluGBF/SQJJQFSM/NJvsolO7c5jRw4QlIWhxteDOsa7Vfqh
-	 Cq2IdC/zMLeV2mSEZZxoU04s3JGz5gXEMeMpmY0HbCRMRK6GiQk4ugobj7HknwRuQrA==
+	t=1793079529;
+	b=sizT84ZOHeiYZNRP5ttTRST0Sw6r1SJ4BrYTd5USVl7pha9yy7JFMVoH8xz8PIulRCC5
+	 KOjNcYdGhtFN/Ki1B6Jbq7BrjBUkA9wQbgIR28kp2bVndf6uakA/ZPLec5yRtwFz0alms
+	 IBq9FlwkdQZblRcWQLzTt2G6/g3clI3NlfTTBCuWLDPSnzt8gqeJqBpD3GDULLoBYvJDe
+	 N88zcM/n3+VGNIewz6bVxLE1oyCk96YsepxybJ+YwFhJs3U30NfbCR68iw7YPL1JI4dBR
+	 mZ7IP8G8O5unyfdC6gVgp1yVbH5Xinml4X9HV80fXknEPI1POkx+KR5sSaFAc3Srr6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793079480;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=Nv/lnxPdAL8f7ZwBKC1/UYCMAS+CZk6z6IbxYlcIxfY=;
-	b=oFK7iDkIqzkYKDtQ69nWTyF8+d5dgiZBuHBY1Vncgnn5Pf+1NK09vIZRrP2f9pvBQ0ek
-	 aMRVSiFpc0yo+DabdSKFK6XsSBR5Lt51CvUDSc/AILkcc7eadi4Y2FnQQeYG7CzMSw8AS
-	 fAcLMHkx9Hgsfwcq4msedr91v8dJGMP0cLDTlPICs9Utt/HAHJ4Aeeep1Dh9Hpq4qgXS2
-	 gpaJgPmuRLSbl2f7t9gX9/eKBy5wwlli6PgmNH8Fo535A/JmPtw8oL4NWEsiUTUqEzEA7
-	 yNclSLKVzXF2No6yKCG9YPPN9x+3TQSAce8JM/IczG8QDf9JBKv9ua9ZPnUwZ7nUEjA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793079529;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=EeCv2zoswoi1cyVuV3aMhSAQS6klpYnNlB3thV2Q9FE=;
+	b=aIV+358IENMtIz+d8jytSF3VWAo0NokoPKfm68l34297TKoFfhTjN49MiVvzp0qlDVWa
+	 XVhsoIp97IvI24grp2TSGK1Tosve9qIpli8BYfW3aZ1hZaikDfKQ1hL1eAF0SeRWwWDVO
+	 BWBWh6u0KR0/VXasHB3l4DnWJZQ1M4lg2YusA7CW+GZteVySEqYrZ/72hHG89WGBxEm+q
+	 105uPFLXjdMxqZAbxh7QBbJ6s83kwWd6sn5NEQ6f92VoyOKx2nnM0xsmBVFbW1O++YMbZ
+	 +JaRsk86Wg+xWPeUaGS2gbjAs3rXHbjjwFUMR8s1S+HON0dJiopnbuPhKz4u272ozAw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b="GAu/fsRT";
-	arc=none smtp.remote-ip=198.137.202.133
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=TSkQFWYI;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40A5E606A31A;
-	Tue, 27 Oct 2026 05:37:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40A5E606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DC46606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 05:38:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8DC46606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=GAu/fsRT
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
-	Content-ID:Content-Description:In-Reply-To:References;
-	bh=Nv/lnxPdAL8f7ZwBKC1/UYCMAS+CZk6z6IbxYlcIxfY=; b=GAu/fsRTbB1eellz5tR+Gn9s5k
-	xIiH14IW4fePVO1I9BdkXk3t4tX7Yvmw15sOldvBV11QOqNT1CqBbxOhoMK6z8RLii+hKwEyqzkfE
-	9iXRqjQzJrC7IciBg3r4S/ghzy7Mwzk1oZLVvTQLya8+zPJafGq7xS7bpUK78yskQunzjrDxgsXFJ
-	UyTfFaNJa8C8YIFeZZn3yeQrD18OTClP1ti6bTVxpoC+Umtl63rl8FUNxTAvBUVS52PlJdENw3D0C
-	qLyTsvLC9Fcr8UZNPF6rw0IFa+aCykgGlfsbET846E4Uk6NSgKQkOV4dF/qZ21jIqGuj2LRLdDBZz
-	trTI8prw==;
-Received: from [50.53.43.113] (helo=bombadil.infradead.org)
-	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xLZsi-00000003moe-0ENF;
-	Tue, 27 Oct 2026 05:37:56 +0000
-From: Randy Dunlap <rdunlap@infradead.org>
-To: linux-kernel@vger.kernel.org
-Cc: Randy Dunlap <rdunlap@infradead.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	driver-core@lists.linux.dev,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	linux-doc@vger.kernel.org
-Subject: [PATCH v2] debugfs: clarify return values when disabled
-Date: Mon, 26 Oct 2026 22:37:54 -0700
-Message-ID: <20261027053754.1339833-1-rdunlap@infradead.org>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=TSkQFWYI
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a2072b9832so3095335e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 22:38:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793079527; x=1793684327; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=EeCv2zoswoi1cyVuV3aMhSAQS6klpYnNlB3thV2Q9FE=;
+        b=TSkQFWYIAY24u+ILeLbmhdWwPjIVoVVXpqG5lie4a0TD0iurDBdtWm2LBlRGSeSCZf
+         6QfeRhnWM6Vrj5Ub8z8ZmIrrNgO8EB8XgQo64WPWLLr7G1CU+HjPgI1StMuuSWc0gCLS
+         QDjM9FXGo6H5PRN1URiNXrIGjaTNKQgQgFeEhyPBQUSrnxnfBxdvMGkeV9EQKyhx/6gS
+         ax4CXmlwEya78+lnBJq0AosH+5p/vX5yZclku6vtb5IHoV8C3UAWakPgRaFT+4wBhl9S
+         cO5/j4/Bp36DFC1zXi4hwG83TF++b6LaI9gB6CXf2SPtbCFDEVKglVDCS10L2zm0vUvL
+         2c3g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793079527; x=1793684327;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EeCv2zoswoi1cyVuV3aMhSAQS6klpYnNlB3thV2Q9FE=;
+        b=icwup0SFVfa9NG1hiMvdT/kYfyNm2HZsXRh/ZqxXaI8yaArIuw88RAyUNORfjpj0sv
+         cyKsG2CHwIyDBLkfpnOfoRSlm815BECcMqA2lIR5PgFfa2WcBgBatVmp6wJqUioaJ1vT
+         T7fkX+u8XXSju4YA3xFH6xBL6KnZRtyHiPowIqtYZ2lH1OVyvnpt4KVWaxEvcN2qHiqF
+         +uWpldOQsUc0+diTF/8FiF7hVig9HjoezRQ+txFtdX68inTG5oDmmnkdwJwW9jtE7alc
+         WnXMqHSKeFEw/lXSHjQj0v9PhSY+YDp5qWCEdnAWni7KHak5IS8RSU2ja3gaSg4GIhu1
+         pg2w==
+X-Forwarded-Encrypted: i=1; AKwUvBzTy/66Nib1QG+Qn6JWyB66pM+PWSFTCwG/5aWvUgP8C8fjmyf/kvQxYhC4039p2p1GOtDazX0d3Xn528k=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLFsqFediVz2yLiwjHIkSlURvlbrlyM2YDWZMlwv5www00cX+er
+	NnqBztXow1wF7r/9Vq0e4v37NTyaa3rcHzp02tKsGsTVAabBszeODu7V
+X-Gm-Gg: AYBFou1nna2qWuM3uilMjwjLS4RDPU0dB4GCr+2aYuIsqC+7q5L/zv37E+F/iEVP/gA
+	Oj2u9gioa4s7QkSdJ1VIr15Q+VimqIgOLnr2bnZ0zR0qcnYrM87ktkhhDY5TtuNwNpNszYQNX4u
+	Oq4uKZ2pfVtw+X5Lt1fUJH0kx7tGIOfpdnV6QygpzE2W0ENv/FVb71/G0gzCYa7/m082GnNwYGA
+	AXJm6bYD5Z8mJTJ0AfRaFDj14q0zcIk/1cMapb+1mnZeMVNWpNV6bNZAtxWWMzTd89dHMkhbBlL
+	mu/hNz3znxzHyi9pZJ65dNK1BtzERicOO54jyN4fXMFR+sTy6Kjw1lr0VFstBiPxmek+08E/EVu
+	ls7FTludECmIh1Wy5C0pfJPdsoN/P/upZ7F2/aaYRxSQEWJIJiXE4O3YSuX4RsYAR0H3BvCi/9K
+	ioUcak4+/2MQNaAFfYt1cklH6LIz6CfKhhCzojiVp0nrrIc3pxGRtakLUZoh5NmaOjfxpDOW3jr
+	uk6KvuvJSpBvo/QgaZgHdr9DhZyuwd0FQ3Ih/mCkjnNSagEfGjm
+X-Received: by 2002:a05:600d:849a:20b0:49e:795e:ba89 with SMTP id 5b1f17b1804b1-4a7c3856e2fmr26530125e9.6.1793079526864;
+        Mon, 26 Oct 2026 22:38:46 -0700 (PDT)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3eb8f248sm20057407f8f.6.2026.10.26.22.38.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 22:38:46 -0700 (PDT)
+Date: Tue, 27 Oct 2026 08:38:42 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Abdullah Mohammd Sifat <sifat.yt.2.0c@gmail.com>
+Cc: dan.carpenter@oracle.com, hansg@kernel.org, mchehab@kernel.org,
+	gregkh@linuxfoundation.org, linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] media: atomisp: Fix memory leak in
+ atomisp_alloc_dis_coef_buf
+Message-ID: <auA44kPevsJUudhR@stanley.mountain>
+References: <20261027001940.20565-1-sifat.yt.2.0c@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,170 +97,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261027001940.20565-1-sifat.yt.2.0c@gmail.com>
 
-debugfs can be disabled at kconfig time (# CONFIG_DEBUG_FS is not set)
-or by using "debugfs=off" on the kernel command line.
+On Tue, Oct 27, 2026 at 12:19:40AM +0000, Abdullah Mohammd Sifat wrote:
+> Free the allocated dvs2_coeff memory if ia_css_dvs2_statistics_allocate
+> 
+> fails to prevent a memory leak in the error path.
+> 
+> Signed-off-by: Abdullah Mohammd Sifat <sifat.yt.2.0c@gmail.com>
 
-The return values for some debugfs functions in these 2 cases can be
-different. Describe those differences.
+The commit message says it is a bug but there is no Fixes tag.
 
-No code changes.
+However, it is not a bug because the memory is freed in the caller.
 
-Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
----
-v2: remove one old leftover comment (Danilo)
-    correct return values of some exported functions when debugfs
-      is disabled on the command line (Danilo)
-v1: drop RFC tag in Subject line
+regards,
+dan carpenter
 
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: Danilo Krummrich <dakr@kernel.org>
-Cc: driver-core@lists.linux.dev
-Cc: Jonathan Corbet <corbet@lwn.net>
-Cc: Shuah Khan <skhan@linuxfoundation.org>
-Cc: linux-doc@vger.kernel.org
-
- Documentation/admin-guide/kernel-parameters.txt |    3 +
- Documentation/filesystems/debugfs.rst           |   24 ++++++++++++--
- fs/debugfs/file.c                               |    6 ++-
- fs/debugfs/inode.c                              |   24 +++++++++-----
- include/linux/debugfs.h                         |    5 +-
- 5 files changed, 47 insertions(+), 15 deletions(-)
-
---- linux-next-20261026.orig/Documentation/admin-guide/kernel-parameters.txt
-+++ linux-next-20261026/Documentation/admin-guide/kernel-parameters.txt
-@@ -1205,7 +1205,8 @@ Kernel parameters
- 			        get a -EPERM as result when trying to register files
- 				or directories within debugfs.
- 				This is equivalent of the runtime functionality if
--				debugfs was not enabled in the kernel at all.
-+				debugfs was not enabled in the kernel at all,
-+				except that the latter returns -ENODEV.
- 			Default value is set in build-time with a kernel configuration.
- 
- 	debugpat	[X86] Enable PAT debugging
---- linux-next-20261026.orig/include/linux/debugfs.h
-+++ linux-next-20261026/include/linux/debugfs.h
-@@ -110,8 +110,9 @@ struct dentry *debugfs_create_file_short
-  * you are responsible here.)  If an error occurs, ERR_PTR(-ERROR) will be
-  * returned.
-  *
-- * If debugfs is not enabled in the kernel, the value -%ENODEV will be
-- * returned.
-+ * If debugfs is not enabled in the kernel build, the value -%ENODEV will be
-+ * returned. If debugfs is enabled in the kernel build but is disabled
-+ * on the kernel command line, the value -%EPERM will be returned.
-  *
-  * If fops points to a struct debugfs_short_fops, then simple_open() will be
-  * used for the open, and only read/write/llseek are supported and are proxied,
---- linux-next-20261026.orig/Documentation/filesystems/debugfs.rst
-+++ linux-next-20261026/Documentation/filesystems/debugfs.rst
-@@ -41,7 +41,17 @@ dentry pointer which can be used to crea
- clean it up at the end).  An ERR_PTR(-ERROR) return value indicates that
- something went wrong.  If ERR_PTR(-ENODEV) is returned, that is an
- indication that the kernel has been built without debugfs support and none
--of the functions described below will work.
-+of the functions described below will work. If the kernel was built with
-+debugfs support but it has been disabled by using "debugfs=off" on the
-+kernel command line, ERR_PTR(-EPERM) is returned.
-+
-+.. note::
-+
-+  It's expected that most callers should _ignore_ the errors returned
-+  by this function. Other debugfs functions handle the fact that the "dentry"
-+  passed to them could be an error and they don't crash in that case.
-+  Drivers should generally work fine even if debugfs fails to init or is
-+  disabled.
- 
- The most general way to create a file within a debugfs directory is with::
- 
-@@ -57,7 +67,17 @@ implement the file's behavior.  At a min
- operations should be provided; others can be included as needed.  Again,
- the return value will be a dentry pointer to the created file,
- ERR_PTR(-ERROR) on error, or ERR_PTR(-ENODEV) if debugfs support is
--missing.
-+missing.  If the kernel was built with debugfs support but it has been
-+disabled by using "debugfs=off" on the kernel command line, ERR_PTR(-EPERM)
-+is returned.
-+
-+.. note::
-+
-+  It's expected that most callers should _ignore_ the errors returned
-+  by this function. Other debugfs functions handle the fact that the "dentry"
-+  passed to them could be an error and they don't crash in that case.
-+  Drivers should generally work fine even if debugfs fails to init or is
-+  disabled.
- 
- Create a file with an initial size, the following function can be used
- instead::
---- linux-next-20261026.orig/fs/debugfs/file.c
-+++ linux-next-20261026/fs/debugfs/file.c
-@@ -1144,8 +1144,10 @@ static const struct file_operations fops
-  * you are responsible here.)  If an error occurs, ERR_PTR(-ERROR) will be
-  * returned.
-  *
-- * If debugfs is not enabled in the kernel, the value ERR_PTR(-ENODEV) will
-- * be returned.
-+ * If debugfs is not enabled in the kernel build, the value ERR_PTR(-ENODEV)
-+ * will be returned. If debugfs is enabled in the kernel build but is disabled
-+ * by using "debugfs=off" on the kernel command line, the value ERR_PTR(-EPERM)
-+ * will be returned.
-  */
- struct dentry *debugfs_create_blob(const char *name, umode_t mode,
- 				   struct dentry *parent,
---- linux-next-20261026.orig/fs/debugfs/inode.c
-+++ linux-next-20261026/fs/debugfs/inode.c
-@@ -339,8 +339,10 @@ MODULE_ALIAS_FS("debugfs");
-  * doesn't exist or an error occurs, %NULL will be returned.  The returned
-  * dentry must be passed to dput() when it is no longer needed.
-  *
-- * If debugfs is not enabled in the kernel, the value -%ENODEV will be
-- * returned.
-+ * If debugfs is not enabled in the kernel build, the value ERR_PTR(-ENODEV)
-+ * will be returned. If debugfs is enabled in the kernel build but is disabled
-+ * by using "debugfs=off" on the kernel command line, the value %NULL
-+ * will be returned.
-  */
- struct dentry *debugfs_lookup(const char *name, struct dentry *parent)
- {
-@@ -562,8 +564,10 @@ EXPORT_SYMBOL_GPL(debugfs_create_file_si
-  * you are responsible here.)  If an error occurs, ERR_PTR(-ERROR) will be
-  * returned.
-  *
-- * If debugfs is not enabled in the kernel, the value -%ENODEV will be
-- * returned.
-+ * If debugfs is not enabled in the kernel build, the value ERR_PTR(-ENODEV)
-+ * will be returned. If debugfs is enabled in the kernel build but is disabled
-+ * by using "debugfs=off" on the kernel command line, the value ERR_PTR(-EPERM)
-+ * will be returned.
-  *
-  * NOTE: it's expected that most callers should _ignore_ the errors returned
-  * by this function. Other debugfs functions handle the fact that the "dentry"
-@@ -660,8 +664,10 @@ EXPORT_SYMBOL(debugfs_create_automount);
-  * unloaded, you are responsible here.)  If an error occurs, ERR_PTR(-ERROR)
-  * will be returned.
-  *
-- * If debugfs is not enabled in the kernel, the value -%ENODEV will be
-- * returned.
-+ * If debugfs is not enabled in the kernel build, the value ERR_PTR(-ENODEV)
-+ * will be returned. If debugfs is enabled in the kernel build but is disabled
-+ * by using "debugfs=off" on the kernel command line, the value ERR_PTR(-EPERM)
-+ * will be returned.
-  */
- struct dentry *debugfs_create_symlink(const char *name, struct dentry *parent,
- 				      const char *target)
-@@ -818,8 +824,10 @@ EXPORT_SYMBOL_GPL(debugfs_lookup_and_rem
-  *
-  * This function will return 0 on success and -E... on failure.
-  *
-- * If debugfs is not enabled in the kernel, the value -%ENODEV will be
-- * returned.
-+ * If debugfs is not enabled in the kernel build, the value %-ENODEV
-+ * will be returned. If debugfs is enabled in the kernel build but is disabled
-+ * by using "debugfs=off" on the kernel command line, the value %0
-+ * will be returned.
-  */
- int __printf(2, 3) debugfs_change_name(struct dentry *dentry, const char *fmt, ...)
- {
