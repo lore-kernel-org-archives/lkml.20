@@ -1,90 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793111438;
-	b=VnvzLPAktg7zJIgZog0KBesfe36DvnnaE0Sz1LLOY+wsBgSHAqv/q6Nuou8DQ17wihZK
-	 rlIHtQ24RM/DKT+NLsJAoDpuocDABisktngb5Gowl//OgQ/cB+Sv6vGXnTlSCUFYll9dY
-	 7hY/QV2ZpfXatV8Crl0/m8/w59iPQr6+J1PEQ3ISQ77oZnhAowIzUN/tdN9tFPvs8Suh1
-	 TKZNN0jGOVWmH1voYfaz+O8e0ofR/guaP22cGy5ZE+jmdDC9lHEFeqTheWi+gXeVclPtg
-	 MT58ig3Q1Xi6sCuuEPWQUJ/XhZyDjRpUlof51NQHltblZisbrx+c7b/ZB8RW4uXPxYw==
+	t=1793111443;
+	b=HIAZ/ph+0OIqbDNDEkrivcydkpHbmweZfiCAW5E/Ed8K2lSpHg3p0PVhgb2iBas9N3ZG
+	 WNOjz4VWRoWVLSZ03LQk5GUkhPdDtJoSkXYqIX3GApUReiu6yubnbmqFzrWXwLJa4H5vG
+	 rqOrMUCQUF4nRyUtPm2DylHBy6Ym3qtCJdXuqXLnUxX7BbPngqDftEY54BkAmTbdeDr7Z
+	 vNGqTQch+yj9hMHnMqR6NCp9MNs972Wv+/+n3OKbeeDCe2sGzlNA1b5UXSjyZEfU8DwM4
+	 ybfRgAePBVMmAohY1oSqV/kVNt+FhixKE7JmqWls5RrFC2qnoWzC2s7dNAKfVnQpyKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793111438;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-TM-AS-GCONF:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=lqL3djTG05RoEiIbHOfHo5N44BuyMiU2okbEWsvYjkQ=;
-	b=DFT90Bvw2U/fJZifkAXiA7yCSnMvAQSH3L290650+g39vyQap352ZCOkdepacfKFZO5W
-	 zjnT2iALkOVb8toEoNsTyl6I7oM6TJ0OTni4/ipnsle3AJhmaBqnYrNdDSC+31SQxlrMS
-	 YTJvfY0GK1L7GXjOOmAIv1gnweq1yEvP+jutZjQBam5yXsMBhczinYf7LBbhgLCWmwthJ
-	 f9HkKcQZ/fS7O6QLt/ep/hoBH5r94z8oc8HYltnwqaEoBRgqskGNj9HEPhvc/+eHd042W
-	 qBFzVFw3Co6WZAadNCKmy7X9xHLWhJj1iyyqVW+4omuSBIL8H6WxqeA+cqvJnQ5AFzQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793111443;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-AI-Review-Draft;
+	bh=875c48MPp5tNhjkEcrdTRwt1cE10gnl1fAKukqWl4zY=;
+	b=sOZNjad+ofCQRwS7/lwfeQoiEDeq+H7bFU4nK8yy28dwXfh9/ZVjn6iSZyaB1FP3bHwP
+	 +G1Ek+ppCvYyPda8RBYLz5paIQCJ8NhOACuWjKMwxOvmcXx4sn+A6mVaT/HsapYlkFNJV
+	 0Zd2hMfkjPyOQmeB5TbndFAdYp+LzvgAr2A7vtQYP18XXnzTp9wCGIF6kmuE6x5KssMcV
+	 C8/GPcw3/YEYDIWAIPkhd+lkjc/SDnMcwMpgpQrI1vtSTD3US1diwbMOSOo9DZ/HVtPUd
+	 a+r/beDzjebxIhXbSriRw5m+4i4l2QORCjFKdUhyl52c7RkZHilK03IKmVdYhBmzCrg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=PjCW7Izk;
-	arc=none smtp.remote-ip=148.163.158.5
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oMaG+KSM;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A480606A33A;
-	Tue, 27 Oct 2026 14:30:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A480606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E86D606A33B;
+	Tue, 27 Oct 2026 14:30:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=PjCW7Izk
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69REEHxE2607543;
-	Tue, 27 Oct 2026 14:30:37 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=lqL3djTG05RoEiIbH
-	OfHo5N44BuyMiU2okbEWsvYjkQ=; b=PjCW7IzkYuqf/mg00STmf7ldru0Yl+tQ5
-	aMn5Lnjzn+ixZj08/25Hk+1E9TrzxKDUFzsxvQBFDatdVDpgzaqbb3SB3BObrrPh
-	UQh9JiniaZ+ckcBZLQWpdYkY2ve81Ox2IlOtWdmlcuDMZeqWJGO87fRpRpJoJ70b
-	cyyQ36o92X1dTK/lnEkSX35NcEfYAfPC7Lil3YBRVzekLOhJB/GjGPwflw1+z+wR
-	yoDVXuuv4+TmtiM+dC9uuEkv8ouxcx7S5zOrF/iA03zCKWREWtMNc4dXniiJOfOk
-	owKXY7xt3A/TgjckSNC1RNLoaJMsp/0IIwj1JoEaUauYOJs9usHeA==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hgj3m83b3-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 27 Oct 2026 14:30:36 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69RDoPEB098173;
-	Tue, 27 Oct 2026 14:30:36 GMT
-Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hjvh1rcx9-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 27 Oct 2026 14:30:36 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
-	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69REUWIl46268860
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 27 Oct 2026 14:30:32 GMT
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 0099620040;
-	Tue, 27 Oct 2026 14:30:32 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id C96BB2004D;
-	Tue, 27 Oct 2026 14:30:31 +0000 (GMT)
-Received: from tuxmaker.lnxne.boe (unknown [9.87.85.9])
-	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Tue, 27 Oct 2026 14:30:31 +0000 (GMT)
-From: Heiko Carstens <hca@linux.ibm.com>
-To: Alexander Gordeev <agordeev@linux.ibm.com>,
-        Sven Schnelle <svens@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Ilya Leoshkevich <iii@linux.ibm.com>
-Cc: linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org
-Subject: [PATCH v2 05/10] s390/module: Serialize text patching with text_mutex
-Date: Tue, 27 Oct 2026 15:30:25 +0100
-Message-ID: <20261027143030.3154657-6-hca@linux.ibm.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261027143030.3154657-1-hca@linux.ibm.com>
-References: <20261027143030.3154657-1-hca@linux.ibm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oMaG+KSM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E551E1F031ED;
+	Tue, 27 Oct 2026 14:30:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793111442;
+	bh=875c48MPp5tNhjkEcrdTRwt1cE10gnl1fAKukqWl4zY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=oMaG+KSMuG4kEPWwYTx4NbPcyBiFPOlNPta0gG59lyw/Q0tgutRZJgiE4s6S069qM
+	 DuuUxN1ktE5ccRCZLCFeap9sT5nXL6ZlVNsFxRbLTRmlTXsdLaqzvlsaxx4mkZf/PX
+	 U2uj3q2LfU4AJzBQFoBI4iEJa7h1xcy27SFj/5xq6XRGztX70n1588iqu4H5Q2ja5v
+	 4WzWXBhJ1y3My+1lqVrKCp8oQ67v3pHx7vmvmir5fkltiHVRB/wjaN0WgRHE9jrNUB
+	 8HqmMyOnNLGdM9QraTJ5IKjoqOif+y6oV2+K52FrrnSoH2rJW8gVaqVC71daw2QFI2
+	 MIfnyDNWNqWqQ==
+Date: Tue, 27 Oct 2026 14:30:38 +0000
+From: Lee Jones <lee@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Aaro Koskinen <aaro.koskinen@iki.fi>,
+	Andreas Kemnade <andreas@kemnade.info>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
+	Dmitry Osipenko <digetx@gmail.com>, linux-omap@vger.kernel.org,
+	mfd@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 1/2] mfd: tps65910: Use
+ devm_register_power_off_handler()
+Message-ID: <179206477112.1869456.15984957352026081702@kernel.org>
+References: <20261015102320.23760-1-clamor95@gmail.com>
+ <20261015102320.23760-2-clamor95@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,58 +63,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA1NiBTYWx0ZWRfX1sbAzsCcC0CB
- sKJBtW/0EvnKN5fUzdIR0d93aBKD4yFXCmGUt54hi/GFGT5o2w1CWFWjU3yiCLiCD/heyVVZqMH
- WKCvmHx2+DXWHCqVpsUmFgwmw78qTCA=
-X-Proofpoint-ORIG-GUID: EuTQVsJWdJoaQYIU304Up1pM8D5aWSNA
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA1NiBTYWx0ZWRfXxYPcbdzxaZkP
- 9mA/13swVStjD9gfaRso/RM0ptxLV90YomRontq8ODK+2TCSkgdANY82mWwXe6dEqwOd/R5Tt7r
- qNcO7/IF5Nl3GLTKaWu00mVBI4jH4TrAe/pQGgIVS6ZZHGkkutzZCeO4MllHERlzndYEcs+2GVc
- a9QTb6EI2IY3yoGsRXgvA/sJ28fcceVslR0pz79SCh9uUWsu6w3afg/YNaCkOuhpnv6sHNghgAM
- 1zi9QTQRcDYKK0mbD2UcZykOJ5ofspPmWa7DW6K0PPphg1q8N6TaoHg/kkToujZ7CydQNQ3jJ1R
- ccaJpRrO0NQNZeICfBX+VUKrGaBsHlI4Uwscy2R7sscCuRkl7tSmcAU9xv1Y37Ohk+JOIaVy1Tj
- egNP5T2whNmhsDnFwakY8CIAWxoBBJIW7DHm1Y43o1KOAlWIp+uah/b5/hZUEFhCYdQtVhV92+M
- axZgUiHM4rccOcFAuKA==
-X-Authority-Analysis: v=2.4 cv=G7uJgNk5 c=1 sm=1 tr=0 ts=6ae0b58c cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VnNF1IyMAAAA:8 a=z_AhinQEcSNdGhEKinwA:9
- a=ZXulRonScM0A:10
-X-Proofpoint-GUID: EuTQVsJWdJoaQYIU304Up1pM8D5aWSNA
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-27_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 adultscore=0 impostorscore=0 suspectscore=0 clxscore=1015
- phishscore=0 spamscore=0 malwarescore=0 lowpriorityscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610270056
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261015102320.23760-2-clamor95@gmail.com>
+X-AI-Review-Draft: <20261015102320.23760-2-clamor95@gmail.com>
 
-Acquire text_mutex in apply_relocate_add() in order to serialize text
-patching.
+--- checkpatch.pl: clean (0 issues) ---
 
-This is part of larger series where at the end s390_kernel_write()
-requires that callers hold text_mutex for serialization.
+On Thu, 15 Oct 2026, Svyatoslav Ryhel wrote:
 
-Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
----
- arch/s390/kernel/module.c | 1 +
- 1 file changed, 1 insertion(+)
+> From: Dmitry Osipenko <digetx@gmail.com>
+>
+> Use devm_register_power_off_handler() that replaces global pm_power_off
+> variable and allows to register multiple power-off handlers.
+>
+> Signed-off-by: Dmitry Osipenko <digetx@gmail.com>
+> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> ---
+>  drivers/mfd/tps65910.c | 18 +++++++++++++-----
+>  1 file changed, 13 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/mfd/tps65910.c b/drivers/mfd/tps65910.c
+> index 6243b66b1b6f2..18b76359046b8 100644
+> --- a/drivers/mfd/tps65910.c
+> +++ b/drivers/mfd/tps65910.c
+> @@ -16,6 +16,7 @@
+>  #include <linux/irq.h>
+>  #include <linux/irqdomain.h>
+>  #include <linux/mfd/core.h>
+> +#include <linux/reboot.h>
+>  #include <linux/regmap.h>
+>  #include <linux/mfd/tps65910.h>
+>  #include <linux/of.h>
+> @@ -425,9 +426,9 @@ struct tps65910_board *tps65910_parse_dt(struct i2c_client *client,
+>  }
+>  #endif
+>
+> -static struct i2c_client *tps65910_i2c_client;
+> -static void tps65910_power_off(void)
+> +static int tps65910_power_off(struct sys_off_data *data)
+>  {
+> +	struct i2c_client *tps65910_i2c_client = data->cb_data;
+>  	struct tps65910 *tps65910;
+>
+>  	tps65910 = dev_get_drvdata(&tps65910_i2c_client->dev);
 
-diff --git a/arch/s390/kernel/module.c b/arch/s390/kernel/module.c
-index 9d1f8a50f5a4..79bc80d7bd02 100644
---- a/arch/s390/kernel/module.c
-+++ b/arch/s390/kernel/module.c
-@@ -462,6 +462,7 @@ int apply_relocate_add(Elf_Shdr *sechdrs, const char *strtab,
- 	if (!early)
- 		write = s390_kernel_write;
- 
-+	guard(mutex)(&text_mutex);
- 	return __apply_relocate_add(sechdrs, strtab, symindex, relsec, me,
- 				    write);
- }
+Why not pass 'tps65910' directly as 'cb_data' instead of 'i2c' and save this
+lookup?
+
+> @@ -435,6 +436,8 @@ static void tps65910_power_off(void)
+>  	regmap_update_bits(tps65910->regmap, TPS65910_DEVCTRL,
+>  			   DEVCTRL_DEV_OFF_MASK | DEVCTRL_DEV_ON_MASK,
+>  			   DEVCTRL_DEV_OFF_MASK);
+> +
+> +	return NOTIFY_DONE;
+>  }
+>
+>  static int tps65910_i2c_probe(struct i2c_client *i2c)
+> @@ -501,7 +504,7 @@ static int tps65910_i2c_probe(struct i2c_client *i2c)
+>  	tps65910_ck32k_init(tps65910, pmic_plat_data);
+>  	tps65910_sleepinit(tps65910, pmic_plat_data);
+>
+> -	if (pmic_plat_data->pm_off && !pm_power_off) {
+> +	if (pmic_plat_data->pm_off) {
+>  		/*
+>  		 * The PWR_OFF bit needs to be set separately, before
+>  		 * transitioning to the OFF state. It enables the "sequential"
+> @@ -515,8 +518,13 @@ static int tps65910_i2c_probe(struct i2c_client *i2c)
+>  			return ret;
+>  		}
+>
+> -		tps65910_i2c_client = i2c;
+> -		pm_power_off = tps65910_power_off;
+> +		ret = devm_register_power_off_handler(&i2c->dev,
+> +						      tps65910_power_off, i2c);
+> +		if (ret) {
+> +			dev_err(&i2c->dev,
+> +				"failed to register power-off handler: %d\n", ret);
+> +			return ret;
+> +		}
+
+dev_err_probe()?
+
+>  	}
+>
+>  	ret = devm_mfd_add_devices(tps65910->dev, -1,
+> -- 
+> 2.53.0
+>
+
 -- 
-2.53.0
-
+Lee Jones
