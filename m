@@ -1,52 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=128.30.2.78
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793105536;
-	b=zp2RjtJlNSZkLYKlmf37nL2he5wnXREWaeSK+thQEEZGc8pwWMiAIKZw08n/4JknqTEu
-	 ZdN0l09DkPP36OA1ZV9z5uir9QzmCMJgJHyX6cwb8sOW50CsQqiBn9P2jUmuF3lhuYwa3
-	 wlmRbnd8Xa3otPLw/pMmTlGsAaSE5pFgqf0BG4a9/D3V2i/z2q6GalVovTkGS1wWSy9ni
-	 ZeSIa+2R6pbErgeBbcvTWG4ctMUUMJLIIj8bwwv563PUWsoqSZSoxk9ICgxO337iyd/ff
-	 TkMKtKqYOXwpXy8ue2Uxll/gw8IVymAfG7vzFNsduCfBVwt9t0GXg6RfwSe9Kk0MOgQ==
+	t=1793105545;
+	b=uPSEticeoVNm6Mg/9bXoCLyFvSWDIgZU4prhgjhk4uxI0sdmLanRl4T8ILu0t2euYvtx
+	 d1QS1GdB+wHukGyihEOjcQzsbbqtSMOGbnQKvtCOBAo2tF8UbbMCwgw86y2clIB54YKmh
+	 9mhHfJ7IRjZwlUwn7JcrixGjc8IArISlsorOecawtjpIzg+wrXod/q66FO/A9A/frPeDe
+	 Yb8gGsvv/qAswIB3lUPEKN4byEBv88vspqgZGajLQmMN1OePq5aAKVN7HEDRREdu8FOl1
+	 xQmBjrmosbx7J8mb+VH1P2h4dMtEYJQw8/N+EgpqQvWXPkdFEzvT/0U/U5u3Qa6mQ3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793105536;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=TG52W8e2RYtjGPTZeIzpkudV29Okj7bliXK0rKtc2f4=;
-	b=gBnKNfwgeBTRL05EiSo1wyS9Ky1T1Wkz8XLjpSdTn7ph5Cqfl0hGjvJZn1aSoVlVeCMU
-	 ZwWv4K5ID7gI5kOtJZdOxFiDWrZ/4HOI56aVX5dsOL0lMj6yTisD5aml9Cjv3xlHrFexR
-	 VhObceji04W3nTjRK7MZnZb9shZk4n8u6jzSk/76KBCPvQb95TPtGgb5PXStRQJEsQJL8
-	 ciQhIpGlEbrZtrkrPmSqJFXobzMF1bi2cH0oL3oJIiM+HYofk33PwrWgkI8kVZ/8QnCl9
-	 Gt4gcmcpVvjIJfWzHm1WY244HzKMmc/xSCxOxftWOcbuUkVL0kPJvDouJZTUsMqKQYA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793105545;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
+	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
+	bh=ynl4kyi4smNKu4WVF4RhIfR5dAfqlhGGue2tI306jGE=;
+	b=TRCOLUlAM5rbbpI+FKS9vJoq+pGJeW9VobbyZJMzvR0sQ1VVrg6v/YuxGHwmxCH1JRcF
+	 m3kHSasR6bTGvYWSlu467ZLlPY4Oy1le8PJ6WezCiB+T4GRQmIixU53mWdnv/Ddqry2Z+
+	 lxzHh8kzdc838WeXLUSbswN9+x+fBc+GLBB9inwn6L59wZAshx7x9fuxCZeG0oRTFsqhX
+	 jxNsoCh6U8s9OgECX1Xen3mVULRvwWHKSpJCjU+yIstApce9QK2oMBR+7TLqthfyrBIjP
+	 +7fNqmSmvz419KZkqwR77y+4pFrsOFG0fG/QToo2sgwnXfbzs87JJvSsErhXPuMm6Gw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=csail.mit.edu;
-	spf=pass smtp.mailfrom=csail.mit.edu;
-	arc=none smtp.remote-ip=128.30.2.78
-Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jx2Bbg1+;
+	arc=none smtp.remote-ip=198.175.65.12
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D1D6606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:52:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D1D6606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
-Received: from escalante.csail.mit.edu ([128.52.128.198])
-	by outgoing2021.csail.mit.edu with esmtp (Exim 4.95)
-	(envelope-from <nickolai@csail.mit.edu>)
-	id 1xLgew-00BINw-9J;
-	Tue, 27 Oct 2026 08:52:10 -0400
-From: Nickolai Zeldovich <nickolai@csail.mit.edu>
-To: Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>
-Cc: Alexandre Ghiti <alex@ghiti.fr>,
-	Andy Chiu <tchiu@tenstorrent.com>,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Nickolai Zeldovich <nickolai@csail.mit.edu>
-Subject: [PATCH v1] riscv: uaccess: Report partial progress when the word copy faults
-Date: Tue, 27 Oct 2026 08:52:09 -0400
-Message-ID: <20261027125210.843589-1-nickolai@csail.mit.edu>
-X-Mailer: git-send-email 2.53.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2740F606A31A;
+	Tue, 27 Oct 2026 12:52:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2740F606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jx2Bbg1+
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793105544; x=1824641544;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=BIzV3OYv0D2CnjwPNDXm6UrunwFITB8qninSmEMQYOs=;
+  b=jx2Bbg1+zvzJD4IcaJffJlUBmEliaWSD+dbggNFCQPhOrF7hp0rNBmDM
+   OaZLZDlPfDFBZw2HrBkaQZmJcRSEtcyKB1ZpW+9YL21HHwEvJxI4n2Jag
+   mOLCtx/k6lvEt5BOkc8mW8L6MCXCDwyjLCX5oqre+q31mCRF4Znm0Gozq
+   h/wWk3yK2+uztTIjpZ2/TUq2gxTcN1vwdHwcIc0yuMx/DTuKIcYkeROX9
+   CoF6Wti3fwIEYO2Zdkb5oDFhooaM4thDN0JanjqEQaxliOxoFIidSbiYS
+   qJ7OawxhnD+/BsjwQTF+vrXpLjmukZIIBaop1LgBYRdIM5vwjQysBGEO5
+   Q==;
+X-CSE-ConnectionGUID: fFIxBpp6TNSqR2tmAkAXzQ==
+X-CSE-MsgGUID: MPNw0JSpQBCQ/t9DAJBKBQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1687537"
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="1687537"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 05:52:23 -0700
+X-CSE-ConnectionGUID: K00W0eX6RlS216XLS/KgQg==
+X-CSE-MsgGUID: m+9uZ6GYSrqDFqMYOHeI4Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="4538266"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.30])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 05:52:14 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Tue, 27 Oct 2026 14:52:10 +0200 (EET)
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+    James Hilliard <james.hilliard1@gmail.com>
+cc: Jiri Slaby <jirislaby@kernel.org>, Joshua Rogers <linux@joshua.hu>, 
+    Chris Mason <mason@kernel.org>, Josef Bacik <josef@toxicpanda.com>, 
+    Tony Lindgren <tony@atomide.com>, Rafael Gago Castano <rgc@hms.se>, 
+    Florian Fainelli <f.fainelli@gmail.com>, 
+    Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+    Peter Hurley <peter@hurleysoftware.com>, 
+    Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+    Crescent Hsieh <crescentcy.hsieh@moxa.com>, Frank Li <Frank.Li@nxp.com>, 
+    Sherry Sun <sherry.sun@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+    Pengutronix Kernel Team <kernel@pengutronix.de>, 
+    Fabio Estevam <festevam@gmail.com>, 
+    Manivannan Sadhasivam <mani@kernel.org>, Olof Johansson <olof@lixom.net>, 
+    =?ISO-8859-15?Q?Andreas_F=E4rber?= <afaerber@suse.de>, 
+    Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, 
+    Peter Griffin <peter.griffin@linaro.org>, 
+    Alim Akhtar <alim.akhtar@samsung.com>, 
+    Robert Baldyga <r.baldyga@samsung.com>, 
+    Thomas Abraham <thomas.abraham@linaro.org>, 
+    Kukjin Kim <kgene.kim@samsung.com>, 
+    Patrice Chotard <patrice.chotard@foss.st.com>, 
+    Srinivas Kandagatla <srini@kernel.org>, 
+    Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+    Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+    Andy Shevchenko <andy.shevchenko@gmail.com>, 
+    Vladimir Zapolskiy <vladimir_zapolskiy@mentor.com>, 
+    Al Cooper <alcooperx@gmail.com>, LKML <linux-kernel@vger.kernel.org>, 
+    linux-serial <linux-serial@vger.kernel.org>, Moteen Shah <m-shah@ti.com>, 
+    Kendall Willis <k-willis@ti.com>, stable <stable@kernel.org>
+Subject: Re: [PATCH 15/24] serial: 8250: omap: acquire rx_dma_lock in DMA
+ completion callback
+In-Reply-To: <20261027-tty-llm-v1-15-99b0202ae546@linuxfoundation.org>
+Message-ID: <dbd0a484-7e1f-154b-fafe-acffd3bc4d4f@linux.intel.com>
+References: <20261027-tty-llm-v1-0-99b0202ae546@linuxfoundation.org> <20261027-tty-llm-v1-15-99b0202ae546@linuxfoundation.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,163 +106,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
-write(2) from a buffer whose last 40 readable bytes are followed by an
-unmapped page spins in generic_perform_write(), holding the inode lock,
-until the task is killed, instead of returning 40; read(2) into such a
-buffer fails with -EFAULT.
+On Tue, 27 Oct 2026, Greg Kroah-Hartman wrote:
 
-The unrolled word copy does eight loads before its eight stores, and
-the shift copy loads one word ahead of its store, but their fixups
-count everything from the first destination byte not stored as not
-copied. So a fault in the first block reports that nothing was copied
-although some bytes could be, which uaccess.h does not allow;
-generic_perform_write() then retries forever, as
-fault_in_iov_iter_readable() succeeds for the readable bytes.
+> From: Joshua Rogers <linux@joshua.hu>
+> 
+> The __dma_rx_do_complete() helper requires priv->rx_dma_lock to be held,
+> but the DMA completion callback __dma_rx_complete() calls it without
+> that lock, only holding the UART port lock. This allows a race between
+> the callback and omap_8250_rx_dma_flush() which properly holds
+> rx_dma_lock, leading to concurrent tty_insert_flip_string() calls that
+> can corrupt flip-buffer state.
 
-Make those fixups finish the copy a byte at a time from the first byte
-not stored; the byte copy's fixup then returns the exact count.
+When the commit message mentions flush and buffer corruption, I 
+immediately ask why James Hilliard needs so many lines to fix the flush 
+issues [1] while this change just wraps one call with a lock?? I'd tend to 
+think this change lacks most of the understanding for the relevant problem 
+space.
 
-Reproduced on riscv64 under QEMU with write(2) to tmpfs and ramfs; the
-patched kernel returns 40.
+I think this should be deferred to be part of James' series.
 
-Fixes: 4b05b993900d ("riscv: uaccess: Return the number of bytes effectively not copied")
-Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
----
+[1] https://lore.kernel.org/linux-serial/20261024-submit-serial-8250-dma-cancel-v1-v6-5-6f366591f566@gmail.com/
 
-Notes:
-    This patch was prepared with the help of an AI tool.
-    
-    The scalar copy also runs when the vector copy is in use: for copies
-    below riscv_v_usercopy_threshold and for the rest of a vector copy that
-    faulted. Under QEMU -cpu max a 4096-byte write(2) from the buffer below
-    hangs as well.
-    
-    Reproducer (riscv64, no privileges; the directory is on ramfs or tmpfs):
-    
-      gcc -O2 -o uaccess-progress uaccess-progress.c && ./uaccess-progress /tmp
-    
-    Before (mainline d135ab453a74, defconfig, QEMU -cpu max):
-    "read:  -1 (expected 40)", then the write spins in the kernel until the
-    alarm kills it ("Alarm clock"). After: "read:  40 (expected 40)" and
-    "write: 40 (expected 40)".
-    
-      /*
-       * read(2) and write(2) of 100 bytes from a buffer with 40 bytes before an
-       * unmapped page: both must return 40.
-       * Usage: uaccess-progress <dir on ramfs or tmpfs>
-       */
-      #include <fcntl.h>
-      #include <stdio.h>
-      #include <string.h>
-      #include <sys/mman.h>
-      #include <unistd.h>
-    
-      int main(int argc, char **argv)
-      {
-      	long pg = sysconf(_SC_PAGESIZE);
-      	char path[256], *p;
-      	ssize_t r;
-      	int fd;
-    
-      	snprintf(path, sizeof(path), "%s/uaccess-progress", argc > 1 ? argv[1] : "/tmp");
-      	p = mmap(NULL, 2 * pg, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-      	if (p == MAP_FAILED || munmap(p + pg, pg))
-      		return 1;
-      	memset(p, 'x', pg);
-      	fd = open(path, O_RDWR | O_CREAT | O_TRUNC, 0600);
-      	if (fd < 0 || pwrite(fd, p, pg, 0) != pg)
-      		return 1;
-    
-      	r = pread(fd, p + pg - 40, 100, 0);
-      	printf("read:  %zd (expected 40)\n", r);
-      	fflush(stdout);
-    
-      	alarm(5);	/* the unpatched kernel never returns: "Alarm clock" */
-      	r = pwrite(fd, p + pg - 40, 100, pg);
-      	printf("write: %zd (expected 40)\n", r);
-      	return 0;
-      }
+> Acquire rx_dma_lock around the call,
+> matching the established lock ordering (port lock then rx_dma_lock).
+>
+> Cc: Jiri Slaby <jirislaby@kernel.org>
+> Cc: Moteen Shah <m-shah@ti.com>
+> Cc: Kendall Willis <k-willis@ti.com>
+> Cc: Frank Li <Frank.Li@nxp.com>
+> Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> Cc: stable <stable@kernel.org>
+> Signed-off-by: Joshua Rogers <linux@joshua.hu>
+> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> ---
+>  drivers/tty/serial/8250/8250_omap.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/drivers/tty/serial/8250/8250_omap.c b/drivers/tty/serial/8250/8250_omap.c
+> index 07ebed6ac6c9..0afd648733da 100644
+> --- a/drivers/tty/serial/8250/8250_omap.c
+> +++ b/drivers/tty/serial/8250/8250_omap.c
+> @@ -975,7 +975,9 @@ static void __dma_rx_complete(void *param)
+>  	if (dmaengine_tx_status(dma->rxchan, dma->rx_cookie, &state) != DMA_COMPLETE)
+>  		return;
+>  
+> +	spin_lock(&priv->rx_dma_lock);
+>  	__dma_rx_do_complete(p);
+> +	spin_unlock(&priv->rx_dma_lock);
+>  	if (priv->throttled)
+>  		return;
 
- arch/riscv/lib/uaccess.S | 29 ++++++++++++++++++++++-------
- 1 file changed, 22 insertions(+), 7 deletions(-)
 
-diff --git a/arch/riscv/lib/uaccess.S b/arch/riscv/lib/uaccess.S
-index cf8586a937de8..99886ab86802e 100644
---- a/arch/riscv/lib/uaccess.S
-+++ b/arch/riscv/lib/uaccess.S
-@@ -88,9 +88,9 @@ SYM_FUNC_START(fallback_scalar_usercopy_sum_enabled)
- 	beq	a0, t1, .Lskip_align_dst
- 1:
- 	/* a5 - one byte for copying data */
--	fixup lb      a5, 0(a1), 10f
-+	fixup lb      a5, 0(a1), 11f
- 	addi	a1, a1, 1	/* src */
--	fixup sb      a5, 0(a0), 10f
-+	fixup sb      a5, 0(a0), 11f
- 	addi	a0, a0, 1	/* dst */
- 	bltu	a0, t1, 1b	/* t1 - start of aligned dst */
- 
-@@ -169,7 +169,7 @@ SYM_FUNC_START(fallback_scalar_usercopy_sum_enabled)
- 	sub	t4, a5, t3
- 
- 	/* Load the first word to combine with second word */
--	fixup REG_L   a5, 0(a1), 10f
-+	fixup REG_L   a5, 0(a1), 12f
- 
- 3:
- 	/* Main shifting copy
-@@ -181,11 +181,11 @@ SYM_FUNC_START(fallback_scalar_usercopy_sum_enabled)
- 
- 	/* At least one iteration will be executed */
- 	srl	a4, a5, t3
--	fixup REG_L   a5, SZREG(a1), 10f
-+	fixup REG_L   a5, SZREG(a1), 12f
- 	addi	a1, a1, SZREG
- 	sll	a2, a5, t4
- 	or	a2, a2, a4
--	fixup REG_S   a2, 0(a0), 10f
-+	fixup REG_S   a2, 0(a0), 13f
- 	addi	a0, a0, SZREG
- 	bltu	a0, t1, 3b
- 
-@@ -203,16 +203,31 @@ SYM_FUNC_START(fallback_scalar_usercopy_sum_enabled)
- 	 */
- 	bgeu	a0, t0, .Lout_copy_user  /* check if end of copy */
- 4:
--	fixup lb      a5, 0(a1), 10f
-+	fixup lb      a5, 0(a1), 11f
- 	addi	a1, a1, 1	/* src */
--	fixup sb      a5, 0(a0), 10f
-+	fixup sb      a5, 0(a0), 11f
- 	addi	a0, a0, 1	/* dst */
- 	bltu	a0, t0, 4b	/* t0 - end of dst */
- 
- .Lout_copy_user:
- 	li	a0, 0
- 	ret
-+
-+	/*
-+	 * A fault in the word or shift copy: redo the rest a byte at a time
-+	 * from the first dst byte not stored, so that every byte before the
-+	 * faulting one is copied and counted.
-+	 */
-+#if !defined(CONFIG_HAVE_EFFICIENT_UNALIGNED_ACCESS)
-+13:	/* shift copy store: a1 is already one word ahead */
-+	addi	a1, a1, -SZREG
-+12:	/* shift copy load: the src of a0 is a1 + a3 */
-+	add	a1, a1, a3
-+#endif
- 10:
-+	mv	t0, t5
-+	j	.Lbyte_copy_tail
-+11:
- 	sub a0, t5, a0
- 	ret
- SYM_FUNC_END(fallback_scalar_usercopy_sum_enabled)
 
-base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
 -- 
-2.53.0
+ i.
 
