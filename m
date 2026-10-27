@@ -1,138 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793133572;
-	b=nlX3/EtxLRU4pTfcdav6TO68PARUK3Ojn78R28nafzHhjPHS3i6xjl9Jhq7Du9A766ZX
-	 2KVPDhEuhyGh+q7V1QozrQ4yBTvgiHSdK1Vn0B1bau6UyzDP5XrvUI5U10AZazb2fF2YI
-	 7RtJcv7MBzMDCaXI/7f0DmshOPUgAo11fnHSWfGFdukL/TPfU4UdPsDBcgST848I0ZXJ3
-	 FUmLDBAXo8ktqbMZvDaeDk1ptljLTSobIqv5Y/RoyQvJIfA4ds7ushEbk+yzy9nzeiOfW
-	 tEGNWvtp97XyV4Oh2DoEUK3PmXJw+F3SVoZsetkjAhNNs1k2/KKIx//pKlPUg0f5E8g==
+	t=1793133585;
+	b=VBzDKVOYk3xCJ7rTylJAGr0LskBIhjUmlkzhHhqEjsksS7WaUGMtcLMBR8wpODXnGVhP
+	 Ai9yj4ZTbv79mQx7Orwj/PhYORxDwTpGeTgH0mO5smJgoQ88hfXL/tt/C6WftzR0UTFsy
+	 RZpQTj74zm4kM8JA5A6GQkA5l2/XYEzoWb/61thYXhTG9TJV2NlQB82+oHivPNO5x6ngw
+	 lqwoiXxA2BZzV/WG4OQSttn2bseAKLQ5ff3NGwbNPRUThfuf0DNIG41qUi44jFNXFI+U0
+	 FGcm505rN9xaPFAtv2fr+D2MD+2oDkF7ifFOiw2upJITe9FwgEQ0Cf+YtROr4FOoyxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793133572;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=roOwYu0f5KwBgODRuBr3gTl9MLGpmNzor9SYb28//4o=;
-	b=TMq11zSYjtdtBdSAIlgmHxhomWzQBAouXfebwfL0mwbscD0e4A2VDJb+7keeNvaEtKRu
-	 XSTi9eDydcdqaXis6fanrX2E7O/XLJ2GCzXtxmgePtq70K6Lmj4EKcCAkozjnjkv9lPx1
-	 Bk58p1CEvgslqmz2xGNWSA1PHHtVaS2YQb0mjGgb3HpIFLP4eF/QD/RPcmKfIs+JJeUFw
-	 ccFis770xLTXH+AbYPSYJl1w3w1mOPPXuOnx7q56Iki4R2uXcm7F5ZnhEVgacTwmN1noZ
-	 vxpRiam/65Mf9iVtBHXfyFAKQJwdq4GJO+KQmM0/bJfgqv6xs/6uaXH5e3WInwxtIJQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793133585;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Stat-Signature:X-Rspamd-Server:
+	 X-Rspamd-Queue-Id:X-Spam-Status:X-Session-Marker:X-Session-ID:
+	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
+	bh=PU/57JgArN8vZg/+OmfFVNbEDBtbhMB2t+hfWrt0DCk=;
+	b=a+WuXbmAVX0xTxz+o6XaGAnrVKExZHtlRtrOZrl7/Yymm56x3n5hqhpVNsyeWeBXMIz2
+	 7RWf63YYZJaWSludOI5b7wILu2smqbbpelTPOjhyhozesE+chljHyeEDAYvA0fermtpmH
+	 LGWEnFOk6gzVDyavOCnb+rcFLuYedR/Lpu37ixG3wdJ+ZhsqfN+DOewLx9Fy/dvnI7GqT
+	 0LG4A2mAgPxlGQh/x3/uGVRDs+esWMaoeS8HQPdUS5q7Hq9kFh1azoXvnjNsdj3Swhxiy
+	 Cqv4n/hoYGfEIc0bxXpDSMIOgqOqbAxHJ75/iu5ihFoNU26a1jciq93DP1dGLHEtDcw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=akK1+Pw6;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=Yud68Rxl;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dmarc=pass header.from=goodmis.org;
+	spf=pass smtp.mailfrom=goodmis.org;
+	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=X6TQOCuX;
+	arc=none smtp.remote-ip=216.40.44.16
+Received: from relay.hostedemail.com (smtprelay0016.hostedemail.com [216.40.44.16])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49254606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 20:39:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49254606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEF64606A322;
+	Tue, 27 Oct 2026 20:39:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CEF64606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=akK1+Pw6;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=Yud68Rxl
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793133571;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=roOwYu0f5KwBgODRuBr3gTl9MLGpmNzor9SYb28//4o=;
-	b=akK1+Pw6QAhpkcxtlACExkkdPBQa023n24AZ7US++Mz705Iu3vo+9YZJZPKDWtQNE98RpT
-	4mhHalLOuPoBzFxX0fsOK0RJr1ZFmQmYctf9yuxGMPltIChuWxw0KoapX9NRCDVqsSkpe/
-	B+g+McnWvhefWkzsq9iounxCS9miPkw=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-66-DSUT5Za0MpeINgBBySNapg-1; Tue, 27 Oct 2026 16:39:29 -0400
-X-MC-Unique: DSUT5Za0MpeINgBBySNapg-1
-X-Mimecast-MFC-AGG-ID: DSUT5Za0MpeINgBBySNapg_1793133569
-Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-48afcecb035so75039f8f.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 13:39:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793133569; x=1793738369; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=roOwYu0f5KwBgODRuBr3gTl9MLGpmNzor9SYb28//4o=;
-        b=Yud68RxltWRXbksRawyGLsb9m5yTw4huJO/PzLPdrZpZctGkEvhppeJwqJ1JGyIm2Y
-         8Zkx48VRjl7Q1u2T6tsOshUrqQdMMtvOGB4Val+ifVU1cOckruygN4ufvG167mQzDrke
-         O/sy/P3XZBT8Dnhtri/JXdmEDPuucApXrpaDPhRZCf854Yie7+wdS48Z5/S0uyJDKcxW
-         0MG00dCFI/HI5RNTGpubqNEhxNj/fJWw68UHmZEeu9ybIjU8U1ACH7lSC2NoetKvZdvG
-         pNYa4LXIZlklsE7YxLzOl+d+3Rm047m45KLnZnxn9WfYe4f9FAeIpOqkp80iXke3MKYD
-         Iz8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793133569; x=1793738369;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=roOwYu0f5KwBgODRuBr3gTl9MLGpmNzor9SYb28//4o=;
-        b=K7pMAn7huhSmkGgeJQ6CAM7LiakVKIpSGGYpZlMhlLltdfCG6tS+iYJriUO1jzBZ7d
-         SyEKBETDgxXRs/A/x+oTC4aW2VYTmIf1yg84V4aDobHIPEwMvFrT9USZPf/71QD1Q3iH
-         wAgA9Si0UWMTKSDmL5uvy0HLyvsEsrpLSsU70hC7huNp82uSQC6oI7r2RGPNnHg2s0ly
-         wh1sA4eUebqEQ4Xxn2e1aKx1PgNwvxEcP68wZxgdyWetavPmWRapXAu5SSRTkA0Gv/Sf
-         5C34vZe1MuAfdvH26PfhW1o+9y0whOUAsI1AQn7m+FFbcJNyNGMdBB9pfNHzB5ph8QLk
-         im1w==
-X-Forwarded-Encrypted: i=1; AKwUvBwL+Duo1NZ8hvkjtBe3HzIT3ZkvWEM586wcWaEUVbZM/7W5euaeJTi6pQQKWLelF6A618aHXPQsHeTGY0o=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI7HvEOMNErMTg7IxmJGTqgL1dWNpz9TiTEXfFU/HvHyjWedEeI
-	bnV9FS7mKGvL5pzcG65kercldIgnbRr+uYd6vAxKu+RZ3ffukbdduOIrljmeQofgzT+1gNvuKzq
-	F/JUlbzvJut3Oj+AKsEEOiJJeQPr4LcBrdOhCwElTJoW6a/YRISOWh9Pu1ZY50yOrBw==
-X-Gm-Gg: AYBFou3c11jlPp0ckAE0dJyrGThDqXMFok1UFuZHv06rAWWHpNlpP7sP2qubVdXTt+b
-	fokGe3aaSki9bswagTEnSElWDXX8YbVoUimfpQe+x0SXU9acISwec9EJkFN6aKhEXg4RTi1wfFB
-	1SFWMs5OrV4GsyPcLvCBy7O/Lkbjr7bbnliC7jq80bMrI+4uGgq6PbB7erufTSOdj5z+nhFbghX
-	Ui4Tj2L+VhiRlUrf3CpJQLDWkxkL55cy8EctmnkjByP86WYwZRDsdkxHY6D/Nin7Fu9nTEVqW/B
-	BO8kRmCNJcWOUdgpcOHY9NcazIu7G2de3azwrSuDS3Kabdtgu0JcV/1ub/nTk32ANMI=
-X-Received: by 2002:a05:6000:60f:b0:48e:850:c0b7 with SMTP id ffacd0b85a97d-48e5d28705fmr1693112f8f.1.1793133568610;
-        Tue, 27 Oct 2026 13:39:28 -0700 (PDT)
-X-Received: by 2002:a05:6000:60f:b0:48e:850:c0b7 with SMTP id ffacd0b85a97d-48e5d28705fmr1693005f8f.1.1793133567964;
-        Tue, 27 Oct 2026 13:39:27 -0700 (PDT)
-Received: from redhat.com ([2a0d:6fc0:1536:fc00:b838:383:1c7:6e81])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecdd5b3sm24553225f8f.53.2026.10.27.13.39.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 13:39:24 -0700 (PDT)
-Date: Tue, 27 Oct 2026 16:39:18 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Kevin Loughlin <kevinloughlin@google.com>
-Cc: David Hildenbrand <david@kernel.org>, Jason Wang <jasowangio@gmail.com>,
-	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	Ard Biesheuvel <ardb@kernel.org>, Kiryl Shutsemau <kas@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Tom Lendacky <thomas.lendacky@amd.com>,
-	Ashish Kalra <ashish.kalra@amd.com>,
-	Michael Roth <michael.roth@amd.com>,
-	Rick Edgecombe <rick.p.edgecombe@intel.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Brendan Jackman <brendan.jackman@linux.dev>,
-	Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
-	Alexander Duyck <alexanderduyck@fb.com>,
-	virtualization@lists.linux.dev, linux-coco@lists.linux.dev,
-	linux-efi@vger.kernel.org, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Sidharth Telang <sidtelang@google.com>,
-	Punit Salian <psalian@google.com>, Peter Gonda <pgonda@google.com>,
-	Ackerley Tng <ackerleytng@google.com>,
-	Jacky Li <jackyli@google.com>,
-	Steve Rutherford <srutherford@google.com>,
-	David Skidmore <davidskidmore@google.com>
-Subject: Re: [PATCH 00/13] virtio_balloon, efi/unaccepted: support memory
- ballooning and free page reporting in CoCo guests
-Message-ID: <20261027163814-mutt-send-email-mst@kernel.org>
-References: <20261027025616.1632690-1-kevinloughlin@google.com>
- <20261027051245-mutt-send-email-mst@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=X6TQOCuX
+Received: from omf10.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay10.hostedemail.com (Postfix) with ESMTP id AC9B1C0AD2;
+	Tue, 27 Oct 2026 20:39:36 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf10.hostedemail.com (Postfix) with ESMTPA id E53A032;
+	Tue, 27 Oct 2026 20:39:32 +0000 (UTC)
+Date: Tue, 27 Oct 2026 16:39:29 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Harry Yoo <harry@kernel.org>
+Cc: Sean Christopherson <seanjc@google.com>, Hillf Danton
+ <hdanton@sina.com>, Boqun Feng <boqun@kernel.org>, syzbot
+ <syzbot+f11512d1e5878ba5e60e@syzkaller.appspotmail.com>,
+ kvm@vger.kernel.org, linux-kernel@vger.kernel.org, Tetsuo Handa
+ <penguin-kernel@i-love.sakura.ne.jp>, syzkaller-bugs@googlegroups.com,
+ Vlastimil Babka <vbabka@kernel.org>, Andrew Morton
+ <akpm@linux-foundation.org>, Hao Li <hao.li@linux.dev>, Christoph Lameter
+ <cl@gentwo.org>, David Rientjes <rientjes@google.com>, Roman Gushchin
+ <roman.gushchin@linux.dev>, linux-mm@kvack.org, Sebastian Andrzej Siewior
+ <bigeasy@linutronix.de>, Clark Williams <clrkwllms@kernel.org>,
+ linux-rt-devel@lists.linux.dev
+Subject: Re: [syzbot] [kvm?] WARNING: locking bug in __refill_objects_node
+Message-ID: <20261027163929.2bb28d5b@gandalf.local.home>
+In-Reply-To: <auDvUyfzg6nLtVox@thinkstation>
+References: <6adf2939.67317f00.38c4bc.00ae.GAE@google.com>
+	<20261026224305.1254-1-hdanton@sina.com>
+	<auCucDdZb8mig7UZ@google.com>
+	<auDvUyfzg6nLtVox@thinkstation>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -142,75 +71,202 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261027051245-mutt-send-email-mst@kernel.org>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Stat-Signature: ye9ao4pn419nxzskegrekw8egaj54xaj
+X-Rspamd-Server: rspamout08
+X-Rspamd-Queue-Id: E53A032
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX19Ldja3aL00IVo0m19FVtsYl3nWaEoYns4=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=PU/57JgArN8vZg/+OmfFVNbEDBtbhMB2t+hfWrt0DCk=; b=X6TQOCuX6HY8UuLPJKhZELCrhP44xJqMxzfzL2+ztGf3IByei8fpiiT1ZEws9aWOLnW8kSkpa0UjfCPFcyWg9jpmR3F40c11qrutkSjoEcbAqlr8jfKEayHwf/xdt8rWDLtuS1DAwSqBSUG2rZm0ZfNag49zetLEpH83o+XiZgg=
+X-HE-Tag: 1793133572-819488
+X-HE-Meta: U2FsdGVkX1871MrZb0tFG/W2SlYb1SjhIrGoSAvboTl6u8SaPNgiz5BOiVch1cvc0Qbf4ADrK5lONedBMZm25LrUJz8QavUN1j5JXBAE7n+VSxahxbdOqagmMhZqQrsP6uPSodnDGcVrfOKIomnCaeotGRJOjK8HNkD25W+2YwtKH1wPqFVI8B1wfX4bhVjz71mVKzXoE+cfnAQHjgUba4+o3mDe/0lRn7D6pdJ+Jte1wwdlNCMhxaCNzrE8SofbaYxvrsl/8k+hbAQZ8+7QJGZI5XlRMfLp2izbfp6vMhqBGfhKtSQUUPw3Qp0gKV+cxeLwP+ilCnZKrgYqG3iqTSuxSYBL0JB5yJrR47ClhmGqs6SA4ZLrbnzFjhd/50EKOHuJ1sGvdMF747dl2CjBIRkE1SP49IsLg/5I/TnsbnHpK2wFU3qr7YFO+ueri1TgRNADnIF/OuBMS04xTdprp6HkOIt0fDmam8S09544yNE=
 
-On Tue, Oct 27, 2026 at 06:29:35AM -0400, Michael S. Tsirkin wrote:
-> On Tue, Oct 27, 2026 at 02:56:03AM +0000, Kevin Loughlin wrote:
-> > This series enables virtio-balloon free page reporting and memory balloon
-> > inflation/deflation in Confidential Computing (CoCo) guests, starting
-> > with architectural hooks implemented for AMD SEV variants, in order to
-> > support dynamic CoCo guest resizing.
+On Tue, 27 Oct 2026 18:48:28 +0000
+Harry Yoo <harry@kernel.org> wrote:
+
+> [+Cc RT folks]
+> 
+> On Tue, Oct 27, 2026 at 07:00:16AM -0700, Sean Christopherson wrote:
+> > +slub folks
 > > 
-> > Today, memory ballooning and free page reporting are essentially unusable
-> > in CoCo guests due to three main roadblocks:
+> > On Tue, Oct 27, 2026, Hillf Danton wrote:  
+> > > Ask the locking people to shed light on the warning.  
+> > 
+> > get_partial_node_bulk() is waiting on a non-raw spinlock while in hard IRQ context,
+> > and it looks like __refill_objects_node() would do the same later on.  On PREEMPT_RT,
+> > those spinlocks become sleepable locks, which is what triggers the splat.
+> > 
+> > The alloction coming from KVM-as-a-guest code is GFP_ATOMIC, so I think that wonky
+> > code is fine.  
 > 
-> 
-> For me, the bigger question is not whether we can, but whether we
-> should. Considerations I would like to see addressed:
-> 
-> Security, e.g.: does knowing which memory is free leak information from
-> the guest? If no, why not?
-> Consider CONFIG_SHUFFLE_PAGE_ALLOCATOR, RANDSTRUCT, etc.
-> 
-> correctness, e.g.:  Linux has init on free (and default on windows), if
-> initialized pages are dropped and host can not be trusted, they have to be
-> re-initialized. Is this handled? I don't see it in code.
-> 
-> Also, performance, e.g.: How much does this re-initialization cost?
-> 
-> Management: it was simple with balloon off unconditionally.
-> Now we are in murkier waters with various features offering
-> various performance/security tradeoffs.
-> What if some guests want the tradeoffs but others don't?
-> 
-> Documentation: for all of the above.
-> 
-> -- 
-> MST
+> But memory allocation w/ GFP_ATOMIC is fine only on non-RT?
 
-And to give this a bit more perspective, I present:
+Correct. GFP_ATOMIC is meaningless on RT. It still cannot be called with
+preemption disabled. Most places that disable preemption in the non-RT case
+do not disable it in the RT case. For example, spin_lock() disables
+preemption on non-RT but does not in RT. Same for interrupt handlers, as in
+RT interrupt handlers are run in task context.
 
-commit ab676b7d6fbf4b294bf198fb27ade5b0e865c7ce
-Author: Kiryl Shutsemau <kas@kernel.org>
-Date:   Mon Mar 9 23:11:12 2015 +0200
+That is, in RT only "special" places disable preemption for real.
 
-    pagemap: do not leak physical addresses to non-privileged userspace
-    
-    As pointed by recent post[1] on exploiting DRAM physical imperfection,
-    /proc/PID/pagemap exposes sensitive information which can be used to do
-    attacks.
-    
-    This disallows anybody without CAP_SYS_ADMIN to read the pagemap.
-    
-    [1] http://googleprojectzero.blogspot.com/2015/03/exploiting-dram-rowhammer-bug-to-gain.html
-    
-    [ Eventually we might want to do anything more finegrained, but for now
-      this is the simple model.   - Linus ]
-    
-    Signed-off-by: Kirill A. Shutemov <kirill.shutemov@linux.intel.com>
-    Acked-by: Konstantin Khlebnikov <khlebnikov@openvz.org>
-    Acked-by: Andy Lutomirski <luto@amacapital.net>
-    Cc: Pavel Emelyanov <xemul@parallels.com>
-    Cc: Andrew Morton <akpm@linux-foundation.org>
-    Cc: Mark Seaborn <mseaborn@chromium.org>
-    Cc: stable@vger.kernel.org
-    Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
+> 
+> >From the documentation:  
+> https://docs.kernel.org/core-api/real-time/differences.html#memory-allocation
+> > The memory allocation APIs, such as kmalloc() and alloc_pages(),
+> > require a gfp_t flag to indicate the allocation context.
+> > On non-PREEMPT_RT kernels, it is necessary to use GFP_ATOMIC when
+> > allocating memory from interrupt context or from sections where
+> > preemption is disabled. This is because the allocator must not
+> > sleep in these contexts waiting for memory to become available.  
+> 
+> Here it mentions GFP_ATOMIC allocations in preemption disabled
+> contexts on non-RT, and...
+> 
+> > However, this approach does not work on PREEMPT_RT kernels.
+> > The memory allocator in PREEMPT_RT uses sleeping locks internally,
+> > which cannot be acquired when preemption is disabled.  
+> 
+> it says we shoud not allocate memory in such a context on RT?
+> 
+> > Fortunately,
+> > this is generally not a problem, because PREEMPT_RT moves most contexts
+> > that would traditionally run with preemption or interrupts disabled
+> > into threaded context, where sleeping is allowed.  
+> 
+> Not sure if this applies here as I don't understand what's
+> going in in KVM world.
+> 
+> > > > Date: Mon, 26 Oct 2026 03:19:37 -0700	[thread overview]
+> > > > Hello,
+> > > > 
+> > > > syzbot found the following issue on:
+> > > > 
+> > > > HEAD commit:    c03c1a14507d Linux 7.3
+> > > > git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+> > > > console output: https://syzkaller.appspot.com/x/log.txt?x=128d8ca5580000
+> > > > kernel config:  https://syzkaller.appspot.com/x/.config?x=129d675874dbf896
+> > > > dashboard link: https://syzkaller.appspot.com/bug?extid=f11512d1e5878ba5e60e
+> > > > compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+> > > > C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=168d8ca5580000
+> > > > 
+> > > > IMPORTANT: if you fix the issue, please add the following tag to the commit:
+> > > > Reported-by: syzbot+f11512d1e5878ba5e60e@syzkaller.appspotmail.com
+> > > > 
+> > > > =============================
+> > > > [ BUG: Invalid wait context ]
+> > > > syzkaller #0 Tainted: G S                 
+> > > > -----------------------------
+> > > > syz-executor177/6041 is trying to lock:
+> > > > ffff88801d040618 (&n->list_lock){-.-.}-{3:3}, at: get_partial_node_bulk mm/slub.c:3831 [inline]
+> > > > ffff88801d040618 (&n->list_lock){-.-.}-{3:3}, at: __refill_objects_node+0x104/0xab0 mm/slub.c:7279
+> > > > other info that might help us debug this:
+> > > > context-{2:2}
+> > > > locks held by syz-executor177/6041: 1, last CPU#1:
+> > > >  #0: ffffffff9090b438 (tomoyo_ss){.+.+}-{0:0}, at: srcu_lock_acquire include/linux/srcu.h:198 [inline]
+> > > >  #0: ffffffff9090b438 (tomoyo_ss){.+.+}-{0:0}, at: srcu_read_lock include/linux/srcu.h:305 [inline]
+> > > >  #0: ffffffff9090b438 (tomoyo_ss){.+.+}-{0:0}, at: tomoyo_read_lock security/tomoyo/common.h:1112 [inline]
+> > > >  #0: ffffffff9090b438 (tomoyo_ss){.+.+}-{0:0}, at: tomoyo_check_open_permission+0x169/0x3c0 security/tomoyo/file.c:772
+> > > > stack backtrace:
+> > > > CPU: 1 UID: 0 PID: 6041 Comm: syz-executor177 Tainted: G S                  syzkaller #0 PREEMPT(full) 
+> > > > Tainted: [S]=CPU_OUT_OF_SPEC
+> > > > Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+> > > > Call Trace:
+> > > >  <IRQ>
+> > > >  __dump_stack lib/dump_stack.c:94 [inline]
+> > > >  dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+> > > >  print_lock_invalid_wait_context kernel/locking/lockdep.c:4874 [inline]
+> > > >  check_wait_context kernel/locking/lockdep.c:4946 [inline]
+> > > >  __lock_acquire+0xfcc/0x1f40 kernel/locking/lockdep.c:5238
+> > > >  lock_acquire kernel/locking/lockdep.c:5942 [inline]
+> > > >  lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+> > > >  __raw_spin_lock_irqsave include/linux/spinlock_api_smp.h:155 [inline]
+> > > >  _raw_spin_lock_irqsave+0x3a/0x60 kernel/locking/spinlock.c:181
+> > > >  get_partial_node_bulk mm/slub.c:3831 [inline]
+> > > >  __refill_objects_node+0x104/0xab0 mm/slub.c:7279
+> > > >  refill_objects+0x58/0x410 mm/slub.c:7405
+> > > >  refill_sheaf mm/slub.c:2885 [inline]
+> > > >  __pcs_replace_empty_main+0x35e/0x650 mm/slub.c:4774
+> > > >  alloc_from_pcs mm/slub.c:4850 [inline]
+> > > >  slab_alloc_node mm/slub.c:4984 [inline]
+> > > >  __kmalloc_cache_noprof+0x4f4/0x6d0 mm/slub.c:5559
+> > > >  _kmalloc_noprof include/linux/slab.h:991 [inline]
+> > > >  _kzalloc_noprof include/linux/slab.h:1312 [inline]
+> > > >  kvm_async_pf_task_wake arch/x86/kernel/kvm.c:224 [inline]
+
+Hmm, this part is OK:
+
+                if (!dummy) {
+                        raw_spin_unlock(&b->lock);
+                        dummy = kzalloc_obj(*dummy, GFP_ATOMIC);
+
+As it releases the raw_spin_lock() before calling kzalloc_obj().
+
+So something else must have disabled preemption/interrupts.
+
+> > > >  __sysvec_kvm_asyncpf_interrupt+0x334/0x610 arch/x86/kernel/kvm.c:338
+
+DEFINE_IDTENTRY_SYSVEC(sysvec_kvm_asyncpf_interrupt)
+{       
+        struct pt_regs *old_regs = set_irq_regs(regs);
+        u32 token;
+                
+        apic_eoi();
+
+        inc_irq_stat(HYPERVISOR_CALLBACK);
+
+        if (__this_cpu_read(async_pf_enabled)) {
+                token = __this_cpu_read(apf_reason.token);
+                kvm_async_pf_task_wake(token);
+                __this_cpu_write(apf_reason.token, 0);
+                wrmsrq(MSR_KVM_ASYNC_PF_ACK, 1);
+        }
+
+        set_irq_regs(old_regs);
+}
 
 
-Leaking phys addresses to unpriveleged entities might not be wise.
+Is that run in hard interrupt context? If so, we need to make that a thread
+for RT kernels if you want to call kzalloc_obj().
 
--- 
-MST
+-- Steve
+
+
+> > > >  instr_sysvec_kvm_asyncpf_interrupt arch/x86/kernel/kvm.c:327 [inline]
+> > > >  sysvec_kvm_asyncpf_interrupt+0x9e/0xc0 arch/x86/kernel/kvm.c:327
+> > > >  </IRQ>
+> > > >  <TASK>
+> > > >  asm_sysvec_kvm_asyncpf_interrupt+0x1a/0x20 arch/x86/include/asm/idtentry.h:753
+> > > > RIP: 0010:memcmp+0x156/0x1d0 lib/string.c:665
+> > > > Code: 0f 86 fb fe ff ff 48 89 d8 48 89 de 48 c1 e8 03 83 e6 07 42 0f b6 14 28 48 8d 43 07 48 89 c1 48 c1 e9 03 40 38 f2 40 0f 9e c6 <84> d2 42 0f b6 0c 29 0f 95 c2 40 84 d6 0f 84 45 ff ff ff be 08 00
+> > > > RSP: 0018:ffffc90003ab7538 EFLAGS: 00000297
+> > > > RAX: ffff8880220be413 RBX: ffff8880220be40c RCX: 1ffff11004417c82
+> > > > RDX: 0000000000000000 RSI: 0000000000000001 RDI: ffff8880220be40c
+> > > > RBP: ffffffff8c58a940 R08: 0000000000000001 R09: 0000000000000066
+> > > > R10: 0000000000000066 R11: 0000000000000001 R12: 0000000000000012
+> > > > R13: dffffc0000000000 R14: dffffc0000000000 R15: 0000000000000000
+> > > >  strstr+0x109/0x170 lib/string.c:743
+> > > >  tomoyo_add_entry security/tomoyo/common.c:2157 [inline]
+> > > >  tomoyo_supervisor+0xf47/0x1340 security/tomoyo/common.c:2238
+> > > >  tomoyo_audit_path_log security/tomoyo/file.c:169 [inline]
+> > > >  tomoyo_path_permission security/tomoyo/file.c:592 [inline]
+> > > >  tomoyo_path_permission+0x270/0x3b0 security/tomoyo/file.c:577
+> > > >  tomoyo_check_open_permission+0x37f/0x3c0 security/tomoyo/file.c:782
+> > > >  tomoyo_file_open+0x6b/0x90 security/tomoyo/tomoyo.c:334
+> > > >  security_file_open+0xb5/0x1e0 security/security.c:2739
+> > > >  do_dentry_open+0x588/0x14d0 fs/open.c:973
+> > > >  vfs_open+0x82/0x3f0 fs/open.c:1101
+> > > >  do_open fs/namei.c:4836 [inline]
+> > > >  path_openat+0x1a23/0x2450 fs/namei.c:4999
+> > > >  do_file_open+0x20e/0x430 fs/namei.c:5028
+> > > >  do_sys_openat2+0x10f/0x1e0 fs/open.c:1417
+> > > >  do_sys_open fs/open.c:1423 [inline]
+> > > >  __do_sys_openat fs/open.c:1439 [inline]
+> > > >  __se_sys_openat fs/open.c:1434 [inline]
+> > > >  __x64_sys_openat+0x12d/0x210 fs/open.c:1434
+> > > >  do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+> > > >  do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+> > > >  entry_SYSCALL_64_after_hwframe+0x77/0x7f  
+> > >   
+> 
 
