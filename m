@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793142515;
-	b=chEZON3Kh5pHqTddJTCqDlGZtrC+/of/7U/Hdvv5VvqbEAULYJB6ikUINyBPR2kTG7E0
-	 D/Lo+CmcJNwWZHpGVdYn3vLZ0oxsMFKqMloCE/yloNKZbzY1tL/C2dOKIlpnT9fCkJMUh
-	 GiUbGQgDFrqckmD6mBCWpVDWAkfwVpXnZlk6BY7ldNjgIBotMsFo03c5cb34088tEndmf
-	 bHyH2mT1GgR49kE7Fb43kx65pWs9I48egQxsV32/oLndxJa+IQ/vDIcI3TRCTBN2/3TGF
-	 DlmYO7VAePqPVyR8/oLt+DRyg//NHlVNgQntb4657JZS3Vatjctw9Jg5J9V0Cw723Kw==
+	t=1793142513;
+	b=PgXXoVkJQzq5bysvDeTeL0dlSoxTwdXdzh2MX5jENl5IQpapoi67WEw/y1//qHJnSZ1g
+	 QusIf8N6WyFbd+4a1lZvN4DnEWMjDoaH03yGyRq85k2UTc0EfpGk/KAkNlpbUVEW88+3Q
+	 wWWDgY/QP+6PebGouz7Co1OWWDUALAGwKSYd4e+MzdjsEZcIA0M22ZIQX8fM7PRCfn3TV
+	 8IRAxxyfelQyU7BOriFRSKQsPB5uk9XetzPDyT1OnFG9a2XHufzd9jGN4YzHBynr2dNS6
+	 s8tuxkgnTMXwjXoGTPSXiHvBXA9EyOPTvrL8tRnaKg5dq0SkHIR8CZjH5W4vNKt9CpQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793142515;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793142513;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=DEfXZtro00WX1Oq9WvRLadDvsGk3bEzDKLU+IzhYgIs=;
-	b=33mpVG1GT/g7mSoSFmpoMi1dR01b6jtAbVL7VRLoz7hE3sIOyXU4Jo9+lX0VC/WCgeNi
-	 U5MvMeBPnrTGhVFWwdp4Sp6id/TCdtzVxpwkyIcZIVrpwN/yuX4FdDFioqB4WGJlnRTxK
-	 seriwZ8DAEPu0MpLP0w5nwvOondrxbyJ/dXcVZvKzs4NHqTeXfagqKQQmxBtrYJOcEjkX
-	 sPkSUUp316g8GpoHyymOi1xKXUxDQRaiVclkNEriHugBgt/BnHgFAxHH6mUaF4H7bTesN
-	 XF8GtDiXr+/eXsKGBuWBRHPxoxMFmqZiAA3xI4O7u/PZZH3gNKZt+MUs7cSJG9551Yw==
+	bh=OHlnBz/JKIlwTxqnifjMU0ea8jV5/wrIgri2BVKwHRw=;
+	b=ghGZqGJudoinZ9Cj4nwIZ1FfWE0uPNkjHqiSeNmryyXsLhk+KYjjD7qJ4oVOeR4sFL6v
+	 uXpz+DAL2O4MC4TKk4ud2NnTB7YnBnHGSo9vahmAdbvajgEMOpgtMYS/51DPxxIyIIc6Y
+	 Wzietm8prxNzMszrwGxsTAu+y2v5WZ9ERedYtvds7e3vkECbxleGyMpwANBIFwtMmKyGF
+	 s2LFA3/2t6nlARdP8PX7Psq8ypiLakp6U+PLvuy5mHERZrYdAlAuzCH0MrPnt7KQeCBQn
+	 8bjSIkwcxV1zPja5zigGfa2YmnfVV+VEZO3obfeqXSnwhBgYqGMvsmJKvSNGNymjffw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="i/M7Sg6D";
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cuMzm6a6;
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1C0660A260C
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 23:08:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1C0660A260C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E22BB606A324
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 23:08:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E22BB606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=i/M7Sg6D
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4956869750eso2221065e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:08:34 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cuMzm6a6
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a1df4c0966so2576275e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:08:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793142513; x=1793747313; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793142511; x=1793747311; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=DEfXZtro00WX1Oq9WvRLadDvsGk3bEzDKLU+IzhYgIs=;
-        b=i/M7Sg6DcDQ98HHXZ86RiTWnrJciLEXzIU0/I8VvUWkVWvKkYdZRCUQ4+yoWdMxb3W
-         gY0JBiN5i4I1l6C1bCJWp5sSXRvIZvx9HRS2fla3KUR/Nu0+NUdifIQEi9Z18Hl79TDl
-         e2+p2+WuiC5GvqcUQbS8pzhA+3X5McAMCSFntu9ZtB6VwobujBuEdfHhmr6+FjCKLiZt
-         ke5HpfJ7TM4QQQGtX4tUQxOjLDyZocQNR5u6HtGDF/244C4QQ1O/rR058wWzyUraEUpT
-         7EjJiqM1pKHHBPT4GdYXyON4TFcpDITYuy26mXXXgvacdJMZbvAahZiIByEFPIY+YOdB
-         v9fA==
+        bh=OHlnBz/JKIlwTxqnifjMU0ea8jV5/wrIgri2BVKwHRw=;
+        b=cuMzm6a63ZFv8dszcFQFxRKaH56KZbptfFeYFGVoSAWN2SA1nNxdu3dNQCoKC2KnW0
+         ztB/ygtLEyRqiccbqnfTwoa3Pme1FaPEpx7a8Tt+Ma/iepUjVkYEbmZX3cSDhGPwQAl2
+         NdBOOrGzrvWus1zyz7dRLDNZih2+WHDXTMTYcXNAaL+XlX4FOGz1FeNWizmtwtT5d+rZ
+         Fa2o1iVhw3IuglL/WNIsHXT5OtM9haTZVZd8VHqroejRgWLYQsMIPSMiphb3Jy7vvvob
+         cS6AGTrI34tnGOW11egZk7rFE/7dsB52OP/J5cbt84BLwvhVsedvcN1lejPhsMIKWI8W
+         kkew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793142513; x=1793747313;
+        d=1e100.net; s=20260707; t=1793142511; x=1793747311;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=DEfXZtro00WX1Oq9WvRLadDvsGk3bEzDKLU+IzhYgIs=;
-        b=hcyNTVKphk2zZQGN8gH+tN/jUKRac0pQH1h4nhg8EucnvBbCue+75R4NlsyIR2IBMj
-         3wksG8keTT/VNdoNSuJ4YyfzKW+lYUKXwuh2WB/2YAlY/k8FJsNdlrACvlazuHlxA8bp
-         h6oWE7r2XZl9ZdWhop8MQMoN8XQYDXhwp66w1U9L1ecNTKCDPN4CGGIfp/3v7kCA+Sq9
-         X4Q9qpof3IH3PxLniZctyYZR8ZmB+bNwaeiKrCbBN9Z8/2eNZzEDklaUNU9IFz96Nz65
-         3iGQDkom4Wdc1FHdP5n3OIVolIK1qbIPRZSTEqa59vC7IOktvq61q/RM0KZTq6ZI68MA
-         fMIw==
-X-Forwarded-Encrypted: i=1; AKwUvBz2qsFnmLygZ50NVIGRwPi9GkpUWz4VfhzLgHOdi/zxmQgpoTvq/+iXA0BQF/sfeMgoLqZIRDQteioTML0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLf60rQ1RDr0llnkkE0n5W79/CJoHGsAlbZ0498Gy/lQk19ICxC
-	WPgKNZed4ShjSFPGarMVVIO98pOMI+qCsan+ze2bYREJ/sKG1gwNQccB
-X-Gm-Gg: AYBFou3uTrWvLlPqfv7FSAK3CmqOVyiW5R+jqbLaPhUr5MIB6m2//Q7Ics7Kdj4+W0Y
-	GbDwkWm8fkJQQdWovKkbJudhraEJMrHrFEqcUo7GEwYt0z4pYVITBr0UHp4Sy6ohtN+VfMNpUm7
-	7ooYhH56xa8YmlWKV4LpKcxE/aYVEJr8omdgHGnCDfgMIPHWrYPXXuL9q3ABPVIPBhwG2E7R/dy
-	/1qjTnE3Sb5x0+iYPZi5YvOaXR8Bd5ZglfIBopRQJZ0ZkD5uJtVB8mLnY594K6q7ZEvmICvRyUm
-	OVRy0w7bePsNa9UBbjkCpKiWqWrGRc0jULTC9vi/cou6MWB6ECIRpsQmQiEIqdjz7qsvfbQWcEh
-	og/M7z9/huY9Sq0NoSClp7iqQlZNMAPRKfK8khjVTh9LuJPsQAgGi1wDXZtXvVpVvgq7J8B2nsi
-	Tr//NOQPZiXiJzcUAChuflmW9kNhbifetSBgDdSB7kLpBRPe4Dh3AgCOuCUhi3R1ExAR/ETt9QV
-	qWBfXKOTyOXZmNiwCC1bAbedoos9OaiBzBIykKshrF2hsGXRzipx6sZPU3Eiene/nU/j/n2lo86
-	eezzz6pYmlNFzPpG4E0+LRSq
-X-Received: by 2002:a05:600c:1d26:b0:4a1:88de:9e8b with SMTP id 5b1f17b1804b1-4a9745286ecmr4859245e9.5.1793142512885;
-        Tue, 27 Oct 2026 16:08:32 -0700 (PDT)
+        bh=OHlnBz/JKIlwTxqnifjMU0ea8jV5/wrIgri2BVKwHRw=;
+        b=GuN6crdRhtSf4LC69OvhJFBo/RWRVjscseFLrsAzs/RMzSHGsj0YMHHjnSeivF2w4x
+         7sJVTcTGNacBMB9RzXHSOJyBUMJUIathY5utR+/H5oPlpELSvGFQ1zq57iYuu99Ulzyn
+         EVno9/cYJy/d/FaRI0WNISrLfEC+YSsANDeEcdo3OReIeKJisdNvQOc85jjZ8SZJ/y4/
+         yikBg6uk/Mk8C4RZfiLluhxelz1JjDo9gFSIuXJT32dJRtQe7vPlZzYNEiRPoMi8v2n0
+         MgcqjvfPI07NX5fQXpkOJl1rkYl1T9vjlk87rAIHdmgeDWb8nfsP9xu02IrwBQO/IssV
+         hZ9w==
+X-Forwarded-Encrypted: i=1; AKwUvBwCw9Pzb6sp6oB9gczbHxsLI/RZ5cDnRWyoB3ugitIQNMfwKkcQY59Jvhzbcwg1dsrlkITtsSdACeQoXs0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKcI5fzA923bjMW4qXSvCa0tA7jbVaESQjx8rfLZ4VbwjEJBTcZ
+	gsZgOUOPOPH7JBjBxW7L4oqS7drsrW/FXJURONS/N2SV/2D9YdKQHigx
+X-Gm-Gg: AYBFou0fbV6AhREbiPS7vWTTeM7+ZaaOmMRSIoE6F6KMGwwI4OIylJJYTXBGT8pygek
+	KaB9sSTKGv4AhkcvOAqTzm8ARWDtnvRnNanx320BAqidWjrFpvRIWjT+jJhHYDKKP5M8LRgpL9s
+	5SJV5SVK+CdNYIiqbh9sRNAv7mg+fLSMv0bWYonYBZLJ0H4bxGPNrbwotJTKyh1R401Yw6Y4GdG
+	ruG5L5/HZYiwHB1SjZKcKD8PHHEoW3rZXSV3EYkbicPnJcY1JkSJemcdHvTlN3xU0UtEL52q6Tv
+	SbikfLSWlCuTL4m8m+CywhmDCtwaUcYrsng3BasOFzyDHs2z6OX3lbpP4oRX/reZ4ciZIxNg0rr
+	YJZbQNKbYcpALZxu4yu/g35LlT9mNEJW5YS2iXvf1Qk/kkZwV58AJeJ5FkclP5bLAAKhz6qJ8/u
+	ke/hokNPT0nUvHr2CgNfEE9TTKA8mpes+l0rHKuPXa4x/hqrqi3QEBm4dmDmmodp6IT7rpc8JoE
+	1KucQXP1UX523mXvMXxj2x4pTdc3D+wTXhwQObzNbXTShb4LR0F0CMGEnmEgvJP7ccbBI+jOTzZ
+	URxO
+X-Received: by 2002:a05:600c:1f94:b0:4a2:1960:6fa with SMTP id 5b1f17b1804b1-4a966399719mr8984575e9.4.1793142511233;
+        Tue, 27 Oct 2026 16:08:31 -0700 (PDT)
 Received: from ubuntu-4gb-nbg1-1.. ([2a01:4f8:1c19:b0ad::1])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a97cebf858sm3407595e9.12.2026.10.27.16.08.32
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a97cebf858sm3407595e9.12.2026.10.27.16.08.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 16:08:32 -0700 (PDT)
+        Tue, 27 Oct 2026 16:08:30 -0700 (PDT)
 From: =?UTF-8?q?Rare=C8=99-Mihai=20Vladu?= <vladurares@gmail.com>
 To: Hans de Goede <hansg@kernel.org>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>
@@ -90,9 +90,9 @@ Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
 	linux-kernel@vger.kernel.org,
 	=?UTF-8?q?Rare=C8=99-Mihai=20Vladu?= <vladurares@gmail.com>,
 	Andy Shevchenko <andriy.shevchenko@intel.com>
-Subject: [PATCH v4 5/5] media: atomisp: remove unused circbuf library
-Date: Tue, 27 Oct 2026 23:08:07 +0000
-Message-ID: <20261027230807.2407261-6-vladurares@gmail.com>
+Subject: [PATCH v4 3/5] media: atomisp: queue: remove unused local queue support
+Date: Tue, 27 Oct 2026 23:08:05 +0000
+Message-ID: <20261027230807.2407261-4-vladurares@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261027230807.2407261-1-vladurares@gmail.com>
 References: <20261027230807.2407261-1-vladurares@gmail.com>
@@ -108,959 +108,405 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-After the previous changes nothing in the driver uses the custom
-circular buffer implementation in base/circbuf/ anymore. Remove it
-together with its Makefile entries.
+ia_css_queue_local_init() has no callers, so no queue is ever created
+as local. ia_css_queue_uninit() only handles local queues and has no
+callers either.
+
+All queue handles are in the static css_queues in bufq.c, and
+ia_css_bufq_init() sets up each of them with ia_css_queue_remote_init().
+This happens in ia_css_start_sp(), before the host sets
+host_sp_queues_initialized for the firmware, and css_queues is not
+cleared afterwards. Before that, the old code would have taken the local
+path with a NULL cb_local.desc and hit OP___assert(), so the handles do
+not seem to be used before initialization.
+
+With only remote queues left, the queue type no longer serves a purpose.
+Remove the local queue code together with IA_CSS_QUEUE_TYPE_REMOTE, the
+type field and the type checks.
+
+struct ia_css_queue appears to be host-only: it is not copied to SP or
+ISP memory, and the firmware uses struct host_sp_queues, whose addresses
+the handle stores. Removing the union member keeps the struct size on
+32-bit and reduces it on 64-bit, where cb_local held two pointers.
 
 Signed-off-by: Rareș-Mihai Vladu <vladurares@gmail.com>
 Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 ---
- drivers/staging/media/atomisp/Makefile        |   2 -
- .../base/circbuf/interface/ia_css_circbuf.h   | 363 ------------------
- .../circbuf/interface/ia_css_circbuf_comm.h   |  56 ---
- .../circbuf/interface/ia_css_circbuf_desc.h   | 160 --------
- .../atomisp/pci/base/circbuf/src/circbuf.c    | 312 ---------------
- 5 files changed, 893 deletions(-)
- delete mode 100644 drivers/staging/media/atomisp/pci/base/circbuf/interface/ia_css_circbuf.h
- delete mode 100644 drivers/staging/media/atomisp/pci/base/circbuf/interface/ia_css_circbuf_comm.h
- delete mode 100644 drivers/staging/media/atomisp/pci/base/circbuf/interface/ia_css_circbuf_desc.h
- delete mode 100644 drivers/staging/media/atomisp/pci/base/circbuf/src/circbuf.c
+ .../runtime/queue/interface/ia_css_queue.h    |  29 ---
+ .../queue/interface/ia_css_queue_comm.h       |   5 -
+ .../atomisp/pci/runtime/queue/src/queue.c     | 206 +-----------------
+ .../pci/runtime/queue/src/queue_access.h      |   2 -
+ 4 files changed, 8 insertions(+), 234 deletions(-)
 
-diff --git a/drivers/staging/media/atomisp/Makefile b/drivers/staging/media/atomisp/Makefile
-index 1d0fbe22036bd..65e09be95bc99 100644
---- a/drivers/staging/media/atomisp/Makefile
-+++ b/drivers/staging/media/atomisp/Makefile
-@@ -35,7 +35,6 @@ atomisp-objs += \
- 	pci/sh_css_sp.o \
- 	pci/sh_css_stream_format.o \
- 	pci/sh_css_version.o \
--	pci/base/circbuf/src/circbuf.o \
- 	pci/base/refcount/src/refcount.o \
- 	pci/camera/pipe/src/pipe_binarydesc.o \
- 	pci/camera/pipe/src/pipe_stagedesc.o \
-@@ -162,7 +161,6 @@ INCLUDES += \
- 	-I$(atomisp)/include/hmm/ \
- 	-I$(atomisp)/include/mmu/ \
- 	-I$(atomisp)/pci/ \
--	-I$(atomisp)/pci/base/circbuf/interface/ \
- 	-I$(atomisp)/pci/base/refcount/interface/ \
- 	-I$(atomisp)/pci/camera/pipe/interface/ \
- 	-I$(atomisp)/pci/camera/util/interface/ \
-diff --git a/drivers/staging/media/atomisp/pci/base/circbuf/interface/ia_css_circbuf.h b/drivers/staging/media/atomisp/pci/base/circbuf/interface/ia_css_circbuf.h
-deleted file mode 100644
-index fbcd73b711baf..0000000000000
---- a/drivers/staging/media/atomisp/pci/base/circbuf/interface/ia_css_circbuf.h
-+++ /dev/null
-@@ -1,363 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0 */
--/*
-- * Support for Intel Camera Imaging ISP subsystem.
-- * Copyright (c) 2015, Intel Corporation.
-- */
--
--#ifndef _IA_CSS_CIRCBUF_H
--#define _IA_CSS_CIRCBUF_H
--
--#include <sp.h>
--#include <type_support.h>
--#include <math_support.h>
--#include <assert_support.h>
--#include <platform_support.h>
--#include "ia_css_circbuf_comm.h"
--#include "ia_css_circbuf_desc.h"
--
--/****************************************************************
-- *
-- * Data structures.
-- *
-- ****************************************************************/
--/*
-- * @brief Data structure for the circular buffer.
-- */
--typedef struct ia_css_circbuf_s ia_css_circbuf_t;
--struct ia_css_circbuf_s {
--	ia_css_circbuf_desc_t *desc;    /* Pointer to the descriptor of the circbuf */
--	ia_css_circbuf_elem_t *elems;	/* an array of elements    */
+diff --git a/drivers/staging/media/atomisp/pci/runtime/queue/interface/ia_css_queue.h b/drivers/staging/media/atomisp/pci/runtime/queue/interface/ia_css_queue.h
+index c097d912d87f8..87207c355e8e2 100644
+--- a/drivers/staging/media/atomisp/pci/runtime/queue/interface/ia_css_queue.h
++++ b/drivers/staging/media/atomisp/pci/runtime/queue/interface/ia_css_queue.h
+@@ -13,32 +13,12 @@
+ #include "ia_css_queue_comm.h"
+ #include "../src/queue_access.h"
+ 
+-/* Local Queue object descriptor */
+-struct ia_css_queue_local {
+-	ia_css_circbuf_desc_t *cb_desc; /*Circbuf desc for local queues*/
+-	ia_css_circbuf_elem_t *cb_elems; /*Circbuf elements*/
 -};
 -
--/*
-- * @brief Create the circular buffer.
-- *
-- * @param cb	The pointer to the circular buffer.
-- * @param elems	An array of elements.
-- * @param desc	The descriptor set to the size using ia_css_circbuf_desc_init().
-- */
--void ia_css_circbuf_create(
--    ia_css_circbuf_t *cb,
--    ia_css_circbuf_elem_t *elems,
--    ia_css_circbuf_desc_t *desc);
+-typedef struct ia_css_queue_local ia_css_queue_local_t;
 -
--/*
-- * @brief Destroy the circular buffer.
+ /* Handle for queue object*/
+ typedef struct ia_css_queue ia_css_queue_t;
+ 
+ /*****************************************************************************
+  * Queue Public APIs
+  *****************************************************************************/
+-/* @brief Initialize a local queue instance.
 - *
-- * @param cb The pointer to the circular buffer.
+- * @param[out] qhandle. Handle to queue instance for use with API
+- * @param[in]  desc.   Descriptor with queue properties filled-in
+- * @return     0      - Successful init of local queue instance.
+- * @return     -EINVAL - Invalid argument.
+- *
 - */
--void ia_css_circbuf_destroy(
--    ia_css_circbuf_t *cb);
+-int ia_css_queue_local_init(
+-    ia_css_queue_t *qhandle,
+-    ia_css_queue_local_t *desc);
 -
--/*
-- * @brief Pop a value out of the circular buffer.
-- * Get a value at the head of the circular buffer.
-- * The user should call "ia_css_circbuf_is_empty()"
-- * to avoid accessing to an empty buffer.
+ /* @brief Initialize a remote queue instance
+  *
+  * @param[out] qhandle. Handle to queue instance for use with API
+@@ -50,15 +30,6 @@ int ia_css_queue_remote_init(
+     ia_css_queue_t *qhandle,
+     ia_css_queue_remote_t *desc);
+ 
+-/* @brief Uninitialize a queue instance
 - *
-- * @param cb	The pointer to the circular buffer.
+- * @param[in]  qhandle. Handle to queue instance
+- * @return     0 - Successful uninit.
 - *
-- * @return the pop-out value.
 - */
--uint32_t ia_css_circbuf_pop(
--    ia_css_circbuf_t *cb);
+-int ia_css_queue_uninit(
+-    ia_css_queue_t *qhandle);
 -
--/*
-- * @brief Extract a value out of the circular buffer.
-- * Get a value at an arbitrary position in the circular
-- * buffer. The user should call "ia_css_circbuf_is_empty()"
-- * to avoid accessing to an empty buffer.
-- *
-- * @param cb	 The pointer to the circular buffer.
-- * @param offset The offset from "start" to the target position.
-- *
-- * @return the extracted value.
-- */
--uint32_t ia_css_circbuf_extract(
--    ia_css_circbuf_t *cb,
--    int offset);
+ /* @brief Enqueue an item in the queue instance
+  *
+  * @param[in]  qhandle. Handle to queue instance
+diff --git a/drivers/staging/media/atomisp/pci/runtime/queue/interface/ia_css_queue_comm.h b/drivers/staging/media/atomisp/pci/runtime/queue/interface/ia_css_queue_comm.h
+index 0bed6425a07f0..7cd788e2b16bd 100644
+--- a/drivers/staging/media/atomisp/pci/runtime/queue/interface/ia_css_queue_comm.h
++++ b/drivers/staging/media/atomisp/pci/runtime/queue/interface/ia_css_queue_comm.h
+@@ -19,11 +19,6 @@
+ #define IA_CSS_QUEUE_LOC_SP   1
+ #define IA_CSS_QUEUE_LOC_ISP  2
+ 
+-/* Queue type specifier */
+-/* Avoiding enums to save space */
+-#define IA_CSS_QUEUE_TYPE_LOCAL  0
+-#define IA_CSS_QUEUE_TYPE_REMOTE 1
 -
--/****************************************************************
-- *
-- * Inline functions.
-- *
-- ****************************************************************/
--/*
-- * @brief Set the "val" field in the element.
-- *
-- * @param elem The pointer to the element.
-- * @param val  The value to be set.
-- */
--static inline void ia_css_circbuf_elem_set_val(
--    ia_css_circbuf_elem_t *elem,
--    uint32_t val)
+ /* for DDR Allocated queues,
+ allocate minimum these many elements.
+ DDR->SP' DMEM DMA transfer needs 32byte aligned address.
+diff --git a/drivers/staging/media/atomisp/pci/runtime/queue/src/queue.c b/drivers/staging/media/atomisp/pci/runtime/queue/src/queue.c
+index 4212c113da41a..6747696595eab 100644
+--- a/drivers/staging/media/atomisp/pci/runtime/queue/src/queue.c
++++ b/drivers/staging/media/atomisp/pci/runtime/queue/src/queue.c
+@@ -13,24 +13,6 @@
+ /*****************************************************************************
+  * Queue Public APIs
+  *****************************************************************************/
+-int ia_css_queue_local_init(ia_css_queue_t *qhandle, ia_css_queue_local_t *desc)
 -{
--	OP___assert(elem);
--
--	elem->val = val;
--}
--
--/*
-- * @brief Initialize the element.
-- *
-- * @param elem The pointer to the element.
-- */
--static inline void ia_css_circbuf_elem_init(
--    ia_css_circbuf_elem_t *elem)
--{
--	OP___assert(elem);
--	ia_css_circbuf_elem_set_val(elem, 0);
--}
--
--/*
-- * @brief Copy an element.
-- *
-- * @param src  The element as the copy source.
-- * @param dest The element as the copy destination.
-- */
--static inline void ia_css_circbuf_elem_cpy(
--    ia_css_circbuf_elem_t *src,
--    ia_css_circbuf_elem_t *dest)
--{
--	OP___assert(src);
--	OP___assert(dest);
--
--	ia_css_circbuf_elem_set_val(dest, src->val);
--}
--
--/*
-- * @brief Get position in the circular buffer.
-- *
-- * @param cb		The pointer to the circular buffer.
-- * @param base		The base position.
-- * @param offset	The offset.
-- *
-- * @return the position at offset.
-- */
--static inline uint8_t ia_css_circbuf_get_pos_at_offset(
--    ia_css_circbuf_t *cb,
--    u32 base,
--    int offset)
--{
--	OP___assert(cb);
--	OP___assert(cb->desc);
--	OP___assert(cb->desc->size > 0);
--
--	/* step 1: adjudst the offset  */
--	while (offset < 0)
--		offset += cb->desc->size;
--
--	/* step 2: shift and round by the upper limit */
--	return (base + offset) % cb->desc->size;
--}
--
--/*
-- * @brief Get the offset between two positions in the circular buffer.
-- * Get the offset from the source position to the terminal position,
-- * along the direction in which the new elements come in.
-- *
-- * @param cb		The pointer to the circular buffer.
-- * @param src_pos	The source position.
-- * @param dest_pos	The terminal position.
-- *
-- * @return the offset.
-- */
--static inline int ia_css_circbuf_get_offset(
--    ia_css_circbuf_t *cb,
--    u32 src_pos,
--    uint32_t dest_pos)
--{
--	int offset;
--
--	OP___assert(cb);
--	OP___assert(cb->desc);
--
--	offset = (int)(dest_pos - src_pos);
--	offset += (offset < 0) ? cb->desc->size : 0;
--
--	return offset;
--}
--
--/*
-- * @brief Get the maximum number of elements.
-- *
-- * @param cb The pointer to the circular buffer.
-- *
-- * @return the maximum number of elements.
-- *
-- * TODO: Test this API.
-- */
--static inline uint32_t ia_css_circbuf_get_size(
--    ia_css_circbuf_t *cb)
--{
--	OP___assert(cb);
--	OP___assert(cb->desc);
--
--	return cb->desc->size;
--}
--
--/*
-- * @brief Get the number of available elements.
-- *
-- * @param cb The pointer to the circular buffer.
-- *
-- * @return the number of available elements.
-- */
--static inline uint32_t ia_css_circbuf_get_num_elems(
--    ia_css_circbuf_t *cb)
--{
--	int num;
--
--	OP___assert(cb);
--	OP___assert(cb->desc);
--
--	num = ia_css_circbuf_get_offset(cb, cb->desc->start, cb->desc->end);
--
--	return (uint32_t)num;
--}
--
--/*
-- * @brief Test if the circular buffer is empty.
-- *
-- * @param cb	The pointer to the circular buffer.
-- *
-- * @return
-- *	- true when it is empty.
-- *	- false when it is not empty.
-- */
--static inline bool ia_css_circbuf_is_empty(
--    ia_css_circbuf_t *cb)
--{
--	OP___assert(cb);
--	OP___assert(cb->desc);
--
--	return ia_css_circbuf_desc_is_empty(cb->desc);
--}
--
--/*
-- * @brief Test if the circular buffer is full.
-- *
-- * @param cb	The pointer to the circular buffer.
-- *
-- * @return
-- *	- true when it is full.
-- *	- false when it is not full.
-- */
--static inline bool ia_css_circbuf_is_full(ia_css_circbuf_t *cb)
--{
--	OP___assert(cb);
--	OP___assert(cb->desc);
--
--	return ia_css_circbuf_desc_is_full(cb->desc);
--}
--
--/*
-- * @brief Write a new element into the circular buffer.
-- * Write a new element WITHOUT checking whether the
-- * circular buffer is full or not. So it also overwrites
-- * the oldest element when the buffer is full.
-- *
-- * @param cb	The pointer to the circular buffer.
-- * @param elem	The new element.
-- */
--static inline void ia_css_circbuf_write(
--    ia_css_circbuf_t *cb,
--    ia_css_circbuf_elem_t elem)
--{
--	OP___assert(cb);
--	OP___assert(cb->desc);
--
--	/* Cannot continue as the queue is full*/
--	assert(!ia_css_circbuf_is_full(cb));
--
--	ia_css_circbuf_elem_cpy(&elem, &cb->elems[cb->desc->end]);
--
--	cb->desc->end = ia_css_circbuf_get_pos_at_offset(cb, cb->desc->end, 1);
--}
--
--/*
-- * @brief Push a value in the circular buffer.
-- * Put a new value at the tail of the circular buffer.
-- * The user should call "ia_css_circbuf_is_full()"
-- * to avoid accessing to a full buffer.
-- *
-- * @param cb	The pointer to the circular buffer.
-- * @param val	The value to be pushed in.
-- */
--static inline void ia_css_circbuf_push(
--    ia_css_circbuf_t *cb,
--    uint32_t val)
--{
--	ia_css_circbuf_elem_t elem;
--
--	OP___assert(cb);
--
--	/* set up an element */
--	ia_css_circbuf_elem_init(&elem);
--	ia_css_circbuf_elem_set_val(&elem, val);
--
--	/* write the element into the buffer */
--	ia_css_circbuf_write(cb, elem);
--}
--
--/*
-- * @brief Get the number of free elements.
-- *
-- * @param cb The pointer to the circular buffer.
-- *
-- * @return: The number of free elements.
-- */
--static inline uint32_t ia_css_circbuf_get_free_elems(
--    ia_css_circbuf_t *cb)
--{
--	OP___assert(cb);
--	OP___assert(cb->desc);
--
--	return ia_css_circbuf_desc_get_free_elems(cb->desc);
--}
--
--/*
-- * @brief Peek an element in Circular Buffer.
-- *
-- * @param cb	 The pointer to the circular buffer.
-- * @param offset Offset to the element.
-- *
-- * @return the elements value.
-- */
--uint32_t ia_css_circbuf_peek(
--    ia_css_circbuf_t *cb,
--    int offset);
--
--/*
-- * @brief Get an element in Circular Buffer.
-- *
-- * @param cb	 The pointer to the circular buffer.
-- * @param offset Offset to the element.
-- *
-- * @return the elements value.
-- */
--uint32_t ia_css_circbuf_peek_from_start(
--    ia_css_circbuf_t *cb,
--    int offset);
--
--/*
-- * @brief Increase Size of a Circular Buffer.
-- * Use 'CAUTION' before using this function, This was added to
-- * support / fix issue with increasing size for tagger only
-- *
-- * @param cb The pointer to the circular buffer.
-- * @param sz_delta delta increase for new size
-- * @param elems (optional) pointers to new additional elements
-- *		cb element array size will not be increased dynamically,
-- *		but new elements should be added at the end to existing
-- *		cb element array which if of max_size >= new size
-- *
-- * @return	true on successfully increasing the size
-- *			false on failure
-- */
--bool ia_css_circbuf_increase_size(
--    ia_css_circbuf_t *cb,
--    unsigned int sz_delta,
--    ia_css_circbuf_elem_t *elems);
--
--#endif /*_IA_CSS_CIRCBUF_H */
-diff --git a/drivers/staging/media/atomisp/pci/base/circbuf/interface/ia_css_circbuf_comm.h b/drivers/staging/media/atomisp/pci/base/circbuf/interface/ia_css_circbuf_comm.h
-deleted file mode 100644
-index 090e2e7640421..0000000000000
---- a/drivers/staging/media/atomisp/pci/base/circbuf/interface/ia_css_circbuf_comm.h
-+++ /dev/null
-@@ -1,56 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0 */
--/*
-- * Support for Intel Camera Imaging ISP subsystem.
-- * Copyright (c) 2015, Intel Corporation.
-- */
--
--#ifndef _IA_CSS_CIRCBUF_COMM_H
--#define _IA_CSS_CIRCBUF_COMM_H
--
--#include <linux/build_bug.h>
--
--#include <type_support.h>  /* uint8_t, uint32_t */
--
--#define IA_CSS_CIRCBUF_PADDING 1 /* The circular buffer is implemented in lock-less manner, wherein
--				   * the head and tail can advance independently without any locks.
--				   * But to achieve this, an extra buffer element is required to detect
--				   * queue full & empty conditions, wherein the tail trails the head for
--				   * full and is equal to head for empty condition. This causes 1 buffer
--				   * not being available for use.
--				   */
--
--/****************************************************************
-- *
-- * Portable Data structures
-- *
-- ****************************************************************/
--/*
-- * @brief Data structure for the circular descriptor.
-- */
--typedef struct ia_css_circbuf_desc_s ia_css_circbuf_desc_t;
--struct ia_css_circbuf_desc_s {
--	u8 size;	/* the maximum number of elements*/
--	u8 step;   /* number of bytes per element */
--	u8 start;	/* index of the oldest element */
--	u8 end;	/* index at which to write the new element */
--};
--
--#define SIZE_OF_IA_CSS_CIRCBUF_DESC_S_STRUCT				\
--	(4 * sizeof(uint8_t))
--
--static_assert(sizeof(struct ia_css_circbuf_desc_s) == SIZE_OF_IA_CSS_CIRCBUF_DESC_S_STRUCT);
--
--/*
-- * @brief Data structure for the circular buffer element.
-- */
--typedef struct ia_css_circbuf_elem_s ia_css_circbuf_elem_t;
--struct ia_css_circbuf_elem_s {
--	u32 val;	/* the value stored in the element */
--};
--
--#define SIZE_OF_IA_CSS_CIRCBUF_ELEM_S_STRUCT				\
--	(sizeof(uint32_t))
--
--static_assert(sizeof(struct ia_css_circbuf_elem_s) == SIZE_OF_IA_CSS_CIRCBUF_ELEM_S_STRUCT);
--
--#endif /*_IA_CSS_CIRCBUF_COMM_H*/
-diff --git a/drivers/staging/media/atomisp/pci/base/circbuf/interface/ia_css_circbuf_desc.h b/drivers/staging/media/atomisp/pci/base/circbuf/interface/ia_css_circbuf_desc.h
-deleted file mode 100644
-index 3306a7a0fa5eb..0000000000000
---- a/drivers/staging/media/atomisp/pci/base/circbuf/interface/ia_css_circbuf_desc.h
-+++ /dev/null
-@@ -1,160 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0 */
--/*
-- * Support for Intel Camera Imaging ISP subsystem.
-- * Copyright (c) 2015, Intel Corporation.
-- */
--
--#ifndef _IA_CSS_CIRCBUF_DESC_H_
--#define _IA_CSS_CIRCBUF_DESC_H_
--
--#include <type_support.h>
--#include <math_support.h>
--#include <platform_support.h>
--#include <sp.h>
--#include "ia_css_circbuf_comm.h"
--/****************************************************************
-- *
-- * Inline functions.
-- *
-- ****************************************************************/
--/*
-- * @brief Test if the circular buffer is empty.
-- *
-- * @param cb_desc The pointer to the circular buffer descriptor.
-- *
-- * @return
-- *	- true when it is empty.
-- *	- false when it is not empty.
-- */
--static inline bool ia_css_circbuf_desc_is_empty(
--    ia_css_circbuf_desc_t *cb_desc)
--{
--	OP___assert(cb_desc);
--	return (cb_desc->end == cb_desc->start);
--}
--
--/*
-- * @brief Test if the circular buffer descriptor is full.
-- *
-- * @param cb_desc	The pointer to the circular buffer
-- *			descriptor.
-- *
-- * @return
-- *	- true when it is full.
-- *	- false when it is not full.
-- */
--static inline bool ia_css_circbuf_desc_is_full(
--    ia_css_circbuf_desc_t *cb_desc)
--{
--	OP___assert(cb_desc);
--	return ((cb_desc->end + 1) % cb_desc->size) == cb_desc->start;
--}
--
--/*
-- * @brief Initialize the circular buffer descriptor
-- *
-- * @param cb_desc	The pointer circular buffer descriptor
-- * @param size		The size of the circular buffer
-- */
--static inline void ia_css_circbuf_desc_init(
--    ia_css_circbuf_desc_t *cb_desc,
--    int8_t size)
--{
--	OP___assert(cb_desc);
--	cb_desc->size = size;
--}
--
--/*
-- * @brief Get a position in the circular buffer descriptor.
-- *
-- * @param cb     The pointer to the circular buffer descriptor.
-- * @param base   The base position.
-- * @param offset The offset.
-- *
-- * @return the position in the circular buffer descriptor.
-- */
--static inline uint8_t ia_css_circbuf_desc_get_pos_at_offset(
--    ia_css_circbuf_desc_t *cb_desc,
--    u32 base,
--    int offset)
--{
--	OP___assert(cb_desc);
--	OP___assert(cb_desc->size > 0);
--
--	/* step 1: adjust the offset  */
--	while (offset < 0)
--		offset += cb_desc->size;
--
--	/* step 2: shift and round by the upper limit */
--	return (base + offset) % cb_desc->size;
--}
--
--/*
-- * @brief Get the offset between two positions in the circular buffer
-- * descriptor.
-- * Get the offset from the source position to the terminal position,
-- * along the direction in which the new elements come in.
-- *
-- * @param cb_desc	The pointer to the circular buffer descriptor.
-- * @param src_pos	The source position.
-- * @param dest_pos	The terminal position.
-- *
-- * @return the offset.
-- */
--static inline int ia_css_circbuf_desc_get_offset(
--    ia_css_circbuf_desc_t *cb_desc,
--    u32 src_pos,
--    uint32_t dest_pos)
--{
--	int offset;
--
--	OP___assert(cb_desc);
--
--	offset = (int)(dest_pos - src_pos);
--	offset += (offset < 0) ? cb_desc->size : 0;
--
--	return offset;
--}
--
--/*
-- * @brief Get the number of available elements.
-- *
-- * @param cb_desc The pointer to the circular buffer.
-- *
-- * @return The number of available elements.
-- */
--static inline uint32_t ia_css_circbuf_desc_get_num_elems(
--    ia_css_circbuf_desc_t *cb_desc)
--{
--	int num;
--
--	OP___assert(cb_desc);
--
--	num = ia_css_circbuf_desc_get_offset(cb_desc,
--					     cb_desc->start,
--					     cb_desc->end);
--
--	return (uint32_t)num;
--}
--
--/*
-- * @brief Get the number of free elements.
-- *
-- * @param cb_desc The pointer to the circular buffer descriptor.
-- *
-- * @return: The number of free elements.
-- */
--static inline uint32_t ia_css_circbuf_desc_get_free_elems(
--    ia_css_circbuf_desc_t *cb_desc)
--{
--	u32 num;
--
--	OP___assert(cb_desc);
--
--	num = ia_css_circbuf_desc_get_offset(cb_desc,
--					     cb_desc->start,
--					     cb_desc->end);
--
--	return (cb_desc->size - num);
--}
--#endif /*_IA_CSS_CIRCBUF_DESC_H_ */
-diff --git a/drivers/staging/media/atomisp/pci/base/circbuf/src/circbuf.c b/drivers/staging/media/atomisp/pci/base/circbuf/src/circbuf.c
-deleted file mode 100644
-index cb34d0b5abb5e..0000000000000
---- a/drivers/staging/media/atomisp/pci/base/circbuf/src/circbuf.c
-+++ /dev/null
-@@ -1,312 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0
--/*
-- * Support for Intel Camera Imaging ISP subsystem.
-- * Copyright (c) 2015, Intel Corporation.
-- */
--
--#include "ia_css_circbuf.h"
--
--#include <assert_support.h>
--
--/**********************************************************************
-- *
-- * Forward declarations.
-- *
-- **********************************************************************/
--/*
-- * @brief Read the oldest element from the circular buffer.
-- * Read the oldest element WITHOUT checking whether the
-- * circular buffer is empty or not. The oldest element is
-- * also removed out from the circular buffer.
-- *
-- * @param cb The pointer to the circular buffer.
-- *
-- * @return the oldest element.
-- */
--static inline ia_css_circbuf_elem_t
--ia_css_circbuf_read(ia_css_circbuf_t *cb);
--
--/*
-- * @brief Shift a chunk of elements in the circular buffer.
-- * A chunk of elements (i.e. the ones from the "start" position
-- * to the "chunk_src" position) are shifted in the circular buffer,
-- * along the direction of new elements coming.
-- *
-- * @param cb	     The pointer to the circular buffer.
-- * @param chunk_src  The position at which the first element in the chunk is.
-- * @param chunk_dest The position to which the first element in the chunk would be shift.
-- */
--static inline void ia_css_circbuf_shift_chunk(ia_css_circbuf_t *cb,
--	u32 chunk_src,
--	uint32_t chunk_dest);
--
--/*
-- * @brief Get the "val" field in the element.
-- *
-- * @param elem The pointer to the element.
-- *
-- * @return the "val" field.
-- */
--static inline uint32_t
--ia_css_circbuf_elem_get_val(ia_css_circbuf_elem_t *elem);
--
--/**********************************************************************
-- *
-- * Non-inline functions.
-- *
-- **********************************************************************/
--/*
-- * @brief Create the circular buffer.
-- * Refer to "ia_css_circbuf.h" for details.
-- */
--void
--ia_css_circbuf_create(ia_css_circbuf_t *cb,
--		      ia_css_circbuf_elem_t *elems,
--		      ia_css_circbuf_desc_t *desc)
--{
--	u32 i;
--
--	OP___assert(desc);
--
--	cb->desc = desc;
--	/* Initialize to defaults */
--	cb->desc->start = 0;
--	cb->desc->end = 0;
--	cb->desc->step = 0;
--
--	for (i = 0; i < cb->desc->size; i++)
--		ia_css_circbuf_elem_init(&elems[i]);
--
--	cb->elems = elems;
--}
--
--/*
-- * @brief Destroy the circular buffer.
-- * Refer to "ia_css_circbuf.h" for details.
-- */
--void ia_css_circbuf_destroy(ia_css_circbuf_t *cb)
--{
--	cb->desc = NULL;
--
--	cb->elems = NULL;
--}
--
--/*
-- * @brief Pop a value out of the circular buffer.
-- * Refer to "ia_css_circbuf.h" for details.
-- */
--uint32_t ia_css_circbuf_pop(ia_css_circbuf_t *cb)
--{
--	u32 ret;
--	ia_css_circbuf_elem_t elem;
--
--	assert(!ia_css_circbuf_is_empty(cb));
--
--	/* read an element from the buffer */
--	elem = ia_css_circbuf_read(cb);
--	ret = ia_css_circbuf_elem_get_val(&elem);
--	return ret;
--}
--
--/*
-- * @brief Extract a value out of the circular buffer.
-- * Refer to "ia_css_circbuf.h" for details.
-- */
--uint32_t ia_css_circbuf_extract(ia_css_circbuf_t *cb, int offset)
--{
--	int max_offset;
--	u32 val;
--	u32 pos;
--	u32 src_pos;
--	u32 dest_pos;
--
--	/* get the maximum offset */
--	max_offset = ia_css_circbuf_get_offset(cb, cb->desc->start, cb->desc->end);
--	max_offset--;
--
--	/*
--	 * Step 1: When the target element is at the "start" position.
--	 */
--	if (offset == 0) {
--		val = ia_css_circbuf_pop(cb);
--		return val;
+-	if (NULL == qhandle || NULL == desc
+-	    || NULL == desc->cb_elems || NULL == desc->cb_desc) {
+-		/* Invalid parameters, return error*/
+-		return -EINVAL;
 -	}
 -
--	/*
--	 * Step 2: When the target element is out of the range.
--	 */
--	if (offset > max_offset) {
--		val = 0;
--		return val;
+-	/* Mark the queue as Local */
+-	qhandle->type = IA_CSS_QUEUE_TYPE_LOCAL;
+-
+-	/* Create a local circular buffer queue*/
+-	ia_css_circbuf_create(&qhandle->desc.cb_local,
+-			      desc->cb_elems,
+-			      desc->cb_desc);
+-
+-	return 0;
+-}
+ 
+ int ia_css_queue_remote_init(ia_css_queue_t *qhandle, ia_css_queue_remote_t *desc)
+ {
+@@ -39,9 +21,6 @@ int ia_css_queue_remote_init(ia_css_queue_t *qhandle, ia_css_queue_remote_t *des
+ 		return -EINVAL;
+ 	}
+ 
+-	/* Mark the queue as remote*/
+-	qhandle->type = IA_CSS_QUEUE_TYPE_REMOTE;
+-
+ 	/* Copy over the local queue descriptor*/
+ 	qhandle->location = desc->location;
+ 	qhandle->proc_id = desc->proc_id;
+@@ -56,21 +35,7 @@ int ia_css_queue_remote_init(ia_css_queue_t *qhandle, ia_css_queue_remote_t *des
+ 	return 0;
+ }
+ 
+-int ia_css_queue_uninit(ia_css_queue_t *qhandle)
+-{
+-	if (!qhandle)
+-		return -EINVAL;
+-
+-	/* Load the required queue object */
+-	if (qhandle->type == IA_CSS_QUEUE_TYPE_LOCAL) {
+-		/* Local queues are created. Destroy it*/
+-		ia_css_circbuf_destroy(&qhandle->desc.cb_local);
 -	}
 -
--	/*
--	 * Step 3: When the target element is between the "start" and
--	 * "end" position.
--	 */
--	/* get the position of the target element */
--	pos = ia_css_circbuf_get_pos_at_offset(cb, cb->desc->start, offset);
--
--	/* get the value from the target element */
--	val = ia_css_circbuf_elem_get_val(&cb->elems[pos]);
--
--	/* shift the elements */
--	src_pos = ia_css_circbuf_get_pos_at_offset(cb, pos, -1);
--	dest_pos = pos;
--	ia_css_circbuf_shift_chunk(cb, src_pos, dest_pos);
--
--	return val;
+-	return 0;
 -}
 -
--/*
-- * @brief Peek an element from the circular buffer.
-- * Refer to "ia_css_circbuf.h" for details.
-- */
--uint32_t ia_css_circbuf_peek(ia_css_circbuf_t *cb, int offset)
+-static int ia_css_queue_enqueue_remote(ia_css_queue_t *qhandle, uint32_t item)
++int ia_css_queue_enqueue(ia_css_queue_t *qhandle, uint32_t item)
+ {
+ 	ia_css_circbuf_desc_t cb_desc;
+ 	ia_css_circbuf_elem_t cb_elem;
+@@ -108,30 +73,7 @@ static int ia_css_queue_enqueue_remote(ia_css_queue_t *qhandle, uint32_t item)
+ 	return ia_css_queue_store(qhandle, &cb_desc, ignore_desc_flags);
+ }
+ 
+-int ia_css_queue_enqueue(ia_css_queue_t *qhandle, uint32_t item)
 -{
--	int pos;
+-	if (!qhandle)
+-		return -EINVAL;
 -
--	pos = ia_css_circbuf_get_pos_at_offset(cb, cb->desc->end, offset);
--
--	/* get the value at the position */
--	return cb->elems[pos].val;
--}
--
--/*
-- * @brief Get the value of an element from the circular buffer.
-- * Refer to "ia_css_circbuf.h" for details.
-- */
--uint32_t ia_css_circbuf_peek_from_start(ia_css_circbuf_t *cb, int offset)
--{
--	int pos;
--
--	pos = ia_css_circbuf_get_pos_at_offset(cb, cb->desc->start, offset);
--
--	/* get the value at the position */
--	return cb->elems[pos].val;
--}
--
--/* @brief increase size of a circular buffer.
-- * Use 'CAUTION' before using this function. This was added to
-- * support / fix issue with increasing size for tagger only
-- * Please refer to "ia_css_circbuf.h" for details.
-- */
--bool ia_css_circbuf_increase_size(
--    ia_css_circbuf_t *cb,
--    unsigned int sz_delta,
--    ia_css_circbuf_elem_t *elems)
--{
--	u8 curr_size;
--	u8 curr_end;
--	unsigned int i;
--
--	if (!cb || sz_delta == 0)
--		return false;
--
--	curr_size = cb->desc->size;
--	curr_end = cb->desc->end;
--	/* We assume cb was pre defined as global to allow
--	 * increase in size */
--	/* FM: are we sure this cannot cause size to become too big? */
--	if (((uint8_t)(cb->desc->size + (uint8_t)sz_delta) > cb->desc->size) &&
--	    ((uint8_t)sz_delta == sz_delta))
--		cb->desc->size += (uint8_t)sz_delta;
--	else
--		return false; /* overflow in size */
--
--	/* If elems are passed update them else we assume its been taken
--	 * care before calling this function */
--	if (elems) {
--		/* cb element array size will not be increased dynamically,
--		 * but pointers to new elements can be added at the end
--		 * of existing pre defined cb element array of
--		 * size >= new size if not already added */
--		for (i = curr_size; i <  cb->desc->size; i++)
--			cb->elems[i] = elems[i - curr_size];
--	}
--	/* Fix Start / End */
--	if (curr_end < cb->desc->start) {
--		if (curr_end == 0) {
--			/* Easily fix End */
--			cb->desc->end = curr_size;
--		} else {
--			/* Move elements and fix Start*/
--			ia_css_circbuf_shift_chunk(cb,
--						   curr_size - 1,
--						   curr_size + sz_delta - 1);
+-	/* 1. Load the required queue object */
+-	if (qhandle->type == IA_CSS_QUEUE_TYPE_LOCAL) {
+-		/* Directly de-ref the object and
+-		 * operate on the queue
+-		 */
+-		if (ia_css_circbuf_is_full(&qhandle->desc.cb_local)) {
+-			/* Cannot push the element. Return*/
+-			return -ENOBUFS;
 -		}
+-
+-		/* Push the element*/
+-		ia_css_circbuf_push(&qhandle->desc.cb_local, item);
+-		return 0;
 -	}
 -
--	return true;
+-	return ia_css_queue_enqueue_remote(qhandle, item);
 -}
 -
--/****************************************************************
-- *
-- * Inline functions.
-- *
-- ****************************************************************/
--/*
-- * @brief Get the "val" field in the element.
-- * Refer to "Forward declarations" for details.
-- */
--static inline uint32_t
--ia_css_circbuf_elem_get_val(ia_css_circbuf_elem_t *elem)
+-static int ia_css_queue_dequeue_remote(ia_css_queue_t *qhandle, uint32_t *item)
++int ia_css_queue_dequeue(ia_css_queue_t *qhandle, uint32_t *item)
+ {
+ 	ia_css_circbuf_desc_t cb_desc;
+ 	ia_css_circbuf_elem_t cb_elem;
+@@ -170,29 +112,7 @@ static int ia_css_queue_dequeue_remote(ia_css_queue_t *qhandle, uint32_t *item)
+ 	return ia_css_queue_store(qhandle, &cb_desc, ignore_desc_flags);
+ }
+ 
+-int ia_css_queue_dequeue(ia_css_queue_t *qhandle, uint32_t *item)
 -{
--	return elem->val;
--}
+-	if (!qhandle || NULL == item)
+-		return -EINVAL;
 -
--/*
-- * @brief Read the oldest element from the circular buffer.
-- * Refer to "Forward declarations" for details.
-- */
--static inline ia_css_circbuf_elem_t
--ia_css_circbuf_read(ia_css_circbuf_t *cb)
--{
--	ia_css_circbuf_elem_t elem;
+-	/* 1. Load the required queue object */
+-	if (qhandle->type == IA_CSS_QUEUE_TYPE_LOCAL) {
+-		/* Directly de-ref the object and
+-		 * operate on the queue
+-		 */
+-		if (ia_css_circbuf_is_empty(&qhandle->desc.cb_local)) {
+-			/* Nothing to pop. Return empty queue*/
+-			return -ENODATA;
+-		}
 -
--	/* get the element from the target position */
--	elem = cb->elems[cb->desc->start];
--
--	/* clear the target position */
--	ia_css_circbuf_elem_init(&cb->elems[cb->desc->start]);
--
--	/* adjust the "start" position */
--	cb->desc->start = ia_css_circbuf_get_pos_at_offset(cb, cb->desc->start, 1);
--	return elem;
--}
--
--/*
-- * @brief Shift a chunk of elements in the circular buffer.
-- * Refer to "Forward declarations" for details.
-- */
--static inline void
--ia_css_circbuf_shift_chunk(ia_css_circbuf_t *cb,
--			   u32 chunk_src, uint32_t chunk_dest)
--{
--	int chunk_offset;
--	int chunk_sz;
--	int i;
--
--	/* get the chunk offset and size */
--	chunk_offset = ia_css_circbuf_get_offset(cb,
--		       chunk_src, chunk_dest);
--	chunk_sz = ia_css_circbuf_get_offset(cb, cb->desc->start, chunk_src) + 1;
--
--	/* shift each element to its terminal position */
--	for (i = 0; i < chunk_sz; i++) {
--		/* copy the element from the source to the destination */
--		ia_css_circbuf_elem_cpy(&cb->elems[chunk_src],
--					&cb->elems[chunk_dest]);
--
--		/* clear the source position */
--		ia_css_circbuf_elem_init(&cb->elems[chunk_src]);
--
--		/* adjust the source/terminal positions */
--		chunk_src = ia_css_circbuf_get_pos_at_offset(cb, chunk_src, -1);
--		chunk_dest = ia_css_circbuf_get_pos_at_offset(cb, chunk_dest, -1);
+-		*item = ia_css_circbuf_pop(&qhandle->desc.cb_local);
+-		return 0;
 -	}
 -
--	/* adjust the index "start" */
--	cb->desc->start = ia_css_circbuf_get_pos_at_offset(cb, cb->desc->start,
--			  chunk_offset);
+-	return ia_css_queue_dequeue_remote(qhandle, item);
 -}
+-
+-static int ia_css_queue_is_full_remote(ia_css_queue_t *qhandle, bool *is_full)
++int ia_css_queue_is_full(ia_css_queue_t *qhandle, bool *is_full)
+ {
+ 	ia_css_circbuf_desc_t cb_desc;
+ 	u32 ignore_desc_flags = QUEUE_IGNORE_STEP_FLAG;
+@@ -213,24 +133,7 @@ static int ia_css_queue_is_full_remote(ia_css_queue_t *qhandle, bool *is_full)
+ 	return 0;
+ }
+ 
+-int ia_css_queue_is_full(ia_css_queue_t *qhandle, bool *is_full)
+-{
+-	if ((!qhandle) || (!is_full))
+-		return -EINVAL;
+-
+-	/* 1. Load the required queue object */
+-	if (qhandle->type == IA_CSS_QUEUE_TYPE_LOCAL) {
+-		/* Directly de-ref the object and
+-		 * operate on the queue
+-		 */
+-		*is_full = ia_css_circbuf_is_full(&qhandle->desc.cb_local);
+-		return 0;
+-	}
+-
+-	return ia_css_queue_is_full_remote(qhandle, is_full);
+-}
+-
+-static int ia_css_queue_get_free_space_remote(ia_css_queue_t *qhandle, uint32_t *size)
++int ia_css_queue_get_free_space(ia_css_queue_t *qhandle, uint32_t *size)
+ {
+ 	ia_css_circbuf_desc_t cb_desc;
+ 	u32 ignore_desc_flags = QUEUE_IGNORE_STEP_FLAG;
+@@ -251,24 +154,7 @@ static int ia_css_queue_get_free_space_remote(ia_css_queue_t *qhandle, uint32_t
+ 	return 0;
+ }
+ 
+-int ia_css_queue_get_free_space(ia_css_queue_t *qhandle, uint32_t *size)
+-{
+-	if ((!qhandle) || (!size))
+-		return -EINVAL;
+-
+-	/* 1. Load the required queue object */
+-	if (qhandle->type == IA_CSS_QUEUE_TYPE_LOCAL) {
+-		/* Directly de-ref the object and
+-		 * operate on the queue
+-		 */
+-		*size = ia_css_circbuf_get_free_elems(&qhandle->desc.cb_local);
+-		return 0;
+-	}
+-
+-	return ia_css_queue_get_free_space_remote(qhandle, size);
+-}
+-
+-static int ia_css_queue_get_used_space_remote(ia_css_queue_t *qhandle, uint32_t *size)
++int ia_css_queue_get_used_space(ia_css_queue_t *qhandle, uint32_t *size)
+ {
+ 	ia_css_circbuf_desc_t cb_desc;
+ 	u32 ignore_desc_flags = QUEUE_IGNORE_STEP_FLAG;
+@@ -289,24 +175,7 @@ static int ia_css_queue_get_used_space_remote(ia_css_queue_t *qhandle, uint32_t
+ 	return 0;
+ }
+ 
+-int ia_css_queue_get_used_space(ia_css_queue_t *qhandle, uint32_t *size)
+-{
+-	if ((!qhandle) || (!size))
+-		return -EINVAL;
+-
+-	/* 1. Load the required queue object */
+-	if (qhandle->type == IA_CSS_QUEUE_TYPE_LOCAL) {
+-		/* Directly de-ref the object and
+-		 * operate on the queue
+-		 */
+-		*size = ia_css_circbuf_get_num_elems(&qhandle->desc.cb_local);
+-		return 0;
+-	}
+-
+-	return ia_css_queue_get_used_space_remote(qhandle, size);
+-}
+-
+-static int ia_css_queue_peek_remote(ia_css_queue_t *qhandle, u32 offset, uint32_t *element)
++int ia_css_queue_peek(ia_css_queue_t *qhandle, u32 offset, uint32_t *element)
+ {
+ 	ia_css_circbuf_desc_t cb_desc;
+ 	ia_css_circbuf_elem_t cb_elem;
+@@ -339,31 +208,7 @@ static int ia_css_queue_peek_remote(ia_css_queue_t *qhandle, u32 offset, uint32_
+ 	return 0;
+ }
+ 
+-int ia_css_queue_peek(ia_css_queue_t *qhandle, u32 offset, uint32_t *element)
+-{
+-	u32 num_elems;
+-
+-	if ((!qhandle) || (!element))
+-		return -EINVAL;
+-
+-	/* 1. Load the required queue object */
+-	if (qhandle->type == IA_CSS_QUEUE_TYPE_LOCAL) {
+-		/* Directly de-ref the object and
+-		 * operate on the queue
+-		 */
+-		/* Check if offset is valid */
+-		num_elems = ia_css_circbuf_get_num_elems(&qhandle->desc.cb_local);
+-		if (offset > num_elems)
+-			return -EINVAL;
+-
+-		*element = ia_css_circbuf_peek_from_start(&qhandle->desc.cb_local, (int)offset);
+-		return 0;
+-	}
+-
+-	return ia_css_queue_peek_remote(qhandle, offset, element);
+-}
+-
+-static int ia_css_queue_is_empty_remote(ia_css_queue_t *qhandle, bool *is_empty)
++int ia_css_queue_is_empty(ia_css_queue_t *qhandle, bool *is_empty)
+ {
+ 	ia_css_circbuf_desc_t cb_desc;
+ 	u32 ignore_desc_flags = QUEUE_IGNORE_STEP_FLAG;
+@@ -384,24 +229,7 @@ static int ia_css_queue_is_empty_remote(ia_css_queue_t *qhandle, bool *is_empty)
+ 	return 0;
+ }
+ 
+-int ia_css_queue_is_empty(ia_css_queue_t *qhandle, bool *is_empty)
+-{
+-	if ((!qhandle) || (!is_empty))
+-		return -EINVAL;
+-
+-	/* 1. Load the required queue object */
+-	if (qhandle->type == IA_CSS_QUEUE_TYPE_LOCAL) {
+-		/* Directly de-ref the object and
+-		 * operate on the queue
+-		 */
+-		*is_empty = ia_css_circbuf_is_empty(&qhandle->desc.cb_local);
+-		return 0;
+-	}
+-
+-	return ia_css_queue_is_empty_remote(qhandle, is_empty);
+-}
+-
+-static int ia_css_queue_get_size_remote(ia_css_queue_t *qhandle, uint32_t *size)
++int ia_css_queue_get_size(ia_css_queue_t *qhandle, uint32_t *size)
+ {
+ 	ia_css_circbuf_desc_t cb_desc;
+ 	u32 ignore_desc_flags = QUEUE_IGNORE_START_END_STEP_FLAGS;
+@@ -422,21 +250,3 @@ static int ia_css_queue_get_size_remote(ia_css_queue_t *qhandle, uint32_t *size)
+ 
+ 	return 0;
+ }
+-
+-int ia_css_queue_get_size(ia_css_queue_t *qhandle, uint32_t *size)
+-{
+-	if ((!qhandle) || (!size))
+-		return -EINVAL;
+-
+-	/* 1. Load the required queue object */
+-	if (qhandle->type == IA_CSS_QUEUE_TYPE_LOCAL) {
+-		/* Directly de-ref the object and
+-		 * operate on the queue
+-		 */
+-		/* Return maximum usable capacity */
+-		*size = ia_css_circbuf_get_size(&qhandle->desc.cb_local);
+-		return 0;
+-	}
+-
+-	return ia_css_queue_get_size_remote(qhandle, size);
+-}
+diff --git a/drivers/staging/media/atomisp/pci/runtime/queue/src/queue_access.h b/drivers/staging/media/atomisp/pci/runtime/queue/src/queue_access.h
+index d62133a8fe6f8..776c6d6cb1fcc 100644
+--- a/drivers/staging/media/atomisp/pci/runtime/queue/src/queue_access.h
++++ b/drivers/staging/media/atomisp/pci/runtime/queue/src/queue_access.h
+@@ -43,11 +43,9 @@
+ 	} while (0)
+ 
+ struct ia_css_queue {
+-	u8 type;        /* Specify remote/local type of access */
+ 	u8 location;    /* Cell location for queue */
+ 	u8 proc_id;     /* Processor id for queue access */
+ 	union {
+-		ia_css_circbuf_t cb_local;
+ 		struct {
+ 			u32 cb_desc_addr; /*Circbuf desc address for remote queues*/
+ 			u32 cb_elems_addr; /*Circbuf elements addr for remote queue*/
 -- 
 2.43.0
 
