@@ -1,94 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.99
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793134863;
-	b=ZasOQ5g4Wg1m5oPGbpHKS9tYxdZIs+VslhUHaSl5MTKvHUBYmqqLONz5q6v0MhS3bqXB
-	 bUPl5jMs/ekdECuykMrMRIR58U1IMjtldamNJ3dnXO5G3Iyy8WrlyL8ffLy8dD4mV6Uam
-	 bQ87P6gATrIAWilnX9cer4RHAHSYpTAWdEFuPGOXGbc890wf2IVVKYZ217q0kQDdQtX+X
-	 7zxP0wLKcVGiEBG6l6mezHsZm6F6YCBa6A2s111A0b02a8+cfYOttbIROCVZ8uarRw+Of
-	 QSihcg7cOVDtiFbJTQLMivcD9837fAfTlIXHfbMQAyXOidbQhvjCrk7F9me0xKAKilQ==
+	t=1793134948;
+	b=DOGuC+S5cIegMUnYLHWAEG91bne7aHhyYxUWyR0yl/Li2yuCVHo5t66EcUxhS9h+rtZ/
+	 6iv16lPmlVztC9AVIBGDD6mMPcqYDoBhOpjW6r5JMawXj7HmPaXZe8I37yfjTniiYq/6q
+	 UT4uoJz7qFWhdi01ZNIcxyiMTs3KYClZpiGr7QcMYVhdQDK9KI8wPQGS/r9I8mPEHGdvC
+	 nAOemcE+rqeLbiSBgjrjj1UMeITZEcCj1vPd5luHbFFIF0ispH0i5kdvQIPVV14AhRaNG
+	 NkKHqrrQCnpwMGDSGLauxBRJiu2DB1ueIp2AZtybDIkh/oFyppbG/p+STJ5C4TdQgQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793134863;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=vksKrVSWOCoTCBOOcilaf8iYOKdP6CKIUvBJMhUMzLc=;
-	b=e3iZnp4t0TBz5WbLawQ8Mo4GeTkDM/etCQQPbQnw1+14toKERXsnmAwK/tznA8pBEMxW
-	 T7RbxPIn2LGsF4YeW5cDDcGVhnk0Wx5TmnOiHsHgYVhbHiJwZ6gE9RXTrXB2feewmzRPa
-	 ziXRtv5a+g9gcPgBXZrfpVUGAvdXkWs9GzKmHyjikz+Rsor590YKy5e0XVT2FhOzEq50A
-	 Iv5Gd6FLiV0xtBQxZU5dDTzEcuLVEbvUHVULuu3LyQghEG8m12JzI+sTgiXKCKacEMaf+
-	 Dtls2QxsKMXsBBBlwtDU9MU+gkL66/uBKDNz+PegoI4YXiupGGPgAs1CSUlKDCwzPIw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793134948;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=0gdBK2a/7BtrvxXUlX9He8n64shVCDBHPI0R3YZSOO8=;
+	b=WQ+/3F9rWefVt7PiygCYt9Z/kD913kLbHPlsb8r+9DTgo7d9qkVB9wG1dEVbpgprJbS4
+	 0wucca7u9OOSkBRz9ofantEn1Dp3A9nfYP5qBxcj925UMQ6rW3eKgW68eBIVvw6f9Bxh4
+	 X6IQpO4Xtp7ZgFBBLWmOesQwTHC4Blv5Sxv7XH6sNp7tYbqMfRogM0LTelzG9QHg2kxXa
+	 Uk2hK14xR5rKQc3r4yEvFuT/lIDgjjPX6r+JCscjc68JJjjI0wkU3T05XfECrPZzdUrMm
+	 2fXnFJk87aDM/In7TUg27DdbHF8NeEBWoZAuSVODN3OFCTk/JEPDFm7HtAoidE0FeUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=simpleble.org;
-	spf=pass smtp.mailfrom=californiaopensource.com;
-	dkim=pass header.d=simpleble.org header.i=@simpleble.org header.a=rsa-sha256 header.s=google header.b=AmTcmyYx;
-	arc=none smtp.remote-ip=74.125.82.178
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=proton.me;
+	spf=pass smtp.mailfrom=proton.me;
+	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=RPvtGViX;
+	arc=none smtp.remote-ip=79.135.106.99
+Received: from mail-10699.protonmail.ch (mail-10699.protonmail.ch [79.135.106.99])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21E1C606A31D
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 21:01:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21E1C606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=simpleble.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=californiaopensource.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACA6B606A31A;
+	Tue, 27 Oct 2026 21:02:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ACA6B606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=simpleble.org header.i=@simpleble.org header.a=rsa-sha256 header.s=google header.b=AmTcmyYx
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-35c76e9614aso466553eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 14:01:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=simpleble.org; s=google; t=1793134862; x=1793739662; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vksKrVSWOCoTCBOOcilaf8iYOKdP6CKIUvBJMhUMzLc=;
-        b=AmTcmyYxpmrV//SRIXmL+vGqWd7Dv5HBTY6IcLBRTgg40aJQwUDjsoRAUhEdSD1/KO
-         D5EkXm8tcarR8ffyMZriNYYu4bDsihMoyTBgFBjJ5MYEmwZDB8JMNMpOgRKY+WEcHIwf
-         CbmubGrPApbUZ88pk03A1YiDiuv4fZ4brSyNZOPKfq9oyGwUqY0BOgiwycPhmlkPGJ/v
-         FmFIGAKYAfIBYOi0fcjBlTicM3iDNBmLBy5wGIL8S6prDg3/8BhNF4ai3zW1AgbfSBNQ
-         meeNkVut/B40UQKFiDNDuq13IK8B47pYtyAI1Iw+RlguvbIK8WToAwlZd/POVTKrhQoy
-         7g2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793134862; x=1793739662;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vksKrVSWOCoTCBOOcilaf8iYOKdP6CKIUvBJMhUMzLc=;
-        b=Mtif+1L7m1PGI7qMjDnHPPaT5Da+ECaTyjPOuo3wlvcuLxK6IhJXyDrd8/C8XgO7aU
-         ip8XPQjuwH/aMq/9aLVxM9LyAsI7sUyd7M6CxfAm15aI8BpL/Jk+WDy12bNik5P3dEQv
-         wDaHs9uBqbb4S7Tb/xlK78/KzhhSHYKQAu+p2KOJWdMwlVKq1mipg/K6Xp6p/CQKC5hj
-         ezumireEDkeN0QM6SO/ft4J7Ta1gFpyNCmTmbVtZQIrqk2JOsZRCW0ovqQI2JPv1NbcG
-         2HmI/QbQtIVe30982mgTVHASMdspYJM/JjEFrr6yiMcHc+iDSzr+AwIFBSC4qzmPN+8V
-         MzjQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz8Sp75CwHrgr/iOXMYIpA6qXdotYXmYEWj3YVEgKhQpjJO7omANCciZ7xY/eRusmlBMT9x2W0OLuul7a0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI2mRW6U+Mgvya5KN7a33BTd6D5kQ5GVN3HEVZ2zKMTKrOd6c35
-	BY13av0pqCJnyJ6G8XpAatRng3+HMkXygAkIMoUFmH7LwJsnKirTqoHLcjOvs4JVl8/xtvSFreZ
-	78TIFuQJgwQ==
-X-Gm-Gg: AYBFou0gzV63uEddwqt/K5PBWMmFSfDT5tZE/OmvW+2/iL7fV+IBKzWL3HZ8wFNpGVf
-	82M+dDLqY1slscknI4wsHU9GgkpcDujmCG4wxsOcypBCHeQU8i+d91kqJBSSiSJV/LiWerCSyMB
-	IZaZZhUJVPikYRBPxk87UHP0kqMKABUnTBHAh/ooy5i9Gsonj0fokmgk6WYcBUTZ1EdB1wq3h2y
-	hgZVe4bkrK5iRQuweoanTEMK8RtjHqEm9TrEvluM4vVREgH9gQi/O0ZTtjqZqxciWtpkdcs0afe
-	2koTfKUpj71dwVGiKnPLmFxo7wAHpxam2GrkqNpphl13u+Wq7fo7vIFz05/LsN0GSFkKkvHO+GW
-	b5NMSoPsMIGD8pQunqrfQdP7AOoygX6h0ndxspPLDUL34NfgYVV6dtWr1xn4PVze/FUJMAJlwlX
-	S0N/iDONVqOUNb3RQvbRa5goirVoHh54zur3+DOrV1udiEHp/r27lnQCfzm3/e6wTbpKU7yCjYT
-	j7BhpSQIkW1lUAT6rmEOWGKwj13H0gDCOMcMGOHgWTOn/x7ktDDik/JyxrCf/cp64fgRZfe+bi3
-	COlS3g8w4CWLl8RI4ZP8jVlAnlC3Wo39Mfh/rjHX+uYMIYcKGX6hpqBftS8T+igB3wHUWiCnfva
-	Vyhgi7PXaklW3kwevua/0hQ==
-X-Received: by 2002:a05:7300:7312:b0:358:ec5c:bef1 with SMTP id 5a478bee46e88-36a204773c0mr1110485eec.39.1793134861237;
-        Tue, 27 Oct 2026 14:01:01 -0700 (PDT)
-Received: from localhost.localdomain ([147.185.47.151])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8daf444sm34855931eec.18.2026.10.27.14.00.59
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 27 Oct 2026 14:01:00 -0700 (PDT)
-From: Kevin Dewald <kevin@simpleble.org>
-To: linux-bluetooth@vger.kernel.org
-Cc: Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	Kevin Dewald <kevin@simpleble.org>
-Subject: [PATCH v3] Bluetooth: MGMT: Fix discovery stuck after a failed Stop Discovery
-Date: Tue, 27 Oct 2026 14:00:57 -0700
-Message-ID: <20261027210057.44347-1-kevin@simpleble.org>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=RPvtGViX
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail2; t=1793134944; x=1793394144;
+	bh=0gdBK2a/7BtrvxXUlX9He8n64shVCDBHPI0R3YZSOO8=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=RPvtGViX8DtOI+cYibDYRy7LwnkDbu8zH1jzLEv9eW8+BP0fHvfB4+MkW/x7UxS2J
+	 dzER/G6vV7gCCK3TFaFCiuR04uvdpoIh0uQkl4yLM/t1zkehwDOQwXjsBN3Q1XeO9N
+	 c3VFwUSEc0XmqrnZd4Vv3KvF8/JNCxePthUV5MFS48HYFmRTZzIH3WnQiZr3zccZ6d
+	 hzBYwCs5bqVRt5DKj7qKynQ7BvfBb0WVED7vph2zIkwghsuNdQ6CECjjdXPcOLtrmy
+	 BlWFBr8Bx8/H8KUgUQT8NRlFK1PPxWBAWk+taXftlZ/diT6g/c3/iKj6H7QT6uQmj4
+	 rrrHzr3ZcXPMQ==
+Date: Tue, 27 Oct 2026 21:02:16 +0000
+To: Steven Rostedt <rostedt@goodmis.org>, "kees@kernel.org" <kees@kernel.org>, "brauner@kernel.org" <brauner@kernel.org>
+From: BoxStrikesTeam <BoxStrikesTeam@proton.me>
+Cc: "viro@zeniv.linux.org.uk" <viro@zeniv.linux.org.uk>, "jack@suse.cz" <jack@suse.cz>, "mhiramat@kernel.org" <mhiramat@kernel.org>, "mathieu.desnoyers@efficios.com" <mathieu.desnoyers@efficios.com>, "jkoolstra@xs4all.nl" <jkoolstra@xs4all.nl>, "farid.m.zakaria@gmail.com" <farid.m.zakaria@gmail.com>, "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "linux-mm@kvack.org" <linux-mm@kvack.org>, "linux-trace-kernel@vger.kernel.org" <linux-trace-kernel@vger.kernel.org>, "bpf@vger.kernel.org" <bpf@vger.kernel.org>
+Subject: Ynt: Re: [RFC PATCH] binfmt_misc: add binfmt_misc_select tracepoint
+Message-ID: <Z3h154GvGuNo0lQQgNCwWxpvOkPCUZblnFrYRF1R9dx3Lqyh7mG96XAdo4GDq2Sy-wjlmqcQKcgmosaapO4gy82voeR2rAerZh9u2LmCEiA=@proton.me>
+In-Reply-To: <20261026162846.23686159@gandalf.local.home>
+References: <cmtfuzYFZMj7WozUoEjFs3RxYWe9UgdY5rK3ZGT7CPwO1mpemvEwNhG4v5ucoKBgUHMqFa7kSzOvLjFcVcxAybfmKdURZ4h-qoKX1lHXlAA=@proton.me> <20261026162846.23686159@gandalf.local.home>
+Feedback-ID: 205449183:user:proton
+X-Pm-Message-ID: 9f98da1da7a4f9aead59ee0aee5c9d5707e0cf2b
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,146 +64,180 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Stop Discovery moves the discovery to DISCOVERY_STOPPING, and
-stop_discovery_complete() only moves it on to DISCOVERY_STOPPED when
-stopping succeeded. When it fails, for example because LE Set Scan
-Enable times out, nothing moves the discovery out of
-DISCOVERY_STOPPING: Stop Discovery is rejected, as the discovery is not
-active anymore, and the LE scan timeout was cancelled before the scan
-was disabled. Until the controller is powered off, every Start
-Discovery then fails with Busy, and hci_update_passive_scan_sync()
-skips background scanning, so devices set to auto-connect are not
-connected anymore.
+Thank you! Steve, for your suggestions.
 
-Move the discovery back to DISCOVERY_FINDING when stopping it failed
-while the inquiry or the LE scan is still running, so that it can be
-stopped again, and only cancel the LE scan timeout once the scan is
-disabled, so that the discovery still ends on its own. A timed out LE
-Set Scan Enable can still complete afterwards, which cancels the
-timeout as well, so also stop the discovery when its scan is disabled
-while the timeout is pending.
+I=E2=80=99ll take a look at the suggested fixes for the patch tomorrow. The=
+ main issue I ran into was that Proton Mail=E2=80=99s SMTP submission setup=
+ requires a paid plan, which caused me quite a bit of trouble. That=
+=E2=80=99s why I=E2=80=99ve included the patch as an attachment for now.
 
-Fixes: 0e05bba6f6f8 ("Bluetooth: Update stop_discovery to use HCI request")
-Assisted-by: Claude:claude-opus-5.5
-Signed-off-by: Kevin Dewald <kevin@simpleble.org>
----
-Changes in v3:
-- Go back to DISCOVERY_FINDING instead of DISCOVERY_STOPPED when
-  stopping failed while the inquiry or the LE scan is still running.
-- Keep the LE scan timeout until the scan is disabled, so that the
-  discovery still ends on its own.
-- Stop the discovery when a timed out LE Set Scan Enable completes
-  afterwards, as that cancels the timeout too.
-- v2: https://lore.kernel.org/linux-bluetooth/20261027172730.86568-1-kevin@simpleble.org/
+It seems that Yandex Mail doesn=E2=80=99t have the same limitation. Once I=
+=E2=80=99ve prepared version 2 of the patch, I=E2=80=99ll send it to you us=
+ing Yandex Mail.
 
-I did not find an error status that shows by itself that the scan
-already stopped: the kernel only disables the scan while HCI_LE_SCAN is
-set, and hci_cc_inquiry_cancel() already turns Command Disallowed after
-the inquiry completed into success. So v3 checks HCI_INQUIRY and
-HCI_LE_SCAN instead, which are only cleared once the controller
-confirms. Going back to DISCOVERY_FINDING sends Discovering (enabled)
-again.
+Thanks again for your help and suggestions!
 
-Reproduced in test-runner with a new mgmt-tester case, "Stop Discovery -
-Scan Disable Failed 1", in which the emulator answers the first LE Set
-Scan Enable (disable) with Unspecified Error: without this patch a
-second Stop Discovery is rejected and Start Discovery fails with Busy
-(3 of 3 runs); with it the second Stop Discovery succeeds, and so does
-Start Discovery (3 of 3). Without the second Stop Discovery, the
-discovery now ends at the LE scan timeout. Freezing the emulated
-controller while bluetoothd stops discovering makes LE Set Scan Enable
-time out and then complete just after: the discovery is stopped when it
-completes, and Start Discovery succeeds (3 of 3). The other kernel
-testers pass as before. Only tested with the emulator, not with real
-controllers. I can send the mgmt-tester case to BlueZ if you want it.
 
-hci_pause_discovery_sync() has the same pattern on suspend, which I have
-not reproduced.
 
- net/bluetooth/hci_event.c | 12 +++++++++++-
- net/bluetooth/hci_sync.c  |  8 ++++++--
- net/bluetooth/mgmt.c      |  9 ++++++++-
- 3 files changed, 25 insertions(+), 4 deletions(-)
+Proton Mail g=C3=BCvenli e-posta ile g=C3=B6nderildi.
 
-diff --git a/net/bluetooth/hci_event.c b/net/bluetooth/hci_event.c
-index d05934fef4..80679f1881 100644
---- a/net/bluetooth/hci_event.c
-+++ b/net/bluetooth/hci_event.c
-@@ -1819,6 +1819,8 @@ static void store_pending_adv_report(struct hci_dev *hdev, bdaddr_t *bdaddr,
- 
- static void le_set_scan_enable_complete(struct hci_dev *hdev, u8 enable)
- {
-+	bool timeout_pending;
-+
- 	hci_dev_lock(hdev);
- 
- 	switch (enable) {
-@@ -1848,10 +1850,18 @@ static void le_set_scan_enable_complete(struct hci_dev *hdev, u8 enable)
- 		/* Cancel this timer so that we don't try to disable scanning
- 		 * when it's already disabled.
- 		 */
--		cancel_delayed_work(&hdev->le_scan_disable);
-+		timeout_pending = cancel_delayed_work(&hdev->le_scan_disable);
- 
- 		hci_dev_clear_flag(hdev, HCI_LE_SCAN);
- 
-+		/* The scan of a discovery was disabled before its timeout,
-+		 * for example by a Stop Discovery that timed out and still
-+		 * completed, so nothing else would end the discovery.
-+		 */
-+		if (timeout_pending &&
-+		    hdev->discovery.state == DISCOVERY_FINDING)
-+			hci_discovery_set_state(hdev, DISCOVERY_STOPPED);
-+
- 		if (hdev->discovery.type == DISCOV_TYPE_INTERLEAVED &&
- 		    hci_test_quirk(hdev, HCI_QUIRK_SIMULTANEOUS_DISCOVERY) &&
- 		    !test_bit(HCI_INQUIRY, &hdev->flags) &&
-diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
-index 9d71ce96bd..6465198f13 100644
---- a/net/bluetooth/hci_sync.c
-+++ b/net/bluetooth/hci_sync.c
-@@ -5913,11 +5913,15 @@ int hci_stop_discovery_sync(struct hci_dev *hdev)
- 		}
- 
- 		if (hci_dev_test_flag(hdev, HCI_LE_SCAN)) {
--			cancel_delayed_work(&hdev->le_scan_disable);
--
- 			err = hci_scan_disable_sync(hdev);
- 			if (err)
- 				return err;
-+
-+			/* Only cancel the LE scan timeout once the scan is
-+			 * disabled, so that the discovery still ends if
-+			 * stopping it failed.
-+			 */
-+			cancel_delayed_work(&hdev->le_scan_disable);
- 		}
- 
- 	} else {
-diff --git a/net/bluetooth/mgmt.c b/net/bluetooth/mgmt.c
-index 3cb4f9ece8..2bdc355786 100644
---- a/net/bluetooth/mgmt.c
-+++ b/net/bluetooth/mgmt.c
-@@ -6322,7 +6322,14 @@ static void stop_discovery_complete(struct hci_dev *hdev, void *data, int err)
- 			  cmd->param, 1);
- 	mgmt_pending_free(cmd);
- 
--	if (!err)
-+	/* Go back to DISCOVERY_FINDING when stopping failed while the inquiry
-+	 * or the LE scan is still running, so that the discovery can be
-+	 * stopped again.
-+	 */
-+	if (err && (test_bit(HCI_INQUIRY, &hdev->flags) ||
-+		    hci_dev_test_flag(hdev, HCI_LE_SCAN)))
-+		hci_discovery_set_state(hdev, DISCOVERY_FINDING);
-+	else
- 		hci_discovery_set_state(hdev, DISCOVERY_STOPPED);
- }
- 
+Steven Rostedt <rostedt@goodmis.org>, 26 Ekim 2026 Pazartesi saat 23:28 tar=
+ihinde =C5=9Funu yazd=C4=B1:
 
-base-commit: 47d4d9f67e92d56ef3965f2727f9c98a5a611368
--- 
-2.53.0
-
+>=20
+> You shouldn't attach patches but inline them. Yeah, I know a lot of email
+> clients can't handle that. But claws-mail can! (and it can also reply to
+> attachments like they were inlined ;-) ).
+>=20
+> I'll let others comment on whether or not this patch is needed, but I'll
+> comment on the tracing side of things.
+>=20
+>=20
+> On Mon, 26 Oct 2026 20:17:26 +0000
+> BoxStrikesTeam <BoxStrikesTeam@proton.me> wrote:
+>=20
+> > From: Eneshan Erdo=C4=9Fan Karaca <BoxStrikesTeam@proton.me>
+> > Subject: [RFC PATCH] binfmt_misc: add binfmt_misc_select tracepoint
+> >
+> > A binfmt_misc entry can select an interpreter for an exec.  With a BPF
+> > 'B' handler, that selection can be made by a BPF struct_ops program.
+> > The kernel commits the decision in bprm->interp and bprm->flags, but it
+> > does not emit an event at the selection point.
+> >
+> > Existing observers have to reconstruct the decision from
+> > /proc/PID/exe, AT_EXECFD, AT_FLAGS, or /proc/PID/maps.  These sources
+> > are mode-dependent: a transparent dispatch still reports the original
+> > binary in /proc/PID/exe, and a short-lived process can exit before the
+> > observer reads it.  A classic dispatch reports the interpreter, but
+> > not which handler selected it or which invocation flags were used.
+> >
+> > Add a tracepoint after the interpreter and the invocation flags are
+> > selected.  It reports the binary filename, the selected interpreter,
+> > the handler name (for BPF handlers), the invocation flags, and the
+> > pid.  The flags are masked with MISC_FMT_INVOCATION_FLAGS so that
+> > static entry state does not leak into the event.
+> >
+> > The tracepoint is observability only; it does not change exec
+> > behavior.
+> >
+> > Assisted-by: LLM
+> > Signed-off-by: Eneshan Erdo=C4=9Fan Karaca <BoxStrikesTeam@proton.me>
+> > ---
+> >
+> > This is an RFC.  A small PoC and short A/B results are available for
+> > context; they are not needed to review the patch.
+> >
+> >  fs/binfmt_misc.c                  |  8 ++++++++
+> >  include/trace/events/binfmt_misc.h | 52 ++++++++++++++++++++++++++++++=
+++++++++
+> >  2 files changed, 60 insertions(+)
+> >
+> > diff --git a/fs/binfmt_misc.c b/fs/binfmt_misc.c
+> > --- a/fs/binfmt_misc.c
+> > +++ b/fs/binfmt_misc.c
+> > @@ -41,6 +41,9 @@
+> >
+> >  #include "internal.h"
+> >
+> > +#define CREATE_TRACE_POINTS
+> > +#include <trace/events/binfmt_misc.h>
+> > +
+> >  /* Entry status and match type bit numbers. */
+> >  enum binfmt_misc_entry_bits {
+> >  =09MISC_FMT_ENABLED_BIT=09=3D 0,
+> > @@ -644,6 +647,11 @@
+> >
+> >  =09flags =3D entry_invocation_flags(fmt, bprm);
+> >
+> > +=09trace_binfmt_misc_select(bprm, interpreter,
+> > +=09=09=09=09 test_bit(MISC_FMT_BPF_BIT, &fmt->flags) ?
+> > +=09=09=09=09 fmt->bpf_ops->name : "",
+> > +=09=09=09=09 flags & MISC_FMT_INVOCATION_FLAGS);
+>=20
+> Logic like the above should be done in the trace event itself. Not in the
+> code path. That is, pass in fmt and flags.
+>=20
+> > +
+> >  =09/* No argv is built for a staged argument to land in. */
+> >  =09if ((flags & (MISC_FMT_LOADER | MISC_FMT_TRANSPARENT)) &&
+> >  =09    bprm->bpf_interp_arg)
+> >
+> > diff --git a/include/trace/events/binfmt_misc.h b/include/trace/events/=
+binfmt_misc.h
+> > new file mode 100644
+> > --- /dev/null
+> > +++ b/include/trace/events/binfmt_misc.h
+> > @@ -0,0 +1,52 @@
+> > +/* SPDX-License-Identifier: GPL-2.0 */
+> > +/*
+> > + * Tracepoint for binfmt_misc binary type handler dispatch.
+> > + *
+> > + * Fires once for every exec a binfmt_misc entry matches, after the
+> > + * interpreter and the invocation flags have been selected. Unlike
+> > + * sched_process_exec (which reports bprm->filename) and /proc/PID/exe
+> > + * (which a transparent dispatch sets to the binary), this reports the
+> > + * interpreter that actually runs, so observers can see through a
+> > + * transparent dispatch.
+> > + */
+> > +#undef TRACE_SYSTEM
+> > +#define TRACE_SYSTEM binfmt_misc
+> > +
+> > +#if !defined(_TRACE_BINFMT_MISC_H) || defined(TRACE_HEADER_MULTI_READ)
+> > +#define _TRACE_BINFMT_MISC_H
+> > +
+> > +#include <linux/tracepoint.h>
+> > +#include <linux/binfmts.h>
+> > +
+> > +TRACE_EVENT(binfmt_misc_select,
+> > +
+> > +=09TP_PROTO(struct linux_binprm *bprm, const char *interp,
+> > +=09=09 const char *handler, unsigned long flags),
+> > +
+> > +=09TP_ARGS(bprm, interp, handler, flags),
+> > +
+> > +=09TP_STRUCT__entry(
+> > +=09=09__string(filename,=09bprm->filename)
+> > +=09=09__string(interp,=09interp)
+> > +=09=09__string(handler,=09handler)
+>=20
+> Then here you would have:
+>=20
+> =09=09__string(handler, test_bit(MISC_FMT_BPF_BIT, &fmt->flags) ?
+> =09=09=09=09 fmt->bpf_ops->name : "")
+>=20
+>=20
+> > +=09=09__field(unsigned long,=09flags)
+> > +=09=09__field(pid_t,=09=09pid)
+> > +=09),
+> > +
+> > +=09TP_fast_assign(
+> > +=09=09__assign_str(filename);
+> > +=09=09__assign_str(interp);
+> > +=09=09__assign_str(handler);
+> > +=09=09__entry->flags =3D flags;
+>=20
+> and here:
+>=20
+> =09=09__entry->flags =3D flags & MISC_FMT_INVOCATION_FLAGS;
+>=20
+> -- Steve
+>=20
+>=20
+> > +=09=09__entry->pid =3D current->pid;
+> > +=09),
+> > +
+> > +=09TP_printk("pid=3D%d filename=3D%s interp=3D%s handler=3D%s flags=3D=
+%#lx",
+> > +=09=09  __entry->pid, __get_str(filename), __get_str(interp),
+> > +=09=09  __get_str(handler), __entry->flags)
+> > +);
+> > +
+> > +#endif /* _TRACE_BINFMT_MISC_H */
+> > +
+> > +/* This part must be outside protection */
+> > +#include <trace/define_trace.h>
+>=20
+> 
