@@ -1,109 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.28
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793068496;
-	b=W9qHSCv5XGEyTjasRnIH1U8JguNwJIFhBGRmcT9ItWq1KhITWBGG567lCDwtdc2ZdYCP
-	 7Y5UodcAEY0OMXBBa8sjxn0dBkomnmqXj1stRiSJcwyO23lF6+wRD8HfMMDjcGF0Hv1rq
-	 L1d/4bqn5ssjGajeKV5RiOBMXo/5o/GMN6EwQAFe7xNJeslWpzIvpqnBDvSDnXeBsBjge
-	 INeVJiefWwtFNzlhHWGWj2Zv6ooUIdMGYg1zsLvxWhFW86WV1JYcIqqw7lERkM/wrskNa
-	 Ow/maQ7jd1omdd0G2wva3wjC3LmW+F6BGQkW0WPHv5E+6Bffe+m2aRQ0xhnWk84ygPg==
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.160.171
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793068810;
+	b=fBLSVe06C14AjFYtQr5p98i9ftdyRozmcW6/gijc6SwUUF8unl9kjjvWtyFMqwYBOOiR
+	 tKRR6cYBSXl9a9z7t7FnnVc2H0aXrAc0B+BSFtGpY5lVp8bMkTlsDi28Ege7IfU0aIB2t
+	 pEc0KysTCPyoVc/vYQPaN9RhnHwygR1hdPll6d2wChx+jTavSPuKGhp54zGuehB2VgUWp
+	 SrzDX7BwUAbBt1zyWnuLWWZnrNN/RNkt5OddOSFXMxaXwg+2Be7xR4dAYiGKcW1s4xnSW
+	 /oLVkcJLcDT12gKZx9HyYjR12jBoLMghme4gtKrxgGaVHu/cJao2WQDQT+zV0tfj/aQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793068496;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Subject:Cc:To:
-	 From:X-Mailer:References:In-Reply-To:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=1cun7plN/2wHw0gxNzsc+UasoKl4vDi5uCYI5E5Jyes=;
-	b=AoWYRyJVbpfowMajjnYTmN3ddvaL3rKB9tS9OctbbQPwmZDSJOwQH3VhvLVZdTcULMwt
-	 jzs+vP2F8n0nJ8w5wFy4SOPvEZduIJhzZpyy9frujYiHxPohIx5784uU6gAfO/bNX9pas
-	 DaSe87bU5mIW74b27a3TAOINQlmKu1adfZOio8dZaZmICnzw2QcOj5I75nZ5m+5d8Pa5m
-	 0vtupFscGm/ZII+OlsKmjGOdljkSJtavC2cJJ63dncj8YJFL8kTluxV37UF9XQvWOV4Cx
-	 IkChuuYi0O2Hvc8tkZTMMBSiB50yTn03C/myjB+9lHwWE1BKJo+XtsgAHqWDX39RicQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793068810;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=uqs34zcQCNfaKeG0W4YG4prKIZumwiPNl9JfXSdONU0=;
+	b=JFwPKocm1M4+wyG1LiiYnG+7n0xN8/n5lvo0eiWVWiMNSH4LVLVQ2kqjdpWiNom8Nv+0
+	 Q4OmsrR6u6MGHCMXjwGowObNcOANeV8rGZg2So+7i2GZuXVKbZF9BrhbyNv0NhwScxyRW
+	 5Kht9xHylb0LgrCERJgp/E2VlXlazveD3XdVJRGfj3E0pu33EHUWbQrTYg7ko6n8MjM0n
+	 /uohc8q01QQLeGOTrDClUCnHVeY632kl26Al22BgiJv9HIghHE6xy5Q90g+3l6DWUrgrN
+	 WMN6EdAUB3vJH0ahBKLOFZWb0rsdlI8P6ROGd5cMc7GPx7a6azyruqapxYMM93+aKlw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Lhv5RFbX;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.28
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010028.outbound.protection.outlook.com [52.101.56.28])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=E37S1U3h;
+	arc=fail smtp.remote-ip=209.85.160.171
+Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC387606A31A;
-	Tue, 27 Oct 2026 02:34:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC387606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F11D9606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 02:40:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F11D9606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Lhv5RFbX
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wMQiR59mM5AyRyQ96QdTjZ3pMrYFr0hHQ0d4wEzLmlwSRQ4Z9jklGov02ICEycC+B/cL3bnPBCJkPyDIa4jmdw62xsza/58+8GRGDms/SXxKRCJ5KLopLRXVXiy3j/Vrv0kE+rah6EOhd4AVJtjjZMCYsqbx9aaGQvFaQqGqCvsqcmlKbyhhji/Agwy2c4lc0+S+12tk56xyAN9j54AcX9y53Za+plSfBnRAYGIbaoiU6AgVpzJmAYMGSUumCdRBgfAUzXQct7p1WFpCYBhaEkHPidNw0Z7CRY44ZB/fK5K7rF42NK4HK8ykz9Y+G7WvLbbThuT4jKKuON8jiWhDlw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1cun7plN/2wHw0gxNzsc+UasoKl4vDi5uCYI5E5Jyes=;
- b=EN5qThuO4gE/cwtUjxFT/nUJUw2h+ovlc8+YW7PSGC82glgYorzxl1f+JxAl7hITG/QHKMrraO5f4mMW7BhmQyJn7ai/HeheVoHtzJl5fH6138EAsDIYroNF+K90JktFUo4tR5RRjqkm6GmAVEWjSqImHWnLt4ColouWWvXJj7CafTurtMRAT4Zv5e0jrmYfiWyO9gujar3r22wd4yMHw9Z8oNy84CbJhgWp+veXlBLOYioT/p/XoAbRlQH2r/pV/UQU+0Q7m+ITSod/M6x/ZEcOjOBZzCQI0jf9SHJ3JDr9BMaNxaLfkOeRaFWNLJ8x1P2n/jSy1mWgAueTJ8T5nw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1cun7plN/2wHw0gxNzsc+UasoKl4vDi5uCYI5E5Jyes=;
- b=Lhv5RFbXq/tYKLyxQ2mkcazwlPC+9KoJRconXyROGsjyODWhiGmXTtbCPf13MrSNqdlnf9tsZcsP+QnpfaEfuwvrUvKsbzG0pe9S2FXCxHZtCEi1ondtZRMgsgNIoSotZ9KOM4PL+0p70byM5yINVuOYu4CRLVITMlAXlt+J3DAZFpabok5JUqu34/k2Lhg7FwEglUstNh/1tuptKsOyaCWKc9Gvanpih6WNZqJAmR0NOq0IStEm72FweUmsj2oToCg/fIMbaTeJ5vvGleHvj4HHQCVDSUQXEbp+BBFuW4HEWgabdNgSt1IMKQf2w0C9qrhQp6fPwJXnaQ9bGuNNzQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by LV3PR12MB9439.namprd12.prod.outlook.com (2603:10b6:408:20e::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.21; Tue, 27 Oct
- 2026 02:34:51 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
- 02:34:51 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 26 Oct 2026 22:34:50 -0400
-Message-Id: <DMF9QCS3SQ5J.2NFHUBT3I1PFM@nvidia.com>
-Subject: Re: [PATCH 11/16] mm/shmem: rescan after nonuniform folio splitting
-Cc: "Andrew Morton" <akpm@linux-foundation.org>, "Gregory Price"
- <gourry@gourry.net>, "Joshua Hahn" <joshua.hahnjy@gmail.com>, "Rakie Kim"
- <rakie.kim@sk.com>, "Ying Huang" <ying.huang@linux.alibaba.com>, "Johannes
- Weiner" <hannes@cmpxchg.org>, "Vladimir Davydov" <vdavydov.dev@gmail.com>,
- "Michal Hocko" <mhocko@suse.com>, "Hugh Dickins" <hughd@google.com>,
- "Baolin Wang" <baolin.wang@linux.alibaba.com>, "Lukas Czerner"
- <lczerner@redhat.com>, "Carlos Maiolino" <cmaiolino@redhat.com>, "Christian
- Brauner" <brauner@kernel.org>, "Jan Kara" <jack@suse.cz>, "Daniel Verkamp"
- <dverkamp@chromium.org>, "Jeff Xu" <jeffxu@google.com>, "Muchun Song"
- <muchun.song@linux.dev>, "Oscar Salvador" <osalvador@suse.de>, "David
- Stevens" <stevensd@chromium.org>, "Matthew Wilcox (Oracle)"
- <willy@infradead.org>, "William Kucharski" <william.kucharski@oracle.com>,
- "Chris Li" <chrisl@kernel.org>, "Kairui Song" <kasong@tencent.com>, "Nhat
- Pham" <nphamcs@gmail.com>, "Miaohe Lin" <linmiaohe@huawei.com>, "Naoya
- Horiguchi" <nao.horiguchi@gmail.com>, <linux-mm@kvack.org>,
- <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-To: "Kiryl Shutsemau" <kirill@shutemov.name>, "David Hildenbrand (Arm)"
- <david@kernel.org>
-From: "Zi Yan" <ziy@nvidia.com>
-X-Mailer: aerc 0.22.0
-References: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
- <20261026-fixes_shmem-v1-11-703206d5fa0c@kernel.org>
- <at-MPTlXmfs7r5Xh@thinkstation>
-In-Reply-To: <at-MPTlXmfs7r5Xh@thinkstation>
-X-ClientProxiedBy: BL1PR13CA0176.namprd13.prod.outlook.com
- (2603:10b6:208:2bd::31) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=E37S1U3h
+Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-533202fe429so173901cf.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 19:40:09 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793068809; cv=none;
+        d=google.com; s=arc-20260327;
+        b=gqJVTPQ58CTIAoo47Ou5hdA4Uo/M5Kb04Y20gKzJTiMNfXP/XQ62GNukBkCuKO1OLd
+         a7/KG+mwl5PwVfPjXKaD9GzOc84PYRiuhJsr5Q5On1J2tXV/XewLcW+zVscvllhKYEje
+         jNnad2KydaLrqUpe4jVc2VdZWdko8T0CS8PFWfuZQiNPTRyfHSSja3Z0F/lnbJ7Led4B
+         AleA1w8p8kta1fhACt93ZAVYjUVtX+Kg/wMj5Es6i52A3Wd19aGwPTLzG5hWPhaiixCD
+         /bKmiRPK99d1bxJW0CAB5PoSriCDH3R4Fw81GfS2xiYjUXCfQj/qowYje8LGlAzLopZT
+         Wl8g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=uqs34zcQCNfaKeG0W4YG4prKIZumwiPNl9JfXSdONU0=;
+        fh=x4uqOo2kO1JOHv9/ryCnIIh9adJifa8S6VKLiJNPl7U=;
+        b=nHkZyxJkCDvVnzavToeLVRQZ+GUPg2ZAgrYcZOnhN3DYCSqQrvrK0hNUMSfHRgev/z
+         3aGQIPasJxzYhHEKZEH0JZpxX0Mmcbs4Cm5M445sUbDIAgNOnNsCNmYVGefzV1n+8Fbn
+         2cI+iI2O9jWxp4M+Q2KbqcYotGFaEqE5u8AuDbmjG7+0kbXSfvN1VhSiGH1ZCeSRXLDL
+         Ij6Pr3oN7HfzPrj7hIz8puDhGhqNVOVNfGn4NldqYx0xJDze2SiHSvWHeY3D7lRoD/Zi
+         dmYF2QOuWU3Ap3/S4GDOAemfk+piQKyP78wJcDXAmHqkKuWPbJAuHIcUzk1lGRR8+xXH
+         yCvQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1793068809; x=1793673609; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=uqs34zcQCNfaKeG0W4YG4prKIZumwiPNl9JfXSdONU0=;
+        b=E37S1U3hx3tJITinVO7rKKHEz2HxO1YCfC9V27gQP+KS7Y/kg6PphfsksNmDj4u89R
+         kdrFpiNm/tvGp4mDULn6J4ga/+Asw+7vyCJzHevjtob8vaWMAKNkRgsSQf2sK0QypL+G
+         chajq0CUiAUm7k5k7EWMqQlxwFprZVHEyvdJ5c3LiF5QNiO/0GKXarUZLmI1mXCsvJdU
+         nZ/RgF9lUgUCvhxFCCNKuBSxYcgcfCl0lwhLFJWJXDsWGAkCdvntcvui90bExWhTepGL
+         JJNhepvzp3R6nmgXwFdu08DT8PiWd6STRrbbGOnKBagubO/pjuJyFYQWVP+jd9Kpps18
+         7TrQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793068809; x=1793673609;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uqs34zcQCNfaKeG0W4YG4prKIZumwiPNl9JfXSdONU0=;
+        b=PGtuddo8L5qHjUDwFPKy8nl8E2A3NT7Em/uxfSJjPkkcdwEfu++tcsvgkVpb+cATeN
+         6tZoFotgCYIyhztebXnmPw6T82epj1y2cf1nGQKMpbChzTK8YGjaxXXRXKgCTqVVb7TX
+         Cm8j75nfte+RSk2q424WFkTqbbT8eU58toT8ZxXyZb3eH3ReMWD4l11hdYkb+lmChXOM
+         Wxt6BqtEDS0lJvT+SA6tx8aHgHPYEkR0Pa8qhHmeaC0oSfpXFLTULcLtE0cvKeMRLYbT
+         mbpj+wKwZjXwVL4KD69tbCV4On9NurDpT6s4apcICdOTTD+mzbVdr8fjhJbpA1O2eJY1
+         B3KQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwyAw7P2d+PaYe8tyEeNCvWfaQJzExZ1PKl3UZ8mPJTF97ifMWaNfQLOPz17K8z9xDm63jVyVImQqmudlw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJCv62qFVr28gYLMsQ1lyIEH1ggNjh6HkUr4xGnJW1pYRA5ttU0
+	smsi7k3uX3AdZ/1LNOxf7tTbnV5Qr3+d4UYCeBgfyaYm7h6iC8oMC3HFBgWGqu9+YShDqU1lI1J
+	P0hLniHwHcYEo7M70Oc+HOAaRl5UhFrj8yyVeLehh
+X-Gm-Gg: AYBFou1xoEzvW+q5DJJ5JqxhusxFaHdSNBVFztWfCE3GrZy6CsuaQ/z/HCPr/+oS1DP
+	1Nxwrpi80mTmkQatKkXmqKK7shfZ0tBLM/xyHvSTDV/P3H+6ttNC3O4o8YwvyRhguoLXPIp+Qs/
+	Ys58vqxUxnm4KvYnC4vqzeMwFAp/Q5s1opup+4qoV7Gk4RoZIDNPR4XZul6L+00+lFrtl17sXQG
+	OuN17idUEGYA14IJk2tPljOIlHt7+TsUz1LOJZWF9yWwxVMYqwGSVdjYEo5Z6rWsIoyamvbLiiH
+	gl8+f+DLcZoHNdawxlfu9gmKF28F0zA1yTzHa8MeWJEUtez8orsCmUEChJVBZLis1FE+0aEwVw6
+	6ghQyrxWGgYxHpjIiuwYOQgjvRUIGLiLet3s=
+X-Received: by 2002:ac8:5cd0:0:b0:534:b7b2:634f with SMTP id
+ d75a77b69052e-53e74f18ea0mr8104501cf.8.1793068808195; Mon, 26 Oct 2026
+ 19:40:08 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,107 +104,346 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|LV3PR12MB9439:EE_
-X-MS-Office365-Filtering-Correlation-Id: a08dab7d-6b84-4a74-62ac-08df33d2e097
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|376014|7416014|366016|261026121527099003|11063799006|4143699003|56012099006|261009223027099003|261021135927099003|261021121427099003|261022105027099003|10067099003|22082099003|18002099003|6133799003|261026140227099003;
-X-Microsoft-Antispam-Message-Info:
-	NZy70OCBRm696GLViIfRjI+DQW7SSwyJM0fDjPOIaZgIgPTKxtCZwj0UBG8uo9Oaj9lSQLHFnwSJ0hk4EZuE4+P5oJBHiWVCJh18uF8FGkkAxsaAMMDKIbPX4iioSwNSGw6LVheIbxla9K0D3far2rhfVDbSmThVGPXBMDEKRbu4AsFQPNKD+SkJzqtmDGg6gLhXhs+R9UeeE4OjDGdFfbgkujAobNPYxwyr+nyG21imLcND1uwUD3Eu4wUhHsH1iE7ovDeVlewm3oJO08ZPtrknU2K4+gVtg4y+pFFr52AAnW9r+VxtoIAaVg+LA8Wub/iSvrgtPdOnRKWi8rAWvgmSoePtcxBsV2VuuQWlvOV3Hc5tXNQKiJ+1Ow6j0uu6p3Dae698h3QQMiUh9CYWukSp5k/UKbQA6ovjTDK71LedqCG/AUjBdcgYOJDC+fwu332YtF2M8cipjS+Rw5vdAXyDyGlJ1iuaZmqfk6ol1bgfFGxeGE3EDXvifeRcRMMZ/CyMh6ob0HgEPPwuuVniDtohJpV7ZCUT/7wRgkzoiuTAwgekHdvUWZS8lJSCHGz++sA6otcOl2Q6ozG1DG+iQ4Xw0x5DcuRNc/F4qcuYVlzjjbVsW+pe+TGFi7nnzKVbaGIKWsNpRKiV57Fts1QI5kf0BeZ3nTsYO578edwV9s8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(366016)(261026121527099003)(11063799006)(4143699003)(56012099006)(261009223027099003)(261021135927099003)(261021121427099003)(261022105027099003)(10067099003)(22082099003)(18002099003)(6133799003)(261026140227099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?VFZWcGpXbGZva0xaeFUwZTZLUnVnMVJzVmhxNUs2aUY1VFU2cWN2cUs3OE9D?=
- =?utf-8?B?d2UweFBSNk14QU1XaC84SFZGTWlnL0N0RGhrQWJtTHc1SmFnSzNqUVVzSXFQ?=
- =?utf-8?B?dEpCZCtZL201R2V0ZzY4aU5sSzM0WC9kSno2WW5FK0g5UlJSZFNvd3BhdUh6?=
- =?utf-8?B?QVJxaUdlcDhycHM5T0U2Vmg5VnlIYjhMNTVQRUxtTXdrdzNyM2RzOHJxb00v?=
- =?utf-8?B?U3FVS3BrdU5OczRZd3ZUQWpBU1BkdWJOL2l2dngzVllRS2kwV3VOY29DWHlG?=
- =?utf-8?B?WTVwMUtXQ1Z1bDVheCtKaG1LNzdreGphMk50MGpuYnl6VUZ4cG1RNlRyTXZ5?=
- =?utf-8?B?NUxnMHFBWDVzYjlyVnhTZ1dGSGJkSnlNNnlMaUduV3BtUEtDUU9HTlhIVDdC?=
- =?utf-8?B?dW03d29MQWFKb0Y4cmdoSEpGT0JnTDZCUWV2YnhXbGlDZzRUSmxyMlRtRFRQ?=
- =?utf-8?B?OTlrNi8zTEVzbkRQZzZOVWtCc281NnV6TS9lM2JwWm1ab0l5amNBdmtwdHNM?=
- =?utf-8?B?MmlCRnhLVGNkYW45eHhiVzlGY2NrSlZ2elJDemVZU3ozcFNiRll1MG5wQm91?=
- =?utf-8?B?bDFFL2dKZzNNZ0NBQ0tjSVRMa2o0RTlSNmUxR2xteHpqZTdzbWVhaTg4NzRX?=
- =?utf-8?B?ajB6Mi90bkxkVzRoUWpqZlBzaWY3MnBJWkZJS0FRS0I0WTE5QjJUR1lDK2hB?=
- =?utf-8?B?SzBuakxYTDFHaTYvRjBDbUVMa0pBeUxCd2RPaEk0dWxRV2RHS2ZmWUNQWHNm?=
- =?utf-8?B?VjVQTjNWd0dsc0JwMnFsOURVZm5kVzVxWkR1YzkvdWN1YVArcldLVmpkdkpF?=
- =?utf-8?B?dGxRMnBPNlJSRUkvdEd2bVN2b3VtY0tkdWlIQmwwUHM3Q3VkL3hCeFJMem4x?=
- =?utf-8?B?Qnc0dXpSeE14a1h6VXpXbVBvNXppRUh1OG1NQjJXdmU1bzFnVGZ2aUFiOUxl?=
- =?utf-8?B?S1VNeXQxZW5GaUtBUTh5RVZnMUxwZU53NkZhejZKdXNkQmZmN2dDN2NFQits?=
- =?utf-8?B?anhxbGg0UmNUalZWYnhuTmFjdTJmRHd1Yk5lWktaQlRsY0wvdE4xZFo3Q0Q4?=
- =?utf-8?B?VEdqUUh5VHNWc1AzUDlMY1ZNZFhZQnpBbUw4TW1UQUY2TmV3M3lNMkhOajhG?=
- =?utf-8?B?QllVUm1QVXk0ODZXTXQ5a3daSG9wdEkrMHRhRWxla0lJZTlXMjhncHJkLzdv?=
- =?utf-8?B?dTZOckszbzNnK3RzNVRZb083c2g4RTA1dThhWjRvM3ArdDRaWHd4bm1Ham9a?=
- =?utf-8?B?dDVlUkozLzlVaU8wU2NHS1IrZEw0WXozTGt5b0puMzFreEd3OW1hNExRaURO?=
- =?utf-8?B?STlIbVYwS01TdE5BRjcra2NRVDYvQVFCem4vcFlOTk1va0dJQUtQSEI1cnF6?=
- =?utf-8?B?SG9VNU4veHBHQjQya2pQTUN1bXdEQW1OMDB3SHoycjZZcGo5S2FoVTA1OHdm?=
- =?utf-8?B?aDhKU21jV1R6djZubDZqRE5IWG9LbDgvUnhHbEowYkc0MFJ6S2g4U0d2bkJ4?=
- =?utf-8?B?UGdnT280Qk9hMVlQWnFwM1ZVeDJtZ0dpUWQzdnRQTHFvM3owcFE4ZFBmSjRn?=
- =?utf-8?B?RTFXT2loV2NmYlFCWjFoNHcwSDFCcFphMUNkb3JSQ2ZoVzZ0azdYUVAyU1dL?=
- =?utf-8?B?OTNYVm1oUUNyZnN3Sm9VdUQ3dFNDbFFURWdKT0JEbFJQb1ZWMEh5QWVpc1ZD?=
- =?utf-8?B?ZE1Ud05NVlJOc1FtcG1Gd3hieGVRb0MwVk91R0laVHRyQjlkMm5MUzJyeTdM?=
- =?utf-8?B?RWhWYzFIYVd6alY5dEdkcTRrVjZxMzVUYVZQQ1RGeVo2VkJRbGVEUjN6NW9v?=
- =?utf-8?B?VTNKWCtGZExSRHJXL0ZjQXV1eGR4U2UyZ2NDSGN5TVcyUDcxNmdmVmd0Z0M0?=
- =?utf-8?B?QVZPZExGdWhBK1ptNXVWd1FoRGtqeERpeUxrZnhaVmFHUjcwQ0M4MmI0SXY3?=
- =?utf-8?B?aDVQcDRvMVo1dkxDK3VLem1HY1NDQVMrN1lLRVpObjRnVGx3V0ZQUE9tMzZj?=
- =?utf-8?B?a3pKQk9STEFHZFMwT0todURMREFadDFIam9FMnlYb2JIVm91REhZdis0N0xO?=
- =?utf-8?B?bm53WFoxVFlBaVA4RWNJdzRKSlhpMEc3V1d1Z1BxMTNMZGN4Nk5zZko4STFG?=
- =?utf-8?B?WkJkM2orbStGYkRuT21SeVo2Zk5KQ0Y1OEdMM0FXSzhZVWt3K01JRlV6R0pq?=
- =?utf-8?B?S05tUUFHeTNjODNkTlpBWVRwUTJKMmpDNTdMWm1FUkFTNW45eVhUSnFwby9q?=
- =?utf-8?B?MUJMSFQ1dDNpM1BRTVh4NXd2UGxvenVuTVp4Y002Y2pUcyttQ1dCREN5cnRN?=
- =?utf-8?B?RXgvZ2RGY3hhVWd2NUNLQWVGdDdENnQ4Mlp5WHdyTDRray9vbmx1Zz09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a08dab7d-6b84-4a74-62ac-08df33d2e097
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 02:34:51.5355
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: eiKFNjln6T/gMfAnK/KucSkLSZBkgXtABKE8jp3KIKhV6mQNrfcZRrxhO97vK42y
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9439
+References: <20260911025613.1220845-1-zhanghongru@xiaomi.com>
+ <arFYRAa-i7CIwmHL@gremlin> <arF-E3Nsw9ZliH0t@casper.infradead.org>
+ <arI_w2wTfA00Mgy9@gremlin> <armexcXDiG8ryZd6@casper.infradead.org>
+ <CAGsJ_4xuFi7K+crAcFQ998SxXS0xPM6QeA34JV+6+Sy005rXLg@mail.gmail.com>
+ <ar7MsOb6IJLt4eLo@casper.infradead.org> <ar-o1TrOMGrrcxLX@gremlin> <ataDTEZIKOYtwhUF@casper.infradead.org>
+In-Reply-To: <ataDTEZIKOYtwhUF@casper.infradead.org>
+From: Suren Baghdasaryan <surenb@google.com>
+Date: Mon, 26 Oct 2026 19:39:57 -0700
+X-Gm-Features: AclHuK_tjvOAxlKicwQpIP5-vlb-UBKyvjNqAPJfVeuqkSwvVjNbbsDgO4TDlgk
+Message-ID: <CAJuCfpH88HGXyLzBr6YGxzTrOq18HaPcRvhN9RwEBxG_ptv7KQ@mail.gmail.com>
+Subject: Re: [PATCH v6] mm: retry page faults once under the per-VMA lock
+To: Matthew Wilcox <willy@infradead.org>
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, Barry Song <baohua@kernel.org>, 
+	Hongru Zhang <zhanghongru06@gmail.com>, akpm@linux-foundation.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, david@kernel.org, liam@infradead.org, 
+	mhocko@suse.com, rppt@kernel.org, shakeel.butt@linux.dev, vbabka@kernel.org, 
+	zhaonanzhe@xiaomi.com, linux@armlinux.org.uk, catalin.marinas@arm.com, 
+	will@kernel.org, mark.rutland@arm.com, linux-arm-kernel@lists.infradead.org, 
+	chenhuacai@kernel.org, kernel@xen0n.name, loongarch@lists.linux.dev, 
+	maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com, 
+	chleroy@kernel.org, linuxppc-dev@lists.ozlabs.org, pjw@kernel.org, 
+	palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr, 
+	linux-riscv@lists.infradead.org, agordeev@linux.ibm.com, 
+	gerald.schaefer@linux.ibm.com, hca@linux.ibm.com, gor@linux.ibm.com, 
+	borntraeger@linux.ibm.com, svens@linux.ibm.com, linux-s390@vger.kernel.org, 
+	dave.hansen@linux.intel.com, luto@kernel.org, peterz@infradead.org, 
+	tglx@kernel.org, mingo@redhat.com, bp@alien8.de, x86@kernel.org, 
+	hpa@zytor.com, Hongru Zhang <zhanghongru@xiaomi.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon Oct 26, 2026 at 1:26 PM EDT, Kiryl Shutsemau wrote:
-> On Mon, Oct 26, 2026 at 10:40:44AM +0100, David Hildenbrand (Arm) wrote:
->> The final scan in shmem_undo_range() restarts after a successful split
->> only if the original folio is no longer large. A nonuniform split can
->> leave that folio large, so the scan skips the newly created folios.
->> Hole punching then leaves pages within the hole allocated even though
->> they could be discarded.
->>=20
->> For example, a fault below the hole can allocate a 2 MiB folio after
->> boundary handling. Punching a 1 MiB hole at offset 64 KiB splits the
->> folio successfully but leaves the original folio at order 4. The scan
->> continues past all 512 pages, leaving 2 MiB allocated instead of 1 MiB.
->> The hole reads as zero, but the pages and their block charges remain.
->>=20
->> Restart when the original folio is still in the mapping after partial
->> truncation, identified by checking folio->mapping. If the helper
->> removed the whole folio, no rescan is needed.
->>=20
->> Fixes: 7460b470a131f ("mm/truncate: use folio_split() in truncate operat=
-ion")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+On Mon, Oct 19, 2026 at 1:53=E2=80=AFPM Matthew Wilcox <willy@infradead.org=
+> wrote:
 >
-> Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> On Fri, Oct 02, 2026 at 02:12:35PM +0100, Lorenzo Stoakes (ARM) wrote:
+> > On Thu, Oct 01, 2026 at 10:12:16PM +0100, Matthew Wilcox wrote:
+> > > So what I didn't realise is that fork() waits for page faults to fini=
+sh.
+> > > I don't think that's necessary, so we can just stop doing that (white=
+space
+> > > damaged):
+> > > I think this is safe.  I've booted a kernel with this change, and
+> >
+> > I'm afraid it's not safe :)
+> >
+> > We already actually did this (by mistake I think?) before. See commit
+> > fb49c455323f ("fork: lock VMAs of the parent process when forking") - w=
+e shipped
+> > that in 6.4.0 -> 6.4.2 and it corrupted memory all over the place.
+> >
+> > Reports + a consistent reproducer:
+> >
+> > https://bugzilla.kernel.org/show_bug.cgi?id=3D217624
+> > https://lore.kernel.org/all/dbdef34c-3a07-5951-e1ae-e9c6e3cdf51b@kernel=
+.org/
+> > https://lore.kernel.org/all/b198d649-f4bf-b971-31d0-e8433ec2a34c@applie=
+d-asynchrony.com/
 >
-> Do we want split state after truncate_inode_partial_folio() to be
-> communicated more explicit? ->mapping check works, but it might not be
-> obvious why. Just an idea for a follow up.
+> I wonder if we still need this.  The commit message says:
+>
+>     A concurrent page fault on a page newly marked read-only by the page
+>     copy might trigger wp_page_copy() and a anon_vma_prepare(vma) on the
+>     source vma, defeating the anon_vma_clone() that wasn't done because t=
+he
+>     parent vma originally didn't have an anon_vma, but we now might end u=
+p
+>     copying a pte entry for a page that has one.
+>
+> But we're holding the mmap_lock for write here, and we need to hold the
+> mmap_lock for read in order to change a vma->anon_vma (asserted in
+> __anon_vma_prepare() with mmap_assert_locked()).
+>
+> At the time of this commit, lock_vma_under_rcu() contained:
+>
+>         /* find_mergeable_anon_vma uses adjacent vmas which are not locke=
+d */
+>         if (!vma->anon_vma && !vma_is_tcp(vma))
+>                 goto inval;
+>
+> so we really did have to wait for read holders to finish the fault.
+> But commit a373baed5a9d deferred the check for a NULL anon VMA until we
+> actually needed it, so I think commit fb49c455323f's logic was invalidate=
+d
+> by a373baed5a9d.
+>
+> Maybe I'm wrong.  This is all a bit out of my normal area.
+>
+> > Also we have asserts for this lock in copy_page_range() and
+> > copy_hugetlb_page_range() which will now fail (and possibly more furthe=
+r down
+> > the stack?)
+>
+> Possibly we have to adjust some assertions to check that either we have
+> the VMA locked or we have the MM write locked.  That doesn't seem
+> unreasonable.
+>
+> > > My argument for why it's safe is that a thread which takes a page
+> > > fault during fork() might have taken the page fault either before or
+> > > after fork().  The faults will definitely happen in the parent proces=
+s.
+> > > They may or may not have happened in the child process, which can't
+> > > possibly care whether or not they've happened.
+> >
+> > The problem isn't the child it's the parent - copy_page_range() _modifi=
+es_ the
+> > _parent_'s page tables in-place, on assumption that nothing else can ac=
+cess
+> > them (for CoW).
+>
+> I was perhaps unclear.  What I mean is that the child may or may not
+> observe them as having happened.
+>
+> > And actually nowadays things are _even_ worse, you could also have conc=
+urrent
+> > page faults, MADV_DONTNEED, MADV_FREE, MADV_GUARD_INSTALL/REMOVE, UFFDI=
+O_COPY +
+> > UFFDIO_MOVE (yikes) all of which might introduce new issues + would hav=
+e to be
+> > audited too.
+>
+> Yup.
+>
+> > So - it turns out a lot of stuff implicitly assumes VMA write lock now:
+> >
+> > 1. CoW - deferred TLB flush race
+> >
+> > (The issue above)
+> >
+> > https://lore.kernel.org/all/20230705171213.2843068-2-surenb@google.com/
+> >
+> > This happens because __copy_present_ptes() does wrprotect_ptes() on the=
+ parent
+> > without a TLB flush (that's deferred until the end of the fork).
+> >
+> > But unfortunately without a VMA write lock something can then replace t=
+he page
+> > table entry in the meantime and you can end up with data loss as a resu=
+lt.
+>
+> Is it that fb49c455323f commit message is insufficient and we need to
+> prevent simultaneous fork/page fault for other reasons, then?
 
-Zhang Yi's truncate fix has done that. truncate_inode_partial_folio()
-returns true only if the folio is split[1]. His patches are in mm-stable
-but not upstreamed yet.
+Yes, I think so. It refers to one of the reasons VMA lock is needed
+during fork, but as Lorenzo points out, there are a number of other
+reasons that require fork to protect VMAs. Note that some of those
+reasons, like MADV_GUARD_INSTALL and UFFDIO_MOVE did not exist at the
+time fb49c455323f was written.
 
-[1] https://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm.git/tree/mm/tru=
-ncate.c?h=3Dmm-stable#n248
+Below is the list that AI pointed out, and I think Lorenzo covered
+most if not all of them:
 
---=20
-Best Regards,
-Yan, Zi
+Without vma_start_write_killable(mpnt):
+      1. In-flight VMA readers that locked mpnt before
+mmap_write_lock_killable(oldmm) continue running concurrently with
+dup_mmap().
+      2. New VMA readers (page faults via lock_vma_under_rcu(),
+madvise under MADVISE_VMA_READ_LOCK, userfaultfd via uffd_lock_vma() /
+uffd_move_lock(), vma_start_read_unlocked(), etc.) continue to succeed
+on mpnt while dup_mmap() duplicates its VMA metadata and page tables.
 
+  (Note: When this lock was originally added in fb49c455323f, one
+prominent trigger was a concurrent fault calling anon_vma_prepare() on
+a VMA with mpnt->anon_vma =3D=3D NULL while anon_vma_fork() /
+vma_needs_copy() ran. Although __vmf_anon_prepare() now requires
+mmap_read_trylock()
+  when !vma->anon_vma, removing vma_start_write_killable(mpnt) today
+still breaks several critical invariants.)
+  =E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80
+  ### What would happen if we removed it
+
+  1. **Destruction of live 2MB THP mappings ("bad pmd" -> pmd_clear())
+in copy_pmd_range()**
+  As noted in the comment in copy_pte_range(), copy_pmd_range()
+assumes no concurrent THP transitions on src_pmd:
+    if (pmd_is_huge(*src_pmd)) { ... }
+    if (pmd_none_or_clear_bad(src_pmd))
+        continue;
+  On an anonymous VMA that already has mpnt->anon_vma !=3D NULL, a
+concurrent per-VMA-locked THP fault (do_huge_pmd_anonymous_page()) or
+UFFDIO_MOVE can install a transparent huge PMD into *src_pmd right
+after pmd_is_huge(*src_pmd) observed pmd_none.
+pmd_none_or_clear_bad(src_pmd)
+  then sees pmd_bad(*src_pmd) =3D=3D true (a THP leaf PMD satisfies
+pmd_bad()), prints "bad pmd ...", and calls pmd_clear_bad(src_pmd) =E2=80=
+=94
+wiping out the parent's live 2MB PMD without PTL, TLB flush, or
+rmap/refcount/deposited-pgtable/RSS cleanup (corrupting parent memory
+and
+  triggering Bad rss-counter / nr_ptes bugs on exit).
+      =E2=80=A2 The same race exists for huge PUDs in copy_pud_range()
+(pud_none_or_clear_bad(src_pud)).
+      =E2=80=A2 Similarly, copy_huge_pmd() reads special huge PMDs
+(VM_PFNMAP/VM_MIXEDMAP) locklessly and skips rechecking *src_pmd under
+src_ptl assuming it cannot change, so a concurrent MADV_DONTNEED under
+MADVISE_VMA_READ_LOCK could leave the child mapping a stale/zapped PFN
+PMD.
+  2. **Silent CoW data corruption / lost parent writes due to deferred
+flush_tlb_mm(oldmm)**
+  __copy_present_ptes(), copy_huge_pmd(), and
+copy_hugetlb_page_range() write-protect parent PTEs/PMDs without
+flushing TLBs; dup_mmap() defers the flush to flush_tlb_mm(oldmm)
+after all VMAs are copied. Normally, because each copied VMA remains
+VMA-write-locked until
+  mmap_write_unlock(oldmm), no parent thread can handle a CoW write
+fault before flush_tlb_mm(oldmm) finishes.
+  Without the VMA write lock, while CPU 0 is still in dup_mmap()
+copying later VMAs:
+      =E2=80=A2 CPU 1 (parent thread A) still holds a stale writable TLB en=
+try
+to old_folio (now CoW-shared with the child).
+      =E2=80=A2 CPU 2 (parent thread B, no cached TLB entry) writes to the
+same page, faults on the R/O PTE under per-VMA read lock, enters
+wp_page_copy(), and copies old_folio into new_folio
+(__wp_page_copy_user()) before taking PTL and calling
+ptep_clear_flush().
+      =E2=80=A2 Any store by CPU 1 through its stale writable TLB entry aft=
+er
+__wp_page_copy_user() and before ptep_clear_flush() lands directly in
+old_folio while pte_same() still succeeds =E2=80=94 losing thread A's write=
+ in
+the parent (new_folio) and leaking it into the child (old_folio).
+  3. Broken guard-page (MADV_GUARD_INSTALL) state and KCSAN race on vm_flag=
+s
+  madvise(MADV_GUARD_INSTALL) runs under MADVISE_VMA_READ_LOCK and
+atomically sets VMA_MAYBE_GUARD_BIT on mpnt via vma_set_atomic_flag()
+before installing PTE_MARKER_GUARD entries:
+      =E2=80=A2 vm_area_dup(mpnt) asserts
+ASSERT_EXCLUSIVE_WRITER(orig->vm_flags), which would trip under KCSAN.
+      =E2=80=A2 If vm_area_dup(mpnt) copies mpnt->vm_flags just before
+MADV_GUARD_INSTALL sets VMA_MAYBE_GUARD_BIT and installs
+PTE_MARKER_GUARD PTEs:
+          =E2=80=A2 On a file-backed VMA without anon_vma, tmp misses
+VM_MAYBE_GUARD (part of VM_COPY_ON_FORK), so vma_needs_copy() returns
+false and drops the guard regions in the child.
+          =E2=80=A2 On a VMA with anon_vma !=3D NULL, copy_page_range() cop=
+ies
+the PTE_MARKER_GUARD entries into tmp, leaving the child VMA with
+guard PTE markers without VM_MAYBE_GUARD set (breaking collapse checks
+such as file_backed_vma_is_retractable() and future merges/forks).
+
+  4. Inconsistent address-space snapshots against UFFDIO_MOVE and
+tcp_zerocopy_receive()
+      =E2=80=A2 When UFFD_FEATURE_EVENT_FORK is not enabled, dup_userfaultf=
+d()
+never increments octx->mmap_changing. Because move_pages()
+(UFFDIO_MOVE) only takes per-VMA read locks (uffd_move_lock()), it
+could move an exclusive folio from a not-yet-copied src address/VMA
+into an
+      already-copied dst address/VMA (losing the page at both
+addresses in the child), or move a zero page from an already-copied
+src to a not-yet-copied dst (duplicating it at both). Even with
+UFFD_FEATURE_EVENT_FORK, octx->mmap_changing is only incremented once
+dup_mmap()
+      reaches the first VMA using octx, so earlier non-uffd VMAs rely
+on VMA write-locking to prevent cross-VMA moves.
+      =E2=80=A2 tcp_mmap() sets VM_MIXEDMAP (in VM_COPY_ON_FORK, without
+VM_DONTCOPY), so copy_page_range() would race with
+tcp_zerocopy_receive() zapping and inserting pages under
+vma_start_read_unlocked().
+  5. Immediate debug assertions (CONFIG_DEBUG_VM)
+  Both copy_page_range() and copy_hugetlb_page_range() call
+vma_assert_write_locked(src_vma) on every CoW VMA, which immediately
+fires VM_WARN_ON_ONCE_VMA(!__is_vma_write_locked(vma), vma) because
+oldmm->mm_lock_seq was bumped by mmap_write_lock_killable(oldmm) while
+mpnt-
+  =EF=BF=BA>vm_lock_seq was never updated.
+
+>
+> > Same issue exists with hugetlb wp too. And god only knows with uffd wp =
+:)
+> >
+> > 2. THP - can destroy parent THP mappings
+> >
+> > copy_pmd_range() does:
+> >
+> >       if (pmd_is_huge(*src_pmd)) { copy_huge_pmd(); ... }
+> >       if (pmd_none_or_clear_bad(src_pmd))
+> >               continue;
+> >
+> > Without the write lock, a concurrent fault can install a huge PMD via
+> > do_huge_pmd_anonymous_page() or filemap_map_pmd()/do_set_pmd().
+> >
+> > The issue is that pmd_bad() fires for leaf PMD (ugh) on at least x86 an=
+d arm64,
+> > meaning that'll clear the page table entry.
+> >
+> > I think Hugh left a comment alluding to this before:
+> >
+> >        * copy_pmd_range()'s prior pmd_none_or_clear_bad(src_pmd), and t=
+he
+> >        * error handling here, assume that exclusive mmap_lock on dst an=
+d src
+> >        * protects anon from unexpected THP transitions; ...
+> >
+> > It's like the mess around pmd_trans_unstable() :(
+>
+> ... could we fix this by taking the ptlock during the copy operation?
+>
+> > 3. copy_pte_range() skips the required pmd_same() recheck assuming writ=
+e lock
+> >
+> > It uses pte_offset_map_rw_nolock() with a dummy pmdval and:
+> >
+> >        * We already hold the exclusive mmap_lock, the copy_pte_range() =
+and
+> >        * retract_page_tables() are using vma->anon_vma to be exclusive,=
+ so
+> >        * the PTE page is stable, and there is no need to get pmdval and=
+ do
+> >        * pmd_same() check.
+> >
+> > (Probably needs updating for VMA write lock...)
+> >
+> > 4. The asserts
+> >
+> > Mentioned above!
+> >
+> > I suspect there's more as well.
+> >
+> > Some of it could be changed, but it'd all be at the cost of behaving ve=
+ry
+> > strangely (no VMA lock but mmap write lock) while manipulating things.
+> >
+> > And I am not really happy with changing page table entries in the paren=
+t VMA
+> > (for CoW) without a VMA write lock held.
+> >
+> > I also wonder whether it would achieve all that much really - the issue=
+ is with
+> > holding the VMA lock across I/O, anything else that tries to grab a wri=
+te lock
+> > is going to end up being the new thing that's blocked (mprotect, munmap=
+, mremap,
+> > mlock etc.)
+> >
+> > I think doing something like this would need a very significant redesig=
+n and I'm
+> > not convinced it's one that really achieves what we want given all the =
+other
+> > cases that'd get blocked by the VMA lock being held still.
+> >
+> > --
+> > Cheers, Lorenzo
