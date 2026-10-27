@@ -1,134 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=198.175.65.11
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793122874;
-	b=5dOkMrAffRtvDX/w04BY/W3Fe9BZAZeewZG1VitY7fGkRO2OG7mzZmuHKy4ztzaEsgtH
-	 n1/smQX9aAPdL0zy4JlkqKifhVTJXQ0lAM2XioqpA2edGGMFMclLNyhtYl2ahuLnLrG+Y
-	 w1Mv/eCdg56is3JeDhZS8bUkWt5R/0NVvoMwH1B7uwlTU25SZ3dS9GfKVh3QPgpaCMx/1
-	 Vh31BetfoE+BRdqHH+jsmZzPTIo81VZk5005EeSfViSEMiVdCBbUvXuCnKtjQBAyAXP55
-	 sSLjBG7WBdXBI0k9xSKQ0+GIZiP6HpvZ+QTS4LXfRBsITi6ePXacVXfDarGWjAUMwuQ==
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.45
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793123007;
+	b=m+rIEGimIyp/IRqmHlNXjEFOVt/FvA0SRkwZARpUUw1TJft6jmRXGLVZqqSabdgTfJYu
+	 jUMzc8lklopA8KsyMKDmGRh49IVW80u/rmb7MLWtmsagkgilPyyEp9lzsiuia6Q7wEpUw
+	 f0VFFVsnUylYumsi9OmC6bb1f1sbYOoXCVesIm/ikXt5SvyBxmP/HVZIsVIpY4JoN1N4Y
+	 uL/y94LksBFE2A3CCrDBDaP3y2qIsTUhLZKrkUoY1HtTdaDylppYKrKttxUwCDx4I//Fe
+	 DibAteh/6ihuhOygv780Y0BC3zbptz5BaAVXPIc/9xAACJflQl94IscSjUFWTqlzMMA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793122874;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:Date:From:To:CC:Subject:Message-ID:
-	 References:Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=RuoJr7qaic22WZIL3N+VXvMtuHV6DZ2BiHT5BVm9kiM=;
-	b=3/okVQaqaOVxhcqPfuEs36YVDV4I50OlSHxmHRQ2HiHJXIVLLk+qiMdW8lktI9zysPhy
-	 LQsAz9pRyZ3lPd4io1FApzJAqagK95WC3X4x7ziQeXGJ2gvGKNJ3fz5uiGZ69hGzTvzeW
-	 MICHnhGqo+gQuRacf+IlJszNKO+4kDSiBBWyMco6SRE6WfEB0q6TQZGvjU3frJVGA0NxM
-	 RHWZjqi0EmSVNIP+h5MG//q+M6dby9XWBej08QtLlxzIoJe8Eh5bMP1Iq+xemisJYze8Z
-	 b0CuDefmsPGmJ4/xu/1SsGCQN4nHdoVyVDGlJyWfSh755gCNxFINVoyIpkBfzxcdmjw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793123007;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=p3B3dOUVUprYHGKVW+MiktwDFrlXxMAYs/IueGeZxSQ=;
+	b=qOi3yXZSTdOR+3KiqY5Fn0IFAISIzGePmJsDEDMs7xATX0lGXs7dzmFJiJ6rCfTILGsu
+	 lqUmZJOl5Y6Bh0rLdNF94BiGiGFFRWA6xyl+mN5x5Dcdt5NGmYDN6sn0a1R2Xo8JUe3xR
+	 dEdAQcHkb79XzLrNKQt07FOuhmSsj6QWxZq+TRt2enokDtTV0TYrY3kPJlu4t5qibVtR3
+	 2dUWfloaSKLROL6c29qFIjsZzgEFI7XnzSQK9xwuwBZjh9MYfDfULGjgPhu/dpmIe3qns
+	 LStknuhsyI7UiaajipdHKQD9HnbBFYG+rEs1nyDdJ2PNw8Cf3D/kndMOQEyluI7l4LA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SNpNaEuS;
-	arc=fail smtp.remote-ip=198.175.65.11
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=aJnmVK7k;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2813606A31D
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 17:41:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2813606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 137E2606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 17:43:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 137E2606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SNpNaEuS
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793122873; x=1824658873;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=HBo0pcTx3LWcBhn/6dTt6j0eN744zle2OXNHqc8sTME=;
-  b=SNpNaEuS1yeH7+6nMXZV94KQgVHdeAcjv5U6n1gj32bEchPPQiLVEU+B
-   0P++rQBYI4IDPvvHSuS8MVEABaruGeHOqKTamgUaOZbwqdRPOlUlPnvBZ
-   9anfmWD17PAUd6SQJggWJDMU3D3lU80GfIonDQT82/yaPpjw+Ic8qGjR0
-   FLBiCRd01c6ZOYB5KNvXJ2wZcF6VApG7MMBEaXsw7+gliju9oO9SswBZZ
-   CT5Y4R6Pp7MeKDpBkmgVv6t6hqc+VJupbybh0Cj1bWa5/yX0ugF9rtCvf
-   wmK2oc1kyjReQiqGypbPx0JP452HuBZ3PyyzypYABNNOKhH/A6cPOZxeg
-   Q==;
-X-CSE-ConnectionGUID: u1e7ghi3QjG4veqzMEmNTg==
-X-CSE-MsgGUID: VDOhAkfGQWqGiWnv9Y+hTA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1718323"
-X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="1718323"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 10:41:12 -0700
-X-CSE-ConnectionGUID: fgAZsmjMSGepiQAGYbPLxg==
-X-CSE-MsgGUID: B5w3010hSsyl7dSe/rSNNQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="4553002"
-Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
-  by orviesa003.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 10:41:12 -0700
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Tue, 27 Oct 2026 10:41:12 -0700
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Tue, 27 Oct 2026 10:41:12 -0700
-Received: from DM5PR21CU001.outbound.protection.outlook.com (52.101.62.27) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Tue, 27 Oct 2026 10:41:11 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=g6lo2fz3YgvT/8HO4luNS79Q6A/XSvQXTBDvbC/qQ/YIMHf3uE7jVTwFhLkkvZ2SlGKSkdb9TUhlBg+7s6uay00RVuudctYQLa1Ndh8NAZMiQTQbimWN3gSAZ1k9wHHO2ltnkkIPubIYZLoHIQPEQRQMPJGp55GzGsYj+lCjIcpXf3D/4rnGr0Z3LemLl7bIwVheKxsL6pt0oZkoS7WptjASHcHqg9uq6vOpqYmwOtRHriaIu2TvEcX0OhD6TeeuYVMoaTOEFQs16b50cjL2sP3M5UIiChSgzVDOnZgxcnEhUYCQij5ZBQcAATA4H0YA3wDrPYwCI8UzPfCIsR0P4w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RuoJr7qaic22WZIL3N+VXvMtuHV6DZ2BiHT5BVm9kiM=;
- b=Fjracs3RS0UFGbASL/fxamZK1YWVmiEumJWZr5FQM21Evr8PNyRvQENw25q9Xs72/i6mbmIn83Af0qJ7yvhyKX5BWGeJ/VWWimwj4Jm/PeVpJ0Z24puQbkGVkkPBXlQsxfaJSeVFWasyy+UyzGJ0TKt1lUyRgUdQeu+J9/cPI8pTRP90rFGi9JofzPPYng4iIs5H4Hg9v7RHXljfqXyikuLGtjqUQ9aIeki3HR+lcBadxZ+4qFDTVS/mV2o219QGjm9CDgIAYBsASMiya7SEL7oVsPd2QxkbyyCaXNudHmL5MuZfyejoIaNkb62ADMK+cKuPsD74kJpBx6x+yME6uQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from CH8PR11MB403433.namprd11.prod.outlook.com
- (2603:10b6:610:32f::10) by PH0PR11MB4933.namprd11.prod.outlook.com
- (2603:10b6:510:33::13) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
- 2026 17:41:02 +0000
-Received: from CH8PR11MB403433.namprd11.prod.outlook.com
- ([fe80::b087:96e4:50ea:b5de]) by CH8PR11MB403433.namprd11.prod.outlook.com
- ([fe80::b087:96e4:50ea:b5de%4]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
- 17:41:02 +0000
-Date: Tue, 27 Oct 2026 10:41:00 -0700
-From: "Luck, Tony" <tony.luck@intel.com>
-To: Reinette Chatre <reinette.chatre@intel.com>
-CC: Fenghua Yu <fenghuay@nvidia.com>, Maciej Wieczor-Retman
-	<maciej.wieczor-retman@intel.com>, Peter Newman <peternewman@google.com>,
-	James Morse <james.morse@arm.com>, Babu Moger <babu.moger@amd.com>, "Drew
- Fustini" <dfustini@baylibre.com>, Dave Martin <Dave.Martin@arm.com>, Chen Yu
-	<yu.c.chen@intel.com>, <x86@kernel.org>, <linux-kernel@vger.kernel.org>,
-	<patches@lists.linux.dev>
-Subject: Re: [RFC PATCH 0/8] arm,x86,fs/resctrl: Support asymmetric L2 cache
- allocation
-Message-ID: <auDiLEujZ5BGCACj@agluck-desk3>
-References: <20261026215718.16810-1-tony.luck@intel.com>
- <106caf0a-8644-4801-9591-80be38b39418@intel.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <106caf0a-8644-4801-9591-80be38b39418@intel.com>
-X-ClientProxiedBy: SJ0PR03CA0228.namprd03.prod.outlook.com
- (2603:10b6:a03:39f::23) To CH8PR11MB403433.namprd11.prod.outlook.com
- (2603:10b6:610:32f::10)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=aJnmVK7k
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a206f0b95bso6365e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:43:26 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793123005; cv=none;
+        d=google.com; s=arc-20260327;
+        b=bQIhx/8qhyTD7JKwfbtJOLBFuW7iUpa+zYPUll/zvZDvB7R2612mBbCeaSffvbcgDi
+         m+rnKFixYZ4TL7Z6xVdPVHIpRo8I/cewO80WsyRHXav4SIaxpnLAgcazxYyKfxNX2Cc+
+         q+x5wfRnfc0qzVqHjnWx+l2UiljShPM3MSXxDK59q+qAwo9DulVrT+HhMw+1pOJsEqdI
+         FSeqsLM9ZKMBAeKYEnVHrgpkZBIooGxKT/+32D5TtysNhyz3of0ry325EJEg9P9KFEKg
+         rhvNduzcydQu3kabIsH/Tjxb3ewhsCCL5/wmlYtm0nMnk7L85d/gUaMzVAjePTxodiid
+         Z0AQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=p3B3dOUVUprYHGKVW+MiktwDFrlXxMAYs/IueGeZxSQ=;
+        fh=FqJsBGro4bSkJcnw15ru2tahTJABX6KbMRfNbRY9YqY=;
+        b=rkADr3t1c2aZcX+pgY7F0RCV2P38BsqIYTmU743hXgSq3+6ozT2YMRlzP8+jtReM1x
+         ZzBCA+8WQcebQN35OMWWNKgdoZia164GzqDmkJY+3+/vMuAlwTW4c9cmDgZ7OkLo7ztW
+         dkUZe+/k7/Iue8Fozj9iHA73q98w3nKWQ1xekUr4LCS3NxuS1p4AQJOpumpEv2LQ5mnj
+         YxgX4w3ASM/zAP409SBUs8vZNUUQqlQZtKAQURA1jmEpnz4hSI2nPli3JumOl+YRIJ4E
+         OUPcmXOXeFSAkv20ZAIVwmipJthUGWYQagVmd3Vyw93Zgl2mUibo09MJPKMRaLYel5xj
+         LmcA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793123005; x=1793727805; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=p3B3dOUVUprYHGKVW+MiktwDFrlXxMAYs/IueGeZxSQ=;
+        b=aJnmVK7kp+8RQDq/9rrzQLnJK6Gv7tEDbKCdVeOIzNNZRf/oTNA/9L194r13/FophL
+         lNDDcFRUoXcAU6+hDjC1T55LHcJAHUPzws6b/7Sz56SJLsW0WXADRN4DSabG903/LL9h
+         BddV7AEUobaVzQ1rZlKf42w74N6MOhvhoJtgdG8OAQsaw6xlXLzlTrttrIu+HOt2ha20
+         RY7g3mYLw+Zb42JHBqJTM972c3pP4yCa9aLFXEaqIQiwGjHSW1u7VgEAzGLTL/7Ipkfj
+         0pUqcLHlfsnFdmz5iv4TF+I7ETThNysjdCTc18nuw3nzmS4vUw7aJbGTmZI4kF8ybPYh
+         +2Xg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793123005; x=1793727805;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=p3B3dOUVUprYHGKVW+MiktwDFrlXxMAYs/IueGeZxSQ=;
+        b=TKd8XPL6fx+J7H6IqNiGvBqNs5dNwcFBfh/283IOSqJzubodVtDdgBn1+JwbJg6dB0
+         wXP9+Jbf7cai6RTUh1t4e5wEJGu8EJid2fHxus+67hSCcfPNwLnCtdWnzFBYuxbWt2gQ
+         FVbjHn8lYCDP5yW+t9Shgq+daEFjUk5c3cdh5hZ/RvcOlvfTlUlWXx529kaLk48ZRyOI
+         qipbTvWQIrR84JBERH/egeQfHp5m0Ky1me5OwbtjIm1XIe1AA/KYNnNJHp5LUCdB1aFg
+         w7jyz5ymqaw+TT3Dl74wN1lT05yj6re+qET8sEKW2I7ocMGyPO5RWG2St0LxhzoyLDq6
+         HEZQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzskskMc3PhqZ9FZ1r025OPb66hB5i9MBYhSxWS9gQ36GNVqVrYTXgY/UVTzCnb7Pueo++xTHzP3ScInsM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKh/ebkBwLpdyjz7AlKiYTCqhEwR7bVtZej3ryxHCJMxnrMsZnA
+	ZUTUYj0TU3xZOpSL6dcfEAAiThVPRy1F1ZPF6I3PJu/Avu7wHdrreoKX+BN2oSJsV9W/AnCRbfE
+	hN1Fe4XQdmAcMUItKNd/Wd/adn2sOsVh3fEq81eM3
+X-Gm-Gg: AYBFou0eycsa/zl8soIwWh8qYJGpbDuO1p9CsWCIUr5Va3uXGRjFRH+hcm58FDi2at2
+	GMt4TEjIHqffPRIL6yIPu+3YCgeDJVbGI672fiOp50BhQyt+KtN2ymHSGOXSPs7cYgNxMz3RLEu
+	iqejGGG5dy2pvAJ5INDGYG5tNSkoCpQm1csZWExfvcstj5GxXgvQjTEOndi0EfH4pB5kS04FDKc
+	3Kq9FotjXToHqlpxyi66X2MqqsPW4qE7PZgupN6jefCgCY3ms4mAHWgT1mYst3F+PAlT2bU5zmj
+	tYz6DH5z8PT+RS1gVRjLPD5k8UA74+55fVPa+MiLfWYaSR1vYIWnPEXHRi7jMQN4xuXj+i/qRgK
+	4Ebpha5bDPiRf90L5k2qq0YPYHmPrYs9lIFfWwZhZ9KdLZdWbi935jg4LMxWjdmX0/p/7+o0jft
+	ff/ImHYwSUQJX8uQ==
+X-Received: by 2002:a05:600c:1092:b0:4a1:eb02:37c with SMTP id
+ 5b1f17b1804b1-4a93cd51d37mr18155e9.6.1793123005040; Tue, 27 Oct 2026 10:43:25
+ -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -138,150 +105,194 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH8PR11MB403433:EE_|PH0PR11MB4933:EE_
-X-MS-Office365-Filtering-Correlation-Id: 81ed2572-5713-4127-5505-08df3451785b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|261026121527099003|56012099006|4143699003|261021121427099003|261009223027099003|261022075727099003|261022105027099003|10067099003|11063799006|18002099003|22082099003|6133799003|3023799007|261026140227099003;
-X-Microsoft-Antispam-Message-Info: s+pkjQpjwZ4nziejL7ZkDfG2hB2bUrgqm1tHGMJ1McgoA4nz2fpHwIe/b0cclsFudNsNkCGJ/b8LiSImU0zU1Y/eTHHSJz8CHnyo5XUsRZzsw2BehCfrebijtvxvJHWNKg9X29CjNTJL48iUdZq4A+DR7exxfEAi5YFrKPlJVkTGSCoBYziuE5xq7Mde/mw7fX2ab4/1jeQ4EZn6lk4wo/zdIJK6wbh2bFVEOIg1Bz4QyClQzubOkE9+gqP809hi7l1XQFVKBEQ/ucq5pey8/+oF/muFL7S2W01uIE+fGfb+P7TMw09AwhIUqnE+UR15HB6cadNGagNVdGufYP5/tfRGjbtbXX4OPP16pqJM+fCnEL5Ofa6VZq4z2qn70qkWvZeWg34WaMXBaVGkyOK5N1YdidLDqLKGm1QQBrZxJTS+8IOlzSdG/l4sft8kPJbzqkW+ZKDMsFB3hyceL7arxDPmR+QJOPWhu4OOmFxq4NsL3/JhaO8F+ib6kjpuqKmeOfT32RJT7Q3Ux3HVl1rGFPTpMpIERu6ZiUUZdbYl8cgBKeinmtsNFzZis+kqxeOcFwwrHaT0+OQuJsPU2+ji8Z1eT+hdhvmatrY++4IVenAPuxTW67Sat4IWMbk+dBNG
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR11MB403433.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(261026121527099003)(56012099006)(4143699003)(261021121427099003)(261009223027099003)(261022075727099003)(261022105027099003)(10067099003)(11063799006)(18002099003)(22082099003)(6133799003)(3023799007)(261026140227099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SHlMckFjOEhsbFlSNjNBZWxMbUdDbUhjMFM0d2R0TDM4dUxvbUZkb3VzRFpS?=
- =?utf-8?B?dFlUL0RlQzNqUGl6NS9UeGZWNFU2NlRNTGNVOURVUjlwZU01ekI1bVU0cFQy?=
- =?utf-8?B?QkZtRkEwWW90SFVHY3kzV0svYWtaVXRQaVNSNU9LMmYyTnUzR3dENWJ0c25R?=
- =?utf-8?B?OTMrbThjbm5aejhmcWJzUmZJSkNqSlpYaEFTczU3cFN4SkZKOUxZbnNHRGla?=
- =?utf-8?B?RkY1TFJVRWx2ZGNvcm5USCtGSkV1ZTNTa1B5YzUxQWd1UEZEMkRHOVRQc3Fz?=
- =?utf-8?B?Z0p0aEU1U3JGcldKNjU5Wmk4VS8wK0R0c1NVeXpldkdmQklmak1rczZxNWY1?=
- =?utf-8?B?S2xpSCswQTc0aCszZWFEdGM4UnpRajBxU2xsMGVTdTBJeTczVjh4dEcwbFZs?=
- =?utf-8?B?RklEU3M0czZZeVB5bDNWbm5pTUsvVkQrSVVLTkkwRVdoWmovWU9GTmVPV0xq?=
- =?utf-8?B?QnVkYlhsS21iT2ZybkVBMm1heEFnVCtwaTNmeTU3Tk91dTRtN1Bwa3RWeUFH?=
- =?utf-8?B?UVBYV1F1STYxanR0b2trdk5TNDI0eDRhSHgwRDVTNzhuVDdCbXYya01xYkxx?=
- =?utf-8?B?NkQxdUZnS01vY3VheG5nZy9va3NWdW1xYlV1WEc3STVqaW5tTFFkMkJWUkFk?=
- =?utf-8?B?dTkrUFdrRU9Ec2phQzRLQ2N0YnpRSlR3ZnZ4K1NLQlp6dTQ5dW1lZkh4YStp?=
- =?utf-8?B?ODZKeVQ3ZktrT2dCNU9IUlVXWnAyUVF4R3FrajY0QllSd2hCVDlrY0M2bTJO?=
- =?utf-8?B?L3VmQS8yNWRWdmREMFlZTjNiTXVtcXE0RnBsQ3kxdC8yM0l4UnF0QUpCMGVa?=
- =?utf-8?B?dEZEQStkWGlZeHFrVGV2clhadTRLN2o0dlI0Lzhpb0hFaG1NeDJ1bnh6R2RM?=
- =?utf-8?B?ZkxCcjI3ejUvZzdRM1pFNE5iY2I2a2t6RGVBUENBc2VGUVp6aW1HUlc5NVF3?=
- =?utf-8?B?aTU5V3plWkc5MWhsL2hLcUJ0eWl2Y1kwZmg5SlpZcVl5cHF1eUNyUkpyN3Ey?=
- =?utf-8?B?Q3BodlYwS0N0QnZOakIrVWNtak9JT0NaRlN5SG04VmYxbW5nWGx5YzVSREIy?=
- =?utf-8?B?ekxQZndNN2E5b3F6Vi9sSit3amRia1VUZzJ6bU4ySHNoYXJYc25qYXdoNEpX?=
- =?utf-8?B?TzY0elpkUFNoOGRkQTFoUFZkMTk5Sm11aEVBazFERi9zc3lSRXd6OWtDa2xK?=
- =?utf-8?B?OXNobFRxZ2ZxKzRMZ045Q09ndWFmcW0ydnM1d3llRkhOeXBaekdyY2gwc0hm?=
- =?utf-8?B?cTMybkMyR3RLQ3ZnazZVM3pxM2Zwc1MrNmR3c0ZLMVVvclJuU01rN3ZscWlC?=
- =?utf-8?B?bnU0MlgvTmhlZWhwS094SE9MMnpvZldtOWl0SHprM2lRKzRyMkdEZUtHMUQx?=
- =?utf-8?B?T0xjakpSd2J5S1FoRWluOEpUanpZQi8vbklEUG1WL0xhUFE2SURyTy8zQmNU?=
- =?utf-8?B?ZFVQNUR3NWlycnBnbytzTGhybENlbCs3aUJ6T2RxbEVVMFdTQ1dJMnF6dC9u?=
- =?utf-8?B?QXAva1VsRFg4TDNLK3hJdG45VXZ4aHlmM3h5VXhKYVZ6K3owR05SRVMxMjlt?=
- =?utf-8?B?dVJzZmVFNG5kbDBKODJqM1l0cnEyclZ6b0hSNTM0UWN6TVl6K0txMzhkZzJ0?=
- =?utf-8?B?MmJOWXZLSXJYV0RncXI5YktadmQ1MGJlL2U0R3ZnWiswUElCS3NvQ0ZQVnl4?=
- =?utf-8?B?bHNKcUwwNGNCMUQvOEZVWUpDanB3NkRuNEFsTzlSZCt2dmhtdVpubCtMUVFq?=
- =?utf-8?B?MEVRZlZEeDRncFBiYml5ZnF2S2FzcnZveERadXdXem1lWDVYcGMvQys0Qmow?=
- =?utf-8?B?YUhGRjQyd0V3K0FESkp2OEtOaHhsKzhTb3NPaFdMMTRRUEJvRjFpZ21tdEZT?=
- =?utf-8?B?WmtvS0xMZ0JPc1NxWm5vVU5FMHp5L3ZMTmxYRDgrbE9BRkFEQUMxbEt5TCtD?=
- =?utf-8?B?aStsRmlHdVgrWEc2RUNhL0hNakoybUlCSzNLamFyMmZvQ2hZcXdYU3gwV0lO?=
- =?utf-8?B?OFl5V2ROQ3VUOHVZYzNOVjg3Z0RVWm1NTlhOcTV6S0NyN0ZRaU4yOGw2eFJp?=
- =?utf-8?B?a3hSeGpyMWsreHltVXVGNUJ0ejFRdXhXclNlQTBTSWJNcjBTdmtkNlQ2aCta?=
- =?utf-8?B?OVV5M1MxYjF0YW85YzkxRjRWWHErQ3g1N29IUEczZloxTWptbkF4U0M5YXVw?=
- =?utf-8?B?Q1lkbnB6Vng4NUdtb0VudmtNZG1DVjF4dmlnNkhCc2h0ZC9RNTZCOUFaYVp1?=
- =?utf-8?B?VTRqcjFDNS9oNVhpU1ZMRVBHNFN0d09Ia3FLa0gwdXpTb2M2NFdmVTNhZWJB?=
- =?utf-8?B?a1QwNkp2Q1dXVm5IK2phNnplSHJnNCtYRmMyUFdqQjR5VlMrQXdxdz09?=
-X-Exchange-RoutingPolicyChecked: bHeYM5S6VnM7Hjx5kWmrSg1/kDErnM0i+fwGhQQT8fgN5dOsw11su8Awff7SsYaVr5899mRL206XBkFsv7zHBoEn97XRDbWsZPJDcDNt99PwNqWCUTrE1xcWQuU8nPFeHI6lPnyEBLgx6HrWQchwmPpwPdZUsL5gNl8oTD3fGgyEswU1MZAJs+jHu4dpW8uI3hM9jvTJwOzfLsesW5UbQ5T/oORy5ND8q5YCy/8kjfsi/MVnZ6/1/7yMxkoUq400d9N5E0VTfpGQo/0Nbjox7wiaXEFyy5fP2vVvpQ+fMoGZPLCLS4jpnO4LC37VPAVo4E06YY8+4N44IK3MVk65yA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 81ed2572-5713-4127-5505-08df3451785b
-X-MS-Exchange-CrossTenant-AuthSource: CH8PR11MB403433.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 17:41:02.7387
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: cE9brb71CtX2CxlUFR18WN7tSg8HpVd9GYwJDGx+KRZvrHSiBAJAD3uShhPrynQQmwvLanp4DYPuHvrevkKAMA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR11MB4933
-X-OriginatorOrg: intel.com
+References: <20261023222313.3979455-1-tjmercier@google.com> <DF7DBE4B-E0BA-423B-BDA7-DB07D1C9E564@linux.dev>
+In-Reply-To: <DF7DBE4B-E0BA-423B-BDA7-DB07D1C9E564@linux.dev>
+From: "T.J. Mercier" <tjmercier@google.com>
+Date: Tue, 27 Oct 2026 10:42:00 -0700
+X-Gm-Features: AclHuK_QytrvT9uNtK6TFZfkFqcTUjqFLup9uHHWt2PGssnl21GD_10Q-N8u7ck
+Message-ID: <CABdmKX3-XKWXwZe5f=VwZeSuKH6xM0dsK7TvY7u9B1hgaPOm4g@mail.gmail.com>
+Subject: Re: [PATCH] mm: memcontrol: fix NULL pointer deref in
+ high_work_func() on dying memcg
+To: Muchun Song <muchun.song@linux.dev>
+Cc: hannes@cmpxchg.org, mhocko@kernel.org, roman.gushchin@linux.dev, 
+	shakeel.butt@linux.dev, zhengqi.arch@bytedance.com, akpm@linux-foundation.org, 
+	cgroups@vger.kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Oct 26, 2026 at 03:30:57PM -0700, Reinette Chatre wrote:
-> Hi Tony,
-> 
-> On 10/26/26 2:57 PM, Tony Luck wrote:
-> > RFC patch series built on top of Reinette's multiple control series[1]
-> > 
-> > The goal is to support L2 cache allocation on hybrid Intel CPUs such as
-> > Panther Lake[2] where the P-core and E-core CPUs have different number
-> > of supported bits for L2 cache bit mask controls. N.B. it is assumned
-> > that the only point of asymmetry is the cache bit mask length. Other
-> > parameters must be the same (but code doesn't check).
-> > 
-> > Overall approach is to add the per-L2 cache bitmask length to the domain
-> > and use that everywhere instead of using a single value from the control.
-> > 
-> > Patch 1 changes the format of the per-control "max" file and should be
-> > merged back into Reinette's multi-control series so this file can have
-> > a consistent format from first upstream introduction.
-> > 
-> > Patches 2-5 are enumeration and preperation.
-> > 
-> > Patch 6 introduces, initializes, and uses the per-domain cache bit mask
-> > length field (arm/MPAM change needs careful scrutiny).
-> > 
-> > Patch 7 enables asymmetric L2 for x86 CPUs that enumerate it. N.B. it
-> > renammes the resource from "L2" to "L2A" to avoid user interface issues
-> > with tools that expect L2 cache allocation to be symmetric.
-> 
-> I did a quick scan and it seems to ignore the the distinction between a resource
-> and control as highlighted the previous time you brought up this work. Specifically,
-> please see:
-> 
-> 	https://lore.kernel.org/lkml/eaeb4259-46d6-4656-8354-669ad32654b5@intel.com/
+On Mon, Oct 26, 2026 at 7:42=E2=80=AFPM Muchun Song <muchun.song@linux.dev>=
+ wrote:
+>
+>
+>
+> > On Oct 24, 2026, at 06:23, T.J. Mercier <tjmercier@google.com> wrote:
+> >
+> > When memory.high is exceeded in non-task context, try_charge_memcg()
+> > schedules memcg->high_work without taking a CSS reference on the memcg,
+> > and high_work_func() invokes reclaim_high() without pinning the memcg.
+> >
+> > Before commit f1cf8d2f36dc ("mm: memcontrol: eliminate the problem of
+> > dying memory cgroup for LRU folios"), memory usage above memory.high
+> > kept the memcg's refcount non-zero. With reparenting, folios and objcgs
+> > charged to a child memcg are reparented to its parent in
+> > mem_cgroup_css_offline(), leaving the offlined child's memory usage
+> > permanently above its memory.high even after its last reference is
+> > dropped.
+> >
+> > cancel_work_sync(&memcg->high_work) only runs at the end of teardown in
+> > mem_cgroup_css_free(), so high_work_func() can start or still be runnin=
+g
+> > reclaim_high() after mem_cgroup_css_released() or shrink_many() has
+> > called lru_gen_release_memcg() and unhashed lruvec->lrugen.list. This
+> > causes lru_gen_rotate_memcg() to dereference a NULL pprev pointer.
+> >
+> > Fix this by acquiring a reference with css_tryget_online() in
+> > high_work_func() before calling reclaim_high(), and by resetting
+> > memory.high and swap.high to PAGE_COUNTER_MAX in
+> > mem_cgroup_css_offline() so that charges via references on an offlined
+> > memcg do not trigger high_work on the dead child or skip checking live
+> > ancestors in try_charge_memcg().
+> >
+> > Oops: general protection fault, probably for non-canonical address 0xdf=
+fffc0000000000: 0000 [#1] SMP KASAN NOPTI
+> > KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
+> > CPU: 1 UID: 0 PID: 27 Comm: kworker/1:0 Tainted: G    B   W           7=
+.3.0-rc5-g2bba28e98578 #284 PREEMPT(full) <- Taint from lru_gen_rotate_memc=
+g() VM_WARN_ON_ONCE
+> > Tainted: [B]=3DBAD_PAGE, [W]=3DWARN
+> > Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.17.0-debi=
+an-1.17.0-1 04/01/2014
+> > Workqueue: events high_work_func
+> > RIP: 0010:lru_gen_rotate_memcg+0x1a3/0xe90
+> > Code: fd 7f 09 45 84 ed 0f 85 64 0c 00 00 48 89 cf c6 83 6a 07 00 00 00=
+ 48 c1 ef 03 88 83 69 07 00 00 48 b8 00 00 00 00 00 fc ff df <80> 3c 07 00 =
+0f 85 ec 0b 00 00 48 89 31 40 f6 c6 01 0f 85 4e 00
+> > RSP: 0018:ffa00000001ef4c8 EFLAGS: 00010046
+> > RAX: dffffc0000000000 RBX: ff1100000779e440 RCX: 0000000000000000
+> > RDX: 0000000000000001 RSI: ff1100000779b9b0 RDI: 0000000000000000
+> > RBP: ff110000bffd8e40 R08: 0000000000000000 R09: ff1100000779ebb8
+> > R10: ff1100000779ebb0 R11: 0000000000000246 R12: 0000000000000000
+> > R13: 0000000000000000 R14: ffa00000001efb30 R15: 0000000000000002
+> > FS:  0000000000000000(0000) GS:ff1100011c0e7000(0000) knlGS:00000000000=
+00000
+> > CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> > CR2: 000000000251ac88 CR3: 0000000009d6c000 CR4: 0000000000751ef0
+> > PKRU: 55555554
+> > Call Trace:
+> > <TASK>
+> > ? read_ctrl_pos+0x22f/0x3f0
+> > shrink_lruvec+0x16cb/0x1b80
+> > ? ret_from_fork_asm+0x1a/0x30
+> > ? lapic_next_event+0x15/0x20
+> > ? clockevents_program_event+0x2bb/0x6f0
+> > ? lapic_next_event+0x15/0x20
+> > ? __pfx_shrink_lruvec+0x10/0x10
+> > ? __pfx_clockevents_program_event+0x10/0x10
+> > ? _raw_spin_lock+0x84/0xe0
+> > ? __pfx__raw_spin_lock+0x10/0x10
+> > ? kasan_save_stack+0x30/0x50
+> > ? psi_group_change+0x381/0x740
+> > ? __pfx_sched_clock_cpu+0x10/0x10
+> > ? save_fpregs_to_fpstate+0xc4/0x2c0
+> > ? finish_task_switch.isra.0+0x1de/0xac0
+> > ? __schedule+0xf62/0x42c0
+> > ? __pfx___schedule+0x10/0x10
+> > ? __pfx___irq_work_queue_local+0x10/0x10
+> > ? shrink_node+0x626/0x31e0
+> > shrink_node+0x626/0x31e0
+> > ? ring_buffer_unlock_commit+0x11d/0x5c0
+> > ? kswapd_clear_hopeless+0xa0/0x150
+> > ? __pfx_shrink_node+0x10/0x10
+> > ? 0xffffffffc0000095
+> > do_try_to_free_pages+0x255/0x13b0
+> > ? ring_buffer_unlock_commit+0x11d/0x5c0
+> > ? reclaim_high+0x10a/0x1b0
+> > try_to_free_mem_cgroup_pages+0x1f9/0x5a0
+> > ? __pfx_try_to_free_mem_cgroup_pages+0x10/0x10
+> > ? irqentry_exit+0xc6/0x670
+> > reclaim_high+0x10a/0x1b0
+> > ? __pfx_reclaim_high+0x10/0x10
+> > ? process_one_work+0x5ff/0x1030
+> > ? __pfx_high_work_func+0x10/0x10
+> > process_one_work+0x6e2/0x1030
+> > ? __pfx___schedule+0x10/0x10
+> > ? __pfx_process_one_work+0x10/0x10
+> > worker_thread+0x422/0xbb0
+> > ? __pfx_worker_thread+0x10/0x10
+> > kthread+0x2cd/0x3a0
+> > ? recalc_sigpending+0x15c/0x200
+> > ? __pfx_kthread+0x10/0x10
+> > ret_from_fork+0x368/0x590
+> > ? __pfx_ret_from_fork+0x10/0x10
+> > ? __switch_to+0x588/0xf50
+> > ? __pfx_kthread+0x10/0x10
+> > ret_from_fork_asm+0x1a/0x30
+> > </TASK>
+> >
+> > Fixes: f1cf8d2f36dc ("mm: memcontrol: eliminate the problem of dying me=
+mory cgroup for LRU folios")
+>
+> Hi T.J.,
+>
+> Thanks for fixing this.
+>
+> I have one question about the Fixes tag.
+>
+> The changelog says that, before f1cf8d2f36dc, memory usage above
+> memory.high kept the memcg reference count non-zero. This is true for
+> LRU folios: before that commit, each charged LRU folio held a CSS
+> reference until it was uncharged.
+>
+> However, I wonder whether objcg-based kmem already provided a reachable
+> path before f1cf8d2f36dc.
+>
+> In particular, BPF alloc_bulk() mostly runs from irq_work. It obtains a
+> temporary memcg reference from a persistent objcg, uses set_active_memcg(=
+)
+> while performing __GFP_ACCOUNT allocations, and drops the temporary
+> reference after the allocation. The charge can therefore queue
+> memcg->high_work in non-task context without transferring a CSS
+> reference to the work item.
+>
+> If this races with memcg offlining, objcg reparenting can redirect the
+> objcg to the parent while the old child's page-counter usage remains
+> above memory.high. Once the temporary CSS reference is dropped,
+> mem_cgroup_css_released() can call lru_gen_release_memcg() before the
+> queued high_work runs. The worker can then enter reclaim_high() and
+> rotate an already removed lrugen.list.
+>
+> This path appears to have all the required pieces after:
+>
+>   e4dde56cd208 ("mm: multi-gen LRU: per-node lru_gen_folio lists")
+>
+> Commit 6867c7a33206 later changed the release operation to
+> hlist_nulls_del_init_rcu(), which explains the exact NULL pprev seen in
+> the reported crash. Before that, the same invalid second deletion would
+> instead encounter LIST_POISON2.
+>
+> So f1cf8d2f36dc clearly broadens the problem to ordinary LRU folios, but
+> I am not very sure it is the first commit after which the underlying race=
+ is
+> reachable.
+>
+> Is there an additional lifetime guarantee that prevents the pre-f1cf
+> objcg/kmem path above? If no, would the following be more appropriate?
+>
+> Fixes: e4dde56cd208 ("mm: multi-gen LRU: per-node lru_gen_folio lists")
+>
+> Thanks,
+> Muchun
 
-I think I see now. You want the "asymmetry" to be a property of the
-control, not of the resource.
+Hi Muchun,
 
-So the resource name stays as "L2" but the control gets a suffix (e.g.  "_ASYM")
+Everything you said sounds correct to me. I don't think there's
+anything preventing kmem from keeping the memcg above high while the
+refcount hits 0, and hitting the same problem in
+lru_gen_rotate_memcg() from lru_gen_shrink_lruvec().
 
-File system looks like this:
+So using Fixes: e4dde56cd208 ("mm: multi-gen LRU: per-node
+lru_gen_folio lists") sounds good to me.
 
-# tree
-.
-├── cpus
-├── cpus_list
-├── info
-│   ├── L2
-│   │   ├── bit_usage
-│   │   ├── control_mode
-│   │   ├── min_cbm_bits
-│   │   ├── num_closids
-│   │   ├── schemata
-│   │   │   └── L2_ASYM
-│   │   │       ├── max
-│   │   │       ├── min_bits
-│   │   │       └── type
-│   │   ├── shareable_bits
-│   │   └── sparse_masks
-│   └── last_cmd_status
-├── mode
-├── schemata
-├── size
-└── tasks
-
-and the schemata file:
-
-# cat schemata
-    L2_ASYM:0=fff;1=fff;2=fff;3=fff;4=ffff;5=ffff;8=ffff
-
-> 
-> Also, why does patch #1 drop the 0x prefix from new control interface when displaying hex
-> values to user space? This is a significant change for which patch #1 does not provide
-> a motivation.
-
-Sorry for missing out the justification. I thought that matching the
-format of the schemata file would be more useful. Then someone could
-reset a group to maximum values with:
-
-# echo L2_ASYM:$(cat /sys/fs/resctrl/info/L2/schemata/L2_ASYM/max) >  schemata
-
-But if you like the "0x" prefixes I'm OK with that too. Just need to
-replace "cat" with "sed -e s/0x//g" to reset to maximum values.
-> 
-> Reinette
-
--Tony
+Thanks,
+T.J.
