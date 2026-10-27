@@ -1,111 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793117889;
-	b=DGLzkn1IkYtwfvkhIoS5jS/k9x3s3pDWToe91SodpBSP7CXE6tMX6MkXYTSmi4RV6nR8
-	 vBBtfl3kPj+kLryH+hx8m9KHqW2gPJly45dSpWpXzJVrKgzXUzB8vtaTjZeYX2o/2KHn6
-	 PYMYXtrYdKDCe7d0VeSX+MvzW5YFf+9PbyXRdxBlCl2ZAzeiqG540HMKgqx09Dz5c6sxY
-	 5hijUk+1w5/xaB4v/+3zFQhTRJdpQzu9HhXTpvg7oxYehlj65flxV/Bi4Pb6+El+rrQlH
-	 9Y2j8pzXvhCIjIYfmK18TqLcKrP+RUJEzEm7Jr4krLiyh/NtSeGngbHG9QIVnzgEGwQ==
+	b=s6EhoNOcZHLO9DG5miOVK/2SfYey/cs+ia2ECb//oyKuA8waDpQ71rmeK3L0j9gcjWXa
+	 zWP6aAMozG2iwKvvl79tvg2KNLERRZIibJ5AxFvbrFHOCktuMBD7cv1HSY7upJRV9h9hB
+	 u2KE1jz8+NECRqO6R+MXom5OQxprEw4HYoyVHBsO8Vgrp3BpQgVYlonU8k2+EPXLCLKzA
+	 ICAIbnm9VVLpxoki7HXiALs9ykp/sMbuGlsCPp9hJCmOx7DJ2F9fyhtIKuwCiDFs/jhQz
+	 ZBWZLYiFPjmOT+qDSD10TZPAjRYMWdKdhojrruxIeqw3Vr5s4MTyGzpp6NT8iqf/L+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793117889;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=IGDTuUyORqQ9ZtkZ7BRn3HYpiHLzxyIKFVLh6zS3w3s=;
-	b=vFUHI3wMTV3ShnppFtS0mfM+lBPiyl7FksRNosax6figE2G+pJYnfUFeO1NYOEWR2e6L
-	 7P3s/yzOdQ5/f8lCKZchSsjZ7v8k3BTb09Pgwpad8aCqQCz4bAqsntKjMzRukBBs9hIGI
-	 yZDA1VZOTmVH/JLsjAIPLzA9Ca9aiTMUNml1SQuU10/tTAPWcVjfTBXIpZLVX+XrV5+pF
-	 oaCoUKZFVrZPlYwvigD2D724SqYkQHB4GSvbw9spMrLX5nw3ZKDtTCjL+RBcqDDKSxnuC
-	 UaOOhwNFbRJ/AM7gLopLQv6WHFuxWbSNm8QVO99pgSwNO1t7Ebd2r8t3tepgOUz53+Q==
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=DPXZ2yO3cU+s5EkiY6YjtMfPdHRJToYSpXviTD5gzv8=;
+	b=HtJ/M3Da9ZWqiFfavF7b+C/S5cKJYTJZSUJLGhAiS4zMiDUQV8r0ejPOEm338dl6Bg0S
+	 oSuNwKo2lO4bhwkArZiGYVIZjV4Kotax7eEEGR6dhs4n/gkISLTIuwtX+7S0wjD0rn5Lx
+	 XJUMUM7XyijK85BVwHKEnBqrpa4fq9P8GbQglYrDhoNUKVENhHi9E/HbxrVK3C1y3a+Ty
+	 y/t5S/ubilcOMe7QQDms4c4dP9BbbENEx6RG0PAtM18dW2v8jrEhvT//s6HToPotI4Jsy
+	 7POvCKKclrYuDC0UZKvp/93YiEZ6ZwL4idEFl75CqNqQVUDlcxyPSFTXRpO+BTbaqRg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mkLDoAVu;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=IlLzR2In;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O+JlxNbb;
+	arc=none smtp.remote-ip=209.85.128.173
+Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com [209.85.128.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C27A4606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F223B606A320
 	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:18:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C27A4606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F223B606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mkLDoAVu;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=IlLzR2In
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69RFL5E02549198
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:18:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	IGDTuUyORqQ9ZtkZ7BRn3HYpiHLzxyIKFVLh6zS3w3s=; b=mkLDoAVufykMfXU9
-	b0wNwshi/OOFS1fGs2PUhkkdJTgKHecVqhmTkGvP5r4qVsM+99YVbuqYp42UzZBm
-	2TI4maBCJKRfRPZLpK4EHZrA4GQCiz0sUK0TDussji1lhYQpdcZ+ik3hIJgvxnM0
-	hZWRaYnTqGItcNiX0Kw7f9A/6jtt8D68cwLTH4CWc1agJ6uhZHLwqnGJA7wS3xzb
-	vyELDZ4MGuWT4alpDXCC/oZm6s0T+j2wvi/ooq5od9IlQ9oV1WXkYa8UMu1FHjnR
-	88tcaYIVwMLXmirQuw4xV27zS3jA/EgftwetVNFFnLWWu1MMo7IZQzPRqk+ELF69
-	G8yO2w==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjrq69vm9-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:18:07 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93cb98809caso776610185a.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:18:07 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O+JlxNbb
+Received: by mail-yw1-f173.google.com with SMTP id 00721157ae682-8b0ca86a515so6344397b3.3
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:18:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793117887; x=1793722687; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IGDTuUyORqQ9ZtkZ7BRn3HYpiHLzxyIKFVLh6zS3w3s=;
-        b=IlLzR2InH2CS98YhZBCaotjhyEygpybW1CmPXgAkPnGDOyPDXOV3gh0D+loR79QpFg
-         k0RNJHqPL35aU+JSC13lBbScU3nKaSVlIiq4h0WxDuJT0bAiQztzlTVd/Z+l32W5Em3O
-         dxtqhznm4Ydsf8oLJitYAVWC7eeS9HGuU+WGJtGL4XuHvlgKMaNxuPPKvJ5f5Q8Zbjh5
-         E21UoR/9IoYX8du5rXjH7b1bSrDqDYpTZLA6Gl6kUvNtYrd4CIr1taUCGxvCLbb9fVu/
-         fS1Ue5Nw9IbMR/0vQS9LHKoEwf++0jm4PA8qlntLZV1rm0n9iClTMG5lGWeIuLi0poLT
-         0+Kw==
+        d=gmail.com; s=20260707; t=1793117888; x=1793722688; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DPXZ2yO3cU+s5EkiY6YjtMfPdHRJToYSpXviTD5gzv8=;
+        b=O+JlxNbbBci8nKYL2Pt4pT1VkmDlJsEd1AdhRhqw9wYVP/lt7TDymN6QDIQOPZVQq3
+         HUA/xOfvzFYdfdao/+3O66XnwpitnwgsFXdhICCmraATdxZa4LwGXUdvwwNukG1cLe2L
+         5qN5g2BveaYqj6x+IUjtD/oWIa3LZHMZPB3OSKx6SzVBcL5HDu5em3O+ORdHWQ3qqStn
+         bIr81WEClQ+YbTAO/hc5rh0iDu4rFJUC6zZclKwpjN2YSRsr8Hcj7dm1GheulqnVJiVd
+         7sRV5FMdTBhs48Wh/8Cmp0zYffAFLRWmoEY1HwUDDLAVf7U7NYOpWKNLQjx8xM2ecX1J
+         lOkA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793117887; x=1793722687;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1793117888; x=1793722688;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=IGDTuUyORqQ9ZtkZ7BRn3HYpiHLzxyIKFVLh6zS3w3s=;
-        b=ndqmEL8gqBfslxkXps7vjxvGP+ohXqXWVd7MQMqxip2zz2VmsOmBdBq0vD+IKGGOVm
-         XMIjktkoTCgyDcRdMn9x51s5BLIgcFAM5P+JbyKTC3mWvqkBAJaAAt09xjk5FrIM28L5
-         kxTdJNFHbrKZCiU//zWTuNxxmBk0DX2CihxwfD/eaSxSIrhHTluZ7+hDw2YQ4UXG5Rd3
-         33Cpf0yjeEiTNRRUe3FHjKp67o0s3XipBFhWLrnVjMBs0OleS1QB12jmEc3mvQK/xmC7
-         PcwiRrXSSGtU8XO1nvImT9nYkTI2gKi6xow9j3Tm4uN0gXHeV3xW4rkBleUcHK6puj+A
-         L90g==
-X-Forwarded-Encrypted: i=1; AKwUvByWPp0wEnfsFN2zyf2Tq9ojKY4T8dRJC682WhonpUzC4lkiOv7taFcpG31di0MXtteeiHbqw5tF6Uo/nmY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ9MEfiSkc/NDUiGEzDMWjeRT9ttRCIbCW+c8fzgjpzZdLou3Rn
-	lHfOBjztNz/oYO6J3Q1wA2cFcKScQ112HmZzb6RrzBxcQf+II0JpS051zTL9B1fUGbuQvOwMRG+
-	y4BQIDrOSJz8++11MtAyw+ei32ttopEDrvIgcdQXVsnPO/rByPrRE8nIRoH/sleWcrFY=
-X-Gm-Gg: AYBFou18q3wNFo66DF/0LZS5ck6a+6lgel8hqZBOOqjjw8PtR2eAgLV4p/5i7K7XGLb
-	bEaY3vgZopnB9W/31mqdPVn9k5kfJlvlxWWT4cVsWYPqhZX/er+DTmCdc3u2H/N79VzyUhQcm7z
-	XSztgbISHBgdhiuiSbRbvZVLM2KQSheEojVTJuUlFs99ZNwK13CAy1Xh0RhIIyoW/OYN9Ar4FDe
-	fjZBKWxp1/KTIruWTOPlPOukIYX/ZyGoIkCFyG0x6gFl0OHJgIAHaJL3dHiyjNwxEQY6UCUihHW
-	Qqi3td5a3N+BXGfyVXEVmeAAnZJ7IV6pfzRR0gdaCKVICG+m4NaoeQ/7zUKEcy2k5iGYUypv9Pv
-	RxJ87rliHzc4FigZVj4NJGSzWzVzAjGQzy5wbdq95kbKpU/iJWX80EWVrU6Pufg==
-X-Received: by 2002:a05:620a:2b91:b0:93f:6e05:22eb with SMTP id af79cd13be357-940ef8f9253mr1634333185a.48.1793117886904;
-        Tue, 27 Oct 2026 09:18:06 -0700 (PDT)
-X-Received: by 2002:a05:620a:2b91:b0:93f:6e05:22eb with SMTP id af79cd13be357-940ef8f9253mr1634328585a.48.1793117886452;
-        Tue, 27 Oct 2026 09:18:06 -0700 (PDT)
-Received: from ?IPV6:2a05:6e02:1041:c10:7d20:e20f:a77f:4ef7? ([2a05:6e02:1041:c10:7d20:e20f:a77f:4ef7])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecd8ddasm25927477f8f.48.2026.10.27.09.18.05
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 27 Oct 2026 09:18:05 -0700 (PDT)
-Message-ID: <8e53d1a3-fc96-4d07-8be7-74f383ed3618@oss.qualcomm.com>
-Date: Tue, 27 Oct 2026 17:18:04 +0100
+        bh=DPXZ2yO3cU+s5EkiY6YjtMfPdHRJToYSpXviTD5gzv8=;
+        b=ZSjJAyyI2RGgqYVXIuiTh4GVZ4bdPpHB5SVLTZmFAiRoseiohk5gQU0B3BJgL8ejJC
+         2SAgngu1dsvHOif6smxh3EiAyh5AcjNEYe4tCS1dUXkNNY/pkpDOxdADYtt9Hap0ifHm
+         LMUZwe0gTCEse0gOTNzNhRr+t6iPW3WNM1yWw4gPgM+bv17U8VIC3WTdhlJFlhfJddQu
+         yNGXrMdgqL+5uEqfFsWEURWK+Reopy0+tXQ/zOTokASF0s83PfptR0QLKsSIdNmjbTep
+         vaDFsiwAI+swBizWb1hKY2JUBDbx53oIxAh1Ie4qullC5ZvEcxzOP5X8RLLaxVh/Max1
+         KRZw==
+X-Forwarded-Encrypted: i=1; AKwUvBzkQ52/puCQnYKDWeeNXrJ599ZH+EsSiZfd13xurgfPuGrRd1KGfzqMNqhOkgIMMKVokDMrVUvBaSdRDgQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJjt1fSk64rszyr98pOqFOIgoUv7B0LV9rbVaPegdM8yUeZuTb3
+	wPCXJb7vrR475RdxU041m4bVJ2xBJ/pka3Ff6zPtW3B2CZPs7tWt8PUl
+X-Gm-Gg: AYBFou19qmhLLzZ4aH9NadQAfGbFitQjwEYQjU43Cy+3sAsivQV7PJiGVpDwvgsvL1X
+	y2W+2h0N8Imb7ucSSX8RgEdFgtOaqU+UGo3+ik6Uwbh5/IWnTR8RbYqdTywrlR3/5PgbneTAQBZ
+	cocTlHZjiAXv/rHesInPDwc1oO0iVr3PmFz6gNBjvj/2CuJmLdLLzlfVc8B1PxTz/PRbjfi5HOx
+	A6pO1nBfil6471erJeuLHR5Yt27hs3EdFpqArarDE1lOUvIIjoebkozuVdlq1EKLkohPfejv+0V
+	pCFYlX8+TQhDMZCDF05xnjBdQKC7Zfkwv0xrO0DE8J9HYWJfDva97z/BHSw4g25bSo7eKq4A0rL
+	XK5XWKw3sqIN5zUFq3g6qlCZYZbpJR5WruM4yyFQBsmtFUUVMtwKdGSUssNj53dWMogUJGGMsiy
+	NwtW9LVEq4JOGDrpeqk8medLaL4gD/AeTY+96TFrmMw8rPNA2r2q5ISIOn2VVM+JvrBMud7Bmjc
+	dEDyNS67XaOipil23e9sAGOgvAwxrDi3x9fhMXi/wgHAJaEiN8ck1FSCIAVLSxY0jOv3dk2m9oq
+	vLHSdJE4epJgK+rlZ7BkXRrl42rrNKM=
+X-Received: by 2002:a05:690c:a847:20b0:8b1:a3dd:a6b4 with SMTP id 00721157ae682-8b1a3dda6e1mr20302397b3.4.1793117887797;
+        Tue, 27 Oct 2026 09:18:07 -0700 (PDT)
+Received: from tacolabs ([2601:6c1:600:2d04:4132:6a2c:2819:9df8])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b19e656162sm15033077b3.44.2026.10.27.09.18.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 09:18:07 -0700 (PDT)
+From: Reid Downing <skibletz@gmail.com>
+To: Carlos Maiolino <cem@kernel.org>
+Cc: linux-xfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	"Darrick J . Wong" <djwong@kernel.org>,
+	Eric Sandeen <sandeen@redhat.com>,
+	Christoph Hellwig <hch@lst.de>,
+	Reid Downing <skibletz@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] xfs: fix wrong compat fields in xfs_ioctl32_bstat_copyin()
+Date: Tue, 27 Oct 2026 12:17:48 -0400
+Message-ID: <20261027161748.2760321-1-skibletz@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,98 +99,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/6] selftests/powercap: Add powercap hierarchy
- creation API tests
-To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Cc: Daniel Lezcano <daniel.lezcano@kernel.org>,
-        Heiko Stuebner <heiko@sntech.de>, Shuah Khan <shuah@kernel.org>,
-        Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>,
-        linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-kernel@lists.infradead.org,
-        linux-rockchip@lists.infradead.org, linux-kselftest@vger.kernel.org,
-        Thomas Huth <thuth@redhat.com>, Vasily Gorbik <gor@linux.ibm.com>
-References: <cover.1792504834.git.daniel.lezcano@oss.qualcomm.com>
- <83799bf79e85e9e2ab77140e632f11d96b17a04f.1792504834.git.daniel.lezcano@oss.qualcomm.com>
- <CAJZ5v0gSLOP4KN3bNB425SaYOLcpJ1c3t5isYEQAdvxqQR0sVQ@mail.gmail.com>
-Content-Language: en-US
-From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-In-Reply-To: <CAJZ5v0gSLOP4KN3bNB425SaYOLcpJ1c3t5isYEQAdvxqQR0sVQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=RYwFmFtv c=1 sm=1 tr=0 ts=6ae0cebf cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=bC-a23v3AAAA:8
- a=EUspDBNiAAAA:8 a=c92rfblmAAAA:8 a=82gYmaJqspjqQrwE4UoA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22 a=FO4_E8m0qiDe52t0p3_H:22
- a=GvGzcOZaWPEFPQC_NcjD:22
-X-Proofpoint-GUID: N_VACt8vCdu6yuySUH7YE2NjVR7CviZJ
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA2NCBTYWx0ZWRfX3XFzW4O4cYA7
- czHYE1fUy7U+KoWiXNKDOz5/VDxLRyqlmum/DbVIXYkiC6ohRvL1TKEA6GSC5vj+05SVXEJXxTf
- NY7mXNn9GlD4a32OxPCubLlwCQ6Wg5g=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA2NCBTYWx0ZWRfX1VfXWvXdy5Pl
- 8puPWwI6EdL8TAHEsKx3E+GA4GlroDYHYuwJMvJj+WxSYJiQnkk8bzUM9HNFK5v2IaPLufw+wzj
- XLsZDL43bVnmK3Vwu2tM62tIuHCvMbgc3zpvpRFWM85wxRX05UEPpoQCnnJjts6kTNnAmu+Pes8
- nQjAR/c+u6JdvB2YWdMGdIGi2yDZrjDagsd6A3BPDsjiyu+DGQvz3p2wmy/Vvwe3TkZo6gIikjw
- tH2xB4RbaGAKJl4vuV/O13dzEosDV0av068+gbAngxCzc6P3ZNnhIXXQz5Zzwxfqzz/9y0meg2O
- DvkpdjJcqFlBrznGyaiWKTEhLp4H5jYguhX6xTjpPBGjjppk7i7xZsxYURulwRiQM6yk1jXnzxF
- /v6QKJQybHRc934UWnN3l2lGYxnFvArB0TTHZ9b6HPo2rtD/zBxcj4ifpSQMoHuHyIghRBGe3jz
- +kfc9NKI0fDZhNbkRXg==
-X-Proofpoint-ORIG-GUID: N_VACt8vCdu6yuySUH7YE2NjVR7CviZJ
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-27_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 spamscore=0 phishscore=0 bulkscore=0
- adultscore=0 priorityscore=1501 lowpriorityscore=0 malwarescore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610270064
 
-On 10/27/26 17:10, Rafael J. Wysocki (Intel) wrote:
-> On Tue, Oct 20, 2026 at 4:18 PM Daniel Lezcano
-> <daniel.lezcano@oss.qualcomm.com> wrote:
->>
->> The powercap hierarchy API introduces generic helpers to duplicate,
->> instantiate and destroy a complete powercap hierarchy from a static
->> description.
->>
->> Add a kselftest exercising this API. The test builds a synthetic
->> powercap hierarchy composed of a package, three CPU clusters and twelve
->> CPUs, registers it as a powercap control type and checks the zone count
->> and selected sysfs attribute values. It also checks that the controller
->> directory disappears when the module is unloaded.
->>
->> Exercise direct static creation, duplication, skipped clusters and their
->> descendants, reuse after partial destruction, and repeated creation
->> returning -EBUSY without replacing existing zone pointers. Callback
->> checks verify the controller, name and backend-private data supplied by
->> the helpers.
->>
->> The test consists of:
->>
->> * a kernel module implementing a synthetic powercap hierarchy and
->>    dummy callbacks;
->> * a userspace kselftest script that loads the module, checks 16 zones
->>    and their power and constraint attributes, unloads the module with an
->>    attribute descriptor open, and checks controller removal.
->>
->> Use powercap-owned zone allocations so registration failures are cleaned
->> up by the core. Build generated module files in the selftest output
->> directory and extend the common clean target with Kbuild module cleanup.
->>
->> This provides a regression test for the powercap hierarchy helpers and
->> their integration with the powercap core.
->>
->> Cc: Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
->> Link: https://patch.msgid.link/20260806110159.69690-3-daniel.lezcano@oss.qualcomm.com
->> Assisted-by: LLM
->> Signed-off-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-> 
-> Sashiko is complaining about this one now:
-> 
-> https://sashiko.dev/#/patchset/cover.1792504834.git.daniel.lezcano%40oss.qualcomm.com
+bs_blocks and bs_xflags were both read from bstat32->bs_size.
+Read each one from its own field instead.
 
-Thanks, I'll have a look
+Fixes: e94fc4a43e5c39 ("[XFS] Add compat handlers for swapext ioctl")
+Cc: <stable@vger.kernel.org> # v2.6.29
+Signed-off-by: Reid Downing <skibletz@gmail.com>
+---
+v2:
+ - Also fix bs_blocks (spotted by Eric Sandeen)
+
+ fs/xfs/xfs_ioctl32.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/fs/xfs/xfs_ioctl32.c b/fs/xfs/xfs_ioctl32.c
+index f6875a2cc70..77bc936bf0d 100644
+--- a/fs/xfs/xfs_ioctl32.c
++++ b/fs/xfs/xfs_ioctl32.c
+@@ -143,8 +143,8 @@ xfs_ioctl32_bstat_copyin(
+ 	    xfs_ioctl32_bstime_copyin(&bstat->bs_atime, &bstat32->bs_atime) ||
+ 	    xfs_ioctl32_bstime_copyin(&bstat->bs_mtime, &bstat32->bs_mtime) ||
+ 	    xfs_ioctl32_bstime_copyin(&bstat->bs_ctime, &bstat32->bs_ctime) ||
+-	    get_user(bstat->bs_blocks,	&bstat32->bs_size)	||
+-	    get_user(bstat->bs_xflags,	&bstat32->bs_size)	||
++	    get_user(bstat->bs_blocks,	&bstat32->bs_blocks)	||
++	    get_user(bstat->bs_xflags,	&bstat32->bs_xflags)	||
+ 	    get_user(bstat->bs_extsize,	&bstat32->bs_extsize)	||
+ 	    get_user(bstat->bs_extents,	&bstat32->bs_extents)	||
+ 	    get_user(bstat->bs_gen,	&bstat32->bs_gen)	||
+-- 
+2.53.0
 
