@@ -1,64 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793102406;
-	b=vcKiQDB8Wprg9sFCsIKz3Z+Bb3mVBglgH1FmigqOuZbzZcnXwsV0KTeZ0KXZUkQP6nXG
-	 YH0+Q/ho7os4m1LpDtFq2nhpuGEMfzzCcQgeqo0LIC3FT1h20WcEMM+rv2Wb53zTVCSsj
-	 0l6wACpa6eTNcq3hY56xZ3CM0hdpKwYaWDAOEtQSCsKIN05mb3CfLWL7eEuP8jtXraA3m
-	 5zkp59q0LCHM9qp1nr/kEM4dk8FNnxP/a12zWmeuBi9NNNWjAbjEUWxFkk7mkGfGMOBhN
-	 gboDsJE6j1IL0KrLzUPNqnu+kbuwCFfm9eL9dByiqYjH1f+84ez/mRzIAyY45uY0egA==
+	t=1793102446;
+	b=s8p0yYHjj3eqlYQSJfaU0MJkJsqQFyQXet0hm+YK7CdkHSR41ri0PhYUNo5cvIdb/pAg
+	 8+2CRusCXmZfl067Z88gPv4naQZga4xAZOvhuLFu1K1ny+j+IYKkdfiBK/aZ/GypOPK5c
+	 COteEyaPp5KPyEGl/r5XnlgUv9+T47+rINjfUcVTLIe86jQHaxcCf67ft2g7JHnF0xKI9
+	 CfQF7jQBy/VdWuaidRIH2gKs+fPRWHVDd6wW5OTi+jQ47mkw+7WHOIG8lv6Z676QjE5Q9
+	 HodHhkpnci6Kh4bCnZinj+FbjbwLkst4U+DZwzplyurZol3XnNpUEAg74Z02FmUsTEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793102406;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Debian-User;
-	bh=22OilN3OWHAsf4ZnKYCUCqyoE4jo68G/Rnat5EPiPAs=;
-	b=TgRoBw+DD/Zz6uy/0Yq9qz+s5xkSc4RxCMsR7sSSFC6rVDnyCI7mDdolrqjyPPNQ6cro
-	 1/qjehp9bEB/9NNcs4CRxVYjMa3PV7ZASutau8PVvVJEb7m/rHG7GSUQ5LCeDga07qugv
-	 bM66XPUYOaETabPbmXl8njO9mYFi7n7/U5ly1Gkl3OTc2soWUKTuDt7SI1ZIRlnqMqGFW
-	 Ka1n00qvZuXdKPRhSbnC9zY4Jb9UG3deCb8PNgyWx5JRFkn+NpOap/dVON+kpsLZpmjFf
-	 GdD8o66dDqqLCgQdTf4kCJff8Ms2XjgUFD81JdSOGRtFpl9MNwN27JixJFwXm9ok8qw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793102446;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=44RpWvBCxaRdhkKmU4U4u5g9cCT+0OySigjHjteKBFA=;
+	b=krVosu4zeC5YV/Jic5UEJoZcA2sR+atnCt3XJ9lfOszFz8d+RlKGKkgSt9wLEoOtCTGp
+	 dR6d7C4hTv2bSQ3peI5L6h+S5bJaU1Acc969ZybqMRTQgcnO7f+fqT6g2tJOft8ASzNTI
+	 CGgoTR/0z8Fwzm3N1QkwwsvbXMlX4JeFYVjqH9SCcEcF7eZB9oiHLM7ad4haA9XMStAUa
+	 CM77D+ThBAEDA3eLUSIEbE597AbVm1vDKzROf3y+kyD0XEJvklNvnW8zex2RoeV0IHIGg
+	 eWuedjRIIaeCRi11EQqSOs2/pole4AuEFpTmJt9fJUb2x4p0mIFUDXJu4IXXVIev2Uw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b="hZ/Ow0ro";
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=SSDD+GYh;
+	arc=none smtp.remote-ip=90.155.92.199
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DB5C606A31D
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:00:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DB5C606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C2F5606A320;
+	Tue, 27 Oct 2026 12:00:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C2F5606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=hZ/Ow0ro
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=SSDD+GYh
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
 	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=22OilN3OWHAsf4ZnKYCUCqyoE4jo68G/Rnat5EPiPAs=; b=hZ/Ow0roMzSE6yS/Enuvr71b/R
-	dPnK8+fdUYq9MNWyNw3mFA9CBhIs0m1St9Yk2Ddl1mOzI0ghUTkS5l0LOyAgA489QRwVzkXufKIF/
-	tRzXxd419Nq5fXvU35Yr6bMft+1/iuV3bYQ0gH7kOQZTa17H/fO2V7fckLIlE8ZfqQgYLxI/6Gw1Z
-	wv8/3NpmC2nyEaPvJRvmLMCXtMFPkjBH2xJrZgLNn1K68bkfU0CidLRudY0jFLqozzH19UywHckQp
-	4YqXz43UaUzygXk5AXuyPMku/yNa8IvggNT+rHYiZH10lYxKZqb+smsAoShzC9bYA4lngzg/WN35f
-	BG04PZrw==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xLfqP-001RTE-0X;
-	Tue, 27 Oct 2026 11:59:57 +0000
-Date: Tue, 27 Oct 2026 04:59:52 -0700
-From: Breno Leitao <leitao@debian.org>
-To: Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	kas@kernel.org, kernel-team@meta.com
-Subject: Re: [PATCH] arm64: Kconfig: Don't select CPUMASK_OFFSTACK with 64K
- pages
-Message-ID: <auCSG2OmNMQKp3dq@gmail.com>
-References: <20261007-arm_stack-v1-1-b48dad5fa8b2@debian.org>
+	bh=44RpWvBCxaRdhkKmU4U4u5g9cCT+0OySigjHjteKBFA=; b=SSDD+GYhrUUY2cNOeiIkcZdZUt
+	37a2mC7cKsayTVIpvEVZyt/bH4y7bBe5YlX/ll5v65tsWldXaBPas5/q2MWIeUPPdqQfgx+l3l6lT
+	rKZiG/7aIhGUmLS1naxekYQfMojrzkaagxtP4aL6z9ORvndND6/lAUhKCwkbMMSslmWgOM5EnwqVW
+	4B+ROKfJHYqc72/Vq2j9eGDLMiKVFomgIpVvE1gBnhDRiBHGDCY8nYeHHU/eDDx4Ja1sjeKcYPJSp
+	tJ6GlCjIWR3ysiHXiSIUMRh7dWatQNsThXbAS0IKvBSUpnAiNT2Vj5sZQyGVcLuypI/E+n7EbzHkd
+	40x2N5ZQ==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xLfr0-0000000EtkH-1FWQ;
+	Tue, 27 Oct 2026 12:00:34 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 4DEB8300DB9; Tue, 27 Oct 2026 13:00:33 +0100 (CET)
+Date: Tue, 27 Oct 2026 13:00:33 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Breno Leitao <leitao@debian.org>
+Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	Ingo Molnar <mingo@kernel.org>, linux-kernel@vger.kernel.org,
+	llvm@lists.linux.dev, kernel-team@meta.com, stable@vger.kernel.org,
+	"Paul E. McKenney" <paulmck@kernel.org>
+Subject: Re: [PATCH] x86/nmi: Ignore negative NMI handler durations
+Message-ID: <20261027120033.GM2668564@noisy.programming.kicks-ass.net>
+References: <20261027-nmi_negative-v1-1-b436a005eb8a@debian.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,36 +77,66 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261007-arm_stack-v1-1-b48dad5fa8b2@debian.org>
-X-Debian-User: leitao
+In-Reply-To: <20261027-nmi_negative-v1-1-b436a005eb8a@debian.org>
 
-On Wed, Oct 07, 2026 at 12:58:16AM -0700, Breno Leitao wrote:
-> arm64 selects CPUMASK_OFFSTACK when NR_CPUS is above 256, which keeps
-> cpumask_var_t off the kernel stack. With 64K pages the kernel stack is
-> 64K as well, we have enough room to keep cpumask on the stack, avoiding
-> extra alocation and possible performance penalties.
+On Tue, Oct 27, 2026 at 03:43:51AM -0700, Breno Leitao wrote:
+> I am seeing NMI handlers in the Meta fleet reported as running for
+> about 584 years. Over 30 days, 11 AMD and Intel machines logged 637
+> such lines, for example:
 > 
-> Skip the select when ARM64_64K_PAGES is set. A 64K kernel can then raise
-> NR_CPUS above 256 and keep cpumask_var_t as an inline array. 4K and 16K
-> page kernels are unchanged.
+>   AMD EPYC 9D25 (family 0x1a, model 0x11, stepping 0x0):
+>   [ 1650.616627] INFO: NMI handler (nmi_cpu_backtrace_handler.llvm.9643156322683129580) took too long to run: 18446744073709.551 msecs
 > 
+>   Intel Xeon Platinum 8321HC (family 0x6, model 0x55, stepping 0xb):
+>   [360448.230129] INFO: NMI handler (perf_event_nmi_handler) took too long to run: 18446744071018.936 msecs
+> 
+>   Intel Xeon D-2191A (family 0x6, model 0x55, stepping 0x4):
+>   [81787.188959] INFO: NMI handler (ghes_notify_nmi) took too long to run: 18446744073709.545 msecs
+
+All these are 'recent' machine and should have a stable TSC :-( I hate
+computers.
+
+> nmi_handle() times each handler with two sched_clock() reads. When the
+> second read is lower than the first, the u64 subtraction wraps, and
+> nmi_check_duration() treats the result as a duration. In the three
+> examples, the clock went back by less than 1 us, by 2.7 s and by about
+> 6 us.
+> 
+> The wrapped value is also stored in action->max_duration. Every later
+> real duration is smaller, so the handler is never reported again until
+> the next boot.
+> 
+> Whatever makes the clock read lower, a negative difference is not a
+> duration, so return before it is stored or reported. A clock that steps
+> forward is not covered, since that cannot be told from a real stall.
+> 
+> A backwards clock is still worth knowing about, so print the size of
+> the step once per boot. This uses pr_warn_once() rather than WARN, as a
+> stack trace says nothing about the clock and panic_on_warn machines
+> should not go down for it.
+> 
+> Fixes: 2ab00456ea8a ("x86: Warn when NMI handlers take large amounts of time")
+> Cc: stable@vger.kernel.org
+> Cc: Paul E. McKenney <paulmck@kernel.org>
 > Signed-off-by: Breno Leitao <leitao@debian.org>
 > ---
-> Based on Will presentation at LPC, I've decided to have a look at Meta's
-> stack usage, and I found that this might be an small optimization!?
-> ---
->  arch/arm64/Kconfig | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  arch/x86/kernel/nmi.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
 > 
-> diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-> index 5f2db2cecf9772..b73371327d2a47 100644
-> --- a/arch/arm64/Kconfig
-> +++ b/arch/arm64/Kconfig
-> @@ -111,7 +111,7 @@ config ARM64
->  	select CLONE_BACKWARDS
->  	select COMMON_CLK
->  	select CPU_PM if (SUSPEND || CPU_IDLE)
-> -	select CPUMASK_OFFSTACK if NR_CPUS > 256
-> +	select CPUMASK_OFFSTACK if NR_CPUS > 256 && !ARM64_64K_PAGES
+> diff --git a/arch/x86/kernel/nmi.c b/arch/x86/kernel/nmi.c
+> index aae7254774680..57a0dab1ec7a9 100644
+> --- a/arch/x86/kernel/nmi.c
+> +++ b/arch/x86/kernel/nmi.c
+> @@ -130,6 +130,14 @@ static void nmi_check_duration(struct nmiaction *action, u64 duration, struct pt
+>  {
+>  	int remainder_ns, decimal_msecs;
+>  
+> +	/* sched_clock() went backwards? */
+> +	if ((s64)duration < 0) {
+> +		pr_warn_once("NMI handler (%ps): sched_clock() went backwards by %lld ns on CPU%d\n",
+> +			     action->handler, -(s64)duration,
+> +			     smp_processor_id());
+> +		return;
+> +	}
 
-Does this one sound sane?
+Fair enough I suppose. Thanks
