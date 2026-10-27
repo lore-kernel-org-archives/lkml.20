@@ -1,188 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=210.61.82.184
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.15
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793091002;
-	b=SytIYv7KObKZXDp4RN9gpBAEQWrGXoIyKMQjhdtsuCip3tASnZ0lNDdjHsX1QyTvw9v9
-	 rbl4iSYBHdLCuNWcFr5WR764/kvQNhKdMjmCE/QyyOfyPS7Vi9XqdQHFTXVEowkEmuWpb
-	 WjLSBxNpUBBX9ac7KvDNsyNyQi1myw0CtxdC/CzrmrgzpfoRt52JThreO0N8ZweIM0KtJ
-	 5sPJhQ3rJj3p0RNKlh25P93nmPlxl89/+A2DfjhDwu86KkxGco00ee6iOeIRt2QEr40w1
-	 9IYVYF651+L+UkQcNi+rn4jhbiPUy0Q6/Dq2nRs6znlhdAfBHkXnHeGSp+nCjF1gixw==
+	t=1793091041;
+	b=jvJLwLKSQUM24gWDaGgXahHnUWTSzXYmf17qAK5AuBhFVZTCQoOKJB1afqrerxN0apl4
+	 U1xckaFZiHHOj+lU8CfKvzDrtbOD36nmpWVtTwmbJmpf1v3fqdAwYnd7JgsX/uW1Y+9Au
+	 NZwCR9JzmdkhqSAo0NjgnLq80DhzRIbgd8JqhuEOiWMoZ/JSKoCaXPGgq0CfLbTvXeIMy
+	 W6moR/o/8/BBmxdjoggqYntUfC1MYwDsUTzXyhXimCVijnDAhljyjybCEBv5fcApIb2lY
+	 9UXx75/3VO4RsGAeo3OvjCtLX3rSw9KJOxyMmoCWYKHmxV2KaLHwPnY4TEDEl0rtWLQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793091002;
-	h=DMARC-Filter:X-UUID:DKIM-Signature:X-CID-P-RULE:X-CID-O-INFO:
-	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:Received:
-	 Received:Received:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 msip_labels:x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:
-	 X-Exchange-RoutingPolicyChecked:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Zqi1vnxLsdODna0mHKLoPKsyLxI4sMmwzoKJ7ku/mLo=;
-	b=lI5cJUhWoEEoT4vxOhP5QtlPxuEqEIHVHa/NDuLHgcNJoVUFWMOD1XCB8UhjBzkRTD1E
-	 9oPMSIbbA9XFZ6Z6nDOhMSpJQPKvBS+Y0bD3ffe0dEBAhQSiVNqrIszL/9EQl1AFWLvKt
-	 PNrfj2fUi9BuUigLanr0is1FLli/t0lL0M8B8CB93hyNEZ91LPBNH2SMTm7OYcszOQrzx
-	 tZ2uAw6E4IYNGov4Wqm87o4bmAgvntuZ8MXe0+b6U76UxlPdnI3O/Et0JptTHOTi4Y14k
-	 2Y6jkID68w8PPaw9P3jFLi+kcJOVl8oOgIeWbOcTXjrVz9AtctWPPecAjNgp9oHu4bA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793091041;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-ZohoMailClient;
+	bh=FLj38MVz5n0Sq7sa0yZGgLRLbZd6FbVVIQAz21Dvemo=;
+	b=5sO4/0RmbYWn02dfv6TJN2PR20UxUMjyY/ACZEvVqzYA+aUCTENI7Tv5ZH4s96kplSKS
+	 iuP3u7MZXmRO9PTUwSlOOVBH4Ag4/bQhTSnCI4H5yZdOqGXjbiM/elAJrPgLLMIILKSjs
+	 MJIptO38Wt8Y3JCBkNEdUwDUhqCD3GPoDhc+knM/iOiZ+KWR2IHK2jRsM+nKRyQSwBUBP
+	 kAnAWfgYpwU7F6DCbE10SgVpHbGhUqaOxgTxA1Y4ANYd3MmCTM/FNAwy0MZgkBxMdlR6d
+	 bXrlWlLPwunNsDhn5eOD5UobkBma4xRKOYbcIDY984Er2tKwSpmaMEMntHLPdGsmHKw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=airoha.com;
-	spf=pass smtp.mailfrom=airoha.com;
-	dkim=pass header.d=airoha.com header.i=@airoha.com header.a=rsa-sha256 header.s=dk header.b=mLWpAKsW;
-	dkim=pass header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-mediateko365-onmicrosoft-com header.b=KgDItyuk;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=210.61.82.184
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+	dmarc=none header.from=yiyuzhou.io;
+	spf=pass smtp.mailfrom=yiyuzhou.io;
+	dkim=pass header.d=yiyuzhou.io header.i=yiyu@yiyuzhou.io header.a=rsa-sha256 header.s=zmail header.b=GLrwHEUg;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.15
+Received: from sender6-op-o15.zoho.com (sender6-op-o15.zoho.com [165.173.180.15])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93176606A321;
-	Tue, 27 Oct 2026 08:50:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93176606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=airoha.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=airoha.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 406DF606A31A;
+	Tue, 27 Oct 2026 08:50:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 406DF606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=yiyuzhou.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yiyuzhou.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=airoha.com header.i=@airoha.com header.a=rsa-sha256 header.s=dk header.b=mLWpAKsW;
-	dkim=pass (1024-bit key, unprotected) header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-mediateko365-onmicrosoft-com header.b=KgDItyuk
-X-UUID: 6253538ad1e311f18dc8c9802ae25ab1-20261027
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=airoha.com; s=dk;
-	h=MIME-Version:Content-Transfer-Encoding:Content-Type:In-Reply-To:References:Message-ID:Date:Subject:CC:To:From; bh=Zqi1vnxLsdODna0mHKLoPKsyLxI4sMmwzoKJ7ku/mLo=;
-	b=mLWpAKsWZaG1d3ABHyPrc4nDIuNtIfUtNp2wK4+Fbbbi4tnw/Y6B5cDSDAOeUclKkrv7jpuLsob9qw/eL+F2gcux7D7KfM0F/Y4EGOyMvGGT2e+rE3h2HvsRRpWny4Cc7Op1rivvAot0axi7Mtem2z8kcmTihgXd31CT93q/i/o=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.20,REQID:0976076d-6689-48a9-a40a-485f0b09c165,IP:0,U
-	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:-5
-X-CID-META: VersionHash:291e20b,CLOUDID:3672713d-7132-4bd9-9ada-f79a4f8833bf,B
-	ulkID:nil,BulkQuantity:0,SF:80|81|82|83|102|110|111|836|865|888|898,TC:-5,
-	Content:0|15|50|99,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-
-	1,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 6253538ad1e311f18dc8c9802ae25ab1-20261027
-Received: from mtkmbs13n1.mediatek.inc [(172.21.101.193)] by mailgw02.mediatek.com
-	(envelope-from <weiting.lee@airoha.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 1550016170; Tue, 27 Oct 2026 16:49:56 +0800
-Received: from mtkmbs10n2.mediatek.inc (172.21.101.183) by
- mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Tue, 27 Oct 2026 16:49:55 +0800
-Received: from SG2PR04CU010.outbound.protection.outlook.com (172.21.101.237)
- by mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Tue, 27 Oct 2026 16:49:55 +0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=voUUgXaCQMvBCMpq4j27bDbyaG4Y4NbNMwwZfBII9ZsSp3/MEmNvk4kZ2rLbUqQn6ffgmwxI1zi2k5LX/oqlCcGNWKIrU8j8Ya4PpDObOmWh25ytqcFCCrjj7oRr+r4uc9DX7rqclz64xGjI4EGPSa3GDi6t+nlcgyJKA6nkt4DH/hDEjMyMqjkA4tnCJvsKSK5i3yjIkW848O/vI+xK89jangdqyVWSk43KoGatXQBML+fFdT1cKbcZ9pFo7Wi4YQ9rCvDgTGPh/lc55qPEa4OAWPxEEm70Do+tU0/LDzGY55xzW5LZE9Gyva/dZ0JZlWji7kqDssvK3ZuGszIKYw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Zqi1vnxLsdODna0mHKLoPKsyLxI4sMmwzoKJ7ku/mLo=;
- b=BkOO3Kg3b7ItuXopImVLepp9IIprXp0hopOmhFnwuY9X0LAKBz/TOmsKyJmplTFFnOKv+M47s6nQtOi2bKDzoPD9askPYeZl5yTgNm6CJmoX155xTLLCWCgpQo8lxw0tQ3+DOHZdxthXHhWMMUoyjhX/JySqz7JMfG1cxfk3AjW0G0qbdg/d64jWj7jyCmkVaHuNV9uaB1j/yMhomtmdKyBUpileLELIqAoU5SFD+go4rlsIR7I8GbFAWOWLRWxTLE37KfrijNWQTs5GMkegaK1Yk2k0uFXMduwaNCLIl8iOBdQh9FBFpgeZaNPJBNCySBufSPidPuU7mcAgvVmKog==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=airoha.com; dmarc=pass action=none header.from=airoha.com;
- dkim=pass header.d=airoha.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mediateko365.onmicrosoft.com; s=selector2-mediateko365-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Zqi1vnxLsdODna0mHKLoPKsyLxI4sMmwzoKJ7ku/mLo=;
- b=KgDItyukHKQciyw1aT6czMOaEktryABQRC7dRRiLI3oC/wMk6s303L1nUjBIDtebaYfTy9oU9GPWa6W3KhcM6hoHLJO/FSnJLa/YzsIpfXprDtZuNXyujHwS3+enefEn+LKhzZVGCBPy/JDe/ZnIA+P7+spAUVXY7aTBghp3KpE=
-Received: from SEZPR03MB7899.apcprd03.prod.outlook.com (2603:1096:101:185::14)
- by SEYPR03MB7535.apcprd03.prod.outlook.com (2603:1096:101:142::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
- 2026 08:49:51 +0000
-Received: from SEZPR03MB7899.apcprd03.prod.outlook.com
- ([fe80::504:b6df:9e2:87e]) by SEZPR03MB7899.apcprd03.prod.outlook.com
- ([fe80::504:b6df:9e2:87e%5]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
- 08:49:51 +0000
-From: =?big5?B?V2VpVGluZyBMZWUgKKf1q8K+Xik=?= <weiting.lee@airoha.com>
-To: Andrew Lunn <andrew@lunn.ch>
-CC: "netdev@vger.kernel.org" <netdev@vger.kernel.org>, "hkallweit1@gmail.com"
-	<hkallweit1@gmail.com>, "linux@armlinux.org.uk" <linux@armlinux.org.uk>,
-	"davem@davemloft.net" <davem@davemloft.net>, "kuba@kernel.org"
-	<kuba@kernel.org>, "edumazet@google.com" <edumazet@google.com>,
-	"pabeni@redhat.com" <pabeni@redhat.com>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "bjorn@mork.no" <bjorn@mork.no>,
-	"ericwouds@gmail.com" <ericwouds@gmail.com>, "frank-w@public-files.de"
-	<frank-w@public-files.de>, =?big5?B?Sm9zZXBoIExpbiAoqky9q7fXKQ==?=
-	<Joseph.Lin@airoha.com>, =?big5?B?V2Vuc2hpbiBDaHVuZyAowemw3axQKQ==?=
-	<wenshin.chung@airoha.com>, =?big5?B?THVjaWVuIEpoZW5nICi+R7K7tnYp?=
-	<lucien.jheng@airoha.com>, =?big5?B?QWxiZXJ0LUFMIExlZSAop/WuYae7KQ==?=
-	<albert-al.lee@airoha.com>
-Subject: Re: [PATCH] net: phy: air_en8811h: add dedicated suspend callback for
- AN8811HB
-Thread-Topic: [PATCH] net: phy: air_en8811h: add dedicated suspend callback
- for AN8811HB
-Thread-Index: AQHdRkLyZL/VE+g59U6bl2Fs6feVyrbSAwGAgD8ouRU=
-Date: Tue, 27 Oct 2026 08:49:51 +0000
-Message-ID: <SEZPR03MB7899D16736B1D8F171C7FF3884602@SEZPR03MB7899.apcprd03.prod.outlook.com>
-References: <20260917012102.3103131-1-weiting.lee@airoha.com>
- <d9ec8019-0603-4884-9bbc-d20153dba204@lunn.ch>
-In-Reply-To: <d9ec8019-0603-4884-9bbc-d20153dba204@lunn.ch>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=airoha.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SEZPR03MB7899:EE_|SEYPR03MB7535:EE_
-x-ms-office365-filtering-correlation-id: fd064909-7fc4-4b1f-6cc9-08df3407438d
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|376014|7416014|1800799024|23010399003|366016|18002099003|261026121527099003|22082099003|10067099003|56012099006|11063799006|4143699003|38070700021;
-x-microsoft-antispam-message-info: ksKQP3bPLkY/BywfDGuV2iMACfXK8buI6km3c0ZtyuOgROQujxxDeQSfprB/JigxvJjE9JRtaCY+kRu/0IMxVguZv/PLUg1F+wk3T20DiowGujP4eBnYlV8EbXVZEBN5YTl/xq5Q0iLGknB89OzJjnykThHKgGPXlWI67rozxfh/YvxCmIHr9XfnGVe1065TSdc2hh8BcmwrDytQAaOnt2vZPQFuXQBM98h7r/SE/Ju2GsWYFCmA1ahMdTk/ZETKP/8uRee2FjDYUizg07HFlnFlq5c19E/cI0IJJl+5oPViJPH8tdmePqYkt35sN7LY789Qr78O4uGW8BISVTxvBTNhWThe6bbuOn5B55ktGL2cllqOqaz+pMPLer5/8wLVx1ZBU8UMdu9sxe4YE2kiGfTXBLyYoB0TI3shljT5mKyQkdodWpD/EOVC3R9n1ysDpptYbCA6io6QiHsXkYTiQVth/smBNhhxwAFp0/ckqCWIFtV/3Q+aHhCXKG43t6a313pb2LvyOWKxDaV7MD5dwu9kX8zhkuK3aGWJ+YCkicgh8LeQ1QKG7YGuUg2RYvmRthjMzyYEE55t3O9g8Cu6x8b+3TolVnZ4JnYGYGYaclI20mTEP2iuH1rzCiYNeFqSruIoH73upMJVIfXTpYbfWSYxzP2FEV5w6gpgsuLCEwEOq9FZzc9VUqjy37/g2qsYcSTP6xkjsIweGQOxDck7gCCcDzG6ejmY0PHqvcl/JfQ=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:zh-tw;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SEZPR03MB7899.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(366016)(18002099003)(261026121527099003)(22082099003)(10067099003)(56012099006)(11063799006)(4143699003)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?big5?B?cElNNXpLTHNGazd5YzF3OTdYN1RIS3I2R240N0xjWmd2aTBDYXd6NE5oR1RPd0Q0?=
- =?big5?B?MjFmMERaMFc4WkoySWpxV3U3QzMzWkgxQlk2OW9aSzB0UElYWUx6emtaUmhBUWpI?=
- =?big5?B?amd3VHZYanhuZVpmTnJhQ3pvUTZMTWtLOWFNWXZua1RHM2gzd29UcGxMbWJreXV2?=
- =?big5?B?dU5PNDV3UWFEdnBZQnQ5VlFBNk9MSmExNHFMem1sWTVWR0FSek9OL01oY0xQL1F6?=
- =?big5?B?c0RiSTZrWG5Ed2hTTUtUcTdmdHowQ2F4bW03c0Z1V3hQZytnVHBJRmhrdzFsNURG?=
- =?big5?B?MFpkVnRLSEZEZHRhMDlnYytHYk9lWnBxQzN5cGdLVFBFZ2pUR2Z1TUFvZ1lJSDQ4?=
- =?big5?B?QU9uRmloM2tQUmhHMWpvL29CcGlHWitqUkdCVGtDdlBJc2tQbk50T2ZveUlCZEUr?=
- =?big5?B?OXRQWHppUXA0TWd6Nm5KTm9hTXZTUFF0VEt5WnpvNVJUQmZDL1U5WFBXVU4vZkw2?=
- =?big5?B?dzB6Rzh6ZmFaTHUvZGNWYWhaMnUyUWJ3NEZtL2pmQmJMaFJoRVF6WEgrOHp0Wjc1?=
- =?big5?B?RWNyejF0M0xSR05pNnA5bnk3M3g0TzRuUGFkbzhKUDVJRVJqWk5SaEZZYUF2dWhy?=
- =?big5?B?S3JhTjFMVHcyMmZxanlDUFFHYnBqbGEzdnBleThRZEJ1MEhlMlNuWVZvbThpdVJu?=
- =?big5?B?SWdGdmoxaVJBUm5EUVpLclE3eXhwak1BTFJNRm8vUnRYTVRqcFFITTF6YmVLR1Q3?=
- =?big5?B?S284WHU0WTdXU1F6cWgxV25xcUxpTjFxRk13UlRodUQ4aXRYVVp3TE9uc3JJZFNL?=
- =?big5?B?Mjh4L1JROUF4Sm5xdTZRejlDTkwyM3BPdkxaQThMNGpwTlpFVXU1NVNXbUYzMHpU?=
- =?big5?B?bzJuWXpwQjc5UXAxVUN5L0FCQWVGenk1VE5oSmQ1Mmg0bkVLSmZlWm9XaG1UZDBx?=
- =?big5?B?SURMellHYWxQNUNMT0JaVG1va0xzaDlGRVlVRmJmaVhEK0xUd2tQU1p0bnk4VS9n?=
- =?big5?B?V054Y1Fua3cxNFB0S3FRSmNlbXlOSWptQlE2T2hsNHRmOTBHZU8rb0hvVVJ2OHl2?=
- =?big5?B?d1NxaFZVclB1ZDZvRlRPamZrTXFFbTEvVmRibld5dThGNnlDeWFvR2pLMmpERG5X?=
- =?big5?B?V0FvSjk5QkRzU0kzNXRuc1Jkc0pBWTdlenZmNFJuZUlSd0Z1amNCRmpEbUIvK2Ey?=
- =?big5?B?K0V6R2tsWVZTRUtqRkFocFYwT2VpV1l4VVg3KzhWdktJZ1F4QWNuOFMraG50Z1RQ?=
- =?big5?B?c050QTRNWVM2a2hEc21paVF5WExRRndCWUxydkpLL0dWTy9NMC92L2VIN3QxUG9j?=
- =?big5?B?QXNpUUpjT2R4WFhVUmZReGxrRFhrd3YwL0dtZnNzb2lvZDBET0ZVRFdvWGZhcFl6?=
- =?big5?B?NC9HUGFsMXg2dkJ1dGJLWnQ4T1E1UmUzZGxZKy9YcFB1N29TTit6aWMrRjJDL2U4?=
- =?big5?B?bXEvQUhRSlF5cnFpd1pKSEc4NmY3T3BUano5M3RBK2QwUFp3TGxLa2JSTXkvQmlO?=
- =?big5?B?WUJackthU1R0azFPWEdaZmRuYmJJUVJpV3NpdVdRQUk1VERUbzhYSWR4elN4dDJa?=
- =?big5?B?SmJUR2tVbkpvNFlONkxKMDQvNjlmVEs4RDU4ZndKb25wZUQwaXlkMitFZ2pFL0dL?=
- =?big5?B?Q1pVdmE2aEdxRmZzM2x0b29vdUQ1YW5icFhxMEJnN0ZiUEc3M1g4YzdEWnJ6ZGtJ?=
- =?big5?B?UnFJOHp0QWUzNkpWSCtYNmkxUmV6MFF4SjdxWDBNbE9KMndNdEl2eW9RTlFIV1hv?=
- =?big5?B?MjVVNFJwK0Rtb1VxZEQ0VER6ekpUd3h5Z0Z4dGZmL1FHUzIwSGJ1YTA5SFVTOTV2?=
- =?big5?B?RW05S0pkR2MrQmwwbGhGdmpLb3F5N3RzRHdrK052TVhpT2pOTjl6TlpQQ0tPc2pD?=
- =?big5?B?eUtjQnhBNXU5NFZsYXRyVk9nRmNHaTgwSHhpNWFOQVpQblMxd1ZNNi94ZDY2dVZn?=
- =?big5?B?dk1ROVNQWk9LVnZtdkVTTkdmRTNYbzQrK2Vnb0tDeS82YStlWXdSVmIzeWxXQldS?=
- =?big5?B?c2VpallLaTdybnlDeUd6WnI4eFVlL1dObUxvQ2tzL1JIQ2htVUVOWnRReGR1TkJl?=
- =?big5?B?RzJxOStPR2xPU1kxWGp3bzlleWZqRjkzc0lST3kwdm93ZjBTWUVYQ3JOWU5UQ2pm?=
- =?big5?B?YXdoUTd1MytNV1BQZjJyZm1RMjJxOEx6VlROclB1UEZXMXh4dVFNWmwxd0dyamI1?=
- =?big5?B?aVN4MURGRjRxaUUvc1FBRHZTTXhndmh2cWZpWUplVjZmQVprdEh2RzVhSDljaU5O?=
- =?big5?B?RnEwSmR5OSt0Zkh2VUhzL3J0OW54UT09?=
-Content-Type: text/plain; charset="big5"
-Content-Transfer-Encoding: base64
+	dkim=pass (1024-bit key, unprotected) header.d=yiyuzhou.io header.i=yiyu@yiyuzhou.io header.a=rsa-sha256 header.s=zmail header.b=GLrwHEUg
+ARC-Seal: i=1; a=rsa-sha256; t=1793091022; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=mNIgdz7R3r11ZTdxDrF1Q4UNAj/msS2HRtozDlQJSSJt2JF1XeqM5R3fqe0egEeBge134OZnCYIg8nLeYTjBrIyrWpgDerO8KX4+9i6OZz6wwjqMlnXNtJr1NaKqTI2E+9loBXl7++S392yzKQ7pBXj8ls4Kp6GdmM2wOzfU0do=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1793091022; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=FLj38MVz5n0Sq7sa0yZGgLRLbZd6FbVVIQAz21Dvemo=; 
+	b=c87bfdFCXjb5gR2PsR8BOdmGMCaRupck5ZtE3sA4AZNsUmOk1gsAmiusRhEybBQBEIabaYyPd4h6NRcc0y0CFw8iWSdKprFUoQyoNUAezXwJ5+XXP8lyXsdTbGQGnk65eEUcvgNQatPnQNiMuypGV+Ae/YtLyIebVoxBC9xNx1M=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=yiyuzhou.io;
+	spf=pass  smtp.mailfrom=yiyu@yiyuzhou.io;
+	dmarc=pass header.from=<yiyu@yiyuzhou.io>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1793091022;
+	s=zmail; d=yiyuzhou.io; i=yiyu@yiyuzhou.io;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=FLj38MVz5n0Sq7sa0yZGgLRLbZd6FbVVIQAz21Dvemo=;
+	b=GLrwHEUgbTUGf6R/WLG13CeYhpiA8658UGY7+Mi/ec1jW9yV6uc50Vo2O++5AsfZ
+	UaR36wdvJskpkykrqtlAesO4tjCQFM6QBWRfOkR3pWeU9jtZeBVBfNQqmN4YgZMkFUN
+	Kg8nwZd6TvDxG02N3QWPliO6jWALXgPbAKC/5gEM=
+Received: by smtp.zohomail.com with SMTPS id 1793091020208282.5273528004707;
+	Tue, 27 Oct 2026 01:50:20 -0700 (PDT)
+From: Yiyu Zhou <yiyu@yiyuzhou.io>
+To: mathias.nyman@intel.com,
+	gregkh@linuxfoundation.org
+Cc: Yiyu Zhou <yiyu@yiyuzhou.io>,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	michal.pecio@gmail.com,
+	regressions@lists.linux.dev,
+	Dennis Wissel <dennis@dsine.de>
+Subject: [PATCH] xhci: keep ep0 blocked after disconnect until Address Device reloads it
+Date: Tue, 27 Oct 2026 01:48:42 -0700
+Message-ID: <20261027084845.1588204-1-yiyu@yiyuzhou.io>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <qLQr_bD2TzCrwVMFdRe7Wg@dsine.de>
+References: <qLQr_bD2TzCrwVMFdRe7Wg@dsine.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -192,29 +77,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: kLXF0KOxUcztaKj2/q+ieYlHKp6ZM2KriYvK2KA/7RgoQNpgW+rwV30wJb/kzN4rc0s1T+MSqFrF2kICks94zwGFajQsQKOZH2FYdqeB7OpzMrHmO1KuSiTkYNXz7LE4mt3nawSt5UuKFZv7OCQGF5cVLD56Mo0v3Fteg6scRSaMx8QHrF6GWC2IzLOlnsRzZEpJFbyNTAhGyrXQXmF8YzGWhqNEdWVNpR3WM5jFzjM+Tdr124g2MY4ZmSfk2k/QnjYBhw8o3PlHHG1QQABg24f1jNQnvfyoDO+nfx7Ue6m7QyH7XBuEi3lbS8VT2xe0t+Busu2QphhhoMR78Jp53Q==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SEZPR03MB7899.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fd064909-7fc4-4b1f-6cc9-08df3407438d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Oct 2026 08:49:51.2326
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a7687ede-7a6b-4ef6-bace-642f677fbe31
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 7+GUNU5zNEO4PzuOwdO5uTKSlhlE4twhxM9ruib+ElqlDYYBpBgVjimzU+q5hFtnkWYB1K47s0rDS8txyf/L3g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEYPR03MB7535
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-SGkgQW5kcmV3LAoKVGhhbmtzIGZvciB0aGUgcmV2aWV3LiBJIG5lZWQgdG8gY2hlY2sgdGhpcyBp
-bnRlcm5hbGx5LCB3aGljaCB3aWxsCnRha2Ugc29tZSB0aW1lLiBJIHdpbGwgY29udGludWUgd2l0
-aCB0aGUgb3RoZXIgcGF0Y2hlcyBpbiB0aGUKbWVhbnRpbWUuCgpUaGFua3MsCldlaXRpbmcKCk9u
-IFRodSwgU2VwIDE3LCAyMDI2IGF0IDA5OjU2ICswODAwLCBBbmRyZXcgTHVubiB3cm90ZToKPiA+
-IFRoZSBBTjg4MTFIQiBoYXJkd2FyZSByZXF1aXJlcyBhIHJlLW5lZ290aWF0aW9uIHNlcXVlbmNl
-IGJlZm9yZQo+ID4gZW50ZXJpbmcgcG93ZXItZG93biB0byBjb3JyZWN0bHkgcmVzdG9yZSB0aGUg
-bGluayB1cG9uIHJlc3VtZS4KPiA+IEFkZCBhbjg4MTFoYl9zdXNwZW5kKCkgdG8gaGFuZGxlIHRo
-aXMuCj4KPiBJcyB0aGVyZSBhbiBlcnJhdGEgZm9yIHRoaXM/IFBsZWFzZSBtZW50aW9uIGl0IGlu
-IHRoZSBjb21taXQgbWVzc2FnZS4KPgo+ID4gK3N0YXRpYyBpbnQgYW44ODExaGJfc3VzcGVuZChz
-dHJ1Y3QgcGh5X2RldmljZSAqcGh5ZGV2KQo+ID4gK3sKPiA+ICsgICAgIGludCByZXQ7Cj4gPiAr
-Cj4gPiArICAgICBjbGtfc2F2ZV9jb250ZXh0KCk7Cj4gPiArCj4gPiArICAgICByZXQgPSBwaHlf
-bW9kaWZ5KHBoeWRldiwgTUlJX0JNQ1IsIDAsIEJNQ1JfQU5SRVNUQVJUKTsKPgo+IFdoeSB1c2Ug
-cGh5X21vZGlmeSgpIGlmIHlvdSBhcmUgZ29pbmcgdG8gcGFzcyBhIG1hc2sgb2YgMD8KPgo+ICAg
-ICAgICAgQW5kcmV3
+After a root port disconnect or link error, xhci_handle_halted_endpoint()
+sets EP_DROP_PENDING instead of resetting the endpoint, and gives back
+its TDs.  Their TRBs stay on the ring, and the endpoint's dequeue
+pointer still points at the halted TD.
+
+If the device comes back before hub_wq handles the disconnect, a driver
+may reset it on the same slot.  usbhid does this after 1 s of
+interrupt-in errors.  xhci_discover_or_reset_device() then clears
+EP_DROP_PENDING on every endpoint.  The other endpoints are disabled by
+Reset Device and get new rings, but ep0 keeps its ring and dequeue
+pointer.  For USB 2 devices, usbcore by default sends a 64 byte
+GET_DESCRIPTOR before SET_ADDRESS, and so before Address Device reloads
+the ep0 context.  That request is queued behind the stale TRBs.  With a
+Keychron M5 the reset stalled for 11 s, and the xHC then ran the old
+TDs ("Event dma ... for ep 0 ... not part of TD"), writing into buffers
+of URBs that had already been given back.
+
+Keep EP_DROP_PENDING set on ep0 through Reset Device, and clear it when
+an Address Device command succeeds.  That command loads the ep0 context
+from the input context, whose dequeue pointer is our enqueue pointer, so
+the xHC skips the stale TRBs.  Until then, ep0 requests fail with
+-ENODEV.  If Address Device comes first, as for SuperSpeed devices, the
+device recovers in place.  Otherwise the reset fails quickly, and
+usbcore re-enumerates the device on a new slot, as after a real
+disconnect.  The same applies when Reset Device fails because the slot
+was never addressed: the next enumeration attempt uses a new slot
+instead of the stale ring.
+
+Fixes: 042aad8d0db6 ("xhci: prevent endpoint recovery after roothub disconnect")
+Fixes: 7e0ef4332ed9 ("xhci: avoid xHC endpoint changes after disconnect or link error.")
+Reported-by: Dennis Wissel <dennis@dsine.de>
+Closes: https://lore.kernel.org/linux-usb/4MjB9K-2SoiA85WbI9iEig@dsine.de/
+Tested-by: Dennis Wissel <dennis@dsine.de>
+Signed-off-by: Yiyu Zhou <yiyu@yiyuzhou.io>
+---
+This is the RFC from the regression thread [1], unchanged apart from
+Dennis's Tested-by.  It applies on top of 1f36cc9fa949 ("xhci: give
+back all TDs when skipping endpoint reset after disconnect") in
+for-usb-linus and depends on it: without that patch, ep0 requests are
+not rejected while EP_DROP_PENDING is set, so they would wait for their
+timeouts.  7.3 needs both, so they should probably go to stable
+together.
+
+I used an LLM to trace the code and draft the patch.
+
+[1] https://lore.kernel.org/linux-usb/20261026203944.2235991-1-yiyu@yiyuzhou.io/
+
+ drivers/usb/host/xhci.c | 18 +++++++++++++++++-
+ 1 file changed, 17 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/usb/host/xhci.c b/drivers/usb/host/xhci.c
+index fa3012bf4c0f..15f4ee4aa2c3 100644
+--- a/drivers/usb/host/xhci.c
++++ b/drivers/usb/host/xhci.c
+@@ -4091,7 +4091,13 @@ static int xhci_discover_or_reset_device(struct usb_hcd *hcd,
+ 	ret = 0;
+ 
+ command_cleanup:
+-	for (i = 0; i < EP_CTX_PER_DEV; i++)
++	/*
++	 * Reset Device leaves the ep0 ring and dequeue pointer as they were.
++	 * After a disconnect or link error, ep0 may still point at TRBs of TDs
++	 * that were given back, so keep it blocked until Address Device
++	 * reloads its context.
++	 */
++	for (i = 1; i < EP_CTX_PER_DEV; i++)
+ 		virt_dev->eps[i].ep_state &= ~EP_DROP_PENDING;
+ 
+ 	xhci_free_command(xhci, reset_device_cmd);
+@@ -4463,6 +4469,16 @@ static int xhci_setup_device(struct usb_hcd *hcd, struct usb_device *udev,
+ 	}
+ 	if (ret)
+ 		goto out;
++
++	/*
++	 * Address Device loaded the ep0 context from the input context, so
++	 * the xHC now starts at our enqueue pointer, past any TRBs of TDs
++	 * given back after a disconnect or link error.  Unblock ep0.
++	 */
++	spin_lock_irqsave(&xhci->lock, flags);
++	virt_dev->eps[0].ep_state &= ~EP_DROP_PENDING;
++	spin_unlock_irqrestore(&xhci->lock, flags);
++
+ 	temp_64 = xhci_read_64(xhci, &xhci->op_regs->dcbaa_ptr);
+ 	xhci_dbg_trace(xhci, trace_xhci_dbg_address,
+ 			"Op regs DCBAA ptr = %#016llx", temp_64);
+
+base-commit: 1f36cc9fa9496189e95fe5762cde8a74e0cd9d68
+-- 
+2.55.0
+
