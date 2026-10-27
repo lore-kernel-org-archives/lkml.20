@@ -1,76 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.69
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793132754;
-	b=ev1FlXOw4IW0O2pafjomEdV+5z7RZ4O4w9SvMxSflHznzfmc29Wd953GHfEoL56H+t/b
-	 fqUSR8T0MKRGQgV6jTwBqcO84wbu5TeIg21HTu9lFpG5e4UiuKclaLGQVdCzTGtE3De58
-	 dXM11lBekPahFv4/az4E/XsEQygUEJH3hxb6QqmXbVs+PKlWlpcH4D1th/ENTN1l5cjky
-	 Nu29bqfvRJfR7FwbKsdHf2jfEV5Yuy/t0q5AK9AKD8NG69Zon/OkU7OCrVstUZ2tGJrC/
-	 vy6EjAsKPRtvRckMBGzq4Bo27YGZO/4rKm7V6ehvhg4dcvquLYEfviCgeFvmCf8b6aA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793132754;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=v43jU0e7RC9RWtFvXaEewucUmBHe6fOFYcJcLeSXNZY=;
-	b=UC6qQeyDwE3nz4Jyvs5d5rwXvUQW+Q66c9XSLMzRMiWLe4RgE66YQ2YEwuJTxbsG2Tzv
-	 aXfeOVBQkNHhPrHEuv+bws48TRv/AxkCV+ryZaiDEeKtKIfiBGIahTxBddpQY2TUoTwoO
-	 piUe8QNyIQEstv8SaZjLGxySRlqoE7QeIUx3+UDv4P6uB2NlJmAsJBvYP4bX5cxKhXlI8
-	 ClUEBI87OQWb1Km6XxDnIRGz4Sj7nJPcJ5O6NDl8LWm0r/cBUC5kNRjHqUWsb1TMp4K+P
-	 +hlYVqyPmxe8tf0TcmVjiP5agLjX18mjfb5TbXDWCdh5Ti3WdGzRl9dfRbhVjukf7Cg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=jMJ2XrUE;
-	arc=none smtp.remote-ip=209.85.216.69
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.196.76
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793132781;
+	b=CN+KYaHjxGuK9k0rJ400/BT6DRY7v5OLHgGzrlrCVMnF4JvZE4NWDxU2rXsaHusHooww
+	 KG57h1hCIk2WSuH9OGsaQvXhTP/2iKC09BUKmalGeDUS6iKZY9gVkpkOgfh6odKKCRYkM
+	 MYhz0Uu+aQUqXbi+krc0NMP1S2gBx4kcywXnQrYYoyvKUdwWq2zGaozN9cFpCuVxoAkRn
+	 QvbR7vdM9aRKnz09t9uaimWy8kiSiRUyWPkaHdpPge8/EqXSjIxvqwZGD2Rd1KlkJK/jr
+	 Ehk4QqVrpYW8rGQ1XgidL8fYiQBNrWl4I1deZScz9Fz+DhxZS4a9yQJqeu57cK9QiXw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793132781;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:Content-Type:Content-Disposition:In-Reply-To:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=p/kGq+QwfEMYNE6SzfHZXGafcdo2h5wlqVOSBdnFbVw=;
+	b=VpNX5GPmoV65/+UYS15B1DqAiYlV2fCrM4s7lwhLIItYeq1rzB6th5QTlCLxqMjlLnms
+	 ZsgkjIJzXW9O15eP+yCvHtl5VZPEB71O+HCxG7EnZo51nIQQrQ+TpuZE/bF5eOtvtz9gC
+	 Fp2VSm8v91Ej9tRgfIQibL1VHoLA2XZHjnvO1RRRmRJfCfkiFMbi4mbSK4HzcBA+AkAH2
+	 +sRULxK6fp+1hSXsx+9T33QR1HFj6ZAuKe5laJOAILHWc3l3nvjCCZf+ORH5iEgICZxYu
+	 58M9r6oHunKjHPKhffRnNQlTwsZQJoehtM0LvEloYuArykRGif1FtyYxRoVPviSNj6w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=atomlin.com;
+	spf=pass smtp.mailfrom=atomlin.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.196.76
+Received: from LO3P265CU004.outbound.protection.outlook.com (mail-uksouthazon11020076.outbound.protection.outlook.com [52.101.196.76])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E085606B5FF
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 20:25:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E085606B5FF
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=jMJ2XrUE
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3ade5b3ae97so195251a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 13:25:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793132754; x=1793737554; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=v43jU0e7RC9RWtFvXaEewucUmBHe6fOFYcJcLeSXNZY=;
-        b=jMJ2XrUEWIsDJmE2y/9yluM6UnlcY0/ai2kxR+h/Dyd1obZcfWvlFGA5+nK8RbUN/d
-         oOvyNEGJ93bvgk31m4p2B1HnPmXhcyPjt/cIvHLfwgvjiJxz5CzjiOW+sLNPcFIjpMTw
-         gNHuiHdWN5BJ1MeZrf2gf/0dqK/WluZ1az/ffC6vneKt7/AEmqybnHDFaf6ogGPvEFH8
-         XrNWteueV810LRv1RukjO8Sfkc4hKGa9RJVGr2BMvVDWnDjnoFpVAlq3DuLSeLyItdjG
-         atRkkTNa+DCuH7T+tM2AyM7HWkXC2ZqdX19l/on2kMK/HhjM/vioL65ASWHch/zHMvWG
-         jbeQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793132754; x=1793737554;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=v43jU0e7RC9RWtFvXaEewucUmBHe6fOFYcJcLeSXNZY=;
-        b=gRX1X7DyxSN2JOsnJP/BYdBlJeEZst10B++CjpHUHgA+nKvBO2HLJ6Xg9eucXFlSHq
-         luLHCTO0kXharvI6lKQs7GTjb4mmRR7UTj2CT/9koaE5dOzXRw018JbjA1UmfghGQE6l
-         efiwarkip7W0ILbirhP2jFvgQLlodKkwcBR8JcHx7wn78fWJwHr6wfKPi+awocsnrcVv
-         O7AaQajAzcOGdOxHdOKgcGT35l6FOz5HloijSd2mWXgw46/X9X7DikP4nXNOdj5rKmND
-         o3BEij3/TE2hKGON4QJJ89VwOJidtIgGnxVx++LcdIldHXV7Ia7RWamk7ISGYz+n+HOx
-         bVxQ==
-X-Forwarded-Encrypted: i=1; AKwUvByfrT+mlbffA4blaVP+aNkXQAoBGqWXR7ugMQWO6sWrmGu1Bs6BBBa4a7oqS1oW31gpf4mRuKgH4UTgvxk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIiT87mO+9+TrLErTWMlsHido2RRk7gow+cjR5He1nsfHZQkawJ
-	WwUu0hmyFvF417Evj8rKhVmyPw+RxzmnEa0iiEGcDE+r0AZd0DQNCISBcAJUKZAFkU58T9Cxcrn
-	GlX2uew==
-X-Received: from pjbhs19.prod.google.com ([2002:a17:90b:2013:b0:3ad:99d8:e894])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:4a51:b0:3a6:d2ac:74ce
- with SMTP id 98e67ed59e1d1-3ae580d24a9mr93283a91.19.1793132753147; Tue, 27
- Oct 2026 13:25:53 -0700 (PDT)
-Date: Tue, 27 Oct 2026 13:25:52 -0700
-In-Reply-To: <85b0e3aa-0b84-4a00-852a-821aed4a0649@oracle.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ECF1606A900;
+	Tue, 27 Oct 2026 20:26:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7ECF1606A900
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=RWmAndaYLB0uHBCrwaKNo6KAErEKIceubBFN7Xw5L6JCUfF65e5Pxx+Cbm4RnquWZGCZUKCcgbA9wKQPopiT7wCsDkpxXsCxU+qsKob4jk2+HSANxk/FfvWszqEZKwwDuCHXhyQZZIIIloTgyKaAfPz161YQXMpFTnV193D0IXMwrv12CvGv0VK+6PXjxWg/BuDD8CXSPdnxABDeKnAjnm6iVqIK+2JHYPvbV0LLgnUuoX2ribhgK5/6zYFDFG/B4Gg0oESlbhIrozLqCuNtLU6H5/qVgqHWtUKvWxNS5WQt2HXOqKRTsrQZ/PEh6Zda2QXUPIxOhu5vvIPFokljCg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
+ bh=p/kGq+QwfEMYNE6SzfHZXGafcdo2h5wlqVOSBdnFbVw=;
+ b=J6o4USQi+QoEQzIdzwyfaIEtq8rFz3wj1QmCBL0hhBfXbC5ItDzuf2aKdwvRkfD4ACdXhfvzhVjlrPbdITA9tQhc3XbRZtfiGF1MVYe3gWIlDK8OA1PREuqUu80E8+vqn/kAOpPiy9/E5sStLBuqTz8prAi4kRBfy1Z+hUMRnvYhw0Pz2vMiQUHgoQHr6gJCGSKEGXMaGWELhFnlHey556aysSSxcZstgIZ4RRioBofomqqsK7dJO76ZIbm96op9d2lYJ9X7uIQz6TB92WFOnQHO9wuxTMt4khyBbqqlE/M5cTJFop4gT1WM8iNO6Nz+4Au4qDUqLsLcw5ULm1BD4g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
+ dkim=pass header.d=atomlin.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=atomlin.com;
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
+ by CW1P123MB392182.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:282::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
+ 2026 20:26:16 +0000
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230%5]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
+ 20:26:16 +0000
+Date: Tue, 27 Oct 2026 16:26:11 -0400
+From: Aaron Tomlin <atomlin@atomlin.com>
+To: Ian Rogers <irogers@google.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
+	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
+	Zhan Xusheng <zhanxusheng1024@gmail.com>, Dapeng Mi <dapeng1.mi@linux.intel.com>, 
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 5/7] perf inject: Use perf_tool__init() for
+ --vm-time-correlation
+Message-ID: <xrwroz6mycibzep7cqos6v5kvsbrztni4lbqobe2gbsz7kuwpa@o4bf76aka2ax>
+References: <20261025220349.1244499-1-irogers@google.com>
+ <20261025220349.1244499-5-irogers@google.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261025220349.1244499-5-irogers@google.com>
+X-ClientProxiedBy: MN2PR06CA0002.namprd06.prod.outlook.com
+ (2603:10b6:208:23d::7) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:400:183::5)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,258 +90,113 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261027051808.243000-1-partha.satapathy@oracle.com>
- <auDF9WpqW8OCu_8w@google.com> <85b0e3aa-0b84-4a00-852a-821aed4a0649@oracle.com>
-Message-ID: <auEI0B7QkIhg-lLG@google.com>
-Subject: Re: [PATCH 1/2] KVM: x86: Select lowest vCPU ID for aliased xAPIC IDs
-From: Sean Christopherson <seanjc@google.com>
-To: Alejandro Jimenez <alejandro.j.jimenez@oracle.com>
-Cc: Partha Sarathi Satapathy <partha.satapathy@oracle.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	"H . Peter Anvin" <hpa@zytor.com>, Shuah Khan <shuah@kernel.org>, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	wim.ten.have@oracle.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|CW1P123MB392182:EE_
+X-MS-Office365-Filtering-Correlation-Id: a10c01ff-e3eb-4bff-cc71-08df34688d1b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|376014|7416014|1800799024|56012099006|261021121427099003|4143699003|261021123027099003|261022105027099003|261009223027099003|10067099003|18002099003|6133799003|22082099003|3023799007|261026140227099003;
+X-Microsoft-Antispam-Message-Info:
+	DohuczveYwvbwagtjDgD6VFcdvHNhrH7SqbJ3rmVQ6dwLfC8tloYtqiyhUOzx5HQ+gTCVS7+o/6mnOXL7Qq3o4COFA+bgMqeEZ3C6EfpYz6VFhioGVFS/h+V/1CAWb20blIxJwUu/+NCVh1KmXuh7/fUPUYPf8F+0mrnL5TjWcI/gbiCPToQUzQoTm0TcnZpH40e15GjwdzjXEcrLYhT61S5UUW3+k0DGFhjdh5w1R45p5VMx5eDliNU2tKfFVmMTOY0Y9v3e/518wx1XYuiCxtnwZiRH4c+4lAXecXk6HFWUvgj8taR37Ovo0T+r3zT96vtUOHQ+2ZmHqa6VF+GLdRs0EczH3UVPhssZQIDO0iq7OwcqbjpKuVYtXQP5WNtjXiVQkd/dhm4RM5WsUM3ox8DRHZUZLw5hhvswCwamjPA/0Oqpku7ozjUCsD8kfzHpUuTvVl3SA9hOb3DVV0PPFpHXbc76fhW83aacCFJdYUyeO8r1AUrsT2NyEy3bAHmzWndu3+Do+JbMZ2SMbhkNYmGbnWgQBWbslYkqIhlM+TDDQ0+lnZhcfFwefVILp6VKNPvxT2Qq37uMR79jiHB1WA2kb0n/qWrmMis2r92/HaPHYl587D71lUH6rbMKDP7ww4EUg0WqU4dT+5axN5ryhZFfyjEUDXvwX6Jt9GH1Qw=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(7416014)(1800799024)(56012099006)(261021121427099003)(4143699003)(261021123027099003)(261022105027099003)(261009223027099003)(10067099003)(18002099003)(6133799003)(22082099003)(3023799007)(261026140227099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?b21OK0hiNC9LTytYcWJnZ1JLeSt6K2wreERLUExyRHRwT1hOZEhOb2I4ZGJ6?=
+ =?utf-8?B?OERXTVIydXA3em83ZUVDU0NzKytZRUZtY0pxQU5ERERkb1llaWVXR293MnUy?=
+ =?utf-8?B?aWRuUWQ3MTJGRE5DNGZKQThlMlRSNElScnpIaW9VVW8xY295Rm5NK3dhdUFa?=
+ =?utf-8?B?V3VManpVc2FrcFpVUlBoRjBjWnRZTzJnWTc3TjhQZVJzU3YzMjVxK3lra1Vm?=
+ =?utf-8?B?S09YZ0FpdHg1WHArZTJmMFZYcXF5NEtEdFMxZWE3dW1mMTNlZHBTeEhHdmxE?=
+ =?utf-8?B?a1RvUW9ZWVErMkJqSXdBQjhIQjFRMGUwWUVGQmdvUUovak54eDZGWCsvVWdw?=
+ =?utf-8?B?TnpjWmluY1VrbHR5MGYvYzBtelNzWEFRQ1JhL3RRZmE3QnlITDNQeTdWNDFG?=
+ =?utf-8?B?WUcxTGQ2WXVvZEZvZFpGelVUbVlBSGt5Ly82QTE1R0pXNnQvVVI0REpsb21J?=
+ =?utf-8?B?MFk4VmJmem9WVDNUYktqaS9jUmlHTXh0bjV5NnlaamJIdDdhY3Q2SG9aNm9V?=
+ =?utf-8?B?RnZzcmdENjVXM1lURndxMGNZclp2QkhkS29tYXhic05lckFaSXpyRnVzcEZ1?=
+ =?utf-8?B?UHoxMVRnTnFvYWZnQ3QwcjAxYlhtL0ZEZjZCVGtCY2Z0OXoraHIzZVBpdDRI?=
+ =?utf-8?B?VWtBY1hZNWJZQmJIejhUWURraVI0dmJua3ZiUVJKQmFBZlFoRW9QcUJGOXpi?=
+ =?utf-8?B?K0h1Z2pNUGZJVGg3My90YlRFYy85RFI1Ymk5c3pQNUdlZjZZTFFXdEU3NDZ3?=
+ =?utf-8?B?VUNXUDAzcDVsYWFzNTBwSHl6M2RXR0ZnbDFPLyt1SkNwOC9qeXB4bWVlc09P?=
+ =?utf-8?B?RE1NTjl4NGVvdDMwNFZtTks5dFl2aWM3UkdZZFk3Qk1NWE85RndqY2IwdjU4?=
+ =?utf-8?B?ZWYzVVpTRk0wMitLallhN3BBYzF4YXZjb0gwWStoaDB2eVZ0UUlkTlN5THV5?=
+ =?utf-8?B?NlRubW5nckFxQjBuK0Z4N3pIdE9WVE81OEMxWmZZdU9ZZHZ0MDJneXJLSEl1?=
+ =?utf-8?B?bnZvVXdWUklRMlFyQURLa2NWL28rakhjOEdOS3NPMkc2azZ6NFJoMTlaSHRj?=
+ =?utf-8?B?dUt0Uk5GcWNZN2gzYm9qaG1yeDlTN0hpb0JGVUw1a0UyaTRMTVQ0bG1WTloz?=
+ =?utf-8?B?a3MwRTF5Uk5nZ3dneXdzNHlmT01JbEVaRFFLK1Y5MmtpaHp5Nkx0VWJSb1Ny?=
+ =?utf-8?B?YWdsYWIzb2dwcjVERVBRWWpVQm41R3d2R0R4LzR6bzUwc3Y3Zy9qdkdlTlpN?=
+ =?utf-8?B?NTliU3NMemhnWmcxZ1lvbmRobzBabVZ6dTlWeE9jK1hpUUMyMWxVUDRHeG5K?=
+ =?utf-8?B?RXFnSjlHR3l6VEJhTnZaVDVoa0FhamRrSlB0elUrZ0VOY1VIc1dXMEluWkdR?=
+ =?utf-8?B?cjJUSW9BNldRSHNXd0JYajAyNXlXYlB5T3YwaW0rMDBTeXFZNFY3MW1tckN1?=
+ =?utf-8?B?R1RBM3FZVGlCZncvM0o2Q0NkNDg0VzBVam14Ujg3SDhMM0c4dTBGVFgvblBK?=
+ =?utf-8?B?WE9Zd3JJckQ4bVhVT1dZVFhZajdrUHV0MU4vWUx4eCtpOFZhVEVQSGpVMFk3?=
+ =?utf-8?B?bm5ZVzcyNWpqNnE1QUpqV2JGbnNxRkxUbUFMTjhSbjVwSStkOGZKcXpuTW5r?=
+ =?utf-8?B?cnJJRGwzZWhYck96QVFqWDdmWk1lSGppRVNZSlVVWE1vazE1QjVNR21DNHEz?=
+ =?utf-8?B?azJHaXFFNFR4VWRwWGJGVUZJWWVsSkRHUU5BSi81WWlDcE1tS3BwbEFIZnRi?=
+ =?utf-8?B?bGZGWkxYL3p0VHMwRVFaZ3JYNmpOQUpBZXNoVTlJRUhGTVhrZm84SURSaFRN?=
+ =?utf-8?B?T1MvNGtUQVYzajdQenlMUzgxRlliQVhIR2RvY1A0N3FVZTV1UktCQjBhNWo4?=
+ =?utf-8?B?RXdWOHVnYTVFMU12c0Y5ekRyc2dVdlBienhIemxpa3B4ejBGQXZIME9PSUV4?=
+ =?utf-8?B?SURFVkhITUZ3QWFlVVhiang0RUJGTG0ybDNhaTE2ay8zbEtuNzQzMVlEclhH?=
+ =?utf-8?B?ZE9KdWQ5MjIyZmFBNFlDZW5pYUVGRlNsZzNZelBVYnFtZDJXY21mRWJiUHpk?=
+ =?utf-8?B?L0pjQytLa21OU01wU3JYQndNUG5iUkh4L3I2QTd0YlBqWkZleXl0U1p0ejll?=
+ =?utf-8?B?MHEyTHRLaE1JVFVjNUQvbDhXMkhlTy9wM29peWxoYlhvdTFQd3lTZTYyRi8r?=
+ =?utf-8?B?WHZXbERtUCthd251NU8wc0lSb1hFckkxOGp2dFVwOHBZS0M3OFJwdXczWWJa?=
+ =?utf-8?B?TlovazlMNXlGMU9BMDZZNDRodnEyQjdkV0dYbHh4TDJnOXprUXVXcGljblJN?=
+ =?utf-8?B?S1d5dmNabUMveEZ5R2xwQ0xGREcwMW4xK0ttak9ZdjAvODA2VERDZz09?=
+X-OriginatorOrg: atomlin.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a10c01ff-e3eb-4bff-cc71-08df34688d1b
+X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 20:26:15.9510
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: t62oCQYK+YAqDpUgkYnXiFz0/1Aae2DXkLCmZVuawyRle0jpC58hSZE+Cp72GpyoWd58b1Z8oGKB9mmEqvnMdg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CW1P123MB392182
 
-On Tue, Oct 27, 2026, Alejandro Jimenez wrote:
-> On 10/27/26 11:40 AM, Sean Christopherson wrote:
-> > On Tue, Oct 27, 2026, Partha Sarathi Satapathy wrote: > From: Alejandro
-> > Jimenez <alejandro.=E2=80=8Aj.=E2=80=8Ajimenez@=E2=80=8Aoracle.=E2=80=
-=8Acom> > > When
-> > KVM_X2APIC_API_USE_32BIT_IDS is enabled, KVM's x2APIC hotplug > quirk
-> > allows events to target a vCPU
-> >=20
-> > On Tue, Oct 27, 2026, Partha Sarathi Satapathy wrote:
-> >> From: Alejandro Jimenez <alejandro.j.jimenez@oracle.com>
-> >>=20
-> >> When KVM_X2APIC_API_USE_32BIT_IDS is enabled, KVM's x2APIC hotplug
-> >> quirk allows events to target a vCPU by its x2APIC ID while the vCPU
-> >> is still in xAPIC mode.
-> >>=20
-> >> In xAPIC mode, APIC IDs are truncated to eight bits. Consequently,
-> >> vCPUs with distinct x2APIC IDs can share an effective physical APIC ID=
-.
-> >> KVM's x2APIC erratum specifies that an event targeting an aliased
-> >> physical APIC ID is delivered only to the vCPU with the lowest vCPU ID=
-.
-> >>=20
-> >> However, the optimized physical APIC map does not guarantee lowest-ID
-> >> selection. When rebuilding the map, KVM retains the first xAPIC-mode
-> >> vCPU encountered for an aliased 8-bit xAPIC ID. Since vCPUs can be
-> >> added in any order, that vCPU need not have the lowest vCPU ID.
-> >>=20
-> >> For example, vCPU 19 has x2APIC ID 0x013 and vCPU 275 has x2APIC ID
-> >> 0x113. Both expose xAPIC ID 0x13 while in xAPIC mode. If vCPU 275 is
-> >> created before vCPU 19, the map retains:
-> >>=20
-> >>   phys_map[0x13] =3D vCPU 275
-> >>=20
-> >> An INIT/SIPI targeting physical destination 0x13 then starts vCPU 275
-> >> instead of vCPU 19. vCPU 275 executes the secondary startup path for
-> >> the firmware CPU entry with APIC ID 0x013. After vCPU 275 enables
-> >> x2APIC, Linux observes APIC ID 0x113 and reports:
-> >>=20
-> >>   Firmware: 13 APIC: 113
-> >>=20
-> >> KVM hardcodes a vCPU's x2APIC ID to its vCPU ID. When populating an
-> >> aliased legacy xAPIC entry, retain the vCPU with the lowest vCPU ID.
-> >> This makes optimized-map selection independent of vCPU-add order.
-> >=20
->=20
-> First of all, apologies for the confusion since this is an earlier WIP
-> version and due to a miscommunication it was sent as v1. The selftest als=
-o
-> has changes that are not included in Patch 2. I will send a v2 after the
-> discussion on this thread.
->=20
-> For this patch, the intended commit message is phrased/focused on
-> maintaining the stated KVM hotplug hack behavior i.e. the commit should b=
-e
-> more like:
-> --
-> When KVM_X2APIC_API_USE_32BIT_IDS is enabled, events targeting an aliased
-> xAPIC ID must be delivered to the vCPU with the lowest vCPU ID. However,
-> the optimized physical APIC map does not guarantee lowest-ID
-> selection. When rebuilding the map, KVM retains the first xAPIC-mode
-> vCPU encountered for an aliased xAPIC ID. Since vCPUs can be added in any
-> order, the initial entry does not necessarily map to the APIC of the vCPU
-> with lowest vCPU ID.
->=20
-> Compare vCPU IDs when populating aliased xAPIC entries and retain the
-> lowest one, making destination selection independent of vCPU creation
-> order.
-> --
->=20
-> > I'm genuinely curious.  What VMM adds vCPUs in a "random" order?  I agr=
-ee a fix
-> > is needed, as KVM should be internally consistent (kvm_apic_match_physi=
-cal_addr()
-> > will always try to match the truncated ID).  But this also makes me won=
-der exactly
-> > what userspace is doing, and why.
-> >=20
->=20
-> The issue was triggered with QEMU and a tool that uses libvirt API for
-> resizing guests and balancing their vCPU allocations across NUMA nodes. I
-> am not sure if similar work has been published upstream, so I'll defer to
-> Wim (CC'd) if you want more details.
+On Sun, Oct 25, 2026 at 03:03:47PM -0700, Ian Rogers wrote:
+> When cmd_inject() was converted to use perf_tool__init() in commit
+> a37c0436f379 ("perf inject: Use perf_tool__init()"), the
+> --vm-time-correlation branch in __cmd_inject() still called
+> memset(&inject->tool, 0, sizeof(inject->tool)) to clear the default
+> repipe callbacks. Zeroing out the struct overwrites all default stub
+> handlers set by perf_tool__init() with NULL, causing a NULL function
+> pointer dereference if any other event type is encountered.
+> 
+> Use perf_tool__init(&inject->tool, /*ordered_events=*/true) instead of
+> memset() so that un-overridden callbacks retain their default stub
+> handlers.
+> 
+> Fixes: a37c0436f379 ("perf inject: Use perf_tool__init()")
+> Signed-off-by: Ian Rogers <irogers@google.com>
+> ---
+>  tools/perf/builtin-inject.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
+> 
+> diff --git a/tools/perf/builtin-inject.c b/tools/perf/builtin-inject.c
+> index ce7562fc788c..c30f5aaabf4c 100644
+> --- a/tools/perf/builtin-inject.c
+> +++ b/tools/perf/builtin-inject.c
+> @@ -2464,12 +2464,11 @@ static int __cmd_inject(struct perf_inject *inject)
+>  		}
+>  	} else if (inject->itrace_synth_opts.vm_time_correlation) {
+>  		session->itrace_synth_opts = &inject->itrace_synth_opts;
+> -		memset(&inject->tool, 0, sizeof(inject->tool));
+> +		perf_tool__init(&inject->tool, /*ordered_events=*/true);
+>  		inject->tool.id_index	    = perf_event__process_id_index;
+>  		inject->tool.auxtrace_info  = perf_event__process_auxtrace_info;
+>  		inject->tool.auxtrace	    = perf_event__process_auxtrace;
+>  		inject->tool.auxtrace_error = perf_event__process_auxtrace_error;
+> -		inject->tool.ordered_events = true;
+>  		inject->tool.ordering_requires_timestamps = true;
+>  	} else if (inject->itrace_synth_opts.set) {
+>  		session->itrace_synth_opts = &inject->itrace_synth_opts;
+> -- 
+> 2.56.0.307.g5fe7bd680c-goog
+> 
 
-Oooh, actual hotplug of vCPUs.  That makes sense.
->=20
-> A basic reproducer (besides the selftest) simply uses QEMU to issue
-> 'device_add' QMP commands and starts with a vCPU placed on socket 1,
-> followed by its "alias" on socket 0. e.g.
->=20
-> { "execute": "device_add", "arguments": { "driver": "host-x86_64-cpu",
-> "id": "cpu117", "socket-id": 1, "die-id": 0, "core-id": 11, "thread-id": =
-1 } }
-> { "execute": "device_add", "arguments": { "driver": "host-x86_64-cpu",
-> "id": "cpu017", "socket-id": 0, "die-id": 0, "core-id": 11, "thread-id": =
-1 } }
->=20
-> I wondered initially if this approach was breaking some convention, but I
-> have not found anything stating even a "random order" is disallowed. So
-> here we are...
+Reviewed-by: Aaron Tomlin <atomlin@atomlin.com>
 
-It's not disallowed, just unusual, obviously.
-
-> >> The separate full-ID entry remains unaffected, and destination 0x113
-> >> continues to select vCPU 275.
-> >>=20
-> >> Signed-off-by: Alejandro Jimenez <alejandro.j.jimenez@oracle.com>
-> >> Signed-off-by: Partha Sarathi Satapathy <partha.satapathy@oracle.com>
-> >> ---
-> >>  arch/x86/kvm/lapic.c | 4 +++-
-> >>  1 file changed, 3 insertions(+), 1 deletion(-)
-> >>=20
-> >> diff --git a/arch/x86/kvm/lapic.c b/arch/x86/kvm/lapic.c
-> >> index 1597dd0b0cc6..5dedffddebec 100644
-> >> --- a/arch/x86/kvm/lapic.c
-> >> +++ b/arch/x86/kvm/lapic.c
-> >> @@ -245,7 +245,9 @@ static int kvm_recalculate_phys_map(struct kvm_api=
-c_map *new,
-> >>  		if (apic_x2apic_mode(apic) || x2apic_id > 0xff)
-> >>  			new->phys_map[x2apic_id] =3D apic;
-> >> =20
-> >> -		if (!apic_x2apic_mode(apic) && !new->phys_map[xapic_id])
-> >> +		if (!apic_x2apic_mode(apic) &&
-> >> +		    (!new->phys_map[xapic_id] ||
-> >> +		     x2apic_id < new->phys_map[xapic_id]->vcpu->vcpu_id))
-> >=20
-> > Hmm, I don't think KVM should always override a smaller ID.  It should =
-be a moot
->=20
-> Why should it not always override the smaller ID (in cases where
-> KVM_X2APIC_API_USE_32BIT_IDS is enabled)? I interpret the wording from
-> x2APIC section in:
-> https://www.kernel.org/doc/Documentation/virt/kvm/x86/errata.rst
->=20
-> "KVM will deliver events targeting that APIC ID only to the vCPU with the
-> lowest vCPU ID"
-
-Gah, foiled by my own documentation.  I had this wrong in my head.  It's no=
-t the
-aliasing logic that matters, it's literally the behavior of the optimized m=
-ap that
-I was documenting.
-
-> as having the consequence that we should always replace an existing entry
-> in the map with an incoming lower vCPU ID, but the potential corner cases
-> in this space make my head hurt :).
-> I think xAPIC ID is unfortunately writable, so perhaps that is the sort o=
-f
-> scenario you are thinking about?
->=20
-> > point, since xapic_id_mismatch will be set if "xapic_id !=3D (u8)vcpu->=
-vcpu_id",
-> > i.e. if the incoming vCPU has a smaller vCPU ID and a true xAPIC ID col=
-lision
-> > (not due to truncation).  But to match kvm_apic_match_physical_addr(), =
-I think
-> > it would be this?
-> >=20
-> > 		if (!apic_x2apic_mode(apic) &&
-> > 		    (!new->phys_map[xapic_id] ||
-> > 		     (u8)new->phys_map[xapic_id]->vcpu->vcpu_id =3D=3D vcpu->vcpu_id)=
-)
-> >=20
->=20
-> The above works for the case described in the commit, but going one step
-> further, I think it doesn't behave correctly in this case:
->=20
-> vCPU 531 (0x213) is created first
-> vCPU 275 (0x113) is created after
->=20
-> the map is not updated and will still point to the lapic of vCPU 531.
-> Reversing the creation order above leaves the map with vCPU 275.
-> If my reading of errata.rst is accurate, then vCPU 275 (i.e. the lowest
-> vCPU ID) should always be selected regardless of creation order.
-
-Yeah, ignore that.
-
-Backing up a step, what exactly is the problem you're trying to solve?  Bec=
-ause
-I suspect there's no solution that will magically fix everything.  E.g. if =
-you're
-trying to resolve an issue where vCPUs aren't recognizing SIPIs, then the e=
-xample
-you provided means vCPU_531 will never wakeup, i.e. which vCPU is  "buggy" =
-changes,
-but the bug itself is still there.
-
-If this is about SIPIs hitting the all CPUs, then I think to have a robust =
-(well,
-as robust as this mess can get) implementation, we'd have to disable use of=
- the
-optimized map when processing SIPIs with PHYSICAL delivery, e.g.
-
-diff --git a/Documentation/virt/kvm/x86/errata.rst b/Documentation/virt/kvm=
-/x86/errata.rst
-index a9cf0e004651..65b8a612bfff 100644
---- a/Documentation/virt/kvm/x86/errata.rst
-+++ b/Documentation/virt/kvm/x86/errata.rst
-@@ -63,10 +63,10 @@ When KVM_X2APIC_API_USE_32BIT_IDS is enabled, KVM activ=
-ates a hack/quirk that
- allows sending events to a single vCPU using its x2APIC ID even if the tar=
-get
- vCPU has legacy xAPIC enabled, e.g. to bring up hotplugged vCPUs via INIT-=
-SIPI
- on VMs with > 255 vCPUs.  A side effect of the quirk is that, if multiple =
-vCPUs
--have the same physical APIC ID, KVM will deliver events targeting that API=
-C ID
--only to the vCPU with the lowest vCPU ID.  If KVM_X2APIC_API_USE_32BIT_IDS=
- is
--not enabled, KVM follows x86 architecture when processing interrupts (all =
-vCPUs
--matching the target APIC ID receive the interrupt).
-+have the same physical APIC ID, KVM *may* deliver events targeting that AP=
-IC ID
-+to only one of the vCPUs.  If KVM_X2APIC_API_USE_32BIT_IDS is not enabled,=
- KVM
-+follows x86 architecture when processing interrupts (all vCPUs matching th=
-e
-+target APIC ID receive the interrupt).
-=20
- MTRRs
- -----
-diff --git a/arch/x86/kvm/lapic.c b/arch/x86/kvm/lapic.c
-index ecf611845fb1..255c8dc00e0a 100644
---- a/arch/x86/kvm/lapic.c
-+++ b/arch/x86/kvm/lapic.c
-@@ -1181,6 +1181,10 @@ static inline bool kvm_apic_map_get_dest_lapic(struc=
-t kvm *kvm,
- 		return false;
-=20
- 	if (irq->dest_mode =3D=3D APIC_DEST_PHYSICAL) {
-+		if (kvm->arch.x2apic_format &&
-+		    irq->delivery_mode =3D=3D APIC_DM_STARTUP)
-+			return false;
-+
- 		if (irq->dest_id > map->max_apic_id) {
- 			*bitmap =3D 0;
- 		} else {
-
+-- 
+Aaron Tomlin
