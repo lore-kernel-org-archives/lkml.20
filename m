@@ -1,72 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793069799;
-	b=hUvN6NWfNNpiGNSeHnFXqSD9dWnQ0LP9L/mYYfkKopoMBcyGsgUBPDClLdgL/wCwQtv7
-	 Tada27JQf5wPopM/ktb/xFa144pCBY8pmmQ7i46G9UvU2N55moF48GV4ZluUJT/4cwTz4
-	 peElOb2KyePq6XjtA01Tsl2YaJxUognAcAMEHELfQJrdmnEbH+wjeI7qmDpCNR+HJOdP7
-	 RddoOnBf/lQgihEQv1aZOGEidLExp1+ElkD9Z6bMvQYfE6rBrslgB0xW4ZdJlj07YI2a5
-	 aJ1kZhlBeoMP6ZClw0zqllYKwZEUB8TQNnRNVjB1CC0imj4YbWqI82X61mk5sA2Xnbw==
+	t=1793069802;
+	b=wMQAypp9JS5p9ipD5gb6EvX+JTUc8F3kpWiaqBaNAt2fg0X4EGFU8jfZhNCK5ih1W+sP
+	 mng8nKWBFzBd8c3jDYk5SgR03oR3AeuhiVGzr4IbATBZ71Gu6U0KqMrqlmISgWI8Nhv+x
+	 sk8iq7B2YX2ojR7GPY5JLrPq/KdXOPkTWPOwQjKUgQCCj6R0sdxrmpFGcUXK3B19wpnvP
+	 wm3r7tgS2GbRoqOkcFUxvMTPrEHZMHDtw1FpV+gA85znQrjSYly2CyJnbKKOyV4gMPBYZ
+	 vXWZvdcyqJ7ZFWUlUSUQyII95NDRlReSEoQjDJDWe6/+SGudIx6ACh3LlXlXY/ld5Jw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793069799;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793069802;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=dwblYA+AM7o/Y2k567GfJxsiQOZ+wOooFaUgOxOAWwI=;
-	b=e/KGKke4BXA1AWV4oRePhpeLtd70oR3wK9XmHTTr2ALElWHFMFdtIto2K9jusVvyhSzR
-	 Cr6qvGKvPSURHle2Vq1R61gRFLR+L+7kHnHCkjbyJVh/vbQtv2yTKTR/DgzUp/emEuPNG
-	 ICkfgWYraSy5SqVjjgMCjrBknM8QNSChWdtBE1l7i6D4l5GIxKFvhTeCDheZ4jNaIusfU
-	 DfRzEDHOtrHXA9J7oyFvo+H0/igGJjMKgTAqryHUYqiBPGLLncy3WqsOld8wOc1pTvYtw
-	 uSAijeprTOKhefXKdcuvNAbhOt7J5VBhNnwiToQa1+VF5FrI8Qz32aSBmKRyWM54o2w==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=GOMxiaMp4kiAv1sy1QvOMscX3P97g6hNx07NHuZ9MZc=;
+	b=h46bG1/ONRj9y0Gs9Cw+aomjAW9aJ9bAx2UvyA9N4kd7rqwe7yZ/XdoHjNX3QvVt52l8
+	 3GO4vCE+H5SPBEHLjHXVS768Vo5RlFLQ+ga2vE+pIAHdnY/91NOfUBfhQyoYBQe/1VvO+
+	 LJ2wH54UI3X1z0LLt+VYFBtWVg7mRkWmS2ZuDemeyr98BoprU/hVm1nLGcyPC8uMbJgnQ
+	 SxeEbuGnowb2v69KrFqYzk88LregXZtsInYQVQtUNxNhz3KQ6faqHGcbiBwHbZOxvoLXu
+	 1xXIVsWuYZI8glpUPodu+Aih/7PuRsnAKIaMFzXYulJ7xJKFfCJl5ECR6ZDkT/DOtig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--kevinloughlin.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=nVZMwR5w;
-	arc=none smtp.remote-ip=209.85.167.197
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=AAry79Vj;
+	arc=none smtp.remote-ip=209.85.167.198
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6619606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 02:56:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6619606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1689606A320
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 02:56:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1689606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kevinloughlin.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=nVZMwR5w
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4d2f0f77124so4681597b6e.3
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 19:56:38 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=AAry79Vj
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-5384e381fbbso3608998b6e.2
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 19:56:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1793069798; x=1793674598; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dwblYA+AM7o/Y2k567GfJxsiQOZ+wOooFaUgOxOAWwI=;
-        b=nVZMwR5wpOy+EVFOyMv53gxZOse51S1NsUuHzYYFJWYp8nH6zxziBjeGohV4ILwl7Y
-         0tE789BivvxUOYVnAOQWLX7PFFZ5fLI/OIMPuF1IdHdVhtcHvA1xGxUBpNNTammaDUlI
-         HVKHyW46FBukwwp2Xkti0hlx8pzOT6PjqLn14+XNCWTs8DtW3aiAq40X0oymiynWcF/4
-         pOwPAzani6XTN4Zz20cAVUFOlwnGe1zxpiGFnzJPPH9+QOuqW5HDRzU5YO5MAnJbJmOw
-         I4gqqAYW9MLJgXjKGSBFuw9zlyXqLln6+rrKagm7xI9gvfp3xAXtiC2FZEBztwXur12p
-         FdBw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793069798; x=1793674598;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1793069801; x=1793674601; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=dwblYA+AM7o/Y2k567GfJxsiQOZ+wOooFaUgOxOAWwI=;
-        b=q5LIcew3i3v371ZpavFx+9qCcpL8EZbMxa1tmokfNViu0DXiV9gqX3fA6G3GBS/wUI
-         TXYarZBeBqo/zPWB7/RVaTvJeRNrb+ne+d/vcxFsoza76HoQk97I5kfu6WK6LWSl5Kes
-         BoTRjbet3ab99syNOuwDQ8XqKmp4XCjlNImn/446TKqs+M/AWZ84lNRXPwL/uIwVD9Xs
-         d1q3ZEP1DLQfG/9cD9v0bEqhryobql7bHi1OzS2llLAXgmnI+RY92vjUKo4yzBlU6/LN
-         tO8ve+1nexE4eiv5BeJ+yxlQg2anYD5v2e7GcsBDI6hvwQEIWHNwNNUYn5eQgLJ1hZmF
-         tNaQ==
-X-Forwarded-Encrypted: i=1; AKwUvByLPRgdbuz2E6kT2coI/E+CkqbyE/35p0W6Hu+jHa/Z4uS9v7RYrAJ5Ool+dXWA06OOgygoMQIQCbHYEpQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKKxOxWaFOS5Ssnfac5g/dQnvXmTYbEjU0Kebq+PQdl5l7zpIne
-	MOztu1CGpTVwkS0hqLskg6R6xVkp9UjzIEmnWAV14CZ4L+7Ojd6JoOUFjcxfSHodUCWQP/PskPe
-	qT/B3Phpa03DiHwZsd7nsuH/WiY6DKAfgmA==
-X-Received: from iocou2-n1.prod.google.com ([2002:a05:6602:c302:10b0:9c7:a036:c41d])
+        bh=GOMxiaMp4kiAv1sy1QvOMscX3P97g6hNx07NHuZ9MZc=;
+        b=AAry79VjZ4pZ2rQbZ0VLmG1my5o4V/Cl3z7uD8i8+UEZi00dNWDWKlx3/krTQlY1Ua
+         plx8zD9ovnp5LHTl5Fd9GQl0XOBLCMkZTVnMobkHFEn2jKV7R4yMGwvSlhhUoDpj0u1l
+         c5+tiiXr+qUU0mTub3oOjmmbmGlT4IprCZxXJQQIMOxQU6W7luUPFGPkymIPBgMluIyU
+         iGd3Vc3P+UAL8M2XGWBnfmgjYwns4A3fOCjcVc9rQyHHqX2HOOi9amT6YIKsOGpO6ulP
+         RXIxJZVQ5d1Q02UljAbJkFQ/iG62F5iT4S5PTHFj+v8abHsBE4T7x4qp61k376UzdJ6A
+         ILUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793069801; x=1793674601;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GOMxiaMp4kiAv1sy1QvOMscX3P97g6hNx07NHuZ9MZc=;
+        b=pXFBEOlioyUxhUETXupyF2WYweCwNfRgnadR/QaoN1PRUmpRveLHePj/hKDZrWmokO
+         DWoYPn3cGHUZ7jmSwcwT++Jn44HmgV5N1cih1H24AoHOm7uqx13EL0mRKI18lu9MtmW9
+         AHu+DuGRM7WCwpz3M+4JQ/okixlwgdUoziY4umODL/U7ZKjzRyxkwPcvejW3Ze5xtEUz
+         PLN4Rdln8n7eLrfCZ/d4+64b0psqZzh1ndkIhzysUWyPeoM+vRu7M5Orj2w5B7Dif+zc
+         ljVGCK2ukJHHR4AuO3GoudWfZNv0aODAV8oH8ATr4CUyVsJr+tjWJbnDYrKffMi5WuZr
+         jDZg==
+X-Forwarded-Encrypted: i=1; AKwUvBz3izJfA7je5pUsHu2Q8+d4EYlJ14kCDaI6UyCG/vGsI7yrtrjIfOU5eytMtgsGmLBviOnx8cnSewfyYi0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ9Y4I9IA5b6YJ4Exr128ZCyqXw6y8i7F6S5lirEQ6I2n6G2ZkU
+	ETAwnn+Xo42L9LiJ58YkQXwzuW17nKDdXV04+zeqe6xrvLP8RKZWDVt6N7ANhGXNT4HF6+4u917
+	SYo61Z2y2w71U79NunokUa3Z7ijb9BtiEow==
+X-Received: from jabhk1.prod.google.com ([2002:a05:6638:8081:b0:61a:c6d0:40f4])
  (user=kevinloughlin job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6808:448b:b0:4ea:1854:b949 with SMTP id 5614622812f47-55c002fb936mr5589922b6e.33.1793069797304;
- Mon, 26 Oct 2026 19:56:37 -0700 (PDT)
-Date: Tue, 27 Oct 2026 02:56:03 +0000
+ 2002:a05:6808:148c:b0:4f6:2ccb:c2a with SMTP id 5614622812f47-55c0039eb90mr5670563b6e.68.1793069800756;
+ Mon, 26 Oct 2026 19:56:40 -0700 (PDT)
+Date: Tue, 27 Oct 2026 02:56:04 +0000
+In-Reply-To: <20261027025616.1632690-1-kevinloughlin@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,10 +79,10 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
+References: <20261027025616.1632690-1-kevinloughlin@google.com>
 X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
-Message-ID: <20261027025616.1632690-1-kevinloughlin@google.com>
-Subject: [PATCH 00/13] virtio_balloon, efi/unaccepted: support memory
- ballooning and free page reporting in CoCo guests
+Message-ID: <20261027025616.1632690-2-kevinloughlin@google.com>
+Subject: [PATCH 01/13] virtio_ring: support per-virtqueue DMA mapping ops
 From: Kevin Loughlin <kevinloughlin@google.com>
 To: "Michael S. Tsirkin" <mst@redhat.com>, David Hildenbrand <david@kernel.org>, Jason Wang <jasowangio@gmail.com>, 
 	"=?UTF-8?q?Eugenio=20P=C3=A9rez?=" <eperezma@redhat.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
@@ -101,205 +104,318 @@ Cc: virtualization@lists.linux.dev, linux-coco@lists.linux.dev,
 	David Skidmore <davidskidmore@google.com>, Kevin Loughlin <kevinloughlin@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-This series enables virtio-balloon free page reporting and memory balloon
-inflation/deflation in Confidential Computing (CoCo) guests, starting
-with architectural hooks implemented for AMD SEV variants, in order to
-support dynamic CoCo guest resizing.
+Allow individual virtqueues to override the device-wide DMA mapping
+operations via virtqueue_set_map_ops(). When custom per-virtqueue
+mapping operations are configured, vring_map_one_sg(), vring_unmap_one(),
+vring_mapping_error(), and the DMA sync helpers dispatch through
+vq->map_ops instead of the parent virtio_device DMA API path.
 
-Today, memory ballooning and free page reporting are essentially unusable
-in CoCo guests due to three main roadblocks:
+Replace vring_map_single() with vring_map_indirect() and
+vring_unmap_indirect() using the device-level mapping path (vdev->map
+or dma_map_page_attrs()) so that indirect descriptor tables continue to
+be DMA-mapped for host VMM access even when a virtqueue overrides buffer
+mapping via vq->map_ops.
 
-1. SWIOTLB Bounce-Buffering on Free Page Reporting:
-   Under VIRTIO_F_ACCESS_PLATFORM, virtqueue_add_inbuf() maps every
-   scatterlist entry through the DMA API. For reporting_vq, these are
-   multi-megabyte ranges of free buddy pages. The host never DMA-reads
-   or writes the page contents; it only inspects the GPA to punch holes
-   in backing memory. Running these ranges through SWIOTLB exhausts
-   bounce buffer pools and wastes cycles copying gigabytes of
-   unencrypted free memory.
+Signed-off-by: Kevin Loughlin <kevinloughlin@google.com>
+---
+ drivers/virtio/virtio_ring.c | 136 ++++++++++++++++++++++++-----------
+ include/linux/virtio.h       |   4 ++
+ 2 files changed, 98 insertions(+), 42 deletions(-)
 
-2. Dynamic Memory Unacceptance & Re-acceptance:
-   When the host reclaims guest physical pages via hole punching,
-   the guest must transition those GPAs back to unaccepted/shared before
-   the host reclaims them (rescinding PVALIDATE and issuing a GHCB Page
-   State Change on SEV-SNP). Otherwise, any subsequent access triggers a
-   fatal #NPF or #VC. While the EFI unaccepted memory subsystem handles
-   boot-time lazy acceptance, it lacks an API or state tracking to
-   dynamically unaccept memory at runtime or route unaccepted freed
-   pages in the page allocator.
-
-3. Acceptance Granularity (2 MiB) vs. Balloon Pages (4 KiB):
-   On x86, the EFI unaccepted memory bitmap tracks state at 2 MiB
-   (PMD_ORDER) granularity both to keep the bitmap compact and for
-   performance: accepting and unaccepting in 2 MiB blocks preserves
-   2 MiB host hugepage mappings (NPT/RMP on SEV-SNP and Secure EPT on
-   TDX), avoids 512x per-4 KiB page state transition and validation
-   overhead, and prevents RMP/SEPT size-mismatch splits. Because a
-   2 MiB bitmap unit cannot be partially unaccepted, CoCo free page
-   reporting and balloon inflation require 2 MiB blocks and do not
-   fall back to 4 KiB allocations (though low-level PVALIDATE still
-   falls back to 4 KiB instructions if the host RMP entry was already
-   split). Standard virtio-balloon allocates 4 KiB pages and caps its
-   PFN array at 256 PFNs (1 KiB descriptor), so CoCo guests must
-   allocate 2 MiB compound pages while streaming PFNs in 256-PFN chunks
-   to respect existing VMM descriptor limits (such as QEMU's 1024-byte
-   cap).
-
-   As a trade-off of requiring 2 MiB blocks rather than 4 KiB pages,
-   the effectiveness of balloon inflation/deflation in CoCo guests
-   depends on guest memory not being overly fragmented (which guest
-   kernel command-line options like movablecore / ZONE_MOVABLE or
-   background compaction can help mitigate). Even when unmovable
-   allocations fragment some pageblocks, free page reporting already
-   operates at this same 2 MiB (pageblock_order) granularity on x86_64
-   and continues to reclaim contiguous free blocks opportunistically.
-
-Key Design Elements in This Series
-==================================
-- Per-virtqueue DMA map ops (Patches 1-2):
-  Extends virtio_ring to allow individual virtqueues to install custom
-  struct virtio_map_ops. For reporting_vq, virtio_balloon installs a
-  no-op GPA identity mapper so free page ranges are passed directly
-  without SWIOTLB bounce buffers, while keeping the descriptor ring and
-  any indirect descriptor tables securely mapped via the device-level
-  DMA API.
-
-- Dynamic unacceptance & SEV-SNP hooks (Patches 3-4):
-  Adds arch_unaccept_memory() / snp_unaccept_memory() for SEV-SNP. Also
-  adds exception fixup in vc_raw_handle_exception() for
-  SVM_EXIT_PAGE_NOT_VALIDATED (0x404) and SVM_EXIT_NPF (0x400) at
-  EX_TYPE_ZEROPAD instructions so speculative reads from
-  load_unaligned_zeropad() that touch the edge of dynamically unaccepted
-  memory are handled cleanly without kernel panics.
-
-- Dynamic unaccepted memory tracking & MM routing (Patches 5-9):
-  Anchors the EFI unaccepted table at base 0 when unaccepted memory is
-  present, introduces mark_memory_unaccepted() with error reporting and
-  proper locking, generalizes zone->unaccepted_pages to variable orders
-  >= unaccepted_memory_order(), and updates mm/page_alloc,
-  mm/page_isolation, mm/page_owner, and mm/page_reporting to route
-  unaccepted pages back to zone->unaccepted_pages without corrupting
-  them with page poisoning, KASAN, or init_on_free before re-acceptance.
-
-  Generalizing zone->unaccepted_pages from MAX_PAGE_ORDER (4 MiB on x86)
-  down to >= unaccepted_memory_order() (2 MiB) aligns allocator tracking
-  with the underlying hardware validation/RMP/SEPT and EFI bitmap unit:
-  even when boot-time lazy acceptance processes a MAX_PAGE_ORDER block,
-  the hardware and bitmap validate it in 2 MiB chunks, and runtime
-  allocations, pageblocks, and mm/page_reporting split accepted memory
-  below MAX_PAGE_ORDER anyway.
-
-  Note for reviewers: The three mm/ patches (Patches 7-9) are the most
-  intricate part of this series due to the interactions between lazy
-  acceptance, page isolation, and page reporting. Extra scrutiny from
-  mm reviewers to ensure no page-allocator or pageblock corner cases
-  were missed would be especially appreciated.
-
-- 2 MiB compound ballooning with 256-PFN chunking (Patch 10):
-  Allocates compound pages at PMD_ORDER in CoCo guests that require page
-  state transitions, breaking them into 256-PFN chunks when queuing to
-  the host so virtqueue descriptors remain at 1 KiB, preserving
-  out-of-the-box compatibility with existing hypervisors.
-
-- Balloon state transitions & CoCo ACCESS_PLATFORM (Patches 11-13):
-  Calls mark_memory_unaccepted() on reported ranges and inflated pages
-  before adding buffers to reporting_vq and kicking the virtqueue, routes
-  deflated pages to unaccepted freelists, preserves
-  VIRTIO_F_ACCESS_PLATFORM, disables VIRTIO_BALLOON_F_FREE_PAGE_HINT and
-  unsupported VIRTIO_BALLOON_F_PAGE_POISON in CoCo guests, and rejects
-  probing on CoCo platforms where balloon page state transitions are
-  unsupported.
-
-Why Both Free Page Reporting and Inflation/Deflation
-====================================================
-CoCo guests using lazy memory acceptance boot with their maximum RAM
-declared as EFI_UNACCEPTED_MEMORY in the initial EFI memory map,
-avoiding runtime ACPI/virtio memory hotplug. Prior to this series, lazy
-acceptance was a one-way ratchet: once a workload spike caused the
-guest to accept pages from zone->unaccepted_pages, those pages could
-never be unaccepted or returned to the host.
-
-Turning EFI unaccepted memory into a bidirectional lifecycle enables two
-complementary mechanisms on initial boot RAM:
-- Free Page Reporting (reporting_vq): Autonomously reports idle 2 MiB
-  free buddy pages to the host for hole-punching, and lazily re-accepts
-  them locally from zone->unaccepted_pages on demand without a host
-  virtqueue round-trip.
-- Balloon Inflation/Deflation (inflate_vq / deflate_vq): Allows VMMs
-  that size guests without hotplugging to actively apply memory pressure
-  (triggering guest reclaim) and enforce dynamic memory targets on boot
-  RAM.
-
-Architecture Support & Intel TDX Follow-Up
-==========================================
-The efi/unaccepted, mm/, and virtio_balloon changes in this series are
-architecture-agnostic, with architecture hooks (arch_unaccept_memory())
-wired up first for AMD SEV-SNP via snp_unaccept_memory() (alongside
-VIRTIO_F_ACCESS_PLATFORM support for SEV-ES).
-
-On Intel TDX, I think dynamic unacceptance should use
-TDG.MEM.PAGE.RELEASE to transition private pages from MAPPED back to
-PENDING so the host VMM can reclaim them (and the guest can later
-re-accept them via the existing TDG.MEM.PAGE.ACCEPT path in
-tdx_accept_memory()). Once TDG.MEM.PAGE.RELEASE support and
-load_unaligned_zeropad() handling for dynamically unaccepted pages
-(e.g., via direct-map unmapping under SEPT_VE_DISABLE) land upstream in
-arch/x86/coco/tdx/, tdx_unaccept_memory() can slot directly into
-arch_unaccept_memory().
-
-Testing
-=======
-- AMD SEV-SNP Milan hardware (CoCo): Passed end-to-end memory pressure
-  soak testing with live guest_memfd hole punching (FALLOC_FL_PUNCH_HOLE)
-  and dynamic lazy re-acceptance under memory pressure on an internal
-  hypervisor.
-- Cloud Hypervisor & QEMU: Verified standard non-confidential
-  ballooning remains compatible. End-to-end SEV-SNP balloon testing on
-  upstream Cloud Hypervisor and QEMU has been limited so far (while
-  both punch holes in guest_memfd on shared page-state transitions,
-  QEMU's virtio-balloon still issues MADV_WILLNEED on shared HVA
-  mappings during deflate); any testing help or suggestions on these
-  hypervisors are greatly appreciated.
-
-Note: An LLM coding assistant was used during the development of this
-series to assist with code and commit message drafting and refactoring.
-I have reviewed and verified all changes.
-
-Kevin Loughlin (13):
-  virtio_ring: support per-virtqueue DMA mapping ops
-  virtio_balloon: add reporting_vq DMA map ops
-  x86/coco/sev: add snp_unaccept_memory()
-  x86/coco/sev: fix zeropad #VC on unaccepted memory
-  efi/libstub: start unaccepted bitmap at address 0
-  efi/unaccepted: add mark_memory_unaccepted()
-  mm/page_alloc: allow lower-order unaccepted_pages
-  mm/page_alloc: route unaccepted isolated pages
-  mm/page_reporting: account for unaccepted memory
-  virtio_balloon: add higher-order page inflation
-  virtio_balloon: unaccept free reporting ranges
-  virtio_balloon: unaccept inflated balloon pages
-  virtio_balloon: enforce ACCESS_PLATFORM in CoCo
-
- Documentation/mm/physical_memory.rst          |   3 +-
- arch/x86/coco/sev/core.c                      |  13 +
- arch/x86/coco/sev/vc-handle.c                 |  29 ++
- arch/x86/include/asm/sev.h                    |   2 +
- arch/x86/include/asm/unaccepted_memory.h      |  14 +
- arch/x86/include/uapi/asm/svm.h               |   2 +
- .../firmware/efi/libstub/unaccepted_memory.c  |  45 +++-
- drivers/firmware/efi/unaccepted_memory.c      | 107 +++++++-
- drivers/virtio/virtio_balloon.c               | 214 +++++++++++++--
- drivers/virtio/virtio_ring.c                  | 136 +++++++---
- include/linux/balloon.h                       |   1 +
- include/linux/mm.h                            |  18 ++
- include/linux/mmzone.h                        |   2 +-
- include/linux/virtio.h                        |   4 +
- mm/balloon.c                                  |  67 +++--
- mm/page_alloc.c                               | 248 ++++++++++++-----
- mm/page_isolation.c                           |  44 +++-
- mm/page_owner.c                               |   7 +-
- mm/page_reporting.c                           |  34 ++-
- 19 files changed, 824 insertions(+), 166 deletions(-)
-
+diff --git a/drivers/virtio/virtio_ring.c b/drivers/virtio/virtio_ring.c
+index db678f5a80e0..9c6a1e9f0a0b 100644
+--- a/drivers/virtio/virtio_ring.c
++++ b/drivers/virtio/virtio_ring.c
+@@ -261,6 +261,7 @@ struct vring_virtqueue {
+ 	bool we_own_ring;
+ 
+ 	union virtio_map map;
++	const struct virtio_map_ops *map_ops;
+ 
+ #ifdef DEBUG
+ 	/* They're supposed to lock for us. */
+@@ -477,16 +478,32 @@ static struct device *vring_dma_dev(const struct vring_virtqueue *vq)
+ 	return vq->map.dma_dev;
+ }
+ 
++static inline const struct virtio_map_ops *vring_get_map_ops(const struct vring_virtqueue *vq)
++{
++	if (vq->map_ops)
++		return vq->map_ops;
++	return vq->vq.vdev->map;
++}
++
++void virtqueue_set_map_ops(struct virtqueue *_vq,
++			   const struct virtio_map_ops *map_ops)
++{
++	struct vring_virtqueue *vq = to_vvq(_vq);
++
++	vq->map_ops = map_ops;
++}
++EXPORT_SYMBOL_GPL(virtqueue_set_map_ops);
++
+ static int vring_mapping_error(const struct vring_virtqueue *vq,
+ 			       dma_addr_t addr)
+ {
+-	struct virtio_device *vdev = vq->vq.vdev;
++	const struct virtio_map_ops *map_ops = vring_get_map_ops(vq);
+ 
+ 	if (!vq->use_map_api)
+ 		return 0;
+ 
+-	if (vdev->map)
+-		return vdev->map->mapping_error(vq->map, addr);
++	if (map_ops)
++		return map_ops->mapping_error(vq->map, addr);
+ 	else
+ 		return dma_mapping_error(vring_dma_dev(vq), addr);
+ }
+@@ -530,15 +547,45 @@ static int vring_map_one_sg(const struct vring_virtqueue *vq, struct scatterlist
+ 	return 0;
+ }
+ 
+-static dma_addr_t vring_map_single(const struct vring_virtqueue *vq,
+-				   void *cpu_addr, size_t size,
+-				   enum dma_data_direction direction)
++static int vring_map_indirect(const struct vring_virtqueue *vq, void *cpu_addr,
++			      size_t size, dma_addr_t *addr)
+ {
+-	if (!vq->use_map_api)
+-		return (dma_addr_t)virt_to_phys(cpu_addr);
++	struct virtio_device *vdev = vq->vq.vdev;
++
++	if (!vq->use_map_api) {
++		kmsan_handle_dma(virt_to_phys(cpu_addr), size, DMA_TO_DEVICE);
++		*addr = (dma_addr_t)virt_to_phys(cpu_addr);
++		return 0;
++	}
++
++	if (vdev->map) {
++		*addr = vdev->map->map_page(vq->map, virt_to_page(cpu_addr),
++					    offset_in_page(cpu_addr), size,
++					    DMA_TO_DEVICE, 0);
++		if (vdev->map->mapping_error(vq->map, *addr))
++			return -ENOMEM;
++		return 0;
++	}
++
++	*addr = dma_map_page_attrs(vring_dma_dev(vq), virt_to_page(cpu_addr),
++				   offset_in_page(cpu_addr), size,
++				   DMA_TO_DEVICE, 0);
++	if (dma_mapping_error(vring_dma_dev(vq), *addr))
++		return -ENOMEM;
+ 
+-	return virtqueue_map_single_attrs(&vq->vq, cpu_addr,
+-					  size, direction, 0);
++	return 0;
++}
++
++static void vring_unmap_indirect(const struct vring_virtqueue *vq,
++				 dma_addr_t addr, size_t size)
++{
++	struct virtio_device *vdev = vq->vq.vdev;
++
++	if (vdev->map)
++		vdev->map->unmap_page(vq->map, addr, size, DMA_TO_DEVICE, 0);
++	else
++		dma_unmap_page_attrs(vring_dma_dev(vq), addr, size,
++				     DMA_TO_DEVICE, 0);
+ }
+ 
+ static void virtqueue_init(struct vring_virtqueue *vq, u32 num)
+@@ -576,6 +623,8 @@ static unsigned int vring_unmap_one_split(const struct vring_virtqueue *vq,
+ 	if (flags & VRING_DESC_F_INDIRECT) {
+ 		if (!vq->use_map_api)
+ 			goto out;
++		vring_unmap_indirect(vq, extra->addr, extra->len);
++		goto out;
+ 	} else if (!vring_need_unmap_buffer(vq, extra))
+ 		goto out;
+ 
+@@ -761,10 +810,11 @@ static inline int virtqueue_add_split(struct vring_virtqueue *vq,
+ 
+ 	if (indirect) {
+ 		/* Now that the indirect table is filled in, map it. */
+-		dma_addr_t addr = vring_map_single(
+-			vq, desc, total_sg * sizeof(struct vring_desc),
+-			DMA_TO_DEVICE);
+-		if (vring_mapping_error(vq, addr))
++		dma_addr_t addr;
++
++		if (vring_map_indirect(vq, desc,
++				       total_sg * sizeof(struct vring_desc),
++				       &addr))
+ 			goto unmap_release;
+ 
+ 		virtqueue_add_desc_split(vq, vq->split.vring.desc,
+@@ -1370,6 +1420,7 @@ static struct virtqueue *__vring_new_virtqueue_split(unsigned int index,
+ #endif
+ 	vq->map = map;
+ 	vq->use_map_api = vring_use_map_api(vdev);
++	vq->map_ops = NULL;
+ 
+ 	vq->indirect = virtio_has_feature(vdev, VIRTIO_RING_F_INDIRECT_DESC) &&
+ 		!context;
+@@ -1488,6 +1539,8 @@ static void vring_unmap_extra_packed(const struct vring_virtqueue *vq,
+ 	if (flags & VRING_DESC_F_INDIRECT) {
+ 		if (!vq->use_map_api)
+ 			return;
++		vring_unmap_indirect(vq, extra->addr, extra->len);
++		return;
+ 	} else if (!vring_need_unmap_buffer(vq, extra))
+ 		return;
+ 
+@@ -1585,10 +1638,9 @@ static int virtqueue_add_indirect_packed(struct vring_virtqueue *vq,
+ 	}
+ 
+ 	/* Now that the indirect table is filled in, map it. */
+-	addr = vring_map_single(vq, desc,
+-			total_sg * sizeof(struct vring_packed_desc),
+-			DMA_TO_DEVICE);
+-	if (vring_mapping_error(vq, addr))
++	if (vring_map_indirect(vq, desc,
++			       total_sg * sizeof(struct vring_packed_desc),
++			       &addr))
+ 		goto unmap_release;
+ 
+ 	vq->packed.vring.desc[head].addr = cpu_to_le64(addr);
+@@ -2620,6 +2672,7 @@ static struct virtqueue *__vring_new_virtqueue_packed(unsigned int index,
+ #endif
+ 	vq->map = map;
+ 	vq->use_map_api = vring_use_map_api(vdev);
++	vq->map_ops = NULL;
+ 
+ 	vq->indirect = virtio_has_feature(vdev, VIRTIO_RING_F_INDIRECT_DESC) &&
+ 		!context;
+@@ -3064,7 +3117,7 @@ struct device *virtqueue_dma_dev(struct virtqueue *_vq)
+ {
+ 	struct vring_virtqueue *vq = to_vvq(_vq);
+ 
+-	if (vq->use_map_api && !_vq->vdev->map)
++	if (vq->use_map_api && !vring_get_map_ops(vq))
+ 		return vq->map.dma_dev;
+ 	else
+ 		return NULL;
+@@ -3809,18 +3862,17 @@ EXPORT_SYMBOL_GPL(virtqueue_map_free_coherent);
+  */
+ dma_addr_t virtqueue_map_page_attrs(const struct virtqueue *_vq,
+ 				    struct page *page,
+-				    unsigned long offset,
+-				    size_t size,
++				    unsigned long offset, size_t size,
+ 				    enum dma_data_direction dir,
+ 				    unsigned long attrs)
+ {
+ 	const struct vring_virtqueue *vq = to_vvq(_vq);
+-	struct virtio_device *vdev = _vq->vdev;
++	const struct virtio_map_ops *map_ops = vring_get_map_ops(vq);
+ 
+-	if (vdev->map)
+-		return vdev->map->map_page(vq->map,
+-					   page, offset, size,
+-					   dir, attrs);
++	if (map_ops)
++		return map_ops->map_page(vq->map,
++					 page, offset, size,
++					 dir, attrs);
+ 
+ 	return dma_map_page_attrs(vring_dma_dev(vq),
+ 				  page, offset, size,
+@@ -3842,11 +3894,11 @@ void virtqueue_unmap_page_attrs(const struct virtqueue *_vq,
+ 				unsigned long attrs)
+ {
+ 	const struct vring_virtqueue *vq = to_vvq(_vq);
+-	struct virtio_device *vdev = _vq->vdev;
++	const struct virtio_map_ops *map_ops = vring_get_map_ops(vq);
+ 
+-	if (vdev->map)
+-		vdev->map->unmap_page(vq->map,
+-				      map_handle, size, dir, attrs);
++	if (map_ops)
++		map_ops->unmap_page(vq->map,
++				    map_handle, size, dir, attrs);
+ 	else
+ 		dma_unmap_page_attrs(vring_dma_dev(vq), map_handle,
+ 				     size, dir, attrs);
+@@ -3941,13 +3993,13 @@ EXPORT_SYMBOL_GPL(virtqueue_map_mapping_error);
+ bool virtqueue_map_need_sync(const struct virtqueue *_vq, dma_addr_t addr)
+ {
+ 	const struct vring_virtqueue *vq = to_vvq(_vq);
+-	struct virtio_device *vdev = _vq->vdev;
++	const struct virtio_map_ops *map_ops = vring_get_map_ops(vq);
+ 
+ 	if (!vq->use_map_api)
+ 		return false;
+ 
+-	if (vdev->map)
+-		return vdev->map->need_sync(vq->map, addr);
++	if (map_ops)
++		return map_ops->need_sync(vq->map, addr);
+ 	else
+ 		return dma_need_sync(vring_dma_dev(vq), addr);
+ }
+@@ -3971,14 +4023,14 @@ void virtqueue_map_sync_single_range_for_cpu(const struct virtqueue *_vq,
+ 					     enum dma_data_direction dir)
+ {
+ 	const struct vring_virtqueue *vq = to_vvq(_vq);
+-	struct virtio_device *vdev = _vq->vdev;
++	const struct virtio_map_ops *map_ops = vring_get_map_ops(vq);
+ 
+ 	if (!vq->use_map_api)
+ 		return;
+ 
+-	if (vdev->map)
+-		vdev->map->sync_single_for_cpu(vq->map,
+-					       addr + offset, size, dir);
++	if (map_ops)
++		map_ops->sync_single_for_cpu(vq->map,
++					     addr + offset, size, dir);
+ 	else
+ 		dma_sync_single_range_for_cpu(vring_dma_dev(vq),
+ 					      addr, offset, size, dir);
+@@ -4002,15 +4054,15 @@ void virtqueue_map_sync_single_range_for_device(const struct virtqueue *_vq,
+ 						enum dma_data_direction dir)
+ {
+ 	const struct vring_virtqueue *vq = to_vvq(_vq);
+-	struct virtio_device *vdev = _vq->vdev;
++	const struct virtio_map_ops *map_ops = vring_get_map_ops(vq);
+ 
+ 	if (!vq->use_map_api)
+ 		return;
+ 
+-	if (vdev->map)
+-		vdev->map->sync_single_for_device(vq->map,
+-						  addr + offset,
+-						  size, dir);
++	if (map_ops)
++		map_ops->sync_single_for_device(vq->map,
++						addr + offset,
++						size, dir);
+ 	else
+ 		dma_sync_single_range_for_device(vring_dma_dev(vq), addr,
+ 						 offset, size, dir);
+diff --git a/include/linux/virtio.h b/include/linux/virtio.h
+index f923e42cfd01..20fe333d6778 100644
+--- a/include/linux/virtio.h
++++ b/include/linux/virtio.h
+@@ -44,6 +44,7 @@ struct virtqueue {
+ };
+ 
+ struct vduse_vq_group;
++struct virtio_map_ops;
+ 
+ union virtio_map {
+ 	/* Device that performs DMA */
+@@ -294,6 +295,9 @@ void virtqueue_map_free_coherent(struct virtio_device *vdev,
+ 				 size_t size, void *vaddr,
+ 				 dma_addr_t dma_handle);
+ 
++void virtqueue_set_map_ops(struct virtqueue *_vq,
++			   const struct virtio_map_ops *map_ops);
++
+ dma_addr_t virtqueue_map_page_attrs(const struct virtqueue *_vq,
+ 				    struct page *page,
+ 				    unsigned long offset,
 -- 
 2.56.0.307.g5fe7bd680c-goog
+
