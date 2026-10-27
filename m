@@ -1,93 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=185.56.87.6
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793086022;
-	b=ZRxjR9Eldfk81DseNmTeIWKpGJ4m7AuyuL3VKOr5aK9e1b3OfBbGiSt1IWugA0Q7r0Y7
-	 b4d9A5Fnbww+bKM4yv0mXNwo+4XKO4JYijdz/0m3hDfNGFKKpC60U+EKCtXkbZpL81Pq3
-	 k+GWtjS/+aHoNNWxl1VpknvT39nQxvKqCDwssm+EHTSy/fhr0h3CKw1H+Ag94NdHaopsc
-	 BP2m0Ax1qbNH+KpPNrhr7IqKqZc4xmEvebiuMR24Fo1dzVLi0ayF2cWc5R9hNn8/FDrvJ
-	 Zces+NhPh2DlzAZ3r58STXf+EYhx5+l362+SHpigzdvTKy70BxHP/RqKeHi9jPoqa2A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793086022;
-	h=DMARC-Filter:DKIM-Signature:Received:DKIM-Signature:Received:From:
-	 Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-Source:X-Source-Args:
-	 X-Source-Dir:X-SGantispam-id:X-AntiAbuse:AntiSpam-DLS:AntiSpam-DLSP:
-	 AntiSpam-DLSRS:AntiSpam-TS:CFBL-Address:CFBL-Feedback-ID;
-	bh=YvrNepu80f9cFpozwNcGaYtrGlqF8wlvl1fpjkfzFEY=;
-	b=q3zIg2qkBrB+DesF0eZhJJtfrFjIyTTqIlQHoPk+/Xa5KlgUQ431YhaZ3TrKU3vKEL5g
-	 xUNk+bRGN9AYFL1Ig/0WgMmVYNZcT/oN+9tsofXmOR2iqJL/VbCDYzgG+T4L5II1Pmfm1
-	 P6/6obi8j5l0xB3iEWJr0fLVXmdfqEN6/dAGnZqQ+tL74EZ2Bb4Sfs55IXl3rW2i+YpZI
-	 Tl1rX+NMfh/FZ+J8PbdLYTUubi3T+7y067WYmcO0z3DnP7YfJktfN472L2KDvpUXML/bg
-	 l1OD4fwfXe5/4mOun2T90jpnkGcvjZ7sXAl8PSnaikvmWozzApSQrQaT86x4s7Q0awQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=valla.it;
-	spf=pass smtp.mailfrom=valla.it;
-	dkim=pass header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.a=rsa-sha256 header.s=default header.b=Lg97Q3Hs;
-	dkim=pass header.d=valla.it header.i=@valla.it header.a=rsa-sha256 header.s=default header.b=THd7U1e8;
-	arc=fail smtp.remote-ip=185.56.87.6
-Received: from delivery.antispam.mailspamprotection.com (delivery.antispam.mailspamprotection.com [185.56.87.6])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793086091;
+	b=QEFW9Vvpob0Vzb/GuuwAveK2DNpkj3YgfCi40pcnApRFxXq3/nGXZCWtzkRdWE74L7UX
+	 OzT1h/LnjtVmsSxeNmk/PDPrhHH2+yEemULQ8sunFiOPI5B5AwHXOBwhku3IJLACCGCwF
+	 fIPRQRTdkxMNeirgfH/KTNPCmchRfawC88af/W8ZsnZ0F0DBeY/eUj4rQ6qZqfkGl8hj+
+	 goKVz0JvL1UzdBOkS7aJG7Pa7bhfBa4uB7N4yK8gy/5DfoOT44sKhtIe2ok+Dw3/QssQo
+	 BqgDBVVsp9m61JeZDvzqFHEUW+Sg57YYYCTfVoCVxRgIzACi6dkjz25SB1xZN+wgsAw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793086091;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=rMoN6QW9WraNNNAxN2SCzxxv/n4k9iPkUrgSrddfZ5c=;
+	b=DSvioYDVVljr4NUCORAgx9GRXnCCQsHngB+C7+LM99cTdfKdTBGK8FHTvgU2x5afVUD8
+	 lH44WTItx1C69PME8/4vStYklckVARarWMqcoboeWqK9tuFlv6PpUZ7J6510SpKQDRpK0
+	 c/oDXszHBIyDE/VJNbqVIRG5PL85f9HXbCJdKdF6kMFVRku/j9iJxqJHZnc/GBpjqvgEF
+	 4/fxLTpcHkrRMbOPuElpO+bU6MuDorFSgusJLExLCWfDx3WMSLVk4b0tTyB0w5NxPudi/
+	 7JYrAPOY6TtnHifYZYxZu8LqWfmWHvX+s9k0FF2/X1CPZ0buJUxhigMil7xXo3cBxNg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i40tytRH;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87298606A31A;
-	Tue, 27 Oct 2026 07:27:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87298606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valla.it
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90681606A31D;
+	Tue, 27 Oct 2026 07:28:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.a=rsa-sha256 header.s=default header.b=Lg97Q3Hs;
-	dkim=pass (1024-bit key, unprotected) header.d=valla.it header.i=@valla.it header.a=rsa-sha256 header.s=default header.b=THd7U1e8
-ARC-Seal: i=1; cv=none; a=rsa-sha256; d=outgoing.instance-europe-west4-l70q.prod.antispam.mailspamprotection.com; s=arckey; t=1793086020;
-	 b=C1cik91F0FfZV8CNUfhhaBz3fhKiP5ZhWANElFQxbdnYlJUY3yH5hXSYY5yAMsyRPywWN2diKl
-	  qeBPzWlAS5/ID3RlHkS3zMgvIIAe+BAXemT9kYanDOPdL7NZyEh9KzlgGyIVmy9UxEJrjoz9nS
-	  Uxak1YAg3r7HEPDXgBcDWKl6fwtNRpK/cqRPCpHbx7oWsxOq5M7Io4LTIjwGqzZiiaN8WUHg1F
-	  BfomrCF66GkemB0dYO5ZXn33fLc5rU0iFZ3YtRrassYQeaJka2pBQlO1wzQKzFd/VmOLAHrHCZ
-	  tQTUEcr8QSd/bL5G7kGwQgofTEr7qDPSCL+sazydoTK+YQ==;
-ARC-Authentication-Results: i=1; outgoing.instance-europe-west4-l70q.prod.antispam.mailspamprotection.com; smtp.remote-ip=35.214.173.214;
-	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
-	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
-	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
-	arc=none
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=outgoing.instance-europe-west4-l70q.prod.antispam.mailspamprotection.com; s=arckey; t=1793086020;
-	bh=QTK7KrPu2P6hFh9JC7pq1+BhiXAD6x7kBDIU1gAKmDw=;
-	h=Cc:To:Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:Date:
-	  Subject:From:DKIM-Signature:DKIM-Signature;
-	b=VhHnxZ38G2mcyrZcjPYhlFtVtbd0+br56LpTXKzWzp+Ei5J/TazmMLXd1ffAGrReiTKmYpjsho
-	  qUObh411XtEBhIpF+oM5sjmgbFfyO/1qChmAWJW21K8CuiTDBDMni/fTqSfR4QdKOoFFURz+V0
-	  ce2PCsIHOea7mbFd3GqZ390tAxhj/iRFktkVtchJiDOT9I/+zRlOhFbQ7NImpWStasOJT1AIhe
-	  e/eIFwQ9bOie+cTKyT3csQf891tn1aqPjSN2vmbQP/BLtxME2clAmfhEd8VC/HDc6zc+50oXYz
-	  twg5dVCET626kVDcfKza0QXZbf8nL3FNOlu9fNGn/CorIg==;
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=antispam.mailspamprotection.com; s=default; h=CFBL-Feedback-ID:CFBL-Address
-	:Cc:To:Content-Transfer-Encoding:Content-Type:MIME-Version:Message-Id:Date:
-	Subject:From:Reply-To:List-Unsubscribe;
-	bh=YvrNepu80f9cFpozwNcGaYtrGlqF8wlvl1fpjkfzFEY=; b=Lg97Q3HsE3qpRwFiQvoCmw3Kgg
-	7+zBuU3qELG1tskBq2+4Myzj2esl7fXKEWz1NwS7yjUh7psRwdHjYBBPQuLOK3AEVlhxMB08h0ioL
-	VjUvvHkfTbM4iTZdrO9GLVpPOvzc2hMFvTMoc9DujOrkrRCbsBTqJMLUf/szURgWxSuE=;
-Received: from 214.173.214.35.bc.googleusercontent.com ([35.214.173.214] helo=esm19.siteground.biz)
-	by instance-europe-west4-l70q.prod.antispam.mailspamprotection.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <francesco@valla.it>)
-	id 1xLbaD-00000006vEO-47s2;
-	Tue, 27 Oct 2026 07:26:58 +0000
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=valla.it;
-	s=default; h=Cc:To:Date:Subject:From:list-help:list-unsubscribe:
-	list-subscribe:list-post:list-owner:list-archive;
-	bh=YvrNepu80f9cFpozwNcGaYtrGlqF8wlvl1fpjkfzFEY=; b=THd7U1e8Ot2Xu0BT3NaiWJ9PWg
-	UGZKiEexHkquhH0KeMCA9TAHTvwte8KXijbw3h6xSZHrK4mCBS0ZTu4wtm1rq7eZqfdJlK66DHHvc
-	39ZBnCfc/fXUxzYV2atTaoEksrwFCtdMamVEaGMYyx+YZCjCp11IuQtLG950fyG1chbY=;
-Received: from [87.16.26.129] (port=61474 helo=[192.168.178.158])
-	by esm19.siteground.biz with essmtpa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <francesco@valla.it>)
-	id 1xLba4-00000000J9d-1J1C;
-	Tue, 27 Oct 2026 07:26:48 +0000
-From: Francesco Valla <francesco@valla.it>
-Subject: [PATCH v2 0/2] Add devicetree bindings for spi-virtio
-Date: Tue, 27 Oct 2026 08:26:32 +0100
-Message-Id: <20261027-spi-virtio-bindings-v2-0-67927b24b9d4@valla.it>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i40tytRH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FC921F01825;
+	Tue, 27 Oct 2026 07:28:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793086091;
+	bh=rMoN6QW9WraNNNAxN2SCzxxv/n4k9iPkUrgSrddfZ5c=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=i40tytRHxLze3NangBdEjwfJrnEjDmuiYhIp6GeysGdoQ+h7PE3wAERE+pzaWloQk
+	 zCQUbdkQ5XduDKoDefD2mzQcl6EKf9Nb0oxJ5C6W5koD96THYjCmWGxnCayg7Bzdcm
+	 +Rm9QEdeQsinLOk3Gzy6fvgu68Imu1kYtAHoYcwYSDYQTCdgEjzE/ltnaZbup9FMdl
+	 /oLaVQ/7Wza4ltslk67SzOoSq8qQQIzGpRGtY1/v726Pva7cAi/XeiLBrhMXUQWeo8
+	 W7IEIISUtoh6SAZXE+ojNY2nLXAO1Nbc4VHzDOZy0yiQwjLNqgS018jaUPp980BQXa
+	 oOu47+S9giQEg==
+Message-ID: <43ef0af4-0594-41f1-9ad3-499bfb3352a9@kernel.org>
+Date: Tue, 27 Oct 2026 08:28:06 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,118 +51,109 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NQQ6CMBBFr2Jm7ZjSKgRX3sOwaGGAMaSQTm00h
- LsLGHcuX/L/ezMIBSaB62GGQImFR7+CPh6g7q3vCLlZGbTSuSp1gTIxJg6RR3TsG/adYHsmc1F
- OF6q0sD6nQC2/duu9+rI83YPquKm2Rc8Sx/Desynbdr9C+beQMlSYW0XUGp0ZZ27JDoM9cYRqW
- ZYPXbeTfccAAAA=
-X-Change-ID: 20260927-spi-virtio-bindings-f4e350b2709a
-To: "Michael S. Tsirkin" <mst@redhat.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Haixu Cui <quic_haixcui@quicinc.com>, 
- Jason Wang <jasowangio@gmail.com>
-Cc: Viresh Kumar <viresh.kumar@linaro.org>, 
- Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
- =?utf-8?q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>, 
- Mathieu Poirier <mathieu.poirier@linaro.org>, linux-spi@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- virtualization@lists.linux.dev, Francesco Valla <francesco@valla.it>
-X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2664; i=francesco@valla.it;
- h=from:subject:message-id; bh=QTK7KrPu2P6hFh9JC7pq1+BhiXAD6x7kBDIU1gAKmDw=;
- b=owGbwMvMwCX2aH1OUIzHTgbG02pJDFkPgrSOzmX4rOs6b6ukbtJFO4EHPVt3Nci9XLJsQ4UU8
- +bnrUJJHaUsDGJcDLJiiiwh627c2zPX/FvaBsZHMHNYmUCGMHBxCsBE8mIZGU7npT3O3XY98IVi
- 6PEDe1k89bb++dnV9Oma6PonzSKPbGcxMjSsv8M7uVni8vWF5/fw71uQeNh4A9s0GZE9DkkCtpc
- 7P3IDAA==
-X-Developer-Key: i=francesco@valla.it; a=openpgp;
- fpr=CC70CBC9AA13257C6CCED8669601767CA07CA0EA
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - esm19.siteground.biz
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - valla.it
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-SGantispam-id: 1f2d376749ba976fb255cf91fd782c98
-X-AntiAbuse: ID - 1f2d376749ba976fb255cf91fd782c98
-AntiSpam-DLS: false
-AntiSpam-DLSP: 
-AntiSpam-DLSRS: 
-AntiSpam-TS: 1.0
-CFBL-Address: feedback@antispam.mailspamprotection.com; report=arf
-CFBL-Feedback-ID: 1xLbaD-00000006vEO-47s2-feedback@antispam.mailspamprotection.com
-Authentication-Results: outgoing.instance-europe-west4-l70q.prod.antispam.mailspamprotection.com;
-	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
-	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
-	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
-	arc=none
-
-When a virtio transport exposes a non-discoverable bus, the devicetree
-can be used to declare its child devices (if any) and/or other
-properties. To allow for that, the virtio framework searches for a node
-with a suitable compatible in virtio_device_of_init() when registering
-a device [1]; such compatible takes the form "virtio,deviceXX", where
-XX is the hexadecimal representation of the virtio device ID as defined
-by the virtio specification.
-
-This patchset thus does not introduce a new functionality, but allows
-proper validation of nodes tied to spi-virtio devices, aligning SPI to
-what is already being done for e.g. I2C and GPIO virtio devices.
-It was sent initially as part of a different patchset [2], but since it
-complements a functionality that is de-facto already there and is useful
-beyond that specific use case it was sent separately (also following the
-maintainer's feedback there to separate it from remoteproc-specific
-changes).
-
-This was tested both with virtio-mmio using qemu-system-aarch64 and with
-remoteproc-virtio with a Zephyr backend (with relevant remoteproc-virtio
-parts still not not upstreamed - see [2]).
-
-I added myself as reviewer for the spi-virtio driver to be CC'd on any
-patch involving the new bindings.
-
-Thank you!
-
-Regards,
-Francesco
-
-[1] https://elixir.bootlin.com/linux/v7.2.8/source/drivers/virtio/virtio.c#L488
-[2] https://lore.kernel.org/linux-remoteproc/20260916-remoteproc_virtio_map-v1-0-dac8c5eb4aa9@valla.it/
-
-Signed-off-by: Francesco Valla <francesco@valla.it>
----
-Changes in v2:
-- Expanded the commit message to better explain the functionality and
-  the chosen compatible.
-- Redundant pieces dropped from bindings.
-- Link to v1: https://patch.msgid.link/20260929-spi-virtio-bindings-v1-0-6a0eef3213b3@valla.it
-
-To: Haixu Cui <quic_haixcui@quicinc.com>
-To: Francesco Valla <francesco@valla.it>
-To: Mark Brown <broonie@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] docs: submitting-patches: Require base tree information
 To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-Cc: virtualization@lists.linux.dev
-Cc: linux-spi@vger.kernel.org
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
+Cc: Eric Biggers <ebiggers@kernel.org>, linux-doc@vger.kernel.org,
+ workflows@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, linux-kernel@vger.kernel.org,
+ Konstantin Ryabitsev <konstantin@linuxfoundation.org>
+References: <20261020212235.1143086-1-ebiggers@kernel.org>
+ <363b228a-7e96-481a-b70f-195ba55d025e@kernel.org>
+ <20261021063927.GA31908@sol>
+ <d5d0801e-371c-4836-8b4a-26bff33df46f@kernel.org>
+ <20261021064940.GC31908@sol>
+ <aea2328d-4ea8-45bc-922e-9c1fed94083f@kernel.org>
+ <CAL_JsqLA2F0oB=7LsoxZe-=AboOJu7FotpMACNsuV==jGWB8nw@mail.gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <CAL_JsqLA2F0oB=7LsoxZe-=AboOJu7FotpMACNsuV==jGWB8nw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
----
-Francesco Valla (2):
-      dt-bindings: spi: add spi-virtio
-      MAINTAINERS: add Francesco as spi-virtio reviewer
+On 26/10/2026 21:12, Rob Herring wrote:
+> On Wed, Oct 21, 2026 at 6:55 AM Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>>>>
+>>>> All these tools should just work on top of linux-next. Requiring people
+>>>> to add base like "next-20261021" or "tip-of-obvious-maintainer-tree" is
+>>>> pointless. I understand that base is helping, but helping and requiring
+>>>> an obvious information just do not go together.
+>>>>
+>>>> So again: base has ZERO meaning to the maintainer process. It has
+>>>> meaning to tools, so fix the tools to work on known and obvious trees.
+>>>
+>>> So what is your proposed algorithm to apply an arbitrary patch when
+>>
+>> Already provided that, so to recap:
+>>
+>>> there's no base-commit?  Including any historical patch (from
+>>> months/years ago), patches with dependencies, etc.
+>>
+>> Dependency is something else, but for every other patch:
+>> 1. For testing/CI: you apply on top of next
+>> 2. Every other case the maintainer knows where to apply it, because it
+>> is his HEAD of next-branch.
+>>
+>> I am repeating myself, but I really had no single problem of lack of
+>> knowledge where to apply a patch as a maintainer or reviewer of some
+>> subsystem, thus maybe I do not understand the actual problem you are
+>> experiencing.
+> 
+> Look at our DT PW. There are numerous patches that don't apply and
+> then we silently don't test them at all. Here's one example[1] (3
+> actually as the whole series doesn't apply). The more base-commit
+> tags, the better. If b4 can't apply it, then I do try just linux-next,
+> but is that today's, yesterday's or 2 weeks ago? That still doesn't
+> work sometimes.
 
- .../devicetree/bindings/spi/spi-virtio.yaml        | 46 ++++++++++++++++++++++
- MAINTAINERS                                        |  2 +
- 2 files changed, 48 insertions(+)
----
-base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
-change-id: 20260927-spi-virtio-bindings-f4e350b2709a
+I have doubts that DT CI would know these mentioned bases, unless
+everyone develops on master, which is obviously not possible. It could
+work if CI has all possible next tags fetched, but then I argue that
+without base commit such CI could apply to closest linux-next tag by date.
 
 Best regards,
---  
-Francesco Valla <francesco@valla.it>
-
+Krzysztof
