@@ -1,104 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.178
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793117683;
-	b=LheSN55x7s0XG+Av9mE7EVD+QD1UkVA9KSwiVZwHzKaTOU67fl3yzMr2Ih5+xGar3t1T
-	 6UOnx0LIGi24W/IAGLYKF7HBmKFG/lTQjk4taG3bhmqjkbqpgV14uitu800HQYi0gNNfU
-	 QMoeCNQaIG1ojiECed5Mi/kFZZrXMIKj4JwAKqMcZyF3Q3q9UwfYw5Zre9yPtAOgiK9y/
-	 /xqw8eszoi4zKquDzL4+a+KB4bX4FmsuNppFPlydK1/RARR1rrdXj/XQR0d6sccMwvfJ3
-	 /7VNnIdLufFUNHyyT6317TWnPHoeCVIJ9fFD5RqIaV/+QXeVluNsO5pbYzrzkhR4EsQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793117683;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Mh1RMsnqXeQn3jeCo8IP85tEqAtoIfacyuqQryaWR/c=;
-	b=3QFcxhinh4yCfWA8rws8Mt29hSButyS6Hv/hu4Mw40QgpKDzylCXNKhaMxiAQxsp5skF
-	 brUR/qUofGDIK9OKQon13OD3BQ0CQW1hYGQtgFM/sKsVml5PZ5LKD3839LIN4CSf/0Ke6
-	 KCG5Ocaq8BOFSQRUeUr3v4HA+Ww6lE1YT5cgBcKKrcU0mlc0ywxpCIG0yBHL+QyCRkEl5
-	 V/GvrcNcXOHsnX+YjClqR5I7yuWAPnf0WpdoKBUioluMDoaeVHqulMEHEzc3u5f9T5bCd
-	 k0nmIZL88hv/VTizDSgGaC8YnF0O0nUgoqmrm2KonCA29tU3K9NJEEM5FUi4r6Nqj+g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xP0JVMPP;
-	arc=none smtp.remote-ip=209.85.215.178
-Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793117743;
+	b=NPYGo1VkzbV4TrZ4vymtJDndi+OW35mkP47djHEpYrKdnIWCN64KAjY4xzvlcYmETzGl
+	 wAnKKInk+W1ZETPdesdfWe80Joooc0SmSC2YTUwV4QRBSc8AHlS4xy/RvKNM8tMRW8LbR
+	 fVOqXVGWtHaNRkLIJg88FV2Ag8Pm8Gv+qBVGYSd4wmhAc2BZwXlqV/PiCcceeGf67Uxqm
+	 qSMoE9vJ5/y346bBQdN7RlVkRRdR+oevRuZxp4sue5CC5HEoJ+8w+8PhJ/NyMsaVbAg/G
+	 iA8+q0DP5LEqYDIC1koD/IcsTfWtQo0nSJjBITlldEQNokitBo1+AShEWMP4KiQVkmQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793117743;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=/1+qVb57zvLsyGfD3ibPABn1ocLm+f+LfQNxDlA5Sa4=;
+	b=AV74Hb6txwbNAR/f0HE2Dm5HnAH6IHmPb7OPyiV435rQ5sbWs6Ep7QByXPbLMCExY/o5
+	 oxxsBCgOjyyVqtP+sD84Ie1zHIAlZ9oREQEp5k15f5vM3chqQ1Sh9RG8iW4LClLW71XFg
+	 WSJePeIGFeWjpkzqsSxfGuwclhsvS5YOCxJwec4FJkkGgE6y1wfTCM98RJ9DboVR90Lsx
+	 V0oxsbEX0pe/j8+qyVPvB3cExm67vc/O/Ce0XAgJvImyDLOGda+vopiqAMLMdMxLteAKI
+	 D4ApdpZmf8HW+5c53QxdBG3qlLGqRaacnWwlnce/npewLhcxh7iBN0pD/Iq02F39OFA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KHaksePs;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DF2D606A31A;
+	Tue, 27 Oct 2026 16:15:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KHaksePs
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793117742;
+	b=iF6S0g6aFF9OklV15d6JH/oEqZr3oWuk+3KAqV+FAfxOUF9izHQOqWPOckECC7Vw//Oy
+	 mYPyxhuGahHhpqM2EAoGHohnghIdMoN+Aqc5BKAJU8fFSM5lFYkDMP2znE0P6NLUfLTLA
+	 MbTkfDA7h6oCbw2gkJrdYBqfZ2cZOOSHQraVS01Yd4CGjC4oLajW11kDQtfVLGRnqJQr9
+	 XZprXW3jLGg7WI5TrS1SEg6GbaS/bad3zVwbw9FD9dYq9sAmIuiTM6EbYPCtv6sKzU8nT
+	 /EB4tzILFVyL9FNCnholu6c0Bov9LqCJgdVv2dRvVegxVI3AGZcPwjQlog6wZEXwOkg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793117742;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=/1+qVb57zvLsyGfD3ibPABn1ocLm+f+LfQNxDlA5Sa4=;
+	b=w81KB7+f0OFR6veUC6B22OUG83Qo3sDYmayqpOLXWCLRjaCHFQpZxSgzKQWi3qpiOEXF
+	 5BOmGbP2dYwl+0pmxoafZfLqEjm89Yrk8wwDIidAWVtnIUx/PpsvM+6fSiX0DnCeAFtvx
+	 UOv8cUVaAtnJ/IGDjtb6P+rtyBT/7DKGOvlxlmkZo62+LAmsdpj12boi7ocEo1fcfCeE9
+	 giVj4lzHVwvyViE7+MGkKbA3Yexpk5r0zJq1Ws14ZDMFfw3si4HdrsuaUO5ovT39vSere
+	 EHkUDqOfX9bgNiphWduN31Al4DMTJ/H6+HoZo9WL3Wxiu9zz19zhyjAnvZ5KFD3cfUw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB93D606A31D
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:14:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB93D606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xP0JVMPP
-Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-cc4dbda1e5dso58960a12.2
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:14:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793117682; x=1793722482; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Mh1RMsnqXeQn3jeCo8IP85tEqAtoIfacyuqQryaWR/c=;
-        b=xP0JVMPP6bOu0/DSCVmAsgcluWlYDPXi+fPvRnabo2azGAQ77IYaotXd/L4k8D8Uk8
-         QxFlROSdIKAfprywf40DcaLDd3jA/iKIMTmB+FuIp1DnZuBgLIPrSDOPhsnBMD4NoFTJ
-         pNw8vGcsxBVgdepL1SEBMBWRLBVl2Wh/Z1dV4//vTMgKn7ZMd4/ABiHz1a2HWXrORWCq
-         hCmmouBIpdjQ2u/9TLQmUZ0ZFwBqsfV85Qc5BWKARFsTYHVygnyC80C8lhwHF/l6Lp/u
-         8qRwRcSO8F6OJSNuGlJGwGcdMrGegi6TV4XfWhbYfrKB0zSFWExY49p1Cwr3i9eYdDWe
-         LY0A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793117682; x=1793722482;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Mh1RMsnqXeQn3jeCo8IP85tEqAtoIfacyuqQryaWR/c=;
-        b=DFDUk47gWuHt6JGMlVc0cotpdYha3nA7P+LYTTuWLE9clVdP7MvMFuU51T/y9Ge1id
-         YBQRc61iB6gAtKSW7HS70B6PoLrTu+Ld0BcRrBvKexKBFUX2+W0iIKe32xqqKyHGJVlm
-         PEI/oN/ehubteprMW8R0aQhSRwnuYMO+cHiGFPkEcdhrredVma8cEKd9tFawYtiXrFff
-         ZfDB0XiPejcx8wZIB7cwS5fHlyQNS4WyLJWfQAzkQmHlvv7ARCyweVrNQaUq+dxwZa9i
-         BK60xmcKi82ZxTs6p5Xk2tpKl9v2KyZgWbKKWMJfbh7M4JTT+5Cyl6Un09dS+UjDvFjc
-         XEWQ==
-X-Gm-Message-State: AFq9FYLEpbKrfsqq+fi2ROBuVXSTsqujy7tJubB8oGbo6UoWEoELMd5a
-	hpc6gmAd+eOx4H9W6t7+9o0uIteyBZL/xYVZ5aMnUaU81E/MRjwBYYuD
-X-Gm-Gg: AYBFou0sZ4PXAuwcjg6HmOU2sNmWan7S+i3q4C6N541DyOjVNQFeLLcpi3NLnncKGbh
-	5P0IUeA0tdxn0XqXoMEEjHxItBQixEn5zgh/6HntfxGKvG17yRB5BXfusTnDQRJGegE1Z0kvHeQ
-	emDSiE/4DFci6CwmBlYazCZ1isuu9evGGg9oTT74enm0ZxESFkMPnS8UPPF48fw8bzaZP8z+RdR
-	3nYB3+jKOq69B4+gtpwloB/55SbOwwbfW6JobliI3kP0yO7l0baXM65es67x6JLbSdG31SME0pU
-	8pEvlaBqqKhgmAISW59StMnm0Jgn/4qhSZowClw4jFLDQoXi4g0+eIfcDOhj4fmDxoo7veUe5k/
-	61LiS3f6/uQeA7KZxBHbIPRcSh7l2G7NcqiHqQEYMzHwFquZy0KhWPe3phVb5tZooUNZIobRPSe
-	XyVJQ2UR6pUL9oKm3YksMwXUmK0iQ0wD/1XqqXVIx2AAMdySUp3IgkVfIfr6TvZ4Cafxu+hXrPx
-	Y+oMaAnZ9fK8X7ibVvUVlOKPW6aR5swiPCddLpEtPiNsmFFtLZiGcDYoQrRaRRVOeJE15KlpvkL
-	7vfPhyHZpZFNSRUxr8Oish49FZ6eI2fySh/J4QAygQ61tnIrunYN/zq45crasz0n82g+Vw==
-X-Received: by 2002:a05:6a21:1bc7:b0:3e2:9025:5c50 with SMTP id adf61e73a8af0-3e7bfa34054mr7840427637.24.1793117682133;
-        Tue, 27 Oct 2026 09:14:42 -0700 (PDT)
-Received: from localhost.localdomain (vmi2317719.contaboserver.net. [84.247.152.64])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd8cccbf9a3sm2976375a12.24.2026.10.27.09.14.30
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 27 Oct 2026 09:14:41 -0700 (PDT)
-From: Lian Wang <lianux.mm@gmail.com>
-To: linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org,
-	akpm@linux-foundation.org,
-	chrisl@kernel.org,
-	nphamcs@gmail.com,
-	baoquan.he@linux.dev,
-	baohua@kernel.org,
-	youngjun.park@lge.com,
-	shikemeng@huaweicloud.com,
-	kasong@tencent.com,
-	linjh22s@gmail.com,
-	kunwu.chan@linux.dev,
-	kees@kernel.org,
-	gustavoars@kernel.org,
-	tglx@kernel.org,
-	linux-hardening@vger.kernel.org
-Subject: [RFC PATCH v3 18/18] mm/swap: redistribute queue readers after membership changes
-Date: Wed, 28 Oct 2026 00:14:14 +0800
-Message-ID: <fdfe5fac0d5b73f5b93424070bfcc8290d1c7902.1793106426.git.lianux.mm@gmail.com>
-In-Reply-To: <cover.1793106426.git.lianux.mm@gmail.com>
-References: <cover.1793106426.git.lianux.mm@gmail.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id EBF0F1F01825;
+	Tue, 27 Oct 2026 16:15:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793117742;
+	bh=/1+qVb57zvLsyGfD3ibPABn1ocLm+f+LfQNxDlA5Sa4=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=KHaksePsMes3VvIBAzpo/Vewuvon9PnUhpFXHRp1Ycr3iZK6d3/vdXTS682Awbd3a
+	 jNTAI3wHNeJPCqdSQUbTlcPTEGT/1vBHbsiDf4jHJsLXvYpGIriK8eNi+AbuFggu4c
+	 YHgtHVvtLiy7/OybE1UDlssf4QX0ISBHuzjsAd9DV1tGt7uMdt/5fvgsg5fwU8eQrE
+	 Fj8k+iiWBYP8M9Dn6gzhFfyZwPAwRx30cS+vIM1MRZ6AdMo88HOj8MNdpIw9fZZzv7
+	 4Sc2qsTMn9FAGzJWbwreTVT3s21VdpIon3VAqVWdXkE+lx08OpMABMsyC9+r0m7VW2
+	 t46EOEfZdmRSg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 4E35745153;
+	Tue, 27 Oct 2026 16:15:41 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Date: Tue, 27 Oct 2026 17:15:37 +0100
+Subject: [PATCH v3] media: qcom: camss: Don't reject sensor links faster
+ than 4x the CSIPHY timer
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,47 +83,123 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261027-csiphy-sdm845-limits-v3-1-c58917e14107@ixit.cz>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WNOQ7CMBQFr4JcY+QlMYGKeyCKeCMfkUW2sRKi3
+ B07FKkQ5UjvzczIGwfGo/NuRs5E8NB3Cfh+h1RTd3eDQSdGjDBBKsaw8jA0E/a6rYoSP6GF4LG
+ khmtZ21LzCqXr4IyFcdVeb1/2L/kwKmRXXjTgQ++mtRtp3v1JRIop1lwQaY8qZewFRggH9UY5E
+ NmmONHih4IlhWBMy7IWRlqyKZZl+QBo78HLCwEAAA==
+X-Change-ID: 20260822-csiphy-sdm845-limits-b1e3dbaf5d38
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Bjorn Andersson <andersson@kernel.org>, linux-media@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ phone-devel@vger.kernel.org, David Heidelberg <david@ixit.cz>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3007; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=YngNkwq0tcL9PzNnoy5oOuxivPBzZW+yX4YIxcz9VjA=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBq4M4sHysknjH4WTsZyWkGpInzz0sse10LN+oGu
+ LzBgYQacXGJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCauDOLAAKCRBgAj/E00kg
+ ct0GEACJ8rn600wBR0k5Z1JbaLYFD61PRSQA05cvG01mbkv3yrDyjRxDJSDoLU1Hud9eZh0PlmN
+ g3V0sUmz/i6gzp/bgieRRnXGLj7gTElwpYQORX04ggzT/Q+HB302jsvkuxuBUf2/Ly+9Zc9Uu3x
+ 2ThAX7a0ufkI7KlDtKJHtOTJPPNZkjxrErGYonI9bHNCIh6oifO4J9DUOew7lRnF0/UtvhUvZZj
+ jonRCzQQOP63yxrS80V+uZXHrCfcnXaC6tVRBxpN+d9GrFCkjGNbAa+nkK+pP1m+wapQ5lyxODB
+ Cen/fMp+IPA7zlXN6iE73Vf49+gHNnCvGZGOOE5hDIEdpaNsEg1BQQw3LtYzcPTJWYemukMq08s
+ uqacGib7nDzC0lFq5Yj6VdipZhgf6R9df2pWOGYzZmwGF2FE7nwI8WHNiPc0YmWNNHZkR3C9X2b
+ RIq1Dfl2CebMQlcpsNnRvbfhSI0+SI36LThMxKjlIa3eH9tanNcg8lyjJioC6B2YCxmnejl1+eQ
+ U/70CCqLTn7UFWiHBmEUa8/Qoh6kZWiWREIjN4RWB3bJjYhZozCWwHr35DNC2ckI6hB4Tvy36oK
+ n9glKnmFI77jx3URR4NZmCeqEwfqsYBAHf0x/zrkirs/4xSEtHQsQRpS0guLfxwdyDkHVoTwjkd
+ Ln2CQ+ROZ/2mvxQ==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
+Content-Transfer-Encoding: 7bit
 
-Adding a device to an existing priority ring reuses the per-CPU reader
-storage. A ring that previously contained one device can therefore keep
-every CPU at the old common starting offset after peers are added.
-Deleting devices or rings can likewise leave offsets and quotas that
-describe the previous membership.
+From: David Heidelberg <david@ixit.cz>
 
-Reset the valid per-CPU ring offsets and quotas after peer insertion and
-every nonempty deletion. Run the initialization helper under the topology
-writer, which excludes allocation walks, without allocating new reader
-storage or adding selector hot-path work.
+The timer clock has no such relationship to the link rate. Both the 2ph
+and 3ph code use it only as the reference for csiphy_settle_cnt_calc(),
+where a faster link makes the settle count smaller, not larger: at
+269.33 MHz the count converges to 16 as the link rate grows. The vendor
+driver pins the timer to 269.33 MHz for every sensor (it is the highest
+rate in the SDM845 clock plan) and streams this exact link with it.
 
-Use cpu-id modulo placement for a fresh best-effort rotation across all
-valid rings. This does not move existing slots or guarantee strict balance
-for every active CPU subset. Mask and availability transitions do not
-trigger the topology reset.
+Clamp to the highest listed rate instead of failing, the same way the
+unknown-link-rate case is already handled.
 
-Signed-off-by: Lian Wang <lianux.mm@gmail.com>
+Solves issue on sdm845 that caps the link at ~1.02 GHz,
+so the Samsung S5K2X7SP, ~2.3 Gbps/lane, link 1.15 GHz) fails with
+Pixel clock is too high for CSIPHY
+
+Fixes: bbde31047434 ("media: camss: Use optimal clock frequency rates")
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
- mm/swapfile.c | 3 +++
- 1 file changed, 3 insertions(+)
+Tested on SHIFT 6MQ with sdm845-next-20260820-9.
+---
+Changes in v3:
+- Added R-b and Fixes: tag.
+- Link to v2: https://patch.msgid.link/20260914-csiphy-sdm845-limits-v2-1-622db5a6ebf0@ixit.cz
 
-diff --git a/mm/swapfile.c b/mm/swapfile.c
-index 9e90f815f99c..d659afb574b3 100644
---- a/mm/swapfile.c
-+++ b/mm/swapfile.c
-@@ -496,6 +496,7 @@ add_to_ring:
- 	spin_unlock(&swap_queue_update_lock);
- 	memalloc_noreclaim_restore(noreclaim_flag);
- 	kfree(old_ring);
-+	swap_queue_reset_readers();
- 	return 0;
+Changes in v2:
+- Drop the camcc change entirely; the 269.33 MHz ceiling stands. (Konrad)
+- Fix the check in camss instead: clamp the timer clock to the highest
+  listed rate rather than failing, matching the vendor driver.
+- Link to v1: https://patch.msgid.link/20260822-csiphy-sdm845-limits-v1-1-d360bf7cd38f@ixit.cz
+---
+ drivers/media/platform/qcom/camss/camss-csiphy.c | 16 +++++++---------
+ 1 file changed, 7 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/media/platform/qcom/camss/camss-csiphy.c b/drivers/media/platform/qcom/camss/camss-csiphy.c
+index f99eea2ef2289..985171276ce47 100644
+--- a/drivers/media/platform/qcom/camss/camss-csiphy.c
++++ b/drivers/media/platform/qcom/camss/camss-csiphy.c
+@@ -159,25 +159,23 @@ static int csiphy_set_clock_rates_legacy(struct csiphy_device *csiphy)
+ 			long round_rate;
  
- failed:
-@@ -568,6 +569,8 @@ static void swap_queue_del(struct swap_info_struct *si)
- 			swap_queue_install_readers(NULL, 0);
- 	}
- 	spin_unlock(&swap_queue_update_lock);
-+	if (swap_queue_len)
-+		swap_queue_reset_readers();
+ 			camss_add_clock_margin(&min_rate);
  
- 	kfree(old_ring);
- 	kfree(old_queue);
+ 			for (j = 0; j < clock->nfreqs; j++)
+ 				if (min_rate < clock->freq[j])
+ 					break;
+ 
+-			if (j == clock->nfreqs) {
+-				dev_err(dev,
+-					"Pixel clock is too high for CSIPHY\n");
+-				return -EINVAL;
+-			}
+-
+-			/* if sensor pixel clock is not available */
+-			/* set highest possible CSIPHY clock rate */
+-			if (min_rate == 0)
++			/*
++			 * The timer clock is only the reference for the
++			 * settle count and does not need to track the link
++			 * rate. Use the highest listed rate when the link is
++			 * faster than the table covers or unknown.`
++			 */
++			if (j == clock->nfreqs || min_rate == 0)
+ 				j = clock->nfreqs - 1;
+ 
+ 			round_rate = clk_round_rate(clock->clk, clock->freq[j]);
+ 			if (round_rate < 0) {
+ 				dev_err(dev, "clk round rate failed: %ld\n",
+ 					round_rate);
+ 				return -EINVAL;
+ 			}
+
+---
+base-commit: 151a134a4e6ec66f69db8750c66006f5207f7a9d
+change-id: 20260822-csiphy-sdm845-limits-b1e3dbaf5d38
+
+Best regards,
+--  
+David Heidelberg <david@ixit.cz>
+
+
