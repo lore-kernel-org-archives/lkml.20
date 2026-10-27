@@ -1,47 +1,86 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793091717;
-	b=PP5tpBxWERxKf0JU4jGcmWcr6C3+LKo3p4Yz2S39DJqiOe1ZKhShIjuBdeFRVBK5ZWiT
-	 583n+Nb/ACmM9aFLoeLNzc/XwtnUDTnrbqWI2dm0/BwvhkMeVIbv7jDMUCYcgQ89IekJg
-	 kHn0+5hc3nMZFtqz9e3TVqJSI34FJ/NG/Lo0DiaH1MorZ3pMccY1Euz3+r1dvwXD593QG
-	 Wcm1lQkVNb268gHk4a0tLHb8YtNO5eZBDJ2TeD0LphTPyMBpeRRNQNJJzPH0IQLDymK95
-	 AFOdA2TTiYBX0/W+/JXSbMXN9dX2JFydZfgYOR3UQUCpCPidFIRWOH+aRptU6iFpCWQ==
+	t=1793091723;
+	b=4oUKEryDnvUfcaJUGV+KgvCXYvAXpMj7/KEbMeu44Xu0+8PN9llrl6Z1jTQz7y7NOLfX
+	 R0DDhlkuj4C0gffzgadQ5sOBLMtQWlLXs7Hl5N4T7FBer6xAWHInGhvUDqK06pxIx0XFA
+	 q/GzfsAmPZ+XlSuW+dLiEZtZHYXrqilH0NJnNgVhpxYNYrO6ySeJzjbWutztd/t67btp6
+	 uZrzKTrkTGTLzTY3ccYi4vj9/aogse8oDhdObS9odaKLgsGhum3OsIGGS1OcIgfevccaQ
+	 AChZNlttrE78wNP4/lQRKidH+vmv4yHM0lby+9hzCwmvFua88Js/yA9LFdEDbLks7pQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793091717;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=5HfAJvmr7Py4uAnd/ZvUO5cNS3CA+7rdNBTcaC+zq2g=;
-	b=UY4zFD1vmggzwwtg8WXlgx3llKzwk4H5qvWL43ere3jha/J4GjvLFRQ7aReBVh9XNS2J
-	 3W8+K2Apwy2uXLZwLlPeM2MEqmU0hBHyPgGe6QI4ZEbm1w0sGcCJ9bmRwA1C8UU28CrUU
-	 R1uYQlRP8iHJDtWwqxpVoc1uroALJ6EwD8RAei/43J2UU2t6HG2Tn0MfXoq8fq5W9Ay6c
-	 iBc/uNtl7wvFpDaJnch68YDg26KiXG0s4xP5UPKScWcnZrfhZLMEnsxoepuS743z55rzb
-	 8scuv2jRY6wD0k+YgVCpYtgEmvEUZBYKSdWTxdA/w2+r5Aum2zQuKeEMJ2b6K9K3hDA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793091723;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=5nq/yW3E6nSzBhQE//dTYvgfzBHRxLsoSrzMo34ZjSs=;
+	b=hSaOs+4NYwLMO+cyqaWyHBDnMZOOHPdZ64HJvCazT+MhIqlro9N6oJDzz1EV7o8yrBHL
+	 LRakrWXeYq2cRrkKkIlI1tmmynsWiGZcDHN1XPTCgZvThCaamD01Bq9LFSlg1AgFXMRsZ
+	 /l6f8ujsCEDVEAoSb8UWMkcMShBFJMGNGJplq7QXzSUPDDZfzZzCfbeu5HgCE7tHmCJds
+	 rBXP4H0UvVdd2KFAgb9+BrBdOnrMjPkcM9SAwd21AvBiKqB8MFm1bsrpOxvAfSf5OCbFW
+	 dBwvxLvgiGFgMhNnQsdy6u1OiTgY9XDVKu6k1wQ0PuBNcolSTTDO+uf4Sq709yCJLvQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bMwTvmpl;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ulj9p7Jn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08FB2606A31A;
-	Tue, 27 Oct 2026 09:01:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DA4D606A324;
+	Tue, 27 Oct 2026 09:02:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bMwTvmpl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A377C1F01825;
-	Tue, 27 Oct 2026 09:01:51 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ulj9p7Jn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E4501F01828;
+	Tue, 27 Oct 2026 09:02:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793091716;
-	bh=5HfAJvmr7Py4uAnd/ZvUO5cNS3CA+7rdNBTcaC+zq2g=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=bMwTvmpl2a3J4HHYmrBE9mt3NWyKTeD3ORLh0ZRiqAeyZcmXKA+47y3CsPp6CRHWt
-	 PLhRq3adt2ViR2khWGG5GIfhhxRV3klG739jeG1pjp4CvJNkNV6nChy7vbMnbPQHmP
-	 Wogu01k5BoiDB8pqVuvlk3z/Bh2vvuaBDxhWUqR6kY1wpATWson4KGCa2TkiHipc3F
-	 zq77uK2T6se4xzGUbtXdL12Z0v7H5+cIAwBv9PFCl/+H+lNBBLf9ZqzjT0/dqRbc7W
-	 rraJ7QK+GTgr+FEN2MllkZW0jw0Vr+JlmOahRfiuXhRTJcetNYdOfKEf6L/WpizemW
-	 URqTxJVflOI6w==
-Message-ID: <9620707e-59f3-4b91-87af-2b8e12fed260@kernel.org>
-Date: Tue, 27 Oct 2026 10:01:48 +0100
+	s=k20260515; t=1793091723;
+	bh=5nq/yW3E6nSzBhQE//dTYvgfzBHRxLsoSrzMo34ZjSs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Ulj9p7JneLFV1/XhjlgoB/eMNIqEQ4GJO5bi6UfrrD8HhsEGzbsJWw9Fh7Bbk2Zmy
+	 dXTv3coxEQCqyoRT50cWG5/xQfcfb+bKo538FX9mXlQkzg7LNrBHXKUlF7evcHRIO6
+	 xIHd3fw+SGUx7bY9O/A9rtGBRK1urm4D01a3/mQ8Uyvzumxm0hJJShV2f9I5rF/M4r
+	 sHH4Vy0ixTOveeMxJf8ojt1F8pBQYGgoJSXpbxuaFNN8Zg6jEbemlo5+aeWEl6Iyj4
+	 KXqOqZUDrUkhuzR+lhyki8q6UFZaHEsvSvX/e6qq2/E2VBr3h2VRD8uZlsfRHZGFUQ
+	 aEL9J2u5dvy5Q==
+Date: Tue, 27 Oct 2026 11:01:57 +0200
+From: Leon Romanovsky <leon@kernel.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Alex Williamson <alex@shazbot.org>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
+	Armin Wolf <W_Armin@gmx.de>, David Lechner <dlechner@baylibre.com>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Luis Chamberlain <mcgrof@kernel.org>,
+	Petr Pavlu <petr.pavlu@suse.com>,
+	Daniel Gomez <da.gomez@kernel.org>,
+	Sami Tolvanen <samitolvanen@google.com>,
+	Aaron Tomlin <atomlin@atomlin.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Bradley Morgan <brads@mainlining.org>,
+	Aleksandr Nogikh <nogikh@google.com>, linux-modules@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-usb@vger.kernel.org, driver-core@lists.linux.dev,
+	linux-trace-kernel@vger.kernel.org, Johan Hovold <johan@kernel.org>,
+	Richard Weinberger <richard@nod.at>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jason Gunthorpe <jgg@ziepe.ca>, Bjorn Helgaas <helgaas@kernel.org>,
+	linux-pci@vger.kernel.org
+Subject: Re: [PATCH v4 0/3] driver core: add TAINT_FORCED_BIND for when
+ userspace manually messes with devices and drivers
+Message-ID: <20261027090157.GB28851@unreal>
+References: <DLIL9H50MALI.3JROXYEEUM3KU@kernel.org>
+ <arIvG0nx4LXG9nlW@monoceros>
+ <defb3953-7516-437e-b70b-d57de55b91bf@baylibre.com>
+ <9bd3a34b-5e98-4038-80d6-da2c3b1948dd@gmx.de>
+ <2026092321-province-yearly-44aa@gregkh>
+ <arOfHEsGGglNse7T@monoceros>
+ <2026092348-victory-erased-0e5a@gregkh>
+ <20261023181326.0dc2f7ed@shazbot.org>
+ <20261026122243.GA28851@unreal>
+ <2026102654-enlighten-perkiness-193c@gregkh>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,134 +90,121 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/huge_memory: fix deferred split list corruption on
- partial unmap
-To: mt4022@columbia.edu, Andrew Morton <akpm@linux-foundation.org>,
- Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
- Shakeel Butt <shakeel.butt@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>,
- "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>
-Cc: Kairui Song <kasong@tencent.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, tz2294@columbia.edu, stable@vger.kernel.org
-References: <20261026-thpsplit-careful-v1-1-d357d70fd6f4@columbia.edu>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261026-thpsplit-careful-v1-1-d357d70fd6f4@columbia.edu>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <2026102654-enlighten-perkiness-193c@gregkh>
 
-On 10/27/26 01:22, Mani Tofigh via B4 Relay wrote:
-> From: Mani Tofigh <mt4022@columbia.edu>
+On Mon, Oct 26, 2026 at 09:27:25PM +0100, Greg Kroah-Hartman wrote:
+> On Mon, Oct 26, 2026 at 02:22:43PM +0200, Leon Romanovsky wrote:
+> > On Fri, Oct 23, 2026 at 06:13:26PM -0600, Alex Williamson wrote:
+> > > On Wed, 23 Sep 2026 12:29:56 +0200
+> > > Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
+> > > 
+> > > > On Wed, Sep 23, 2026 at 11:54:50AM +0200, Uwe Kleine-König wrote:
+> > > > > > No, drivers should NOT have to do that in their .probe() function,
+> > > > > > that's what we moved away from decades ago!  The match function should
+> > > > > > handle all of that for you, otherwise it's contant duplication
+> > > > > > everywhere that is unneeded.  
+> > > > > 
+> > > > > Well then you have to accept that root can provoke a null pointer
+> > > > > exception (e.g. by forcing the pwm-tegra driver on a device) because at
+> > > > > least with today's platform bus match function such a match is ok.  
+> > > > 
+> > > > Agreed, yes, root can cause a crash and can do tons of horrible things
+> > > > much worse than this, that's not the issue.
+> > > > 
+> > > > That's why this taint is there, to make it obvious that this is not a
+> > > > "real" bug at all.
+> > > > 
+> > > > > > Please, learn from our history, don't make the same mistakes.
+> > > > > > 
+> > > > > > Now I might be convinced that driver_override is the way to go here, but
+> > > > > > it still feels really odd as again, bind/unbind was created as a driver
+> > > > > > debugging option only, it should NOT be a normal operation that any user
+> > > > > > should rely on.  The driver should "just work" properly instead, without
+> > > > > > requiring manual bind work, as that's not a good model at all.  
+> > > > > 
+> > > > > I agree in principle, but (in my case wifi) drivers are buggy sometimes
+> > > > > (due to missing documentation and/or engineering effort) and being able
+> > > > > to rebind the driver instead of rebooting to get a working device again
+> > > > > is very useful.  
+> > > > 
+> > > > Fine, use it!  Just don't expect that to be "normal".
+> > > > 
+> > > > > So yes, theoretically bind/unbind isn't needed, but theory and practise
+> > > > > differ in practise.  
+> > > > 
+> > > > Agreed, but again, don't rely on this as a "real" solution fo ranything.
+> > > 
+> > > Sorry, late to the party, but this isn't a few user scripts that rely
+> > > on this behavior.  Effectively every use case of vfio relies on this
+> > > behavior.  We rely on unbinding the default driver from the device
+> > > before using driver_override and drivers_probe.  That means every
+> > > hypervisor with device assignment and every userspace driver use case
+> > > now experiences a tainted kernel. That seems like a significant
+> > > regression.
+> > 
+> > Sorry, I was on vacation and missed this change earlier. This change will
+> > affect SR-IOV deployments around the world, which *rely* on being able to
+> > bind a driver manually *after* virtual functions are created but before
+> > they are used.
 > 
-> When a THP is partially unmapped while the deferred split shrinker is
-> scanning it, the deferred split list can end up corrupted.  With
-> CONFIG_DEBUG_LIST, freeing the folio later reports:
-> 
->   [  523.871401] list_del corruption. prev->next should be ffd40000005e0090, but was ffd4000000500090. (prev=ffd40000005e0090)
->   [  523.871412] WARNING: lib/list_debug.c:62 at __list_del_entry_valid_or_report+0x177/0x220, CPU#0: thpsplit/63
->   ...
->   [  523.900715] Call Trace:
->   [  523.901753]  __list_lru_del+0x5f/0x220
->   [  523.902588]  __folio_unqueue_deferred_split+0x238/0x520
->   ...
-> 
-> Without CONFIG_DEBUG_LIST, the list is left pointing at the folio
-> after it has been freed.
-> 
-> Since commit fafaeceb89a5 ("mm: switch deferred split shrinker to
-> list_lru"), deferred_split_scan() moves the folios it scans onto a
-> private list under the list_lru lock, drops the lock, and then removes
-> each folio from that list with list_del_init(), which sets
-> entry->next = entry and then entry->prev = entry.  Another task may
-> in the meantime partially unmap the same folio and call
-> deferred_split_folio(), which queues it only if list_empty() reports
-> it as not queued, and list_empty() reads only entry->next.  If that
-> happens between the two stores, the folio is queued again, and the
-> store to entry->prev that follows breaks the new link:
-> 
->   Task A (shrinker)                     Task B (partial unmap)
->   -----------------                     ----------------------
->   list_del_init(entry)
->     entry->next = entry
->                                         deferred_split_folio()
->                                           list_empty(entry) is true
->                                           list_add_tail(entry)
->     entry->prev = entry
->     /* overwrites the prev link that
->        list_add_tail() just set */
-> 
-> Use list_del_init_careful() instead.  It sets entry->prev first and
-> then entry->next with smp_store_release(), so once list_empty() sees
-> the entry as empty, the shrinker has finished writing to it.
-> 
-> The reproducer repeatedly faults in THPs and partially unmaps them
-> while the deferred split shrinker, run through
-> /proc/sys/vm/drop_caches on the same CPU, is scanning them.  This bug
-> was found and replayed using a deterministic hypervisor currently
-> under development, but the non-deterministic C reproducer can
-> typically trigger it in the 10-500s time range.  With the fix, nothing
-> is triggered after 1800 seconds.
-> 
-> Fixes: fafaeceb89a5 ("mm: switch deferred split shrinker to list_lru")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
+> Why can't a real driver bind to those virtual functions?  Like is
+> happening in the rust apis?
 
+The actual driver is also bound, but at a later stage. I'm not sure what you
+mean by “Rust APIs.”
 
-Are we now sending alterantive fixes for anything already posted? :)
+> 
+> > This is needed for two reasons: to save hardware and software resources
+> > when creating a large number of VFs, and to allow the PCI config space to
+> > be configured *before* the driver starts using it.
+> 
+> How is hardware and software resources an issue here at all?  And you
+> can write to PCI config space from userspace today, no driver needed
+> anywhere at all, that's always been allowed.
 
-https://lore.kernel.org/r/20261027-fixes_core-v1-10-6f74bec9a5bb@kernel.org
+According to the PCI spec—or, at least, the common interpretation of it—
+newly created VFs should have equivalent hardware-resource partitions.
+For most hardware resources, this is not an issue. One resource, however,
+is critical to partition correctly: the number of MSI-X vectors per VF.
+These vectors are backed by physical resources and directly affect
+performance and utilization.
 
-If there is a better way to handle it reply to fixes already posted.
+In a correctly configured system, the number of MSI-X vectors should
+match the number of CPUs assigned to the VM. More vectors can leave
+hardware underutilized; fewer can degrade performance.
 
--- 
-Cheers,
+The workflow for cloud operators is therefore:
 
-David
+1. Create a large number of VFs, but do not assign them yet.
+2. Lease a VM to a user and determine how many CPUs they requested.
+3. Repartition the internal MSI-X table allocation.
+4. Assign the VF to the user.
+5. Check how many MSI-X vectors remain available, then return to step 2.
+
+The MSI-X table size is read near the beginning of driver initialization
+and cannot be changed afterward.
+
+So, no—you cannot change those PCI values without breaking the driver
+and OS that are already running.
+
+> 
+> > There is no in-kernel alternative.
+> 
+> Then just don't have a in-kernel driver for the device and all is good?
+
+In addition to Jason's comments, the PF and VF share the same driver because
+they are nearly identical, apart from a few differences in PCI
+configuration space.
+
+Please revert the series ASAP, you are clearly breaking existing deployments.
+
+Thanks
+
+> 
+> thanks,
+> 
+> greg k-h
+> 
