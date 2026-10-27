@@ -1,86 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.145.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793093224;
-	b=VMJ8DAS9ISq3d6QwEbme5GvWZvifVZ7MSsEzjPu9FPNl+tTvgIG1y3LmLxKg02aB5JQz
-	 Xk+67GXdBUFAB9OC8YPD0cZLtLpOA+rQaKdiBiTX9vhgFei54HV1xNebxdzE+jGYMa2MZ
-	 q7UUN0oQNWqCIA9byD/6rknf0Nafd7Q/HLXoD2quRtfLIFLhSuxTUordcD/CMfKq/T2yX
-	 1EBx75em9P3cdkNuKuxGy+xUAbwvllnWjRuA3Mn8I7G4011E2w1pM4EhGpRkIrvfUQYHa
-	 cwu2xnZX+dv1IwFjbB4iF9zFCXxlI4F+X85Omci8tLnzPt1YtIDXFEZrMeUyWJJlzqg==
+	t=1793093244;
+	b=K5TBec7OfzQl4JZw3Y0QCUT+IQCGSso2i8A6uiK20HZosBEvUjraUz2px9e3FCbn4pqd
+	 SQe0/t8jrEpvLX5yxoCV4qegeDdHOax569kOV3MyR7UteUJFSQwMxGaRZYbFMSWZUwYNv
+	 YLgKZQOPRHxLJDrZszYqLG7ZZMISOWmyaeab0TJ+HWfE+IfAFKBEjcYvUv1a3GvauhtyV
+	 Z0af6vlVPxaiX2nkHAhHFRkMeg1K4S6mW3fxa8igTVQcnZbzQRNmBwaNAoQg4DPhMqAoK
+	 Z2a3ufel8SAyrXRondW7cCFn7HYoDU3ye/YJHQNlt8vTmmKeixBii9xE/FfOe2GHNcg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793093224;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=h4/IEEwDZXLw/hZQAesBTnBi16Rhs6f/cohcUh8FEIY=;
-	b=SNWPBsaKDDRLAhdt59OYpqsGyMjOgZKD9DK9fBszntlYlNN9ZgqAEpVhYNKGNFMTeOmj
-	 ZYzX9f9+G9XHkQfF6A4Aylx31nx+/hBZIR0QYOABbzWg59ErUJBJKXStg4PsVmhMlFhca
-	 kjn85nYbDzpoRp8nvreGEavC/u/Z6fiPmAu7ARIKpvV3IbyQdd3zzLRCpCUEzwy1BINdH
-	 O9llJ9YKIlt17e6hmkLa1NEXsnxFva41A434n9lfFPNoSDucEos93KgDBpLtml6eyvyoT
-	 Dry7yl1b7C54exXCiSFEb0vmx6OcIB2Xr3LhIs8UF/ebiBhwP05osV0OTjseGnXVrZQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793093244;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version;
+	bh=UQzd8Q57y/Ls3xxOwRqM/QyCB6vFpKuUv/0iUG5QYLw=;
+	b=mx0sjbrcUXyqMYpbc4EvmjUh+v25NVG43c0XM0bPuNsUt/CGK+wibBqjQ8v3lMTZtvqI
+	 ItbProzJb8gI9EwKQ+GJ5FhrQ+BBK0bEFfhpeXh14Lzk+n30ACb7W4ePyUKU1m+RacZTn
+	 3dJC0Eg6SRvOV/1liGd/pWbGVX3EKnXAmxqv+foYgj1D6XxwF4ghSehMfQI1S+BXfn/XG
+	 BQ4UyWdnEH8U9a+j2NH2IS+2ubt5rjZIBysn5AZ38AQ5gptcccMoPHNNlNKVsGgCY6Wgx
+	 C5spqTmO8omn4nII7IrswVMHKHv8XkorkuC40M2dljD5ksUYoP1mFz5a+VaUHJhGKFQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=cD2Yk047;
-	arc=none smtp.remote-ip=74.125.227.130
-Received: from mail-pj2-f2.google.com (mail-pj2-f2.google.com [74.125.227.130])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=meta.com;
+	spf=pass smtp.mailfrom=meta.com;
+	dkim=pass header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=jCVw+2jY;
+	arc=none smtp.remote-ip=67.231.145.42
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com [67.231.145.42])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89DAE606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:27:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89DAE606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04340606A31F;
+	Tue, 27 Oct 2026 09:27:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04340606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=cD2Yk047
-Received: by mail-pj2-f2.google.com with SMTP id d9443c01a7336-2e613f813b0so7205885ad.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 02:27:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793093223; x=1793698023; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=h4/IEEwDZXLw/hZQAesBTnBi16Rhs6f/cohcUh8FEIY=;
-        b=cD2Yk047GntO8zsfZbdXM51UwnSmlkiujCDjVKBZKHjlEC4pxvmDWLLt7xtffKKM4Z
-         8zB+imfN4ACLWzc1EijhmoVLfxUXQHib690/YCPcklWWxT9MXSH1GIOOSLorLaHI91YG
-         b3rnFOL1WdDzIXN8TUlajdbY8wwjJJfkZrm8DjM0OTDLvMG/colNHSQYb4a+25wNsxbf
-         WRPQyYNcWsfZke5O6U36AyP/bCSV4MIr3ABqlyDPCu+X+Weajhrh2yQDfBXEjXGcPm1w
-         P/En+NESa6dRXtUXTHGEDgfI2PRplY9SX2qFXVTXdO7CMkeP8tCuSTHVuMkKKW8fxZLR
-         PvgQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793093223; x=1793698023;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=h4/IEEwDZXLw/hZQAesBTnBi16Rhs6f/cohcUh8FEIY=;
-        b=W8s+4qs1Frlg2CTECroJ2SFR9vfbWhsFCvNKr/Stl4EwsJwJgylOccX4x8sSilaPRA
-         z1JqmIpZlAEBtNB++xLhYyeiCG6obzNwZc9GjK32ALmhITLFv7CFKshgaQQcfH5LbVh8
-         XsCYV497FyVSm15HJ8GpcdOfAVgxl1p4oV657tXpZENjqS4dpohiJ2ybdNhquAJiqvMW
-         0SACJ/QSbWBb1XvdW3yoeGfOVaweVRyPcOZqWHUmxeRhXk1n84ldElgvcvcbRiQirA1U
-         KakC4QOJupA+b0iBfWOHpT4q/2odRcldMLUnUoFG3O38q/zQk910duLRCkGcnxWUgpmB
-         54Iw==
-X-Forwarded-Encrypted: i=1; AKwUvBxN0xa8mz3QmgysDKpTEN2ZdKzRGsyYlvVIj9+kTUO4SHvf0MtDV1dRUhI8l7jg2S/gkVFlbFhl7wriVvU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLp1rV3NwwtTtCnMseL6Yhg6YeYnlac95YJQfgt7pewL3VgF47S
-	LY0XtjAJpXZC87zbyNkTRB5Q3UAAMsd5HtT+OQwB+5ypPgIZ3SJXivNsCDw6Z8bo4rGQoUOn
-X-Gm-Gg: AYBFou1hapgW6Z9NwtkyuVAlq64BFzV3Ud5NMGQQOFNCNXZpCfwM9OhMagAdYuYkPd0
-	86r+J6jWujO4nGFVwwIJhJMuUroM02NWB7Ad3IAGawGiK6FHI3ezrYHitRmHDnz2nyhqmWqLp4r
-	ATJeQAYgsxBkUQnP4j8SCqaUStheYFJcnpQ8Q2g7KRm/SFBO5NqZmj+IaHUwSVMiIVTshmfwrnn
-	YAQqYp+L03L14OjdKD74/PYsg9DIhuPAKLxJ0FBPKM6ny9Y4ctPRsia8njN3aAzlPnKdVL04XKd
-	yLs3demVWMFepVwf5AeLvgc8BD4XkFIDpHutHZkts9Qdu80hHUTB5Fc+3tuVl29WNUaO0WWDbEA
-	pbOfcpxgeY6+XjZFVyDXRJ1UIzxifALwmrrX4aHsWsrJJUAjoqWVxUT5yPU6kF/bTcVbMtodtuP
-	dh/5CkYVtg/fvFmaBAi2Yzm0rh5m75zVvj/LBASBIi9yIP3l/g4de3CRo8eOzteJPmSqurT52Ao
-	VIgtA9wPeURbIg3Y6ARF1R5RgX0173oQudIUc5dPlrxTXhyXxTjh1zzteFUvfx7Msz2I/QEgOFF
-	7wYxb4K0cQM0Ds2bpOdNX8VD9XUw
-X-Received: by 2002:a17:903:19f0:b0:2e9:3dd2:a8f6 with SMTP id d9443c01a7336-2eae3942024mr14409105ad.9.1793093222853;
-        Tue, 27 Oct 2026 02:27:02 -0700 (PDT)
-Received: from [0.0.0.0] ([129.126.71.118])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6b7a216sm6149335ad.16.2026.10.27.02.26.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 27 Oct 2026 02:26:59 -0700 (PDT)
-Message-ID: <9556e959-daf3-4c85-8794-9613e7e7a9ae@gmail.com>
-Date: Tue, 27 Oct 2026 17:26:44 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=jCVw+2jY
+Received: from pps.filterd (m0044010.ppops.net [127.0.0.1])
+	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69R5ZUoI786386;
+	Tue, 27 Oct 2026 02:26:52 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	pps82601-s2048-2026-q3; bh=UQzd8Q57y/Ls3xxOwRqM/QyCB6vFpKuUv/0iU
+	G5QYLw=; b=jCVw+2jYnIGOR3X4YjUtl69gpgbj0j5Q3K2Vt1mFdlK2WSi371sGW
+	5ee4ZpkXjfQZUzTrxDqZ4BSwC8xXBjtIENmuWH6tVGZEa3TE18PvGHx2e1bse1xA
+	0Mer8qxxEH+SgHxJ15VukXW6sAJ+ty4GHe6oc72rcq758fA5rA74LJbFua1BgZ1I
+	qefN3JK/9GN9aJEyoKd3vacs0VycNNUFhtpFGQ5HGSkcCR0+YZJq+YnF+P+lsdiB
+	xCghKGkKddR6UyEJbGvj1ArpNJerzxGztCXX37hXdOkJ9D9qvCD5dGtSbv1J78+k
+	ECVgupOozN22wBN3zqWfb0fh3KyXLdshg==
+Received: from maileast.thefacebook.com ([163.114.135.16])
+	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4hgr03sauj-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+	Tue, 27 Oct 2026 02:26:52 -0700 (PDT)
+Received: from localhost (2620:10d:c0a8:1b::8e35) by mail.thefacebook.com
+ (2620:10d:c0a9:6f::237c) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.56; Tue, 27 Oct
+ 2026 09:26:51 +0000
+From: Ruben Hakobyan <hruben@meta.com>
+To: "Michael S . Tsirkin" <mst@redhat.com>
+CC: Jason Wang <jasowangio@gmail.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+        =?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
+        <virtualization@lists.linux.dev>,
+        Alexander Duyck
+	<alexander.h.duyck@linux.intel.com>,
+        David Hildenbrand <david@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
+        Boqun Feng <boqun@kernel.org>, Gary Guo
+	<gary@garyguo.net>,
+        =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?=
+	<bjorn3_gh@protonmail.com>,
+        Benno Lossin <lossin@kernel.org>,
+        Andreas
+ Hindborg <a.hindborg@kernel.org>,
+        Alice Ryhl <aliceryhl@google.com>, Trevor
+ Gross <tmgross@umich.edu>,
+        Danilo Krummrich <dakr@kernel.org>,
+        Andrew Morton
+	<akpm@linux-foundation.org>,
+        <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
+Subject: Re: [PATCH v2 2/2] virtio_balloon: submit reported pages as individual buffers
+Date: Tue, 27 Oct 2026 02:26:33 -0700
+Message-ID: <20261027092633.3831267-1-hruben@meta.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <02257263433b001cd0a55a52486857df81dd4246.1793057483.git.mst@redhat.com>
+References: <02257263433b001cd0a55a52486857df81dd4246.1793057483.git.mst@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,82 +93,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/4] cpufreq: add an Amlogic speed-bin driver
-To: Viresh Kumar <viresh.kumar@linaro.org>,
- Jerome Brunet <jbrunet@baylibre.com>
-Cc: christian.koever-draxl@student.uibk.ac.at, neil.armstrong@linaro.org,
- sboyd@kernel.org, bmasney+clk@redhat.com, khilman@baylibre.com,
- martin.blumenstingl@googlemail.com, rafael@kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, linux-kernel@vger.kernel.org,
- linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org,
- devicetree@vger.kernel.org, =?UTF-8?Q?Christian_Stefan_K=C3=B6v=C3=A9r-Drax?=
- =?UTF-8?Q?l?= <ckoever@outlook.de>
-References: <20261025192219.209137-1-christian.koever-draxl@student.uibk.ac.at>
- <20261025192219.209137-5-christian.koever-draxl@student.uibk.ac.at>
- <at7lXEqds7ukoR2V@vireshk-B250M-D3H>
- <1jbj8gkff1.fsf@starbuckisacylon.baylibre.com>
- <at8WfX_G0tfTlFrm@vireshk-B250M-D3H>
-From: Chuan Liu <chuan.liu686@gmail.com>
-In-Reply-To: <at8WfX_G0tfTlFrm@vireshk-B250M-D3H>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDAzNyBTYWx0ZWRfX2VSj950iOp7Z
+ N4wUJseZMVGKZFT1K79AoxkcWplGruzFczPACN072fI56TQBcnDIR5d3z9xwOl3ajLxPsqwGObJ
+ CuUSxsqdSs93tlCR/U2JAOmERKs094+by9aPY+tm/nyVw+LUFnMZaNOX75mSL+NJh8rIEh3EbcS
+ KNpUXo/GeaOtMEy/VfVHasI0kCR+8CiAM2djUAsoKmiLyKWFx1Q5Pbtqhi5c+O2msbXXsl64PTp
+ /cMv73qNqsmaXWRfCit/ivJAut+1eNPR1s/2JZAThlCzzs/Qhk4czc8m6c0QIGyJocnDhJH9jA8
+ bdPJ/0bKd0tXyQPsRxLTknWCyjFXREV/+whDLf2sTTBT90lZ7dnovYsQItV73YXdxjtmrkQoVEN
+ PeQ3J1uCX8VFKNWEUPrKmPsvb+VzTVNwunqASjg3AouK2MR0As7MS2JGjlls7F0cZywDTTLi1GF
+ RaLgrPa0I/W4jynFu9Q==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDAzNyBTYWx0ZWRfX+f30BYpJwjLB
+ LmUOyQuTOtWnX0CuEvdTxgol7vKvhY+IeCsxOfBL2GHfF3WwefRcDFX6K3DwuhULowD6Mm9VTKH
+ b0VEVZVwMxBHcJQY6zA2lJT96M6mkNk=
+X-Proofpoint-ORIG-GUID: -xGNlB55EHYWHVXCVtCF10g8upJUtTZI
+X-Proofpoint-GUID: -xGNlB55EHYWHVXCVtCF10g8upJUtTZI
+X-Authority-Analysis: v=2.4 cv=DLUacCNb c=1 sm=1 tr=0 ts=6ae06e5c cx=c_pps
+ a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
+ a=8elwO82fXORLTBIkMd32:22 a=20KFwNOVAAAA:8 a=VabnemYjAAAA:8 a=QyXUC8HyAAAA:8
+ a=w1El1bXDMijZuEW-F6oA:9 a=zY0JdQc1-4EAyPf5TuXT:22 a=gKebqoRLp9LExxC7YDUY:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-27_02,2026-10-21_02,2025-10-01_01
 
-Hi Viresh, Christian,
-     Could you please hold off for now on the patches adding cpufreq 
-driver support on S4? There are still two issues that need to be 
-resolved first:
-   - The clock driver currently does not support setting the CPU clock.
-   - The CPU regulator needs some time to stabilize after the voltage is 
-changed. Without a proper delay, the CPU clock frequency may be raised 
-before the regulator voltage has actually reached the target value, 
-which can hang the system. The S4 CPU regulator handling currently lacks 
-the logic to wait for the regulator voltage to settle, so this part 
-needs to be completed first.
+On Mon, Oct 26, 2026 at 11:53 PM Michael S. Tsirkin <mst@redhat.com> wrote:
+> The virtio_balloon driver reports a scatter-gather list of free pages
+> to the VMM so it may discard unused pages.
+>
+> For an arm64 kernel with 64 KiB pages, the default reporting and
+> allocation orders allow entries ranging from 2 MiB to 512 MiB. If the
+> report contains a sufficient number of large entries, we will end up
+> with a descriptor chain that represents over 4 GiB of memory. This
+> violates virtio spec, which says:
+>         Drivers MUST NOT add a descriptor chain longer than $2^{32}$ bytes in total;
+>
+> Specifically, submitting $2^{32}$ or more breaks Rust-VMM.
+>
+> Submit each reported page as a separate virtqueue buffer instead of one
+> buffer with an sg list of all pages.  This also avoids indirect
+> descriptor allocation (kmalloc in the reporting path).
+>
+> To avoid multiple buffers causing interrupt storms, keep callbacks
+> disabled while we wait for an event.
+>
+> TODO: as an alternative, keep using virtqueue_enable_cb_delayed
+> but add buffers after there's space in the ring.
+>
+> Note: if the virtqueue is broken, wait_event on
+> virtqueue_get_buf hangs.  This is a pre-existing issue:
+> the old single-buffer code had the same hang.
+>
+> Reported-by: Ruben Hakobyan <hruben@meta.com>
+> Cc: Ruben Hakobyan <hruben@meta.com>
+> Fixes: b0c504f15471 ("virtio-balloon: add support for providing free page reports to host")
+> Cc: Alexander Duyck <alexander.h.duyck@linux.intel.com>
+> Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+> ---
+>
+> Notes (changelog):
+>     changes since v1:
+>         keep callbacks disabled while draining: get_buf re-arms the used
+>         event for the next buffer, reintroducing an interrupt per page.
+>         Disable the reporting vq callbacks at probe, and only arm the
+>         delayed callback to wait.
+>
 
-We are currently working on submitting our own cpufreq driver. We are 
-considering how to address the issues above, taking into account the 
-hardware characteristics of previous SoCs and evaluating factors such as 
-the transition latency. S4 will be covered by that work (as well as SoCs 
-from S4 onward, such as C3, T7, ..., A9). So please give us some time.
+Thanks for the patches! I think sashiko-bot found some issues on broken
+queues in the first patch that are worth looking into for correctness.
 
-On 10/26/2026 4:59 PM, Viresh Kumar wrote:
-> On 26-10-26, 09:57, Jerome Brunet wrote:
->> On lun. 26 oct. 2026 at 11:00, Viresh Kumar <viresh.kumar@linaro.org> wrote:
->>
->>> On 25-10-26, 20:22, christian.koever-draxl@student.uibk.ac.at wrote:
->>>> From: Christian Stefan Kövér-Draxl <ckoever@outlook.de>
->>>>
->>>> Every S4 speed bin runs the same CPU frequencies but needs its own
->>>> voltage curve, and the bin can only be read through the secure monitor.
->>>>
->>>> Read the bin from the firmware, select the matching
->>>> "opp-microvolt-speed<bin>" property for all CPUs, then register
->>>> cpufreq-dt. Bins outside the known range fall back to bin 0, which
->>>> has the highest voltages. Like sun50i-cpufreq-nvmem, the driver binds
->>>> on the SoC compatible and needs no node of its own, and S4 is added to
->>>> the cpufreq-dt-platdev blocklist so cpufreq-dt is only created after
->>>> the bin has been applied.
->>>>
->>>> Signed-off-by: Christian Stefan Kövér-Draxl <ckoever@outlook.de>
->>>> ---
->>>>   MAINTAINERS                          |   1 +
->>>>   drivers/cpufreq/Kconfig.arm          |  14 ++
->>>>   drivers/cpufreq/Makefile             |   1 +
->>>>   drivers/cpufreq/amlogic-cpufreq.c    | 184 +++++++++++++++++++++++++++
->>>>   drivers/cpufreq/cpufreq-dt-platdev.c |   2 +
->>>>   5 files changed, 202 insertions(+)
->>>>   create mode 100644 drivers/cpufreq/amlogic-cpufreq.c
->>>
->>> Is it safe to apply just this one ? I can take this via the PM tree then.
->>
->> I would advise to wait a little for Amlogic to chime in.
-> 
-> Sure, I wasn't going to wait for the maintainers to respond anyway.
-> 
-
--- 
-Best regards,
-Chuan
+Other than that, I tested the "normal path" on QEMU and Cloud Hypervisor,
+both on 4 KiB and 64 KiB guests, and this works correctly.
 
