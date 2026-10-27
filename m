@@ -1,84 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.35
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793069968;
-	b=FzZkk1IdKz69/QAWksCBVNx2+Wy8HlVS/3t+ExvFNJ0gyN9p100YnrXd1TEx28W7TB95
-	 hQIty8w+ku3rnh7dfDxryovYuPSJq8vUzAi0ILrGAIPWbPMCGHNmAiLGWb9OIq+jrf7Wr
-	 e3OONZ905HfLxR00t3EFoMjIsItFcIbyMdtD2jVKuJUv5NECaj4Tdm3Y6p8Sr/dwY5wDr
-	 rukc2XXUsqrN/xKpJISr3zR8sqbToyP6GXllatxgyxKmvw40soQZL/BhTL8xQaNtLq53N
-	 Fx0o/Nq36odUizRM9hSJmEVgyhyAeIOQ+fLhyXN4Ini1ifSGntRFmmGSQg7g50/G2Ug==
+	t=1793069977;
+	b=b/x0h7cNuK3M5x72xwQrpcDqwmsu7uDm5bGrjfT09nsC5GzdhHmxfvfZs1B53X1J//7Q
+	 ZQ/sFN1LtE/VWt3zehoZ+uEejMT2XHXxkhEgOY8VEYk+P78V6/F1ks3sogppSUxIoEfPO
+	 jm7G8yaGV+BQvdGi4nutcM/w4FwbTLVs8qnFe0t6ZNc21mmHfro9H637fQMD+UrTAg9h7
+	 b7cfzVolO9X2qASf45PxThPEG2MFdkAaV9lx/gxxcAMeVcdD7Jml8OT5TXXyoOSvEjseR
+	 1QJKK8taH1s2uGsEXkqnbqe+W+ULtSwSbuJrUI3kKTd8LJhgAPVQ5T1WwQxqlWH+tZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793069968;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
-	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
-	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
-	 X-Local-Domain:X-CMAE-Envelope;
-	bh=DVZYAzp5y3OZA2PjGNx37RsXlUC5F7cYH3MmvY5PMVk=;
-	b=EXMUCQ0RotMa1FXi14YpqaOGy4WINZhHylr9gUp6BPCouBPlnBDRIrFR41CK+x8yosC8
-	 p3UvtjeMsJ77dXfcLqzBqzWLAWlVPkxrLF7GRzFG4Aom4UM/xRpsKNSFrC4FcQcw79/8i
-	 Cda4B595Zf2C0CKm4HrP+hKMrKIZ0oKrW9Xe/z65ZTx3atYoARiIky3YGatQjCg/AsIbR
-	 U7a8MCysu/kcekPHUqktY2DJxXHaGawdlarFPk74s7LdTYlFqxloUJ5xHgKiw5YGuZtvg
-	 L2uHujdP3WVGFrFlZjM6prxUpqAOLmXe/f7k9x2hSFG6fd6/zEtbw9Lead9ax6fAusA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793069977;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=hSnvvzDhM2uKqCBxyLgpEZ66FQuzFPilOEd8OHc2tQE=;
+	b=0U4gTTnAqtW9+0c1ogCYPLnv4u04ZJXPPQbNyTRX+wF4u+fzEZHKS5Ojf+tIp4EI7wZ2
+	 mpCc9Uj4CZLTPQUwCALG6lVLZryGB4gqgMNaLiIlqdcJ3BiuroYPIZTnl3jTN4E8EJOd4
+	 44BQvPn7bn1lqpuLL48f3Xw292JeIl9Tji27Be56oVvD6MyWZeYxgeWX6MzYFINfbT6jG
+	 9o+4YcOtDaCpfukRXfePKwH7DXteVqRRDK+zsUWIrURjRi+dkDUepPMnSq8vZFrIzPuVQ
+	 2bKr51/h3NtC9QiYOV634nfTdzlegob4BIZJA6pamBLUKUdUkV44dqEuumRLf7Vsu8g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=GxUj9QwG;
-	arc=none smtp.remote-ip=44.202.169.35
-Received: from omta036.useast.a.cloudfilter.net (omta036.useast.a.cloudfilter.net [44.202.169.35])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CqPieSzT;
+	arc=none smtp.remote-ip=209.85.214.180
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5853D606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 02:59:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5853D606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6412606A32C
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 02:59:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6412606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=GxUj9QwG
-Received: from eig-obgw-5006b.ext.cloudfilter.net ([10.0.29.217])
-	by cmsmtp with ESMTPS
-	id LSk2x5puwLvgbLXPLxq1O0; Tue, 27 Oct 2026 02:59:27 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id LXPKxxCFnVnUjLXPLx9V0W; Tue, 27 Oct 2026 02:59:27 +0000
-X-Authority-Analysis: v=2.4 cv=AMDybF65 c=1 sm=1 tr=0 ts=6ae0138f
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=M0FbrtG7MMAA:10
- a=mitAZJTLCVS27zc7Mg0A:9 a=CjuIK1q_8ugA:10 a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
-	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
-	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=DVZYAzp5y3OZA2PjGNx37RsXlUC5F7cYH3MmvY5PMVk=; b=GxUj9QwG56pBayE0cKAJfw7cw+
-	Wk73qh/ugxciGuEcKJvE39S+9pEZnrcM95ki2IDBrqYdx+kprmRMNxrloLsdQXR0aQs87VTPMtcca
-	7kG91AWECmiiPHhfZDbOTMf1tmpc2Z+03QU96mSDIwDUk9ZelIPxkyOF5x+zZDSiQTtgpl9pOv62N
-	R10DRSTq4g7LptaXSbZgEl9V6PSPVQffYosI8wWNeKgz8Ru7iYMtIGPUNIgEjtDmaCglhfmI0rAL1
-	IN7IEZynP9YMYZiPBBIgHkRxKyFNL9COZb4BPfJELtJ4V+GP5qxB1Fuqw7nuoqZ4dpEvxvU+bjqxR
-	rckPkmag==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:45506 helo=server.roeck-us.net)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xLXPJ-00000001xoi-2zHC;
-	Tue, 27 Oct 2026 08:29:25 +0530
-Date: Mon, 26 Oct 2026 19:59:24 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Igor Velkov <iav@iav.lv>
-Cc: Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Philippe Boos <pboos@baylibre.com>, linux-watchdog@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] watchdog: meson_gxbb_wdt: fix suspend/resume handling of
- HW_RUNNING watchdog
-Message-ID: <5e77e129-f822-4134-afaa-1a0cc088978e@roeck-us.net>
-References: <20261020-meson-gxbb-wdt-suspend-v1-1-d5abe4340008@iav.lv>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CqPieSzT
+Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2e99b1e5b4cso20253595ad.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 19:59:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793069976; x=1793674776; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hSnvvzDhM2uKqCBxyLgpEZ66FQuzFPilOEd8OHc2tQE=;
+        b=CqPieSzTRnCkJ8rM6iRBdGSlNKE/l4IOUn6nhqhCKR3eN5UyjZ4YejMK7uN59tO960
+         0yu/KRBg4FK9xogLSEnUuK8UuoDvXhLTaAYlp6EwjRsd+FiylLmYDYdtyIFvMYjqII4d
+         PrD8pzYLMxiCE0u+GZlurVLeHQabNRFGQBDzN160lLbae9otfAf69kqhEPC+kRVNo2MV
+         VbL+XM8AbqeOFxiCh6f+MPMEk3GynSem1BV/9x3DzYr2FpsSljxD/hMHwCpKZUlzQKYO
+         eG6vbr+4vbcsFrcNNwz+xlY2ensSLFllJFd8SEv56tKThwBAm877UqxcFeLxj25Gexb3
+         P9Mw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793069976; x=1793674776;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hSnvvzDhM2uKqCBxyLgpEZ66FQuzFPilOEd8OHc2tQE=;
+        b=Wb/Qziq0g2Yf/rkSNEl944dbtFq1206h8WQwxvXDdmoW0Foei3Vz5S/22JyvCK1YRv
+         KN0cZW2wDQK2bd73IQbpNuSsl8lWD/Q5QWmOfAV8pS1filZDHk481UkabB+6kT/N4qoF
+         zlghFEoRkC214ESYCzz7rQYWBdPlk1TzmsINU3f6Sf3sT5Yw6OzZLYyMfXvrw7zOZcbN
+         DOAdQKEfQvH+m/SW4x4IpGmdLQixIqllmUd1FMLWkVee8JLEm5WIhydZyUfmyaAnLWju
+         KxXoSEwkmPe0zahyI46OxW+hxXJu9LIY9hQaBnF8XM3+DNB2bEwxMV5h6dfilxOEsEYE
+         +D0A==
+X-Forwarded-Encrypted: i=1; AKwUvBy78OdsW+6yjCawHyWic4qRDawgk+SRpMxn4dahVi7Lm+oFNyq6VAizAgVtB82lPALJB5W96G8AlkmOCHM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKfNxQJmJWwvqVs6rgdh7UUdLvQQCjdpdaYeW5pdtxY4hSF2pdk
+	xDtCTxZNVRp/CBlnXvOIymYGWmnQf17uRMMyJuSNgxHoK3E5dyxKJMOd
+X-Gm-Gg: AYBFou1qiTo9XFZYjS6HQgPkhagGg1oRsjHmsLugph++FJmOF2xbAL1T+oR00D62m/j
+	OVYkyT+VhXcibxP1Z+XmKe1ZO1pNc6ClrxlwCt4vOeXtS5WzUoS0aQu0vDMhE85k8xs6iHwzqJE
+	GpzzFW2DprTit16NtQpNaztUxBndTE9iqQO7vDzsjkS0wq3MeBmiGAmtbzp02LXTmK8q/TMl0HE
+	HLf9frkTT4LqAixVsnukvAOmakVNSw42zBLg4nXGWyRNYS2q10xmwPtwFeT4qHZ4SGEyszVrxQm
+	FEe3O0xC9iYdkoHFPxUpv64OMgiH6VcpGgqhs0J+tY6LAbEnzR1sE1FmpTa8spPjGKzQHn0mkQU
+	8/s18hDHBpCmRXjXaEiPJCWg5GPWKgoZR7Y2n3IcoDOQeaOuIHfYaPunGaeDgKYbVefE0/QF0gD
+	LhdvMHu7xAOqi/NeHNHosP3KIJafBbGwwDUOC0jo2LjfnJJE3iV26qhEbW40tTGjDMdqqLP4H7b
+	yNm80QgYtpF3NGqB3l1WaeIetOjeNX6H3CPYn0hbuJxf+eGIN3UyIKtxi87axn0JehpgfYZH5Yg
+	fJc6/Ozg2eTYt0RevOdZ
+X-Received: by 2002:a17:902:d48e:b0:2e9:5d1f:dffe with SMTP id d9443c01a7336-2ea9c9875fbmr71515405ad.57.1793069975922;
+        Mon, 26 Oct 2026 19:59:35 -0700 (PDT)
+Received: from [10.25.164.32] ([128.77.72.132])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6c912f9sm2255465ad.60.2026.10.26.19.59.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 19:59:35 -0700 (PDT)
+Message-ID: <9b6c85f4-5881-46d8-b247-ae6bbfef8f91@gmail.com>
+Date: Tue, 27 Oct 2026 10:59:28 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,54 +91,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261020-meson-gxbb-wdt-suspend-v1-1-d5abe4340008@iav.lv>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xLXPJ-00000001xoi-2zHC
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:45506
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 1
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfJia7nfFoVWT0QWGZ5g5SFIRxdLjWgXpl2BRheNxRHTO0j3S171zoiR/XlyAvPL0C3TN18TnDM2yumBt/jLAX4eqQI6Xvhqs1jg9kYuLLTmonmj01rb2
- 9RvGxGAtt7AmzULkG1kFONCy7jIJ0LSO1IafS9wrdFyDE1JbePychae6QCtGGQ8pCkFqH/PRJShU7vm/FaRrAH6fQh6RGzWR5n3R/EynqrEMs0MeJ2PPCgKR
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: imx952-frdm: support AONMIX MQS
+To: shengjiu.wang@oss.nxp.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, Frank.Li@nxp.com, s.hauer@pengutronix.de,
+ kernel@pengutronix.de, festevam@gmail.com, devicetree@vger.kernel.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20261026085352.4009534-1-shengjiu.wang@oss.nxp.com>
+Content-Language: en-US
+From: Chancel Liu <chancel.liu@gmail.com>
+In-Reply-To: <20261026085352.4009534-1-shengjiu.wang@oss.nxp.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Oct 20, 2026 at 08:28:37PM +0300, Igor Velkov wrote:
-> From: Igor Velkov <iav@iav.lv>
+> From: Shengjiu Wang <shengjiu.wang@nxp.com>
 > 
-> meson_gxbb_wdt_suspend() and meson_gxbb_wdt_resume() only check
-> watchdog_active(). Since commit 6adbfbab0f03 ("watchdog: meson: keep
-> running if already active"), probe keeps a watchdog left running by the
-> bootloader and sets WDOG_HW_RUNNING. If userspace never opens the
-> device, WDOG_ACTIVE stays clear and the timer is not stopped for system
-> suspend.
+> Add support for AONMIX MQS (i.e. MQS1).
 > 
-> On an ODROID-HC4 (S905X3) whose U-Boot starts the watchdog, with no
-> userspace owner, the board does not wake from deep suspend
-> (rtcwake -m mem -s 60) in 2 of 2 attempts and needs a power cycle.
+> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+> ---
+>  .../arm64/boot/dts/freescale/imx952-frdm.dtsi | 77 +++++++++++++++++++
+>  1 file changed, 77 insertions(+)
 > 
-> Stop the timer on suspend and restart it on resume also when it is only
-> running in hardware, as sp805_wdt does. With this change the board
-> wakes from deep suspend in 4 of 4 attempts, and the kernel pings the
-> watchdog again after resume.
-> 
-> Fixes: 6adbfbab0f03 ("watchdog: meson: keep running if already active")
-> Assisted-by: LLM
-> Signed-off-by: Igor Velkov <iav@iav.lv>
+> diff --git a/arch/arm64/boot/dts/freescale/imx952-frdm.dtsi b/arch/arm64/boot/dts/freescale/imx952-frdm.dtsi
+> index 7785eb1a68fc..750046e1a5c4 100644
+> --- a/arch/arm64/boot/dts/freescale/imx952-frdm.dtsi
+> +++ b/arch/arm64/boot/dts/freescale/imx952-frdm.dtsi
+> @@ -222,6 +222,12 @@ cpu {
+>  		};
+>  	};
+>  
+> +	sound-mqs {
+> +		compatible = "audio-graph-card2";
+> +		label = "mqs-audio";
+> +		links = <&sai1_port1>;
+> +	};
+> +
+>  	usdhc3_pwrseq: usdhc3-pwrseq {
+>  		compatible = "mmc-pwrseq-simple";
+>  		reset-gpios = <&pcal6416 8 GPIO_ACTIVE_LOW>;
+> @@ -390,6 +396,70 @@ &micfil {
+>  	status = "okay";
+>  };
+>  
+> +&mqs1 {
+> +	clocks = <&scmi_clk IMX952_CLK_SAI1>;
+> +	clock-names = "mclk";
+> +	#sound-dai-cells = <0>;
 
-Applied.
+Above 3 properties have been defined in dtsi node. No need to add again.
 
-Thanks,
-Guenter
+Regards,
+Chancel Liu
+
