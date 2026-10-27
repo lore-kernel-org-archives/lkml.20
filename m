@@ -1,117 +1,123 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.142
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793080993;
-	b=OqPQjdYCoWUS/cyCbbaL/F4kC7qoDITUbUZHW7/MDVBemDPdmiLTIM3AxcQpSAMXCOGs
-	 ysMG6YN2gx9ZK8gUL0HLlioNhbiO4yhzGw5cs7eeyynfp13vzSrc8LBY8WCfxdDhLaIB7
-	 b2DMT0BKjYKo6mtB6KQm1VIDmy/LBWag4Ep421hxPQhERpLr2GaxQ6gT0KGnFmvTvvo3u
-	 r2c/5DzJvcEWew+qjU7MNackMvEpwzew64EBTvFTJPYHjG1kQ23KHGRKjDNUM2R8zYzFs
-	 SDrPwyMs0qG0bbe3FiJaeb/dIPa0aDRdXKJmt3VL1KXruxe7wmlTHLWpHGmucBdqVxQ==
+	t=1793081044;
+	b=JwoJYQVc/MIc7peo1q//91aZUF/D41MgCbGWCGEgXTMCXiB1BtlbwcrmM/R8TllBVeK4
+	 8s474zf8ipmOG/jg6rce0oUe82HhiIwiEBVhHoA63SP+WfdTGYSpHaL9mObRfmvr4AOx+
+	 mqlKttuGaurrQPM4U0VhlIutxegaFGH9Y0jlDuJ9gfV2kqWDWTe2ukWT8CfR5Zhzf0xKs
+	 OWncWdoRMVCuRn6CYBS6iCvsWituljzlF/KRviLTZ4mWMaBQk1dr5LkfTbby3dHRod3tD
+	 WYrVyZMGov3zvlcO1YW0RMwA1DwAloXMovJRKVpRAMEGhjvhTCV96nBTMwppzuNTUeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793080993;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=KtHkcu0sQsAK751caVzJBQDY0o4i7F/zlOnjMPPeE5I=;
-	b=CA0Wiz/pLWlE1GdMcmnQaBRspe54o882bShWnWMHtoBO3yciQWQ0yzhI6yCJS0Cpzs2a
-	 gTanTjoMOG/ITKHyGARadcy04tNcXGDQXo7KMCDMlY+TzK1Qz01GyFj0R/DPfceU7fE9x
-	 BWTgongxu0610YoK3nk3pzOYOGozhBMiLhE4mgEf1Y1bNG3QSYs7BPjC/LzArwRo9fDGu
-	 mOaSCXhvuce3oT0c70xNMB/R6XPQxMkVPHLii/IBG38BSYVZt/TB1m6kjpA4a85obHvX4
-	 dA2t0lsXlI6+pXUJTs1ce54rWQHPfxkVeOGThuaZt5bJsO1vjmSQJACUklSSHykwvcg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793081044;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=t4OoGf5gHVzRGe+YIjw2VuUWKRz8U6K0v5JtauIuYFg=;
+	b=xpteSiR8ddH6DqxW8TwNYyma44XifdrFZ4yqVpxp+huvA71TsoU2007/UJWMos8nBERk
+	 G7q67vWpI3RVcQaOSKli9KX6rx9PLqjveeRp5Xy327bF6Nr2UsRt2qDmhQL8j2KDtyp1Y
+	 11O/CGfBG5wYbIX7efB1m2ZBkW3jW5XhVfF81kTuExs9uzaldwMPZDLZUIat03CkOCrb7
+	 zvxDEFAJi+s4beEfABkla1xiD7IDFlRH3F/9e52oQ5LISA55TqAF3Oeiu19dVfioNq0Pf
+	 8cOTrFAHyqNAO1bID6wq3QmtrXJPC3MeQXnV89fdfYWfFEnqnncehx9Ykcz2YHv2mBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Fd+rVQCT;
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=kroah.com;
+	spf=pass smtp.mailfrom=kroah.com;
+	dkim=pass header.d=kroah.com header.i=@kroah.com header.a=rsa-sha256 header.s=fm2 header.b=pBmbRuK+;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=IlFiGdCd;
+	arc=none smtp.remote-ip=103.168.172.142
+Received: from flow-a7-smtp.messagingengine.com (flow-a7-smtp.messagingengine.com [103.168.172.142])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42CB0606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 06:03:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42CB0606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFB87606A31F
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 06:04:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFB87606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Fd+rVQCT
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a2000d5fb1so25209645e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 23:03:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793080991; x=1793685791; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=KtHkcu0sQsAK751caVzJBQDY0o4i7F/zlOnjMPPeE5I=;
-        b=Fd+rVQCT6h6iWDR02V4pfE6w4B9VB1S0lffsv2IDdIHHIRdyK3jUEt2FmHBfZxMBXo
-         /6CAn9UDjbhCtzDFEAD5X9jRnzYGPQcAkOmikfnG13ul8dm2gAbZsM9KyfdVDLAcz/Ay
-         UiOYwyOaUeF+/xVxB9iMXFcDyDlueTVmMgBFt8QsaC3JgphcNjaakCDKqO2hcesvrHWK
-         9oqTpTZC6ExZY6JzDB3EJe6w45YuoOXY55hHfzjgqADewKP+nXACtXCBTHV/WG0pE4Ke
-         YqA7i+Nq+iwiszDPQZGl2GpPWw21M4pwSa8W/8EODi1AZRQE76335KaE1hQ2D2r+gA/7
-         74bA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793080991; x=1793685791;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KtHkcu0sQsAK751caVzJBQDY0o4i7F/zlOnjMPPeE5I=;
-        b=Bh68GZnp/Q/1hAGUUEAXFXem6SUP8YEiF7SpSLCXJOxdBXDT4u9tZ5jj2zbY5Uqd+M
-         pSH32fP820i/CPsZMCdcB0OHIbK8S/BqyjOzpooQb58zqp7O87bvoY8eLDqsCtlRTdGm
-         Ds0tzgytVPAPiD5K3hFKdKqS7hPdOZZ5eXvVg0HvrRfQYdPm/WbkStPOd1x1GWvWuQWq
-         ndhsiAV+uJ2i7JSu7uYZraS8PONQwXQ0jPpnGt3AAt+glmYf6ixAvg1IgGv0f/h9Slux
-         Rzj4vx3kGZpOL+GH5RZ4KZ4+PGHGw23CIrRHXzeTY7jdYWRWjGb8d+q+NleWr+9iJ+tH
-         x+Dg==
-X-Forwarded-Encrypted: i=1; AKwUvBw3VflQIFBvcwfVfphOYsEtp347icnvv33/aPXT8MdB+20VSnxTJu1AotJEThGAsi4NEfdQqeyn2A6gzIo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKuL70izfRqlh1qcFQs/Zxw/AQhgSfWhmNBwlei2J8XIBO4fwvU
-	IrJnYJCOxhRxkleTeC691Tr8dZy2xVRCDBjwbd8wkE2gGawNpC2a/Bk6
-X-Gm-Gg: AYBFou1fSHqo9o/wbFixPjECBAgm+4VLcerW40NDZOKSGIMg2P0W9iZWwvLKvWe/NIT
-	/JvFr/GNWjmCI+e7Xvn8Q++aPlYU1HmiKmbAHVwKasaQphrG8daC81RR9v6VGovGzq+OR11F/eO
-	0gizdliFhDL7+/OezK2uFhRvzpCo8YSmY9DSepG8Smfj91Xu/Yz9o2uMSfhUAqETQtXhg68EUWI
-	L4soUxQT97YLIG9Sw3E+khmdad1kzcMY9NNRIg1pNHvKORWKiNt50TP4jY+B9AeuSsR1gWnZ9V1
-	KWnK7tMiWZDzbeeQ3L+mqnGVSWgLmj9Fo0BINdLgCTSat0Gl+LTNQy5y0YvGYeI8LCvEdOvanOJ
-	Yk/gQJ9LpNg0WHdQ1m9IuRbOnkHzsQsFX2dNOmIPoMrZTuZ5jkWfvLLmxVHvYmqErom9Ris1E6/
-	5caTGtoXMIWpDO1nEu6KbRUUxpSFgIS5jFJw7i+frD7pVKGdHWiLv04601fZ4YDAc9ModjJAcXI
-	Jiox7A2Aj3bC8CM00qTRbt1qGLrwLzj7FHz9dWGYz08MfUzTY3ta7okbLPFI/Qd
-X-Received: by 2002:a05:600c:3acb:b0:4a1:992f:d0e7 with SMTP id 5b1f17b1804b1-4a35aca4fe1mr159192175e9.16.1793080991458;
-        Mon, 26 Oct 2026 23:03:11 -0700 (PDT)
-Received: from foxbook (bgu81.neoplus.adsl.tpnet.pl. [83.28.84.81])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a5698f1sm240600745e9.8.2026.10.26.23.03.08
-        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
-        Mon, 26 Oct 2026 23:03:11 -0700 (PDT)
-Date: Tue, 27 Oct 2026 07:03:00 +0100
-From: Michal Pecio <michal.pecio@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Alex Williamson <alex@shazbot.org>, Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?=
- <u.kleine-koenig@baylibre.com>, Armin Wolf <W_Armin@gmx.de>, David Lechner
- <dlechner@baylibre.com>, Danilo Krummrich <dakr@kernel.org>, Luis
- Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>, Daniel
- Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, Aaron
- Tomlin <atomlin@atomlin.com>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
- <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, "Rafael
- J. Wysocki" <rafael@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, Bradley Morgan <brads@mainlining.org>,
- Aleksandr Nogikh <nogikh@google.com>, linux-modules@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-usb@vger.kernel.org, driver-core@lists.linux.dev,
- linux-trace-kernel@vger.kernel.org, Johan Hovold <johan@kernel.org>,
- Richard Weinberger <richard@nod.at>, Thierry Reding
- <thierry.reding@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>
-Subject: Re: [PATCH v4 0/3] driver core: add TAINT_FORCED_BIND for when
- userspace manually messes with devices and drivers
-Message-ID: <20261027070300.4c45616a.michal.pecio@gmail.com>
-In-Reply-To: <2026102637-buggy-mothball-2a08@gregkh>
-References: <DLIL9H50MALI.3JROXYEEUM3KU@kernel.org>
-	<arIvG0nx4LXG9nlW@monoceros>
-	<defb3953-7516-437e-b70b-d57de55b91bf@baylibre.com>
-	<9bd3a34b-5e98-4038-80d6-da2c3b1948dd@gmx.de>
-	<2026092321-province-yearly-44aa@gregkh>
-	<arOfHEsGGglNse7T@monoceros>
-	<2026092348-victory-erased-0e5a@gregkh>
-	<20261023181326.0dc2f7ed@shazbot.org>
-	<2026102437-vista-unsoiled-b089@gregkh>
-	<20261024103512.4601ee4f@shazbot.org>
-	<2026102637-buggy-mothball-2a08@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=kroah.com header.i=@kroah.com header.a=rsa-sha256 header.s=fm2 header.b=pBmbRuK+;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=IlFiGdCd
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailflow.phl.internal (Postfix) with ESMTP id 0B5FF138035D
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 02:04:03 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-01.internal (MEProxy); Tue, 27 Oct 2026 02:04:03 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
+	:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm2; t=1793081042; x=1793088242; bh=t4OoGf5gHV
+	zRGe+YIjw2VuUWKRz8U6K0v5JtauIuYFg=; b=pBmbRuK+RpEV9BFZTEEED1+xQn
+	QxhzwuWaStp0492F1sZlJfdb5JrjYSCV+2NYVAHtlzBHez2rPZGHA5hVzwPIReU0
+	PBLDTVnFMvFnxG1AZV9TRR631wBSiqcqUraFNCcatQe9H7+KVdS43vEmJH/IjCmZ
+	segcD9NSUwmMGgDgk0RzIRq1Us9+nZTxJ0pFEN1sxF7h3bL+Bw1xd8n/uaYXPqT9
+	omVT04BOGkvrKu/VnhPQ53HphPOrrlfa05snlpXQQp269jbsx/ijs+qitlvwPu6v
+	F2n5RJVA4zJ0ZAEuGcZEt+cqQuYI7ADvrfw/g+X2wZ5uWhG6ftAzAbq5zRbg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1793081042; x=1793088242; bh=t4OoGf5gHVzRGe+YIjw2VuUWKRz8U6K0v5J
+	tauIuYFg=; b=IlFiGdCdCTlmZWowaWNwwI5su5BcJsv/nw1U199AnPalMMXClCC
+	JvQIFOWvHlwMeYSvzJeOZZNcO6ZOGMDS25kTmYL800KodK7FH7fXwEuIT+uX4V7U
+	rVAQJ1AI5ksxoeIKCUgIxYxR8UJl8LQcz+oKvB4Es9pUur6G/j4u+wGDaQ1FW4kf
+	EiGZ3QNVlV2cyobajY0wEQB0cShOsgRHkbLUcui1oCyGlZ1g69kIaweh5EMX1/31
+	GdcCyGXRf59NPD098Nf3wePdwDKNi7p632hU9F/LXKuawSkV58au96Lo6rjtFo5f
+	AGh6URukYmKewPtpVJ3Nkg5aikN4j5BEOeQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=sign d=kroah.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793081042; d=kroah.com;
+	mf=PGdyZWdAa3JvYWguY29tPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:DK6kRAXk2cOr/nq2xw+riQ3TzWmyyUv2pwR9Fagis5scJ9M
+	Tvfc9hJMWA5r1ZEL6GQSwXWsPyALd0M6laOJn/+UP+Sl9nA36OAB++ck5br3QGkz
+	KawnJv88b93LKiRTnFqS3RT0OK/90+IrnyOScgavPVMqs1OokDgpGQYAsezLP7oT
+	mv6mnnkM7ByHwdsLctgjPNo2SxY0rk9nsUxNHJZMh1+uPSWhs2PC4JwNMzoNa2o6
+	PPAiycK8pOe2Y55kKRj7FSCU5YXEKpYMGl12pZwtcwxKQvNTjZAo4hDjMKqpLLs8
+	MqQxV5ugnTXpLPymmRCn12sZyydkTFDoL+K5ftw==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:zoLwu0ba4hLP136iUKXuQNMXsdfdA3aYEIrrMD0JcHQ=:0fCBaab8hkFDDaJ/Ih1bLvqwAABT2NnP0tQ4AAZGSwY=;
+X-ME-Sender: <xms:0j7gampYv-Qepawltb_5zxAQ7r1uchBwfZZimwmO733hKQn8Cbz_mQ>
+    <xme:0j7gamToaNKCO405c8j4qnNn8oDC9GcI-bmt-9T68gkY2hk1SFn2qmEzyCKYevmlZ
+    B57DUNMtjkDDojoSiv0dO8sbVIz2ttKdhs0T9HRTjl-WiQEqg>
+X-ME-Received: <xmr:0j7gavSvZjItNm52khlx_AHH4858akhyDGWcKxwdSjhzRE-p8KbOwE2JDov5Gs8y6phc24nFABEsjebIymvUVEGZBPD73h9Tp26QQ698qbc>
+X-ME-Proxy-Cause: dmFkZTFX46FHV+PvV6KGDcfkleNK34N2X9H1Al5LrxAe53ONFm9S0IjeeWDzhKxG8Shv+2
+    2Sn379VUd+VqaQMqSNIr0RXE0+SOVRfM/Gx63Qebrl2PemtKwduXbWRECrBTGBGfJrULBQ
+    YffivZZeuaqa6DZI7pcpaDtiOVdw5kIrTCL6r+s1lX0EQtvi5KXdkVtZXgpLmiCeQhkyo5
+    0RBDkNxGhRvHg45S2izMhkaFcV0863KLldUCedNcqH3+jgrZBCN9SeN2y6dCFRcMN42C1t
+    u00FOS5PhnGCWh3LVzWtg7Y9UnqD1Eeh27e8Hg6l3YKmlHNF7H1Kh+vihbmSX9fAbHYDo0
+    vqvwH4vETUN8Zr4DxgJ4QOvXhjERnzK77P9A+IdCgjx+wiWLtKkc6LZFFD5Bs6Z1sqZuVz
+    ckKV1E0wb9arx8YX8MtEsQsRkZeuM118FdGNbvrDBaRqe0x0rhL+VYYeX+8ZFBGdMjUawJ
+    tKIyqkzcz7czfyfY6rW9sNJyuz8PObfbf9f+DG/Wm/50xB7NDGRNqMS0hrstNZ3Z4TQGvn
+    In1zUasPgunc5Wwdo3htDug2OGygn9eWE+LyMfxwElu7DqFy//jpxmpCS/DqHVPA/Mtm6Q
+    rFKbHh41mZeRGHIV2EfmG7gi/NY8DRdJ/daoTWFCIqbRlpCr+MY0uSnnyS8A
+X-ME-Proxy: <xmx:0j7gasXJz0oNMX2i5_bjE9RmmTYq1qyKsyja06RKL9Hq3lr_R_tPSQ>
+    <xmx:0j7gak2DVi_NcPVHQg6hlEYpymXWNP0b7tuqiwndvmNWu3vC3cUm_g>
+    <xmx:0j7gaj8JGrWmpkvDmF71-9Qhk9DLNlB9oR-l6Rg1izzFGDRuZ_9BHw>
+    <xmx:0j7gaqeapAAVpdYV6w0VCFpM8W2Hnjk4hM-u81q3-PiIB6n2GiqYyg>
+    <xmx:0j7gahODWA6oPkTa3xcC561pcBpZh3fFk_WjMo6To3dGYrlK1o2PazpU>
+Feedback-ID: i787e41f1:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 27 Oct 2026 02:04:01 -0400 (EDT)
+Date: Tue, 27 Oct 2026 07:04:00 +0100
+From: Greg KH <greg@kroah.com>
+To: Tristan Madani <tristmd@gmail.com>
+Cc: Johannes Berg <johannes@sipsolutions.net>,
+	Christian Lamparter <chunkeey@googlemail.com>,
+	Stanislaw Gruszka <stf_xl@wp.pl>, Ivo van Doorn <ivdoorn@gmail.com>,
+	"John W . Linville" <linville@tuxdriver.com>,
+	Kees Cook <kees@kernel.org>, linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	tristan@talencesecurity.com
+Subject: Re: [PATCH v2 wireless 0/3] wifi: replace open-coded IE searches
+ with cfg80211_find_ie()
+Message-ID: <2026102756-geometric-swept-9e61@gregkh>
+References: <20261026223153.2087218-1-tristan@talencesecurity.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -121,76 +127,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261026223153.2087218-1-tristan@talencesecurity.com>
 
-On Mon, 26 Oct 2026 21:34:57 +0100, Greg Kroah-Hartman wrote:
-> > Even if we could come up with a set of device IDs, it's a policy
-> > decision whether a given device is intended by the admin to be used
-> > by the default in-kernel driver or a userspace driver.  
+On Mon, Oct 26, 2026 at 10:31:52PM +0000, Tristan Madani wrote:
+> Three wireless drivers (carl9170, rt2x00, p54) each hand-roll their own
+> TIM IE search function.  Replace them with cfg80211_find_ie(), which
+> already provides a correct and well-tested IE search.
 > 
-> Great, then have the admin never allow the in-kernel driver to be on
-> the system, or be loaded (modprobe has deny lists) and all is fine.
-
-As some maintainers like to say, it's not the '90s anymore :)
-
-Users don't reboot systems to kick a kernel driver off a PCI device to
-try something in a disposable VM on a whim.
-
-Even if they did, it's completely normal for desktop users to have two
-GPUs from the same vendor or two xHCI controllers and pass only one of
-them to Windows/macOS while using the other on the host.
-
-bind/unbind feature prominently on every distribution wiki and forum,
-this cat is absolutely out of the bag at this point.
-
-> > That means that at one point we want the default driver bound and at
-> > another we want a vfio driver bound.  Coordinating this is exactly
-> > why we have driver_override and, building on that, match IDs that
-> > require driver_override.  This allows drivers to describe
-> > themselves as vfio-pci compatible drivers via modules.alias while
-> > requiring userspace to enable the match via driver_override.  
+> Changes in v2:
+>   - Replace the entire open-coded functions with cfg80211_find_ie()
+>     instead of only tightening the loop condition, per Johannes Berg.
+>   - Add pre-subtraction length guards in p54 to prevent unsigned
+>     underflow on truncated beacon frames.
 > 
-> And as said before, that's a horrid hack and one that is breaking
-> things today in all sorts of ways, which is why the taint was added.
+> Tristan Madani (3):
+>   wifi: carl9170: replace open-coded IE search with cfg80211_find_ie()
+>   wifi: rt2x00: replace open-coded IE search with cfg80211_find_ie()
+>   wifi: p54: replace open-coded IE search with cfg80211_find_ie()
+> 
+>  drivers/net/wireless/ath/carl9170/rx.c        | 27 ++++-------------
+>  drivers/net/wireless/intersil/p54/lmac.h      |  3 --
+>  drivers/net/wireless/intersil/p54/main.c      | 30 +++++--------------
+>  drivers/net/wireless/intersil/p54/txrx.c      | 12 ++++++--
+>  .../net/wireless/ralink/rt2x00/rt2x00dev.c    | 30 +++++--------------
+>  5 files changed, 29 insertions(+), 73 deletions(-)
+> 
+> -- 
+> 2.47.3
+> 
+> 
 
-Are you aware of bind/unbind breaking things for PCI specifically?
+<formletter>
 
-Without also involving 'driver_override' or 'new_id'? Everyone agrees
-that these APIs used for anything other than pci-stub or vfio are foot
-guns. But your patch targets something different.
+This is not the correct way to submit patches for inclusion in the
+stable kernel tree.  Please read:
+    https://www.kernel.org/doc/html/latest/process/stable-kernel-rules.html
+for how to do this properly.
 
-We can even bind PCI drivers to wrong devices *without* using bind and
-hence, I presume but don't care to test, without tripping this taint.
-
-> If you wish to override the kernel, then great, a taint flag is added
-> and all is fine.  All this means is that now developers know what you
-> did and can decide to ignore your bug report or not.  No functionality
-> changed at all.
-
-I believe people pointed out that it's a functional change for users of
-panic_on_taint who also use bind without being idiots.
-
-Does this taint even solve a "real" problem? Those bug reports weren't
-coming from users, they were coming from "abusers" like syzbot looking
-for trouble. They were quite obvious even without a taint message.
-
-And at least on linux-usb, they seem to have stopped after Google and
-one other copycat were told to stop sending them, and before this taint
-reaches released kernels.
-
-I even told them to block not only bind but also new_id, so there will
-be no second wave of reports caused by syzbot discovering that it can
-bypass the taint by using new_id intsead of driver_override.
-
-> Why are you worried about a taint flag?  So many servers run with
-> taint flags enabled due to out-of-tree or questionable licenses with
-> no problems, what's one more informational bit here?
-
-And what's the point of a flag which is always set on countless normal
-systems in the wild? If this feature survives to April 1st, I will send
-a patch to rename it to "VM passthrough taint" because everybody (or at
-least those dealing with desktop users) knows what it *really* means.
-
-Regards,
-Michal
+</formletter>
