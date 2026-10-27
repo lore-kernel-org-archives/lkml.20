@@ -1,101 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.41
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793081556;
-	b=GiB5Ni2goqiqzlE6eGre4r0zQp1RCUUV4ehjRG0d0pqIim6MWdYjFxMGexvHNE6FVOga
-	 6A33ZYwULAmTlzmRm7eTz+c3JDyerOnQDYPov2ymfTJSESvS5yqKXW4G5P+2aHsBU9GuL
-	 zwT4fwlQbeHM/MqlzU1PiSVxJq3YREX+kL2S7wpj96eagNExiB/UZdsoDiqFI6FayVM+G
-	 rBiRVpcXoYFtDov2nqN3crqyz5jM9ozV0q5/AbSFqVrnB/PEmvLOIfr0vz011gindGC9X
-	 7BR9z29ohfdlHUnRElCIydBqcGC9WnBI9BPcfT3KIxkuJ4F92qyVCmZo1EiP/d4jDWQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793081556;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:
-	 CC:References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=18bTafx5rbYmEZkRXuHhVkle3ipOmjLex2FtC4poVSw=;
-	b=OaBWYDApwsk0E9upx6CVeri5LeCzlh4dECJSGrJPyNNBlLzZc8FUYnmsOChEEmhu5VJC
-	 MKy9RMwDktJvZ1deTN8hnrDpjNl48d+HMm+PVyuXx++9JziJ1x/HDgjenxrv0tZrAsoMQ
-	 H7DG5f4RjZr+HWnnncBg+kBzxdU3ySPdlU0tBMSyPud1RL+yvOzftD525HMrIlyvS0psh
-	 ASTeR9klNgvxXG/YAKtynkPH2Klbrz8o/K8k+dhT54RD0UAeBZqmrA3qHWnFLoOYF1Yru
-	 ziA8LcYrkEDl4XLenpXGF0EWAsr/yt9o3RGNIQQu11MUQZo+7PX1vOwSLG/d8yfRtdw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=KXYcUj66;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.41
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011041.outbound.protection.outlook.com [52.101.52.41])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.72
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793081622;
+	b=z3mqKW+Dg/59hdmIa+BX5eS9HNOA5MLGB5WrIzHCcinKwE9pZKX8t0PNCCCqGTAzFdF8
+	 nE+5PxX11mS58cLd/em7HQpwGqFlxxwUIKrjEBcubX73nw3MDNkc0jbtco0OnqFXamvFJ
+	 0uQEjUgFLRhm/we/KHm4S5pJ0ZekZiIDekfIJiRUwgVvPbUpWp4GKJv0RGrmpCKxSlJAx
+	 CHbonPB5NnlV37vulcrmB6hzcdfQnjPCkaJSfWUgfPSd42EmXERudLv3Ar3rFftpUPS5F
+	 vFN8lGisAOFPuYd2YzFGmMLOELzB1pSoVYD6OhCPydxEDWT8Qrax5mGHm4jYlQLzBPQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793081622;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=f7jaCg8WRne6yjvM4RTZWaJveCSVces6jBOrWR6zygc=;
+	b=zQVTa0gfbgbHDvTydeCECzMobX8U2E/WAqBFlS4S5X8svv2m4ju4YHLACaNKceZdbt36
+	 Qy0dLopH5JadOuFiMOGmRqQCXTzatwdnJOzi4B33JG+bo7Kc5T3f9bx3qa6GRq5sVO7HE
+	 h2FCR2R1eD82PsgbyxsA/4ADsS8p3Pd02i1x1PqdLA4vGZjfBc9MhyDI9oo9DtMYip8cA
+	 Z/zO+lsQZrY0G3D05wMNj9uQsuoyHAU+lHyWWqaKRsuHPlUdJM+ghWiFFCp6dTddKyAy8
+	 O4FgF+Vo+8HkzsnNoI1GDYrfBz4aP4Gue37o6KImO8zy5OYctfm2LVbHV7vgp6NeZFw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--apusaka.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=BeBQnwi8;
+	arc=none smtp.remote-ip=209.85.216.72
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2997B606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 06:12:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2997B606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98585606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 06:13:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98585606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--apusaka.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=KXYcUj66
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=I1syounYGRu+4o4LYU7b5kw5iu8NVwc3KUoHXpI5qlfP6C0gzAukQeM+SfbIczORFTouaM3t9gb99p6anc7ZDN7bWu+tmLoycOcdIzNiP8wkxlxuu9FS+/3eMFlYf+KycHl0zrXbz1pKj6epfgq6Ie7e7EQGuWhtjn5KMPPNRxyP4ViTGROjXCbftUEJWPTwtrFSlYVdKB8Hda2iyY+YCzTHTsWj4oc6Htj4oeqU4FiK7T8e/Wa80jSUYNb6FMoW5mL8l5cRoytahFCZQqxd5Ss5JkRt4wxI+yWjunBFooopGwjBL1D1dBcA89yy1QroPT9UdFdEJwXteH0pJd/jrg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=18bTafx5rbYmEZkRXuHhVkle3ipOmjLex2FtC4poVSw=;
- b=MYq9riUo8EM6KauM8FCOmgf35tkp+QZXEXJ0hr35vHntZYujkgq20o3ALODX3T8o+dC5/2x1jjPJOXAsojYWyQLut3sAiFXPbag12Sq0AMFufW+licRA+Yg32gECK0GEWzjImiETUpwxMWEwZtnjNXQvwDHyv/BZy+AUudsBuNb+tV0fqwf8f52cX+myWfnKc16X2TmCT/ldHKbM2rn+SGHyvfMTY0AY8Ehw4iPWHGHsJ/SVEB4RDjockXNmhpjyvn0IfYjmqbJOrhYVB70+x23xBSIaArPKoxmfrbIr0L7IY01xfKZ07XrYMLU1Kdl9EAYS+95qzToTfYhxYq3grQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=nvidia.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=18bTafx5rbYmEZkRXuHhVkle3ipOmjLex2FtC4poVSw=;
- b=KXYcUj66N7iXP8JS5weu060jpw2S8Sg+oVT36ZLClgCFkBeXCh1gB9WH3kaZD/U9GyAPUrJu+kwM4JlmzK4vlPlasIHlinQlt/TDHXXWWOosc9SKAdpDuQ939A/dlt4LukKrXv1nNG7FTEX1M1aFJ1Hb8fBrMdNO+BrRHvmkai4=
-Received: from SJ0PR03CA0068.namprd03.prod.outlook.com (2603:10b6:a03:331::13)
- by DM6PR12MB4417.namprd12.prod.outlook.com (2603:10b6:5:2a4::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
- 2026 06:12:31 +0000
-Received: from SJ1PEPF0000231D.namprd03.prod.outlook.com
- (2603:10b6:a03:331:cafe::a4) by SJ0PR03CA0068.outlook.office365.com
- (2603:10b6:a03:331::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Tue,
- 27 Oct 2026 06:12:30 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SJ1PEPF0000231D.mail.protection.outlook.com (10.167.242.234) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.569.4 via Frontend Transport; Tue, 27 Oct 2026 06:12:30 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 27 Oct
- 2026 01:12:29 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 27 Oct
- 2026 01:12:29 -0500
-Received: from [10.136.43.232] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Tue, 27 Oct 2026 01:12:23 -0500
-Message-ID: <cf3e5585-128e-4ee3-9352-afbddbfd50c1@amd.com>
-Date: Tue, 27 Oct 2026 11:42:22 +0530
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=BeBQnwi8
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3ada8bc8575so5753295a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 23:13:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1793081621; x=1793686421; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=f7jaCg8WRne6yjvM4RTZWaJveCSVces6jBOrWR6zygc=;
+        b=BeBQnwi8c+tJ+27RWYlCJUi2uTt5wP+3ns9Petb2hEa1X6PcyEKG23e5Gee+nYXDT4
+         CJOVKqSy8YhSBkdOnHqc0g/8Pw+WpXIGYnVcBbt3QnaXcyODAkKxntrS3FiJGYuNLhkM
+         xHZePZQ2tKzuduGz9+uKPuHuHG/QSk+VH2iSpHO+iaeNahUr9VAO2hkYerhdfUUM8B6z
+         KcfeYeUEa4tOYnBp0ftxEDSy4NVQp0UMi9CifiISpi3Hn++ipyCKHCgHY3z/1yZ/8gx7
+         zhsBF5DdnIWkEUCoMc4udmrONh7AVRRyYwOuNJ2AGb0HBrumDUKu4Z4byveEJTEolxcT
+         ZjcQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793081621; x=1793686421;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=f7jaCg8WRne6yjvM4RTZWaJveCSVces6jBOrWR6zygc=;
+        b=Jxc1Oaul1c6LToYMm0OpVequDIaZTWvWi5UdlSQkltu/ghM9I0U3fpKPnczJbVCJ9y
+         VowRcoKEnxxa7Y5rQIP4lA6CyR0QTvSuk38MyPGjxBdMkz1f6ejRPszVSJvKoJyi0gHz
+         w+IFzv+/P1bmw0I7rpFTq2AyPeNgBCyI4+pd+Zr5wMSrH1gSA6UUZ+iKX2P+VKd0o4mo
+         yn8o65D4saCqxdnrqxo3wpHwPvNTau5eKc3/+LUOPv4jK+xGhPrK3U5yvY1Bpg6wNbbX
+         Jr9TpctO//CJZ448h6ObLrUX5pU3siloXpuFgX73ZmvYJnPl16+KIpoCHTMatp5/dAlO
+         WrQA==
+X-Forwarded-Encrypted: i=1; AKwUvBw080qYlA6JDJCs9z0wvOFJv+WfmuJlejmLoUqo0SvwdUinMRnPLYCQP2UtkL7NqxSIIkNja15Gy9LQ9/k=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI4IRb4XNMA8/pY+7wqc2BlXLAc4Yztf1xsHytCNyLzLV3dmY2j
+	V5YQcr+fdUPiG9tegbgFUEWDy6uQJKbg5ry3ynOVrBBOprv+ZHLSBbzxASxDKwzxXlCH/suHg8K
+	L5ZkbyaXaYQ==
+X-Received: from pjhr18.prod.google.com ([2002:a17:90a:5012:b0:3aa:ee30:1a77])
+ (user=apusaka job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:2891:b0:3ab:24b2:9016
+ with SMTP id 98e67ed59e1d1-3adead488d1mr7764219a91.25.1793081620686; Mon, 26
+ Oct 2026 23:13:40 -0700 (PDT)
+Date: Tue, 27 Oct 2026 06:12:58 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,102 +75,138 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/6] sched_ext: Add a kfunc to read a task's preferred
- NUMA node
-To: Andrea Righi <arighi@nvidia.com>, Tejun Heo <tj@kernel.org>, David Vernet
-	<void@manifault.com>, Changwoo Min <changwoo@igalia.com>
-CC: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot
-	<vincent.guittot@linaro.org>, Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, "Mel
- Gorman" <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>,
-	"Vladimir Vdovin" <deliran@verdict.gg>, Gregory Price <gourry@gourry.net>,
-	David Dai <david.dai@linux.dev>, Emil Tsalapatis <etsal@meta.com>, Christian
- Loehle <christian.loehle@arm.com>, Balbir Singh <balbirs@nvidia.com>, Lee
- Trager <ltrager@nvidia.com>, <sched-ext@lists.linux.dev>,
-	<linux-kernel@vger.kernel.org>
-References: <20261027041536.3317971-1-arighi@nvidia.com>
- <20261027041536.3317971-6-arighi@nvidia.com>
-Content-Language: en-US
-From: K Prateek Nayak <kprateek.nayak@amd.com>
-In-Reply-To: <20261027041536.3317971-6-arighi@nvidia.com>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
+Message-ID: <20261027061258.3900768-1-apusaka@google.com>
+Subject: [PATCH] HID: logitech-hidpp: connect Bluetooth devices before HID++ handshake
+From: Archie Pusaka <apusaka@google.com>
+To: linux-input@vger.kernel.org, jikos@kernel.org, bentiss@kernel.org
+Cc: lains@riseup.net, hadess@hadess.net, linux-kernel@vger.kernel.org, 
+	Archie Pusaka <apusaka@google.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF0000231D:EE_|DM6PR12MB4417:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1237160e-fe77-4f19-d06b-08df33f1487a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|82310400026|36860700016|23010399003|1800799024|261026121527099003|4143699003|5023799004|11063799006|56012099006|261021121427099003|261022075727099003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	jyG4o8rgwMwbjXTnMwiP+nxAka/bvJ7M2eDAkQg+GRbHEAiLmJz1aUTp6xOIGqAEPsxwpzmzV9a8vMtUxD8sKDCvnEb1gNm/+bVNPk4WaFhAVLb7tdzSlnplSjLAZfGxlPgYQ5+YLSh3IZkOdcuKSNhgxkpS6J3Z/Ws3YjdIYJeQeIR8GWesaTPC+DO3RYXQEsHpQUfY106riz0hLXqMhhMACohEmPwdVABd9d4yU5dM08HHocjZzG3qCYdJvOVI4pp68UBHPVRhLs9JZ4hh5y4dZpWV5qT4okY4/DK1iGThEKdP3qm6aawL+4SkRTMHxRtW+9fIr4OYR3Fzgodc9oRSZPHQP5IV6thw+RxX/+h9RM9gaMkH18xzz8rq6pMhgPg9niBAVC2rNtLgqZs/jiVBAVTUX0BWbtVCQ7FMEXRuoOAiUyssMiOn78DaQhYfwUHpPIgz/BHwk7NAL9u6f5hLyjkOGcN+qUP5AhuNseW9rPgqeDRDkU/84EBy/BqU+v789kGWy6Jkd9BB5OQG9Xe/JWZEZMuf/sS8gystCQQo5IjjEVDTc4D25le4Po8/LeMFlfTYxZwQMNRtyPljgA7idSNI2VPXW6Uu7wbzgxQE0vhWCl8cI3ml3YeC3AdEdw1KaSPR3xSaD89IGhLMbW62xlWaAxhldPOBlaV0OSJ3MAufoHlU573u3kPiMx4v
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(82310400026)(36860700016)(23010399003)(1800799024)(261026121527099003)(4143699003)(5023799004)(11063799006)(56012099006)(261021121427099003)(261022075727099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	Da7DhH7onSfjvLvidxNzCYNtrEJpTyFjC4TZeJ8Xm+mdmMGP/tyubhHkm9raShc6aLBO03sxrStQP1p+jNitX6VFFWuJBRrieJFUz1EalXdp4ERl7zLAalA2XCFpqfVOPQNJnXJQSVG4IiLexYMXuFHL0VGxC/S7qJg6V5DS9TIO4rxPKy7gdxQ2LcNzNgOCVrAGdY8sGW9ItnRouT0VjRn4E1EBzpLIk8zmGHwWi6t4yGyD9PhOPOoLnddiNkQpg3Rn4MMp87v7KdpMFKHu59xxWeRUcgOjZcAPXiHryu2tjE0JKiEtDP9IPX1svOe/YLQE50BsSgd7F6/bv7DlS9BdNZdHEuOeoXjj/lMxJ6/KgzsUGTMHcQj+zLjUrJM9jakkhr9Rip3X70WV6TgqwBWlz08E8oynPqszd/vfI4AMCSK9KCi0dICU9ZS4rWaO
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 06:12:30.4788
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1237160e-fe77-4f19-d06b-08df33f1487a
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF0000231D.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4417
 
-Hello Andrea,
+hidpp_probe() opens the device and runs the HID++ handshake before
+calling hid_connect(), so that the HID++ name can be stored in
+hdev->name before hid-input and hidraw expose it. Opening the device
+tells the transport that I/O may start (for uhid, UHID_OPEN), but any
+non-HID++ input report received before hid_connect() has no consumer
+and is dropped. Over BLE the handshake takes several hundred ms, thus a
+reconnecting keyboard might lose the first keystrokes.
 
-On 10/27/2026 9:43 AM, Andrea Righi wrote:
-> +__bpf_kfunc s32 scx_bpf_task_numa_nid(const struct task_struct *p)
-> +{
-> +#ifdef CONFIG_NUMA_BALANCING
-> +	if (task_on_scx(p)) {
-> +		struct scx_sched *sch;
-> +
-> +		guard(rcu)();
-> +		sch = scx_task_sched_rcu(p);
-> +		if (!sch || !SCX_HAS_OP(sch, set_numa_node))
-> +			return NUMA_NO_NODE;
-> +	}
-> +
-> +	return READ_ONCE(p->numa_preferred_nid);
+Bluetooth devices already get their name and serial from the transport,
+so connect hid-input and hidraw before opening the device, like
+hid-generic effectively does. hidpp_connect_event() still fetches the
+HID++ name into hidpp->name, so the battery model name is unchanged.
 
-Would the ext scheduler need the raw numa_preferred_nid when
-sched_numa_balancing is disabled?
+As a consequence, the input and hidraw nodes of Bluetooth devices are
+named after the transport-provided name rather than the "Logitech "-
+prefixed HID++ name. Non-Bluetooth (USB, Unifying/DJ) and DELAYED_INIT
+devices keep the original ordering and naming.
 
-It may just be pointing to some stale value if NUMA balancing
-was disabled at runtime right?
+Signed-off-by: Archie Pusaka <apusaka@google.com>
+---
+ drivers/hid/hid-logitech-hidpp.c | 67 ++++++++++++++++++++++----------
+ 1 file changed, 47 insertions(+), 20 deletions(-)
 
-> +#else
-> +	return NUMA_NO_NODE;
-> +#endif
-> +}
-> +
->  /**
->   * scx_bpf_locked_rq - Return the rq currently locked by SCX
->   * @aux: implicit BPF argument to access bpf_prog_aux hidden from BPF progs
-> @@ -11836,6 +11877,7 @@ BTF_ID_FLAGS(func, scx_bpf_put_cpumask, KF_RELEASE)
->  BTF_ID_FLAGS(func, scx_bpf_task_running, KF_RCU)
+diff --git a/drivers/hid/hid-logitech-hidpp.c b/drivers/hid/hid-logitech-hidpp.c
+index 27d83b8bb..b552f31f0 100644
+--- a/drivers/hid/hid-logitech-hidpp.c
++++ b/drivers/hid/hid-logitech-hidpp.c
+@@ -4673,6 +4673,7 @@ static int hidpp_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 	struct hidpp_device *hidpp;
+ 	int ret;
+ 	unsigned int connect_mask = HID_CONNECT_DEFAULT;
++	bool early_connect;
+ 
+ 	/* report_fixup needs drvdata to be set before we call hid_parse */
+ 	hidpp = devm_kzalloc(&hdev->dev, sizeof(*hidpp), GFP_KERNEL);
+@@ -4734,12 +4735,31 @@ static int hidpp_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 			 hdev->name);
+ 
+ 	/*
+-	 * First call hid_hw_start(hdev, 0) to allow IO without connecting any
+-	 * hid subdrivers (hid-input, hidraw). This allows retrieving the dev's
+-	 * name and serial number and store these in hdev->name and hdev->uniq,
+-	 * before the hid-input and hidraw drivers expose these to userspace.
++	 * hid_hw_open() below tells the transport that I/O may start. However,
++	 * Any non-HID++ input report (e.g. regular keystrokes) received before
++	 * hid-input is connected will be dropped, and over BLE the HID++
++	 * handshake below takes several hundred milliseconds.
++	 *
++	 * Bluetooth devices already get their name and serial number from the
++	 * transport, so for them there is no need to delay exposing the input
++	 * and hidraw nodes until the handshake is done: connect them right
++	 * away, like hid-generic does. hidpp_connect_event() still fetches the
++	 * HID++ name into hidpp->name (used e.g. for the battery model name).
++	 *
++	 * DELAYED_INIT devices create their input device from
++	 * hidpp_connect_event() and keep the original ordering.
+ 	 */
+-	ret = hid_hw_start(hdev, 0);
++	early_connect = hdev->bus == BUS_BLUETOOTH &&
++			!(hidpp->quirks & HIDPP_QUIRK_DELAYED_INIT);
++
++	/*
++	 * Otherwise, first call hid_hw_start(hdev, 0) to allow IO without
++	 * connecting any hid subdrivers (hid-input, hidraw). This allows
++	 * retrieving the dev's name and serial number and store these in
++	 * hdev->name and hdev->uniq, before the hid-input and hidraw drivers
++	 * expose these to userspace.
++	 */
++	ret = hid_hw_start(hdev, early_connect ? connect_mask : 0);
+ 	if (ret) {
+ 		hid_err(hdev, "hw start failed\n");
+ 		goto hid_hw_start_fail;
+@@ -4755,25 +4775,32 @@ static int hidpp_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 	/* Allow incoming packets */
+ 	hid_device_io_start(hdev);
+ 
+-	/* Get name + serial, store in hdev->name + hdev->uniq */
+-	if (id->group == HID_GROUP_LOGITECH_DJ_DEVICE)
+-		hidpp_unifying_init(hidpp);
+-	else
+-		hidpp_non_unifying_init(hidpp);
++	if (!early_connect) {
++		/* Get name + serial, store in hdev->name + hdev->uniq */
++		if (id->group == HID_GROUP_LOGITECH_DJ_DEVICE)
++			hidpp_unifying_init(hidpp);
++		else
++			hidpp_non_unifying_init(hidpp);
+ 
+-	if (hidpp->quirks & HIDPP_QUIRK_DELAYED_INIT)
+-		connect_mask &= ~HID_CONNECT_HIDINPUT;
++		if (hidpp->quirks & HIDPP_QUIRK_DELAYED_INIT)
++			connect_mask &= ~HID_CONNECT_HIDINPUT;
+ 
+-	/* Now export the actual inputs and hidraw nodes to the world */
+-	hid_device_io_stop(hdev);
+-	ret = hid_connect(hdev, connect_mask);
+-	if (ret) {
+-		hid_err(hdev, "%s:hid_connect returned error %d\n", __func__, ret);
+-		goto hid_hw_init_fail;
++		/* Now export the actual inputs and hidraw nodes to the world */
++		hid_device_io_stop(hdev);
++		ret = hid_connect(hdev, connect_mask);
++		if (ret) {
++			hid_err(hdev, "%s:hid_connect returned error %d\n",
++				__func__, ret);
++			goto hid_hw_init_fail;
++		}
++
++		/*
++		 * Check for connected devices now that incoming packets will
++		 * not be disabled again
++		 */
++		hid_device_io_start(hdev);
+ 	}
+ 
+-	/* Check for connected devices now that incoming packets will not be disabled again */
+-	hid_device_io_start(hdev);
+ 	schedule_work(&hidpp->work);
+ 	flush_work(&hidpp->work);
+ 
 
-On a tangential note, scx_bpf_task_running() just does a
-rcu_access_pointer() (resolves to a READ_ONCE()) and doesn't take a
-rcu_read_lock() so does it really need KF_RCU?
-
->  BTF_ID_FLAGS(func, scx_bpf_task_cpu, KF_RCU)
->  BTF_ID_FLAGS(func, scx_bpf_task_cid, KF_RCU)
-> +BTF_ID_FLAGS(func, scx_bpf_task_numa_nid, KF_RCU)
->  BTF_ID_FLAGS(func, scx_bpf_locked_rq, KF_IMPLICIT_ARGS | KF_RET_NULL)
->  BTF_ID_FLAGS(func, scx_bpf_cpu_curr, KF_IMPLICIT_ARGS | KF_RET_NULL | KF_RCU_PROTECTED)
->  BTF_ID_FLAGS(func, scx_bpf_cid_curr, KF_IMPLICIT_ARGS | KF_RET_NULL | KF_RCU_PROTECTED)
-
+base-commit: 2c2fe95ab19b09bef7391e3e5cdf8146d09792b6
 -- 
-Thanks and Regards,
-Prateek
+2.56.0.307.g5fe7bd680c-goog
 
