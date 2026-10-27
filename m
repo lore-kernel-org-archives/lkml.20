@@ -1,75 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793140759;
-	b=pm1LSyidZLeJsyCEKVKBBcan8lIiEr9pWakZBle+omKixA8DF7atbEMYf/UaNYRe/mbO
-	 nKoUwN8dxH0BMElxEgLCnhGWGDnU+cHzHW4mgqqCEKBXJR+lrni7ucCzfrQL239E5rIn+
-	 +luivfnRogT/rzogUUiiZcdhfctk1mcgkMDMD1tcAEjxJgwANaVEbBEz2WOrrJiRuqvu7
-	 X+M+IowCnE+BO7lbd6vb4boUCr89u8Im+cGcKoVF7ZQnnxTvNgpsP4gRjBwx+pUQNj0mY
-	 pVL2gjM2zjN9Au41+l60gAsvA99LLnJBNaskji9qcpG6cY5QD+Rro+xL6nZ7zSINT8g==
+	t=1793140892;
+	b=zDzDJdcJ/mF0yk0z/Df5qrKYwMnC/axrtiBAlRN9zBaZotrhZ/VFYR2mv4Rj5/gLNlnQ
+	 P6OLmsWhzvASi2IuHsNrHc3bOenr4AQQhqgcUso3/fS488lJGNsEuy+xGlAGa47+npayC
+	 6NPOjz6iStq8ic0o4bMA+lYyEz43SlrDrUHqF2OIm41xX2fp851ROD8dFEvRco5bD9pJF
+	 SX8M1TdEsLYrsMpHCWE/3z5omLJ2YrDWtxmL+U3YxjHi8/To00gkNvQwUysmFoxKqqSmH
+	 ls5e24QtVbAM87JfJzbZtcFSgYtdoT/uzoPGZcKu9jYveaNxYPaxv8uVMFP12lZQyRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793140759;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=beIsynJTUoVVYUibNrHvS9xq2J3rMWzpCblr3XGPomY=;
-	b=K8BSuB1AlE2av2LNtKcKzG2u94A0RlZGJOFc0BoC51BvAkDdMLMJLws6TYVEGt2XxvZv
-	 1BJLh0QYk4L9IWNJvk9+hPgaWfr8xTCYtQawOIfGOsyyNAgYOcZTnhBt5lZzoTOFgSdIo
-	 9SZcvGHmVgRWEl2OrwalCW1pYe/sKPS17+UaOZ2yTJTUAnQiIynI0IPLbwYKmk/KLVX0e
-	 gaYTCREJWQxQjRNgkWYfjXATKT/P7R9uxBNZ8NuyoF1XqcV7axeoxYZGqacBIWqRjm5K3
-	 JhHAHzFQmKygYIkgG0/nhE4PZ+3mf1Yla++XcXo3YBddOduBuNvF9gYhAp+0i0k1row==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793140892;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=36BYKCF164tXZn3FsLSkOB63KBQCKvHjKoR2T7jC1As=;
+	b=fU1bcoaiMy3VodHFOpQqsv4O8/IMKk8SNjc1dsvaODG0oWNckAZaxh8aCt6bgcC5htu4
+	 QINxQaw5vOZHMuV4iWjwiG6gCZZF+du3TyYoDqXSjdVnx0S1daFJkoD3pPcoEOLs6YRPm
+	 p5wv15efrIBCzn4xg4snMUAqIFN/2n5V99QaRK1VDrXxAgjMyaJmerzoe7jE7vCo47iKH
+	 S1r2luCYIKM56Gr4tzLjoc5Bmhf03kszcf5SuGkFtS1HXi2K7tydFsi6hUQWh0b+53Gz2
+	 Kc8fNIIkNMAK8E+vQoiggmrZylGYcEDECzXVnrCdvg8iywoautU/Y5pXHxYtAM7hPIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=kIMyUKFu;
-	arc=none smtp.remote-ip=209.85.210.200
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=By9twM0k;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44CAB60A2606
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 22:39:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44CAB60A2606
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46CBA606A31E;
+	Tue, 27 Oct 2026 22:41:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=kIMyUKFu
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8a5971cf7ceso470811b3a.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:39:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793140759; x=1793745559; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=beIsynJTUoVVYUibNrHvS9xq2J3rMWzpCblr3XGPomY=;
-        b=kIMyUKFukUJtjlCB+ZE2zh2lwo3GQV3z3dUYxV09PKjXw0ZjE2jeWA5BuL5r+QkTsS
-         5ZzU/9piUKJLhgATzOW69XBDirJSfUNdjU8bimvi6t/U9+77eeZV3sUpzjATUlpkTsmz
-         gq3vyWIGNK0zFjlANK5GQZMvv0vsQLSwO9CijSJxrX9Vh1ynVxUpyQR+qXuUOzTQNEd2
-         vqFNVi+/m+qyeN1OsBM/7m5G51CLC9ESLC5hoKgrvebdkKnbj7QYKY4thO4WPGJ0SxlV
-         i2/3GcwAryD5MX3hH5HdRpHDIt1i8yx0VLeoNGibsE95Q6GYl69dtaAIBjedJgq+ugfg
-         pXGA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793140759; x=1793745559;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=beIsynJTUoVVYUibNrHvS9xq2J3rMWzpCblr3XGPomY=;
-        b=DYvfqysyIL+1gcc9EOjD1BprzbXbM9YGagxpULEG8uBJxobncorP3eMz+psRr16uzQ
-         hNkK4RLb0d3As3u8PUYB3eoNIYJO9CfvZ465NMvuK/R7A/hU3lxL4aI7vRWsRdxPr6Hh
-         A6R8O/dx2d+AfHo8CDeJ5bLteC9Cq6UsOHgQcSEVwPozWI6eRRsPTKRXC8y4pUzlO+2Q
-         M9pRAHIRxbXBeVktlqVxMo3r9HXnhsMSyqcTMYtZSZrDk1NFoUtzhFQizGMLPNWCvMqE
-         3h3wnPxmUc28aaRU7e+++xcawWSTPs6jtjn0cLU+4gJZVnLODbvu5OTWxTM9JiLt0bGZ
-         qYWw==
-X-Forwarded-Encrypted: i=1; AKwUvByfBI3s4LDlyd28DOVoll5WHmur/UIP7uy9cMfUddWctO5O4aTGSWxsPTnQr0mwntFQLlcSs888Gw3UNGM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIPgzgHsg1xJsCcyRVuOXPM3UjeJLQLci3ZDpdInSsCMGMW+9GR
-	n6ROOGrvPdyXhOQG2ukrskqQlaGhl2Zw9lhfXag6BzP47QDQ2+BF2+Y3jfnr6Yg5sH6lzk1mWv3
-	Jl648EilzJA==
-X-Received: from pfbdw21.prod.google.com ([2002:a05:6a00:3695:b0:89f:827e:eb47])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:4293:b0:876:194e:b8fe
- with SMTP id d2e1a72fcca58-8a6e70e832amr492696b3a.26.1793140758450; Tue, 27
- Oct 2026 15:39:18 -0700 (PDT)
-Date: Tue, 27 Oct 2026 15:38:38 -0700
-In-Reply-To: <20261027223847.652884-1-irogers@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=By9twM0k
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2F4B1F01825;
+	Tue, 27 Oct 2026 22:41:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793140891;
+	bh=36BYKCF164tXZn3FsLSkOB63KBQCKvHjKoR2T7jC1As=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=By9twM0khKiyjXxV0Yx0gmrjtdC4XEQPzMwUDl+Una0jfLlAUEm4jYcbm08BVHjQY
+	 PMAyhJ6MSrn6qWfGAs7OSIniRe1vJyzSMUnCSK4+sS5ogCsGxex4xW2wCncWk1TDyg
+	 m8erVmAzhMyDwbkh79AxfmDf5nW9diszeWU8Y4rFPEYVAWXRmn+b+1GTscQ6BDSEJR
+	 Gzpcv6o3EfAnCPBJuhgsgdwENi2BnGngjQBdQgaHjZJhtdY1fiQjW9aW60lQO+G8TN
+	 XVp3gfycemxjRqdGKuh6aNkpOLLXvGqAdyxszYvU7NO4z5Qv6nzzzD8iqeLTTu6HPG
+	 gTBIGzJ+M/neQ==
+Date: Tue, 27 Oct 2026 17:41:30 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Mario Limonciello <mario.limonciello@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+	Oz Tiram <oz@shift-computing.de>, linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org, Lijo Lazar <lijo.lazar@amd.com>
+Subject: Re: [PATCH v4 1/3] PCI: Preserve the initial bus number in pci_bus
+Message-ID: <20261027224130.GA511803@bhelgaas>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,62 +57,106 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261027223847.652884-1-irogers@google.com>
-X-Mailer: git-send-email 2.56.0.313.g2479322e68-goog
-Message-ID: <20261027223847.652884-4-irogers@google.com>
-Subject: [PATCH v2 3/9] sh: sq: Add missing kobject release callback to ktype_percpu_entry
-From: Ian Rogers <irogers@google.com>
-To: Kees Cook <kees@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Miguel Ojeda <ojeda@kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>
-Cc: Nathan Chancellor <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, 
-	Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>, 
-	"=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>, Zhihao Cheng <chengzhihao1@huawei.com>, 
-	Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>, Sumanth Korikkar <sumanthk@linux.ibm.com>, 
-	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, driver-core@lists.linux.dev, 
-	llvm@lists.linux.dev, linux-hardening@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-acpi@vger.kernel.org, linux-pm@vger.kernel.org, 
-	linuxppc-dev@lists.ozlabs.org, linux-sh@vger.kernel.org, 
-	linux-s390@vger.kernel.org, gfs2@lists.linux.dev, 
-	xen-devel@lists.xenproject.org, linux-mtd@lists.infradead.org, 
-	amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, Ian Rogers <irogers@google.com>, 
-	Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>, 
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, Paul Mundt <lethal@linux-sh.org>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261027-vfct-regression-v4-1-0e7190e39c2c@amd.com>
 
-In sq_dev_add(), sq_kobject[cpu] is dynamically allocated with
-kzalloc_obj() and initialized with ktype_percpu_entry. When
-sq_dev_remove() calls kobject_put(kobj), the kobject is never freed
-because ktype_percpu_entry lacks a .release callback.
+[+cc Lijo]
 
-Provide a sq_kobj_release() callback that calls kfree(kobj).
+On Tue, Oct 27, 2026 at 11:22:25AM -0500, Mario Limonciello wrote:
+> Bridge scans are split into two passes when bus numbers need reassigning.
+> Save the firmware secondary bus number on the bridge in pass 0, before it
+> is disabled. Use it to initialize number_initial when the child bus is
+> created in pass 1, before bus registration callbacks run.
+> 
+> Keep the saved secondary number on the bridge so a later rescan does not
+> replace the child's initial number with its reassigned runtime number.
+> 
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> ---
+>  drivers/pci/probe.c | 6 ++++++
+>  include/linux/pci.h | 3 +++
+>  2 files changed, 9 insertions(+)
+> 
+> diff --git a/drivers/pci/probe.c b/drivers/pci/probe.c
+> index 27008e2ea5afc..3c03ac22223d9 100644
+> --- a/drivers/pci/probe.c
+> +++ b/drivers/pci/probe.c
+> @@ -1012,6 +1012,7 @@ static int pci_register_host_bridge(struct pci_host_bridge *bridge)
+>  	bus->sysdata = bridge->sysdata;
+>  	bus->ops = bridge->ops;
+>  	bus->number = bus->busn_res.start = bridge->busnr;
+> +	bus->number_initial = bus->number;
+>  #ifdef CONFIG_PCI_DOMAINS_GENERIC
+>  	if (bridge->domain_nr == PCI_DOMAIN_NR_NOT_SET)
+>  		bus->domain_nr = pci_bus_find_domain_nr(bus, parent);
+> @@ -1232,6 +1233,8 @@ static struct pci_bus *pci_alloc_child_bus(struct pci_bus *parent,
+>  
+>  	/* Set up the primary, secondary and subordinate bus numbers */
+>  	child->number = child->busn_res.start = busnr;
+> +	child->number_initial = bridge && bridge->bridge_secondary_busnr ?
+> +		bridge->bridge_secondary_busnr : busnr;
+>  	child->primary = parent->busn_res.start;
+>  	child->busn_res.end = 0xff;
+>  
+> @@ -1418,6 +1421,8 @@ static int pci_scan_bridge_extend(struct pci_bus *bus, struct pci_dev *dev,
+>  
+>  	pci_dbg(dev, "scanning [bus %02x-%02x] behind bridge, pass %d\n",
+>  		secondary, subordinate, pass);
+> +	if (!pass && !dev->bridge_secondary_busnr)
+> +		dev->bridge_secondary_busnr = secondary;
 
-Fixes: d7c30c682a27 ("sh: Store Queue API rework.")
-Signed-off-by: Ian Rogers <irogers@google.com>
----
- arch/sh/kernel/cpu/sh4/sq.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+I think I was mistaken to suggest that pci_bus was the right place to
+store this.
 
-diff --git a/arch/sh/kernel/cpu/sh4/sq.c b/arch/sh/kernel/cpu/sh4/sq.c
-index 908a8e09113b..f33864958487 100644
---- a/arch/sh/kernel/cpu/sh4/sq.c
-+++ b/arch/sh/kernel/cpu/sh4/sq.c
-@@ -331,7 +331,13 @@ static const struct sysfs_ops sq_sysfs_ops = {
- 	.store	= sq_sysfs_store,
- };
- 
-+static void sq_kobj_release(struct kobject *kobj)
-+{
-+	kfree(kobj);
-+}
-+
- static struct kobj_type ktype_percpu_entry = {
-+	.release	= sq_kobj_release,
- 	.sysfs_ops	= &sq_sysfs_ops,
- 	.default_groups	= sq_sysfs_groups,
- };
--- 
-2.56.0.313.g2479322e68-goog
+It seems like we definitely need something in the pci_dev because we
+may clear the initial bus numbers in the first pass, so we need to
+stash the secondary bus number somewhere until the second pass
+allocates the pci_bus and we can save it here.
 
+Since we have to have it in the pci_dev, I suspect maybe it would be
+enough to have it *only* there.  Maybe it could be set in
+pci_read_bridge_windows(), and drivers could find it via
+pdev->bus->self?
+
+>  	if (!primary && (primary != bus->number) && secondary && subordinate) {
+>  		pci_warn(dev, "Primary bus is hard wired to 0\n");
+> @@ -1470,6 +1475,7 @@ static int pci_scan_bridge_extend(struct pci_bus *bus, struct pci_dev *dev,
+>  			child = pci_add_new_bus(bus, dev, secondary);
+>  			if (!child)
+>  				goto out;
+> +			child->number_initial = secondary;
+>  			child->primary = primary;
+>  			pci_bus_insert_busn_res(child, secondary, subordinate);
+>  			child->bridge_ctl = bctl;
+> diff --git a/include/linux/pci.h b/include/linux/pci.h
+> index 5ffcf5ce8c966..c607818a98a87 100644
+> --- a/include/linux/pci.h
+> +++ b/include/linux/pci.h
+> @@ -363,6 +363,8 @@ struct pci_dev {
+>  	struct pci_slot	*slot;		/* Physical slot this device is in */
+>  
+>  	unsigned int	devfn;		/* Encoded device & function index */
+> +	/* Firmware secondary bus number saved across bridge scan passes */
+> +	u8		bridge_secondary_busnr;
+
+I think you're right to use "secondary" here so we don't perpetuate
+the "subordinate" misuse.  Maybe also include "initial" and make it
+"unsigned char" so it's the same as pci_bus.number?
+
+>  	unsigned short	vendor;
+>  	unsigned short	device;
+>  	unsigned short	subsystem_vendor;
+> @@ -724,6 +726,7 @@ struct pci_bus {
+>  	struct proc_dir_entry *procdir;	/* Directory entry in /proc/bus/pci */
+>  
+>  	unsigned char	number;		/* Bus number */
+> +	unsigned char	number_initial;	/* Bus number before reassignment */
+>  	unsigned char	primary;	/* Number of primary bridge */
+>  	unsigned char	max_bus_speed;	/* enum pci_bus_speed */
+>  	unsigned char	cur_bus_speed;	/* enum pci_bus_speed */
+> 
+> -- 
+> 2.43.0
+> 
