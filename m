@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793060271;
-	b=jbYNtTcvWcLJ1S3PQ05MGMmtDoWOc8lcJLO4ekUr1M7DrdKAwh1utdLku4yMImY4ELRp
-	 K0bwxKzdntKgRv4MMiC7z4x5eku2ayxIEWlQywLd8ucGLwVLRlyarV7wnceyl2Xw/YlgH
-	 ZwoM57SUsz81dE3GYMBJxv3MPu1Zerzjz5aC2v+91iwTMjD2Hi2vjGUx9IJXblUnC1MF9
-	 MHUlbllesGZwtwjcLTMXDtAMckd1XOhYMA8nvCP2Hg9smhB3wzFTO+xT02bT4hPGuvZFH
-	 JYNyRTPRsBy8K6NYEIktccJ7oyhUB3ljbjuk4QtH07c9MJzYHsHB+E9G049A4eY5UXw==
+	t=1793060277;
+	b=e0g7ki9kVq8c6VSTkVW4MAI6//+tAJacKGGIfLfr6cCsiWyj+xgL7WaeTEPwbrOuL0Do
+	 iHobOqQBQiC9q1crTWPdixYBzUGNOrow7HxDkP/aJPRcSLjSzl2FkbugiZUDWS0Vo7obh
+	 TmECdN4bQkmf3E83jHVby6u2estRtZbX2c0Re65OIFXG3beTSVqXnz0deHvpEksGPABJh
+	 +/fsrz2ak794CEPkF0dlJwm6OO18U/JUytiB1XUdK6joHuJPr+O7RprqEFgFci57YUEst
+	 kW8PEKPSXTxmhfEcs+xt10rDV8wT4gfAqzCjG5sky/+3efswgAHdwly6iE4mq1EK9+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793060271;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793060277;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=OuFRntLsKWVkhln7NLPq021dG4sakpiOgmRybSJ2J70=;
-	b=fHrLRHIe6SFAB9C/mOQRVN4w+yPjFiWqDASBk+JqESDUASAaif0QASWkIOIfMApj2bpA
-	 XO6YKNVkpYhS27mJsgaoxCN6DG45JMsCoHTVhpoIK+zFlEc712WIlRk+upBLiwx0b+25x
-	 BihYPERtGu9CKn+6RM98st3f15H6m7MHgsnusIcgMi7zOlczdQFcIlhbDcs/+irpvRTCg
-	 j70RKj3pMCK50DXBj6jr+afjor11ICGIjL1a1M3YMO8bfZXpitKg4D6XdW7bDZZwHymB2
-	 NDMLzCohd3elJHTjTtrplloXtYihTxWugle6RufL2M9kX5kBxv/6OAPcz2XKOgHmxCw==
+	bh=aD+m4fgT/murgPZ1dfJAGfgzlDNjMXHqsMTjsdbRhno=;
+	b=cZKgsgn/9fPYsFY3WgxgmbgVN3qrJ+8XFai5Ls57sO0lWUm8gPScA+W3lgnmncTAeiBM
+	 QAbX2/dcFmGa+nk/KUM50Ho2bJ3UBbyP+AnFaP6PMFyUclZ43FYgmn+tP10AlYl57EuPr
+	 5mSpM2lR8W92zFjhHzKH/5r6Br9Elj3foUL1nPAwgkxiFkJSxN8iUE/kB6qUrBsP2ytuN
+	 EUX5fXRjrBbhS1BIPcc3h//etMzcDWOqkZRGZ7YoDz/Jiq7tOOoXkFrQT87Icr2Upvo1p
+	 zyiDIhm7JHG6KVZC76aGfYB6Vyr744MzH8PA756j8FxvH0BAT3upuoobNrfMTYCRSaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZSh0ZDTQ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ECcBRdnb;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76264606A321;
-	Tue, 27 Oct 2026 00:17:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4B83606A320;
+	Tue, 27 Oct 2026 00:17:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZSh0ZDTQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A21C1F01825;
-	Tue, 27 Oct 2026 00:17:50 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ECcBRdnb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 414DC1F031E8;
+	Tue, 27 Oct 2026 00:17:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793060271;
-	bh=OuFRntLsKWVkhln7NLPq021dG4sakpiOgmRybSJ2J70=;
+	s=k20260515; t=1793060276;
+	bh=aD+m4fgT/murgPZ1dfJAGfgzlDNjMXHqsMTjsdbRhno=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZSh0ZDTQAO4uQw/uFtLs3ILMR6ju8DhUgm5Ail4VGtq9haKGbrERtjCxgS7Agd2zP
-	 a1f/w5+U308vOK74oz1w7owYzMrAjYeCwvMf5EoRgaXMjBu5VI2CvDAqCY4GRNjv3v
-	 BHeIEySRykIqi5N3i7dlEyUOaTriQ+4S1ww0GJHwN8JaJnp1cX6vMvrxYrt6KuB6ge
-	 PhRjvMKNnCqIY/500k+hVnXNj5AU8uEFdeU6vB7QhsYgN0rKuZP082nx0yH+fHyWYn
-	 bt7CvQ0f+U9uB4yiI+0wPKekPvxPE+KcGrdAzuK+vJ58YNEwmBZcZI1WitA6V1s+il
-	 nYNppI0Txq79A==
+	b=ECcBRdnbLgEBoCNpm0xFgZXmD2EwNBgkoe0dGKVjuz8y31Ndn5dfV3zjFJKN7PuqH
+	 h+typ95TkrvOdAoQ3sL6Z3UXqXMKKiBiwtV5Qbqk7XeAt1StB4bU38nu2WG+XrQGgS
+	 LurI1ihsC26qxCBxzLIeSyOJrk185lN0jzZTtsxsAReKs2pyK0lm4cP37NcTgAJAzS
+	 LYPQwfkUorVNHZDN9+YrWNAzTxAlxmfOArO2ouIQNIiTr99nMpAG0SX3sUR6QmI9lp
+	 Uo0kXMEAp8RznuQZF16rdEo+t4+QyIqbDfWgvWsZnXVu62953EyBqm1okQn1x3HIEj
+	 K2kCerG1aP/4Q==
 From: Tejun Heo <tj@kernel.org>
 To: sched-ext@lists.linux.dev
 Cc: David Vernet <void@manifault.com>,
@@ -47,10 +47,11 @@ Cc: David Vernet <void@manifault.com>,
 	Emil Tsalapatis <emil@etsalapatis.com>,
 	David Dai <david.dai@linux.dev>,
 	linux-kernel@vger.kernel.org,
-	Tejun Heo <tj@kernel.org>
-Subject: [PATCH 01/18] sched_ext: Pack scx_ent_flags' multi-bit fields at the top
-Date: Mon, 26 Oct 2026 14:17:32 -1000
-Message-ID: <20261027001749.1821379-2-tj@kernel.org>
+	Tejun Heo <tj@kernel.org>,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH 06/18] sched_ext: Fix rescue served time disagreeing with the slice under proxy execution
+Date: Mon, 26 Oct 2026 14:17:37 -1000
+Message-ID: <20261027001749.1821379-7-tj@kernel.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261027001749.1821379-1-tj@kernel.org>
 References: <20261027001749.1821379-1-tj@kernel.org>
@@ -65,116 +66,129 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The following patches add a flag for a kernel-owned slice to scx_ent_flags.
-The two 3-bit fields, the task state at bits 8 to 10 and the reenqueue
-reason at bits 12 to 14, sit right above the single-bit flags, so the new
-flag would have to take bit 11 or 15, out of sequence with the rest.
+Rescue measures served time as the rescuee's sum_exec_runtime minus a
+snapshot taken at admission. Under proxy execution that measure follows the
+wrong task. update_se() credits sum_exec_runtime to rq->curr, the mutex
+owner that executes, while update_curr_scx() drains the slice of rq->donor
+and charges its rescue. A rescuee can be either, so its served time and its
+slice disagree in both directions.
 
-Pack the fields at the top of the word, below SCX_TASK_CURSOR, the state at
-bits 25 to 27 and the reason at bits 28 to 30, so that the single-bit flags
-continue from bit 8.
+As the owner running for another donor, the rescuee accrues served time that
+drained no slice and charged no budget, and its rescue ends early. As the
+donor, its rescue runs long:
 
-The renumbering changes the values a BPF scheduler reads from p->scx.flags.
-Nothing in the kernel or the in-tree schedulers hardcodes the numbers. The
-enum ABI table in tools/sched_ext/include/scx/enums_abi.autogen.h, kept for
-repairing enum values that a kernel's BTF truncates, is regenerated for the
-two fields. In the scx repository, scx_eevdf tests SCX_TASK_REENQ_IMMED and
-SCX_TASK_REENQ_PREEMPTED against SCX_TASK_REENQ_REASON_MASK. Those three
-names belong in its load-time enum table, so that they follow the running
-kernel. No behavior change.
+ 1. the rescuee blocks on a mutex and the owner runs in its place
+ 2. the owner's run drains the rescuee's slice and the budget, but not the
+    served time
+ 3. the slice runs out with the rescue still open, and scx_rescue_keep()
+    restores a remainder that the owner's run didn't reduce
+ 4. the owner keeps running on the rescue until it releases the mutex, past
+    the admitted slice and overdrawing the budget
 
+Count served time in scx_rescue_charge() from the delta that drains the
+slice. Charging the owner's run to the donor's rescue matches proxy
+execution, which drains the donor's slice and accounts the cgroup time to
+the donor for the owner's run.
+
+scx_rescue_keep() also ignored the return of scx_set_task_slice(). The call
+refuses the restore on a rescuee that escalation marked SCX_TASK_PROTECTED,
+and the rescuee was kept with a zero slice and its protection set.
+
+That refusal is now unreachable. Escalation sets the slice to the unserved
+remainder before it protects the task. From then on every slice write a
+scheduler can reach is refused. Only a sub-scheduler's task is rescued, and
+sub-schedulers are cid-form, which rejects direct slice writes.
+
+The slice then moves only by what update_curr_scx() drains, and that drain
+charges the rescue by the same amount, so the slice runs out exactly when
+the charge ends the rescue. WARN and end the rescue if the restore is
+refused anyway.
+
+Fixes: 5fd501744b10 ("sched_ext: Add bandwidth-limited rescue execution for stranded tasks")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
 Signed-off-by: Tejun Heo <tj@kernel.org>
 ---
- include/linux/sched/ext.h                     | 11 +++++---
- .../sched_ext/include/scx/enums_abi.autogen.h | 28 +++++++++----------
- 2 files changed, 21 insertions(+), 18 deletions(-)
+ kernel/sched/ext/sub.c | 25 ++++++++++++++++---------
+ kernel/sched/sched.h   |  2 +-
+ 2 files changed, 17 insertions(+), 10 deletions(-)
 
-diff --git a/include/linux/sched/ext.h b/include/linux/sched/ext.h
-index efd635a99309..b341c328948e 100644
---- a/include/linux/sched/ext.h
-+++ b/include/linux/sched/ext.h
-@@ -107,7 +107,10 @@ enum scx_ent_flags {
- 	SCX_TASK_RUN_TRACKED	= 1 << 7, /* task is in an ops.running()/stopping() session */
+diff --git a/kernel/sched/ext/sub.c b/kernel/sched/ext/sub.c
+index a7b14ea16822..998888ca5ea7 100644
+--- a/kernel/sched/ext/sub.c
++++ b/kernel/sched/ext/sub.c
+@@ -428,9 +428,7 @@ void scx_init_root_caps(struct scx_sched *sch)
+ /* unserved remainder of @rq's rescuee's admitted slice, 0 once fully served */
+ static s64 scx_rescue_slice_remaining(struct rq *rq)
+ {
+-	s64 served = rq->scx.rescue.curr->se.sum_exec_runtime - rq->scx.rescue.exec_snap;
+-
+-	return max(rq->scx.rescue.slice - served, 0);
++	return max(rq->scx.rescue.slice - rq->scx.rescue.served, 0);
+ }
  
+ /*
+@@ -465,6 +463,14 @@ void scx_rescue_charge(struct rq *rq, s64 delta_exec)
+ 
+ 	lockdep_assert_rq_held(rq);
+ 
++	/*
++	 * Count @delta_exec as served before the clamp below, which bounds only
++	 * the budget charge. update_curr_scx() took the same delta off the
++	 * slice, so a slice set to the unserved remainder, as escalation does,
++	 * reaches zero when the remainder does, see scx_rescue_keep().
++	 */
++	rq->scx.rescue.served += delta_exec;
++
  	/*
--	 * Bits 8 to 10 are used to carry task state:
-+	 * The multi-bit fields are packed at the top, below SCX_TASK_CURSOR, so
-+	 * that the single-bit flags stay contiguous from bit 0.
-+	 *
-+	 * Bits 25 to 27 are used to carry task state:
- 	 *
- 	 * NONE		ops.init_task() not called yet
- 	 * INIT_BEGIN	ops.init_task() in flight; see sched_ext_dead()
-@@ -116,7 +119,7 @@ enum scx_ent_flags {
- 	 * ENABLED	fully initialized and in sched_ext
- 	 * DEAD		terminal state set by sched_ext_dead()
- 	 */
--	SCX_TASK_STATE_SHIFT	= 8,
-+	SCX_TASK_STATE_SHIFT	= 25,
- 	SCX_TASK_STATE_BITS	= 3,
- 	SCX_TASK_STATE_MASK	= ((1 << SCX_TASK_STATE_BITS) - 1) << SCX_TASK_STATE_SHIFT,
+ 	 * A rescue slice is bounded by one quantum and tick-driven expiry can
+ 	 * overshoot by up to a tick. Clamp to avoid wild over-charges on VMs.
+@@ -525,7 +531,9 @@ bool scx_rescue_keep(struct rq *rq, struct task_struct *p)
+ 	    scx_bypassing(scx_task_sched(p), cpu_of(rq)))
+ 		return false;
  
-@@ -128,7 +131,7 @@ enum scx_ent_flags {
- 	SCX_TASK_DEAD		= 5 << SCX_TASK_STATE_SHIFT,
+-	scx_set_task_slice(p, remaining);
++	/* never called on a protected rescuee, so the write can't be refused */
++	if (WARN_ON_ONCE(!scx_set_task_slice(p, remaining)))
++		return false;
+ 	return true;
+ }
  
- 	/*
--	 * Bits 12 to 14 are used to carry reenqueue reason. In addition to
-+	 * Bits 28 to 30 are used to carry reenqueue reason. In addition to
- 	 * %SCX_ENQ_REENQ flag, ops.enqueue() can also test for
- 	 * %SCX_TASK_REENQ_REASON_NONE to distinguish reenqueues.
- 	 *
-@@ -139,7 +142,7 @@ enum scx_ent_flags {
- 	 * CAP		sub-sched cap miss, see p->scx.reenq_reason_*
- 	 * PROXY	proxy state prevented a remote DSQ transfer
- 	 */
--	SCX_TASK_REENQ_REASON_SHIFT = 12,
-+	SCX_TASK_REENQ_REASON_SHIFT = 28,
- 	SCX_TASK_REENQ_REASON_BITS = 3,
- 	SCX_TASK_REENQ_REASON_MASK = ((1 << SCX_TASK_REENQ_REASON_BITS) - 1) << SCX_TASK_REENQ_REASON_SHIFT,
+@@ -608,10 +616,9 @@ static void scx_rescue_timer_arm(struct rq *rq)
+  * @slice: CPU time to grant
+  *
+  * The schedulers keep their normal control over @p and may preempt or reslice
+- * it. @slice is measured on served CPU time against the snapshot taken here, so
+- * neither shortens the rescue, see scx_rescue_charge() and scx_rescue_keep().
+- * Prolonged denial escalates into protected execution, see
+- * scx_rescue_timerfn().
++ * it. @slice is measured on served CPU time, so neither shortens the rescue,
++ * see scx_rescue_charge() and scx_rescue_keep(). Prolonged denial escalates
++ * into protected execution, see scx_rescue_timerfn().
+  */
+ static void scx_rescue_admit(struct rq *rq, struct task_struct *p, s64 slice)
+ {
+@@ -620,7 +627,7 @@ static void scx_rescue_admit(struct rq *rq, struct task_struct *p, s64 slice)
  
-diff --git a/tools/sched_ext/include/scx/enums_abi.autogen.h b/tools/sched_ext/include/scx/enums_abi.autogen.h
-index 1186daa9cb14..05a460611c4d 100644
---- a/tools/sched_ext/include/scx/enums_abi.autogen.h
-+++ b/tools/sched_ext/include/scx/enums_abi.autogen.h
-@@ -120,24 +120,24 @@ static const struct __scx_enum_abi_val __scx_enum_abi_vals[]
- 	{ "scx_ent_flags", "SCX_TASK_IMMED", 0x20LLU },
- 	{ "scx_ent_flags", "SCX_TASK_PROTECTED", 0x40LLU },
- 	{ "scx_ent_flags", "SCX_TASK_RUN_TRACKED", 0x80LLU },
--	{ "scx_ent_flags", "SCX_TASK_STATE_SHIFT", 0x8LLU },
-+	{ "scx_ent_flags", "SCX_TASK_STATE_SHIFT", 0x19LLU },
- 	{ "scx_ent_flags", "SCX_TASK_STATE_BITS", 0x3LLU },
--	{ "scx_ent_flags", "SCX_TASK_STATE_MASK", 0x700LLU },
-+	{ "scx_ent_flags", "SCX_TASK_STATE_MASK", 0xe000000LLU },
- 	{ "scx_ent_flags", "SCX_TASK_NONE", 0x0LLU },
--	{ "scx_ent_flags", "SCX_TASK_INIT_BEGIN", 0x100LLU },
--	{ "scx_ent_flags", "SCX_TASK_INIT", 0x200LLU },
--	{ "scx_ent_flags", "SCX_TASK_READY", 0x300LLU },
--	{ "scx_ent_flags", "SCX_TASK_ENABLED", 0x400LLU },
--	{ "scx_ent_flags", "SCX_TASK_DEAD", 0x500LLU },
--	{ "scx_ent_flags", "SCX_TASK_REENQ_REASON_SHIFT", 0xcLLU },
-+	{ "scx_ent_flags", "SCX_TASK_INIT_BEGIN", 0x2000000LLU },
-+	{ "scx_ent_flags", "SCX_TASK_INIT", 0x4000000LLU },
-+	{ "scx_ent_flags", "SCX_TASK_READY", 0x6000000LLU },
-+	{ "scx_ent_flags", "SCX_TASK_ENABLED", 0x8000000LLU },
-+	{ "scx_ent_flags", "SCX_TASK_DEAD", 0xa000000LLU },
-+	{ "scx_ent_flags", "SCX_TASK_REENQ_REASON_SHIFT", 0x1cLLU },
- 	{ "scx_ent_flags", "SCX_TASK_REENQ_REASON_BITS", 0x3LLU },
--	{ "scx_ent_flags", "SCX_TASK_REENQ_REASON_MASK", 0x7000LLU },
-+	{ "scx_ent_flags", "SCX_TASK_REENQ_REASON_MASK", 0x70000000LLU },
- 	{ "scx_ent_flags", "SCX_TASK_REENQ_NONE", 0x0LLU },
--	{ "scx_ent_flags", "SCX_TASK_REENQ_KFUNC", 0x1000LLU },
--	{ "scx_ent_flags", "SCX_TASK_REENQ_IMMED", 0x2000LLU },
--	{ "scx_ent_flags", "SCX_TASK_REENQ_PREEMPTED", 0x3000LLU },
--	{ "scx_ent_flags", "SCX_TASK_REENQ_CAP", 0x4000LLU },
--	{ "scx_ent_flags", "SCX_TASK_REENQ_PROXY", 0x5000LLU },
-+	{ "scx_ent_flags", "SCX_TASK_REENQ_KFUNC", 0x10000000LLU },
-+	{ "scx_ent_flags", "SCX_TASK_REENQ_IMMED", 0x20000000LLU },
-+	{ "scx_ent_flags", "SCX_TASK_REENQ_PREEMPTED", 0x30000000LLU },
-+	{ "scx_ent_flags", "SCX_TASK_REENQ_CAP", 0x40000000LLU },
-+	{ "scx_ent_flags", "SCX_TASK_REENQ_PROXY", 0x50000000LLU },
- 	{ "scx_ent_flags", "SCX_TASK_CURSOR", 0xffffffff80000000LLU },
- 	{ "scx_exit_code", "SCX_ECODE_RSN_HOTPLUG", 0x100000000LLU },
- 	{ "scx_exit_code", "SCX_ECODE_RSN_CGROUP_OFFLINE", 0x200000000LLU },
+ 	rq->scx.rescue.curr = p;
+ 	rq->scx.rescue.slice = slice;
+-	rq->scx.rescue.exec_snap = p->se.sum_exec_runtime;
++	rq->scx.rescue.served = 0;
+ 	scx_set_task_slice(p, slice);
+ 	scx_rescue_timer_arm(rq);
+ }
+diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+index 628765910934..dcc639998069 100644
+--- a/kernel/sched/sched.h
++++ b/kernel/sched/sched.h
+@@ -816,7 +816,7 @@ struct scx_rq_rescue {
+ 	u64			clock;			/* last budget accrual timestamp */
+ 	struct task_struct	*curr;			/* task being rescued, one at a time */
+ 	s64			slice;			/* curr's admitted slice */
+-	u64			exec_snap;		/* sum_exec_runtime at admission */
++	s64			served;			/* curr's served time */
+ 	struct timer_list	timer;			/* paces admission and escalation */
+ 	u64			kill_at;		/* last ejection, init before any */
+ };
 -- 
 2.56.0
 
