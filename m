@@ -1,98 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.47
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793137575;
-	b=bD9QfR6YQpHrW5jFbKqqK6PpZE6jYJbQAOYa3uWX3+BUMlZWhWY85DQOJrRAOdiczXnW
-	 QF4LpW+ThHFYp1anx26QruS0w5Or/Xj5N8XhagkuGWbzt077YQ5kFuos0qflBpPdJ+7eP
-	 HxTdR0QMUIsOhidhFrlLgKR30IhNBa5iaORblyzmXpni0HK5TddM9A3Y0HlzuSrwbATZ+
-	 A0RnUHX2aXtIEczdxNEyt4AhQVRet7WC+9ZHFIlIDDEDd/IaKvqpCbCtvLir9acCWKRgj
-	 9nMzI7YHrUHiIK/yxde9objXdW/UXQAu5ThVJl8p+BvE7+38MZVcVx0Ex9gcZYPu8Ew==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793137575;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793137578;
+	b=f8qU4eZ2KO26Bfn77DByCtzGz4ZRHyeYuLc/HPwzrtsv58giueVERGB4LkQeA663mbjQ
+	 6GJG5642XpE9q/+OKbJfRQttTlWB+cExiWyEfMJTAIuj9lz9O5cz7ZpyT5rWlhycV6QKW
+	 QcpajX8+v4YEYOAuE8xV5ogxMh0fSnBEN25CpURBDn02bVCT/SdRf2Fk5VhBxTQyvY0Dx
+	 P3P4FroLzz/GZKz0ztIt1TrtClcSFrIteUYiQUyaUf5cb877afEi39Cv3+0xr8YckdOZd
+	 Tjggn5/jkVRJDGQi8krPvXaKrNTYyfNBaQ4edHptAdkaxyHeVjjvnM2S7tZwUk178qg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793137578;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:References:In-Reply-To:Subject:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-Mailer:
-	 Content-Language:Thread-Index;
-	bh=QFC3dMXMjls1OkSJlBz/j7yjixIsRn3p3uTGKR2xSH8=;
-	b=Y7FR5luJ691Ozr7g58M7Nyf/eQ3KC0Tv2uxFN5aTEBMlcE+gutnllxaqAsuPrBxSRM+L
-	 e8WVOcw80Apav9y6REw/rZSKdL6FWtgvIb/jbyWbdkSsyLCxuyD6SyXipaphU0GENV8SB
-	 CRzAETQVo68t4GmgLp82DsJkfO3ddsZyk1/isRjSYH3zv6ewt3XyJjdqYrugV3PItv9EK
-	 iJoWJA3jBKyK+pyfLMO2NmitNpinlw/kA8EWdOWbrr+dFlb2WAEAVi5lO7Fq8x3UaKJ2j
-	 Od5YNT0LIn/jiGHHUv5eVO7iCgIPsjB5+OcQd9FE1xegHFHMIQAVzWzmvTRtL167GSA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=telus.net;
-	spf=pass smtp.mailfrom=telus.net;
-	dkim=pass header.d=telus.net header.i=@telus.net header.a=rsa-sha256 header.s=google header.b="g8q2+/rz";
-	arc=none smtp.remote-ip=209.85.216.47
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=eVSNb0KQbTxZM+AQXhdYZUTzoSM560pyx9+jZ9Z1qdI=;
+	b=atAei6KiaQOpZbNX9LiEU53QETddYAOLl1XW9ppR6JUReAJnQNzNhh6aaUBFc+6vdAzs
+	 Su8rgbAKNEQ+xLXPCvFdHEjEr+QEnfvqBoyXFqMOM++rnFn4mgbT+0LppBks239Un7x3B
+	 EBd723nPwgxzc9xTUNHU5rvRGwBHGN4340Gryo9MRfUDVsb96dth9wx5MASSs+Hpmhqeo
+	 NuuCIS3I5nI38omdNeaqlkeXY/GXSMNYlvp5BJHE1ZxZmI3Tmx7g8AlH5eVAz9tZpUJZo
+	 MoqINBTiYILXXlD/ByaFVrmiCyiDUzEUiTm1wc+8+VBjEgSTXlCP3YS7W4GYLni1HUw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Wbne8OHp;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FCD3606A322
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 21:46:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6FCD3606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=telus.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=telus.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA6AC606A31E
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 21:46:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA6AC606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=telus.net header.i=@telus.net header.a=rsa-sha256 header.s=google header.b=g8q2+/rz
-Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3ac77270fbfso204421a91.2
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 14:46:15 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Wbne8OHp
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b203527bceso628326a12.0
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 14:46:12 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793137571; cv=none;
+        d=google.com; s=arc-20260327;
+        b=feKz0MTXSYtTzcUSZ6MQwiNUb5fvXf5Jsvir5W5TWHlBME5noDJWJni9+eliHKgt7B
+         av7Zm6bYlbfzXyhusVCjveeF1+zMrt4vp1sRg7GRLJ9AUayTSnEZx45CPjvg1BF7TNSk
+         n4gnUl7uG9HsxyJBgTvJR8NzeUPUQggzCQruxBHjD/byAvsWdo95xH/ij6lG4+QHYyKd
+         eZh+GDUDPhWHVm5EYawz4DxhZmBlDFdHcYdr0tjzVyBPcs38DBE1cxC0asJZlC/Cg5pI
+         XgcgsEr0XQURgu7dnSjh4PpIeB89KLc1siOcx6ASzIOrR+eOGXeRQGdF6x/j/JDyiJdi
+         8dqw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=eVSNb0KQbTxZM+AQXhdYZUTzoSM560pyx9+jZ9Z1qdI=;
+        fh=YjQXy+ioJ/t+6aRW76FLCzxwpKzMKDRafKAZUeoG7Hs=;
+        b=etMVLMQ5ZYhQzxfKRR1sNu+NMQhIKaprZnvpbnxVWy/jFUivklyRJZNrJITPda0yqs
+         rXO+ZAIz8hmtxcxt5OFVrHTw9C6RQ8rLnvO4ku5wTrA0ajAyKLTC8cwUJmYtvTYYPEhJ
+         kICioPBzqmBonf8olECz6iZVfKXqfJK0J5kRUPg64qr3k06iAvaWieeFw7gYU8uSxbiZ
+         ZzochDfZDUv4HuRinUVC6UXJP9g1iHko7aNiTiBXC3Gx47mZljvyP80J7wMpcAEO3FRx
+         0ZAKLFD5ZJMKmNi1QKhAYljcuvm7AHvcWqkENWKLTWfV6j2+eRJnqqGN+RhmQuo2qONA
+         WNlw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=telus.net; s=google; t=1793137575; x=1793742375; darn=vger.kernel.org;
-        h=thread-index:content-language:content-transfer-encoding
-         :content-type:mime-version:message-id:date:subject:in-reply-to
-         :references:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QFC3dMXMjls1OkSJlBz/j7yjixIsRn3p3uTGKR2xSH8=;
-        b=g8q2+/rzhXuw6wKxw3KV2YR8BX8fg8Kds2z2AHAyF/6JetyVQz4ZLH8Ai7afnJXTmY
-         mBbrKrodlIwcZK8ucZSVgMvatETDXNsIcJBix65BYRskrHTQ9fKkvRh4efC4wdsEIewB
-         9kyRI0nT1p0qA8voAv9umdpuN3E4Gqlttse/fQ9LpiF9zaZubPw92b49AylMKdcFofUo
-         TeKjfLgMxvEyyn0Ibmb9vA+tGlF6JzNksa6TAbxjdF37cIBdLaEUX/eR1hRccxN38iNH
-         evz/3wIgh40x4x9VZ4jprGK7pMQHUuXcSfoENNZltFrbg0k5D4ZcQ6l5GMYSpNabUJ6u
-         4wwA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793137575; x=1793742375;
-        h=thread-index:content-language:content-transfer-encoding
-         :content-type:mime-version:message-id:date:subject:in-reply-to
-         :references:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+        d=google.com; s=20260707; t=1793137571; x=1793742371; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=QFC3dMXMjls1OkSJlBz/j7yjixIsRn3p3uTGKR2xSH8=;
-        b=SX5qvjX6z/h4T0ZZdwvW2iUrF0HaeblQyPcjx6+JZKWsIC34F87d08/ygTeHf213k5
-         kH9rpAWZfzTi+ikLiAhJe0d19iMopR9xl5At1NY8avMShqnJ8IBjB1KfpQRgoy2zayTE
-         Qz9m7K5VIWjD6cejXE0cfonRAUGlrdOXxrQld+amlLggCO92gCj6VwWXTOv0W9mF1mXc
-         ldsrVlXWWtdijzuMfQIYwCCzntLw7rKS4Q4HswNiOjuwNM6/VazEv78n62TEdpR4kN8R
-         LX40guDJ9pSbeQpB+UngCDZjbP/N0HLWSiwh7slDz2xe/08LklD6arXV33bUOUALtlyX
-         wuoA==
-X-Forwarded-Encrypted: i=1; AKwUvBwaKhSQFOfu+GKFa10YmPnn6YgZYO1NL9UG5V0Ai9GRNXjYD8H6UfX+yqNDqtx2HRRDylsQslYqvhTgVoU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKOYaAuWTQs10mzuRHDJ430lf9AK0PIFUnrMjGDXghJoacOcp43
-	wLi3V/kIvFlwpy4jGv1zV0TsIAdLUwtytbOzBgAmnLVqSK1AOQE1sRVtmqIAa/GnSkk=
-X-Gm-Gg: AYBFou2MtSkOqPd1Qjhq0+sNoz1KDXXBz26e5v3PPA/h5MTON+0HLIc2fC7z6gu1raC
-	wMXVL0xH1AFvtT+0eak6VoX0I1hubyhHdFI8lZJFa87p+iMUPbEvwOu4bEoSJOKtnItwgXL+ix7
-	gjNDUVmLJM0VJtwy/+xTiB9afnX4+IjIKOHRbCBI41clhmrjkn7M9sgWOSicUgVQt+WyG7ePdIS
-	mO60tro7vHMiQc71WSxMICxNqgIObxR7MmRLXQhlb12UP3QKqFLcFsNNEvMVZdir+bWbpcSOIFm
-	bbtX+qmBzCu6zVmzGo8kfx5EZTXyH+mMJHECI3d/VUYEO+5oPIPWDfP8kUlDZPcIrKny6bH514J
-	l+QYKcjeraiS9sXGMszKAEg/rg1rqVkwYstw9rFtgMYI35Q7YmTZeX7IB5mg4BxNBWb6p8y2OjB
-	jVL5VN7SSft0t6lnJo30wRt0uvX0Z/MWQuwBEWHP98xtbjAXLsLqQcXifUYqIUBueyq70bT9cYG
-	HPrJdkEHWgo9apaTdTFCbglN79ssS5rT2Im7K5ge/fSD5U0Dy6dvrV0d4HNKVo=
-X-Received: by 2002:a17:90b:4a45:b0:3aa:fc22:8ab4 with SMTP id 98e67ed59e1d1-3ae58100ffcmr211135a91.29.1793137574706;
-        Tue, 27 Oct 2026 14:46:14 -0700 (PDT)
-Received: from DougS18 ([66.183.142.209])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae5a9a60f8sm33185a91.11.2026.10.27.14.46.13
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 27 Oct 2026 14:46:14 -0700 (PDT)
-From: "Doug Smythies" <dsmythies@telus.net>
-To: "'Rafael J. Wysocki \(Intel\)'" <rafael@kernel.org>,
-	"'Zak'" <zakbrightonknight@gmail.com>
-Cc: <linux-pm@vger.kernel.org>,
-	"'Srinivas Pandruvada'" <srinivas.pandruvada@linux.intel.com>,
-	"'Viresh Kumar'" <viresh.kumar@linaro.org>,
-	<linux-kernel@vger.kernel.org>,
-	"Doug Smythies" <dsmythies@telus.net>
-References: <20261027143725.3763827-1-zakbrightonknight@gmail.com> <001101dd6631$6167dbd0$24379370$@telus.net> <CAJZ5v0gVkYuZAh7H8KFakN+vHkJTjzvmZsLrUVP0MXkaKLVoCA@mail.gmail.com>
-In-Reply-To: <CAJZ5v0gVkYuZAh7H8KFakN+vHkJTjzvmZsLrUVP0MXkaKLVoCA@mail.gmail.com>
-Subject: RE: [PATCH] cpufreq: intel_pstate: Restore P-state request on resume without HWP
-Date: Tue, 27 Oct 2026 14:46:15 -0700
-Message-ID: <004401dd665c$97eda060$c7c8e120$@telus.net>
+        bh=eVSNb0KQbTxZM+AQXhdYZUTzoSM560pyx9+jZ9Z1qdI=;
+        b=Wbne8OHp5wFBPP5dxuR8+Kp5ZHrm8v80mBFme9V3XRymOzyPXT+ANjuS8mZtAutbOt
+         ODy1sui91Ycwohd+oEsUjL53uPSBpLjWgEgWbT0Ma2aK7Hvfe3g01z4xkvRH6s2A/fGZ
+         +Zbv9XzVpEdyJwXjAhRmHLJ3XY730+XSfkzgh8qi4omMFnsRCwCi2Puq9v4j/9LjCquY
+         7A7TovQ1C2rR2zd4geupuZI+05Cnugg1XhJ4MHSma5JAUcS+LWaaA2qCMueEuNn/BKvO
+         xSW9c+bot29ZINzBkQ0CD12vMG5F6NsY2dux4jMT3EVU1twWW7mORuqkOTF0o5JB3euK
+         EGbg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793137571; x=1793742371;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=eVSNb0KQbTxZM+AQXhdYZUTzoSM560pyx9+jZ9Z1qdI=;
+        b=A7BmPIvW6UajVUQsBOPwgJz9FSr3cHYAnq9wmW36M36I3OEItIWVnhhDHElxwPBWjM
+         o3Q8SLKO+HXTuhdWFtvtd72KQQ/QSyMdC3MTuNImsB5wCWZ6k8xmF45Y4mxwlAv5Yj7b
+         tIco3wPE6h4hTUBplMEdOkKASky0OD0ixz9qZuRJQb/E8pJoqJLZiN+wJ40DkiVa8pUl
+         t3/AB0Tb+iH8+y3QsNJXzirSDla0UfBfxtrXtkTZT/rHP+ynsOJWeFL0Wg28x+VEpiJr
+         YP8LljSkRVJhAXc4AXfXbFd8YYDe1mOX115ULyvTKviTN4PHSfgc8D12T5kHaaIzGSva
+         yiAA==
+X-Forwarded-Encrypted: i=1; AKwUvBxBXjrcTkw6USF4yJMHIqWVR+uxBInsl9Jmi2OX0BND/7hbnDNy+TrukOEfR+iKuF9Y1IegeVAZeDl/btE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKExPeB3sPNdJpSh862nPEQ8VB/bGDiPmLjER/TKKuKOnWxYHsz
+	nMlse/IJvzzs90RGrnqYSpAH/dHVHJiOuDfp6k7k/I/ywXJk0JUPtsOZhgj02wg4OFbgXxnNlgI
+	lCB8gfXghQzsLo5QL27yieUjTZCn8oVRzsRp6RWXf
+X-Gm-Gg: AYBFou3i87qX6TbzJfJA/UUeAVK908n92/pd3sny+gYKoNra/b4bWxrKvZWvgko6Pjm
+	AxzwfUQhSGUPcEJdskPFrC3CiXQotTvfyaZhvb4vUiNQCrZxZb81sQWhmcdyBd5zGCAOr4Ns5yk
+	vo6+kQ/bN4ELJsnDC9yZNV+A/4sWAdFqTNWDmf8JM6O/JaWvdq7o6RVT8JaAK7+0Tgwa49Jtw2U
+	yUQ/cKF6QEZjvg37ScqNYpjV4Ly2CErx/KMKwgCENFmTcj2Z+T4nGB9DaBmtZvQzL723AoiXRGN
+	EvrsU3nIORc/s23xeISZjVMUeVe5XEm50SowYMLX6k6cQFpX52BZA7GvG2XOH6mMRjJheVMds3r
+	rdNBN0nUC0Z9QGy/R2LLGk1YdXIIWWLXeV7XQPFxzrE0z8Q+oFx2Qdb5/aIMXmPy8N3s=
+X-Received: by 2002:a17:906:794a:b0:c36:7579:fe6d with SMTP id
+ a640c23a62f3a-c49bdf3769bmr41163366b.11.1793137570881; Tue, 27 Oct 2026
+ 14:46:10 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,34 +104,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="UTF-8"
+References: <20261023001603.560210-12-wusamuel@google.com> <90371d2279a5eb08966a82325922e1f15eb93560d4019f5c9020956cadb4120a@mail.kernel.org>
+In-Reply-To: <90371d2279a5eb08966a82325922e1f15eb93560d4019f5c9020956cadb4120a@mail.kernel.org>
+From: Samuel Wu <wusamuel@google.com>
+Date: Tue, 27 Oct 2026 14:45:59 -0700
+X-Gm-Features: AclHuK8QaCDsAbnjPaGufNN4kMFz5cqAaOc_WFmJQjgBqVdaEIaSp_a56eCEZoc
+Message-ID: <CAG2KctpuWLxdxB+LzrBO8eGsL2E0m_DphcG4cauB0cHuEDEoRw@mail.gmail.com>
+Subject: Re: [PATCH bpf-next v2 4/6] libbpf: Resolve typeless ksyms via
+ KALLSYMS_QUERY ioctl
+To: bot+bpf-ci@kernel.org
+Cc: corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org, 
+	viro@zeniv.linux.org.uk, brauner@kernel.org, jack@suse.cz, andrii@kernel.org, 
+	eddyz87@gmail.com, ihor.solodrai@linux.dev, ast@kernel.org, 
+	daniel@iogearbox.net, memxor@gmail.com, martin.lau@linux.dev, song@kernel.org, 
+	yonghong.song@linux.dev, jolsa@kernel.org, emil@etsalapatis.com, 
+	nathan@kernel.org, ndesaulniers@google.com, morbo@google.com, 
+	justinstitt@google.com, kernel-team@android.com, linux-kernel@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org, linux-doc@vger.kernel.org, bpf@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, llvm@lists.linux.dev, martin.lau@kernel.org, 
+	mason@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Content-Language: en-ca
-Thread-Index: AQG+ka4iSAouj32QbdBtcmCOlo9WegIHF20PAY25hX23Mu5WwA==
 
-On 2026.10.27 Rafael wrote:
-> On Tue, Oct 27, 2026 at 5:36=E2=80=AFPM Doug Smythies =
-<dsmythies@telus.net> wrote:>
->> On 2026.10.27 07:37 Zak Brighton Knight wrote:
+On Thu, Oct 22, 2026 at 5:51=E2=80=AFPM <bot+bpf-ci@kernel.org> wrote:
 
-...
+[...]
 
->> I confirm your findings and tested your proposed patch. It all worked =
-fine.
->> I had not seen Rafaels's reply about a possible race condition until =
-now.
->>
->> Test computer: i5-10600K, 6 cores, 12 CPUs, HWP disabled.
->
-> Passive or active mode?
+> Would it work to fall back to libbpf_kallsyms_parse() for typeless extern=
+s
+> that are still unresolved after the ioctl pass?  That only costs extra ti=
+me
+> when a symbol is actually missing.  Alternatively, the kernel query could
+> match the .llvm. suffix for data symbols.  I did not find a fix for this =
+in
+> the rest of the series.
 
-Apologies for the incomplete report.
+Yes, for strong externs. In v3, if a strong extern returns -ENOENT,
+I'll fallback to /proc/kallsyms to scanning .llvm.<hash> suffix,
+keeping the same semantics as before.
 
-Passive mode has the issue. Active mode was fine without the need for =
-the patch.
+Weak misses must default to zero without falling back to a scan.
+Otherwise, all objects marked __weak would pay the full /proc/kallsyms
+scanning cost. This is a slight semantic change, as a weak symbol with
+a ThinLTO-renamed static now resolves to zero. However, this is the
+behavior of the light skeleton (gen_loader.c), so perhaps it's
+acceptable. I'll note this in the v3 commit message.
 
-... Doug
+[...]
 
+> Should the fallback cover any error other than -EADDRNOTAVAIL (and other
+> real lookup errors), or at least -EACCES as well, with a pr_warn() for th=
+e
+> errors that are not handled?
 
+I'll update v3 to log pr_warn() and return on open() failure or lookup
+errors. And then I think I should reset partial state and fall back to
+/proc/kallsyms on ENOTTY, EPERM, EACCES, and EOPNOTSUPP.
