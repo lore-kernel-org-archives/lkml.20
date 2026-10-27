@@ -1,83 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793105400;
-	b=HpOD1dRJpxgOi6CbLvRpOAyOCltg32wj8Hwb9o98k3OQEj01W8XsrYXXuVt1q/pP6cUM
-	 JVwI368lDiL2LE+tK56R/FXGNL6YhNURMSOnJLVo8XHZYUDi9ckjD6yDpa44JACNt78ab
-	 W6CvSSzx8et5wD8CIyIz+cWSWL6sEEq/rxOBIeKV/T4OWbzdwjFRQMK3Lv2EXrj4ksRTg
-	 61U9rraX7gZuv1h5hWqX4/u6UbGjo7rZ989e5TYDWUOuAKi7Z66rRISSX59BJOoy7I3e9
-	 CZSTw98xuTbX4FfMbdSmGOoOlUdEqh9G7wxj7pCiVBo5JlrOwB+nLAosIE7vBv1t6/g==
+	t=1793105406;
+	b=5HMWCuetAhG2lO5El5vlKYRTCWdjK0EDeBEsxnc1HKCD3O0rw36QRu62Ub/J1HlNAzY/
+	 fZ2tCf2JSuFuv0DbbpnOYKngSwWqTX8Ylyza8Plu6w0GSlMphTHjbCRMc19sjmJB9U2dE
+	 IqPvc86yuCrZ9IRf2f4FdVG77/Em7zh9QJPUaFtoSPUmJceyGtgCCv7OygJSSE4cd8ix3
+	 ILjc1nNbpAbeoJSaJwSBNCFLeLrRX6Zkagowh1AGdAmprn12fEoFiEyDAo2xM28ZcolBs
+	 6U5GHWU9PGXFQF9+DymvOYYAKEtxO7IvzHA2ksHY+sfca1ABnpfkrlzKCKtak9APHJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793105400;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793105406;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=i3eoTk/bStSxof4N8Gfz3DvypjlvmOdA8edsrMpkUbM=;
-	b=mDGPo7ryMib/2brIktLmm0PWPKry49SnA3ySpk5aKwnJ5l09ufHimd3zbfwGkuXwiPbO
-	 gX8BkYO/lSbb8ecbupIchXq76tJw4e0hfJK7W+t5mpy2GCj9FR5DLT94najxxIjIoDZpo
-	 HhiTrjmhyWVgX7ueQiNDPFL/4etOq9ANjsDB83hVdt7PAmOoJZbspsVLDxAS3EfmpG7CU
-	 psxFFJexQQ6s3llaf/augr376pprq/KNCGFcOnPt6botlTkm7M3TxYL3Z7HyYYP2l7MYp
-	 MbqFSroGSLa5ot4DP/FWBhJjl0b8OBohoExqlC7udwUxESGIVzgwZY7SNz0XqfLNEaw==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=pkcAkMdCRwIuT9szM2gCVVjCSXFflqIHrQQCvrEeeZg=;
+	b=1Bb8I2Z0xndvS7tvJdKu63NaX/PJj1cfILx4JbW0sOZPxXEd0C/Q5vWiir/8PDwzo3ev
+	 GoNV72G9SKg+1Y34WOUlEDSS4BELKfjR78pcsWxM04pAIu/znb0aX8fJ1Kz6aqgEWl5o2
+	 o3/5mShM7JUlIrUgyu27yo+Bnqyn1Kv1M0ckjDLUYPrIhnL5jrwscxnsPhx5TkPzZtdE+
+	 6mEVN6y65Q5X0d8zeNGxRTQUvK5UYIQd7EcB5cqv/9+UH/tw3SnzHS9ZVzbzC+bIvVPXX
+	 evf8uW4aUeozGv5x3ma0eeM1C2kCV2RcWh8bE5D3eTuabaKT1gV7a7wfEs0ZpqFpm+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=hmwLS0X3;
-	arc=none smtp.remote-ip=209.85.208.182
-Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com [209.85.208.182])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HisGQ0qh;
+	arc=none smtp.remote-ip=209.85.167.52
+Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com [209.85.167.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 289BB606A31F
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:50:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 289BB606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8395606A32F
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:50:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8395606A32F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=hmwLS0X3
-Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-3ab46699a09so33941481fa.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 05:49:59 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HisGQ0qh
+Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5be416e603cso2452891e87.2
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 05:50:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793105398; x=1793710198; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=i3eoTk/bStSxof4N8Gfz3DvypjlvmOdA8edsrMpkUbM=;
-        b=hmwLS0X3VwBzPUhDQ4GJnqIBZcmagCbYccapc6RXsOEsStOprIPW93h+mJOTrqUupa
-         DVOeBpvClqXRrWUzWFSldeb23OWkRq3pRLtDRe3cuOD4QLzkz3/lfzm8LLcRDZgqRHgN
-         6fmYllJ9tz/5QXpgx3Z5MBEYIXFiQOfvPQ+mAnlWglizCNr0wnERfZL5an4u3KosXl82
-         GwZ7FKyjRyVqSJM0cDUJMKCOp91eLvh7lljoIYYfcp7HUvHC35tg4qXqkZMSSply3D9e
-         vSHlVm7bvk/JdyMdOZP99vLkfFkPoxka1MBMuHl/ZPBzS4CQ0JuzAYvbaYLCW4FSM/Pq
-         N+3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793105398; x=1793710198;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1793105404; x=1793710204; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=i3eoTk/bStSxof4N8Gfz3DvypjlvmOdA8edsrMpkUbM=;
-        b=wnIZhFdTqdtc29z/QC6eFwzKXZAIclQICRQjzO6EY+fv8gJ+iRh1Zw5X4LpEKSjwTB
-         C/HE1RJEBDIjdC9zEEZo0/kB99JWy+3fVzh4ML4rud6l4S5lNpPesPCm7K6fmsOyONZh
-         i3txeOuPtpYSLKPrGd8XVSEykhVxRW1sd23CipqcXsTpDd+Gac6a51V7WWttbTsr4gkQ
-         4oMHiHRZf9mBZojJfzZZMkXEYDJ5xYl/nTbxO/UlfuWTLmOBsHtwzoUFz6PfFBiUcjXY
-         j33Yv1WUQeWSogVWjH/io1/6qzTPrsdFU8Hv6ovjtSa1hJRAuDz+x9XiKmPFZ24AfDL+
-         wjwg==
-X-Forwarded-Encrypted: i=1; AKwUvBwzPi/1lbc8ZG+Mhzqk0/U3vGtpcDJN2JAzo6IraaCMlKGAnTn4oZg8HM2bMtbh0BXtiNyGtANovcHPT6A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIIvjWLpvmLO6ut5MsM5qktlok8dCWJDJvV+wJSzkfi+teIP78n
-	p0ELn6BbvzT06/aAVBWlL4gIFSfyxr9GWOQdLBkJ+0bnysF+y5r8vYlM
-X-Gm-Gg: AYBFou1xhbZVXojLYcZtG7MNbWCmrveGdL34pelxC9GOw0WZsUcCj9y8gAL5LjiGWsN
-	oijwZDFKiqkBOiOuYxbfugXNMmr4wjkSBPOnFRpm/F5PTh5oMaEL0sMaQDo9ooh4cUmANut5Pqk
-	ZG7lpopzpDmQCKdjXLyKiJUHHFA15zVOjtesW2+yk6yH43UsOl+qokqciISWNheKVR4RborgQB5
-	2MXLAK9JA82Ps1/sstkHR7C5aNfpyb6+aeHNvY55ISj8s576D5w1w4Cj9yIichcqGSRojUlevku
-	VdY41VVh983Z4hiu8ccGDlyt/kdIeQpX5Z2rAjtnoDSTSQbWng0s5tE1i/VbSbI4GPA9/kDjXBt
-	4U9kG/ni5YndmNuvRUwJIlctkG48la62ZZOY7QtfKN5mrHz5fjDNqofFFZrWYT5bHRwfbuzjr3k
-	vuPV9jPpRbSeBWWhTXC0qKTBHv9p8nX1spwNoVHd2w6Me7nJ9wy1N6u2SlFWgY6uZeHaCHzwbm0
-	SKnBW5Ndaj/6DHTQe7Oi0C2CvTlxRjbIQryf/Db8it1zTWVgtnNgNoUcCmb27vNbBj4npYrv2hd
-	0/TTQmO4GDsOB4rnjqHK70NkHgoD8tMhjXfUidVPQ0izzfYlI1kDDo6bONkpbOTLpwW7GffGIPD
-	wBa+5Uw9+cQ==
-X-Received: by 2002:a05:651c:b27:b0:3a9:e428:d2f8 with SMTP id 38308e7fff4ca-3ac6fd68faamr25300931fa.29.1793105398128;
-        Tue, 27 Oct 2026 05:49:58 -0700 (PDT)
+        bh=pkcAkMdCRwIuT9szM2gCVVjCSXFflqIHrQQCvrEeeZg=;
+        b=HisGQ0qht2PJXTGw5WAvL5jvm2y81pQfxwwDQ4pzxV7qEjKiv/cqetdgchEhFLiQLm
+         ROP5GV/aiLKdwUS5yrc42cRdpfbWE6g6/AZoVTpM3DOxB1HL5tKE2Yt5IkGDO4waVpbk
+         awtdsgY7FcZ3vowE/ptcyBfXU2C336wcXkxZ7EMY2GPg1Bl/VWuYLNep3txus1W61/Ks
+         uCY26n0GZGaAgOEGI1fvCI8j1vekzG/24grSoR7ldsnRPwon7x2Xrfe2Dm+IuyclK8B1
+         i0l7aoi1lkIR4OxsL5LDbEJ9nIrCcBli6PE0+oWTTTNIXk3EFHKTG0yEoxJwFwqMR14s
+         puDw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793105404; x=1793710204;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pkcAkMdCRwIuT9szM2gCVVjCSXFflqIHrQQCvrEeeZg=;
+        b=tpSKXtC3BAWHQNSwnhLsqw7c0F2fovrex7wybyymP9Hn2t+e7I1x4qYNl6g5lQjWzL
+         VFUWubIM09Q6seyO66dhHAuK166eKFx57uAYGvHTNhr1IVNH3KKLmYK62GzIPiuOPKf0
+         07sa/3o9Lh3WeWRWRqLlz8guCGky/T5dJrHSqokAl1MMI3QSWlE0rNNmdtq6aV236Uz+
+         Ow+3ZeLgTASawATJC2Ifqe3dKiAzP+/11tPD7JG74FgIkCfaT8Nlb2+BZGfiGAb3IIUp
+         sWuB4hN/CghhoXn6+R6kGLKm6aKgVVII1II9ulDa0Uuppstinwjn2V2+bUo/QfYVZZYU
+         Dqsw==
+X-Forwarded-Encrypted: i=1; AKwUvBxWoxN93OcUrCVB8KQA2FZeUzA/eGMHwgSE7N8+nnNHzMAn7/Rot3D6WWNVKXPmZik4nay8no4vhvxzSGk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ/TC9RMBC+tHBthvQMhf4V7JAwBPU/GWmTDTh3QcmuSq46hXvk
+	bxPL8ziZIIndX8LvLKdErLI7eCuXD9I5kbWIb5atH+11neio1QjKOBPd
+X-Gm-Gg: AYBFou09WedY8H94+nnLgxxtFud8Ml4K651CXNdiMYyHIgHaJvkRVTgRhbMToHlpOhu
+	cb36AxefRDitkdoQ5pw4W1XoDKPPrZ9+GbmU/xpqNWFlrO4//VdxOuumOIROeALP7ryQJY9/wak
+	4ziU+eztN54kM/l57XC606miioFlO2pVeG6vFUOiwbEh/80/lfCzAfmW8NYwNFyNkyazglqg132
+	9WG700Kfy3VivJqTDRcrOXfFJNJM590MFeNNNPsAo6FsPvalJJKG15eiXxuu21HGkMh0sJA70Ph
+	tlEdKSsw8/80DDnJT7a2v5TOS/QI8ioWQkwVtMM6h32DXa5YQ1HdQBzaJgkK/B3k4SCMz/IfeTt
+	liODd5DUGT0bnN0kqjEfTFOUXHdeiUkb3L4u/UugvbRaXV4UVhRUX+ebhuiErdQC1TqB7Ra58KP
+	cWWITI7Zp+CKegKll6a2iXFRBYmvJVTQ38sJiiou8di9micfAQyJ7su4xmcp7f0xyaPm015k8c1
+	Nl8QOWnJxpb+RFBBYsjsAhJCb0ze0PEaTtMbEGfJcPRiOYayvJB1gQo181sy60iTN6y2y8hIKNU
+	+T+r0wSfwD/zhnBT1Gc0314LjIraR+Xxox9NdWhbSSimSmsich0bPRAemkyj07F613tgeCgt4u9
+	CGR29Y+usrw==
+X-Received: by 2002:a05:6512:1047:b0:5bc:d9de:d75c with SMTP id 2adb3069b0e04-5bfb71e3343mr3417911e87.47.1793105403789;
+        Tue, 27 Oct 2026 05:50:03 -0700 (PDT)
 Received: from yantra.. (nekmmqtcmoboczbkdcs-1.v6.elisa-laajakaista.fi. [2001:99a:d7d:c300:55c8:a52b:6ba2:979c])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfb7e7cb24sm2052803e87.25.2026.10.27.05.49.57
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfb7e7cb24sm2052803e87.25.2026.10.27.05.50.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 05:49:57 -0700 (PDT)
+        Tue, 27 Oct 2026 05:50:03 -0700 (PDT)
 From: Rupesh Majhi <zoone.rupert@gmail.com>
 To: Alex Lanzano <lanzano.alex@gmail.com>,
 	Andy Shevchenko <andy@kernel.org>,
@@ -104,12 +105,15 @@ Cc: chrome-platform@lists.linux.dev,
 	linux-iio@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Rupesh Majhi <zoone.rupert@gmail.com>,
+	Bart Van Assche <bvanassche@acm.org>,
 	Marco Elver <elver@google.com>,
-	Bart Van Assche <bvanassche@acm.org>
-Subject: [PATCH v4 0/9] iio: enable context analysis for all drivers
-Date: Tue, 27 Oct 2026 14:49:45 +0200
-Message-ID: <20261027124954.110697-1-zoone.rupert@gmail.com>
+	Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
+Subject: [PATCH v4 1/9] iio: adc: qcom-spmi-adc5-gen3: fix lock annotations on mutex helpers
+Date: Tue, 27 Oct 2026 14:49:46 +0200
+Message-ID: <20261027124954.110697-2-zoone.rupert@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261027124954.110697-1-zoone.rupert@gmail.com>
+References: <20261027124954.110697-1-zoone.rupert@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -121,119 +125,56 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Jonathan asked for the qcom-spmi-adc5-gen3 fix to become the first
-patch of a series that enables context analysis across IIO [1]. This
-is that series.
+Since commit 5b63d0ae94cc ("compiler-context-analysis: Remove Sparse
+support"), __acquires() and __releases() only feed context analysis.
+Their argument is parsed before the function body, where only dev is in
+scope, so with analysis enabled for this file the build fails:
 
-With CONTEXT_ANALYSIS := y in every drivers/iio Makefile, testing gives
-256 warnings and 2 errors in 126 files (x86_64 allmodconfig, clang
-23.1).
+  error: use of undeclared identifier 'adc'
 
-Patch 1 fixes the two qcom errors, as v3 did, but names the lock the
-way Bart suggested [2]. Patch 2 annotates the two conditional mode
-claims in iio.h, which accounts for 241 of the warnings, in 120 files.
-Patch 3 covers the core helpers behind them. Patches 4 to 8 annotate
-lock helpers in kx022a, meson_saradc, the DMA buffer, opt3001 and
-veml6031x00. None of them is a locking bug. Patch 9 enables the
-analysis. The common and sensorhubs Makefiles only list subdirectories
-and are left alone.
+Name the lock through dev, the same way the bodies find it. The analysis
+then also checks that the helpers really take and drop it.
 
-With the series applied all 726 files build without warnings, also
-with W=1. bma180, ab8500-gpadc and intel_dc_ti_adc are not in
-allmodconfig and were built on their own. gcc W=1 builds show no
-warnings. Removing an unlock or a release is still reported, tried in
-kx022a, ms5611 and veml6031x00.
-
-Bart's thread-safety branch [3] has most of the same annotations. For
-meson_saradc and the DMA buffer he uses __context_unsafe(). Here they
-name the lock, so the helpers are checked, and for meson_saradc the
-callers too.
-
-Written with help from an LLM coding assistant.
-
-v4: was a single qcom patch, now the first of nine
-v3: https://lore.kernel.org/linux-iio/20261025191510.22261-1-zoone.rupert@gmail.com/
-
-[1] https://lore.kernel.org/linux-iio/20261025215954.73549810@jic23-hlaptop/
-[2] https://lore.kernel.org/linux-iio/76bbebb4-7337-486d-8f21-a39bcb6dca93@acm.org/
-[3] https://github.com/bvanassche/linux/tree/thread-safety
-
+Suggested-by: Bart Van Assche <bvanassche@acm.org>
+Signed-off-by: Rupesh Majhi <zoone.rupert@gmail.com>
+---
 Cc: Marco Elver <elver@google.com>
 Cc: Bart Van Assche <bvanassche@acm.org>
+Cc: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
 
-Rupesh Majhi (9):
-  iio: adc: qcom-spmi-adc5-gen3: fix lock annotations on mutex helpers
-  iio: core: annotate the conditional mode claims
-  iio: core: mark the mode lock helpers __context_unsafe
-  iio: accel: kionix-kx022a: annotate the lock helpers
-  iio: adc: meson_saradc: annotate the lock helpers
-  iio: buffer-dma: annotate the queue lock helpers
-  iio: light: opt3001: mark the interrupt handler __context_unsafe
-  iio: light: veml6031x00: annotate the event enable helpers
-  iio: enable context analysis for all drivers
+v4: name the lock through dev instead of __context_unsafe() (Bart),
+    now the first patch of the series that enables the analysis (Jonathan)
+v3: drop Fixes tag (Jonathan), trailer cleanup (Andy)
+    https://lore.kernel.org/linux-iio/20261025191510.22261-1-zoone.rupert@gmail.com/
+v2: __context_unsafe() explained in commit message (Andy)
+    https://lore.kernel.org/linux-iio/20261021052435.112686-1-zoone.rupert@gmail.com/
+v1: https://lore.kernel.org/linux-iio/20261003214516.128573-1-zoone.rupert@gmail.com/
 
- drivers/iio/Makefile                         | 2 ++
- drivers/iio/accel/Makefile                   | 2 ++
- drivers/iio/accel/kionix-kx022a.c            | 2 ++
- drivers/iio/adc/Makefile                     | 2 ++
- drivers/iio/adc/meson_saradc.c               | 2 ++
- drivers/iio/adc/qcom-spmi-adc5-gen3.c        | 4 ++--
- drivers/iio/addac/Makefile                   | 2 ++
- drivers/iio/afe/Makefile                     | 2 ++
- drivers/iio/amplifiers/Makefile              | 2 ++
- drivers/iio/buffer/Makefile                  | 2 ++
- drivers/iio/buffer/industrialio-buffer-dma.c | 2 ++
- drivers/iio/cdc/Makefile                     | 2 ++
- drivers/iio/chemical/Makefile                | 2 ++
- drivers/iio/common/cros_ec_sensors/Makefile  | 2 ++
- drivers/iio/common/hid-sensors/Makefile      | 2 ++
- drivers/iio/common/inv_sensors/Makefile      | 2 ++
- drivers/iio/common/ms_sensors/Makefile       | 2 ++
- drivers/iio/common/scmi_sensors/Makefile     | 3 +++
- drivers/iio/common/ssp_sensors/Makefile      | 2 ++
- drivers/iio/common/st_sensors/Makefile       | 2 ++
- drivers/iio/dac/Makefile                     | 2 ++
- drivers/iio/dummy/Makefile                   | 2 ++
- drivers/iio/filter/Makefile                  | 2 ++
- drivers/iio/flow/Makefile                    | 2 ++
- drivers/iio/frequency/Makefile               | 2 ++
- drivers/iio/gyro/Makefile                    | 2 ++
- drivers/iio/health/Makefile                  | 2 ++
- drivers/iio/humidity/Makefile                | 2 ++
- drivers/iio/imu/Makefile                     | 2 ++
- drivers/iio/imu/bmi160/Makefile              | 3 +++
- drivers/iio/imu/bmi270/Makefile              | 3 +++
- drivers/iio/imu/bmi323/Makefile              | 3 +++
- drivers/iio/imu/bno055/Makefile              | 2 ++
- drivers/iio/imu/inv_icm42600/Makefile        | 2 ++
- drivers/iio/imu/inv_icm42607/Makefile        | 2 ++
- drivers/iio/imu/inv_icm45600/Makefile        | 2 ++
- drivers/iio/imu/inv_mpu6050/Makefile         | 2 ++
- drivers/iio/imu/smi330/Makefile              | 3 +++
- drivers/iio/imu/st_lsm6dsx/Makefile          | 3 +++
- drivers/iio/imu/st_lsm9ds0/Makefile          | 3 +++
- drivers/iio/industrialio-core.c              | 2 ++
- drivers/iio/light/Makefile                   | 2 ++
- drivers/iio/light/opt3001.c                  | 1 +
- drivers/iio/light/veml6031x00.c              | 2 ++
- drivers/iio/magnetometer/Makefile            | 2 ++
- drivers/iio/multiplexer/Makefile             | 2 ++
- drivers/iio/orientation/Makefile             | 2 ++
- drivers/iio/position/Makefile                | 2 ++
- drivers/iio/potentiometer/Makefile           | 2 ++
- drivers/iio/potentiostat/Makefile            | 2 ++
- drivers/iio/pressure/Makefile                | 2 +-
- drivers/iio/proximity/Makefile               | 2 ++
- drivers/iio/resolver/Makefile                | 2 ++
- drivers/iio/sensorhubs/osf/Makefile          | 2 ++
- drivers/iio/temperature/Makefile             | 2 ++
- drivers/iio/test/Makefile                    | 2 ++
- drivers/iio/trigger/Makefile                 | 2 ++
- include/linux/iio/iio.h                      | 9 ++-------
- 58 files changed, 121 insertions(+), 10 deletions(-)
+ drivers/iio/adc/qcom-spmi-adc5-gen3.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-
-base-commit: 7d80b4b383bc53b48abd3a30ca4a91cdab568bfa
+diff --git a/drivers/iio/adc/qcom-spmi-adc5-gen3.c b/drivers/iio/adc/qcom-spmi-adc5-gen3.c
+index c68c6c5f6aca..09013c6e44a0 100644
+--- a/drivers/iio/adc/qcom-spmi-adc5-gen3.c
++++ b/drivers/iio/adc/qcom-spmi-adc5-gen3.c
+@@ -663,7 +663,7 @@ static int adc5_gen3_add_aux_tm_device(struct adc5_chip *adc)
+ }
+ 
+ void adc5_gen3_mutex_lock(struct device *dev)
+-	__acquires(&adc->lock)
++	__acquires(&((struct adc5_chip *)iio_priv(dev_get_drvdata(dev->parent)))->lock)
+ {
+ 	struct iio_dev *indio_dev = dev_get_drvdata(dev->parent);
+ 	struct adc5_chip *adc = iio_priv(indio_dev);
+@@ -673,7 +673,7 @@ void adc5_gen3_mutex_lock(struct device *dev)
+ EXPORT_SYMBOL_NS_GPL(adc5_gen3_mutex_lock, "QCOM_SPMI_ADC5_GEN3");
+ 
+ void adc5_gen3_mutex_unlock(struct device *dev)
+-	__releases(&adc->lock)
++	__releases(&((struct adc5_chip *)iio_priv(dev_get_drvdata(dev->parent)))->lock)
+ {
+ 	struct iio_dev *indio_dev = dev_get_drvdata(dev->parent);
+ 	struct adc5_chip *adc = iio_priv(indio_dev);
 -- 
 2.43.0
 
