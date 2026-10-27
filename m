@@ -1,47 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793111668;
-	b=PKSDMlt1/Z0pTuDdP7NRt4pqeQoHpCVNZw4D64Q7nKH7SdjNdd97MUnQjNESsZVfQggf
-	 ipRkOjnb9jSlnYMRigI8I00e8FX6PMXCOCyOoXp0VePnzHxsfq00QzAoXYroTTIbbmerY
-	 EeBBCj7hBUvVfl/QhomfwwdWOy198qeObFQBQHU9Mpmf3bp7IZvSOr1/TdkuwYo31d+xK
-	 CJMEHa7Sb0h4CQCgp3f133Jb7sEyyehESpdPtIwRXRG4q49EqvsPtbx+GwhwQ5EWu5a2s
-	 SsYBUCsb+tNoe04MCMmHqjsi1zVGJUIM5pK/5NEz2Hbyw69LcN02N3T22WGfoUfrVUw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793111668;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=jT5PzdDfgSIDiw7yKOw2jNJK4YORQrPPmHqOm/sh9Ao=;
-	b=0vHNj6DdlDd5hdNiZXZ71bCbqrZjenjcUQ0SuKpH/IJ+Ojh2k8JanCfUqc7xZWVxmsHb
-	 kmRIzLZ8YkYeJFfAEGyNhDAICIwQvfHSpzfJqNz1A5JjWOSOMDHfUet6z+P1RbjUTSC2+
-	 76t43h/2zpVXLuDGnvVzoUJdw04+a9mZQP2e25BB7zRKJD6i/GVfx+VKVG8t7fjiPByg6
-	 E90I4erUsQo3RbWmGb+b65P9bzSR0e/SU0iwLe4L8ejPQcZNM4aTV34q3p3lPcNp81d+3
-	 cNadzpCvmD7EzdnHBl4BOZC++M1H5FSlN9xHpscuVIZ0BSpVLtcXozce6S/9QjjHgrA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ofxZWAjz;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.179
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793111696;
+	b=tQPB35zOEoO+EnJbwK1aLb4uWpxYnU8Jyec53/rSLnb14yPBAqXGSYkFFX66jen2HHhb
+	 WJyLHaNMRkdcCZzrTZLV33y53hnV7I1LZOjOFz4P5232kSRgrTzWP66iLbTjrLCeHdaLE
+	 0uTQmMAvaVBNmmPtYOtKjtiK9Eq7Ec+XsAuDHwVxU5hsQ9G3nqGCdHFfN2/sDvntPnOPx
+	 CFbpRtV4R5FgKtM6W7G/cHFDDWH9/zR9zMwBtXipHQFrHKAZFVCY5iH72cCGoiOT4iaFx
+	 1Er748pfywhr23G4TVn8LdjcVtVa2GHGNfq0mNBik9pYPA4Wa8w1cV0eoe0lYNq9aoQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793111696;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=kpMVzTEsyq+10ygaZmcWH4opP1T6BP5uZJEA0uY70vE=;
+	b=FMNymwGQFeEI0ge/pro6LF4lA39Gczk28ljSwNUc0Lgb2ktUDH4A1dtk2OUqzVwbV3Uk
+	 jo8YLjcMyq4mSU8HQZgzOHorG9vZS/wtEnvfPIsm2kQfRHGhgEH7oVmydv+7kjNYqdHTp
+	 AbR7fhDieVeuo/d9EsbzMwUc6jay6YKpDpU3XSqh/3iNIXSUA/AdqGaTEuqcMNGe4ozKD
+	 ZoqhHt0E1t7bp9ZGnB/mFzqeTzvJ2s87cbrZIikEI7asyfYqL0CmIAHpA04Vye/YcofXE
+	 mu6rS9zYSWQOEy0zPT+WPcf/y2i+B3P3YQ/HDBoUWoF72wT0TRKYM7kKmkjA/zrdqUA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gNL1x+Xv;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.179
+Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24A0E606A31A;
-	Tue, 27 Oct 2026 14:34:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38C07606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 14:34:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38C07606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ofxZWAjz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDA341F01825;
-	Tue, 27 Oct 2026 14:34:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793111667;
-	bh=jT5PzdDfgSIDiw7yKOw2jNJK4YORQrPPmHqOm/sh9Ao=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ofxZWAjzBSDFYLkpmGfOLauQU+NoDFF1w3Ek76wI1nXGUsv0zzNXJ+zCnaFM7bJPV
-	 GJOzlv8CDkYDWulZ+lD+kUO9maG4FYmEixWuDFMiUU8D99DcdSqXUS6k5FbVC3wXQP
-	 l9zyaenp8OwlRk3FPOxoq4JeDWm3di7YlC9j+x9hyPkjeSwHh957dKjIfDyo5Q3+Cd
-	 Z8n0dwxXqAL34LqNtn/uqKoB0iDMLSU3yAkNZwqxfozUy6SYH2xr5hR58yDgc0ayAV
-	 7WjarZVDCVJebhdRjWUciP/QuoOnWhelQwyo9Sl4e4YVd3W4NEMQnVkIq+cU1X1MDu
-	 HaNL3gAWqJn/g==
-Message-ID: <c58c89cd-94a5-4776-b186-44c4b1b3c3ab@kernel.org>
-Date: Tue, 27 Oct 2026 15:34:19 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gNL1x+Xv
+Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-53669f7b518so44261151cf.2
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 07:34:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793111695; cv=none;
+        d=google.com; s=arc-20260327;
+        b=GmNNYhsYa5gTUYl4CxY+bpx0/vhyS79Akznbg6snGWlJqfH8NWZ5tg+fB0JG9usFBQ
+         2qwJx0oo5oHfag10NK5EgnkxMZRUZiJzsqtnhQlzytmzrYTWMJg18FytmOB/8XQ1pfFO
+         5A0fdp1W5Ov+jYAhY/RyaakSWBatfhgKTZvLFU0G4RCAgVoAXPKC6lUGzoKuFtP+C4pG
+         YGUWpK/ytxpyu4cMWrwXAgNXve75epqVyLUV663fHytE33ycIHBjSkVw9KpINWmG7Ii3
+         KzfaFEIHU9ux0b3UdB3JdHxjey0VNB/xeAGpZQpwjsw3lJAsJOw3V2lDnOLaHUW3FBEf
+         vObg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=kpMVzTEsyq+10ygaZmcWH4opP1T6BP5uZJEA0uY70vE=;
+        fh=Y5TMomttH+hkGkyUE6HzrG1Ls8HNMK0GG4knGGvygWs=;
+        b=kUIPn8bxJx1d8rE6hDX4Uk6Iq8KoRfIGBx7vpIg3pq+1Lnoh5+tADvIpqRdnOeNPkI
+         S74ZCNmPE1RAwRsh68tpfOoaEA3STzmw7pIiW+p+TjcmmNjhGwNOX6HtXidoRkrsq+xB
+         6dF+csvEu7nrWOpGuwT/rsW53OVbqOV/jzZZUuqiF5xtRWtbR2Hu4fN8dIfr+oqY9aej
+         w4w/InH75t6Yevmf6/zdvEQTJCKWPuxpYofaIxkgxtAAs8D2D+novqF2Z+sDxrEFHIkk
+         L8Y9yDC06KoaUP4hgGyWJn2rSmEiJ2zyiW/kX8UjQTJL21KNl/CcZc4frJ2Lq72fFB6N
+         s5rw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793111695; x=1793716495; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kpMVzTEsyq+10ygaZmcWH4opP1T6BP5uZJEA0uY70vE=;
+        b=gNL1x+Xv1DnXFPpzgePiAQuuZuxGQYp4vZ1KZEbsXr6VBegt4pJtXNzLeNxrCpoSCI
+         vyOi7v6/0+IApmMQXYD6AGe5EUrYKJPHhrDm8nm3kiAEl/doeYsPq0sQTlTGWyGIHSax
+         8uUnTg6CWkRGKsQ5Qzhc3YiWHw/HIdwgW7WIjIl/n587BwpsChYbbMrR1t33toZDX5pu
+         cO31gnJ7HsIsGJijHvaWYd7DrEnivbFfmTpnn+VmfvsLebMcgPHXqdxCtjs4hOFv+opL
+         /7mt9QweVw3fEG1JnW37At3rsmCLkOf1b6RdlUc9/i//g2ff+EPN3LK9o7hPShF19pzU
+         QRsQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793111695; x=1793716495;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=kpMVzTEsyq+10ygaZmcWH4opP1T6BP5uZJEA0uY70vE=;
+        b=0e4AScrcOKm/INJ7oXgwS1apl5obL+BLxgFWAmL1D04WfzdfvgJQpkMHf7keS1BOuD
+         Un/Ua6/pDjMlqKbXQCUgyzI1uXI9S9E2fio6oB0miZsHfjQLC/JvOZCpTvXrGAlIBDYR
+         wYL+F+H0ep+PdUncfltwyBa4OcCpGev88LIuhhGtqugXR9bLlBHxUw26hkGZxQEUK5WV
+         JiiKlhCg/9aJs+ECjuyrq/5BlC/2XnOhvGWPnVId79b1A/+WOmkfJS4DdMH85Y7iGqL2
+         ajVcvoEP02JNtoMeQM7uFL92yYcUU5zmWOLjjgshrTDrcg1W0Sl9/O3M/evJb/KRXzbz
+         kx1g==
+X-Forwarded-Encrypted: i=1; AKwUvBx8MimId4jZhc+gSxIear33pFA4Ef5ktsHhwz4ygBkb96myGJTjy471P+UtlMyryL4+RdpPgMhl/mvLFL4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIS/9Y214IxdyQ8jdkJWEoWDWBzvALimv0XooM+WbcWAGCUrtqG
+	/jniz75jcjQA5Ak4G8CvqOGmfrpijxbVJKM9ChLg21cHkH4gNLn9a1sL2RoZ59x8wxtu7dCuz5A
+	w/eKV2W6tiHynE0jeKcEMXGYUcIuoXWg=
+X-Gm-Gg: AYBFou3kRvDpxcG9nBnDCqZVCbIS77Y+Djg4V4mJZA/h4xVgZn77iK5LR6SgYGIT3OX
+	sw5qfKgZXFvdpLAL8+WZxiS1+ggPmKXjuD5ffN9ETpbs8ItjTQ2ebQLVsUUPe3zv6Ph+JJm2zMh
+	+j130MsFH1z0c8Hk9HlvfCH0h19ASXhG76iX82HO9LD/Mws2bOz2/0I6pJzZBEztGLCUeIIxqZC
+	XFToQ8Dk1Unnj/9z6HwQRNe9xLfInGOoU1hiOB0EBxNo382hs6fjYpIIn2Eg9Tm9RiK9TwGs6L6
+	oVWXo5/GFOlTuSYisUPfnN7j8yNHSzQ3IkccRMMGt+4tYUYNfoOgVc3y2XxcdO3rrlFoU+X7eoK
+	Bk9HbLzD+3B8TUZAPjB4kmzqfqlB2ulj/y2sLOOsME3BnaclaCgozN+qR1Ol4Duppi7OymNj3Yb
+	sdTWK2GL1fj2EqlRL0h51xOeHiPEJ25+8dC0mdxE8l8EvM/IWm
+X-Received: by 2002:a05:622a:90b:b0:536:6bc5:2fb9 with SMTP id
+ d75a77b69052e-5383b4a928amr176076021cf.14.1793111694872; Tue, 27 Oct 2026
+ 07:34:54 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,95 +104,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: display: panel: ilitek,ili7807s: Allow
- backlight property
-To: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Arpit Saini <arpit.saini@oss.qualcomm.com>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- venkata.valluru@oss.qualcomm.com
-References: <20261025-dlc_backlight-v1-1-1d1c49c3e101@oss.qualcomm.com>
- <20261027-fantastic-benevolent-boobook-272a9a@quoll>
- <auCDgewe04WKbamD@hu-vishsain-blr.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <auCDgewe04WKbamD@hu-vishsain-blr.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20261012-fix-aer-mask-override-v1-0-49a0d7aeaea0@google.com>
+ <20261012-fix-aer-mask-override-v1-2-49a0d7aeaea0@google.com>
+ <CAMAsx6dLGdqr+ZxG8FrwN-6r=5yVY8hk-c+7CVrAkS0zpKPmGg@mail.gmail.com> <20261026175724.1482083-1-rathodpriyank@google.com>
+In-Reply-To: <20261026175724.1482083-1-rathodpriyank@google.com>
+From: Daniel Pereira <danielmaraboo@gmail.com>
+Date: Tue, 27 Oct 2026 11:34:43 -0300
+X-Gm-Features: AclHuK_njZlT_A6caNrXNbbG7gBGxHmrzYc6IWZzccr4qUxgXvxpemc8dDRNGgY
+Message-ID: <CAMAsx6fdOmV4DH4WCi6u_EadZxdEg10FFnAKSe=g7duTW+eDdg@mail.gmail.com>
+Subject: Re: [PATCH 2/2] Documentation: PCI: Document aer_inject's
+ aer_mask_override parameter
+To: rathodpriyank@google.com
+Cc: bhelgaas@google.com, lukas@wunner.de, 
+	sathyanarayanan.kuppuswamy@linux.intel.com, ilpo.jarvinen@linux.intel.com, 
+	dave.jiang@intel.com, prarit@redhat.com, ying.huang@linux.alibaba.com, 
+	terry.bowman@amd.com, corbet@lwn.net, jic23@kernel.org, 
+	linux-doc@vger.kernel.org, linux-pci@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 27/10/2026 11:57, Vishnu Saini wrote:
-> On Tue, Oct 27, 2026 at 09:12:27AM +0100, Krzysztof Kozlowski wrote:
->> On Sun, Oct 25, 2026 at 12:18:17PM +0530, Vishnu Saini wrote:
->>> The DLC0697 panel is lit by a separate backlight device, which is
->>> referenced from the panel node through the common 'backlight'
->>> property.
->>>
->>> Declare 'backlight: true' so the property is explicitly allowed by the
->>> schema.
->>
->> Why do you need to explicitly allow it? Since when?
->>
->> I see no benefit of this patch and commit msg does not explain me what
->> that benefit would be.
-> It is required for below DLC panel, when enabling backlight using gpio-backlight driver,
+On Mon, Oct 26, 2026, Priyank Rathod wrote:
+> The reason bit 26 reads 0b on the e1000e Endpoint in the cover letter
+> is Note 3 of Table 7-149: a non-VF Function only implements bit 26 when
+> Poisoned TLP Egress Blocking Supported is Set in the DPC Capability
+> Register (Offset 04h, bit 6; PCIe r7.0, sec 7.9.14.2, Table 7-280).
+> Per PCIe r7.0, sec 7.9.14, the DPC Extended Capability (001Dh) is only
+> applicable to Root Ports and Switch Downstream Ports, not to Endpoints
+> like e1000e (and in QEMU, pcie_aer_init() initializes PCI_ERR_UNCOR_MASK
+> to PCI_ERR_UNC_INTN | PCI_ERR_UNC_TLPPRE = 0x02400000).
 
-How is it required? You did not really answer, so again:
+Hi Priyank,
 
-Why do you need to explicitly allow it?
+Thank you for the detailed explanation, and for pointing me to Note 3 of
+Table 7-149. That clears up why PCI_ERR_UNCOR_MASK reads 02400000 on the
+e1000e in the sample session of the cover letter: bit 26 is only
+implemented when the DPC capability reports Poisoned TLP Egress Blocking
+support, which does not apply to an Endpoint.
 
-Answer starts "because ... " and you provide technical arguments, not
-wishes.
+> That said, your suggestion to use "Header Log Overflow or Internal
+> Errors" (PCIe r7.0, sec 7.8.4.6, Table 7-152, bits 14-15, and
+> sec 7.8.4.3, Table 7-149, bit 22) as the example is much clearer
+> because those bits apply to Endpoints as well and match the sample
+> output directly. If you or anyone else suggests the same, I will gladly
+> change it.
 
+Yes, I would suggest using those two in the example, since they are
+masked by default on Endpoints too and match the sample output directly.
+This is only a suggestion, of course; how to proceed is up to you and the
+maintainers :)
 
-Best regards,
-Krzysztof
+Thanks,
+Daniel
