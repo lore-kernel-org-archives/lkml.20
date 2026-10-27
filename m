@@ -1,63 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793105460;
-	b=o3V0xW0NR7gY9SJCaqU8mB+FRx/vs8MGtkOh4NZQ++iSHMPrifHeRWGKHsiDWcF41C7U
-	 jvkSTa+rjDJZFBOdiiuH+VLL7Vwj1ZCzFALPAgPF128+yNqlHVtMIiN5D20UiLRGiqQ3T
-	 3SgS23qsJ+9nYHsNM6K0F8hd3x4WT64/aWoTFSzp8UI+x0rS1l1k1oj4UxdgP6Exk1UKQ
-	 XY/YwsNw2SwzJD5kijEB074wNPgWNrO+FSZ9BXvL7MmjPHjR3oy3fXx48aFM8sXhCGFQh
-	 PmuHr3w3yYAMMfdZjwCsMFrd5c6GHfQM6+Akeqgqnkk+QHu7TU7zOyohHWyCkitcJDQ==
+	t=1793105489;
+	b=tE4f/2wAr9hmTKPEIH7S2noI6OtWlYs6NJ9NVuwSsUIygQ4nB8eX7rfVUJm6oeea3EBS
+	 e2Fy7O/PRhYUzqzXa7kPBwVp1oOTon+CGZ86t1MlQlTYfJxtNoRfD9NQIqiUOcB31H3EK
+	 CnqB2oJ+PqPzSDvFnGuUTQE+UFaJ3S8tPUfwq6O8xQnUZYeNrxMzOxwZJZ4qVWzGfV8kS
+	 VG/cXMo1x0lhTmX2MQxE3rxeqNtoPxqfh/j5NGojBwtPoMLITTToNGGLP1YhWQX9u80kn
+	 IrYJKZx7qQYIFPJcOllCP+mGwz6JcK7cwzpwJ2HN3htf1Y6hitHSu4iye3WnfcS3rdw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793105460;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793105489;
 	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
 	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
 	 In-Reply-To:X-Debian-User;
-	bh=OjTqggf3+OH91kmiWVP4qR6QPPLLzRINAaYNEazv1Eg=;
-	b=3/wQ+bDewgXmSica/GqfBgLd+vQKy/kzeA0y3V5UDKrtl37b+jldz3AdsUc1q3H2qM4s
-	 xUjsUiEk6f4igEElWWTF43hCbMP8UMDRjIyHFnV5cQHGS0y5Pu7o7xQHC/AUX7Zy3yD9w
-	 UAH8j7NAVbQWN+9dfnizU+4dQCXUxTsfl/ltu+LVo3Ie1eiVHVr+sl3iTNvwzVKMoGcas
-	 wFOvLOSttgGPZtM+rqC9dk2OLUZQ2Y4snIO+E61simgTO8K35iq4bMDVtXOnckcT+dL5K
-	 P5GDSUKhuEdP6nDl15V4cXlL93KFL5Q2wWONKyfF9qEnRg5lVmcOMHFKGgFTnBP9Wkg==
+	bh=Fsp9jXGbGZd6wZFrHnK47Iq/PvcD3/GY40vhsGHd3tg=;
+	b=i293LL5zzQy3IiE94WwGvD4G7hKQe+jGKocJoyqCABKowP0I6HQc8fp/K5OzT10rbryr
+	 Ch9VLajgmTwoiLUReN8gtGrnmHXf4UyrhHt1CpM+Ic3KMKi31U40j9XElR0mwdjRVupjl
+	 uqQqKMHURxAtLWI98ZYH7/fNA5YWcgrGNvFHAObyBn5h2xZ8NIxecdzS0+kwGxXfAh7E1
+	 NTHQO/IRwJjCNmmHumNk52LqfIk7Icb+16Zv41G0W44AF24v5tSr8NMtCI3H3N3CR6DiI
+	 VoEMIihW5LDXk81PeJk381SH4IgJrNzUENC7fVKdodXFhexQUEY6wf6E06fMznd7NNQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=debian.org;
 	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=lsNVgbKe;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=UMuVTMyj;
 	arc=none smtp.remote-ip=82.195.75.108
 Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3299606A327
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:50:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3299606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9DE2606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:51:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9DE2606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=lsNVgbKe
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=UMuVTMyj
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
 	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
 	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
 	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=OjTqggf3+OH91kmiWVP4qR6QPPLLzRINAaYNEazv1Eg=; b=lsNVgbKeeuSMKdCcheLBARb9kB
-	NJena6MgosNRqK2Bmm2tP75IFtmlC25MSr58zINnJwxJblZILMQf3qbf9tdo9NzYzDKC8wMSlwxRk
-	JEVoUYMRTKkbgc1bHsu/SfEl+fxfdacovnBhF/bgyVtm3AT01xYeqoVSkdscI3HbmVHFWHezQVSoV
-	Z/hB37cMfOhzahUfaBfizSEpaPLPjt0/JE+1Cjo6FC4fO1luiy/7dMiD6nqecP2JWp+fbdIus6uPX
-	1I8LzWnwLva1EGg6hBuy/qk5NiitkJXOmDxGHWlnL+MJnq8JgU7B4fPV8el6UPgPnixGMGdqkSAnW
-	+ZEe7zrw==;
+	bh=Fsp9jXGbGZd6wZFrHnK47Iq/PvcD3/GY40vhsGHd3tg=; b=UMuVTMyjWSsX6K0ZWg4iKT31r2
+	RXcKV6C8HVi6G98NBuCgrFsccy/9JPPzhYmOPSqiDmbXVRewfLl/3iQm/rNVQZ5WkTqcdhFoniMsu
+	6IN+ho5FeNAdZvNydOc/Bo5UaFboatME6x6KiuB58AEmu1lXvBI6y1AVn9sQngTrSU2W1jCW1Y90J
+	hFuEy/H8l/MZpH8fQWoTalSnrupz2qt6IAEiJua5XwNUawPDmEQDyJRSmmxkv8WHrI/F6lMEWtL6s
+	YAvZ0EC1DXgqJYvcMzPBO+ctRqH7voLB5MjdEseaSJtNkOKN9zin5uxUNsgstYb9cljgMQrzMTwqd
+	7xtpAFeA==;
 Received: from authenticated-user
 	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
 	(Exim 4.96)
 	(envelope-from <leitao@debian.org>)
-	id 1xLgdh-001TEd-2u;
-	Tue, 27 Oct 2026 12:50:54 +0000
-Date: Tue, 27 Oct 2026 05:50:49 -0700
+	id 1xLge9-001TEv-2v;
+	Tue, 27 Oct 2026 12:51:22 +0000
+Date: Tue, 27 Oct 2026 05:51:17 -0700
 From: Breno Leitao <leitao@debian.org>
 To: Slawomir Stepien <sst@poczta.fm>
 Cc: a.hindborg@kernel.org, k.opasiak@samsung.com, nab@linux-iscsi.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] configfs: handle unlinked target in
- configfs_depend_item_unlocked()
-Message-ID: <auCeHAUGWXiSWMFW@gmail.com>
+	linux-kernel@vger.kernel.org, syzbot+b3410eb576b568216ae5@syzkaller.appspotmail.com
+Subject: Re: [PATCH 2/2] configfs: give the root inode its own lockdep class
+Message-ID: <auCeMlxBJ0DyaF6S@gmail.com>
 References: <20261022134443.1122318-1-sst@poczta.fm>
+ <20261022134443.1122318-2-sst@poczta.fm>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,41 +69,59 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261022134443.1122318-1-sst@poczta.fm>
+In-Reply-To: <20261022134443.1122318-2-sst@poczta.fm>
 X-Debian-User: leitao
 
-On Thu, Oct 22, 2026 at 03:44:42PM +0200, Slawomir Stepien wrote:
-> configfs_depend_item_unlocked() starts by reading target->ci_group to
-> find the target's subsystem and the configfs root, and dereferences it
-> without checking for NULL. ci_group is only valid while the item is
-> linked into the tree: it is set by link_group() during mkdir and
-> cleared by unlink_group() during rmdir, both under the subsystem's
-> su_mutex, which callers of the unlocked variant do not hold.
+On Thu, Oct 22, 2026 at 03:44:43PM +0200, Slawomir Stepien wrote:
+> configfs_depend_item_unlocked() is meant to be called from configfs
+> callbacks, where VFS already holds directory inode locks and configfs
+> holds the subsystem's su_mutex. When the target item lives in another
+> subsystem, it additionally locks the configfs root inode so that the
+> target subsystem cannot be unregistered underneath it.
 > 
-> A caller can therefore pass an item that is allocated but not linked.
-> f_tcm does this from usbg_make_tpg(): a TCM function instance becomes
-> visible to the target subsystem in tcm_alloc_inst()/tcm_set_name(),
-> before configfs_mkdir() links it, and stays visible after
-> configfs_rmdir() unlinks it until the final reference is dropped.
-> Creating a TPG in either window makes configfs_is_root(&parent->cg_item)
-> return false for a NULL parent, and the following parent->cg_subsys
-> dereference crashes.
+> The root inode shares the &sb->s_type->i_mutex_key lockdep class with
+> every user-created configfs directory, so lockdep cannot tell it apart
+> from the directory inode locks taken by mkdir, rmdir and symlink. Any
+> lock held by the depend caller therefore looks like it nests both
+> inside and outside "the" configfs inode lock. f_tcm's usbg_make_tpg(),
+> which depends on a gadget function item from the target subsystem's
+> mkdir callback, triggers this in two ways:
 > 
-> An unlinked item is just a target that is not in the tree, which
-> configfs_depend_prep() already reports as -ENOENT. It skips items
-> marked CREATING or DROPPING, and rmdir marks an item DROPPING before
-> unlinking it. Read ci_group once with READ_ONCE() and return -ENOENT
-> if it is NULL.
+>   target su_mutex -> root inode (depend), while
+>   rmdir under target/: directory inode -> target su_mutex
 > 
-> If the target is unlinked right after the read, the snapshot still
-> points at the parent group: unlinking drops the child's reference on
-> it but does not free it. The depend then fails in the tree scan, since
-> the target is already marked DROPPING. The parent can only go away if
-> it is itself removed in that window, which is the same theoretical
-> race the root walk below already has for every caller of this
-> function.
+>   tpg_instances_lock -> root inode (depend), while
+>   mkdir functions/tcm.N: directory inode -> gadget su_mutex ->
+>     func_lock -> tpg_instances_lock (tcm_alloc_inst())
+> 
+> Neither is a real deadlock, because no holder of the root inode lock
+> waits for su_mutex, tpg_instances_lock or a directory inode lock held
+> by a depend caller:
+> 
+>  - configfs_depend_item() and configfs_depend_item_unlocked() only look
+>    up the subsystem and scan the tree under configfs_dirent_lock, a
+>    spinlock.
+>  - Lookup and readdir in the configfs root only take
+>    configfs_dirent_lock. mkdir and symlink in the root fail with
+>    -EPERM before any other lock is taken, and configfs_rmdir() of a
+>    subsystem directory never gets as far as taking su_mutex.
+>  - configfs_register_subsystem() only locks the inodes of the new
+>    subsystem directory it is creating, which nobody else can hold yet.
+>  - configfs_unregister_subsystem() does wait for the subsystem
+>    directory's inode lock, but it only runs from the subsystem module's
+>    exit path. Every mkdir and rmdir in that subsystem holds a reference
+>    on the module, so none of them can be in progress at that point.
+> 
+> Put the root inode's i_rwsem into its own lock class so that lockdep
+> stops aliasing it with ordinary directory inodes. Splitting a class
+> cannot create new lockdep cycles, and real dependencies on the root
+> inode are still tracked under the new class. This is an annotation
+> only: without CONFIG_LOCKDEP the key is empty and lockdep_set_class()
+> compiles away.
 > 
 > Fixes: d79d75b5c518 ("fs: configfs: Add unlocked version of configfs_depend_item()")
+> Reported-by: syzbot+b3410eb576b568216ae5@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=b3410eb576b568216ae5
 > Assisted-by: Claude:claude-opus-5-5
 > Signed-off-by: Slawomir Stepien <sst@poczta.fm>
 
