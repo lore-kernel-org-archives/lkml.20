@@ -1,101 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.174
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793126696;
-	b=r32+UgU6sDIuLbeRG15j19o0F6zLsqSCNZsfuQhPUgIxueY8ETgMysuN7Gs2pTSTkSrI
-	 D23CZXWQvxq63p707v2IxIPrNodIi3WNK76ikZN09sTWYTnT40Hk8v1R4wriinu+v5a6s
-	 RLtYUk4D+w8QPMH8UQErcpt0DVNHmrFVcp8Hm46lnC+uQ13Wu7LAL2xZfzJMjAeMA7J/D
-	 zZq6dkyfpJ59DAHBWV19LLi6wiH3zdtdgeI+fp8l8xCNXnBsafWh15SR8KOZRB+ZLC8vS
-	 RQy/QiX+e71Zpnf9m9q3aFrJwwld+KfbeUcp8AR94K76snXCIWIZC9n6l3hmGsQLtYA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793126696;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=tEoWr6oOVnosU4poLjW2kjTOYuqBMD/9cOa8c5tjMMU=;
-	b=M5v7EMboMGnicCdI9PTaaZLEmDjfG7QrXbc24tsG8lzE4eftg3IbZq6/GyfUPRraADUw
-	 H2Hwo8x6ykOiAw7pePUUUSGk2PYjflR73tj8dj0h/WzY3M58g0c8A+aUuAeIpjE/nVRNy
-	 hAkUO4y3ZWgkmAOCW7oN8B66Zv0qnfKMIKQtd/tXoPvqzPTk4chSedj5VjVsLX9ZXOagm
-	 RVfB1fYPzDE76K6A9160hzz2RIZDsvN6wfW/vitwmQPgSBLOrjoYrsr0h2srBu/0f/K8w
-	 Qs9t01ya18ekyykwXrgZvppwoGxSz6P966HiEV8qzAPEI5CHhWEVG9Fr+SLbZj5644w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RZ9Tmw7X;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.174
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.14
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793126716;
+	b=OtVR8RdUt1g816SFKrl/qoynHSngqShwn/d4g5O1JfA+vlzG5AiuU16tORMipJRnxH3i
+	 6/kEu0rUIUgpNsRXGNj2S9DNXZS8cODoD3kOZJSq8z4JED0vojh8XIdujfNkaM2FGFLuU
+	 fjP9WK3ZzgV+awstpPweA3DIDCnCSKViMpNuSUfQi0iChxypymO2TkWudERKYq9qIlzsA
+	 U5tJRx48gwMpnB44h0+ZYjbEvdr6E8gi0Tlmx7lE4jxpqRBqL8bRky6csyMRqrPh6Vf6l
+	 76tGMSCXRZg25CO1kOwdHk/W8MIgXMsn7GrvkxPQAX3mQx8HaedQqzzh5TtTi07QIMg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793126716;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:User-Agent;
+	bh=f0A2ObWo7o0O67W0+nbBE5vRd5quvrKciUyjTxttwSM=;
+	b=WhgnZAAyNzO6VDmljKeZ7FJPPeBiiNDv9z2ajVtWaYK4Iu+nN+KwO7ER2bmnlsdJzrGZ
+	 0DPPb/Y8JwKlmGG7kGNX0ugZS4XxCERNW0Pct3cNe/TTj0QselQEU35QZjQVHM7NBGgLm
+	 Yw/YcVBjlOcMMmzOKGkn8sWT846DcylOvGO0mYVHK9P9eEdMJ/p127IooI9LQvP1Vv3Ot
+	 BJ8LBpf+27Ooynx7aCTvQLQQpTZ6PMoUplDUsIW3MXe6OBemyio12LV+3SsQ/V9P2/zO/
+	 Fb1h/SrSyHIi40u7qPl7HhgPtYQNsFmKLZwOkB1CmnnTzL1cMbM7W49rv3rYqOSm0Vw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XVwyCVcJ;
+	arc=none smtp.remote-ip=192.198.163.14
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D626606A322
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 18:44:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D626606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 109D1606A322
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 18:45:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 109D1606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RZ9Tmw7X
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-3645f0f3fcdso333009eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:44:56 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793126695; cv=none;
-        d=google.com; s=arc-20260327;
-        b=kSo5/w/hFguOB/42qzC/tKYN4J192FUtsetTHkGQeHCaNQlFbvB0Y0/KQblyRvHvjw
-         dTGHFqHvep3/VYqOaHnIZzq4PSOiijzOTh7a4lelPHtzsZPW/QXht3o5GUzFBRWBp9yo
-         bTmC6FqB3nK7934MQBqD9E7cDmpVTAFTzCxG/OZz+h7+och45ao52vtv/z+HIz+Rea4s
-         jpW8CfsEfO7c9DOiuyCHQ6vNvmeNMkd66rcB34kEsXrittEKFo+piuRWuyAt4G6QW/1F
-         wAzD7vFWrOQN/BBRJj6OUH1h2Z9QTAI5ZAhhc/cbMKDp9+xgRcwf4Dl+tjp+QtQpwO/S
-         fUVg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=tEoWr6oOVnosU4poLjW2kjTOYuqBMD/9cOa8c5tjMMU=;
-        fh=pOGJBpcLOKrfK6whgKW4UZRZ4BxRNvMVc171QrTnT60=;
-        b=qZTB0uw4aWOwSmtXO6JYnSPAuitOTyLz2t2QztH4/6ykCsf7U1KVxQ8CgqSmAc3cpw
-         crW01jbJfCF87qaTPiYlE0quYxLeiLYT4aOYahWh5dijaeorB7biSaHBx7keNN8D8RNj
-         qhocqdURxjFgXkpLm8keRk+QVenN9hXk8Q7n/LNr2+XymUR1Cauyr899xIqUEFvFQZcZ
-         YKWUj6vT+odUrFHEa8H7vBDxfdYFhQ8oKoUOOZKLTwj9qpDE3J/LaLHaUHfZYLi2DgLj
-         NPWMjTY2BCSiz6Vi2YrNKOcS2h9hEJCE2rZwhQ49mc9FOywMT6u7M8Rdi/ktoWxTS9si
-         EFew==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793126695; x=1793731495; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=tEoWr6oOVnosU4poLjW2kjTOYuqBMD/9cOa8c5tjMMU=;
-        b=RZ9Tmw7X9onYeXIfmAJ7wd3QPCdcDBD4paScJ30dfXx3BWGyoV/6iQVFuzt/zccTjD
-         /R35Yw+g8tOlNVl9zG9vBSMJgjxM/01FiXo4i4OMwmfBWTkYxrwCTYp23TJhNnIZrNUl
-         5Td6Blf2bHUxOSbtHInNeN2TmSkk/7hRDPWcbGC29dn8i2aJUskeIehrHrFKYXyCVFqa
-         ChvsxSNNwMjawkbG0F8uJ6EhS+Ro7P32dpB1Tr1pYwVglEU/MTXh2lSmWArCdzF1Ufqs
-         8fXSzdJJ/apgn4X+SdnXZz/JC0H46gG4PTYJHNOcuPBLOwpeR4FONKL3Vf8zqXYbDJsv
-         Ym1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793126695; x=1793731495;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tEoWr6oOVnosU4poLjW2kjTOYuqBMD/9cOa8c5tjMMU=;
-        b=ReIth7dYNctT4T+CLZEadjgoZa6tXaKAkXDaBFJDa3wlg4juNrm0MvCkh5OP8TwYLC
-         U54m4JnizDQpDyRuKP+nKlr00FahkpVfu8TTs48FWhKO6jLTbGXWmExiNfJVnm03NCn8
-         CeET/PSFovDu6dkwqek6c4+I0VH/55awL5m0WsJUiYOOgxM6K1ewg8nfwr3dxHo4NWWi
-         eBSJuN5TiG+jCv+XpAvEjUDEzC1LzbTjM9OKXlC+SiVPhfiapzqRfr3JYSZ4xVCrOv8b
-         mRP8x0ryDDLeeyun5M4plS3zSVa/IQ7URoQS9VSDqlTOSHECGlBoNYiY5QHXuR69JseC
-         cMCA==
-X-Forwarded-Encrypted: i=1; AKwUvBwRfboticrH/PZhrmmrJU5G017Ng8lPacC5EyE5LKjOyRMrWqmnjXYblB4pwe+R2k3cqkuhEMCMCtdQPZE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJyCME/hez8pitZ+TGCHmxCBdV/K6FD0Gvx+IfpKAN8R/YuWv4I
-	yxwvGRCQC3fWxAL0N4bKIBB0qaObj63zx8MyWswLeBLlZHXVdc4dz/h5nGUKf9r/yBSD2w8l3MJ
-	ViULrdiyLVjFS8XhzqQDbFQqIlp9Xups=
-X-Gm-Gg: AYBFou35mGlCHeC8xloinSC3jgRS57icdEzhmRGyotCbMCHnLroUAK7WBrUV7Qz7UcR
-	gjrJGgPtMvWMdmlDk9Kqe5/xXEaqwPZ4AODNuQeSGBjBZnVA7xhu0iIqU0/qk3g9YYiOvRD0WhF
-	8mFQr/5bsoDTB69NkcYI/P+IwE2CrL1C4FQ8nqNXeYgxMcMva5wNyAVOieoqy3FWfl1fyjsX6GE
-	/YVPSMJ7keYomrnRZ9DbBIKFTKyuMVrAnlsjTkLCUfzA2ztgP0MaR1ovpH/m8j8a3stxE4UXnTu
-	6JlkqD5orNhPJqHz9d2o6ihhETv1YM9oBguDmCaW5XORRRLdjCzBkFAfiKz3U6t+qLPqXoIIhzA
-	ikWGWMmnazFsMqJcSDalEvEjRNfiL4d0tcYDy9V8CV+3qQeOlHpnMAWrhPsUlLJTkhG3IV3MHWS
-	xQJdtXpSW9Ak+ZCLs=
-X-Received: by 2002:a05:7300:c88:b0:369:eec1:1d7e with SMTP id
- 5a478bee46e88-36a2011245fmr748593eec.11.1793126695515; Tue, 27 Oct 2026
- 11:44:55 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XVwyCVcJ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793126715; x=1824662715;
+  h=date:from:to:cc:subject:message-id;
+  bh=MVNkZmBSAs3G1MDcWqPZQn+OohMWIC3Dbhp/gFBOWZA=;
+  b=XVwyCVcJOzObjtNSvmJH2ynK/c/uwxMZ1/M6LrI2L0h5va0zeFMMy4cM
+   o/BdSNDybyg8dVbk6F/6kKjjZVBtvPCeiZp/irqmBHuGAM4QQsfduhqvz
+   mimFxyE7EOnFQuFwIOaPybmvexpnc56VaxTaZDjxYKRm5z6kLUMHL1Ugm
+   whRAqLc0xVt/IrUB1qAxZKm7Q6wgHpFbZ5RCYlV/6qwyvsFJ5rwaiIORh
+   e/GziWE5z/Il+Ja1JB9rtcZSCKyqq94CKIAEOzN9Q6+0dgneux4KSL6ah
+   0aYFuU2ELAhsTfH/wAGcp52Natnkuii5uhYX5+uPJlqY7Smo6jnrfiYEe
+   A==;
+X-CSE-ConnectionGUID: MaiUZWLDQuGlIl4DruSbjg==
+X-CSE-MsgGUID: IfFt7VzAQWWZr2vjzbS0dg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1866103"
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="1866103"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 11:45:15 -0700
+X-CSE-ConnectionGUID: Mvqni8OySiy25BQNF8mPrA==
+X-CSE-MsgGUID: S9m8GC01Q6mjzohpdQXc1g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="5015495"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa006.fm.intel.com with ESMTP; 27 Oct 2026 11:45:13 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xLmAY-00000000XbU-1j6y;
+	Tue, 27 Oct 2026 18:45:10 +0000
+Date: Wed, 28 Oct 2026 02:44:38 +0800
+From: kernel test robot <lkp@intel.com>
+To: Arnd Bergmann <arnd@arndb.de>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: include/linux/compiler_types.h:702:38: error: call to
+ '__compiletime_assert_74' declared with attribute error: FIELD_PREP: value
+ too large for the field
+Message-ID: <202610280207.7fUp3BXs-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,42 +80,216 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261027120019.93611-1-clamor95@gmail.com> <20261027120019.93611-6-clamor95@gmail.com>
- <179312433904.199157.3178610408209114840.b4-review@b4>
-In-Reply-To: <179312433904.199157.3178610408209114840.b4-review@b4>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Tue, 27 Oct 2026 20:44:44 +0200
-X-Gm-Features: AclHuK9YRoKNp7VL85UdMjrZOorWmZTdr54Qmc8Jf3CO54OLWmTMK4fUeFsGC7k
-Message-ID: <CAPVz0n3MXT7_h6_REqcyayC_qyi9xXLNUjJLPzeyACFipr=TMA@mail.gmail.com>
-Subject: Re: [PATCH v1 5/7] ASoC: dt-bindings: wlf,wm8994: Update
- #sound-dai-cells property
-To: Mark Brown <broonie@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
-	Mikko Perttunen <mperttunen@nvidia.com>, Abdulrasaq Lawani <abdulrasaqolawani@gmail.com>, 
-	Leon Romanovsky <leon@kernel.org>, Animesh Agarwal <animeshagarwal28@gmail.com>, 
-	patches@opensource.cirrus.com, linux-sound@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-tegra@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-=D0=B2=D1=82, 27 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 20:0=
-5 Mark Brown <broonie@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> > The Wolfson Microelectronics WM8994 codec provides three DAI cells.
->
-> >    '#sound-dai-cells':
-> > -    const: 0
-> > +    const: 1
->
-> We have existing Exynos users which are validated with 0, this will break
-> validation for them.
->
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   d135ab453a7400a34930bdda1ef4bdc8acfac80e
+commit: d70242427110123b65c095594eb74a703d3af156 ARM: rework ARM11 CPU selection logic
+date:   4 months ago
+config: arm-randconfig-1002-20261027 (https://download.01.org/0day-ci/archive/20261028/202610280207.7fUp3BXs-lkp@intel.com/config)
+compiler: arm-linux-gnueabi-gcc (GCC) 8.5.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261028/202610280207.7fUp3BXs-lkp@intel.com/reproduce)
 
-Yes, sorry, it should be enum [0, 1] my bad, I will update in v2.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: d70242427110 ("ARM: rework ARM11 CPU selection logic")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610280207.7fUp3BXs-lkp@intel.com/
 
-> --
-> Mark Brown <broonie@kernel.org>
+All errors (new ones prefixed by >>):
+
+   In file included from <command-line>:
+   In function 'amdv1pt_install_leaf_entry',
+       inlined from '__do_map_single_page' at drivers/iommu/generic_pt/fmt/../iommu_pt.h:757:3,
+       inlined from '__map_single_page0.constprop' at drivers/iommu/generic_pt/fmt/../iommu_pt.h:768:1:
+>> include/linux/compiler_types.h:702:38: error: call to '__compiletime_assert_74' declared with attribute error: FIELD_PREP: value too large for the field
+     _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+                                         ^
+   include/linux/compiler_types.h:683:4: note: in definition of macro '__compiletime_assert'
+       prefix ## suffix();    \
+       ^~~~~~
+   include/linux/compiler_types.h:702:2: note: in expansion of macro '_compiletime_assert'
+     _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+     ^~~~~~~~~~~~~~~~~~~
+   include/linux/build_bug.h:40:37: note: in expansion of macro 'compiletime_assert'
+    #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg)
+                                        ^~~~~~~~~~~~~~~~~~
+   include/linux/bitfield.h:70:3: note: in expansion of macro 'BUILD_BUG_ON_MSG'
+      BUILD_BUG_ON_MSG(__builtin_constant_p(_val) ?  \
+      ^~~~~~~~~~~~~~~~
+   include/linux/bitfield.h:91:3: note: in expansion of macro '__BF_FIELD_CHECK_MASK'
+      __BF_FIELD_CHECK_MASK(mask, val, pfx);   \
+      ^~~~~~~~~~~~~~~~~~~~~
+   include/linux/bitfield.h:138:3: note: in expansion of macro '__FIELD_PREP'
+      __FIELD_PREP(_mask, _val, "FIELD_PREP: ");  \
+      ^~~~~~~~~~~~
+   drivers/iommu/generic_pt/fmt/amdv1.h:220:5: note: in expansion of macro 'FIELD_PREP'
+        FIELD_PREP(AMDV1PT_FMT_OA,
+        ^~~~~~~~~~
+   In function 'amdv1pt_install_leaf_entry',
+       inlined from '__do_map_single_page' at drivers/iommu/generic_pt/fmt/../iommu_pt.h:757:3,
+       inlined from '__map_single_page1.constprop' at drivers/iommu/generic_pt/fmt/../iommu_pt.h:768:1:
+>> include/linux/compiler_types.h:702:38: error: call to '__compiletime_assert_74' declared with attribute error: FIELD_PREP: value too large for the field
+     _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+                                         ^
+   include/linux/compiler_types.h:683:4: note: in definition of macro '__compiletime_assert'
+       prefix ## suffix();    \
+       ^~~~~~
+   include/linux/compiler_types.h:702:2: note: in expansion of macro '_compiletime_assert'
+     _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+     ^~~~~~~~~~~~~~~~~~~
+   include/linux/build_bug.h:40:37: note: in expansion of macro 'compiletime_assert'
+    #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg)
+                                        ^~~~~~~~~~~~~~~~~~
+   include/linux/bitfield.h:70:3: note: in expansion of macro 'BUILD_BUG_ON_MSG'
+      BUILD_BUG_ON_MSG(__builtin_constant_p(_val) ?  \
+      ^~~~~~~~~~~~~~~~
+   include/linux/bitfield.h:91:3: note: in expansion of macro '__BF_FIELD_CHECK_MASK'
+      __BF_FIELD_CHECK_MASK(mask, val, pfx);   \
+      ^~~~~~~~~~~~~~~~~~~~~
+   include/linux/bitfield.h:138:3: note: in expansion of macro '__FIELD_PREP'
+      __FIELD_PREP(_mask, _val, "FIELD_PREP: ");  \
+      ^~~~~~~~~~~~
+   drivers/iommu/generic_pt/fmt/amdv1.h:220:5: note: in expansion of macro 'FIELD_PREP'
+        FIELD_PREP(AMDV1PT_FMT_OA,
+        ^~~~~~~~~~
+   In function 'amdv1pt_install_leaf_entry',
+       inlined from '__do_map_single_page' at drivers/iommu/generic_pt/fmt/../iommu_pt.h:757:3,
+       inlined from '__map_single_page2.constprop' at drivers/iommu/generic_pt/fmt/../iommu_pt.h:768:1:
+>> include/linux/compiler_types.h:702:38: error: call to '__compiletime_assert_74' declared with attribute error: FIELD_PREP: value too large for the field
+     _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+                                         ^
+   include/linux/compiler_types.h:683:4: note: in definition of macro '__compiletime_assert'
+       prefix ## suffix();    \
+       ^~~~~~
+   include/linux/compiler_types.h:702:2: note: in expansion of macro '_compiletime_assert'
+     _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+     ^~~~~~~~~~~~~~~~~~~
+   include/linux/build_bug.h:40:37: note: in expansion of macro 'compiletime_assert'
+    #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg)
+                                        ^~~~~~~~~~~~~~~~~~
+   include/linux/bitfield.h:70:3: note: in expansion of macro 'BUILD_BUG_ON_MSG'
+      BUILD_BUG_ON_MSG(__builtin_constant_p(_val) ?  \
+      ^~~~~~~~~~~~~~~~
+   include/linux/bitfield.h:91:3: note: in expansion of macro '__BF_FIELD_CHECK_MASK'
+      __BF_FIELD_CHECK_MASK(mask, val, pfx);   \
+      ^~~~~~~~~~~~~~~~~~~~~
+   include/linux/bitfield.h:138:3: note: in expansion of macro '__FIELD_PREP'
+      __FIELD_PREP(_mask, _val, "FIELD_PREP: ");  \
+      ^~~~~~~~~~~~
+   drivers/iommu/generic_pt/fmt/amdv1.h:220:5: note: in expansion of macro 'FIELD_PREP'
+        FIELD_PREP(AMDV1PT_FMT_OA,
+        ^~~~~~~~~~
+   In function 'amdv1pt_install_leaf_entry',
+       inlined from '__do_map_single_page' at drivers/iommu/generic_pt/fmt/../iommu_pt.h:757:3,
+       inlined from '__map_single_page3.constprop' at drivers/iommu/generic_pt/fmt/../iommu_pt.h:768:1:
+>> include/linux/compiler_types.h:702:38: error: call to '__compiletime_assert_74' declared with attribute error: FIELD_PREP: value too large for the field
+     _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+                                         ^
+   include/linux/compiler_types.h:683:4: note: in definition of macro '__compiletime_assert'
+       prefix ## suffix();    \
+       ^~~~~~
+   include/linux/compiler_types.h:702:2: note: in expansion of macro '_compiletime_assert'
+     _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+     ^~~~~~~~~~~~~~~~~~~
+   include/linux/build_bug.h:40:37: note: in expansion of macro 'compiletime_assert'
+    #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg)
+                                        ^~~~~~~~~~~~~~~~~~
+   include/linux/bitfield.h:70:3: note: in expansion of macro 'BUILD_BUG_ON_MSG'
+      BUILD_BUG_ON_MSG(__builtin_constant_p(_val) ?  \
+      ^~~~~~~~~~~~~~~~
+   include/linux/bitfield.h:91:3: note: in expansion of macro '__BF_FIELD_CHECK_MASK'
+      __BF_FIELD_CHECK_MASK(mask, val, pfx);   \
+      ^~~~~~~~~~~~~~~~~~~~~
+   include/linux/bitfield.h:138:3: note: in expansion of macro '__FIELD_PREP'
+      __FIELD_PREP(_mask, _val, "FIELD_PREP: ");  \
+      ^~~~~~~~~~~~
+   drivers/iommu/generic_pt/fmt/amdv1.h:220:5: note: in expansion of macro 'FIELD_PREP'
+        FIELD_PREP(AMDV1PT_FMT_OA,
+        ^~~~~~~~~~
+   In function 'amdv1pt_install_leaf_entry',
+       inlined from '__do_map_single_page' at drivers/iommu/generic_pt/fmt/../iommu_pt.h:757:3,
+       inlined from '__map_single_page4.constprop' at drivers/iommu/generic_pt/fmt/../iommu_pt.h:768:1:
+>> include/linux/compiler_types.h:702:38: error: call to '__compiletime_assert_74' declared with attribute error: FIELD_PREP: value too large for the field
+     _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+                                         ^
+   include/linux/compiler_types.h:683:4: note: in definition of macro '__compiletime_assert'
+       prefix ## suffix();    \
+       ^~~~~~
+   include/linux/compiler_types.h:702:2: note: in expansion of macro '_compiletime_assert'
+     _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+     ^~~~~~~~~~~~~~~~~~~
+   include/linux/build_bug.h:40:37: note: in expansion of macro 'compiletime_assert'
+    #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg)
+                                        ^~~~~~~~~~~~~~~~~~
+   include/linux/bitfield.h:70:3: note: in expansion of macro 'BUILD_BUG_ON_MSG'
+      BUILD_BUG_ON_MSG(__builtin_constant_p(_val) ?  \
+      ^~~~~~~~~~~~~~~~
+   include/linux/bitfield.h:91:3: note: in expansion of macro '__BF_FIELD_CHECK_MASK'
+      __BF_FIELD_CHECK_MASK(mask, val, pfx);   \
+      ^~~~~~~~~~~~~~~~~~~~~
+   include/linux/bitfield.h:138:3: note: in expansion of macro '__FIELD_PREP'
+      __FIELD_PREP(_mask, _val, "FIELD_PREP: ");  \
+      ^~~~~~~~~~~~
+   drivers/iommu/generic_pt/fmt/amdv1.h:220:5: note: in expansion of macro 'FIELD_PREP'
+        FIELD_PREP(AMDV1PT_FMT_OA,
+        ^~~~~~~~~~
+   In function 'amdv1pt_install_leaf_entry',
+       inlined from '__do_map_single_page' at drivers/iommu/generic_pt/fmt/../iommu_pt.h:757:3,
+       inlined from '__map_single_page5.constprop' at drivers/iommu/generic_pt/fmt/../iommu_pt.h:768:1,
+       inlined from '__map_single_page' at drivers/iommu/generic_pt/fmt/../iommu_pt.h:768:1,
+       inlined from 'pt_walk_range' at drivers/iommu/generic_pt/fmt/../pt_iter.h:408:9,
+       inlined from 'do_map.constprop' at drivers/iommu/generic_pt/fmt/../iommu_pt.h:915:9:
+>> include/linux/compiler_types.h:702:38: error: call to '__compiletime_assert_74' declared with attribute error: FIELD_PREP: value too large for the field
+     _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+                                         ^
+   include/linux/compiler_types.h:683:4: note: in definition of macro '__compiletime_assert'
+       prefix ## suffix();    \
+       ^~~~~~
+   include/linux/compiler_types.h:702:2: note: in expansion of macro '_compiletime_assert'
+     _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+     ^~~~~~~~~~~~~~~~~~~
+   include/linux/build_bug.h:40:37: note: in expansion of macro 'compiletime_assert'
+    #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg)
+                                        ^~~~~~~~~~~~~~~~~~
+   include/linux/bitfield.h:70:3: note: in expansion of macro 'BUILD_BUG_ON_MSG'
+      BUILD_BUG_ON_MSG(__builtin_constant_p(_val) ?  \
+      ^~~~~~~~~~~~~~~~
+   include/linux/bitfield.h:91:3: note: in expansion of macro '__BF_FIELD_CHECK_MASK'
+      __BF_FIELD_CHECK_MASK(mask, val, pfx);   \
+      ^~~~~~~~~~~~~~~~~~~~~
+   include/linux/bitfield.h:138:3: note: in expansion of macro '__FIELD_PREP'
+      __FIELD_PREP(_mask, _val, "FIELD_PREP: ");  \
+      ^~~~~~~~~~~~
+   drivers/iommu/generic_pt/fmt/amdv1.h:220:5: note: in expansion of macro 'FIELD_PREP'
+        FIELD_PREP(AMDV1PT_FMT_OA,
+        ^~~~~~~~~~
+
+
+vim +/__compiletime_assert_74 +702 include/linux/compiler_types.h
+
+eb5c2d4b45e3d2 Will Deacon 2020-07-21  688  
+eb5c2d4b45e3d2 Will Deacon 2020-07-21  689  #define _compiletime_assert(condition, msg, prefix, suffix) \
+eb5c2d4b45e3d2 Will Deacon 2020-07-21  690  	__compiletime_assert(condition, msg, prefix, suffix)
+eb5c2d4b45e3d2 Will Deacon 2020-07-21  691  
+eb5c2d4b45e3d2 Will Deacon 2020-07-21  692  /**
+eb5c2d4b45e3d2 Will Deacon 2020-07-21  693   * compiletime_assert - break build and emit msg if condition is false
+eb5c2d4b45e3d2 Will Deacon 2020-07-21  694   * @condition: a compile-time constant condition to check
+eb5c2d4b45e3d2 Will Deacon 2020-07-21  695   * @msg:       a message to emit if condition is false
+eb5c2d4b45e3d2 Will Deacon 2020-07-21  696   *
+eb5c2d4b45e3d2 Will Deacon 2020-07-21  697   * In tradition of POSIX assert, this macro will break the build if the
+eb5c2d4b45e3d2 Will Deacon 2020-07-21  698   * supplied condition is *false*, emitting the supplied error message if the
+eb5c2d4b45e3d2 Will Deacon 2020-07-21  699   * compiler has support to do so.
+eb5c2d4b45e3d2 Will Deacon 2020-07-21  700   */
+eb5c2d4b45e3d2 Will Deacon 2020-07-21  701  #define compiletime_assert(condition, msg) \
+eb5c2d4b45e3d2 Will Deacon 2020-07-21 @702  	_compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+eb5c2d4b45e3d2 Will Deacon 2020-07-21  703  
+
+:::::: The code at line 702 was first introduced by commit
+:::::: eb5c2d4b45e3d2d5d052ea6b8f1463976b1020d5 compiler.h: Move compiletime_assert() macros into compiler_types.h
+
+:::::: TO: Will Deacon <will@kernel.org>
+:::::: CC: Will Deacon <will@kernel.org>
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
