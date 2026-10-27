@@ -1,56 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793097502;
-	b=t2msWmCXA61HbFLEdtvVMeKWC2ufV2NRZWsmALO/rCXtIbaFCd9OKklQLOcRcxqv6oa6
-	 1Aip6qJxlA/djcdXPDaanZf5jgCrtm4EPMMlHV+J0m/UM2ZlW2JylxQUi+aA4qVAP2BUe
-	 nmODRv84xZKem21AN9ydN03l+1MSExgjKbroRPvsChjYs9mvRHvDfxHXsJoNiD1ushXDA
-	 fASU/lMLeH9Yt4qmHhF7GFboxgJAj5YBXgB6ogwabhCvMx/270cbG4P9L2S89h3qYl+w+
-	 D4P6dilNaAj7B4h5Utb5rZAKqIJs0cTD8lxeSiYT75H55pra0occi9xrOCWVlSCwpyQ==
+	t=1793097515;
+	b=F4xM+dkeeLlebpAvkivs+5sEVzKztqr0CV+dVHdeP8kK6zUl0F22fEUpPxVQCw6MBDPH
+	 uk9kMrXVvhLsqSra4ZtuWqHVAcU7P1+L4AyUcD/mAiQnYpg8N3JeAXeIuxewVOo0WCvYB
+	 cuwlhKEiW9nDlhMaqJzOVTnCFmNu7cSCtNNNoeF+wqGtgCaZt2o8x/YsR1NFDNzDa/wqX
+	 h3POiU0Er57Kf2G6Dvr2kW03caBje56MVRKK1BNw4cCXv5EnzUC0T39oNrpRYLy4gSywL
+	 z90XJXQBvwMZa13erT3kQLbJTXqPrzusFcEZ4w76zSmtUawLqhZGGFPo2VxiP2+imVg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793097502;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793097515;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=EhPXelCABLWuSjrEc8aU2EyQqZo8N/hPtG5bDKHLnWw=;
-	b=eEQ4NNu9GWC9oSgL+KQdQy5EpW4QQPb5AlkWKsXRbQYssk1DN7vBQnfcLTGTLkr1Hu9c
-	 Pqs5qd9+puclqj3FN9G58L3I3YI+gCRW7npBGvMVKGERyvO8+7ZrZtdzBpMlIuUfD+hML
-	 k48uTZDw54ss7qZM7EWzX9zq2PoLNc612aSbhGHzBfF6bheyDoytbgd2MzOVBYa9qEBtM
-	 2l9cy/77TkzbUF/ky+Yv0084IFMF8UA6k+QKkObecnZpdTTZnEftTccppxNn5OEXWKIgp
-	 1RYZUqdkUxWOVHfeU+Zr8zTtiiN6vitYsyl86+lk0TH/Q+yfCQs1kDSx1d/8g3jp2cg==
+	bh=mfCfb2yh3oV6af8kZnk94ZGOg5mzQNYH1WndFTae2Bw=;
+	b=Vx0m9ueAYivzyYoRejzFlw1cWsisMtZWwvE1jXlOcjW8dIMzkGhdlDO4v3uKMWVFpaOF
+	 u/dzYHrD6Veyor4HsbVBBLmCH+GAOeT8LKxcRMf26pVWM5dOfcfOOXl3gfxitG4TMRtzj
+	 zFGhFoiMVnHyG7GR2hF5b6fbxXLihPqVRFD173EEW7b7uuqjE/O+m0e09VkPihAkI+BIc
+	 CWt4o7T/fdMRA6NP35uOvf8sCrMF47CRx6ETTzNqob3h2Ev3BZAwGbb2LDvDU7HWPXj/U
+	 LZ5XPn9V4gk6ybSnWr5x1K5LyilPwe+Wx1AIbSvCKhfAFQpTRGUIA7PLBsM1Vy8y/0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G4XeIGIP;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O75q9WfE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 813C9606A31A;
-	Tue, 27 Oct 2026 10:38:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9665606A31A;
+	Tue, 27 Oct 2026 10:38:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G4XeIGIP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06CB41F01828;
-	Tue, 27 Oct 2026 10:38:20 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O75q9WfE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F4511F031E1;
+	Tue, 27 Oct 2026 10:38:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793097502;
-	bh=EhPXelCABLWuSjrEc8aU2EyQqZo8N/hPtG5bDKHLnWw=;
+	s=k20260515; t=1793097514;
+	bh=mfCfb2yh3oV6af8kZnk94ZGOg5mzQNYH1WndFTae2Bw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=G4XeIGIPvE+xYgVHpDHqXMtEF0v553A8vM1XSFfYh384TgrWfqwXzR2+Pa9nabpcE
-	 loLXPqZ0UItj8rbU9nV9Ry6thYMHGe1Nnjc9HBWjAPIJg86MypzuaeWKd72uIBZH6I
-	 i+9jPsriG1qmLkzrbWCEONILNwucHtUh9CV/lLb1MGpkhljCKDi0f6KLW5Fw2Ko1yX
-	 57PtbTRHimNS+qO6riC03hkVbR850TJUpCLm0UZDrHWgQAVaTugrjHHBaK2PXILAOR
-	 DYLQJk/Jsi0uXa7P/kYf4Y9dnR1A26gUiP4Qu/gbylqJDfJrn7Rc3rFCyW8TowY7Bu
-	 6qZAWdYPxYbkQ==
+	b=O75q9WfEMXzQNx+xIa5sUVDEKPxqfIEeOVzt9UtQJTwrpdyWF9AK3hJdBjGDCtut8
+	 CL3ykYgdvj0QMafnHz3m2VjSXAECq6kU0rOARDCwmFjaSJ0Uj8o4HD+3urdD2UXuan
+	 G4cZq723eajTLSqGwEt9isTENycG7zEPsYqeIXyBe2N+T52hPUlHTSFZroOyW63fjU
+	 orCNtwUB+iBOKUbNTUctJ06cI+X6+ciBhFI9bARfZ/vjxVa8tyUHVtOoHpSS7/I8We
+	 I5GNf8wXIole4XMB5Ww8EShMhVD/BNJzEcRthyYJbQXUvgzy1kRlqhFdKR9p9HtWe/
+	 qLMD87yJGeXVA==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
-	Linus Walleij <linusw@kernel.org>,
-	Mattias Wallin <mattias.wallin@stericsson.com>,
-	Samuel Ortiz <sameo@linux.intel.com>,
-	linux-arm-kernel@lists.infradead.org,
+	Aaro Koskinen <aaro.koskinen@iki.fi>,
+	Andreas Kemnade <andreas@kemnade.info>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Roger Quadros <rogerq@kernel.org>,
+	Tony Lindgren <tony@atomide.com>,
+	AnilKumar Ch <anilkumar@ti.com>,
+	Milo Kim <woogyom.kim@gmail.com>,
+	linux-omap@vger.kernel.org,
 	mfd@lists.linux.dev,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH v2 21/27] mfd: abx500-core: Unregister device ops on devm release
-Date: Tue, 27 Oct 2026 09:30:50 +0000
-Message-ID: <20261027093306.2812695-22-lee@kernel.org>
+Subject: [PATCH v2 23/27] mfd: tps65217: Manage IRQ domain teardown via devres
+Date: Tue, 27 Oct 2026 09:30:52 +0000
+Message-ID: <20261027093306.2812695-24-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
 In-Reply-To: <20261027093306.2812695-1-lee@kernel.org>
 References: <20261027093306.2812695-1-lee@kernel.org>
@@ -65,82 +69,110 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-abx500_register_ops() allocates struct abx500_device_entry via
-devm_kzalloc() and links it into the global abx500_list without
-registering a devres cleanup action.  If a caller's probe function
-subsequently fails, devres frees the entry while it remains linked in
-abx500_list, causing use-after-free and list corruption on later
-traversals.
+tps65217_irq_init() creates tps->irq_domain with an unmanaged call and
+requests the parent interrupt via devm_request_threaded_irq(), while
+tps65217_remove() manually disposes mappings and removes
+tps->irq_domain.  Because tps65217_remove() executes before devres
+teardown, the IRQ domain is destroyed while tps65217_irq_thread() and
+child MFD devices are still active, allowing a concurrent interrupt to
+dereference a freed or NULL domain.  Furthermore, if probe fails after
+irq_domain_create_linear() or if tps65217_irq_init() fails, the IRQ
+domain is leaked, and if the device is probed without an interrupt
+(client->irq == 0), tps65217_remove() unconditionally passes a NULL
+tps->irq_domain to irq_domain_remove().
 
-Register a devm_add_action_or_reset() callback in abx500_register_ops()
-to remove the entry from abx500_list before devres frees it.
+Register a devres action to tear down the IRQ domain in
+tps65217_irq_init() prior to devm_request_threaded_irq(), propagate
+errors from tps65217_irq_init() in tps65217_probe(), and drop
+tps65217_remove().
 
-Fixes: c211b6b9c014 ("mfd: abx500-core: Convert to managed resources for allocating memory")
-Closes: https://sashiko.dev/#/bug/linux-6a9c6b8b-8f89-4af5-8cb1-102822e44e6e
+Fixes: 40a50f8b307d ("mfd: tps65217: Fix page fault on unloading modules")
+Closes: https://sashiko.dev/#/bug/linux-7e358c08-6d75-48be-87d2-35dc037ea953
 Cc: stable@vger.kernel.org
-Reviewed-by: Linus Walleij <linusw@kernel.org>
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/mfd/abx500-core.c | 29 ++++++++++++++++++-----------
- 1 file changed, 18 insertions(+), 11 deletions(-)
+ drivers/mfd/tps65217.c | 40 ++++++++++++++++++++++------------------
+ 1 file changed, 22 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/mfd/abx500-core.c b/drivers/mfd/abx500-core.c
-index e896531d0354..5873e335c395 100644
---- a/drivers/mfd/abx500-core.c
-+++ b/drivers/mfd/abx500-core.c
-@@ -5,6 +5,7 @@
-  * Author: Mattias Wallin <mattias.wallin@stericsson.com>
-  */
+diff --git a/drivers/mfd/tps65217.c b/drivers/mfd/tps65217.c
+index c240fac0ede7..a1e9b9e22d82 100644
+--- a/drivers/mfd/tps65217.c
++++ b/drivers/mfd/tps65217.c
+@@ -146,6 +146,21 @@ static const struct irq_domain_ops tps65217_irq_domain_ops = {
+ 	.map = tps65217_irq_map,
+ };
  
-+#include <linux/device.h>
- #include <linux/list.h>
- #include <linux/slab.h>
- #include <linux/err.h>
-@@ -33,6 +34,21 @@ static void lookup_ops(struct device *dev, struct abx500_ops **ops)
++static void tps65217_irq_exit(void *data)
++{
++	struct tps65217 *tps = data;
++	unsigned int virq;
++
++	for (int i = 0; i < TPS65217_NUM_IRQ; i++) {
++		virq = irq_find_mapping(tps->irq_domain, i);
++		if (virq)
++			irq_dispose_mapping(virq);
++	}
++
++	irq_domain_remove(tps->irq_domain);
++	tps->irq_domain = NULL;
++}
++
+ static int tps65217_irq_init(struct tps65217 *tps, int irq)
+ {
+ 	int ret;
+@@ -165,6 +180,10 @@ static int tps65217_irq_init(struct tps65217 *tps, int irq)
+ 		return -ENOMEM;
  	}
+ 
++	ret = devm_add_action_or_reset(tps->dev, tps65217_irq_exit, tps);
++	if (ret)
++		return ret;
++
+ 	ret = devm_request_threaded_irq(tps->dev, irq, NULL,
+ 					tps65217_irq_thread, IRQF_ONESHOT,
+ 					"tps65217-irq", tps);
+@@ -333,7 +352,9 @@ static int tps65217_probe(struct i2c_client *client)
+ 	}
+ 
+ 	if (client->irq) {
+-		tps65217_irq_init(tps, client->irq);
++		ret = tps65217_irq_init(tps, client->irq);
++		if (ret)
++			return ret;
+ 	} else {
+ 		int i;
+ 
+@@ -373,22 +394,6 @@ static int tps65217_probe(struct i2c_client *client)
+ 	return 0;
  }
  
-+void abx500_remove_ops(struct device *dev)
-+{
-+	struct abx500_device_entry *dev_entry, *tmp;
-+
-+	list_for_each_entry_safe(dev_entry, tmp, &abx500_list, list)
-+		if (dev_entry->dev == dev)
-+			list_del(&dev_entry->list);
-+}
-+EXPORT_SYMBOL(abx500_remove_ops);
-+
-+static void abx500_unregister_ops(void *data)
-+{
-+	abx500_remove_ops(data);
-+}
-+
- int abx500_register_ops(struct device *dev, struct abx500_ops *ops)
- {
- 	struct abx500_device_entry *dev_entry;
-@@ -45,20 +61,11 @@ int abx500_register_ops(struct device *dev, struct abx500_ops *ops)
- 	memcpy(&dev_entry->ops, ops, sizeof(*ops));
- 
- 	list_add_tail(&dev_entry->list, &abx500_list);
--	return 0;
-+
-+	return devm_add_action_or_reset(dev, abx500_unregister_ops, dev);
- }
- EXPORT_SYMBOL(abx500_register_ops);
- 
--void abx500_remove_ops(struct device *dev)
+-static void tps65217_remove(struct i2c_client *client)
 -{
--	struct abx500_device_entry *dev_entry, *tmp;
+-	struct tps65217 *tps = i2c_get_clientdata(client);
+-	unsigned int virq;
+-	int i;
 -
--	list_for_each_entry_safe(dev_entry, tmp, &abx500_list, list)
--		if (dev_entry->dev == dev)
--			list_del(&dev_entry->list);
+-	for (i = 0; i < TPS65217_NUM_IRQ; i++) {
+-		virq = irq_find_mapping(tps->irq_domain, i);
+-		if (virq)
+-			irq_dispose_mapping(virq);
+-	}
+-
+-	irq_domain_remove(tps->irq_domain);
+-	tps->irq_domain = NULL;
 -}
--EXPORT_SYMBOL(abx500_remove_ops);
 -
- int abx500_set_register_interruptible(struct device *dev, u8 bank, u8 reg,
- 	u8 value)
- {
+ static const struct i2c_device_id tps65217_id_table[] = {
+ 	{"tps65217", TPS65217},
+ 	{ /* sentinel */ }
+@@ -402,7 +407,6 @@ static struct i2c_driver tps65217_driver = {
+ 	},
+ 	.id_table	= tps65217_id_table,
+ 	.probe		= tps65217_probe,
+-	.remove		= tps65217_remove,
+ };
+ 
+ static int __init tps65217_init(void)
 -- 
 2.56.0.307.g5fe7bd680c-goog
 
