@@ -1,60 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793144025;
-	b=W+HIRPL9afM7cAmkmozFwH++TrS46XSpcvQg5P0oaKMUoCbwrUJ8HHbIuVTbbNZatgBU
-	 vqZWLC+2cZt4+S02yQtc9JLxs8D6LKxcEtD7fcnHb5GzJleQWB7rXh9dyD6WyiWAbWrf3
-	 Zp3gNAQPD1MNbdKYbbsrdbtcalB7JdniWuHnwt3tjf4BIR/hGMXQ2dJjFle6uQFN3+XIx
-	 jQgwEd3Hm5nAfnujcVoBC0LA4JFeG0u44wFLT6T/quugZAsBjeijOhItRVx+k7Bt0O2qY
-	 Yk0I4oD5ngelwiZ/SyuHl6jV5ZX0kAaTCjxFNYCHqWegn29hN9DRkNyGqK1+SlsG6CQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793144025;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793144115;
+	b=rPhFiTgSunkH0UN7YvdQfXQd5/2qDHs47dcD2arZ9tRPFR+Co6fc6TM1m7XOOkBtRpuf
+	 H8/AvBO+cYysUoWa7P2Vt+NhY/F1TPnfaXFQirv57QpiigTMHkuwx18xQY5HSozaW4Qjg
+	 ffUx4UCfqT9ASNw3rSZJktMDKCDvWwwegXwZ/NzEwZsfnFrJv+ND7XnjvfGR02V6Ti312
+	 Cg+poaKhZZnc6N6BISkQEfcpEOEWjUdpAt+qa7AiZAmp0arcJMR5bdmZg5a8tTGzZ7kKw
+	 AQylgRraoDlqLAVyRN+1kgiarMOP/c8M+HKQ0hN6Q54igo7NCglY3/JPyFPxr4bGWmw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793144115;
 	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
 	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ZohoMailClient;
-	bh=Jw2ey/OZijryvj0S+y/f89cNLGimAHEy+NccJ01nTUg=;
-	b=s8BCffRJYpLUBmF3cKB4ohNNAwCFDTCYHo47kOLZW1ZzZD64RDH4U12/TJbAQ3AJ34xB
-	 9qKZeX6Zi760KTfRsgAGmEMcCafl/m+Ew6Gv9MfoVaaN/O4AjAELA3ObvE7Vpyo/KvC2u
-	 ejGR4/VJOvLadVFuoMQNccYBm1CfQHF7qw/Dk+wKNkcZu0l40i5VfoNgpr7tECZng89V1
-	 05YWvzI+1UNpt0h1mjksmr7PO+LNb9aJl2f0CX+2vkHB375VfoIPELVQtUh8j9iBCrgUo
-	 7dSiOH8T3fKUelR7ZepnbQHTM66NA4vMO+bpMD/9yQyTsnwpnT0u6tVP8Pc56ZRmLSQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=michael.riesch@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=fesGzFvM;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+	 Content-Type:Content-Transfer-Encoding;
+	bh=3AEKuRmRMD5kYKRL/svuIaLfmBr+e4xHMBURLY4w1FE=;
+	b=dvwcqMk81GawdyAbW2FOL4p8F9T8YV0EI/2kLLwhHHXfxi4tz+XAALjPHY7Qdn/eSgLb
+	 o6MQhdmPhIU2CCMNAv3t8EaofNaSxaDkMCn+cFfTaRVHI/+8XEIDYfZtXHGRjUqU/+ACu
+	 UKe2N4a+TyC+cOAEUQ1KJjZ8EKWU3sNtOwfnfSGC6u6TwTFyHGgNsYnJAntDhOalnpTbU
+	 qc3nR6rwImnLrQGaAh7NI2BcmrcSF2C0nl/ekkrOZQOJLGAQA+jCkA/V6NBcJKeuyA1X4
+	 0WlWxKu+gJC080AF5r6zwBgw2aV8Ak6xdu2AZoBCGGZG/ZmseUahoRcHCYZNyYP1A+Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=FxkLxzyT;
+	arc=none smtp.remote-ip=198.137.202.133
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FF8C606A31A;
-	Tue, 27 Oct 2026 23:33:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3FF8C606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B052606A31A;
+	Tue, 27 Oct 2026 23:35:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B052606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=michael.riesch@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=fesGzFvM
-ARC-Seal: i=1; a=rsa-sha256; t=1793144000; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=j+JuRIAb0K6MuNp8J1rcdYOHgWSa3n1Nps7zQtZYOpmqRYsIFScmryAL9ru2cHmkwz4KUEC3SPWDWQBzDG3ywqMigfmjRv2MEQaoFBwYsd65jSWQpeUSdAtf2qaK3RbVBgQQkibJUOmWYv9YYFp1+Y1Ts/lk+0+B5BmJPy7bZO4=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1793144000; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=Jw2ey/OZijryvj0S+y/f89cNLGimAHEy+NccJ01nTUg=; 
-	b=M+fWrq9gZkHH2aSbTYAq6X27FuPQpb5xcnfw95eJodbw3mhMcLATvcLwCgK7dIHtivdeTCe5ll5Nr1CbEjlIlS7DepGtyzX5vCqOp3uOhLEqv3QJjqA8+aXm+fbHE0+3m1ap7tYWo1VJj6cb2Lq44rmTQerMR0tJciftue2g0tY=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=michael.riesch@collabora.com;
-	dmarc=pass header.from=<michael.riesch@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1793144000;
-	s=zohomail; d=collabora.com; i=michael.riesch@collabora.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=Jw2ey/OZijryvj0S+y/f89cNLGimAHEy+NccJ01nTUg=;
-	b=fesGzFvMv7CB//eQIpGI1cITbDtnXb360Fhy9Mjxk7unjOBgdKbVnED/8yp0vcNc
-	6KzrmfqnLHxZWbYaIl3Xw6iVMSs73vOR1S+LZ6RgBzMbJ7P/5IYLKzVQKOwv/d9dlg1
-	++aFIcWl8hydxI1y0No/PBd/oRVRDv4Xiuoi3GG4=
-Received: by smtp.zohomail.com with SMTPS id 1793143998626676.1615219094302;
-	Tue, 27 Oct 2026 16:33:18 -0700 (PDT)
-Message-ID: <a0e76f15-d9ff-43fd-9ef0-e944d184eefd@collabora.com>
-Date: Wed, 28 Oct 2026 00:33:13 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=FxkLxzyT
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=3AEKuRmRMD5kYKRL/svuIaLfmBr+e4xHMBURLY4w1FE=; b=FxkLxzyT+lerY94dkIEJXzfe/z
+	e03gCnpV1zBE/dX7Cq0B3N7Wh3dZRHDdeLwDU0IwTgGeYNBxseN/zcie2fL5zFIZeb0EB3uz9f97q
+	n8d7cR6iVFUGlDozzHUVTeKPlT42NCKL/SAgYBt32SZBRPbJkKAwXi4tBbAru/8Fb4g0BbPSBTEKq
+	EZONvOBeItyAtR2dhN/Pr98TcnSGQAWz7UIuaR4VzkGKqf3G/tYlYdeShDG6uozFnfjEladfMxPkp
+	2re9Eh+Kr1bKoO0LDJHWpq2fU71CprAJGRoEB8gkLiA/ZP9HqfZVMdvL1apESLPXT5VfW4hVXndUp
+	qLlg5gWg==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xLqgz-00000005vkZ-1ZBb;
+	Tue, 27 Oct 2026 23:34:57 +0000
+Message-ID: <099dc59b-0699-4c2d-875e-289cf6d32cce@infradead.org>
+Date: Tue, 27 Oct 2026 16:34:56 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,274 +59,50 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 4/8] phy: rockchip-samsung-dcphy: Name the transmitter
- helpers and ops
-To: Jason Yang <jason98166@gmail.com>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Guochun Huang <hero.huang@rock-chips.com>,
- Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Sebastian Reichel <sebastian.reichel@collabora.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20261016-dcphy-rx-v1-v5-0-e63b49eabe2d@gmail.com>
- <20261016-dcphy-rx-v1-v5-4-e63b49eabe2d@gmail.com>
+Subject: Re: [PATCH 2/3] sched/core: Add sched_stack_end_check= boot parameter
+To: Chris Down <chris@chrisdown.name>, Peter Zijlstra <peterz@infradead.org>,
+ Ingo Molnar <mingo@redhat.com>, Kees Cook <kees@kernel.org>
+Cc: Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Dietmar Eggemann <dietmar.eggemann@arm.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
+ Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>,
+ K Prateek Nayak <kprateek.nayak@amd.com>, Ard Biesheuvel <ardb@kernel.org>,
+ Will Deacon <will@kernel.org>, Sami Tolvanen <samitolvanen@google.com>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+ linux-arm-kernel@lists.infradead.org, linux-riscv@lists.infradead.org,
+ linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org, kernel-team@meta.com
+References: <cover.1793082868.git.chris@chrisdown.name>
+ <3d2bb6a8508b9d801878bb82c88165a1b1ff5f40.1793082868.git.chris@chrisdown.name>
 Content-Language: en-US
-From: Michael Riesch <michael.riesch@collabora.com>
-In-Reply-To: <20261016-dcphy-rx-v1-v5-4-e63b49eabe2d@gmail.com>
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <3d2bb6a8508b9d801878bb82c88165a1b1ff5f40.1793082868.git.chris@chrisdown.name>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
 
-Hi Jason,
 
-This looks good to me.
 
-On 10/16/26 10:56, Jason Yang wrote:
-> The block is a combo PHY: it exposes a transmitter and a receiver, and a
-> later change registers one struct phy for each. Prepare for that. Give
-> every helper that programs the master lanes a tx_ prefix, and move the
-> phy pointer and the lane count, which only the transmitter uses, into a
-> struct samsung_mipi_phy that the receiver can have one of too.
-> 
-> Name the phy_ops and its callbacks after the transmitter as well, so
-> that the receiver can bring its own rather than share these.
-> 
-> The BIAS block and the PLL keep their names: the TRM puts both in the
-> part common to the whole block [1], so neither belongs to one PHY even
-> though only the transmitter drives the PLL.
-> 
-> No functional change intended.
-> 
-> [1] RK3588 TRM: sections 22.3.1 (bias generator), 22.3.2 (PLL) and
->     22.4.1 (address map)
-> 
-> Assisted-by: LLM
-> Signed-off-by: Jason Yang <jason98166@gmail.com>
-
-Reviewed-by: Michael Riesch <michael.riesch@collabora.com>
-
-Best regards,
-Michael
-
-> ---
->  drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c | 67 ++++++++++++-----------
->  1 file changed, 36 insertions(+), 31 deletions(-)
-> 
-> diff --git a/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c b/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c
-> index 1471a1563d2a..e4293c8d2b29 100644
-> --- a/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c
-> +++ b/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c
-> @@ -280,6 +280,11 @@ struct samsung_mipi_dcphy_plat_data {
->  	u32 dphy_tx_max_lane_kbps;
->  };
->  
-> +struct samsung_mipi_phy {
-> +	struct phy *phy;
-> +	unsigned int lanes;
-> +};
+On 10/26/26 11:36 PM, Chris Down wrote:
+> +static int __init setup_sched_stack_end_check(char *str)
+> +{
+> +	bool enable;
 > +
->  struct samsung_mipi_dcphy {
->  	struct device *dev;
->  	struct clk *ref_clk;
-> @@ -290,8 +295,7 @@ struct samsung_mipi_dcphy {
->  	struct reset_control *s_phy_rst;
->  	struct reset_control *apb_rst;
->  	struct reset_control *grf_apb_rst;
-> -	unsigned int lanes;
-> -	struct phy *phy;
-> +	struct samsung_mipi_phy tx;
->  	u8 type;
->  
->  	const struct samsung_mipi_dcphy_plat_data *pdata;
-> @@ -982,13 +986,13 @@ static void samsung_mipi_dcphy_bias_block_enable(struct samsung_mipi_dcphy *sams
->  						 REG_400M_400MV | REG_645M_645MV);
->  }
->  
-> -static void samsung_mipi_dphy_lane_enable(struct samsung_mipi_dcphy *samsung)
-> +static void samsung_mipi_dphy_tx_lane_enable(struct samsung_mipi_dcphy *samsung)
->  {
->  	regmap_write(samsung->regmap, DPHY_MC_GNR_CON1, T_PHY_READY(0x2000));
->  	regmap_update_bits(samsung->regmap, DPHY_MC_GNR_CON0,
->  			   PHY_ENABLE, PHY_ENABLE);
->  
-> -	switch (samsung->lanes) {
-> +	switch (samsung->tx.lanes) {
->  	case 4:
->  		regmap_write(samsung->regmap, DPHY_MD3_GNR_CON1,
->  			     T_PHY_READY(0x2000));
-> @@ -1017,9 +1021,9 @@ static void samsung_mipi_dphy_lane_enable(struct samsung_mipi_dcphy *samsung)
->  	}
->  }
->  
-> -static void samsung_mipi_dphy_lane_disable(struct samsung_mipi_dcphy *samsung)
-> +static void samsung_mipi_dphy_tx_lane_disable(struct samsung_mipi_dcphy *samsung)
->  {
-> -	switch (samsung->lanes) {
-> +	switch (samsung->tx.lanes) {
->  	case 4:
->  		regmap_update_bits(samsung->regmap, DPHY_MD3_GNR_CON0,
->  				   PHY_ENABLE, 0);
-> @@ -1094,7 +1098,7 @@ static void samsung_mipi_dcphy_pll_disable(struct samsung_mipi_dcphy *samsung)
->  }
->  
->  static const struct samsung_mipi_dphy_timing *
-> -samsung_mipi_dphy_get_timing(struct samsung_mipi_dcphy *samsung)
-> +samsung_mipi_dphy_tx_get_timing(struct samsung_mipi_dcphy *samsung)
->  {
->  	const struct samsung_mipi_dphy_timing *timings;
->  	unsigned int num_timings;
-> @@ -1201,13 +1205,13 @@ samsung_mipi_dcphy_pll_round_rate(struct samsung_mipi_dcphy *samsung,
->  }
->  
->  static void
-> -samsung_mipi_dphy_clk_lane_timing_init(struct samsung_mipi_dcphy *samsung)
-> +samsung_mipi_dphy_tx_clk_lane_timing_init(struct samsung_mipi_dcphy *samsung)
->  {
->  	const struct samsung_mipi_dphy_timing *timing;
->  	unsigned int lane_hs_rate = div64_ul(samsung->pll.rate, USEC_PER_SEC);
->  	u32 val, res_up, res_down;
->  
-> -	timing = samsung_mipi_dphy_get_timing(samsung);
-> +	timing = samsung_mipi_dphy_tx_get_timing(samsung);
->  	regmap_write(samsung->regmap, DPHY_MC_GNR_CON0, 0xf000);
->  
->  	/*
-> @@ -1256,13 +1260,13 @@ samsung_mipi_dphy_clk_lane_timing_init(struct samsung_mipi_dcphy *samsung)
->  }
->  
->  static void
-> -samsung_mipi_dphy_data_lane_timing_init(struct samsung_mipi_dcphy *samsung)
-> +samsung_mipi_dphy_tx_data_lane_timing_init(struct samsung_mipi_dcphy *samsung)
->  {
->  	const struct samsung_mipi_dphy_timing *timing;
->  	unsigned int lane_hs_rate = div64_ul(samsung->pll.rate, USEC_PER_SEC);
->  	u32 val, res_up, res_down;
->  
-> -	timing = samsung_mipi_dphy_get_timing(samsung);
-> +	timing = samsung_mipi_dphy_tx_get_timing(samsung);
->  
->  	/*
->  	 * The Drive-Strength / Voltage-Amplitude is adjusted by adjusting the
-> @@ -1325,7 +1329,7 @@ samsung_mipi_dphy_data_lane_timing_init(struct samsung_mipi_dcphy *samsung)
->  	regmap_write(samsung->regmap, DPHY_MD3_TIME_CON4, 0x1f4);
->  }
->  
-> -static int samsung_mipi_dphy_power_on(struct samsung_mipi_dcphy *samsung)
-> +static int samsung_mipi_dphy_tx_power_on(struct samsung_mipi_dcphy *samsung)
->  {
->  	int ret;
->  
-> @@ -1339,13 +1343,13 @@ static int samsung_mipi_dphy_power_on(struct samsung_mipi_dcphy *samsung)
->  			   I_MUX_SEL_MASK, I_MUX_400MV);
->  
->  	samsung_mipi_dcphy_pll_configure(samsung);
-> -	samsung_mipi_dphy_clk_lane_timing_init(samsung);
-> -	samsung_mipi_dphy_data_lane_timing_init(samsung);
-> +	samsung_mipi_dphy_tx_clk_lane_timing_init(samsung);
-> +	samsung_mipi_dphy_tx_data_lane_timing_init(samsung);
->  	ret = samsung_mipi_dcphy_pll_enable(samsung);
->  	if (ret < 0)
->  		return ret;
->  
-> -	samsung_mipi_dphy_lane_enable(samsung);
-> +	samsung_mipi_dphy_tx_lane_enable(samsung);
->  
->  	reset_control_deassert(samsung->m_phy_rst);
->  
-> @@ -1357,13 +1361,13 @@ static int samsung_mipi_dphy_power_on(struct samsung_mipi_dcphy *samsung)
->  	return 0;
->  }
->  
-> -static int samsung_mipi_dcphy_power_on(struct phy *phy)
-> +static int samsung_mipi_dcphy_tx_power_on(struct phy *phy)
->  {
->  	struct samsung_mipi_dcphy *samsung = phy_get_drvdata(phy);
->  
->  	switch (samsung->type) {
->  	case PHY_TYPE_DPHY:
-> -		return samsung_mipi_dphy_power_on(samsung);
-> +		return samsung_mipi_dphy_tx_power_on(samsung);
->  	default:
->  		/* CPHY part to be implemented later */
->  		return -EOPNOTSUPP;
-> @@ -1372,13 +1376,13 @@ static int samsung_mipi_dcphy_power_on(struct phy *phy)
->  	return 0;
->  }
->  
-> -static int samsung_mipi_dcphy_power_off(struct phy *phy)
-> +static int samsung_mipi_dcphy_tx_power_off(struct phy *phy)
->  {
->  	struct samsung_mipi_dcphy *samsung = phy_get_drvdata(phy);
->  
->  	switch (samsung->type) {
->  	case PHY_TYPE_DPHY:
-> -		samsung_mipi_dphy_lane_disable(samsung);
-> +		samsung_mipi_dphy_tx_lane_disable(samsung);
->  		break;
->  	default:
->  		/* CPHY part to be implemented later */
-> @@ -1477,13 +1481,13 @@ samsung_mipi_dcphy_pll_calc_rate(struct samsung_mipi_dcphy *samsung,
->  	}
->  }
->  
-> -static int samsung_mipi_dcphy_configure(struct phy *phy,
-> -					union phy_configure_opts *opts)
-> +static int samsung_mipi_dcphy_tx_configure(struct phy *phy,
-> +					   union phy_configure_opts *opts)
->  {
->  	struct samsung_mipi_dcphy *samsung = phy_get_drvdata(phy);
->  	unsigned long long target_rate = opts->mipi_dphy.hs_clk_rate;
->  
-> -	samsung->lanes = opts->mipi_dphy.lanes > 4 ? 4 : opts->mipi_dphy.lanes;
-> +	samsung->tx.lanes = opts->mipi_dphy.lanes > 4 ? 4 : opts->mipi_dphy.lanes;
->  
->  	samsung_mipi_dcphy_pll_calc_rate(samsung, target_rate);
->  	opts->mipi_dphy.hs_clk_rate = samsung->pll.rate;
-> @@ -1507,10 +1511,10 @@ static int samsung_mipi_dcphy_exit(struct phy *phy)
->  	return 0;
->  }
->  
-> -static const struct phy_ops samsung_mipi_dcphy_ops = {
-> -	.configure = samsung_mipi_dcphy_configure,
-> -	.power_on  = samsung_mipi_dcphy_power_on,
-> -	.power_off = samsung_mipi_dcphy_power_off,
-> +static const struct phy_ops samsung_mipi_dcphy_tx_ops = {
-> +	.configure = samsung_mipi_dcphy_tx_configure,
-> +	.power_on  = samsung_mipi_dcphy_tx_power_on,
-> +	.power_off = samsung_mipi_dcphy_tx_power_off,
->  	.init = samsung_mipi_dcphy_init,
->  	.exit = samsung_mipi_dcphy_exit,
->  	.owner	   = THIS_MODULE,
-> @@ -1540,7 +1544,7 @@ static struct phy *samsung_mipi_dcphy_xlate(struct device *dev,
->  
->  	samsung->type = args->args[0];
->  
-> -	return samsung->phy;
-> +	return samsung->tx.phy;
->  }
->  
->  static int samsung_mipi_dcphy_probe(struct platform_device *pdev)
-> @@ -1609,11 +1613,12 @@ static int samsung_mipi_dcphy_probe(struct platform_device *pdev)
->  	if (ret)
->  		return dev_err_probe(dev, ret, "Failed to enable runtime PM\n");
->  
-> -	samsung->phy = devm_phy_create(dev, NULL, &samsung_mipi_dcphy_ops);
-> -	if (IS_ERR(samsung->phy))
-> -		return dev_err_probe(dev, PTR_ERR(samsung->phy), "Failed to create MIPI DC-PHY\n");
-> +	samsung->tx.phy = devm_phy_create(dev, NULL, &samsung_mipi_dcphy_tx_ops);
-> +	if (IS_ERR(samsung->tx.phy))
-> +		return dev_err_probe(dev, PTR_ERR(samsung->tx.phy),
-> +				     "Failed to create MIPI DC-PHY transmitter\n");
->  
-> -	phy_set_drvdata(samsung->phy, samsung);
-> +	phy_set_drvdata(samsung->tx.phy, samsung);
->  
->  	phy_provider = devm_of_phy_provider_register(dev, samsung_mipi_dcphy_xlate);
->  	if (IS_ERR(phy_provider))
-> 
+> +	if (kstrtobool(str, &enable)) {
+> +		pr_warn("Unable to parse sched_stack_end_check=\n");
+> +		return 0;
+> +	}
+
+This error branch should return 1 since it handled the command
+line parameter -- it just didn't like the "value."
+
+Returning 0 causes the option string to be added to init's
+environment, which is not wanted in this case.
+
+-- 
+~Randy
 
