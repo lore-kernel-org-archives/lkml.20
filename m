@@ -1,75 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793128683;
-	b=0vhVsSeqxGQmSzwC7C+7WSFsO9MNbfnzFZMj+MttyUyeEQwOQmle1dP045dSShogwBFg
-	 HHCwLmPqR0Z95MTx+L3aPp8z61CH1RZjbHr+uY43Ty/oHR0Y05lyYp6ai8+/xf8Io06GT
-	 GZmCHxn6XRPQwkDfD3srxoQOs3XN6BWuLkLGeuD6AK7H9AVmuoYsO7ZuqFSn6h/BUNG3b
-	 z/EGGMHwzodzYOLOgwc/OmvTGSRlRRftiDJjs3TSusZPZ1TpOZEZJG/1wcwgV8tT1zMIQ
-	 iwhhvC+trJUlIp3JCbcS+nrpOBUH8poetOO/rdVIEXVi4FjvlBX9qQhobxBBuMo46IA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793128683;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Scanned-By;
-	bh=7/No7ycCs2MnT2orES72SqWWMGh3qVK3ShQRxwctkpA=;
-	b=n2LLFPnBy3RiOI+FCqsUNjTN2LKkSm2/xtqW4U3wh0sYRqXNIyv/PVM0l/Yjz1rSoXdH
-	 p94YfNDsXiTnmiCnHH93ap54aMpSUOXS99F0iFyGzq18lph0yWUhPvaqZul0GjGbSNoc1
-	 BOyX5bD59YJv+dwbF6EV2Noxh3of70Unyw0sNeUjvvn8WUaQmGygyaJqnVXYBuotph2vK
-	 PuZUMkBiKaCneTe8rQC9Wvcok/GqpGNjc4VCaDyz/CS6NIUmfoxOu30VlXCH1aassxyuN
-	 6GtjEDHOTJWlLTY+xg1zLRrpwuyTT7UshnvpSwkxcUxzOJoqunnV29L5ZhvK1+PBWjw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=JVqxTBoK;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.231.136
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793128692;
+	b=H5dKAOZ+6+3iOMzp8+56ThbC2Ma0EECLActfsT04uYpPHkcTW3uc9qG4WW4243+u73Py
+	 qBoxQVq59oQw+Kj/ExeeImWkKAa1tgrpWQpq4VJ8sChvmUM7mNEBUiI1niz+6RD2PStr1
+	 P1tR8QzrkOPr2HMq9NW/odGg4KEX1MFYz/lsF1jb0Gp5A2t6aps8B8aN09tI9zoyPZr8B
+	 lShdxL29zF96YYbsa2SLEDaZkHp3Ko+MKN6r9BelWWU+zDRiUGyW/1/Fr1mB83HrvF3lT
+	 Wn7FQQOxKzCRb0CQmfKmKlz687Kl9vHclFg8MdGkcI0kj/l8ctKx/mv/8UUEd4+/uAQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793128692;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=w6DfYLs1UPv+m99YHcAmjcczztFRxn51JTNHeUhcQnI=;
+	b=qrED3sIkC3q5ETiCJBC8RGD5VWs589tPp0EKYa4W4pF6/gfhN/AQPTJCzfgJFW6CPq7x
+	 LbN3Kx6frpJwO3bDMtieAH5wfhplYzYfE5vkfexLNL/yE1Pz+Uk0ewsShRKibvP4MSQw/
+	 qGMJHfYwdQcaQNSr02PceJqTht8Ta8UHmd51S/ROzkfosAaufIkPE/uovhYlRW54AsFm1
+	 yX5WZELMbArNaWCSXX1pQ2nPb7L/FzLxZOB2DORydD8N5aIn1WX6kKqlqVyeD8oDtsUtU
+	 8SSs9B6ApCGmKX0Ua36A4yHRAwgNP6d/Im6cCSyIlgivcDe53o90C7i3jm3hLPj2voQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=baLZvn2f;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.231.136
+Received: from mail-oo2-f8.google.com (mail-oo2-f8.google.com [74.125.231.136])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B580A606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 19:18:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B580A606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C674606A31E
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 19:18:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C674606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=JVqxTBoK
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793128681;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7/No7ycCs2MnT2orES72SqWWMGh3qVK3ShQRxwctkpA=;
-	b=JVqxTBoKkPwlYWpZo9ykkkadoSPPmfoZ8h9G/9TnDFDk9Vy94Qf7BDiNW0pa0PH/57e6Vb
-	XNsXpd31kE+4dyFNilPbS6Z0DKkjbWDEK3imP2MjHflwmm2ryLLkOysqFvAYaxZFQop9JU
-	XB6pL20INXBRNYatD0Rk2qRqZWWgqt8=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-581-uA8oikN1OKqB5a_uqW4b4A-1; Tue,
- 27 Oct 2026 15:18:00 -0400
-X-MC-Unique: uA8oikN1OKqB5a_uqW4b4A-1
-X-Mimecast-MFC-AGG-ID: uA8oikN1OKqB5a_uqW4b4A_1793128679
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 910C51800619;
-	Tue, 27 Oct 2026 19:17:58 +0000 (UTC)
-Received: from localhost (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 253971803A48;
-	Tue, 27 Oct 2026 19:17:57 +0000 (UTC)
-Date: Tue, 27 Oct 2026 15:17:56 -0400
-From: Stefan Hajnoczi <stefanha@redhat.com>
-To: shao.mingyin@zte.com.cn
-Cc: mst@redhat.com, jasowangio@gmail.com, virtualization@lists.linux.dev,
-	pbonzini@redhat.com, eperezma@redhat.com, hch@lst.de,
-	dlemoal@kernel.org, linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] virtio-blk: Fix zone append sector reporting in batched
- completion
-Message-ID: <20261027191756.GB933537@shajnocz.csb>
-References: <202610261955196384aSLGuy3_0MiTvlYXVdiC@zte.com.cn>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=baLZvn2f
+Received: by mail-oo2-f8.google.com with SMTP id 46e09a7af769-843c8bbfbc4so57887a34.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:18:12 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793128691; cv=none;
+        d=google.com; s=arc-20260327;
+        b=hC6JRiwirlfwYFuabV/k/6rfJxaWOoxgELr4mXFVAR49TwHr5PW1oPJ646ifcp83g+
+         Z6xGFCPUilIzs6FxVoAiwKs8CbnMsiMhTMRERx7MoDP7JW+hIJnrNp5JjcuW69PJfMqk
+         yeF7AzOomkhOz+BT2iTeSGkfGQzQo86TFKZI3CDEj/wvCIlJCBYwG/nHeT983VMRwDGg
+         CAac0Pcq/tDjfmAUHJF9tUDSBdxilR3vR8lTWrtndwxkkWtnB/DcWZVckVoQQDFRCsTl
+         Ae39zRiWQK2w395sSg5vLix9icZ0qjYxgqdLBLgCZvvtGyjrgPLY/PKhajFXEhz59h5S
+         75Pw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=w6DfYLs1UPv+m99YHcAmjcczztFRxn51JTNHeUhcQnI=;
+        fh=eyIQmd7p59e7KsRQuIoM2bol30CfQcb4YMY0GbPZlto=;
+        b=Ic4PqwbXOmlKVzOd0Drc+Rbo6k7n2In1dfQUIt/kMRs6aSSYKdY7HnzuAtj0cWrP+3
+         twvp6cH+d0wn5MBr6JzK626R6u9B7myz9KNPlpa7AFf9Mi4ssilIg6xuhaT6KVJPQ7I6
+         D9mA6gXSSVBPA0hslQfXStPQTy9RTaTPKYLXOlZvj6Qm0BACcNuYQAzfBX/vmC4XAHvq
+         xYLgDsThOyzwW/srhRfLnAZ+yyOig5UwWSiURL/CJeRRySIcK400WmZf1dNNyyFkIvJe
+         0Uwkoivg+EpqvNotj20+mfSpDRtCkqwOC8SEkyGKt3Jjr7rGv9hbeOCR0C77Luurn8k8
+         OYtA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793128691; x=1793733491; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=w6DfYLs1UPv+m99YHcAmjcczztFRxn51JTNHeUhcQnI=;
+        b=baLZvn2fpvO3qD3gDdl72ehJsNqPbkEh4qsrJhy4LfxIWvzPobzyQIq0z9hdZiVfkF
+         4WlZnT3NFrz3P3SQucv+hiLyjndF9TZHjJwNN0TYcDoDjvrxb2DZ9yz5W3EouncJGRit
+         kIf18mBMkKlaiwM9CfI0+2xMAfOv3mq7oZwOJebua9lL3JgOQ2t+iH7AOSrAemwTavQ1
+         VSkaDvByApNQ0gcC5pLMzZ6rhs+0LeVln0l3LTwbq2Fo8LObI9FVyh9YwcCbLANAum+8
+         1mzUZBFUJ774JewRyHDsWOiKQomHi/KREbtqSZy3sGVISfX8mxre8Budizbflh0PP8KT
+         mS0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793128691; x=1793733491;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=w6DfYLs1UPv+m99YHcAmjcczztFRxn51JTNHeUhcQnI=;
+        b=OGM1SKUq453xNvwQTB/XU19/tHFwdw1tWGKnz23xeIXzPFbt39lafKD82vX3uzycRL
+         vONWU6wjUiB/4M/Lj0VKDfvpLXTj4mZcLqhq3pU8wvf+JDlOPyfQps6DHn0G+r8m2QH2
+         gtdEy9scZDRWQJxU674GsbZT5GMZibyw2SgkJxiu+hJG66F2Xl5N22/gQnOSpVSWAluW
+         baxsZLUB6c4NbrD857bSVQfS2kNxMmM7xcx7VTnXcs4HSFkxR2JVuQ1MB73YEeudZDfI
+         8EdLdMMHmVqPyPMaJ177ZxL8d85nh52lxTYJYWyavP2KV/Z585VTmkIq57w8+WpwBcum
+         cYvA==
+X-Forwarded-Encrypted: i=1; AKwUvBx2YUUleiruw9BqR8wdbWCUXxEn/WMx2M2DiYYxPtIbbleRggdRVfzmpzmNeoCxVEVp7sL5Hsf1QE1e8k0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKRSo18b6XKZMm/kEW/HZCjHAys3tYg45uid1RPxv2GcU3qlIAr
+	RLKFdTtIWNVMsXxvuuYiHbs1T+SFDBrvtNMURXXT7IhgY8uiE5WBV863ThPbazgI2Yeq2m1Jltg
+	I4EeeCdYFxtBqMROF5XqUOCiuXmIsI5ZDXn8JqIzwYA==
+X-Gm-Gg: AYBFou3dsGS77UIejbzP5x+/FwZm8e+3VN2XCbA/1TgJ5YTXbruH6Tk5kdZWtiz6Z4r
+	J4D6QqzU5M9kkQhgBE3KlQQabaiEmOg61IeP5ObnVjkc3xOkvjtPQVM4Qldg4/s0rPTorxzhv0B
+	EALjXo33KWhMjc15cBdEPBNY+ivH5j6ZCNSh4BFLKuNTncct7RWrjlbJYkA4Jt6O/C+6MsBWG0X
+	SUnLlQfexlN1/HOPa+HOqSIfH9b4rYTrwYPWG2YBCcIJ6U6ki1iyP/efwDqqEvmud1ohMKtFZ+X
+	Ywliw/MXx4NyaLSZ3F3cxu1ygw/h9G15G+lttRVkgk0Y54UkDy5Bzoh2zhboVVvJAyG3iNwH98Q
+	WOJ/GX+JRV7Z/IIOMKZ1q329cRd2S2OMIu1RbIZCbWieZ0o/VouhfMcx7gLq1G5FsI9Dda5Bp
+X-Received: by 2002:a05:6808:151e:b0:508:c44a:63f4 with SMTP id
+ 5614622812f47-56382684c39mr91413b6e.35.1793128690829; Tue, 27 Oct 2026
+ 12:18:10 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,30 +103,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <202610261955196384aSLGuy3_0MiTvlYXVdiC@zte.com.cn>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+References: <20261027082236.56724-1-dennylin0707@gmail.com>
+In-Reply-To: <20261027082236.56724-1-dennylin0707@gmail.com>
+From: Hungyu Lin <dennylin0707@gmail.com>
+Date: Tue, 27 Oct 2026 12:17:59 -0700
+X-Gm-Features: AclHuK972QVjxsr7ZPA1BMTiS7Y8E-jpvVDMCciChlRAHi-jepLN9cibkbn5rwA
+Message-ID: <CAGEkeHfWcuoCk3zvnpaSXKDduVB1UWAJtRGV-KjJmt7ws2gbBw@mail.gmail.com>
+Subject: Re: [PATCH v2] tty: discard flip-buffer input for TCSAFLUSH
+To: gregkh@linuxfoundation.org, jirislaby@kernel.org
+Cc: linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	sashiko-bot@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, Oct 26, 2026 at 07:55:19PM +0800, shao.mingyin@zte.com.cn wrote:
-> From: Shao Mingyin <shao.mingyin@zte.com.cn>
-> 
-> For zone append, the block layer copies req->__sector back into the
-> bio in blk_zone_append_update_request_bio(), so the driver must update
-> req->__sector with the sector reported by the device.
-> virtblk_request_done() does that, but the batched completion path used
-> by virtblk_poll() only unmaps and cleans up the requests before calling
-> blk_mq_end_request_batch().
-> 
-> A zone append completed through polling therefore keeps the sector that
-> was assigned at submission time, and the file system or application sees
-> the wrong LBA for the written data.
-> 
-> Move the sector update into a helper and call it from both completion
-> paths.
-> 
-> Fixes: 95bfec41bd3d ("virtio-blk: add support for zoned block devices")
-> Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+> I'm still investigating and don't have a replacement ready.
 
-Reviewed-by: Stefan Hajnoczi <stefanha@redhat.com>
+Fixing this properly involves more changes than I expected, so I won't
+be pursuing it further. Please disregard both v1 and v2.
 
+Thanks,
+Hungyu
