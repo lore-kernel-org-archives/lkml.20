@@ -1,86 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793112980;
-	b=A8e0EM01qatqRtnMVSb8DJiwDyuHewk0TKxgbTgeOBx2pfeGivxFHJhWY6svPuUpJtXE
-	 srBm1MsWrB3lcaEbwBQ7COTetpRXYrFhqnh2u6mRRlVEEm83VPNhwmgFUwyOgo35gzJHE
-	 JnAWkMDIaJ3TVWqvPGbJmpIDv2k0I4EiCGgE7sfHgGkDrSIyzAzpAjwwiHer/iFzeYHso
-	 jotZnTbeda7O+eM/mW9zNBnrCf+Yx1C+s8HGyuRlkLp9XgrC4SkYPzmI/sKjf3DAuW8LP
-	 g6k0Ecb8DKnsjUyKLm0nPcd2GlfKkz7dkdToSXawfMannovU0+mc3dGFzGzm9zSDInQ==
+	t=1793112983;
+	b=usIshg0Dv4CtS6CSbqebJsRL0yffF1Klh9Pv2QM5mxjxbaBfNKLOvvdg+p4jNcn8xXkX
+	 JG8W+iz99rJhUFI79SCiDj7FbI+lm0+AF4lNFaZmr5BHK0+r2YCJZOL5y9T5daaamR5kF
+	 /KDBBDuAo2Cs+gJ41ZXtPR7Y3E+m2yXAOSlPhxVfVaGs4rlNRrAwMogtgqPFKFlQXx0/t
+	 uJhKdC1xDoAgCiY+6fTD30p3emyXxIQL6i/rtag6puv6dQwS1UC/BjLuq3vOplqszgEcK
+	 l0++KSnhB4SIZg+WrUbu8n/M/cAgZaVcUgYk3H6/sHg9Ii6GFqbY0SyDVod3k6aFWNw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793112980;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793112983;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=Obe+0XIIsqY3BnVbbgH1QXLQqnb9dul7kNk0NHZTe1I=;
-	b=ty0SAPe3aSlPU3BZvXEkHJZemUclldlbOpi8CCUjXbTjmuzo4pUyfJDyq1kV/qbXmJFi
-	 O+/4yBvgjEg3pNIou5aIn7kIdyHeqtRA1Td9rtMPFUiBpNFzB++D6XSN4ObV0ToxcsG7I
-	 r8KbQBakq4d+4a6IF64AxJJefeKVlohQmwB1o7K4TEB/0nP07cgRqv3AVTa5lU8AzYDA1
-	 U6dzn+ElW/hkYLUysynawLPdhQodukqe5wdL7wg3a1LpXliRAf2g+HhdSGnjD+LVmSSrR
-	 8yJuU0JtqAUV/NsxN+RmJhbFvlArrIbRfeANzXNiysMqLIuQfDdmu9XbUG5I8GzBwTw==
+	bh=28LEL6SH/7U3NVlMxEJy+3wAWoY5NqjcYLMOY+1DsjU=;
+	b=cJaxkdlCSPii6PZm1qrmQtObyJGBOGALSW00jKSNsFhDjs3IrbletjCYjxbuIzzGVfY2
+	 Ndl19BeAaaIE/Ulq0OMWA0YWvMDWFaK9jlc1IbC/rrU4jOXGoxnJ9h3sNeRjPN5k/3Z0/
+	 Y+kyC3tc20i9u5zv3Ue35Wv4hWV5C5wVwX8FmSwgmvYfLfYrNPia+gUP/gZtEbspINNaR
+	 GMx3q1SYriJ6q2vZ/YVJfpBTXrlipoLiWGUTIk4QGr6pC3NbKg323eFsdb4DeQTKMqLLd
+	 8AniACmfhQUmXot6Uk4+r/8twEkrKxZeYbTZV7Luo6zBYs7KO49oXKll4nFPFa6SVBA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=WO4ptmNr;
-	arc=none smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=x4C9qFDi;
+	arc=none smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0964606A331
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 14:56:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0964606A331
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27D77606A329
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 14:56:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27D77606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=WO4ptmNr
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a20a37703bso32836305e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 07:56:19 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=x4C9qFDi
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso37149655e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 07:56:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793112978; x=1793717778; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1793112981; x=1793717781; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Obe+0XIIsqY3BnVbbgH1QXLQqnb9dul7kNk0NHZTe1I=;
-        b=WO4ptmNru5vqKIA3nkv48kjnNCPquLjM6qF3RFGK9moJBPs/dW8iO1V/XRVfv64zZo
-         m0buZkR358oiOUkEAxZRXF0eGVFC6h4YyOEDs1vhVShXmghO6ozUOqTC7fEtdiq3OfET
-         Q9hJHB9aTOqSBRKkc8Lii+cFq2LlRaJE/OW2oRHwptK49SHDpamEYgnsNGnZWTah6e/p
-         wbm3OeCqRYRMVpRAlUCu7LqxhdNqcdvQK+Z/hWEH+mXJDaPFBdwhBHCXHpCfMW8xFYjC
-         Azq4I45YR1dwo3qhipFN6ZoIzoikL/t84JEOSGKliocG4VeFnw3KDpbRNzZCsH9+kyk+
-         LRwQ==
+        bh=28LEL6SH/7U3NVlMxEJy+3wAWoY5NqjcYLMOY+1DsjU=;
+        b=x4C9qFDi55tnaerq2MugRDB/3Pz8OPDScOucbJohWB79ueHR42wl07sbKjV9uj6+w0
+         9YxUphPI11pXKILaNqCCCk204OvGvEufLEwh5m7a61tLzGKvasX+hJlK0YWBmWbI516g
+         dESnbe9qrCGCmFT9YFOT6WZCKpIaMHO117PK2ZqEDhphWBwDEI+DJWU7tzdUXBnNk6Ue
+         vrutnUKnpS1k/KcclFUjyXF1S9nCvkiKCgbnWj9dCZX5hge/m6H2aHmF8OXG5WdZNSi2
+         ZUzejJPSfiGCNFXU17Okvrsn1nanXoimeiwQuSMSq0+rJmt9LNugPF7NpXnsszxBQ/nx
+         QDIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793112978; x=1793717778;
+        d=1e100.net; s=20260707; t=1793112981; x=1793717781;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Obe+0XIIsqY3BnVbbgH1QXLQqnb9dul7kNk0NHZTe1I=;
-        b=Tl8itPrqZT6miA5Gaz7fgMzwzx2XaJ92bDERX47QkZPcVjkdFtOmf+Xx8q+iVTNC26
-         tNanB5dhB0qrPobctgo/THCF0FXxL9VIWDiDwMUdlZ3p/kIr9c46u/ADcm/0I17K9cHM
-         ij4fPzfBGl4CeDyeMz0Wl0pTIs8MkbRKU09ZCyPLV9Yzjb7PHUN+zId5asFZNzocmOy3
-         SP0TDsU2mT7avM01Fb2x/H6H/r7yfhcK98eKiuEN+cPIa/PAc6uUSnRp0WmlwrlWhmue
-         3mN5wpX7duJ7WPthbTjbruS6OfPjiPramLB7oFbdKoTNOMVJQZ9fTqqZo0q4VoK8RqOj
-         oB8g==
-X-Forwarded-Encrypted: i=1; AKwUvBxfHtRSY2IcfhnwY84Ds8Wk4yxCRnKVnsMLgq/d9ak/oyn6s8o87WM2D/VVevoUZh95hy2y6KyfXsaNfXg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ4OwBmonJw2e9Xx8HjlZfgKKf0iFqEc1zMVas353dizNSr2qfd
-	pQoG4ayeex0eodFUXgp82JZfYXs0OYCYRosT6P+ng9TFFqpjyRG4/DQqGjwMhuXScCo=
-X-Gm-Gg: AYBFou0zdhfDe9YSvB+Sblx+4qCKRyzbkMJOAxJPeqI1BVGGlQ0oxAUDvw8w1LHQqSJ
-	KNpZ5KVuWE6ps6mVm/ZScTGBmDWmRYVm4rmVB9UCR8DEUb2BYjR331g0dCWQCKyQn9VWL95YFHH
-	2gDFhkrBrPetinq1Iw/ufbD1r1mc0A3Ie6wr5rDXlPUnSVD62b2a9Se/YtJzIHPZx1gdB9S7AuD
-	/UgcxJdNbcgSHIDujSrexaxhU+W4PuKQyky+Oze35rdd437cVzeLxYNf3F3s9JXIaNdMUznLLYP
-	DN20b5KcTRr7xo8XrRykVrkQoFA7RKxkUYDIOV/eqeUFlw4waTGert62PwgJ1hxthHa1v4QZ5eV
-	JW+8eQAdi+BLuw7BWqbjSlrkESgz8JZD377vyMZIvaIB9/9ksH3KAFlTnPosV37JTi4qzduemEb
-	5/lLU4fcvr1xb+88nmi1t17DmusL3l4JX+q9VVRHiLhgRKnaVSblZjM7ku/2Lk+LNKvdDueDo67
-	tZmOnxdPIA2YcDNdfHTdGQF7JpydyQBznjnu0C5SuVLzJJLGBVdvvmfWTI=
-X-Received: by 2002:a05:600c:a03:b0:4a1:d992:9476 with SMTP id 5b1f17b1804b1-4a35ac9f30dmr202425775e9.23.1793112978097;
-        Tue, 27 Oct 2026 07:56:18 -0700 (PDT)
+        bh=28LEL6SH/7U3NVlMxEJy+3wAWoY5NqjcYLMOY+1DsjU=;
+        b=A7mVdDbxyiyYjztem8iNaBNGLe2JzkgeMNdn8LLLqeYkEJpwkz9T3JkrvkyhR3He7d
+         EtoTkdOYuNhTtD7z23nAQa2xFak9bHygbztByqW0qrcJHhAU8jVX+TThNabxPUnZEYyf
+         rTEvr1cSv5stAvJAYm6Rus90dEcKOt2mqOgLaf6+nJOZQQBDl95v+w+SxfyR5nKIyfae
+         y+hPwb2jYRi1nrR+v8EOX5O6OufogR7/42zSoRoWel5ro91a+SSNMDL428PTMqi2yB5d
+         uZ3oXA1Z6dMmob7UxVF3HDHQl8o+4aM/4Zj5nyycoNxSXdk7XW+xDPyX7rHQLTVXoq+h
+         pRvw==
+X-Forwarded-Encrypted: i=1; AKwUvBxsFnbbVKIowKrj1cQOFJ/MPKl5DEtwCNCitCi/sBenoFG2JsgcVF4LJG6CBWyJMbWKlU1hPdweKKZgtX0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLObstESbutNx2VmRiSEb+89/qbU+TGzuyM6qeXidhKnSvIdBQ6
+	xFb3PK3B9pRiK73/DquQqRveh1ewPxMPkmU/giCHpYffNHucKY10f152zWMXkinKcZE=
+X-Gm-Gg: AYBFou3ZjK2e+mFnYjXPzMCO+1CDkkmBRScXlZ339qDSMAOUvt2klPsx9SCe4t2dNjT
+	7WVpPw1caXTnfetiwkaX1AkqJbi/X9wvoyu5xMf/zg5fAXmgIDgN4dDL/+MtFpC1riRkOv9jMDh
+	OLy6s3zvPK9U4gK+97SREWWkVqtVME+6NnnuXLXO90slg49LnbaXF8LIWHHvWoxDD0SoyyJ0XVH
+	cMCe9MqobtZssk911c6ck2mdAfsDRVsSEn1pO2gWkNgNi0zmcDk/oA9zFP3gdnqaAcbg/0ZUXBA
+	z9pf/U41SooQUUrZtHKVkNtgy4v19z0IIESvTToMVj01Em7A7xDBr3so/YIPhnYD0W7TPiKhV12
+	mB3A7S63PfeJWVxvr1QX2gciwlqoBstB5BkaSpiiaeU/cDO4Pwr72YiaJi/W29zqYuf2sLLyGdq
+	gEs+4fJ3Bdj5H1TkA5Z9gf15BB3WYiPhqxuQWtQK3cWsZanxQGM53mtBmXcOrEyAC4yjA1Q0Af6
+	DqvrSTAi0FAEzruw4cjWpM2/8xWdKvzlQNd601WJrFdk/PiyPy6TsoXjDVIhAt90CfiUCAQHILY
+	uD3A
+X-Received: by 2002:a05:600c:3c98:b0:4a7:9006:b176 with SMTP id 5b1f17b1804b1-4a79006b1a9mr76781365e9.7.1793112981654;
+        Tue, 27 Oct 2026 07:56:21 -0700 (PDT)
 Received: from pop-os.local ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a30e22csm273188835e9.2.2026.10.27.07.56.17
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a30e22csm273188835e9.2.2026.10.27.07.56.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 07:56:17 -0700 (PDT)
+        Tue, 27 Oct 2026 07:56:21 -0700 (PDT)
 From: James Clark <james.clark@linaro.org>
-Date: Tue, 27 Oct 2026 14:55:49 +0000
-Subject: [PATCH 3/9] coresight: etm4x: Fix truncation of nr_ext_inp
+Date: Tue, 27 Oct 2026 14:55:53 +0000
+Subject: [PATCH 7/9] coresight: Fix resource leaks on
+ coresight_build_path() errors
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,7 +94,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-james-cs-sashiko-easy-fixes-1-v1-3-db43c4668644@linaro.org>
+Message-Id: <20261027-james-cs-sashiko-easy-fixes-1-v1-7-db43c4668644@linaro.org>
 References: <20261027-james-cs-sashiko-easy-fixes-1-v1-0-db43c4668644@linaro.org>
 In-Reply-To: <20261027-james-cs-sashiko-easy-fixes-1-v1-0-db43c4668644@linaro.org>
 To: Suzuki K Poulose <suzuki.poulose@arm.com>, 
@@ -102,30 +104,49 @@ Cc: coresight@lists.linaro.org, linux-kernel@vger.kernel.org,
  James Clark <james.clark@linaro.org>, Sashiko <sashiko-bot@kernel.org>
 X-Mailer: b4 0.15.2
 
-TRCIDR5.NUMEXTIN is a 9 bit field but it's stored in a u8, so values of
-256 or more are truncated. Make nr_ext_inp a u16.
+If allocating the path node fails in _coresight_build_path(), the
+references taken by coresight_grab_device() just before are leaked.
+Drop them before returning.
 
-Fixes: 2e1cdfe184b5 ("coresight-etm4x: Adding CoreSight ETM4x driver")
+Also, when _coresight_build_path() fails, nodes for devices further
+along the path may have already been added and grabbed, but
+coresight_build_path() only frees the path itself. Use
+coresight_release_path_locked() to drop and free any nodes too.
+
+Fixes: b3e94405941e ("coresight: associating path with session rather than tracer")
+Fixes: 32b0707a4182 ("coresight: Add try_get_module() in coresight_grab_device()")
 Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/bug/linux-b3468d48-ff08-49c9-9ed8-fb6af6979e1e
+Closes: https://sashiko.dev/#/bug/linux-fe264804-52b6-4b0d-a43e-184e228df19b
 Signed-off-by: James Clark <james.clark@linaro.org>
 ---
- drivers/hwtracing/coresight/coresight-etm4x.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/hwtracing/coresight/coresight-core.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/hwtracing/coresight/coresight-etm4x.h b/drivers/hwtracing/coresight/coresight-etm4x.h
-index 5417280cdb27..8628dd4e15db 100644
---- a/drivers/hwtracing/coresight/coresight-etm4x.h
-+++ b/drivers/hwtracing/coresight/coresight-etm4x.h
-@@ -874,7 +874,7 @@ struct etmv4_caps {
- 	u8	nr_pe_cmp;
- 	u8	nr_addr_cmp;
- 	u8	nr_cntr;
--	u8	nr_ext_inp;
-+	u16	nr_ext_inp;
- 	u8	numcidc;
- 	u8	numextinsel;
- 	u8	numvmidc;
+diff --git a/drivers/hwtracing/coresight/coresight-core.c b/drivers/hwtracing/coresight/coresight-core.c
+index fe64c509bf67..1d9c7ced39d2 100644
+--- a/drivers/hwtracing/coresight/coresight-core.c
++++ b/drivers/hwtracing/coresight/coresight-core.c
+@@ -1103,8 +1103,10 @@ static int _coresight_build_path(struct coresight_device *csdev,
+ 		return ret;
+ 
+ 	node = kzalloc_obj(struct coresight_node);
+-	if (!node)
++	if (!node) {
++		coresight_drop_device(csdev);
+ 		return -ENOMEM;
++	}
+ 
+ 	node->csdev = csdev;
+ 	list_add(&node->link, &path->path_list);
+@@ -1131,7 +1133,7 @@ struct coresight_path *coresight_build_path(struct coresight_device *source,
+ 
+ 	rc = _coresight_build_path(source, source, sink, path);
+ 	if (rc) {
+-		kfree(path);
++		coresight_release_path_locked(path);
+ 		return ERR_PTR(rc);
+ 	}
+ 
 
 -- 
 2.43.0
