@@ -1,47 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793111501;
-	b=oes1fqGYBHKuFJPyfaIS6a/Gmpd3G7SGA+T/M0J342K2ygQeVk8Leh1lG4psdOdr5GvN
-	 B9unJIjQlHDQx8s1B5rIfI9qoaB0OK0AkwwxKAoNOq8D56ttNAY23bcuccmhrw6HosNlA
-	 LgVHfvCd6v+uc6mFUe7eZXcrA4dwaeVPxK17AzwHxWvarXM4qkZvIzQOc6ugMqXPzJqGP
-	 Hg1TPaPYS1lDdbclFQRQTumyA/cV9Wb58JeWs2mSVAFXbeS4E+SQ0w8yhBa4J+w3ZedRs
-	 bh9KJ5jxH6TfTzZMC+/zCEpcwaltkb58YS8Sus3vvdp7KrcPucKsOAWYKZsSWrdOJ5g==
+	t=1793111508;
+	b=luL5KzFZ5c2u/Pjchw3LyRGOqINl4wNCkGWWe/g2wIiorcSJN+wG4Xx6b9xRvRufOy30
+	 /TE4DvHTCnPg0d7q8R4SXfnUZLHWXgGaIZJmXwyyGnH5y0fhSf+F4EB1BlL0qRZx7tnY/
+	 iYeO++81k+PlJUonOnTu8NsWWK1POKGC9aa0ItTWqGPmQnrpzxV+OUqxwIMoFsSfY7WJ3
+	 hXXRK1bxFIFjEn2hNU0onz7Oo6LiYM1c9eWL2eXRu7FBTtO+FmERyMB2+vW/L3e5oO8kz
+	 tdAkBzjKAQpNBxjDoUIDnBUjP9+IIc+w9LRefkOrkX5yFoKZbmtmxJ3dSiyRHTFVSpQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793111501;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=i2u6gcCtm/EYo5bv/g5RITQ9o26G/HMKGcPni7+jcg0=;
-	b=5sy/NEc1L41GwO7N0Q1ukhdruMbLA/pXV6mmBbK3f1xhKOcGBgFv4cGmDyVyur+I3mWi
-	 cwflU5jRWlq2VIcR88IpBwzcRdnuQxhVSc5fdA6aMiIdFGekDEdgT4U5wve6jLRHj47CL
-	 HsQy+glFUH2hBiIMnZ4w5lQWokq8WTwUJcGvBQdDwUMS18LFh0hIbqA5fYGwXNcvAp0of
-	 M04qml0Y7+uqE6hIPDJj47aF/RLx9KTMmkGOa/NZfxVdb/3tMQzOg8KpJxats/osC2M2w
-	 +/B6fxDjKwM4Sl9xC9LjOeN/zOGYGTw22dJzYBeA6y+1SuUULkb62QF7sxw574/8PBQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793111508;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=YlwVcIUY8gMD3eqih4RJVxsvUcuNodLGMkC2yTuphK8=;
+	b=DvFNBQAcIXl3AZCPPMX01+4AScZCy9OFd9X44vOudf2K0o4nSn0oCFRyzU07TPN4rF9J
+	 5ac/VjSQzP1A6DntMc7z6aja+rcRm7z1ui7vlupiUHOnF2K1eLFv0l4IS7uxSng6t+sZd
+	 5y8VqbiZVQ4xFmQ9jGI2vbdIMcBWrrAJyD+AqNUF5+sJlsi+jFejHLKQZz8nFBUs0IQqq
+	 +6bwqo3O2RjgANDXQYwiVhfeQA/+xTcdLnH6AMaV3qvlNf7i4BNgcfoJp9GzcEvPGCEa4
+	 wfSnxg9Xht7dsp1SJKhAFU1ewYdz5talvQMH2/2fisR87tmIEc5bKpKCETnCkNLcDig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OerPZkBc;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=i+rtoxO0;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FDFQzwcs;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A393C606A31F;
-	Tue, 27 Oct 2026 14:31:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD6E3606A325
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 14:31:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD6E3606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OerPZkBc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24B591F01828;
-	Tue, 27 Oct 2026 14:31:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793111501;
-	bh=i2u6gcCtm/EYo5bv/g5RITQ9o26G/HMKGcPni7+jcg0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=OerPZkBc97eRxyb9Ynr0vIUCKkVL7HB1hmsg3nPZZczmUsv+xS7EAg0NrmKXyHy2V
-	 IM1AHxWXZNhQrM7Ii13rvmTKd2U/rW06ruuQWrorBtHrNJNXTx1kNPIqEdJeZv+48Z
-	 JMT8NKiEY+WNoDW4zUtLgxoy6MXA7TSrCOF9+a/S/Yfdnc2m8vhg91P3kn8P0rAldc
-	 KfYA34g62u0ThwZWWiu+A7ODU46vZjyvKi1YPdPHK0wRWbq/PzOqUVjIzePdkv07bn
-	 X28WsCvTMkh7kOyfOobyR6OQXwq+PAjbGvLd+kHLO7JsrmndIKdKCBntrsWIwDMHmS
-	 wVVh43cIrIVCA==
-Message-ID: <8230fb00-b1a4-47f0-b9de-5d0fa42e9465@kernel.org>
-Date: Tue, 27 Oct 2026 15:31:36 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=i+rtoxO0;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FDFQzwcs
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69RDo7cu1486574
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 14:31:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	YlwVcIUY8gMD3eqih4RJVxsvUcuNodLGMkC2yTuphK8=; b=i+rtoxO0Noy20qKm
+	uYJ5YCbW+8Se7Z5KqAT+4MTHNH7Tk5vnE+7P6LhYkSFvvWTwpU2OMlZhuyekZWkM
+	MdePTZiVPh0iXmOWlx3tfH6tCdqcZCr45Y5I6vNFMQkFdHMucSNsjajaCSXDe5uA
+	0BLEd9gHtBOWQH8CsEpx8uzBl21U2QcSAg8NqTqbrtjND5KjrzTWnyQtIJbQvwpb
+	tt52HCsZd5gqChQeQLy6RIvtWiNvooN0NhzvA+RvOZlVgZiLh1+EMwcjlw4zz7a+
+	EnAJJVZpPtJcFKKkeDGujrHGXSVVO6cZjiRLxo8liKqrd5HUH/G6vqw55CNKZG5D
+	8qXoSg==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjp2ta113-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 14:31:47 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2e8e16d22d8so70148175ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 07:31:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793111506; x=1793716306; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YlwVcIUY8gMD3eqih4RJVxsvUcuNodLGMkC2yTuphK8=;
+        b=FDFQzwcsVN+VQyVMwEc0zOwbZJJmVWYg0F7b2ToVFIY4g0BPtv7kdNxAjtiStWJMV+
+         Y3ZQsG0Vg3FKcICRWK3D3qCxZWjUAI5hhI/BGIYTM4Pf4xz/o3x5LiZLoEBY9NDn08Tr
+         WBdQwvJwTIi/qmBHG6FZRWK/W7B89d0IM28Z+DZhb15BCrzKaDQtOVxaKmZdaPZCg9Xj
+         fVVISTWl28PEocWpF1EqGbNNSHLMawIqgHdBkD3KUT8AAkU8Jmu3AHOtkIJj9/NF4KVy
+         YJLogtJPJ3R/ypf+GIzycEc9uoWTB/jhgsvTuCT7xwsaxD6y7R2eeIAwUIOR9KUuorfl
+         nH6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793111506; x=1793716306;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YlwVcIUY8gMD3eqih4RJVxsvUcuNodLGMkC2yTuphK8=;
+        b=kfR4UsX/K0y60BFMxUJyGc/TTJV8Egmij6s0MDk1IIIkxXVQMbgxEOtT4Uq44fk1QH
+         DYpiPvShmGBQIVhDhWjQXX+7ObiKKTksKM2nFTC7v7iNdAAWB924XvEXzVQS8CNUUSRs
+         3gguaBWOM2jdgnM5uUrg2cC5Ev2S6ozqUx9NZcocThsAJP+bs/QWY/ZFpkYtJ/zMk9q4
+         QZi72ujRN7GkmVd3dzSJ6d3q6WKu2u2NCwMNuJPWLhPU8szJLJoG1HnMFQS1T4gzpXG/
+         CXjfihM5ovz1bu9p3LTn+dRp2IMHjHY2GEgZK2I6l4W79EQz7NgKtf9klC1h/1utT6yN
+         9XXA==
+X-Forwarded-Encrypted: i=1; AKwUvByP0WdHxcn2/dUoN+B2nEgGf2QBb/qrNVCGynDpLrHoDQjmsh5XQqvzzndlcR0+IsFLR6mr2QicMN71KpU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI9ovKW9QaH4/8O5zRy3jtA3h8ITpafyc9oO+NUH13XEFvHjPIX
+	iaLYep84SCKOMrTDxqC9peHvjr5CjnnDK2LtPD8xcRo8QRvaQQ2k2kddkHUfESDHfYsXqU5QcbN
+	pVv+f0gj+2fkru2INrBY4vKsogtD2JtJazOgfjBbZ0pX5YaZGpbsww+0zYUIOe38yfRI=
+X-Gm-Gg: AYBFou3rYDdLN3pxhgdbvbb4j/aZz3zGVEm1hgAaG86gix01vSVRkPAMIM7Z/UwmSQP
+	vLa1ivUa9opzik8J1ISxHymQl3UdN4LuSalyjBH3rZguVuUmcT3McwVY+PsyVXaffLDz5csbwu9
+	zm5Nuz88HuN6cMEvdNH7b85jMI4bqjjknmYcewypriA3NCixug4QvsdwZ/znJSru+L14bU9MUx/
+	jEF6hJnX7bSaKbTIh3pSZEff1UD81o2uKRyw7sjWmxbfhFTfzyPRVHcxdjttVdT2G2xy7JRqcl+
+	i4+HEDHlNYTbdthX18J3WAXaLgOttJMZLvvvEVlJeQg8rsnqUwHE/ZYqSntCv3B/2xQ1EnEVp/W
+	DxNbvSXgX7w9tCJXNIGmVokP/KUeFWBuSDgqxhlxk82/ZoF+kZjxDwaw+am0GsgqFytivIVs3Fc
+	/yela0AQ==
+X-Received: by 2002:a17:902:ea12:b0:2e9:64b9:a332 with SMTP id d9443c01a7336-2ea9c68c8b1mr90167165ad.15.1793111506177;
+        Tue, 27 Oct 2026 07:31:46 -0700 (PDT)
+X-Received: by 2002:a17:902:ea12:b0:2e9:64b9:a332 with SMTP id d9443c01a7336-2ea9c68c8b1mr90166425ad.15.1793111504651;
+        Tue, 27 Oct 2026 07:31:44 -0700 (PDT)
+Received: from [10.217.219.98] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6454a29sm10749995ad.9.2026.10.27.07.31.40
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 27 Oct 2026 07:31:44 -0700 (PDT)
+Message-ID: <b88efeae-6041-4189-a559-a16be07450bc@oss.qualcomm.com>
+Date: Tue, 27 Oct 2026 20:01:39 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,139 +117,120 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] docs: submitting-patches: Require base tree information
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Eric Biggers <ebiggers@kernel.org>, linux-doc@vger.kernel.org,
- workflows@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, linux-kernel@vger.kernel.org,
- Konstantin Ryabitsev <konstantin@linuxfoundation.org>
-References: <20261020212235.1143086-1-ebiggers@kernel.org>
- <363b228a-7e96-481a-b70f-195ba55d025e@kernel.org>
- <20261021063927.GA31908@sol>
- <d5d0801e-371c-4836-8b4a-26bff33df46f@kernel.org>
- <20261021064940.GC31908@sol>
- <aea2328d-4ea8-45bc-922e-9c1fed94083f@kernel.org>
- <20261021163242.GB325924@killaraus.ideasonboard.com>
- <73d01869-b536-4fcd-a139-6f9d0a043347@kernel.org>
- <20261026104056.GH15441@killaraus.ideasonboard.com>
- <3f518c8c-2950-458e-95fb-5b282db4c384@kernel.org>
- <20261027122952.GB2133989@killaraus.ideasonboard.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH v3 3/3] i2c: qcom-geni: Add bus recovery support for GPI
+ DMA mode
+To: Aniket Randive <aniket.randive@oss.qualcomm.com>,
+        Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+        Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
+        Andi Shyti <andi.shyti@kernel.org>
+Cc: naresh.maramaina@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
+        dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-i2c@vger.kernel.org
+References: <20261027-20260826_aniket_randive_oss_qualcomm_com-v3-0-7f2a6e572de9@oss.qualcomm.com>
+ <20261027-20260826_aniket_randive_oss_qualcomm_com-v3-3-7f2a6e572de9@oss.qualcomm.com>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261027122952.GB2133989@killaraus.ideasonboard.com>
-Content-Type: text/plain; charset=UTF-8
+From: Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>
+In-Reply-To: <20261027-20260826_aniket_randive_oss_qualcomm_com-v3-3-7f2a6e572de9@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-
-On 27/10/2026 13:29, Laurent Pinchart wrote:
-> On Mon, Oct 26, 2026 at 11:48:16AM +0100, Krzysztof Kozlowski wrote:
->> On 26/10/2026 11:40, Laurent Pinchart wrote:
->>> On Thu, Oct 22, 2026 at 08:57:55AM +0200, Krzysztof Kozlowski wrote:
->>>> That's valid and for 95% (guessing the number...) of cases will be
->>>> solved by having linux-next as a base, thus requiring the base
->>>> information is redundant. It's just linux-next.
->>>>
->>>> When patchset does NOT apply on linux-next or maintainer tree is
->>>> non-obvious, the base should be provided, but that is only "if ->
->>>> should". I think the proposal here is a bit different.
->>>
->>> What's the downside though ? As git can easily provide the base
->>> information once configured to do so, what's the downside of asking
->>> contributors to include it ?
->>
->> For me the downside is that if you require it, half or more of my
->> patches would be rejected
-> 
-> I don't think we want to automate rejection of patches that provide no
-> base information, and certainly not as a first step. The goal as I see
-> it is to encourage people to provide the information. It's a process
-> that will take time.
-
-We already encourage that in current wording and b4 automatically
-provides that.
-
-If you want to encourage, do not make it a requirement "with only rare
-exceptions".
+X-Authority-Analysis: v=2.4 cv=AJjzCM5L c=1 sm=1 tr=0 ts=6ae0b5d3 cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=ee05V1XPiC3bpTzN_coA:9 a=QEXdDO2ut3YA:10 a=324X-CrmTo6CU4MGRt3R:22
+X-Proofpoint-GUID: b-WKUyUzY3d0NiMBdnA6iXReYef6-DUJ
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA1NyBTYWx0ZWRfXzIAdtTEb+P+3
+ ep3I5P0Mbx/XZUoXC9ZV8x1sEXB1FuWFgLuuHoATU43EnXumHbCpea7yC+9LxvABaAIJKcMQyG3
+ yyE+3ROmQiuLKmDoHJoYEQN+FG07+kE=
+X-Proofpoint-ORIG-GUID: b-WKUyUzY3d0NiMBdnA6iXReYef6-DUJ
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA1NyBTYWx0ZWRfX3qT9Sg3NTSSg
+ NgoQrsjU22+Zi656cVXoLmHhDe3Ih4MGij40THGfoTItXWVQpYHhxKyRspA7Yz2qXWiNgd9nXRV
+ 0x5VJgZcOdk7UlOXUQkULI36aYtPG/S+1++9fNCa6FcqLQfEzLn7GOFPQldo/eNsDfZXUf8+kax
+ Y+P6TJQ6Hgm6F0h528vrg/yJnrGFl5Y8zzscUIl5+t9+LEQxRmus7mB4ltrE3dXkKyXlgij3FOk
+ z0cFcr0sHUBGJdf69BoPgzuR0Dobt6s3Itx3gNxcVk5N7/TAVvZkd4+81hcjgR7YE1JkznqZIN9
+ h7KplRYAfljjp4CMR/PEtiz3wg+22sWQfDmGsBnHnzlTVdwLBB87N3Jdiw3agyH0ua4hD3NLiBh
+ U7PQyCr/MuNpGfW2AbwhfdCE5cGqiUd9vj6SoBQ4+PHno9IwTft455wPw+21HQO+eGCv63mfVXI
+ s69rfC4pekey5WBEmZQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-27_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 suspectscore=0 bulkscore=0 malwarescore=0 spamscore=0
+ clxscore=1015 priorityscore=1501 adultscore=0 lowpriorityscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610270057
 
 
-> 
->> and I would need to add unnecessary step to
->> remember.
-> 
-> It doesn't have to require manual work every time you send paches.
-> format.useAutoBase in conjunction with specifying upstreams of branches
-> helps.
 
-But then base would point nowhere... Upstream of my branches are my
-github branches, so I always know what is up2date against my github.
-Otherwise how do you track - with multi-machine and fully backed up
-repos - whether your local changes are updated against your backed up
-branch on github/forge?
+On 10/27/2026 10:43 AM, Aniket Randive wrote:
+[...]
 
+> +static int geni_i2c_gpi_bus_cmd(struct geni_i2c_dev *gi2c, enum i2c_op cmd)
+> +{
+> +	const struct geni_i2c_clk_fld *itr = gi2c->clk_fld;
+> +	struct dma_async_tx_descriptor *desc;
+> +	struct gpi_i2c_config peripheral = {};
+> +	struct dma_slave_config config = {};
+> +	unsigned long time_left;
+> +	unsigned long flags;
+> +	dma_cookie_t cookie;
+> +	int ret;
+> +
+> +	config.peripheral_config = &peripheral;
+> +	config.peripheral_size = sizeof(peripheral);
+> +
+> +	peripheral.set_config  = 1;
+> +	peripheral.pack_enable = I2C_PACK_TX | I2C_PACK_RX;
+> +	peripheral.cycle_count = itr->t_cycle_cnt;
+> +	peripheral.high_count  = itr->t_high_cnt;
+> +	peripheral.low_count   = itr->t_low_cnt;
+> +	peripheral.clk_div     = itr->clk_div;
+> +	peripheral.op          = cmd;
+> +
+> +	ret = dmaengine_slave_config(gi2c->tx_c, &config);
+> +	if (ret) {
+> +		dev_err(gi2c->se.dev, "dma config error %d for bus cmd %u\n", ret, cmd);
+> +		return ret;
+> +	}
+> +
+> +	desc = dmaengine_prep_slave_single(gi2c->tx_c, 0, 0, DMA_MEM_TO_DEV,
+> +					   DMA_PREP_INTERRUPT | DMA_CTRL_ACK);
+> +	if (!desc)
+> +		return -EIO;
+> +
+> +	desc->callback_result = i2c_gpi_cb_result;
+> +	desc->callback_param = gi2c;
+> +
+> +	cookie = dmaengine_submit(desc);
+> +	if (dma_submit_error(cookie))
+> +		return -EIO;
 
-> 
->> Since this step is pointless - it would be linux-next
->> (assuming in the first place that this is what the author wanted here!)
->> - it is a waste of time for me and potential resubmit of series, just to
->> fulfill requirement which brings no benefits. So I have downside and I
->> see no upside for my case, when you require the base.
->>
->> This might be affecting others as well, but now speaking about my
->> workflow - I have a lot of independent cleanups, which I stack on top of
->> each other, sometimes series, sometimes not, but stacking is important
->> so when I run `make W=1` it passes.
->>
->> What's more important, I reject the entire reasoning/cause of this
->> change, which claimed you cannot review and therefore accept such
->> patches. It's simply not true.
-> 
-> That's not my claim.
+Rather capture ret and return it if it's an error ?
 
-That's the claim from commit msg. And wording should rather be "which
-claimed one cannot review".
-
-Best regards,
-Krzysztof
+> +
+> +	/*
+> +	 * cur and err are shared with geni_i2c_irq() and the GPI callback
+> +	 * i2c_gpi_cb_result(); both write err (the IRQ handler under
+> +	 * gi2c->lock). Reset them under the lock before issuing the transfer.
+> +	 */
+> +	spin_lock_irqsave(&gi2c->lock, flags);
+> +	gi2c->cur = NULL;
+> +	gi2c->err = 0;
+> +	spin_unlock_irqrestore(&gi2c->lock, flags);
+> +	reinit_completion(&gi2c->done);
+Safe to init before dmaengine_submit().> + 
+dma_async_issue_pending(gi2c->tx_c);
+> +
+> +	time_left = wait_for_completion_timeout(&gi2c->done, gi2c->adap.timeout);
+> +	if (!time_left) {
+> +		dev_err(gi2c->se.dev, "timeout waiting for GPI bus cmd %u\n", cmd);
+> +		ret = dmaengine_terminate_sync(gi2c->tx_c);
+> +		if (ret)
+> +			dev_err(gi2c->se.dev, "DMA termination failed for bus cmd %u: %d\n",
+> +				cmd, ret);
+> +		return -ETIMEDOUT;
+> +	}
+> +
+> +	return gi2c->err;
+> +}
+> +[...]
