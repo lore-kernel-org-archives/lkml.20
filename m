@@ -1,66 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.206.34.216
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793102541;
-	b=ji1qdTsir64zuwvqyazNYOWTIfFPEM9OTOANN8jTeTcQ+igAgwzi90oJCIkgjoD8u+Dr
-	 jKOcJ3qqS5/qxQ8MxcLJ70etBg/POhYUxN4YDbofMgLfF8z3OJtsMoPX01xhSGwmH6qbo
-	 9ZQ9z53+vsf03y3LAupvMLXFekkvOxp5kulSPlIfNPyrFzNRmfUGJdAmTdre1yqGxeGdY
-	 ZM9rBl+bipJ7Al34eUJV/nhay296Pf4SpRlIWTB+TOP4J+hbuMikK0W94YhOjJeKPvSIi
-	 sIdeh80q/xzZPpZAzaY4UXP+9yt8HsY+OiuCyT/KoWs1SH5Rc7HVQ5LHdnMXbK218dg==
+	t=1793102560;
+	b=WOfXMuZoksbQIKK/Cr7Izibb0dezu22iB/yQogf/yHpMikxTx3We0EwvXa1fZSkdG7g0
+	 puntzSBIujB5g5gK1ytqyMFBFn3XzIrkn2p9ioYCh1fOHor1b2AZwgBHmqNjNhGplH5Az
+	 LtTDpSv5Ko5Y+ra1BCHLNtHiltK6RBYAFIvZIuqpNnGK2awH1CimOOAAqToFIjjTVHuTt
+	 jR/YFqdrd9eDusnr3ORx0YDioqU0mHVx1aOwakyejU5yUWlDg9mD6fGoklolbLc8EMqId
+	 OhGvfI2ryKNOha8UjloAw5S0ihK7JQ3WhETtc3lHoF6nTP4Z+zNii/DmXHFqRi4aAVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793102541;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
-	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=oiXXrK5XUhCQ/lY1EPdL45y7v9Qer4AGRuLuUGftMJc=;
-	b=TxWnvhxIaQWGkvPbNQPLE2GeW+9aLQgvs5D7jnTT3Dit4qjiLV3FCXA47FlW6qNCLkS2
-	 wHjMoLEx1FfKX98jw5LD2UXYhgU+79kvpK1qe/h8f+x7GrqVz+9+6EH/fxi+fZr5Vg0zV
-	 forCHVF4iZbzVoxTlAVHR7rlQEjRvLEpRtVsEFUCFG1zxaNH6XCdkFVsm3yZoYbJHs5xI
-	 PgGSMeRSVPG4/CUlXz3ImRmWrhYZNjgY87LqxekaRLuBQLNM1SBWIbiUP32NZlJ+SzYdG
-	 wkRI4zLPj7AQGo7zKrfEDKyzNIYVBDNixfA8cGZv+nmTxG3xO+EIuWweCBxEcCn+ZWQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793102560;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:To:Cc:X-Mailer;
+	bh=n101vkG0N/G/63SBZEld8AZPiXf6J3zncGJX/JaoIzM=;
+	b=Zm4nCf4P3cHQG+OAqXCdU+i8dX0PUpuzfE+JsdEyNQ2s+mxDYzmAmF0XodOpu9PGo3j3
+	 5qNpdqks6gGU0ug+mkuWOi905wUqfbHazFaqE4v7aIygVxOtlkKh/HrblPcXMIVKsSVNd
+	 BApz230owFyaYMjN7GFhhCfhRBomnbKe83TTTS8VDQOrXTdWBoetMMCyvhrrs72IR6IWq
+	 uZG06PKEhsQrnNOeUb+XtYl8LgiglYFPz6+T/Uep3ok+KxVUCi/hbEQWWNm06ETayxNfB
+	 OE6aa8w58bA3IaU9pNUJN1ezy7SdqeLH2g2P1QaGxoRBvAbgg7zj0pCo8ahBluouLRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ugreen.com;
-	spf=pass smtp.mailfrom=ugreen.com;
-	dkim=pass header.d=ugreen.com header.i=@ugreen.com header.a=rsa-sha256 header.s=pkvm2402 header.b=dOgaz7BQ;
-	arc=none smtp.remote-ip=54.206.34.216
-Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J8u6qZc8;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F9C0606A325;
-	Tue, 27 Oct 2026 12:02:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F9C0606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ugreen.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ugreen.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27815606C967;
+	Tue, 27 Oct 2026 12:02:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ugreen.com header.i=@ugreen.com header.a=rsa-sha256 header.s=pkvm2402 header.b=dOgaz7BQ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ugreen.com;
-	s=pkvm2402; t=1793102521;
-	bh=oiXXrK5XUhCQ/lY1EPdL45y7v9Qer4AGRuLuUGftMJc=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=dOgaz7BQsIQNRL772oYMowsALNnSnzXNX6a1+o/pPeP0yA9bN2plNHWy9zfiB42Rk
-	 wYHtMxnfNiZui19L+DZSJW7+4nlrk/kXF5xmeEO22DAKe0bMGOIZSoV2Ag7m4mDHxM
-	 hnPrrqsD//6T+Se+tQgkF76PEm93+Pi+u7io22Bc=
-X-QQ-mid: zesmtpgz8t1793102519te83624a0
-X-QQ-Originating-IP: vwT+2XdZ4MX8XZnGFvH2PgtxvUTlI1C3gA3afL6xN4s=
-Received: from localhost.localdomain ( [183.16.167.206])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Tue, 27 Oct 2026 20:01:53 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 12006375968116155992
-From: Haowen Bai <calvin.bai@ugreen.com>
-To: Mathias Nyman <mathias.nyman@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Lukas Wunner <lukas@wunner.de>,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] usb: pci-quirks: abort xHCI handoff if MMIO is inaccessible
-Date: Tue, 27 Oct 2026 20:01:52 +0800
-Message-Id: <20261027120152.4120138-1-calvin.bai@ugreen.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <02C44DCEA968C75D+20260914022743.30852-1-calvin.bai@ugreen.com>
-References: <02C44DCEA968C75D+20260914022743.30852-1-calvin.bai@ugreen.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J8u6qZc8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 660421F01240;
+	Tue, 27 Oct 2026 12:02:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793102560;
+	bh=n101vkG0N/G/63SBZEld8AZPiXf6J3zncGJX/JaoIzM=;
+	h=From:Date:Subject:To:Cc;
+	b=J8u6qZc8g069GwgzmnAC3uMDNUnqXvnD9BP7WZKkQIqY99YlrTnV01nehNpCETVoC
+	 TXICza2KEl9OXJL7Xu4T7bPReJCUvKGJoWnHllnvrkX2THMnKomoUu5Z1AtXEmdXqI
+	 /ntFNLbBuBrzYmctN/c9KEduzA6p8meF8/ME3jsheazi+LrnXiBlC7iJ7zrQkgyxIw
+	 orwlNFczG8oigxjVST8Zh8go1StEdu3i+8Svx+hdTSWqXaAqSB2n3FjqoL3SwVd1gP
+	 Bv1EqQQHUYa1aoIULQ98SXUrWpbOJwkHGkC4/4TgEy0mCispiGHoT0ZglJMd9bgGyO
+	 xt8LDqqDtROJQ==
+From: Sumit Garg <sumit.garg@kernel.org>
+Date: Tue, 27 Oct 2026 17:32:20 +0530
+Subject: [PATCH v10] media: qcom: Pass proper PAS ID to set_remote_state
+ API
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,38 +52,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:ugreen.com:qybglogicsvrgz:qybglogicsvrgz3a-1
-X-QQ-XMAILINFO: OFUsiW5hnxqhTdh29nDsz1QtMGxXnFY99vElRmj6PK2Dxe8US8ms9vwK
-	Rs27Y7DcI8+XtE6XzdXyStf3iIny82C4AUyUW1gvsIRbT0Lz0E2tNghBJpYKr+Mw2idEk+y
-	TkmDPyoFVsyiKjgbEuGePQA53EHhnVuFGGRCSqNRYy1xWxbt5iou6YiMgkU2Eg/LewWvG3x
-	UUUgEWLevWNLP1Gh44HOU6tuWXCP015NivfK83+DDdO+GT5OBLgGFeVHVLHg/Q1vk/f7AWU
-	ksROJL0eNRr89Eit3LSV7QumCWF0vGh9FkbddmN0vU4mgtj933GcnJWtVEqQU87oefiw7bJ
-	U5V0+ZYLzR2jbf5UG+2/0y7UChlG3U3z5TpiXg455xWA7iJF33XpBqwgtmgcNrC9sLz5Jbk
-	oeo0xrdKgaxdue95iT6BiNIcP83eOIL2owPeSF9lH0cJ4XFPh8p3V3IjvLG+EdeqK9toFl2
-	ciG/boym3wfB84cr1wgy+bONBxpyQbutc9YlwGPfpX33SD4PbHZzCZFW6LzNb4aVzjW8//8
-	q7p4LiU266CNYUI5wtwtnZzp+n8hXOElhQu3AjqsU9RmK0wQvChpt9LZZmPGL+EVWYfLeOC
-	KpQbM39xtWQoO9KkjfOIByem4AWoadSO97qi2Sgm8p/oMuTlShAoXK7P7PvNMuroC/7RBzl
-	Flmu2sxr/97fAXpCQCTFwD+geswk3ELODrEdnyGyV5aUJ7+bcuNf/l6DUB7WTtaPSyD3/mT
-	9W+vseqExOiMFvpp5gOXI3cTDsumehZhFPACbaNQXXAcumllAayDBXgO3ZVDjR/ySeeixBx
-	GGMb/ZgRFJsfp1WMlWaWgAkDZ587u7mUa1zjBP10623Uvl7dXYr/WJGU/12hKWmY5KAL53P
-	OvedK+yItr0PGLZQHkowxbTeRsJqSPrCMlWKs4QPMf8aWKJ0hko+vD0wea7BgwDajTZlmOp
-	9zWqnSJ9e5jybltfn2zyjOxachDKC8NfNFo7uzK9jnCv5r00nvrPKHVKtn7Q0llvUSXw=
-X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261027-pas-id-media-v10-1-8a5312d3050e@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAMuS4GoC/x2MQQqAIBAAvyJ7TliFFPpKdBBbaw+ZKEQg/r2l4
+ wzMdGhUmRosqkOlhxvfWcDgpCCeIR+keRcBFq0zaL0uoYnSF+0ctI/RY4qzNy6BJKVS4vf/rds
+ YH15rRMNfAAAA
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, bod@kernel.org
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-media@vger.kernel.org, netdev@vger.kernel.org, 
+ linux-wireless@vger.kernel.org, ath12k@lists.infradead.org, 
+ linux-remoteproc@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
+ conor+dt@kernel.org, robin.clark@oss.qualcomm.com, sean@poorly.run, 
+ akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev, 
+ jesszhan0024@gmail.com, marijn.suijten@somainline.org, airlied@gmail.com, 
+ simona@ffwll.ch, vikash.garodia@oss.qualcomm.com, mchehab@kernel.org, 
+ elder@kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net, 
+ kuba@kernel.org, pabeni@redhat.com, jjohnson@kernel.org, 
+ mathieu.poirier@linaro.org, trilokkumar.soni@oss.qualcomm.com, 
+ mukesh.ojha@oss.qualcomm.com, pavan.kondeti@oss.qualcomm.com, 
+ jorge.ramirez@oss.qualcomm.com, tonyh@qti.qualcomm.com, 
+ vignesh.viswanathan@oss.qualcomm.com, srinivas.kandagatla@oss.qualcomm.com, 
+ amirreza.zarrabi@oss.qualcomm.com, jenswi@kernel.org, 
+ op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com, 
+ skare@qti.qualcomm.com, linux-kernel@vger.kernel.org, 
+ gourav.kumar@oss.qualcomm.com, Eric Dumazet <edumazet@kernel.org>, 
+ Sumit Garg <sumit.garg@oss.qualcomm.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.13.0
 
-Hi Mathias, Greg,
+From: Sumit Garg <sumit.garg@oss.qualcomm.com>
 
-A gentle ping on this patch.
+As per testing the SCM backend just ignores it while OP-TEE makes
+use of it to for proper book keeping purpose.
 
-The v2 incorporates Lukas's suggestion to use PCI_POSSIBLE_ERROR()
-and carries Mathias's Acked-by. I couldn't find it in mainline or
-the xHCI/USB integration branches.
+Reviewed-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Tested-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com> # Lemans
+Reviewed-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
+---
+Changes in v10:
+- Resent standalone, as all the earlier patches of the series are merged.
+- Link to v9: https://lore.kernel.org/all/20260702115835.167602-11-sumit.garg@kernel.org/
+---
+ drivers/media/platform/qcom/iris/iris_firmware.c | 2 +-
+ drivers/media/platform/qcom/venus/firmware.c     | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-Are there any remaining concerns, or could this be queued?
-Should it go through Mathias's xHCI tree or directly through Greg's
-USB tree?
+diff --git a/drivers/media/platform/qcom/iris/iris_firmware.c b/drivers/media/platform/qcom/iris/iris_firmware.c
+index 21f57d37da18..ed2bd0e83797 100644
+--- a/drivers/media/platform/qcom/iris/iris_firmware.c
++++ b/drivers/media/platform/qcom/iris/iris_firmware.c
+@@ -262,5 +262,5 @@ int iris_fw_unload(struct iris_core *core)
+ 
+ int iris_set_hw_state(struct iris_core *core, bool resume)
+ {
+-	return qcom_pas_set_remote_state(resume, 0);
++	return qcom_pas_set_remote_state(resume, IRIS_PAS_ID);
+ }
+diff --git a/drivers/media/platform/qcom/venus/firmware.c b/drivers/media/platform/qcom/venus/firmware.c
+index 3a38ff985822..3c0727ea137d 100644
+--- a/drivers/media/platform/qcom/venus/firmware.c
++++ b/drivers/media/platform/qcom/venus/firmware.c
+@@ -59,7 +59,7 @@ int venus_set_hw_state(struct venus_core *core, bool resume)
+ 	int ret;
+ 
+ 	if (core->use_tz) {
+-		ret = qcom_pas_set_remote_state(resume, 0);
++		ret = qcom_pas_set_remote_state(resume, VENUS_PAS_ID);
+ 		if (resume && ret == -EINVAL)
+ 			ret = 0;
+ 		return ret;
 
-Thanks,
-Haowen
+---
+base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
+change-id: 20261027-pas-id-media-7cc70fc5716f
+
+Best regards,
+-- 
+Sumit Garg <sumit.garg@oss.qualcomm.com>
+
