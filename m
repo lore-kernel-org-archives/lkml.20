@@ -1,60 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793084035;
-	b=TkbudcutpHZ2Nk8oE1rO5/mNT9ly/5OODu1Xl1MZREb7FuMhHmkN4e4acNFBpOnBe4gK
-	 PDIggyAVhpljiwykzWQ7jT2xc6sNOrnses52LjuABKivgmwMKt/BthNlyYpYUmlUHv5+b
-	 gtqWvrg/F8xMHaLN3t08YYv6b1ab1WNBPC7+8HqxWxVr7SkPxjFDpUWnw0cqCrXmyJRQq
-	 BwczkIiuKuqKH43NYN07Q4vtNNG19TFKlZLxVsWKxhziWc6BIOhxosDiJlkAQEx1JnShe
-	 W4yAy2JVw1Q62FY8OWiH9xA9PQ1oPTEuu/9CiVIJSmdRYEuf4K6jec1CUTg5l5ReYHA==
+	t=1793084059;
+	b=AUaquUlFq1cyr/z4CCxK42ZLx5/dgG4NSc4ur2B0DeTMFxKPOhybteW1w0T03v4RQJ8a
+	 nZdRAK2QrsC3ZG8Tkk1kFa/K6SDmzA2BMN7ivh3uUDl1qIyOfeWwG9IT1Hjso+/c6ovJ1
+	 S2eWXb7dxi95Ntlok0MHurlpQuMcxwAQnNU7b+C127/U7mjF88u3m8dKk6I7McGJx39WX
+	 A7dD2AbbY56fb+n7mbuzy0evy40cEQfH2lXV043K6BYwFqIAH1HXEGpNQlqxmkrgHurdw
+	 3j/mHYIbhCctzqA8freh8kViPSWmat5DpW6vU7J97JZrkT7qwxv9E8hK7mnRn2P4icw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793084035;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=1sku4jQlnBcRIMqFedESvbaRrc5SL6icTS5wBsxd6EU=;
-	b=CI+Vl//xupBGFYmOd0EwY0vQfnROb6tOoAXCdpSGL4kPuSRE1sekVyTDziXwK9esHcRZ
-	 KLHHX84sBC3JyKOzulLv3YcIzawk0smFLDBKHl4Mwxd+jCrBUDX6awhTHhcoRddurpSF5
-	 D7i+NPf7Zr85MX45/5HkalCDv22PbzksTsvGxQuZ2J21ZHazMxPyHFriblRj4LL1uRfUN
-	 JLCEFdr3qOvg90+9SWokxO/kfLtYcS7bvr6AApx2jxGQhckyG1zvbf3ln8HUjRqUUFMbT
-	 q5Ymt9ZqoHcUrApL9u6xZH/I0ftI9wFSAIvDZFZ0AG1Z5Ks3aXZ32OjiJrWZuplYRwg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793084059;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=Bzi/nzvXhzox11rm3/brp68+yJUnNUbuR0aBy7BPR1M=;
+	b=ToiIvXxxXwlBAhAJK41wiFRmYTNYCoCaoVsB7CYi9Q13NNnYhrdlqXUN1NTrfQGV+/0d
+	 CHZTyVVVRHAwBPpUhMJnjdcApOzmABZnptbzV3xggE985xfM0tRyM73XQILC72U8YGyCU
+	 VBmoI40+PXqdRfly69jQX9zfXSNcpYgbUjOKzvSjx69VXe+ojix7tnp23LfZMSR2Ti6G0
+	 No/sJ9QPqMrJy+I7ME2ya1twGJ/2eZCS0ZUNz9w+e/2CrjRhpsHVaU2QwJ4SXD34OPbsn
+	 KMVMPo+qLSvHUtJCaN+0v7S8fmUBbJJJZT8CLPp5E0ot73o9eiqm3/2s07QD5rZ3gWg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WyPWg3On;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=YdTkeEtL;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9908606A31A;
-	Tue, 27 Oct 2026 06:53:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BDD3606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 06:54:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0BDD3606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WyPWg3On
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E88CE1F01825;
-	Tue, 27 Oct 2026 06:53:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793084034;
-	bh=1sku4jQlnBcRIMqFedESvbaRrc5SL6icTS5wBsxd6EU=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=WyPWg3On0QRT8OiUwBxHInjJUavp8S2hKx/DVzMgRBRLY5mPbUCHxumDwEkxFo9f8
-	 E66yB9NPsmCZ3SqsmJB6uqx62NX75Ed2bH2S4liYkWAH1mkeeUwN03+sY1MrsJ/nQG
-	 Ftd1M6/ZwRXNPBRCbqQhTZmIIit8C/iNBjn2tJLSZdi8u77AasFj5DFBXT5d4lTLIv
-	 wrpUyJIzX9MOBg1zudh8UsrjRTOrRKz+tIxUC4UHXwlxough3yaNKpTr/UjNzzjXlw
-	 HzvkKCBXHMXUao5BoG9mwWyRmO23DBlLeU4JcMka/qaT7VnRAeumKEYXfz8LJDrbAr
-	 kLlDq5JkJXRzg==
-Subject: Re: [PATCH net v2] inet: frags: prevent acceptance of partially
- authenticated reassembly
-From: netdev-bot+sashiko@kernel.org
-To: Jeremy.Jean@oss.cyber.gouv.fr
-Cc: steffen.klassert@secunet.com, herbert@gondor.apana.org.au,
- dsahern@kernel.org, idosch@nvidia.com, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Tue, 27 Oct 2026 06:53:53 +0000
-Message-ID: <179308403346.3134.12478574904380821742@kernel.org>
-In-Reply-To: <20261023185118.2588450-2-Jeremy.Jean@oss.cyber.gouv.fr>
-References: <20261023185118.2588450-2-Jeremy.Jean@oss.cyber.gouv.fr>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=YdTkeEtL
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a5087a5348so19179645e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 23:54:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793084056; x=1793688856; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Bzi/nzvXhzox11rm3/brp68+yJUnNUbuR0aBy7BPR1M=;
+        b=YdTkeEtLL8Y1nyxDjIKjLsf/YxluDeSEZ5d6kdlAWCIbzAlWEKnDbytZuv/smLkWBi
+         xNi9V99FLlNwMWaPKaN+Gntqh2AawHuOMDUnL1YicLxV5ve2whO8abtEnPdq+lF6j/MG
+         dNa3HV+fWdTQJupDLPJ0yiKrgH4PV2pVmDQwAMyCvIw+AiiSQLzPSN/YUfBlx/yhJrhM
+         duKxU9864eJda80HVDcv2dHBVskc4qsLEqF5TQIKV6gfdxzCQ+9EkInOoaw+hUxHb6vL
+         RPAiWNu24DYqNRcxYRzUv7/sDz7AN89CrKUFjqQqNzANUD7P7QaACJ+I5jTdhifdLkA+
+         kxKg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793084056; x=1793688856;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Bzi/nzvXhzox11rm3/brp68+yJUnNUbuR0aBy7BPR1M=;
+        b=kW8M67CPaR3hsrrNHRtovZ+1RF8/gBsgjg7QarxJ7rSHyZjp/3DEC5iErUIb8fz6uC
+         02tbODUq4kdt8Mjh5L0gNh5AYgSHgOuuy2/ILvTVBhycOsTsRVyJQwjil9iznhfl0HKZ
+         RMdy5FymkUrY9I723LfFAf3FRYIy22drWJL+p/E1SI9NbO04jiLSpf7HC9t+5lEbjQOc
+         Fd/e7zDaqjdaLoBV+PgWZbkx2kcGS8RFtqYiD0ocCJQaTdca73rHhv/X+wLNwZ1h6Uyx
+         DkatCSYbYPDC8xLGOXUeckkXSvjaaoghzyZPwomfNZ5hoHIGUSpbt+U23ffCYTxTSzIo
+         JJgQ==
+X-Forwarded-Encrypted: i=1; AKwUvBywLBWlofausPJnoHjK1a24baIHSW6W1dc5Rem7VyNNvR8l1GS1dCRQGKvDeuKQr43b0JOhI3mxhOmWUNk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLi29ij0rfJ/g3JlW/kSTWjehUuDzMN9J22wcR+Q0ZxKQm2kFGp
+	oQP3sEmflvKOjjntfSjqP35oHw5bqhzIwPNDysVbuu4fO1G8QPaN9QO9
+X-Gm-Gg: AYBFou2av13XHRaiMxwkuQDtvPTYehC7Gx4mFpNPr/JLgudyWhcwe1I4yNbZH447T/K
+	EFXWjjV0/FOMCufbr7fclYEzwEfyj4uDhpYubyoVud7fAiEHXfjXL/vf+Z3jdFXT05rkQzxm21i
+	gdQ+DtzmZv3uI4nhLicbKNXGy+rU+cUKpMUuQx/isd2hVywI1myPxJw1Xx6sU4vdslFZf1OaGgo
+	u02j78y56yPjiVrpQYOgZbagimsxq/r+cqn+O3xhTeIDnvp+m3LP/ksq/nHV4m2R0Az/ZwSV+D2
+	DwjLzeDSKdvKZtT5jZRASuaWHNps6oteCnO/q+KKOtsq5oOqeOCk3mDy99qpjrCf4xcNSYyF3je
+	vv81iQruYGcsklGziMe0Aa2UzXSpZnM20N80cuJcoha+m/fVK8ppEWxcchIh209PxlrcFkgg9Td
+	Hy1ueEeQbdnlBYWp1RwauSO0sCK494rs2H0mSaT9PzCm+GEYT1uQGlZhvJr8mF1mZTnGH0jiqWm
+	3DXkCHaBOXtL6tvib6ReBjRP0HsjlCBLy8nEsOscoLbUYOml5Yt1ADFjhEH5JG7NcsHQBXusOxD
+	t9HcKF8qZSrDTHV+LHjAikBc92MOE/Ym/bzxYjBKVEsVsKZLSd4eNhjjwcxc60W0qSZIWvSCqqD
+	IBwo8wyzdyNWsG33k4T3sHFs4EHi4jTRQRMmYtQdbUSZZ5q1ufp30ORwI+nWBHPmgWLX2+MY8wM
+	eJ6RH4
+X-Received: by 2002:a05:600c:4f0f:b0:4a1:acaa:c355 with SMTP id 5b1f17b1804b1-4a35ac803e2mr199062215e9.10.1793084056219;
+        Mon, 26 Oct 2026 23:54:16 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-b2ac-9b01-6900-1f92-d182-4435.310.pool.telefonica.de. [2a02:3100:b2ac:9b01:6900:1f92:d182:4435])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecd8c05sm26916356f8f.49.2026.10.26.23.54.15
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 26 Oct 2026 23:54:15 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Mikko Perttunen <mperttunen@nvidia.com>,
+	linux-pwm@vger.kernel.org,
+	linux-tegra@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH v2] pwm: tegra: Fix value discarding for duty and period
+Date: Tue, 27 Oct 2026 07:54:03 +0100
+Message-Id: <20261027065403.96505-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+In-Reply-To: <20261020133938.191013-2-u.kleine-koenig@baylibre.com>
+References: <20261020133938.191013-2-u.kleine-koenig@baylibre.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,154 +106,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On Tue, Oct 20, 2026 at 03:39:38PM +0200, Uwe Kleine-König wrote:
+> Compared to (implicit) v1
+> (https://lore.kernel.org/linux-pwm/20261015085336.4181137-2-u.kleine-koenig@baylibre.com):
+> this adds more adaptions to handle the bigger variable types, as found
+> by both Sashiko and Mikko. I didn't think a lot about the
+> required_clk_rate calculations, but I guess the saturating math I
+> implemented should be fine.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
+Tested on Jetson Nano (Tegra210, 7000a000.pwm channel 0, PWM_CSR_0 at
+0x7000a000) on v7.3-rc2 (5b0764a53235), starting from period = 10000,
+duty_cycle = 5000, enable = 1 (PWM_CSR_0 = 0x8080003e):
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+- Unpatched: writing period = 4294987776 (0x100005000) succeeds and
+  truncates period_ns to 0x5000 (20480 ns), programming PWM_CSR_0 to
+  0x80fa001f. Setting period = 2415919104 (0x90000000) and duty_cycle =
+  2147483648 (0x80000000) casts duty_ns to a negative int and programs
+  PWM_CSR_0 to 0x999a001f.
+- With v2 applied: both out-of-range writes fail with -EINVAL and
+  PWM_CSR_0 stays 0x8080003e.
 
-- [Medium] secpath_equal() (include/net/xfrm.h) treats two secpaths as
-  equal only if they have the same len and the same xfrm_state pointer…
-- [Low] The new secpath check in inet_frag_queue_insert()
-  (net/ipv4/inet_fragment.c:446-447) runs before the overlap/duplicate…
+Tested-by: Karl Mehltretter <kmehltretter@gmail.com>
 
---
-
-inet: frags: prevent acceptance of partially authenticated reassembly
-
-This patch adds secpath_equal(). It makes inet_frag_queue_insert() return
-a new IPFRAG_MIXED_SECPATH code when an incoming fragment's secpath
-differs from the secpath of the queue tail. The IPv4 and IPv6 reassembly
-paths now count IPSTATS_MIB_REASM_OVERLAPS only for real overlaps.
-
-> diff --git a/include/net/xfrm.h b/include/net/xfrm.h
-> index a6d69aaa6cd2d..298ca9bb00835 100644
-> --- a/include/net/xfrm.h
-> +++ b/include/net/xfrm.h
-> @@ -1201,6 +1201,23 @@ secpath_reset(struct sk_buff *skb)
->  #endif
->  }
->  
-> +static inline bool
-> +secpath_equal(const struct sk_buff *skb1, const struct sk_buff *skb2)
-> +{
-> +	const struct sec_path *sp1 = skb_sec_path(skb1);
-> +	const struct sec_path *sp2 = skb_sec_path(skb2);
-> +	int i;
-> +
-> +	if (!sp1 || !sp2)
-> +		return sp1 == sp2;
-> +	if (sp1->len != sp2->len)
-> +		return false;
-> +	for (i = 0; i < sp1->len; i++)
-> +		if (sp1->xvec[i] != sp2->xvec[i])
-> +			return false;
-> +	return true;
-> +}
-
-[Severity: Medium]
-Is comparing xvec[] by xfrm_state pointer stricter than the final policy
-check requires?
-
-xfrm_state_ok() in net/xfrm/xfrm_policy.c matches a state against a
-template. It does not require one particular SA:
-
-	return	x->id.proto == tmpl->id.proto &&
-		(x->id.spi == tmpl->id.spi || !tmpl->id.spi) &&
-		(x->props.reqid == tmpl->reqid || !tmpl->reqid) &&
-		x->props.mode == tmpl->mode &&
-		...
-		(if_id == 0 || if_id == x->if_id);
-
-This means several distinct xfrm_state objects can each be valid for the
-same flow. Before this patch, a datagram whose fragments were
-decapsulated by different but policy-equivalent SAs would reassemble and
-pass __xfrm_policy_check(). Would such a datagram now fail reassembly
-with IPFRAG_MIXED_SECPATH?
-
-This seems possible in these setups:
-
-  - per-CPU SAs (struct xfrm_state::pcpu_num) on a sending gateway that
-    forwards inner fragments without conntrack, where the first and later
-    fragments are handled on different CPUs (for example, NIC RSS hashing
-    on the UDP 4-tuple)
-  - an outbound rekey between fragments of one datagram
-  - duplicate CHILD_SAs that share the same reqid
-
-In the per-CPU SA case, the drop could repeat for every fragmented
-datagram.
-
-The commit message also says:
-
-    Reject a fragment when its secpath differs from the fragments already
-    in the queue, and keep overlap statistics limited to actual overlaps.
-
-The code seems to drop the whole queue, not only the one fragment. In
-ip_frag_queue(), IPFRAG_MIXED_SECPATH falls through insert_error into
-discard_qp. ip6_frag_queue() does the same with discard_fq:
-
-discard_qp:
-	inet_frag_kill(&qp->q, refs);
-	__IP_INC_STATS(net, IPSTATS_MIB_REASMFAILS);
-
-nf_ct_frag6_queue() goes to insert_error, which also calls
-inet_frag_kill().
-
-The patch is tagged for stable. Should the commit message say that the
-whole datagram is discarded, and that legitimate IPsec traffic can now be
-dropped this way? If the strict pointer comparison is a deliberate
-security trade-off, could that be documented as well?
-
-> diff --git a/net/ipv4/inet_fragment.c b/net/ipv4/inet_fragment.c
-> index b286ee429da8f..c18da91c1f031 100644
-> --- a/net/ipv4/inet_fragment.c
-> +++ b/net/ipv4/inet_fragment.c
-
-[ ... ]
-
-> @@ -441,6 +442,10 @@ int inet_frag_queue_insert(struct inet_frag_queue *q, struct sk_buff *skb,
->  {
->  	struct sk_buff *last = q->fragments_tail;
->  
-> +	/* The reassembled skb keeps the first fragment's secpath. */
-> +	if (last && !secpath_equal(last, skb))
-> +		return IPFRAG_MIXED_SECPATH;
-> +
-
-[Severity: Low]
-This check runs before the overlap and duplicate classification. The
-RFC5722 comment further down in inet_frag_queue_insert() still says:
-
-	 * Duplicates, however, should be ignored (i.e. skb dropped, but the
-	 * queue/fragments kept for later reassembly).
-
-Take an exact duplicate of a queued fragment that carries a different
-secpath, or no secpath at all (for example, a plaintext copy of an inner
-fragment that arrived through an ESP tunnel). It now gets
-IPFRAG_MIXED_SECPATH instead of IPFRAG_DUP.
-
-In nf_ct_frag6_queue(), that skips the duplicate branch:
-
-	if (err) {
-		if (err == IPFRAG_DUP) {
-			/* No error for duplicates, pretend they got queued. */
-			...
-		}
-		goto insert_error;
-	}
-
-ip_frag_queue() and ip6_frag_queue() treat it like an overlap. All three
-paths end in inet_frag_kill(), so the queue is destroyed instead of the
-duplicate being dropped quietly.
-
-Should the comment say that a mixed secpath is fatal even for duplicates?
-Or should the handling change to match the comment?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261023185118.2588450-2-Jeremy.Jean%40oss.cyber.gouv.fr
+Thanks,
+Karl
