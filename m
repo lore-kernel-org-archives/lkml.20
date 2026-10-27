@@ -1,55 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.210
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793065108;
-	b=N04ndNc1Qc1e96gmvdlPheUWt1QxjWbHZmMN0GRFcEux5Ii7HNfFFCdHOCTudee1AI8E
-	 Pe/F/yQVrgke5ANHW1nkK37DRRhq9JTPzC58wFFs+Drru/wSCv9nEdewwC4Cv+XbP7Rvv
-	 5aVlsqVUT2DwqpsZoRQRm0nO9Rg28ghADesknQfi1uLy1yxdi3zq9EqlpCsNs8kV8aHdH
-	 BfIzdXy2q9TPiG6HlZedeDrRgXlTz6DoSnBP8Prv1Hmu+tQpW39YcSkrCg/VZgIrIDL7R
-	 C/oMVh1FpYyhhCzQzeZiIwiCyGXZgUcPtC2cfS5J2VqEcuy9l+RIJxGyo43kLU/aFow==
+	t=1793065133;
+	b=BDEh7W/PKvSSt+agEMWkORPkts89kq+tAiJGS5pijhr5+Ib9eIMJK4Ncv9VAWn6n+Z+A
+	 HpzVT1DG80Ij/A6IZeE89oIxMVa0uNfc77EuRfVqfWYYCoLrO2n+addMljjpKWk27YrRT
+	 fYospt3ABjtqYdjXPANqi9pUvMWFbfJoaFwB7PPPZgRse18WNtKY3oCvuxjSV4Syyfzsj
+	 iQLXkcCVJclRHiBYNvmaU7Zw/H0y3OLKf2+7Tp5yvR1TN3rl8t6guw7gErPZ+/TWQWOpi
+	 UzkNYAVFHrmkyTmTfCoNlx2fNS5tODkCrFAVLoFMmFJXzi50n8MVrWCtyz8IkLVSwlA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793065108;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=ZHDPnkMGnyAYkqr6GpDoBCUq9sSQ2qmZRT01AxCidh8=;
-	b=H7bBIXfbCFgR3G+qH8cWqAKVKleoC9hcMj2d8OHEWNtzs1eX3BVU5QdXmQ1RoyqnWRbw
-	 frJ73prPjAQKtpip3kbhOXk9igNzGPkmp4MTigcva+CapVzXjCaaOHVvAcXlne5b+YBGl
-	 k1UYsULuAw7WkzZBkXlhe9w3oPZCxraEP2WyN/SWUmBiPbwfZnVQ3rmDX2DNlHsPXGkts
-	 ZyyVN9H+BDfsaQjB/ygd5TbCY5QCSKLIyiX0OLbGqTCe+ZoKG9hco4v42Kprl/9xKnsvr
-	 cUxjgBTedEKuLFoCtt2GKZvKbu/aYR6KoUGihf4VGJ9hlnmqqxrpYWLyKa4XED++SDQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793065133;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Z5R2y4WIB6GYJwGdw7y2Iv9L7vI0mR86YCmyG3VujCs=;
+	b=1B1tfW0p7NN5EoGkHJsINeNRDjGjaDyjme3xGueBqD/MjdpGjTDvAzDcTTWJg9LdjT/+
+	 4NDQ1y5Ew2+rzgUEOIEQ2uXikxWiJ4UAAbKQb9i4WKobCBd2ChYkX2hZXtnEN09Ca34gg
+	 BCjJaEAY5AQoXWtctlD8QXAKSU2ghBSO+UcZWntF9U+p8e5b1Oc6G+Hsxll4omQLCc4YY
+	 K+hkLZUG8Di1GGjkXbOCU39r0QgOL9jTtYLkp+TTlXrfbSDgpe8je+u027eo2ZSzCeEmX
+	 k1PfBeRa/lIlGkNNr1EjVCe0C+DUMZPnOKdEN0SCQIgqzEaxUH5CFyzZIsq9k3/i6/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dUQLU8fY;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="ZHlNrt/e";
+	arc=none smtp.remote-ip=95.215.58.210
+Received: from mta1.migadu.com (out-210.mta1.migadu.com [95.215.58.210])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29D66606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 01:38:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 692B9606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 01:38:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 692B9606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dUQLU8fY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06CF51F01825
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 01:38:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793065108;
-	bh=ZHDPnkMGnyAYkqr6GpDoBCUq9sSQ2qmZRT01AxCidh8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=dUQLU8fYqIIL2JpAY1ug3eRNtjyAnNLqKUrd27nHzJytQWQb1xGpNWfE/kcYCGJDY
-	 nuYRmHEMDhgZDuxVQDvCSeBBV1ebLcVgPkAVSg5hkJDX6DkEAnEu2i2AjFzoiw3yn8
-	 ZVf4Ty0XxymDlbCBjoYijUrOeXsJA74uy6UNIq7MXrz64MM2TqwA3xaHUG4MZfSFUp
-	 9EPmZgDa88FCZCIsxK4rbP2jKfBVY5x3RMSY5+aOM6CbgnY3YEOQpXGBR3Fqp1z/O5
-	 ghlX46m+ECtFjL9QBaoTt+OpeqXyM2neZXh0i/6DYs2JWg37Mm/5ALlvSpKUZL4/p5
-	 NZ9H5ZdMPn8yQ==
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c2afa22e1dcso478287066b.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 18:38:27 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBz1LNfXtIqNcOqED46obSSc3uaORLp/1jGjBRNMwdrHZUHZDNKtcm+edyOt906PgdZEiOqcMBJzFWWuqB4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKRJgyqIDt85Kp8qiSnLL6zft1zJaXaOSfX31glG910sP+7E9XE
-	LDEGo9ekCZxn4OGc3bxy+Qi8dWwLEqZb0ErsqxhT6Ja2hqe6AmjFfAHt9ZcJ1ux7QeZHndh0Lik
-	NNrkT6gD0SosGPrkIOxqQDUCUUndsXv4=
-X-Received: by 2002:a17:907:9495:b0:c2e:3a72:ffbd with SMTP id
- a640c23a62f3a-c46bdfddba5mr986164966b.41.1793065106712; Mon, 26 Oct 2026
- 18:38:26 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ZHlNrt/e
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=zauBrSfUPWo8ed8MLMF8MB5SQEZTdd6mcbUfIXqE0Uw=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793065124; v=1; x=1793669924;
+ b=ZHlNrt/eTVvTSj22xmTXSm4cJzYDnJT40bh2aIZLadxDLvZv6iFo0zzyQpGrX5AuLmdMzFX6
+ Emk1xietszqBk9+qmXWhXALZpg5mbtRH/JnIStdwdprfHgRSjtd6NTbggR7FbNnYmQTP7cmlNsa
+ iUiSB5r/6ep2ho+1iOvP7Hlw=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 1ddee2693febae24;
+	Tue, 27 Oct 2026 01:38:44 +0000
+X-Mizu-Trace-ID: 1ddee2693febae24
+X-Migadu-Flow: FLOW_OUT
+Date: Tue, 27 Oct 2026 09:38:34 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: Antoine Tenart <atenart@kernel.org>
+Cc: Zhou Qiuyue <n0ps1edzz@gmail.com>, netdev@vger.kernel.org,
+	David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net v2] ipv6: raw: fix use-after-free in
+ rawv6_send_hdrinc()
+Message-ID: <auAAmqXcxmC6BDrR@fedora>
+References: <20261026044808.613-1-n0ps1edzz@gmail.com>
+ <at7uk8gXtzNufuQF@fedora>
+ <at9sKRSEJLVGj9OK@kwain>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,71 +71,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261026222600.17323-1-pali@kernel.org> <20261026222600.17323-10-pali@kernel.org>
-In-Reply-To: <20261026222600.17323-10-pali@kernel.org>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Tue, 27 Oct 2026 10:38:14 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd8jXSFn2y+0U-owq7p+Yxmrw5HB2-Roxbr7JNcwds2Dow@mail.gmail.com>
-X-Gm-Features: AclHuK-8CLT-64qoqvOxTVhFDkSP2KOd6hb19LDhfmGziKV291hbv9XEcvwmcPg
-Message-ID: <CAKYAXd8jXSFn2y+0U-owq7p+Yxmrw5HB2-Roxbr7JNcwds2Dow@mail.gmail.com>
-Subject: Re: [PATCH v7.3 9/9] cifs: Add support for creating WSL symlinks in
- version 1 format
-To: =?UTF-8?Q?Pali_Roh=C3=A1r?= <pali@kernel.org>
-Cc: Paulo Alcantara <pc@manguebit.org>, linux-cifs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <at9sKRSEJLVGj9OK@kwain>
 
-> @@ -708,7 +716,7 @@ static int wsl_set_xattrs(struct inode *inode, umode_t _mode,
->  static int mknod_wsl(unsigned int xid, struct inode *inode,
->                      struct dentry *dentry, struct cifs_tcon *tcon,
->                      const char *full_path, umode_t mode, dev_t dev,
-> -                    const char *symname)
-> +                    const char *symname, int symver)
->  {
->         struct cifs_sb_info *cifs_sb = CIFS_SB(inode->i_sb);
->         struct cifs_open_info_data data;
-> @@ -717,6 +725,12 @@ static int mknod_wsl(unsigned int xid, struct inode *inode,
->         struct inode *new;
->         unsigned int len;
->         struct kvec reparse_iov, xattr_iov;
-> +       struct cifs_open_parms oparms;
-> +       struct cifs_io_parms io_parms;
-> +       unsigned int bytes_written;
-> +       struct kvec symv1_iov[2];
-> +       struct cifs_fid fid;
-> +       __u32 oplock;
->         int rc;
->
->         /*
-> @@ -726,7 +740,7 @@ static int mknod_wsl(unsigned int xid, struct inode *inode,
->         if (!(le32_to_cpu(tcon->fsAttrInfo.Attributes) & FILE_SUPPORTS_EXTENDED_ATTRIBUTES))
->                 return -EOPNOTSUPP;
->
-> -       rc = wsl_set_reparse_buf(&buf, mode, symname, cifs_sb, &reparse_iov);
-> +       rc = wsl_set_reparse_buf(&buf, mode, symname, symver, cifs_sb, &reparse_iov);
->         if (rc)
->                 return rc;
->
-> @@ -751,6 +765,45 @@ static int mknod_wsl(unsigned int xid, struct inode *inode,
->                                      &data, inode->i_sb,
->                                      xid, tcon, full_path, false,
->                                      &reparse_iov, &xattr_iov);
-> +       if (!IS_ERR(new) && mode == S_IFLNK && symver == 1) {
-> +               /*
-> +                * WSL symlink layout version 1 stores the symlink target
-> +                * location into the data section of the file.
-> +                * Store it now after the reparse point file was created.
-> +                * The target location was allocated into the buf but iov
-> +                * size filled in reparse_iov by wsl_set_reparse_buf() was
-> +                * set to smaller so the created reparse point does not
-> +                * contain it.
-> +                */
-> +               oparms = CIFS_OPARMS(cifs_sb, tcon, full_path, FILE_WRITE_DATA,
-> +                                    FILE_OPEN, CREATE_NOT_DIR | OPEN_REPARSE_POINT,
-> +                                    ACL_NO_MODE);
-> +               oparms.fid = &fid;
-It is the same here. we need to initialize fid and call new_lease_key().
+On Mon, Oct 26, 2026 at 04:07:40PM +0100, Antoine Tenart wrote:
+> On Mon, Oct 26, 2026 at 02:09:23PM +0800, Hangbin Liu wrote:
+> > On Mon, Oct 26, 2026 at 12:48:08PM +0800, Zhou Qiuyue wrote:
+> > > diff --git a/net/ipv6/raw.c b/net/ipv6/raw.c
+> > > index b965258cf..bdea82543 100644
+> > > --- a/net/ipv6/raw.c
+> > > +++ b/net/ipv6/raw.c
+> > > @@ -654,6 +654,9 @@ static int rawv6_send_hdrinc(struct sock *sk, struct msghdr *msg, int length,
+> > >  	if (unlikely(!skb))
+> > >  		return 0;
+> > >  
+> > > +	/* l3mdev_ip6_out() may have replaced the skb dst. */
+> > > +	rt = dst_rt6_info(skb_dst(skb));
+> > > +
+> > >  	/* Acquire rcu_read_lock() in case we need to use rt->rt6i_idev
+> > >  	 * in the error path. Since skb has been freed, the dst could
+> > >  	 * have been queued for deletion.
+> > 
+> > Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
+> 
+> Doesn't this change the device seen by the nf hook / used for the stats?
 
+Should we still use the old/released rt->dst.dev after the VRF output
+path replace skb->dst? vrf_ip6_out_redirect() said it allows the nf hook
+use vrf device.
 
-> +               oplock = tcon->ses->server->oplocks ? REQ_OPLOCK : 0;
-> +               rc = tcon->ses->server->ops->open(xid, &oparms, &oplock, NULL);
+Thanks
+Hangbin
