@@ -1,55 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793095359;
-	b=I2ex/NqKHRfkgbFJn+h1BN6DYF4y1RVgRQah0ld9QO1M2J7IAnKlQlvEXPVDSdch/+5/
-	 Uvne8x8AgAS29+4N5raFP+ThDOEYutjBmBoOajPJJvoZuxkw/Np8uS4lQT5J8LS5jxBuh
-	 o5BTIN5BJoxEs8IfIckzyxK+wxS96P3gj6pTBFVOWhSjNgOw2oUwwZK4SAgOjP4Vl/2le
-	 QFNQf1pF2u8gMNGmK5vfdm/GnhLrMN1AIMjljm/IGhG/qcRF3F5AergMgrsl+LbOjX7C8
-	 d5R3tFWHj/4SyvLF3z13r6x8SZBFZGTspfFGT7BlT0NsrvRn4m2wGM2EHUFeJ2mtw0g==
+	t=1793095363;
+	b=P4hBbQ7VGWJggAVLbq3Xm47NCXrEoyHP4g2n37FksUw/xOgwZO2RlNTSNjLCNoxGN+DT
+	 +u940U2JYm8DCAW1y7iIYp7wiAwOANxHGfu5LV+nIPVgHKPL/7unYL6gPr6mY+AR5e9uk
+	 05gasYu53GwG3JPOEDjUOTqE/bYG6Wpz95ekJytRr7CY6XDIQOVbuojjbq+hR0DHv6GNq
+	 TjTK5ZEjSX9VPiPEGZxG9OW2kHo6qKBHqTv+nFtGjSe/chqwCJu73m+DnV87yYL6q5Qza
+	 Bjlrr9a0UWeyUBvVZ85HvxJVGwYV+2Ha6gNf6CmS56KtgQXcModA+Qe1qNDJjHcnXnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793095359;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=VbkC5PiXkuQEdYLYK/YUR9pdO4ULkJikWXO9Pu6awtg=;
-	b=ODWIIoj+yTwSzUlfMfoXweF1L3r59gspplsjLnxkHiZ+Ne0G56F4mwDG8v4Ph45wuO0/
-	 AMq5Wjc5AoIoV/zSmTlC8OuNP3UT+F8qFeTQBLwXCmFm/MSchKUw3fJ2TQ7T7h/uwrS6E
-	 XXFgm6Igv1e28mSdJo+CIR3VnYiITg/7S6fVdzRYaj25CJ5NHyQ4HIpvibSOsTonWqAWA
-	 +qEMBkHmhN9ChHvqjVO2yjwYrd9QPpwXmvVjH5ofasRwaukt0kXa+4yA/LBhFTT6vb390
-	 Puke0qjuTjdPewT6UVyrCK804HmkToitKp5KTbmgafviIXPXww6OUB7/TgMPPH/FIOA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793095363;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=kx3une51RST/V2RY3+/klMLxji5UgJfr3Zk+LcFLoTs=;
+	b=RHYMv9rdfT1KlGrZVlnz0UPXq6b9m2PDsCBVv8nQvi8REI1pW729gziBjh76kKVfPLGH
+	 CmQ8Tv6c9/VMgC7EmyP35m4pq4e9zRmoy+TTAEv6NJ3gMlBjfWSDCEIYuis91hTOHMhEN
+	 e81xkQP4MV+KjfWAKxSNrwQDAqYNQq4pl0kS2GLZMwoYHMoJX9zWOqDWR6TtgUBYT88j4
+	 Yged2MjEWsycTHq5ssOzOWgkIJS8oOx0V2ymlwCTwfw+CaWC/O/ZinILusozbzdfw7E+b
+	 mo/45tJ0BuFGqTEfH99Uf/9EZhVIlwb3qLWcBxVrvZSdUg2c2dWEarExuH4mL/Ccr1g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iD962t4O;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=UqkKt1xQ;
+	arc=none smtp.remote-ip=209.85.214.177
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82936606A31D
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:02:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21321606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:02:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21321606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iD962t4O
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41EFC1F031E5
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:02:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793095358;
-	bh=VbkC5PiXkuQEdYLYK/YUR9pdO4ULkJikWXO9Pu6awtg=;
-	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
-	b=iD962t4OeYl8fq9bTKX9Iflx2I8f4Vh717mX7u9d7sgpo3vSQSuZKwQe07yLRktiO
-	 gFdNC4bR0scWTeYeG9TlkR7+3xN4DJoKt17dRAPIvmpfuk9X3NLIT+RijO1qwXbOh1
-	 mR5OHKL7wb/iz9+5aMbhW+2FAfECvIlTyr5QtUWw5O926DvgT+4ibSkwaFOcbxHQkP
-	 W5Io98xLEQYQN5altOp6mwTly7u+9RMwt5X1lVQLP5ehGoFuIWthAYn+3X7P52B4qp
-	 /mgz5VjRAGHHSfDNtJam+ZWFb7e1U5bYIQaVa8VphujDC4wpURh4MQSpqcHAzm6Non
-	 0VXVfNNsi8ZsQ==
-Received: by mail-lj1-f174.google.com with SMTP id 38308e7fff4ca-3ab3b29a1d0so27019171fa.2
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 03:02:38 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzbg9AQBEekajBar+lS3xZTeJcpkuR5nuaCfYyVUa30itAjlR31T7bIi+oFuG4DGumQg+7g7FT112+zSw8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLrkr0IU0ZO5ciLEqAC1sxSwmdRIAW/x2TPBatewQd1hqcF31rn
-	QRFgm3Hcr8it4Q57yTDSJ2euem+aQWT/OryfwaripUAKx0k1DIC57sW1MuEx6wxvpUTz3y7Gr22
-	iv5Fxc7/4nkXT5stAzYe1dP1WltRQCqY=
-X-Received: by 2002:a2e:a99d:0:b0:3ab:48e6:6785 with SMTP id
- 38308e7fff4ca-3ac6fde8009mr25044611fa.27.1793095356530; Tue, 27 Oct 2026
- 03:02:36 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=UqkKt1xQ
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2e95bd1c14cso34933515ad.2
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 03:02:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793095362; x=1793700162; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kx3une51RST/V2RY3+/klMLxji5UgJfr3Zk+LcFLoTs=;
+        b=UqkKt1xQfUNMyUdLqOO4NqK3gqYAvB3AShLTMnUcsqoQCtKUYzBViEyuyiiVskDvTB
+         eUEN25HA4GqaQ9D529KkPaWr57j1veiif2v9GONo9enN/EeKegp38JFYL7ivDLB/Aus4
+         7nIrWRPCaYRsc+4O4zWwj7p6yc7pz45FtywPxwsgUd7LTk7t790SGE8/hOMX5RwrOlgY
+         +VFE/FVM8bpMO9DxIUkAmh1THWCgrLA3mYyfQ/Mff35OvEVafWR2r8v3z2zmxtVIwi9Q
+         yDgLk/mpXnZlx/B5Xghq8yzMKK7AmAeuatgNyfLCi/CXMpVNL65e3+0QmO8hNycEI5pt
+         XR9g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793095362; x=1793700162;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kx3une51RST/V2RY3+/klMLxji5UgJfr3Zk+LcFLoTs=;
+        b=myBnCen++sbCwuS+ZfIESNAeuT9Ex8kt27yC4mgd6tRG95D0hGjYwXzoUDwsXbql4z
+         2hja4dqZ+gpwS1ydBpCuKN59gaORQHqtBecWGH6Zuz/F61VQs1hlmLbG817KA7rNG2bF
+         +E6O4PPvuShxXi+jK1m9nD/i0b+XieEIVdF1x2dacjyqRkj3lFI8Ehte1Gebovw5ylv6
+         qWqo2gehYO42Y+a7J3tBrHPkLHzAr07+Nj5Ach9CGz/ibtKfFp70+xzj3WMPddVcNcIa
+         NnIJ2SmXrpATwHPVK95J4QuSjoK8ovlB6LLPtVXL6w7JX2SJhLQ3O3PnA79Yi771LLLF
+         b1gQ==
+X-Gm-Message-State: AFq9FYKvZet9R0U52ppWNTRjXa6Sr77ODwz7cYw6HHhmum5OcAjuZj4A
+	VklE/h9OqXT3Osz+314qqOm9oynepBoVUreOSd5UqXOUJQwtSaKqaooIJiMU1Q==
+X-Gm-Gg: AYBFou2lqh8aPEoKlIHwUrN2EmkjRaAAJtSKeAgpUnpsxYtQkXgW4HD8EUM4T3ktkj+
+	MRB5NpbD738qK7yekn0G1uHbKUWaNostB2wTaYcB4ROeNbmJ/fsZc52uq+3Up3HoDHI2SquPK6s
+	P5GU3mGzvZ9/4Oa1G3XTRVPujLGG2JxBRwmtZRjnTQNCREDJlP2xjAXaabqtuSphUErcaiiUbDt
+	3gudAhcED2opOqc4iVC4o0yohSTtIABd/nUWuk2scDmDJr0LiM3wp5H6ipp2SsFoy4obGHyE/Z8
+	Ywc4hRXSZF18qdlsDBvmgeCvvGs1LcWyd2JJq4AgV9Byst6XdeNneBQKKdIDutKZgHtifG6Kc/U
+	HI3I0IgMzQFDZELbuevlxUrfetMMMGVmEIqRLWrPs4HJCtAakjc1MoGHzBNE11nBn2bo0EICJK3
+	RRNCtNrnuKVM45CMiZa7xm+0hn6er/cetP4g7VTt4K6oMH0phAmY92B53u0V7sQl65JQjIP1r2r
+	xnrxztSrlXMZG0uSoUnztd0879DccJt3GR3ldhneI2mi47SdlgjtEp7qVD4QhMTsyhz2Ti3pyEr
+	yZkoqckutzVCP06lZmJOl0ItxukGL/s=
+X-Received: by 2002:a17:902:e5c3:b0:2e5:d33a:88da with SMTP id d9443c01a7336-2ea9c68c6fdmr88394985ad.16.1793095362449;
+        Tue, 27 Oct 2026 03:02:42 -0700 (PDT)
+Received: from localhost ([47.88.78.126])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae64564b5sm7074135ad.5.2026.10.27.03.02.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 03:02:41 -0700 (PDT)
+From: Lai Jiangshan <jiangshanlai@gmail.com>
+To: linux-kernel@vger.kernel.org
+Cc: Lai Jiangshan <jiangshan.ljs@antgroup.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Anshuman Khandual <anshuman.khandual@arm.com>,
+	Thomas Huth <thuth@redhat.com>,
+	linux-arm-kernel@lists.infradead.org
+Subject: [PATCH] arm64: mm: Stop using the previous ASID for init_mm
+Date: Tue, 27 Oct 2026 18:02:27 +0800
+Message-Id: <20261027100231.31184-1-jiangshanlai@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,88 +97,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261024-submit-h616-uart-fifo-v1-v3-0-286fc1b8c3c1@gmail.com>
- <20261024-submit-h616-uart-fifo-v1-v3-2-286fc1b8c3c1@gmail.com>
- <20261027-nifty-reliable-octopus-6cbac5@quoll> <CADvTj4qrBYSyT39=xK3_oGgHdFoSH=oyDvTtLCSzW=F9KAgi3Q@mail.gmail.com>
- <3287a7db-fbab-4b23-9ee0-d40c52fe855a@kernel.org>
-In-Reply-To: <3287a7db-fbab-4b23-9ee0-d40c52fe855a@kernel.org>
-Reply-To: wens@kernel.org
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Tue, 27 Oct 2026 18:02:24 +0800
-X-Gmail-Original-Message-ID: <CAGb2v64Qr-XCRdgi+RNS2XkKUn=F8zW+8WUKaauM2PjzL2XgWg@mail.gmail.com>
-X-Gm-Features: AclHuK-r-0qVcGxijtfK3XLHMgbsvhgpkiCG_8sJWoMVAePUb1PQB2bHv8-O4VU
-Message-ID: <CAGb2v64Qr-XCRdgi+RNS2XkKUn=F8zW+8WUKaauM2PjzL2XgWg@mail.gmail.com>
-Subject: Re: [PATCH v3 2/4] dt-bindings: serial: snps-dw-apb-uart: add
- Allwinner H616
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: James Hilliard <james.hilliard1@gmail.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
-	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-sunxi@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 27, 2026 at 5:56=E2=80=AFPM Krzysztof Kozlowski <krzk@kernel.or=
-g> wrote:
->
-> On 27/10/2026 10:39, James Hilliard wrote:
-> > On Tue, Oct 27, 2026 at 2:02=E2=80=AFAM Krzysztof Kozlowski <krzk@kerne=
-l.org> wrote:
-> >>
-> >> On Sat, Oct 24, 2026 at 02:22:24PM -0600, James Hilliard wrote:
-> >>> The H616 UART has 256-byte transmit and receive FIFOs, but its Design=
-Ware
-> >>> component parameter register does not report the FIFO depth. Its opti=
-onal
-> >>> register layout also differs from the generic DesignWare integration.
-> >>>
-> >>> Add a specific compatible for the integration and allow the standard
-> >>> fifo-size property to describe the capacity. Require the documented
-> >>> 256-byte size for H616, retaining snps,dw-apb-uart as a fallback.
-> >>>
-> >>> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
-> >>> ---
-> >>>  .../devicetree/bindings/serial/snps-dw-apb-uart.yaml    | 17 +++++++=
-++++++++++
-> >>>  1 file changed, 17 insertions(+)
-> >>>
-> >>> diff --git a/Documentation/devicetree/bindings/serial/snps-dw-apb-uar=
-t.yaml b/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
-> >>> index e2ca126d58ba..0f8fd0485879 100644
-> >>> --- a/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
-> >>> +++ b/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
-> >>> @@ -13,6 +13,18 @@ allOf:
-> >>>    - $ref: serial.yaml#
-> >>>    - $ref: rs485.yaml#
-> >>>
-> >>> +  - if:
-> >>> +      properties:
-> >>> +        compatible:
-> >>> +          contains:
-> >>> +            const: allwinner,sun50i-h616-uart
-> >>> +    then:
-> >>> +      properties:
-> >>> +        fifo-size:
-> >>> +          const: 256
-> >>> +      required:
-> >>> +        - fifo-size
-> >>
-> >> Why do you require fifo-size if is const? It is implied by the
-> >> compatible.
-> >
-> > H616 has a fixed depth, but other sunxi integrations have different
-> > depths between UART instances. For example, D1 has 64-byte FIFOs on
-> > UART0 and 256-byte FIFOs on UART1=E2=80=935.
-> >
-> > Should I keep this explicit for consistency for all sunxi uarts?
->
-> I am confused, there are no other instances here.
+From: Lai Jiangshan <jiangshan.ljs@antgroup.com>
 
-I think the point is that it is going to be needed in the future when
-we add the compatibles for the SoCs that do have UARTs with different
-FIFO sizes.
+Switching to init_mm should prevent further accesses through the
+previous address space's translations.
+
+Commit e53f21bce4d3 ("arm64: Use the reserved TTBR0 if context switching
+to the init_mm") avoided installing init_mm.pgd as a user page table.
+At the time, the ASID was held in TTBR0, so installing the reserved
+TTBR0 also switched to ASID 0.
+
+Since commit 7655abb95386 ("arm64: mm: Move ASID from TTBR0 to TTBR1"),
+installing the reserved TTBR0 no longer changes the active ASID.
+Consequently, switching to init_mm leaves the CPU using the previous
+address space's ASID. An empty page table does not prevent TLB hits
+for that ASID.
+
+This can retain access beyond the lifetime of the backing pages.
+During fullmm teardown, user data pages can be freed before their
+cached translations are invalidated. If those pages are subsequently
+reused for kernel data, an erroneous uaccess that hits a surviving
+translation can read or corrupt that data instead of faulting.
+
+Fixes: 7655abb95386 ("arm64: mm: Move ASID from TTBR0 to TTBR1")
+Signed-off-by: Lai Jiangshan <jiangshan.ljs@antgroup.com>
+
+diff --git a/arch/arm64/include/asm/mmu_context.h b/arch/arm64/include/asm/mmu_context.h
+index 803b68758152..7e56099c5fbb 100644
+--- a/arch/arm64/include/asm/mmu_context.h
++++ b/arch/arm64/include/asm/mmu_context.h
+@@ -235,15 +235,6 @@ enter_lazy_tlb(struct mm_struct *mm, struct task_struct *tsk)
+ 
+ static inline void __switch_mm(struct mm_struct *next)
+ {
+-	/*
+-	 * init_mm.pgd does not contain any user mappings and it is always
+-	 * active for kernel addresses in TTBR1. Just set the reserved TTBR0.
+-	 */
+-	if (next == &init_mm) {
+-		cpu_set_reserved_ttbr0();
+-		return;
+-	}
+-
+ 	check_and_switch_context(next);
+ }
+ 
+diff --git a/arch/arm64/mm/context.c b/arch/arm64/mm/context.c
+index 0f4a28b87469..a96ebe904dd7 100644
+--- a/arch/arm64/mm/context.c
++++ b/arch/arm64/mm/context.c
+@@ -218,6 +218,16 @@ void check_and_switch_context(struct mm_struct *mm)
+ 	unsigned int cpu;
+ 	u64 asid, old_active_asid;
+ 
++	/*
++	 * init_mm.pgd contains kernel mappings, so use the reserved page
++	 * tables for TTBR0 and switch TTBR1 to ASID 0. Leave active_asids
++	 * unchanged to preserve the ASID rollover bookkeeping.
++	 */
++	if (mm == &init_mm) {
++		cpu_do_switch_mm(__pa_symbol(reserved_pg_dir), mm);
++		return;
++	}
++
+ 	if (system_supports_cnp())
+ 		cpu_set_reserved_ttbr0();
+ 
+-- 
+2.39.5 (Apple Git-154)
+
