@@ -1,75 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793066182;
-	b=3BCsH6CRe+Z95By0EvSWIIo3iu2oMplEQpNjLSG02kZmhu1PUTY6AIns7HCBJ0taL1KG
-	 rGN8mdGo9sd9FdNUQrbF5WC72207uBCA8YVG1Ywp6CVy+NyCFwF97b9Lo4zQ/yAUw5Vju
-	 GPvpVG9tjqZgAdf3vVaIu5QSpEPsReBwTWBwVGUkjkIv60c4Svt4whVY7uTgiL6r1wN19
-	 iJ01LtNX96ZrDlqEhwMHvm58bDlNz64ER9g52Ob4wKCRw3Q3TcVhyY65lcKsmC9T/cPqz
-	 tYorU0vG/UJBsE9ag0c0aljsDf6S+yX6JBNLMJObHSNJh4Y6xuZvO+3yizgszyMDBLA==
+	t=1793066184;
+	b=nUIgDn9uHwX1g+B8LkDq3WC7YRURC5NQBk1Q84HYaLRe2W6qy4JGjSk1rx+QmcWqMcle
+	 4R4CdEjaiQaUTtlxulVxZMC86wHIRu+eLeZKnlJujCyZ3WRLQeNXEZE5087F+g3AIU6fC
+	 xZRgH590+jwz9iKeAqup6lvFd6oxpuqTR7dN29agFEpi5plmTFW1uTpnMMhOexM1lRyMs
+	 05FrxTxrSkEvArclMRyBk2Qvk0j4ffthkywd4zfWEBSLcIa3prT7CVg6B61Mm/vm7ZMnb
+	 lsA9q6ViRuJ4XHjTTGBSXaeaQcdVeY1VHGU8p7Iu1Wj8xkIamCgmyOzp4QUViqMYfNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793066182;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793066184;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=MCpoMADTiJxwsfzWeJ5DnI4OECVzlunkx5qHILlDWuM=;
-	b=MlMZyU9FJcxHFxU6hhD+o05PwKOwV05iLB7D5VYPZDgpdOE247M5GSqiTYPz45qduH/0
-	 gRRpCmZDkesMXF+ldG/sJ43VMdtU8vOxigK9Ju5ia+wjV1Yr4p1kLgTwscOyJy1NqKA2C
-	 3wxu75MZDx7nc3tbKJin1+gpyIdr2UuzaxRBNqR9WIU1AxpUoRyooH47hNk9Vwg+RyPdG
-	 Gk1Rl6T12YpUyUE86Fam7KwuKXVJv/Mfmr7Q2V6YeUH8CLCVRwJvYSsA3cwfqJSiddXsX
-	 SaEUnN6CxdzxVdzzx7oozfmbz/jvirmxB5BxsOj9cP2zStjaHKndSbVkuRkUTDscXxA==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=MnnFd0HiOos9iEFulqxTt8hlW096T7H13qBtT/3EgOM=;
+	b=02xnJphMH5PhuQRLynev3CGF4Q0GDm2M8d+Qy5sSG+PJKaxinL+7LjU2IjQNdkvmjUKy
+	 LijNqlPqoM/5+ZSXS9/iK7umL/fBkBjyGSEhLr9AnstsaRjT6iCzN4hrmN/ZnjtCnkBhI
+	 uA2g1kJjWldRHSxq/OZRZAjW4zZUyByxC8ljQW3gzi77al3MBkjhlu7I+bqhulF7oqOd/
+	 XiWXchBoZQf9mliE8T7Z1rqzvAme1WoSwp+gd2hCIPtbY7FT2qY940/fMfEuk/F4zEW2v
+	 4ZGh+soMjokbmyAAipgUDQfCe1oJxce5e6CxxGCnn2twJ8+BSlosAzYOgATOp04IZLw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--starchang.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=BguTVFsk;
-	arc=none smtp.remote-ip=209.85.210.197
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=L4Xjp2bU;
+	arc=none smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DB9D606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 01:56:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DB9D606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--starchang.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A581D606A327
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 01:56:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A581D606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=BguTVFsk
-Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-8a01e2962a1so3957188b3a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 18:56:22 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=L4Xjp2bU
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a35a60499eso22451475e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 18:56:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1793066182; x=1793670982; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MCpoMADTiJxwsfzWeJ5DnI4OECVzlunkx5qHILlDWuM=;
-        b=BguTVFskdSIL9vCzO1RUA1N5HmeJ3VX+oeLNpcvFFK/FZOk0GtGq1AlPc9F4nTFp5s
-         ibTUgCov43I13ulgv2inBDB9RQq626NvfmHMtWkLcHfbNHtnmDca/UiNZ2Gk8yb8FGG7
-         zhgz6l2YZvk1KjiwOnEfOF/XUtEtdl+1DnIqcq2V/PlSI8uMRC5UiTFMiuhhnyV1nVlP
-         O9xvNdPHZ0ElVs+XH6u22G87T0r2d7TcycVQQCHW1vMqqpikE94D5GRtiUZVBc3e5fC7
-         L/m22D/FNOVnnICZzCYrAvvp+7/49r1tOBu54CnhelAybLtY5LaN1jrzfDfXjWeiqr3T
-         0yeA==
+        d=gmail.com; s=20251104; t=1793066182; x=1793670982; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=MnnFd0HiOos9iEFulqxTt8hlW096T7H13qBtT/3EgOM=;
+        b=L4Xjp2bUi6Z2Hn2iyaUyCKq0owzFblRHRlb1uxHl27WGlXGOY8cgV0jeqv0OgOZJvF
+         WUCq/alzOaHo2u4ny3Rg0dnNs4F9aHQoIPV6rfvCltHv833G99RPV+/+Cw90K6JD2snW
+         8pH3XJzs5UCmqjZK6n87jWdBY9yS1qePPg5hQS7LHaj1dswhponmJukus10jrzHRx7Vw
+         TJi+v3Vn4wN3gUMlS9MXSonh4UsYoLrirwhruy8ujri03PoSt1zwUHOBtctsdH5wcs+j
+         F2Xoi7Q605GHI1zFmygQ8byYDObK16P5rmUK0U/HeLtBE/4abQUzByldDzJxnGP6HGmT
+         Sqgg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1793066182; x=1793670982;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MCpoMADTiJxwsfzWeJ5DnI4OECVzlunkx5qHILlDWuM=;
-        b=m3R016FPAJSuVuQj+H0Rljt91HLjDWJk1CyGbfa78FNAASXSHNGNHp4bZHbSpXEyVI
-         T1AuJGdKl2maxTCM2d/xfroZ6aPBbApIrWX38wB/a1MAsqJyFeya9QO22vphnicXGHXX
-         kklmR8WSYd3DxNHZQiRm89MLQTq1fOEgWgdiyRyJPysQyUuhI+TZ2BS5zXYmq/Id8PVr
-         vV5gQ/u2b1iE2b+1FmesPQ5T/yZhUP7CXuJXZaTJfxxdJ2f/UIErpKofJf76SrFlLu/N
-         cS3C9JuEkdTGWP3tyqhrfdedlOrQpjmNmsL6PmFvx5mz+Wtz/OZcEGZ4haLnhtJoniEO
-         gS7w==
-X-Forwarded-Encrypted: i=1; AKwUvBxxuE57tqJkLjDIQdaH+jW40YmuR2hMVnLMlayCsSMUZ5f5+z5+5bJ9zlsYINpO0rzni00aMa3YIMwjtbk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIZSRhlHLb/eby3/OIby1Ehsxu79RMOo/HkbNGgzsQAynYvwrra
-	iRC6vtDHIzUwWhAzVpCfrNdUMsUwLA5iRMwSs6G0vJz1cUiHVOs1aAdUogGORtkK3YABvayY/6z
-	oxPKsS9Tdcv5PgIhDXw==
-X-Received: from pgx30.prod.google.com ([2002:a63:175e:0:b0:cc7:492f:3ac1])
- (user=starchang job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a21:4d91:b0:3e2:3392:5419 with SMTP id adf61e73a8af0-3e7bfd08881mr6040861637.56.1793066181484;
- Mon, 26 Oct 2026 18:56:21 -0700 (PDT)
-Date: Tue, 27 Oct 2026 01:56:19 +0000
-In-Reply-To: <20261026150539.1357037-1-starchang@google.com>
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=MnnFd0HiOos9iEFulqxTt8hlW096T7H13qBtT/3EgOM=;
+        b=KhKw0K98tRrCsKGkc2kLVqmx1D479dlaP81fwqtxNnDS660bXeOWZdtaRSqK5hk5b5
+         7OVA8O61aYILySExTli6elbBVLTao6Al2BbXoGBagdSAtd+4OtaJBHg3pxq/xppkQkWp
+         1zSiqH76RVMnb0I3j8IvcCT3H9PdjVZTniMS0nHznrZsBGNtB5Bttlrn4VOCgWqtE4Iy
+         hLKZuuG5HM9GdLWMjiJ9VgJNwu5WrFJXDFBaVmrbc3V1+ZrCQxvdcsBmuj1slo7lFt9v
+         gtm5UBCtIww2nTIwh5XFnbXDTsnjLQHlNatTjJ5feGxt/C0rgo5c8/ZiwOT2ZVCNW9ge
+         /JsQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwPOkhU5R1qp27Tf5CxPKxS7b1YXS4OY+K5HMVZlZ/aW1pBP93mwgtFO4HT2NhiZ4NGlEDgQy5BcI+0KeU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLvf/A50H4J68g77ATmewS+de5svdGEory4mUjJJ0pAulxTHYYU
+	jGTPkS8LRPiu0jfObcvZTlaVExbtgz++DmIFnGSMqXKRfs44uJFNKwbQ
+X-Gm-Gg: AYBFou3W+xtOVbhggIFruOtwE1FzJqCk1bPh/qDYm91HpQtcCK3k9yrkHZVA9hO1UQj
+	KkDmtI/sF3muksVAZ5eL6T8sWvl0nx4STGN+HONaHnbFnNw3MH/2yK4/oKKqOYuLfZExsMr6H+y
+	mSOCLfKNN79lIyWEA+JFTkFYabQp2gVYm6AANsi+2UzzayTwrvIgaSk0e7dBILUDI2byyQds8Pq
+	ap7fwdcEeFqg+cCu++FB1mYbczZPJWfmJ622jDo2dYylPf6X1nEBQZ1keQ8o6/jR8Tm1PLGvNgO
+	r0c6v90kzJx6L8H+k0PqWgw0l02meXzvZtGa53779HgTwT2FKZeKMhSrnp0LTKOYpXOR0uOKUKA
+	T3OvzZ3TIQgfxPdVaHFE0fxgzKtlOMI63zAV8/fDa/DALHJV6/SmjgjzhRT8Ln8imaWc4wJENnV
+	u+g+5XEhQL/hLZeh7XjcIj7jcdFh9OrOK1Jw8mudCTV6six0HpRFIXVK1SGjEHLN2dZ3rIC24Qx
+	0LYw5JMcJ4o8iUEjNf+ra/VFkmoKRcXiKMGXlMam9l0DWoEGXYIImmd5n/k+9hfuWihPXIF3PIG
+	Qq4zytZ+bVGnKLJ8au1wievefAbNf8Hi7QPNCT8=
+X-Received: by 2002:a05:600c:3493:b0:4a2:a6e:80f5 with SMTP id 5b1f17b1804b1-4a35ac9d0e8mr157003625e9.11.1793066181977;
+        Mon, 26 Oct 2026 18:56:21 -0700 (PDT)
+Received: from [127.0.0.1] (smal-20-b2-v4wan-173097-cust1152.vm20.cable.virginm.net. [77.97.36.129])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a0aa0bcsm289674855e9.4.2026.10.26.18.56.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 18:56:21 -0700 (PDT)
+From: Filippo Falezza <effeffe99@gmail.com>
+Date: Tue, 27 Oct 2026 01:56:20 +0000
+Subject: [PATCH v2] wifi: ath10k: Stop unanswered temperature reads
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,169 +90,149 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261026150539.1357037-1-starchang@google.com>
-X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
-Message-ID: <20261027015619.1745984-1-starchang@google.com>
-Subject: [PATCH net v4] net: Fix Hole-196 vulnerability by dropping unicast
- ARP/IP in L2 BMC
-From: Star Chang <starchang@google.com>
-To: netdev@vger.kernel.org
-Cc: dsahern@kernel.org, idosch@nvidia.com, davem@davemloft.net, 
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
-	ja@ssi.bg, johannes@sipsolutions.net, johannes.berg@intel.com, 
-	linux-kernel@vger.kernel.org, starchang@google.com
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261027-ath10k-temperature-v2-1-0793e80d73bc@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22Nyw6CMBBFf4XM2hpmEmp05X8YFqWdwqg80haiI
+ fy7gHHn8iT3njND5CAc4ZLNEHiSKH23Ah0ysI3palbiVgbKSWNOpExqMH+oxO3AwaQxsCKqEM/
+ eaSwsrMchsJfXLr2VX45jdWebNtO2aCSmPrz36oTb7hfQ/wITKlRcWKe945NHvtatkefR9i2Uy
+ 7J8AA8VZLrGAAAA
+X-Change-ID: 20261022-ath10k-temperature-22b119fd615c
+To: Jeff Johnson <jjohnson@kernel.org>
+Cc: Kalle Valo <kvalo@kernel.org>, 
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+ linux-wireless@vger.kernel.org, ath10k@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Filippo Falezza <effeffe99@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793066181; l=5040;
+ i=effeffe99@gmail.com; s=20261022; h=from:subject:message-id;
+ bh=hPT1uLYKS1NCl1gE+0KTb0caCJTisLRSF4QlmjovWDo=;
+ b=arFxWloT1KfTE4e0x+lGRO5qlJLn0ARuEMY64ZknvHDszn8Xy8kOYVZAHm1Cgtr653nxjz884
+ zoKgmBHgwCfDwO1fIStfYwxaWWLtKPw2AbJI/FKIxupmBYpRgxcq1Yu
+X-Developer-Key: i=effeffe99@gmail.com; a=ed25519;
+ pk=7PPwl4QILojrh+ATB5QOpvXVmmoxaxyLQhrLRLWEL0I=
 
-Wi-Fi 802.11 to 802.3 frame translation allows attackers to inject
-unicast L3 packets or ARP payloads inside GTK-encrypted L2 broadcast
-and multicast (BMC) frames (the "Hole-196" vulnerability).
+Reading the ath10k hwmon temperature sends WMI_PDEV_GET_TEMPERATURE and
+waits up to 5 s (ATH10K_THERMAL_SYNC_TIMEOUT_HZ) for the reply event,
+holding conf_mutex. Not all firmware answers: the WCN3990 firmware
+WLAN.HL.3.3.1-00694-QCAHLSWMTPLZ-1 on a Motorola Moto G 5G Plus
+codename nairo (SM7250) never sends the event, so every read of
+temp1_input stalls for 5 s, logs
 
-While the `drop_unicast_in_l2_multicast` sysctl was introduced to drop
-unicast IPv4/IPv6 packets received over L2 BMC, it had several gaps:
+  ath10k_snoc 18800000.wifi: failed to synchronize thermal read
 
-1. ARP packets were not checked in `net/ipv4/arp.c`, allowing attackers
-   to perform ARP poisoning via L2 BMC frames (`group-arp-unicast`).
-2. Enforcement lacked DHCP client (UDP port 68) exemption, which could
-   discard legitimate DHCP server responses sent via L2 broadcast.
-3. Dropped packets were silently discarded without warnings or MIB stats.
+and returns -ETIMEDOUT. Tools that read all hwmon sensors, such as
+lm-sensors, hang for 5 s on every run, and configuration changes of the
+interface wait for conf_mutex in the meantime.
 
-The issue was identified via manual code inspection and protocol security
-analysis of cross-station frame injection in 802.11 shared-key (GTK)
-networks. In laboratory testing, crafted 802.11 broadcast frames containing
-unicast ARP payloads (e.g. ARPOP_REQUEST / ARPOP_REPLY with tha set to a
-victim's unicast MAC) bypassed the existing sysctl, poisoning the victim's
-ARP cache. Furthermore, per RFC 2131 inspection, unconditionally dropping
-L2 broadcast frames carrying unicast IP addresses discards standard DHCP
-server responses (DHCPOFFER/DHCPACK) destined for UDP port 68 during lease
-negotiation.
+Whether the firmware answers cannot be told from the chip: firmware that
+answers and firmware that does not both advertise
+WMI_SERVICE_THERM_THROT, and WCN3990 firmware differs between devices.
+Instead, remember that the running firmware did not answer, and return
+-EOPNOTSUPP right away on later reads. Forget it when the firmware
+starts, so that a restarted or updated firmware is asked again.
 
-Enhance `drop_unicast_in_l2_multicast` sysctl enforcement:
-- Extend sysctl checks to `net/ipv4/arp.c` (`arp_process()`) to drop
-  unsolicited ARP Replies and ARP Requests with a non-zero unicast
-  Target Hardware Address (tha) received over L2 BMC.
-- Exempt Gratuitous ARP (GARP) and RFC 5227 Address Announcements
-  (`sip == tip`) from L2 BMC unicast drop logic so they defer to the
-  `DROP_GRATUITOUS_ARP` sysctl, preserving VRRP/HSRP router failover.
-- Exempt non-fragmented DHCP client traffic (UDP dest port 68) in
-  `net/ipv4/ip_input.c` and safely reload `ip_hdr(skb)` after
-  `pskb_may_pull()` to prevent dangling pointer access.
-- Log rate-limited warnings (`net_warn_ratelimited`) and increment MIB
-  error counters (`IPSTATS_MIB_INHDRERRORS`) for dropped frames.
+The first read after each firmware start still takes 5 s when the
+firmware does not answer. Reads on firmware that answers are unchanged.
 
-Fixes: 12b74dfadb5a ("ipv4: add option to drop unicast encapsulated in L2 multicast")
-Fixes: abbc30436d39 ("ipv6: add option to drop unicast encapsulated in L2 multicast")
-Signed-off-by: Star Chang <starchang@google.com>
+This change was written with the help of an AI coding assistant; see
+the notes below.
+
+Fixes: e98199a8c27f ("ath10k: enable QCA6174/QCA9377 to read the chip temperature")
+Signed-off-by: Filippo Falezza <effeffe99@gmail.com>
 ---
-v3 -> v4:
-  - Fix broken newline syntax in net_warn_ratelimited() string literal
-    in net/ipv4/ip_input.c that caused build failures across 32-bit,
-    allmodconfig, and clang CI builds.
-  - CC Julian Anastasov (ja@ssi.bg) per netdev-bot blamed author check.
-v2 -> v3:
-  - Add Fixes: tags for commits 12b74dfadb5a and abbc30436d39.
-  - Reformat lines in net/ipv4/ip_input.c to adhere strictly to the 80-column limit.
-  - CC maintainers Ido Schimmel and Simon Horman per netdev bot check.
-v1 -> v2:
-  - Clarified discovery method and triggering context per netdev-bot feedback.
+Hello there,
 
-diff --git a/net/ipv4/arp.c b/net/ipv4/arp.c
-index d409f606aec0..ad23db2e2f59 100644
---- a/net/ipv4/arp.c
-+++ b/net/ipv4/arp.c
-@@ -791,6 +791,35 @@ static int arp_process(struct net *net, struct sock *sk, struct sk_buff *skb)
- 	    (!IN_DEV_ROUTE_LOCALNET(in_dev) && ipv4_is_loopback(tip)))
- 		goto out_free_skb;
+this is v2 of the fix for ath10k temperature reads that stall for 5 s
+on firmware that never answers the request, as on the WCN3990 firmware
+of a Motorola Moto G 5G Plus (SM7250).
+
+The only change from v1 is the name of the flag: it is now
+ath10k_thermal.broken, as Loic suggested, instead of
+temperature_unanswered. The behaviour is the same, so the testing from
+v1 still applies: on the phone, the first read after the firmware
+starts times out once after 5 s, every later read returns -EOPNOTSUPP
+within milliseconds, and a full `sensors` run takes 25 ms instead of
+5 s or more. Restarting Wi-Fi makes the driver ask the firmware again.
+I have not tested firmware that answers the request.
+
+v2 builds with W=1 for arm64 and is checkpatch --strict clean, on top
+of ath-next (cd026e68fdbf).
+
+As with v1, I wrote this with the help of an AI coding assistant
+(Claude Code); the testing is on the phone.
+
+Thanks,
+Filippo
+---
+Changes in v2:
+- Rename temperature_unanswered to broken, as suggested by Loic Poulain.
+- Link to v1: https://patch.msgid.link/20261026-ath10k-temperature-v1-1-e5cd6fde7f1e@gmail.com
+---
+ drivers/net/wireless/ath/ath10k/core.c    | 1 +
+ drivers/net/wireless/ath/ath10k/thermal.c | 9 ++++++++-
+ drivers/net/wireless/ath/ath10k/thermal.h | 2 ++
+ 3 files changed, 11 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/net/wireless/ath/ath10k/core.c b/drivers/net/wireless/ath/ath10k/core.c
+index 7c2939cbde5f..a749ae582b0a 100644
+--- a/drivers/net/wireless/ath/ath10k/core.c
++++ b/drivers/net/wireless/ath/ath10k/core.c
+@@ -2985,6 +2985,7 @@ int ath10k_core_start(struct ath10k *ar, enum ath10k_firmware_mode mode,
+ 	clear_bit(ATH10K_FLAG_CRASH_FLUSH, &ar->dev_flags);
  
-+/*
-+ * Hole-196 defense for ARP:
-+ * If drop_unicast_in_l2_multicast sysctl is enabled on this interface,
-+ * drop ARP Replies in L2 BMC frames, and ARP Requests in L2 BMC frames
-+ * that specify a non-zero unicast Target Hardware Address (tha).
-+ *
-+ * Legitimate Gratuitous ARP (GARP) and RFC 5227 Address Announcements
-+ * require (sip == tip) and tha matching sha (tha == sha). Only valid
-+ * GARP frames are exempted so they defer to DROP_GRATUITOUS_ARP below.
-+ */
-+	if ((skb->pkt_type == PACKET_BROADCAST ||
-+	     skb->pkt_type == PACKET_MULTICAST) &&
-+	    IN_DEV_ORCONF(in_dev, DROP_UNICAST_IN_L2_MULTICAST)) {
-+		bool is_valid_garp = (sip == tip) && tha &&
-+				     !memcmp(tha, sha, dev->addr_len);
-+
-+		if (arp->ar_op == htons(ARPOP_REPLY) && !is_valid_garp) {
-+			net_warn_ratelimited("Drop ARP Reply in L2 BMC on %s\n",
-+					     dev->name);
-+			goto out_free_skb;
-+		}
-+		if (dev->addr_len == ETH_ALEN && tha &&
-+		    is_valid_ether_addr(tha) && !is_valid_garp) {
-+			net_warn_ratelimited("Drop unicast THA ARP Req in L2 BMC on %s\n",
-+					     dev->name);
-+			goto out_free_skb;
-+		}
+ 	ar->running_fw = fw;
++	ar->thermal.broken = false;
+ 
+ 	if (!test_bit(ATH10K_FW_FEATURE_NON_BMI,
+ 		      ar->running_fw->fw_file.fw_features)) {
+diff --git a/drivers/net/wireless/ath/ath10k/thermal.c b/drivers/net/wireless/ath/ath10k/thermal.c
+index 9bb486f8e920..9ff7de0abd12 100644
+--- a/drivers/net/wireless/ath/ath10k/thermal.c
++++ b/drivers/net/wireless/ath/ath10k/thermal.c
+@@ -75,6 +75,12 @@ static ssize_t ath10k_thermal_show_temp(struct device *dev,
+ 		goto out;
+ 	}
+ 
++	/* Don't stall every read on firmware that never answers */
++	if (ar->thermal.broken) {
++		ret = -EOPNOTSUPP;
++		goto out;
 +	}
 +
-  /*
-   *	For some 802.11 wireless deployments (and possibly other networks),
-   *	there will be an ARP proxy and gratuitous ARP frames are attacks
-diff --git a/net/ipv4/ip_input.c b/net/ipv4/ip_input.c
-index 9860178752b8..7d6d3e72e557 100644
---- a/net/ipv4/ip_input.c
-+++ b/net/ipv4/ip_input.c
-@@ -456,10 +456,37 @@ static int ip_rcv_finish_core(struct net *net,
- 		 * this is 802.11 protecting against cross-station spoofing (the
- 		 * so-called "hole-196" attack) so do it for both.
- 		 */
-+		/* Hole-196 defense:
-+		 * Drop unicast IP packets received over L2 BMC frames.
-+		 * Exempt DHCP client responses (UDP port 68).
-+		 */
- 		if (in_dev &&
- 		    IN_DEV_ORCONF(in_dev, DROP_UNICAST_IN_L2_MULTICAST)) {
--			drop_reason = SKB_DROP_REASON_UNICAST_IN_L2_MULTICAST;
--			goto drop;
-+			bool is_dhcp_resp = false;
-+
-+			iph = ip_hdr(skb);
-+			if (iph->protocol == IPPROTO_UDP &&
-+			    !ip_is_fragment(iph) &&
-+			    pskb_may_pull(skb, iph->ihl * 4 +
-+					       sizeof(struct udphdr))) {
-+				const struct udphdr *uh;
-+
-+				iph = ip_hdr(skb);
-+				uh = (const struct udphdr *)
-+					(skb_network_header(skb) +
-+					 iph->ihl * 4);
-+				if (uh->dest == htons(68))
-+					is_dhcp_resp = true;
-+			}
-+
-+			if (!is_dhcp_resp) {
-+				net_warn_ratelimited("Drop unicast IP %pI4 in L2 BMC on %s\n",
-+						     &iph->daddr, dev->name);
-+				__IP_INC_STATS(net, IPSTATS_MIB_INHDRERRORS);
-+				drop_reason =
-+					SKB_DROP_REASON_UNICAST_IN_L2_MULTICAST;
-+				goto drop;
-+			}
- 		}
+ 	reinit_completion(&ar->thermal.wmi_sync);
+ 	ret = ath10k_wmi_pdev_get_temperature(ar);
+ 	if (ret) {
+@@ -90,7 +96,8 @@ static ssize_t ath10k_thermal_show_temp(struct device *dev,
+ 	time_left = wait_for_completion_timeout(&ar->thermal.wmi_sync,
+ 						ATH10K_THERMAL_SYNC_TIMEOUT_HZ);
+ 	if (!time_left) {
+-		ath10k_warn(ar, "failed to synchronize thermal read\n");
++		ath10k_warn(ar, "failed to synchronize thermal read, not asking again until the firmware restarts\n");
++		ar->thermal.broken = true;
+ 		ret = -ETIMEDOUT;
+ 		goto out;
  	}
- 
-diff --git a/net/ipv6/ip6_input.c b/net/ipv6/ip6_input.c
-index 8972863c93ee..caf9811f6352 100644
---- a/net/ipv6/ip6_input.c
-+++ b/net/ipv6/ip6_input.c
-@@ -278,6 +278,8 @@ static struct sk_buff *ip6_rcv_core(struct sk_buff *skb, struct net_device *dev,
- 	    (skb->pkt_type == PACKET_BROADCAST ||
- 	     skb->pkt_type == PACKET_MULTICAST) &&
- 	    READ_ONCE(idev->cnf.drop_unicast_in_l2_multicast)) {
-+		net_warn_ratelimited("IPv6: Drop unicast IP %pI6c in L2 BMC on %s\n",
-+				     &hdr->daddr, dev->name);
- 		SKB_DR_SET(reason, UNICAST_IN_L2_MULTICAST);
- 		goto err;
- 	}
+diff --git a/drivers/net/wireless/ath/ath10k/thermal.h b/drivers/net/wireless/ath/ath10k/thermal.h
+index 1f4de9fbf2b3..d1fb5b958c37 100644
+--- a/drivers/net/wireless/ath/ath10k/thermal.h
++++ b/drivers/net/wireless/ath/ath10k/thermal.h
+@@ -19,6 +19,8 @@ struct ath10k_thermal {
+ 	/* protected by conf_mutex */
+ 	u32 throttle_state;
+ 	u32 quiet_period;
++	/* the running firmware did not answer a temperature request */
++	bool broken;
+ 	/* temperature value in Celsius degree
+ 	 * protected by data_lock
+ 	 */
 
--- 
-2.43.0
+---
+base-commit: cd026e68fdbf88b9cc522b76c7a9d92c9a41f709
+change-id: 20261022-ath10k-temperature-22b119fd615c
+
+Best regards,
+--  
+Filippo Falezza <effeffe99@gmail.com>
+
