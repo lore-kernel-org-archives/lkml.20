@@ -1,77 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.171.160.6
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793072142;
-	b=xl/OS3f9Thdvt5ZbA8zDwaGhE/1DqBCPgNnYi+I6TdTw8QIZirw+E3o+0wcxBEaP15se
-	 FGhFxGSIUUvfnUuOHX4yfSA3nfoGjZVtS0C5bDTOUwoSBIwqofdIOW2jtQ+hzMkFjTMxj
-	 BiUXISU9KQatxaU9hR8sOjTbyHKA9Ah0qXeafLM/83ddXw7iioIMfUCGS4gksICNUN+AD
-	 SEteS6fw4munbvZcaIAmwZJvQPymmt3nmEL+AUZd/k3vdSyTwtov//gwQtom/etENG9h9
-	 u6mNdMEBlZvE+lklzGRaTtBbVqRuaF3rAHabT68pjf28HzRPzaBYdxjOjJJu67rlNbQ==
+	t=1793072208;
+	b=OULC8yGMlVZ5E5pHuI9Yfx8khIKqgxNuP8b3elaA6Yg8ThghCsyF2fvSkqMgo/ApOirS
+	 wDiTVFeGPORVzp4Mh+9AcnLRm6onh6Evke2TLif6TLw7jKBxTmyggb4OZR6OH9tvMn1LK
+	 UEs3WU3hng6MKAFI2c8sPYPfseSCpXkx4tQoZ7//HOjrZ96kI/PA4j9QIzr6wXklDIFxu
+	 h4BD9Jsvat8SjVl4SxBC3Yzwo1P7LNuLCvTLP8sARLHrHxWKnde/LecGac4Pxtpwa/Dsj
+	 fBr4Ah9oiVxFjm2VlxFBG5MfEgcQMH9eBWtfnEOorQWJWEetsUtoWxj51sL3TFFu72g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793072142;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
-	 Received:From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 User-Agent:MIME-Version:Content-Type;
-	bh=tvYV4llUeul3tyzCuFCTWNoZ4MPP4Sa+bqacHF411BE=;
-	b=t1yahiAs0UwWOvWhFhnDYvlN4xfNhtjG7FIYc4LyAFpa8oQnO/n+31Awe0/h71X/JZpD
-	 OFo0gAH0V2a1tzf8+tbPPn4sGVjPk2DzyxXpHYWjc7QBoZ3WsQDthT+8hT80rbbbtpXSP
-	 YW/26JhlOVVAlI9hstBttYI+iSqF1D6UWKa/10ez2o/9++SILNgmH6gRl66CFgvzVxO/J
-	 V/C+KEk33lLZ9nM+VLOwZclbnKGUxwZZOkt9W6RNBf8/Tck0PKpp5O/zTQrU+DmoB7FEB
-	 h+pdrt93UL7443ow2kkwFcHzS3YatvXcz/6APWb6ALmVqyL+sHnMBkXlAAYBeISPHiQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793072208;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=6c7PKsG38+tOfTfvUEgpG6Qz3gpdcpa+17ieiPJrhz0=;
+	b=K2dJTgwln1oLqw4dP6zmFGdwPK73SwGXhZabksqjRv2TFyikIIYgvUc4TnFx4GsD35sg
+	 Qdj7vTyzwb4+GL3Q4exHB8HujOp7SJv0AFgPcl+7hqducJezse4/ai4HdttfM9+VVslzB
+	 I5sHu3WV3QWQr++YjgCdGhWx+M1H8MTW9oTtskLrSkErZ8K8PQlWC8p1M5zm67JDTfdAN
+	 Nk76zIHHebtCIaDGyzmmo41OXmR237meihUG4wPYSz+DSiyxYa7+GukHasImh/q7ew02w
+	 wn11knoFcfhZjEEDpY0XqX0dvrjLRZSskdWWMfuo5M5AbC7NdelMlLCReR1NmcQCYdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.parknet.co.jp;
-	spf=pass smtp.mailfrom=parknet.co.jp;
-	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=rsa-sha256 header.s=20250114 header.b=XdNdgcie;
-	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=ed25519-sha256 header.s=20250114-ed25519 header.b=le67u1ay;
-	arc=none smtp.remote-ip=210.171.160.6
-Received: from mail.parknet.co.jp (mail.parknet.co.jp [210.171.160.6])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=MRjOpxl+;
+	arc=none smtp.remote-ip=209.85.221.54
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6B02606A31D;
-	Tue, 27 Oct 2026 03:35:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6B02606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.parknet.co.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=parknet.co.jp
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A447606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 03:36:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A447606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=parknet.co.jp header.i=@parknet.co.jp header.a=rsa-sha256 header.s=20250114 header.b=XdNdgcie;
-	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=ed25519-sha256 header.s=20250114-ed25519 header.b=le67u1ay
-Received: from ibmpc.myhome.or.jp (server.parknet.ne.jp [210.171.168.39])
-	by mail.parknet.co.jp (Postfix) with ESMTPSA id 47117209655A;
-	Tue, 27 Oct 2026 12:35:39 +0900 (JST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=parknet.co.jp;
-	s=20250114; t=1793072139;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tvYV4llUeul3tyzCuFCTWNoZ4MPP4Sa+bqacHF411BE=;
-	b=XdNdgcieu/SQm6nAWpPeszA9rYPdH06UplQw+AilYjKl6jG1xzXxlvW6ay8kAK9E15z95L
-	TYljM8bgc5fFkBF0DEiCQpKUCoatqmnUYPbK0vUBEJFNB5COHqxAT1OZExyhSEVPEFxqaY
-	dg2IwyDvTXxEblafMRarfPvzBKvM4HniVLqdeEkqsvBNxXm5LvXcm9cqbw0VMMn1GjlTsz
-	ofL1AJPjIlaidvcWYGexdoe6CSrAn2KMCdNuIDnkdt45GBjXeCEgHMReKwDD0qihPDaPf7
-	wdMyV4aks39/sP11NmMNNKYKTJth6magKxoYyI7BD+SR697rqnoowdwJ8DTAEg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=parknet.co.jp;
-	s=20250114-ed25519; t=1793072139;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tvYV4llUeul3tyzCuFCTWNoZ4MPP4Sa+bqacHF411BE=;
-	b=le67u1aytl5A/bgRr7MFO7GWkHUvL94h6WUcByCFPY9DP/hdBQopLkxqXDf0viVXrQpUia
-	rVlu0dAZ0cPCxwCw==
-Received: from devron.myhome.or.jp (devron.myhome.or.jp [192.168.0.3])
-	by ibmpc.myhome.or.jp (Postfix) with ESMTPS id C5CF7E004F7;
-	Tue, 27 Oct 2026 12:35:38 +0900 (JST)
-Received: by devron.myhome.or.jp (Postfix, from userid 1000)
-	id B956022001D3; Tue, 27 Oct 2026 12:35:38 +0900 (JST)
-From: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>,
- linux-fsdevel@vger.kernel.org,  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] fat: improve fat_sync_bhs() write submission
-In-Reply-To: <20261026163941.495833-3-matheus.aalmeida@inf.ufrgs.br>
-References: <20261026163941.495833-1-matheus.aalmeida@inf.ufrgs.br>
-	<20261026163941.495833-3-matheus.aalmeida@inf.ufrgs.br>
-Date: Tue, 27 Oct 2026 12:35:38 +0900
-Message-ID: <87zevzbyt1.fsf@mail.parknet.co.jp>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=MRjOpxl+
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48afbd2c386so2216028f8f.3
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 20:36:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793072207; x=1793677007; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=6c7PKsG38+tOfTfvUEgpG6Qz3gpdcpa+17ieiPJrhz0=;
+        b=MRjOpxl+8GGg1ztN8ltrKhRXrV7iJjTqadrmooRNsM27ZIJ/xqV2fYpzyT2XflNm3Q
+         ozVNLb2fIDRVTO4Rv76j55QenRfaX9SC62L55NNTTlfZnH4aR72dupaG+Pmz0fEkMTfC
+         VafkbS+bxJ7pJjb50JKYUWAU+NHgP3lQHOe4mLqgrn8yoBFPAJ5T531ckfGWRWHBQquM
+         60OCmE+UYDwlP47vPduh1/64QZO3rBvDpeB/NqdYbKTctZv9lpzovkgP0pKcN9/p/9Y9
+         U4wNgOg/Y+xgPl1AK1KBrUUaoZSKl+t0j2ORpry9qBzK7KxLix/9PWv4wgI3cEJw0Xzc
+         cL4Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793072207; x=1793677007;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6c7PKsG38+tOfTfvUEgpG6Qz3gpdcpa+17ieiPJrhz0=;
+        b=M9AcYNI54ME3FObx5Z8puVJRdtbzJrMcDxeN2KiDDjDDabtnt+3+Ra3MVrjDwD8Dsw
+         tZ8prN4ymnv1bG2wzHv5AvjbRu0dhIBwWQ9vRqlYpJbeP1FMrqN4RsMDI59S21sDRZzg
+         3gkFTkqSA8Z1BWffF8PFvSAwAtERU3KMVzjTWVxFjvuDvKRJ+DhTFCMgMoqJvLfc71E/
+         w4LP1Sdqs/dvWXRPxF8S/pUoSmYASxp5dBQnLdRx1kgJYs0JVaOHd5tPk9WvMo2RAUPL
+         QsqbdPQ47ZBPCo4xf3eaz1bSDIfKXgWCpRdaWhMl315sFcAZO2mCNlrgYEBgQAT0jZOf
+         CTaA==
+X-Forwarded-Encrypted: i=1; AKwUvBz+ZhJOThchkzkioNeP4ZhJf6JfngEw6T6MfwshB2hES79+sI06BbQgcjO4VhbPHwTH6TFtgO9D4TI+rcs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLpANo+G1F9A8Bt/y9GvlgMKHpVTZZ+3m4vqBFDBvR9aHAgWEMJ
+	ywg1sk9xithcCigOGGjoyjjKV/aj64iYfoTvuOvZunrmhRBxSItgscI6TsGeV5dCfFg=
+X-Gm-Gg: AYBFou2/iLU2RhsOl0R/hB0s18oCZxYINZUA+QEL8a49JnuCielMB0CBXThZ73DMvVj
+	waEpyXVpA50gY2aMHnNnp5jepuvTcRp2iqNHa2xXasLTD3fNDOQQEBTKmX4+mgUJWFZfXHuhQsA
+	QbtjdaLyORze9SBIl9MCcXUkYCGFk+jT1Kj0vi5HbiOWLrRoPj+suoFWAkgszyPaItyFZzfqQJx
+	vnTHMRwJkM79u1IClEQxXhcTVW7lCXQkLtFmSRQ/GnR1KkWmwoVQhsp/kQev2bW9jlNCsrWN4Oy
+	61sUl/SjEaUcmacZHIzSfWf7lLCGSNSb6hL8gnKTzTHnLL3RdXAVkbfohMMleq0eGA+52Vw36hI
+	hY7MYQIU4pc7IOoY4RK02zNpL8XJVjO91mOKIvnPdkNDFlaWQdzsRb5f6nWgcs5fosRfpMtQ2pT
+	R77pODiYxGPKoHKG2Aqh7+Kz/DhF84MEdeii65VihFQI8d9YPtpfmlyMsX2KrsrQ7rrnSlmPgrm
+	I7w4eKLNVFA6Rt1Zaql8IlF1rZYGdw4tHfI0E5VY+tJCQajYb/07EZe7BGUoaHXVTYUBWdKNgfw
+	M8I5Cilf6LLpxkUJAa5WN83EJoTXkn30rmVEmjNrR630O73fupPPEy3YaSuxpyqqSyMXqWWXegP
+	lsUpmcQFjXEetwgA1XVVKBa75R6fX4BHYLaETcU6nr2C9YYU280/Tmib7kHEnq4oKTuO8b5EY25
+	d6vAbW/ps929WP0d0lKZyrwxei
+X-Received: by 2002:adf:eb4e:0:b0:48d:ef7d:4b4c with SMTP id ffacd0b85a97d-48e3eb936e5mr10274220f8f.44.1793072206749;
+        Mon, 26 Oct 2026 20:36:46 -0700 (PDT)
+Received: from MacBook-Pro-von-Karl.localdomain (dynamic-2a02-3100-b2ac-9b01-6900-1f92-d182-4435.310.pool.telefonica.de. [2a02:3100:b2ac:9b01:6900:1f92:d182:4435])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecd39a9sm20409291f8f.46.2026.10.26.20.36.45
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 26 Oct 2026 20:36:45 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Shuai Liu <847807867@qq.com>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	linux-spi@vger.kernel.org,
+	rust-for-linux@vger.kernel.org,
+	Mark Brown <broonie@kernel.org>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 2/3] rust: spi: add SPI driver abstractions
+Date: Tue, 27 Oct 2026 04:36:32 +0100
+Message-Id: <20261027033632.77840-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+In-Reply-To: <tencent_66EE264CDD33A4355946E42D9ACA7019C409@qq.com>
+References: <20261027030352.615926-1-847807867@qq.com> <tencent_66EE264CDD33A4355946E42D9ACA7019C409@qq.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,69 +105,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br> writes:
+> +    pub fn write_then_read(&self, write_buf: &[u8], read_buf: &mut [u8]) -> Result {
+> +        let n_tx = u32::try_from(write_buf.len())?;
+> +        let n_rx = u32::try_from(read_buf.len())?;
 
-> fat_sync_bhs() does many individual write_dirty_buffer() calls without
-> plugging, making batching in the block layer more difficult. It also
-> does not pass the REQ_SYNC hint for these synchronous writes.
->
-> Use a plug around the writes so the block layer can more easily batch
-> them. Pass the REQ_SYNC hint to write_dirty_buffer().
->
-> Benchmarking was done under QEMU/KVM with a virtio-blk device using
-> cache=directsync. Each result is the arithmetic mean of 10 samples.
->
-> start = now_ns();
-> for (unsigned i = 0; i < count; i++) {
->     fallocate(fds[i], FALLOC_FL_KEEP_SIZE, 0, bytes);
-> }
-> elapsed = now_ns() - start;
->
-> Sync-mounted FAT32 using count=16 files:
-> File size    Cluster size    Before    After    Improvement
-> 256MiB       512B            13.11s    11.87s   1.10x
-> 256MiB       4096B           1.657s    1.469s   1.13x
->
-> Signed-off-by: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+Could we check n_tx.checked_add(n_rx) here? spi_write_then_read() adds
+these as unsigned int when sizing its bounce buffer. The individual
+conversions don't prevent the sum from wrapping.
 
-Acked-by: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+On a 64-bit kernel, VVec can provide two disjoint 2 GiB slices. It uses
+vmalloc, so the kmalloc limit doesn't bound the inputs. With a bound
+device and a successful 4 GiB allocation:
 
-Thanks.
+    use kernel::alloc::{flags::GFP_KERNEL, VVec};
 
-> ---
->  fs/fat/misc.c | 8 +++++++-
->  1 file changed, 7 insertions(+), 1 deletion(-)
->
-> diff --git a/fs/fat/misc.c b/fs/fat/misc.c
-> index b6a9e2e122cd..e8e2f13254d5 100644
-> --- a/fs/fat/misc.c
-> +++ b/fs/fat/misc.c
-> @@ -9,6 +9,7 @@
->  
->  #include "fat.h"
->  #include <linux/iversion.h>
-> +#include <linux/blk_plug.h>
->  
->  /*
->   * fat_fs_error reports a file system problem that might indicate fa data
-> @@ -354,9 +355,14 @@ EXPORT_SYMBOL_GPL(fat_update_time);
->  int fat_sync_bhs(struct buffer_head **bhs, int nr_bhs)
->  {
->  	int i, err = 0;
-> +	struct blk_plug plug;
-> +
-> +	blk_start_plug(&plug);
->  
->  	for (i = 0; i < nr_bhs; i++)
-> -		write_dirty_buffer(bhs[i], 0);
-> +		write_dirty_buffer(bhs[i], REQ_SYNC);
-> +
-> +	blk_finish_plug(&plug);
->  
->  	for (i = 0; i < nr_bhs; i++) {
->  		wait_on_buffer(bhs[i]);
+    let mut storage = VVec::<u8>::zeroed(1usize << 32, GFP_KERNEL)?;
+    let (tx, rx) = storage.split_at_mut(1usize << 31);
+    dev.write_then_read(tx, rx)?;
 
--- 
-OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+Both lengths fit in u32, but their sum wraps to zero. C then selects
+or allocates only SPI_BUFSIZ bytes and attempts to copy 2 GiB into it.
+The allocation size has already wrapped before kmalloc sees it.
+
+The C helper is intended for small transfers, but this safe wrapper
+accepts arbitrary slices. Bound doesn't constrain their lengths.
+
+Found during source review with AI assistance. I haven't compiled or
+run this example, and I don't know of an in-tree caller passing such
+large buffers.
+
+Thanks,
+Karl
