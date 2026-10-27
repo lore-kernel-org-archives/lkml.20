@@ -1,97 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.87
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793098256;
-	b=JZQkL2rYBsxGhnHgVUNiSNyEs7iqmSGE5wOnqG2kgjEdCnWCBpKeNN1MXwhJZRGNQWjt
-	 H9Yz4SXbam2VlHfNOthXCGeHLdHRvEkqXafJjcs2jD2xZHNMJwe6v5tbGUvQn5VAatWdQ
-	 2GRo9cUkGegU+JRr7h+3rmXmlYcBIS/QvMwUFQL+lDMiLTNs2sOZuBGrYIRsqzGK6pg10
-	 PbE3y7OpkaXp9300jyiuzoHvjiaeh/XpptDEWxxa6UEejwgEGNXFCDzOCoVcYuwVvrT37
-	 eJcrgzWZE4ZRWUvvtCYgApcp+bCY0cWCVbSPV6iDMqsLDVa4J/txacBw1NZN8JCqOJg==
+	t=1793098269;
+	b=aCuto1tfD/nvcofx4pSq5r7waJmwEhNS8l6mKzx9XtGsgNDP/m0epnd54/Stid6beRxP
+	 4Le9J6iFNiNGW0qHYGe43U50pZN36qebTT97Jo7Lw4ToK8uD1JuyTXZzQuwYCQ86g8I2p
+	 wIjrC6y1N8cMW1dx26dKxLNVkryLwAMWLX+2Sigvd2IgSq+jkCS4vEjyxLFWz9cMDbAH2
+	 +LThfs3FwGc5BnI8iDPDLGdsncyFXtYB6Bh/teMVgJdxYv73PaNxtVQKSroUfG/ijxePc
+	 2rYpiYYoMBdGuEZI1hOqLBB+SckY6AzMNVMvIWW1jAhpl+GgxXCB/C6DuJr+BMzqtzw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793098256;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:X-Developer-Signature:X-Developer-Key:
-	 Content-Transfer-Encoding;
-	bh=4Ev4Q++YzojM8jhK0gqwyICK0B7tnR3S7VN4aaA1E4s=;
-	b=p0c/uPU9F+libEIyUV6/f2gcDeyrK2Ln5LbbRxuJsZBEdlhYyKTAnKi4noa6Y7Jh/VOl
-	 JHBqRIJBTBzJa1rE5FBxtn0rWKnnqat9rE52Tw43FEvsBEUjWLIBX7aoSO118mzdJ8fjH
-	 k832G0S7LSadYHtGJXWLmtn3RTE8azuY/QeY6trb+JVAkbp+j8g6iM1Ak/OQNnFKjLMK4
-	 L+N8lpbPVw/dlCjIFdV7ZzeZkb1SYHQe6ywt+9qSxpUIEYDt9LSobCvEta/qnwwBHyk0P
-	 OwfijK1dam1XBP2LChduijjuJbQgHprHuEOrhf076t3c8dyDPgQJ8TOTfJ06uOcZVhQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793098269;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-XMRINFO:X-QQ-XMAILINFO:From:To:Cc:
+	 Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:
+	 X-Priority:Message-ID:X-QQ-MIME:X-Mailer:X-QQ-Mailer:References:
+	 In-Reply-To:X-QQ-mid;
+	bh=Vli6xhlC+1tOZxNe6ZiuhYi3OuRNx6a1ew5ibReVdb0=;
+	b=lSov+rVLzIETc0G34pSTSRzcHziDyBauwwmBrOQllCFxYYbS+RA1FiBryhjXI2u4zmjL
+	 wX7Xp+P68qoEefFyoXT0f1qISoN7wcwZYHWplVy5YsMML103IIBnl6qGdscpHdOOUFm/x
+	 I0zMdcTeRtpyrIOCCowHq4o+fAQwPmLIX2uEcGZymTsAeuw7V4OoAzatZaZ0uTXeUYtUd
+	 lUScrSJV6Z3dRfVt0Wct5aSrBCWCY7VesdRARzLBfc34/lxqlX7n3hSAqQbPlZWBeydvu
+	 hPt5p6NUaUJCG2htkv0Mh9EDq3+Knetb8lbluRgLrXszKhq2wLltU18D6OMWGw0EMvQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=MJqP+7lP;
-	arc=none smtp.remote-ip=209.85.221.41
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=S4AnkzfZ;
+	arc=none smtp.remote-ip=162.62.57.87
+Received: from out162-62-57-87.mail.qq.com (out162-62-57-87.mail.qq.com [162.62.57.87])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 350D460A2621
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:50:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 350D460A2621
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74A9B606E79C;
+	Tue, 27 Oct 2026 10:51:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74A9B606E79C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=MJqP+7lP
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48af4d4e61fso2494648f8f.2
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 03:50:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1793098255; x=1793703055; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=4Ev4Q++YzojM8jhK0gqwyICK0B7tnR3S7VN4aaA1E4s=;
-        b=MJqP+7lPXJuV+0LLWrm6PWKjIwtjZGplhA3FJ0Qc8FtYAQSa+hqPAHomvkNIusSY1k
-         oGV++n5R84xxc4O/c6LyFLZgJZAXnMxu3iBQv0Ufh4Beg/JHGAgc/01AaYD74JXJkeat
-         MYXNjvWoOBaeLNzrdTX5nSViXH6/bEB9tDBr5B+FquVFxnjzFAM97N9as6Uu4h4e0yKf
-         AQFtY/ISp6Wk36vtNNtGOtm9eb9FWFYh4++0mxHPiUNkjqEq2dOhouoWOX/Z9GC57H5P
-         8gQ/fjhH7iScibEfGcCi+xkaoHRs1qZgwwFmfTMrq9Fczke7IymKX2havDLq0igSK8QR
-         aHDA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793098255; x=1793703055;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4Ev4Q++YzojM8jhK0gqwyICK0B7tnR3S7VN4aaA1E4s=;
-        b=yCgiufIiCzPbiHcJAA40ogXBr057llVfNNOMBfNYvnrkgeEyP+PzjtQRazxiViN/Yk
-         WybylDN82tLwC8pVVN5iB2eg9vG751yxP2dCLRCsdZe3DiOMvHFoko/jr9W72WcSiFx7
-         CLotZmUXmRp1zhgmreD8tM+uxdCq9p960/Kq2WSBvuTmA7aDRqBBShgvtmY6dWAYdtH9
-         GpTTnKtIq5qi+pnplq6NGZ1ukskdodeAWvOVDhDGuJ0QI9b1TrnFsYl/YX5BMT9TGy+w
-         TsrHA9PpVCiJQovXwU/efXiIdTjCtaQ6Apzf9QTGgrp3WcxfhfObg2GZEt3Eea6+Y6mD
-         WOgw==
-X-Forwarded-Encrypted: i=1; AKwUvBwk/6OJDWTvjQlRYDrR5SrTbc85bEyH9GWl/Mjb8NxFccXfuEL/CNXport12UQ5gyeuPmWRD5VlqADqLBk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIIQd51u0yJGcuHc69yQbIQz9xCIBhRCyTAP30DkemmSEyw9Wk7
-	Ay/F1+GBWmhOn5ODbtIb8dCJNhG7Fyo1tnlmIi/NCIjRO7QRMfdUrsRZHSXGlIGb49s=
-X-Gm-Gg: AYBFou123+hTKWDOiF09eC+qsaOuW16l7+ioxOUYue0Dba2I092THgK+QWiNNX6eJtC
-	zuHG18radpciNUE9csCvt9LDDvm/Zr6i5uElRlh+uLVNJm9r0rUeOb8b9tSjUdW3efnTatdufj/
-	xGUf4EmIcUH1XJNfKJ2PatKDwUEz2Ym/cWtHQHHbPc6WR3t5dztKi32cdJZyE8GZUrWA8YglHfU
-	wMQH5d63huRLip91933aD9BvAfuv2628djYr+GHIpNGMO/uNfIoBvFNhJP3ylVPHtIZyXLo7x5m
-	ENlrbKkatyXWh6o0ZDO2Qr8UyGAXSwvBb4QKcuyTfBR9RaSlJ4l+J/+wjAa5Tnn0vYcoSgni8h2
-	j2gQsRVuJEcjqYy0FlaOYHDi5b4U3iDG8ZnxpgPMJ16hm7PJEc1hK+qdTekIvEO7SNkJ7lctlLC
-	rZokT7k4mesvweC1yLDVFbyvdz2TlWA4OZ4kJI7CTnjoXhxWERqXaOGmPs9bGKHpH9P6XMKE2Jr
-	8ykNSQsJWV9M0RF+nBV9VCJrPz6mMXQM3UrlJceckiO7ZoTBYt64uaYIrmr1/5USxhRhAWO+a8H
-	Y3NxEvJ0NM4GW4S+LJSqWKhGlL1ZIeqVzmG5nF71XkY=
-X-Received: by 2002:a05:6000:29d6:b0:48c:43a3:6a74 with SMTP id ffacd0b85a97d-48e3eb75e51mr9963129f8f.12.1793098254583;
-        Tue, 27 Oct 2026 03:50:54 -0700 (PDT)
-Received: from localhost (p200300f65f19a904240e81f1f32a429c.dip0.t-ipconnect.de. [2003:f6:5f19:a904:240e:81f1:f32a:429c])
-        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-48e3ebd48fasm21907845f8f.31.2026.10.27.03.50.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 03:50:54 -0700 (PDT)
-From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>
-To: Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>
-Cc: Andy Shevchenko <andy@kernel.org>,
-	linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 21/23] gpio: Unify style of spi_device_id arrays
-Date: Tue, 27 Oct 2026 11:48:58 +0100
-Message-ID:  <d12adea6b933a0fd358336807f5c99f83794e288.1793097104.git.u.kleine-koenig@baylibre.com>
-X-Mailer: git-send-email 2.56.0.rc1
-In-Reply-To: <cover.1793097104.git.u.kleine-koenig@baylibre.com>
-References: <cover.1793097104.git.u.kleine-koenig@baylibre.com>
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=S4AnkzfZ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1793098263; bh=Vli6xhlC+1tOZxNe6ZiuhYi3OuRNx6a1ew5ibReVdb0=;
+	h=From:To:Cc:Subject:Date:References:In-Reply-To;
+	b=S4AnkzfZku23PdSmTG9Izg/xiFNGHIQMr0PN+fpullXpH2RZpxBrz4lSsPi2euNsJ
+	 dboYPfMCHbYuckAzsUsgIitUQVtAZ7rA7RKmWY5+6esOpxzV1bO55/CO89/Lj+NLtY
+	 YsHGDhQtael+DsgR8jg0FWC5dQiok9lC3ttDyzqA=
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+X-QQ-XMAILINFO: OeJOoYd4plGbllljkz+rlLNlYfGojr+DRpXa6DK1UZUUeq0G1YqjFr1mfYZ6tA
+	 noFoR74yrCt9wMum5OZv3pqTnamcaj61G0mws81BlcNgHwy5gAjmA10sh12h8oGwEPHFYCaw6/NoB
+	 ScAjs94IUOYQmEDQkVlQgpNFcPPLKGxhHJSIujBa48NLo5FBhZM5w2Loq6/ViubVkQZ9mSn1EjvdN
+	 EDco+I2rB/MFfOQWAJSZM8N7zeXBenXSR74eskCcq6fhJ+HNWkvct0Qfq3lQy15FRYhRFdQFLZ77s
+	 KSFXfi9dTSoWcXpk+GPUZShWPEaJ+9Wg+Ym1PR1D+//x0lue0DGdhlguqkXC5NDYqoGN9oJCd/kq9
+	 wd1H4GZLI9mMwIfPZN/0oTdB1H3L9jxnHUGrzMUQuoRYM8HPzO8d4rcp+O9KFILn0ZuyYAkiVovFp
+	 81VnbQXu8J7qZj0c13Fw+UnkMdjYZfajU4iljjeY+PlCGGamWqOf6sPVqpX8HFwmefud3DRjrwYmC
+	 FdWfO7uw1XFGzW4t6mT4pCHR3nEkjkyq6MmPiaKKf+A0Zoi+X6ucWoQT5PpSkd4rbenb+a7CbCAhu
+	 NN/hhOgSazCSAhFaWMmn0iyU++kbe4ua7YhUhwpmnn2GRtN8i3MbkoH0Enaos+J7G4U/l6J5VWzpM
+	 c56cl42aRQIhbOz7EcQEeQkqbLlx6o7SVDC5tgox9+GEHup55Ntv/7mJ3aQhPi1p61pmR7EM/Lidi
+	 sjAjAcmm36RbC6nWBfe56gqF++IOcFwC+PNcngzGRiwgCsufUarVfd3JcpEiPoE4dHUMS+ZIoarCh
+	 2r4PRZk9vqng30BHvZ5no+fvzDw53GQdEWbAJ6KCu00JbR8N3WJ/Gd652wHsJQlCZDKyJ7Z8ux67M
+	 TlKHdHoFNWshL50mirk1dBJPKzTsgvJLx9jSGc8GRxwuFsQoM5p/JM8ZS/D+sYvN+YhcMcO3kGCir
+	 2l37IOxLr8pg7EzA90qIVTpImO6SXul3RZAucSXHdUTuvoVyDVYssGGV4RbqxKqiRmjRSmMAZyO97
+	 txGXWIuLUPWDddHYuKZo0M5d0tUWvXJOGjGMQmV0UPqZOfbXlUWOR7uXIlw==
+From: "=?utf-8?B?Q3VuaGFvIEx1?=" <1579567540@qq.com>
+To: "=?utf-8?B?S3J6eXN6dG9mIEtvemxvd3NraQ==?=" <krzk@kernel.org>
+Cc: "=?utf-8?B?Um9iIEhlcnJpbmc=?=" <robh@kernel.org>, "=?utf-8?B?S3J6eXN6dG9mIEtvemxvd3NraQ==?=" <krzk+dt@kernel.org>, "=?utf-8?B?Q29ub3IgRG9vbGV5?=" <conor+dt@kernel.org>, "=?utf-8?B?SGVpa28gU3R1ZWJuZXI=?=" <heiko@sntech.de>, "=?utf-8?B?RWxhaW5lIFpoYW5n?=" <zhangqing@rock-chips.com>, "=?utf-8?B?VWxmIEhhbnNzb24=?=" <ulfh@kernel.org>, "=?utf-8?B?ZGV2aWNldHJlZQ==?=" <devicetree@vger.kernel.org>, "=?utf-8?B?bGludXgtYXJtLWtlcm5lbA==?=" <linux-arm-kernel@lists.infradead.org>, "=?utf-8?B?bGludXgtcm9ja2NoaXA=?=" <linux-rockchip@lists.infradead.org>, "=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>, "=?utf-8?B?bGludXgtcG0=?=" <linux-pm@vger.kernel.org>, "=?utf-8?B?RmlubGV5IFhpYW8=?=" <finley.xiao@rock-chips.com>
+Subject: Re: [PATCH v3 1/2] dt-bindings: power: rockchip: Add RK3572 power domains
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,56 +67,35 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1509; i=u.kleine-koenig@baylibre.com; h=from:subject:message-id; bh=/4Z9VsdZSag1oZ46enQb7zlX6AH9IP2d+Vb14r2Q/YA=; b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBq4IHb+6wERuyd+XAgL3boe6h5ukv+019+BJBSS yqknA2SqzqJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCauCB2wAKCRCPgPtYfRL+ TpzTB/9eojcsoktC+84+4tigHHM+oiVJeT1egFd5XuqMJhHXLCa8/86R6uWxnxJFq2+5rR1eYSn XIHjdq5F1KEJ/bKBgwctnmwCEdhTohqQHPAd8RnSKZQ0/V1ntm8FvXdfUfnL4hRrHlq3KgmSADu pNZIuQWMktu+Cg1Y3GYA/hZuL6lqR4uulu9RuS7OhIt+JeePC4HZypnzsKEn/RKDRnemL6sgNvy ey+k98XbGYYW4NwtKfUEXowLHm+2ZMKoMUr5ioQIObTGdBoBTF/pBXI0ZknET7dCELawEeLvKO+ yT2tYTwU8w//WroLtfC/EUQjXql+saCg1KjqU2UrY3Lwf1WM
-X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp; fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: base64
+Date: Tue, 27 Oct 2026 18:51:01 +0800
+X-Priority: 3
+Message-ID: <tencent_0F101DFCE09BB069F66456125E460602F809@qq.com>
+X-QQ-MIME: TCMime 1.0 by Tencent
+X-Mailer: QQMail 2.x
+X-QQ-Mailer: QQMail 2.x
+References: <20261026-add-board-ok3572-c-pmdomain-v3-0-70d614d3d921@qq.com>
+ <20261026-add-board-ok3572-c-pmdomain-v3-1-70d614d3d921@qq.com>
+	<20261027-uptight-stalwart-roadrunner-339a8f@quoll>
+In-Reply-To: <20261027-uptight-stalwart-roadrunner-339a8f@quoll>
+X-QQ-mid: xmsezb41-0t1793098261tcq9nsxxk
 
-Update the various spi_device_id arrays to conform to the most used and
-generally recommended coding style. That is:
-
- - no comma after the list terminator;
- - a comma after an initializer if (and only if) the closing } is not
-   directly following;
- - no explicit zeros in the list terminator;
- - a space after an opening { and before a closing }, a single space in
-   the list terminator;
-
-Adapt the few offenders accordingly.
-
-Signed-off-by: Uwe Kleine-König (The Capable Hub) <u.kleine-koenig@baylibre.com>
----
- drivers/gpio/gpio-74x164.c  | 2 +-
- drivers/gpio/gpio-xra1403.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpio/gpio-74x164.c b/drivers/gpio/gpio-74x164.c
-index eeed612e7c80..acda26cc4cc8 100644
---- a/drivers/gpio/gpio-74x164.c
-+++ b/drivers/gpio/gpio-74x164.c
-@@ -182,7 +182,7 @@ static int gen_74x164_probe(struct spi_device *spi)
- static const struct spi_device_id gen_74x164_spi_ids[] = {
- 	{ .name = "74hc595" },
- 	{ .name = "74lvc594" },
--	{},
-+	{ }
- };
- MODULE_DEVICE_TABLE(spi, gen_74x164_spi_ids);
- 
-diff --git a/drivers/gpio/gpio-xra1403.c b/drivers/gpio/gpio-xra1403.c
-index 03c216d6d03f..5089377b67ff 100644
---- a/drivers/gpio/gpio-xra1403.c
-+++ b/drivers/gpio/gpio-xra1403.c
-@@ -186,7 +186,7 @@ static int xra1403_probe(struct spi_device *spi)
- 
- static const struct spi_device_id xra1403_ids[] = {
- 	{ .name = "xra1403" },
--	{},
-+	{ }
- };
- MODULE_DEVICE_TABLE(spi, xra1403_ids);
- 
--- 
-2.56.0.rc1
+SGkgS3J6eXN6dG9mLAoKPiBTb21lIG1lc3MgaGVyZS4gSSBkb24ndCBnZXQgd2hhdCdzIGFi
+b3ZlLCBidXQgZG9lcyBub3QgZml0IGNvbW1pdCBtc2cuCj4gQWxzbyB0aGVyZSBhcmUgbm8g
+Y29tbWl0IG1zZyBiZXR3ZWVuIHRoZSB0YWdzLgoKSSdtIHZlcnkgc29ycnkgZm9yIHRoZSBt
+aXN0YWtlLiBJIHNob3VsZCBoYXZlIGtlcHQgb25seSB0aGUgc2lnbmlmaWNhbnQKY2hhbmdl
+cyBpbiB0aG9zZSBub3RlcyBhbmQgZW5jbG9zZWQgdGhlbSBpbiBzcXVhcmUgYnJhY2tldHMg
+W10uCgo+IFdoYXQgaXMgZmlyZXdhbGw/IElzIGl0IGZvciBhY2Nlc3MgY29udHJvbD8gSWYg
+c28sIHdlIGhhdmUKPiBhY2Nlc3MtY29udHJvbGxlcnMgcHJvcGVydGllcy4KClNvcnJ5IGFi
+b3V0IHRoaXMsIHRob3VnaCBJIGNvdWxkbid0IGhlbHAgbGF1Z2hpbmcgYXQgdGhlIG1pc3Rh
+a2UgOkQKV2hpbGUgZm9sbG93aW5nIG15IGluc3RydWN0aW9ucyB0byBjbGVhbiB1cCBuYW1p
+bmcgYW5kIGNvbW1lbnRzLCBteSBBSQphZ2VudCBpbmNvcnJlY3RseSBleHBhbmRlZCAiZnci
+IHRvICJmaXJld2FsbCIuIEkgY2F1Z2h0IGFuZCBjb3JyZWN0ZWQgc29tZQpvZiB0aGVzZSBk
+dXJpbmcgcmV2aWV3LCBidXQgYXBwYXJlbnRseSBtaXNzZWQgbWFueSBvdGhlcnMuCgpUaGF0
+J3MgbXkgcmV2aWV3IG92ZXJzaWdodCwgYW5kIEknbGwgY2hlY2sgdGhlIHJlbWFpbmluZyBv
+Y2N1cnJlbmNlcyBhbmQKZml4IHRoZSBkZXNjcmlwdGlvbi4KCkJlc3QgcmVnYXJkcywKQ3Vu
+aGFvIEx1Cgpwdy1ib3Q6IGNy
 
