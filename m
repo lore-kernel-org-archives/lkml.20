@@ -1,54 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793105223;
-	b=pccAtSxeOD/Vji/fWGyfMrFto/S7WkzYiQobuqHrhkAvfjqv/U6EtQLx9G1UYrJWDQVP
-	 8I4QhtpSjRJVj2cCjFOZaaBJhpU1BBFZvdBAF/BjCUmuZOLk1WY3KCCnBfNOAbIro2Er7
-	 Q9B/xwLX1fIxgMsvjGqJO3x0z0ADqX8tIoit/YDU/02/l72ZvVPct/lHeXjeZv5iCtJXD
-	 Bnf2FFBP2PYfM/jfoJn+2FLJ2/ytdzhhRq3oQjz1vOxZntEt0PjRHnLv9vs0GYqt9skb6
-	 KSk2k5IsPe9qEX/SwDV6sAfyIqx/O1AdQwdiq4gQJ7AOcpRhx+T3FqEhGI6X4ZlBufw==
+	t=1793105245;
+	b=vEaHuy44x4pbILKboHJmg8/B+hphg/v2Zo9gD3lQSFawsRXr168Kj9JjAcPdjeHD2nFZ
+	 Ec2xforIyPSsdY0oZ4fO9R1UjQ3+TGZq4em2t9W1bj6w4Vkw/5TBHBpZ15SeT+mhiWy1i
+	 owcTywh8Krg91C7w1prc8J+wD9knhXdzB8u1tKwfmOTmDTKjNaSl1T6L572NbN0H6hk6d
+	 7HYFdjVd7QYFb5nRHrAZen12U4z/zPeJG19d33f/IuofyfI4WN0LhImfUqKTqEj9JDCfg
+	 C8hIAhYY5+iEQXoiCPxftAupBkQbmgLjjpTYcNj9M46TODgxAKTeWEDyDI9y0eupwAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793105223;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=4oatTXMsciMaV01MgWRGz51vE3ilcbjFp2nhhAdcZ0Q=;
-	b=OgbD9KWWSlrCAbGhy6Rz6eA+xG7xxMO6TVcOipzOK7YLjKHcHYWOzOJ3DD43O708rJGL
-	 yH/28NVJrb2GFsawEwBHV308Nmup7aYqfvNfNIJmpsyjRY22hFMfqwpoFp/yxNJ2kljQt
-	 bSjIaVKCNL+hX/HV0NEJPyX01iTeuedqyqJgL/Y1b6C8YYGCxC7f3tBTSu5vL6+IJtukJ
-	 vXZE3TyLyMJqkSOC5SIGTNMB9Lrcs92/XzonZrq6nC/x0uTvlBQvEGO7sfSKHAGKn2NB9
-	 zOyFEbISH1AlNFfoEDAMsPyUkKwoNm87AnIwFdHregJPNj/resgW37RpDH6mB8RpXRA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793105245;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=ZAIpqRoqpXgz0RZ4h56d9mqozECvPzO+I5VTSFmMVtE=;
+	b=0nOgqZoSNjM5YoE5EWbsIAKpyFAtNPhQ7P61BT8off3AKM+hLjE24sO3AZfrqMG795sx
+	 dUpqDzBB9SnSIHatwtVBeouXGvo3dnKa48vPlTHO2+gX9d49Zi7jQIUMHykCS2We8/FHq
+	 /BP1NzcrAe/f5ve1UycuJLcBhwl2fNKYY5b1XVJfVSool2oELhKQtyhs7gSjs1phrfy9j
+	 ewAAFoszOv02HLEDoteSxxJYakEAPB3/V/SQsVat0d2JUfhZsTyYdlarIrRXd/dtl5Twl
+	 Ol8d3HhvLM2U971pvFWt+bBUte+iji8TxjLOlkehLQ4dF7TEgb0tJu8VoAaPR9WvAWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.200
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=Jyj7jOfk;
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FDB2606A31D
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:47:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2FDB2606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4f2040e10d8so3734882b6e.3
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 05:47:02 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793105222; x=1793710022;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=4oatTXMsciMaV01MgWRGz51vE3ilcbjFp2nhhAdcZ0Q=;
-        b=fXAoIRcrR17AcsbBCDJ7gzUX/lJphpCbad5So7v9B3HKpJM6cDlIjL7Sx5VBBjTK41
-         UdyAoM51wQ9sa/ZDK6hd4+I18QIHSq8BaOZqv2Pv3VeYjjeTHPKoFHUKB3RCl7Npt9bl
-         NvIBTFrkm1xzGAjyHLZPbz9zWoXDRgWkEo3p6f2csc1pJCFk1owDXfwkpvhGh6GwCj+Z
-         aCU+gBEqRIRMZQ1LmXG0ywt3eGFwfgtq7MFqxxHHbtfvz/WgbPOhC7EP7wW9WuEd1ycf
-         REzVJ0E9RLTa1W+qKjqp1Ob6TlrroKkAPBZlIgBoCF6LqYrXNuViy0HaDzY8tn+GIYio
-         ePew==
-X-Forwarded-Encrypted: i=1; AKwUvByGLH0NsHWtzzUZHtK64qKPcPcG0Vid6xU785hJv8iDVTvLUVVLE/3/NL5ptZWPdIPbu7R1GA9RX9rfMeI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI7eo9c0SLbHiax6vBfeVhmk5U1xQhx74STvelJaIDtS143kfQJ
-	vdrr7Vb7W7sBEhdjzreQV8Deowe1+aO7FBYXM5UuRtnoTKKVk6CTJohZZHfDRM4UpSCOY8Ak4BS
-	a+JpludzcabBfEZqQLAJoOH7PoqpPboc3f3EcsLj4hxbCQsSkQIK/3NFGOSY=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C086606A324;
+	Tue, 27 Oct 2026 12:47:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C086606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=Jyj7jOfk
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=ZAIpqRoqpXgz0RZ4h56d9mqozECvPzO+I5VTSFmMVtE=; b=Jyj7jOfkJ3zLI2c3I5M3M46Zcb
+	WnQwrAXczn6dCAXUP2nPsq8E8i4il+VDWbyZfBRt8ElhZD9EVM6bXkMkelsrdJ6GzzFT4JrQ5k2fE
+	HvVnSCOOT/hXlFM44HSRfoB2SmByDM8uZCyGDhQCZ+RrkIY7H6uL+6RPWVddoEEJjx5K1r3Iyl0nd
+	vf+topQ1atCH+2NeREP/q708/GzItGv7B/7PC01xV58kaLhrw/a23RC3l/wqMvZJY6z4eOIVSBW1D
+	Nyi69d6JupfANQy+NhPNHkUsyGxbDvh2Y367Cb8T+P55YFRuWNaiZfelZ5Y9LdXhYPpImn2EH/+UO
+	I8j9sT5A==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xLgaD-0000000DbOb-1oue;
+	Tue, 27 Oct 2026 12:47:17 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id F1B43300A9A; Tue, 27 Oct 2026 13:47:16 +0100 (CET)
+Date: Tue, 27 Oct 2026 13:47:16 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Kiryl Shutsemau <kas@kernel.org>
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Muchun Song <muchun.song@linux.dev>,
+	Matthew Wilcox <willy@infradead.org>,
+	Usama Arif <usamaarif642@gmail.com>,
+	Frank van der Linden <fvdl@google.com>,
+	Oscar Salvador <osalvador@suse.de>, Mike Rapoport <rppt@kernel.org>,
+	Vlastimil Babka <vbabka@suse.cz>,
+	Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+	Zi Yan <ziy@nvidia.com>, Baoquan He <bhe@redhat.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	WANG Xuerui <kernel@xen0n.name>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Paul Walmsley <paul.walmsley@sifive.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	kernel-team@meta.com, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+	loongarch@lists.linux.dev, linux-riscv@lists.infradead.org,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Andy Lutomirski <luto@kernel.org>
+Subject: Re: [PATCHv7 13/18] mm: Drop fake head checks
+Message-ID: <20261027124716.GC2668804@noisy.programming.kicks-ass.net>
+References: <20260227194302.274384-1-kas@kernel.org>
+ <20260227194302.274384-14-kas@kernel.org>
+ <ebc7bde1-f52e-4da8-b16f-822d6c0a4d74@kernel.org>
+ <at_f43oDv73y-t7O@thinkstation>
+ <f97a8d33-50b2-4a86-8381-ee840cdfa2f9@kernel.org>
+ <20261027110028.GH2668564@noisy.programming.kicks-ass.net>
+ <auCKv_omLGRc6wv2@thinkstation>
+ <f3f3aca9-bdb7-4aec-9099-9fb63a60e61d@kernel.org>
+ <auCZFckDfBMrlfxV@thinkstation>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,35 +95,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:3082:b0:4e4:86b1:f7a0 with SMTP id
- 5614622812f47-55c003d655dmr8926540b6e.53.1793105222110; Tue, 27 Oct 2026
- 05:47:02 -0700 (PDT)
-Date: Tue, 27 Oct 2026 05:47:02 -0700
-In-Reply-To: <20261027122202.279516-1-diasyzhang@tencent.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ae09d46.f0fe5aea.79aa1.0093.GAE@google.com>
-Subject: Re: [syzbot] [dm?] KASAN: slab-use-after-free Read in pool_ctr
-From: syzbot <syzbot+83827f9a59abe148bff4@syzkaller.appspotmail.com>
-To: diasyzhang@tencent.com, diasyzhangqing@gmail.com, 
-	linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <auCZFckDfBMrlfxV@thinkstation>
 
-Hello,
+On Tue, Oct 27, 2026 at 12:31:09PM +0000, Kiryl Shutsemau wrote:
+> On Tue, Oct 27, 2026 at 01:05:58PM +0100, David Hildenbrand (Arm) wrote:
+> > > Writing this, I just realized that we have another option -- map the
+> > > shared tail page writable. A failing LOCK CMPXCHG writes back the value
+> > > it read, and the get never changes a zero refcount, so the race becomes
+> > > harmless. The cost is the protection: the page is shared by every
+> > > hugetlb folio of that order in the zone, so a stray write to any tail
+> > > silently corrupts all of them instead of oopsing.
+> > 
+> > Right. Without HVO we would just corrupt pages in the single folio (which is
+> > also not nice).
+> > 
+> > I'm also questioning whether we need this RO protection all the time active.
+> 
+> What do you have in mind? RO only under a debug option, or switching the
+> tail page to RO some time after the remap?
+> 
+> If it is the delay, a grace period alone does not close the race. We
+> would need rcu_read_lock() back around the get, and then it is the old
+> scheme with the wait taken off the allocation path.
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+So it used to be; back when Nick introduced try_get_page, that it was
+only allowed with IRQs disabled.
 
-Reported-by: syzbot+83827f9a59abe148bff4@syzkaller.appspotmail.com
-Tested-by: syzbot+83827f9a59abe148bff4@syzkaller.appspotmail.com
+And looking at gup.c now, I see gup_fast_pgd_range() still has
+local_irq_save/restore around it.
 
-Tested on:
-
-commit:         d135ab45 Merge tag 'backlight-next-7.4' of git://git.k..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=10349d31580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=c899018ccfbe890a
-dashboard link: https://syzkaller.appspot.com/bug?extid=83827f9a59abe148bff4
-compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=168ad53e580000
-
-Note: testing is done by a robot and is best-effort only.
+So what do you need that rcu crud for?
