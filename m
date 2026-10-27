@@ -1,101 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.169
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793105883;
-	b=nZI5XAEVaW+JNY0rZar3RpxMlb6X+UXvH9fc7aVDPqpoDj2wxK/4IJCDQF7eXVd7m4eg
-	 7ZyBSlZ36gnZGIL8fVoCleR3AkbGKxENZCzJcPo52OGlvRc5Bsftbhj6A6aE7lCyhCA5U
-	 9bSXQQM8G6dP1X4HQgUEAa5iNdlinslwZzmakXbCf3E7n9Xeyey5kqfhMFC5/vzm2jJk6
-	 6V92DVuT+JzJ/VlMx78hqmgMcQqdO7IhBFgNFHZmZapWaxZZh0+iuM9nSImJY/18FlEZ6
-	 s9v2pLYkGiIRZSWkJpITvfenuZ6OkWjfAoL89MRP47yTb1rtl6gvLlm7rqaFtzoKecw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793105883;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=5cFHz19Fl8DmCi1uIfI6RDZnDxd7w5JrqZ9wd9VXgCk=;
-	b=438+eUT7kSGleyEyttF+VI2x+ypZLwC4diAq4Vb13T7H4uPvERE2jJHj7+ugvKlC+0YC
-	 sxVm6OdaHBZlpuGW8vvhbn8Ngu7gIM6S8uFnIa2E7/bYqOgtc5emmQy2FfZcqoMVzacKE
-	 EvImLBtXXzmQUPsR1wZhV2AN+6eUgOkQ3KanaWVDhLtzTea2doOo/8B3rVJEv3RyTUs2O
-	 52YiduoBT/jy1C8K6XEvdrVpyeiQwPoyswncV1B+YrBcpm9W0fvmwHH7gudIFAWfbXr2o
-	 7G3PzsSBHoAJIzSZZ1crffif4Aj3WE2tSV2GquINGGAk4HiaYbkLeeVPku+piBX+f5A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=aHJ4tbem;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.169
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.38.247.119
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793105862;
+	b=B9bwM3IJ8/17/xFtI6U312Ff20V78pMasia1C1AZKGw/052TMmpRWnsBfc7r7NxRTayx
+	 TZXTVzAp0qQ1YEOS2pba8WIfcdLjN+ec1yJMKXx+SM1N2u1vDyR4Os7YxUfhDfyX3yfWi
+	 8MpINDR8kytt1z+1rQaeON+wC3cepaagx9CFEFjOrNobDsIhlFEfnALxkPkpUMbOSurCE
+	 khAtaHrdkLd2vmElViD1xBftTAgsVpvUFHstK6noZ3aAfrsdkZtuC3C0uAKuNEseZvGLS
+	 HeQLbgRt4n2TG1KPFT/8aaB+n6w67e1AQEkCP6s+5ZtjZj8lgSN/4VQFtXFr38aqHuw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793105862;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received-SPF:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:From:Content-Language:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-PPP-Message-ID:X-Rspamd-Server:
+	 X-Rspamd-Queue-Id:X-NC-CID;
+	bh=521a5KiHMV0SqLCMajvruFvZwpk1Efpz42h4U52rsZI=;
+	b=Cm0zt3ayjhd7Slmq4ChWubQDV0m+ib8VZzOFmkIJw0HFk9fbvz5T7vNk/ek/cD0hPO+A
+	 DlpVs2WunMvDdrIMcw2QqNnXH9c0h+8op6Vh1RZ9tRJBRrbVhXb03qsmq8C1uAii0V41f
+	 nMvQPgrdwTAZthwkHGpSfCmHoLTDypDYkUirmWYyMOM73TOau2Biy45KFJZmOQiVqVg/C
+	 xAI0VPOjzhjKbcdke5T/kIES1ueAm64USsmxC3lvZ840L232RpLj989UncxOaHpfLTL5V
+	 5kx4X4ZVHwgE6jR61z1EnUD6genxToGNKgKtWjnOH+N9nGPG7Rnh/bBRX3uFF2rXcXA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=leemhuis.info;
+	spf=pass smtp.mailfrom=leemhuis.info;
+	dkim=pass header.d=leemhuis.info header.i=@leemhuis.info header.a=rsa-sha256 header.s=key2 header.b=PoO8LaOx;
+	arc=none smtp.remote-ip=46.38.247.119
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [46.38.247.119])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E53E606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:58:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E53E606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1305606A31A;
+	Tue, 27 Oct 2026 12:57:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1305606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=aHJ4tbem
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2d01548ac96so6213225ad.3
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 05:58:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793105882; cv=none;
-        d=google.com; s=arc-20260327;
-        b=lfWWzbJijxV+iEmiequPDg8ZUsqBEIJebKYc8DyFC6RXSDhMdJGmYGej0so5YdgwlR
-         XT47RsQbzEkHdt81BwrorEMHYxmRVb/sJjTG765Ys1Mdbtd73fiq9VQFf4agKTJhpKi1
-         s7oWxXXTiDrXihG70It+bnQooKVQBh9+4KKpAQ7vOQXpYqhMxwFchpc8KXAXPJYH+ChM
-         9/09+hONtGwqMmsqxH9rNBZONEwdA6lSbyKjBZUu/4eO9QsSnLCzBDXg9eNUAgbnOdIM
-         VCtaTXFv1F55q2b1zdC3Cb92c8bRbt4mjTlX8hclHzxdGm7oVNdeBWqTaKMnEDNOMcPH
-         1XZw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=5cFHz19Fl8DmCi1uIfI6RDZnDxd7w5JrqZ9wd9VXgCk=;
-        fh=kx9VUvqLWoDr5bvNDR2w97V/dqklRp1c/NyOQjWGa94=;
-        b=q9RrZ7X9O0j6wASEHTtNLFYw3XLZwg1qHcNRGu57kDXvdk3G4ncp3LzW7enPO2Jgf1
-         qdegzMtBZDw4ZcE00aKxTzhSZIXP8H+6j5M1k1yFsP8bi12A2uwv8vezy4alD7FA/fS6
-         pXnLs0agl4nk6gQFA5/+yJJU4hZBWuoNAPybesHOzzzTZQ+K5PJ7TNe9QXwt10WRoEns
-         h+Mo5KbSsUBTURIwzhH8IgVbuBl24XHphsDSF8d4ziadhxsL9CLcbIO7O/S4mYxld9wL
-         BbqCwX/QMQ8KtzoynPaAKKvEJEyMGlfziBy0wnAH60sP0zCnkc6ybm4mOHbUK2f74dPW
-         8iQA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793105882; x=1793710682; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5cFHz19Fl8DmCi1uIfI6RDZnDxd7w5JrqZ9wd9VXgCk=;
-        b=aHJ4tbemtXgRO/LILEXKK5MhMnBXmgt5kiSyMyb1tHetusY0jOvBx5UO0LGELlICNP
-         DKANOQx0B7uOUv21WENwTl+0HzugrCb8DdqOggPXDIxdKcdcR4c0VWMHP+waUW3RqJpW
-         PgbtjJPfXyv2RVyRFxl/dt6AG0MXgM8ZWcMAzbwPQZ2RC9RJ/9r3qpg2l8T8XqGqZ7Yk
-         gijk8+BTGqq0wdaNKGBqzj1yidEIcLxAcBJfoo16JvlUChDtYRRFjVNdnFMjLusDtN96
-         3t5Rm/HFYlFpZmDKfHK7DbQa3BAU6RLInY0m+TVJNdGy1H7qqBLkzofefDrNRVNILLG8
-         xj3w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793105882; x=1793710682;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5cFHz19Fl8DmCi1uIfI6RDZnDxd7w5JrqZ9wd9VXgCk=;
-        b=1vY/AY8gcW4S42SbGkT1RZTPqWG8XBWimrlat8sm0mpBjZ7uzoB1zKEdXPtcsB5UZ0
-         uH6PhMxTyUG7TuLb1QqtUqXn2hJWxfEWUOewUxp1uBuG0kFjljlKT02dRZSNgjxVmNez
-         aKkd0DytDLzjtiFlNBOlBQDD9Vxq4WeU05kszy4GH/LehkfpQP64NvbVCRm5ieEpRKhY
-         pE/YRfm099HROVlkqYWbqfdMHpHGgN9wH/j310rSy6FwiVs8noJ4wEQM9NUsJGsHc1aS
-         aueFSQXnH/0LuZkrXPpJ8eRaB5WGjVOoV3fzl5K7eZU3KzHEMLaxZVrI4ak4pBaG9uYC
-         SgGA==
-X-Forwarded-Encrypted: i=1; AKwUvBzePwVfzUAQS8cdgyMQRPusmZQ5Sa0Y01K700vriM3doC2QTM9N2gItnT0OTJzTkZJ6jrPVslIBlwivj98=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK25qVuTxJiwzZPLu+18HZ8yT49ZmmR20SyPducXI0XJNn07QYi
-	7OJ75CLOMTkyoZfUnkT9iJfqii9GGzesQi5OZjRrfuBbo72y6Iu4SJDle8tbAkOYfl4OrVePEo+
-	77MV7A6AJ9pZqwEGH2u/tA6Od4AiubeI=
-X-Gm-Gg: AYBFou1g+WPJl0gEZr/W+yPZ84D+QDwThByRORBW9FsQptcK+7XpXva9V7n1yiNl/1k
-	b5F5jRj5rZ+HayCIG/x6Sitkh576lrFcnUs185IdPGZ+/fbVRmwXDNVVCmMZe2n8w889ZxM6Y1X
-	99KywcamTkeufvMS5OpejvQ4mHzhcfoU/EC7Z5jMHy9UhPPDIbRrRVL4VF8EqWCkfkHEUy6lNPr
-	j5wodpvU1w69E+z0AwZI3xATWyG+xXTH+RbFhet0jPyJW7m6gVm+EkqCsb+aG/SfCsQaBXxv5Y7
-	083Exv0AvZrKurDprrYUb0PXcrHw6r1QoL5HHyM7ixcVcZYqlRV2+DtIZZA5XJSQy/pgc7edLkr
-	R2jEDJ5R8fb/CFjlpnvqbRy+YhQOH/Otk09xICwTem9mmdfOENRGCxgepIjkUvMNUK9nIgnZWvN
-	Y7A4RiiIZCgUP/nRm3EAb+K0M=
-X-Received: by 2002:a17:903:1246:b0:2e9:53b1:a3c8 with SMTP id
- d9443c01a7336-2ea9b8cedd9mr139799795ad.0.1793105882570; Tue, 27 Oct 2026
- 05:58:02 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.a=rsa-sha256 header.s=key2 header.b=PoO8LaOx
+Received: from mors-relay-8404.netcup.net (localhost [127.0.0.1])
+	by mors-relay-8404.netcup.net (Postfix) with ESMTPS id 4jDVrf30L1z8ZWh;
+	Tue, 27 Oct 2026 13:57:22 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+	s=key2; t=1793105842;
+	bh=F9UN7r5NdJQ1zWaDOKDK9sE858rSa5l4u47sjcAp0mM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=PoO8LaOxz+IUHezCI5wUu3yNUk4Ok5X8lSMi5sp+qKARff4lTJEOnvLWOMeP3VqXS
+	 j5ARMaoaYdgzVtoJx50xrQDkD+LZYRbVtcR64e/uu+9X7wD1YfUeL9fcZSenFeg65J
+	 p//6dePZCRFuefT5Gt1KApYbfRXJpdndMvoFK9MgIU3Wm04+apwp7mpBT9VfuCeYkA
+	 kBwxfkbtakuWXvlpU0Ybxs4LpmA7bkdwz2wmTEXSV9e2pUcObv4D62I+yixaXGxfDv
+	 hygIDMMTosX2uqjwElmKR6ciaVV+k7Qc7230K4annS0iLZQJytAkpHERcIaD+nygy+
+	 uL6uJN+rOYIOQ==
+Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
+	by mors-relay-8404.netcup.net (Postfix) with ESMTPS id 4jDVqD0Jmnz505Y;
+	Tue, 27 Oct 2026 13:56:08 +0100 (CET)
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4jDVqC0LkBz8sb7;
+	Tue, 27 Oct 2026 13:56:07 +0100 (CET)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 027775F9EA;
+	Tue, 27 Oct 2026 13:56:01 +0100 (CET)
+Authentication-Results: mxe9fb;
+        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <7472a96a-313c-4bf3-a1b1-5687c010f7e4@leemhuis.info>
+Date: Tue, 27 Oct 2026 13:56:00 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,86 +74,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <a826b32d-597a-4c01-8b30-218cbca8627a@gmail.com> <e0573e72-dcc1-4ff2-8cf2-53aefde912cb@amd.com>
-In-Reply-To: <e0573e72-dcc1-4ff2-8cf2-53aefde912cb@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 27 Oct 2026 08:57:51 -0400
-X-Gm-Features: AclHuK92ggwXiFq1nRRsvD9VvQPc9NQzHHjBp1wqrlbElWtCAuab7SLZN1uuWeE
-Message-ID: <CADnq5_M8f2Hgs06n9EXUaihGsr6YEm6G4YFVQmPfQbGU08XkBg@mail.gmail.com>
-Subject: Re: [PATCH 1/3] drm/amdgpu: reserve 64M stolen memory for Apple 5K iMac
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Richard Lane <richardlanedev@gmail.com>, amd-gfx@lists.freedesktop.org, 
-	Alex Deucher <alexander.deucher@amd.com>, Harry Wentland <harry.wentland@amd.com>, 
-	Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>, 
-	Mario Limonciello <mario.limonciello@amd.com>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] pmdomain: qcom: rpmhpd: don't clamp gfx and gmxc before
+ sync_state
+To: Ulf Hansson <ulfh@kernel.org>, Bjorn Andersson <andersson@kernel.org>
+Cc: Oleg Keri <okerixx@gmail.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Abel Vesa <abel.vesa@oss.qualcomm.com>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Rob Clark <rob.clark@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
+ linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ regressions@lists.linux.dev
+References: <20261021080517.2161-1-okerixx@gmail.com>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+Content-Language: de-DE, en-US
+In-Reply-To: <20261021080517.2161-1-okerixx@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-PPP-Message-ID: <179310576257.1469982.4921492503478710883@mxe9fb.netcup.net>
+X-Rspamd-Server: rspamd-worker-8404
+X-Rspamd-Queue-Id: 027775F9EA
+X-NC-CID: W4f2xB7Fsat1xO23TYCPIE9b90XxyjJEIuD+ilO0bRFVn8+02DE=
 
-On Tue, Oct 27, 2026 at 8:21=E2=80=AFAM Christian K=C3=B6nig
-<christian.koenig@amd.com> wrote:
->
-> On 10/26/26 23:46, Richard Lane wrote:
-> > Apple 27" 5K iMacs report a single 2560x2880 tile (28.125 MiB) in
-> > VIEWPORT_SIZE while scanning out up to 64 MiB across the relocated EFI
-> > framebuffer.
-> >
-> > Override the stolen VGA memory allocation size to 64 MiB when matching
-> > PCI_VENDOR_ID_APPLE with a 2560x2880x4 viewport size to prevent
-> > framebuffer corruption during boot handover.
->
-> Hacks like those are usually a big no-go.
->
-> Why is that framebuffer handling not working with DC out of the box?
+On 10/21/26 10:05, Oleg Keri wrote:
+> Until rpmhpd's sync_state every vote is clamped to the highest corner,
+> so that hardware the bootloader left running keeps the rail level it
+> needs until its driver takes over.  Nothing the bootloader leaves behind
+> runs on the GPU rails, but the clamp hits them anyway: the GPU clock
+> controller's probe runtime-resumes and suspends its GFX and GMXC
+> domains, and from then on both rails are pinned at their highest corner
+> until sync_state.
 
-The GMC IP code reserves the memory used by the display hardware from
-the pre-OS console.  The gmc get_vbios_fb_size() callback looks to see
-what display viewport was set by the pre-OS environment.  If the Macs
-need a workaround, that's where it should go.  Since these displays
-require multiple display pipes, my guess is you need to double the
-allocation in that case since the current code just checks the first
-pipe.
+Ulf, Bjorn, FYI: this is a fix for a regression that was reported in
+-next some time ago and recently made it to mainline. Linus hates when
+this happen. Strictly speaking the drm folks caused this and thus would
+have to fix it, too -- but there iirc was some reason why a revert was a
+bad option. Hence:
 
-Alex
+could you hence do us a favor and review and mainline this rather sooner
+than later? Maybe even before 7.4-rc1 to prevent more people from
+running into this (three people already did afaics).
 
->
-> Regards,
-> Christian.
->
-> >
-> > Signed-off-by: Richard Lane <richardlanedev@gmail.com>
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 10 +++++++++-
-> >  1 file changed, 9 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_gmc.c
-> > index 4204c3c750a8..8b196fbfa724 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> > @@ -1232,7 +1232,15 @@ void amdgpu_gmc_init_vga_resv_regions(struct amd=
-gpu_device *adev)
-> >         } else {
-> >                 size =3D amdgpu_gmc_get_vbios_fb_size(adev);
-> >
-> > -               if (adev->mman.keep_stolen_vga_memory)
-> > +               /*
-> > +                * Apple 5K iMacs report one 2560x2880 tile in VIEWPORT=
-_SIZE
-> > +                * while scanning out up to 64M across the relocated EF=
-I
-> > +                * framebuffer.
-> > +                */
-> > +               if (adev->pdev->subsystem_vendor =3D=3D PCI_VENDOR_ID_A=
-PPLE &&
-> > +                   size =3D=3D (2560 * 2880 * 4))
-> > +                       size =3D 64U * 1024 * 1024;
-> > +               else if (adev->mman.keep_stolen_vga_memory)
-> >                         size =3D max(size, (unsigned)AMDGPU_VBIOS_VGA_A=
-LLOCATION);
-> >         }
-> >
-> > --
-> > 2.55.0
->
+Ciao, Thorsten
+> On Glymur gfx.lvl has 14 levels and the clamp holds the rail at the top
+> one, 0x1d0, while the GMU's own performance table ends at level 11,
+> 0x1c4.  With the GPU driver and firmware built in, the GMU boots long
+> before sync_state, and its CLX DCVS calibration does not survive a gfx
+> rail held that high: the firmware gives up with HFI_F2H_MSG_ERROR
+> 0x007306c7 (ResMgrCalibrateDcvsLvl), the first HFI_H2F_MSG_GX_BW_PERF_VOTE
+> times out and the first GPU init fails.  On the Lenovo Yoga Slim 7x
+> Gen 11 this means the compositor cannot start at first login.  Pinning
+> gfx at level 11 or 12 instead fails the same way, level 10 and below
+> boot fine, and pinning gmxc alone has no effect.
+> 
+> Leave gfx and gmxc out of the clamp: they have no bootloader-configured
+> consumer to protect, and the GMU votes them through its own RSC.
+> 
+> Fixes: 93b6c8d10fad ("drm/msm/a8xx: Enable CLX feature on Adreno X2-85")
+> Link: https://lore.kernel.org/r/179248663855.32151.9955864156939592299@gmail.com
+> Acked-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+> Signed-off-by: Oleg Keri <okerixx@gmail.com>
+> ---
+>  drivers/pmdomain/qcom/rpmhpd.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/pmdomain/qcom/rpmhpd.c b/drivers/pmdomain/qcom/rpmhpd.c
+> index fa8fed5bd3e5..2c9d4beeffbe 100644
+> --- a/drivers/pmdomain/qcom/rpmhpd.c
+> +++ b/drivers/pmdomain/qcom/rpmhpd.c
+> @@ -1006,7 +1006,7 @@ static int rpmhpd_aggregate_corner(struct rpmhpd *pd, unsigned int corner)
+>  	unsigned int peer_active_corner = 0, peer_sleep_corner = 0;
+>  	unsigned int peer_enabled_corner;
+>  
+> -	if (pd->state_synced) {
+> +	if (pd->state_synced || pd == &gfx || pd == &gmxc) {
+>  		to_active_sleep(pd, corner, &this_active_corner, &this_sleep_corner);
+>  	} else {
+>  		/* Clamp to highest corner if sync_state hasn't happened */
+> 
+> base-commit: 2efb7a11f1aa4d2dc285fe2680cca22cb9f72f64
+
