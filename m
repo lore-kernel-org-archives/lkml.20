@@ -1,47 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793088646;
-	b=GL2z80ELG+Qq9pxtzF0VMQ6yxHEL/L2Nu6tiG7Y48yjPXg87j1OoWoSGuwImVGgC92y3
-	 AM1IfU5X9CDdN+T1MkQkNvi4e60USixg5KS3bosnPMB9HxV+30DpjksWq0vpYPcNdiONe
-	 tL6JQLtNn6sGeWbbkMRYsU7PLKV7rt0MMwo8kw/kw2p5EpUzQFVLonIiXNXN9ypO1gEG+
-	 m8IT6EtWjdjhoRLBHdi9ocdsWioT/u81L30PJ3vCuQBS7TexllOz8jPnr0FViNYGe653d
-	 lsKdZEDY+hxlt0TM5S5+1YssqI18Wk+ADwJ4YXZjN764ogbwAgCSqPIjxvCZ6quLKKg==
+	t=1793088647;
+	b=2keeUKB5RRGb83DdpM4cS5f5pDoZkqRladJCxb32u43GGOSWdvoJxH6MIC611fNYpOAY
+	 2lXQQyjR4v1F9WP+JlZX90D5JYL7840RT5fCL7XAUfjyC7TNyMm9p2lcXH0LMKkFmjiYU
+	 R1SYV55dnqIRROt1xqCC56UJcwpgmxWiJJ0QZvYt1DipKzM5baNzyDx/W5dPe+5GllRtf
+	 x+msg4b7IElc5tPi9cWAAAML6V9xYpKoOuFvnGyD+uG0tcy9VZjZu+qLGC09rGq4C7nST
+	 bE9TGYiaaF2Dj/9nejXMLZfkcFhUputdgKCrCp/CGfKofFADZ4XYk5RUWoUWz2MlyRQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793088646;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=dDmwmjf1rca7vDceLffwmnsnZHqgu7Yv+wtoDgqD3S0=;
-	b=joJweOuxn/WKUDzLIoaaK70w2Ou/mdkLJ5zfPSTJe0+CRWvvzJlkny4YVGb1JZBFz3Wi
-	 qIw1imvoa5/Q8TU1h0P0wDTnHJgFfGJGql8EUg1/tfbFHFcH3qpQy/AecSvhaDlGkb9Bd
-	 S5uABDTPDb1WyCWDftuWgkzKhVFUUOpBm7iOZBuxOk5e6wFwtLDTyA1bBZE7MlDv7+T2j
-	 4ZYv58GsEeNNH1O3g0ZXwxNDT4UZksB+dhgBx/zm2jF8SsJLGCYluZZN7oFjIyOzK+hE5
-	 eVrQHD8Z56NztBVLKr+eSGCWZ1v5ah9yZo4PUTS/sxAxS4bqsC1dqCam7lO4wjD4SWg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793088647;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=DnTyS8CiLp9kXhmJQ0XYx6IOZxT93PhaPAXeNnfkOEs=;
+	b=bSvmUPuhognIMmoQaCyWkaGM4IQ5ofhx2BzQog+K21NGvNa/DMQXsfqKy2eJMN+h0UM1
+	 9F/11wlwBLEqO1vDspIvz/jsU1lMia5TYXvoyxjk/KU57ZVyVU21kRO66anzys8+gc6Rp
+	 1zr/hHjMC0X2HykzGI8x3IYuLMQO3InLjuHT1ljqn5NrxbY60ByKFwkXeAQGOdJtQHkwL
+	 8HiCPb0hmlGO0Ifjf3BRq4MKAUMV05e3xxpMyqXcOmAHEaD1jY1LVgm/rESJhz3x1Lnin
+	 Zvwh7oaekV7ctPNSAvke3nkFTsOGYXY3vS8yrBlaPBtFzB3sGs0DsgQB9zFk/dohK8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OuicXfmk;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=linux-m68k.org;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.217.42
+Received: from mail-vs1-f42.google.com (mail-vs1-f42.google.com [209.85.217.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80071606A31F;
-	Tue, 27 Oct 2026 08:10:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OuicXfmk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B40B41F01828;
-	Tue, 27 Oct 2026 08:10:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793088646;
-	bh=dDmwmjf1rca7vDceLffwmnsnZHqgu7Yv+wtoDgqD3S0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=OuicXfmkCul7MY0Y5pAoKRjE+HsPz/d6Z5LAZ89V6dhsXZuh0FzVVNsxN7gs2PTli
-	 jDlNrVoA78k6uChpYYfdukgoWkhsHGLaW0vhy0jgREaMpxP2TtUShAxOKPl3dv09lk
-	 qbbFAs1VA9dN7jtTCl9gKRYPdnFlggSd4augInStF/GhJymAwBnL5iS3vr4bPvps7b
-	 lznY+CO12tXwJSxLi/rRnjkt9IQ8Hs9cVByOM/tSGc5ThASptgvVlxYLFV6A5E1RPI
-	 3fjEE+YfMqB906EBk2d1Z0Ruoz6NZuW6IGGpcf15uzuUT6qSUfUwAUjt89VfmHRBCt
-	 cdkqL6kErpc5g==
-Message-ID: <16121542-acd5-4727-b64c-f8d519145b63@kernel.org>
-Date: Tue, 27 Oct 2026 09:10:40 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB388606A322
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:10:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB388606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vs1-f42.google.com with SMTP id ada2fe7eead31-7ce77f98658so596673137.3
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 01:10:46 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793088646; x=1793693446;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DnTyS8CiLp9kXhmJQ0XYx6IOZxT93PhaPAXeNnfkOEs=;
+        b=XTeo33ImBypgf/KoJL9bTRt8YWCW/0CAxOydPcMqmKPw1/nf0DBrlUJPa2VPNwHaIe
+         y6Hx0RkZPdZKvCklNKAPl0NUxyNmWmaiEKNTfA0SIirmFkhkead4DEONAf4A1jE3yRlA
+         VK7P5erPqqY6ItchsJykQjsja8qQLd5hDcE1K8+NnMcLLswtEt/Q0fVdWCg3tI8jOEhB
+         w9bSNPggFweUrI44n1+7QVdKExG6DIQlTUW2mE2XOmgySkncuTYY78eAf7e1pnj2paYR
+         h/c3I3sGjHbYiD6iNhcVvsvVLJE5s2qbZUNNoF7hMfZZzjc6BDhjVM9inesiTFVdZSTh
+         4jhg==
+X-Forwarded-Encrypted: i=1; AKwUvByzD4n04v5bnt1vvKWrdi9HkQXppAQx4wD+FFXijn2jmK25WlQlDq6dZm8/06YKutP/JTkegCrFroUNnqU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLZ71qGgUpwvDU0ItYZ8Thrrk7VhUY6Ib9UpC9zv9BcX0CzLYXs
+	euTxM5TeoK1lpUXnIv4ETycnIwEIPwagEDw39wVKX9KtJkfd0lR9Fgg8ce6QlYii8wo=
+X-Gm-Gg: AYBFou0Df4Qy9SET2R5CRixSZTwYp+X+jy8vo4xyyzH/ef+M1T1UM0IB4yjbJjnmLQz
+	FuEPTDQKfEuY8Cqn+go0hqZws28LAohQwpIhFBiT0o8HsuN91T6byMVWFLZT8MSDJoI+8g5f7GJ
+	REIR/+J4/96Cr7mQ7mnPVt9ldjmxYz+oyI5IoXdC/vDdWlg9qzBGsa/BU06kneruYCPPc0oR/iV
+	5s7KHXiIlubdeJWQofR5svThYGm9bvSHhnw4ex/JQqeq85+sF/ajqZgWugbPuY+eeXFq8l0dwzN
+	b2s9jg+b+HRmq9U/y+IkgdnTZAoNKCavHmsAgduoLjnkPmLYNHBeask3UCGAlyIAKGbZMToB5SF
+	Aufe4syidYtQ9DJUu1ZfV+Z1N6z25OWk7VvRhqJD2lQXy60jTVs9eYrXlLQQWHV7wWr3arEfX00
+	kbRUcmpHMmcg6yQzMzwEUT85lHa68EQboEVE1zWvnp5vKDodEElmlc5KWG7Tr8kUqALEEmXcSLf
+	PeqFknQThm+1PmhcbHPQO6k/MxGdUSIHW7CoLgP42UbU7NUO7jqdoatGP0Qk9WynHDH1hg6tpGo
+	0MyTzY9xPtQVdVPJBw==
+X-Received: by 2002:a05:6102:511e:b0:7cc:2fd1:7143 with SMTP id ada2fe7eead31-7ce5cd65a0fmr3027480137.17.1793088645672;
+        Tue, 27 Oct 2026 01:10:45 -0700 (PDT)
+Received: from mail-vs1-f51.google.com (mail-vs1-f51.google.com. [209.85.217.51])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7cea3caf553sm1660207137.7.2026.10.27.01.10.44
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 27 Oct 2026 01:10:44 -0700 (PDT)
+Received: by mail-vs1-f51.google.com with SMTP id ada2fe7eead31-7cc1cf48a39so894664137.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 01:10:44 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzSlALhksBuKeYtmQAb0EaNE30BmSm0tJcR1CQx30KjiXWMZW4PHep6xEz1BwtS5HiIwM7i2n2QVNkeYA4=@vger.kernel.org
+X-Received: by 2002:a05:6102:6a85:b0:7cb:288a:b68b with SMTP id
+ ada2fe7eead31-7ce5ceb4cddmr2598661137.37.1793088644228; Tue, 27 Oct 2026
+ 01:10:44 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,115 +81,152 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/8] mm/slab: Support selecting slab hardening features at
- boot
-To: Chris Down <chris@chrisdown.name>, Harry Yoo <harry@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>,
- David Rientjes <rientjes@google.com>,
- Roman Gushchin <roman.gushchin@linux.dev>, Kees Cook <kees@kernel.org>,
- Marco Elver <elver@google.com>, GONG Ruiqi <gongruiqi@huaweicloud.com>,
- Jan Kiszka <jan.kiszka@siemens.com>, Kieran Bingham <kbingham@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, linux-mm@kvack.org,
- linux-hardening@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, kernel-team@meta.com
-References: <cover.1793086056.git.chris@chrisdown.name>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=vbabka@kernel.org; keydata=
- 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
-In-Reply-To: <cover.1793086056.git.chris@chrisdown.name>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20261020212235.1143086-1-ebiggers@kernel.org> <363b228a-7e96-481a-b70f-195ba55d025e@kernel.org>
+ <20261021063927.GA31908@sol> <d5d0801e-371c-4836-8b4a-26bff33df46f@kernel.org>
+ <20261021064940.GC31908@sol> <aea2328d-4ea8-45bc-922e-9c1fed94083f@kernel.org>
+ <CAL_JsqLA2F0oB=7LsoxZe-=AboOJu7FotpMACNsuV==jGWB8nw@mail.gmail.com>
+In-Reply-To: <CAL_JsqLA2F0oB=7LsoxZe-=AboOJu7FotpMACNsuV==jGWB8nw@mail.gmail.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 27 Oct 2026 09:10:33 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdX22CEnzQr8MuVftdVK23=ZpGoomGQuM-H8pw=x-Fsi-A@mail.gmail.com>
+X-Gm-Features: AclHuK_1hOMOvqhIVfJ47rUg7hn4eoGYJnc5iIPXkduWeAV9hHcxdetyXE5uQ4g
+Message-ID: <CAMuHMdX22CEnzQr8MuVftdVK23=ZpGoomGQuM-H8pw=x-Fsi-A@mail.gmail.com>
+Subject: Re: [PATCH] docs: submitting-patches: Require base tree information
+To: Rob Herring <robh@kernel.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Eric Biggers <ebiggers@kernel.org>, linux-doc@vger.kernel.org, 
+	workflows@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	linux-kernel@vger.kernel.org, 
+	Konstantin Ryabitsev <konstantin@linuxfoundation.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/27/26 08:35, Chris Down wrote:
-> Slab hardening settings are currently all build time choices. This means
-> that, unfortunately, hosts with different requirements end up needing
-> separate kernel images. Let's allow those hosts to use one image and
-> select each policy at boot instead.
-> 
-> This series adds four new boot parameters that default to their values
-> from CONFIG_*:
-> 
->   slab_freelist_hardened=
->   slab_freelist_random=
+Hi Rob,
 
-These two should be only a small cpu overhead, which is why distros
-generally enable them [1]. Also the code basically only runs in slowpaths
-because percpu caching doesn't use freelists. It's possible the static key
-conversion doesn't help anything. You could try to measure the impact, I'd
-be surprised perhaps :)
+On Mon, 26 Oct 2026 at 21:12, Rob Herring <robh@kernel.org> wrote:
+> On Wed, Oct 21, 2026 at 6:55=E2=80=AFAM Krzysztof Kozlowski <krzk@kernel.=
+org> wrote:
+> > On 21/10/2026 08:49, Eric Biggers wrote:
+> > > On Wed, Oct 21, 2026 at 08:41:47AM +0200, Krzysztof Kozlowski wrote:
+> > >> On 21/10/2026 08:39, Eric Biggers wrote:
+> > >>> On Wed, Oct 21, 2026 at 08:26:28AM +0200, Krzysztof Kozlowski wrote=
+:
+> > >>>> On 20/10/2026 23:22, Eric Biggers wrote:
+> > >>>>> -Make sure that base commit is in an official maintainer/mainline=
+ tree
+> > >>>>> -and not in some internal, accessible only to you tree - otherwis=
+e it
+> > >>>>> -would be worthless.
+> > >>>>> +    If ``git format-patch`` with ``--base=3Dauto`` (or
+> > >>>>> +    ``format.useAutoBase=3Dtrue``) can't detect a base commit, e=
+.g. due to
+> > >>>>> +    the current branch having no upstream tracking branch, it ex=
+its with
+> > >>>>> +    an error. In such cases, pass an explicit base commit to ``-=
+-base``
+> > >>>>> +    instead. This is also needed if git detects the wrong base c=
+ommit,
+> > >>>>> +    such as when the upstream branch has local, unpublished comm=
+its.
+> > >>>>> +
+> > >>>>> +The base commit must be in a well-known public tree, such as the
+> > >>>>> +subsystem development branch the patch is targeting. See
+> > >>>>> +:ref:`obtain_a_current_source_tree`. Mainline or the latest linu=
+x-next
+> > >>>>> +can also be acceptable bases, depending on the subsystem.
+> > >>>>
+> > >>>> I disagree, that's pointlessly too hard requirement.
+> > >>>>
+> > >>>> For many of my contributions base is obvious and not needed to be
+> > >>>> explicitly defined. For all the patches I accept, answer is the sa=
+me -
+> > >>>> base is either obvious or if not and patch does not apply, then th=
+e base
+> > >>>> does not matter.
+> > >>>>
+> > >>>> Requiring it is just bureaucracy without actual benefit.
+> > >>>>
+> > >>>> The only benefit would be if maintainer COULD change its base to a=
+pply
+> > >>>> some patch with odd base... but this cannot happen. Maintainer bas=
+e is
+> > >>>> fixed - it's the HEAD of his development branch for given category=
+ of
+> > >>>> commits (e.g. DTS branch for SoC maintainers).
+> > >>>
+> > >>> There are many use cases for applying patches besides the final pat=
+ch
+> > >>> acceptance, such as review (by anyone, not just a maintainer), test=
+ing,
+> > >>> CI systems, etc.
+> > >>>
+> > >>> HEAD of a branch is of course not fixed, and changes every time a p=
+atch
+> > >>> gets applied.  That's especially relevant when wanting to check out=
+ an
+> > >>> old patch for any reason.  Trying to guess a base commit based on t=
+he
+> > >>> date and patch subject is a waste of time.
+> > >>
+> > >> All these tools should just work on top of linux-next. Requiring peo=
+ple
+> > >> to add base like "next-20261021" or "tip-of-obvious-maintainer-tree"=
+ is
+> > >> pointless. I understand that base is helping, but helping and requir=
+ing
+> > >> an obvious information just do not go together.
+> > >>
+> > >> So again: base has ZERO meaning to the maintainer process. It has
+> > >> meaning to tools, so fix the tools to work on known and obvious tree=
+s.
+> > >
+> > > So what is your proposed algorithm to apply an arbitrary patch when
+> >
+> > Already provided that, so to recap:
+> >
+> > > there's no base-commit?  Including any historical patch (from
+> > > months/years ago), patches with dependencies, etc.
+> >
+> > Dependency is something else, but for every other patch:
+> > 1. For testing/CI: you apply on top of next
+> > 2. Every other case the maintainer knows where to apply it, because it
+> > is his HEAD of next-branch.
+> >
+> > I am repeating myself, but I really had no single problem of lack of
+> > knowledge where to apply a patch as a maintainer or reviewer of some
+> > subsystem, thus maybe I do not understand the actual problem you are
+> > experiencing.
+>
+> Look at our DT PW. There are numerous patches that don't apply and
+> then we silently don't test them at all. Here's one example[1] (3
 
-Maybe we should just make them default=y.
+That's a false positive, as the first two patches (the ones that really
+matter for you as DT maintainer) do apply to yesterday's linux-next ;-)
 
->   slab_buckets=
->   kmalloc_partition=
+> actually as the whole series doesn't apply). The more base-commit
 
-These are more valid as there's a memory overhead tradeoff.
+There are indeed patches in that series that cannot be applied, which
+is explained in the cover letter.
 
-[1]
-https://oracle.github.io/kconfigs/?config=UTS_RELEASE&config=SLAB_FREELIST_RANDOM&config=SLAB_FREELIST_HARDENED
+The problem boils down to how to present work that touches multiple
+target trees, and where some parts depend on other work that is
+not yet finished. Do you post it as single series, so people get an
+overview? Do you split it in multiple small series (which may still
+have interdependencies), so everybody looses context?
 
-> These mostly act at cache initialisation time. For free list hardening we
-> use a static key settled before the first free pointer is written.
-> 
-> Chris Down (8):
->   mm/slub: Support disabling freelist hardening at boot
->   slub_kunit: Add a test for slab_freelist_hardened=
->   mm/slub: Support disabling freelist randomisation at boot
->   slub_kunit: Add a test for slab_freelist_random=
->   mm/slab: Support disabling SLAB_BUCKETS at boot
->   slub_kunit: Add a test for the slab_buckets boot parameter
->   mm/slab: Support disabling KMALLOC_PARTITION_CACHES at boot
->   slub_kunit: Add a test for the kmalloc_partition boot parameter
-> 
->  .../admin-guide/kernel-parameters.txt         |  29 +++
->  lib/tests/slub_kunit.c                        | 186 ++++++++++++++++++
->  mm/Kconfig                                    |  15 ++
->  mm/slab.h                                     |  24 +++
->  mm/slab_common.c                              |  48 ++++-
->  mm/slub.c                                     |  68 ++++++-
->  scripts/gdb/linux/slab.py                     |   8 +-
->  7 files changed, 361 insertions(+), 17 deletions(-)
-> 
-> 
-> base-commit: d15d7703166daf7bd62c844a3cb1b3a6279adb4c
+> [1] https://patchwork.kernel.org/project/devicetree/patch/8b2c7719c301a44=
+5891fc6c5309456327ec8a94c.1793026273.git.geert+renesas@glider.be/
 
+Gr{oetje,eeting}s,
+
+                        Geert
+
+--=20
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
+.org
+
+In personal conversations with technical people, I call myself a hacker. Bu=
+t
+when I'm talking to journalists I just say "programmer" or something like t=
+hat.
+                                -- Linus Torvalds
