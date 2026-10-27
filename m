@@ -1,111 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793144772;
-	b=kzJRmLV+mpsKYghIDjUy0ZiZdsYO1CB1YxHzlP5wF3wQC27Ef6SToJQOKCONtKznaKQf
-	 BV+aHVQQNjEn/zunMqc5rUmiRdvZVeVODkItKq4DVAoTC6H8xiYnCWe3ZELAaCvECVJBz
-	 dEensZZ4/lRFH/zh0g5CwG3vnNEQSMTf41qDvcXXZvJvRJZNTdoItLoZEFgy23IPfHjGJ
-	 3PqHubsZIWoz4Uhz39mNvgsXgDwyEfogV0ZGaDdQhCRUir7ns5shgbNnsf+wn0iex65NJ
-	 5GwcseWmqJ88+30J9iXHDkuYrD9qgC0q74COCdrPAzcfQ7wW8BVRCkEIHSWN/9BOWFA==
+	t=1793144832;
+	b=qVSNYPTyD7jUa9GKhZbFzWtBy0n/LUX78hwHyV5RCt6WfDNzadDLh3JfJjOCRT9e0MbA
+	 QPd8YBPTH5XVVxsXgYDyLJwhqT5WNIK19e3GC4KeDxsrEFi6icPXD7AaY6gSoOXMua1k9
+	 IAjJvXqVXG6HtMRodg7n/ZwjUqSOXp31dStIvfJQY1HaIuWSRmuZ0DZGTTFXDZ0eFtTJZ
+	 3TQ6h5tq5dN7LYZTkEZTB63dxkKb6MX+2/PnjHteOzog/AOBQMgiz4tazuvirJ+oOekfd
+	 436wQWoAQCaKegRaqMvkUWJyJa3IeBIHm+pB5ehdvpzQ2O7fq9mmKLtu0MvY6U+Xakg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793144772;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=z2UfHBvHRgGayx7r8hZ+HGVeH8gt1wGqjG5tuFe3plk=;
-	b=HDO9QBm7b08KvNZZXhepyPMeZ0TK0T/6Fcex2h/mph0Y/QUgn6JcVoGoumOj+cyDBNnM
-	 5MBMiYDhoveSyzfEDJB5RLUy8Tw4d3vS61Xx68HkfG0wzgxryggcgqMyEBz0ePGH186q0
-	 OiZCFrJcCBaUxiGpRY9laG8qjlIF7FKlvbw5H37GX2QmTroKejQG4cTpu9u1NQkfTzaFR
-	 bo33i1vA/iU6qtgd8lfooIDDamf1VllkWRaQuVeukGRMkS3j83Fo+3wqxnjEo/cyRZkzR
-	 rLyL6wMBCtaQ5bVuFM0eeuC7JgH+xEbcItLIbkwYjt59FUzW9XBJ0Pr4ihJ7x5Ec9ew==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793144832;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=0jobZ6lKMJLYxxTCc8I8rfjGuzkz6VIrJqfxqZy7dVw=;
+	b=j4jEzh22q5831OJXBLX3Z+k40oeCyw/Ggo2sWf4Pqka0o/Zcp8L/ClRgOyTCvnnEdrSx
+	 PbXpC9afTtaDMQljTw24rfyuHMP+/yIRpWbEXBon3PV2l50ACB8F+Oc+hbgJB1iz6w2Vo
+	 8Cw3ODZhn9XmzTZ9YLjDNExXZP4WkOKINNhvMybsOYuLtWrJckt6uQjtifKWKrGTsvEMS
+	 f7JJHFAtYdw/NuFbq2R8wC/+y8fLT5zVxPHKdaa4jYWO2hVaoH6H31sbqkubIEZfWJyps
+	 wNlv5o8LaKJgGvfQ6n99bxCY+TvX4YdRNctr9534dVfmVhD2zuZXIC97p/MCfHM2zog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=OhsuEJ1E;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=OXInXtkG;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=ziepe.ca;
+	spf=pass smtp.mailfrom=ziepe.ca;
+	arc=none smtp.remote-ip=209.85.160.182
+Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD95C606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 23:46:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD95C606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=OhsuEJ1E;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=OXInXtkG
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69RKtP5C3336692
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 23:46:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	z2UfHBvHRgGayx7r8hZ+HGVeH8gt1wGqjG5tuFe3plk=; b=OhsuEJ1EELNpbET1
-	ZDtDr9vJ+Nl7HYv9/qC1dtjz9y1LRtW1aPENhQMw2FwKRFKJhCUM2QRnDS0RPms+
-	8L8XB4CobFUaLXFINzyGWCh0j0vwQ+UuJ+WiuQZc9CodO8sRizoqqMsu6UZAGaj4
-	A6C8VJi4lfMkEr5vdsj/wZCkft/VUa9u5Qqqnwc8g0kyhJSwEKBLDBHjHQrJqGG9
-	D8oM+YdR6BvTNFGAtV746g3UXptIbLH3NTrrf2Tm11dtnN6abTMKQOEhMksLLjuH
-	HpU5M78I/ie3Um3TizGz+7kAUpkKL5C1CoMDdlU4kHppTrtJmBhdjjhJ3rlw/CTh
-	fKs56A==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjst1k59w-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 23:46:10 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-35cbea41088so510477eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:46:10 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35AA0606A31E
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 23:47:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35AA0606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-53c4b82919fso7135991cf.0
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:47:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793144770; x=1793749570; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=z2UfHBvHRgGayx7r8hZ+HGVeH8gt1wGqjG5tuFe3plk=;
-        b=OXInXtkGzYX06AU3OxoEzP/IkcnV7oIfASflVSE4YRtKCSMbyAX9tbGH6iRk/WO49L
-         nIb92uDnDpONO5T1H0uKokBg0vB03IHJwlXNhgL8a3Ga/hHbeS/RcIefG92r89HqfoY9
-         RQlShd26/WYm3LzuplHqMvJKfng6JygG2vRLmoUk/VuODUpVTDHdatY4nzAg5plOySb8
-         UfassIFwLTr1IWrAiDwQ1qvRmn069IxDMHju7Qefg6aFTlGoM4yMRvaM5ChEXzLp6zFt
-         0Cjf1vsxlZrt5+CSfwemlmeFQoPbQjkN6ht6eSTCe/cgP3WoJtMa7GADiU6igKpI6jWh
-         Nodw==
+        d=ziepe.ca; s=google; t=1793144821; x=1793749621; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0jobZ6lKMJLYxxTCc8I8rfjGuzkz6VIrJqfxqZy7dVw=;
+        b=MAMauGjcQC5I4fdPuZtoQnkUL42Ja4RAOKAONT1AHTrTUlXxWwqX6qYADXfsEAR3/j
+         hUis6BLTdqxH9lpDGbebIZ+F0qhK+3Gw5A5H3+z2NBgRxi4MH2CtjOQEt/4ZNf155hzB
+         oTs4TdzanpcZpR/2BlKJXYZ5ayq9dCJ9KnWTYXDxPIGzp3UbV1x+jJ+RSlif0GRL/dJH
+         j0OePIYXBil1ld6ZPKFMsFzi6F38i35BXCm6Zqet5zyQslJePMeaHITZMn+3CDTRQJk4
+         QD6tYVzQJvCV1jaXUHg5KQO0GvIXtoG0gYWydzGqJE616loH3WeEVB2M4YGyBB7u1Jus
+         n4fA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793144770; x=1793749570;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=z2UfHBvHRgGayx7r8hZ+HGVeH8gt1wGqjG5tuFe3plk=;
-        b=yEX5xYjzk7UJlFg9m7HFCloHCLnIZ+NhNk4t82VC1oGtfljY7Wrh8hm1UUnPd+XyxC
-         oyoIVSl2QgKgUuApQyvdscGRPMQ5BVJCukYiwYVMufHubX10apGDWZbgnDaUKv5DwozL
-         9rxpgP/mlcCA9gS1CpL6/tQpKDSsq4G8uGVKGuSS0yA0P9T5Sx6FzT9OJ+xooSefWJ13
-         btfLH3yKKA4FVOUwiofShIbBSIIcqgVMBRBIG9+Q11f17tASPCloxErKIUx5O79FoB8r
-         EEaVg5MPUmzT+WK6pp2pacZ5jF93123jlC0weavCdV0MXmhOtIUr/MTa56NeMOPbpt2c
-         clZA==
-X-Forwarded-Encrypted: i=1; AKwUvBxSKbdoVOQylSA4g0EVyx3fbcSH0c1UGm/A2g637eKnLHla2pOVAziY2kYpuXhCzPo2Eh0CI99P/5nP1qU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJZ8uxUfrx4REfaLB0NlW20CoAcCoHOuyPzF1gNgvOo3WYDYCdN
-	aMpb4cOLtOwhSIDPNx+n7Fs0I3Nz7nydd6Pep/gPr7Aid7CGXXY6QveEX3PNa/hz/UqMnc7wY5I
-	aUp1J9R18Ji/7T5TkT6qrgj1wrVJ4fkkFLqNfX/T6YUP8o3XkCyIIPw41LVfPhj0kias=
-X-Gm-Gg: AYBFou0t2rUtqW+5WTIi0ssG+xmNyA/fOqcdoWSM9u1uDKmyJ8lo1gI0oBj4xfMCbWK
-	AlYP8OWUk0YTJhq/Vm2+wcjtKAfDJUKWsiUyTIHOa7USIcqJVHV/650fHTQhposilC1pq8lZX9x
-	E8ESGmLRxzt1/RMoQjzP4Hh159qOsLAEG81O+Vw34WGwtU7qfIbRIrGRe0uLSQ29zumy6qns8Q5
-	ukP1lXtlzj8A+nfQzS6kfINePanYxtxYAkqp0NgI+/sHTS6AqHjYXKigtvhGoYunrCVl26DGUR2
-	HH+z1weVRCsv3V0sKpi8DjGenqB8LaGXONIVxljYYCI7N+oGM8FD8R/0b9OiQuQSWxufuFFchLZ
-	htvP943pn7yyU37UcEz4Qf4DctL8vC1R2h9J8zvhx3yRCNYsJWds4Rse9kpU11A==
-X-Received: by 2002:a05:7022:1217:b0:14f:5cd:f286 with SMTP id a92af1059eb24-1a6cf729c4fmr1036876c88.34.1793144770038;
-        Tue, 27 Oct 2026 16:46:10 -0700 (PDT)
-X-Received: by 2002:a05:7022:1217:b0:14f:5cd:f286 with SMTP id a92af1059eb24-1a6cf729c4fmr1036828c88.34.1793144769398;
-        Tue, 27 Oct 2026 16:46:09 -0700 (PDT)
-Received: from [10.134.68.191] (i-global254.qualcomm.com. [199.106.103.254])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1a75d85f23dsm153319c88.11.2026.10.27.16.46.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 27 Oct 2026 16:46:08 -0700 (PDT)
-Message-ID: <b1312ee5-52d0-4294-a05a-f84bc334af74@oss.qualcomm.com>
-Date: Tue, 27 Oct 2026 16:46:07 -0700
+        d=1e100.net; s=20260707; t=1793144821; x=1793749621;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0jobZ6lKMJLYxxTCc8I8rfjGuzkz6VIrJqfxqZy7dVw=;
+        b=2La4Run/vLRtDP62LMWv5eA/PaqoiGyP3/hMMh2y2daIzKWJv9XdrK/Q9XD6yn07Wz
+         UkNG0QiQGmk25t8aWo0fVwhfJA6r8NNshSoxmxh7odQ4PZwIdZNTNr6g7y7ySDASm46e
+         WCwupb+/r4/QApFwZsK7W/ZmoGeaJKIFAaqTAMpwjQDl/oTWUhbo6SReuwMweY6o4Dmc
+         Ms6CTraUDaEQ/q4zColiMlsoSkjbx7rz61DqkgOG3AOiKWIOyzzUEaL9Jd6UjPAmb3wh
+         tlRvg6yhNkalwKGD55e6cJlN0jBqnQM+ph0TpJgJXGoAo8X1ct43C8cR9LpYw319q7D+
+         +ZTQ==
+X-Forwarded-Encrypted: i=1; AKwUvByaZtJDP5bg86hMkLVvtD1rGpab6l7UHqXYtywwLKOlqRbmfalxOBr6eE8nrlRDvcPTKbYVxqOGCpawvNE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKt1t+KGTh7wXMwsdwovCowVQB/7nmIQ37ufVcm98LX5jCscHpu
+	oobGNP3l4sgyZudTPIa53iKZEhcXGI0EJzFVVa/kIzNFb/kO6iLB4Lic49UZ3xTyGC0=
+X-Gm-Gg: AYBFou3ImQHiISfOEncWRtm0ivVDX01bjrimxni6sgaGRaDk6HCbr16vaszPRgVdJvL
+	2c2N6eFiJ0Kc3Mt8zJNnm18O3O7syuY+YEgseVoX9pNOi+Zd4/yvakH208lEBS+afGV4+sulf1e
+	LxMMggXxVs9AM7hglJdpGRF/qz4mC7N+HeQZ+iSsPDpyh1nGmPK78zI1zLb8CjKrLXs1SP33nsg
+	ofYiwvJQUDUcoZtAl/TX560G6dkG9sZOtvvEHkvV7kemYymi16T3DgTZxFUoCqfn5R6gI3p4QcJ
+	Wttg7NkF5WX7rAhiufMhUfxYpr0B9sA09xQaV+ObfNjCHpir0Pnr8YVccpB051C2k4P2Sn1KbiS
+	/TsjSiWsAWzL1S1s+4vddyYLeIrc69Uk2dhYa7kD1kAG5hao9riTTIPidGglShQLKrGC7KZ/vLf
+	VSD5bdB3QRShhu3mM6pGBX2WGqN7xPhSctS9ioZ+C7xHnIJU7Wy0Oh2J7Ysd5mCYnm2C1CBN7fn
+	tj9hvwaXLL+epXUUALcRmR/xcrOpwAsSoynnJfdt/X4QchHbGIJQPn0pv5V86Bu7+nylagPOi5J
+	+9gCCR9Wn+oubOn/QfQ0QXKlQjTy/LEV3q+W224yES5Vb4PUxGqh7giT25LllmUd1dFHr/+03FQ
+	+Z69DTeIlcEg=
+X-Received: by 2002:a05:622a:342:b0:532:8ed7:534 with SMTP id d75a77b69052e-53fcb7f9e76mr15856551cf.37.1793144820933;
+        Tue, 27 Oct 2026 16:47:00 -0700 (PDT)
+Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c47a69129sm114200426d6.4.2026.10.27.16.47.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 16:47:00 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1xLqsc-0000000BHke-3ly0;
+	Tue, 27 Oct 2026 20:46:58 -0300
+Date: Tue, 27 Oct 2026 20:46:58 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Dave Jiang <dave.jiang@intel.com>
+Cc: Jiri Pirko <jiri@resnulli.us>, linux-coco@lists.linux.dev,
+	linux-kernel@vger.kernel.org, linux-api@vger.kernel.org,
+	x86@kernel.org, kvm@vger.kernel.org, linux-doc@vger.kernel.org,
+	david.quigley@intel.com, lukas@wunner.de, ksinyuk@kernel.org,
+	rodrigo.vivi@intel.com, cedric.xing@intel.com, sameo@meta.com,
+	drdeeglaze@gmail.com, James.Bottomley@hansenpartnership.com,
+	aik@amd.com, jpiotrowski@nvidia.com, qinkun@google.com,
+	pgonda@google.com, jic23@kernel.org, alistair.francis@wdc.com,
+	ankita@nvidia.com, suzuki.poulose@arm.com, kas@kernel.org,
+	rick.p.edgecombe@intel.com, elena.reshetova@intel.com,
+	dave.hansen@linux.intel.com,
+	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com
+Subject: Re: [PATCH RFC 00/20] attestation: Add a common subsystem and TDX
+ support
+Message-ID: <20261027234658.GL1685504@ziepe.ca>
+References: <20261015145053.3664509-1-jiri@resnulli.us>
+ <592d643f-e97d-4de8-9a87-e47d57dc8457@intel.com>
+ <20261027193629.GK1685504@ziepe.ca>
+ <5f33aeed-a20d-4881-9ccf-a69bc308d348@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,199 +112,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 0/6] phy/media: Add generic MIPI C-PHY support to
- CSI-2 stack
-To: Bryan O'Donoghue <bod@kernel.org>,
-        Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
-        Vinod Koul <vkoul@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
-        linux-phy@lists.infradead.org, linux-kernel@vger.kernel.org,
-        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org
-References: <pFAaFSKH8thStYg6_Ew1gWdIvj5lbNBF36QKdamV1cU1Nc73wEZfM_KdQWL2NmB5fvaUpMPen7qMOzjHZ9ROIQ==@protonmail.internalid>
- <20261017-cphy_support-v1-0-8b0e1237ce95@oss.qualcomm.com>
- <141c5032-1915-4dac-bbcf-e697b762ae40@kernel.org>
-Content-Language: en-US
-From: Jigarkumar Zala <jigarkumar.zala@oss.qualcomm.com>
-In-Reply-To: <141c5032-1915-4dac-bbcf-e697b762ae40@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=HJ1WhYtv c=1 sm=1 tr=0 ts=6ae137c2 cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=RNcpwd5BfBhkYgEZawkA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=6Ab_bkdmUrQuMsNx7PHu:22
-X-Proofpoint-ORIG-GUID: CwiH43aCw63K8XKlZit2lR27hpRznpg3
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA5NSBTYWx0ZWRfX+G+kO2R6ndS3
- qra0Q3ISOgkm+eka+FLeyF4YOzqEi23sWULLNje2cwrguD3edWfu0WVKn3Qi9Z6lEA7fV2jomaL
- LTan6ijefe/2xpYD62u4TMbJlu30VZA=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA5NSBTYWx0ZWRfX3tTSzkioC++J
- BK0m4hBIMEo2iwJhR6QQ+FYvd+BeFjGTvGv52XeQmI1zUaTdtPKA+yjVL8qyqwUAfjnnr44q7e+
- /XDf2p+rH9Scvorbz1Uckwa0mCWEkQPuWVtmwrix25tW2/RnnJNTBrvydzEMZmv+ktBt+9QVYoy
- bG1l9Ts61DI8xQuTxpZtpFW0p6zFQL11EIupyalvUJnxiQO+sJIpmCNIpEYWRo/iY30s4ZDoKnq
- JP6+E2ZUGhIFKoO5pSIKD/ec7pAYfiHY8r5bORrz0ZTesv2iAkiqRdSiZKZrWPtf7ogmEjqPR5x
- r0yjxzDRuIaHMDSmdGG2otWohNyCbdCCaKR89Mke8cc0tK0oxCJGoFyM3rgg4Ck8IE5kRiISqSV
- gCN0FgdBMocUbna10TBGXlQQ4B1de3Ir3Lq2614D74mEqa0wiXbfUjaFz76oCMEcafs2H77X41b
- vPQTfPlRhBYGJeOkWSQ==
-X-Proofpoint-GUID: CwiH43aCw63K8XKlZit2lR27hpRznpg3
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-27_06,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 priorityscore=1501 suspectscore=0 lowpriorityscore=0
- impostorscore=0 adultscore=0 spamscore=0 phishscore=0 clxscore=1011
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610270095
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <5f33aeed-a20d-4881-9ccf-a69bc308d348@intel.com>
 
-Hi Bryan,
+On Tue, Oct 27, 2026 at 04:09:19PM -0700, Dave Jiang wrote:
 
-Thanks a lot for your suggestion regarding file structuring and naming 
-convention.
-However, we think that having the separate file will make it more 
-functionality oriented distinction. It is easier for addition and 
-maintenance.
-Also, we would like to propose to remove 3ph from the file name 
-convention as this is misleading the operation. DPHY is 2ph, whereas 
-CPHY is 3ph.
-We are proposing to have a naming like phy-qcom-mipi-csi2-dphy.c and 
-phy-qcom-mipi-csi2-cphy.c as the names, DPHY and CPHY are sufficient to 
-understand the 2ph or 3ph operational mode.
+> There are two issues for TDX Connect. One, the device info is collected at
+> SPDM connect (TDH.SPDM.CONNECT), not at lock. TDH.TDI.BIND only returns the
+> interface report. So the measurements a TD sees at lock can be from well
+> before the lock. To get measurements taken after the bind, the TD has to
+> ask the VMM for a recollection with its own nonce.
 
-Kindly provide your suggestion.
+IMHO measurements taken before lock must never be made visible through
+this interface, it defeats the security property of evidence within
+the locked session. I would expect the guest kernel TDX driver to
+prevent this.
+ 
+> Second, a device may take a runtime firmware update of equal or higher SVN
+> while its TDIs stay locked, unless the lock sets NO_FW_UPDATE. The
+> TD isn't
 
-Thanks,
-JZ
+Sure, any of the live update things are not really relevant, the
+evidence can change asynchronously and without notification, so we can
+just ignore the issue. If the guest opts into live update then it can
+only rely on things like min svn.
 
-On 10/17/2026 4:39 PM, Bryan O'Donoghue wrote:
-> On 17/10/2026 18:13, Nihal Kumar Gupta wrote:
->> George posted a C-PHY series [1] which we are currently reviewing.
->> As discussed with Bryan, this series shares our independent
->> implementation so the approaches can be compared.
->>
->> Two aspects covered here are not in [1]:
->>
->> - Settle count calculation derived from sensor-reported T_PREPARE and
->>    T_PREAMBLE timing via get_mbus_config(). [1] left this as an open
->>    question.
->>
->> - Data rate based register sequence selection using effective bit
->>    rate (link_freq * 32 / 7). [1] noted downstream does this but
->>    deferred it; this series implements it.
->>
->> MIPI CSI-2 operates over two physical layer variants. D-PHY uses a
->> dedicated differential clock lane with up to four data lanes. C-PHY
->> encodes the clock within the data stream across up to three wire
->> trios, eliminating the dedicated clock lane.
->>
->> Patch 1 extends the generic PHY framework with PHY_MODE_MIPI_CPHY
->> and struct phy_configure_opts_mipi_cphy.
->>
->> Patch 2 adds t_prepare_ns and t_preamble_ns fields to the CSI-2
->> media bus configuration and extends CAMSS to forward them to the PHY
->> provider for settle count calculation. Sensor drivers must implement
->> get_mbus_config() and return non-zero values in nanoseconds; stream-on
->> returns -EINVAL otherwise. The strictness is deliberate: C-PHY settle
->> timing is symbol-rate-range specific and no safe value can be derived
->> from link frequency alone. A conservative fallback could be added if
->> reviewers prefer.
->>
->> Patches 3-6 extend the Qualcomm CSIPHY driver: refactor D-PHY
->> register storage to accommodate C-PHY, accept C-PHY mode with
->> multiple data rate table selection, compute settle count, and add
->> lane power mask support for C-PHY trios.
->>
->> C-PHY encodes 16 bits per 7 symbols, so the effective bit rate is:
->>
->>    bit_rate = link_freq * 2 * 16 / 7 = link_freq * 32 / 7
->>
->> where link_freq is symbol_rate / 2 as reported by the sensor via
->> get_mbus_config(). The rate-table entry whose bandwidth first meets
->> or exceeds bit_rate is selected.
->>
->> The settle count defines how many timer clock cycles the CSIPHY
->> receiver waits before scanning for C-PHY sync. It is computed from
->> the sensor's T_PREPARE and T_PREAMBLE timing. The /3 factor reflects
->> that C-PHY distributes the preamble sequence across three trios:
->>
->>    settle_cnt = (t_prepare_ns + t_preamble_ns / 3) * timer_clk_rate / 
->> 1e9
->>
->> D-PHY settle count is unchanged from before this series.
->>
->> [1] 
->> https://lore.kernel.org/all/20261016-x1e-cphy-rfc-v3-0-40a346a72153@gmail.com/
->>
->> Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
->> ---
->> Nihal Kumar Gupta (6):
->>        phy: core: Add MIPI C-PHY configurations
->>        media: qcom: camss: Add C-PHY timing fields and get config 
->> from sensor
->>        phy: qcom: mipi-csi2: Split D-PHY register settings
->>        phy: qcom: mipi-csi2: Accept C-PHY mode and add register sequence
->>        phy: qcom: mipi-csi2: Add C-PHY settle calculation
->>        phy: qcom: mipi-csi2: Add lane mask calculation for C-PHY
->>
->>   drivers/media/platform/qcom/camss/camss-csiphy.c   |  90 +++++++++---
->>   drivers/media/platform/qcom/camss/camss-csiphy.h   |   2 +
->>   drivers/media/platform/qcom/camss/camss.c          |   8 +-
->>   drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c | 159 
->> +++++++++++++++++----
->
-> So on thing I notice about this series and like is that there's a 
-> small change to the existing 3ph-dphy.c
->
-> - Since it supports 3ph-cphy the file should be renamed
->   3ph-cphy-dphy.c (or something)
-> - I like the progressive nature of he changes in this series
->   as structurally the right way to add stuff in. Small digestable
->   commits
-> - I think the missing piece here is data_lanes[] and lane_polarities[]
->   per the other series from Qcom
-> - Another thing is the other series from Anusha has
->   a more advanced mipi_ops data-structure for CPHY.
->
-> Basically I like the approach taken in this series for a smaller 
-> change to the phy-qcom-mipi-csi2-3ph-dphy.c file.
->
-> I'd like the best of both series - I think there is alot to resolve on 
-> lanes, data-lanes and lane-polarities in the other series and looking 
-> at this series, it seems to me we don't need a separate 
-> phy-qcom-mipi-csi2-3ph-cphy.c, I think Konrad observed in George's 
-> series that really the file deals with 3-phase PHYs and that seems 
-> true enough.
->
-> Please work out between yourself and Anusha what's next.
->
-> If possible I would prefer to contain 3ph CPHY and DPHY to one file as 
-> is done here - at the same time the definition of CPHY ops and lane 
-> mappings is closer to the spec in the other series.
->
-> I think either you should take Anusha's structs and lane definitions 
-> or Anusha should take your approach to minimal change to the 
-> phy-qcom-mipi-csi2-3ph-dphy.c renaming it.
->
-> One of you needs to pick up the patches from the other one.
->
-> George can land his stuff on top then.
->> drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c     |  51 +++++--
->>   drivers/phy/qualcomm/phy-qcom-mipi-csi2.h          |  25 +++-
->>   include/linux/phy/phy.h                            |  47 ++++++
->>   include/media/v4l2-mediabus.h                      |   2 +
->>   8 files changed, 315 insertions(+), 69 deletions(-)
->> ---
->> base-commit: 2efb7a11f1aa4d2dc285fe2680cca22cb9f72f64
->> change-id: 20261017-cphy_support-2ce4d656e631
->>
->> Best regards,
->> -- 
->> Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
->
+> > I'm a bit puzzled by this optional challenge concept, I haven't tried
+> > to read SPDM spec yet, but it really has a way to omit the challenge
+> > from the reply? It doesn't just replace it with 0 or something?
+> 
+> SPDM puts the requester's nonce in the GET_MEASUREMENTS request, and only when
+> the request asks for a signature. The MEASUREMENTS response always carries the
+> responder's own nonce, and the signature covers the request too. An unsigned
+> request has no nonce and gets an unsigned response.
+
+Returning an unsigned collection seems like an interesting use case,
+but why would you want to do that in the first place?
+
+> The empty challenge in my provider means something else though: don't
+> recollect, return the evidence collected earlier. So it's less "omit the
+> nonce" and more "no new collection". Maybe that's better as an explicit flag
+> than an empty challenge?
+
+I'm not sure 'no new collection' is an especially useful thing. Since
+the kernel won't be validating the signature you still need to pass
+the expected nonce from the prior collection back to userspace so it
+can check it.
+
+Is there some specific use case for this?
+
+> >> 6. tdx_attestation_test's discovery_and_construction_fields expects an
+> >>    inheritance chain of 4, but the TDX family inherits ctlv-attestation
+> >>    directly, which gives 3. In a real TDX guest it fails with
+> >>    "Expected 4 (4) == ctlv_chain_len(self->dev) (3)".
+> > 
+> > I would have naively guessed this should inherent from some SPDM family?
+> 
+> The TDX family is the TD's own attestation (TD report, Quote and RTMRs), with
+> no device or SPDM in it. In wip_attestation_all_1 it inherits ctlv-attestation
+> directly, so I think the test's 4 is what's stale. Jiri would know for sure.
+
+I think TDX report/quote/rtmrs should be a different familiy from TDX device
+assignment SPDM. They are completely different things.
+
+Jason
