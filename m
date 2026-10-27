@@ -1,54 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.215
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793088707;
-	b=Xsclo05H7xN3jkr7LsS/mgora6kZ0wHeUO2spkQEOiaUuMyZusVNk3W2ZNMqUAPfwRDw
-	 xjaIHi8Z13Izxmcg9/a3Gtf6In5YFfwV0VhNdFawFXDBLO6QY2YCpgNaY61O9ko1N1PdO
-	 nd2nWScwhy9oIo9vkDuGlduLjgHXoEV10fUv7/9wQdZzBJU1rH0YLGc7kPE0rlpbHDBBI
-	 PYcm0EpjyTJOulb3cvYWvpyAMhAO2WAbnFPODa/vGKZ37bN5M9+pERhwwpHELMtTp573M
-	 pgtjP0HNkjGSIe5UGoGce+nHJvlKjIrKKQbqAVcCQOWhomht9XHqUUX6sgmgL78jNIA==
+	t=1793088716;
+	b=bgXuPqQ9O1GQwexKBVxJ2s41c5p0dmL6g521qqis4ihkymG2jcx63aoEv0hjJCsLsmpY
+	 ChO0GvJHWxn+b+EO6kb5TeASiRMMJmZQS0BthO4PeYm85QBij8Ir4ZbYq+zpt6+5QnMnY
+	 TfChcRiOEhzUfJYdCMXTFxMHefbwPL2//pSNeRBN529Kn+QT6mP69rhvacEOmcRWzeLDU
+	 WZwRkjxQhhG3F1pNZyS0wiULMSXIPkKPg5ioH71nBod1L8eeCBgHG+oKEI9+8vI2HPor0
+	 /lSHPiDqz9uYxz77OY/4YyUaJkEZr+ccL5KDhZetsix9uAPe4/6MO+9ReJzyE3TR2Tw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793088707;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=zWiovQmt52JknvMZ+2tR1jIIifrS0DuJHTJpeDT1LCw=;
-	b=Y3+E0Kefw1awyqxyMUTuVgNC7bCo9RKniukmSG+aG5IyB2jXDxmP6jLZwJHD5xvSGt91
-	 ufTEsUgTHtiHQskxluEIt7NYZCiW1VOCRMWpmMUNY8bGJ45a1KYQJQu6zrqBT32N7hyqa
-	 Xktw4RPvv2+2jPO1jDRaOxztE6WflGrDfHs6SDUidUzlUH/6XHcjwLNfprjVwlpAlfVs8
-	 tJW96k4yRKIJdZwVHtdxKg88yV5QbmLjpMWgvVpBSD0/OnN1VYMjW1SHwjDUeedQ4Bi+0
-	 FJhduSfVKBsgZ/+xpKMm2DhuVb54cZ+ohxGqWKOfUF3QF1SyXsyzA+IZz4CtxzHvGCQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793088716;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=gb5sZs9kXKkHxMOBK0QCN7nKSbVD+3tuMPiUXhvbYWs=;
+	b=L7A8cWxWbn9JO5fF87FklTl32Av163Hb3JlLyMTbCAH0POwUw7GRb53Lr1pmFpWH8fT1
+	 H6d7AhoeJRoVKWhT6YEMp5h5tawFACduMPrXP062mrh9jCiE3YC/U4mrUSiZ8db9Ginza
+	 Jwgq1GKZ2F7wINuLJKnVT6T0P5VdgYJfI7Cyaub4GPEfVG+TY9PF2hi/URV/ktCb+txRs
+	 OMvOtsVjJ80uFGAXVwUB8xB9A3WHiEjC7R2SXwDyqLADiBxZKNmP6ZJBbIzlBkx8XIMX7
+	 HFSOsfrw7NH2BEOjAUF/IAyv6pZesJLCdFEcgxvElx+v+q3UdCiL9jOuOOp1loVzVpA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OKLtFG+6;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=U0BJUmhX;
+	arc=none smtp.remote-ip=91.218.175.215
+Received: from mta0.migadu.com (out-215.mta0.migadu.com [91.218.175.215])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00035606A31D;
-	Tue, 27 Oct 2026 08:11:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 531C2606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:11:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 531C2606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OKLtFG+6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C0F61F01825;
-	Tue, 27 Oct 2026 08:11:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793088706;
-	bh=zWiovQmt52JknvMZ+2tR1jIIifrS0DuJHTJpeDT1LCw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=OKLtFG+6tS8Jk+lXq844MxC/uFP28WCkpAfshRkL+QQMdpWMG9BvhlHI6ruMnxLa9
-	 qqr5TcWyKXy/5EHd9VaXfk8CdYTkK1FwpLGeFuPvlIDs+ZosXj96Jce7FA5M7+1J6X
-	 WRUk0xeStBmvmRon9nfJ3NN6HvNOYDfLNfrKJb/MQ2W2FKs1l1QwEyp2f1ZC1qJ67J
-	 jflWWrlIp+TfhtGQDZpY2Eydg8cIGaR6t5PFNOdrltYjkOhwWfPV4Q20eoQNAoVhaC
-	 xKTAryfg88PtYcSMsOGUzH9Kr3pQdwlPJ7I/jSAPsl0qJUM8Y3MTfqGXYsukLMA6D9
-	 +o9tOdCVDiOGQ==
-Date: Tue, 27 Oct 2026 09:11:42 +0100
-From: Christian Brauner <brauner@kernel.org>
-To: Jan Kara <jack@suse.cz>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Josef Bacik <josef@toxicpanda.com>, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 4/5] super: make sync(2)'s wait for s_umount killable
-Message-ID: <20261027-spargel-laterne-verirren-9d984ac342d4@brauner>
-References: <20261023-work-super-lock_helpers-v1-0-d0fcb3f2f275@kernel.org>
- <20261023-work-super-lock_helpers-v1-4-d0fcb3f2f275@kernel.org>
- <tqgqwii6it4zxhtsfgnkri2mppbcijvsdnywrsbsyrsc3ey6w5@ts5aqmpikwyv>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=U0BJUmhX
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=uPm1bCuVoiN/lEjit+HbKmRBz2Yja0dVUN8FPqoeyWI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793088712; v=1; x=1793693512;
+ b=U0BJUmhX6RzNk2/1qkmWnQdb3QryqZz51xgBbvnMpozZvRbiaxWB2hkdQ53sMVYEDPg7u+Cg
+ YqMPfztZI0Y8rZdq9z+651ka5O8LUIvsiXN3dfQe5V4FBJlC2sv1ty+cL9uBOmba9HluKY/CZ7B
+ MmXHxSp6221CY4ky4tZmTbHE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 45e916e20e21a3dd;
+	Tue, 27 Oct 2026 08:11:52 +0000
+X-Mizu-Trace-ID: 45e916e20e21a3dd
+X-Migadu-Flow: FLOW_OUT
+From: Fuad Tabba <fuad.tabba@linux.dev>
+To: Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Cc: Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Vincent Donnefort <vdonnefort@google.com>,
+	kernel-team@android.com,
+	linux-kernel@vger.kernel.org,
+	Oculytic <oculytic@gmail.com>,
+	Fuad Tabba <tabba@google.com>
+Subject: [PATCH 0/3] KVM: arm64: Fix PMU handling in pKVM
+Date: Tue, 27 Oct 2026 08:11:44 +0000
+Message-ID: <20261027081147.498183-1-fuad.tabba@linux.dev>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,32 +76,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <tqgqwii6it4zxhtsfgnkri2mppbcijvsdnywrsbsyrsc3ey6w5@ts5aqmpikwyv>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 26, 2026 at 01:02:46PM +0100, Jan Kara wrote:
-> On Fri 23-10-26 11:41:04, Christian Brauner wrote:
-> > iterate_supers_sync() waits killably for a superblock that's being shut
-> > down, but it takes s_umount of a live superblock uninterruptibly. So a
-> > freeze_super() or remount that's stuck under s_umount, in
-> > sync_filesystem() or ->freeze_fs() say, still hangs every sync(2) on
-> > the machine without anyone being able to kill it.
-> > 
-> > That's inconsistent with fs_bdev_sync() which already uses a killable
-> > super_lock() for both waits. And the reasoning is the same: if the task
-> > is killed the walk stops and ksys_sync() returns, there's nobody left to
-> > make a promise to. The emergency sync and the sync before suspend and
-> > hibernation run from a workqueue where that can't happen. The PROM sync
-> > on sparc32 runs in whatever task it interrupted but that one could
-> > already be cut short while it waited for a superblock being shut down.
-> > 
-> > Let __iterate_supers() pass SUPER_LOCK_KILLABLE together with
-> > SUPER_LOCK_WAIT_SHUTDOWN for SUPER_ITER_WAIT_SHUTDOWN. Only
-> > iterate_supers_sync() passes that flag.
-> 
-> This might get surprising in the future, I guess SUPER_ITER_KILLABLE flag
-> might be a more explicit way to control this but I can live with what we
-> have now.
+Hi folks,
 
-I think you're right I'll fix that up in-tree.
+Two fixes and a hardening patch for PMU handling in pKVM, as one series
+[1].
+
+The first is Vincent's rework of his HPMN fix. It supersedes his earlier
+posting [2]. Rather than read nr_event_counters through a different
+accessor, the host now copies the hypervisor's kvm_host_data before it's
+deprivileged, so host_data_ptr() returns what was set up at init.
+Otherwise, HPMN is 0 and a non-protected guest's event counters don't
+count.
+
+The second is the non-protected half of Oliver's patch from 2024 [3]. It
+passes the host's PMU events to the hyp vCPU of a non-protected guest,
+whose counters otherwise all read 0.
+
+The third covers the protected half. It stops the host's counters while
+a protected guest runs, so the host can't count the guest's cycles and
+events. Side channels are outside pKVM's threat model, so it carries no
+Fixes: tag.
+
+Based on kvmarm/next (dd0bc00e3e920).
+
+Cheers,
+/fuad
+
+[1] https://lore.kernel.org/all/86bj8kzix4.wl-maz@kernel.org/
+[2] https://lore.kernel.org/all/20261023092007.3918848-1-vdonnefort@google.com/
+[3] https://lore.kernel.org/all/20240305184840.636212-2-oliver.upton@linux.dev/
+
+Fuad Tabba (1):
+  KVM: arm64: Disable host PMU counters for protected guests
+
+Oliver Upton (1):
+  KVM: arm64: Pass the PMU events to the hyp vCPU of non-protected
+    guests
+
+Vincent Donnefort (1):
+  KVM: arm64: Synchronise kvm_host_data before host deprivileging
+
+ arch/arm64/include/asm/kvm_host.h  |  1 +
+ arch/arm64/kvm/debug.c             |  4 +++-
+ arch/arm64/kvm/hyp/nvhe/hyp-main.c | 11 +++++++++++
+ arch/arm64/kvm/hyp/nvhe/switch.c   | 24 ++++++++++++++++++++++++
+ arch/arm64/kvm/pkvm.c              |  6 ++++++
+ 5 files changed, 45 insertions(+), 1 deletion(-)
+
+
+base-commit: dd0bc00e3e9201fd49b62ff9cc07890c89003afe
+-- 
+2.47.3
+
