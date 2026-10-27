@@ -1,41 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793068997;
-	b=hoj6Xn0JdmAWFy0lBtQidAaKFYSMn0GfKy8FhQckbmFkF5c/PGZOPiq5NbOMUYGFveCh
-	 hjO0HKplL2aZ1n9VjnQDWWg4HOpLXqvMSNDntx+u8+NA5DqbBwaOYJZnhxvQ8SyiwATJi
-	 H8vjpS1cjwLz+LLGM3B5v4QXxLaDX07kgFynYXdAQlGjzHuMMTqYvDexxwpWnikHUPsTI
-	 82bpSCukFxLp5jQpiELNcoOwj834qmHRgLBPdWaIMVNPcHa+aT0tbGd5zgMBb0fCFziwE
-	 3nJk5hFDmX0HdHGPJSKKUKCgXqLBYCb6HbVHwWxZmbgovg9rGvhlo5xvOhcIQ00hZ9A==
+	t=1793069053;
+	b=BTOw8r2GrTOMQQR0uc+t4cAKafpjqP3D+2/e3IWbK1Dnxd+YWxasl5XLzk8K4NNQEjJu
+	 1HE3vUkUrCOutM8NIQ+UZxksk/zuhqqW47ooL55gpZd4fYKuFsa7qIbiZuQEOh2DaYlFN
+	 +L3vvMnp+rw41UergspBJe4rcSUT7cm0q0suVIeMFJ9XNOEmK/NIVySIUr0CcK78dk7DP
+	 xF2zhFNy7Z3vaL1nK7IDbIFMaXtTzi8R0W0znEEMIOLvBjngYzv4IhTh1Ed2ycER+efb0
+	 cCKxeHvwc9J2o4xdrfI9QF2pAaiV3mS7t86QUo9ra1YZqJV91WEFnXoAshBvYPjBTfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793068997;
-	h=DMARC-Filter:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:X-CM-SenderInfo:
-	 X-Coremail-Antispam;
-	bh=IKs4C9V2Krahgn2sw/njHCKySJqkCP+QuXj+XB+M/hY=;
-	b=H3oA4EuEfcK+ZefxAslSYjERjUxW25rEeFd3lcgyZhMayHqj/JpyLAertvq/xdtgw4ZV
-	 ID0gKKI2cbXPSQxsMstsXmWxO6PlQSsRymf4ykSsuRzOaqwKUkMPznFsBKxlEFtkxclYz
-	 TfTh+VOO2hMkRqDE0gcPQoyp7BH3fioWEH1DyYsRHRUir23uC9f4i3lvjvCvoBwlhfFIr
-	 mKQtTt9a2wFqv33MefzzVFEaX6CMievqjo5XLkd5J054URsjI+Cvd1jXLLlR6ZEB0Zvl3
-	 nF1/AfJ6M2hILnwXPxtmUNx4voBg1U12Vw8eg+wRfoZg5CCPF0y5/H/XNBuaVMfV7hg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793069053;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=N/k+IDv8sIi75JOW8Ht1HpeWXINGXQx4B+WYQOoxHKU=;
+	b=ClI8bJBmQSqtCBYyfIBzl8ex0rxBXgsK8v5h4nS3QHVtKeSQdVUcw9g2TEf45Ur2VMpu
+	 9wPQSv+BdbU8pbA90pSpQ4CX3oxRw9GuneGWRmPB3632QSAnkOcliNiK0XNiUmEBJE1p3
+	 r+MBc67klnogkJQTmeiCtaKz4eZx71pJRLtrX5QrXqRdw0hRr1nzAnYETrtVoL6q6f7ou
+	 5W5/mpaJ8BL8zyjZXm0jmKimE69Fhn4E/2QNhjvfdASxmOtiCzN5Ck++QqrAaEdyS326i
+	 yQnD8sXkyKaGCywfVoDbcsqwCOVxBoMkf9iC0/cebZG2+s1ud1rM6B0TOAyqUstdZUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=loongson.cn;
-	spf=pass smtp.mailfrom=loongson.cn;
-	arc=none smtp.remote-ip=114.242.206.163
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5C907606A31A;
-	Tue, 27 Oct 2026 02:43:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C907606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [10.20.42.102])
-	by gateway (Coremail) with SMTP id _____8Bxb9PAD+Bqo60ZAA--.8914S3;
-	Tue, 27 Oct 2026 10:43:12 +0800 (CST)
-Received: from [127.0.0.1] (unknown [127.0.0.1])
-	by front1 (Coremail) with SMTP id qMiowJAx3c68D+BqmocwAA--.35858S2;
-	Tue, 27 Oct 2026 10:43:11 +0800 (CST)
-Message-ID: <05420c73-2f4d-423c-86fc-e8053edab415@loongson.cn>
-Date: Tue, 27 Oct 2026 10:40:23 +0800
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=QZJS7Ii6;
+	arc=none smtp.remote-ip=74.125.82.52
+Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C832606A31F
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 02:44:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C832606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=QZJS7Ii6
+Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-1430eec0070so132011c88.3
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 19:44:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793069052; x=1793673852; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=N/k+IDv8sIi75JOW8Ht1HpeWXINGXQx4B+WYQOoxHKU=;
+        b=QZJS7Ii6zu5XVWgGNt/1sC3PsicC3FVdAj4Ef5bJc0Dd2kRneEaKIDKRyVyMgMenm3
+         p3RFIYJMOAm1axva+FpXqcBprc/MYnL/dkFciBObe7aIOOZrJZqKFSLIoynm2ghwJoMj
+         N7sqzRMytnXpUH0hGIQSqp4kqKJhZqTVn4/qeWMb4l2XhaJfhxj5hoFatiYWIjslxxWg
+         N1010rstYsfcJYOoqBa3QvWfgd3NXbZMb9V7pnx9G6MWAH1hhOne64xP0wF44seVYApp
+         fPoIw1jeWCY1Xeaank0iyJ/Ynb+BqIzU5eKgH4F5Q/hxSNvG/4UXzyQfm+CXE8eX6+t/
+         +biw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793069052; x=1793673852;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=N/k+IDv8sIi75JOW8Ht1HpeWXINGXQx4B+WYQOoxHKU=;
+        b=fT9KWYFIUV0fNaBDPNPcxc7zXtbZYiqPK9hyDBgwj1ZEjZfUVgInltmijOAcIOA8dl
+         0MvvKodGpYK013SO/YgSEqLW0V8C5EwMl/aDSY6BSqH7C2mJ7wQyVoMKdATuWe3TzoMs
+         RjrtM8CNVBPaIQNbhQ7Q5Pk8DiXKsEXrFEPFOdoZt4yturRcUBHw8T/8Jx3VdUT0yVc4
+         rwHqI2jjsRD9PttnpBGKkH2SHMw56Y/SXpB5IBZkyZWKaLF6pYXjYXDm1yiH+cwTL8Xm
+         +BC1n63UBv0DP1mB9b3F3TGThzoqQz7hGJhPLCpsO/pjdASjGSQnc0QC97Sznu6JZj6+
+         Zaog==
+X-Forwarded-Encrypted: i=1; AKwUvBwSBLPw96YLzh5tXpP4esFcUeWnzKT3Sh5PeIMzRy4n9069LsrDFSL1pVG3QIA+qfhs4nDJ6cptzOkgLXI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIuNF+STOP/Pb2RRIHbOgSgCQAYk4gnv8ugEis5GsufH8/ruaPU
+	/tnnzYpTBLTtGJM6IW5vFaGYI00DH8+zwpY5d9MaRJ+pb7gxSuSH2gaP
+X-Gm-Gg: AYBFou3yB/Di5f2vrvT7jgRYt7nHwumSO09zX6/+NUn6EgakDcw+HNm9CUGsXBsdSqq
+	Tpkm/NlreUq+j1p3l2VA7S7GEMxFaWXm9I4zoyao4EM6MRW45InD6yYPA7bxAm+RKueBEiZdZqm
+	imQ+CJHIX/tanPfS7xOmgkWe5Lb72uInqOCO08RNDK5M++jDdcDQ2UrUPivtYDx/DMFjIYJqFwk
+	QfOkexUuCi4yPi8b6fZFPvVkvr+MepOLB5f0QbKz7e5/Efk/vlrS/6HH7bBKoj8ZPDemGc/8AT5
+	gkn03J2KI+iRqjpNk94BthPBwAMrG2CZE6KjOtYCBF9eSTkkvwhJxCYksRQNObePD11hkBH5hqX
+	YBWvV0eeR7gLMker5fCFUczil0RXY7qahKjgC4JWgtE7RfMfbm+cAnTXdVyv9wj3feiwfsaQc9Y
+	Wmq+W314xpql95jTg3vkbxfVH7FEyaFWwP0jz1FuNvGqp7gzOkoyrVbiDf4XbDPb4aD18MdRPvN
+	TAv3Tb0CNHLTLWS4FSvoH+t+nRPePaARhAtYl7SGgsDB8XQXt2unDGMz6EUQDUVj9wunkp7MixW
+	xLT4CAwUYYoS1Cn9dAo39LbZ0OPTMISGxzCSCeurHhJkiDzzr/dqhavNdnbSJuOIG0GW4n1APa0
+	aqTg//D9uxw4S7smNWTJVciy2QyNbyIXswnxB5fEKsKeAJR4=
+X-Received: by 2002:a05:701b:4308:b0:144:fd17:3b21 with SMTP id a92af1059eb24-1991bbd19eamr19551190c88.0.1793069052008;
+        Mon, 26 Oct 2026 19:44:12 -0700 (PDT)
+Received: from esteban.tail1178e6.ts.net (132.20.31.150.dy.iij4u.or.jp. [150.31.20.132])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1989ff2ea25sm27596670c88.5.2026.10.26.19.44.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 19:44:11 -0700 (PDT)
+From: Antoine Pichot <antoine.pichot@gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: linux-media@vger.kernel.org,
+	sakari.ailus@linux.intel.com,
+	mchehab@kernel.org,
+	djrscally@gmail.com,
+	dan.scally@ideasonboard.com,
+	hansg@kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 6/7] media: i2c: ov7251: Add strobe output enable control
+Date: Tue, 27 Oct 2026 11:44:08 +0900
+Message-ID: <20261027024408.354057-1-antoine.pichot@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <at9uROkXwXmNzFyh@ashevche-desk.local>
+References: <20261026111032.88355-7-antoine.pichot@gmail.com> <at9uROkXwXmNzFyh@ashevche-desk.local>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -45,70 +103,13 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 17/28] mfd: loongson-se: Reinitialise completions and wait
- uninterruptibly for commands
-To: Lee Jones <lee@kernel.org>
-Cc: stable@vger.kernel.org, Yinggang Gu <guyinggang@loongson.cn>,
- Huacai Chen <chenhuacai@kernel.org>, linux-crypto@vger.kernel.org,
- mfd@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <20261021121245.3111563-1-lee@kernel.org>
- <20261021121245.3111563-17-lee@kernel.org>
-Content-Language: en-US
-From: Qunqin Zhao <zhaoqunqin@loongson.cn>
-In-Reply-To: <20261021121245.3111563-17-lee@kernel.org>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJAx3c68D+BqmocwAA--.35858S2
-X-CM-SenderInfo: 52kd01pxqtx0o6or00hjvr0hdfq/
-X-Coremail-Antispam: 1Uk129KBj93XoW7Cr45Kr4rWr13Cw4rXw43Arc_yoW8Xr1xpF
-	43uw4UKF4DtF1kt3Z0q34j9a45urZ3JrZrCanrtryUAr4qyFyvgFy5tF4kA398u39Yqry2
-	qFWDGFWF9a15JFXCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUyCb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
-	Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx1l5I
-	8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AK
-	xVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41l42xK82IYc2Ij64vIr4
-	1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK
-	67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI
-	8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAv
-	wI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14
-	v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x07jUsqXUUUUU=
 
+Hi Andy,
 
-在 2026/10/21 20:09, Lee Jones 写道:
-> loongson_se_send_controller_cmd() and loongson_se_send_engine_cmd() wait
-> on se->cmd_completion and engine->completion using
-> wait_for_completion_interruptible() without reinitialising the
-> completion before issuing a new command.  Because the hardware has no
-> mechanism to abort an in-flight command once accepted by
-> loongson_se_poll(), returning early on a signal leaves the controller or
-> engine actively processing the shared command registers and DMA buffers
-> in the background, and its subsequent completion interrupt leaves a
-> stale completion token that causes the next command to return
-> prematurely.
->
-> Clear any stale pending interrupt status and reinitialise the target
-> completion inside loongson_se_poll() while holding se->dev_lock
-> immediately before notifying the controller, and wait uninterruptibly
-> via wait_for_completion() once loongson_se_poll() confirms the command
-> has been accepted by the hardware.
->
-> Fixes: e551fa3159e3 ("mfd: Add support for Loongson Security Engine chip controller")
-> Closes: https://sashiko.dev/#/bug/linux-4661fb0d-d936-4168-89cd-2f6dec31a7b5
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lee Jones <lee@kernel.org>
+Thanks Andy for your comments. The first two are fixed in v2; I'll
+take care of the CCI accessors in a follow-up once this is in. I'll
+send v2 in a few days to give everyone time to comment.
 
-Reviewed-by: Qunqin Zhao <zhaoqunqin@loongson.cn>
-Tested-by: Qunqin Zhao <zhaoqunqin@loongson.cn>
-
-Thanks for fixing this!
-
-
-Best Regards,
-
-Qunqin.
-
+Cheers,
+Antoine
