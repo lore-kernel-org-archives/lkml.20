@@ -1,58 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.240
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793098092;
-	b=yv/nCF5gXvdS5ylZag0ECCYt6aIkrgEenC+zdwnzOT24At22DcNW1YrZczVqafpkAjIr
-	 ajy1bSAt51cheIv8Y/ehO7byvAxc6IGCeMkQOV/nW65loa7klLr6Jb0+3xJ1k1z6K3ZA7
-	 kKIEuffTHOvU0tN+SRmMtV5j0krtzfEgIKf/mF6SLZ+gUUuPz4mhd+hL5j7uhDM9JtOlR
-	 AAi0HGnWq036pS1pZy0b5qqdEonb50JP4m+1Jq3RXP3GdimSvI8b+cWOcj54rA/Fe0IHF
-	 bJrBhPvQfko+Lew/kyRFJgGZhaurP7Ot1TNDqJtUqV0kPIry2Hg1XKg39HLX/JCJ+xQ==
+	t=1793098118;
+	b=T9aR3inCe6TTuU25/m6TAO2s0eP2c2/8Um8dwj3piUx/2OtBkTB6v3l+hg5sOuiO40Mz
+	 vQoIgdtqbeHtbGhklfBYNIqTNZbTdxBzaA8A6oSRg/z9OE+2St806WCHB22fZEmTo/V3r
+	 c/Yi4s4CEAHSP7/ALM2V2IdY4QwqwIL0JFLU8Bf96/5nwgtr6/S9rZJrE6yZjAOCIG1US
+	 WO1FNc10aUSaqR4K64utrxNjDH4SF4s8pVvCZoApRyA79qx5Cb1FbrlJ7WzDjcffU9atT
+	 qfN8s3G7/kbMl1dj8Y0Gbp11pRKaC70PrrV1WeUiyTROiIV0bNqmzFYb6edN6y/SxHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793098092;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793098118;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=cjj0MTI2kZAFipR3zmDmKsym726PEKbx/67RxPLg7vk=;
-	b=y2L5xbCDM1FgEW/v3VIH4yrDx9DTtuZNu+U1gyuejC0zPS0ZUdODQkNSAlrTQnwTjGg6
-	 4OiFXUZ+Q6MqLTMIBHRcolvPo+YLU+3pXCLJGfEtiXEzKF0ydjTmPzbb4jMTNS66hiWgg
-	 R6HM+rCCFcSJRhlHQIZf/wMjHemGvvu5r2yv14AZVBRerNfmRGhViFLW3iICYPrMgdrXm
-	 vEqKcriOHZnNTiU1pq4tmd34GHl7MLuOhvbV+5yBotbOCExnSFoHXrt2Dgu3uoN7hmbvf
-	 L2pipef1QufNR3IAaLtixL5Ard+a0Cl1r3WFF+VaYcPqczUSwdi+rgP3VCENXr62USQ==
+	bh=Mt3Mq9SNW050+eWeZNF7XPUNXgUiqiP1/haRS99oyLQ=;
+	b=tKXlhc321Yt/ITLKDwJcj1Jm2YVzZeXxHFMqffAXWoAg0bXKpGprEsEV607OW2+yH2mU
+	 ajQqCIhQAeOR+7cc/0O+gOa7NbQST0l+TXPEsnF1tLomxi248IXdst1uIC1I8UUy5Sm/z
+	 341kbZTWA7HKwiTc7zhryb7IM7mHKU99eKoMHd7S1G2mL5U5FrURKLXjRRc7+bTZdpxQm
+	 NSD8sLvSbyGRp60pSrwl2Kjc50Law02vUiMFxopfJZ7VVBk3h7FA7iIniKi5TSzxlvZPH
+	 HKLsZys2rYMq4U+NAc0/5eUnyzKM3cMgSPIt0twggujXbMmT6sccgISbrzQ0xVk0N4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Q1RiCPU3;
-	arc=none smtp.remote-ip=91.218.175.240
-Received: from mta0.migadu.com (out-240.mta0.migadu.com [91.218.175.240])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=v67nMU0v;
+	arc=none smtp.remote-ip=91.218.175.1
+Received: from mta0.migadu.com (out-1.mta0.migadu.com [91.218.175.1])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFC49606A31F
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:48:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DFC49606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5C2A606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:48:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5C2A606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Q1RiCPU3
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=v67nMU0v
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=/+a2zDKK/q5x5nnuEvee8a5ROc4HpzorXLln8sBAhcE=;
+DKIM-Signature: a=rsa-sha256; bh=BlCR7qyhz1RBwYmpMqZM4257yNl/7pbJi2t5We+ivQE=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793098089; v=1; x=1793702889;
- b=Q1RiCPU3hwRU2qDXPsZ0P6Ak/Slq+WOuYPfP1P/44IDnLxOpUd730Vt2Yztt/By5ATXNr7aH
- 1LTCW/IXSzlauth2LJPKgIoXqN3oTmoKTHdUiJDUP15ksqhxnPYy8q6sHdYgsaoLcT0pKWfzpPR
- rMzdysd5OrYxF1oEU18EcR5o=
+ t=1793098116; v=1; x=1793702916;
+ b=v67nMU0vGQP/WQIZsCMYRI+TTnGwN0UcjXrjwbIg4xlVGVHgs08fduZdse0S7H6AvqLE2YSb
+ hmU+y0GD5J70InBBqCMzvfe5N679LAU9ff6MxvtAsGIxhxDKy/KmYaF0KPOCES33Z1Aw6nNCgnZ
+ Hxo+Wc9RtL8ohuR1V8cs0kH8=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 4027d4be1b4e5ac7;
-	Tue, 27 Oct 2026 10:48:09 +0000
-X-Mizu-Trace-ID: 4027d4be1b4e5ac7
+Received: by smtp.migadu.com with ESMTPS id 65688ab5fc1ffcf3;
+	Tue, 27 Oct 2026 10:48:35 +0000
+X-Mizu-Trace-ID: 65688ab5fc1ffcf3
 X-Migadu-Flow: FLOW_OUT
 From: Jiayuan Chen <jiayuan.chen@linux.dev>
 To: netdev@vger.kernel.org
 Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
 	stable@vger.kernel.org,
-	Fernando Fernandez Mancera <fmancera@suse.de>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
 	"David S. Miller" <davem@davemloft.net>,
 	Eric Dumazet <edumazet@kernel.org>,
 	Jakub Kicinski <kuba@kernel.org>,
@@ -63,27 +61,29 @@ Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
 	Randy Dunlap <rdunlap@infradead.org>,
 	David Ahern <dsahern@kernel.org>,
 	Ido Schimmel <idosch@nvidia.com>,
-	Joel Granados <joel.granados@kernel.org>,
 	Thomas Gleixner <tglx@kernel.org>,
+	Joel Granados <joel.granados@kernel.org>,
 	Petr Pavlu <petr.pavlu@suse.com>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Fernando Fernandez Mancera <fmancera@suse.de>,
 	Willem de Bruijn <willemb@google.com>,
 	Maoyi Xie <maoyi.xie@ntu.edu.sg>,
+	Daniel J Blueman <daniel@quora.org>,
 	Jiri Wiesner <jwiesner@suse.de>,
 	Gerd Rausch <gerd.rausch@oracle.com>,
-	Zhan Xusheng <zhanxusheng1024@gmail.com>,
 	Oleg Nesterov <oleg@redhat.com>,
 	Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>,
-	Yung Chih Su <yuuchihsu@gmail.com>,
 	Wyatt Feng <bronzed_45_vested@icloud.com>,
+	Yung Chih Su <yuuchihsu@gmail.com>,
 	Hannes Frederic Sowa <hannes@stressinduktion.org>,
 	Flavio Leitner <fbl@redhat.com>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
 	Petr Mladek <pmladek@suse.com>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
 	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net v2 1/5] ipv6: restrict gc_elasticity to 31
-Date: Tue, 27 Oct 2026 18:45:29 +0800
-Message-ID: <20261027104701.296240-2-jiayuan.chen@linux.dev>
+Subject: [PATCH net v2 2/5] ipv4: fix shift-out-of-bounds in ip_rt_send_redirect()
+Date: Tue, 27 Oct 2026 18:45:30 +0800
+Message-ID: <20261027104701.296240-3-jiayuan.chen@linux.dev>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261027104701.296240-1-jiayuan.chen@linux.dev>
 References: <20261027104701.296240-1-jiayuan.chen@linux.dev>
@@ -98,104 +98,94 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Every counted IPv6 dst allocation runs ip6_dst_gc() once the number of
-live dst goes over gc_thresh (1024 by default). ip6_dst_gc() decays
-ip6_rt_gc_expire by gc_elasticity: the smaller gc_elasticity is, the
-smaller ip6_rt_gc_expire gets, i.e. the more aggressive the gc.
+ip_rt_redirect_number is the max number of ICMP Redirects we send to one
+endpoint; once we hit it we stop. Before that, ip_rt_redirect_load gives
+the redirects an exponential backoff:
 
-ip6_dst_gc() reads ip6_rt_gc_expire into a u32, but gc_elasticity has no
-bounds at all, so writing >= 32 shifts a 32-bit value by >= 32 bits, and
-a negative value gives a negative shift count. Both are UB:
+	if (peer->n_redirects == 0 ||
+	    time_after(jiffies,
+		       (peer->rate_last +
+			(ip_rt_redirect_load << peer->n_redirects)))) {
 
-	val = atomic_read(&net->ipv6.ip6_rt_gc_expire);
-	atomic_set(&net->ipv6.ip6_rt_gc_expire, val - (val >> rt_elasticity));
+n_redirects grows until it reaches ip_rt_redirect_number, and both
+redirect_number and redirect_load are plain proc_dointvec sysctls with
+no upper bound. Set redirect_number past 32 and n_redirects climbs past
+31, so "ip_rt_redirect_load << peer->n_redirects" shifts a 32-bit int by
+>= 32 bits, which is UB:
 
-  UBSAN: shift-out-of-bounds in net/ipv6/route.c:3369:53
-  shift exponent 32 is too large for 32-bit type 'unsigned int'
-  CPU: 2 UID: 0 PID: 615 Comm: ping6 Not tainted 7.3.0-rc7+ #364 PREEMPT
+  UBSAN: shift-out-of-bounds in net/ipv4/route.c:949:6
+  shift exponent 32 is too large for 32-bit type 'int'
+  CPU: 1 UID: 0 PID: 1845 Comm: ping Not tainted 7.3.0-rc7+ #364 PREEMPT
   Call Trace:
    <IRQ>
    dump_stack_lvl+0xc1/0xf0
    dump_stack+0x10/0x20
    __ubsan_handle_shift_out_of_bounds+0x1d1/0x390
-   ip6_dst_gc.cold+0x15/0x1a
-   dst_alloc+0x4e0/0x620
-   ip6_rt_cache_alloc+0x189/0x7e0
-   __ip6_rt_update_pmtu+0x68e/0x1160
-   ip6_update_pmtu+0x30c/0x3a0
-   icmpv6_err+0x1fa/0x330
-   icmpv6_notify+0x303/0x770
-   icmpv6_rcv+0xc12/0x1670
-   ip6_protocol_deliver_rcu+0xb4a/0x1520
-   ip6_input_finish+0x19c/0x400
-   ip6_input+0xd4/0x240
-   ipv6_rcv+0x1fd/0x330
-   __netif_receive_skb_one_core+0x118/0x1c0
+   ip_rt_send_redirect.cold+0x2c/0x146
+   ip_forward+0x1ddc/0x2430
+   ip_rcv+0x2b1/0x320
+   __netif_receive_skb_one_core+0x16b/0x1c0
    __netif_receive_skb+0x21/0x150
    process_backlog+0x37e/0x1200
    __napi_poll.constprop.0+0xa5/0x5e0
    net_rx_action+0x4c0/0xf70
-   handle_softirqs+0x204/0x9b0
-   __do_softirq+0x10/0x18
 
-Make it a u8 and reject writes outside 0..31 with proc_dou8vec_minmax().
+Bounding redirect_number instead is not an option: 0 disables redirects
+and -1 removes the cap. Compute the backoff in u64 with the shift count
+capped at 31, which cannot overflow once ip_rt_redirect_load is
+non-negative, and clamp the result to MAX_JIFFY_OFFSET: on 32-bit a
+backoff of 2^31 or more is read by time_after() as already expired. This
+keeps redirect_number as the limit on how many ICMP redirects are sent,
+and the shift can no longer go out of bounds.
+
+redirect_load on the other hand gets a lower bound of 0. A negative
+backoff never meant anything, the old code only happened to treat it as
+no backoff, and once converted to u64 it would turn into the maximum
+backoff instead.
 
 Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Reviewed-by: Fernando Fernandez Mancera <fmancera@suse.de>
-Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
 Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
 ---
-v2: switched to u8 and proc_dou8vec_minmax(), as suggested by Kuniyuki
-Iwashima.
----
- include/net/netns/ipv6.h | 2 +-
- net/ipv6/route.c         | 7 +++++--
- 2 files changed, 6 insertions(+), 3 deletions(-)
+ net/ipv4/route.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/include/net/netns/ipv6.h b/include/net/netns/ipv6.h
-index ffda15318be59..aefce37c04a4f 100644
---- a/include/net/netns/ipv6.h
-+++ b/include/net/netns/ipv6.h
-@@ -25,11 +25,11 @@ struct netns_sysctl_ipv6 {
- 	int ip6_rt_gc_min_interval;
- 	int ip6_rt_gc_timeout;
- 	int ip6_rt_gc_interval;
--	int ip6_rt_gc_elasticity;
- 	int ip6_rt_mtu_expires;
- 	int ip6_rt_min_advmss;
- 	u32 multipath_hash_fields;
- 	u8 multipath_hash_policy;
-+	u8 ip6_rt_gc_elasticity;
+diff --git a/net/ipv4/route.c b/net/ipv4/route.c
+index 595a3b7f17830..f2c899f4cf8ca 100644
+--- a/net/ipv4/route.c
++++ b/net/ipv4/route.c
+@@ -907,6 +907,7 @@ void ip_rt_send_redirect(struct sk_buff *skb)
+ 	struct inet_peer *peer;
+ 	int log_martians;
+ 	struct net *net;
++	u64 backoff;
+ 	int vif;
  
- 	__cacheline_group_begin(sysctl_ipv6_flowlabel);
- 	u8 flowlabel_consistency;
-diff --git a/net/ipv6/route.c b/net/ipv6/route.c
-index 94e5ef1c4f83e..abc8b811cd423 100644
---- a/net/ipv6/route.c
-+++ b/net/ipv6/route.c
-@@ -6579,6 +6579,8 @@ static int ipv6_sysctl_rtcache_flush(const struct ctl_table *ctl, int write,
- 	return 0;
- }
+ 	rcu_read_lock();
+@@ -945,10 +946,10 @@ void ip_rt_send_redirect(struct sk_buff *skb)
+ 	/* Check for load limit; set rate_last to the latest sent
+ 	 * redirect.
+ 	 */
++	backoff = (u64)ip_rt_redirect_load << min(peer->n_redirects, 31U);
++	backoff = min_t(u64, backoff, MAX_JIFFY_OFFSET);
+ 	if (peer->n_redirects == 0 ||
+-	    time_after(jiffies,
+-		       (peer->rate_last +
+-			(ip_rt_redirect_load << peer->n_redirects)))) {
++	    time_after(jiffies, peer->rate_last + (unsigned long)backoff)) {
+ 		__be32 gw = rt_nexthop(rt, ip_hdr(skb)->daddr);
  
-+static int ip6_rt_gc_elasticity_max = 31;
-+
- static const struct ctl_table ipv6_route_table_template[] = {
- 	{
- 		.procname	=	"max_size",
-@@ -6625,9 +6627,10 @@ static const struct ctl_table ipv6_route_table_template[] = {
- 	{
- 		.procname	=	"gc_elasticity",
- 		.data		=	&init_net.ipv6.sysctl.ip6_rt_gc_elasticity,
--		.maxlen		=	sizeof(int),
-+		.maxlen		=	sizeof(u8),
- 		.mode		=	0644,
--		.proc_handler	=	proc_dointvec,
-+		.proc_handler	=	proc_dou8vec_minmax,
-+		.extra2		=	&ip6_rt_gc_elasticity_max,
+ 		icmp_send(skb, ICMP_REDIRECT, ICMP_REDIR_HOST, gw);
+@@ -3573,7 +3574,8 @@ static struct ctl_table ipv4_route_table[] = {
+ 		.data		= &ip_rt_redirect_load,
+ 		.maxlen		= sizeof(int),
+ 		.mode		= 0644,
+-		.proc_handler	= proc_dointvec,
++		.proc_handler	= proc_dointvec_minmax,
++		.extra1		= SYSCTL_ZERO,
  	},
  	{
- 		.procname	=	"mtu_expires",
+ 		.procname	= "redirect_number",
 -- 
 2.43.0
 
