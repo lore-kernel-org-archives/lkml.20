@@ -1,41 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793121020;
-	b=gfHHC9zVRW82Y+7J34C0E5yKRpF6t6saUruYxKBh1ken0jvralNreReknTlNUQgJycuR
-	 EjKTm8NlAtbsks97oX2ttdpQww39EfDPlHU+HADItD1I61Ot3oU7Nfv4SsTEAj2JUcIJX
-	 xSMqeavuxZsg4EBd5dQIFGzHkp9R1xE6Br5YgsPENyOo8mU9Z0ctOn+tsCOBz4Csvwyws
-	 HQ0OodazyQfe7i8BBTFg0MFtZBmEV/lYfHF8oCC0znNeTcOgbtsd0dtMMtNwitsbLI2dG
-	 /4pIEcJEin3H9EqDuuIMSi80VhWacUdx7kINLYYApzYFoo5ZqlOSzCiVGAyz43uoZfA==
+	t=1793121011;
+	b=ugs6D0BXssjUyfAR2TLLlNOQuS7TQtoxFYwq773FX95jgcKTZhRybjogo9XePEt83Su2
+	 UG9SCx4qjx5U5V5OerfDgV6GuPBf7FslZ1uBCJgTEoao4XHFRR1wEOCkZSU0PNNcvc5iU
+	 4SzxhXI1KYcLYGOG7e8IJqLTUG5S8j0bsJwFQ3hK2mJafqNKMPibhdPd8kWEp/t6+hZhI
+	 yUp1afDrE6xOC4yV2wmrFwxsB7kVLLwEU7VNumFHR3R5nf5EYrDXYWhsTCZD1dKM1Hr5K
+	 HCxeHzbBQiIVKkL7Gei31+9JnanlyZsKGOjJI0M24NHKzx6dryVB/2skS6nWpmgazUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793121020;
-	h=DMARC-Filter:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=EmA9gMUaVRmvqQ9jvKbGlvlpatHa+cnO4+ELOrg+Jl0=;
-	b=kOJe0SVD/Be6wzzCm+Xn/sloCc66x5A1ke8UPQDnbvP4xsVMQlibIS22FAuq5sF4tO90
-	 iWmF1zBz42qE/Ah/WMoH4iEGO/n3iqylYbyZWtRwO5WMw8YgiNsF9o/rjBRq7hcyrBAJs
-	 +seU0lPnHNfrZ7Rnl+DE2MFPPw461qFw6N97QrQjVOoEhklvGr8H30dduLauJyRtg6xxA
-	 3oqNqPxsEStFemK7ruJ4RuiqeAzGh8VmCERrMc74SCjYPVChqjOgmsm2wpqmzAzds8SQB
-	 Onid98bMBRw3luPbJ+WBk+03gXvzEqscMMZpmrCPbRpCfCosuCzwjppCqe9Xc6jLCIA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793121011;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
+	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=6z1Q2FnRPqUpv8sUMbKaLkx2bL6vjkoG2SyuClqSAmw=;
+	b=YBTjL8B+S3oi2b+DCgM2d4t0QU/mPY+7IT4XkiXF0EyybwhI2Qn9X2zMG6ctMpgJIUd3
+	 EFPm1XAYarB3Xe9c5zhdl/GV1Qiduyd9qpXuP90HXI9OVjQF3oqgPd1oq1ladA5J7RaPM
+	 LEHQVZ6N9UizdI4LE4PCzvDcF9uhef2gzntH4NwlfzN4cFJTfkWr45SvbBkSM9HyVph/g
+	 0MuzpdOkVKClmcayPwWmeOchlpLrcuhy93rqoK63iS7o9oDcIY1e1wEqp4co7pQhxpTcC
+	 WKzhZsRITbiocf1FEElkQlp5kjH83zVHNpF9TtWy+CbHNREbjfm7NKpZAKbwOxtDDaQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=hust.edu.cn;
-	spf=pass smtp.mailfrom=hust.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 81C6A606A321;
-	Tue, 27 Oct 2026 17:10:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81C6A606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hust.edu.cn
-Received: from hust.edu.cn (unknown [172.16.0.50])
-	by app1 (Coremail) with UTF8SMTP id IAEQrMBWnqTz2uBqeEQ8AQ--.18192S2;
-	Wed, 28 Oct 2026 01:10:11 +0800 (CST)
-Received: from [100.81.40.43] (unknown [10.12.191.55])
-	by gateway (Coremail) with SMTP id _____wCX8Azy2uBqB3LEAA--.20435S2;
-	Wed, 28 Oct 2026 01:10:10 +0800 (CST)
-Message-ID: <7a3f8c77-9854-441b-846b-5e58463a776d@hust.edu.cn>
-Date: Wed, 28 Oct 2026 01:10:09 +0800
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=HWK8m1XM;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B03FC606A31F;
+	Tue, 27 Oct 2026 17:10:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=HWK8m1XM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B89321F01829;
+	Tue, 27 Oct 2026 17:10:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1793121010;
+	bh=6z1Q2FnRPqUpv8sUMbKaLkx2bL6vjkoG2SyuClqSAmw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=HWK8m1XM89Z1t2ZqEzF0wRXMZCN9YZF/stXxZmx4P5l48J3KslfwBTpVL1ZkY5d3L
+	 cFvF95td4+ABHcQ5gNSdxOOvGC2DaMLIdn9qCisjLWSWqYS2Hu0bLOOfjFyE4JONkm
+	 3yjLt1FT3xNx6nJCxFHXlGgb9Rl8NYHV9oLjIDEg=
+Date: Tue, 27 Oct 2026 10:10:09 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: syzbot <syzbot+9fe09db3795456e0b442@syzkaller.appspotmail.com>
+Cc: cl@gentwo.org, hao.li@linux.dev, harry@kernel.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ linux-usb@vger.kernel.org, rientjes@google.com, roman.gushchin@linux.dev,
+ syzkaller-bugs@googlegroups.com, vbabka@kernel.org, mchehab@kernel.org,
+ rohithmatham@gmail.com, hverkuil@kernel.org, duoming@zju.edu.cn,
+ linux-media@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [syzbot] [mm?] [usb?] WARNING in corrupted (4)
+Message-Id: <20261027101009.18e9136537144533915008e4@linux-foundation.org>
+In-Reply-To: <6ae09458.f0fe5aea.79aa1.008e.GAE@google.com>
+References: <6ae09458.f0fe5aea.79aa1.008e.GAE@google.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -44,85 +60,59 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] docs: Recognize Deepin for dependency hints
-To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-Cc: Jonathan Corbet <corbet@lwn.net>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <cover.1793119566.git.dzm91@hust.edu.cn>
- <b3e985f11140daa28718087723957e2fbfa4a538.1793119566.git.dzm91@hust.edu.cn>
- <20261027180558.3c975c90@foz.lan>
-From: Dongliang Mu <dzm91@hust.edu.cn>
-In-Reply-To: <20261027180558.3c975c90@foz.lan>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:IAEQrMBWnqTz2uBqeEQ8AQ--.18192S2
-Authentication-Results: app1; spf=neutral smtp.mail=dzm91@hust.edu.cn;
-X-Coremail-Antispam: 1UD129KBjvJXoW7tF4xtry8GF1DJr43Jw4fXwb_yoW8Gr47pr
-	4rWayIvF45X34FvFWxW39YvF4Uurs7Kryagw1xtasrZryfJrn2qryIgayaganrJa1DAr1F
-	vF17uFyUtFW8ZaDanT9S1TB71UUUUj7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUHjb7Iv0xC_Cr1lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
-	cIk0rVWrJVCq3wA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjx
-	v20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j6F4UM28EF7xvwVC2
-	z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJwAaw2AFwI
-	0_JF0_Jw1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCE
-	c2xF0cIa020Ex4CE44I27wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0EF7xvrVAajcxG14
-	v26r4UJVWxJr1lYx0E74AGY7Cv6cx26r4fZr1UJr1lYx0Ec7CjxVAajcxG14v26r4UJVWx
-	Jr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMxkF7I0En4kS14v26r126r1DMx
-	kIecxEwVCm-wCF04k20xvY0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r4fZr1UJr1l4I8I
-	3I0E4IkC6x0Yz7v_Jr0_Gr1l4IxYO2xFxVAFwI0_JF0_Jw1lx2IqxVAqx4xG67AKxVWUJV
-	WUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAK
-	I48JMIIF0xvE2Ix0cI8IcVAFwI0_Xr0_Ar1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F
-	4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY
-	6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUVYhFDUUUU
-X-CM-SenderInfo: asqsiiirqrkko6kx23oohg3hdfq/
 
+On Tue, 27 Oct 2026 05:08:56 -0700 syzbot <syzbot+9fe09db3795456e0b442@syzkaller.appspotmail.com> wrote:
 
-On 10/28/26 1:06 AM, Mauro Carvalho Chehab wrote:
-> On Wed, 28 Oct 2026 00:56:50 +0800
-> Dongliang Mu <dzm91@hust.edu.cn> wrote:
->
->> Deepin uses apt, but the checker falls back to generic hints because its
->> distribution name is missing from the OS mapping. Route Deepin to the
->> Debian hint handler so it suggests apt-get installation commands.
->>
->> Signed-off-by: Dongliang Mu <dzm91@hust.edu.cn>
-> LGTM, but where is patch 2 of this series if any?
+> Hello,
+> 
+> syzbot found the following issue on:
+> 
+> HEAD commit:    5b0764a53235 Merge tag 'drm-next-2026-10-21' of https://gi..
+> git tree:       upstream
+> console output: https://syzkaller.appspot.com/x/log.txt?x=13739fc9580000
+> kernel config:  https://syzkaller.appspot.com/x/.config?x=fd1433abd362f255
+> dashboard link: https://syzkaller.appspot.com/bug?extid=9fe09db3795456e0b442
+> compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+> userspace arch: i386
+> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=11cb9b0d580000
+> 
+> Downloadable assets:
+> disk image: https://storage.googleapis.com/syzbot-assets/05ac8658d211/disk-5b0764a5.raw.xz
+> vmlinux: https://storage.googleapis.com/syzbot-assets/9cfb73243216/vmlinux-5b0764a5.xz
+> kernel image: https://storage.googleapis.com/syzbot-assets/fc45c7faf785/bzImage-5b0764a5.xz
+> 
+> IMPORTANT: if you fix the issue, please add the following tag to the commit:
+> Reported-by: syzbot+9fe09db3795456e0b442@syzkaller.appspotmail.com
+> 
+> ------------[ cut here ]------------
+> !PageLargeKmalloc(page)
+> WARNING: mm/slub.c:6855 at free_large_kmalloc+0x97/0x110 mm/slub.c:6855, CPU#0: kworker/0:1/10
+> 
 
+Thanks.
 
-Thanks. My network connection is not very stable. I resended the PATCH 2/2.
+> This report is generated by a bot.
 
-Dongliang Mu
+So is this report ;)
 
+This looks like a double free in the Siano USB media driver, rather
+than an MM bug.
 
-> https://lore.kernel.org/linux-doc/cover.1793119566.git.dzm91@hust.edu.cn/
->
-> Regards,
-> Mauro
->
->
->> ---
->>   tools/docs/sphinx-pre-install | 1 +
->>   1 file changed, 1 insertion(+)
->>
->> diff --git a/tools/docs/sphinx-pre-install b/tools/docs/sphinx-pre-install
->> index 965c9b093a41..d1af82e1466d 100755
->> --- a/tools/docs/sphinx-pre-install
->> +++ b/tools/docs/sphinx-pre-install
->> @@ -1137,6 +1137,7 @@ class SphinxDependencyChecker(MissingCheckers):
->>               re.compile("Devuan"):                     self.give_debian_hints,
->>               re.compile("Kali"):                       self.give_debian_hints,
->>               re.compile("Mint"):                       self.give_debian_hints,
->> +            re.compile("Deepin"):                     self.give_debian_hints,
->>   
->>               re.compile("openSUSE"):                   self.give_opensuse_hints,
->>   
->
->
-> Thanks,
-> Mauro
+The failure occurs during USB probe error recovery. The allocation
+comes from smscore_register_device(), and the page-owner records show
+that smscore_unregister_device() has already freed it. The USB core
+can then attempt to free the same memory because smsusb_submit_urb()
+sets URB_FREE_BUFFER on a buffer owned by the Siano core.
 
+Rohith Matam posted a patch in June which removes URB_FREE_BUFFER
+and fixes several related URB teardown races:
+
+https://lore.kernel.org/r/20260601201639.63171-1-rohithmatham@gmail.com
+
+I don't know why that patch hasn't resolved this problem, but it
+would be worth revisiting before developing another fix.
+
+This doesn't appear to need any MM changes.
