@@ -1,91 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793104199;
-	b=R+PJSjlR7QOdFitGqIvpyQ8s07nGdBQgMCmZ/dqYLGtPfMhS9J4l56WDeXODZ3+KjoZu
-	 xuXc5p7xrvqle2Pi6ML1qIS3NvQy+0jeYN/6Kz8JmajksAHwF6Gmyu95STS3WLh13/aRs
-	 x0orpMCiRaYQgxjHecpKaoregOwp0jCDlINI06HQJKYiFubJPJxJHAPP4DQrsJ0TDvegQ
-	 LE3uXRoj757z2py5y9p/Vm5C0yal2SvHMjkUmP3J3UKuuy4eu3ppXnaDcxo5Mchb5Gnj+
-	 lVUNZYtMosEIGUfEGqD76IKCM1iNe5SHBq5nGR+eUeN7SmqUx6hlv7/v2mN1uyps9Mw==
+	t=1793104244;
+	b=qcM+Kkvg34j2eWvH86rFmJeBXnrZx3Ff1QGOc/6rjvgevaHdoggckx5V0aAoi9SgtyBm
+	 qV+dmUdpcm1BajS7GKvhNPNW8AghmYPYbRyTGMAIuLju0oz49ZtOOaB7LkSRWe2hRaher
+	 wTHzlhveMN5LCc4zvQ/b0+muEvSJiGMLtUBXcEGCAOO5CpHHvgfetEdPKX5INdzLLlQsM
+	 F5EMd2KzG7+uOySiGlP53IVIGqOyN7KfYnP/qKImDlpYUutbOdNEEKD5AOTKPa2BBWIjT
+	 bF7nDkIFKZ/q3n4XPT2Jge+B0O/atUJa9uatOij1iRkfREBDgkQU2itZUcJDuPLwsxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793104199;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=TEtKC47I2aW92wCX8ceE3Qq4fHsnf6t3ajY/y/wrOAM=;
-	b=2GrvQ4HK/DzIS8q4iBycIfHFF3wnnA+NioD7h1/SSpIx2TJpdhHABsG97wKoJzwkY0XD
-	 1FUt3ckUGV/LR7jGAlstbA/a/W+bPySVun12iDoLpN3/Yd7LEzaW84rhdF0z/WQVGPgF2
-	 7xtqxcQKm22OyhIxqKw+UQMmZ9LiECNHRsrzvoJw3CqRFMH+Yu8GHOaKQeYg2KhOT5ThJ
-	 NF3ZpyUiBl3hAPj0UQ+pL3hvZ2NqWkqQMFOcIc6d/MX4Orh1UvH3W3bxjLqQ4PfRcnMd8
-	 hv89rb7OEa9EQcUpWtvhH/CBpBgIWLNpfES6JLkd5ns44Cbxx/PmBO8EnC+C/ITKN8A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793104244;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
+	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
+	bh=jeOAK0qL7KS5vBLa/82puk+xiTdntPxc3H2Ku7R6y9s=;
+	b=Bi40KfToyk8QL9o9gMn7BiLEY4A3H60Kp3YGfKUscdYu5zo7kyyr1cGplNOnf1DmP5sN
+	 mZt0AqUArJx0S473EbbkSHJEbD5dQGbJyuS7syACez6Mp8Q9SfocIgzJVSD84kSiczDvd
+	 xDIx3mYiY+McT1lsFf65UkiOZ4jmRNiNtkOODGHFAqOFf8bngIlv4wjNRZwTZeIX9fE/j
+	 bMaOnz02zN6Exgz6UsO0t8rOtRfyOK/SK9hHQDbCPpnqJAG8Xwj1KXluJdxrC40OzcnwB
+	 VTNdxBIkq8uGvYESAxqXQzYinQicYftKbSNVShMHeyNiLVUhE+tgh0o/y9AjjAub6JA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=oFz0dNxn;
-	arc=none smtp.remote-ip=90.155.50.34
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="d6pfAR/F";
+	arc=none smtp.remote-ip=192.198.163.15
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83403606CB34;
-	Tue, 27 Oct 2026 12:29:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83403606CB34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59324606A323;
+	Tue, 27 Oct 2026 12:30:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59324606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=oFz0dNxn
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=TEtKC47I2aW92wCX8ceE3Qq4fHsnf6t3ajY/y/wrOAM=; b=oFz0dNxnz56JDogfZNZ3EcKBOe
-	p/m3wd/aD1ouGh7D5TT4x8mldu1x54Im/ac1rqMMevZmEidyYtcN+ivOlf2Thn6SpMf5YxmBpAoTQ
-	ACQ0QZ5dqhlqIrZJFZjdD32yrkKpxhlXJcDwBYr4es40imisWDbsX65FBBPCyvIXijJMwJJram/IE
-	tBMccaHODu2a+6WaIkXlsMgQHpOeXupPOOVG2c+EnHZEn2cTe8Z/8tIneZpBMPZziWd0bkrYlaqgs
-	dLt6KjEQnal4f+pZgXQXpUoSzeTKvhdXVCgTa2N2pkLnI3dPR2NYs/RNJlgEklMwTx88Hl7DsRiJc
-	aetUoipA==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xLgJJ-0000000DUxD-3wq1;
-	Tue, 27 Oct 2026 12:29:50 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 3EE4A300DB9; Tue, 27 Oct 2026 13:29:49 +0100 (CET)
-Date: Tue, 27 Oct 2026 13:29:49 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: Kiryl Shutsemau <kas@kernel.org>
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Muchun Song <muchun.song@linux.dev>,
-	Matthew Wilcox <willy@infradead.org>,
-	Usama Arif <usamaarif642@gmail.com>,
-	Frank van der Linden <fvdl@google.com>,
-	Oscar Salvador <osalvador@suse.de>, Mike Rapoport <rppt@kernel.org>,
-	Vlastimil Babka <vbabka@suse.cz>,
-	Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
-	Zi Yan <ziy@nvidia.com>, Baoquan He <bhe@redhat.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	WANG Xuerui <kernel@xen0n.name>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Paul Walmsley <paul.walmsley@sifive.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	kernel-team@meta.com, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
-	loongarch@lists.linux.dev, linux-riscv@lists.infradead.org,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Andy Lutomirski <luto@kernel.org>
-Subject: Re: [PATCHv7 13/18] mm: Drop fake head checks
-Message-ID: <20261027122949.GB2668804@noisy.programming.kicks-ass.net>
-References: <20260227194302.274384-1-kas@kernel.org>
- <20260227194302.274384-14-kas@kernel.org>
- <ebc7bde1-f52e-4da8-b16f-822d6c0a4d74@kernel.org>
- <at_f43oDv73y-t7O@thinkstation>
- <f97a8d33-50b2-4a86-8381-ee840cdfa2f9@kernel.org>
- <20261027110028.GH2668564@noisy.programming.kicks-ass.net>
- <auCKv_omLGRc6wv2@thinkstation>
- <20261027121323.GO2668564@noisy.programming.kicks-ass.net>
- <auCXVv9yXtaS42w8@thinkstation>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=d6pfAR/F
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793104243; x=1824640243;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=ngASlz/7h38M2U0kU8XwKk3WWzIoZLykAudCG8vRh0g=;
+  b=d6pfAR/FNoPGcynbji9ssCT4lsPmj2NtPU0VInfV0KaSBUYhpZUcaC14
+   oBfrP8m8S1no7XsQPq5Ykr+V1Kex3WxPQaMmKTdmdQN13heWI5QR5mTVL
+   Z8cTDfUwZDg4HR2fpdCC5tTp1eU8Pd9jh9fav0kjY0TCfA12VAhyQ2xVj
+   vMXcZYu1zdQaZGzKB2hVUhg4DMM5ibXaWZ2MMDpQV3OIJbasc+tUszgSR
+   sN6SYTxACYeYzZ6pzwzduvpXT3zhZJ4CerRPstvor0r+NZGZnOqekiBKr
+   Oehh6QpH/BguX2WZA+OJB9dqQbcxh9lt00hyA07XRw9WJLgYHzQ5fE+rE
+   Q==;
+X-CSE-ConnectionGUID: Qh049iFnSkCPZ3OBzonW0w==
+X-CSE-MsgGUID: k3iqh915RUm7q849g9RLJw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1810091"
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="1810091"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 05:30:42 -0700
+X-CSE-ConnectionGUID: 3XeK4fruSayPauUHoPlaVw==
+X-CSE-MsgGUID: arSiFKhLTliz1bsO13VJtQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="4437197"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.30])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 05:30:30 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Tue, 27 Oct 2026 14:30:27 +0200 (EET)
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+cc: Jiri Slaby <jirislaby@kernel.org>, Joshua Rogers <linux@joshua.hu>, 
+    Chris Mason <mason@kernel.org>, Josef Bacik <josef@toxicpanda.com>, 
+    Tony Lindgren <tony@atomide.com>, Rafael Gago Castano <rgc@hms.se>, 
+    Florian Fainelli <f.fainelli@gmail.com>, 
+    Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+    Peter Hurley <peter@hurleysoftware.com>, 
+    Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+    Crescent Hsieh <crescentcy.hsieh@moxa.com>, Frank Li <Frank.Li@nxp.com>, 
+    Sherry Sun <sherry.sun@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+    Pengutronix Kernel Team <kernel@pengutronix.de>, 
+    Fabio Estevam <festevam@gmail.com>, 
+    Manivannan Sadhasivam <mani@kernel.org>, Olof Johansson <olof@lixom.net>, 
+    =?ISO-8859-15?Q?Andreas_F=E4rber?= <afaerber@suse.de>, 
+    Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, 
+    Peter Griffin <peter.griffin@linaro.org>, 
+    Alim Akhtar <alim.akhtar@samsung.com>, 
+    Robert Baldyga <r.baldyga@samsung.com>, 
+    Thomas Abraham <thomas.abraham@linaro.org>, 
+    Kukjin Kim <kgene.kim@samsung.com>, 
+    Patrice Chotard <patrice.chotard@foss.st.com>, 
+    Srinivas Kandagatla <srini@kernel.org>, 
+    Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+    Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+    Andy Shevchenko <andy.shevchenko@gmail.com>, 
+    Vladimir Zapolskiy <vladimir_zapolskiy@mentor.com>, 
+    Al Cooper <alcooperx@gmail.com>, LKML <linux-kernel@vger.kernel.org>, 
+    linux-serial <linux-serial@vger.kernel.org>, 
+    Bjorn Helgaas <bhelgaas@google.com>, 
+    =?ISO-8859-15?Q?Uwe_Kleine-K=F6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>, 
+    Danilo Krummrich <dakr@kernel.org>, stable <stable@kernel.org>
+Subject: Re: [PATCH 13/24] serial: 8250: dfl: validate MMIO resource size
+ and regshift
+In-Reply-To: <20261027-tty-llm-v1-13-99b0202ae546@linuxfoundation.org>
+Message-ID: <c9921b1f-bb1b-7320-0713-7265de32868c@linux.intel.com>
+References: <20261027-tty-llm-v1-0-99b0202ae546@linuxfoundation.org> <20261027-tty-llm-v1-13-99b0202ae546@linuxfoundation.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,50 +107,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <auCXVv9yXtaS42w8@thinkstation>
+Content-Type: multipart/mixed; boundary="8323328-667830429-1793104227=:1182"
 
-On Tue, Oct 27, 2026 at 12:22:56PM +0000, Kiryl Shutsemau wrote:
-> On Tue, Oct 27, 2026 at 01:13:23PM +0100, Peter Zijlstra wrote:
-> > On Tue, Oct 27, 2026 at 12:00:47PM +0000, Kiryl Shutsemau wrote:
-> > 
-> > > Fair enough. Here's some context.
-> > > 
-> > > HVO (HugeTLB Vmemmap Optimization) frees most of the memmap of a hugetlb
-> > > folio by remapping the struct pages after the first vmemmap page to a
-> > > shared page, mapped read-only.
-> > > 
-> > > Every lockless get of a page reference (e.g. page cache lookup, PFN
-> > > scanners) relies on page_ref_add_unless_zero(), which is
-> > > atomic_add_unless(&page->_refcount, nr, 0).
-> > > 
-> > > The page can be freed and reused between finding it and the get; the
-> > > zero refcount is what makes the get fail. The race:
-> > > 
-> > >   lockless get                        other CPU
-> > >   c = atomic_read(&page->_refcount)
-> > >   c != 0
-> > >                                       page freed
-> > >                                       page allocated as a hugetlb tail
-> > >                                       HVO remaps it read-only
-> > >   try_cmpxchg(&page->_refcount, &c, c + nr)
-> > >     -> write fault on read-only vmemmap
-> > 
-> > I missed a little something here; page->_refcount is in the page-frame;
-> > how does the page itself being RO affect this?
-> 
-> Emm. I am not sure I follow the question.
-> 
-> The memory itself is not touched. HVO remaps the vmemmap, the array of
-> struct pages: the part that holds the folio's tail struct pages points
-> to the shared page, mapped PAGE_KERNEL_RO. So it is the struct page,
-> and its _refcount, that is read-only.
-> 
-> For a 2M folio with 4K pages, its struct pages take 8 pages of vmemmap;
-> the last 7 of them map to that one RO page.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Like I just explain to David on IRC; my brain has a 1:1 relation between
-PFN and struct page. It makes no sense for struct page to be RO, ever.
+--8323328-667830429-1793104227=:1182
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: QUOTED-PRINTABLE
 
-Anyway, let me try and figure out how all this works, this is 'weird'.
+On Tue, 27 Oct 2026, Greg Kroah-Hartman wrote:
+
+> From: Joshua Rogers <linux@joshua.hu>
+>=20
+> The driver passes the DFL feature's raw MMIO resource to the 8250 core
+> without verifying that the resource covers the full UART register
+> window.  Add a regshift sanity check and validate that the MMIO resource
+> is large enough for 8250 register accesses up to register 7 at the
+> configured register spacing and access width.
+>=20
+> Cc: Jiri Slaby <jirislaby@kernel.org>
+> Cc: Joshua Rogers <linux@joshua.hu>
+> Cc: Bjorn Helgaas <bhelgaas@google.com>
+> Cc: "Uwe Kleine-K=C3=B6nig (The Capable Hub)" <u.kleine-koenig@baylibre.c=
+om>
+> Cc: Danilo Krummrich <dakr@kernel.org>
+> Cc: stable <stable@kernel.org>
+> Signed-off-by: Joshua Rogers <linux@joshua.hu>
+> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> ---
+>  drivers/tty/serial/8250/8250_dfl.c | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
+>=20
+> diff --git a/drivers/tty/serial/8250/8250_dfl.c b/drivers/tty/serial/8250=
+/8250_dfl.c
+> index 72938990ea81..e9329935bc47 100644
+> --- a/drivers/tty/serial/8250/8250_dfl.c
+> +++ b/drivers/tty/serial/8250/8250_dfl.c
+> @@ -110,6 +110,7 @@ static int dfl_uart_probe(struct dfl_device *dfl_dev)
+>  {
+>  =09struct device *dev =3D &dfl_dev->dev;
+>  =09struct uart_8250_port uart =3D { };
+> +=09resource_size_t min_size;
+>  =09int ret;
+> =20
+>  =09uart.port.flags =3D UPF_IOREMAP;
+> @@ -120,6 +121,17 @@ static int dfl_uart_probe(struct dfl_device *dfl_dev=
+)
+>  =09if (ret < 0)
+>  =09=09return dev_err_probe(dev, ret, "failed uart feature walk\n");
+> =20
+> +=09if (uart.port.regshift > 3)
+> +=09=09return dev_err_probe(dev, -EINVAL,
+> +=09=09=09=09     "unsupported regshift %u\n",
+> +=09=09=09=09     uart.port.regshift);
+> +
+> +=09min_size =3D (7 << uart.port.regshift) +
+
+Shouldn't this be based on a named register UART_xx?
+
+> +=09=09   ((uart.port.iotype =3D=3D UPIO_MEM32) ? 4 : 2);
+> +=09if (uart.port.mapsize < min_size)
+> +=09=09return dev_err_probe(dev, -EINVAL,
+> +=09=09=09=09     "MMIO resource too small for register layout\n");
+> +
+>  =09if (dfl_dev->num_irqs =3D=3D 1)
+>  =09=09uart.port.irq =3D dfl_dev->irqs[0];
+> =20
+>=20
+>=20
+
+--=20
+ i.
+
+--8323328-667830429-1793104227=:1182--
