@@ -1,129 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793118753;
-	b=maxzKvbRRYWpp00EPfSqNgu6KEtwEIngGK5XRA6saK1AiAOL1u58HyQAOkFYhDI+KzKS
-	 GWxYrcXqsXw8Oo0vZuEbEvKxRHkHLZzekNvhalmbdLXDGAi7xRCX0sSJBUGXq51y0X0hJ
-	 Ynh5X486BCm1lLff3zkYWDDHkBD9qABbWiF4BP+wC9U2UKsB/2QtZKCYFJy9Xq6htjMMS
-	 dciZA+VZoDH2AVMegjiFVnZD9o/HoFcnoJ+/vctmkgXo/YPlytXSyWiIMX0lxGwtXUnyZ
-	 U4NwKZ5k6epYqJh/UYPMVRSiC0HA+kveYeLXfsMSH+c3aXBBTN5rCemI5zcmliWUbkQ==
+	t=1793118744;
+	b=wINac0cDxNkhA7ty9TbgisYHwoTMv94X/srzh7+GaHDwjaSLKJTkMWHkJaqmskOv0Nap
+	 FyC5FWDrFlaJSpxwupbTKAujBDOFG+yaQOFTcNxY1AgE/i+UF/Sgscs3QY+2NFsSbNEEZ
+	 d3yxIHShmylSZvh7BXyoRdg0m/kj/y87e1T6JsFAzVmVmr/EOZ2z4ONLqH1ZmCSgRsoqU
+	 N3xYQmk34o0vR4Nz0r9pJiexmRTw9NiBfFG6PGhATmE+HXjRUAkyw9vrG7p/+Mr8H7O5a
+	 2KIlxCYTtgybPCcUQcv5L7jMED6mQ+wyyr3aET/sCjwjM/cdVJIvzRLmCJ+dN5LNLfg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793118753;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793118744;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
 	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=nW4bn8E5eZWGG6/KqJMWcUD1PsGrGFy7Fu7LcITxh0c=;
-	b=qP+Na2c/zU1To91vNxSk1VQdQ40ApuJnyoIpNmCKxFdsTwAlkRKKLuhOAfsQWH9HMeuk
-	 1LZYejgxmQh3fYoRaQ/VjyfJQ0s5noYFA6qsctcq2bQ5/NxdwTvtmEuCwXJxpINWUjIhJ
-	 il1qaf7tCUHQ9Lpbk5k8A8u+f8bgyC9SqjyH0BitpLaSPVKM3YZ6Sl2eRX2ofs0QpZeES
-	 m8puP6aiB4/TmsyRzh6gIiYH2fzdugm04eTg1z9PmDFG4L67PGKoK6Xc0WSY2EcOThtLu
-	 Q+lgv0a79b15fI2y7zHLe+My01tggAYSOGU4qBBnfBgr/5gYopY58OgzR6cTXuyyZ4A==
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=xevTPSb+55+TJBzOTJHueBHMyIEJniQWSfJqf76NMG4=;
+	b=MquCWkMvr7E+mtZiE3PSDrLPPEQh0/lpEtrOHz0cNL+NPxM4VVAzF20BbwhfeiTPrIqw
+	 8hhcLJim3OB1gaGevpIiXxCpd2eU2Mo8VwBmSypuLspHSLeJQ9eHoX6ZLIPQk23c37xke
+	 a4vE/yrsOWMtecE4wrREKaahVYD+Gt/nlZ5gSlP1mNilEAfZ5zJ5vIxwyc0xcF5A3u6LD
+	 zC3kENOIn2a7xTVxjkvGzcS/mwHm1CKN3Y4ubm+95xkDpwQfbm40jympwUiJzSgU+T12d
+	 vS0KzgP1kBwglUazumjrZn6BYAexQAxywQEVDDB17+bjfHtyZm3xNPHsMoDeHoZ16UA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=A+Ek0181;
-	arc=none smtp.remote-ip=198.175.65.11
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=BZn5onzX;
+	arc=none smtp.remote-ip=90.155.92.199
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14EF6606A31D;
-	Tue, 27 Oct 2026 16:32:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14EF6606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 856FD606A31B;
+	Tue, 27 Oct 2026 16:32:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 856FD606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=A+Ek0181
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793118752; x=1824654752;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=8J6LRfQpSdprcBJFd9RHHER10O5PMspv+WQoLrxJLX0=;
-  b=A+Ek01817YXCQN5TmuZJPfS1nS99Lopbea5zPmuvKjzZHOl7sY6I5sCO
-   UeB7wB2OO+JmLnFV6JA4sEeqyRXi6fhlM22+W7nJhBQj3oFg87xy7pnRt
-   L0DYQueege9mdkzV2LbXIm0M0IdOUYrG5Zp6E3YOAguGdkWkGH1I8liwy
-   V66BLoOeCbH9gs99kavoDLnOS/DD82o1tgGXlaVSC7M4ddCKOKkjric7G
-   o2L+3IGWBsb6LbHpqDckRwTnRc/IzlxIHpdl67v4DWNDlCV9k5rvrwyxT
-   dZXBF5lCoKU0D32+mYfZ5XJrd7NurTHhw58BNoYq4G1u0U8LAbwn/8+fe
-   w==;
-X-CSE-ConnectionGUID: ZyjqEX+KTX+KbNyt0LgkrQ==
-X-CSE-MsgGUID: 69olwEu3S/yIrL3dwyf3iw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1711552"
-X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="1711552"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 09:32:30 -0700
-X-CSE-ConnectionGUID: DzWFxx0hSCy2x/iY267W/Q==
-X-CSE-MsgGUID: rFu+AlftRfeC6TVmjsok3Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="4686820"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.196])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 09:32:16 -0700
-Date: Tue, 27 Oct 2026 18:32:13 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Jiri Slaby <jirislaby@kernel.org>, Joshua Rogers <linux@joshua.hu>,
-	Chris Mason <mason@kernel.org>, Josef Bacik <josef@toxicpanda.com>,
-	Tony Lindgren <tony@atomide.com>, Rafael Gago Castano <rgc@hms.se>,
-	Florian Fainelli <f.fainelli@gmail.com>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Peter Hurley <peter@hurleysoftware.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Crescent Hsieh <crescentcy.hsieh@moxa.com>,
-	Frank Li <Frank.Li@nxp.com>, Sherry Sun <sherry.sun@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Olof Johansson <olof@lixom.net>,
-	Andreas =?iso-8859-1?Q?F=E4rber?= <afaerber@suse.de>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Robert Baldyga <r.baldyga@samsung.com>,
-	Thomas Abraham <thomas.abraham@linaro.org>,
-	Kukjin Kim <kgene.kim@samsung.com>,
-	Patrice Chotard <patrice.chotard@foss.st.com>,
-	Srinivas Kandagatla <srini@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Andy Shevchenko <andy.shevchenko@gmail.com>,
-	Vladimir Zapolskiy <vladimir_zapolskiy@mentor.com>,
-	Al Cooper <alcooperx@gmail.com>, linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org, stable <stable@kernel.org>,
-	Nicolas Pitre <npitre@baylibre.com>,
-	Kees Cook <kees+treewide@kernel.org>, Helge Deller <deller@gmx.de>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Mingyu Wang <25181214217@stu.xidian.edu.cn>,
-	Randy Dunlap <rdunlap@infradead.org>, Ronan Pigott <ronan@rjp.ie>,
-	Liav Mordouch <liavmordouch@gmail.com>,
-	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
-	Johan Hovold <johan@kernel.org>,
-	Karl Mehltretter <kmehltretter@gmail.com>,
-	John Ogness <john.ogness@linutronix.de>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>,
-	Tony Lindgren <tony.lindgren@linux.intel.com>,
-	Tate Whiteberg <whiteberg@arista.com>,
-	Christian Marangi <ansuelsmth@gmail.com>,
-	Fushuai Wang <wangfushuai@baidu.com>,
-	Petr Mladek <pmladek@suse.com>, Moteen Shah <m-shah@ti.com>,
-	Kendall Willis <k-willis@ti.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Bjorn Helgaas <bhelgaas@google.com>, Lukas Wunner <lukas@wunner.de>,
-	Marnix Rijnart <marnix.rijnart@iwell.eu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Takashi Sakamoto <o-takashi@sakamocchi.jp>,
-	Linmao Li <lilinmao@kylinos.cn>, Peng Fan <peng.fan@nxp.com>,
-	Shitalkumar Gandhi <shital.gandhi45@gmail.com>,
-	Robin Gong <yibin.gong@nxp.com>, Pan Chuang <panchuang@vivo.com>
-Subject: Re: [PATCH 00/24] tty/serial: a bunch of llm-found fixes
-Message-ID: <auDSDaSDNFtgS94W@ashevche-desk.local>
-References: <20261027-tty-llm-v1-0-99b0202ae546@linuxfoundation.org>
- <auC99yMtPR0BGiiH@ashevche-desk.local>
- <2026102706-consensus-neon-ed05@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=BZn5onzX
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Transfer-Encoding:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
+	Sender:Reply-To:Content-ID:Content-Description;
+	bh=xevTPSb+55+TJBzOTJHueBHMyIEJniQWSfJqf76NMG4=; b=BZn5onzXLCfaNBkHRKJ6z3d437
+	cx9NUbBkHVcpT6A8fnwOLNoryUOBd7slA5WGRwr63H3b/M4dVw9L8nkKdyDG7Nk5M2HekRD6Te5vj
+	GwQMggMVJ4AjvVDt3RvMaZ1nMc88gZBPC4QPgZtgy0oJF0iynyeN71snkVtAE9sJXDjDMvV2O8XOq
+	+ljiibzQBNl4wkufeXLLhqAJA32UCw+9RjJaT/wOaAriPBYYtETbDLq719Q+wXtZoEnHJs29M+1vw
+	rGIKnUjsYFvXRqE2K0+mMoeWEMKJiqK5ryU4HadLg7K+61kZpIV/6d8sCjTwtzjI4wK7xmb8lWI9o
+	JWd7BLwQ==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xLk5z-0000000FESw-313w;
+	Tue, 27 Oct 2026 16:32:19 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id B3FA03014C0; Tue, 27 Oct 2026 17:32:18 +0100 (CET)
+Date: Tue, 27 Oct 2026 17:32:18 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Rik van Riel <riel@surriel.com>
+Cc: Breno Leitao <leitao@debian.org>, Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	Ingo Molnar <mingo@kernel.org>, linux-kernel@vger.kernel.org,
+	llvm@lists.linux.dev, kernel-team@meta.com, stable@vger.kernel.org,
+	"Paul E. McKenney" <paulmck@kernel.org>
+Subject: Re: [PATCH] x86/nmi: Ignore negative NMI handler durations
+Message-ID: <20261027163218.GC1779021@noisy.programming.kicks-ass.net>
+References: <20261027-nmi_negative-v1-1-b436a005eb8a@debian.org>
+ <6455a4e9218729d68f73006ef532e6fccc0135cf.camel@surriel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -133,37 +76,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <2026102706-consensus-neon-ed05@gregkh>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <6455a4e9218729d68f73006ef532e6fccc0135cf.camel@surriel.com>
 
-On Tue, Oct 27, 2026 at 04:50:43PM +0100, Greg Kroah-Hartman wrote:
-> On Tue, Oct 27, 2026 at 05:06:31PM +0200, Andy Shevchenko wrote:
-> > On Tue, Oct 27, 2026 at 12:06:26PM +0100, Greg Kroah-Hartman wrote:
-> > > Here's a series of some small llm-found fixes that have been sent to me
-> > > recently.  Most of them are just minor bugfixes and locking cleanups,
-> > > but they are good to have from what I can tell.
-> > > 
-> > > Submitting them here to get a solid Sashiko run and some second eyes on
-> > > them before merging if all goes well.
+On Tue, Oct 27, 2026 at 12:25:20PM -0400, Rik van Riel wrote:
+> On Tue, 2026-10-27 at 03:43 -0700, Breno Leitao wrote:
+> > I am seeing NMI handlers in the Meta fleet reported as running for
+> > about 584 years. Over 30 days, 11 AMD and Intel machines logged 637
+> > such lines, for example:
 > > 
-> > Since it looks like v2 might be issued, can we move all Cc lists in the patches
-> > outside of the commit messages? (Usually it can be done by moving them below
-> > '---' line.) This reduces a noise in the commit messages and allows to see
-> > better history on a single screen page.
+> >   AMD EPYC 9D25 (family 0x1a, model 0x11, stepping 0x0):
+> >   [ 1650.616627] INFO: NMI handler
+> > (nmi_cpu_backtrace_handler.llvm.9643156322683129580) took too long to
+> > run: 18446744073709.551 msecs
+> > 
+> >   Intel Xeon Platinum 8321HC (family 0x6, model 0x55, stepping 0xb):
+> >   [360448.230129] INFO: NMI handler (perf_event_nmi_handler) took too
+> > long to run: 18446744071018.936 msecs
+> > 
+> >   Intel Xeon D-2191A (family 0x6, model 0x55, stepping 0x4):
+> >   [81787.188959] INFO: NMI handler (ghes_notify_nmi) took too long to
+> > run: 18446744073709.545 msecs
+> > 
+> > nmi_handle() times each handler with two sched_clock() reads. When
+> > the
+> > second read is lower than the first, the u64 subtraction wraps, and
+> > nmi_check_duration() treats the result as a duration. In the three
+> > examples, the clock went back by less than 1 us, by 2.7 s and by
+> > about
+> > 6 us.
+> > 
+> The comment above ktime_get_mono_fast_ns() makes
+> me wonder whether for time deltas we should read
+> raw TSC values, and calculate the time delta between
+> them afterward.
 > 
-> b4 doesn't do that "below the --- line" mess, but I will trim things
-> better next time around, this was a mess, sorry about that.
 
-Actually you can achieve that by keeping them with --- locally. Another
-possibility is to use `b4 trailers`. It was a useful discussion here on
-the topic: https://lore.kernel.org/lkml/20260123113708.416727-19-bigeasy@linutronix.de/
-(read the patch 18 subthread).
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+This is sched_clock(); that *never* changes slope -- after boot, on sane
+hardware.
