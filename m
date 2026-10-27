@@ -1,53 +1,133 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793118464;
-	b=cAoXm2gZReoHpsHIBtb6b5WOwpUDUYZ1eikkIAl1jlg6jS7FrY9G3MR13vsYfM41+kv6
-	 UYaFiOPEP61EKbF4deVJZlLhH9M79KSYO4ktFR6kaGgga7Oa/bBQK5G/KNVnF+EIrUrjn
-	 oHRbEKq6AjJYhM0otv3iGA40OJdyCgYbGpqsDNu2Wmwtrmj175NM56uV5XH4+dj1EkHLd
-	 3CVBpMW50TGpu/EFMgEM0i6V/bEFL5+OHg5OpsL4CYiI13De/eHshHUfrNiCba3jx5mW5
-	 O1mKFepvu99zDhk+q1Upn67ZsuQw/hiN7uNt+2gvGO7yq/f69uTKCPx4lxivwDzT0/g==
+	t=1793118468;
+	b=ycD/xe7/ShRYa8+jWlYHujHHpEmufh81/Qa+dBzU+U5k8roMa60kwXVxU5umAs5Nbz5W
+	 fwJywk8aBjA02HzVJrIxP9a/d6IZBVennGYh1vRkDemsdQz9FXOwcVZZ1IAQUrYoPvAjn
+	 +zHVJjIlpmoi7w/lhGWpfhU3XcL6jlxwYEw1yV3iOSFPYJ6w1fQYmA6CKh1nL1O2hoX/t
+	 5JN2OW2PNYgda8oxrGMg7f9DwGHhnwkt67dEMNIwsLOjgZHVbR5kHz59PDCK7JgFx4hM+
+	 mbGG1xNu9CJw2SmmfBNMg/jCmWcg4bgKHKUkOkn+wIVTVLtRX6/VNnq70EfOYUOOuOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793118464;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Lines:X-Developer-Signature:X-Developer-Key:
-	 Content-Transfer-Encoding;
-	bh=TO8Scs4BR5rTvjGQ0QMTjiAXMrLi+aG6pzzql/KwiUg=;
-	b=jXx+Za52FsP8jaV+LMMnPvz9MpjlXZkmszvGJldaGbfwyKy/saBES+qkp/GofOXgAVZU
-	 nJ1p60PJixL3NVkJkic/K+oMGSOVhUmhnoGlnYHvYMi5YGcK97xmAFmMPPIBwGUsPujcd
-	 W97upn3lsXuHltIjFY8fUVHZ0+eXO5edJzUSivQv7QneqzP5PTJST6XZSUcpZgUNdrRlX
-	 PIir5OZwB9QMdtqWRwmMz7pM7MydXIlQrPMMkCUDzYMr45m9nuHaF6Cqjp2VdtA6IwEo0
-	 +1qZ5/FjH/Q1/sGW36VJ3CSuGzY78yKV7lmnDuZi8WEDa+yKR72zUeTTxnXnjOPVL2A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793118468;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:
+	 X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
+	bh=/itwoJPNV/PYjgH1tW8TC7VQ2qoANM6I5XSJVpUiq8M=;
+	b=DudAcwAGfOV4cmAFqSdwslEEHeB8hANkgSGnBaCeR6v4QYVEr1IiIZdyxZdUUk2VxvDX
+	 tyvi7C4BPzQqq6tep726z/SesGK1wV0089GfcYpR/IMe6FgEwnd0EuTFUIxMW0BBb/pv4
+	 bSaKXwUcmR6KK1AcAFR93y7KSiu0yc5z9XA4ywkQFmJPbpg6bX3HpZa3ZrlCmqJoxSEIb
+	 oIP1tTCDwAcFoS0GqjPHBzu3y5Ot2n0WPkO/RxKjbCPkVtJhWVOYi+iH5KIiHntvuK38p
+	 SnzA2DmdcEYE0h/hv8mERHGJ+jsb2oCayb0VW3XABuCDhHqbKurJwr0IZO54eYnPQoQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=QyfsWMNH;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="Te/hFcTC";
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Hg+twqpr;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="Te/hFcTC";
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Hg+twqpr;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2812606A31E
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:27:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4C18606A31E;
+	Tue, 27 Oct 2026 16:27:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4C18606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=QyfsWMNH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B98CD1F031E1;
-	Tue, 27 Oct 2026 16:27:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793118463;
-	bh=TO8Scs4BR5rTvjGQ0QMTjiAXMrLi+aG6pzzql/KwiUg=;
-	h=From:To:Cc:Subject:Date;
-	b=QyfsWMNHXDyJS2LXf9RN3S3HnJ6eZBvBPr0DZpGWXT7YfkZVHflRp5pBLqyIsfM9S
-	 qasZog8+Kpddirhnw8sUQvS2YkYIZII7TPwabX2F8nNVIWm6DY4buAIwHL2JFcjq4q
-	 25ao15S+Knl00d/gW1ZSEML8zqtMnFi0Pr3kJe4A=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: alexander.usyskin@intel.com
-Cc: linux-kernel@vger.kernel.org,
-	Josef Bacik <josef@toxicpanda.com>,
-	stable <stable@kernel.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: [PATCH] mei: lb: read the MTU once
-Date: Tue, 27 Oct 2026 17:27:40 +0100
-Message-ID: <2026102739-boil-startup-145b@gregkh>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Te/hFcTC;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Hg+twqpr;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Te/hFcTC;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Hg+twqpr
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id B670A21F29;
+	Tue, 27 Oct 2026 16:27:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793118465; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/itwoJPNV/PYjgH1tW8TC7VQ2qoANM6I5XSJVpUiq8M=;
+	b=Te/hFcTCOKkoMgRX5zaqYIVBggY9Fpr20ezr2tFqxNsXOnKsbQwUmmdTdAciG+uCQTDjth
+	dVktrGDfybLq8FuT/n1SiYOTAsUYVXG9Sing0oS69R2+Iytv0Z/Y7lJYjwwMTzhsktO6j4
+	fMoJAX/MIJCIH+SrJ4jkjDxdxSCgPWE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793118465;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/itwoJPNV/PYjgH1tW8TC7VQ2qoANM6I5XSJVpUiq8M=;
+	b=Hg+twqprF0ocwkjIQM9VGipaZPJ1m+OpmAD+rhXe3by6Gq2PHVtPT9ufjbMIV82PfR4N4K
+	l27dUCgkPKJmAnBA==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b="Te/hFcTC";
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=Hg+twqpr
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793118465; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/itwoJPNV/PYjgH1tW8TC7VQ2qoANM6I5XSJVpUiq8M=;
+	b=Te/hFcTCOKkoMgRX5zaqYIVBggY9Fpr20ezr2tFqxNsXOnKsbQwUmmdTdAciG+uCQTDjth
+	dVktrGDfybLq8FuT/n1SiYOTAsUYVXG9Sing0oS69R2+Iytv0Z/Y7lJYjwwMTzhsktO6j4
+	fMoJAX/MIJCIH+SrJ4jkjDxdxSCgPWE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793118465;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/itwoJPNV/PYjgH1tW8TC7VQ2qoANM6I5XSJVpUiq8M=;
+	b=Hg+twqprF0ocwkjIQM9VGipaZPJ1m+OpmAD+rhXe3by6Gq2PHVtPT9ufjbMIV82PfR4N4K
+	l27dUCgkPKJmAnBA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A1EA61321C;
+	Tue, 27 Oct 2026 16:27:41 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id BayYG/3Q4GpDBwAAD6G6ig
+	(envelope-from <pfalcato@suse.de>); Tue, 27 Oct 2026 16:27:41 +0000
+Date: Tue, 27 Oct 2026 16:27:39 +0000
+From: Pedro Falcato <pfalcato@suse.de>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, Hugh Dickins <hughd@google.com>, 
+	Pasha Tatashin <pasha.tatashin@soleen.com>, Pratyush Yadav <pratyush@kernel.org>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>, 
+	Lance Yang <lance.yang@linux.dev>, Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+	Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Usama Arif <usama.arif@linux.dev>, 
+	Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
+	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
+	Oscar Salvador <osalvador@suse.de>, Minchan Kim <minchan@kernel.org>, 
+	Muchun Song <muchun.song@linux.dev>, Xu Xin <xu.xin@linux.dev>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
+	Youngjun Park <youngjun.park@lge.com>, Gregory Price <gourry@gourry.net>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+	Ying Huang <ying.huang@linux.alibaba.com>, Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
+	linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH 35/46] mm: fix unmap_mapping_range() beyond 4 GiB on
+ 32-bit
+Message-ID: <auDQ66Ux9eKN-Ha4@pedro-suse.lan>
+References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
+ <20261027-fixes_core-v1-35-6f74bec9a5bb@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,70 +137,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2293; i=gregkh@linuxfoundation.org; h=from:subject:message-id; bh=kPpMGYsl9yCUkj23RKw7MdwHXvWZZYnGA4/QZR2WJCs=; b=owGbwMvMwCRo6H6F97bub03G02pJDFkPLvx51KvRd7zNc1+xw6rUqwsN/B+1BUbZTJ+ydo0PS /C7CVt/d8SyMAgyMciKKbJ82cZzdH/FIUUvQ9vTMHNYmUCGMHBxCsBErugwLFh0o+zq+Sq2RhMn lpOtkhluZace8zEsOMniwGQ9PaRljnKPiu1bbdmAO0dnAgA=
-X-Developer-Key: i=gregkh@linuxfoundation.org; a=openpgp; fpr=F4B60CC5BF78C2214A313DCB3147D40DDB2DFB29
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261027-fixes_core-v1-35-6f74bec9a5bb@kernel.org>
+X-Rspamd-Queue-Id: B670A21F29
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-12.01 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	FREEMAIL_CC(0.00)[linux-foundation.org,cmpxchg.org,kernel.org,linux.dev,tencent.com,google.com,linux.alibaba.com,infradead.org,suse.com,soleen.com,suse.cz,nvidia.com,surriel.com,arm.com,intel.com,redhat.com,gmail.com,suse.de,huaweicloud.com,lge.com,gourry.net,sk.com,ziepe.ca,kvack.org,vger.kernel.org,lists.infradead.org,toxicpanda.com];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	URIBL_BLOCKED(0.00)[toxicpanda.com:email,suse.de:dkim,suse.de:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	RCVD_TLS_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+];
+	RCPT_COUNT_GT_50(0.00)[65];
+	TAGGED_RCPT(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	MISSING_XM_UA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim,suse.de:email,toxicpanda.com:email]
+X-Spam-Score: -12.01
 
-From: Josef Bacik <josef@toxicpanda.com>
+On Tue, Oct 27, 2026 at 12:17:55AM +0100, David Hildenbrand (Arm) wrote:
+> From: Josef Bacik <josef@toxicpanda.com>
+> 
+> Commit 9eab0421fa94 ("mm: fix unmap_mapping_range high bits shift bug")
+> made holebegin and holelen unsigned before they are shifted, by casting
+> them to pgoff_t. That is an unsigned long: on a 32-bit kernel the cast
+> cuts off the upper half of the two loff_t values, so a hole which begins
+> at 4 GiB or beyond is taken for one in the first 4 GiB of the file.
+> 
+> truncate_pagecache() passes the new size of the file and asks for private
+> COWed pages to be unmapped as well. If a file of 6 GiB is truncated to
+> 5 GiB, everything from 1 GiB on is unmapped, and what a process has
+> written to a private mapping of the range between 1 GiB and 5 GiB is
+> lost: it reads the contents of the file again.
+> 
+> Where the range has an end, the wrong range is unmapped instead of the
+> right one. The page cache copes with that, as it unmaps every folio that
+> it removes. The callers which only have unmap_mapping_range() to get
+> rid of user mappings do not, for example drm_vma_node_unmap(), whose fake
+> offsets reach beyond 4 GiB on 32-bit, and revoke_iomem() with physical
+> addresses of more than 32 bits.
+> 
+> Cast to u64 instead. Nothing changes for 64-bit kernels.
+> 
+> Fix generated by an LLM and sent by Josef Bacik in private.
+> 
+> Fixes: 9eab0421fa94 ("mm: fix unmap_mapping_range high bits shift bug")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-mei_cldev_mtu() returns 0 if the client is not connected. A link reset
-disconnects all clients at any time, from the reset work.
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
 
-mei_lb_push_payload_v2() asks for the MTU to allocate the request buffer
-and asks again for every chunk. If the reset comes in between,
-
-	chunk_size = min(payload_size - sent_data, 0 - sizeof(*req));
-
-makes the chunk the whole rest of the payload, and the memcpy() behind it
-writes over the end of the buffer. If the reset comes before the first
-call, kzalloc(0) returns ZERO_SIZE_PTR, which passes the NULL check and is
-dereferenced. An MTU not bigger than the request header has the same
-effect as 0.
-
-Read the MTU once and refuse one which leaves no room for payload. If the
-client has gone, sending the chunk fails.
-
-Fixes: 773a43b8627f ("mei: lb: add late binding version 2")
-Cc: stable <stable@kernel.org>
-Cc: Alexander Usyskin <alexander.usyskin@intel.com>
-Cc: Arnd Bergmann <arnd@arndb.de>
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/misc/mei/mei_lb.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/misc/mei/mei_lb.c b/drivers/misc/mei/mei_lb.c
-index 9fa69acf28d5..ffaf5be3b605 100644
---- a/drivers/misc/mei/mei_lb.c
-+++ b/drivers/misc/mei/mei_lb.c
-@@ -312,16 +312,24 @@ static int mei_lb_push_payload_v2(struct device *dev, struct mei_cl_device *clde
- 	size_t chunk_size;
- 	size_t req_size;
- 	ssize_t bytes;
-+	size_t mtu;
- 	int ret;
- 
--	struct mei_lb2_req *req __free(kfree) = kzalloc(mei_cldev_mtu(cldev), GFP_KERNEL);
-+	/* The MTU turns into 0 when a link reset disconnects the client */
-+	mtu = mei_cldev_mtu(cldev);
-+	if (mtu <= sizeof(struct mei_lb2_req)) {
-+		dev_err(dev, "MTU is too small: %zu\n", mtu);
-+		return -EMSGSIZE;
-+	}
-+
-+	struct mei_lb2_req *req __free(kfree) = kzalloc(mtu, GFP_KERNEL);
- 	if (!req)
- 		return -ENOMEM;
- 
- 	first_chunk = MEI_LB2_FLAG_FST_CHUNK;
- 	last_chunk = 0;
- 	do {
--		chunk_size = min(payload_size - sent_data, mei_cldev_mtu(cldev) - sizeof(*req));
-+		chunk_size = min(payload_size - sent_data, mtu - sizeof(*req));
- 
- 		req_size = struct_size(req, payload, chunk_size);
- 		if (sent_data + chunk_size == payload_size)
 -- 
-2.56.0
-
+Pedro
