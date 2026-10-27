@@ -1,99 +1,122 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=96.67.55.147
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793069053;
-	b=BTOw8r2GrTOMQQR0uc+t4cAKafpjqP3D+2/e3IWbK1Dnxd+YWxasl5XLzk8K4NNQEjJu
-	 1HE3vUkUrCOutM8NIQ+UZxksk/zuhqqW47ooL55gpZd4fYKuFsa7qIbiZuQEOh2DaYlFN
-	 +L3vvMnp+rw41UergspBJe4rcSUT7cm0q0suVIeMFJ9XNOEmK/NIVySIUr0CcK78dk7DP
-	 xF2zhFNy7Z3vaL1nK7IDbIFMaXtTzi8R0W0znEEMIOLvBjngYzv4IhTh1Ed2ycER+efb0
-	 cCKxeHvwc9J2o4xdrfI9QF2pAaiV3mS7t86QUo9ra1YZqJV91WEFnXoAshBvYPjBTfA==
+	t=1793069071;
+	b=yKzyj+0G/Kxs2S0KLo8qwftHN6uLMNXbAk0w24+FR4MGesDtrSU19WsTDKtpx1NmVdzW
+	 3+42hwOv1vx+zwVJ/OPU968PzsnvJa5QJhgseyy3GGg7gH0sGe/3CcnLQipchYxxHSsC+
+	 bSTIM//M0vvXPt7+3Qu4+9bQsf4Hivyrw70zpmDSi4T8MzESv8YC4Q60MX5k8RrOl8hhh
+	 ElA3g6PE9REr6wleVZmnzQEO6ooZxelzZf+Y+G7TwwO33M11NdIBV1tA1ZmI1MK1P6TC2
+	 3e+GwdJs1WUjOqB/S9IvfiJo1wV1QSrZL/uBK8G81RGHZQLr0lEcgW2FdwVt0XNGI0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793069053;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=N/k+IDv8sIi75JOW8Ht1HpeWXINGXQx4B+WYQOoxHKU=;
-	b=ClI8bJBmQSqtCBYyfIBzl8ex0rxBXgsK8v5h4nS3QHVtKeSQdVUcw9g2TEf45Ur2VMpu
-	 9wPQSv+BdbU8pbA90pSpQ4CX3oxRw9GuneGWRmPB3632QSAnkOcliNiK0XNiUmEBJE1p3
-	 r+MBc67klnogkJQTmeiCtaKz4eZx71pJRLtrX5QrXqRdw0hRr1nzAnYETrtVoL6q6f7ou
-	 5W5/mpaJ8BL8zyjZXm0jmKimE69Fhn4E/2QNhjvfdASxmOtiCzN5Ck++QqrAaEdyS326i
-	 yQnD8sXkyKaGCywfVoDbcsqwCOVxBoMkf9iC0/cebZG2+s1ud1rM6B0TOAyqUstdZUA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793069071;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Autocrypt:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=jD8NrEF10P2VtaMB8bhjtU6NtVeQsEVr6wPPMXQfP+A=;
+	b=bt0pP6/Ir90aiJXqNx9D6khfgUpD+TWKyBskyCOrrPwo1q0kuL+Kx6NkrrTRW3Qf2dL1
+	 FvHOXiFnhnjPxRw36osK3/Ql0NklsCpsno3Ulcqtr6zvSz5K61t0i3wDTqZvCFb3YYFcC
+	 FkyITDoR/wBgCohR+rmFdRCzgeenFDQIEcJCim42K8Ixr7HHLfWWrVDQ2HB8ThamDSZXK
+	 0fYXKbM4LkN1OaHUTbjV514aC8cDsBvTNbEIy6bDL1MmMp2cCMO/XukfBnf1RQTvc29jG
+	 VU0DcmTO4vK2xf3NfQsJydZbSp+ZrW9UXvVb7zzfuIhSm4sDschjCAP3RN1sY6/WmFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=QZJS7Ii6;
-	arc=none smtp.remote-ip=74.125.82.52
-Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=surriel.com;
+	spf=pass smtp.mailfrom=surriel.com;
+	dkim=pass header.d=surriel.com header.i=@surriel.com header.a=rsa-sha256 header.s=mail header.b=iBq+nqKL;
+	arc=none smtp.remote-ip=96.67.55.147
+Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C832606A31F
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 02:44:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C832606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9D9B606A31A;
+	Tue, 27 Oct 2026 02:44:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9D9B606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=QZJS7Ii6
-Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-1430eec0070so132011c88.3
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 19:44:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793069052; x=1793673852; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=N/k+IDv8sIi75JOW8Ht1HpeWXINGXQx4B+WYQOoxHKU=;
-        b=QZJS7Ii6zu5XVWgGNt/1sC3PsicC3FVdAj4Ef5bJc0Dd2kRneEaKIDKRyVyMgMenm3
-         p3RFIYJMOAm1axva+FpXqcBprc/MYnL/dkFciBObe7aIOOZrJZqKFSLIoynm2ghwJoMj
-         N7sqzRMytnXpUH0hGIQSqp4kqKJhZqTVn4/qeWMb4l2XhaJfhxj5hoFatiYWIjslxxWg
-         N1010rstYsfcJYOoqBa3QvWfgd3NXbZMb9V7pnx9G6MWAH1hhOne64xP0wF44seVYApp
-         fPoIw1jeWCY1Xeaank0iyJ/Ynb+BqIzU5eKgH4F5Q/hxSNvG/4UXzyQfm+CXE8eX6+t/
-         +biw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793069052; x=1793673852;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=N/k+IDv8sIi75JOW8Ht1HpeWXINGXQx4B+WYQOoxHKU=;
-        b=fT9KWYFIUV0fNaBDPNPcxc7zXtbZYiqPK9hyDBgwj1ZEjZfUVgInltmijOAcIOA8dl
-         0MvvKodGpYK013SO/YgSEqLW0V8C5EwMl/aDSY6BSqH7C2mJ7wQyVoMKdATuWe3TzoMs
-         RjrtM8CNVBPaIQNbhQ7Q5Pk8DiXKsEXrFEPFOdoZt4yturRcUBHw8T/8Jx3VdUT0yVc4
-         rwHqI2jjsRD9PttnpBGKkH2SHMw56Y/SXpB5IBZkyZWKaLF6pYXjYXDm1yiH+cwTL8Xm
-         +BC1n63UBv0DP1mB9b3F3TGThzoqQz7hGJhPLCpsO/pjdASjGSQnc0QC97Sznu6JZj6+
-         Zaog==
-X-Forwarded-Encrypted: i=1; AKwUvBwSBLPw96YLzh5tXpP4esFcUeWnzKT3Sh5PeIMzRy4n9069LsrDFSL1pVG3QIA+qfhs4nDJ6cptzOkgLXI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIuNF+STOP/Pb2RRIHbOgSgCQAYk4gnv8ugEis5GsufH8/ruaPU
-	/tnnzYpTBLTtGJM6IW5vFaGYI00DH8+zwpY5d9MaRJ+pb7gxSuSH2gaP
-X-Gm-Gg: AYBFou3yB/Di5f2vrvT7jgRYt7nHwumSO09zX6/+NUn6EgakDcw+HNm9CUGsXBsdSqq
-	Tpkm/NlreUq+j1p3l2VA7S7GEMxFaWXm9I4zoyao4EM6MRW45InD6yYPA7bxAm+RKueBEiZdZqm
-	imQ+CJHIX/tanPfS7xOmgkWe5Lb72uInqOCO08RNDK5M++jDdcDQ2UrUPivtYDx/DMFjIYJqFwk
-	QfOkexUuCi4yPi8b6fZFPvVkvr+MepOLB5f0QbKz7e5/Efk/vlrS/6HH7bBKoj8ZPDemGc/8AT5
-	gkn03J2KI+iRqjpNk94BthPBwAMrG2CZE6KjOtYCBF9eSTkkvwhJxCYksRQNObePD11hkBH5hqX
-	YBWvV0eeR7gLMker5fCFUczil0RXY7qahKjgC4JWgtE7RfMfbm+cAnTXdVyv9wj3feiwfsaQc9Y
-	Wmq+W314xpql95jTg3vkbxfVH7FEyaFWwP0jz1FuNvGqp7gzOkoyrVbiDf4XbDPb4aD18MdRPvN
-	TAv3Tb0CNHLTLWS4FSvoH+t+nRPePaARhAtYl7SGgsDB8XQXt2unDGMz6EUQDUVj9wunkp7MixW
-	xLT4CAwUYYoS1Cn9dAo39LbZ0OPTMISGxzCSCeurHhJkiDzzr/dqhavNdnbSJuOIG0GW4n1APa0
-	aqTg//D9uxw4S7smNWTJVciy2QyNbyIXswnxB5fEKsKeAJR4=
-X-Received: by 2002:a05:701b:4308:b0:144:fd17:3b21 with SMTP id a92af1059eb24-1991bbd19eamr19551190c88.0.1793069052008;
-        Mon, 26 Oct 2026 19:44:12 -0700 (PDT)
-Received: from esteban.tail1178e6.ts.net (132.20.31.150.dy.iij4u.or.jp. [150.31.20.132])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1989ff2ea25sm27596670c88.5.2026.10.26.19.44.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 19:44:11 -0700 (PDT)
-From: Antoine Pichot <antoine.pichot@gmail.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: linux-media@vger.kernel.org,
-	sakari.ailus@linux.intel.com,
-	mchehab@kernel.org,
-	djrscally@gmail.com,
-	dan.scally@ideasonboard.com,
-	hansg@kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 6/7] media: i2c: ov7251: Add strobe output enable control
-Date: Tue, 27 Oct 2026 11:44:08 +0900
-Message-ID: <20261027024408.354057-1-antoine.pichot@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <at9uROkXwXmNzFyh@ashevche-desk.local>
-References: <20261026111032.88355-7-antoine.pichot@gmail.com> <at9uROkXwXmNzFyh@ashevche-desk.local>
+	dkim=pass (2048-bit key, unprotected) header.d=surriel.com header.i=@surriel.com header.a=rsa-sha256 header.s=mail header.b=iBq+nqKL
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
+	; s=mail; h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID; bh=jD8NrEF10P2VtaMB8bhjtU6NtVeQsEVr6wPPMXQfP+A=; b=iBq+nq
+	KLOEjbYYdUAPAEsZwkrsVlsMbau8sPaQUcFxapsXRqkp5x7L0HKbiz1V+JwuKcTR/GBqgaCvr71vs
+	Azl5exRlAEe+DimTQWh8fS0vwDU2CsiljZsMdUYZDAPvE5/hwXnoNhMGxlXeqfF7JYCSjK6mmcfeW
+	BfiPVgT3S4zTiGr3VU359pUEU7q0FHXgB6OThiw+NTjQPpMdcwrnSU5ZEyXwFVFYW0t+NalyqESRH
+	CfKP89P11ExVsiA3ldtFd1nVlkbgGl6/jisI5NTNJX9ju733TLXV4llbeM7Mjm7VlOJ93SU0QV4F4
+	bX5UR21h5xQnnQD/hzqAbQwGl8zw==;
+Received: from [2601:18c:8100:a0e0:2541:b86e:2586:d219]
+	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.99.5)
+	(envelope-from <riel@surriel.com>)
+	id 1xLX9Q-0000000B2wR-2Z6a;
+	Tue, 27 Oct 2026 02:43:00 +0000
+Message-ID: <f12ffd4cf8933452ef13adae55d6d238a3069235.camel@surriel.com>
+Subject: Re: [PATCH 06/46] mm/filemap: read mapping->a_ops->free_folio under
+ i_lock
+From: Rik van Riel <riel@surriel.com>
+To: "David Hildenbrand (Arm)" <david@kernel.org>, Andrew Morton	
+ <akpm@linux-foundation.org>, Johannes Weiner <hannes@cmpxchg.org>, Michal
+ Hocko	 <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt	
+ <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, Kairui Song	
+ <kasong@tencent.com>, Barry Song <baohua@kernel.org>, Axel Rasmussen	
+ <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu	
+ <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, Baolin Wang	
+ <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, Suren
+ Baghdasaryan <surenb@google.com>,  Michal Hocko <mhocko@suse.com>, Kees
+ Cook <kees@kernel.org>, Peter Zijlstra <peterz@infradead.org>, Jann Horn	
+ <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, Hugh Dickins	
+ <hughd@google.com>, Pasha Tatashin <pasha.tatashin@soleen.com>, Pratyush
+ Yadav	 <pratyush@kernel.org>, "Matthew Wilcox (Oracle)"
+ <willy@infradead.org>, Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>,
+ Lance Yang <lance.yang@linux.dev>, Harry Yoo	 <harry@kernel.org>, Alistair
+ Popple <apopple@nvidia.com>, Nico Pache	 <nico.pache@linux.dev>, Ryan
+ Roberts <ryan.roberts@arm.com>, Dev Jain	 <dev.jain@arm.com>, Usama Arif
+ <usama.arif@linux.dev>, Kiryl Shutsemau	 <kas@kernel.org>, Matthew Brost
+ <matthew.brost@intel.com>, John Hubbard	 <jhubbard@nvidia.com>, Peter Xu
+ <peterx@redhat.com>, Will Deacon <will@kernel.org>,  "Aneesh Kumar K.V"
+ <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, Oscar Salvador
+ <osalvador@suse.de>,  Minchan Kim <minchan@kernel.org>, Muchun Song
+ <muchun.song@linux.dev>, Xu Xin <xu.xin@linux.dev>,  Chengming Zhou
+ <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>, Kemeng Shi
+ <shikemeng@huaweicloud.com>,  Nhat Pham <nphamcs@gmail.com>, Youngjun Park
+ <youngjun.park@lge.com>, Gregory Price <gourry@gourry.net>,  Joshua Hahn
+ <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, Ying Huang	
+ <ying.huang@linux.alibaba.com>, Jason Gunthorpe <jgg@ziepe.ca>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ kexec@lists.infradead.org, 	linux-fsdevel@vger.kernel.org,
+ linux-arch@vger.kernel.org, 	linux-cxl@vger.kernel.org, Josef Bacik
+ <josef@toxicpanda.com>, 	stable@vger.kernel.org
+Date: Mon, 26 Oct 2026 22:43:00 -0400
+In-Reply-To: <20261027-fixes_core-v1-6-6f74bec9a5bb@kernel.org>
+References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
+	 <20261027-fixes_core-v1-6-6f74bec9a5bb@kernel.org>
+Autocrypt: addr=riel@surriel.com; prefer-encrypt=mutual;
+ keydata=mQENBFIt3aUBCADCK0LicyCYyMa0E1lodCDUBf6G+6C5UXKG1jEYwQu49cc/gUBTTk33A
+ eo2hjn4JinVaPF3zfZprnKMEGGv4dHvEOCPWiNhlz5RtqH3SKJllq2dpeMS9RqbMvDA36rlJIIo47
+ Z/nl6IA8MDhSqyqdnTY8z7LnQHqq16jAqwo7Ll9qALXz4yG1ZdSCmo80VPetBZZPw7WMjo+1hByv/
+ lvdFnLfiQ52tayuuC1r9x2qZ/SYWd2M4p/f5CLmvG9UcnkbYFsKWz8bwOBWKg1PQcaYHLx06sHGdY
+ dIDaeVvkIfMFwAprSo5EFU+aes2VB2ZjugOTbkkW2aPSWTRsBhPHhV6dABEBAAG0HlJpayB2YW4gU
+ mllbCA8cmllbEByZWRoYXQuY29tPokBHwQwAQIACQUCW5LcVgIdIAAKCRDOed6ShMTeg05SB/986o
+ gEgdq4byrtaBQKFg5LWfd8e+h+QzLOg/T8mSS3dJzFXe5JBOfvYg7Bj47xXi9I5sM+I9Lu9+1XVb/
+ r2rGJrU1DwA09TnmyFtK76bgMF0sBEh1ECILYNQTEIemzNFwOWLZZlEhZFRJsZyX+mtEp/WQIygHV
+ WjwuP69VJw+fPQvLOGn4j8W9QXuvhha7u1QJ7mYx4dLGHrZlHdwDsqpvWsW+3rsIqs1BBe5/Itz9o
+ 6y9gLNtQzwmSDioV8KhF85VmYInslhv5tUtMEppfdTLyX4SUKh8ftNIVmH9mXyRCZclSoa6IMd635
+ Jq1Pj2/Lp64tOzSvN5Y9zaiCc5FucXtB9SaWsgdmFuIFJpZWwgPHJpZWxAc3VycmllbC5jb20+iQE
+ +BBMBAgAoBQJSLd2lAhsjBQkSzAMABgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRDOed6ShMTe
+ g4PpB/0ZivKYFt0LaB22ssWUrBoeNWCP1NY/lkq2QbPhR3agLB7ZXI97PF2z/5QD9Fuy/FD/jddPx
+ KRTvFCtHcEzTOcFjBmf52uqgt3U40H9GM++0IM0yHusd9EzlaWsbp09vsAV2DwdqS69x9RPbvE/Ne
+ fO5subhocH76okcF/aQiQ+oj2j6LJZGBJBVigOHg+4zyzdDgKM+jp0bvDI51KQ4XfxV593OhvkS3z
+ 3FPx0CE7l62WhWrieHyBblqvkTYgJ6dq4bsYpqxxGJOkQ47WpEUx6onH+rImWmPJbSYGhwBzTo0Mm
+ G1Nb1qGPG+mTrSmJjDRxrwf1zjmYqQreWVSFEt26tBpSaWsgdmFuIFJpZWwgPHJpZWxAZmIuY29tP
+ okBPgQTAQIAKAUCW5LbiAIbIwUJEswDAAYLCQgHAwIGFQgCCQoLBBYCAwECHgECF4AACgkQznneko
+ TE3oOUEQgAsrGxjTC1bGtZyuvyQPcXclap11Ogib6rQywGYu6/Mnkbd6hbyY3wpdyQii/cas2S44N
+ cQj8HkGv91JLVE24/Wt0gITPCH3rLVJJDGQxprHTVDs1t1RAbsbp0XTksZPCNWDGYIBo2aHDwErhI
+ omYQ0Xluo1WBtH/UmHgirHvclsou1Ks9jyTxiPyUKRfae7GNOFiX99+ZlB27P3t8CjtSO831Ij0Ip
+ QrfooZ21YVlUKw0Wy6Ll8EyefyrEYSh8KTm8dQj4O7xxvdg865TLeLpho5PwDRF+/mR3qi8CdGbkE
+ c4pYZQO8UDXUN4S+pe0aTeTqlYw8rRHWF9TnvtpcNzZw==
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,13 +126,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Hi Andy,
+On Tue, 2026-10-27 at 00:17 +0100, David Hildenbrand (Arm) wrote:
+> From: Josef Bacik <josef@toxicpanda.com>
+>=20
+> The bug was found by code inspection and has not been reproduced.
+>=20
+I can't say I'm surprised ;)
 
-Thanks Andy for your comments. The first two are fixed in v2; I'll
-take care of the CCI accessors in a follow-up once this is in. I'll
-send v2 in a few days to give everyone time to comment.
+I see clues that a most bunch of these issues
+occasionally happen in our (rather large) fleet,=C2=A0
+but not this one.
 
-Cheers,
-Antoine
+> Fix generated by an LLM and sent by Josef Bacik in private.
+>=20
+> Fixes: 59c66c5f8c4f ("mm: factor out page cache page freeing into a
+> separate function")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> [ david: get rid of filemap_free_folio() entirely; improve patch
+> description ]
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+>=20
+
+Reviewed-by: Rik van Riel <riel@surriel.com>
+
+--=20
+All Rights Reversed.
