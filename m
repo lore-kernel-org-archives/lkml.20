@@ -1,49 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793098208;
-	b=M/ACXcLaIQXNB/Jw344gB1z2TYSUCvLzCF19OR9YaWqRho/Fa5/4fXkXs4xz45gnduNb
-	 kiAob21pkbqMvi6fhAoqN9Lj09+e4qyXwoKE+wXQUmA8CiRdq2dVOjZtbZaCHv9nvsUX+
-	 e097vj+8sHHHOUMpOPfD56ODDkxFJICgLqs6skEs5jYvvgsM4EnQIhrvk0Kg7t+C4rxXF
-	 GPDYEzBLr3fSoIJXREE2j4DAeL7eJ7OKMxFa3IcKOMZaaBDnL1fhpFMBaCQb+FxVXwQge
-	 oPr5z/sTYXkai0hwNnVfeTAqaiUfbi8mTOsk34kZlFsKnIhMC1bmhcTTh6F+12dOcFg==
+	t=1793098214;
+	b=2zskzp69rm/nInjmuURiV14C40Zy0/T8oj/7ekwKSKVG5m+wKEhlkB7NpEnqc4jMp0nE
+	 7a/T9U/qKObHZeesGLbrgkWvP8Xwcne3J0DnICB+gt3PEoDbY73sK6xQ2dEblsbs6u9Jv
+	 vbEKVmjJHiyG9VgIfsTP27UmQWRxyHXu+l6kEd2PgQ6hv2s7LiM1eIyKdooJYusNJefda
+	 wYg512wnhOV24na7Ir9KVHPwsc7AIbhQokNXOVMAlw184I5JFkLgNXxDUUbTN2YskM39n
+	 8Dx9g0eW39Ey5GWXOy5L0kliI0yviSRAFd/2pX+lkjV5MG/ZGL7nVihDCGt9la8dMPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793098208;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=GLGLTdg4EouiLoSbpJxeE4wAdsu+lGHS2NhfYc2W3NA=;
-	b=vcKC1VJlMtk9yF4w08TxlNvpoCgpMpUEmjJEWz0mBui8+xTwN9VX1o0/BlVC556ll7rJ
-	 XZdIJiuDLzp2dNOJs6S269yFpr51pp997btXxNQAHhuezCTe067WKXWCWILOiRsfsmAxD
-	 Lvxg3DfgGVTFW/qrfKI3KsneD62QtL0BeRUXwws2LgnwYUBKjThJ2HgV3ENZpLUr9rpL2
-	 G1BQexzuBgDoRUCQJ0gTTb6QuwURTd/TvzLjGPM/iKibFs3Bi71JbEWagmzzEu2yOD97v
-	 sPg8c/jBYeMzLkOuTqFBOwksdqMlxJwHvrap/9anA60Rt41ZF/8YoRI6o6nap1qOefw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793098214;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding;
+	bh=Zm1ZMFHt+vDtsE6uhd9cmwQ/XuV6JbZYuMkcY3vwMXo=;
+	b=pgxzybJeLId1rw8jNpM10huKRHnO5saQkWqf2R2VS/i7vA1W1Ggj7yWbvZXevIjPJQze
+	 mMQY0WU4vyD6xBBfcJDRoj0elBwFMTn/XlYBuYGm13Y8jek8zCyu+xKnFatoPxhzFHlUA
+	 A/hGuafTUQYVFFkTfvDDEE7TB0PPSBrk62P5kFGU+hw+M0rxy+/TI/nqF2/UqBFdCnsEB
+	 mpfsNWlsUCsNRWbt8ibqEXvoJR3pIHcs7d3JisUc0numyZoEQdxOO6otkiTQ/trxFom/J
+	 nKpWiZDwlOuAwIwoEq5NEGe4hXCQ6/pC84HBff2eWcVnNv7wFEavZJT1i4r8AbXFo4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="c2q/G1WX";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=aqpzT9zB;
+	arc=none smtp.remote-ip=192.198.163.17
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C0AD606A31A;
-	Tue, 27 Oct 2026 10:50:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 668D1606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:50:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 668D1606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c2q/G1WX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0B7F1F01828;
-	Tue, 27 Oct 2026 10:50:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793098207;
-	bh=GLGLTdg4EouiLoSbpJxeE4wAdsu+lGHS2NhfYc2W3NA=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=c2q/G1WXzvwVRBHK0osYz/2pmFEa3qGmAvfUjxd7AGJAmQ7LlJPCEGUanHcAz33Hg
-	 cKeg1Xs5xwvwPpVchDyadQud9khehPb0wND5mk24QMAJNvcr+wGWuRA+wvx0KC+7OD
-	 ZlBec2MPd19JbXNh6ixtqo6PcfTsqTUbIzkUyb11LL8/KevKvfYfS1Y3cKjFuHMxqK
-	 j/SOPjb+mUpVWj6UKIien16d9FoNmS3JrrqxngkbXHbH9A4KY2rtEVnFtHNrN8bXto
-	 gshuBPGwijHEjpPh1i5Wl/w/piOD08jO7vTaS6KKjjLmWEX9MeyKVVhNI3+Uw7MFp1
-	 6XGQ43xBZt8jA==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 8151C3AA9380;
-	Tue, 27 Oct 2026 10:50:07 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=aqpzT9zB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793098214; x=1824634214;
+  h=date:from:to:cc:subject:message-id:mime-version:
+   content-transfer-encoding;
+  bh=fZ5z3CH2gHmgn+ZLPgqrXD36V11lVJFgcQBStrMHoGU=;
+  b=aqpzT9zBYWMB2F/R5Rk6RT4szJtHl3aOzL/M01om5eETlYHxk0AlvUA5
+   WSTEfA+CHk9aUnIDx42suNGRRm0bOBuhPc2RBnIuU4ghoSrsTrwwQLt9L
+   YTFJP8tSKNOtbkwLNdzQRTi7CArkOzRl/oFHKt3isErNscwvI3jOO+jfC
+   0p3a49JQi0iN7vpbcdudmVBNYRomDXhSA4LvXkNst0YswtWiUHpYMTS6K
+   5jk2lXZaEhsCbOA6eZQynUr47ObkylM3RfNFXR3s2h/pj91ZWTvTI/c0H
+   I2s2hqqvInFojJc/nsnZkXactphXiO2+cU73/fqCeepCFU5eBJ1fkfIKr
+   Q==;
+X-CSE-ConnectionGUID: ebYmal3qQ1GqyAv9DoSFzg==
+X-CSE-MsgGUID: mNN0nhojSeKCBTEvSEb/RA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1806850"
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="1806850"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 03:50:12 -0700
+X-CSE-ConnectionGUID: CrPWIebURQa0uyex+Qyzjg==
+X-CSE-MsgGUID: x8zZB4P/QK2/pjVnw9pBNQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="6359406"
+Received: from ly-workstation.sh.intel.com (HELO ly-workstation) ([10.239.182.64])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 03:50:10 -0700
+Date: Tue, 27 Oct 2026 18:50:06 +0800
+From: kernel test robot <yi1.lai@intel.com>
+To: Shubhang Kaushik <sh@gentwo.org>
+Cc: oe-lkp@lists.linux.dev, lkp@intel.com, linux-kernel@vger.kernel.org,
+	Peter Zijlstra <peterz@infradead.org>,
+	Zhan Xusheng <zhanxusheng@xiaomi.com>, sched-ext@lists.linux.dev,
+	aubrey.li@linux.intel.com, yu.c.chen@intel.com, yi1.lai@intel.com
+Subject: [linus:master] [sched]  c72945693b:
+ stress-ng.rawudp.packets_32_bytes_received_per_sec 34.2% improvement
+Message-ID: <202610271134.d6bf1e10-lkp@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,62 +80,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v6] net: ipv4: add zero check for snd_cwnd_clamp
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179309820631.3724916.7962338860107889277.git-patchwork-notify@kernel.org>
-Date: Tue, 27 Oct 2026 10:50:06 +0000
-References: <20261021235732.1313305-2-kj2864@nyu.edu>
-In-Reply-To: <20261021235732.1313305-2-kj2864@nyu.edu>
-To: Jerry Jiang <kj2864@nyu.edu>
-Cc: ncardwell@google.com, kuniyu@google.com, davem@davemloft.net,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, edumazet@google.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- co+71b6509cb791e531@bugs.sh, stable@vger.kernel.org, edumazet@kernel.org
 
-Hello:
 
-This patch was applied to netdev/net.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
 
-On Wed, 21 Oct 2026 19:57:33 -0400 you wrote:
-> When RTAX_CWND is locked, user is able to pass 0 into it.
-> This could lead to writing 0 to tp->snd_cwnd, leading to a
-> division by zero error.
-> 
-> Oops: divide error: 0000 [#1] SMP KASAN NOPTI
-> Call Trace:
->  <IRQ>
->  tcp_reno_cong_avoid (net/ipv4/tcp_cong.c:510 (discriminator 1))
->  tcp_ack (net/ipv4/tcp_input.c:3517 net/ipv4/tcp_input.c:3873 net/ipv4/tcp_input.c:4440)
->  tcp_rcv_established (net/ipv4/tcp_input.c:6685)
->  tcp_v4_do_rcv (net/ipv4/tcp_ipv4.c:1854)
->  tcp_v4_rcv (net/ipv4/tcp_ipv4.c:2248)
->  ip_protocol_deliver_rcu (net/ipv4/ip_input.c:207 (discriminator 1))
->  ip_local_deliver_finish (net/ipv4/ip_input.c:241 (discriminator 1))
->  ip_local_deliver (./include/linux/netfilter.h:325 ./include/linux/netfilter.h:319 net/ipv4/ip_input.c:262)
->  ip_rcv (./include/net/dst.h:481 (discriminator 6) net/ipv4/ip_input.c:492 (discriminator 6) ./include/linux/netfilter.h:325 (discriminator 6) ./include/li)
->  __netif_receive_skb_one_core (net/core/dev.c:6297 (discriminator 4))
->  __netif_receive_skb (net/core/dev.c:6410)
->  process_backlog (net/core/dev.c:6761)
->  __napi_poll.constprop.0 (net/core/dev.c:7830)
->  net_rx_action (net/core/dev.c:7893 net/core/dev.c:8050)
->  handle_softirqs (kernel/softirq.c:645)
->  __irq_exit_rcu (kernel/softirq.c:679 kernel/softirq.c:519 kernel/softirq.c:758)
->  irq_exit_rcu (kernel/softirq.c:775)
->  sysvec_apic_timer_interrupt (arch/x86/kernel/apic/apic.c:1062 (discriminator 35) arch/x86/kernel/apic/apic.c:1062 (discriminator 35))
-> RIP: 0010:tcp_cong_avoid_ai (net/ipv4/tcp_cong.c:482)
-> 
-> [...]
+Hello,
 
-Here is the summary with links:
-  - [net,v6] net: ipv4: add zero check for snd_cwnd_clamp
-    https://git.kernel.org/netdev/net/c/363c8c79220d
+kernel test robot noticed a 34.2% improvement of stress-ng.rawudp.packets_32_bytes_received_per_sec on:
 
-You are awesome, thank you!
+
+commit: c72945693b90423f1b46ac2dbc8749c2b7804fc8 ("sched: Restart fair hrtick after same-task repicks") https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git master
+
+testcase: stress-ng
+config: x86_64-rhel-9.4
+compiler: gcc-14
+test machine: 192 threads 2 sockets Intel(R) Xeon(R) 6740E  CPU @ 2.4GHz (Sierra Forest) with 256G memory
+parameters:
+
+	nr_threads: 100%
+	testtime: 60s
+	test: rawudp
+	cpufreq_governor: performance
+
+
+Details are as below:
+-------------------------------------------------------------------------------------------------->
+
+
+The kernel config and materials to reproduce are available at:
+https://download.01.org/0day-ci/archive/20261027/202610271134.d6bf1e10-lkp@intel.com
+
+=========================================================================================
+compiler/cpufreq_governor/kconfig/nr_threads/rootfs/tbox_group/test/testcase/testtime:
+  gcc-14/performance/x86_64-rhel-9.4/100%/debian-13-x86_64-20250902.cgz/lkp-srf-2sp3/rawudp/stress-ng/60s
+
+commit: 
+  a9b3c75705 ("sched/headers: Replace __ASSEMBLY__ with __ASSEMBLER__ in the <uapi/linux/sched.h> header")
+  c72945693b ("sched: Restart fair hrtick after same-task repicks")
+
+a9b3c7570564de40 c72945693b90423f1b46ac2dbc8
+---------------- --------------------------- 
+         %stddev     %change         %stddev
+             \          |                \  
+      0.01          +100.0%       0.02        stress-ng.rawudp.MB_recv'd_per_sec
+   4559098           +34.1%    6112029 ±  3%  stress-ng.rawudp.ops
+     76041           +34.0%     101916 ±  3%  stress-ng.rawudp.ops_per_sec
+    395.33           +34.2%     530.63 ±  3%  stress-ng.rawudp.packets_32_bytes_received_per_sec
+   2611008 ±  2%     +14.9%    2999104 ±  5%  stress-ng.time.involuntary_context_switches
+     47.70 ±  7%     +46.7%      69.96 ±  8%  stress-ng.time.user_time
+  20919233 ±  4%     +41.7%   29638128 ±  2%  stress-ng.time.voluntary_context_switches
+
+
+Disclaimer:
+Results have been estimated based on internal Intel analysis and are provided
+for informational purposes only. Any difference in system hardware or software
+design or configuration may affect actual performance.
+
+
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
 
 
